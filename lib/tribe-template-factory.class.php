@@ -75,15 +75,10 @@ if( !class_exists('Tribe_Template_Factory') ) {
 			// cleanup after view (reset query, etc)
 			add_action( 'tribe_events_after_view', array( $this, 'shutdown_view' ) );
 
-			// add filters for template paths
-			add_filter( 'tribe_get_template_part_path', array( $this, 'filter_template_paths' ), 10, 2 );
-
 			// add wrapper html and input hash to non-ajax request
-			if ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) {
-				add_action( 'tribe_events_before_view', array( $this, 'view_wrapper_open' ) );
-				add_action( 'tribe_events_after_view', array( $this, 'view_wrapper_close' ) );
-				add_filter( 'tribe_events_before_view', array( $this, 'add_input_hash' ) );
-			}
+			add_action( 'tribe_events_before_template', array( $this, 'view_wrapper_open' ) );
+			add_filter( 'tribe_events_before_template', array( $this, 'add_input_hash' ) );
+			add_action( 'tribe_events_after_template', array( $this, 'view_wrapper_close' ) );
 
 			// hide sensitive event info if post is password protected
 			add_action( 'the_post', array( $this, 'manage_sensitive_info' ) );
@@ -243,20 +238,6 @@ if( !class_exists('Tribe_Template_Factory') ) {
 		}
 
 		/**
-		 * Filter tribe_get_template_part()
-		 *
-		 * @return string
-		 * @since 3.0
-		 **/
-		public function filter_template_paths( $file, $template ) {
-			// don't return the tribe bar on ajax requests
-			if ( $template == 'modules/bar.php' && ( defined( 'DOING_AJAX' ) && DOING_AJAX ) ) {
-				return false;
-			}
-			return $file;
-		}
-
-		/**
 		 * Add/remove filters to hide/show sensitive event info on password protected posts
 		 *
 		 * @return void
@@ -269,12 +250,16 @@ if( !class_exists('Tribe_Template_Factory') ) {
 				add_filter( 'tribe_event_meta_venue_name', '__return_null' );
 				add_filter( 'tribe_event_meta_venue_address', '__return_null' );
 				add_filter( 'tribe_event_featured_image', '__return_null' );
+				add_filter( 'tribe_events_single_event_meta', '__return_null' );
+				add_filter( 'tribe_get_venue', '__return_null' );
 			} else {
 				remove_filter( 'tribe_events_event_schedule_details', '__return_null' );
 				remove_filter( 'tribe_events_event_recurring_info_tooltip', '__return_null' );
 				remove_filter( 'tribe_event_meta_venue_name', '__return_null' );
 				remove_filter( 'tribe_event_meta_venue_address', '__return_null' );
 				remove_filter( 'tribe_event_featured_image', '__return_null' );
+				remove_filter( 'tribe_events_single_event_meta', '__return_null' );
+				remove_filter( 'tribe_get_venue', '__return_null' );
 			}
 		}
 

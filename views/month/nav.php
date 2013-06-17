@@ -1,18 +1,17 @@
 <?php 
 /**
- * Calendar Nav Template
+ * Month View Nav Template
  * This file loads the month view navigation.
  *
- * You can recreate an ENTIRELY new calendar nav by doing a template override, and placing
- * a calendar/nav.php file in a tribe-events/ directory within your theme directory, which
- * will override /views/calendar/nav.php. 
- * *
+ * Override this template in your own theme by creating a file at [your-theme]/tribe-events/month/nav.php
+ *
  * @package TribeEventsCalendar
  * @since  3.0
  * @author Modern Tribe Inc.
  *
  */
-?>
+
+if ( !defined('ABSPATH') ) { die('-1'); } ?>
 
 <?php do_action( 'tribe_events_before_nav' ) ?>
 

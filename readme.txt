@@ -1,15 +1,15 @@
 === The Events Calendar ===
 
 Contributors:  ModernTribe, PaulHughes01, roblagatta, jonahcoyote, MZAWeb, codearachnid, ryancurban, leahkoerper, barryhughes, peterchester, reid.peifer, shane.pearlman
-Tags: modern tribe, tribe, widget, events, tooltips, grid, month, list, calendar, recurring, event, venue, dates, date, plugin, posts, sidebar, template, theme, time, google maps, conference, workshop, concert, meeting, seminar, summit, forum
+Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=QA7QZM4CNQ342
 Requires at least: 3.3
 Tested up to: 3.6
-Stable tag: 3.0-Alpha
+Stable tag: 3.0-Beta
 
 == Description ==
 
-Create and manage events with ease. Professional-level quality and features backed by a name you can trust. The Events Calendar will help you kick ass.
+Create and manage events with ease. Get professional-level quality and features backed by a name you can trust. The Events Calendar will help you kick ass.
 
 The Events Calendar is built and supported by WordPress artisans Modern Tribe. Looking for additional functionality including recurring events, ticket sales, publicly submitted events, new views, Facebook event integration and more? <a href="http://tri.be/products/?utm_source=readme&utm_medium=descriptiontab&utm_campaign=tec&utm_content=premiumlink">Check out the available add-ons.</a>
 
@@ -23,17 +23,17 @@ Audited by many of the industry's WordPress experts including core developer Mar
 
 100s of hours of QA by a dedicated support team, monthly usability tests to guarantee that you can figure features out without help, and user interviews to make sure you get what you want. We care about quality and crafting products that thrive in the wild.
 
-The team at Modern Tribe stands by our work and offers free support once a week via the WordPress.org support forums, so feel free to ask a question if you're having a problem with implementation or bugs. Looking for help NOW? Upgrade to <a href="">a commercial plugin</a> and you get access to premium support forums with under 24hr response times on weekdays.
+The team at Modern Tribe stands by our work and offers light support once a week for free to the community via the WordPress.org support forums. Feel free to ask a question if you're having a problem with implementation or if you find bugs. Looking for help NOW or need a deeper level of support? Upgrade to <a href="">a commercial plugin</a> and you get access to premium support forums with under 24hr response times on weekdays.
 
 = PLUG-N-PLAY & HIGHLY CUSTOMIZABLE =
 
-Built to work out of the box. Just turn it on, pick the right settings to match your needs and you'll be making events within less than 5 minutes. Want proof? <a href="http://tri.be/new-user-primers/?utm_source=readme&utm_medium=descriptiontab&utm_campaign=tec&utm_content=primerlink">Watch our user primer!</a>
+Built to work out of the box. Just turn it on, Configure the settings to match your needs and you'll be making events within less than 5 minutes.
 
-Built as a foundation for your wildest hack sessions. By devs for devs, so you can Code Awesome. A skeleton stylesheet to theme fast and efficiently. Loads of tools including partial template overrides, a host of template tags, hooks and filters, <a href="http://tri.be/support/documentation/??utm_source=readme&utm_medium=descriptiontab&utm_campaign=tec&utm_content=documentationlink">careful documentation</a>, as well as a <a href="">library of code snippets</a> on git hub.
+Built as a foundation for your wildest hack sessions. By devs for devs, so you can Code Awesome. A skeleton stylesheet to theme fast and efficiently. Loads of tools including partial template overrides, a host of template tags, hooks and filters, <a href="http://tri.be/support/documentation/??utm_source=readme&utm_medium=descriptiontab&utm_campaign=tec&utm_content=documentationlink">careful documentation</a>, as well as a <a href="">library of code snippets</a> on GitHub.
 
 Whether your vision is big or small, we have you in mind. 
 
-We've scaled The Events Calendar to work on a network with over 25 million unique visitors / month and hundreds of thousands of events. We have it running for fortune 100 companies. Major universities, government institutions and some seriously bad ass startups push their events with our platform. Thousands of churches, small businesses, musicians and venues, non-profits and my mom use it. You're in good company.
+We've scaled The Events Calendar to work on a network with over 25 million unique visitors / month and hundreds of thousands of events. We have it running for Fortune 100 companies. Major universities, government institutions and some seriously bad ass startups push their events with our platform. Thousands of churches, eateries, small businesses, musicians and venues, non-profits and even Shane's mom uses it. You're in good company.
 
 = FEATURES =
 
@@ -55,7 +55,7 @@ Just getting started? Definitely watch or read the <a href="http://tri.be/new-us
 * Internationalized & Translated
 * Multiple stylesheets (Skeleton, Default, Tribe Event Styles) to improve integration
 * Extensive Template Tags for Customization
-* Hook & Filters up the Wazoo
+* Hook & Filters up the Whazoo
 * Caching Support
 * Debug Mode for Developers
 
@@ -87,17 +87,29 @@ Send it to us and we would be <a href="mailto:pro@tri.be">happy to review it</a>
 
 == FAQ ==
 
-= Where do I go to file a bug or ask a question? =
+= Are there any troubleshooting steps you'd suggest I try, that might resolve my issue before I post a new thread? =
 
-Users of the free The Events Calendar should post their questions at the  plugin's <a href="http://wordpress.org/support/plugin/the-events-calendar/?ref=tec-readme">WordPress.org forum</a>, which we hit about once a week. PRO users are entitled access to our more actively-monitored <a href="tri.be/support/forums/?ref=tec-readme">PRO forums</a> at the tri.be website.
+First, make sure that you're running the latest version of The Events Calendar (3.0.0 as of this release). If you're running Events Calendar PRO it needs to match the version number of The Events Calendar. And if you've got any other add-ons, make sure those are current / running the latest code as well.
 
-= I want access to more features. How can I get my hands on Events Calendar PRO? =
+The most common issues we see are either plugin or theme conflicts. You can test if a plugin or theme is conflicting by manually deactivating other plugins until just The Events Calendar 3.0 is running on your site. If the issue persists from there, revert to the default Twenty Twelve theme. If the issue is resolved after deactivating a specific plugin or your theme, you'll know that is the source of the conflict.
+
+Note that we aren't going to say "tough luck" if you identify a plugin/theme conflict. While we can't guarantee 100% integration with any plugin or theme out there, we will do our best (and reach out the plugin/theme author as needed) to figure out a solution that benefits everyone.
+
+= I'm still stuck. Where do I go to file a bug or ask a question? =
+
+Users of the free The Events Calendar should post their questions at the  plugin's <a href="http://wordpress.org/support/plugin/the-events-calendar/?ref=tec-readme">WordPress.org forum</a>, which we hit about once a week. Please make sure to read <a href="http://wordpress.org/support/topic/welcome-the-events-calendar-users-read-this-first?ref=tec-readme">our sticky post</a> providing an overview of the support we provide free users BEFORE posting. If you find you're not getting support in as timely a fashion as you wish, you might want to consider purchasing a PRO license.
+
+If you're already a PRO user, you're entitled access to our more actively-monitored <a href="tri.be/support/forums/?ref=tec-readme">PRO forums</a> at the tri.be website. We can provide a deeper level of support here and hit these forums on a daily basis during the work week. No post should go more than 24-hours during that time without a response. 
+
+= Events Calendar PRO looks awesome! I'm soldÉhow can I get my hands on it? =
 
 Events Calendar PRO can be purchased directly at the <a href="tri.be/support/forums/?ref=tec-readme">tri.be website.</a> There are three (3) license types available, and all licenses include 1 year of access to support + updates.
 
-= I'm interested in updating to PRO, but have a question that's not answered on the product page. Where can I get that answered? =
+= I'm interested in PRO or another add-on, but there are a few questions I've got before making the purchase. Can you help me get those addressed? =
 
-Our <a href="http://tri.be/support/forums/forum/_welcome/pre-sales-questions/?ref=tec-readme">pre-sale forum</a> at the tri.be website is open and available to everyone; we encourage potential customers to review threads on that forum + post a new discussion if your question isn't already answered. You may also email <a href="mailto:pro@tri.be">pro@tri.be</a> with pre-sale questions if you prefer.
+Absolutely. If you're not finding your questions answered on the product pages, hit up our <a href="http://tri.be/support/forums/forum/_welcome/pre-sales-questions/?ref=tec-readme">pre-sale forum</a> at the tri.be site. You can save yourself some time by reviewing the threads first to verify if your question has already been asked. If it hasn't, post a new thread as a guest. We'll get you a reply as quickly as we can, so you can make an informed decision regarding purchase. Keep in mind that the pre-sale forum is available for questions related to any premium product we've got: Events Calendar PRO, Eventbrite Tickets, Tickets; WooCommerce, Community Events, Facebook Events and the forthcoming Filter Bar. 
+
+If your question is simple and can be addressed in 140 characters, you can always ask it <a href="http://twitter.com/moderntribeinc">on Twitter</a>.
 
 = What add-ons are available for The Events Calendar, and where can I read more about them? =
 
@@ -106,13 +118,12 @@ Currently, the following add-ons are available for The Events Calendar/Events Ca
 * <a href="http://tri.be/wordpress-eventbrite-tickets/?ref=tec-readme">Eventbrite Tickets</a>, for selling tickets to your event directly through Eventbrite.
 * <a href="http://tri.be/wordpress-community-events/?ref=tec-readme">Community Events</a>, for allowing frontend event submission from your readers.
 * <a href="http://tri.be/facebook-events/?ref=tec-readme">Facebook Events</a>, for importing events directly from an organization or page on Facebook.
-* <a href="http://tri.be/shop/conference-manager/?ref=tec-readme">Conference Manager (COMING SOON)</a>, for managing multiple rooms/sessions/speakers at an event or conference.
-* <a href="http://tri.be/shop/wootickets/?ref=tec-readme">WooTickets (COMING SOON)</a>, for selling tickets to your event using WooCommerce.
+* <a href="http://tri.be/shop/wordpress-wootickets/?ref=tec-readme">Tickets: WooCommerce, for harnessing the power of WooCommerce to sell event tickets directly on your site without being subject to fees or relying on a third-party service.
+* Filter Bar (COMING SOON)</a>, for adding advanced frontend filtering capabilities to your events calendar. 
 
-= Is there a more substantive FAQ for The Events Calendar available elsewhere online? =
+= I've still got questions. Do you have a bigger FAQ somewhere? =
 
-There sure is. If you check out our a href="http://tri.be/support/faqs/?ref=tec-readme">Frequently Asked Questions page</a> on the tri.be website, you'll find answers to more specific questions related to The Events Calendar/Events Calendar PRO. Please make sure to review that FAQ before posting a support threadï¿½as there's a very good chance your question has already been answered.
-
+We do. If you check out our a href="http://tri.be/support/faqs/?ref=tec-readme">Frequently Asked Questions page</a> on the tri.be site, we've collected and addressed all of the common questions we see posed by users. In some cases we'll provide a Gist; in other cases we'll direct you to a tutorial; and in some situations we'll unfortunately say a certain capability is simply not possible. But the FAQ is a living, breathing document that we're actively updating based on commonly-seen requests.
 == Installation ==
 
 = Install & Activate =
@@ -167,6 +178,7 @@ The plugin is produced by <a href="http://tri.be/?ref=tec-readme">Modern Tribe I
 * <a href="http://profiles.wordpress.org/users/barryhughes">Barry Hughes</a>
 * <a href="http://profiles.wordpress.org/users/ryancurban">Ryan Urban</a>
 * <a href="http://profiles.wordpress.org/users/kyleunzicker">Kyle Unzicker</a>
+* <a href="http://profiles.wordpress.org/users/jazbek">Jessica Yazbek</a>
 * <a href="http://profiles.wordpress.org/users/jbrinley">Jonathan Brinley</a>
 * <a href="http://profiles.wordpress.org/users/leahkoerper">Leah Koerper</a>
 * <a href="http://profiles.wordpress.org/users/peterchester">Peter Chester</a>
@@ -185,38 +197,38 @@ The plugin is produced by <a href="http://tri.be/?ref=tec-readme">Modern Tribe I
 
 = Translators =
 
-* Swedish (free & PRO) from Ben Andersen
-* Russian (free & PRO) from Mikhail Michouris
-* Dutch (free & PRO) from Ed Boon, RIck van Dalen & Jacob Roel Meijering
-* Danish (PRO only) from Christian Andersen
-* Italian (free & PRO) from Filippo Montanari
-* Spanish (free & PRO) from Hector at Signo Creativo
-* German (free only) from David Decker
-* Polish (free & PRO) from Kamil Szymanski
-* Norwegian (free & PRO) from "Terje With Lunndal"
-* Hebrew (free & PRO) from Sagi Shrieber
-* Japanese (free only) from Matthew Meyer
-* French (PRO) from Arno Faure
-* French (free) from Fanny Hï¿½raud
-* Lithuanian (free only) from Vincent G from Host1Free
-* Czech (free & PRO) from Petr Bastan
-* Serbian (free & PRO) from Marko Manojlovic
-* Bosnian (free & PRO) from Marko Manojlovic
-* Croatian (free & PRO) from Marko Manojlovic
-* Finnish (free & PRO) from Petri Kajander
-* Catalan (free & PRO) from Fran Rosa
-* Ukrainian (free only) from Alexey Fedorov
+* Arabic from Mamdouh Samy
+* Bosnian from Marko Manojlovic
+* Brazilian Portuguese from Luiza Libardi and Diego Meneghetti
+* Catalan from Bˆrbara Partegˆs Rof
+* Croatian from Marko Manojlovic
+* Czech from Martin Kristan and Petr Bastan
+* Danish from Anonymous
+* Dutch from Nico (wsMaurik)
+* French from Dominique Monhardt
+* German from Thomas Butzek
+* Greek from Panos Efstratiou
+* Italian from Roberto Scano
+* Norwegian from Kjell Vestnes
+* Polish from Marek Kosina
+* Portuguese from Antonio Pratas
+* Romanian from Mihai Burcea
+* Serbian from Marko Manojlovic
+* Spanish from HŽctor Gil Rizo
+* Swedish from Ben Andersen
 
-
+* Previous translators include Mikhail Michouris, Ed Boon, Rick van Dalen, Jacob Roel Meijering, hristian Andersen, Filippo Montanari, David Decker, Kamil Szymanski, "Terje With Lunndal", Sagi Shrieber, Matthew Meyer, Arno Faure, Fanny Hï¿½raud, Vincent G from Host1Free, , Petri Kajander, Fran Rosa, and Alexey Fedorov
 
 == Add-Ons ==
 
-You can see a full list of Modern Tribe products at <a href="http://tri.be/shop/?ref=tec-readme" target="_blank">http://tri.be/shop/</a>
+But wait: there's more! We've got a whole stable of plugins available to help you kick ass at what you do. Check out a full list of the products below, and over at the <a href="http://tri.be/shop/?ref=tec-readme" target="_blank">Modern Tribe website.</a>
 
 Our Free Plugins:
 
 * <a href="http://wordpress.org/extend/plugins/advanced-post-manager/?ref=tec-readme" target="_blank">Advanced Post Manager</a>
-* Event Importer (coming soon!)
+* <a href="http://wordpress.org/plugins/blog-copier/?ref=tec-readme" target="_blank">Blog Copier</a>
+* <a href="http://wordpress.org/plugins/image-rotation-repair/?ref=tec-readme" target="_blank">Image Rotation Widget</a>
+* <a href="http://wordpress.org/plugins/widget-builder/?ref=tec-readme" target="_blank">Widget Builder</a>
 
 Our Premium Plugins:
 
@@ -224,8 +236,8 @@ Our Premium Plugins:
 * <a href="http://tri.be/shop/wordpress-eventbrite-tickets/?ref=tec-readme" target="_blank">The Events Calendar: Eventbrite Tickets</a>
 * <a href="http://tri.be/shop/wordpress-community-events/?ref=tec-readme" target="_blank">The Events Calendar: Community Events</a>
 * <a href="http://tri.be/facebook-events/?ref=tec-readme" target="_blank">The Events Calendar: Facebook Events</a>
-* <a href="http://tri.be/shop/wootickets/?ref=tec-readme" target="_blank">The Events Calendar: WooTickets</a>
-* <a href="http://tri.be/shop/conference-manager/?ref=tec-readme" target="_blank">The Events Calendar: Conference Manager (coming later in 2012)</a>
+* <a href="http://tri.be/shop/wootickets/?ref=tec-readme" target="_blank">The Events Calendar: WooCommerce Tickets</a>
+* The Events Calendar: Filter Bar (coming summer 2013)</a>
 
 == Changelog ==
 
@@ -259,6 +271,10 @@ Some things to consider before posting on the forum:
 Still not happy? Shoot us an email to pro@tri.be or tweet to @moderntribeinc and tell us why. We'll do what we can to make it right.
 
 == Upgrade Notice ==
+
+= 3.0 = 
+
+3.0 is a HUGE upgrade from The Events Calendar 2.0.x. If you're upgrading from 1.6.5 or any release between 2.0 and 2.0.10, make sure to upgrade to The Events Calendar 2.0.11 first. If you're upgrading from The Events Calendar 2.0.11, please back up your data BEFORE initiating, and be prepared to manually update your customizations based on changes to the plugin's tempting structure. 
 
 = 2.0.9 =
 

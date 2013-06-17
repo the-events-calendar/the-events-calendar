@@ -27,7 +27,7 @@ if( class_exists( 'TribeEvents' ) ) {
 	 * @author Jessica Yazbek
 	 * @since 3.0
 	 **/
-	function tribe_show_month( $args = array(), $template_path = 'month' ) {
+	function tribe_show_month( $args = array(), $template_path = 'month/content' ) {
 
 		// temporarily unset the tribe bar params so they don't apply
 		$hold_tribe_bar_args =  array();
@@ -43,7 +43,7 @@ if( class_exists( 'TribeEvents' ) ) {
 		new Tribe_Events_Month_Template( $args );
 		tribe_get_view( $template_path );
 
-		do_action('tribe_events_before_show_month');
+		do_action('tribe_events_after_show_month');
 
 		// reinstate the tribe bar params
 		if ( ! empty( $hold_tribe_bar_args ) ) {

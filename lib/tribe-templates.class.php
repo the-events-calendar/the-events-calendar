@@ -68,13 +68,8 @@ if (!class_exists('TribeEventsTemplates')) {
 			}
 
 			if( tribe_get_option('tribeEventsTemplate', 'default') == '' ) {
-				if(is_single() && !tribe_is_showing_all() ) {
-					return self::getTemplateHierarchy('wrapper-single');
-				} else {
-					return self::getTemplateHierarchy('wrapper-page');
-				}
+				return self::getTemplateHierarchy('default-template');
 			} else {
-
 
 				// add_filter( 'wp_title', array(__CLASS__, 'remove_default_title'), 1);
 
@@ -103,11 +98,6 @@ if (!class_exists('TribeEventsTemplates')) {
 		 * @since 3.0
 		 **/
 		public static function instantiate_template_class( $class = false ) {
-
-			// hijack this method right up front if it's a password protected post and the password isn't entered
-			if ( is_single() && post_password_required() ) {
-				return;
-			}
 
 			if ( tribe_is_event_query() ) {
 				if ( ! $class ) {

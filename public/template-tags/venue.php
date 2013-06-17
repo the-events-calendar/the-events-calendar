@@ -62,7 +62,7 @@ if( class_exists( 'TribeEvents' ) ) {
 	/**
 	 * Venue Link
 	 *
-	 * Returns or display the event Organizer Name with a link to their supplied website url
+	 * Returns or display the event Venue Name with a link to the venue
 	 *
 	 * @param int $postId Can supply either event id or venue id, if none specified, current post is used
 	 * @param bool $display If true displays full html links around venue's name, if false returns just the link without displaying it
@@ -70,7 +70,13 @@ if( class_exists( 'TribeEvents' ) ) {
 	 * @since 2.0
 	 */
 	function tribe_get_venue_link( $postId = null, $display = true )  {
-		$url = esc_url( get_permalink( tribe_get_venue_id( $postId ) ) );
+
+		$url = '';
+
+		if ( $venue_id = tribe_get_venue_id( $postId ) ) {
+			$url = esc_url( get_permalink( $venue_id ) );
+		}
+
 		if( $display && $url != '' ) {
 			$venue_name = tribe_get_venue($postId);
 			$link = '<a href="'.$url.'">'.$venue_name.'</a>';
@@ -78,6 +84,7 @@ if( class_exists( 'TribeEvents' ) ) {
 			$link = $url;
 		}
 		$link = apply_filters( 'tribe_get_venue_link', $link, $postId, $display, $url );
+
 		if ( $display ) {
 			echo $link;
 		} else {

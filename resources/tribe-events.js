@@ -163,7 +163,7 @@ try {
  */
 
 
-(function ($) {
+(function ($, undefined) {
     /**
      * @function external:"jQuery.fn".tribe_clear_form
      * @since 3.0
@@ -206,7 +206,7 @@ try {
 	}
 })(jQuery);
 
-(function ($, dbug) {
+(function (window, document, $, dbug, undefined) {
     /**
      * @namespace tribe_ev
      * @since 3.0
@@ -326,7 +326,7 @@ try {
             if ($('#tribe-bar-date').length) {
                 dp_day = $('#tribe-bar-date-day').val();
             }
-			dbug && debug.info('tribe_ev.fn.get_day returned this date: "' + dp_day + '".');
+			dbug && debug.info('TEC Debug: tribe_ev.fn.get_day returned this date: "' + dp_day + '".');
             return dp_day;
         },
         /**
@@ -391,7 +391,7 @@ try {
             string.replace(/([^&=]+)=?([^&]*)(?:&+|$)/g, function (match, key, value) {
                 (map[key] = map[key] || []).push(value);
             });
-			dbug && debug.info('tribe_ev.fn.parse_string returned this map: "' + map);
+			dbug && debug.info('TEC Debug: tribe_ev.fn.parse_string returned this map:', map);
             return map;
         },
         /**
@@ -419,7 +419,7 @@ try {
             tribe_ev.fn.disable_empty(form, type);
             var params = $(form).serialize();
             tribe_ev.fn.disable_inputs(form, type);
-			dbug && debug.info('tribe_ev.fn.serialize returned these params: "' + params);
+			dbug && params && debug.info('TEC Debug: tribe_ev.fn.serialize returned these params: "' + params);
             return params;
         },
 		/**
@@ -474,9 +474,9 @@ try {
                 }
             });
 
-			dbug && debug.info('tribe_ev.fn.set_form fired these params: "' + params);
-
 			$body.removeClass('tribe-reset-on');
+
+			dbug && debug.info('TEC Debug: tribe_ev.fn.set_form fired these params: "' + params);
         },
 		/**
 		 * @function tribe_ev.fn.setup_ajax_timer
@@ -495,7 +495,7 @@ try {
 				tribe_ev.state.ajax_timer = setTimeout(function () {
                     callback();
                 }, timer);
-				dbug && debug.info('tribe_ev.fn.setup_ajax_timer fired with a timeout of "' + timer + '" ms');
+				dbug && debug.info('TEC Debug: tribe_ev.fn.setup_ajax_timer fired with a timeout of "' + timer + '" ms');
             }
         },
 		/**
@@ -512,7 +512,6 @@ try {
             $(trigger_parent).on('click', trigger, function (e) {
 				e.preventDefault();
                 $('html, body').animate({scrollTop: $(container).offset().top - 120}, {duration: 0});
-				dbug && debug.info('tribe_ev.fn.snap bubbled from "' + trigger + '" to "' + trigger_parent + '" and moved the document to "' + container + '"');
             });
         },
 		/**
@@ -567,12 +566,12 @@ try {
 			var $bar_date = $("#tribe-bar-date");
             if ($().bootstrapDatepicker && $bar_date.length) {
 				$bar_date.bootstrapDatepicker("setValue", date);
-				dbug && debug.info('tribe_ev.fn.update_picker sent "' + date + '" to the boostrapDatepicker');
+				dbug && debug.info('TEC Debug: tribe_ev.fn.update_picker sent "' + date + '" to the boostrapDatepicker');
             } else if ($bar_date.length) {
 				$bar_date.val(date);
-				dbug && debug.warn('tribe_ev.fn.update_picker sent "' + date + '" to ' + $bar_date);
+				dbug && debug.warn('TEC Debug: tribe_ev.fn.update_picker sent "' + date + '" to ' + $bar_date);
             } else {
-				dbug && debug.warn('tribe_ev.fn.update_picker couldnt send "' + date + '" to any object.');
+				dbug && debug.warn('TEC Debug: tribe_ev.fn.update_picker couldnt send "' + date + '" to any object.');
 			}
         },
 		/**
@@ -624,7 +623,7 @@ try {
 		 * )
 		 */
 		map_view: function () {
-			return ( typeof GeoLoc !== 'undefined' && GeoLoc.map_view ) ? true : false;
+			return ( GeoLoc !== undefined && GeoLoc.map_view ) ? true : false;
 		},
 		/**
 		 * @type Boolean tribe_ev.tests.pushstate
@@ -683,6 +682,7 @@ try {
         filter_cats: false,
         initial_load: true,
         paged: 1,
+		page_title: '',
         params: {},
         popping: false,
         pushstate: true,
@@ -693,13 +693,13 @@ try {
         view_target: ''
     };
 
-})(jQuery, tribe_debug);
+})(window, document, jQuery, tribe_debug);
 
-(function ($, td, te, tf, ts, tt, dbug) {
+(function (window, document, $, td, te, tf, ts, tt, dbug) {
 
 	$(document).ready(function () {
 
-		dbug && debug.info('Hello Dave, Tribe Events Javascript is initializing, Tribe JS Init Timer started from tribe-events.js.');
+		dbug && debug.info('TEC Debug: Tribe Events JS init, Init Timer started from tribe-events.js.');
 
 		var $tribe_events = $('#tribe-events'),
 			$tribe_events_header = $('#tribe-events-header');
@@ -707,6 +707,7 @@ try {
 		$tribe_events.removeClass('tribe-no-js');
 		ts.category = tf.get_category();
 		td.base_url = tf.get_base_url();
+		ts.page_title = document.title;
 
 		var tribe_display = tf.get_url_param('tribe_event_display');
 
@@ -739,13 +740,13 @@ try {
 		});
 
 		if(dbug){
-			debug.groupCollapsed('Browser and events settings information:');
+			debug.groupCollapsed('TEC Debug: Browser and events settings information:');
 			debug.log('User agent reported as: "' + navigator.userAgent);
 			debug.log('Live ajax returned its state as: "' + tt.live_ajax());
 			ts.view && debug.log('Tribe js detected the view to be: "' + ts.view);
 			debug.log('Supports pushstate: "' + tt.pushstate);
 			debug.groupEnd();
-			debug.info('tribe-events.js successfully loaded');
+			debug.info('TEC Debug: tribe-events.js successfully loaded');
 		}
 	});
-})(jQuery, tribe_ev.data, tribe_ev.events, tribe_ev.fn, tribe_ev.state, tribe_ev.tests, tribe_debug);
+})(window, document, jQuery, tribe_ev.data, tribe_ev.events, tribe_ev.fn, tribe_ev.state, tribe_ev.tests, tribe_debug);

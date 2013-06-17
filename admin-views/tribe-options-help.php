@@ -109,7 +109,7 @@ $intro_text[] = __('Otherwise, if you\'re feeling adventurous, you can get start
 $intro_text[] = '</p>';
 $intro_text = implode( $intro_text );
 
-$support_text[] = __('<p>We\'ve redone our support page from the ground up in an effort to better help our users. Head over to docs.tri.be and you\'ll find all our documentation, including:</p>', 'tribe-events-calendar');
+$support_text[] = sprintf( __('<p>We\'ve redone our support page from the ground up in an effort to better help our users. Head over to <a href="%s">docs.tri.be</a> and you\'ll find all our documentation, including:</p>', 'tribe-events-calendar'), 'http://docs.tri.be/' );
 $support_text[] = '<ul><li>';
 $support_text[] = __('Template tags, hooks & filters for The Events Calendar & Events Calendar PRO', 'tribe-events-calendar');
 $support_text[] = '</li><li>';
@@ -121,18 +121,18 @@ $support_text[] = __('Release notes for painting an overall picture of the plugi
 $support_text[] = '</li><li>';
 $support_text[] = __('Add-on documentation for all of Modern Tribe\'s official extensions for The Events Calendar (including WooTickets, Community Events, Eventbrite Tickets, Facebook Events, etc)', 'tribe-events-calendar');
 $support_text[] = '</li></ul>';
-$support_text[] = __('<p>We\'ve also got a Modern Tribe UserVoice page where we\'re actively watching for feature ideas from the community. If after playing with the plugin and reviewing the resources above, you\'re finding a feature isn\'t present that should be, let us know. Vote up existing feature requests or add your own, and help us shape the future of the products business in a way that best meets the community\'s needs.</p>', 'tribe-events-calendar');
+$support_text[] = sprintf( __('<p>We\'ve also got a %sModern Tribe UserVoice%s page where we\'re actively watching for feature ideas from the community. If after playing with the plugin and reviewing the resources above, you\'re finding a feature isn\'t present that should be, let us know. Vote up existing feature requests or add your own, and help us shape the future of the products business in a way that best meets the community\'s needs.</p>', 'tribe-events-calendar'), '<a href="http://tribe.uservoice.com/">', '</a>' );
 $support_text = implode( $support_text );
 
 
-$forum_text[] = __('<p>Written documentation can only take things so far...sometimes, you need help from a real person. This is where our support forums come into play.</p>', 'tribe-events-calendar');
-$forum_text[] = __('<p>Users of the free The Events Calendar should post their support concerns to the plugin\'s WordPress.org support forum. While we are happy to help identify and fix bugs that are reported at WordPress.org, please make sure to read our support expectations sticky thread before posting so you understand our limitations.</p>', 'tribe-events-calendar');
-$forum_text[] = __('<p>We hit the WordPress.org forum throughout the week, watching for bugs. If you report a legitimate bug that we\'re able to reproduce, we will log it and patch for an upcoming release. However we are unfortunately unable to provide customization tips or assist in integrating with 3rd party plugins or themes.</p>', 'tribe-events-calendar');
-$forum_text[] = __('<p>If you\'re a user of The Events Calendar and would like more support, please purchase a PRO license. We hit the PRO forums daily, and can provide a deeper level of customization/integration support for paying users than we can on WordPress.org.</p>', 'tribe-events-calendar');
+$forum_text[] = '<p>' . sprintf( __('Written documentation can only take things so far...sometimes, you need help from a real person. This is where our %ssupport forums%s come into play.', 'tribe-events-calendar'), '<a href="http://wordpress.org/support/plugin/the-events-calendar">', '</a>') . '</p>';
+$forum_text[] = '<p>' . sprintf( __('Users of the free The Events Calendar should post their support concerns to the plugin\'s %sWordPress.org support forum%s. While we are happy to help identify and fix bugs that are reported at WordPress.org, please make sure to read our %ssupport expectations sticky thread%s before posting so you understand our limitations.', 'tribe-events-calendar'), '<a href="http://wordpress.org/support/plugin/the-events-calendar">', '</a>', '<a href="http://wordpress.org/support/topic/welcome-the-events-calendar-users-read-this-first?replies=1">', '</a>' ) . '</p>';
+$forum_text[] = '<p>' . __('We hit the WordPress.org forum throughout the week, watching for bugs. If you report a legitimate bug that we\'re able to reproduce, we will log it and patch for an upcoming release. However we are unfortunately unable to provide customization tips or assist in integrating with 3rd party plugins or themes.', 'tribe-events-calendar') . '</p>';
+$forum_text[] = '<p>' . sprintf( __('If you\'re a user of The Events Calendar and would like more support, please %spurchase a PRO license%s. We hit the PRO forums daily, and can provide a deeper level of customization/integration support for paying users than we can on WordPress.org.', 'tribe-events-calendar'), '< href="http://tri.be/shop/wordpress-events-calendar-pro/">', '</a>') . '</p>';
 $forum_text = implode( $forum_text );
 
 
-$outro_text = '<p>' . sprintf( __('If you find that you aren\'t getting the level of service you\'ve come to expect from Modern Tribe, Shoot us an email at %s or tweet %s and tell us why. We\'ll do what we can to make it right.', 'tribe-events-calendar'), '<a href="mailto:pro@tri.be">pro@tri.be</a>', '<a href="http://www.twitter.com/moderntribeinc">@moderntribeinc</a>' ) . '</p>';
+$outro_text = '<p>' . sprintf( __('If you find that you aren\'t getting the level of service you\'ve come to expect from Modern Tribe, shoot us an email at %s or tweet %s and tell us why. We\'ll do what we can to make it right.', 'tribe-events-calendar'), '<a href="mailto:pro@tri.be">pro@tri.be</a>', '<a href="http://www.twitter.com/moderntribeinc">@moderntribeinc</a>' ) . '</p>';
 $more_text = __('More...', 'tribe-events-calendar');
 
 

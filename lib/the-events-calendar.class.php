@@ -434,6 +434,9 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			add_action( 'wp_ajax_tribe_list', array( $this, 'list_ajax_call' ) );
 			add_action( 'tribe_events_pre_get_posts', array( $this, 'set_tribe_paged' ) );
 			add_action( 'wp_ajax_nopriv_tribe_list', array( $this, 'list_ajax_call' ) );
+		
+			// Upgrade material.
+			add_action( 'admin_init', array( $this, 'checkSuiteIfJustUpdated' ) );
 		}
 
 		/**
@@ -584,15 +587,20 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 * @return void
 		 */
 		public function checkAddOnCompatibility() {
-			$operator = apply_filters( 'tribe_tec_addons_comparison_operator', '!=' );
+			// Variable for storing output to admin notices.
 			$output = '';
+			// Array to store any plugins that are out of date.
 			$bad_versions = array();
+			// Array to store all addons and their required CORE versions.
 			$tec_addons_required_versions = array();
+			// Array to store NAMES ONLY of any plugins that are out of date.
 			$out_of_date_addons = array();
-			$update_link = get_admin_url() . 'plugins.php';
+			// Is Core the thing that is out of date?
 			$tec_out_of_date = false;
 
+			// Get the addon information.
 			$tec_addons_required_versions = (array) apply_filters('tribe_tec_addons', $tec_addons_required_versions);
+			// Foreach addon, make sure that it is compatible with current version of core.
 			foreach ($tec_addons_required_versions as $plugin) {
 				if ( !strstr( self::VERSION, $plugin['required_version'] ) ) {
 					if ( isset( $plugin['current_version'] ) )
@@ -602,10 +610,12 @@ if ( !class_exists( 'TribeEvents' ) ) {
 					else
 						$addon_short_path = null;
 				}
+				// Check to make sure Core isn't the thing that is out of date.
 				if ( version_compare( $plugin['required_version'], self::VERSION, '>' ) ) {
 					$tec_out_of_date = true;
 				}
 			}
+			// If Core is out of date, generate the proper message.
 			if ( $tec_out_of_date == true ) {
 				$plugin_short_path = basename( dirname( dirname( __FILE__ ) ) ) . '/the-events-calendar.php';
 				$upgrade_path = wp_nonce_url( add_query_arg( array( 'action' => 'upgrade-plugin', 'plugin' => $plugin_short_path ), get_admin_url() . 'update.php' ), 'upgrade-plugin_' . $plugin_short_path );
@@ -613,39 +623,20 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				$output .= '<p>' . sprintf( __('Your version of The Events Calendar is not up-to-date with one of your The Events Calendar add-ons. Please %supdate now.%s', 'tribe-events-calendar'), '<a href="' . $upgrade_path . '">', '</a>') .'</p>';
 				$output .= '</div>';
 			} else {
+				// Otherwise, if the addons are out of date, generate the proper messaging.
 				if ( !empty($bad_versions) ) {
-					$site_plugins_to_update = get_site_transient( 'update_plugins' );
-					$already_checked = get_site_transient( 'tribe_events_pue_already_checked' );
-					$check_for_updates = false;
 					foreach ($bad_versions as $plugin) {
-						if ( !in_array( $plugin['plugin_dir_file'], array_keys( $site_plugins_to_update->response ) ) ) {
-							$check_for_updates = true;
-						}
 						if ( $plugin['current_version'] )
 							$out_of_date_addons[] = $plugin['plugin_name'] . ' ' . $plugin['current_version'];
 						else
 							$out_of_date_addons[] = $plugin['plugin_name'];
 					}
-					if ( $check_for_updates && !$already_checked ) {
-						delete_site_transient( 'update_plugins' );
-						wp_update_plugins();
-						set_site_transient ( 'tribe_events_pue_already_checked', true, 86400 );
-					}
-					$show_update_link = true;
-					if ( count( $out_of_date_addons ) == 1 && $addon_short_path ) {
-						$update_link = wp_nonce_url( add_query_arg( array( 'action' => 'upgrade-plugin', 'plugin' => $addon_short_path ), get_admin_url() . 'update.php' ), 'upgrade-plugin_' . $addon_short_path );
-						if ( !in_array( $addon_short_path, array_keys( $site_plugins_to_update->response ) ) ) {
-							$show_update_link = false;
-						}
-					}
 					$output .= '<div class="error">';
-					if ( $show_update_link )
-						$output .= '<p>'.sprintf( __('The following plugins are out of date: <b>%s</b>. Please %supdate now%s. All add-ons contain dependencies on The Events Calendar and will not function properly unless paired with the right version. %sWant to pair an older version%s?', 'tribe-events-calendar'), join( $out_of_date_addons, ', ' ), '<a href="' . $update_link . '">', '</a>', '<a href="http://tri.be/version-relationships-in-modern-tribe-pluginsadd-ons/">', '</a>' ).'</p>';
-					else
-						$output .= '<p>'.sprintf( __('The following plugins are out of date: <b>%s</b>. All add-ons contain dependencies on The Events Calendar and will not function properly unless paired with the right version. %sWant to pair an older version%s?', 'tribe-events-calendar'), join( $out_of_date_addons, ', ' ), '<a href="http://tri.be/version-relationships-in-modern-tribe-pluginsadd-ons/">', '</a>' ).'</p>';
+					$output .= '<p>'.sprintf( __('The following plugins are out of date: <b>%s</b>. All add-ons contain dependencies on The Events Calendar and will not function properly unless paired with the right version. %sWant to pair an older version%s?', 'tribe-events-calendar'), join( $out_of_date_addons, ', ' ), '<a href="http://tri.be/version-relationships-in-modern-tribe-pluginsadd-ons/">', '</a>' ).'</p>';
 					$output .= '</div>';
 				}
 			}
+			// Make sure only to show the message if the user has the permissions necessary.
 			if ( current_user_can( 'edit_plugins' ) ) {
 				echo apply_filters('tribe_add_on_compatibility_errors', $output);
 			}
@@ -2070,17 +2061,19 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		}
 
 		public function setDate($query) {
-			if ( $query->get('eventDisplay') == 'month' ) {
-				$this->date = $query->get('eventDate') . "-01";
-			} else if ( $query->get('eventDate') ) {
-				$this->date = $query->get('eventDate');
-			} else if ( $query->get('eventDisplay') == 'month' ) {
-				$date = date_i18n( TribeDateUtils::DBDATEFORMAT );
-				$this->date = substr_replace( $date, '01', -2 );
-			} else if (is_singular() && $query->get('eventDate') ) {
-				$this->date = $query->get('eventDate');
-			} else if (!is_singular()) { // don't set date for single event unless recurring
-				$this->date = date(TribeDateUtils::DBDATETIMEFORMAT);
+			if ($query->tribe_is_event_query) {
+				if ( $query->get('eventDisplay') == 'month' ) {
+					$this->date = $query->get('eventDate') . "-01";
+				} else if ( $query->get('eventDate') ) {
+					$this->date = $query->get('eventDate');
+				} else if ( $query->get('eventDisplay') == 'month' ) {
+					$date = date_i18n( TribeDateUtils::DBDATEFORMAT );
+					$this->date = substr_replace( $date, '01', -2 );
+				} else if (is_singular() && $query->get('eventDate') ) {
+					$this->date = $query->get('eventDate');
+				} else if (!is_singular()) { // don't set date for single event unless recurring
+					$this->date = date(TribeDateUtils::DBDATETIMEFORMAT);
+				}
 			}
 		}
 
@@ -3740,7 +3733,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 * @return string the link
 		 */
 		public function newCommentLink( $content, $comment ) {
-			if ( class_exists( 'TribeEventsPro' ) && tribe_is_recurring_event( get_the_ID() ) && isset( $_REQUEST['eventDate'] ) ) {
+			if ( function_exists( 'tribe_is_recurring_event' ) && tribe_is_recurring_event( get_the_ID() ) && isset( $_REQUEST['eventDate'] ) ) {
 				$link = trailingslashit( $this->getLink( 'single' ) ) . $_REQUEST['eventDate'] . '#comment-' . $comment->comment_ID;
 			} else {
 				$link = $content;
@@ -3862,12 +3855,9 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 		function list_ajax_call() {
 
-			add_action( 'pre_get_posts', array( $this, 'list_ajax_call_set_date' ), -10 );
-
 			if ( class_exists( 'TribeEventsFilterView' ) ) {
 				TribeEventsFilterView::instance()->createFilters( null, true );
 			}
-
 
 			TribeEventsQuery::init();
 
@@ -3878,13 +3868,19 @@ if ( !class_exists( 'TribeEvents' ) ) {
 						   'post_status'        => 'publish',
 						   'paged'              => $tribe_paged );
 
+			// check & set past display
 			if ( isset( $_POST['tribe_event_display'] ) && $_POST['tribe_event_display'] == 'past' ) {
 				$args['eventDisplay'] = 'past';
 			}
 
+			// check & set event category
 			if ( isset( $_POST['tribe_event_category'] ) ) {
 				$args[TribeEvents::TAXONOMY] = $_POST['tribe_event_category'];
 			}
+
+			// add filter that executes after TribeEventsQuery::pre_get_posts, 
+			// that sets the tribe bar date
+			add_action( 'tribe_events_pre_get_posts', array( $this, 'list_ajax_call_set_date' ) );
 
 			$query = TribeEventsQuery::getEvents( $args, true );
 
@@ -3910,8 +3906,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 							   'view'            => 'list',
 			);
 
-
-			remove_action( 'pre_get_posts', array( $this, 'list_ajax_call_set_date' ), -10 );
+			remove_action( 'tribe_events_pre_get_posts', array( $this, 'list_ajax_call_set_date' ) );
 
 			global $wp_query, $post, $paged;
 			$wp_query = $query;
@@ -3923,11 +3918,10 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 			add_filter( 'tribe_events_list_pagination', array( __CLASS__, 'clear_module_pagination' ), 10 );
 
-			$tribe_ecp = TribeEvents::instance();
 			if ( $query->query_vars['eventDisplay'] == 'list' ) {
-				$tribe_ecp->displaying = 'upcoming';
+				$this->displaying = 'upcoming';
 			} elseif ( $query->query_vars['eventDisplay'] == 'past' ) {
-				$tribe_ecp->displaying = 'past';
+				$this->displaying = 'past';
 				$response['view'] = 'past';
 			}
 
@@ -3938,7 +3932,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				$_SERVER['REQUEST_URI'] = $this->rewriteSlug . '/' . 'upcoming/';
 
 			ob_start();
-			tribe_get_view();
+			tribe_get_view('list/content');
 			$response['html'] .= ob_get_clean();
 			$_SERVER = $old_request;
 
@@ -3983,7 +3977,11 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 		function list_ajax_call_set_date( $query ) {
 			if ( isset( $_POST["tribe-bar-date"] ) && $_POST["tribe-bar-date"] ) {
-				$query->set( 'eventDisplay', 'upcoming' );
+				if ($_POST['tribe_event_display'] == 'past') {
+					$query->set( 'end_date', $_POST["tribe-bar-date"] );
+				} else {
+					$query->set( 'start_date', $_POST["tribe-bar-date"] );
+				}
 			}
 			return $query;
 		}
@@ -4014,7 +4012,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 				ob_start();
 
-				tribe_get_view();
+				tribe_get_view('month/content');
 
 				$response = array(
 					'html'            => ob_get_clean(),
@@ -4025,6 +4023,36 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				header( 'Content-type: application/json' );
 				echo json_encode( $response );
 				die();
+			}
+		}
+		
+		/**
+		 * Checks to see if any registered TEC-related plugins have been updated just now
+		 * and runs an action if so, so that any upgrade-specific functionality can
+		 * be run.
+		 *
+		 * @return void
+		 * @author Paul Hughes
+		 * @since 3.0
+		 */
+		public function checkSuiteIfJustUpdated() {
+			$plugins = apply_filters( 'tribe_tec_addons', array( 'TribeEventsCalendar' => array( 'plugin_name' => 'Events Calendar PRO', 'required_version' => self::VERSION, 'current_version' => self::VERSION, 'plugin_dir_file' => basename( dirname( __FILE__ ) ) . '/the-events-calendar.php' ) ) );
+			$plugin_versions = get_option( 'tribe_events_suite_versions', array() );
+			$new_plugin_versions = $plugin_versions;
+			
+			foreach ( $plugins as $slug => $plugin ) {
+				if ( !isset( $plugin_versions[$slug] ) || version_compare( $plugin_versions[$slug], $plugin['current_version'], '!=' ) ) {
+					$old_version = isset( $plugin_versions[$slug] ) ? $plugin_versions[$slug] : null;
+					
+					// Hook into this filter to execute upgrade items.
+					if ( apply_filters( 'tribe_events_suite_upgrade', true, $slug, $plugin['plugin_name'], $plugin['current_version'], $old_version ) ) {
+						$new_plugin_versions[$slug] = $plugin['current_version'];
+					}
+				}
+			}
+			
+			if ( $new_plugin_versions != $plugin_versions ) {
+				update_option( 'tribe_events_suite_versions', $new_plugin_versions );
 			}
 		}
 
