@@ -1,4 +1,4 @@
-(function ($, td, te, tf, ts, tt, dbug) {
+(function (window, document, $, td, te, tf, ts, tt, dbug) {
 
 	/*
 	 * $    = jQuery
@@ -221,7 +221,7 @@
 
 							$('#tribe-events-content').replaceWith(response.html);
 
-							var page_title = $("#tribe-events-header").attr('data-title');
+							var page_title = $("#tribe-events-header").data('title');
 
 							$(document).attr('title', page_title);
 
@@ -258,4 +258,4 @@
 		dbug && debug.timeEnd('Tribe JS Init Timer');
 	});
 
-})(jQuery, tribe_ev.data, tribe_ev.events, tribe_ev.fn, tribe_ev.state, tribe_ev.tests, tribe_debug);
+})(window, document, jQuery, tribe_ev.data, tribe_ev.events, tribe_ev.fn, tribe_ev.state, tribe_ev.tests, tribe_debug);
