@@ -2291,7 +2291,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			}
 
 			// account for semi-pretty permalinks
-			if( strpos(get_option('permalink_structure'),"index.php") !== FALSE ) {
+			if( strpos(get_option('permalink_structure'),"index.php") !== false ) {
 				$eventUrl = trailingslashit( home_url() . '/index.php/' . sanitize_title($this->getOption('eventsSlug', 'events')) );
 			} else {
 				$eventUrl = trailingslashit( home_url() . '/' . sanitize_title($this->getOption('eventsSlug', 'events')) );
@@ -2698,7 +2698,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				// track the current position of the array_pointer
 				global $wp_filter;
 				$wp_filter_index = key($wp_filter['save_post']);
-				$did_save = FALSE;
+				$did_save = false;
 
 				//get venue and organizer and publish them
 				$pm = get_post_custom($post->ID);
@@ -2711,7 +2711,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 						if ( !empty( $venue_post ) && $venue_post->post_status != 'publish' ) {
 							$venue_post->post_status = 'publish';
 							wp_update_post( $venue_post );
-							$did_save = TRUE;
+							$did_save = true;
 						}
 					}
 				}
@@ -2724,7 +2724,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 						if ( !empty( $org_post ) && $org_post->post_status != 'publish' ) {
 							$org_post->post_status = 'publish';
 							wp_update_post( $org_post );
-							$did_save = TRUE;
+							$did_save = true;
 						}
 					}
 				}
@@ -3168,7 +3168,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				<div id='eventDetails' class="inside eventForm">
 					<table cellspacing="0" cellpadding="0" id="EventInfo" class="OrganizerInfo">
 					<?php
-					$hide_organizer_title = TRUE;
+					$hide_organizer_title = true;
 					$organizer_meta_box_template = apply_filters('tribe_events_organizer_meta_box_template', $this->pluginPath . 'admin-views/organizer-meta-box.php');
 					if( !empty($organizer_meta_box_template) )
 						include( $organizer_meta_box_template );
@@ -3781,10 +3781,10 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				$value = $_REQUEST['tribe-bar-search'];
 			}
 
-			if ( tribe_get_option('tribeDisableTribeBar', false ) == false ) {
-			$filters[] = array( 'name'    => 'tribe-bar-search',
-								'caption' => 'Search',
-								'html'    => '<input type="text" name="tribe-bar-search" id="tribe-bar-search" value="' . esc_attr($value) . '" placeholder="Search">' );
+			if ( tribe_get_option( 'tribeDisableTribeBar', false ) == false ) {
+				$filters['tribe-bar-search'] = array( 'name'    => 'tribe-bar-search',
+				                                      'caption' => 'Search',
+				                                      'html'    => '<input type="text" name="tribe-bar-search" id="tribe-bar-search" value="' . esc_attr( $value ) . '" placeholder="Search">' );
 
 			}
 			return $filters;
@@ -3809,9 +3809,9 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 			$caption = apply_filters( 'tribe_bar_datepicker_caption', $caption );
 
-			$filters[] = array( 'name'    => 'tribe-bar-date',
-								'caption' => $caption,
-								'html'    => '<input type="text" name="tribe-bar-date" style="position: relative; z-index:10000" id="tribe-bar-date" value="' . esc_attr( $value ) . '" placeholder="Date">
+			$filters['tribe-bar-date'] = array( 'name'    => 'tribe-bar-date',
+			                                    'caption' => $caption,
+			                                    'html'    => '<input type="text" name="tribe-bar-date" style="position: relative; z-index:10000" id="tribe-bar-date" value="' . esc_attr( $value ) . '" placeholder="Date">
 								<input type="hidden" name="tribe-bar-date-day" id="tribe-bar-date-day" class="tribe-no-param" value="">' );
 
 			return $filters;
@@ -3826,7 +3826,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 * @param array $views The current views array.
 		 * @return array The new views array.
 		 */
-		public function remove_hidden_views( $views, $visible = TRUE ) {
+		public function remove_hidden_views( $views, $visible = true ) {
 			$enable_views_defaults = array();
 			foreach ( $views as $view ) {
 				$enable_views_defaults[] = $view['displaying'];
@@ -3959,7 +3959,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		public static function array_insert_after_key( $key, $source_array, $insert_array ) {
 			if ( array_key_exists( $key, $source_array ) ) {
 				$position = array_search( $key, array_keys( $source_array ) ) + 1;
-				$source_array = array_slice($source_array, 0, $position, true) + $insert_array + array_slice($source_array, $position, NULL, true);
+				$source_array = array_slice($source_array, 0, $position, true) + $insert_array + array_slice($source_array, $position, null, true);
 			} else {
 				// If no key is found, then add it to the end of the array.
 				$source_array += $insert_array;
