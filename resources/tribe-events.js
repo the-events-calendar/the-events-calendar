@@ -163,7 +163,7 @@ try {
  */
 
 
-(function ($) {
+(function ($, undefined) {
     /**
      * @function external:"jQuery.fn".tribe_clear_form
      * @since 3.0
@@ -206,7 +206,7 @@ try {
 	}
 })(jQuery);
 
-(function ($, dbug) {
+(function (window, $, dbug, undefined) {
     /**
      * @namespace tribe_ev
      * @since 3.0
@@ -624,7 +624,7 @@ try {
 		 * )
 		 */
 		map_view: function () {
-			return ( typeof GeoLoc !== 'undefined' && GeoLoc.map_view ) ? true : false;
+			return ( GeoLoc !== undefined && GeoLoc.map_view ) ? true : false;
 		},
 		/**
 		 * @type Boolean tribe_ev.tests.pushstate
@@ -683,6 +683,7 @@ try {
         filter_cats: false,
         initial_load: true,
         paged: 1,
+		page_title: '',
         params: {},
         popping: false,
         pushstate: true,
@@ -693,13 +694,13 @@ try {
         view_target: ''
     };
 
-})(jQuery, tribe_debug);
+})(window, jQuery, tribe_debug);
 
-(function ($, td, te, tf, ts, tt, dbug) {
+(function (window, $, td, te, tf, ts, tt, dbug) {
 
 	$(document).ready(function () {
 
-		dbug && debug.info('Hello Dave, Tribe Events Javascript is initializing, Tribe JS Init Timer started from tribe-events.js.');
+		dbug && debug.info('TEC Debug: Tribe Events JS init, Init Timer started from tribe-events.js.');
 
 		var $tribe_events = $('#tribe-events'),
 			$tribe_events_header = $('#tribe-events-header');
@@ -739,13 +740,13 @@ try {
 		});
 
 		if(dbug){
-			debug.groupCollapsed('Browser and events settings information:');
+			debug.groupCollapsed('TEC Debug: Browser and events settings information:');
 			debug.log('User agent reported as: "' + navigator.userAgent);
 			debug.log('Live ajax returned its state as: "' + tt.live_ajax());
 			ts.view && debug.log('Tribe js detected the view to be: "' + ts.view);
 			debug.log('Supports pushstate: "' + tt.pushstate);
 			debug.groupEnd();
-			debug.info('tribe-events.js successfully loaded');
+			debug.info('TEC Debug: tribe-events.js successfully loaded');
 		}
 	});
-})(jQuery, tribe_ev.data, tribe_ev.events, tribe_ev.fn, tribe_ev.state, tribe_ev.tests, tribe_debug);
+})(window, jQuery, tribe_ev.data, tribe_ev.events, tribe_ev.fn, tribe_ev.state, tribe_ev.tests, tribe_debug);
