@@ -358,10 +358,6 @@
 
 							$('#tribe-events-content.tribe-events-week-grid').replaceWith(response.html);
 
-							var page_title = $("#tribe-events-header").attr('data-title');
-
-							$(document).attr('title', page_title);
-
 							tribe_week_view_init(tribe_go_to_8(), false);
 
 							$('.tribe-events-grid').resize(function () {
@@ -370,18 +366,21 @@
 
 							$("div[id*='tribe-events-event-']").hide().fadeIn('fast');
 
+							ts.page_title = $('#tribe-events-header').data('title');
+							document.title = ts.page_title;
+
 							if (ts.do_string) {
 								history.pushState({
 									"tribe_url_params": ts.url_params,
 									"tribe_params": ts.params
-								}, page_title, td.cur_url + '?' + ts.url_params);
+								}, ts.page_title, td.cur_url + '?' + ts.url_params);
 							}
 
 							if (ts.pushstate) {
 								history.pushState({
 									"tribe_url_params": ts.url_params,
 									"tribe_params": ts.params
-								}, page_title, td.cur_url);
+								}, ts.page_title, td.cur_url);
 							}
 
 							$(te)

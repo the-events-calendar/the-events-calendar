@@ -253,18 +253,21 @@
 
 					if (tt.pushstate) {
 
+						ts.page_title = $('#tribe-events-header').data('title');
+						document.title = ts.page_title;
+
 						if (ts.do_string) {
 							history.pushState({
 								"tribe_paged": ts.paged,
 								"tribe_params": ts.params
-							}, '', td.cur_url + '?' + ts.params);
+							}, ts.page_title, td.cur_url + '?' + ts.params);
 						}
 
 						if (ts.pushstate) {
 							history.pushState({
 								"tribe_paged": ts.paged,
 								"tribe_params": ts.params
-							}, '', td.cur_url);
+							}, ts.page_title, td.cur_url);
 						}
 
 					}

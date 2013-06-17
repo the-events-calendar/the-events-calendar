@@ -272,18 +272,21 @@
 								}
 							}
 
+							ts.page_title = $('#tribe-events-header').data('title');
+							document.title = ts.page_title;
+
 							if (ts.do_string) {
 								history.pushState({
 									"tribe_params": ts.params,
 									"tribe_url_params": ts.url_params
-								}, '', td.cur_url + '?' + ts.url_params);
+								}, ts.page_title, td.cur_url + '?' + ts.url_params);
 							}
 
 							if (ts.pushstate) {
 								history.pushState({
 									"tribe_params": ts.params,
 									"tribe_url_params": ts.url_params
-								}, '', td.cur_url);
+								}, ts.page_title, td.cur_url);
 							}
 
 							tribe_setup_isotope($('#tribe-events-photo-events'));
