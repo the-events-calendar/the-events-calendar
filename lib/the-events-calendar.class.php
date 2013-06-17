@@ -2061,17 +2061,19 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		}
 
 		public function setDate($query) {
-			if ( $query->get('eventDisplay') == 'month' ) {
-				$this->date = $query->get('eventDate') . "-01";
-			} else if ( $query->get('eventDate') ) {
-				$this->date = $query->get('eventDate');
-			} else if ( $query->get('eventDisplay') == 'month' ) {
-				$date = date_i18n( TribeDateUtils::DBDATEFORMAT );
-				$this->date = substr_replace( $date, '01', -2 );
-			} else if (is_singular() && $query->get('eventDate') ) {
-				$this->date = $query->get('eventDate');
-			} else if (!is_singular()) { // don't set date for single event unless recurring
-				$this->date = date(TribeDateUtils::DBDATETIMEFORMAT);
+			if ($query->tribe_is_event_query) {
+				if ( $query->get('eventDisplay') == 'month' ) {
+					$this->date = $query->get('eventDate') . "-01";
+				} else if ( $query->get('eventDate') ) {
+					$this->date = $query->get('eventDate');
+				} else if ( $query->get('eventDisplay') == 'month' ) {
+					$date = date_i18n( TribeDateUtils::DBDATEFORMAT );
+					$this->date = substr_replace( $date, '01', -2 );
+				} else if (is_singular() && $query->get('eventDate') ) {
+					$this->date = $query->get('eventDate');
+				} else if (!is_singular()) { // don't set date for single event unless recurring
+					$this->date = date(TribeDateUtils::DBDATETIMEFORMAT);
+				}
 			}
 		}
 
@@ -3853,12 +3855,9 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 		function list_ajax_call() {
 
-			add_action( 'pre_get_posts', array( $this, 'list_ajax_call_set_date' ), -10 );
-
 			if ( class_exists( 'TribeEventsFilterView' ) ) {
 				TribeEventsFilterView::instance()->createFilters( null, true );
 			}
-
 
 			TribeEventsQuery::init();
 
@@ -3869,13 +3868,19 @@ if ( !class_exists( 'TribeEvents' ) ) {
 						   'post_status'        => 'publish',
 						   'paged'              => $tribe_paged );
 
+			// check & set past display
 			if ( isset( $_POST['tribe_event_display'] ) && $_POST['tribe_event_display'] == 'past' ) {
 				$args['eventDisplay'] = 'past';
 			}
 
+			// check & set event category
 			if ( isset( $_POST['tribe_event_category'] ) ) {
 				$args[TribeEvents::TAXONOMY] = $_POST['tribe_event_category'];
 			}
+
+			// add filter that executes after TribeEventsQuery::pre_get_posts, 
+			// that sets the tribe bar date
+			add_action( 'tribe_events_pre_get_posts', array( $this, 'list_ajax_call_set_date' ) );
 
 			$query = TribeEventsQuery::getEvents( $args, true );
 
@@ -3901,8 +3906,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 							   'view'            => 'list',
 			);
 
-
-			remove_action( 'pre_get_posts', array( $this, 'list_ajax_call_set_date' ), -10 );
+			remove_action( 'tribe_events_pre_get_posts', array( $this, 'list_ajax_call_set_date' ) );
 
 			global $wp_query, $post, $paged;
 			$wp_query = $query;
@@ -3914,11 +3918,10 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 			add_filter( 'tribe_events_list_pagination', array( __CLASS__, 'clear_module_pagination' ), 10 );
 
-			$tribe_ecp = TribeEvents::instance();
 			if ( $query->query_vars['eventDisplay'] == 'list' ) {
-				$tribe_ecp->displaying = 'upcoming';
+				$this->displaying = 'upcoming';
 			} elseif ( $query->query_vars['eventDisplay'] == 'past' ) {
-				$tribe_ecp->displaying = 'past';
+				$this->displaying = 'past';
 				$response['view'] = 'past';
 			}
 
@@ -3974,7 +3977,11 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 		function list_ajax_call_set_date( $query ) {
 			if ( isset( $_POST["tribe-bar-date"] ) && $_POST["tribe-bar-date"] ) {
-				$query->set( 'eventDisplay', 'upcoming' );
+				if ($_POST['tribe_event_display'] == 'past') {
+					$query->set( 'end_date', $_POST["tribe-bar-date"] );
+				} else {
+					$query->set( 'start_date', $_POST["tribe-bar-date"] );
+				}
 			}
 			return $query;
 		}
