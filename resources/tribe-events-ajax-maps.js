@@ -1,4 +1,4 @@
-(function ($, td, te, tf, tg, ts, tt, dbug) {
+(function (window, document, $, td, te, tf, tg, ts, tt, dbug) {
 
 	$.extend(tribe_ev.fn, {
 		map_add_marker: function (lat, lng, title, address, link) {
@@ -471,8 +471,8 @@
 			ts.view && dbug && debug.timeEnd('Tribe JS Init Timer');
 		}
 
-		dbug && debug.info('tribe-events-ajax-maps.js successfully loaded');
+		dbug && debug.info('TEC Debug: tribe-events-ajax-maps.js successfully loaded');
 
 	});
 
-})(jQuery, tribe_ev.data, tribe_ev.events, tribe_ev.fn, tribe_ev.geoloc, tribe_ev.state, tribe_ev.tests, tribe_debug);
+})(window, document, jQuery, tribe_ev.data, tribe_ev.events, tribe_ev.fn, tribe_ev.geoloc, tribe_ev.state, tribe_ev.tests, tribe_debug);

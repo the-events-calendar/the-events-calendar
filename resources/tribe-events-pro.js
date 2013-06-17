@@ -8,7 +8,17 @@ if (Object.prototype.hasOwnProperty.call(window, 'tribe_ev')) {
 	};
 }
 
-(function ($, te, tf, tg, ts, tt, dbug) {
+(function (window, document, $, te, tf, tg, ts, tt, dbug) {
+
+	/*
+	 * $    = jQuery
+	 * td   = tribe_ev.data
+	 * te   = tribe_ev.events
+	 * tf   = tribe_ev.fn
+	 * ts   = tribe_ev.state
+	 * tt   = tribe_ev.tests
+	 * dbug = tribe_debug
+	 */
 
 	$.extend(tribe_ev.fn, {
 
@@ -298,8 +308,8 @@ if (Object.prototype.hasOwnProperty.call(window, 'tribe_ev')) {
 
 		}
 
-		dbug && debug.info('tribe-events-pro.js successfully loaded');
+		dbug && debug.info('TEC Debug: tribe-events-pro.js successfully loaded');
 
 	});
 
-})(jQuery, tribe_ev.events, tribe_ev.fn, tribe_ev.geoloc, tribe_ev.state, tribe_ev.tests, tribe_debug);
+})(window, document, jQuery, tribe_ev.events, tribe_ev.fn, tribe_ev.geoloc, tribe_ev.state, tribe_ev.tests, tribe_debug);

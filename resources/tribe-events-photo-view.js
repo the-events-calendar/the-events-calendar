@@ -1,4 +1,4 @@
-(function ($, td, te, tf, ts, tt, dbug) {
+(function (window, document, $, td, te, tf, ts, tt, dbug) {
 
 	/*
 	 * $    = jQuery
@@ -304,9 +304,9 @@
 			}
 		}
 
-		dbug && debug.info('tribe-events-photo-view.js successfully loaded');
+		dbug && debug.info('TEC Debug: tribe-events-photo-view.js successfully loaded');
 		ts.view && dbug && debug.timeEnd('Tribe JS Init Timer');
 
 	});
 
-})(jQuery, tribe_ev.data, tribe_ev.events, tribe_ev.fn, tribe_ev.state, tribe_ev.tests, tribe_debug);
+})(window, document, jQuery, tribe_ev.data, tribe_ev.events, tribe_ev.fn, tribe_ev.state, tribe_ev.tests, tribe_debug);
