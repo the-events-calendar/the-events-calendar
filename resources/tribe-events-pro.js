@@ -4,7 +4,8 @@ if (Object.prototype.hasOwnProperty.call(window, 'tribe_ev')) {
 		geocoder: [],
 		geocodes: [],
 		bounds: [],
-		markers: []
+		markers: [],
+		refine: false
 	};
 }
 
@@ -68,6 +69,27 @@ if (Object.prototype.hasOwnProperty.call(window, 'tribe_ev')) {
 					callback();
 				}
 			}
+		},
+		print_geo_options: function () {
+			$("#tribe-geo-links").empty();
+			$("#tribe-geo-options").show();
+			var dupe_test = [];
+			tg.refine = true;
+			for (var i = 0; i < tg.geocodes.length; i++) {
+				var address = tg.geocodes[i].formatted_address;
+				if(!dupe_test[address]) {
+					dupe_test[address] = true;
+					$("<a/>").text(address).attr("href", "#").addClass('tribe-geo-option-link').attr('data-index', i).appendTo("#tribe-geo-links");
+					if (tt.map_view()) {
+						tf.map_add_marker(
+							tg.geocodes[i].geometry.location.lat(),
+							tg.geocodes[i].geometry.location.lng(),
+							address
+						);
+					}
+				}
+			}
+			tg.refine = false;
 		},
 		pro_tooltips: function () {
 
@@ -150,20 +172,6 @@ if (Object.prototype.hasOwnProperty.call(window, 'tribe_ev')) {
 
 			});
 		},
-		print_geo_options: function () {
-			$("#tribe-geo-links").empty();
-			$("#tribe-geo-options").show();
-			for (var i = 0; i < tg.geocodes.length; i++) {
-				$("<a/>").text(tg.geocodes[i].formatted_address).attr("href", "#").addClass('tribe-geo-option-link').attr('data-index', i).appendTo("#tribe-geo-links");
-				if (tt.map_view()) {
-					tf.map_add_marker(
-						tg.geocodes[i].geometry.location.lat(),
-						tg.geocodes[i].geometry.location.lng(),
-						tg.geocodes[i].formatted_address
-					);
-				}
-			}
-		},
 		process_geocoding: function (location, callback) {
 			var request = {
 				address: location
@@ -213,11 +221,10 @@ if (Object.prototype.hasOwnProperty.call(window, 'tribe_ev')) {
 			$(".tribe-bar-geoloc-filter").append('<div id="tribe-geo-options"><div id="tribe-geo-links"></div></div>');
 		}
 
-		var $tribe_container = $('#tribe-events');
-		var $geo_bar_input = $('#tribe-bar-geoloc');
-		var $geo_options = $("#tribe-geo-options");
-
-		var recurrence_on = false;
+		var $tribe_container = $('#tribe-events'),
+			$geo_bar_input = $('#tribe-bar-geoloc'),
+			$geo_options = $("#tribe-geo-options"),
+			recurrence_on = false;
 
 		tf.pro_tooltips();
 
@@ -226,8 +233,8 @@ if (Object.prototype.hasOwnProperty.call(window, 'tribe_ev')) {
 		}
 
 		function tribe_ical_url() {
-			var url = document.URL;
-			var separator = '?';
+			var url = document.URL,
+				separator = '?';
 
 			if (url.indexOf('?') > 0)
 				separator = '&';
