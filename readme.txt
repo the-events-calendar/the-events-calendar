@@ -9,7 +9,7 @@ Stable tag: 3.0-Beta
 
 == Description ==
 
-Create and manage events with ease. Get professional-level quality and features backed by a name you can trust. The Events Calendar will help you kick ass.
+Create and manage events with ease. Get professional-level quality and features backed by a team you can trust. The Events Calendar will help you kick ass.
 
 The Events Calendar is built and supported by WordPress artisans Modern Tribe. Looking for additional functionality including recurring events, ticket sales, publicly submitted events, new views, Facebook event integration and more? <a href="http://tri.be/products/?utm_source=readme&utm_medium=descriptiontab&utm_campaign=tec&utm_content=premiumlink">Check out the available add-ons.</a>
 
@@ -19,25 +19,25 @@ The Events Calendar is built and supported by WordPress artisans Modern Tribe. L
 
 The Events Calendar is crafted the WordPress way. 
 
-Audited by many of the industry's WordPress experts including core developer Mark Jaquith for security & plugin review team member Pippin Williamson for best practices and plugin compatibility.
+The Events Calendar has been audited by many of the industry's WordPress experts including core developer Mark Jaquith for security & plugin review team member Pippin Williamson for best practices and plugin compatibility.
 
-100s of hours of QA by a dedicated support team, monthly usability tests to guarantee that you can figure features out without help, and user interviews to make sure you get what you want. We care about quality and crafting products that thrive in the wild.
+We've poured 100s of hours into QA by a dedicated support team, monthly usability tests to guarantee that it's easy to use, and numerous user interviews to make sure you get what you want. We care about quality and crafting products that thrive in the wild.
 
 The team at Modern Tribe stands by our work and offers light support once a week for free to the community via the WordPress.org support forums. Feel free to ask a question if you're having a problem with implementation or if you find bugs. Looking for help NOW or need a deeper level of support? Upgrade to <a href="">a commercial plugin</a> and you get access to premium support forums with under 24hr response times on weekdays.
 
 = PLUG-N-PLAY & HIGHLY CUSTOMIZABLE =
 
-Built to work out of the box. Just turn it on, Configure the settings to match your needs and you'll be making events within less than 5 minutes.
+TEC is built to work out of the box. Just turn it on, configure the settings to match your needs and you'll be making events within less than 5 minutes.
 
-Built as a foundation for your wildest hack sessions. By devs for devs, so you can Code Awesome. A skeleton stylesheet to theme fast and efficiently. Loads of tools including partial template overrides, a host of template tags, hooks and filters, <a href="http://tri.be/support/documentation/??utm_source=readme&utm_medium=descriptiontab&utm_campaign=tec&utm_content=documentationlink">careful documentation</a>, as well as a <a href="">library of code snippets</a> on GitHub.
+By devs for devs Ð it's ready to be the foundation for your wildest hack sessions. Complete with a skeleton stylesheet to theme fast and efficiently, loads of tools including partial template overrides, a host of template tags, hooks and filters, <a href="http://tri.be/support/documentation/??utm_source=readme&utm_medium=descriptiontab&utm_campaign=tec&utm_content=documentationlink">careful documentation</a>, as well as a <a href="">library of code snippets</a> on GitHub. The Events Calendar is built FOR people who build websites. 
 
 Whether your vision is big or small, we have you in mind. 
 
-We've scaled The Events Calendar to work on a network with over 25 million unique visitors / month and hundreds of thousands of events. We have it running for Fortune 100 companies. Major universities, government institutions and some seriously bad ass startups push their events with our platform. Thousands of churches, eateries, small businesses, musicians and venues, non-profits and even Shane's mom uses it. You're in good company.
+We've scaled The Events Calendar to work on a network with over 25 million unique visitors / month and hundreds of thousands of events. We have it running for Fortune 100 companies. Major universities, government institutions and some seriously bad ass startups push their events with our platform. Thousands of churches, eateries, small businesses, musicians and venues, non-profits are publishing and promoting their events with The Events Calendar. You're in good company.
 
 = FEATURES =
 
-Whether you're operating a hyperlocal hub listing thousands of events, a university with many thousands of users, or a a sole business owner listing your classes, The Events Calendar has your back.
+Whether you're operating a hyperlocal hub listing thousands of events, a university with many thousands of users, or you're a sole business owner listing your classes, The Events Calendar has your back.
 
 Just getting started? Definitely watch or read the <a href="http://tri.be/new-user-primers/?utm_source=readme&utm_medium=descriptiontab&utm_campaign=tec&utm_content=primerlink">New User Primer</a>.
 
@@ -49,13 +49,13 @@ Just getting started? Definitely watch or read the <a href="http://tri.be/new-us
 * Google maps
 * Widget: Upcoming events
 * Events Taxonomies (Categories & Tags)
-* Completely ajaxified
+* Completely ajaxified for super smooth browsing
 * Tested on the major theme frameworks such as Genesis, Woo Themes, Thesis and many more.
 * Increase your SEO with Microformats
 * Internationalized & Translated
 * Multiple stylesheets (Skeleton, Default, Tribe Event Styles) to improve integration
 * Extensive Template Tags for Customization
-* Hook & Filters up the Whazoo
+* Hook & Filters up the Wazoo
 * Caching Support
 * Debug Mode for Developers
 
