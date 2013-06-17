@@ -62,7 +62,7 @@
 
 			history.replaceState({
 				"tribe_params": params
-			}, '', location.href);
+			}, ts.page_title, location.href);
 
 			$(window).on('popstate', function (event) {
 
@@ -221,23 +221,22 @@
 
 							$('#tribe-events-content').replaceWith(response.html);
 
-							var page_title = $("#tribe-events-header").data('title');
-
-							$(document).attr('title', page_title);
+							ts.page_title = $('#tribe-events-header').data('title');
+							document.title = ts.page_title;
 
 							if (ts.do_string) {
 								td.cur_url = td.cur_url + '?' + ts.url_params;
 								history.pushState({
 									"tribe_date": ts.date,
 									"tribe_params": ts.params
-								}, page_title, td.cur_url);
+								}, ts.page_title, td.cur_url);
 							}
 
 							if (ts.pushstate) {
 								history.pushState({
 									"tribe_date": ts.date,
 									"tribe_params": ts.params
-								}, page_title, td.cur_url);
+								}, ts.page_title, td.cur_url);
 							}
 
 							$(te).trigger('tribe_ev_ajaxSuccess').trigger('tribe_ev__monthView_ajaxSuccess');

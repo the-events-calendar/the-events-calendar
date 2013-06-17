@@ -391,7 +391,7 @@ try {
             string.replace(/([^&=]+)=?([^&]*)(?:&+|$)/g, function (match, key, value) {
                 (map[key] = map[key] || []).push(value);
             });
-			dbug && debug.info('TEC Debug: tribe_ev.fn.parse_string returned this map: "' + map);
+			dbug && debug.info('TEC Debug: tribe_ev.fn.parse_string returned this map:', map);
             return map;
         },
         /**
@@ -474,9 +474,9 @@ try {
                 }
             });
 
-			dbug && debug.info('TEC Debug: tribe_ev.fn.set_form fired these params: "' + params);
-
 			$body.removeClass('tribe-reset-on');
+
+			dbug && debug.info('TEC Debug: tribe_ev.fn.set_form fired these params: "' + params);
         },
 		/**
 		 * @function tribe_ev.fn.setup_ajax_timer
