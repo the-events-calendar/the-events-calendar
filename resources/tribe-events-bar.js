@@ -1,6 +1,6 @@
 var tribe_events_bar_action;
 
-(function ($, td, te, tf, ts, tt, dbug) {
+(function (window, document, $, td, te, tf, ts, tt, dbug) {
 
 	/*
 	 * $    = jQuery
@@ -14,13 +14,13 @@ var tribe_events_bar_action;
 
 	if(dbug){
 		if(!$().bootstrapDatepicker){
-			debug.warn('vendor bootstrapDatepicker was not loaded before its dependant file tribe-events-bar.js');
+			debug.warn('TEC Debug: vendor bootstrapDatepicker was not loaded before its dependant file tribe-events-bar.js');
 		}
 		if(!$().placeholder){
-			debug.warn('vendor placeholder was not loaded before its dependant file tribe-events-bar.js');
+			debug.warn('TEC Debug: vendor placeholder was not loaded before its dependant file tribe-events-bar.js');
 		}
 		if(!$().select2){
-			debug.warn('vendor select2 was not loaded before its dependant file tribe-events-bar.js');
+			debug.warn('TEC Debug: vendor select2 was not loaded before its dependant file tribe-events-bar.js');
 		}
 	}
 
@@ -57,7 +57,7 @@ var tribe_events_bar_action;
 			// includes temporary check for map view, as it currently has the grid view body class
 			if (!$('.events-gridview').length || tt.map_view()) {
 
-				dbug && debug.info('bootstrapDatepicker was just initialized in "tribe-events-bar.js" on:', $tribedate);
+				dbug && debug.info('TEC Debug: bootstrapDatepicker was just initialized in "tribe-events-bar.js" on:', $tribedate);
 
 				var tribe_var_datepickerOpts = {
 					format: 'yyyy-mm-dd',
@@ -254,8 +254,8 @@ var tribe_events_bar_action;
 		$tribeDropToggleEl.click(function (e) {
 			e.stopPropagation();
 		});
-		dbug && debug.info('tribe-events-bar.js successfully loaded');
+		dbug && debug.info('TEC Debug: tribe-events-bar.js successfully loaded');
 	});
 
-})(jQuery, tribe_ev.data, tribe_ev.events, tribe_ev.fn, tribe_ev.state, tribe_ev.tests, tribe_debug);
+})(window, document, jQuery, tribe_ev.data, tribe_ev.events, tribe_ev.fn, tribe_ev.state, tribe_ev.tests, tribe_debug);
 

@@ -326,7 +326,7 @@ try {
             if ($('#tribe-bar-date').length) {
                 dp_day = $('#tribe-bar-date-day').val();
             }
-			dbug && debug.info('tribe_ev.fn.get_day returned this date: "' + dp_day + '".');
+			dbug && debug.info('TEC Debug: tribe_ev.fn.get_day returned this date: "' + dp_day + '".');
             return dp_day;
         },
         /**
@@ -391,7 +391,7 @@ try {
             string.replace(/([^&=]+)=?([^&]*)(?:&+|$)/g, function (match, key, value) {
                 (map[key] = map[key] || []).push(value);
             });
-			dbug && debug.info('tribe_ev.fn.parse_string returned this map: "' + map);
+			dbug && debug.info('TEC Debug: tribe_ev.fn.parse_string returned this map: "' + map);
             return map;
         },
         /**
@@ -419,7 +419,7 @@ try {
             tribe_ev.fn.disable_empty(form, type);
             var params = $(form).serialize();
             tribe_ev.fn.disable_inputs(form, type);
-			dbug && debug.info('tribe_ev.fn.serialize returned these params: "' + params);
+			dbug && params && debug.info('TEC Debug: tribe_ev.fn.serialize returned these params: "' + params);
             return params;
         },
 		/**
@@ -474,7 +474,7 @@ try {
                 }
             });
 
-			dbug && debug.info('tribe_ev.fn.set_form fired these params: "' + params);
+			dbug && debug.info('TEC Debug: tribe_ev.fn.set_form fired these params: "' + params);
 
 			$body.removeClass('tribe-reset-on');
         },
@@ -495,7 +495,7 @@ try {
 				tribe_ev.state.ajax_timer = setTimeout(function () {
                     callback();
                 }, timer);
-				dbug && debug.info('tribe_ev.fn.setup_ajax_timer fired with a timeout of "' + timer + '" ms');
+				dbug && debug.info('TEC Debug: tribe_ev.fn.setup_ajax_timer fired with a timeout of "' + timer + '" ms');
             }
         },
 		/**
@@ -512,7 +512,6 @@ try {
             $(trigger_parent).on('click', trigger, function (e) {
 				e.preventDefault();
                 $('html, body').animate({scrollTop: $(container).offset().top - 120}, {duration: 0});
-				dbug && debug.info('tribe_ev.fn.snap bubbled from "' + trigger + '" to "' + trigger_parent + '" and moved the document to "' + container + '"');
             });
         },
 		/**
@@ -567,12 +566,12 @@ try {
 			var $bar_date = $("#tribe-bar-date");
             if ($().bootstrapDatepicker && $bar_date.length) {
 				$bar_date.bootstrapDatepicker("setValue", date);
-				dbug && debug.info('tribe_ev.fn.update_picker sent "' + date + '" to the boostrapDatepicker');
+				dbug && debug.info('TEC Debug: tribe_ev.fn.update_picker sent "' + date + '" to the boostrapDatepicker');
             } else if ($bar_date.length) {
 				$bar_date.val(date);
-				dbug && debug.warn('tribe_ev.fn.update_picker sent "' + date + '" to ' + $bar_date);
+				dbug && debug.warn('TEC Debug: tribe_ev.fn.update_picker sent "' + date + '" to ' + $bar_date);
             } else {
-				dbug && debug.warn('tribe_ev.fn.update_picker couldnt send "' + date + '" to any object.');
+				dbug && debug.warn('TEC Debug: tribe_ev.fn.update_picker couldnt send "' + date + '" to any object.');
 			}
         },
 		/**

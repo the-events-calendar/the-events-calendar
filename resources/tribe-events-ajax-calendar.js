@@ -254,7 +254,7 @@
 					window.location = td.cur_url;
 			}
 		}
-		dbug && debug.info('tribe-events-ajax-calendar.js successfully loaded, Tribe Events Init finished');
+		dbug && debug.info('TEC Debug: tribe-events-ajax-calendar.js successfully loaded, Tribe Events Init finished');
 		dbug && debug.timeEnd('Tribe JS Init Timer');
 	});
 
