@@ -5,7 +5,7 @@ Tags: events, calendar, event, venue, organizer, dates, date, google maps, confe
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=QA7QZM4CNQ342
 Requires at least: 3.3
 Tested up to: 3.6
-Stable tag: 3.0-Beta
+Stable tag: 3.0
 
 == Description ==
 
