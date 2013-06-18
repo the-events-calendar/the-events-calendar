@@ -33,13 +33,13 @@ By devs for devs Ð it's ready to be the foundation for your wildest hack session
 
 Whether your vision is big or small, we have you in mind. 
 
-We've scaled The Events Calendar to work on a network with over 25 million unique visitors / month and hundreds of thousands of events. We have it running for Fortune 100 companies. Major universities, government institutions and some seriously bad ass startups push their events with our platform. Thousands of churches, eateries, small businesses, musicians and venues, non-profits are publishing and promoting their events with The Events Calendar. You're in good company.
+We've scaled The Events Calendar to work on a network with over 25 million unique visitors per month and hundreds of thousands of events. We have it running for Fortune 100 companies. Major universities, government institutions and some seriously bad ass startups push their events with our platform. Thousands of churches, eateries, small businesses, musicians, venues, and non-profits are publishing and promoting their events with The Events Calendar. You're in good company.
 
 = FEATURES =
 
 Whether you're operating a hyperlocal hub listing thousands of events, a university with many thousands of users, or you're a sole business owner listing your classes, The Events Calendar has your back.
 
-Just getting started? Definitely watch or read the <a href="http://tri.be/new-user-primers/?utm_source=readme&utm_medium=descriptiontab&utm_campaign=tec&utm_content=primerlink">New User Primer</a>.
+Just getting started? Definitely watch and read through the <a href="http://tri.be/new-user-primers/?utm_source=readme&utm_medium=descriptiontab&utm_campaign=tec&utm_content=primerlink">New User Primer</a>.
 
 * Rapidly create events 
 * Saved venues & organizers 
@@ -55,7 +55,7 @@ Just getting started? Definitely watch or read the <a href="http://tri.be/new-us
 * Internationalized & Translated
 * Multiple stylesheets (Skeleton, Default, Tribe Event Styles) to improve integration
 * Extensive Template Tags for Customization
-* Hook & Filters up the Wazoo
+* Hook & Filters up the wazoo
 * Caching Support
 * Debug Mode for Developers
 
@@ -87,7 +87,7 @@ Send it to us and we would be <a href="mailto:pro@tri.be">happy to review it</a>
 
 == FAQ ==
 
-= Are there any troubleshooting steps you'd suggest I try, that might resolve my issue before I post a new thread? =
+= Are there any troubleshooting steps you'd suggest I try that might resolve my issue before I post a new thread? =
 
 First, make sure that you're running the latest version of The Events Calendar (3.0.0 as of this release). If you're running Events Calendar PRO it needs to match the version number of The Events Calendar. And if you've got any other add-ons, make sure those are current / running the latest code as well.
 
@@ -97,7 +97,7 @@ Note that we aren't going to say "tough luck" if you identify a plugin/theme con
 
 = I'm still stuck. Where do I go to file a bug or ask a question? =
 
-Users of the free The Events Calendar should post their questions at the  plugin's <a href="http://wordpress.org/support/plugin/the-events-calendar/?ref=tec-readme">WordPress.org forum</a>, which we hit about once a week. Please make sure to read <a href="http://wordpress.org/support/topic/welcome-the-events-calendar-users-read-this-first?ref=tec-readme">our sticky post</a> providing an overview of the support we provide free users BEFORE posting. If you find you're not getting support in as timely a fashion as you wish, you might want to consider purchasing a PRO license.
+Users of the free The Events Calendar should post their questions in the plugin's <a href="http://wordpress.org/support/plugin/the-events-calendar/?ref=tec-readme">WordPress.org forum</a>, which we hit about once a week. Please make sure to read <a href="http://wordpress.org/support/topic/welcome-the-events-calendar-users-read-this-first?ref=tec-readme">our sticky post</a> providing an overview of the support we provide free users BEFORE posting. If you find you're not getting support in as timely a fashion as you wish, you might want to consider purchasing a PRO license.
 
 If you're already a PRO user, you're entitled access to our more actively-monitored <a href="tri.be/support/forums/?ref=tec-readme">PRO forums</a> at the tri.be website. We can provide a deeper level of support here and hit these forums on a daily basis during the work week. No post should go more than 24-hours during that time without a response. 
 
@@ -119,18 +119,19 @@ Currently, the following add-ons are available for The Events Calendar/Events Ca
 * <a href="http://tri.be/wordpress-community-events/?ref=tec-readme">Community Events</a>, for allowing frontend event submission from your readers.
 * <a href="http://tri.be/facebook-events/?ref=tec-readme">Facebook Events</a>, for importing events directly from an organization or page on Facebook.
 * <a href="http://tri.be/shop/wordpress-wootickets/?ref=tec-readme">Tickets: WooCommerce, for harnessing the power of WooCommerce to sell event tickets directly on your site without being subject to fees or relying on a third-party service.
-* Filter Bar (COMING SOON)</a>, for adding advanced frontend filtering capabilities to your events calendar. 
+* Filter Bar (COMING SOON) for adding advanced frontend filtering capabilities to your events calendar. 
 
 = I've still got questions. Do you have a bigger FAQ somewhere? =
 
 We do. If you check out our a href="http://tri.be/support/faqs/?ref=tec-readme">Frequently Asked Questions page</a> on the tri.be site, we've collected and addressed all of the common questions we see posed by users. In some cases we'll provide a Gist; in other cases we'll direct you to a tutorial; and in some situations we'll unfortunately say a certain capability is simply not possible. But the FAQ is a living, breathing document that we're actively updating based on commonly-seen requests.
+
 == Installation ==
 
 = Install & Activate =
 
 Installing the plugin is easy. Just follow these steps:
 
-1. From the dashboard of your site, navigate to Plugins -> Add New. 
+1. From the dashboard of your site, navigate to Plugins --> Add New. 
 2. Select the Upload option and hit "Choose File." 
 3. When the popup appears select the the-events-calendar-x.x.zip file from your desktop. (The 'x.x' will change depending on the current version number).
 4. Follow the on-screen instructions and wait as the upload completes.
@@ -155,12 +156,11 @@ Some docs you may find particularly useful are:
 * <a href="http://tri.be/support/documentation/events-calendar-themers-guide/">The Themer's Guide to The Events Calendar</a>
 * <a href="http://tri.be/support/faqs/">The Events Calendar FAQ</a>
 
-
 Tutorials are available at <a href="http://tri.be/the-events-calendar-for-wordpress-tutorials/?ref=tec-readme" target="_blank">http://tri.be/the-events-calendar-for-wordpress-tutorials.</a>
 
-For template tags, open the plugin directory and visiting /plugins/events/public/template-tags/ where you can find a list of those available.
+For template tags, open the plugin directory and visit /plugins/events/public/template-tags/ where you can find a list of those available.
 
-If you have any questions about this plugin, please take look at the forum here on WordPress.org at <a href="http://wordpress.org/tags/the-events-calendar">http://wordpress.org/tags/the-events-calendar</a>. Please search existing threads before opening a new one.
+If you have any questions about this plugin, take look at the forum here on WordPress.org at <a href="http://wordpress.org/tags/the-events-calendar">http://wordpress.org/tags/the-events-calendar</a>. Please search existing threads before opening a new one.
 
 The <a href="http://tri.be/support/forums/?ref=tec-readme">Modern Tribe PRO support forums</a> are available for you to read. You won't, however, be able to post a message in any forums beyond Pre-Sale Questions unless you have purchase a PRO license.
 
@@ -237,7 +237,7 @@ Our Premium Plugins:
 * <a href="http://tri.be/shop/wordpress-community-events/?ref=tec-readme" target="_blank">The Events Calendar: Community Events</a>
 * <a href="http://tri.be/facebook-events/?ref=tec-readme" target="_blank">The Events Calendar: Facebook Events</a>
 * <a href="http://tri.be/shop/wootickets/?ref=tec-readme" target="_blank">The Events Calendar: WooCommerce Tickets</a>
-* The Events Calendar: Filter Bar (coming summer 2013)</a>
+* The Events Calendar: Filter Bar (coming summer 2013)
 
 == Changelog ==
 
