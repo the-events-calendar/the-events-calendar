@@ -63,7 +63,6 @@ if( !class_exists('Tribe_Events_Pro_Photo_Template')){
 
 			parent::set_notices();
 
-			// if no events for photo view (similar to day view)
 			if ( empty($search_term) && empty( $wp_query->query_vars['s'] ) && !have_posts() ) { // Messages if currently no events, and no search term
 				$tribe_ecp = TribeEvents::instance();
 				$is_cat_message = '';
@@ -71,8 +70,7 @@ if( !class_exists('Tribe_Events_Pro_Photo_Template')){
 					$cat = get_term_by( 'slug', get_query_var( 'term' ), $tribe_ecp->get_event_taxonomy() );
 					$is_cat_message = sprintf( __( 'listed under %s. Check out events for this category or view the full calendar.', 'tribe-events-calendar-pro' ), $cat->name );
 				}
-
-				TribeEvents::setNotice( 'events-not-found', sprintf( __( 'No events scheduled for <strong>%s</strong>. Please try another day.', 'tribe-events-calendar-pro' ), date_i18n( 'F d, Y', strtotime( get_query_var( 'eventDate' ) ) ) ) );
+				TribeEvents::setNotice( 'events-not-found', __('No matching events ', 'tribe-events-calendar-pro') . $is_cat_message );
 			}
 
 		}
