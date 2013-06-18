@@ -60,7 +60,6 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			$this->daySlug = sanitize_title(__('day', 'tribe-events-calendar-pro'));
 			$this->todaySlug = sanitize_title(__('today', 'tribe-events-calendar-pro'));
 
-
 			require_once( 'lib/tribe-pro-template-factory.class.php' );
 			require_once( 'lib/tribe-date-series-rules.class.php' );
 			require_once( 'lib/tribe-ecp-custom-meta.class.php' );
@@ -158,9 +157,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			add_filter( 'tribe_events_ugly_link', array( $this, 'ugly_link' ), 10, 3);
 			add_filter( 'tribe-events-bar-date-search-default-value', array( $this, 'maybe_setup_date_in_bar' ) );
 			add_filter( 'tribe_bar_datepicker_caption', array( $this, 'setup_datepicker_label' ), 10, 1 );
-			add_filter( 'tribe_events_list_after_the_title', array( $this, 'add_recurring_occurance_setting_to_list' ) );
-			add_filter( 'tribe_events_map_after_the_title', array( $this, 'add_recurring_occurance_setting_to_list' ) );
-			add_filter( 'tribe_events_photo_after_the_title', array( $this, 'add_recurring_occurance_setting_to_list' ) );
+			add_action( 'tribe_events_after_the_title', array( $this, 'add_recurring_occurance_setting_to_list' ) );
 			add_filter( 'tribe_get_day_link', array( $this, 'add_empty_date_dayview_link' ), 10, 2 );
 
 			/* AJAX for loading day view */
@@ -183,6 +180,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 
 			add_filter( 'tribe_events_register_venue_type_args', array( $this, 'addSupportsThumbnail' ), 10, 1 );
 			add_filter( 'tribe_events_register_organizer_type_args', array( $this, 'addSupportsThumbnail' ), 10, 1 );
+
 		}
 
 		function single_event_the_meta_addon( $html, $event_id){
@@ -235,7 +233,9 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		}
 
 		function reset_page_title( $content ){
+
 			global $wp_query;
+			$tec = TribeEvents::instance();
 
 			// week view title
 			if( tribe_is_week() ) {
@@ -248,9 +248,15 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 				$reset_title = __( 'Events for', 'tribe-events-calendar-pro' ) . ' ' .Date("l, F jS Y", strtotime($wp_query->get('start_date')));
 			}
 			// map view title
-			if( get_query_var( 'eventDisplay' ) == 'map' ) {
+			if( tribe_is_map() ) {
 				$reset_title = __( 'Upcoming Events', 'tribe-events-calendar-pro' );
 			}
+
+			// photo view title
+			if ( tribe_is_photo() ) {
+				$reset_title = __( 'Upcoming Events', 'tribe-events-calendar-pro' );
+			}
+
 			return isset($reset_title) ? apply_filters( 'tribe_template_factory_debug', $reset_title, 'tribe_get_events_title' ) : $content;
 		}
 
@@ -271,12 +277,11 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 
 			$tec = TribeEvents::instance();
 
-			add_action( 'pre_get_posts', array( $tec, 'list_ajax_call_set_date' ), -10 );
+			add_action( 'pre_get_posts', array( $tec, 'list_ajax_call_set_date' ), 11 );
 
 			if ( class_exists( 'TribeEventsFilterView' ) ) {
 				TribeEventsFilterView::instance()->createFilters( null, true );
 			}
-
 
 			TribeEventsQuery::init();
 
@@ -1229,8 +1234,8 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		}
 
 		public function add_recurring_occurance_setting_to_list () {
-			if ( isset( $_REQUEST['userToggleSubsequentRecurrences'] ) ? $_REQUEST['userToggleSubsequentRecurrences'] : tribe_get_option( 'userToggleSubsequentRecurrences', true ) && !tribe_is_day() )
-				$html = tribe_recurring_instances_toggle();
+			if ( tribe_get_option( 'userToggleSubsequentRecurrences', true ) && ( tribe_is_upcoming() || tribe_is_past() || tribe_is_map() || tribe_is_photo() ) || apply_filters( 'tribe_events_display_user_toggle_subsequent_recurrences', false ) ) 
+				echo tribe_recurring_instances_toggle();
 		}
 
 		function maybe_setup_date_in_bar( $value ) {
@@ -1287,6 +1292,17 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		$to_run_or_not_to_run = ( class_exists( 'TribeEvents' ) && defined( 'TribeEvents::VERSION' ) && version_compare( TribeEvents::VERSION, TribeEventsPro::REQUIRED_TEC_VERSION, '>=' ) );
 		if ( apply_filters( 'tribe_ecp_to_run_or_not_to_run', $to_run_or_not_to_run ) ) {
 			TribeEventsPro::instance();
+		} else {
+			/**
+			 * Dummy function to avoid fatal error in edge upgrade case
+			 *
+			 * @todo remove in 3.1
+			 * @return void
+			 * @author Jessica Yazbek
+			 **/
+			function tribe_is_recurring_event() {
+
+			}
 		}
 		if ( !class_exists( 'TribeEvents' ) ) {
 			add_action( 'admin_notices', 'tribe_show_fail_message' );

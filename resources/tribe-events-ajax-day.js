@@ -1,4 +1,4 @@
-(function ($, td, te, tf, ts, tt, dbug) {
+(function (window, document, $, td, te, tf, ts, tt, dbug) {
 
 	/*
 	 * $    = jQuery
@@ -200,23 +200,22 @@
 							}
 							$('.tribe-events-promo').next('.tribe-events-promo').remove();
 
-							var page_title = $("#tribe-events-header").attr('data-title');
-
-							$(document).attr('title', page_title);
+							ts.page_title = $('#tribe-events-header').data('title');
+							document.title = ts.page_title;
 
 							if (ts.do_string) {
 								td.cur_url = td.cur_url + '?' + ts.url_params;
 								history.pushState({
 									"tribe_date": ts.date,
 									"tribe_params": ts.params
-								}, page_title, td.cur_url);
+								}, ts.page_title, td.cur_url);
 							}
 
 							if (ts.pushstate) {
 								history.pushState({
 									"tribe_date": ts.date,
 									"tribe_params": ts.params
-								}, page_title, td.cur_url);
+								}, ts.page_title, td.cur_url);
 							}
 
 							tribe_day_add_classes();
@@ -236,8 +235,8 @@
 					window.location = td.cur_url;
 			}
 		}
-		dbug && debug.info('tribe-events-ajax-day.js successfully loaded');
+		dbug && debug.info('TEC Debug: tribe-events-ajax-day.js successfully loaded');
 		ts.view && dbug && debug.timeEnd('Tribe JS Init Timer');
 	});
 
-})(jQuery, tribe_ev.data, tribe_ev.events, tribe_ev.fn, tribe_ev.state, tribe_ev.tests, tribe_debug);
+})(window, document, jQuery, tribe_ev.data, tribe_ev.events, tribe_ev.fn, tribe_ev.state, tribe_ev.tests, tribe_debug);

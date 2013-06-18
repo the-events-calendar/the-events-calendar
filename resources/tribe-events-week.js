@@ -1,10 +1,20 @@
-(function ($, td, te, tf, ts, tt, dbug) {
+(function (window, document, $, td, te, tf, ts, tt, dbug) {
+
+	/*
+	 * $    = jQuery
+	 * td   = tribe_ev.data
+	 * te   = tribe_ev.events
+	 * tf   = tribe_ev.fn
+	 * ts   = tribe_ev.state
+	 * tt   = tribe_ev.tests
+	 * dbug = tribe_debug
+	 */
 
 	$(document).ready(function () {
 
-		var $tribe_container = $('#tribe-events');
-		var $tribe_bar = $('#tribe-events-bar');
-		var $tribe_header = $('#tribe-events-header');
+		var $tribe_container = $('#tribe-events'),
+			$tribe_bar = $('#tribe-events-bar'),
+			$tribe_header = $('#tribe-events-header');
 
 		$tribe_bar.addClass('tribe-has-datepicker');
 
@@ -348,10 +358,6 @@
 
 							$('#tribe-events-content.tribe-events-week-grid').replaceWith(response.html);
 
-							var page_title = $("#tribe-events-header").attr('data-title');
-
-							$(document).attr('title', page_title);
-
 							tribe_week_view_init(tribe_go_to_8(), false);
 
 							$('.tribe-events-grid').resize(function () {
@@ -360,18 +366,21 @@
 
 							$("div[id*='tribe-events-event-']").hide().fadeIn('fast');
 
+							ts.page_title = $('#tribe-events-header').data('title');
+							document.title = ts.page_title;
+
 							if (ts.do_string) {
 								history.pushState({
 									"tribe_url_params": ts.url_params,
 									"tribe_params": ts.params
-								}, page_title, td.cur_url + '?' + ts.url_params);
+								}, ts.page_title, td.cur_url + '?' + ts.url_params);
 							}
 
 							if (ts.pushstate) {
 								history.pushState({
 									"tribe_url_params": ts.url_params,
 									"tribe_params": ts.params
-								}, page_title, td.cur_url);
+								}, ts.page_title, td.cur_url);
 							}
 
 							$(te)
@@ -391,8 +400,8 @@
 					window.location = td.cur_url;
 			}
 		}
-		dbug && debug.info('tribe-events-week.js successfully loaded');
+		dbug && debug.info('TEC Debug: tribe-events-week.js successfully loaded');
 		ts.view && dbug && debug.timeEnd('Tribe JS Init Timer');
 	});
 
-})(jQuery, tribe_ev.data, tribe_ev.events, tribe_ev.fn, tribe_ev.state, tribe_ev.tests, tribe_debug);
+})(window, document, jQuery, tribe_ev.data, tribe_ev.events, tribe_ev.fn, tribe_ev.state, tribe_ev.tests, tribe_debug);

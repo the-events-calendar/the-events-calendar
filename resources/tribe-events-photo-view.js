@@ -1,4 +1,4 @@
-(function ($, td, te, tf, ts, tt, dbug) {
+(function (window, document, $, td, te, tf, ts, tt, dbug) {
 
 	/*
 	 * $    = jQuery
@@ -150,6 +150,7 @@
 				if (ts.ajax_running)
 					return;
 				ts.paged = 1;
+				ts.view = 'photo';
 				ts.popping = false;
 				tf.pre_ajax(function () {
 					tribe_events_list_ajax_post();
@@ -271,18 +272,21 @@
 								}
 							}
 
+							ts.page_title = $('#tribe-events-header').data('title');
+							document.title = ts.page_title;
+
 							if (ts.do_string) {
 								history.pushState({
 									"tribe_params": ts.params,
 									"tribe_url_params": ts.url_params
-								}, '', td.cur_url + '?' + ts.url_params);
+								}, ts.page_title, td.cur_url + '?' + ts.url_params);
 							}
 
 							if (ts.pushstate) {
 								history.pushState({
 									"tribe_params": ts.params,
 									"tribe_url_params": ts.url_params
-								}, '', td.cur_url);
+								}, ts.page_title, td.cur_url);
 							}
 
 							tribe_setup_isotope($('#tribe-events-photo-events'));
@@ -303,9 +307,9 @@
 			}
 		}
 
-		dbug && debug.info('tribe-events-photo-view.js successfully loaded');
+		dbug && debug.info('TEC Debug: tribe-events-photo-view.js successfully loaded');
 		ts.view && dbug && debug.timeEnd('Tribe JS Init Timer');
 
 	});
 
-})(jQuery, tribe_ev.data, tribe_ev.events, tribe_ev.fn, tribe_ev.state, tribe_ev.tests, tribe_debug);
+})(window, document, jQuery, tribe_ev.data, tribe_ev.events, tribe_ev.fn, tribe_ev.state, tribe_ev.tests, tribe_debug);

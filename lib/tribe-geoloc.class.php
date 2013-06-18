@@ -190,9 +190,9 @@ class TribeEventsGeoLoc {
 					$lng = $_REQUEST['tribe-bar-geoloc-lng'];
 				}
 
-				$filters[] = array( 'name'    => 'tribe-bar-geoloc',
-									'caption' => __( 'Near', 'tribe-events-calendar-pro' ),
-									'html'    => '<input type="hidden" name="tribe-bar-geoloc-lat" id="tribe-bar-geoloc-lat" value="' . esc_attr( $lat ) . '" /><input type="hidden" name="tribe-bar-geoloc-lng" id="tribe-bar-geoloc-lng" value="' . esc_attr( $lng ) . '" /><input type="text" name="tribe-bar-geoloc" id="tribe-bar-geoloc" value="' . esc_attr( $value ) . '" placeholder="Location">' );
+				$filters['tribe-bar-geoloc'] = array( 'name'    => 'tribe-bar-geoloc',
+				                                      'caption' => __( 'Near', 'tribe-events-calendar-pro' ),
+				                                      'html'    => '<input type="hidden" name="tribe-bar-geoloc-lat" id="tribe-bar-geoloc-lat" value="' . esc_attr( $lat ) . '" /><input type="hidden" name="tribe-bar-geoloc-lng" id="tribe-bar-geoloc-lng" value="' . esc_attr( $lng ) . '" /><input type="text" name="tribe-bar-geoloc" id="tribe-bar-geoloc" value="' . esc_attr( $value ) . '" placeholder="Location">' );
 			}
 		}
 		return $filters;
@@ -410,7 +410,11 @@ class TribeEventsGeoLoc {
 		$query->set( 'start_date', '' );
 		$query->set( 'eventDate', '' );
 		$query->set( 'order', 'DESC' );
-		$query->set( 'end_date', date_i18n( TribeDateUtils::DBDATETIMEFORMAT ) );
+		if (isset($_POST["tribe-bar-date"]) && $_POST["tribe-bar-date"]) {
+			$query->set( 'end_date', $_POST["tribe-bar-date"] );
+		} else {
+			$query->set( 'end_date', date_i18n( TribeDateUtils::DBDATETIMEFORMAT ) );
+		}
 		return $query;
 	}
 
@@ -480,7 +484,7 @@ class TribeEventsGeoLoc {
 
 			ob_start();
 
-			tribe_get_view();
+			tribe_get_view( 'map/content' );
 			$response['html'] .= ob_get_clean();
 		}
 

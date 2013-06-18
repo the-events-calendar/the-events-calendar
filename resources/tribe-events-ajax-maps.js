@@ -1,4 +1,4 @@
-(function ($, td, te, tf, tg, ts, tt, dbug) {
+(function (window, document, $, td, te, tf, tg, ts, tt, dbug) {
 
 	$.extend(tribe_ev.fn, {
 		map_add_marker: function (lat, lng, title, address, link) {
@@ -30,8 +30,12 @@
 			});
 
 			tg.markers.push(marker);
-			tg.bounds.extend(myLatlng);
 
+			if(tg.refine){
+				console.log('refining');
+				marker.setVisible(false);
+			}
+			tg.bounds.extend(myLatlng);
 		}
 	});
 
@@ -57,6 +61,10 @@
 		}
 
 		tribe_test_location();
+
+		var $tribe_container = $('#tribe-events'),
+			$geo_bar_input = $('#tribe-bar-geoloc'),
+			$geo_options = $("#tribe-geo-options")
 
 		var options = {
 			zoom: 5,
@@ -145,21 +153,23 @@
 
 		if (tt.map_view()) {
 
-			$("#tribe-geo-options").on('click', 'a', function (e) {
-
-				spin_start();
+			$tribe_container.on('click', '.tribe-geo-option-link',function (e) {
 				e.preventDefault();
-				$("#tribe-geo-options a").removeClass('tribe-option-loaded');
-				$(this).addClass('tribe-option-loaded');
+				e.stopPropagation();
+				var $this = $(this);
 
-				$('#tribe-bar-geoloc').val($(this).text());
-				$('#tribe-bar-geoloc-lat').val(tg.geocodes[$(this).attr('data-index')].geometry.location.lat());
-				$('#tribe-bar-geoloc-lng').val(tg.geocodes[$(this).attr('data-index')].geometry.location.lng());
+				$('.tribe-geo-option-link').removeClass('tribe-option-loaded');
+				$this.addClass('tribe-option-loaded');
+
+				$geo_bar_input.val($this.text());
+
+				$('#tribe-bar-geoloc-lat').val(tg.geocodes[$this.attr('data-index')].geometry.location.lat());
+				$('#tribe-bar-geoloc-lng').val(tg.geocodes[$this.attr('data-index')].geometry.location.lng());
 
 				if (tt.pushstate) {
 					tf.pre_ajax(function () {
-						tribe_map_processOption(null);
-						$("#tribe-geo-options").hide();
+						tribe_map_processOption();
+						$geo_options.hide();
 					});
 				} else {
 					tf.pre_ajax(function () {
@@ -167,6 +177,10 @@
 					});
 				}
 
+			});
+
+			$('body').on('click', function (e) {
+				$geo_options.hide();
 			});
 
 			tf.snap('#tribe-events-content-wrapper', '#tribe-events-content-wrapper', '#tribe-events-footer .tribe-events-nav-previous a, #tribe-events-footer .tribe-events-nav-next a');
@@ -195,7 +209,7 @@
 		});
 
 
-		function tribe_map_processOption(geocode) {
+		function tribe_map_processOption() {
 			$('#tribe-events-header').tribe_spin();
 			deleteMarkers();
 
@@ -253,18 +267,21 @@
 
 					if (tt.pushstate) {
 
+						ts.page_title = $('#tribe-events-header').data('title');
+						document.title = ts.page_title;
+
 						if (ts.do_string) {
 							history.pushState({
 								"tribe_paged": ts.paged,
 								"tribe_params": ts.params
-							}, '', td.cur_url + '?' + ts.params);
+							}, ts.page_title, td.cur_url + '?' + ts.params);
 						}
 
 						if (ts.pushstate) {
 							history.pushState({
 								"tribe_paged": ts.paged,
 								"tribe_params": ts.params
-							}, '', td.cur_url);
+							}, ts.page_title, td.cur_url);
 						}
 
 					}
@@ -471,8 +488,8 @@
 			ts.view && dbug && debug.timeEnd('Tribe JS Init Timer');
 		}
 
-		dbug && debug.info('tribe-events-ajax-maps.js successfully loaded');
+		dbug && debug.info('TEC Debug: tribe-events-ajax-maps.js successfully loaded');
 
 	});
 
-})(jQuery, tribe_ev.data, tribe_ev.events, tribe_ev.fn, tribe_ev.geoloc, tribe_ev.state, tribe_ev.tests, tribe_debug);
+})(window, document, jQuery, tribe_ev.data, tribe_ev.events, tribe_ev.fn, tribe_ev.geoloc, tribe_ev.state, tribe_ev.tests, tribe_debug);
