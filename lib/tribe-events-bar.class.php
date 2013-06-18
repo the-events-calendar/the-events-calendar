@@ -87,7 +87,7 @@ class TribeEventsBar {
 
 		//Load the template
 		ob_start();
-		include $tec->pluginPath . "views/modules/bar.php";
+		include TribeEventsTemplates::getTemplateHierarchy( 'bar.php', array('subfolder'=>'modules') );
 		$html = ob_get_clean() . $content;
 
 		echo apply_filters( 'tribe_events_bar_show', $html, $filters, $views, $content );

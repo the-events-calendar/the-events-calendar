@@ -158,7 +158,7 @@ $generalTab = array(
 		),
 		'embedGoogleMapsZoom' => array(
 			'type' => 'text',
-			'label' => __( 'Google Maps Default Zoom Level', 'tribe-events-calendar' ),
+			'label' => __( 'Google Maps default zoom level', 'tribe-events-calendar' ),
 			'tooltip' => __( '0 = zoomed out; 21 = zoomed in.', 'tribe-events-calendar' ),
 			'size' => 'small',
 			'default' => 10,
