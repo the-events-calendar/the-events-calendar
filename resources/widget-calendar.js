@@ -67,7 +67,7 @@ jQuery( document ).ready( function ( $ ) {
 		var date = obj.attr( 'data-day' );
 		var day = obj.text();
 		var $current_calendar = obj.closest('.tribe-mini-calendar');
-		var $current_calendar_wrapper = $current_calendar.find('.tribe-mini-calendar-list-wrapper');
+		var $current_calendar_wrapper = $current_calendar.parent().siblings('.tribe-mini-calendar-list-wrapper');
 
 		$( 'h2.tribe-mini-calendar-title' ).text( $( '#tribe-mini-calendar-month-name' ).val() + ' ' + day + ' Events' );	
 		change_active_day(obj);
