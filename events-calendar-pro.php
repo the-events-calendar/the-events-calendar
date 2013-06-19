@@ -208,14 +208,23 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 
 		function maybeAddEventTitle( $new_title, $title, $sep = null ){
 			global $wp_query;
-			if( get_query_var('eventDisplay') == 'week' ){
-				// because we can't trust tribe_get_events_title will be set when run via AJAX
-				$new_title = sprintf( '%s %s %s %s',
-					__( 'Events for week of', 'tribe-events-calendar-pro' ),
-					date( "l, F jS Y", strtotime( tribe_get_first_week_day( $wp_query->get( 'start_date' ) ) ) ),
-					$sep,
-					$title
-				);
+			switch( get_query_var('eventDisplay') ){
+				case 'week':
+					$new_title = sprintf( '%s %s %s ',
+						__( 'Events for week of', 'tribe-events-calendar-pro' ),
+						date( "l, F jS Y", strtotime( tribe_get_first_week_day( $wp_query->get( 'start_date' ) ) ) ),
+						$sep
+					);
+					break;
+				case 'photo':
+				case 'map':
+				default:
+					if( tribe_is_past() ) {
+						$new_title = __( 'Past Events', 'tribe-events-calendar-pro' ) . ' ' . $sep . ' ';
+					} else {
+						$new_title = __( 'Upcoming Events', 'tribe-events-calendar-pro' ) . ' ' . $sep . ' ';
+					}
+					break;
 			}
 			return apply_filters( 'tribe_events_pro_add_title', $new_title, $title, $sep );
 		}
@@ -247,20 +256,22 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			if( tribe_is_day() ) {
 				$reset_title = __( 'Events for', 'tribe-events-calendar-pro' ) . ' ' .Date("l, F jS Y", strtotime($wp_query->get('start_date')));
 			}
-			// map view title
-			if( tribe_is_map() ) {
-				$reset_title = __( 'Upcoming Events', 'tribe-events-calendar-pro' );
-			}
-
-			// photo view title
-			if ( tribe_is_photo() ) {
-				$reset_title = __( 'Upcoming Events', 'tribe-events-calendar-pro' );
+			// map or photo view titles
+			if( tribe_is_map() || tribe_is_photo() ) {
+				if( tribe_is_past() ) {
+					$reset_title = __( 'Past Events', 'tribe-events-calendar-pro' );
+				} else {
+					$reset_title = __( 'Upcoming Events', 'tribe-events-calendar-pro' );
+				}
 			}
 
 			return isset($reset_title) ? apply_filters( 'tribe_template_factory_debug', $reset_title, 'tribe_get_events_title' ) : $content;
 		}
 
 		public function set_past_events_query( $query ) {
+			// ensure that tribe_is_past is confirmed set
+			$query->tribe_is_past = true;
+			$query->set( 'tribe_is_past', true );
 			$query->set( 'start_date', '' );
 			$query->set( 'eventDate', '' );
 			$query->set( 'order', 'DESC' );
