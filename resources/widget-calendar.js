@@ -32,6 +32,7 @@ jQuery( document ).ready( function ( $ ) {
 		var $this = $(this);
 
 		var $current_calendar = $this.closest('.tribe-mini-calendar');
+		var $current_calendar_wrapper = $this.closest('.tribe-mini-calendar-wrapper'); 
 
 		var month_target = $this.attr( 'data-month' );
 
@@ -42,18 +43,18 @@ jQuery( document ).ready( function ( $ ) {
 			tax_query	: $current_calendar.data('tax-query'),
 			nonce    	: $current_calendar.data('nonce')
 		};
-		$('.tribe-mini-calendar-nav div > span').addClass('active').siblings('#ajax-loading-mini').show();
+		$current_calendar.find('.tribe-mini-calendar-nav div > span').addClass('active').siblings('#ajax-loading-mini').show();
 		
 		$.post(
 			TribeMiniCalendar.ajaxurl,
 			params,
 			function ( response ) {
-				$( '.tribe-mini-calendar-list-wrapper' ).remove();
+				$current_calendar.find( '.tribe-mini-calendar-list-wrapper' ).remove();
 				if ( response.success ) {
 					
 					var $the_content = $( response.html ).contents().filter(function() {return this.nodeType != 3;});
-					$('.tribe-mini-calendar-nav div > span').removeClass('active').siblings('#ajax-loading-mini').hide();					
-					$( '.tribe-mini-calendar-wrapper' ).empty().html( $the_content );					
+					$current_calendar.find('.tribe-mini-calendar-nav div > span').removeClass('active').siblings('#ajax-loading-mini').hide();					
+					$current_calendar_wrapper.empty().html( $the_content );					
 					fix_widget_height();
 				}
 			}
@@ -65,7 +66,8 @@ jQuery( document ).ready( function ( $ ) {
 		var obj = $( this );
 		var date = obj.attr( 'data-day' );
 		var day = obj.text();
-		var $current_calendar = $(this).closest('.tribe-mini-calendar');
+		var $current_calendar = obj.closest('.tribe-mini-calendar');
+		var $current_calendar_wrapper = $current_calendar.find('.tribe-mini-calendar-list-wrapper');
 
 		$( 'h2.tribe-mini-calendar-title' ).text( $( '#tribe-mini-calendar-month-name' ).val() + ' ' + day + ' Events' );	
 		change_active_day(obj);
@@ -77,14 +79,15 @@ jQuery( document ).ready( function ( $ ) {
 			nonce    	: $current_calendar.data('nonce')
 		};
 
-		$('.tribe-mini-calendar-nav div > span').addClass('active').siblings('#ajax-loading-mini').show();
+		$current_calendar.find('.tribe-mini-calendar-nav div > span').addClass('active').siblings('#ajax-loading-mini').show();
 		$.post(
 			TribeMiniCalendar.ajaxurl,
 			params,
 			function ( response ) {
 				if ( response.success ) {
-					$('.tribe-mini-calendar-nav div > span').removeClass('active').siblings('#ajax-loading-mini').hide();
-					$( '.tribe-mini-calendar-list-wrapper' ).html( response.html );
+					var $the_content = $( response.html ).contents().filter(function() {return this.nodeType != 3;});
+					$current_calendar.find('.tribe-mini-calendar-nav div > span').removeClass('active').siblings('#ajax-loading-mini').hide();
+					$current_calendar_wrapper.empty().html( $the_content );
 					change_active_day(obj);
 					fix_widget_height();
 				}
