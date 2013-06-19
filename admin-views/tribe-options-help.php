@@ -101,7 +101,7 @@ $intro_text[] = '<ul>';
 $intro_text[] = '<li>';
 $intro_text[] = sprintf( __ ('%sOur New User Primer%s was designed for folks in your exact position. Featuring both step-by-step videos and written walkthroughs that feature accompanying screenshots, the primer aims to take you from zero to hero in no time.', 'tribe-events-calendar'), '<a href="http://tri.be/support/documentation/events-calendar-pro-new-user-primer/" target="blank">', '</a>' );
 $intro_text[] = '</li><li>';
-$intro_text[] = sprintf( __('%sInstallation/Setup FAQs%s from our Support page, can help give an overview of what the plugin can and cannot do. This section of the FAQs may be helpful as it aims to address any basic install questions not addressed by the new user primer.', 'tribe-events-calendar'), '<a href="http://tri.be/support/faqs/" target="blank">','</a>' );
+$intro_text[] = sprintf( __('%sInstallation/Setup FAQs%s from our support page can help give an overview of what the plugin can and cannot do. This section of the FAQs may be helpful as it aims to address any basic install questions not addressed by the new user primer.', 'tribe-events-calendar'), '<a href="http://tri.be/support/faqs/" target="blank">','</a>' );
 $intro_text[] = '</li><li>';
 $intro_text[] = sprintf( __('Are you developer looking to build your own frontend view? We created an example plugin that demonstrates how to register a new view. You can %sdownload the plugin at GitHub%s to get started.', 'tribe-events-calendar'), '<a href="https://github.com/moderntribe/tribe-events-agenda-view" target="blank">', '</a>' );
 $intro_text[] = '</li></ul><p>';
@@ -109,9 +109,9 @@ $intro_text[] = __('Otherwise, if you\'re feeling adventurous, you can get start
 $intro_text[] = '</p>';
 $intro_text = implode( $intro_text );
 
-$support_text[] = '<p>' . sprintf( __('We\'ve redone our support page from the ground up in an effort to better help our users. Head over to %s and you\'ll find all our documentation, including:', 'tribe-events-calendar'), '<a href="http://tri.be/support/documentation/" target="blank"><code>http://tri.be/support/documentation/</code></a>') . '</p>';
+$support_text[] = '<p>' . sprintf( __('We\'ve redone our support page from the ground up in an effort to better help our users. Head over to our %sSupport Page%s and you\'ll find lots of great resources, including:', 'tribe-events-calendar'), '<a href="https://tri.be/support/" target="blank">', '</a>' ) . '</p>';
 $support_text[] = '<ul><li>';
-$support_text[] = __('Template tags, hooks & filters for The Events Calendar & Events Calendar PRO', 'tribe-events-calendar');
+$support_text[] = sprintf( __('%sTemplate tags, functions, and hooks & filters%s for The Events Calendar & Events Calendar PRO', 'tribe-events-calendar' ), '<a href="http://tri.be/support/documentation/" target="blank">', '</a>' );
 $support_text[] = '</li><li>';
 $support_text[] = sprintf( __('%sFrequently Asked Questions%s ranging from the most basic setup questions to advanced themer tweaks', 'tribe-events-calendar'), '<a href="http://tri.be/support/faqs/" target="blank">', '</a>' );
 $support_text[] = '</li><li>';
@@ -119,7 +119,7 @@ $support_text[] = sprintf( __('%sTutorials%s written by both members of our team
 $support_text[] = '</li><li>';
 $support_text[] = __('Release notes for painting an overall picture of the plugin\'s lifecycle and when features/bug fixes were introduced.', 'tribe-events-calendar');
 $support_text[] = '</li><li>';
-$support_text[] = __('Add-on documentation for all of Modern Tribe\'s official extensions for The Events Calendar (including WooTickets, Community Events, Eventbrite Tickets, Facebook Events, etc)', 'tribe-events-calendar');
+$support_text[] = sprintf( __('%sAdd-on documentation%s for all of Modern Tribe\'s official extensions for The Events Calendar (including WooTickets, Community Events, Eventbrite Tickets, Facebook Events, etc)', 'tribe-events-calendar' ), '<a href="http://tri.be/support/documentation/" target="blank">', '</a>' );
 $support_text[] = '</li></ul>';
 $support_text[] = '<p>' . sprintf( __('We\'ve also got a %sModern Tribe UserVoice%s page where we\'re actively watching for feature ideas from the community. If after playing with the plugin and reviewing the resources above, you\'re finding a feature isn\'t present that should be, let us know. Vote up existing feature requests or add your own, and help us shape the future of the products business in a way that best meets the community\'s needs.', 'tribe-events-calendar'), '<a href="http://tribe.uservoice.com/" target="blank">', '</a>' ) . '</p>';
 $support_text = implode( $support_text );
