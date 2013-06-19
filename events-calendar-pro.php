@@ -208,14 +208,23 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 
 		function maybeAddEventTitle( $new_title, $title, $sep = null ){
 			global $wp_query;
-			if( get_query_var('eventDisplay') == 'week' ){
-				// because we can't trust tribe_get_events_title will be set when run via AJAX
-				$new_title = sprintf( '%s %s %s %s',
-					__( 'Events for week of', 'tribe-events-calendar-pro' ),
-					date( "l, F jS Y", strtotime( tribe_get_first_week_day( $wp_query->get( 'start_date' ) ) ) ),
-					$sep,
-					$title
-				);
+			switch( get_query_var('eventDisplay') ){
+				case 'week':
+					$new_title = sprintf( '%s %s %s ',
+						__( 'Events for week of', 'tribe-events-calendar-pro' ),
+						date( "l, F jS Y", strtotime( tribe_get_first_week_day( $wp_query->get( 'start_date' ) ) ) ),
+						$sep
+					);
+					break;
+				case 'photo':
+				case 'map':
+				default:
+					if( tribe_is_past() ) {
+						$new_title = __( 'Past Events', 'tribe-events-calendar-pro' ) . ' ' . $sep . ' ';
+					} else {
+						$new_title = __( 'Upcoming Events', 'tribe-events-calendar-pro' ) . ' ' . $sep . ' ';
+					}
+					break;
 			}
 			return apply_filters( 'tribe_events_pro_add_title', $new_title, $title, $sep );
 		}
@@ -247,20 +256,22 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			if( tribe_is_day() ) {
 				$reset_title = __( 'Events for', 'tribe-events-calendar-pro' ) . ' ' .Date("l, F jS Y", strtotime($wp_query->get('start_date')));
 			}
-			// map view title
-			if( tribe_is_map() ) {
-				$reset_title = __( 'Upcoming Events', 'tribe-events-calendar-pro' );
-			}
-
-			// photo view title
-			if ( tribe_is_photo() ) {
-				$reset_title = __( 'Upcoming Events', 'tribe-events-calendar-pro' );
+			// map or photo view titles
+			if( tribe_is_map() || tribe_is_photo() ) {
+				if( tribe_is_past() ) {
+					$reset_title = __( 'Past Events', 'tribe-events-calendar-pro' );
+				} else {
+					$reset_title = __( 'Upcoming Events', 'tribe-events-calendar-pro' );
+				}
 			}
 
 			return isset($reset_title) ? apply_filters( 'tribe_template_factory_debug', $reset_title, 'tribe_get_events_title' ) : $content;
 		}
 
 		public function set_past_events_query( $query ) {
+			// ensure that tribe_is_past is confirmed set
+			$query->tribe_is_past = true;
+			$query->set( 'tribe_is_past', true );
 			$query->set( 'start_date', '' );
 			$query->set( 'eventDate', '' );
 			$query->set( 'order', 'DESC' );
@@ -700,7 +711,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			$intro_text[] = '<li>';
 			$intro_text[] = sprintf( __ ('%sOur New User Primer%s was designed for folks in your exact position. Featuring both step-by-step videos and written walkthroughs that feature accompanying screenshots, the primer aims to take you from zero to hero in no time.', 'tribe-events-calendar' ), '<a href="http://tri.be/support/documentation/events-calendar-pro-new-user-primer/" target="blank">', '</a>' );
 			$intro_text[] = '</li><li>';
-			$intro_text[] = sprintf( __('%sInstallation/Setup FAQs%s from our Support page, can help give an overview of what the plugin can and cannot do. This section of the FAQs may be helpful as it aims to address any basic install questions not addressed by the new user primer.', 'tribe-events-calendar'), '<a href="http://tri.be/support/faqs/" target="blank">','</a>' );
+			$intro_text[] = sprintf( __('%sInstallation/Setup FAQs%s from our support page can help give an overview of what the plugin can and cannot do. This section of the FAQs may be helpful as it aims to address any basic install questions not addressed by the new user primer.', 'tribe-events-calendar'), '<a href="http://tri.be/support/faqs/" target="blank">','</a>' );
 			$intro_text[] = '</li><li>';
 			$intro_text[] = sprintf( __('Are you developer looking to build your own frontend view? We created an example plugin that demonstrates how to register a new view. You can %sdownload the plugin at GitHub%s to get started.', 'tribe-events-calendar'), '<a href="https://github.com/moderntribe/tribe-events-agenda-view" target="blank">', '</a>' );
 			$intro_text[] = '</li><li>';
@@ -713,8 +724,8 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		}
 
 		public function add_help_tab_forumtext(){
-			$forum_text[] = '<p>' . sprintf( __('Written documentation can only take things so far...sometimes, you need help from a real person. This is where our %ssupport forums%s come into play.', 'tribe-events-calendar'), '<a href="http://wordpress.org/support/plugin/the-events-calendar" target="blank">', '</a>') . '</p>';
-			$forum_text[] = '<p>' . sprintf( __('Users who have purchased an Events Calendar PRO license are granted total access to our premium support forums. Unlike at the %sWordPress.org support forum%s, where our involvement is limited to identifying and patching bugs, we have a dedicated support team for PRO users. We\'re on the PRO forums daily throughout the business week, and no thread should go more than 24-hours without a response.', 'tribe-events-calendar' ), '<a href="http://wordpress.org/support/plugin/the-events-calendar" target="blank">', '</a>' ) . '</p>';
+			$forum_text[] = '<p>' . sprintf( __('Written documentation can only take things so far...sometimes, you need help from a real person. This is where our %ssupport forums%s come into play.', 'tribe-events-calendar'), '<a href="http://tri.be/support/forums/" target="blank">', '</a>') . '</p>';
+			$forum_text[] = '<p>' . sprintf( __('Users who have purchased an Events Calendar PRO license are granted total access to our %spremium support forums%s. Unlike at the %sWordPress.org support forum%s, where our involvement is limited to identifying and patching bugs, we have a dedicated support team for PRO users. We\'re on the PRO forums daily throughout the business week, and no thread should go more than 24-hours without a response.', 'tribe-events-calendar' ), '<a href="http://tri.be/support/forums/" target="blank">', '</a>', '<a href="http://wordpress.org/support/plugin/the-events-calendar" target="blank">', '</a>' ) . '</p>';
 			$forum_text[] = '<p>' . __('Our number one goal is helping you succeed, and to whatever extent possible, we\'ll help troubleshoot and guide your customizations or tweaks. While we won\'t build your site for you, and we can\'t guarantee we\'ll be able to get you 100% integrated with every theme or plugin out there, we\'ll do all we can to point you in the right direction and to make you -- and your client, as is often more importantly the case -- satisfied.', 'tribe-events-calendar' ) . '</p>';
 			$forum_text[] = '<p>' . __('Before posting a new thread, please do a search to make sure your issue hasn\'t already been addressed. When posting please make sure to provide as much detail about the problem as you can (with screenshots or screencasts if feasible), and make sure that you\'ve identified whether a plugin / theme conflict could be at play in your initial message.', 'tribe-events-calendar' ) . '</p>';
 			$forum_text = implode($forum_text );
