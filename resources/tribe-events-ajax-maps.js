@@ -125,8 +125,6 @@
 			if (tribe_is_paged) {
 				ts.paged = tribe_is_paged;
 			}
-
-			$('body').addClass('events-list');
 			tf.tooltips();
 		}
 
