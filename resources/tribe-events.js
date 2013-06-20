@@ -623,7 +623,7 @@ try {
 		 * )
 		 */
 		map_view: function () {
-			return ( GeoLoc !== undefined && GeoLoc.map_view ) ? true : false;
+			return ( typeof GeoLoc !== 'undefined' && GeoLoc.map_view ) ? true : false;
 		},
 		/**
 		 * @type Boolean tribe_ev.tests.pushstate
@@ -653,7 +653,7 @@ try {
 		 * @function tribe_ev.tests.starting_delim
 		 * @since 3.0
 		 * @desc tribe_ev.tests.starting_delim is used by events url forming functions to determine if "?" is already present. It then sets the delimiter for the next part of the url concatenation to "?" if not found and "&" if it is.
-		 * @example <caption>Test and set delimter during url string concatenation.</caption>
+		 * @example <caption>Test and set delimiter during url string concatenation.</caption>
 		 * 		tribe_ev.state.cur_url += tribe_ev.tests.starting_delim + tribe_ev.state.url_params;
 		 */
         starting_delim: function () {
