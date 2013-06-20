@@ -456,7 +456,7 @@ if( class_exists( 'TribeEventsPro' ) ) {
 		$filter = sprintf( 'tribe_convert_%s_to_%s_ratio', $unit_from, $unit_to );
 		$ratio  = apply_filters( $filter, 0 );
 
-		// if there's not filter for this convertion, let's return the original value
+		// if there's not filter for this conversion, let's return the original value
 		if ( empty( $ratio ) )
 			return $value;
 
