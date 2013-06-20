@@ -863,7 +863,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 		if ( $initialize ) {
 			tribe_initialize_view('Tribe_Events_List_Template');
 		}
-		tribe_get_view('list');
+		tribe_get_view('list/content');
 		$list_view_html = ob_get_clean();
 
 		// fix the error of our ways
