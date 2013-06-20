@@ -1047,10 +1047,10 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				if ( !is_admin() && tribe_get_option( 'liveFiltersUpdate', true ) )
 					$classes[] = 'tribe-filter-live';
 				if (! is_single() ) {
-					if ( (tribe_is_upcoming() || tribe_is_past()) ) {
-						$classes[] = 'events-list';
-					} else {
+					if( tribe_is_month() ) {
 						$classes[] = 'events-gridview';
+					} else if( ( tribe_is_upcoming() || tribe_is_past() ) ) {
+						$classes[] = 'events-list';
 					}
 				}
 				if ( is_tax( self::TAXONOMY ) ) {
