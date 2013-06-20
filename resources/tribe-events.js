@@ -101,7 +101,7 @@ if(tribe_debug){
 			if (callback_func && (callback_force || !con || !con.log)) {
 				callback_func.apply(window, args);
 			}
-		};
+		}
 
 		that.setLevel = function (level) {
 			log_level = typeof level === 'number' ? level : 9;
@@ -111,7 +111,7 @@ if(tribe_debug){
 			return log_level > 0
 				? log_level > level
 				: log_methods.length + log_level <= level;
-		};
+		}
 
 		that.setCallback = function () {
 			var args = aps.call(arguments),
@@ -297,7 +297,7 @@ try {
             var base_url = '',
 				$event_header = $('#tribe-events-header');
             if ($event_header.length){
-                base_url = $event_header.attr('data-baseurl');
+                base_url = $event_header.data('baseurl');
             }
             return base_url;
         },
@@ -310,7 +310,7 @@ try {
          */
         get_category: function () {
             if (tribe_ev.fn.is_category())
-                return $('#tribe-events').attr('data-category');
+                return $('#tribe-events').data('category');
             else
                 return '';
         },
@@ -376,7 +376,7 @@ try {
          */
         is_category: function () {
 			var $tribe_events = $('#tribe-events');
-            return ($tribe_events.length && $tribe_events.tribe_has_attr('data-category') && $tribe_events.attr('data-category') !== '') ? true : false;
+            return ($tribe_events.length && $tribe_events.tribe_has_attr('data-category') && $tribe_events.data('category') !== '') ? true : false;
         },
         /**
          * @function tribe_ev.fn.parse_string
@@ -398,11 +398,11 @@ try {
          * @function tribe_ev.fn.pre_ajax
          * @since 3.0
          * @desc tribe_ev.fn.pre_ajax allows for functions to be executed before ajax begins.
-         * @param {Function} tribe_ajax_callback The callback function, expected to be an ajax function for one of our views.
+         * @param {Function} callback The callback function, expected to be an ajax function for one of our views.
          */
-        pre_ajax: function (tribe_ajax_callback) {
-            if (tribe_ajax_callback && typeof( tribe_ajax_callback ) === "function") {
-                tribe_ajax_callback();
+        pre_ajax: function (callback) {
+            if (callback && typeof( callback ) === "function") {
+				callback();
             }
         },
         /**
@@ -611,7 +611,7 @@ try {
 		 */
         live_ajax: function () {
 			var $tribe_events = $('#tribe-events');
-            return ($tribe_events.length && $tribe_events.tribe_has_attr('data-live_ajax') && $tribe_events.attr('data-live_ajax') == '1') ? true : false;
+            return ($tribe_events.length && $tribe_events.tribe_has_attr('data-live_ajax') && $tribe_events.data('live_ajax') == '1') ? true : false;
         },
 		/**
 		 * @function tribe_ev.tests.map_view
@@ -623,7 +623,7 @@ try {
 		 * )
 		 */
 		map_view: function () {
-			return ( GeoLoc !== undefined && GeoLoc.map_view ) ? true : false;
+			return ( typeof GeoLoc !== 'undefined' && GeoLoc.map_view ) ? true : false;
 		},
 		/**
 		 * @type Boolean tribe_ev.tests.pushstate
@@ -653,13 +653,19 @@ try {
 		 * @function tribe_ev.tests.starting_delim
 		 * @since 3.0
 		 * @desc tribe_ev.tests.starting_delim is used by events url forming functions to determine if "?" is already present. It then sets the delimiter for the next part of the url concatenation to "?" if not found and "&" if it is.
-		 * @example <caption>Test and set delimter during url string concatenation.</caption>
+		 * @example <caption>Test and set delimiter during url string concatenation.</caption>
 		 * 		tribe_ev.state.cur_url += tribe_ev.tests.starting_delim + tribe_ev.state.url_params;
 		 */
         starting_delim: function () {
             return tribe_ev.state.cur_url.indexOf('?') != -1 ? '&' : '?';
         }
     };
+
+	/**
+	 * @namespace tribe_ev
+	 * @since 3.0
+	 * @desc tribe_ev.data stores information that is sometimes used internally and also contains useful data for themers.
+	 */
 
     tribe_ev.data = {
         ajax_response: {},
@@ -670,7 +676,19 @@ try {
         params: tribe_ev.fn.get_params()
     };
 
+	/**
+	 * @namespace tribe_ev
+	 * @since 3.0
+	 * @desc tribe_ev.events is an empty object used to attach all tribe custom events to.
+	 */
+
     tribe_ev.events = {};
+
+	/**
+	 * @namespace tribe_ev
+	 * @since 3.0
+	 * @desc tribe_ev.state is mainly used in events ajax operations, though a few variables are set on doc ready.
+	 */
 
     tribe_ev.state = {
         ajax_running: false,
@@ -697,6 +715,16 @@ try {
 
 (function (window, document, $, td, te, tf, ts, tt, dbug) {
 
+	/*
+	 * $    = jQuery
+	 * td   = tribe_ev.data
+	 * te   = tribe_ev.events
+	 * tf   = tribe_ev.fn
+	 * ts   = tribe_ev.state
+	 * tt   = tribe_ev.tests
+	 * dbug = tribe_debug
+	 */
+
 	$(document).ready(function () {
 
 		dbug && debug.info('TEC Debug: Tribe Events JS init, Init Timer started from tribe-events.js.');
@@ -714,7 +742,7 @@ try {
 		if (tribe_display) {
 			ts.view = tribe_display;
 		} else if ($tribe_events_header.length && $tribe_events_header.tribe_has_attr('data-view')) {
-			ts.view = $tribe_events_header.attr('data-view');
+			ts.view = $tribe_events_header.data('view');
 		}
 
 		ts.view && dbug && debug.time('Tribe JS Init Timer');

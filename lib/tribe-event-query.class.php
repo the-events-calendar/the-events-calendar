@@ -51,6 +51,9 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 
 			$types = ( !empty( $query->query_vars['post_type'] ) ? (array) $query->query_vars['post_type'] : array() );
 
+			// is the query pulling posts from the past
+			$query->tribe_is_past = !empty( $query->query_vars['tribe_is_past'] ) ? $query->query_vars['tribe_is_past'] : false ;
+
 			// check if any possiblity of this being an event query
 			$query->tribe_is_event = ( in_array( TribeEvents::POSTTYPE, $types ) )
 				? true // it was an event query
@@ -121,6 +124,7 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 						$query->set( 'orderby', self::set_orderby() );
 						$query->set( 'order', self::set_order( 'DESC' ) );
 						self::$end_date = $query->get( 'end_date' );
+						$query->tribe_is_past = true;
 						break;
 					case 'all':
 						$query->set( 'orderby', self::set_orderby() );

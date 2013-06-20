@@ -1,3 +1,9 @@
+/**
+ * @file This file contains all month view specific javascript.
+ * This file should load after all vendors and core events javascript.
+ * @version 3.0
+ */
+
 (function (window, document, $, td, te, tf, ts, tt, dbug) {
 
 	/*
@@ -12,9 +18,9 @@
 
 	$(document).ready(function () {
 
-		var base_url = $('#tribe-events-header .tribe-events-nav-next a').attr('href').slice(0, -8);
-		var initial_date = tf.get_url_param('tribe-bar-date');
-		var $tribedate = $('#tribe-bar-date');
+		var base_url = $('#tribe-events-header .tribe-events-nav-next a').attr('href').slice(0, -8),
+			initial_date = tf.get_url_param('tribe-bar-date'),
+			$tribedate = $('#tribe-bar-date');
 
 		if ($('.tribe-events-calendar').length && $('#tribe-events-bar').length) {
 			if (initial_date) {
@@ -43,7 +49,7 @@
 				if (ts.ajax_running)
 					return;
 				if (ts.filter_cats)
-					td.cur_url = $('#tribe-events-header').attr('data-baseurl') + ts.date + '/';
+					td.cur_url = $('#tribe-events-header').data('baseurl') + ts.date + '/';
 				else
 					td.cur_url = base_url + ts.date + '/';
 				ts.popping = false;
@@ -55,7 +61,7 @@
 
 		if (tt.pushstate && !tt.map_view()) {
 
-			var params = 'action=tribe_calendar&eventDate=' + $('#tribe-events-header').attr('data-date');
+			var params = 'action=tribe_calendar&eventDate=' + $('#tribe-events-header').data('date');
 
 			if (td.params.length)
 				params = params + '&' + td.params;
@@ -88,10 +94,10 @@
 				if (ts.ajax_running)
 					return;
 				var $this = $(this);
-				ts.date = $this.attr("data-month");
+				ts.date = $this.data("month");
 				tf.update_picker(ts.date);
 				if (ts.filter_cats)
-					td.cur_url = $('#tribe-events-header').attr('data-baseurl');
+					td.cur_url = $('#tribe-events-header').data('baseurl');
 				else
 					td.cur_url = $this.attr("href");
 				ts.popping = false;
@@ -111,9 +117,14 @@
 
 		tf.snap('#tribe-bar-form', 'body', '#tribe-events-footer .tribe-events-nav-previous a, #tribe-events-footer .tribe-events-nav-next a');
 
-		// events bar intercept submit
+		/**
+		 * @function tribe_events_bar_calendar_ajax_actions
+		 * @since 3.0
+		 * @desc On events bar submit, this function collects the current state of the bar and sends it to the month view ajax handler.
+		 * @param {event} e The event object.
+		 */
 
-		function tribe_events_bar_calajax_actions(e) {
+		function tribe_events_bar_calendar_ajax_actions(e) {
 			if (tribe_events_bar_action != 'change_view') {
 				e.preventDefault();
 				if (ts.ajax_running)
@@ -125,7 +136,7 @@
 				}
 
 				if (ts.filter_cats) {
-					td.cur_url = $('#tribe-events-header').attr('data-baseurl') + ts.date + '/';
+					td.cur_url = $('#tribe-events-header').data('baseurl') + ts.date + '/';
 				} else {
 					td.cur_url = base_url + ts.date + '/';
 				}
@@ -137,7 +148,7 @@
 		}
 
 		$('form#tribe-bar-form').on('submit', function (e) {
-			tribe_events_bar_calajax_actions(e);
+			tribe_events_bar_calendar_ajax_actions(e);
 		});
 
 		$(te).on("tribe_ev_runAjax", function () {
@@ -145,14 +156,22 @@
 		});
 
 		$(te).on("tribe_ev_updatingRecurrence", function () {
-			ts.date = $('#tribe-events-header').attr("data-date");
+			ts.date = $('#tribe-events-header').data("date");
 			if (ts.filter_cats)
-				td.cur_url = $('#tribe-events-header').attr('data-baseurl') + ts.date + '/';
+				td.cur_url = $('#tribe-events-header').data('baseurl') + ts.date + '/';
 			else
 				td.cur_url = base_url + ts.date + '/';
 			ts.popping = false;
 		});
 
+		/**
+		 * @function tribe_events_calendar_ajax_post
+		 * @since 3.0
+		 * @desc The ajax handler for month view.
+		 * Fires the custom event 'tribe_ev_serializeBar' at start, then 'tribe_ev_collectParams' to gather any additional paramters before actually launching the ajax post request.
+		 * As post begins 'tribe_ev_ajaxStart' and 'tribe_ev_monthView_AjaxStart' are fired, and then 'tribe_ev_ajaxSuccess' and 'tribe_ev_monthView_ajaxSuccess' are fired on success.
+		 * Various functions in the events plugins hook into these events. They are triggered on the tribe_ev.events object.
+		 */
 
 		function tribe_events_calendar_ajax_post() {
 
@@ -239,7 +258,7 @@
 								}, ts.page_title, td.cur_url);
 							}
 
-							$(te).trigger('tribe_ev_ajaxSuccess').trigger('tribe_ev__monthView_ajaxSuccess');
+							$(te).trigger('tribe_ev_ajaxSuccess').trigger('tribe_ev_monthView_ajaxSuccess');
 
 							dbug && debug.timeEnd('Month View Ajax Timer');
 						}

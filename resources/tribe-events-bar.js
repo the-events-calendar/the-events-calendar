@@ -1,3 +1,14 @@
+/**
+ * @file Sets up the event bar javascript.
+ * This file should load after tribe events core and pro js and before any events view javascript.
+ * @version 3.0
+ */
+
+/**
+ * @global
+ * @desc This global is used in various functions throughout the plugin to determine if the view is being changed. Its value will be set to 'change_view' when true.
+ */
+
 var tribe_events_bar_action;
 
 (function (window, document, $, td, te, tf, ts, tt, dbug) {
@@ -28,11 +39,16 @@ var tribe_events_bar_action;
 		var $tribebar = $('#tribe-bar-form'),
 			$tribedate = $('#tribe-bar-date');
 
-		// Check width of events bar
+		/**
+		 * @function eventsBarWidth
+		 * @since 3.0
+		 * @desc eventsBarWidth applies responsive css classes to the bar to adjust its layout for smaller screens.
+		 * @param {jQuery} $tribebar The event bar jquery object.
+		 */
 		function eventsBarWidth($tribebar) {
-			if ( $tribebar.parents('.tribe-bar-disabled').length ) {
-				return false;
-			}
+			if ( $tribebar.parents('.tribe-bar-disabled').length )
+				return;
+
 			var tribeBarWidth = $tribebar.width();
 
 			if (tribeBarWidth > 800) {
@@ -148,7 +164,7 @@ var tribe_events_bar_action;
 		// Implement our views bit
 		$('select[name=tribe-bar-view]').change(function () {
 			ts.cur_url = $(this).val();
-			ts.view_target = $('select[name=tribe-bar-view] option[value="' + ts.cur_url + '"]').attr('data-view');
+			ts.view_target = $('select[name=tribe-bar-view] option[value="' + ts.cur_url + '"]').data('view');
 			tribe_events_bar_action = 'change_view';
 			tribe_events_bar_change_view();
 		});
@@ -156,7 +172,7 @@ var tribe_events_bar_action;
 		$('a.tribe-bar-view').on('click', function (e) {
 			e.preventDefault();
 			var el = $(this);
-			var name = el.attr('data-view');
+			var name = el.data('view');
 			tribe_events_bar_change_view(el.attr('href'), name);
 
 		});
@@ -192,6 +208,12 @@ var tribe_events_bar_action;
 				}
 			});
 		});
+
+		/**
+		 * @function tribe_events_bar_change_view
+		 * @since 3.0
+		 * @desc tribe_events_bar_change_view handles switching views and collecting any params from the events bar. It also fires 2 custom actions that can be hooked into: 'tribe_ev_preCollectBarParams' and 'tribe_ev_postCollectBarParams'.
+		 */
 
 		function tribe_events_bar_change_view() {
 

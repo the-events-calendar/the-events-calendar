@@ -1,3 +1,9 @@
+/**
+ * @file This file contains all list view specific javascript.
+ * This file should load after all vendors and core events javascript.
+ * @version 3.0
+ */
+
 (function (window, document, $, td, te, tf, ts, tt, dbug) {
 
 	/*
@@ -92,6 +98,13 @@
 
 		tf.snap('#tribe-events-content-wrapper', '#tribe-events-content-wrapper', '#tribe-events-footer .tribe-events-nav-previous a, #tribe-events-footer .tribe-events-nav-next a');
 
+		/**
+		 * @function tribe_events_bar_listajax_actions
+		 * @since 3.0
+		 * @desc On events bar submit, this function collects the current state of the bar and sends it to the list view ajax handler.
+		 * @param {event} e The event object.
+		 */
+
 		function tribe_events_bar_listajax_actions(e) {
 			if (tribe_events_bar_action != 'change_view') {
 				e.preventDefault();
@@ -125,6 +138,15 @@
 			tribe_events_list_ajax_post();
 		});
 
+		/**
+		 * @function tribe_events_list_ajax_post
+		 * @since 3.0
+		 * @desc The ajax handler for list view.
+		 * Fires the custom event 'tribe_ev_serializeBar' at start, then 'tribe_ev_collectParams' to gather any additional parameters before actually launching the ajax post request.
+		 * As post begins 'tribe_ev_ajaxStart' and 'tribe_ev_listView_AjaxStart' are fired, and then 'tribe_ev_ajaxSuccess' and 'tribe_ev_listView_ajaxSuccess' are fired on success.
+		 * Various functions in the events plugins hook into these events. They are triggered on the tribe_ev.events object.
+		 */
+
 		function tribe_events_list_ajax_post() {
 
 			$('#tribe-events-header').tribe_spin();
@@ -133,7 +155,7 @@
 			if (!ts.popping) {
 
 				if (ts.filter_cats)
-					td.cur_url = $('#tribe-events-header').attr('data-baseurl');
+					td.cur_url = $('#tribe-events-header').data('baseurl');
 
 				var tribe_hash_string = $('#tribe-events-list-hash').val();
 

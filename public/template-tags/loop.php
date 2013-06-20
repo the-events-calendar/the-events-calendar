@@ -61,9 +61,8 @@ if( class_exists( 'TribeEvents' ) ) {
 	 * @since 2.0
 	 */
 	function tribe_is_past()  {
-		$tribe_ecp = TribeEvents::instance();
-		$is_past = ($tribe_ecp->displaying == 'past') ? true : false;
-		return apply_filters('tribe_is_past', $is_past);
+		global $wp_query;
+		return apply_filters('tribe_is_past', $wp_query->tribe_is_past );
 	}
 
 	/**
@@ -75,9 +74,7 @@ if( class_exists( 'TribeEvents' ) ) {
 	 * @since 2.0
 	 */
 	function tribe_is_upcoming()  {
-		$tribe_ecp = TribeEvents::instance();
-		$tribe_is_upcoming = ($tribe_ecp->displaying == 'upcoming') ? true : false;
-		return apply_filters('tribe_is_upcoming', $tribe_is_upcoming);
+		return apply_filters('tribe_is_upcoming', ! tribe_is_past() );
 	}
 	
 	/**
