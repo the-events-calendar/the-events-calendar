@@ -6,11 +6,23 @@ if ( !defined('ABSPATH') )
 if( !class_exists('Tribe_PRO_Template_Factory') ) {
 	class Tribe_PRO_Template_Factory extends Tribe_Template_Factory {
 
+		/**
+		 * The class constructor.
+		 */
 		public function __construct() {
 			parent::__construct();
 			add_action('tribe_events_asset_package', array(__CLASS__, 'asset_package'), 10, 2);
 		}
 
+		/**
+		 * The asset loading function.
+		 *
+		 * @param string $name The name of the package reqested.
+		 * @param array $deps An array of dependencies (this should be the registered name that is registered to the wp_enqueue functions).
+		 * @return void
+		 * @author Timothy Wood
+		 * @since 3.0
+		 */
 		public static function asset_package( $name, $deps = array() ){
 
 			$tec_pro = TribeEventsPro::instance();

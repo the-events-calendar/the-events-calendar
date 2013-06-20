@@ -691,6 +691,17 @@ if( class_exists( 'TribeEventsPro' ) ) {
 		return apply_filters( 'tribe_get_photo_view_permalink', $permalink );
 	}
 
+	/**
+	 * Echos the single events page related events boxes.
+	 *
+	 * @param mixed $tag The specific tags you want it relating to.
+	 * @param mixed $category The specific categories you want it relating to.
+	 * @param int $count The number of related events to find.
+	 * @param mixed $blog What blog/site should they come from?
+	 * @param bool $only_display_related Should we show only related events if we don't find $count number of related ones?
+	 * @param string $post_type What post type are we finding related things in?
+	 * @return void.
+	 */
 	function tribe_single_related_events( $tag = false, $category = false, $count = 3, $blog = false, $only_display_related = true, $post_type = TribeEvents::POSTTYPE ) {
 		$posts = tribe_get_related_posts( $tag, $category, $count, $blog, $only_display_related, $post_type );
 		if ( is_array( $posts ) && !empty( $posts ) ) {

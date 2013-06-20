@@ -7,6 +7,14 @@ if ( ! class_exists( 'Tribe_Register_Meta_Pro' ) ) {
 
 	class Tribe_Register_Meta_Pro {
 
+		/**
+		 * Responsible for displaying a user's custom recurrence pattern description.
+		 *
+		 * @param string $meta_id The meta group this is in.
+		 * @return string The custom description.
+		 * @author Timothy Wood
+		 * @since 3.0
+		 */
 		function custom_recurrence_description( $meta_id ){
 			global $_tribe_meta_factory;
 			$post_id = get_the_ID();
@@ -19,6 +27,15 @@ if ( ! class_exists( 'Tribe_Register_Meta_Pro' ) ) {
 			return apply_filters( 'tribe_event_pro_meta_custom_recurrence_description', $html );
 		}
 
+		/**
+		 * Render the name of the venue (with the link).
+		 *
+		 * @param string $html The current venue name.
+		 * @param string $meta_id The meta group this is in.
+		 * @return string The modified/linked venue name.
+		 * @author Timothy Wood
+		 * @since 3.0
+		 */
 		function venue_name( $html, $meta_id ){
 			global $_tribe_meta_factory;
 			$post_id = get_the_ID();
@@ -31,6 +48,15 @@ if ( ! class_exists( 'Tribe_Register_Meta_Pro' ) ) {
 			return apply_filters( 'tribe_event_pro_meta_venue_name', $html, $meta_id );
 		}
 
+		/**
+		 * Render the name of the organizer (with the link).
+		 *
+		 * @param string $html The current organizer name.
+		 * @param string $meta_id The meta group this is in.
+		 * @return string The modified/linked organizer name.
+		 * @author Timothy Wood
+		 * @since 3.0
+		 */
 		function organizer_name( $html, $meta_id ){
 			global $_tribe_meta_factory;
 			$post_id = get_the_ID();
@@ -42,6 +68,14 @@ if ( ! class_exists( 'Tribe_Register_Meta_Pro' ) ) {
 			return apply_filters( 'tribe_event_pro_meta_organizer_name', $html, $meta_id );
 		}
 
+		/**
+		 * Returns custom meta. 
+		 *
+		 * @param string $meta_id The meta group this is in.
+		 * @return string The custom meta.
+		 * @author Timothy Wood
+		 * @since 3.0
+		 */
 		function custom_meta( $meta_id ){
 			global $_tribe_meta_factory;
 			$fields = tribe_get_custom_fields( get_the_ID() );

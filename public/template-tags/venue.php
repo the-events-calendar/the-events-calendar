@@ -15,8 +15,8 @@ if( class_exists('TribeEventsPro')) {
 	 * Output the upcoming events associated with a venue
 	 *
 	 * @return void
-	 * @since 
-	 **/
+	 * @since 3.0
+	 */
 	function tribe_venue_upcoming_events( $post_id = false ) {
 
 		$post_id = TribeEvents::postIdHelper( $post_id );
