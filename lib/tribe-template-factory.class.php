@@ -32,9 +32,16 @@ if( !class_exists('Tribe_Template_Factory') ) {
 		/**
 		 * Text for excerpt more on this template
 		 *
-		 * @var int
+		 * @var string
 		 **/
 		protected $excerpt_more = '&hellip;';
+		
+		/**
+		 * Body class on this view
+		 *
+		 * @var string
+		 **/
+		protected $body_class = 'events-list';
 		
 		/**
 		 * Static variable that holds array of vendor script handles, for adding to later deps.
@@ -53,6 +60,7 @@ if( !class_exists('Tribe_Template_Factory') ) {
 		public function __construct() {
 			$this->hooks();
 			$this->asset_packages();
+			$this->body_class();
 		}
 
 		/**
@@ -83,6 +91,9 @@ if( !class_exists('Tribe_Template_Factory') ) {
 			// hide sensitive event info if post is password protected
 			add_action( 'the_post', array( $this, 'manage_sensitive_info' ) );
 
+			// add body class
+			add_filter( 'body_class', array($this, 'body_class') );
+
 		}
 
 		/**
@@ -95,6 +106,32 @@ if( !class_exists('Tribe_Template_Factory') ) {
 			foreach ($this->asset_packages as $asset_package) {
 				$this->asset_package($asset_package);
 			}
+		}
+
+		/**
+		 * Filter the body class
+		 *
+		 * @return void
+		 * @since 3.0
+		 **/
+		public function body_class($classes = array() )	{
+
+			// view class
+			$classes[] = $this->body_class;
+
+			// category class
+			if ( is_tax( TribeEvents::TAXONOMY ) ) {
+				$classes[] = 'events-category';
+				$category = get_term_by('name', single_cat_title( '', false ), TribeEvents::TAXONOMY );
+				$classes[] = 'events-category-' . $category->slug;
+			}
+
+			// archive class
+			if ( ! is_single() || tribe_is_showing_all() ) {
+				$classes[] = 'events-archive';
+			}
+
+			return $classes;
 		}
 
 		/**

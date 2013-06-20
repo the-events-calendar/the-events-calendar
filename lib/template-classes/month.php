@@ -29,6 +29,7 @@ if( !class_exists('Tribe_Events_Month_Template')){
 		private static $current_day = -1;
 		private static $current_week = -1;
 		protected static $args;
+		protected $body_class = 'events-gridview';
 		protected $excerpt_length = 30;
 		protected $asset_packages = array( 'ajax-calendar' );
 
