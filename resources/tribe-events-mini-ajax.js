@@ -4,7 +4,7 @@ jQuery(document).ready(function($) {
   
 	$('#tribe-events-calendar-wrap').on('click', '.tribe-mini-ajax', function(e){
 		e.preventDefault();    
-		var month_target = $(this).attr('data-month');
+		var month_target = $(this).data('month');
 		var params = {
 			action: 'calendar-mini',
 			eventDate: month_target

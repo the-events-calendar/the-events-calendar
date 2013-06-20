@@ -18,10 +18,10 @@
 
 		$tribe_bar.addClass('tribe-has-datepicker');
 
-		ts.date = $tribe_header.attr('data-date');
+		ts.date = $tribe_header.data('date');
 
 		function disableSpecificWeekDays(date) {
-			var start_day = $tribe_header.attr('data-startofweek');
+			var start_day = $tribe_header.data('startofweek');
 			var daysToDisable = [0, 1, 2, 3, 4, 5, 6];
 			delete daysToDisable[start_day];
 			var day = date.getDay();

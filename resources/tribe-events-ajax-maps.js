@@ -32,7 +32,6 @@
 			tg.markers.push(marker);
 
 			if(tg.refine){
-				console.log('refining');
 				marker.setVisible(false);
 			}
 			tg.bounds.extend(myLatlng);
@@ -163,8 +162,8 @@
 
 				$geo_bar_input.val($this.text());
 
-				$('#tribe-bar-geoloc-lat').val(tg.geocodes[$this.attr('data-index')].geometry.location.lat());
-				$('#tribe-bar-geoloc-lng').val(tg.geocodes[$this.attr('data-index')].geometry.location.lng());
+				$('#tribe-bar-geoloc-lat').val(tg.geocodes[$this.data('index')].geometry.location.lat());
+				$('#tribe-bar-geoloc-lng').val(tg.geocodes[$this.data('index')].geometry.location.lng());
 
 				if (tt.pushstate) {
 					tf.pre_ajax(function () {

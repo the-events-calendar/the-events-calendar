@@ -13,11 +13,11 @@
 	$(document).ready(function () {
 
 		if (ts.filter_cats)
-			var base_url = $('#tribe-events-header').attr('data-baseurl').slice(0, -11);
+			var base_url = $('#tribe-events-header').data('baseurl').slice(0, -11);
 		else
 			var base_url = $('#tribe-events-footer .tribe-events-nav-next a').attr('href').slice(0, -11);
 
-		ts.date = $('#tribe-events-header').attr('data-date');
+		ts.date = $('#tribe-events-header').data('date');
 
 		function tribe_day_add_classes() {
 			if ($('.tribe-events-day-time-slot').length) {

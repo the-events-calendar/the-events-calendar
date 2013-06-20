@@ -1,4 +1,17 @@
+/**
+ * @file The core file for the pro events calendar plugin javascript.
+ * This file must load on all front facing events pages and be the first file loaded after treibe-events.js.
+ * @version 3.0
+ */
+
 if (Object.prototype.hasOwnProperty.call(window, 'tribe_ev')) {
+
+	/**
+	 * @namespace tribe_ev
+	 * @since 3.0
+	 * @desc tribe_ev.geoloc namespace stores all google maps data used in both map view and for events wide geo search.
+	 */
+
 	tribe_ev.geoloc = {
 		map: [],
 		geocoder: [],
@@ -23,12 +36,29 @@ if (Object.prototype.hasOwnProperty.call(window, 'tribe_ev')) {
 
 	$.extend(tribe_ev.fn, {
 
+		/**
+		 * @function tribe_ev.fn.has_address
+		 * @since 3.0
+		 * @desc tribe_ev.fn.has_address
+		 * @param {String} val The value to compare against the array.
+		 * @param {Array} geocodes Tests for an immediate duplicate in the geocodes array.
+		 * @returns {Boolean} Returns true if a duplicate is found.
+		 */
+
 		has_address: function (val, geocodes) {
 			for(var i = 0; i < geocodes.length; i++) {
 				if(geocodes[i].formatted_address == val) return true;
 			}
 			return false;
 		},
+
+		/**
+		 * @function tribe_ev.fn.pre_ajax
+		 * @since 3.0
+		 * @desc tribe_ev.fn.pre_ajax allows for functions to be executed before ajax begins.
+		 * @param {Function} callback The callback function, expected to be an ajax function for one of our views.
+		 */
+
 		pre_ajax: function (callback) {
 			if ($('#tribe-bar-geoloc').length) {
 				var val = $('#tribe-bar-geoloc').val();
@@ -70,6 +100,13 @@ if (Object.prototype.hasOwnProperty.call(window, 'tribe_ev')) {
 				}
 			}
 		},
+
+		/**
+		 * @function tribe_ev.fn.print_geo_options
+		 * @since 3.0
+		 * @desc tribe_ev.fn.print_geo_options prints out the geolocation options returned by google maps if a geo search term requires refinement.
+		 */
+
 		print_geo_options: function () {
 			$("#tribe-geo-links").empty();
 			$("#tribe-geo-options").show();
@@ -79,7 +116,7 @@ if (Object.prototype.hasOwnProperty.call(window, 'tribe_ev')) {
 				var address = tg.geocodes[i].formatted_address;
 				if(!dupe_test[address]) {
 					dupe_test[address] = true;
-					$("<a/>").text(address).attr("href", "#").addClass('tribe-geo-option-link').attr('data-index', i).appendTo("#tribe-geo-links");
+					$("<a/>").text(address).attr("href", "#").addClass('tribe-geo-option-link').data('index', i).appendTo("#tribe-geo-links");
 					if (tt.map_view()) {
 						tf.map_add_marker(
 							tg.geocodes[i].geometry.location.lat(),
@@ -91,6 +128,13 @@ if (Object.prototype.hasOwnProperty.call(window, 'tribe_ev')) {
 			}
 			tg.refine = false;
 		},
+
+		/**
+		 * @function tribe_ev.fn.pro_tooltips
+		 * @since 3.0
+		 * @desc tribe_ev.fn.pro_tooltips supplies additional tooltip functions for view use on top of the ones defined in core, especially for week view.
+		 */
+
 		pro_tooltips: function () {
 
 			$('#tribe-events').on('mouseenter', 'div[id*="tribe-events-event-"], div[id*="tribe-events-daynum-"]:has(a), div.event-is-recurring', function () {
@@ -126,7 +170,7 @@ if (Object.prototype.hasOwnProperty.call(window, 'tribe_ev')) {
 						var cssmap = {};
 
 						if (!$tip.hasClass('hovered')) {
-							$tip.attr('data-ow', twidth).addClass('hovered');
+							$tip.data('ow', twidth).addClass('hovered');
 						}
 
 						if (isright)
@@ -136,10 +180,10 @@ if (Object.prototype.hasOwnProperty.call(window, 'tribe_ev')) {
 
 						if (twidth >= wcheck)
 							twidth = wcheck;
-						else if ($tip.attr('data-ow') > wcheck)
+						else if ($tip.data('ow') > wcheck)
 							twidth = wcheck;
 						else
-							twidth = $tip.attr('data-ow');
+							twidth = $tip.data('ow');
 
 						if (isright)
 							cssmap = { "right": cwidth + 20, "bottom": "auto", "width": twidth + "px"};
@@ -172,6 +216,15 @@ if (Object.prototype.hasOwnProperty.call(window, 'tribe_ev')) {
 
 			});
 		},
+
+		/**
+		 * @function tribe_ev.fn.process_geocoding
+		 * @since 3.0
+		 * @desc tribe_ev.fn.process_geocoding middle mans the geolocation request to google with its callback.
+		 * @param {String} location The location value, generally from the event bar.
+		 * @param {Function} callback The callback function.
+		 */
+
 		process_geocoding: function (location, callback) {
 			var request = {
 				address: location
@@ -194,6 +247,14 @@ if (Object.prototype.hasOwnProperty.call(window, 'tribe_ev')) {
 				return status;
 			});
 		},
+
+		/**
+		 * @function tribe_ev.fn.set_recurrence
+		 * @since 3.0
+		 * @desc tribe_ev.fn.set_recurrence uses local storage to store the user front end setting for the hiding of subsequent recurrences of a recurring event.
+		 * @param {Boolean} recurrence_on Bool sent to set appropriate recurrence storage option.
+		 */
+
 		set_recurrence: function (recurrence_on) {
 			if (recurrence_on) {
 				ts.recurrence = true;
@@ -210,6 +271,13 @@ if (Object.prototype.hasOwnProperty.call(window, 'tribe_ev')) {
 	});
 
 	$.extend(tribe_ev.tests, {
+
+		/**
+		 * @function tribe_ev.tests.hide_recurrence
+		 * @since 3.0
+		 * @desc tribe_ev.tests.hide_recurrence uses local storage to store the user front end setting for the hiding of subsequent recurrences of a recurring event.
+		 */
+
 		hide_recurrence: function () {
 			return  ($('#tribeHideRecurrence:checked').length) ? true : false;
 		}
@@ -231,6 +299,12 @@ if (Object.prototype.hasOwnProperty.call(window, 'tribe_ev')) {
 		if (tt.hide_recurrence()) {
 			tf.set_recurrence(true);
 		}
+
+		/**
+		 * @function tribe_ical_url
+		 * @since 3.0
+		 * @desc tribe_ical_url This function adds required params to the ical url. Runs on doc ready, and hooks into 'tribe_ev_ajaxSuccess' also.
+		 */
 
 		function tribe_ical_url() {
 			var url = document.URL,
@@ -295,8 +369,8 @@ if (Object.prototype.hasOwnProperty.call(window, 'tribe_ev')) {
 
 					$geo_bar_input.val($this.text());
 
-					$('#tribe-bar-geoloc-lat').val(tg.geocodes[$this.attr('data-index')].geometry.location.lat());
-					$('#tribe-bar-geoloc-lng').val(tg.geocodes[$this.attr('data-index')].geometry.location.lng());
+					$('#tribe-bar-geoloc-lat').val(tg.geocodes[$this.data('index')].geometry.location.lat());
+					$('#tribe-bar-geoloc-lng').val(tg.geocodes[$this.data('index')].geometry.location.lng());
 
 					tf.pre_ajax(function () {
 						$(te).trigger('tribe_ev_runAjax');
