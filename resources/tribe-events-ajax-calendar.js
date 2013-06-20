@@ -169,7 +169,7 @@
 		 * @since 3.0
 		 * @desc The ajax handler for month view.
 		 * Fires the custom event 'tribe_ev_serializeBar' at start, then 'tribe_ev_collectParams' to gather any additional paramters before actually launching the ajax post request.
-		 * As post begins 'tribe_ev_ajaxStart' and 'tribe_ev_monthView_AjaxStart' are fired, and then 'tribe_ev_ajaxSuccess' and 'tribe_ev__monthView_ajaxSuccess' are fired on success.
+		 * As post begins 'tribe_ev_ajaxStart' and 'tribe_ev_monthView_AjaxStart' are fired, and then 'tribe_ev_ajaxSuccess' and 'tribe_ev_monthView_ajaxSuccess' are fired on success.
 		 * Various functions in the events plugins hook into these events. They are triggered on the tribe_ev.events object.
 		 */
 
@@ -258,7 +258,7 @@
 								}, ts.page_title, td.cur_url);
 							}
 
-							$(te).trigger('tribe_ev_ajaxSuccess').trigger('tribe_ev__monthView_ajaxSuccess');
+							$(te).trigger('tribe_ev_ajaxSuccess').trigger('tribe_ev_monthView_ajaxSuccess');
 
 							dbug && debug.timeEnd('Month View Ajax Timer');
 						}
