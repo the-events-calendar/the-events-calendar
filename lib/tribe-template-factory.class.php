@@ -41,7 +41,7 @@ if( !class_exists('Tribe_Template_Factory') ) {
 		 *
 		 * @var string
 		 **/
-		protected $body_class = 'events-list';
+		protected $body_class = '';
 		
 		/**
 		 * Static variable that holds array of vendor script handles, for adding to later deps.

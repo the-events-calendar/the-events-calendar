@@ -16,7 +16,7 @@ if( !class_exists('Tribe_Events_List_Template')){
 	 * List view template class
 	 */
 	class Tribe_Events_List_Template extends Tribe_Template_Factory {
-
+		protected $body_class = 'events-list';
 		protected $asset_packages = array( 'ajax-list' );
 
 	}
