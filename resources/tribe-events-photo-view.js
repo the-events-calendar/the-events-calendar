@@ -1,3 +1,9 @@
+/**
+ * @file This file contains all photo view specific javascript.
+ * This file should load after all vendors and core events javascript.
+ * @version 3.0
+ */
+
 (function (window, document, $, td, te, tf, ts, tt, dbug) {
 
 	/*
@@ -29,15 +35,34 @@
 			ts.paged = tribe_is_paged;
 		}
 
+		/**
+		 * @function tribe_show_loader
+		 * @since 3.0
+		 * @desc Show photo view loading mask if set.
+		 */
+
 		function tribe_show_loader() {
 			$('.photo-loader').show();
 			$('#tribe-events-photo-events').addClass("photo-hidden");
 		}
 
+		/**
+		 * @function tribe_hide_loader
+		 * @since 3.0
+		 * @desc Hide photo view loading mask if set.
+		 */
+
 		function tribe_hide_loader() {
 			$('.photo-loader').hide();
 			$('#tribe-events-photo-events').removeClass("photo-hidden").animate({"opacity": "1"}, {duration: 600});
 		}
+
+		/**
+		 * @function tribe_apply_photo_cols
+		 * @since 3.0
+		 * @desc tribe_apply_photo_cols sets up isotope layout by adding a class depending on container width.
+		 * @param {jQuery} $container The photo view container.
+		 */
 
 		function tribe_apply_photo_cols($container){
 			container_width = $container.width();
@@ -47,6 +72,13 @@
 				$container.removeClass('photo-two-col');
 			}
 		}
+
+		/**
+		 * @function tribe_setup_isotope
+		 * @since 3.0
+		 * @desc tribe_setup_isotope applies isotope layout to the events list, on initial load and on ajax.
+		 * @param {jQuery} $container The photo view container.
+		 */
 
 		function tribe_setup_isotope($container) {
 			if ($().isotope) {
@@ -100,7 +132,7 @@
 					ts.params = state.tribe_params;
 					ts.url_params = state.tribe_url_params;
 					tf.pre_ajax(function () {
-						tribe_events_list_ajax_post();
+						tribe_events_photo_ajax_post();
 					});
 
 					tf.set_form(ts.params);
@@ -123,7 +155,7 @@
 			}
 			ts.popping = false;
 			tf.pre_ajax(function () {
-				tribe_events_list_ajax_post();
+				tribe_events_photo_ajax_post();
 			});
 		}).on('click', 'li.tribe-events-nav-previous a', function (e) {
 				e.preventDefault();
@@ -140,9 +172,16 @@
 				}
 				ts.popping = false;
 				tf.pre_ajax(function () {
-					tribe_events_list_ajax_post();
+					tribe_events_photo_ajax_post();
 				});
 			});
+
+		/**
+		 * @function tribe_events_bar_photoajax_actions
+		 * @since 3.0
+		 * @desc On events bar submit, this function collects the current state of the bar and sends it to the photo view ajax handler.
+		 * @param {event} e The event object.
+		 */
 
 		function tribe_events_bar_photoajax_actions(e) {
 			if (tribe_events_bar_action != 'change_view') {
@@ -153,7 +192,7 @@
 				ts.view = 'photo';
 				ts.popping = false;
 				tf.pre_ajax(function () {
-					tribe_events_list_ajax_post();
+					tribe_events_photo_ajax_post();
 				});
 			}
 		}
@@ -178,10 +217,19 @@
 		tf.snap('#tribe-events-content', '#tribe-events-content', '#tribe-events-footer .tribe-events-nav-previous a, #tribe-events-footer .tribe-events-nav-next a');
 
 		$(te).on("tribe_ev_runAjax", function () {
-			tribe_events_list_ajax_post();
+			tribe_events_photo_ajax_post();
 		});
 
-		function tribe_events_list_ajax_post() {
+		/**
+		 * @function tribe_events_photo_ajax_post
+		 * @since 3.0
+		 * @desc The ajax handler for photo view.
+		 * Fires the custom event 'tribe_ev_serializeBar' at start, then 'tribe_ev_collectParams' to gather any additional parameters before actually launching the ajax post request.
+		 * As post begins 'tribe_ev_ajaxStart' and 'tribe_ev_photoView_AjaxStart' are fired, and then 'tribe_ev_ajaxSuccess' and 'tribe_ev_photoView_ajaxSuccess' are fired on success.
+		 * Various functions in the events plugins hook into these events. They are triggered on the tribe_ev.events object.
+		 */
+
+		function tribe_events_photo_ajax_post() {
 
 			$('#tribe-events-header').tribe_spin();
 			tribe_show_loader();

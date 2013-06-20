@@ -1,6 +1,6 @@
 /**
- * @file The core file for the pro events calendar plugin javascript.
- * This file must load on all front facing events pages and be the first file loaded after treibe-events.js.
+ * @file This file contains all map view specific javascript.
+ * This file should load after all vendors and core events javascript.
  * @version 3.0
  */
 

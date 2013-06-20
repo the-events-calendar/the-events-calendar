@@ -1,3 +1,9 @@
+/**
+ * @file This file contains all week view specific javascript.
+ * This file should load after all vendors and core events javascript.
+ * @version 3.0
+ */
+
 (function (window, document, $, td, te, tf, ts, tt, dbug) {
 
 	/*
