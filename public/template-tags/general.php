@@ -530,14 +530,18 @@ if ( class_exists( 'TribeEvents' ) ) {
 		return apply_filters('tribe_events_get_days_of_week', $days_of_week);
 	}
 
-
+	/**
+	 * conditional tag to determine if the cost field should be shown in the admin editors.
+	 * @return [type] [description]
+	 */
 	function tribe_events_admin_show_cost_field(){
 		$modules = apply_filters( 'tribe_events_tickets_modules', NULL );
-		$show_cost = true;
-		$show_cost = $show_cost && ( empty( $modules ) || 
-									 class_exists( 'Event_Tickets_PRO' ) || 
-									 get_post_meta( get_the_ID(), '_EventOrigin', true ) === 'community-events' );
-		return apply_filters( 'tribe_events_admin_show_cost_field', $show_cost );
+		$class_exists = class_exists( 'Event_Tickets_PRO' );
+		$event_origin = get_post_meta( get_the_ID(), '_EventOrigin', true );
+		$show_cost = empty( $modules ) || 
+					 $class_exists || 
+					 in_array( $event_origin, apply_filters( 'tribe_events_admin_show_cost_field_origin', array( 'community-events' ) ) );
+		return apply_filters( 'tribe_events_admin_show_cost_field', $show_cost, $modules );
 	}
 
 	/**
