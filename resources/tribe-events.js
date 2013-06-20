@@ -398,11 +398,11 @@ try {
          * @function tribe_ev.fn.pre_ajax
          * @since 3.0
          * @desc tribe_ev.fn.pre_ajax allows for functions to be executed before ajax begins.
-         * @param {Function} tribe_ajax_callback The callback function, expected to be an ajax function for one of our views.
+         * @param {Function} callback The callback function, expected to be an ajax function for one of our views.
          */
-        pre_ajax: function (tribe_ajax_callback) {
-            if (tribe_ajax_callback && typeof( tribe_ajax_callback ) === "function") {
-                tribe_ajax_callback();
+        pre_ajax: function (callback) {
+            if (callback && typeof( callback ) === "function") {
+				callback();
             }
         },
         /**
