@@ -19,9 +19,6 @@
 .tribe-addon h4 a {
 	text-decoration: none;
 }
-.tribe-addon .caption p{
-	width: 300px;
-}
 
 .addon-grid{
 	width: 100%;
@@ -43,7 +40,7 @@
 
 .tribe-addon.first h4 {
 	font-size: 20px;
-	margin-top: 0;
+	margin: 0;
 	line-height: 1.4;
 }
 
