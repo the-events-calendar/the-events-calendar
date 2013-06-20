@@ -16,7 +16,7 @@ if ( !class_exists( 'Tribe_Events_Pro_Single_Venue_Template' ) ) {
 
 		protected $asset_packages = array( 'jquery-placeholder' );
 
-		protected $body_class = 'events-venue';
+		protected $body_class = 'tribe-events-venue';
 		
 		/**
 		 * Set up hooks for this template
