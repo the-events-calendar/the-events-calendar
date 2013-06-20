@@ -54,7 +54,7 @@ jQuery( document ).ready( function ( $ ) {
 					
 					var $the_content = $( response.html ).contents().filter(function() {return this.nodeType != 3;});
 					$current_calendar.find('.tribe-mini-calendar-nav div > span').removeClass('active').siblings('#ajax-loading-mini').hide();					
-					$current_calendar_wrapper.empty().html( $the_content );					
+					$current_calendar_wrapper.empty().html( response.html );				
 					fix_widget_height();
 				}
 			}
