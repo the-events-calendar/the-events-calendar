@@ -1,3 +1,9 @@
+/**
+ * @file This file contains all month view specific javascript.
+ * This file should load after all vendors and core events javascript.
+ * @version 3.0
+ */
+
 (function (window, document, $, td, te, tf, ts, tt, dbug) {
 
 	/*
@@ -111,9 +117,14 @@
 
 		tf.snap('#tribe-bar-form', 'body', '#tribe-events-footer .tribe-events-nav-previous a, #tribe-events-footer .tribe-events-nav-next a');
 
-		// events bar intercept submit
+		/**
+		 * @function tribe_events_bar_calendar_ajax_actions
+		 * @since 3.0
+		 * @desc On events bar submit, this function collects the current state of the bar and sends it to the month view ajax handler.
+		 * @param {event} e The event object.
+		 */
 
-		function tribe_events_bar_calajax_actions(e) {
+		function tribe_events_bar_calendar_ajax_actions(e) {
 			if (tribe_events_bar_action != 'change_view') {
 				e.preventDefault();
 				if (ts.ajax_running)
@@ -137,7 +148,7 @@
 		}
 
 		$('form#tribe-bar-form').on('submit', function (e) {
-			tribe_events_bar_calajax_actions(e);
+			tribe_events_bar_calendar_ajax_actions(e);
 		});
 
 		$(te).on("tribe_ev_runAjax", function () {
@@ -153,6 +164,14 @@
 			ts.popping = false;
 		});
 
+		/**
+		 * @function tribe_events_calendar_ajax_post
+		 * @since 3.0
+		 * @desc The ajax handler for month view.
+		 * Fires the custom event 'tribe_ev_serializeBar' at start, then 'tribe_ev_collectParams' to gather any additional paramters before actually launching the ajax post request.
+		 * As post begins 'tribe_ev_ajaxStart' and 'tribe_ev_monthView_AjaxStart' are fired, and then 'tribe_ev_ajaxSuccess' and 'tribe_ev__monthView_ajaxSuccess' are fired on success.
+		 * Various functions in the events plugins hook into these events. They are triggered on the tribe_ev.events object.
+		 */
 
 		function tribe_events_calendar_ajax_post() {
 
