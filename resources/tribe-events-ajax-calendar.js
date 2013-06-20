@@ -12,9 +12,9 @@
 
 	$(document).ready(function () {
 
-		var base_url = $('#tribe-events-header .tribe-events-nav-next a').attr('href').slice(0, -8);
-		var initial_date = tf.get_url_param('tribe-bar-date');
-		var $tribedate = $('#tribe-bar-date');
+		var base_url = $('#tribe-events-header .tribe-events-nav-next a').attr('href').slice(0, -8),
+			initial_date = tf.get_url_param('tribe-bar-date'),
+			$tribedate = $('#tribe-bar-date');
 
 		if ($('.tribe-events-calendar').length && $('#tribe-events-bar').length) {
 			if (initial_date) {
@@ -43,7 +43,7 @@
 				if (ts.ajax_running)
 					return;
 				if (ts.filter_cats)
-					td.cur_url = $('#tribe-events-header').attr('data-baseurl') + ts.date + '/';
+					td.cur_url = $('#tribe-events-header').data('baseurl') + ts.date + '/';
 				else
 					td.cur_url = base_url + ts.date + '/';
 				ts.popping = false;
@@ -55,7 +55,7 @@
 
 		if (tt.pushstate && !tt.map_view()) {
 
-			var params = 'action=tribe_calendar&eventDate=' + $('#tribe-events-header').attr('data-date');
+			var params = 'action=tribe_calendar&eventDate=' + $('#tribe-events-header').data('date');
 
 			if (td.params.length)
 				params = params + '&' + td.params;
@@ -88,10 +88,10 @@
 				if (ts.ajax_running)
 					return;
 				var $this = $(this);
-				ts.date = $this.attr("data-month");
+				ts.date = $this.data("month");
 				tf.update_picker(ts.date);
 				if (ts.filter_cats)
-					td.cur_url = $('#tribe-events-header').attr('data-baseurl');
+					td.cur_url = $('#tribe-events-header').data('baseurl');
 				else
 					td.cur_url = $this.attr("href");
 				ts.popping = false;
@@ -125,7 +125,7 @@
 				}
 
 				if (ts.filter_cats) {
-					td.cur_url = $('#tribe-events-header').attr('data-baseurl') + ts.date + '/';
+					td.cur_url = $('#tribe-events-header').data('baseurl') + ts.date + '/';
 				} else {
 					td.cur_url = base_url + ts.date + '/';
 				}
@@ -145,9 +145,9 @@
 		});
 
 		$(te).on("tribe_ev_updatingRecurrence", function () {
-			ts.date = $('#tribe-events-header').attr("data-date");
+			ts.date = $('#tribe-events-header').data("date");
 			if (ts.filter_cats)
-				td.cur_url = $('#tribe-events-header').attr('data-baseurl') + ts.date + '/';
+				td.cur_url = $('#tribe-events-header').data('baseurl') + ts.date + '/';
 			else
 				td.cur_url = base_url + ts.date + '/';
 			ts.popping = false;

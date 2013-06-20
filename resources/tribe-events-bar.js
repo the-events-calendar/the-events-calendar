@@ -1,3 +1,9 @@
+/**
+ * @file Sets up the event bar javascript.
+ * This file should load after tribe events core and pro js and before any events view javascript.
+ * @version 3.0
+ */
+
 var tribe_events_bar_action;
 
 (function (window, document, $, td, te, tf, ts, tt, dbug) {
@@ -148,7 +154,7 @@ var tribe_events_bar_action;
 		// Implement our views bit
 		$('select[name=tribe-bar-view]').change(function () {
 			ts.cur_url = $(this).val();
-			ts.view_target = $('select[name=tribe-bar-view] option[value="' + ts.cur_url + '"]').attr('data-view');
+			ts.view_target = $('select[name=tribe-bar-view] option[value="' + ts.cur_url + '"]').data('view');
 			tribe_events_bar_action = 'change_view';
 			tribe_events_bar_change_view();
 		});
@@ -156,7 +162,7 @@ var tribe_events_bar_action;
 		$('a.tribe-bar-view').on('click', function (e) {
 			e.preventDefault();
 			var el = $(this);
-			var name = el.attr('data-view');
+			var name = el.data('view');
 			tribe_events_bar_change_view(el.attr('href'), name);
 
 		});

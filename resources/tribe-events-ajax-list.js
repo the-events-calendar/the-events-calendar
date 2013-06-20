@@ -133,7 +133,7 @@
 			if (!ts.popping) {
 
 				if (ts.filter_cats)
-					td.cur_url = $('#tribe-events-header').attr('data-baseurl');
+					td.cur_url = $('#tribe-events-header').data('baseurl');
 
 				var tribe_hash_string = $('#tribe-events-list-hash').val();
 
