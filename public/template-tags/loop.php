@@ -62,7 +62,8 @@ if( class_exists( 'TribeEvents' ) ) {
 	 */
 	function tribe_is_past()  {
 		global $wp_query;
-		return apply_filters('tribe_is_past', $wp_query->tribe_is_past );
+		$is_past = !empty( $wp_query->tribe_is_past ) ? $wp_query->tribe_is_past : false;
+		return apply_filters('tribe_is_past', $is_past );
 	}
 
 	/**
