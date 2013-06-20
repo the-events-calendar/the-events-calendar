@@ -21,6 +21,8 @@ class TribeRecurrence {
 	/**
 	 * Using the rules engine, find all dates in the series 
 	 *
+	 * @param bool $all_events Return ALL instances?
+	 * @param array $old_start_dates The old start dates for an event.
 	 * @return An array of all dates in the series
 	 */
 	public function getDates( $all_events = true, $old_start_dates = null ) {

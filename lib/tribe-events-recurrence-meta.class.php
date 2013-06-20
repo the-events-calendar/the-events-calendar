@@ -768,7 +768,7 @@ class TribeEventsRecurrenceMeta {
 	 * Responsible for the display of recurrence-related errors.
 	 *
 	 * @since 3.0
-	 * @author PaulHughes01
+	 * @author Paul Hughes
 	 *
 	 * @return void
 	 */
@@ -788,7 +788,7 @@ class TribeEventsRecurrenceMeta {
 	 * Returns the Add the Too Many Recurrences error query arg in the redirect location.
 	 *
 	 * @since 3.0
-	 * @author PaulHughes01
+	 * @author Paul Hughes
 	 *
 	 * @param string $location The current location to redirect to.
 	 * @return string The new location.
@@ -801,7 +801,7 @@ class TribeEventsRecurrenceMeta {
 	 * Returns an array of possible error messages.
 	 *
 	 * @since 3.0
-	 * @author PaulHughes01
+	 * @author Paul Hughes
 	 *
 	 * @return array The array of possible error messages.
 	 */
@@ -817,7 +817,7 @@ class TribeEventsRecurrenceMeta {
 	 * Checks the recurrence amount and adds a filter to display an errir if it is not correct.
 	 *
 	 * @since 3.0
-	 * @author PaulHughes01
+	 * @author Paul Hughes
 	 *
 	 * @param int $post_id The post id.
 	 * @return void
@@ -855,7 +855,7 @@ class TribeEventsRecurrenceMeta {
 	 * Combines the ['post'] piece of the $_REQUEST variable so it only has unique post ids.
 	 *
 	 * @since 3.0
-	 * @author PaulHughes01
+	 * @author Paul Hughes
 	 *
 	 * @return void
 	 */

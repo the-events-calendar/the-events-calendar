@@ -1,12 +1,24 @@
 <?php
+
 class ECP_APM_Filters {
 	
+	/**
+	 * Class constructor, adds the actions and filters.
+	 *
+	 * @return void
+	 */
 	public function __construct() {
 		add_action( 'init', array($this, 'ecp_filters') );
 		add_action( 'tribe_cpt_filters_after_init', array($this, 'default_columns') );
 		add_filter( 'tribe_query_options', array( $this, 'query_options_for_date' ), 10, 3 );
 	}
 	
+	/**
+	 * Set the default columns if a custom set has not been created/being used.
+	 *
+	 * @param Tribe_APM $apm The passed APM instance.
+	 * @return void
+	 */
 	public function default_columns($apm) {
 		global $ecp_apm;
 		if ( $ecp_apm === $apm ) {
@@ -16,6 +28,11 @@ class ECP_APM_Filters {
 		}
 	}
 	
+	/**
+	 * Create the events APM with the additional APM filters that TEC uses.
+	 *
+	 * @return void
+	 */
 	public function ecp_filters() {
 		$filter_args = array(
 			'ecp_venue_filter_key'=>array(
@@ -71,6 +88,14 @@ class ECP_APM_Filters {
 		$ecp_apm->add_taxonomies = false;
 	}
 
+	/**
+	 * Comparison operators for comparing dates that TEC will need to use.
+	 *
+	 * @param array $options the current options.
+	 * @param string $key
+	 * @param mixed $filter
+	 * @return array The options with the additional operators.
+	 */
 	function query_options_for_date( $options, $key, $filter ) {
 		if ( 'ecp_start' == $key ) {
 			$options = array( 'gte' => '>=', 'lte' => '<=' );

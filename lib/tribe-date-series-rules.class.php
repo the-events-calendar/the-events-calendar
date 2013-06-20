@@ -24,10 +24,21 @@ class DaySeriesRules implements DateSeriesRules
 {
 	private $days_between;
 
+	/**
+	 * The class constructor.
+	 *
+	 * @param int $days_between The days between occurrences.
+	 */
 	public function __construct($days_between = 1) {
 		$this->days_between = $days_between;
 	}
-
+	
+	/**
+	 * Gets the timestamp of the next date of recurrence.
+	 *
+	 * @param int $curdate The current date's timestamp.
+	 * @return int The next date's timestamp.
+	 */
 	public function getNextDate($curdate) {
 		return strtotime(date(DateSeriesRules::DATE_FORMAT, $curdate) . " + " . $this->days_between . " days");
 	}
@@ -41,12 +52,24 @@ class WeekSeriesRules implements DateSeriesRules
 	private $weeks_between;
 	private $days;
 
+	/**
+	 * The class constructor.
+	 *
+	 * @param int $weeks_between The number of weeks between recurrences.
+	 * @param array $days The days on which an event recurs.
+	 */
 	public function __construct($weeks_between = 1, $days = array()) {
 		$this->weeks_between = $weeks_between;
 		$this->days = $days; // days are integers representing days
 		sort($this->days);
 	}
 
+	/**
+	 * Get the next date of a recurrence.
+	 *
+	 * @param int $curdate The timestamp of the current instance of event.
+	 * @return int The timestamp of the next recurrence.
+	 */
 	public function getNextDate($curdate) {
 		$nextdate = $curdate;
 
@@ -71,6 +94,12 @@ class WeekSeriesRules implements DateSeriesRules
 		return strtotime(date(DateSeriesRules::DATE_FORMAT, $nextdate) . " + " . $this->weeks_between . " weeks");
 	}
 
+	/**
+	 * Get the next day-of-the-week that the event occurs on.
+	 *
+	 * @param int $curDayOfWeek The index of the current day-of-week.
+	 * @return int The index of the next date of recurrence.
+	 */
 	private function getNextDayOfWeek($curDayOfWeek) {
 		foreach($this->days as $day) {
 			if ($day > $curDayOfWeek)
@@ -91,6 +120,14 @@ class MonthSeriesRules implements DateSeriesRules
 	private $week_of_month;
 	private $day_of_week;
 
+	/**
+	 * The class constructor.
+	 *
+	 * @param int $months_between The number of months between recurrences.
+	 * @param array $days_of_month The days of the month on which recurrences occur.
+	 * @param int $week_of_month The week of the month on which recurrences occur.
+	 * @param int $day_of_week The index of the day of the week on which recurrences occur.
+	 */
 	public function __construct($months_between = 1, $days_of_month = array(), $week_of_month = null, $day_of_week = null) {
 		$this->months_between = $months_between;
 		$this->days_of_month = (array)$days_of_month;
@@ -100,6 +137,12 @@ class MonthSeriesRules implements DateSeriesRules
 		sort($this->days_of_month);
 	}
 
+	/**
+	 * Get the timestamp of the next occurrence.
+	 *
+	 * @param int $curdate The current timestamp of a given occurrence.
+	 * @return int The timestamp of the next occurrence.
+	 */
 	public function getNextDate($curdate) {
 		$next_day_of_month = date('j', $curdate);
 
@@ -133,6 +176,14 @@ class MonthSeriesRules implements DateSeriesRules
 		}
 	}
 
+	/**
+	 * Gets a given occurence on a given day-of-week.
+	 *
+	 * @param int $curdate The current timestamp of an occurence.
+	 * @param int $day_of_week The index of a given day-of-week.
+	 * @param int $week_of_month The index of a given week-of-month.
+	 * @return int The timestamp of the requested occurrence.
+	 */
 	private function getNthDayOfWeek($curdate, $day_of_week, $week_of_month) {
 		$curmonth = date('n', $curdate);
 
@@ -167,6 +218,12 @@ class MonthSeriesRules implements DateSeriesRules
 		}
 	}
 
+	/**
+	 * Gets the next day of the month on which an occurrence occurs.
+	 *
+	 * @param int $curDayOfMonth The index of the current day of the month.
+	 * @return int The index of the next day of the month.
+	 */
 	private function getNextDayOfMonth($curDayOfMonth) {
 		foreach($this->days_of_month as $day) {
 			if ($day > $curDayOfMonth)
@@ -187,6 +244,14 @@ class YearSeriesRules implements DateSeriesRules
 	private $week_of_month;
 	private $day_of_week;
 
+	/**
+	 * The class constructor.
+	 *
+	 * @param int $years_between The number of years between recurrences.
+	 * @param array $months_of_year The months in which recurrences occur.
+	 * @param int $week_of_month The week of the month on which occurences occur.
+	 * @param int $day_of_week The day of the week on which occurrences occur.
+	 */
 	public function __construct($years_between = 1, $months_of_year = array(), $week_of_month = null, $day_of_week = null) {
 		$this->years_between = $years_between;
 		$this->months_of_year = $months_of_year;
@@ -196,6 +261,12 @@ class YearSeriesRules implements DateSeriesRules
 		sort($this->months_of_year);
 	}
 
+	/**
+	 * Get next date of occurence.
+	 *
+	 * @param int $curdate The timestamp of the current recurrence.
+	 * @return int The timestamp of the next occurence.
+	 */
 	public function getNextDate($curdate) {
 		$next_month_of_year = date('n', $curdate);
 		$day_of_month = date('j', $curdate);
@@ -223,6 +294,14 @@ class YearSeriesRules implements DateSeriesRules
 		}
 	}
 
+	/**
+	 * Advance to the next recurrence date.
+	 *
+	 * @param int $curdate The timestamp of the current recurrence.
+	 * @param int $next_month_of_year The index of the next month of the year.
+	 * @param int $day_of_month The index of the day of month.
+	 * @return int The timestamp of the next date.
+	 */
 	private function advanceDate($curdate, $next_month_of_year, $day_of_month = null) {
 		if($next_month_of_year > date('n', $curdate)) { // is curdate correct here?
 			$nextdate = mktime(date("H", $curdate), date("i", $curdate), date("s", $curdate), $next_month_of_year, $day_of_month ? $day_of_month : date('j', $curdate), date('Y', $curdate));
@@ -233,6 +312,15 @@ class YearSeriesRules implements DateSeriesRules
 		return $nextdate;
 	}
 
+	/**
+	 * Get the timestamp of the Nth day of month.
+	 * 
+	 * @param int $curdate The current occurrence's timestamp.
+	 * @param int $day_of_week The index of the day-of-week.
+	 * @param int $week_of_month The index of the week of the month.
+	 * @param int $next_month_of_year The index of the next month of the year.
+	 * @return int The timestamp of the next occurrence on the nth day of the month.
+	 */
 	private function getNthDayOfMonth($curdate, $day_of_week, $week_of_month, $next_month_of_year) {
 		$nextdate = $this->advanceDate($curdate, $next_month_of_year, 1); // advance to correct month
 		$nextdate = TribeDateUtils::getFirstDayOfWeekInMonth($nextdate, $day_of_week);
@@ -256,6 +344,12 @@ class YearSeriesRules implements DateSeriesRules
 		}
 	}
 
+	/**
+	 * Get the index of the next month of the year on which an occurrence occurs.
+	 *
+	 * @param int $curMonth The index of the current month.
+	 * @return int The index of the next month bearing a recurrence.
+	 */
 	private function getNextMonthOfYear($curMonth) {
 		foreach($this->months_of_year as $month) {
 			if ($month > $curMonth)
