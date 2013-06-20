@@ -530,14 +530,19 @@ if ( class_exists( 'TribeEvents' ) ) {
 		return apply_filters('tribe_events_get_days_of_week', $days_of_week);
 	}
 
+
+	function tribe_events_admin_show_cost_field(){
+		$modules = apply_filters( 'tribe_events_tickets_modules', NULL );
+		$show_cost = true;
+		$show_cost = $show_cost && ( empty( $modules ) || 
+									 class_exists( 'Event_Tickets_PRO' ) || 
+									 get_post_meta( get_the_ID(), '_EventOrigin', true ) === 'community-events' );
+		return apply_filters( 'tribe_events_admin_show_cost_field', $show_cost );
+	}
+
 	/**
-	 * Event Cost
+	 * Get an event's cost 
 	 *
-	 * If EventBrite plugin is active
-	 * - If the event is registered in Eventbrite, and has one ticket. Return the cost of that ticket.
-	 * - If the event is registered in Eventbrite, and there are many tickets, return "Varies"
-	 *   - If the event is not registered in Eventbrite, and there is meta, return that.
-	 *   - If the event is not registered in Eventbrite, and there is no meta, return ""
 	 *
 	 * @param null|int $postId (optional)
 	 * @param bool $withCurrencySymbol Include the currency symbol
@@ -546,13 +551,6 @@ if ( class_exists( 'TribeEvents' ) ) {
 	function tribe_get_cost( $postId = null, $withCurrencySymbol = false ) {
 		$tribe_ecp = TribeEvents::instance();
 		$postId = TribeEvents::postIdHelper( $postId );
-		if ( class_exists( 'Eventbrite_for_TribeEvents' ) ) {
-			global $spEventBrite;
-			$returned = $spEventBrite->tribe_get_cost( $postId );
-			if ( $returned ) {
-				return apply_filters( 'tribe_get_cost', esc_html( $returned ) );
-			}
-		}
 
 		$cost = tribe_get_event_meta( $postId, '_EventCost', true );
 
@@ -574,7 +572,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 			$cost = $currency . $cost;
 		}
 
-		return apply_filters( 'tribe_get_cost', $cost );
+		return apply_filters( 'tribe_get_cost', $cost, $postId, $withCurrencySymbol );
 	}
 
 	/**

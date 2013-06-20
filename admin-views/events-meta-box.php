@@ -108,8 +108,7 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 	</table>
 
     <?php $this->do_action('tribe_events_details_table_bottom', $postId, true) ?>
-	<?php $modules = apply_filters( 'tribe_events_tickets_modules', NULL ); ?>
-	<?php if ( empty( $modules ) || class_exists( 'Event_Tickets_PRO' ) || ( get_post_meta( get_the_ID(), '_EventOrigin', true ) === 'community-events' ) ) { ?>
+	<?php if ( tribe_events_admin_show_cost_field() ) { ?>
 	<table id="event_cost" class="eventtable">
 		<tr>
 			<td colspan="2" class="tribe_sectionheader"><h4><?php _e('Event Cost', 'tribe-events-calendar'); ?></h4></td>

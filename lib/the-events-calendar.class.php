@@ -3991,6 +3991,8 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 		function calendar_ajax_call() {
 			if ( isset( $_POST["eventDate"] ) && $_POST["eventDate"] ) {
+
+				TribeEventsQuery::init();
 				global $wp_query;
 
 				// set the global query var for eventDisplay
@@ -4006,8 +4008,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				if ( class_exists( 'TribeEventsFilterView' ) ) {
 					TribeEventsFilterView::instance()->createFilters( null, true );
 				}
-
-				TribeEventsQuery::init();
 
 				$wp_query->tribe_is_event_query = true;
 
