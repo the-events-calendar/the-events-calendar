@@ -101,7 +101,7 @@ if(tribe_debug){
 			if (callback_func && (callback_force || !con || !con.log)) {
 				callback_func.apply(window, args);
 			}
-		};
+		}
 
 		that.setLevel = function (level) {
 			log_level = typeof level === 'number' ? level : 9;
@@ -111,7 +111,7 @@ if(tribe_debug){
 			return log_level > 0
 				? log_level > level
 				: log_methods.length + log_level <= level;
-		};
+		}
 
 		that.setCallback = function () {
 			var args = aps.call(arguments),
