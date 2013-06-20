@@ -4,6 +4,11 @@
  * @version 3.0
  */
 
+/**
+ * @global
+ * @desc This global is used in various functions throughout the plugin to determine if the view is being changed. Its value will be set to 'change_view' when true.
+ */
+
 var tribe_events_bar_action;
 
 (function (window, document, $, td, te, tf, ts, tt, dbug) {
@@ -34,11 +39,16 @@ var tribe_events_bar_action;
 		var $tribebar = $('#tribe-bar-form'),
 			$tribedate = $('#tribe-bar-date');
 
-		// Check width of events bar
+		/**
+		 * @function eventsBarWidth
+		 * @since 3.0
+		 * @desc eventsBarWidth applies responsive css classes to the bar to adjust its layout for smaller screens.
+		 * @param {jQuery} $tribebar The event bar jquery object.
+		 */
 		function eventsBarWidth($tribebar) {
-			if ( $tribebar.parents('.tribe-bar-disabled').length ) {
-				return false;
-			}
+			if ( $tribebar.parents('.tribe-bar-disabled').length )
+				return;
+
 			var tribeBarWidth = $tribebar.width();
 
 			if (tribeBarWidth > 800) {
@@ -198,6 +208,12 @@ var tribe_events_bar_action;
 				}
 			});
 		});
+
+		/**
+		 * @function tribe_events_bar_change_view
+		 * @since 3.0
+		 * @desc tribe_events_bar_change_view handles switching views and collecting any params from the events bar. It also fires 2 custom actions that can be hooked into: 'tribe_ev_preCollectBarParams' and 'tribe_ev_postCollectBarParams'.
+		 */
 
 		function tribe_events_bar_change_view() {
 
