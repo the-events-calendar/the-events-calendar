@@ -106,23 +106,6 @@ if ( !class_exists( 'Tribe_Events_Pro_Single_Venue_Template' ) ) {
 			tribe_set_the_meta_visibility( 'tribe_event_venue_address', false );
 
 		}
-
-		/**
-		 * Filter tribe_get_template_part()
-		 *
-		 * @return string
-		 * @since 3.0
-		 **/
-		public function filter_template_paths( $file, $template ) {
-
-			parent::filter_template_paths( $file, $template );
-
-			// don't return the tribe bar on venue view
-			if ( $template == 'modules/bar.php' ) {
-				return false;
-			}
-			return $file;
-		}
 		
 		/**
 		 * Remove navigation from the list view included.
