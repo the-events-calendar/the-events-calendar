@@ -1,6 +1,35 @@
+/**
+ * @file The core file for the pro events calendar plugin javascript.
+ * This file must load on all front facing events pages and be the first file loaded after treibe-events.js.
+ * @version 3.0
+ */
+
 (function (window, document, $, td, te, tf, tg, ts, tt, dbug) {
 
+	/*
+	 * $    = jQuery
+	 * td   = tribe_ev.data
+	 * te   = tribe_ev.events
+	 * tf   = tribe_ev.fn
+	 * tg   = tribe_ev.geoloc
+	 * ts   = tribe_ev.state
+	 * tt   = tribe_ev.tests
+	 * dbug = tribe_debug
+	 */
+
 	$.extend(tribe_ev.fn, {
+
+		/**
+		 * @function tribe_ev.fn.map_add_marker
+		 * @since 3.0
+		 * @desc tribe_ev.fn.map_add_marker adds event markers to the map on geoloc view.
+		 * @param {String} lat Marker latitude.
+		 * @param {String} lng Marker longitude.
+		 * @param {String} title Marker event title.
+		 * @param {String} address Marker event address.
+		 * @param {String} link Marker event permalink.
+		 */
+
 		map_add_marker: function (lat, lng, title, address, link) {
 			var myLatlng = new google.maps.LatLng(lat, lng);
 
@@ -43,18 +72,24 @@
 
 	$(document).ready(function () {
 
+		/**
+		 * @function tribe_test_location
+		 * @since 3.0
+		 * @desc tribe_test_location clears the lat and lng values in event bar if needed. Also hides or shows the geofence filter if present.
+		 */
+
 		function tribe_test_location() {
 
 			if ($('#tribe-bar-geoloc').length) {
-				var tribe_map_val = $('#tribe-bar-geoloc').val();
-				if (tribe_map_val.length) {
-					if ($("#tribe_events_filter_item_geofence").length)
-						$("#tribe_events_filter_item_geofence").show();
+				var val = $('#tribe-bar-geoloc').val(),
+					$fence = $("#tribe_events_filter_item_geofence"),
+					$latlng = $('#tribe-bar-geoloc-lat, #tribe-bar-geoloc-lng');
+				if (val.length) {
+					$fence.show();
 				} else {
-					if ($("#tribe_events_filter_item_geofence").length)
-						$("#tribe_events_filter_item_geofence").hide();
-					if ($('#tribe-bar-geoloc-lat, #tribe-bar-geoloc-lng').length)
-						$('#tribe-bar-geoloc-lat, #tribe-bar-geoloc-lng').val('');
+					$fence.hide();
+					if ($latlng.length)
+						$latlng.val('');
 				}
 			}
 		}
@@ -63,7 +98,7 @@
 
 		var $tribe_container = $('#tribe-events'),
 			$geo_bar_input = $('#tribe-bar-geoloc'),
-			$geo_options = $("#tribe-geo-options")
+			$geo_options = $("#tribe-geo-options");
 
 		var options = {
 			zoom: 5,
@@ -186,6 +221,12 @@
 
 		}
 
+		/**
+		 * @function tribe_generate_map_params
+		 * @since 3.0
+		 * @desc tribe_generate_map_params generates query parameters for the map view ajax call.
+		 */
+
 		function tribe_generate_map_params() {
 			ts.ajax_running = true;
 			ts.params = {
@@ -207,6 +248,11 @@
 			window.location = td.cur_url + '?' + ts.params;
 		});
 
+		/**
+		 * @function tribe_map_processOption
+		 * @since 3.0
+		 * @desc tribe_map_processOption is the main ajax event query for map view.
+		 */
 
 		function tribe_map_processOption() {
 			$('#tribe-events-header').tribe_spin();
@@ -355,6 +401,13 @@
 
 		}
 
+		/**
+		 * @function tribe_events_bar_mapajax_actions
+		 * @since 3.0
+		 * @desc On events bar submit, this function collects the current state of the bar and sends it to the map view ajax handler.
+		 * @param {event} e The event object.
+		 */
+
 		function tribe_events_bar_mapajax_actions(e) {
 			if (tribe_events_bar_action != 'change_view') {
 				e.preventDefault();
@@ -384,9 +437,15 @@
 
 		if (GeoLoc.map_view) {
 			$(te).on("tribe_ev_runAjax", function () {
-				tribe_map_processOption(null);
+				tribe_map_processOption();
 			});
 		}
+
+		/**
+		 * @function deleteMarkers
+		 * @since 3.0
+		 * @desc Clears markers from the active map.
+		 */
 
 		function deleteMarkers() {
 			if (tg.markers) {
@@ -397,6 +456,12 @@
 				tg.bounds = new google.maps.LatLngBounds();
 			}
 		}
+
+		/**
+		 * @function centerMap
+		 * @since 3.0
+		 * @desc Centers the active map.
+		 */
 
 		function centerMap() {
 			tg.map.fitBounds(tg.bounds);
