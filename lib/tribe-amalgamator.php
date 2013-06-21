@@ -9,6 +9,9 @@ class Tribe_Amalgamator {
 	private $default_organizer = 0;
 	private $default_community_organizer = 0;
 
+	/**
+	 * constructor
+	 */
 	public function __construct() {
 		$this->default_venue = (int)tribe_get_option('eventsDefaultVenueID', 0);
 		$this->default_organizer = (int)tribe_get_option('eventsDefaultOrganizerID', 0);
@@ -20,6 +23,11 @@ class Tribe_Amalgamator {
 		}
 	}
 
+	/**
+	 * Merge all duplicate event-related posts
+	 *
+	 * @return void
+	 */
 	public function merge_duplicates() {
 		$this->merge_identical_organizers();
 		$this->merge_identical_venues();
@@ -29,6 +37,11 @@ class Tribe_Amalgamator {
 		wp_cache_flush();
 	}
 
+	/**
+	 * Merge identical organizers
+	 *
+	 * @return void
+	 */
 	public function merge_identical_organizers() {
 		$titles = $this->get_redundant_titles(TribeEvents::ORGANIZER_POST_TYPE);
 		$buckets = array();
@@ -62,6 +75,11 @@ class Tribe_Amalgamator {
 		}
 	}
 
+	/**
+	 * Merge identical venues
+	 *
+	 * @return void
+	 */
 	public function merge_identical_venues() {
 		$titles = $this->get_redundant_titles(TribeEvents::VENUE_POST_TYPE);
 		$buckets = array();
@@ -100,6 +118,12 @@ class Tribe_Amalgamator {
 		}
 	}
 
+	/**
+	 * Get all post titles of the given post type that have duplicates
+	 *
+	 * @param string $type The post type to query
+	 * @return array
+	 */
 	private function get_redundant_titles( $type ) {
 		global $wpdb;
 		$sql = "SELECT post_title FROM {$wpdb->posts} WHERE post_type=%s GROUP BY post_title HAVING COUNT(*) > 1";
@@ -108,6 +132,13 @@ class Tribe_Amalgamator {
 		return $titles;
 	}
 
+	/**
+	 * Find all posts of the given type with the given title
+	 *
+	 * @param string $title
+	 * @param string $type
+	 * @return array
+	 */
 	private function get_posts_with_title( $title, $type ) {
 		global $wpdb;
 		$sql = "SELECT ID FROM {$wpdb->posts} WHERE post_type=%s AND post_title=%s ORDER BY ID ASC";
@@ -116,6 +147,12 @@ class Tribe_Amalgamator {
 		return $posts;
 	}
 
+	/**
+	 * Merge all venues in the given list into one post (keeping the first)
+	 *
+	 * @param array $venue_ids
+	 * @return void
+	 */
 	private function amalgamate_venues( $venue_ids ) {
 		if ( empty($venue_ids) || count($venue_ids) < 2 ) {
 			return;
@@ -131,6 +168,13 @@ class Tribe_Amalgamator {
 		$this->delete_posts($venue_ids);
 	}
 
+
+	/**
+	 * Merge all organizers in the given list into one post (keeping the first)
+	 *
+	 * @param array $organizer_ids
+	 * @return void
+	 */
 	public function amalgamate_organizers( $organizer_ids ) {
 		if ( empty($organizer_ids) || count($organizer_ids) < 2 ) {
 			return;
@@ -146,6 +190,15 @@ class Tribe_Amalgamator {
 		$this->delete_posts($organizer_ids);
 	}
 
+	/**
+	 * If a removed venue is being used as a default, change the default to
+	 * its replacement.
+	 *
+	 * @param int $keep
+	 * @param array $replace
+	 *
+	 * @return void
+	 */
 	private function update_default_venues( $keep, array $replace ) {
 		if ( $this->default_venue && in_array($this->default_venue, $replace) ) {
 			$events = TribeEvents::instance();
@@ -157,6 +210,16 @@ class Tribe_Amalgamator {
 		}
 	}
 
+
+	/**
+	 * If a removed organizer is being used as a default, change the default to
+	 * its replacement.
+	 *
+	 * @param int $keep
+	 * @param array $replace
+	 *
+	 * @return void
+	 */
 	private function update_default_organizers( $keep, array $replace ) {
 		if ( $this->default_organizer && in_array($this->default_organizer, $replace) ) {
 			$events = TribeEvents::instance();
@@ -169,6 +232,8 @@ class Tribe_Amalgamator {
 	}
 
 	/**
+	 * Delete all the posts given
+	 *
 	 * @param array $post_ids
 	 */
 	private function delete_posts( $post_ids ) {
@@ -178,6 +243,11 @@ class Tribe_Amalgamator {
 		}
 	}
 
+	/**
+	 * Make a button to trigger the amalgamation process
+	 * @param string $text
+	 * @return string
+	 */
 	public static function migration_button( $text = '' ) {
 		$text = $text?$text:__('Merge Duplicates', 'tribe-events-calendar');
 		$html = '<a href="%s" class="button">%s</a>';
@@ -190,6 +260,11 @@ class Tribe_Amalgamator {
 		return $html;
 	}
 
+	/**
+	 * If the migration button is clicked, start working
+	 *
+	 * @return void
+	 */
 	public static function listen_for_migration_button() {
 		if ( empty($_REQUEST['amalgamate']) || !wp_verify_nonce($_REQUEST['_wpnonce'], 'amalgamate_duplicates') ) {
 			return;
