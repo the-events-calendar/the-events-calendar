@@ -269,7 +269,7 @@ We hit the <a href="http://wordpress.org/support/plugin/the-events-calendar/?ref
 Some things to consider before posting on the forum:
 
 * Look through existing threads before posting a new one and check that there isn't already a discussion going on your issue.
-* Your issue will be solved more quickly if you run a few checks before making a support request. Deactivate your plugins one by one - if the issue is fixed by deactivating a plugin you know you've got a plugin conflict. To test your Theme, revert to the default Twenty Eleven Theme to see if you are still experiencing the problem. If not, your Theme is the issue. Please provide this information when making your supper request.
+* Your issue will be solved more quickly if you run a few checks before making a support request. Deactivate your plugins one by one - if the issue is fixed by deactivating a plugin you know you've got a plugin conflict. To test your Theme, revert to the default Twenty Twelve Theme to see if you are still experiencing the problem. If not, your Theme is the issue. Please provide this information when making your supper request.
 * Sometimes, just resetting your permalinks can fix the issue. Visit Events -> Settings -> Permalinks, save your permalinks with a different option and then save with your preferred choice again. This can solve events-related problems and can is worth a shot before creating a new thread.
 
 Still not happy? Shoot us an email to pro@tri.be or tweet to @moderntribeinc and tell us why. We'll do what we can to make it right.
