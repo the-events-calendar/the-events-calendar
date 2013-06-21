@@ -232,7 +232,7 @@ class TribeEventsGeoLoc {
 		}
 
 		// forcing past display if set via navigation
-		if( $_REQUEST['tribe_event_display'] == 'past' ){
+		if( !empty( $_REQUEST['tribe_event_display'] ) && $_REQUEST['tribe_event_display'] == 'past' ){
 			$query->tribe_is_past = true;
 			$query->set( 'tribe_is_past', true );
 		}
