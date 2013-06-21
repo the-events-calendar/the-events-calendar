@@ -199,7 +199,7 @@
 
 				dbug && debug.time('Day View Ajax Timer');
 				$(te).trigger('tribe_ev_ajaxStart').trigger('tribe_ev_dayView_AjaxStart');
-				$('#tribe-events-header').tribe_spin();
+				$('#tribe-events-content .tribe-events-loop').tribe_spin();
 
 				$.post(
 					TribeCalendar.ajaxurl,

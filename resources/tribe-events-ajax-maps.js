@@ -253,7 +253,7 @@
 		 */
 
 		function tribe_map_processOption() {
-			$('#tribe-events-header').tribe_spin();
+			$('#tribe-events-content .tribe-events-loop').tribe_spin();
 			deleteMarkers();
 
 			if (!ts.popping) {

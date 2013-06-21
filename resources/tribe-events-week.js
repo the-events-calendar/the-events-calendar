@@ -315,7 +315,7 @@
 
 			var $tribe_header = $('#tribe-events-header');
 
-			$tribe_header.tribe_spin();
+			$('.tribe-events-grid').tribe_spin();
 			ts.pushcount = 0;
 			ts.ajax_running = true;
 
