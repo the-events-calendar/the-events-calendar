@@ -269,6 +269,8 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 						$new_title = __( 'Past Events', 'tribe-events-calendar-pro' ) . ' ' . $sep . ' ';
 					} elseif ( get_query_var('post_type') == TribeEvents::POSTTYPE ) {
 						$new_title = __( 'Upcoming Events', 'tribe-events-calendar-pro' ) . ' ' . $sep . ' ';
+					} else {
+						$new_title = $title;
 					}
 					break;
 			}
