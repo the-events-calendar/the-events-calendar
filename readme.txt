@@ -76,6 +76,27 @@ Need to hack the plugin or build a new feature for a project? How about making t
 
 Send it to us and we would be <a href="mailto:pro@tri.be">happy to review it</a> and give you feedback! Then put it up on the .org repo for everyone to appreciate!
 
+== Installation ==
+
+= Install & Activate =
+
+Installing the plugin is easy. Just follow these steps:
+
+1. From the dashboard of your site, navigate to Plugins --> Add New. 
+2. Select the Upload option and hit "Choose File." 
+3. When the popup appears select the the-events-calendar-x.x.zip file from your desktop. (The 'x.x' will change depending on the current version number).
+4. Follow the on-screen instructions and wait as the upload completes.
+5. When it's finished, activate the plugin via the prompt. A message will show confirming activation was successful. A link to access the calendar directly on the frontend will be presented here as well.
+
+That's it! Just configure your settings as you see fit, and you're on your way to creating events in style. Now that you're all set up and ready to go…how about checking out the <a href="http://tri.be/support/documentation/events-calendar-pro-new-user-primer/?ref=tec-readme">new user primer</a> to familiarize yourself with what's in store?
+
+If you're unclear about the installation process or get stuck, check out our <a href="http://tri.be/downloading-installing-activating-the-events-calendar-2-0-pro-2-0/?ref=tec-readme">simple video</a> which walks you through the process. Still having trouble from there? See the [Codex](http://codex.wordpress.org/Managing_Plugins#Manual_Plugin_Installation) for more troubleshooting ideas.
+
+= Requirements =
+
+* PHP 5.2 or above
+* WordPress 3.3 or above
+
 == Screenshots ==
 
 1. Calendar View
@@ -121,30 +142,13 @@ Currently, the following add-ons are available for The Events Calendar/Events Ca
 * <a href="http://tri.be/shop/wordpress-wootickets/?ref=tec-readme">Tickets: WooCommerce, for harnessing the power of WooCommerce to sell event tickets directly on your site without being subject to fees or relying on a third-party service.
 * Filter Bar (COMING SOON) for adding advanced frontend filtering capabilities to your events calendar. 
 
+= I have a feature idea. What's the best way to tell you about it? =
+
+We've got a <a href="https://tribe.uservoice.com/forums/195723-feature-ideas">Modern Tribe UserVoice page</a> where we're actively watching for feature ideas from the community. Vote up existing feature requests or add your own, and help us shape the future of the products business in a way that best meets the community's needs.
+
 = I've still got questions. Do you have a bigger FAQ somewhere? =
 
 We do. If you check out our a href="http://tri.be/support/faqs/?ref=tec-readme">Frequently Asked Questions page</a> on the tri.be site, we've collected and addressed all of the common questions we see posed by users. In some cases we'll provide a Gist; in other cases we'll direct you to a tutorial; and in some situations we'll unfortunately say a certain capability is simply not possible. But the FAQ is a living, breathing document that we're actively updating based on commonly-seen requests.
-
-== Installation ==
-
-= Install & Activate =
-
-Installing the plugin is easy. Just follow these steps:
-
-1. From the dashboard of your site, navigate to Plugins --> Add New. 
-2. Select the Upload option and hit "Choose File." 
-3. When the popup appears select the the-events-calendar-x.x.zip file from your desktop. (The 'x.x' will change depending on the current version number).
-4. Follow the on-screen instructions and wait as the upload completes.
-5. When it's finished, activate the plugin via the prompt. A message will show confirming activation was successful. A link to access the calendar directly on the frontend will be presented here as well.
-
-That's it! Just configure your settings as you see fit, and you're on your way to creating events in style. Now that you're all set up and ready to go…how about checking out the <a href="http://tri.be/support/documentation/events-calendar-pro-new-user-primer/?ref=tec-readme">new user primer</a> to familiarize yourself with what's in store?
-
-If you're unclear about the installation process or get stuck, check out our <a href="http://tri.be/downloading-installing-activating-the-events-calendar-2-0-pro-2-0/?ref=tec-readme">simple video</a> which walks you through the process. Still having trouble from there? See the [Codex](http://codex.wordpress.org/Managing_Plugins#Manual_Plugin_Installation) for more troubleshooting ideas.
-
-= Requirements =
-
-* PHP 5.2 or above
-* WordPress 3.3 or above
 
 == Documentation ==
 
