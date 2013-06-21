@@ -201,10 +201,10 @@ try {
 	 */
 	$.fn.tribe_spin = function () {
 		var $loadingImg = $('.tribe-events-ajax-loading:first').clone().addClass('tribe-events-active-spinner');
-		$loadingImg.appendTo(this);
-		$(this).addClass('tribe-events-loading');
-	}
-})(jQuery);
+		$loadingImg.prependTo('#tribe-events-content');
+		$(this).addClass('tribe-events-loading').css('opacity', .25)
+    }
+    })(jQuery);
 
 (function (window, document, $, dbug, undefined) {
     /**
