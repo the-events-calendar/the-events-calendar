@@ -532,14 +532,15 @@ if ( class_exists( 'TribeEvents' ) ) {
 
 	/**
 	 * conditional tag to determine if the cost field should be shown in the admin editors.
-	 * @return [type] [description]
+	 * @author tim@imaginesimplicity.com
+	 * @since 3.0
+	 * @return bool
 	 */
 	function tribe_events_admin_show_cost_field(){
 		$modules = apply_filters( 'tribe_events_tickets_modules', NULL );
-		$class_exists = class_exists( 'Event_Tickets_PRO' );
 		$event_origin = get_post_meta( get_the_ID(), '_EventOrigin', true );
 		$show_cost = empty( $modules ) || 
-					 $class_exists || 
+					 class_exists( 'Event_Tickets_PRO' ) || 
 					 in_array( $event_origin, apply_filters( 'tribe_events_admin_show_cost_field_origin', array( 'community-events' ) ) );
 		return apply_filters( 'tribe_events_admin_show_cost_field', $show_cost, $modules );
 	}
