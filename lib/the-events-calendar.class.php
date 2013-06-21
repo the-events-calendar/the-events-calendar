@@ -1046,32 +1046,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			if ( get_query_var('post_type') == self::POSTTYPE ) {
 				if ( !is_admin() && tribe_get_option( 'liveFiltersUpdate', true ) )
 					$classes[] = 'tribe-filter-live';
-				if (! is_single() ) {
-					if ( (tribe_is_upcoming() || tribe_is_past()) ) {
-						$classes[] = 'events-list';
-					} else {
-						$classes[] = 'events-gridview';
-					}
-				}
-				if ( is_tax( self::TAXONOMY ) ) {
-					$classes[] = 'events-category';
-					$category = get_term_by('name', single_cat_title( '', false ), self::TAXONOMY );
-
-					$classes[] = 'events-category-' . $category->slug;
-				}
-				if ( ! is_single() || tribe_is_showing_all() ) {
-					$classes[] = 'events-archive';
-				}
-				else {
-					$classes[] = 'events-single';
-				}
 			}
-			global $post;
-			if ( is_object($post) && tribe_is_venue( $post->ID ) ) {
-					$classes[] = 'events-venue';
-			}
-
-
 			return $classes;
 		}
 

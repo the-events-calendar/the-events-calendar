@@ -17,6 +17,8 @@ if( !class_exists('Tribe_Events_Single_Event_Template')){
 	 */
 	class Tribe_Events_Single_Event_Template extends Tribe_Template_Factory {
 
+		protected $body_class = 'events-single';
+
 		/**
 		 * Setup meta display in this template
 		 *

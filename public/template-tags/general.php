@@ -389,7 +389,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 		$before = convert_chars( $before );
 		$before = wpautop( $before );
 		$before = '<div class="tribe-events-before-html">'. stripslashes( shortcode_unautop( $before  ) ) .'</div>';
-		$before = $before.'<img class="tribe-events-ajax-loading tribe-events-spinner-medium" src="'.tribe_events_resource_url('images/tribe-loading.gif').'" alt="'.__('Loading Events', 'tribe-events').'" />';
+		$before = $before.'<span class="tribe-events-ajax-loading"><img class="tribe-events-spinner-medium" src="'.tribe_events_resource_url('images/tribe-loading.gif').'" alt="'.__('Loading Events', 'tribe-events').'" /></span>';
 		$before = apply_filters( 'tribe_events_before_html', $before );
 
 		echo apply_filters( 'tribe_events_before_html', $before );
@@ -868,7 +868,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 		if ( $initialize ) {
 			tribe_initialize_view('Tribe_Events_List_Template');
 		}
-		tribe_get_view('list');
+		tribe_get_view('list/content');
 		$list_view_html = ob_get_clean();
 
 		// fix the error of our ways

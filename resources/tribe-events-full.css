@@ -317,18 +317,12 @@ div.tribe-events-notices > ul, div.tribe-events-notices > ul > li {
 .tribe-events-spinner-medium {
 	width: 24px;
 	height: 24px;
-	margin-left: -12px;
 }
 .tribe-events-spinner-small {
 	width: 16px;
 	height: 16px;
 	margin-left: -8px;
 }
-
-.tribe-events-active-spinner {
-	top: 0 !important;
-}
-
 /* IE7 Tweaks */
 *+html .events-archive h2.tribe-events-page-title {
 	padding-bottom: 30px;
@@ -417,12 +411,23 @@ h2.tribe-events-page-title a:focus {
 	display: none;
 	position: absolute;
 	left: 50%;
+	margin-left: -27px;
+	top: 150px;
+	padding: 15px;
+	background: #666666;
+	z-index: 10;
+	border-radius: 5px;
 	-webkit-box-shadow: none !important;
 	box-shadow: none !important;
-	-moz-box-shadow: none !important;
+	-moz-box-shadow: none !important;	
 }
 
 .tribe-events-loading .tribe-events-ajax-loading {
+	display: block;
+}
+
+.tribe-events-ajax-loading.tribe-events-active-spinner,
+.tribe-events-ajax-loading.tribe-events-active-spinner img {
 	display: block;
 }
 

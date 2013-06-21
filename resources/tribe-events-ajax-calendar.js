@@ -175,7 +175,7 @@
 
 		function tribe_events_calendar_ajax_post() {
 
-			$('#tribe-events-header').tribe_spin();
+			$('.tribe-events-calendar').tribe_spin();
 			ts.pushcount = 0;
 			ts.ajax_running = true;
 
