@@ -261,11 +261,10 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 					);
 					break;
 				case 'day':
-					$new_title = __( 'Events for', 'tribe-events-calendar-pro' ) . ' ' .Date("l, F jS Y", strtotime($wp_query->get('start_date')));
+					$new_title = __( 'Events for', 'tribe-events-calendar-pro' ) . ' ' .Date("l, F jS Y", strtotime($wp_query->get('start_date'))) . ' ' . $sep . ' ';
 					break;
 				case 'photo':
 				case 'map':
-				default:
 					if( tribe_is_past() ) {
 						$new_title = __( 'Past Events', 'tribe-events-calendar-pro' ) . ' ' . $sep . ' ';
 					} else {
