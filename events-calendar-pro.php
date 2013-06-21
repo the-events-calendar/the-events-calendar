@@ -260,6 +260,9 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 						$sep
 					);
 					break;
+				case 'day':
+					$new_title = __( 'Events for', 'tribe-events-calendar-pro' ) . ' ' .Date("l, F jS Y", strtotime($wp_query->get('start_date')));
+					break;
 				case 'photo':
 				case 'map':
 				default:
