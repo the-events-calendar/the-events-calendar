@@ -108,8 +108,9 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 	</table>
 
     <?php $this->do_action('tribe_events_details_table_bottom', $postId, true) ?>
-	<?php if ( tribe_events_admin_show_cost_field() ) { ?>
+	
 	<table id="event_cost" class="eventtable">
+		<?php if ( tribe_events_admin_show_cost_field() ) : ?>
 		<tr>
 			<td colspan="2" class="tribe_sectionheader"><h4><?php _e('Event Cost', 'tribe-events-calendar'); ?></h4></td>
 		</tr>
@@ -125,9 +126,10 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 			<td></td>
 			<td><small><?php _e('Enter a 0 for events that are free or leave blank to hide the field.', 'tribe-events-calendar'); ?></small></td>
 		</tr>
-      <?php $this->do_action('tribe_events_cost_table', $postId, true) ?>
+		<?php endif; ?>
+		<?php $this->do_action('tribe_events_cost_table', $postId, true) ?>
 	</table>
-	<?php } ?>
+	
 	</div>
    <?php $this->do_action('tribe_events_above_donate', $postId, true) ?>
    <?php $this->do_action('tribe_events_details_bottom', $postId, true) ?>
