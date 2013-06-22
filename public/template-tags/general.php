@@ -39,7 +39,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 		if ( ! $view ) {
 			$template_file = tribe_get_current_template();
 		} else {
-			$template_file = TribeEventsTemplates::getTemplateHierarchy( $view );
+			$template_file = TribeEventsTemplates::getTemplateHierarchy( $view, array('disable_view_check' => true)  );
 		}
 
 		if (file_exists($template_file)) {

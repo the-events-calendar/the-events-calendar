@@ -13,6 +13,11 @@ if (!class_exists('TribeEventsAdminList')) {
 		protected static $end_col_active = true;
 		protected static $start_col_first = true;
 	
+		/**
+		 * The init function for this class, adds actions and filters.
+		 *
+		 * @return void
+		 */
 		public static function init() {
 			if ( is_admin() ) {
 				add_filter( 'posts_distinct', array( __CLASS__, 'events_search_distinct'));
@@ -35,6 +40,13 @@ if (!class_exists('TribeEventsAdminList')) {
 				add_filter( 'post_row_actions', array(__CLASS__, 'add_recurring_event_view_link'));
 			}
 		}
+		
+		/**
+		 * Adds the View link for recurring events.
+		 *
+		 * @param array $actions The current action links.
+		 * @return array The modified action links.
+		 */
 		public static function add_recurring_event_view_link($actions) {
 			global $post;
 			if ( function_exists('tribe_is_recurring_event') && is_array(self::$events_list) && tribe_is_recurring_event(self::$events_list[0]->ID) && isset(self::$events_list[0]) ) {
@@ -44,7 +56,13 @@ if (!class_exists('TribeEventsAdminList')) {
 			return $actions;
 		}
 	
-		// event deletion
+		/**
+		 * Add the date to the Trash link for recurring events, so that the instance is removed.
+		 *
+		 * @param string $link The current link.
+		 * @param int $postId The post id.
+		 * @return string The modified link.
+		 */
 		public static function add_date_to_recurring_event_trash_link( $link, $postId ) {
 			if ( function_exists('tribe_is_recurring_event') && is_array(self::$events_list) && tribe_is_recurring_event($postId) && isset(self::$events_list[0]) ) {
 				return add_query_arg( array( 'eventDate'=>urlencode( TribeDateUtils::dateOnly( self::$events_list[0]->EventStartDate ) ) ), $link );
@@ -53,6 +71,12 @@ if (!class_exists('TribeEventsAdminList')) {
 			return $link;
 		} 
 
+		/**
+		 * Cache the results.
+		 *
+		 * @param array $posts The posts returned.
+		 * @return array The posts returned.
+		 */
 		public static function cache_posts_results($posts) {
 			if ( get_query_var('post_type') == TribeEvents::POSTTYPE && sizeof(self::$events_list) <= 0 ) {
 				// sort by start date
@@ -62,15 +86,21 @@ if (!class_exists('TribeEventsAdminList')) {
 			return $posts;
 		}
 
+		/**
+		 * Adds DISTINCT to the query.
+		 *
+		 * @return string "DISTINCT".
+		 */
 		public static function events_search_distinct($distinct) {
 			return "DISTINCT";
 		}
 
 		/**
-		 * fields filter for standard wordpress templates.  Adds the start and end date to queries in the
+		 * Fields filter for standard wordpress templates.  Adds the start and end date to queries in the
 		 * events category
 		 *
-		 * @param string fields
+		 * @param string $fields The current fields query part.
+		 * @return string The modified form.
 		 */
 		public static function events_search_fields( $fields ) {
 			if ( get_query_var('post_type') != TribeEvents::POSTTYPE ) {
@@ -81,7 +111,7 @@ if (!class_exists('TribeEventsAdminList')) {
 			return $fields;
 		}
 		/**
-		 * join filter for admin quries
+		 * Join filter for admin quries
 		 *
 		 * @param string join clause
 		 * @return string modified join clause
@@ -96,7 +126,7 @@ if (!class_exists('TribeEventsAdminList')) {
 			return $join;
 		}
 		/**
-		 * where filter for admin queries
+		 * Where filter for admin queries
 		 *
 		 * @param string where clause
 		 * @return string modified where clause
@@ -172,6 +202,12 @@ if (!class_exists('TribeEventsAdminList')) {
 			return $limits;
 		}
 
+		/**
+		 * Add the proper column headers.
+		 *
+		 * @param array $columns The columns.
+		 * @return array The modified column headers.
+		 */
 		public static function column_headers( $columns ) {
 			global $tribe_ecp;
 
@@ -207,6 +243,12 @@ if (!class_exists('TribeEventsAdminList')) {
 			}
 		}
 
+		/**
+		 * Make it so events can be sorted by start and end dates.
+		 *
+		 * @param array $columns The columns array.
+		 * @return array The modified columns array.
+		 */
 		public static function register_date_sortables($columns) {
 			$columns['start-date'] = 'start-date';
 			$columns['end-date'] = 'end-date';
@@ -214,6 +256,13 @@ if (!class_exists('TribeEventsAdminList')) {
 			return $columns;
 		}		
 
+		/**
+		 * Add the custom columns.
+		 *
+		 * @param string $column_id The custom column id.
+		 * @param int $post_id The post id for the data.
+		 * @return void
+		 */
 		public static function custom_columns( $column_id, $post_id ) {
 			if(self::$events_list && sizeof(self::$events_list) > 0) {
 				if ( $column_id == 'events-cats' ) {
@@ -237,10 +286,22 @@ if (!class_exists('TribeEventsAdminList')) {
 			}
 		}
 		
+		/**
+		 * Next date.
+		 *
+		 * @return void
+		 */
 		protected static function advance_date() {
 			array_shift( self::$events_list );
 		}
 	
+		/**
+		 * AJAX handler for custom columns.
+		 *
+		 * @param string $column_id The column id/name.
+		 * @param int $post_id The post id for the data.
+		 * @return void
+		 */
 		public static function ajax_custom_columns ($column_id, $post_id) {
 				if ( $column_id == 'events-cats' ) {
 					$event_cats = get_the_term_list( $post_id, TribeEvents::TAXONOMY, '', ', ', '' );
@@ -259,6 +320,13 @@ if (!class_exists('TribeEventsAdminList')) {
 				}
 		}
 	
+		/**
+		 * Add the date to the edit link for recurring events.
+		 *
+		 * @param string $link The current link.
+		 * @param int $eventId The event id.
+		 * @return string The modified link.
+		 */
 		public static function add_event_occurrance_to_edit_link($link, $eventId) {
 			if ( get_query_var('post_type') != TribeEvents::POSTTYPE ) {
 				return $link;
@@ -272,7 +340,12 @@ if (!class_exists('TribeEventsAdminList')) {
 			return $link;
 		}
 	
-		// update counts
+		/**
+		 * Update event counts.
+		 *
+		 * @param array $counts The counts array.
+		 * @return array The modified counts array.
+		 */
 		public static function update_event_counts($counts) {
 			global $post_type, $post_type_object, $locked_post_status, $avail_post_stati;		
 
@@ -306,7 +379,11 @@ if (!class_exists('TribeEventsAdminList')) {
 			return $counts;
 		}
 	
-		// taken from wp_count_posts;
+		/**
+		 * Taken from wp_count_posts.
+		 *
+		 * @return mixed The results.
+		 */
 		private static function count_events() {
 			$type = TribeEvents::POSTTYPE;
 			$perm = 'readable';
