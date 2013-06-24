@@ -731,7 +731,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 		$tooltip = '';
 		if ( class_exists( 'TribeEventsPro' ) ) { // should this be a template tag?
 			if ( tribe_is_recurring_event( $post_id ) ) {
-				$tooltip .= '<span class="recurringinfo">';
+				$tooltip .= '<div class="recurringinfo">';
 				$tooltip .= '<div class="event-is-recurring">';
 				$tooltip .= '<span class="tribe-events-divider">|</span>';
 				$tooltip .= __( 'Recurring Event', 'tribe-events-calendar' );
@@ -746,7 +746,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 				$tooltip .= '<span class="tribe-events-arrow"></span>';
 				$tooltip .= '</div>';
 				$tooltip .= '</div>';
-				$tooltip .= '</span>';
+				$tooltip .= '</div>';
 			}
 		}
 		return apply_filters( 'tribe_events_event_recurring_info_tooltip', $tooltip );
@@ -803,7 +803,10 @@ if ( class_exists( 'TribeEvents' ) ) {
 			$schedule .= '<span class="date-start dtstart">' . tribe_get_start_date( $event, true, $format ) . '<span class="value-title" title="'. $microformatStartFormat .'"></span></span> - <span class="date-end dtend">' . tribe_get_end_date( $event, true, $format2ndday ) . '<span class="value-title" title="'. $microformatEndFormat .'"></span></span>';
 
 		} elseif ( tribe_event_is_all_day( $event ) ) { // all day event
-			$schedule .= '<span class="date-start dtstart">' . tribe_get_start_date( $event, true, $format ) . '<span class="value-title" title="'. $microformatStartFormat .'"></span>';
+			$schedule .= '<span class="date-start dtstart">';
+				$schedule .=  tribe_get_start_date( $event, true, $format );
+				$schedule .= '<span class="value-title" title="'. $microformatStartFormat .'"></span>';
+			$schedule .= '</span>';	
 		} else { // single day event
 			if ( tribe_get_start_date( $event, false, 'g:i A' ) === tribe_get_end_date( $event, false, 'g:i A' ) ) { // Same start/end time
 				$schedule .= '<span class="date-start dtstart">' . tribe_get_start_date( $event, false, $format ) . ' @ ' . tribe_get_start_date( $event, false, $timeFormat ) . '<span class="value-title" title="'. $microformatStartFormat .'"></span></span>';
