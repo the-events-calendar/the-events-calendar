@@ -15,6 +15,7 @@ if ( !defined('ABSPATH') )
 if( !class_exists('Tribe_Events_Pro_Photo_Template')){
 	class Tribe_Events_Pro_Photo_Template extends Tribe_PRO_Template_Factory {
 
+		protected $body_class = 'events-photo';
 		/**
 		 * Array of asset packages needed for this template
 		 *
@@ -51,28 +52,6 @@ if( !class_exists('Tribe_Events_Pro_Photo_Template')){
 		public function event_classes($classes) {
 			$classes[] = 'tribe-events-photo-event';
 			return $classes;
-		}
-
-		/**
-		 * Set up the notices for this template
-		 *
-		 * @return void
-		 * @since 3.0
-		 **/
-		public function set_notices() {
-
-			parent::set_notices();
-
-			if ( empty($search_term) && empty( $wp_query->query_vars['s'] ) && !have_posts() ) { // Messages if currently no events, and no search term
-				$tribe_ecp = TribeEvents::instance();
-				$is_cat_message = '';
-				if ( is_tax( $tribe_ecp->get_event_taxonomy() ) ) {
-					$cat = get_term_by( 'slug', get_query_var( 'term' ), $tribe_ecp->get_event_taxonomy() );
-					$is_cat_message = sprintf( __( 'listed under %s. Check out events for this category or view the full calendar.', 'tribe-events-calendar-pro' ), $cat->name );
-				}
-				TribeEvents::setNotice( 'events-not-found', __('No matching events ', 'tribe-events-calendar-pro') . $is_cat_message );
-			}
-
 		}
 	}
 }

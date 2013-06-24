@@ -14,7 +14,7 @@ if ( !defined('ABSPATH') )
 
 if( !class_exists('Tribe_Events_Pro_Map_Template')){
 	class Tribe_Events_Pro_Map_Template extends Tribe_PRO_Template_Factory {
-
+		protected $body_class = 'events-list';
 		/**
 		 * Set up hooks for map view
 		 *
