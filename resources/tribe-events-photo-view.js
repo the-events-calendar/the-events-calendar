@@ -167,7 +167,6 @@
 					} else {
 						ts.paged--;
 					}
-					alert(ts.view)
 				} else {
 					ts.paged++;
 				}
