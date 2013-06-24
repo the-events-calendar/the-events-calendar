@@ -52,7 +52,7 @@ if ( !class_exists('TribeField') ) {
 		 * @author jkudish
 		 * @param string $id the field id
 		 * @param array $field the field settings
-		 * @param mixed $value the field's current value
+		 * @param null|mixed $value the field's current value
 		 * @return void
 		 */
 		public function __construct($id, $field, $value = null) {
@@ -135,8 +135,6 @@ if ( !class_exists('TribeField') ) {
 		 *
 		 * @since 2.0.5
 		 * @author jkudish
-		 * @param string $id the field id
-		 * @param array $field the field settings
 		 * @return void
 		 */
 		public function doField() {
@@ -281,6 +279,7 @@ if ( !class_exists('TribeField') ) {
 		/**
 		 * returns the field's name
 		 *
+		 * @param bool $multi
 		 * @since 2.0.5
 		 * @author jkudish
 		 * @return string the field name
@@ -317,7 +316,7 @@ if ( !class_exists('TribeField') ) {
 		 */
 		public function html() {
 			$field = $this->doFieldLabel();
-			$field .= $this->html;			
+			$field .= $this->html;
 			return $field;
 		}
 
@@ -389,7 +388,7 @@ if ( !class_exists('TribeField') ) {
 			$field .= $this->doFieldDivEnd();
 			$field .= $this->doFieldEnd();
 			return $field;
-		}		
+		}
 
 		/**
 		 * generate a radio button field

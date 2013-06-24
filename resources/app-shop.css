@@ -5,6 +5,9 @@
 	padding: 20px 20px 20px 0;
 	vertical-align: top;
 	width: 300px;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;  
+	box-sizing: border-box;
 }
 
 .tribe-addon .thumb img {
