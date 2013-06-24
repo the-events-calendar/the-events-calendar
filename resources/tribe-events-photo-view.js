@@ -25,15 +25,18 @@
 	$(document).ready(function () {
 
 		var tribe_is_paged = tf.get_url_param('tribe_paged'),
+			tribe_display = tf.get_url_param('tribe_event_display'),
 			$container = $('#tribe-events-photo-events'),
 			container_width = 0,
 			resize_timer;
 
 		ts.view = 'photo';
 
-		if (tribe_is_paged) {
+		if (tribe_is_paged)
 			ts.paged = tribe_is_paged;
-		}
+
+		if(tribe_display == 'past')
+			ts.view = 'past';
 
 		/**
 		 * @function tribe_show_loader
@@ -144,8 +147,8 @@
 			e.preventDefault();
 			if (ts.ajax_running)
 				return;
-			if (ts.view === 'past') {
-				if (ts.paged === 1) {
+			if (ts.view == 'past') {
+				if (ts.paged == '1') {
 					ts.view = 'photo';
 				} else {
 					ts.paged--;
@@ -161,11 +164,12 @@
 				e.preventDefault();
 				if (ts.ajax_running)
 					return;
-				if (ts.view === 'photo') {
+				if (ts.view == 'photo') {
 					if (ts.paged == '1') {
 						ts.view = 'past';
 					} else {
 						ts.paged--;
+
 					}
 				} else {
 					ts.paged++;

@@ -144,7 +144,7 @@
 			ts.pushstate = false;
 			ts.popping = true;
 			tf.pre_ajax(function () {
-				tribe_map_processOption(null);
+				tribe_map_processOption();
 			});
 		} else if (tt.map_view()) {
 
@@ -153,7 +153,7 @@
 			ts.popping = false;
 			ts.initial_load = true;
 			tf.pre_ajax(function () {
-				tribe_map_processOption(null);
+				tribe_map_processOption();
 			});
 		}
 
@@ -175,7 +175,7 @@
 					ts.params = state.tribe_params;
 					ts.paged = state.tribe_paged;
 					tf.pre_ajax(function () {
-						tribe_map_processOption(null);
+						tribe_map_processOption();
 					});
 
 					tf.set_form(ts.params);
