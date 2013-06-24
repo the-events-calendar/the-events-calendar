@@ -130,7 +130,7 @@ if( !class_exists('Tribe_Template_Factory') ) {
 			if ( ! is_single() || tribe_is_showing_all() ) {
 				$single_id = array_search( 'single-tribe_events', $classes );
 				if( !empty( $single_id ) )
-					unset( $classes[ $single_id ] );
+					$classes[ $single_id ] = 'events-list';
 				$classes[] = 'events-archive';
 			}
 
