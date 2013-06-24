@@ -171,26 +171,7 @@ class TribeEventsGeoLoc {
 
 		if ( $id == 'general' ) {
 
-			$query_args = array(
-				'post_type'      => TribeEvents::VENUE_POST_TYPE,
-				'posts_per_page' => 1,
-				'post_status'    => 'publish',
-				'fields'         => 'ids',
-				'meta_query'     => array(
-					array(
-						'key'     => '_VenueGeoAddress',
-						'compare' => 'NOT EXISTS'
-					),
-					array(
-						'key'     => '_VenueAddress',
-						'compare' => '!=',
-						'value'   => ''
-					)
-				)
-			);
-
-
-			$venues = new WP_Query( $query_args );
+			$venues = $this->get_venues_without_geoloc_info();
 
 			// we want to inject the map default distance and unit into the map section directly after "enable Google Maps"
 			$args = TribeEventsPro::array_insert_after_key( 'embedGoogleMaps', $args, array(
@@ -230,6 +211,39 @@ class TribeEventsGeoLoc {
 		}
 
 		return $args;
+	}
+
+
+	/**
+	 * @param bool $full_data
+	 *
+	 * @return WP_Query
+	 */
+	protected function get_venues_without_geoloc_info( $full_data = false ) {
+		$query_args = array(
+			'post_type'      => TribeEvents::VENUE_POST_TYPE,
+			'posts_per_page' => 1,
+			'post_status'    => 'publish',
+			'meta_query'     => array(
+				array(
+					'key'     => '_VenueGeoAddress',
+					'compare' => 'NOT EXISTS'
+				),
+				array(
+					'key'     => '_VenueAddress',
+					'compare' => '!=',
+					'value'   => ''
+				)
+			)
+		);
+
+		if ( ! $full_data )
+			$query_args['fields'] = 'ids';
+
+
+		$venues = new WP_Query( $query_args );
+
+		return $venues;
 	}
 
 	/**
@@ -861,31 +875,12 @@ class TribeEventsGeoLoc {
 		if ( ! empty( $done ) )
 			return;
 
-		$query_args = array(
-			'post_type'      => TribeEvents::VENUE_POST_TYPE,
-			'posts_per_page' => 1,
-			'post_status'    => 'publish',
-			'fields'         => 'ids',
-			'meta_query'     => array(
-				array(
-					'key'     => '_VenueLat',
-					'compare' => 'NOT EXISTS'
-				),
-				array(
-					'key'     => '_VenueAddress',
-					'compare' => '!=',
-					'value'   => ''
-				)
-			)
-		);
-
-		$venues = new WP_Query( $query_args );
+		$venues = $this->get_venues_without_geoloc_info();
 
 		if ( $venues->found_posts === 0 )
 			return;
 
 		add_action( 'admin_notices', array( $this, 'show_offer_to_fix_notice' ) );
-
 
 	}
 
@@ -936,28 +931,12 @@ class TribeEventsGeoLoc {
 	 * @static
 	 * @return int
 	 */
-	public static function generate_geopoints_for_all_venues() {
+	public function generate_geopoints_for_all_venues() {
 
 		set_time_limit( 5 * 60 );
 
-		$query_args = array(
-			'post_type'      => TribeEvents::VENUE_POST_TYPE,
-			'posts_per_page' => 1000,
-			'post_status'    => 'publish',
-			'meta_query'     => array(
-				array(
-					'key'     => '_VenueGeoAddress',
-					'compare' => 'NOT EXISTS'
-				),
-				array(
-					'key'     => '_VenueAddress',
-					'compare' => '!=',
-					'value'   => ''
-				)
-			)
-		);
+		$venues = $this->get_venues_without_geoloc_info(true);
 
-		$venues = new WP_Query( $query_args );
 		$count  = 0;
 		foreach ( $venues->posts as $venue ) {
 			$data             = array();
