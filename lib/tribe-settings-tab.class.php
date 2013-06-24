@@ -46,7 +46,6 @@ if ( !class_exists( 'TribeSettingsTab' ) ) {
 		 * @param string $id the tab's id (no spaces or special characters)
 		 * @param string $name the tab's visible name
 		 * @param array $args additional arguments for the tab
-		 * @return void
 		 */
 		public function __construct( $id, $name, $args = array() ) {
 
@@ -101,7 +100,7 @@ if ( !class_exists( 'TribeSettingsTab' ) ) {
 			}
 			return $tabs;
 		}
-		
+
 		/**
 		 * Adds this tab to the list of total tabs, even if it is not displayed.
 		 *
@@ -114,7 +113,7 @@ if ( !class_exists( 'TribeSettingsTab' ) ) {
 			$allTabs[$this->id] = $this->name;
 			return $allTabs;
 		}
-		 
+
 
 		/**
 		 * filters the fields array from TribeSettings
