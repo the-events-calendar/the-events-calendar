@@ -1494,7 +1494,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		 * @since 3.0
 		 */
 		public function add_recurring_occurance_setting_to_list () {
-			if ( tribe_get_option( 'userToggleSubsequentRecurrences', true ) && ( tribe_is_upcoming() || tribe_is_past() || tribe_is_map() || tribe_is_photo() ) || apply_filters( 'tribe_events_display_user_toggle_subsequent_recurrences', false ) ) 
+			if ( tribe_get_option( 'userToggleSubsequentRecurrences', true ) && ! tribe_is_showing_all() && ( tribe_is_upcoming() || tribe_is_past() || tribe_is_map() || tribe_is_photo() ) || apply_filters( 'tribe_events_display_user_toggle_subsequent_recurrences', false ) ) 
 				echo tribe_recurring_instances_toggle();
 		}
 
