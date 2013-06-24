@@ -601,7 +601,6 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 
 						// retrieve event object
 						$get_recurrence_event = new WP_Query( $recurrence_check );
-						error_log( print_r( $get_recurrence_event->posts, true ) );
 						// if a reccurence event actually exists then proceed with redirection
 						if( !empty($get_recurrence_event->posts) && tribe_is_recurring_event($get_recurrence_event->posts[0]->ID)){
 
