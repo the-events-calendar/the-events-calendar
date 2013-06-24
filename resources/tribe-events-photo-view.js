@@ -162,11 +162,12 @@
 				if (ts.ajax_running)
 					return;
 				if (ts.view === 'photo') {
-					if (ts.paged === 1) {
+					if (ts.paged == '1') {
 						ts.view = 'past';
 					} else {
 						ts.paged--;
 					}
+					alert(ts.view)
 				} else {
 					ts.paged++;
 				}
