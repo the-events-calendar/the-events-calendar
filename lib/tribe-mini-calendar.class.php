@@ -246,6 +246,7 @@ class TribeEventsMiniCalendar {
 			// set end date if initial load, or ajax month switch
 			if ( ! defined( 'DOING_AJAX' ) || ( defined( 'DOING_AJAX' ) && $_POST['action'] == 'tribe-mini-cal' ) ) {
 				$query_args['end_date']	= substr_replace($this->get_month(), TribeDateUtils::getLastDayOfMonth( strtotime( $this->get_month() ) ), -2);
+				$query_args['end_date'] = TribeDateUtils::endOfDay($query_args['end_date']);
 			}
 
 			$wp_query = TribeEventsQuery::getEvents( $query_args, true );

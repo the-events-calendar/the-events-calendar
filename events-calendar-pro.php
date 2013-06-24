@@ -272,6 +272,13 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 					}
 					break;
 			}
+			if( tribe_is_showing_all() ){
+				$new_title = sprintf( '%s %s %s ',
+					__( 'All events for', 'tribe-events-calendar-pro' ),
+					get_the_title(),
+					$sep
+				);
+			}
 			return apply_filters( 'tribe_events_pro_add_title', $new_title, $title, $sep );
 		}
 
@@ -299,6 +306,13 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 
 			global $wp_query;
 			$tec = TribeEvents::instance();
+
+			if( tribe_is_showing_all() ){
+				$reset_title = sprintf( '%s %s',
+					__( 'All events for', 'tribe-events-calendar-pro' ),
+					get_the_title()
+				);
+			}
 
 			// week view title
 			if( tribe_is_week() ) {
@@ -587,7 +601,6 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 
 						// retrieve event object
 						$get_recurrence_event = new WP_Query( $recurrence_check );
-						error_log( print_r( $get_recurrence_event->posts, true ) );
 						// if a reccurence event actually exists then proceed with redirection
 						if( !empty($get_recurrence_event->posts) && tribe_is_recurring_event($get_recurrence_event->posts[0]->ID)){
 
@@ -1494,7 +1507,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		 * @since 3.0
 		 */
 		public function add_recurring_occurance_setting_to_list () {
-			if ( tribe_get_option( 'userToggleSubsequentRecurrences', true ) && ( tribe_is_upcoming() || tribe_is_past() || tribe_is_map() || tribe_is_photo() ) || apply_filters( 'tribe_events_display_user_toggle_subsequent_recurrences', false ) ) 
+			if ( tribe_get_option( 'userToggleSubsequentRecurrences', true ) && ! tribe_is_showing_all() && ( tribe_is_upcoming() || tribe_is_past() || tribe_is_map() || tribe_is_photo() ) || apply_filters( 'tribe_events_display_user_toggle_subsequent_recurrences', false ) ) 
 				echo tribe_recurring_instances_toggle();
 		}
 
