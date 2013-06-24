@@ -3,13 +3,13 @@
  * Template Factory
  *
  * The parent class for managing the view methods in core and addons
- * 
+ *
  * @since  3.0
  * @author tim@imaginesimplicity.com
  * @author jessica@
  */
 
-if ( !defined('ABSPATH') ) 
+if ( !defined('ABSPATH') )
 	die('-1');
 
 if( !class_exists('Tribe_Template_Factory') ) {
@@ -35,14 +35,14 @@ if( !class_exists('Tribe_Template_Factory') ) {
 		 * @var string
 		 **/
 		protected $excerpt_more = '&hellip;';
-		
+
 		/**
 		 * Body class on this view
 		 *
 		 * @var string
 		 **/
 		protected $body_class = '';
-		
+
 		/**
 		 * Static variable that holds array of vendor script handles, for adding to later deps.
 		 *
@@ -111,6 +111,7 @@ if( !class_exists('Tribe_Template_Factory') ) {
 		/**
 		 * Filter the body class
 		 *
+		 * @param array $classes
 		 * @return void
 		 * @since 3.0
 		 **/
@@ -128,6 +129,9 @@ if( !class_exists('Tribe_Template_Factory') ) {
 
 			// archive class
 			if ( ! is_single() || tribe_is_showing_all() ) {
+				$single_id = array_search( 'single-tribe_events', $classes );
+				if( !empty( $single_id ) )
+					$classes[ $single_id ] = 'events-list';
 				$classes[] = 'events-archive';
 			}
 
@@ -195,7 +199,7 @@ if( !class_exists('Tribe_Template_Factory') ) {
 						$is_cat_message = sprintf( __( 'listed under %s. Check out upcoming events for this category or view the full calendar.', 'tribe-events-calendar' ), $cat->name );
 					}
 				}
-				if( tribe_is_day() ) {						
+				if( tribe_is_day() ) {
 					TribeEvents::setNotice( 'events-not-found', sprintf( __( 'No events scheduled for <strong>%s</strong>. Please try another day.', 'tribe-events-calendar' ), date_i18n( 'F d, Y', strtotime( get_query_var( 'eventDate' ) ) ) ) );
 				} elseif( tribe_is_upcoming() ) {
 					$date = date('Y-m-d', strtotime($tribe_ecp->date));
@@ -231,7 +235,7 @@ if( !class_exists('Tribe_Template_Factory') ) {
 		 * Echo open tags for wrapper around view
 		 *
 		 * @return void
-		 * @since 
+		 * @since
 		 **/
 		public function view_wrapper_open() {
 			echo '<div id="tribe-events-content-wrapper" class="tribe-clearfix">';
@@ -251,7 +255,7 @@ if( !class_exists('Tribe_Template_Factory') ) {
 		 * Echo open tags for wrapper around view
 		 *
 		 * @return void
-		 * @since 
+		 * @since
 		 **/
 		public function view_wrapper_close() {
 			echo '</div> <!-- #tribe-events-content-wrapper -->';
@@ -277,6 +281,7 @@ if( !class_exists('Tribe_Template_Factory') ) {
 		/**
 		 * Add/remove filters to hide/show sensitive event info on password protected posts
 		 *
+		 * @param WP_Post $post
 		 * @return void
 		 * @since 3.0
 		 **/
@@ -303,6 +308,7 @@ if( !class_exists('Tribe_Template_Factory') ) {
 		/**
 		 * Return an empty file as the comments template (to disable comments)
 		 *
+		 * @param string $template
 		 * @return string
 		 * @since 3.0
 		 **/
@@ -326,7 +332,7 @@ if( !class_exists('Tribe_Template_Factory') ) {
 		/**
 		 * Set up the excerpt more text on this template
 		 *
-		 * @param $length
+		 * @param int $more
 		 *
 		 * @return int
 		 * @since 3.0
@@ -337,8 +343,9 @@ if( !class_exists('Tribe_Template_Factory') ) {
 
 		/**
 		 * Asset calls for vendor packages
-		 * @param  string $name
-		 * @return null
+		 *
+		 * @param string $name
+		 * @param array $deps Dependents
 		 */
 		public static function asset_package( $name, $deps = array() ){
 
@@ -348,7 +355,7 @@ if( !class_exists('Tribe_Template_Factory') ) {
 			// setup plugin resources & 3rd party vendor urls
 			$resources_url = trailingslashit( $tec->pluginUrl ) . 'resources/';
 			$vendor_url = trailingslashit( $tec->pluginUrl ) . 'vendor/';
-			
+
 			switch( $name ) {
 				case 'jquery-resize':
 					$path = self::getMinFile( $vendor_url . 'jquery-resize/jquery.ba-resize.js', true );
@@ -389,7 +396,7 @@ if( !class_exists('Tribe_Template_Factory') ) {
 					$css_path = self::getMinFile( $vendor_url . 'bootstrap-datepicker/css/datepicker.css', true );
 					$path = self::getMinFile( $vendor_url . 'bootstrap-datepicker/js/bootstrap-datepicker.js', true );
 					wp_enqueue_style( $prefix . '-bootstrap-datepicker-css', $css_path );
-					wp_enqueue_script( $prefix . '-bootstrap-datepicker', $path, 'jquery', '3.2' );						
+					wp_enqueue_script( $prefix . '-bootstrap-datepicker', $path, 'jquery', '3.2' );
 					self::$vendor_scripts[] = $prefix . '-bootstrap-datepicker';
 					$localized_datepicker_array = array(
 						'days' => array_merge( $tec->daysOfWeek, array( $tec->daysOfWeek[0] ) ),
@@ -404,7 +411,7 @@ if( !class_exists('Tribe_Template_Factory') ) {
 					wp_enqueue_script( 'jquery-ui-dialog' );
 					self::$vendor_scripts[] = 'jquery-ui-dialog';
 					break;
-				case 'admin-ui' : // Tribe Events 
+				case 'admin-ui' : // Tribe Events
 					$path = self::getMinFile( $resources_url . 'events-admin.css', true );
 					wp_enqueue_style( $prefix . '-admin-ui', $path );
 					break;
@@ -418,7 +425,7 @@ if( !class_exists('Tribe_Template_Factory') ) {
 					$path = self::getMinFile( $resources_url . 'tribe-settings.js', true );
 					wp_enqueue_script( $prefix . '-settings', $path, $deps, apply_filters( 'tribe_events_js_version', TribeEvents::VERSION ), true );
 					break;
-				case 'ecp-plugins' : 
+				case 'ecp-plugins' :
 					$deps = array_merge( $deps, array( 'jquery' ) );
 					$path = self::getMinFile( $resources_url . 'jquery-ecp-plugins.js', true );
 					wp_enqueue_script( $prefix . '-ecp-plugins', $path, $deps, apply_filters( 'tribe_events_js_version', TribeEvents::VERSION ) );
@@ -465,7 +472,7 @@ if( !class_exists('Tribe_Template_Factory') ) {
 							$event_file_option = 'tribe-events-theme.css';
 							break;
 					}
-					
+
 					// Is there a core override file in the theme?
 					$styleUrl = trailingslashit( $tec->pluginUrl ) . 'resources/' . $event_file_option;
 					$styleUrl = TribeEventsTemplates::locate_stylesheet('tribe-events/'.$event_file, $styleUrl);
@@ -484,9 +491,9 @@ if( !class_exists('Tribe_Template_Factory') ) {
 				default :
 					do_action($prefix . '-' . $name);
 					break;
-			}	
+			}
 		}
-		
+
 		/**
 		 * Returns the path to a minified version of a js or css file, if it exists.
 		 * If the file does not exist, returns false.
@@ -504,7 +511,7 @@ if( !class_exists('Tribe_Template_Factory') ) {
 				if ( substr( $url, -4, 4 ) == '.css' )
 					$url_new = substr_replace( $url, '.min', -4, 0 );
 			}
-			
+
 			if ( isset( $url_new ) && file_exists( str_replace( WP_CONTENT_URL, WP_CONTENT_DIR, $url_new ) ) ) {
 				return $url_new;
 			} elseif ( $default_to_original ) {

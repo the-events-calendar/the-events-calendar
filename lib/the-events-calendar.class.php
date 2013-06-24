@@ -434,7 +434,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			add_action( 'wp_ajax_tribe_list', array( $this, 'list_ajax_call' ) );
 			add_action( 'tribe_events_pre_get_posts', array( $this, 'set_tribe_paged' ) );
 			add_action( 'wp_ajax_nopriv_tribe_list', array( $this, 'list_ajax_call' ) );
-		
+
 			// Upgrade material.
 			add_action( 'admin_init', array( $this, 'checkSuiteIfJustUpdated' ) );
 		}
@@ -928,7 +928,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 * Add the date to the recurring events
 		 *
 		 * @param string $permalink
-		 * @param object $post
+		 * @param WP_Post $post
 		 * @return string
 		 */
 		public function addDateToRecurringEvents($permalink, $post) {
@@ -1993,6 +1993,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		/**
 		 * Clean up trashed venues
 		 *
+		 * @param int $postId
 		 * @return void
 		 */
 		public function cleanupPostVenues($postId) {
@@ -2002,6 +2003,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		/**
 		 * Clean up trashed organizers.
 		 *
+		 * @param int $postId
 		 * @return void
 		 */
 		public function cleanupPostOrganizers($postId) {
@@ -2011,6 +2013,8 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		/**
 		 * Clean up trashed venues or organizers.
 		 *
+		 * @param string $key
+		 * @param int $postId
 		 * @return void
 		 */
 		protected function removeDeletedPostTypeAssociation($key, $postId) {
@@ -2202,6 +2206,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		/**
 		 * Helper method to return an array of translated month names or short month names
 		 *
+		 * @param bool $short
 		 * @return array Translated month names
 		 */
 		public function monthNames( $short = false ) {
@@ -2225,6 +2230,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		/**
 		 * Adds the event specific query vars to WordPress
 		 *
+		 * @param array $qvars
 		 * @link http://codex.wordpress.org/Custom_Queries#Permalinks_for_Custom_Archives
 		 * @return mixed array of query variables that this plugin understands
 		 */
@@ -2241,12 +2247,13 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		/**
 		 * Adds Event specific rewrite rules.
 		 *
-		 *	events/				=>	/?post_type=tribe_events
-		 *	events/month		=>	/?post_type=tribe_events&eventDisplay=month
-		 *	events/week 		=>  /?post_type=tribe_events&eventDisplay=week
-		 *	events/upcoming		=>	/?post_type=tribe_events&eventDisplay=upcoming
-		 *	events/past			=>	/?post_type=tribe_events&eventDisplay=past
-		 *	events/2008-01/#15	=>	/?post_type=tribe_events&eventDisplay=bydate&eventDate=2008-01-01
+		 * @param object $wp_rewrite
+		 * events/				=>	/?post_type=tribe_events
+		 * events/month		=>	/?post_type=tribe_events&eventDisplay=month
+		 * events/week 		=>  /?post_type=tribe_events&eventDisplay=week
+		 * events/upcoming		=>	/?post_type=tribe_events&eventDisplay=upcoming
+		 * events/past			=>	/?post_type=tribe_events&eventDisplay=past
+		 * events/2008-01/#15	=>	/?post_type=tribe_events&eventDisplay=bydate&eventDate=2008-01-01
 		 * events/category/some-events-category => /?post_type=tribe_events&tribe_event_cat=some-events-category
 		 *
 		 * @return void
@@ -2334,6 +2341,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 * @param string $type type of link. See switch statement for types.
 		 * @param string $secondary for $type = month, pass a YYYY-MM string for a specific month's URL
 		 *                          for $type = week, pass a Week # string for a specific week's URL
+		 * @param int|bool|null $term
 		 * @return string The link.
 		 */
 		public function getLink	( $type = 'home', $secondary = false, $term = null ) {
@@ -2458,7 +2466,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		/**
 		 * Returns a link to google maps for the given event
 		 *
-		 * @param string $postId
 		 * @return string a fully qualified link to http://maps.google.com/ for this event
 		 */
 		public function get_google_maps_args() {
@@ -2573,10 +2580,10 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			$date = $this->dateHelper($date);
 			return "$date $hour:$minute:00";
 		}
-		
+
 		/**
 		 * Get the datetime format we want.
-		 * 
+		 *
 		 * @param string $dateFormat the default date format to use.
 		 * @return string The date time format representation we want.
 		 */
@@ -2630,11 +2637,12 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			}
 
 		}
-		
+
 		/**
 		 * Adds / removes the event details as meta tags to the post.
 		 *
-		 * @param string $postId
+		 * @param int $postId
+		 * @param WP_Post $post
 		 * @return void
 		 */
 		public function addEventMeta( $postId, $post ) {
@@ -2686,7 +2694,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 * @since 2.1
 		 * @author paulhughes
 		 * @param int $postId, the post ID
-		 * @param stdClass $post, the post object
+		 * @param WP_Post $post, the post object
 		 * @return void
 		 */
 		public function addPostOrigin( $postId, $post ) {
@@ -2711,7 +2719,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 		/**
 		 * Shows the event audit trail data.
-		 * 
+		 *
 		 * @return void
 		 */
 		public function showAuditingData(){
@@ -2726,7 +2734,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 * @since 2.1
 		 * @author paulhughes
 		 * @param int $postId, the post ID
-		 * @param stdClass $post, the post object
+		 * @param WP_Post $post, the post object
 		 * @return void
 		 */
 		public function addToPostAuditTrail( $postId, $post ) {
@@ -2755,8 +2763,8 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 *
 		 * @since 2.0.6
 		 * @author nciske
-		 * @param int $postId, the post ID
-		 * @param stdClass $post, the post object
+		 * @param int $postID, the post ID
+		 * @param WP_Post $post, the post object
 		 * @return void
 		 */
 		public function publishAssociatedTypes( $postID, $post ) {
@@ -2836,7 +2844,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 		}
 
-		/** 
+		/**
 		 * If you are saving a new venue separate from an event.
 		 *
 		 * @param int $postID The venue id.
@@ -2892,8 +2900,8 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		/**
 		 * Get venue info.
 		 *
-		 * @param $p
-		 * @param $post_status (deprecated)
+		 * @param int $p post id
+		 * @param $deprecated (deprecated)
 		 * @param $args
 		 *
 		 * @return WP_Query->posts || false
@@ -2925,9 +2933,9 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			return false;
 		}
 
-		/** 
+		/**
 		 * If you are saving a new organizer along with the event, we will do this:
-		 * 
+		 *
 		 * @param int $postID The organizer id.
 		 * @param WP_Post $post The post object.
 		 * @return null|void
@@ -2980,7 +2988,13 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			// return $organizer_id;
 		}
 
-		// abstracted for EventBrite
+		/**
+		 * Add a new Organizer
+		 *
+		 * @param $data
+		 * @param null $post
+		 * @return int|WP_Error
+		 */
 		public function add_new_organizer($data, $post=null) {
 			if($data['OrganizerID'])
 				return $data['OrganizerID'];
@@ -3014,10 +3028,10 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		}
 
 		/**
-		 * Get organizer info.
-		 * 
-		 * @param $p
-		 * @param $post_status (deprecated)
+		 * Get Organizer info.
+		 *
+		 * @param int $p post id
+		 * @param $deprecated (deprecated)
 		 * @param $args
 		 *
 		 * @return WP_Query->posts || false
@@ -3052,6 +3066,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		/**
 		 * Adds a style chooser to the write post page
 		 *
+		 * @param WP_Post $event
 		 * @return void
 		 */
 		public function EventsChooserBox($event = null) {
@@ -3351,7 +3366,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			$date = date( "Y-m", strtotime( $week . ' weeks' ));
 			return $date;
 		}
-		
+
 		/**
 		 * Given a date (YYYY-MM-DD), returns the first day of the next week
 		 *
@@ -3376,7 +3391,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			$return =	$dateParts[0] . '-' . $dateParts[1];
 			return $return;
 		}
-		
+
 		/**
 		 * Given a date (YYYY-MM-DD), return the first day of the previous week
 		 *
@@ -3402,7 +3417,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 			return $return;
 		}
-		
+
 		/**
 		 * Given a date (YYYY-MM-DD), returns the first of the next month
 		 * hat tip to Dan Bernadict for method cleanup
@@ -3413,7 +3428,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		public function nextMonth( $date ) {
 			return date( 'Y-m', strtotime( $date . ' +1 month' ) );
 		}
-		
+
 		/**
 		 * Given a date (YYYY-MM-DD), return the first of the previous month
 		 * hat tip to Dan Bernadict for method cleanup
@@ -3441,7 +3456,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 			add_meta_box( 'Organizer Details', __('Organizer Information', 'tribe-events-calendar'), array( $this, 'OrganizerMetaBox' ), self::ORGANIZER_POST_TYPE, 'normal', 'high' );
 		}
-		
+
 		/**
 		 * Include the event editor meta box.
 		 *
@@ -3476,7 +3491,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			$timestamp = mktime( 0, 0, 0, $dateParts[1], 1, $dateParts[0] );
 			return $monthNames[date( "F", $timestamp )];
 		}
-		
+
 		/**
 		 * Echo the next tab index
 		 *
@@ -3686,7 +3701,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		public function setPostExceptionThrown( $thrown ) {
 			$this->postExceptionThrown = $thrown;
 		}
-		
+
 		/**
 		 * Get the thrown post exception.
 		 *
@@ -3704,7 +3719,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 * @param bool $showMessage The message to show.
 		 * @param mixed $extra_args The extra args you want.
 		 * @return void
-		 */ 
+		 */
 		public function do_action($name, $event_id = null, $showMessage = false, $extra_args = null) {
 			try {
 				do_action( $name, $event_id, $extra_args );
@@ -3724,6 +3739,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		/**
 		 * Echoes upsell stuff, if it should.
 		 *
+		 * @param int $postId
 		 * @return void
 		 */
 		public function maybeShowMetaUpsell($postId) {
@@ -4066,6 +4082,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 * @author PaulHughes01
 		 *
 		 * @param array $views The current views array.
+		 * @param bool $visible
 		 * @return array The new views array.
 		 */
 		public function remove_hidden_views( $views, $visible = true ) {
@@ -4132,7 +4149,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				$args[TribeEvents::TAXONOMY] = $_POST['tribe_event_category'];
 			}
 
-			// add filter that executes after TribeEventsQuery::pre_get_posts, 
+			// add filter that executes after TribeEventsQuery::pre_get_posts,
 			// that sets the tribe bar date
 			add_action( 'tribe_events_pre_get_posts', array( $this, 'list_ajax_call_set_date' ) );
 
@@ -4296,7 +4313,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				die();
 			}
 		}
-		
+
 		/**
 		 * Checks to see if any registered TEC-related plugins have been updated just now
 		 * and runs an action if so, so that any upgrade-specific functionality can
@@ -4310,18 +4327,18 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			$plugins = apply_filters( 'tribe_tec_addons', array( 'TribeEventsCalendar' => array( 'plugin_name' => 'Events Calendar PRO', 'required_version' => self::VERSION, 'current_version' => self::VERSION, 'plugin_dir_file' => basename( dirname( __FILE__ ) ) . '/the-events-calendar.php' ) ) );
 			$plugin_versions = get_option( 'tribe_events_suite_versions', array() );
 			$new_plugin_versions = $plugin_versions;
-			
+
 			foreach ( $plugins as $slug => $plugin ) {
 				if ( !isset( $plugin_versions[$slug] ) || version_compare( $plugin_versions[$slug], $plugin['current_version'], '!=' ) ) {
 					$old_version = isset( $plugin_versions[$slug] ) ? $plugin_versions[$slug] : null;
-					
+
 					// Hook into this filter to execute upgrade items.
 					if ( apply_filters( 'tribe_events_suite_upgrade', true, $slug, $plugin['plugin_name'], $plugin['current_version'], $old_version ) ) {
 						$new_plugin_versions[$slug] = $plugin['current_version'];
 					}
 				}
 			}
-			
+
 			if ( $new_plugin_versions != $plugin_versions ) {
 				update_option( 'tribe_events_suite_versions', $new_plugin_versions );
 			}
