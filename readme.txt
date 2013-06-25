@@ -21,7 +21,7 @@ The Events Calendar has been audited by many of the industry's WordPress experts
 
 We've poured 100s of hours into QA by a dedicated support team, monthly usability tests to guarantee that it's easy to use, and numerous user interviews to make sure you get what you want. We care about quality and crafting products that thrive in the wild.
 
-The team at Modern Tribe stands by our work and offers light support once a week for free to the community via the WordPress.org support forums. Feel free to ask a question if you're having a problem with implementation or if you find bugs. Looking for help NOW or need a deeper level of support? Upgrade to <a href="http://m.tri.be/2c">a commercial plugin</a> and you get access to premium support forums with under 24hr response times on weekdays.
+The team at Modern Tribe stands by our work and offers light support once a week for free to the community via the WordPress.org support forums. Feel free to ask a question if you're having a problem with implementation or if you find bugs. Looking for help NOW or need a deeper level of support? Add the <a href="http://m.tri.be/2c">premium add-on plugin</a> and you get access to premium support forums with under 24hr response times on weekdays.
 
 = PLUG-N-PLAY & HIGHLY CUSTOMIZABLE =
 
@@ -88,7 +88,7 @@ Installing the plugin is easy. Just follow these steps:
 
 That's it! Just configure your settings as you see fit, and you're on your way to creating events in style. Now that you're all set up and ready to go, how about checking out the <a href="http://m.tri.be/2l">new user primer</a> to familiarize yourself with what's in store?
 
-If you're unclear about the installation process or get stuck, check out our <a href="http://tri.be/downloading-installing-activating-the-events-calendar-2-0-pro-2-0/?ref=tec-readme">simple video</a> which walks you through the process. Still having trouble from there? See the [Codex](http://codex.wordpress.org/Managing_Plugins#Manual_Plugin_Installation) for more troubleshooting ideas.
+If you're unclear about the installation process or get stuck, check out our <a href="http://m.tri.be/3q">video</a> which walks you through the process. Still having trouble from there? See the [Codex](http://codex.wordpress.org/Managing_Plugins#Manual_Plugin_Installation) for more troubleshooting ideas.
 
 = Requirements =
 
@@ -146,19 +146,18 @@ We've got a <a href="https://tribe.uservoice.com/forums/195723-feature-ideas">Mo
 
 = I've still got questions. Do you have a bigger FAQ somewhere? =
 
-We do. If you check out our a href="http://m.tri.be/2n">Frequently Asked Questions page</a> on the tri.be site, we've collected and addressed all of the common questions we see posed by users. In some cases we'll provide a Gist; in other cases we'll direct you to a tutorial; and in some situations we'll unfortunately say a certain capability is simply not possible. But the FAQ is a living, breathing document that we're actively updating based on commonly-seen requests.
+We do. If you check out our <a href="http://m.tri.be/2n">Frequently Asked Questions page</a> on the tri.be site, we've collected and addressed all of the common questions we see posed by users. In some cases we'll provide a Gist; in other cases we'll direct you to a tutorial; and in some situations we'll unfortunately say a certain capability is simply not possible. But the FAQ is a living, breathing document that we're actively updating based on commonly-seen requests.
 
 == Documentation ==
 
-All of our online documentation can be found on <a href="http://m.tri.be/2o" target="_blank">our documentation site</a>.
+All of our online documentation can be found on <a href="http://m.tri.be/2o">our documentation site</a>.
 
 Some docs you may find particularly useful are:
 
 * <a href="http://m.tri.be/2l">The Events Calendar New User Primer</a>
 * <a href="http://m.tri.be/2m">The Themer's Guide to The Events Calendar</a>
 * <a href="http://m.tri.be/2n">The Events Calendar FAQ</a>
-
-<a href="http://m.tri.be/2u" target="_blank">Tutorials are available.</a>
+* <a href="http://m.tri.be/2u" target="_blank">Tutorials</a>
 
 For template tags, open the plugin directory and visit /plugins/events/public/template-tags/ where you can find a list of those available.
 
