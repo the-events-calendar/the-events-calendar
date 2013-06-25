@@ -4,7 +4,7 @@
  Description:  Dialing custom post types to 11 with advanced filtering controls.
  Version: 1.0.9
  Author: Modern Tribe, Inc.
- Author URI: http://tri.be
+ Author URI: http://m.tri.be/4n
  Text Domain: tribe-apm
  */
 
@@ -15,6 +15,7 @@ define( 'TRIBE_APM_LIB_PATH', TRIBE_APM_PATH . 'lib/' );
 
 class Tribe_APM {
 
+	protected $textdomain = 'tribe-apm';
 	protected $args;
 	protected $metaboxes;
 	protected $url;
@@ -39,6 +40,7 @@ class Tribe_APM {
 		$this->args = $args;
 		$this->metaboxes = $metaboxes;
 
+		$this->textdomain = apply_filters( 'tribe_apm_textdomain', $this->textdomain );
 		$this->url = apply_filters( 'tribe_apm_url', plugins_url('', __FILE__), __FILE__ );
 
 		add_action( 'admin_init', array($this, 'init'), 0 );

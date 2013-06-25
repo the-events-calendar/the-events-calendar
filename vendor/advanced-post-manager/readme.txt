@@ -1,10 +1,10 @@
 === Advanced Post Manager ===
 
 Contributors: ModernTribe, mattwiebe, jkudish, nickciske, peterchester, shanepearlman
-Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=8SKE66B7W76JY
+Donate link: http://m.tri.be/4o
 Tags: developer-tools, custom post, filter, column, metabox, taxonomy, wp-admin, admin, Post, post type, plugin, advanced, tribe
 Requires at least: 3.2
-Tested up to: 3.4-alpha
+Tested up to: 3.6-alpha
 License: GPL v2
 Stable Tag: 1.0.9
 
@@ -25,7 +25,7 @@ See docs/documentation.html in the plugin directory for full documentation.
 This plugin is actively supported and we will do our best to help you. In return we simply as 2 things:
 
 1. Help Out. If you see a question on the forum you can help with or have a great idea and want to code it up and submit a patch, that would be just plain awesome and we will shower your with praise. Might even be a good way to get to know us and lead to some paid work if you freelance. Also, we are happy to post translations if you provide them.
-2. Donate - if this is generating enough revenue to support our time it makes all the difference in the world https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=8SKE66B7W76JY
+2. Donate - if this is generating enough revenue to support our time it makes all the difference in the world http://m.tri.be/4o
 
 == Frequently Asked Questions ==
 
