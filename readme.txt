@@ -13,8 +13,6 @@ Create and manage events with ease. Get professional-level quality and features 
 
 The Events Calendar is built and supported by WordPress artisans Modern Tribe. Looking for additional functionality including recurring events, ticket sales, publicly submitted events, new views, Facebook event integration and more? <a href="http://tri.be/products/?utm_source=readme&utm_medium=descriptiontab&utm_campaign=tec&utm_content=premiumlink">Check out the available add-ons.</a>
 
-[new user primer or a custom vid]
-
 = BUILT SOLID & SUPPORTED =
 
 The Events Calendar is crafted the WordPress way. 
