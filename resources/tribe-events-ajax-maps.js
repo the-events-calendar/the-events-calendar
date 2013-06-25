@@ -121,10 +121,17 @@
 
 		if (tt.map_view()) {
 
-			var tribe_is_paged = tf.get_url_param('tribe_paged');
-			if (tribe_is_paged) {
+			var tribe_is_paged = tf.get_url_param('tribe_paged'),
+				tribe_display = tf.get_url_param('tribe_event_display');
+
+			if (tribe_is_paged)
 				ts.paged = tribe_is_paged;
-			}
+
+			ts.view = 'map';
+
+			if(tribe_display == 'past')
+				ts.view = 'past';
+
 			tf.tooltips();
 		}
 
@@ -198,6 +205,10 @@
 				$('#tribe-bar-geoloc-lat').val(tg.geocodes[$this.data('index')].geometry.location.lat());
 				$('#tribe-bar-geoloc-lng').val(tg.geocodes[$this.data('index')].geometry.location.lng());
 
+				ts.do_string = true;
+				ts.pushstate = false;
+				ts.popping = false;
+
 				if (tt.pushstate) {
 					tf.pre_ajax(function () {
 						tribe_map_processOption();
@@ -211,7 +222,7 @@
 
 			});
 
-			$('body').on('click', function (e) {
+			$('body').on('click', function () {
 				$geo_options.hide();
 			});
 
@@ -354,7 +365,7 @@
 				if (ts.ajax_running)
 					return;
 				if (ts.view === 'past') {
-					if (ts.paged === 1) {
+					if (ts.paged == '1') {
 						ts.view = 'map';
 					} else {
 						ts.paged--;
@@ -365,7 +376,7 @@
 				ts.popping = false;
 				if (tt.pushstate) {
 					tf.pre_ajax(function () {
-						tribe_map_processOption(null);
+						tribe_map_processOption();
 					});
 				} else {
 					tf.pre_ajax(function () {
@@ -377,7 +388,7 @@
 					if (ts.ajax_running)
 						return;
 					if (ts.view === 'map') {
-						if (ts.paged === 1) {
+						if (ts.paged == '1') {
 							ts.view = 'past';
 						} else {
 							ts.paged--;
@@ -490,6 +501,10 @@
 
 					if (val !== '') {
 
+						ts.do_string = true;
+						ts.pushstate = false;
+						ts.popping = false;
+
 						deleteMarkers();
 						$("#tribe-geo-results").empty();
 						$("#tribe-geo-options").hide();
@@ -535,8 +550,11 @@
 						$("#tribe-geo-options").hide();
 						//We can show the map even if we don't get a geo query
 						if (tt.pushstate) {
+							ts.do_string = true;
+							ts.pushstate = false;
+							ts.popping = false;
 							tribe_test_location();
-							tribe_map_processOption(null);
+							tribe_map_processOption();
 						} else {
 							$(te).trigger('tribe_ev_reloadOldBrowser');
 						}
