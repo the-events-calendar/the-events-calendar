@@ -89,7 +89,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		public static $tribeUrl = 'http://tri.be/';
 		public static $addOnPath = 'shop/';
 		public static $supportPath = 'support/';
-		public static $refQueryString = '?ref=tec-plugin';
 		public static $dotOrgSupportUrl = 'http://wordpress.org/tags/the-events-calendar';
 
 		protected static $instance;
@@ -632,7 +631,12 @@ if ( !class_exists( 'TribeEvents' ) ) {
 							$out_of_date_addons[] = $plugin['plugin_name'];
 					}
 					$output .= '<div class="error">';
-					$output .= '<p>'.sprintf( __('The following plugins are out of date: <b>%s</b>. All add-ons contain dependencies on The Events Calendar and will not function properly unless paired with the right version. %sWant to pair an older version%s?', 'tribe-events-calendar'), join( $out_of_date_addons, ', ' ), '<a href="http://tri.be/version-relationships-in-modern-tribe-pluginsadd-ons/">', '</a>' ).'</p>';
+					$link = add_query_arg( array(
+						'utm_campaign' => 'in-app',
+						'utm_medium' => 'plugin-wootix',
+						'utm_source' => 'notice'
+					), self::$tribeUrl . 'version-relationships-in-modern-tribe-pluginsadd-ons/' );
+					$output .= '<p>'.sprintf( __('The following plugins are out of date: <b>%s</b>. All add-ons contain dependencies on The Events Calendar and will not function properly unless paired with the right version. %sWant to pair an older version%s?', 'tribe-events-calendar'), join( $out_of_date_addons, ', ' ), "<a href='$link' target='_blank'>", '</a>' ).'</p>';
 					$output .= '</div>';
 				}
 			}
@@ -683,6 +687,12 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 			$showNetworkTabs = $this->getNetworkOption( 'showSettingsTabs', false );
 
+			$link = add_query_arg( array(
+				'utm_campaign' => 'in-app',
+				'utm_medium' => 'plugin-wootix',
+				'utm_source' => 'notice'
+			), self::$tribeUrl . 'license-keys/' );
+
 			$tribe_licences_tab_fields = array(
 				'info-start' => array(
 					'type' => 'html',
@@ -694,7 +704,14 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				),
 				'info-box-description' => array(
 					'type' => 'html',
-					'html' =>  sprintf( __('<p>The license key you received when completing your purchase from http://tri.be will grant you access to support and updates until it expires. You do not need to enter the key below for the plugins to work, but you will need to enter it to get automatic updates. <strong>Find your license keys at <a href="%s" target="_blank">%s</a></strong>.</p> <p>Each paid add-on has its own unique license key. Simply paste the key into its appropriate field on below, and give it a moment to validate. You know you\'re set when a green expiration date appears alongside a "valid" message.</p> <p>If you\'re seeing a red message telling you that your key isn\'t valid or is out of installs, visit <a href="%s" target="_blank">%s</a> to manage your installs or renew / upgrade your license.</p><p>Not seeing an update but expecting one? In WordPress, go to <a href="%s">Dashboard > Updates</a> and click "Check Again".</p>', 'tribe-events-calendar'),'https://tri.be/license-keys','https://tri.be/license-keys', 'https://tri.be/license-keys', 'https://tri.be/license-keys', admin_url('/update-core.php')),
+					'html' =>  sprintf( __('<p>The license key you received when completing your purchase from %s will grant you access to support and updates until it expires. You do not need to enter the key below for the plugins to work, but you will need to enter it to get automatic updates. <strong>Find your license keys at <a href="%s" target="_blank">%s</a></strong>.</p> <p>Each paid add-on has its own unique license key. Simply paste the key into its appropriate field on below, and give it a moment to validate. You know you\'re set when a green expiration date appears alongside a "valid" message.</p> <p>If you\'re seeing a red message telling you that your key isn\'t valid or is out of installs, visit <a href="%s" target="_blank">%s</a> to manage your installs or renew / upgrade your license.</p><p>Not seeing an update but expecting one? In WordPress, go to <a href="%s">Dashboard > Updates</a> and click "Check Again".</p>', 'tribe-events-calendar'),
+						self::$tribeUrl,
+						$link,
+						$link,
+						$link,
+						$link,
+						admin_url('/update-core.php')
+					),
 				),
 				'info-end' => array(
 					'type' => 'html',
@@ -3653,7 +3670,12 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				$links []= '<a href="'.self::$dotOrgSupportUrl.'">' . $anchor . '</a>';
 
 				$anchor = __( 'View All Add-Ons', 'tribe-events-calendar' );
-				$links []= '<a href="'.self::$tribeUrl.self::$addOnPath.self::$refQueryString.'">' . $anchor . '</a>';
+				$link = add_query_arg( array(
+					'utm_campaign' => 'in-app',
+					'utm_medium' => 'plugin-wootix',
+					'utm_source' => 'plugins-manager'
+				), self::$tribeUrl . self::$addOnPath );
+				$links []= '<a href="' . $link . '">' . $anchor . '</a>';
 			}
 			return $links;
 		}
@@ -3750,7 +3772,13 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			</tr>
 			<tr class="eventBritePluginPlug">
 				<td colspan="2">
-					<p><?php _e('Looking for additional functionality including recurring events, ticket sales, publicly submitted events, new views and more?', 'tribe-events-calendar' ) ?> <?php printf( __('Check out the <a href="%s">available add-ons</a>.', 'tribe-events-calendar' ), TribeEvents::$tribeUrl.'shop/?ref=tec-event' ); ?></p>
+					<p><?php _e('Looking for additional functionality including recurring events, ticket sales, publicly submitted events, new views and more?', 'tribe-events-calendar' ) ?> <?php printf( __('Check out the <a href="%s">available add-ons</a>.', 'tribe-events-calendar' ),
+							add_query_arg( array(
+								'utm_campaign' => 'in-app',
+								'utm_medium' => 'plugin-wootix',
+								'utm_source' => 'post-editor'
+							), TribeEvents::$tribeUrl . 'shop/' )
+					); ?></p>
 				</td>
 			</tr><?php
 		}
