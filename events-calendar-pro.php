@@ -49,8 +49,6 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 
         /**
          * Class constructor.
-         *
-         * @return void
          */
         private function __construct() {
 			$this->pluginDir = trailingslashit( basename( dirname( __FILE__ ) ) );
