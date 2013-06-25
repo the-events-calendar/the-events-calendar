@@ -2,8 +2,8 @@
 
 Contributors:  ModernTribe, PaulHughes01, roblagatta, jonahcoyote, MZAWeb, codearachnid, ryancurban, leahkoerper, barryhughes, peterchester, reid.peifer, shane.pearlman
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget, pro
-Requires at least: ADD
-Tested up to: ADD
+Requires at least: 3.5
+Tested up to: 3.5.2
 Stable tag: 3.0
 
 == Description ==
