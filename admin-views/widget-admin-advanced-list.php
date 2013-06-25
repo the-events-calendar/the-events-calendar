@@ -21,7 +21,7 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 	<?php } ?>
 	</select>
 </p>
-	
+
 <p><?php _e( 'Display:', 'tribe-events-calendar-pro' ); ?><br />
 
 <?php $displayoptions = array (
@@ -58,4 +58,4 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 <p><label for="<?php echo $this->get_field_id( 'no_upcoming_events' ); ?>"><?php _e('Hide this widget if there are no upcoming events:','tribe-events-calendar-pro');?></label>
 <input id="<?php echo $this->get_field_id( 'no_upcoming_events' ); ?>" name="<?php echo $this->get_field_name( 'no_upcoming_events' ); ?>" type="checkbox" <?php checked( $instance['no_upcoming_events'], 1 ); ?> value="1" /></p>
 
-<p><small><em><?php printf( __( 'Want to modify the display of this widget? Try a %stemplate override%s.', 'tribe-events-calendar-pro' ), '<a href="http://tri.be/faq/what-are-template-overrides-and-how-do-i-do-them/">', '</a>' ); ?></em></small></p>
+<p><small><em><?php printf( __( 'Want to modify the display of this widget? Try a %stemplate override%s.', 'tribe-events-calendar-pro' ), '<a href="http://tri.be/what-are-template-overrides-and-how-do-i-do-them/?utm_campaign=in-app&utm_medium=plugin-ecp&utm_source=editor">', '</a>' ); ?></em></small></p>
