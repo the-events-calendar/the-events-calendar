@@ -47,7 +47,12 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		const REQUIRED_TEC_VERSION = '3.0';
 		const VERSION = '3.0';
 
-		private function __construct() {
+        /**
+         * Class constructor.
+         *
+         * @return void
+         */
+        private function __construct() {
 			$this->pluginDir = trailingslashit( basename( dirname( __FILE__ ) ) );
 			$this->pluginPath = trailingslashit( dirname( __FILE__ ) );
 			$this->pluginUrl = WP_PLUGIN_URL.'/'.$this->pluginDir;
@@ -286,7 +291,13 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		// 	if( !empty($))
 		// }
 
-		function events_before_html( $html ) {
+        /**
+         * Gets the events_before_html content.
+         *
+         * @param string $html The events_before_html currently.
+         * @return string The modified html.
+         */
+        function events_before_html( $html ) {
 			global $wp_query;
 			if ( $wp_query->tribe_is_event_venue || $wp_query->tribe_is_event_organizer ) {
 				add_filter( 'tribe-events-bar-should-show', '__return_false' );
@@ -845,7 +856,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		/**
 		 * Add help text regarding the Tribe forums to the help tab.
 		 *
-		 * @return void
+		 * @return string The content.
 		 */
 		public function add_help_tab_forumtext(){
 			$forum_text[] = '<p>' . sprintf( __('Written documentation can only take things so far...sometimes, you need help from a real person. This is where our %ssupport forums%s come into play.', 'tribe-events-calendar'), '<a href="http://tri.be/support/forums/" target="blank">', '</a>') . '</p>';
@@ -1096,7 +1107,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		/**
 		 * Specify the PHP class for the current page template
 		 *
-		 * @param string The current class we are filtering.
+		 * @param string $class The current class we are filtering.
 		 * @return string The class.
 		 * @author Jessica Yazbek
 		 * @since 3.0
@@ -1161,8 +1172,14 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			return $template_class_paths;
 
 		}
-		
-    	public function load_venue_template( $file ) {
+
+        /**
+         * Gets the venue template.
+         *
+         * @param string $file
+         * @return string The path for the template.
+         */
+        public function load_venue_template( $file ) {
     		return TribeEventsTemplates::getTemplateHierarchy( 'single-venue','','pro', $this->pluginPath );
 	    }
 
@@ -1620,27 +1637,27 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		}
 	}
 
-	/**
-	* Add Events PRO to the list of add-ons to check required version.
-	*
-	* @author Paul Hughes, jkudish
-	* @since 2.0.5
-	* @return array $plugins the required info
-	*/
+    /**
+	 * Add Events PRO to the list of add-ons to check required version.
+	 *
+	 * @author Paul Hughes, jkudish
+	 * @since 2.0.5
+	 * @return array $plugins the required info
+	 */
 	function tribe_init_ecp_addon( $plugins ) {
 		$plugins['TribeEventsPro'] = array( 'plugin_name' => 'Events Calendar PRO', 'required_version' => TribeEventsPro::REQUIRED_TEC_VERSION, 'current_version' => TribeEventsPro::VERSION, 'plugin_dir_file' => basename( dirname( __FILE__ ) ) . '/events-calendar-pro.php' );
 		return $plugins;
 	}
 
 	/**
-	* What operator should be used to compare PRO's required version with TEC's version.
-	* Note that a result of TRUE with the version_compare results in the error message.
-	* As is the case here, if they are NOT equal (!=), an error should result.
-	*
-	* @author Paul Hughes
-	* @since 2.0.5
-	* @return string $operator the operator to use.
-	*/
+	 * What operator should be used to compare PRO's required version with TEC's version.
+	 * Note that a result of TRUE with the version_compare results in the error message.
+	 * As is the case here, if they are NOT equal (!=), an error should result.
+	 *
+	 * @author Paul Hughes
+	 * @since 2.0.5
+	 * @return string $operator the operator to use.
+	 */
 	function tribe_version_compare_operator () {
 		$operator = '!=';
 		return $operator;
