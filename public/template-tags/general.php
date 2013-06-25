@@ -98,11 +98,13 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	// show user front-end settings only if ECP is active
 	function tribe_recurring_instances_toggle( $postId = null )  {
 			$hide_recurrence = ( !empty( $_REQUEST['tribeHideRecurrence'] ) && $_REQUEST['tribeHideRecurrence'] == '1' ) || ( empty( $_REQUEST['tribeHideRecurrence'] ) && empty( $_REQUEST['action'] ) && tribe_get_option( 'hideSubsequentRecurrencesDefault', false ) ) ? '1' : false;
+		if( !tribe_is_week() && !tribe_is_month() ){
 			echo '<span class="tribe-events-user-recurrence-toggle">';
 				echo '<label for="tribeHideRecurrence">';
 					echo '<input type="checkbox" name="tribeHideRecurrence" value="1" id="tribeHideRecurrence" ' . checked( $hide_recurrence, 1, false ) . '>' . __( 'Show only the first upcoming instance of recurring events', 'tribe-events-calendar-pro' );
 				echo '</label>';
 			echo '</span>';
+		}
 	}
 
 	/**
@@ -456,7 +458,7 @@ if( class_exists( 'TribeEventsPro' ) ) {
 		$filter = sprintf( 'tribe_convert_%s_to_%s_ratio', $unit_from, $unit_to );
 		$ratio  = apply_filters( $filter, 0 );
 
-		// if there's not filter for this convertion, let's return the original value
+		// if there's not filter for this conversion, let's return the original value
 		if ( empty( $ratio ) )
 			return $value;
 

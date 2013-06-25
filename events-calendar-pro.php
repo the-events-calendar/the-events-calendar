@@ -272,6 +272,13 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 					}
 					break;
 			}
+			if( tribe_is_showing_all() ){
+				$new_title = sprintf( '%s %s %s ',
+					__( 'All events for', 'tribe-events-calendar-pro' ),
+					get_the_title(),
+					$sep
+				);
+			}
 			return apply_filters( 'tribe_events_pro_add_title', $new_title, $title, $sep );
 		}
 
@@ -299,6 +306,13 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 
 			global $wp_query;
 			$tec = TribeEvents::instance();
+
+			if( tribe_is_showing_all() ){
+				$reset_title = sprintf( '%s %s',
+					__( 'All events for', 'tribe-events-calendar-pro' ),
+					get_the_title()
+				);
+			}
 
 			// week view title
 			if( tribe_is_week() ) {
