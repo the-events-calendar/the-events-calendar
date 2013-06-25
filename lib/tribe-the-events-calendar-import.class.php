@@ -11,7 +11,13 @@ if (!class_exists('TribeEventsImport')) {
 
 		/* Static Singleton Factory Method */
 		private static $instance;
-		public static function instance() {
+
+        /**
+         * Singleton method.
+         *
+         * @return TribeEventsImport
+         */
+        public static function instance() {
 			if (!isset(self::$instance)) {
 				$className = __CLASS__;
 				self::$instance = new $className;
@@ -31,22 +37,37 @@ if (!class_exists('TribeEventsImport')) {
 		
 		private static $upgradeMessage = '';
 
-		private function __construct( ) {
+        /**
+         * Class constructor.
+         *
+         * @return void
+         */
+        private function __construct( ) {
 			add_action( 'admin_init', array( $this, 'upgradeData' ) );
 			add_action( 'tribe_settings_after_form_element_tab_general', array( $this, 'adminForm' ) );
 			add_action( 'admin_notices', array( $this, 'upgradeNotice' ) );
 			add_action( 'admin_notices', array( $this, 'promptUpgrade') );
 		}
 
-		public function promptUpgrade() {
+        /**
+         * If the user has upgraded from a really old version, display the proper prompt.
+         *
+         * @return void
+         */
+        public function promptUpgrade() {
 			if ( self::hasLegacyEvents() ) {
 				echo '<div class="error"><p>' . 
 					__('Welcome to Events 2.0! This is a HUGE upgrade from 1.6.5. Please make sure you have backed up before proceeding any further. You can easily <a href=" http://wordpress.org/extend/plugins/the-events-calendar/download/">revert to an old version</a> if you want to backup first. This upgrade includes two major steps, <a href="edit.php?post_type=' . TribeEvents::POSTTYPE .'&page=tribe-settings&tab=general">migrating data</a> & updating your templates as necessary. There have been significant changes to the template tags and functions. Check out our <a href="http://tri.be/migrating-from-events-calendar-1-6-5-to-2-0">walkthrough on the upgrade</a> before proceeding and check out the FAQ & Knowledge base from the <a href="http://tri.be/support/">support page</a>. If you\'re new to The Events Calendar, you may want to review our <a href="http://tri.be/support/documentation/events-calendar-pro-new-user-primer/">new user primer</a>.<br/><br/> You have events that need to be migrated.  Please visit the bottom of the <a href="edit.php?post_type=' . TribeEvents::POSTTYPE .'&page=tribe-events-calendar">settings page</a> to perform the migration.', 'tribe-events-calendar') . 
 					'</p></div>';
 			}
 		}
-		
-		public function adminForm() {
+
+        /**
+         * If There are legacy events, display the proper form.
+         *
+         * @return void
+         */
+        public function adminForm() {
 			if ( self::hasLegacyEvents() ) {
 				?>
 				<form id="tribe-upgrade" method="post" >
@@ -61,6 +82,8 @@ if (!class_exists('TribeEventsImport')) {
 		
 		/**
 		 * Will upgrade data from old free plugin to pro plugin
+         *
+         * @return void
 		 */
 		public static function upgradeData() {		
 			$num_upgraded = 0;
@@ -134,7 +157,12 @@ if (!class_exists('TribeEventsImport')) {
 			}
 		}
 
-		public static function upgradeNotice() {
+        /**
+         * Show the upgrade notice.
+         *
+         * @return void
+         */
+        public static function upgradeNotice() {
 			if ( self::$upgradeMessage != '' ) {
 				echo '<div class="updated"><p>' . self::$upgradeMessage . '</p></div>';
 				self::$upgradeMessage = '';
@@ -188,7 +216,7 @@ if (!class_exists('TribeEventsImport')) {
 		 * Search for legacy events
 		 *
 		 * @param int $number max event count to look up
-		 * @return query of posts
+		 * @return array query of posts
 		 */
 		private static function getLegacyEvents( $number = -1 ) {
 			// TODO: needs to account for either v1 posts or v2 'sp_events'
@@ -250,6 +278,7 @@ if (!class_exists('TribeEventsImport')) {
 		 * Translate Google Maps setting over
 		 *
 		 * @param object $post post object
+         * @return void
 		 */
 		private static function translateGoogleMaps( $post ) {
 			$show_map = (get_post_meta( $post->ID, '_EventShowMap', 'false' ) == 'true') ? '1' : '0';

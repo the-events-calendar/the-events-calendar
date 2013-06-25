@@ -17,14 +17,19 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 		public static $is_event_organizer;
 		public static $is_event_query;
 
-		function __construct() {
+        /**
+         *  Class Constructor
+         *
+         * @return void
+         */
+        function __construct() {
 			add_action( 'tribe_events_init_pre_get_posts', array( __CLASS__, 'init' ) );
 		}
 
 		/**
 		 * Initialize The Events Calendar query filters and post processing.
 		 *
-		 * @return null
+		 * @return void
 		 */
 		public static function init() {
 
@@ -276,7 +281,14 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 			return $query;
 		}
 
-		public static function posts_groupby( $groupby_sql, $query ) {
+        /**
+         * Modifies the GROUP BY statement for Tribe Events queries.
+         *
+         * @param string $groupby_sql The current GROUP BY statement.
+         * @param WP_Query $query The current query.
+         * @return string The modified GROUP BY content.
+         */
+        public static function posts_groupby( $groupby_sql, $query ) {
 			global $wpdb;
 			if ( self::$is_event_query ) {
 				return apply_filters( 'tribe_events_query_posts_groupby', '', $query );
@@ -285,11 +297,24 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 			}
 		}
 
-		public static function posts_distinct( $distinct ) {
+        /**
+         * Adds DISTINCT to the query.
+         *
+         * @param string $distinct The current DISTINCT statement.
+         * @return string The modified DISTINCT statement.
+         */
+        public static function posts_distinct( $distinct ) {
 			return "DISTINCT";
 		}
 
-		public static function posts_fields( $fields, $query ) {
+        /**
+         * Adds the proper fields to the FIELDS statement in the query.
+         *
+         * @param string $fields The current/original FIELDS statement.
+         * @param WP_Query $query The current query object.
+         * @return string The modified FIELDS statement.
+         */
+        public static function posts_fields( $fields, $query ) {
 			if ( self::$is_event ) {
 				global $wpdb;
 				$fields .= ", {$wpdb->postmeta}.meta_value as EventStartDate, tribe_event_duration.meta_value as EventDuration, DATE_ADD(CAST({$wpdb->postmeta}.meta_value AS DATETIME), INTERVAL tribe_event_duration.meta_value SECOND) as EventEndDate ";
@@ -467,9 +492,13 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 			return $hide_upcoming_ids;
 		}
 
-
-
-		public static function getEventCounts( $args = array() ) {
+        /**
+         * Gets the event counts for individual days.
+         *
+         * @param array $args
+         * @return array The counts array.
+         */
+        public static function getEventCounts( $args = array() ) {
 			global $wpdb;
 			$date = date( 'Y-m-d' );
 			$defaults = array(
@@ -547,7 +576,14 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 			return $counts;
 		}
 
-		public static function dateDiff( $date1, $date2 ) {
+        /**
+         * The number of days between two arbitrary dates.
+         *
+         * @param string $date1 The first date.
+         * @param string $date2 The second date.
+         * @return int The number of days between two dates.
+         */
+        public static function dateDiff( $date1, $date2 ) {
 			$current = $date1;
 			$datetime2 = date_create( $date2 );
 			$count = 0;

@@ -85,19 +85,40 @@ class TribeEventsCacheListener {
 	private static $instance = NULL;
 	private $cache = NULL;
 
-	public function __construct() {
+    /**
+     * Class constructor.
+     *
+     * @return void
+     */
+    public function __construct() {
 		$this->cache = new TribeEventsCache();
 	}
 
-	public function init() {
+    /**
+     * Run the init functionality (like add_hooks).
+     *
+     * @return void
+     */
+    public function init() {
 		$this->add_hooks();
 	}
 
+    /**
+     * Add the hooks necessary.
+     *
+     * @return void
+     */
 	private function add_hooks() {
 		add_action( 'save_post', array( $this, 'save_post' ), 0, 2 );
 	}
 
-	public function save_post( $post_id, $post ) {
+    /**
+     * Run the caching functionality that is executed on save post.
+     *
+     * @param int $post_id The post_id.
+     * @param WP_Post $post The current post object being saved.
+     */
+    public function save_post( $post_id, $post ) {
 		if ( in_array($post->post_type, TribeEvents::getPostTypes()) ) {
 			$this->cache->set_last_occurrence( 'save_post' );
 		}
@@ -113,14 +134,24 @@ class TribeEventsCacheListener {
 		$this->cache->set_last_occurrence( $method );
 	}
 
-	public static function instance() {
+    /**
+     * Instance method of the cache listener.
+     *
+     * @return TribeEventsCacheListener
+     */
+    public static function instance() {
 		if ( empty(self::$instance) ) {
 			self::$instance = self::create_listener();
 		}
 		return self::$instance;
 	}
 
-	private static function create_listener() {
+    /**
+     * Create a cache listener.
+     *
+     * @return TribeEventsCacheListener
+     */
+    private static function create_listener() {
 		$listener = new self();
 		$listener->init();
 		return $listener;
