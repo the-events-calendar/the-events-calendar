@@ -3,8 +3,8 @@
 Contributors:  ModernTribe, PaulHughes01, roblagatta, jonahcoyote, MZAWeb, codearachnid, ryancurban, leahkoerper, barryhughes, peterchester, reid.peifer, shane.pearlman
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
 Donate link: http://m.tri.be/29
-Requires at least: 3.3
-Tested up to: 3.6
+Requires at least: 3.5
+Tested up to: 3.5.2
 Stable tag: 3.0
 
 == Description ==
@@ -27,7 +27,7 @@ The team at Modern Tribe stands by our work and offers light support once a week
 
 TEC is built to work out of the box. Just turn it on, configure the settings to match your needs and you'll be making events within less than 5 minutes.
 
-By devs for devs, it's ready to be the foundation for your wildest hack sessions. Complete with a skeleton stylesheet to theme fast and efficiently, loads of tools including partial template overrides, a host of template tags, hooks and filters, <a href="http://m.tri.be/2b">careful documentation</a>, as well as a <a href="">library of code snippets</a> on GitHub. The Events Calendar is built FOR people who build websites.
+By devs for devs, it's ready to be the foundation for your wildest hack sessions. Complete with a skeleton stylesheet to theme fast and efficiently, loads of tools including partial template overrides, a host of template tags, hooks and filters, <a href="http://m.tri.be/2b">careful documentation</a>, as well as a <a href="https://github.com/moderntribe">library of code snippets</a> on GitHub. The Events Calendar is built FOR people who build websites.
 
 Whether your vision is big or small, we have you in mind.
 
