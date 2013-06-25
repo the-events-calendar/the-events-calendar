@@ -4,7 +4,7 @@
 *
 *
 * Created by:  Daniel Dvorkin
-* For:         Modern Tribe Inc . ( http://tri.be/)
+* For:         Modern Tribe Inc. ( http://m.tri.be/20 )
 *
 * Date: 		9 / 18 / 12 12:31 PM
 *-------------------------------------------------------------------------------------*/
