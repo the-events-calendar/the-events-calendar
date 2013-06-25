@@ -14,8 +14,6 @@ The Events Calendar allows you to create and manage events with ease from right 
 
 Plus, Events Calendar PRO users get access to our premium support forums. Need help or have a question? Post there and we'll get back to you within 24 hours (during the week). We're proud of our great support team and want to help you kick butt with Events Calendar PRO.
 
-[new user primer or a custom vid]
-
 = Features =
 
 The following lists the PRO-only features. For a list of The Events Calendar features, check out that plugin's readme.txt or check out <a href="http://m.tri.be/3s">the Product page</a>.
