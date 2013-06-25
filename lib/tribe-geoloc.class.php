@@ -153,7 +153,7 @@ class TribeEventsGeoLoc {
 	 * Enqueue the maps JS in all the views (Needed for the location filter in the Tribe Bar)
 	 */
 	public function scripts() {
-		if ( tribe_is_event_query() ) {
+		if ( tribe_is_event_query() && ! is_single() ) {
 			Tribe_PRO_Template_Factory::asset_package( 'ajax-maps' );
 		}
 	}
