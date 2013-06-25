@@ -122,7 +122,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			add_filter( 'tribe_help_tab_getting_started_text', array( $this, 'add_help_tab_getting_started_text' ) );
 			add_filter( 'tribe_help_tab_introtext', array( $this, 'add_help_tab_intro_text' ) );
 			add_filter( 'tribe_help_tab_forumtext', array( $this, 'add_help_tab_forumtext' ) );
-			
+
 			// add_filter( 'tribe_events_template_single-venue.php', array( $this, 'load_venue_template' ) );
 			add_action( 'widgets_init', array( $this, 'pro_widgets_init' ), 100 );
 			add_action( 'wp_loaded', array( $this, 'allow_cpt_search' ) );
@@ -187,7 +187,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			add_filter( 'tribe_events_register_organizer_type_args', array( $this, 'addSupportsThumbnail' ), 10, 1 );
 
 		}
-		
+
 		/**
 		 * Filters in a meta walker group for new items regarding the PRO addon.
 		 *
@@ -204,7 +204,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 
 			return $html;
 		}
-		
+
 		/**
 		 * Adds for the meta walker a key for custom meta to do with PRO addon.
 		 *
@@ -217,10 +217,10 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			$keys[] = 'tribe_event_custom_meta';
 			return $keys;
 		}
-		
+
 		/**
 		 * Adds for the meta walker a key for custom meta groups to do with PRO addon.
-		 * 
+		 *
 		 * @param array $keys The current array of meta keys.
 		 * @return array The modified array.
 		 * @author Timothy Wood
@@ -233,7 +233,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 
 		/**
 		 * Adds (currently nothing) to the venue section of the meta walker for single events.
-		 * 
+		 *
 		 * @param bool $status Whether currently it is filtered to display venue information in a group or not.
 		 * @param int $event_id The post_id of the current event.
 		 * @return bool The modified boolean.
@@ -307,7 +307,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 
 		/**
 		 * Sets the page title for the various PRO views.
-		 * 
+		 *
 		 * @param string $content The current title.
 		 * @return string The modified title.
 		 * @author Jessica Yazbek
@@ -574,7 +574,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		}
 
 		/**
-		 * The class init function. 
+		 * The class init function.
 		 *
 		 * @return void
 		 * @since 2.0
@@ -628,7 +628,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 
 					}
 					break;
-				
+
 			}
 
 			if( !empty( $current_url )) {
@@ -713,7 +713,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 
 		/**
 		 * Sets up the link for deleting recurring events instances.
-		 * 
+		 *
 		 * @param string $link The current post delete link.
 		 * @param int $postId The current post/event id.
 		 * @return string The modified link.
@@ -728,7 +728,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			}
 			return $link;
 	      }
-		
+
 		/**
 		 * Adds the dialog box for when you try to delete a specific instance of a recurring event.
 		 *
@@ -823,29 +823,27 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		 * @return string The modified content.
 		 */
 		public function add_help_tab_getting_started_text() {
-			$ga_query_string = '?utm_source=helptab&utm_medium=promolink&utm_campaign=plugin';
 			$getting_started_text[] = sprintf (__('Thanks for buying Events Calendar PRO! From all of us at Modern Tribe, we sincerely appreciate it. If you\'re looking for help with Events Calendar PRO, you\'ve come to the right place. We are committed to helping make your calendar kick ass... and hope the resources provided below will help get you there.', 'tribe_events_calendar'));
 			$content = implode( $getting_started_text );
 			return $content;
 		}
-	
+
 		/**
 		 * Add the intro text that concerns PRO to the help tab.
 		 *
 		 * @return string The modified content.
 		 */
 		public function add_help_tab_intro_text(){
-			$ga_query_string = '?utm_source=helptab&utm_medium=promolink&utm_campaign=plugin';
 			$intro_text[] = '<p>' . __('If this is your first time using The Events Calendar Pro, you\'re in for a treat and are already well on your way to creating a first event. Here are some basics we\'ve found helpful for users jumping into it for the first time:', 'tribe-events-calendar' ) . '</p>';
 			$intro_text[] = '<ul>';
 			$intro_text[] = '<li>';
-			$intro_text[] = sprintf( __ ('%sOur New User Primer%s was designed for folks in your exact position. Featuring both step-by-step videos and written walkthroughs that feature accompanying screenshots, the primer aims to take you from zero to hero in no time.', 'tribe-events-calendar' ), '<a href="http://tri.be/support/documentation/events-calendar-pro-new-user-primer/" target="blank">', '</a>' );
+			$intro_text[] = sprintf( __ ('%sOur New User Primer%s was designed for folks in your exact position. Featuring both step-by-step videos and written walkthroughs that feature accompanying screenshots, the primer aims to take you from zero to hero in no time.', 'tribe-events-calendar' ), '<a href="http://m.tri.be/4t" target="blank">', '</a>' );
 			$intro_text[] = '</li><li>';
-			$intro_text[] = sprintf( __('%sInstallation/Setup FAQs%s from our support page can help give an overview of what the plugin can and cannot do. This section of the FAQs may be helpful as it aims to address any basic install questions not addressed by the new user primer.', 'tribe-events-calendar'), '<a href="http://tri.be/support/faqs/" target="blank">','</a>' );
+			$intro_text[] = sprintf( __('%sInstallation/Setup FAQs%s from our support page can help give an overview of what the plugin can and cannot do. This section of the FAQs may be helpful as it aims to address any basic install questions not addressed by the new user primer.', 'tribe-events-calendar'), '<a href="http://m.tri.be/4u" target="blank">','</a>' );
 			$intro_text[] = '</li><li>';
 			$intro_text[] = sprintf( __('Are you developer looking to build your own frontend view? We created an example plugin that demonstrates how to register a new view. You can %sdownload the plugin at GitHub%s to get started.', 'tribe-events-calendar'), '<a href="https://github.com/moderntribe/tribe-events-agenda-view" target="blank">', '</a>' );
 			$intro_text[] = '</li><li>';
-			$intro_text[] = sprintf( __( 'Take care of your license key. Though not required to create your first event, you\'ll want to get it in place as soon as possible to guarantee your access to support and upgrades. %sHere\'s how to find your license key%s, if you don\'t have it handy.', 'tribe-events-calendar'), '<a href="http://tri.be/finding-your-pro-license-key-re-downloading-the-plugin/" target="blank">','</a>' );
+			$intro_text[] = sprintf( __( 'Take care of your license key. Though not required to create your first event, you\'ll want to get it in place as soon as possible to guarantee your access to support and upgrades. %sHere\'s how to find your license key%s, if you don\'t have it handy.', 'tribe-events-calendar'), '<a href="http://m.tri.be/4v" target="blank">','</a>' );
 			$intro_text[] = '</li></ul><p>';
 			$intro_text[] = __('Otherwise, if you\'re feeling adventurous, you can get started by heading to the Events menu and adding your first event.', 'tribe-events-calendar');
 			$intro_text[] = '</p>';
@@ -859,8 +857,8 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		 * @return string The content.
 		 */
 		public function add_help_tab_forumtext(){
-			$forum_text[] = '<p>' . sprintf( __('Written documentation can only take things so far...sometimes, you need help from a real person. This is where our %ssupport forums%s come into play.', 'tribe-events-calendar'), '<a href="http://tri.be/support/forums/" target="blank">', '</a>') . '</p>';
-			$forum_text[] = '<p>' . sprintf( __('Users who have purchased an Events Calendar PRO license are granted total access to our %spremium support forums%s. Unlike at the %sWordPress.org support forum%s, where our involvement is limited to identifying and patching bugs, we have a dedicated support team for PRO users. We\'re on the PRO forums daily throughout the business week, and no thread should go more than 24-hours without a response.', 'tribe-events-calendar' ), '<a href="http://tri.be/support/forums/" target="blank">', '</a>', '<a href="http://wordpress.org/support/plugin/the-events-calendar" target="blank">', '</a>' ) . '</p>';
+			$forum_text[] = '<p>' . sprintf( __('Written documentation can only take things so far...sometimes, you need help from a real person. This is where our %ssupport forums%s come into play.', 'tribe-events-calendar'), '<a href="http://m.tri.be/4w/" target="blank">', '</a>') . '</p>';
+			$forum_text[] = '<p>' . sprintf( __('Users who have purchased an Events Calendar PRO license are granted total access to our %spremium support forums%s. Unlike at the %sWordPress.org support forum%s, where our involvement is limited to identifying and patching bugs, we have a dedicated support team for PRO users. We\'re on the PRO forums daily throughout the business week, and no thread should go more than 24-hours without a response.', 'tribe-events-calendar' ), '<a href="http://m.tri.be/4w/" target="blank">', '</a>', '<a href="http://wordpress.org/support/plugin/the-events-calendar" target="blank">', '</a>' ) . '</p>';
 			$forum_text[] = '<p>' . __('Our number one goal is helping you succeed, and to whatever extent possible, we\'ll help troubleshoot and guide your customizations or tweaks. While we won\'t build your site for you, and we can\'t guarantee we\'ll be able to get you 100% integrated with every theme or plugin out there, we\'ll do all we can to point you in the right direction and to make you -- and your client, as is often more importantly the case -- satisfied.', 'tribe-events-calendar' ) . '</p>';
 			$forum_text[] = '<p>' . __('Before posting a new thread, please do a search to make sure your issue hasn\'t already been addressed. When posting please make sure to provide as much detail about the problem as you can (with screenshots or screencasts if feasible), and make sure that you\'ve identified whether a plugin / theme conflict could be at play in your initial message.', 'tribe-events-calendar' ) . '</p>';
 			$forum_text = implode($forum_text );
@@ -920,9 +918,9 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 
 			$wp_rewrite->rules = $newRules + $wp_rewrite->rules;
 		}
-		
+
 		/**
-		 * Add the View Selection buttons for the custom PRO views. 
+		 * Add the View Selection buttons for the custom PRO views.
 		 *
 		 * @param string $html The current view selector HTML.
 		 * @return string The modified view selector HTML.
@@ -943,7 +941,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 				);
 			return $html;
 		}
-		
+
 		/**
 		 * Adds the proper css class(es) to the body tag.
 		 *
@@ -1053,7 +1051,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			$query->tribe_is_event_pro_query = $pro_query;
 			return $query->tribe_is_event_pro_query ? apply_filters('tribe_events_pro_pre_get_posts', $query) : $query;
 		}
-		
+
 		/**
 		 * Deprecated function for getting the current venue display template.
 		 * Replaced by select_page_template.
@@ -1069,7 +1067,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 
 		/**
 		 * Get the path to the current events template.
-		 * 
+		 *
 		 * @param string $template The current template path.
 		 * @return string The modified template path.
 		 * @author Timothy Wood
@@ -1318,11 +1316,10 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		 * @since 2.0.8
 		 */
 		public function helpTabForumsLink( $content ) {
-			$promo_suffix = '?utm_source=helptab&utm_medium=promolink&utm_campaign=plugin';
 			if ( get_option( 'pue_install_key_events_calendar_pro ' ) )
-				return 'http://tri.be/support/forums/forum/events/events-calendar-pro/' . $promo_suffix;
+				return 'http://m.tri.be/4x';
 			else
-				return 'http://tri.be/support/forums/' . $promo_suffix;
+				return 'http://m.tri.be/4w';
 		}
 
 		/**
@@ -1337,7 +1334,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			}
 			return $actions;
 		}
-		
+
 		/**
 		 * Adds thumbnail/featured image support to Organizers and Venues when PRO is activated.
 		 *
@@ -1396,7 +1393,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		* @since 2.0.5
 		*/
 		public function tribePromoBannerPro() {
-			return sprintf( __( 'Calendar powered by %sThe Events Calendar PRO%s', 'tribe-events-calendar-pro' ), '<a href="http://tri.be/wordpress-events-calendar-pro/">', '</a>' );
+			return sprintf( __( 'Calendar powered by %sThe Events Calendar PRO%s', 'tribe-events-calendar-pro' ), '<a href="http://m.tri.be/4y">', '</a>' );
 		}
 
 
@@ -1410,9 +1407,9 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		public function addMetaLinks( $links, $file ) {
 			if ( $file == $this->pluginDir . 'events-calendar-pro.php' ) {
 				$anchor = __( 'Support', 'tribe-events-calendar-pro' );
-				$links [] = '<a href="' . self::$updateUrl . 'support/?ref=ecp-plugin">' . $anchor . '</a>';
+				$links [] = '<a href="http://m.tri.be/4z">' . $anchor . '</a>';
 				$anchor = __( 'View All Add-Ons', 'tribe-events-calendar-pro' );
-				$links [] = '<a href="' . self::$updateUrl . 'shop/?ref=ecp-plugin">' . $anchor . '</a>';
+				$links [] = '<a href="http://m.tri.be/50">' . $anchor . '</a>';
 			}
 			return $links;
 		}
@@ -1453,7 +1450,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 
 		/**
 		 * Add week view to the views selector in the tribe events bar.
-		 * 
+		 *
 		 * @param array $views The current array of views registered to the tribe bar.
 		 * @return array The views registered with week view added.
 		 * @author Daniel Dvorkin
@@ -1469,7 +1466,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 
 		/**
 		 * Add day view to the views selector in the tribe events bar.
-		 * 
+		 *
 		 * @param array $views The current array of views registered to the tribe bar.
 		 * @return array The views registered with day view added.
 		 * @author Daniel Dvorkin
@@ -1482,10 +1479,10 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			                  'url'        => tribe_get_day_link() );
 			return $views;
 		}
-		
+
 		/**
 		 * Add photo view to the views selector in the tribe events bar.
-		 * 
+		 *
 		 * @param array $views The current array of views registered to the tribe bar.
 		 * @return array The views registered with photo view added.
 		 * @author Daniel Dvorkin
@@ -1501,7 +1498,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 
 		/**
 		 * Change the datepicker label, depending on what view the user is on.
-		 * 
+		 *
 		 * @param string $caption The current caption for the datepicker.
 		 * @return string The new caption.
 		 * @author Daniel Dvorkin
@@ -1524,7 +1521,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		 * @since 3.0
 		 */
 		public function add_recurring_occurance_setting_to_list () {
-			if ( tribe_get_option( 'userToggleSubsequentRecurrences', true ) && ! tribe_is_showing_all() && ( tribe_is_upcoming() || tribe_is_past() || tribe_is_map() || tribe_is_photo() ) || apply_filters( 'tribe_events_display_user_toggle_subsequent_recurrences', false ) ) 
+			if ( tribe_get_option( 'userToggleSubsequentRecurrences', true ) && ! tribe_is_showing_all() && ( tribe_is_upcoming() || tribe_is_past() || tribe_is_map() || tribe_is_photo() ) || apply_filters( 'tribe_events_display_user_toggle_subsequent_recurrences', false ) )
 				echo tribe_recurring_instances_toggle();
 		}
 
@@ -1562,7 +1559,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		function miles_to_kms_ratio() {
 			return 1.60934;
 		}
-		
+
 		/**
 		 * Adds /today to the day view link if no day is passed.
 		 *
