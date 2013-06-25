@@ -8,7 +8,7 @@ Stable tag: 3.0
 
 == Description ==
 
-<a href="http://tri.be/shop/wordpress-events-calendar-pro/">Events Calendar PRO</a> is a awesomely dynamic add-on for The Events Calendar that adds more features and functionality to an already robust plugin.
+<a href="http://m.tri.be/3r">Events Calendar PRO</a> is a awesomely dynamic add-on for The Events Calendar that adds more features and functionality to an already robust plugin.
 
 The Events Calendar allows you to create and manage events with ease from right within your WordPress dash. With Events Calendar PRO, you can go even further with recurring events, more calendar views (including Day and Week), Location Search, more widget options, and much more. 
 
@@ -18,9 +18,9 @@ Plus, Events Calendar PRO users get access to our premium support forums. Need h
 
 = Features =
 
-The following lists the PRO-only features. For a list of The Events Calendar features, check out that plugin's readme.txt or check out <a href="https://tri.be/wordpress-events-calendar/">the Product page</a>.
+The following lists the PRO-only features. For a list of The Events Calendar features, check out that plugin's readme.txt or check out <a href="http://m.tri.be/3s">the Product page</a>.
 
-Just getting started? You'll want to watch and read through the <a href="http://tri.be/new-user-primers/?utm_source=readme&utm_medium=descriptiontab&utm_campaign=tec&utm_content=primerlink">New User Primer</a>.
+Just getting started? You'll want to watch and read through the <a href="http://m.tri.be/3t">New User Primer</a>.
 
 * Advanced Views: Day, Week, Map, Photo
 * Venue and Organizer Pages
@@ -45,7 +45,7 @@ Remember, to use Events Calendar PRO you need to also be running The Events Cale
 3. When the popup appears select the the-events-calendar-x.x.zip file or events-calendar-pro-x.x.zip file from your desktop. (The 'x.x' will change depending on the current version number).
 4. Follow the on-screen instructions and wait as the upload completes.
 5. When it's finished, activate the plugin via the prompt. A message will show confirming activation was successful. A link to access the calendar directly on the frontend will be presented here as well.
-6. For access to new updates, make sure you have added your valid License Key under Events --> Settings --> Licenses. You can find your license key on your tri.be account at https://tri.be/my-account/license-keys/.
+6. For access to new updates, make sure you have added your valid License Key under Events --> Settings --> Licenses. You can find your license key on your tri.be account at http://m.tri.be/3u.
 
 That's it! Just configure your settings as you see fit, and you're on your way to creating events in style. 
 
@@ -53,13 +53,13 @@ That's it! Just configure your settings as you see fit, and you're on your way t
 
 If this is your first time using The Events Calendar and Events Calendar PRO, you're in for a treat! Here are some basics we've found helpful for users jumping into it for the first time:
 
-* Our <a href="http://tri.be/support/documentation/events-calendar-pro-new-user-primer/">New User Primer</a> was designed for folks in your exact position. Featuring both step-by-step videos and written walkthroughs that feature accompanying screenshots, the primer aims to take you from zero to hero in no time. 
+* Our <a href="http://m.tri.be/3t">New User Primer</a> was designed for folks in your exact position. Featuring both step-by-step videos and written walkthroughs that feature accompanying screenshots, the primer aims to take you from zero to hero in no time. 
 
-* <a href="http://tri.be/support/faqs/">Installation/Setup FAQs</a> from our Support page can help give an overview of what the plugin can and cannot do. This section of the FAQs may be helpful as it aims to address any basic install questions not addressed by the new user primer.
+* <a href="http://m.tri.be/3v">Installation/Setup FAQs</a> from our Support page can help give an overview of what the plugin can and cannot do. This section of the FAQs may be helpful as it aims to address any basic install questions not addressed by the new user primer.
 
 * Are you developer looking to build a custom frontend view? We created an example plugin that demonstrates how to register a new view. You can download the plugin at GitHub here: https://github.com/moderntribe/tribe-events-agenda-view
 
-* Take care of your license key. Though not required to create your first event, you'll want to get it in place as soon as possible to guarantee your access to support and upgrades. Need help finding your license key? Check out http://tri.be/finding-your-pro-license-key-re-downloading-the-plugin/
+* Take care of your license key. Though not required to create your first event, you'll want to get it in place as soon as possible to guarantee your access to support and upgrades. Need help finding your license key? Check out http://m.tri.be/3w
 
 Otherwise, if you're feeling adventurous, you can get started by heading to the Events menu and adding your first event. 
 
@@ -79,16 +79,16 @@ Note that we aren't going to say "tough luck" if you identify a plugin/theme con
 
 = I'm still stuck. Where do I go to file a bug or ask a question? =
 
-If you're already a PRO user, you're entitled access to our more actively-monitored <a href="tri.be/support/forums/?ref=tec-readme">PRO forums</a> at the tri.be website. We can provide a deeper level of support here and hit these forums on a daily basis during the work week. No post should go more than 24-hours during that time without a response. 
+If you're already a PRO user, you're entitled access to our more actively-monitored <a href="http://m.tri.be/3x">PRO forums</a> at the tri.be website. We can provide a deeper level of support here and hit these forums on a daily basis during the work week. No post should go more than 24-hours during that time without a response. 
 
 = What add-ons are available for The Events Calendar and Events Calendar PRO, and where can I read more about them? =
 
 Currently, the following add-ons are available for The Events Calendar/Events Calendar PRO:
 
-* <a href="http://tri.be/wordpress-eventbrite-tickets/?ref=tec-readme">Eventbrite Tickets</a>, for selling tickets to your event directly through Eventbrite.
-* <a href="http://tri.be/wordpress-community-events/?ref=tec-readme">Community Events</a>, for allowing frontend event submission from your readers.
-* <a href="http://tri.be/facebook-events/?ref=tec-readme">Facebook Events</a>, for importing events directly from an organization or page on Facebook.
-* <a href="http://tri.be/shop/wordpress-wootickets/?ref=tec-readme">Tickets: WooCommerce, for harnessing the power of WooCommerce to sell event tickets directly on your site without being subject to fees or relying on a third-party service.
+* <a href="http://m.tri.be/40">Eventbrite Tickets</a>, for selling tickets to your event directly through Eventbrite.
+* <a href="http://m.tri.be/3z">Community Events</a>, for allowing frontend event submission from your readers.
+* <a href="http://m.tri.be/3y">Facebook Events</a>, for importing events directly from an organization or page on Facebook.
+* <a href="http://m.tri.be/3-">Tickets: WooCommerce, for harnessing the power of WooCommerce to sell event tickets directly on your site without being subject to fees or relying on a third-party service.
 * Filter Bar (COMING SOON) for adding advanced frontend filtering capabilities to your events calendar. 
 
 = I have a feature idea. What's the best way to tell you about it? =
@@ -97,25 +97,25 @@ We've got a <a href="https://tribe.uservoice.com/forums/195723-feature-ideas">Mo
 
 = I've still got questions. Do you have a bigger FAQ somewhere? =
 
-We do. If you check out our a href="http://tri.be/support/faqs/?ref=tec-readme">Frequently Asked Questions page</a> on the tri.be site, we've collected and addressed all of the common questions we see posed by users. In some cases we'll provide a Gist; in other cases we'll direct you to a tutorial; and in some situations we'll unfortunately say a certain capability is simply not possible. But the FAQ is a living, breathing document that we're actively updating based on commonly-seen requests.
+We do. If you check out our a href="http://m.tri.be/41">Frequently Asked Questions page</a> on the tri.be site, we've collected and addressed all of the common questions we see posed by users. In some cases we'll provide a Gist; in other cases we'll direct you to a tutorial; and in some situations we'll unfortunately say a certain capability is simply not possible. But the FAQ is a living, breathing document that we're actively updating based on commonly-seen requests.
 
 == Documentation ==
 
-All of our online documentation can be found at <a href="http://tri.be/support/documentation?ref=tec-readme" target="_blank">http://tri.be/support/documentation</a>.
+All of our online documentation can be found at http://m.tri.be/42
 
 Some docs you may find particularly useful are:
 
-* <a href="http://tri.be/support/documentation/events-calendar-pro-new-user-primer/">The Events Calendar New User Primer</a>
-* <a href="http://tri.be/support/documentation/events-calendar-themers-guide/">The Themer's Guide to The Events Calendar</a>
-* <a href="http://tri.be/support/faqs/">The Events Calendar FAQ</a>
+* <a href="http://m.tri.be/3t">The Events Calendar New User Primer</a>
+* <a href="http://m.tri.be/43">The Themer's Guide to The Events Calendar</a>
+* <a href="http://m.tri.be/41">The Events Calendar FAQ</a>
 
-Tutorials are available at <a href="http://tri.be/the-events-calendar-for-wordpress-tutorials/?ref=tec-readme" target="_blank">http://tri.be/the-events-calendar-for-wordpress-tutorials.</a>
+Tutorials are available at http://m.tri.be/44
 
-For template tags, head over to our documentation page: https://tri.be/support/documentation/
+For template tags, head over to our documentation page: http://m.tri.be/42
 
 == Contributors ==
 
-The plugin is produced by <a href="http://tri.be/?ref=tec-readme">Modern Tribe Inc</a>.
+The plugin is produced by <a href="http://m.tri.be/45">Modern Tribe Inc</a>.
 
 = Current Contributors =
 
@@ -168,7 +168,7 @@ The plugin is produced by <a href="http://tri.be/?ref=tec-readme">Modern Tribe I
 
 == Add-Ons ==
 
-But wait: there's more! We've got a whole stable of plugins available to help you kick ass at what you do. Check out a full list of the products below, and over at the <a href="http://tri.be/shop/?ref=tec-readme" target="_blank">Modern Tribe website.</a>
+But wait: there's more! We've got a whole stable of plugins available to help you kick ass at what you do. Check out a full list of the products below, and over at the <a href="http://m.tri.be/46">Modern Tribe website.</a>
 
 Our Free Plugins:
 
@@ -179,34 +179,34 @@ Our Free Plugins:
 
 Our Premium Plugins:
 
-* <a href="http://tri.be/shop/wordpress-eventbrite-tickets/?ref=tec-readme" target="_blank">The Events Calendar: Eventbrite Tickets</a>
-* <a href="http://tri.be/shop/wordpress-community-events/?ref=tec-readme" target="_blank">The Events Calendar: Community Events</a>
-* <a href="http://tri.be/facebook-events/?ref=tec-readme" target="_blank">The Events Calendar: Facebook Events</a>
-* <a href="http://tri.be/shop/wootickets/?ref=tec-readme" target="_blank">The Events Calendar: WooCommerce Tickets</a>
+* <a href="http://m.tri.be/47">The Events Calendar: Eventbrite Tickets</a>
+* <a href="http://m.tri.be/49">The Events Calendar: Community Events</a>
+* <a href="http://m.tri.be/4a">The Events Calendar: Facebook Events</a>
+* <a href="http://m.tri.be/48">The Events Calendar: WooCommerce Tickets</a>
 * The Events Calendar: Filter Bar (coming summer 2013)
 
 == Changelog ==
 
 = 3.0 = 
 
-3.0 is a complete overhaul of the plugin, and as a result we're starting the changelog fresh. For release notes from the 2.x lifecycle, see <a href="http://m.tri.be/khttp://m.tri.be/k">our 2.x release notes.</a>
+3.0 is a complete overhaul of the plugin, and as a result we're starting the changelog fresh. For release notes from the 2.x lifecycle, see <a href="http://m.tri.be/k">our 2.x release notes.</a>
 
 == Help ==
 
 Welcome to The Events Calendar and Events Calendar PRO, a full-featured events management system for WordPress. Thank you so much for using the labor of our love. We are Modern Tribe and we are here to help you kick ass.
 
-If you aren't familiar with The Events Calendar and Events Calendar PRO, check out our <a href="http://tri.be/new-user-primers/?ref=tec-readme">new user primer.</a> It'll introduce you to the basics of what the plugin has to offer and will have you creating events in no time. From there, the resources below -- extensive template tag documentation, FAQs, video walkthroughs and more -- will give you a leg up as you dig deeper.
+If you aren't familiar with The Events Calendar and Events Calendar PRO, check out our <a href="http://m.tri.be/3t">new user primer.</a> It'll introduce you to the basics of what the plugin has to offer and will have you creating events in no time. From there, the resources below -- extensive template tag documentation, FAQs, video walkthroughs and more -- will give you a leg up as you dig deeper.
 
 Additional resources available include:
 
-* <a href="http://tri.be/support/documentation/?ref=tec-readme">Documentation</a>
-* <a href="http://tri.be/support/faqs/?ref=tec-readme">FAQ</a>
-* <a href="http://tri.be/category/products/help-video/?ref=tec-readme">Help Videos</a>
-* <a href="http://tri.be/the-events-calendar-for-wordpress-tutorials/?ref=tec-readme">Tutorials</a>
-* <a href="http://tri.be/category/products/release-notes/?ref=tec-readme">Release Notes</a>
-* <a href="http://tri.be/support/forums/?ref=tec-readme">Forums</a>
+* <a href="http://m.tri.be/42">Documentation</a>
+* <a href="http://m.tri.be/3v">FAQ</a>
+* <a href="http://m.tri.be/4c">Help Videos</a>
+* <a href="http://m.tri.be/44">Tutorials</a>
+* <a href="http://m.tri.be/4b">Release Notes</a>
+* <a href="http://m.tri.be/3x">Forums</a>
 
-We hit the <a href="https://tri.be/support/forums/">premium forums</a> daily during the week to help paid users with site integration, minor customization, troubleshooting, and more.
+We hit the <a href="http://m.tri.be/3x">premium forums</a> daily during the week to help paid users with site integration, minor customization, troubleshooting, and more.
 
 Some things to consider before posting on the forum:
 
