@@ -71,8 +71,7 @@ msgid ""
 "features not found in the free The Events Calendar.</p><p><strong>Feeling "
 "adventurous?</strong> Jump right into it by visiting the Events menu to <a "
 "href=\"%s\">add your first event</a>.</p><p><strong>Want to get the low-down "
-"first?</strong> Visit our <a href=\"http://tri.be/support/documentation/"
-"events-calendar-pro-new-user-primer/%s\">new user primer</a>,  designed to "
+"first?</strong> Visit our <a href=\"%s\">new user primer</a>,  designed to "
 "help familiarize you with the plugin basics.</p><p>Don't forget to head over "
 "to the <a href=\"%s\">license tab</a> and enter your key!</p>"
 msgstr ""
@@ -1595,7 +1594,7 @@ msgstr ""
 #: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:301
 msgid ""
 "Hmmm... something's wrong with this validator. Please contact <a href="
-"\"http://tri.be/support\">support.</a>"
+"\"%s\">support.</a>"
 msgstr ""
 
 #: ../vendor/tribe-related-posts/tribe-related-posts-widget.php:20

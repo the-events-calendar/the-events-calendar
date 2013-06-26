@@ -5,8 +5,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Events Calendar Pro\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-05-20 02:25-0600\n"
-"PO-Revision-Date: 2013-05-24 20:08+0100\n"
+"POT-Creation-Date: 2013-06-25 23:51-0800\n"
+"PO-Revision-Date: 2013-06-26 00:01-0800\n"
 "Last-Translator: Marko Manojlović <manmar984@gmail.com>\n"
 "Language-Team: Modern Tribe, Inc. <pro@tri.be>\n"
 "MIME-Version: 1.0\n"
@@ -18,212 +18,230 @@ msgstr ""
 "_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2\n"
 "X-Poedit-Basepath: ./\n"
 "X-Textdomain-Support: yes\n"
-"X-Generator: Poedit 1.5.5\n"
+"X-Generator: Poedit 1.5.4\n"
 "X-Poedit-SearchPath-0: ..\n"
 
-#: ../events-calendar-pro.php:58
+#: ../events-calendar-pro.php:61
 msgid "week"
 msgstr "sedmica"
 
-#: ../events-calendar-pro.php:59
+#: ../events-calendar-pro.php:62
 msgid "photo"
 msgstr "fotografija"
 
 # @ tribe-events-calendar-pro
-#: ../events-calendar-pro.php:60
-#: ../lib/tribe-events-recurrence-meta.class.php:619
+#: ../events-calendar-pro.php:63
+#: ../lib/tribe-events-recurrence-meta.class.php:621
 msgid "day"
 msgstr "dan"
 
-#: ../events-calendar-pro.php:61
+#: ../events-calendar-pro.php:64
 msgid "today"
 msgstr "danas"
 
 # @ tribe-events-calendar-pro
 #
-#: ../events-calendar-pro.php:211
+#: ../events-calendar-pro.php:261
 msgid "Events for week of"
 msgstr "Događaji za sedmicu"
 
-#: ../events-calendar-pro.php:237
+# @ tribe-events-calendar-pro
+#
+#: ../events-calendar-pro.php:267 ../events-calendar-pro.php:334
+msgid "Events for"
+msgstr "Događaji za"
+
+# @ tribe-events-calendar-pro
+#
+#: ../events-calendar-pro.php:272 ../events-calendar-pro.php:339
+#, fuzzy
+msgid "Past Events"
+msgstr "Dnevni događaji"
+
+# @ tribe-events-calendar-pro
+#
+#: ../events-calendar-pro.php:274 ../events-calendar-pro.php:341
+#: ../lib/widget-advanced-list.class.php:51
+msgid "Upcoming Events"
+msgstr "Predstojeći događaji"
+
+# @ tribe-events-calendar-pro
+#
+#: ../events-calendar-pro.php:280 ../events-calendar-pro.php:321
+#, fuzzy
+msgid "All events for"
+msgstr "Događaji za"
+
+#: ../events-calendar-pro.php:328
 #, php-format
 msgid "Events for week of %s"
 msgstr "Događaji za sedmicu %s"
 
 # @ tribe-events-calendar-pro
 #
-#: ../events-calendar-pro.php:243
-msgid "Events for"
-msgstr "Događaji za"
-
-# @ tribe-events-calendar-pro
-#
-#: ../events-calendar-pro.php:247 ../lib/widget-advanced-list.class.php:51
-msgid "Upcoming Events"
-msgstr "Predstojeći događaji"
-
-# @ tribe-events-calendar-pro
-#
-#: ../events-calendar-pro.php:664 ../admin-views/tribe-options-defaults.php:35
+#: ../events-calendar-pro.php:813 ../admin-views/tribe-options-defaults.php:35
 msgid "Default Content"
 msgstr "Zadani sadržaj"
 
 # @ tribe-events-calendar-pro
-#: ../events-calendar-pro.php:666 ../admin-views/event-meta-options.php:3
+#: ../events-calendar-pro.php:815 ../admin-views/event-meta-options.php:3
 msgid "Additional Fields"
 msgstr "Dodatna polja"
 
-#: ../events-calendar-pro.php:672
+#: ../events-calendar-pro.php:824
+msgid ""
+"Thanks for buying Events Calendar PRO! From all of us at Modern Tribe, we "
+"sincerely appreciate it. If you're looking for help with Events Calendar "
+"PRO, you've come to the right place. We are committed to helping make your "
+"calendar kick ass... and hope the resources provided below will help get you "
+"there."
+msgstr ""
+
+#: ../events-calendar-pro.php:835
+msgid ""
+"If this is your first time using The Events Calendar Pro, you're in for a "
+"treat and are already well on your way to creating a first event. Here are "
+"some basics we've found helpful for users jumping into it for the first time:"
+msgstr ""
+
+#: ../events-calendar-pro.php:838
 #, php-format
 msgid ""
-"<p>By buying a PRO license you will get active support and sweet additional "
-"features not found in the free The Events Calendar.</p><p><strong>Feeling "
-"adventurous?</strong> Jump right into it by visiting the Events menu to <a "
-"href=\"%s\">add your first event</a>.</p><p><strong>Want to get the low-down "
-"first?</strong> Visit our <a href=\"http://tri.be/support/documentation/"
-"events-calendar-pro-new-user-primer/%s\">new user primer</a>,  designed to "
-"help familiarize you with the plugin basics.</p><p>Don't forget to head over "
-"to the <a href=\"%s\">license tab</a> and enter your key!</p>"
+"%sOur New User Primer%s was designed for folks in your exact position. "
+"Featuring both step-by-step videos and written walkthroughs that feature "
+"accompanying screenshots, the primer aims to take you from zero to hero in "
+"no time."
 msgstr ""
-"<p>Kupnjom PRO licence dobićete aktivnu podršku i dodatke koji se ne nalaze "
-"u besplatnom The Events Calendar.</p><p><strong>Osećate se avanturistički?</"
-"strong> Uskočite u njega tako što će te postetiti meni Događaja da<a href="
-"\"%s\">dodate vaš prvi događaj</a>.</p><p><strong>Želite prvo pogledati "
-"detalje?</strong> Posjetite našu <a href=\"http://tri.be/support/"
-"documentation/events-calendar-pro-new-user-primer/%s\">stranicu za nove "
-"korisnike</a>, dizajniranu da vam pomogne da se upoznate sa osnovama plagina."
-"</p><p>Ne zaboravite otići na <a href=\"%s\">tab licence</a> i uneseti svoj "
-"ključ!</p>"
 
-#: ../events-calendar-pro.php:680
+#: ../events-calendar-pro.php:840
 #, php-format
 msgid ""
-"One of the advantages of being a PRO user is that you have access to our "
-"exclusive forums at %s. Our support staff hits the forums on a daily basis, "
-"and what they can't answer on the spot they'll bring a member of our dev "
-"team in to address directly."
+"%sInstallation/Setup FAQs%s from our support page can help give an overview "
+"of what the plugin can and cannot do. This section of the FAQs may be "
+"helpful as it aims to address any basic install questions not addressed by "
+"the new user primer."
 msgstr ""
-"Jedna od prednosti PRO licence je to što će te imati ekskluzivni pristup "
-"našim forumima na %s. Naše osoblje podrške posećuje forum na dnevnoj osnovi, "
-"i na šta ne mogu da odgovore na mjestu dovešće člana našeg razvojnog tima da "
-"vam izravno pomogne."
 
-#: ../events-calendar-pro.php:681
-msgid "Some things to consider before posting on the forum:"
-msgstr "Stvari koje treba razmotriti pre pisanja na forumu:"
-
-#: ../events-calendar-pro.php:683
-msgid ""
-"Search recent threads before posting a new one to check that there isn't "
-"already a discussion about your issue."
-msgstr ""
-"Pretražite prethodne unose pre postavljanja novog da bi ste proverili da već "
-"nije u toku diskusija sa vašim problemom."
-
-#: ../events-calendar-pro.php:684
-msgid ""
-"Check whether the issue is a conflict with another plugin or your theme. "
-"This can be tested easily on a staging site by deactivating other plugins "
-"one-by-one, and reverting to the default Twenty Twelve theme to see if "
-"conflicts can be easily identified. If you find a conflict, note it in a "
-"support thread."
-msgstr ""
-"Proverite da problem nije konflikt sa drugim plaginom ili vašom temom. Ovo "
-"može biti lako provereno na testnom sajtu tako što će te deaktivirati ostale "
-"plagine jedan po jedan i aktivirati standardnu Twenty Twelve temu da vidite "
-"da li konflikti mogu biti lako identificirani. Ako naiđete na konflikt, "
-"prijavite ga na forumu podrške."
-
-#: ../events-calendar-pro.php:685
+#: ../events-calendar-pro.php:842
 #, php-format
 msgid ""
-"Sometimes, resaving your permalinks (under <a href=\"%s\">Settings > "
-"Permalinks</a>) can resolve events-related problems on your site. Before "
-"creating a new thread try this handy trick."
+"Are you developer looking to build your own frontend view? We created an "
+"example plugin that demonstrates how to register a new view. You can "
+"%sdownload the plugin at GitHub%s to get started."
 msgstr ""
-"Ponekad, ako ponovo sprijemite permalinkove  (pod <a href=\"%s\">Settings > "
-"Permalinks</a>) se mogu riješiti problemi vezani za događaje na vašem sajtu. "
-"Pre kreiranja novog pitanja na forumu probajte ovaj trik."
 
-#: ../events-calendar-pro.php:688
+#: ../events-calendar-pro.php:844
 #, php-format
 msgid ""
-"While we won't build your site for you and can't guarantee The Events "
-"Calendar PRO to play nicely with every theme and plugin out there, our team "
-"will do our best to help you get it functioning nicely with your site. And "
-"as an added bonus, once you're done you can post it in the %s so the rest of "
-"the community can see what you've been working on."
+"Take care of your license key. Though not required to create your first "
+"event, you'll want to get it in place as soon as possible to guarantee your "
+"access to support and upgrades. %sHere's how to find your license key%s, if "
+"you don't have it handy."
 msgstr ""
-"Iako vam nećemo napraviti stranicu i ne možemo jamčiti da će The Events "
-"Calendar PRO biti kompatibilan sa svakom temom i plaginom, naš tim će se "
-"potruditi da on profunkcionira na vašem sajtu. I kao dodatni bonus, kada "
-"završite možete o tome pisati na%s kako bi ostatak zajednice mogao vidjeti "
-"na čemu ste radili."
 
-#: ../events-calendar-pro.php:688
-msgid "Showcase thread"
-msgstr "Pokaži unos"
+#: ../events-calendar-pro.php:846
+msgid ""
+"Otherwise, if you're feeling adventurous, you can get started by heading to "
+"the Events menu and adding your first event."
+msgstr ""
 
-#: ../events-calendar-pro.php:746
+#: ../events-calendar-pro.php:858
+#, php-format
+msgid ""
+"Written documentation can only take things so far...sometimes, you need help "
+"from a real person. This is where our %ssupport forums%s come into play."
+msgstr ""
+
+#: ../events-calendar-pro.php:859
+#, php-format
+msgid ""
+"Users who have purchased an Events Calendar PRO license are granted total "
+"access to our %spremium support forums%s. Unlike at the %sWordPress.org "
+"support forum%s, where our involvement is limited to identifying and "
+"patching bugs, we have a dedicated support team for PRO users. We're on the "
+"PRO forums daily throughout the business week, and no thread should go more "
+"than 24-hours without a response."
+msgstr ""
+
+#: ../events-calendar-pro.php:860
+msgid ""
+"Our number one goal is helping you succeed, and to whatever extent possible, "
+"we'll help troubleshoot and guide your customizations or tweaks. While we "
+"won't build your site for you, and we can't guarantee we'll be able to get "
+"you 100% integrated with every theme or plugin out there, we'll do all we "
+"can to point you in the right direction and to make you -- and your client, "
+"as is often more importantly the case -- satisfied."
+msgstr ""
+
+#: ../events-calendar-pro.php:861
+msgid ""
+"Before posting a new thread, please do a search to make sure your issue "
+"hasn't already been addressed. When posting please make sure to provide as "
+"much detail about the problem as you can (with screenshots or screencasts if "
+"feasible), and make sure that you've identified whether a plugin / theme "
+"conflict could be at play in your initial message."
+msgstr ""
+
+#: ../events-calendar-pro.php:935
 msgid "Day View"
 msgstr "Dnevni pogled "
 
-#: ../events-calendar-pro.php:749
+#: ../events-calendar-pro.php:938
 msgid "Week View"
 msgstr "Sedmični pogled"
 
-#: ../events-calendar-pro.php:1068
+#: ../events-calendar-pro.php:1331
 msgid "Settings"
 msgstr "Podešavanja"
 
-#: ../events-calendar-pro.php:1117
+#: ../events-calendar-pro.php:1394
 #, php-format
 msgid "Calendar powered by %sThe Events Calendar PRO%s"
 msgstr "Kalendar pokreće %sThe Events Calendar PRO%s"
 
 # @ tribe-events-calendar-pro
-#: ../events-calendar-pro.php:1126
+#: ../events-calendar-pro.php:1407
 msgid "Support"
 msgstr "Podrška"
 
 # @ tribe-events-calendar-pro
-#: ../events-calendar-pro.php:1128
+#: ../events-calendar-pro.php:1409
 msgid "View All Add-Ons"
 msgstr "Pogledaj sve dodatke"
 
 # @ tribe-events-calendar-pro
 #
-#: ../events-calendar-pro.php:1160
+#: ../events-calendar-pro.php:1459
 msgid "Week"
 msgstr "Sedmica"
 
 # @ tribe-events-calendar-pro
-#: ../events-calendar-pro.php:1168 ../admin-views/event-recurrence.php:82
+#: ../events-calendar-pro.php:1475 ../admin-views/event-recurrence.php:82
 #: ../admin-views/event-recurrence.php:127
 msgid "Day"
 msgstr "Dan"
 
-#: ../events-calendar-pro.php:1176
+#: ../events-calendar-pro.php:1491
 msgid "Photo"
 msgstr "Fotografija"
 
-#: ../events-calendar-pro.php:1184
+#: ../events-calendar-pro.php:1507
 msgid "Day Of"
 msgstr "Dan"
 
 # @ tribe-events-calendar-pro
 #
-#: ../events-calendar-pro.php:1186
+#: ../events-calendar-pro.php:1509
 msgid "Week Of"
 msgstr "Sedmica"
 
 # @ tribe-events-calendar-pro
-#: ../events-calendar-pro.php:1249
+#: ../events-calendar-pro.php:1630
 msgid "The Events Calendar"
 msgstr "Kalendar događaja"
 
 # @ tribe-events-calendar-pro
-#: ../events-calendar-pro.php:1250
+#: ../events-calendar-pro.php:1631
 #, php-format
 msgid ""
 "To begin using Events Calendar PRO, please install the latest version of <a "
@@ -393,11 +411,12 @@ msgid "(Replaces the default list.)"
 msgstr "(Zamenjuje zadanu listu.)"
 
 #: ../admin-views/event-meta-options.php:4
+#, fuzzy
 msgid ""
 "Use additional fields to add unique content fields to the event admin, which "
 "can be used by anyone who creates events. Upon publication they'll appear in "
 "the event metabox that accompanies your event listing, alongside the date/"
-"time/venue/organizer/etc. Each new piece of data needs:"
+"time/venue/organizer/etc. </p><p>Each new piece of data needs:"
 msgstr ""
 "Koristite dodatna polja da dodate unikatna polja za sadržaj u adminu "
 "događaja, koja mogu biti koršćena od strane bilo koga tko kreira događaje. "
@@ -406,19 +425,23 @@ msgstr ""
 "novom podatku treba:"
 
 #: ../admin-views/event-meta-options.php:6
-msgid "a label (e.g. Meal Plans)"
+#, fuzzy
+msgid "Label (e.g. Meal Plans)"
 msgstr "naslov (npr, Jelovnik)"
 
 #: ../admin-views/event-meta-options.php:7
-msgid "at least one option (e.g. Vegetarian, Kosher, Paleo)"
+#, fuzzy
+msgid "At least one option (e.g. Vegetarian, Kosher, Paleo)"
 msgstr "makar jedna opcija (npr. Salate, Predjela, Glavno jelo...)"
 
 #: ../admin-views/event-meta-options.php:8
-msgid "a field type. These are:"
+#, fuzzy
+msgid "Field type. These are:"
 msgstr "tip polja. Oni su:"
 
 #: ../admin-views/event-meta-options.php:10
-msgid "text - for the user to input text"
+#, fuzzy
+msgid "Text - for the user to input text"
 msgstr "tekst - da bi korisnik unio tekst"
 
 #: ../admin-views/event-meta-options.php:11
@@ -426,15 +449,18 @@ msgid "URL - for the user to input a URL"
 msgstr "URL - da bi korisnik unio link"
 
 #: ../admin-views/event-meta-options.php:12
-msgid "checkbox - for multiple choice"
+#, fuzzy
+msgid "Checkbox - for multiple choice"
 msgstr "checkbox polje - za višestruki izbor"
 
 #: ../admin-views/event-meta-options.php:13
-msgid "radio button - to select only one"
+#, fuzzy
+msgid "Radio Button - to select only one"
 msgstr "radio dugme - za jednu opciju"
 
 #: ../admin-views/event-meta-options.php:14
-msgid "dropdown menu - for a dropdown menu"
+#, fuzzy
+msgid "Dropdown Menu - for a dropdown menu"
 msgstr "padajući izbornik"
 
 # @ tribe-events-calendar-pro
@@ -487,15 +513,15 @@ msgid "Remove"
 msgstr "Skloni"
 
 #: ../admin-views/event-meta-options.php:47
-#, php-format
+#, fuzzy, php-format
 msgid ""
 "Enter the field label as you want it to appear (this will be the label in "
-"the same way “Start Date,” “Organizer,” etc appear in the event details box "
-"on the frontend). Select whether the field will be a text field; URL field; "
-"radio buttons; checkboxes; or a dropdown. All of these with the exception of "
-"text and URL allow for multiple options to be included, which you can add — "
-"one per-line — in the right-hand column. If you feel flummoxed, we've got "
-"you covered with a %s."
+"the same way \"Start Date,\" \"Organizer,\" etc appear in the event details "
+"box on the frontend). Select whether the field will be a text field; URL "
+"field; radio buttons; checkboxes; or a dropdown. All of these with the "
+"exception of text and URL allow for multiple options to be included, which "
+"you can add — one per-line — in the right-hand column. If you feel "
+"flummoxed, we've got you covered with a %s."
 msgstr ""
 "Unestite naslov polja onako kako želite da se on pojavi (ovo će biti naslov "
 "na neki način \"Datum početka\", \"Organizator\" itd. koji će se "
@@ -505,27 +531,27 @@ msgstr ""
 "možete dodati - jednu po liniji* u desnoj koloni. Ako se osjećate zbunjeno, "
 "pokrivamo vas sa %s."
 
-#: ../admin-views/event-meta-options.php:47
+#: ../admin-views/event-meta-options.php:48
 msgid "video tutorial that will walk you through the process"
 msgstr "video tutorijal koji će vas provesti kroz proces"
 
 # @ tribe-events-calendar-pro
 #
-#: ../admin-views/event-meta-options.php:49
+#: ../admin-views/event-meta-options.php:51
 msgid "Editor \"Custom Fields\" meta box"
 msgstr "Editor  \"Custom Fields\" meta box"
 
 # @ tribe-events-calendar-pro
 #
-#: ../admin-views/event-meta-options.php:51
+#: ../admin-views/event-meta-options.php:53
 msgid "Show"
 msgstr "Pokaži"
 
-#: ../admin-views/event-meta-options.php:52
+#: ../admin-views/event-meta-options.php:54
 msgid "Hide"
 msgstr "Sakrij"
 
-#: ../admin-views/event-meta-options.php:53
+#: ../admin-views/event-meta-options.php:55
 msgid ""
 "Enabling this option this will not remove custom field data or "
 "functionality, just the default meta box editor."
@@ -534,7 +560,7 @@ msgstr ""
 "samo zadani meta box editor."
 
 # @ tribe-events-calendar-pro
-#: ../admin-views/event-meta-options.php:62
+#: ../admin-views/event-meta-options.php:64
 msgid ""
 "Are you sure you wish to remove this field and its data from all events? "
 "Once you click OK this cannot be undone."
@@ -724,49 +750,49 @@ msgstr "Poslednji"
 # @ tribe-events-calendar-pro
 #: ../admin-views/event-recurrence.php:74
 #: ../admin-views/event-recurrence.php:119
-#: ../lib/tribe-events-recurrence-meta.class.php:652
+#: ../lib/tribe-events-recurrence-meta.class.php:654
 msgid "Monday"
 msgstr "Ponedjeljak"
 
 # @ tribe-events-calendar-pro
 #: ../admin-views/event-recurrence.php:75
 #: ../admin-views/event-recurrence.php:120
-#: ../lib/tribe-events-recurrence-meta.class.php:652
+#: ../lib/tribe-events-recurrence-meta.class.php:654
 msgid "Tuesday"
 msgstr "Utorak"
 
 # @ tribe-events-calendar-pro
 #: ../admin-views/event-recurrence.php:76
 #: ../admin-views/event-recurrence.php:121
-#: ../lib/tribe-events-recurrence-meta.class.php:652
+#: ../lib/tribe-events-recurrence-meta.class.php:654
 msgid "Wednesday"
 msgstr "Srijeda"
 
 # @ tribe-events-calendar-pro
 #: ../admin-views/event-recurrence.php:77
 #: ../admin-views/event-recurrence.php:122
-#: ../lib/tribe-events-recurrence-meta.class.php:652
+#: ../lib/tribe-events-recurrence-meta.class.php:654
 msgid "Thursday"
 msgstr "Četvrtak"
 
 # @ tribe-events-calendar-pro
 #: ../admin-views/event-recurrence.php:78
 #: ../admin-views/event-recurrence.php:123
-#: ../lib/tribe-events-recurrence-meta.class.php:652
+#: ../lib/tribe-events-recurrence-meta.class.php:654
 msgid "Friday"
 msgstr "Petak"
 
 # @ tribe-events-calendar-pro
 #: ../admin-views/event-recurrence.php:79
 #: ../admin-views/event-recurrence.php:124
-#: ../lib/tribe-events-recurrence-meta.class.php:652
+#: ../lib/tribe-events-recurrence-meta.class.php:654
 msgid "Saturday"
 msgstr "Subota"
 
 # @ tribe-events-calendar-pro
 #: ../admin-views/event-recurrence.php:80
 #: ../admin-views/event-recurrence.php:125
-#: ../lib/tribe-events-recurrence-meta.class.php:652
+#: ../lib/tribe-events-recurrence-meta.class.php:654
 msgid "Sunday"
 msgstr "Nedelja"
 
@@ -792,7 +818,7 @@ msgstr "Tra"
 
 # @ tribe-events-calendar-pro
 #: ../admin-views/event-recurrence.php:95
-#: ../lib/tribe-events-recurrence-meta.class.php:678
+#: ../lib/tribe-events-recurrence-meta.class.php:680
 msgid "May"
 msgstr "Svi"
 
@@ -845,7 +871,8 @@ msgstr "Opis:"
 # @ tribe-events-calendar-pro
 #
 #: ../admin-views/event-recurrence.php:143
-msgid "Recurrence Text:"
+#, fuzzy
+msgid "Recurrence Description:"
 msgstr "Ponavljajući tekst:"
 
 #: ../admin-views/event-recurrence.php:148
@@ -920,7 +947,7 @@ msgstr ""
 
 # @ tribe-events-calendar-pro
 #: ../admin-views/tribe-options-defaults.php:65
-#: ../admin-views/widget-admin-advanced-list.php:29 ../lib/apm_filters.php:27
+#: ../admin-views/widget-admin-advanced-list.php:29 ../lib/apm_filters.php:44
 msgid "Organizer"
 msgstr "Organizator"
 
@@ -937,7 +964,7 @@ msgstr "Nema sačuvanih organizatora."
 
 # @ tribe-events-calendar-pro
 #: ../admin-views/tribe-options-defaults.php:82
-#: ../admin-views/widget-admin-advanced-list.php:28 ../lib/apm_filters.php:22
+#: ../admin-views/widget-admin-advanced-list.php:28 ../lib/apm_filters.php:39
 msgid "Venue"
 msgstr "Mjesto"
 
@@ -1145,71 +1172,71 @@ msgid "Select one..."
 msgstr "Odaberite jedan..."
 
 # @ tribe-events-calendar-pro
-#: ../lib/apm_filters.php:32
+#: ../lib/apm_filters.php:49
 msgid "Start Date"
 msgstr "Datum početka"
 
 # @ tribe-events-calendar-pro
 #
-#: ../lib/apm_filters.php:37
+#: ../lib/apm_filters.php:54
 msgid "End Date"
 msgstr "Datum završetka"
 
 # @ tribe-events-calendar-pro
-#: ../lib/apm_filters.php:42
+#: ../lib/apm_filters.php:59
 msgid "Event Cost"
 msgstr "Cijena događaja"
 
 # @ tribe-events-calendar-pro
-#: ../lib/apm_filters.php:47
+#: ../lib/apm_filters.php:64
 msgid "Event Cats"
 msgstr "Kategorije događaja"
 
 # @ tribe-events-calendar-pro
-#: ../lib/apm_filters.php:52
+#: ../lib/apm_filters.php:69
 msgid "Title"
 msgstr "Naslov"
 
 # @ tribe-events-calendar-pro
-#: ../lib/apm_filters.php:57
+#: ../lib/apm_filters.php:74
 msgid "Recurring"
 msgstr "Ponavljajući"
 
 # @ tribe-events-calendar-pro
-#: ../lib/apm_filters.php:62
+#: ../lib/apm_filters.php:79
 msgid "Description"
 msgstr "Opis"
 
-#: ../lib/meta-pro.php:63
+#: ../lib/meta-pro.php:97
 msgid "Other"
 msgstr "Drugi"
 
 # @ tribe-events-calendar-pro
 #
-#: ../lib/meta-pro.php:87
+#: ../lib/meta-pro.php:121
 msgid "Recurrence Pattern:"
 msgstr "Predložak ponavljanja:"
 
 # @ tribe-events-calendar-pro
-#: ../lib/tribe-events-recurrence-meta.class.php:460
+#: ../lib/tribe-events-recurrence-meta.class.php:462
 msgid ""
 "Monthly custom recurrences cannot have a dash set as the day to occur on."
 msgstr "Mjesečna prilagođena ponavljanja ne mogu imati crtu podešenu kao dan."
 
 # @ tribe-events-calendar-pro
-#: ../lib/tribe-events-recurrence-meta.class.php:463
+#: ../lib/tribe-events-recurrence-meta.class.php:465
 msgid ""
 "Yearly custom recurrences cannot have a dash set as the day to occur on."
 msgstr "Godišnja ponavljanja ne mogu imati crtu podešenu kao dan."
 
 # @ tribe-events-calendar-pro
-#: ../lib/tribe-events-recurrence-meta.class.php:590
-#: ../lib/tribe-events-recurrence-meta.class.php:605
+#: ../lib/tribe-events-recurrence-meta.class.php:592
+#: ../lib/tribe-events-recurrence-meta.class.php:607
 msgid "Every day"
 msgstr "Svaki dan"
 
 # @ tribe-events-calendar-pro
-#: ../lib/tribe-events-recurrence-meta.class.php:591
+#: ../lib/tribe-events-recurrence-meta.class.php:593
 #, php-format
 msgid " for %d day"
 msgid_plural " for %d days"
@@ -1217,13 +1244,13 @@ msgstr[0] "za %d dan"
 msgstr[1] "za %d dana"
 
 # @ tribe-events-calendar-pro
-#: ../lib/tribe-events-recurrence-meta.class.php:594
-#: ../lib/tribe-events-recurrence-meta.class.php:610
+#: ../lib/tribe-events-recurrence-meta.class.php:596
+#: ../lib/tribe-events-recurrence-meta.class.php:612
 msgid "Every week"
 msgstr "Svakog tjedna"
 
 # @ tribe-events-calendar-pro
-#: ../lib/tribe-events-recurrence-meta.class.php:595
+#: ../lib/tribe-events-recurrence-meta.class.php:597
 #, php-format
 msgid " for %d week"
 msgid_plural " for %d weeks"
@@ -1231,13 +1258,13 @@ msgstr[0] "za %d sedmicu"
 msgstr[1] "za %d sedmica"
 
 # @ tribe-events-calendar-pro
-#: ../lib/tribe-events-recurrence-meta.class.php:597
-#: ../lib/tribe-events-recurrence-meta.class.php:616
+#: ../lib/tribe-events-recurrence-meta.class.php:599
+#: ../lib/tribe-events-recurrence-meta.class.php:618
 msgid "Every month"
 msgstr "Svakog mjeseca"
 
 # @ tribe-events-calendar-pro
-#: ../lib/tribe-events-recurrence-meta.class.php:598
+#: ../lib/tribe-events-recurrence-meta.class.php:600
 #, php-format
 msgid " for %d month"
 msgid_plural " for %d months"
@@ -1245,13 +1272,13 @@ msgstr[0] "za %d mjesec"
 msgstr[1] "za %d mjeseci"
 
 # @ tribe-events-calendar-pro
-#: ../lib/tribe-events-recurrence-meta.class.php:600
-#: ../lib/tribe-events-recurrence-meta.class.php:623
+#: ../lib/tribe-events-recurrence-meta.class.php:602
+#: ../lib/tribe-events-recurrence-meta.class.php:625
 msgid "Every year"
 msgstr "Svake godine"
 
 # @ tribe-events-calendar-pro
-#: ../lib/tribe-events-recurrence-meta.class.php:601
+#: ../lib/tribe-events-recurrence-meta.class.php:603
 #, php-format
 msgid " for %d year"
 msgid_plural " for %d years"
@@ -1259,15 +1286,15 @@ msgstr[0] "za %d godinu"
 msgstr[1] "za %d godine"
 
 # @ tribe-events-calendar-pro
-#: ../lib/tribe-events-recurrence-meta.class.php:606
+#: ../lib/tribe-events-recurrence-meta.class.php:608
 #, php-format
 msgid "Every %d days"
 msgstr "Svakih %d dana"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:607
-#: ../lib/tribe-events-recurrence-meta.class.php:613
-#: ../lib/tribe-events-recurrence-meta.class.php:620
-#: ../lib/tribe-events-recurrence-meta.class.php:632
+#: ../lib/tribe-events-recurrence-meta.class.php:609
+#: ../lib/tribe-events-recurrence-meta.class.php:615
+#: ../lib/tribe-events-recurrence-meta.class.php:622
+#: ../lib/tribe-events-recurrence-meta.class.php:634
 #, php-format
 msgid ", recurring %d time"
 msgid_plural ", recurring %d times"
@@ -1275,184 +1302,199 @@ msgstr[0] ", ponavljanje %d put"
 msgstr[1] ", ponavljanje %d puta"
 
 # @ tribe-events-calendar-pro
-#: ../lib/tribe-events-recurrence-meta.class.php:611
+#: ../lib/tribe-events-recurrence-meta.class.php:613
 #, php-format
 msgid "Every %d weeks"
 msgstr "Svakih %d tjedana"
 
 # @ tribe-events-calendar-pro
-#: ../lib/tribe-events-recurrence-meta.class.php:612
-#, php-format
-msgid "on %s"
+#: ../lib/tribe-events-recurrence-meta.class.php:614
+#, fuzzy, php-format
+msgid " on %s"
 msgstr "na %s"
 
 # @ tribe-events-calendar-pro
-#: ../lib/tribe-events-recurrence-meta.class.php:617
+#: ../lib/tribe-events-recurrence-meta.class.php:619
 #, php-format
 msgid "Every %d months"
 msgstr "Svakih %d mjeseci"
 
 # @ tribe-events-calendar-pro
-#: ../lib/tribe-events-recurrence-meta.class.php:619
-#, php-format
-msgid "on the %s %s"
+#: ../lib/tribe-events-recurrence-meta.class.php:621
+#, fuzzy, php-format
+msgid " on the %s %s"
 msgstr "na %s %s"
 
 # @ tribe-events-calendar-pro
-#: ../lib/tribe-events-recurrence-meta.class.php:624
+#: ../lib/tribe-events-recurrence-meta.class.php:626
 #, php-format
 msgid "Every %d years"
 msgstr "Svakih %d godina"
 
 # @ tribe-events-calendar-pro
-#: ../lib/tribe-events-recurrence-meta.class.php:626
+#: ../lib/tribe-events-recurrence-meta.class.php:628
 msgid "last"
 msgstr "poslednji"
 
 # @ tribe-events-calendar-pro
-#: ../lib/tribe-events-recurrence-meta.class.php:631
+#: ../lib/tribe-events-recurrence-meta.class.php:633
 #, php-format
 msgid " on the %s %s of %s"
 msgstr " on the %s %s of %s"
 
 # @ tribe-events-calendar-pro
-#: ../lib/tribe-events-recurrence-meta.class.php:638
+#: ../lib/tribe-events-recurrence-meta.class.php:640
 #, php-format
 msgid " until %s"
 msgstr "do %s"
 
 # @ tribe-events-calendar-pro
-#: ../lib/tribe-events-recurrence-meta.class.php:643
+#: ../lib/tribe-events-recurrence-meta.class.php:645
 #, php-format
 msgid "%s%s%s"
 msgstr "%s%s%s"
 
 # @ tribe-events-calendar-pro
-#: ../lib/tribe-events-recurrence-meta.class.php:658
-#: ../lib/tribe-events-recurrence-meta.class.php:684
+#: ../lib/tribe-events-recurrence-meta.class.php:660
 msgid ", and"
 msgstr ", i"
 
 # @ tribe-events-calendar-pro
-#: ../lib/tribe-events-recurrence-meta.class.php:660
-#: ../lib/tribe-events-recurrence-meta.class.php:686
+#: ../lib/tribe-events-recurrence-meta.class.php:662
 msgid "and"
 msgstr "i"
 
 # @ tribe-events-calendar-pro
-#: ../lib/tribe-events-recurrence-meta.class.php:662
-#: ../lib/tribe-events-recurrence-meta.class.php:688
+#: ../lib/tribe-events-recurrence-meta.class.php:664
 msgid ","
 msgstr ","
 
 # @ tribe-events-calendar-pro
-#: ../lib/tribe-events-recurrence-meta.class.php:677
+#: ../lib/tribe-events-recurrence-meta.class.php:679
 msgid "January"
 msgstr "Siječanj"
 
 # @ tribe-events-calendar-pro
-#: ../lib/tribe-events-recurrence-meta.class.php:677
+#: ../lib/tribe-events-recurrence-meta.class.php:679
 msgid "February"
 msgstr "Veljača"
 
 # @ tribe-events-calendar-pro
-#: ../lib/tribe-events-recurrence-meta.class.php:677
+#: ../lib/tribe-events-recurrence-meta.class.php:679
 msgid "March"
 msgstr "Ožujak"
 
 # @ tribe-events-calendar-pro
-#: ../lib/tribe-events-recurrence-meta.class.php:677
+#: ../lib/tribe-events-recurrence-meta.class.php:679
 msgid "April"
 msgstr "Travanj"
 
 # @ tribe-events-calendar-pro
-#: ../lib/tribe-events-recurrence-meta.class.php:678
+#: ../lib/tribe-events-recurrence-meta.class.php:680
 msgid "June"
 msgstr "Lipanj"
 
 # @ tribe-events-calendar-pro
-#: ../lib/tribe-events-recurrence-meta.class.php:678
+#: ../lib/tribe-events-recurrence-meta.class.php:680
 msgid "July"
 msgstr "Srpanj"
 
 # @ tribe-events-calendar-pro
-#: ../lib/tribe-events-recurrence-meta.class.php:678
+#: ../lib/tribe-events-recurrence-meta.class.php:680
 msgid "August"
 msgstr "Kolovoz"
 
 # @ tribe-events-calendar-pro
-#: ../lib/tribe-events-recurrence-meta.class.php:678
+#: ../lib/tribe-events-recurrence-meta.class.php:680
 msgid "September"
 msgstr "Rujan"
 
 # @ tribe-events-calendar-pro
-#: ../lib/tribe-events-recurrence-meta.class.php:678
+#: ../lib/tribe-events-recurrence-meta.class.php:680
 msgid "October"
 msgstr "Listopad"
 
 # @ tribe-events-calendar-pro
-#: ../lib/tribe-events-recurrence-meta.class.php:678
+#: ../lib/tribe-events-recurrence-meta.class.php:680
 msgid "November"
 msgstr "Studeni"
 
 # @ tribe-events-calendar-pro
-#: ../lib/tribe-events-recurrence-meta.class.php:678
+#: ../lib/tribe-events-recurrence-meta.class.php:680
 msgid "December"
 msgstr "Prosinac"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:745
+# @ tribe-events-calendar-pro
+#: ../lib/tribe-events-recurrence-meta.class.php:686
+#, fuzzy
+msgid ", and "
+msgstr ", i"
+
+# @ tribe-events-calendar-pro
+#: ../lib/tribe-events-recurrence-meta.class.php:688
+#, fuzzy
+msgid " and "
+msgstr ", i"
+
+# @ tribe-events-calendar-pro
+#: ../lib/tribe-events-recurrence-meta.class.php:690
+#, fuzzy
+msgid ", "
+msgstr ","
+
+#: ../lib/tribe-events-recurrence-meta.class.php:747
 msgid "Recurring event instances"
 msgstr "Instance ponavljajućeg događaja"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:746
+#: ../lib/tribe-events-recurrence-meta.class.php:748
 msgid "Show only the first instance of each recurring event."
 msgstr "Pokaži samo prvu instancu svakog ponavljajućeg događaja."
 
-#: ../lib/tribe-events-recurrence-meta.class.php:752
+#: ../lib/tribe-events-recurrence-meta.class.php:754
 msgid "Front-end recurring event instances toggle"
 msgstr "Odabir instanci ponavljajućeg događaja na stranici"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:753
+#: ../lib/tribe-events-recurrence-meta.class.php:755
 msgid ""
 "Allow users to decide whether to show all instances of a recurring event."
 msgstr ""
 "Dozvolite korisniku da odluči da li da prikaže sve instance ponavljajućeg "
 "događaja."
 
-#: ../lib/tribe-events-recurrence-meta.class.php:810
+#: ../lib/tribe-events-recurrence-meta.class.php:811
 msgid "Your recurrence pattern would create greater than "
 msgstr "Vaš predložak ponavljanja bi kreirao više od"
 
-#: ../lib/tribe-geoloc.class.php:70
+#: ../lib/tribe-geoloc.class.php:117
 msgid "Distance"
 msgstr "Udaljenost"
 
 # @ tribe-events-calendar-pro
-#: ../lib/tribe-geoloc.class.php:77
+#: ../lib/tribe-geoloc.class.php:124
 #, php-format
 msgid "Title: %s"
 msgstr "Naslov: %s"
 
-#: ../lib/tribe-geoloc.class.php:79
+#: ../lib/tribe-geoloc.class.php:126
 #, php-format
 msgid "%sType: %s"
 msgstr "%sTip: %s"
 
 # @ tribe-events-calendar-pro
 #
-#: ../lib/tribe-geoloc.class.php:79
+#: ../lib/tribe-geoloc.class.php:126
 msgid "Select Dropdown"
 msgstr "Odaberi padajući izbornik"
 
-#: ../lib/tribe-geoloc.class.php:80
+#: ../lib/tribe-geoloc.class.php:127
 msgid "Radio Buttons"
 msgstr "Radio dugmad"
 
-#: ../lib/tribe-geoloc.class.php:134
+#: ../lib/tribe-geoloc.class.php:180
 msgid "Map view search distance limit"
 msgstr "Limit distance na pogledu mape"
 
-#: ../lib/tribe-geoloc.class.php:136
+#: ../lib/tribe-geoloc.class.php:182
 msgid ""
 "Set the distance that the location search covers (find events within X "
 "distance units of location search input)."
@@ -1460,23 +1502,23 @@ msgstr ""
 "Odaberite distancu koja pokriva pretragu lokacije (nađite događaj u krugu od "
 "X od lokacije pretrage)"
 
-#: ../lib/tribe-geoloc.class.php:142
+#: ../lib/tribe-geoloc.class.php:188
 msgid "Map view distance unit"
 msgstr "Jedinica distance na pogledu mape"
 
-#: ../lib/tribe-geoloc.class.php:146
+#: ../lib/tribe-geoloc.class.php:192
 msgid "Miles"
 msgstr "Milje"
 
-#: ../lib/tribe-geoloc.class.php:147
+#: ../lib/tribe-geoloc.class.php:193
 msgid "Kilometers"
 msgstr "Kilometri"
 
-#: ../lib/tribe-geoloc.class.php:150
+#: ../lib/tribe-geoloc.class.php:196
 msgid "Fix geolocation data"
 msgstr "Fiksni geografski podaci"
 
-#: ../lib/tribe-geoloc.class.php:150
+#: ../lib/tribe-geoloc.class.php:196
 #, php-format
 msgid ""
 "You have %d venues for which we don't have geolocation data. We need to use "
@@ -1487,11 +1529,11 @@ msgstr ""
 "koristimo Google Maps API da bi smo dobili te podatke. Izvršenje ovoga može "
 "da potraje (približno 1 minut za svakih 200 mjesta)."
 
-#: ../lib/tribe-geoloc.class.php:160
+#: ../lib/tribe-geoloc.class.php:205
 msgid "Hide location search"
 msgstr "Sakrij pretragu lokacije"
 
-#: ../lib/tribe-geoloc.class.php:161
+#: ../lib/tribe-geoloc.class.php:206
 msgid ""
 "Removes location search field from the events bar on all views except for "
 "map view."
@@ -1500,19 +1542,19 @@ msgstr ""
 
 # @ tribe-events-calendar-pro
 #
-#: ../lib/tribe-geoloc.class.php:172
+#: ../lib/tribe-geoloc.class.php:256
 msgid "Map"
 msgstr "Karta"
 
-#: ../lib/tribe-geoloc.class.php:194
+#: ../lib/tribe-geoloc.class.php:286
 msgid "Near"
 msgstr "Blizu"
 
-#: ../lib/tribe-geoloc.class.php:651
+#: ../lib/tribe-geoloc.class.php:872
 msgid "Fix venues data"
 msgstr "Fiksi podaci mjesta održavanja"
 
-#: ../lib/tribe-geoloc.class.php:695
+#: ../lib/tribe-geoloc.class.php:903
 #, php-format
 msgid ""
 "You have venues for which we don't have Geolocation information. <a "
@@ -1521,50 +1563,50 @@ msgstr ""
 "Imate jmesta održavanja za koje namamo geografske podatke.  <a "
 "href='%s'>Kliknite ovde da ih generišete</a>."
 
-#: ../lib/tribe-geoloc.class.php:714
+#: ../lib/tribe-geoloc.class.php:929
 #, php-format
 msgid "Fixed geolocation data for %d venues"
 msgstr "Fiksni geografski podaci za %d mjesta održavanja"
 
-#: ../lib/tribe-ical.class.php:36
+#: ../lib/tribe-ical.class.php:42
 msgid "Add to Google Calendar"
 msgstr "Dodajte u Google kalendar"
 
 # @ tribe-events-calendar-pro
 #
-#: ../lib/tribe-ical.class.php:36
+#: ../lib/tribe-ical.class.php:42
 msgid "Google Calendar"
 msgstr "Google Calendar"
 
-#: ../lib/tribe-ical.class.php:37 ../lib/tribe-ical.class.php:83
+#: ../lib/tribe-ical.class.php:43 ../lib/tribe-ical.class.php:89
 msgid "iCal Import"
 msgstr "iCal uvoz"
 
 # @ tribe-events-calendar-pro
 #
-#: ../lib/tribe-ical.class.php:70
+#: ../lib/tribe-ical.class.php:76
 msgid "Month's Events"
 msgstr "Mjesečni događaji"
 
 # @ tribe-events-calendar-pro
 #
-#: ../lib/tribe-ical.class.php:73
+#: ../lib/tribe-ical.class.php:79
 msgid "Week's Events"
 msgstr "Sedmični događaji"
 
 # @ tribe-events-calendar-pro
 #
-#: ../lib/tribe-ical.class.php:76
+#: ../lib/tribe-ical.class.php:82
 msgid "Day's Events"
 msgstr "Dnevni događaji"
 
 # @ tribe-events-calendar-pro
 #
-#: ../lib/tribe-ical.class.php:79
+#: ../lib/tribe-ical.class.php:85
 msgid "Listed Events"
 msgstr "Izlistani događaji"
 
-#: ../lib/tribe-ical.class.php:83
+#: ../lib/tribe-ical.class.php:89
 msgid "Import is filter/view sensitive"
 msgstr "Uvoz je filter/pogled osetljiv"
 
@@ -1611,7 +1653,7 @@ msgstr "Istaknuto mjesto održavanja"
 #: ../lib/template-classes/day.php:73
 #: ../views/tribe-ECP-views-old/views/featured-widget.php:59
 #: ../views/tribe-ECP-views-old/views/list-widget.php:57
-#: ../views/week/loop-grid-allday.php:20
+#: ../views/week/loop-grid-allday.php:23
 msgid "All Day"
 msgstr "Cijeli dan"
 
@@ -1624,22 +1666,13 @@ msgstr ""
 "Nema nađenih rezultata za <strong>\"%s\"</strong> ovaj dan. Pretražite drugi "
 "dan."
 
-#: ../lib/template-classes/day.php:106 ../lib/template-classes/photo.php:75
+#: ../lib/template-classes/day.php:106
 #, php-format
 msgid "No events scheduled for <strong>%s</strong>. Please try another day."
 msgstr ""
 "Nema događaja za <strong>%s</strong>. Molimo vas probajte neki drugi dan."
 
-#: ../lib/template-classes/photo.php:72
-#, php-format
-msgid ""
-"listed under %s. Check out events for this category or view the full "
-"calendar."
-msgstr ""
-"izlistani pod %s. Pogledajte naše događaje za ovu kategoriju ili pogledajte "
-"pun kalendar."
-
-#: ../lib/template-classes/week.php:76
+#: ../lib/template-classes/week.php:78
 #, php-format
 msgid ""
 "There were no results found for <strong>\"%s\"</strong> this week. Try "
@@ -1650,108 +1683,108 @@ msgstr ""
 
 # @ tribe-events-calendar-pro
 #
-#: ../public/template-tags/general.php:103
+#: ../public/template-tags/general.php:104
 msgid "Show only the first upcoming instance of recurring events"
 msgstr "Pokaži samo prvu nadolazeću instancu ponavljajućeg događaja"
 
 # @ tribe-events-calendar-pro
 #
-#: ../public/template-tags/general.php:294
-#: ../public/template-tags/general.php:308
-#: ../public/template-tags/general.php:321
-#: ../public/template-tags/general.php:322
-#: ../public/template-tags/general.php:335
-#: ../public/template-tags/general.php:336
-#: ../public/template-tags/general.php:349
-#: ../public/template-tags/general.php:350
-#: ../public/template-tags/general.php:363
-#: ../public/template-tags/general.php:364
-#: ../public/template-tags/general.php:377
-#: ../public/template-tags/general.php:378
-#: ../public/template-tags/general.php:391
-#: ../public/template-tags/general.php:392
-#: ../public/template-tags/general.php:405
-#: ../public/template-tags/general.php:406
+#: ../public/template-tags/general.php:296
+#: ../public/template-tags/general.php:310
+#: ../public/template-tags/general.php:323
+#: ../public/template-tags/general.php:324
+#: ../public/template-tags/general.php:337
+#: ../public/template-tags/general.php:338
+#: ../public/template-tags/general.php:351
+#: ../public/template-tags/general.php:352
+#: ../public/template-tags/general.php:365
+#: ../public/template-tags/general.php:366
+#: ../public/template-tags/general.php:379
+#: ../public/template-tags/general.php:380
+#: ../public/template-tags/general.php:393
+#: ../public/template-tags/general.php:394
+#: ../public/template-tags/general.php:407
+#: ../public/template-tags/general.php:408
 msgid "No default set"
 msgstr "Nema podrazumevanjih postavki"
 
 # @ tribe-events-calendar-pro
-#: ../public/template-tags/general.php:295
+#: ../public/template-tags/general.php:297
 #, php-format
 msgid "The current default organizer is: %s"
 msgstr "Trenutni zadani organizator je: %s"
 
 # @ tribe-events-calendar-pro
-#: ../public/template-tags/general.php:309
+#: ../public/template-tags/general.php:311
 #, php-format
 msgid "The current default venue is: %s"
 msgstr "Trenutno zadano mjesto održavanja je: %s "
 
 # @ tribe-events-calendar-pro
-#: ../public/template-tags/general.php:323
+#: ../public/template-tags/general.php:325
 #, php-format
 msgid "The current default address is: %s"
 msgstr "Trenutna zadana adresa je: %s"
 
 # @ tribe-events-calendar-pro
-#: ../public/template-tags/general.php:337
+#: ../public/template-tags/general.php:339
 #, php-format
 msgid "The current default city is: %s"
 msgstr "Trenutni zadani grad je: %s"
 
 # @ tribe-events-calendar-pro
-#: ../public/template-tags/general.php:351
+#: ../public/template-tags/general.php:353
 #, php-format
 msgid "The current default state is: %s"
 msgstr "Trenutna zadana država je: %s "
 
 # @ tribe-events-calendar-pro
-#: ../public/template-tags/general.php:365
+#: ../public/template-tags/general.php:367
 #, php-format
 msgid "The current default province is: %s"
 msgstr "Trenutna zadana provincija je: %s"
 
 # @ tribe-events-calendar-pro
-#: ../public/template-tags/general.php:379
+#: ../public/template-tags/general.php:381
 #, php-format
 msgid "The current default postal code/zip code is: %s"
 msgstr "Trenutni zadani poštanski kod je: %s"
 
 # @ tribe-events-calendar-pro
-#: ../public/template-tags/general.php:393
+#: ../public/template-tags/general.php:395
 #, php-format
 msgid "The current default country is: %s"
 msgstr "Trenutna zadana zemlja je: %s "
 
 # @ tribe-events-calendar-pro
-#: ../public/template-tags/general.php:407
+#: ../public/template-tags/general.php:409
 #, php-format
 msgid "The current default phone is: %s"
 msgstr "Trenutni zadani telefon je: %s"
 
-#: ../public/template-tags/general.php:580
+#: ../public/template-tags/general.php:604
 msgid "Today"
 msgstr "Danas"
 
-#: ../public/template-tags/general.php:583
+#: ../public/template-tags/general.php:607
 msgid "&laquo; Previous Day"
 msgstr "&laquo; Prethodni dan"
 
-#: ../public/template-tags/general.php:586
+#: ../public/template-tags/general.php:610
 msgid "Next Day &raquo;"
 msgstr "Naredni dan &raquo;"
 
-#: ../public/template-tags/general.php:589
+#: ../public/template-tags/general.php:613
 msgid "Yesterday"
 msgstr "Juče"
 
-#: ../public/template-tags/general.php:592
+#: ../public/template-tags/general.php:616
 msgid "Tomorrow"
 msgstr "Sutra"
 
 # @ tribe-events-calendar-pro
 #
-#: ../public/template-tags/general.php:675
+#: ../public/template-tags/general.php:710
 msgid "Related Events"
 msgstr "Povezani događaji"
 
@@ -1916,7 +1949,7 @@ msgstr "Otkaži"
 # @ tribe-events-calendar-pro
 #: ../vendor/pue-client/admin-views/license-key.view.php:9
 #: ../vendor/pue-client/admin-views/license-key.view.php:13
-#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:182
+#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:185
 msgid "License Key"
 msgstr "Ključ licence"
 
@@ -1932,48 +1965,49 @@ msgstr "Zameni prazna polja"
 # @ tribe-events-calendar-pro
 #
 #: ../vendor/pue-client/admin-views/license-key.view.php:25
-#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:183
+#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:186
 msgid "A valid license key is required for support and updates"
 msgstr "Validan ključ licence je potreban za podršku i nadogradnju"
 
-#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:251
+#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:254
 msgid "License key(s) updated."
 msgstr "Kluč(evi) licence ažirirani."
 
 # @ tribe-events-calendar-pro
-#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:288
+#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:294
 msgid "Sorry, key validation server is not available."
 msgstr "Žao nam je, server za validaciju nije dostupan."
 
 # @ tribe-events-calendar-pro
-#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:290
+#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:296
 msgid "Sorry, this key is expired."
 msgstr "Žao nam je, ovaj ključ je istekao."
 
 # @ tribe-events-calendar-pro
-#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:292
+#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:298
 msgid "Sorry, this key is out of installs."
 msgstr "Žao nam je, ne možete vršiti više instalacija sa ovim ključem."
 
 # @ tribe-events-calendar-pro
-#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:294
+#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:300
 msgid "Sorry, this key is not valid."
 msgstr "Žao nam je, ovaj ključ nije validan."
 
 # @ tribe-events-calendar-pro
-#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:297
+#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:303
 #, php-format
 msgid "Valid Key! Expires on %s"
 msgstr "Validan ključ! Ističe %s"
 
 # @ tribe-events-calendar-pro
-#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:301
+#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:307
+#, fuzzy, php-format
 msgid ""
-"Hmmm... something's wrong with this validator. Please contact <a href="
-"\"http://tri.be/support\">support.</a>"
+"Hmmm... something's wrong with this validator. Please contact <a href=\"%s"
+"\">support.</a>"
 msgstr ""
 "Hmmm...nešto nije u redu sa validatorom. Molimo vas kontaktirajte <a href="
-"\"http://tri.be/support\">podršku.</a>"
+"\"%s\">podršku.</a>"
 
 #: ../vendor/tribe-related-posts/tribe-related-posts-widget.php:20
 msgid "Displays posts related to the post."
@@ -2006,33 +2040,33 @@ msgstr "Tip unosa:"
 msgid "Send a support request for this site."
 msgstr "Pošalji zahtev za podršku za ovaj sajt."
 
-#: ../views/map.php:39
-msgid "Refine your search:"
-msgstr "Rafinišite pretragu:"
-
 # @ tribe-events-calendar-pro
 #
 #: ../views/single-organizer.php:30 ../views/single-venue.php:31
 msgid "&larr; Back to Events"
 msgstr "&larr; Nazad na događaje"
 
-#: ../views/day/nav.php:15
+#: ../views/day/nav.php:16
 msgid "Day Navigation"
 msgstr "Dnevna navigacija"
 
-#: ../views/map/nav.php:21 ../views/photo/nav.php:21
+#: ../views/day/single-event.php:75 ../views/map/single-event.php:81
+msgid "Find out more"
+msgstr ""
+
+#: ../views/map/nav.php:22 ../views/photo/nav.php:22
 msgid "Events List Navigation"
 msgstr "Navigacija Liste događaja"
 
 # @ tribe-events-calendar-pro
 #
-#: ../views/map/nav.php:24 ../views/photo/nav.php:24
+#: ../views/map/nav.php:25 ../views/photo/nav.php:25
 msgid "&laquo; Previous Events"
 msgstr "&laquo; Prethofni događaji"
 
 # @ tribe-events-calendar-pro
 #
-#: ../views/map/nav.php:31 ../views/photo/nav.php:31
+#: ../views/map/nav.php:32 ../views/photo/nav.php:32
 msgid "Next Events &raquo;"
 msgstr "Naredni događaji &raquo;"
 
@@ -2095,53 +2129,143 @@ msgstr "Datum:"
 msgid "Cost:"
 msgstr "Cijena:"
 
-#: ../views/week/loop-grid.php:18
+#: ../views/week/loop-grid.php:19
 msgid "Hours"
 msgstr "Sati"
 
-#: ../views/week/nav.php:17
+#: ../views/week/nav.php:16
 msgid "Week Navigation"
 msgstr "Sedmična navigacija"
 
-#: ../views/week/nav.php:20
+#: ../views/week/nav.php:19
 msgid "Previous Week"
 msgstr "Prethodna sedmica"
 
 # @ tribe-events-calendar-pro
 #
-#: ../views/week/nav.php:23
+#: ../views/week/nav.php:22
 msgid "Next Week"
 msgstr "Naredna sedmica"
 
-#: ../views/widgets/countdown-widget.php:27
+#: ../views/widgets/countdown-widget.php:20
 msgid "days"
 msgstr "dani"
 
-#: ../views/widgets/countdown-widget.php:31
+#: ../views/widgets/countdown-widget.php:24
 msgid "hours"
 msgstr "sati"
 
-#: ../views/widgets/countdown-widget.php:35
+#: ../views/widgets/countdown-widget.php:28
 msgid "min"
 msgstr "min."
 
 # @ tribe-events-calendar-pro
 #
-#: ../views/widgets/countdown-widget.php:40
+#: ../views/widgets/countdown-widget.php:33
 msgid "sec"
 msgstr "sec"
 
 # @ tribe-events-calendar-pro
 #
-#: ../views/widgets/list-widget.php:66
+#: ../views/widgets/list-widget.php:61
 msgid "Organizer:"
 msgstr "Organizator:"
 
 # @ tribe-events-calendar-pro
 #
-#: ../views/widgets/venue-widget.php:17
+#: ../views/widgets/venue-widget.php:32
 msgid "No upcoming events."
 msgstr "Nema predstojećih događaja."
+
+#~ msgid ""
+#~ "<p>By buying a PRO license you will get active support and sweet "
+#~ "additional features not found in the free The Events Calendar.</"
+#~ "p><p><strong>Feeling adventurous?</strong> Jump right into it by visiting "
+#~ "the Events menu to <a href=\"%s\">add your first event</a>.</"
+#~ "p><p><strong>Want to get the low-down first?</strong> Visit our <a href="
+#~ "\"http://tri.be/support/documentation/events-calendar-pro-new-user-primer/"
+#~ "%s\">new user primer</a>,  designed to help familiarize you with the "
+#~ "plugin basics.</p><p>Don't forget to head over to the <a href=\"%s"
+#~ "\">license tab</a> and enter your key!</p>"
+#~ msgstr ""
+#~ "<p>Kupnjom PRO licence dobićete aktivnu podršku i dodatke koji se ne "
+#~ "nalaze u besplatnom The Events Calendar.</p><p><strong>Osećate se "
+#~ "avanturistički?</strong> Uskočite u njega tako što će te postetiti meni "
+#~ "Događaja da<a href=\"%s\">dodate vaš prvi događaj</a>.</"
+#~ "p><p><strong>Želite prvo pogledati detalje?</strong> Posjetite našu <a "
+#~ "href=\"http://tri.be/support/documentation/events-calendar-pro-new-user-"
+#~ "primer/%s\">stranicu za nove korisnike</a>, dizajniranu da vam pomogne da "
+#~ "se upoznate sa osnovama plagina.</p><p>Ne zaboravite otići na <a href=\"%s"
+#~ "\">tab licence</a> i uneseti svoj ključ!</p>"
+
+#~ msgid ""
+#~ "One of the advantages of being a PRO user is that you have access to our "
+#~ "exclusive forums at %s. Our support staff hits the forums on a daily "
+#~ "basis, and what they can't answer on the spot they'll bring a member of "
+#~ "our dev team in to address directly."
+#~ msgstr ""
+#~ "Jedna od prednosti PRO licence je to što će te imati ekskluzivni pristup "
+#~ "našim forumima na %s. Naše osoblje podrške posećuje forum na dnevnoj "
+#~ "osnovi, i na šta ne mogu da odgovore na mjestu dovešće člana našeg "
+#~ "razvojnog tima da vam izravno pomogne."
+
+#~ msgid "Some things to consider before posting on the forum:"
+#~ msgstr "Stvari koje treba razmotriti pre pisanja na forumu:"
+
+#~ msgid ""
+#~ "Search recent threads before posting a new one to check that there isn't "
+#~ "already a discussion about your issue."
+#~ msgstr ""
+#~ "Pretražite prethodne unose pre postavljanja novog da bi ste proverili da "
+#~ "već nije u toku diskusija sa vašim problemom."
+
+#~ msgid ""
+#~ "Check whether the issue is a conflict with another plugin or your theme. "
+#~ "This can be tested easily on a staging site by deactivating other plugins "
+#~ "one-by-one, and reverting to the default Twenty Twelve theme to see if "
+#~ "conflicts can be easily identified. If you find a conflict, note it in a "
+#~ "support thread."
+#~ msgstr ""
+#~ "Proverite da problem nije konflikt sa drugim plaginom ili vašom temom. "
+#~ "Ovo može biti lako provereno na testnom sajtu tako što će te deaktivirati "
+#~ "ostale plagine jedan po jedan i aktivirati standardnu Twenty Twelve temu "
+#~ "da vidite da li konflikti mogu biti lako identificirani. Ako naiđete na "
+#~ "konflikt, prijavite ga na forumu podrške."
+
+#~ msgid ""
+#~ "Sometimes, resaving your permalinks (under <a href=\"%s\">Settings > "
+#~ "Permalinks</a>) can resolve events-related problems on your site. Before "
+#~ "creating a new thread try this handy trick."
+#~ msgstr ""
+#~ "Ponekad, ako ponovo sprijemite permalinkove  (pod <a href=\"%s\">Settings "
+#~ "> Permalinks</a>) se mogu riješiti problemi vezani za događaje na vašem "
+#~ "sajtu. Pre kreiranja novog pitanja na forumu probajte ovaj trik."
+
+#~ msgid ""
+#~ "While we won't build your site for you and can't guarantee The Events "
+#~ "Calendar PRO to play nicely with every theme and plugin out there, our "
+#~ "team will do our best to help you get it functioning nicely with your "
+#~ "site. And as an added bonus, once you're done you can post it in "
+#~ "the %s so the rest of the community can see what you've been working on."
+#~ msgstr ""
+#~ "Iako vam nećemo napraviti stranicu i ne možemo jamčiti da će The Events "
+#~ "Calendar PRO biti kompatibilan sa svakom temom i plaginom, naš tim će se "
+#~ "potruditi da on profunkcionira na vašem sajtu. I kao dodatni bonus, kada "
+#~ "završite možete o tome pisati na%s kako bi ostatak zajednice mogao "
+#~ "vidjeti na čemu ste radili."
+
+#~ msgid "Showcase thread"
+#~ msgstr "Pokaži unos"
+
+#~ msgid ""
+#~ "listed under %s. Check out events for this category or view the full "
+#~ "calendar."
+#~ msgstr ""
+#~ "izlistani pod %s. Pogledajte naše događaje za ovu kategoriju ili "
+#~ "pogledajte pun kalendar."
+
+#~ msgid "Refine your search:"
+#~ msgstr "Rafinišite pretragu:"
 
 # @ tribe-events-calendar-pro
 #~ msgid "Show:"
