@@ -88,9 +88,13 @@ jQuery( document ).ready( function ( $ ) {
 			params,
 			function ( response ) {
 				if ( response.success ) {
-					var $the_content = $( response.html ).contents().filter(function() {return this.nodeType != 3;});
+					var $the_content = '';
+					if($.isFunction($.fn.parseHTML))
+						$the_content = $.parseHTML(response.html);
+					else
+						$the_content = response.html;
 					$current_calendar.find('.tribe-mini-calendar-nav div > span').removeClass('active').siblings('#ajax-loading-mini').hide();
-					$current_calendar_events_list.empty().html( $the_content );
+					$current_calendar_events_list.replaceWith( $the_content );
 					change_active_day(obj);
 					fix_widget_height();
 				}
