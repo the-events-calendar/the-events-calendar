@@ -252,17 +252,17 @@ if (!class_exists('TribeEventsTemplates')) {
 			$class = '';
 
 			// list view
-			if ( tribe_is_list_view() ) {
+			if ( tribe_is_list_view() || tribe_is_showing_all() ) {
 				$class = 'Tribe_Events_List_Template';
 			}
 
 			// calendar view
-			if ( tribe_is_month() ) {
+			else if ( tribe_is_month() ) {
 				$class = 'Tribe_Events_Month_Template';
 			}
 
 			// single event view
-			if ( is_singular( TribeEvents::POSTTYPE )) {
+			else if ( is_singular( TribeEvents::POSTTYPE ) ) {
 				$class = 'Tribe_Events_Single_Event_Template';
 			}
 
