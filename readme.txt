@@ -66,7 +66,7 @@ Looking for something else?
 * <a href="http://m.tri.be/2c">Events PRO</a>: recurring events, a whole range of new views (day / week / map / photo / venue / organizer) & widgets (calendar / featured venue / event countdown), custom event attributes, geolocation search and a lot more.
 * Sell tickets with <a href="http://m.tri.be/2f">WooCommerce</a> or <a href="http://m.tri.be/2e">Eventbrite</a>
 * <a href="http://m.tri.be/2h">Import events from Facebook</a> or let your <a href="http://m.tri.be/2g">users submit</a> from right on your website!
-* Have so many amazing events that your users get overwhelmed? Drop some filters on them with the <a href="http://tri.be/shop/wordpress-events-filter-bar?utm_campaign=in-app&utm_medium=plugin-tec&utm_source=readme" target="_blank">Filter Bar Plugin</a>.
+* Have so many amazing events that your users get overwhelmed? Drop some filters on them with the <a href="http://m.tri.be/52" target="_blank">Filter Bar Plugin</a>.
 
 <a href="https://www.facebook.com/ModernTribeInc" target="_blank">Join us on Facebook</a> to be part of our active community, check us out <a href="https://twitter.com/ModernTribeInc/" target="_blank">on Twitter</a>, and <a href="http://m.tri.be/2k">sign up for our newsletter</a> for release announcements and discounts.
 
