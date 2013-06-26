@@ -1610,7 +1610,7 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 .tribe-bar-disabled {
 	float: right;
 	position: relative;
-	z-index: 10;
+	z-index: 101;
 }
 
 .tribe-bar-disabled #tribe-events-bar {
