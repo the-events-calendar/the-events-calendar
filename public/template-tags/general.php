@@ -786,7 +786,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 			}
 		}
 
-		$schedule = '<div class="tribe-events-event-schedule-details duration">';
+		$schedule = '';
 
 		if ( tribe_event_is_multiday( $event ) ) { // multi-date event
 
@@ -854,8 +854,6 @@ if ( class_exists( 'TribeEvents' ) ) {
 				$schedule .= '</span>';
 			}
 		}
-
-		$schedule .= '</div>';
 
 		return apply_filters( 'tribe_events_event_schedule_details', $schedule );
 	}	

@@ -784,6 +784,7 @@ select.tribe-events-dropdown {
 .single-tribe_events .tribe-events-schedule .recurringinfo,
 .single-tribe_events .tribe-events-schedule .tribe-events-cost {
 	margin-right: 10px;
+	font-size: 1.2em;
 }
 
 .single-tribe_events .tribe-events-schedule h3 {
