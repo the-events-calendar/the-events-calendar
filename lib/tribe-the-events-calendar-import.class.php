@@ -64,9 +64,9 @@ if (!class_exists('TribeEventsImport')) {
 							__('Welcome to Events 2.0! This is a HUGE upgrade from 1.6.5. Please make sure you have backed up before proceeding any further. You can easily <a href="%s">revert to an old version</a> if you want to backup first. This upgrade includes two major steps, <a href="%s">migrating data</a> &amp; updating your templates as necessary. There have been significant changes to the template tags and functions. Check out our <a href="%s">walk-through on the upgrade</a> before proceeding and check out the FAQ &amp; Knowledge base from the <a href="%s">support page</a>. If you\'re new to The Events Calendar, you may want to review our <a href="%s">new user primer</a>.<br/><br/> You have events that need to be migrated.  Please visit the bottom of the <a href="%s">settings page</a> to perform the migration.', 'tribe-events-calendar'),
 							'http://wordpress.org/extend/plugins/the-events-calendar/download/'.$utm_string,
 							'edit.php?post_type=' . TribeEvents::POSTTYPE . '&page=tribe-settings&tab=general',
-							'http://tri.be/migrating-from-events-calendar-1-6-5-to-2-0'.$utm_string,
-							'http://tri.be/support/'.$utm_string,
-							'http://tri.be/support/documentation/events-calendar-pro-new-user-primer/'.$utm_string,
+							TribeEvents::$tribeUrl . 'migrating-from-events-calendar-1-6-5-to-2-0'.$utm_string,
+							TribeEvents::$tribeUrl . 'support/'.$utm_string,
+							TribeEvents::$tribeUrl . 'support/documentation/events-calendar-pro-new-user-primer/'.$utm_string,
 							'edit.php?post_type=' . TribeEvents::POSTTYPE .'&page=tribe-events-calendar'
 						) .
 					'</p></div>';
