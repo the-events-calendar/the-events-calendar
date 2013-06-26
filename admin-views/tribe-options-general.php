@@ -25,7 +25,7 @@ $generalTab = array(
 		),
 		'upsell-info' => array(
 			'type' => 'html',
-			'html' => '<p>' . __( 'Looking for additional functionality including recurring events, custom meta, community events, ticket sales and more?', 'tribe-events-calendar' ) . ' <a href="' . self::$tribeUrl . 'shop/?utm_source=generaltab&utm_medium=promolink&utm_campaign=plugin'.'">' . __( 'Check out the available add-ons', 'tribe-events-calendar' ) . '</a>.</p>',
+			'html' => '<p>' . __( 'Looking for additional functionality including recurring events, custom meta, community events, ticket sales and more?', 'tribe-events-calendar' ) . ' <a href="' . self::$tribeUrl . 'products/?utm_source=generaltab&utm_medium=plugin-tec&utm_campaign=in-app'.'">' . __( 'Check out the available add-ons', 'tribe-events-calendar' ) . '</a>.</p>',
 			'conditional' => ( !defined( 'TRIBE_HIDE_UPSELL' ) || !TRIBE_HIDE_UPSELL ),
 		),
 		'donate-link-heading' => array(

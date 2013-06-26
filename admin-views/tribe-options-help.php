@@ -40,28 +40,28 @@ $ga_query_string = '?utm_source=helptab&utm_medium=plugin-tec&utm_campaign=in-ap
 $premium_add_ons = array();
 $premium_add_ons[] = array(
 	'title' => __('The Events Calendar PRO', 'tribe_events_calendar'),
-	'link' => apply_filters('tribe_help_tab_ecp_tribe_url', 'http://tri.be/wordpress-events-calendar-pro/'.$ga_query_string),
+	'link' => apply_filters('tribe_help_tab_ecp_tribe_url', TribeEvents::$tribeUrl . 'wordpress-events-calendar-pro/' . $ga_query_string),
 );
 $premium_add_ons[] = array(
 	'title' => __('Eventbrite Tickets', 'tribe_events_calendar'),
-	'link' => apply_filters('tribe_help_tab_eventbrite_tribe_url', 'http://tri.be/shop/wordpress-eventbrite-tickets/'.$ga_query_string),
+	'link' => apply_filters('tribe_help_tab_eventbrite_tribe_url', TribeEvents::$tribeUrl . 'shop/wordpress-eventbrite-tickets/' . $ga_query_string),
 );
 $premium_add_ons[] = array(
 	'title' => __('Community Events', 'tribe_events_calendar'),
-	'link' => apply_filters('tribe_help_tab_community_events_tribe_url', 'http://tri.be/shop/wordpress-community-events/'.$ga_query_string),
+	'link' => apply_filters('tribe_help_tab_community_events_tribe_url', TribeEvents::$tribeUrl . 'shop/wordpress-community-events/' . $ga_query_string),
 );
 $premium_add_ons[] = array(
 	'title' => __('Facebook Events', 'tribe_events_calendar'),
-	'link' => apply_filters('tribe_help_tab_facebook_events_tribe_url', 'http://tri.be/facebook-events/'.$ga_query_string),
+	'link' => apply_filters('tribe_help_tab_facebook_events_tribe_url', TribeEvents::$tribeUrl . 'facebook-events/' . $ga_query_string),
 );
 $premium_add_ons[] = array(
 	'title' => __('WooTickets', 'tribe_events_calendar'),
-	'link' => apply_filters('tribe_help_tab_wootickets_tribe_url', 'http://tri.be/shop/wootickets/'.$ga_query_string),
+	'link' => apply_filters('tribe_help_tab_wootickets_tribe_url', TribeEvents::$tribeUrl . 'shop/wootickets/' . $ga_query_string),
 );
 
 $premium_add_ons[] = array(
 	'title' => __('Faceted Filters', 'tribe_events_calendar'),
-	'link' => apply_filters('tribe_help_tab_wootickets_tribe_url', 'http://tri.be/shop/faceted-filters/'.$ga_query_string), // TODO make sure this link is correct
+	'link' => apply_filters('tribe_help_tab_wootickets_tribe_url', TribeEvents::$tribeUrl . 'shop/faceted-filters/' . $ga_query_string), // TODO make sure this link is correct
 );
 $premium_add_ons = (array) apply_filters( 'tribe_help_tab_premium_addons', $premium_add_ons ); // TODO should we replace this with an RSS feed??
 
@@ -69,23 +69,23 @@ $premium_add_ons = (array) apply_filters( 'tribe_help_tab_premium_addons', $prem
 $resources = array();
 $resources[] = array(
 	'title' => __('Documentation', 'tribe-events-calendar'),
-	'link' => apply_filters('tribe_help_tab_documentation_url', 'http://tri.be/support/documentation/'.$ga_query_string),
+	'link' => apply_filters('tribe_help_tab_documentation_url', TribeEvents::$tribeUrl . 'support/documentation/' . $ga_query_string),
 );
 $resources[] = array(
 	'title' => __('FAQ', 'tribe-events-calendar'),
-	'link' => apply_filters('tribe_help_tab_faq_url', 'http://tri.be/support/faqs/'.$ga_query_string),
+	'link' => apply_filters('tribe_help_tab_faq_url', TribeEvents::$tribeUrl . 'support/faqs/' . $ga_query_string),
 );
 $resources[] = array(
 	'title' => __('Help', 'tribe-events-calendar'),
-	'link' => apply_filters('tribe_help_tab_help_video_url', 'http://tri.be/category/products/help-video/'.$ga_query_string),
+	'link' => apply_filters('tribe_help_tab_help_video_url', TribeEvents::$tribeUrl . 'category/products/help-video/' . $ga_query_string),
 );
 $resources[] = array(
 	'title' => __('Tutorials', 'tribe-events-calendar'),
-	'link' => apply_filters('tribe_help_tab_tutorials_url', 'http://tri.be/the-events-calendar-for-wordpress-tutorials/'.$ga_query_string),
+	'link' => apply_filters('tribe_help_tab_tutorials_url', TribeEvents::$tribeUrl . 'the-events-calendar-for-wordpress-tutorials/' . $ga_query_string),
 );
 $resources[] = array(
 	'title' => __('Release Notes', 'tribe-events-calendar'),
-	'link' => apply_filters('tribe_help_tab_release_notes_url', 'http://tri.be/category/products/release-notes/'.$ga_query_string),
+	'link' => apply_filters('tribe_help_tab_release_notes_url', TribeEvents::$tribeUrl . 'category/products/release-notes/' . $ga_query_string),
 );
 $resources[] = array(
 	'title' => __('Forums', 'tribe-events-calendar'),
@@ -99,9 +99,9 @@ $getting_started_text = apply_filters( 'tribe_help_tab_getting_started_text', $g
 $intro_text[] = '<p>' . __('If this is your first time using The Events Calendar, you\'re in for a treat and are already well on your way to creating a first event. Here are some basics we\'ve found helpful for users jumping into it for the first time:', 'tribe-events-calendar') . '</p>';
 $intro_text[] = '<ul>';
 $intro_text[] = '<li>';
-$intro_text[] = sprintf( __ ('%sOur New User Primer%s was designed for folks in your exact position. Featuring both step-by-step videos and written walkthroughs that feature accompanying screenshots, the primer aims to take you from zero to hero in no time.', 'tribe-events-calendar'), '<a href="http://tri.be/support/documentation/events-calendar-pro-new-user-primer/' . $ga_query_string . '" target="blank">', '</a>' );
+$intro_text[] = sprintf( __ ('%sOur New User Primer%s was designed for folks in your exact position. Featuring both step-by-step videos and written walkthroughs that feature accompanying screenshots, the primer aims to take you from zero to hero in no time.', 'tribe-events-calendar'), '<a href="' . TribeEvents::$tribeUrl . 'support/documentation/events-calendar-pro-new-user-primer/' . $ga_query_string . '" target="blank">', '</a>' );
 $intro_text[] = '</li><li>';
-$intro_text[] = sprintf( __('%sInstallation/Setup FAQs%s from our support page can help give an overview of what the plugin can and cannot do. This section of the FAQs may be helpful as it aims to address any basic install questions not addressed by the new user primer.', 'tribe-events-calendar'), '<a href="http://tri.be/support/faqs/' . $ga_query_string . '" target="blank">','</a>' );
+$intro_text[] = sprintf( __('%sInstallation/Setup FAQs%s from our support page can help give an overview of what the plugin can and cannot do. This section of the FAQs may be helpful as it aims to address any basic install questions not addressed by the new user primer.', 'tribe-events-calendar'), '<a href="' . TribeEvents::$tribeUrl . 'support/faqs/' . $ga_query_string . '" target="blank">','</a>' );
 $intro_text[] = '</li><li>';
 $intro_text[] = sprintf( __('Are you developer looking to build your own frontend view? We created an example plugin that demonstrates how to register a new view. You can %sdownload the plugin at GitHub%s to get started.', 'tribe-events-calendar'), '<a href="https://github.com/moderntribe/tribe-events-agenda-view" target="blank">', '</a>' );
 $intro_text[] = '</li></ul><p>';
@@ -109,17 +109,17 @@ $intro_text[] = __('Otherwise, if you\'re feeling adventurous, you can get start
 $intro_text[] = '</p>';
 $intro_text = implode( $intro_text );
 
-$support_text[] = '<p>' . sprintf( __('We\'ve redone our support page from the ground up in an effort to better help our users. Head over to our %sSupport Page%s and you\'ll find lots of great resources, including:', 'tribe-events-calendar'), '<a href="https://tri.be/support/' . $ga_query_string . '" target="blank">', '</a>' ) . '</p>';
+$support_text[] = '<p>' . sprintf( __('We\'ve redone our support page from the ground up in an effort to better help our users. Head over to our %sSupport Page%s and you\'ll find lots of great resources, including:', 'tribe-events-calendar'), '<a href="' . TribeEvents::$tribeUrl . 'support/' . $ga_query_string . '" target="blank">', '</a>' ) . '</p>';
 $support_text[] = '<ul><li>';
-$support_text[] = sprintf( __('%sTemplate tags, functions, and hooks & filters%s for The Events Calendar &amp; Events Calendar PRO', 'tribe-events-calendar' ), '<a href="http://tri.be/support/documentation/' . $ga_query_string . '" target="blank">', '</a>' );
+$support_text[] = sprintf( __('%sTemplate tags, functions, and hooks & filters%s for The Events Calendar &amp; Events Calendar PRO', 'tribe-events-calendar' ), '<a href="' . TribeEvents::$tribeUrl . 'support/documentation/' . $ga_query_string . '" target="blank">', '</a>' );
 $support_text[] = '</li><li>';
-$support_text[] = sprintf( __('%sFrequently Asked Questions%s ranging from the most basic setup questions to advanced themer tweaks', 'tribe-events-calendar'), '<a href="http://tri.be/support/faqs/' . $ga_query_string . '" target="blank">', '</a>' );
+$support_text[] = sprintf( __('%sFrequently Asked Questions%s ranging from the most basic setup questions to advanced themer tweaks', 'tribe-events-calendar'), '<a href="' . TribeEvents::$tribeUrl . 'support/faqs/' . $ga_query_string . '" target="blank">', '</a>' );
 $support_text[] = '</li><li>';
-$support_text[] = sprintf( __('%sTutorials%s written by both members of our team and users from the community, covering custom queries, integration with third-party themes and plugins, etc.', 'tribe-events-calendar'), '<a href="https://tri.be/the-events-calendar-for-wordpress-tutorials/' . $ga_query_string . '" target="blank">', '</a>' );
+$support_text[] = sprintf( __('%sTutorials%s written by both members of our team and users from the community, covering custom queries, integration with third-party themes and plugins, etc.', 'tribe-events-calendar'), '<a href="' . TribeEvents::$tribeUrl . 'the-events-calendar-for-wordpress-tutorials/' . $ga_query_string . '" target="blank">', '</a>' );
 $support_text[] = '</li><li>';
 $support_text[] = __('Release notes for painting an overall picture of the plugin\'s lifecycle and when features/bug fixes were introduced.', 'tribe-events-calendar');
 $support_text[] = '</li><li>';
-$support_text[] = sprintf( __('%sAdd-on documentation%s for all of Modern Tribe\'s official extensions for The Events Calendar (including WooTickets, Community Events, Eventbrite Tickets, Facebook Events, etc)', 'tribe-events-calendar' ), '<a href="http://tri.be/support/documentation/' . $ga_query_string . '" target="blank">', '</a>' );
+$support_text[] = sprintf( __('%sAdd-on documentation%s for all of Modern Tribe\'s official extensions for The Events Calendar (including WooTickets, Community Events, Eventbrite Tickets, Facebook Events, etc)', 'tribe-events-calendar' ), '<a href="' . TribeEvents::$tribeUrl . 'support/documentation/' . $ga_query_string . '" target="blank">', '</a>' );
 $support_text[] = '</li></ul>';
 $support_text[] = '<p>' . sprintf( __('We\'ve also got a %sModern Tribe UserVoice%s page where we\'re actively watching for feature ideas from the community. If after playing with the plugin and reviewing the resources above, you\'re finding a feature isn\'t present that should be, let us know. Vote up existing feature requests or add your own, and help us shape the future of the products business in a way that best meets the community\'s needs.', 'tribe-events-calendar'), '<a href="http://tribe.uservoice.com/" target="blank">', '</a>' ) . '</p>';
 $support_text = implode( $support_text );
@@ -128,7 +128,7 @@ $support_text = implode( $support_text );
 $forum_text[] = '<p>' . sprintf( __('Written documentation can only take things so far...sometimes, you need help from a real person. This is where our %ssupport forums%s come into play.', 'tribe-events-calendar'), '<a href="http://wordpress.org/support/plugin/the-events-calendar" target="blank">', '</a>') . '</p>';
 $forum_text[] = '<p>' . sprintf( __('Users of the free The Events Calendar should post their support concerns to the plugin\'s %sWordPress.org support forum%s. While we are happy to help identify and fix bugs that are reported at WordPress.org, please make sure to read our %ssupport expectations sticky thread%s before posting so you understand our limitations.', 'tribe-events-calendar'), '<a href="http://wordpress.org/support/plugin/the-events-calendar" target="blank">', '</a>', '<a href="http://wordpress.org/support/topic/welcome-the-events-calendar-users-read-this-first?replies=1" target="blank">', '</a>' ) . '</p>';
 $forum_text[] = '<p>' . __('We hit the WordPress.org forum throughout the week, watching for bugs. If you report a legitimate bug that we\'re able to reproduce, we will log it and patch for an upcoming release. However we are unfortunately unable to provide customization tips or assist in integrating with 3rd party plugins or themes.', 'tribe-events-calendar') . '</p>';
-$forum_text[] = '<p>' . sprintf( __('If you\'re a user of The Events Calendar and would like more support, please %spurchase a PRO license%s. We hit the PRO forums daily, and can provide a deeper level of customization/integration support for paying users than we can on WordPress.org.', 'tribe-events-calendar'), '<a href="http://tri.be/shop/wordpress-events-calendar-pro/' . $ga_query_string . '" target="blank">', '</a>') . '</p>';
+$forum_text[] = '<p>' . sprintf( __('If you\'re a user of The Events Calendar and would like more support, please %spurchase a PRO license%s. We hit the PRO forums daily, and can provide a deeper level of customization/integration support for paying users than we can on WordPress.org.', 'tribe-events-calendar'), '<a href="' . TribeEvents::$tribeUrl . 'shop/wordpress-events-calendar-pro/' . $ga_query_string . '" target="blank">', '</a>') . '</p>';
 $forum_text = implode( $forum_text );
 
 
@@ -205,7 +205,7 @@ $more_text = __('More...', 'tribe-events-calendar');
 	foreach ( $news_feed as $item ) {
 		echo( '<li><a href="' . $item['link'] . $ga_query_string . '">' . $item['title'] . '</a></li>' );
 	}
-	echo '<li><a href="http://tri.be/category/products/' . $ga_query_string . '">' . $more_text . '</a></li>';
+	echo '<li><a href="' . TribeEvents::$tribeUrl . 'category/products/' . $ga_query_string . '">' . $more_text . '</a></li>';
 	?>
 	</ul>
 

@@ -87,7 +87,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		protected $taxonomyLabels;
 
 		public static $tribeUrl = 'http://tri.be/';
-		public static $addOnPath = 'shop/';
+		public static $addOnPath = 'products/';
 		public static $supportPath = 'support/';
 		public static $dotOrgSupportUrl = 'http://wordpress.org/tags/the-events-calendar';
 
@@ -633,7 +633,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 					$output .= '<div class="error">';
 					$link = add_query_arg( array(
 						'utm_campaign' => 'in-app',
-						'utm_medium' => 'plugin-wootix',
+						'utm_medium' => 'plugin-tec',
 						'utm_source' => 'notice'
 					), self::$tribeUrl . 'version-relationships-in-modern-tribe-pluginsadd-ons/' );
 					$output .= '<p>'.sprintf( __('The following plugins are out of date: <b>%s</b>. All add-ons contain dependencies on The Events Calendar and will not function properly unless paired with the right version. %sWant to pair an older version%s?', 'tribe-events-calendar'), join( $out_of_date_addons, ', ' ), "<a href='$link' target='_blank'>", '</a>' ).'</p>';
@@ -689,7 +689,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 			$link = add_query_arg( array(
 				'utm_campaign' => 'in-app',
-				'utm_medium' => 'plugin-wootix',
+				'utm_medium' => 'plugin-tec',
 				'utm_source' => 'notice'
 			), self::$tribeUrl . 'license-keys/' );
 
@@ -3672,7 +3672,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				$anchor = __( 'View All Add-Ons', 'tribe-events-calendar' );
 				$link = add_query_arg( array(
 					'utm_campaign' => 'in-app',
-					'utm_medium' => 'plugin-wootix',
+					'utm_medium' => 'plugin-tec',
 					'utm_source' => 'plugins-manager'
 				), self::$tribeUrl . self::$addOnPath );
 				$links []= '<a href="' . $link . '">' . $anchor . '</a>';
@@ -3775,9 +3775,9 @@ if ( !class_exists( 'TribeEvents' ) ) {
 					<p><?php _e('Looking for additional functionality including recurring events, ticket sales, publicly submitted events, new views and more?', 'tribe-events-calendar' ) ?> <?php printf( __('Check out the <a href="%s">available add-ons</a>.', 'tribe-events-calendar' ),
 							add_query_arg( array(
 								'utm_campaign' => 'in-app',
-								'utm_medium' => 'plugin-wootix',
+								'utm_medium' => 'plugin-tec',
 								'utm_source' => 'post-editor'
-							), TribeEvents::$tribeUrl . 'shop/' )
+							), TribeEvents::$tribeUrl . self::$addOnPath )
 					); ?></p>
 				</td>
 			</tr><?php
