@@ -245,8 +245,6 @@ h2.tribe-events-page-title,
 /* Cal Links */
 .single-tribe_events .tribe-events-cal-links {
 	margin-bottom: 1.75em;
-	padding-bottom: 1.75em;
-	border-bottom: 1px solid #e5e5e5;
 	display: block;
 	overflow: hidden;
 }
