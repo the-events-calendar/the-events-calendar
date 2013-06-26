@@ -487,6 +487,7 @@ select.tribe-events-dropdown {
 		padding: 10px 15px;
 		background: #666666;
 		color: #fff;
+		white-space: normal;
 	}
 	.tribe-events-sub-nav .tribe-events-nav-previous,
 	.tribe-events-sub-nav .tribe-events-nav-left {
@@ -795,6 +796,11 @@ select.tribe-events-dropdown {
 	margin: 0;
 	padding: 0;
 	vertical-align: middle;
+	white-space: nowrap;
+}
+
+.single-tribe_events .tribe-events-schedule .tribe-events-cost {
+	vertical-align: middle;
 }
 
 /* Cal Links */
@@ -905,6 +911,13 @@ select.tribe-events-dropdown {
 	padding: 0;
 }
 @media only screen and (max-width: 767px) {
+	.single-tribe_events .tribe-events-schedule h3 {
+		display: block;
+		margin-bottom: 10px;
+	}
+	.single-tribe_events .tribe-events-schedule .recurringinfo .tribe-events-divider {
+		display: none;
+	}
 	.tribe-events-event-meta .tribe-events-meta-group, 
 	.tribe-events-event-meta .column {
 		float: none;
@@ -996,6 +1009,7 @@ select.tribe-events-dropdown {
 /* recurring info tooltip */
 .recurringinfo {
 	display: inline-block;
+	vertical-align: middle;
 	zoom: 1;
 	*display: inline;
 	position: relative;
