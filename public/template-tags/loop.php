@@ -75,7 +75,8 @@ if( class_exists( 'TribeEvents' ) ) {
 	 * @since 2.0
 	 */
 	function tribe_is_upcoming()  {
-		$is_upcoming = ! tribe_is_showing_all() ? ! tribe_is_past() : false;
+		global $wp_query;
+		$is_upcoming = $wp_query->query_vars['eventDisplay'] == 'upcoming' ? true : false;
 		return apply_filters('tribe_is_upcoming', $is_upcoming );
 	}
 	
