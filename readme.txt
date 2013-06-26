@@ -3,9 +3,13 @@
 Contributors:  ModernTribe, PaulHughes01, roblagatta, jonahcoyote, MZAWeb, codearachnid, ryancurban, leahkoerper, barryhughes, peterchester, reid.peifer, shane.pearlman
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
 Donate link: http://m.tri.be/29
-Requires at least: 3.6
-Tested up to: 3.5.2
+Requires at least: 3.5
+Tested up to: 3.6
 Stable tag: 3.0
+License: GPLv2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+
+The Events Calendar is a carefully crafted, extensible plugin that lets you easily share your events. Beautiful. Solid. Awesome.
 
 == Description ==
 
@@ -62,7 +66,7 @@ Looking for something else?
 * <a href="http://m.tri.be/2c">Events PRO</a>: recurring events, a whole range of new views (day / week / map / photo / venue / organizer) & widgets (calendar / featured venue / event countdown), custom event attributes, geolocation search and a lot more.
 * Sell tickets with <a href="http://m.tri.be/2f">WooCommerce</a> or <a href="http://m.tri.be/2e">Eventbrite</a>
 * <a href="http://m.tri.be/2h">Import events from Facebook</a> or let your <a href="http://m.tri.be/2g">users submit</a> from right on your website!
-* Have so many amazing events that your users get overwhelmed? Drop some <a href="TODO MAKE URL">filters</a> on them.
+* Have so many amazing events that your users get overwhelmed? Drop some filters on them with the <a href="http://m.tri.be/52" target="_blank">Filter Bar Plugin</a>.
 
 <a href="https://www.facebook.com/ModernTribeInc" target="_blank">Join us on Facebook</a> to be part of our active community, check us out <a href="https://twitter.com/ModernTribeInc/" target="_blank">on Twitter</a>, and <a href="http://m.tri.be/2k">sign up for our newsletter</a> for release announcements and discounts.
 
@@ -70,7 +74,7 @@ Looking for something else?
 
 Need to hack the plugin or build a new feature for a project? How about making that into an add-on plugin so other people who have been wishing for the same feature can take advantage!
 
-<a href="TODO MAKE URL">How to create an Add-On to The Events Calendar</a>
+Want to make an add-on? Check out <a href="https://github.com/moderntribe/tribe-events-agenda-view" target="_blank">Jessica's sample add-on plugin: Agenda View</a>!
 
 Send it to us and we would be <a href="mailto:pro@tri.be">happy to review it</a> and give you feedback! Then put it up on the .org repo for everyone to appreciate!
 
@@ -88,7 +92,7 @@ Installing the plugin is easy. Just follow these steps:
 
 That's it! Just configure your settings as you see fit, and you're on your way to creating events in style. Now that you're all set up and ready to go, how about checking out the <a href="http://m.tri.be/2l">new user primer</a> to familiarize yourself with what's in store?
 
-If you're unclear about the installation process or get stuck, check out our <a href="http://m.tri.be/3q">video</a> which walks you through the process. Still having trouble from there? See the [Codex](http://codex.wordpress.org/Managing_Plugins#Manual_Plugin_Installation) for more troubleshooting ideas.
+If you're unclear about the installation process or get stuck, check out our <a href="http://m.tri.be/53">video</a> which walks you through the process. Still having trouble from there? See the [Codex](http://codex.wordpress.org/Managing_Plugins#Manual_Plugin_Installation) for more troubleshooting ideas.
 
 = Requirements =
 
@@ -104,7 +108,7 @@ If you're unclear about the installation process or get stuck, check out our <a 
 5. Event List Admin
 6. Settings Panel
 
-== FAQ ==
+== Frequently Asked Questions ==
 
 = Are there any troubleshooting steps you'd suggest I try that might resolve my issue before I post a new thread? =
 
@@ -122,7 +126,7 @@ If you're already a PRO user, you're entitled access to our more actively-monito
 
 = Events Calendar PRO looks awesome! I'm sold! How can I get my hands on it? =
 
-Events Calendar PRO can be purchased directly at the <a href="http://m.tri.be/2r">tri.be website.</a> There are three (3) license types available, and all licenses include 1 year of access to support + updates.
+Events Calendar PRO can be purchased directly at the <a href="http://m.tri.be/54">tri.be website.</a> There are three (3) license types available, and all licenses include 1 year of access to support + updates.
 
 = I'm interested in PRO or another add-on, but there are a few questions I've got before making the purchase. Can you help me get those addressed? =
 
@@ -137,7 +141,7 @@ Currently, the following add-ons are available for The Events Calendar/Events Ca
 * <a href="http://m.tri.be/2e">Eventbrite Tickets</a>, for selling tickets to your event directly through Eventbrite.
 * <a href="http://m.tri.be/2g">Community Events</a>, for allowing frontend event submission from your readers.
 * <a href="http://m.tri.be/2h">Facebook Events</a>, for importing events directly from an organization or page on Facebook.
-* <a href="http://m.tri.be/2f">Tickets: WooCommerce, for harnessing the power of WooCommerce to sell event tickets directly on your site without being subject to fees or relying on a third-party service.
+* <a href="http://m.tri.be/2f">Tickets: WooCommerce</a>, for harnessing the power of WooCommerce to sell event tickets directly on your site without being subject to fees or relying on a third-party service.
 * Filter Bar (COMING SOON) for adding advanced frontend filtering capabilities to your events calendar.
 
 = I have a feature idea. What's the best way to tell you about it? =
