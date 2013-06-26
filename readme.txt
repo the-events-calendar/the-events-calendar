@@ -92,7 +92,7 @@ Installing the plugin is easy. Just follow these steps:
 
 That's it! Just configure your settings as you see fit, and you're on your way to creating events in style. Now that you're all set up and ready to go, how about checking out the <a href="http://m.tri.be/2l">new user primer</a> to familiarize yourself with what's in store?
 
-If you're unclear about the installation process or get stuck, check out our <a href="http://m.tri.be/3q">video</a> which walks you through the process. Still having trouble from there? See the [Codex](http://codex.wordpress.org/Managing_Plugins#Manual_Plugin_Installation) for more troubleshooting ideas.
+If you're unclear about the installation process or get stuck, check out our <a href="http://m.tri.be/53">video</a> which walks you through the process. Still having trouble from there? See the [Codex](http://codex.wordpress.org/Managing_Plugins#Manual_Plugin_Installation) for more troubleshooting ideas.
 
 = Requirements =
 
@@ -126,7 +126,7 @@ If you're already a PRO user, you're entitled access to our more actively-monito
 
 = Events Calendar PRO looks awesome! I'm sold! How can I get my hands on it? =
 
-Events Calendar PRO can be purchased directly at the <a href="http://m.tri.be/2r">tri.be website.</a> There are three (3) license types available, and all licenses include 1 year of access to support + updates.
+Events Calendar PRO can be purchased directly at the <a href="http://m.tri.be/54">tri.be website.</a> There are three (3) license types available, and all licenses include 1 year of access to support + updates.
 
 = I'm interested in PRO or another add-on, but there are a few questions I've got before making the purchase. Can you help me get those addressed? =
 
@@ -141,7 +141,7 @@ Currently, the following add-ons are available for The Events Calendar/Events Ca
 * <a href="http://m.tri.be/2e">Eventbrite Tickets</a>, for selling tickets to your event directly through Eventbrite.
 * <a href="http://m.tri.be/2g">Community Events</a>, for allowing frontend event submission from your readers.
 * <a href="http://m.tri.be/2h">Facebook Events</a>, for importing events directly from an organization or page on Facebook.
-* <a href="http://m.tri.be/2f">Tickets: WooCommerce, for harnessing the power of WooCommerce to sell event tickets directly on your site without being subject to fees or relying on a third-party service.
+* <a href="http://m.tri.be/2f">Tickets: WooCommerce</a>, for harnessing the power of WooCommerce to sell event tickets directly on your site without being subject to fees or relying on a third-party service.
 * Filter Bar (COMING SOON) for adding advanced frontend filtering capabilities to your events calendar.
 
 = I have a feature idea. What's the best way to tell you about it? =
