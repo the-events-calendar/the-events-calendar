@@ -707,9 +707,9 @@ if ( !class_exists( 'TribeEvents' ) ) {
 					'html' =>  sprintf( __('<p>The license key you received when completing your purchase from %s will grant you access to support and updates until it expires. You do not need to enter the key below for the plugins to work, but you will need to enter it to get automatic updates. <strong>Find your license keys at <a href="%s" target="_blank">%s</a></strong>.</p> <p>Each paid add-on has its own unique license key. Simply paste the key into its appropriate field on below, and give it a moment to validate. You know you\'re set when a green expiration date appears alongside a "valid" message.</p> <p>If you\'re seeing a red message telling you that your key isn\'t valid or is out of installs, visit <a href="%s" target="_blank">%s</a> to manage your installs or renew / upgrade your license.</p><p>Not seeing an update but expecting one? In WordPress, go to <a href="%s">Dashboard > Updates</a> and click "Check Again".</p>', 'tribe-events-calendar'),
 						self::$tribeUrl,
 						$link,
+						self::$tribeUrl . 'license-keys/',
 						$link,
-						$link,
-						$link,
+						self::$tribeUrl . 'license-keys/',
 						admin_url('/update-core.php')
 					),
 				),
