@@ -431,7 +431,7 @@ if( !class_exists('Tribe_Template_Factory') ) {
 					wp_enqueue_script( $prefix . '-ecp-plugins', $path, $deps, apply_filters( 'tribe_events_js_version', TribeEvents::VERSION ) );
 					break;
 				case 'tribe-events-bar' :
-					$deps = array_merge( $deps, array( 'jquery', $prefix . '-calendar-script', $prefix . '-bootstrap-datepicker', $prefix . '-jquery-resize', $prefix . '-select2', 'jquery-placeholder' ) );
+					$deps = array_merge( $deps, array( 'jquery', $prefix . '-calendar-script', $prefix . '-bootstrap-datepicker', $prefix . '-jquery-resize', $prefix . '-select2', 'tribe-placeholder' ) );
 					$path = self::getMinFile( $resources_url . 'tribe-events-bar.js', true );
 					wp_enqueue_script( $prefix . '-bar', $path, $deps, apply_filters( 'tribe_events_js_version', TribeEvents::VERSION ) );
 					break;
@@ -439,7 +439,7 @@ if( !class_exists('Tribe_Template_Factory') ) {
 					$deps = array_merge( $deps, array( 'jquery' ) );
 					$path = self::getMinFile( $vendor_url . 'jquery-placeholder/jquery.placeholder.js', true );
 					wp_enqueue_script( 'tribe-placeholder', $path, $deps, '2.0.7', false );
-					self::$vendor_scripts[] = 'jquery-placeholder';
+					self::$vendor_scripts[] = 'tribe-placeholder';
 					break;
 				case 'ajax-calendar':
 					$deps = array_merge( $deps, array( 'jquery', $prefix . '-calendar-script' ) );

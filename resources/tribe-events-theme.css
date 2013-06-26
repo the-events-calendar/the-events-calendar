@@ -245,8 +245,6 @@ h2.tribe-events-page-title,
 /* Cal Links */
 .single-tribe_events .tribe-events-cal-links {
 	margin-bottom: 1.75em;
-	padding-bottom: 1.75em;
-	border-bottom: 1px solid #e5e5e5;
 	display: block;
 	overflow: hidden;
 }
@@ -345,8 +343,8 @@ h2.tribe-events-page-title,
 	color: #fff;
 }
 
-.tribe-events-calendar td.tribe-events-past .tribe_events a,
-.tribe-events-calendar td.tribe-events-past .tribe-events-viewmore a{
+.tribe-events-calendar td.tribe-events-past .tribe-events-month-event-title a, 
+.tribe-events-calendar td.tribe-events-past .tribe-events-viewmore a {
 	opacity: .5;
 	filter:Alpha(opacity=50);
 }
