@@ -539,14 +539,14 @@ if ( class_exists( 'TribeEvents' ) ) {
 	function tribe_events_admin_show_cost_field(){
 		$modules = apply_filters( 'tribe_events_tickets_modules', NULL );
 		$event_origin = get_post_meta( get_the_ID(), '_EventOrigin', true );
-		$show_cost = empty( $modules ) || 
-					 class_exists( 'Event_Tickets_PRO' ) || 
+		$show_cost = empty( $modules ) ||
+					 class_exists( 'Event_Tickets_PRO' ) ||
 					 in_array( $event_origin, apply_filters( 'tribe_events_admin_show_cost_field_origin', array( 'community-events' ) ) );
 		return apply_filters( 'tribe_events_admin_show_cost_field', $show_cost, $modules );
 	}
 
 	/**
-	 * Get an event's cost 
+	 * Get an event's cost
 	 *
 	 *
 	 * @param null|int $postId (optional)
@@ -806,7 +806,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 			$schedule .= '<span class="date-start dtstart">';
 				$schedule .=  tribe_get_start_date( $event, true, $format );
 				$schedule .= '<span class="value-title" title="'. $microformatStartFormat .'"></span>';
-			$schedule .= '</span>';	
+			$schedule .= '</span>';
 		} else { // single day event
 			if ( tribe_get_start_date( $event, false, 'g:i A' ) === tribe_get_end_date( $event, false, 'g:i A' ) ) { // Same start/end time
 				$schedule .= '<span class="date-start dtstart">' . tribe_get_start_date( $event, false, $format ) . ' @ ' . tribe_get_start_date( $event, false, $timeFormat ) . '<span class="value-title" title="'. $microformatStartFormat .'"></span></span>';
@@ -975,7 +975,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 **/
 	function tribe_events_promo_banner( $echo = true ){
 		if ( tribe_get_option( 'donate-link', false ) == true && !tribe_is_bot() ) {
-			$promo = apply_filters( 'tribe_events_promo_banner_message', sprintf( __( 'Calendar powered by %sThe Events Calendar%s', 'tribe-events-calendar' ), '<a class="vcard url org fn" href="http://tri.be/wordpress-events-calendar/">', '</a>' ) );
+			$promo = apply_filters( 'tribe_events_promo_banner_message', sprintf( __( 'Calendar powered by %sThe Events Calendar%s', 'tribe-events-calendar' ), '<a class="vcard url org fn" href="http://tri.be/wordpress-events-calendar/?utm_medium=plugin-tec&utm_source=banner&utm_campaign=in-app">', '</a>' ) );
 			$html = apply_filters( 'tribe_events_promo_banner', sprintf( '<p class="tribe-events-promo">%s</p>', $promo ), $promo );
 			if( $echo ) {
 				echo $html;
