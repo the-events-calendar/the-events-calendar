@@ -45,7 +45,7 @@
 </table>
 
 <p><?php printf( __('Enter the field label as you want it to appear (this will be the label in the same way "Start Date," "Organizer," etc appear in the event details box on the frontend). Select whether the field will be a text field; URL field; radio buttons; checkboxes; or a dropdown. All of these with the exception of text and URL allow for multiple options to be included, which you can add — one per-line — in the right-hand column. If you feel flummoxed, we\'ve got you covered with a %s.','tribe-events-calendar-pro'),
-			'<a href="http://tri.be/pro-adding-custom-events-attributes/?utm_campaign=in-app&utm_medium=plugin-ecp&utm_source=settings">'.__('video tutorial that will walk you through the process', 'tribe-events-calendar-pro').'</a>'
+			'<a href="' . TribeEvents::$tribeUrl . 'pro-adding-custom-events-attributes/?utm_campaign=in-app&utm_medium=plugin-ecp&utm_source=settings">'.__('video tutorial that will walk you through the process', 'tribe-events-calendar-pro').'</a>'
 ); ?></p>
 <fieldset>
 	<legend class="tribe-field-label"><?php _e('Editor "Custom Fields" meta box','tribe-events-calendar-pro'); ?></legend>
