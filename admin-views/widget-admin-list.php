@@ -18,13 +18,13 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 	<?php for ($i=1; $i<=10; $i++)
 	{?>
 	<option <?php if ( $i == $instance['limit'] ) {echo 'selected="selected"';}?> > <?php echo $i;?> </option>
-	<?php } ?>							
+	<?php } ?>
 	</select>
 </p>
 	<label for="<?php echo $this->get_field_id( 'no_upcoming_events' ); ?>"><?php _e('Show widget only if there are upcoming events:','tribe-events-calendar');?></label>
 	<input id="<?php echo $this->get_field_id( 'no_upcoming_events' ); ?>" name="<?php echo $this->get_field_name( 'no_upcoming_events' ); ?>" type="checkbox" <?php checked( $instance['no_upcoming_events'], 1 ); ?> value="1" />
-<p> 
+<p>
 
 </p>
 
-<p><small><em><?php printf( __('Want to modify the display of this widget? Try a %stemplate override%s.', 'tribe-events-calendar'), '<a href="http://tri.be/faq/what-are-template-overrides-and-how-do-i-do-them/">', '</a>' ); ?></em></small></p>
+<p><small><em><?php printf( __('Want to modify the display of this widget? Try a %stemplate override%s.', 'tribe-events-calendar'), '<a href="' . TribeEvents::$tribeUrl . 'faq/what-are-template-overrides-and-how-do-i-do-them/?utm_medium=plugin-tec&utm_source=widget-admin&utm_campaign=in-app">', '</a>' ); ?></em></small></p>

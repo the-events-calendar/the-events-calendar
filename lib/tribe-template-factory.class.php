@@ -438,7 +438,7 @@ if( !class_exists('Tribe_Template_Factory') ) {
 				case 'jquery-placeholder' : // Vendor: jQuery Placeholder
 					$deps = array_merge( $deps, array( 'jquery' ) );
 					$path = self::getMinFile( $vendor_url . 'jquery-placeholder/jquery.placeholder.js', true );
-					wp_enqueue_script( 'jquery-placeholder', $path, $deps, '2.0.7', false );
+					wp_enqueue_script( 'tribe-placeholder', $path, $deps, '2.0.7', false );
 					self::$vendor_scripts[] = 'jquery-placeholder';
 					break;
 				case 'ajax-calendar':

@@ -13,7 +13,12 @@ class TribeEventsBar {
 	// Displaying is the value of TribeEvents->displaying
 	private $views = array();
 
-	public function __construct() {
+    /**
+     * Class constructor.
+     *
+     * @return void
+     */
+    public function __construct() {
 		add_filter( 'wp_enqueue_scripts', array( $this, 'load_script' ), 9 );
 		add_filter( 'body_class', array( $this, 'body_class') );
 		add_action('tribe_events_bar_before_template',  array( $this, 'disabled_bar_before') );
@@ -39,7 +44,7 @@ class TribeEventsBar {
 	public function should_show() {
 		global $wp_query;
 		$show_bar_filter = apply_filters( 'tribe-events-bar-should-show', in_array( get_post_type(), array( TribeEvents::VENUE_POST_TYPE, TribeEvents::ORGANIZER_POST_TYPE ) ) ? false : true );
-		$is_tribe_view = ( ! empty( $wp_query->tribe_is_event_query ) && $show_bar_filter );
+		$is_tribe_view = ( ! empty( $wp_query->tribe_is_event_query ) && ! is_single() && $show_bar_filter );
 		return apply_filters( 'tribe-events-bar-should-show', $is_tribe_view );
 	}
 

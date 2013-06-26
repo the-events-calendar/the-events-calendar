@@ -2,9 +2,9 @@
 /*
 Plugin Name: The Events Calendar
 Description: The Events Calendar is a carefully crafted, extensible plugin that lets you easily share your events. Beautiful. Solid. Awesome.
-Version: 3.0-alpha
+Version: 3.0
 Author: Modern Tribe, Inc.
-Author URI: http://tri.be?ref=tec-plugin
+Author URI: http://m.tri.be/1x
 Text Domain: tribe-events-calendar
 License: GPLv2 or later
 */

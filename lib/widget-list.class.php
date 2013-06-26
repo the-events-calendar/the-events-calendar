@@ -11,7 +11,12 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 if( !class_exists( 'TribeEventsListWidget' ) ) {
 	class TribeEventsListWidget extends WP_Widget {
 
-		function TribeEventsListWidget() {
+        /**
+         * The main widget method.
+         *
+         * @return void
+         */
+        function TribeEventsListWidget() {
 			/* Widget settings. */
 			$widget_ops = array( 'classname' => 'tribe-events-list-widget', 'description' => __( 'A widget that displays upcoming events.', 'tribe-events-calendar' ) );
 
@@ -22,11 +27,28 @@ if( !class_exists( 'TribeEventsListWidget' ) ) {
 			$this->WP_Widget( 'tribe-events-list-widget', __( 'Events List', 'tribe-events-calendar' ), $widget_ops, $control_ops );
 		}
 
-		function widget( $args, $instance ) {
+        /**
+         * The main widget output function.
+         *
+         * @param array $args
+         * @param array $instance
+         * @return string The widget output (html).
+         */
+        function widget( $args, $instance ) {
 			return $this->widget_output( $args, $instance );
 		}
 
-		function widget_output( $args, $instance, $template_name='list-widget', $subfolder = 'widgets', $namespace = '/', $pluginPath = '' ) {
+        /**
+         * The main widget output function (called by the class's widget() function).
+         *
+         * @param array $args
+         * @param array $instance
+         * @param string $template_name The template name.
+         * @param string $subfolder The subfolder where the template can be found.
+         * @param string $namespace The namespace for the widget template stuff.
+         * @param string $pluginPath The pluginpath so we can locate the template stuff.
+         */
+        function widget_output( $args, $instance, $template_name='list-widget', $subfolder = 'widgets', $namespace = '/', $pluginPath = '' ) {
 			global $wp_query, $tribe_ecp, $post;
 			extract( $args, EXTR_SKIP );
 			// The view expects all these $instance variables, which may not be set without pro
@@ -100,7 +122,14 @@ if( !class_exists( 'TribeEventsListWidget' ) ) {
 			wp_reset_query();
 		}
 
-		function update( $new_instance, $old_instance ) {
+        /**
+         * The function for saving widget updates in the admin section.
+         *
+         * @param array $new_instance
+         * @param array $old_instance
+         * @return array The new widget settings.
+         */
+        function update( $new_instance, $old_instance ) {
 				$instance = $old_instance;
 
 				/* Strip tags (if needed) and update the widget settings. */
@@ -111,7 +140,13 @@ if( !class_exists( 'TribeEventsListWidget' ) ) {
 				return $instance;
 		}
 
-		function form( $instance ) {
+        /**
+         * Output the admin form for the widget.
+         *
+         * @param array $instance
+         * @return string The output for the admin widget form.
+         */
+        function form( $instance ) {
 			/* Set up default widget settings. */
 			$defaults = array( 'title' => __( 'Upcoming Events', 'tribe-events-calendar' ), 'limit' => '5', 'no_upcoming_events' => false);
 			$instance = wp_parse_args( (array) $instance, $defaults );
@@ -123,7 +158,11 @@ if( !class_exists( 'TribeEventsListWidget' ) ) {
 	/* Add function to the widgets_ hook. */
 	add_action( 'widgets_init', 'events_list_load_widgets', 90 );
 
-	/* Function that registers widget. */
+	/**
+     * Function that registers widget.
+     *
+     * @return void
+	 */
 	function events_list_load_widgets() {
 		register_widget( 'TribeEventsListWidget' );
 	}
