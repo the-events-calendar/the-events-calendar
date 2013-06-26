@@ -343,8 +343,8 @@ h2.tribe-events-page-title,
 	color: #fff;
 }
 
-.tribe-events-calendar td.tribe-events-past .tribe_events a,
-.tribe-events-calendar td.tribe-events-past .tribe-events-viewmore a{
+.tribe-events-calendar td.tribe-events-past .tribe-events-month-event-title a, 
+.tribe-events-calendar td.tribe-events-past .tribe-events-viewmore a {
 	opacity: .5;
 	filter:Alpha(opacity=50);
 }
