@@ -6,6 +6,10 @@ Donate link: http://m.tri.be/29
 Requires at least: 3.6
 Tested up to: 3.5.2
 Stable tag: 3.0
+License: GPLv2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+
+The Events Calendar is a carefully crafted, extensible plugin that lets you easily share your events. Beautiful. Solid. Awesome.
 
 == Description ==
 
@@ -62,7 +66,7 @@ Looking for something else?
 * <a href="http://m.tri.be/2c">Events PRO</a>: recurring events, a whole range of new views (day / week / map / photo / venue / organizer) & widgets (calendar / featured venue / event countdown), custom event attributes, geolocation search and a lot more.
 * Sell tickets with <a href="http://m.tri.be/2f">WooCommerce</a> or <a href="http://m.tri.be/2e">Eventbrite</a>
 * <a href="http://m.tri.be/2h">Import events from Facebook</a> or let your <a href="http://m.tri.be/2g">users submit</a> from right on your website!
-* Have so many amazing events that your users get overwhelmed? Drop some <a href="TODO MAKE URL">filters</a> on them.
+* Have so many amazing events that your users get overwhelmed? Drop some filters on them with the <a href="http://tri.be/shop/wordpress-events-filter-bar?utm_campaign=in-app&utm_medium=plugin-tec&utm_source=readme" target="_blank">Filter Bar Plugin</a>.
 
 <a href="https://www.facebook.com/ModernTribeInc" target="_blank">Join us on Facebook</a> to be part of our active community, check us out <a href="https://twitter.com/ModernTribeInc/" target="_blank">on Twitter</a>, and <a href="http://m.tri.be/2k">sign up for our newsletter</a> for release announcements and discounts.
 
@@ -70,7 +74,7 @@ Looking for something else?
 
 Need to hack the plugin or build a new feature for a project? How about making that into an add-on plugin so other people who have been wishing for the same feature can take advantage!
 
-<a href="TODO MAKE URL">How to create an Add-On to The Events Calendar</a>
+Want to make an add-on? Check out <a href="https://github.com/moderntribe/tribe-events-agenda-view" target="_blank">Jessica's sample add-on plugin: Agenda View</a>!
 
 Send it to us and we would be <a href="mailto:pro@tri.be">happy to review it</a> and give you feedback! Then put it up on the .org repo for everyone to appreciate!
 
@@ -104,7 +108,7 @@ If you're unclear about the installation process or get stuck, check out our <a 
 5. Event List Admin
 6. Settings Panel
 
-== FAQ ==
+== Frequently Asked Questions ==
 
 = Are there any troubleshooting steps you'd suggest I try that might resolve my issue before I post a new thread? =
 
