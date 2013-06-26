@@ -51,10 +51,13 @@ jQuery( document ).ready( function ( $ ) {
 			function ( response ) {
 				$current_calendar.find( '.tribe-mini-calendar-list-wrapper' ).remove();
 				if ( response.success ) {
-					
-					var $the_content = $( response.html ).contents().filter(function() {return this.nodeType != 3;});
+					var $the_content = '';
+					if($.isFunction($.fn.parseHTML))
+						$the_content = $.parseHTML(response.html);
+					else
+						$the_content = response.html;
 					$current_calendar.find('.tribe-mini-calendar-nav div > span').removeClass('active').siblings('#ajax-loading-mini').hide();					
-					$current_calendar_wrapper.empty().html( response.html );				
+					$current_calendar_wrapper.empty().html( $the_content );
 					fix_widget_height();
 				}
 			}
