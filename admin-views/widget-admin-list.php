@@ -27,4 +27,4 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 
 </p>
 
-<p><small><em><?php printf( __('Want to modify the display of this widget? Try a %stemplate override%s.', 'tribe-events-calendar'), '<a href="http://tri.be/faq/what-are-template-overrides-and-how-do-i-do-them/?utm_medium=plugin-tec&utm_source=widget-admin&utm_campaign=in-app">', '</a>' ); ?></em></small></p>
+<p><small><em><?php printf( __('Want to modify the display of this widget? Try a %stemplate override%s.', 'tribe-events-calendar'), '<a href="' . TribeEvents::$tribeUrl . 'faq/what-are-template-overrides-and-how-do-i-do-them/?utm_medium=plugin-tec&utm_source=widget-admin&utm_campaign=in-app">', '</a>' ); ?></em></small></p>
