@@ -86,7 +86,7 @@ Currently, the following add-ons are available for The Events Calendar/Events Ca
 * <a href="http://m.tri.be/40">Eventbrite Tickets</a>, for selling tickets to your event directly through Eventbrite.
 * <a href="http://m.tri.be/3z">Community Events</a>, for allowing frontend event submission from your readers.
 * <a href="http://m.tri.be/3y">Facebook Events</a>, for importing events directly from an organization or page on Facebook.
-* <a href="http://m.tri.be/3-">Tickets: WooCommerce, for harnessing the power of WooCommerce to sell event tickets directly on your site without being subject to fees or relying on a third-party service.
+* <a href="http://m.tri.be/55">Tickets: WooCommerce</a>, for harnessing the power of WooCommerce to sell event tickets directly on your site without being subject to fees or relying on a third-party service.
 * Filter Bar (COMING SOON) for adding advanced frontend filtering capabilities to your events calendar.
 
 = I have a feature idea. What's the best way to tell you about it? =
