@@ -438,7 +438,7 @@
 			}
 		}
 
-		if (GeoLoc.map_view && $('form#tribe-bar-form').length) {
+		if (tt.map_view && $('form#tribe-bar-form').length && tt.live_ajax() && tt.pushstate) {
 			$('#tribe-events-bar').on('changeDate', '#tribe-bar-date', function (e) {
 				tribe_events_bar_mapajax_actions(e);
 			});
