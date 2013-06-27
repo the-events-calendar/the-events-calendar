@@ -238,7 +238,13 @@
 								debug.warn('Month view ajax had an error in the query and returned 0.');
 							}
 
-							$('#tribe-events-content').replaceWith(response.html);
+							var $the_content = '';
+							if($.isFunction($.fn.parseHTML))
+								$the_content = $.parseHTML(response.html);
+							else
+								$the_content = response.html;
+
+							$('#tribe-events-content').replaceWith($the_content);
 
 							ts.page_title = $('#tribe-events-header').data('title');
 							document.title = ts.page_title;
