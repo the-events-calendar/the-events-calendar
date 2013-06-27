@@ -1,5 +1,3 @@
-var calendar_filters;
-
 function calendar_toggle( wrapper ) {
 
 	jQuery( '.calendar-widget-filters-title' ).hide();
@@ -8,10 +6,10 @@ function calendar_toggle( wrapper ) {
 	if ( !wrapper )
 		wrapper = jQuery( ".calendar-widget-add-filter" ).last().parents( '.widget-content' );
 
-	if ( wrapper.find( '.calendar-widget-filter-list li' ).length === 0 )
-		calendar_filters = new Object();
+	var hidden = wrapper.find( '.calendar-widget-added-filters' );
+	var calendar_filters = hidden.val() ? jQuery.parseJSON( hidden.val() ) : new Object();
 
-	var count = get_term_count();
+	var count = get_term_count( calendar_filters );
 
 	if ( count > 0 ) {
 		wrapper.find( '.calendar-widget-filters-title' ).show();
@@ -21,7 +19,7 @@ function calendar_toggle( wrapper ) {
 	}
 }
 
-function get_term_count() {
+function get_term_count( calendar_filters ) {
 	var sum = 0;
 	for ( var tax in calendar_filters ) {
 		sum += calendar_filters[tax].length;
@@ -31,22 +29,23 @@ function get_term_count() {
 
 jQuery( document ).ready( function ( $ ) {
 
-	if ( !calendar_filters )
-		calendar_filters = new Object();
 
 	calendar_toggle();
-	
-	$('div.widgets-sortables').on('sortstop',function(){	
+
+	$( 'div.widgets-sortables' ).on( 'sortstop', function () {
 		// dirty moves	
-		if( $('div.widgets-sortables').find('select.calendar-widget-add-filter').length ) {
+		if ( $( 'div.widgets-sortables' ).find( 'select.calendar-widget-add-filter' ).length ) {
 			$( ".select2-container.calendar-widget-add-filter" ).remove();
-			setTimeout(function(){  $( "select.calendar-widget-add-filter" ).select2(); calendar_toggle(); }, 600);
+			setTimeout( function () {
+				$( "select.calendar-widget-add-filter" ).select2();
+				calendar_toggle();
+			}, 600 );
 		}
-	});
-	
+	} );
+
 	$( "select.calendar-widget-add-filter" ).select2();
-	
-	
+
+
 	$( "body" ).on( 'change', 'select.calendar-widget-add-filter', function ( e ) {
 
 		$( '.calendar-widget-filters-container' ).show();
@@ -63,6 +62,8 @@ jQuery( document ).ready( function ( $ ) {
 
 		if ( parseInt( term ) === 0 )
 			return;
+
+		var calendar_filters = hidden.val() ? $.parseJSON( hidden.val() ) : new Object();
 
 		if ( !calendar_filters[tax_id] )
 			calendar_filters[tax_id] = new Array();
@@ -91,6 +92,8 @@ jQuery( document ).ready( function ( $ ) {
 		var term_id = object.attr( 'data-term' );
 		var wrapper = object.parents( '.widget-content' );
 		var hidden = wrapper.find( '.calendar-widget-added-filters' );
+
+		var calendar_filters = hidden.val() ? $.parseJSON( hidden.val() ) : new Object();
 
 		if ( calendar_filters[tax_id] )
 			calendar_filters[tax_id].myremove( term_id );

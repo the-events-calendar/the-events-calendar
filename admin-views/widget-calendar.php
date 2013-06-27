@@ -58,7 +58,7 @@ if ( empty( $instance['filters'] ) ) {
 </div>
 <p>
 	<label><?php _e('Add a filter', 'tribe-events-calendar-pro'); ?>:
-		<select class="widefat calendar-widget-add-filter" id="<?php echo $this->get_field_id( 'selector' ); ?>">
+		<select class="widefat calendar-widget-add-filter" id="<?php echo $this->get_field_id( 'selector' ); ?>" data-storage="<?php echo $this->get_field_id( 'filters' ); ?>">
 			<?php
 			echo "<option value='0'>" . __( 'Select one...', 'tribe-events-calendar-pro' ) . "</option>";
 			foreach ( $taxonomies as $tax ) {
@@ -75,10 +75,6 @@ if ( empty( $instance['filters'] ) ) {
 </p>
 
 	<script type="text/javascript">
-
-		<?php if ( ! empty( $instance['filters'] ) ) { ?>
-		calendar_filters = <?php echo maybe_serialize( $instance['filters'] ); ?>;
-		<?php } ?>
 
 		calendar_toggle( jQuery( '.calendar-widget-filters-operand' ).last().parents( '.widget-content' ) );
 		jQuery( document ).ready( function ( $ ) {
