@@ -4162,7 +4162,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 			$tribe_paged = ( !empty( $_POST['tribe_paged'] ) ) ? intval( $_POST['tribe_paged'] ) : 1;
 
-			$args = array( 'eventDisplay'       => 'list',
+			$args = array( 'eventDisplay'       => 'upcoming',
 						   'post_type'          => TribeEvents::POSTTYPE,
 						   'post_status'        => 'publish',
 						   'paged'              => $tribe_paged );
