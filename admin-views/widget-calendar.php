@@ -74,9 +74,12 @@ if ( empty( $instance['filters'] ) ) {
 	</label>
 </p>
 
-<?php if ( ! empty( $instance['filters'] ) ) { ?>
 	<script type="text/javascript">
+
+		<?php if ( ! empty( $instance['filters'] ) ) { ?>
 		calendar_filters = <?php echo maybe_serialize( $instance['filters'] ); ?>;
+		<?php } ?>
+
 		calendar_toggle( jQuery( '.calendar-widget-filters-operand' ).last().parents( '.widget-content' ) );
 		jQuery( document ).ready( function ( $ ) {
 			if ( jQuery( 'div.widgets-sortables' ).find( 'select.calendar-widget-add-filter:not(#widget-tribe-mini-calendar-__i__-selector)' ).length ) {
@@ -88,4 +91,3 @@ if ( empty( $instance['filters'] ) ) {
 			}
 		} );
 	</script>
-<?php } ?>
