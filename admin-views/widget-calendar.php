@@ -76,13 +76,12 @@ if ( empty( $instance['filters'] ) ) {
 
 	<script type="text/javascript">
 
-		calendar_toggle( jQuery( '.calendar-widget-filters-operand' ).last().parents( '.widget-content' ) );
 		jQuery( document ).ready( function ( $ ) {
 			if ( jQuery( 'div.widgets-sortables' ).find( 'select.calendar-widget-add-filter:not(#widget-tribe-mini-calendar-__i__-selector)' ).length ) {
 				jQuery( ".select2-container.calendar-widget-add-filter" ).remove();
 				setTimeout( function () {
 					jQuery( "select.calendar-widget-add-filter:not(#widget-tribe-mini-calendar-__i__-selector)" ).select2();
-					calendar_toggle();
+					calendar_toggle_all();
 				}, 600 );
 			}
 		} );
