@@ -1183,8 +1183,8 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 * @since 2.0
 	 */
 	function tribe_calendar_grid()  {
-		_deprecated_function( __FUNCTION__, '3.0', 'tribe_show_calendar()' );
-		return tribe_show_calendar();
+		_deprecated_function( __FUNCTION__, '3.0', 'tribe_show_month()' );
+		return tribe_show_month();
 	}
 
 	/**
