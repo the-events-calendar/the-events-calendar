@@ -305,7 +305,13 @@
 
 							$('#tribe-events-list-hash').val(response.hash);
 
-							$('#tribe-events-content').replaceWith(response.html);
+							var $the_content = '';
+							if($.isFunction($.fn.parseHTML))
+								$the_content = $.parseHTML(response.html);
+							else
+								$the_content = response.html;
+
+							$('#tribe-events-content').replaceWith($the_content);
 							$('#tribe-events-content').prev('#tribe-events-list-hash').remove();
 							$('.tribe-events-promo').next('.tribe-events-promo').remove();
 
