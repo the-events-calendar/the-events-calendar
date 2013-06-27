@@ -74,15 +74,18 @@ if ( empty( $instance['filters'] ) ) {
 	</label>
 </p>
 
-<?php if ( !empty( $instance['filters'] ) ) { ?>
-<script type="text/javascript">
-	calendar_filters = <?php echo maybe_serialize( $instance['filters'] ); ?>;
-	calendar_toggle( jQuery( '.calendar-widget-filters-operand' ).last().parents( '.widget-content' ) );
-	jQuery(document).ready(function($){
-		if( jQuery('div.widgets-sortables').find('.calendar-widget-add-filter').length ) {
-			jQuery( ".select2-container.calendar-widget-add-filter" ).remove();
-			setTimeout(function(){  jQuery( ".calendar-widget-add-filter" ).select2(); calendar_toggle(); }, 600);
-		}
-	});
-</script>
+<?php if ( ! empty( $instance['filters'] ) ) { ?>
+	<script type="text/javascript">
+		calendar_filters = <?php echo maybe_serialize( $instance['filters'] ); ?>;
+		calendar_toggle( jQuery( '.calendar-widget-filters-operand' ).last().parents( '.widget-content' ) );
+		jQuery( document ).ready( function ( $ ) {
+			if ( jQuery( 'div.widgets-sortables' ).find( 'select.calendar-widget-add-filter:not(#widget-tribe-mini-calendar-__i__-selector)' ).length ) {
+				jQuery( ".select2-container.calendar-widget-add-filter" ).remove();
+				setTimeout( function () {
+					jQuery( "select.calendar-widget-add-filter:not(#widget-tribe-mini-calendar-__i__-selector)" ).select2();
+					calendar_toggle();
+				}, 600 );
+			}
+		} );
+	</script>
 <?php } ?>
