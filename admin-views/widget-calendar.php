@@ -58,7 +58,7 @@ if ( empty( $instance['filters'] ) ) {
 </div>
 <p>
 	<label><?php _e('Add a filter', 'tribe-events-calendar-pro'); ?>:
-		<select class="widefat calendar-widget-add-filter" id="<?php echo $this->get_field_id( 'selector' ); ?>">
+		<select class="widefat calendar-widget-add-filter" id="<?php echo $this->get_field_id( 'selector' ); ?>" data-storage="<?php echo $this->get_field_id( 'filters' ); ?>">
 			<?php
 			echo "<option value='0'>" . __( 'Select one...', 'tribe-events-calendar-pro' ) . "</option>";
 			foreach ( $taxonomies as $tax ) {
@@ -76,17 +76,12 @@ if ( empty( $instance['filters'] ) ) {
 
 	<script type="text/javascript">
 
-		<?php if ( ! empty( $instance['filters'] ) ) { ?>
-		calendar_filters = <?php echo maybe_serialize( $instance['filters'] ); ?>;
-		<?php } ?>
-
-		calendar_toggle( jQuery( '.calendar-widget-filters-operand' ).last().parents( '.widget-content' ) );
 		jQuery( document ).ready( function ( $ ) {
 			if ( jQuery( 'div.widgets-sortables' ).find( 'select.calendar-widget-add-filter:not(#widget-tribe-mini-calendar-__i__-selector)' ).length ) {
 				jQuery( ".select2-container.calendar-widget-add-filter" ).remove();
 				setTimeout( function () {
 					jQuery( "select.calendar-widget-add-filter:not(#widget-tribe-mini-calendar-__i__-selector)" ).select2();
-					calendar_toggle();
+					calendar_toggle_all();
 				}, 600 );
 			}
 		} );
