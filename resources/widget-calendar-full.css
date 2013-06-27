@@ -31,7 +31,6 @@
 	text-align     : center;
 	vertical-align : top;
 	border         : 1px solid #d2d2d2;
-	position: relative;	
 }
 
 .tribe-mini-calendar thead {
@@ -53,6 +52,7 @@
 	display : block;
 	text-decoration: none;
 	padding: 5px 5px 15px 5px;
+	position: relative;
 }
 
 .tribe-mini-calendar .tribe-events-has-events:hover {
