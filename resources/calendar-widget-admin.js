@@ -38,16 +38,16 @@ jQuery( document ).ready( function ( $ ) {
 	
 	$('div.widgets-sortables').on('sortstop',function(){	
 		// dirty moves	
-		if( $('div.widgets-sortables').find('.calendar-widget-add-filter').length ) {
+		if( $('div.widgets-sortables').find('select.calendar-widget-add-filter').length ) {
 			$( ".select2-container.calendar-widget-add-filter" ).remove();
-			setTimeout(function(){  $( ".calendar-widget-add-filter" ).select2(); calendar_toggle(); }, 600);
+			setTimeout(function(){  $( "select.calendar-widget-add-filter" ).select2(); calendar_toggle(); }, 600);
 		}
 	});
 	
-	$( ".calendar-widget-add-filter" ).select2();
+	$( "select.calendar-widget-add-filter" ).select2();
 	
 	
-	$( "body" ).on( 'change', '.calendar-widget-add-filter', function ( e ) {
+	$( "body" ).on( 'change', 'select.calendar-widget-add-filter', function ( e ) {
 
 		$( '.calendar-widget-filters-container' ).show();
 
