@@ -296,7 +296,6 @@ if( !class_exists('Tribe_Events_Month_Template')){
 			self::$current_week = -1;
 		}
 
-
 		/**
 		 * Returns the current day according to self::$current_day
 		 *
@@ -369,7 +368,7 @@ if( !class_exists('Tribe_Events_Month_Template')){
 		 * @return string Classes
 		 * @since 3.0
 		 **/
-		public static function event_classes() {
+		public function event_classes( $classes ) {
 
 			$day = self::get_current_day();
 			$post = $day['events']->post;
@@ -392,7 +391,7 @@ if( !class_exists('Tribe_Events_Month_Template')){
 				$classes[] = 'tribe-events-last';
 			}
 
-			return implode(' ', $classes);
+			return $classes;
 		}
 	} // class Tribe_Events_Month_Template
 }

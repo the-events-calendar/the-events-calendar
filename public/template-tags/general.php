@@ -420,41 +420,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 * @since 3.0
 	 **/
 	function tribe_events_event_classes() {
-		$current_view = basename(tribe_get_current_template());
-		$classes = array();
-		switch($current_view) {
-
-			case 'calendar.php' :
-			break;
-			case 'list.php' :
-			default :
-
-				global $wp_query, $post;
-
-				$classes = array_merge($classes, array( 'hentry', 'vevent', 'type-tribe_events', 'post-' . $post->ID, 'tribe-clearfix' ));
-				$tribe_cat_slugs = tribe_get_event_cat_slugs( $post->ID );
-				foreach( $tribe_cat_slugs as $tribe_cat_slug ) {
-					$classes[] = 'tribe-events-category-'. $tribe_cat_slug;
-				}
-				if ( $venue_id = tribe_get_venue_id( $post->ID ) ) {
-					$classes[] = 'tribe-events-venue-'. $venue_id;
-				}
-				if ( $organizer_id = tribe_get_organizer_id( $post->ID ) ) {
-					$classes[] = 'tribe-events-organizer-'. $organizer_id;
-				}
-				// added first class for css
-				if( ( $wp_query->current_post == 0 ) && !tribe_is_day() ) {
-					$classes[] = 'tribe-events-first';
-				}
-				// added last class for css
-				if( $wp_query->current_post == $wp_query->post_count-1 ) {
-					$classes[] = 'tribe-events-last';
-				}
-
-			break;
-
-		}
-		$classes = apply_filters('tribe_events_event_classes', $classes, $current_view);
+		$classes = apply_filters('tribe_events_event_classes', array());
 		echo implode(' ', $classes);
 	}
 
