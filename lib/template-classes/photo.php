@@ -25,7 +25,6 @@ if( !class_exists('Tribe_Events_Pro_Photo_Template')){
 
 		protected function hooks() {
 			parent::hooks();
-			add_filter( 'tribe_events_event_classes', array( $this, 'event_classes') );
 			add_filter( 'tribe_events_header_attributes',  array( $this, 'header_attributes') );
 		}
 
@@ -49,7 +48,8 @@ if( !class_exists('Tribe_Events_Pro_Photo_Template')){
 		 * @return array
 		 * @since 3.0
 		 **/
-		public function event_classes($classes) {
+		public function event_classes( $classes ) {
+			$classes = parent::event_classes( $classes );
 			$classes[] = 'tribe-events-photo-event';
 			return $classes;
 		}
