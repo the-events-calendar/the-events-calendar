@@ -377,7 +377,13 @@
 								'timestamp': new Date().getTime()
 							};
 
-							$('#tribe-events-content.tribe-events-week-grid').replaceWith(response.html);
+							var $the_content = '';
+							if($.isFunction($.fn.parseHTML))
+								$the_content = $.parseHTML(response.html);
+							else
+								$the_content = response.html;
+
+							$('#tribe-events-content.tribe-events-week-grid').replaceWith($the_content);
 
 							tribe_week_view_init(tribe_go_to_8(), false);
 

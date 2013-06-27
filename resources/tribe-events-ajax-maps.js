@@ -295,7 +295,13 @@
 
 					ts.initial_load = false;
 
-					$('#tribe-events-content').replaceWith(response.html);
+					var $the_content = '';
+					if($.isFunction($.fn.parseHTML))
+						$the_content = $.parseHTML(response.html);
+					else
+						$the_content = response.html;
+
+					$('#tribe-events-content').replaceWith($the_content);
 
 					if (response.view === 'map') {
 						if (response.max_pages == response.tribe_paged) {
