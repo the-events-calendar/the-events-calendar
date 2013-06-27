@@ -70,12 +70,12 @@ if( !class_exists('Tribe_Events_Single_Event_Template')){
 					'tribe_event_organizer'
 				));
 			$meta_group_templates = apply_filters('tribe_events_single_event_meta_group_templates', array(
-					'before'=>'<div class="%s"><dl>',
-					'after'=>'</dl></div>',
-					'label_before'=>'<h3 class="%s"><dt>',
-					'label_after'=>'</dt></h3>',
-					'meta_before'=>'',
-					'meta_after'=>''
+					'before'=>'<div class="%s">',
+					'after'=>'</div>',
+					'label_before'=>'<h3 class="%s">',
+					'label_after'=>'</h3>',
+					'meta_before'=>'<dl>',
+					'meta_after'=>'</dl>'
 				));
 
 			tribe_set_the_meta_template( $meta_group_template_keys, $meta_group_templates, 'meta_group');

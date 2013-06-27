@@ -177,6 +177,7 @@ h2.tribe-events-page-title,
 .tribe-events-list .tribe-events-loop .tribe-events-event-meta .recurringinfo {
 	padding-left: 0;
 	font-weight: normal;
+	vertical-align: top;
 }
 
 .tribe-events-list .time-details,
@@ -226,7 +227,6 @@ h2.tribe-events-page-title,
 	margin: 1em 0 1.5em;
 }
 .single-tribe_events .tribe-events-schedule .tribe-events-divider {
-	margin-right: .5em;
 	display: inline-block;
 	zoom: 1;
 	*display: inline;
