@@ -19,7 +19,7 @@ if( !class_exists('Tribe_Events_List_Template')){
 		protected $body_class = 'events-list';
 		protected $asset_packages = array( 'ajax-list' );
 
-		function hooks() {
+		protected function hooks() {
 			parent::hooks();
 			if ( tribe_is_showing_all() ) {
 				add_filter('tribe_get_template_part_path_modules/bar.php', '__return_false');
