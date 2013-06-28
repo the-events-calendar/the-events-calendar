@@ -104,7 +104,7 @@ jQuery( document ).ready( function ( $ ) {
 
 	/* "Delete Ticket" link action */
 
-	$( '.ticket_delete' ).live( 'click', function ( e ) {
+	$( '#tribetickets' ).on( 'click', '.ticket_delete', function ( e ) {
 
 		e.preventDefault();
 
@@ -137,7 +137,7 @@ jQuery( document ).ready( function ( $ ) {
 
 	/* "Edit Ticket" link action */
 
-	$( '.ticket_edit' ).live( 'click', function ( e ) {
+	$( '#tribetickets' ).on( 'click', '.ticket_edit', function ( e ) {
 
 		e.preventDefault();
 
