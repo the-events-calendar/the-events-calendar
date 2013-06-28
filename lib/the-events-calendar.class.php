@@ -2381,9 +2381,9 @@ if ( !class_exists( 'TribeEvents' ) ) {
 					$eventUrl = trailingslashit( $term_link );
 				}
 			} else if ( $term ) {
-				$term_link = get_term_link( (int)$term, self::TAXONOMY );
-				if ( ! is_wp_error($term_link) ) {
-					$eventUrl = trailingslashit( get_term_link( $term_link, self::TAXONOMY ) );
+				$term_link = get_term_link( (int) $term, self::TAXONOMY );
+				if ( ! is_wp_error( $term_link ) ) {
+					$eventUrl = trailingslashit( $term_link );
 				}
 			}
 
