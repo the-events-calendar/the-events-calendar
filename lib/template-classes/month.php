@@ -303,7 +303,7 @@ if( !class_exists('Tribe_Events_Month_Template')){
 		 * @since 3.0
 		 **/
 		public static function get_current_day() {
-			if ( count( self::$calendar_days ) && self::$current_day < count( self::$calendar_days ) ) {
+			if ( count( self::$calendar_days ) && self::$current_day < count( self::$calendar_days ) && isset( self::$calendar_days[self::$current_day] ) ) {
 				return self::$calendar_days[self::$current_day];
 			}
 			return false;
@@ -371,6 +371,10 @@ if( !class_exists('Tribe_Events_Month_Template')){
 		public function event_classes( $classes ) {
 
 			$day = self::get_current_day();
+
+			if ( !isset( $day['events'] ) )
+				return $classes;
+
 			$post = $day['events']->post;
 
 			// Get our wrapper classes (for event categories, organizer, venue, and defaults)
