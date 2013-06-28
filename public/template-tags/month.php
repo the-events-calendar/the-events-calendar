@@ -182,7 +182,7 @@ if( class_exists( 'TribeEvents' ) ) {
 	 * @since 3.0 
 	 **/
 	function tribe_events_the_month_single_event_classes() {
-		echo apply_filters('tribe_events_the_month_single_event_classes', Tribe_Events_Month_Template::event_classes());
+		echo apply_filters(  'tribe_events_the_month_single_event_classes', Tribe_Events_Month_Template::event_classes() );
 	}
 	
 
