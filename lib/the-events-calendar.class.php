@@ -3878,7 +3878,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 					$wp_admin_bar->add_menu( array(
 						'id' => 'tribe-events-settings-sub',
 						'title' => __( 'Events', 'tribe-events-calendar' ),
-						'href' => trailingslashit( get_admin_url() ) . 'edit.php?post_type=' . self::POSTTYPE . '&page=tribe-events-calendar',
+						'href' => trailingslashit( get_admin_url() ) . 'edit.php?post_type=' . self::POSTTYPE . '&amp;page=tribe-events-calendar',
 						'parent' => 'tribe-events-settings'
 					) );
 				}
@@ -3887,7 +3887,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 					$wp_admin_bar->add_menu( array(
 						'id' => 'tribe-events-help',
 						'title' => __( 'Help', 'tribe-events-calendar' ),
-						'href' => trailingslashit( get_admin_url() ) . 'edit.php?post_type=' . self::POSTTYPE . '&page=tribe-events-calendar&tab=help',
+						'href' => trailingslashit( get_admin_url() ) . 'edit.php?post_type=' . self::POSTTYPE . '&amp;page=tribe-events-calendar&amp;tab=help',
 						'parent' => 'tribe-events-settings-group'
 					) );
 				}
