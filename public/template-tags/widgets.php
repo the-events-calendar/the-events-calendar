@@ -1,7 +1,7 @@
 <?php 
 
 /**
- * Output a link for the mini calendar month previous nav, includes data attributes needed to update the month with ajax
+ * Output data attributes needed to update the month with ajax
  *
  * @return void
  * @since 3.0

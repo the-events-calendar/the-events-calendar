@@ -14,6 +14,11 @@ class TribeEventsMiniCalendar {
 		add_action( 'wp_ajax_tribe-mini-cal-day', array( $this, 'ajax_select_day' ) );
 		add_action( 'wp_ajax_nopriv_tribe-mini-cal-day', array( $this, 'ajax_select_day' ) );
 
+		// set up the list query
+		add_action( 'tribe_events_before_view', array( $this, 'setup_list') );
+
+		// enqueue the list view cleanup
+		add_action( 'tribe_events_after_view', array( $this, 'shutdown_list') );
 	}
 
 	/**
@@ -42,10 +47,10 @@ class TribeEventsMiniCalendar {
 	}
 
 	public function  ajax_select_day() {
+
 		$response = array( 'success' => false, 'html' => '', 'view' => 'mini-day' );
 
 		if ( isset( $_POST["nonce"] ) && isset( $_POST["eventDate"] ) && isset( $_POST["count"] ) ) {
-
 			if ( ! wp_verify_nonce( $_POST["nonce"], 'calendar-ajax' ) )
 				die();
 
@@ -62,11 +67,9 @@ class TribeEventsMiniCalendar {
 
 			ob_start();
 
-			$this->setup_list();
 			tribe_get_view('widgets/mini-calendar/list');
 
 			remove_action( 'pre_get_posts', array( $this, 'ajax_select_day_set_date' ) );
-
 
 			$response['html'] = ob_get_clean();
 
@@ -156,20 +159,11 @@ class TribeEventsMiniCalendar {
 		self::styles_and_scripts();
 
 		// widget setting for count is not 0
-		if ( $this->show_list ) {
-			// if we should show the list view, set up the query
-			add_action( 'tribe_pre_get_template_part_widgets/mini-calendar/list', array( $this, 'setup_list') );
-	
-			// enqueue the cleanup
-			add_action( 'tribe_post_get_template_part_widgets/mini-calendar/list', array( $this, 'shutdown_list') );
-		} else {
-			add_filter( 'tribe_get_template_part_path', array( $this, 'block_list_template_path' ), 10, 2 );
+		if ( ! $this->show_list ) {
+			add_filter( 'tribe_get_current_template', array( $this, 'block_list_template_path' ), 10, 2 );
 		}
 
-		tribe_show_month( array(
-			'tax_query' => $this->args['tax_query'],
-			'eventDate' => $this->args['eventDate'],
-		), 'widgets/mini-calendar-widget' );
+		tribe_get_view( 'widgets/mini-calendar-widget' );
 
 	}
 
@@ -224,46 +218,51 @@ class TribeEventsMiniCalendar {
 		wp_localize_script( 'tribe-mini-calendar', 'TribeMiniCalendar', $widget_data );
 	}
 
-	public function setup_list() {
+	public function setup_list( $template_file ) {
 
-		// make sure the widget taxonomy filter setting is respected
-		add_action( 'pre_get_posts', array( $this, 'set_count' ), 1000 );
+		if ( basename( dirname( $template_file ) ).'/'.basename( $template_file ) == 'mini-calendar/list.php' ) {
 
-		global $wp_query;
+			// make sure the widget taxonomy filter setting is respected
+			add_action( 'pre_get_posts', array( $this, 'set_count' ), 1000 );
 
-		// hijack the main query to load the events via provided $args
-		if ( !is_null( $this->args ) ) {
-			$this->reset_q = $wp_query;
-			$query_args = array( 
-							 'posts_per_page'               => $this->args['count'],
-		                     'tax_query'                    => $this->args['tax_query'],
-		                     'eventDisplay'                 => 'custom',
-		                     'start_date'					=> $this->get_month(),
-		                     'post_status'                  => array( 'publish' ),
-		                     'is_tribe_mini_calendar'       => true );
+			global $wp_query;
+
+			// hijack the main query to load the events via provided $args
+			if ( !is_null( $this->args ) ) {
+				$this->reset_q = $wp_query;
+				$query_args = array( 
+								 'posts_per_page'               => $this->args['count'],
+			                     'tax_query'                    => $this->args['tax_query'],
+			                     'eventDisplay'                 => 'custom',
+			                     'start_date'					=> $this->get_month(),
+			                     'post_status'                  => array( 'publish' ),
+			                     'is_tribe_mini_calendar'       => true );
 
 
-			// set end date if initial load, or ajax month switch
-			if ( ! defined( 'DOING_AJAX' ) || ( defined( 'DOING_AJAX' ) && $_POST['action'] == 'tribe-mini-cal' ) ) {
-				$query_args['end_date']	= substr_replace($this->get_month(), TribeDateUtils::getLastDayOfMonth( strtotime( $this->get_month() ) ), -2);
-				$query_args['end_date'] = TribeDateUtils::endOfDay($query_args['end_date']);
+				// set end date if initial load, or ajax month switch
+				if ( ! defined( 'DOING_AJAX' ) || ( defined( 'DOING_AJAX' ) && $_POST['action'] == 'tribe-mini-cal' ) ) {
+					$query_args['end_date']	= substr_replace($this->get_month(), TribeDateUtils::getLastDayOfMonth( strtotime( $this->get_month() ) ), -2);
+					$query_args['end_date'] = TribeDateUtils::endOfDay($query_args['end_date']);
+				}
+
+				$wp_query = TribeEventsQuery::getEvents( $query_args, true );
 			}
-
-			$wp_query = TribeEventsQuery::getEvents( $query_args, true );
 		}
 	}
 
-	public function shutdown_list($template) {
+	public function shutdown_list( $template_file ) {
 
-		// reset the global $wp_query
-		if ( !empty( $this->reset_q ) ) {
-			global $wp_query;
-			$wp_query = $this->reset_q;
+		if ( basename( dirname( $template_file ) ).'/'.basename( $template_file ) == 'mini-calendar/list.php' ) {
+			// reset the global $wp_query
+			if ( !empty( $this->reset_q ) ) {
+				global $wp_query;
+				$wp_query = $this->reset_q;
+			}
+
+			// stop paying attention to the widget count setting, we're done with it
+			remove_action( 'pre_get_posts', array( $this, 'set_count' ), 1000 );
+
 		}
-
-		// stop paying attention to the widget count setting, we're done with it
-		remove_action( 'pre_get_posts', array( $this, 'set_count' ), 1000 );
-
 	}
 
 	public function get_tax_query_from_widget_options( $filters, $operand ) {

@@ -13,12 +13,19 @@
 
 if ( !defined('ABSPATH') ) { die('-1'); } ?>
 
+<?php $args = tribe_events_get_mini_calendar_args(); ?>
+
 <div class="tribe-mini-calendar-wrapper">
 
 	<!-- Grid -->
-	<?php tribe_get_template_part('widgets/mini-calendar/grid') ?>
+	<?php 		
+
+		tribe_show_month( array(
+			'tax_query' => $args['tax_query'],
+			'eventDate' => $args['eventDate'],
+		), 'widgets/mini-calendar/grid' ); ?>
 
 	<!-- List -->
-	<?php tribe_get_template_part('widgets/mini-calendar/list') ?>
+	<?php tribe_get_view('widgets/mini-calendar/list'); ?>
 
 </div>
