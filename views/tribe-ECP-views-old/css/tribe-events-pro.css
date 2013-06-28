@@ -1,0 +1,364 @@
+/**
+ * The Events Calendar Pro Stylesheet
+ * (Some of these styles may override your current theme's styles)
+ *
+ * You can customize this stylesheet by putting a stylesheet of the same name
+ * (tribe-events-pro.css) in the events/pro/ directory of your theme.
+ *
+ * @package TribeEventsCalendarPro
+ * @since  1.0
+ * @author Modern Tribe Inc.
+ *
+ */
+ 
+ 
+/* = Day Grid & Week Grid Template Styles
+   @ Template: day.php & week.php
+=============================================*/
+
+/* can remove b/c of default body classes, but see how integrates
+
+some of this shit below can be removed as was using for WP page templates
+the ".page-id-#" needs to be updated to the correct body class for these two views
+
+below styles for these two views will need to be added to the /styles/ stylesheets once finalized
+	
+ */
+.tribe-events-grid {
+	font-family: "Helvetica Neue",Arial,Helvetica,"Nimbus Sans L",sans-serif;
+}
+
+.page-id-1049.page .entry-content, 
+.page-id-1049.page .entry-header, 
+.page-id-1051.page .entry-content,
+.page-id-1051.page .entry-header { width: 98%; }
+.page-id-1049.page .tribe-events-event-entry,
+.page-id-1051.page .tribe-events-event-entry { width: 60%; }
+.page-id-1049.page .hentry,
+.page-id-1051.page .hentry {
+	margin: 0;
+	padding: 0 0 15px 0;
+}
+.page-id-1049 .tribe-events-event-entry p,
+.page-id-1051 .tribe-events-event-entry p {
+	margin: 0;
+	font-size: 16px;
+	line-height: 24px;
+}
+.tribe-events-day-grid #tribe-events-calendar-header,
+.tribe-events-week-grid #tribe-events-calendar-header {
+	height: 50px;
+}
+
+
+table.tribe-events-grid {
+	margin: 18px 0 12px !important;
+	clear: both;
+	font-size: 12px;
+	border-collapse: collapse;
+}
+
+.page-id-1051 table.tribe-events-grid {
+	border: 1px solid #bbb;
+}
+.page-id-1051 .tribe-events-grid td {
+	border: 1px solid #bbb;
+	border-top: 0;
+	border-bottom: 0;
+}
+
+.tribe-events-grid th {
+	color: #333;
+	padding: 4px 0;
+	letter-spacing: 1px;
+}
+
+.page-id-1051 .tribe-events-grid th {
+	/*width: 250px;*/
+	width: auto;
+	height: 10px;
+	background-color: #ddd;
+	text-align: center;
+	text-transform: uppercase;
+}
+.page-id-1051 .tribe-events-grid th a {
+	color: #333;
+}
+
+
+
+
+
+
+/* = Day Grid Template Styles
+   @ Template: day.php
+=============================================*/
+
+.page-id-1049 table.tribe-events-grid {
+	border: 0;
+}
+.page-id-1049 .tribe-events-grid th {
+	text-transform: capitalize;
+	text-align: left;
+	font-size: 21px;
+}
+
+
+/* the rest */
+.page-id-1049 .tribe-events-grid td {
+	border: 0;
+}
+.tribe-events-grid tbody p {
+	margin-bottom: 0;
+}
+.tribe-events-grid h3 {
+	text-transform: uppercase;
+	font-weight: bold;
+	font-size: 12px;
+	margin-top: 2%;
+}
+.page-id-1049 .tribe-events-grid .hentry.vevent {
+	background-color: #ddd;
+	padding: 18px;
+	margin: 8px 0;
+	overflow: auto;
+	position: relative;
+}
+.tribe-events-grid h4.summary {
+	font-size: 18px;
+	font-weight: bold;
+	line-height: 1em;
+	padding: 0 125px 0 0;
+	margin-bottom: 8px;
+}
+.tribe-events-grid h4.summary a {
+	color: #333;
+}
+.tribe-events-grid p.published {
+	font-size: 18px;
+	font-weight: bold;
+	line-height: 1em;
+	position: absolute;
+	top: 18px;
+	right: 18px;
+}
+.tribe-events-grid .entry-content.description {
+	margin-top: 4px;
+	width: auto;
+	padding: 0;
+}
+.tribe-events-grid .tribe-events-grid-meta {
+	list-style-type: none;
+	margin: 4px 0 0;
+}
+.tribe-events-grid .tribe-events-grid-meta li {
+	display: inline-block;
+	zoom: 1;
+	*display: inline;
+}
+
+
+/* = Week Grid Template Styles
+   @ Template: week.php
+=============================================*/
+
+.tribe-events-week-grid .tribe-events-grid td {
+	padding: 0;
+}
+
+.tribe-events-grid .first {
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+}
+
+/* Week view overall table styles */
+.page-id-1051 .tribe-events-grid {
+	table-layout: fixed;
+	width: 100%:
+}
+
+.page-id-1051 thead .tribe-grid-first {
+	width: 60px;
+}
+.page-id-1051 thead .tribe-grid-today {
+	
+}
+
+/* All day / Multi day events */
+.tribe-week-allday-row td[colspan="7"] > div {
+	position: relative;
+}
+.tribe-week-allday-row table {
+	margin: 0; 
+	position: relative; 
+	table-layout: fixed; 
+	width: 100%;
+	border: 0;
+}
+
+.tribe-events-week-grid .tribe-week-allday-row table td { 
+	padding: 20px 0;
+	border: 0;
+}
+.tribe-events-week-grid .tribe-week-allday-th div { 
+	text-align: right;
+	padding-right: 6px;
+	text-transform: uppercase;
+	font-weight: bold;
+	padding-top: 28px;
+	font-size: 10px;
+}
+.tribe-week-allday-row table td .hentry.vevent { 
+	background-color: #ddd; 
+	padding: 6px; 
+	margin: 0 4px;
+}
+.tribe-week-allday-row table .hentry.vevent a {
+ 	color: #333;
+ 	font-size: 12px;
+ 	line-height: 1.25;
+ 	padding: 0;
+}
+
+/* Week view grid background */
+.tribe-week-grid-outer-wrap {
+	position: relative;
+}
+.tribe-week-grid-inner-wrap {
+	position: absolute;
+	width: 100%;
+}
+.tribe-week-grid-block {
+	height: 60px;
+}
+.tribe-week-grid-block div {
+	height: 30px; 
+	margin-bottom: 30px; 
+	border-bottom: 1px dotted #ddd; 
+	border-top: 1px solid #ddd;
+}
+
+/* Hour bits */			
+.tribe-week-grid-hours div {
+	height: 60px;
+	text-align: right;
+	padding-right: 6px;
+	text-transform: uppercase;
+	font-weight: bold;
+	font-size: 10px;
+	position: relative;
+	bottom: 8px;
+}
+
+/* Actual Event Styles */
+.tribe-week-grid-col-inner-wrap {
+	position: relative; 
+	height: 0;
+}
+.tribe-week-grid-event-wrap.hentry.vevent {
+ 	top:4px;
+ 	left: 0;
+ 	width:100%;
+ 	position: absolute;
+ 	padding: 0;
+}
+.tribe-week-grid-event-wrap:hover {
+	z-index: 800;
+	background-color: rgba(221, 221, 221, .85);
+}
+.tribe-week-grid-event-wrap.hentry.vevent a {
+ 	color: #333;
+ 	font-size: 12px;
+ 	line-height: 1.25;
+ 	padding: 0;
+}
+.tribe-week-grid-event-wrap div {
+ 	height:30px; 
+ 	background-color: #ddd;
+ 	background-color: rgba(221, 221, 221, .75);
+ 	overflow: hidden; 
+ 	font-weight: bold; 
+ 	margin: 0 4px 0; 
+	line-height: 1.25; 
+ 	padding: 4% 4% 0;
+}
+/* Overlapping Events */
+.tribe-event-overlapping {
+ 	z-index: 500;
+}
+/* Same Time Events */					 
+.tribe-event-same-time {
+ 	z-index: 500;
+}
+
+/* Specific Classes */
+.tribe-week-today {
+	background-color: #f9f9f9;
+}
+
+
+
+ 
+/* = Related Events
+=============================================*/
+.related-events-title {
+	color: #666;
+}
+ul.related-events {
+	display: block;
+	margin: 0;
+}
+ul.related-events li {
+	display: block;
+	min-width: 160px;
+	vertical-align: text-bottom;
+	position: relative;
+	float: left;
+	list-style-type: none;
+}
+.related-event-date {
+	font-size: .75em;
+	text-transform: uppercase;
+}
+ 
+ 
+/* = Events Countdown Widget
+=============================================*/
+.tribe-countdown-timer span.tribe-countdown-seconds,
+.tribe-countdown-timer span.format, 
+.tribe-countdown-timer span.tribe-countdown-complete {
+	display: none;
+}
+div.tribe-countdown-timer {
+	text-align: center;
+	line-height: 1.5em;
+	padding-top: 10px;
+}
+div.tribe-countdown-number {
+	float: left;
+	color: #000;
+	font-size: 2.4em;
+}
+span.tribe-countdown-under {
+	font-size: 10px;
+	color: #666;
+	text-transform: uppercase;
+	font-weight: 500;
+}
+div.tribe-countdown-colon {
+	float: left;
+	color: #666;
+	font-size: 1.5em;
+	padding: 0 4px;
+}
+div.tribe-countdown-right {
+	float: left;
+}
+div.tribe-countdown-text {
+	clear: both;
+}

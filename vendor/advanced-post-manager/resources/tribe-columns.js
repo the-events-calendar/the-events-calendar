@@ -24,8 +24,13 @@ jQuery(document).ready(function($) {
 	activeList.delegate(".close", "click", function() {
 		var active = $(this).parent();
 		$(this).remove();
-		var value = active.find("input").val(),
-		name = active.text(),
+		var value = active.find("input").val();
+		var name = active.text();
+
+		if ( value == 'comments' ) {
+			name = 'Comments';
+		}
+
 		option = $('<option></option>').val(value).text(name);
 		
 		option.appendTo(dropdown);

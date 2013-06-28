@@ -1,4 +1,6 @@
+.DS_Store
+.idea
+# build files for js minification
 
-# /
-
-# /vendor/
+compiler.jar
+*.ps1

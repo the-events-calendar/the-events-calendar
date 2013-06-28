@@ -12,7 +12,7 @@ if ( is_array($organizers) && !empty($organizers) ) {
 $venues = TribeEvents::instance()->get_venue_info();
 $venue_options = array();
 if ( is_array($venues) && !empty($venues) ) {
-	$venue_options[0] = __('Use New Venue/No Default', 'tribe-events-calendar-pro');
+	$venue_options[0] = __('No Default', 'tribe-events-calendar-pro');
 	foreach ($venues as $venue) {
 		$venue_options[$venue->ID] = $venue->post_title;
 	}
@@ -32,15 +32,23 @@ $defaultsTab = array(
 		),
 		'info-box-title' => array(
 			'type' => 'html',
-			'html' => '<h2>' . __('Customize Defaults', 'tribe-events-calendar-pro') . '</h2>',
+			'html' => '<h2>' . __('Default Content', 'tribe-events-calendar-pro') . '</h2>',
 		),
 		'info-box-description' => array(
 			'type' => 'html',
-			'html' => '<p>' . __('Set values for event organizers & venues that appear pre-populated in the event editor whenever you create a new event. This helps save time in situations where the venue or organizer rarely changes, saving you from having to manually re-enter the data each time you create an event.</p><p>It\'s worth noting that these can be overridden on the event creation screen; if a venue and organizer are pre-populated but you wants to change to something else, use the dropdown to either select another existing venue/organizer, or manually enter the details of a new one.', 'tribe-events-calendar-pro') . '</p>',
+			'html' => '<p>' . __('<p>Choose the default venue & organizer. Set default address information to save time when entering a new venue or organizer.</p><p>You can override these settings as you enter a new event.</p>', 'tribe-events-calendar-pro') . '</p>',
 		),
 		'info-end' => array(
 			'type' => 'html',
 			'html' => '</div>',
+		),
+		'tribe-form-content-start' => array(
+			'type' => 'html',
+			'html' => '<div class="tribe-settings-form-wrap">',
+		),
+		'eventsDefaultOptionsHelperTitle' => array(
+			'type' => 'html',
+			'html' => '<h3>' . __('Options', 'tribe-events-calendar-pro') . '</h3>',
 		),
 		'defaultValueReplace' => array(
 			'type' => 'checkbox_bool',
@@ -48,9 +56,17 @@ $defaultsTab = array(
 			'default' => false,
 			'validation_type' => 'boolean',
 		),
+		'defaultValueReplaceHelper' => array(
+			'type' => 'html',
+			'html' => '<p style="margin-top:-15px;" class="tribe-field-indent tribe-field-description description">' . __( 'Check this box to have the organizer and venue fields pre-populated with the default values below for any new event that is created.', 'tribe-events-calendar-pro' ) . '</p>'
+		),
+		'eventsDefaultOrganizerHelperTitle' => array(
+			'type' => 'html',
+			'html' => '<h3>' . __('Organizer', 'tribe-events-calendar-pro') . '</h3>',
+		),
 		'eventsDefaultOrganizerID' => array(
 			'type' => 'dropdown_chosen',
-			'label' => __('Default Organizer','tribe-events-calendar-pro'),
+			'label' => __('Default organizer','tribe-events-calendar-pro'),
 			'default' => false,
 			'validation_type' => 'options',
 			'options' => $organizer_options,
@@ -61,9 +77,13 @@ $defaultsTab = array(
 			'type' => 'html',
 			'display_callback' => 'tribe_display_saved_organizer',
 		),
+		'eventsDefaultVenueHelperTitle' => array(
+			'type' => 'html',
+			'html' => '<h3>' . __('Venue', 'tribe-events-calendar-pro') . '</h3>',
+		),
 		'eventsDefaultVenueID' => array(
 			'type' => 'dropdown_chosen',
-			'label' => __('Default Venue','tribe-events-calendar-pro'),
+			'label' => __('Default venue','tribe-events-calendar-pro'),
 			'default' => false,
 			'validation_type' => 'options',
 			'options' => $venue_options,
@@ -74,9 +94,17 @@ $defaultsTab = array(
 			'type' => 'html',
 			'display_callback' => 'tribe_display_saved_venue',
 		),
+		'eventsDefaultAddressHelperTitle' => array(
+			'type' => 'html',
+			'html' => '<h3>' . __('Address', 'tribe-events-calendar-pro') . '</h3>',
+		),
+		'eventsDefaultAddressHelperText' => array(
+			'type' => 'html',
+			'html' => '<p class="description">' . __('You can use this setting to set specific, individual defaults for any new Venue you create (these will not be used for your default venue).', 'tribe-events-calendar-pro') . '</p>',
+		),
 		'eventsDefaultAddress' => array(
 			'type' => 'text',
-			'label' => __('Default Address','tribe-events-calendar-pro'),
+			'label' => __('Default address','tribe-events-calendar-pro'),
 			'default' => false,
 			'class' => 'venue-default-info',
 			'validation_type' => 'address',
@@ -89,7 +117,7 @@ $defaultsTab = array(
 		),
 		'eventsDefaultCity' => array(
 			'type' => 'text',
-			'label' => __('Default City','tribe-events-calendar-pro'),
+			'label' => __('Default city','tribe-events-calendar-pro'),
 			'default' => false,
 			'class' => 'venue-default-info',
 			'validation_type' => 'city_or_province',
@@ -102,7 +130,7 @@ $defaultsTab = array(
 		),
 		'eventsDefaultState' => array(
 			'type' => 'dropdown_chosen',
-			'label' => __('Default State','tribe-events-calendar-pro'),
+			'label' => __('Default state','tribe-events-calendar-pro'),
 			'default' => false,
 			'class' => 'venue-default-info',
 			'validation_type' => 'options',
@@ -115,7 +143,7 @@ $defaultsTab = array(
 		),
 		'eventsDefaultProvince' => array(
 			'type' => 'text',
-			'label' => __('Default Province','tribe-events-calendar-pro'),
+			'label' => __('Default province','tribe-events-calendar-pro'),
 			'default' => false,
 			'class' => 'venue-default-info',
 			'validation_type' => 'city_or_province',
@@ -128,7 +156,7 @@ $defaultsTab = array(
 		),
 		'eventsDefaultZip' => array(
 			'type' => 'text',
-			'label' => __('Default Postal Code/Zip Code','tribe-events-calendar-pro'),
+			'label' => __('Default postal code/zip code','tribe-events-calendar-pro'),
 			'default' => false,
 			'class' => 'venue-default-info',
 			'validation_type' => 'address', // allows for letters, numbers, dashses and spaces only
@@ -141,7 +169,7 @@ $defaultsTab = array(
 		),
 		'defaultCountry' => array(
 			'type' => 'dropdown_chosen',
-			'label' => __('Default Country','tribe-events-calendar-pro'),
+			'label' => __('Default country','tribe-events-calendar-pro'),
 			'default' => false,
 			'class' => 'venue-default-info',
 			'validation_type' => 'options_with_label',
@@ -154,7 +182,7 @@ $defaultsTab = array(
 		),
 		'eventsDefaultPhone' => array(
 			'type' => 'text',
-			'label' => __('Default Phone','tribe-events-calendar-pro'),
+			'label' => __('Default phone','tribe-events-calendar-pro'),
 			'default' => false,
 			'class' => 'venue-default-info',
 			'validation_type' => 'phone',
@@ -172,6 +200,10 @@ $defaultsTab = array(
 			'validation_type' => 'country_list',
 			'tooltip' => __('One country per line in the following format: <br>US, United States <br> UK, United Kingdom. <br> (Replaces the default list.)', 'tribe-events-calendar-pro'),
 			'can_be_empty' => true,
+		),
+		'tribe-form-content-end' => array(
+			'type' => 'html',
+			'html' => '</div>',
 		),
 	)
 );

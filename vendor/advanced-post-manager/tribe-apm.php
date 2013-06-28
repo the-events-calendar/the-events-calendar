@@ -4,7 +4,7 @@
  Description:  Dialing custom post types to 11 with advanced filtering controls.
  Version: 1.0.9
  Author: Modern Tribe, Inc.
- Author URI: http://tri.be
+ Author URI: http://m.tri.be/4n
  Text Domain: tribe-apm
  */
 
@@ -19,17 +19,17 @@ class Tribe_APM {
 	protected $args;
 	protected $metaboxes;
 	protected $url;
-	
+
 	public $columns; // holds a Tribe_Columns object
 	public $filters; // holds a Tribe_Filters object
-	
+
 	public $post_type;
 	public $add_taxonomies = true; // Automatically add filters/cols for registered taxonomies?
 	public $do_metaboxes = true;
 	public $export = false; // Show export button? (Currently does nothing)
-	
+
 	// CONSTRUCTOR
-	
+
 	/**
 	 * Kicks things off
 	 * @param $post_type What post_type to enable filters for
@@ -48,13 +48,13 @@ class Tribe_APM {
 		add_action( 'tribe_cpt_filters_init', array($this, 'maybe_add_taxonomies'), 10, 1 );
 		add_filter( 'tribe_apm_resources_url', array($this, 'resources_url') );
 	}
-	
+
 	// PUBLIC METHODS
-	
-	
+
+
 	/**
 	 * Add some additional filters/columns
-	 * 
+	 *
 	 * @param $filters multidimensional array of filter/column arrays
 	 */
 	public function add_filters($filters = array() ) {
@@ -62,7 +62,7 @@ class Tribe_APM {
 			$this->args = array_merge($this->args, $filters);
 		}
 	}
-	
+
 	// CALLBACKS
 
 	public function init() {
@@ -82,10 +82,10 @@ class Tribe_APM {
 		add_action( 'admin_notices', array($this, 'maybe_show_filters') );
 		add_action( 'admin_enqueue_scripts', array($this, 'maybe_enqueue') );
 	}
-	
+
 	public function resources_url($resource_url) {
 		return trailingslashit( $this->url ) . 'resources/';
-	} 
+	}
 
 	public function init_meta_box() {
 		if ( ! $this->do_metaboxes )
@@ -108,7 +108,7 @@ class Tribe_APM {
 				);
 			}
 		}
-		
+
 		$tribe_cpt_filters->add_filters($args);
 	}
 
@@ -124,17 +124,17 @@ class Tribe_APM {
 			include 'views/edit-filters.php';
 		}
 	}
-	
+
 	// UTLITIES AND INTERNAL METHODS
-	
+
 	protected function get_filter_args() {
 		return $this->filter_disabled($this->args, 'filters');
 	}
-	
+
 	protected function get_column_args() {
 		return $this->filter_disabled($this->args, 'columns');
 	}
-	
+
 	/**
 	 * Filter out an array of args where children arrays have a disable key set to $type
 	 *
@@ -145,7 +145,7 @@ class Tribe_APM {
 	protected function filter_disabled($args, $type) {
 		return $this->filter_on_key_value($args, $type, 'disable');
 	}
-	
+
 	protected function filter_on_key_value($args, $type, $filterkey) {
 		foreach ( $args as $key => $value ) {
 			if ( isset($value[$filterkey]) && in_array($type, (array) $value[$filterkey]) ) {
@@ -154,7 +154,7 @@ class Tribe_APM {
 		}
 		return $args;
 	}
-	
+
 	protected function only_meta_filters($args) {
 		foreach ( $args as $k => $v ) {
 			if ( ! isset($v['meta']) ) {
@@ -163,15 +163,15 @@ class Tribe_APM {
 		}
 		return $this->filter_disabled($args, 'metabox');
 	}
-	
+
 	protected function is_active() {
 		$desired_screen = 'edit-'.$this->post_type;
-		
+
 		// Exit early on autosave
 		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
 			return false;
 		}
-		
+
 		// Inline save?
 		if ( defined( 'DOING_AJAX') && DOING_AJAX && isset($_POST['screen']) && $desired_screen === $_POST['screen'] ) {
 			return true;

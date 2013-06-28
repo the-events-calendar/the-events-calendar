@@ -11,8 +11,7 @@ class TribeEventsCustomMeta {
 	public static function init() {
 		add_action( 'wp_ajax_remove_option', array(__CLASS__, 'remove_meta_field') );
 		add_action( 'tribe_settings_after_content_tab_additional-fields', array( __CLASS__, 'event_meta_options' ) );
-  	add_action( 'tribe_events_details_table_bottom', array(__CLASS__, 'single_event_meta') );
-		add_action( 'tribe_community_events_details_table_bottom', array(__CLASS__, 'single_event_meta') );
+		add_action( 'tribe_events_details_table_bottom', array(__CLASS__, 'single_event_meta') );
 		add_action( 'tribe_events_update_meta', array(__CLASS__, 'save_single_event_meta') );
 		add_filter( 'tribe_settings_validate_tab_additional-fields', array( __CLASS__, 'force_save_meta' ) );	
 	}
@@ -69,7 +68,8 @@ class TribeEventsCustomMeta {
 			
 			$events_event_meta_template = TribeEventsPro::instance()->pluginPath . 'admin-views/event-meta.php';
 			$events_event_meta_template = apply_filters('tribe_events_event_meta_template', $events_event_meta_template);
-			include( $events_event_meta_template );
+			if( !empty($events_event_meta_template) )
+				include( $events_event_meta_template );
     }
 
 	/**
@@ -107,11 +107,13 @@ class TribeEventsCustomMeta {
 
 	/**
 	 * save_meta_options
-	 * 
+	 *
 	 * saves the custom field configuration (what custom fields exist for events)
-	 * 
-	 * @return void
-	 */	
+	 *
+	 * @param $ecp_options
+	 *
+	 * @return array
+	 */
 	public static function save_meta_options($ecp_options) {
 		$count = 1;
 		$ecp_options['custom-fields'] = array();
@@ -123,8 +125,11 @@ class TribeEventsCustomMeta {
 			$name = strip_tags( $_POST['custom-field'][$i] );
 			$type = strip_tags( $_POST['custom-field-type'][$i] );
 			$values = strip_tags( $_POST['custom-field-options'][$i] );
-		
-		
+
+			// Remove empty lines
+			$values = preg_replace( "/(^[\r\n]*|[\r\n]+)[\s\t]*[\r\n]+/", "\r\n", $values );
+			$values = rtrim( $values );
+
 		/*while( isset($_POST['custom-field-' . $count]) ) {
 			$name = strip_tags($_POST['custom-field-' . $count]);
 			$type = strip_tags($_POST['custom-field-type-' . $count]);
