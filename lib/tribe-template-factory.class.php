@@ -307,13 +307,52 @@ if( !class_exists('Tribe_Template_Factory') ) {
 		 **/
 		public function shutdown_view() {
 
+			$this->unhook();
+
+		}
+
+		/**
+		 * Unhook all the hooks set up on this view
+		 *
+		 * @return void
+		 * @author 
+		 **/
+		protected function unhook() {
+
 			// reset the excerpt
-			if (is_int($this->excerpt_length)) {
-				remove_filter( 'excerpt_length', array($this, 'excerpt_length'));
+			if ( is_int( $this->excerpt_length ) ) {
+				remove_filter( 'excerpt_length', array( $this, 'excerpt_length' ) );
 			}
-			if (is_string($this->excerpt_more)) {
-				remove_filter( 'excerpt_more', array($this, 'excerpt_more'));
+			if ( is_string( $this->excerpt_more ) ) {
+				remove_filter( 'excerpt_more', array( $this, 'excerpt_more' ) );
 			}
+
+			// set up queries, vars, etc that needs to be used in this view
+			remove_action( 'tribe_events_before_view', array( $this, 'setup_view') );
+
+			// set notices
+			remove_action( 'tribe_events_before_view', array( $this, 'set_notices') );
+
+			// set up meta used in this view
+			remove_action( 'tribe_events_before_view', array( $this, 'setup_meta') );
+
+			// cleanup after view (reset query, etc)
+			remove_action( 'tribe_events_after_view', array( $this, 'shutdown_view' ) );
+
+			// add wrapper html and input hash to non-ajax request
+			remove_action( 'tribe_events_before_template', array( $this, 'view_wrapper_open' ) );
+			remove_filter( 'tribe_events_before_template', array( $this, 'add_input_hash' ) );
+			remove_action( 'tribe_events_after_template', array( $this, 'view_wrapper_close' ) );
+
+			// hide sensitive event info if post is password protected
+			remove_action( 'the_post', array( $this, 'manage_sensitive_info' ) );
+
+			// add body class
+			remove_filter( 'body_class', array($this, 'body_class') );
+
+			// event classes 
+			remove_filter( 'tribe_events_event_classes', array( $this, 'event_classes' ) );
+
 		}
 
 		/**
