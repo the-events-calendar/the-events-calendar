@@ -333,7 +333,7 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 					if ( is_null( self::$events->hours['end'] ) || $end_hour > self::$events->hours['end'] ) {
 						self::$events->hours['end'] = $end_hour;
 					}
-					self::$events->hourly[ $event->ID ] = $event;
+					self::$events->hourly[ $event_key_id ] = $event;
 				}
 			}		
 		}
