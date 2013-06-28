@@ -17,7 +17,7 @@ foreach ($venues as $venue )
 <?php } ?>
 </select>
 </p>
-<p><label for="<?php echo $this->get_field_id( 'count' ); ?>"><?php _e('Number of events to show:','tribe-events-calendar-pro');?>
+<p><label for="<?php echo $this->get_field_id( 'count' ); ?>"><?php _e('Number of events to show:','tribe-events-calendar-pro');?></label>
 <select class="widefat" id="<?php echo $this->get_field_id('count'); ?>" name="<?php echo $this->get_field_name('count'); ?>" value="<?php echo $instance['count']; ?>" >
 <?php for ($i=1; $i<=10; $i++)
 	{ ?>
