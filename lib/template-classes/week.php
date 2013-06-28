@@ -133,6 +133,8 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 					if ( in_array( $event->ID, self::$daily_span_ids ) && date( 'Y-m-d', strtotime( $event->EventEndDate ) ) == self::get_current_date() ) {
 						// if the event is longer than a day we want to account for that with an offset for the ending time
 						$duration = abs( ( strtotime( self::get_current_date() ) - strtotime( $event->EventEndDate ) ) / 60 );
+						$event_span_index = array_search( $event->ID, self::$daily_span_ids );
+						unset( self::$daily_span_ids[$event_span_index] );
 					} else if (
 						( in_array( $event->ID, self::$daily_span_ids ) && date( 'Y-m-d', strtotime( $event->EventEndDate ) ) > self::get_current_date() ) ||
 						( date( 'Y-m-d', strtotime( $event->EventStartDate ) ) <= date( 'Y-m-d', strtotime( self::$start_of_week_date ) ) )
