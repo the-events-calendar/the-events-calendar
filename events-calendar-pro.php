@@ -95,7 +95,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			// Tribe common resources
 			require_once( 'vendor/tribe-common-libraries/tribe-common-libraries.class.php' );
 			TribeCommonLibraries::register( 'advanced-post-manager', '1.0.5', $this->pluginPath . 'vendor/advanced-post-manager/tribe-apm.php' );
-			TribeCommonLibraries::register( 'related-posts', '1.1', $this->pluginPath. 'vendor/tribe-related-posts/tribe-related-posts.php' );
+			TribeCommonLibraries::register( 'related-posts', '1.1', $this->pluginPath. 'vendor/tribe-related-posts/tribe-related-posts.class.php' );
 
 			//TribeCommonLibraries::register( 'tribe-support', '0.1', $this->pluginPath . 'vendor/tribe-support/tribe-support.class.php' );
 
@@ -680,6 +680,10 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		public function helpersLoaded() {
 			remove_action( 'widgets_init', 'tribe_related_posts_register_widget' );
 			require_once( 'lib/apm_filters.php' );
+			if ( class_exists( 'TribeRelatedPosts' ) ) {
+				TribeRelatedPosts::instance();
+				require_once( 'vendor/tribe-related-posts/template-tags.php' );
+			}
 		}
 
 		/**
