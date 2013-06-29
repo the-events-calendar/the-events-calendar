@@ -76,7 +76,7 @@ if( class_exists( 'TribeEvents' ) ) {
 	 */
 	function tribe_is_upcoming()  {
 		global $wp_query;
-		$is_upcoming = $wp_query->query_vars['eventDisplay'] == 'upcoming' ? true : false;
+		$is_upcoming = ( isset( $wp_query->query_vars['eventDisplay'] ) && $wp_query->query_vars['eventDisplay'] == 'upcoming' ) ? true : false;
 		return apply_filters('tribe_is_upcoming', $is_upcoming );
 	}
 	
