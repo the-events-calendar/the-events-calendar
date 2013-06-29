@@ -442,8 +442,8 @@ if( !class_exists('Tribe_Template_Factory') ) {
 					break;
 				case 'chosen' : // Vendor: jQuery Chosen
 					$deps = array_merge( $deps, array( 'jquery' ) );
-					$css_path = self::getMinFile( $vendor_url . 'chosen/chosen/chosen.css', true );
-					$path = self::getMinFile( $vendor_url . 'chosen/chosen/chosen.jquery.js', true );
+					$css_path = self::getMinFile( $vendor_url . 'chosen/public/chosen.css', true );
+					$path = self::getMinFile( $vendor_url . 'chosen/public/chosen.jquery.js', true );
 					wp_enqueue_style( $prefix . '-chosen-style',$css_path );
 					wp_enqueue_script( $prefix . '-chosen-jquery', $path, $deps, '0.9.5', false );
 					self::$vendor_scripts[] = $prefix . '-chosen-jquery';
