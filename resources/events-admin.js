@@ -33,7 +33,7 @@ jQuery(document).ready(function($) {
 		
 		// toggle time input
 		function toggleDayTimeDisplay(){
-			if( $('#allDayCheckbox').attr("checked") === true || $('#allDayCheckbox').attr("checked") === "checked" ) {
+			if( $('#allDayCheckbox').prop('checked') === true ) {
 				$(".timeofdayoptions").hide();
 				$("#EventTimeFormatDiv").hide();
 			} else {
