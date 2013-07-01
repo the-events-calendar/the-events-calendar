@@ -37,17 +37,13 @@ function get_term_count( calendar_filters ) {
 jQuery( document ).ready( function ( $ ) {
 
 	$( 'div.widgets-sortables' ).on( 'sortstop', function () {
-		// dirty moves	
-		if ( $( 'div.widgets-sortables' ).find( 'select.calendar-widget-add-filter' ).length ) {
-			$( ".select2-container.calendar-widget-add-filter" ).remove();
-			setTimeout( function () {
-				$( "select.calendar-widget-add-filter" ).select2();
-				calendar_toggle_all();
-			}, 600 );
-		}
+		setTimeout( function () {
+			$( "#widgets-right select.calendar-widget-add-filter" ).select2();
+			calendar_toggle_all();
+		}, 600 );
 	} );
 
-	$( "select.calendar-widget-add-filter" ).select2();
+	$( "#widgets-right select.calendar-widget-add-filter" ).select2();
 
 
 	$( "body" ).on( 'change', 'select.calendar-widget-add-filter', function ( e ) {
