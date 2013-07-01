@@ -1457,6 +1457,9 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 #tribe-bar-views .select2-container .select2-choice span span {
 	margin-right: 0;
 }
+#tribe-bar-views .select2-arrow {
+	display: none;
+}
 
 #tribe-bar-views .tribe-bar-settings {
 	display: none;
