@@ -61,11 +61,13 @@
 	opacity: .35;
 }
 
-.tribe-mini-calendar td.tribe-events-has-events.tribe-events-present {
+.tribe-mini-calendar td.tribe-events-has-events.tribe-events-present,
+.tribe-mini-calendar td.tribe-events-has-events.tribe-mini-calendar-today {
 	background-color: #21759b;
 }
 
-.tribe-mini-calendar .tribe-events-has-events.tribe-events-present a:hover {
+.tribe-mini-calendar .tribe-events-has-events.tribe-events-present a:hover,
+.tribe-mini-calendar td.tribe-events-has-events.tribe-mini-calendar-today a:hover {
 	background-color: #30799B;
 }
 

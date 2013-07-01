@@ -162,7 +162,9 @@
 	opacity: .2;
 }
 
-.tribe-mini-calendar .tribe-events-present{
+.tribe-mini-calendar .tribe-events-present,
+.tribe-mini-calendar .tribe-mini-calendar-today
+{
 	background-color: #666666;
 }
 
