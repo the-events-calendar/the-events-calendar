@@ -527,7 +527,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 
 		if ( $cost === '' ) {
 			$cost = '';
-		} elseif ( $cost == '0' ) {
+		} elseif ( $cost === '0' ) {
 			$cost = __( "Free", 'tribe-events-calendar' );
 		} else {
 			$cost = esc_html( $cost );
