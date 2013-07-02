@@ -1,4 +1,4 @@
-=== The Events Calendar ===
+gi=== The Events Calendar ===
 
 Contributors:  ModernTribe, PaulHughes01, roblagatta, jonahcoyote, MZAWeb, codearachnid, ryancurban, leahkoerper, barryhughes, peterchester, reid.peifer, shane.pearlman
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
@@ -105,16 +105,15 @@ If you're unclear about the installation process or get stuck, check out our <a 
 2. List View
 3. Single Event
 4. Event Category
-5. Event Venue and Organizer Editor
-6. Event Website and Cost Fields
-7. Events Admin Listing
-8. General Settings
-9. Map and Miscellaneous Settings
-10. Display Settings
-11. Event Menu Items
-12. Events Widget
-13. Month View with Classic Header
-14. Month View with Full Styles
+5. Event Editor
+6. Events Admin Listing
+7. General Settings
+8. Map and Miscellaneous Settings
+9. Display Settings
+10. Event Menu Items
+11. Events Widget
+12. Month View with Classic Header
+13. Month View with Full Styles
 
 
 == Frequently Asked Questions ==
