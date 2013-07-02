@@ -101,12 +101,21 @@ If you're unclear about the installation process or get stuck, check out our <a 
 
 == Screenshots ==
 
-1. Calendar View
+1. Month View
 2. List View
-3. Single Post
-4. Event Editor
-5. Event List Admin
-6. Settings Panel
+3. Single Event
+4. Event Category
+5. Event Venue and Organizer Editor
+6. Event Website and Cost Fields
+7. Events Admin Listing
+8. General Settings
+9. Map and Miscellaneous Settings
+10. Display Settings
+11. Event Menu Items
+12. Events Widget
+13. Month View with Classic Header
+14. Month View with Full Styles
+
 
 == Frequently Asked Questions ==
 
