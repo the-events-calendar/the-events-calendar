@@ -66,6 +66,8 @@ td.tribe_message {padding-bottom: 10px !important;}
 .tribe-events-error {display:none;}
 .tribe-events-multi-event-day {color: #0F81BB;}
 
+.ui-front {z-index: 1000000;}
+
 
 /* = Eventbrite
 =============================================*/
