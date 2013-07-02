@@ -5,8 +5,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: The Events Calendar\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-06-25 23:28-0800\n"
-"PO-Revision-Date: 2013-06-25 23:31-0800\n"
+"POT-Creation-Date: 2013-07-02 11:26-0800\n"
+"PO-Revision-Date: 2013-07-02 11:26-0800\n"
 "Last-Translator: Bàrbara Partegàs Rof <barbararof@gmail.com>\n"
 "Language-Team: Modern Tribe <pro@tri.be>\n"
 "Language: ca\n"
@@ -19,7 +19,7 @@ msgstr ""
 "_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2\n"
 "X-Poedit-Basepath: ./\n"
 "X-Textdomain-Support: yes\n"
-"X-Generator: Poedit 1.5.4\n"
+"X-Generator: Poedit 1.5.5\n"
 "X-Poedit-Bookmarks: -1,-1,-1,682,-1,-1,-1,-1,-1,-1\n"
 "X-Poedit-SearchPath-0: ..\n"
 
@@ -946,13 +946,6 @@ msgstr "Espectacle:"
 msgid "Show widget only if there are upcoming events:"
 msgstr "Mostra el giny només si hi ha propers esdeveniments:"
 
-#: ../admin-views/widget-admin-list.php:30
-#, php-format
-msgid "Want to modify the display of this widget? Try a %stemplate override%s."
-msgstr ""
-"Vols modificar les opcions d'aquest giny? Prova una %sreescriptura de la "
-"plantilla%s."
-
 #: ../admin-views/tickets/attendees.php:9 ../admin-views/tickets/list.php:41
 #: ../lib/tickets/tribe-tickets-pro.php:73
 msgid "Attendees"
@@ -1234,12 +1227,12 @@ msgstr ""
 "proveïdor d'hostatge per actualitzar a una versió superior de PHP."
 
 #: ../lib/the-events-calendar.class.php:1000 ../lib/widget-list.class.php:151
-#: ../public/template-tags/loop.php:136
+#: ../public/template-tags/loop.php:137
 msgid "Upcoming Events"
 msgstr "Propers esdeveniments"
 
 #: ../lib/the-events-calendar.class.php:1003
-#: ../public/template-tags/loop.php:164
+#: ../public/template-tags/loop.php:165
 msgid "Past Events"
 msgstr "Esdeveniments passats"
 
@@ -1908,12 +1901,12 @@ msgstr[1] ""
 msgid "Settings saved."
 msgstr "Opcions guardades."
 
-#: ../lib/tribe-template-factory.class.php:187
+#: ../lib/tribe-template-factory.class.php:225
 #, php-format
 msgid "There  were no results found for <strong>\"%s\"</strong>."
 msgstr "No hi ha resultats per a <strong>\"%s\"</strong>."
 
-#: ../lib/tribe-template-factory.class.php:197
+#: ../lib/tribe-template-factory.class.php:235
 #, php-format
 msgid ""
 "listed under %s. Check out past events for this category or view the full "
@@ -1922,7 +1915,7 @@ msgstr ""
 "llistat sota %s. Comprova esdeveniments passats d'aquesta categoria o mira "
 "el calendari sencer."
 
-#: ../lib/tribe-template-factory.class.php:199
+#: ../lib/tribe-template-factory.class.php:237
 #, php-format
 msgid ""
 "listed under %s. Check out upcoming events for this category or view the "
@@ -1931,7 +1924,7 @@ msgstr ""
 "llistat sota %s. Comprova propers esdeveniments d'aquesta categoria o mira "
 "el calendari sencer."
 
-#: ../lib/tribe-template-factory.class.php:203
+#: ../lib/tribe-template-factory.class.php:241
 #, php-format
 msgid "No events scheduled for <strong>%s</strong>. Please try another day."
 msgstr ""
@@ -1939,17 +1932,17 @@ msgstr ""
 "data."
 
 #
-#: ../lib/tribe-template-factory.class.php:207
+#: ../lib/tribe-template-factory.class.php:245
 msgid "No upcoming events "
 msgstr "No hi ha propers esdeveniments"
 
 #
-#: ../lib/tribe-template-factory.class.php:209
+#: ../lib/tribe-template-factory.class.php:247
 msgid "No matching events "
 msgstr "No hi ha esdeveniments coincidents"
 
 #
-#: ../lib/tribe-template-factory.class.php:212
+#: ../lib/tribe-template-factory.class.php:250
 msgid "No previous events "
 msgstr "No hi ha següents esdeveniments"
 
@@ -3474,36 +3467,36 @@ msgstr "Etiquetes:"
 msgid "Loading Events"
 msgstr "Carregant esdeveniments"
 
-#: ../public/template-tags/general.php:565
+#: ../public/template-tags/general.php:531
 msgid "Free"
 msgstr "De franc"
 
 #
-#: ../public/template-tags/general.php:737
+#: ../public/template-tags/general.php:703
 msgid "Recurring Event"
 msgstr "Esdeveniment periòdic"
 
-#: ../public/template-tags/general.php:740
+#: ../public/template-tags/general.php:706
 msgid "(See all)"
 msgstr "(Veure'ls tots)"
 
-#: ../public/template-tags/general.php:978
+#: ../public/template-tags/general.php:982
 #, php-format
 msgid "Calendar powered by %sThe Events Calendar%s"
 msgstr "Calendari basat en %sThe Events Calendar%s"
 
-#: ../public/template-tags/loop.php:149
+#: ../public/template-tags/loop.php:150
 #, php-format
 msgid "Events for %1$s"
 msgstr "Esdeveniments per a %1$s"
 
-#: ../public/template-tags/loop.php:157
+#: ../public/template-tags/loop.php:158
 #, php-format
 msgid "Events for %1$s through %2$s"
 msgstr "Esdeveniments per a %1$s fins a %2$s"
 
 #
-#: ../public/template-tags/loop.php:170
+#: ../public/template-tags/loop.php:171
 msgid "Events for "
 msgstr "Esdeveniments per a "
 
@@ -3528,7 +3521,7 @@ msgid "&laquo; All Events"
 msgstr "&laquo; Tots els esdeveniments"
 
 #
-#: ../views/single-event.php:37 ../views/single-event.php:68
+#: ../views/single-event.php:42 ../views/single-event.php:73
 msgid "Event Navigation"
 msgstr "Navegació per l'esdeveniment"
 
@@ -3577,6 +3570,12 @@ msgstr "Tipus de bitllet d'entrada"
 #: ../views/tickets/email.php:324
 msgid "Purchaser"
 msgstr "Comprador"
+
+#~ msgid ""
+#~ "Want to modify the display of this widget? Try a %stemplate override%s."
+#~ msgstr ""
+#~ "Vols modificar les opcions d'aquest giny? Prova una %sreescriptura de la "
+#~ "plantilla%s."
 
 #~ msgid ""
 #~ "These styles provide a bare minimum level of layout for the more complex "
