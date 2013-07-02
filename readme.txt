@@ -287,7 +287,11 @@ Still not happy? Shoot us an email to pro@tri.be or tweet to @moderntribeinc and
 
 = 3.0 =
 
-3.0 is a HUGE upgrade from The Events Calendar 2.0.x. If you're upgrading from 1.6.5 or any release between 2.0 and 2.0.10, make sure to upgrade to The Events Calendar 2.0.11 first. If you're upgrading from The Events Calendar 2.0.11, please back up your data BEFORE initiating, and be prepared to manually update your customizations based on changes to the plugin's tempting structure.
+1. Version 3.0 is a HUGE upgrade from The Events Calendar 2.0.x! Please back up your data BEFORE upgrading!
+
+2. If you have any Events theme customizations, you should test this upgrade on a development server before updating your live site.
+
+3. If you're upgrading from 1.6.5 or any release between 2.0 and 2.0.10, make sure to upgrade to The Events Calendar 2.0.11 first.
 
 = 2.0.9 =
 
