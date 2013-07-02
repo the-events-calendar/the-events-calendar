@@ -1,4 +1,4 @@
-=== The Events Calendar ===
+gi=== The Events Calendar ===
 
 Contributors:  ModernTribe, PaulHughes01, roblagatta, jonahcoyote, MZAWeb, codearachnid, ryancurban, leahkoerper, barryhughes, peterchester, reid.peifer, shane.pearlman
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
@@ -105,16 +105,15 @@ If you're unclear about the installation process or get stuck, check out our <a 
 2. List View
 3. Single Event
 4. Event Category
-5. Event Venue and Organizer Editor
-6. Event Website and Cost Fields
-7. Events Admin Listing
-8. General Settings
-9. Map and Miscellaneous Settings
-10. Display Settings
-11. Event Menu Items
-12. Events Widget
-13. Month View with Classic Header
-14. Month View with Full Styles
+5. Event Editor
+6. Events Admin Listing
+7. General Settings
+8. Map and Miscellaneous Settings
+9. Display Settings
+10. Event Menu Items
+11. Events Widget
+12. Month View with Classic Header
+13. Month View with Full Styles
 
 
 == Frequently Asked Questions ==
@@ -288,7 +287,11 @@ Still not happy? Shoot us an email to pro@tri.be or tweet to @moderntribeinc and
 
 = 3.0 =
 
-3.0 is a HUGE upgrade from The Events Calendar 2.0.x. If you're upgrading from 1.6.5 or any release between 2.0 and 2.0.10, make sure to upgrade to The Events Calendar 2.0.11 first. If you're upgrading from The Events Calendar 2.0.11, please back up your data BEFORE initiating, and be prepared to manually update your customizations based on changes to the plugin's tempting structure.
+1. Version 3.0 is a HUGE upgrade from The Events Calendar 2.0.x! Please back up your data BEFORE upgrading!
+
+2. If you have any Events theme customizations, you should test this upgrade on a development server before updating your live site.
+
+3. If you're upgrading from 1.6.5 or any release between 2.0 and 2.0.10, make sure to upgrade to The Events Calendar 2.0.11 first.
 
 = 2.0.9 =
 
