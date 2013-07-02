@@ -5,8 +5,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: The Events Calendar\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-06-25 23:41-0800\n"
-"PO-Revision-Date: 2013-06-25 23:42-0800\n"
+"POT-Creation-Date: 2013-07-02 11:27-0800\n"
+"PO-Revision-Date: 2013-07-02 11:27-0800\n"
 "Last-Translator: Diego Meneghetti\n"
 "Language-Team: Diego Meneghetti <diego@estudioteca.com>\n"
 "Language: pt_BR\n"
@@ -19,7 +19,7 @@ msgstr ""
 "_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2\n"
 "X-Poedit-Basepath: ./\n"
 "X-Textdomain-Support: yes\n"
-"X-Generator: Poedit 1.5.4\n"
+"X-Generator: Poedit 1.5.5\n"
 "X-Poedit-SearchPath-0: ..\n"
 
 #: ../admin-views/app-shop.php:4
@@ -935,12 +935,6 @@ msgstr "Mostrar: "
 msgid "Show widget only if there are upcoming events:"
 msgstr "Mostrar widget apenas se houver eventos futuros: "
 
-#: ../admin-views/widget-admin-list.php:30
-#, php-format
-msgid "Want to modify the display of this widget? Try a %stemplate override%s."
-msgstr ""
-"Quer modificar a aparência deste widget? Tente um %stemplate override%s. "
-
 #: ../admin-views/tickets/attendees.php:9 ../admin-views/tickets/list.php:41
 #: ../lib/tickets/tribe-tickets-pro.php:73
 msgid "Attendees"
@@ -1219,12 +1213,12 @@ msgstr ""
 "provedor sobre a mudança para uma versão mais recente de PHP."
 
 #: ../lib/the-events-calendar.class.php:1000 ../lib/widget-list.class.php:151
-#: ../public/template-tags/loop.php:136
+#: ../public/template-tags/loop.php:137
 msgid "Upcoming Events"
 msgstr "Próximos eventos"
 
 #: ../lib/the-events-calendar.class.php:1003
-#: ../public/template-tags/loop.php:164
+#: ../public/template-tags/loop.php:165
 msgid "Past Events"
 msgstr "Eventos Passados"
 
@@ -1881,12 +1875,12 @@ msgstr[1] ""
 msgid "Settings saved."
 msgstr "Configurações salvas."
 
-#: ../lib/tribe-template-factory.class.php:187
+#: ../lib/tribe-template-factory.class.php:225
 #, php-format
 msgid "There  were no results found for <strong>\"%s\"</strong>."
 msgstr "Sem resultados para <strong>\"%s\"</strong>."
 
-#: ../lib/tribe-template-factory.class.php:197
+#: ../lib/tribe-template-factory.class.php:235
 #, php-format
 msgid ""
 "listed under %s. Check out past events for this category or view the full "
@@ -1895,7 +1889,7 @@ msgstr ""
 "listado em %s. Confira outros eventos para esta categoria ou veja o "
 "calendário completo."
 
-#: ../lib/tribe-template-factory.class.php:199
+#: ../lib/tribe-template-factory.class.php:237
 #, php-format
 msgid ""
 "listed under %s. Check out upcoming events for this category or view the "
@@ -1904,24 +1898,24 @@ msgstr ""
 "listado em %s. Confira os próximos eventos desta categoria ou veja o "
 "calendário completo."
 
-#: ../lib/tribe-template-factory.class.php:203
+#: ../lib/tribe-template-factory.class.php:241
 #, php-format
 msgid "No events scheduled for <strong>%s</strong>. Please try another day."
 msgstr ""
 "Nenhum evento agendado para <strong>%s</strong>. Por favor, tente outra data."
 
 #
-#: ../lib/tribe-template-factory.class.php:207
+#: ../lib/tribe-template-factory.class.php:245
 msgid "No upcoming events "
 msgstr "Sem nenhum evento agendado."
 
 #
-#: ../lib/tribe-template-factory.class.php:209
+#: ../lib/tribe-template-factory.class.php:247
 msgid "No matching events "
 msgstr "Eventos não encontrados."
 
 #
-#: ../lib/tribe-template-factory.class.php:212
+#: ../lib/tribe-template-factory.class.php:250
 msgid "No previous events "
 msgstr "Nenhum evento anterior."
 
@@ -3433,36 +3427,36 @@ msgstr "Tags:"
 msgid "Loading Events"
 msgstr "Carregando eventos"
 
-#: ../public/template-tags/general.php:565
+#: ../public/template-tags/general.php:531
 msgid "Free"
 msgstr "Livre"
 
 #
-#: ../public/template-tags/general.php:737
+#: ../public/template-tags/general.php:703
 msgid "Recurring Event"
 msgstr "Evento recorrente"
 
-#: ../public/template-tags/general.php:740
+#: ../public/template-tags/general.php:706
 msgid "(See all)"
 msgstr "(ver todos)"
 
-#: ../public/template-tags/general.php:978
+#: ../public/template-tags/general.php:982
 #, php-format
 msgid "Calendar powered by %sThe Events Calendar%s"
 msgstr "Sistema gerado por %sThe Events Calendar%s"
 
-#: ../public/template-tags/loop.php:149
+#: ../public/template-tags/loop.php:150
 #, php-format
 msgid "Events for %1$s"
 msgstr "Eventos para %1$s"
 
-#: ../public/template-tags/loop.php:157
+#: ../public/template-tags/loop.php:158
 #, php-format
 msgid "Events for %1$s through %2$s"
 msgstr "Eventos para %1$s até %2$s"
 
 #
-#: ../public/template-tags/loop.php:170
+#: ../public/template-tags/loop.php:171
 msgid "Events for "
 msgstr "Eventos para"
 
@@ -3487,7 +3481,7 @@ msgid "&laquo; All Events"
 msgstr "&laquo; Todos os eventos"
 
 #
-#: ../views/single-event.php:37 ../views/single-event.php:68
+#: ../views/single-event.php:42 ../views/single-event.php:73
 msgid "Event Navigation"
 msgstr "Navegação dos eventos"
 
@@ -3537,6 +3531,11 @@ msgstr "Tipo de bilhete"
 #: ../views/tickets/email.php:324
 msgid "Purchaser"
 msgstr "Comprador"
+
+#~ msgid ""
+#~ "Want to modify the display of this widget? Try a %stemplate override%s."
+#~ msgstr ""
+#~ "Quer modificar a aparência deste widget? Tente um %stemplate override%s. "
 
 #~ msgid ""
 #~ "These styles provide a bare minimum level of layout for the more complex "

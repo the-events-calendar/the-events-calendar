@@ -5,8 +5,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Events Calendar Pro\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-06-25 23:28-0800\n"
-"PO-Revision-Date: 2013-06-25 23:39-0800\n"
+"POT-Creation-Date: 2013-07-02 11:27-0800\n"
+"PO-Revision-Date: 2013-07-02 11:27-0800\n"
 "Last-Translator: Modern Tribe, Inc. <pro@tri.be>\n"
 "Language-Team: Modern Tribe, Inc. <pro@tri.be>\n"
 "Language: nb_NO\n"
@@ -19,7 +19,7 @@ msgstr ""
 "_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2\n"
 "X-Poedit-Basepath: ./\n"
 "X-Textdomain-Support: yes\n"
-"X-Generator: Poedit 1.5.4\n"
+"X-Generator: Poedit 1.5.5\n"
 "X-Poedit-SearchPath-0: ..\n"
 
 #
@@ -933,11 +933,6 @@ msgstr "Vis:"
 msgid "Show widget only if there are upcoming events:"
 msgstr "Vis widgeten kun om det finnes framtidige aktiviteter:"
 
-#: ../admin-views/widget-admin-list.php:30
-#, php-format
-msgid "Want to modify the display of this widget? Try a %stemplate override%s."
-msgstr ""
-
 #: ../admin-views/tickets/attendees.php:9 ../admin-views/tickets/list.php:41
 #: ../lib/tickets/tribe-tickets-pro.php:73
 msgid "Attendees"
@@ -1205,12 +1200,12 @@ msgstr ""
 "systemadministrator om å migrere deg til en nyere versjon av PHP."
 
 #: ../lib/the-events-calendar.class.php:1000 ../lib/widget-list.class.php:151
-#: ../public/template-tags/loop.php:136
+#: ../public/template-tags/loop.php:137
 msgid "Upcoming Events"
 msgstr "Kommende aktiviteter"
 
 #: ../lib/the-events-calendar.class.php:1003
-#: ../public/template-tags/loop.php:164
+#: ../public/template-tags/loop.php:165
 msgid "Past Events"
 msgstr "Tidligere aktiviteter"
 
@@ -1873,12 +1868,12 @@ msgstr[1] ""
 msgid "Settings saved."
 msgstr "Innstillinger lagret."
 
-#: ../lib/tribe-template-factory.class.php:187
+#: ../lib/tribe-template-factory.class.php:225
 #, php-format
 msgid "There  were no results found for <strong>\"%s\"</strong>."
 msgstr "Ingen resultater funnet for <strong>\"% s\"</ strong>."
 
-#: ../lib/tribe-template-factory.class.php:197
+#: ../lib/tribe-template-factory.class.php:235
 #, php-format
 msgid ""
 "listed under %s. Check out past events for this category or view the full "
@@ -1887,7 +1882,7 @@ msgstr ""
 "oppført under % s. Sjekk ut tidligere hendelser for denne kategorien, eller "
 "se hele kalenderen."
 
-#: ../lib/tribe-template-factory.class.php:199
+#: ../lib/tribe-template-factory.class.php:237
 #, php-format
 msgid ""
 "listed under %s. Check out upcoming events for this category or view the "
@@ -1896,24 +1891,24 @@ msgstr ""
 "oppført under %s. Sjekk ut kommende hendelser for denne kategorien, eller se "
 "hele kalenderen."
 
-#: ../lib/tribe-template-factory.class.php:203
+#: ../lib/tribe-template-factory.class.php:241
 #, php-format
 msgid "No events scheduled for <strong>%s</strong>. Please try another day."
 msgstr ""
 "Ingen aktiviteter planlagt for <strong>%s</strong>. Forsøk en annen dag."
 
 #
-#: ../lib/tribe-template-factory.class.php:207
+#: ../lib/tribe-template-factory.class.php:245
 msgid "No upcoming events "
 msgstr "Ingen arrangementer"
 
 #
-#: ../lib/tribe-template-factory.class.php:209
+#: ../lib/tribe-template-factory.class.php:247
 msgid "No matching events "
 msgstr ""
 
 #
-#: ../lib/tribe-template-factory.class.php:212
+#: ../lib/tribe-template-factory.class.php:250
 msgid "No previous events "
 msgstr ""
 
@@ -3429,36 +3424,36 @@ msgstr "Merknad:"
 msgid "Loading Events"
 msgstr "Laster aktiviteter"
 
-#: ../public/template-tags/general.php:565
+#: ../public/template-tags/general.php:531
 msgid "Free"
 msgstr "Gratis"
 
 #
-#: ../public/template-tags/general.php:737
+#: ../public/template-tags/general.php:703
 msgid "Recurring Event"
 msgstr "Periodisk gjentagende aktivitet"
 
-#: ../public/template-tags/general.php:740
+#: ../public/template-tags/general.php:706
 msgid "(See all)"
 msgstr "(Vis alle)"
 
-#: ../public/template-tags/general.php:978
+#: ../public/template-tags/general.php:982
 #, php-format
 msgid "Calendar powered by %sThe Events Calendar%s"
 msgstr "Kalender drives av %sThe Events Calendar%s"
 
-#: ../public/template-tags/loop.php:149
+#: ../public/template-tags/loop.php:150
 #, php-format
 msgid "Events for %1$s"
 msgstr "Aktiviteter for %1$s"
 
-#: ../public/template-tags/loop.php:157
+#: ../public/template-tags/loop.php:158
 #, php-format
 msgid "Events for %1$s through %2$s"
 msgstr ""
 
 #
-#: ../public/template-tags/loop.php:170
+#: ../public/template-tags/loop.php:171
 msgid "Events for "
 msgstr "Aktiviteter for"
 
@@ -3480,7 +3475,7 @@ msgid "&laquo; All Events"
 msgstr ""
 
 #
-#: ../views/single-event.php:37 ../views/single-event.php:68
+#: ../views/single-event.php:42 ../views/single-event.php:73
 msgid "Event Navigation"
 msgstr ""
 
