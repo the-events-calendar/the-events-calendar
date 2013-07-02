@@ -5,8 +5,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Events Calendar Pro\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-06-25 23:51-0800\n"
-"PO-Revision-Date: 2013-06-26 00:01-0800\n"
+"POT-Creation-Date: 2013-07-02 11:28-0800\n"
+"PO-Revision-Date: 2013-07-02 11:28-0800\n"
 "Last-Translator: Modern Tribe, Inc. <pro@tri.be>\n"
 "Language-Team: Dom Monhardt <thatsniceuk@gmail.com>\n"
 "Language: French\n"
@@ -19,7 +19,7 @@ msgstr ""
 "_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2\n"
 "X-Poedit-Basepath: ./\n"
 "X-Textdomain-Support: yes\n"
-"X-Generator: Poedit 1.5.4\n"
+"X-Generator: Poedit 1.5.5\n"
 "X-Poedit-SearchPath-0: ..\n"
 
 #: ../events-calendar-pro.php:61
@@ -73,15 +73,15 @@ msgid "Events for week of %s"
 msgstr "Événements pour la semaine de %s"
 
 #
-#: ../events-calendar-pro.php:813 ../admin-views/tribe-options-defaults.php:35
+#: ../events-calendar-pro.php:817 ../admin-views/tribe-options-defaults.php:35
 msgid "Default Content"
 msgstr "Contenu par défaut"
 
-#: ../events-calendar-pro.php:815 ../admin-views/event-meta-options.php:3
+#: ../events-calendar-pro.php:819 ../admin-views/event-meta-options.php:3
 msgid "Additional Fields"
 msgstr "Champs supplémentaires"
 
-#: ../events-calendar-pro.php:824
+#: ../events-calendar-pro.php:828
 msgid ""
 "Thanks for buying Events Calendar PRO! From all of us at Modern Tribe, we "
 "sincerely appreciate it. If you're looking for help with Events Calendar "
@@ -90,14 +90,14 @@ msgid ""
 "there."
 msgstr ""
 
-#: ../events-calendar-pro.php:835
+#: ../events-calendar-pro.php:839
 msgid ""
 "If this is your first time using The Events Calendar Pro, you're in for a "
 "treat and are already well on your way to creating a first event. Here are "
 "some basics we've found helpful for users jumping into it for the first time:"
 msgstr ""
 
-#: ../events-calendar-pro.php:838
+#: ../events-calendar-pro.php:842
 #, php-format
 msgid ""
 "%sOur New User Primer%s was designed for folks in your exact position. "
@@ -106,7 +106,7 @@ msgid ""
 "no time."
 msgstr ""
 
-#: ../events-calendar-pro.php:840
+#: ../events-calendar-pro.php:844
 #, php-format
 msgid ""
 "%sInstallation/Setup FAQs%s from our support page can help give an overview "
@@ -115,7 +115,7 @@ msgid ""
 "the new user primer."
 msgstr ""
 
-#: ../events-calendar-pro.php:842
+#: ../events-calendar-pro.php:846
 #, php-format
 msgid ""
 "Are you developer looking to build your own frontend view? We created an "
@@ -123,7 +123,7 @@ msgid ""
 "%sdownload the plugin at GitHub%s to get started."
 msgstr ""
 
-#: ../events-calendar-pro.php:844
+#: ../events-calendar-pro.php:848
 #, php-format
 msgid ""
 "Take care of your license key. Though not required to create your first "
@@ -132,20 +132,20 @@ msgid ""
 "you don't have it handy."
 msgstr ""
 
-#: ../events-calendar-pro.php:846
+#: ../events-calendar-pro.php:850
 msgid ""
 "Otherwise, if you're feeling adventurous, you can get started by heading to "
 "the Events menu and adding your first event."
 msgstr ""
 
-#: ../events-calendar-pro.php:858
+#: ../events-calendar-pro.php:862
 #, php-format
 msgid ""
 "Written documentation can only take things so far...sometimes, you need help "
 "from a real person. This is where our %ssupport forums%s come into play."
 msgstr ""
 
-#: ../events-calendar-pro.php:859
+#: ../events-calendar-pro.php:863
 #, php-format
 msgid ""
 "Users who have purchased an Events Calendar PRO license are granted total "
@@ -156,7 +156,7 @@ msgid ""
 "than 24-hours without a response."
 msgstr ""
 
-#: ../events-calendar-pro.php:860
+#: ../events-calendar-pro.php:864
 msgid ""
 "Our number one goal is helping you succeed, and to whatever extent possible, "
 "we'll help troubleshoot and guide your customizations or tweaks. While we "
@@ -166,7 +166,7 @@ msgid ""
 "as is often more importantly the case -- satisfied."
 msgstr ""
 
-#: ../events-calendar-pro.php:861
+#: ../events-calendar-pro.php:865
 msgid ""
 "Before posting a new thread, please do a search to make sure your issue "
 "hasn't already been addressed. When posting please make sure to provide as "
@@ -175,59 +175,59 @@ msgid ""
 "conflict could be at play in your initial message."
 msgstr ""
 
-#: ../events-calendar-pro.php:935
+#: ../events-calendar-pro.php:939
 msgid "Day View"
 msgstr "Affichage par journée"
 
-#: ../events-calendar-pro.php:938
+#: ../events-calendar-pro.php:942
 msgid "Week View"
 msgstr "Affichage par semaine"
 
-#: ../events-calendar-pro.php:1331
+#: ../events-calendar-pro.php:1335
 msgid "Settings"
 msgstr "Réglages"
 
-#: ../events-calendar-pro.php:1394
+#: ../events-calendar-pro.php:1398
 #, php-format
 msgid "Calendar powered by %sThe Events Calendar PRO%s"
 msgstr "Calendrier créer par %sThe Events Calendar PRO%s"
 
-#: ../events-calendar-pro.php:1407
+#: ../events-calendar-pro.php:1411
 msgid "Support"
 msgstr "Support technique"
 
-#: ../events-calendar-pro.php:1409
+#: ../events-calendar-pro.php:1413
 msgid "View All Add-Ons"
 msgstr "Voir tous les Add-Ons"
 
 #
-#: ../events-calendar-pro.php:1459
+#: ../events-calendar-pro.php:1463
 msgid "Week"
 msgstr "Semaine"
 
-#: ../events-calendar-pro.php:1475 ../admin-views/event-recurrence.php:82
+#: ../events-calendar-pro.php:1479 ../admin-views/event-recurrence.php:82
 #: ../admin-views/event-recurrence.php:127
 msgid "Day"
 msgstr "Jour"
 
-#: ../events-calendar-pro.php:1491
+#: ../events-calendar-pro.php:1495
 msgid "Photo"
 msgstr "Photo"
 
-#: ../events-calendar-pro.php:1507
+#: ../events-calendar-pro.php:1511
 msgid "Day Of"
 msgstr "Jour de"
 
 #
-#: ../events-calendar-pro.php:1509
+#: ../events-calendar-pro.php:1513
 msgid "Week Of"
 msgstr "Semaine de"
 
-#: ../events-calendar-pro.php:1630
+#: ../events-calendar-pro.php:1634
 msgid "The Events Calendar"
 msgstr "The Events Calendar"
 
-#: ../events-calendar-pro.php:1631
+#: ../events-calendar-pro.php:1635
 #, php-format
 msgid ""
 "To begin using Events Calendar PRO, please install the latest version of <a "
@@ -976,13 +976,6 @@ msgstr "Tous les événements"
 #: ../admin-views/widget-admin-venue.php:28
 msgid "Hide this widget if there are no upcoming events:"
 msgstr "Masquer ce widget si vous n'avez pas d'événements à venir :"
-
-#: ../admin-views/widget-admin-advanced-list.php:61
-#, php-format
-msgid "Want to modify the display of this widget? Try a %stemplate override%s."
-msgstr ""
-"Besoin de modifier l'affichage de ce widget? Essayer de %sremplacer le "
-"gabarit%s."
 
 #
 #: ../admin-views/widget-admin-countdown.php:12
@@ -1936,6 +1929,12 @@ msgstr "Organisateur :"
 #: ../views/widgets/venue-widget.php:32
 msgid "No upcoming events."
 msgstr "Il n'y a pas d'événements à venir."
+
+#~ msgid ""
+#~ "Want to modify the display of this widget? Try a %stemplate override%s."
+#~ msgstr ""
+#~ "Besoin de modifier l'affichage de ce widget? Essayer de %sremplacer le "
+#~ "gabarit%s."
 
 #~ msgid ""
 #~ "<p>By buying a PRO license you will get active support and sweet "
