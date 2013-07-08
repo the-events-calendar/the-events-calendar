@@ -733,12 +733,6 @@ if ( class_exists( 'TribeEvents' ) ) {
 		if ( is_numeric( $event ) )
 			$event = get_post( $event );
 
-		if ( !isset( $event->EventStartDate ) )
-			$event->EventStartDate = tribe_get_start_date( $event );
-
-		if ( !isset( $event->EventEndDate ) )
-			$event->EventEndDate = tribe_get_end_date( $event );
-
 		$format = '';
 		$timeFormat = get_option( 'time_format' );
 		$microformatStartFormat = tribe_get_start_date( $event, false, 'Y-m-dTh:i' );
@@ -770,53 +764,53 @@ if ( class_exists( 'TribeEvents' ) ) {
 				// If the multi-day event begins and ends in the same month, just show the month once.
 				if ( tribe_get_end_date( $event, false, 'm' ) === tribe_get_start_date( $event, false, 'm' ) && tribe_get_end_date( $event, false, 'Y' ) === date( 'Y' ) ) {
 					$schedule .= '<span class="date-start dtstart">';
-							$schedule .= tribe_get_start_date( $event, true, $format );
-							$schedule .= '<span class="value-title" title="'. $microformatStartFormat .'"></span>';
+					$schedule .= tribe_get_start_date( $event, true, $format );
+					$schedule .= '<span class="value-title" title="'. $microformatStartFormat .'"></span>';
 					$schedule .= '</span> - ';
 					$schedule .= '<span class="date-end dtend">';
-							$schedule .= tribe_get_end_date( $event, true, $format2ndday );
-							$schedule .= '<span class="value-title" title="'. $microformatEndFormat .'"></span>';
+					$schedule .= tribe_get_end_date( $event, true, $format2ndday );
+					$schedule .= '<span class="value-title" title="'. $microformatEndFormat .'"></span>';
 					$schedule .= '</span>';
 				} else {
 					$schedule .= '<span class="date-start dtstart">';
-							$schedule .= tribe_get_start_date( $event, true, $format );
-							$schedule .= '<span class="value-title" title="'. $microformatStartFormat .'"></span>';
+					$schedule .= tribe_get_start_date( $event, true, $format );
+					$schedule .= '<span class="value-title" title="'. $microformatStartFormat .'"></span>';
 					$schedule .= '</span> - ';
 					$schedule .= '<span class="date-end dtend">';
-							$schedule .= tribe_get_end_date( $event, true, $format2ndday );
-							$schedule .= '<span class="value-title" title="'. $microformatEndFormat .'"></span>';
+					$schedule .= tribe_get_end_date( $event, true, $format2ndday );
+					$schedule .= '<span class="value-title" title="'. $microformatEndFormat .'"></span>';
 					$schedule .= '</span>';
 				}
 			} else {
 				$schedule .= '<span class="date-start dtstart">';
-						$schedule .= tribe_get_start_date( $event, false, $format ) . ' @ ' . tribe_get_start_date( $event, false, $timeFormat );
-						$schedule .= '<span class="value-title" title="'. $microformatStartFormat .'"></span>';
+				$schedule .= tribe_get_start_date( $event, false, $format ) . ' @ ' . tribe_get_start_date( $event, false, $timeFormat );
+				$schedule .= '<span class="value-title" title="'. $microformatStartFormat .'"></span>';
 				$schedule .= '</span> - ';
 				$schedule .= '<span class="date-end dtend">';
-						$schedule .= tribe_get_end_date( $event, false, $format2ndday ) . ' @ ' . tribe_get_end_date( $event, false, $timeFormat );
-						$schedule .= '<span class="value-title" title="'. $microformatEndFormat .'"></span>';
+				$schedule .= tribe_get_end_date( $event, false, $format2ndday ) . ' @ ' . tribe_get_end_date( $event, false, $timeFormat );
+				$schedule .= '<span class="value-title" title="'. $microformatEndFormat .'"></span>';
 				$schedule .= '</span>';				
 			}
 
 
 		} elseif ( tribe_event_is_all_day( $event ) ) { // all day event
 			$schedule .= '<span class="date-start dtstart">';
-					$schedule .=  tribe_get_start_date( $event, true, $format );
-					$schedule .= '<span class="value-title" title="'. $microformatStartFormat .'"></span>';
+			$schedule .=  tribe_get_start_date( $event, true, $format );
+			$schedule .= '<span class="value-title" title="'. $microformatStartFormat .'"></span>';
 			$schedule .= '</span>';	
 		} else { // single day event
 			if ( tribe_get_start_date( $event, false, 'g:i A' ) === tribe_get_end_date( $event, false, 'g:i A' ) ) { // Same start/end time
 				$schedule .= '<span class="date-start dtstart">';
-						$schedule .= tribe_get_start_date( $event, false, $format ) . ' @ ' . tribe_get_start_date( $event, false, $timeFormat );
-						$schedule .= '<span class="value-title" title="'. $microformatStartFormat .'"></span>';
+				$schedule .= tribe_get_start_date( $event, false, $format ) . ' @ ' . tribe_get_start_date( $event, false, $timeFormat );
+				$schedule .= '<span class="value-title" title="'. $microformatStartFormat .'"></span>';
 				$schedule .= '</span>';
 			} else { // defined start/end time
 				$schedule .= '<span class="date-start dtstart">';
-						$schedule .= tribe_get_start_date( $event, false, $format ) . ' @ ' . tribe_get_start_date( $event, false, $timeFormat );
-						$schedule .= '<span class="value-title" title="'. $microformatStartFormat .'"></span>';
+				$schedule .= tribe_get_start_date( $event, false, $format ) . ' @ ' . tribe_get_start_date( $event, false, $timeFormat );
+				$schedule .= '<span class="value-title" title="'. $microformatStartFormat .'"></span>';
 				$schedule .= '</span> - ';
 				$schedule .= '<span class="end-time dtend">';
-						$schedule .= tribe_get_end_date( $event, false, $timeFormat ) . '<span class="value-title" title="'. $microformatEndFormat .'"></span>';
+				$schedule .= tribe_get_end_date( $event, false, $timeFormat ) . '<span class="value-title" title="'. $microformatEndFormat .'"></span>';
 				$schedule .= '</span>';
 			}
 		}
