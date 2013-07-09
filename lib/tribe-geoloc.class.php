@@ -222,8 +222,8 @@ class TribeEventsGeoLoc {
 	protected function get_venues_without_geoloc_info( $full_data = false ) {
 		$query_args = array(
 			'post_type'      => TribeEvents::VENUE_POST_TYPE,
-			'posts_per_page' => 1,
 			'post_status'    => 'publish',
+			'posts_per_page' => 250,
 			'meta_query'     => array(
 				array(
 					'key'     => '_VenueGeoAddress',
@@ -237,8 +237,10 @@ class TribeEventsGeoLoc {
 			)
 		);
 
-		if ( ! $full_data )
-			$query_args['fields'] = 'ids';
+		if ( ! $full_data ) {
+			$query_args['fields']         = 'ids';
+			$query_args['posts_per_page'] = 1;
+		}
 
 
 		$venues = new WP_Query( $query_args );
@@ -876,7 +878,7 @@ class TribeEventsGeoLoc {
 	 * Check if there are venues without geo data and hook into admin_notices to show a message to the user.
 	 */
 	public function maybe_offer_generate_geopoints() {
-		$done = get_option( 'tribe_geoloc_fixed' );
+		$done = get_option( '_tribe_geoloc_fixed' );
 
 		if ( ! empty( $done ) )
 			return;
@@ -959,7 +961,7 @@ class TribeEventsGeoLoc {
 
 		}
 
-		update_option( 'tribe_geoloc_fixed', 1 );
+		update_option( '_tribe_geoloc_fixed', 1 );
 
 		return $count;
 
