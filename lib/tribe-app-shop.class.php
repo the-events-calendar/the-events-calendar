@@ -76,16 +76,18 @@ if ( ! class_exists( 'TribeAppShop' ) ) {
 		 * Adds a link to the shop app to the WP admin bar
 		 */
 		public function add_toolbar_item() {
-			global $wp_admin_bar;
 
-			$where = 'edit.php?post_type=' . TribeEvents::POSTTYPE;
+			// prevent users who cannot manage the plugin to see addons link
+			if( current_user_can( 'edit_tribe_events' ) ) {
+				global $wp_admin_bar;
 
-			$wp_admin_bar->add_menu( array( 'id'     => 'tribe-events-app-shop',
-			                                'title'  => __( 'Event Add-Ons', 'tribe-events-calendar' ),
-			                                'href'   => admin_url( untrailingslashit( $where ) . "&page=" . self::MENU_SLUG ),
-			                                'parent' => 'tribe-events-settings-group' ) );
+				$where = 'edit.php?post_type=' . TribeEvents::POSTTYPE;
 
-
+				$wp_admin_bar->add_menu( array( 'id'     => 'tribe-events-app-shop',
+				                                'title'  => __( 'Event Add-Ons', 'tribe-events-calendar' ),
+				                                'href'   => admin_url( untrailingslashit( $where ) . "&page=" . self::MENU_SLUG ),
+				                                'parent' => 'tribe-events-settings-group' ) );
+			}
 		}
 
 		/**

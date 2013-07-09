@@ -3835,11 +3835,12 @@ if ( !class_exists( 'TribeEvents' ) ) {
 					'id' => 'tribe-events-settings-group',
 					'parent' => 'tribe-events'
 				) );
-
-				$wp_admin_bar->add_group( array(
-					'id' => 'tribe-events-import-group',
-					'parent' => 'tribe-events-add-ons-group'
-				) );
+				if( current_user_can( 'edit_tribe_events' ) ) {
+					$wp_admin_bar->add_group( array(
+						'id' => 'tribe-events-import-group',
+						'parent' => 'tribe-events-add-ons-group'
+					) );
+				}
 
 				$wp_admin_bar->add_menu( array(
 					'id' => 'tribe-events-view-calendar',
@@ -3976,8 +3977,11 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		}
 
 		public function addHelpAdminMenuItem() {
-			global $submenu;
-			$submenu['edit.php?post_type=' . self::POSTTYPE][500] = array( __('Help', 'tribe-events-calendar'), 'manage_options' , add_query_arg( array( 'post_type' => self::POSTTYPE, 'page' => 'tribe-events-calendar', 'tab' => 'help' ), admin_url( 'edit.php' ) ) );
+			// prevent users who cannot manage the plugin to see addons link
+			if( current_user_can( 'edit_tribe_events' ) ) {
+				global $submenu;
+				$submenu['edit.php?post_type=' . self::POSTTYPE][500] = array( __('Help', 'tribe-events-calendar'), 'manage_options' , add_query_arg( array( 'post_type' => self::POSTTYPE, 'page' => 'tribe-events-calendar', 'tab' => 'help' ), admin_url( 'edit.php' ) ) );
+			}
 		}
 
 		/**
