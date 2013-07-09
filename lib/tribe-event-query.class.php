@@ -34,7 +34,6 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 		public static function init() {
 
 			// if tribe event query add filters
-			add_filter( 'parse_query', array( __CLASS__, 'parse_query' ), 0 );
 			add_filter( 'pre_get_posts', array( __CLASS__, 'pre_get_posts' ), 0 );
 
 			if ( is_admin() ) {
@@ -54,6 +53,36 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 		public function pre_get_posts( $query ) {
 
 			global $wp_the_query;
+
+			$types = ( !empty( $query->query_vars['post_type'] ) ? (array) $query->query_vars['post_type'] : array() );
+
+			// is the query pulling posts from the past
+			$query->tribe_is_past = !empty( $query->query_vars['tribe_is_past'] ) ? $query->query_vars['tribe_is_past'] : false ;
+
+			// check if any possiblity of this being an event query
+			$query->tribe_is_event = ( in_array( TribeEvents::POSTTYPE, $types ) )
+				? true // it was an event query
+			: false;
+
+			// check if any possiblity of this being an event category
+			$query->tribe_is_event_category = ( isset( $query->query_vars[TribeEvents::TAXONOMY] ) && $query->query_vars[TribeEvents::TAXONOMY] != '' )
+				? true // it was an event category
+			: false;
+
+			$query->tribe_is_event_venue = ( in_array( TribeEvents::VENUE_POST_TYPE, $types ) )
+				? true // it was an event venue
+			: false;
+
+			$query->tribe_is_event_organizer = ( in_array( TribeEvents::ORGANIZER_POST_TYPE, $types ) )
+				? true // it was an event organizer
+			: false;
+
+			$query->tribe_is_event_query = ( $query->tribe_is_event
+				|| $query->tribe_is_event_category
+				|| $query->tribe_is_event_venue
+				|| $query->tribe_is_event_organizer )
+				? true // this is an event query of some type
+			: false; // move along, this is not the query you are looking for
 
 			// setup static const to preserve query type through hooks
 			self::$is_event = $query->tribe_is_event;
@@ -241,47 +270,6 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 					}
 				}
 			}
-
-			return $query;
-		}
-
-		/**
-		 * Set query flags
-		 *
-		 * @return WP_Query
-		 * @author Jessica Yazbek
-		 **/
-		public static function parse_query( $query ) {
-
-			$types = ( !empty( $query->query_vars['post_type'] ) ? (array) $query->query_vars['post_type'] : array() );
-
-			// is the query pulling posts from the past
-			$query->tribe_is_past = !empty( $query->query_vars['tribe_is_past'] ) ? $query->query_vars['tribe_is_past'] : false ;
-
-			// check if any possiblity of this being an event query
-			$query->tribe_is_event = ( in_array( TribeEvents::POSTTYPE, $types ) )
-				? true // it was an event query
-			: false;
-
-			// check if any possiblity of this being an event category
-			$query->tribe_is_event_category = ( isset( $query->query_vars[TribeEvents::TAXONOMY] ) && $query->query_vars[TribeEvents::TAXONOMY] != '' )
-				? true // it was an event category
-			: false;
-
-			$query->tribe_is_event_venue = ( in_array( TribeEvents::VENUE_POST_TYPE, $types ) )
-				? true // it was an event venue
-			: false;
-
-			$query->tribe_is_event_organizer = ( in_array( TribeEvents::ORGANIZER_POST_TYPE, $types ) )
-				? true // it was an event organizer
-			: false;
-
-			$query->tribe_is_event_query = ( $query->tribe_is_event
-				|| $query->tribe_is_event_category
-				|| $query->tribe_is_event_venue
-				|| $query->tribe_is_event_organizer )
-				? true // this is an event query of some type
-			: false; // move along, this is not the query you are looking for
 
 			// check if is_event_query === true and hook filter
 			if ( $query->tribe_is_event_query ) {
