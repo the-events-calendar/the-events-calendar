@@ -400,7 +400,7 @@ jQuery(document).ready(function($) {
  * credits: http://www.johngadbois.com/adding-your-own-callbacks-to-wordpress-ajax-requests/
  */
 jQuery(document).ajaxSuccess(function(e, xhr, settings) {
-	if(settings.data.search('action=save-widget') != -1) {
+	if(typeof settings !== 'undefined' && typeof settings.data !== 'undefined' && settings.data.search('action=save-widget') != -1) {
 		jQuery("#widgets-right .chosen").chosen();
 	}
 });

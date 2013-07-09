@@ -33,7 +33,7 @@ $modules = TribeEventsTickets::modules();
 						<p class="description"><?php _e( 'The maximum image size in the email will be 580px wide by any height, and then scaled for mobile. If you would like "retina" support use an image sized to 1160px wide.', 'tribe-events-calendar' ); ?></p>
 					</td>
 					<td>
-						<input type="button" class="button" name="tribe_ticket_header_image" id="tribe_ticket_header_image" value="<?php _e( 'Select an Image', 'tribe-events-calendar' ); ?>" onclick="ticketHeaderImage.uploader( '', '' ); return false;" />
+						<input type="button" class="button" name="tribe_ticket_header_image" id="tribe_ticket_header_image" value="<?php _e( 'Select an Image', 'tribe-events-calendar' ); ?>" />
 					</td>
 				</tr>
 				<tr>
