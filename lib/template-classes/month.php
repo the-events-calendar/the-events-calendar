@@ -46,6 +46,7 @@ if( !class_exists('Tribe_Events_Month_Template')){
 			}
 
 			self::$args = $args;
+			self::$posts_per_page_limit = apply_filters( 'tribe_events_month_day_limit', tribe_get_option( 'monthEventAmount', '3' ) );
 
 			if ( ! tribe_is_month() ) {
 				$this->asset_packages = array();

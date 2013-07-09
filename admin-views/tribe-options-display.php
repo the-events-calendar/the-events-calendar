@@ -19,7 +19,7 @@ foreach( $views as $view ) {
 
 $displayTab = array(
 	'priority' => 20,
-	'fields' => array(
+	'fields' =>  apply_filters( 'tribe_display_settings_tab_fields', array(
 		'info-start' => array(
 			'type' => 'html',
 			'html' => '<div id="modern-tribe-info">'
@@ -100,6 +100,14 @@ $displayTab = array(
 					'default' => false,
 					'validation_type' => 'boolean',
 		),
+		'monthEventAmount' => array(
+			'type' => 'text',
+		 	'label' => __( 'Month view events per day', 'tribe-events-calendar' ),
+		 	'tooltip' => __( 'Allow more than the default 3 events per day in month view.', 'tribe-events-calendar' ),
+			'validation_type' => 'positive_int',
+			'size' => 'small',
+			'default' => '3'
+		),
 		'tribeEventsAdvancedSettingsTitle' => array(
 			'type' => 'html',
 			'html' => '<h3>' . __( 'Advanced Template Settings', 'tribe-events-calendar' ) . '</h3>',
@@ -120,5 +128,6 @@ $displayTab = array(
 			'type' => 'html',
 			'html' => '</div>',
 		),
+		)
 	)
 );
