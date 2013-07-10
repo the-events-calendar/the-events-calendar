@@ -158,6 +158,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			add_filter( 'tribe-events-bar-views', array( $this, 'setup_dayview_in_bar' ), 15, 1 );
 			add_filter( 'tribe-events-bar-views', array( $this, 'setup_photoview_in_bar' ), 30, 1 );
 			add_filter( 'tribe_events_ugly_link', array( $this, 'ugly_link' ), 10, 3);
+			add_filter( 'tribe_events_getLink', array( $this, 'get_link' ), 10, 4 );
 			add_filter( 'tribe-events-bar-date-search-default-value', array( $this, 'maybe_setup_date_in_bar' ) );
 			add_filter( 'tribe_bar_datepicker_caption', array( $this, 'setup_datepicker_label' ), 10, 1 );
 			add_action( 'tribe_events_after_the_title', array( $this, 'add_recurring_occurance_setting_to_list' ) );
@@ -1452,6 +1453,42 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			}
 
 			return apply_filters( 'tribe_events_pro_ugly_link', $eventUrl, $type, $secondary );
+		}
+
+		/**
+		 * filter TribeEvents::getLink for pro views
+		 * @param  string $eventUrl
+		 * @param  string $type
+		 * @param  string $secondary
+		 * @param  string $term
+		 * @return string
+		 * @author tim@imaginesimplicity.com
+		 * @since 3.0.2
+		 */
+		public function get_link( $eventUrl, $type, $secondary, $term ){
+			switch( $type ) {
+				case 'week':
+					$eventUrl = trailingslashit( esc_url( $eventUrl . $this->weekSlug ) );
+					if ( !empty( $secondary ) ) {
+						$eventUrl = esc_url( trailingslashit( $eventUrl ) . $secondary );
+					}				
+					break;
+				case 'photo':
+					$eventUrl = trailingslashit( esc_url( $eventUrl . $this->photoSlug ) );
+					if ( !empty( $secondary ) ) {
+						$eventUrl = esc_url( trailingslashit( $eventUrl ) . $secondary );
+					}
+					break;
+				case 'map':
+					$eventUrl = trailingslashit( esc_url( $eventUrl . TribeEventsGeoLoc::instance()->rewrite_slug ) );
+					if ( !empty( $secondary ) ) {
+						$eventUrl = esc_url( trailingslashit( $eventUrl ) . $secondary );
+					}
+					break;
+				default:
+					break;
+			}
+			return apply_filters( 'tribe_events_pro_get_link', $eventUrl, $type, $secondary, $term );
 		}
 
 		/**
