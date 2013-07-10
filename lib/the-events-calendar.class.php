@@ -4063,13 +4063,13 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 			$value = "";
 			if ( !empty( $_REQUEST['tribe-bar-search'] ) ) {
-				$value = $_REQUEST['tribe-bar-search'];
+				$value = esc_attr( $_REQUEST['tribe-bar-search'] );
 			}
 
 			if ( tribe_get_option( 'tribeDisableTribeBar', false ) == false ) {
 				$filters['tribe-bar-search'] = array( 'name'    => 'tribe-bar-search',
 				                                      'caption' => 'Search',
-				                                      'html'    => '<input type="text" name="tribe-bar-search" id="tribe-bar-search" value="' . esc_attr( $value ) . '" placeholder="Search">' );
+				                                      'html'    => '<input type="text" name="tribe-bar-search" id="tribe-bar-search" value="' .  $value  . '" placeholder="Search">' );
 
 			}
 			return $filters;
