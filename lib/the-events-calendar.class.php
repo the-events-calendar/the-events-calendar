@@ -313,7 +313,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			if( !$this->show_data_wrapper['after'] )
 				return $html;
 
-			$html .= '</div>';
+			$html .= '</div><!-- #tribe-events -->';
 			$html .= tribe_events_promo_banner( false );
 			$this->show_data_wrapper['after'] = false;
 			return apply_filters( 'tribe_events_view_after_html_data_wrapper', $html );
