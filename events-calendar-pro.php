@@ -579,7 +579,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		 */
 		public function init() {
 			// if pro rewrite rules have not been generated yet, flush them. (This can happen on reactivations.)
-			if(is_array(get_option('rewrite_rules')) && !array_key_exists($base . $week . '/?$',get_option('rewrite_rules'))) {
+			if(is_array(get_option('rewrite_rules')) && !array_key_exists(trailingslashit( TribeEvents::instance()->rewriteSlug ) . $this->weekSlug . '/?$',get_option('rewrite_rules'))) {
 				TribeEvents::flushRewriteRules();
 			}
 			TribeEventsMiniCalendar::instance();
