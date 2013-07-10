@@ -3215,15 +3215,16 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 			$EventStartDate = ( isset($start) && $start ) ? $start : date('Y-m-d');
 
-			if ( !empty($_REQUEST['eventDate']) )
-				$EventStartDate = $_REQUEST['eventDate'];
+			if ( ! empty( $_REQUEST['eventDate'] ) )
+				$EventStartDate = esc_attr( $_REQUEST['eventDate'] );
 
 			if( $_EventEndDate )
 				$end = TribeDateUtils::dateOnly($_EventEndDate);
 
-			$EventEndDate = ( isset($end) && $end ) ? $end : date('Y-m-d');
-			$recStart = isset($_REQUEST['event_start']) ? $_REQUEST['event_start'] : null;
-			$recPost = isset($_REQUEST['post']) ? $_REQUEST['post'] : null;
+			$EventEndDate = ( isset( $end ) && $end ) ? $end : date( 'Y-m-d' );
+			$recStart     = isset( $_REQUEST['event_start'] ) ? esc_attr( $_REQUEST['event_start'] ) : null;
+			$recPost      = isset( $_REQUEST['post'] ) ? absint( $_REQUEST['post'] ) : null;
+			
 
 			if ( !empty($_REQUEST['eventDate']) ) {
 				$duration = get_post_meta( $postId, '_EventDuration', true );
@@ -3261,6 +3262,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 					}
 				}
 			}
+			
 			?>
 				<style type="text/css">
 						#EventInfo {border:none;}
