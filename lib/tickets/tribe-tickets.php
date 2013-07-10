@@ -249,7 +249,13 @@ if ( ! class_exists( 'TribeEventsTickets' ) ) {
 			if ( ! isset( $_POST["formdata"] ) ) $this->ajax_error( 'Bad post' );
 			if ( ! isset( $_POST["post_ID"] ) ) $this->ajax_error( 'Bad post' );
 
-			$data    = wp_parse_args( $_POST["formdata"] );
+			/*
+			 This is needed because a provider can implement a dynamic set of fields.
+			 Each provider is responsible for sanitizing these values.
+			*/
+			$data = wp_parse_args( $_POST["formdata"] );
+
+
 			$post_id = $_POST["post_ID"];
 
 			if ( empty( $_POST["nonce"] ) || ! wp_verify_nonce( $_POST["nonce"], 'add_ticket_nonce' ) || ! current_user_can( 'edit_tribe_events' ) )

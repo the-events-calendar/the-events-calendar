@@ -3221,15 +3221,16 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 			$EventStartDate = ( isset($start) && $start ) ? $start : date('Y-m-d');
 
-			if ( !empty($_REQUEST['eventDate']) )
-				$EventStartDate = $_REQUEST['eventDate'];
+			if ( ! empty( $_REQUEST['eventDate'] ) )
+				$EventStartDate = esc_attr( $_REQUEST['eventDate'] );
 
 			if( $_EventEndDate )
 				$end = TribeDateUtils::dateOnly($_EventEndDate);
 
-			$EventEndDate = ( isset($end) && $end ) ? $end : date('Y-m-d');
-			$recStart = isset($_REQUEST['event_start']) ? $_REQUEST['event_start'] : null;
-			$recPost = isset($_REQUEST['post']) ? $_REQUEST['post'] : null;
+			$EventEndDate = ( isset( $end ) && $end ) ? $end : date( 'Y-m-d' );
+			$recStart     = isset( $_REQUEST['event_start'] ) ? esc_attr( $_REQUEST['event_start'] ) : null;
+			$recPost      = isset( $_REQUEST['post'] ) ? absint( $_REQUEST['post'] ) : null;
+			
 
 			if ( !empty($_REQUEST['eventDate']) ) {
 				$duration = get_post_meta( $postId, '_EventDuration', true );
@@ -3267,6 +3268,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 					}
 				}
 			}
+			
 			?>
 				<style type="text/css">
 						#EventInfo {border:none;}
@@ -3609,29 +3611,30 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		public function get_event_link($post, $mode = 'next',$anchor = false){
 			global $wpdb;
 
-			if($mode == 'previous'){
+			if ( $mode == 'previous' ) {
 				$order = 'DESC';
-				$sign = '<';
-			}else{
+				$sign  = '<';
+			} else {
 				$order = 'ASC';
-				$sign = '>';
+				$sign  = '>';
 			}
 
 			$date = $post->EventStartDate;
 			$id = $post->ID;
 
-			$eventsQuery = "
+			$eventsQuery = $wpdb->prepare( "
 				SELECT $wpdb->posts.*, d1.meta_value as EventStartDate
 				FROM $wpdb->posts
 				LEFT JOIN $wpdb->postmeta as d1 ON($wpdb->posts.ID = d1.post_id)
-				WHERE $wpdb->posts.post_type = '".self::POSTTYPE."'
+				WHERE $wpdb->posts.post_type = '%s'
 				AND d1.meta_key = '_EventStartDate'
-				AND ((d1.meta_value = '" .$date . "' AND ID $sign ".$id.") OR
-					d1.meta_value $sign '" .$date . "')
+				AND ((d1.meta_value = '%s' AND ID $sign %d) OR
+					d1.meta_value $sign '%s')
 				AND $wpdb->posts.post_status = 'publish'
-				AND ($wpdb->posts.ID != $id OR d1.meta_value != '$date')
+				AND ($wpdb->posts.ID != %d OR d1.meta_value != '%s')
 				ORDER BY TIMESTAMP(d1.meta_value) $order, ID $order
-				LIMIT 1";
+				LIMIT 1", self::POSTTYPE, $date, $id, $date, $id, $date );
+			
 			$args = array(
 				'post_type' => self::POSTTYPE,
 				'post_status' => 'publish',
@@ -4069,13 +4072,13 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 			$value = "";
 			if ( !empty( $_REQUEST['tribe-bar-search'] ) ) {
-				$value = $_REQUEST['tribe-bar-search'];
+				$value = esc_attr( $_REQUEST['tribe-bar-search'] );
 			}
 
 			if ( tribe_get_option( 'tribeDisableTribeBar', false ) == false ) {
 				$filters['tribe-bar-search'] = array( 'name'    => 'tribe-bar-search',
 				                                      'caption' => 'Search',
-				                                      'html'    => '<input type="text" name="tribe-bar-search" id="tribe-bar-search" value="' . esc_attr( $value ) . '" placeholder="Search">' );
+				                                      'html'    => '<input type="text" name="tribe-bar-search" id="tribe-bar-search" value="' .  $value  . '" placeholder="Search">' );
 
 			}
 			return $filters;
