@@ -99,7 +99,7 @@ if( !class_exists('Tribe_Events_Pro_Day_Template')){
 
 			// Search term based notices
 			if( !empty($search_term) && !have_posts() ) {
-				TribeEvents::setNotice( 'event-search-no-results', sprintf( __( 'There were no results found for <strong>"%s"</strong> on this day. Try searching another day.', 'tribe-events-calendar-pro' ), $search_term ) );
+				TribeEvents::setNotice( 'event-search-no-results', sprintf( __( 'There were no results found for <strong>"%s"</strong> on this day. Try searching another day.', 'tribe-events-calendar-pro' ), esc_html($search_term) ) );
 			}
 			// No events found on this day
 			else if ( empty($search_term) && empty( $wp_query->query_vars['s'] ) && !have_posts() ) { // Messages if currently no events, and no search term

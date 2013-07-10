@@ -75,7 +75,7 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 				}
 
 			if ( !empty( $search_term ) && !have_posts() ) {
-				TribeEvents::setNotice( 'event-search-no-results', sprintf( __( 'There were no results found for <strong>"%s"</strong> this week. Try searching another week.', 'tribe-events-calendar-pro' ), $search_term ) );
+				TribeEvents::setNotice( 'event-search-no-results', sprintf( __( 'There were no results found for <strong>"%s"</strong> this week. Try searching another week.', 'tribe-events-calendar-pro' ), esc_html($search_term) ) );
 			}
 		}
 
