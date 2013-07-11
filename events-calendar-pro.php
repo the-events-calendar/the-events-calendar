@@ -185,6 +185,11 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			add_filter( 'tribe_events_register_venue_type_args', array( $this, 'addSupportsThumbnail' ), 10, 1 );
 			add_filter( 'tribe_events_register_organizer_type_args', array( $this, 'addSupportsThumbnail' ), 10, 1 );
 
+			// filter the query sql to get the recurrence end date
+			add_filter( 'tribe_events_query_posts_joins', array($this, 'posts_join'));
+			add_filter( 'tribe_events_query_posts_fields', array($this, 'posts_fields'));
+			add_filter( 'tribe_events_query_end_date_column', array($this, 'end_date_column'));
+
 		}
 
 		/**
@@ -643,6 +648,44 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 					exit;
 				}
 			}
+		}
+
+		/**
+		 * Filter the event fields to use the duration to get the end date (to accomodate recurrence)
+		 *
+		 * @return string
+		 * @author Jessica Yazbek
+		 * @since 3.0.2
+		 **/
+		public static function posts_fields($fields){
+			global $wpdb;
+			$fields['event_duration']= "tribe_event_duration.meta_value as EventDuration";
+			$fields['event_end_date'] = "DATE_ADD(CAST({$wpdb->postmeta}.meta_value AS DATETIME), INTERVAL tribe_event_duration.meta_value SECOND) as EventEndDate";
+			return $fields;
+		}
+
+		/**
+		 * Filter the event joins to use the duration to get the end date (to accomodate recurrence)
+		 *
+		 * @return string
+		 * @author Jessica Yazbek
+		 * @since 3.0.2
+		 **/
+		public static function posts_join($joins){
+			global $wpdb;
+			$joins['event_end_date'] = " LEFT JOIN {$wpdb->postmeta} as tribe_event_duration ON ( {$wpdb->posts}.ID = tribe_event_duration.post_id AND tribe_event_duration.meta_key = '_EventDuration' ) ";
+			return $joins;
+		}
+
+		/**
+		 * Filter the event end date column name to use the start date + duration to get the end date (to accomodate recurrence)
+		 *
+		 * @return string
+		 * @author Jessica Yazbek
+		 * @since 3.0.2
+		 **/
+		public static function end_date_column($fieldname) {
+			return ('DATE_ADD(CAST(wp_postmeta.meta_value AS DATETIME), INTERVAL tribe_event_duration.meta_value SECOND)');
 		}
 
 		/**
