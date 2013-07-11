@@ -102,6 +102,7 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 				self::$end_date = null;
 
 				add_filter( 'posts_join', array( __CLASS__, 'posts_join' ), 10, 2 );
+				add_filter( 'posts_join', array( __CLASS__, 'posts_join_orderby' ), 10, 2 );
 				add_filter( 'posts_where', array( __CLASS__, 'posts_where' ), 10, 2 );
 				add_filter( 'posts_fields', array( __CLASS__, 'posts_fields' ), 10, 2 );
 				add_filter( 'posts_distinct', array( __CLASS__, 'posts_distinct' ) );
@@ -314,18 +315,21 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
          * @param WP_Query $query The current query object.
          * @return string The modified FIELDS statement.
          */
-        public static function posts_fields( $fields, $query ) {
+        public static function posts_fields( $field_sql, $query ) {
 			if ( self::$is_event ) {
 				global $wpdb;
-				$fields .= ", {$wpdb->postmeta}.meta_value as EventStartDate, tribe_event_duration.meta_value as EventDuration, DATE_ADD(CAST({$wpdb->postmeta}.meta_value AS DATETIME), INTERVAL tribe_event_duration.meta_value SECOND) as EventEndDate ";
-				return apply_filters( 'tribe_events_query_posts_fields', $fields );
+				$fields = array();
+				$fields['event_start_date'] = "{$wpdb->postmeta}.meta_value as EventStartDate";
+				$fields['event_end_date'] ="tribe_event_end_date.meta_value as EventEndDate";
+				$fields = apply_filters( 'tribe_events_query_posts_fields', $fields );
+				return $field_sql . ', '.implode(', ', $fields);
 			} else {
-				return $fields;
+				return $field_sql;
 			}
 		}
 
 		/**
-		 * Custom SQL join for event duration meta field
+		 * Custom SQL join for event end date
 		 *
 		 * @param string  $join_sql
 		 * @param wp_query $query
@@ -333,22 +337,37 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 		 */
 		public static function posts_join( $join_sql, $query ) {
 			global $wpdb;
+			$joins = array();
 
 			// if it's a true event query then we want create a join for where conditions
 			if ( $query->tribe_is_event || $query->tribe_is_event_category ) {
-				$join_sql .= " LEFT JOIN {$wpdb->postmeta} as tribe_event_duration ON ( {$wpdb->posts}.ID = tribe_event_duration.post_id AND tribe_event_duration.meta_key = '_EventDuration' ) ";
-				switch ($query->get( 'orderby' )) {
-					case 'venue':
-						$join_sql .= "LEFT JOIN {$wpdb->postmeta} tribe_order_by_venue_meta ON {$wpdb->posts}.ID = tribe_order_by_venue_meta.post_id AND tribe_order_by_venue_meta.meta_key='_EventVenueID' LEFT JOIN {$wpdb->posts} tribe_order_by_venue ON tribe_order_by_venue_meta.meta_value = tribe_order_by_venue.ID ";
-						break;
-					case 'organizer':
-						$join_sql .= "LEFT JOIN {$wpdb->postmeta} tribe_order_by_organizer_meta ON {$wpdb->posts}.ID = tribe_order_by_organizer_meta.post_id AND tribe_order_by_organizer_meta.meta_key='_EventOrganizerID' LEFT JOIN {$wpdb->posts} tribe_order_by_organizer ON tribe_order_by_organizer_meta.meta_value = tribe_order_by_organizer.ID ";
-						break;
-					default: break;
-				}
+				$joins['event_start_date'] = " AND {$wpdb->postmeta}.meta_key = '_EventStartDate'";
+				$joins['event_end_date'] = " LEFT JOIN {$wpdb->postmeta} as tribe_event_end_date ON ( {$wpdb->posts}.ID = tribe_event_end_date.post_id AND tribe_event_end_date.meta_key = '_EventEndDate' ) ";
+				$joins = apply_filters( 'tribe_events_query_posts_joins', $joins );
+				return $join_sql . implode('', $joins);
+			}
+			return $join_sql;
+		}
+
+		/**
+		 * Custom SQL join for orderby
+		 *
+		 * @param string  $join_sql
+		 * @param wp_query $query
+		 * @return string
+		 */
+		public static function posts_join_orderby( $join_sql, $query ) {
+			switch ($query->get( 'orderby' )) {
+				case 'venue':
+					$join_sql .= " LEFT JOIN {$wpdb->postmeta} tribe_order_by_venue_meta ON {$wpdb->posts}.ID = tribe_order_by_venue_meta.post_id AND tribe_order_by_venue_meta.meta_key='_EventVenueID' LEFT JOIN {$wpdb->posts} tribe_order_by_venue ON tribe_order_by_venue_meta.meta_value = tribe_order_by_venue.ID ";
+					break;
+				case 'organizer':
+					$join_sql .= " LEFT JOIN {$wpdb->postmeta} tribe_order_by_organizer_meta ON {$wpdb->posts}.ID = tribe_order_by_organizer_meta.post_id AND tribe_order_by_organizer_meta.meta_key='_EventOrganizerID' LEFT JOIN {$wpdb->posts} tribe_order_by_organizer ON tribe_order_by_organizer_meta.meta_value = tribe_order_by_organizer.ID ";
+					break;
+				default: break;
 			}
 
-			return $join_sql;
+			return apply_filters( 'tribe_events_query_posts_join_orderby', $join_sql);
 		}
 
 		/**
@@ -368,17 +387,20 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 				$end_date = !empty( $query->end_date ) ? $query->end_date : $query->get( 'end_date' );
 
 				// we can't store end date directly because it messes up the distinc clause
-				$duration_filter = " DATE_ADD(CAST({$wpdb->postmeta}.meta_value AS DATETIME), INTERVAL tribe_event_duration.meta_value SECOND) ";
+				$event_end_date = apply_filters('tribe_events_query_end_date_column', 'tribe_event_end_date.meta_value');
+
+				// event start date
+				$event_start_date = "{$wpdb->postmeta}.meta_value";
 
 				// build where conditionals for events if date range params are set
 				if ( $start_date != '' && $end_date != '' ) {
-					$start_clause = $wpdb->prepare( "({$wpdb->postmeta}.meta_value >= %s AND {$wpdb->postmeta}.meta_value <= %s)", $start_date, $end_date );
-					$end_clause = $wpdb->prepare( "($duration_filter >= %s AND {$wpdb->postmeta}.meta_value <= %s )", $start_date, $end_date );
-					$within_clause = $wpdb->prepare( "({$wpdb->postmeta}.meta_value < %s AND $duration_filter >= %s )", $start_date, $end_date );
+					$start_clause = $wpdb->prepare( "($event_start_date >= %s AND $event_start_date <= %s)", $start_date, $end_date );
+					$end_clause = $wpdb->prepare( "($event_end_date >= %s AND $event_start_date <= %s )", $start_date, $end_date );
+					$within_clause = $wpdb->prepare( "($event_start_date < %s AND $event_end_date >= %s )", $start_date, $end_date );
 					$where_sql .= " AND ($start_clause OR $end_clause OR $within_clause)";
 				} else if ( $start_date != '' ) {
 					$start_clause = $wpdb->prepare( "{$wpdb->postmeta}.meta_value >= %s", $start_date );
-					$within_clause = $wpdb->prepare( "({$wpdb->postmeta}.meta_value <= %s AND $duration_filter >= %s )", $start_date, $start_date );
+					$within_clause = $wpdb->prepare( "({$wpdb->postmeta}.meta_value <= %s AND $event_end_date >= %s )", $start_date, $start_date );
 					$where_sql .= " AND ($start_clause OR $within_clause)";
 					if ( $query->is_singular() && $query->get( 'eventDate' ) ) {
 						$tomorrow = date( 'Y-m-d', strtotime( $query->get( 'eventDate' ).' +1 day' ) );
@@ -386,7 +408,7 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 						$where_sql .= " AND $tomorrow_clause";
 					}
 				} else if ( $end_date != '' ) {
-					$where_sql .= " AND " . $wpdb->prepare( "$duration_filter < %s", $end_date );
+					$where_sql .= " AND " . $wpdb->prepare( "$event_end_date < %s", $end_date );
 				}
 			}
 
