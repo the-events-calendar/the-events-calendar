@@ -673,7 +673,8 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		 **/
 		public static function posts_join($joins){
 			global $wpdb;
-			$joins['event_end_date'] = " LEFT JOIN {$wpdb->postmeta} as tribe_event_duration ON ( {$wpdb->posts}.ID = tribe_event_duration.post_id AND tribe_event_duration.meta_key = '_EventDuration' ) ";
+			$joins['event_duration'] = " LEFT JOIN {$wpdb->postmeta} as tribe_event_duration ON ( {$wpdb->posts}.ID = tribe_event_duration.post_id AND tribe_event_duration.meta_key = '_EventDuration' ) ";
+			$joins['event_end_date'] = " LEFT JOIN {$wpdb->postmeta} as tribe_event_end_date ON ( {$wpdb->posts}.ID = tribe_event_end_date.post_id AND tribe_event_end_date.meta_key = '_EventEndDate' ) ";
 			return $joins;
 		}
 
@@ -685,7 +686,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		 * @since 3.0.2
 		 **/
 		public static function end_date_column($fieldname) {
-			return ('DATE_ADD(CAST(wp_postmeta.meta_value AS DATETIME), INTERVAL tribe_event_duration.meta_value SECOND)');
+			return ('IF(tribe_event_duration.meta_value IS NULL, tribe_event_end_date.meta_value, DATE_ADD(CAST(wp_postmeta.meta_value AS DATETIME), INTERVAL tribe_event_duration.meta_value SECOND))');
 		}
 
 		/**
