@@ -408,11 +408,14 @@ if ( class_exists('TribeEvents') ) {
 
 		if ( ! $skeleton_mode && $group_venue ) {
 			// If there's a venue map and custom fields or organizer, show venue details in this seperate section
+			$venue_details = tribe_get_meta_group( 'tribe_event_venue' ) .
+			                 tribe_get_meta( 'tribe_venue_map' );
 
-			$html .= apply_filters( 'tribe_events_single_event_the_meta_venue_row', sprintf( '<div class="tribe-events-single-section tribe-events-event-meta tribe-clearfix">%s%s</div>',
-					tribe_get_meta_group( 'tribe_event_venue' ),
-					tribe_get_meta( 'tribe_venue_map' )
+			if ( !empty($venue_details) ) {
+				$html .= apply_filters( 'tribe_events_single_event_the_meta_venue_row', sprintf( '<div class="tribe-events-single-section tribe-events-event-meta tribe-clearfix">%s</div>',
+					$venue_details
 				) );
+			}
 		}
 		return apply_filters( 'tribe_events_single_event_meta', $html );
 	}

@@ -289,13 +289,6 @@ if (!class_exists('TribeEventsTemplates')) {
 
 			tribe_get_view();
 
-			$after = tribe_get_option( 'tribeEventsAfterHTML' );
-			$after = wptexturize( $after );
-			$after = convert_chars( $after );
-			$after = wpautop( $after );
-			$after = shortcode_unautop( $after );
-			$after = apply_filters( 'tribe_events_after_html', $after );
-
 			echo tribe_events_after_html();
 
 			$contents = ob_get_contents();

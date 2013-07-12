@@ -16,7 +16,7 @@
 <?php
 
 $filters = tribe_events_get_filters();
-$views = tribe_events_get_views();
+$views   = tribe_events_get_views();
 
  ?>
 

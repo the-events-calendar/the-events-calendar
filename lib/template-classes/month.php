@@ -46,6 +46,7 @@ if( !class_exists('Tribe_Events_Month_Template')){
 			}
 
 			self::$args = $args;
+			self::$posts_per_page_limit = apply_filters( 'tribe_events_month_day_limit', tribe_get_option( 'monthEventAmount', '3' ) );
 
 			if ( ! tribe_is_month() ) {
 				$this->asset_packages = array();
@@ -72,7 +73,7 @@ if( !class_exists('Tribe_Events_Month_Template')){
 			$total_counts = array_unique(self::$event_daily_counts);
 
 			if( count($total_counts) < 2 && !empty($search_term)) {
-				TribeEvents::setNotice( 'event-search-no-results', sprintf( __( 'There were no results found for <strong>"%s"</strong> this month. Try searching next month.', 'tribe-events-calendar' ), $search_term ) );
+				TribeEvents::setNotice( 'event-search-no-results', sprintf( __( 'There were no results found for <strong>"%s"</strong> this month. Try searching next month.', 'tribe-events-calendar' ), esc_html( $search_term ) ) );
 			}
 		}
 

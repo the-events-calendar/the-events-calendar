@@ -22,7 +22,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		const VENUE_POST_TYPE = 'tribe_venue';
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
 		const PLUGIN_DOMAIN = 'tribe-events-calendar';
-		const VERSION = '3.0';
+		const VERSION = '3.0.1';
 		const FEED_URL = 'http://tri.be/category/products/feed/';
 		const INFO_API_URL = 'http://wpapi.org/api/plugin/the-events-calendar.php';
 		const WP_PLUGIN_URL = 'http://wordpress.org/extend/plugins/the-events-calendar/';
@@ -118,6 +118,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			'_EventAllDay',
 			'_EventStartDate',
 			'_EventEndDate',
+			'_EventDuration',
 			'_EventVenueID',
 			'_EventShowMapLink',
 			'_EventShowMap',
@@ -313,7 +314,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			if( !$this->show_data_wrapper['after'] )
 				return $html;
 
-			$html .= '</div>';
+			$html .= '</div><!-- #tribe-events -->';
 			$html .= tribe_events_promo_banner( false );
 			$this->show_data_wrapper['after'] = false;
 			return apply_filters( 'tribe_events_view_after_html_data_wrapper', $html );
@@ -2389,42 +2390,48 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 			switch( $type ) {
 				case 'home':
-					return trailingslashit( esc_url($eventUrl) );
+					$eventUrl = trailingslashit( esc_url($eventUrl) );
+					break;
 				case 'month':
 					if ( $secondary ) {
-						return trailingslashit( esc_url($eventUrl . $secondary) );
+						$eventUrl = trailingslashit( esc_url($eventUrl . $secondary) );
+					} else {
+						$eventUrl = trailingslashit( esc_url($eventUrl . $this->monthSlug) );
 					}
-					return trailingslashit( esc_url($eventUrl . $this->monthSlug) );
-				case 'week':
-					if ( $secondary ) {
-						return trailingslashit( esc_url($eventUrl . $secondary) );
-					}
-					return trailingslashit( esc_url($eventUrl . $this->weekSlug) );
+					break;
 				case 'upcoming':
-					return trailingslashit( esc_url($eventUrl . $this->upcomingSlug) );
+					$eventUrl = trailingslashit( esc_url($eventUrl . $this->upcomingSlug) );
+					break;
 				case 'past':
-					return trailingslashit( esc_url($eventUrl . $this->pastSlug) );
+					$eventUrl = trailingslashit( esc_url($eventUrl . $this->pastSlug) );
+					break;
 				case 'dropdown':
-					return esc_url($eventUrl);
+					$eventUrl = esc_url($eventUrl);
+					break;
 				case 'single':
 					global $post;
 					$p = $secondary ? $secondary : $post;
 					remove_filter( 'post_type_link', array($this, 'addDateToRecurringEvents') );
 					$link = trailingslashit(get_permalink($p));
 					add_filter( 'post_type_link', array($this, 'addDateToRecurringEvents'), 10, 2 );
-					return trailingslashit( esc_url($link) );
+					$eventUrl = trailingslashit( esc_url($link) );
+					break;
 				case 'day':
 					$date = strtotime($secondary);
 					$secondary = date('Y-m-d', $date);
-					return trailingslashit( esc_url($eventUrl . $secondary) );
+					$eventUrl = trailingslashit( esc_url($eventUrl . $secondary) );
+					break;
 				case 'all':
 					remove_filter( 'post_type_link', array($this, 'addDateToRecurringEvents') );
 					$eventUrl = trailingslashit(get_permalink());
 					add_filter( 'post_type_link', array($this, 'addDateToRecurringEvents'), 10, 2 );
-					return trailingslashit( esc_url($eventUrl . 'all') );
+					$eventUrl = trailingslashit( esc_url($eventUrl . 'all') );
+					break;
 				default:
-					return esc_url($eventUrl);
+					$eventUrl = esc_url($eventUrl);
+					break;
 			}
+			return apply_filters( 'tribe_events_getLink', $eventUrl, $type, $secondary, $term );
 		}
 
 		/**
@@ -3215,15 +3222,16 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 			$EventStartDate = ( isset($start) && $start ) ? $start : date('Y-m-d');
 
-			if ( !empty($_REQUEST['eventDate']) )
-				$EventStartDate = $_REQUEST['eventDate'];
+			if ( ! empty( $_REQUEST['eventDate'] ) )
+				$EventStartDate = esc_attr( $_REQUEST['eventDate'] );
 
 			if( $_EventEndDate )
 				$end = TribeDateUtils::dateOnly($_EventEndDate);
 
-			$EventEndDate = ( isset($end) && $end ) ? $end : date('Y-m-d');
-			$recStart = isset($_REQUEST['event_start']) ? $_REQUEST['event_start'] : null;
-			$recPost = isset($_REQUEST['post']) ? $_REQUEST['post'] : null;
+			$EventEndDate = ( isset( $end ) && $end ) ? $end : date( 'Y-m-d' );
+			$recStart     = isset( $_REQUEST['event_start'] ) ? esc_attr( $_REQUEST['event_start'] ) : null;
+			$recPost      = isset( $_REQUEST['post'] ) ? absint( $_REQUEST['post'] ) : null;
+			
 
 			if ( !empty($_REQUEST['eventDate']) ) {
 				$duration = get_post_meta( $postId, '_EventDuration', true );
@@ -3261,6 +3269,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 					}
 				}
 			}
+			
 			?>
 				<style type="text/css">
 						#EventInfo {border:none;}
@@ -3603,29 +3612,30 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		public function get_event_link($post, $mode = 'next',$anchor = false){
 			global $wpdb;
 
-			if($mode == 'previous'){
+			if ( $mode == 'previous' ) {
 				$order = 'DESC';
-				$sign = '<';
-			}else{
+				$sign  = '<';
+			} else {
 				$order = 'ASC';
-				$sign = '>';
+				$sign  = '>';
 			}
 
 			$date = $post->EventStartDate;
 			$id = $post->ID;
 
-			$eventsQuery = "
+			$eventsQuery = $wpdb->prepare( "
 				SELECT $wpdb->posts.*, d1.meta_value as EventStartDate
 				FROM $wpdb->posts
 				LEFT JOIN $wpdb->postmeta as d1 ON($wpdb->posts.ID = d1.post_id)
-				WHERE $wpdb->posts.post_type = '".self::POSTTYPE."'
+				WHERE $wpdb->posts.post_type = '%s'
 				AND d1.meta_key = '_EventStartDate'
-				AND ((d1.meta_value = '" .$date . "' AND ID $sign ".$id.") OR
-					d1.meta_value $sign '" .$date . "')
+				AND ((d1.meta_value = '%s' AND ID $sign %d) OR
+					d1.meta_value $sign '%s')
 				AND $wpdb->posts.post_status = 'publish'
-				AND ($wpdb->posts.ID != $id OR d1.meta_value != '$date')
+				AND ($wpdb->posts.ID != %d OR d1.meta_value != '%s')
 				ORDER BY TIMESTAMP(d1.meta_value) $order, ID $order
-				LIMIT 1";
+				LIMIT 1", self::POSTTYPE, $date, $id, $date, $id, $date );
+			
 			$args = array(
 				'post_type' => self::POSTTYPE,
 				'post_status' => 'publish',
@@ -3835,11 +3845,12 @@ if ( !class_exists( 'TribeEvents' ) ) {
 					'id' => 'tribe-events-settings-group',
 					'parent' => 'tribe-events'
 				) );
-
-				$wp_admin_bar->add_group( array(
-					'id' => 'tribe-events-import-group',
-					'parent' => 'tribe-events-add-ons-group'
-				) );
+				if( current_user_can( 'edit_tribe_events' ) ) {
+					$wp_admin_bar->add_group( array(
+						'id' => 'tribe-events-import-group',
+						'parent' => 'tribe-events-add-ons-group'
+					) );
+				}
 
 				$wp_admin_bar->add_menu( array(
 					'id' => 'tribe-events-view-calendar',
@@ -3976,8 +3987,11 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		}
 
 		public function addHelpAdminMenuItem() {
-			global $submenu;
-			$submenu['edit.php?post_type=' . self::POSTTYPE][500] = array( __('Help', 'tribe-events-calendar'), 'manage_options' , add_query_arg( array( 'post_type' => self::POSTTYPE, 'page' => 'tribe-events-calendar', 'tab' => 'help' ), admin_url( 'edit.php' ) ) );
+			// prevent users who cannot manage the plugin to see addons link
+			if( current_user_can( 'edit_tribe_events' ) ) {
+				global $submenu;
+				$submenu['edit.php?post_type=' . self::POSTTYPE][500] = array( __('Help', 'tribe-events-calendar'), 'manage_options' , add_query_arg( array( 'post_type' => self::POSTTYPE, 'page' => 'tribe-events-calendar', 'tab' => 'help' ), admin_url( 'edit.php' ) ) );
+			}
 		}
 
 		/**
@@ -4059,13 +4073,13 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 			$value = "";
 			if ( !empty( $_REQUEST['tribe-bar-search'] ) ) {
-				$value = $_REQUEST['tribe-bar-search'];
+				$value = esc_attr( $_REQUEST['tribe-bar-search'] );
 			}
 
 			if ( tribe_get_option( 'tribeDisableTribeBar', false ) == false ) {
 				$filters['tribe-bar-search'] = array( 'name'    => 'tribe-bar-search',
 				                                      'caption' => 'Search',
-				                                      'html'    => '<input type="text" name="tribe-bar-search" id="tribe-bar-search" value="' . esc_attr( $value ) . '" placeholder="Search">' );
+				                                      'html'    => '<input type="text" name="tribe-bar-search" id="tribe-bar-search" value="' .  $value  . '" placeholder="Search">' );
 
 			}
 			return $filters;
