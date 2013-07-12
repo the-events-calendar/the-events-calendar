@@ -262,9 +262,11 @@ Our Premium Plugins:
 = 3.0.1 =
 
 * Added setting for number of events per day on month view (under Events > Settings > Display)
-* Fixed bug with events not showing up on past view
-* Fixed bug when WordPress is installed in a subdirectory
-* Fixed display issues with Events Calendar sidebar widget
+* Fixed bug with events not showing up on past view & related duration issues (thanks to MY-WEB and GOLFDAWGG for the heads up!)
+* Fixed bug where subscribers could add events
+* Fixed bug when WordPress is installed in a subdirectory (thanks to DAVID for catching this!)
+* Fixed display issues with Events Calendar sidebar (thanks to JNORRIS235 for catching this!)
+* Miscellaneous widget enhancements
 * Miscellaneous bug fixes
 * Various security fixes
 
