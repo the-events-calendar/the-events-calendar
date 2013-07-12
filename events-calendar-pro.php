@@ -45,7 +45,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		public $todaySlug = 'today';
 		public static $updateUrl = 'http://tri.be/';
 		const REQUIRED_TEC_VERSION = '3.0';
-		const VERSION = '3.0.1';
+		const VERSION = '3.0.2';
 
         /**
          * Class constructor.
