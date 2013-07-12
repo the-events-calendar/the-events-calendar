@@ -61,10 +61,6 @@ If this is your first time using The Events Calendar and Events Calendar PRO, yo
 
 Otherwise, if you're feeling adventurous, you can get started by heading to the Events menu and adding your first event. 
 
-== Screenshots ==
-
-ADD SCREENSHOTS
-
 == Frequently Asked Questions ==
 
 = Are there any troubleshooting steps you'd suggest I try that might resolve my issue before I post a new thread? =
@@ -191,7 +187,7 @@ Our Premium Plugins:
 
 = 3.0.2 =
 
-* Fixed bug with events not showing up on past view
+* Fixed bug with events not showing up on past view (thanks to MY-WEB and GOLFDAWGG for pointing this out!)
 * Miscellaneous bug fixes
 
 = 3.0.1 =
