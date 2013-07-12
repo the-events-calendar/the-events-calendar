@@ -118,6 +118,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			'_EventAllDay',
 			'_EventStartDate',
 			'_EventEndDate',
+			'_EventDuration',
 			'_EventVenueID',
 			'_EventShowMapLink',
 			'_EventShowMap',
