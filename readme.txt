@@ -262,6 +262,7 @@ Our Premium Plugins:
 = 3.0.1 =
 
 * Added setting for number of events per day on month view (under Events > Settings > Display)
+* Fixed an issue with the venue migration tool (thanks to ADAM for the heads up!)
 * Fixed bug with events not showing up on past view & related duration issues (thanks to MY-WEB and GOLFDAWGG for the heads up!)
 * Fixed bug where subscribers could add events
 * Fixed bug when WordPress is installed in a subdirectory (thanks to DAVID for catching this!)
