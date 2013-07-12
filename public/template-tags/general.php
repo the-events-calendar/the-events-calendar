@@ -11,24 +11,11 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 if( class_exists( 'TribeEventsPro' ) ) {
 
 	if ( !function_exists( 'tribe_get_mapview_link' ) ) {
-		function tribe_get_mapview_link() {
-			$tec = TribeEvents::instance();
-			$geo = TribeEventsGeoLoc::instance();
-			$url = trailingslashit( get_site_url() );
-			if ( '' === get_option('permalink_structure') ) {
-				if ( is_tax( TribeEvents::TAXONOMY ) )
-					$permalink = add_query_arg( array( 'post_type' => TribeEvents::POSTTYPE, 'eventDisplay' => 'map' ), get_term_link( get_query_var('term'), TribeEvents::TAXONOMY ) );
-				else
-					$permalink = add_query_arg( array( 'post_type' => TribeEvents::POSTTYPE, 'eventDisplay' => 'map' ), home_url() );
-			} else {
-				// if we're on an Event Cat, show the cat link, except for home and days.
-				if ( is_tax( TribeEvents::TAXONOMY ) )
-					$url = trailingslashit( get_term_link( get_query_var('term'), TribeEvents::TAXONOMY ) );
-				else
-					$url .= trailingslashit( $tec->rewriteSlug );
-				$permalink = $url . $geo->rewrite_slug . '/';
-			}
-			return apply_filters( 'tribe_get_map_view_permalink', $permalink );
+		function tribe_get_mapview_link( $term = null ) {
+			if ( isset( $wp_query->query_vars[TribeEvents::TAXONOMY] ) )
+				$term = $wp_query->query_vars[TribeEvents::TAXONOMY];
+			$output = TribeEvents::instance()->getLink( 'map', null, $term );
+			return apply_filters( 'tribe_get_map_view_permalink', $output );
 		}
 	}
 
@@ -649,23 +636,11 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	 * @since 3.0
 	 */
 	function tribe_get_week_permalink( $week = null, $term = true ){
-		$tec = TribeEvents::instance();
-		$week = is_null($week) ? '' : date('Y-m-d', strtotime( $week ) );
-		$url = trailingslashit( get_site_url() );
-		if ( '' === get_option('permalink_structure') ) {
-			if ( is_tax( TribeEvents::TAXONOMY ) )
-				$permalink = add_query_arg( array( 'post_type' => TribeEvents::POSTTYPE, 'eventDisplay' => 'week' ), get_term_link( get_query_var('term'), TribeEvents::TAXONOMY ) );
-			else
-				$permalink = add_query_arg( array( 'post_type' => TribeEvents::POSTTYPE, 'eventDisplay' => 'week' ), home_url() );
-		} else {
-			// if we're on an Event Cat, show the cat link, except for home and days.
-			if ( $term && is_tax( TribeEvents::TAXONOMY ) )
-				$url = trailingslashit( get_term_link( get_query_var('term'), TribeEvents::TAXONOMY ) );
-			else
-				$url .= trailingslashit( $tec->rewriteSlug );
-			$permalink = $url . trailingslashit( TribeEventsPro::instance()->weekSlug . '/' . $week );
-		}
-		return apply_filters('tribe_get_week_permalink', $permalink);
+		$week = is_null($week) ? false : date('Y-m-d', strtotime( $week ) );
+		if ( isset( $wp_query->query_vars[TribeEvents::TAXONOMY] ) )
+			$term = $wp_query->query_vars[TribeEvents::TAXONOMY];
+		$output = TribeEvents::instance()->getLink( 'week', $week, $term );
+		return apply_filters('tribe_get_week_permalink', $output);
 	}
 
 
@@ -675,22 +650,10 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	 * @since 3.0
 	 */
 	function tribe_get_photo_permalink( $term = true ) {
-		$tec       = TribeEvents::instance();
-		$url = trailingslashit( get_site_url() );
-		if ( '' === get_option('permalink_structure') ) {
-			if ( is_tax( TribeEvents::TAXONOMY ) )
-				$permalink = add_query_arg( array( 'post_type' => TribeEvents::POSTTYPE, 'eventDisplay' => 'photo' ), get_term_link( get_query_var('term'), TribeEvents::TAXONOMY ) );
-			else
-				$permalink = add_query_arg( array( 'post_type' => TribeEvents::POSTTYPE, 'eventDisplay' => 'photo' ), home_url() );
-		} else {
-			// if we're on an Event Cat, show the cat link, except for home and days.
-			if ( $term && is_tax( TribeEvents::TAXONOMY ) )
-				$url = trailingslashit( get_term_link( get_query_var('term'), TribeEvents::TAXONOMY ) );
-			else
-				$url .= trailingslashit( $tec->rewriteSlug );
-			$permalink = $url . trailingslashit( TribeEventsPro::instance()->photoSlug . '/' );
-		}
-		return apply_filters( 'tribe_get_photo_view_permalink', $permalink );
+		if ( isset( $wp_query->query_vars[TribeEvents::TAXONOMY] ) )
+			$term = $wp_query->query_vars[TribeEvents::TAXONOMY];
+		$output = TribeEvents::instance()->getLink( 'photo', null, $term );
+		return apply_filters( 'tribe_get_photo_view_permalink', $output );
 	}
 
 	/**
