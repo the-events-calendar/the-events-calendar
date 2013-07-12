@@ -546,13 +546,18 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 				global $wp_query;
 
 				$output_date_format = '%Y-%m-%d';
-				$raw_counts = $wpdb->get_results( sprintf( "SELECT tribe_event_start.post_id as ID, DATE_FORMAT( tribe_event_start.meta_value, '%1\$s') as EventStartDate, DATE_FORMAT( DATE_ADD(CAST(tribe_event_start.meta_value AS DATETIME), INTERVAL tribe_event_duration.meta_value SECOND), '%2\$s') as EventEndDate
+				$raw_counts = $wpdb->get_results( sprintf( "
+						SELECT tribe_event_start.post_id as ID, 
+							DATE_FORMAT( tribe_event_start.meta_value, '%1\$s') as EventStartDate, 
+							IF (tribe_event_duration.meta_value IS NULL, DATE_FORMAT( tribe_event_end_date.meta_value, '%1\$s'), DATE_FORMAT(DATE_ADD(CAST(tribe_event_start.meta_value AS DATETIME), INTERVAL tribe_event_duration.meta_value SECOND), '%1\$s')) as EventEndDate
 						FROM $wpdb->postmeta AS tribe_event_start
 						LEFT JOIN $wpdb->postmeta as tribe_event_duration ON ( tribe_event_start.post_id = tribe_event_duration.post_id AND tribe_event_duration.meta_key = '_EventDuration' )
+						LEFT JOIN $wpdb->postmeta as tribe_event_end_date ON ( tribe_event_start.post_id = tribe_event_end_date.post_id AND tribe_event_end_date.meta_key = '_EventEndDate' )
 						WHERE tribe_event_start.meta_key = '_EventStartDate'
 						AND tribe_event_start.post_id IN ( %5\$s )
 						AND ( (tribe_event_start.meta_value >= '%3\$s' AND  tribe_event_start.meta_value <= '%4\$s')
 							OR (tribe_event_start.meta_value <= '%3\$s' AND DATE_ADD(CAST( tribe_event_start.meta_value AS DATETIME), INTERVAL tribe_event_duration.meta_value SECOND) >= '%3\$s')
+							OR (tribe_event_start.meta_value <= '%3\$s' AND tribe_event_end_date.meta_value >= '%3\$s')
 							OR ( tribe_event_start.meta_value >= '%3\$s' AND  tribe_event_start.meta_value <= '%4\$s')
 						)
 						ORDER BY DATE(tribe_event_start.meta_value) ASC, TIME(tribe_event_start.meta_value) ASC;",
@@ -592,9 +597,6 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 				}
 				break;
 			}
-			// echo '<pre>';
-			//print_r($counts);
-			// echo '</pre>';
 			return $counts;
 		}
 
