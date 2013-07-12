@@ -269,7 +269,7 @@ Our Premium Plugins:
 * Fixed display issues with Events Calendar sidebar (thanks to JNORRIS235 for catching this!)
 * Miscellaneous widget enhancements
 * Miscellaneous bug fixes
-* Various security fixes
+* Various security fixes (thanks to HARRY METCALFE for his helpful feedback)
 
 = 3.0 =
 
