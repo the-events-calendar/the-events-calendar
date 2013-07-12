@@ -163,7 +163,7 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 					case 'upcoming':
 					default: // default display query
 						$start_date = date_i18n( TribeDateUtils::DBDATETIMEFORMAT );
-						$start_date = ( $query->get( 'eventDate' ) != '' ) ? $query->get( 'eventDate' ) . '-01' : $start_date;
+						$start_date = ( $query->get( 'eventDate' ) != '' ) ? $query->get( 'eventDate' ) : $start_date;
 						$query->set( 'hide_upcoming', true );
 						$query->set( 'start_date', $start_date );
 						$query->set( 'orderby', self::set_orderby() );
