@@ -660,7 +660,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		public static function posts_fields($fields){
 			global $wpdb;
 			$fields['event_duration']= "tribe_event_duration.meta_value as EventDuration";
-			$fields['event_end_date'] = "DATE_ADD(CAST({$wpdb->postmeta}.meta_value AS DATETIME), INTERVAL tribe_event_duration.meta_value SECOND) as EventEndDate";
+			$fields['event_end_date'] = "IF(tribe_event_duration.meta_value IS NULL, tribe_event_end_date.meta_value, DATE_ADD(CAST(wp_postmeta.meta_value AS DATETIME), INTERVAL tribe_event_duration.meta_value SECOND)) as EventEndDate";
 			return $fields;
 		}
 
