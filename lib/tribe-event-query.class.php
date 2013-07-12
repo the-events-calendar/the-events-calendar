@@ -138,7 +138,8 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 						break;
 					case 'month':
 						$start_date = substr_replace( date_i18n( TribeDateUtils::DBDATEFORMAT ), '01', -2 );
-						$start_date = ( $query->get( 'eventDate' ) != '' ) ? $query->get( 'eventDate' ) . '-01' : $start_date;
+						$passed_date = $query->get( 'eventDate' ) ? substr_replace( date_i18n( TribeDateUtils::DBDATEFORMAT, strtotime( $query->get( 'eventDate' ) ) ), '01', -2 ) : false;
+						$start_date = $passed_date ? $passed_date : $start_date;
 						$query->set( 'start_date', $start_date );
 						$query->set( 'eventDate', $start_date );
 						$query->set( 'end_date', date( 'Y-m-d', strtotime( TribeEvents::instance()->nextMonth( $start_date ) ) -( 24*3600 ) ) );
@@ -531,6 +532,7 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 				'hide_upcoming_ids' => null
 			);
 			$args = wp_parse_args( $args, $defaults );
+
 			$args['posts_per_page'] = -1;
 			$args['fields'] = 'ids';
 			$post_id_query = new WP_Query();
