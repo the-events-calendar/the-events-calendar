@@ -2,7 +2,7 @@
 /*
 Plugin Name: The Events Calendar PRO
 Description: The Events Calendar PRO, a premium add-on to the open source The Events Calendar plugin (required), enables recurring events, custom attributes, venue pages, new widgets and a host of other premium features.
-Version: 3.0.2
+Version: 3.0.3
 Author: Modern Tribe, Inc.
 Author URI: http://m.tri.be/20
 Text Domain: tribe-events-calendar-pro
@@ -45,7 +45,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		public $todaySlug = 'today';
 		public static $updateUrl = 'http://tri.be/';
 		const REQUIRED_TEC_VERSION = '3.0';
-		const VERSION = '3.0.2';
+		const VERSION = '3.0.3';
 
         /**
          * Class constructor.
@@ -660,7 +660,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		public static function posts_fields($fields){
 			global $wpdb;
 			$fields['event_duration']= "tribe_event_duration.meta_value as EventDuration";
-			$fields['event_end_date'] = "IF(tribe_event_duration.meta_value IS NULL, tribe_event_end_date.meta_value, DATE_ADD(CAST(wp_postmeta.meta_value AS DATETIME), INTERVAL tribe_event_duration.meta_value SECOND)) as EventEndDate";
+			$fields['event_end_date'] = "IF(tribe_event_duration.meta_value IS NULL, tribe_event_end_date.meta_value, DATE_ADD(CAST({$wpdb->postmeta}.meta_value AS DATETIME), INTERVAL tribe_event_duration.meta_value SECOND)) as EventEndDate";
 			return $fields;
 		}
 
@@ -686,7 +686,8 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		 * @since 3.0.2
 		 **/
 		public static function end_date_column($fieldname) {
-			return ('IF(tribe_event_duration.meta_value IS NULL, tribe_event_end_date.meta_value, DATE_ADD(CAST(wp_postmeta.meta_value AS DATETIME), INTERVAL tribe_event_duration.meta_value SECOND))');
+			global $wpdb;
+			return ("IF(tribe_event_duration.meta_value IS NULL, tribe_event_end_date.meta_value, DATE_ADD(CAST({$wpdb->postmeta}.meta_value AS DATETIME), INTERVAL tribe_event_duration.meta_value SECOND))");
 		}
 
 		/**
