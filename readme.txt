@@ -1,11 +1,11 @@
-gi=== The Events Calendar ===
+=== The Events Calendar ===
 
-Contributors:  ModernTribe, PaulHughes01, roblagatta, jonahcoyote, MZAWeb, codearachnid, ryancurban, leahkoerper, barryhughes, peterchester, reid.peifer, shane.pearlman
+Contributors:  ModernTribe, PaulHughes01, roblagatta, jonahcoyote, MZAWeb, codearachnid, ryancurban, faction23, jazbek, kyleunzicker, leahkoerper, barryhughes, peterchester, reid.peifer, shane.pearlman
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
 Donate link: http://m.tri.be/29
 Requires at least: 3.5
 Tested up to: 3.6
-Stable tag: 3.0
+Stable tag: 3.0.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -193,6 +193,7 @@ The plugin is produced by <a href="http://m.tri.be/2s">Modern Tribe Inc</a>.
 * <a href="http://profiles.wordpress.org/users/kyleunzicker">Kyle Unzicker</a>
 * <a href="http://profiles.wordpress.org/users/jazbek">Jessica Yazbek</a>
 * <a href="http://profiles.wordpress.org/users/jbrinley">Jonathan Brinley</a>
+* <a href="http://profiles.wordpress.org/users/faction23">Samuel Estok</a>
 * <a href="http://profiles.wordpress.org/users/leahkoerper">Leah Koerper</a>
 * <a href="http://profiles.wordpress.org/users/peterchester">Peter Chester</a>
 * <a href="http://profiles.wordpress.org/users/reid.peifer">Reid Peifer</a>
@@ -253,6 +254,22 @@ Our Premium Plugins:
 * The Events Calendar: Filter Bar (coming summer 2013)
 
 == Changelog ==
+
+= IMPORTANT NOTICE =
+
+3.0 is a complete overhaul of the plugin, and as a result we're starting the changelog fresh. For release notes from the 2.x lifecycle, see <a href="http://m.tri.be/k">our 2.x release notes.</a>
+
+= 3.0.1 =
+
+* Added setting for number of events per day on month view (under Events > Settings > Display)
+* Fixed an issue with the venue migration tool (thanks to ADAM for the heads up!)
+* Fixed bug with events not showing up on past view & related duration issues (thanks to MY-WEB and GOLFDAWGG for the heads up!)
+* Fixed bug where subscribers could add events
+* Fixed bug when WordPress is installed in a subdirectory (thanks to DAVID for catching this!)
+* Fixed display issues with Events Calendar sidebar (thanks to JNORRIS235 for catching this!)
+* Miscellaneous widget enhancements
+* Miscellaneous bug fixes
+* Various security fixes (thanks to HARRY METCALFE for his helpful feedback)
 
 = 3.0 =
 
