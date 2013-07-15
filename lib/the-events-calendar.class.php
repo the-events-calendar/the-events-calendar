@@ -4078,8 +4078,9 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 			if ( tribe_get_option( 'tribeDisableTribeBar', false ) == false ) {
 				$filters['tribe-bar-search'] = array( 'name'    => 'tribe-bar-search',
-				                                      'caption' => 'Search',
-				                                      'html'    => '<input type="text" name="tribe-bar-search" id="tribe-bar-search" value="' .  $value  . '" placeholder="Search">' );
+				                                      'caption' => __('Search', 'tribe-events-calendar'),
+
+				                                      'html'    => '<input type="text" name="tribe-bar-search" id="tribe-bar-search" value="' .  $value  . '" placeholder="'.  __('Search', 'tribe-events-calendar') .'">' );
 
 			}
 			return $filters;
@@ -4111,7 +4112,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 			$filters['tribe-bar-date'] = array( 'name'    => 'tribe-bar-date',
 			                                    'caption' => $caption,
-			                                    'html'    => '<input type="text" name="tribe-bar-date" style="position: relative; z-index:10000" id="tribe-bar-date" value="' . esc_attr( $value ) . '" placeholder="Date">
+			                                    'html'    => '<input type="text" name="tribe-bar-date" style="position: relative; z-index:10000" id="tribe-bar-date" value="' . esc_attr( $value ) . '" placeholder="'. __('Date', 'tribe-events-calendar') .'">
 								<input type="hidden" name="tribe-bar-date-day" id="tribe-bar-date-day" class="tribe-no-param" value="">' );
 
 			return $filters;
