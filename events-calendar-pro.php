@@ -2,7 +2,7 @@
 /*
 Plugin Name: The Events Calendar PRO
 Description: The Events Calendar PRO, a premium add-on to the open source The Events Calendar plugin (required), enables recurring events, custom attributes, venue pages, new widgets and a host of other premium features.
-Version: 3.0.1
+Version: 3.0.2
 Author: Modern Tribe, Inc.
 Author URI: http://m.tri.be/20
 Text Domain: tribe-events-calendar-pro
@@ -45,7 +45,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		public $todaySlug = 'today';
 		public static $updateUrl = 'http://tri.be/';
 		const REQUIRED_TEC_VERSION = '3.0';
-		const VERSION = '3.0.1';
+		const VERSION = '3.0.2';
 
         /**
          * Class constructor.
@@ -184,6 +184,11 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 
 			add_filter( 'tribe_events_register_venue_type_args', array( $this, 'addSupportsThumbnail' ), 10, 1 );
 			add_filter( 'tribe_events_register_organizer_type_args', array( $this, 'addSupportsThumbnail' ), 10, 1 );
+
+			// filter the query sql to get the recurrence end date
+			add_filter( 'tribe_events_query_posts_joins', array($this, 'posts_join'));
+			add_filter( 'tribe_events_query_posts_fields', array($this, 'posts_fields'));
+			add_filter( 'tribe_events_query_end_date_column', array($this, 'end_date_column'));
 
 		}
 
@@ -643,6 +648,46 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 					exit;
 				}
 			}
+		}
+
+		/**
+		 * Filter the event fields to use the duration to get the end date (to accomodate recurrence)
+		 *
+		 * @return string
+		 * @author Jessica Yazbek
+		 * @since 3.0.2
+		 **/
+		public static function posts_fields($fields){
+			global $wpdb;
+			$fields['event_duration']= "tribe_event_duration.meta_value as EventDuration";
+			$fields['event_end_date'] = "IF(tribe_event_duration.meta_value IS NULL, tribe_event_end_date.meta_value, DATE_ADD(CAST({$wpdb->postmeta}.meta_value AS DATETIME), INTERVAL tribe_event_duration.meta_value SECOND)) as EventEndDate";
+			return $fields;
+		}
+
+		/**
+		 * Filter the event joins to use the duration to get the end date (to accomodate recurrence)
+		 *
+		 * @return string
+		 * @author Jessica Yazbek
+		 * @since 3.0.2
+		 **/
+		public static function posts_join($joins){
+			global $wpdb;
+			$joins['event_duration'] = " LEFT JOIN {$wpdb->postmeta} as tribe_event_duration ON ( {$wpdb->posts}.ID = tribe_event_duration.post_id AND tribe_event_duration.meta_key = '_EventDuration' ) ";
+			$joins['event_end_date'] = " LEFT JOIN {$wpdb->postmeta} as tribe_event_end_date ON ( {$wpdb->posts}.ID = tribe_event_end_date.post_id AND tribe_event_end_date.meta_key = '_EventEndDate' ) ";
+			return $joins;
+		}
+
+		/**
+		 * Filter the event end date column name to use the start date + duration to get the end date (to accomodate recurrence)
+		 *
+		 * @return string
+		 * @author Jessica Yazbek
+		 * @since 3.0.2
+		 **/
+		public static function end_date_column($fieldname) {
+			global $wpdb;
+			return ("IF(tribe_event_duration.meta_value IS NULL, tribe_event_end_date.meta_value, DATE_ADD(CAST({$wpdb->postmeta}.meta_value AS DATETIME), INTERVAL tribe_event_duration.meta_value SECOND))");
 		}
 
 		/**

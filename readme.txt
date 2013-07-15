@@ -5,7 +5,7 @@ Tags: events, calendar, event, venue, organizer, dates, date, google maps, confe
 Donate link: http://m.tri.be/29
 Requires at least: 3.5
 Tested up to: 3.6
-Stable tag: 3.0.1
+Stable tag: 3.0.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -60,10 +60,6 @@ If this is your first time using The Events Calendar and Events Calendar PRO, yo
 * Take care of your license key. Though not required to create your first event, you'll want to get it in place as soon as possible to guarantee your access to support and upgrades. Need help finding your license key? Check out http://m.tri.be/3w
 
 Otherwise, if you're feeling adventurous, you can get started by heading to the Events menu and adding your first event. 
-
-== Screenshots ==
-
-ADD SCREENSHOTS
 
 == Frequently Asked Questions ==
 
@@ -185,9 +181,22 @@ Our Premium Plugins:
 
 == Changelog ==
 
-= 3.0 =
+= IMPORTANT NOTICE =
 
 3.0 is a complete overhaul of the plugin, and as a result we're starting the changelog fresh. For release notes from the 2.x lifecycle, see <a href="http://m.tri.be/k">our 2.x release notes.</a>
+
+= 3.0.2 =
+
+* Fixed bug with events not showing up on past view (thanks to MY-WEB and GOLFDAWGG for pointing this out!)
+* Miscellaneous bug fixes
+
+= 3.0.1 =
+
+* Fix a bug in the plugin upgrade system to work on MU sites.
+
+= 3.0 =
+
+3.0 is a complete overhaul of the plugin.
 
 == Help ==
 
