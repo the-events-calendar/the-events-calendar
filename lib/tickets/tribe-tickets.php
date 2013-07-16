@@ -586,14 +586,14 @@ if ( ! class_exists( 'TribeEventsTickets' ) ) {
 				$template .= '.php';
 			}
 
-			if ( $theme_file = locate_template( array( 'events/' . $template ) ) ) {
+			if ( $theme_file = locate_template( array( 'tribe-events/' . $template ) ) ) {
 				$file = $theme_file;
 			} else {
 				$file = $this->pluginPath . 'views/' . $template;
 			}
+
 			return apply_filters( 'tribe_events_tickets_template_' . $template, $file );
 		}
-
 		// end Helpers
 	}
 }
