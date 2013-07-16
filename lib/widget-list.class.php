@@ -57,6 +57,16 @@ if( !class_exists( 'TribeEventsListWidget' ) ) {
 				'title' => '',
 			));
 			extract( $instance, EXTR_SKIP );
+
+			// temporarily unset the tribe bar params so they don't apply
+			$hold_tribe_bar_args =  array();
+			foreach ( $_REQUEST as $key => $value ) {
+				if ( $value && strpos( $key, 'tribe-bar-' ) === 0 ) {
+					$hold_tribe_bar_args[$key] = $value;
+					unset( $_REQUEST[$key] );
+				}
+			}
+
 			// extracting $instance provides $title, $limit
 			$title = apply_filters('widget_title', $title );
 			if ( ! isset( $category ) || $category === '-1' ) {
@@ -120,6 +130,14 @@ if( !class_exists( 'TribeEventsListWidget' ) ) {
 			/* After widget (defined by themes). */
 			echo $after_widget;
 			wp_reset_query();
+
+			// reinstate the tribe bar params
+			if ( ! empty( $hold_tribe_bar_args ) ) {
+				foreach ( $hold_tribe_bar_args as $key => $value ) {
+					$_REQUEST[$key] = $value;
+				}
+			}
+			
 		}
 
         /**
