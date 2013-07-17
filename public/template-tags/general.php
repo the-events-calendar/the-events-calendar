@@ -433,7 +433,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 	function tribe_events_the_header_attributes( $current_view = null ) {
 		$attrs = array();
 		$current_view = !empty( $current_view ) ? $current_view : basename(tribe_get_current_template());
-		$attrs['data-title'] = wp_title('&raquo;', false);
+		$attrs['data-title'] = TribeEventsTemplates::maybeAddEventTitle('', '&raquo;');
 		switch($current_view) {
 			case 'month.php' :
 				$attrs['data-view'] = 'month';
