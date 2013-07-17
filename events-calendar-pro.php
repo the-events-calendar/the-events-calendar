@@ -1316,6 +1316,13 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 				$resources_url = trailingslashit( $this->pluginUrl ) . 'resources/';
 				$path = Tribe_Template_Factory::getMinFile( $resources_url . 'tribe-events-pro.js', true );
 				wp_enqueue_script( 'tribe-events-pro', $path, array( 'jquery', 'tribe-events-calendar-script' ), false, false );
+
+				$geoloc = TribeEventsGeoLoc::instance();
+
+				$data = array( 'geocenter' => $geoloc->estimate_center_point() );
+
+				wp_localize_script( 'tribe-events-pro', 'TribeEventsPro', $data );
+
 			}
 		}
 
