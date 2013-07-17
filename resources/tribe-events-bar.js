@@ -38,6 +38,7 @@ var tribe_events_bar_action;
 	$(document).ready(function () {
 		var $tribebar = $('#tribe-bar-form'),
 			$tribedate = $('#tribe-bar-date');
+			$tribebarviews= $('select.tribe-bar-views-select');
 
 		/**
 		 * @function eventsBarWidth
@@ -102,13 +103,31 @@ var tribe_events_bar_action;
 			$('#tribe-events-bar').addClass('tribe-has-datepicker');
 		}
 
-		// Implement placeholder
-		$('input[name*="tribe-bar-"]').placeholder();
-
 		// Implement select2
 		function format(view) {
 			return '<span class="tribe-icon-' + $.trim(view.text.toLowerCase()) + '">' + view.text + '</span>';
 		}
+		// Implement placeholder
+		$('input[name*="tribe-bar-"]').placeholder();
+
+		// Create list
+		$('<ul class="tribe-bar-views-select" />').insertAfter( $tribebarviews );
+
+		// Create list from select options
+		$tribebarviews.find('option').each(function(){
+			view = this;
+			// build list items and append them
+			$('<li></li>', {
+				'class': 'tribe-bar-views-option'
+			}).html([
+                '   <a href="#"" onclick="return false;">',
+                '   <span class="tribe-icon-' + $.trim(view.text.toLowerCase()) + '">' + view.text + '</span>',
+                '</a>'].join("")
+			).appendTo( '.tribe-bar-views-select' );
+
+		}); 
+		
+
 
 
 		// trying to add a unique class to the select2 dropdown if the tribe bar is mini
@@ -133,7 +152,7 @@ var tribe_events_bar_action;
 			}
 		}
 
-		$('#tribe-bar-views .tribe-select2').select2(select2_opts);
+		/*$('#tribe-bar-views .tribe-select2').select2(select2_opts);*/
 
 		$tribebar.on('click', '#tribe-bar-views', function (e) {
 			e.stopPropagation();
