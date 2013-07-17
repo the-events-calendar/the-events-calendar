@@ -128,7 +128,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			add_filter( 'get_delete_post_link', array( $this, 'adjust_date_on_recurring_event_trash_link' ), 10, 2 );
 			add_action( 'admin_footer', array( $this, 'addDeleteDialogForRecurringEvents' ) );
 			add_filter( 'tribe_get_events_title', array( $this, 'reset_page_title'));
-			add_filter( 'tribe_events_add_title', array($this, 'maybeAddEventTitle' ), 10, 3 );
+			add_filter( 'tribe_events_add_title', array($this, 'maybeAddEventTitle' ), 2, 4 );
 
 			add_filter( 'tribe_promo_banner', array( $this, 'tribePromoBannerPro' ) );
 			add_filter( 'tribe_help_tab_forums_url', array( $this, 'helpTabForumsLink' ) );
@@ -259,35 +259,48 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		 * @author Timothy Wood
 		 * @return 3.0
 		 */
-		function maybeAddEventTitle( $new_title, $title, $sep = null ){
+		function maybeAddEventTitle( $title, $orig_title, $sep = null, $sep_location = '' ){
 			global $wp_query;
+
+			$new_title = '';
+
 			switch( get_query_var('eventDisplay') ){
 				case 'week':
-					$new_title = sprintf( '%s %s %s ',
+					$new_title = sprintf( '%s %s ',
 						__( 'Events for week of', 'tribe-events-calendar-pro' ),
-						date( "l, F jS Y", strtotime( tribe_get_first_week_day( $wp_query->get( 'start_date' ) ) ) ),
-						$sep
+						date( "l, F jS Y", strtotime( tribe_get_first_week_day( $wp_query->get( 'start_date' ) ) ) )
 					);
 					break;
 				case 'day':
-					$new_title = __( 'Events for', 'tribe-events-calendar-pro' ) . ' ' .Date("l, F jS Y", strtotime($wp_query->get('start_date'))) . ' ' . $sep . ' ';
+					$new_title = __( 'Events for', 'tribe-events-calendar-pro' ) . ' ' .Date("l, F jS Y", strtotime($wp_query->get('start_date')));
 					break;
 				case 'photo':
 				case 'map':
 					if( tribe_is_past() ) {
-						$new_title = __( 'Past Events', 'tribe-events-calendar-pro' ) . ' ' . $sep . ' ';
+						$new_title = __( 'Past Events', 'tribe-events-calendar-pro' );
 					} else {
-						$new_title = __( 'Upcoming Events', 'tribe-events-calendar-pro' ) . ' ' . $sep . ' ';
+						$new_title = __( 'Upcoming Events', 'tribe-events-calendar-pro' );
 					}
 					break;
 			}
 			if( tribe_is_showing_all() ){
-				$new_title = sprintf( '%s %s %s ',
+				$new_title = sprintf( '%s %s ',
 					__( 'All events for', 'tribe-events-calendar-pro' ),
-					get_the_title(),
-					$sep
+					get_the_title()
 				);
 			}
+
+			// add the separator
+			if ( $new_title != '' ) {
+				if ( 'right' == $sep_location ) { 
+					$new_title = $new_title . " $sep ";
+				} else {
+					$new_title = " $sep " . $new_title;				
+				}
+			} else {
+				$new_title = $title;
+			}
+
 			return apply_filters( 'tribe_events_pro_add_title', $new_title, $title, $sep );
 		}
 
