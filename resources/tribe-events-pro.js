@@ -226,8 +226,13 @@ if (Object.prototype.hasOwnProperty.call(window, 'tribe_ev')) {
 		 */
 
 		process_geocoding: function (location, callback) {
+
 			var request = {
-				address: location
+				address: location,
+				bounds : new google.maps.LatLngBounds(
+					new google.maps.LatLng( TribeEventsPro.geocenter.min_lat, TribeEventsPro.geocenter.min_lng ),
+					new google.maps.LatLng( TribeEventsPro.geocenter.max_lat, TribeEventsPro.geocenter.max_lng )
+				)
 			};
 
 			tg.geocoder.geocode(request, function (results, status) {
