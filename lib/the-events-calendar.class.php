@@ -3993,7 +3993,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		public function tag_link($termlink, $term, $taxonomy) {
 			global $post;
 			if (is_object($post) && $post->post_type == self::POSTTYPE && $taxonomy == 'post_tag') {
-				$termlink = esc_url(trailingslashit(tribe_get_events_link().'tag/'.$term->name));
+				$termlink = esc_url(trailingslashit(tribe_get_events_link().'tag/'.$term->slug));
 			}
 			return $termlink;
 		}
