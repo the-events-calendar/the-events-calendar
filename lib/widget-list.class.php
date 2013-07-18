@@ -115,8 +115,8 @@ if( !class_exists( 'TribeEventsListWidget' ) ) {
 				/* Display list of events. */
 				echo '<ol class="hfeed vcalendar">';
 				foreach( $posts as $post ) :
-					setup_postdata($post);
-				  include( TribeEventsTemplates::getTemplateHierarchy('widgets/list-widget.php' ) );
+					setup_postdata( $post );
+					tribe_get_template_part( 'widgets/list-widget' );
 				endforeach;
 				echo "</ol><!-- .hfeed -->";
 
