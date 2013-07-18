@@ -104,7 +104,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 */
 	function tribe_get_option( $optionName, $default = '' ) {
 		$tribe_ecp = TribeEvents::instance();
-		return apply_filters( 'tribe_get_option', $tribe_ecp->getOption( $optionName, $default ) );
+		return apply_filters( 'tribe_get_option', $tribe_ecp->getOption( $optionName, $default ), $optionName, $default );
 	}
 
 	/**
