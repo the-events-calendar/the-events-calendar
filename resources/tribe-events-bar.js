@@ -120,14 +120,23 @@ var tribe_events_bar_action;
 			$('<li></li>', {
 				'class': 'tribe-bar-views-option'
 			}).html([
-                '   <a href="#"" onclick="return false;">',
+                '   <a href="#" onclick="return false;">',
                 '   <span class="tribe-icon-' + $.trim(view.text.toLowerCase()) + '">' + view.text + '</span>',
                 '</a>'].join("")
 			).appendTo( '.tribe-bar-views-select' );
 
 		}); 
 		
+		var $selectedView = $('ul.tribe-bar-views-select').find('li:first');
+		$selectedView.clone().insertAfter($selectedView).end();
 
+		$tribebar.on('click', '.tribe-bar-views-option', function (e) {
+			var $this = $(this);
+			$('#tribe-bar-views').toggleClass('.tribe-bar-views-open');
+			if ( !$this.is('.tribe-bar-active') ) {
+				$this.siblings(':eq(0)').replaceWith($this.clone()).addClass('tribe-bar-active');
+			} 
+		});
 
 
 		// trying to add a unique class to the select2 dropdown if the tribe bar is mini
@@ -181,7 +190,7 @@ var tribe_events_bar_action;
 
 
 		// Implement our views bit
-		$('select[name=tribe-bar-view]').change(function () {
+		$('select[name=tribe-bar-views-select]').change(function () {
 			ts.cur_url = $(this).val();
 			ts.view_target = $('select[name=tribe-bar-view] option[value="' + ts.cur_url + '"]').data('view');
 			tribe_events_bar_action = 'change_view';

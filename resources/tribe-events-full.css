@@ -1364,13 +1364,18 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 	padding: 0 15px;
 }
 
-#tribe-bar-views .select2-container .select2-choice {
+#tribe-bar-views .tribe-bar-views-option {
 	background: none;
 	filter: "progid:DXImageTransform.Microsoft.gradient(enabled=false)";
 	border: none;
 	padding: 0;
+	display: none;
 }
-#tribe-bar-views .select2-dropdown-open .select2-choice {
+#tribe-bar-views .tribe-bar-views-option:first-child,
+#tribe-bar-views.tribe-bar-views-open .tribe-bar-views-option {
+	display: block;
+}
+#tribe-bar-views .tribe-bar-views-option {
 	box-shadow: none;
 	-moz-box-shadow: none;
 	-webkit-box-shadow: none;
@@ -1385,8 +1390,8 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 	-webkit-box-shadow: none;
 }
 
-.tribe-select2-results-views.select2-drop .select2-results li {
-	padding: 0 15px;
+#tribe-bar-views .tribe-bar-views-option {
+	padding: 4px 15px;
 }
 
 .tribe-select2-results-views.select2-drop .select2-results .select2-highlighted {
