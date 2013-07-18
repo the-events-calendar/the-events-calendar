@@ -114,11 +114,12 @@ var tribe_events_bar_action;
 		$('<ul class="tribe-bar-views-list" />').insertAfter( $tribebarviews );
 
 		// Create list from select options
-		$tribebarviews.find('option').each(function(){
+		$tribebarviews.find('option').each(function(i){
 			view = this;
 			// build list items and append them
 			$('<li></li>', {
-				'class': 'tribe-bar-views-option'
+				'class': 'tribe-bar-views-option',
+				'data-tribe-bar-order': i
 			}).html([
                 '   <a href="#" onclick="return false;">',
                 '   <span class="tribe-icon-' + $.trim(view.text.toLowerCase()) + '">' + view.text + '</span>',
@@ -127,14 +128,20 @@ var tribe_events_bar_action;
 
 		}); 
 		
-		var $selectedView = $('ul.tribe-bar-views-list').find('li:first');
-		$selectedView.clone().insertAfter($selectedView).end();
+		var $selectedView = $('ul.tribe-bar-views-list').find('li:first').addClass('tribe-bar-active');
 
-		$tribebar.on('click', '.tribe-bar-views-option', function (e) {
-			var $this = $(this);
+		$tribebar.on('click', '#tribe-bar-views', function (e) {
 			$('#tribe-bar-views').toggleClass('.tribe-bar-views-open');
+		});
+
+		$tribebar.on('click', '.tribe-bar-views-option', function(e) {
+			var $this = $(this);
+				$currentView = $('.tribe-bar-active');
+				currentViewOrder = $currentView.data('tribe-bar-order');
+				moveCurrentTo = currentViewOrder - 1;
 			if ( !$this.is('.tribe-bar-active') ) {
-				$this.siblings(':eq(0)').replaceWith($this.clone()).addClass('tribe-bar-active');
+				$currentView.removeClass('tribe-bar-active').insertAfter('li[data-tribe-bar-order=' + moveCurrentTo + ']');
+				$this.prependTo('ul.tribe-bar-views-list').addClass('tribe-bar-active');
 			} 
 		});
 
