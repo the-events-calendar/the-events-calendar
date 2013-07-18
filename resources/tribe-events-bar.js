@@ -119,7 +119,8 @@ var tribe_events_bar_action;
 			// build list items and append them
 			$('<li></li>', {
 				'class': 'tribe-bar-views-option',
-				'data-tribe-bar-order': i
+				'data-tribe-bar-order': i,
+				'data-view': view.text.toLowerCase()
 			}).html([
                 '   <a href="#" onclick="return false;">',
                 '   <span class="tribe-icon-' + $.trim(view.text.toLowerCase()) + '">' + view.text + '</span>',
@@ -128,7 +129,9 @@ var tribe_events_bar_action;
 
 		}); 
 		
-		var $selectedView = $('ul.tribe-bar-views-list').find('li:first').addClass('tribe-bar-active');
+		var selectedView = $('select[name=tribe-bar-view]').find(':selected').data('view');
+			$selectedListItem = $('.tribe-bar-views-list').find('li[data-view='+ selectedView +']');
+			$selectedListItem.prependTo('ul.tribe-bar-views-list').addClass('tribe-bar-active');
 
 		$tribebar.on('click', '#tribe-bar-views', function (e) {
 			$('#tribe-bar-views').toggleClass('.tribe-bar-views-open');
@@ -139,9 +142,15 @@ var tribe_events_bar_action;
 				$currentView = $('.tribe-bar-active');
 				currentViewOrder = $currentView.data('tribe-bar-order');
 				moveCurrentTo = currentViewOrder - 1;
+
+				newView = $this.data('view');
+
 			if ( !$this.is('.tribe-bar-active') ) {
 				$currentView.removeClass('tribe-bar-active').insertAfter('li[data-tribe-bar-order=' + moveCurrentTo + ']');
 				$this.prependTo('ul.tribe-bar-views-list').addClass('tribe-bar-active');
+				$('option:selected', 'select[name=tribe-bar-view]').removeAttr('selected');
+				$('option[data-view='+ newView +']').attr('selected', true);
+				$('select[name=tribe-bar-view]').change();
 			} 
 		});
 
@@ -197,7 +206,7 @@ var tribe_events_bar_action;
 
 
 		// Implement our views bit
-		$('select[name=tribe-bar-views-select]').change(function () {
+		$('select[name=tribe-bar-view]').change(function () {
 			ts.cur_url = $(this).val();
 			ts.view_target = $('select[name=tribe-bar-view] option[value="' + ts.cur_url + '"]').data('view');
 			tribe_events_bar_action = 'change_view';
