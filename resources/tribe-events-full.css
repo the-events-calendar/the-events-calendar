@@ -1358,6 +1358,7 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 
 #tribe-bar-form .tribe-bar-views-inner label {
 	padding: 0 15px;
+	text-align: left;
 }
 
 .tribe-bar-views-inner .select2-container {
