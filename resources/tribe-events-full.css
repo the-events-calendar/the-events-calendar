@@ -1498,7 +1498,7 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 }
 
 .tribe-bar-mini #tribe-bar-views .tribe-bar-views-list .tribe-bar-views-option a {
-	padding: 6px 10px;
+	padding: 4px 10px;
 }
 
 
@@ -1659,6 +1659,7 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 }
 
 .tribe-bar-disabled .tribe-bar-views-inner {
+	min-width: 100px;
 	padding: 5px 0 25px 0;
 	border-radius: 0 3px 3px 0;
 }
@@ -1673,7 +1674,7 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 }
 
 .tribe-bar-disabled #tribe-bar-views .tribe-bar-views-list .tribe-bar-views-option a  {
-	padding: 0 10px;
+	padding: 4px 10px;
 	margin: 0;
 }
 .tribe-bar-disabled #tribe-bar-views .select2-container .select2-choice {
