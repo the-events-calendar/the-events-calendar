@@ -1424,7 +1424,7 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 #tribe-bar-views [name="tribe-bar-view"] {
 	display: none;
 }
-#tribe-bar-views .tribe-bar-views-select {
+#tribe-bar-views .tribe-bar-views-list {
 	width: 100%;
 	float: left;
 }
@@ -1711,7 +1711,7 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 
 /* Events Bar Icons */
 .tribe-select2-results-views span[class^="tribe-icon-"],
-.tribe-bar-views-select span[class^="tribe-icon-"],
+.tribe-bar-views-list span[class^="tribe-icon-"],
 .tribe-bar-view-list a[class*="tribe-icon-"] {
 	padding-left: 24px;
 	background-repeat: no-repeat;
@@ -1724,7 +1724,7 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 
 /* default icon */
 .tribe-select2-results-views span[class^="tribe-icon-"],
-.tribe-bar-views-select span[class^="tribe-icon-"],
+.tribe-bar-views-list span[class^="tribe-icon-"],
 .tribe-bar-view-list a[class^="tribe-icon-"] {
 	background-image: url(images/events-bar/icon-month.png);
 	-webkit-background-size: 15px 16px;
@@ -1732,7 +1732,7 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 }
 
 .tribe-select2-results-views span.tribe-icon-list,
-.tribe-bar-views-select span.tribe-icon-list,
+.tribe-bar-views-list span.tribe-icon-list,
 .tribe-bar-view-list a.tribe-icon-list {
 	background-image: url(images/events-bar/icon-list.png);
 	-webkit-background-size: 15px 10px;
@@ -1745,32 +1745,32 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 }
 
 .tribe-select2-results-views .tribe-icon-month,
-.tribe-bar-views-select span.tribe-icon-month,
+.tribe-bar-views-list span.tribe-icon-month,
 .tribe-bar-view-list a.tribe-icon-month {
 	background-image: url(images/events-bar/icon-month.png);
 	-webkit-background-size: 15px 16px;
     		background-size: 15px 16px;
 }
 .tribe-select2-results-views span.tribe-icon-week,
-.tribe-bar-views-select span.tribe-icon-week {
+.tribe-bar-views-list span.tribe-icon-week {
 	background-image: url(images/events-bar/icon-week.png);
 	-webkit-background-size: 15px 16px;
     		background-size: 15px 16px;
 }
 .tribe-select2-results-views span.tribe-icon-day,
-.tribe-bar-views-select span.tribe-icon-day {
+.tribe-bar-views-list span.tribe-icon-day {
 	background-image: url(images/events-bar/icon-day.png);
 	-webkit-background-size: 15px 16px;
     		background-size: 15px 16px;
 }
 .tribe-select2-results-views span.tribe-icon-photo,
-.tribe-bar-views-select span.tribe-icon-photo {
+.tribe-bar-views-list span.tribe-icon-photo {
 	background-image: url(images/events-bar/icon-photo.png);
 	-webkit-background-size: 15px 14px;
     		background-size: 15px 14px;
 }
 .tribe-select2-results-views span.tribe-icon-map,
-.tribe-bar-views-select span.tribe-icon-map {
+.tribe-bar-views-list span.tribe-icon-map {
 	background-image: url(images/events-bar/icon-map.png);
 	-webkit-background-size: 12px 16px;
     		background-size: 12px 16px;
@@ -1798,34 +1798,34 @@ only screen and (min-device-pixel-ratio: 2) {
 
 	/* default icon */
 	.tribe-select2-results-views span[class^="tribe-icon-"],
-	.tribe-bar-views-select span[class^="tribe-icon-"],
+	.tribe-bar-views-list span[class^="tribe-icon-"],
 	.tribe-bar-view-list a[class^="tribe-icon-"] {
 		background-image: url(images/events-bar/icon-month@2x.png);
 	}	
 	.tribe-select2-results-views span.tribe-icon-list,
-	.tribe-bar-views-select span.tribe-icon-list,
+	.tribe-bar-views-list span.tribe-icon-list,
 	.tribe-bar-view-list a.tribe-icon-upcoming {
 		background-image: url(images/events-bar/icon-list@2x.png);
 	}
 	.tribe-select2-results-views span.tribe-icon-month,
-	.tribe-bar-views-select span.tribe-icon-month,
+	.tribe-bar-views-list span.tribe-icon-month,
 	.tribe-bar-view-list a.tribe-icon-month {
 		background-image: url(images/events-bar/icon-month@2x.png);
 	}
 	.tribe-select2-results-views span.tribe-icon-week,
-	.tribe-bar-views-select span.tribe-icon-week {
+	.tribe-bar-views-list span.tribe-icon-week {
 		background-image: url(images/events-bar/icon-week@2x.png);
 	}
 	.tribe-select2-results-views span.tribe-icon-day,
-	.tribe-bar-views-select span.tribe-icon-day {
+	.tribe-bar-views-list span.tribe-icon-day {
 		background-image: url(images/events-bar/icon-day@2x.png);
 	}
 	.tribe-select2-results-views span.tribe-icon-photo,
-	.tribe-bar-views-select span.tribe-icon-photo {
+	.tribe-bar-views-list span.tribe-icon-photo {
 		background-image: url(images/events-bar/icon-photo@2x.png);
 	}
 	.tribe-select2-results-views span.tribe-icon-map,
-	.tribe-bar-views-select span.tribe-icon-map {
+	.tribe-bar-views-list span.tribe-icon-map {
 		background-image: url(images/events-bar/icon-map@2x.png);
 	}
 }

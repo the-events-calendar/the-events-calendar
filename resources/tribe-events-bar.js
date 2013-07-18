@@ -111,7 +111,7 @@ var tribe_events_bar_action;
 		$('input[name*="tribe-bar-"]').placeholder();
 
 		// Create list
-		$('<ul class="tribe-bar-views-select" />').insertAfter( $tribebarviews );
+		$('<ul class="tribe-bar-views-list" />').insertAfter( $tribebarviews );
 
 		// Create list from select options
 		$tribebarviews.find('option').each(function(){
@@ -123,11 +123,11 @@ var tribe_events_bar_action;
                 '   <a href="#" onclick="return false;">',
                 '   <span class="tribe-icon-' + $.trim(view.text.toLowerCase()) + '">' + view.text + '</span>',
                 '</a>'].join("")
-			).appendTo( '.tribe-bar-views-select' );
+			).appendTo( '.tribe-bar-views-list' );
 
 		}); 
 		
-		var $selectedView = $('ul.tribe-bar-views-select').find('li:first');
+		var $selectedView = $('ul.tribe-bar-views-list').find('li:first');
 		$selectedView.clone().insertAfter($selectedView).end();
 
 		$tribebar.on('click', '.tribe-bar-views-option', function (e) {
