@@ -177,9 +177,9 @@ if (!class_exists('TribeEventsTemplates')) {
 					break;
 				default:
 					global $post;
-					if( get_query_var('post_type') == $tribe_ecp::POSTTYPE && is_single() && $tribe_ecp->getOption('tribeEventsTemplate') != '' ) {
+					if( get_query_var('post_type') == TribeEvents::POSTTYPE && is_single() && $tribe_ecp->getOption('tribeEventsTemplate') != '' ) {
 						$new_title = $post->post_title;
-					} elseif( get_query_var('post_type') == $tribe_ecp::VENUE_POST_TYPE && $this->getOption('tribeEventsTemplate') != '' ) {
+					} elseif( get_query_var('post_type') == TribeEvents::VENUE_POST_TYPE && $this->getOption('tribeEventsTemplate') != '' ) {
 						$new_title = apply_filters( 'tribe_events_venue_view_title', sprintf(__("Events at %s", 'tribe-events-calendar'), $post->post_title) );
 					}
 					break;
