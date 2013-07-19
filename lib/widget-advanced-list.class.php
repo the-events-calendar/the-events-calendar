@@ -11,7 +11,7 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 if( !class_exists( 'TribeEventsAdvancedListWidget' ) ) {
 	class TribeEventsAdvancedListWidget extends TribeEventsListWidget {
 
-		static $params;
+		static $params = array();
 
 		function TribeEventsAdvancedListWidget() {
 			/* Widget settings. */
