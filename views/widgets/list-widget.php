@@ -18,9 +18,14 @@
 
 if ( !defined('ABSPATH') ) { die('-1'); } ?>
 
+<?php 
+$widget_args = tribe_events_get_adv_list_widget_args(); 
+extract($widget_args);
+?>
+
 <li>
 	<h4 class="entry-title summary">
-			<a href="<?php echo tribe_get_event_link(); ?>" rel="bookmark"><?php the_title(); ?></a>
+		<a href="<?php echo tribe_get_event_link(); ?>" rel="bookmark"><?php the_title(); ?></a>
 	</h4>
 	<div class="duration">
 			<?php echo tribe_events_event_schedule_details(); ?>	

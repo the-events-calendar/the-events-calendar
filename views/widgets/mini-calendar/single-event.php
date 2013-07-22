@@ -32,7 +32,7 @@ if ( defined( "DOING_AJAX" ) && DOING_AJAX && isset( $_POST['action'] ) && $_POS
 			class="list-daynumber"><?php echo apply_filters( 'tribe-mini_helper_tribe_events_ajax_list_daynumber', date( 'd', $postDate ), $postDate, $class ); ?></span>
 	</div>
 	<div class="list-info">
-		<h2><a href="<?php echo get_permalink( $post->ID ); ?>"><?php echo $post->post_title; ?></a></h2>
+		<h2><a href="<?php echo tribe_get_event_link(); ?>"><?php echo $post->post_title; ?></a></h2>
 		<?php if ( tribe_get_cost() ) { ?>
 			<span class="tribe-mini-calendar-event-cost"><?php echo tribe_get_cost( null, true ); ?></span>
 			<div class="tribe-events-divider ">|</div>
