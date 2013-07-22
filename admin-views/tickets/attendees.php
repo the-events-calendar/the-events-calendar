@@ -1,5 +1,5 @@
 <?php
-$event_id = isset( $_GET["event_id"] ) ? $_GET["event_id"] : 0;
+$event_id = isset( $_GET["event_id"] ) ? intval( $_GET["event_id"] ) : 0;
 $event    = get_post( $event_id );
 $tickets  = TribeEventsTickets::get_event_tickets( $event_id );
 ?>
@@ -61,9 +61,9 @@ $tickets  = TribeEventsTickets::get_event_tickets( $event_id );
 							$sold  = ! empty ( $ticket->qty_sold ) ? $ticket->qty_sold : 0;
 
 							if ( empty( $stock ) && $stock !== 0 ) {
-								echo sprintf( __( "Sold %d", 'tribe-events-calendar' ), $sold );
+								echo sprintf( __( "Sold %d", 'tribe-events-calendar' ), esc_html( $sold ) );
 							} else {
-								echo sprintf( __( "Sold %d of %d", 'tribe-events-calendar' ), $sold, $sold + $stock );
+								echo sprintf( __( "Sold %d of %d", 'tribe-events-calendar' ), esc_html( $sold ), esc_html( $sold + $stock ) );
 							}
 
 							$total_sold += $sold;
@@ -93,8 +93,8 @@ $tickets  = TribeEventsTickets::get_event_tickets( $event_id );
 	</div>
 
 	<form id="topics-filter" method="get">
-		<input type="hidden" name="page" value="<?php echo $_GET['page'] ?>" />
-		<input type="hidden" name="event_id" id="event_id" value="<?php echo $_GET['event_id'] ?>" />
+		<input type="hidden" name="page" value="<?php echo esc_attr( $_GET['page'] ); ?>" />
+		<input type="hidden" name="event_id" id="event_id" value="<?php echo $event_id; ?>" />
 		<input type="hidden" name="post_type" value="<?php echo TribeEvents::POSTTYPE; ?>" />
 		<?php
 		$this->attendees_table->prepare_items();
