@@ -2,8 +2,11 @@
  * The Events Calendar Pro Widget Calendar Skeleton Stylesheet
  * (Only includes enough css to achieve the grid layout.)
  *
- * You can customize this stylesheet by putting a stylesheet with the name
- * widget-calendar-skeleton.css in the tribe-events/pro/ directory of your theme.
+ * To add your own custom styles, create a stylesheet with the name
+ * widget-calendar.css in the tribe-events/pro/ directory of your theme.
+ * Your new stylesheet will be loaded after our own stylesheet.
+ *
+ * To replace our stylsheet altogether, you can use the 'tribe_events_pro_widget_calendar_stylesheet_url' filter.
  *
  * @package TribeEventsCalendar
  * @since  3.0
