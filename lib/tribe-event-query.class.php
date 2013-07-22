@@ -35,6 +35,7 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 
 			// if tribe event query add filters
 			add_filter( 'pre_get_posts', array( __CLASS__, 'pre_get_posts' ), 0 );
+			add_filter( 'parse_query', array( __CLASS__, 'parse_query') );
 
 			if ( is_admin() ) {
 				require_once 'tribe-recurring-event-cleanup.php';
@@ -42,6 +43,21 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 				$cleanup->toggle_recurring_events();
 				unset( $cleanup );
 			}
+		}
+
+		/**
+		 * Set any query flags
+		 *
+		 * @return $query WP_Query
+		 * @author Jessica Yazbek
+		 * @since 3.0.3
+		 **/
+		public function parse_query( $query ) {
+			if ($query->get('eventDisplay') == 'month') {
+				// never allow 404 on month view
+				$query->is_post_type_archive = true;
+			}
+			return $query;
 		}
 
 		/**
