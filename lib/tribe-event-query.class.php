@@ -60,7 +60,7 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 			$query->tribe_is_past = !empty( $query->query_vars['tribe_is_past'] ) ? $query->query_vars['tribe_is_past'] : false ;
 
 			// check if any possiblity of this being an event query
-			$query->tribe_is_event = ( in_array( TribeEvents::POSTTYPE, $types ) )
+			$query->tribe_is_event = ( in_array( TribeEvents::POSTTYPE, $types ) && count( $types ) < 2 )
 				? true // it was an event query
 			: false;
 
