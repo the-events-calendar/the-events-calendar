@@ -2,8 +2,11 @@
  * The Events Calendar Pro Skeleton Stylesheet
  * (Only includes enough css to achieve complex layouts like calendar and week view.)
  *
- * You can customize this stylesheet by putting a stylesheet with the name
+ * To add your own custom styles, create a stylesheet with the name
  * tribe-events-pro.css in the tribe-events/pro/ directory of your theme.
+ * Your new stylesheet will be loaded after our own stylesheet.
+ *
+ * To replace our stylsheet altogether, you can use the 'tribe_events_pro_stylesheet_url' filter.
  *
  * @package TribeEventsCalendar
  * @since  1.0

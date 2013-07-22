@@ -1288,10 +1288,11 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 						break;
 				}
 
-				// Is there a pro override file in the theme?
 				$styleUrl = trailingslashit( $this->pluginUrl ) . 'resources/' . $event_file_option;
-				$styleUrl = TribeEventsTemplates::locate_stylesheet( 'tribe-events/pro/'. $event_file, $styleUrl );
 				$styleUrl = apply_filters( 'tribe_events_pro_stylesheet_url', $styleUrl );
+
+				// Is there a pro override file in the theme?
+				$styleOverrideUrl = TribeEventsTemplates::locate_stylesheet( 'tribe-events/pro/'. $event_file, $styleUrl );
 
 				// Load up stylesheet from theme or plugin
 				if( $styleUrl && $stylesheet_option == 'tribe' ) {
@@ -1299,8 +1300,10 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 					wp_enqueue_style( TribeEvents::POSTTYPE . '-calendar-pro-style', $styleUrl );
 				} else {
 					wp_enqueue_style( TribeEvents::POSTTYPE . '-calendar-pro-style', $styleUrl );
-				}
-
+				}	
+				if( $styleOverrideUrl ) {
+					wp_enqueue_style( TribeEvents::POSTTYPE . '-calendar-pro-override-style', $styleOverrideUrl );		
+				}				
 			}
 		}
 
