@@ -40,7 +40,7 @@ if ( defined( "DOING_AJAX" ) && DOING_AJAX && isset( $_POST['action'] ) && $_POS
 		<?php echo tribe_events_event_schedule_details(); ?>
 		<?php if ( tribe_get_venue() ) { ?>
 			<div class="tribe-mini-calendar-event-venue">
-				<?php echo tribe_get_venue_link( $post->ID ); ?></span>
+				<?php echo tribe_get_venue_link( $post->ID ); ?>
 			</div>
 		<?php } ?>
 	</div>
