@@ -36,7 +36,8 @@ $views   = tribe_events_get_views();
 		<div id="tribe-bar-views">
 			<div class="tribe-bar-views-inner tribe-clearfix">
 				<h3 class="tribe-events-visuallyhidden"><?php _e( 'Event Views Navigation', 'tribe-events-calendar' ) ?></h3>
-				<label><?php _e( 'View As', 'tribe-events-calendar' ); ?></label><select class="tribe-select2 tribe-no-param" name="tribe-bar-view">
+				<label><?php _e( 'View As', 'tribe-events-calendar' ); ?></label>
+				<select class="tribe-bar-views-select tribe-no-param" name="tribe-bar-view">
 					<?php foreach ( $views as $view ) : ?>
 						<option <?php echo tribe_is_view($view['displaying']) ? 'selected' : 'tribe-inactive' ?> value="<?php echo $view['url'] ?>" data-view="<?php echo $view['displaying'] ?>">
 							<?php echo $view['anchor'] ?>
