@@ -1696,7 +1696,7 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 	padding-left: 24px;
 	background-repeat: no-repeat;
 	background-position: 0 50%;
-	min-height: 15px;
+	min-height: 16px;
 	display: block;
 }
 .tribe-select2-results-views span[class^="tribe-icon-"] {
