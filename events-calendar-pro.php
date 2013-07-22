@@ -261,6 +261,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		 */
 		function maybeAddEventTitle( $new_title, $title, $sep = null ){
 			global $wp_query;
+
 			switch( TribeEvents::instance()->displaying ){
 				case 'week':
 					$new_title = sprintf( '%s %s %s ',
@@ -473,7 +474,6 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 
 				TribeEventsQuery::init();
 				add_filter( 'tribe_events_pre_get_posts', array( $this, 'pre_get_posts' ) );
-				add_filter( 'tribe_events_add_title', array($this, 'maybeAddEventTitle' ), 15, 3 );
 
 				$args = array(
 					'post_status' => array( 'publish', 'private', 'future' ),
@@ -487,8 +487,11 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 
 				$query = TribeEventsQuery::getEvents( $args, true );
 
+
 				global $wp_query, $post;
 				$wp_query = $query;
+
+				TribeEvents::instance()->setDisplay();
 
 				if ( have_posts() )
 					the_post();
@@ -502,7 +505,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 					'view'            => 'week',
 				);
 
-				add_filter( 'tribe_is_week', '__return_true' ); // simplest way to declare that this is a day view
+				add_filter( 'tribe_is_week', '__return_true' ); // simplest way to declare that this is a week view
 
 				ob_start();
 
