@@ -1388,13 +1388,14 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 	z-index: 99;
 	border-radius: 0 0 3px 3px;
 }
-#tribe-bar-views .tribe-bar-views-option {
+#tribe-bar-views li.tribe-bar-views-option {
 	line-height: 14px;
 	margin: 0 5px 0 0;
 	padding: 0;
 	list-style: none;
 	background: none;
 	filter: "progid:DXImageTransform.Microsoft.gradient(enabled=false)";
+	list-style: none;
 	border: none;
 	padding: 0;
 	display: none;
@@ -1700,6 +1701,8 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 	padding-left: 24px;
 	background-repeat: no-repeat;
 	background-position: 0 50%;
+	min-height: 15px;
+	display: block;
 }
 .tribe-select2-results-views span[class^="tribe-icon-"] {
 	min-height: 16px;
