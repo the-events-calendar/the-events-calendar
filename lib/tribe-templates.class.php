@@ -67,6 +67,9 @@ if (!class_exists('TribeEventsTemplates')) {
 				return $template;
 			}
 
+			// filter the title, let single events show their natural title
+			add_filter( 'wp_title', array( __CLASS__, 'maybeAddEventTitle' ), 1, 3 );
+
 			if( tribe_get_option('tribeEventsTemplate', 'default') == '' ) {
 				return self::getTemplateHierarchy('default-template');
 			} else {
@@ -143,12 +146,68 @@ if (!class_exists('TribeEventsTemplates')) {
 		}
 
 		/**
+		 * Add event title where appropriate
+		 *
+		 * @param string $title
+		 * @param string|null $sep
+		 * @return mixed|void
+		 */
+		public static function maybeAddEventTitle( $title, $sep = null, $sep_location = '' ){
+			$tribe_ecp = TribeEvents::instance();
+
+			$new_title = '';
+			switch( get_query_var('eventDisplay') ) {
+				case 'upcoming':
+					$new_title = apply_filters( 'tribe_upcoming_events_title', __("Upcoming Events", 'tribe-events-calendar') );
+					break;
+				case 'past':
+					$new_title = apply_filters( 'tribe_past_events_title', __("Past Events", 'tribe-events-calendar'));
+					break;
+				case 'month':
+					if(get_query_var('eventDate')){
+						$title_date = date_i18n("F Y",strtotime(get_query_var('eventDate')));
+						$new_title = apply_filters( 'tribe_month_grid_view_title', sprintf(__("Events for %s", 'tribe-events-calendar'), $title_date ) );
+					}else{
+						$new_title = apply_filters( 'tribe_events_this_month_title', __("Events this month", 'tribe-events-calendar') );
+					}
+					break;
+				case 'day':
+					$title_date = date_i18n("l, F jS Y",strtotime(get_query_var('eventDate')));
+					$new_title = apply_filters( 'tribe_events_day_view_title', sprintf(__("Events for %s", 'tribe-events-calendar'), $title_date) );
+					break;
+				default:
+					global $post;
+					if( get_query_var('post_type') == TribeEvents::POSTTYPE && is_single() && $tribe_ecp->getOption('tribeEventsTemplate') != '' ) {
+						$new_title = $post->post_title;
+					} elseif( get_query_var('post_type') == TribeEvents::VENUE_POST_TYPE && $tribe_ecp->getOption('tribeEventsTemplate') != '' ) {
+						$new_title = apply_filters( 'tribe_events_venue_view_title', sprintf(__("Events at %s", 'tribe-events-calendar'), $post->post_title) );
+					}
+					break;
+			}
+
+			// add the separator
+			if ($new_title != '') {
+				if ( 'right' == $sep_location ) { 
+					$new_title = $new_title . " $sep ";
+				} else {
+					$new_title = " $sep " . $new_title;				
+				}
+			} else {
+				$new_title = $title;
+			}
+			
+			$new_title = apply_filters( 'tribe_events_add_title', $new_title, $title, $sep, $sep_location );
+
+			return $new_title;
+
+		}
+
+		/**
 		 * Set up filter to get rid of the repeating title if the page template is not the default events template.
 		 */
 		public function remove_title_from_page() {
 			add_filter( 'the_title', array( __CLASS__, 'remove_default_title' ), 1 );
 		}
-
 
 		/**
 		 * Filter to get rid of the repeating title if the page template is not the default events template.
@@ -159,6 +218,16 @@ if (!class_exists('TribeEventsTemplates')) {
 		public function remove_title_filter( $title ) {
 			remove_filter( 'the_title', array( __CLASS__, 'remove_default_title' ), 1 );
 			return $title;
+		}
+
+		/**
+		 * Filter to get rid of the default page title
+		 *
+		 * @param string $title Title
+		 * @return string Title
+		 */
+		public function remove_default_title( $title ) {
+			return '';
 		}
 
 		/**
