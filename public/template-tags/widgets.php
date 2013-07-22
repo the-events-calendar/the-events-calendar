@@ -11,10 +11,14 @@ function tribe_events_the_mini_calendar_header_attributes () {
 
 	$args = tribe_events_get_mini_calendar_args();
 
+	if (is_array($args['tax_query'])) {
+		$args['tax_query'] = json_encode($args['tax_query']);
+	}
+
 	$html = '';
 	$html .= ' data-count="' . esc_attr( $args['count'] ) . '"';
 	$html .= ' data-eventDate="' . tribe_get_month_view_date() . '"';
-	$html .= ' data-tax-query="' . htmlentities( json_encode( $args['tax_query'] ) ) . '"';
+	$html .= ' data-tax-query="' . esc_attr( $args['tax_query'] ) . '"';
 	$html .= ' data-nonce="' . wp_create_nonce( 'calendar-ajax' ) . '"';
 
 	echo apply_filters( 'tribe_events_the_mini_calendar_header_attributes', $html );
