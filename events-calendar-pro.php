@@ -261,7 +261,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		 */
 		function maybeAddEventTitle( $new_title, $title, $sep = null ){
 			global $wp_query;
-			switch( get_query_var('eventDisplay') ){
+			switch( TribeEvents::instance()->displaying ){
 				case 'week':
 					$new_title = sprintf( '%s %s %s ',
 						__( 'Events for week of', 'tribe-events-calendar-pro' ),
