@@ -160,26 +160,11 @@ class TribeEventsMiniCalendar {
 
 		// widget setting for count is not 0
 		if ( ! $this->show_list ) {
-			add_filter( 'tribe_get_current_template', array( $this, 'block_list_template_path' ), 10, 2 );
+			add_filter( 'tribe_events_template_widgets/mini-calendar/list.php', '__return_false' );
 		}
 
 		tribe_get_view( 'widgets/mini-calendar-widget' );
 
-	}
-
-	/**
-	 * Filter the list template paths
-	 *
-	 * @return string|bool
-	 * @param $file the full file path
-	 * @param $template the template requested
-	 * @since 3.0
-	 **/
-	public function block_list_template_path( $file, $template ){
-		if ($template == 'widgets/mini-calendar/list.php') {
-			return false;
-		}
-		return $file;
 	}
 
 	private function styles_and_scripts() {
@@ -227,6 +212,9 @@ class TribeEventsMiniCalendar {
 	public function setup_list( $template_file ) {
 
 		if ( basename( dirname( $template_file ) ).'/'.basename( $template_file ) == 'mini-calendar/list.php' ) {
+
+			if ($this->args['count'] == 0)
+				return;
 
 			// make sure the widget taxonomy filter setting is respected
 			add_action( 'pre_get_posts', array( $this, 'set_count' ), 1000 );
