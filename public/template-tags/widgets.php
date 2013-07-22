@@ -86,6 +86,22 @@ function tribe_events_the_mini_calendar_day_link() {
 	echo apply_filters( 'tribe_events_the_mini_calendar_day_link', $html );
 }
 
+/**
+ * Return arguments passed to mini calendar widget
+ *
+ * @return array
+ * @author Jessica Yazbek
+ **/
 function tribe_events_get_mini_calendar_args() {
 	return apply_filters( 'tribe_events_get_mini_calendar_args', TribeEventsMiniCalendar::instance()->get_args() );
+}
+
+/**
+ * Return arguments passed to advanced list widget
+ *
+ * @return array
+ * @author Jessica Yazbek
+ **/
+function tribe_events_get_adv_list_widget_args() {
+	return apply_filters( 'tribe_events_get_adv_list_widget_args', TribeEventsAdvancedListWidget::$params );
 }

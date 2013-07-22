@@ -11,6 +11,8 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 if( !class_exists( 'TribeEventsAdvancedListWidget' ) ) {
 	class TribeEventsAdvancedListWidget extends TribeEventsListWidget {
 
+		static $params = array();
+
 		function TribeEventsAdvancedListWidget() {
 			/* Widget settings. */
 			$widget_ops = array( 'classname' => 'tribe-events-adv-list-widget', 'description' => __( 'A widget that displays the next upcoming x events.', 'tribe-events-calendar-pro' ) );
@@ -25,6 +27,7 @@ if( !class_exists( 'TribeEventsAdvancedListWidget' ) ) {
 
 		function widget( $args, $instance ) {
 			// Use parent's output function with the premium template.
+			self::$params = $instance;
 			return parent::widget_output( $args, $instance, 'list-widget', 'widgets', 'pro', TribeEventsPro::instance()->pluginPath );
 		}
 
