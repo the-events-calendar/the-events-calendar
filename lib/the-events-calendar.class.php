@@ -2493,11 +2493,19 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 *  Returns the full address of an event along with HTML markup.  It
 		 *  loads the full-address template to generate the HTML
 		 */
-		public function fullAddress( $postId=null, $includeVenueName=false ) {
+		public function fullAddress( $post_id=null, $includeVenueName=false ) {
+			global $post;
+			if( !is_null( $post_id ) ){
+				$tmp_post = $post;
+				$post = get_post( $post_id );
+			}
 			ob_start();
 			tribe_get_template_part( 'modules/address' );
 			$address = ob_get_contents();
 			ob_end_clean();
+			if( !empty( $tmp_post ) ){
+				$post = $tmp_post;
+			}
 			return $address;
 		}
 
@@ -3993,7 +4001,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		public function tag_link($termlink, $term, $taxonomy) {
 			global $post;
 			if (is_object($post) && $post->post_type == self::POSTTYPE && $taxonomy == 'post_tag') {
-				$termlink = esc_url(trailingslashit(tribe_get_events_link().'tag/'.$term->name));
+				$termlink = esc_url(trailingslashit(tribe_get_events_link().'tag/'.$term->slug));
 			}
 			return $termlink;
 		}
