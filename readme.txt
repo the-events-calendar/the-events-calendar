@@ -5,7 +5,7 @@ Tags: events, calendar, event, venue, organizer, dates, date, google maps, confe
 Donate link: http://m.tri.be/29
 Requires at least: 3.5
 Tested up to: 3.6
-Stable tag: 3.0.1
+Stable tag: 3.0.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -258,6 +258,15 @@ Our Premium Plugins:
 = IMPORTANT NOTICE =
 
 3.0 is a complete overhaul of the plugin, and as a result we're starting the changelog fresh. For release notes from the 2.x lifecycle, see <a href="http://m.tri.be/k">our 2.x release notes.</a>
+
+= 3.0.2 =
+
+* Fixed bug with queries that included more than one post type. This should resolve issues with "Link to Existing Content" in the WordPress editor, attaching media to posts from the Media Library, and relationship fields in the Advanced Custom Fields plugin
+* Fixed 404 in page title on month view when no events are in the month
+* CSS files in the tribe-events directory of your theme are now loaded in addition to TEC css files, instead of replacing them
+* Removed Select2 dependency in the Tribe Bar
+* Fixed various issues with the Events List widget
+* Various minor bug fixes
 
 = 3.0.1 =
 
