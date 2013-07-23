@@ -5,7 +5,7 @@ Tags: events, calendar, event, venue, organizer, dates, date, google maps, confe
 Donate link: http://m.tri.be/29
 Requires at least: 3.5
 Tested up to: 3.6
-Stable tag: 3.0.3
+Stable tag: 3.0.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -184,6 +184,15 @@ Our Premium Plugins:
 = IMPORTANT NOTICE =
 
 3.0 is a complete overhaul of the plugin, and as a result we're starting the changelog fresh. For release notes from the 2.x lifecycle, see <a href="http://m.tri.be/k">our 2.x release notes.</a>
+
+= 3.0.4 =
+
+* CSS files in the tribe-events directory of your theme are now loaded in addition to ECP css files, instead of replacing them
+* Performance improvements to the plugin update engine
+* Improved handling of international characters in iCal exports (thanks to PAUSSUS for catching this)
+* Various bug fixes to the Events List and Events Calendar widgets
+* Improved location search results (thanks to BISDIGITAL for getting the discussion going on this)
+* Addressed some previously non-translatable strings in the Tribe Bar
 
 = 3.0.3 =
 

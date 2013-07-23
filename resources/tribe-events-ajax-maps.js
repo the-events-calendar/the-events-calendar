@@ -102,7 +102,7 @@
 
 		var options = {
 			zoom: 5,
-			center: new google.maps.LatLng(GeoLoc.center.max_lat, GeoLoc.center.max_lng),
+			center: new google.maps.LatLng(TribeEventsPro.geocenter.max_lat, TribeEventsPro.geocenter.max_lng),
 			mapTypeId: google.maps.MapTypeId.ROADMAP
 		};
 
@@ -110,10 +110,10 @@
 			tg.map = new google.maps.Map(document.getElementById('tribe-geo-map'), options);
 			tg.bounds = new google.maps.LatLngBounds();
 
-			var minLatlng = new google.maps.LatLng(GeoLoc.center.min_lat, GeoLoc.center.min_lng);
+			var minLatlng = new google.maps.LatLng(TribeEventsPro.geocenter.min_lat, TribeEventsPro.geocenter.min_lng);
 			tg.bounds.extend(minLatlng);
 
-			var maxLatlng = new google.maps.LatLng(GeoLoc.center.max_lat, GeoLoc.center.max_lng);
+			var maxLatlng = new google.maps.LatLng(TribeEventsPro.geocenter.max_lat, TribeEventsPro.geocenter.max_lng);
 			tg.bounds.extend(maxLatlng);
 		}
 		if($().placeholder)

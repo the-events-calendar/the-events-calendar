@@ -177,20 +177,20 @@ class TribeiCal {
 
 			$item = apply_filters( 'tribe_ical_feed_item', $item, $event_post );
 
-			$events .= "BEGIN:VEVENT\n" . implode( "\n", $item ) . "\nEND:VEVENT\n";
+			$events .= "BEGIN:VEVENT\r\n" . implode( "\r\n", $item ) . "\r\nEND:VEVENT\r\n";
 		}
 
-		header( 'Content-type: text/calendar' );
+		header( 'Content-type: text/calendar; charset=UTF-8' );
 		header( 'Content-Disposition: attachment; filename="iCal-TribeEvents.ics"' );
-		$content = "BEGIN:VCALENDAR\n";
-		$content .= "VERSION:2.0\n";
-		$content .= 'PRODID:-//' . $blogName . ' - ECPv' . TribeEvents::VERSION . "//NONSGML v1.0//EN\n";
-		$content .= "CALSCALE:GREGORIAN\n";
-		$content .= "METHOD:PUBLISH\n";
-		$content .= 'X-WR-CALNAME:' . apply_filters( 'tribe_ical_feed_calname', $blogName ) . "\n";
-		$content .= 'X-ORIGINAL-URL:' . $blogHome . "\n";
-		$content .= 'X-WR-CALDESC:Events for ' . $blogName . "\n";
-		if ( $wp_timezone ) $content .= 'X-WR-TIMEZONE:' . $wp_timezone . "\n";
+		$content = "BEGIN:VCALENDAR\r\n";
+		$content .= "VERSION:2.0\r\n";
+		$content .= 'PRODID:-//' . $blogName . ' - ECPv' . TribeEvents::VERSION . "//NONSGML v1.0//EN\r\n";
+		$content .= "CALSCALE:GREGORIAN\r\n";
+		$content .= "METHOD:PUBLISH\r\n";
+		$content .= 'X-WR-CALNAME:' . apply_filters( 'tribe_ical_feed_calname', $blogName ) . "\r\n";
+		$content .= 'X-ORIGINAL-URL:' . $blogHome . "\r\n";
+		$content .= 'X-WR-CALDESC:Events for ' . $blogName . "\r\n";
+		if ( $wp_timezone ) $content .= 'X-WR-TIMEZONE:' . $wp_timezone . "\r\n";
 		$content = apply_filters( 'tribe_ical_properties', $content );
 		$content .= $events;
 		$content .= 'END:VCALENDAR';

@@ -1,8 +1,11 @@
 /**
  * The Events Calendar Widget Calendar Tribe Theme Stylesheet
  *
- * You can customize this stylesheet by putting a stylesheet with the name
- * widget-calendar-theme.css in the tribe-events/pro/ directory of your theme.
+ * To add your own custom styles, create a stylesheet with the name
+ * widget-calendar.css in the tribe-events/pro/ directory of your theme.
+ * Your new stylesheet will be loaded after our own stylesheet.
+ *
+ * To replace our stylsheet altogether, you can use the 'tribe_events_pro_widget_calendar_stylesheet_url' filter.
  *
  * @package TribeEventsCalendarPro
  * @since  3.0
@@ -53,7 +56,7 @@
 	padding:5px 0 15px 0;
 }
 
-.tribe-mini-calendar .tribe-events-has-events a:before{
+.tribe-mini-calendar .tribe-events-has-events div[id*='daynum-'] a:before{
 	background: #fff;
 }
 

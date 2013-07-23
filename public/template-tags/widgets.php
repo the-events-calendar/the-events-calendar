@@ -11,10 +11,14 @@ function tribe_events_the_mini_calendar_header_attributes () {
 
 	$args = tribe_events_get_mini_calendar_args();
 
+	if (is_array($args['tax_query'])) {
+		$args['tax_query'] = json_encode($args['tax_query']);
+	}
+
 	$html = '';
 	$html .= ' data-count="' . esc_attr( $args['count'] ) . '"';
 	$html .= ' data-eventDate="' . tribe_get_month_view_date() . '"';
-	$html .= ' data-tax-query="' . htmlentities( json_encode( $args['tax_query'] ) ) . '"';
+	$html .= ' data-tax-query="' . esc_attr( $args['tax_query'] ) . '"';
 	$html .= ' data-nonce="' . wp_create_nonce( 'calendar-ajax' ) . '"';
 
 	echo apply_filters( 'tribe_events_the_mini_calendar_header_attributes', $html );
@@ -30,7 +34,7 @@ function tribe_events_the_mini_calendar_header_attributes () {
 function tribe_events_the_mini_calendar_prev_link() {
 	$tribe_ecp = TribeEvents::instance();
 	$args = tribe_events_get_mini_calendar_args();
-	$html = '<a class="tribe-mini-calendar-nav-link prev-month" href="#" data-month="'.$tribe_ecp->previousMonth( $args['eventDate'] ).'-01" title="'.tribe_get_previous_month_text().'"><span><</span></a>';
+	$html = '<a class="tribe-mini-calendar-nav-link prev-month" href="#" data-month="'.$tribe_ecp->previousMonth( $args['eventDate'] ).'-01" title="'.tribe_get_previous_month_text().'"><span>&laquo;</span></a>';
 	echo apply_filters( 'tribe_events_the_mini_calendar_prev_link', $html );
 }
 
@@ -59,7 +63,7 @@ function tribe_events_the_mini_calendar_title() {
 function tribe_events_the_mini_calendar_next_link() {
 	$tribe_ecp = TribeEvents::instance();
 	$args = tribe_events_get_mini_calendar_args();
-	$html = '<a class="tribe-mini-calendar-nav-link next-month" href="#" data-month="'.$tribe_ecp->nextMonth( $args['eventDate'] ).'-01" title="'.tribe_get_next_month_text().'"><span>></span></a>';
+	$html = '<a class="tribe-mini-calendar-nav-link next-month" href="#" data-month="'.$tribe_ecp->nextMonth( $args['eventDate'] ).'-01" title="'.tribe_get_next_month_text().'"><span>&raquo;</span></a>';
 	echo apply_filters( 'tribe_events_the_mini_calendar_prev_link', $html );
 }
 
@@ -86,6 +90,22 @@ function tribe_events_the_mini_calendar_day_link() {
 	echo apply_filters( 'tribe_events_the_mini_calendar_day_link', $html );
 }
 
+/**
+ * Return arguments passed to mini calendar widget
+ *
+ * @return array
+ * @author Jessica Yazbek
+ **/
 function tribe_events_get_mini_calendar_args() {
 	return apply_filters( 'tribe_events_get_mini_calendar_args', TribeEventsMiniCalendar::instance()->get_args() );
+}
+
+/**
+ * Return arguments passed to advanced list widget
+ *
+ * @return array
+ * @author Jessica Yazbek
+ **/
+function tribe_events_get_adv_list_widget_args() {
+	return apply_filters( 'tribe_events_get_adv_list_widget_args', TribeEventsAdvancedListWidget::$params );
 }

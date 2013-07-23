@@ -2,7 +2,7 @@
 /*
 Plugin Name: The Events Calendar PRO
 Description: The Events Calendar PRO, a premium add-on to the open source The Events Calendar plugin (required), enables recurring events, custom attributes, venue pages, new widgets and a host of other premium features.
-Version: 3.0.3
+Version: 3.0.4
 Author: Modern Tribe, Inc.
 Author URI: http://m.tri.be/20
 Text Domain: tribe-events-calendar-pro
@@ -45,7 +45,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		public $todaySlug = 'today';
 		public static $updateUrl = 'http://tri.be/';
 		const REQUIRED_TEC_VERSION = '3.0';
-		const VERSION = '3.0.3';
+		const VERSION = '3.0.4';
 
         /**
          * Class constructor.
@@ -261,7 +261,8 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		 */
 		function maybeAddEventTitle( $new_title, $title, $sep = null ){
 			global $wp_query;
-			switch( get_query_var('eventDisplay') ){
+
+			switch( TribeEvents::instance()->displaying ){
 				case 'week':
 					$new_title = sprintf( '%s %s %s ',
 						__( 'Events for week of', 'tribe-events-calendar-pro' ),
@@ -473,7 +474,6 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 
 				TribeEventsQuery::init();
 				add_filter( 'tribe_events_pre_get_posts', array( $this, 'pre_get_posts' ) );
-				add_filter( 'tribe_events_add_title', array($this, 'maybeAddEventTitle' ), 15, 3 );
 
 				$args = array(
 					'post_status' => array( 'publish', 'private', 'future' ),
@@ -487,8 +487,11 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 
 				$query = TribeEventsQuery::getEvents( $args, true );
 
+
 				global $wp_query, $post;
 				$wp_query = $query;
+
+				TribeEvents::instance()->setDisplay();
 
 				if ( have_posts() )
 					the_post();
@@ -502,7 +505,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 					'view'            => 'week',
 				);
 
-				add_filter( 'tribe_is_week', '__return_true' ); // simplest way to declare that this is a day view
+				add_filter( 'tribe_is_week', '__return_true' ); // simplest way to declare that this is a week view
 
 				ob_start();
 
@@ -1275,10 +1278,11 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 						break;
 				}
 
-				// Is there a pro override file in the theme?
 				$styleUrl = trailingslashit( $this->pluginUrl ) . 'resources/' . $event_file_option;
-				$styleUrl = TribeEventsTemplates::locate_stylesheet( 'tribe-events/pro/'. $event_file, $styleUrl );
 				$styleUrl = apply_filters( 'tribe_events_pro_stylesheet_url', $styleUrl );
+
+				// Is there a pro override file in the theme?
+				$styleOverrideUrl = TribeEventsTemplates::locate_stylesheet( 'tribe-events/pro/'. $event_file, $styleUrl );
 
 				// Load up stylesheet from theme or plugin
 				if( $styleUrl && $stylesheet_option == 'tribe' ) {
@@ -1286,8 +1290,10 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 					wp_enqueue_style( TribeEvents::POSTTYPE . '-calendar-pro-style', $styleUrl );
 				} else {
 					wp_enqueue_style( TribeEvents::POSTTYPE . '-calendar-pro-style', $styleUrl );
-				}
-
+				}	
+				if( $styleOverrideUrl ) {
+					wp_enqueue_style( TribeEvents::POSTTYPE . '-calendar-pro-override-style', $styleOverrideUrl );		
+				}				
 			}
 		}
 
@@ -1303,6 +1309,13 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 				$resources_url = trailingslashit( $this->pluginUrl ) . 'resources/';
 				$path = Tribe_Template_Factory::getMinFile( $resources_url . 'tribe-events-pro.js', true );
 				wp_enqueue_script( 'tribe-events-pro', $path, array( 'jquery', 'tribe-events-calendar-script' ), false, false );
+
+				$geoloc = TribeEventsGeoLoc::instance();
+
+				$data = array( 'geocenter' => $geoloc->estimate_center_point() );
+
+				wp_localize_script( 'tribe-events-pro', 'TribeEventsPro', $data );
+
 			}
 		}
 
