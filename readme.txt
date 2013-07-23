@@ -189,9 +189,10 @@ Our Premium Plugins:
 
 * CSS files in the tribe-events directory of your theme are now loaded in addition to ECP css files, instead of replacing them
 * Performance improvements to the plugin update engine
-* Improved handling of international characters in iCal exports
+* Improved handling of international characters in iCal exports (thanks to PAUSSUS for catching this)
 * Various bug fixes to the Events List and Events Calendar widgets
-* Improved location search results
+* Improved location search results (thanks to BISDIGITAL for getting the discussion going on this)
+* Addressed some previously non-translatable strings in the Tribe Bar
 
 = 3.0.3 =
 
