@@ -148,7 +148,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 * @since 2.0
 	 */
 	function tribe_is_event( $postId = null ) {
-		return apply_filters( 'tribe_is_event', TribeEvents::instance()->isEvent( $postId ), $postID );
+		return apply_filters( 'tribe_is_event', TribeEvents::instance()->isEvent( $postId ), $postId );
 	}
 
 	/**
