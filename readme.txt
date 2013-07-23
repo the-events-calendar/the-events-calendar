@@ -261,11 +261,14 @@ Our Premium Plugins:
 
 = 3.0.2 =
 
-* Fixed bug with queries that included more than one post type. This should resolve issues with "Link to Existing Content" in the WordPress editor, attaching media to posts from the Media Library, and relationship fields in the Advanced Custom Fields plugin
-* Fixed 404 in page title on month view when no events are in the month
+* Fixed bug with queries that included more than one post type. This should resolve issues with "Link to Existing Content" in the WordPress editor, attaching media to posts from the Media Library, and relationship fields in the Advanced Custom Fields plugin (thanks to users KARKS88 and ANDYWILMOT for catching this!)
+* Fixed 404 in page title on month view when no events are in the month, and other 404-related tweaks (thanks to CYNTHIA, JOHN and ELLAEARTH for catching these)
 * CSS files in the tribe-events directory of your theme are now loaded in addition to TEC css files, instead of replacing them
 * Removed Select2 dependency in the Tribe Bar
-* Fixed various issues with the Events List widget
+* Fixed various issues with the Events List widget (thanks to DUVALDEMOCRATS and ZAVASTORONTO for the heads up)
+* Tag permalinks are no longer malformed in tag cloud widget and single event pages (thanks to MARC for catching this)
+* Addressed some previously non-translatable strings in the Tribe Bar
+* Long event costs no longer overflow the designed box in list view
 * Various minor bug fixes
 
 = 3.0.1 =
