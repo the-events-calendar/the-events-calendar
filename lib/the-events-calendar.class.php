@@ -22,7 +22,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		const VENUE_POST_TYPE = 'tribe_venue';
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
 		const PLUGIN_DOMAIN = 'tribe-events-calendar';
-		const VERSION = '3.0.1';
+		const VERSION = '3.0.2';
 		const FEED_URL = 'http://tri.be/category/products/feed/';
 		const INFO_API_URL = 'http://wpapi.org/api/plugin/the-events-calendar.php';
 		const WP_PLUGIN_URL = 'http://wordpress.org/extend/plugins/the-events-calendar/';
@@ -2536,11 +2536,19 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 *  Returns the full address of an event along with HTML markup.  It
 		 *  loads the full-address template to generate the HTML
 		 */
-		public function fullAddress( $postId=null, $includeVenueName=false ) {
+		public function fullAddress( $post_id=null, $includeVenueName=false ) {
+			global $post;
+			if( !is_null( $post_id ) ){
+				$tmp_post = $post;
+				$post = get_post( $post_id );
+			}
 			ob_start();
 			tribe_get_template_part( 'modules/address' );
 			$address = ob_get_contents();
 			ob_end_clean();
+			if( !empty( $tmp_post ) ){
+				$post = $tmp_post;
+			}
 			return $address;
 		}
 
@@ -4036,7 +4044,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		public function tag_link($termlink, $term, $taxonomy) {
 			global $post;
 			if (is_object($post) && $post->post_type == self::POSTTYPE && $taxonomy == 'post_tag') {
-				$termlink = esc_url(trailingslashit(tribe_get_events_link().'tag/'.$term->name));
+				$termlink = esc_url(trailingslashit(tribe_get_events_link().'tag/'.$term->slug));
 			}
 			return $termlink;
 		}
@@ -4078,8 +4086,9 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 			if ( tribe_get_option( 'tribeDisableTribeBar', false ) == false ) {
 				$filters['tribe-bar-search'] = array( 'name'    => 'tribe-bar-search',
-				                                      'caption' => 'Search',
-				                                      'html'    => '<input type="text" name="tribe-bar-search" id="tribe-bar-search" value="' .  $value  . '" placeholder="Search">' );
+				                                      'caption' => __('Search', 'tribe-events-calendar'),
+
+				                                      'html'    => '<input type="text" name="tribe-bar-search" id="tribe-bar-search" value="' .  $value  . '" placeholder="'.  __('Search', 'tribe-events-calendar') .'">' );
 
 			}
 			return $filters;
@@ -4111,7 +4120,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 			$filters['tribe-bar-date'] = array( 'name'    => 'tribe-bar-date',
 			                                    'caption' => $caption,
-			                                    'html'    => '<input type="text" name="tribe-bar-date" style="position: relative; z-index:10000" id="tribe-bar-date" value="' . esc_attr( $value ) . '" placeholder="Date">
+			                                    'html'    => '<input type="text" name="tribe-bar-date" style="position: relative; z-index:10000" id="tribe-bar-date" value="' . esc_attr( $value ) . '" placeholder="'. __('Date', 'tribe-events-calendar') .'">
 								<input type="hidden" name="tribe-bar-date-day" id="tribe-bar-date-day" class="tribe-no-param" value="">' );
 
 			return $filters;

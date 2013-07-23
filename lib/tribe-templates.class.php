@@ -162,6 +162,16 @@ if (!class_exists('TribeEventsTemplates')) {
 		}
 
 		/**
+		 * Filter to get rid of the default page title
+		 *
+		 * @param string $title Title
+		 * @return string Title
+		 */
+		public function remove_default_title( $title ) {
+			return '';
+		}
+
+		/**
 		 * This is where the magic happens where we run some ninja code that hooks the query to resolve to an events template.
 		 *
 		 * @param WP_Query $query

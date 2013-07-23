@@ -56,6 +56,32 @@ if( !class_exists('Tribe_Events_Month_Template')){
 		}
 
 		/**
+		 * Add any special hooks for this view
+		 *
+		 * @return void
+		 * @author Jessica Yazbek
+		 * @since 3.0.2
+		 **/
+		protected function hooks() {
+			parent::hooks();
+
+			// Since we set is_post_type_archive to true on month view, this prevents 'Events' from being added to the page title
+			add_filter('post_type_archive_title', '__return_false', 10);
+		}
+
+		/**
+		 * Unhook all the hooks set up on this view
+		 *
+		 * @return void
+		 * @author 
+		 **/
+		protected function unhook() {
+			parent::unhook();
+			remove_filter('post_type_archive_title', '__return_false', 10);
+		}
+
+
+		/**
 		 * Set the notices used on month view
 		 *
 		 * @return void
