@@ -647,7 +647,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 				$confirm_redirect = apply_filters( 'tribe_events_pro_detect_recurrence_redirect', true, $wp_query->query_vars['eventDisplay'] );
 				do_action('tribe_events_pro_detect_recurrence_redirect', $wp_query->query_vars['eventDisplay'] );
 				if( $confirm_redirect ) {
-					wp_redirect( $current_url, 301 );
+					wp_safe_redirect( $current_url, 301 );
 					exit;
 				}
 			}
