@@ -317,7 +317,7 @@ if ( !class_exists( 'TribeSettings' ) ) {
 					remove_action( 'shutdown', array( $this, 'deleteOptions' ) );
 					add_option( 'tribe_settings_errors', $this->errors );
 					add_option( 'tribe_settings_major_error', $this->major_error );
-					wp_redirect( $this->url ); exit;
+					wp_safe_redirect( $this->url ); exit;
 				}
 
 				// some hooks
@@ -452,7 +452,7 @@ if ( !class_exists( 'TribeSettings' ) ) {
 			add_option( 'tribe_settings_sent_data', $_POST );
 			add_option( 'tribe_settings_errors', $this->errors );
 			add_option( 'tribe_settings_major_error', $this->major_error );
-			wp_redirect( add_query_arg( array( 'saved' => true ), $this->url ) ); exit;
+			wp_safe_redirect( add_query_arg( array( 'saved' => true ), $this->url ) ); exit;
 
 		}
 
