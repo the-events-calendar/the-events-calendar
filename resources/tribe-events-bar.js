@@ -37,7 +37,7 @@ var tribe_events_bar_action;
 
 	$(document).ready(function () {
 		var $tribebar = $('#tribe-bar-form'),
-			$tribedate = $('#tribe-bar-date');
+			$tribedate = $('#tribe-bar-date'),
 			$tribebarselect = $('select[name=tribe-bar-view]');
 
 		/**
@@ -117,23 +117,24 @@ var tribe_events_bar_action;
 
 		// Create list from select options
 		$tribebarselect.find('option').each(function(i){
-			view = this;
+			var $view = $(this);
 			// build list items and append them
 			$('<li></li>', {
 				'class': 'tribe-bar-views-option',
 				'data-tribe-bar-order': i,
-				'data-view': $(view).data('view')
+				'data-view': $view.data('view')
 			}).html([
                 '   <a href="#" onclick="return false;">',
-                '   <span class="tribe-icon-' + $.trim(view.text.toLowerCase()) + '">' + view.text + '</span>',
+                '   <span class="tribe-icon-' + $.trim($view.text().toLowerCase()) + '">' + $view.text() + '</span>',
                 '</a>'].join("")
 			).appendTo( '.tribe-bar-views-list' );
 
 		}); 
 		
 		//find the current view and select it in the bar
-		var selectedView = $tribebarselect.find(':selected').data('view');
+		var selectedView = $tribebarselect.find(':selected').data('view'),
 			$selectedListItem = $tribebarviews.find('li[data-view='+ selectedView +']');
+
 			$selectedListItem.prependTo($tribebarviews).addClass('tribe-bar-active');
 
 		// toggle the views dropdown	
@@ -149,44 +150,21 @@ var tribe_events_bar_action;
 			if ( !$this.is('.tribe-bar-active') ) {
 				
 				//when selecting a new view, move the current view back to it's original spot
-				$currentView = $('.tribe-bar-active');
-				currentViewOrder = $currentView.data('tribe-bar-order');
+				var $currentView = $('.tribe-bar-active'),
+				currentViewOrder = $currentView.data('tribe-bar-order'),
 				moveCurrentTo = currentViewOrder - 1;
 
 				$currentView.removeClass('tribe-bar-active').insertAfter('li[data-tribe-bar-order=' + moveCurrentTo + ']');
 				$this.prependTo('ul.tribe-bar-views-list').addClass('tribe-bar-active');				
 
 				// select new view
-				newView = $this.data('view');				
+				var newView = $this.data('view');
 				$('option:selected', $tribebarselect).removeAttr('selected');
 				$('option[data-view='+ newView +']').attr('selected', true);
 				$tribebarselect.change();
 
 			} 
 		});
-
-
-		// trying to add a unique class to the select2 dropdown if the tribe bar is mini
-
-		var select2_opts = {}
-
-		if ($tribebar.is('.tribe-bar-mini')) {
-			select2_opts = {
-				placeholder: "Views",
-				dropdownCssClass: "tribe-select2-results-views tribe-bar-mini-select2-results",
-				minimumResultsForSearch: 9999,
-				formatResult: format,
-				formatSelection: format
-			}
-		} else {
-			select2_opts = {
-				placeholder: "Views",
-				dropdownCssClass: "tribe-select2-results-views",
-				minimumResultsForSearch: 9999,
-				formatResult: format,
-				formatSelection: format
-			}
-		}
 
 		$tribebar.on('click', '#tribe-bar-collapse-toggle', function () {
 			$(this).toggleClass('tribe-bar-filters-open');
