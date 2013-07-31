@@ -119,8 +119,9 @@ var tribe_events_bar_action;
 		$tribebarselect.find('option').each(function(i){
 			var $view = $(this);
 			// build list items and append them
+			var unique_c = 'tribe-bar-views-option-' + $view.data('view');
 			$('<li></li>', {
-				'class': 'tribe-bar-views-option',
+				'class': 'tribe-bar-views-option ' + unique_c,
 				'data-tribe-bar-order': i,
 				'data-view': $view.data('view')
 			}).html([
