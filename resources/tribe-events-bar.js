@@ -124,7 +124,7 @@ var tribe_events_bar_action;
 				'data-tribe-bar-order': i,
 				'data-view': $view.data('view')
 			}).html([
-                '   <a href="#" onclick="return false;">',
+                '   <a href="#">',
                 '   <span class="tribe-icon-' + $.trim($view.text().toLowerCase()) + '">' + $view.text() + '</span>',
                 '</a>'].join("")
 			).appendTo( '.tribe-bar-views-list' );
@@ -132,10 +132,10 @@ var tribe_events_bar_action;
 		}); 
 		
 		//find the current view and select it in the bar
-		var selectedView = $tribebarselect.find(':selected').data('view'),
-			$selectedListItem = $tribebarviews.find('li[data-view='+ selectedView +']');
+		var currentview = $tribebarselect.find(':selected').data('view'),
+			$currentli = $tribebarviews.find('li[data-view='+ currentview +']');
 
-			$selectedListItem.prependTo($tribebarviews).addClass('tribe-bar-active');
+		$currentli.prependTo($tribebarviews).addClass('tribe-bar-active');
 
 		// toggle the views dropdown	
 		$tribebar.on('click', '#tribe-bar-views', function (e) {
@@ -146,22 +146,16 @@ var tribe_events_bar_action;
 
 		// change views
 		$tribebar.on('click', '.tribe-bar-views-option', function(e) {
+			e.preventDefault();
 			var $this = $(this);
 			if ( !$this.is('.tribe-bar-active') ) {
-				
-				//when selecting a new view, move the current view back to it's original spot
-				var $currentView = $('.tribe-bar-active'),
-				currentViewOrder = $currentView.data('tribe-bar-order'),
-				moveCurrentTo = currentViewOrder - 1;
 
-				$currentView.removeClass('tribe-bar-active').insertAfter('li[data-tribe-bar-order=' + moveCurrentTo + ']');
-				$this.prependTo('ul.tribe-bar-views-list').addClass('tribe-bar-active');				
+				var target = $this.data('view');
 
-				// select new view
-				var newView = $this.data('view');
-				$('option:selected', $tribebarselect).removeAttr('selected');
-				$('option[data-view='+ newView +']').attr('selected', true);
-				$tribebarselect.change();
+				ts.cur_url = $('option[data-view='+ target +']').val();
+				ts.view_target = $('select[name=tribe-bar-view] option[value="' + ts.cur_url + '"]').data('view');
+				tribe_events_bar_action = 'change_view';
+				tribe_events_bar_change_view();
 
 			} 
 		});
@@ -180,23 +174,6 @@ var tribe_events_bar_action;
 
 		// Add our date bits outside of our filter container
 		$('#tribe-bar-filters').before($('#tribe-bar-dates'));
-
-
-		// Implement our views bit
-		$tribebarselect.change(function () {
-			ts.cur_url = $(this).val();
-			ts.view_target = $('select[name=tribe-bar-view] option[value="' + ts.cur_url + '"]').data('view');
-			tribe_events_bar_action = 'change_view';
-			tribe_events_bar_change_view();
-		});
-
-		$('a.tribe-bar-view').on('click', function (e) {
-			e.preventDefault();
-			var el = $(this);
-			var name = el.data('view');
-			tribe_events_bar_change_view(el.attr('href'), name);
-
-		});
 
 		$(te).on("tribe_ev_serializeBar", function () {
 			$('form#tribe-bar-form input, #tribeHideRecurrence').each(function () {
