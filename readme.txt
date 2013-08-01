@@ -262,8 +262,8 @@ Our Premium Plugins:
 = 3.0.3 =
 
 * Changed some SQL that could trigger a MySQL bug involving an infinite loop. See http://bugs.mysql.com/bug.php?id=21262
-* Fix some bugs with View As dropdown in Tribe Bar, including a bug in Firefox where you couldn't change the dropdown
-* Remove select2 javascript dependency from front-end
+* Fixed some bugs with View As dropdown in Tribe Bar, including a bug in Firefox where you couldn't change the dropdown
+* Removed select2 javascript dependency from front-end
 
 = 3.0.2 =
 
