@@ -147,7 +147,6 @@ class TribeEventsBar {
 	public function load_script() {
 
 		if ($this->should_show()) {
-			Tribe_Template_Factory::asset_package( 'select2' );
 			Tribe_Template_Factory::asset_package( 'jquery-placeholder' );
 			Tribe_Template_Factory::asset_package( 'bootstrap-datepicker' );
 			Tribe_Template_Factory::asset_package( 'tribe-events-bar' );

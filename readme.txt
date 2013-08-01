@@ -5,7 +5,7 @@ Tags: events, calendar, event, venue, organizer, dates, date, google maps, confe
 Donate link: http://m.tri.be/29
 Requires at least: 3.5
 Tested up to: 3.6
-Stable tag: 3.0.2
+Stable tag: 3.0.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -258,6 +258,12 @@ Our Premium Plugins:
 = IMPORTANT NOTICE =
 
 3.0 is a complete overhaul of the plugin, and as a result we're starting the changelog fresh. For release notes from the 2.x lifecycle, see <a href="http://m.tri.be/k">our 2.x release notes.</a>
+
+= 3.0.3 =
+
+* Changed some SQL that could trigger a MySQL bug involving an infinite loop. See http://bugs.mysql.com/bug.php?id=21262
+* Fix some bugs with View As dropdown in Tribe Bar, including a bug in Firefox where you couldn't change the dropdown
+* Remove select2 javascript dependency from front-end
 
 = 3.0.2 =
 

@@ -76,7 +76,7 @@ if ( class_exists( 'Tribe_Meta_Factory' ) ) {
 				'before' => '',
 				'sep' => ', ',
 				'after' => '',
-				'label' => null,
+				'label' => $_tribe_meta_factory->meta[$meta_id]['label'],
 				'label_before' => $template['label_before'],
 				'label_after' => $template['label_after'],
 				'wrap_before' => $template['meta_before'],
@@ -283,6 +283,7 @@ if ( class_exists( 'Tribe_Meta_Factory' ) ) {
 			'classes' => array( 'meta_before' => array( 'tribe-events-event-categories')),
 			'filter_callback' => array( 'Tribe_Register_Meta', 'event_category' ),
 			'priority' => 30,
+			'label' => null,
 			'group' => 'tribe_event_details'
 		) );
 

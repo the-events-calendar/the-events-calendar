@@ -508,7 +508,7 @@ if( !class_exists('Tribe_Template_Factory') ) {
 					wp_enqueue_script( $prefix . '-ecp-plugins', $path, $deps, apply_filters( 'tribe_events_js_version', TribeEvents::VERSION ) );
 					break;
 				case 'tribe-events-bar' :
-					$deps = array_merge( $deps, array( 'jquery', $prefix . '-calendar-script', $prefix . '-bootstrap-datepicker', $prefix . '-jquery-resize', $prefix . '-select2', 'tribe-placeholder' ) );
+					$deps = array_merge( $deps, array( 'jquery', $prefix . '-calendar-script', $prefix . '-bootstrap-datepicker', $prefix . '-jquery-resize', 'tribe-placeholder' ) );
 					$path = self::getMinFile( $resources_url . 'tribe-events-bar.js', true );
 					wp_enqueue_script( $prefix . '-bar', $path, $deps, apply_filters( 'tribe_events_js_version', TribeEvents::VERSION ) );
 					break;
@@ -555,7 +555,7 @@ if( !class_exists('Tribe_Template_Factory') ) {
 					$styleUrl = apply_filters( 'tribe_events_stylesheet_url', $styleUrl );
 
 					// Is there a core override file in the theme?
-					$styleOverrideUrl = TribeEventsTemplates::locate_stylesheet('tribe-events/'.$event_file, $styleUrl);
+					$styleOverrideUrl = TribeEventsTemplates::locate_stylesheet('tribe-events/'.$event_file);
 
 					// Load up stylesheet from theme or plugin
 					if( $styleUrl && $stylesheet_option == 'tribe' ) {

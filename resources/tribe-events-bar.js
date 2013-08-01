@@ -30,14 +30,11 @@ var tribe_events_bar_action;
 		if(!$().placeholder){
 			debug.warn('TEC Debug: vendor placeholder was not loaded before its dependant file tribe-events-bar.js');
 		}
-		if(!$().select2){
-			debug.warn('TEC Debug: vendor select2 was not loaded before its dependant file tribe-events-bar.js');
-		}
 	}
 
 	$(document).ready(function () {
 		var $tribebar = $('#tribe-bar-form'),
-			$tribedate = $('#tribe-bar-date');
+			$tribedate = $('#tribe-bar-date'),
 			$tribebarselect = $('select[name=tribe-bar-view]');
 
 		/**
@@ -103,7 +100,7 @@ var tribe_events_bar_action;
 			$('#tribe-events-bar').addClass('tribe-has-datepicker');
 		}
 
-		// Implement select2
+		// Implement views links
 		function format(view) {
 			return '<span class="tribe-icon-' + $.trim(view.text.toLowerCase()) + '">' + view.text + '</span>';
 		}
@@ -117,24 +114,26 @@ var tribe_events_bar_action;
 
 		// Create list from select options
 		$tribebarselect.find('option').each(function(i){
-			view = this;
+			var $view = $(this);
 			// build list items and append them
+			var unique_c = 'tribe-bar-views-option-' + $view.data('view');
 			$('<li></li>', {
-				'class': 'tribe-bar-views-option',
+				'class': 'tribe-bar-views-option ' + unique_c,
 				'data-tribe-bar-order': i,
-				'data-view': $(view).data('view')
+				'data-view': $view.data('view')
 			}).html([
-                '   <a href="#" onclick="return false;">',
-                '   <span class="tribe-icon-' + $.trim(view.text.toLowerCase()) + '">' + view.text + '</span>',
+                '   <a href="#">',
+                '   <span class="tribe-icon-' + $.trim($view.text().toLowerCase()) + '">' + $view.text() + '</span>',
                 '</a>'].join("")
 			).appendTo( '.tribe-bar-views-list' );
 
 		}); 
 		
 		//find the current view and select it in the bar
-		var selectedView = $tribebarselect.find(':selected').data('view');
-			$selectedListItem = $tribebarviews.find('li[data-view='+ selectedView +']');
-			$selectedListItem.prependTo($tribebarviews).addClass('tribe-bar-active');
+		var currentview = $tribebarselect.find(':selected').data('view'),
+			$currentli = $tribebarviews.find('li[data-view='+ currentview +']');
+
+		$currentli.prependTo($tribebarviews).addClass('tribe-bar-active');
 
 		// toggle the views dropdown	
 		$tribebar.on('click', '#tribe-bar-views', function (e) {
@@ -145,48 +144,19 @@ var tribe_events_bar_action;
 
 		// change views
 		$tribebar.on('click', '.tribe-bar-views-option', function(e) {
+			e.preventDefault();
 			var $this = $(this);
 			if ( !$this.is('.tribe-bar-active') ) {
-				
-				//when selecting a new view, move the current view back to it's original spot
-				$currentView = $('.tribe-bar-active');
-				currentViewOrder = $currentView.data('tribe-bar-order');
-				moveCurrentTo = currentViewOrder - 1;
 
-				$currentView.removeClass('tribe-bar-active').insertAfter('li[data-tribe-bar-order=' + moveCurrentTo + ']');
-				$this.prependTo('ul.tribe-bar-views-list').addClass('tribe-bar-active');				
+				var target = $this.data('view');
 
-				// select new view
-				newView = $this.data('view');				
-				$('option:selected', $tribebarselect).removeAttr('selected');
-				$('option[data-view='+ newView +']').attr('selected', true);
-				$tribebarselect.change();
+				ts.cur_url = $('option[data-view='+ target +']').val();
+				ts.view_target = $('select[name=tribe-bar-view] option[value="' + ts.cur_url + '"]').data('view');
+				tribe_events_bar_action = 'change_view';
+				tribe_events_bar_change_view();
 
 			} 
 		});
-
-
-		// trying to add a unique class to the select2 dropdown if the tribe bar is mini
-
-		var select2_opts = {}
-
-		if ($tribebar.is('.tribe-bar-mini')) {
-			select2_opts = {
-				placeholder: "Views",
-				dropdownCssClass: "tribe-select2-results-views tribe-bar-mini-select2-results",
-				minimumResultsForSearch: 9999,
-				formatResult: format,
-				formatSelection: format
-			}
-		} else {
-			select2_opts = {
-				placeholder: "Views",
-				dropdownCssClass: "tribe-select2-results-views",
-				minimumResultsForSearch: 9999,
-				formatResult: format,
-				formatSelection: format
-			}
-		}
 
 		$tribebar.on('click', '#tribe-bar-collapse-toggle', function () {
 			$(this).toggleClass('tribe-bar-filters-open');
@@ -202,23 +172,6 @@ var tribe_events_bar_action;
 
 		// Add our date bits outside of our filter container
 		$('#tribe-bar-filters').before($('#tribe-bar-dates'));
-
-
-		// Implement our views bit
-		$tribebarselect.change(function () {
-			ts.cur_url = $(this).val();
-			ts.view_target = $('select[name=tribe-bar-view] option[value="' + ts.cur_url + '"]').data('view');
-			tribe_events_bar_action = 'change_view';
-			tribe_events_bar_change_view();
-		});
-
-		$('a.tribe-bar-view').on('click', function (e) {
-			e.preventDefault();
-			var el = $(this);
-			var name = el.data('view');
-			tribe_events_bar_change_view(el.attr('href'), name);
-
-		});
 
 		$(te).on("tribe_ev_serializeBar", function () {
 			$('form#tribe-bar-form input, #tribeHideRecurrence').each(function () {

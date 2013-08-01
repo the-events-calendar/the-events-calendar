@@ -40,13 +40,15 @@ class TribeRecurringEventCleanup {
 	/**
 	 * Convert all but the first instance of a recurring event
 	 * to a hidden start date
+	 *
+	 * Reference for the subqueries: http://bugs.mysql.com/bug.php?id=21262
 	 */
 	private function hide_recurring_events() {
 		global $wpdb;
 		$sql = "SELECT meta_id FROM {$wpdb->postmeta} WHERE meta_key='_EventStartDate' AND post_id IN (
-		  SELECT post_id FROM {$wpdb->postmeta} WHERE meta_key='_EventStartDate' GROUP BY post_id HAVING COUNT(meta_key) > 1
+		  SELECT post_id from ( SELECT post_id FROM {$wpdb->postmeta} WHERE meta_key='_EventStartDate' GROUP BY post_id HAVING COUNT(meta_key) > 1 ) a
 		) AND meta_id NOT IN (
-		  SELECT meta_id FROM {$wpdb->postmeta} WHERE meta_key='_EventStartDate' GROUP BY post_id HAVING MIN(CAST(meta_value AS DATETIME))
+		  SELECT meta_id FROM ( SELECT meta_id FROM {$wpdb->postmeta} WHERE meta_key='_EventStartDate' GROUP BY post_id HAVING MIN(CAST(meta_value AS DATETIME)) ) b
 		)";
 		$ids = $wpdb->get_col($sql);
 		if ( $ids ) {

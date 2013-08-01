@@ -22,7 +22,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		const VENUE_POST_TYPE = 'tribe_venue';
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
 		const PLUGIN_DOMAIN = 'tribe-events-calendar';
-		const VERSION = '3.0.2';
+		const VERSION = '3.0.3';
 		const FEED_URL = 'http://tri.be/category/products/feed/';
 		const INFO_API_URL = 'http://wpapi.org/api/plugin/the-events-calendar.php';
 		const WP_PLUGIN_URL = 'http://wordpress.org/extend/plugins/the-events-calendar/';
@@ -2093,9 +2093,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 				// smoothness
 				Tribe_Template_Factory::asset_package('smoothness');
-
-				// Select2
-				Tribe_Template_Factory::asset_package('select2');
 
 				// Tribe Calendar JS
 				Tribe_Template_Factory::asset_package('calendar-script');
