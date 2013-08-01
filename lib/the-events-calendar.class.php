@@ -2094,9 +2094,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				// smoothness
 				Tribe_Template_Factory::asset_package('smoothness');
 
-				// Select2
-				Tribe_Template_Factory::asset_package('select2');
-
 				// Tribe Calendar JS
 				Tribe_Template_Factory::asset_package('calendar-script');
 
