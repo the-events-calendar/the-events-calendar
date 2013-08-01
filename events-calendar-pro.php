@@ -1282,7 +1282,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 				$styleUrl = apply_filters( 'tribe_events_pro_stylesheet_url', $styleUrl );
 
 				// Is there a pro override file in the theme?
-				$styleOverrideUrl = TribeEventsTemplates::locate_stylesheet( 'tribe-events/pro/'. $event_file, $styleUrl );
+				$styleOverrideUrl = TribeEventsTemplates::locate_stylesheet( 'tribe-events/pro/'. $event_file );
 
 				// Load up stylesheet from theme or plugin
 				if( $styleUrl && $stylesheet_option == 'tribe' ) {
