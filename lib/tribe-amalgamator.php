@@ -276,7 +276,7 @@ class Tribe_Amalgamator {
 		// redirect to base settings page
 		$settings = TribeSettings::instance();
 		$url = apply_filters( 'tribe_settings_url', add_query_arg( array( 'post_type' => TribeEvents::POSTTYPE, 'page' => $settings->adminSlug ), admin_url( 'edit.php' ) ) );
-		wp_safe_redirect($url);
+		wp_redirect($url);
 		exit();
 	}
 }
