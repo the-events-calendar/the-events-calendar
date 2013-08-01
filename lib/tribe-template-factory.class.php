@@ -555,7 +555,7 @@ if( !class_exists('Tribe_Template_Factory') ) {
 					$styleUrl = apply_filters( 'tribe_events_stylesheet_url', $styleUrl );
 
 					// Is there a core override file in the theme?
-					$styleOverrideUrl = TribeEventsTemplates::locate_stylesheet('tribe-events/'.$event_file, $styleUrl);
+					$styleOverrideUrl = TribeEventsTemplates::locate_stylesheet('tribe-events/'.$event_file);
 
 					// Load up stylesheet from theme or plugin
 					if( $styleUrl && $stylesheet_option == 'tribe' ) {
