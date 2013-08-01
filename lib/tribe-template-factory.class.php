@@ -49,6 +49,14 @@ if( !class_exists('Tribe_Template_Factory') ) {
 		 * @static
 		 * @var array
 		 */
+		protected $comments_off = false;
+
+		/**
+		 * Static variable that holds array of vendor script handles, for adding to later deps.
+		 *
+		 * @static
+		 * @var array
+		 */
 		protected static $vendor_scripts = array();
 
 		/**
@@ -76,6 +84,13 @@ if( !class_exists('Tribe_Template_Factory') ) {
 
 			// set notices
 			add_action( 'tribe_events_before_view', array( $this, 'set_notices') );
+
+			// Don't show the comments form inside the view (if comments are enabled, 
+			// they'll show on their own after the loop)
+			add_filter('comments_template', array( $this, 'remove_comments_template' ) );
+
+			// Remove the comments template entirely if needed
+			add_filter('tribe_get_option', array( $this, 'comments_off' ), 10, 2 );
 
 			// set up meta used in this view
 			add_action( 'tribe_events_before_view', array( $this, 'setup_meta') );
@@ -333,6 +348,9 @@ if( !class_exists('Tribe_Template_Factory') ) {
 			// set notices
 			remove_action( 'tribe_events_before_view', array( $this, 'set_notices') );
 
+			// Remove the comments template
+			remove_filter('comments_template', array( $this, 'remove_comments_template' ) );
+
 			// set up meta used in this view
 			remove_action( 'tribe_events_before_view', array( $this, 'setup_meta') );
 
@@ -416,6 +434,25 @@ if( !class_exists('Tribe_Template_Factory') ) {
 		 */
 		public function excerpt_more( $more ) {
 			return $this->excerpt_more;
+		}
+
+		/**
+		 * Check if comments are disabled on this view
+		 *
+		 * @param int $more
+		 *
+		 * @return int
+		 * @since 3.0
+		 */
+		public function comments_off( $option_value, $option_name ) {
+			if ( $option_name != 'showComments')
+				return $option_value;
+
+			if ( $this->comments_off == true )
+				return false;
+
+			return $option_value;
+
 		}
 
 		/**
