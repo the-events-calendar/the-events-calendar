@@ -30,9 +30,6 @@ var tribe_events_bar_action;
 		if(!$().placeholder){
 			debug.warn('TEC Debug: vendor placeholder was not loaded before its dependant file tribe-events-bar.js');
 		}
-		if(!$().select2){
-			debug.warn('TEC Debug: vendor select2 was not loaded before its dependant file tribe-events-bar.js');
-		}
 	}
 
 	$(document).ready(function () {
@@ -103,7 +100,7 @@ var tribe_events_bar_action;
 			$('#tribe-events-bar').addClass('tribe-has-datepicker');
 		}
 
-		// Implement select2
+		// Implement views links
 		function format(view) {
 			return '<span class="tribe-icon-' + $.trim(view.text.toLowerCase()) + '">' + view.text + '</span>';
 		}
