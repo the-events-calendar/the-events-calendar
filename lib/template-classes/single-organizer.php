@@ -14,6 +14,10 @@ if ( !defined( 'ABSPATH' ) ) { die( '-1' ); }
 if ( !class_exists( 'Tribe_Events_Pro_Single_Organizer_Template' ) ) {
 	class Tribe_Events_Pro_Single_Organizer_Template extends Tribe_PRO_Template_Factory {
 
+
+		protected $comments_off = true;
+
+
 		/**
 		 * Set up hooks for this template
 		 *
@@ -23,9 +27,6 @@ if ( !class_exists( 'Tribe_Events_Pro_Single_Organizer_Template' ) ) {
 		protected function hooks() {
 
 			parent::hooks();
-
-			// Remove the comments template
-			add_filter('comments_template', array( $this, 'remove_comments_template' ) );
 
 			add_action( 'tribe_events_single_organizer_before_upcoming_events', array( $this, 'setup_upcoming_events' ) );
 			

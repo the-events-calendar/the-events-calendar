@@ -17,6 +17,8 @@ if ( !class_exists( 'Tribe_Events_Pro_Single_Venue_Template' ) ) {
 		protected $asset_packages = array( 'jquery-placeholder' );
 
 		protected $body_class = 'tribe-events-venue';
+
+		protected $comments_off = true;
 		
 		/**
 		 * Set up hooks for this template
@@ -26,9 +28,6 @@ if ( !class_exists( 'Tribe_Events_Pro_Single_Venue_Template' ) ) {
 		 **/
 		public function hooks() {
 			parent::hooks();
-
-			// Remove the comments template
-			add_filter('comments_template', array( $this, 'remove_comments_template' ) );
 
 			add_action( 'tribe_events_single_venue_before_upcoming_events', array( $this, 'setup_upcoming_events' ) );
 
@@ -123,5 +122,6 @@ if ( !class_exists( 'Tribe_Events_Pro_Single_Venue_Template' ) ) {
 			}
 			return $templates;
 		}
+
 	}
 }
