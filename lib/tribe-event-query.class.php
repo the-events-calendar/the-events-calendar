@@ -187,7 +187,7 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 					case 'upcoming':
 					case 'past' :
 					default: // default display query
-						$tribe_paged         = ( ! empty( $_REQUEST['tribe_paged'] ) ) ? $_REQUEST['tribe_paged'] : 0;
+						$tribe_paged = ( ! empty( $_REQUEST['tribe_paged'] ) ) ? $_REQUEST['tribe_paged'] : $query->get('paged');
 						$query->set( 'paged', $tribe_paged );
 						$event_date = ( $query->get( 'eventDate' ) != '' ) 
 							? $query->get( 'eventDate' ) 
