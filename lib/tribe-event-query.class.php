@@ -374,6 +374,7 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 		 * @return string
 		 */
 		public static function posts_join_orderby( $join_sql, $query ) {
+			global $wpdb;
 			switch ($query->get( 'orderby' )) {
 				case 'venue':
 					$join_sql .= " LEFT JOIN {$wpdb->postmeta} tribe_order_by_venue_meta ON {$wpdb->posts}.ID = tribe_order_by_venue_meta.post_id AND tribe_order_by_venue_meta.meta_key='_EventVenueID' LEFT JOIN {$wpdb->posts} tribe_order_by_venue ON tribe_order_by_venue_meta.meta_value = tribe_order_by_venue.ID ";
