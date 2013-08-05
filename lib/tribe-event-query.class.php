@@ -155,13 +155,6 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 					case 'custom':
 							// if set this allows for a custom query to not be burdened with these settings
 						break;
-					case 'past': // setup past event display query
-						$query->set( 'end_date', date_i18n( TribeDateUtils::DBDATETIMEFORMAT ) );
-						$query->set( 'orderby', self::set_orderby() );
-						$query->set( 'order', self::set_order( 'DESC' ) );
-						self::$end_date = $query->get( 'end_date' );
-						$query->tribe_is_past = true;
-						break;
 					case 'all':
 						$query->set( 'orderby', self::set_orderby() );
 						$query->set( 'order', self::set_order() );
@@ -192,15 +185,28 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 						}
 						break;
 					case 'upcoming':
+					case 'past' :
 					default: // default display query
-						$start_date = date_i18n( TribeDateUtils::DBDATETIMEFORMAT );
-						$start_date = ( $query->get( 'eventDate' ) != '' ) ? $query->get( 'eventDate' ) : $start_date;
-						$query->set( 'hide_upcoming', true );
-						$query->set( 'start_date', $start_date );
+						$tribe_paged         = ( ! empty( $_REQUEST['tribe_paged'] ) ) ? $_REQUEST['tribe_paged'] : 0;
+						$query->set( 'paged', $tribe_paged );
+						$event_date = ( $query->get( 'eventDate' ) != '' ) 
+							? $query->get( 'eventDate' ) 
+						: date_i18n( TribeDateUtils::DBDATETIMEFORMAT );
+						if ( ! $query->tribe_is_past ) {
+							$query->set( 'start_date', $event_date );
+							$query->set( 'end_date', '' );
+							$query->set( 'order', self::set_order() );
+						} else {
+							$query->set( 'start_date', '' );
+							$query->set( 'end_date', $event_date );
+							$query->set( 'order', self::set_order( 'DESC') );
+						}
 						$query->set( 'orderby', self::set_orderby() );
-						$query->set( 'order', self::set_order() );
+						$query->set( 'hide_upcoming', true );
 						self::$start_date = $query->get( 'start_date' );
+						self::$end_date = $query->get( 'end_date' );
 						break;
+						$query->set( 'eventDate', '' );
 					}
 				} else {
 					$query->set( 'hide_upcoming', true );
