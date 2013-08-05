@@ -354,26 +354,6 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		}
 
 		/**
-		 * Sets query variables for looking at past events "view."
-		 *
-		 * @param WP_Query $query The current query.
-		 * @return WP_Query The modified query.
-		 * @author Daniel Dvorkin
-		 * @since 3.0
-		 */
-		public function set_past_events_query( $query ) {
-			// ensure that tribe_is_past is confirmed set
-			$query->tribe_is_past = true;
-			$query->set( 'tribe_is_past', true );
-			$query->set( 'start_date', '' );
-			$query->set( 'eventDate', '' );
-			$query->set( 'order', 'DESC' );
-			$query->set( 'end_date', date_i18n( TribeDateUtils::DBDATETIMEFORMAT ) );
-			return $query;
-		}
-
-
-		/**
 		 * AJAX handler for tribe_event_photo (Photo view)
 		 *
 		 * @return void
@@ -383,8 +363,6 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		function wp_ajax_tribe_photo() {
 
 			$tec = TribeEvents::instance();
-
-			add_action( 'pre_get_posts', array( $tec, 'list_ajax_call_set_date' ), 11 );
 
 			if ( class_exists( 'TribeEventsFilterView' ) ) {
 				TribeEventsFilterView::instance()->createFilters( null, true );
@@ -404,7 +382,6 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			/* if past view */
 			if ( ! empty( $_POST['tribe_event_display'] ) && $_POST['tribe_event_display'] == 'past' ){
 				$view_state = 'past';
-				add_filter( 'tribe_events_pre_get_posts', array( $this, 'set_past_events_query' ) );
 			}
 
 
@@ -429,10 +406,6 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			                   'tribe_paged'     => $tribe_paged,
 			                   'view'            => $view_state,
 			);
-
-
-
-			remove_action( 'pre_get_posts', array( $tec, 'list_ajax_call_set_date' ), -10 );
 
 			global $wp_query, $post;
 			$wp_query = $query;
@@ -474,7 +447,6 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 				}
 
 				TribeEventsQuery::init();
-				add_filter( 'tribe_events_pre_get_posts', array( $this, 'pre_get_posts' ) );
 
 				$args = array(
 					'post_status' => array( 'publish', 'private', 'future' ),
@@ -538,7 +510,6 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 				}
 
 				TribeEventsQuery::init();
-				add_filter( 'tribe_events_pre_get_posts', array( $this, 'pre_get_posts' ) );
 
 				$args = array(
 					'post_status' => array( 'publish', 'private', 'future' ),
