@@ -185,11 +185,12 @@ class MonthSeriesRules implements DateSeriesRules
 	 * @return int The timestamp of the requested occurrence.
 	 */
 	private function getNthDayOfWeek($curdate, $day_of_week, $week_of_month) {
-		$curmonth = date('n', $curdate);
 
 		if($week_of_month == -1) { // LAST WEEK
 			$nextdate = TribeDateUtils::getLastDayOfWeekInMonth($curdate, $day_of_week);
 
+			// If the date returned above is the same as the date we're starting from
+			// move on to the next month by interval to consider.
 			if($curdate == $nextdate) {
 				$curdate = mktime (0, 0, 0, date('n', $curdate) + $this->months_between, 1, date('Y', $curdate));
 				$nextdate = TribeDateUtils::getLastDayOfWeekInMonth($curdate, $day_of_week);
@@ -197,23 +198,24 @@ class MonthSeriesRules implements DateSeriesRules
 
 			return $nextdate;
 		} else {
+			// Get the first UNIX time for the 1st occurence of day_of_week in the month under consideration.
 			$nextdate = TribeDateUtils::getFirstDayOfWeekInMonth($curdate, $day_of_week);
-			$maybe_date = strtotime(date(DateSeriesRules::DATE_FORMAT, $nextdate) . " + " . ($week_of_month-1) . " weeks");
+			$maybe_date = strtotime($this->intToOrdinal($week_of_month) . " " . TribeDateUtils::numberToDay($day_of_week) . " of " . date('F', $curdate) . " " . date('Y', $curdate));
 
-			// if on the correct date or before current date, then try next month
+
+			// if on the correct date or before current date, then try next month according to month interval
 			if(date(DateSeriesRules::DATE_ONLY_FORMAT, $maybe_date) <= date(DateSeriesRules::DATE_ONLY_FORMAT, $curdate)) {
 				$curdate = mktime (0, 0, 0, date('n', $curdate) + $this->months_between, 1, date('Y', $curdate));
 				$nextdate = TribeDateUtils::getFirstDayOfWeekInMonth($curdate, $day_of_week);
-				$maybe_date = strtotime(date(DateSeriesRules::DATE_FORMAT, $nextdate) . " + " . ($week_of_month-1) . " weeks");
+				$maybe_date = strtotime($this->intToOrdinal($week_of_month) . " " . TribeDateUtils::numberToDay($day_of_week) . " of " . date('F', $curdate) . " " . date('Y', $curdate));
 			}
 
 			// if this doesn't exist, then try next month
 			while(date('n', $maybe_date) != date('n', $nextdate)) {
-				$nextdate = mktime (0, 0, 0, date('n', $nextdate) + $this->months_between, 1, date('Y', $nextdate));
+				$curdate = mktime (0, 0, 0, date('n', $nextdate) + $this->months_between, 1, date('Y', $curdate));
 				$nextdate = TribeDateUtils::getFirstDayOfWeekInMonth($curdate, $day_of_week);
-				$maybe_date = strtotime(date(DateSeriesRules::DATE_FORMAT, $nextdate) . " + " . ($week_of_month-1) . " weeks");
+				$maybe_date = strtotime($this->intToOrdinal($week_of_month) . " " . TribeDateUtils::numberToDay($day_of_week) . " of " . date('F', $curdate) . " " . date('Y', $curdate));
 			}
-
 			return $maybe_date;
 		}
 	}
@@ -231,6 +233,18 @@ class MonthSeriesRules implements DateSeriesRules
 		}
 
 		return $this->days_of_month[0];
+	}
+
+	private function intToOrdinal($number) {
+		switch( $number ) {
+			case 1: return "First";
+			case 2: return "Second";
+			case 3: return "Third";
+			case 4: return "Fourth";
+			case 5: return "Fifth";
+			case -1: return "Last";
+		    default: return null;
+		}
 	}
 }
 

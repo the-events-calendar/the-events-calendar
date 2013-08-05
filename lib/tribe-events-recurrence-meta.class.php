@@ -59,7 +59,7 @@ class TribeEventsRecurrenceMeta {
 
 	}
 
-
+	
 	public function edit_post_link( $link )	{
 		global $post;
 		if( tribe_is_recurring_event( $post ) && preg_match("/href=\"(.*?)\"/i", $link, $edit_url) ) {
@@ -707,6 +707,7 @@ class TribeEventsRecurrenceMeta {
 			case "Second": return 2;
 			case "Third": return 3;
 			case "Fourth": return 4;
+			case "Fifth": return 5;
 			case "Last": return -1;
 		   default: return null;
 		}
