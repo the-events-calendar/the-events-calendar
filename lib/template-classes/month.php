@@ -176,8 +176,13 @@ if( !class_exists('Tribe_Events_Month_Template')){
 				'order' => 'ASC',
 				'post_status' => $post_status,
 				'eventDisplay' => 'custom',
-				'no_found_rows' => true
+				'no_found_rows' => true,
+				'post_type' => $tribe_ecp::POSTTYPE,
 			), self::$args );
+
+			// remove empty args and sort by key, this increases chance of a cache hit
+			$args = array_filter($args);
+			ksort($args);
 
 			if ( is_tax( $tribe_ecp->get_event_taxonomy() ) ) {
 				$cat = get_term_by( 'slug', get_query_var( 'term' ), $tribe_ecp->get_event_taxonomy() );
@@ -188,8 +193,11 @@ if( !class_exists('Tribe_Events_Month_Template')){
 			$cache_key = 'daily_events_'.serialize($args);
 			$found = $cache->get($cache_key, 'save_post');
 			if ( $found && is_a($found, 'WP_Query') ) {
-				// return $found;
+				do_action( 'log', 'cache hit', 'tribe-events-cache', array( $args ) );
+				return $found;
 			}
+
+			do_action( 'log', 'no cache hit', 'tribe-events-cache', array( $args ) );
 
 			$result = TribeEventsQuery::getEvents( $args, true );
 			$cache->set($cache_key, $result, self::$cache_expiration, 'save_post');
@@ -252,6 +260,10 @@ if( !class_exists('Tribe_Events_Month_Template')){
 			// get $cur_calendar_day up to speed
 			$cur_calendar_day += $prev_month_offset;
 
+			if (in_array(0, self::$event_daily_counts)) {
+				$empty_query = new WP_Query();
+			}
+
 			// add days for this month
 			for ($i = 0; $i < $days_in_month; $i++) {
 				$day = $i + 1;
@@ -262,7 +274,7 @@ if( !class_exists('Tribe_Events_Month_Template')){
 				$days[] = array(
 					'daynum'       => $day,
 					'date'         => $date,
-					'events'       => self::get_daily_events( $date ),
+					'events'       => $total_events ? self::get_daily_events( $date ) : $empty_query,
 					'total_events' => $total_events,
 					'view_more'    => self::view_more_link( $date, self::$tribe_bar_args ),
 				);
