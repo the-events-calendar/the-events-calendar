@@ -233,7 +233,7 @@ if ( ! class_exists( 'TribeEventsTickets' ) ) {
 			add_action( 'wp_ajax_tribe-ticket-uncheckin-' . $this->className, array( $this, 'ajax_handler_attendee_uncheckin' ) );
 
 			// Front end
-			add_action( 'tribe_events_single_event_after_the_meta', array( $this, 'front_end_tickets_form' ) );
+			add_action( 'tribe_events_single_event_after_the_meta', array( $this, 'front_end_tickets_form' ), 5 );
 
 		}
 
