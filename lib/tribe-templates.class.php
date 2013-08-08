@@ -39,6 +39,10 @@ if (!class_exists('TribeEventsTemplates')) {
 			// make sure we enter the loop by always having some posts in $wp_query
 			add_action( 'template_redirect', array( __CLASS__, 'maybeSpoofQuery' ) );
 
+			// don't query the database for the spoofed post
+			wp_cache_set(self::spoofed_post()->ID, self::spoofed_post(), 'posts');
+			wp_cache_set(self::spoofed_post()->ID, array(true), 'post_meta');
+
 			// there's no template redirect on ajax, so we include the template class right before the view is included
 			if (defined('DOING_AJAX') && DOING_AJAX) {
 				add_action( 'tribe_pre_get_view', 'tribe_initialize_view' );
@@ -537,7 +541,7 @@ if (!class_exists('TribeEventsTemplates')) {
 		 */
 		private static function spoofed_post() {
 			$spoofed_post = array(
-                	'ID'                    => -9999,
+                	'ID'                    => 0,
 	                'post_status'           => 'draft',
 	                'post_author'           => 0,
 	                'post_parent'           => 0,
