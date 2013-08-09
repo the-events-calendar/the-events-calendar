@@ -96,7 +96,7 @@ if ( ! class_exists( 'Tribe_Register_Meta_Pro' ) ) {
 	tribe_register_meta_group( 'tribe_event_group_custom_meta', array(
 			'label' => __( 'Other', 'tribe-events-calendar-pro' ),
 			'classes' => array(
-				'before'=>array('tribe-events-meta-group'),
+				'before'=>array('tribe-events-meta-group tribe-events-meta-group-other'),
 				'label_before'=>array('tribe-events-single-section-title'))
 		) );
 
