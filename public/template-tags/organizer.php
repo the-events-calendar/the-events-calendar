@@ -84,9 +84,9 @@ if( class_exists( 'TribeEvents' ) ) {
 	}
 
 	/**
-	 * Organizer Website Link
+	 * Organizer Page Link
 	 *
-	 * Returns the event Organizer Name with a link to their supplied website url
+	 * Returns the event Organizer Name with a link to their single organizer page
 	 *
 	 * @param int $postId Can supply either event id or organizer id, if none specified, current post is used
 	 * @param bool $full_link If true displays full html links around organizers name, if false returns just the link without displaying it
@@ -129,8 +129,9 @@ if( class_exists( 'TribeEvents' ) ) {
 	}
 
 	/**
-	 * Return html for the link to an organizer's website
-	 *
+	 * Organizer website link
+	 * 
+	 * Returns the event Organizer Name with a link to their supplied website
 	 *
 	 * @param $post_id post ID for an event
 	 * @param $label text for the link
