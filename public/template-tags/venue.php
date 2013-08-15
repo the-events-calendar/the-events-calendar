@@ -22,8 +22,10 @@ if( class_exists( 'TribeEvents' ) ) {
 	function tribe_get_venue_id( $postId = null ) {
 		$postId = TribeEvents::postIdHelper( $postId );
 		if ( tribe_is_venue( $postId ) ) {
+			do_action('log', 'tribe_get_venue_id() - venue passed', 'tribe-events-venues', $postId);
 			return $postId;
 		} else {
+			do_action('log', 'looking up _EventVenueID', 'tribe-events-venues', tribe_get_event_meta( $postId, '_EventVenueID', true ));
 			return apply_filters('tribe_get_venue_id', tribe_get_event_meta( $postId, '_EventVenueID', true ));
 		}
 	}
