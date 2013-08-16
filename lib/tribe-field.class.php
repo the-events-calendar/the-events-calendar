@@ -27,6 +27,12 @@ if ( !class_exists('TribeField') ) {
 		public $name;
 
 		/**
+		 * the field's attributes
+		 * @var array
+		 */
+		public $attributes;
+
+		/**
 		 * the field's arguments
 		 * @var array
 		 */
@@ -61,6 +67,7 @@ if ( !class_exists('TribeField') ) {
 			$this->defaults = array(
 				'type' => 'html',
 				'name' => $id,
+				'attributes' => array(),
 				'class' => null,
 				'label' => null,
 				'tooltip' => null,
@@ -296,6 +303,23 @@ if ( !class_exists('TribeField') ) {
 		}
 
 		/**
+		 * Return a string of attributes for the field
+		 *
+		 * @return string
+		 * @author Jessica Yazbek
+		 * @since 3.0.4
+		 **/
+		public function doFieldAttributes()	{
+			$return = '';
+			if ( ! empty( $this->attributes ) ) {
+				foreach ( $this->attributes as $key => $value ) {
+					$return .= ' '.$key.'="'.$value.'"';
+				}
+			}
+			return apply_filters( 'tribe_field_attributes', $return, $this->name, $this );
+		}
+
+		/**
 		 * generate a heading field
 		 *
 		 * @since 2.0.5
@@ -469,6 +493,7 @@ if ( !class_exists('TribeField') ) {
 			$field .= '<input type="checkbox"';
 			$field .= $this->doFieldName();
 			$field .= ' value="1" '.checked( $this->value, true, false );
+			$field .= $this->doFieldAttributes();
 			$field .= '/>';
 			$field .= $this->doScreenReaderLabel();
 			$field .= $this->doFieldDivEnd();
