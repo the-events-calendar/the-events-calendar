@@ -164,7 +164,7 @@ if( !class_exists('Tribe_Events_Month_Template')){
 
 			$args = wp_parse_args( array(
 				'post__in' => self::$event_daily_ids[$date],
-				'post_type' => $tribe_ecp::POSTTYPE,
+				'post_type' => TribeEvents::instance(),
 				'eventDisplay' => 'custom',
 				'eventDate' => $date,
 				'no_found_rows' => true,
