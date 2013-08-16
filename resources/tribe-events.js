@@ -626,6 +626,20 @@ try {
 			return ( typeof GeoLoc !== 'undefined' && GeoLoc.map_view ) ? true : false;
 		},
 		/**
+		 * @function tribe_ev.tests.no_bar
+		 * @since 3.0.4
+		 * @desc tribe_ev.tests.has_bar tests if the events bar is enabled on the front end.
+		 * @example <caption>Very easy test to use. In a doc ready:</caption>
+		 * if (tribe_ev.tests.no_bar()) {
+		 *		// no event bar
+		 * ) else {
+		 *     // has event bar
+		 * }
+		 */
+		no_bar: function(){
+			return $('body').is('.tribe-bar-is-disabled');
+		},
+		/**
 		 * @type Boolean tribe_ev.tests.pushstate
 		 * @since 3.0
 		 * @desc tribe_ev.tests.pushstate checks if the history object is available safely and returns true or false.
