@@ -552,8 +552,23 @@ if( !class_exists('Tribe_Template_Factory') ) {
 				case 'jquery-placeholder' : // Vendor: jQuery Placeholder
 					$deps = array_merge( $deps, array( 'jquery' ) );
 					$path = self::getMinFile( $vendor_url . 'jquery-placeholder/jquery.placeholder.js', true );
-					wp_enqueue_script( 'tribe-placeholder', $path, $deps, '2.0.7', false );
-					self::$vendor_scripts[] = 'tribe-placeholder';
+
+					/*
+					 * Playing ping-pong with WooCommerce. They keep changing their script.
+					 * See https://github.com/woothemes/woocommerce/issues/3623
+					 */
+					$placeholder_handle = 'jquery-placeholder';
+					global $woocommerce;
+					if (
+						class_exists( 'Woocommerce' ) &&
+						version_compare( $woocommerce->version, '2.0.11', '>=' ) &&
+						version_compare( $woocommerce->version, '2.0.13', '<=' )
+					) {
+						$placeholder_handle = 'tribe-placeholder';
+					}
+
+					wp_enqueue_script( $placeholder_handle, $path, $deps, '2.0.7', false );
+					self::$vendor_scripts[] = $placeholder_handle;
 					break;
 				case 'ajax-calendar':
 					$deps = array_merge( $deps, array( 'jquery', $prefix . '-calendar-script' ) );
