@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * Month View Single Day
  * This file contains one day in the month grid
@@ -13,18 +13,22 @@
 
 if ( !defined('ABSPATH') ) { die('-1'); } ?>
 
-<?php 
+<?php
 
 $day = tribe_events_get_current_month_day();
 
- ?>
+?>
 
 <?php if ($day['date'] != 'previous' && $day['date'] != 'next') : ?>
 
 	<!-- Day Header -->
 	<div id="tribe-events-daynum-<?php echo $day['daynum'] ?>">
 
-		<a href="<?php echo tribe_get_day_link($day['date']) ?>"><?php echo $day['daynum'] ?></a>
+		<?php if ( $day['total_events'] > 0 ) { ?>
+			<a href="<?php echo tribe_get_day_link($day['date']) ?>"><?php echo $day['daynum'] ?></a>
+		<?php } else { ?>
+			<?php echo $day['daynum'] ?>
+		<?php } ?>
 
 	</div>
 
