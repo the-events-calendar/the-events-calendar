@@ -216,7 +216,7 @@ if(!class_exists('TribeDateUtils')) {
 		}
 
 		public static function numberToDay($number) {
-			$days = array(1 => "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday");
+			$days = array(1 => "Monday", 2 => "Tuesday", 3 => "Wednesday", 4 => "Thursday", 5 => "Friday", 6 => "Saturday", 7 => "Sunday");
 			return $days[$number];
 		}
 	}
