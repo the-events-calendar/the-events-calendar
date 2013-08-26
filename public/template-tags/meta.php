@@ -387,7 +387,7 @@ if ( class_exists('TribeEvents') ) {
 				$html .= tribe_get_meta_group( 'tribe_event_venue' );
 				$group_venue = false;
 			} else if ( ! $group_venue && ! tribe_has_organizer( $event_id ) && tribe_address_exists( $event_id ) && tribe_embed_google_map( $event_id ) ) {
-				$html .= sprintf( '%s<div class="tribe-events-meta-group">%s</div>',
+				$html .= sprintf( '%s<div class="tribe-events-meta-group tribe-events-meta-group-gmap">%s</div>',
 					tribe_get_meta_group( 'tribe_event_venue' ),
 					tribe_get_meta( 'tribe_venue_map' )
 				);

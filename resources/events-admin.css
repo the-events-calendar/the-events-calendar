@@ -67,6 +67,7 @@ td.tribe_message {padding-bottom: 10px !important;}
 .tribe-events-multi-event-day {color: #0F81BB;}
 
 .ui-front {z-index: 1000000;}
+.ui-widget-overlay.ui-front {z-index: 90; }
 
 
 
@@ -210,7 +211,7 @@ td.tribe_message {padding-bottom: 10px !important;}
 .ui-dialog .ui-dialog-titlebar {padding: .5em .3em .3em 1em; position: relative;  }
 .ui-dialog .ui-dialog-title {float: left; margin: .1em 0 .2em; }
 .ui-dialog .ui-dialog-titlebar-close {position: absolute; right: .3em; top: 50%; width: 19px; margin: -10px 0 0 0; padding: 1px; height: 18px; }
-.ui-dialog .ui-dialog-titlebar-close span {display: block; margin: 1px; }
+.ui-dialog .ui-dialog-titlebar-close span {display: block; margin-left: -8px; margin-top: -8px; }
 .ui-dialog .ui-dialog-titlebar-close:hover, .ui-dialog .ui-dialog-titlebar-close:focus {padding: 0; }
 .ui-dialog .ui-dialog-content {border: 0; padding: .5em 1em; background: none; overflow: auto; zoom: 1; }
 .ui-dialog .ui-dialog-buttonpane {text-align: right; border-width: 1px 0 0 0; background-image: none; margin: .5em 0 0 0; padding: .3em 1em .5em !important; }
