@@ -34,8 +34,8 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 		public static function init() {
 
 			// if tribe event query add filters
-			add_filter( 'pre_get_posts', array( __CLASS__, 'pre_get_posts' ), 0 );
-			add_filter( 'parse_query', array( __CLASS__, 'parse_query') );
+			add_filter( 'parse_query', array( __CLASS__, 'parse_query' ), 50 );
+			add_filter( 'pre_get_posts', array( __CLASS__, 'pre_get_posts' ), 50 );
 
 			if ( is_admin() ) {
 				require_once 'tribe-recurring-event-cleanup.php';
@@ -52,28 +52,9 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 		 * @author Jessica Yazbek
 		 * @since 3.0.3
 		 **/
-		public function parse_query( $query ) {
-			if ($query->get('eventDisplay') == 'month') {
-				// never allow 404 on month view
-				$query->is_post_type_archive = true;
-			}
-			return $query;
-		}
+		public static function parse_query( $query ) {
 
-		/**
-		 * Is hooked by init() filter to parse the WP_Query arguments for main and alt queries.
-		 *
-		 * @param object  $query WP_Query object args supplied or default
-		 * @return object $query (modified)
-		 */
-		public function pre_get_posts( $query ) {
-
-			global $wp_the_query;
-
-			$types = ( !empty( $query->query_vars['post_type'] ) ? (array) $query->query_vars['post_type'] : array() );
-
-			// is the query pulling posts from the past
-			$query->tribe_is_past = !empty( $query->query_vars['tribe_is_past'] ) ? $query->query_vars['tribe_is_past'] : false ;
+			$types = ( ! empty( $query->query_vars['post_type'] ) ? (array) $query->query_vars['post_type'] : array() );
 
 			// check if any possiblity of this being an event query
 			$query->tribe_is_event = ( in_array( TribeEvents::POSTTYPE, $types ) && count( $types ) < 2 )
@@ -99,6 +80,39 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 				|| $query->tribe_is_event_organizer )
 				? true // this is an event query of some type
 			: false; // move along, this is not the query you are looking for
+
+			// is the query pulling posts from the past
+			$query->tribe_is_past = ( ! empty( $query->query_vars['eventDisplay'] ) && $query->query_vars['eventDisplay'] == 'past' ) 
+				? true // query is requesting past posts
+			: false;
+			if ( ! empty( $_REQUEST['tribe_event_display'] ) && $_REQUEST['tribe_event_display'] == 'past' ) {
+				$query->tribe_is_past = true;
+			}
+
+			// never allow 404 on month view
+			if ( $query->get('eventDisplay') == 'month' ) {
+				$query->is_post_type_archive = true;
+			}
+
+			// check if is_event_query === true and hook filter
+			if ( $query->tribe_is_event_query ) {
+				// fixing is_home param
+				$query->is_home = !empty( $query->query_vars['is_home'] ) ? $query->query_vars['is_home'] : false;
+				do_action( 'tribe_events_parse_query', $query );
+			}
+
+			return $query;
+		}
+
+		/**
+		 * Is hooked by init() filter to parse the WP_Query arguments for main and alt queries.
+		 *
+		 * @param object  $query WP_Query object args supplied or default
+		 * @return object $query (modified)
+		 */
+		public function pre_get_posts( $query ) {
+
+			global $wp_the_query;
 
 			// setup static const to preserve query type through hooks
 			self::$is_event = $query->tribe_is_event;
@@ -141,13 +155,6 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 					case 'custom':
 							// if set this allows for a custom query to not be burdened with these settings
 						break;
-					case 'past': // setup past event display query
-						$query->set( 'end_date', date_i18n( TribeDateUtils::DBDATETIMEFORMAT ) );
-						$query->set( 'orderby', self::set_orderby() );
-						$query->set( 'order', self::set_order( 'DESC' ) );
-						self::$end_date = $query->get( 'end_date' );
-						$query->tribe_is_past = true;
-						break;
 					case 'all':
 						$query->set( 'orderby', self::set_orderby() );
 						$query->set( 'order', self::set_order() );
@@ -178,15 +185,28 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 						}
 						break;
 					case 'upcoming':
+					case 'past' :
 					default: // default display query
-						$start_date = date_i18n( TribeDateUtils::DBDATETIMEFORMAT );
-						$start_date = ( $query->get( 'eventDate' ) != '' ) ? $query->get( 'eventDate' ) : $start_date;
-						$query->set( 'hide_upcoming', true );
-						$query->set( 'start_date', $start_date );
+						$tribe_paged = ( ! empty( $_REQUEST['tribe_paged'] ) ) ? $_REQUEST['tribe_paged'] : $query->get('paged');
+						$query->set( 'paged', $tribe_paged );
+						$event_date = ( $query->get( 'eventDate' ) != '' ) 
+							? $query->get( 'eventDate' ) 
+						: date_i18n( TribeDateUtils::DBDATETIMEFORMAT );
+						if ( ! $query->tribe_is_past ) {
+							$query->set( 'start_date', $event_date );
+							$query->set( 'end_date', '' );
+							$query->set( 'order', self::set_order() );
+						} else {
+							$query->set( 'start_date', '' );
+							$query->set( 'end_date', $event_date );
+							$query->set( 'order', self::set_order( 'DESC') );
+						}
 						$query->set( 'orderby', self::set_orderby() );
-						$query->set( 'order', self::set_order() );
+						$query->set( 'hide_upcoming', true );
 						self::$start_date = $query->get( 'start_date' );
+						self::$end_date = $query->get( 'end_date' );
 						break;
+						$query->set( 'eventDate', '' );
 					}
 				} else {
 					$query->set( 'hide_upcoming', true );
@@ -289,11 +309,8 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 				}
 			}
 
-			// check if is_event_query === true and hook filter
 			if ( $query->tribe_is_event_query ) {
-				// fixing is_home param
-				$query->is_home = !empty( $query->query_vars['is_home'] ) ? $query->query_vars['is_home'] : false;
-				apply_filters( 'tribe_events_pre_get_posts', $query );
+				do_action( 'tribe_events_pre_get_posts', $query );
 			}
 
 			return $query;
