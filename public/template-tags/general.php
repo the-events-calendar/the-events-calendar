@@ -1038,7 +1038,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 */
 	function tribe_events_get_tab_index() {
 		$tribe_events = TribeEvents::instance();
-		return apply_filters( 'tribe-events-get-tab-index', $tribe_events->tabIndex() );
+		return apply_filters( 'tribe_events_tab_index', $tribe_events->tabIndex() );
 	}
 
 	/**
