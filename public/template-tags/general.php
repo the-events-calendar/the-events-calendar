@@ -790,7 +790,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 				$schedule .= '<span class="date-end dtend">';
 				$schedule .= tribe_get_end_date( $event, false, $format2ndday ) . ' @ ' . tribe_get_end_date( $event, false, $timeFormat );
 				$schedule .= '<span class="value-title" title="'. $microformatEndFormat .'"></span>';
-				$schedule .= '</span>';				
+				$schedule .= '</span>';
 			}
 
 
@@ -798,7 +798,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 			$schedule .= '<span class="date-start dtstart">';
 			$schedule .=  tribe_get_start_date( $event, true, $format );
 			$schedule .= '<span class="value-title" title="'. $microformatStartFormat .'"></span>';
-			$schedule .= '</span>';	
+			$schedule .= '</span>';
 		} else { // single day event
 			if ( tribe_get_start_date( $event, false, 'g:i A' ) === tribe_get_end_date( $event, false, 'g:i A' ) ) { // Same start/end time
 				$schedule .= '<span class="date-start dtstart">';
@@ -817,7 +817,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 		}
 
 		return apply_filters( 'tribe_events_event_schedule_details', $schedule );
-	}	
+	}
 
 	/**
 	 * Accepts two dates and returns the number of days between them
@@ -1029,6 +1029,25 @@ if ( class_exists( 'TribeEvents' ) ) {
 		$tribe_count_hierarchical_increment = 0;
 		array_walk_recursive( $walk, 'tribe_count_hierarchical_keys' );
 		return $tribe_count_hierarchical_increment;
+	}
+
+	/**
+	 * Get and increment tab index in form fields
+	 *
+	 * @since 3.0.2
+	 */
+	function tribe_events_get_tab_index() {
+		$tribe_events = TribeEvents::instance();
+		return apply_filters( 'tribe-events-get-tab-index', $tribe_events->tabIndex() );
+	}
+
+	/**
+	 * Echo and increment tab index in form fields
+	 *
+	 * @since 3.0.2
+	 */
+	function tribe_events_tab_index() {
+		echo tribe_events_get_tab_index();
 	}
 
 }

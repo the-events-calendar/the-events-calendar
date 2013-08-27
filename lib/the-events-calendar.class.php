@@ -3236,7 +3236,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			$EventEndDate = ( isset( $end ) && $end ) ? $end : date( 'Y-m-d' );
 			$recStart     = isset( $_REQUEST['event_start'] ) ? esc_attr( $_REQUEST['event_start'] ) : null;
 			$recPost      = isset( $_REQUEST['post'] ) ? absint( $_REQUEST['post'] ) : null;
-			
+
 
 			if ( !empty($_REQUEST['eventDate']) ) {
 				$duration = get_post_meta( $postId, '_EventDuration', true );
@@ -3274,7 +3274,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 					}
 				}
 			}
-			
+
 			?>
 				<style type="text/css">
 						#EventInfo {border:none;}
@@ -3524,13 +3524,13 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		}
 
 		/**
-		 * Echo the next tab index
+		 * Return the next tab index
 		 *
 		 * @return void
 		 */
 		public function tabIndex() {
-			echo $this->tabIndexStart;
 			$this->tabIndexStart++;
+			return $this->tabIndexStart - 1;
 		}
 
 		/**
@@ -3640,7 +3640,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				AND ($wpdb->posts.ID != %d OR d1.meta_value != '%s')
 				ORDER BY TIMESTAMP(d1.meta_value) $order, ID $order
 				LIMIT 1", self::POSTTYPE, $date, $id, $date, $id, $date );
-			
+
 			$args = array(
 				'post_type' => self::POSTTYPE,
 				'post_status' => 'publish',

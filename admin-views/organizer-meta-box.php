@@ -11,21 +11,21 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 <tr class="organizer">
 	<td><?php _e('Organizer Name:','tribe-events-calendar'); ?></td>
 	<td>
-		<input tabindex="<?php $this->tabIndex(); ?>" type='text' name='organizer[Organizer]' size='25'  value='<?php echo isset($_OrganizerOrganizer) ? esc_attr($_OrganizerOrganizer) : ""; ?>' />
+		<input tabindex="<?php tribe_events_tab_index(); ?>" type='text' name='organizer[Organizer]' size='25'  value='<?php echo isset($_OrganizerOrganizer) ? esc_attr($_OrganizerOrganizer) : ""; ?>' />
 	</td>
 </tr>
 <?php endif; ?>
 <tr class="organizer">
 	<td><?php _e('Phone:','tribe-events-calendar'); ?></td>
-	<td><input tabindex="<?php $this->tabIndex(); ?>" type='text' id='OrganizerPhone' name='organizer[Phone]' size='25' value='<?php echo isset($_OrganizerPhone) ? esc_attr($_OrganizerPhone) : ""; ?>' /></td>
+	<td><input tabindex="<?php tribe_events_tab_index(); ?>" type='text' id='OrganizerPhone' name='organizer[Phone]' size='25' value='<?php echo isset($_OrganizerPhone) ? esc_attr($_OrganizerPhone) : ""; ?>' /></td>
 </tr>
 <tr class="organizer">
 	<td><?php _e('Website:','tribe-events-calendar'); ?></td>
-	<td><input tabindex="<?php $this->tabIndex(); ?>" type='text' id='OrganizerWebsite' name='organizer[Website]' size='25' value='<?php echo isset($_OrganizerWebsite) ? esc_attr($_OrganizerWebsite) : ""; ?>' /></td>
+	<td><input tabindex="<?php tribe_events_tab_index(); ?>" type='text' id='OrganizerWebsite' name='organizer[Website]' size='25' value='<?php echo isset($_OrganizerWebsite) ? esc_attr($_OrganizerWebsite) : ""; ?>' /></td>
 </tr>
 <tr class="organizer">
 	<td><?php _e('Email:','tribe-events-calendar'); ?></td>
-	<td><input tabindex="<?php $this->tabIndex(); ?>" type='text' id='OrganizerEmail' name='organizer[Email]' size='25' value='<?php echo isset($_OrganizerEmail) ? esc_attr($_OrganizerEmail) : ""; ?>' /></td>
+	<td><input tabindex="<?php tribe_events_tab_index(); ?>" type='text' id='OrganizerEmail' name='organizer[Email]' size='25' value='<?php echo isset($_OrganizerEmail) ? esc_attr($_OrganizerEmail) : ""; ?>' /></td>
 </tr>
 
 <script type="text/javascript">
