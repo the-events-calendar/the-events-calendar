@@ -427,7 +427,7 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 			// if it's a true event query then we want create a join for where conditions
 			if ( $query->tribe_is_event || $query->tribe_is_event_category || $query->tribe_is_multi_posttype ) {
 				if ( $query->tribe_is_multi_posttype ) {
-					$joins['event_start_date'] = "LEFT JOIN {$wpdb->postmeta} on {$wpdb->posts}.ID = {$wpdb->postmeta}.post_id AND {$wpdb->postmeta}.meta_key = '_EventStartDate'";
+					$joins['event_start_date'] = " LEFT JOIN {$wpdb->postmeta} on {$wpdb->posts}.ID = {$wpdb->postmeta}.post_id AND {$wpdb->postmeta}.meta_key = '_EventStartDate'";
 				} else {
 					$joins['event_start_date'] = " AND {$wpdb->postmeta}.meta_key = '_EventStartDate'";
 					$joins['event_end_date'] = " LEFT JOIN {$wpdb->postmeta} as tribe_event_end_date ON ( {$wpdb->posts}.ID = tribe_event_end_date.post_id AND tribe_event_end_date.meta_key = '_EventEndDate' ) ";
