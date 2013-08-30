@@ -370,7 +370,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			add_action( 'save_post', array( $this, 'save_venue_data' ), 16, 2 );
 			add_action( 'save_post', array( $this, 'save_organizer_data' ), 16, 2 );
 			add_action( 'save_post', array( $this, 'addToPostAuditTrail' ), 10, 2 );
-			add_action( 'save_post', array( $this, 'publishAssociatedTypes'), 25, 2 );
+			add_action( 'publish_'.self::POSTTYPE, array( $this, 'publishAssociatedTypes'), 25, 2 );
 			add_action( 'pre_get_posts', array( $this, 'setDate' ));
 			add_action( 'parse_query', array( $this, 'setDisplay' ));
 			add_action( 'tribe_events_post_errors', array( 'TribeEventsPostException', 'displayMessage' ) );
@@ -2803,22 +2803,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			remove_action( 'save_post', array( $this, 'save_organizer_data' ), 16, 2 );
 			remove_action( 'save_post', array( $this, 'addToPostAuditTrail' ), 10, 2 );
 
-			// Only continue if the post being published is an event
-			if ( $post->post_type != self::POSTTYPE ) {
-				return;
-			}
-			if ( wp_is_post_autosave($postID) ) {
-				return;
-			}
-			if ( in_array( $post->post_status, array( 'auto-draft', 'draft' ) ) ) {
-				return;
-			}
-			if ( isset( $_GET['bulk_edit'] ) ) {
-				return;
-			}
-			if ( isset( $_REQUEST['action'] ) && $_REQUEST['action'] == 'inline-save' ) {
-				return;
-			}
 
 			// save venue and organizer info on first pass
 			if( isset( $post->post_status ) && $post->post_status == 'publish' ) {
@@ -2833,12 +2817,16 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				//get venue and organizer and publish them
 				$pm = get_post_custom($post->ID);
 
+				do_action('log', 'publishing an event with a venue', 'tribe-events', $post);
+
 				// save venue on first setup
 				if( !empty( $pm['_EventVenueID'] ) ){
 					$venue_id = is_array( $pm['_EventVenueID'] ) ? current( $pm['_EventVenueID'] ) : $pm['_EventVenueID'];
 					if( $venue_id ){
+						do_action('log', 'event has a venue', 'tribe-events', $venue_id);
 						$venue_post = get_post( $venue_id );
 						if ( !empty( $venue_post ) && $venue_post->post_status != 'publish' ) {
+							do_action('log', 'venue post found', 'tribe-events', $venue_post);
 							$venue_post->post_status = 'publish';
 							wp_update_post( $venue_post );
 							$did_save = true;
