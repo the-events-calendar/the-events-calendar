@@ -4158,7 +4158,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		function set_tribe_paged( $query ) {
 			if ( !empty( $_REQUEST['tribe_paged'] ) ) {
 				add_filter( 'redirect_canonical', '__return_false' );
-				$query->query_vars['paged'] = $_REQUEST['tribe_paged'];
 			}
 
 			return $query;
@@ -4197,10 +4196,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				$args[TribeEvents::TAXONOMY] = $_POST['tribe_event_category'];
 			}
 
-			// add filter that executes after TribeEventsQuery::pre_get_posts,
-			// that sets the tribe bar date
-			add_action( 'tribe_events_pre_get_posts', array( $this, 'list_ajax_call_set_date' ) );
-
 			$query = TribeEventsQuery::getEvents( $args, true );
 
 			$hash = $query->query_vars;
@@ -4224,8 +4219,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 							   'total_count'     => $query->found_posts,
 							   'view'            => 'list',
 			);
-
-			remove_action( 'tribe_events_pre_get_posts', array( $this, 'list_ajax_call_set_date' ) );
 
 			global $wp_query, $post, $paged;
 			$wp_query = $query;
@@ -4297,23 +4290,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			$html .= '<li class="tribe-events-nav-next"><a href="#" id="tribe-events-paged-next" class="tribe-events-paged">' . __( 'Next Events &raquo;', 'tribe-events-calendar' ) . '</a></li>';
 			return $html;
 
-		}
-
-		/**
-		 * Set the date query var if the user is searching using it.
-		 *
-		 * @param WP_Query $query The current query object.
-		 * @return WP_Query The modified query object.
-		 */
-		function list_ajax_call_set_date( $query ) {
-			if ( isset( $_POST["tribe-bar-date"] ) && $_POST["tribe-bar-date"] ) {
-				if ($_POST['tribe_event_display'] == 'past') {
-					$query->set( 'end_date', $_POST["tribe-bar-date"] );
-				} else {
-					$query->set( 'start_date', $_POST["tribe-bar-date"] );
-				}
-			}
-			return $query;
 		}
 
 		/**
