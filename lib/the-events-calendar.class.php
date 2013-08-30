@@ -4343,6 +4343,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				}
 
 				$wp_query->tribe_is_event_query = true;
+				$wp_query->parse_query();
 
 				$this->setDisplay();
 

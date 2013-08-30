@@ -174,7 +174,7 @@ if( class_exists( 'TribeEvents' ) ) {
 		}
 
 		if ( is_tax( $tribe_ecp->get_event_taxonomy() ) ) {
-			$cat = get_term_by( 'slug', get_query_var('term'), $tribe_ecp->get_event_taxonomy() );
+			$cat = get_queried_object();
 			if ( $depth ) {
 				$title = '<a href="'.tribe_get_events_link().'">'.$title.'</a>';
 				$title .= ' &#8250; ' . $cat->name;
