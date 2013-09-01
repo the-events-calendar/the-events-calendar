@@ -433,7 +433,6 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 				if ( $query->tribe_is_multi_posttype ) {
 					$joins['event_start_date'] = " LEFT JOIN {$wpdb->postmeta} on {$wpdb->posts}.ID = {$wpdb->postmeta}.post_id AND {$wpdb->postmeta}.meta_key = '_EventStartDate'";
 				} else {
-					$joins['event_start_date'] = " AND {$wpdb->postmeta}.meta_key = '_EventStartDate'";
 					$joins['event_end_date'] = " LEFT JOIN {$wpdb->postmeta} as tribe_event_end_date ON ( {$wpdb->posts}.ID = tribe_event_end_date.post_id AND tribe_event_end_date.meta_key = '_EventEndDate' ) ";
 				}
 				$joins = apply_filters( 'tribe_events_query_posts_joins', $joins );
