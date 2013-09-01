@@ -79,6 +79,17 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 				$query->set( 'post_type', 'any' );
 			}
 
+			// Add tribe events post type to tag queries
+			if ( $query->is_tag ) {
+				$types = $query->get( 'post_type' );
+				if ( is_array( $types ) ) {
+					$types[] = TribeEvents::POSTTYPE;
+				} else if ( $types != 'any' ) {
+					$types = array( 'post', TribeEvents::POSTTYPE );
+				}
+				$query->set( 'post_type', $types );
+			}
+
 			$types = ( ! empty( $query->query_vars['post_type'] ) ? (array) $query->query_vars['post_type'] : array() );
 
 			// check if any possiblity of this being an event query
@@ -354,7 +365,7 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
          */
         public static function posts_groupby( $groupby_sql, $query ) {
 			global $wpdb;
-			if ( self::$is_event_query ) {
+			if ( $query->tribe_is_event_query || $query->tribe_is_multi_posttype ) {
 				return apply_filters( 'tribe_events_query_posts_groupby', '', $query );
 			} else {
 				return $groupby_sql;
