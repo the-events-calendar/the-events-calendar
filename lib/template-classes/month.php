@@ -165,12 +165,12 @@ if( !class_exists('Tribe_Events_Month_Template')){
 			$args = wp_parse_args( array(
 				'post__in' => self::$event_daily_ids[$date],
 				'post_type' => TribeEvents::POSTTYPE,
+				'start_date' => tribe_event_beginning_of_day($date),
+				'end_date' => tribe_event_end_of_day($date),
 				'eventDisplay' => 'custom',
-				'eventDate' => $date,
 				'no_found_rows' => true,
 				'posts_per_page' => self::$posts_per_page_limit,
 			), self::$args );
-
 			$result = TribeEventsQuery::getEvents( $args, true );
 			return $result;
 		}
