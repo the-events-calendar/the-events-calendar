@@ -3215,7 +3215,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			$endMonthOptions 		= TribeEventsViewHelpers::getMonthOptions( $_EventEndDate );
 			$startYearOptions 		= TribeEventsViewHelpers::getYearOptions( $_EventStartDate );
 			$endYearOptions			= TribeEventsViewHelpers::getYearOptions( $_EventEndDate );
-			$startMinuteOptions 		= TribeEventsViewHelpers::getMinuteOptions( $_EventStartDate, true );
+			$startMinuteOptions 	= TribeEventsViewHelpers::getMinuteOptions( $_EventStartDate, true );
 			$endMinuteOptions		= TribeEventsViewHelpers::getMinuteOptions( $_EventEndDate );
 			$startHourOptions		= TribeEventsViewHelpers::getHourOptions( $_EventAllDay == 'yes' ? null : $_EventStartDate, true );
 			$endHourOptions			= TribeEventsViewHelpers::getHourOptions( $_EventAllDay == 'yes' ? null : $_EventEndDate );
@@ -3246,6 +3246,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 			$events_meta_box_template = $this->pluginPath . 'admin-views/events-meta-box.php';
 			$events_meta_box_template = apply_filters('tribe_events_meta_box_template', $events_meta_box_template);
+
 			include( $events_meta_box_template );
 		}
 
