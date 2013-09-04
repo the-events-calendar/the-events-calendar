@@ -1518,7 +1518,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 			?>
 			<tr class="" >
-				<td style="width:170px"><?php _e( 'Use Saved Organizer:', 'tribe-events-calendar' ); ?></td>
+				<td style="width:170px"><label for="saved_organizer"><?php _e( 'Use Saved Organizer:', 'tribe-events-calendar' ); ?></label></td>
 				<td><?php $this->saved_organizers_dropdown( $curOrg ); ?></td>
 			</tr>
 			<?php
