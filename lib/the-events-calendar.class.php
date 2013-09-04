@@ -343,7 +343,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			add_filter( 'bloginfo_rss',	array($this, 'add_space_to_rss' ) );
 			add_filter( 'post_type_link', array($this, 'addDateToRecurringEvents'), 10, 2 );
 			add_filter( 'post_updated_messages', array($this, 'updatePostMessage') );
-			add_filter( 'term_link', array($this, 'tag_link'), 10, 3);
 
 			/* Add nav menu item - thanks to http://wordpress.org/extend/plugins/cpt-archives-in-nav-menus/ */
 			add_filter( 'nav_menu_items_' . TribeEvents::POSTTYPE, array( $this, 'add_events_checkbox_to_menu' ), null, 3 );
@@ -370,7 +369,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			add_action( 'save_post', array( $this, 'save_venue_data' ), 16, 2 );
 			add_action( 'save_post', array( $this, 'save_organizer_data' ), 16, 2 );
 			add_action( 'save_post', array( $this, 'addToPostAuditTrail' ), 10, 2 );
-			add_action( 'save_post', array( $this, 'publishAssociatedTypes'), 25, 2 );
+			add_action( 'publish_'.self::POSTTYPE, array( $this, 'publishAssociatedTypes'), 25, 2 );
 			add_action( 'pre_get_posts', array( $this, 'setDate' ));
 			add_action( 'parse_query', array( $this, 'setDisplay' ));
 			add_action( 'tribe_events_post_errors', array( 'TribeEventsPostException', 'displayMessage' ) );
@@ -2798,27 +2797,10 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 */
 		public function publishAssociatedTypes( $postID, $post ) {
 
-			remove_action( 'save_post', array( $this, 'addEventMeta' ), 15, 2 );
 			remove_action( 'save_post', array( $this, 'save_venue_data' ), 16, 2 );
 			remove_action( 'save_post', array( $this, 'save_organizer_data' ), 16, 2 );
 			remove_action( 'save_post', array( $this, 'addToPostAuditTrail' ), 10, 2 );
 
-			// Only continue if the post being published is an event
-			if ( $post->post_type != self::POSTTYPE ) {
-				return;
-			}
-			if ( wp_is_post_autosave($postID) ) {
-				return;
-			}
-			if ( in_array( $post->post_status, array( 'auto-draft', 'draft' ) ) ) {
-				return;
-			}
-			if ( isset( $_GET['bulk_edit'] ) ) {
-				return;
-			}
-			if ( isset( $_REQUEST['action'] ) && $_REQUEST['action'] == 'inline-save' ) {
-				return;
-			}
 
 			// save venue and organizer info on first pass
 			if( isset( $post->post_status ) && $post->post_status == 'publish' ) {
@@ -2833,12 +2815,16 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				//get venue and organizer and publish them
 				$pm = get_post_custom($post->ID);
 
+				do_action('log', 'publishing an event with a venue', 'tribe-events', $post);
+
 				// save venue on first setup
 				if( !empty( $pm['_EventVenueID'] ) ){
 					$venue_id = is_array( $pm['_EventVenueID'] ) ? current( $pm['_EventVenueID'] ) : $pm['_EventVenueID'];
 					if( $venue_id ){
+						do_action('log', 'event has a venue', 'tribe-events', $venue_id);
 						$venue_post = get_post( $venue_id );
 						if ( !empty( $venue_post ) && $venue_post->post_status != 'publish' ) {
+							do_action('log', 'venue post found', 'tribe-events', $venue_post);
 							$venue_post->post_status = 'publish';
 							wp_update_post( $venue_post );
 							$did_save = true;
@@ -4032,22 +4018,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		}
 
 		/**
-		 * Filter the link for tags when showing in an event.
-		 *
-		 * @param string $termlink The current link.
-		 * @param object The term object.
-		 * @param string $taxonomy The taxonomy we are using.
-		 * @return string The new link.
-		 */
-		public function tag_link($termlink, $term, $taxonomy) {
-			global $post;
-			if (is_object($post) && $post->post_type == self::POSTTYPE && $taxonomy == 'post_tag') {
-				$termlink = esc_url(trailingslashit(tribe_get_events_link().'tag/'.$term->slug));
-			}
-			return $termlink;
-		}
-
-		/**
 		 * Set up the list view in the view selector in the tribe events bar.
 		 *
 		 * @param array $views The current views array.
@@ -4159,7 +4129,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		function set_tribe_paged( $query ) {
 			if ( !empty( $_REQUEST['tribe_paged'] ) ) {
 				add_filter( 'redirect_canonical', '__return_false' );
-				$query->query_vars['paged'] = $_REQUEST['tribe_paged'];
 			}
 
 			return $query;
@@ -4198,10 +4167,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				$args[TribeEvents::TAXONOMY] = $_POST['tribe_event_category'];
 			}
 
-			// add filter that executes after TribeEventsQuery::pre_get_posts,
-			// that sets the tribe bar date
-			add_action( 'tribe_events_pre_get_posts', array( $this, 'list_ajax_call_set_date' ) );
-
 			$query = TribeEventsQuery::getEvents( $args, true );
 
 			$hash = $query->query_vars;
@@ -4225,8 +4190,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 							   'total_count'     => $query->found_posts,
 							   'view'            => 'list',
 			);
-
-			remove_action( 'tribe_events_pre_get_posts', array( $this, 'list_ajax_call_set_date' ) );
 
 			global $wp_query, $post, $paged;
 			$wp_query = $query;
@@ -4298,23 +4261,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			$html .= '<li class="tribe-events-nav-next"><a href="#" id="tribe-events-paged-next" class="tribe-events-paged">' . __( 'Next Events &raquo;', 'tribe-events-calendar' ) . '</a></li>';
 			return $html;
 
-		}
-
-		/**
-		 * Set the date query var if the user is searching using it.
-		 *
-		 * @param WP_Query $query The current query object.
-		 * @return WP_Query The modified query object.
-		 */
-		function list_ajax_call_set_date( $query ) {
-			if ( isset( $_POST["tribe-bar-date"] ) && $_POST["tribe-bar-date"] ) {
-				if ($_POST['tribe_event_display'] == 'past') {
-					$query->set( 'end_date', $_POST["tribe-bar-date"] );
-				} else {
-					$query->set( 'start_date', $_POST["tribe-bar-date"] );
-				}
-			}
-			return $query;
 		}
 
 		/**

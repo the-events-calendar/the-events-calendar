@@ -99,7 +99,7 @@ if ( !class_exists('TribeField') ) {
 				'license_key',
 			);
 
-			apply_filters( 'tribe_valid_field_types', $this->valid_field_types );
+			$this->valid_field_types = apply_filters( 'tribe_valid_field_types', $this->valid_field_types );
 
 			// parse args with defaults and extract them
 			$args = wp_parse_args($field, $this->defaults);
