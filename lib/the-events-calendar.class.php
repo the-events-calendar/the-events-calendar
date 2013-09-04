@@ -3599,7 +3599,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				global $post;
 				$postId = $post->ID;
 			}
-			if ( get_post_field('post_type', $postId) == self::ORGANIZER_POST_TYPE ) {
+			if ( isset($postId) && get_post_field('post_type', $postId) == self::ORGANIZER_POST_TYPE ) {
 				return true;
 			}
 			return false;
