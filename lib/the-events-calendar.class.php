@@ -3546,7 +3546,8 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		public function isEvent( $event ) {
 			if ( $event === null || ( ! is_numeric( $event ) && !is_object( $event ) ) ) {
 				global $post;
-				$event = $post->ID;
+				if ( is_object( $post ) && isset( $post->ID ) )
+					$event = $post->ID;
 			}
 			if ( is_numeric( $event ) ) {
 				if ( get_post_type($event) == self::POSTTYPE )
