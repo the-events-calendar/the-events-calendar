@@ -1517,7 +1517,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 			?>
 			<tr class="" >
-				<td style="width:170px"><?php _e( 'Use Saved Organizer:', 'tribe-events-calendar' ); ?></td>
+				<td style="width:170px"><label for="saved_organizer"><?php _e( 'Use Saved Organizer:', 'tribe-events-calendar' ); ?></label></td>
 				<td><?php $this->saved_organizers_dropdown( $curOrg ); ?></td>
 			</tr>
 			<?php
@@ -3201,7 +3201,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			$endMonthOptions 		= TribeEventsViewHelpers::getMonthOptions( $_EventEndDate );
 			$startYearOptions 		= TribeEventsViewHelpers::getYearOptions( $_EventStartDate );
 			$endYearOptions			= TribeEventsViewHelpers::getYearOptions( $_EventEndDate );
-			$startMinuteOptions 		= TribeEventsViewHelpers::getMinuteOptions( $_EventStartDate, true );
+			$startMinuteOptions 	= TribeEventsViewHelpers::getMinuteOptions( $_EventStartDate, true );
 			$endMinuteOptions		= TribeEventsViewHelpers::getMinuteOptions( $_EventEndDate );
 			$startHourOptions		= TribeEventsViewHelpers::getHourOptions( $_EventAllDay == 'yes' ? null : $_EventStartDate, true );
 			$endHourOptions			= TribeEventsViewHelpers::getHourOptions( $_EventAllDay == 'yes' ? null : $_EventEndDate );
@@ -3232,6 +3232,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 			$events_meta_box_template = $this->pluginPath . 'admin-views/events-meta-box.php';
 			$events_meta_box_template = apply_filters('tribe_events_meta_box_template', $events_meta_box_template);
+
 			include( $events_meta_box_template );
 		}
 
@@ -3545,7 +3546,8 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		public function isEvent( $event ) {
 			if ( $event === null || ( ! is_numeric( $event ) && !is_object( $event ) ) ) {
 				global $post;
-				$event = $post->ID;
+				if ( is_object( $post ) && isset( $post->ID ) )
+					$event = $post->ID;
 			}
 			if ( is_numeric( $event ) ) {
 				if ( get_post_type($event) == self::POSTTYPE )
@@ -3585,7 +3587,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				global $post;
 				$postId = $post->ID;
 			}
-			if ( get_post_field('post_type', $postId) == self::ORGANIZER_POST_TYPE ) {
+			if ( isset($postId) && get_post_field('post_type', $postId) == self::ORGANIZER_POST_TYPE ) {
 				return true;
 			}
 			return false;

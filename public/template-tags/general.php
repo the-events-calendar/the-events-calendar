@@ -379,6 +379,20 @@ if ( class_exists( 'TribeEvents' ) ) {
 	}
 
 	/**
+	 * Organizer Type Test
+	 *
+	 * Checks type of $postId to determine if it is a Organizer
+	 *
+	 * @param int $postId (optional)
+	 * @return bool True if post type id Venue
+	 * @since 2.0
+	 */
+	function tribe_is_organizer( $postId = null ) {
+		$tribe_ecp = TribeEvents::instance();
+		return apply_filters( 'tribe_is_organizer', $tribe_ecp->isOrganizer( $postId ), $postId );
+	}
+
+	/**
 	 * HTML Before Event (Display)
 	 *
 	 * Display HTML to output before the event template
