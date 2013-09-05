@@ -341,12 +341,6 @@ class TribeEventsGeoLoc {
 			}
 		}
 
-		// forcing past display if set via navigation
-		if( !empty( $_REQUEST['tribe_event_display'] ) && $_REQUEST['tribe_event_display'] == 'past' ){
-			$query->tribe_is_past = true;
-			$query->set( 'tribe_is_past', true );
-		}
-
 		return $query;
 
 	}
@@ -561,25 +555,6 @@ class TribeEventsGeoLoc {
 	}
 
 	/**
-	 * Make the past pagination work in the map view
-	 * @param $query
-	 *
-	 * @return mixed
-	 */
-	public function set_past_events_query( $query ) {
-		$query->set( 'start_date', '' );
-		$query->set( 'eventDate', '' );
-		$query->set( 'order', 'DESC' );
-		if ( isset( $_POST["tribe-bar-date"] ) && $_POST["tribe-bar-date"] ) {
-			$query->set( 'end_date', $_POST["tribe-bar-date"] );
-		} else {
-			$query->set( 'end_date', date_i18n( TribeDateUtils::DBDATETIMEFORMAT ) );
-		}
-
-		return $query;
-	}
-
-	/**
 	 * AJAX handler for the Map view
 	 */
 	function ajax_tribe_geosearch() {
@@ -607,7 +582,6 @@ class TribeEventsGeoLoc {
 		/* if past view */
 		if ( ! empty( $_POST['tribe_event_display'] ) && $_POST['tribe_event_display'] == 'past' ) {
 			$view_state = 'past';
-			add_filter( 'tribe_events_pre_get_posts', array( $this, 'set_past_events_query' ) );
 		}
 
 		$query = TribeEventsQuery::getEvents( $defaults, true );
