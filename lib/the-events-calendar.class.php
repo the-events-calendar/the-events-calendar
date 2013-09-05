@@ -239,6 +239,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			require_once( 'tribe-the-events-calendar-import.class.php' );
 			//require_once( 'tribe-debug-bar.class.php' );
 			require_once( 'tribe-amalgamator.php' );
+			require_once( 'tribe-events-update.class.php' );
 
 			// Load Template Classes
 			require_once( 'template-classes/month.php' );
@@ -2328,7 +2329,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			$newRules[$baseTax . '([^/]+)/feed/?$'] = 'index.php?tribe_events_cat=' . $wp_rewrite->preg_index(2) . '&eventDisplay=upcoming&post_type=' . self::POSTTYPE . '&feed=rss2';
 			$newRules[$baseTax . '([^/]+)/ical/?$'] = 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=upcoming&tribe_events_cat=' . $wp_rewrite->preg_index(2) . '&ical=1';
 			$newRules[$baseTax . '([^/]+)/feed/(feed|rdf|rss|rss2|atom)/?$'] = 'index.php?post_type=' . self::POSTTYPE . '&tribe_events_cat=' . $wp_rewrite->preg_index(2) . '&feed=' . $wp_rewrite->preg_index(3);
-			$newRules[$baseTax . '([^/]+)$'] = 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=upcoming&tribe_events_cat=' . $wp_rewrite->preg_index(2);
+			// $newRules[$baseTax . '([^/]+)$'] = 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=upcoming&tribe_events_cat=' . $wp_rewrite->preg_index(2);
 			$newRules[$baseTax . '([^/]+)/?$'] = 'index.php?tribe_events_cat=' . $wp_rewrite->preg_index(2) . '&post_type=' . self::POSTTYPE . '&eventDisplay=' . $this->getOption('viewOption','month');
 
 			// tag rules.
@@ -4320,7 +4321,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 * @since 3.0
 		 */
 		public function checkSuiteIfJustUpdated() {
-			$plugins = apply_filters( 'tribe_tec_addons', array( 'TribeEventsCalendar' => array( 'plugin_name' => 'Events Calendar PRO', 'required_version' => self::VERSION, 'current_version' => self::VERSION, 'plugin_dir_file' => basename( dirname( __FILE__ ) ) . '/the-events-calendar.php' ) ) );
+			$plugins = apply_filters( 'tribe_tec_addons', array( 'TribeEventsCalendar' => array( 'plugin_name' => 'The Events Calendar', 'required_version' => self::VERSION, 'current_version' => self::VERSION, 'plugin_dir_file' => basename( dirname( __FILE__ ) ) . '/the-events-calendar.php' ) ) );
 			$plugin_versions = get_option( 'tribe_events_suite_versions', array() );
 			$new_plugin_versions = $plugin_versions;
 
