@@ -1,6 +1,6 @@
 === The Events Calendar ===
 
-Contributors:  ModernTribe, PaulHughes01, roblagatta, jonahcoyote, MZAWeb, codearachnid, ryancurban, faction23, jazbek, kyleunzicker, leahkoerper, barryhughes, peterchester, reid.peifer, shane.pearlman
+Contributors:  ModernTribe, PaulHughes01, roblagatta, jonahcoyote, MZAWeb, codearachnid, ryancurban, faction23, jazbek, kyleunzicker, leahkoerper, WebsiteBakery, peterchester, reid.peifer, shane.pearlman
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
 Donate link: http://m.tri.be/29
 Requires at least: 3.5
@@ -98,6 +98,7 @@ If you're unclear about the installation process or get stuck, check out our <a 
 
 * PHP 5.2 or above
 * WordPress 3.3 or above
+* jQuery 1.7 or above
 
 == Screenshots ==
 

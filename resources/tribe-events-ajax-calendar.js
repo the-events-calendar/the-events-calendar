@@ -20,7 +20,8 @@
 
 		var base_url = $('#tribe-events-header .tribe-events-nav-next a').attr('href').slice(0, -8),
 			initial_date = tf.get_url_param('tribe-bar-date'),
-			$tribedate = $('#tribe-bar-date');
+			$tribedate = $('#tribe-bar-date'),
+			date_mod = false;
 
 		if ($('.tribe-events-calendar').length && $('#tribe-events-bar').length) {
 			if (initial_date) {
@@ -37,15 +38,20 @@
 			viewMode: 'months'
 		};
 
-		var tribeBarDate = $tribedate.bootstrapDatepicker(tribe_var_datepickerOpts).on('changeDate',function (e) {
+		var tribeBarDate = $tribedate.bootstrapDatepicker(tribe_var_datepickerOpts).on('changeDate', function (e) {
+
+			var year = e.date.getFullYear(),
+				month = ('0' + (e.date.getMonth() + 1)).slice(-2);
+
 			tribeBarDate.hide();
-			var $this = $(this);
+
+			date_mod = true;
+
 			tf.update_picker(e.date);
-			if ($this.val() === '') {
-				return;
-			}
-			ts.date = $this.val();
-			if (tt.live_ajax() && tt.pushstate) {
+
+			ts.date = year + '-' + month;
+
+			if (tt.no_bar() || tt.live_ajax() && tt.pushstate) {
 				if (ts.ajax_running)
 					return;
 				if (ts.filter_cats)
@@ -132,7 +138,8 @@
 				if ($tribedate.val().length) {
 					ts.date = $tribedate.val();
 				} else {
-					ts.date = td.cur_date.slice(0, -3);
+					if(!date_mod)
+						ts.date = td.cur_date.slice(0, -3);
 				}
 
 				if (ts.filter_cats) {
