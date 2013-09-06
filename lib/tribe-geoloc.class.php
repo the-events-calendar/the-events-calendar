@@ -852,6 +852,9 @@ class TribeEventsGeoLoc {
 	 * Check if there are venues without geo data and hook into admin_notices to show a message to the user.
 	 */
 	public function maybe_offer_generate_geopoints() {
+		if ( defined( 'DOING_AJAX' ) && DOING_AJAX )
+			return;
+
 		$done = get_option( '_tribe_geoloc_fixed' );
 
 		if ( ! empty( $done ) )
