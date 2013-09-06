@@ -134,8 +134,10 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 			}
 
 			// never allow 404 on month view
-			if ( $query->get('eventDisplay') == 'month' ) {
+			if ( $query->is_main_query() && $query->get('eventDisplay') == 'month' && ! $query->is_tax && ! $query->tribe_is_event_category ) {
 				$query->is_post_type_archive = true;
+				$query->queried_object = get_post_type_object( TribeEvents::POSTTYPE );
+				$query->queried_object_id = 0;
 			}
 
 			// check if is_event_query === true and hook filter
