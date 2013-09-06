@@ -165,9 +165,9 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 
 			if ( $query->tribe_is_multi_posttype ) {
 				do_action( 'log', 'multi_posttype', 'default', $query->tribe_is_multi_posttype );
+				add_filter( 'posts_fields', array( __CLASS__, 'multi_type_posts_fields' ), 10, 2 );
 				add_filter( 'posts_join', array( __CLASS__, 'posts_join' ), 10, 2 );
 				add_filter( 'posts_join', array( __CLASS__, 'posts_join_orderby' ), 10, 2 );
-				add_filter( 'posts_fields', array( __CLASS__, 'multi_type_posts_fields' ), 10, 2 );
 				add_filter( 'posts_distinct', array( __CLASS__, 'posts_distinct' ) );
 				add_filter( 'posts_groupby', array( __CLASS__, 'posts_groupby' ), 10, 2 );
 				add_filter( 'posts_orderby', array( __CLASS__, 'posts_orderby' ), 10, 2 );
@@ -176,15 +176,14 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 			}
 
 			if ( $query->tribe_is_event || $query->tribe_is_event_category ) {
-
 				self::$start_date = null;
 				self::$end_date = null;
 
 				if ( ! ( $query->is_main_query() && $query->get( 'eventDisplay' ) == 'month' ) ) {
+					add_filter( 'posts_fields', array( __CLASS__, 'posts_fields' ), 10, 2 );
 					add_filter( 'posts_join', array( __CLASS__, 'posts_join' ), 10, 2 );
 					add_filter( 'posts_join', array( __CLASS__, 'posts_join_orderby' ), 10, 2 );
 					add_filter( 'posts_where', array( __CLASS__, 'posts_where' ), 10, 2 );
-					add_filter( 'posts_fields', array( __CLASS__, 'posts_fields' ), 10, 2 );
 					add_filter( 'posts_distinct', array( __CLASS__, 'posts_distinct' ) );
 					add_filter( 'posts_groupby', array( __CLASS__, 'posts_groupby' ), 10, 2 );
 				} else {
