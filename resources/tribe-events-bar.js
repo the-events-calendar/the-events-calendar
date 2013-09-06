@@ -180,6 +180,8 @@ var tribe_events_bar_action;
 					if ($this.val().length) {
 						ts.params[$this.attr('name')] = $this.val();
 						ts.url_params[$this.attr('name')] = $this.val();
+					} else if($this.is('.placeholder') && $this.is('.bd-updated')){
+						ts.url_params[$this.attr('name')] = $this.attr('data-oldDate');
 					} else {
 						ts.date = td.cur_date;
 					}
