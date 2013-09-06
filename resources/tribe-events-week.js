@@ -21,7 +21,11 @@
 		var $tribe_container = $('#tribe-events'),
 			$tribe_bar = $('#tribe-events-bar'),
 			$tribe_header = $('#tribe-events-header'),
+			start_day = 0,
 			date_mod = false;
+
+		if($tribe_header.length)
+			start_day = $tribe_header.data('startofweek');
 
 		$tribe_bar.addClass('tribe-has-datepicker');
 
