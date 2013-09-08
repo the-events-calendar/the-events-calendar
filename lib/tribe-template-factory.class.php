@@ -644,7 +644,7 @@ if( !class_exists('Tribe_Template_Factory') ) {
 		 * Playing ping-pong with WooCommerce. They keep changing their script.
 		 * See https://github.com/woothemes/woocommerce/issues/3623
 		 */
-		private static function get_placeholder_handle() {
+		protected static function get_placeholder_handle() {
 			$placeholder_handle = 'jquery-placeholder';
 			global $woocommerce;
 			if (

@@ -134,8 +134,10 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 			}
 
 			// never allow 404 on month view
-			if ( $query->get('eventDisplay') == 'month' ) {
+			if ( $query->is_main_query() && $query->get('eventDisplay') == 'month' && ! $query->is_tax && ! $query->tribe_is_event_category ) {
 				$query->is_post_type_archive = true;
+				$query->queried_object = get_post_type_object( TribeEvents::POSTTYPE );
+				$query->queried_object_id = 0;
 			}
 
 			// check if is_event_query === true and hook filter
@@ -163,9 +165,9 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 
 			if ( $query->tribe_is_multi_posttype ) {
 				do_action( 'log', 'multi_posttype', 'default', $query->tribe_is_multi_posttype );
+				add_filter( 'posts_fields', array( __CLASS__, 'multi_type_posts_fields' ), 10, 2 );
 				add_filter( 'posts_join', array( __CLASS__, 'posts_join' ), 10, 2 );
 				add_filter( 'posts_join', array( __CLASS__, 'posts_join_orderby' ), 10, 2 );
-				add_filter( 'posts_fields', array( __CLASS__, 'multi_type_posts_fields' ), 10, 2 );
 				add_filter( 'posts_distinct', array( __CLASS__, 'posts_distinct' ) );
 				add_filter( 'posts_groupby', array( __CLASS__, 'posts_groupby' ), 10, 2 );
 				add_filter( 'posts_orderby', array( __CLASS__, 'posts_orderby' ), 10, 2 );
@@ -174,15 +176,14 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 			}
 
 			if ( $query->tribe_is_event || $query->tribe_is_event_category ) {
-
 				self::$start_date = null;
 				self::$end_date = null;
 
 				if ( ! ( $query->is_main_query() && $query->get( 'eventDisplay' ) == 'month' ) ) {
+					add_filter( 'posts_fields', array( __CLASS__, 'posts_fields' ), 10, 2 );
 					add_filter( 'posts_join', array( __CLASS__, 'posts_join' ), 10, 2 );
 					add_filter( 'posts_join', array( __CLASS__, 'posts_join_orderby' ), 10, 2 );
 					add_filter( 'posts_where', array( __CLASS__, 'posts_where' ), 10, 2 );
-					add_filter( 'posts_fields', array( __CLASS__, 'posts_fields' ), 10, 2 );
 					add_filter( 'posts_distinct', array( __CLASS__, 'posts_distinct' ) );
 					add_filter( 'posts_groupby', array( __CLASS__, 'posts_groupby' ), 10, 2 );
 				} else {
