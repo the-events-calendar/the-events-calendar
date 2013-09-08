@@ -72,9 +72,9 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 				$search_term = $wp_query->query_vars['s'];
 			} else if ( !empty( $_POST['tribe-bar-search'] ) ) {
 					$search_term = $_POST['tribe-bar-search'];
-				}
+			}
 
-			if ( !empty( $search_term ) && !have_posts() ) {
+			if ( !empty( $search_term ) && empty( self::$events->all_day ) && empty( self::$events->hourly ) ) {
 				TribeEvents::setNotice( 'event-search-no-results', sprintf( __( 'There were no results found for <strong>"%s"</strong> this week. Try searching another week.', 'tribe-events-calendar-pro' ), esc_html($search_term) ) );
 			}
 		}
