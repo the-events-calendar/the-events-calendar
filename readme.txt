@@ -258,7 +258,11 @@ Our Premium Plugins:
 
 = IMPORTANT NOTICE =
 
-3.0 is a complete overhaul of the plugin, and as a result we're starting the changelog fresh. For release notes from the 2.x lifecycle, see <a href="http://m.tri.be/k">our 2.x release notes.</a>
+3.x is a complete overhaul of the plugin, and as a result we're starting the changelog fresh. For release notes from the 2.x lifecycle, see <a href="http://m.tri.be/k">our 2.x release notes.</a>
+
+= 3.1 =
+
+* A number of core architectural changes have been applied. Upgrade with caution.
 
 = 3.0.3 =
 
@@ -320,6 +324,12 @@ Some things to consider before posting on the forum:
 Still not happy? Shoot us an email to pro@tri.be or tweet to @moderntribeinc and tell us why. We'll do what we can to make it right.
 
 == Upgrade Notice ==
+
+IMPORTANT NOTICE: 3.x upgrade is a HUGE upgrade from 2.x versions. If you are upgrading from an older version, please test thoroughly before updating on your live website.
+
+= 3.1 =
+
+There have been a number of architectural changes in 3.1. If you have a lot of customizations you may want to do some thorough testing before upgrading.
 
 = 3.0 =
 
