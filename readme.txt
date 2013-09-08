@@ -5,7 +5,7 @@ Tags: events, calendar, event, venue, organizer, dates, date, google maps, confe
 Donate link: http://m.tri.be/29
 Requires at least: 3.5
 Tested up to: 3.6
-Stable tag: 3.0.5
+Stable tag: 3.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -183,7 +183,11 @@ Our Premium Plugins:
 
 = IMPORTANT NOTICE =
 
-3.0 is a complete overhaul of the plugin, and as a result we're starting the changelog fresh. For release notes from the 2.x lifecycle, see <a href="http://m.tri.be/k">our 2.x release notes.</a>
+3.x is a complete overhaul of the plugin, and as a result we're starting the changelog fresh. For release notes from the 2.x lifecycle, see <a href="http://m.tri.be/k">our 2.x release notes.</a>
+
+= 3.1 =
+
+* Significant architectural changes have been implemented. Upgrade with caution.
 
 = 3.0.5 =
 
@@ -244,6 +248,10 @@ Still not happy? Shoot us an email to pro@tri.be or tweet to @moderntribeinc and
 
 == Upgrade Notice ==
 
+= 3.1 =
+
+There have been a few substantial architectural updates in 3.1. Please upgrade with caution.
+
 = 3.0 =
 
-3.0 is a HUGE upgrade from Events Calendar PRO 2.0.x. If you're upgrading from 1.3.3 or any release between 2.0 and 2.0.10, make sure to upgrade to Events Calendar PRO 2.0.11 first. If you're upgrading from Events Calendar PRO 2.0.11, please back up your data BEFORE initiating, and be prepared to manually update your customizations based on changes to the plugin's tempting structure.
+3.x is a HUGE upgrade from Events Calendar PRO 2.x. If you're upgrading from 1.3.3 or any release between 2.0 and 2.0.10, make sure to upgrade to Events Calendar PRO 2.0.11 first. If you're upgrading from Events Calendar PRO 2.0.11, please back up your data BEFORE initiating, and be prepared to manually update your customizations based on changes to the plugin's tempting structure.
