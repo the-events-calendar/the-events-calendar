@@ -458,16 +458,22 @@ if (!class_exists('TribeEventsTemplates')) {
 				$template_base_paths[] = $plugin_path;
 			}
 
+			// setup subfolder options
+			$subfolder = !empty($subfolder) ? trailingslashit($subfolder) : $subfolder;
+
 			// ensure that addon plugins look in the right override folder in theme
 			$namespace = !empty($namespace) && $namespace[0] != '/' ? '/' . trailingslashit($namespace) : trailingslashit($namespace);
 
-			// setup subfolder options
-			$subfolder = !empty($subfolder) ? trailingslashit($subfolder) : $subfolder;
+			// Support multiple namespaces for multiple add-ons
+			$namespaces = apply_filters( 'tribe_events_template_path_namespaces', array( $namespace ) );
+			foreach ( $namespaces as $n => $namespace ) {
+				$namespaces[$n] = 'tribe-events' . trailingslashit( $namespace ) . $subfolder . $template;
+			}
 
 			$file = '';
 			foreach ( $template_base_paths as $template_base_path ) {
 
-				if ( $theme_file = locate_template( array('tribe-events' . $namespace . $subfolder . $template ), false, false) ) {
+				if ( $theme_file = locate_template( $namespaces, false, false) ) {
 					$file = $theme_file;
 				} else {
 					// protect from concat folder with filename
@@ -485,7 +491,7 @@ if (!class_exists('TribeEventsTemplates')) {
 				$file = apply_filters( 'tribe_events_template', $file, $template);
 
 				// return the first one found
-				if (file_exists($file))
+				if ( file_exists( $file ) )
 					break;
 			}
 
