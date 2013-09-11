@@ -188,6 +188,7 @@ Our Premium Plugins:
 = 3.1 =
 
 * Significant architectural changes have been implemented. Upgrade with caution.
+* GEO, CATEGORY, and ATTACH fields added to the iCal feed.
 
 = 3.0.5 =
 
