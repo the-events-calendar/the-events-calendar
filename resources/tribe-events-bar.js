@@ -163,10 +163,6 @@ var tribe_events_bar_action;
 			$('.tribe-bar-filters').slideToggle('fast');
 		});
 
-		$('body').on('click', function () {
-			$('#tribe-bar-views').removeClass('tribe-bar-views-closed');
-		});
-
 		// Wrap date inputs with a parent container
 		$('label[for="tribe-bar-date"], input[name="tribe-bar-date"]').wrapAll('<div id="tribe-bar-dates" />');
 
@@ -265,6 +261,7 @@ var tribe_events_bar_action;
 		});
 
 		$(document).click(function () {
+			$('#tribe-bar-views').removeClass('tribe-bar-views-open');
 			if ($tribeDropToggle.hasClass('open')) {
 				$tribeDropToggle.removeClass('open');
 				$tribeDropToggleEl.hide();
