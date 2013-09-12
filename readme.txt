@@ -254,6 +254,26 @@ Our Premium Plugins:
 * <a href="http://m.tri.be/2i" target="_blank">The Events Calendar: WooCommerce Tickets</a>
 * The Events Calendar: Filter Bar (coming summer 2013)
 
+== Versioning ==
+
+Curious about our versioning process, and how it's changed since The Events Calendar 3.0's launch? Look no further.
+
+As a general practice, version numbers for The Events Calendar, Events Calendar PRO and our other add-ons follows the <a href="http://en.wikipedia.org/wiki/Software_versioning#Semantic_versioning">Semantic Versioning guidelines</a> whenever practical.
+
+This means releases will maintain a three-part version number: major version; minor version; and patch. Let's say we're looking at The Events Calendar 3.1, as an example:
+
+Major version = 3
+Minor version = 1
+Patch = 0
+
+If we deployed a follow-up maintenance build that addressed a couple small bugs, and called it 3.1.1, we'd now have:
+
+Major version = 3
+Minor version = 1
+Patch = 1
+
+At no point during the 3.0 lifecycle will the major version change. But you can expect that either minor version and/or patch will change with each release. 
+
 == Changelog ==
 
 = IMPORTANT NOTICE =
