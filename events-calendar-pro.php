@@ -1053,7 +1053,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		 * @since 3.0
 		 */
 		public function pre_get_posts( $query ){
-			if( $query->tribe_is_event_pro_query == true ) {
+			if( !empty($query->tribe_is_event_pro_query) ) {
 				switch( $query->query_vars['eventDisplay'] ) {
 					case 'week':
 						$week = tribe_get_first_week_day( $query->get('eventDate') );
@@ -1075,8 +1075,8 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 						$query->set( 'hide_upcoming', false );
 						break;
 				}
+				apply_filters('tribe_events_pro_pre_get_posts', $query);
 			}
-			return $query->tribe_is_event_pro_query ? apply_filters('tribe_events_pro_pre_get_posts', $query) : $query;
 		}
 
 		/**
