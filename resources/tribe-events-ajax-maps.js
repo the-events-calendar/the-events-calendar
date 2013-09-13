@@ -222,7 +222,7 @@
 
 			});
 
-			$('body').on('click', function () {
+			$(document).on('click', function () {
 				$geo_options.hide();
 			});
 
