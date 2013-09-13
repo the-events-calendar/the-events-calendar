@@ -412,7 +412,7 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 		 * @return string The modified FIELDS statement.
 		 */
 		public static function multi_type_posts_fields( $field_sql, $query ) {
-			if ( !empty($query->tribe_is_event) ) {
+			if ( !empty($query->tribe_is_multi_posttype) ) {
 				global $wpdb;
 				$fields = array();
 				$fields[] = "IF ({$wpdb->posts}.post_type = 'tribe_events', {$wpdb->postmeta}.meta_value, {$wpdb->posts}.post_date) AS post_date";
