@@ -43,8 +43,8 @@ class TribeEventsUpdate
 	 * @author Jessica Yazbek
 	 * @since 3.0.4
 	 **/
-	function update_to_3_0_4 ( $old_version ) {
-		// flush rewrite rules needed when updating to 3.0.4
+	function update_to_3_1 ( $old_version ) {
+		// flush rewrite rules needed when updating to 3.1
 		flush_rewrite_rules();
 		return true;
 	}
