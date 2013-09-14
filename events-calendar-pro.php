@@ -106,6 +106,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_styles' ) );
 
 			add_filter( 'tribe_settings_do_tabs', array( $this, 'add_settings_tabs' ) );
+			add_filter( 'tribe_settings_tab_fields', array( $this, 'filter_settings_tab_fields' ), 10, 2 );
 			add_filter( 'generate_rewrite_rules', array( $this, 'add_routes' ), 11 );
 			add_filter( 'tribe_events_buttons_the_buttons', array($this, 'add_view_buttons'));
 			add_action( 'tribe_events_parse_query', array( $this, 'parse_query'));
@@ -144,8 +145,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			add_filter( 'tribe_event_meta_organizer_name', array('Tribe_Register_Meta_Pro','organizer_name'), 10, 2);
 			add_filter( 'tribe_events_single_event_the_meta_group_venue', array( $this, 'single_event_the_meta_group_venue'), 10, 2);
 
-			// add related events to single event view
-			add_action( 'tribe_events_single_event_after_the_meta', 'tribe_single_related_events' );
+			$this->register_related_events_view();
 
 			// add_action( 'tribe_events_single_event_meta_init', array( $this, 'single_event_meta_init'), 10, 4);
 
@@ -190,6 +190,27 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			add_filter( 'tribe_events_query_posts_fields', array($this, 'posts_fields'));
 			add_filter( 'tribe_events_query_end_date_column', array($this, 'end_date_column'));
 
+		}
+
+		/**
+		 * @return bool Whether related events should be shown in the single view
+		 */
+		public function show_related_events() {
+			if ( tribe_get_option('hideRelatedEvents', FALSE) == TRUE ) {
+				return FALSE;
+			}
+			return TRUE;
+		}
+
+		/**
+		 * add related events to single event view
+		 *
+		 * @return void
+		 */
+		private function register_related_events_view() {
+			if ( $this->show_related_events() ) {
+				add_action( 'tribe_events_single_event_after_the_meta', 'tribe_single_related_events' );
+			}
 		}
 
 		/**
@@ -842,6 +863,23 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			// The single-entry array at the end allows for the save settings button to be displayed.
 			new TribeSettingsTab( 'additional-fields', __( 'Additional Fields', 'tribe-events-calendar-pro' ), array( 'priority' => 35, 'fields' => array( null ) ) );
 	  	}
+
+		public function filter_settings_tab_fields( $fields, $tab ) {
+			switch ( $tab ) {
+				case 'display':
+					$fields = TribeEvents::array_insert_after_key( 'tribeDisableTribeBar', $fields, array(
+						'hideRelatedEvents' => array(
+							'type'            => 'checkbox_bool',
+							'label'           => __( 'Hide related events', 'tribe-events-calendar-pro' ),
+							'tooltip'         => __( 'Remove related events from the single event view', 'tribe-events-calendar-pro' ),
+							'default'         => false,
+							'validation_type' => 'boolean',
+						),
+					) );
+					break;
+			}
+			return $fields;
+		}
 
 		/**
 		 * Add the "Getting Started" text to the help tab for PRO addon.
