@@ -19,7 +19,7 @@ if (!class_exists('TribeEventsAdminList')) {
 		 * @return void
 		 */
 		public static function init() {
-			if ( is_admin() ) {
+			if ( is_admin() && ! ( defined('DOING_AJAX') && DOING_AJAX ) ) {
 				add_filter( 'posts_distinct', array( __CLASS__, 'events_search_distinct'));
 				add_filter( 'posts_join',		array( __CLASS__, 'events_search_join' ) );
 				add_filter( 'posts_where',		array( __CLASS__, 'events_search_where' ) );

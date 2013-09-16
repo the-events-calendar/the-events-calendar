@@ -4272,28 +4272,27 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 * @since 3.0
 		 */
 		function calendar_ajax_call() {
+
 			if ( isset( $_POST["eventDate"] ) && $_POST["eventDate"] ) {
 
 				TribeEventsQuery::init();
-				global $wp_query;
 
 				// set the global query var for eventDisplay
-
-				$wp_query->set( 'eventDisplay', 'month');
-				if( !empty($_REQUEST['eventDate']))
-					$wp_query->set( 'eventDate', $_REQUEST['eventDate']);
+				$query_args = array(
+					'post_type' => self::POSTTYPE,
+					'eventDisplay' => 'month',
+					'eventDate' => $_POST['eventDate'],
+				);
 
 				if ( isset( $_POST['tribe_event_category'] ) ) {
-					$wp_query->set( TribeEvents::TAXONOMY, $_POST['tribe_event_category'] );
+					$query_args['tribe_events_cat'] = $_POST['tribe_event_category'];
 				}
 
 				if ( class_exists( 'TribeEventsFilterView' ) ) {
 					TribeEventsFilterView::instance()->createFilters( null, true );
 				}
 
-				$wp_query->tribe_is_event_query = true;
-
-				$this->setDisplay();
+				query_posts( $query_args );
 
 				ob_start();
 
