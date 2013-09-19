@@ -195,7 +195,7 @@ if( class_exists( 'TribeEvents' ) ) {
 	 */
 	function tribe_get_event_website_url( $event = null ) {
 		$post_id = ( is_object($event) && isset($event->tribe_is_event) && $event->tribe_is_event ) ? $event->ID : $event;
-		$post_id = !empty($post_id) ? $post_id : get_the_ID();
+		$post_id = ( !empty($post_id) || empty($GLOBALS['post']) ) ? $post_id : get_the_ID();
 		$url = tribe_get_event_meta( $post_id, '_EventURL', true );
 		if ( !empty($url) ) {
 			$parseUrl = parse_url($url);
