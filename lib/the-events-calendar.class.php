@@ -1594,7 +1594,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			$my_organizers = false;
 			$my_organizers_options = '';
 			if ( 0 != $current_user->ID ) {
-				$my_organizers = $this->get_organizer_info( null, null, array('post_status' => array('publish', 'draft', 'private'), 'author' => $current_user->ID) );
+				$my_organizers = $this->get_organizer_info( null, null, array('post_status' => array('publish', 'draft', 'private', 'pending'), 'author' => $current_user->ID) );
 
 				if ( !empty( $my_organizers ) ) {
 					foreach ( $my_organizers as $my_organizer ) {
@@ -1607,7 +1607,12 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				}
 			}
 
-			$organizers = $this->get_organizer_info( null, null, array('post_status' => 'publish', 'post__not_in' => $my_organizer_ids) );
+
+			if ( current_user_can('edit_others_tribe_organizers') ) {
+				$organizers = $this->get_organizer_info( null, null, array('post_status' => array('publish', 'draft', 'private', 'pending'), 'post__not_in' => $my_organizer_ids) );
+			} else {
+				$organizers = $this->get_organizer_info( null, null, array('post_status' => 'publish', 'post__not_in' => $my_organizer_ids) );
+			}
 			if ( $organizers || $my_organizers ) {
 				echo '<select class="chosen organizer-dropdown" name="' . esc_attr( $name ) . '" id="saved_organizer">';
 				echo '<option value="0">' . __( 'Use New Organizer' ,  'tribe-events-calendar' ) . '</option>';
