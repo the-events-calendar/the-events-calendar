@@ -1538,7 +1538,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			$my_venues = false;
 			$my_venue_options = '';
 			if ( 0 != $current_user->ID ) {
-				$my_venues = $this->get_venue_info( null, null, array('post_status' => array('publish', 'draft', 'private'), 'author' => $current_user->ID) );
+				$my_venues = $this->get_venue_info( null, null, array('post_status' => array('publish', 'draft', 'private', 'pending'), 'author' => $current_user->ID) );
 
 				if ( !empty( $my_venues ) ) {
 					foreach ( $my_venues as $my_venue ) {
@@ -1551,7 +1551,11 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				}
 			}
 
-			$venues = $this->get_venue_info( null, null, array('post_status' => 'publish', 'post__not_in' => $my_venue_ids) );
+			if ( current_user_can('edit_others_tribe_venues') ) {
+				$venues = $this->get_venue_info( null, null, array('post_status' => array('publish', 'draft', 'private', 'pending'), 'post__not_in' => $my_venue_ids) );
+			} else {
+				$venues = $this->get_venue_info( null, null, array('post_status' => 'publish', 'post__not_in' => $my_venue_ids) );
+			}
 			if ( $venues || $my_venues ) {
 				echo '<select class="chosen venue-dropdown" name="' . esc_attr( $name ) . '" id="saved_venue">';
 				echo '<option value="0">' . __( 'Use New Venue' ,  'tribe-events-calendar' ) . '</option>';
