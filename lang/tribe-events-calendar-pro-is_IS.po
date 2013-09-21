@@ -1,0 +1,1975 @@
+# Events Calendar Pro by Modern Tribe, Inc.
+# Copyright (C) Modern Tribe, Inc.
+# This file is distributed under the same license as the Events Calendar Pro package.
+msgid ""
+msgstr ""
+"Project-Id-Version: Events Calendar Pro\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-07-02 11:28-0800\n"
+"PO-Revision-Date: 2013-08-28 11:59-0000\n"
+"Last-Translator: Paul Hughes <paul@paulalexanderhughes.com>\n"
+"Language-Team: Modern Tribe, Inc. <pro@tri.be>\n"
+"Language: English\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;"
+"_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2\n"
+"X-Poedit-Basepath: ./\n"
+"X-Textdomain-Support: yes\n"
+"X-Generator: Poedit 1.5.7\n"
+"X-Poedit-Bookmarks: -1,-1,-1,-1,-1,309,-1,-1,-1,-1\n"
+"X-Poedit-SearchPath-0: ..\n"
+
+#: ../events-calendar-pro.php:61
+msgid "week"
+msgstr "vika"
+
+#: ../events-calendar-pro.php:62
+msgid "photo"
+msgstr "mynd"
+
+#: ../events-calendar-pro.php:63
+#: ../lib/tribe-events-recurrence-meta.class.php:621
+msgid "day"
+msgstr "dagur"
+
+#: ../events-calendar-pro.php:64
+msgid "today"
+msgstr "í dag"
+
+#: ../events-calendar-pro.php:261
+msgid "Events for week of"
+msgstr "Viðburðir vikuna"
+
+#: ../events-calendar-pro.php:267 ../events-calendar-pro.php:334
+msgid "Events for"
+msgstr "Viðburðir fyrir"
+
+#: ../events-calendar-pro.php:272 ../events-calendar-pro.php:339
+msgid "Past Events"
+msgstr "Eldri viðburðir"
+
+#: ../events-calendar-pro.php:274 ../events-calendar-pro.php:341
+#: ../lib/widget-advanced-list.class.php:51
+msgid "Upcoming Events"
+msgstr "Komandi viðburðir"
+
+#: ../events-calendar-pro.php:280 ../events-calendar-pro.php:321
+msgid "All events for"
+msgstr "Allir viðburðir fyrir"
+
+#: ../events-calendar-pro.php:328
+#, php-format
+msgid "Events for week of %s"
+msgstr "Viðburðir fyrir viku %s"
+
+#: ../events-calendar-pro.php:817 ../admin-views/tribe-options-defaults.php:35
+msgid "Default Content"
+msgstr "Staðlað innihald"
+
+#: ../events-calendar-pro.php:819 ../admin-views/event-meta-options.php:3
+msgid "Additional Fields"
+msgstr "Viðbótar svæði"
+
+#: ../events-calendar-pro.php:828
+msgid ""
+"Thanks for buying Events Calendar PRO! From all of us at Modern Tribe, we "
+"sincerely appreciate it. If you're looking for help with Events Calendar "
+"PRO, you've come to the right place. We are committed to helping make your "
+"calendar kick ass... and hope the resources provided below will help get you "
+"there."
+msgstr ""
+"Takk fyrir að kaupa Events Calendar Pro! Við hjá Modern Tribe erum mjög "
+"þakklát. Ef þú þarft aðstoð með Events Calendar Pro þá ertu á réttum stað. "
+"Við erum staðráðin í hjálpa þér að sýna frábært viðburðardagatal....og vonum "
+"að leiðbeiningar hér að neða geti aðstoðað."
+
+#: ../events-calendar-pro.php:839
+msgid ""
+"If this is your first time using The Events Calendar Pro, you're in for a "
+"treat and are already well on your way to creating a first event. Here are "
+"some basics we've found helpful for users jumping into it for the first time:"
+msgstr ""
+"Ef þetta er í fyrsta skipti sem þú notar Events Calendar Pro, þá ertu í "
+"góðum höndum og tilbúin að skrá þinn fyrsta viðburð. Hérna eru helstu "
+"atriðin sem okkur finnst hjálpleg fyrir byrjendur að nota, svona í fyrsta "
+"skiptið:"
+
+#: ../events-calendar-pro.php:842
+#, php-format
+msgid ""
+"%sOur New User Primer%s was designed for folks in your exact position. "
+"Featuring both step-by-step videos and written walkthroughs that feature "
+"accompanying screenshots, the primer aims to take you from zero to hero in "
+"no time."
+msgstr ""
+"%sOur New User Primer%s var hannað fyrir fólk í þínum sporum. Sýnum bæði "
+"skref fyrir skref video og skriflegar leiðbeiningar ásamt skjámyndum til "
+"stuðnings fyrir þig til að sýna þitt besta."
+
+#: ../events-calendar-pro.php:844
+#, php-format
+msgid ""
+"%sInstallation/Setup FAQs%s from our support page can help give an overview "
+"of what the plugin can and cannot do. This section of the FAQs may be "
+"helpful as it aims to address any basic install questions not addressed by "
+"the new user primer."
+msgstr ""
+"%sInstallation/Setup FAQs%s á stuðningssíðu okkar gefur yfirlit yfir hvað "
+"þetta dagatal getur gert og getur ekki gert. Fyrirspurnar svæðið getur verið "
+"hjálplegt þar sem það útskýrir einfaldar innsetingar fyrirspurnir."
+
+#: ../events-calendar-pro.php:846
+#, php-format
+msgid ""
+"Are you developer looking to build your own frontend view? We created an "
+"example plugin that demonstrates how to register a new view. You can "
+"%sdownload the plugin at GitHub%s to get started."
+msgstr ""
+"Ert þú forritari að leytast við að búa til þitt eigið \"frontend\"? Við "
+"útbjuggum sýnishorn sem hvernig það er gert. Hægt er að %sdownload the "
+"plugin at GitHub%s til að hefjast handa."
+
+#: ../events-calendar-pro.php:848
+#, php-format
+msgid ""
+"Take care of your license key. Though not required to create your first "
+"event, you'll want to get it in place as soon as possible to guarantee your "
+"access to support and upgrades. %sHere's how to find your license key%s, if "
+"you don't have it handy."
+msgstr ""
+"Passaðu leyfislykilinn. Þó ekki sé beðið um hann við skráningu fyrsta "
+"viðburðar þá viltu vera með hann til staðar þar sem hann veitir aðgang að "
+"aðstoð og uppfærslum.  %sHere's how to find your license key%s, ef þú hefur "
+"hann ekki við hendina."
+
+#: ../events-calendar-pro.php:850
+msgid ""
+"Otherwise, if you're feeling adventurous, you can get started by heading to "
+"the Events menu and adding your first event."
+msgstr ""
+"Að öðrum kosti, ef þú er tilbúinn þá getur þú byrjað með því að fara á "
+"Events valmynd og sett inn fyrsta viðburðinn."
+
+#: ../events-calendar-pro.php:862
+#, php-format
+msgid ""
+"Written documentation can only take things so far...sometimes, you need help "
+"from a real person. This is where our %ssupport forums%s come into play."
+msgstr ""
+"Skriflegar leiðbeiningar aðstoða aðeins svo mikið... stundum þarftu aðstoð "
+"frá öðrum. Þá ferðu hingað %ssupport forums%s"
+
+#: ../events-calendar-pro.php:863
+#, php-format
+msgid ""
+"Users who have purchased an Events Calendar PRO license are granted total "
+"access to our %spremium support forums%s. Unlike at the %sWordPress.org "
+"support forum%s, where our involvement is limited to identifying and "
+"patching bugs, we have a dedicated support team for PRO users. We're on the "
+"PRO forums daily throughout the business week, and no thread should go more "
+"than 24-hours without a response."
+msgstr ""
+"Notendur sem keypt hafa Events Calendar Pro leyfi fá fullan aðgang að "
+"%spremium support forums%s. Öfugt við %sWordPress.org support forum%s, þar "
+"sem þáttaka okkar er takmörkuð við að skrá og vista villur, við höfum "
+"aðstoðarhóp fyrir Pro notendur. Við erum á Pro vaktinni daglega alla virka "
+"daga og ætti aðtoðar fyrirspurn ekki að taka meira ein 24 tíma á þess að "
+"svar komi."
+
+#: ../events-calendar-pro.php:864
+msgid ""
+"Our number one goal is helping you succeed, and to whatever extent possible, "
+"we'll help troubleshoot and guide your customizations or tweaks. While we "
+"won't build your site for you, and we can't guarantee we'll be able to get "
+"you 100% integrated with every theme or plugin out there, we'll do all we "
+"can to point you in the right direction and to make you -- and your client, "
+"as is often more importantly the case -- satisfied."
+msgstr ""
+"Okkar markmið númer eitt er að þér gangi vel og við munum leytast við að "
+"aðstoða eins vel og við getum. Við erum ekki að hanna eða skrifa síðuna þína "
+"og getum ekki fullyrt að varan okkar passi 100% við allar þemur eða plugin "
+"sem til eru þá munum við beina þér í rétta átt þannig að þú og þinn "
+"viðskiptavinur verðið ánægðir."
+
+#: ../events-calendar-pro.php:865
+msgid ""
+"Before posting a new thread, please do a search to make sure your issue "
+"hasn't already been addressed. When posting please make sure to provide as "
+"much detail about the problem as you can (with screenshots or screencasts if "
+"feasible), and make sure that you've identified whether a plugin / theme "
+"conflict could be at play in your initial message."
+msgstr ""
+"Vinsamlega leitið að fyrirspuninni áður en ný er bætt við, það getur verið "
+"að búið sé að leysa þessa fyrirspurn áður. Þegar skráð er ný fyrirspurn, "
+"vinsamlega skráið eins ítarlega og mögulegt er ( ásamt skjámynd ef hægt "
+"er )  og vertu viss að það sé ekki plugin/ þema ágreiningur."
+
+#: ../events-calendar-pro.php:939
+msgid "Day View"
+msgstr "Dags yfirlit"
+
+#: ../events-calendar-pro.php:942
+msgid "Week View"
+msgstr "Viku yfirlit"
+
+#: ../events-calendar-pro.php:1335
+msgid "Settings"
+msgstr "Stillingar"
+
+#: ../events-calendar-pro.php:1398
+#, php-format
+msgid "Calendar powered by %sThe Events Calendar PRO%s"
+msgstr "Dagatal keyrt %sThe Events Calendar PRO%s"
+
+#: ../events-calendar-pro.php:1411
+msgid "Support"
+msgstr "Aðstoð"
+
+#: ../events-calendar-pro.php:1413
+msgid "View All Add-Ons"
+msgstr "Skoða allar viðbætur"
+
+#: ../events-calendar-pro.php:1463
+msgid "Week"
+msgstr "Vika"
+
+#: ../events-calendar-pro.php:1479 ../admin-views/event-recurrence.php:82
+#: ../admin-views/event-recurrence.php:127
+msgid "Day"
+msgstr "Dagur"
+
+#: ../events-calendar-pro.php:1495
+msgid "Photo"
+msgstr "Mynd"
+
+#: ../events-calendar-pro.php:1511
+msgid "Day Of"
+msgstr "Dagur"
+
+#: ../events-calendar-pro.php:1513
+msgid "Week Of"
+msgstr "Vikan"
+
+#: ../events-calendar-pro.php:1634
+msgid "The Events Calendar"
+msgstr "The Events Calendar"
+
+#: ../events-calendar-pro.php:1635
+#, php-format
+msgid ""
+"To begin using Events Calendar PRO, please install the latest version of <a "
+"href=\"%s\" class=\"thickbox\" title=\"%s\">The Events Calendar</a>."
+msgstr ""
+"Til þess að nota Events Calendar PRO, vinsamlega niðurhalið nýjustu útgáfu "
+"<a href=\"%s\" class=\"thickbox\" title=\"%s\">The Events Calendar</a>."
+
+#: ../admin-views/event-defaults.php:1
+msgid "Customize Defaults"
+msgstr "Aðlagið staðal stillingar"
+
+#: ../admin-views/event-defaults.php:2
+msgid ""
+"These settings change the default event form. For example, if you set a "
+"default venue, this field will be automatically filled in on a new event."
+msgstr ""
+"Þessar stillingar breyta staðal viðburðarformi. T.d, ef fest er staðal "
+"staðsetning þá verður sjálfkrafa til nýr viðburður."
+
+#: ../admin-views/event-defaults.php:5 ../admin-views/event-defaults.php:9
+#: ../admin-views/tribe-options-defaults.php:55
+msgid "Automatically replace empty fields with default values"
+msgstr "Sjálfgerð skipting á tómu svæði með staðal gildum"
+
+#: ../admin-views/event-defaults.php:13
+msgid "Enabled"
+msgstr "Virkjað"
+
+#: ../admin-views/event-defaults.php:19
+msgid "Default Organizer for Events"
+msgstr "Sjálfgefinn skipuleggjandi á viðburði"
+
+#: ../admin-views/event-defaults.php:22
+msgid "Default Organizer"
+msgstr "Sjálfgefinn skipuleggjandi"
+
+#: ../admin-views/event-defaults.php:23
+msgid "The default organizer value"
+msgstr "Sjálfgefinn skipuleggjanda gildi"
+
+#: ../admin-views/event-defaults.php:23 ../admin-views/event-defaults.php:31
+#: ../admin-views/event-defaults.php:38 ../admin-views/event-defaults.php:45
+#: ../admin-views/event-defaults.php:66 ../admin-views/event-defaults.php:74
+#: ../admin-views/event-defaults.php:82 ../admin-views/event-defaults.php:108
+#, php-format
+msgid "The current default value is <strong>%s</strong>"
+msgstr "Núverandi sjálfgefið gildi er <strong>%s</strong>"
+
+#: ../admin-views/event-defaults.php:27
+msgid "Default Venue for Events"
+msgstr "Sjálfgefin staðsetning fyrir viðburði"
+
+#: ../admin-views/event-defaults.php:30
+msgid "Default Venue"
+msgstr "Sjálfgefin staðsetning"
+
+#: ../admin-views/event-defaults.php:31
+msgid "The default venue value"
+msgstr "Sjálfgefin staðsetningar gildi"
+
+#: ../admin-views/event-defaults.php:35 ../admin-views/event-defaults.php:37
+msgid "Default Address"
+msgstr "Sjálfgefið heimilisfang"
+
+#: ../admin-views/event-defaults.php:38
+msgid "The default address value"
+msgstr "Sjálfegið heimilisfangs gildi"
+
+#: ../admin-views/event-defaults.php:42 ../admin-views/event-defaults.php:44
+msgid "Default City"
+msgstr "Sjálfgefin borg"
+
+#: ../admin-views/event-defaults.php:45
+msgid "The default city value"
+msgstr "Sjálfgefið borgar gildi"
+
+#: ../admin-views/event-defaults.php:50
+msgid "Default State"
+msgstr "Sjálfgefið fylki"
+
+#: ../admin-views/event-defaults.php:52 ../admin-views/event-defaults.php:73
+msgid "Default Province or State"
+msgstr "Sjáflgefin sýsla eða fylki"
+
+#: ../admin-views/event-defaults.php:55
+msgid "Select a State:"
+msgstr "Veljið fylki:"
+
+#: ../admin-views/event-defaults.php:66 ../admin-views/event-defaults.php:74
+msgid "The default  value"
+msgstr "Sjálfgefið gildi"
+
+#: ../admin-views/event-defaults.php:71
+msgid "Default Province"
+msgstr "Standard provins"
+
+#: ../admin-views/event-defaults.php:79 ../admin-views/event-defaults.php:81
+msgid "Default Postal Code"
+msgstr "Sjálfgefið póstnúmer"
+
+#: ../admin-views/event-defaults.php:82
+msgid "The default Postal Code value"
+msgstr "Sjálfgefið gildi fyrir póstnúmer"
+
+#: ../admin-views/event-defaults.php:87
+msgid "Default Country for Events"
+msgstr "Sjálfgefið land fyrir viðburði"
+
+#: ../admin-views/event-defaults.php:105 ../admin-views/event-defaults.php:107
+msgid "Default Phone"
+msgstr "Aðal símanúmer"
+
+#: ../admin-views/event-defaults.php:108
+msgid "The default phone value"
+msgstr "Staðlað gildi símanúmers"
+
+#: ../admin-views/event-defaults.php:112
+#: ../admin-views/tribe-options-defaults.php:198
+msgid "Use a custom list of countries"
+msgstr "Notið staðlaðan landsnúmera lista"
+
+#: ../admin-views/event-defaults.php:114
+msgid "Use the following list:"
+msgstr "Notið eftirfarandi lista"
+
+#: ../admin-views/event-defaults.php:116
+msgid ""
+"One country per line in the following format: <br/>US, United States <br/> "
+"UK, United Kingdom."
+msgstr ""
+"Eitt land per línu í þessu sniði: <br/>US, United States <br/> UK, United "
+"Kingdom."
+
+#: ../admin-views/event-defaults.php:116
+msgid "(Replaces the default list.)"
+msgstr "(Skiptir út staðal lista.)"
+
+#: ../admin-views/event-meta-options.php:4
+msgid ""
+"Use additional fields to add unique content fields to the event admin, which "
+"can be used by anyone who creates events. Upon publication they'll appear in "
+"the event metabox that accompanies your event listing, alongside the date/"
+"time/venue/organizer/etc. </p><p>Each new piece of data needs:"
+msgstr ""
+"Notið viðbótar svæði til að bæta við sérstökum svæðum fyrir admin "
+"stjórnborðið, sem allir geta notað sem skrá viðburði. Þegar búið er að skrá "
+"þá birtist viðburðar metabox sem tilheyrir viðburðar lista, ásamt dagsetn/"
+"tíma/stað/skipuleggjanda/oþh.</p><p>Allar nýjar upplýsingar þurfa:"
+
+#: ../admin-views/event-meta-options.php:6
+msgid "Label (e.g. Meal Plans)"
+msgstr "Nafn ( td Matseðill )"
+
+#: ../admin-views/event-meta-options.php:7
+msgid "At least one option (e.g. Vegetarian, Kosher, Paleo)"
+msgstr "Í það minnsta einn valmöguleiki (t.d Grænmetisæta, Kjötæta, )"
+
+#: ../admin-views/event-meta-options.php:8
+msgid "Field type. These are:"
+msgstr "Tegund svæðis. Þær eru:"
+
+#: ../admin-views/event-meta-options.php:10
+msgid "Text - for the user to input text"
+msgstr "texti - fyrir innsetningu texta"
+
+#: ../admin-views/event-meta-options.php:11
+msgid "URL - for the user to input a URL"
+msgstr "Hlekkur - notandi setu inn hlekk"
+
+#: ../admin-views/event-meta-options.php:12
+msgid "Checkbox - for multiple choice"
+msgstr "valsvæði - fyrir margfalt val"
+
+#: ../admin-views/event-meta-options.php:13
+msgid "Radio Button - to select only one"
+msgstr "Útvarps hnappur - til að velja aðeins einn"
+
+#: ../admin-views/event-meta-options.php:14
+msgid "Dropdown Menu - for a dropdown menu"
+msgstr "Dropdown Menu - for a dropdown menu"
+
+#: ../admin-views/event-meta-options.php:19
+msgid "Field Label"
+msgstr "Svæðis merking"
+
+#: ../admin-views/event-meta-options.php:19
+msgid "Field Type"
+msgstr "Svæðis tegund"
+
+#: ../admin-views/event-meta-options.php:19
+msgid "Options (one per line)"
+msgstr "Valmöguleikar(einn per línu)"
+
+#: ../admin-views/event-meta-options.php:27
+msgid "Text"
+msgstr "Texti"
+
+#: ../admin-views/event-meta-options.php:28
+msgid "URL"
+msgstr "Hlekkur"
+
+#: ../admin-views/event-meta-options.php:29
+msgid "Radio"
+msgstr "Útvarp"
+
+#: ../admin-views/event-meta-options.php:30
+msgid "Checkbox"
+msgstr "Checkbox"
+
+#: ../admin-views/event-meta-options.php:31
+msgid "Dropdown"
+msgstr "Dropdown"
+
+#: ../admin-views/event-meta-options.php:37
+msgid "Add another"
+msgstr "Bæta við"
+
+#: ../admin-views/event-meta-options.php:39
+msgid "Remove"
+msgstr "Fjarlægja"
+
+#: ../admin-views/event-meta-options.php:47
+#, php-format
+msgid ""
+"Enter the field label as you want it to appear (this will be the label in "
+"the same way \"Start Date,\" \"Organizer,\" etc appear in the event details "
+"box on the frontend). Select whether the field will be a text field; URL "
+"field; radio buttons; checkboxes; or a dropdown. All of these with the "
+"exception of text and URL allow for multiple options to be included, which "
+"you can add — one per-line — in the right-hand column. If you feel "
+"flummoxed, we've got you covered with a %s."
+msgstr ""
+"Enter the field label as you want it to appear (this will be the label in "
+"the same way \"Start Date,\" \"Organizer,\" etc appear in the event details "
+"box on the frontend). Select whether the field will be a text field; URL "
+"field; radio buttons; checkboxes; or a dropdown. All of these with the "
+"exception of text and URL allow for multiple options to be included, which "
+"you can add — one per-line — in the right-hand column. If you feel "
+"flummoxed, we've got you covered with a %s."
+
+#: ../admin-views/event-meta-options.php:48
+msgid "video tutorial that will walk you through the process"
+msgstr "video með notkunarleiðbeiningum"
+
+#: ../admin-views/event-meta-options.php:51
+msgid "Editor \"Custom Fields\" meta box"
+msgstr "Editor \"Custom Fields\" meta box"
+
+#: ../admin-views/event-meta-options.php:53
+msgid "Show"
+msgstr "Sýna"
+
+#: ../admin-views/event-meta-options.php:54
+msgid "Hide"
+msgstr "Fela"
+
+#: ../admin-views/event-meta-options.php:55
+msgid ""
+"Enabling this option this will not remove custom field data or "
+"functionality, just the default meta box editor."
+msgstr ""
+"Eyðing á valkost eyðir ekki sésniðnu svæði eða virkni, aðeins sjálfgefnu "
+"meta box edior"
+
+#: ../admin-views/event-meta-options.php:64
+msgid ""
+"Are you sure you wish to remove this field and its data from all events? "
+"Once you click OK this cannot be undone."
+msgstr ""
+"Ertu viss um að þú viljir eyða þessu svæði og gögnum frá öllum viðburðum? "
+"Ekki er hægt að afturkalla."
+
+#: ../admin-views/event-meta.php:7
+msgid "Additional Event Fields"
+msgstr "Viðbótar svæði fyrir viðburði"
+
+#: ../admin-views/event-recurrence.php:2
+msgid "Recurrence:"
+msgstr "Endurtekning ( endurtekinn viðburður )"
+
+#: ../admin-views/event-recurrence.php:8
+msgid "None"
+msgstr "Engin"
+
+#: ../admin-views/event-recurrence.php:9
+msgid "Every Day"
+msgstr "Daglega"
+
+#: ../admin-views/event-recurrence.php:10
+msgid "Every Week"
+msgstr "Vikulega"
+
+#: ../admin-views/event-recurrence.php:11
+msgid "Every Month"
+msgstr "Mánaðarlega"
+
+#: ../admin-views/event-recurrence.php:12
+msgid "Every Year"
+msgstr "Árlega"
+
+#: ../admin-views/event-recurrence.php:13
+msgid "Custom"
+msgstr "Sérsnið"
+
+#: ../admin-views/event-recurrence.php:16
+msgid "and will end"
+msgstr "og mun enda"
+
+#: ../admin-views/event-recurrence.php:18
+msgid "On"
+msgstr "Á"
+
+#: ../admin-views/event-recurrence.php:19
+msgid "After"
+msgstr "Eftir"
+
+#: ../admin-views/event-recurrence.php:23
+msgid "You must select a recurrence end date"
+msgstr "Nauðsynlegt að velja dagsetning fyrir endir á endurtekningum"
+
+#: ../admin-views/event-recurrence.php:30
+msgid "Frequency"
+msgstr "Tíðni"
+
+#: ../admin-views/event-recurrence.php:32
+msgid "Day(s)"
+msgstr "Dagur(ar)"
+
+#: ../admin-views/event-recurrence.php:32
+msgid "Daily"
+msgstr "Daglegt"
+
+#: ../admin-views/event-recurrence.php:33
+msgid "Week(s) on:"
+msgstr "Vikan:"
+
+#: ../admin-views/event-recurrence.php:33
+msgid "Weekly"
+msgstr "Vikulegt"
+
+#: ../admin-views/event-recurrence.php:34
+msgid "Month(s) on the:"
+msgstr "Mánuðurinn:"
+
+#: ../admin-views/event-recurrence.php:34
+msgid "Monthly"
+msgstr "Mánaðarlega"
+
+#: ../admin-views/event-recurrence.php:35
+msgid "Year(s) on:"
+msgstr "Árið:"
+
+#: ../admin-views/event-recurrence.php:35
+msgid "Yearly"
+msgstr "Árlegt"
+
+#: ../admin-views/event-recurrence.php:37
+msgid "Every"
+msgstr "Hvern"
+
+#: ../admin-views/event-recurrence.php:41
+msgid "Frequency of recurring event must be a number"
+msgstr "Tíni endurtekninga þar að vera númer"
+
+#: ../admin-views/event-recurrence.php:49
+msgid "M"
+msgstr "Mán"
+
+#: ../admin-views/event-recurrence.php:50
+msgid "Tu"
+msgstr "Þri"
+
+#: ../admin-views/event-recurrence.php:51
+msgid "W"
+msgstr "Mið"
+
+#: ../admin-views/event-recurrence.php:52
+msgid "Th"
+msgstr "Fimmtud"
+
+#: ../admin-views/event-recurrence.php:53
+msgid "F"
+msgstr "Föstud"
+
+#: ../admin-views/event-recurrence.php:54
+msgid "Sa"
+msgstr "Laug"
+
+#: ../admin-views/event-recurrence.php:55
+msgid "Su"
+msgstr "Sunnud"
+
+#: ../admin-views/event-recurrence.php:63
+#: ../admin-views/event-recurrence.php:112
+msgid "First"
+msgstr "Fyrsti"
+
+#: ../admin-views/event-recurrence.php:64
+#: ../admin-views/event-recurrence.php:113
+msgid "Second"
+msgstr "Annar"
+
+#: ../admin-views/event-recurrence.php:65
+#: ../admin-views/event-recurrence.php:114
+msgid "Third"
+msgstr "Þriðji"
+
+#: ../admin-views/event-recurrence.php:66
+#: ../admin-views/event-recurrence.php:115
+msgid "Fourth"
+msgstr "Fjórði"
+
+#: ../admin-views/event-recurrence.php:67
+#: ../admin-views/event-recurrence.php:116
+msgid "Last"
+msgstr "Síðasti"
+
+#: ../admin-views/event-recurrence.php:74
+#: ../admin-views/event-recurrence.php:119
+#: ../lib/tribe-events-recurrence-meta.class.php:654
+msgid "Monday"
+msgstr "Mánudagur"
+
+#: ../admin-views/event-recurrence.php:75
+#: ../admin-views/event-recurrence.php:120
+#: ../lib/tribe-events-recurrence-meta.class.php:654
+msgid "Tuesday"
+msgstr "Þriðjudagur"
+
+#: ../admin-views/event-recurrence.php:76
+#: ../admin-views/event-recurrence.php:121
+#: ../lib/tribe-events-recurrence-meta.class.php:654
+msgid "Wednesday"
+msgstr "Miðvikudagur"
+
+#: ../admin-views/event-recurrence.php:77
+#: ../admin-views/event-recurrence.php:122
+#: ../lib/tribe-events-recurrence-meta.class.php:654
+msgid "Thursday"
+msgstr "Fimmtudagur"
+
+#: ../admin-views/event-recurrence.php:78
+#: ../admin-views/event-recurrence.php:123
+#: ../lib/tribe-events-recurrence-meta.class.php:654
+msgid "Friday"
+msgstr "Föstudagur"
+
+#: ../admin-views/event-recurrence.php:79
+#: ../admin-views/event-recurrence.php:124
+#: ../lib/tribe-events-recurrence-meta.class.php:654
+msgid "Saturday"
+msgstr "Laugardagur"
+
+#: ../admin-views/event-recurrence.php:80
+#: ../admin-views/event-recurrence.php:125
+#: ../lib/tribe-events-recurrence-meta.class.php:654
+msgid "Sunday"
+msgstr "Sunnudagur"
+
+#: ../admin-views/event-recurrence.php:91
+msgid "Jan"
+msgstr "Jan"
+
+#: ../admin-views/event-recurrence.php:92
+msgid "Feb"
+msgstr "Feb"
+
+#: ../admin-views/event-recurrence.php:93
+msgid "Mar"
+msgstr "Mar"
+
+#: ../admin-views/event-recurrence.php:94
+msgid "Apr"
+msgstr "Apr"
+
+#: ../admin-views/event-recurrence.php:95
+#: ../lib/tribe-events-recurrence-meta.class.php:680
+msgid "May"
+msgstr "Maí"
+
+#: ../admin-views/event-recurrence.php:96
+msgid "Jun"
+msgstr "Júní"
+
+#: ../admin-views/event-recurrence.php:100
+msgid "Jul"
+msgstr "Júlí"
+
+#: ../admin-views/event-recurrence.php:101
+msgid "Aug"
+msgstr "Ágúst"
+
+#: ../admin-views/event-recurrence.php:102
+msgid "Sep"
+msgstr "Sept"
+
+#: ../admin-views/event-recurrence.php:103
+msgid "Oct"
+msgstr "Okt"
+
+#: ../admin-views/event-recurrence.php:104
+msgid "Nov"
+msgstr "Nóv"
+
+#: ../admin-views/event-recurrence.php:105
+msgid "Dec"
+msgstr "Des"
+
+#: ../admin-views/event-recurrence.php:110
+msgid "On the:"
+msgstr "Frá"
+
+#: ../admin-views/event-recurrence.php:135
+#: ../views/tribe-ECP-views-old/views/single-venue.php:58
+msgid "Description:"
+msgstr "Lýsing:"
+
+#: ../admin-views/event-recurrence.php:143
+msgid "Recurrence Description:"
+msgstr "Lýsing endurtekningar:"
+
+#: ../admin-views/event-recurrence.php:148
+msgid ""
+"Create a custom plain language description of the recurrance. Leave it blank "
+"and we'll automate it."
+msgstr ""
+"Búið til sérsniðna lýsingu á endurteknum viðburði. Ef svæðið er autt verður "
+"til sjálvirkt val."
+
+#: ../admin-views/support-form.php:11
+msgid "Need help? Send us a support request."
+msgstr "Vantar aðstoð? Sendu okkur fyrirspurn"
+
+#: ../admin-views/support-form.php:14
+#, php-format
+msgid ""
+"Tell us about the problem you're seeing in as much detail as possible. "
+"Please note that we'll also be sending some basic system information along "
+"with this request so that we can better diagnose the issue. If you would "
+"like to contact us without sending any system information, please visit our "
+"support page at %s. Thanks!"
+msgstr ""
+"Útskýrið vandamálið eins vel og unnt er. Við munum senda einfaldar kerfis "
+"upplýsingar ásamt fyrirspurninni til að átta okkur á viðfangsefninu. Ef þú "
+"vilt hafa samband án þess að senda einhverjar kerfis upplýsingar, vinsamlega "
+"farðu inná stuðnings síðuna %s. Takk!"
+
+#: ../admin-views/support-form.php:18
+msgid "Send a Support Request"
+msgstr "Senda fyrirspurn"
+
+#: ../admin-views/tribe-options-defaults.php:6
+#: ../admin-views/tribe-options-defaults.php:15
+msgid "No Default"
+msgstr "Engin sjálfgefin gildi"
+
+#: ../admin-views/tribe-options-defaults.php:22
+msgid "Select a State"
+msgstr "Veldu fylki"
+
+#: ../admin-views/tribe-options-defaults.php:39
+msgid ""
+"<p>Choose the default venue & organizer. Set default address information to "
+"save time when entering a new venue or organizer.</p><p>You can override "
+"these settings as you enter a new event.</p>"
+msgstr ""
+"<p>Veljið sjálfefinn stað og - skipuleggjanda. Skráið sjálfgefin gildi til "
+"að spara tíma þegar ný færsla er sett inn.</p><p>Hægt er að setja yfir "
+"þessar stillingar með því að setja inn nýja færslu.</p>"
+
+#: ../admin-views/tribe-options-defaults.php:51
+msgid "Options"
+msgstr "Valmöguleikar"
+
+#: ../admin-views/tribe-options-defaults.php:61
+msgid ""
+"Check this box to have the organizer and venue fields pre-populated with the "
+"default values below for any new event that is created."
+msgstr ""
+"Merkið við hérna til hafa viðburð og skipuleggjanda fyrirfram merkta með "
+"sjálfgefnu gildunum að neðan fyrir nýja viðburði."
+
+#: ../admin-views/tribe-options-defaults.php:65
+#: ../admin-views/widget-admin-advanced-list.php:29 ../lib/apm_filters.php:44
+msgid "Organizer"
+msgstr "Skipuleggjandi"
+
+#: ../admin-views/tribe-options-defaults.php:69
+msgid "Default organizer"
+msgstr "Sjálfgefinn skipuleggjandi"
+
+#: ../admin-views/tribe-options-defaults.php:73
+msgid "No saved organizers yet."
+msgstr "Enginn vistaður skipuleggjandi."
+
+#: ../admin-views/tribe-options-defaults.php:82
+#: ../admin-views/widget-admin-advanced-list.php:28 ../lib/apm_filters.php:39
+msgid "Venue"
+msgstr "Viðburður"
+
+#: ../admin-views/tribe-options-defaults.php:86
+msgid "Default venue"
+msgstr "Sjáflgefinn viðburður"
+
+#: ../admin-views/tribe-options-defaults.php:90
+msgid "No saved venues yet."
+msgstr "Enginn vistaður viðburður."
+
+#: ../admin-views/tribe-options-defaults.php:99
+#: ../admin-views/widget-admin-advanced-list.php:30
+msgid "Address"
+msgstr "Heimilisfang"
+
+#: ../admin-views/tribe-options-defaults.php:103
+msgid ""
+"You can use this setting to set specific, individual defaults for any new "
+"Venue you create (these will not be used for your default venue)."
+msgstr ""
+"Notið þessa stillingu til að velja tiltekið sjáflgefið gildi fyrir nýjan "
+"viðburð ( þessi stilling er ekki notuð fyrir sjálfefna viðburði)."
+
+#: ../admin-views/tribe-options-defaults.php:107
+msgid "Default address"
+msgstr "Sjálfgefið heimilisfang"
+
+#: ../admin-views/tribe-options-defaults.php:120
+msgid "Default city"
+msgstr "Sjálfgefin borg"
+
+#: ../admin-views/tribe-options-defaults.php:133
+msgid "Default state"
+msgstr "Sjálfgefið fylki"
+
+#: ../admin-views/tribe-options-defaults.php:146
+msgid "Default province"
+msgstr "Sjálfgefið hérað"
+
+#: ../admin-views/tribe-options-defaults.php:159
+msgid "Default postal code/zip code"
+msgstr "Sjálfgefið póstnúmer"
+
+#: ../admin-views/tribe-options-defaults.php:172
+msgid "Default country"
+msgstr "Sjálfgefið land"
+
+#: ../admin-views/tribe-options-defaults.php:185
+msgid "Default phone"
+msgstr "Sjálfgefið símanúmer"
+
+#: ../admin-views/tribe-options-defaults.php:201
+msgid ""
+"One country per line in the following format: <br>US, United States <br> UK, "
+"United Kingdom. <br> (Replaces the default list.)"
+msgstr ""
+"Eitt land per línu í eftirfarandi röð:  <br>US, United States <br> UK, "
+"United Kingdom. <br> (Skiptir út sjálfgefnum lista.)"
+
+#: ../admin-views/widget-admin-advanced-list.php:11
+#: ../admin-views/widget-admin-calendar.php:10
+#: ../admin-views/widget-admin-countdown.php:10
+#: ../admin-views/widget-admin-venue.php:9
+#: ../admin-views/widget-calendar.php:2
+#: ../vendor/tribe-related-posts/tribe-related-posts-widget.php:70
+msgid "Title:"
+msgstr "Titill:"
+
+#: ../admin-views/widget-admin-advanced-list.php:16
+#: ../admin-views/widget-admin-venue.php:20
+#: ../admin-views/widget-calendar.php:8
+msgid "Number of events to show:"
+msgstr "Fjöldi viðburða til að sýna:"
+
+#: ../admin-views/widget-admin-advanced-list.php:25
+msgid "Display:"
+msgstr "Sýna:"
+
+#: ../admin-views/widget-admin-advanced-list.php:31
+msgid "City"
+msgstr "Staður"
+
+#: ../admin-views/widget-admin-advanced-list.php:32
+msgid "State (US) Or Province (Int)"
+msgstr "Fylki (US) eða Svæði (Alþjóðlegt)"
+
+#: ../admin-views/widget-admin-advanced-list.php:33
+msgid "Postal Code"
+msgstr "Póstnúmer"
+
+#: ../admin-views/widget-admin-advanced-list.php:34
+msgid "Country"
+msgstr "Land"
+
+#: ../admin-views/widget-admin-advanced-list.php:35
+msgid "Phone"
+msgstr "Símanúmer"
+
+#: ../admin-views/widget-admin-advanced-list.php:36
+msgid "Price"
+msgstr "Verð"
+
+#: ../admin-views/widget-admin-advanced-list.php:43
+msgid "Category:"
+msgstr "Flokkur:"
+
+#: ../admin-views/widget-admin-advanced-list.php:47
+msgid "All Events"
+msgstr "Allir viðburðir"
+
+#: ../admin-views/widget-admin-advanced-list.php:58
+#: ../admin-views/widget-admin-venue.php:28
+msgid "Hide this widget if there are no upcoming events:"
+msgstr "Fela þetta ef það eru engir nýjir viðburðir:"
+
+#: ../admin-views/widget-admin-countdown.php:12
+msgid "Event:"
+msgstr "Viðburður:"
+
+#: ../admin-views/widget-admin-countdown.php:21
+msgid "Show seconds:"
+msgstr "Sýna sekúndur:"
+
+#: ../admin-views/widget-admin-countdown.php:24
+msgid "Countdown Completed Text:"
+msgstr "NIðurtallningu lokið:"
+
+#: ../admin-views/widget-admin-venue.php:11
+msgid "Venue:"
+msgstr "Staður:"
+
+#: ../admin-views/widget-calendar.php:24
+msgid "Filters"
+msgstr "Síur"
+
+#: ../admin-views/widget-calendar.php:42
+msgid "remove"
+msgstr "fjarlægja"
+
+#: ../admin-views/widget-calendar.php:53
+msgid "Match all"
+msgstr "Samanburður á öllu"
+
+#: ../admin-views/widget-calendar.php:56
+msgid "Match any"
+msgstr "Einhver samanburður"
+
+#: ../admin-views/widget-calendar.php:60
+msgid "Add a filter"
+msgstr "Bæta við síu"
+
+#: ../admin-views/widget-calendar.php:63
+msgid "Select one..."
+msgstr "Velja einn..."
+
+#: ../lib/apm_filters.php:49
+msgid "Start Date"
+msgstr "Upphafs dagsetning"
+
+#: ../lib/apm_filters.php:54
+msgid "End Date"
+msgstr "Loka dagsetning"
+
+#: ../lib/apm_filters.php:59
+msgid "Event Cost"
+msgstr "Kostnaður viðburðar"
+
+#: ../lib/apm_filters.php:64
+msgid "Event Cats"
+msgstr "Viðburðar flokkur"
+
+#: ../lib/apm_filters.php:69
+msgid "Title"
+msgstr "Titill"
+
+#: ../lib/apm_filters.php:74
+msgid "Recurring"
+msgstr "Endurtekning"
+
+#: ../lib/apm_filters.php:79
+msgid "Description"
+msgstr "Lýsing"
+
+#: ../lib/meta-pro.php:97
+msgid "Other"
+msgstr "Annað"
+
+#: ../lib/meta-pro.php:121
+msgid "Recurrence Pattern:"
+msgstr "Endurtekningar mynstur"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:462
+msgid ""
+"Monthly custom recurrences cannot have a dash set as the day to occur on."
+msgstr ""
+"Mánaðarleg sérsniðin endurtekning má ekki hafa (\"-\") sem "
+"viðburðardagsetning."
+
+#: ../lib/tribe-events-recurrence-meta.class.php:465
+msgid ""
+"Yearly custom recurrences cannot have a dash set as the day to occur on."
+msgstr ""
+"Árlegur sérsniðinn endurtekning má ekki hafa (\"-\") sem viðburðardagsetning."
+
+#: ../lib/tribe-events-recurrence-meta.class.php:592
+#: ../lib/tribe-events-recurrence-meta.class.php:607
+msgid "Every day"
+msgstr "Á hverjum degi"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:593
+#, php-format
+msgid " for %d day"
+msgid_plural " for %d days"
+msgstr[0] "í %d daga"
+msgstr[1] "í %d daga"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:596
+#: ../lib/tribe-events-recurrence-meta.class.php:612
+msgid "Every week"
+msgstr "Í hverri viku"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:597
+#, php-format
+msgid " for %d week"
+msgid_plural " for %d weeks"
+msgstr[0] "í %d vikna"
+msgstr[1] "í %d vikna"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:599
+#: ../lib/tribe-events-recurrence-meta.class.php:618
+msgid "Every month"
+msgstr "Í hverjum mánuði"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:600
+#, php-format
+msgid " for %d month"
+msgid_plural " for %d months"
+msgstr[0] "í %d mánuði"
+msgstr[1] "í %d mánuði"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:602
+#: ../lib/tribe-events-recurrence-meta.class.php:625
+msgid "Every year"
+msgstr "Á hverju ári"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:603
+#, php-format
+msgid " for %d year"
+msgid_plural " for %d years"
+msgstr[0] "í %d ár"
+msgstr[1] "í %d ár"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:608
+#, php-format
+msgid "Every %d days"
+msgstr "Alla %d. daga"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:609
+#: ../lib/tribe-events-recurrence-meta.class.php:615
+#: ../lib/tribe-events-recurrence-meta.class.php:622
+#: ../lib/tribe-events-recurrence-meta.class.php:634
+#, php-format
+msgid ", recurring %d time"
+msgid_plural ", recurring %d times"
+msgstr[0] ", endurtekning %d skipta"
+msgstr[1] ", endurtekning %d skipta"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:613
+#, php-format
+msgid "Every %d weeks"
+msgstr "Allar %d. vikur"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:614
+#, php-format
+msgid " on %s"
+msgstr "á %s"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:619
+#, php-format
+msgid "Every %d months"
+msgstr "Alla %d mánuði"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:621
+#, php-format
+msgid " on the %s %s"
+msgstr "á %s %s"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:626
+#, php-format
+msgid "Every %d years"
+msgstr "Hvert %d ár"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:628
+msgid "last"
+msgstr "varir"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:633
+#, php-format
+msgid " on the %s %s of %s"
+msgstr "á %s %s af %s"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:640
+#, php-format
+msgid " until %s"
+msgstr "fram að %s"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:645
+#, php-format
+msgid "%s%s%s"
+msgstr "%s%s%s"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:660
+msgid ", and"
+msgstr ", og"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:662
+msgid "and"
+msgstr "og"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:664
+msgid ","
+msgstr ","
+
+#: ../lib/tribe-events-recurrence-meta.class.php:679
+msgid "January"
+msgstr "Janúar"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:679
+msgid "February"
+msgstr "Febrúar"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:679
+msgid "March"
+msgstr "Mars"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:679
+msgid "April"
+msgstr "Apríl"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:680
+msgid "June"
+msgstr "Juní"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:680
+msgid "July"
+msgstr "Julí"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:680
+msgid "August"
+msgstr "Ágúst"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:680
+msgid "September"
+msgstr "September"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:680
+msgid "October"
+msgstr "Október"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:680
+msgid "November"
+msgstr "Nóvember"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:680
+msgid "December"
+msgstr "Desember"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:686
+msgid ", and "
+msgstr ", og"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:688
+msgid " and "
+msgstr ", og"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:690
+#, fuzzy
+msgid ", "
+msgstr ","
+
+#: ../lib/tribe-events-recurrence-meta.class.php:747
+msgid "Recurring event instances"
+msgstr "Endurtekin viðburðar tilvik"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:748
+msgid "Show only the first instance of each recurring event."
+msgstr "Sýna aðeins fyrsta tilvik af endurteknum viðburðum."
+
+#: ../lib/tribe-events-recurrence-meta.class.php:754
+msgid "Front-end recurring event instances toggle"
+msgstr "Upphaf-endir endurtekinna viðburðar"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:755
+msgid ""
+"Allow users to decide whether to show all instances of a recurring event."
+msgstr ""
+"Heimila notenda að ákveða hvort sýna eigi öll skipti á endurteknum viðburði."
+
+#: ../lib/tribe-events-recurrence-meta.class.php:811
+msgid "Your recurrence pattern would create greater than "
+msgstr "Dit gentagelsesmønster vil generere mere end"
+
+#: ../lib/tribe-geoloc.class.php:117
+msgid "Distance"
+msgstr "Fjarlægð"
+
+#: ../lib/tribe-geoloc.class.php:124
+#, php-format
+msgid "Title: %s"
+msgstr "Titill: %s"
+
+#: ../lib/tribe-geoloc.class.php:126
+#, php-format
+msgid "%sType: %s"
+msgstr "%sTegund: %s"
+
+#: ../lib/tribe-geoloc.class.php:126
+msgid "Select Dropdown"
+msgstr "Velja af lista"
+
+#: ../lib/tribe-geoloc.class.php:127
+msgid "Radio Buttons"
+msgstr "Útvarps hnappur"
+
+#: ../lib/tribe-geoloc.class.php:180
+msgid "Map view search distance limit"
+msgstr "Lit á fjarlægðar takmörkun í korta skoðun"
+
+#: ../lib/tribe-geoloc.class.php:182
+msgid ""
+"Set the distance that the location search covers (find events within X "
+"distance units of location search input)."
+msgstr ""
+"Veljið lengd sem staðsetningar leitin nær yfir (finna viðburði innan X "
+"fjarlægðar frá innsettri staðsetningu)."
+
+#: ../lib/tribe-geoloc.class.php:188
+msgid "Map view distance unit"
+msgstr "Lengdar einingar í korta skoðun"
+
+#: ../lib/tribe-geoloc.class.php:192
+msgid "Miles"
+msgstr "Mílur"
+
+#: ../lib/tribe-geoloc.class.php:193
+msgid "Kilometers"
+msgstr "Kilómetrar"
+
+#: ../lib/tribe-geoloc.class.php:196
+msgid "Fix geolocation data"
+msgstr "Laga landfræðilegar tölur"
+
+#: ../lib/tribe-geoloc.class.php:196
+#, php-format
+msgid ""
+"You have %d venues for which we don't have geolocation data. We need to use "
+"the Google Maps API to get that information. Doing this may take a while "
+"(aprox. 1 minute for every 200 venues)."
+msgstr ""
+"Þú hefur %d viðburði sem ekki eru til landfræðilegar upplýsingar. Við þurfum "
+"að nota Google Maps API til að sækja upplýsingar. Þetta getur tekið allt að "
+"1 mínútu fyrir hverja 200 viðburði."
+
+#: ../lib/tribe-geoloc.class.php:205
+msgid "Hide location search"
+msgstr "Fela staðsetningar leit"
+
+#: ../lib/tribe-geoloc.class.php:206
+msgid ""
+"Removes location search field from the events bar on all views except for "
+"map view."
+msgstr ""
+"Fjarlægir staðsetningar leitarsvæði frá viðburðar stiku öllum skoðunarham "
+"nema korta skoðunarham."
+
+#: ../lib/tribe-geoloc.class.php:256
+msgid "Map"
+msgstr "Kort"
+
+#: ../lib/tribe-geoloc.class.php:286
+msgid "Near"
+msgstr "Nálægt"
+
+#: ../lib/tribe-geoloc.class.php:872
+msgid "Fix venues data"
+msgstr "Lagfæra viðburðar upplýsingar"
+
+#: ../lib/tribe-geoloc.class.php:903
+#, php-format
+msgid ""
+"You have venues for which we don't have Geolocation information. <a "
+"href='%s'>Click here to generate it</a>."
+msgstr ""
+"Þú hefur viðburði sem ekki eru til landfræðilegar upplýsingar um,  <a "
+"href='%s'>Smelltu hér til að búa þær til</a>."
+
+#: ../lib/tribe-geoloc.class.php:929
+#, php-format
+msgid "Fixed geolocation data for %d venues"
+msgstr "Fastar landfræðilegar upplýsingar fyrir %d viðburði"
+
+#: ../lib/tribe-ical.class.php:42
+msgid "Add to Google Calendar"
+msgstr "Bæta við Google Dagatal"
+
+#: ../lib/tribe-ical.class.php:42
+msgid "Google Calendar"
+msgstr "Google Dagatal"
+
+#: ../lib/tribe-ical.class.php:43 ../lib/tribe-ical.class.php:89
+msgid "iCal Import"
+msgstr "iCal Import"
+
+#: ../lib/tribe-ical.class.php:76
+msgid "Month's Events"
+msgstr "Mánaðar viðburðir"
+
+#: ../lib/tribe-ical.class.php:79
+msgid "Week's Events"
+msgstr "Vikulegir viðburðir"
+
+#: ../lib/tribe-ical.class.php:82
+msgid "Day's Events"
+msgstr "Daglegir viðburðir"
+
+#: ../lib/tribe-ical.class.php:85
+msgid "Listed Events"
+msgstr "Skráðir viðburðir"
+
+#: ../lib/tribe-ical.class.php:89
+msgid "Import is filter/view sensitive"
+msgstr "Innsett er háð síun/skoðun"
+
+#: ../lib/widget-advanced-list.class.php:16
+msgid "A widget that displays the next upcoming x events."
+msgstr "Widget sem sýnir næsta komandi viðburð."
+
+#: ../lib/widget-advanced-list.class.php:22
+msgid "Events List"
+msgstr "Viðburðarlisti"
+
+#: ../lib/widget-calendar.class.php:8
+msgid "The events calendar mini calendar widget"
+msgstr "Minni útgáfa viðburðar dagatals"
+
+#: ../lib/widget-calendar.class.php:10 ../lib/widget-calendar.class.php:31
+#: ../lib/widget-calendar.class.php:59
+msgid "Events Calendar"
+msgstr "Viðburðardagatal"
+
+#: ../lib/widget-countdown.class.php:13
+msgid "Displays the time remaining until a specified event."
+msgstr "Sýnir hvað langur tími er að næsta tilgreinda viðburð."
+
+#: ../lib/widget-countdown.class.php:15
+msgid "Events Countdown"
+msgstr "Niðurtalning"
+
+#: ../lib/widget-venue.class.php:12
+msgid "Displays a list of upcoming events at a specific venue."
+msgstr "Sýnir lista yfir komandi viðburði á tilteknum stað."
+
+#: ../lib/widget-venue.class.php:14
+msgid "Events Featured Venue"
+msgstr "Staðsetning valins viðburðar"
+
+#: ../lib/template-classes/day.php:73
+#: ../views/tribe-ECP-views-old/views/featured-widget.php:59
+#: ../views/tribe-ECP-views-old/views/list-widget.php:57
+#: ../views/week/loop-grid-allday.php:23
+msgid "All Day"
+msgstr "Allan daginn"
+
+#: ../lib/template-classes/day.php:102
+#, php-format
+msgid ""
+"There were no results found for <strong>\"%s\"</strong> on this day. Try "
+"searching another day."
+msgstr ""
+"Engin niðurstaða fyrir <strong>\"%s\"</strong> á valdri dagsetningu. "
+"Vinsamlega reynið nýja dagsetningu."
+
+#: ../lib/template-classes/day.php:106
+#, php-format
+msgid "No events scheduled for <strong>%s</strong>. Please try another day."
+msgstr ""
+"Enginn skráður viðburður <strong>%s</strong>. Vinsamlega reynið aðra "
+"dagsetningu."
+
+#: ../lib/template-classes/week.php:78
+#, php-format
+msgid ""
+"There were no results found for <strong>\"%s\"</strong> this week. Try "
+"searching another week."
+msgstr ""
+"Enging niðurstaða fannst fyrir <strong>\"%s\"</strong> þessa viku. Reynið "
+"leit í annarri viku."
+
+#: ../public/template-tags/general.php:104
+msgid "Show only the first upcoming instance of recurring events"
+msgstr "Sýnið aðeins fyrsta komandi viðburð af endurteknum viðburðum."
+
+#: ../public/template-tags/general.php:296
+#: ../public/template-tags/general.php:310
+#: ../public/template-tags/general.php:323
+#: ../public/template-tags/general.php:324
+#: ../public/template-tags/general.php:337
+#: ../public/template-tags/general.php:338
+#: ../public/template-tags/general.php:351
+#: ../public/template-tags/general.php:352
+#: ../public/template-tags/general.php:365
+#: ../public/template-tags/general.php:366
+#: ../public/template-tags/general.php:379
+#: ../public/template-tags/general.php:380
+#: ../public/template-tags/general.php:393
+#: ../public/template-tags/general.php:394
+#: ../public/template-tags/general.php:407
+#: ../public/template-tags/general.php:408
+msgid "No default set"
+msgstr "Ekkert sjálfgefið valið"
+
+#: ../public/template-tags/general.php:297
+#, php-format
+msgid "The current default organizer is: %s"
+msgstr "Sjálfgefinn skipuleggjandi er: %s"
+
+#: ../public/template-tags/general.php:311
+#, php-format
+msgid "The current default venue is: %s"
+msgstr "Sjálfgefinn staður er: %s"
+
+#: ../public/template-tags/general.php:325
+#, php-format
+msgid "The current default address is: %s"
+msgstr "Sjálfgefið heimilisfang er: %s"
+
+#: ../public/template-tags/general.php:339
+#, php-format
+msgid "The current default city is: %s"
+msgstr "Sjálfgefna borgin er: %s"
+
+#: ../public/template-tags/general.php:353
+#, php-format
+msgid "The current default state is: %s"
+msgstr "Sjálfgefna fylkið er: %s"
+
+#: ../public/template-tags/general.php:367
+#, php-format
+msgid "The current default province is: %s"
+msgstr "Sjáflgefna svæði (sýsla) er: %s"
+
+#: ../public/template-tags/general.php:381
+#, php-format
+msgid "The current default postal code/zip code is: %s"
+msgstr "Sjálfgefið póstnúmer er: %s"
+
+#: ../public/template-tags/general.php:395
+#, php-format
+msgid "The current default country is: %s"
+msgstr "Sjálfgefið land er: %s"
+
+#: ../public/template-tags/general.php:409
+#, php-format
+msgid "The current default phone is: %s"
+msgstr "Sjáflgefið símanúmer er: %s"
+
+#: ../public/template-tags/general.php:604
+msgid "Today"
+msgstr "Í dag"
+
+#: ../public/template-tags/general.php:607
+msgid "&laquo; Previous Day"
+msgstr "&laquo; Fyrri dagsetning"
+
+#: ../public/template-tags/general.php:610
+msgid "Next Day &raquo;"
+msgstr "Næsti dagur &raquo"
+
+#: ../public/template-tags/general.php:613
+msgid "Yesterday"
+msgstr "Í gær"
+
+#: ../public/template-tags/general.php:616
+msgid "Tomorrow"
+msgstr "Á morgun"
+
+#: ../public/template-tags/general.php:710
+msgid "Related Events"
+msgstr "Tengdir viðburðir"
+
+#: ../vendor/advanced-post-manager/demo/demo.php:31
+#, php-format
+msgid ""
+"It looks like you might not have any demo data. <a href=\"%s\">Download our "
+"data</a> and use the <a href=\"%s\">WordPress Importer</a>."
+msgstr ""
+"Hugsanlega hefur þú ekki kynningar gögn. <a href=\"%s\">Niðurhalið gögnin</"
+"a> og notið <a href=\"%s\">WordPress Importer</a>."
+
+#: ../vendor/advanced-post-manager/lib/tribe-columns.class.php:44
+msgid "Column Name"
+msgstr "Dálka nafn"
+
+#: ../vendor/advanced-post-manager/lib/tribe-columns.class.php:134
+msgid "Add a Column"
+msgstr "Bætið við dálk"
+
+#: ../vendor/advanced-post-manager/lib/tribe-columns.class.php:141
+msgid "Comments"
+msgstr "Skoðanir"
+
+#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:52
+#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:72
+msgid "Is"
+msgstr "Er"
+
+#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:53
+#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:73
+msgid "Is Not"
+msgstr "Er ekki"
+
+#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:67
+msgid "LIKE"
+msgstr "Like / líkar"
+
+#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:71
+msgid "Search"
+msgstr "Leit"
+
+#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:82
+msgid "Member Type"
+msgstr "Tegund meðlimar"
+
+#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:86
+msgid "Cafe"
+msgstr "Kaffi"
+
+#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:87
+msgid "Private Desk"
+msgstr "Skrifborð"
+
+#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:88
+msgid "Office"
+msgstr "Skrifstofa"
+
+#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:95
+msgid "what i’m querying. probably a key in the options array in $filters"
+msgstr ""
+"det jeg søger. Måske en nøgle i listen af indstillinger i $filtershver er "
+"fyrirspurning mín. líklega finnst það í valmöguleikum í $filters"
+
+#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:523
+msgid "Choose a Saved Filter"
+msgstr "Veljið geymda síu"
+
+#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:639
+msgid "Add a Filter"
+msgstr "Bæta við síu"
+
+#: ../vendor/advanced-post-manager/lib/tribe-meta-box-helper.php:44
+msgid "Extended Information"
+msgstr "Viðbótar upplýsingar"
+
+#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:124
+#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:397
+msgid "Delete this image"
+msgstr "Eyða þessari mynd"
+
+#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:124
+#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:352
+#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:397
+msgid "Delete"
+msgstr "Eyða"
+
+#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:348
+msgid "Uploaded files"
+msgstr "Niðurhala gögn"
+
+#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:358
+msgid "Upload new files"
+msgstr "Niðurhala ný gögn"
+
+#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:361
+msgid "Add another file"
+msgstr "Bæta við gögnum"
+
+#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:404
+msgid "Add more images"
+msgstr "Bæta við myndum"
+
+#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:412
+msgid "Select a color"
+msgstr "Velja lit"
+
+#: ../vendor/advanced-post-manager/views/edit-filters.php:7
+#: ../vendor/advanced-post-manager/views/edit-filters.php:8
+msgid "Click to toggle"
+msgstr "Smellið til að skipta"
+
+#: ../vendor/advanced-post-manager/views/edit-filters.php:8
+msgid "Filters &amp; Columns"
+msgstr "Síar &amp; Dálkar"
+
+#: ../vendor/advanced-post-manager/views/edit-filters.php:17
+msgid "Apply"
+msgstr "Setja"
+
+#: ../vendor/advanced-post-manager/views/edit-filters.php:18
+msgid "Clear"
+msgstr "Hreinsa"
+
+#: ../vendor/advanced-post-manager/views/edit-filters.php:19
+#: ../vendor/advanced-post-manager/views/edit-filters.php:26
+msgid "Save"
+msgstr "Vista"
+
+#: ../vendor/advanced-post-manager/views/edit-filters.php:21
+msgid "Export to CSV"
+msgstr "Flytja til CSV"
+
+#: ../vendor/advanced-post-manager/views/edit-filters.php:25
+msgid "Filter Name"
+msgstr "Síu nafn"
+
+#: ../vendor/advanced-post-manager/views/edit-filters.php:27
+msgid "Cancel"
+msgstr "Hætta við"
+
+#: ../vendor/pue-client/admin-views/license-key.view.php:9
+#: ../vendor/pue-client/admin-views/license-key.view.php:13
+#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:185
+msgid "License Key"
+msgstr "Leyfis lykill"
+
+#: ../vendor/pue-client/admin-views/license-key.view.php:10
+msgid "A valid license key is required for support and updates."
+msgstr "Fyrir aðstoð og uppfærslur þarf gildan leyfislykil."
+
+#: ../vendor/pue-client/admin-views/license-key.view.php:16
+msgid "Replace empty fields"
+msgstr "Skipta út tómum svæðum"
+
+#: ../vendor/pue-client/admin-views/license-key.view.php:25
+#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:186
+msgid "A valid license key is required for support and updates"
+msgstr "Fyrir aðstoð og uppfærslur þarf gildan leyfislykil."
+
+#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:254
+msgid "License key(s) updated."
+msgstr "Leyfislykill uppfærður."
+
+#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:294
+msgid "Sorry, key validation server is not available."
+msgstr "Afsakið, ekki er unnt að staðfesta leyfislykil."
+
+#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:296
+msgid "Sorry, this key is expired."
+msgstr "Afsakið, þetta leyfi er útrunnið."
+
+#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:298
+msgid "Sorry, this key is out of installs."
+msgstr "Afsakið, þetta leyfi veitir ekki innsetningu."
+
+#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:300
+msgid "Sorry, this key is not valid."
+msgstr "Afsakið, þessi leyfislykill er ekki virkur."
+
+#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:303
+#, php-format
+msgid "Valid Key! Expires on %s"
+msgstr "Gildur leyfislykill! Rennur út þann %s"
+
+#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:307
+#, php-format
+msgid ""
+"Hmmm... something's wrong with this validator. Please contact <a href=\"%s"
+"\">support.</a>"
+msgstr ""
+"Hmmm… eitthvað ekki í lagi með þessa sannprófun. Vinsamlega hafið samband "
+"við <a href=\"%s\">aðstoð.</a>"
+
+#: ../vendor/tribe-related-posts/tribe-related-posts-widget.php:20
+msgid "Displays posts related to the post."
+msgstr "Sýnir innlegg sem tengt er viðkomandi innleggi."
+
+#: ../vendor/tribe-related-posts/tribe-related-posts-widget.php:22
+msgid "Related Posts"
+msgstr "Tengt innlegg"
+
+#: ../vendor/tribe-related-posts/tribe-related-posts-widget.php:72
+msgid "Count:"
+msgstr "Teljari:"
+
+#: ../vendor/tribe-related-posts/tribe-related-posts-widget.php:80
+msgid "Display Thumbnails?"
+msgstr "Sýna smámyndir?"
+
+#: ../vendor/tribe-related-posts/tribe-related-posts-widget.php:83
+msgid "Only Display Related Posts?"
+msgstr "Sýna aðeins tengd innlegg?"
+
+#: ../vendor/tribe-related-posts/tribe-related-posts-widget.php:86
+msgid "Post Type:"
+msgstr "Innleggs gerð:"
+
+#: ../vendor/tribe-support/tribe-support.class.php:54
+msgid "Send a support request for this site."
+msgstr "Senda ósk um stuðning fyrir þessa síðu."
+
+#: ../views/single-organizer.php:30 ../views/single-venue.php:31
+msgid "&larr; Back to Events"
+msgstr "&larr; Aftur í viðburði"
+
+#: ../views/day/nav.php:16
+msgid "Day Navigation"
+msgstr "Sýna dagsetningar"
+
+#: ../views/day/single-event.php:75 ../views/map/single-event.php:81
+msgid "Find out more"
+msgstr "Finna út meira"
+
+#: ../views/map/nav.php:22 ../views/photo/nav.php:22
+msgid "Events List Navigation"
+msgstr "Sýna lista viðburða"
+
+#: ../views/map/nav.php:25 ../views/photo/nav.php:25
+msgid "&laquo; Previous Events"
+msgstr "&laquo; Fyrri viðburðir"
+
+#: ../views/map/nav.php:32 ../views/photo/nav.php:32
+msgid "Next Events &raquo;"
+msgstr "Næstu viðburðir &raquo;"
+
+#: ../views/tribe-ECP-views-old/views/list-widget.php:110
+msgid "Price:"
+msgstr "Verð:"
+
+#: ../views/tribe-ECP-views-old/views/single-venue.php:24
+msgid "&laquo; Back to Events"
+msgstr "&laquo; Aftur til viðburða"
+
+#: ../views/tribe-ECP-views-old/views/single-venue.php:37
+msgid "Name:"
+msgstr "Nafn:"
+
+#: ../views/tribe-ECP-views-old/views/single-venue.php:41
+msgid "Phone:"
+msgstr "Símanúmer:"
+
+#: ../views/tribe-ECP-views-old/views/single-venue.php:47
+msgid "Address:"
+msgstr "Heimilisfang:"
+
+#: ../views/tribe-ECP-views-old/views/single-venue.php:49
+msgid "Click to view a Google Map"
+msgstr "Smelltu hér til að skoða Google Map"
+
+#: ../views/tribe-ECP-views-old/views/single-venue.php:49
+msgid "Google Map"
+msgstr "Google Map"
+
+#: ../views/tribe-ECP-views-old/views/single-venue.php:76
+msgid "Upcoming Events At This Venue"
+msgstr "Komandi viðburðir á þessum stað"
+
+#: ../views/tribe-ECP-views-old/views/single-venue.php:96
+msgid "Start:"
+msgstr "Byrjar:"
+
+#: ../views/tribe-ECP-views-old/views/single-venue.php:100
+msgid "End:"
+msgstr "Endar:"
+
+#: ../views/tribe-ECP-views-old/views/single-venue.php:105
+msgid "Date:"
+msgstr "Dagsetning:"
+
+#: ../views/tribe-ECP-views-old/views/single-venue.php:114
+msgid "Cost:"
+msgstr "Verð:"
+
+#: ../views/week/loop-grid.php:19
+msgid "Hours"
+msgstr "Klukkustundir"
+
+#: ../views/week/nav.php:16
+msgid "Week Navigation"
+msgstr "Sýna vikur"
+
+#: ../views/week/nav.php:19
+msgid "Previous Week"
+msgstr "Fyrri vika"
+
+#: ../views/week/nav.php:22
+msgid "Next Week"
+msgstr "Næsta vika"
+
+#: ../views/widgets/countdown-widget.php:20
+msgid "days"
+msgstr "dagar"
+
+#: ../views/widgets/countdown-widget.php:24
+msgid "hours"
+msgstr "klukkustundir"
+
+#: ../views/widgets/countdown-widget.php:28
+msgid "min"
+msgstr "mínútur"
+
+#: ../views/widgets/countdown-widget.php:33
+msgid "sec"
+msgstr "sekúndur"
+
+#: ../views/widgets/list-widget.php:61
+msgid "Organizer:"
+msgstr "Skipuleggjandi:"
+
+#: ../views/widgets/venue-widget.php:32
+msgid "No upcoming events."
+msgstr "Enginn skráður viðburður."
+
+#~ msgid ""
+#~ "Want to modify the display of this widget? Try a %stemplate override%s."
+#~ msgstr ""
+#~ "Vil du ændre visningen af denne widget? Prøv en %stemplate override%s."
+
+#~ msgid ""
+#~ "<p>By buying a PRO license you will get active support and sweet "
+#~ "additional features not found in the free The Events Calendar.</"
+#~ "p><p><strong>Feeling adventurous?</strong> Jump right into it by visiting "
+#~ "the Events menu to <a href=\"%s\">add your first event</a>.</"
+#~ "p><p><strong>Want to get the low-down first?</strong> Visit our <a href="
+#~ "\"http://tri.be/support/documentation/events-calendar-pro-new-user-primer/"
+#~ "%s\">new user primer</a>,  designed to help familiarize you with the "
+#~ "plugin basics.</p><p>Don't forget to head over to the <a href=\"%s"
+#~ "\">license tab</a> and enter your key!</p>"
+#~ msgstr ""
+#~ "<p>Ved køb af en PRO licens får du support samt features, der ikke findes "
+#~ "i den gratis version af The Events Calendar.</p><p><strong>Klar til at gå "
+#~ "i gang?</strong>Begynd med at besøge Begivenheder menuen  og <a href=\"%s"
+#~ "\">opret din første begivenhed</a>.</p><p><strong>Vil du læse lidt mere "
+#~ "først?</strong>Besøg vores <a href=\"http://tri.be/support/documentation/"
+#~ "events-calendar-pro-new-user-primer/%s\">begynderguide</a> for at lære om "
+#~ "pluginets muligheder.</p><p>Glem ikke at <a href=\"%s\">indtaste din "
+#~ "licensnøgle</a>!."
+
+#~ msgid ""
+#~ "One of the advantages of being a PRO user is that you have access to our "
+#~ "exclusive forums at %s. Our support staff hits the forums on a daily "
+#~ "basis, and what they can't answer on the spot they'll bring a member of "
+#~ "our dev team in to address directly."
+#~ msgstr ""
+#~ "En af fordelene ved PRO-medlemskab er adgang til vores eksklusive forum "
+#~ "på %s. Vores supportere besøger forumet dagligt, og hvis ikke de kan "
+#~ "svare på spørgsmålene så kontaktes en af vores udviklere for eksperthjælp."
+
+#~ msgid "Some things to consider before posting on the forum:"
+#~ msgstr "Bemærk følgende inden du skriver på vores forum:"
+
+#~ msgid ""
+#~ "Search recent threads before posting a new one to check that there isn't "
+#~ "already a discussion about your issue."
+#~ msgstr ""
+#~ "Søg blandt de nyeste indlæg inden du skriver et spørgsmål, for at sikre "
+#~ "dig at dit spørgsmål ikke allerede er blevet behandlet."
+
+#~ msgid ""
+#~ "Check whether the issue is a conflict with another plugin or your theme. "
+#~ "This can be tested easily on a staging site by deactivating other plugins "
+#~ "one-by-one, and reverting to the default Twenty Twelve theme to see if "
+#~ "conflicts can be easily identified. If you find a conflict, note it in a "
+#~ "support thread."
+#~ msgstr ""
+#~ "Undersøg om der er en konflikt med andre plugins eller dit sidetema. "
+#~ "Dette kan nemt undersøges ved at deaktivere andre plugins, et efter et. "
+#~ "Prøv også at aktivere standard sidetemaet Twenty Twelve for at se om "
+#~ "dette løser problemet. Hvis der er problemer med et plugin eller et "
+#~ "sidetema så skriv om dette i supportforummet."
+
+#~ msgid ""
+#~ "Sometimes, resaving your permalinks (under <a href=\"%s\">Settings > "
+#~ "Permalinks</a>) can resolve events-related problems on your site. Before "
+#~ "creating a new thread try this handy trick."
+#~ msgstr ""
+#~ "Nogle gang kan problemer relateret til begivenheder løses ved at gen-"
+#~ "aktivere permanente links under <a href=\"%s\">Settings > Permalinks</a>. "
+#~ "Prøv dette, inden du skriver et indlæg om dit problem."
+
+#~ msgid ""
+#~ "While we won't build your site for you and can't guarantee The Events "
+#~ "Calendar PRO to play nicely with every theme and plugin out there, our "
+#~ "team will do our best to help you get it functioning nicely with your "
+#~ "site. And as an added bonus, once you're done you can post it in "
+#~ "the %s so the rest of the community can see what you've been working on."
+#~ msgstr ""
+#~ "Vores team vil altid gøre  det bedste vi kan for at hjælpe, men eftersom "
+#~ "vi har mulighed for at teste for kompatibilitet med samtilge plugins og "
+#~ "sidetemaer, der findes, kan vi ikke garantere at The Events Calendar PRO "
+#~ "fungerer lige godt ved alle installationer. Når du har fået din kalender "
+#~ "sat op, så du er tilfreds, har du som en bonus mulighed for at dele "
+#~ "linket i %s så andre kan blive inspireret af dit arbejde."
+
+#~ msgid "Showcase thread"
+#~ msgstr "Showcase tråd"
+
+#~ msgid ""
+#~ "listed under %s. Check out events for this category or view the full "
+#~ "calendar."
+#~ msgstr ""
+#~ "listet under %s. Se begivenhederne for denne kategori eller se hele "
+#~ "kalenderen."
+
+#~ msgid "Refine your search:"
+#~ msgstr "Indskærp din søgning:"
+
