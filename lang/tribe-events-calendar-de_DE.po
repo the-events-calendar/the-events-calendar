@@ -6,7 +6,7 @@ msgstr ""
 "Project-Id-Version: The Events Calendar\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-07-02 11:27-0800\n"
-"PO-Revision-Date: 2013-07-02 11:27-0800\n"
+"PO-Revision-Date: 2013-09-10 14:43-0800\n"
 "Last-Translator: Thomas Butzek <ThomasButzek@live.de>\n"
 "Language-Team: DECKERWEB <deckerweb.mobil@googlemail.com>\n"
 "Language: de_DE\n"
@@ -19,7 +19,7 @@ msgstr ""
 "_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2\n"
 "X-Poedit-Basepath: ./\n"
 "X-Textdomain-Support: yes\n"
-"X-Generator: Poedit 1.5.5\n"
+"X-Generator: Poedit 1.5.7\n"
 "X-Poedit-SearchPath-0: ..\n"
 
 # @ tribe-events-calendar
@@ -3815,11 +3815,11 @@ msgstr "Bestellstatus"
 
 #: ../lib/tickets/tribe-tickets-attendees.php:69
 msgid "Purchaser name"
-msgstr "Verkäufer Name"
+msgstr "Käufer Name"
 
 #: ../lib/tickets/tribe-tickets-attendees.php:70
 msgid "Purchaser email"
-msgstr "Verkäufer E-Mail"
+msgstr "Käufer E-Mail"
 
 #: ../lib/tickets/tribe-tickets-attendees.php:71
 msgid "Ticket type"
@@ -4092,7 +4092,7 @@ msgstr "Kartenart"
 
 #: ../views/tickets/email.php:324
 msgid "Purchaser"
-msgstr "Verkäufer"
+msgstr "Käufer"
 
 #~ msgid ""
 #~ "Want to modify the display of this widget? Try a %stemplate override%s."
