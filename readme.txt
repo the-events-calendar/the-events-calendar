@@ -219,10 +219,12 @@ The plugin is produced by <a href="http://m.tri.be/2s">Modern Tribe Inc</a>.
 * Croatian from Marko Manojlovic
 * Czech from Martin Kristan and Petr Bastan
 * Danish from Anonymous
-* Dutch from Nico (wsMaurik)
-* French from Dominique Monhardt
-* German from Thomas Butzek
-* Greek from Panos Efstratiou
+* Dutch from Erik Massop
+* Finnish by Ari-Pekka Koponen
+* French from Benoît Burgener
+* German from Michael Sebel
+* Greek from Maria Tsilimidou
+* Icelandic by Baldvin Örn Berndsen
 * Italian from Roberto Scano
 * Norwegian from Kjell Vestnes
 * Polish from Marek Kosina
@@ -232,7 +234,7 @@ The plugin is produced by <a href="http://m.tri.be/2s">Modern Tribe Inc</a>.
 * Spanish from Hector Gil Rizo
 * Swedish from Ben Andersen
 
-* Previous translators include Mikhail Michouris, Ed Boon, Rick van Dalen, Jacob Roel Meijering, hristian Andersen, Filippo Montanari, David Decker, Kamil Szymanski, "Terje With Lunndal", Sagi Shrieber, Matthew Meyer, Arno Faure, Fanny Heraud, Vincent G from Host1Free, , Petri Kajander, Fran Rosa, and Alexey Fedorov
+* Previous translators include Mikhail Michouris, Ed Boon, Rick van Dalen, Jacob Roel Meijering, hristian Andersen, Filippo Montanari, David Decker, Kamil Szymanski, "Terje With Lunndal", Sagi Shrieber, Matthew Meyer, Arno Faure, Fanny Heraud, Vincent G from Host1Free, , Petri Kajander, Fran Rosa, Nico (wsMaurik), Panos Efstratiou, Dominique Monhardt, Thomas Butzek, and Alexey Fedorov
 
 == Add-Ons ==
 

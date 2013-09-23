@@ -193,7 +193,7 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 					$query->set( 'cache_results', false );
 					$query->set( 'update_post_meta_cache', false );
 					$query->set( 'update_post_term_cache', false );
-					apply_filters( 'tribe_events_pre_get_posts', $query );
+					do_action( 'tribe_events_pre_get_posts', $query );
 					return $query;
 				}
 
@@ -403,19 +403,24 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 			}
 		}
 
-        /**
-         * Adds the proper fields to the FIELDS statement in the query.
-         *
-         * @param string $fields The current/original FIELDS statement.
-         * @param WP_Query $query The current query object.
-         * @return string The modified FIELDS statement.
-         */
-        public static function multi_type_posts_fields( $field_sql, $query ) {
-			global $wpdb;
-			$fields = array();
-			$fields[] = "IF ({$wpdb->posts}.post_type = 'tribe_events', {$wpdb->postmeta}.meta_value, {$wpdb->posts}.post_date) AS post_date";
-			$fields = apply_filters( 'tribe_events_query_posts_fields', $fields );
-			return $field_sql . ', '.implode(', ', $fields);
+		/**
+		 * Adds the proper fields to the FIELDS statement in the query.
+		 *
+		 * @param string $field_sql The current/original FIELDS statement.
+		 * @param WP_Query $query The current query object.
+		 *
+		 * @return string The modified FIELDS statement.
+		 */
+		public static function multi_type_posts_fields( $field_sql, $query ) {
+			if ( !empty($query->tribe_is_multi_posttype) ) {
+				global $wpdb;
+				$fields = array();
+				$fields[] = "IF ({$wpdb->posts}.post_type = 'tribe_events', {$wpdb->postmeta}.meta_value, {$wpdb->posts}.post_date) AS post_date";
+				$fields = apply_filters( 'tribe_events_query_posts_fields', $fields );
+				return $field_sql . ', '.implode(', ', $fields);
+			} else {
+				return $field_sql;
+			}
 		}
 
 		/**

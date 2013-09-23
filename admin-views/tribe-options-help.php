@@ -159,6 +159,8 @@ $more_text = __('More...', 'tribe-events-calendar');
 		<h3><?php _e('Not getting help?', 'tribe-events-calendar'); ?></h3>
 		<?php echo( apply_filters( 'tribe_help_tab_outro', $outro_text ) ); ?>
 
+		<?php do_action( 'tribe_help_tab_sections' ); ?>
+
 	</div>
 
 </div>
@@ -208,5 +210,7 @@ $more_text = __('More...', 'tribe-events-calendar');
 	echo '<li><a href="' . TribeEvents::$tribeUrl . 'category/products/' . $ga_query_string . '">' . $more_text . '</a></li>';
 	?>
 	</ul>
+
+	<?php do_action( 'tribe_help_tab_sidebar' ); ?>
 
 </div>
