@@ -384,7 +384,7 @@ if (Object.prototype.hasOwnProperty.call(window, 'tribe_ev')) {
 
 				});
 
-				$('body').on('click', function (e) {
+				$(document).on('click', function (e) {
 					$geo_options.hide();
 				});
 
