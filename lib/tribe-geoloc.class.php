@@ -87,7 +87,7 @@ class TribeEventsGeoLoc {
 		add_filter( 'tribe_settings_tab_fields',            array( $this, 'inject_settings'            ), 10, 2 );
 		add_filter( 'tribe-events-bar-filters',             array( $this, 'setup_geoloc_filter_in_bar' ),  1, 1 );
 		add_filter( 'generate_rewrite_rules',               array( $this, 'add_routes'                 )        );
-		add_filter( 'tribe_events_pre_get_posts',           array( $this, 'setup_geoloc_in_query'      )        );
+		add_action( 'tribe_events_pre_get_posts',           array( $this, 'setup_geoloc_in_query'      )        );
 		add_filter( 'tribe_events_list_inside_before_loop', array( $this, 'add_event_distance'         )        );
 
 	}
@@ -308,11 +308,14 @@ class TribeEventsGeoLoc {
 	 *     so we can map them.
 	 *
 	 *
-	 * @param $query
+	 * @param WP_Query $query
 	 *
-	 * @return mixed
+	 * @return void
 	 */
 	public function setup_geoloc_in_query( $query ) {
+		if ( !$query->is_main_query() || !$query->get('post_type') == TribeEvents::POSTTYPE ) {
+			return;
+		}
 
 		$force = false;
 		if ( ! empty( $_REQUEST['tribe-bar-geoloc-lat'] ) && ! empty( $_REQUEST['tribe-bar-geoloc-lng'] ) ) {
@@ -340,9 +343,6 @@ class TribeEventsGeoLoc {
 				$query->query_vars['meta_query'][] = $meta_query;
 			}
 		}
-
-		return $query;
-
 	}
 
 

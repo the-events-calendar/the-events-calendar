@@ -264,6 +264,9 @@ class Tribe_Filters {
 
 	public function parse_query($wp_query) {
 		// Run once
+		// If we just remove it though, without leaving something in its place
+		// the next action that's supposed to run on parse query might be skipped.
+		add_action('parse_query', '__return_true');
 		remove_action('parse_query', array($this, 'parse_query') );
 
 		do_action_ref_array('tribe_before_parse_query', array($wp_query, $this->active) );
