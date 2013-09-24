@@ -58,7 +58,7 @@ class TribeRecurrence {
 				}
 			} else {
 				// date driven
-				while( $cur_date <= $this->end && $cur_date < $this->maxDate ) {
+				while( $cur_date <= $this->end && $cur_date <= $this->maxDate ) {
 					$cur_date = $this->series_rules->getNextDate($cur_date);
 					// Makes sure to assign the proper hours to the date.
 					$cur_date = mktime (date("H", $this->start_date), date("i", $this->start_date), date("s", $this->start_date), date('n', $cur_date),  date('j', $cur_date), date('Y', $cur_date));
