@@ -552,7 +552,19 @@ class TribeEventsRecurrenceMeta {
 		// use the recurrence start meta if necessary because we can't guarantee which order the start date will come back in
 		$recStart = strtotime(get_post_meta($event_id, '_EventStartDate', true));
 
-		$recEnd = $recEndType == "On" ? strtotime(TribeDateUtils::endOfDay($recEnd)) : $recEndCount - 1; // subtract one because event is first occurrence
+		switch( $recEndType ) {
+			case 'On':
+				$recEnd = strtotime(TribeDateUtils::endOfDay($recEnd));
+				break;
+			case 'Never':
+				$recEnd = TribeRecurrence::NO_END;
+				break;
+			case 'After':
+			default:
+				$recEnd = $recEndCount - 1; // subtract one because event is first occurrence
+				break;
+		}
+
 		$recurrence = new TribeRecurrence($recStart, $recEnd, $rules, $recEndType == "After", get_post( $event_id ) );
 		return $recurrence;
 	}
