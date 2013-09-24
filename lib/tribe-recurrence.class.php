@@ -43,32 +43,21 @@ class TribeRecurrence {
 			$dates = array();
 			$cur_date = $this->start_date;
 
-			if($this->by_occurrence_count) {
-				// a set number of occurrences
-				for( $i = 0; $i < $this->end; $i++ ) {
-					$cur_date = $this->series_rules->getNextDate($cur_date);
-					// Makes sure to assign the proper hours to the date.
-					$cur_date = mktime (date("H", $this->start_date), date("i", $this->start_date), date("s", $this->start_date), date('n', $cur_date),  date('j', $cur_date), date('Y', $cur_date));
-					if ( $cur_date >= $this->minDate && $cur_date <= $this->maxDate ) {
-						$dates[] = $cur_date;
-					} elseif ( $cur_date > $this->maxDate ) {
-						$this->last_request_constrained = $cur_date;
-						break;
-					}
+			$i = 0;
+			while ( $cur_date = $this->getNextDate($cur_date) ) {
+				$i++;
+				if ( $cur_date > $this->maxDate ) {
+					$this->last_request_constrained = $cur_date;
+					break; // no more dates will be in range. stop here
 				}
-			} else {
-				// date driven
-				while( $cur_date <= $this->end && $cur_date <= $this->maxDate ) {
-					$cur_date = $this->series_rules->getNextDate($cur_date);
-					// Makes sure to assign the proper hours to the date.
-					$cur_date = mktime (date("H", $this->start_date), date("i", $this->start_date), date("s", $this->start_date), date('n', $cur_date),  date('j', $cur_date), date('Y', $cur_date));
-					if ( $cur_date <= $this->end && $cur_date >= $this->minDate && $cur_date <= $this->maxDate ) {
-						$dates[] = $cur_date;
-					} elseif ( $cur_date > $this->maxDate ) {
-						$this->last_request_constrained = $cur_date;
-						break;
-					}
+				if ( $cur_date < $this->minDate ) {
+					continue; // move forward until we find a date within range
 				}
+				if ( $this->afterSeries( $this->by_occurrence_count ? $i : $cur_date ) ) {
+					break; // end of the series
+				}
+
+				$dates[] = $cur_date;
 			}
 
 			if ( !$all_events && $old_start_dates && $this->event ) {
@@ -96,5 +85,20 @@ class TribeRecurrence {
 	 */
 	public function constrainedByMaxDate() {
 		return $this->last_request_constrained;
+	}
+
+	private function getNextDate( $current_date ) {
+		$current_date = $this->series_rules->getNextDate($current_date);
+		// Makes sure to assign the proper hours to the date.
+		$current_date = mktime (date("H", $this->start_date), date("i", $this->start_date), date("s", $this->start_date), date('n', $current_date),  date('j', $current_date), date('Y', $current_date));
+		return $current_date;
+	}
+
+	private function afterSeries( $instance ) {
+		if ( $this->by_occurrence_count ) {
+			return $instance > $this->end;
+		} else {
+			return $instance > $this->end;
+		}
 	}
 }
