@@ -1806,8 +1806,8 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 *
 		 * @return array of options
 		 */
-		public static function getOptions() {
-			if ( !isset( self::$options ) ) {
+		public static function getOptions( $force = FALSE ) {
+			if ( !isset( self::$options ) || $force ) {
 				$options = get_option( TribeEvents::OPTIONNAME, array() );
 				self::$options = apply_filters( 'tribe_get_options', $options );
 			}
