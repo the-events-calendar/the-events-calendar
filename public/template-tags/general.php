@@ -1064,4 +1064,23 @@ if ( class_exists( 'TribeEvents' ) ) {
 		echo tribe_events_get_tab_index();
 	}
 
+	/**
+	 * Check if a particular view is enabled
+	 *
+	 * @param string $view Name of view to check, should match what's in TribeEvents->displaying when on that view
+	 * @return bool
+	 * @author Jessica Yazbek
+	 * @since 3.1
+	 **/
+	function is_view_enabled( $view ) {
+		$enabled_views = apply_filters( 'tribe-events-bar-views', array() );
+		// print_r($enabled_views);
+		foreach ( $enabled_views as $enabled_view ) {
+			if ( $enabled_view['displaying'] == $view ) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 }
