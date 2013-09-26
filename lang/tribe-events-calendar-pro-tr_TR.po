@@ -1,0 +1,1939 @@
+# Events Calendar Pro by Modern Tribe, Inc.
+# Copyright (C) Modern Tribe, Inc.
+# This file is distributed under the same license as the Events Calendar Pro package.
+msgid ""
+msgstr ""
+"Project-Id-Version: Events Calendar Pro\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-07-02 11:28-0800\n"
+"PO-Revision-Date: 2013-07-13 23:36+0200\n"
+"Last-Translator: Burak Pehlevan <pehlevanburak@gmail.com>\n"
+"Language-Team: Modern Tribe, Inc. <pro@tri.be>\n"
+"Language: English\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;"
+"_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2\n"
+"X-Poedit-Basepath: ./\n"
+"X-Textdomain-Support: yes\n"
+"X-Generator: Poedit 1.5.7\n"
+"X-Poedit-Bookmarks: -1,-1,-1,-1,-1,309,-1,-1,-1,-1\n"
+"X-Poedit-SearchPath-0: ..\n"
+
+#: ../events-calendar-pro.php:61
+msgid "week"
+msgstr "hafta"
+
+#: ../events-calendar-pro.php:62
+msgid "photo"
+msgstr "foto"
+
+#: ../events-calendar-pro.php:63
+#: ../lib/tribe-events-recurrence-meta.class.php:621
+msgid "day"
+msgstr "gün"
+
+#: ../events-calendar-pro.php:64
+msgid "today"
+msgstr "bugün"
+
+#: ../events-calendar-pro.php:261
+msgid "Events for week of"
+msgstr "Haftanın etkinlikleri için"
+
+#: ../events-calendar-pro.php:267 ../events-calendar-pro.php:334
+msgid "Events for"
+msgstr "Etkinlikleri için"
+
+#: ../events-calendar-pro.php:272 ../events-calendar-pro.php:339
+msgid "Past Events"
+msgstr "Biten Etkinlikler"
+
+#: ../events-calendar-pro.php:274 ../events-calendar-pro.php:341
+#: ../lib/widget-advanced-list.class.php:51
+msgid "Upcoming Events"
+msgstr "Yaklaşan Etkinlikler"
+
+#: ../events-calendar-pro.php:280 ../events-calendar-pro.php:321
+msgid "All events for"
+msgstr "Tüm etkinlikler"
+
+#: ../events-calendar-pro.php:328
+#, php-format
+msgid "Events for week of %s"
+msgstr "%s haftası için etkinlikler"
+
+#: ../events-calendar-pro.php:817 ../admin-views/tribe-options-defaults.php:35
+msgid "Default Content"
+msgstr "Varsayılan İçerik"
+
+#: ../events-calendar-pro.php:819 ../admin-views/event-meta-options.php:3
+msgid "Additional Fields"
+msgstr "Ek Alanlar"
+
+#: ../events-calendar-pro.php:828
+msgid ""
+"Thanks for buying Events Calendar PRO! From all of us at Modern Tribe, we "
+"sincerely appreciate it. If you're looking for help with Events Calendar "
+"PRO, you've come to the right place. We are committed to helping make your "
+"calendar kick ass... and hope the resources provided below will help get you "
+"there."
+msgstr ""
+"Events Calendar Pro'yu satın aldığınız için teşekkürler! Modern Tribe olarak "
+"sizi tebrik ediyoruz. Events Calendar Pro ile ilgili destek arıyorsanız "
+"doğru yerdesiniz. Takviminizi can alıcı şekilde yapmanız için yardımcı "
+"olmakta kararlıyız. Umarız sağlanan kaynaklar aradığınıza ulaşmanızda "
+"yardımcı olacaktır."
+
+#: ../events-calendar-pro.php:839
+msgid ""
+"If this is your first time using The Events Calendar Pro, you're in for a "
+"treat and are already well on your way to creating a first event. Here are "
+"some basics we've found helpful for users jumping into it for the first time:"
+msgstr "Eğer The Events Calendar Pro'yu ilk defa kullanıyorsanız, "
+
+#: ../events-calendar-pro.php:842
+#, php-format
+msgid ""
+"%sOur New User Primer%s was designed for folks in your exact position. "
+"Featuring both step-by-step videos and written walkthroughs that feature "
+"accompanying screenshots, the primer aims to take you from zero to hero in "
+"no time."
+msgstr ""
+
+#: ../events-calendar-pro.php:844
+#, php-format
+msgid ""
+"%sInstallation/Setup FAQs%s from our support page can help give an overview "
+"of what the plugin can and cannot do. This section of the FAQs may be "
+"helpful as it aims to address any basic install questions not addressed by "
+"the new user primer."
+msgstr ""
+
+#: ../events-calendar-pro.php:846
+#, php-format
+msgid ""
+"Are you developer looking to build your own frontend view? We created an "
+"example plugin that demonstrates how to register a new view. You can "
+"%sdownload the plugin at GitHub%s to get started."
+msgstr ""
+
+#: ../events-calendar-pro.php:848
+#, php-format
+msgid ""
+"Take care of your license key. Though not required to create your first "
+"event, you'll want to get it in place as soon as possible to guarantee your "
+"access to support and upgrades. %sHere's how to find your license key%s, if "
+"you don't have it handy."
+msgstr ""
+
+#: ../events-calendar-pro.php:850
+msgid ""
+"Otherwise, if you're feeling adventurous, you can get started by heading to "
+"the Events menu and adding your first event."
+msgstr ""
+
+#: ../events-calendar-pro.php:862
+#, php-format
+msgid ""
+"Written documentation can only take things so far...sometimes, you need help "
+"from a real person. This is where our %ssupport forums%s come into play."
+msgstr ""
+
+#: ../events-calendar-pro.php:863
+#, php-format
+msgid ""
+"Users who have purchased an Events Calendar PRO license are granted total "
+"access to our %spremium support forums%s. Unlike at the %sWordPress.org "
+"support forum%s, where our involvement is limited to identifying and "
+"patching bugs, we have a dedicated support team for PRO users. We're on the "
+"PRO forums daily throughout the business week, and no thread should go more "
+"than 24-hours without a response."
+msgstr ""
+
+#: ../events-calendar-pro.php:864
+msgid ""
+"Our number one goal is helping you succeed, and to whatever extent possible, "
+"we'll help troubleshoot and guide your customizations or tweaks. While we "
+"won't build your site for you, and we can't guarantee we'll be able to get "
+"you 100% integrated with every theme or plugin out there, we'll do all we "
+"can to point you in the right direction and to make you -- and your client, "
+"as is often more importantly the case -- satisfied."
+msgstr ""
+
+#: ../events-calendar-pro.php:865
+msgid ""
+"Before posting a new thread, please do a search to make sure your issue "
+"hasn't already been addressed. When posting please make sure to provide as "
+"much detail about the problem as you can (with screenshots or screencasts if "
+"feasible), and make sure that you've identified whether a plugin / theme "
+"conflict could be at play in your initial message."
+msgstr ""
+
+#: ../events-calendar-pro.php:939
+msgid "Day View"
+msgstr "Gün Görünümü"
+
+#: ../events-calendar-pro.php:942
+msgid "Week View"
+msgstr "Hafta Görünümü"
+
+#: ../events-calendar-pro.php:1335
+msgid "Settings"
+msgstr "Ayarlar"
+
+#: ../events-calendar-pro.php:1398
+#, php-format
+msgid "Calendar powered by %sThe Events Calendar PRO%s"
+msgstr "Powered by %sThe Events Calendar PRO%s"
+
+#: ../events-calendar-pro.php:1411
+msgid "Support"
+msgstr "Destek"
+
+#: ../events-calendar-pro.php:1413
+msgid "View All Add-Ons"
+msgstr "Tüm Eklentileri Görüntüle"
+
+#: ../events-calendar-pro.php:1463
+msgid "Week"
+msgstr "Hafta"
+
+#: ../events-calendar-pro.php:1479 ../admin-views/event-recurrence.php:82
+#: ../admin-views/event-recurrence.php:127
+msgid "Day"
+msgstr "Gün"
+
+#: ../events-calendar-pro.php:1495
+msgid "Photo"
+msgstr "Foto"
+
+#: ../events-calendar-pro.php:1511
+msgid "Day Of"
+msgstr "Günü"
+
+#: ../events-calendar-pro.php:1513
+msgid "Week Of"
+msgstr "Haftası"
+
+#: ../events-calendar-pro.php:1634
+msgid "The Events Calendar"
+msgstr "Etkinlikler Takvimi"
+
+#: ../events-calendar-pro.php:1635
+#, php-format
+msgid ""
+"To begin using Events Calendar PRO, please install the latest version of <a "
+"href=\"%s\" class=\"thickbox\" title=\"%s\">The Events Calendar</a>."
+msgstr ""
+"Events Calendar Pro'yu kullanmak için, lütfen <a href=\"%s\" class=\"thickbox"
+"\" title=\"%s\">The Events Calendar</a>'ın son versyonunu indiriniz."
+
+#: ../admin-views/event-defaults.php:1
+msgid "Customize Defaults"
+msgstr "Varsayılanları Ayarla"
+
+#: ../admin-views/event-defaults.php:2
+msgid ""
+"These settings change the default event form. For example, if you set a "
+"default venue, this field will be automatically filled in on a new event."
+msgstr ""
+"Bu ayarlar varsayılan etkinlik formunu değiştirir. Örneğin; varsayılan bir "
+"mekan belirtmeniz halinde, yeni etkinliklerde mekan alanı otomatik olarak "
+"belirttiğiniz mekan olacaktır."
+
+#: ../admin-views/event-defaults.php:5 ../admin-views/event-defaults.php:9
+#: ../admin-views/tribe-options-defaults.php:55
+msgid "Automatically replace empty fields with default values"
+msgstr "Boş alanları otomatik olarak varsayılan değerler ile değiştir."
+
+#: ../admin-views/event-defaults.php:13
+msgid "Enabled"
+msgstr "Etkin"
+
+#: ../admin-views/event-defaults.php:19
+msgid "Default Organizer for Events"
+msgstr "Etkinlikler için varsayılan Organizatör"
+
+#: ../admin-views/event-defaults.php:22
+msgid "Default Organizer"
+msgstr "Varsayılan Organizatör"
+
+#: ../admin-views/event-defaults.php:23
+msgid "The default organizer value"
+msgstr "Varsayılan organizatör değeri"
+
+#: ../admin-views/event-defaults.php:23 ../admin-views/event-defaults.php:31
+#: ../admin-views/event-defaults.php:38 ../admin-views/event-defaults.php:45
+#: ../admin-views/event-defaults.php:66 ../admin-views/event-defaults.php:74
+#: ../admin-views/event-defaults.php:82 ../admin-views/event-defaults.php:108
+#, php-format
+msgid "The current default value is <strong>%s</strong>"
+msgstr "Aktif Varsayılan değer <strong>%s</strong>"
+
+#: ../admin-views/event-defaults.php:27
+msgid "Default Venue for Events"
+msgstr "Etkinlikler için varsayılan Mekan"
+
+#: ../admin-views/event-defaults.php:30
+msgid "Default Venue"
+msgstr "Varsayılan Mekan"
+
+#: ../admin-views/event-defaults.php:31
+msgid "The default venue value"
+msgstr "Aktif varsayılan mekan değeri"
+
+#: ../admin-views/event-defaults.php:35 ../admin-views/event-defaults.php:37
+msgid "Default Address"
+msgstr "Varsayılan adres"
+
+#: ../admin-views/event-defaults.php:38
+msgid "The default address value"
+msgstr "Varsayılan adres değeri"
+
+#: ../admin-views/event-defaults.php:42 ../admin-views/event-defaults.php:44
+msgid "Default City"
+msgstr "Varsayılan İlçe"
+
+#: ../admin-views/event-defaults.php:45
+msgid "The default city value"
+msgstr "Varsayılan ilçe değeri"
+
+#: ../admin-views/event-defaults.php:50
+msgid "Default State"
+msgstr ""
+
+#: ../admin-views/event-defaults.php:52 ../admin-views/event-defaults.php:73
+msgid "Default Province or State"
+msgstr ""
+
+#: ../admin-views/event-defaults.php:55
+msgid "Select a State:"
+msgstr "Varsayılan Ülke:"
+
+#: ../admin-views/event-defaults.php:66 ../admin-views/event-defaults.php:74
+msgid "The default  value"
+msgstr "Varsayılan değer"
+
+#: ../admin-views/event-defaults.php:71
+msgid "Default Province"
+msgstr "Varsayılan İl"
+
+#: ../admin-views/event-defaults.php:79 ../admin-views/event-defaults.php:81
+msgid "Default Postal Code"
+msgstr "Varsayılan Posta Kodu"
+
+#: ../admin-views/event-defaults.php:82
+msgid "The default Postal Code value"
+msgstr "Varsayılan posta kodu değeri"
+
+#: ../admin-views/event-defaults.php:87
+msgid "Default Country for Events"
+msgstr "Etkinlikler için varsayılan ülke"
+
+#: ../admin-views/event-defaults.php:105 ../admin-views/event-defaults.php:107
+msgid "Default Phone"
+msgstr "Varsayılan Telefon"
+
+#: ../admin-views/event-defaults.php:108
+msgid "The default phone value"
+msgstr "Varsayılan telefon değeri"
+
+#: ../admin-views/event-defaults.php:112
+#: ../admin-views/tribe-options-defaults.php:198
+msgid "Use a custom list of countries"
+msgstr "Ülkeler için özelleştirilmiş liste kullan"
+
+#: ../admin-views/event-defaults.php:114
+msgid "Use the following list:"
+msgstr "Bu listeyi kullan:"
+
+#: ../admin-views/event-defaults.php:116
+msgid ""
+"One country per line in the following format: <br/>US, United States <br/> "
+"UK, United Kingdom."
+msgstr ""
+"Format her satırda bir ülke şeklinde olmalıdır: <br/>TR, Türkiye <br/> UK, "
+"United Kingdom."
+
+#: ../admin-views/event-defaults.php:116
+msgid "(Replaces the default list.)"
+msgstr "(Varsayılan liste ile yer değiştirir.)"
+
+#: ../admin-views/event-meta-options.php:4
+msgid ""
+"Use additional fields to add unique content fields to the event admin, which "
+"can be used by anyone who creates events. Upon publication they'll appear in "
+"the event metabox that accompanies your event listing, alongside the date/"
+"time/venue/organizer/etc. </p><p>Each new piece of data needs:"
+msgstr ""
+"Use additional fields to add unique content fields to the event admin, which "
+"can be used by anyone who creates events. Upon publication they'll appear in "
+"the event metabox that accompanies your event listing, alongside the date/"
+"time/venue/organizer/etc. </p><p>Each new piece of data needs:"
+
+#: ../admin-views/event-meta-options.php:6
+msgid "Label (e.g. Meal Plans)"
+msgstr "Etiket (ör: Yemek Planları)"
+
+#: ../admin-views/event-meta-options.php:7
+msgid "At least one option (e.g. Vegetarian, Kosher, Paleo)"
+msgstr "En az bir seçenek (ör: Vejetaryan, Temiz)"
+
+#: ../admin-views/event-meta-options.php:8
+msgid "Field type. These are:"
+msgstr "Alan türü. Bunlar:"
+
+#: ../admin-views/event-meta-options.php:10
+msgid "Text - for the user to input text"
+msgstr "Metin - kullanıcı için metin giril alanı"
+
+#: ../admin-views/event-meta-options.php:11
+msgid "URL - for the user to input a URL"
+msgstr "Link - Kullanıcının link girmesi için"
+
+#: ../admin-views/event-meta-options.php:12
+msgid "Checkbox - for multiple choice"
+msgstr "Checkbox - çoklu seçim için"
+
+#: ../admin-views/event-meta-options.php:13
+msgid "Radio Button - to select only one"
+msgstr "Radyo butonu - sadece tek seçim için"
+
+#: ../admin-views/event-meta-options.php:14
+msgid "Dropdown Menu - for a dropdown menu"
+msgstr "Açılır menü - aşağı açılır menü için"
+
+#: ../admin-views/event-meta-options.php:19
+msgid "Field Label"
+msgstr "Alan etiketi"
+
+#: ../admin-views/event-meta-options.php:19
+msgid "Field Type"
+msgstr "Alan tipi"
+
+#: ../admin-views/event-meta-options.php:19
+msgid "Options (one per line)"
+msgstr "Seçenekler (her satır tek)"
+
+#: ../admin-views/event-meta-options.php:27
+msgid "Text"
+msgstr "Metin"
+
+#: ../admin-views/event-meta-options.php:28
+msgid "URL"
+msgstr "Link"
+
+#: ../admin-views/event-meta-options.php:29
+msgid "Radio"
+msgstr "Radyo"
+
+#: ../admin-views/event-meta-options.php:30
+msgid "Checkbox"
+msgstr "Checkbox"
+
+#: ../admin-views/event-meta-options.php:31
+msgid "Dropdown"
+msgstr "Açılır Liste"
+
+#: ../admin-views/event-meta-options.php:37
+msgid "Add another"
+msgstr "Başka ekle"
+
+#: ../admin-views/event-meta-options.php:39
+msgid "Remove"
+msgstr "Kaldır"
+
+#: ../admin-views/event-meta-options.php:47
+#, php-format
+msgid ""
+"Enter the field label as you want it to appear (this will be the label in "
+"the same way \"Start Date,\" \"Organizer,\" etc appear in the event details "
+"box on the frontend). Select whether the field will be a text field; URL "
+"field; radio buttons; checkboxes; or a dropdown. All of these with the "
+"exception of text and URL allow for multiple options to be included, which "
+"you can add — one per-line — in the right-hand column. If you feel "
+"flummoxed, we've got you covered with a %s."
+msgstr ""
+"Enter the field label as you want it to appear (this will be the label in "
+"the same way \"Start Date,\" \"Organizer,\" etc appear in the event details "
+"box on the frontend). Select whether the field will be a text field; URL "
+"field; radio buttons; checkboxes; or a dropdown. All of these with the "
+"exception of text and URL allow for multiple options to be included, which "
+"you can add — one per-line — in the right-hand column. If you feel "
+"flummoxed, we've got you covered with a %s."
+
+#: ../admin-views/event-meta-options.php:48
+msgid "video tutorial that will walk you through the process"
+msgstr "işlemi ilerletmek için öğretici video"
+
+#: ../admin-views/event-meta-options.php:51
+msgid "Editor \"Custom Fields\" meta box"
+msgstr "Editör \"Custom Fields\" meta box"
+
+#: ../admin-views/event-meta-options.php:53
+msgid "Show"
+msgstr "Göster"
+
+#: ../admin-views/event-meta-options.php:54
+msgid "Hide"
+msgstr "Gizle"
+
+#: ../admin-views/event-meta-options.php:55
+msgid ""
+"Enabling this option this will not remove custom field data or "
+"functionality, just the default meta box editor."
+msgstr ""
+"Bu özelliği aktif etmek Custom Field verisini ya da özelliğini kaldırmaz, "
+"sadece meta box editorüdür. "
+
+#: ../admin-views/event-meta-options.php:64
+msgid ""
+"Are you sure you wish to remove this field and its data from all events? "
+"Once you click OK this cannot be undone."
+msgstr ""
+"Bu alanı ve içerisindeki etkinlik verisini kaldırma işleminden emin misiniz? "
+"Bir kere onayladığınızda, geri alınamaz. "
+
+#: ../admin-views/event-meta.php:7
+msgid "Additional Event Fields"
+msgstr "Ek etkinlik alanları"
+
+#: ../admin-views/event-recurrence.php:2
+msgid "Recurrence:"
+msgstr "Yinelenen:"
+
+#: ../admin-views/event-recurrence.php:8
+msgid "None"
+msgstr "Hiçbiri"
+
+#: ../admin-views/event-recurrence.php:9
+msgid "Every Day"
+msgstr "Her gün"
+
+#: ../admin-views/event-recurrence.php:10
+msgid "Every Week"
+msgstr "Her hafta"
+
+#: ../admin-views/event-recurrence.php:11
+msgid "Every Month"
+msgstr "Her ay"
+
+#: ../admin-views/event-recurrence.php:12
+msgid "Every Year"
+msgstr "Her yıl"
+
+#: ../admin-views/event-recurrence.php:13
+msgid "Custom"
+msgstr "Varsayılan"
+
+#: ../admin-views/event-recurrence.php:16
+msgid "and will end"
+msgstr "ve bitecek"
+
+#: ../admin-views/event-recurrence.php:18
+msgid "On"
+msgstr "da"
+
+#: ../admin-views/event-recurrence.php:19
+msgid "After"
+msgstr "Sonra"
+
+#: ../admin-views/event-recurrence.php:23
+msgid "You must select a recurrence end date"
+msgstr "Yineleme bitiş tarihi seçmelisiniz."
+
+#: ../admin-views/event-recurrence.php:30
+msgid "Frequency"
+msgstr "Sıklık"
+
+#: ../admin-views/event-recurrence.php:32
+msgid "Day(s)"
+msgstr "Gün(ler)"
+
+#: ../admin-views/event-recurrence.php:32
+msgid "Daily"
+msgstr "Günlük"
+
+#: ../admin-views/event-recurrence.php:33
+msgid "Week(s) on:"
+msgstr "Hafta(lar)da:"
+
+#: ../admin-views/event-recurrence.php:33
+msgid "Weekly"
+msgstr "Haftalık"
+
+#: ../admin-views/event-recurrence.php:34
+msgid "Month(s) on the:"
+msgstr "Ay(lar)da:"
+
+#: ../admin-views/event-recurrence.php:34
+msgid "Monthly"
+msgstr "Aylık"
+
+#: ../admin-views/event-recurrence.php:35
+msgid "Year(s) on:"
+msgstr "Yıl(lar)da:"
+
+#: ../admin-views/event-recurrence.php:35
+msgid "Yearly"
+msgstr "Yıllık"
+
+#: ../admin-views/event-recurrence.php:37
+msgid "Every"
+msgstr "Her"
+
+#: ../admin-views/event-recurrence.php:41
+msgid "Frequency of recurring event must be a number"
+msgstr "Yinelenen etkinlik sıklığı rakam olmalıdır"
+
+#: ../admin-views/event-recurrence.php:49
+msgid "M"
+msgstr "P.tesi"
+
+#: ../admin-views/event-recurrence.php:50
+msgid "Tu"
+msgstr "Salı"
+
+#: ../admin-views/event-recurrence.php:51
+msgid "W"
+msgstr "Çarş"
+
+#: ../admin-views/event-recurrence.php:52
+msgid "Th"
+msgstr "Perş"
+
+#: ../admin-views/event-recurrence.php:53
+msgid "F"
+msgstr "Cuma"
+
+#: ../admin-views/event-recurrence.php:54
+msgid "Sa"
+msgstr "C.tesi"
+
+#: ../admin-views/event-recurrence.php:55
+msgid "Su"
+msgstr "Pazar"
+
+#: ../admin-views/event-recurrence.php:63
+#: ../admin-views/event-recurrence.php:112
+msgid "First"
+msgstr "İlk"
+
+#: ../admin-views/event-recurrence.php:64
+#: ../admin-views/event-recurrence.php:113
+msgid "Second"
+msgstr "İkinci"
+
+#: ../admin-views/event-recurrence.php:65
+#: ../admin-views/event-recurrence.php:114
+msgid "Third"
+msgstr "Üçüncü"
+
+#: ../admin-views/event-recurrence.php:66
+#: ../admin-views/event-recurrence.php:115
+msgid "Fourth"
+msgstr "Dördüncü"
+
+#: ../admin-views/event-recurrence.php:67
+#: ../admin-views/event-recurrence.php:116
+msgid "Last"
+msgstr "Son"
+
+#: ../admin-views/event-recurrence.php:74
+#: ../admin-views/event-recurrence.php:119
+#: ../lib/tribe-events-recurrence-meta.class.php:654
+msgid "Monday"
+msgstr "Pazartesi"
+
+#: ../admin-views/event-recurrence.php:75
+#: ../admin-views/event-recurrence.php:120
+#: ../lib/tribe-events-recurrence-meta.class.php:654
+msgid "Tuesday"
+msgstr "Salı"
+
+#: ../admin-views/event-recurrence.php:76
+#: ../admin-views/event-recurrence.php:121
+#: ../lib/tribe-events-recurrence-meta.class.php:654
+msgid "Wednesday"
+msgstr "Çarşamba"
+
+#: ../admin-views/event-recurrence.php:77
+#: ../admin-views/event-recurrence.php:122
+#: ../lib/tribe-events-recurrence-meta.class.php:654
+msgid "Thursday"
+msgstr "Perşembe"
+
+#: ../admin-views/event-recurrence.php:78
+#: ../admin-views/event-recurrence.php:123
+#: ../lib/tribe-events-recurrence-meta.class.php:654
+msgid "Friday"
+msgstr "Cuma"
+
+#: ../admin-views/event-recurrence.php:79
+#: ../admin-views/event-recurrence.php:124
+#: ../lib/tribe-events-recurrence-meta.class.php:654
+msgid "Saturday"
+msgstr "Cumartesi"
+
+#: ../admin-views/event-recurrence.php:80
+#: ../admin-views/event-recurrence.php:125
+#: ../lib/tribe-events-recurrence-meta.class.php:654
+msgid "Sunday"
+msgstr "Pazar"
+
+#: ../admin-views/event-recurrence.php:91
+msgid "Jan"
+msgstr "Ocak"
+
+#: ../admin-views/event-recurrence.php:92
+msgid "Feb"
+msgstr "Şubat"
+
+#: ../admin-views/event-recurrence.php:93
+msgid "Mar"
+msgstr "Mart"
+
+#: ../admin-views/event-recurrence.php:94
+msgid "Apr"
+msgstr "Nisan"
+
+#: ../admin-views/event-recurrence.php:95
+#: ../lib/tribe-events-recurrence-meta.class.php:680
+msgid "May"
+msgstr "Mayıs"
+
+#: ../admin-views/event-recurrence.php:96
+msgid "Jun"
+msgstr "Haziran"
+
+#: ../admin-views/event-recurrence.php:100
+msgid "Jul"
+msgstr "Temmuz"
+
+#: ../admin-views/event-recurrence.php:101
+msgid "Aug"
+msgstr "Ağustos"
+
+#: ../admin-views/event-recurrence.php:102
+msgid "Sep"
+msgstr "Eylül"
+
+#: ../admin-views/event-recurrence.php:103
+msgid "Oct"
+msgstr "Ekim"
+
+#: ../admin-views/event-recurrence.php:104
+msgid "Nov"
+msgstr "Kasım"
+
+#: ../admin-views/event-recurrence.php:105
+msgid "Dec"
+msgstr "Aralık"
+
+#: ../admin-views/event-recurrence.php:110
+msgid "On the:"
+msgstr "On the:"
+
+#: ../admin-views/event-recurrence.php:135
+#: ../views/tribe-ECP-views-old/views/single-venue.php:58
+msgid "Description:"
+msgstr "Açıklama:"
+
+#: ../admin-views/event-recurrence.php:143
+msgid "Recurrence Description:"
+msgstr "Yineleme açıklaması"
+
+#: ../admin-views/event-recurrence.php:148
+msgid ""
+"Create a custom plain language description of the recurrance. Leave it blank "
+"and we'll automate it."
+msgstr ""
+"Yineleme için basit dil açıklaması oluşturun. Otomatikleştirmemiz için boş "
+"bırakın."
+
+#: ../admin-views/support-form.php:11
+msgid "Need help? Send us a support request."
+msgstr "Yardıma mı ihtiyacınız var? Bize yardım talebi gönderin."
+
+#: ../admin-views/support-form.php:14
+#, php-format
+msgid ""
+"Tell us about the problem you're seeing in as much detail as possible. "
+"Please note that we'll also be sending some basic system information along "
+"with this request so that we can better diagnose the issue. If you would "
+"like to contact us without sending any system information, please visit our "
+"support page at %s. Thanks!"
+msgstr ""
+"Probleminiz hakkında tespit ettiğiniz ve mümkün olan tüm detayları "
+"aktarınız. Sorunu daha iyi anlayabilmemiz için bazı sistem bilgilerinizi "
+"gönderiniz. Böylelikle sorunu daha kolay teşhis edebiliriz. Eğer hiç bir "
+"bilgi göndermeden iletişim kurmak istiyorsanız lütfen %s adresindeki destek "
+"sayfamızı ziyaret ediniz. Teşekkürler!"
+
+#: ../admin-views/support-form.php:18
+msgid "Send a Support Request"
+msgstr "Destek talebi gönder"
+
+#: ../admin-views/tribe-options-defaults.php:6
+#: ../admin-views/tribe-options-defaults.php:15
+msgid "No Default"
+msgstr "Varsayılan yok"
+
+#: ../admin-views/tribe-options-defaults.php:22
+msgid "Select a State"
+msgstr ""
+
+#: ../admin-views/tribe-options-defaults.php:39
+msgid ""
+"<p>Choose the default venue & organizer. Set default address information to "
+"save time when entering a new venue or organizer.</p><p>You can override "
+"these settings as you enter a new event.</p>"
+msgstr ""
+"<p>Choose the default venue & organizer. Set default address information to "
+"save time when entering a new venue or organizer.</p><p>You can override "
+"these settings as you enter a new event.</p>"
+
+#: ../admin-views/tribe-options-defaults.php:51
+msgid "Options"
+msgstr "Seçenekler"
+
+#: ../admin-views/tribe-options-defaults.php:61
+msgid ""
+"Check this box to have the organizer and venue fields pre-populated with the "
+"default values below for any new event that is created."
+msgstr ""
+"Check this box to have the organizer and venue fields pre-populated with the "
+"default values below for any new event that is created."
+
+#: ../admin-views/tribe-options-defaults.php:65
+#: ../admin-views/widget-admin-advanced-list.php:29 ../lib/apm_filters.php:44
+msgid "Organizer"
+msgstr "Organizatör"
+
+#: ../admin-views/tribe-options-defaults.php:69
+msgid "Default organizer"
+msgstr "Varsayılan organizatör"
+
+#: ../admin-views/tribe-options-defaults.php:73
+msgid "No saved organizers yet."
+msgstr "Henüz kaydedilmiş organizatör yok."
+
+#: ../admin-views/tribe-options-defaults.php:82
+#: ../admin-views/widget-admin-advanced-list.php:28 ../lib/apm_filters.php:39
+msgid "Venue"
+msgstr "Mekan"
+
+#: ../admin-views/tribe-options-defaults.php:86
+msgid "Default venue"
+msgstr "Varsayılan mekan"
+
+#: ../admin-views/tribe-options-defaults.php:90
+msgid "No saved venues yet."
+msgstr "Kaydedilmiş mekan yok."
+
+#: ../admin-views/tribe-options-defaults.php:99
+#: ../admin-views/widget-admin-advanced-list.php:30
+msgid "Address"
+msgstr "Adres"
+
+#: ../admin-views/tribe-options-defaults.php:103
+msgid ""
+"You can use this setting to set specific, individual defaults for any new "
+"Venue you create (these will not be used for your default venue)."
+msgstr ""
+"Brug denne indstilling til at tilføje individuelle standardYou can use this "
+"setting to set specific, individual defaults for any new Venue you create "
+"(these will not be used for your default venue).er for nye steder, som "
+"oprettes (disse standarder vil ikke bruges til dit standard sted)."
+
+#: ../admin-views/tribe-options-defaults.php:107
+msgid "Default address"
+msgstr "Varsayılan adres"
+
+#: ../admin-views/tribe-options-defaults.php:120
+msgid "Default city"
+msgstr "Varsayılan ilçe"
+
+#: ../admin-views/tribe-options-defaults.php:133
+msgid "Default state"
+msgstr ""
+
+#: ../admin-views/tribe-options-defaults.php:146
+msgid "Default province"
+msgstr "Varsayılan şehir"
+
+#: ../admin-views/tribe-options-defaults.php:159
+msgid "Default postal code/zip code"
+msgstr "Varsayılan posta kodu"
+
+#: ../admin-views/tribe-options-defaults.php:172
+msgid "Default country"
+msgstr "Varsayılan ülke"
+
+#: ../admin-views/tribe-options-defaults.php:185
+msgid "Default phone"
+msgstr "Varsayılan telefon"
+
+#: ../admin-views/tribe-options-defaults.php:201
+msgid ""
+"One country per line in the following format: <br>US, United States <br> UK, "
+"United Kingdom. <br> (Replaces the default list.)"
+msgstr ""
+"Format her satırda bir ülke şeklinde olmalıdır: <br/>TR, Türkiye <br/> UK, "
+"United Kingdom. (Varsayılan listeyi değiştirir.)"
+
+#: ../admin-views/widget-admin-advanced-list.php:11
+#: ../admin-views/widget-admin-calendar.php:10
+#: ../admin-views/widget-admin-countdown.php:10
+#: ../admin-views/widget-admin-venue.php:9
+#: ../admin-views/widget-calendar.php:2
+#: ../vendor/tribe-related-posts/tribe-related-posts-widget.php:70
+msgid "Title:"
+msgstr "Başlık:"
+
+#: ../admin-views/widget-admin-advanced-list.php:16
+#: ../admin-views/widget-admin-venue.php:20
+#: ../admin-views/widget-calendar.php:8
+msgid "Number of events to show:"
+msgstr "Gösterilecek etkinlik sayısı:"
+
+#: ../admin-views/widget-admin-advanced-list.php:25
+msgid "Display:"
+msgstr "Göster:"
+
+#: ../admin-views/widget-admin-advanced-list.php:31
+msgid "City"
+msgstr "İlçe"
+
+#: ../admin-views/widget-admin-advanced-list.php:32
+msgid "State (US) Or Province (Int)"
+msgstr ""
+
+#: ../admin-views/widget-admin-advanced-list.php:33
+msgid "Postal Code"
+msgstr "Posta Kodu"
+
+#: ../admin-views/widget-admin-advanced-list.php:34
+msgid "Country"
+msgstr "Ülke"
+
+#: ../admin-views/widget-admin-advanced-list.php:35
+msgid "Phone"
+msgstr "Telefon"
+
+#: ../admin-views/widget-admin-advanced-list.php:36
+msgid "Price"
+msgstr "Ücret"
+
+#: ../admin-views/widget-admin-advanced-list.php:43
+msgid "Category:"
+msgstr "Kategori:"
+
+#: ../admin-views/widget-admin-advanced-list.php:47
+msgid "All Events"
+msgstr "Tüm Etkinlikler"
+
+#: ../admin-views/widget-admin-advanced-list.php:58
+#: ../admin-views/widget-admin-venue.php:28
+msgid "Hide this widget if there are no upcoming events:"
+msgstr "Yaklaşan etkinlik olmaması halinde bileşeni gizle:"
+
+#: ../admin-views/widget-admin-countdown.php:12
+msgid "Event:"
+msgstr "Etkinlik:"
+
+#: ../admin-views/widget-admin-countdown.php:21
+msgid "Show seconds:"
+msgstr "Saniyeleri göster:"
+
+#: ../admin-views/widget-admin-countdown.php:24
+msgid "Countdown Completed Text:"
+msgstr "Gerisayım tamamlandı metni:"
+
+#: ../admin-views/widget-admin-venue.php:11
+msgid "Venue:"
+msgstr "Mekan:"
+
+#: ../admin-views/widget-calendar.php:24
+msgid "Filters"
+msgstr "Filtre"
+
+#: ../admin-views/widget-calendar.php:42
+msgid "remove"
+msgstr "kaldır"
+
+#: ../admin-views/widget-calendar.php:53
+msgid "Match all"
+msgstr "Tüm eşleşenler"
+
+#: ../admin-views/widget-calendar.php:56
+msgid "Match any"
+msgstr "Eşleşen herhangi biri"
+
+#: ../admin-views/widget-calendar.php:60
+msgid "Add a filter"
+msgstr "Filtre ekle"
+
+#: ../admin-views/widget-calendar.php:63
+msgid "Select one..."
+msgstr "Birini seçin..."
+
+#: ../lib/apm_filters.php:49
+msgid "Start Date"
+msgstr "Başlangıç Tarihi"
+
+#: ../lib/apm_filters.php:54
+msgid "End Date"
+msgstr "Bitiş Tarihi"
+
+#: ../lib/apm_filters.php:59
+msgid "Event Cost"
+msgstr "Etkinlik Ücreti"
+
+#: ../lib/apm_filters.php:64
+msgid "Event Cats"
+msgstr "Etkinlik kategorileri"
+
+#: ../lib/apm_filters.php:69
+msgid "Title"
+msgstr "Başlık"
+
+#: ../lib/apm_filters.php:74
+msgid "Recurring"
+msgstr "Yinelenen"
+
+#: ../lib/apm_filters.php:79
+msgid "Description"
+msgstr "Açıklama"
+
+#: ../lib/meta-pro.php:97
+msgid "Other"
+msgstr "Diğer"
+
+#: ../lib/meta-pro.php:121
+msgid "Recurrence Pattern:"
+msgstr "Yinelenen desen:"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:462
+msgid ""
+"Monthly custom recurrences cannot have a dash set as the day to occur on."
+msgstr ""
+"Aylık özel yinelemeler günlükler gibi ayarlanmış bir çizgiye sahip olamaz."
+
+#: ../lib/tribe-events-recurrence-meta.class.php:465
+msgid ""
+"Yearly custom recurrences cannot have a dash set as the day to occur on."
+msgstr ""
+"Yıllık özel yinelemeler günlükler gibi ayarlanmış bir çizgiye sahip olamaz."
+
+#: ../lib/tribe-events-recurrence-meta.class.php:592
+#: ../lib/tribe-events-recurrence-meta.class.php:607
+msgid "Every day"
+msgstr "Her gün"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:593
+#, php-format
+msgid " for %d day"
+msgid_plural " for %d days"
+msgstr[0] "%d günü için"
+msgstr[1] "%d günleri için"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:596
+#: ../lib/tribe-events-recurrence-meta.class.php:612
+msgid "Every week"
+msgstr "Her hafta"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:597
+#, php-format
+msgid " for %d week"
+msgid_plural " for %d weeks"
+msgstr[0] "%d haftası için"
+msgstr[1] "%d haftaları için"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:599
+#: ../lib/tribe-events-recurrence-meta.class.php:618
+msgid "Every month"
+msgstr "Her ay"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:600
+#, php-format
+msgid " for %d month"
+msgid_plural " for %d months"
+msgstr[0] "%d ayı için"
+msgstr[1] "%d ayları için"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:602
+#: ../lib/tribe-events-recurrence-meta.class.php:625
+msgid "Every year"
+msgstr "Her yıl"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:603
+#, php-format
+msgid " for %d year"
+msgid_plural " for %d years"
+msgstr[0] "%d yılı için"
+msgstr[1] "%d yılları için"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:608
+#, php-format
+msgid "Every %d days"
+msgstr "Her %d. gün"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:609
+#: ../lib/tribe-events-recurrence-meta.class.php:615
+#: ../lib/tribe-events-recurrence-meta.class.php:622
+#: ../lib/tribe-events-recurrence-meta.class.php:634
+#, php-format
+msgid ", recurring %d time"
+msgid_plural ", recurring %d times"
+msgstr[0] ", yinelenen %d zaman"
+msgstr[1] ", gentages %d gange"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:613
+#, php-format
+msgid "Every %d weeks"
+msgstr "Her  %d. haftalar"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:614
+#, php-format
+msgid " on %s"
+msgstr "%s 'de/da"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:619
+#, php-format
+msgid "Every %d months"
+msgstr "Her %d. aylar"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:621
+#, php-format
+msgid " on the %s %s"
+msgstr "%s %s 'de/da"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:626
+#, php-format
+msgid "Every %d years"
+msgstr "Her %d. yıllar"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:628
+msgid "last"
+msgstr "son"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:633
+#, php-format
+msgid " on the %s %s of %s"
+msgstr " on the %s %s of %s"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:640
+#, php-format
+msgid " until %s"
+msgstr "%s e kadar"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:645
+#, php-format
+msgid "%s%s%s"
+msgstr "%s%s%s"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:660
+msgid ", and"
+msgstr ", ve"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:662
+msgid "and"
+msgstr "ve"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:664
+msgid ","
+msgstr ","
+
+#: ../lib/tribe-events-recurrence-meta.class.php:679
+msgid "January"
+msgstr "Ocak"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:679
+msgid "February"
+msgstr "Şubat"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:679
+msgid "March"
+msgstr "Mart"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:679
+msgid "April"
+msgstr "Nisan"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:680
+msgid "June"
+msgstr "Haziran"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:680
+msgid "July"
+msgstr "Temmuz"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:680
+msgid "August"
+msgstr "Ağustos"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:680
+msgid "September"
+msgstr "Eylül"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:680
+msgid "October"
+msgstr "Ekim"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:680
+msgid "November"
+msgstr "Kasım"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:680
+msgid "December"
+msgstr "Aralık"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:686
+msgid ", and "
+msgstr ", ve"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:688
+msgid " and "
+msgstr "ve"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:690
+#, fuzzy
+msgid ", "
+msgstr ","
+
+#: ../lib/tribe-events-recurrence-meta.class.php:747
+msgid "Recurring event instances"
+msgstr "Yinelenen etkinlik durumları"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:748
+msgid "Show only the first instance of each recurring event."
+msgstr "Her yinelenen etkinlik için sadece ilk durumu göster."
+
+#: ../lib/tribe-events-recurrence-meta.class.php:754
+msgid "Front-end recurring event instances toggle"
+msgstr "Front-end yinelenen etkinliklerde geçiş"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:755
+msgid ""
+"Allow users to decide whether to show all instances of a recurring event."
+msgstr ""
+"Kullanıcılara yinelenen bir olayın tüm örneklerini göstermek için karar "
+"vermesine izin ver."
+
+#: ../lib/tribe-events-recurrence-meta.class.php:811
+msgid "Your recurrence pattern would create greater than "
+msgstr "Yinelenme modeliniz daha büyük yaratacak"
+
+#: ../lib/tribe-geoloc.class.php:117
+msgid "Distance"
+msgstr "Mesafe"
+
+#: ../lib/tribe-geoloc.class.php:124
+#, php-format
+msgid "Title: %s"
+msgstr "Başlık: %s"
+
+#: ../lib/tribe-geoloc.class.php:126
+#, php-format
+msgid "%sType: %s"
+msgstr "%sTür: %s"
+
+#: ../lib/tribe-geoloc.class.php:126
+msgid "Select Dropdown"
+msgstr "Açılır menü seç"
+
+#: ../lib/tribe-geoloc.class.php:127
+msgid "Radio Buttons"
+msgstr "Radyo butonları"
+
+#: ../lib/tribe-geoloc.class.php:180
+msgid "Map view search distance limit"
+msgstr "Harita görünümü mesafe limiti"
+
+#: ../lib/tribe-geoloc.class.php:182
+msgid ""
+"Set the distance that the location search covers (find events within X "
+"distance units of location search input)."
+msgstr ""
+"Set the distance that the location search covers (find events within X "
+"distance units of location search input)."
+
+#: ../lib/tribe-geoloc.class.php:188
+msgid "Map view distance unit"
+msgstr "Harita görünümü mesafe birimi"
+
+#: ../lib/tribe-geoloc.class.php:192
+msgid "Miles"
+msgstr "Mil"
+
+#: ../lib/tribe-geoloc.class.php:193
+msgid "Kilometers"
+msgstr "Kilometre"
+
+#: ../lib/tribe-geoloc.class.php:196
+msgid "Fix geolocation data"
+msgstr "Coğrafi konum verilerini fixle"
+
+#: ../lib/tribe-geoloc.class.php:196
+#, php-format
+msgid ""
+"You have %d venues for which we don't have geolocation data. We need to use "
+"the Google Maps API to get that information. Doing this may take a while "
+"(aprox. 1 minute for every 200 venues)."
+msgstr ""
+"You have %d venues for which we don't have geolocation data. We need to use "
+"the Google Maps API to get that information. Doing this may take a while "
+"(aprox. 1 minute for every 200 venues)."
+
+#: ../lib/tribe-geoloc.class.php:205
+msgid "Hide location search"
+msgstr "Yer aramasını gizle"
+
+#: ../lib/tribe-geoloc.class.php:206
+msgid ""
+"Removes location search field from the events bar on all views except for "
+"map view."
+msgstr "Yer araması alanını harita görünümü hariç etkinlik barından kaldırır."
+
+#: ../lib/tribe-geoloc.class.php:256
+msgid "Map"
+msgstr "Harita"
+
+#: ../lib/tribe-geoloc.class.php:286
+msgid "Near"
+msgstr "Yakınında"
+
+#: ../lib/tribe-geoloc.class.php:872
+msgid "Fix venues data"
+msgstr "Mekan verisini fixle"
+
+#: ../lib/tribe-geoloc.class.php:903
+#, php-format
+msgid ""
+"You have venues for which we don't have Geolocation information. <a "
+"href='%s'>Click here to generate it</a>."
+msgstr ""
+"Yer bilgisi içermeyen mekanlarınız bulunmakta. <a href='%s'>Yer bilgilerini "
+"oluşturmak için tıklayınız.</a>."
+
+#: ../lib/tribe-geoloc.class.php:929
+#, php-format
+msgid "Fixed geolocation data for %d venues"
+msgstr "%d mekan için  yer bilgileri fix edilmiş veriler."
+
+#: ../lib/tribe-ical.class.php:42
+msgid "Add to Google Calendar"
+msgstr "Google Calendar'a ekle."
+
+#: ../lib/tribe-ical.class.php:42
+msgid "Google Calendar"
+msgstr "Google Calendar"
+
+#: ../lib/tribe-ical.class.php:43 ../lib/tribe-ical.class.php:89
+msgid "iCal Import"
+msgstr "iCal'a ekle"
+
+#: ../lib/tribe-ical.class.php:76
+msgid "Month's Events"
+msgstr "Ay'ın Etkinlikleri"
+
+#: ../lib/tribe-ical.class.php:79
+msgid "Week's Events"
+msgstr "Hafta'nın Etkinlikleri"
+
+#: ../lib/tribe-ical.class.php:82
+msgid "Day's Events"
+msgstr "Gün'ün Etkinlikleri"
+
+#: ../lib/tribe-ical.class.php:85
+msgid "Listed Events"
+msgstr "Etkinlikler listelendi"
+
+#: ../lib/tribe-ical.class.php:89
+msgid "Import is filter/view sensitive"
+msgstr "Import is filter/view sensitive"
+
+#: ../lib/widget-advanced-list.class.php:16
+msgid "A widget that displays the next upcoming x events."
+msgstr "Yaklaşan X kadar etkinliği görüntülemek için bileşen."
+
+#: ../lib/widget-advanced-list.class.php:22
+msgid "Events List"
+msgstr "Etkinlikler Listesi"
+
+#: ../lib/widget-calendar.class.php:8
+msgid "The events calendar mini calendar widget"
+msgstr "The events calendar mini takvit bileşeni"
+
+#: ../lib/widget-calendar.class.php:10 ../lib/widget-calendar.class.php:31
+#: ../lib/widget-calendar.class.php:59
+msgid "Events Calendar"
+msgstr "Etkinlikler Takvimi"
+
+#: ../lib/widget-countdown.class.php:13
+msgid "Displays the time remaining until a specified event."
+msgstr "Belirlenen etkinliğe kalan zamanı gösterir."
+
+#: ../lib/widget-countdown.class.php:15
+msgid "Events Countdown"
+msgstr "Etkinlikler Gerisayımı"
+
+#: ../lib/widget-venue.class.php:12
+msgid "Displays a list of upcoming events at a specific venue."
+msgstr "Belirlenen mekandaki yaklaşan etkinlikleri görüntüler."
+
+#: ../lib/widget-venue.class.php:14
+msgid "Events Featured Venue"
+msgstr "Önerilen Mekan Etkinlikleri"
+
+#: ../lib/template-classes/day.php:73
+#: ../views/tribe-ECP-views-old/views/featured-widget.php:59
+#: ../views/tribe-ECP-views-old/views/list-widget.php:57
+#: ../views/week/loop-grid-allday.php:23
+msgid "All Day"
+msgstr "Tüm gün"
+
+#: ../lib/template-classes/day.php:102
+#, php-format
+msgid ""
+"There were no results found for <strong>\"%s\"</strong> on this day. Try "
+"searching another day."
+msgstr ""
+"<strong>\"%s\"</strong> gününe ait sonuç bulunamadı. Başka bir günü "
+"deneyiniz."
+
+#: ../lib/template-classes/day.php:106
+#, php-format
+msgid "No events scheduled for <strong>%s</strong>. Please try another day."
+msgstr ""
+" <strong>\"%s\"</strong> tarihi için etkinlik planlanmadı. Lütfen farklı bir "
+"günü deneyiniz."
+
+#: ../lib/template-classes/week.php:78
+#, php-format
+msgid ""
+"There were no results found for <strong>\"%s\"</strong> this week. Try "
+"searching another week."
+msgstr ""
+"<strong>\"%s\"</strong> gününe ait sonuç bulunamadı. Başka bir haftayı "
+"deneyiniz."
+
+#: ../public/template-tags/general.php:104
+msgid "Show only the first upcoming instance of recurring events"
+msgstr "Yinelenen olayların sadece ilk yaklaşan örneğini göster"
+
+#: ../public/template-tags/general.php:296
+#: ../public/template-tags/general.php:310
+#: ../public/template-tags/general.php:323
+#: ../public/template-tags/general.php:324
+#: ../public/template-tags/general.php:337
+#: ../public/template-tags/general.php:338
+#: ../public/template-tags/general.php:351
+#: ../public/template-tags/general.php:352
+#: ../public/template-tags/general.php:365
+#: ../public/template-tags/general.php:366
+#: ../public/template-tags/general.php:379
+#: ../public/template-tags/general.php:380
+#: ../public/template-tags/general.php:393
+#: ../public/template-tags/general.php:394
+#: ../public/template-tags/general.php:407
+#: ../public/template-tags/general.php:408
+msgid "No default set"
+msgstr "Aktif Varsayılan ayarlanmadı"
+
+#: ../public/template-tags/general.php:297
+#, php-format
+msgid "The current default organizer is: %s"
+msgstr "Aktif Varsayılan organizatör: %s"
+
+#: ../public/template-tags/general.php:311
+#, php-format
+msgid "The current default venue is: %s"
+msgstr "Aktif Varsayılan mekan: %s"
+
+#: ../public/template-tags/general.php:325
+#, php-format
+msgid "The current default address is: %s"
+msgstr "Aktif Varsayılan adres: %s"
+
+#: ../public/template-tags/general.php:339
+#, php-format
+msgid "The current default city is: %s"
+msgstr "Aktif Varsayılan ilçe: %s"
+
+#: ../public/template-tags/general.php:353
+#, php-format
+msgid "The current default state is: %s"
+msgstr ""
+
+#: ../public/template-tags/general.php:367
+#, php-format
+msgid "The current default province is: %s"
+msgstr "Aktif Varsayılan şehir: %s"
+
+#: ../public/template-tags/general.php:381
+#, php-format
+msgid "The current default postal code/zip code is: %s"
+msgstr "Aktif varsayılan posta kodu: %s"
+
+#: ../public/template-tags/general.php:395
+#, php-format
+msgid "The current default country is: %s"
+msgstr "Aktif varsayılan ülke: %s"
+
+#: ../public/template-tags/general.php:409
+#, php-format
+msgid "The current default phone is: %s"
+msgstr "Aktif varsayılan telefon: %s"
+
+#: ../public/template-tags/general.php:604
+msgid "Today"
+msgstr "Bugün"
+
+#: ../public/template-tags/general.php:607
+msgid "&laquo; Previous Day"
+msgstr "&laquo; Önceki Gün"
+
+#: ../public/template-tags/general.php:610
+msgid "Next Day &raquo;"
+msgstr "Sonraki Gün &raquo;"
+
+#: ../public/template-tags/general.php:613
+msgid "Yesterday"
+msgstr "Dün"
+
+#: ../public/template-tags/general.php:616
+msgid "Tomorrow"
+msgstr "Yarın"
+
+#: ../public/template-tags/general.php:710
+msgid "Related Events"
+msgstr "Benzer Etkinlikler"
+
+#: ../vendor/advanced-post-manager/demo/demo.php:31
+#, php-format
+msgid ""
+"It looks like you might not have any demo data. <a href=\"%s\">Download our "
+"data</a> and use the <a href=\"%s\">WordPress Importer</a>."
+msgstr ""
+"It looks like you might not have any demo data. <a href=\"%s\">Download our "
+"data</a> and use the <a href=\"%s\">WordPress Importer</a>."
+
+#: ../vendor/advanced-post-manager/lib/tribe-columns.class.php:44
+msgid "Column Name"
+msgstr "Sütun Adı"
+
+#: ../vendor/advanced-post-manager/lib/tribe-columns.class.php:134
+msgid "Add a Column"
+msgstr "Sütun Ekle"
+
+#: ../vendor/advanced-post-manager/lib/tribe-columns.class.php:141
+msgid "Comments"
+msgstr "Yorumlar"
+
+#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:52
+#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:72
+msgid "Is"
+msgstr ""
+
+#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:53
+#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:73
+msgid "Is Not"
+msgstr ""
+
+#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:67
+msgid "LIKE"
+msgstr "BENZER"
+
+#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:71
+msgid "Search"
+msgstr "Ara"
+
+#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:82
+msgid "Member Type"
+msgstr "Üye Tipi"
+
+#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:86
+msgid "Cafe"
+msgstr "Kafe"
+
+#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:87
+msgid "Private Desk"
+msgstr "Özel masa"
+
+#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:88
+msgid "Office"
+msgstr "Ofis"
+
+#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:95
+msgid "what i’m querying. probably a key in the options array in $filters"
+msgstr "what i’m querying. probably a key in the options array in $filters"
+
+#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:523
+msgid "Choose a Saved Filter"
+msgstr "Kaydedilmiş filtre seç"
+
+#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:639
+msgid "Add a Filter"
+msgstr "Filtre Ekle"
+
+#: ../vendor/advanced-post-manager/lib/tribe-meta-box-helper.php:44
+msgid "Extended Information"
+msgstr "Genişletilmiş Bilgi"
+
+#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:124
+#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:397
+msgid "Delete this image"
+msgstr "Bu resimi sil"
+
+#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:124
+#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:352
+#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:397
+msgid "Delete"
+msgstr "Sil"
+
+#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:348
+msgid "Uploaded files"
+msgstr "Yüklenmiş dosyalar"
+
+#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:358
+msgid "Upload new files"
+msgstr "Yeni dosya yükle"
+
+#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:361
+msgid "Add another file"
+msgstr "Başka dosya ekle"
+
+#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:404
+msgid "Add more images"
+msgstr "Daha fazla resim ekle"
+
+#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:412
+msgid "Select a color"
+msgstr "Renk seç"
+
+#: ../vendor/advanced-post-manager/views/edit-filters.php:7
+#: ../vendor/advanced-post-manager/views/edit-filters.php:8
+msgid "Click to toggle"
+msgstr "Geçiş yapmak için tıklayın"
+
+#: ../vendor/advanced-post-manager/views/edit-filters.php:8
+msgid "Filters &amp; Columns"
+msgstr "Filtreler &amp; sütunlar"
+
+#: ../vendor/advanced-post-manager/views/edit-filters.php:17
+msgid "Apply"
+msgstr "Uygula"
+
+#: ../vendor/advanced-post-manager/views/edit-filters.php:18
+msgid "Clear"
+msgstr "Temizle"
+
+#: ../vendor/advanced-post-manager/views/edit-filters.php:19
+#: ../vendor/advanced-post-manager/views/edit-filters.php:26
+msgid "Save"
+msgstr "Kaydet"
+
+#: ../vendor/advanced-post-manager/views/edit-filters.php:21
+msgid "Export to CSV"
+msgstr "CSV olarak aktar"
+
+#: ../vendor/advanced-post-manager/views/edit-filters.php:25
+msgid "Filter Name"
+msgstr "Filtre Adı"
+
+#: ../vendor/advanced-post-manager/views/edit-filters.php:27
+msgid "Cancel"
+msgstr "İptal"
+
+#: ../vendor/pue-client/admin-views/license-key.view.php:9
+#: ../vendor/pue-client/admin-views/license-key.view.php:13
+#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:185
+msgid "License Key"
+msgstr "Lisans anahtarı"
+
+#: ../vendor/pue-client/admin-views/license-key.view.php:10
+msgid "A valid license key is required for support and updates."
+msgstr "Destek ve güncellemeler için geçerli lisans anahtarı gerekmektedir."
+
+#: ../vendor/pue-client/admin-views/license-key.view.php:16
+msgid "Replace empty fields"
+msgstr "Boş alanları değiştir."
+
+#: ../vendor/pue-client/admin-views/license-key.view.php:25
+#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:186
+msgid "A valid license key is required for support and updates"
+msgstr "Destek ve güncellemeler için geçerli lisans anahtarı gerekmektedir."
+
+#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:254
+msgid "License key(s) updated."
+msgstr "Lisans anahtar(lar)ı güncellendi."
+
+#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:294
+msgid "Sorry, key validation server is not available."
+msgstr "Üzgünüm, lisans anaharı doğrulama sunucusu müsait değil. "
+
+#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:296
+msgid "Sorry, this key is expired."
+msgstr "Üzgünüm, bu lisans anahtarının süresi bitmiş."
+
+#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:298
+msgid "Sorry, this key is out of installs."
+msgstr "Üzgünüm, bu lisans anahtarı yükleme harici."
+
+#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:300
+msgid "Sorry, this key is not valid."
+msgstr "Üzgünüm, bu lisans anahtarı geçerli değil."
+
+#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:303
+#, php-format
+msgid "Valid Key! Expires on %s"
+msgstr "Geçerli Lisans Anahtarı! Bitiş tarihi: %s"
+
+#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:307
+#, php-format
+msgid ""
+"Hmmm... something's wrong with this validator. Please contact <a href=\"%s"
+"\">support.</a>"
+msgstr ""
+"Hmmm... doğrulayıcı ile ilgili sorun var gibi. Lütfen <a href=\"%s\">ile "
+"iletişime geçin.</a>."
+
+#: ../vendor/tribe-related-posts/tribe-related-posts-widget.php:20
+msgid "Displays posts related to the post."
+msgstr "Displays posts related to the post."
+
+#: ../vendor/tribe-related-posts/tribe-related-posts-widget.php:22
+msgid "Related Posts"
+msgstr "İlgili yazılar"
+
+#: ../vendor/tribe-related-posts/tribe-related-posts-widget.php:72
+msgid "Count:"
+msgstr "Sayaç:"
+
+#: ../vendor/tribe-related-posts/tribe-related-posts-widget.php:80
+msgid "Display Thumbnails?"
+msgstr "Küçük resimleri görüntüle?"
+
+#: ../vendor/tribe-related-posts/tribe-related-posts-widget.php:83
+msgid "Only Display Related Posts?"
+msgstr "Sadece ilgili yazıları görüntüle?"
+
+#: ../vendor/tribe-related-posts/tribe-related-posts-widget.php:86
+msgid "Post Type:"
+msgstr "Yazı türü:"
+
+#: ../vendor/tribe-support/tribe-support.class.php:54
+msgid "Send a support request for this site."
+msgstr "Bu site için yardım talebi gönder."
+
+#: ../views/single-organizer.php:30 ../views/single-venue.php:31
+msgid "&larr; Back to Events"
+msgstr "&larr; Etkinliklere dön"
+
+#: ../views/day/nav.php:16
+msgid "Day Navigation"
+msgstr "Gün navigasyonu"
+
+#: ../views/day/single-event.php:75 ../views/map/single-event.php:81
+msgid "Find out more"
+msgstr ""
+
+#: ../views/map/nav.php:22 ../views/photo/nav.php:22
+msgid "Events List Navigation"
+msgstr "Etkinlik listesi navigasyonu"
+
+#: ../views/map/nav.php:25 ../views/photo/nav.php:25
+msgid "&laquo; Previous Events"
+msgstr "&laquo; Önceki Etkinlikler"
+
+#: ../views/map/nav.php:32 ../views/photo/nav.php:32
+msgid "Next Events &raquo;"
+msgstr "Sonraki Etkinlikler &raquo;"
+
+#: ../views/tribe-ECP-views-old/views/list-widget.php:110
+msgid "Price:"
+msgstr "Ücret:"
+
+#: ../views/tribe-ECP-views-old/views/single-venue.php:24
+msgid "&laquo; Back to Events"
+msgstr "&laquo; Etkinliklere Dön"
+
+#: ../views/tribe-ECP-views-old/views/single-venue.php:37
+msgid "Name:"
+msgstr "İsim:"
+
+#: ../views/tribe-ECP-views-old/views/single-venue.php:41
+msgid "Phone:"
+msgstr "Telefon: "
+
+#: ../views/tribe-ECP-views-old/views/single-venue.php:47
+msgid "Address:"
+msgstr "Adres:"
+
+#: ../views/tribe-ECP-views-old/views/single-venue.php:49
+msgid "Click to view a Google Map"
+msgstr "Google Haritalarda görüntülemek için tıkla"
+
+#: ../views/tribe-ECP-views-old/views/single-venue.php:49
+msgid "Google Map"
+msgstr "Google Harita"
+
+#: ../views/tribe-ECP-views-old/views/single-venue.php:76
+msgid "Upcoming Events At This Venue"
+msgstr "Bu Mekandaki Yaklaşan Etkinlikler"
+
+#: ../views/tribe-ECP-views-old/views/single-venue.php:96
+msgid "Start:"
+msgstr "Başlangıç:"
+
+#: ../views/tribe-ECP-views-old/views/single-venue.php:100
+msgid "End:"
+msgstr "Bitiş:"
+
+#: ../views/tribe-ECP-views-old/views/single-venue.php:105
+msgid "Date:"
+msgstr "Tarih:"
+
+#: ../views/tribe-ECP-views-old/views/single-venue.php:114
+msgid "Cost:"
+msgstr "Ücret:"
+
+#: ../views/week/loop-grid.php:19
+msgid "Hours"
+msgstr "Saatler:"
+
+#: ../views/week/nav.php:16
+msgid "Week Navigation"
+msgstr "Hafta navigasyonu"
+
+#: ../views/week/nav.php:19
+msgid "Previous Week"
+msgstr "Önceki Hafta"
+
+#: ../views/week/nav.php:22
+msgid "Next Week"
+msgstr "Sonraki Hafta"
+
+#: ../views/widgets/countdown-widget.php:20
+msgid "days"
+msgstr "günler"
+
+#: ../views/widgets/countdown-widget.php:24
+msgid "hours"
+msgstr "zamanlar"
+
+#: ../views/widgets/countdown-widget.php:28
+msgid "min"
+msgstr "dk"
+
+#: ../views/widgets/countdown-widget.php:33
+msgid "sec"
+msgstr "saniye"
+
+#: ../views/widgets/list-widget.php:61
+msgid "Organizer:"
+msgstr "Organizatör"
+
+#: ../views/widgets/venue-widget.php:32
+msgid "No upcoming events."
+msgstr "Yaklaşan etkinlik yok."
+
+#~ msgid ""
+#~ "Want to modify the display of this widget? Try a %stemplate override%s."
+#~ msgstr ""
+#~ "Vil du ændre visningen af denne widget? Prøv en %stemplate override%s."
+
+#~ msgid ""
+#~ "<p>By buying a PRO license you will get active support and sweet "
+#~ "additional features not found in the free The Events Calendar.</"
+#~ "p><p><strong>Feeling adventurous?</strong> Jump right into it by visiting "
+#~ "the Events menu to <a href=\"%s\">add your first event</a>.</"
+#~ "p><p><strong>Want to get the low-down first?</strong> Visit our <a href="
+#~ "\"http://tri.be/support/documentation/events-calendar-pro-new-user-primer/"
+#~ "%s\">new user primer</a>,  designed to help familiarize you with the "
+#~ "plugin basics.</p><p>Don't forget to head over to the <a href=\"%s"
+#~ "\">license tab</a> and enter your key!</p>"
+#~ msgstr ""
+#~ "<p>Ved køb af en PRO licens får du support samt features, der ikke findes "
+#~ "i den gratis version af The Events Calendar.</p><p><strong>Klar til at gå "
+#~ "i gang?</strong>Begynd med at besøge Begivenheder menuen  og <a href=\"%s"
+#~ "\">opret din første begivenhed</a>.</p><p><strong>Vil du læse lidt mere "
+#~ "først?</strong>Besøg vores <a href=\"http://tri.be/support/documentation/"
+#~ "events-calendar-pro-new-user-primer/%s\">begynderguide</a> for at lære om "
+#~ "pluginets muligheder.</p><p>Glem ikke at <a href=\"%s\">indtaste din "
+#~ "licensnøgle</a>!."
+
+#~ msgid ""
+#~ "One of the advantages of being a PRO user is that you have access to our "
+#~ "exclusive forums at %s. Our support staff hits the forums on a daily "
+#~ "basis, and what they can't answer on the spot they'll bring a member of "
+#~ "our dev team in to address directly."
+#~ msgstr ""
+#~ "En af fordelene ved PRO-medlemskab er adgang til vores eksklusive forum "
+#~ "på %s. Vores supportere besøger forumet dagligt, og hvis ikke de kan "
+#~ "svare på spørgsmålene så kontaktes en af vores udviklere for eksperthjælp."
+
+#~ msgid "Some things to consider before posting on the forum:"
+#~ msgstr "Bemærk følgende inden du skriver på vores forum:"
+
+#~ msgid ""
+#~ "Search recent threads before posting a new one to check that there isn't "
+#~ "already a discussion about your issue."
+#~ msgstr ""
+#~ "Søg blandt de nyeste indlæg inden du skriver et spørgsmål, for at sikre "
+#~ "dig at dit spørgsmål ikke allerede er blevet behandlet."
+
+#~ msgid ""
+#~ "Check whether the issue is a conflict with another plugin or your theme. "
+#~ "This can be tested easily on a staging site by deactivating other plugins "
+#~ "one-by-one, and reverting to the default Twenty Twelve theme to see if "
+#~ "conflicts can be easily identified. If you find a conflict, note it in a "
+#~ "support thread."
+#~ msgstr ""
+#~ "Undersøg om der er en konflikt med andre plugins eller dit sidetema. "
+#~ "Dette kan nemt undersøges ved at deaktivere andre plugins, et efter et. "
+#~ "Prøv også at aktivere standard sidetemaet Twenty Twelve for at se om "
+#~ "dette løser problemet. Hvis der er problemer med et plugin eller et "
+#~ "sidetema så skriv om dette i supportforummet."
+
+#~ msgid ""
+#~ "Sometimes, resaving your permalinks (under <a href=\"%s\">Settings > "
+#~ "Permalinks</a>) can resolve events-related problems on your site. Before "
+#~ "creating a new thread try this handy trick."
+#~ msgstr ""
+#~ "Nogle gang kan problemer relateret til begivenheder løses ved at gen-"
+#~ "aktivere permanente links under <a href=\"%s\">Settings > Permalinks</a>. "
+#~ "Prøv dette, inden du skriver et indlæg om dit problem."
+
+#~ msgid ""
+#~ "While we won't build your site for you and can't guarantee The Events "
+#~ "Calendar PRO to play nicely with every theme and plugin out there, our "
+#~ "team will do our best to help you get it functioning nicely with your "
+#~ "site. And as an added bonus, once you're done you can post it in "
+#~ "the %s so the rest of the community can see what you've been working on."
+#~ msgstr ""
+#~ "Vores team vil altid gøre  det bedste vi kan for at hjælpe, men eftersom "
+#~ "vi har mulighed for at teste for kompatibilitet med samtilge plugins og "
+#~ "sidetemaer, der findes, kan vi ikke garantere at The Events Calendar PRO "
+#~ "fungerer lige godt ved alle installationer. Når du har fået din kalender "
+#~ "sat op, så du er tilfreds, har du som en bonus mulighed for at dele "
+#~ "linket i %s så andre kan blive inspireret af dit arbejde."
+
+#~ msgid "Showcase thread"
+#~ msgstr "Showcase tråd"
+
+#~ msgid ""
+#~ "listed under %s. Check out events for this category or view the full "
+#~ "calendar."
+#~ msgstr ""
+#~ "listet under %s. Se begivenhederne for denne kategori eller se hele "
+#~ "kalenderen."
+
+#~ msgid "Refine your search:"
+#~ msgstr "Indskærp din søgning:"
