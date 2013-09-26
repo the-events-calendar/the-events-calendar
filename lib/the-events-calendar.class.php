@@ -2147,8 +2147,8 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				$this->displaying = 'admin';
 			} else {
 				global $wp_query;
-				if ( $wp_query->is_main_query() && !empty($wp_query->tribe_is_event_query) ) {
-					$this->displaying = isset( $wp_query->query_vars['eventDisplay'] ) ? $wp_query->query_vars['eventDisplay'] : tribe_get_option( 'viewOption', 'upcoming');
+				if ( $wp_query->is_main_query() && !empty( $wp_query->tribe_is_event_query ) ) {
+					$this->displaying = isset( $wp_query->query_vars['eventDisplay'] ) ? $wp_query->query_vars['eventDisplay'] : tribe_get_option( 'viewOption', 'upcoming' );
 					if ( is_single() && $this->displaying != 'all' )
 						$this->displaying = 'single-event';
 				}
@@ -4294,6 +4294,8 @@ if ( !class_exists( 'TribeEvents' ) ) {
 					'eventDisplay' => 'month',
 					'eventDate' => $_POST['eventDate'],
 				);
+
+				$this->displaying = 'month';
 
 				if ( isset( $_POST['tribe_event_category'] ) ) {
 					$query_args['tribe_events_cat'] = $_POST['tribe_event_category'];
