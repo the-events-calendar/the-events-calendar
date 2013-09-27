@@ -351,8 +351,9 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 			add_filter( 'generate_rewrite_rules', array( $this, 'filterRewriteRules' ) );
 
-			if ( !is_admin() )
-				add_filter( 'get_comment_link', array( $this, 'newCommentLink' ), 10, 2 );
+			if ( !is_admin() ) {
+				add_filter( 'get_comment_link', array( $this, 'newCommentLink' ), 10, 2 );				
+			}
 
 			/* Setup Tribe Events Bar */
 			add_filter( 'tribe-events-bar-views',  array($this, 'setup_listview_in_bar'), 1, 1 );
@@ -363,6 +364,8 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 			add_filter( 'tribe-events-bar-views', array( $this, 'remove_hidden_views' ), 9999, 2 );
 			/* End Setup Tribe Events Bar */
+
+			add_filter( 'tribe_events_is_view_enabled', array( $this, 'enable_day_view' ), 10, 2 );
 
 			add_action( 'admin_menu', array( $this, 'addEventBox' ) );
 			add_action( 'wp_insert_post', array( $this, 'addPostOrigin' ), 10, 2 );
@@ -4131,6 +4134,22 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				}
 			}
 			return $views;
+		}
+
+		/**
+		 * Make sure tribe_events_is_view_enabled( 'day' ) returns true 
+		 * This filter should be removed when pro is active
+		 *
+		 * @return bool
+		 * @author Jessica Yazbek
+		 * @since 3.1
+		 **/
+		public function enable_day_view( $enabled, $view ) {
+
+			if ( $view == 'day' ) {
+				$enabled = true;
+			}
+			return $enabled;
 		}
 
 		/**
