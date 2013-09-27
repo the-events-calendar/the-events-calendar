@@ -674,10 +674,10 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 					default :
 						global $wp_query;
 
-						$output_date_format = '%Y-%m-%d';
+						$output_date_format = '%Y-%m-%d %H:%i:%s';
 						$raw_counts = $wpdb->get_results( sprintf( "
 								SELECT 	tribe_event_start.post_id as ID, 
-										DATE_FORMAT( tribe_event_start.meta_value, '%1\$s') as EventStartDate, 
+										tribe_event_start.meta_value as EventStartDate, 
 										IF (tribe_event_duration.meta_value IS NULL, DATE_FORMAT( tribe_event_end_date.meta_value, '%1\$s'), DATE_FORMAT(DATE_ADD(CAST(tribe_event_start.meta_value AS DATETIME), INTERVAL tribe_event_duration.meta_value SECOND), '%1\$s')) as EventEndDate,
 										{$wpdb->posts}.menu_order as menu_order
 								FROM $wpdb->postmeta AS tribe_event_start
@@ -710,12 +710,22 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 						}
 						for ( $i = 0, $date = $start_date; $i <= $days; $i++, $date->modify( '+1 day' ) ) {
 							$formatted_date = $date->format( 'Y-m-d' );
+							$start_of_day = strtotime( tribe_event_beginning_of_day( $formatted_date ) );
+							$end_of_day = strtotime( tribe_event_end_of_day( $formatted_date ) );
 							$count = 0;
 							$_day_event_ids = array();
 							foreach ( $raw_counts as $record ) {
-								$record_start = $record->EventStartDate;
-								$record_end = $record->EventEndDate;
-								if ( $record_start <= $formatted_date && $record_end >= $formatted_date ) {
+								$record_start = strtotime( $record->EventStartDate );
+								$record_end = strtotime( $record->EventEndDate );
+								// conditions:
+									// event starts on this day (event start time is between start and end of day)
+									// event ends on this day (event end time is between start and end of day)
+									// event starts before start of day and ends after end of day (spans across this day)
+								if ( 
+									( $record_start >= $start_of_day && $record_start < $end_of_day ) 
+									|| ( $record_end <= $end_of_day && $record_start >= $start_of_day ) 
+									|| ( $record_start <= $start_of_day && $record_end >= $end_of_day )
+									) {
 									if ( isset( $term->term_id ) ) {
 										$record_terms = get_the_terms( $record->ID, TribeEvents::TAXONOMY );
 										if ( !$record_terms || ( $record_terms && !in_array( $term, $record_terms ) ) ) {
