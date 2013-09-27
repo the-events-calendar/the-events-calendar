@@ -190,6 +190,9 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			add_filter( 'tribe_events_query_posts_fields', array($this, 'posts_fields'));
 			add_filter( 'tribe_events_query_end_date_column', array($this, 'end_date_column'));
 
+			// let day view enabled status happen naturally
+			remove_filter( 'tribe_events_is_view_enabled', array( TribeEvents::instance(), 'enable_day_view' ), 10, 2 );
+
 		}
 
 		/**
