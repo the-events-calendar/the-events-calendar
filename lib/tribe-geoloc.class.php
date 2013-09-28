@@ -608,7 +608,7 @@ class TribeEventsGeoLoc {
 			$data     = $query->posts;
 			$post     = $query->posts[0];
 			$wp_query = $query;
-			TribeEvents::instance()->setDisplay();
+			TribeEvents::instance()->displaying = 'map';
 
 			ob_start();
 
