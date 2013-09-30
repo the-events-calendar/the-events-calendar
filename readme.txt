@@ -285,7 +285,17 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 
 = 3.1 =
 
-* A number of core architectural changes have been applied. Upgrade with caution.
+* Significant performance improvements to month view
+* Improved compatibility with Canvas and other themes by WooThemes
+* Fixed several bugs relating to event cutoff times and month view
+* The correct default view now applies to event category listings
+* Tag cloud links now work on both events and non-events pages
+* Days with no events are no longer linked from the month view
+* Fixed a bug where the selected category would not apply after you navigate to the next month in Month view
+* Labeling for AJAX and "Classic View" options   
+* Updated the French and German translations
+* Fixed some display bugs in IE
+* Various minor bug and security fixes
 
 = 3.0.3 =
 
