@@ -727,10 +727,12 @@ class TribeEventsGeoLoc {
 
 		$delta_lat = $lat_to - $lat_from;
 		$delta_lng = $lng_to - $lng_from;
-		$a         = sin( deg2rad( $delta_lat / 2 ) ) * sin( deg2rad( $delta_lat / 2 ) ) + cos( deg2rad( $lat_from ) ) * cos( deg2rad( $lat_to ) ) * sin( deg2rad( $delta_lng / 2 ) ) * sin( deg2rad( $delta_lng / 2 ) );
-		$c         = asin( min( 1, sqrt( $a ) ) );
-		$distance  = 2 * self::EARTH_RADIO * $c;
-		$distance  = round( $distance, 4 );
+
+
+		$a        = sin( deg2rad( (double) ( $delta_lat / 2 ) ) ) * sin( deg2rad( (double) ( $delta_lat / 2 ) ) ) + cos( deg2rad( (double) $lat_from ) ) * cos( deg2rad( (double) $lat_to ) ) * sin( deg2rad( (double) ( $delta_lng / 2 ) ) ) * sin( deg2rad( (double) ( $delta_lng / 2 ) ) );
+		$c        = asin( min( 1, sqrt( $a ) ) );
+		$distance = 2 * self::EARTH_RADIO * $c;
+		$distance = round( $distance, 4 );
 
 		return $distance;
 	}
