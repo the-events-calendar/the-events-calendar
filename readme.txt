@@ -285,16 +285,18 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 
 = 3.1 =
 
-* Significant performance improvements to month view
-* Improved compatibility with Canvas and other themes by WooThemes
-* Fixed several bugs relating to event cutoff times and month view
+* Significant performance improvements to month view (thanks to Grégory for the initial report!)
+* Improved compatibility with Canvas and other themes by WooThemes (thanks to Paul Pruneau for the heads up!)
+* Fixed several bugs relating to event cutoff times and month view (thanks jadonulrich for the report!)
 * The correct default view now applies to event category listings
-* Tag cloud links now work on both events and non-events pages
-* Days with no events are no longer linked from the month view
-* Fixed a bug where the selected category would not apply after you navigate to the next month in Month view
+* Tag cloud links now work on both events and non-events pages (thanks to user 'onelittlemoose' for the report!)
+* Days with no events are no longer linked from the month view (thanks to reneeyoxon for the original report!)
+* Fixed a bug where the selected category would not apply after you navigate to the next month in Month view (thanks to Kyle for the report!)
+* Fixed bug where comments form would show twice on single events
+* Enabled auto-submissions in situations where classic view is present instead of the event bar (thanks to user wiredimpact for getting the discussion started on this!)
 * Labeling for AJAX and "Classic View" options   
-* Updated the French and German translations
-* Fixed some display bugs in IE
+* Updated the French and German translations (French courtesy of Rick)
+* Fixed some display bugs in IE (thanks to user wiredimpact for bringing up most of these!)
 * Various minor bug and security fixes
 
 = 3.0.3 =
