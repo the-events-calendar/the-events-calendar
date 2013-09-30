@@ -187,8 +187,20 @@ Our Premium Plugins:
 
 = 3.1 =
 
-* Significant architectural changes have been implemented. Upgrade with caution.
-* GEO, CATEGORY, and ATTACH fields added to the iCal feed.
+* Recurring events can now display more than once in the main blog loop, and other queries that contain multiple post types
+* Added a setting for hiding related events
+* Fixed error that occurred when ordering the admin listing by venue or organizer
+* Fixed bug where the Events Calendar title would take over all the pages on the site
+* Month view and the mini calendar widget will no longer link to Day view if Day view is disabled
+* GEO, CATEGORY, and ATTACH fields added to the iCal feed
+* Fixed z-index bug with the recurrence dialog box in the WordPress 3.6 post editor
+* Fixed bug where the option to filter the admin Events list by recurrence wasn't working
+* Fixed bug where sometimes an event entered at the end of the month wouldn't show on the mini calendar widget
+* Fixed intermittent display errors with Photo view
+* Fixed two PHP errors on the admin events list
+* Fixed incorrect "No results" message after a keyword search on week view
+* Updated translations: Brazilian Portuguese (new), Turkish (new), Norwegian Dutch, Icelandic, Greek, Finnish
+* Various minor bug and security fixes
 
 = 3.0.5 =
 
