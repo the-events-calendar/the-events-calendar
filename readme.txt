@@ -192,9 +192,9 @@ Our Premium Plugins:
 
 = 3.1 =
 
-* Recurring events can now display more than once in the main blog loop, and other queries that contain multiple post types
-* Added a setting for hiding related events
-* Fixed error that occurred when ordering the admin listing by venue or organizer
+* Recurring events can now display more than once in the main blog loop, and other queries that contain multiple post types (thanks to user Darren for the original report!)
+* Added a setting for hiding related events (thanks to those on UserVoice who requested this!)
+* Fixed error that occurred when ordering the admin listing by venue or organizer (thanks to Bernhard for reporting this!)
 * Fixed bug where the Events Calendar title would take over all the pages on the site
 * Month view and the mini calendar widget will no longer link to Day view if Day view is disabled
 * GEO, CATEGORY, and ATTACH fields added to the iCal feed
