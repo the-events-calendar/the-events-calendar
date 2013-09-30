@@ -85,7 +85,7 @@ function tribe_events_the_mini_calendar_day_link() {
 			$html = '<a href="#" data-day="'.$day['date'].'" class="tribe-mini-calendar-day-link">'.$day['daynum'].'</a>';
 		} else {
 			// there are no events under the calendar
-			if ( is_view_enabled( 'day' ) ) {
+			if ( tribe_events_is_view_enabled( 'day' ) ) {
 				// day view is enabled
 				ob_start();
 				tribe_the_day_link($day['date'], $day['daynum']);
