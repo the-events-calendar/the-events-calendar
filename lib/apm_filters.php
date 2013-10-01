@@ -211,7 +211,7 @@ class Tribe_Recur_Filter {
 		'is' => 'Yes',
 		'not' => 'No'
 	);
-	protected $not_recur = 'a:12:{s:4:"type";s:4:"None";';
+	protected $not_recur = 's:4:"type";s:4:"None";';
 	
 	public function __construct() {
 		$type = $this->type;
@@ -241,9 +241,9 @@ class Tribe_Recur_Filter {
 
 
 		if ( 'is' === $_POST[$this->key] ) {
-			$where .= " AND ( recur_meta.meta_value NOT LIKE '$this->not_recur%' AND recur_meta.meta_value <> '' )  ";
+			$where .= " AND ( recur_meta.meta_value NOT LIKE '%$this->not_recur%' AND recur_meta.meta_value <> '' )  ";
 		} else {
-			$where .= " AND ( recur_meta.meta_value LIKE '$this->not_recur%' OR recur_meta.meta_value = '' ) ";
+			$where .= " AND ( recur_meta.meta_value LIKE '%$this->not_recur%' OR recur_meta.meta_value = '' ) ";
 		}
 
 		return $where;

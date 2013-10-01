@@ -172,8 +172,47 @@ class TribeiCal {
 			$item[] = 'UID:' . $event_post->ID . '-' . strtotime( $startDate ) . '-' . strtotime( $endDate ) . '@' . $blogHome;
 			$item[] = 'SUMMARY:' . $event_post->post_title;
 			$item[] = 'DESCRIPTION:' . str_replace( ',', '\,', $description );
-			$item[] = 'LOCATION:' . html_entity_decode( $tec->fullAddressString( $event_post->ID ), ENT_QUOTES );
 			$item[] = 'URL:' . get_permalink( $event_post->ID );
+
+			// add location if available
+			$location = $tec->fullAddressString( $event_post->ID );
+			if ( !empty( $location ) ) {
+				$item[] = 'LOCATION:' . html_entity_decode( $location, ENT_QUOTES );
+			}
+
+			// add geo coordinates if available
+			if ( class_exists( 'TribeEventsGeoLoc' ) ) {
+				$long = TribeEventsGeoLoc::instance()->get_lng_for_event( $event_post->ID );
+				$lat = TribeEventsGeoLoc::instance()->get_lat_for_event( $event_post->ID );
+				if ( !empty( $long ) && !empty( $lat ) ) {
+					$item[] = sprintf( 'GEO:%s;%s', $long, $lat );
+				}
+			}
+
+			// add categories if available
+			$event_cats = (array) wp_get_object_terms( $event_post->ID, TribeEvents::TAXONOMY, array( 'fields'=>'names' ) );
+			if ( !empty( $event_cats ) ) {
+				$item[] = 'CATEGORIES:' . html_entity_decode( join( ',', $event_cats ), ENT_QUOTES );
+			}
+
+			// add featured image if available
+			if ( has_post_thumbnail( $event_post->ID ) ) {
+				$thumbnail_id = get_post_thumbnail_id( $event_post->ID );
+				$thumbnail_url = wp_get_attachment_url( $thumbnail_id );
+				$thumbnail_mime_type = get_post_mime_type( $thumbnail_id );
+				$item[] = apply_filters( 'tribe_ical_feed_item_thumbnail', sprintf( 'ATTACH;FMTTYPE=%s:%s', $thumbnail_mime_type, $thumbnail_url ), $event_post->ID );
+			}
+
+			// add organizer if available
+			$organizer_email = tribe_get_organizer_email( $event_post->ID );
+			if ( $organizer_email ) {
+				$organizer_name = tribe_get_organizer( $event_post->ID );
+				if ( $organizer_name ) {
+					$item[] = sprintf( 'ORGANIZER;CN=%s:MAILTO:%s', $organizer_name, $organizer_email );
+				} else {
+					$item[] = sprintf( 'ORGANIZER:MAILTO:%s', $organizer_email );
+				}
+			}
 
 			$item = apply_filters( 'tribe_ical_feed_item', $item, $event_post );
 

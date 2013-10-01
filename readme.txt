@@ -4,8 +4,8 @@ Contributors:  ModernTribe, PaulHughes01, roblagatta, jonahcoyote, MZAWeb, codea
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget, pro
 Donate link: http://m.tri.be/29
 Requires at least: 3.5
-Tested up to: 3.6
-Stable tag: 3.0.5
+Tested up to: 3.6.1
+Stable tag: 3.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -142,23 +142,28 @@ The plugin is produced by <a href="http://m.tri.be/45">Modern Tribe Inc</a>.
 
 * Arabic from Mamdouh Samy
 * Bosnian from Marko Manojlovic
-* Brazilian Portuguese from Luiza Libardi and Diego Meneghetti
-* Catalan from Bàrbara Partegàs Rof
+* Brazilian Portuguese from Dionizio Bonfim Bach
+* Catalan from Barbara Partegos Rof
 * Croatian from Marko Manojlovic
 * Czech from Martin Kristan and Petr Bastan
 * Danish from Anonymous
-* Dutch from Nico (wsMaurik)
-* French from Dominique Monhardt
-* German from Thomas Butzek
-* Greek from Panos Efstratiou
+* Dutch from Erik Massop
+* Finnish by Ari-Pekka Koponen
+* French from Benoît Burgener
+* German from Michael Sebel
+* Greek from Maria Tsilimidou
+* Icelandic by Baldvin Örn Berndsen
 * Italian from Roberto Scano
-* Norwegian from Kjell Vestnes
+* Norwegian from Andreas Lorentsen
 * Polish from Marek Kosina
 * Portuguese from Antonio Pratas
 * Romanian from Mihai Burcea
 * Serbian from Marko Manojlovic
-* Spanish from Héctor Gil Rizo
+* Spanish from Hector Gil Rizo
 * Swedish from Ben Andersen
+* Turkish by Burak Pehlevan
+
+* Previous translators include Mikhail Michouris, Ed Boon, Rick van Dalen, Jacob Roel Meijering, hristian Andersen, Filippo Montanari, David Decker, Kamil Szymanski, "Terje With Lunndal", Sagi Shrieber, Matthew Meyer, Arno Faure, Fanny Heraud, Vincent G from Host1Free, , Petri Kajander, Fran Rosa, Nico (wsMaurik), Panos Efstratiou, Dominique Monhardt, Thomas Butzek, Kjell Vestnes, Luiza Libardi, Diego Meneghetti, and Alexey Fedorov
 
 == Add-Ons ==
 
@@ -183,7 +188,24 @@ Our Premium Plugins:
 
 = IMPORTANT NOTICE =
 
-3.0 is a complete overhaul of the plugin, and as a result we're starting the changelog fresh. For release notes from the 2.x lifecycle, see <a href="http://m.tri.be/k">our 2.x release notes.</a>
+3.x is a complete overhaul of the plugin, and as a result we're starting the changelog fresh. For release notes from the 2.x lifecycle, see <a href="http://m.tri.be/k">our 2.x release notes.</a>
+
+= 3.1 =
+
+* Recurring events can now display more than once in the search results, main blog loop, and other queries that contain multiple post types (thanks to user Darren for the original report!)
+* Added a setting for hiding related events (thanks to those on UserVoice who requested this!)
+* Fixed error that occurred when ordering the admin listing by venue or organizer (thanks to Bernhard for reporting this!)
+* Fixed bug where the Events Calendar title would take over all the pages on the site
+* Month view and the mini calendar widget will no longer link to Day view if Day view is disabled
+* GEO, CATEGORY, and ATTACH fields added to the iCal feed
+* Fixed z-index bug with the recurrence dialog box in the WordPress 3.6 post editor
+* Fixed bug where the option to filter the admin Events list by recurrence wasn't working
+* Fixed bug where sometimes an event entered at the end of the month wouldn't show on the mini calendar widget
+* Fixed intermittent display errors with Photo view
+* Fixed two PHP errors on the admin events list
+* Fixed incorrect "No results" message after a keyword search on week view
+* Updated translations: Brazilian Portuguese (new), Turkish (new), Norwegian Dutch, Icelandic, Greek, Finnish
+* Various minor bug and security fixes
 
 = 3.0.5 =
 
@@ -244,6 +266,10 @@ Still not happy? Shoot us an email to pro@tri.be or tweet to @moderntribeinc and
 
 == Upgrade Notice ==
 
+= 3.1 =
+
+There have been a few substantial architectural updates in 3.1. Please upgrade with caution.
+
 = 3.0 =
 
-3.0 is a HUGE upgrade from Events Calendar PRO 2.0.x. If you're upgrading from 1.3.3 or any release between 2.0 and 2.0.10, make sure to upgrade to Events Calendar PRO 2.0.11 first. If you're upgrading from Events Calendar PRO 2.0.11, please back up your data BEFORE initiating, and be prepared to manually update your customizations based on changes to the plugin's tempting structure.
+3.x is a HUGE upgrade from Events Calendar PRO 2.x. If you're upgrading from 1.3.3 or any release between 2.0 and 2.0.10, make sure to upgrade to Events Calendar PRO 2.0.11 first. If you're upgrading from Events Calendar PRO 2.0.11, please back up your data BEFORE initiating, and be prepared to manually update your customizations based on changes to the plugin's tempting structure.

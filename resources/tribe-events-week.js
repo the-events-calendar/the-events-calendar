@@ -20,7 +20,12 @@
 
 		var $tribe_container = $('#tribe-events'),
 			$tribe_bar = $('#tribe-events-bar'),
-			$tribe_header = $('#tribe-events-header');
+			$tribe_header = $('#tribe-events-header'),
+			start_day = 0,
+			date_mod = false;
+
+		if($tribe_header.length)
+			start_day = $tribe_header.data('startofweek');
 
 		$tribe_bar.addClass('tribe-has-datepicker');
 
@@ -45,8 +50,23 @@
 			onRender: disableSpecificWeekDays
 		};
 
-		var tribeBarDate = $('#tribe-bar-date').bootstrapDatepicker(tribe_var_datepickerOpts).on('changeDate',function () {
+		var tribeBarDate = $('#tribe-bar-date').bootstrapDatepicker(tribe_var_datepickerOpts).on('changeDate',function (e) {
+
+			var day = ('0' + e.date.getDate()).slice(-2),
+				month = ('0' + (e.date.getMonth() + 1)).slice(-2),
+				year = e.date.getFullYear(),
+				date = year + '-' + month  + '-' + day;
+
+			ts.date = date;
+
+			date_mod = true;
 			tribeBarDate.hide();
+
+			if (tt.no_bar() || tt.live_ajax() && tt.pushstate) {
+				if (!tt.reset_on())
+					tribe_events_bar_weekajax_actions(e, date);
+			}
+
 		}).data('datepicker');
 
 		function tribe_go_to_8() {
@@ -261,21 +281,38 @@
 		 * @since 3.0
 		 * @desc On events bar submit, this function collects the current state of the bar and sends it to the week view ajax handler.
 		 * @param {event} e The event object.
+		 * @param {string} date Date passed by datepicker.
 		 */
 
-		function tribe_events_bar_weekajax_actions(e) {
+		function tribe_events_bar_weekajax_actions(e, date) {
 			if (tribe_events_bar_action != 'change_view') {
 				e.preventDefault();
 				if (ts.ajax_running)
 					return;
-				var picker = $('#tribe-bar-date').val();
+
+				var $tdate = $('#tribe-bar-date');
+
 				ts.popping = false;
-				if (picker.length) {
-					ts.date = $('#tribe-bar-date').val();
+
+				if (date) {
+
+					ts.date = date;
 					td.cur_url = td.base_url + ts.date + '/';
+
+				} else if($tdate.length && $tdate.val() !== ''){
+
+					ts.date = $tdate.val();
+					td.cur_url = td.base_url + ts.date + '/';
+
+				} else if(date_mod) {
+
+					td.cur_url = td.base_url + ts.date + '/';
+
 				} else {
+
 					ts.date = td.cur_date;
 					td.cur_url = td.base_url + td.cur_date + '/';
+
 				}
 
 				tf.pre_ajax(function () {
@@ -285,16 +322,8 @@
 		}
 
 		$('form#tribe-bar-form').on('submit', function (e) {
-			tribe_events_bar_weekajax_actions(e);
+			tribe_events_bar_weekajax_actions(e, null);
 		});
-
-		if (tt.live_ajax() && tt.pushstate) {
-			$('#tribe-bar-date').on('changeDate', function (e) {
-				if (!tt.reset_on()) {
-					tribe_events_bar_weekajax_actions(e);
-				}
-			});
-		}
 
 		tf.snap('#tribe-events-content', 'body', '#tribe-events-footer .tribe-events-nav-previous a, #tribe-events-footer .tribe-events-nav-next a');
 

@@ -5,11 +5,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Events Calendar Pro\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-05-20 17:45-0500\n"
-"PO-Revision-Date: 2013-06-27 23:21-0300\n"
-"Last-Translator: DJIO <wordpress@djio.com.br>\n"
+"POT-Creation-Date: 2013-05-26 00:35+0100\n"
+"PO-Revision-Date: 2013-05-26 00:49+0100\n"
+"Last-Translator: Bàrbara Partegàs Rof <barbararof@gmail.com>\n"
 "Language-Team: Modern Tribe, Inc. <pro@tri.be>\n"
-"Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -24,7 +23,7 @@ msgstr ""
 
 #: ../events-calendar-pro.php:58
 msgid "week"
-msgstr "semana"
+msgstr "Setmana"
 
 #: ../events-calendar-pro.php:59
 msgid "photo"
@@ -37,32 +36,37 @@ msgstr "dia"
 
 #: ../events-calendar-pro.php:61
 msgid "today"
-msgstr "hoje"
+msgstr "avui"
 
+#
 #: ../events-calendar-pro.php:212
+#, fuzzy
 msgid "Events for week of"
-msgstr "Eventos na semana de"
+msgstr "Esdeveniments per a la setmana"
 
 #: ../events-calendar-pro.php:238
 #, php-format
 msgid "Events for week of %s"
-msgstr "eventos sa semana de %s"
+msgstr "Esdeveniments per a la setmana de %s"
 
+#
 #: ../events-calendar-pro.php:244
 msgid "Events for"
-msgstr "Eventos para"
+msgstr "Esdeveniments per a"
 
+#
 #: ../events-calendar-pro.php:248 ../lib/widget-advanced-list.class.php:51
 msgid "Upcoming Events"
-msgstr "Próximos Eventos"
+msgstr "Propers esdeveniments"
 
+#
 #: ../events-calendar-pro.php:665 ../admin-views/tribe-options-defaults.php:35
 msgid "Default Content"
-msgstr "Conteúdo Padrão"
+msgstr "Contingut per defecte"
 
 #: ../events-calendar-pro.php:667 ../admin-views/event-meta-options.php:3
 msgid "Additional Fields"
-msgstr "Campos Adicionais"
+msgstr "Camps adicionals"
 
 #: ../events-calendar-pro.php:673
 #, php-format
@@ -76,15 +80,15 @@ msgid ""
 "help familiarize you with the plugin basics.</p><p>Don't forget to head over "
 "to the <a href=\"%s\">license tab</a> and enter your key!</p>"
 msgstr ""
-"<p>Comprando uma licença PRO você terá direito ao suporte e a recursos "
-"adicionais incríveis que não estão disponíveis na versão gratuita de The "
-"Events Calendar.</p><p><strong>Está animado?</strong> Comece agora mesmo "
-"visitando o menu de Eventos para <a href=\"%s\">adicionar seu primeiro "
-"evento</a>.</p><p><strong>Quer aprender o básico primeiro?</strong> Visite "
-"nossas <a href=\"http://tri.be/support/documentation/events-calendar-pro-new-"
-"user-primer/%s\">instruções iniciais</a>, criadas para lhe ajudar a se "
-"familiarizar com o plugin.</p><p>Não e esqueça de digitar sua licença na <a "
-"href=\"%s\">aba da licença</a>!</p>"
+"<p>Comprant una llicència PRO obtindràs ajuda activa i funcions adicionals "
+"que no es troben al The Events Calendar gratuït. </p><p><strong>Amb ganes "
+"d'aventura?</strong>Tira-t'hi de cap visitant el menu Events per <a href=\"%s"
+"\">afegir el teu primer esdeveniment</a>.</p><p><strong>Prefereixes començar "
+"pas a pas?</strong> Visita les nostres <a href=\"http://tri.be/support/"
+"documentation/events-calendar-pro-new-user-primer/%s\">instruccions per a "
+"principiants</a>, pensades per a ajudar-te a familiaritzar-te amb els "
+"aspectes bàsics del plugin.</p><p>No oblidis dirigir-te a la <a href=\"%s"
+"\">pestanya de llicència</a> i entrar la teva clau!</p>"
 
 #: ../events-calendar-pro.php:681
 #, php-format
@@ -94,22 +98,23 @@ msgid ""
 "and what they can't answer on the spot they'll bring a member of our dev "
 "team in to address directly."
 msgstr ""
-"Uma das vantagens de ser um usuário PRO é que você terá acesso aos nossos "
-"fóruns exclusivos em %s. Nossa equipe de suporte acessa os fóruns "
-"diariamente, e as questões que eles não puderem responder ali na hora eles "
-"comunicam a um membro da equipe de desenvolvimento diretamente."
+"Un dels avantatges de ser un usuari PRO és que tens accés als nostres fòrums "
+"exclusius a %s. El nostre personal de suport revisa els fòrums diàriament, i "
+"el que ells no poden respondre inmediatament els transmeten directament a un "
+"membre del nostre equip de desenvolupadors."
 
+#
 #: ../events-calendar-pro.php:682
 msgid "Some things to consider before posting on the forum:"
-msgstr "Algumas coisas a considerar antes de postar no fórum:"
+msgstr "Alguns aspectes a tenir en compte abans de participar en el fòrum:"
 
 #: ../events-calendar-pro.php:684
 msgid ""
 "Search recent threads before posting a new one to check that there isn't "
 "already a discussion about your issue."
 msgstr ""
-"Busque tópicos recentes antes de postar um novo tópico para se assegurar que "
-"não exista uma outra discussão sobre o mesmo assunto."
+"Busca fils recents abans d'obrir-ne un de nou per comprovar que realment no "
+"hi hagi ja una discusió sobre aquest tema."
 
 #: ../events-calendar-pro.php:685
 msgid ""
@@ -119,11 +124,11 @@ msgid ""
 "conflicts can be easily identified. If you find a conflict, note it in a "
 "support thread."
 msgstr ""
-"Cheque se o problema é resultado de um conflito com outro plugin ou com o "
-"seu Tema. Isso pode ser testado facilmente em um site de testes por meio da "
-"desativação dos plugins um a um, e pela ativação do Tema padrão Twenty "
-"Twelve para ver se os conflitos podem ser facilmente identificados. Caso "
-"encontre algum conflito, informe no tópico do suporte."
+"Comprova si el teu problema ve d'un conflicte amb un altre plugin o "
+"plantilla. Això ho pots comprovar fàcilment en una pàgina en construcció "
+"desactivant altres plugins un a un, i tornant a la plantilla per defecte "
+"Twenty Twelve per a veure si els conflictes es poden identificar més "
+"fàcilment. Si trobes un conflicte, comenta-ho en el fil de suport que obris."
 
 #: ../events-calendar-pro.php:686
 #, php-format
@@ -132,9 +137,10 @@ msgid ""
 "Permalinks</a>) can resolve events-related problems on your site. Before "
 "creating a new thread try this handy trick."
 msgstr ""
-"Algumas vezes, salvar novamente seus Links Permanentes (em <a href=\"%s\"> "
-"Configurações > Links Permanentes</a>) pode resolver problemas relacionados "
-"aos eventos no seu site. Antes de criar um novo tópico tente fazer isso."
+"A vegades, refrescar els teus enllaços permanents (a <a href=\"%s\">Opcions "
+"> Enllaços permanents</a>) pot resoldre problemes relacionats amb els "
+"esdeveniments a la teva pàgina. Abans d'obrir un nou fil prova aquest truc "
+"tant pràctic."
 
 #: ../events-calendar-pro.php:689
 #, php-format
@@ -145,44 +151,45 @@ msgid ""
 "as an added bonus, once you're done you can post it in the %s so the rest of "
 "the community can see what you've been working on."
 msgstr ""
-"Ainda que a gente não possa construir o seu site para você nem garantir que "
-"The Events Calendar PRO funcione bem com todos os temas e plugins "
-"existentes, nossa equipe fará de tudo para ajudar você a fazer o plugin "
-"funcionar bem no seu site. E, de quebra, quado você estiver pronto poderá "
-"postá-lo no %s para que o resto da comunidade veja o seu trabalho."
+"Si bé no construirem la teva pàgina per a tu i no podem garantir que The "
+"Events Calendar PRO funcioni bé amb totes les plantilles i plugins que "
+"existeixen, el nostre equip farà tot el possible per a ajudar-te a fer-lo "
+"funcionar a la teva pàgina. I, com a extra, un cop hagis acabat, pots "
+"postejar als %s per tal que la resta de la comunitat vegi la teva feina."
 
 #: ../events-calendar-pro.php:689
 msgid "Showcase thread"
-msgstr "Showcase thread"
+msgstr "fil escaparat"
 
 #: ../events-calendar-pro.php:747
 msgid "Day View"
-msgstr "Visualização por Dia"
+msgstr "Vista diària"
 
 #: ../events-calendar-pro.php:750
 msgid "Week View"
-msgstr "Visualização por Semana"
+msgstr "Vista setmanal"
 
 #: ../events-calendar-pro.php:1069
 msgid "Settings"
-msgstr "Configurações"
+msgstr "Configuració"
 
 #: ../events-calendar-pro.php:1118
 #, php-format
 msgid "Calendar powered by %sThe Events Calendar PRO%s"
-msgstr "Este calendário opera com o %sThe Events Calendar PRO%s"
+msgstr "Calendari basat en %sThe Events Calendar PRO%s"
 
 #: ../events-calendar-pro.php:1127
 msgid "Support"
-msgstr "Suporte"
+msgstr "Suport"
 
 #: ../events-calendar-pro.php:1129
 msgid "View All Add-Ons"
-msgstr "Ver todos os Add-On"
+msgstr "Mostra tots els complements"
 
+#
 #: ../events-calendar-pro.php:1161
 msgid "Week"
-msgstr "Semana"
+msgstr "Setmana"
 
 #: ../events-calendar-pro.php:1169 ../admin-views/event-recurrence.php:82
 #: ../admin-views/event-recurrence.php:127
@@ -197,9 +204,10 @@ msgstr "Foto"
 msgid "Day Of"
 msgstr "Dia de"
 
+#
 #: ../events-calendar-pro.php:1187
 msgid "Week Of"
-msgstr "Semana de"
+msgstr "Setmana de"
 
 #: ../events-calendar-pro.php:1267
 msgid "The Events Calendar"
@@ -211,42 +219,42 @@ msgid ""
 "To begin using Events Calendar PRO, please install the latest version of <a "
 "href=\"%s\" class=\"thickbox\" title=\"%s\">The Events Calendar</a>."
 msgstr ""
-"Para usar o Events Calendar PRO, por favor instale a última versão de<a href="
-"\"%s\" class=\"thickbox\" title=\"%s\">The Events Calendar</a>."
+"Instal·leu l'última versió de <a href=\"%s\" class=\"thickbox\" title=\"%s"
+"\">The Events Calendar</a> per començar a fer servir The Events Calendar PRO."
 
 #: ../admin-views/event-defaults.php:1
 msgid "Customize Defaults"
-msgstr "Personalize os Padrões"
+msgstr "Personalitzeu els valors predeterminats"
 
 #: ../admin-views/event-defaults.php:2
 msgid ""
 "These settings change the default event form. For example, if you set a "
 "default venue, this field will be automatically filled in on a new event."
 msgstr ""
-"Essas configurações alteram a forma padrão de eventos. Por exemplo, se você "
-"definir um local padrão, este campo será automaticamente preenchido em um "
-"novo evento."
+"Aquestes opcions canvien el formulari d'esdeveniment predeterminat. Si, per "
+"exemple, introduïu un recinte predeterminat, aquest camp s'autoemplenarà a "
+"cada esdeveniment nou."
 
 #: ../admin-views/event-defaults.php:5 ../admin-views/event-defaults.php:9
 #: ../admin-views/tribe-options-defaults.php:55
 msgid "Automatically replace empty fields with default values"
-msgstr "Substituir automaticamente os campos vazios com os valores padrão"
+msgstr "Substitueix els camps buits pels valors predeterminats"
 
 #: ../admin-views/event-defaults.php:13
 msgid "Enabled"
-msgstr "Habilitar"
+msgstr "Activat"
 
 #: ../admin-views/event-defaults.php:19
 msgid "Default Organizer for Events"
-msgstr "Organizador padrão dos eventos"
+msgstr "Organitzador predeterminat per esdeveniments"
 
 #: ../admin-views/event-defaults.php:22
 msgid "Default Organizer"
-msgstr "Organizador Padrão"
+msgstr "Organitzador predeterminat"
 
 #: ../admin-views/event-defaults.php:23
 msgid "The default organizer value"
-msgstr "Valor padrão para Organizador"
+msgstr "El valor d'organitzador predeterminat"
 
 #: ../admin-views/event-defaults.php:23 ../admin-views/event-defaults.php:31
 #: ../admin-views/event-defaults.php:38 ../admin-views/event-defaults.php:45
@@ -254,96 +262,96 @@ msgstr "Valor padrão para Organizador"
 #: ../admin-views/event-defaults.php:82 ../admin-views/event-defaults.php:108
 #, php-format
 msgid "The current default value is <strong>%s</strong>"
-msgstr "O valor padrão atual é <strong>%s</strong>"
+msgstr "El valor predeterminat actual és <strong>%s</strong>"
 
 #: ../admin-views/event-defaults.php:27
 msgid "Default Venue for Events"
-msgstr "Local Padrão dos Eventos"
+msgstr "Recinte predeterminat per esdeveniments"
 
 #: ../admin-views/event-defaults.php:30
 msgid "Default Venue"
-msgstr "Local Padrão"
+msgstr "Recinte predeterminat"
 
 #: ../admin-views/event-defaults.php:31
 msgid "The default venue value"
-msgstr "Valor padrão do Local"
+msgstr "El valor de recinte predeterminat"
 
 #: ../admin-views/event-defaults.php:35 ../admin-views/event-defaults.php:37
 msgid "Default Address"
-msgstr "Endereço Padrão"
+msgstr "Adreça predeterminada"
 
 #: ../admin-views/event-defaults.php:38
 msgid "The default address value"
-msgstr "Valor padrão do endereço"
+msgstr "Valor d'adreça predeterminat"
 
 #: ../admin-views/event-defaults.php:42 ../admin-views/event-defaults.php:44
 msgid "Default City"
-msgstr "Cidade Padrão"
+msgstr "Ciutat predeterminada"
 
 #: ../admin-views/event-defaults.php:45
 msgid "The default city value"
-msgstr "Valor padrão da cidade"
+msgstr "Valor de ciutat predeterminat"
 
 #: ../admin-views/event-defaults.php:50
 msgid "Default State"
-msgstr "Estado Padrão"
+msgstr "Província predeterminada"
 
 #: ../admin-views/event-defaults.php:52 ../admin-views/event-defaults.php:73
 msgid "Default Province or State"
-msgstr "Província ou Estado Padrão"
+msgstr "Província o estat predeterminat"
 
 #: ../admin-views/event-defaults.php:55
 msgid "Select a State:"
-msgstr "Selecione um Estado"
+msgstr "Escull un estat:"
 
 #: ../admin-views/event-defaults.php:66 ../admin-views/event-defaults.php:74
 msgid "The default  value"
-msgstr "O valor padrão"
+msgstr "El valor predeterminat"
 
 #: ../admin-views/event-defaults.php:71
 msgid "Default Province"
-msgstr "Provícia Padrão"
+msgstr "Província predeterminada"
 
 #: ../admin-views/event-defaults.php:79 ../admin-views/event-defaults.php:81
 msgid "Default Postal Code"
-msgstr "CEP Padrão"
+msgstr "Codi postal predeterminat"
 
 #: ../admin-views/event-defaults.php:82
 msgid "The default Postal Code value"
-msgstr "O valor padrão para o CEP"
+msgstr "El valor de codi postal predeterminat"
 
 #: ../admin-views/event-defaults.php:87
 msgid "Default Country for Events"
-msgstr "País Padrão para Eventos"
+msgstr "País predeterminat per esdeveniments"
 
 #: ../admin-views/event-defaults.php:105 ../admin-views/event-defaults.php:107
 msgid "Default Phone"
-msgstr "Telefone Padrão"
+msgstr "Telèfon predeterminat"
 
 #: ../admin-views/event-defaults.php:108
 msgid "The default phone value"
-msgstr "Valor padrão para o telefone"
+msgstr "Valor de telèfon predeterminat"
 
 #: ../admin-views/event-defaults.php:112
 #: ../admin-views/tribe-options-defaults.php:198
 msgid "Use a custom list of countries"
-msgstr "Usar uma lista personlizada de países"
+msgstr "Fes servir una llista personalitzada de països"
 
 #: ../admin-views/event-defaults.php:114
 msgid "Use the following list:"
-msgstr "Usar a seguinte lista:"
+msgstr "Fes servir aquesta llista:"
 
 #: ../admin-views/event-defaults.php:116
 msgid ""
 "One country per line in the following format: <br/>US, United States <br/> "
 "UK, United Kingdom."
 msgstr ""
-"Um país por linha no seguinte formato: <br/>BR, Brasil<br/> US, Estados "
-"Unidos."
+"Un país per línia en el format: <br/>EUA, Estats Units d'Amèrica <br/> UK, "
+"Regne Unit."
 
 #: ../admin-views/event-defaults.php:116
 msgid "(Replaces the default list.)"
-msgstr "(Substitui a lista padrão.)"
+msgstr "(Substitueix la llista predeterminada.)"
 
 #: ../admin-views/event-meta-options.php:4
 msgid ""
@@ -352,61 +360,59 @@ msgid ""
 "the event metabox that accompanies your event listing, alongside the date/"
 "time/venue/organizer/etc. Each new piece of data needs:"
 msgstr ""
-"Use campos adicionais para incluir campos de conteúdo exclusivos na "
-"administração do evento. Esses campos podem ser usados por qualquer pessoa "
-"que criar um evento. No momento da publicação eles aparecerão no formulário "
-"que acompanha sua listagem de eventos, junto com data/hora/local/organizador/"
-"etc. Cada novo campo precisa de:"
+"Utilitza camps addicionals per a afegir camps únics a l'administració dels "
+"esdeveniments, que poden ser utilitzats per qualsevol que creï "
+"esdeveniments. Just després de la publicació apareixeran al requadre de "
+"l'esdeveniment que apareix amb el teu llistat d'esdeveniments, amb la data/"
+"hora/lloc/organitzador/etc. Cada peça nova de dades necessita:"
 
 #: ../admin-views/event-meta-options.php:6
 msgid "a label (e.g. Meal Plans)"
-msgstr "um rótulo (ex. Tipo de Refeição)"
+msgstr "una etiqueta (ex.: Planificació d'àpats)"
 
 #: ../admin-views/event-meta-options.php:7
 msgid "at least one option (e.g. Vegetarian, Kosher, Paleo)"
-msgstr "ao menos uma opção (ex. Vegetariano, Kosher, Mediterrânea)"
+msgstr "com a mínim una opció (ex.: Vegeterià, Kosher, Paleo)"
 
 #: ../admin-views/event-meta-options.php:8
 msgid "a field type. These are:"
-msgstr "um formato para o campo. Ele pode ser:"
+msgstr "un tipus de camp. Aquests són:"
 
 #: ../admin-views/event-meta-options.php:10
 msgid "text - for the user to input text"
-msgstr "texto - para o usuário colocar um texto livre na descrição"
+msgstr "text - per a què l'usuari entri text"
 
 #: ../admin-views/event-meta-options.php:11
 msgid "URL - for the user to input a URL"
-msgstr "URL - para o usuário inserir uma URL"
+msgstr "URL - per a què l'usuari entri una URL"
 
 #: ../admin-views/event-meta-options.php:12
 msgid "checkbox - for multiple choice"
-msgstr "checkbox - caixas para o usuário selecionar quantas opções quiser"
+msgstr "Quadres de verificació - per a una elecció múltiple"
 
 #: ../admin-views/event-meta-options.php:13
 msgid "radio button - to select only one"
-msgstr "radio button - para selecionar apenas UMA opção entre várias"
+msgstr "botó de ràdio - per a seleccionar-ne només una"
 
 #: ../admin-views/event-meta-options.php:14
 msgid "dropdown menu - for a dropdown menu"
-msgstr ""
-"dropdown menu - para um menu com várias opções, que abrem para a seleção de "
-"uma"
+msgstr "menú desplegable - per a un menú desplegable"
 
 #: ../admin-views/event-meta-options.php:19
 msgid "Field Label"
-msgstr "Rótulo do campo"
+msgstr "Etiqueta del camp"
 
 #: ../admin-views/event-meta-options.php:19
 msgid "Field Type"
-msgstr "Formato do Campo"
+msgstr "Tipus de camp"
 
 #: ../admin-views/event-meta-options.php:19
 msgid "Options (one per line)"
-msgstr "Opções (uma por linha)"
+msgstr "Opcions (una per línia)"
 
 #: ../admin-views/event-meta-options.php:27
 msgid "Text"
-msgstr "Texto"
+msgstr "Text"
 
 #: ../admin-views/event-meta-options.php:28
 msgid "URL"
@@ -414,23 +420,23 @@ msgstr "URL"
 
 #: ../admin-views/event-meta-options.php:29
 msgid "Radio"
-msgstr "Radio"
+msgstr "Butó d'opció"
 
 #: ../admin-views/event-meta-options.php:30
 msgid "Checkbox"
-msgstr "Checkbox"
+msgstr "Casella de selecció"
 
 #: ../admin-views/event-meta-options.php:31
 msgid "Dropdown"
-msgstr "Dropdown"
+msgstr "Desplegable"
 
 #: ../admin-views/event-meta-options.php:37
 msgid "Add another"
-msgstr "Adicionar outro"
+msgstr "Afegeix un altre"
 
 #: ../admin-views/event-meta-options.php:39
 msgid "Remove"
-msgstr "Excluir"
+msgstr "Esborra"
 
 #: ../admin-views/event-meta-options.php:47
 #, php-format
@@ -443,125 +449,128 @@ msgid ""
 "one per-line — in the right-hand column. If you feel flummoxed, we've got "
 "you covered with a %s."
 msgstr ""
-"Digite o rótulo do campo como você quer que apareça (esse será o rótulo da "
-"mesma maneira que “Data e Início,” “Organizador,” etc aparecem na caixa de "
-"detalhes do evento na parte visível do seu site). Selecione se o campo será "
-"de texto; URL; radio buttons; checkbox; ou dropdown. Todas essas exceto "
-"texto e URL permitem que múltiplas opções sejam incluídas, você pode "
-"adicioná-las — uma por linha — na coluna da direita. Se você se sentir "
-"perdido, nós podemos lhe ajudar com um %s."
+"Entra l'etiqueta del camp tal com vols que aparegui (Serà l'etiqueta de la "
+"mateixa manera que \"Data d'inici\", \"Organitzador\", etc apareixen al "
+"requadre de detalls en el frontal o frontend). Selecciona si el camp serà un "
+"camp de text; un camp URL; butons de ràdio; quadres de verificació; o bé un "
+"menú desplegable. Tot això amb l'excepció del text i la URL permetrà que "
+"puguin incloure's opcions múltiples, que pots afegir -una per línia- a la "
+"columna de la dreta. Si et desconcerta, estaràs cobert amb un %s."
 
 #: ../admin-views/event-meta-options.php:47
 msgid "video tutorial that will walk you through the process"
-msgstr "tutorial em vídeo que vai lhe ajudar a conhecer todo o processo"
+msgstr "vídeo us acompanyarà durant el procés"
 
+#
 #: ../admin-views/event-meta-options.php:49
 msgid "Editor \"Custom Fields\" meta box"
-msgstr "Formulário do editor \"Campos personalizados\""
+msgstr "Editor \"Camps per defecte\" requadre"
 
+#
 #: ../admin-views/event-meta-options.php:51
 msgid "Show"
-msgstr "Mostrar"
+msgstr "Mostra"
 
 #: ../admin-views/event-meta-options.php:52
 msgid "Hide"
-msgstr "Não mostrar"
+msgstr "Amaga"
 
 #: ../admin-views/event-meta-options.php:53
 msgid ""
 "Enabling this option this will not remove custom field data or "
 "functionality, just the default meta box editor."
 msgstr ""
-"Ativar esta opção não irá remover o campo personalizado ou sua "
-"funcionalidade, apenas a caixa de edição padrão do campo."
+"Amb aquesta opció no esborra funcionalitat ni dades del camp per defecte, "
+"només l'editor de la casella per defecte"
 
 #: ../admin-views/event-meta-options.php:62
 msgid ""
 "Are you sure you wish to remove this field and its data from all events? "
 "Once you click OK this cannot be undone."
 msgstr ""
-"Tem certeza de que deseja remover este campo e seus dados de todos os "
-"eventos? Depois de clicar em OK isso não pode ser desfeito."
+"Voleu esborrar aquest camp i la seva informació a tots els esdeveniments? "
+"Aquesta acció no es pot desfer."
 
+#
 #: ../admin-views/event-meta.php:7
 msgid "Additional Event Fields"
-msgstr "Campos de Eventos adicionais"
+msgstr "Camps edicionals de l'esdeveniment"
 
 #: ../admin-views/event-recurrence.php:2
 msgid "Recurrence:"
-msgstr "Recorrência"
+msgstr "Repetició:"
 
 #: ../admin-views/event-recurrence.php:8
 msgid "None"
-msgstr "Nenhuma"
+msgstr "Cap"
 
 #: ../admin-views/event-recurrence.php:9
 msgid "Every Day"
-msgstr "Todo Dia"
+msgstr "Cada dia"
 
 #: ../admin-views/event-recurrence.php:10
 msgid "Every Week"
-msgstr "Toda Semana"
+msgstr "Cada setmana"
 
 #: ../admin-views/event-recurrence.php:11
 msgid "Every Month"
-msgstr "Todo Mês"
+msgstr "Cada mes"
 
 #: ../admin-views/event-recurrence.php:12
 msgid "Every Year"
-msgstr "Todo Ano"
+msgstr "Cada any"
 
 #: ../admin-views/event-recurrence.php:13
 msgid "Custom"
-msgstr "Personalizada"
+msgstr "Presonalitzat"
 
 #: ../admin-views/event-recurrence.php:16
 msgid "and will end"
-msgstr "e termina"
+msgstr "i acaba"
 
 #: ../admin-views/event-recurrence.php:18
 msgid "On"
-msgstr "Em"
+msgstr "A"
 
 #: ../admin-views/event-recurrence.php:19
 msgid "After"
-msgstr "Depois de"
+msgstr "Després"
 
 #: ../admin-views/event-recurrence.php:23
 msgid "You must select a recurrence end date"
-msgstr "Você precisa selecionar uma data final"
+msgstr "Heu d'escollir una data final de repetició"
 
 #: ../admin-views/event-recurrence.php:30
 msgid "Frequency"
-msgstr "Frequencia"
+msgstr "Freqüència"
 
 #: ../admin-views/event-recurrence.php:32
 msgid "Day(s)"
-msgstr "Dia(s)"
+msgstr "Dia/díes"
 
 #: ../admin-views/event-recurrence.php:32
 msgid "Daily"
-msgstr "Diário"
+msgstr "Diari"
 
 #: ../admin-views/event-recurrence.php:33
 msgid "Week(s) on:"
-msgstr "Semana(s) em:"
+msgstr "Setmana/es a:"
 
 #: ../admin-views/event-recurrence.php:33
 msgid "Weekly"
-msgstr "Semanal"
+msgstr "Setmanal"
 
 #: ../admin-views/event-recurrence.php:34
 msgid "Month(s) on the:"
-msgstr "Mês(es) em:"
+msgstr "Mes(os) a:"
 
 #: ../admin-views/event-recurrence.php:34
 msgid "Monthly"
-msgstr "Mensal"
+msgstr "Mensual"
 
 #: ../admin-views/event-recurrence.php:35
 msgid "Year(s) on:"
-msgstr "Ano(s) em:"
+msgstr "Any(s) a:"
 
 #: ../admin-views/event-recurrence.php:35
 msgid "Yearly"
@@ -569,114 +578,114 @@ msgstr "Anual"
 
 #: ../admin-views/event-recurrence.php:37
 msgid "Every"
-msgstr "Todo"
+msgstr "Cada"
 
 #: ../admin-views/event-recurrence.php:41
 msgid "Frequency of recurring event must be a number"
-msgstr "A frequência de recorrência do evento deve ser um número"
+msgstr "La freqüència d'un esdeveniment repetit ha de ser un número"
 
 #: ../admin-views/event-recurrence.php:49
 msgid "M"
-msgstr "Seg"
+msgstr "dil"
 
 #: ../admin-views/event-recurrence.php:50
 msgid "Tu"
-msgstr "Ter"
+msgstr "dim"
 
 #: ../admin-views/event-recurrence.php:51
 msgid "W"
-msgstr "Qua"
+msgstr "dic"
 
 #: ../admin-views/event-recurrence.php:52
 msgid "Th"
-msgstr "Qui"
+msgstr "dij"
 
 #: ../admin-views/event-recurrence.php:53
 msgid "F"
-msgstr "Sex"
+msgstr "div"
 
 #: ../admin-views/event-recurrence.php:54
 msgid "Sa"
-msgstr "Sáb"
+msgstr "dis"
 
 #: ../admin-views/event-recurrence.php:55
 msgid "Su"
-msgstr "Dom"
+msgstr "diu"
 
 #: ../admin-views/event-recurrence.php:63
 #: ../admin-views/event-recurrence.php:112
 msgid "First"
-msgstr "Primeiro"
+msgstr "Primer"
 
 #: ../admin-views/event-recurrence.php:64
 #: ../admin-views/event-recurrence.php:113
 msgid "Second"
-msgstr "Segundo"
+msgstr "Segon"
 
 #: ../admin-views/event-recurrence.php:65
 #: ../admin-views/event-recurrence.php:114
 msgid "Third"
-msgstr "Terceiro"
+msgstr "Tercer"
 
 #: ../admin-views/event-recurrence.php:66
 #: ../admin-views/event-recurrence.php:115
 msgid "Fourth"
-msgstr "Quarto"
+msgstr "Quart"
 
 #: ../admin-views/event-recurrence.php:67
 #: ../admin-views/event-recurrence.php:116
 msgid "Last"
-msgstr "Último"
+msgstr "Últim"
 
 #: ../admin-views/event-recurrence.php:74
 #: ../admin-views/event-recurrence.php:119
 #: ../lib/tribe-events-recurrence-meta.class.php:652
 msgid "Monday"
-msgstr "Segunda"
+msgstr "Dilluns"
 
 #: ../admin-views/event-recurrence.php:75
 #: ../admin-views/event-recurrence.php:120
 #: ../lib/tribe-events-recurrence-meta.class.php:652
 msgid "Tuesday"
-msgstr "Terça"
+msgstr "Dimarts"
 
 #: ../admin-views/event-recurrence.php:76
 #: ../admin-views/event-recurrence.php:121
 #: ../lib/tribe-events-recurrence-meta.class.php:652
 msgid "Wednesday"
-msgstr "Quarta"
+msgstr "Dimecres"
 
 #: ../admin-views/event-recurrence.php:77
 #: ../admin-views/event-recurrence.php:122
 #: ../lib/tribe-events-recurrence-meta.class.php:652
 msgid "Thursday"
-msgstr "Quinta"
+msgstr "Dijous"
 
 #: ../admin-views/event-recurrence.php:78
 #: ../admin-views/event-recurrence.php:123
 #: ../lib/tribe-events-recurrence-meta.class.php:652
 msgid "Friday"
-msgstr "Sexta"
+msgstr "Divendres"
 
 #: ../admin-views/event-recurrence.php:79
 #: ../admin-views/event-recurrence.php:124
 #: ../lib/tribe-events-recurrence-meta.class.php:652
 msgid "Saturday"
-msgstr "Sábado"
+msgstr "Dissabte"
 
 #: ../admin-views/event-recurrence.php:80
 #: ../admin-views/event-recurrence.php:125
 #: ../lib/tribe-events-recurrence-meta.class.php:652
 msgid "Sunday"
-msgstr "Domingo"
+msgstr "Diumenge"
 
 #: ../admin-views/event-recurrence.php:91
 msgid "Jan"
-msgstr "Jan"
+msgstr "Gen"
 
 #: ../admin-views/event-recurrence.php:92
 msgid "Feb"
-msgstr "Fev"
+msgstr "Feb"
 
 #: ../admin-views/event-recurrence.php:93
 msgid "Mar"
@@ -709,7 +718,7 @@ msgstr "Set"
 
 #: ../admin-views/event-recurrence.php:103
 msgid "Oct"
-msgstr "Out"
+msgstr "Oct"
 
 #: ../admin-views/event-recurrence.php:104
 msgid "Nov"
@@ -717,32 +726,33 @@ msgstr "Nov"
 
 #: ../admin-views/event-recurrence.php:105
 msgid "Dec"
-msgstr "Dez"
+msgstr "Des"
 
 #: ../admin-views/event-recurrence.php:110
 msgid "On the:"
-msgstr "Em:"
+msgstr "Al:"
 
 #: ../admin-views/event-recurrence.php:135
 #: ../views/tribe-ECP-views-old/views/single-venue.php:58
 msgid "Description:"
-msgstr "Descrição:"
+msgstr "Descripció:"
 
+#
 #: ../admin-views/event-recurrence.php:143
 msgid "Recurrence Text:"
-msgstr "Texto da recorrência:"
+msgstr "Text de repetició:"
 
 #: ../admin-views/event-recurrence.php:148
 msgid ""
 "Create a custom plain language description of the recurrance. Leave it blank "
 "and we'll automate it."
 msgstr ""
-"Crie uma descrição em linguagem simples da recorrência. Se deixar em branco "
-"nós usaremos um texto automático."
+"Crea una descripció clara de la periodicitat. Deixa-ho en blanc i ho "
+"automatitzarem."
 
 #: ../admin-views/support-form.php:11
 msgid "Need help? Send us a support request."
-msgstr "Precisa de ajuda? Envie-nos um pedido de suporte."
+msgstr "Necessiteu ajuda? Envieu-nos una petició de suport."
 
 #: ../admin-views/support-form.php:14
 #, php-format
@@ -753,24 +763,23 @@ msgid ""
 "like to contact us without sending any system information, please visit our "
 "support page at %s. Thanks!"
 msgstr ""
-"Descreva o máximo possível do problema que você está tendo. Por favor, envie "
-"também algumas informações básicas do sistema, juntamente ao pedido para que "
-"possamos melhor diagnosticar o problema. Se você quiser entrar em contato "
-"conosco sem enviar qualquer informação do sistema, por favor visite nossa "
-"página de suporte em %s. Muito obrigado!"
+"Dona'ns tota la informació possible del problema que teniu. També s'enviarà "
+"informació bàsica de sistema amb la teva petició per fer un millor "
+"diagnòstic. Si voleu contactar-nos sense enviar cap informació de sistema, "
+"visiteu la nostra pàgina de suport: %s."
 
 #: ../admin-views/support-form.php:18
 msgid "Send a Support Request"
-msgstr "Enviar um pedido de suporte"
+msgstr "Envia una petició de suport"
 
 #: ../admin-views/tribe-options-defaults.php:6
 #: ../admin-views/tribe-options-defaults.php:15
 msgid "No Default"
-msgstr "Sem padrões pré-definidos"
+msgstr "Cap predeterminat"
 
 #: ../admin-views/tribe-options-defaults.php:22
 msgid "Select a State"
-msgstr "Selecione um Estado"
+msgstr "Esculliu un estat"
 
 #: ../admin-views/tribe-options-defaults.php:39
 msgid ""
@@ -778,99 +787,107 @@ msgid ""
 "save time when entering a new venue or organizer.</p><p>You can override "
 "these settings as you enter a new event.</p>"
 msgstr ""
-"<p>Escolha o local & organizador padrão. Configure a informação padrão de "
-"endereço para economizar tempo na hora de inserir um novo local ou "
-"organizador.</p><p>Você pode mudar essas configurações ao inserir um novo "
-"evento.</p>"
+"Escull el lloc i organitzador per defecte. Estableix la informació de "
+"l'adreça per defecte per guardar l'hora quan entris un nou lloc o "
+"organitzador.</p><p>Pots reescriure aquestes opcions quan entris un "
+"esdeveniment nou.<p>"
 
 #: ../admin-views/tribe-options-defaults.php:51
 msgid "Options"
-msgstr "Opções"
+msgstr "Opcions"
 
 #: ../admin-views/tribe-options-defaults.php:61
 msgid ""
 "Check this box to have the organizer and venue fields pre-populated with the "
 "default values below for any new event that is created."
 msgstr ""
-"Marque essa opção para que os campos de organizador e local sejam "
-"automaticamente preenchidos com os valores padrões para os novos eventos "
-"criados."
+"Selecciona aquesta casella per a què els camps d'organitzador i lloc "
+"s'omplin amb els valors per defecte cada cop que es creï un nou esdeveniment."
 
 #: ../admin-views/tribe-options-defaults.php:65
 #: ../admin-views/widget-admin-advanced-list.php:29 ../lib/apm_filters.php:27
 msgid "Organizer"
-msgstr "Organizadores"
+msgstr "Organitzador"
 
+#
 #: ../admin-views/tribe-options-defaults.php:69
 msgid "Default organizer"
-msgstr "Organizadores padrão"
+msgstr "Organitzador per defecte"
 
 #: ../admin-views/tribe-options-defaults.php:73
 msgid "No saved organizers yet."
-msgstr "Nenhum organizador cadastrado ainda"
+msgstr "No hi ha organitzadors guardats."
 
 #: ../admin-views/tribe-options-defaults.php:82
 #: ../admin-views/widget-admin-advanced-list.php:28 ../lib/apm_filters.php:22
 msgid "Venue"
-msgstr "Local"
+msgstr "Recinte"
 
+#
 #: ../admin-views/tribe-options-defaults.php:86
 msgid "Default venue"
-msgstr "Local padrão"
+msgstr "Lloc per defecte"
 
 #: ../admin-views/tribe-options-defaults.php:90
 msgid "No saved venues yet."
-msgstr "Nenhum local cadastrado ainda."
+msgstr "No hi ha recintes guardats."
 
 #: ../admin-views/tribe-options-defaults.php:99
 #: ../admin-views/widget-admin-advanced-list.php:30
 msgid "Address"
-msgstr "Endereço"
+msgstr "Adreça"
 
 #: ../admin-views/tribe-options-defaults.php:103
 msgid ""
 "You can use this setting to set specific, individual defaults for any new "
 "Venue you create (these will not be used for your default venue)."
 msgstr ""
-"Você pode usar essa configuração para definir padrões específicos "
-"individuais para novos Locais que você criar (eles não serão usados no seu "
-"local padrão)."
+"Pots utilitzar aquesta opció per a establir valors per defecte específics i "
+"i individuals per a cada lloc que creïs (això no serà utilitzat per al teu "
+"lloc per defecte). "
 
+#
 #: ../admin-views/tribe-options-defaults.php:107
 msgid "Default address"
-msgstr "Edereço padrão"
+msgstr "Adreça per defecte"
 
+#
 #: ../admin-views/tribe-options-defaults.php:120
 msgid "Default city"
-msgstr "Cidade padrão"
+msgstr "Ciutat per defecte"
 
+#
 #: ../admin-views/tribe-options-defaults.php:133
 msgid "Default state"
-msgstr "Estado padrão"
+msgstr "Estat per defecte"
 
+#
 #: ../admin-views/tribe-options-defaults.php:146
 msgid "Default province"
-msgstr "Província padrão"
+msgstr "Província per defecte"
 
+#
 #: ../admin-views/tribe-options-defaults.php:159
 msgid "Default postal code/zip code"
-msgstr "CEP padrão"
+msgstr "Codi postal per defecte"
 
+#
 #: ../admin-views/tribe-options-defaults.php:172
 msgid "Default country"
-msgstr "País padrão"
+msgstr "País per defecte"
 
+#
 #: ../admin-views/tribe-options-defaults.php:185
 msgid "Default phone"
-msgstr "Telefone padrão"
+msgstr "Telèfon per defecte"
 
 #: ../admin-views/tribe-options-defaults.php:201
 msgid ""
 "One country per line in the following format: <br>US, United States <br> UK, "
 "United Kingdom. <br> (Replaces the default list.)"
 msgstr ""
-"Um país por linha no seguinte formato: <br/>BR, Brasil <br/> US, Estados "
-"Unidos. (Substitui a lista padrão)"
+"Un país per línia en el format: <br/>EUA, Estats Units d'Amèrica <br/> UK, "
+"Regne Unit. <br> (Substitueix la llista predeterminada.)"
 
 #: ../admin-views/widget-admin-advanced-list.php:11
 #: ../admin-views/widget-admin-calendar.php:10
@@ -879,29 +896,29 @@ msgstr ""
 #: ../admin-views/widget-calendar.php:2
 #: ../vendor/tribe-related-posts/tribe-related-posts-widget.php:70
 msgid "Title:"
-msgstr "Título"
+msgstr "Títol:"
 
 #: ../admin-views/widget-admin-advanced-list.php:16
 #: ../admin-views/widget-admin-venue.php:20
 #: ../admin-views/widget-calendar.php:8
 msgid "Number of events to show:"
-msgstr "Número de eventos a serem mostrados"
+msgstr "Nombre d'esdeveniments per mostrar:"
 
 #: ../admin-views/widget-admin-advanced-list.php:25
 msgid "Display:"
-msgstr "Mostrar:"
+msgstr "Mostra:"
 
 #: ../admin-views/widget-admin-advanced-list.php:31
 msgid "City"
-msgstr "Cidade"
+msgstr "Ciutat"
 
 #: ../admin-views/widget-admin-advanced-list.php:32
 msgid "State (US) Or Province (Int)"
-msgstr "Estado"
+msgstr "Estat (EUA) o província (internacional)"
 
 #: ../admin-views/widget-admin-advanced-list.php:33
 msgid "Postal Code"
-msgstr "CEP"
+msgstr "Codi postal"
 
 #: ../admin-views/widget-admin-advanced-list.php:34
 msgid "Country"
@@ -909,173 +926,183 @@ msgstr "País"
 
 #: ../admin-views/widget-admin-advanced-list.php:35
 msgid "Phone"
-msgstr "Telefone"
+msgstr "Telèfon"
 
 #: ../admin-views/widget-admin-advanced-list.php:36
 msgid "Price"
-msgstr "Preço"
+msgstr "Preu final"
 
 #: ../admin-views/widget-admin-advanced-list.php:43
 msgid "Category:"
-msgstr "Categoria"
+msgstr "Categoria:"
 
 #: ../admin-views/widget-admin-advanced-list.php:47
 msgid "All Events"
-msgstr "Todos os Eventos"
+msgstr "Tots els esdeveniments"
 
+#
 #: ../admin-views/widget-admin-advanced-list.php:58
 #: ../admin-views/widget-admin-venue.php:28
 msgid "Hide this widget if there are no upcoming events:"
-msgstr "Não mostrar esse widget se não houverem eventos futuros:"
+msgstr "Amaga aquest giny si no hi ha propers esdeveniments:"
 
 #: ../admin-views/widget-admin-advanced-list.php:61
 #, php-format
 msgid "Want to modify the display of this widget? Try a %stemplate override%s."
 msgstr ""
-"Quer modificar a aparência deste widget? Experimente %smudar o template%s."
+"Vols modificar com es mostra aquest giny? Prova una %s sobreescriptura de la "
+"plantilla %s. "
 
+#
 #: ../admin-views/widget-admin-countdown.php:12
 msgid "Event:"
-msgstr "Evento:"
+msgstr "Esdeveniment:"
 
+#
 #: ../admin-views/widget-admin-countdown.php:21
 msgid "Show seconds:"
-msgstr "Mostrar segundos:"
+msgstr "Mostra els segons:"
 
 #: ../admin-views/widget-admin-countdown.php:24
 msgid "Countdown Completed Text:"
-msgstr "Texto da contagem regressiva finalizada:"
+msgstr "Text per al compte enrera completat:"
 
+#
 #: ../admin-views/widget-admin-venue.php:11
 msgid "Venue:"
-msgstr "Local"
+msgstr "Lloc:"
 
+#
 #: ../admin-views/widget-calendar.php:24
 msgid "Filters"
-msgstr "Filtros"
+msgstr "Filtres"
 
+#
 #: ../admin-views/widget-calendar.php:42
 msgid "remove"
-msgstr "remover"
+msgstr "esborra"
 
 #: ../admin-views/widget-calendar.php:53
 msgid "Match all"
-msgstr "Obedecer todas as condições"
+msgstr "Que coincideixi tot"
 
 #: ../admin-views/widget-calendar.php:56
 msgid "Match any"
-msgstr "Obedecer qualquer uma das condições"
+msgstr "Que coincideixi algún"
 
+#
 #: ../admin-views/widget-calendar.php:60
 msgid "Add a filter"
-msgstr "Adicionar filtro"
+msgstr "Afegeix un filtre"
 
 #: ../admin-views/widget-calendar.php:63
 msgid "Select one..."
-msgstr "Selecionar um..."
+msgstr "Escull-ne un..."
 
 #: ../lib/apm_filters.php:32
 msgid "Start Date"
-msgstr "Data de Início"
+msgstr "Data d'inici"
 
+#
 #: ../lib/apm_filters.php:37
 msgid "End Date"
-msgstr "Data de Término"
+msgstr "Data de finalització"
 
 #: ../lib/apm_filters.php:42
 msgid "Event Cost"
-msgstr "Preço do Evento"
+msgstr "Preu de l'esdeveniment"
 
 #: ../lib/apm_filters.php:47
 msgid "Event Cats"
-msgstr "Categorias do Evento"
+msgstr "Categoríes d'esdeveniments"
 
 #: ../lib/apm_filters.php:52
 msgid "Title"
-msgstr "Título"
+msgstr "Títol"
 
 #: ../lib/apm_filters.php:57
 msgid "Recurring"
-msgstr "Recorrência"
+msgstr "Recurrent"
 
 #: ../lib/apm_filters.php:62
 msgid "Description"
-msgstr "Descrição"
+msgstr "Descripció"
 
 #: ../lib/meta-pro.php:63
 msgid "Other"
-msgstr "Outro"
+msgstr "Altre"
 
+#
 #: ../lib/meta-pro.php:87
 msgid "Recurrence Pattern:"
-msgstr "Padrão da Recorrência"
+msgstr "Patró de periodicitat:"
 
 #: ../lib/tribe-events-recurrence-meta.class.php:460
 msgid ""
 "Monthly custom recurrences cannot have a dash set as the day to occur on."
 msgstr ""
-"Recorrências mensais personalizadas não podem ter um traço definido como o "
-"dia de ocorrência."
+"Les repeticions mensuals personalitzades no poden tenir definit com a dia un "
+"guió."
 
 #: ../lib/tribe-events-recurrence-meta.class.php:463
 msgid ""
 "Yearly custom recurrences cannot have a dash set as the day to occur on."
 msgstr ""
-"Recorrências anuais personalizadas não podem ter um traço definido como o "
-"dia de ocorrência."
+"Les repeticions anuals personalitzades no poden tenir definit com a dia un "
+"guió."
 
 #: ../lib/tribe-events-recurrence-meta.class.php:590
 #: ../lib/tribe-events-recurrence-meta.class.php:605
 msgid "Every day"
-msgstr "Todo dia"
+msgstr "Cada dia"
 
 #: ../lib/tribe-events-recurrence-meta.class.php:591
 #, php-format
 msgid " for %d day"
 msgid_plural " for %d days"
-msgstr[0] " por %d dia"
-msgstr[1] " por %d dias"
+msgstr[0] "per al dia %d"
+msgstr[1] "Per als dies %d"
 
 #: ../lib/tribe-events-recurrence-meta.class.php:594
 #: ../lib/tribe-events-recurrence-meta.class.php:610
 msgid "Every week"
-msgstr "Toda semana"
+msgstr "Cada setmana"
 
 #: ../lib/tribe-events-recurrence-meta.class.php:595
 #, php-format
 msgid " for %d week"
 msgid_plural " for %d weeks"
-msgstr[0] " por %d semana"
-msgstr[1] " por %d semanas"
+msgstr[0] "Per a la setmana %d"
+msgstr[1] "Per a les %d setmanes"
 
 #: ../lib/tribe-events-recurrence-meta.class.php:597
 #: ../lib/tribe-events-recurrence-meta.class.php:616
 msgid "Every month"
-msgstr "Todo mês"
+msgstr "Cada mes"
 
 #: ../lib/tribe-events-recurrence-meta.class.php:598
 #, php-format
 msgid " for %d month"
 msgid_plural " for %d months"
-msgstr[0] " por %d mês"
-msgstr[1] " por %d meses"
+msgstr[0] "Per al mes %d"
+msgstr[1] "Per als mesos %d"
 
 #: ../lib/tribe-events-recurrence-meta.class.php:600
 #: ../lib/tribe-events-recurrence-meta.class.php:623
 msgid "Every year"
-msgstr "Todo ano"
+msgstr "Cada any"
 
 #: ../lib/tribe-events-recurrence-meta.class.php:601
 #, php-format
 msgid " for %d year"
 msgid_plural " for %d years"
-msgstr[0] " por %d ano"
-msgstr[1] " por %d anos"
+msgstr[0] "Per a l'any %d"
+msgstr[1] "Per als anys %d"
 
 #: ../lib/tribe-events-recurrence-meta.class.php:606
 #, php-format
 msgid "Every %d days"
-msgstr "A cada %d dias"
+msgstr "Cada %d díes"
 
 #: ../lib/tribe-events-recurrence-meta.class.php:607
 #: ../lib/tribe-events-recurrence-meta.class.php:613
@@ -1084,47 +1111,47 @@ msgstr "A cada %d dias"
 #, php-format
 msgid ", recurring %d time"
 msgid_plural ", recurring %d times"
-msgstr[0] ", repetir %d vez"
-msgstr[1] ", repetir %d vezes"
+msgstr[0] ", vegada que %d es repeteix"
+msgstr[1] ", vegades que %d es repeteix"
 
 #: ../lib/tribe-events-recurrence-meta.class.php:611
 #, php-format
 msgid "Every %d weeks"
-msgstr "Todas %d semanas"
+msgstr "Cada %d setmanes"
 
 #: ../lib/tribe-events-recurrence-meta.class.php:612
 #, php-format
 msgid "on %s"
-msgstr "em %s"
+msgstr "a %s"
 
 #: ../lib/tribe-events-recurrence-meta.class.php:617
 #, php-format
 msgid "Every %d months"
-msgstr "Todos %d meses"
+msgstr "Cada %d mesos"
 
 #: ../lib/tribe-events-recurrence-meta.class.php:619
 #, php-format
 msgid "on the %s %s"
-msgstr "em %s %s"
+msgstr "en el %s %s"
 
 #: ../lib/tribe-events-recurrence-meta.class.php:624
 #, php-format
 msgid "Every %d years"
-msgstr "Todos %d anos"
+msgstr "Cada %d anys"
 
 #: ../lib/tribe-events-recurrence-meta.class.php:626
 msgid "last"
-msgstr "último"
+msgstr "passat"
 
 #: ../lib/tribe-events-recurrence-meta.class.php:631
 #, php-format
 msgid " on the %s %s of %s"
-msgstr " no %s %s de %s"
+msgstr " al %s %s de %s"
 
 #: ../lib/tribe-events-recurrence-meta.class.php:638
 #, php-format
 msgid " until %s"
-msgstr " até %s"
+msgstr " fins el %s"
 
 #: ../lib/tribe-events-recurrence-meta.class.php:643
 #, php-format
@@ -1134,29 +1161,29 @@ msgstr "%s%s%s"
 #: ../lib/tribe-events-recurrence-meta.class.php:658
 #: ../lib/tribe-events-recurrence-meta.class.php:684
 msgid ", and"
-msgstr ", e"
+msgstr ", i"
 
 #: ../lib/tribe-events-recurrence-meta.class.php:660
 #: ../lib/tribe-events-recurrence-meta.class.php:686
 msgid "and"
-msgstr "e"
+msgstr "i"
 
 #: ../lib/tribe-events-recurrence-meta.class.php:662
 #: ../lib/tribe-events-recurrence-meta.class.php:688
 msgid ","
-msgstr ", "
+msgstr ","
 
 #: ../lib/tribe-events-recurrence-meta.class.php:677
 msgid "January"
-msgstr "Janeiro"
+msgstr "Gener"
 
 #: ../lib/tribe-events-recurrence-meta.class.php:677
 msgid "February"
-msgstr "Fevereiro"
+msgstr "Febrer"
 
 #: ../lib/tribe-events-recurrence-meta.class.php:677
 msgid "March"
-msgstr "Março"
+msgstr "Març"
 
 #: ../lib/tribe-events-recurrence-meta.class.php:677
 msgid "April"
@@ -1164,104 +1191,105 @@ msgstr "Abril"
 
 #: ../lib/tribe-events-recurrence-meta.class.php:678
 msgid "June"
-msgstr "Junho"
+msgstr "Juny"
 
 #: ../lib/tribe-events-recurrence-meta.class.php:678
 msgid "July"
-msgstr "Julho"
+msgstr "Juliol"
 
 #: ../lib/tribe-events-recurrence-meta.class.php:678
 msgid "August"
-msgstr "Agosto"
+msgstr "Agost"
 
 #: ../lib/tribe-events-recurrence-meta.class.php:678
 msgid "September"
-msgstr "Setembro"
+msgstr "Setembre"
 
 #: ../lib/tribe-events-recurrence-meta.class.php:678
 msgid "October"
-msgstr "Outubro"
+msgstr "Octubre"
 
 #: ../lib/tribe-events-recurrence-meta.class.php:678
 msgid "November"
-msgstr "Novembro"
+msgstr "Novembre"
 
 #: ../lib/tribe-events-recurrence-meta.class.php:678
 msgid "December"
-msgstr "Dezembro"
+msgstr "Desembre"
 
 #: ../lib/tribe-events-recurrence-meta.class.php:745
 msgid "Recurring event instances"
-msgstr "Ocorrências de eventos recorrentes"
+msgstr "Instàncies de repetició de l'esdeveniment"
 
 #: ../lib/tribe-events-recurrence-meta.class.php:746
 msgid "Show only the first instance of each recurring event."
-msgstr "Mostrar apenas a primeira ocorrência de cada evento recorrente."
+msgstr "Mostra només la primera instància de cada event recurrent."
 
 #: ../lib/tribe-events-recurrence-meta.class.php:752
 msgid "Front-end recurring event instances toggle"
-msgstr "Toggle do front-end para eventos recorrentes"
+msgstr "Conmuta els casos d'esdeveniment recurrent (al 'front-end')"
 
 #: ../lib/tribe-events-recurrence-meta.class.php:753
 msgid ""
 "Allow users to decide whether to show all instances of a recurring event."
 msgstr ""
-"Permitir aos usuários escolher a exibição de todas as ocorrências de um "
-"evento recorrente."
+"Permet que els usuaris decideixin mostrar tots els casos d'un esdeveniment "
+"recurrent."
 
 #: ../lib/tribe-events-recurrence-meta.class.php:810
 msgid "Your recurrence pattern would create greater than "
-msgstr "O padrão de recorrência criaria maior que "
+msgstr "El teu patró de repetició crearia majors de"
 
 #: ../lib/tribe-geoloc.class.php:70
 msgid "Distance"
-msgstr "Distância"
+msgstr "Distància"
 
 #: ../lib/tribe-geoloc.class.php:77
 #, php-format
 msgid "Title: %s"
-msgstr "Título: %s"
+msgstr "Títol: %s"
 
 #: ../lib/tribe-geoloc.class.php:79
 #, php-format
 msgid "%sType: %s"
-msgstr "%s Formato: %s"
+msgstr "%sTipus: %s"
 
+#
 #: ../lib/tribe-geoloc.class.php:79
 msgid "Select Dropdown"
-msgstr "Selecione Dropdown"
+msgstr "Escull desplegable"
 
 #: ../lib/tribe-geoloc.class.php:80
 msgid "Radio Buttons"
-msgstr "Botões de Seleção"
+msgstr "Botons de ràdio"
 
 #: ../lib/tribe-geoloc.class.php:134
 msgid "Map view search distance limit"
-msgstr "Limite de distância da busca na visualização de Mapa"
+msgstr "Límit de cerca de la vista del mapa"
 
 #: ../lib/tribe-geoloc.class.php:136
 msgid ""
 "Set the distance that the location search covers (find events within X "
 "distance units of location search input)."
 msgstr ""
-"Define a distância que a busca por local abrange (encontre eventos em até X "
-"unidades de distância do local buscado)."
+"Estableix la distància que la cerca de localització cobreix (troba "
+"esdeveniments a una distància X de la localitat entrada)."
 
 #: ../lib/tribe-geoloc.class.php:142
 msgid "Map view distance unit"
-msgstr "Unidade de distância do Mapa"
+msgstr "Unitat de distància de la visualització del mapa"
 
 #: ../lib/tribe-geoloc.class.php:146
 msgid "Miles"
-msgstr "Milhas"
+msgstr "Milles"
 
 #: ../lib/tribe-geoloc.class.php:147
 msgid "Kilometers"
-msgstr "Quilômetros"
+msgstr "Quilòmetres"
 
 #: ../lib/tribe-geoloc.class.php:150
 msgid "Fix geolocation data"
-msgstr "Informações de geolocalização fixas"
+msgstr "Fixe dades geològiques"
 
 #: ../lib/tribe-geoloc.class.php:150
 #, php-format
@@ -1270,33 +1298,34 @@ msgid ""
 "the Google Maps API to get that information. Doing this may take a while "
 "(aprox. 1 minute for every 200 venues)."
 msgstr ""
-"Você tem %d locais para os quais não temos informações de geolocalização. "
-"Precisaremos usar a API do Google Maps para conseguir essas informações. "
-"Isso pode demorar um pouco (aprox. 1 minuto para cada 200 locais)."
+"Tens %d llocs dels quals no tenim dades de geolocalització. Necessitem "
+"utilitzar l'API de Google Maps per obtenir aquesta informació. Això pot "
+"portar cert temps (aproximadament 1 minut per a cada 200 llocs)"
 
 #: ../lib/tribe-geoloc.class.php:160
 msgid "Hide location search"
-msgstr "Não mostrar busca de local"
+msgstr "Amaga la cerca de localització"
 
 #: ../lib/tribe-geoloc.class.php:161
 msgid ""
 "Removes location search field from the events bar on all views except for "
 "map view."
 msgstr ""
-"Remover campo de busca de local da barra de eventos em todas as "
-"visualizações exceto para a visualização de mapa."
+"Esborra el camps de cerca de localització de la barra d'esdeveniments en "
+"totes les vistes exceptuant la vista mapa."
 
+#
 #: ../lib/tribe-geoloc.class.php:172
 msgid "Map"
 msgstr "Mapa"
 
 #: ../lib/tribe-geoloc.class.php:194
 msgid "Near"
-msgstr "Perto"
+msgstr "Prop"
 
 #: ../lib/tribe-geoloc.class.php:651
 msgid "Fix venues data"
-msgstr "Informações fixas de locais"
+msgstr "Dades fixes del lloc"
 
 #: ../lib/tribe-geoloc.class.php:695
 #, php-format
@@ -1304,87 +1333,92 @@ msgid ""
 "You have venues for which we don't have Geolocation information. <a "
 "href='%s'>Click here to generate it</a>."
 msgstr ""
-"Seus eventos para os quais nós não temos as informações de Geolocalização. "
-"<a href='%s'>Clique aqui para gerá-las</a>."
+"Tens llocs dels quals no tenim dades de geolocalització. <a href=%s'>Clica "
+"per a generar-la</a>."
 
 #: ../lib/tribe-geoloc.class.php:714
 #, php-format
 msgid "Fixed geolocation data for %d venues"
-msgstr "Informação de geolocalização fixa para locais %d"
+msgstr "Dades fixes de geolocalització per als llocs %d"
 
 #: ../lib/tribe-ical.class.php:36
 msgid "Add to Google Calendar"
-msgstr "Adicionar ao Google Agenda"
+msgstr "Afegeix a Google Calendar"
 
+#
 #: ../lib/tribe-ical.class.php:36
 msgid "Google Calendar"
-msgstr "Google Agenda"
+msgstr "Google Calendar"
 
 #: ../lib/tribe-ical.class.php:37 ../lib/tribe-ical.class.php:83
 msgid "iCal Import"
-msgstr "Importação iCal"
+msgstr "Importa d'iCal"
 
+#
 #: ../lib/tribe-ical.class.php:70
 msgid "Month's Events"
-msgstr "Eventos do Mês"
+msgstr "Esdeveniments del mes"
 
+#
 #: ../lib/tribe-ical.class.php:73
 msgid "Week's Events"
-msgstr "Eventos da Semana"
+msgstr "Esdeveniments de la setmana"
 
+#
 #: ../lib/tribe-ical.class.php:76
 msgid "Day's Events"
-msgstr "Eventos do Dia"
+msgstr "Esdeveniments del dia"
 
+#
 #: ../lib/tribe-ical.class.php:79
 msgid "Listed Events"
-msgstr "Eventos Listados"
+msgstr "Esdeveniments llistats"
 
 #: ../lib/tribe-ical.class.php:83
 msgid "Import is filter/view sensitive"
-msgstr "A importação é sensível ao filtro de visibilidade"
+msgstr "Importació és sensible a filtre/vista"
 
 #: ../lib/widget-advanced-list.class.php:16
 msgid "A widget that displays the next upcoming x events."
-msgstr "Um widget que mostra os próximos x eventos."
+msgstr "Un giny que mostra els propers x esdeveniments."
 
+#
 #: ../lib/widget-advanced-list.class.php:22
 msgid "Events List"
-msgstr "Lista de Eventos"
+msgstr "Llista d'esdeveniments"
 
 #: ../lib/widget-calendar.class.php:8
-#, fuzzy
 msgid "The events calendar mini calendar widget"
-msgstr "Widget de mini-calendário de The Events Calendar"
+msgstr "El giny del mini calendari de Events Calendar"
 
 #: ../lib/widget-calendar.class.php:10 ../lib/widget-calendar.class.php:31
 #: ../lib/widget-calendar.class.php:59
-#, fuzzy
 msgid "Events Calendar"
-msgstr "Calendário de Eventos"
+msgstr "Calendari d'esdeveniments"
 
 #: ../lib/widget-countdown.class.php:13
 msgid "Displays the time remaining until a specified event."
-msgstr "Mostra o tempo que falta para um evento específico."
+msgstr "Mostra el temps que queda fins a un esdeveniment específic"
 
+#
 #: ../lib/widget-countdown.class.php:15
 msgid "Events Countdown"
-msgstr "Contagem Regressiva para Eventos"
+msgstr "Compte enrera d'esdeveniments"
 
 #: ../lib/widget-venue.class.php:12
 msgid "Displays a list of upcoming events at a specific venue."
-msgstr "Mostra uma lista dos próximos eventos em um local específico."
+msgstr "Mostra una llista de propers esdeveniments en un lloc determinat."
 
 #: ../lib/widget-venue.class.php:14
 msgid "Events Featured Venue"
-msgstr "Local Destacado de Eventos"
+msgstr "Lloc destacat d'esdeveniments"
 
 #: ../lib/template-classes/day.php:73
 #: ../views/tribe-ECP-views-old/views/featured-widget.php:59
 #: ../views/tribe-ECP-views-old/views/list-widget.php:57
 #: ../views/week/loop-grid-allday.php:20
 msgid "All Day"
-msgstr "Dia Todo "
+msgstr "Tot el dia"
 
 #: ../lib/template-classes/day.php:102
 #, php-format
@@ -1392,14 +1426,15 @@ msgid ""
 "There were no results found for <strong>\"%s\"</strong> on this day. Try "
 "searching another day."
 msgstr ""
-"Não há resultados para <strong>\"%s\"</strong> neste dia. Tente buscar em "
-"outro dia."
+"No s'han trobat resultats per a <strong>\"%s\"</strong> en aquest dia. Prova "
+"de buscar un altre dia."
 
 #: ../lib/template-classes/day.php:106 ../lib/template-classes/photo.php:75
 #, php-format
 msgid "No events scheduled for <strong>%s</strong>. Please try another day."
 msgstr ""
-"Nenhum evento agendadp para <strong>%s</strong>. Por favor, tente outro dia."
+"No hi ha esdeveniments programats per a <strong>\"%s\"</strong>. Prova de "
+"buscar un altre dia siusplau."
 
 #: ../lib/template-classes/photo.php:72
 #, php-format
@@ -1407,8 +1442,8 @@ msgid ""
 "listed under %s. Check out events for this category or view the full "
 "calendar."
 msgstr ""
-"listado em %s. Veja os eventos para essa categoria ou veja o calendário "
-"completo."
+"listat sobre %s. Comprova els esdeveniments d'aquesta categoria o mira el "
+"calendari sencer."
 
 #: ../lib/template-classes/week.php:76
 #, php-format
@@ -1416,12 +1451,13 @@ msgid ""
 "There were no results found for <strong>\"%s\"</strong> this week. Try "
 "searching another week."
 msgstr ""
-"Não há resultados para <strong>\"%s\"</strong> nesta semana. Tente buscar em "
-"outra semana."
+"No s'han trobat resultats per a <strong>\"%s\"</strong> en aquesta setmana. "
+"Prova de buscar una altra setmana."
 
+#
 #: ../public/template-tags/general.php:103
 msgid "Show only the first upcoming instance of recurring events"
-msgstr "Mostrar apenas a primeira ocorrência para eventos recorrentes"
+msgstr "Mostra només el primer cas d'esdeveniments recurrents"
 
 #: ../public/template-tags/general.php:294
 #: ../public/template-tags/general.php:308
@@ -1440,76 +1476,77 @@ msgstr "Mostrar apenas a primeira ocorrência para eventos recorrentes"
 #: ../public/template-tags/general.php:405
 #: ../public/template-tags/general.php:406
 msgid "No default set"
-msgstr "Sem pré-definições"
+msgstr "No hi ha cap valor predefinit"
 
 #: ../public/template-tags/general.php:295
 #, php-format
 msgid "The current default organizer is: %s"
-msgstr "O organizador padrão atual é: %s"
+msgstr "L'organitzador predeterminat és: %s"
 
 #: ../public/template-tags/general.php:309
 #, php-format
 msgid "The current default venue is: %s"
-msgstr "O local padrão atual é: %s"
+msgstr "El recinte predeterminat és: %s"
 
 #: ../public/template-tags/general.php:323
 #, php-format
 msgid "The current default address is: %s"
-msgstr "O endereço padrão atual é: %s"
+msgstr "L'adreça predeterminada és: %s"
 
 #: ../public/template-tags/general.php:337
 #, php-format
 msgid "The current default city is: %s"
-msgstr "A cidade padrão atual é: %s"
+msgstr "La ciutat predeterminada és: %s"
 
 #: ../public/template-tags/general.php:351
 #, php-format
 msgid "The current default state is: %s"
-msgstr "O Estado padrão atual é: %s"
+msgstr "La província predeterminada és: %s"
 
 #: ../public/template-tags/general.php:365
 #, php-format
 msgid "The current default province is: %s"
-msgstr "A província padrão é: %s"
+msgstr "La província predeterminada és: %s"
 
 #: ../public/template-tags/general.php:379
 #, php-format
 msgid "The current default postal code/zip code is: %s"
-msgstr "O CEP padrão atual é: %s"
+msgstr "El codi postal predeterminat és: %s"
 
 #: ../public/template-tags/general.php:393
 #, php-format
 msgid "The current default country is: %s"
-msgstr "O País padrão atual é: %s"
+msgstr "El país predeterminat és: %s"
 
 #: ../public/template-tags/general.php:407
 #, php-format
 msgid "The current default phone is: %s"
-msgstr "O número de telefone padrão atual é: %s"
+msgstr "El telèfon predeterminat és: %s"
 
 #: ../public/template-tags/general.php:580
 msgid "Today"
-msgstr "Hoje"
+msgstr "Avui"
 
 #: ../public/template-tags/general.php:583
 msgid "&laquo; Previous Day"
-msgstr "&laquo; Dia Anterior"
+msgstr "&laquo; Dia anterior"
 
 #: ../public/template-tags/general.php:586
 msgid "Next Day &raquo;"
-msgstr "Próximo Dia &raquo;"
+msgstr "Dia posterior &raquo;"
 
 #: ../public/template-tags/general.php:589
 msgid "Yesterday"
-msgstr "Ontem"
+msgstr "Ahir"
 
 #: ../public/template-tags/general.php:592
 msgid "Tomorrow"
-msgstr "Amanhã"
+msgstr "Demà"
 
+#
 #: ../public/template-tags/general.php:675
 msgid "Related Events"
-msgstr "Eventos Relacionados"
+msgstr "Esdeveniments relacionats"
 
 #: ../vendor/advanced-post-manager/demo/demo.php:31
 #, php-format
@@ -1517,266 +1554,271 @@ msgid ""
 "It looks like you might not have any demo data. <a href=\"%s\">Download our "
 "data</a> and use the <a href=\"%s\">WordPress Importer</a>."
 msgstr ""
-"Parece que você não tem nenhum informação de demonstração. <a href=\"%s"
-"\">Faça o download de nosso arquivo</a> e use o <a href=\"%s\">WordPress "
-"Importer</a>."
+"No teniu dades de prova. <a href=\"%s\">Descarregueu les nostres dades</a> i "
+"feu servir l'<a href=\"%s\">importador de WordPress</a>."
 
 #: ../vendor/advanced-post-manager/lib/tribe-columns.class.php:44
 msgid "Column Name"
-msgstr "Nome da Coluna"
+msgstr "Nom de la columna"
 
 #: ../vendor/advanced-post-manager/lib/tribe-columns.class.php:134
 msgid "Add a Column"
-msgstr "Adicionar Coluna"
+msgstr "Afegeix una columna"
 
 #: ../vendor/advanced-post-manager/lib/tribe-columns.class.php:141
 msgid "Comments"
-msgstr "Comentários"
+msgstr "Comentaris"
 
 #: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:52
 #: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:72
 msgid "Is"
-msgstr "É"
+msgstr "Es"
 
 #: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:53
 #: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:73
 msgid "Is Not"
-msgstr "Não é"
+msgstr "No és"
 
 #: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:67
 msgid "LIKE"
-msgstr "LIKE"
+msgstr "COM"
 
+#
 #: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:71
 msgid "Search"
-msgstr "Busca"
+msgstr "Cerca"
 
 #: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:82
 msgid "Member Type"
-msgstr "Tipo de Membro"
+msgstr "Tipus de membre"
 
 #: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:86
 msgid "Cafe"
-msgstr "Cafe"
+msgstr "Cafè"
 
 #: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:87
 msgid "Private Desk"
-msgstr "Private Desk"
+msgstr "Esriptori privat"
 
 #: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:88
 msgid "Office"
-msgstr "Escritório"
+msgstr "Oficina"
 
 #: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:95
 msgid "what i’m querying. probably a key in the options array in $filters"
-msgstr "o que estou consultando. provavelmente um valor nas opções em $filters"
+msgstr ""
+"què estic consultant. Probablement una clau en els $filtres de la col·lecció "
+"d'opcions"
 
 #: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:523
 msgid "Choose a Saved Filter"
-msgstr "Escolha um dos filtros gravados"
+msgstr "Esculliu un filtre guardat"
 
 #: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:639
 msgid "Add a Filter"
-msgstr "Adicionar um Filtro"
+msgstr "Afegeix un filtre"
 
 #: ../vendor/advanced-post-manager/lib/tribe-meta-box-helper.php:44
 msgid "Extended Information"
-msgstr "Expandir a Informação"
+msgstr "Informació ampliada"
 
 #: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:124
 #: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:397
 msgid "Delete this image"
-msgstr "Excluir essa imagem"
+msgstr "Esborra aquesta imatge"
 
 #: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:124
 #: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:352
 #: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:397
 msgid "Delete"
-msgstr "Excluir"
+msgstr "Esborra"
 
 #: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:348
 msgid "Uploaded files"
-msgstr "Arquivos enviados"
+msgstr "Arxius penjats"
 
 #: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:358
 msgid "Upload new files"
-msgstr "Enviar novos arquivos"
+msgstr "Penja arxius nous"
 
 #: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:361
 msgid "Add another file"
-msgstr "Adicionar outro arquivo"
+msgstr "Afegeix un altre arxiu"
 
 #: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:404
 msgid "Add more images"
-msgstr "Adicionar mais imagens"
+msgstr "Afegeix més imatges"
 
 #: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:412
 msgid "Select a color"
-msgstr "Selecione a cor"
+msgstr "Esculliu un color"
 
 #: ../vendor/advanced-post-manager/views/edit-filters.php:7
 #: ../vendor/advanced-post-manager/views/edit-filters.php:8
 msgid "Click to toggle"
-msgstr "Clique para alternar"
+msgstr "Intercanvia"
 
 #: ../vendor/advanced-post-manager/views/edit-filters.php:8
 msgid "Filters &amp; Columns"
-msgstr "Filtros &amp; Colunas"
+msgstr "Filtres i columnes"
 
 #: ../vendor/advanced-post-manager/views/edit-filters.php:17
 msgid "Apply"
-msgstr "Salvar alterações"
+msgstr "Envia"
 
 #: ../vendor/advanced-post-manager/views/edit-filters.php:18
 msgid "Clear"
-msgstr "Limpar"
+msgstr "Buida"
 
 #: ../vendor/advanced-post-manager/views/edit-filters.php:19
 #: ../vendor/advanced-post-manager/views/edit-filters.php:26
 msgid "Save"
-msgstr "Salvar"
+msgstr "Guarda"
 
 #: ../vendor/advanced-post-manager/views/edit-filters.php:21
 msgid "Export to CSV"
-msgstr "Exportar para CSV"
+msgstr "Exporta en format CSV"
 
 #: ../vendor/advanced-post-manager/views/edit-filters.php:25
 msgid "Filter Name"
-msgstr "Nome do Filtro"
+msgstr "Filtra el nom"
 
 #: ../vendor/advanced-post-manager/views/edit-filters.php:27
 msgid "Cancel"
-msgstr "Cancelar"
+msgstr "Cancel·la"
 
 #: ../vendor/pue-client/admin-views/license-key.view.php:9
 #: ../vendor/pue-client/admin-views/license-key.view.php:13
 #: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:182
 msgid "License Key"
-msgstr "Número de Licença"
+msgstr "Clau de llicència"
 
 #: ../vendor/pue-client/admin-views/license-key.view.php:10
 msgid "A valid license key is required for support and updates."
 msgstr ""
-"É necessário possuir uma licença válida para acessar o suporte e atualizações"
+"Necessiteu una clau de llicència vàlida per obtenir suport i actualitzacions"
 
 #: ../vendor/pue-client/admin-views/license-key.view.php:16
 msgid "Replace empty fields"
-msgstr "Substituir campos vazios"
+msgstr "Reemplaça camps buits"
 
 #: ../vendor/pue-client/admin-views/license-key.view.php:25
 #: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:183
 msgid "A valid license key is required for support and updates"
 msgstr ""
-"É necessário possuir uma licença válida para acessar o suporte e atualizações"
+"Necessiteu una clau de llicència vàlida per obtenir suport i actualitzacions"
 
 #: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:251
 msgid "License key(s) updated."
-msgstr "Número(s) de Licença atualizadas"
+msgstr "Clau de llicència actualitzada."
 
 #: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:288
 msgid "Sorry, key validation server is not available."
-msgstr "Desculpe-nos, o servidor de validação de licenças não está disponível."
+msgstr "El servidor de validació de claus no està disponible."
 
 #: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:290
 msgid "Sorry, this key is expired."
-msgstr "Desculpe, esta licença expirou."
+msgstr "La clau ha caducat."
 
 #: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:292
 msgid "Sorry, this key is out of installs."
-msgstr "Desculpe, esta licença esgotou o número de instalações."
+msgstr "La clau no permet més instal·lacions."
 
 #: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:294
 msgid "Sorry, this key is not valid."
-msgstr "Desculpe, esta licença não é válida."
+msgstr "La clau no és vàlida."
 
 #: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:297
 #, php-format
 msgid "Valid Key! Expires on %s"
-msgstr "Licença válida! Expira em %s"
+msgstr "Clau vàlida! Data de caducitat: %s"
 
 #: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:301
 msgid ""
 "Hmmm... something's wrong with this validator. Please contact <a href="
 "\"http://tri.be/support\">support.</a>"
 msgstr ""
-"Hmmm... aconteceu algo errado com este validador. Por favor, contate o <a "
-"href=\"http://tri.be/support\">suporte.</a>"
+"Hi ha hagut un error amb la validació. Contacteu amb l'<a href=\"http://tri."
+"be/support\">equip de suport.</a>"
 
 #: ../vendor/tribe-related-posts/tribe-related-posts-widget.php:20
 msgid "Displays posts related to the post."
-msgstr "Mostra posts relacionados ao post."
+msgstr "Mostra els articles relacionats amb l'article."
 
 #: ../vendor/tribe-related-posts/tribe-related-posts-widget.php:22
 msgid "Related Posts"
-msgstr "Postes Relacionados"
+msgstr "Articles relacionats"
 
 #: ../vendor/tribe-related-posts/tribe-related-posts-widget.php:72
 msgid "Count:"
-msgstr "Contagem:"
+msgstr "Compte:"
 
 #: ../vendor/tribe-related-posts/tribe-related-posts-widget.php:80
 msgid "Display Thumbnails?"
-msgstr "Mostrar Miniaturas das Imagens?"
+msgstr "Mostro miniatures?"
 
 #: ../vendor/tribe-related-posts/tribe-related-posts-widget.php:83
 msgid "Only Display Related Posts?"
-msgstr "Mostrar apenas posts relacionados?"
+msgstr "Mostro nomès articles relacionats?"
 
 #: ../vendor/tribe-related-posts/tribe-related-posts-widget.php:86
 msgid "Post Type:"
-msgstr "Tipo de Post:"
+msgstr "Categoria d'article:"
 
 #: ../vendor/tribe-support/tribe-support.class.php:54
 msgid "Send a support request for this site."
-msgstr "Enviar um pedido de suporte para este site."
+msgstr "Envia una petició de suport per aquest lloc."
 
 #: ../views/map.php:39
 msgid "Refine your search:"
-msgstr "Refine sua busca:"
+msgstr "Afina la teva cerca:"
 
+#
 #: ../views/single-organizer.php:30 ../views/single-venue.php:31
 msgid "&larr; Back to Events"
-msgstr "&larr; Voltar aos Eventos"
+msgstr "&larr; Tornem a esdeveniments"
 
 #: ../views/day/nav.php:15
 msgid "Day Navigation"
-msgstr "Exibição por Dia"
+msgstr "Dia de navegació"
 
 #: ../views/map/nav.php:21 ../views/photo/nav.php:21
 msgid "Events List Navigation"
-msgstr "Exibição por Lista de Eventos"
+msgstr "Navegació de la llista d'esdeveniments,"
 
+#
 #: ../views/map/nav.php:24 ../views/photo/nav.php:24
 msgid "&laquo; Previous Events"
-msgstr "&laquo; Eventos Anteriores"
+msgstr "&laquo; Esdeveniments anteriors"
 
+#
 #: ../views/map/nav.php:31 ../views/photo/nav.php:31
 msgid "Next Events &raquo;"
-msgstr "Próximos Eventos &raquo;"
+msgstr "Propers esdeveniments  &raquo;"
 
 #: ../views/tribe-ECP-views-old/views/list-widget.php:110
 msgid "Price:"
-msgstr "Preço:"
+msgstr "Preu final:"
 
 #: ../views/tribe-ECP-views-old/views/single-venue.php:24
 msgid "&laquo; Back to Events"
-msgstr "&laquo; Voltar aos Eventos"
+msgstr "&laquo; Torna als esdeveniments"
 
 #: ../views/tribe-ECP-views-old/views/single-venue.php:37
 msgid "Name:"
-msgstr "Nome"
+msgstr "Nom:"
 
 #: ../views/tribe-ECP-views-old/views/single-venue.php:41
 msgid "Phone:"
-msgstr "Telefone"
+msgstr "Telèfon:"
 
 #: ../views/tribe-ECP-views-old/views/single-venue.php:47
 msgid "Address:"
-msgstr "Endereço:"
+msgstr "Adreça:"
 
 #: ../views/tribe-ECP-views-old/views/single-venue.php:49
 msgid "Click to view a Google Map"
-msgstr "Clique para ver um Google Map"
+msgstr "Mostra Google Map"
 
 #: ../views/tribe-ECP-views-old/views/single-venue.php:49
 msgid "Google Map"
@@ -1784,15 +1826,15 @@ msgstr "Google Map"
 
 #: ../views/tribe-ECP-views-old/views/single-venue.php:76
 msgid "Upcoming Events At This Venue"
-msgstr "Próximos Eventos Neste Local"
+msgstr "Propers esdeveniments en aquest lloc"
 
 #: ../views/tribe-ECP-views-old/views/single-venue.php:96
 msgid "Start:"
-msgstr "Começa em:"
+msgstr "Inici:"
 
 #: ../views/tribe-ECP-views-old/views/single-venue.php:100
 msgid "End:"
-msgstr "Termina em:"
+msgstr "Final:"
 
 #: ../views/tribe-ECP-views-old/views/single-venue.php:105
 msgid "Date:"
@@ -1800,44 +1842,217 @@ msgstr "Data:"
 
 #: ../views/tribe-ECP-views-old/views/single-venue.php:114
 msgid "Cost:"
-msgstr "Custo:"
+msgstr "Preu:"
 
 #: ../views/week/loop-grid.php:18
 msgid "Hours"
-msgstr "Horas"
+msgstr "Hores"
 
 #: ../views/week/nav.php:17
 msgid "Week Navigation"
-msgstr "Exibição por Semana"
+msgstr "Setmana de la navegacó"
 
 #: ../views/week/nav.php:20
 msgid "Previous Week"
-msgstr "Semana Anterior"
+msgstr "Setmana anterior"
 
+#
 #: ../views/week/nav.php:23
 msgid "Next Week"
-msgstr "Próxima Semana"
+msgstr "Propera setmana"
 
 #: ../views/widgets/countdown-widget.php:27
 msgid "days"
-msgstr "dias"
+msgstr "dies"
 
 #: ../views/widgets/countdown-widget.php:31
 msgid "hours"
-msgstr "horas"
+msgstr "hores"
 
 #: ../views/widgets/countdown-widget.php:35
 msgid "min"
-msgstr "min"
+msgstr "minuts"
 
+#
 #: ../views/widgets/countdown-widget.php:40
 msgid "sec"
-msgstr "seg"
+msgstr "segons"
 
+#
 #: ../views/widgets/list-widget.php:66
 msgid "Organizer:"
-msgstr "Organizador"
+msgstr "Organitzador:"
 
+#
 #: ../views/widgets/venue-widget.php:17
 msgid "No upcoming events."
-msgstr "Não há eventos futuros."
+msgstr "No hi ha propers esdeveniments,"
+
+#~ msgid "Show:"
+#~ msgstr "Mostra:"
+
+#, fuzzy
+#~ msgid "Venue Widget"
+#~ msgstr "Giny de proper esdeveniment"
+
+#~ msgid "Venues"
+#~ msgstr "Recintes"
+
+#~ msgid "Organizers"
+#~ msgstr "Organitzadors"
+
+#~ msgid "Use Saved Venue:"
+#~ msgstr "Fes servir un recinte guardat:"
+
+#~ msgid "Use Saved Organizer:"
+#~ msgstr "Fes servir un organitzador guardat:"
+
+#~ msgid "Use New Venue"
+#~ msgstr "Fes servir un recinte nou"
+
+#~ msgid "Use New Organizer"
+#~ msgstr "Fes servir un organitzador nou"
+
+#~ msgid "Defaults"
+#~ msgstr "Predeterminats"
+
+#~ msgid ""
+#~ "%sWelcome to Events Calendar, a full-featured events management system "
+#~ "for WordPress. By buying a license you've given us a vote of confidence, "
+#~ "will get active support and have hooked up some sweet additional features "
+#~ "not found in the free The Events Calendar.%s"
+#~ msgstr ""
+#~ "%sBenvingut a The Events Calendar, un sistema d'administració "
+#~ "d'esdeveniments complet per a WordPress. Ens heu fet confiança comprant "
+#~ "una llicència i rebreu suport actiu i algunes funcions adicionals que no "
+#~ "estan disponibles a la versió de franc de The Events Calendar.%s"
+
+#~ msgid ""
+#~ "%sIf you aren't familiar with The Events Calendar, it may be wise to "
+#~ "check out our %s. It'll introduce you to the basics of what the plugin "
+#~ "has to offer and will have you creating events in no time. From there, "
+#~ "the resources below -- extensive template tag documentation, FAQs, video "
+#~ "walkthroughs and more -- will give you a leg up as you dig deeper.%s"
+#~ msgstr ""
+#~ "%sSi no esteu familiaritzats amb The Events Calendar, podeu accedir a la "
+#~ "nostra %s. Aprendreu allò que és bàsic per aprofitar tot el que aquest "
+#~ "plugin us pot oferir en molt poc temps. A partir d'aqui, tindreu altres "
+#~ "recursos (com ara documentació de les etiquetes de les plantilles, "
+#~ "preguntes més freqüents o vídeos explicatius, entre d'altres) que us "
+#~ "portaran tan lluny com vulgueu arribar.%s"
+
+#~ msgid "new user primer"
+#~ msgstr "guia de primers passos"
+
+#~ msgid ""
+#~ "%sOh, wondering what to do with your license key and whether you need it "
+#~ "before you can get into event creation? Check out %s on that subject for "
+#~ "an answer. %s, if you don't have it handy.%s"
+#~ msgstr ""
+#~ "%sUs pregunteu què heu de fer amb la clau de llicència i si la "
+#~ "necessitareu abans de començar a crear esdeveniments? Llegiu %s sobre "
+#~ "aquest tema per obtenir resposta. %s, si no la teniu a l'abast.%s"
+
+#~ msgid "our blog post"
+#~ msgstr "l'article al nostre blog"
+
+#~ msgid "Here's how you find your license key"
+#~ msgstr "Instruccions per obtenir la vostra clau de llicència"
+
+#~ msgid ""
+#~ "%sLook through existing threads before posting a new one and check that "
+#~ "there isn't already a discussion going on your issue. The tri.be site has "
+#~ "a solid search function that should help find what you're looking for, if "
+#~ "it indeed already is present.%s"
+#~ msgstr ""
+#~ "%sMireu els fils existents abans de publicar-ne un de nou i comproveu si "
+#~ "hi ha cap discussió sobre el mateix tema. El lloc web tri.be compta amb "
+#~ "un cercador que us ajudarà a trobar allò que cerqueu, si ja s'hi pot "
+#~ "trobar.%s"
+
+#~ msgid ""
+#~ "Add unique fields to your event editor. Using the form below, you can "
+#~ "quickly add checkboxes for dietary options like \"low salt, vegetarian, "
+#~ "kosher\" or a dropdown for “DJ” to your event editor."
+#~ msgstr ""
+#~ "Afegiu camps personalitzats al vostre editor d'esdeveniments. Podeu "
+#~ "afegir caselles de selecció per opcions com ara \"baix en sodi, "
+#~ "vegetarià, caixer\" o un menu desplegable per a \"DJ\" al teu editor fent "
+#~ "servir el següent formulari."
+
+#~ msgid "End"
+#~ msgstr "Final"
+
+#~ msgid "<em>The current default value is:</em> <strong>%s</strong>"
+#~ msgstr "<em>El valor predeterminat actual és:</em> <strong>%s</strong>"
+
+#~ msgid "No default value set"
+#~ msgstr "No hi ha cap valor predeterminat"
+
+#~ msgid ""
+#~ "One country per line in the following format: <br/>US, United States <br/"
+#~ "> UK, United Kingdom.<br/>"
+#~ msgstr ""
+#~ "Un país per línia en el format: <br/>EUA, Estats Units d'Amèrica <br/> "
+#~ "UK, Regne Unit."
+
+#~ msgid "(Replaces the default list)"
+#~ msgstr "(Substitueix la llista predeterminada)"
+
+#~ msgid "Use New Venue/No Default"
+#~ msgstr "Fes servir un nou recinte/Cap predeterminat"
+
+#~ msgid "Default Address for Events"
+#~ msgstr "Adreça predeterminada per esdeveniments"
+
+#~ msgid "Default City for Events"
+#~ msgstr "Ciutat predeterminada per esdeveniments"
+
+#~ msgid "Default State for Events"
+#~ msgstr "Estat predeterminat per esdeveniments"
+
+#~ msgid "Default Province for Events"
+#~ msgstr "Província predeterminada per esdeveniments"
+
+#~ msgid "Default Postal Code/Zip Code for Events"
+#~ msgstr "Codi postal predeterminat per esdeveniments"
+
+#~ msgid "Default Phone for Events"
+#~ msgstr "Telèfon predeterminat per esdeveniments"
+
+#~ msgid "Start Date & Time"
+#~ msgstr "Data i hora d'inici"
+
+#~ msgid "(Widget will always show start date)"
+#~ msgstr "(La data d'inici sempre serà visible al giny)"
+
+#~ msgid ""
+#~ "If you wish to customize the widget display yourself, see the file views/"
+#~ "events-list-load-widget-display.php inside the Events Premium plugin."
+#~ msgstr ""
+#~ "Si voleu personalitzar la visualització del giny, mireu l'arxiu views/"
+#~ "events-list-load-widget-display.php al plugin Events Premium."
+
+#~ msgid ", and "
+#~ msgstr ", i "
+
+#~ msgid " and "
+#~ msgstr " i "
+
+#~ msgid ", "
+#~ msgstr ", "
+
+#~ msgid "A calendar of your events"
+#~ msgstr "Un calendari dels vostres esdeveniments"
+
+#~ msgid "There are no upcoming events at this time."
+#~ msgstr "No hi ha propers esdeveniments."
+
+#~ msgid "License Key for %s"
+#~ msgstr "Clau de llicència per %s"
+
+#~ msgid "[X]"
+#~ msgstr "[X]"
+
+#~ msgid "Ends"
+#~ msgstr "Acaba"

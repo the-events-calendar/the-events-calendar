@@ -155,7 +155,7 @@ class TribeEventsRecurrenceMeta {
 
 		if( $occurrenceDate ) {
 			self::removeOccurrence( $postId, $occurrenceDate );
-			wp_redirect( add_query_arg( 'post_type', TribeEvents::POSTTYPE, admin_url( 'edit.php' ) ) );
+			wp_safe_redirect( add_query_arg( 'post_type', TribeEvents::POSTTYPE, admin_url( 'edit.php' ) ) );
 			exit();
 		}
 	}
@@ -193,7 +193,7 @@ class TribeEventsRecurrenceMeta {
 				$_POST['recurrence_action'] = null;
 
 				// redirect back to event screen
-				wp_redirect('post.php?post=' . $post . '&action=edit&message=1');
+				wp_safe_redirect('post.php?post=' . $post . '&action=edit&message=1');
 				exit();
 			}
 		// break from series
@@ -213,7 +213,7 @@ class TribeEventsRecurrenceMeta {
 			$_POST['recurrence_action'] = null;
 
 			// redirect back to event screen
-			wp_redirect('post.php?post=' . $post . '&action=edit&message=1');
+			wp_safe_redirect('post.php?post=' . $post . '&action=edit&message=1');
 			exit();
 		}
 	}

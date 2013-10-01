@@ -201,7 +201,7 @@
 			}
 		}
 
-		if (tt.live_ajax() && tt.pushstate) {
+		if (tt.no_bar() || tt.live_ajax() && tt.pushstate) {
 			$('#tribe-bar-date').on('changeDate', function (e) {
 				if (!tt.reset_on())
 					tribe_events_bar_photoajax_actions(e)
