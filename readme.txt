@@ -294,6 +294,7 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Fixed a bug where the selected category would not apply after you navigate to the next month in Month view (thanks to Kyle for the report!)
 * Fixed bug where the comments form would show twice on single events
 * Enabled auto-submissions in situations where classic view is present instead of the event bar (thanks to user wiredimpact for getting the discussion started on this!)
+* New "System Information" section on the Events > Help page
 * Updated translations: Brazilian Portuguese (new), Turkish (new), Norwegian Dutch, Icelandic, Greek, Finnish, French, and German (French courtesy of Rick)
 * Fixed some display bugs in IE (thanks to user wiredimpact for bringing up most of these!)
 * Various minor bug and security fixes
