@@ -192,7 +192,7 @@ Our Premium Plugins:
 
 = 3.1 =
 
-* Recurring events can now display more than once in the main blog loop, and other queries that contain multiple post types (thanks to user Darren for the original report!)
+* Recurring events can now display more than once in the search results, main blog loop, and other queries that contain multiple post types (thanks to user Darren for the original report!)
 * Added a setting for hiding related events (thanks to those on UserVoice who requested this!)
 * Fixed error that occurred when ordering the admin listing by venue or organizer (thanks to Bernhard for reporting this!)
 * Fixed bug where the Events Calendar title would take over all the pages on the site
