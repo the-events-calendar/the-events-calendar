@@ -379,6 +379,20 @@ if ( class_exists( 'TribeEvents' ) ) {
 	}
 
 	/**
+	 * Organizer Type Test
+	 *
+	 * Checks type of $postId to determine if it is a Organizer
+	 *
+	 * @param int $postId (optional)
+	 * @return bool True if post type id Venue
+	 * @since 2.0
+	 */
+	function tribe_is_organizer( $postId = null ) {
+		$tribe_ecp = TribeEvents::instance();
+		return apply_filters( 'tribe_is_organizer', $tribe_ecp->isOrganizer( $postId ), $postId );
+	}
+
+	/**
 	 * HTML Before Event (Display)
 	 *
 	 * Display HTML to output before the event template
@@ -790,7 +804,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 				$schedule .= '<span class="date-end dtend">';
 				$schedule .= tribe_get_end_date( $event, false, $format2ndday ) . ' @ ' . tribe_get_end_date( $event, false, $timeFormat );
 				$schedule .= '<span class="value-title" title="'. $microformatEndFormat .'"></span>';
-				$schedule .= '</span>';				
+				$schedule .= '</span>';
 			}
 
 
@@ -798,7 +812,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 			$schedule .= '<span class="date-start dtstart">';
 			$schedule .=  tribe_get_start_date( $event, true, $format );
 			$schedule .= '<span class="value-title" title="'. $microformatStartFormat .'"></span>';
-			$schedule .= '</span>';	
+			$schedule .= '</span>';
 		} else { // single day event
 			if ( tribe_get_start_date( $event, false, 'g:i A' ) === tribe_get_end_date( $event, false, 'g:i A' ) ) { // Same start/end time
 				$schedule .= '<span class="date-start dtstart">';
@@ -817,7 +831,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 		}
 
 		return apply_filters( 'tribe_events_event_schedule_details', $schedule );
-	}	
+	}
 
 	/**
 	 * Accepts two dates and returns the number of days between them
@@ -1029,6 +1043,45 @@ if ( class_exists( 'TribeEvents' ) ) {
 		$tribe_count_hierarchical_increment = 0;
 		array_walk_recursive( $walk, 'tribe_count_hierarchical_keys' );
 		return $tribe_count_hierarchical_increment;
+	}
+
+	/**
+	 * Get and increment tab index in form fields
+	 *
+	 * @since 3.0.2
+	 */
+	function tribe_events_get_tab_index() {
+		$tribe_events = TribeEvents::instance();
+		return apply_filters( 'tribe_events_tab_index', $tribe_events->tabIndex() );
+	}
+
+	/**
+	 * Echo and increment tab index in form fields
+	 *
+	 * @since 3.0.2
+	 */
+	function tribe_events_tab_index() {
+		echo tribe_events_get_tab_index();
+	}
+
+	/**
+	 * Check if a particular view is enabled
+	 *
+	 * @param string $view Name of view to check, should match what's in TribeEvents->displaying when on that view
+	 * @return bool
+	 * @author Jessica Yazbek
+	 * @since 3.1
+	 **/
+	function tribe_events_is_view_enabled( $view ) {
+		$enabled = false;
+		$enabled_views = apply_filters( 'tribe-events-bar-views', array() );
+		foreach ( $enabled_views as $enabled_view ) {
+			if ( $enabled_view['displaying'] == $view ) {
+				$enabled = true;
+				break;
+			}
+		}
+		return apply_filters( 'tribe_events_is_view_enabled', $enabled, $view, $enabled_views );
 	}
 
 }

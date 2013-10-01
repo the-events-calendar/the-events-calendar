@@ -69,10 +69,12 @@ $generalTab = array(
 		 ),
 		'liveFiltersUpdate' => array(
 			'type' => 'checkbox_bool',
-			'label' => __( 'Use Javascript to control page load', 'tribe-events-calendar' ),
-			'tooltip' => __( 'Enable ajax to live refresh content.' , 'tribe-events-calendar' ),
+			'label' => __( 'Use Javascript to control date filtering', 'tribe-events-calendar' ),
+			'tooltip' => tribe_get_option('tribeDisableTribeBar', false) == true ? __( 'This option is disabled when "Disable the Event Search Bar" is checked on the Display settings tab.' , 'tribe-events-calendar' ) : __( 'Enable live ajax for datepicker on front end (User submit not required).' , 'tribe-events-calendar' ),
+			'attributes' => tribe_get_option('tribeDisableTribeBar', false) == true ? array('disabled' => 'disabled') : null,
 			'default' => true,
 			'validation_type' => 'boolean',
+			'class' => tribe_get_option('tribeDisableTribeBar', false) == true ? 'tribe-fieldset-disabled' : null,			
 		),
 		'showComments' => array(
 			'type' => 'checkbox_bool',

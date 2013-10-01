@@ -111,7 +111,14 @@ class TribeEventsTicketsAttendeesTable extends WP_List_Table {
 	 * @return string
 	 */
 	function column_order_id( $item ) {
-		return sprintf( '<a class="row-title" href="%s">%s</a>', esc_url( get_edit_post_link( $item['order_id'], true ) ), esc_html( $item['order_id'] ) );
+
+		//back compat
+		if ( empty( $item['order_id_link'] ) )
+			$id = sprintf( '<a class="row-title" href="%s">%s</a>', esc_url( get_edit_post_link( $item['order_id'], true ) ), esc_html( $item['order_id'] ) );
+		else
+			$id = $item['order_id_link'];
+
+		return $id;
 	}
 
 	/**

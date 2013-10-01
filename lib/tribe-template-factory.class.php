@@ -49,6 +49,14 @@ if( !class_exists('Tribe_Template_Factory') ) {
 		 * @static
 		 * @var array
 		 */
+		protected $comments_off = false;
+
+		/**
+		 * Static variable that holds array of vendor script handles, for adding to later deps.
+		 *
+		 * @static
+		 * @var array
+		 */
 		protected static $vendor_scripts = array();
 
 		/**
@@ -76,6 +84,13 @@ if( !class_exists('Tribe_Template_Factory') ) {
 
 			// set notices
 			add_action( 'tribe_events_before_view', array( $this, 'set_notices') );
+
+			// Don't show the comments form inside the view (if comments are enabled, 
+			// they'll show on their own after the loop)
+			add_filter('comments_template', array( $this, 'remove_comments_template' ) );
+
+			// Remove the comments template entirely if needed
+			add_filter('tribe_get_option', array( $this, 'comments_off' ), 10, 2 );
 
 			// set up meta used in this view
 			add_action( 'tribe_events_before_view', array( $this, 'setup_meta') );
@@ -333,6 +348,9 @@ if( !class_exists('Tribe_Template_Factory') ) {
 			// set notices
 			remove_action( 'tribe_events_before_view', array( $this, 'set_notices') );
 
+			// Remove the comments template
+			remove_filter('comments_template', array( $this, 'remove_comments_template' ) );
+
 			// set up meta used in this view
 			remove_action( 'tribe_events_before_view', array( $this, 'setup_meta') );
 
@@ -416,6 +434,25 @@ if( !class_exists('Tribe_Template_Factory') ) {
 		 */
 		public function excerpt_more( $more ) {
 			return $this->excerpt_more;
+		}
+
+		/**
+		 * Check if comments are disabled on this view
+		 *
+		 * @param int $more
+		 *
+		 * @return int
+		 * @since 3.0
+		 */
+		public function comments_off( $option_value, $option_name ) {
+			if ( $option_name != 'showComments')
+				return $option_value;
+
+			if ( $this->comments_off == true )
+				return false;
+
+			return $option_value;
+
 		}
 
 		/**
@@ -508,15 +545,16 @@ if( !class_exists('Tribe_Template_Factory') ) {
 					wp_enqueue_script( $prefix . '-ecp-plugins', $path, $deps, apply_filters( 'tribe_events_js_version', TribeEvents::VERSION ) );
 					break;
 				case 'tribe-events-bar' :
-					$deps = array_merge( $deps, array( 'jquery', $prefix . '-calendar-script', $prefix . '-bootstrap-datepicker', $prefix . '-jquery-resize', 'tribe-placeholder' ) );
+					$deps = array_merge( $deps, array( 'jquery', $prefix . '-calendar-script', $prefix . '-bootstrap-datepicker', $prefix . '-jquery-resize', self::get_placeholder_handle() ) );
 					$path = self::getMinFile( $resources_url . 'tribe-events-bar.js', true );
 					wp_enqueue_script( $prefix . '-bar', $path, $deps, apply_filters( 'tribe_events_js_version', TribeEvents::VERSION ) );
 					break;
 				case 'jquery-placeholder' : // Vendor: jQuery Placeholder
 					$deps = array_merge( $deps, array( 'jquery' ) );
 					$path = self::getMinFile( $vendor_url . 'jquery-placeholder/jquery.placeholder.js', true );
-					wp_enqueue_script( 'tribe-placeholder', $path, $deps, '2.0.7', false );
-					self::$vendor_scripts[] = 'tribe-placeholder';
+					$placeholder_handle = self::get_placeholder_handle();
+					wp_enqueue_script( $placeholder_handle, $path, $deps, '2.0.7', false );
+					self::$vendor_scripts[] = $placeholder_handle;
 					break;
 				case 'ajax-calendar':
 					$deps = array_merge( $deps, array( 'jquery', $prefix . '-calendar-script' ) );
@@ -600,6 +638,23 @@ if( !class_exists('Tribe_Template_Factory') ) {
 			} else {
 				return false;
 			}
+		}
+
+		/*
+		 * Playing ping-pong with WooCommerce. They keep changing their script.
+		 * See https://github.com/woothemes/woocommerce/issues/3623
+		 */
+		protected static function get_placeholder_handle() {
+			$placeholder_handle = 'jquery-placeholder';
+			global $woocommerce;
+			if (
+				class_exists( 'Woocommerce' ) &&
+				version_compare( $woocommerce->version, '2.0.11', '>=' ) &&
+				version_compare( $woocommerce->version, '2.0.13', '<=' )
+			) {
+				$placeholder_handle = 'tribe-placeholder';
+			}
+			return $placeholder_handle;
 		}
 	}
 }

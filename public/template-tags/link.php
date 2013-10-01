@@ -172,16 +172,9 @@ if( class_exists( 'TribeEvents' ) ) {
 	 * @return string $html
 	 */
 	function tribe_get_event_website_link( $event = null, $label = null ){
-		$post_id = is_object($event) && isset($event->tribe_is_event) && $event->tribe_is_event ? $event->ID : $event;
-		$post_id = !empty($post_id) ? $post_id : get_the_ID();
-		$url = tribe_get_event_meta( $post_id, '_EventURL', true );
+		$url = tribe_get_event_website_url($event);
 		if( !empty($url) ) {
 			$label = is_null($label) ? $url : $label;
-			if( !empty( $url )) {
-				$parseUrl = parse_url($url);
-				if (empty($parseUrl['scheme']))
-					$url = "http://$url";
-			}
 			$html = sprintf('<a href="%s" target="%s">%s</a>',
 				$url,
 				apply_filters('tribe_get_event_website_link_target', 'self'),
@@ -191,6 +184,26 @@ if( class_exists( 'TribeEvents' ) ) {
 			$html = '';
 		}
 		return apply_filters('tribe_get_event_website_link', $html );
+	}
+
+
+	/**
+	 * Event Website URL
+	 *
+	 * @param null|object|int $event
+	 * @return string The event's website URL
+	 */
+	function tribe_get_event_website_url( $event = null ) {
+		$post_id = ( is_object($event) && isset($event->tribe_is_event) && $event->tribe_is_event ) ? $event->ID : $event;
+		$post_id = ( !empty($post_id) || empty($GLOBALS['post']) ) ? $post_id : get_the_ID();
+		$url = tribe_get_event_meta( $post_id, '_EventURL', true );
+		if ( !empty($url) ) {
+			$parseUrl = parse_url($url);
+			if (empty($parseUrl['scheme'])) {
+				$url = "http://$url";
+			}
+		}
+		return apply_filters( 'tribe_get_event_website_url', $url, $post_id );
 	}
 
 }

@@ -39,6 +39,10 @@ if (!class_exists('TribeEventsTemplates')) {
 			// make sure we enter the loop by always having some posts in $wp_query
 			add_action( 'template_redirect', array( __CLASS__, 'maybeSpoofQuery' ) );
 
+			// don't query the database for the spoofed post
+			wp_cache_set(self::spoofed_post()->ID, self::spoofed_post(), 'posts');
+			wp_cache_set(self::spoofed_post()->ID, array(true), 'post_meta');
+
 			// there's no template redirect on ajax, so we include the template class right before the view is included
 			if (defined('DOING_AJAX') && DOING_AJAX) {
 				add_action( 'tribe_pre_get_view', 'tribe_initialize_view' );
@@ -454,16 +458,22 @@ if (!class_exists('TribeEventsTemplates')) {
 				$template_base_paths[] = $plugin_path;
 			}
 
+			// setup subfolder options
+			$subfolder = !empty($subfolder) ? trailingslashit($subfolder) : $subfolder;
+
 			// ensure that addon plugins look in the right override folder in theme
 			$namespace = !empty($namespace) && $namespace[0] != '/' ? '/' . trailingslashit($namespace) : trailingslashit($namespace);
 
-			// setup subfolder options
-			$subfolder = !empty($subfolder) ? trailingslashit($subfolder) : $subfolder;
+			// Support multiple namespaces for multiple add-ons
+			$namespaces = apply_filters( 'tribe_events_template_path_namespaces', array( $namespace ) );
+			foreach ( $namespaces as $n => $namespace ) {
+				$namespaces[$n] = 'tribe-events' . trailingslashit( $namespace ) . $subfolder . $template;
+			}
 
 			$file = '';
 			foreach ( $template_base_paths as $template_base_path ) {
 
-				if ( $theme_file = locate_template( array('tribe-events' . $namespace . $subfolder . $template ), false, false) ) {
+				if ( $theme_file = locate_template( $namespaces, false, false) ) {
 					$file = $theme_file;
 				} else {
 					// protect from concat folder with filename
@@ -481,7 +491,7 @@ if (!class_exists('TribeEventsTemplates')) {
 				$file = apply_filters( 'tribe_events_template', $file, $template);
 
 				// return the first one found
-				if (file_exists($file))
+				if ( file_exists( $file ) )
 					break;
 			}
 
@@ -537,7 +547,7 @@ if (!class_exists('TribeEventsTemplates')) {
 		 */
 		private static function spoofed_post() {
 			$spoofed_post = array(
-                	'ID'                    => -9999,
+                	'ID'                    => 0,
 	                'post_status'           => 'draft',
 	                'post_author'           => 0,
 	                'post_parent'           => 0,
