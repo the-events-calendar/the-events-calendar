@@ -143,7 +143,7 @@
 	color:#6fb7ff;
 }
 
-.tribe-events-has-events  div[id*='daynum-'] a:before {
+.tribe-mini-calendar .tribe-events-has-events  div[id*='daynum-'] a:before {
 	content: '';
 	display: block;
 	height: 7px;
