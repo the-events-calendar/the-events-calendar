@@ -26,11 +26,13 @@
 	border-collapse: collapse;
 	margin-left: -1px;
 	width: 100%;
+	line-height: 1;
 }
 
 .tribe-mini-calendar td,
 .tribe-mini-calendar th {
 	width: 14.2857142857%;
+	padding: 0;
 	text-align     : center;
 	vertical-align : top;
 	border         : 1px solid #d2d2d2;
@@ -80,7 +82,7 @@
 	font-weight: bold;
 	display: block;
 	text-decoration: none;
-	padding: 5px;
+	padding: 5px 5px 15px 5px;
 }
 
 .tribe-mini-calendar .tribe-events-has-events.tribe-mini-calendar-today:hover {
@@ -109,7 +111,7 @@
 
 .tribe-mini-calendar-nav span {
 	font-weight:bold;
-	margin:0 20px;
+	margin:0 auto;
 	display:inline-block;
 	color:#fff;
 	text-transform: uppercase;
@@ -124,6 +126,15 @@
 	color:#999;
 	padding: 5px;
 }
+
+.tribe-mini-calendar-nav .prev-month {
+	margin: 0 20px 0 0;
+}
+
+.tribe-mini-calendar-nav .next-month {
+	margin: 0 0 0 20px;
+}
+
 
 .tribe-mini-calendar-nav .tribe-mini-calendar-nav-link:hover {
 	color:#6fb7ff;
@@ -222,6 +233,7 @@
 
 .tribe-mini-calendar-event .list-date .list-dayname {
 	background: #fff;
+	color: #666;
 	padding: 3px;
 	font-size: 9px;
 	text-transform: uppercase;
@@ -243,7 +255,7 @@
 }
 
 .tribe-mini-calendar-event .list-info {
-	font-size: 11px;
+	font-size: 13px;
 }
 
 .tribe-mini-calendar-event .list-info h2 {	
@@ -251,6 +263,7 @@
 	font-weight:bold;
 	line-height:18px;
 	margin-top: 0;
+	margin-bottom: 10px;
 }
 .tribe-mini-calendar-event .list-info p {
 	margin:5px 0;
