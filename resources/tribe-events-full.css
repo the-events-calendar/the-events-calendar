@@ -860,7 +860,7 @@ select.tribe-events-dropdown {
 
 /* Event Meta */
 .single-tribe_events .tribe-events-event-meta {
-	font-size: 12px;
+	font-size: 13px;
 }
 .tribe-events-event-meta .tribe-events-meta-group, 
 .tribe-events-event-meta .column {
@@ -902,7 +902,8 @@ select.tribe-events-dropdown {
 }
 /* Content */
 .single-tribe_events .tribe-events-content {
-	width: auto;
+	width: 100%;
+	max-width: 100%;
 	padding: 0;
 }
 @media only screen and (max-width: 767px) {
