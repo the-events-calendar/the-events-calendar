@@ -84,6 +84,9 @@
 	text-decoration: none;
 	padding: 5px 5px 15px 5px;
 }
+.tribe-events-past {
+	opacity: .6;
+}
 
 .tribe-mini-calendar .tribe-events-has-events.tribe-mini-calendar-today:hover {
 	background: #666;
@@ -173,10 +176,6 @@
 	display: none;
 	width: 16px;
 	height: 16px;
-}
-
-.tribe-mini-calendar .tribe-events-past{
-	opacity: .2;
 }
 
 .tribe-mini-calendar .tribe-events-present,
