@@ -1,64 +1,78 @@
 <?php
+/**
+ * @var string[] $messages
+ * @var string $import_type
+ * @var string[] $header
+ */
 // Don't load directly
-if ( !defined('ABSPATH') ) { die('-1'); }
+if ( !defined( 'ABSPATH' ) ) {
+	die( '-1' );
+}
 
-$importer_instance = ECP_Events_importer::instance();
+$mapper = new TribeEventsImporter_ColumnMapper( $import_type );
+if ( isset($_POST['column_map']) ) {
+	$mapper->set_defaults($_POST['column_map']);
+} else {
+	$mapper->set_defaults(get_option('tribe_events_import_column_mapping', array()));
+}
 
 require_once 'header.php';
 ?>
 
-<h3><?php echo sprintf( __( 'Column Mapping: %s', 'tribe-events-importer' ), ucwords($import_type) )  ?></h3>
+	<h3><?php echo sprintf( __( 'Column Mapping: %s', 'tribe-events-importer' ), ucwords( $import_type ) ) ?></h3>
 
-<?php if ( $error_message != '' ): ?>
-    <p><?php _e( 'There was an error:', 'tribe-events-importer' ) ?> <?php echo $error_message ?></p>
-    <p><a href="#" onClick="history.go(-1);return false;"><?php _e( 'Go back', 'tribe-events-importer' ) ?></a></p>
-<?php else: ?>
-    <div class="form">
-        <p><?php _e( 'Please choose the fields that best match the columns in your CSV file.', 'tribe-events-importer' ) ?>
-        </p>
-	<form method="POST">
-	    <table class="">
-	    	<thead>
-	    		<th><?php _e( 'Column Headings', 'tribe-events-importer' ); ?></th>
-	    		<th><?php _e( 'Event Fields', 'tribe-events-importer' ); ?></th>
-	    	</thead>
-	        <?php foreach ( $csv->titles as $col => $title): ?>
-		    <tr>
-			<td><?php echo $title ?></td>
-			<td><?php echo $importer_instance->generateColumnSelects( $col, $title, $import_type ) ?></td>
-		    </tr>
-		<?php endforeach ?>
-	    
-	    <tr><td colspan="2">
-	    <p style="text-align: center;"><input type="submit" class="button-primary" style="" value="<?php _e( 'Perform Import', 'tribe-events-importer' ) ?>" /></p>
-	    </td></tr>
-	    
-	    </table>
-	    
-		<input type="hidden" name="import_type" value="<?php echo $import_type ?>" />
-		<input type="hidden" name="ecp_import_action" value="import" />
-		
-	    
-	</form>
-    </div>
+<?php if ( !empty( $messages ) ): ?>
+	<div class="error"><?php echo implode( '', $messages ); ?></div>
+<?php endif; ?>
+	<div class="form">
+		<p><?php _e( 'Please choose the fields that best match the columns in your CSV file.', 'tribe-events-importer' ) ?></p>
 
-<script>
+		<form method="POST">
+			<table class="">
+				<thead>
+				<th><?php _e( 'Column Headings', 'tribe-events-importer' ); ?></th>
+				<th><?php _e( 'Event Fields', 'tribe-events-importer' ); ?></th>
+				</thead>
+				<?php foreach ( $header as $col => $title ): ?>
+					<tr>
+						<td><?php echo $title ?></td>
+						<td><?php echo $mapper->make_select_box( $col ) ?></td>
+					</tr>
+				<?php endforeach ?>
+
+				<tr>
+					<td colspan="2">
+						<?php submit_button(__('Perform Import', 'tribe-events-importer')); ?>
+					</td>
+				</tr>
+
+			</table>
+
+			<input type="hidden" name="import_type" value="<?php echo $import_type ?>"/>
+			<input type="hidden" name="ecp_import_action" value="import"/>
+
+
+		</form>
+	</div>
+
+<?php
+/* This doesn't seem to do anything. Hiding it for now
+/*<script>
 	jQuery(document).ready(function() {
 		jQuery('.tribe-events-imnporter-custom-field').css('visibility', 'hidden');
 	});
 	
 	function tribeShowCf(field, col){
 		
-		if( jQuery('select[name="col_'+col+'"]').val() == 'custom_field' ){
+		if( jQuery('select[name="column_map['+col+']"]').val() == 'custom_field' ){
 			jQuery('select[name="txt_'+col+'"]').css('visibility', 'visible');
 		}else{
 			jQuery('select[name="txt_'+col+'"]').css('visibility', 'hidden');
 		}
 	
 	}
-</script>
-
-<?php endif;
-
+</script>/* */
+?>
+<?php
 require_once 'footer.php';
 ?>
