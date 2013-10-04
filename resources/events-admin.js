@@ -311,6 +311,8 @@ jQuery(document).ready(function($) {
 		if (val == "On") {
 			$('#rec-count').hide();
 			$('#recurrence_end').show();
+		} else if ( val == "Never" ) {
+			$('#rec-count, #recurrence_end').hide();
 		} else {
 			$('#recurrence_end').hide();
 			$('#rec-count').show();
