@@ -4,6 +4,7 @@
  * @author John Gadbois
  */
 class TribeRecurrence {
+	const NO_END = -1;
 	private $start_date;
 	private $end;
 	/** @var DateSeriesRules */
@@ -11,7 +12,7 @@ class TribeRecurrence {
 	private $by_occurrence_count;
 	private $event;
 	private $minDate = 0;
-	private $maxDate = PHP_INT_MAX;
+	private $maxDate = 2147483647; // Y2K38, an arbitrary limit. TODO: revisit this in twenty years
 	private $last_request_constrained = FALSE;
 
 	public function  __construct($start_date, $end, $series_rules, $by_occurrence_count = false, $event = null) {
@@ -87,18 +88,26 @@ class TribeRecurrence {
 		return $this->last_request_constrained;
 	}
 
+	/**
+	 * Get the next date in the series
+	 *
+	 * @param int $current_date
+	 * @return bool|int The date, as a timestamp, or FALSE if it exceeds the system's max int
+	 */
 	private function getNextDate( $current_date ) {
-		$current_date = $this->series_rules->getNextDate($current_date);
+		$next_date = $this->series_rules->getNextDate($current_date);
+		if ( intval($next_date) < $current_date ) { // bit overflow
+			return FALSE;
+		}
 		// Makes sure to assign the proper hours to the date.
-		$current_date = mktime (date("H", $this->start_date), date("i", $this->start_date), date("s", $this->start_date), date('n', $current_date),  date('j', $current_date), date('Y', $current_date));
-		return $current_date;
+		$next_date = mktime (date("H", $this->start_date), date("i", $this->start_date), date("s", $this->start_date), date('n', $next_date),  date('j', $next_date), date('Y', $next_date));
+		return $next_date;
 	}
 
 	private function afterSeries( $instance ) {
-		if ( $this->by_occurrence_count ) {
-			return $instance > $this->end;
-		} else {
-			return $instance > $this->end;
+		if ( $this->end == self::NO_END ) {
+			return FALSE;
 		}
+		return $instance > $this->end;
 	}
 }
