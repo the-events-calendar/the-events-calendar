@@ -60,6 +60,7 @@ class TribeEventsImporter_ColumnMapper {
 			'event_show_map' => __('Event Show Map', 'tribe-events-importer'),
 			'event_cost' => __('Event Cost', 'tribe-events-importer'),
 			'event_phone' => __('Event Phone', 'tribe-events-importer'),
+			'event_category' => __('Event Category', 'tribe-events-importer'),
 			//'event_hide' => __('Event Hide From Upcoming', 'tribe-events-importer'),
 		);
 	}

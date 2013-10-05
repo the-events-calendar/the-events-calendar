@@ -116,6 +116,10 @@ class TribeEventsImporter_FileImporter_Events extends TribeEventsImporter_FileIm
 			$event['Venue'] = array( 'VenueID' => $venue_id );
 		}
 
+		if ( $cats = $this->get_value_by_key( $record, 'event_category' ) ) {
+			$event['tax_input'][TribeEvents::TAXONOMY] = $this->translate_terms_to_ids(explode(',',$cats));
+		}
+
 		return $event;
 
 	}
@@ -128,6 +132,34 @@ class TribeEventsImporter_FileImporter_Events extends TribeEventsImporter_FileIm
 	private function find_matching_venue_id( $record ) {
 		$name = $this->get_value_by_key( $record, 'event_venue_name' );
 		return $this->find_matching_post_id( $name, TribeEvents::VENUE_POST_TYPE );
+	}
+
+	/**
+	 * When passing terms to wp_insert_post(), we're required to have IDs
+	 * for hierarchical taxonomies, not strings
+	 *
+	 * @param array $terms
+	 * @return int[]
+	 */
+	private function translate_terms_to_ids( array $terms ) {
+		$term_ids = array();
+		// duplicating some code from wp_set_object_terms()
+		foreach ( $terms as $term) {
+			if ( !strlen(trim($term)) )
+				continue;
+
+			if ( !$term_info = term_exists($term, TribeEvents::TAXONOMY) ) {
+				// Skip if a non-existent term ID is passed.
+				if ( is_int($term) )
+					continue;
+				$term_info = wp_insert_term($term, TribeEvents::TAXONOMY);
+			}
+			if ( is_wp_error($term_info) ) {
+				continue;
+			}
+			$term_ids[] = $term_info['term_id'];
+		}
+		return $term_ids;
 	}
 
 }
