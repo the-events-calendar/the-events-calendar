@@ -87,7 +87,9 @@ if( !class_exists('Tribe_Template_Factory') ) {
 
 			// Don't show the comments form inside the view (if comments are enabled, 
 			// they'll show on their own after the loop)
-			add_filter('comments_template', array( $this, 'remove_comments_template' ) );
+			if ( ! ( tribe_get_option('tribeEventsTemplate', 'default') == '' ) ) {
+				add_filter('comments_template', array( $this, 'remove_comments_template' ) );
+			}
 
 			// Remove the comments template entirely if needed
 			add_filter('tribe_get_option', array( $this, 'comments_off' ), 10, 2 );
@@ -321,9 +323,7 @@ if( !class_exists('Tribe_Template_Factory') ) {
 		 * @since 3.0
 		 **/
 		public function shutdown_view() {
-
 			$this->unhook();
-
 		}
 
 		/**
@@ -349,7 +349,9 @@ if( !class_exists('Tribe_Template_Factory') ) {
 			remove_action( 'tribe_events_before_view', array( $this, 'set_notices') );
 
 			// Remove the comments template
-			remove_filter('comments_template', array( $this, 'remove_comments_template' ) );
+			if ( ! ( tribe_get_option('tribeEventsTemplate', 'default') == '' ) ) {
+				remove_filter('comments_template', array( $this, 'remove_comments_template' ) );
+			}
 
 			// set up meta used in this view
 			remove_action( 'tribe_events_before_view', array( $this, 'setup_meta') );
@@ -408,7 +410,6 @@ if( !class_exists('Tribe_Template_Factory') ) {
 		 * @since 3.0
 		 **/
 		public function remove_comments_template( $template ) {
-			remove_filter( 'comments_template', array( $this, 'remove_comments_template' ) );
 			return TribeEvents::instance()->pluginPath . 'admin-views/no-comments.php';
 		}
 
