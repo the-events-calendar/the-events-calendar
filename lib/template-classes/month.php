@@ -195,8 +195,8 @@ if( !class_exists('Tribe_Events_Month_Template')){
 			// get all upcoming ids to hide so we're not querying 31 times
 			self::$hide_upcoming_ids = TribeEventsQuery::getHideFromUpcomingEvents();
 
-			$year = date('Y', $first_day_of_month);
-			$month = date('m', $first_day_of_month);
+			$year = date('Y', strtotime($first_day_of_month));
+			$month = date('m', strtotime($first_day_of_month));
 
 			$startOfWeek = get_option( 'start_of_week', 0 );
 
