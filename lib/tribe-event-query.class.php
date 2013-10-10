@@ -17,14 +17,6 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 		public static $is_event_organizer;
 		public static $is_event_query;
 
-        /**
-         *  Class Constructor
-         *
-         * @return void
-         */
-        function __construct() {
-			add_action( 'tribe_events_init_pre_get_posts', array( __CLASS__, 'init' ) );
-		}
 
 		/**
 		 * Initialize The Events Calendar query filters and post processing.
@@ -54,7 +46,6 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 		 **/
 		public static function parse_query( $query ) {
 
-			// 
 			if ( ! $query->is_main_query() ) {
 				$query->is_home = false;
 			}
@@ -79,11 +70,11 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 			// check if any possiblity of this being an event query
 			$query->tribe_is_event = ( in_array( TribeEvents::POSTTYPE, $types ) && count( $types ) < 2 )
 				? true // it was an event query
-			: false;
+				: false;
 
 			$query->tribe_is_multi_posttype = ( in_array( TribeEvents::POSTTYPE, $types ) && count( $types ) >= 2 || in_array( 'any', $types ) )
 				? true // it's a query for multiple post types, events post type included
-			: false;
+				: false;
 			
 			do_action( 'log', 'multi_posttype', 'default', var_export($query->tribe_is_multi_posttype, true) );
 			do_action( 'log', 'types', 'default', $types );
@@ -92,27 +83,27 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 			// check if any possiblity of this being an event category
 			$query->tribe_is_event_category = ( isset( $query->query_vars[TribeEvents::TAXONOMY] ) && $query->query_vars[TribeEvents::TAXONOMY] != '' )
 				? true // it was an event category
-			: false;
+				: false;
 
 			$query->tribe_is_event_venue = ( in_array( TribeEvents::VENUE_POST_TYPE, $types ) )
 				? true // it was an event venue
-			: false;
+				: false;
 
 			$query->tribe_is_event_organizer = ( in_array( TribeEvents::ORGANIZER_POST_TYPE, $types ) )
 				? true // it was an event organizer
-			: false;
+				: false;
 
 			$query->tribe_is_event_query = ( $query->tribe_is_event
 				|| $query->tribe_is_event_category
 				|| $query->tribe_is_event_venue
 				|| $query->tribe_is_event_organizer )
-				? true // this is an event query of some type
-			: false; // move along, this is not the query you are looking for
+					? true // this is an event query of some type
+					: false; // move along, this is not the query you are looking for
 
 			// is the query pulling posts from the past
 			$query->tribe_is_past = ( ! empty( $query->query_vars['eventDisplay'] ) && $query->query_vars['eventDisplay'] == 'past' ) 
 				? true // query is requesting past posts
-			: false;
+				: false;
 			if ( ! empty( $_REQUEST['tribe_event_display'] ) && $_REQUEST['tribe_event_display'] == 'past' ) {
 				$query->tribe_is_past = true;
 			}
@@ -138,7 +129,7 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 		 * @param object  $query WP_Query object args supplied or default
 		 * @return object $query (modified)
 		 */
-		public function pre_get_posts( $query ) {
+		public static function pre_get_posts( $query ) {
 
 			// setup static const to preserve query type through hooks
 			self::$is_event = $query->tribe_is_event;
@@ -512,7 +503,7 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 		 * @param string $default
 		 * @return string
 		 */
-		function set_orderby( $default = 'event_date' ) {
+		public static function set_orderby( $default = 'event_date' ) {
 			$url_param = !empty( $_GET['orderby'] ) ? $_GET['orderby'] : null;
 			$url_param = !empty( $_GET['tribe-orderby'] ) ? $_GET['tribe-orderby'] : $url_param;
 			$url_param = strtolower( $url_param );
@@ -538,7 +529,7 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 		 * @param string $default
 		 * @return string
 		 */
-		function set_order( $default = 'ASC' ) {
+		public static function set_order( $default = 'ASC' ) {
 			$url_param = !empty( $_GET['order'] ) ? $_GET['order'] : null;
 			$url_param = !empty( $_GET['tribe-order'] ) ? $_GET['tribe-order'] : $url_param;
 			$url_param = strtoupper( $url_param );

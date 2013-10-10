@@ -201,7 +201,7 @@ if ( ! class_exists( 'TribeEventsTickets' ) ) {
 		 * @abstract
 		 * @return mixed
 		 */
-		abstract static function get_instance();
+		static function get_instance() {}
 
 		// end API Definitions
 
