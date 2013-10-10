@@ -101,7 +101,7 @@ if (!class_exists('TribeEventsAPI')) {
 			
 			$data['EventDuration'] = strtotime($data['EventEndDate']) - $startTimestamp;
 
-			$old_data['EventStartDate'] = get_post_meta( $event_id, '_EventStartDate', true );
+			$old_data['EventStartDate'] = TribeEvents::get_series_start_date($event_id);
 		
 			update_post_meta( $event_id, '_EventShowMapLink', isset( $data['venue']['EventShowMapLink'] ) );
 			update_post_meta( $event_id, '_EventShowMap', isset( $data['venue']['EventShowMap'] ) );

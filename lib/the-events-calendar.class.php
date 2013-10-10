@@ -1992,6 +1992,20 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		}
 
 		/**
+		 * An event can have one or more start dates. This gives
+		 * the earliest of those.
+		 * @param int $post_id
+		 * @return string The date string for the earliest occurrence of the event
+		 */
+		public static function get_series_start_date( $post_id ) {
+			$start_dates = get_post_meta( $post_id, '_EventStartDate', false );
+			if ( $start_dates ) {
+				return min($start_dates);
+			}
+			return '';
+		}
+
+		/**
 		 * Save hidden tabs
 		 *
 		 * @return void
@@ -2174,7 +2188,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				!tribe_is_month() &&
 				!tribe_is_by_date() ) {
 
-				$startTime = get_post_meta($post->ID, '_EventStartDate', true);
+				$startTime = self::get_series_start_date($post->ID);
 				$startTime = TribeDateUtils::timeOnly($startTime);
 				$post->EventStartDate = TribeDateUtils::addTimeToDate($post->EventStartDate, $startTime);
 				$post->EventEndDate = date( TribeDateUtils::DBDATETIMEFORMAT, strtotime($post->EventStartDate) + get_post_meta($post->ID, '_EventDuration', true) );
