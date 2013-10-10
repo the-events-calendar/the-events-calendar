@@ -4,7 +4,7 @@ Contributors:  ModernTribe, PaulHughes01, roblagatta, jonahcoyote, MZAWeb, codea
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
 Donate link: http://m.tri.be/29
 Requires at least: 3.5
-Tested up to: 3.6
+Tested up to: 3.6.1
 Stable tag: 3.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -214,7 +214,7 @@ The plugin is produced by <a href="http://m.tri.be/2s">Modern Tribe Inc</a>.
 
 * Arabic from Mamdouh Samy
 * Bosnian from Marko Manojlovic
-* Brazilian Portuguese from Luiza Libardi and Diego Meneghetti
+* Brazilian Portuguese from Dionizio Bonfim Bach
 * Catalan from Barbara Partegos Rof
 * Croatian from Marko Manojlovic
 * Czech from Martin Kristan and Petr Bastan
@@ -233,8 +233,9 @@ The plugin is produced by <a href="http://m.tri.be/2s">Modern Tribe Inc</a>.
 * Serbian from Marko Manojlovic
 * Spanish from Hector Gil Rizo
 * Swedish from Ben Andersen
+* Turkish by Burak Pehlevan
 
-* Previous translators include Mikhail Michouris, Ed Boon, Rick van Dalen, Jacob Roel Meijering, hristian Andersen, Filippo Montanari, David Decker, Kamil Szymanski, "Terje With Lunndal", Sagi Shrieber, Matthew Meyer, Arno Faure, Fanny Heraud, Vincent G from Host1Free, , Petri Kajander, Fran Rosa, Nico (wsMaurik), Panos Efstratiou, Dominique Monhardt, Thomas Butzek, Kjell Vestnes, and Alexey Fedorov
+* Previous translators include Mikhail Michouris, Ed Boon, Rick van Dalen, Jacob Roel Meijering, hristian Andersen, Filippo Montanari, David Decker, Kamil Szymanski, "Terje With Lunndal", Sagi Shrieber, Matthew Meyer, Arno Faure, Fanny Heraud, Vincent G from Host1Free, , Petri Kajander, Fran Rosa, Nico (wsMaurik), Panos Efstratiou, Dominique Monhardt, Thomas Butzek, Kjell Vestnes, Luiza Libardi, Diego Meneghetti, and Alexey Fedorov
 
 == Add-Ons ==
 
@@ -284,7 +285,19 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 
 = 3.1 =
 
-* A number of core architectural changes have been applied. Upgrade with caution.
+* Significant performance improvements to month view (thanks to Grégory for the initial report!)
+* Improved compatibility with Canvas and other themes by WooThemes (thanks to Paul Pruneau for the heads up!)
+* Fixed several bugs relating to event cutoff times and month view (thanks jadonulrich for the report!)
+* The correct default view now applies to event category listings
+* Tag cloud links now work on both events and non-events pages (thanks to user 'onelittlemoose' for the report!)
+* Days with no events are no longer linked from the month view (thanks to reneeyoxon for the original report!)
+* Fixed a bug where the selected category would not apply after you navigate to the next month in Month view (thanks to Kyle for the report!)
+* Fixed bug where the comments form would show twice on single events
+* Enabled auto-submissions in situations where classic view is present instead of the event bar (thanks to user wiredimpact for getting the discussion started on this!)
+* New "System Information" section on the Events > Help page
+* Updated translations: Brazilian Portuguese (new), Turkish (new), Norwegian Dutch, Icelandic, Greek, Finnish, French, and German (French courtesy of Rick)
+* Fixed some display bugs in IE (thanks to user wiredimpact for bringing up most of these!)
+* Various minor bug and security fixes
 
 = 3.0.3 =
 

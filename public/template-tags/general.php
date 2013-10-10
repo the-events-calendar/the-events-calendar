@@ -1072,15 +1072,16 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 * @author Jessica Yazbek
 	 * @since 3.1
 	 **/
-	function is_view_enabled( $view ) {
+	function tribe_events_is_view_enabled( $view ) {
+		$enabled = false;
 		$enabled_views = apply_filters( 'tribe-events-bar-views', array() );
-		// print_r($enabled_views);
 		foreach ( $enabled_views as $enabled_view ) {
 			if ( $enabled_view['displaying'] == $view ) {
-				return true;
+				$enabled = true;
+				break;
 			}
 		}
-		return false;
+		return apply_filters( 'tribe_events_is_view_enabled', $enabled, $view, $enabled_views );
 	}
 
 }
