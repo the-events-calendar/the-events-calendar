@@ -448,9 +448,9 @@ class TribeEventsRecurrenceMeta {
 
 	/**
 	 * Recurrence validation method.  This is checked after saving an event, but before splitting a series out into multiple occurrences
- 	 * @param array $event The event object that is being saved
+ 	 * @param int $event_id The event object that is being saved
 	 * @param array $recurrence_meta Recurrence information for this event
-	 * @return void
+	 * @return bool
 	 */
 	public static function isRecurrenceValid( $event_id, $recurrence_meta  ) {
 		extract(TribeEventsRecurrenceMeta::getRecurrenceMeta( $event_id, $recurrence_meta ));
@@ -474,12 +474,12 @@ class TribeEventsRecurrenceMeta {
 
 	/**
 	 * Do the actual work of saving a recurring series of events
- 	 * @param array $postId The event that is being saved
+	 * @param int $postId The event that is being saved
+	 * @param bool $updated
 	 * @return void
 	 */
 	public static function saveEvents( $postId, $updated = true ) {
-		// use the recurrence start meta if necessary because we can't guarantee which order the start date will come back in
-		$recStart = strtotime(get_post_meta($postId, '_EventStartDate', true));
+		$recStart = strtotime(self::get_series_start_date($postId));
 		$eventEnd = strtotime(get_post_meta($postId, '_EventEndDate', true));
 		$duration = $eventEnd - $recStart;
 
@@ -550,7 +550,7 @@ class TribeEventsRecurrenceMeta {
 		$rules = TribeEventsRecurrenceMeta::getSeriesRules($event_id);
 
 		// use the recurrence start meta if necessary because we can't guarantee which order the start date will come back in
-		$recStart = strtotime(get_post_meta($event_id, '_EventStartDate', true));
+		$recStart = strtotime(self::get_series_start_date($event_id));
 
 		switch( $recEndType ) {
 			case 'On':
@@ -900,5 +900,25 @@ class TribeEventsRecurrenceMeta {
 			self::reset_scheduler();
 		}
 		return self::$scheduler;
+	}
+
+	/**
+	 * Placed here for compatibility reasons. This can be removed
+	 * when Events Calendar 3.2 or greater is released
+	 *
+	 * @todo Remove this method
+	 * @param int $post_id
+	 * @return string
+	 * @see TribeEvents::get_series_start_date()
+	 */
+	private static function get_series_start_date( $post_id ) {
+		if ( method_exists('TribeEvents', 'get_series_start_date') ) {
+			return TribeEvents::get_series_start_date($post_id);
+		}
+		$start_dates = get_post_meta( $post_id, '_EventStartDate', false );
+		if ( $start_dates ) {
+			return min($start_dates);
+		}
+		return '';
 	}
 }
