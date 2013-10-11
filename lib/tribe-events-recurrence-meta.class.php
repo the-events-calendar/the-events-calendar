@@ -166,6 +166,9 @@ class TribeEventsRecurrenceMeta {
 	 * @return void
 	 */
 	public static function maybeBreakFromSeries( $postId ) {
+		add_action( 'pre_post_update', '__return_null' ); // so we don't break the action iterator
+		remove_action( 'pre_post_update', array( __CLASS__, 'maybeBreakFromSeries' ) );
+
 		// make new series for future events
 		if( isset( $_POST['recurrence_action'] ) && $_POST['recurrence_action'] && $_POST['recurrence_action'] == TribeEventsRecurrenceMeta::UPDATE_TYPE_FUTURE) {
 			// if this is the first event in the series, then we don't need to break it into two series
