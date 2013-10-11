@@ -570,7 +570,7 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	 */
 	function tribe_get_next_week_permalink( $week = null ) {
 		$week = !empty( $week ) ? $week : tribe_get_first_week_day();
-		if ( TRUE || PHP_INT_SIZE <= 4 ) {
+		if ( PHP_INT_SIZE <= 4 ) {
 			if ( date('Y-m-d', strtotime($week)) > '2037-12-24' ) {
 				throw new OverflowException(__('Date out of range.', 'the-events-calendar'));
 			}
