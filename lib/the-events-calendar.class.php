@@ -3484,10 +3484,16 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 * Given a date (YYYY-MM-DD), returns the first of the next month
 		 * hat tip to Dan Bernadict for method cleanup
 		 *
-		 * @param date
-		 * @return date
+		 * @param string $date
+		 * @return string Next month's date
+		 * @throws OverflowException
 		 */
 		public function nextMonth( $date ) {
+			if ( PHP_INT_SIZE <= 4 ) {
+				if ( date('Y-m-d', strtotime($date)) > '2037-11-30' ) {
+					throw new OverflowException(__('Date out of range.', 'the-events-calendar'));
+				}
+			}
 			return date( 'Y-m', strtotime( $date . ' +1 month' ) );
 		}
 
@@ -3495,10 +3501,16 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 * Given a date (YYYY-MM-DD), return the first of the previous month
 		 * hat tip to Dan Bernadict for method cleanup
 		 *
-		 * @param date
-		 * @return date
+		 * @param string $date
+		 * @return string Previous month's date
+		 * @throws OverflowException
 		 */
 		public function previousMonth( $date ) {
+			if ( PHP_INT_SIZE <= 4 ) {
+				if ( date('Y-m-d', strtotime($date)) < '1902-02-01' ) {
+					throw new OverflowException(__('Date out of range.', 'the-events-calendar'));
+				}
+			}
 			return date( 'Y-m', strtotime( $date . ' -1 month' ) );
 		}
 
