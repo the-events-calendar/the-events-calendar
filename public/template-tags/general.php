@@ -456,12 +456,10 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	/**
 	 * Get the first day of the week from a provided date
 	 *
-	 * @param string|int $date_or_int A given date or week # (week # assumes current year)
-	 * @param bool $by_date determines how to parse the date vs week provided
-	 * @param int $first_day sets start of the week (offset) respectively, accepts 0-6
-	 * @return DateTime
+	 * @param null|mixed $date  given date or week # (week # assumes current year)
+	 * @return string
 	 */
-	function tribe_get_first_week_day( $date = null, $by_date = true ) {
+	function tribe_get_first_week_day( $date = null ) {
 		global $wp_query;
 		$offset = 7 - get_option( 'start_of_week', 0 );
 
@@ -553,6 +551,11 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	 */
 	function tribe_get_last_week_permalink( $week = null ) {
 		$week = !empty( $week ) ? $week : tribe_get_first_week_day();
+		if ( PHP_INT_SIZE <= 4 ) {
+			if ( date('Y-m-d', strtotime($week)) < '1902-01-08' ) {
+				throw new OverflowException(__('Date out of range.', 'the-events-calendar'));
+			}
+		}
 		$week = date('Y-m-d', strtotime( $week . ' -1 week'));
 		return apply_filters('tribe_get_last_week_permalink', tribe_get_week_permalink( $week ) );
 	}
@@ -562,12 +565,16 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	 *
 	 * @uses tribe_get_week_permalink
 	 * @param string $week
-	 * @param bool $is_current
 	 * @return string $permalink
 	 * @since 3.0
 	 */
 	function tribe_get_next_week_permalink( $week = null ) {
 		$week = !empty( $week ) ? $week : tribe_get_first_week_day();
+		if ( TRUE || PHP_INT_SIZE <= 4 ) {
+			if ( date('Y-m-d', strtotime($week)) > '2037-12-24' ) {
+				throw new OverflowException(__('Date out of range.', 'the-events-calendar'));
+			}
+		}
 		$week = date('Y-m-d', strtotime( $week . ' +1 week'));
 		return apply_filters('tribe_get_next_week_permalink', tribe_get_week_permalink( $week ) );
 	}

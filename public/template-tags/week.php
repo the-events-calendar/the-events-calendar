@@ -255,4 +255,30 @@ if ( class_exists( 'TribeEventsPro' ) ) {
 		return apply_filters( 'tribe_events_week_get_event', $event );
 	}
 
+	function tribe_previous_week_link( $text = '' ) {
+		try {
+			$url = tribe_get_last_week_permalink();
+			if ( empty($text) ) {
+				$text = __('&laquo; Previous Week', 'tribe-events-calendar-pro' );
+			}
+			$html = sprintf( '<a %s href="%s" rel="prev">%s</a>', tribe_events_the_nav_attributes( 'prev', false ), $url, $text );
+		} catch ( OverflowException $e ) {
+			$html = '';
+		}
+		return $html;
+	}
+
+	function tribe_next_week_link( $text = '' ) {
+		try {
+			$url = tribe_get_next_week_permalink();
+			if ( empty($text) ) {
+				$text = __( 'Next Week &raquo;', 'tribe-events-calendar-pro' );
+			}
+			$html = sprintf( '<a %s href="%s" rel="next">%s</a>', tribe_events_the_nav_attributes( 'next', false ), $url, $text );
+		} catch ( OverflowException $e ) {
+			$html = '';
+		}
+		return $html;
+	}
+
 }
