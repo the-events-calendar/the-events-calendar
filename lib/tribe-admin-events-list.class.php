@@ -21,7 +21,7 @@ if (!class_exists('TribeEventsAdminList')) {
 		public static function init() {
 			if ( is_admin() && ! ( defined('DOING_AJAX') && DOING_AJAX ) ) {
 				add_filter( 'posts_distinct', array( __CLASS__, 'events_search_distinct'));
-				add_filter( 'posts_join',		array( __CLASS__, 'events_search_join' ) );
+				add_filter( 'posts_join',		array( __CLASS__, 'events_search_join' ), 10, 2 );
 				add_filter( 'posts_where',		array( __CLASS__, 'events_search_where' ) );
 				add_filter( 'posts_orderby',  array( __CLASS__, 'events_search_orderby' ) );
 				add_filter( 'posts_groupby', array( __CLASS__, 'events_search_groupby' ) );
@@ -110,19 +110,26 @@ if (!class_exists('TribeEventsAdminList')) {
 			$fields .= ", {$wpdb->postmeta}.meta_value as EventStartDate, IFNULL(DATE_ADD(CAST({$wpdb->postmeta}.meta_value AS DATETIME), INTERVAL eventDuration.meta_value SECOND), eventEnd.meta_value) as EventEndDate ";
 			return $fields;
 		}
+
 		/**
-		 * Join filter for admin quries
+		 * Join filter for admin queries
 		 *
-		 * @param string join clause
+		 * @param $join
+		 * @param $query WP_Query
+		 *
 		 * @return string modified join clause
 		 */
-		public static function events_search_join( $join ) {
+		public static function events_search_join( $join, $query ) {
 			global $wpdb;
-			if ( get_query_var('post_type') != TribeEvents::POSTTYPE ) {
+			if ( get_query_var('post_type') != TribeEvents::POSTTYPE )
 				return $join;
-			}
+
+			if ( $query->is_main_query() )
+				$join .= " INNER JOIN {$wpdb->postmeta} ON {$wpdb->posts}.ID = {$wpdb->postmeta}.post_id ";
+
 			$join .= " LEFT JOIN {$wpdb->postmeta} as eventDuration ON( {$wpdb->posts}.ID = eventDuration.post_id AND eventDuration.meta_key = '_EventDuration') ";
 			$join .= " LEFT JOIN {$wpdb->postmeta} as eventEnd ON( {$wpdb->posts}.ID = eventEnd.post_id AND eventEnd.meta_key = '_EventEndDate') ";
+
 			return $join;
 		}
 		/**

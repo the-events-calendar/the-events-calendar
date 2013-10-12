@@ -250,10 +250,12 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 					);
 				}
 
-				$meta_query[] = array(
-					'key' => '_EventStartDate',
-					'type' => 'DATETIME'
-				);
+				if ( ! is_admin() || defined( 'DOING_AJAX' ) ) {
+					$meta_query[] = array(
+						'key'  => '_EventStartDate',
+						'type' => 'DATETIME'
+					);
+				}
 
 			}
 
