@@ -163,10 +163,6 @@ var tribe_events_bar_action;
 			$('.tribe-bar-filters').slideToggle('fast');
 		});
 
-		$('body').on('click', function () {
-			$('#tribe-bar-views').removeClass('tribe-bar-views-closed');
-		});
-
 		// Wrap date inputs with a parent container
 		$('label[for="tribe-bar-date"], input[name="tribe-bar-date"]').wrapAll('<div id="tribe-bar-dates" />');
 
@@ -180,6 +176,8 @@ var tribe_events_bar_action;
 					if ($this.val().length) {
 						ts.params[$this.attr('name')] = $this.val();
 						ts.url_params[$this.attr('name')] = $this.val();
+					} else if($this.is('.placeholder') && $this.is('.bd-updated')){
+						ts.url_params[$this.attr('name')] = $this.attr('data-oldDate');
 					} else {
 						ts.date = td.cur_date;
 					}
@@ -263,6 +261,7 @@ var tribe_events_bar_action;
 		});
 
 		$(document).click(function () {
+			$('#tribe-bar-views').removeClass('tribe-bar-views-open');
 			if ($tribeDropToggle.hasClass('open')) {
 				$tribeDropToggle.removeClass('open');
 				$tribeDropToggleEl.hide();

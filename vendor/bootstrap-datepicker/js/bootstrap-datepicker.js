@@ -136,6 +136,9 @@
             } else {
                 this.element.prop('value', formated);
             }
+			if(this.element.is('.placeholder')){
+				this.element.addClass('bd-updated').attr('data-oldDate', formated);
+			}
         },
 
         setValue: function(newDate) {

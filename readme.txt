@@ -1,11 +1,11 @@
 === The Events Calendar ===
 
-Contributors:  ModernTribe, PaulHughes01, roblagatta, jonahcoyote, MZAWeb, codearachnid, ryancurban, faction23, jazbek, kyleunzicker, leahkoerper, barryhughes, peterchester, reid.peifer, shane.pearlman
+Contributors:  ModernTribe, PaulHughes01, roblagatta, jonahcoyote, MZAWeb, codearachnid, ryancurban, faction23, jazbek, kyleunzicker, leahkoerper, WebsiteBakery, peterchester, reid.peifer, shane.pearlman
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
 Donate link: http://m.tri.be/29
 Requires at least: 3.5
-Tested up to: 3.6
-Stable tag: 3.0.3
+Tested up to: 3.6.1
+Stable tag: 3.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -98,6 +98,7 @@ If you're unclear about the installation process or get stuck, check out our <a 
 
 * PHP 5.2 or above
 * WordPress 3.3 or above
+* jQuery 1.7 or above
 
 == Screenshots ==
 
@@ -213,25 +214,28 @@ The plugin is produced by <a href="http://m.tri.be/2s">Modern Tribe Inc</a>.
 
 * Arabic from Mamdouh Samy
 * Bosnian from Marko Manojlovic
-* Brazilian Portuguese from Luiza Libardi and Diego Meneghetti
+* Brazilian Portuguese from Dionizio Bonfim Bach
 * Catalan from Barbara Partegos Rof
 * Croatian from Marko Manojlovic
 * Czech from Martin Kristan and Petr Bastan
 * Danish from Anonymous
-* Dutch from Nico (wsMaurik)
-* French from Dominique Monhardt
-* German from Thomas Butzek
-* Greek from Panos Efstratiou
+* Dutch from Erik Massop
+* Finnish by Ari-Pekka Koponen
+* French from Benoît Burgener
+* German from Michael Sebel
+* Greek from Maria Tsilimidou
+* Icelandic by Baldvin Örn Berndsen
 * Italian from Roberto Scano
-* Norwegian from Kjell Vestnes
+* Norwegian from Andreas Lorentsen
 * Polish from Marek Kosina
 * Portuguese from Antonio Pratas
 * Romanian from Mihai Burcea
 * Serbian from Marko Manojlovic
 * Spanish from Hector Gil Rizo
 * Swedish from Ben Andersen
+* Turkish by Burak Pehlevan
 
-* Previous translators include Mikhail Michouris, Ed Boon, Rick van Dalen, Jacob Roel Meijering, hristian Andersen, Filippo Montanari, David Decker, Kamil Szymanski, "Terje With Lunndal", Sagi Shrieber, Matthew Meyer, Arno Faure, Fanny Heraud, Vincent G from Host1Free, , Petri Kajander, Fran Rosa, and Alexey Fedorov
+* Previous translators include Mikhail Michouris, Ed Boon, Rick van Dalen, Jacob Roel Meijering, hristian Andersen, Filippo Montanari, David Decker, Kamil Szymanski, "Terje With Lunndal", Sagi Shrieber, Matthew Meyer, Arno Faure, Fanny Heraud, Vincent G from Host1Free, , Petri Kajander, Fran Rosa, Nico (wsMaurik), Panos Efstratiou, Dominique Monhardt, Thomas Butzek, Kjell Vestnes, Luiza Libardi, Diego Meneghetti, and Alexey Fedorov
 
 == Add-Ons ==
 
@@ -253,11 +257,47 @@ Our Premium Plugins:
 * <a href="http://m.tri.be/2i" target="_blank">The Events Calendar: WooCommerce Tickets</a>
 * The Events Calendar: Filter Bar (coming summer 2013)
 
+== Versioning ==
+
+Curious about our versioning process, and how it's changed since The Events Calendar 3.0's launch? Look no further.
+
+As a general practice, version numbers for The Events Calendar, Events Calendar PRO and our other add-ons follows the <a href="http://en.wikipedia.org/wiki/Software_versioning#Semantic_versioning">Semantic Versioning guidelines</a> whenever practical.
+
+This means releases will maintain a three-part version number: major version; minor version; and patch. Let's say we're looking at The Events Calendar 3.1, as an example:
+
+Major version = 3
+Minor version = 1
+Patch = 0
+
+If we deployed a follow-up maintenance build that addressed a couple small bugs, and called it 3.1.1, we'd now have:
+
+Major version = 3
+Minor version = 1
+Patch = 1
+
+At no point during the 3.0 lifecycle will the major version change. But you can expect that either minor version and/or patch will change with each release. 
+
 == Changelog ==
 
 = IMPORTANT NOTICE =
 
-3.0 is a complete overhaul of the plugin, and as a result we're starting the changelog fresh. For release notes from the 2.x lifecycle, see <a href="http://m.tri.be/k">our 2.x release notes.</a>
+3.x is a complete overhaul of the plugin, and as a result we're starting the changelog fresh. For release notes from the 2.x lifecycle, see <a href="http://m.tri.be/k">our 2.x release notes.</a>
+
+= 3.1 =
+
+* Significant performance improvements to month view (thanks to Grégory for the initial report!)
+* Improved compatibility with Canvas and other themes by WooThemes (thanks to Paul Pruneau for the heads up!)
+* Fixed several bugs relating to event cutoff times and month view (thanks jadonulrich for the report!)
+* The correct default view now applies to event category listings
+* Tag cloud links now work on both events and non-events pages (thanks to user 'onelittlemoose' for the report!)
+* Days with no events are no longer linked from the month view (thanks to reneeyoxon for the original report!)
+* Fixed a bug where the selected category would not apply after you navigate to the next month in Month view (thanks to Kyle for the report!)
+* Fixed bug where the comments form would show twice on single events
+* Enabled auto-submissions in situations where classic view is present instead of the event bar (thanks to user wiredimpact for getting the discussion started on this!)
+* New "System Information" section on the Events > Help page
+* Updated translations: Brazilian Portuguese (new), Turkish (new), Norwegian Dutch, Icelandic, Greek, Finnish, French, and German (French courtesy of Rick)
+* Fixed some display bugs in IE (thanks to user wiredimpact for bringing up most of these!)
+* Various minor bug and security fixes
 
 = 3.0.3 =
 
@@ -319,6 +359,12 @@ Some things to consider before posting on the forum:
 Still not happy? Shoot us an email to pro@tri.be or tweet to @moderntribeinc and tell us why. We'll do what we can to make it right.
 
 == Upgrade Notice ==
+
+IMPORTANT NOTICE: 3.x upgrade is a HUGE upgrade from 2.x versions. If you are upgrading from an older version, please test thoroughly before updating on your live website.
+
+= 3.1 =
+
+There have been a number of architectural changes in 3.1. If you have a lot of customizations you may want to do some thorough testing before upgrading.
 
 = 3.0 =
 
