@@ -63,7 +63,11 @@ function tribe_events_the_mini_calendar_title() {
 function tribe_events_the_mini_calendar_next_link() {
 	$tribe_ecp = TribeEvents::instance();
 	$args = tribe_events_get_mini_calendar_args();
-	$html = '<a class="tribe-mini-calendar-nav-link next-month" href="#" data-month="'.$tribe_ecp->nextMonth( $args['eventDate'] ).'-01" title="'.tribe_get_next_month_text().'"><span>&raquo;</span></a>';
+	try {
+		$html = '<a class="tribe-mini-calendar-nav-link next-month" href="#" data-month="'.$tribe_ecp->nextMonth( $args['eventDate'] ).'-01" title="'.tribe_get_next_month_text().'"><span>&raquo;</span></a>';
+	} catch ( OverflowException $e ) {
+		$html = '';
+	}
 	echo apply_filters( 'tribe_events_the_mini_calendar_prev_link', $html );
 }
 
@@ -78,15 +82,27 @@ function tribe_events_the_mini_calendar_day_link() {
 	$day = tribe_events_get_current_month_day();
 	$args = tribe_events_get_mini_calendar_args();
 
-	if ($args['count'] == 0) {
-		ob_start();
-		tribe_the_day_link($day['date'], $day['daynum']);
-		$html = ob_get_clean();
-	} elseif ( $day['total_events'] > 0 ) {
-		$html = '<a href="#" data-day="'.$day['date'].'" class="tribe-mini-calendar-day-link">'.$day['daynum'].'</a>';
+	if ( $day['total_events'] > 0 ) {
+		// there are events on this day
+		if ( $args['count']  > 0 ) {
+			// there is an event list under the calendar
+			$html = '<a href="#" data-day="'.$day['date'].'" class="tribe-mini-calendar-day-link">'.$day['daynum'].'</a>';
+		} else {
+			// there are no events under the calendar
+			if ( tribe_events_is_view_enabled( 'day' ) ) {
+				// day view is enabled
+				ob_start();
+				tribe_the_day_link($day['date'], $day['daynum']);
+				$html = ob_get_clean();
+			} else {
+				// day view is disabled, just show that there are events on the day but don't link anywhere
+				$html = '<a href="javascript:void(0)">'.$day['daynum'].'</a>';
+			}
+		}
 	} else {
 		$html = '<span class="tribe-mini-calendar-no-event">'.$day['daynum'].'</span>';
 	}
+
 	echo apply_filters( 'tribe_events_the_mini_calendar_day_link', $html );
 }
 

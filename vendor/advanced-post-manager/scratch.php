@@ -31,5 +31,5 @@ $filters_and_columns = array(
 		'meta_order' => 3
 		// Some 'types' take additional arguments
 	)
-)
+);
 

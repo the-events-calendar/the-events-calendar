@@ -12,7 +12,6 @@ class Tribe_Demo_APM {
 	private $textdomain = 'tribe-apm';
 
 	public function __construct() {
-		'tribe-apm' = apply_filters( 'tribe_apm_textdomain', 'tribe-apm' );
 		add_action( 'init', array($this, 'test_filters') );
 		add_action( 'admin_notices', array($this, 'notice') );
 	}
