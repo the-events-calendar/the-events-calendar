@@ -145,9 +145,6 @@ if (!class_exists('TribeEventsAdminList')) {
 
 			global $wpdb;
 
-//			if ( $query->is_main_query() )
-//				$where .= " AND ( {$wpdb->postmeta}.meta_key = '_EventStartDate' ";
-
 			//$where .= ' AND ( eventStart.meta_key = "_EventStartDate" AND eventDuration.meta_key = "_EventDuration" ) ';
 
 			return $where;
