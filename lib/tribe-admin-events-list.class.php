@@ -22,7 +22,7 @@ if (!class_exists('TribeEventsAdminList')) {
 			if ( is_admin() && ! ( defined('DOING_AJAX') && DOING_AJAX ) ) {
 				add_filter( 'posts_distinct', array( __CLASS__, 'events_search_distinct'));
 				add_filter( 'posts_join',		array( __CLASS__, 'events_search_join' ), 10, 2 );
-				add_filter( 'posts_where',		array( __CLASS__, 'events_search_where' ) );
+				add_filter( 'posts_where',		array( __CLASS__, 'events_search_where' ), 10, 2 );
 				add_filter( 'posts_orderby',  array( __CLASS__, 'events_search_orderby' ) );
 				add_filter( 'posts_groupby', array( __CLASS__, 'events_search_groupby' ) );
 				add_filter( 'posts_fields',	array( __CLASS__, 'events_search_fields' ) );
@@ -125,7 +125,7 @@ if (!class_exists('TribeEventsAdminList')) {
 				return $join;
 
 			if ( $query->is_main_query() )
-				$join .= " INNER JOIN {$wpdb->postmeta} ON {$wpdb->posts}.ID = {$wpdb->postmeta}.post_id ";
+				$join .= " LEFT JOIN {$wpdb->postmeta} ON {$wpdb->posts}.ID = {$wpdb->postmeta}.post_id AND ({$wpdb->postmeta}.meta_key = '_EventStartDate' or {$wpdb->postmeta}.meta_key is null) ";
 
 			$join .= " LEFT JOIN {$wpdb->postmeta} as eventDuration ON( {$wpdb->posts}.ID = eventDuration.post_id AND eventDuration.meta_key = '_EventDuration') ";
 			$join .= " LEFT JOIN {$wpdb->postmeta} as eventEnd ON( {$wpdb->posts}.ID = eventEnd.post_id AND eventEnd.meta_key = '_EventEndDate') ";
@@ -136,12 +136,17 @@ if (!class_exists('TribeEventsAdminList')) {
 		 * Where filter for admin queries
 		 *
 		 * @param string where clause
+		 * @param WP_Query query
 		 * @return string modified where clause
 		 */
-		public static function events_search_where( $where ) {
-			if ( get_query_var('post_type') != TribeEvents::POSTTYPE ) {
+		public static function events_search_where( $where, $query ) {
+			if ( get_query_var('post_type') != TribeEvents::POSTTYPE )
 				return $where;
-			}
+
+			global $wpdb;
+
+//			if ( $query->is_main_query() )
+//				$where .= " AND ( {$wpdb->postmeta}.meta_key = '_EventStartDate' ";
 
 			//$where .= ' AND ( eventStart.meta_key = "_EventStartDate" AND eventDuration.meta_key = "_EventDuration" ) ';
 
@@ -277,12 +282,19 @@ if (!class_exists('TribeEventsAdminList')) {
 					echo ( $event_cats ) ? strip_tags( $event_cats ) : '—';
 				}
 				if ( $column_id == 'start-date' ) {
-					echo tribe_event_format_date(strtotime(self::$events_list[0]->EventStartDate), false);
-					if ( ! self::$end_col_active || ! self::$start_col_first ) self::advance_date();
+
+					if ( ! empty( self::$events_list[0]->EventStartDate ) )
+						echo tribe_event_format_date( strtotime( self::$events_list[0]->EventStartDate ), false );
+
+					if ( ! self::$end_col_active || ! self::$start_col_first )
+						self::advance_date();
 				}
 				if ( $column_id == 'end-date' ) {
-					echo tribe_event_format_date(strtotime(self::$events_list[0]->EventEndDate), false);
-					if ( self::$start_col_first) self::advance_date();
+					if ( ! empty( self::$events_list[0]->EventEndDate ) )
+						echo tribe_event_format_date( strtotime( self::$events_list[0]->EventEndDate ), false );
+
+					if ( self::$start_col_first )
+						self::advance_date();
 				}
 
 				if ( $column_id == 'recurring' ) {
