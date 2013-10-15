@@ -313,7 +313,7 @@ class TribeEventsGeoLoc {
 	 * @return void
 	 */
 	public function setup_geoloc_in_query( $query ) {
-		if ( !$query->is_main_query() || !$query->get('post_type') == TribeEvents::POSTTYPE ) {
+		if ( ( ! $query->is_main_query() && ! defined( 'DOING_AJAX' ) ) || ! $query->get( 'post_type' ) == TribeEvents::POSTTYPE ) {
 			return;
 		}
 
