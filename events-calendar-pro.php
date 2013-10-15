@@ -1105,7 +1105,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 						$query->set( 'hide_upcoming', false );
 						break;
 					case 'day':
-						$event_date = $query->get('eventDate') != '' ? $query->get('eventDate') : Date('Y-m-d');
+						$event_date = $query->get('eventDate') != '' ? $query->get('eventDate') : Date('Y-m-d', current_time('timestamp'));
 						$query->set( 'eventDate', $event_date );
 						$query->set( 'start_date', tribe_event_beginning_of_day( $event_date ) );
 						$query->set( 'end_date', tribe_event_end_of_day( $event_date ) );
