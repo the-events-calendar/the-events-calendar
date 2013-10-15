@@ -28,7 +28,9 @@
 .tribe-events-calendar td.tribe-events-present div[id*="tribe-events-daynum-"] > a,
 #tribe_events_filters_wrapper input[type=submit],
 .tribe-events-button,
+.entry-content .tribe-events-button,
 .tribe-events-button.tribe-inactive,
+.entry-content .tribe-events-button:hover,
 .tribe-events-button:hover,
 .tribe-events-button.tribe-active:hover {
 	background-color: #21759b;
@@ -41,6 +43,7 @@
 
 .tribe-events-button.tribe-inactive,
 .tribe-events-button:hover,
+.entry-content .tribe-events-button:hover,
 .tribe-events-button.tribe-active:hover {
 	color:#fff;
 }
