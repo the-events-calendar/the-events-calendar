@@ -62,14 +62,16 @@ if( class_exists( 'TribeEvents' ) ) {
 			global $post;
 			$event = $post;
 		}
-		if( is_numeric( $event ) )
-			$event = get_post( $event );
+		if( is_numeric( $event ) ) {
+			$event = get_post( $event );			
+		}
 
 		if( tribe_event_is_all_day( $event ) )
 			 $displayTime = false;
 
-		if( empty($event->EventEndDate) && is_object( $event ) )
+		if( empty($event->EventEndDate) && is_object( $event ) ) {
 			$event->EventEndDate = tribe_get_event_meta( $event->ID, '_EventEndDate', true );
+		}
 
 		if( isset($event->EventEndDate) ){
 			$date = strtotime( $event->EventEndDate );

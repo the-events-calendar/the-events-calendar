@@ -36,7 +36,7 @@ if ( !class_exists( 'TribeSettingsTab' ) ) {
 		 * Defaults for tabs
 		 * @var array
 		 */
-		public static $defaults;
+		public $defaults;
 
 		/**
 		 * class constructor
@@ -89,7 +89,7 @@ if ( !class_exists( 'TribeSettingsTab' ) ) {
 		 * @return array $tabs the filtered tabs
 		 */
 		public function addTab( $tabs ) {
-			$hideSettingsTabs = TribeEvents::getNetworkOption( 'hideSettingsTabs', array( ) );
+			$hideSettingsTabs = TribeEvents::instance()->getNetworkOption( 'hideSettingsTabs', array( ) );
 			if ( ( isset( $this->fields ) || has_action( 'tribe_settings_content_tab_' . $this->id ) ) && ( empty( $hideSettingsTabs ) || !in_array( $this->id, $hideSettingsTabs ) ) ) {
 				if ( ( is_network_admin() && $this->args['network_admin'] ) || ( !is_network_admin() && !$this->args['network_admin'] ) ) {
 					$tabs[$this->id] = $this->name;
