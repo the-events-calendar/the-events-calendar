@@ -256,11 +256,18 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 					);
 				}
 
-				$meta_query[] = array(
-					'key' => '_EventStartDate',
-					'type' => 'DATETIME'
-				);
+				// Only add the postmeta hack if it's not the main admin events list
+				// Because this method filters out drafts without EventStartDate.
+				// For this screen we're doing the JOIN manually in TribeEventsAdminList
 
+				$screen = ! is_admin() || ( defined( 'DOING_AJAX' ) && DOING_AJAX ) ? null : get_current_screen();
+
+				if ( empty( $screen ) || $screen->id != 'edit-tribe_events' ) {
+					$meta_query[] = array(
+						'key'  => '_EventStartDate',
+						'type' => 'DATETIME'
+					);
+				}
 			}
 
 			// filter by Venue ID
