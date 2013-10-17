@@ -145,7 +145,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			add_filter( 'tribe_event_meta_organizer_name', array('Tribe_Register_Meta_Pro','organizer_name'), 10, 2);
 			add_filter( 'tribe_events_single_event_the_meta_group_venue', array( $this, 'single_event_the_meta_group_venue'), 10, 2);
 
-			$this->register_related_events_view();
+			add_action( 'tribe_events_single_event_after_the_meta', array( $this, 'register_related_events_view' ) );
 
 			// add_action( 'tribe_events_single_event_meta_init', array( $this, 'single_event_meta_init'), 10, 4);
 
@@ -210,9 +210,12 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		 *
 		 * @return void
 		 */
-		private function register_related_events_view() {
+		public function register_related_events_view() {
 			if ( $this->show_related_events() ) {
-				add_action( 'tribe_events_single_event_after_the_meta', 'tribe_single_related_events' );
+				global $post;
+				$tags = wp_get_post_tags( $post->ID, array( 'fields' => 'ids' ) );
+				$categories = wp_get_object_terms( $post->ID, TribeEvents::TAXONOMY, array( 'fields' => 'ids' ) );
+				tribe_single_related_events( $tags, $categories );
 			}
 		}
 
