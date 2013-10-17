@@ -177,6 +177,12 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 					$query->set( 'cache_results', false );
 					$query->set( 'update_post_meta_cache', false );
 					$query->set( 'update_post_term_cache', false );
+					$query->set( 'meta_query', array(
+						array(
+							'key' => '_EventStartDate',
+							'type' => 'DATETIME'
+						)
+					));
 					do_action( 'tribe_events_pre_get_posts', $query );
 					return $query;
 				}
