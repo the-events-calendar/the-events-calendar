@@ -659,7 +659,6 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 						global $wp_query;
 
 						$output_date_format = '%Y-%m-%d %H:%i:%s';
-						$raw_counts = $wpdb->get_results( sprintf( "
 								SELECT 	tribe_event_start.post_id as ID, 
 										tribe_event_start.meta_value as EventStartDate, 
 										IF (tribe_event_duration.meta_value IS NULL, DATE_FORMAT( tribe_event_end_date.meta_value, '%1\$s'), DATE_FORMAT(DATE_ADD(CAST(tribe_event_start.meta_value AS DATETIME), INTERVAL tribe_event_duration.meta_value SECOND), '%1\$s')) as EventEndDate,
