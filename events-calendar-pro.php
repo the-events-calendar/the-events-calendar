@@ -362,7 +362,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			}
 			// day view title
 			if( tribe_is_day() ) {
-				$reset_title = __( 'Events for', 'tribe-events-calendar-pro' ) . ' ' .Date("l, F jS Y", strtotime($wp_query->get('start_date')));
+				$reset_title = __( 'Events for', 'tribe-events-calendar-pro' ) . ' ' . date_i18n('l, F jS Y', strtotime($wp_query->get('start_date')));
 			}
 			// map or photo view titles
 			if( tribe_is_map() || tribe_is_photo() ) {
