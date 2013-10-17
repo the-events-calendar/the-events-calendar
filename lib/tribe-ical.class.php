@@ -56,12 +56,12 @@ class TribeiCal {
 	public static function maybe_add_link( $content ) {
 		global $wp_query;
 
-		$show_ical = ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) && apply_filters( 'tribe_events_list_show_ical_link', true );
+		$show_ical = apply_filters( 'tribe_events_list_show_ical_link', true );
 
 		if ( ! $show_ical )
 			return $content;
 
-		if ( is_single() )
+		if ( is_single() || ! have_posts() )
 			return $content;
 
 		$tec = TribeEvents::instance();
