@@ -181,6 +181,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			add_action( 'tribe_events_pre_get_posts' , array( $this, 'setup_hide_recurrence_in_query' ) );
 
 			add_filter( 'wp' , array( $this, 'detect_recurrence_redirect' ) );
+			add_filter( 'wp', array( $this, 'filter_canonical_link_on_recurring_events' ), 10, 1 );
 
 			add_filter( 'tribe_events_register_venue_type_args', array( $this, 'addSupportsThumbnail' ), 10, 1 );
 			add_filter( 'tribe_events_register_organizer_type_args', array( $this, 'addSupportsThumbnail' ), 10, 1 );
@@ -649,6 +650,25 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 					exit;
 				}
 			}
+		}
+
+		public function filter_canonical_link_on_recurring_events() {
+			if ( is_singular(TribeEvents::POSTTYPE) && get_query_var('eventDate') && has_action('wp_head', 'rel_canonical') ) {
+				remove_action( 'wp_head', 'rel_canonical' );
+				add_action( 'wp_head', array( $this, 'output_recurring_event_canonical_link' ) );
+			}
+		}
+
+		public function output_recurring_event_canonical_link() {
+			// set the EventStartDate so TribeEvents can filter the permalink appropriately
+			$post = get_post(get_queried_object_id());
+			$post->EventStartDate = get_query_var('eventDate');
+
+			// use get_post_permalink instead of get_permalink so that the post isn't converted
+			// back to an ID, then to a post again (without the EventStartDate)
+			$link = get_post_permalink( $post );
+
+			echo "<link rel='canonical' href='$link' />\n";
 		}
 
 		/**
