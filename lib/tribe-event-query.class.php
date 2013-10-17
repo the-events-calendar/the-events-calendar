@@ -703,10 +703,14 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 									// event starts on this day (event start time is between start and end of day)
 									// event ends on this day (event end time is between start and end of day)
 									// event starts before start of day and ends after end of day (spans across this day)
-								if ( 
-									( $record_start >= $start_of_day && $record_start < $end_of_day ) 
-									|| ( $record_end <= $end_of_day && $record_start >= $start_of_day ) 
+								if (
+									// event starts today
+									( $record_start >= $start_of_day && $record_start <= $end_of_day ) 
+									   // event ends today
+									|| ( $record_end >= $start_of_day && $record_end <= $end_of_day )
+									   // event spans across today
 									|| ( $record_start <= $start_of_day && $record_end >= $end_of_day )
+
 									) {
 									if ( isset( $term->term_id ) ) {
 										$record_terms = get_the_terms( $record->ID, TribeEvents::TAXONOMY );
