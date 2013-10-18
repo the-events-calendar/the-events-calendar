@@ -63,20 +63,21 @@ class TribeEventsCustomMeta {
 	 * @return void
 	 */
     public static function single_event_meta() {
-			$tribe_ecp = TribeEvents::instance();
-			$customFields = tribe_get_option('custom-fields');
-			
-			$events_event_meta_template = TribeEventsPro::instance()->pluginPath . 'admin-views/event-meta.php';
-			$events_event_meta_template = apply_filters('tribe_events_event_meta_template', $events_event_meta_template);
-			if( !empty($events_event_meta_template) )
-				include( $events_event_meta_template );
+		$tribe_ecp = TribeEvents::instance();
+		$customFields = tribe_get_option('custom-fields');
+
+		$events_event_meta_template = TribeEventsPro::instance()->pluginPath . 'admin-views/event-meta.php';
+		$events_event_meta_template = apply_filters('tribe_events_event_meta_template', $events_event_meta_template);
+		if( !empty($events_event_meta_template) )
+			include( $events_event_meta_template );
     }
 
 	/**
 	 * save_single_event_meta
-	 * 
+	 *
 	 * saves the custom fields for a single event
-	 * 
+	 *
+	 * @param $postId
 	 * @return void
 	 */
     public static function save_single_event_meta($postId) {
@@ -93,17 +94,17 @@ class TribeEventsCustomMeta {
 		}
     }
 
-  /**
-   * enforce saving on additional fields tab
-   * @author jkudish
-   * @since 2.0.5
-   * @return void
-   */
-  public function force_save_meta() {
-  	$options = TribeEvents::getOptions();
-  	$options = self::save_meta_options($options);
-		$options = TribeEvents::setOptions($options);
-  }
+	/**
+	 * enforce saving on additional fields tab
+	 * @author jkudish
+	 * @since 2.0.5
+	 * @return void
+	 */
+	public static function force_save_meta() {
+		$options = TribeEvents::getOptions();
+		$options = self::save_meta_options($options);
+		TribeEvents::instance()->setOptions($options);
+	}
 
 	/**
 	 * save_meta_options

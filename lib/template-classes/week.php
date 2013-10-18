@@ -452,9 +452,10 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 		 *
 		 * @since  3.0
 		 * @author tim@imaginesimplicty.com
+		 * @param $classes
 		 * @return void
 		 */
-		function event_classes() {
+		function event_classes( $classes ) {
 
 			if ( self::$loop_type == 'allday' ) {
 				$event = self::get_allday_event();
@@ -472,7 +473,7 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 
 			// if we have a venue add the class
 			if ( $venue_id = tribe_get_venue_id( $event->ID ) )
-				'tribe-events-venue-'. $venue_id . ' ';
+				echo 'tribe-events-venue-'. $venue_id . ' ';
 
 			// if we have an organizer add the class
 			if ( $organizer_id = tribe_get_organizer_id( $event->ID ) )
