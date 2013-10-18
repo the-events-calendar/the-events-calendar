@@ -30,7 +30,7 @@ if (!class_exists('TribeEventsTemplates')) {
 		 */
 		public static function init() {
 
-			// choose the wordpress theme template to use
+			// Choose the wordpress theme template to use
 			add_filter( 'template_include', array( __CLASS__, 'templateChooser' ) );
 
 			// include our view class
@@ -38,6 +38,8 @@ if (!class_exists('TribeEventsTemplates')) {
 
 			// make sure we enter the loop by always having some posts in $wp_query
 			add_action( 'template_redirect', array( __CLASS__, 'maybeSpoofQuery' ) );
+
+
 
 			// don't query the database for the spoofed post
 			wp_cache_set( self::spoofed_post()->ID, self::spoofed_post(), 'posts' );
@@ -71,7 +73,8 @@ if (!class_exists('TribeEventsTemplates')) {
 				return $template;
 			}
 
-			if( tribe_get_option( 'tribeEventsTemplate', 'default' ) == '' ) {
+			if ( tribe_get_option( 'tribeEventsTemplate', 'default' ) == '' ) {
+				// self::remove_title_from_page();
 				return self::getTemplateHierarchy( 'default-template' );
 			} else {
 
@@ -147,20 +150,32 @@ if (!class_exists('TribeEventsTemplates')) {
 		}
 
 		/**
-		 * Set up filter to get rid of the repeating title if the page template is not the default events template.
+		 * Set up a filter to set the title to an empty string.
+		 *
+		 * This is useful when the Default Events Template is in use: in that scenario there is no spoof post and, on
+		 * event pages, WP's main query will pull the most recent event by post date. Some themes which call the_title()
+		 * before the loop will therefore display the title of that event even when it is not appropriate to do so.
+		 *
+		 * The filter can be removed, once we are ready to display the title, with the
+		 * TribeEventsTemplates::remove_title_filter() method. It is also possible to stop the filter from being set up
+		 * by defining TRIBE_MAYBE_HIDE_TITLE as false.
 		 */
-		public function remove_title_from_page() {
+		public static function remove_title_from_page() {
+			if ( defined('TRIBE_MAYBE_HIDE_TITLE') && ! TRIBE_MAYBE_HIDE_TITLE ) return;
 			add_filter( 'the_title', array( __CLASS__, 'remove_default_title' ), 1 );
+			add_action( 'tribe_pre_get_view', array( __CLASS__, 'remove_title_filter') );
 		}
 
 
 		/**
-		 * Filter to get rid of the repeating title if the page template is not the default events template.
+		 * Removes the title filter put in place by TribeEventsTemplates::remove_title_from_page(). This should only
+		 * run once.
 		 *
 		 * @param string $title Title
 		 * @return string Title
 		 */
-		public function remove_title_filter( $title ) {
+		public static function remove_title_filter( $title ) {
+			remove_action( 'tribe_pre_get_view', array( __CLASS__, 'remove_title_filter') );
 			remove_filter( 'the_title', array( __CLASS__, 'remove_default_title' ), 1 );
 			return $title;
 		}
@@ -171,7 +186,7 @@ if (!class_exists('TribeEventsTemplates')) {
 		 * @param string $title Title
 		 * @return string Title
 		 */
-		public function remove_default_title( $title ) {
+		public static function remove_default_title( $title ) {
 			return '';
 		}
 
