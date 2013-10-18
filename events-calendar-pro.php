@@ -486,17 +486,10 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 
 				$query = TribeEventsQuery::getEvents( $args, true );
 
-
 				global $wp_query, $post;
 				$wp_query = $query;
 
 				TribeEvents::instance()->setDisplay();
-
-				if ( have_posts() )
-					the_post();
-
-				// ob_start();
-				// load_template( TribeEventsTemplates::getTemplateHierarchy( 'week', '', 'pro', $this->pluginPath ) );
 
 				$response = array(
 					'html'            => '',
@@ -508,6 +501,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 
 				ob_start();
 
+		echo have_posts() ? 'have_posts()' : 'not have_posts()';
 				tribe_get_view( 'week/content' );
 
 				$response['html'] .= ob_get_clean();
