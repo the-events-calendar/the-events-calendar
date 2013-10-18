@@ -24,13 +24,20 @@ if (!class_exists('TribeEventsTemplates')) {
 		 */
 		public static $isMainLoop = false;
 
+		/**
+		 * If the global post title has to be modified the original is stored here.
+		 *
+		 * @var bool|string
+		 */
+		protected static $original_post_title = false;
+
 
 		/**
 		 * Initialize the Template Yumminess!
 		 */
 		public static function init() {
 
-			// choose the wordpress theme template to use
+			// Choose the wordpress theme template to use
 			add_filter( 'template_include', array( __CLASS__, 'templateChooser' ) );
 
 			// include our view class
@@ -38,6 +45,9 @@ if (!class_exists('TribeEventsTemplates')) {
 
 			// make sure we enter the loop by always having some posts in $wp_query
 			add_action( 'template_redirect', array( __CLASS__, 'maybeSpoofQuery' ) );
+
+			// maybe modify the global post object to blank out the title
+			add_action( 'tribe_tec_template_chooser', array( __CLASS__, 'maybe_modify_global_post_title' ) );
 
 			// don't query the database for the spoofed post
 			wp_cache_set( self::spoofed_post()->ID, self::spoofed_post(), 'posts' );
@@ -71,7 +81,7 @@ if (!class_exists('TribeEventsTemplates')) {
 				return $template;
 			}
 
-			if( tribe_get_option( 'tribeEventsTemplate', 'default' ) == '' ) {
+			if ( tribe_get_option( 'tribeEventsTemplate', 'default' ) == '' ) {
 				return self::getTemplateHierarchy( 'default-template' );
 			} else {
 
@@ -102,7 +112,6 @@ if (!class_exists('TribeEventsTemplates')) {
 		 * @since 3.0
 		 **/
 		public static function instantiate_template_class( $class = false ) {
-
 			if ( tribe_is_event_query() ) {
 				if ( ! $class ) {
 					$class = self::get_current_template_class();
@@ -146,34 +155,6 @@ if (!class_exists('TribeEventsTemplates')) {
 			self::$wpHeadComplete = true;
 		}
 
-		/**
-		 * Set up filter to get rid of the repeating title if the page template is not the default events template.
-		 */
-		public function remove_title_from_page() {
-			add_filter( 'the_title', array( __CLASS__, 'remove_default_title' ), 1 );
-		}
-
-
-		/**
-		 * Filter to get rid of the repeating title if the page template is not the default events template.
-		 *
-		 * @param string $title Title
-		 * @return string Title
-		 */
-		public function remove_title_filter( $title ) {
-			remove_filter( 'the_title', array( __CLASS__, 'remove_default_title' ), 1 );
-			return $title;
-		}
-
-		/**
-		 * Filter to get rid of the default page title
-		 *
-		 * @param string $title Title
-		 * @return string Title
-		 */
-		public function remove_default_title( $title ) {
-			return '';
-		}
 
 		/**
 		 * This is where the magic happens where we run some ninja code that hooks the query to resolve to an events template.
@@ -209,6 +190,44 @@ if (!class_exists('TribeEventsTemplates')) {
 		public static function spoof_the_post() {
 			$GLOBALS['post'] = self::spoofed_post();
 			remove_action( 'the_post', array(__CLASS__, 'spoof_the_post' ) );
+		}
+
+
+		/**
+		 * Fix issues where themes display the_title() before the main loop starts.
+		 *
+		 * With such themes the title of single events can be displayed twice and, more crucially, it may result in the
+		 * event views such as month view prominently displaying the title of the most recent event post (which may
+		 * not even be included in the event itself).
+		 *
+		 * There's no bulletproof solution to this, but in special cases where this workaround is undesirable it can
+		 * in fact be turned off by adding the following to wp-config.php:
+		 *
+		 *     define( 'TRIBE_MODIFY_GLOBAL_TITLE', false );
+		 */
+		public static function maybe_modify_global_post_title() {
+			global $post;
+
+			// We will only interfere with event queries, where a post is set and this behaviour has not been turned off
+			if ( ! tribe_is_event_query() || ( defined('TRIBE_MODIFY_GLOBAL_TITLE') && ! TRIBE_MODIFY_GLOBAL_TITLE ) ) return;
+			if ( ! isset($post) || ! is_a( $post, 'WP_Post') ) return;
+
+			// Set the title to an empty string (but record the original)
+			self::$original_post_title = $post->post_title;
+			$post->post_title = apply_filters( 'tribe_set_global_post_title', '' );
+
+			// Restore as soon as we're ready to display one of our own views
+			add_action( 'tribe_pre_get_view', array( __CLASS__, 'restore_global_post_title' ) );
+		}
+
+
+		/**
+		 * Restores the global $post title if it has previously been modified by self::maybe_modify_global_post_title(). 
+		 */
+		public static function restore_global_post_title() {
+			global $post;
+			$post->post_title = self::$original_post_title;
+			remove_action( 'tribe_pre_get_view', array( __CLASS__, 'restore_global_post_title' ) );			
 		}
 
 

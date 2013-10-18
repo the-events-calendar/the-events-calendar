@@ -256,11 +256,18 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 					);
 				}
 
-				$meta_query[] = array(
-					'key' => '_EventStartDate',
-					'type' => 'DATETIME'
-				);
+				// Only add the postmeta hack if it's not the main admin events list
+				// Because this method filters out drafts without EventStartDate.
+				// For this screen we're doing the JOIN manually in TribeEventsAdminList
 
+				$screen = ! is_admin() || ( defined( 'DOING_AJAX' ) && DOING_AJAX ) ? null : get_current_screen();
+
+				if ( empty( $screen ) || $screen->id != 'edit-tribe_events' ) {
+					$meta_query[] = array(
+						'key'  => '_EventStartDate',
+						'type' => 'DATETIME'
+					);
+				}
 			}
 
 			// filter by Venue ID
@@ -663,32 +670,30 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 					case 'daily':
 					default :
 						global $wp_query;
-
 						$output_date_format = '%Y-%m-%d %H:%i:%s';
-						$raw_counts = $wpdb->get_results( sprintf( "
-								SELECT 	tribe_event_start.post_id as ID, 
-										tribe_event_start.meta_value as EventStartDate, 
-										IF (tribe_event_duration.meta_value IS NULL, DATE_FORMAT( tribe_event_end_date.meta_value, '%1\$s'), DATE_FORMAT(DATE_ADD(CAST(tribe_event_start.meta_value AS DATETIME), INTERVAL tribe_event_duration.meta_value SECOND), '%1\$s')) as EventEndDate,
-										{$wpdb->posts}.menu_order as menu_order
-								FROM $wpdb->postmeta AS tribe_event_start
-										LEFT JOIN $wpdb->posts ON (tribe_event_start.post_id = {$wpdb->posts}.ID)
-								LEFT JOIN $wpdb->postmeta as tribe_event_duration ON ( tribe_event_start.post_id = tribe_event_duration.post_id AND tribe_event_duration.meta_key = '_EventDuration' )
-								LEFT JOIN $wpdb->postmeta as tribe_event_end_date ON ( tribe_event_start.post_id = tribe_event_end_date.post_id AND tribe_event_end_date.meta_key = '_EventEndDate' )
-								WHERE tribe_event_start.meta_key = '_EventStartDate'
-								AND tribe_event_start.post_id IN ( %5\$s )
-								AND ( (tribe_event_start.meta_value >= '%3\$s' AND  tribe_event_start.meta_value <= '%4\$s')
-									OR (tribe_event_start.meta_value <= '%3\$s' AND DATE_ADD(CAST( tribe_event_start.meta_value AS DATETIME), INTERVAL tribe_event_duration.meta_value SECOND) >= '%3\$s')
-									OR (tribe_event_start.meta_value <= '%3\$s' AND tribe_event_end_date.meta_value >= '%3\$s')
-									OR ( tribe_event_start.meta_value >= '%3\$s' AND  tribe_event_start.meta_value <= '%4\$s')
-								)
-								ORDER BY menu_order ASC, DATE(tribe_event_start.meta_value) ASC, TIME(tribe_event_start.meta_value) ASC;",
-								$output_date_format,
-								$output_date_format,
-								$args['start_date'],
-								$args['end_date'],
-								implode( ',', array_map( 'intval', $post_ids ) )
-							) );
-						// echo $wpdb->last_query;
+						$raw_counts = $wpdb->get_results( $wpdb->prepare( "
+							SELECT 	tribe_event_start.post_id as ID, 
+									tribe_event_start.meta_value as EventStartDate, 
+									IF (tribe_event_duration.meta_value IS NULL, DATE_FORMAT( tribe_event_end_date.meta_value, '%1\$s'), DATE_FORMAT(DATE_ADD(CAST(tribe_event_start.meta_value AS DATETIME), INTERVAL tribe_event_duration.meta_value SECOND), '%1\$s')) as EventEndDate,
+									{$wpdb->posts}.menu_order as menu_order
+							FROM $wpdb->postmeta AS tribe_event_start
+									LEFT JOIN $wpdb->posts ON (tribe_event_start.post_id = {$wpdb->posts}.ID)
+							LEFT JOIN $wpdb->postmeta as tribe_event_duration ON ( tribe_event_start.post_id = tribe_event_duration.post_id AND tribe_event_duration.meta_key = '_EventDuration' )
+							LEFT JOIN $wpdb->postmeta as tribe_event_end_date ON ( tribe_event_start.post_id = tribe_event_end_date.post_id AND tribe_event_end_date.meta_key = '_EventEndDate' )
+							WHERE tribe_event_start.meta_key = '_EventStartDate'
+							AND tribe_event_start.post_id IN ( %5\$s )
+							AND ( (tribe_event_start.meta_value >= '%3\$s' AND  tribe_event_start.meta_value <= '%4\$s')
+								OR (tribe_event_start.meta_value <= '%3\$s' AND DATE_ADD(CAST( tribe_event_start.meta_value AS DATETIME), INTERVAL tribe_event_duration.meta_value SECOND) >= '%3\$s')
+								OR (tribe_event_start.meta_value <= '%3\$s' AND tribe_event_end_date.meta_value >= '%3\$s')
+								OR ( tribe_event_start.meta_value >= '%3\$s' AND  tribe_event_start.meta_value <= '%4\$s')
+							)
+							ORDER BY menu_order ASC, DATE(tribe_event_start.meta_value) ASC, TIME(tribe_event_start.meta_value) ASC;",
+							$output_date_format,
+							$output_date_format,
+							$args['start_date'],
+							$args['end_date'],
+							implode( ',', array_map( 'intval', $post_ids ) )
+						) );
 						$start_date = new DateTime( $args['start_date'] );
 						$end_date = new DateTime( $args['end_date'] );
 						$days = self::dateDiff( $start_date->format( 'Y-m-d' ), $end_date->format( 'Y-m-d' ) );
@@ -711,10 +716,14 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 									// event starts on this day (event start time is between start and end of day)
 									// event ends on this day (event end time is between start and end of day)
 									// event starts before start of day and ends after end of day (spans across this day)
-								if ( 
-									( $record_start >= $start_of_day && $record_start < $end_of_day ) 
-									|| ( $record_end <= $end_of_day && $record_start >= $start_of_day ) 
+								if (
+									// event starts today
+									( $record_start >= $start_of_day && $record_start <= $end_of_day ) 
+									   // event ends today
+									|| ( $record_end >= $start_of_day && $record_end <= $end_of_day )
+									   // event spans across today
 									|| ( $record_start <= $start_of_day && $record_end >= $end_of_day )
+
 									) {
 									if ( isset( $term->term_id ) ) {
 										$record_terms = get_the_terms( $record->ID, TribeEvents::TAXONOMY );

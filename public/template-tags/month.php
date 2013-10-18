@@ -184,6 +184,18 @@ if( class_exists( 'TribeEvents' ) ) {
 	function tribe_events_the_month_single_event_classes() {
 		echo apply_filters(  'tribe_events_the_month_single_event_classes', Tribe_Events_Month_Template::event_classes() );
 	}
+
+	/**
+	 * Returns whether there are any events in the month
+	 *
+	 * @return bool
+	 * @author Jessica Yazbek
+	 * @see Tribe_Events_Month_Template::get_daily_counts()
+	 * @since 3.1.1
+	 **/
+	function tribe_events_month_has_events() {
+		return apply_filters( 'tribe_events_month_has_events', false );
+	}
 	
 
 	/**
