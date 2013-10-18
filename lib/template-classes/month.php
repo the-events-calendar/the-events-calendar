@@ -130,6 +130,13 @@ if( !class_exists('Tribe_Events_Month_Template')){
 
 			self::$event_daily_counts = $result['counts'];
 			self::$event_daily_ids = $result['event_ids'];
+
+			foreach ( self::$event_daily_counts as $daily_count ) {
+				if ( $daily_count > 0 ) {
+					add_filter( 'tribe_events_month_has_events', '__return_true' );
+					break;
+				}
+			}
 		}
 
 
