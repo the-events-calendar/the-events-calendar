@@ -502,7 +502,6 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 
 				ob_start();
 
-		echo have_posts() ? 'have_posts()' : 'not have_posts()';
 				tribe_get_view( 'week/content' );
 
 				$response['html'] .= ob_get_clean();
