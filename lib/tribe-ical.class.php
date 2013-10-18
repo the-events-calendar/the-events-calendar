@@ -58,7 +58,11 @@ class TribeiCal {
 
 		$show_ical = apply_filters( 'tribe_events_list_show_ical_link', true );
 
+
 		if ( ! $show_ical )
+			return $content;
+
+		if ( tribe_is_month() && ! tribe_events_month_has_events() )
 			return $content;
 
 		if ( is_single() || ! have_posts() )
