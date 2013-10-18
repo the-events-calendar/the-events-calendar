@@ -558,7 +558,7 @@ if( !class_exists('Tribe_Template_Factory') ) {
 					self::$vendor_scripts[] = $placeholder_handle;
 					break;
 				case 'ajax-calendar':
-					$deps = array_merge( $deps, array( 'jquery', $prefix . '-calendar-script' ) );
+					$deps = array_merge( $deps, array( 'jquery', $prefix . '-bootstrap-datepicker', $prefix . '-calendar-script' ) );
 					$ajax_data = array( "ajaxurl"   => admin_url( 'admin-ajax.php', ( is_ssl() ? 'https' : 'http' ) ) );
 					$path = self::getMinFile( $resources_url . 'tribe-events-ajax-calendar.js', true );
 					wp_enqueue_script( 'tribe-events-calendar', $path, $deps, apply_filters( 'tribe_events_js_version', TribeEvents::VERSION ), true );
