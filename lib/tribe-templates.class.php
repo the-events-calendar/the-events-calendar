@@ -142,7 +142,7 @@ if (!class_exists('TribeEventsTemplates')) {
 		 * @param array $classes List of classes to filter
 		 * @return array
 		 */
-		public function add_singular_body_class( $classes ) {
+		public static function add_singular_body_class( $classes ) {
 			$classes[] = 'singular';
 			return $classes;
 		}
