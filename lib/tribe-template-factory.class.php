@@ -80,9 +80,9 @@ if( !class_exists('Tribe_Template_Factory') ) {
 		protected function hooks() {
 
 			// set up queries, vars, etc that needs to be used in this view
-			add_action( 'tribe_events_before_view', array( $this, 'setup_view') );
+			add_action( 'tribe_events_before_view', array( $this, 'setup_view' ) );
 
-			// set notices
+			// set notices 
 			add_action( 'tribe_events_before_view', array( $this, 'set_notices') );
 
 			// Don't show the comments form inside the view (if comments are enabled, 
@@ -95,7 +95,7 @@ if( !class_exists('Tribe_Template_Factory') ) {
 			add_filter('tribe_get_option', array( $this, 'comments_off' ), 10, 2 );
 
 			// set up meta used in this view
-			add_action( 'tribe_events_before_view', array( $this, 'setup_meta') );
+			add_action( 'tribe_events_before_view', array( $this, 'setup_meta' ) );
 
 			// cleanup after view (reset query, etc)
 			add_action( 'tribe_events_after_view', array( $this, 'shutdown_view' ) );
