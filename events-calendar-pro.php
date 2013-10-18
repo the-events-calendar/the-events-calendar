@@ -145,7 +145,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			add_filter( 'tribe_event_meta_organizer_name', array('Tribe_Register_Meta_Pro','organizer_name'), 10, 2);
 			add_filter( 'tribe_events_single_event_the_meta_group_venue', array( $this, 'single_event_the_meta_group_venue'), 10, 2);
 
-			$this->register_related_events_view();
+			add_action( 'tribe_events_single_event_after_the_meta', array( $this, 'register_related_events_view' ) );
 
 			// add_action( 'tribe_events_single_event_meta_init', array( $this, 'single_event_meta_init'), 10, 4);
 
@@ -181,6 +181,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			add_action( 'tribe_events_pre_get_posts' , array( $this, 'setup_hide_recurrence_in_query' ) );
 
 			add_filter( 'wp' , array( $this, 'detect_recurrence_redirect' ) );
+			add_filter( 'wp', array( $this, 'filter_canonical_link_on_recurring_events' ), 10, 1 );
 
 			add_filter( 'tribe_events_register_venue_type_args', array( $this, 'addSupportsThumbnail' ), 10, 1 );
 			add_filter( 'tribe_events_register_organizer_type_args', array( $this, 'addSupportsThumbnail' ), 10, 1 );
@@ -210,9 +211,12 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		 *
 		 * @return void
 		 */
-		private function register_related_events_view() {
+		public function register_related_events_view() {
 			if ( $this->show_related_events() ) {
-				add_action( 'tribe_events_single_event_after_the_meta', 'tribe_single_related_events' );
+				global $post;
+				$tags = wp_get_post_tags( $post->ID, array( 'fields' => 'ids' ) );
+				$categories = wp_get_object_terms( $post->ID, TribeEvents::TAXONOMY, array( 'fields' => 'ids' ) );
+				tribe_single_related_events( $tags, $categories );
 			}
 		}
 
@@ -362,7 +366,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			}
 			// day view title
 			if( tribe_is_day() ) {
-				$reset_title = __( 'Events for', 'tribe-events-calendar-pro' ) . ' ' .Date("l, F jS Y", strtotime($wp_query->get('start_date')));
+				$reset_title = __( 'Events for', 'tribe-events-calendar-pro' ) . ' ' . date_i18n('l, F jS Y', strtotime($wp_query->get('start_date')));
 			}
 			// map or photo view titles
 			if( tribe_is_map() || tribe_is_photo() ) {
@@ -483,17 +487,10 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 
 				$query = TribeEventsQuery::getEvents( $args, true );
 
-
 				global $wp_query, $post;
 				$wp_query = $query;
 
 				TribeEvents::instance()->setDisplay();
-
-				if ( have_posts() )
-					the_post();
-
-				// ob_start();
-				// load_template( TribeEventsTemplates::getTemplateHierarchy( 'week', '', 'pro', $this->pluginPath ) );
 
 				$response = array(
 					'html'            => '',
@@ -505,6 +502,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 
 				ob_start();
 
+		echo have_posts() ? 'have_posts()' : 'not have_posts()';
 				tribe_get_view( 'week/content' );
 
 				$response['html'] .= ob_get_clean();
@@ -646,6 +644,25 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 					exit;
 				}
 			}
+		}
+
+		public function filter_canonical_link_on_recurring_events() {
+			if ( is_singular(TribeEvents::POSTTYPE) && get_query_var('eventDate') && has_action('wp_head', 'rel_canonical') ) {
+				remove_action( 'wp_head', 'rel_canonical' );
+				add_action( 'wp_head', array( $this, 'output_recurring_event_canonical_link' ) );
+			}
+		}
+
+		public function output_recurring_event_canonical_link() {
+			// set the EventStartDate so TribeEvents can filter the permalink appropriately
+			$post = get_post(get_queried_object_id());
+			$post->EventStartDate = get_query_var('eventDate');
+
+			// use get_post_permalink instead of get_permalink so that the post isn't converted
+			// back to an ID, then to a post again (without the EventStartDate)
+			$link = get_post_permalink( $post );
+
+			echo "<link rel='canonical' href='$link' />\n";
 		}
 
 		/**
