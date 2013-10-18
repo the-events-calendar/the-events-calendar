@@ -179,7 +179,7 @@ if(!class_exists('TribeDateUtils')) {
 			$timeChars = array( 'a', 'A', 'B', 'g', 'G', 'h', 'H', 'i', 's', 'u', 'e', 'I', 'O', 'P', 'T', 'Z', 'c', 'r', 'U' );
 			$formatChars = str_split( $format );
 			$usesTime = array_intersect( $timeChars, $formatChars );
-			return 0 < count( $uses_time );
+			return 0 < count( $usesTime );
 		}
 
 		/**
