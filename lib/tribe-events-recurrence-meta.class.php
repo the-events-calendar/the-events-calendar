@@ -42,11 +42,11 @@ class TribeEventsRecurrenceMeta {
 		add_action( 'admin_notices', array( __CLASS__, 'showRecurrenceErrorFlash') );
 		add_action( 'tribe_recurring_event_error', array( __CLASS__, 'setupRecurrenceErrorMsg'), 10, 2 );
 
-    add_filter( 'tribe_get_event_link', array( __CLASS__, 'addDateToEventPermalink'), 10, 2 );
-    add_filter( 'post_row_actions', array( __CLASS__, 'removeQuickEdit'), 10, 2 );
-    // recurrance events don't have standard edit links - so we need to make sure they work right
-    add_filter( 'edit_post_link', array( __CLASS__, 'edit_post_link'));
-    add_action( 'wp_before_admin_bar_render', array( __CLASS__, 'admin_bar_render'));
+		add_filter( 'tribe_get_event_link', array( __CLASS__, 'addDateToEventPermalink'), 10, 2 );
+		add_filter( 'post_row_actions', array( __CLASS__, 'removeQuickEdit'), 10, 2 );
+		// recurrance events don't have standard edit links - so we need to make sure they work right
+		add_filter( 'edit_post_link', array( __CLASS__, 'edit_post_link'));
+		add_action( 'wp_before_admin_bar_render', array( __CLASS__, 'admin_bar_render'));
 
     	add_filter( 'tribe_events_query_posts_groupby', array( __CLASS__, 'addGroupBy' ), 10, 2 );
 
@@ -60,7 +60,7 @@ class TribeEventsRecurrenceMeta {
 	}
 
 
-	public function edit_post_link( $link )	{
+	public static function edit_post_link( $link )	{
 		global $post;
 		if( tribe_is_recurring_event( $post ) && preg_match("/href=\"(.*?)\"/i", $link, $edit_url) ) {
 			$link = isset($edit_url[1]) ? str_replace($edit_url[0], 'href="' . $edit_url[1] . '&eventDate=' . TribeDateUtils::dateOnly($post->EventStartDate) . '"', $link) : $link;
@@ -69,7 +69,7 @@ class TribeEventsRecurrenceMeta {
 			return $link;
 		}
 	}
-	public function admin_bar_render(){
+	public static function admin_bar_render(){
 		global $post, $wp_admin_bar;
 		if( !is_admin() &&  tribe_is_recurring_event( $post )) {
 			$edit_link = $wp_admin_bar->get_node('edit');
@@ -295,11 +295,12 @@ class TribeEventsRecurrenceMeta {
 	}
 
 	/**
-	 * clean up meta array by providing defaults
+	 * Clean up meta array by providing defaults.
+	 *
 	 * @param  array  $meta
 	 * @return array of $meta merged with defaults
 	 */
-	function recurrenceMetaDefault( $meta = array() ){
+	protected static function recurrenceMetaDefault( $meta = array() ){
 		$default_meta = array(
 			'type' => null,
 			'end-type' => null,
@@ -607,10 +608,11 @@ class TribeEventsRecurrenceMeta {
 
 	/**
 	 * Get the recurrence pattern in text format by post id.
+	 *
 	 * @param int $postId The post id.
 	 * @return sting The human readable string.
 	 */
-	public function recurrenceToTextByPost( $postId = null ) {
+	public static function recurrenceToTextByPost( $postId = null ) {
 		if( $postId == null ) {
 			global $post;
 			$postId = $post->ID;
@@ -775,9 +777,10 @@ class TribeEventsRecurrenceMeta {
 	 * @author PaulHughes
 	 *
 	 * @param string $group_by The current group by clause.
+	 * @param $query
 	 * @return string The new group by clause.
 	 */
-	public function addGroupBy( $group_by, $query ) {
+	public static function addGroupBy( $group_by, $query ) {
 		if ( isset( $query->query_vars['tribeHideRecurrence'] ) && $query->query_vars['tribeHideRecurrence'] == 1 ) {
 			$group_by .= ' ID';
 		}
@@ -861,7 +864,7 @@ class TribeEventsRecurrenceMeta {
 	 *
 	 * @return void
 	 */
-	public function combineRecurringRequestIds() {
+	public static function combineRecurringRequestIds() {
 		if ( isset( $_REQUEST['post_type'] ) && $_REQUEST['post_type'] == TribeEvents::POSTTYPE && !empty( $_REQUEST['post'] ) && is_array( $_REQUEST['post'] ) ) {
 			$_REQUEST['post'] = array_unique( $_REQUEST['post'] );
 		}
@@ -875,7 +878,7 @@ class TribeEventsRecurrenceMeta {
 	 * @author Paul Hughes
 	 * @since 3.0
 	 */
-	public function verifyDateInGuidForRecurringEvents( $guid ) {
+	public static function verifyDateInGuidForRecurringEvents( $guid ) {
 		global $post;
 		if ( get_post_type( $post ) == TribeEvents::POSTTYPE ) {
 			$guid = tribe_get_event_link( $post );
