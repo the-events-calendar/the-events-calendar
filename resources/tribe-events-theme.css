@@ -466,15 +466,14 @@ h2.tribe-events-page-title,
 	border-top-color: transparent;
 }
 
-
 /* = WooTickets
 =============================================*/
 h2.tribe-events-tickets-title {
 	font-size: 17px;
 }
 
-
-/* Events Retina Bits */
+/* = Retina
+=============================================*/
 @media 
 only screen and (min--moz-device-pixel-ratio: 2),
 only screen and (-o-min-device-pixel-ratio: 2/1),
