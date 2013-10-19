@@ -59,7 +59,11 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 				$types = $query->get( 'post_type' );
 				if ( is_array( $types ) ) {
 					$types[] = TribeEvents::POSTTYPE;
-				} else if ( $types != 'any' ) {
+				} 
+				else if ( is_string ( $types ) ) {
+					$types = array( $types, TribeEvents::POSTTYPE );
+				}
+				else if ( $types != 'any' ) {
 					$types = array( 'post', TribeEvents::POSTTYPE );
 				}
 				$query->set( 'post_type', $types );
@@ -246,6 +250,7 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 					$query->set( 'order', self::set_order() );
 					self::$start_date = $query->get( 'start_date' );
 				}
+
 				// eventCat becomes a standard taxonomy query - will need to deprecate and update views eventually
 				if ( ! in_array( $query->get( TribeEvents::TAXONOMY ), array( '', '-1' ) ) ) {
 					$tax_query[] = array(
@@ -801,14 +806,14 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 			$cache = new TribeEventsCache();
 			$cache_key = 'get_events_'.serialize($args);
 
-			$result = $cache->get($cache_key, 'save_post');
+			$result = $cache->get( $cache_key, 'save_post' );
 			if ( $result && is_a($result, 'WP_Query') ) {
 				do_action( 'log', 'cache hit', 'tribe-events-cache', $args );
 			} else {
 				do_action( 'log', 'no cache hit', 'tribe-events-cache', $args );
 				// do_action( 'log', 'uncached query', 'tribe-events-query', $wpdb->last_query);
 				$result = new WP_Query( $args );
-				$cache->set($cache_key, $result, 0, 'save_post');
+				$cache->set( $cache_key, $result, 0, 'save_post' );
 			}
 
 			if ( ! empty( $result->posts ) ) {

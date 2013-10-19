@@ -799,7 +799,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 
 		// If the date format will result in the year being shown but does *not* include any time formatting...
 		if ( TribeDateUtils::formatContainsYear( $date_format ) && ! TribeDateUtils::formatContainsTime( $date_format ) ) {
-			// .. and it starts and ends in the same year then there is no need to display the year
+			// ... and it starts and ends in the current year then there is no need to display the year
 			if ( tribe_get_start_date( $event, false, 'Y' ) === date( 'Y' ) && tribe_get_end_date( $event, false, 'Y' ) === date( 'Y' ) )
 				$format = $same_year_format;
 		}

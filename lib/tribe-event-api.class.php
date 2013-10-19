@@ -130,7 +130,7 @@ if (!class_exists('TribeEventsAPI')) {
 			$cost = ( isset( $data['EventCost'] ) ) ? $data['EventCost'] : '';
 			$data['EventCost'] = $cost;
 
-			$tribe_ecp->do_action('tribe_events_event_save', $event_id);
+			do_action('tribe_events_event_save', $event_id);
 
 			$cost              = ( isset( $data['EventCost'] ) ) ? $data['EventCost'] : '';
 			$data['EventCost'] = $cost;			
@@ -163,7 +163,7 @@ if (!class_exists('TribeEventsAPI')) {
 				wp_update_post( $update_event );
 			}
 
-	      	$tribe_ecp->do_action('tribe_events_update_meta', $event_id, false, $data, $event);
+	      	do_action('tribe_events_update_meta', $event_id, false, $data, $event);
 		}	
 	
 		/**
