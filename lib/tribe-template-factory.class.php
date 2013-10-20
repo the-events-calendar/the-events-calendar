@@ -167,6 +167,9 @@ if( !class_exists('Tribe_Template_Factory') ) {
 		 **/
 		public function event_classes( $classes ) {
 
+			// only run once
+			remove_filter( 'tribe_events_event_classes', array( $this, 'event_classes' ) );
+
 			global $post, $wp_query;
 
 			$classes = array_merge($classes, array( 'hentry', 'vevent', 'type-tribe_events', 'post-' . $post->ID, 'tribe-clearfix' ));
@@ -369,9 +372,6 @@ if( !class_exists('Tribe_Template_Factory') ) {
 
 			// add body class
 			remove_filter( 'body_class', array($this, 'body_class') );
-
-			// event classes 
-			remove_filter( 'tribe_events_event_classes', array( $this, 'event_classes' ) );
 
 		}
 
