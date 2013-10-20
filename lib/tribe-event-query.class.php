@@ -398,7 +398,7 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 				$fields = array();
 				$fields['event_start_date'] = "{$wpdb->postmeta}.meta_value as EventStartDate";
 				$fields['event_end_date'] ="tribe_event_end_date.meta_value as EventEndDate";
-				$fields = apply_filters( 'tribe_events_query_posts_fields', $fields );
+				$fields = apply_filters( 'tribe_events_query_posts_fields', $fields, $query );
 				return $field_sql . ', '.implode(', ', $fields);
 			} else {
 				return $field_sql;
@@ -418,7 +418,7 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 				global $wpdb;
 				$fields = array();
 				$fields[] = "IF ({$wpdb->posts}.post_type = 'tribe_events', {$wpdb->postmeta}.meta_value, {$wpdb->posts}.post_date) AS post_date";
-				$fields = apply_filters( 'tribe_events_query_posts_fields', $fields );
+				$fields = apply_filters( 'tribe_events_query_posts_fields', $fields, $query );
 				return $field_sql . ', '.implode(', ', $fields);
 			} else {
 				return $field_sql;
@@ -589,6 +589,7 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 						// we've already setup $order_sql
 						break;
 				}
+				$order_sql = apply_filters( 'tribe_events_query_posts_orderby', $order_sql, $query );
 			} else if ( $query->tribe_is_multi_posttype ) {
 				if ( $query->get( 'orderby' ) == 'date' || $query->get('orderby') == '' ) {
 					$order_sql = str_replace( "$wpdb->posts.post_date", 'post_date', $order_sql );
