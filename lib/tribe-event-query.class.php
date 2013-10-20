@@ -55,7 +55,7 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 			}
 
 			// Add tribe events post type to tag queries
-			if ( $query->is_tag ) {
+			if ( $query->is_tag && (array) $query->get( 'post_type' ) != array( TribeEvents::POSTTYPE ) ) {
 				$types = $query->get( 'post_type' );
 				if ( is_array( $types ) ) {
 					$types[] = TribeEvents::POSTTYPE;
