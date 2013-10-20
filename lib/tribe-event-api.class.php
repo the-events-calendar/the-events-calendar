@@ -163,7 +163,7 @@ if (!class_exists('TribeEventsAPI')) {
 				wp_update_post( $update_event );
 			}
 
-	      	do_action('tribe_events_update_meta', $event_id, false, $data, $event);
+	      	do_action( 'tribe_events_update_meta', $event_id, $data );
 		}	
 	
 		/**
