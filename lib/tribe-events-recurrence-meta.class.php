@@ -48,7 +48,9 @@ class TribeEventsRecurrenceMeta {
 		add_filter( 'edit_post_link', array( __CLASS__, 'edit_post_link'));
 		add_action( 'wp_before_admin_bar_render', array( __CLASS__, 'admin_bar_render'));
 
-    	add_filter( 'tribe_events_query_posts_groupby', array( __CLASS__, 'addGroupBy' ), 10, 2 );
+		add_filter( 'tribe_events_query_posts_fields', array( __CLASS__, 'addMinToStartDateInFields' ), 40, 2 );
+		add_filter( 'tribe_events_query_posts_groupby', array( __CLASS__, 'addGroupBy' ), 10, 2 );
+		add_filter( 'tribe_events_query_posts_orderby', array( __CLASS__, 'addMinToStartDateInOrderBy' ), 40, 2 );
 
 		add_filter( 'tribe_settings_tab_fields', array( __CLASS__, 'inject_settings' ), 10, 2 );
 
@@ -768,6 +770,50 @@ class TribeEventsRecurrenceMeta {
 			case "Last": return -1;
 		   default: return null;
 		}
+	}
+
+	/**
+	 * The start date we get from the GROUP BY clause
+	 * is indeterminate.
+	 *
+	 * @see http://dev.mysql.com/doc/refman/5.1/en/group-by-extensions.html
+	 *
+	 * Add a MIN() wrapper around it so we get the correct value
+	 *
+	 * @param array $fields
+	 * @param WP_Query $query
+	 *
+	 * @return array
+	 */
+	public function addMinToStartDateInFields( $fields, $query ) {
+		if ( isset( $query->query_vars['tribeHideRecurrence'] ) && $query->query_vars['tribeHideRecurrence'] == 1 ) {
+			global $wpdb;
+			foreach ( $fields as &$f ) {
+				$f = str_replace("{$wpdb->postmeta}.meta_value", "MIN($wpdb->postmeta.meta_value)", $f);
+			}
+		}
+		return $fields;
+	}
+
+	/**
+	 * The start date we get from the GROUP BY clause
+	 * is indeterminate, and sorting is based off of an arbitrary value.
+	 *
+	 * @see http://dev.mysql.com/doc/refman/5.1/en/group-by-extensions.html
+	 *
+	 * Add a MIN() wrapper around it so we use the correct value
+	 *
+	 * @param string $orderby
+	 * @param WP_Query $query
+	 *
+	 * @return array
+	 */
+	public function addMinToStartDateInOrderBy( $orderby, $query ) {
+		if ( isset( $query->query_vars['tribeHideRecurrence'] ) && $query->query_vars['tribeHideRecurrence'] == 1 ) {
+			global $wpdb;
+			$orderby = str_replace("{$wpdb->postmeta}.meta_value", "MIN($wpdb->postmeta.meta_value)", $orderby);
+		}
+		return $orderby;
 	}
 
 	/**
