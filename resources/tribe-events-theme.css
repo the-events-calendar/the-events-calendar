@@ -256,7 +256,9 @@ h2.tribe-events-page-title,
 }
 
 .single-tribe_events a.tribe-events-ical, 
-.single-tribe_events a.tribe-events-gcal {
+.single-tribe_events a.tribe-events-ical:hover, 
+.single-tribe_events a.tribe-events-gcal, 
+.single-tribe_events a.tribe-events-gcal:hover {
 	background-color: transparent;
 	text-transform: none;
 	font-size: 14px;
@@ -264,6 +266,7 @@ h2.tribe-events-page-title,
 	letter-spacing: 0;
 	padding: 0;
 	float: none;
+	color: #21759B;
 }
 
 /* Featured Image */

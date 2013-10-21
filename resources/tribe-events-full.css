@@ -372,6 +372,7 @@ h2.tribe-events-page-title a:focus {
 #tribe-events-footer .tribe-events-sub-nav {
 	list-style-type: none;
 	margin: 0;
+	padding: 0;
 	overflow: hidden;
 	line-height: normal;
 	text-align: center;
@@ -904,6 +905,10 @@ select.tribe-events-dropdown {
 .single-tribe_events .tribe-events-content {
 	width: 100%;
 	max-width: 100%;
+	padding: 0;
+}
+/* Twenty Thirteen Conflict */
+.sidebar.single-tribe_events .tribe-events-content {
 	padding: 0;
 }
 @media only screen and (max-width: 767px) {
