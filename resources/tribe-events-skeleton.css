@@ -702,10 +702,6 @@ table.tribe-events-tickets {
 	width: 100%;
 }
 
-table.tribe-events-tickets tr {
-	vertical-align: middle;
-}
-
 table.tribe-events-tickets td {
 	border-top: 1px solid #ddd;
 	padding: 8px 10px 8px 0;
