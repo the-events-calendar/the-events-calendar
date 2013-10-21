@@ -708,6 +708,14 @@ table.tribe-events-tickets td {
 	vertical-align: middle;
 }
 
+table.tribe-events-tickets td.wpec {
+	line-height: 0;
+}
+
+table.tribe-events-tickets td.wpec img {
+	display: none;
+}
+
 table.tribe-events-tickets .tickets_nostock {
 	display: inline-block;
 	text-align: center;
