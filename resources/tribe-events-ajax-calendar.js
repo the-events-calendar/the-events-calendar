@@ -65,6 +65,8 @@
 			}
 		}).data('datepicker');
 
+
+
 		if (tt.pushstate && !tt.map_view()) {
 
 			var params = 'action=tribe_calendar&eventDate=' + $('#tribe-events-header').data('date');
@@ -72,9 +74,14 @@
 			if (td.params.length)
 				params = params + '&' + td.params;
 
+			if (ts.category)
+				params = params + '&tribe_event_category=' + ts.category;
+
 			history.replaceState({
 				"tribe_params": params
 			}, ts.page_title, location.href);
+
+
 
 			$(window).on('popstate', function (event) {
 
