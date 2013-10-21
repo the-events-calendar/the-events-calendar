@@ -186,6 +186,14 @@ td.tribe_message {padding-bottom: 10px !important;}
 	margin: 7px 0;
 }
 .tribe-settings-form .tribe-settings-form-wrap fieldset .tribe-style-selection{margin-bottom:18px;}
+.OrganizerInfo td small {
+	display: block;
+	max-width: 250px;
+	margin: 0;
+}
+.OrganizerInfo .organizer-email {
+	vertical-align: top;
+}
 
 /* = Help Screen
 =============================================*/
