@@ -232,43 +232,46 @@ if( !class_exists('Tribe_Template_Factory') ) {
 		 **/
 		public function set_notices() {
 			global $wp_query;
+			$tribe = TribeEvents::instance();
+			$geographic_term = '';
+			$search_term = '';
+			$tax_term = '';
 
-			// Look for a search query
-			if ( ! empty( $wp_query->query_vars['s'] )) {
+			// By default we only display notices if no events could be found
+			if ( have_posts() ) return;
+
+			// Do we have a keyword or place name search?
+			if ( !empty( $wp_query->query_vars['s'] ) ) {
 				$search_term = $wp_query->query_vars['s'];
-			} else if ( !empty( $_POST['tribe-bar-search'] ) ) {
-				$search_term = $_POST['tribe-bar-search'];
+			}
+			elseif ( !empty( $_REQUEST['tribe-bar-search'] ) ) {
+				$search_term = $_REQUEST['tribe-bar-search'];
+			}
+			elseif ( !empty( $_REQUEST['tribe-bar-geoloc']) ) {
+				$geographic_term = $_REQUEST['tribe-bar-geoloc'];
+			}
+			if ( is_tax( $tribe->get_event_taxonomy() ) ) {
+				$tax_term = get_term_by( 'slug', get_query_var( 'term' ), $tribe->get_event_taxonomy() );
 			}
 
-			// Search term based notices
-			if ( ! empty($search_term) && ! have_posts() ) {
-				TribeEvents::setNotice( 'event-search-no-results', sprintf( __( 'There  were no results found for <strong>"%s"</strong>.', 'tribe-events-calendar' ), esc_html($search_term) ) );
+			// Set an appropriate notice
+			if ( ! empty( $search_term ) ) {
+				TribeEvents::setNotice( 'event-search-no-results', sprintf( __( 'There were no results found for <strong>"%s"</strong>.', 'tribe-events-calendar' ), esc_html($search_term) ) );
 			}
-
-			// Our various messages if there are no events for the query
-			else if ( empty($search_term) && empty( $wp_query->query_vars['s'] ) && !have_posts() ) { // Messages if currently no events, and no search term
-				$tribe_ecp = TribeEvents::instance();
-				$is_cat_message = '';
-				if ( is_tax( $tribe_ecp->get_event_taxonomy() ) ) {
-					$cat = get_term_by( 'slug', get_query_var( 'term' ), $tribe_ecp->get_event_taxonomy() );
-					if( tribe_is_upcoming() ) {
-						$is_cat_message = sprintf( __( 'listed under %s. Check out past events for this category or view the full calendar.', 'tribe-events-calendar' ), esc_html($cat->name) );
-					} else if( tribe_is_past() ) {
-						$is_cat_message = sprintf( __( 'listed under %s. Check out upcoming events for this category or view the full calendar.', 'tribe-events-calendar' ), esc_html($cat->name) );
-					}
-				}
-				if( tribe_is_day() ) {
-					TribeEvents::setNotice( 'events-not-found', sprintf( __( 'No events scheduled for <strong>%s</strong>. Please try another day.', 'tribe-events-calendar' ), date_i18n( 'F d, Y', strtotime( get_query_var( 'eventDate' ) ) ) ) );
-				} elseif( tribe_is_upcoming() ) {
-					$date = date('Y-m-d', strtotime($tribe_ecp->date));
-					if ( $date == date('Y-m-d') ) {
-						TribeEvents::setNotice( 'events-not-found', __('No upcoming events ', 'tribe-events-calendar') . $is_cat_message );
-					} else {
-						TribeEvents::setNotice( 'events-not-found', __('No matching events ', 'tribe-events-calendar') . $is_cat_message );
-					}
-				} elseif( tribe_is_past() ) {
-					TribeEvents::setNotice( 'events-past-not-found', __('No previous events ', 'tribe-events-calendar') . $is_cat_message );
-				}
+			elseif ( ! empty( $geographic_term ) ) {
+				TribeEvents::setNotice( 'event-search-no-results', sprintf( __( 'No results were found for events in or near <strong>"%s"</strong>.', 'tribe-events-calendar-pro' ), esc_html($geographic_term) ) );
+			}
+			elseif ( ! empty( $tax_term ) && tribe_is_upcoming() && ( date('Y-m-d') === date('Y-m-d', strtotime($tribe->date) ) ) ) {
+				TribeEvents::setNotice( 'events-not-found', sprintf( __('No upcoming events listed under %s. Check out upcoming events for this category or view the full calendar.', 'tribe-events-calendar') . $tax_term ) );
+			}
+			elseif ( ! empty( $tax_term ) && tribe_is_upcoming() ) {
+				TribeEvents::setNotice( 'events-not-found', sprintf( __('No matching events listed under %s. Check out upcoming events for this category or view the full calendar.', 'tribe-events-calendar') . $tax_term ) );
+			}
+			elseif ( ! empty( $tax_term ) &&tribe_is_past() ) {
+				TribeEvents::setNotice( 'events-past-not-found', __('No previous events ', 'tribe-events-calendar') . $tax_term );
+			}
+			else {
+				TribeEvents::setNotice( 'event-search-no-results', __( 'There were no results found.', 'tribe-events-calendar-pro' ) );
 			}
 		}
 

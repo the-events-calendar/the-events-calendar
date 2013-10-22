@@ -92,17 +92,27 @@ if( !class_exists('Tribe_Events_Month_Template')){
 		 **/
 		public function set_notices() {
 			global $wp_query;
+			$search_term = '';
+
 			// setup a search term for query or via ajax
-			if( !empty( $wp_query->query_vars['s'] )){
+			if ( ! empty( $wp_query->query_vars['s'] ) ) {
 				$search_term = $wp_query->query_vars['s'];
-			} else if( !empty($_POST['tribe-bar-search'])) {
-				$search_term = $_POST['tribe-bar-search'];
+			}
+			elseif ( ! empty($_REQUEST['tribe-bar-search'] ) ) {
+				$search_term = $_REQUEST['tribe-bar-search'];
 			}
 
-			$total_counts = array_unique(self::$event_daily_counts);
+			// If there are no events we should be able to reduce the event_daily_counts array (the number of events in
+			// each day this month) to a single element with a value of 0. Where a keyword search returns no events then
+			// event_daily_counts may simply be empty.
+			$event_counts = array_unique(self::$event_daily_counts);
+			$no_events = ( 1 === count($event_counts) && 0 === current($event_counts) ) || empty(self::$event_daily_counts);
 
-			if( count($total_counts) < 2 && !empty($search_term)) {
+			if ( $no_events && ! empty($search_term)) {
 				TribeEvents::setNotice( 'event-search-no-results', sprintf( __( 'There were no results found for <strong>"%s"</strong> this month. Try searching next month.', 'tribe-events-calendar' ), esc_html( $search_term ) ) );
+			}
+			elseif ( $no_events ) {
+				TribeEvents::setNotice( 'event-search-no-results', __( 'There were no results found.', 'tribe-events-calendar-pro' ) );
 			}
 		}
 
