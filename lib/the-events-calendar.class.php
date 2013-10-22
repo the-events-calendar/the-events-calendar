@@ -3978,7 +3978,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 *
 		 * @return void
 		 */
-		public function resetActivationMessage() {
+		public static function resetActivationMessage() {
 			$tec = TribeEvents::instance();
 			$tec->setOption( 'welcome_notice', false );
 		}
