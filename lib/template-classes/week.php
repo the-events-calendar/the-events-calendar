@@ -14,7 +14,7 @@
 if ( !defined( 'ABSPATH' ) ) { die( '-1' ); }
 
 if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
-	class Tribe_Events_Pro_Week_Template extends Tribe_Pro_Template_Factory {
+	class Tribe_Events_Pro_Week_Template extends Tribe_PRO_Template_Factory {
 
 		protected $asset_packages = array( 'ajax-weekview' );
 		public static $tribe_bar_args = array();
@@ -67,16 +67,30 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 		 * */
 		function set_notices() {
 			global $wp_query;
-			// setup a search term for query or via ajax
-			if ( !empty( $wp_query->query_vars['s'] ) ) {
-				$search_term = $wp_query->query_vars['s'];
-			} else if ( !empty( $_POST['tribe-bar-search'] ) ) {
-					$search_term = $_POST['tribe-bar-search'];
-			}
+			$search_term = $geographic_term = '';
 
-			if ( !empty( $search_term ) && empty( self::$events->all_day ) && empty( self::$events->hourly ) ) {
+			// We have events to display, no need for notices!
+			if ( ! empty( self::$events->all_day ) || ! empty( self::$events->hourly ) ) return;
+
+			// Was the user searching for a keyword or place?
+			if ( !empty( $wp_query->query_vars['s'] ) )
+				$search_term = $wp_query->query_vars['s'];
+
+			elseif ( !empty( $_REQUEST['tribe-bar-search'] ) )
+				$search_term = $_REQUEST['tribe-bar-search'];
+
+			elseif ( !empty( $_REQUEST['tribe-bar-geoloc']) )
+				$geographic_term = $_REQUEST['tribe-bar-geoloc'];
+
+			// Set an appropriate notice
+			if ( ! empty( $search_term ) )
 				TribeEvents::setNotice( 'event-search-no-results', sprintf( __( 'There were no results found for <strong>"%s"</strong> this week. Try searching another week.', 'tribe-events-calendar-pro' ), esc_html($search_term) ) );
-			}
+
+			elseif ( ! empty( $geographic_term ) )
+				TribeEvents::setNotice( 'event-search-no-results', sprintf( __( 'No results were found for events in or near <strong>"%s"</strong> this week. Try searching another week.', 'tribe-events-calendar-pro' ), esc_html($geographic_term) ) );
+
+			else
+				TribeEvents::setNotice( 'event-search-no-results', __( 'No results were found for this week. Try searching another week.', 'tribe-events-calendar-pro' ) );
 		}
 
 		/**
