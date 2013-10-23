@@ -589,13 +589,13 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 						// we've already setup $order_sql
 						break;
 				}
-				$order_sql = apply_filters( 'tribe_events_query_posts_orderby', $order_sql, $query );
 			} else if ( $query->tribe_is_multi_posttype ) {
 				if ( $query->get( 'orderby' ) == 'date' || $query->get('orderby') == '' ) {
 					$order_sql = str_replace( "$wpdb->posts.post_date", 'post_date', $order_sql );
 				}
 			}
 
+			$order_sql = apply_filters( 'tribe_events_query_posts_orderby', $order_sql, $query );
 			return $order_sql;
 		}
 
