@@ -721,13 +721,10 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	 * @param mixed $tag The specific tags you want it relating to.
 	 * @param mixed $category The specific categories you want it relating to.
 	 * @param int $count The number of related events to find.
-	 * @param mixed $blog What blog/site should they come from?
-	 * @param bool $only_display_related Should we show only related events if we don't find $count number of related ones?
-	 * @param string $post_type What post type are we finding related things in?
 	 * @return void.
 	 */
-	function tribe_single_related_events( $tag = false, $category = false, $count = 3 ) {
-		$posts = tribe_get_related_posts( $tag, $category, $count );
+	function tribe_single_related_events( $count = 3 ) {
+		$posts = tribe_get_related_posts( $count );
 		if ( is_array( $posts ) && !empty( $posts ) ) {
 			echo '<h3 class="tribe-events-related-events-title">'.  __( 'Related Events', 'tribe-events-calendar-pro' ) .'</h3>';
 			echo '<ul class="tribe-related-events tribe-clearfix hfeed vcalendar">';
@@ -753,4 +750,46 @@ if( class_exists( 'TribeEventsPro' ) ) {
 			echo '</ul>';
 		}
 	}
+
+	/** 
+	 * Template tag to get related posts for the current post. 
+	 *
+	 * @since 1.1
+	 * @author Paul Hughes
+	 * @param int $count number of related posts to return.
+	 * @param int|obj $post the post to get related posts to, defaults to current global $post
+	 * @return array the related posts.
+	 */
+	function tribe_get_related_posts( $count = 3, $post = false ) {
+		$post_id = TribeEvents::postIdHelper( $post );
+		$tags = wp_get_post_tags( $post_id, array( 'fields' => 'ids' ) );
+		$categories = wp_get_object_terms( $post_id, TribeEvents::TAXONOMY, array( 'fields' => 'ids' ) );
+		if ( ! $tags && ! $categories )
+			return;
+		$args = array( 
+			'posts_per_page' => $count,
+			'post__not_in' => array( $post_id ),
+			'eventDisplay' => 'upcoming',
+			'tax_query' => array('relation' => 'OR'),
+			'orderby' => 'rand',
+		);
+		if ( $tags ) {
+			$args['tax_query'][] = array( 'taxonomy' => 'post_tag', 'field' => 'id', 'terms' => $tags );
+		}
+		if ( $categories ) {
+			$args['tax_query'][] = array( 'taxonomy' => TribeEvents::TAXONOMY, 'field' => 'id', 'terms' => $categories );
+		}
+
+		$args = apply_filters( 'tribe_related_posts_args', $args );
+
+		if ( $args ) {
+			$posts = TribeEventsQuery::getEvents( $args );
+		} else {
+			$posts = array();
+		}
+
+		return apply_filters( 'tribe_get_related_posts',  $posts ) ;
+	}
+
+
 }

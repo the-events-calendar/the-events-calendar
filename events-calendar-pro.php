@@ -95,7 +95,6 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			// Tribe common resources
 			require_once( 'vendor/tribe-common-libraries/tribe-common-libraries.class.php' );
 			TribeCommonLibraries::register( 'advanced-post-manager', '1.0.5', $this->pluginPath . 'vendor/advanced-post-manager/tribe-apm.php' );
-			TribeCommonLibraries::register( 'related-posts', '1.1', $this->pluginPath. 'vendor/tribe-related-posts/tribe-related-posts.class.php' );
 			TribeCommonLibraries::register( 'tribe-support', '0.2', $this->pluginPath. 'vendor/tribe-support/tribe-support.class.php' );
 
 			add_action( 'tribe_helper_activation_complete', array( $this, 'helpersLoaded' ) );
@@ -213,10 +212,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		 */
 		public function register_related_events_view() {
 			if ( $this->show_related_events() ) {
-				global $post;
-				$tags = wp_get_post_tags( $post->ID, array( 'fields' => 'ids' ) );
-				$categories = wp_get_object_terms( $post->ID, TribeEvents::TAXONOMY, array( 'fields' => 'ids' ) );
-				tribe_single_related_events( $tags, $categories );
+				tribe_single_related_events();
 			}
 		}
 

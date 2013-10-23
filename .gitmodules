@@ -7,9 +7,6 @@
 [submodule "vendor/pue-client"]
 	path = vendor/pue-client
 	url = moderntribe_git@git.tri.be:pue-client
-[submodule "vendor/tribe-related-posts"]
-	path = vendor/tribe-related-posts
-	url = moderntribe_git@git.tri.be:tribe-related-posts
 [submodule "vendor/isotope"]
 	path = vendor/isotope
 	url = git://github.com/desandro/isotope.git
