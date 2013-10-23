@@ -119,6 +119,9 @@
 			if (td.params.length)
 				params = params + '&' + td.params;
 
+			if (ts.category)
+				params = params + '&tribe_event_category=' + ts.category;
+
 			history.replaceState({
 				"tribe_params": params,
 				"tribe_url_params": td.params
@@ -282,6 +285,8 @@
 
 				dbug && debug.time('Photo View Ajax Timer');
 				$(te).trigger('tribe_ev_ajaxStart').trigger('tribe_ev_photoView_AjaxStart');
+
+				console.log(ts.params)
 
 				$.post(
 					TribePhoto.ajaxurl,
