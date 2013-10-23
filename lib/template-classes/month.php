@@ -417,7 +417,7 @@ if( !class_exists('Tribe_Events_Month_Template')){
 			if ($day['events']->current_post + 1 == $day['events']->post_count) {
 				$classes[] = 'tribe-events-last';
 			}
-
+			
 			return $classes;
 		}
 	} // class Tribe_Events_Month_Template
