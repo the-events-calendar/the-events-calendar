@@ -760,7 +760,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		 * @author codearachnid
 		 * @author Peter Chester
 		 * @since 3.0
-		 * @todo deprecate this function in release 3.1
+		 * @deprecated since 3.2, use TribeEvents::array_insert_after_key()
 		 */
 		public static function array_insert_after_key( $key, $source_array, $insert_array ) {
 			if ( array_key_exists( $key, $source_array ) ) {

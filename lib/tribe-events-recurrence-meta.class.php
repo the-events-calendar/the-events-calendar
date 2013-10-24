@@ -849,7 +849,7 @@ class TribeEventsRecurrenceMeta {
 		if ( $id == 'general' ) {
 
 			// we want to inject the hiding subsequent occurrences into the general section directly after "Live update AJAX"
-			$args = TribeEventsPro::array_insert_after_key( 'liveFiltersUpdate', $args, array(
+			$args = TribeEvents::array_insert_after_key( 'liveFiltersUpdate', $args, array(
 				'hideSubsequentRecurrencesDefault' => array(
 					'type' => 'checkbox_bool',
 					'label' => __( 'Recurring event instances', 'tribe-events-calendar-pro' ),
