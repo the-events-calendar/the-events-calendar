@@ -1353,6 +1353,9 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		 * @since 3.0
 		 */
 		public function setup_hide_recurrence_in_query( $query ) {
+			if ( is_admin() ) {
+				return $query;
+			}
 			if ( ( !empty( $_REQUEST['tribeHideRecurrence'] ) && $_REQUEST['tribeHideRecurrence'] == '1' ) || ( empty( $_REQUEST['tribeHideRecurrence'] ) && empty( $_REQUEST['action'] ) && tribe_get_option( 'hideSubsequentRecurrencesDefault', false ) ) ) {
 				$query->query_vars['tribeHideRecurrence'] = 1;
 			}
