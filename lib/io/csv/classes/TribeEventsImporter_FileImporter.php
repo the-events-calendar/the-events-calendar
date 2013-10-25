@@ -35,7 +35,7 @@ abstract class TribeEventsImporter_FileImporter {
 			case 'organizers':
 				return new TribeEventsImporter_FileImporter_Organizers($file_reader);
 			default:
-				throw new InvalidArgumentException(sprintf(__('No importer defined for %s', 'tribe-events-importer'), $type));
+				throw new InvalidArgumentException(sprintf(__('No importer defined for %s', 'tribe-events-calendar'), $type));
 		}
 	}
 
@@ -107,14 +107,14 @@ abstract class TribeEventsImporter_FileImporter {
 		$record = $this->reader->read_next_row();
 		$row = $this->reader->get_last_line_number_read()+1;
 		if ( !$this->is_valid_record($record) ) {
-			$this->log[$row] = sprintf(__('Missing required fields in row %d.', 'tribe-events-importer', $row));
+			$this->log[$row] = sprintf(__('Missing required fields in row %d.', 'tribe-events-calendar', $row));
 			$this->skipped[] = $row;
 			return;
 		}
 		try {
 			$this->update_or_create_post($record);
 		} catch ( Exception $e ) {
-			$this->log[$row] = sprintf(__('Failed to import record in row %d.', 'tribe-events-importer'), $row);
+			$this->log[$row] = sprintf(__('Failed to import record in row %d.', 'tribe-events-calendar'), $row);
 			$this->skipped[] = $row;
 		}
 	}
@@ -123,11 +123,11 @@ abstract class TribeEventsImporter_FileImporter {
 		if ( $id = $this->match_existing_post($record) ) {
 			$this->update_post($id, $record);
 			$this->updated++;
-			$this->log[$this->reader->get_last_line_number_read()+1] = sprintf( __('%s (post ID %d) updated.', 'tribe-events-importer'), get_the_title($id), $id );
+			$this->log[$this->reader->get_last_line_number_read()+1] = sprintf( __('%s (post ID %d) updated.', 'tribe-events-calendar'), get_the_title($id), $id );
 		} else {
 			$id = $this->create_post($record);
 			$this->created++;
-			$this->log[$this->reader->get_last_line_number_read()+1] = sprintf( __('%s (post ID %d) created.', 'tribe-events-importer'), get_the_title($id), $id );
+			$this->log[$this->reader->get_last_line_number_read()+1] = sprintf( __('%s (post ID %d) created.', 'tribe-events-calendar'), get_the_title($id), $id );
 		}
 	}
 

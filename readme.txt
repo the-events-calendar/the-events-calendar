@@ -285,6 +285,7 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 
 = 3.2 =
 
+* Added the CSV importer
 * Request that search engines do not index calendar pages that have no events to display
 
 = 3.1 =
