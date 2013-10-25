@@ -24,29 +24,29 @@ require_once 'header.php';
 			<tr>
 				<td>
 					<label title="Import Type">
+						<?php _e( 'Import Type:', 'tribe-events-importer' ) ?>
 						<select name="import_type" id="events-import-import-type">
-							<option value=""></option>
 							<option value="venues"><?php _e( 'Venues', 'tribe-events-importer' ) ?></option>
 							<option value="organizers"><?php _e( 'Organizers', 'tribe-events-importer' ) ?></option>
-							<option value="events"><?php _e( 'Events', 'tribe-events-importer' ) ?></option>
+							<option value="events" selected="selected"><?php _e( 'Events', 'tribe-events-importer' ) ?></option>
 						</select>
-						<?php _e( 'Import Type', 'tribe-events-importer' ) ?>
 					</label>
 				</td>
 			</tr>
 			<tr>
 				<td>
 					<label title="File">
+						<?php _e( 'CSV File:', 'tribe-events-importer' ) ?>
 						<input type="file" name="import_file" id="events-import-csv-file"/>
-						<?php _e( 'File', 'tribe-events-importer' ) ?>
 					</label>
+					<p class="description"><?php _e( "Upload a properly formatted, UTF-8 encoded CSV file. Not sure if your file is UTF-8 encoded? Make sure to specify the character encoding when you save the file, or pass it through a <a href='http://i-tools.org/charset/exec?dest=utf-8&src=auto&download=1'>conversion tool</a>.", 'tribe-events-importer' ); ?></p>
 				</td>
 			</tr>
 
 			<tr>
 				<td>
 					<label title="Header Row">
-						<input type="checkbox" name="import_header" value="1" id="events-import-csv-file"/>
+						<input type="checkbox" name="import_header" value="1" id="events-import-csv-file" checked="checked" />
 						<?php _e( 'This file has column names in the first row', 'tribe-events-importer' ) ?>
 					</label>
 				</td>
