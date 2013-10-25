@@ -190,6 +190,14 @@ Our Premium Plugins:
 
 3.x is a complete overhaul of the plugin, and as a result we're starting the changelog fresh. For release notes from the 2.x lifecycle, see <a href="http://m.tri.be/k">our 2.x release notes.</a>
 
+= 3.2 =
+
+* Recurring events with no end date
+* Settings to limit the number of recurring event instances that will be created. Instances beyond this will be automatically created on a rolling basis.
+* Fix a bug where instances of recurring events would sometimes disappear on certain database configurations
+* Fix a bug where making an event sticky while breaking it from a series would create many copies of the event
+* Fix the canonical URL on recurring events when object caching is enabled
+
 = 3.1 =
 
 * Recurring events can now display more than once in the search results, main blog loop, and other queries that contain multiple post types (thanks to user Darren for the original report!)
