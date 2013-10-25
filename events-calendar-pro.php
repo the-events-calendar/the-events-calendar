@@ -95,7 +95,6 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			// Tribe common resources
 			require_once( 'vendor/tribe-common-libraries/tribe-common-libraries.class.php' );
 			TribeCommonLibraries::register( 'advanced-post-manager', '1.0.5', $this->pluginPath . 'vendor/advanced-post-manager/tribe-apm.php' );
-			TribeCommonLibraries::register( 'related-posts', '1.1', $this->pluginPath. 'vendor/tribe-related-posts/tribe-related-posts.class.php' );
 			TribeCommonLibraries::register( 'tribe-support', '0.2', $this->pluginPath. 'vendor/tribe-support/tribe-support.class.php' );
 
 			add_action( 'tribe_helper_activation_complete', array( $this, 'helpersLoaded' ) );
@@ -213,10 +212,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		 */
 		public function register_related_events_view() {
 			if ( $this->show_related_events() ) {
-				global $post;
-				$tags = wp_get_post_tags( $post->ID, array( 'fields' => 'ids' ) );
-				$categories = wp_get_object_terms( $post->ID, TribeEvents::TAXONOMY, array( 'fields' => 'ids' ) );
-				tribe_single_related_events( $tags, $categories );
+				tribe_single_related_events();
 			}
 		}
 
@@ -764,7 +760,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		 * @author codearachnid
 		 * @author Peter Chester
 		 * @since 3.0
-		 * @todo deprecate this function in release 3.1
+		 * @deprecated since 3.2, use TribeEvents::array_insert_after_key()
 		 */
 		public static function array_insert_after_key( $key, $source_array, $insert_array ) {
 			if ( array_key_exists( $key, $source_array ) ) {
@@ -1357,6 +1353,9 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		 * @since 3.0
 		 */
 		public function setup_hide_recurrence_in_query( $query ) {
+			if ( is_admin() ) {
+				return $query;
+			}
 			if ( ( !empty( $_REQUEST['tribeHideRecurrence'] ) && $_REQUEST['tribeHideRecurrence'] == '1' ) || ( empty( $_REQUEST['tribeHideRecurrence'] ) && empty( $_REQUEST['action'] ) && tribe_get_option( 'hideSubsequentRecurrencesDefault', false ) ) ) {
 				$query->query_vars['tribeHideRecurrence'] = 1;
 			}

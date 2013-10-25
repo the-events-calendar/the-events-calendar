@@ -146,5 +146,5 @@
 		</tr>
 		<tr class="recurrence-pattern-description-row" style="display: <?php echo !$recType || $recType == "None" ? "none" : "table-row"; ?>;">
 			<td></td>
-			<td><p class="description"><?php _e('Create a custom plain language description of the recurrance. Leave it blank and we\'ll automate it.', 'tribe-events-calendar-pro'); ?></p></td>
+			<td><p class="description"><?php _e('Create a custom plain language description of the recurrence. Leave it blank and we\'ll automate it.', 'tribe-events-calendar-pro'); ?></p></td>
 		</tr>

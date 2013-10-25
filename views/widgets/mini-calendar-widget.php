@@ -26,6 +26,6 @@ if ( !defined('ABSPATH') ) { die('-1'); } ?>
 		), 'widgets/mini-calendar/grid' ); ?>
 
 	<!-- List -->
-	<?php tribe_get_view('widgets/mini-calendar/list'); ?>
+	<?php tribe_get_template_part('widgets/mini-calendar/list'); ?>
 
 </div>

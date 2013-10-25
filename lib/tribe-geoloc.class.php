@@ -174,7 +174,7 @@ class TribeEventsGeoLoc {
 			$venues = $this->get_venues_without_geoloc_info();
 
 			// we want to inject the map default distance and unit into the map section directly after "enable Google Maps"
-			$args = TribeEventsPro::array_insert_after_key( 'embedGoogleMaps', $args, array(
+			$args = TribeEvents::array_insert_after_key( 'embedGoogleMaps', $args, array(
 					'geoloc_default_geofence' => array(
 						'type'            => 'text',
 						'label'           => __( 'Map view search distance limit', 'tribe-events-calendar-pro' ),
@@ -199,7 +199,7 @@ class TribeEventsGeoLoc {
 				)
 			);
 		} elseif ( $id == 'display' ) {
-			$args = TribeEventsPro::array_insert_after_key( 'tribeDisableTribeBar', $args, array(
+			$args = TribeEvents::array_insert_after_key( 'tribeDisableTribeBar', $args, array(
 				'hideLocationSearch' => array(
 					'type'            => 'checkbox_bool',
 					'label'           => __( 'Hide location search', 'tribe-events-calendar-pro' ),
