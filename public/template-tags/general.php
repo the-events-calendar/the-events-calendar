@@ -39,13 +39,13 @@ if ( class_exists( 'TribeEvents' ) ) {
 		if ( ! $view ) {
 			$template_file = tribe_get_current_template();
 		} else {
-			$template_file = TribeEventsTemplates::getTemplateHierarchy( $view, array('disable_view_check' => true)  );
+			$template_file = TribeEventsTemplates::getTemplateHierarchy( $view, array( 'disable_view_check' => true )  );
 		}
 
 		if (file_exists($template_file)) {
-			do_action('tribe_events_before_view', $template_file);
+			do_action( 'tribe_events_before_view', $template_file );
 			include( $template_file );
-			do_action('tribe_events_after_view', $template_file);
+			do_action( 'tribe_events_after_view', $template_file );
 		}
 	}
 

@@ -38,10 +38,12 @@ if( class_exists( 'TribeEvents' ) ) {
 			}
 		}
 
+		$month_class = new Tribe_Events_Month_Template( $args );
+		$month_class->setup_view();
+
 		do_action('tribe_events_before_show_month');
 
-		new Tribe_Events_Month_Template( $args );
-		tribe_get_view( $template_path );
+		tribe_get_template_part( $template_path );
 
 		do_action('tribe_events_after_show_month');
 
