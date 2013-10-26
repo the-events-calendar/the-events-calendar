@@ -603,6 +603,10 @@ class TribeEventsGeoLoc {
 		                   'view'        => $view_state,
 		);
 
+		// Ensure no event found notices etc are generated
+		#$template_processes = new Tribe_Template_Factory();
+		#$template_processes->set_notices();
+
 		if ( $query->found_posts > 0 ) {
 			global $wp_query, $post;
 			$data     = $query->posts;
