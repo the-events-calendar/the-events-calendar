@@ -197,6 +197,8 @@ Our Premium Plugins:
 * Fix a bug where instances of recurring events would sometimes disappear on certain database configurations
 * Fix a bug where making an event sticky while breaking it from a series would create many copies of the event
 * Fix the canonical URL on recurring events when object caching is enabled
+* Fixed a bug where events with a small time span were not displaying properly in week view
+* Twenty Thirteen theme compatibility fixes
 
 = 3.1 =
 
