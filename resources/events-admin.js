@@ -159,6 +159,34 @@ jQuery(document).ready(function($) {
 	
 	tribeShowHideCorrectStateProvinceInput( $("#EventCountry > option:selected").val() );
 
+	var $hidesub = $('[name="hideSubsequentRecurrencesDefault"]'),
+		$userhide = $('[name="userToggleSubsequentRecurrences"]');
+
+	if($hidesub.length && $userhide.length){
+
+		var $userwrap = $('#tribe-field-userToggleSubsequentRecurrences');
+
+		if($hidesub.is(':checked')){
+			$userhide.prop('checked', false);
+			$userwrap.hide();
+		}
+
+		$hidesub
+			.on('click', function () {
+				var $this = $(this);
+
+				if(!$this.is(':checked')){
+					$userwrap.show();
+				} else {
+					$userhide.prop('checked', false);
+					$userwrap.hide();
+				}
+
+			});
+
+
+	}
+
 	$("#EventCountry").change(function() {
 		var countryLabel = $(this).find('option:selected').val();
 		tribeShowHideCorrectStateProvinceInput( countryLabel );
@@ -311,6 +339,8 @@ jQuery(document).ready(function($) {
 		if (val == "On") {
 			$('#rec-count').hide();
 			$('#recurrence_end').show();
+		} else if ( val == "Never" ) {
+			$('#rec-count, #recurrence_end').hide();
 		} else {
 			$('#recurrence_end').hide();
 			$('#rec-count').show();

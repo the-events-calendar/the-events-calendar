@@ -101,7 +101,7 @@ if (!class_exists('TribeEventsAPI')) {
 			
 			$data['EventDuration'] = strtotime($data['EventEndDate']) - $startTimestamp;
 
-			$old_data['EventStartDate'] = get_post_meta( $event_id, '_EventStartDate', true );
+			$old_data['EventStartDate'] = TribeEvents::get_series_start_date($event_id);
 		
 			update_post_meta( $event_id, '_EventShowMapLink', isset( $data['venue']['EventShowMapLink'] ) );
 			update_post_meta( $event_id, '_EventShowMap', isset( $data['venue']['EventShowMap'] ) );
@@ -130,7 +130,7 @@ if (!class_exists('TribeEventsAPI')) {
 			$cost = ( isset( $data['EventCost'] ) ) ? $data['EventCost'] : '';
 			$data['EventCost'] = $cost;
 
-			$tribe_ecp->do_action('tribe_events_event_save', $event_id);
+			do_action('tribe_events_event_save', $event_id);
 
 			$cost              = ( isset( $data['EventCost'] ) ) ? $data['EventCost'] : '';
 			$data['EventCost'] = $cost;			
@@ -163,7 +163,7 @@ if (!class_exists('TribeEventsAPI')) {
 				wp_update_post( $update_event );
 			}
 
-	      	$tribe_ecp->do_action('tribe_events_update_meta', $event_id, false, $data, $event);
+	      	do_action( 'tribe_events_update_meta', $event_id, $data );
 		}	
 	
 		/**

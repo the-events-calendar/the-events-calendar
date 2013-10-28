@@ -42,13 +42,13 @@ if ( !class_exists('TribeField') ) {
 		 * field defaults (static)
 		 * @var array
 		 */
-		public static $defaults;
+		public $defaults;
 
 		/**
 		 * valid field types (static)
 		 * @var array
 		 */
-		public static $valid_field_types;
+		public $valid_field_types;
 
 
 		/**

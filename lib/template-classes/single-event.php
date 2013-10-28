@@ -99,6 +99,5 @@ if( !class_exists('Tribe_Events_Single_Event_Template')){
 				TribeEvents::setNotice( 'event-past', __( 'This event has passed.', 'tribe-events-calendar' ) );
 			}
 		}
-
 	}
 }

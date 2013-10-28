@@ -6,7 +6,7 @@ msgstr ""
 "Project-Id-Version: The Events Calendar\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-07-02 11:26-0800\n"
-"PO-Revision-Date: 2013-09-04 13:41-0000\n"
+"PO-Revision-Date: 2013-10-02 20:26-0000\n"
 "Last-Translator: Modern Tribe, Inc. <pro@tri.be>\n"
 "Language-Team: Modern Tribe, Inc. <pro@tri.be>\n"
 "Language: en_US\n"
@@ -36,7 +36,7 @@ msgstr "Síðast uppfært"
 
 #: ../admin-views/event-sidebar-options.php:11
 msgid "Hide From Event Listings"
-msgstr "Ekki sýn í viðburðar lista"
+msgstr "Ekki sýna í viðburðar lista"
 
 #: ../admin-views/event-sidebar-options.php:12
 msgid "Sticky in Calendar View"
@@ -90,7 +90,7 @@ msgstr "Upplýsingar um staðsetningu viðburðar"
 
 #: ../admin-views/events-meta-box.php:93
 msgid "Event Organizer Details"
-msgstr "Upplýsingar um kipuleggjandi viðburðar"
+msgstr "Upplýsingar um skipuleggjandi viðburðar"
 
 #: ../admin-views/events-meta-box.php:101
 msgid "Event Website"
@@ -175,7 +175,7 @@ msgstr ""
 msgid ""
 "Would you like to delete only this instance of the event, or all future "
 "events in this series?"
-msgstr "Viltu eyða þessum hluta viðburðarseríu, eða allri seríunni?"
+msgstr "Viltu eyða þessum hluta viðburðarseríu eða allri seríunni?"
 
 #: ../admin-views/recurrence-dialog.php:23
 msgid "All other future events in the series will not be deleted."
@@ -294,7 +294,7 @@ msgid ""
 "If you are familiar with HTML, you can add additional code before the event "
 "template. Some themes may require this to help with styling or layout."
 msgstr ""
-"Ef þú þekki til HTML, þá getur þú bætt viðbótar forritun á undan viðburðar "
+"Ef þú þekkir til HTML, þá getur þú bætt viðbótar forritun á undan viðburðar "
 "sniðmáti. Þetta gæti þurft við sum þemu til að hjálpa til við útlit."
 
 #: ../admin-views/tribe-options-display.php:115
@@ -306,7 +306,7 @@ msgid ""
 "If you are familiar with HTML, you can add additional code after the event "
 "template. Some themes may require this to help with styling or layout."
 msgstr ""
-"Ef þú þekki til HTML, þá getur þú bætt viðbótar forritun á eftir viðburðar "
+"Ef þú þekkir til HTML, þá getur þú bætt viðbótar forritun á eftir viðburðar "
 "sniðmáti. Þetta gæti þurft við sum þemu til að hjálpa til við útlit."
 
 #: ../admin-views/tribe-options-general.php:14
@@ -331,7 +331,7 @@ msgid ""
 "meta, community events, ticket sales and more?"
 msgstr ""
 "Ertu að leyta að viðbótar virkni svo sem endurteknum viðburðum, sérsniðnu "
-"meta, samfélagslegum viðburðum, miðsölu ofl?"
+"meta, samfélagslegum viðburðum, miðasölu ofl?"
 
 #: ../admin-views/tribe-options-general.php:28
 msgid "Check out the available add-ons"
@@ -439,7 +439,7 @@ msgstr "Núverandi viðburðar URL er: %s"
 #: ../admin-views/tribe-options-general.php:111
 #: ../public/template-tags/options.php:43
 msgid "Here is the iCal feed URL for your events:"
-msgstr "Hérna er iCal URL fyrir viðuburðinn:"
+msgstr "Hérna er iCal URL fyrir viðburðinn:"
 
 #: ../admin-views/tribe-options-general.php:116
 msgid "Single event URL slug"
@@ -451,7 +451,7 @@ msgid ""
 "The above should ideally be plural, and this singular.<br />Your single "
 "event URL is: %s"
 msgstr ""
-"Ofangreint þarf helst að vera fleirtala, og þetta eintala. <br />Your single "
+"Ofangreint þarf helst að vera fleirtala og þetta eintala. <br />Your single "
 "event URL is: %s"
 
 #: ../admin-views/tribe-options-general.php:128
@@ -476,7 +476,7 @@ msgid ""
 "future events, and changes made will not apply retroactively."
 msgstr ""
 "Stilling á sjálfgefnu gjaldmiðils merki fyrir kostnað viðburðar. Takið "
-"eftir, þetta hefur aðeins áhrif á komandi viðburði, og breytingar sem gerðar "
+"eftir, þetta hefur aðeins áhrif á komandi viðburði og breytingar sem gerðar "
 "eru verða ekki afturvirkar."
 
 #: ../admin-views/tribe-options-general.php:149
@@ -490,7 +490,7 @@ msgstr "Virkja Google Maps"
 #: ../admin-views/tribe-options-general.php:154
 msgid "Check to enable maps for events and venues."
 msgstr ""
-"Haka við til að heimila virkni kort á viðburði og viðburðastaðsetningu."
+"Haka við til að heimila virkni korta á viðburði og viðburðastaðsetningu."
 
 #: ../admin-views/tribe-options-general.php:161
 msgid "Google Maps default zoom level"
@@ -536,9 +536,9 @@ msgid ""
 "\" tab in the debug output."
 msgstr ""
 "Virkja þennan valkost til að skrá leiðréttar upplýsingar.  Þetta skráist "
-"sjálfkrafa á PHP serverinn sem error log. Ef þú vilt að sjá þessar "
-"upplýsingar í vafra þá mælum við með að setja þetta inn %s and look for the "
-"\"Tribe\" tab in the debug output."
+"sjálfkrafa á PHP serverinn sem error log. Ef þú vilt sjá þessar upplýsingar "
+"í vafra þá mælum við með að setja þetta inn %s and look for the \"Tribe\" "
+"tab in the debug output."
 
 #: ../admin-views/tribe-options-general.php:185
 msgid "Debug Bar Plugin"
@@ -555,7 +555,7 @@ msgstr "Vinsamlega uppfærið!"
 
 #: ../admin-views/tribe-options-help.php:19
 msgid "You are up to date!"
-msgstr "Premium Add-OnsÞú ert með nýjustu útgáfuna!"
+msgstr "Premium Add-Ons Þú ert með nýjustu útgáfuna!"
 
 #: ../admin-views/tribe-options-help.php:42
 msgid "The Events Calendar PRO"
@@ -842,7 +842,7 @@ msgid ""
 "This is where all of the global network settings for Modern Tribe's The "
 "Events Calendar can be modified."
 msgstr ""
-"Hérna eru mögulegt að breyta öllum net stillingar fyrir Modern Tribe The "
+"Hérna eru mögulegt að breyta öllum net stillingum fyrir Modern Tribe The "
 "Events Calendar"
 
 #: ../admin-views/tribe-options-network.php:26
@@ -909,7 +909,7 @@ msgstr "Samantekt viðburðar"
 
 #: ../admin-views/tickets/attendees.php:22
 msgid "Event Details"
-msgstr "Viðuburðar upplýsingar"
+msgstr "Viðburðar upplýsingar"
 
 #: ../admin-views/tickets/attendees.php:24
 msgid "Start Date / Time:"
@@ -1072,7 +1072,7 @@ msgstr "liðinn"
 
 #: ../lib/the-events-calendar.class.php:495
 msgid "venue"
-msgstr "saðsetning"
+msgstr "staðsetning"
 
 #: ../lib/the-events-calendar.class.php:509
 #, php-format
@@ -1095,7 +1095,7 @@ msgid ""
 "dependencies on The Events Calendar and will not function properly unless "
 "paired with the right version. %sWant to pair an older version%s?"
 msgstr ""
-"Meðfylgjandi plugins eru unnrunnin: <b>%s</b>. Allar viðbætur innihalda "
+"Meðfylgjandi plugins eru útrunnin: <b>%s</b>. Allar viðbætur innihalda "
 "tengingu við The Events Calendar og munu ekki virka sem skyldi án þessa að "
 "vera rétt. %sViltu para við eldri útgáfu%s?"
 
@@ -1192,7 +1192,7 @@ msgstr "Engin lýsing hefur verið sett fyrir þennan viðburð."
 
 #: ../lib/the-events-calendar.class.php:1303
 msgid "category"
-msgstr "kategori"
+msgstr "flokkur"
 
 #: ../lib/the-events-calendar.class.php:1313
 msgid "tag"
@@ -1358,7 +1358,7 @@ msgstr "Bæta við nýjum viðburðar flokk"
 
 #: ../lib/the-events-calendar.class.php:1388
 msgid "New Event Category Name"
-msgstr "Nafn á nýjum viðburðarflokki"
+msgstr "Nafn á nýjum viðburðarflokk"
 
 #: ../lib/the-events-calendar.class.php:1404
 #, php-format
@@ -1587,7 +1587,7 @@ msgstr "Nafnlaus skipuleggjandi"
 
 #: ../lib/the-events-calendar.class.php:3467
 msgid "Event Options"
-msgstr "Viðburðar valkostir"
+msgstr "Valkostir viðburða"
 
 #: ../lib/the-events-calendar.class.php:3469
 msgid "Venue Information"
@@ -1618,7 +1618,7 @@ msgid ""
 "Looking for additional functionality including recurring events, ticket "
 "sales, publicly submitted events, new views and more?"
 msgstr ""
-"Ertu að leyta að viðbótar virkni svo sem endurteknum viðburður, miðasölu, "
+"Ertu að leyta að viðbótar virkni svo sem endurteknum viðburðum, miðasölu, "
 "innsendum viðburðum, ofl?"
 
 #: ../lib/the-events-calendar.class.php:3775
@@ -3299,7 +3299,7 @@ msgstr "Miðinn hefur vistast."
 
 #: ../lib/tickets/tribe-tickets.php:369
 msgid "Your ticket has been deleted."
-msgstr "Miðanumu hefur verið eytt."
+msgstr "Miða hefur verið eytt."
 
 #: ../public/advanced-functions/meta.php:35
 msgid "Start:"

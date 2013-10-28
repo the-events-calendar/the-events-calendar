@@ -39,13 +39,13 @@ if ( class_exists( 'TribeEvents' ) ) {
 		if ( ! $view ) {
 			$template_file = tribe_get_current_template();
 		} else {
-			$template_file = TribeEventsTemplates::getTemplateHierarchy( $view, array('disable_view_check' => true)  );
+			$template_file = TribeEventsTemplates::getTemplateHierarchy( $view, array( 'disable_view_check' => true )  );
 		}
 
 		if (file_exists($template_file)) {
-			do_action('tribe_events_before_view', $template_file);
+			do_action( 'tribe_events_before_view', $template_file );
 			include( $template_file );
-			do_action('tribe_events_after_view', $template_file);
+			do_action( 'tribe_events_after_view', $template_file );
 		}
 	}
 
@@ -733,8 +733,38 @@ if ( class_exists( 'TribeEvents' ) ) {
 		return apply_filters( 'tribe_events_event_recurring_info_tooltip', $tooltip );
 	}
 
-/**
-	 * Return the details of the start/end date/time
+	/**
+	 * Return the details of the start/end date/time.
+	 *
+	 * The highest level means of customizing this function's output is simply to adjust the WordPress date and time
+	 * formats (via the General Settings admin screen). Beyond that however there are two filters which can be used to
+	 * exercise further control here.
+	 *
+	 * The first is 'tribe_events_event_schedule_details_formatting' which allows an array of format settings to be
+	 * altered - it's basic make-up is as a simple set of key:value pairs as follows.
+	 *
+	 * "datetime_separator": this is inserted between the date and the time and defaults to an ampersat @ character.
+	 *     Note that if you modify this you should ordinarily be careful to include leading and trailing spaces (an
+	 *     example might be ' at ').
+	 *
+	 * "same_year_format": if an event starts and ends in the same year it's assumed that including the year in the
+	 *     output is superfluous. That being the case the function changes the date format, by default, to 'F j'. This
+	 *     may not be ideal in all locales so an alternative can be provided here. Do note that this substitution is
+	 *     only ever made if A) the event starts and ends in the same year and B) the date format does not include any
+	 *     time formatting characters.
+	 *
+	 *     This can also effectively be used to turn off the assumption that the year should be omitted, simply by
+	 *     setting it to the value of the 'date_format' option, for example.
+	 *
+	 * "show_end_time": for single day events only (not including all day events) it may not always be desirable to
+	 *     include the end time. In that situation, this setting can be set to false and the end time will not be
+	 *     displayed.
+	 *
+	 * "time": if it is undesirable to show times and only dates should be displayed then this setting can be set to
+	 *     false. If it is false it will by extension cause 'show_end_time' to be false.
+	 *
+	 * The resulting string can also be caught and manipulated, or completely overridden, using the
+	 * 'tribe_events_event_schedule_details' filter, should none of the above settings be sufficient.
 	 *
 	 * @since 3.0
 	 * @param int|null $event
@@ -745,23 +775,34 @@ if ( class_exists( 'TribeEvents' ) ) {
 			global $post;
 			$event = $post;
 		}
+
 		if ( is_numeric( $event ) )
 			$event = get_post( $event );
 
+		$schedule = '';
 		$format = '';
-		$timeFormat = get_option( 'time_format' );
+		$date_format = get_option( 'date_format' );
+		$time_format = get_option( 'time_format' );
 		$microformatStartFormat = tribe_get_start_date( $event, false, 'Y-m-dTh:i' );
 		$microformatEndFormat = tribe_get_end_date( $event, false, 'Y-m-dTh:i' );
 
-		// If the WordPress date setting matches DATEONLYFORMAT, make the string more readable
-		if ( get_option( 'date_format' ) == TribeDateUtils::DATEONLYFORMAT ) {
-			/* If the event happens this year, no need to show the year, unless it ends on another year (multi-day) */
-			if ( tribe_get_start_date( $event, false, 'Y' ) === date( 'Y' ) && tribe_get_end_date( $event, false, 'Y' ) === date( 'Y' ) ) {
-				$format = 'F j';
-			}
-		}
+		$settings = array(
+			'datetime_separator' => ' @ ',
+			'same_year_format' => 'F j',
+			'show_end_time' => true,
+			'time' => true,
+		);
 
-		$schedule = '';
+		$settings = wp_parse_args( apply_filters('tribe_events_event_schedule_details_formatting', $settings), $settings );
+		if ( ! $settings['time'] ) $settings['show_end_time'] = false;
+		extract($settings);
+
+		// If the date format will result in the year being shown but does *not* include any time formatting...
+		if ( TribeDateUtils::formatContainsYear( $date_format ) && ! TribeDateUtils::formatContainsTime( $date_format ) ) {
+			// ... and it starts and ends in the current year then there is no need to display the year
+			if ( tribe_get_start_date( $event, false, 'Y' ) === date( 'Y' ) && tribe_get_end_date( $event, false, 'Y' ) === date( 'Y' ) )
+				$format = $same_year_format;
+		}
 
 		if ( tribe_event_is_multiday( $event ) ) { // multi-date event
 
@@ -798,11 +839,11 @@ if ( class_exists( 'TribeEvents' ) ) {
 				}
 			} else {
 				$schedule .= '<span class="date-start dtstart">';
-				$schedule .= tribe_get_start_date( $event, false, $format ) . ' @ ' . tribe_get_start_date( $event, false, $timeFormat );
+				$schedule .= tribe_get_start_date( $event, false, $format ) . ( $time ? $datetime_separator . tribe_get_start_date( $event, false, $time_format ) : '' );
 				$schedule .= '<span class="value-title" title="'. $microformatStartFormat .'"></span>';
 				$schedule .= '</span> - ';
 				$schedule .= '<span class="date-end dtend">';
-				$schedule .= tribe_get_end_date( $event, false, $format2ndday ) . ' @ ' . tribe_get_end_date( $event, false, $timeFormat );
+				$schedule .= tribe_get_end_date( $event, false, $format2ndday ) . ( $time ? $datetime_separator . tribe_get_end_date( $event, false, $time_format ) : '' );
 				$schedule .= '<span class="value-title" title="'. $microformatEndFormat .'"></span>';
 				$schedule .= '</span>';
 			}
@@ -816,16 +857,16 @@ if ( class_exists( 'TribeEvents' ) ) {
 		} else { // single day event
 			if ( tribe_get_start_date( $event, false, 'g:i A' ) === tribe_get_end_date( $event, false, 'g:i A' ) ) { // Same start/end time
 				$schedule .= '<span class="date-start dtstart">';
-				$schedule .= tribe_get_start_date( $event, false, $format ) . ' @ ' . tribe_get_start_date( $event, false, $timeFormat );
+				$schedule .= tribe_get_start_date( $event, false, $format ) . ( $time ? $datetime_separator . tribe_get_start_date( $event, false, $time_format ) : '' );
 				$schedule .= '<span class="value-title" title="'. $microformatStartFormat .'"></span>';
 				$schedule .= '</span>';
 			} else { // defined start/end time
 				$schedule .= '<span class="date-start dtstart">';
-				$schedule .= tribe_get_start_date( $event, false, $format ) . ' @ ' . tribe_get_start_date( $event, false, $timeFormat );
+				$schedule .= tribe_get_start_date( $event, false, $format ) . ( $time ? $datetime_separator . tribe_get_start_date( $event, false, $time_format ) : '' );
 				$schedule .= '<span class="value-title" title="'. $microformatStartFormat .'"></span>';
-				$schedule .= '</span> - ';
+				$schedule .= '</span>' . ( $show_end_time ? ' - ' : '' );
 				$schedule .= '<span class="end-time dtend">';
-				$schedule .= tribe_get_end_date( $event, false, $timeFormat ) . '<span class="value-title" title="'. $microformatEndFormat .'"></span>';
+				$schedule .= ( $show_end_time ? tribe_get_end_date( $event, false, $time_format ) : '' ) . '<span class="value-title" title="'. $microformatEndFormat .'"></span>';
 				$schedule .= '</span>';
 			}
 		}

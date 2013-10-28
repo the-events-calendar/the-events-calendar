@@ -28,7 +28,9 @@
 .tribe-events-calendar td.tribe-events-present div[id*="tribe-events-daynum-"] > a,
 #tribe_events_filters_wrapper input[type=submit],
 .tribe-events-button,
+.entry-content .tribe-events-button,
 .tribe-events-button.tribe-inactive,
+.entry-content .tribe-events-button:hover,
 .tribe-events-button:hover,
 .tribe-events-button.tribe-active:hover {
 	background-color: #21759b;
@@ -41,6 +43,7 @@
 
 .tribe-events-button.tribe-inactive,
 .tribe-events-button:hover,
+.entry-content .tribe-events-button:hover,
 .tribe-events-button.tribe-active:hover {
 	color:#fff;
 }
@@ -253,7 +256,9 @@ h2.tribe-events-page-title,
 }
 
 .single-tribe_events a.tribe-events-ical, 
-.single-tribe_events a.tribe-events-gcal {
+.single-tribe_events a.tribe-events-ical:hover, 
+.single-tribe_events a.tribe-events-gcal, 
+.single-tribe_events a.tribe-events-gcal:hover {
 	background-color: transparent;
 	text-transform: none;
 	font-size: 14px;
@@ -261,6 +266,7 @@ h2.tribe-events-page-title,
 	letter-spacing: 0;
 	padding: 0;
 	float: none;
+	color: #21759B;
 }
 
 /* Featured Image */
@@ -463,15 +469,14 @@ h2.tribe-events-page-title,
 	border-top-color: transparent;
 }
 
-
 /* = WooTickets
 =============================================*/
 h2.tribe-events-tickets-title {
 	font-size: 17px;
 }
 
-
-/* Events Retina Bits */
+/* = Retina
+=============================================*/
 @media 
 only screen and (min--moz-device-pixel-ratio: 2),
 only screen and (-o-min-device-pixel-ratio: 2/1),

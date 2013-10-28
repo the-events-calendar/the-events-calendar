@@ -283,6 +283,15 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 
 3.x is a complete overhaul of the plugin, and as a result we're starting the changelog fresh. For release notes from the 2.x lifecycle, see <a href="http://m.tri.be/k">our 2.x release notes.</a>
 
+= 3.2 =
+
+* Added the CSV importer
+* Request that search engines do not index calendar pages that have no events to display
+* Lots of Twenty Thirteen theme compatibility fixes
+* Date and Time display seperately on an event single for non-multiday events
+* Added a suggestion by the Organizer email field to obfuscate email addresses published on your site
+
+
 = 3.1 =
 
 * Significant performance improvements to month view (thanks to Grégory for the initial report!)

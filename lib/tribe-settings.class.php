@@ -25,87 +25,87 @@ if ( !class_exists( 'TribeSettings' ) ) {
 		 * filtered on class construct
 		 * @var array
 		 */
-		public static $tabs;
+		public $tabs;
 
 		/**
 		 * All the tabs registered, not just the ones that will appear
 		 * @var array
 		 */
-		public static $allTabs;
+		public $allTabs;
 
 		/**
 		 * multidimentional array of the fields that will be generated
 		 * for the entire settings panel, tabs are represented in the array keys
 		 * @var array
 		 */
-		public static $fields;
+		public $fields;
 
 		/**
 		 * the default tab for the settings panel
 		 * this should be a tab ID
 		 * @var string
 		 */
-		public static $defaultTab;
+		public $defaultTab;
 
 		/**
 		 * the current tab being displayed
 		 * @var string
 		 */
-		public static $currentTab;
+		public $currentTab;
 
 		/**
 		 * tabs that shouldn't show the save button
 		 * @var array
 		 */
-		public static $noSaveTabs;
+		public $noSaveTabs;
 
 		/**
 		 * the slug used in the admin to generate the settings page
 		 * @var string
 		 */
-		public static $adminSlug;
+		public $adminSlug;
 
 		/**
 		 * the menu name used for the settings page
 		 * @var string
 		 */
-		public static $menuName;
+		public $menuName;
 
 		/**
 		 * the required capability for the settings page
 		 * @var string
 		 */
-		public static $requiredCap;
+		public $requiredCap;
 
 		/**
 		 * errors that occur after a save operation
 		 * @var mixed
 		 */
-		public static $errors;
+		public $errors;
 
 		/**
 		 * POST data before/after save
 		 * @var mixed
 		 */
-		public static $sent_data;
+		public $sent_data;
 
 		/**
 		 * the $current_screen name corresponding to the admin page
 		 * @var string
 		 */
-		public static $admin_page;
+		public $admin_page;
 
 		/**
 		 * true if a major error that prevents saving occurred
 		 * @var bool
 		 */
-		public static $major_error;
+		public $major_error;
 
 		/**
 		 * holds validated fields
 		 * @var array
 		 */
-		public static $validated;
+		public $validated;
 
 		/**
 		 * Static Singleton Factory Method
@@ -433,9 +433,9 @@ if ( !class_exists( 'TribeSettings' ) ) {
 
 				if ( $option_id == TribeEvents::OPTIONNAME ) {
 					// save using the TribeEvents method
-					TribeEvents::setOptions( $options );
+					TribeEvents::instance()->setOptions( $options );
 				} elseif ( $option_id == TribeEvents::OPTIONNAMENETWORK ) {
-					TribeEvents::setNetworkOptions( $options );
+					TribeEvents::instance()->setNetworkOptions( $options );
 				} else {
 					// save using regular WP method
 					if ( is_network_admin() )

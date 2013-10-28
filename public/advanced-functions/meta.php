@@ -17,7 +17,7 @@ if ( class_exists( 'Tribe_Meta_Factory' ) ) {
 		 *
 		 * @return string title
 		 */
-		function the_title() {
+		public static function the_title() {
 			return get_the_title( get_the_ID() );
 		}
 
@@ -28,9 +28,13 @@ if ( class_exists( 'Tribe_Meta_Factory' ) ) {
 		 * @param int $meta_id
 		 * @return string
 		 */
-		function event_date( $meta_id ) {
-			if ( tribe_get_start_date() !== tribe_get_end_date() ) {
-				// Start & end date
+		public static function event_date( $meta_id ) {
+			$time_format = get_option( 'time_format', TribeDateUtils::TIMEFORMAT );
+			$start_time = tribe_get_start_date(null, false,  $time_format );
+			$end_time = tribe_get_end_date(null, false,  $time_format );
+
+			if ( tribe_event_is_multiday() ) {
+				// If multiday, show start date+time and end date+time
 				$html = Tribe_Meta_Factory::template(
 					__( 'Start:', 'tribe-events-calendar' ),
 					sprintf( '<abbr class="tribe-events-abbr updated published dtstart" title="%s">%s</abbr>',
@@ -45,16 +49,49 @@ if ( class_exists( 'Tribe_Meta_Factory' ) ) {
 						tribe_get_end_date()
 					),
 					$meta_id );
-			} else {
-				// If all day event, show only start date
-				$html = Tribe_Meta_Factory::template(
-					__( 'Date:', 'tribe-events-calendar' ),
-					sprintf( '<abbr class="tribe-events-abbr updated published dtstart" title="%s">%s</abbr>',
-						tribe_get_start_date( null, false, TribeDateUtils::DBDATEFORMAT ),
-						tribe_get_start_date()
-					),
-					$meta_id );
 			}
+			elseif ( !tribe_event_is_multiday() ) {
+				if ( tribe_event_is_all_day() ) {
+					// If all day event, show only start date
+					$html = Tribe_Meta_Factory::template(
+						__( 'Date:', 'tribe-events-calendar' ),
+						sprintf( '<abbr class="tribe-events-abbr updated published dtstart" title="%s">%s</abbr>',
+							tribe_get_start_date( null, false, TribeDateUtils::DBDATEFORMAT ),
+							tribe_get_start_date()
+						),
+						$meta_id );					
+				}
+				else {
+					// show start date
+					$html = Tribe_Meta_Factory::template(
+						__( 'Date:', 'tribe-events-calendar' ),
+						sprintf( '<abbr class="tribe-events-abbr updated published dtstart" title="%s">%s</abbr>',
+							tribe_get_start_date( null, false, TribeDateUtils::DBDATEFORMAT ),
+							tribe_get_start_date(null, false)
+						),
+						$meta_id );
+					if ( $start_time == $end_time ) {
+						// if start and end time are the same, just show the start time
+						$html .= Tribe_Meta_Factory::template(
+							__( 'Time:', 'tribe-events-calendar' ),
+							sprintf( '<abbr class="tribe-events-abbr dtend" title="%s">%s</abbr>',
+								tribe_get_end_date( null, false, TribeDateUtils::DBDATEFORMAT ),
+								$start_time
+							),
+							$meta_id );
+					} else {
+						// show start and end time
+						$html .= Tribe_Meta_Factory::template(	
+							__( 'Time:', 'tribe-events-calendar' ),
+							sprintf( '<abbr class="tribe-events-abbr dtend" title="%s">%s</abbr>',
+								tribe_get_end_date( null, false, TribeDateUtils::DBDATEFORMAT ),
+								$start_time .' - '. $end_time
+							),
+							$meta_id );						
+					}
+				}
+
+			} 
 			return apply_filters( 'tribe_event_meta_event_date', $html );
 		}
 
@@ -65,7 +102,7 @@ if ( class_exists( 'Tribe_Meta_Factory' ) ) {
 		 * @param int $meta_id
 		 * @return array
 		 */
-		function event_category( $meta_id ) {
+		public static function event_category( $meta_id ) {
 			global $_tribe_meta_factory;
 			$post_id = get_the_ID();
 
@@ -93,7 +130,7 @@ if ( class_exists( 'Tribe_Meta_Factory' ) ) {
 		 * @param int $meta_id
 		 * @return array
 		 */
-		function event_tag( $meta_id ) {
+		public static function event_tag( $meta_id ) {
 			global $_tribe_meta_factory;
 			return apply_filters( 'tribe_event_meta_event_tag', tribe_meta_event_tags( $_tribe_meta_factory->meta[$meta_id]['label'], ', ', false ) );
 		}
@@ -105,7 +142,7 @@ if ( class_exists( 'Tribe_Meta_Factory' ) ) {
 		 * @param int $meta_id
 		 * @return string
 		 */
-		function event_website( $meta_id ){
+		public static function event_website( $meta_id ){
 			global $_tribe_meta_factory;
 			$link = tribe_get_event_website_link();
 			$website_link = empty( $link ) ? '' :  Tribe_Meta_Factory::template(
@@ -121,7 +158,7 @@ if ( class_exists( 'Tribe_Meta_Factory' ) ) {
 		 * @param int $meta_id
 		 * @return string
 		 */
-		function event_origin( $meta_id ) {
+		public static function event_origin( $meta_id ) {
 			global $_tribe_meta_factory;
 			$origin_to_display = apply_filters( 'tribe_events_display_event_origin', '', get_the_ID() );
 			$origin = empty( $link ) ? '' :  Tribe_Meta_Factory::template(
@@ -138,7 +175,7 @@ if ( class_exists( 'Tribe_Meta_Factory' ) ) {
 		 * @param int $meta_id
 		 * @return string
 		 */
-		function organizer_name( $meta_id ){
+		public static function organizer_name( $meta_id ){
 			global $_tribe_meta_factory;
 			$post_id = get_the_ID();
 			$name = tribe_get_organizer( $post_id );
@@ -156,7 +193,7 @@ if ( class_exists( 'Tribe_Meta_Factory' ) ) {
 		 * @param int $meta_id
 		 * @return string
 		 */
-		function organizer_email( $meta_id ){
+		public static function organizer_email( $meta_id ){
 			global $_tribe_meta_factory;
 			$email = tribe_get_organizer_email();
 			$organizer_email = empty( $email ) ? '' :  Tribe_Meta_Factory::template(
@@ -172,7 +209,7 @@ if ( class_exists( 'Tribe_Meta_Factory' ) ) {
 		 * @param int $meta_id
 		 * @return string
 		 */
-		function venue_name( $meta_id ){
+		public static function venue_name( $meta_id ){
 			global $_tribe_meta_factory;
 			$post_id = get_the_ID();
 			$name = tribe_get_venue( $post_id );
@@ -189,7 +226,7 @@ if ( class_exists( 'Tribe_Meta_Factory' ) ) {
 		 * @param int $meta_id
 		 * @return string
 		 */
-		function venue_address( $meta_id ){
+		public static function venue_address( $meta_id ){
 			global $_tribe_meta_factory;
 
 			$address = tribe_address_exists( get_the_ID() ) ? '<address class="tribe-events-address">' . tribe_get_full_address( get_the_ID() ) . '</address>' : '';
@@ -211,7 +248,7 @@ if ( class_exists( 'Tribe_Meta_Factory' ) ) {
 		 * @param int $meta_id
 		 * @return string
 		 */
-		function venue_map( $meta_id ){
+		public static function venue_map( $meta_id ){
 			global $_tribe_meta_factory;
 			$post_id = get_the_ID();
 			$map = tribe_get_embedded_map( $post_id );
@@ -227,7 +264,7 @@ if ( class_exists( 'Tribe_Meta_Factory' ) ) {
 		 *
 		 * @return string
 		 */
-		function gmap_link() {
+		public static function gmap_link() {
 			$link = sprintf('<a class="tribe-events-gmap" href="%s" title="%s" target="_blank">%s</a>',
 				tribe_get_map_link(),
 				__( 'Click to view a Google Map', 'tribe-events-calendar' ),
