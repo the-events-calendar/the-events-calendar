@@ -65,6 +65,7 @@
 						<option value="Second" <?php selected($recCustomMonthNumber, "Second") ?>><?php _e('Second','tribe-events-calendar-pro'); ?></option>
 						<option value="Third" <?php selected($recCustomMonthNumber, "Third") ?>><?php _e('Third','tribe-events-calendar-pro'); ?></option>
 						<option value="Fourth" <?php selected($recCustomMonthNumber, "Fourth") ?>><?php _e('Fourth','tribe-events-calendar-pro'); ?></option>
+						<option value="Fifth" <?php selected($recCustomMonthNumber, "Fifth") ?>><?php _e('Fifth','tribe-events-calendar-pro'); ?></option>
 						<option value="Last" <?php selected($recCustomMonthNumber, "Last") ?>><?php _e('Last','tribe-events-calendar-pro'); ?></option>
 						<option value="" >--</option>
 						<?php for($i = 1; $i<=31; $i++): ?>
