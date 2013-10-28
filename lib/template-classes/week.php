@@ -105,9 +105,9 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 			parent::manage_sensitive_info( $post );
 
 			if ( post_password_required( $post ) ) {
-				add_filter( 'tribe_get_template_part_path_week/single-event-tooltip.php', '__return_false' );
+				add_filter( 'tribe_get_template_part_path_pro/week/single-event-tooltip.php', '__return_false' );
 			} else {
-				remove_filter( 'tribe_get_template_part_path_week/single-event-tooltip.php', '__return_false' );
+				remove_filter( 'tribe_get_template_part_path_pro/week/single-event-tooltip.php', '__return_false' );
 			}
 		}
 
@@ -463,33 +463,26 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 				$event = self::get_hourly_event();
 			}
 
-			// Get our wrapper classes (for event categories, organizer, venue, and defaults)
-			echo 'hentry vevent type-tribe_events post-' . $event->ID, ' tribe-clearfix ';
+			global $post;
+			$post_switch = $post;
+
+			$post = $event;
+
+			$classes = parent::event_classes( $classes );
 
 			// we need to adjust on behalf of weekly span scripts
 			$day_span_length = $event->days_between + 1;
 			if ( $day_span_length > 0 )
-				echo 'tribe-dayspan' . $day_span_length . ' ';
-
-			// if we have a venue add the class
-			if ( $venue_id = tribe_get_venue_id( $event->ID ) )
-				echo 'tribe-events-venue-'. $venue_id . ' ';
-
-			// if we have an organizer add the class
-			if ( $organizer_id = tribe_get_organizer_id( $event->ID ) )
-				$classes[] = 'tribe-events-organizer-'. $organizer_id . ' ';
-
-			// add classes for all assigned categories
-			$tribe_cat_slugs = tribe_get_event_cat_slugs( $event->ID );
-			foreach ( $tribe_cat_slugs as $tribe_cat_slug ) {
-				echo 'tribe-events-category-'. $tribe_cat_slug . ' ';
-			}
+				$classes[] = 'tribe-dayspan' . $day_span_length . ' ';
 
 			if ( self::$loop_type == 'hourly' && strtotime( self::$prior_event_date->EventStartDate ) < strtotime( $event->EventStartDate ) ) {
-				echo 'tribe-event-overlap ';
+				$classes[] = 'tribe-event-overlap ';
 			}
 
 			self::$prior_event_date->EventStartDate = $event->EventStartDate;
+
+			$post = $post_switch;
+			return $classes;
 		}
 
 		/**

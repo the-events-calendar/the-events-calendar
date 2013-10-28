@@ -19,6 +19,6 @@ if ( !defined('ABSPATH') ) { die('-1'); } ?>
 <?php tribe_get_template_part( 'modules/bar' ); ?>
 
 <!-- Main Events Content -->
-<?php tribe_get_template_part( 'photo/content' ) ?>
+<?php tribe_get_template_part( 'pro/photo/content' ) ?>
 
 <?php do_action( 'tribe_events_after_template' ) ?>

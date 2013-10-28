@@ -19,7 +19,7 @@ if ( !defined('ABSPATH') ) { die('-1'); } ?>
 <?php tribe_get_template_part( 'modules/bar' ); ?>
 
 <!-- Main Events Content -->
-<?php tribe_get_template_part( 'day/content' ) ?>
+<?php tribe_get_template_part( 'pro/day/content' ) ?>
 
 <div class="tribe-clear"></div>
 

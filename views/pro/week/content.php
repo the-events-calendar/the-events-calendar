@@ -29,13 +29,13 @@ if ( !defined('ABSPATH') ) { die('-1'); } ?>
 	<div id="tribe-events-header" <?php tribe_events_the_header_attributes('week-header') ?>>
 
 		<!-- Header Navigation -->
-		<?php tribe_get_template_part('week/nav', 'header'); ?>
+		<?php tribe_get_template_part( 'pro/week/nav', 'header' ); ?>
 
 	</div><!-- #tribe-events-header -->
 	<?php do_action( 'tribe_events_after_header') ?>
 
 	<!-- Calendar Grid -->
-	<?php tribe_get_template_part('week/loop', 'grid') ?>
+	<?php tribe_get_template_part( 'pro/week/loop', 'grid' ) ?>
 
 	<!-- Calendar Footer -->
 	<?php do_action( 'tribe_events_before_footer') ?>
@@ -43,7 +43,7 @@ if ( !defined('ABSPATH') ) { die('-1'); } ?>
 
 		<!-- Footer Navigation -->
 		<?php do_action( 'tribe_events_before_footer_nav' ); ?>
-		<?php tribe_get_template_part('week/nav', 'footer'); ?>
+		<?php tribe_get_template_part( 'pro/week/nav', 'footer' ); ?>
 		<?php do_action( 'tribe_events_after_footer_nav' ); ?>
 	</div><!-- #tribe-events-footer -->
 	<?php do_action( 'tribe_events_after_footer') ?>

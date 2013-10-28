@@ -67,7 +67,7 @@ class TribeEventsMiniCalendar {
 
 			ob_start();
 
-			tribe_get_template_part('widgets/mini-calendar/list');
+			tribe_get_template_part('pro/widgets/mini-calendar/list');
 
 			remove_action( 'pre_get_posts', array( $this, 'ajax_select_day_set_date' ) );
 
@@ -163,7 +163,7 @@ class TribeEventsMiniCalendar {
 			add_filter( 'tribe_events_template_widgets/mini-calendar/list.php', '__return_false' );
 		}
 
-		tribe_get_template_part( 'widgets/mini-calendar-widget' );
+		tribe_get_template_part( 'pro/widgets/mini-calendar-widget' );
 
 	}
 

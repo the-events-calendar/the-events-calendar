@@ -30,7 +30,7 @@ if ( !defined('ABSPATH') ) { die('-1'); } ?>
 
 		<!-- Header Navigation -->
 		<?php do_action( 'tribe_events_before_header_nav' ); ?>
-		<?php tribe_get_template_part( 'photo/nav', 'header' ); ?>
+		<?php tribe_get_template_part( 'pro/photo/nav', 'header' ); ?>
 		<?php do_action( 'tribe_events_after_header_nav' ); ?>
 
 	</div><!-- #tribe-events-header -->
@@ -39,7 +39,7 @@ if ( !defined('ABSPATH') ) { die('-1'); } ?>
 	<!-- Events Loop -->
 	<?php if ( have_posts() ) : ?>
 		<?php do_action( 'tribe_events_before_loop' ); ?>
-		<?php tribe_get_template_part( 'photo/loop' ); ?>
+		<?php tribe_get_template_part( 'pro/photo/loop' ); ?>
 		<?php do_action( 'tribe_events_after_loop' ); ?>
 	<?php endif; ?>
 
@@ -49,7 +49,7 @@ if ( !defined('ABSPATH') ) { die('-1'); } ?>
 
 		<!-- Footer Navigation -->
 		<?php do_action( 'tribe_events_before_footer_nav' ); ?>
-		<?php tribe_get_template_part( 'photo/nav', 'footer' ); ?>
+		<?php tribe_get_template_part( 'pro/photo/nav', 'footer' ); ?>
 		<?php do_action( 'tribe_events_after_footer_nav' ); ?>
 
 	</div><!-- #tribe-events-footer -->
