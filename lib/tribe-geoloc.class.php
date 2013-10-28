@@ -592,6 +592,9 @@ class TribeEventsGeoLoc {
 
 			$this->order_posts_by_distance( $query->posts, $lat, $lng );
 		}
+		elseif ( 0 === $query->found_posts ) {
+			TribeEvents::setNotice( 'event-search-no-results', __( 'There were no results found.', 'tribe-events-calendar-pro' ) );
+		}
 
 
 		$response = array( 'html'        => '',
