@@ -92,7 +92,7 @@ class TribeEventsBar {
 
 		//Load the template
 		ob_start();
-		include TribeEventsTemplates::getTemplateHierarchy( 'bar.php', array('subfolder'=>'modules') );
+		tribe_get_template_part( 'modules/bar' );
 		$html = ob_get_clean() . $content;
 
 		echo apply_filters( 'tribe_events_bar_show', $html, $filters, $views, $content );
