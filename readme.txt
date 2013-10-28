@@ -287,6 +287,10 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 
 * Added the CSV importer
 * Request that search engines do not index calendar pages that have no events to display
+* Lots of Twenty Thirteen theme compatibility fixes
+* Date and Time display seperately on an event single for non-multiday events
+* Added a suggestion by the Organizer email field to obfuscate email addresses published on your site
+
 
 = 3.1 =
 
