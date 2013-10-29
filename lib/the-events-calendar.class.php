@@ -379,7 +379,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			add_action( 'save_post', array( $this, 'save_organizer_data' ), 16, 2 );
 			add_action( 'save_post', array( $this, 'addToPostAuditTrail' ), 10, 2 );
 			add_action( 'publish_'.self::POSTTYPE, array( $this, 'publishAssociatedTypes'), 25, 2 );
-			add_action( 'pre_get_posts', array( $this, 'setDate' ));
 			add_action( 'parse_query', array( $this, 'setDisplay' ), 51, 0);
 			add_action( 'tribe_events_post_errors', array( 'TribeEventsPostException', 'displayMessage' ) );
 			add_action( 'tribe_settings_top', array( 'TribeEventsOptionsException', 'displayMessage') );
@@ -2147,29 +2146,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 				Tribe_Template_Factory::asset_package('events-css');
 
-			}
-		}
-
-		/**
-		 * Set the date property of the main class instance.
-		 *
-		 * @param WP_Query $query The current query.
-		 * @return void
-		 */
-		public function setDate($query) {
-			if ( isset($query->tribe_is_event_query) && $query->tribe_is_event_query) {
-				if ( $query->get('eventDisplay') == 'month' ) {
-					$this->date = $query->get('eventDate') . "-01";
-				} else if ( $query->get('eventDate') ) {
-					$this->date = $query->get('eventDate');
-				} else if ( $query->get('eventDisplay') == 'month' ) {
-					$date = date_i18n( TribeDateUtils::DBDATEFORMAT );
-					$this->date = substr_replace( $date, '01', -2 );
-				} else if (is_singular() && $query->get('eventDate') ) {
-					$this->date = $query->get('eventDate');
-				} else if (!is_singular()) { // don't set date for single event unless recurring
-					$this->date = date(TribeDateUtils::DBDATETIMEFORMAT);
-				}
 			}
 		}
 
