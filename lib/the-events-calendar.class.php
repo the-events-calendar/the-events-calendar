@@ -180,6 +180,9 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			$this->pluginPath = trailingslashit( dirname( dirname(__FILE__) ) );
 			$this->pluginDir = trailingslashit( basename( $this->pluginPath ) );
 			$this->pluginUrl = plugins_url().'/'.$this->pluginDir;
+
+			add_action( 'init', array( $this, 'loadTextDomain' ), 1 );
+
 			if (self::supportedVersion('wordpress') && self::supportedVersion('php')) {
 
 				if ( is_admin() && ( !defined( 'DOING_AJAX' ) || !DOING_AJAX ) ) {
@@ -190,7 +193,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				$this->loadLibraries();
 			} else {
 				// Either PHP or WordPress version is inadequate so we simply return an error.
-				add_action('init', array($this,'loadTextDomain'));
 				add_action('admin_head', array($this,'notSupportedError'));
 			}
 		}
@@ -504,7 +506,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 * Run on applied action init
 		 */
 		public function init() {
-			$this->loadTextDomain();
 			$this->pluginName = __( 'The Events Calendar', 'tribe-events-calendar' );
 			$this->rewriteSlug         = $this->getRewriteSlug();
 			$this->rewriteSlugSingular = $this->getRewriteSlugSingular();
@@ -2156,7 +2157,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 * @return void
 		 */
 		public function setDate($query) {
-			if ( isset( $query->tribe_is_event_query ) && $query->tribe_is_event_query ) {
+			if ( isset($query->tribe_is_event_query) && $query->tribe_is_event_query) {
 				if ( $query->get('eventDisplay') == 'month' ) {
 					$this->date = $query->get('eventDate') . "-01";
 				} else if ( $query->get('eventDate') ) {
