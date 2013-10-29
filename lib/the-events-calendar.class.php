@@ -2156,7 +2156,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 * @return void
 		 */
 		public function setDate($query) {
-			if ($query->tribe_is_event_query) {
+			if ( isset( $query->tribe_is_event_query ) && $query->tribe_is_event_query ) {
 				if ( $query->get('eventDisplay') == 'month' ) {
 					$this->date = $query->get('eventDate') . "-01";
 				} else if ( $query->get('eventDate') ) {
