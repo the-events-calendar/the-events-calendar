@@ -509,8 +509,7 @@ if (!class_exists('TribeEventsTemplates')) {
 
 					// return the first one found
 					if ( file_exists( $file ) ) {
-						echo $file;
-						_deprecated_function( sprintf( __( 'Template overrides should be moved to the correct subdirectory: tribe_get_template_part(\'%s\').', 'tribe-events' ), $template ) , '3.2',  'tribe_get_template_part(\''.$_namespace.$template.'\')');
+						_deprecated_function( sprintf( __( 'Template overrides should be moved to the correct subdirectory: tribe_get_template_part(\'%s\')', 'tribe-events' ), $template ) , '3.2',  'tribe_get_template_part(\''.$_namespace.$template.'\')');
 						break;
 					}
 				}
