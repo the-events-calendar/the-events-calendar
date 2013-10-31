@@ -201,10 +201,6 @@ if( !class_exists('Tribe_Events_Month_Template')){
 		public function setup_view() {
 			$requested_date = isset( self::$args['eventDate'] ) ? self::$args['eventDate'] : tribe_get_month_view_date();
 
-			// TODO: Are these two lines even necessary? Why are we setting $tribe_ecp->date?
-			$tribe_ecp = TribeEvents::instance();
-			$tribe_ecp->date = $requested_date;
-
 			$first_day_of_month = date( 'Y-m-01', strtotime( $requested_date ) );
 
 			do_action('log', 'eventDate', 'tribe-events-query', $first_day_of_month);
