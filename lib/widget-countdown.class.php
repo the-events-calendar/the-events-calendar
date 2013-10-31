@@ -57,7 +57,7 @@ if( !class_exists( 'TribeCountdownWidget') ) {
 			$ret = $complete;
 			
 			ob_start();
-			tribe_get_template_part( 'pro/widgets/countdown-widget' );
+			include TribeEventsTemplates::getTemplateHierarchy( 'pro/widgets/countdown-widget' );
 			$hourformat = ob_get_clean();
 			
 			// Get the event start date.
