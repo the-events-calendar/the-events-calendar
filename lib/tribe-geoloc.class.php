@@ -585,14 +585,20 @@ class TribeEventsGeoLoc {
 		}
 
 		$query = TribeEventsQuery::getEvents( $defaults, true );
+		$have_events = ( 0 < $query->found_posts );
 
-		if ( $this->is_geoloc_query() && $query->found_posts > 0 ) {
+		if ( $have_events && $this->is_geoloc_query() ) {
 			$lat = isset( $_POST['tribe-bar-geoloc-lat'] ) ? $_POST['tribe-bar-geoloc-lat'] : 0;
 			$lng = isset( $_POST['tribe-bar-geoloc-lng'] ) ? $_POST['tribe-bar-geoloc-lng'] : 0;
 
 			$this->order_posts_by_distance( $query->posts, $lat, $lng );
 		}
-
+		elseif ( ! $have_events && isset($_POST['tribe-bar-geoloc']) ) {
+			TribeEvents::setNotice( 'event-search-no-results', sprintf( __( 'No results were found for events in or near <strong>"%s"</strong>.', 'tribe-events-calendar-pro' ), esc_html($_POST['tribe-bar-geoloc']) ) );
+		}
+		elseif ( ! $have_events ) {
+			TribeEvents::setNotice( 'event-search-no-results', __( 'There were no results found.', 'tribe-events-calendar-pro' ) );
+		}
 
 		$response = array( 'html'        => '',
 		                   'markers'     => array(),

@@ -85,26 +85,38 @@ if( !class_exists('Tribe_Events_Pro_Day_Template')){
 		 * @since 3.0
 		 **/
 		public function set_notices() {
-
-			parent::set_notices();
-
 			global $wp_query;
+			$tribe = TribeEvents::instance();
+			$geographic_term = '';
+			$search_term = '';
+			$tax_term = '';
 
-			// Look for a search query
-			if( !empty( $wp_query->query_vars['s'] )){
+			// No need to set notices unless we didn't find anything
+			if ( have_posts() ) return;
+
+			// Do we have a keyword or place name search?
+			if ( !empty( $wp_query->query_vars['s'] ) ) {
 				$search_term = $wp_query->query_vars['s'];
-			} else if( !empty($_POST['tribe-bar-search'])) {
-				$search_term = $_POST['tribe-bar-search'];
+			}
+			elseif ( !empty( $_REQUEST['tribe-bar-search'] ) ) {
+				$search_term = $_REQUEST['tribe-bar-search'];
+			}
+			elseif ( !empty( $_REQUEST['tribe-bar-geoloc']) ) {
+				$geographic_term = $_REQUEST['tribe-bar-geoloc'];
+			}
+			if ( is_tax( $tribe->get_event_taxonomy() ) ) {
+				$tax_term = get_term_by( 'slug', get_query_var( 'term' ), $tribe->get_event_taxonomy() );
+				$tax_term = $tax_term->name;
 			}
 
-			// Search term based notices
-			if( !empty($search_term) && !have_posts() ) {
-				TribeEvents::setNotice( 'event-search-no-results', sprintf( __( 'There were no results found for <strong>"%s"</strong> on this day. Try searching another day.', 'tribe-events-calendar-pro' ), esc_html($search_term) ) );
-			}
 			// No events found on this day
-			else if ( empty($search_term) && empty( $wp_query->query_vars['s'] ) && !have_posts() ) { // Messages if currently no events, and no search term
+			if ( empty($search_term) && empty($geographic_term) && ! empty($tax_term) ) {
+				TribeEvents::setNotice( 'events-not-found', sprintf( __( 'No matching events listed under %s scheduled for <strong>%s</strong>. Please try another day.', 'tribe-events-calendar-pro' ), $tax_term, date_i18n( 'F d, Y', strtotime( get_query_var( 'eventDate' ) ) ) ) );
+			}
+			elseif ( empty($search_term) && empty($geographic_term) ) {
 				TribeEvents::setNotice( 'events-not-found', sprintf( __( 'No events scheduled for <strong>%s</strong>. Please try another day.', 'tribe-events-calendar-pro' ), date_i18n( 'F d, Y', strtotime( get_query_var( 'eventDate' ) ) ) ) );
 			}
+			else parent::set_notices();
 		}
 	}
 }
