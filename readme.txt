@@ -290,6 +290,9 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Lots of Twenty Thirteen theme compatibility fixes
 * Date and Time display seperately on an event single for non-multiday events
 * Added a suggestion by the Organizer email field to obfuscate email addresses published on your site
+* Improved compliance with PHP strict standards
+* More flexible formatting of event schedule details
+* Fix for tribe_is_month() template tag
 
 
 = 3.1 =
