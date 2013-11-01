@@ -199,6 +199,7 @@ Our Premium Plugins:
 * Fix the canonical URL on recurring events when object caching is enabled
 * Fixed a bug where events with a small time span were not displaying properly in week view
 * Twenty Thirteen theme compatibility fixes
+* Fixed translation issue relating to day view (thanks: dimitrilongo)
 
 = 3.1 =
 
