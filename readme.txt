@@ -1,6 +1,6 @@
 === The Events Calendar ===
 
-Contributors:  ModernTribe, PaulHughes01, roblagatta, jonahcoyote, MZAWeb, codearachnid, ryancurban, faction23, jazbek, kyleunzicker, leahkoerper, WebsiteBakery, peterchester, reid.peifer, shane.pearlman
+Contributors:  ModernTribe, PaulHughes01, roblagatta, jonahcoyote, MZAWeb, codearachnid, ryancurban, faction23, jazbek, kyleunzicker, leahkoerper, WebsiteBakery, barry.hughes, peterchester, reid.peifer, shane.pearlman
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
 Donate link: http://m.tri.be/29
 Requires at least: 3.5
@@ -282,6 +282,18 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 = IMPORTANT NOTICE =
 
 3.x is a complete overhaul of the plugin, and as a result we're starting the changelog fresh. For release notes from the 2.x lifecycle, see <a href="http://m.tri.be/k">our 2.x release notes.</a>
+
+= 3.2 =
+
+* Added the CSV importer
+* Request that search engines do not index calendar pages that have no events to display
+* Lots of Twenty Thirteen theme compatibility fixes
+* Date and Time display seperately on an event single for non-multiday events
+* Added a suggestion by the Organizer email field to obfuscate email addresses published on your site
+* Improved compliance with PHP strict standards
+* More flexible formatting of event schedule details
+* Fix for tribe_is_month() template tag
+
 
 = 3.1 =
 

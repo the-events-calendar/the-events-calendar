@@ -25,7 +25,7 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 </tr>
 <tr class="organizer">
 	<td><?php _e('Email:','tribe-events-calendar'); ?>
-	<small><?php _e('You may want to consider <a href="http://wordpress.org/plugins/tags/obfuscate">obfuscating</a> any e-mail address published onto your site to best avoid it getting harvested by spammers.', 'tribe-events-calendar'); ?></small></td>
+	<small><?php _e('You may want to consider <a href="http://wordpress.org/plugins/tags/obfuscate">obfuscating</a> any e-mail address published on your site to best avoid it getting harvested by spammers.', 'tribe-events-calendar'); ?></small></td>
 	<td class="organizer-email"><input tabindex="<?php tribe_events_tab_index(); ?>" type='text' id='OrganizerEmail' name='organizer[Email]' size='25' value='<?php echo isset($_OrganizerEmail) ? esc_attr($_OrganizerEmail) : ""; ?>' /></td>
 </tr>
 

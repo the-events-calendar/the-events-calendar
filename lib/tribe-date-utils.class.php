@@ -239,5 +239,10 @@ if(!class_exists('TribeDateUtils')) {
 			return $number.(((strlen($number)>1)&&(substr($number,-2,1)=='1'))?
 				'th' : date("S",mktime(0,0,0,0,substr($number,-1),0)));
 		}
+
+		public static function numberToDay($number) {
+			$days = array(1 => "Monday", 2 => "Tuesday", 3 => "Wednesday", 4 => "Thursday", 5 => "Friday", 6 => "Saturday", 7 => "Sunday");
+			return $days[$number];
+		}
 	}
 }

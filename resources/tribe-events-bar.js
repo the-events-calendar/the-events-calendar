@@ -115,15 +115,16 @@ var tribe_events_bar_action;
 		// Create list from select options
 		$tribebarselect.find('option').each(function(i){
 			var $view = $(this);
+				 displaying = $view.data('view'); 
 			// build list items and append them
 			var unique_c = 'tribe-bar-views-option-' + $view.data('view');
 			$('<li></li>', {
 				'class': 'tribe-bar-views-option ' + unique_c,
 				'data-tribe-bar-order': i,
-				'data-view': $view.data('view')
+				'data-view': displaying
 			}).html([
                 '   <a href="#">',
-                '   <span class="tribe-icon-' + $.trim($view.text().toLowerCase()) + '">' + $view.text() + '</span>',
+                '   <span class="tribe-icon-' + displaying + '">' + $view.text() + '</span>',
                 '</a>'].join("")
 			).appendTo( '.tribe-bar-views-list' );
 
