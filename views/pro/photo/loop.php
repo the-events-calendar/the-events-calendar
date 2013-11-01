@@ -25,7 +25,7 @@ $more = false;
 
 		<!-- Event  -->
 		<div id="post-<?php the_ID() ?>" class="<?php tribe_events_event_classes() ?>">
-			<?php tribe_get_template_part( 'photo/single', 'event' ) ?>
+			<?php tribe_get_template_part( 'pro/photo/single', 'event' ) ?>
 		</div><!-- .hentry .vevent -->
 
 

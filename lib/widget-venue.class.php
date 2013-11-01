@@ -36,7 +36,7 @@ if( !class_exists( 'TribeVenueWidget') ) {
 
 			echo $before_widget;
 			echo ( $instance['title'] ) ? $args['before_title'] . $instance['title'] . $args['after_title'] : '';
-			include( TribeEventsTemplates::getTemplateHierarchy( 'widgets/venue-widget.php' ) );
+			include( TribeEventsTemplates::getTemplateHierarchy( 'pro/widgets/venue-widget.php' ) );
 			echo $after_widget;
 
 		}

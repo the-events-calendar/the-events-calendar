@@ -121,7 +121,6 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			add_filter( 'tribe_help_tab_introtext', array( $this, 'add_help_tab_intro_text' ) );
 			add_filter( 'tribe_help_tab_forumtext', array( $this, 'add_help_tab_forumtext' ) );
 
-			// add_filter( 'tribe_events_template_single-venue.php', array( $this, 'load_venue_template' ) );
 			add_action( 'widgets_init', array( $this, 'pro_widgets_init' ), 100 );
 			add_action( 'wp_loaded', array( $this, 'allow_cpt_search' ) );
 			add_action( 'plugin_row_meta', array( $this, 'addMetaLinks' ), 10, 2 );
@@ -442,7 +441,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 
 			ob_start();
 
-			tribe_get_view( 'photo/content' );
+			tribe_get_view( 'pro/photo/content' );
 
 			$response['html'] .= ob_get_clean();
 
@@ -498,7 +497,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 
 				ob_start();
 
-				tribe_get_view( 'week/content' );
+				tribe_get_view( 'pro/week/content' );
 
 				$response['html'] .= ob_get_clean();
 
@@ -548,10 +547,9 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 				}
 
 				add_filter( 'tribe_is_day', '__return_true' ); // simplest way to declare that this is a day view
-				TribeEventsTemplates::getTemplateHierarchy( 'day', '', 'pro', $this->pluginPath );
 
 				ob_start();
-				tribe_get_view( 'day/content' );
+				tribe_get_view( 'pro/day/content' );
 
 				$response = array(
 					'html'            => ob_get_clean(),
@@ -1156,28 +1154,28 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		public function select_page_template( $template ) {
 			// venue view
 			if( is_singular( TribeEvents::VENUE_POST_TYPE ) ) {
-				$template = TribeEventsTemplates::getTemplateHierarchy( 'single-venue', array( 'namespace' => 'pro' ) );
+				$template = TribeEventsTemplates::getTemplateHierarchy( 'pro/single-venue' );
 			}
 			// organizer view
 			if( is_singular( TribeEvents::ORGANIZER_POST_TYPE ) ) {
-				$template = TribeEventsTemplates::getTemplateHierarchy( 'single-organizer', array( 'namespace' => 'pro' ) );
+				$template = TribeEventsTemplates::getTemplateHierarchy( 'pro/single-organizer' );
 			}
 			// week view
 			if( tribe_is_week() ) {
-				$template = TribeEventsTemplates::getTemplateHierarchy( 'week', array( 'namespace' => 'pro' ) );
+				$template = TribeEventsTemplates::getTemplateHierarchy( 'pro/week' );
 			}
 			// day view
 			if( tribe_is_day() ) {
-				$template = TribeEventsTemplates::getTemplateHierarchy( 'day', array( 'namespace' => 'pro' ) );
+				$template = TribeEventsTemplates::getTemplateHierarchy( 'pro/day' );
 			}
 			// photo view
 			if( tribe_is_photo() ){
-				$template = TribeEventsTemplates::getTemplateHierarchy( 'photo', array( 'namespace' => 'pro' ) );
+				$template = TribeEventsTemplates::getTemplateHierarchy( 'pro/photo' );
 			}
 
 			// map view
 			if ( tribe_is_map() ) {
-				$template = TribeEventsTemplates::getTemplateHierarchy( 'map', array( 'namespace' => 'pro' ) );
+				$template = TribeEventsTemplates::getTemplateHierarchy( 'pro/map' );
 			}
 			return $template;
 		}
@@ -1232,7 +1230,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		 */
 		function template_paths( $template_paths = array() ) {
 
-			array_unshift($template_paths, $this->pluginPath);
+			$template_paths['pro'] =  $this->pluginPath;
 			return $template_paths;
 
 		}
@@ -1250,16 +1248,6 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			return $template_class_paths;
 
 		}
-
-        /**
-         * Gets the venue template.
-         *
-         * @param string $file
-         * @return string The path for the template.
-         */
-        public function load_venue_template( $file ) {
-    		return TribeEventsTemplates::getTemplateHierarchy( 'single-venue','','pro', $this->pluginPath );
-	    }
 
 		/**
 		 * Enqueues the necessary JS for the admin side of things.

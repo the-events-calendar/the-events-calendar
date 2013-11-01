@@ -95,17 +95,6 @@ if ( class_exists( 'TribeEventsPro' ) ) {
 	}
 
 	/**
-	 * setup css classes for each single event displayed in week view
-	 *
-	 * @since  3.0
-	 * @author tim@imaginesimplicty.com
-	 * @return void
-	 */
-	function tribe_events_week_event_classes() {
-		echo apply_filters( 'tribe_events_week_event_classes', Tribe_Events_Pro_Week_Template::event_classes() );
-	}
-
-	/**
 	 * return the current date of the day set by $current_day
 	 *
 	 * @param boolean $echo
