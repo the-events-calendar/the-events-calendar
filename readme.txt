@@ -1,6 +1,6 @@
 === The Events Calendar PRO ===
 
-Contributors:  ModernTribe, PaulHughes01, roblagatta, jonahcoyote, MZAWeb, codearachnid, ryancurban, leahkoerper, barryhughes, peterchester, reid.peifer, shane.pearlman
+Contributors:  ModernTribe, PaulHughes01, roblagatta, jonahcoyote, MZAWeb, codearachnid, ryancurban, leahkoerper, barry.hughes, peterchester, reid.peifer, shane.pearlman
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget, pro
 Donate link: http://m.tri.be/29
 Requires at least: 3.5
@@ -199,6 +199,7 @@ Our Premium Plugins:
 * Fix the canonical URL on recurring events when object caching is enabled
 * Fixed a bug where events with a small time span were not displaying properly in week view
 * Twenty Thirteen theme compatibility fixes
+* Fixed translation issue relating to day view (thanks: dimitrilongo)
 
 = 3.1 =
 

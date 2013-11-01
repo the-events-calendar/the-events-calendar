@@ -42,14 +42,14 @@ class TribeEventsRecurrenceMeta {
 		add_action( 'admin_notices', array( __CLASS__, 'showRecurrenceErrorFlash') );
 		add_action( 'tribe_recurring_event_error', array( __CLASS__, 'setupRecurrenceErrorMsg'), 10, 2 );
 
-		add_filter( 'tribe_get_event_link', array( __CLASS__, 'addDateToEventPermalink'), 10, 2 );
-		add_filter( 'post_row_actions', array( __CLASS__, 'removeQuickEdit'), 10, 2 );
-		// recurrance events don't have standard edit links - so we need to make sure they work right
-		add_filter( 'edit_post_link', array( __CLASS__, 'edit_post_link'));
-		add_action( 'wp_before_admin_bar_render', array( __CLASS__, 'admin_bar_render'));
+    add_filter( 'tribe_get_event_link', array( __CLASS__, 'addDateToEventPermalink'), 10, 2 );
+    add_filter( 'post_row_actions', array( __CLASS__, 'removeQuickEdit'), 10, 2 );
+    // recurrance events don't have standard edit links - so we need to make sure they work right
+    add_filter( 'edit_post_link', array( __CLASS__, 'edit_post_link'));
+    add_action( 'wp_before_admin_bar_render', array( __CLASS__, 'admin_bar_render'));
 
 		add_filter( 'tribe_events_query_posts_fields', array( __CLASS__, 'addMinToStartDateInFields' ), 40, 2 );
-		add_filter( 'tribe_events_query_posts_groupby', array( __CLASS__, 'addGroupBy' ), 10, 2 );
+    	add_filter( 'tribe_events_query_posts_groupby', array( __CLASS__, 'addGroupBy' ), 10, 2 );
 		add_filter( 'tribe_events_query_posts_orderby', array( __CLASS__, 'addMinToStartDateInOrderBy' ), 40, 2 );
 
 		add_filter( 'tribe_settings_tab_fields', array( __CLASS__, 'inject_settings' ), 10, 2 );
@@ -61,7 +61,7 @@ class TribeEventsRecurrenceMeta {
 		self::reset_scheduler();
 	}
 
-
+	
 	public static function edit_post_link( $link )	{
 		global $post;
 		if( tribe_is_recurring_event( $post ) && preg_match("/href=\"(.*?)\"/i", $link, $edit_url) ) {
@@ -767,6 +767,7 @@ class TribeEventsRecurrenceMeta {
 			case "Second": return 2;
 			case "Third": return 3;
 			case "Fourth": return 4;
+			case "Fifth": return 5;
 			case "Last": return -1;
 		   default: return null;
 		}
