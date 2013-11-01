@@ -266,7 +266,7 @@ if (!class_exists('TribeEventsTemplates')) {
 
 			// single event view
 			if ( is_singular( TribeEvents::POSTTYPE ) && ! tribe_is_showing_all() ) {
-				$template = self::getTemplateHierarchy( 'single-event', array(' disable_view_check' => true ) );
+				$template = self::getTemplateHierarchy( 'single-event', array( 'disable_view_check' => true ) );
 			}
 
 			// apply filters
@@ -336,31 +336,6 @@ if (!class_exists('TribeEventsTemplates')) {
 		}
 
 
-		/**
-		 * Loads the title into the page template
-		 *
-		 * @param string $title Title
-		 * @param int $post_id Id of the post
-		 *
-		 * @return string
-		 */
-		public static function load_ecp_title_into_page_template( $title, $post_id ) {
-			global $post;
-
-			if ( !is_single() )
-				return tribe_get_events_title();
-
-			// if the helper class for single event template hasn't been loaded fix that
-			if( ! class_exists( 'Tribe_Events_Single_Event_Template' ) )
-				self::getTemplateHierarchy( 'single-event' );
-
-			// single event title
-			$before_title = apply_filters( 'tribe_events_single_event_before_the_title', '', $post_id );
-			$the_title = apply_filters( 'tribe_events_single_event_the_title', $title, $title, $post_id );
-			$after_title = apply_filters( 'tribe_events_single_event_after_the_title', '', $post_id );
-			return $before_title . $the_title . $after_title;
-		}
-
 		public static function load_ecp_comments_page_template( $template ) {
 			$tribe_ecp = TribeEvents::instance();
 
@@ -396,38 +371,12 @@ if (!class_exists('TribeEventsTemplates')) {
 		}
 
 		/**
-		 * Filters the_content to show the event when we are in the main loop and showing events
-		 *
-		 * @param string $content
-		 * @return string Filtered content
-		 * @since 2.1
-		 */
-		public static function hijackContentInMainLoop( $content ) {
-
-			// only run once!!!
-			remove_filter( 'the_content', array( __CLASS__, 'hijackContentInMainLoop' ) );
-
-			global $post;
-			if ( tribe_is_in_main_loop() && tribe_is_event( $post->ID ) ) {
-				ob_start();
-				echo stripslashes( tribe_get_option('tribeEventsBeforeHTML' ) );
-				include_once( self::getTemplateHierarchy( 'in-loop' ) );
-				echo stripslashes( tribe_get_option( 'tribeEventsAfterHTML' ) );
-				$content = ob_get_contents();
-				ob_end_clean();
-			}
-
-			return $content;
-		}
-
-		/**
 		 * Loads theme files in appropriate hierarchy: 1) child theme,
 		 * 2) parent template, 3) plugin resources. will look in the events/
 		 * directory in a theme and the views/ directory in the plugin
 		 *
 		 * @param string $template template file to search for
 		 * @param array $args additional arguments to affect the template path
-		 *  - subfolder
 		 *  - namespace
 		 *  - plugin_path
 		 *  - disable_view_check - bypass the check to see if the view is enabled
@@ -438,7 +387,7 @@ if (!class_exists('TribeEventsTemplates')) {
 			if ( ! is_array( $args ) ) {
 				$args = array();
 				$passed = func_get_args();
-				$backwards_map = array( 'subfolder', 'namespace', 'plugin_path' );
+				$backwards_map = array( 'namespace', 'plugin_path' );
 				if ( count( $passed > 1 ) ) {
 					for ( $i = 1 ; $i < count( $passed ) ; $i++ ) {
 						$args[$backwards_map[$i-1]] = $passed[$i];
@@ -447,13 +396,11 @@ if (!class_exists('TribeEventsTemplates')) {
 			}
 
 			$args = wp_parse_args( $args, array(
-				'subfolder' => '',
 				'namespace' => '/',
 				'plugin_path' => '',
 				'disable_view_check' => false,
 			) );
 			/**
-			 * @var string $subfolder
 			 * @var string $namespace
 			 * @var string $pluginpath
 			 * @var bool $disable_view_check
@@ -462,56 +409,110 @@ if (!class_exists('TribeEventsTemplates')) {
 
 			$tec = TribeEvents::instance();
 
+			// append .php to file name
 			if ( substr( $template, -4 ) != '.php' ) {
 				$template .= '.php';
 			}
 
 			// setup the meta definitions
-			require_once( $tec->pluginPath . 'public/advanced-functions/meta.php' );
+			// require_once( $tec->pluginPath . 'public/advanced-functions/meta.php' );
 
 			// Allow base path for templates to be filtered
 			$template_base_paths = apply_filters( 'tribe_events_template_paths', ( array ) TribeEvents::instance()->pluginPath );
 
 			// backwards compatibility if $plugin_path arg is used
 			if ( $plugin_path && ! in_array( $plugin_path, $template_base_paths ) ) {
-				$template_base_paths[] = $plugin_path;
+				array_unshift( $template_base_paths, $plugin_path );
 			}
-
-			// setup subfolder options
-			$subfolder = ! empty( $subfolder ) ? trailingslashit( $subfolder ) : $subfolder;
 
 			// ensure that addon plugins look in the right override folder in theme
-			$namespace = ! empty( $namespace ) && $namespace[0] != '/' ? '/' . trailingslashit( $namespace ) : trailingslashit( $namespace );
+			$namespace = ! empty( $namespace ) ? trailingslashit( $namespace ) : $namespace;
 
-			// Support multiple namespaces for multiple add-ons
-			$namespaces = apply_filters( 'tribe_events_template_path_namespaces', array( $namespace ) );
-			foreach ( $namespaces as $n => $namespace ) {
-				$namespaces[$n] = 'tribe-events' . trailingslashit( $namespace ) . $subfolder . $template;
+			$file = false;
+
+			// return 404 if curent view is disabled
+			if ( ! $disable_view_check && in_array( $tec->displaying, tribe_events_disabled_views() ) ) {
+				$file = get_404_template();
 			}
 
-			$file = '';
-			foreach ( $template_base_paths as $template_base_path ) {
+			/* potential scenarios:
 
-				if ( $theme_file = locate_template( $namespaces, false, false ) ) {
-					$file = $theme_file;
-				} else {
-					// protect from concat folder with filename
-					$subfolder = empty( $subfolder ) ? trailingslashit( $subfolder ) : $subfolder;
-					$subfolder = $subfolder[0] != '/' ? '/' . $subfolder : $subfolder;
+			- the user has no template overrides
+				-> we can just look in our plugin dirs, for the specific path requested, don't need to worry about the namespace
+			- the user created template overrides without the namespace, which reference non-overrides without the namespace and, their own other overrides without the namespace
+				-> we need to look in their theme for the specific path requested
+				-> if not found, we need to look in our plugin views for the file by adding the namespace
+			- the user has template overrides using the namespace
+				-> we should look in the theme dir, then the plugin dir for the specific path requested, don't need to worry about the namespace
 
-					$file = $template_base_path . 'views' . $subfolder . $template;
-					// echo $file;
+			*/
+
+			// check if there are overrides at all
+			if ( locate_template( array( 'tribe-events/' ) ) ) {
+				$overrides_exist = true;
+			} else {
+				$overrides_exist = false;
+			}
+
+			if ( $overrides_exist ) {
+				// check the theme for specific file requested
+				$file = locate_template( array( 'tribe-events/'.$template ), false, false );
+				if ( ! $file ) {
+					// if not found, it could be our plugin requesting the file with the namespace, 
+					// so check the theme for the path without the namespace
+					$files = array();
+					foreach ( array_keys( $template_base_paths )  as $namespace ) {
+						if ( ! empty( $namespace ) && ! is_numeric( $namespace ) ) {
+							$files[] = 'tribe-events' . str_replace( $namespace, '', $template );
+						}
+					}
+					$file = locate_template( $files, false, false );
+					if ( $file ) {
+						_deprecated_function( sprintf( __( 'Template overrides should be moved to the correct subdirectory: %s', 'tribe-events' ), str_replace( get_stylesheet_directory() . '/tribe-events/', '', $file ) ) , '3.2', $template );
+					}
 				}
+			}
 
-				if ( !$disable_view_check && in_array( $tec->displaying, tribe_events_disabled_views() ) ) {
-					$file = get_404_template();
+			// if the theme file wasn't found, check our plugins views dirs
+			if ( ! $file ) { 
+
+				foreach ( $template_base_paths as $template_base_path ) {
+
+					// make sure directories are trailingslashed
+					$template_base_path = ! empty( $template_base_path ) ? trailingslashit( $template_base_path ) : $template_base_path;
+
+					$file = $template_base_path . 'views/' . $template;
+
+					$file = apply_filters( 'tribe_events_template', $file, $template );
+
+					// return the first one found
+					if ( file_exists( $file ) )
+						break;
+					else 
+						$file = false;
 				}
+			}
 
-				$file = apply_filters( 'tribe_events_template', $file, $template );
+			// file wasn't found anywhere in the theme or in our plugin at the specifically requested path, 
+			// and there are overrides, so look in our plugin for the file with the namespace added
+			// since it might be an old override requesting the file without the namespace
+			if ( ! $file && $overrides_exist ) {
+				foreach ( $template_base_paths as $_namespace => $template_base_path ) {
 
-				// return the first one found
-				if ( file_exists( $file ) )
-					break;
+					// make sure directories are trailingslashed
+					$template_base_path = ! empty( $template_base_path ) ? trailingslashit( $template_base_path ) : $template_base_path;
+					$_namespace = ! empty( $_namespace ) ? trailingslashit( $_namespace ) : $_namespace;
+
+					$file = $template_base_path . 'views/' . $_namespace . $template;
+
+					$file = apply_filters( 'tribe_events_template', $file, $template );
+
+					// return the first one found
+					if ( file_exists( $file ) ) {
+						_deprecated_function( sprintf( __( 'Template overrides should be moved to the correct subdirectory: tribe_get_template_part(\'%s\')', 'tribe-events' ), $template ) , '3.2',  'tribe_get_template_part(\''.$_namespace.$template.'\')');
+						break;
+					}
+				}
 			}
 
 			return apply_filters( 'tribe_events_template_'.$template, $file );
