@@ -5,7 +5,7 @@ Tags: events, calendar, event, venue, organizer, dates, date, google maps, confe
 Donate link: http://m.tri.be/29
 Requires at least: 3.5
 Tested up to: 3.6.1
-Stable tag: 3.1
+Stable tag: 3.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -293,7 +293,13 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Improved compliance with PHP strict standards
 * More flexible formatting of event schedule details
 * Fix for tribe_is_month() template tag
-
+* Fix for "show events in main blog loop" option disrupting static home page
+* Fix "show events in main blog loop" option disrupting product listing on WooCommerce storefront
+* Fix broken commenting on some templates
+* Added ability to create recurring events that happen every 5th occurence of a day in the month (e.g., every 5th Sunday)
+* Fixed future recurring events displaying as having passed when object caching is enabled
+* Fixed calculation for determining all events in a month, which was causing the last day of multi-day events to be incorrectly left off
+* Make sure tribe_show_month() won't break any event views that come after it
 
 = 3.1 =
 
