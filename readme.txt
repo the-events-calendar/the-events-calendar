@@ -300,6 +300,10 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Fixed future recurring events displaying as having passed when object caching is enabled
 * Fixed calculation for determining all events in a month, which was causing the last day of multi-day events to be incorrectly left off
 * Make sure tribe_show_month() won't break any event views that come after it
+* Improve compatibility with Easy Digital Downloads
+* Fix a PHP notice when querying from events and other post types at the same time
+* Fix drafts count in the admin events list
+
 
 = 3.1 =
 
