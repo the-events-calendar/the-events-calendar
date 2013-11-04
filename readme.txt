@@ -5,7 +5,7 @@ Tags: events, calendar, event, venue, organizer, dates, date, google maps, confe
 Donate link: http://m.tri.be/29
 Requires at least: 3.5
 Tested up to: 3.6.1
-Stable tag: 3.1
+Stable tag: 3.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -200,6 +200,14 @@ Our Premium Plugins:
 * Fixed a bug where events with a small time span were not displaying properly in week view
 * Twenty Thirteen theme compatibility fixes
 * Fixed translation issue relating to day view (thanks: dimitrilongo)
+* Fixed day view not respecting the timezone selection in WordPress' settings
+* Updated the mini calendar widget to not break event views, when the widget appears before the content
+* The iCal button will no longer be rendered on views that have no events
+* Related events section on single event page will now only show events that are directly related via tag and/or category
+* Made explanation for "Recurring event instances" setting clearer
+* Fix venue description sometimes not displaying on single venue view
+* Day view now uses its own template part for single event (instead of using list view's)
+* Fix iCal export sometimes showing incorrect event dates
 
 = 3.1 =
 
