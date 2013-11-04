@@ -291,7 +291,7 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 
 = 3.2 =
 
-* Incorporated the much-fabled CSV importer! Import CSV files directly into your The Events Calendar/Events Calendar PRO site
+* Incorporated the much-fabled CSV importer! Import CSV files directly into your The Events Calendar/Events Calendar PRO site (for an overview on how to use it, read this: http://m.tri.be/9t)
 * Implemented code requesting that search engines do not index calendar pages that have no events to display
 * Addressed a number of Twenty Thirteen theme compatibility fixes
 * Improved how date and time are displayed on single event entries for single day events (thanks to Robin for the heads up!)
