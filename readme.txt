@@ -225,10 +225,10 @@ The plugin is produced by <a href="http://m.tri.be/2s">Modern Tribe Inc</a>.
 * Danish from Anonymous
 * Dutch from Erik Massop
 * Finnish by Ari-Pekka Koponen
-* French from Benoît Burgener
+* French from Beno√Æt Burgener
 * German from Michael Sebel
 * Greek from Maria Tsilimidou
-* Icelandic by Baldvin Örn Berndsen
+* Icelandic by Baldvin √ñrn Berndsen
 * Italian from Roberto Scano
 * Norwegian from Andreas Lorentsen
 * Polish from Marek Kosina
@@ -313,7 +313,7 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 
 = 3.1 =
 
-* Significant performance improvements to month view (thanks to Grégory for the initial report!)
+* Significant performance improvements to month view (thanks to Gr√©gory for the initial report!)
 * Improved compatibility with Canvas and other themes by WooThemes (thanks to Paul Pruneau for the heads up!)
 * Fixed several bugs relating to event cutoff times and month view (thanks jadonulrich for the report!)
 * The correct default view now applies to event category listings
