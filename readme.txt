@@ -208,6 +208,9 @@ Our Premium Plugins:
 * Fix venue description sometimes not displaying on single venue view
 * Day view now uses its own template part for single event (instead of using list view's)
 * Fix iCal export sometimes showing incorrect event dates
+* Fix an error that was making the location search fail in some installs
+* Fix i18n for the mini calendar widget
+* Fix a notice for PHP 5.3.20
 
 = 3.1 =
 
