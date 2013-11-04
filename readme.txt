@@ -219,6 +219,7 @@ Our Premium Plugins:
 * Fixed an error that was making the location search fail in some installs
 * Addressed an issue related to i18n for the mini calendar widget
 * Patched a notice for PHP 5.3.20
+* Incorporate updated Icelandic translation by Baldvin √ñrn Berndsen
 
 = 3.1 =
 
