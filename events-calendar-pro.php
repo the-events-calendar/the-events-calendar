@@ -1344,8 +1344,10 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			if ( is_admin() ) {
 				return $query;
 			}
-			if ( ( !empty( $_REQUEST['tribeHideRecurrence'] ) && $_REQUEST['tribeHideRecurrence'] == '1' ) || ( empty( $_REQUEST['tribeHideRecurrence'] ) && empty( $_REQUEST['action'] ) && tribe_get_option( 'hideSubsequentRecurrencesDefault', false ) ) ) {
-				$query->query_vars['tribeHideRecurrence'] = 1;
+			if ( !isset($query->query_vars['tribeHideRecurrence']) ) {
+				if ( ( !empty( $_REQUEST['tribeHideRecurrence'] ) && $_REQUEST['tribeHideRecurrence'] == '1' ) || ( empty( $_REQUEST['tribeHideRecurrence'] ) && empty( $_REQUEST['action'] ) && tribe_get_option( 'hideSubsequentRecurrencesDefault', false ) ) ) {
+					$query->query_vars['tribeHideRecurrence'] = 1;
+				}
 			}
 
 			return $query;
