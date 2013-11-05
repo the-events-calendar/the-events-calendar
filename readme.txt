@@ -215,6 +215,7 @@ Our Premium Plugins:
 * Incorporated text to make explanation for "Recurring event instances" setting clearer
 * Fixed an issue with venue descriptions sometimes not displaying on single venue view
 * Patched a bug where the Additional Fields link ceases to function in certain non-English languages (thanks to Oliver on the forums for his report!)
+* Fixed a bug where the pin marker in map view sometimes showed in the middle of the world (thanks to overseen in the forums for first reporting this!)
 * Incorporated code so day view now uses its own template part for single event (instead of using list view's)
 * Fixed an iCal export issue where sometimes incorrect event dates showed in the .ics file
 * Fixed an error that was making the location search fail in some installs
