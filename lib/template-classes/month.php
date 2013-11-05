@@ -92,17 +92,27 @@ if( !class_exists('Tribe_Events_Month_Template')){
 		 **/
 		public function set_notices() {
 			global $wp_query;
+			$search_term = '';
+
 			// setup a search term for query or via ajax
-			if( !empty( $wp_query->query_vars['s'] )){
+			if ( ! empty( $wp_query->query_vars['s'] ) ) {
 				$search_term = $wp_query->query_vars['s'];
-			} else if( !empty($_POST['tribe-bar-search'])) {
-				$search_term = $_POST['tribe-bar-search'];
+			}
+			elseif ( ! empty($_REQUEST['tribe-bar-search'] ) ) {
+				$search_term = $_REQUEST['tribe-bar-search'];
 			}
 
-			$total_counts = array_unique(self::$event_daily_counts);
+			// If there are no events we should be able to reduce the event_daily_counts array (the number of events in
+			// each day this month) to a single element with a value of 0. Where a keyword search returns no events then
+			// event_daily_counts may simply be empty.
+			$event_counts = array_unique(self::$event_daily_counts);
+			$no_events = ( 1 === count($event_counts) && 0 === current($event_counts) ) || empty(self::$event_daily_counts);
 
-			if( count($total_counts) < 2 && !empty($search_term)) {
+			if ( $no_events && ! empty($search_term)) {
 				TribeEvents::setNotice( 'event-search-no-results', sprintf( __( 'There were no results found for <strong>"%s"</strong> this month. Try searching next month.', 'tribe-events-calendar' ), esc_html( $search_term ) ) );
+			}
+			elseif ( $no_events ) {
+				TribeEvents::setNotice( 'event-search-no-results', __( 'There were no results found.', 'tribe-events-calendar-pro' ) );
 			}
 		}
 
@@ -130,6 +140,13 @@ if( !class_exists('Tribe_Events_Month_Template')){
 
 			self::$event_daily_counts = $result['counts'];
 			self::$event_daily_ids = $result['event_ids'];
+
+			foreach ( self::$event_daily_counts as $daily_count ) {
+				if ( $daily_count > 0 ) {
+					add_filter( 'tribe_events_month_has_events', '__return_true' );
+					break;
+				}
+			}
 		}
 
 
@@ -182,20 +199,20 @@ if( !class_exists('Tribe_Events_Month_Template')){
 		 * @since 3.0
 		 **/
 		public function setup_view() {
+			$requested_date = isset( self::$args['eventDate'] ) ? self::$args['eventDate'] : tribe_get_month_view_date();
 
-			$tribe_ecp = TribeEvents::instance();
-			$tribe_ecp->date = isset( self::$args['eventDate'] ) ? self::$args['eventDate'] : tribe_get_month_view_date();
+			$first_day_of_month = date( 'Y-m-01', strtotime( $requested_date ) );
 
-			do_action('log', 'eventDate', 'tribe-events-query', $tribe_ecp->date);
+			do_action('log', 'eventDate', 'tribe-events-query', $first_day_of_month);
 
 			// get all upcoming ids to hide so we're not querying 31 times
 			self::$hide_upcoming_ids = TribeEventsQuery::getHideFromUpcomingEvents();
 
-			list( $year, $month ) = explode( '-', $tribe_ecp->date );
+			$year = date('Y', strtotime($first_day_of_month));
+			$month = date('m', strtotime($first_day_of_month));
 
 			$startOfWeek = get_option( 'start_of_week', 0 );
 
-			$first_day_of_month = date( 'Y-m-01', strtotime( $tribe_ecp->date ) );
 
 			self::get_daily_counts($first_day_of_month);
 
@@ -216,14 +233,14 @@ if( !class_exists('Tribe_Events_Month_Template')){
 			$days = array();
 
 			// setup counters
-			$rawOffset = date( 'w', strtotime($tribe_ecp->date) ) - $startOfWeek;
+			$rawOffset = date( 'w', strtotime($first_day_of_month) ) - $startOfWeek;
 			$prev_month_offset = (int) ( ( $rawOffset < 0 ) ? $rawOffset + 7 : $rawOffset ); // month begins on day x
-			$days_in_month = (int) date( 't', strtotime($tribe_ecp->date) );
+			$days_in_month = (int) date( 't', strtotime($first_day_of_month) );
 			$days_in_calendar =  $days_in_month + $prev_month_offset;
 			while ($days_in_calendar % 7 > 0) {
 				$days_in_calendar++;
 			}
-			$week = 0;
+
 			$cur_calendar_day = 0;
 
 			// fill month with required days for previous month
@@ -406,7 +423,7 @@ if( !class_exists('Tribe_Events_Month_Template')){
 			if ($day['events']->current_post + 1 == $day['events']->post_count) {
 				$classes[] = 'tribe-events-last';
 			}
-
+			
 			return $classes;
 		}
 	} // class Tribe_Events_Month_Template

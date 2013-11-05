@@ -48,7 +48,7 @@ if( !class_exists( 'TribeEventsListWidget' ) ) {
          * @param string $namespace The namespace for the widget template stuff.
          * @param string $pluginPath The pluginpath so we can locate the template stuff.
          */
-        function widget_output( $args, $instance, $template_name='list-widget', $subfolder = 'widgets', $namespace = '/', $pluginPath = '' ) {
+        function widget_output( $args, $instance, $template_name='widgets/list-widget') {
 			global $wp_query, $tribe_ecp, $post;
 			extract( $args, EXTR_SKIP );
 			// The view expects all these $instance variables, which may not be set without pro
@@ -116,7 +116,7 @@ if( !class_exists( 'TribeEventsListWidget' ) ) {
 				echo '<ol class="hfeed vcalendar">';
 				foreach( $posts as $post ) :
 					setup_postdata( $post );
-					tribe_get_template_part( 'widgets/list-widget' );
+					tribe_get_template_part( $template_name );
 				endforeach;
 				echo "</ol><!-- .hfeed -->";
 

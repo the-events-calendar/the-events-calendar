@@ -12,9 +12,9 @@
  *
  */
 
-if ( !defined('ABSPATH') ) { die('-1'); } ?>
+if ( !defined('ABSPATH') ) { die('-1'); }
 
-<?php get_header(); ?>
+get_header(); ?>
 <div id="tribe-events-pg-template">
 	<?php tribe_events_before_html(); ?>
 	<?php tribe_get_view(); ?>

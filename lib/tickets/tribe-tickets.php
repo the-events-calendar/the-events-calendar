@@ -201,7 +201,7 @@ if ( ! class_exists( 'TribeEventsTickets' ) ) {
 		 * @abstract
 		 * @return mixed
 		 */
-		abstract static function get_instance();
+		static function get_instance() {}
 
 		// end API Definitions
 
@@ -569,7 +569,8 @@ if ( ! class_exists( 'TribeEventsTickets' ) ) {
 		 */
 		public function generate_tickets_email_content( $tickets ) {
 			ob_start();
-			include TribeEventsTemplates::getTemplateHierarchy( 'email.php', array('subfolder'=>'tickets') );
+			include TribeEventsTemplates::getTemplateHierarchy( 'tickets/email.php', array( 'namespace' => 'tickets' ) );
+
 			return ob_get_clean();
 		}
 

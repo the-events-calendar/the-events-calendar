@@ -67,7 +67,8 @@ td.tribe_message {padding-bottom: 10px !important;}
 .tribe-events-multi-event-day {color: #0F81BB;}
 
 .ui-front {z-index: 1000000;}
-.ui-widget-overlay.ui-front {z-index: 90; }
+.events-cal .ui-widget-overlay.ui-front {z-index: 90;
+}
 
 
 
@@ -185,6 +186,14 @@ td.tribe_message {padding-bottom: 10px !important;}
 	margin: 7px 0;
 }
 .tribe-settings-form .tribe-settings-form-wrap fieldset .tribe-style-selection{margin-bottom:18px;}
+.OrganizerInfo td small {
+	display: block;
+	max-width: 250px;
+	margin: 0;
+}
+.OrganizerInfo .organizer-email {
+	vertical-align: top;
+}
 
 /* = Help Screen
 =============================================*/

@@ -163,8 +163,33 @@ if(!class_exists('TribeDateUtils')) {
 		 *
 		 * @param int $curDate A timestamp.
 		 * @return bool If the timestamp is a weekend.
-		 */		public static function isWeekend($curdate) {
+		 */
+		public static function isWeekend($curdate) {
 			return in_array(date('N', $curdate), array(6,7));
+		}
+
+		/**
+		 * Checks if the specified date format contains any time formatting characters. Useful to determine if a date
+		 * format relates only to the date.
+		 *
+		 * @param $format
+		 * @return bool
+		 */
+		public static function formatContainsTime($format) {
+			$timeChars = array( 'a', 'A', 'B', 'g', 'G', 'h', 'H', 'i', 's', 'u', 'e', 'I', 'O', 'P', 'T', 'Z', 'c', 'r', 'U' );
+			$formatChars = str_split( $format );
+			$usesTime = array_intersect( $timeChars, $formatChars );
+			return 0 < count( $usesTime );
+		}
+
+		/**
+		 * Checks if the specified date format contains any year-related formatting characters.
+		 *
+		 * @param $format
+		 * @return bool
+		 */
+		public static function formatContainsYear($format) {
+			return ( false !== strpos( $format, 'y' ) || false !== strpos( $format, 'Y' ) );
 		}
 
 		/**
@@ -213,6 +238,11 @@ if(!class_exists('TribeDateUtils')) {
 		public static function numberToOrdinal($number) {
 			return $number.(((strlen($number)>1)&&(substr($number,-2,1)=='1'))?
 				'th' : date("S",mktime(0,0,0,0,substr($number,-1),0)));
+		}
+
+		public static function numberToDay($number) {
+			$days = array(1 => "Monday", 2 => "Tuesday", 3 => "Wednesday", 4 => "Thursday", 5 => "Friday", 6 => "Saturday", 7 => "Sunday");
+			return $days[$number];
 		}
 	}
 }

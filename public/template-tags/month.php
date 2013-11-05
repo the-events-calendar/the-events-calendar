@@ -38,10 +38,12 @@ if( class_exists( 'TribeEvents' ) ) {
 			}
 		}
 
+		$month_class = new Tribe_Events_Month_Template( $args );
+		$month_class->setup_view();
+
 		do_action('tribe_events_before_show_month');
 
-		new Tribe_Events_Month_Template( $args );
-		tribe_get_view( $template_path );
+		tribe_get_template_part( $template_path );
 
 		do_action('tribe_events_after_show_month');
 
@@ -184,6 +186,18 @@ if( class_exists( 'TribeEvents' ) ) {
 	function tribe_events_the_month_single_event_classes() {
 		echo apply_filters(  'tribe_events_the_month_single_event_classes', Tribe_Events_Month_Template::event_classes() );
 	}
+
+	/**
+	 * Returns whether there are any events in the month
+	 *
+	 * @return bool
+	 * @author Jessica Yazbek
+	 * @see Tribe_Events_Month_Template::get_daily_counts()
+	 * @since 3.1.1
+	 **/
+	function tribe_events_month_has_events() {
+		return apply_filters( 'tribe_events_month_has_events', false );
+	}
 	
 
 	/**
@@ -211,7 +225,7 @@ if( class_exists( 'TribeEvents' ) ) {
 	function tribe_get_month_view_date() {
 		global $wp_query;
 
-		$date = date_i18n( TribeDateUtils::DBDATEFORMAT );
+		$date = date_i18n( TribeDateUtils::DBDATEFORMAT, strtotime(date('Y-m-01'), current_time('timestamp')) );
 		if ( isset( $_REQUEST["eventDate"] ) && $_REQUEST["eventDate"] ) {
 			$date = $_REQUEST["eventDate"] . '-01';
 		} else if ( !empty( $wp_query->query_vars['eventDate'] ) ) {
@@ -247,9 +261,13 @@ if( class_exists( 'TribeEvents' ) ) {
 	 **/
 	function tribe_events_the_next_month_link() {
 		$url = tribe_get_next_month_link();
-		$date = TribeEvents::instance()->nextMonth( tribe_get_month_view_date() );
-		$text = tribe_get_next_month_text();
-		$html = '<a data-month="'. $date .'" href="' . $url . '" rel="pref">'. $text .' &raquo;</a>';
+		try {
+			$date = TribeEvents::instance()->nextMonth( tribe_get_month_view_date() );
+			$text = tribe_get_next_month_text();
+			$html = '<a data-month="'. $date .'" href="' . $url . '" rel="pref">'. $text .' &raquo;</a>';
+		} catch ( OverflowException $e ) {
+			$html = '';
+		}
 		echo apply_filters('tribe_events_the_next_month_link', $html);
 	}
 
@@ -299,7 +317,11 @@ if( class_exists( 'TribeEvents' ) ) {
 		$tribe_ecp = TribeEvents::instance();
 		if ( isset( $wp_query->query_vars[TribeEvents::TAXONOMY] ) )
 			$term = $wp_query->query_vars[TribeEvents::TAXONOMY];
-		$output = $tribe_ecp->getLink( 'month', $tribe_ecp->nextMonth(tribe_get_month_view_date() ), $term );
+		try {
+			$output = $tribe_ecp->getLink( 'month', $tribe_ecp->nextMonth(tribe_get_month_view_date() ), $term );
+		} catch ( OverflowException $e ) {
+			$output = '';
+		}
 		return apply_filters('tribe_get_next_month_link', $output);
 	}
 
@@ -326,7 +348,11 @@ if( class_exists( 'TribeEvents' ) ) {
 	 */
 	function tribe_get_next_month_text()  {
 		$tribe_ecp = TribeEvents::instance();
-		$output = $tribe_ecp->getDateStringShortened( $tribe_ecp->nextMonth( tribe_get_month_view_date() ) );
+		try {
+			$output = $tribe_ecp->getDateStringShortened( $tribe_ecp->nextMonth( tribe_get_month_view_date() ) );
+		} catch ( OverflowException $e ) {
+			$output = '';
+		}
 		return apply_filters('tribe_get_next_month_text', $output);
 	}
 }

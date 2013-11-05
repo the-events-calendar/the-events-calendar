@@ -153,7 +153,7 @@ ul.tribe-events-sub-nav a:hover,
 }
 
 /* Global Main Button Style */
-.tribe-events-button {
+.tribe-events-button, .entry-content .tribe-events-button {
 	background-color: #666;
 	color: #fff;
 	background-image: none;
@@ -180,6 +180,7 @@ ul.tribe-events-sub-nav a:hover,
 
 .tribe-events-button.tribe-inactive,
 .tribe-events-button:hover,
+.entry-content .tribe-events-button:hover,
 .tribe-events-button.tribe-active:hover {
 	background-color: #ddd;
 	color:#444;
@@ -371,6 +372,7 @@ h2.tribe-events-page-title a:focus {
 #tribe-events-footer .tribe-events-sub-nav {
 	list-style-type: none;
 	margin: 0;
+	padding: 0;
 	overflow: hidden;
 	line-height: normal;
 	text-align: center;
@@ -859,7 +861,7 @@ select.tribe-events-dropdown {
 
 /* Event Meta */
 .single-tribe_events .tribe-events-event-meta {
-	font-size: 12px;
+	font-size: 13px;
 }
 .tribe-events-event-meta .tribe-events-meta-group, 
 .tribe-events-event-meta .column {
@@ -901,7 +903,12 @@ select.tribe-events-dropdown {
 }
 /* Content */
 .single-tribe_events .tribe-events-content {
-	width: auto;
+	width: 100%;
+	max-width: 100%;
+	padding: 0;
+}
+/* Twenty Thirteen Conflict */
+.sidebar.single-tribe_events .tribe-events-content {
 	padding: 0;
 }
 @media only screen and (max-width: 767px) {
@@ -1154,7 +1161,8 @@ td.tickets_name {
 	font-size: 13px;
 }
 
-.single-tribe_events #tribe-events-content form.cart {
+.single-tribe_events #tribe-events-content form.cart,
+.single-tribe_events #tribe-events-content div.cart {
 	background: #fafafa;
 	border: 1px solid #eee;
 	margin: 30px 0;
@@ -1164,12 +1172,32 @@ td.tickets_name {
 table.tribe-events-tickets {
 	margin: 0;
 	width: 100%;
+	border-bottom: 0;
 }
 
 table.tribe-events-tickets td {
 	border-top: 1px solid #ddd;
+	border-bottom: 1px solid #ddd;
 	padding: 8px 10px 8px 0;
 	vertical-align: middle;
+}
+
+table.tribe-events-tickets td.wpec {
+	line-height: 0;
+}
+
+table.tribe-events-tickets td.woocommerce {
+	border-bottom: 0;
+}
+
+table.tribe-events-tickets td.wpec img {
+	display: none;
+}
+
+table.tribe-events-tickets td fieldset {	
+	padding: 14px 0.625em 4px;
+	border: 0;
+	margin-top: 8px;
 }
 
 table.tribe-events-tickets .tickets_nostock {

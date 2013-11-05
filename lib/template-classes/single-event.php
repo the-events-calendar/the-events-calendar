@@ -91,14 +91,15 @@ if( !class_exists('Tribe_Events_Single_Event_Template')){
 
 			parent::set_notices();
 
+			global $post;
+
 			// Check if event has passed
 			$gmt_offset = ( get_option( 'gmt_offset' ) >= '0' ) ? ' +' . get_option( 'gmt_offset' ) : " " . get_option( 'gmt_offset' );
 			$gmt_offset = str_replace( array( '.25', '.5', '.75' ), array( ':15', ':30', ':45' ), $gmt_offset );
 
-			if ( !tribe_is_showing_all() && strtotime( tribe_get_end_date( get_the_ID(), false, 'Y-m-d G:i' ) . $gmt_offset ) <= time() ) {
+			if ( !tribe_is_showing_all() && strtotime( tribe_get_end_date( $post, false, 'Y-m-d G:i' ) . $gmt_offset ) <= time() ) {
 				TribeEvents::setNotice( 'event-past', __( 'This event has passed.', 'tribe-events-calendar' ) );
 			}
 		}
-
 	}
 }

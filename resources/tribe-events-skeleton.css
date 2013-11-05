@@ -693,19 +693,33 @@ td.tickets_name {
 	font-size: 13px;
 }
 
-.single-tribe_events #tribe-events-content form.cart {
+.single-tribe_events #tribe-events-content form.cart,
+.single-tribe_events #tribe-events-content div.cart {
 	margin: 30px 0;
 }
 
 table.tribe-events-tickets {
 	margin: 0;
 	width: 100%;
+	border-bottom: 0;
 }
 
 table.tribe-events-tickets td {
 	border-top: 1px solid #ddd;
 	padding: 8px 10px 8px 0;
 	vertical-align: middle;
+}
+
+table.tribe-events-tickets td.wpec {
+	line-height: 0;
+}
+
+table.tribe-events-tickets td.woocommerce {
+	border-bottom: 0;
+}
+
+table.tribe-events-tickets td.wpec img {
+	display: none;
 }
 
 table.tribe-events-tickets .tickets_nostock {
@@ -722,8 +736,6 @@ h2.tribe-events-tickets-title {
 /* = Events Navigation Bar
    @ Template: /modules/bar.php
 =============================================*/
-
-
 
 /* Views Select */
 #tribe-bar-views .tribe-bar-view-select,

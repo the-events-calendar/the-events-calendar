@@ -22,7 +22,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		const VENUE_POST_TYPE = 'tribe_venue';
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
 		const PLUGIN_DOMAIN = 'tribe-events-calendar';
-		const VERSION = '3.1';
+		const VERSION = '3.2';
 		const FEED_URL = 'http://tri.be/category/products/feed/';
 		const INFO_API_URL = 'http://wpapi.org/api/plugin/the-events-calendar.php';
 		const WP_PLUGIN_URL = 'http://wordpress.org/extend/plugins/the-events-calendar/';
@@ -180,6 +180,9 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			$this->pluginPath = trailingslashit( dirname( dirname(__FILE__) ) );
 			$this->pluginDir = trailingslashit( basename( $this->pluginPath ) );
 			$this->pluginUrl = plugins_url().'/'.$this->pluginDir;
+
+			add_action( 'init', array( $this, 'loadTextDomain' ), 1 );
+
 			if (self::supportedVersion('wordpress') && self::supportedVersion('php')) {
 
 				if ( is_admin() && ( !defined( 'DOING_AJAX' ) || !DOING_AJAX ) ) {
@@ -190,7 +193,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				$this->loadLibraries();
 			} else {
 				// Either PHP or WordPress version is inadequate so we simply return an error.
-				add_action('init', array($this,'loadTextDomain'));
 				add_action('admin_head', array($this,'notSupportedError'));
 			}
 		}
@@ -259,6 +261,9 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			require_once( 'tickets/tribe-ticket-object.php' );
 			require_once( 'tickets/tribe-tickets.php' );
 			require_once( 'tickets/tribe-tickets-metabox.php' );
+
+			// CSV Importer
+			require_once( 'io/csv/ecp-events-importer.php' );
 
 			// Load multisite defaults
 			if ( is_multisite() ) {
@@ -374,7 +379,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			add_action( 'save_post', array( $this, 'save_organizer_data' ), 16, 2 );
 			add_action( 'save_post', array( $this, 'addToPostAuditTrail' ), 10, 2 );
 			add_action( 'publish_'.self::POSTTYPE, array( $this, 'publishAssociatedTypes'), 25, 2 );
-			add_action( 'pre_get_posts', array( $this, 'setDate' ));
 			add_action( 'parse_query', array( $this, 'setDisplay' ), 51, 0);
 			add_action( 'tribe_events_post_errors', array( 'TribeEventsPostException', 'displayMessage' ) );
 			add_action( 'tribe_settings_top', array( 'TribeEventsOptionsException', 'displayMessage') );
@@ -401,6 +405,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 			// noindex grid view
 			add_action('wp_head', array( $this, 'noindex_months' ) );
+			add_action( 'wp', array( $this, 'issue_noindex_on_404' ), 10, 0 );
 			add_action( 'plugin_row_meta', array( $this, 'addMetaLinks' ), 10, 2 );
 			// organizer and venue
 			if( !defined('TRIBE_HIDE_UPSELL') || !TRIBE_HIDE_UPSELL ) {
@@ -476,17 +481,30 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 * Add code to tell search engines not to index the grid view of the
 		 * calendar.  Users were seeing 100s of months being indexed.
 		 */
-		function noindex_months() {
+		public function noindex_months() {
 			if (get_query_var('eventDisplay') == 'month') {
-				echo " <meta name=\"robots\" content=\"noindex, follow\"/>\n";
+				$this->print_noindex_meta();
 			}
+		}
+
+		public function issue_noindex_on_404() {
+			if ( is_404() ) {
+				global $wp_query;
+				if ( !empty($wp_query->tribe_is_event_query) ) {
+					add_action( 'wp_head', array( $this, 'print_noindex_meta' ), 10, 0 );
+				}
+			}
+		}
+
+
+		public function print_noindex_meta() {
+			echo ' <meta name="robots" content="noindex,follow" />'."\n";
 		}
 
 		/**
 		 * Run on applied action init
 		 */
 		public function init() {
-			$this->loadTextDomain();
 			$this->pluginName = __( 'The Events Calendar', 'tribe-events-calendar' );
 			$this->rewriteSlug         = $this->getRewriteSlug();
 			$this->rewriteSlugSingular = $this->getRewriteSlugSingular();
@@ -1992,6 +2010,20 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		}
 
 		/**
+		 * An event can have one or more start dates. This gives
+		 * the earliest of those.
+		 * @param int $post_id
+		 * @return string The date string for the earliest occurrence of the event
+		 */
+		public static function get_series_start_date( $post_id ) {
+			$start_dates = get_post_meta( $post_id, '_EventStartDate', false );
+			if ( $start_dates ) {
+				return min($start_dates);
+			}
+			return '';
+		}
+
+		/**
 		 * Save hidden tabs
 		 *
 		 * @return void
@@ -2118,29 +2150,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		}
 
 		/**
-		 * Set the date property of the main class instance.
-		 *
-		 * @param WP_Query $query The current query.
-		 * @return void
-		 */
-		public function setDate($query) {
-			if ($query->tribe_is_event_query) {
-				if ( $query->get('eventDisplay') == 'month' ) {
-					$this->date = $query->get('eventDate') . "-01";
-				} else if ( $query->get('eventDate') ) {
-					$this->date = $query->get('eventDate');
-				} else if ( $query->get('eventDisplay') == 'month' ) {
-					$date = date_i18n( TribeDateUtils::DBDATEFORMAT );
-					$this->date = substr_replace( $date, '01', -2 );
-				} else if (is_singular() && $query->get('eventDate') ) {
-					$this->date = $query->get('eventDate');
-				} else if (!is_singular()) { // don't set date for single event unless recurring
-					$this->date = date(TribeDateUtils::DBDATETIMEFORMAT);
-				}
-			}
-		}
-
-		/**
 		 * Set the displaying class property.
 		 *
 		 * @return void
@@ -2174,7 +2183,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				!tribe_is_month() &&
 				!tribe_is_by_date() ) {
 
-				$startTime = get_post_meta($post->ID, '_EventStartDate', true);
+				$startTime = self::get_series_start_date($post->ID);
 				$startTime = TribeDateUtils::timeOnly($startTime);
 				$post->EventStartDate = TribeDateUtils::addTimeToDate($post->EventStartDate, $startTime);
 				$post->EventEndDate = date( TribeDateUtils::DBDATETIMEFORMAT, strtotime($post->EventStartDate) + get_post_meta($post->ID, '_EventDuration', true) );
@@ -3455,10 +3464,16 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 * Given a date (YYYY-MM-DD), returns the first of the next month
 		 * hat tip to Dan Bernadict for method cleanup
 		 *
-		 * @param date
-		 * @return date
+		 * @param string $date
+		 * @return string Next month's date
+		 * @throws OverflowException
 		 */
 		public function nextMonth( $date ) {
+			if ( PHP_INT_SIZE <= 4 ) {
+				if ( date('Y-m-d', strtotime($date)) > '2037-11-30' ) {
+					throw new OverflowException(__('Date out of range.', 'the-events-calendar'));
+				}
+			}
 			return date( 'Y-m', strtotime( $date . ' +1 month' ) );
 		}
 
@@ -3466,10 +3481,16 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 * Given a date (YYYY-MM-DD), return the first of the previous month
 		 * hat tip to Dan Bernadict for method cleanup
 		 *
-		 * @param date
-		 * @return date
+		 * @param string $date
+		 * @return string Previous month's date
+		 * @throws OverflowException
 		 */
 		public function previousMonth( $date ) {
+			if ( PHP_INT_SIZE <= 4 ) {
+				if ( date('Y-m-d', strtotime($date)) < '1902-02-01' ) {
+					throw new OverflowException(__('Date out of range.', 'the-events-calendar'));
+				}
+			}
 			return date( 'Y-m', strtotime( $date . ' -1 month' ) );
 		}
 
@@ -3937,7 +3958,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 *
 		 * @return void
 		 */
-		public function resetActivationMessage() {
+		public static function resetActivationMessage() {
 			$tec = TribeEvents::instance();
 			$tec->setOption( 'welcome_notice', false );
 		}
