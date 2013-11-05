@@ -30,7 +30,7 @@ if ( !defined('ABSPATH') ) { die('-1'); } ?>
 
 			<!-- Header Navigation -->
 			<?php do_action( 'tribe_events_before_header_nav' ); ?>
-			<?php tribe_get_template_part( 'map/nav', 'header' ); ?>
+			<?php tribe_get_template_part( 'pro/map/nav', 'header' ); ?>
 			<?php do_action( 'tribe_events_after_header_nav' ); ?>
 
 		</div><!-- #tribe-events-header -->
@@ -40,7 +40,7 @@ if ( !defined('ABSPATH') ) { die('-1'); } ?>
 		<?php if ( have_posts() ) : ?>
 			<?php do_action( 'tribe_events_before_loop' ); ?>
 			<div id="tribe-geo-results" class="tribe-events-loop hfeed vcalendar">
-			<?php tribe_get_template_part( 'map/loop' ) ?>
+			<?php tribe_get_template_part( 'pro/map/loop' ) ?>
 			</div> <!-- #tribe-geo-results -->
 			<?php do_action( 'tribe_events_after_loop' ); ?>
 		<?php endif; ?>
@@ -51,7 +51,7 @@ if ( !defined('ABSPATH') ) { die('-1'); } ?>
 
 			<!-- Footer Navigation -->
 			<?php do_action( 'tribe_events_before_footer_nav' ); ?>
-			<?php tribe_get_template_part( 'map/nav', 'footer' ); ?>
+			<?php tribe_get_template_part( 'pro/map/nav', 'footer' ); ?>
 			<?php do_action( 'tribe_events_after_footer_nav' ); ?>
 
 		</div><!-- #tribe-events-footer -->

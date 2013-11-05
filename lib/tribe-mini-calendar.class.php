@@ -15,10 +15,10 @@ class TribeEventsMiniCalendar {
 		add_action( 'wp_ajax_nopriv_tribe-mini-cal-day', array( $this, 'ajax_select_day' ) );
 
 		// set up the list query
-		add_action( 'tribe_events_before_view', array( $this, 'setup_list') );
+		add_action( 'tribe_before_get_template_part', array( $this, 'setup_list' ) );
 
 		// enqueue the list view cleanup
-		add_action( 'tribe_events_after_view', array( $this, 'shutdown_list') );
+		add_action( 'tribe_after_get_template_part', array( $this, 'shutdown_list' ) );
 	}
 
 	/**
@@ -67,7 +67,7 @@ class TribeEventsMiniCalendar {
 
 			ob_start();
 
-			tribe_get_view('widgets/mini-calendar/list');
+			tribe_get_template_part('pro/widgets/mini-calendar/list');
 
 			remove_action( 'pre_get_posts', array( $this, 'ajax_select_day_set_date' ) );
 
@@ -163,7 +163,7 @@ class TribeEventsMiniCalendar {
 			add_filter( 'tribe_events_template_widgets/mini-calendar/list.php', '__return_false' );
 		}
 
-		tribe_get_view( 'widgets/mini-calendar-widget' );
+		tribe_get_template_part( 'pro/widgets/mini-calendar-widget' );
 
 	}
 
@@ -247,6 +247,7 @@ class TribeEventsMiniCalendar {
 	public function shutdown_list( $template_file ) {
 
 		if ( basename( dirname( $template_file ) ).'/'.basename( $template_file ) == 'mini-calendar/list.php' ) {
+
 			// reset the global $wp_query
 			if ( !empty( $this->reset_q ) ) {
 				global $wp_query;

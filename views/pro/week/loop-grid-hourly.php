@@ -43,7 +43,7 @@ tribe_events_week_set_loop_type( 'hourly' );
 			<?php while ( tribe_events_week_have_days() ) : tribe_events_week_the_day(); ?>
 			<div title="<?php tribe_events_week_get_the_date(); ?>" class="column <?php tribe_events_week_column_classes(); ?>">
 				<?php foreach ( tribe_events_week_get_hourly() as $event ) : if ( tribe_events_week_setup_event( $event ) ) : ?>
-					<?php tribe_get_template_part( 'week/single-event', 'hourly' ); ?>
+					<?php tribe_get_template_part( 'pro/week/single-event', 'hourly' ); ?>
 				<?php endif; endforeach; ?>
 			</div><!-- hourly column -->
 			<?php endwhile; ?>

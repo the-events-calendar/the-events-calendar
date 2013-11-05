@@ -25,7 +25,7 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 $venue_id = get_the_ID();
 
 ?>
-
+<?php while ( have_posts() ) : the_post(); ?>
 <div class="tribe-events-venue">
 
 	<p class="tribe-events-back"><a href="<?php echo tribe_get_events_link() ?>" rel="bookmark"><?php _e( '&larr; Back to Events', 'tribe-events-calendar-pro' ) ?></a></p>
@@ -55,11 +55,11 @@ $venue_id = get_the_ID();
 		<?php do_action('tribe_events_single_venue_after_the_meta') ?>
 
 		<!-- Venue Description -->
-		<?php if( get_the_content() ) { ?>
+		<?php if( get_the_content() ) : ?>
 		<div class="tribe-venue-description tribe-events-content entry-content">
 			<?php the_content(); ?>
 		</div>
-		<?php } ?>
+		<?php endif; ?>
 			
 		<!-- Venue Featured Image -->
 		<?php echo tribe_event_featured_image(null, 'full') ?>
@@ -75,3 +75,4 @@ $venue_id = get_the_ID();
 	<?php do_action('tribe_events_single_venue_after_upcoming_events') ?>
 	
 </div><!-- .tribe-events-venue -->
+<?php endwhile; ?>

@@ -17,6 +17,7 @@
 					<select name="recurrence[end-type]">
 						<option value="On" <?php selected($recEndType, "None") ?>><?php _e('On','tribe-events-calendar-pro'); ?></option>
 						<option value="After" <?php selected($recEndType, "After") ?>><?php _e('After','tribe-events-calendar-pro'); ?></option>
+						<option value="Never" <?php selected($recEndType, "Never") ?>><?php _e('Never','tribe-events-calendar-pro'); ?></option>
 					</select>
 					<input autocomplete="off" placeholder="<?php echo TribeDateUtils::dateOnly( date(TribeDateUtils::DBDATEFORMAT) ) ?>" type="text" class="datepicker" name="recurrence[end]" id="recurrence_end"  value="<?php echo $recEnd  ?>" style="display:<?php echo !$recEndType || $recEndType == "On" ? "inline" : "none"; ?>"/>
 					<span id="rec-count" style="display:<?php echo $recEndType == "After" ? "inline" : "none"; ?>"><input autocomplete="off" type="text" name="recurrence[end-count]" id="recurrence_end_count"  value="<?php echo $recEndCount ? $recEndCount : 1 ?>" style='width: 40px;'/> <span id='occurence-count-text'><?php echo isset($recOccurrenceCountText) ? $recOccurrenceCountText : ""; ?></span></span>
@@ -64,6 +65,7 @@
 						<option value="Second" <?php selected($recCustomMonthNumber, "Second") ?>><?php _e('Second','tribe-events-calendar-pro'); ?></option>
 						<option value="Third" <?php selected($recCustomMonthNumber, "Third") ?>><?php _e('Third','tribe-events-calendar-pro'); ?></option>
 						<option value="Fourth" <?php selected($recCustomMonthNumber, "Fourth") ?>><?php _e('Fourth','tribe-events-calendar-pro'); ?></option>
+						<option value="Fifth" <?php selected($recCustomMonthNumber, "Fifth") ?>><?php _e('Fifth','tribe-events-calendar-pro'); ?></option>
 						<option value="Last" <?php selected($recCustomMonthNumber, "Last") ?>><?php _e('Last','tribe-events-calendar-pro'); ?></option>
 						<option value="" >--</option>
 						<?php for($i = 1; $i<=31; $i++): ?>
@@ -145,5 +147,5 @@
 		</tr>
 		<tr class="recurrence-pattern-description-row" style="display: <?php echo !$recType || $recType == "None" ? "none" : "table-row"; ?>;">
 			<td></td>
-			<td><p class="description"><?php _e('Create a custom plain language description of the recurrance. Leave it blank and we\'ll automate it.', 'tribe-events-calendar-pro'); ?></p></td>
+			<td><p class="description"><?php _e('Create a custom plain language description of the recurrence. Leave it blank and we\'ll automate it.', 'tribe-events-calendar-pro'); ?></p></td>
 		</tr>

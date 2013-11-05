@@ -63,7 +63,11 @@ function tribe_events_the_mini_calendar_title() {
 function tribe_events_the_mini_calendar_next_link() {
 	$tribe_ecp = TribeEvents::instance();
 	$args = tribe_events_get_mini_calendar_args();
-	$html = '<a class="tribe-mini-calendar-nav-link next-month" href="#" data-month="'.$tribe_ecp->nextMonth( $args['eventDate'] ).'-01" title="'.tribe_get_next_month_text().'"><span>&raquo;</span></a>';
+	try {
+		$html = '<a class="tribe-mini-calendar-nav-link next-month" href="#" data-month="'.$tribe_ecp->nextMonth( $args['eventDate'] ).'-01" title="'.tribe_get_next_month_text().'"><span>&raquo;</span></a>';
+	} catch ( OverflowException $e ) {
+		$html = '';
+	}
 	echo apply_filters( 'tribe_events_the_mini_calendar_prev_link', $html );
 }
 

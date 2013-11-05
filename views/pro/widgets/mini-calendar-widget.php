@@ -23,9 +23,9 @@ if ( !defined('ABSPATH') ) { die('-1'); } ?>
 		tribe_show_month( array(
 			'tax_query' => $args['tax_query'],
 			'eventDate' => $args['eventDate'],
-		), 'widgets/mini-calendar/grid' ); ?>
+		), 'pro/widgets/mini-calendar/grid' ); ?>
 
 	<!-- List -->
-	<?php tribe_get_view('widgets/mini-calendar/list'); ?>
+	<?php tribe_get_template_part( 'pro/widgets/mini-calendar/list' ); ?>
 
 </div>

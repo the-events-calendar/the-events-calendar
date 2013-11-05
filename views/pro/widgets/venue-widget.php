@@ -13,7 +13,6 @@
 
 if ( !defined('ABSPATH') ) { die('-1'); } ?>
 
-<h3 class="tribe_widget-title"><?php echo $title; ?></h3>
 <div class="tribe-venue-widget-wrapper">
 	<div class="tribe-venue-widget-venue">
 		<div class="tribe-venue-widget-venue-name">

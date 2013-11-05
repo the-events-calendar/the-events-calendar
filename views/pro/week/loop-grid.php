@@ -26,6 +26,6 @@ if ( !defined('ABSPATH') ) { die('-1'); } ?>
 			<?php endwhile; ?>
 		</div><!-- .tribe-grid-content-wrap -->
 	</div><!-- .tribe-grid-header -->
-	<?php tribe_get_template_part( 'week/loop', 'grid-allday' ); ?>
-	<?php tribe_get_template_part( 'week/loop', 'grid-hourly' ); ?>
+	<?php tribe_get_template_part( 'pro/week/loop', 'grid-allday' ); ?>
+	<?php tribe_get_template_part( 'pro/week/loop', 'grid-hourly' ); ?>
 </div><!-- .tribe-events-grid -->

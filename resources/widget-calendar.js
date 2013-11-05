@@ -26,6 +26,14 @@ jQuery( document ).ready( function ( $ ) {
 	
 	fix_widget_height();
 
+
+	var date = new Date(),
+		day  = date.getDate().toString(),
+		month = (date.getMonth()+1).toString(),
+		year = date.getFullYear().toString(),
+		current = year + '-' + (month[1] ? month:'0' + month[0]) + '-' + (day[1] ? day:'0' + day[0]),
+		current_ym = current.slice(0,7);
+
 	$( '.tribe-mini-calendar-wrapper' ).delegate( '.tribe-mini-calendar-nav-link', 'click', function ( e ) {
 		e.preventDefault();
 
@@ -34,7 +42,11 @@ jQuery( document ).ready( function ( $ ) {
 		var $current_calendar = $this.closest('.tribe-mini-calendar');
 		var $current_calendar_wrapper = $this.closest('.tribe-mini-calendar-wrapper'); 
 
-		var month_target = $this.attr( 'data-month' );
+		var month_target = $this.attr( 'data-month'),
+			target_ym = month_target.slice(0,7);
+
+		if(current_ym == target_ym)
+			month_target = current;
 
 		var params = {
 			action   	:'tribe-mini-cal',

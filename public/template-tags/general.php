@@ -456,12 +456,10 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	/**
 	 * Get the first day of the week from a provided date
 	 *
-	 * @param string|int $date_or_int A given date or week # (week # assumes current year)
-	 * @param bool $by_date determines how to parse the date vs week provided
-	 * @param int $first_day sets start of the week (offset) respectively, accepts 0-6
-	 * @return DateTime
+	 * @param null|mixed $date  given date or week # (week # assumes current year)
+	 * @return string
 	 */
-	function tribe_get_first_week_day( $date = null, $by_date = true ) {
+	function tribe_get_first_week_day( $date = null ) {
 		global $wp_query;
 		$offset = 7 - get_option( 'start_of_week', 0 );
 
@@ -553,6 +551,11 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	 */
 	function tribe_get_last_week_permalink( $week = null ) {
 		$week = !empty( $week ) ? $week : tribe_get_first_week_day();
+		if ( PHP_INT_SIZE <= 4 ) {
+			if ( date('Y-m-d', strtotime($week)) < '1902-01-08' ) {
+				throw new OverflowException(__('Date out of range.', 'the-events-calendar'));
+			}
+		}
 		$week = date('Y-m-d', strtotime( $week . ' -1 week'));
 		return apply_filters('tribe_get_last_week_permalink', tribe_get_week_permalink( $week ) );
 	}
@@ -562,12 +565,16 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	 *
 	 * @uses tribe_get_week_permalink
 	 * @param string $week
-	 * @param bool $is_current
 	 * @return string $permalink
 	 * @since 3.0
 	 */
 	function tribe_get_next_week_permalink( $week = null ) {
 		$week = !empty( $week ) ? $week : tribe_get_first_week_day();
+		if ( PHP_INT_SIZE <= 4 ) {
+			if ( date('Y-m-d', strtotime($week)) > '2037-12-24' ) {
+				throw new OverflowException(__('Date out of range.', 'the-events-calendar'));
+			}
+		}
 		$week = date('Y-m-d', strtotime( $week . ' +1 week'));
 		return apply_filters('tribe_get_next_week_permalink', tribe_get_week_permalink( $week ) );
 	}
@@ -575,56 +582,108 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	/**
 	 * Output an html link to a day
 	 *
-	 * @param $date 'previous day', 'next day', 'yesterday', 'tomorrow', or any date string that strtotime() can parse
-	 * @param $text text for the link
-	 * @param $term bool whether to show the link with the tribe event taxonomy
+	 * @param string $date 'previous day', 'next day', 'yesterday', 'tomorrow', or any date string that strtotime() can parse
+	 * @param string $text text for the link
 	 * @return void
 	 * @since 3.0
 	 **/
-	function tribe_the_day_link( $date = null, $text = null, $term = true ) {
-
-		global $wp_query;
-
-		if ( is_null( $text ) ) {
-			switch ( strtolower( $date ) ) {
-				case null :
-					 $text = __( 'Today', 'tribe-events-calendar-pro' );
-				break;
-				case 'previous day' :
-					 $text = __( '&laquo; Previous Day', 'tribe-events-calendar-pro' );
-				break;
-				case 'next day' :
-					 $text = __( 'Next Day &raquo;', 'tribe-events-calendar-pro' );
-				break;
-				case 'yesterday' :
-					 $text = __( 'Yesterday', 'tribe-events-calendar-pro' );
-				break;
-				case 'tomorrow' :
-					 $text = __( 'Tomorrow', 'tribe-events-calendar-pro' );
-				break;
-				default :
-					$text = date_i18n( 'Y-m-d', strtotime( $date ) );
-				break;
+	function tribe_the_day_link( $date = null, $text = null ) {
+		try {
+			if ( is_null( $text ) ) {
+				$text = tribe_get_the_day_link_label($date);
 			}
+			$date = tribe_get_the_day_link_date( $date );
+
+			$link = tribe_get_day_link($date);
+
+			$html = '<a href="'. $link .'" data-day="'. $date .'" rel="prev">'.$text.'</a>';
+		} catch ( OverflowException $e ) {
+			$html = '';
 		}
-
-		switch ( $date ) {
-			case null :
-				$date = TribeEventsPro::instance()->todaySlug;
-			break;
-			case 'previous day' :
-				$date = Date('Y-m-d', strtotime($wp_query->get('start_date') . " -1 day") );
-			break;
-			case 'next day' :
-				$date = Date('Y-m-d', strtotime($wp_query->get('start_date') . " +1 day") );
-			break;
-		}
-
-		$link = tribe_get_day_link($date);
-
-		$html = '<a href="'. $link .'" data-day="'. $date .'" rel="prev">'.$text.'</a>';
 
 		echo apply_filters( 'tribe_the_day_link', $html );
+	}
+
+	/**
+	 * Get the label for the day navigation link
+	 *
+	 * @param string $date_description
+	 * @return string
+	 * @since 3.1.1
+	 */
+	function tribe_get_the_day_link_label( $date_description ) {
+		switch ( strtolower( $date_description ) ) {
+			case null :
+				return __( 'Today', 'tribe-events-calendar-pro' );
+			case 'previous day' :
+				return __( '&laquo; Previous Day', 'tribe-events-calendar-pro' );
+			case 'next day' :
+				return __( 'Next Day &raquo;', 'tribe-events-calendar-pro' );
+			case 'yesterday' :
+				return __( 'Yesterday', 'tribe-events-calendar-pro' );
+			case 'tomorrow' :
+				return __( 'Tomorrow', 'tribe-events-calendar-pro' );
+			default :
+				return date_i18n( 'Y-m-d', strtotime( $date_description ) );
+		}
+	}
+
+
+	/**
+	 * Get the date for the day navigation link
+	 *
+	 * @param string $date_description
+	 * @return string
+	 * @since 3.1.1
+	 * @throws OverflowException
+	 */
+	function tribe_get_the_day_link_date( $date_description ) {
+		if ( is_null($date_description) ) {
+			return TribeEventsPro::instance()->todaySlug;
+		}
+		if ( $date_description == 'previous day' ) {
+			return tribe_get_previous_day_date(get_query_var('start_date'));
+		}
+		if ( $date_description = 'next day' ) {
+			return tribe_get_next_day_date(get_query_var('start_date'));
+		}
+		return date('Y-m-d', $date_description);
+	}
+
+	/**
+	 * Get the next day's date
+	 *
+	 * @param string $start_date
+	 * @return string
+	 * @since 3.1.1
+	 * @throws OverflowException
+	 */
+	function tribe_get_next_day_date( $start_date ) {
+		if ( PHP_INT_SIZE <= 4 ) {
+			if ( date('Y-m-d', strtotime($start_date)) > '2037-12-30' ) {
+				throw new OverflowException(__('Date out of range.', 'the-events-calendar'));
+			}
+		}
+		$date = Date('Y-m-d', strtotime($start_date . " +1 day") );
+		return $date;
+	}
+
+	/**
+	 * Get the previous day's date
+	 *
+	 * @param string $start_date
+	 * @return string
+	 * @since 3.1.1
+	 * @throws OverflowException
+	 */
+	function tribe_get_previous_day_date( $start_date ) {
+		if ( PHP_INT_SIZE <= 4 ) {
+			if ( date('Y-m-d', strtotime($start_date)) < '1902-01-02' ) {
+				throw new OverflowException(__('Date out of range.', 'the-events-calendar'));
+			}
+		}
+		$date = Date('Y-m-d', strtotime($start_date . " -1 day") );
+		return $date;
 	}
 
 
@@ -662,13 +721,10 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	 * @param mixed $tag The specific tags you want it relating to.
 	 * @param mixed $category The specific categories you want it relating to.
 	 * @param int $count The number of related events to find.
-	 * @param mixed $blog What blog/site should they come from?
-	 * @param bool $only_display_related Should we show only related events if we don't find $count number of related ones?
-	 * @param string $post_type What post type are we finding related things in?
 	 * @return void.
 	 */
-	function tribe_single_related_events( $tag = false, $category = false, $count = 3, $blog = false, $only_display_related = true, $post_type = TribeEvents::POSTTYPE ) {
-		$posts = tribe_get_related_posts( $tag, $category, $count, $blog, $only_display_related, $post_type );
+	function tribe_single_related_events( $count = 3 ) {
+		$posts = tribe_get_related_posts( $count );
 		if ( is_array( $posts ) && !empty( $posts ) ) {
 			echo '<h3 class="tribe-events-related-events-title">'.  __( 'Related Events', 'tribe-events-calendar-pro' ) .'</h3>';
 			echo '<ul class="tribe-related-events tribe-clearfix hfeed vcalendar">';
@@ -677,10 +733,10 @@ if( class_exists( 'TribeEventsPro' ) ) {
 
 					$thumb = ( has_post_thumbnail( $post->ID ) ) ? get_the_post_thumbnail( $post->ID, 'large' ) : '<img src="'. trailingslashit( TribeEventsPro::instance()->pluginUrl ) . 'resources/images/tribe-related-events-placeholder.png" alt="'. get_the_title( $post->ID ) .'" />';;
 					echo '<div class="tribe-related-events-thumbnail">';
-					echo '<a href="'. get_permalink( $post->ID ) .'" class="url" rel="bookmark">'. $thumb .'</a>';
+					echo '<a href="'. tribe_get_event_link( $post ) .'" class="url" rel="bookmark">'. $thumb .'</a>';
 					echo '</div>';
 					echo '<div class="tribe-related-event-info">';
-						echo '<h3 class="tribe-related-events-title summary"><a href="'. get_permalink( $post->ID ) .'" class="url" rel="bookmark">'. get_the_title( $post->ID ) .'</a></h3>';
+						echo '<h3 class="tribe-related-events-title summary"><a href="'. tribe_get_event_link( $post ) .'" class="url" rel="bookmark">'. get_the_title( $post->ID ) .'</a></h3>';
 
 						if ( class_exists( 'TribeEvents' ) && $post->post_type == TribeEvents::POSTTYPE && function_exists( 'tribe_events_event_schedule_details' ) ) {
 							echo tribe_events_event_schedule_details( $post );
@@ -694,4 +750,46 @@ if( class_exists( 'TribeEventsPro' ) ) {
 			echo '</ul>';
 		}
 	}
+
+	/** 
+	 * Template tag to get related posts for the current post. 
+	 *
+	 * @since 1.1
+	 * @author Paul Hughes
+	 * @param int $count number of related posts to return.
+	 * @param int|obj $post the post to get related posts to, defaults to current global $post
+	 * @return array the related posts.
+	 */
+	function tribe_get_related_posts( $count = 3, $post = false ) {
+		$post_id = TribeEvents::postIdHelper( $post );
+		$tags = wp_get_post_tags( $post_id, array( 'fields' => 'ids' ) );
+		$categories = wp_get_object_terms( $post_id, TribeEvents::TAXONOMY, array( 'fields' => 'ids' ) );
+		if ( ! $tags && ! $categories )
+			return;
+		$args = array( 
+			'posts_per_page' => $count,
+			'post__not_in' => array( $post_id ),
+			'eventDisplay' => 'upcoming',
+			'tax_query' => array('relation' => 'OR'),
+			'orderby' => 'rand',
+		);
+		if ( $tags ) {
+			$args['tax_query'][] = array( 'taxonomy' => 'post_tag', 'field' => 'id', 'terms' => $tags );
+		}
+		if ( $categories ) {
+			$args['tax_query'][] = array( 'taxonomy' => TribeEvents::TAXONOMY, 'field' => 'id', 'terms' => $categories );
+		}
+
+		$args = apply_filters( 'tribe_related_posts_args', $args );
+
+		if ( $args ) {
+			$posts = TribeEventsQuery::getEvents( $args );
+		} else {
+			$posts = array();
+		}
+
+		return apply_filters( 'tribe_get_related_posts',  $posts ) ;
+	}
+
+
 }

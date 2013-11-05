@@ -28,7 +28,7 @@ if( !class_exists( 'TribeEventsAdvancedListWidget' ) ) {
 		function widget( $args, $instance ) {
 			// Use parent's output function with the premium template.
 			self::$params = $instance;
-			return parent::widget_output( $args, $instance, 'list-widget', 'widgets', 'pro', TribeEventsPro::instance()->pluginPath );
+			return parent::widget_output( $args, $instance, 'pro/widgets/list-widget' );
 		}
 
 		function update( $new_instance, $old_instance ) {

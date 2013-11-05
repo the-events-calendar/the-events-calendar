@@ -26,6 +26,7 @@ $organizer_id = get_the_ID();
 
 ?>
 
+<?php while( have_posts() ) : the_post(); ?>
 <div class="tribe-events-organizer">
 	<p class="tribe-events-back"><a href="<?php echo tribe_get_events_link() ?>" rel="bookmark"><?php _e( '&larr; Back to Events', 'tribe-events-calendar-pro' ) ?></a></p>
 
@@ -65,3 +66,4 @@ $organizer_id = get_the_ID();
 	
 </div><!-- .tribe-events-organizer -->
 <?php do_action( 'tribe_events_single_organizer_after_template' ) ?>
+<?php endwhile; ?>
