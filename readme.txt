@@ -214,6 +214,7 @@ Our Premium Plugins:
 * Addressed an issue where events section on single event page showed unrelated events as being Related
 * Incorporated text to make explanation for "Recurring event instances" setting clearer
 * Fixed an issue with venue descriptions sometimes not displaying on single venue view
+* Patched a bug where the Additional Fields link ceases to function in certain non-English languages (thanks to Oliver on the forums for his report!)
 * Incorporated code so day view now uses its own template part for single event (instead of using list view's)
 * Fixed an iCal export issue where sometimes incorrect event dates showed in the .ics file
 * Fixed an error that was making the location search fail in some installs
