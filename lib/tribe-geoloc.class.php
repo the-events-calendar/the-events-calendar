@@ -609,7 +609,7 @@ class TribeEventsGeoLoc {
 		                   'view'        => $view_state,
 		);
 
-		if ( $query->found_posts > 0 ) {
+		if ( $have_events) {
 			global $wp_query, $post;
 			$data     = $query->posts;
 			$post     = $query->posts[0];
@@ -628,7 +628,7 @@ class TribeEventsGeoLoc {
 
 			ob_start();
 
-			tribe_get_view( 'map/content' );
+			tribe_get_view( 'pro/map/content' );
 			$response['html'] .= ob_get_clean();
 		}
 
