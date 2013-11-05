@@ -309,7 +309,7 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Incorporated a number of enhancements to ease compatibility with Easy Digital Downloads (thanks for all your help, Pippin!)
 * Removed a PHP notice that arose when querying from events and other post types at the same time
 * Fixed an issue where inaccurate draft counts were appearing on the backend events list (thanks to Neil on the forums for the first report!)
-* Incorporate updated Icelandic translation by Baldvin Berndsen
+* Incorporated updated Icelandic translation by Baldvin Berndsen
 
 
 = 3.1 =
