@@ -225,10 +225,10 @@ The plugin is produced by <a href="http://m.tri.be/2s">Modern Tribe Inc</a>.
 * Danish from Anonymous
 * Dutch from Erik Massop
 * Finnish by Ari-Pekka Koponen
-* French from Beno√Æt Burgener
+* French from Beno Burgener
 * German from Michael Sebel
 * Greek from Maria Tsilimidou
-* Icelandic by Baldvin √ñrn Berndsen
+* Icelandic by Baldvin Berndsen
 * Italian from Roberto Scano
 * Norwegian from Andreas Lorentsen
 * Polish from Marek Kosina
@@ -309,12 +309,12 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Incorporated a number of enhancements to ease compatibility with Easy Digital Downloads (thanks for all your help, Pippin!)
 * Removed a PHP notice that arose when querying from events and other post types at the same time
 * Fixed an issue where inaccurate draft counts were appearing on the backend events list (thanks to Neil on the forums for the first report!)
-* Incorporate updated Icelandic translation by Baldvin √ñrn Berndsen
+* Incorporate updated Icelandic translation by Baldvin Berndsen
 
 
 = 3.1 =
 
-* Significant performance improvements to month view (thanks to Gr√©gory for the initial report!)
+* Significant performance improvements to month view (thanks to Gr‚àö¬©gory for the initial report!)
 * Improved compatibility with Canvas and other themes by WooThemes (thanks to Paul Pruneau for the heads up!)
 * Fixed several bugs relating to event cutoff times and month view (thanks jadonulrich for the report!)
 * The correct default view now applies to event category listings
