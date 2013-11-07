@@ -1092,6 +1092,7 @@ select.tribe-events-dropdown {
 #tribe-events-content .tribe-events-calendar div[id*="tribe-events-event-"] h3.tribe-events-month-event-title {
 	line-height: 1.25;
 	font-size: 13px;
+	overflow: hidden;
 	font-weight: normal;
 	font-family: sans-serif;
 	font-weight: bold;
