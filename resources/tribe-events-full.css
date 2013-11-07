@@ -935,6 +935,7 @@ select.tribe-events-dropdown {
 	clear: both;
 	font-size: 12px;
 	border-collapse: collapse;
+	table-layout: fixed;
 }
 #tribe-events-content table.tribe-events-calendar, 
 #tribe-events-content .tribe-events-calendar td {
@@ -963,6 +964,9 @@ select.tribe-events-dropdown {
 	vertical-align: top;
 	padding: 0 0 .5em;
 	font-size: 12px;
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
 }
 .vevent.viewmore {
 	font-weight:bold;
@@ -1066,7 +1070,7 @@ select.tribe-events-dropdown {
 	font-size: 100%;
 }
 .tribe-events-calendar th {
-	width: 250px;
+	width: 14.28%;
 	height: 10px;
 	background-color: #ddd;
 	color: #333;
