@@ -6,7 +6,7 @@ msgstr ""
 "Project-Id-Version: The Events Calendar\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-07-02 11:27-0800\n"
-"PO-Revision-Date: 2013-09-10 14:43-0800\n"
+"PO-Revision-Date: 2013-11-07 16:03-0800\n"
 "Last-Translator: Thomas Butzek <ThomasButzek@live.de>\n"
 "Language-Team: DECKERWEB <deckerweb.mobil@googlemail.com>\n"
 "Language: de_DE\n"
@@ -1939,7 +1939,7 @@ msgstr "Veranstaltungen am"
 #
 #: ../lib/the-events-calendar.class.php:4093
 msgid "Events From"
-msgstr "Veranstaltunngen von"
+msgstr "Veranstaltunngen vom"
 
 # @ tribe-events-calendar
 #: ../lib/the-events-calendar.class.php:4276 ../views/list/nav.php:22
