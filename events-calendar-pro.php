@@ -1341,7 +1341,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		 * @since 3.0
 		 */
 		public function setup_hide_recurrence_in_query( $query ) {
-			if ( is_admin() ) {
+			if ( is_admin() && !( defined('DOING_AJAX') && DOING_AJAX ) ) {
 				return $query;
 			}
 			if ( !isset($query->query_vars['tribeHideRecurrence']) ) {
