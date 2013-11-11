@@ -148,7 +148,7 @@ if ( !class_exists('TribeField') ) {
 
 			if ($this->conditional) {
 
-				if ( $this->display_callback && is_string($this->display_callback) && function_exists($this->display_callback) ) {
+				if ( $this->display_callback && is_callable($this->display_callback) ) {
 
 					// if there's a callback, run it
 					call_user_func($this->display_callback);

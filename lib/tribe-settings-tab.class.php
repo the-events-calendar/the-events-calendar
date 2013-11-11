@@ -156,7 +156,7 @@ if ( !class_exists( 'TribeSettingsTab' ) ) {
 		 * @return void
 		 */
 		public function doContent() {
-			if ( $this->display_callback && function_exists( $this->display_callback ) ) {
+			if ( $this->display_callback && is_callable( $this->display_callback ) ) {
 				call_user_func( $this->display_callback ); return;
 			}
 

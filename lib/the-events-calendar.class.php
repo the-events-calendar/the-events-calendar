@@ -4197,10 +4197,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 */
 		function list_ajax_call() {
 
-			if ( class_exists( 'TribeEventsFilterView' ) ) {
-				TribeEventsFilterView::instance()->createFilters( null, true );
-			}
-
 			TribeEventsQuery::init();
 
 			$tribe_paged = ( !empty( $_POST['tribe_paged'] ) ) ? intval( $_POST['tribe_paged'] ) : 1;
@@ -4339,10 +4335,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 				if ( isset( $_POST['tribe_event_category'] ) ) {
 					$query_args['tribe_events_cat'] = $_POST['tribe_event_category'];
-				}
-
-				if ( class_exists( 'TribeEventsFilterView' ) ) {
-					TribeEventsFilterView::instance()->createFilters( null, true );
 				}
 
 				query_posts( $query_args );
