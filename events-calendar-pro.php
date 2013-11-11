@@ -104,7 +104,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_pro_scripts' ), 8);
 			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_styles' ) );
 
-			add_filter( 'tribe_settings_do_tabs', array( $this, 'add_settings_tabs' ) );
+			add_action( 'tribe_settings_do_tabs', array( $this, 'add_settings_tabs' ) );
 			add_filter( 'tribe_settings_tab_fields', array( $this, 'filter_settings_tab_fields' ), 10, 2 );
 			add_filter( 'generate_rewrite_rules', array( $this, 'add_routes' ), 11 );
 			add_filter( 'tribe_events_buttons_the_buttons', array($this, 'add_view_buttons'));
@@ -386,10 +386,6 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 
 			$tec = TribeEvents::instance();
 
-			if ( class_exists( 'TribeEventsFilterView' ) ) {
-				TribeEventsFilterView::instance()->createFilters( null, true );
-			}
-
 			TribeEventsQuery::init();
 
 			$tribe_paged = ( !empty( $_POST['tribe_paged'] ) ) ? intval( $_POST['tribe_paged'] ) : 1;
@@ -464,10 +460,6 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		function wp_ajax_tribe_week(){
 			if ( isset( $_POST["eventDate"] ) && $_POST["eventDate"] ) {
 
-				if ( class_exists( 'TribeEventsFilterView' ) ) {
-					TribeEventsFilterView::instance()->createFilters( null, true );
-				}
-
 				TribeEventsQuery::init();
 
 				$args = array(
@@ -519,10 +511,6 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		 */
 		function wp_ajax_tribe_event_day(){
 			if ( isset( $_POST["eventDate"] ) && $_POST["eventDate"] ) {
-
-				if ( class_exists( 'TribeEventsFilterView' ) ) {
-					TribeEventsFilterView::instance()->createFilters( null, true );
-				}
 
 				TribeEventsQuery::init();
 
