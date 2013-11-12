@@ -17,7 +17,7 @@ if ( !defined('ABSPATH') ) { die('-1'); } ?>
 
 $days_of_week = tribe_events_get_days_of_week();
 $week = 0;
-
+global $wp_locale;
 ?>
 
 
@@ -25,8 +25,9 @@ $week = 0;
 <table class="tribe-events-calendar">
 	<thead>
 		<tr>
-		<?php foreach($days_of_week as $day) : ?>
-			<th id="tribe-events-<?php echo strtolower($day) ?>" title="<?php echo $day ?>"><?php echo $day ?></th>
+		<?php foreach($days_of_week as $day) :  ?>
+
+			<th id="tribe-events-<?php echo strtolower($day) ?>" title="<?php echo $day ?>" data-day-abbr="<?php echo $wp_locale->get_weekday_abbrev($day); ?>"><?php echo $day ?></th>
 		<?php endforeach; ?>
 		</tr>
 	</thead>

@@ -118,12 +118,6 @@
 					tribe_events_calendar_ajax_post();
 				});
 			})
-			.on('click', 'td.tribe-events-thismonth', function (e) {
-				e.preventDefault();
-				var day_link = $(this).find('[id^="tribe-events-daynum"] a').attr('href');
-				if(typeof day_link !== 'undefined')
-					window.location = day_link;
-			})
 			.on('click', 'td.tribe-events-thismonth a', function (e) {
 				e.stopPropagation();
 			});
