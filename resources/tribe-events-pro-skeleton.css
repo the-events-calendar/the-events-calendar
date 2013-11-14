@@ -176,8 +176,10 @@
 .tribe-grid-allday .column.first span {
 	position: absolute;
 	top: 50%;
-	left: 0;
 	margin-top: -12px;
+	width: 30px;
+	left: 50%;
+	margin-left: -15px;
 }
 .tribe-grid-allday .hentry.vevent {
 	margin:0;

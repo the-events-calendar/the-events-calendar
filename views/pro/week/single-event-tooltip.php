@@ -58,7 +58,6 @@ if ( !defined('ABSPATH') ) { die('-1'); } ?>
 			echo TribeEvents::truncate( $event->post_content, 30 );
 		} ?>
 		</p><!-- .entry-summary -->
-
+		<span class="tribe-events-arrow"></span>
 	</div><!-- .tribe-events-event-body -->
-	<span class="tribe-events-arrow"></span>
 </div><!-- .tribe-events-tooltip -->
