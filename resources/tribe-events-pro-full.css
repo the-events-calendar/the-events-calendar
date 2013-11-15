@@ -76,10 +76,12 @@
 	text-align: center;
 	text-transform: uppercase;
 	padding: 1em 0;
+	letter-spacing: 1px;
 }
 
 .tribe-grid-header .column a {
 	color: #333;
+	font-weight: bold;
 }
 
 /* columns & structure */
@@ -315,25 +317,107 @@
 	border-top: 1px solid #ddd;
 }
 
-/* Week Responsive */
+/* Week Responsive 
 
+	* Add day date to "cells"
+	* Kill JS for less than 768?
+	* Hook up showing list of events when click on day
 
+*/
 
+@media (max-width: 768px) {
+	
+	.tribe-events-grid .column.first,
+	.tribe-week-grid-hours,
+	.tribe-grid-allday,
+	.tribe-week-grid-inner-wrap,
+	.tribe-grid-header span,
+	.tribe-grid-body div[id*="tribe-events-event-"] {
+		display: none;
+	}
+	
+	.slimScrollBar,
+	.slimScrollRail {
+		display: none !important;
+	}
+	
+	div.slimScrollDiv {
+		height: auto !important;
+	}
+	
+	/* columns & structure */
+	.tribe-events-grid {
+		border: 0;
+	}
+	
+	.tribe-week-grid-wrapper {
+		height: auto !important;
+		border: 1px solid #bbb;
+	}
+	
+	.tribe-grid-content-wrap {
+		padding-left: 0;	
+	}
+	
+	.tribe-events-grid .tribe-grid-content-wrap .column {
+		border-left: 0;
+		height: 60px;
+	}
+	
+	.tribe-events-grid .column ~ .column {
+		border-left: 1px solid #bbb;
+	}
+	
+	.tribe-grid-body .column:after {
+		content: '';
+		display: block;
+		height: 8px;
+		width: 8px;
+		padding: 0;
+		border-radius:50%;
+		background: #333;
+		margin: 5px auto;
+	}
+	
+	/* grid header */
+	.tribe-grid-header {
+		border-bottom: 0;
+		border-right: 1px solid #bbb;
+		border-left: 1px solid #bbb;
+		border-top: 1px solid #bbb;
+	}
+	
+	.tribe-grid-header .column {
+		padding: 7px 1em;
+		height: auto !important;
+	}
+	
+	.tribe-grid-header .tribe-grid-content-wrap .column {
+		border-left-color: transparent;
+	}
+	
+	/* Specific Classes */
+	.tribe-week-today {
+		background-color: #666;
+		color: #fff;
+	}
+	
+	.tribe-grid-body .tribe-events-daynum {
+		text-align: center;
+		font-size: 16px;
+		line-height: 1;
+		color: #999;
+	}
+	
+	.tribe-week-today .tribe-events-daynum {
+		color: #fff;
+	}
+	
+	.tribe-week-today ~ .column .tribe-events-daynum {
+		color: #333;
+	}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+}
 
 /* = Photo View Template Styles 
    @ Template: photo.php

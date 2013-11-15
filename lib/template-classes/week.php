@@ -203,7 +203,7 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 				$date = date( 'Y-m-d', strtotime( self::$start_of_week_date . " +$day_offset days" ) );
 				$week_days[ $n ] = (object) array(
 					'date' => $date,
-					'display' => date( 'D jS', strtotime( self::$start_of_week_date . " +$day_offset days" ) ),
+					'display' => date( 'D', strtotime( self::$start_of_week_date . " +$day_offset days" ) ) .' <span class="tribe-events-daynum">'. date( 'jS', strtotime( self::$start_of_week_date . " +$day_offset days" ) ) .'</span>',
 					'is_today' => ( $date == self::$today ) ? true : false
 				);
 			}

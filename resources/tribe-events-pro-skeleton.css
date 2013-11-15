@@ -70,9 +70,11 @@
 	text-align: center;
 	text-transform: uppercase;
 	padding: 1em 0;
+	letter-spacing: 1px;
 }
 .tribe-grid-header .column a {
 	color: #333;
+	font-weight: bold;
 }
 
 /* columns & structure */
