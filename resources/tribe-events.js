@@ -157,6 +157,39 @@ try {
     t_fail && (tribe_storage = false);
 } catch (e) {}
 
+(function(){
+
+	var cache = {};
+
+	/**
+	 * @function tribe_tmpl
+	 * @since 3.2
+	 * @desc Javascript templating function based on John Resigs micro-templating.
+	 * @param str The javascript template
+	 * @param data The data object
+	 */
+
+	this.tribe_tmpl = function tribe_tmpl(str, data){
+		var fn = !/\W/.test(str) ?
+			cache[str] = cache[str] ||
+				tribe_tmpl(document.getElementById(str).innerHTML) :
+			new Function("obj",
+				"var p=[],print=function(){p.push.apply(p,arguments);};" +
+					"with(obj){p.push('" +
+					str
+						.replace(/[\r\t\n]/g, " ")
+						.split("<%").join("\t")
+						.replace(/((^|%>)[^\t]*)'/g, "$1\r")
+						.replace(/\t=(.*?)%>/g, "',$1,'")
+						.split("\t").join("');")
+						.split("%>").join("p.push('")
+						.split("\r").join("\\'")
+					+ "');}return p.join('');");
+		return data ? fn( data ) : fn;
+	};
+
+})();
+
 /**
  * @external "jQuery.fn"
  * @desc The jQuery plugin namespace.
@@ -164,6 +197,7 @@ try {
 
 
 (function ($, undefined) {
+
     /**
      * @function external:"jQuery.fn".tribe_clear_form
      * @since 3.0
@@ -208,7 +242,7 @@ try {
 
 (function (window, document, $, dbug, undefined) {
     /**
-     * @namespace tribe_ev
+     * @namespace tribe_ev.fn
      * @since 3.0
      * @desc tribe_ev.fn namespace stores all the custom functions used throughout the core events plugin.
      */
@@ -514,6 +548,7 @@ try {
                 $('html, body').animate({scrollTop: $(container).offset().top - 120}, {duration: 0});
             });
         },
+
 		/**
 		 * @function tribe_ev.fn.tooltips
 		 * @since 3.0
