@@ -237,7 +237,8 @@
 								.append(tribe_tmpl('tribe_tmpl_week_mobile', data));
 
 							if($excerpt.length){
-								$('#' + data.id + ' .description')
+								$target
+									.find('.' + data.eventClass + ' .description')
 									.append($excerpt.html());
 							}
 						}
@@ -255,7 +256,7 @@
 				$target_day = $('.tribe-mobile-day[data-day="' + date + '"]');
 
 			$mobile_trigger
-				.removeClass('tribe-week-today, mobile-active');
+				.removeClass('tribe-week-today mobile-active');
 
 			$mobile_trigger
 				.filter('[title="' + date + '"]')
@@ -361,7 +362,7 @@
 			})
 			.on('click', '.mobile-trigger', function (e) {
 				e.preventDefault();
-
+				tribe_mobile_setup_day($(this).attr('title'));
 			});
 
 		/**

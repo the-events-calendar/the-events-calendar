@@ -327,6 +327,10 @@
 
 */
 
+#tribe-mobile-container {
+	display:none;
+}
+
 @media (max-width: 768px) {
 	
 	.tribe-events-grid .column.first,
@@ -336,6 +340,10 @@
 	.tribe-grid-header span,
 	.tribe-grid-body div[id*="tribe-events-event-"] {
 		display: none !important;
+	}
+
+	#tribe-mobile-container {
+		display:block;
 	}
 
 	.mobile-trigger {
