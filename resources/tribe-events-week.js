@@ -308,16 +308,8 @@
 
 		tribe_week_view_init(tribe_go_to_8(), false);
 
-		$('.tribe-events-grid').resize(function () {
-			if(!$body.is('.tribe-mobile')){
-				tribe_week_view_init(false, true);
-			}
-		});
-
 		$(te).on('tribe_ev_resizeComplete', function () {
-			if($body.is('.tribe-mobile')){
-				tribe_week_view_init(false, true);
-			}
+			tribe_week_view_init(false, true);
 		});
 
 		if (tt.pushstate && !tt.map_view()) {
@@ -512,10 +504,6 @@
 							$('#tribe-events-content.tribe-events-week-grid').replaceWith($the_content);
 
 							tribe_week_view_init(tribe_go_to_8(), false);
-
-							$('.tribe-events-grid').resize(function () {
-								tribe_week_view_init(false, true);
-							});
 
 							$("div[id*='tribe-events-event-']").hide().fadeIn('fast');
 
