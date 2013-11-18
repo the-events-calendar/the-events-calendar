@@ -309,7 +309,15 @@
 		tribe_week_view_init(tribe_go_to_8(), false);
 
 		$('.tribe-events-grid').resize(function () {
-			tribe_week_view_init(false, true);
+			if(!$body.is('.tribe-mobile')){
+				tribe_week_view_init(false, true);
+			}
+		});
+
+		$(te).on('tribe_ev_resizeComplete', function () {
+			if($body.is('.tribe-mobile')){
+				tribe_week_view_init(false, true);
+			}
 		});
 
 		if (tt.pushstate && !tt.map_view()) {
