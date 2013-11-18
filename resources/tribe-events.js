@@ -328,6 +328,7 @@ try {
 		execute_resize: function () {
 			tribe_ev.fn.update_viewport_variables();
 			tribe_ev.fn.mobile_class();
+			$(tribe_ev.events).trigger('tribe_ev_resizeComplete');
 		},
         /**
          * @function tribe_ev.fn.get_base_url
