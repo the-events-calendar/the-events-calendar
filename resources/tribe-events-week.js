@@ -361,8 +361,10 @@
 				});
 			})
 			.on('click', '.mobile-trigger', function (e) {
-				e.preventDefault();
-				tribe_mobile_setup_day($(this).attr('title'));
+				if($body.is('.tribe-mobile')){
+					e.preventDefault();
+					tribe_mobile_setup_day($(this).attr('title'));
+				}
 			});
 
 		/**
