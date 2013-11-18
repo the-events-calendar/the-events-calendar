@@ -327,6 +327,7 @@ try {
 		 */
 		execute_resize: function () {
 			tribe_ev.fn.update_viewport_variables();
+			tribe_ev.fn.mobile_class();
 		},
         /**
          * @function tribe_ev.fn.get_base_url
@@ -420,6 +421,19 @@ try {
 			var $tribe_events = $('#tribe-events');
             return ($tribe_events.length && $tribe_events.tribe_has_attr('data-category') && $tribe_events.data('category') !== '') ? true : false;
         },
+		/**
+		 * @function tribe_ev.fn.mobile_class
+		 * @since 3.0
+		 * @desc tribe_ev.fn.mobile_class adds or removes a mobile class from the body element based on the mobile breakpoint.
+		 */
+		mobile_class: function(){
+			var $body = $('body');
+
+			if(tribe_ev.data.v_width < tribe_ev.data.mobile_break)
+				$body.addClass('tribe-mobile');
+			else
+				$body.removeClass('tribe-mobile');
+		},
         /**
          * @function tribe_ev.fn.parse_string
          * @since 3.0
@@ -823,10 +837,13 @@ try {
 		if($tribe_content.length && $tribe_content.tribe_has_attr('data-mobilebreak'))
 			td.mobile_break = $tribe_content.attr('data-mobilebreak');
 
+
+
 		/* Let's hide the widget calendar if we find more than one instance */
 		$(".tribe-events-calendar-widget").not(":eq(0)").hide();
 
 		tf.tooltips();
+		tf.mobile_class();
 
         // remove events header subnav pagination if no results
         if ($('.tribe-events-list .tribe-events-notices').length) {
