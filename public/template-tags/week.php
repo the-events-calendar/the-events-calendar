@@ -224,6 +224,58 @@ if ( class_exists( 'TribeEventsPro' ) ) {
 	}
 
 	/**
+	 * create stringified JSON object for javascript templating function with php
+	 *
+	 * @since  3.2
+	 * @param $event
+	 * @return string
+	 */
+	function tribe_events_week_mobile_data( $event ) {
+
+		$html = '{"id":"tribe-events-mobile-event-' . $event->ID . '",';
+		$html .= '"title":"' . htmlspecialchars( $event->post_title, ENT_QUOTES ) . '",';
+		$html .= '"permalink":"' . tribe_get_event_link( $event->ID ) . '",';
+		$html .= '"startTime":"';
+
+		if ( !empty( $event->EventStartDate ) )
+			$html .= date_i18n( get_option( 'date_format', 'F j, Y' ), strtotime( $event->EventStartDate ) );
+		if ( !tribe_get_event_meta( $event->ID, '_EventAllDay', true ) )
+			$html .= ' ' . date_i18n( get_option( 'time_format', 'g:i a' ), strtotime( $event->EventStartDate ) );
+
+		$html .= '","endTime":"';
+
+		if ( !empty( $event->EventEndDate ) && $event->EventStartDate !== $event->EventEndDate ) {
+
+			if ( date_i18n( 'Y-m-d', strtotime( $event->EventStartDate ) ) == date_i18n( 'Y-m-d', strtotime( $event->EventEndDate ) ) ) {
+
+				$time_format = get_option( 'time_format', 'g:i a' );
+
+				if ( !tribe_get_event_meta( $event->ID, '_EventAllDay', true ) )
+					$html .= date_i18n( $time_format, strtotime( $event->EventEndDate ) );
+			} else {
+
+				$html .= date_i18n( get_option( 'date_format', 'F j, Y' ), strtotime( $event->EventEndDate ) );
+
+				if ( !tribe_get_event_meta( $event->ID, '_EventAllDay', true ) )
+					$html .= ' ' . date_i18n( get_option( 'time_format', 'g:i a' ), strtotime( $event->EventEndDate ) );
+			}
+		}
+
+		$html .= '","imageSrc":"';
+
+		if ( function_exists( 'has_post_thumbnail' ) && has_post_thumbnail( $event->ID ) ) {
+
+			$image_src = wp_get_attachment_image_src( get_post_thumbnail_id( $event->ID ), 'medium' );
+			$html .= $image_src[0];
+
+		}
+
+		$html .= '"}';
+
+		return $html;
+	}
+
+	/**
 	 * get event object
 	 *
 	 * @since  3.0
