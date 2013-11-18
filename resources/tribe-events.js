@@ -739,6 +739,7 @@ try {
         cur_url: tribe_ev.fn.url_path(document.URL),
         cur_date: tribe_ev.fn.current_date(),
         initial_url: tribe_ev.fn.url_path(document.URL),
+		mobile_break: 768,
         params: tribe_ev.fn.get_params(),
 		v_height:0,
 		v_width:0
@@ -800,6 +801,7 @@ try {
 		tf.update_viewport_variables();
 
 		var $tribe_events = $('#tribe-events'),
+			$tribe_content = $('#tribe-events-content'),
 			$tribe_events_header = $('#tribe-events-header'),
 			resize_timer;
 
@@ -817,6 +819,9 @@ try {
 		}
 
 		ts.view && dbug && debug.time('Tribe JS Init Timer');
+
+		if($tribe_content.length && $tribe_content.tribe_has_attr('data-mobilebreak'))
+			td.mobile_break = $tribe_content.attr('data-mobilebreak');
 
 		/* Let's hide the widget calendar if we find more than one instance */
 		$(".tribe-events-calendar-widget").not(":eq(0)").hide();
