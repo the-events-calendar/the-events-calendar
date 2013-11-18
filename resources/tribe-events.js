@@ -302,24 +302,32 @@ try {
             });
         },
         /**
-         * @function tribe_ev.fn.enable_inputs
-         * @since 3.0
-         * @desc tribe_ev.fn.enable_inputs enables all inputs of a specified type inside a parent element, and also enables select2 selects if it discovers any.
-         * @param {String} parent The top level element you would like all child inputs of the specified type to be disabled for.
-         * @param {String} type A single or comma separated string of the type of inputs you would like enabled.
-         * @example <caption>Enable all inputs and selects for #myForm.</caption>
-         * tribe_ev.fn.enable_inputs( '#myForm', 'input, select' );
-         */
-        enable_inputs: function (parent, type) {
-            $(parent).find(type).prop('disabled', false);
-            if ($(parent).find('.select2-container').length) {
-                $(parent).find('.select2-container').each(function () {
-                    var s2_id = $(this).attr('id');
-                    var $this = $('#' + s2_id);
-                    $this.select2("enable");
-                });
-            }
-        },
+		 * @function tribe_ev.fn.enable_inputs
+		 * @since 3.0
+		 * @desc tribe_ev.fn.enable_inputs enables all inputs of a specified type inside a parent element, and also enables select2 selects if it discovers any.
+		 * @param {String} parent The top level element you would like all child inputs of the specified type to be disabled for.
+		 * @param {String} type A single or comma separated string of the type of inputs you would like enabled.
+		 * @example <caption>Enable all inputs and selects for #myForm.</caption>
+		 * tribe_ev.fn.enable_inputs( '#myForm', 'input, select' );
+		 */
+		enable_inputs: function (parent, type) {
+			$(parent).find(type).prop('disabled', false);
+			if ($(parent).find('.select2-container').length) {
+				$(parent).find('.select2-container').each(function () {
+					var s2_id = $(this).attr('id');
+					var $this = $('#' + s2_id);
+					$this.select2("enable");
+				});
+			}
+		},
+		/**
+		 * @function tribe_ev.fn.execute_resize
+		 * @since 3.0
+		 * @desc tribe_ev.fn.execute_resize groups together functions that should execute at the end of the window resize event.
+		 */
+		execute_resize: function () {
+			tribe_ev.fn.update_viewport_variables();
+		},
         /**
          * @function tribe_ev.fn.get_base_url
          * @since 3.0
@@ -610,6 +618,15 @@ try {
 			}
         },
 		/**
+		 * @function tribe_ev.fn.update_viewport_variables
+		 * @since 3.0
+		 * @desc tribe_ev.fn.update_viewport_variables surprisingly updates the viewport variables stored in the tribe_ev.data object.
+		 */
+		update_viewport_variables: function () {
+			tribe_ev.data.v_height = $(window).height();
+			tribe_ev.data.v_width = $(window).width();
+		},
+		/**
 		 * @function tribe_ev.fn.url_path
 		 * @since 3.0
 		 * @desc tribe_ev.fn.url_path strips query vars from a url passed to it using js split on the ? character.
@@ -722,7 +739,9 @@ try {
         cur_url: tribe_ev.fn.url_path(document.URL),
         cur_date: tribe_ev.fn.current_date(),
         initial_url: tribe_ev.fn.url_path(document.URL),
-        params: tribe_ev.fn.get_params()
+        params: tribe_ev.fn.get_params(),
+		v_height:0,
+		v_width:0
     };
 
 	/**
@@ -778,8 +797,11 @@ try {
 
 		dbug && debug.info('TEC Debug: Tribe Events JS init, Init Timer started from tribe-events.js.');
 
+		tf.update_viewport_variables();
+
 		var $tribe_events = $('#tribe-events'),
-			$tribe_events_header = $('#tribe-events-header');
+			$tribe_events_header = $('#tribe-events-header'),
+			resize_timer;
 
 		$tribe_events.removeClass('tribe-no-js');
 		ts.category = tf.get_category();
@@ -815,6 +837,14 @@ try {
 		$(te).on( 'tribe_ev_ajaxSuccess', function() {
 			$('.tribe-events-active-spinner').remove();
 		});
+
+		$(window)
+			.resize(function () {
+
+				clearTimeout(resize_timer);
+				resize_timer = setTimeout(tf.execute_resize, 200);
+
+			});
 
 		if(dbug){
 			debug.groupCollapsed('TEC Debug: Browser and events settings information:');
