@@ -164,7 +164,7 @@ try {
 	/**
 	 * @function tribe_tmpl
 	 * @since 3.2
-	 * @desc Javascript templating function based on John Resigs micro-templating.
+	 * @desc Javascript templating function based on John Resigs micro-templating approach.
 	 * @param str The javascript template
 	 * @param data The data object
 	 */
@@ -178,11 +178,11 @@ try {
 					"with(obj){p.push('" +
 					str
 						.replace(/[\r\t\n]/g, " ")
-						.split("<%").join("\t")
-						.replace(/((^|%>)[^\t]*)'/g, "$1\r")
-						.replace(/\t=(.*?)%>/g, "',$1,'")
+						.split("[[").join("\t")
+						.replace(/((^|]])[^\t]*)'/g, "$1\r")
+						.replace(/\t=(.*?)]]/g, "',$1,'")
 						.split("\t").join("');")
-						.split("%>").join("p.push('")
+						.split("]]").join("p.push('")
 						.split("\r").join("\\'")
 					+ "');}return p.join('');");
 		return data ? fn( data ) : fn;
