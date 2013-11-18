@@ -18,7 +18,8 @@
 
 	$(document).ready(function () {
 
-		var $tribe_container = $('#tribe-events'),
+		var $body = $('body'),
+			$tribe_container = $('#tribe-events'),
 			$tribe_bar = $('#tribe-events-bar'),
 			$tribe_header = $('#tribe-events-header'),
 			start_day = 0,
@@ -28,6 +29,8 @@
 			start_day = $tribe_header.data('startofweek');
 
 		$tribe_bar.addClass('tribe-has-datepicker');
+
+
 
 		ts.date = $tribe_header.data('date');
 
@@ -214,15 +217,92 @@
 
 		}
 
+		function tribe_mobile_load_events(date){
+
+			var $target = $('.tribe-mobile-day[data-day="' + date + '"]'),
+				$events = $('.column[title="' + date + '"] .tribe-week-event');
+
+			if($events.length){
+				$events
+					.each(function () {
+
+						var $this = $(this),
+							$excerpt = $this.find('.entry-summary.description');
+
+						if($this.tribe_has_attr('data-mobile')){
+
+							var data = $this.data('mobile');
+
+							$target
+								.append(tribe_tmpl('tribe_tmpl_week_mobile', data));
+
+							if($excerpt.length){
+								$('#' + data.id + ' .description')
+									.append($excerpt.html());
+							}
+						}
+
+					});
+			}
+
+		}
+
+		function tribe_mobile_setup_day(date){
+
+			var $container = $('#tribe-mobile-container'),
+				$day_blocks = $('.tribe-mobile-day'),
+				$mobile_trigger = $('.mobile-trigger'),
+				$target_day = $('.tribe-mobile-day[data-day="' + date + '"]');
+
+			$mobile_trigger
+				.removeClass('tribe-week-today, mobile-active');
+
+			$mobile_trigger
+				.filter('[title="' + date + '"]')
+				.addClass('mobile-active');
+
+			$day_blocks.hide();
+
+			if($target_day.length){
+				$target_day.show();
+			} else {
+				$container
+					.append('<div class="tribe-mobile-day" data-day="' + date + '"></div>');
+
+				tribe_mobile_load_events(date);
+			}
+
+		}
+
+		function tribe_mobile_week_setup(){
+
+			var $today = $('.tribe-week-today'),
+				$mobile_trigger = $('.mobile-trigger'),
+				$tribe_grid = $('#tribe-events-content > .tribe-events-grid');
+
+			if(!$('#tribe-mobile-container').length)
+				$('<div id="tribe-mobile-container" />').insertAfter($tribe_grid);
+
+			if($today.length)
+				tribe_mobile_setup_day($today.attr('title'));
+			else
+				tribe_mobile_setup_day($mobile_trigger.first().attr('title'));
+
+		}
+
 		function tribe_week_view_init(callback, resize) {
-			tribe_set_allday_placeholder_height();
-			tribe_set_allday_spanning_events_width();
-			tribe_add_right_class();
-			if(resize)
-				$('.tribe-grid-content-wrap .column').css('height', 'auto');
-			tribe_display_week_view();
-			if (callback && typeof( callback ) === "function")
-				callback();
+			if($body.is('.tribe-mobile')){
+				tribe_mobile_week_setup();
+			} else {
+				tribe_set_allday_placeholder_height();
+				tribe_set_allday_spanning_events_width();
+				tribe_add_right_class();
+				if(resize)
+					$('.tribe-grid-content-wrap .column').css('height', 'auto');
+				tribe_display_week_view();
+				if (callback && typeof( callback ) === "function")
+					callback();
+			}
 		}
 
 		tribe_week_view_init(tribe_go_to_8(), false);
@@ -265,19 +345,24 @@
 			});
 		}
 
-		$tribe_container.on('click', '.tribe-events-sub-nav a', function (e) {
-			e.preventDefault();
-			if (ts.ajax_running)
-				return;
-			var $this = $(this);
-			ts.popping = false;
-			ts.date = $this.attr("data-week");
-			td.cur_url = $this.attr("href");
-			tf.update_picker(ts.date);
-			tf.pre_ajax(function () {
-				tribe_events_week_ajax_post();
+		$tribe_container
+			.on('click', '.tribe-events-sub-nav a', function (e) {
+				e.preventDefault();
+				if (ts.ajax_running)
+					return;
+				var $this = $(this);
+				ts.popping = false;
+				ts.date = $this.attr("data-week");
+				td.cur_url = $this.attr("href");
+				tf.update_picker(ts.date);
+				tf.pre_ajax(function () {
+					tribe_events_week_ajax_post();
+				});
+			})
+			.on('click', '.mobile-trigger', function (e) {
+				e.preventDefault();
+
 			});
-		});
 
 		/**
 		 * @function tribe_events_bar_weekajax_actions

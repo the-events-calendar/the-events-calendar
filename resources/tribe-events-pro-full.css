@@ -335,7 +335,13 @@
 	.tribe-week-grid-inner-wrap,
 	.tribe-grid-header span,
 	.tribe-grid-body div[id*="tribe-events-event-"] {
-		display: none;
+		display: none !important;
+	}
+
+	.mobile-trigger {
+		height:60px !important;
+		line-height:60px !important;
+		cursor:pointer;
 	}
 	
 	.slimScrollBar,
@@ -377,8 +383,19 @@
 		width: 8px;
 		padding: 0;
 		border-radius:50%;
-		background: #333;
-		margin: 5px auto;
+		background: #666;
+		margin: 25px auto 0 auto;
+	}
+
+	.tribe-grid-body .tribe-week-today.column:after,
+	.tribe-grid-body .mobile-active.column:after {
+		background: #fff;
+	}
+
+	.tribe-grid-body .tribe-week-today.column,
+	.tribe-grid-body .mobile-active.column {
+		background:#666;
+		color:#fff;
 	}
 	
 	/* grid header */

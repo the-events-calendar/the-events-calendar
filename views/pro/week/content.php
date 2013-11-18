@@ -47,25 +47,26 @@ if ( !defined('ABSPATH') ) { die('-1'); } ?>
 		<?php do_action( 'tribe_events_after_footer_nav' ); ?>
 	</div><!-- #tribe-events-footer -->
 	<?php do_action( 'tribe_events_after_footer') ?>
+
+	<script type="text/html" id="tribe_tmpl_week_mobile">
+		<div id="[[=id]]" class="tribe-events-mobile">
+			<h4 class="summary"><a href="[[=permalink]]" title="[[=title]]">[[=title]]</a></h4>
+			<div class="tribe-events-event-body">
+				<span class="date-start dtstart">[[=startTime]] </span>
+				[[ if(endTime.length) { ]]
+				-<span class="date-end dtend"> [[=endTime]]</span>
+				[[ } ]]
+				[[ if(imageSrc.length) { ]]
+				<div class="tribe-events-event-thumb">
+					<a href="[[=permalink]]" title="[[=title]]">
+						<img alt="[[=title]]" class="tribe-mobile-thumb" src="[[=imageSrc]]">
+					</a>
+				</div>
+				[[ } ]]
+				<p class="entry-summary description"></p>
+			</div>
+		</div>
+	</script>
 	
 </div><!-- #tribe-events-content -->
 
-<script type="text/html" id="tribe_tmpl_week_mobile">
-	<div id="[[=id]]" class="tribe-events-mobile">
-		<h4 class="summary"><a href="[[=permalink]]" title="[[=title]]">[[=title]]</a></h4>
-		<div class="tribe-events-event-body">
-			<span class="date-start dtstart">[[=startTime]] </span>
-			[[ if(endTime.length) { ]]
-			-<span class="date-end dtend"> [[=endTime]]</span>
-			[[ } ]]
-			[[ if(imageSrc.length) { ]]
-			<div class="tribe-events-event-thumb">
-				<a href="[[=permalink]]" title="[[=title]]">
-					<img alt="[[=title]]" class="tribe-mobile-thumb" src="[[=imageSrc]]">
-				</a>
-			</div>
-			[[ } ]]
-			<p class="entry-summary description"></p>
-		</div>
-	</div>
-</script>
