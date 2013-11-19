@@ -290,10 +290,22 @@
 				tribe_mobile_setup_day($mobile_trigger.first().attr('title'));
 
 		}
+		
+		function tribe_mobile_day_dates(){
+
+			$('.mobile-trigger').each(function () {
+				var $this = $(this),
+					$col_attr= $this.attr("title"),
+					$col_date = $('.tribe-grid-header').find('[title="' + column_date + '"] .tribe-events-daynum');
+				$this.append($column_date);
+			});
+
+		}
 
 		function tribe_week_view_init(callback, resize) {
 			if($body.is('.tribe-mobile')){
 				tribe_mobile_week_setup();
+				tribe_mobile_day_dates();
 			} else {
 				tribe_set_allday_placeholder_height();
 				tribe_set_allday_spanning_events_width();
