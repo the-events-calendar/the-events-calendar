@@ -249,6 +249,7 @@ if( !class_exists('Tribe_Template_Factory') ) {
 			}
 			if ( is_tax( $tribe->get_event_taxonomy() ) ) {
 				$tax_term = get_term_by( 'slug', get_query_var( 'term' ), $tribe->get_event_taxonomy() );
+				$tax_term = esc_html( $tax_term->name );
 			}
 
 			// Set an appropriate notice
@@ -259,13 +260,13 @@ if( !class_exists('Tribe_Template_Factory') ) {
 				TribeEvents::setNotice( 'event-search-no-results', sprintf( __( 'No results were found for events in or near <strong>"%s"</strong>.', 'tribe-events-calendar-pro' ), esc_html($geographic_term) ) );
 			}
 			elseif ( ! empty( $tax_term ) && tribe_is_upcoming() && ( date('Y-m-d') === date('Y-m-d', strtotime($tribe->date) ) ) ) {
-				TribeEvents::setNotice( 'events-not-found', sprintf( __('No upcoming events listed under %s. Check out upcoming events for this category or view the full calendar.', 'tribe-events-calendar') . $tax_term ) );
+				TribeEvents::setNotice( 'events-not-found', sprintf( __('No upcoming events listed under %s. Check out upcoming events for this category or view the full calendar.', 'tribe-events-calendar'), $tax_term ) );
 			}
 			elseif ( ! empty( $tax_term ) && tribe_is_upcoming() ) {
-				TribeEvents::setNotice( 'events-not-found', sprintf( __('No matching events listed under %s. Check out upcoming events for this category or view the full calendar.', 'tribe-events-calendar') . $tax_term ) );
+				TribeEvents::setNotice( 'events-not-found', sprintf( __('No matching events listed under %s. Check out upcoming events for this category or view the full calendar.', 'tribe-events-calendar'), $tax_term ) );
 			}
-			elseif ( ! empty( $tax_term ) &&tribe_is_past() ) {
-				TribeEvents::setNotice( 'events-past-not-found', __('No previous events ', 'tribe-events-calendar') . $tax_term );
+			elseif ( ! empty( $tax_term ) && tribe_is_past() ) {
+				TribeEvents::setNotice( 'events-past-not-found', __('No previous events ', 'tribe-events-calendar') );
 			}
 			else {
 				TribeEvents::setNotice( 'event-search-no-results', __( 'There were no results found.', 'tribe-events-calendar-pro' ) );
