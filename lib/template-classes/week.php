@@ -198,12 +198,14 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 		 */
 		function set_week_days() {
 			$week_days = array();
+			$display_format = apply_filters( 'tribe_events_pro_week_header_date_format', 'D jS' );
+
 			for ( $n = self::$start_of_week; $n < self::$start_of_week + self::$week_length; $n++ ) {
 				$day_offset = ( 0 < self::$start_of_week ) ? $n - self::$start_of_week : $n;
 				$date = date( 'Y-m-d', strtotime( self::$start_of_week_date . " +$day_offset days" ) );
 				$week_days[ $n ] = (object) array(
 					'date' => $date,
-					'display' => date( 'D jS', strtotime( self::$start_of_week_date . " +$day_offset days" ) ),
+					'display' => date_i18n( $display_format, strtotime( self::$start_of_week_date . " +$day_offset days" ) ),
 					'is_today' => ( $date == self::$today ) ? true : false
 				);
 			}
