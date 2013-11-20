@@ -49,7 +49,7 @@ if ( !defined('ABSPATH') ) { die('-1'); } ?>
 	<?php do_action( 'tribe_events_after_footer') ?>
 
 	<script type="text/html" id="tribe_tmpl_week_mobile">
-		<div class="tribe-events-mobile [[=eventClass]]">
+		<div class="tribe-events-mobile hentry vevent tribe-clearfix [[=eventClass]]">
 			<h4 class="summary">
 				<a class="url" href="[[=permalink]]" title="[[=title]]" rel="bookmark">[[=title]]</a>
 			</h4>
