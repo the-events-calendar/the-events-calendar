@@ -296,7 +296,7 @@
 			$('.mobile-trigger').each(function () {
 				var $this = $(this),
 					$col_attr = $this.attr("title"),
-					$col_date = $('.tribe-grid-header').find('[title="' + $col_attr + '"] .tribe-events-daynum');
+					$col_date = $('.tribe-grid-header').find('[title="' + $col_attr + '"] .tribe-events-daynum').clone();
 				$this.append($col_date);
 			});
 
@@ -310,8 +310,10 @@
 				tribe_set_allday_placeholder_height();
 				tribe_set_allday_spanning_events_width();
 				tribe_add_right_class();
-				if(resize)
+				if(resize) {
 					$('.tribe-grid-content-wrap .column').css('height', 'auto');
+					$('.tribe-grid-body .tribe-events-daynum').remove();
+				}
 				tribe_display_week_view();
 				if (callback && typeof( callback ) === "function")
 					callback();
