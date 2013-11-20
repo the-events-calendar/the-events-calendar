@@ -256,7 +256,7 @@
 				$target_day = $('.tribe-mobile-day[data-day="' + date + '"]');
 
 			$mobile_trigger
-				.removeClass('tribe-week-today mobile-active');
+				.removeClass('mobile-active');
 
 			$mobile_trigger
 				.filter('[title="' + date + '"]')
@@ -295,9 +295,9 @@
 
 			$('.mobile-trigger').each(function () {
 				var $this = $(this),
-					$col_attr= $this.attr("title"),
-					$col_date = $('.tribe-grid-header').find('[title="' + column_date + '"] .tribe-events-daynum');
-				$this.append($column_date);
+					$col_attr = $this.attr("title"),
+					$col_date = $('.tribe-grid-header').find('[title="' + $col_attr + '"] .tribe-events-daynum');
+				$this.append($col_date);
 			});
 
 		}

@@ -319,9 +319,9 @@
 
 /* Week Responsive 
 
-	* Add day date to "cells"
-	* Mobile event markup
 	* Style up list of events
+	* Skeleton, Full, Tribe
+	* JS resize?
 
 */
 
@@ -382,26 +382,35 @@
 		border-left: 1px solid #bbb;
 	}
 	
-	.tribe-grid-body .column:after {
+	.tribe-grid-body .tribe-events-daynum {
+		display: block;
+		margin: 14px auto 0;
+	}
+	
+	.tribe-grid-body .tribe-events-daynum:after {
 		content: '';
 		display: block;
 		height: 8px;
 		width: 8px;
 		padding: 0;
-		border-radius:50%;
-		background: #666;
-		margin: 25px auto 0 auto;
+		border-radius: 50%;
+		background: #333;
+		margin: 8px auto 0;
 	}
 
-	.tribe-grid-body .tribe-week-today.column:after,
-	.tribe-grid-body .mobile-active.column:after {
+	.tribe-grid-body .tribe-week-today .tribe-events-daynum:after,
+	.tribe-grid-body .mobile-active .tribe-events-daynum:after {
 		background: #fff;
 	}
-
+	
+	.tribe-grid-body .mobile-active .tribe-events-daynum,
 	.tribe-grid-body .tribe-week-today.column,
 	.tribe-grid-body .mobile-active.column {
-		background:#666;
 		color:#fff;
+	}
+
+	.tribe-grid-body .tribe-week-today.column {
+		background:#666;
 	}
 	
 	/* grid header */
@@ -422,8 +431,13 @@
 	}
 	
 	/* Specific Classes */
-	.tribe-week-today {
+	.tribe-grid-body .mobile-active.column.tribe-week-today {
 		background-color: #666;
+		color: #fff;
+	}
+	
+	.tribe-grid-body .mobile-active.column {
+		background-color: #999;
 		color: #fff;
 	}
 	
@@ -432,6 +446,7 @@
 		font-size: 16px;
 		line-height: 1;
 		color: #999;
+		font-weight: bold;
 	}
 	
 	.tribe-week-today .tribe-events-daynum {
@@ -440,6 +455,10 @@
 	
 	.tribe-week-today ~ .column .tribe-events-daynum {
 		color: #333;
+	}
+	
+	.tribe-week-today ~ .column.mobile-active .tribe-events-daynum {
+		color: #fff;
 	}
 
 }

@@ -231,8 +231,8 @@ if ( class_exists( 'TribeEventsPro' ) ) {
 	 * @return string
 	 */
 	function tribe_events_week_mobile_data( $event ) {
-
-		$html = '{"eventClass":"tribe-events-mobile-event-' . $event->ID . '",';
+	
+		$html = '{"eventClass":"hentry vevent tribe-events-mobile-event-' . $event->ID . '",';
 		$html .= '"title":"' . htmlspecialchars( $event->post_title, ENT_QUOTES ) . '",';
 		$html .= '"permalink":"' . tribe_get_event_link( $event->ID ) . '",';
 		$html .= '"startTime":"';
