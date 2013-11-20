@@ -21,9 +21,7 @@
 	color: #21759b;	
 }
 
-.tribe-events-grid .tribe-grid-header .tribe-week-today,
-.tribe-grid-body .column.tribe-week-today,
-.tribe-grid-body .tribe-week-today.mobile-active.column {
+.tribe-events-grid .tribe-grid-header .tribe-week-today {
  	background-color: #21759b;
 }
 
@@ -144,6 +142,11 @@
 	}
 	
 	/* Specific Classes */
+	.tribe-grid-body .column.tribe-week-today,
+	.tribe-grid-body .tribe-week-today.mobile-active.column {
+ 		background-color: #21759b;
+	}
+
 	.tribe-grid-body .mobile-active.column {
 		background-color: #eee;
 	}
