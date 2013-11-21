@@ -292,6 +292,9 @@
 		}
 		
 		function tribe_mobile_day_dates(){
+		
+			if($('.tribe-grid-body .tribe-events-daynum').length)
+				return;
 
 			$('.mobile-trigger').each(function () {
 				var $this = $(this),
@@ -310,10 +313,9 @@
 				tribe_set_allday_placeholder_height();
 				tribe_set_allday_spanning_events_width();
 				tribe_add_right_class();
-				if(resize) {
+				if(resize)
 					$('.tribe-grid-content-wrap .column').css('height', 'auto');
-					$('.tribe-grid-body .tribe-events-daynum').remove();
-				}
+				$('.tribe-grid-body .tribe-events-daynum').remove();
 				tribe_display_week_view();
 				if (callback && typeof( callback ) === "function")
 					callback();
