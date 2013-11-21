@@ -270,7 +270,8 @@ if (!class_exists('TribeEventsTemplates')) {
 			}
 
 			// apply filters
-			return apply_filters( 'tribe_current_events_page_template', $template );
+			// @todo: remove deprecated filter in 3.4
+			return apply_filters( 'tribe_events_current_view_template', apply_filters( 'tribe_current_events_view_template', $template ) );
 
 		}
 
@@ -300,7 +301,8 @@ if (!class_exists('TribeEventsTemplates')) {
 			}
 
 			// apply filters
-			return apply_filters( 'tribe_current_events_template_class', $class );
+			// @todo remove deprecated filter in 3.4
+			return apply_filters( 'tribe_events_current_template_class', apply_filters( 'tribe_current_events_template_class', $class ) );
 
 		}
 
