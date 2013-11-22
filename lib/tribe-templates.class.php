@@ -271,7 +271,7 @@ if (!class_exists('TribeEventsTemplates')) {
 
 			// apply filters
 			// @todo: remove deprecated filter in 3.4
-			return apply_filters( 'tribe_events_current_view_template', apply_filters( 'tribe_current_events_view_template', $template ) );
+			return apply_filters( 'tribe_events_current_view_template', apply_filters( 'tribe_current_events_page_template', $template ) );
 
 		}
 
