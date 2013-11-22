@@ -33,7 +33,7 @@ $hour_format = apply_filters( 'tribe_events_pro_week_hour_format', 'gA' );
 		<?php // Hours ?>
 		<div class="column tribe-week-grid-hours">
 			<?php for ( $hour = 0; $hour <= 23; $hour++ ) : ?>
-			<div class="time-row-<?php echo date_i18n( $hour_format, mktime( $hour ) ); ?>"><?php echo date_i18n( $hour_format, mktime( $hour ) ); ?></div>
+			<div class="time-row-<?php echo date_i18n( 'gA', mktime( $hour ) ); ?>"><?php echo date_i18n( $hour_format, mktime( $hour ) ); ?></div>
 			<?php endfor; ?>
 		</div><!-- tribe-week-grid-hours -->
 		<?php // Content ?>
