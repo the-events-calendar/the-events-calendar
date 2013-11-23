@@ -630,7 +630,7 @@ if( class_exists( 'TribeEventsPro' ) ) {
 
 
 	/**
-	 * Get the date for the day navigation link
+	 * Get the date for the day navigation link.
 	 *
 	 * @param string $date_description
 	 * @return string
@@ -644,10 +644,10 @@ if( class_exists( 'TribeEventsPro' ) ) {
 		if ( $date_description == 'previous day' ) {
 			return tribe_get_previous_day_date(get_query_var('start_date'));
 		}
-		if ( $date_description = 'next day' ) {
+		if ( $date_description == 'next day' ) {
 			return tribe_get_next_day_date(get_query_var('start_date'));
 		}
-		return date('Y-m-d', $date_description);
+		return date('Y-m-d', strtotime($date_description) );
 	}
 
 	/**
