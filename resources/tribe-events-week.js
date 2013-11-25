@@ -226,21 +226,14 @@
 				$events
 					.each(function () {
 
-						var $this = $(this),
-							$excerpt = $this.find('.entry-summary.description');
+						var $this = $(this);
 
-						if($this.tribe_has_attr('data-mobile')){
+						if($this.tribe_has_attr('data-tribejson')){
 
-							var data = $this.data('mobile');
+							var data = $this.data('tribejson');
 
 							$target
 								.append(tribe_tmpl('tribe_tmpl_week_mobile', data));
-
-							if($excerpt.length){
-								$target
-									.find('.' + data.eventClass + ' .description')
-									.append($excerpt.html());
-							}
 						}
 
 					});

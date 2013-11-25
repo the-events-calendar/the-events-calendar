@@ -1,5 +1,5 @@
 <script type="text/html" id="tribe_tmpl_week_mobile">
-	<div class="tribe-events-mobile hentry vevent tribe-clearfix [[=eventClass]]">
+	<div class="tribe-events-mobile hentry vevent tribe-clearfix tribe-events-mobile-event-[[=eventId]]">
 		<h4 class="summary">
 			<a class="url" href="[[=permalink]]" title="[[=title]]" rel="bookmark">[[=title]]</a>
 		</h4>
@@ -17,7 +17,9 @@
 				</a>
 			</div>
 			[[ } ]]
-			<p class="entry-summary description"></p>
+			[[ if(excerpt.length) { ]]
+			<p class="entry-summary description">[[=excerpt]]</p>
+			[[ } ]]
 			<a href="[[=permalink]]" class="tribe-events-read-more" rel="bookmark">Find out more »</a>
 		</div>
 	</div>

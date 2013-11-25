@@ -49,5 +49,6 @@ if ( !defined('ABSPATH') ) { die('-1'); } ?>
 	<?php do_action( 'tribe_events_after_footer') ?>
 
 	<?php tribe_get_template_part( 'pro/week/mobile' ); ?>
+	<?php tribe_get_template_part( 'pro/week/tooltip' ); ?>
 	
 </div><!-- #tribe-events-content -->

@@ -226,13 +226,15 @@ if ( class_exists( 'TribeEventsPro' ) ) {
 	/**
 	 * create stringified JSON object for javascript templating function with php
 	 *
-	 * @since  3.2
+	 * @since  3.3
 	 * @param $event
 	 * @return string
 	 */
-	function tribe_events_week_mobile_data( $event ) {
+	function tribe_events_week_template_data( $event ) {
+
+		$has_image = false;
 	
-		$html = '{"eventClass":"tribe-events-mobile-event-' . $event->ID . '",';
+		$html = '{"eventId":"' . $event->ID . '",';
 		$html .= '"title":"' . htmlspecialchars( $event->post_title, ENT_QUOTES ) . '",';
 		$html .= '"permalink":"' . tribe_get_event_link( $event->ID ) . '",';
 		$html .= '"startTime":"';
@@ -265,9 +267,28 @@ if ( class_exists( 'TribeEventsPro' ) ) {
 
 		if ( function_exists( 'has_post_thumbnail' ) && has_post_thumbnail( $event->ID ) ) {
 
+			$has_image = true;
+
 			$image_src = wp_get_attachment_image_src( get_post_thumbnail_id( $event->ID ), 'medium' );
 			$html .= $image_src[0];
 
+		}
+
+		$html .= '","imageTooltipSrc":"';
+
+		if( $has_image ){
+
+			$image_src = wp_get_attachment_image_src( get_post_thumbnail_id( $event->ID ), array( 75, 75 ) );
+			$html .= $image_src[0];
+
+		}
+
+		$html .= '","excerpt":"';
+
+		if ( has_excerpt( $event->ID ) ) {
+			$html .= trim( htmlspecialchars( TribeEvents::truncate( $event->post_excerpt, 30 ), ENT_QUOTES ) );
+		} else {
+			$html .= trim( htmlspecialchars( TribeEvents::truncate( $event->post_content, 30 ), ENT_QUOTES ) );
 		}
 
 		$html .= '"}';
