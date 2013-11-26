@@ -232,19 +232,23 @@ if ( class_exists( 'TribeEventsPro' ) ) {
 	 */
 	function tribe_events_week_template_data( $event ) {
 
+		$json = array();
 		$has_image = false;
-	
-		$html = '{"eventId":"' . $event->ID . '",';
-		$html .= '"title":"' . htmlspecialchars( $event->post_title, ENT_QUOTES ) . '",';
-		$html .= '"permalink":"' . tribe_get_event_link( $event->ID ) . '",';
-		$html .= '"startTime":"';
+
+		$json['eventId'] = $event->ID;
+		$json['title'] = htmlspecialchars( $event->post_title, ENT_QUOTES );
+		$json['permalink'] = tribe_get_event_link( $event->ID );
+
+		$start_time = '';
 
 		if ( !empty( $event->EventStartDate ) )
-			$html .= date_i18n( get_option( 'date_format', 'F j, Y' ), strtotime( $event->EventStartDate ) );
+			$start_time .= date_i18n( get_option( 'date_format', 'F j, Y' ), strtotime( $event->EventStartDate ) );
 		if ( !tribe_get_event_meta( $event->ID, '_EventAllDay', true ) )
-			$html .= ' ' . date_i18n( get_option( 'time_format', 'g:i a' ), strtotime( $event->EventStartDate ) );
+			$start_time .= ' ' . date_i18n( get_option( 'time_format', 'g:i a' ), strtotime( $event->EventStartDate ) );
 
-		$html .= '","endTime":"';
+		$json['startTime'] = $start_time;
+
+		$end_time = '';
 
 		if ( !empty( $event->EventEndDate ) && $event->EventStartDate !== $event->EventEndDate ) {
 
@@ -253,47 +257,51 @@ if ( class_exists( 'TribeEventsPro' ) ) {
 				$time_format = get_option( 'time_format', 'g:i a' );
 
 				if ( !tribe_get_event_meta( $event->ID, '_EventAllDay', true ) )
-					$html .= date_i18n( $time_format, strtotime( $event->EventEndDate ) );
+					$end_time .= date_i18n( $time_format, strtotime( $event->EventEndDate ) );
 			} else {
 
-				$html .= date_i18n( get_option( 'date_format', 'F j, Y' ), strtotime( $event->EventEndDate ) );
+				$end_time .= date_i18n( get_option( 'date_format', 'F j, Y' ), strtotime( $event->EventEndDate ) );
 
 				if ( !tribe_get_event_meta( $event->ID, '_EventAllDay', true ) )
-					$html .= ' ' . date_i18n( get_option( 'time_format', 'g:i a' ), strtotime( $event->EventEndDate ) );
+					$end_time .= ' ' . date_i18n( get_option( 'time_format', 'g:i a' ), strtotime( $event->EventEndDate ) );
 			}
 		}
 
-		$html .= '","imageSrc":"';
+		$json['endTime'] = $end_time;
+
+		$image_src = '';
 
 		if ( function_exists( 'has_post_thumbnail' ) && has_post_thumbnail( $event->ID ) ) {
 
 			$has_image = true;
 
-			$image_src = wp_get_attachment_image_src( get_post_thumbnail_id( $event->ID ), 'medium' );
-			$html .= $image_src[0];
+			$image_arr = wp_get_attachment_image_src( get_post_thumbnail_id( $event->ID ), 'medium' );
+			$image_src = $image_arr[0];
 
 		}
 
-		$html .= '","imageTooltipSrc":"';
+		$json['imageSrc'] = $image_src;
+
+		$image_tool_src = '';
 
 		if( $has_image ){
 
-			$image_src = wp_get_attachment_image_src( get_post_thumbnail_id( $event->ID ), array( 75, 75 ) );
-			$html .= $image_src[0];
+			$image_tool_arr = wp_get_attachment_image_src( get_post_thumbnail_id( $event->ID ), array( 75, 75 ) );
+			$image_tool_src = $image_tool_arr[0];
 
 		}
 
-		$html .= '","excerpt":"';
+		$json['imageTooltipSrc'] = $image_tool_src;
 
 		if ( has_excerpt( $event->ID ) ) {
-			$html .= trim( htmlspecialchars( TribeEvents::truncate( $event->post_excerpt, 30 ), ENT_QUOTES ) );
+			$excerpt = trim( htmlspecialchars( TribeEvents::truncate( $event->post_excerpt, 30 ), ENT_QUOTES ) );
 		} else {
-			$html .= trim( htmlspecialchars( TribeEvents::truncate( $event->post_content, 30 ), ENT_QUOTES ) );
+			$excerpt = trim( htmlspecialchars( TribeEvents::truncate( $event->post_content, 30 ), ENT_QUOTES ) );
 		}
 
-		$html .= '"}';
+		$json['excerpt'] = $excerpt;
 
-		return $html;
+		return json_encode( $json );
 	}
 
 	/**
