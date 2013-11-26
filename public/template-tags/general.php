@@ -529,7 +529,6 @@ if ( class_exists( 'TribeEvents' ) ) {
 	/**
 	 * Get an event's cost
 	 *
-	 *
 	 * @param null|int $postId (optional)
 	 * @param bool $withCurrencySymbol Include the currency symbol
 	 * @return string Cost of the event.
@@ -559,6 +558,19 @@ if ( class_exists( 'TribeEvents' ) ) {
 		}
 
 		return apply_filters( 'tribe_get_cost', $cost, $postId, $withCurrencySymbol );
+	}
+
+	/**
+	 * Returns the event cost complete with currency symbol.
+	 *
+	 * Essentially an alias of tribe_get_cost(), as if called with the $withCurrencySymbol
+	 * argument set to true. Useful for callbacks.
+	 *
+	 * @param null $postId
+	 * @return mixed|void
+	 */
+	function tribe_get_formatted_cost( $postId = null ) {
+		return apply_filters( 'tribe_get_formatted_cost', tribe_get_cost( $postId, true ) );
 	}
 
 	/**
