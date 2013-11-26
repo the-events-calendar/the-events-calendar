@@ -1125,6 +1125,9 @@ select.tribe-events-dropdown {
 	font-size: 11px;
 	line-height: 1.5;
 }
+a.tribe-events-grid-anchor {
+	display: none;
+}
 
 /* = Mobile: Global Grid Template Styles (Large Calendar & Week)
    @ Template: month.php & week.php
@@ -1137,10 +1140,12 @@ select.tribe-events-dropdown {
 	
 	#tribe-mobile-container {
 		display: block;
+		margin: 0 auto;
+		max-width: 600px;
 	}
 	
 	.tribe-events-calendar .tribe-events-has-events:after,
-	.tribe-grid-body .tribe-events-daynum:after {
+	.tribe-grid-body .tribe-events-has-events .tribe-events-daynum:after {
 		content: '';
 		display: block;
 		height: 8px;
@@ -1149,6 +1154,23 @@ select.tribe-events-dropdown {
 		border-radius: 50%;
 		background-color: #333;
 		margin: 5px auto;
+	}
+	
+	a.tribe-events-grid-anchor {
+		display: block;
+		color: #fff;
+		text-align: center;
+		font-size: 16px;
+		margin: 34px auto;
+		background-color: #bbb;
+		line-height: 32px;
+		height: 32px;
+		max-width: 600px;
+	}
+	
+	.tribe-events-grid-anchor:visited,
+	.tribe-events-grid-anchor:hover {
+		color: #fff;
 	}
 	
 	/* Actual Event Styles */

@@ -853,6 +853,16 @@ try {
 		if ($('.tribe-events-list').length) {
 			$('.tribe-events-list-separator-month').prev('.vevent').addClass('tribe-event-end-month');
 		}
+		
+		// implement smooth scroll for mobile grid views
+		if ($('a.tribe-events-grid-anchor').length) {
+			$('a.tribe-events-grid-anchor').on('click', function (e) {
+				e.preventDefault();
+				var $this = $(this),
+					$target = $this.attr('href');
+				$('html, body').stop().animate({scrollTop: $($target).offset().top - 100}, {duration: 250});
+			});
+		}
 
 		// ajax complete function to remove active spinner
 		$(te).on( 'tribe_ev_ajaxSuccess', function() {

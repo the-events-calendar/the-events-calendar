@@ -36,6 +36,11 @@ if ( !defined('ABSPATH') ) { die('-1'); } ?>
 
 	<!-- Month Grid -->
 	<?php tribe_get_template_part( 'month/loop', 'grid' ) ?>
+	
+	<!-- Month Grid Anchor (mobile) -->
+	<a class="tribe-events-grid-anchor" href="#tribe-events-header">
+		<?php _e( 'Back up top', 'tribe-events-calendar' ); ?>
+	</a>
 
 	<!-- Month Footer -->
 	<?php do_action( 'tribe_events_before_footer' ) ?>
