@@ -18,7 +18,8 @@
 
 	$(document).ready(function () {
 
-		var base_url = $('#tribe-events-header .tribe-events-nav-next a').attr('href').slice(0, -8),
+		var $body = $('body'),
+			base_url = $('#tribe-events-header .tribe-events-nav-next a').attr('href').slice(0, -8),
 			initial_date = tf.get_url_param('tribe-bar-date'),
 			$tribedate = $('#tribe-bar-date'),
 			date_mod = false;
@@ -64,8 +65,37 @@
 				});
 			}
 		}).data('datepicker');
+		
+		function tribe_mobile_day_abbr(){
+				
+			$('.tribe-events-calendar th').each(function () {
+				var $this = $(this),
+					day_abbr = $this.attr('data-day-abbr'),
+					day_full = $this.attr('title');
+					
+				if($body.is('.tribe-mobile')){
+					$this.text(day_abbr);
+				} else {
+					$this.text(day_full);
+				}
+			});
 
+		}
 
+		function tribe_month_view_init(callback, resize) {
+			if($body.is('.tribe-mobile')){
+				tribe_mobile_day_abbr();
+			} else {
+				if(resize)
+					tribe_mobile_day_abbr();
+			}
+		}
+		
+		tribe_month_view_init(false, true);
+
+		$(te).on('tribe_ev_resizeComplete', function () {
+			tribe_month_view_init(false, true);
+		});
 
 		if (tt.pushstate && !tt.map_view()) {
 

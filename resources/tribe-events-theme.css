@@ -115,7 +115,6 @@ h2.tribe-events-page-title,
 	}
 }
 
-
 /* = List View Template Styles
    @ Template: list.php
 =============================================*/
@@ -220,7 +219,6 @@ h2.tribe-events-page-title,
 	margin: 0 auto;
 }
 
-
 /* = Single Event Template Styles
    @ Template: single-event.php
 =============================================*/
@@ -299,7 +297,7 @@ h2.tribe-events-page-title,
 }
 
 /* = Calendar Styles (includes styles for both large & small calendars)
-   @ Template: calendar.php & calendar-widget.php
+   @ Template: month.php & widgets/calendar-widget.php
 =============================================*/
 /* Global Calendar Styles */
 #tribe-events-content .tribe-events-calendar td {
@@ -312,18 +310,17 @@ h2.tribe-events-page-title,
 	        transition: all .2s cubic-bezier(0.550, 0.085, 0.680, 0.530);
 }
 
-#tribe-events-content .tribe-events-calendar td:hover{
+#tribe-events-content .tribe-events-calendar td:hover {
 	background: #f7f7f7;
 	-webkit-box-shadow: rgba(0,0,0, 0.2) 0px 0px 10px;
-			box-shadow: rgba(0,0,0, 0.2) 0px 0px 10px;	
-
+			box-shadow: rgba(0,0,0, 0.2) 0px 0px 10px;
 }
 
-.tribe-events-othermonth{
+.tribe-events-othermonth {
 	background: #f9f9f9;
 }
 
-#tribe-events-content .tribe-events-calendar .tribe-events-othermonth:hover{
+#tribe-events-content .tribe-events-calendar .tribe-events-othermonth:hover {
 	-webkit-box-shadow: none;
 			box-shadow: none;
 }
@@ -340,11 +337,9 @@ h2.tribe-events-page-title,
 	font-weight: bold;
 }
 
-
-.tribe-events-calendar div[id*="tribe-events-daynum-"] a:hover{
+.tribe-events-calendar div[id*="tribe-events-daynum-"] a:hover {
 	color:#666;	
 }
-
 
 .tribe-events-calendar td.tribe-events-past div[id*="tribe-events-daynum-"], 
 .tribe-events-calendar td.tribe-events-past div[id*="tribe-events-daynum-"] > a {
@@ -390,7 +385,6 @@ h2.tribe-events-page-title,
 	background-color: #666;
 	color: #fff;
 	font-weight: bold;
-	letter-spacing: 0;
 	padding: 1em 0;
 	border-left: 1px solid #666;
 	border-right: 1px solid #666;
@@ -433,6 +427,48 @@ h2.tribe-events-page-title,
 
 .tribe-events-map.tribe-bar-is-disabled #tribe-events-content-wrapper {
 	max-width: none;
+}
+
+/* = Mobile: Global Grid Template Styles (Large Calendar & Week)
+   @ Template: month.php & week.php
+=============================================*/
+@media (max-width: 768px) {
+	
+	/* Actual Event Styles */	
+	#tribe-mobile-container .hentry.vevent ~ .hentry.vevent {
+		border-top: 1px dotted #2f2f2f;
+	}
+
+}
+
+/* = Mobile: Calendar (large) Grid Template Styles
+   @ Template: month.php
+=============================================*/
+@media (max-width: 768px) {
+	
+	.tribe-events-calendar thead th {
+		padding: 7px 1em;
+	}
+	
+	.tribe-events-calendar td.tribe-events-past div[id*="tribe-events-daynum-"], 
+	.tribe-events-calendar td.tribe-events-past div[id*="tribe-events-daynum-"] > a {
+		background: none;
+		color: #999;
+	}
+
+	.tribe-events-calendar td div[id*="tribe-events-daynum-"],
+	.tribe-events-calendar td div[id*="tribe-events-daynum-"] a {
+		background: none;
+		padding: 0;
+		color: #333;
+	}
+	
+	/* Specific Classes */	
+	.tribe-events-calendar .tribe-events-present,
+	#tribe-events-content .tribe-events-calendar .tribe-events-present:hover {
+		background-color: #21759b;
+	}
+
 }
 
 /* = Events Filter Styles

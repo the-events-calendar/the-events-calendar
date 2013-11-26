@@ -14,7 +14,7 @@
 
 if ( !defined('ABSPATH') ) { die('-1'); } ?>
 
-<div id="tribe-events-content" class="tribe-events-month">
+<div id="tribe-events-content" class="tribe-events-month" data-mobilebreak="768">
 	
 	<!-- Month Title -->
 	<?php do_action( 'tribe_events_before_the_title' ) ?>
@@ -48,5 +48,8 @@ if ( !defined('ABSPATH') ) { die('-1'); } ?>
 
 	</div><!-- #tribe-events-footer -->
 	<?php do_action( 'tribe_events_after_footer' ) ?>
+	
+	<?php tribe_get_template_part( 'month/mobile' ); ?>
+	<?php tribe_get_template_part( 'month/tooltip' ); ?>
 	
 </div><!-- #tribe-events-content -->
