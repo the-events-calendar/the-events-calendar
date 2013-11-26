@@ -51,9 +51,6 @@
 	margin: 1.5em 0 .25em;
 	background-color: transparent;
 	padding: 6px 10px;
-	/*border-top: 1px solid #ccc;
-	border-bottom: 1px solid #ccc;
-	color: #ccc;*/
 	background: #E0E0E0;
 	color:#fff;
 	text-align: center;
@@ -124,7 +121,9 @@
 	border-top-color: #d2d2d2;
 }
 
-/* Mobile: Week view */
+/* = Mobile: Week Grid Template Styles
+   @ Template: week.php
+=============================================*/
 @media (max-width: 768px) {
 	
 	/* columns & structure */	
@@ -175,11 +174,6 @@
 	
 	.tribe-week-today ~ .column .tribe-events-daynum {
 		color: #333;
-	}
-	
-	/* Actual Event Styles */	
-	#tribe-mobile-container .hentry.vevent ~ .hentry.vevent {
-		border-top: 1px dotted #2f2f2f;
 	}
 
 }

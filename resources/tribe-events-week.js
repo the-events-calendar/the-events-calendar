@@ -30,8 +30,6 @@
 
 		$tribe_bar.addClass('tribe-has-datepicker');
 
-
-
 		ts.date = $tribe_header.data('date');
 
 		function disableSpecificWeekDays(date) {
