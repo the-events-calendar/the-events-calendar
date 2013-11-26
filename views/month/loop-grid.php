@@ -14,12 +14,10 @@
 if ( !defined('ABSPATH') ) { die('-1'); } ?>
 
 <?php 
-
 $days_of_week = tribe_events_get_days_of_week();
 $week = 0;
 global $wp_locale;
 ?>
-
 
 <?php do_action( 'tribe_events_before_the_grid' ) ?>
 <table class="tribe-events-calendar">

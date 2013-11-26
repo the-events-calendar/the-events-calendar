@@ -81,8 +81,6 @@
 				"tribe_params": params
 			}, ts.page_title, location.href);
 
-
-
 			$(window).on('popstate', function (event) {
 
 				var state = event.originalEvent.state;
@@ -99,104 +97,7 @@
 					tf.set_form(ts.params);
 				}
 			});
-		}
-
-		//Mobile Calendar
-
-        var $tribecalendar = $('.tribe-events-calendar');
-
-        // Check width of events bar
-        function calendarWidth($tribegrid) {
-
-            var tribeCalendarWidth = $tribecalendar.width();
-                 $table_heading = $tribecalendar.find('th');
-
-
-            console.log($tribecalendar);
-            if (tribeCalendarWidth < 600) {
-                $tribecalendar.removeClass('tribe-events-calendar-full').addClass('tribe-events-calendar-collapse');
-
-                $table_heading.each(function(){
-                	var $this = $(this);
-                       
-                    day = $this.text();
-                	day_abbr = $this.data('day-abbr');
-
-                	$this.text(day_abbr);
-                });
-            } else {
-                $tribecalendar.removeClass('tribe-events-calendar-collapse').addClass('tribe-events-calendar-full');
-                 $('.tribe-events-calendar-collapse-list').remove();
-            }
-        }
-
-        calendarWidth($tribecalendar);
-
-        $tribecalendar.resize(function () {
-            calendarWidth($tribecalendar);
-        });
-
-        $('#tribe-events').on( 'click', '.tribe-events-has-events', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            var $this = $(this);
-
-            if ( $('.tribe-events-calendar').is('.tribe-events-calendar-collapse') ) {
-                console.log('the calendar is responsive');
-
-                var $eventsToAdd = $this.find('.tribe-events-tooltip').clone();
-                var $viewMore = $this.find('.tribe-events-viewmore').clone();
-
-                $('.tribe-events-has-events').removeClass('tribe-events-active');
-
-                $this.addClass('tribe-events-active');
-
-                if ( !$('.tribe-events-calendar-collapse-list').length ) {
-                    console.log('the list wrapper does not exist');
-
-                    $('#tribe-events-content').append('<div class="tribe-events-calendar-collapse-list" />');
-                    var $eventsListWrap = $('.tribe-events-calendar-collapse-list');
-
-                    $eventsListWrap.html( $eventsToAdd );
-
-                    $eventsListWrap.find('.tribe-events-tooltip')
-                        .removeClass('tribe-events-tooltip')
-                        .addClass('tribe-events-mini-event');
-                    
-                    if(typeof $viewMore != 'undefined') {
-                        console.log($viewMore);
-                       $eventsListWrap.append( $viewMore );
-                    }
-                    $('html, body').stop().animate( {
-                      scrollTop:$eventsListWrap.offset().top - 100
-                     }, {
-                      duration: 500
-                    });                
-
-                } else {
-                    console.log('the list wrapper exists');                
-                    var $eventsListWrap = $('.tribe-events-calendar-collapse-list');
-                    
-                    $eventsListWrap.html( $eventsToAdd );
-                    
-                    $eventsListWrap.find('.tribe-events-tooltip')
-                        .removeClass('tribe-events-tooltip')
-                        .addClass('tribe-events-mini-event');
-
-                    if(typeof $viewMore != 'undefined') {
-                        console.log($viewMore);
-                        $eventsListWrap.append( $viewMore );
-                    }               
-                    $('html, body').stop().animate( {
-                      scrollTop:$eventsListWrap.offset().top - 100
-                     }, {
-                      duration: 500                
-                    });                 
-                }
-
-            }
-
-        });  				
+		}  				
 
 		$('#tribe-events')
 			.on('click', '.tribe-events-sub-nav a', function (e) {

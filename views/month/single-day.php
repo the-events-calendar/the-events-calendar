@@ -14,9 +14,7 @@
 if ( !defined('ABSPATH') ) { die('-1'); } ?>
 
 <?php
-
 $day = tribe_events_get_current_month_day();
-
 ?>
 
 <?php if ( $day['date'] != 'previous' && $day['date'] != 'next' ) : ?>

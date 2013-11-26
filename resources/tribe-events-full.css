@@ -686,10 +686,10 @@ select.tribe-events-dropdown {
 		width: 100%;
 		margin: 0 0 20px 0;
 	}
-.tribe-events-list .tribe-events-event-image + div.tribe-events-content {
-	float: none;
-	width: 100%;
-}	
+	.tribe-events-list .tribe-events-event-image + div.tribe-events-content {
+		float: none;
+		width: 100%;
+	}	
 	.tribe-events-list .tribe-events-loop .tribe-events-event-meta .recurringinfo {
 		display: block;
 		margin: 8px 0 0;
@@ -964,9 +964,9 @@ select.tribe-events-dropdown {
 	vertical-align: top;
 	padding: 0 0 .5em;
 	font-size: 12px;
-	box-sizing: border-box;
 	-webkit-box-sizing: border-box;
-	-moz-box-sizing: border-box;
+	   -moz-box-sizing: border-box;
+			box-sizing: border-box;
 }
 .vevent.viewmore {
 	font-weight:bold;
@@ -1140,6 +1140,20 @@ select.tribe-events-dropdown {
 	line-height: 1.5;
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /* = Mobile Grid View
 =============================================*/
 #tribe-events-content .tribe-events-calendar {
@@ -1147,9 +1161,9 @@ select.tribe-events-dropdown {
 	max-width: 100%;
 }
 #tribe-events-content .tribe-events-calendar * {
-	box-sizing: border-box;
 	-webkit-box-sizing: border-box;
-	-moz-box-sizing: border-box;
+	   -moz-box-sizing: border-box;
+			box-sizing: border-box;
 }
 #tribe-events-content .tribe-events-calendar.tribe-events-calendar-collapse td {
 	height: 32px;
@@ -1263,9 +1277,9 @@ select.tribe-events-dropdown {
 	max-width: 100%;
 }
 #tribe-events-content .tribe-events-calendar * {
-	box-sizing: border-box;
 	-webkit-box-sizing: border-box;
-	-moz-box-sizing: border-box;
+	   -moz-box-sizing: border-box;
+			box-sizing: border-box;
 }
 #tribe-events-content .tribe-events-calendar td {
 	height: 32px;
@@ -1339,6 +1353,19 @@ select.tribe-events-dropdown {
 
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 /* = Events List Widget Styles (Sidebar)

@@ -14,13 +14,11 @@
 if ( !defined('ABSPATH') ) { die('-1'); } ?>
 
 <?php 
-
 global $post;
 $day = tribe_events_get_current_month_day();
 $event_id = "{$post->ID}-{$day['daynum']}";
 $start = tribe_get_start_date( $post, FALSE, 'U' );
 $end = tribe_get_end_date( $post, FALSE, 'U' );
-
 ?>
 
 <div id="tribe-events-event-<?php echo $event_id ?>" class="<?php tribe_events_event_classes() ?>">

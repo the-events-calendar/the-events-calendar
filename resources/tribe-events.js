@@ -838,8 +838,6 @@ try {
 		if($tribe_content.length && $tribe_content.tribe_has_attr('data-mobilebreak'))
 			td.mobile_break = $tribe_content.attr('data-mobilebreak');
 
-
-
 		/* Let's hide the widget calendar if we find more than one instance */
 		$(".tribe-events-calendar-widget").not(":eq(0)").hide();
 
@@ -851,7 +849,7 @@ try {
             $('#tribe-events-header .tribe-events-sub-nav').empty();
         }
         
-		//remove border on list view event before month divider
+		// remove border on list view event before month divider
 		if ($('.tribe-events-list').length) {
 			$('.tribe-events-list-separator-month').prev('.vevent').addClass('tribe-event-end-month');
 		}
