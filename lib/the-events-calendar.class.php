@@ -2161,10 +2161,41 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				global $wp_query;
 				if ( $wp_query->is_main_query() && !empty( $wp_query->tribe_is_event_query ) ) {
 					$this->displaying = isset( $wp_query->query_vars['eventDisplay'] ) ? $wp_query->query_vars['eventDisplay'] : tribe_get_option( 'viewOption', 'upcoming' );
+					$this->maybe_reset_default_view();
+
 					if ( is_single() && $this->displaying != 'all' )
 						$this->displaying = 'single-event';
 				}
 			}
+		}
+
+		/**
+         * Ensure we have a template class available to handle the requested display mode.
+		 *
+		 * It's possible for other plugins (Events Calendar PRO for instance) to register new views,
+		 * one of which might then be chosen as the default view. If it is subsequently deactivated
+		 * though we aren't going to be able to show anything.
+		 *
+		 * In that scenario, this method resets the default view to the first available one.
+		 */
+		protected function maybe_reset_default_view() {
+			// We need only take action if we don't have a template class available
+			$template_class = TribeEventsTemplates::get_current_template_class();
+			if ( ! empty( $template_class ) ) return;
+
+			// Inspect the view options that *are* available
+			$views = apply_filters( 'tribe-events-bar-views', array(), FALSE );
+			if ( ! is_array($views) || empty($views) ) return; // Nothing we can do here
+
+			// Pick the first one and lets set it up as our new default
+			$first_view = array_shift($views);
+			$this->setOption('viewOption', $first_view['displaying']);
+			flush_rewrite_rules();
+
+			// If possible, lets re-run this request by redirecting back to the same page
+			if ( headers_sent() ) return;
+			wp_safe_redirect( $_SERVER['REQUEST_URI'] );
+			exit();
 		}
 
 		/**
@@ -2335,7 +2366,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			$newRules[$base . '(\d{4}-\d{2})$'] = 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=month' .'&eventDate=' . $wp_rewrite->preg_index(1);
 			$newRules[$base . '(\d{4}-\d{2}-\d{2})$'] = 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=upcoming&eventDate=' . $wp_rewrite->preg_index(1);
 			$newRules[$base . 'feed/?$'] = 'index.php?eventDisplay=upcoming&post_type=' . self::POSTTYPE . '&feed=rss2';
-			$newRules[$base . '?$']						= 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=' . $this->getOption('viewOption','month');
+			$newRules[$base . '?$']	= 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=' . $this->getOption('viewOption', 'month');
 
 			// single ical
 			$newRules[$baseSingle . '([^/]+)/ical/?$' ] = 'index.php?post_type=' . self::POSTTYPE . '&name=' . $wp_rewrite->preg_index(1) . '&ical=1';
