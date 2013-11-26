@@ -204,7 +204,10 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 				$week_days[ $n ] = (object) array(
 					'date' => $date,
 					'display' => date( 'D', strtotime( self::$start_of_week_date . " +$day_offset days" ) ) .' <span class="tribe-events-daynum">'. date( 'jS', strtotime( self::$start_of_week_date . " +$day_offset days" ) ) .'</span>',
-					'is_today' => ( $date == self::$today ) ? true : false
+					'is_today' => ( $date == self::$today ) ? true : false,
+					'is_past' => ( $date < self::$today ) ? true : false,
+					'is_future' => ( $date > self::$today ) ? true : false,
+					'has_events' => ( empty( self::$events->all_day ) && empty( self::$events->hourly ) ) ? true : false
 				);
 			}
 			self::$week_days = $week_days;
@@ -457,8 +460,18 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 		 * @return void
 		 */
 		function column_classes() {
+			// Present
 			if ( self::$week_days[ self::$current_day ]->is_today )
 				echo 'tribe-week-today';
+			// Past
+			else if ( self::$week_days[ self::$current_day ]->is_past )
+				echo 'tribe-events-past';
+			// Future
+			else if ( self::$week_days[ self::$current_day ]->is_future )
+				echo 'tribe-events-future';
+			// Has Events
+			if ( self::$week_days[ self::$current_day ]->has_events )
+   				echo ' tribe-events-has-events';
 		}
 
 		/**

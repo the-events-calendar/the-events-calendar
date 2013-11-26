@@ -380,7 +380,7 @@
 		font-weight: bold;
 	}
 	
-	.tribe-grid-body .tribe-events-daynum:after {
+	.tribe-grid-body .tribe-events-has-events .tribe-events-daynum:after {
 		margin: 8px auto 0;
 	}
 	
@@ -402,8 +402,9 @@
 	}
 	
 	/* Specific Classes */
-	.tribe-grid-body .tribe-week-today .tribe-events-daynum:after,
-	.tribe-grid-body .mobile-active .tribe-events-daynum:after {
+	.tribe-grid-body .tribe-events-has-events.tribe-week-today .tribe-events-daynum:after,
+	.tribe-grid-body .tribe-events-has-events.mobile-active .tribe-events-daynum:after,
+	.tribe-grid-body .tribe-events-past.tribe-events-has-events.mobile-active .tribe-events-daynum:after {
 		background: #fff;
 	}
 	
@@ -411,7 +412,7 @@
 	.tribe-grid-body .tribe-week-today.column,
 	.tribe-grid-body .mobile-active.column,
 	.tribe-week-today .tribe-events-daynum,
-	.tribe-week-today ~ .column.mobile-active .tribe-events-daynum {
+	.tribe-grid-body .tribe-events-future.mobile-active .tribe-events-daynum {
 		color: #fff;
 	}
 	
@@ -426,7 +427,11 @@
 		color: #fff;
 	}
 	
-	.tribe-week-today ~ .column .tribe-events-daynum {
+	.tribe-grid-body .tribe-events-past.tribe-events-has-events .tribe-events-daynum:after {
+		background-color: #999;
+	}
+	
+	.tribe-grid-body .tribe-events-future .tribe-events-daynum {
 		color: #333;
 	}
 

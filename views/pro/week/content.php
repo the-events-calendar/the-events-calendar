@@ -36,6 +36,11 @@ if ( !defined('ABSPATH') ) { die('-1'); } ?>
 
 	<!-- Calendar Grid -->
 	<?php tribe_get_template_part( 'pro/week/loop', 'grid' ) ?>
+	
+	<!-- Calendar Grid Anchor (mobile) -->
+	<a class="tribe-events-grid-anchor" href="#tribe-events-header">
+		<?php _e( 'Back up top', 'tribe-events-calendar-pro' ); ?>
+	</a>
 
 	<!-- Calendar Footer -->
 	<?php do_action( 'tribe_events_before_footer') ?>
@@ -45,6 +50,7 @@ if ( !defined('ABSPATH') ) { die('-1'); } ?>
 		<?php do_action( 'tribe_events_before_footer_nav' ); ?>
 		<?php tribe_get_template_part( 'pro/week/nav', 'footer' ); ?>
 		<?php do_action( 'tribe_events_after_footer_nav' ); ?>
+		
 	</div><!-- #tribe-events-footer -->
 	<?php do_action( 'tribe_events_after_footer') ?>
 

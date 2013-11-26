@@ -150,17 +150,18 @@
 		background-color: #eee;
 	}
 	
-	.tribe-grid-body .mobile-active .tribe-events-daynum:after {
+	.tribe-grid-body .tribe-events-has-events.mobile-active .tribe-events-daynum:after,
+	.tribe-grid-body .tribe-events-past.tribe-events-has-events.mobile-active .tribe-events-daynum:after {
 		background: #666;
 	}
 	
 	.tribe-grid-body .mobile-active .tribe-events-daynum,
 	.tribe-grid-body .mobile-active.column,
-	.tribe-week-today ~ .column.mobile-active .tribe-events-daynum {
+	.tribe-grid-body .tribe-events-future.mobile-active .tribe-events-daynum {
 		color: #666;
 	}
 	
-	.tribe-grid-body .tribe-week-today .tribe-events-daynum:after {
+	.tribe-grid-body .tribe-events-has-events.tribe-week-today .tribe-events-daynum:after {
 		background: #fff;
 	}
 	
@@ -172,7 +173,7 @@
 		color: #fff;
 	}
 	
-	.tribe-week-today ~ .column .tribe-events-daynum {
+	.tribe-grid-body .tribe-events-future .tribe-events-daynum {
 		color: #333;
 	}
 
