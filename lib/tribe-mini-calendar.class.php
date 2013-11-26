@@ -223,7 +223,6 @@ class TribeEventsMiniCalendar {
 
 			// hijack the main query to load the events via provided $args
 			if ( !is_null( $this->args ) ) {
-				$this->reset_q = $wp_query;
 				$query_args = array( 
 								 'posts_per_page'               => $this->args['count'],
 			                     'tax_query'                    => $this->args['tax_query'],
@@ -245,18 +244,12 @@ class TribeEventsMiniCalendar {
 	}
 
 	public function shutdown_list( $template_file ) {
-
 		if ( basename( dirname( $template_file ) ).'/'.basename( $template_file ) == 'mini-calendar/list.php' ) {
-
 			// reset the global $wp_query
-			if ( !empty( $this->reset_q ) ) {
-				global $wp_query;
-				$wp_query = $this->reset_q;
-			}
+			wp_reset_query();
 
 			// stop paying attention to the widget count setting, we're done with it
 			remove_action( 'pre_get_posts', array( $this, 'set_count' ), 1000 );
-
 		}
 	}
 
