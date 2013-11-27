@@ -159,34 +159,95 @@ try {
 
 (function(){
 
-	var cache = {};
-
 	/**
 	 * @function tribe_tmpl
-	 * @since 3.2
-	 * @desc Javascript templating function based on John Resigs micro-templating approach.
-	 * @param str The javascript template
+	 * @since 3.3
+	 * @desc Javascript templating function based on John Resigs micro-templating approach and expanded upon by cho45. Tags and function name changed here to avoid conflicts.
+	 * @param id The javascript template
 	 * @param data The data object
 	 */
 
-	this.tribe_tmpl = function tribe_tmpl(str, data){
-		var fn = !/\W/.test(str) ?
-			cache[str] = cache[str] ||
-				tribe_tmpl(document.getElementById(str).innerHTML) :
-			new Function("obj",
-				"var p=[],print=function(){p.push.apply(p,arguments);};" +
-					"with(obj){p.push('" +
-					str
-						.replace(/[\r\t\n]/g, " ")
-						.split("[[").join("\t")
-						.replace(/((^|]])[^\t]*)'/g, "$1\r")
-						.replace(/\t=(.*?)]]/g, "',$1,'")
-						.split("\t").join("');")
-						.split("]]").join("p.push('")
-						.split("\r").join("\\'")
-					+ "');}return p.join('');");
-		return data ? fn( data ) : fn;
+	/**
+	 * https://github.com/cho45/micro-template.js
+	 * (c) cho45 http://cho45.github.com/mit-license
+	 */
+	function tribe_tmpl(id, data) {
+		var me = arguments.callee;
+		if (!me.cache[id]) me.cache[id] = (function () {
+			var name = id, string = /^[\w\-]+$/.test(id) ? me.get(id): (name = 'template(string)', id); // no warnings
+			var line = 1, body = (
+				"try { " +
+					(me.variable ?  "var " + me.variable + " = this.stash;" : "with (this.stash) { ") +
+					"this.ret += '"  +
+					string.
+						replace(/\[\[/g, '\x11').replace(/\]\]/g, '\x13'). // if you want other tag, just edit this line
+						replace(/'(?![^\x11\x13]+?\x13)/g, '\\x27').
+						replace(/^\s*|\s*$/g, '').
+						replace(/\n/g, function () { return "';\nthis.line = " + (++line) + "; this.ret += '\\n" }).
+						replace(/\x11=raw(.+?)\x13/g, "' + ($1) + '").
+						replace(/\x11=(.+?)\x13/g, "' + this.escapeHTML($1) + '").
+						replace(/\x11(.+?)\x13/g, "'; $1; this.ret += '") +
+					"'; " + (me.variable ? "" : "}") + "return this.ret;" +
+					"} catch (e) { throw 'TemplateError: ' + e + ' (on " + name + "' + ' line ' + this.line + ')'; } " +
+					"//@ sourceURL=" + name + "\n" // source map
+				).replace(/this\.ret \+= '';/g, '');
+			var func = new Function(body);
+			var map  = { '&' : '&amp;', '<' : '&lt;', '>' : '&gt;', '\x22' : '&#x22;', '\x27' : '&#x27;' };
+			var escapeHTML = function (string) { return (''+string).replace(/[&<>\'\"]/g, function (_) { return map[_] }) };
+			return function (stash) { return func.call(me.context = { escapeHTML: escapeHTML, line: 1, ret : '', stash: stash }) };
+		})();
+		return data ? me.cache[id](data) : me.cache[id];
+	}
+	tribe_tmpl.cache = {};
+	tribe_tmpl.get = function (id) { return document.getElementById(id).innerHTML };
+
+	/**
+	 * Extended template function:
+	 *   requires: basic template() function
+	 *   provides:
+	 *     include(id)
+	 *     wrapper(id, function () {})
+	 */
+	function tribe_tmpl_extended(id, data) {
+		var fun = function (data) {
+			data.include = function (name, args) {
+				var stash = {};
+				for (var key in tribe_tmpl.context.stash) if (tribe_tmpl.context.stash.hasOwnProperty(key)) {
+					stash[key] = tribe_tmpl.context.stash[key];
+				}
+				if (args) for (var key in args) if (args.hasOwnProperty(key)) {
+					stash[key] = args[key];
+				}
+				var context = tribe_tmpl.context;
+				context.ret += tribe_tmpl(name, stash);
+				tribe_tmpl.context = context;
+			};
+
+			data.wrapper = function (name, fun) {
+				var current = tribe_tmpl.context.ret;
+				tribe_tmpl.context.ret = '';
+				fun.apply(tribe_tmpl.context);
+				var content = tribe_tmpl.context.ret;
+				var orig_content = tribe_tmpl.context.stash.content;
+				tribe_tmpl.context.stash.content = content;
+				tribe_tmpl.context.ret = current + tribe_tmpl(name, tribe_tmpl.context.stash);
+				tribe_tmpl.context.stash.content = orig_content;
+			};
+
+			return tribe_tmpl(id, data);
+		};
+
+		return data ? fun(data) : fun;
+	}
+
+	tribe_tmpl.get = function (id) {
+		var fun = tribe_tmpl_extended.get;
+		return fun ? fun(id) : document.getElementById(id).innerHTML;
 	};
+
+	this.tribe_tmpl = tribe_tmpl;
+	this.tribe_tmpl_extended = tribe_tmpl_extended;
+
 
 })();
 
