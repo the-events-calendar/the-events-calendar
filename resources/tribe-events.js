@@ -523,6 +523,17 @@ try {
 				callback();
             }
         },
+		/**
+		 * @function tribe_ev.fn.scroll_to
+		 * @since 3.3
+		 * @desc tribe_ev.fn.scroll_to animates the body to the target with the passed duration and offset.
+		 * @param {String} target the id of the target to scroll the body to.
+		 * @param {Number} offset the vertical offset from the target..
+		 * @param {Number} duration the duration of the scroll animation.
+		 */
+		scroll_to: function (target, offset, duration) {
+			$('html, body').stop().animate({scrollTop: $(target).offset().top - offset}, {duration: duration});
+		},
         /**
          * @function tribe_ev.fn.serialize
          * @since 3.0
@@ -916,14 +927,12 @@ try {
 		}
 		
 		// implement smooth scroll for mobile grid views
-		if ($('a.tribe-events-grid-anchor').length) {
-			$('a.tribe-events-grid-anchor').on('click', function (e) {
+
+		$tribe_events
+			.on('click', '.tribe-events-grid-anchor', function (e) {
 				e.preventDefault();
-				var $this = $(this),
-					$target = $this.attr('href');
-				$('html, body').stop().animate({scrollTop: $($target).offset().top - 100}, {duration: 250});
+				tf.scroll_to($(this).attr('href'), 100, 250);
 			});
-		}
 
 		// ajax complete function to remove active spinner
 		$(te).on( 'tribe_ev_ajaxSuccess', function() {
