@@ -894,6 +894,93 @@ if ( class_exists( 'TribeEvents' ) ) {
 	}
 
 	/**
+	 * Returns a stringified JSON object for javascript templating functions with php.
+	 *
+	 * @since  3.3
+	 * @param $event
+	 * @param $additional
+	 * @author Modern Tribe
+	 * @return string
+	 */
+	function tribe_events_template_data( $event, $additional = null ) {
+
+		$json = array();
+		$has_image = false;
+
+		$json['eventId'] = $event->ID;
+		$json['title'] = htmlspecialchars( $event->post_title, ENT_QUOTES );
+		$json['permalink'] = tribe_get_event_link( $event->ID );
+
+		$start_time = '';
+
+		if ( !empty( $event->EventStartDate ) )
+			$start_time .= date_i18n( get_option( 'date_format', 'F j, Y' ), strtotime( $event->EventStartDate ) );
+		if ( !tribe_get_event_meta( $event->ID, '_EventAllDay', true ) )
+			$start_time .= ' ' . date_i18n( get_option( 'time_format', 'g:i a' ), strtotime( $event->EventStartDate ) );
+
+		$json['startTime'] = $start_time;
+
+		$end_time = '';
+
+		if ( !empty( $event->EventEndDate ) && $event->EventStartDate !== $event->EventEndDate ) {
+
+			if ( date_i18n( 'Y-m-d', strtotime( $event->EventStartDate ) ) == date_i18n( 'Y-m-d', strtotime( $event->EventEndDate ) ) ) {
+
+				$time_format = get_option( 'time_format', 'g:i a' );
+
+				if ( !tribe_get_event_meta( $event->ID, '_EventAllDay', true ) )
+					$end_time .= date_i18n( $time_format, strtotime( $event->EventEndDate ) );
+			} else {
+
+				$end_time .= date_i18n( get_option( 'date_format', 'F j, Y' ), strtotime( $event->EventEndDate ) );
+
+				if ( !tribe_get_event_meta( $event->ID, '_EventAllDay', true ) )
+					$end_time .= ' ' . date_i18n( get_option( 'time_format', 'g:i a' ), strtotime( $event->EventEndDate ) );
+			}
+		}
+
+		$json['endTime'] = $end_time;
+
+		$image_src = '';
+
+		if ( function_exists( 'has_post_thumbnail' ) && has_post_thumbnail( $event->ID ) ) {
+
+			$has_image = true;
+
+			$image_arr = wp_get_attachment_image_src( get_post_thumbnail_id( $event->ID ), 'medium' );
+			$image_src = $image_arr[0];
+
+		}
+
+		$json['imageSrc'] = $image_src;
+
+		$image_tool_src = '';
+
+		if( $has_image ){
+
+			$image_tool_arr = wp_get_attachment_image_src( get_post_thumbnail_id( $event->ID ), array( 75, 75 ) );
+			$image_tool_src = $image_tool_arr[0];
+
+		}
+
+		$json['imageTooltipSrc'] = $image_tool_src;
+
+		if ( has_excerpt( $event->ID ) ) {
+			$excerpt = trim( htmlspecialchars( TribeEvents::truncate( $event->post_excerpt, 30 ), ENT_QUOTES ) );
+		} else {
+			$excerpt = trim( htmlspecialchars( TribeEvents::truncate( $event->post_content, 30 ), ENT_QUOTES ) );
+		}
+
+		$json['excerpt'] = $excerpt;
+
+		if( $additional ){
+			$json = array_merge( (array)$json, (array)$additional );
+		}
+
+		return json_encode( $json );
+	}
+
+	/**
 	 * Accepts an array of query arguments, retrieves them, and returns the html for those events in list view
 	 *
 	 * Optional inline example:
@@ -956,6 +1043,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 			return $the_notices;
 		}
 	}
+
 
 	/**
 	 * Get a list of the views that are enabled
