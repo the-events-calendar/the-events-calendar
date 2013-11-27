@@ -18,7 +18,7 @@
 			</div>
 			[[ } ]]
 			[[ if(excerpt.length) { ]]
-			<p class="entry-summary description">[[=excerpt]]</p>
+			<p class="entry-summary description">[[=raw excerpt]]</p>
 			[[ } ]]
 			<a href="[[=permalink]]" class="tribe-events-read-more" rel="bookmark">Find out more »</a>
 		</div>

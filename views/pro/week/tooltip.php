@@ -14,7 +14,7 @@
 			</div>
 			[[ } ]]
 			[[ if(excerpt.length) { ]]
-			<p class="entry-summary description">[[=excerpt]]</p>
+			<p class="entry-summary description">[[=raw excerpt]]</p>
 			[[ } ]]
 			<span class="tribe-events-arrow"></span>
 		</div>
