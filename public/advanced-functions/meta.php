@@ -306,7 +306,7 @@ if ( class_exists( 'Tribe_Meta_Factory' ) ) {
 			'classes' => array( 'meta_before' => array('tribe-events-event-cost') ),
 			'label' => __( 'Cost:', 'tribe-events-calendar' ),
 			'priority' => 20,
-			'callback' => 'tribe_get_cost',
+			'callback' => 'tribe_get_formatted_cost',
 			'group' => 'tribe_event_details',
 			'show_on_meta' => true
 		) );

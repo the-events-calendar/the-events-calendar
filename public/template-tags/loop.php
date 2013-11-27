@@ -201,7 +201,30 @@ if( class_exists( 'TribeEvents' ) ) {
 		$output = $tribe_ecp->getLink('upcoming');
 		return apply_filters('tribe_get_upcoming_link', $output);
 	}
-	
+
+	/**
+	 * Used to determine if a link to past events should be displayed.
+	 *
+	 * @return bool
+	 * @since 3.3
+	 */
+	function tribe_has_past_events() {
+		global $wp_query;
+		$past_events = false;
+
+		if ( tribe_is_event_query() ) {
+			// Reform the current event query to look for past events
+			$args = (array) $wp_query->query;
+			$args['eventDisplay'] = 'past';
+			$args['posts_per_page'] = 1;
+
+			$events = tribe_get_events( $args );
+			$past_events = count( $events ) > 0;
+		}
+
+		return apply_filters( 'tribe_has_past_events', $past_events );
+	}
+
 	/**
 	 * Link to Past Events
 	 * 
