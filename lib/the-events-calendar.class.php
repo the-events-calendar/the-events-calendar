@@ -2165,7 +2165,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 					if ( is_single() && $this->displaying != 'all' )
 						$this->displaying = 'single-event';
 
-					if ( ! is_single() ) $this->maybe_reset_default_view();
+					if ( ! is_single() && ! is_404() ) $this->maybe_reset_default_view();
 				}
 			}
 		}
