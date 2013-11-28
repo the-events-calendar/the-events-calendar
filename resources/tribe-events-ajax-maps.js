@@ -243,6 +243,9 @@
 				tribe_paged: ts.paged,
 				tribe_event_display: ts.view
 			};
+			
+			if (ts.category)
+				ts.params.tribe_event_category = ts.category;
 
 			$(te).trigger('tribe_ev_serializeBar');
 

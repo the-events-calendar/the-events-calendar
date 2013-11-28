@@ -532,6 +532,9 @@ class TribeEventsGeoLoc {
 			$view_state = 'past';
 		}
 
+		if ( isset( $_POST['tribe_event_category'] ) ) {
+			$defaults[TribeEvents::TAXONOMY] = $_POST['tribe_event_category'];
+		}
 		$query = TribeEventsQuery::getEvents( $defaults, true );
 		$have_events = ( 0 < $query->found_posts );
 
