@@ -109,7 +109,9 @@ h2.tribe-events-page-title,
  	display: none;
 }
 
-@media only screen and (max-width: 767px) {
+/* = Mobile: General Template Header/Footer Nav
+=============================================*/
+@media (max-width: 768px) {
 	#tribe-events-header .tribe-events-sub-nav li a {
 	 	display: none;
 	}
@@ -200,11 +202,14 @@ h2.tribe-events-page-title,
 	padding-right: 3px;
 }
 
-@media only screen and (max-width: 767px) {
- .tribe-events-list .tribe-events-loop .tribe-events-event-meta .recurringinfo {
- 	display: block;
- 	padding: 0;
- }
+/* = Mobile: List View Template Styles
+   @ Template: list.php
+=============================================*/
+@media (max-width: 768px) {
+	.tribe-events-list .tribe-events-loop .tribe-events-event-meta .recurringinfo {
+ 		display: block;
+ 		padding: 0;
+ 	}
 }
 
 /* = List View & Single Venue (Pro Version) Template Styles
@@ -286,7 +291,11 @@ h2.tribe-events-page-title,
 .single-tribe_events .tribe-events-event-meta {
 	font-size: 14px;
 }
-@media only screen and (max-width: 767px) {
+
+/* = Mobile: Single Event Template Styles
+   @ Template: single-event.php
+=============================================*/
+@media (max-width: 768px) {
 	.single-tribe_events .tribe-events-schedule .recurringinfo {
 		display: block;
 		margin: 1em 0 0;
@@ -511,13 +520,13 @@ h2.tribe-events-tickets-title {
 	font-size: 17px;
 }
 
-/* = Retina
+/* = Events Retina
 =============================================*/
 @media 
-only screen and (min--moz-device-pixel-ratio: 2),
-only screen and (-o-min-device-pixel-ratio: 2/1),
-only screen and (-webkit-min-device-pixel-ratio: 2),
-only screen and (min-device-pixel-ratio: 2) {
+(min--moz-device-pixel-ratio: 2),
+(-o-min-device-pixel-ratio: 2/1),
+(-webkit-min-device-pixel-ratio: 2),
+(min-device-pixel-ratio: 2) {
 	.tribe-events-tooltip .tribe-events-arrow {
 		background-image: url(images/tribe-theme/tribe-theme-tooltips@2x.png);
 	}

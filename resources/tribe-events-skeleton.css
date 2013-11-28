@@ -825,8 +825,11 @@ h2.tribe-events-tickets-title {
 	display: none;
 }
 
-/* Swap out our view nav to be a select input */
-@media screen and (max-width: 845px) {
+/* = Events Navigation Bar
+   Swap out our view nav to be a select input
+   @ Template: modules/bar.php
+=============================================*/
+@media (max-width: 845px) {
 	#tribe-bar-views ul.tribe-bar-view-list {
 		display: none;
 	}
@@ -836,8 +839,11 @@ h2.tribe-events-tickets-title {
 	}
 }
 
-/* Ensure that our filters show at proper width */
-@media screen and (min-width: 676px) {
+/* = Events Navigation Bar
+   Ensure that our filters show at proper width
+   @ Template: modules/bar.php
+=============================================*/
+@media (min-width: 676px) {
 	.tribe-bar-full #tribe-bar-filters .tribe-bar-drop-content {
 		display: inline !important;
 	}

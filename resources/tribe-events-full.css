@@ -475,7 +475,9 @@ select.tribe-events-dropdown {
 	display: inline;
 }
 
-@media only screen and (max-width: 767px) {
+/* = Mobile: General Template Header/Footer Nav
+=============================================*/
+@media (max-width: 768px) {
 	#tribe-events-header .tribe-events-sub-nav .tribe-events-nav-next,
 	#tribe-events-header .tribe-events-sub-nav .tribe-events-nav-previous,
 	#tribe-events-footer .tribe-events-sub-nav .tribe-events-nav-next,
@@ -680,7 +682,10 @@ select.tribe-events-dropdown {
 	padding-bottom: 0;
 }
 
-@media only screen and (max-width: 767px) {
+/* = Mobile: List View Template Styles
+   @ Template: list.php
+=============================================*/
+@media (max-width: 768px) {
 	.tribe-events-list .tribe-events-event-image {
 		float: none;
 		width: 100%;
@@ -911,7 +916,11 @@ select.tribe-events-dropdown {
 .sidebar.single-tribe_events .tribe-events-content {
 	padding: 0;
 }
-@media only screen and (max-width: 767px) {
+
+/* = Mobile: Single Event Template Styles
+   @ Template: single-event.php
+=============================================*/
+@media (max-width: 768px) {
 	.single-tribe_events .tribe-events-schedule h3 {
 		display: block;
 		margin-bottom: 10px;
@@ -1341,7 +1350,6 @@ h2.tribe-events-tickets-title {
 /* = Events Navigation Bar
    @ Template: modules/bar.php
 =============================================*/
-
 #tribe-events-bar {
 	width: 100%;
 	min-width: 220px;
@@ -1528,8 +1536,8 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 
 #tribe-bar-views .tribe-bar-views-list {
 	list-style-type: none;
-	margin: 0 0 0 5px;
-	padding: 0;
+	margin: 0;
+	padding: 0 0 0 5px;
 	position: absolute;
 	left: 0;
 	top: auto;
@@ -1538,8 +1546,8 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 }
 #tribe-bar-views li.tribe-bar-views-option {
 	line-height: 14px;
-	margin: 0 5px 0 0;
-	padding: 0;
+	margin: 0;
+	padding: 0 5px 0 0;
 	list-style: none;
 	background: none;
 	filter: "progid:DXImageTransform.Microsoft.gradient(enabled=false)";
@@ -1647,7 +1655,7 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 }
 
 .tribe-bar-mini #tribe-bar-views .tribe-bar-views-list .tribe-bar-views-option a {
-	padding: 4px 10px;
+	padding: 4px 15px;
 }
 
 /* Tribe Bar Collapse Styles */
@@ -1733,15 +1741,6 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 	margin: 0;
 }
 
-@media only screen and (max-width: 767px) {
-	.tribe-bar-collapse #tribe-bar-collapse-toggle {
-		width: 60%;
-	}
-	
-	#tribe-bar-form.tribe-bar-collapse #tribe-bar-views  {
-		width: 40%;
-	}
-}
 .tribe-bar-is-disabled .tribe-events-page-title {
 	line-height: 45px;
 	text-align: left;
@@ -1838,6 +1837,19 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 	display: none;
 }
 
+/* = Mobile: Events Navigation Bar
+   @ Template: modules/bar.php
+=============================================*/
+@media (max-width: 768px) {
+	.tribe-bar-collapse #tribe-bar-collapse-toggle {
+		width: 60%;
+	}
+	
+	#tribe-bar-form.tribe-bar-collapse #tribe-bar-views  {
+		width: 40%;
+	}
+}
+
 /* Events Bar Icons */
 .tribe-select2-results-views span[class^="tribe-icon-"],
 .tribe-bar-views-list span[class^="tribe-icon-"],
@@ -1908,12 +1920,13 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 	background-position: 2px 50%;
 }
 
-/* Events Retina Bits */
+/* = Events Retina
+=============================================*/
 @media 
-only screen and (min--moz-device-pixel-ratio: 2),
-only screen and (-o-min-device-pixel-ratio: 2/1),
-only screen and (-webkit-min-device-pixel-ratio: 2),
-only screen and (min-device-pixel-ratio: 2) {
+(min--moz-device-pixel-ratio: 2),
+(-o-min-device-pixel-ratio: 2/1),
+(-webkit-min-device-pixel-ratio: 2),
+(min-device-pixel-ratio: 2) {
 	.tribe-events-tooltip .tribe-events-arrow {
 		background-image: url(images/tribe-tooltips@2x.png);
 	}
@@ -1926,7 +1939,6 @@ only screen and (min-device-pixel-ratio: 2) {
 	#tribe-events-bar [class^="tribe-bar-button-"]:after {
 		background-image: url(../vendor/select2/select2x2.png);
 	}
-
 	/* Default icon */
 	.tribe-select2-results-views span[class^="tribe-icon-"],
 	.tribe-bar-views-list span[class^="tribe-icon-"],
