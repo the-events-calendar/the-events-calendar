@@ -368,13 +368,10 @@ if( !class_exists('Tribe_Events_Month_Template')){
 					$ppf .= ' tribe-events-future';
 				}
 				if ( $calendar_day['total_events'] > 0 ) {
-   				$ppf .= ' tribe-events-has-events';
-
-   			}
-
+   					$ppf .= ' tribe-events-has-events';
+				}
+				$ppf .= ' mobile-trigger tribe-event-day-' . $day;
 			}
-
-			$ppf .= ' mobile-trigger tribe-event-day-' . $day;
 
 			$column = (self::$current_day) - (self::$current_week * 7);
 

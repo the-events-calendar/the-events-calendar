@@ -25,7 +25,7 @@ global $wp_locale;
 		<tr>
 		<?php foreach($days_of_week as $day) :  ?>
 
-			<th id="tribe-events-<?php echo strtolower($day) ?>" title="<?php echo $day ?>" data-day-abbr="<?php echo $wp_locale->get_weekday_abbrev($day); ?>"><?php echo $day ?></th>
+			<th id="tribe-events-<?php echo strtolower($day) ?>" title="<?php echo $day ?>" data-day-abbr="<?php echo $wp_locale->get_weekday_abbrev( $day ); ?>"><?php echo $day ?></th>
 		<?php endforeach; ?>
 		</tr>
 	</thead>
@@ -36,7 +36,11 @@ global $wp_locale;
 		</tr>
 		<tr>
 			<?php endif; $daydata = tribe_events_get_current_month_day(); ?>
-			<td class="<?php tribe_events_the_month_day_classes() ?>" data-day="<?php echo $daydata['daynum'] ?>">
+			<td class="<?php tribe_events_the_month_day_classes() ?>" 
+				<?php if( isset( $daydata['daynum'] ) ) { ?>
+					data-day="<?php echo $daydata['daynum'] ?>"
+				<?php } ?>
+			>
 				<?php tribe_get_template_part( 'month/single', 'day' ) ?>
 			</td>
 		<?php endwhile; ?>

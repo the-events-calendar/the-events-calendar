@@ -67,10 +67,14 @@
 		}).data('datepicker');
 
 		function tribe_mobile_load_events(date){
+		
+			var date_adj = date;
+			if(date < 10)
+				date_adj = '0' + date;
 
 			var $target = $('.tribe-mobile-day[data-day="' + date + '"]'),
-				$more   = $('.tribe-event-day-' + date + ' .tribe-events-viewmore'),
-				$events = $('.tribe-event-day-' + date + ' .hentry');
+				$more   = $('.tribe-event-day-' + date_adj + ' .tribe-events-viewmore'),
+				$events = $('.tribe-event-day-' + date_adj + ' .hentry');
 
 			if($events.length){
 				$events
@@ -97,9 +101,6 @@
 		}
 
 		function tribe_mobile_setup_day(date){
-
-			if(date < 10)
-				date = '0' + date;
 
 			var $container = $('#tribe-mobile-container'),
 				$day_blocks = $('.tribe-mobile-day'),

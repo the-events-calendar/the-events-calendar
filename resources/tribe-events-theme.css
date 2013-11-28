@@ -459,6 +459,24 @@ h2.tribe-events-page-title,
 		padding: 7px 1em;
 	}
 	
+	#tribe-events-content .tribe-events-calendar td {
+		-webkit-transition: none; 
+  	   	   -moz-transition: none; 
+        	-ms-transition: none; 
+         	 -o-transition: none; 
+	        	transition: none;
+	}
+
+	#tribe-events-content .tribe-events-calendar td:hover {
+		background: none;
+		-webkit-box-shadow: none;
+			    box-shadow: none;
+	}
+	
+	#tribe-events-content .tribe-events-calendar td.tribe-events-othermonth:hover {
+		background: #f9f9f9;
+	}
+	
 	.tribe-events-calendar td.tribe-events-past div[id*="tribe-events-daynum-"], 
 	.tribe-events-calendar td.tribe-events-past div[id*="tribe-events-daynum-"] > a {
 		background: none;
@@ -472,9 +490,37 @@ h2.tribe-events-page-title,
 		color: #333;
 	}
 	
-	/* Specific Classes */	
+	/* Specific Classes */
+	.tribe-events-calendar div[id*="tribe-events-daynum-"] a:hover {
+		color: #333;	
+	}
+	
+	.tribe-events-calendar .mobile-active.tribe-events-past div[id*="tribe-events-daynum-"], 
+	.tribe-events-calendar .mobile-active.tribe-events-past div[id*="tribe-events-daynum-"] > a {
+		color: #666;
+	}
+	
+	.tribe-events-calendar td.mobile-active,
+	.tribe-events-calendar .mobile-active div[id*="tribe-events-daynum-"],
+	.tribe-events-calendar .mobile-active div[id*="tribe-events-daynum-"] a,
+	#tribe-events-content .tribe-events-calendar .mobile-active:hover {
+		background-color: #eee;
+		color: #666;
+	}
+	
+	.tribe-events-calendar .mobile-active.tribe-events-has-events:after {
+		background-color: #666;
+	}
+	
+	.tribe-events-calendar .tribe-events-present.tribe-events-has-events:after {
+		background: #fff;
+	}
+	
 	.tribe-events-calendar .tribe-events-present,
-	#tribe-events-content .tribe-events-calendar .tribe-events-present:hover {
+	.tribe-events-calendar td.tribe-events-present.mobile-active,
+	#tribe-events-content .tribe-events-calendar .tribe-events-present:hover,
+	.tribe-events-calendar .tribe-events-present.mobile-active div[id*="tribe-events-daynum-"],
+	.tribe-events-calendar .tribe-events-present.mobile-active div[id*="tribe-events-daynum-"] a {
 		background-color: #21759b;
 	}
 
