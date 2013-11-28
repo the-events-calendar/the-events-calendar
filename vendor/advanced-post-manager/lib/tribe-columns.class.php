@@ -217,7 +217,7 @@ class Tribe_Columns {
 		$resources_url = apply_filters( 'tribe_apm_resources_url', $this->url . 'resources' );
 		$resources_url = trailingslashit($resources_url);
 		if ( $current_screen->id == 'edit-' . $this->post_type ) {
-			wp_enqueue_script('tribe-columns', $resources_url . 'tribe-columns.js', array('jquery-ui-sortable') );
+			wp_enqueue_script('tribe-columns', $resources_url . 'tribe-columns.js', array('jquery-ui-sortable'), apply_filters( 'tribe_events_pro_js_version', TribeEventsPro::VERSION ) );
 		}
 	}
 

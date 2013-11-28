@@ -38,8 +38,8 @@ if( !class_exists('Tribe_PRO_Template_Factory') ) {
 					                    'post_type' => TribeEvents::POSTTYPE );
 					$path1 = Tribe_Template_Factory::getMinFile( $vendor_url . 'jquery-slimscroll/jquery.slimscroll.js', true );
 					$path2 = Tribe_Template_Factory::getMinFile( $resources_url . 'tribe-events-week.js', true );
-					wp_enqueue_script( 'tribe-events-pro-slimscroll', $path1, array('tribe-events-pro', 'jquery-ui-draggable'), null, true );
-					wp_enqueue_script('tribe-events-pro-week', $path2, array('tribe-events-pro-slimscroll'), false, true);
+					wp_enqueue_script( 'tribe-events-pro-slimscroll', $path1, array('tribe-events-pro', 'jquery-ui-draggable'), apply_filters( 'tribe_events_pro_js_version', TribeEventsPro::VERSION ), true );
+					wp_enqueue_script('tribe-events-pro-week', $path2, array('tribe-events-pro-slimscroll'), apply_filters( 'tribe_events_pro_js_version', TribeEventsPro::VERSION ), true);
 					wp_localize_script( 'tribe-events-pro-week', 'TribeWeek', $ajax_data );
 					break;					
 				case 'ajax-photoview' :				
@@ -48,15 +48,15 @@ if( !class_exists('Tribe_PRO_Template_Factory') ) {
 					                    'tribe_paged' => $tribe_paged );
 					$path1 = Tribe_Template_Factory::getMinFile( $vendor_url . 'isotope/jquery.isotope.js', true );
 					$path2 = Tribe_Template_Factory::getMinFile( $resources_url . 'tribe-events-photo-view.js', true );
-					wp_enqueue_script( 'tribe-events-pro-isotope', $path1, array('tribe-events-pro'), null, true );
-					wp_enqueue_script('tribe-events-pro-photo', $path2, array('tribe-events-pro-isotope'), null, true);
+					wp_enqueue_script( 'tribe-events-pro-isotope', $path1, array('tribe-events-pro'), apply_filters( 'tribe_events_pro_js_version', TribeEventsPro::VERSION ), true );
+					wp_enqueue_script('tribe-events-pro-photo', $path2, array('tribe-events-pro-isotope'), apply_filters( 'tribe_events_pro_js_version', TribeEventsPro::VERSION ), true);
 					wp_localize_script( 'tribe-events-pro-photo', 'TribePhoto', $ajax_data );
 					break;					
 				case 'ajax-dayview':
 					$ajax_data = array( "ajaxurl"   => admin_url( 'admin-ajax.php', ( is_ssl() ? 'https' : 'http' ) ),
 					                    'post_type' => TribeEvents::POSTTYPE );
 					$path = Tribe_Template_Factory::getMinFile( $resources_url . 'tribe-events-ajax-day.js', true );
-					wp_enqueue_script( 'tribe-events-pro-ajax-day', $path, array('tribe-events-pro'), null, true );
+					wp_enqueue_script( 'tribe-events-pro-ajax-day', $path, array('tribe-events-pro'), apply_filters( 'tribe_events_pro_js_version', TribeEventsPro::VERSION ), true );
 					wp_localize_script( 'tribe-events-pro-ajax-day', 'TribeCalendar', $ajax_data );
 					break;
 
@@ -65,7 +65,7 @@ if( !class_exists('Tribe_PRO_Template_Factory') ) {
 
 					wp_register_script( 'gmaps', $http . '://maps.google.com/maps/api/js?sensor=false', array( 'tribe-events-pro' ) );
 					$path = Tribe_Template_Factory::getMinFile( $resources_url . 'tribe-events-ajax-maps.js', true );
-					wp_register_script( 'tribe-events-pro-geoloc', $path, array( 'gmaps', parent::get_placeholder_handle() ) );
+					wp_register_script( 'tribe-events-pro-geoloc', $path, array( 'gmaps', parent::get_placeholder_handle() ), apply_filters( 'tribe_events_pro_js_version', TribeEventsPro::VERSION ) );
 					wp_enqueue_script( 'tribe-events-pro-geoloc' );
 
 					$geoloc = TribeEventsGeoLoc::instance();
