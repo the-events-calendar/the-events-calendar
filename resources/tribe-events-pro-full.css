@@ -332,8 +332,8 @@
 	}
 
 	.mobile-trigger {
-		height: 60px !important;
-		line-height: 60px !important;
+		height: 52px;
+		line-height: 52px;
 		cursor: pointer;
 	}
 	
@@ -362,7 +362,6 @@
 	
 	.tribe-events-grid .tribe-grid-content-wrap .column {
 		border-left: 0;
-		height: 60px;
 	}
 	
 	.tribe-events-grid .column ~ .column {
@@ -371,7 +370,7 @@
 	
 	.tribe-grid-body .tribe-events-daynum {
 		display: block;
-		margin: 15px auto 0;
+		margin: 12px auto 0;
 		font-size: 14px;
 		text-align: center;
 		font-size: 14px;
@@ -381,7 +380,7 @@
 	}
 	
 	.tribe-grid-body .tribe-events-has-events .tribe-events-daynum:after {
-		margin: 8px auto 0;
+		margin: 5px auto 0;
 	}
 	
 	/* grid header */
