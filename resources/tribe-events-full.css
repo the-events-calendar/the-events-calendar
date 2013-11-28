@@ -16,11 +16,11 @@
 
 /* = Global & Miscellaneous Styles
 =============================================*/
-
 #tribe-events-pg-template {
 	max-width: 1000px;
 	margin: 0 auto;
 }
+
 /* Default Events Template Base HTML STyles */
 .tribe-events-after-html {
 	clear: both;
@@ -153,7 +153,8 @@ ul.tribe-events-sub-nav a:hover,
 }
 
 /* Global Main Button Style */
-.tribe-events-button, .entry-content .tribe-events-button {
+.tribe-events-button, 
+.entry-content .tribe-events-button {
 	background-color: #666;
 	color: #fff;
 	background-image: none;
@@ -495,6 +496,10 @@ select.tribe-events-dropdown {
 		background: #666666;
 		color: #fff;
 		white-space: normal;
+	}
+	.tribe-events-sub-nav li a:visited,
+	.tribe-events-sub-nav li a:hover {
+		color: #fff;
 	}
 	.tribe-events-sub-nav .tribe-events-nav-previous,
 	.tribe-events-sub-nav .tribe-events-nav-left {
@@ -945,6 +950,7 @@ select.tribe-events-dropdown {
 	font-size: 12px;
 	border-collapse: collapse;
 	table-layout: fixed;
+	width: 100%;
 }
 #tribe-events-content table.tribe-events-calendar, 
 #tribe-events-content .tribe-events-calendar td {
@@ -1170,7 +1176,7 @@ a.tribe-events-grid-anchor {
 		color: #fff;
 		text-align: center;
 		font-size: 16px;
-		margin: 34px auto;
+		margin: 34px auto 16px;
 		background-color: #bbb;
 		line-height: 32px;
 		height: 32px;
@@ -1223,10 +1229,6 @@ a.tribe-events-grid-anchor {
 	#tribe-mobile-container .hentry.vevent .tribe-events-read-more {
 		margin-top: 8px;
 		display: inline-block;
-	}
-	
-	.tribe-mobile #tribe-events-footer {
-		margin-top: 10px;
 	}
 
 }
@@ -1941,6 +1943,39 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 	-webkit-background-size: 12px 16px;
     		background-size: 12px 16px;
 	background-position: 2px 50%;
+}
+
+/* = Mobile: Events Page Template Styles
+=============================================*/
+@media (max-width: 768px) {
+	#tribe-events-pg-template {
+		padding: 40px 20px 20px;
+	}
+	#tribe-events-content,
+	#tribe-events-content.tribe-events-list {
+		margin-bottom: 20px;
+	}
+	.tribe-events-promo {
+		text-align: center;
+		margin-top: 10px;
+	}
+	#tribe-events-footer + a.tribe-events-ical.tribe-events-button {
+		float: none;
+		margin: 0 auto;
+		-webkit-border-radius: 0;
+				border-radius: 0;	
+		display: block;
+		text-align: center;
+		font-size: 12px;
+		line-height: 32px;
+		height: 32px;
+		max-width: 600px;
+		padding: 0 10px;
+		font-weight: normal;
+	}
+	footer.entry-meta {
+		display: none;
+	}
 }
 
 /* = Events Retina

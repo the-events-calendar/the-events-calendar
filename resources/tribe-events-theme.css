@@ -490,6 +490,10 @@ h2.tribe-events-page-title,
 		color: #333;
 	}
 	
+	#tribe-mobile-container .tribe-events-viewmore {
+		border-top: 1px dotted #2f2f2f;
+	}
+	
 	/* Specific Classes */
 	.tribe-events-calendar div[id*="tribe-events-daynum-"] a:hover {
 		color: #333;	
