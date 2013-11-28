@@ -1688,7 +1688,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			$vendor_url = trailingslashit( $this->pluginUrl ) . 'vendor/';
 
 			// admin stylesheet - always loaded for a few persistent things (e.g. icon)
-			wp_enqueue_style( self::POSTTYPE . '-admin', $resources_url . 'events-admin.css' );
+			wp_enqueue_style( self::POSTTYPE . '-admin', $resources_url . 'events-admin.css', array(), apply_filters( 'tribe_events_css_version', self::VERSION ) );
 
 			// settings screen
 			if (isset($current_screen->id) && $current_screen->id == 'settings_page_tribe-settings') {
@@ -1753,14 +1753,14 @@ if ( !class_exists( 'TribeEvents' ) ) {
 						break;
 					case self::VENUE_POST_TYPE :
 
-						wp_enqueue_style( self::VENUE_POST_TYPE.'-hide-visibility', trailingslashit( $this->pluginUrl ) . 'resources/hide-visibility.css' );
+						wp_enqueue_style( self::VENUE_POST_TYPE.'-hide-visibility', trailingslashit( $this->pluginUrl ) . 'resources/hide-visibility.css', array(), apply_filters( 'tribe_events_css_version', self::VERSION ) );
 
 						// hook for other plugins
 						do_action('tribe_venues_enqueue');
 						break;
 					case self::ORGANIZER_POST_TYPE :
 
-						wp_enqueue_style( self::ORGANIZER_POST_TYPE.'-hide-visibility', trailingslashit( $this->pluginUrl ) . 'resources/hide-visibility.css' );
+						wp_enqueue_style( self::ORGANIZER_POST_TYPE.'-hide-visibility', trailingslashit( $this->pluginUrl ) . 'resources/hide-visibility.css', array(), apply_filters( 'tribe_events_css_version', self::VERSION ) );
 
 						// hook for other plugins
 						do_action('tribe_organizers_enqueue');

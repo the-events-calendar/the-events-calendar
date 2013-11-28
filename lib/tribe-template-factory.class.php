@@ -532,7 +532,7 @@ if( !class_exists('Tribe_Template_Factory') ) {
 					break;
 				case 'admin-ui' : // Tribe Events
 					$path = self::getMinFile( $resources_url . 'events-admin.css', true );
-					wp_enqueue_style( $prefix . '-admin-ui', $path );
+					wp_enqueue_style( $prefix . '-admin-ui', $path, array(), TribeEvents::VERSION );
 					break;
 				case 'admin' :
 					$deps = array_merge( $deps, array( 'jquery', 'jquery-ui-datepicker' ) );
@@ -604,9 +604,9 @@ if( !class_exists('Tribe_Template_Factory') ) {
 					if( $styleUrl && $stylesheet_option == 'tribe' ) {
 						$full_path = self::getMinFile( trailingslashit( $tec->pluginUrl ) . 'resources/tribe-events-full.css', true );
 						wp_enqueue_style( 'full-calendar-style', $full_path );
-						wp_enqueue_style( TribeEvents::POSTTYPE . '-calendar-style', $styleUrl );
+						wp_enqueue_style( TribeEvents::POSTTYPE . '-calendar-style', $styleUrl, array(), apply_filters( 'tribe_events_css_version', TribeEvents::VERSION ) );
 					} else {
-						wp_enqueue_style( TribeEvents::POSTTYPE . '-calendar-style', $styleUrl );
+						wp_enqueue_style( TribeEvents::POSTTYPE . '-calendar-style', $styleUrl, array(), apply_filters( 'tribe_events_css_version', TribeEvents::VERSION ) );
 					}
 					if( $styleOverrideUrl ) {
 						wp_enqueue_style( TribeEvents::POSTTYPE . '-calendar-override-style', $styleOverrideUrl );		
