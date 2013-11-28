@@ -35,8 +35,8 @@ global $wp_locale;
 			<?php if ( $week != tribe_events_get_current_week() ) : $week++; ?>
 		</tr>
 		<tr>
-			<?php endif; ?>
-			<td class="<?php tribe_events_the_month_day_classes() ?>">
+			<?php endif; $daydata = tribe_events_get_current_month_day(); ?>
+			<td class="<?php tribe_events_the_month_day_classes() ?>" data-day="<?php echo $daydata['daynum'] ?>">
 				<?php tribe_get_template_part( 'month/single', 'day' ) ?>
 			</td>
 		<?php endwhile; ?>
