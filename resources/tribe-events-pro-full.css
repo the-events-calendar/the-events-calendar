@@ -959,16 +959,19 @@ h3.tribe-events-related-events-title {
 	display: none;
 }
 
-@media only screen and (max-width: 767px) {
+/* = Mobile: Related Events
+   @ Template: single-event.php
+=============================================*/
+@media (max-width: 768px) {
 	.tribe-events-single ul.tribe-related-events {
 		margin: 0;
 	}
 	
- .tribe-events-single ul.tribe-related-events li {
- 	float: none;
- 	margin-right: 0;
- 	width: 100%;
- }
+ 	.tribe-events-single ul.tribe-related-events li {
+ 		float: none;
+ 		margin-right: 0;
+ 		width: 100%;
+ 	}
 }
 
 /* = Events Calendar Widget Styles (Sidebar)
