@@ -653,11 +653,12 @@ try {
 		 */
         tooltips: function () {
 
-            $('#tribe-events').on('mouseenter', 'div[id*="tribe-events-event-"], div[id*="tribe-events-daynum-"]:has(a), div.event-is-recurring',function () {
+            $('#tribe-events').on('mouseenter', 'div[id*="tribe-events-event-"], div.event-is-recurring',function () {
 
                 var bottomPad = 0,
 					$this = $(this),
-					$body = $('body');
+					$body = $('body'),
+					$tip;
 
                 if ($body.hasClass('events-gridview')) { // Cal View Tooltips
                     bottomPad = $this.find('a').outerHeight() + 18;
@@ -672,7 +673,24 @@ try {
                     bottomPad = $this.outerHeight() - 6;
                 }
                 if (!$body.hasClass('tribe-events-week')) {
-                    $this.find('.tribe-events-tooltip').css('bottom', bottomPad).show();
+					if($body.hasClass('events-gridview')){
+						$tip = $this.find('.tribe-events-tooltip');
+
+						if(!$tip.length){
+							var data = $this.data('tribejson');
+
+							$this
+								.append(tribe_tmpl('tribe_tmpl_tooltip', data));
+
+							$tip = $this.find('.tribe-events-tooltip');
+
+							$tip.css('bottom', bottomPad).show();
+						} else {
+							$tip.css('bottom', bottomPad).show();
+						}
+					} else {
+						$this.find('.tribe-events-tooltip').css('bottom', bottomPad).show();
+					}
                 }
 
             }).on('mouseleave', 'div[id*="tribe-events-event-"], div[id*="tribe-events-daynum-"]:has(a), div.event-is-recurring', function () {
