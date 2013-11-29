@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: The Events Calendar 3.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-11-29 19:44-0300\n"
-"PO-Revision-Date: 2013-11-29 19:44-0300\n"
+"POT-Creation-Date: 2013-11-29 20:10-0300\n"
+"PO-Revision-Date: 2013-11-29 20:10-0300\n"
 "Last-Translator: \n"
 "Language-Team: Modern Tribe, Inc. <support@tri.be>\n"
 "MIME-Version: 1.0\n"
@@ -500,7 +500,7 @@ msgid "Forums"
 msgstr ""
 
 #: ../admin-views/tribe-options-help.php:99
-msgid "If this is your first time using The Events Calendar, you're in for a treat and are already well on your way to creating a first event. Here are some basics we've found helpful for users jumping into it for the first time:"
+msgid "If this is your first time using The Events Calendar, you\"re in for a treat and are already well on your way to creating a first event. Here are some basics we\"ve found helpful for users jumping into it for the first time:"
 msgstr ""
 
 #: ../admin-views/tribe-options-help.php:102
@@ -519,12 +519,12 @@ msgid "Are you developer looking to build your own frontend view? We created an 
 msgstr ""
 
 #: ../admin-views/tribe-options-help.php:108
-msgid "Otherwise, if you're feeling adventurous, you can get started by heading to the Events menu and adding your first event."
+msgid "Otherwise, if you\"re feeling adventurous, you can get started by heading to the Events menu and adding your first event."
 msgstr ""
 
 #: ../admin-views/tribe-options-help.php:112
 #, php-format
-msgid "We've redone our support page from the ground up in an effort to better help our users. Head over to our %sSupport Page%s and you'll find lots of great resources, including:"
+msgid "We\"ve redone our support page from the ground up in an effort to better help our users. Head over to our %sSupport Page%s and you\"ll find lots of great resources, including:"
 msgstr ""
 
 #: ../admin-views/tribe-options-help.php:114
@@ -543,17 +543,17 @@ msgid "%sTutorials%s written by both members of our team and users from the comm
 msgstr ""
 
 #: ../admin-views/tribe-options-help.php:120
-msgid "Release notes for painting an overall picture of the plugin's lifecycle and when features/bug fixes were introduced."
+msgid "Release notes for painting an overall picture of the plugin\"s lifecycle and when features/bug fixes were introduced."
 msgstr ""
 
 #: ../admin-views/tribe-options-help.php:122
 #, php-format
-msgid "%sAdd-on documentation%s for all of Modern Tribe's official extensions for The Events Calendar (including WooTickets, Community Events, Eventbrite Tickets, Facebook Events, etc)"
+msgid "%sAdd-on documentation%s for all of Modern Tribe\"s official extensions for The Events Calendar (including WooTickets, Community Events, Eventbrite Tickets, Facebook Events, etc)"
 msgstr ""
 
 #: ../admin-views/tribe-options-help.php:124
 #, php-format
-msgid "We've also got a %sModern Tribe UserVoice%s page where we're actively watching for feature ideas from the community. If after playing with the plugin and reviewing the resources above, you're finding a feature isn't present that should be, let us know. Vote up existing feature requests or add your own, and help us shape the future of the products business in a way that best meets the community's needs."
+msgid "We\"ve also got a %sModern Tribe UserVoice%s page where we\"re actively watching for feature ideas from the community. If after playing with the plugin and reviewing the resources above, you\"re finding a feature isn\"t present that should be, let us know. Vote up existing feature requests or add your own, and help us shape the future of the products business in a way that best meets the community\"s needs."
 msgstr ""
 
 #: ../admin-views/tribe-options-help.php:128
@@ -563,21 +563,21 @@ msgstr ""
 
 #: ../admin-views/tribe-options-help.php:129
 #, php-format
-msgid "Users of the free The Events Calendar should post their support concerns to the plugin's %sWordPress.org support forum%s. While we are happy to help identify and fix bugs that are reported at WordPress.org, please make sure to read our %ssupport expectations sticky thread%s before posting so you understand our limitations."
+msgid "Users of the free The Events Calendar should post their support concerns to the plugin\"s %sWordPress.org support forum%s. While we are happy to help identify and fix bugs that are reported at WordPress.org, please make sure to read our %ssupport expectations sticky thread%s before posting so you understand our limitations."
 msgstr ""
 
 #: ../admin-views/tribe-options-help.php:130
-msgid "We hit the WordPress.org forum throughout the week, watching for bugs. If you report a legitimate bug that we're able to reproduce, we will log it and patch for an upcoming release. However we are unfortunately unable to provide customization tips or assist in integrating with 3rd party plugins or themes."
+msgid "We hit the WordPress.org forum throughout the week, watching for bugs. If you report a legitimate bug that we\"re able to reproduce, we will log it and patch for an upcoming release. However we are unfortunately unable to provide customization tips or assist in integrating with 3rd party plugins or themes."
 msgstr ""
 
 #: ../admin-views/tribe-options-help.php:131
 #, php-format
-msgid "If you're a user of The Events Calendar and would like more support, please %spurchase a PRO license%s. We hit the PRO forums daily, and can provide a deeper level of customization/integration support for paying users than we can on WordPress.org."
+msgid "If you\"re a user of The Events Calendar and would like more support, please %spurchase a PRO license%s. We hit the PRO forums daily, and can provide a deeper level of customization/integration support for paying users than we can on WordPress.org."
 msgstr ""
 
 #: ../admin-views/tribe-options-help.php:135
 #, php-format
-msgid "If you find that you aren't getting the level of service you've come to expect from Modern Tribe, shoot us an email at %s or tweet %s and tell us why. We'll do what we can to make it right."
+msgid "If you find that you aren\"t getting the level of service you\"ve come to expect from Modern Tribe, shoot us an email at %s or tweet %s and tell us why. We\"ll do what we can to make it right."
 msgstr ""
 
 #: ../admin-views/tribe-options-help.php:136
