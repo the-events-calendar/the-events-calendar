@@ -115,7 +115,7 @@ $modules = TribeEventsTickets::modules();
 						<input type='text' id='ticket_price' name='ticket_price' class="ticket_field" size='7'
 							   value='' />
 
-                           <p class="description"><?php echo __( "(0 or empty for free tickets)" ); ?></p>
+                           <p class="description"><?php echo __( "(0 or empty for free tickets)", "tribe-events-calendar" ); ?></p>
 					</td>
 				</tr>
 
