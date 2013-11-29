@@ -194,11 +194,12 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 */
 	function tribe_event_is_multiday( $postId = null ) {
 		$postId = TribeEvents::postIdHelper( $postId );
-		$start = (array)tribe_get_event_meta( $postId, '_EventStartDate', false );
+		$start = (array) tribe_get_event_meta( $postId, '_EventStartDate', false );
 		sort( $start );
 		$start = strtotime( $start[0] );
 		$end = strtotime( tribe_get_event_meta( $postId, '_EventEndDate', true ) );
-		$output = date( 'd-m-Y', $start ) != date( 'd-m-Y', $end );
+		// @todo check if this needs to be so complex, once we can have all day events without start/end times
+		$output = ( $end != strtotime( tribe_event_end_of_day( $start[0] ) ) ) && date( 'd-m-Y', $start ) != date( 'd-m-Y', $end );
 		return apply_filters( 'tribe_event_is_multiday', $output, $postId, $start, $end );
 	}
 
