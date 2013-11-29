@@ -255,7 +255,7 @@ if (!class_exists('TribeEventsTemplates')) {
 		public static function restore_global_post_title() {
 			global $post;
 			$post->post_title = self::$original_post_title;
-			remove_action( 'tribe_pre_get_view', array( __CLASS__, 'restore_global_post_title' ) );			
+			remove_action( 'tribe_pre_get_view', array( __CLASS__, 'restore_global_post_title' ) );
 		}
 
 
@@ -488,7 +488,7 @@ if (!class_exists('TribeEventsTemplates')) {
 				// check the theme for specific file requested
 				$file = locate_template( array( 'tribe-events/'.$template ), false, false );
 				if ( ! $file ) {
-					// if not found, it could be our plugin requesting the file with the namespace, 
+					// if not found, it could be our plugin requesting the file with the namespace,
 					// so check the theme for the path without the namespace
 					$files = array();
 					foreach ( array_keys( $template_base_paths )  as $namespace ) {
@@ -498,13 +498,13 @@ if (!class_exists('TribeEventsTemplates')) {
 					}
 					$file = locate_template( $files, false, false );
 					if ( $file ) {
-						_deprecated_function( sprintf( __( 'Template overrides should be moved to the correct subdirectory: %s', 'tribe-events' ), str_replace( get_stylesheet_directory() . '/tribe-events/', '', $file ) ) , '3.2', $template );
+						_deprecated_function( sprintf( __( 'Template overrides should be moved to the correct subdirectory: %s', 'tribe-events-calendar' ), str_replace( get_stylesheet_directory() . '/tribe-events/', '', $file ) ) , '3.2', $template );
 					}
 				}
 			}
 
 			// if the theme file wasn't found, check our plugins views dirs
-			if ( ! $file ) { 
+			if ( ! $file ) {
 
 				foreach ( $template_base_paths as $template_base_path ) {
 
@@ -518,12 +518,12 @@ if (!class_exists('TribeEventsTemplates')) {
 					// return the first one found
 					if ( file_exists( $file ) )
 						break;
-					else 
+					else
 						$file = false;
 				}
 			}
 
-			// file wasn't found anywhere in the theme or in our plugin at the specifically requested path, 
+			// file wasn't found anywhere in the theme or in our plugin at the specifically requested path,
 			// and there are overrides, so look in our plugin for the file with the namespace added
 			// since it might be an old override requesting the file without the namespace
 			if ( ! $file && $overrides_exist ) {
@@ -539,7 +539,7 @@ if (!class_exists('TribeEventsTemplates')) {
 
 					// return the first one found
 					if ( file_exists( $file ) ) {
-						_deprecated_function( sprintf( __( 'Template overrides should be moved to the correct subdirectory: tribe_get_template_part(\'%s\')', 'tribe-events' ), $template ) , '3.2',  'tribe_get_template_part(\''.$_namespace.$template.'\')');
+						_deprecated_function( sprintf( __( 'Template overrides should be moved to the correct subdirectory: tribe_get_template_part(\'%s\')', 'tribe-events-calendar' ), $template ) , '3.2',  'tribe_get_template_part(\''.$_namespace.$template.'\')');
 						break;
 					}
 				}

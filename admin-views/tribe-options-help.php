@@ -39,28 +39,28 @@ $ga_query_string = '?utm_source=helptab&utm_medium=plugin-tec&utm_campaign=in-ap
 
 $premium_add_ons = array();
 $premium_add_ons[] = array(
-	'title' => __('The Events Calendar PRO', 'tribe_events_calendar'),
-	'link' => apply_filters('tribe_help_tab_ecp_tribe_url', TribeEvents::$tribeUrl . 'wordpress-events-calendar-pro/' . $ga_query_string),
-);
-$premium_add_ons[] = array(
-	'title' => __('Eventbrite Tickets', 'tribe_events_calendar'),
-	'link' => apply_filters('tribe_help_tab_eventbrite_tribe_url', TribeEvents::$tribeUrl . 'shop/wordpress-eventbrite-tickets/' . $ga_query_string),
-);
-$premium_add_ons[] = array(
-	'title' => __('Community Events', 'tribe_events_calendar'),
-	'link' => apply_filters('tribe_help_tab_community_events_tribe_url', TribeEvents::$tribeUrl . 'shop/wordpress-community-events/' . $ga_query_string),
-);
-$premium_add_ons[] = array(
-	'title' => __('Facebook Events', 'tribe_events_calendar'),
-	'link' => apply_filters('tribe_help_tab_facebook_events_tribe_url', TribeEvents::$tribeUrl . 'facebook-events/' . $ga_query_string),
-);
-$premium_add_ons[] = array(
-	'title' => __('WooTickets', 'tribe_events_calendar'),
-	'link' => apply_filters('tribe_help_tab_wootickets_tribe_url', TribeEvents::$tribeUrl . 'shop/wootickets/' . $ga_query_string),
-);
+        'title' => __('The Events Calendar PRO', 'tribe-events-calendar'),
+        'link' => apply_filters('tribe_help_tab_ecp_tribe_url', TribeEvents::$tribeUrl . 'wordpress-events-calendar-pro/' . $ga_query_string),
+    );
+    $premium_add_ons[] = array(
+        'title' => __('Eventbrite Tickets', 'tribe-events-calendar'),
+        'link' => apply_filters('tribe_help_tab_eventbrite_tribe_url', TribeEvents::$tribeUrl . 'shop/wordpress-eventbrite-tickets/' . $ga_query_string),
+    );
+    $premium_add_ons[] = array(
+        'title' => __('Community Events', 'tribe-events-calendar'),
+        'link' => apply_filters('tribe_help_tab_community_events_tribe_url', TribeEvents::$tribeUrl . 'shop/wordpress-community-events/' . $ga_query_string),
+    );
+    $premium_add_ons[] = array(
+        'title' => __('Facebook Events', 'tribe-events-calendar'),
+        'link' => apply_filters('tribe_help_tab_facebook_events_tribe_url', TribeEvents::$tribeUrl . 'facebook-events/' . $ga_query_string),
+    );
+    $premium_add_ons[] = array(
+        'title' => __('WooTickets', 'tribe-events-calendar'),
+        'link' => apply_filters('tribe_help_tab_wootickets_tribe_url', TribeEvents::$tribeUrl . 'shop/wootickets/' . $ga_query_string),
+    );
 
-$premium_add_ons[] = array(
-	'title' => __('Faceted Filters', 'tribe_events_calendar'),
+    $premium_add_ons[] = array(
+        'title' => __('Faceted Filters', 'tribe-events-calendar'),
 	'link' => apply_filters('tribe_help_tab_wootickets_tribe_url', TribeEvents::$tribeUrl . 'shop/faceted-filters/' . $ga_query_string), // TODO make sure this link is correct
 );
 $premium_add_ons = (array) apply_filters( 'tribe_help_tab_premium_addons', $premium_add_ons ); // TODO should we replace this with an RSS feed??

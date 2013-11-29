@@ -226,7 +226,7 @@ class TribeEventsTicketsPro {
 			foreach ( $item as $key => $data ) {
 				if ( in_array( $key, $export_columns ) ) {
 					if ( $key == 'check_in' && $data == 1 )
-						$data = __( 'Yes' );
+						$data = __( 'Yes', 'tribe-events-calendar' );
 					$row[$key] = $data;
 				}
 			}
