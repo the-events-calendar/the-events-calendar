@@ -1,6 +1,8 @@
 jQuery(document).ready(function($) {
 
 	// Admin Google Maps Preview
+	// @todo - check if this is still used anywhere, i don't think it is. 
+	// this file is only enqueued on admin pages, these divs are not in the admin
 	$('#event_venue input, #event_venue select').change(function() {
 
 		var selectedOption = $('#saved_venue option:selected');

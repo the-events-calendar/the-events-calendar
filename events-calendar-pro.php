@@ -100,7 +100,8 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			add_action( 'tribe_helper_activation_complete', array( $this, 'helpersLoaded' ) );
 
 			add_action( 'init', array( $this, 'init' ), 10 );
-			add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
+			add_action( 'tribe_events_enqueue', array( $this, 'admin_enqueue_scripts' ) );
+			add_action( 'tribe_venues_enqueue', array( $this, 'admin_enqueue_scripts' ) );
 			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_pro_scripts' ), 8);
 			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_styles' ) );
 
