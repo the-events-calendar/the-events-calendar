@@ -82,6 +82,7 @@ if (!class_exists('TribeEventsTemplates')) {
 			}
 
 			if ( tribe_get_option( 'tribeEventsTemplate', 'default' ) == '' ) {
+				add_filter( 'body_class', array( __CLASS__, 'default_events_template_body_class' ) );
 				return self::getTemplateHierarchy( 'default-template' );
 			} else {
 
@@ -120,6 +121,18 @@ if (!class_exists('TribeEventsTemplates')) {
 					new $class;
 				}
 			}
+		}
+
+		/**
+		 * add body class when default events template is used
+		 *
+		 * @return void
+		 * @author Jessica Yazbek
+		 **/
+		function default_events_template_body_class( $classes )
+		{
+			$classes[] = 'tribe-events-page-template';
+			return $classes;
 		}
 
 		/**
