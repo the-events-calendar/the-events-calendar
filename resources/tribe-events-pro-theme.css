@@ -328,6 +328,16 @@
 		color: #333;
 	}
 	
+	/* = Photo View Template Styles 
+   	   @ Template: photo.php
+	=============================================*/
+	.tribe-events-photo-event:hover {
+		background: #FAFAFA;
+	}
+	.tribe-events-photo .tribe-events-loop .vevent.hentry .tribe-events-event-meta {
+		margin: 6px 0;
+	}
+	
 	/* = Related Events
        @ Template: single-event.php
 	=============================================*/	
