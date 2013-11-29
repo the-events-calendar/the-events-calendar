@@ -230,6 +230,7 @@
 			.on('click', '[id*="tribe-events-daynum-"] a', function (e) {
 				if($body.is('.tribe-mobile')){
 					e.preventDefault();
+					tribe_mobile_setup_day($(this).closest('.mobile-trigger').attr('data-day'));
 				}
 			})
 			.on('click', '.mobile-trigger', function (e) {
