@@ -745,8 +745,10 @@ class TribeEventsGeoLoc {
 				                 WHEN meta_key = '" . self::LNG . "' THEN meta_value
 				               end     AS LNG
 				        FROM   $wpdb->postmeta
-				        WHERE  meta_key = '" . self::LAT . "'
-				            OR meta_key = '" . self::LNG . "') coors
+				        WHERE  ( meta_key = '" . self::LAT . "'
+				            OR meta_key = '" . self::LNG . "')
+				            AND post_id IN (SELECT meta_value FROM $wpdb->postmeta WHERE meta_key='_EventVenueID')
+				            ) coors
 		";
 
 			$data = $wpdb->get_results( $sql, ARRAY_A );
