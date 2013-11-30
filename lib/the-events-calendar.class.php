@@ -3757,7 +3757,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 * @return void
 		 */
 		public function dashboardWidget() {
-			wp_add_dashboard_widget( 'tribe_dashboard_widget', __( 'News from Modern Tribe', 'tribe-events-calendar': ), array( $this, 'outputDashboardWidget' ) );
+			wp_add_dashboard_widget( 'tribe_dashboard_widget', __( 'News from Modern Tribe', 'tribe-events-calendar' ), array( $this, 'outputDashboardWidget' ) );
 		}
 
 		/**
