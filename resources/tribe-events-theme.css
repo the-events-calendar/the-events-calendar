@@ -481,6 +481,9 @@ h2.tribe-events-tickets-title {
 	.single-tribe_events .tribe-events-event-image {
 		margin-bottom: 10px;
 	}
+	.tribe-events-list-separator-month {
+		margin: 20px 0;
+	}
 
 	/* = Global Grid Template Styles (Large Calendar & Week)
    	   @ Template: month.php & week.php

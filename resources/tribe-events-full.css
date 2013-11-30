@@ -1703,6 +1703,10 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 	.tribe-mobile #main {
 		padding-top: 0;	
 	}
+	
+	a.tribe-events-gmap {
+		display: inline-block;
+	}
 
 	/* = General Template Header/Footer Nav
 	=============================================*/
@@ -1751,13 +1755,35 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 	}	
 	.tribe-events-list .tribe-events-loop .tribe-events-event-meta .recurringinfo {
 		display: block;
-		margin: 8px 0 0;
+		margin: 4px 0 0;
 	}
 	#tribe-events .tribe-events-loop .tribe-events-content {
 		padding: 0;
 	}
 	.tribe-events-list .tribe-events-loop .tribe-events-event-meta .recurringinfo .tribe-events-divider {
 		display: none;
+	}
+	.tribe-events-loop .tribe-events-event-meta {		
+		padding: 12px 0 15px;
+		margin-top: 12px;
+		background: #fafafa;
+		border: 1px solid #eee;
+	}
+	.tribe-events-list .time-details {
+		padding: 0 12px;
+		margin-bottom: 0;
+	}
+	.tribe-events-list .tribe-events-venue-details {
+		border-top: 1px solid #eee;
+		margin-top: 12px;
+		padding: 8px 12px 0;
+	}
+	.tribe-events-list-separator-year,
+	.tribe-events-list .tribe-events-event-cost {
+		display: none;
+	}
+	.tribe-events-list-separator-month {
+		margin: 20px 0;
 	}
 	
 	/* = Single Event Template Styles
