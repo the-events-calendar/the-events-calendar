@@ -1106,6 +1106,12 @@ div.tribe-countdown-text {
 	}
 	.tribe-events-photo .tribe-events-loop .vevent.hentry .tribe-events-event-meta {
 		margin: 6px 0;
+		border: 0;
+		background-color: transparent;
+		padding: 0;
+	}
+	.tribe-events-photo .tribe-events-loop .vevent.hentry .time-details {
+		padding: 0;
 	}
 	.tribe-events-list .tribe-events-loop .tribe-events-photo-event .tribe-events-event-meta .recurringinfo {
 		margin-top: 2px;
@@ -1186,6 +1192,9 @@ div.tribe-countdown-text {
 	=============================================*/
 	#tribe-geo-map {
 		height: 250px;
+	}
+	.tribe-events-map #tribe-events-header {
+		margin-bottom: 30px;
 	}
 	
 	/* = Related Events
