@@ -338,6 +338,21 @@
 		margin: 6px 0;
 	}
 	
+	/* = Single Venue Template Styles (Pro Version)
+   	   @ Template: single-venue.php
+	=============================================*/
+	.tribe-events-venue .tribe-events-venue-meta {
+		padding: 0 0 12px;
+	}
+	.tribe-events-venue .tribe-events-map-wrap {
+		float: none;
+		margin: 5px 0 12px;
+		width: 98%;
+	}
+	.tribe-events-event-meta address.tribe-events-address {
+		padding: 0;
+	}
+	
 	/* = Related Events
        @ Template: single-event.php
 	=============================================*/	

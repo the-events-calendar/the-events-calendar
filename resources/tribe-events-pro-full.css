@@ -1114,6 +1114,80 @@ div.tribe-countdown-text {
 		margin-bottom: 0;
 	}
 	
+	/* = Single Venue & Organizer Template Styles (Pro Version)
+   	   @ Template: single-venue.php & single-organizer.php
+	=============================================*/
+	.tribe-events-venue .tribe-events-venue-meta,
+	.tribe-events-organizer .tribe-events-organizer-meta {
+		padding-bottom: 12px;
+	}
+	.tribe-events-venue .tribe-events-list h2.tribe-events-page-title,
+	.tribe-events-organizer .tribe-events-list h2.tribe-events-page-title,
+	.tribe-events-organizer .tribe-events-organizer-meta h2.entry-title {
+		margin-top: 0;
+	}
+	.tribe-events-venue .tribe-events-venue-meta .tribe-events-event-meta,
+	.tribe-events-organizer address.organizer-address {
+		background-color: #fafafa;
+		padding: 10px 12px 13px;
+		margin: 18px 0 15px;
+		border: 1px solid #eee;
+	}
+	#tribe-events .tribe-venue-description.tribe-events-content,
+	#tribe-events .tribe-organizer-description.tribe-events-content {
+		padding: 0;
+	}
+	.tribe-events-venue .tribe-events-event-meta,
+	.tribe-events-organizer .tribe-events-event-meta {
+		border: 1px solid #eee;
+	}
+	
+	/* = Single Venue Template Styles (Pro Version)
+   	   @ Template: single-venue.php
+	=============================================*/
+	.tribe-events-venue .tribe-events-map-wrap {
+		float: none;
+		margin: 5px 0 12px;
+		width: 98%;
+	}
+	.tribe-events-venue .tribe-events-venue-meta .tribe-events-event-image {
+		margin-top: 15px;
+	}
+	.tribe-events-event-meta address.tribe-events-address,
+	.tribe-events-event-meta address.venue-address {
+		margin: 0;
+	}
+	
+	/* = Single Organizer Template Styles (Pro Version)
+   	   @ Template: single-organizer.php
+	=============================================*/
+	.tribe-events-organizer .tribe-events-organizer-meta h2.entry-title {
+		margin-bottom: 15px;
+		padding: 0;
+	}
+	.tribe-events-organizer address.organizer-address {
+		margin: 10px 0 15px;
+	}
+	.tribe-events-organizer address.organizer-address span {
+	 	display: block;
+	}
+	.tribe-events-organizer address.organizer-address span ~ span {
+	 	margin-top: 4px;
+	}
+	.tribe-events-organizer address.organizer-address .tribe-events-divider {
+	 	display: none;
+	}
+	.tribe-events-organizer .tribe-events-organizer-meta .tribe-events-event-image {
+		margin-bottom: 12px;
+	}
+	
+	/* = Map View Template Styles 
+   	   @ Template: map.php
+	=============================================*/
+	#tribe-geo-map {
+		height: 250px;
+	}
+	
 	/* = Related Events
        @ Template: single-event.php
 	=============================================*/
