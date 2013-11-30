@@ -34,16 +34,16 @@ class TribeEventsFilter_GeoLoc extends TribeEventsFilter {
 
 	protected function get_type_field() {
 		$name = $this->get_admin_field_name('type');
-		$field = sprintf( __( 'Type: %s %s', 'tribe-events-filter-view' ),
+		$field = sprintf( __( 'Type: %s %s', 'tribe-events-calendar-pro' ),
 			sprintf( '<label><input type="radio" name="%s" value="select" %s /> %s</label>',
 				$name,
 				checked( $this->type, 'select', false ),
-				__( 'Dropdown', 'tribe-events-filter-view' )
+				__( 'Dropdown', 'tribe-events-calendar-pro' )
 			),
 			sprintf( '<label><input type="radio" name="%s" value="radio" %s /> %s</label>',
 				$name,
 				checked( $this->type, 'radio', false ),
-				__( 'Radio Buttons', 'tribe-events-filter-view' )
+				__( 'Radio Buttons', 'tribe-events-calendar-pro' )
 			)
 		);
 		return '<div class="tribe_events_active_filter_type_options">'.$field.'</div>';
