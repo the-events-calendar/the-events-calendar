@@ -1705,7 +1705,7 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 	}
 	
 	a.tribe-events-gmap {
-		display: inline-block;
+		display: block;
 	}
 
 	/* = General Template Header/Footer Nav
@@ -1724,7 +1724,7 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 	.tribe-events-sub-nav li a {
 		display: block;
 		padding: 10px 15px;
-		background: #666666;
+		background: #666;
 		color: #fff;
 		white-space: normal;
 	}
@@ -1792,11 +1792,11 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 	.single-tribe_events div.tribe_events.hentry.vevent {
 		padding: 0;
 	}
-	.tribe-events-schedule {
+	.single-tribe_events .tribe-events-schedule {		
+		padding: 12px;
 		margin: 18px 0 8px;
-		padding: 10px 0;
-		border-top: 1px solid #999;
-		border-bottom: 1px solid #999;
+		background: #fafafa;
+		border: 1px solid #eee;
 	}
 	.single-tribe_events .tribe-events-schedule h3,
 	.single-tribe_events .tribe-events-schedule .tribe-events-cost {
@@ -1807,7 +1807,7 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 		line-height: 1.25;
 	}
 	.single-tribe_events .tribe-events-schedule h3 {
-		margin-bottom: 5px;
+		margin-bottom: 2px;
 	}
 	.single-tribe_events .tribe-events-schedule .recurringinfo .tribe-events-divider,
 	.single-tribe_events .tribe-events-schedule .tribe-events-divider {
