@@ -10,6 +10,7 @@
  * @author Modern Tribe Inc.
  *
  */
+global $wp_query;
 
 if ( !defined('ABSPATH') ) { die('-1'); } ?>
 
@@ -26,7 +27,7 @@ if ( !defined('ABSPATH') ) { die('-1'); } ?>
 		<?php if( get_previous_posts_link() ) : ?>
 			<li class="tribe-events-nav-previous tribe-events-nav-left">
 			<a href="<?php echo tribe_get_upcoming_link() ?>" rel="pref"><?php _e( '&laquo; Previous Events', 'tribe-events-calendar' ) ?></a>
-		<?php else : ?>
+		<?php elseif ( tribe_has_past_events() ) : ?>
 			<li class="tribe-events-nav-previous tribe-events-nav-left tribe-events-past">
 			<a href="<?php echo tribe_get_past_link() ?>" rel="pref"><?php _e( '&laquo; Previous Events', 'tribe-events-calendar' ) ?></a>
 		<?php endif; ?>

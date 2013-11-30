@@ -405,8 +405,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 		$before = convert_chars( $before );
 		$before = wpautop( $before );
 		$before = '<div class="tribe-events-before-html">'. stripslashes( shortcode_unautop( $before  ) ) .'</div>';
-		$before = $before.'<span class="tribe-events-ajax-loading"><img class="tribe-events-spinner-medium" src="'.tribe_events_resource_url('images/tribe-loading.gif').'" alt="'.__('Loading Events', 'tribe-events').'" /></span>';
-		$before = apply_filters( 'tribe_events_before_html', $before );
+		$before = $before.'<span class="tribe-events-ajax-loading"><img class="tribe-events-spinner-medium" src="'.tribe_events_resource_url('images/tribe-loading.gif').'" alt="'.__('Loading Events', 'tribe-events-calendar').'" /></span>';
 
 		echo apply_filters( 'tribe_events_before_html', $before );
 	}
@@ -529,7 +528,6 @@ if ( class_exists( 'TribeEvents' ) ) {
 	/**
 	 * Get an event's cost
 	 *
-	 *
 	 * @param null|int $postId (optional)
 	 * @param bool $withCurrencySymbol Include the currency symbol
 	 * @return string Cost of the event.
@@ -559,6 +557,19 @@ if ( class_exists( 'TribeEvents' ) ) {
 		}
 
 		return apply_filters( 'tribe_get_cost', $cost, $postId, $withCurrencySymbol );
+	}
+
+	/**
+	 * Returns the event cost complete with currency symbol.
+	 *
+	 * Essentially an alias of tribe_get_cost(), as if called with the $withCurrencySymbol
+	 * argument set to true. Useful for callbacks.
+	 *
+	 * @param null $postId
+	 * @return mixed|void
+	 */
+	function tribe_get_formatted_cost( $postId = null ) {
+		return apply_filters( 'tribe_get_formatted_cost', tribe_get_cost( $postId, true ) );
 	}
 
 	/**

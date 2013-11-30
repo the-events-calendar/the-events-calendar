@@ -98,9 +98,9 @@ class TribeEventsTicketsPro {
 
 		$ecp = TribeEvents::instance();
 
-		wp_enqueue_style( TribeEventsTicketsPro::$attendees_slug, trailingslashit( $ecp->pluginUrl ) . 'resources/tickets-attendees.css' );
-		wp_enqueue_style( TribeEventsTicketsPro::$attendees_slug . '-print', trailingslashit( $ecp->pluginUrl ) . 'resources/tickets-attendees-print.css', array(), false, 'print' );
-		wp_enqueue_script( TribeEventsTicketsPro::$attendees_slug, trailingslashit( $ecp->pluginUrl ) . 'resources/tickets-attendees.js', array( 'jquery' ) );
+		wp_enqueue_style( TribeEventsTicketsPro::$attendees_slug, trailingslashit( $ecp->pluginUrl ) . 'resources/tickets-attendees.css', array(), apply_filters( 'tribe_events_css_version', TribeEvents::VERSION ) );
+		wp_enqueue_style( TribeEventsTicketsPro::$attendees_slug . '-print', trailingslashit( $ecp->pluginUrl ) . 'resources/tickets-attendees-print.css', array(), apply_filters( 'tribe_events_css_version', TribeEvents::VERSION ), 'print' );
+		wp_enqueue_script( TribeEventsTicketsPro::$attendees_slug, trailingslashit( $ecp->pluginUrl ) . 'resources/tickets-attendees.js', array( 'jquery' ), apply_filters( 'tribe_events_js_version', TribeEvents::VERSION ) );
 
 		$mail_data = array(
 			'nonce'           => wp_create_nonce( 'email-attendee-list' ),
@@ -226,7 +226,7 @@ class TribeEventsTicketsPro {
 			foreach ( $item as $key => $data ) {
 				if ( in_array( $key, $export_columns ) ) {
 					if ( $key == 'check_in' && $data == 1 )
-						$data = __( 'Yes' );
+						$data = __( 'Yes', 'tribe-events-calendar' );
 					$row[$key] = $data;
 				}
 			}

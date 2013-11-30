@@ -57,6 +57,9 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 			// Add tribe events post type to tag queries
 			if ( $query->is_tag && (array) $query->get( 'post_type' ) != array( TribeEvents::POSTTYPE ) ) {
 				$types = $query->get( 'post_type' );
+				if ( empty( $types ) ) {
+					$types = array( 'post' );
+				}
 				if ( is_array( $types ) ) {
 					$types[] = TribeEvents::POSTTYPE;
 				} 
@@ -733,7 +736,7 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 									) {
 									if ( isset( $term->term_id ) ) {
 										$record_terms = get_the_terms( $record->ID, TribeEvents::TAXONOMY );
-										if ( !$record_terms || ( $record_terms && !in_array( $term, $record_terms ) ) ) {
+										if ( !$record_terms || ( $record_terms && !in_array( $term->term_id, array_keys( $record_terms ) ) ) ) {
 											$count--;
 											continue;
 										}
