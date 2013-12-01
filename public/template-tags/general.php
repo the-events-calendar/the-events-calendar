@@ -905,7 +905,26 @@ if ( class_exists( 'TribeEvents' ) ) {
 	}
 
 	/**
-	 * Returns a stringified JSON object for javascript templating functions with php.
+	 * Function to prepare content for use as a value in a json encoded string destined for storage on a html data attribute.
+	 * Hence the double quote fun, especially in case they pass html encoded &quot; along. Any of those getting through to the data att will break jquery's parseJSON method.
+	 * Themers can use this function to prepare data they may want to send to tribe_events_template_data() in the templates, and we use it in that function ourselves.
+	 *
+	 * @since  3.3
+	 * @param $string
+	 * @return string
+	 * @author Modern Tribe
+	 */
+
+	function tribe_prepare_for_json( $string ){
+
+		$value = trim( htmlspecialchars( $string, ENT_QUOTES, 'UTF-8' ) );
+		$value = str_replace('&quot;', '"', $value);
+
+		return $value;
+	}
+
+	/**
+	 * Returns json for javascript templating functions throughout the plugin.
 	 *
 	 * @since  3.3
 	 * @param $event
@@ -919,7 +938,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 		$has_image = false;
 
 		$json['eventId'] = $event->ID;
-		$json['title'] = htmlspecialchars( $event->post_title, ENT_QUOTES );
+		$json['title'] = tribe_prepare_for_json( $event->post_title );
 		$json['permalink'] = tribe_get_event_link( $event->ID );
 
 		$start_time = '';
@@ -977,9 +996,9 @@ if ( class_exists( 'TribeEvents' ) ) {
 		$json['imageTooltipSrc'] = $image_tool_src;
 
 		if ( has_excerpt( $event->ID ) ) {
-			$excerpt = trim( htmlspecialchars( TribeEvents::truncate( $event->post_excerpt, 30 ), ENT_QUOTES ) );
+			$excerpt = tribe_prepare_for_json( TribeEvents::truncate( $event->post_excerpt, 30 ) );
 		} else {
-			$excerpt = trim( htmlspecialchars( TribeEvents::truncate( $event->post_content, 30 ), ENT_QUOTES ) );
+			$excerpt = tribe_prepare_for_json( TribeEvents::truncate( $event->post_content, 30 ) );
 		}
 
 		$json['excerpt'] = $excerpt;

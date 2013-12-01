@@ -679,6 +679,9 @@ try {
 						if(!$tip.length){
 							var data = $this.data('tribejson');
 
+							if (typeof data == 'string')
+								data = $.parseJSON(data);
+
 							$this
 								.append(tribe_tmpl('tribe_tmpl_tooltip', data));
 
@@ -905,7 +908,8 @@ try {
 
 		tf.update_viewport_variables();
 
-		var $tribe_events = $('#tribe-events'),
+		var $body = $('body'),
+			$tribe_events = $('#tribe-events'),
 			$tribe_content = $('#tribe-events-content'),
 			$tribe_events_header = $('#tribe-events-header'),
 			resize_timer;
@@ -925,7 +929,11 @@ try {
 
 		ts.view && dbug && debug.time('Tribe JS Init Timer');
 
-		if($tribe_content.length && $tribe_content.tribe_has_attr('data-mobilebreak'))
+		/* Themers can override the mobile break with out modifying template files if they like. */
+
+		if($body.tribe_has_attr('data-mobilebreak'))
+			td.mobile_break = $body.attr('data-mobilebreak');
+		else if($tribe_content.length && $tribe_content.tribe_has_attr('data-mobilebreak'))
 			td.mobile_break = $tribe_content.attr('data-mobilebreak');
 
 		/* Let's hide the widget calendar if we find more than one instance */
