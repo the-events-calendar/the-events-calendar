@@ -1,3 +1,13 @@
+<?php
+
+/**
+ *
+ * Please see single-event-hourly.php in this directory for detailed instructions on how to use and modify these templates.
+ *
+ */
+
+?>
+
 <script type="text/html" id="tribe_tmpl_week_mobile">
 	<div class="tribe-events-mobile hentry vevent tribe-clearfix tribe-events-mobile-event-[[=eventId]]">
 		<h4 class="summary">
