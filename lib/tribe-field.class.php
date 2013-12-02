@@ -111,8 +111,19 @@ if ( !class_exists('TribeField') ) {
 			$class = sanitize_html_class( $args['class'] );
 			$label = wp_kses( $args['label'], array( 'a' => array( 'href' => array(),'title' => array() ),'br' => array(),'em' => array(),'strong' => array(), 'b' => array(), 'i' => array(), 'u' => array(), 'img' => array( 'title' => array(), 'src' => array(), 'alt' => array() ) ) );
 			$tooltip = wp_kses( $args['tooltip'], array( 'a' => array( 'href' => array(),'title' => array() ),'br' => array(),'em' => array(),'strong' => array(), 'b' => array(), 'i' => array(), 'u' => array(), 'img' => array( 'title' => array(), 'src' => array(), 'alt' => array() ), 'code' => array('span' => array()), 'span' => array() ) );
+			$attributes = $args['attributes'];
 			foreach ( $attributes as $key => &$val ) {
 				$val = esc_attr( $val );
+			}
+			if ( is_array( $args['options'] ) ) {
+				$options = array();
+				foreach ( $args['options'] as $key => $val ) {
+					$key = esc_attr( $key );
+					$val = (bool) $val;
+					$options[$key] = $val;
+				}
+			} else {
+				$options = $args['options'];
 			}
 			$size = esc_attr( $args['size'] );
 			$html = esc_html( $args['html'] );
@@ -120,8 +131,8 @@ if ( !class_exists('TribeField') ) {
 			$value = esc_attr( $value );
 			$conditional = $args['conditional'];
 			$display_callback = $args['display_callback'];
-			$if_empty = (bool) $if_empty;
-			$can_be_empty = (bool) $can_be_empty;
+			$if_empty = (bool) $args['if_empty'];
+			$can_be_empty = (bool) $args['can_be_empty'];
 			$clear_after = (bool) $args['clear_after'];
 
 
