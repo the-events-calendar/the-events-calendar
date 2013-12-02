@@ -82,6 +82,9 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 			$query->tribe_is_multi_posttype = ( in_array( TribeEvents::POSTTYPE, $types ) && count( $types ) >= 2 || in_array( 'any', $types ) )
 				? true // it's a query for multiple post types, events post type included
 				: false;
+
+			if ( 'default' === $query->get( 'eventDisplay' ) )
+				$query->set( 'eventDisplay', TribeEvents::instance()->default_view() );
 			
 			do_action( 'log', 'multi_posttype', 'default', var_export($query->tribe_is_multi_posttype, true) );
 			do_action( 'log', 'types', 'default', $types );
