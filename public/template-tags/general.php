@@ -1136,4 +1136,21 @@ if ( class_exists( 'TribeEvents' ) ) {
 		return apply_filters( 'tribe_events_is_view_enabled', $enabled, $view, $enabled_views );
 	}
 
+	/**
+	 * Effectively aliases WP's get_the_excerpt() function, except that it additionally strips shortcodes
+	 * during ajax requests.
+	 *
+	 * The reason for this is that shortcodes added by other plugins/themes may not have been registered
+	 * by the time our ajax responses are generated. To avoid leaving unparsed shortcodes in our excerpts
+	 * then we strip out anything that looks like one.
+	 *
+	 * If this is undesirable the use of this function can simply be replaced within template overrides by
+	 * WP's own get_the_excerpt() function.
+	 *
+	 * @return string
+	 */
+	function tribe_events_get_the_excerpt() {
+		if ( ! defined('DOING_AJAX' ) || ! DOING_AJAX ) return get_the_excerpt();
+		return preg_replace( '#\[.+\]#U', '', get_the_excerpt() );
+	}
 }
