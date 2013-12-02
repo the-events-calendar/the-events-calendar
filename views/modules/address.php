@@ -43,6 +43,8 @@ $our_full_region = isset( $our_states[$our_province] ) ? $our_states[$our_provin
 
 // Get our city
 if( tribe_get_city( $postId ) ) {
+	if( tribe_get_address( $postId ) )
+		$address_out []= '<span class="delimiter">,</span> ';
 	$address_out []= ' <span class="locality">'. tribe_get_city( $postId ) .'</span>';
 	$address_out []= '<span class="delimiter">,</span> ';
 }
