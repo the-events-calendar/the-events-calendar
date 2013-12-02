@@ -121,7 +121,7 @@ if ( !class_exists('TribeField') ) {
 				$options = array();
 				foreach ( $args['options'] as $key => $val ) {
 					$key = esc_attr( $key );
-					$val = (bool) $val;
+					$val = esc_attr( $val );
 					$options[$key] = $val;
 				}
 			} else {
