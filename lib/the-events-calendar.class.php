@@ -2043,16 +2043,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		}
 
 		/**
-		 * Flush rewrite rules when viewing the network options
-		 *
-		 * @return void
-		 */
-		public function networkOptionsPageView() {
-			// every visit to ECP Settings = flush rules.
-			$this->flushRewriteRules();
-		}
-
-		/**
 		 * Clean up trashed venues
 		 *
 		 * @param int $postId
