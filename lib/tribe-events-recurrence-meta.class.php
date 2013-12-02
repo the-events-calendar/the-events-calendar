@@ -120,6 +120,9 @@ class TribeEventsRecurrenceMeta {
 		// save recurrence
 		if( isset($data['recurrence']) ){
 			$recurrence_meta = $data['recurrence'];
+			// for an update when the event start/end dates change
+			$recurrence_meta['EventStartDate'] = $data['EventStartDate'];
+			$recurrence_meta['EventEndDate'] = $data['EventEndDate'];
 		}else{
 			$recurrence_meta = null;
 		}
