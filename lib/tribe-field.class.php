@@ -103,30 +103,33 @@ if ( !class_exists('TribeField') ) {
 
 			// parse args with defaults and extract them
 			$args = wp_parse_args($field, $this->defaults);
-			extract($args);
 
 			// sanitize the values just to be safe
-			$id = esc_attr($id);
-			$type = esc_attr($type);
-			$name = esc_attr($name);
-			$class = sanitize_html_class($class);
-			$label = wp_kses($label, array('a' => array('href' => array(),'title' => array()),'br' => array(),'em' => array(),'strong' => array(), 'b' => array(), 'i' => array(), 'u' => array(), 'img' => array('title' => array(), 'src' => array(), 'alt' => array()) ));
-			$tooltip = wp_kses($tooltip, array('a' => array('href' => array(),'title' => array()),'br' => array(),'em' => array(),'strong' => array(), 'b' => array(), 'i' => array(), 'u' => array(), 'img' => array('title' => array(), 'src' => array(), 'alt' => array()), 'code' => array('span' => array()), 'span' => array() ));
-
-			$size = esc_attr($size);
-			$html = $html;
-			$error = (bool) $error;
-			$value = $value;
-			$conditional = $conditional;
-			$display_callback = $display_callback;
-			$clear_after = (bool) $clear_after;
+			$id = esc_attr( $id );
+			$type = esc_attr( $args['type'] );
+			$name = esc_attr( $args['name'] );
+			$class = sanitize_html_class( $args['class'] );
+			$label = wp_kses( $args['label'], array( 'a' => array( 'href' => array(),'title' => array() ),'br' => array(),'em' => array(),'strong' => array(), 'b' => array(), 'i' => array(), 'u' => array(), 'img' => array( 'title' => array(), 'src' => array(), 'alt' => array() ) ) );
+			$tooltip = wp_kses( $args['tooltip'], array( 'a' => array( 'href' => array(),'title' => array() ),'br' => array(),'em' => array(),'strong' => array(), 'b' => array(), 'i' => array(), 'u' => array(), 'img' => array( 'title' => array(), 'src' => array(), 'alt' => array() ), 'code' => array('span' => array()), 'span' => array() ) );
+			foreach ( $attributes as $key => &$val ) {
+				$val = esc_attr( $val );
+			}
+			$size = esc_attr( $args['size'] );
+			$html = esc_html( $args['html'] );
+			$error = (bool) $args['error'];
+			$value = esc_attr( $value );
+			$conditional = $args['conditional'];
+			$display_callback = $args['display_callback'];
+			$if_empty = (bool) $if_empty;
+			$can_be_empty = (bool) $can_be_empty;
+			$clear_after = (bool) $args['clear_after'];
 
 
 			// set the ID
 			$this->id = apply_filters( 'tribe_field_id', $id );
 
 			// set each instance variable and filter
-			foreach ($this->defaults as $key => $value) {
+			foreach ( $this->defaults as $key => $value ) {
 				$this->{$key} = apply_filters( 'tribe_field_'.$key, $$key, $this->id );
 			}
 
