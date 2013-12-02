@@ -18,12 +18,15 @@
 $filters = tribe_events_get_filters();
 $views   = tribe_events_get_views();
 
+global $wp;
+$current_url = esc_url( add_query_arg( $wp->query_string, '', home_url( $wp->request ) ) );
+
  ?>
 
 <?php do_action('tribe_events_bar_before_template') ?>
 <div id="tribe-events-bar">
 
-	<form id="tribe-bar-form" class="tribe-clearfix" name="tribe-bar-form" method="post" action="<?php echo add_query_arg( array() ); ?>">
+	<form id="tribe-bar-form" class="tribe-clearfix" name="tribe-bar-form" method="post" action="<?php echo esc_attr( $current_url ); ?>">
 
 		<!-- Mobile Filters Toggle -->
 

@@ -94,9 +94,8 @@ if ( ! class_exists( 'TribeAppShop' ) ) {
 		 * Enqueue the styles and script
 		 */
 		public function enqueue() {
-			wp_enqueue_style( 'app-shop', TribeEvents::instance()->pluginUrl . 'resources/app-shop.css' );
-			wp_enqueue_script( 'app-shop', TribeEvents::instance()->pluginUrl . 'resources/app-shop.js' );
-
+			wp_enqueue_style( 'app-shop', TribeEvents::instance()->pluginUrl . 'resources/app-shop.css', array(), apply_filters( 'tribe_events_css_version', TribeEvents::VERSION ) );
+			wp_enqueue_script( 'app-shop', TribeEvents::instance()->pluginUrl . 'resources/app-shop.js', array(), apply_filters( 'tribe_events_js_version', TribeEvents::VERSION ) );
 		}
 
 		/**

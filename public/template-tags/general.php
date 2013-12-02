@@ -405,8 +405,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 		$before = convert_chars( $before );
 		$before = wpautop( $before );
 		$before = '<div class="tribe-events-before-html">'. stripslashes( shortcode_unautop( $before  ) ) .'</div>';
-		$before = $before.'<span class="tribe-events-ajax-loading"><img class="tribe-events-spinner-medium" src="'.tribe_events_resource_url('images/tribe-loading.gif').'" alt="'.__('Loading Events', 'tribe-events').'" /></span>';
-		$before = apply_filters( 'tribe_events_before_html', $before );
+		$before = $before.'<span class="tribe-events-ajax-loading"><img class="tribe-events-spinner-medium" src="'.tribe_events_resource_url('images/tribe-loading.gif').'" alt="'.__('Loading Events', 'tribe-events-calendar').'" /></span>';
 
 		echo apply_filters( 'tribe_events_before_html', $before );
 	}
