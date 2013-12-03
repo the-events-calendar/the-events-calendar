@@ -140,10 +140,10 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 				break;
 			case 'week-hourly':
 				$event = self::get_hourly_event();
+				$daily_mins = 1440;
+				$data_hour = 0;
+				$data_min = 0;
 				if ( $event->days_between > 0 ) {
-					$daily_mins = 1440;
-					$data_hour = 0;
-					$data_min = 0;
 					if ( in_array( $event->ID, self::$daily_span_ids ) && date( 'Y-m-d', strtotime( $event->EventEndDate ) ) == self::get_current_date() ) {
 						// if the event is longer than a day we want to account for that with an offset for the ending time
 						$duration = abs( ( strtotime( self::get_current_date() ) - strtotime( $event->EventEndDate ) ) / 60 );
@@ -151,7 +151,7 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 						unset( self::$daily_span_ids[$event_span_index] );
 					} else if (
 						( in_array( $event->ID, self::$daily_span_ids ) && date( 'Y-m-d', strtotime( $event->EventEndDate ) ) > self::get_current_date() ) ||
-						( date( 'Y-m-d', strtotime( $event->EventStartDate ) ) <= date( 'Y-m-d', strtotime( self::$start_of_week_date ) ) )
+						( date( 'Y-m-d', strtotime( $event->EventStartDate ) ) < date( 'Y-m-d', strtotime( self::$start_of_week_date ) ) )
 						) {
 						// if there is a day in between start/end we just want to fill the spacer with the total mins in the day.
 						$duration = $daily_mins;
@@ -164,7 +164,12 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 					}
 				} else {
 					// for a default event continue as everything is normal
+					$remaining_minutes_in_day = $daily_mins - abs( ( strtotime( self::get_current_date() ) - strtotime( $event->EventStartDate ) ) / 60 );
 					$duration = ( $event->EventDuration / 60 );
+					if ( $duration > $remaining_minutes_in_day ) {
+						// this will happen in the case of a multi-day event that extends beyond the end of the week
+						$duration = $remaining_minutes_in_day;
+					}
 					$data_hour = date( 'G', strtotime( $event->EventStartDate ) );
 					$data_min = date( 'i', strtotime( $event->EventStartDate ) );
 				}
@@ -364,10 +369,9 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 		public static function the_day() {
 			if ( self::$current_day == -1 ) {
 				self::$current_day = self::$start_of_week;
-			} else
-				if ( self::$current_day < self::$start_of_week + self::$week_length ) {
-					self::$current_day++;
-				} else {
+			} elseif ( self::$current_day < self::$start_of_week + self::$week_length ) {
+				self::$current_day++;
+			} else {
 				self::reset_the_day();
 			}
 		}
