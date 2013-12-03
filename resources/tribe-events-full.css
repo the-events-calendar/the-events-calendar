@@ -1404,7 +1404,7 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 	position: absolute;
 	left: 0;
 	top: auto;
-	z-index: 10;
+	z-index: 99;
 	border-radius: 0 0 3px 3px;
 }
 #tribe-bar-views li.tribe-bar-views-option {
