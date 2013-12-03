@@ -82,6 +82,9 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 			$query->tribe_is_multi_posttype = ( in_array( TribeEvents::POSTTYPE, $types ) && count( $types ) >= 2 || in_array( 'any', $types ) )
 				? true // it's a query for multiple post types, events post type included
 				: false;
+
+			if ( 'default' === $query->get( 'eventDisplay' ) )
+				$query->set( 'eventDisplay', TribeEvents::instance()->default_view() );
 			
 			do_action( 'log', 'multi_posttype', 'default', var_export($query->tribe_is_multi_posttype, true) );
 			do_action( 'log', 'types', 'default', $types );
@@ -568,8 +571,8 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 		public static function posts_orderby( $order_sql, $query ) {
 			global $wpdb;
 			if ( $query->tribe_is_event || $query->tribe_is_event_category ) {
-				$order = !empty( $query->order ) ? $query->order : $query->get( 'order' );
-				$orderby = !empty( $query->orderby ) ? $query->orderby : $query->get( 'orderby' );
+				$order = ( isset( $query->query['order'] ) && ! empty( $query->query['order'] ) ) ? $query->query['order'] : $query->get( 'order' );
+				$orderby = ( isset( $query->query['orderby'] ) && ! empty( $query->query['orderby'] ) ) ? $query->query['orderby'] : $query->get( 'orderby' );
 
 				$order_sql = "DATE({$wpdb->postmeta}.meta_value) {$order}, TIME({$wpdb->postmeta}.meta_value) {$order}";
 

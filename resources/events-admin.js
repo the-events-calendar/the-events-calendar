@@ -13,13 +13,20 @@ jQuery(document).ready(function($) {
 	//not done by default on front end
 	$('.hide-if-js').hide();
 
-	if(typeof(TEC) != 'undefined'){	
+	if(typeof(TEC) != 'undefined'){
+
+		var startofweek = 0;
+
+		if($('#tribe-event-datepickers').length)
+			startofweek = $('#tribe-event-datepickers').data('startofweek');
+
 		var datepickerOpts = { 
 			dateFormat: 'yy-mm-dd',
 			showAnim: 'fadeIn',
 			changeMonth: true,
 			changeYear: true,
 			numberOfMonths: 3,
+			firstDay: startofweek,
 			showButtonPanel: true,
 			onSelect: function(selectedDate) {
 				var option = this.id == "EventStartDate" ? "minDate" : "maxDate";

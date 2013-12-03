@@ -390,26 +390,22 @@ h2.tribe-events-page-title a:focus {
 	float: left;
 	margin-right: 5px;
 	text-align: left;
-	white-space: nowrap;
 }
 #tribe-events-header .tribe-events-sub-nav .tribe-events-nav-next,
 #tribe-events-footer .tribe-events-sub-nav .tribe-events-nav-next {
 	float: right;
 	margin-left: 5px;
 	text-align: right;
-	white-space: nowrap;
 }
 #tribe-events-header .tribe-events-sub-nav .tribe-events-nav-left,
 #tribe-events-footer .tribe-events-sub-nav .tribe-events-nav-left {
 	float: left;
 	text-align: left;
-	white-space: nowrap;
 }
 #tribe-events-header .tribe-events-sub-nav .tribe-events-nav-right,
 #tribe-events-footer .tribe-events-sub-nav .tribe-events-nav-right {
 	float: right;
 	text-align: right;
-	white-space: nowrap;
 }
 
 .tribe-events-ajax-loading {

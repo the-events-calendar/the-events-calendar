@@ -123,6 +123,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			'_EventShowMapLink',
 			'_EventShowMap',
 			'_EventCurrencySymbol',
+			'_EventCurrencyPosition',
 			'_EventCost',
 			'_EventURL',
 			'_EventOrganizerID',
@@ -421,6 +422,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			add_action( 'tribe_settings_validate_tab_network', array( $this, 'saveAllTabsHidden' ) );
 			add_action( 'load-tribe_events_page_tribe-events-calendar', array( 'Tribe_Amalgamator', 'listen_for_migration_button' ), 10, 0 );
 			add_action( 'tribe_settings_after_save_display', 'flush_rewrite_rules');
+			add_action( 'load-edit-tags.php', array( $this, 'prepare_to_fix_tagcloud_links' ), 10, 0 );
 
 			// add-on compatibility
 			if ( is_multisite() )
@@ -2154,39 +2156,33 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 					if ( is_single() && $this->displaying != 'all' )
 						$this->displaying = 'single-event';
-
-					if ( ! is_single() && ! is_404() ) $this->maybe_reset_default_view();
 				}
 			}
 		}
 
 		/**
-         * Ensure we have a template class available to handle the requested display mode.
+         * Returns the default view, providing a fallback if the default is no longer availble.
 		 *
-		 * It's possible for other plugins (Events Calendar PRO for instance) to register new views,
-		 * one of which might then be chosen as the default view. If it is subsequently deactivated
-		 * though we aren't going to be able to show anything.
+		 * This can be useful is for instance a view added by another plugin (such as PRO) is
+		 * stored as the default but can no longer be generated due to the plugin being deactivated.
 		 *
-		 * In that scenario, this method resets the default view to the first available one.
+		 * @return string
 		 */
-		protected function maybe_reset_default_view() {
-			// We need only take action if we don't have a template class available
-			$template_class = TribeEventsTemplates::get_current_template_class();
-			if ( ! empty( $template_class ) ) return;
+		public function default_view() {
+			// Compare the stored default view option to the list of available views
+			$default = $this->getOption('viewOption', '');
+			$available_views = (array) apply_filters( 'tribe-events-bar-views', array(), FALSE );
 
-			// Inspect the view options that *are* available
-			$views = apply_filters( 'tribe-events-bar-views', array(), FALSE );
-			if ( ! is_array($views) || empty($views) ) return; // Nothing we can do here
+			foreach ( $available_views as $view )
+				if ( $default === $view['displaying']) return $default;
 
-			// Pick the first one and lets set it up as our new default
-			$first_view = array_shift($views);
-			$this->setOption('viewOption', $first_view['displaying']);
-			flush_rewrite_rules();
+			// If the stored option is no longer available, pick the first available one instead
+			$first_view = array_shift($available_views);
+			$view = $first_view['displaying'];
 
-			// If possible, lets re-run this request by redirecting back to the same page
-			if ( headers_sent() ) return;
-			wp_safe_redirect( $_SERVER['REQUEST_URI'] );
-			exit();
+			// Update the saved option
+			$this->setOption('viewOption', $view);
+			return $view;
 		}
 
 		/**
@@ -2357,7 +2353,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			$newRules[$base . '(\d{4}-\d{2})$'] = 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=month' .'&eventDate=' . $wp_rewrite->preg_index(1);
 			$newRules[$base . '(\d{4}-\d{2}-\d{2})$'] = 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=upcoming&eventDate=' . $wp_rewrite->preg_index(1);
 			$newRules[$base . 'feed/?$'] = 'index.php?eventDisplay=upcoming&post_type=' . self::POSTTYPE . '&feed=rss2';
-			$newRules[$base . '?$']	= 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=' . $this->getOption('viewOption', 'month');
+			$newRules[$base . '?$']	= 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=default';
 
 			// single ical
 			$newRules[$baseSingle . '([^/]+)/ical/?$' ] = 'index.php?post_type=' . self::POSTTYPE . '&name=' . $wp_rewrite->preg_index(1) . '&ical=1';
@@ -4063,6 +4059,38 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				$link = trailingslashit( $this->getLink( 'single' ) ) . $_REQUEST['eventDate'] . '#comment-' . $comment->comment_ID;
 			} else {
 				$link = $content;
+			}
+			return $link;
+		}
+
+		/**
+		 * When the edit-tags.php screen loads, setup filters
+		 * to fix the tagcloud links
+		 *
+		 * @return void
+		 */
+		public function prepare_to_fix_tagcloud_links() {
+			$screen = get_current_screen();
+			if ( isset($screen->post_type) && $screen->post_type == self::POSTTYPE ) {
+				add_filter( 'get_edit_term_link', array( $this, 'add_post_type_to_edit_term_link' ), 10, 4 );
+			}
+		}
+
+		/**
+		 * Tag clouds in the admin don't pass the post type arg
+		 * when getting the edit link. If we're on the tag admin
+		 * in Events post type context, make sure we add that
+		 * arg to the edit tag link
+		 * 
+		 * @param string $link
+		 * @param int $term_id
+		 * @param string $taxonomy
+		 * @param string $context
+		 * @return string
+		 */
+		public function add_post_type_to_edit_term_link( $link, $term_id, $taxonomy, $context ) {
+			if ( $taxonomy == 'post_tag' && empty($context) ) {
+				$link = add_query_arg(array('post_type' => self::POSTTYPE), $link);
 			}
 			return $link;
 		}
