@@ -23,11 +23,10 @@ if( !class_exists( 'TribeVenueWidget') ) {
 
 			// Get all the upcoming events for this venue.
 			$events = tribe_get_events( array( 
-				'post_type' => TribeEvents::POSTTYPE, 
-				'meta_key' => '_EventVenueID', 
-				'meta_value' => $venue_ID, 
+				'post_type' => TribeEvents::POSTTYPE,
+				'venue' => $venue_ID,
 				'posts_per_page' => $count, 
-				'eventDisplay' => 'custom'
+				'eventDisplay' => 'upcoming'
 			) );
 
 			// If there are no events, and the user has set to hide if empty, don't display the widget.

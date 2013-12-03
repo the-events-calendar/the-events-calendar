@@ -61,7 +61,7 @@ class TribeEventsRecurrenceMeta {
 		self::reset_scheduler();
 	}
 
-	
+
 	public static function edit_post_link( $link )	{
 		global $post;
 		if( tribe_is_recurring_event( $post ) && preg_match("/href=\"(.*?)\"/i", $link, $edit_url) ) {
@@ -120,6 +120,9 @@ class TribeEventsRecurrenceMeta {
 		// save recurrence
 		if( isset($data['recurrence']) ){
 			$recurrence_meta = $data['recurrence'];
+			// for an update when the event start/end dates change
+			$recurrence_meta['EventStartDate'] = $data['EventStartDate'];
+			$recurrence_meta['EventEndDate'] = $data['EventEndDate'];
 		}else{
 			$recurrence_meta = null;
 		}
@@ -465,10 +468,10 @@ class TribeEventsRecurrenceMeta {
 
 		if($recType == "Custom" && $recCustomType == "Monthly" && ($recCustomMonthDay == '-' || $recCustomMonthNumber == '')) {
 			$valid = false;
-			$errorMsg = __('Monthly custom recurrences cannot have a dash set as the day to occur on.');
+			$errorMsg = __('Monthly custom recurrences cannot have a dash set as the day to occur on.', 'tribe-events-calendar-pro');
 		} else if($recType == "Custom" && $recCustomType == "Yearly" && $recCustomYearMonthDay == '-') {
 			$valid = false;
-			$errorMsg = __('Yearly custom recurrences cannot have a dash set as the day to occur on.');
+			$errorMsg = __('Yearly custom recurrences cannot have a dash set as the day to occur on.', 'tribe-events-calendar-pro');
 		}
 
 		if ( !$valid ) {
@@ -869,15 +872,15 @@ class TribeEventsRecurrenceMeta {
 					'type' => 'text',
 					'size' => 'small',
 					'label' => __('Clean up recurring events after', 'tribe-events-calendar-pro'),
-					'tooltip' => __( 'Automatically remove recurring event instances older than this'),
+					'tooltip' => __( 'Automatically remove recurring event instances older than this', 'tribe-events-calendar-pro'),
 					'validation_type' => 'positive_int',
 					'default' => 24,
 				),
 				'recurrenceMaxMonthsAfter' => array(
 					'type' => 'text',
 					'size' => 'small',
-					'label' => __('Create recurring events in advance for', 'tribe-events-calendar-pro'),
-					'tooltip' => __( 'Recurring events will be created this far in advance'),
+					'label' => __('Create recurring events in advance for', 'tribe-events-calendar-pro' ),
+					'tooltip' => __( 'Recurring events will be created this far in advance', 'tribe-events-calendar-pro'),
 					'validation_type' => 'positive_int',
 					'default' => 24,
 				),

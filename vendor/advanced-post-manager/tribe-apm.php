@@ -114,8 +114,8 @@ class Tribe_APM {
 
 	public function maybe_enqueue($blah) {
 		if ( $this->is_active() ) {
-			wp_enqueue_script( 'tribe-fac', $this->url . '/resources/tribe-apm.js', array('jquery') );
-			wp_enqueue_style( 'tribe-fac', $this->url . '/resources/tribe-apm.css' );
+			wp_enqueue_script( 'tribe-fac', $this->url . '/resources/tribe-apm.js', array('jquery'), apply_filters( 'tribe_events_pro_js_version', TribeEventsPro::VERSION ) );
+			wp_enqueue_style( 'tribe-fac', $this->url . '/resources/tribe-apm.css', array(), apply_filters( 'tribe_events_pro_css_version', TribeEventsPro::VERSION ) );
 		}
 	}
 

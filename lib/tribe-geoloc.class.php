@@ -532,6 +532,9 @@ class TribeEventsGeoLoc {
 			$view_state = 'past';
 		}
 
+		if ( isset( $_POST['tribe_event_category'] ) ) {
+			$defaults[TribeEvents::TAXONOMY] = $_POST['tribe_event_category'];
+		}
 		$query = TribeEventsQuery::getEvents( $defaults, true );
 		$have_events = ( 0 < $query->found_posts );
 
@@ -742,8 +745,10 @@ class TribeEventsGeoLoc {
 				                 WHEN meta_key = '" . self::LNG . "' THEN meta_value
 				               end     AS LNG
 				        FROM   $wpdb->postmeta
-				        WHERE  meta_key = '" . self::LAT . "'
-				            OR meta_key = '" . self::LNG . "') coors
+				        WHERE  ( meta_key = '" . self::LAT . "'
+				            OR meta_key = '" . self::LNG . "')
+				            AND post_id IN (SELECT meta_value FROM $wpdb->postmeta WHERE meta_key='_EventVenueID')
+				            ) coors
 		";
 
 			$data = $wpdb->get_results( $sql, ARRAY_A );

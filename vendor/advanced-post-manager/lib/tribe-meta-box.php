@@ -703,6 +703,10 @@ class Tribe_Meta_Box {
 	// Get proper jQuery UI version to not conflict with WP admin scripts
 	static function get_jqueryui_ver() {
 		global $wp_version;
+		if (version_compare($wp_version, '3.5', '>=')) {
+			return '1.9.2';
+		}
+
 		if (version_compare($wp_version, '3.1', '>=')) {
 			return '1.8.10';
 		}

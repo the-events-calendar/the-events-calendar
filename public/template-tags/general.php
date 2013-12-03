@@ -418,7 +418,7 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	/**
 	 * Returns an events distance from location search term
 	 *
-	 * @since 3.0 
+	 * @since 3.0
 	 * @return string
 	 *
 	 */
@@ -426,8 +426,8 @@ if( class_exists( 'TribeEventsPro' ) ) {
 		global $post;
  		if ( !empty( $post->distance ) ) {
 			return '<span class="tribe-events-distance">'. tribe_get_distance_with_unit( $post->distance ) .'</span>';
-		}	
-	}		
+		}
+	}
 
 	/**
 	 *
@@ -463,7 +463,7 @@ if( class_exists( 'TribeEventsPro' ) ) {
 		global $wp_query;
 		$offset = 7 - get_option( 'start_of_week', 0 );
 
-		$date = is_null( $date ) ? $wp_query->get('start_date') : $date; 
+		$date = is_null( $date ) ? $wp_query->get('start_date') : $date;
 
 		try {
 			$date = new DateTime( $date );
@@ -553,7 +553,7 @@ if( class_exists( 'TribeEventsPro' ) ) {
 		$week = !empty( $week ) ? $week : tribe_get_first_week_day();
 		if ( PHP_INT_SIZE <= 4 ) {
 			if ( date('Y-m-d', strtotime($week)) < '1902-01-08' ) {
-				throw new OverflowException(__('Date out of range.', 'the-events-calendar'));
+				throw new OverflowException(__('Date out of range.', 'tribe-events-calendar-pro'));
 			}
 		}
 		$week = date('Y-m-d', strtotime( $week . ' -1 week'));
@@ -572,7 +572,7 @@ if( class_exists( 'TribeEventsPro' ) ) {
 		$week = !empty( $week ) ? $week : tribe_get_first_week_day();
 		if ( PHP_INT_SIZE <= 4 ) {
 			if ( date('Y-m-d', strtotime($week)) > '2037-12-24' ) {
-				throw new OverflowException(__('Date out of range.', 'the-events-calendar'));
+				throw new OverflowException(__('Date out of range.', 'tribe-events-calendar-pro'));
 			}
 		}
 		$week = date('Y-m-d', strtotime( $week . ' +1 week'));
@@ -630,7 +630,7 @@ if( class_exists( 'TribeEventsPro' ) ) {
 
 
 	/**
-	 * Get the date for the day navigation link
+	 * Get the date for the day navigation link.
 	 *
 	 * @param string $date_description
 	 * @return string
@@ -644,10 +644,10 @@ if( class_exists( 'TribeEventsPro' ) ) {
 		if ( $date_description == 'previous day' ) {
 			return tribe_get_previous_day_date(get_query_var('start_date'));
 		}
-		if ( $date_description = 'next day' ) {
+		if ( $date_description == 'next day' ) {
 			return tribe_get_next_day_date(get_query_var('start_date'));
 		}
-		return date('Y-m-d', $date_description);
+		return date('Y-m-d', strtotime($date_description) );
 	}
 
 	/**
@@ -661,7 +661,7 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	function tribe_get_next_day_date( $start_date ) {
 		if ( PHP_INT_SIZE <= 4 ) {
 			if ( date('Y-m-d', strtotime($start_date)) > '2037-12-30' ) {
-				throw new OverflowException(__('Date out of range.', 'the-events-calendar'));
+				throw new OverflowException(__('Date out of range.', 'tribe-events-calendar-pro'));
 			}
 		}
 		$date = Date('Y-m-d', strtotime($start_date . " +1 day") );
@@ -679,7 +679,7 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	function tribe_get_previous_day_date( $start_date ) {
 		if ( PHP_INT_SIZE <= 4 ) {
 			if ( date('Y-m-d', strtotime($start_date)) < '1902-01-02' ) {
-				throw new OverflowException(__('Date out of range.', 'the-events-calendar'));
+				throw new OverflowException(__('Date out of range.', 'tribe-events-calendar-pro'));
 			}
 		}
 		$date = Date('Y-m-d', strtotime($start_date . " -1 day") );
@@ -751,8 +751,8 @@ if( class_exists( 'TribeEventsPro' ) ) {
 		}
 	}
 
-	/** 
-	 * Template tag to get related posts for the current post. 
+	/**
+	 * Template tag to get related posts for the current post.
 	 *
 	 * @since 1.1
 	 * @author Paul Hughes
@@ -766,7 +766,7 @@ if( class_exists( 'TribeEventsPro' ) ) {
 		$categories = wp_get_object_terms( $post_id, TribeEvents::TAXONOMY, array( 'fields' => 'ids' ) );
 		if ( ! $tags && ! $categories )
 			return;
-		$args = array( 
+		$args = array(
 			'posts_per_page' => $count,
 			'post__not_in' => array( $post_id ),
 			'eventDisplay' => 'upcoming',

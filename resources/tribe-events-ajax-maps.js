@@ -243,6 +243,9 @@
 				tribe_paged: ts.paged,
 				tribe_event_display: ts.view
 			};
+			
+			if (ts.category)
+				ts.params.tribe_event_category = ts.category;
 
 			$(te).trigger('tribe_ev_serializeBar');
 
@@ -304,21 +307,12 @@
 					$('#tribe-events-content').replaceWith($the_content);
 
 					if (response.view === 'map') {
-						if (response.max_pages == response.tribe_paged) {
+						if (response.max_pages == response.tribe_paged || 0 == response.max_pages) {
 							$('.tribe-events-nav-next').hide();
 						} else {
 
 							$('.tribe-events-nav-next').show();
 						}
-					} else {
-						if (response.max_pages == response.tribe_paged) {
-							$('.tribe-events-nav-previous').hide();
-						} else {
-							$('.tribe-events-nav-previous').show();
-						}
-					}
-					if(td.ajax_response.total_count === 0){
-						$('.tribe-events-sub-nav').remove();
 					}
 
 					$.each(response.markers, function (i, e) {
