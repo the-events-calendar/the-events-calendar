@@ -64,7 +64,7 @@ if ( class_exists('TribeEvents') ) {
 		$group_html = '';
 
 		// internal check for hiding items in the meta
-		if( $is_the_meta && ! $meta_group['show_on_meta'] ){
+		if( ! $meta_group['show_on_meta'] ){
 			return false;
 		}
 		$meta_pos_int = 0;
