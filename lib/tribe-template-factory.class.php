@@ -166,31 +166,7 @@ if( !class_exists('Tribe_Template_Factory') ) {
 		 * @since 3.0
 		 **/
 		public function event_classes( $classes ) {
-
-			global $post, $wp_query;
-
-			$classes = array_merge($classes, array( 'hentry', 'vevent', 'type-tribe_events', 'post-' . $post->ID, 'tribe-clearfix' ));
-			$tribe_cat_slugs = tribe_get_event_cat_slugs( $post->ID );
-
-			foreach( $tribe_cat_slugs as $tribe_cat_slug ) {
-				$classes[] = 'tribe-events-category-'. $tribe_cat_slug;
-			}
-			if ( $venue_id = tribe_get_venue_id( $post->ID ) ) {
-				$classes[] = 'tribe-events-venue-'. $venue_id;
-			}
-			if ( $organizer_id = tribe_get_organizer_id( $post->ID ) ) {
-				$classes[] = 'tribe-events-organizer-'. $organizer_id;
-			}
-			// added first class for css
-			if ( ( $wp_query->current_post == 0 ) && !tribe_is_day() ) {
-				$classes[] = 'tribe-events-first';
-			}
-			// added last class for css
-			if ( $wp_query->current_post == $wp_query->post_count-1 ) {
-				$classes[] = 'tribe-events-last';
-			}
-
-			return $classes;
+		   return $classes;
 		}
 
 		/**
