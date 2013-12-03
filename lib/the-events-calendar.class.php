@@ -422,6 +422,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			add_action( 'tribe_settings_validate_tab_network', array( $this, 'saveAllTabsHidden' ) );
 			add_action( 'load-tribe_events_page_tribe-events-calendar', array( 'Tribe_Amalgamator', 'listen_for_migration_button' ), 10, 0 );
 			add_action( 'tribe_settings_after_save_display', 'flush_rewrite_rules');
+			add_action( 'load-edit-tags.php', array( $this, 'prepare_to_fix_tagcloud_links' ), 10, 0 );
 
 			// add-on compatibility
 			if ( is_multisite() )
@@ -4058,6 +4059,38 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				$link = trailingslashit( $this->getLink( 'single' ) ) . $_REQUEST['eventDate'] . '#comment-' . $comment->comment_ID;
 			} else {
 				$link = $content;
+			}
+			return $link;
+		}
+
+		/**
+		 * When the edit-tags.php screen loads, setup filters
+		 * to fix the tagcloud links
+		 *
+		 * @return void
+		 */
+		public function prepare_to_fix_tagcloud_links() {
+			$screen = get_current_screen();
+			if ( isset($screen->post_type) && $screen->post_type == self::POSTTYPE ) {
+				add_filter( 'get_edit_term_link', array( $this, 'add_post_type_to_edit_term_link' ), 10, 4 );
+			}
+		}
+
+		/**
+		 * Tag clouds in the admin don't pass the post type arg
+		 * when getting the edit link. If we're on the tag admin
+		 * in Events post type context, make sure we add that
+		 * arg to the edit tag link
+		 * 
+		 * @param string $link
+		 * @param int $term_id
+		 * @param string $taxonomy
+		 * @param string $context
+		 * @return string
+		 */
+		public function add_post_type_to_edit_term_link( $link, $term_id, $taxonomy, $context ) {
+			if ( $taxonomy == 'post_tag' && empty($context) ) {
+				$link = add_query_arg(array('post_type' => self::POSTTYPE), $link);
 			}
 			return $link;
 		}
