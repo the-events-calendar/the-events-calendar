@@ -151,7 +151,7 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 						unset( self::$daily_span_ids[$event_span_index] );
 					} else if (
 						( in_array( $event->ID, self::$daily_span_ids ) && date( 'Y-m-d', strtotime( $event->EventEndDate ) ) > self::get_current_date() ) ||
-						( date( 'Y-m-d', strtotime( $event->EventStartDate ) ) <= date( 'Y-m-d', strtotime( self::$start_of_week_date ) ) )
+						( date( 'Y-m-d', strtotime( $event->EventStartDate ) ) < date( 'Y-m-d', strtotime( self::$start_of_week_date ) ) )
 						) {
 						// if there is a day in between start/end we just want to fill the spacer with the total mins in the day.
 						$duration = $daily_mins;
