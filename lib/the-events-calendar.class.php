@@ -123,6 +123,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			'_EventShowMapLink',
 			'_EventShowMap',
 			'_EventCurrencySymbol',
+			'_EventCurrencyPosition',
 			'_EventCost',
 			'_EventURL',
 			'_EventOrganizerID',

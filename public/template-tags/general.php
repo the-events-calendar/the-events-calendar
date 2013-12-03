@@ -548,12 +548,13 @@ if ( class_exists( 'TribeEvents' ) ) {
 
 		if ( $withCurrencySymbol && is_numeric( $cost ) ) {
 			$currency = tribe_get_event_meta( $postId, '_EventCurrencySymbol', true );
+			if ( ! $currency ) $currency = tribe_get_option( 'defaultCurrencySymbol', '$' );
 
-			if ( !$currency ) {
-				$currency = tribe_get_option( 'defaultCurrencySymbol', '$' );
-			}
+			$reverse_position = tribe_get_event_meta( $postId, '_EventCurrencyPosition', true );
+			if ( ! $reverse_position ) $reverse_position = tribe_get_option( 'reverseCurrencyPosition', false );
+			else $reverse_position = ( 'suffix' === $reverse_position );
 
-			$cost = $currency . $cost;
+			$cost = $reverse_position ? $cost . $currency : $currency . $cost;
 		}
 
 		return apply_filters( 'tribe_get_cost', $cost, $postId, $withCurrencySymbol );

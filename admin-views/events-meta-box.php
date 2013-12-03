@@ -116,7 +116,19 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 		</tr>
 		<tr>
 			<td><?php _e('Currency Symbol:','tribe-events-calendar'); ?></td>
-			<td><input tabindex="<?php tribe_events_tab_index(); ?>" type='text' id='EventCurrencySymbol' name='EventCurrencySymbol' size='2' value='<?php echo (isset($_EventCurrencySymbol)) ? esc_attr($_EventCurrencySymbol) : tribe_get_option( 'defaultCurrencySymbol', '$' ); ?>' /></td>
+			<td>
+				<input tabindex="<?php tribe_events_tab_index(); ?>" type='text' id='EventCurrencySymbol' name='EventCurrencySymbol' size='2' value='<?php echo (isset($_EventCurrencySymbol)) ? esc_attr($_EventCurrencySymbol) : tribe_get_option( 'defaultCurrencySymbol', '$' ); ?>' />
+				<select tabindex="<?php tribe_events_tab_index(); ?>" id="EventCurrencyPosition" name="EventCurrencyPosition">
+					<?php
+						if ( isset($_EventCurrencyPosition) && 'suffix' === $_EventCurrencyPosition ) $suffix = true;
+						elseif ( isset($_EventCurrencyPosition) && 'prefix' === $_EventCurrencyPosition ) $suffix = false;
+						elseif ( true === tribe_get_option( 'reverseCurrencyPosition', false ) ) $suffix = true;
+						else $suffix = false;
+					?>
+					<option value="prefix"> <?php _ex('Prefix', 'Currency symbol position', 'tribe-events-calendar') ?> </option>
+					<option value="suffix"<?php if ( $suffix ) echo ' selected="selected"' ?>> <?php _ex('Suffix', 'Currency symbol position', 'tribe-events-calendar') ?> </option>
+				</select>
+			</td>
 		</tr>
 		<tr>
 			<td><?php _e('Cost:','tribe-events-calendar'); ?></td>
