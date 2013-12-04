@@ -526,10 +526,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			TribeEventsQuery::init();
 			$this->registerPostType();
 
-			//If the custom post type's rewrite rules have not been generated yet, flush them. (This can happen on reactivations.)
-			if(is_array(get_option('rewrite_rules')) && !array_key_exists($this->rewriteSlugSingular.'/[^/]+/([^/]+)/?$',get_option('rewrite_rules'))) {
-				TribeEvents::flushRewriteRules();
-			}
 			self::debug(sprintf(__('Initializing Tribe Events on %s','tribe-events-calendar'),date('M, jS \a\t h:m:s a')));
 			$this->maybeMigrateDatabase();
 			$this->maybeSetTECVersion();
