@@ -562,10 +562,6 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		 * @since 2.0
 		 */
 		public function init() {
-			// if pro rewrite rules have not been generated yet, flush them. (This can happen on reactivations.)
-			if(is_array(get_option('rewrite_rules')) && !array_key_exists(trailingslashit( TribeEvents::instance()->rewriteSlug ) . $this->weekSlug . '/?$',get_option('rewrite_rules'))) {
-				TribeEvents::flushRewriteRules();
-			}
 			TribeEventsMiniCalendar::instance();
 			TribeEventsCustomMeta::init();
 			TribeEventsRecurrenceMeta::init();
@@ -1768,9 +1764,13 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		return $operator;
 	}
 
+	register_activation_hook( __FILE__, 'tribe_ecp_activate' );
 	register_deactivation_hook( __FILE__, 'tribe_ecp_deactivate' );
 	register_uninstall_hook( __FILE__, 'tribe_ecp_uninstall' );
 
+	function tribe_ecp_activate() {
+		flush_rewrite_rules();
+	}
 	// when we deactivate pro, we should reset some options
 	function tribe_ecp_deactivate() {
 		if ( function_exists( 'tribe_update_option' ) ) {
