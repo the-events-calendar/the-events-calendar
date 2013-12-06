@@ -951,14 +951,6 @@ try {
 		if ($('.tribe-events-list').length) {
 			$('.tribe-events-list-separator-month').prev('.vevent').addClass('tribe-event-end-month');
 		}
-		
-		// implement smooth scroll for mobile grid views
-
-		$tribe_events
-			.on('click', '.tribe-events-grid-anchor', function (e) {
-				e.preventDefault();
-				tf.scroll_to($(this).attr('href'), 100, 250);
-			});
 
 		// ajax complete function to remove active spinner
 		$(te).on( 'tribe_ev_ajaxSuccess', function() {

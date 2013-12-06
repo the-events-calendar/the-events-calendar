@@ -1052,10 +1052,6 @@ select.tribe-events-dropdown {
 	font-size: 11px;
 	line-height: 1.5;
 }
-a.tribe-events-grid-anchor {
-	display: none;
-}
-
 #tribe-mobile-container {
 	display: none;
 }
@@ -1889,21 +1885,6 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 		border-radius: 50%;
 		background-color: #333;
 		margin: 5px auto;
-	}
-	#tribe-events-content .tribe-events-grid-anchor {
-		display: block;
-		color: #fff;
-		text-align: center;
-		font-size: 16px;
-		margin: 34px auto 16px;
-		background-color: #bbb;
-		line-height: 32px;
-		height: 32px;
-		max-width: 600px;
-	}
-	#tribe-events-content .tribe-events-grid-anchor:visited,
-	#tribe-events-content .tribe-events-grid-anchor:hover {
-		color: #fff;
 	}
 	/* Actual Event Styles */
 	#tribe-mobile-container .hentry.vevent {

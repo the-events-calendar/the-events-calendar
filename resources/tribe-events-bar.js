@@ -54,7 +54,7 @@ var tribe_events_bar_action;
 			} else {
 				$tribebar.removeClass('tribe-bar-full').addClass('tribe-bar-mini');
 			}
-			if (tribeBarWidth < 670) {
+			if (tribeBarWidth < 728) {
 				$tribebar.removeClass('tribe-bar-mini').addClass('tribe-bar-collapse');
 			} else {
 				$tribebar.removeClass('tribe-bar-collapse');
