@@ -36,11 +36,6 @@ if ( !defined('ABSPATH') ) { die('-1'); } ?>
 
 	<!-- Calendar Grid -->
 	<?php tribe_get_template_part( 'pro/week/loop', 'grid' ) ?>
-	
-	<!-- Calendar Grid Anchor (mobile) -->
-	<a class="tribe-events-grid-anchor" href="#tribe-events-header">
-		<?php _e( 'Back up top', 'tribe-events-calendar-pro' ); ?>
-	</a>
 
 	<!-- Calendar Footer -->
 	<?php do_action( 'tribe_events_before_footer') ?>
