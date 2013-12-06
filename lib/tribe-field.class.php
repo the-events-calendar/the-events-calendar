@@ -120,8 +120,6 @@ if ( !class_exists('TribeField') ) {
 			if ( is_array( $args['options'] ) ) {
 				$options = array();
 				foreach ( $args['options'] as $key => $val ) {
-					$key = esc_attr( $key );
-					$val = esc_attr( $val );
 					$options[$key] = $val;
 				}
 			} else {
@@ -443,10 +441,10 @@ if ( !class_exists('TribeField') ) {
 			$field .= $this->doFieldDivStart();
 			if ( is_array($this->options) ) {
 				foreach ($this->options as $option_id => $title) {
-					$field .= '<label title="'.$title.'">';
+					$field .= '<label title="'.esc_attr( $title ).'">';
 					$field .= '<input type="radio"';
 					$field .= $this->doFieldName();
- 					$field .= ' value="'.$option_id.'" '.checked( $this->value, $option_id, false ).'/>';
+ 					$field .= ' value="'.esc_attr( $option_id ).'" '.checked( $this->value, $option_id, false ).'/>';
 					$field .= $title;
 					$field .= '</label>';
 				}
@@ -480,10 +478,10 @@ if ( !class_exists('TribeField') ) {
 
 			if ( is_array($this->options) ) {
 				foreach ($this->options as $option_id => $title) {
-					$field .= '<label title="'.$title.'">';
+					$field .= '<label title="'.esc_attr( $title ).'">';
 					$field .= '<input type="checkbox"';
 					$field .= $this->doFieldName(true);
- 					$field .= ' value="'.$option_id.'" '.checked( in_array($option_id, $this->value), true, false ).'/>';
+ 					$field .= ' value="'.esc_attr( $option_id ).'" '.checked( in_array($option_id, $this->value), true, false ).'/>';
 					$field .= $title;
 					$field .= '</label>';
 				}
@@ -533,10 +531,10 @@ if ( !class_exists('TribeField') ) {
 				$field .= $this->doFieldName();
 				$field .= '>';
 				foreach ($this->options as $option_id => $title) {
-					$field .= '<option value="'.$option_id.'"';
+					$field .= '<option value="'.esc_attr( $option_id ).'"';
 					$field .= selected( $this->value, $option_id, false );
 					$field .= isset($this->value[0]) ? selected( $this->value[0], $option_id, false ) : '';
-					$field .= '>'.$title.'</option>';
+					$field .= '>'.esc_html( $title ).'</option>';
 				}
 				$field .= '</select>';
 				$field .= $this->doScreenReaderLabel();

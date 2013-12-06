@@ -68,7 +68,6 @@ if( !class_exists('Tribe_Template_Factory') ) {
 		public function __construct() {
 			$this->hooks();
 			$this->asset_packages();
-			$this->body_class();
 		}
 
 		/**

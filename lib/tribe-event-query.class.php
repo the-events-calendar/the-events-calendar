@@ -738,9 +738,7 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 
 									) {
 									if ( isset( $term->term_id ) ) {
-										$record_terms = get_the_terms( $record->ID, TribeEvents::TAXONOMY );
-										if ( !$record_terms || ( $record_terms && !in_array( $term->term_id, array_keys( $record_terms ) ) ) ) {
-											$count--;
+										if ( ! has_term( $term, TribeEvents::TAXONOMY, $record->ID ) ) {
 											continue;
 										}
 									}
