@@ -373,6 +373,8 @@
 
 							$('#tribe-events-content').replaceWith($the_content);
 
+							tribe_month_view_init(false, true);
+
 							ts.page_title = $('#tribe-events-header').data('title');
 							document.title = ts.page_title;
 
