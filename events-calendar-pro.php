@@ -359,7 +359,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			if( tribe_is_week() ) {
 				$reset_title = sprintf( __('Events for week of %s', 'tribe-events-calendar-pro'),
 					date_i18n( $date_format, strtotime( tribe_get_first_week_day($wp_query->get('start_date') ) ) )
-				);
+					);
 			}
 			// day view title
 			if( tribe_is_day() ) {
@@ -564,10 +564,6 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		 * @since 2.0
 		 */
 		public function init() {
-			// if pro rewrite rules have not been generated yet, flush them. (This can happen on reactivations.)
-			if(is_array(get_option('rewrite_rules')) && !array_key_exists(trailingslashit( TribeEvents::instance()->rewriteSlug ) . $this->weekSlug . '/?$',get_option('rewrite_rules'))) {
-				TribeEvents::flushRewriteRules();
-			}
 			TribeEventsMiniCalendar::instance();
 			TribeEventsCustomMeta::init();
 			TribeEventsRecurrenceMeta::init();
@@ -1770,14 +1766,39 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		return $operator;
 	}
 
+	register_activation_hook( __FILE__, 'tribe_ecp_activate' );
 	register_deactivation_hook( __FILE__, 'tribe_ecp_deactivate' );
 	register_uninstall_hook( __FILE__, 'tribe_ecp_uninstall' );
+
+	function tribe_ecp_activate() {
+		flush_rewrite_rules();
+		if ( function_exists( 'tribe_update_option' ) ) {
+			tribe_update_option( 'defaultValueReplace', get_option('ecp_defaultValueReplace_prev') );
+			delete_option('ecp_defaultValueReplace_prev');
+		} else {
+			if (is_array(get_option('tribe_events_calendar_options'))) {
+				$tec_options = get_option('tribe_events_calendar_options');
+				$tec_options['defaultValueReplace'] = get_option('ecp_defaultValueReplace_prev');
+				update_option('tribe_events_calendar_options', $tec_options);
+				delete_option('ecp_defaultValueReplace_prev');
+			}
+		}
+	}
 
 	// when we deactivate pro, we should reset some options
 	function tribe_ecp_deactivate() {
 		if ( function_exists( 'tribe_update_option' ) ) {
-			tribe_update_option( 'defaultValueReplace', true );
-			tribe_update_option( 'defaultCountry', null );
+			update_option('ecp_defaultValueReplace_prev', tribe_get_option('defaultValueReplace'));
+			tribe_update_option( 'defaultValueReplace', false );
+		} else {
+			if (is_array(get_option('tribe_events_calendar_options'))) {
+				$tec_options = get_option('tribe_events_calendar_options');
+				if ( array_key_exists('defaultValueReplace', $tec_options) ) {
+					update_option('ecp_defaultValueReplace_prev', $tec_options['defaultValueReplace']);
+					$tec_options['defaultValueReplace'] = false;
+					update_option('tribe_events_calendar_options', $tec_options);
+				}
+			}
 		}
 	}
 
