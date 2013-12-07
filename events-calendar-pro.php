@@ -1797,8 +1797,8 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 					update_option('ecp_defaultValueReplace_prev', $tec_options['defaultValueReplace']);
 					$tec_options['defaultValueReplace'] = false;
 					update_option('tribe_events_calendar_options', $tec_options);
-				}
-			}
+		}
+	}
 		}
 	}
 
