@@ -755,9 +755,9 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			new TribeSettingsTab( 'display', __('Display', 'tribe-events-calendar'), $displayTab );
 			// If none of the addons are activated, do not show the licenses tab.
 
-			$license_pre_count = count( $tribe_licences_tab_fields );
-			$license_fields = apply_filters( 'tribe_license_fields', $tribe_licences_tab_fields );
-			if ( count( $license_fields ) > $license_pre_count ) {
+			$addons_active = class_exists( 'TribePluginUpdateEngineChecker' ); // true if there are pue based addons available.
+			if ( $addons_active ) {
+				$license_fields = apply_filters( 'tribe_license_fields', $tribe_licences_tab_fields );
 				if ( is_multisite() ) {
 					new TribeSettingsTab( 'licenses', __('Licenses', 'tribe-events-calendar'), array('priority' => '40', 'network_admin' => true, 'fields' => $license_fields ) );
 				} else {
@@ -4081,7 +4081,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 * when getting the edit link. If we're on the tag admin
 		 * in Events post type context, make sure we add that
 		 * arg to the edit tag link
-		 * 
+		 *
 		 * @param string $link
 		 * @param int $term_id
 		 * @param string $taxonomy
