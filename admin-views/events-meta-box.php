@@ -125,8 +125,8 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 						elseif ( true === tribe_get_option( 'reverseCurrencyPosition', false ) ) $suffix = true;
 						else $suffix = false;
 					?>
-					<option value="prefix"> <?php _ex('Prefix', 'Currency symbol position', 'tribe-events-calendar') ?> </option>
-					<option value="suffix"<?php if ( $suffix ) echo ' selected="selected"' ?>> <?php _ex('Suffix', 'Currency symbol position', 'tribe-events-calendar') ?> </option>
+					<option value="prefix"> <?php _ex( 'Before cost', 'Currency symbol position', 'tribe-events-calendar' ) ?> </option>
+					<option value="suffix"<?php if ( $suffix ) echo ' selected="selected"' ?>> <?php _ex( 'After cost', 'Currency symbol position', 'tribe-events-calendar' ) ?> </option>
 				</select>
 			</td>
 		</tr>
