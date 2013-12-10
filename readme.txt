@@ -198,6 +198,15 @@ Our Premium Plugins:
 
 3.x is a complete overhaul of the plugin, and as a result we're starting the changelog fresh. For release notes from the 2.x lifecycle, see <a href="http://m.tri.be/k">our 2.x release notes.</a>
 
+= 3.3 =
+
+* Improved support for international date formats
+* Localization improvements for displaying the event cost field
+* List view will now link to a page of previous events if there are indeed previous events to show
+* Fixed an issue with empty category views that could result in a fatal error
+* Fixed an issue where titles for single events were empty in some installations
+* Fixes for the tribe_get_the_day_link_date() function props @nathanielks
+
 = 3.2 =
 
 * Incorporated code to allow for recurring events with no end date (just set "Never" under the appropriate dropdown when setting up your recurrence pattern!)
