@@ -24,7 +24,7 @@
  */
 ?>
 
-<li class="tribe-events-list-widget-events">
+<li class="tribe-events-list-widget-events <?php tribe_events_event_classes() ?>">
 	<h4 class="entry-title summary">
 			<a href="<?php echo tribe_get_event_link(); ?>" rel="bookmark"><?php the_title(); ?></a>
 	</h4>	
