@@ -203,6 +203,9 @@ Our Premium Plugins:
 * Fixes issue with featured venue widget not returning expected results in all conditions
 * Calendar widget improvements - query clean up and end-of-day-cutoff setting respected
 * Map view pagination improved
+* Fix bug that caused events to disappear when changing the time for an existing series
+* Fix bug that caused multiple instances of recurring events to fail to display
+* Fix display of multi-day events in week view
 
 = 3.2 =
 
