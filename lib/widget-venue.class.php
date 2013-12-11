@@ -38,7 +38,7 @@ if( !class_exists( 'TribeVenueWidget') ) {
 			include( TribeEventsTemplates::getTemplateHierarchy( 'pro/widgets/venue-widget.php' ) );
 			echo $after_widget;
 
-			wp_reset_post();
+			wp_reset_postdata();
 		}
 
 		// Include the file for the administration view of the widget.

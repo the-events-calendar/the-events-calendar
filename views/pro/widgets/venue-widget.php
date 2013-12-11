@@ -35,12 +35,12 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 		<?php while ( $events->have_posts() ): ?>
 			<?php $events->the_post(); ?>
 			<li>
-				<h4><a href="<?php echo tribe_get_event_link() ?>"><?php echo get_the_title( $event->ID ) ?></a></h4>
+				<h4><a href="<?php echo tribe_get_event_link() ?>"><?php echo get_the_title( get_the_ID() ) ?></a></h4>
 				<?php echo tribe_events_event_schedule_details() ?>
-				<?php if ( tribe_get_cost( $event->ID ) != '' ): ?>
+				<?php if ( tribe_get_cost( get_the_ID() ) != '' ): ?>
 				<span class="tribe-events-divider">|</span>
 					<span class="tribe-events-event-cost">
-						<?php echo tribe_get_cost( $event->ID, true ); ?>
+						<?php echo tribe_get_cost( get_the_ID(), true ); ?>
 					</span>
 				<?php endif; ?>
 			</li>
