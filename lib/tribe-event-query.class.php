@@ -793,6 +793,7 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 		 * Customized WP_Query wrapper to setup event queries with default arguments.
 		 *
 		 * @param array $args
+		 * @param bool $full
 		 * @return array|WP_Query
 		 */
 		public static function getEvents( $args = array(), $full = false ) {
