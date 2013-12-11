@@ -15,25 +15,25 @@ require_once 'header.php';
 <?php endif; ?>
 <div id="modern-tribe-info">
 	<h3><?php _e('Import Instructions', 'tribe-events-calendar'); ?></h3>
-	<ol>
+	<ul>
 		<li>
 			<?php _e('If your events have Organizers or Venues, please import those first.', 'tribe-events-calendar' ); ?>
 			<?php _e('To import organizers or venues:', 'tribe-events-calendar'); ?>
-			<ol>
+			<ul>
 				<li><?php _e('Select the appropriate import type.', 'tribe-events-calendar'); ?></li>
 				<li><?php _e('Upload a CSV file with one record on each line. The first line may contain column names (check the box below).', 'tribe-events-calendar'); ?></li>
 				<li><?php _e('One column in your CSV should have the Organizer/Venue name. All other fields are optional.', 'tribe-events-calendar'); ?></li>
 				<li><?php _e("After you upload your file, you'll have the opportunity to indicate how the columns in your CSV map to fields in The Events Calendar.", 'tribe-events-calendar'); ?></li>
-			</ol>
-		</li>
+			</ul>
 		<li><?php _e('After importing your Organizers and Venues, import your Events:', 'tribe-events-calendar'); ?>
-			<ol>
+			<ul>
 				<li><?php _e('Upload a CSV file with one record on each line. The first line may contain column names (check the box below).', 'tribe-events-calendar'); ?></li>
 				<li><?php _e('One column in your CSV should have the Event title. Another should have the Event start date. All other fields are optional.', 'tribe-events-calendar'); ?></li>
 				<li><?php _e("After you upload your file, you'll have the opportunity to indicate how the columns in your CSV map to fields in The Events Calendar.", 'tribe-events-calendar'); ?></li>
-			</ol>
+			</ul>
 		</li>
-	</ol>
+	</ul>
+	<p><?php printf(__('Questions? <a href="%s">Watch the video</a>.', 'tribe-events-calendar'), 'http://tri.be/using-the-events-calendars-csv-importer/'); ?></p>
 </div>
 	<form method="post" enctype="multipart/form-data">
 		<table class="form-table">

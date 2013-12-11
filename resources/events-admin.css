@@ -135,6 +135,8 @@ td.tribe_message {padding-bottom: 10px !important;}
 /* Modern Tribe box */
 #modern-tribe-info {margin: 20px 0; background-color: #f9f9f9; padding: 8px 20px 12px; border: 1px solid #ccc; border-radius: 4px; -moz-border-radius: 4px; -webkit-border-radius: 4px; -khtml-border-radius: 4px; -o-border-radius: 4px;}
 #modern-tribe-info img {margin: 10px 0; width: 250px; height: 18px;}
+#modern-tribe-info ul {margin-left: 20px; list-style: disc;}
+#modern-tribe-info ul ul {list-style: circle;}
 
 /* sizes */
 .tribe-field-textarea.tribe-size-small textarea {width: 180px; height: 60px;}
