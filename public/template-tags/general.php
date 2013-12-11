@@ -157,6 +157,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 * Queries the events using WordPress get_posts() by setting the post type and sorting by event date.
 	 *
 	 * @param array $args query vars with added defaults including post_type of events, sorted (orderby) by event date (order) ascending
+	 * @param bool $full (optional) if the full query object is required or just an array of event posts
 	 * @return array List of posts.
 	 * @link http://codex.wordpress.org/Template_Tags/get_posts
 	 * @link http://codex.wordpress.org/Function_Reference/get_post
@@ -164,8 +165,8 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 * @see get_posts()
 	 * @since 2.0
 	 */
-	function tribe_get_events( $args = array() ) {
-		return apply_filters( 'tribe_get_events', TribeEventsQuery::getEvents( $args ), $args );
+	function tribe_get_events( $args = array(), $full = false ) {
+		return apply_filters( 'tribe_get_events', TribeEventsQuery::getEvents( $args, $full ), $args, $full );
 	}
 
 	/**
