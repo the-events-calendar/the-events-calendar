@@ -76,8 +76,8 @@ if (!class_exists('TribeEventsAPI')) {
 			$tribe_ecp = TribeEvents::instance();
 
 			if( isset($data['EventAllDay']) && ( $data['EventAllDay'] == 'yes' || $data['EventAllDay'] == true || !isset($data['EventStartDate'] ) ) ) {
-				$data['EventStartDate'] = TribeDateUtils::beginningOfDay($data['EventStartDate']);
-				$data['EventEndDate'] = TribeDateUtils::endOfDay($data['EventEndDate']);
+				$data['EventStartDate'] = tribe_event_beginning_of_day($data['EventStartDate']);
+				$data['EventEndDate'] = tribe_event_end_of_day($data['EventEndDate']);
 			} else {
 				delete_post_meta( $event_id, '_EventAllDay' );
 				if( isset( $data['EventStartMeridian'] ) ) {

@@ -3231,9 +3231,24 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 			}
 
-			$_EventStartDate = (isset($_EventStartDate)) ? $_EventStartDate : null;
-			$_EventEndDate = (isset($_EventEndDate)) ? $_EventEndDate : null;
 			$_EventAllDay = isset($_EventAllDay) ? $_EventAllDay : false;
+			$_EventStartDate = (isset($_EventStartDate)) ? $_EventStartDate : null;
+			if ( isset( $_EventEndDate ) ) {
+				if ( $_EventAllDay &&  tribe_get_option( 'multiDayCutoff', '00:00' ) != '00:00' ) {
+
+					// If it's an all day event and the EOD cutoff is later than midnight
+					// set the end date to be the previous day so it displays correctly in the datepicker
+					// so the datepickers will match. we'll set the correct end time upon saving
+					// @todo: remove this once we're allowed to have all day events without a start/end time
+
+					$_EventEndDate = date_create( $_EventEndDate );
+					$_EventEndDate->modify( '-1 day' );
+					$_EventEndDate = $_EventEndDate->format( TribeDateUtils::DBDATETIMEFORMAT );
+
+				}
+			} else {
+				$_EventEndDate = null;
+			}
 			$isEventAllDay = ( $_EventAllDay == 'yes' || ! TribeDateUtils::dateOnly( $_EventStartDate ) ) ? 'checked="checked"' : ''; // default is all day for new posts
 			$startMonthOptions 		= TribeEventsViewHelpers::getMonthOptions( $_EventStartDate );
 			$endMonthOptions 		= TribeEventsViewHelpers::getMonthOptions( $_EventEndDate );
