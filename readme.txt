@@ -297,6 +297,7 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Fixed an issue with empty category views that could result in a fatal error
 * Fixed an issue where titles for single events were empty in some installations
 * Fixes for the tribe_get_the_day_link_date() function props @nathanielks
+* Fix admin menu highlighting when editing tags for events
 
 = 3.2 =
 
