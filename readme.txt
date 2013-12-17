@@ -1,6 +1,6 @@
 === The Events Calendar PRO ===
 
-Contributors:  ModernTribe, PaulHughes01, roblagatta, jonahcoyote, MZAWeb, codearachnid, ryancurban, faction23, jazbek, jbrinley, kyleunzicker, leahkoerper, WebsiteBakery, barry.hughes, kellykathryn, neillmcshea, peterchester, reid.peifer, shane.pearlman
+Contributors:  ModernTribe, roblagatta, MZAWeb, ryancurban, faction23, jazbek, jbrinley, kyleunzicker, leahkoerper, WebsiteBakery, barry.hughes, kellykathryn, neillmcshea, peterchester, reid.peifer, shane.pearlman
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget, pro
 Donate link: http://m.tri.be/29
 Requires at least: 3.6
@@ -80,13 +80,14 @@ If you're already a PRO user, you're entitled access to our more actively-monito
 
 Currently, the following add-ons are available for The Events Calendar/Events Calendar PRO:
 
-* <a href="http://m.tri.be/40">Eventbrite Tickets</a>, for selling tickets to your event directly through Eventbrite.
-* <a href="http://m.tri.be/3z">Community Events</a>, for allowing frontend event submission from your readers.
-* <a href="http://m.tri.be/3y">Facebook Events</a>, for importing events directly from an organization or page on Facebook.
-* <a href="http://m.tri.be/55">Tickets: WooCommerce</a>, for harnessing the power of WooCommerce to sell event tickets directly on your site without being subject to fees or relying on a third-party service.
+* <a href="http://m.tri.be/2e">Eventbrite Tickets</a>, for selling tickets to your event directly through Eventbrite.
+* <a href="http://m.tri.be/2g">Community Events</a>, for allowing frontend event submission from your readers.
+* <a href="http://m.tri.be/2h">Facebook Events</a>, for importing events directly from an organization or page on Facebook.
+* <a href="http://m.tri.be/2f">WooCommerce Tickets</a>, for harnessing the power of WooCommerce to sell event tickets directly on your site without being subject to fees or relying on a third-party service.
+* <a href="http://m.tri.be/ci">EDD Tickets</a>, for using our ticketing framework to sell tickets on your events through The Events Calendar + Easy Digital Downloads.
+* <a href="http://m.tri.be/cu">WPEC Tickets</a>, for using WP-eCommerce + The Events Calendar to sell event tickets directly from the frontend of your site. 
+* <a href="http://m.tri.be/dp">Shopp Tickets</a>, for harnessing the power of Shopp to sell event tickets on your WordPress site. 
 * Filter Bar (COMING SOON) for adding advanced frontend filtering capabilities to your events calendar.
-* EDD Tickets (COMING SOON), for using our ticketing framework to sell tickets on your events through The Events Calendar + Easy Digital Downloads.
-* WPEC Tickets (COMING SOON), for using WP-eCommerce + The Events Calendar to sell event tickets directly from the frontend of your site. 
 
 = I have a feature idea. What's the best way to tell you about it? =
 
@@ -184,13 +185,15 @@ Our Free Plugins:
 
 Our Premium Plugins:
 
-* <a href="http://m.tri.be/47">The Events Calendar: Eventbrite Tickets</a>
-* <a href="http://m.tri.be/49">The Events Calendar: Community Events</a>
-* <a href="http://m.tri.be/4a">The Events Calendar: Facebook Events</a>
-* <a href="http://m.tri.be/48">The Events Calendar: WooCommerce Tickets</a>
-* The Events Calendar: Filter Bar (coming late 2013)
-* The Events Calendar: EDD Tickets (coming late 2013)
-* The Events Calendar: WPEC Tickets (coming late 2013)
+* <a href="http://m.tri.be/2c" target="_blank">The Events Calendar PRO</a>
+* <a href="http://m.tri.be/2e" target="_blank">The Events Calendar: Eventbrite Tickets</a>
+* <a href="http://m.tri.be/2g" target="_blank">The Events Calendar: Community Events</a>
+* <a href="http://m.tri.be/2h" target="_blank">The Events Calendar: Facebook Events</a>
+* <a href="http://m.tri.be/2i" target="_blank">The Events Calendar: WooCommerce Tickets</a>
+* <a href="http://m.tri.be/ci" target="_blank">The Events Calendar: EDD Tickets Tickets</a>
+* <a href="http://m.tri.be/cu" target="_blank">The Events Calendar: WPEC Tickets</a>
+* <a href="http://m.tri.be/dp" target="_blank">The Events Calendar: Shopp Tickets</a>
+* The Events Calendar: Filter Bar (coming early 2014)
 
 == Changelog ==
 
@@ -200,16 +203,16 @@ Our Premium Plugins:
 
 = 3.3 =
 
-* Fixes issue with featured venue widget not returning expected results in all conditions
-* Calendar widget improvements - query clean up and end-of-day-cutoff setting respected
+* Fixes issue with featured venue widget not returning expected results in all conditions (thanks to millcreekpark on the forums for the heads up here!)
+* Calendar widget improvements: query clean up and end-of-day-cutoff setting respected (thanks to davecfraser from the forums for the original report on this front!)
 * Map view pagination improved
-* Fix bug that caused events to disappear when changing the time for an existing series
-* Fix bug that caused multiple instances of recurring events to fail to display
+* Fix bug that caused events to disappear when changing the time for an existing series (thanks to Denise Crosbie on the forums for the first report here!)
+* Fix bug that caused multiple instances of recurring events to fail to display (thanks to mastafu on the forums for reporting this!)
 * Fix display of multi-day events in week view
-* Map view now respects the selected category
+* Map view now respects the selected category (thanks to mindful on the forums for originally reporting this!)
 * Fixed bug that caused the "Show only the first instance of each recurring event" setting to affect the "See all" page for recurring events
 * The TribeField class no longer uses the extract() function
-* Deactivating ECP will now also deactivate the default content settings. They will be restored if you reactivate ECP.
+* Deactivating ECP will now also deactivate the default content settings (they will be restored if you reactivate ECP)
 
 = 3.2 =
 
@@ -310,6 +313,11 @@ Some things to consider before posting on the forum:
 Still not happy? Shoot us an email to pro@tri.be or tweet to @moderntribeinc and tell us why. We'll do what we can to make it right.
 
 == Upgrade Notice ==
+
+= 3.3 =
+
+There have been a few substantial updates in 3.3. Please upgrade with caution.
+
 
 = 3.2 =
 
