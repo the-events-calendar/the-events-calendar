@@ -408,6 +408,10 @@ Still not happy? Shoot us an email to pro@tri.be or tweet to @moderntribeinc and
 
 IMPORTANT NOTICE: 3.x upgrade is a HUGE upgrade from 2.x versions. If you are upgrading from an older version, please test thoroughly before updating on your live website.
 
+= 3.3 =
+
+There have been a number of architectural changes and bug fixes in 3.3. If you have a lot of customizations you may want to do some thorough testing before upgrading.
+
 = 3.2 =
 
 There have been a number of architectural changes in 3.2. If you have a lot of customizations you may want to do some thorough testing before upgrading.
