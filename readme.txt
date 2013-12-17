@@ -298,6 +298,11 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Fixed an issue where titles for single events were empty in some installations
 * Fixes for the tribe_get_the_day_link_date() function props @nathanielks
 * Fix admin menu highlighting when editing tags for events
+* Google maps will now be included properly on pages with https URLs
+* Tag queries that don't specify a post type will no longer be modified to be an events query
+* Fixed an issue that caused some events not to show on month view when viewing a category
+* All day events are now saved with a start/end time that is determined by the end of day cutoff. This fix will not modify previously created all day events.
+
 
 = 3.2 =
 
