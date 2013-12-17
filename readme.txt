@@ -151,9 +151,10 @@ Currently, the following add-ons are available for The Events Calendar/Events Ca
 * <a href="http://m.tri.be/2g">Community Events</a>, for allowing frontend event submission from your readers.
 * <a href="http://m.tri.be/2h">Facebook Events</a>, for importing events directly from an organization or page on Facebook.
 * <a href="http://m.tri.be/2f">WooCommerce Tickets</a>, for harnessing the power of WooCommerce to sell event tickets directly on your site without being subject to fees or relying on a third-party service.
+* <a href="http://m.tri.be/ci">EDD Tickets</a>, for using our ticketing framework to sell tickets on your events through The Events Calendar + Easy Digital Downloads.
+* <a href="http://m.tri.be/cu">WPEC Tickets</a>, for using WP-eCommerce + The Events Calendar to sell event tickets directly from the frontend of your site. 
+* <a href="http://m.tri.be/dp">Shopp Tickets</a>, for harnessing the power of Shopp to sell event tickets on your WordPress site. 
 * Filter Bar (COMING SOON) for adding advanced frontend filtering capabilities to your events calendar.
-* EDD Tickets (COMING SOON), for using our ticketing framework to sell tickets on your events through The Events Calendar + Easy Digital Downloads.
-* WPEC Tickets (COMING SOON), for using WP-eCommerce + The Events Calendar to sell event tickets directly from the frontend of your site. 
 
 = I have a feature idea. What's the best way to tell you about it? =
 
@@ -259,9 +260,10 @@ Our Premium Plugins:
 * <a href="http://m.tri.be/2g" target="_blank">The Events Calendar: Community Events</a>
 * <a href="http://m.tri.be/2h" target="_blank">The Events Calendar: Facebook Events</a>
 * <a href="http://m.tri.be/2i" target="_blank">The Events Calendar: WooCommerce Tickets</a>
-* The Events Calendar: Filter Bar (coming late 2013)
-* The Events Calendar: EDD Tickets (coming late 2013)
-* The Events Calendar: WPEC Tickets (coming late 2013)
+* <a href="http://m.tri.be/ci" target="_blank">The Events Calendar: EDD Tickets Tickets</a>
+* <a href="http://m.tri.be/cu" target="_blank">The Events Calendar: WPEC Tickets</a>
+* <a href="http://m.tri.be/dp" target="_blank">The Events Calendar: Shopp Tickets</a>
+* The Events Calendar: Filter Bar (coming early 2014)
 
 == Versioning ==
 
@@ -291,17 +293,17 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 
 = 3.3 =
 
-* Improved support for international date formats
-* Localization improvements for displaying the event cost field
-* List view will now link to a page of previous events if there are indeed previous events to show
-* Fixed an issue with empty category views that could result in a fatal error
+* Improved support for international date formats (big props to jeroenjoosen on the forums for the original report on this!)
+* Localization improvements for displaying the event cost field (thanks to mastafu on the forums for the heads up!)
+* List view will now link to a page of previous events if there are indeed previous events to show (props to oceanfilm on the forums for pointing this out!)
+* Fixed an issue with empty category views that could result in a fatal error (thanks to mastafu on the forums for this one, too!)
 * Fixed an issue where titles for single events were empty in some installations
-* Fixes for the tribe_get_the_day_link_date() function props @nathanielks
+* Fixes for the tribe_get_the_day_link_date() function (thanks to @nathanielks on Twitter for catching + patching this one for us!)
 * Fix admin menu highlighting when editing tags for events
-* Google maps will now be included properly on pages with https URLs
-* Tag queries that don't specify a post type will no longer be modified to be an events query
-* Fixed an issue that caused some events not to show on month view when viewing a category
-* All day events are now saved with a start/end time that is determined by the end of day cutoff. This fix will not modify previously created all day events.
+* Google maps will now be included properly on pages with https URLs (thanks to bmitchellini on the forums for the first report here!)
+* Tag queries that don't specify a post type will no longer be modified to be an events query (thanks to Jason on the forums for reporting this first!)
+* Fixed an issue that caused some events not to show on month view when viewing a category (thanks to yorkshiretots on the forum for catching this!)
+* All day events are now saved with a start/end time that is determined by the end of day cutoff. This fix will not modify previously created all day events (thanks to wallyglenn on the forums for spotting this!)
 
 
 = 3.2 =
