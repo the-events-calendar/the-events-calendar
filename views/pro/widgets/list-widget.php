@@ -23,7 +23,7 @@ $widget_args = tribe_events_get_adv_list_widget_args();
 extract($widget_args);
 ?>
 
-<li>
+<li class="<?php tribe_events_event_classes() ?>">
 	<h4 class="entry-title summary">
 		<a href="<?php echo tribe_get_event_link(); ?>" rel="bookmark"><?php the_title(); ?></a>
 	</h4>
