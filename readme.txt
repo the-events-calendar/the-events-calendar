@@ -308,6 +308,8 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Remove an invalid iCal link from the markup to prevent it being indexed by search engines. (Thanks to Kevin Lisota for the original report).
 * Fix XSS vulnerability in the Tribe Bar. (Mega props to Yasser Khan and Chuck Tsang for the research and responsible disclosure)
 * Performance improvement in some queries for large amount of data.
+* Fix a bug that was making our date pickers ignore the start-of-the-week setting in WordPress core.
+
 
 = 3.2 =
 
