@@ -49,7 +49,6 @@ if( !class_exists('Tribe_Events_Pro_Photo_Template')){
 		 * @since 3.0
 		 **/
 		public function event_classes( $classes ) {
-			$classes = parent::event_classes( $classes );
 			$classes[] = 'tribe-events-photo-event';
 			return $classes;
 		}

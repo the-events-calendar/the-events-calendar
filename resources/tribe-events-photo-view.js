@@ -286,8 +286,6 @@
 				dbug && debug.time('Photo View Ajax Timer');
 				$(te).trigger('tribe_ev_ajaxStart').trigger('tribe_ev_photoView_AjaxStart');
 
-				console.log(ts.params)
-
 				$.post(
 					TribePhoto.ajaxurl,
 					ts.params,

@@ -1,11 +1,11 @@
 === The Events Calendar PRO ===
 
-Contributors:  ModernTribe, PaulHughes01, roblagatta, jonahcoyote, MZAWeb, codearachnid, ryancurban, faction23, jazbek, jbrinley, kyleunzicker, leahkoerper, WebsiteBakery, barry.hughes, kellykathryn, neillmcshea, peterchester, reid.peifer, shane.pearlman
+Contributors:  ModernTribe, roblagatta, MZAWeb, ryancurban, faction23, jazbek, jbrinley, kyleunzicker, leahkoerper, WebsiteBakery, barry.hughes, kellykathryn, neillmcshea, peterchester, reid.peifer, shane.pearlman
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget, pro
 Donate link: http://m.tri.be/29
 Requires at least: 3.6
 Tested up to: 3.7.1
-Stable tag: 3.2
+Stable tag: 3.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -80,13 +80,14 @@ If you're already a PRO user, you're entitled access to our more actively-monito
 
 Currently, the following add-ons are available for The Events Calendar/Events Calendar PRO:
 
-* <a href="http://m.tri.be/40">Eventbrite Tickets</a>, for selling tickets to your event directly through Eventbrite.
-* <a href="http://m.tri.be/3z">Community Events</a>, for allowing frontend event submission from your readers.
-* <a href="http://m.tri.be/3y">Facebook Events</a>, for importing events directly from an organization or page on Facebook.
-* <a href="http://m.tri.be/55">Tickets: WooCommerce</a>, for harnessing the power of WooCommerce to sell event tickets directly on your site without being subject to fees or relying on a third-party service.
+* <a href="http://m.tri.be/2e">Eventbrite Tickets</a>, for selling tickets to your event directly through Eventbrite.
+* <a href="http://m.tri.be/2g">Community Events</a>, for allowing frontend event submission from your readers.
+* <a href="http://m.tri.be/2h">Facebook Events</a>, for importing events directly from an organization or page on Facebook.
+* <a href="http://m.tri.be/2f">WooCommerce Tickets</a>, for harnessing the power of WooCommerce to sell event tickets directly on your site without being subject to fees or relying on a third-party service.
+* <a href="http://m.tri.be/ci">EDD Tickets</a>, for using our ticketing framework to sell tickets on your events through The Events Calendar + Easy Digital Downloads.
+* <a href="http://m.tri.be/cu">WPEC Tickets</a>, for using WP-eCommerce + The Events Calendar to sell event tickets directly from the frontend of your site. 
+* <a href="http://m.tri.be/dp">Shopp Tickets</a>, for harnessing the power of Shopp to sell event tickets on your WordPress site. 
 * Filter Bar (COMING SOON) for adding advanced frontend filtering capabilities to your events calendar.
-* EDD Tickets (COMING SOON), for using our ticketing framework to sell tickets on your events through The Events Calendar + Easy Digital Downloads.
-* WPEC Tickets (COMING SOON), for using WP-eCommerce + The Events Calendar to sell event tickets directly from the frontend of your site. 
 
 = I have a feature idea. What's the best way to tell you about it? =
 
@@ -155,8 +156,8 @@ The plugin is produced by <a href="http://m.tri.be/45">Modern Tribe Inc</a>.
 * Danish from Anonymous
 * Dutch from Erik Massop
 * Finnish by Ari-Pekka Koponen
-* French from Beno√Æt Burgener
-* German from Michael Sebel
+* French from Bastien BC
+* German from Oliver Heinrich
 * Greek from Maria Tsilimidou
 * Icelandic by Baldvin √ñrn Berndsen
 * Italian from Roberto Scano
@@ -169,7 +170,7 @@ The plugin is produced by <a href="http://m.tri.be/45">Modern Tribe Inc</a>.
 * Swedish from Ben Andersen
 * Turkish by Burak Pehlevan
 
-* Previous translators include Mikhail Michouris, Ed Boon, Rick van Dalen, Jacob Roel Meijering, hristian Andersen, Filippo Montanari, David Decker, Kamil Szymanski, "Terje With Lunndal", Sagi Shrieber, Matthew Meyer, Arno Faure, Fanny Heraud, Vincent G from Host1Free, , Petri Kajander, Fran Rosa, Nico (wsMaurik), Panos Efstratiou, Dominique Monhardt, Thomas Butzek, Kjell Vestnes, Luiza Libardi, Diego Meneghetti, and Alexey Fedorov
+* Previous translators include Mikhail Michouris, Ed Boon, Rick van Dalen, Jacob Roel Meijering, hristian Andersen, Michael Sebel, Filippo Montanari, David Decker, Kamil Szymanski, "Terje With Lunndal", Sagi Shrieber, Matthew Meyer, Arno Faure, Fanny Heraud, Vincent G from Host1Free, , Petri Kajander, Fran Rosa, Nico (wsMaurik), Panos Efstratiou, Dominique Monhardt, Thomas Butzek, Kjell Vestnes, Luiza Libardi, Diego Meneghetti, Benoit Burgener, and Alexey Fedorov
 
 == Add-Ons ==
 
@@ -184,19 +185,38 @@ Our Free Plugins:
 
 Our Premium Plugins:
 
-* <a href="http://m.tri.be/47">The Events Calendar: Eventbrite Tickets</a>
-* <a href="http://m.tri.be/49">The Events Calendar: Community Events</a>
-* <a href="http://m.tri.be/4a">The Events Calendar: Facebook Events</a>
-* <a href="http://m.tri.be/48">The Events Calendar: WooCommerce Tickets</a>
-* The Events Calendar: Filter Bar (coming late 2013)
-* The Events Calendar: EDD Tickets (coming late 2013)
-* The Events Calendar: WPEC Tickets (coming late 2013)
+* <a href="http://m.tri.be/2c" target="_blank">The Events Calendar PRO</a>
+* <a href="http://m.tri.be/2e" target="_blank">The Events Calendar: Eventbrite Tickets</a>
+* <a href="http://m.tri.be/2g" target="_blank">The Events Calendar: Community Events</a>
+* <a href="http://m.tri.be/2h" target="_blank">The Events Calendar: Facebook Events</a>
+* <a href="http://m.tri.be/2i" target="_blank">The Events Calendar: WooCommerce Tickets</a>
+* <a href="http://m.tri.be/ci" target="_blank">The Events Calendar: EDD Tickets Tickets</a>
+* <a href="http://m.tri.be/cu" target="_blank">The Events Calendar: WPEC Tickets</a>
+* <a href="http://m.tri.be/dp" target="_blank">The Events Calendar: Shopp Tickets</a>
+* The Events Calendar: Filter Bar (coming early 2014)
 
 == Changelog ==
 
 = IMPORTANT NOTICE =
 
 3.x is a complete overhaul of the plugin, and as a result we're starting the changelog fresh. For release notes from the 2.x lifecycle, see <a href="http://m.tri.be/k">our 2.x release notes.</a>
+
+= 3.3 =
+
+* Fixed an issue with featured venue widget not returning expected results in all conditions (thanks to millcreekpark on the forums for the heads up here!)
+* Calendar widget improvements: query clean up and end-of-day-cutoff setting respected (thanks to davecfraser from the forums for the original report on this front!)
+* Map view pagination improved
+* Fixed a bug that caused events to disappear when changing the time for an existing series (thanks to Denise Crosbie on the forums for the first report here!)
+* Patched a bug that caused multiple instances of recurring events to fail to display (thanks to mastafu on the forums for reporting this!)
+* Fixed an issue with the display of multi-day events in week view
+* Map view now respects the selected category (thanks to mindful on the forums for originally reporting this!)
+* Fixed bug that caused the "Show only the first instance of each recurring event" setting to affect the "See all" page for recurring events
+* The TribeField class no longer uses the extract() function
+* Deactivating ECP will now also deactivate the default content settings (they will be restored if you reactivate ECP)
+* Fixed a JavaScript issue on APM that was breaking some users installs (thanks to user tsdexter for the report and patch!)
+* Added CSS classes to the list widget events (thanks to Andy Fragen for requesting these!)
+* Incorporated updated German translation files, courtesy of Oliver Heinrich
+* Incorporated updated French translation files, courtesy of Bastien BC
 
 = 3.2 =
 
@@ -298,14 +318,19 @@ Still not happy? Shoot us an email to pro@tri.be or tweet to @moderntribeinc and
 
 == Upgrade Notice ==
 
+IMPORTANT NOTICE: 3.x upgrade is a HUGE upgrade from 2.x versions. If you are upgrading from an older version, please test thoroughly before updating on your live website.
+
+= 3.3 =
+
+Please see the changelog for the complete list of changes in this release. Remember to always make a backup of your database and files before updating!
+
 = 3.2 =
 
-There have been a few substantial architectural updates in 3.2. Please upgrade with caution.
-
+When upgrading to 3.2, please ensure template overrides for Events Calendar Pro in your theme should be moved to [your-theme]/tribe-events/pro directory; a deprecated notice will be generated if they are directly in the [your-theme]/tribe-events folder
 
 = 3.1 =
 
-There have been a few substantial architectural updates in 3.1. Please upgrade with caution.
+Please see the changelog for the complete list of changes in this release. Remember to always make a backup of your database and files before updating!
 
 = 3.0 =
 

@@ -97,56 +97,9 @@ class TribeEventsGeoLoc {
 	 */
 	public function setup_geoloc_filter_in_filters() {
 		if ( ! tribe_get_option( 'hideLocationSearch', false ) ) {
-			$current_filters = get_option( 'tribe_events_filters_current_active_filters', TribeEventsFilterView::instance()->getDefaultFilters() );
-
-			$distances = apply_filters( 'geoloc-values-for-filters', array( '5'   => '5 miles',
-			                                                                '10'  => '10 miles',
-			                                                                '25'  => '25 miles',
-			                                                                '50'  => '50 miles',
-			                                                                '100' => '100 miles',
-			                                                                '250' => '250 miles' ) );
-
-			$distances_values = array();
-			foreach ( $distances as $value => $name ) {
-				$distances_values[] = array(
-					'name'  => $name,
-					'value' => $value,
-				);
-			}
-
-			$geoloc_filter_array = array( 'name'   => __( 'Distance', 'tribe-events-calendar-pro' ),
-			                              'slug'   => 'geofence',
-			                              'values' => $distances_values, );
-
-			$geoloc_filter_array['type']  = isset( $current_filters[$geoloc_filter_array['slug']]['type'] ) ? $current_filters[$geoloc_filter_array['slug']]['type'] : 'select';
-			$geoloc_filter_array['title'] = isset( $current_filters[$geoloc_filter_array['slug']]['title'] ) ? $current_filters[$geoloc_filter_array['slug']]['title'] : $geoloc_filter_array['name'];
-
-			$geoloc_filter_array['admin_form'] = sprintf( __( 'Title: %s', 'tribe-events-calendar-pro' ), '<input type="text" name="title" value="' . stripslashes( $geoloc_filter_array['title'] ) . '">' );
-			$geoloc_filter_array['admin_form'] .= '<div class="tribe_events_active_filter_type_options">';
-			$geoloc_filter_array['admin_form'] .= sprintf( __( '%sType: %s', 'tribe-events-calendar-pro' ), '', '<label><input type="radio" name="type" value="select" ' . checked( $geoloc_filter_array['type'], 'select', false ) . ' /> ' . __( 'Select Dropdown', 'tribe-events-calendar-pro' ) . '</label>' );
-			$geoloc_filter_array['admin_form'] .= '<label><input type="radio" name="type" value="radio" ' . checked( $geoloc_filter_array['type'], 'radio', false ) . ' /> ' . __( 'Radio Buttons', 'tribe-events-calendar-pro' ) . '</label>';
-			$geoloc_filter_array['admin_form'] .= '</div>';
-			$geoloc_filter = new TribeEventsFilter( $geoloc_filter_array['name'], $geoloc_filter_array['slug'], $geoloc_filter_array['values'], $geoloc_filter_array['type'], $geoloc_filter_array['admin_form'], $geoloc_filter_array['title'] );
-
-			if ( isset( $geoloc_filter->currentValue ) ) {
-				$this->selected_geofence = tribe_convert_units( $geoloc_filter->currentValue, 'miles', 'kms' );
-				add_filter( 'tribe_geoloc_geofence', array( $this, 'setup_geofence_in_query' ) );
-			}
+			require_once('TribeEventsFilter_GeoLoc.php');
+			new TribeEventsFilter_GeoLoc( __( 'Distance', 'tribe-events-calendar-pro' ), 'geofence' );
 		}
-	}
-
-	/**
-	 * If the user selected a geofence in the Filters Bar add-on, use it for the query filter.
-	 * @param $distance
-	 *
-	 * @return mixed
-	 */
-	public function setup_geofence_in_query( $distance ) {
-		if ( ! empty( $this->selected_geofence ) ) {
-			$distance = $this->selected_geofence;
-		}
-
-		return $distance;
 	}
 
 	/**
@@ -559,11 +512,6 @@ class TribeEventsGeoLoc {
 	 */
 	function ajax_tribe_geosearch() {
 
-		if ( class_exists( 'TribeEventsFilterView' ) ) {
-			TribeEventsFilterView::instance()->createFilters( null, true );
-			$this->setup_geoloc_filter_in_filters();
-		}
-
 		$tribe_paged = ! empty( $_POST["tribe_paged"] ) ? $_POST["tribe_paged"] : 1;
 
 		TribeEventsQuery::init();
@@ -584,6 +532,9 @@ class TribeEventsGeoLoc {
 			$view_state = 'past';
 		}
 
+		if ( isset( $_POST['tribe_event_category'] ) ) {
+			$defaults[TribeEvents::TAXONOMY] = $_POST['tribe_event_category'];
+		}
 		$query = TribeEventsQuery::getEvents( $defaults, true );
 		$have_events = ( 0 < $query->found_posts );
 
@@ -794,8 +745,10 @@ class TribeEventsGeoLoc {
 				                 WHEN meta_key = '" . self::LNG . "' THEN meta_value
 				               end     AS LNG
 				        FROM   $wpdb->postmeta
-				        WHERE  meta_key = '" . self::LAT . "'
-				            OR meta_key = '" . self::LNG . "') coors
+				        WHERE  ( meta_key = '" . self::LAT . "'
+				            OR meta_key = '" . self::LNG . "')
+				            AND post_id IN (SELECT meta_value FROM $wpdb->postmeta WHERE meta_key='_EventVenueID')
+				            ) coors
 		";
 
 			$data = $wpdb->get_results( $sql, ARRAY_A );

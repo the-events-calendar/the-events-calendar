@@ -168,7 +168,7 @@ class TribeEventsMiniCalendar {
 	}
 
 	private function styles_and_scripts() {
-		wp_enqueue_script( 'tribe-mini-calendar', TribeEventsPro::instance()->pluginUrl . 'resources/widget-calendar.js', array( 'jquery' ) );
+		wp_enqueue_script( 'tribe-mini-calendar', TribeEventsPro::instance()->pluginUrl . 'resources/widget-calendar.js', array( 'jquery' ), apply_filters( 'tribe_events_pro_js_version', TribeEventsPro::VERSION ) );
 
 		// Tribe Events CSS filename
 		$event_file = 'widget-calendar.css';
@@ -195,14 +195,14 @@ class TribeEventsMiniCalendar {
 
 		// Load up stylesheet from theme or plugin
 		if( $styleUrl && $stylesheet_option == 'tribe' ) {
-			wp_enqueue_style( 'widget-calendar-pro-style', TribeEventsPro::instance()->pluginUrl . 'resources/widget-calendar-full.css' );						
-			wp_enqueue_style( TribeEvents::POSTTYPE . '-widget-calendar-pro-style', $styleUrl );
+			wp_enqueue_style( 'widget-calendar-pro-style', TribeEventsPro::instance()->pluginUrl . 'resources/widget-calendar-full.css', array(), apply_filters( 'tribe_events_pro_css_version', TribeEventsPro::VERSION ) );
+			wp_enqueue_style( TribeEvents::POSTTYPE . '-widget-calendar-pro-style', $styleUrl, array(), apply_filters( 'tribe_events_pro_css_version', TribeEventsPro::VERSION ) );
 		} else {
-			wp_enqueue_style( TribeEvents::POSTTYPE . '-widget-calendar-pro-style', $styleUrl );
+			wp_enqueue_style( TribeEvents::POSTTYPE . '-widget-calendar-pro-style', $styleUrl, array(), apply_filters( 'tribe_events_pro_css_version', TribeEventsPro::VERSION ) );
 		}
 
 		if( $styleOverrideUrl ) {
-			wp_enqueue_style( TribeEvents::POSTTYPE . '--widget-calendar-pro-override-style', $styleOverrideUrl );		
+			wp_enqueue_style( TribeEvents::POSTTYPE . '--widget-calendar-pro-override-style', $styleOverrideUrl, array(), apply_filters( 'tribe_events_pro_css_version', TribeEventsPro::VERSION ) );
 		}				
 
 		$widget_data = array( "ajaxurl" => admin_url( 'admin-ajax.php', ( is_ssl() ? 'https' : 'http' ) ) );
@@ -223,7 +223,6 @@ class TribeEventsMiniCalendar {
 
 			// hijack the main query to load the events via provided $args
 			if ( !is_null( $this->args ) ) {
-				$this->reset_q = $wp_query;
 				$query_args = array( 
 								 'posts_per_page'               => $this->args['count'],
 			                     'tax_query'                    => $this->args['tax_query'],
@@ -245,18 +244,12 @@ class TribeEventsMiniCalendar {
 	}
 
 	public function shutdown_list( $template_file ) {
-
 		if ( basename( dirname( $template_file ) ).'/'.basename( $template_file ) == 'mini-calendar/list.php' ) {
-
 			// reset the global $wp_query
-			if ( !empty( $this->reset_q ) ) {
-				global $wp_query;
-				$wp_query = $this->reset_q;
-			}
+			wp_reset_query();
 
 			// stop paying attention to the widget count setting, we're done with it
 			remove_action( 'pre_get_posts', array( $this, 'set_count' ), 1000 );
-
 		}
 	}
 
