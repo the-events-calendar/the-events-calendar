@@ -213,6 +213,7 @@ Our Premium Plugins:
 * Fixed bug that caused the "Show only the first instance of each recurring event" setting to affect the "See all" page for recurring events
 * The TribeField class no longer uses the extract() function
 * Deactivating ECP will now also deactivate the default content settings (they will be restored if you reactivate ECP)
+* Fix a JavaScript issue on APM that was breaking some users installs (thanks tsdexter for the report and patch).
 
 = 3.2 =
 
