@@ -4,7 +4,7 @@ Contributors:  ModernTribe, roblagatta, MZAWeb, ryancurban, faction23, jazbek, j
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
 Donate link: http://m.tri.be/29
 Requires at least: 3.6
-Tested up to: 3.7.1
+Tested up to: 3.8
 Stable tag: 3.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -121,9 +121,9 @@ If you're unclear about the installation process or get stuck, check out our <a 
 
 = Are there any troubleshooting steps you'd suggest I try that might resolve my issue before I post a new thread? =
 
-First, make sure that you're running the latest version of The Events Calendar (3.2 as of this release). If you're running Events Calendar PRO it needs to match the version number of The Events Calendar. And if you've got any other add-ons, make sure those are current / running the latest code as well.
+First, make sure that you're running the latest version of The Events Calendar (3.3 as of this release). If you're running Events Calendar PRO it needs to match the version number of The Events Calendar. And if you've got any other add-ons, make sure those are current / running the latest code as well.
 
-The most common issues we see are either plugin or theme conflicts. You can test if a plugin or theme is conflicting by manually deactivating other plugins until just The Events Calendar 3.2 is running on your site. If the issue persists from there, revert to the default Twenty Thirteen theme. If the issue is resolved after deactivating a specific plugin or your theme, you'll know that is the source of the conflict.
+The most common issues we see are either plugin or theme conflicts. You can test if a plugin or theme is conflicting by manually deactivating other plugins until just The Events Calendar 3.3 is running on your site. If the issue persists from there, revert to the default Twenty Thirteen theme. If the issue is resolved after deactivating a specific plugin or your theme, you'll know that is the source of the conflict.
 
 Note that we aren't going to say "tough luck" if you identify a plugin/theme conflict. While we can't guarantee 100% integration with any plugin or theme out there, we will do our best (and reach out the plugin/theme author as needed) to figure out a solution that benefits everyone.
 
