@@ -418,16 +418,15 @@ IMPORTANT NOTICE: 3.x upgrade is a HUGE upgrade from 2.x versions. If you are up
 
 = 3.3 =
 
-There have been a number of architectural changes and bug fixes in 3.3. If you have a lot of customizations you may want to do some thorough testing before upgrading.
+Please see the changelog for the complete list of changes in this release. Remember to always make a backup of your database and files before updating!
 
 = 3.2 =
 
-There have been a number of architectural changes in 3.2. If you have a lot of customizations you may want to do some thorough testing before upgrading.
-
+Please see the changelog for the complete list of changes in this release. Remember to always make a backup of your database and files before updating!
 
 = 3.1 =
 
-There have been a number of architectural changes in 3.1. If you have a lot of customizations you may want to do some thorough testing before upgrading.
+Please see the changelog for the complete list of changes in this release. Remember to always make a backup of your database and files before updating!
 
 = 3.0 =
 
