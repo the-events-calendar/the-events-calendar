@@ -299,19 +299,20 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Fixed an issue with empty category views that could result in a fatal error (thanks to mastafu on the forums for this one, too!)
 * Fixed an issue where titles for single events were empty in some installations
 * Fixes for the tribe_get_the_day_link_date() function (thanks to @nathanielks on Twitter for catching + patching this one for us!)
-* Fix admin menu highlighting when editing tags for events
+* Fixed admin menu highlighting when editing tags for events
 * Google maps will now be included properly on pages with https URLs (thanks to bmitchellini on the forums for the first report here!)
 * Tag queries that don't specify a post type will no longer be modified to be an events query (thanks to Jason on the forums for reporting this first!)
 * Fixed an issue that caused some events not to show on month view when viewing a category (thanks to yorkshiretots on the forum for catching this!)
 * All day events are now saved with a start/end time that is determined by the end of day cutoff. This fix will not modify previously created all day events (thanks to wallyglenn on the forums for spotting this!)
 * Fixed a lot of strings that were not getting included in our language files and updated our POT file
-* Remove an invalid iCal link from the markup to prevent it being indexed by search engines. (Thanks to Kevin Lisota for the original report).
-* Fix XSS vulnerability in the Tribe Bar. (Mega props to Yasser Khan and Chuck Tsang for the research and responsible disclosure)
-* Performance improvement in some queries for large amount of data.
-* Fix a bug that was making our date pickers ignore the start-of-the-week setting in WordPress core.
-* Added css classes to the list widget events
+* Removed an invalid iCal link from the markup to prevent it being indexed by search engines (Thanks to Kevin Lisota for the original report!)
+* Fixed an XSS vulnerability in the Tribe Bar (Mega props to Yasser Khan and Chuck Tsang for the research and responsible disclosure!)
+* Implemented performance improvements in some queries for large amounts of data
+* Fixed a bug that was making our date pickers ignore the start-of-the-week setting in WordPress core (thanks to Katarina for the original report!)
+* Added CSS classes to the list widget events (thanks to Andy Fragen for requesting these!)
 * Fixed some small CSS bugs
-
+* Incorporated updated German translation files, courtesy of Oliver Heinrich
+* Incorporated updated French translation files, courtesy of Bastien BC
 
 = 3.2 =
 
