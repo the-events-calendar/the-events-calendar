@@ -57,6 +57,9 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 			// Add tribe events post type to tag queries
 			if ( $query->is_tag && (array) $query->get( 'post_type' ) != array( TribeEvents::POSTTYPE ) ) {
 				$types = $query->get( 'post_type' );
+				if ( empty( $types ) ) {
+					$types = array( 'post' );
+				}
 				if ( is_array( $types ) ) {
 					$types[] = TribeEvents::POSTTYPE;
 				} 
@@ -79,6 +82,9 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 			$query->tribe_is_multi_posttype = ( in_array( TribeEvents::POSTTYPE, $types ) && count( $types ) >= 2 || in_array( 'any', $types ) )
 				? true // it's a query for multiple post types, events post type included
 				: false;
+
+			if ( 'default' === $query->get( 'eventDisplay' ) )
+				$query->set( 'eventDisplay', TribeEvents::instance()->default_view() );
 			
 			do_action( 'log', 'multi_posttype', 'default', var_export($query->tribe_is_multi_posttype, true) );
 			do_action( 'log', 'types', 'default', $types );
@@ -565,8 +571,8 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 		public static function posts_orderby( $order_sql, $query ) {
 			global $wpdb;
 			if ( $query->tribe_is_event || $query->tribe_is_event_category ) {
-				$order = !empty( $query->order ) ? $query->order : $query->get( 'order' );
-				$orderby = !empty( $query->orderby ) ? $query->orderby : $query->get( 'orderby' );
+				$order = ( isset( $query->query['order'] ) && ! empty( $query->query['order'] ) ) ? $query->query['order'] : $query->get( 'order' );
+				$orderby = ( isset( $query->query['orderby'] ) && ! empty( $query->query['orderby'] ) ) ? $query->query['orderby'] : $query->get( 'orderby' );
 
 				$order_sql = "DATE({$wpdb->postmeta}.meta_value) {$order}, TIME({$wpdb->postmeta}.meta_value) {$order}";
 
@@ -732,9 +738,7 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 
 									) {
 									if ( isset( $term->term_id ) ) {
-										$record_terms = get_the_terms( $record->ID, TribeEvents::TAXONOMY );
-										if ( !$record_terms || ( $record_terms && !in_array( $term, $record_terms ) ) ) {
-											$count--;
+										if ( ! has_term( $term, TribeEvents::TAXONOMY, $record->ID ) ) {
 											continue;
 										}
 									}
@@ -789,6 +793,7 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 		 * Customized WP_Query wrapper to setup event queries with default arguments.
 		 *
 		 * @param array $args
+		 * @param bool $full
 		 * @return array|WP_Query
 		 */
 		public static function getEvents( $args = array(), $full = false ) {

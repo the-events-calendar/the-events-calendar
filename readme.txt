@@ -1,11 +1,11 @@
 === The Events Calendar ===
 
-Contributors:  ModernTribe, PaulHughes01, roblagatta, jonahcoyote, MZAWeb, codearachnid, ryancurban, faction23, jazbek, jbrinley, kyleunzicker, leahkoerper, WebsiteBakery, barry.hughes, kellykathryn, neillmcshea, peterchester, reid.peifer, shane.pearlman
+Contributors:  ModernTribe, roblagatta, MZAWeb, ryancurban, faction23, jazbek, jbrinley, kyleunzicker, leahkoerper, WebsiteBakery, barry.hughes, kellykathryn, neillmcshea, peterchester, reid.peifer, shane.pearlman
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
 Donate link: http://m.tri.be/29
 Requires at least: 3.6
 Tested up to: 3.7.1
-Stable tag: 3.2
+Stable tag: 3.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -151,9 +151,10 @@ Currently, the following add-ons are available for The Events Calendar/Events Ca
 * <a href="http://m.tri.be/2g">Community Events</a>, for allowing frontend event submission from your readers.
 * <a href="http://m.tri.be/2h">Facebook Events</a>, for importing events directly from an organization or page on Facebook.
 * <a href="http://m.tri.be/2f">WooCommerce Tickets</a>, for harnessing the power of WooCommerce to sell event tickets directly on your site without being subject to fees or relying on a third-party service.
+* <a href="http://m.tri.be/ci">EDD Tickets</a>, for using our ticketing framework to sell tickets on your events through The Events Calendar + Easy Digital Downloads.
+* <a href="http://m.tri.be/cu">WPEC Tickets</a>, for using WP-eCommerce + The Events Calendar to sell event tickets directly from the frontend of your site. 
+* <a href="http://m.tri.be/dp">Shopp Tickets</a>, for harnessing the power of Shopp to sell event tickets on your WordPress site. 
 * Filter Bar (COMING SOON) for adding advanced frontend filtering capabilities to your events calendar.
-* EDD Tickets (COMING SOON), for using our ticketing framework to sell tickets on your events through The Events Calendar + Easy Digital Downloads.
-* WPEC Tickets (COMING SOON), for using WP-eCommerce + The Events Calendar to sell event tickets directly from the frontend of your site. 
 
 = I have a feature idea. What's the best way to tell you about it? =
 
@@ -225,8 +226,8 @@ The plugin is produced by <a href="http://m.tri.be/2s">Modern Tribe Inc</a>.
 * Danish from Anonymous
 * Dutch from Erik Massop
 * Finnish by Ari-Pekka Koponen
-* French from Beno Burgener
-* German from Michael Sebel
+* French from Bastien BC
+* German from Oliver Heinrich
 * Greek from Maria Tsilimidou
 * Icelandic by Baldvin Berndsen
 * Italian from Roberto Scano
@@ -239,7 +240,7 @@ The plugin is produced by <a href="http://m.tri.be/2s">Modern Tribe Inc</a>.
 * Swedish from Ben Andersen
 * Turkish by Burak Pehlevan
 
-* Previous translators include Mikhail Michouris, Ed Boon, Rick van Dalen, Jacob Roel Meijering, hristian Andersen, Filippo Montanari, David Decker, Kamil Szymanski, "Terje With Lunndal", Sagi Shrieber, Matthew Meyer, Arno Faure, Fanny Heraud, Vincent G from Host1Free, , Petri Kajander, Fran Rosa, Nico (wsMaurik), Panos Efstratiou, Dominique Monhardt, Thomas Butzek, Kjell Vestnes, Luiza Libardi, Diego Meneghetti, and Alexey Fedorov
+* Previous translators include Mikhail Michouris, Ed Boon, Rick van Dalen, Jacob Roel Meijering, hristian Andersen, Michael Sebel, Filippo Montanari, David Decker, Kamil Szymanski, "Terje With Lunndal", Sagi Shrieber, Matthew Meyer, Arno Faure, Fanny Heraud, Vincent G from Host1Free, , Petri Kajander, Fran Rosa, Nico (wsMaurik), Panos Efstratiou, Dominique Monhardt, Thomas Butzek, Kjell Vestnes, Luiza Libardi, Diego Meneghetti, Beno Burgener and Alexey Fedorov
 
 == Add-Ons ==
 
@@ -259,9 +260,10 @@ Our Premium Plugins:
 * <a href="http://m.tri.be/2g" target="_blank">The Events Calendar: Community Events</a>
 * <a href="http://m.tri.be/2h" target="_blank">The Events Calendar: Facebook Events</a>
 * <a href="http://m.tri.be/2i" target="_blank">The Events Calendar: WooCommerce Tickets</a>
-* The Events Calendar: Filter Bar (coming late 2013)
-* The Events Calendar: EDD Tickets (coming late 2013)
-* The Events Calendar: WPEC Tickets (coming late 2013)
+* <a href="http://m.tri.be/ci" target="_blank">The Events Calendar: EDD Tickets Tickets</a>
+* <a href="http://m.tri.be/cu" target="_blank">The Events Calendar: WPEC Tickets</a>
+* <a href="http://m.tri.be/dp" target="_blank">The Events Calendar: Shopp Tickets</a>
+* The Events Calendar: Filter Bar (coming early 2014)
 
 == Versioning ==
 
@@ -288,6 +290,29 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 = IMPORTANT NOTICE =
 
 3.x is a complete overhaul of the plugin, and as a result we're starting the changelog fresh. For release notes from the 2.x lifecycle, see <a href="http://m.tri.be/k">our 2.x release notes.</a>
+
+= 3.3 =
+
+* Improved support for international date formats (big props to jeroenjoosen on the forums for the original report on this!)
+* Localization improvements for displaying the event cost field (thanks to mastafu on the forums for the heads up!)
+* List view will now link to a page of previous events if there are indeed previous events to show (props to oceanfilm on the forums for pointing this out!)
+* Fixed an issue with empty category views that could result in a fatal error (thanks to mastafu on the forums for this one, too!)
+* Fixed an issue where titles for single events were empty in some installations
+* Fixes for the tribe_get_the_day_link_date() function (thanks to @nathanielks on Twitter for catching + patching this one for us!)
+* Fixed admin menu highlighting when editing tags for events
+* Google maps will now be included properly on pages with https URLs (thanks to bmitchellini on the forums for the first report here!)
+* Tag queries that don't specify a post type will no longer be modified to be an events query (thanks to Jason on the forums for reporting this first!)
+* Fixed an issue that caused some events not to show on month view when viewing a category (thanks to yorkshiretots on the forum for catching this!)
+* All day events are now saved with a start/end time that is determined by the end of day cutoff. This fix will not modify previously created all day events (thanks to wallyglenn on the forums for spotting this!)
+* Fixed a lot of strings that were not getting included in our language files and updated our POT file
+* Removed an invalid iCal link from the markup to prevent it being indexed by search engines (Thanks to Kevin Lisota for the original report!)
+* Fixed an XSS vulnerability in the Tribe Bar (Mega props to Yasser Khan and Chuck Tsang for the research and responsible disclosure!)
+* Implemented performance improvements in some queries for large amounts of data
+* Fixed a bug that was making our date pickers ignore the start-of-the-week setting in WordPress core (thanks to Katarina for the original report!)
+* Added CSS classes to the list widget events (thanks to Andy Fragen for requesting these!)
+* Fixed some small CSS bugs
+* Incorporated updated German translation files, courtesy of Oliver Heinrich
+* Incorporated updated French translation files, courtesy of Bastien BC
 
 = 3.2 =
 
@@ -391,14 +416,17 @@ Still not happy? Shoot us an email to pro@tri.be or tweet to @moderntribeinc and
 
 IMPORTANT NOTICE: 3.x upgrade is a HUGE upgrade from 2.x versions. If you are upgrading from an older version, please test thoroughly before updating on your live website.
 
+= 3.3 =
+
+Please see the changelog for the complete list of changes in this release. Remember to always make a backup of your database and files before updating!
+
 = 3.2 =
 
-There have been a number of architectural changes in 3.2. If you have a lot of customizations you may want to do some thorough testing before upgrading.
-
+Please see the changelog for the complete list of changes in this release. Remember to always make a backup of your database and files before updating!
 
 = 3.1 =
 
-There have been a number of architectural changes in 3.1. If you have a lot of customizations you may want to do some thorough testing before upgrading.
+Please see the changelog for the complete list of changes in this release. Remember to always make a backup of your database and files before updating!
 
 = 3.0 =
 

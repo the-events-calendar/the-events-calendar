@@ -33,7 +33,33 @@ if ( class_exists( 'Tribe_Meta_Factory' ) ) {
 			$start_time = tribe_get_start_date(null, false,  $time_format );
 			$end_time = tribe_get_end_date(null, false,  $time_format );
 
-			if ( tribe_event_is_multiday() ) {
+			if ( tribe_event_is_all_day() ) {
+				if ( tribe_event_is_multiday() ) {
+					$html = Tribe_Meta_Factory::template(
+						__( 'Start:', 'tribe-events-calendar' ),
+						sprintf( '<abbr class="tribe-events-abbr updated published dtstart" title="%s">%s</abbr>',
+							tribe_get_start_date( null, false, TribeDateUtils::DBDATEFORMAT ),
+							tribe_get_start_date()
+						),
+					$meta_id );
+					$html .= Tribe_Meta_Factory::template(
+						__( 'End:', 'tribe-events-calendar' ),
+						sprintf( '<abbr class="tribe-events-abbr dtend" title="%s">%s</abbr>',
+							tribe_get_end_date( null, false, TribeDateUtils::DBDATEFORMAT ),
+							tribe_get_end_date()
+						),
+					$meta_id );
+				} else {
+				// If all day event, show only start date
+				$html = Tribe_Meta_Factory::template(
+					__( 'Date:', 'tribe-events-calendar' ),
+					sprintf( '<abbr class="tribe-events-abbr updated published dtstart" title="%s">%s</abbr>',
+						tribe_get_start_date( null, false, TribeDateUtils::DBDATEFORMAT ),
+						tribe_get_start_date()
+					),
+					$meta_id );					
+				}
+			} elseif ( tribe_event_is_multiday() ) {
 				// If multiday, show start date+time and end date+time
 				$html = Tribe_Meta_Factory::template(
 					__( 'Start:', 'tribe-events-calendar' ),
@@ -49,49 +75,35 @@ if ( class_exists( 'Tribe_Meta_Factory' ) ) {
 						tribe_get_end_date()
 					),
 					$meta_id );
-			}
-			elseif ( !tribe_event_is_multiday() ) {
-				if ( tribe_event_is_all_day() ) {
-					// If all day event, show only start date
-					$html = Tribe_Meta_Factory::template(
-						__( 'Date:', 'tribe-events-calendar' ),
-						sprintf( '<abbr class="tribe-events-abbr updated published dtstart" title="%s">%s</abbr>',
-							tribe_get_start_date( null, false, TribeDateUtils::DBDATEFORMAT ),
-							tribe_get_start_date()
-						),
-						$meta_id );					
-				}
-				else {
-					// show start date
-					$html = Tribe_Meta_Factory::template(
-						__( 'Date:', 'tribe-events-calendar' ),
-						sprintf( '<abbr class="tribe-events-abbr updated published dtstart" title="%s">%s</abbr>',
-							tribe_get_start_date( null, false, TribeDateUtils::DBDATEFORMAT ),
-							tribe_get_start_date(null, false)
+			} else {
+				// show start date
+				$html = Tribe_Meta_Factory::template(
+					__( 'Date:', 'tribe-events-calendar' ),
+					sprintf( '<abbr class="tribe-events-abbr updated published dtstart" title="%s">%s</abbr>',
+						tribe_get_start_date( null, false, TribeDateUtils::DBDATEFORMAT ),
+						tribe_get_start_date(null, false)
+					),
+					$meta_id );
+				if ( $start_time == $end_time ) {
+					// if start and end time are the same, just show the start time
+					$html .= Tribe_Meta_Factory::template(
+						__( 'Time:', 'tribe-events-calendar' ),
+						sprintf( '<abbr class="tribe-events-abbr dtend" title="%s">%s</abbr>',
+							tribe_get_end_date( null, false, TribeDateUtils::DBDATEFORMAT ),
+							$start_time
 						),
 						$meta_id );
-					if ( $start_time == $end_time ) {
-						// if start and end time are the same, just show the start time
-						$html .= Tribe_Meta_Factory::template(
-							__( 'Time:', 'tribe-events-calendar' ),
-							sprintf( '<abbr class="tribe-events-abbr dtend" title="%s">%s</abbr>',
-								tribe_get_end_date( null, false, TribeDateUtils::DBDATEFORMAT ),
-								$start_time
-							),
-							$meta_id );
-					} else {
-						// show start and end time
-						$html .= Tribe_Meta_Factory::template(	
-							__( 'Time:', 'tribe-events-calendar' ),
-							sprintf( '<abbr class="tribe-events-abbr dtend" title="%s">%s</abbr>',
-								tribe_get_end_date( null, false, TribeDateUtils::DBDATEFORMAT ),
-								$start_time .' - '. $end_time
-							),
-							$meta_id );						
-					}
+				} else {
+					// show start and end time
+					$html .= Tribe_Meta_Factory::template(	
+						__( 'Time:', 'tribe-events-calendar' ),
+						sprintf( '<abbr class="tribe-events-abbr dtend" title="%s">%s</abbr>',
+							tribe_get_end_date( null, false, TribeDateUtils::DBDATEFORMAT ),
+							$start_time .' - '. $end_time
+						),
+						$meta_id );						
 				}
-
-			} 
+			}
 			return apply_filters( 'tribe_event_meta_event_date', $html );
 		}
 
@@ -306,7 +318,7 @@ if ( class_exists( 'Tribe_Meta_Factory' ) ) {
 			'classes' => array( 'meta_before' => array('tribe-events-event-cost') ),
 			'label' => __( 'Cost:', 'tribe-events-calendar' ),
 			'priority' => 20,
-			'callback' => 'tribe_get_cost',
+			'callback' => 'tribe_get_formatted_cost',
 			'group' => 'tribe_event_details',
 			'show_on_meta' => true
 		) );

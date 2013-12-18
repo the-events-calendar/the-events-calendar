@@ -196,21 +196,44 @@ if (!class_exists('TribeEventsTemplates')) {
 		/**
 		 * Fix issues where themes display the_title() before the main loop starts.
 		 *
-		 * With such themes the title of single events can be displayed twice and, more crucially, it may result in the
+		 * With some themes the title of single events can be displayed twice and, more crucially, it may result in the
 		 * event views such as month view prominently displaying the title of the most recent event post (which may
-		 * not even be included in the event itself).
+		 * not even be included in the view output).
 		 *
-		 * There's no bulletproof solution to this, but in special cases where this workaround is undesirable it can
-		 * in fact be turned off by adding the following to wp-config.php:
+		 * There's no bulletproof solution to this problem, but for affected themes a preventative measure can be turned
+		 * on by adding the following to wp-config.php:
 		 *
-		 *     define( 'TRIBE_MODIFY_GLOBAL_TITLE', false );
+		 *     define( 'TRIBE_MODIFY_GLOBAL_TITLE', true );
+		 *
+		 * Note: this reverses the situation in version 3.2, when this behaviour was enabled by default. In response to
+		 * feedback it will now be disabled by default and will need to be turned on by adding the above line.
+		 *
+		 * @see issues #24294, #23260
 		 */
 		public static function maybe_modify_global_post_title() {
 			global $post;
 
-			// We will only interfere with event queries, where a post is set and this behaviour has not been turned off
-			if ( ! tribe_is_event_query() || ( defined('TRIBE_MODIFY_GLOBAL_TITLE') && ! TRIBE_MODIFY_GLOBAL_TITLE ) ) return;
+			// We will only interfere with event queries, where a post is set and this behaviour is enabled
+			if ( ! tribe_is_event_query() || ! defined('TRIBE_MODIFY_GLOBAL_TITLE') || ! TRIBE_MODIFY_GLOBAL_TITLE ) return;
 			if ( ! isset($post) || ! is_a( $post, 'WP_Post') ) return;
+
+			// Wait until late in the wp_title hook to actually make a change - this should allow single event titles
+			// to be used within the title element itself
+			add_filter( 'wp_title', array( __CLASS__, 'modify_global_post_title' ), 1000 );
+		}
+
+		/**
+		 * Actually modifies the global $post object's title property, setting it to an empty string.
+		 *
+		 * This is expected to be called late on during the wp_title action, but does not in fact alter the string
+		 * it is passed.
+		 *
+		 * @see TribeEventsTemplates::maybe_modify_global_post_title()
+		 * @param string $title
+		 * @return string
+		 */
+		public function modify_global_post_title( $title = '' ) {
+			global $post;
 
 			// Set the title to an empty string (but record the original)
 			self::$original_post_title = $post->post_title;
@@ -218,16 +241,21 @@ if (!class_exists('TribeEventsTemplates')) {
 
 			// Restore as soon as we're ready to display one of our own views
 			add_action( 'tribe_pre_get_view', array( __CLASS__, 'restore_global_post_title' ) );
+
+			// Now return the title unmodified
+			return $title;
 		}
 
 
 		/**
-		 * Restores the global $post title if it has previously been modified by self::maybe_modify_global_post_title(). 
+		 * Restores the global $post title if it has previously been modified.
+		 *
+		 * @see TribeEventsTemplates::modify_global_post_title().
 		 */
 		public static function restore_global_post_title() {
 			global $post;
 			$post->post_title = self::$original_post_title;
-			remove_action( 'tribe_pre_get_view', array( __CLASS__, 'restore_global_post_title' ) );			
+			remove_action( 'tribe_pre_get_view', array( __CLASS__, 'restore_global_post_title' ) );
 		}
 
 
@@ -270,7 +298,8 @@ if (!class_exists('TribeEventsTemplates')) {
 			}
 
 			// apply filters
-			return apply_filters( 'tribe_current_events_page_template', $template );
+			// @todo: remove deprecated filter in 3.4
+			return apply_filters( 'tribe_events_current_view_template', apply_filters( 'tribe_current_events_page_template', $template ) );
 
 		}
 
@@ -300,7 +329,8 @@ if (!class_exists('TribeEventsTemplates')) {
 			}
 
 			// apply filters
-			return apply_filters( 'tribe_current_events_template_class', $class );
+			// @todo remove deprecated filter in 3.4
+			return apply_filters( 'tribe_events_current_template_class', apply_filters( 'tribe_current_events_template_class', $class ) );
 
 		}
 
@@ -458,7 +488,7 @@ if (!class_exists('TribeEventsTemplates')) {
 				// check the theme for specific file requested
 				$file = locate_template( array( 'tribe-events/'.$template ), false, false );
 				if ( ! $file ) {
-					// if not found, it could be our plugin requesting the file with the namespace, 
+					// if not found, it could be our plugin requesting the file with the namespace,
 					// so check the theme for the path without the namespace
 					$files = array();
 					foreach ( array_keys( $template_base_paths )  as $namespace ) {
@@ -468,13 +498,13 @@ if (!class_exists('TribeEventsTemplates')) {
 					}
 					$file = locate_template( $files, false, false );
 					if ( $file ) {
-						_deprecated_function( sprintf( __( 'Template overrides should be moved to the correct subdirectory: %s', 'tribe-events' ), str_replace( get_stylesheet_directory() . '/tribe-events/', '', $file ) ) , '3.2', $template );
+						_deprecated_function( sprintf( __( 'Template overrides should be moved to the correct subdirectory: %s', 'tribe-events-calendar' ), str_replace( get_stylesheet_directory() . '/tribe-events/', '', $file ) ) , '3.2', $template );
 					}
 				}
 			}
 
 			// if the theme file wasn't found, check our plugins views dirs
-			if ( ! $file ) { 
+			if ( ! $file ) {
 
 				foreach ( $template_base_paths as $template_base_path ) {
 
@@ -488,12 +518,12 @@ if (!class_exists('TribeEventsTemplates')) {
 					// return the first one found
 					if ( file_exists( $file ) )
 						break;
-					else 
+					else
 						$file = false;
 				}
 			}
 
-			// file wasn't found anywhere in the theme or in our plugin at the specifically requested path, 
+			// file wasn't found anywhere in the theme or in our plugin at the specifically requested path,
 			// and there are overrides, so look in our plugin for the file with the namespace added
 			// since it might be an old override requesting the file without the namespace
 			if ( ! $file && $overrides_exist ) {
@@ -509,7 +539,7 @@ if (!class_exists('TribeEventsTemplates')) {
 
 					// return the first one found
 					if ( file_exists( $file ) ) {
-						_deprecated_function( sprintf( __( 'Template overrides should be moved to the correct subdirectory: tribe_get_template_part(\'%s\')', 'tribe-events' ), $template ) , '3.2',  'tribe_get_template_part(\''.$_namespace.$template.'\')');
+						_deprecated_function( sprintf( __( 'Template overrides should be moved to the correct subdirectory: tribe_get_template_part(\'%s\')', 'tribe-events-calendar' ), $template ) , '3.2',  'tribe_get_template_part(\''.$_namespace.$template.'\')');
 						break;
 					}
 				}

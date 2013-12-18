@@ -8,7 +8,7 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 
 ?>
 <div id="tribe-events-gmap" style="height: <?php echo is_numeric($height) ? "{$height}px" : $height ?>; width: <?php echo is_numeric($width) ? "{$width}px" : $width ?>; margin-bottom: 15px;"></div><!-- #tribe-events-gmap -->
-<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+<script type="text/javascript" src="//maps.google.com/maps/api/js?sensor=false"></script>
 <script type="text/javascript">
 var event_address;
 

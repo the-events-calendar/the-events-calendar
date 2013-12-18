@@ -132,7 +132,7 @@ class TribeEventsTicketsAttendeesTable extends WP_List_Table {
 
 		$icon = "";
 
-		if ( strtolower( $item['order_status'] ) !== 'completed' ) {
+		if ( strtolower( $item['order_status'] ) !== 'completed' &&  strtolower( $item['order_status'] ) !== 'paid' ) {
 			$tec  = TribeEvents::instance();
 			$icon = sprintf( "<span class='warning'><img src='%s'/></span> ", trailingslashit( $tec->pluginUrl ) . 'resources/warning.png' );
 		}

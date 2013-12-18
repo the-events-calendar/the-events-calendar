@@ -115,7 +115,7 @@ $modules = TribeEventsTickets::modules();
 						<input type='text' id='ticket_price' name='ticket_price' class="ticket_field" size='7'
 							   value='' />
 
-						<p class="description">(0 or empty for free tickets)</p>
+                           <p class="description"><?php echo __( "(0 or empty for free tickets)", "tribe-events-calendar" ); ?></p>
 					</td>
 				</tr>
 
@@ -126,7 +126,7 @@ $modules = TribeEventsTickets::modules();
 					<td>
 						<input autocomplete="off" type="text" class="ticket_field" size='7' name="ticket_start_date"
 							   id="ticket_start_date" value="">
-						<span class=''>
+						<span class='ticket_start_time ticket_time'>
 							@
 							<select name='ticket_start_hour' id='ticket_start_hour' class="ticket_field">
 								<?php echo $startHourOptions; ?>
@@ -151,7 +151,7 @@ $modules = TribeEventsTickets::modules();
 						<input autocomplete="off" type="text" class="ticket_field" size='7' name="ticket_end_date"
 							   id="ticket_end_date" value="">
 
-						<span class=''>
+						<span class='ticket_end_time ticket_time'>
 							@
 							<select name='ticket_end_hour' id='ticket_end_hour' class="ticket_field">
 								<?php echo $endHourOptions; ?>

@@ -42,6 +42,7 @@ var ticketHeaderImage = window.ticketHeaderImage || {};
 
 
 	$(document).ready(function () {
+
 		var datepickerOpts = {
 			dateFormat: 'yy-mm-dd',
 			showAnim: 'fadeIn',
@@ -50,19 +51,24 @@ var ticketHeaderImage = window.ticketHeaderImage || {};
 			numberOfMonths: 3,
 			showButtonPanel: true,
 			onChange: function () {
-				alert('lala');
 			},
 			onSelect: function (dateText, inst) {
 				var the_date = $.datepicker.parseDate('yy-mm-dd', dateText);
 				if (inst.id === "ticket_start_date") {
-					$("#ticket_end_date").datepicker('option', 'minDate', the_date)
+					$("#ticket_end_date").datepicker('option', 'minDate', the_date);
+					if (the_date)
+						$(".ticket_start_time").show();
+					else
+						$(".ticket_start_time").hide();
 				} else {
 					$("#ticket_start_date").datepicker('option', 'maxDate', the_date)
-
+					if (the_date)
+						$(".ticket_end_time").show();
+					else
+						$(".ticket_end_time").hide();
 				}
 			}
 		};
-
 
 		$("#ticket_start_date").datepicker(datepickerOpts).keyup(function (e) {
 			if (e.keyCode == 8 || e.keyCode == 46) {
@@ -130,6 +136,7 @@ var ticketHeaderImage = window.ticketHeaderImage || {};
 					if (response.success) {
 						ticket_clear_form();
 						$('td.ticket_list_container').empty().html(response.data);
+						$('.ticket_time').hide();
 					}
 				},
 				'json'
@@ -207,8 +214,12 @@ var ticketHeaderImage = window.ticketHeaderImage || {};
 						$('#ticket_description').val(response.data.description);
 						$('#ticket_price').val(response.data.price);
 
-						$('#ticket_start_date').val(response.data.start_date.substring(0, 10));
-						$('#ticket_end_date').val(response.data.end_date.substring(0, 10));
+						var start_date = response.data.start_date.substring(0, 10);
+						var end_date = response.data.end_date.substring(0, 10);
+
+						$('#ticket_start_date').val( start_date );
+						$('#ticket_end_date').val( end_date );
+
 
 						if (response.data.start_date) {
 							var start_hour = response.data.start_date.substring(11, 13);
@@ -224,6 +235,8 @@ var ticketHeaderImage = window.ticketHeaderImage || {};
 
 							$('#ticket_start_hour').val(start_hour);
 							$('#ticket_start_meridian').val(start_meridian);
+
+							$('.ticket_start_time').show();
 						}
 
 						if (response.data.end_date) {
@@ -244,6 +257,8 @@ var ticketHeaderImage = window.ticketHeaderImage || {};
 
 							$('#ticket_start_minute').val(response.data.start_date.substring(14, 16));
 							$('#ticket_end_minute').val(response.data.end_date.substring(14, 16));
+
+							$('.ticket_end_time').show();
 						}
 
 						$('tr.ticket_advanced_' + response.data.provider_class).remove();
@@ -293,6 +308,9 @@ var ticketHeaderImage = window.ticketHeaderImage || {};
 
 			$('#ticket_form input:not(:button):not(:radio):not(:checkbox)').val('');
 			$('#ticket_form input:checkbox').attr('checked', false);
+
+			$('.ticket_start_time').hide();
+			$('.ticket_end_time').hide();
 
 			$('#ticket_form textarea').val('');
 

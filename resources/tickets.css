@@ -58,3 +58,7 @@ p.ticket_name {
 #tribe_ticket_header_remove {
 	display: none;
 }
+
+.ticket_time{
+	display:none;
+}
