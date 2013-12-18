@@ -207,7 +207,7 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 					'is_today' => ( $date == self::$today ) ? true : false,
 					'is_past' => ( $date < self::$today ) ? true : false,
 					'is_future' => ( $date > self::$today ) ? true : false,
-					'has_events' => ( ! empty( self::$today->all_day ) || ! empty( self::$today->hourly ) ) ? true : false
+					'has_events' => ( empty( self::$events->all_day ) || empty( self::$events->hourly ) ) ? true : false
 				);
 			}
 			self::$week_days = $week_days;
