@@ -318,19 +318,19 @@ Still not happy? Shoot us an email to pro@tri.be or tweet to @moderntribeinc and
 
 == Upgrade Notice ==
 
+IMPORTANT NOTICE: 3.x upgrade is a HUGE upgrade from 2.x versions. If you are upgrading from an older version, please test thoroughly before updating on your live website.
+
 = 3.3 =
 
-There have been a few substantial updates in 3.3. Please upgrade with caution.
-
+Please see the changelog for the complete list of changes in this release. Remember to always make a backup of your database and files before updating!
 
 = 3.2 =
 
-There have been a few substantial architectural updates in 3.2. Please upgrade with caution.
-
+When upgrading to 3.2, please ensure template overrides for Events Calendar Pro in your theme should be moved to [your-theme]/tribe-events/pro directory; a deprecated notice will be generated if they are directly in the [your-theme]/tribe-events folder
 
 = 3.1 =
 
-There have been a few substantial architectural updates in 3.1. Please upgrade with caution.
+Please see the changelog for the complete list of changes in this release. Remember to always make a backup of your database and files before updating!
 
 = 3.0 =
 
