@@ -304,7 +304,10 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Tag queries that don't specify a post type will no longer be modified to be an events query (thanks to Jason on the forums for reporting this first!)
 * Fixed an issue that caused some events not to show on month view when viewing a category (thanks to yorkshiretots on the forum for catching this!)
 * All day events are now saved with a start/end time that is determined by the end of day cutoff. This fix will not modify previously created all day events (thanks to wallyglenn on the forums for spotting this!)
-
+* Fixed a lot of strings that were not getting included in our language files and updated our POT file
+* Remove an invalid iCal link from the markup to prevent it being indexed by search engines. (Thanks to Kevin Lisota for the original report).
+* Fix XSS vulnerability in the Tribe Bar. (Mega props to Yasser Khan and Chuck Tsang for the research and responsible disclosure)
+* Performance improvement in some queries for large amount of data.
 
 = 3.2 =
 
