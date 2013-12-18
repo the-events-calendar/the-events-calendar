@@ -309,6 +309,8 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Fix XSS vulnerability in the Tribe Bar. (Mega props to Yasser Khan and Chuck Tsang for the research and responsible disclosure)
 * Performance improvement in some queries for large amount of data.
 * Fix a bug that was making our date pickers ignore the start-of-the-week setting in WordPress core.
+* Added css classes to the list widget events
+* Fixed some small CSS bugs
 
 
 = 3.2 =
