@@ -214,6 +214,7 @@ Our Premium Plugins:
 * The TribeField class no longer uses the extract() function
 * Deactivating ECP will now also deactivate the default content settings (they will be restored if you reactivate ECP)
 * Fix a JavaScript issue on APM that was breaking some users installs (thanks tsdexter for the report and patch).
+* Added css classes to the list widget events
 
 = 3.2 =
 
