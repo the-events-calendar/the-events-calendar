@@ -197,15 +197,13 @@
 	margin-top: 23px;
 }
 
-#tribe-events-photo-events .vevent.tribe-events-photo-event {
+.vevent.tribe-events-photo-event .tribe-events-photo-event-wrap {
 	border: 0;
+	background: #f6f6f6;
 }
 
 /* Tile Styling */
-.tribe-events-photo-event  {
-	background: #f6f6f6;
-}
-.tribe-events-photo-event:hover {
+.vevent.tribe-events-photo-event .tribe-events-photo-event-wrap:hover {
 	background: #fff;
 }
 
@@ -331,7 +329,7 @@
 	/* = Photo View Template Styles 
    	   @ Template: photo.php
 	=============================================*/
-	.tribe-events-photo-event:hover {
+	.vevent.tribe-events-photo-event .tribe-events-photo-event-wrap:hover {
 		background: #FAFAFA;
 	}
 	.tribe-events-photo .tribe-events-loop .vevent.hentry .tribe-events-event-meta {

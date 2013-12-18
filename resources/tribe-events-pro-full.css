@@ -357,10 +357,15 @@
 	width: 29.2%;
 	margin: 0 4% 30px 0;
 	padding: 0;
-	border: 1px solid #eee;
+	border-bottom: 0;
 	-webkit-box-sizing: border-box;
 	   -moz-box-sizing: border-box;
 			box-sizing: border-box;
+}
+
+.vevent.tribe-events-photo-event .tribe-events-photo-event-wrap {
+	border: 1px solid #eee;
+	border-bottom: 1px solid #ddd;
 }
 
 #tribe-events-photo-events.photo-two-col .vevent.tribe-events-photo-event {
@@ -388,10 +393,14 @@
 }
 
 .tribe-events-photo-event  {
-	background: #FAFAFA;
 	padding: 4%;
 }
-.tribe-events-photo-event:hover {
+
+.tribe-events-photo-event-wrap {
+	background: #FAFAFA;
+}
+
+.tribe-events-photo-event-wrap:hover {
 	background: #fff;
 	-webkit-box-shadow: rgba(0,0,0, 0.1) 0px 0px 10px;
 			box-shadow: rgba(0,0,0, 0.1) 0px 0px 10px;
@@ -1089,17 +1098,13 @@ div.tribe-countdown-text {
 	/* = Photo View Template Styles 
    	   @ Template: photo.php
 	=============================================*/
-	div#tribe-events-photo-events {
-		height: auto !important;
-		width: 100%;
+	#tribe-events-content {
+		overflow: hidden;
 	}
-	#tribe-events-photo-events.photo-two-col .vevent.tribe-events-photo-event {
-		width: auto;
-		float: none;
-		margin: 0 0 12px;
-		position: static !important;
+	#tribe-events-photo-events .vevent.tribe-events-photo-event {
+		width: 45.9%;
 	}
-	.tribe-events-photo-event:hover {
+	.vevent.tribe-events-photo-event .tribe-events-photo-event-wrap:hover {
 		background: #FAFAFA;
 		-webkit-box-shadow: none;
 				box-shadow: none;
@@ -1230,5 +1235,27 @@ div.tribe-countdown-text {
  		line-height: 0;
  		display: block;
  	}
+
+}
+
+/* = Mobile Styles (max-width: 600px)
+=============================================*/
+@media (max-width: 600px) {
+	
+	/* = Photo View Template Styles 
+   	   @ Template: photo.php
+	=============================================*/
+	div#tribe-events-photo-events {
+		height: auto !important;
+		width: 100%;
+	}
+	#tribe-events-photo-events .vevent.tribe-events-photo-event,
+	#tribe-events-photo-events.photo-two-col .vevent.tribe-events-photo-event {
+		width: auto;
+		max-width: 400px;
+		float: none;
+		margin: 0 auto 12px;
+		position: static !important;
+	}
 
 }
