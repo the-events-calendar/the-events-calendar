@@ -203,18 +203,20 @@ Our Premium Plugins:
 
 = 3.3 =
 
-* Fixes issue with featured venue widget not returning expected results in all conditions (thanks to millcreekpark on the forums for the heads up here!)
+* Fixed an issue with featured venue widget not returning expected results in all conditions (thanks to millcreekpark on the forums for the heads up here!)
 * Calendar widget improvements: query clean up and end-of-day-cutoff setting respected (thanks to davecfraser from the forums for the original report on this front!)
 * Map view pagination improved
-* Fix bug that caused events to disappear when changing the time for an existing series (thanks to Denise Crosbie on the forums for the first report here!)
-* Fix bug that caused multiple instances of recurring events to fail to display (thanks to mastafu on the forums for reporting this!)
-* Fix display of multi-day events in week view
+* Fixed a bug that caused events to disappear when changing the time for an existing series (thanks to Denise Crosbie on the forums for the first report here!)
+* Patched a bug that caused multiple instances of recurring events to fail to display (thanks to mastafu on the forums for reporting this!)
+* Fixed an issue with the display of multi-day events in week view
 * Map view now respects the selected category (thanks to mindful on the forums for originally reporting this!)
 * Fixed bug that caused the "Show only the first instance of each recurring event" setting to affect the "See all" page for recurring events
 * The TribeField class no longer uses the extract() function
 * Deactivating ECP will now also deactivate the default content settings (they will be restored if you reactivate ECP)
-* Fix a JavaScript issue on APM that was breaking some users installs (thanks tsdexter for the report and patch).
-* Added css classes to the list widget events
+* Fixed a JavaScript issue on APM that was breaking some users installs (thanks to user tsdexter for the report and patch!)
+* Added CSS classes to the list widget events (thanks to Andy Fragen for requesting these!)
+* Incorporated updated German translation files, courtesy of Oliver Heinrich
+* Incorporated updated French translation files, courtesy of Bastien BC
 
 = 3.2 =
 
