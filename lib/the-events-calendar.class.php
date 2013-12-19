@@ -3233,8 +3233,9 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 			$_EventAllDay = isset($_EventAllDay) ? $_EventAllDay : false;
 			$_EventStartDate = (isset($_EventStartDate)) ? $_EventStartDate : null;
+
 			if ( isset( $_EventEndDate ) ) {
-				if ( $_EventAllDay &&  tribe_get_option( 'multiDayCutoff', '00:00' ) != '00:00' ) {
+				if ( $_EventAllDay && TribeDateUtils::timeOnly( $_EventEndDate ) != '23:59:59' && TribeDateUtils::timeOnly( tribe_event_end_of_day() ) != '23:59:59' ) {
 
 					// If it's an all day event and the EOD cutoff is later than midnight
 					// set the end date to be the previous day so it displays correctly in the datepicker
