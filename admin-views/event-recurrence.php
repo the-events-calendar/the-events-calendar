@@ -1,7 +1,7 @@
 		<tr class="recurrence-row">
 			<td><?php _e('Recurrence:','tribe-events-calendar-pro'); ?></td>
 			<td>
-				<?php $has_recurrences = ( count( get_post_meta( $postId, '_EventStartDate' ) ) > 1 ) ? true : false; ?>
+				<?php $has_recurrences = tribe_is_recurring_event($postId); ?>
 				<input type="hidden" name="is_recurring" value="<?php echo (isset($recType) && $recType != "None" && $has_recurrences) ? "true" : "false" ?>" />
 				<input type="hidden" name="recurrence_action" value="" />
 				<select name="recurrence[type]">

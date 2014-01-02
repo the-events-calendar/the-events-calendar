@@ -3,7 +3,6 @@
  * TribeEventsRecurrenceMeta
  *
  * WordPress hooks and filters controlling event recurrence
- * @author John Gadbois
  */
 class TribeEventsRecurrenceMeta {
 	const UPDATE_TYPE_ALL = 1;
@@ -35,42 +34,25 @@ class TribeEventsRecurrenceMeta {
 	public static function init() {
 		add_action( 'tribe_events_update_meta', array( __CLASS__, 'updateRecurrenceMeta' ), 1, 3 );
 		add_action( 'tribe_events_date_display', array( __CLASS__, 'loadRecurrenceData' ) );
-		add_action(	'trash_post', array( __CLASS__, 'deleteRecurringEvent') ); // WP 3.2 and older
-		add_action(	'wp_trash_post', array( __CLASS__, 'deleteRecurringEvent') ); // WP 3.3 and newer
+		add_action(	'wp_trash_post', array( __CLASS__, 'deleteRecurringEvent') );
 
 		add_action(	'pre_post_update', array( __CLASS__, 'maybeBreakFromSeries' ) );
 		add_action( 'admin_notices', array( __CLASS__, 'showRecurrenceErrorFlash') );
 		add_action( 'tribe_recurring_event_error', array( __CLASS__, 'setupRecurrenceErrorMsg'), 10, 2 );
 
-    add_filter( 'tribe_get_event_link', array( __CLASS__, 'addDateToEventPermalink'), 10, 2 );
+    //add_filter( 'tribe_get_event_link', array( __CLASS__, 'addDateToEventPermalink'), 10, 2 );
     add_filter( 'post_row_actions', array( __CLASS__, 'removeQuickEdit'), 10, 2 );
-    // recurrance events don't have standard edit links - so we need to make sure they work right
-    add_filter( 'edit_post_link', array( __CLASS__, 'edit_post_link'));
     add_action( 'wp_before_admin_bar_render', array( __CLASS__, 'admin_bar_render'));
 
-		add_filter( 'tribe_events_query_posts_fields', array( __CLASS__, 'addMinToStartDateInFields' ), 40, 2 );
     	add_filter( 'tribe_events_query_posts_groupby', array( __CLASS__, 'addGroupBy' ), 10, 2 );
-		add_filter( 'tribe_events_query_posts_orderby', array( __CLASS__, 'addMinToStartDateInOrderBy' ), 40, 2 );
 
 		add_filter( 'tribe_settings_tab_fields', array( __CLASS__, 'inject_settings' ), 10, 2 );
 
 		add_action( 'load-edit.php', array( __CLASS__, 'combineRecurringRequestIds' ) );
 
-		add_filter( 'get_the_guid', array( __CLASS__, 'verifyDateInGuidForRecurringEvents' ), 10, 1 );
-
 		self::reset_scheduler();
 	}
 
-
-	public static function edit_post_link( $link )	{
-		global $post;
-		if( tribe_is_recurring_event( $post ) && preg_match("/href=\"(.*?)\"/i", $link, $edit_url) ) {
-			$link = isset($edit_url[1]) ? str_replace($edit_url[0], 'href="' . $edit_url[1] . '&eventDate=' . TribeDateUtils::dateOnly($post->EventStartDate) . '"', $link) : $link;
-			return $link;
-		} else {
-			return $link;
-		}
-	}
 	public static function admin_bar_render(){
 		global $post, $wp_admin_bar;
 		if( !is_admin() &&  tribe_is_recurring_event( $post )) {
@@ -90,24 +72,6 @@ class TribeEventsRecurrenceMeta {
       }
 
       return $actions;
-   }
-
-   public static function addDateToEventPermalink($permalink, $the_post) {
-      global $post;
-      $event = $the_post ? $the_post : $post;
-
-		  if ( is_numeric( $event ) )
-		    $event = get_post( $event );
-
-      if(tribe_is_recurring_event($event->ID)) {
-         $events = TribeEvents::instance();
-			if( '' == get_option('permalink_structure') || false == $events->getOption('useRewriteRules',true) )
-            return esc_url(add_query_arg('eventDate', TribeDateUtils::dateOnly( $event->EventStartDate ), get_permalink($event->ID) ));
-         else
-            return $permalink . TribeDateUtils::dateOnly( $event->EventStartDate );
-      } else {
-         return $permalink;
-      }
    }
 
 	/**
@@ -177,7 +141,7 @@ class TribeEventsRecurrenceMeta {
 		// make new series for future events
 		if( isset( $_POST['recurrence_action'] ) && $_POST['recurrence_action'] && $_POST['recurrence_action'] == TribeEventsRecurrenceMeta::UPDATE_TYPE_FUTURE) {
 			// if this is the first event in the series, then we don't need to break it into two series
-			if( $_POST['EventStartDate'] != TribeDateUtils::dateOnly( TribeEvents::getRealStartDate($postId) )) {
+			if( $_POST['EventStartDate'] != TribeDateUtils::dateOnly( TribeEvents::get_series_start_date($postId) )) {
 				// move recurrence end to the last date of the series before today
 				$numOccurrences = self::adjustRecurrenceEnd( $postId, $_POST['EventStartDate'] );
 
@@ -335,7 +299,8 @@ class TribeEventsRecurrenceMeta {
 	 * @return void
 	 */
 	private static function removeOccurrence( $postId, $date ) {
-		$startDate = TribeEvents::getRealStartDate($postId);
+		// TODO: get the post for the instance and delete it
+		$startDate = TribeEvents::get_series_start_date($postId);
 		$date = TribeDateUtils::addTimeToDate( $date, TribeDateUtils::timeOnly($startDate) );
 
 		delete_post_meta( $postId, '_EventStartDate', $date );
@@ -350,7 +315,7 @@ class TribeEventsRecurrenceMeta {
 	private static function removeFutureOccurrences( $postId, $date = null ) {
 		$date = $date ? strtotime($date) : time();
 
-		$occurrences = get_post_meta($postId, '_EventStartDate');
+		$occurrences = tribe_get_recurrence_start_dates($postId);
 
 		foreach($occurrences as $occurrence) {
 			if (strtotime(TribeDateUtils::dateOnly($occurrence)) >= $date ) {
@@ -367,7 +332,7 @@ class TribeEventsRecurrenceMeta {
 	 */
 	private static function removePastOccurrences( $postId, $date = null ) {
 		$date = $date ? strtotime($date) : time();
-		$occurrences = get_post_meta($postId, '_EventStartDate');
+		$occurrences = tribe_get_recurrence_start_dates($postId);
 
 		foreach($occurrences as $occurrence) {
 			if (strtotime(TribeDateUtils::dateOnly($occurrence)) < $date ) {
@@ -388,7 +353,7 @@ class TribeEventsRecurrenceMeta {
 	private static function adjustRecurrenceEnd( $postId, $date = null ) {
 		$date = $date ? strtotime($date) : time();
 
-		$occurrences = get_post_meta($postId, '_EventStartDate');
+		$occurrences = tribe_get_recurrence_start_dates($postId);
 		$occurrenceCount = 0;
 		sort($occurrences);
 
@@ -421,7 +386,7 @@ class TribeEventsRecurrenceMeta {
 	 * @return void
 	 */
 	private static function adjustEndDate( $postId ) {
-		$occurrences = get_post_meta($postId, '_EventStartDate');
+		$occurrences = tribe_get_recurrence_start_dates($postId);
 		sort($occurrences);
 
 		$duration = get_post_meta($postId, '_EventDuration', true);
@@ -434,10 +399,9 @@ class TribeEventsRecurrenceMeta {
 	/**
 	 * Clone an event when splitting up a recurring series
  	 * @param array $data The event information for the original event
-	 * @return void
+	 * @return int|WP_Error
 	 */
 	private static function cloneEvent( $data ) {
-		$tribe_ecp = TribeEvents::instance();
       $old_id = $data['ID'];
 
 		$data['ID'] = null;
@@ -487,36 +451,43 @@ class TribeEventsRecurrenceMeta {
 	 * @param bool $updated
 	 * @return void
 	 */
-	public static function saveEvents( $postId, $updated = true ) {
-		$recStart = strtotime(self::get_series_start_date($postId));
-		$eventEnd = strtotime(get_post_meta($postId, '_EventEndDate', true));
-		$duration = $eventEnd - $recStart;
+	public static function saveEvents( $postId ) {
 
-		$old_start_dates = get_post_meta( $postId, '_EventStartDate' );
-
-		// different update types
-		delete_post_meta($postId, '_EventStartDate');
-		delete_post_meta($postId, '_EventEndDate');
-		delete_post_meta($postId, '_EventDuration');
-		delete_post_meta($postId, '_EventNextPendingRecurrence');
-
-		// add back original start and end date
-		add_post_meta($postId,'_EventStartDate', date(DateSeriesRules::DATE_FORMAT, $recStart));
-		add_post_meta($postId,'_EventEndDate', date(DateSeriesRules::DATE_FORMAT, $eventEnd));
-		add_post_meta($postId,'_EventDuration', $duration);
+		$existing_instances = get_posts(array(
+			'post_parent' => $postId,
+			'post_type' => TribeEvents::POSTTYPE,
+			'posts_per_page' => -1,
+			'fields' => 'ids',
+			'post_status' => 'any',
+			'meta_key' => '_EventStartDate',
+			'orderby' => 'meta_key',
+			'order' => 'ASC',
+		));
 
 		$recurrence = self::getRecurrenceForEvent($postId);
 
 		if ( $recurrence ) {
 			$recurrence->setMinDate(strtotime(self::$scheduler->get_earliest_date()));
 			$recurrence->setMaxDate(strtotime(self::$scheduler->get_latest_date()));
-			$dates = (array) $recurrence->getDates( $updated, $old_start_dates );
+			$dates = (array) $recurrence->getDates();
 
 			if ( $recurrence->constrainedByMaxDate() !== FALSE ) {
-				add_post_meta($postId, '_EventNextPendingRecurrence', date(DateSeriesRules::DATE_FORMAT, $recurrence->constrainedByMaxDate()));
+				update_post_meta($postId, '_EventNextPendingRecurrence', date(DateSeriesRules::DATE_FORMAT, $recurrence->constrainedByMaxDate()));
 			}
+
+			foreach ( $existing_instances as $instance ) {
+				$start_date = strtotime( get_post_meta($instance, '_EventStartDate', true) );
+				$found = array_search( $start_date, $dates );
+				if ( $found === FALSE ) {
+					wp_delete_post( $instance, TRUE );
+				} else {
+					unset($dates[$found]); // so we don't re-add it
+				}
+			}
+
 			foreach($dates as $date) {
-				add_post_meta($postId,'_EventStartDate', date(DateSeriesRules::DATE_FORMAT, $date));
+				$instance = new Tribe_Events_Recurrence_Instance( $postId, $date );
+				$instance->save();
 			}
 		}
 	}
@@ -538,11 +509,12 @@ class TribeEventsRecurrenceMeta {
 
 		delete_post_meta($event_id, '_EventNextPendingRecurrence');
 		if ( $recurrence->constrainedByMaxDate() !== FALSE ) {
-			add_post_meta($event_id, '_EventNextPendingRecurrence', date(DateSeriesRules::DATE_FORMAT, $recurrence->constrainedByMaxDate()));
+			update_post_meta($event_id, '_EventNextPendingRecurrence', date(DateSeriesRules::DATE_FORMAT, $recurrence->constrainedByMaxDate()));
 		}
 
 		foreach($dates as $date) {
-			add_post_meta($event_id, '_EventStartDate', date(DateSeriesRules::DATE_FORMAT, $date));
+			$instance = new Tribe_Events_Recurrence_Instance( $event_id, $date );
+			$instance->save();
 		}
 
 	}
@@ -624,7 +596,7 @@ class TribeEventsRecurrenceMeta {
 		}
 
 		$recurrence_rules = TribeEventsRecurrenceMeta::getRecurrenceMeta($postId);
-		$start_date = TribeEvents::getRealStartDate( $postId );
+		$start_date = TribeEvents::get_series_start_date( $postId );
 
 		$output_text = empty( $recurrence_rules['recCustomRecurrenceDescription'] ) ? self::recurrenceToText( $recurrence_rules, $start_date ) : $recurrence_rules['recCustomRecurrenceDescription'];
 
@@ -777,50 +749,6 @@ class TribeEventsRecurrenceMeta {
 	}
 
 	/**
-	 * The start date we get from the GROUP BY clause
-	 * is indeterminate.
-	 *
-	 * @see http://dev.mysql.com/doc/refman/5.1/en/group-by-extensions.html
-	 *
-	 * Add a MIN() wrapper around it so we get the correct value
-	 *
-	 * @param array $fields
-	 * @param WP_Query $query
-	 *
-	 * @return array
-	 */
-	public function addMinToStartDateInFields( $fields, $query ) {
-		if ( isset( $query->query_vars['tribeHideRecurrence'] ) && $query->query_vars['tribeHideRecurrence'] == 1 ) {
-			global $wpdb;
-			foreach ( $fields as &$f ) {
-				$f = str_replace("{$wpdb->postmeta}.meta_value", "MIN($wpdb->postmeta.meta_value)", $f);
-			}
-		}
-		return $fields;
-	}
-
-	/**
-	 * The start date we get from the GROUP BY clause
-	 * is indeterminate, and sorting is based off of an arbitrary value.
-	 *
-	 * @see http://dev.mysql.com/doc/refman/5.1/en/group-by-extensions.html
-	 *
-	 * Add a MIN() wrapper around it so we use the correct value
-	 *
-	 * @param string $orderby
-	 * @param WP_Query $query
-	 *
-	 * @return array
-	 */
-	public function addMinToStartDateInOrderBy( $orderby, $query ) {
-		if ( isset( $query->query_vars['tribeHideRecurrence'] ) && $query->query_vars['tribeHideRecurrence'] == 1 ) {
-			global $wpdb;
-			$orderby = str_replace("{$wpdb->postmeta}.meta_value", "MIN($wpdb->postmeta.meta_value)", $orderby);
-		}
-		return $orderby;
-	}
-
-	/**
 	 * Adds the Group By that hides future occurences of recurring events if setting is set to.
 	 *
 	 * @since 3.0
@@ -921,22 +849,6 @@ class TribeEventsRecurrenceMeta {
 	}
 
 	/**
-	 * Verifies that the date is in the URL/Guid for recurring events in RSS feed.
-	 *
-	 * @param string $guid The current guid.
-	 * @return string The revised guid.
-	 * @author Paul Hughes
-	 * @since 3.0
-	 */
-	public static function verifyDateInGuidForRecurringEvents( $guid ) {
-		global $post;
-		if ( get_post_type( $post ) == TribeEvents::POSTTYPE ) {
-			$guid = tribe_get_event_link( $post );
-		}
-		return $guid;
-	}
-
-	/**
 	 * @return void
 	 */
 	public static function reset_scheduler() {
@@ -971,10 +883,7 @@ class TribeEventsRecurrenceMeta {
 		if ( method_exists('TribeEvents', 'get_series_start_date') ) {
 			return TribeEvents::get_series_start_date($post_id);
 		}
-		$start_dates = get_post_meta( $post_id, '_EventStartDate', false );
-		if ( $start_dates ) {
-			return min($start_dates);
-		}
-		return '';
+		$start_dates = tribe_get_recurrence_start_dates($post_id);
+		return reset($start_dates);
 	}
 }

@@ -24,22 +24,36 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	 *
 	 * Test to see if event is recurring.
 	 *
-	 * Note: $recur_test_cache is used to avoid having to call get_post_meta repeatedly since get_post_meta is slow.
-	 *
 	 * @param int $postId (optional)
 	 * @return bool true if event is a recurring event.
 	 * @since 2.0
 	 */
 	if (!function_exists( 'tribe_is_recurring_event' )) {
 		function tribe_is_recurring_event( $postId = null )  {
-			static $recur_test_cache;
-			if ( empty( $recur_test_cache ) ) $recur_test_cache = array();
-			TribeEvents::instance();
-			$postId = TribeEvents::postIdHelper( $postId );
-			if ( isset( $recur_test_cache[$postId] ) ) return $recur_test_cache[$postId];
-			$recur_test_cache[$postId] = apply_filters('tribe_is_recurring_event', (sizeof(get_post_meta($postId, '_EventStartDate')) > 1));
-			return $recur_test_cache[$postId];
+			$instances = tribe_get_recurrence_start_dates($postId);
+			$recurring = count($instances) > 1;
+			return apply_filters( 'tribe_is_recurring_event', $recurring, $postId );
 		}
+	}
+
+	/**
+	 * Get the start dates of all instances of the event,
+	 * in ascending order
+	 *
+	 * @param int $post_id
+	 * @return array Start times, as Y-m-d H:i:s
+	 */
+	function tribe_get_recurrence_start_dates( $post_id = null ) {
+		// TODO: caching of recurrences
+		/** @var wpdb $wpdb */
+		global $wpdb;
+		$post_id = TribeEvents::postIdHelper($post_id);
+		$ancestors = get_post_ancestors($post_id);
+		$post_id = empty($ancestors) ? $post_id : end($ancestors);
+		$sql = "SELECT meta_value FROM {$wpdb->postmeta} m INNER JOIN {$wpdb->posts} p ON p.ID=m.post_id AND (p.post_parent=%d OR p.ID=%d) WHERE meta_key='_EventStartDate' ORDER BY meta_value ASC";
+		$sql = $wpdb->prepare($sql, $post_id, $post_id);
+		$result = $wpdb->get_col($sql);
+		return $result;
 	}
 
 	/**
@@ -72,6 +86,9 @@ if( class_exists( 'TribeEventsPro' ) ) {
 		function tribe_all_occurences_link( $postId = null, $echo = true )  {
 			$postId = TribeEvents::postIdHelper( $postId );
 			$post = get_post($postId);
+			if ( !empty($post->post_parent) ) {
+				$post = get_post($post->post_parent);
+			}
 			$tribe_ecp = TribeEvents::instance();
 			$link = apply_filters('tribe_all_occurences_link', $tribe_ecp->getLink('all'));
 			if( $echo ) {

@@ -38,7 +38,7 @@ class TribeRecurrence {
 	 * @param array $old_start_dates The old start dates for an event.
 	 * @return array An array of all dates in the series
 	 */
-	public function getDates( $all_events = true, $old_start_dates = null ) {
+	public function getDates() {
 		$this->last_request_constrained = FALSE;
 		if( $this->series_rules ) {
 			$dates = array();
@@ -59,19 +59,6 @@ class TribeRecurrence {
 				}
 
 				$dates[] = $cur_date;
-			}
-
-			if ( !$all_events && $old_start_dates && $this->event ) {
-				$existing_dates = array();
-				foreach ( $old_start_dates as $index => $date ) {
-					$date_obj = date_create( $date );
-					$existing_dates[] = $date_obj->format( 'U' );
-				}
-				foreach ( $dates as $index => $date ) {
-					if ( !in_array( $date, $existing_dates ) ) {
-						unset( $dates[$index] );
-					}
-				}
 			}
 
 			return $dates;

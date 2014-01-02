@@ -63,11 +63,14 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			$this->daySlug = sanitize_title(__('day', 'tribe-events-calendar-pro'));
 			$this->todaySlug = sanitize_title(__('today', 'tribe-events-calendar-pro'));
 
+			require_once( 'lib/TribeEventsPro_SchemaUpdater.php' );
 			require_once( 'lib/tribe-pro-template-factory.class.php' );
 			require_once( 'lib/tribe-date-series-rules.class.php' );
 			require_once( 'lib/tribe-ecp-custom-meta.class.php' );
 			require_once( 'lib/tribe-events-recurrence-meta.class.php' );
+			require_once( 'lib/tribe-events-recurrence-instance.php');
 			require_once( 'lib/tribe-recurrence.class.php' );
+			require_once( 'lib/tribe-events-recurrence-permalinks.class.php' );
 			require_once( 'lib/widget-venue.class.php' );
 			require_once( 'lib/tribe-mini-calendar.class.php' );
 			require_once( 'lib/widget-countdown.class.php' );
@@ -91,6 +94,9 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			require_once ( 'lib/tribe-ical.class.php' );
 			TribeiCal::init();
 
+			if ( TribeEventsPro_SchemaUpdater::update_required() ) {
+				add_action( 'admin_init', array( 'TribeEventsPro_SchemaUpdater', 'init' ), 10, 0 );
+			}
 
 			// Tribe common resources
 			require_once( 'vendor/tribe-common-libraries/tribe-common-libraries.class.php' );
@@ -181,6 +187,9 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 
 			add_filter( 'wp' , array( $this, 'detect_recurrence_redirect' ) );
 			add_filter( 'wp', array( $this, 'filter_canonical_link_on_recurring_events' ), 10, 1 );
+
+			$permalink_editor = apply_filters( 'tribe_events_permalink_editor', new TribeEvents_RecurrencePermalinks() );
+			add_filter( 'post_type_link', array($permalink_editor, 'filter_recurring_event_permalinks'), 10, 4 );
 
 			add_filter( 'tribe_events_register_venue_type_args', array( $this, 'addSupportsThumbnail' ), 10, 1 );
 			add_filter( 'tribe_events_register_organizer_type_args', array( $this, 'addSupportsThumbnail' ), 10, 1 );
@@ -932,55 +941,37 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		/**
 		 * Add rewrite routes for custom PRO stuff and views.
 		 *
-		 * @param array $wp_rewrite The current rewrite rules.
-		 * @return array The modified array of rewrite rules.
-		 * @author Timothy Wood
-		 * @since 3.0
+		 * @param WP_Rewrite $wp_rewrite The WP_Rewrite object
+		 * @return void
 		 */
 		public function add_routes( $wp_rewrite ) {
+			$generator = $this->get_rewrite_generator($wp_rewrite);
+
+			$week_rules = $generator->get_week_rules($this->weekSlug);
+			$photo_rules = $generator->get_photo_rules($this->photoSlug);
+			$today_rules = $generator->get_today_rules($this->todaySlug);
+			$day_rules = $generator->get_day_rules($this->daySlug);
+			$tax_rules = $generator->get_taxonomy_rules();
+
+			$wp_rewrite->rules = $week_rules + $photo_rules + $today_rules + $day_rules + $tax_rules + $wp_rewrite->rules;
+		}
+
+		private function get_rewrite_generator( WP_Rewrite $wp_rewrite ) {
+			require_once( 'lib/TribeEventsPro_RewriteRuleGenerator.php' );
+			$generator = new TribeEventsPro_RewriteRuleGenerator( $wp_rewrite );
 			$tec = TribeEvents::instance();
-			// $base = trailingslashit( $tec->getOption( 'eventsSlug', 'events' ) );
 
 			$base = trailingslashit( $tec->rewriteSlug );
-			$baseSingle = trailingslashit( $tec->rewriteSlugSingular );
-			$baseTax = trailingslashit( $tec->taxRewriteSlug );
-			$baseTax = "(.*)" . $baseTax . "(?:[^/]+/)*";
-			$baseTag = trailingslashit( $tec->tagRewriteSlug );
-			$baseTag = "(.*)" . $baseTag;
+			$generator->set_base( $base );
 
-			$photo = $this->photoSlug;
-			$day = $this->daySlug;
-			$today = $this->todaySlug;
-			$week = $this->weekSlug;
-			$newRules = array();
-			// week permalink rules
-			$newRules[$base . $week . '/?$'] = 'index.php?post_type=' . TribeEvents::POSTTYPE . '&eventDisplay=week';
-			$newRules[$base . $week . '/(\d{2})/?$'] = 'index.php?post_type=' . TribeEvents::POSTTYPE . '&eventDisplay=week' .'&eventDate=' . $wp_rewrite->preg_index(1);
-			$newRules[$base . $week . '/(\d{4}-\d{2}-\d{2})/?$'] = 'index.php?post_type=' . TribeEvents::POSTTYPE . '&eventDisplay=week' .'&eventDate=' . $wp_rewrite->preg_index(1);
-			// photo permalink rules
-			$newRules[$base . $photo . '/?$'] = 'index.php?post_type=' . TribeEvents::POSTTYPE . '&eventDisplay=photo';
-			$newRules[$base . $photo . '/(\d{4}-\d{2}-\d{2})/?$'] = 'index.php?post_type=' . TribeEvents::POSTTYPE . '&eventDisplay=photo' .'&eventDate=' . $wp_rewrite->preg_index(1);
-			// day permalink rules
-			$newRules[$base . $today . '/?$'] = 'index.php?post_type=' . TribeEvents::POSTTYPE . '&eventDisplay=day';
-			$newRules[$base . $day . '/(\d{4}-\d{2}-\d{2})/?$'] = 'index.php?post_type=' . TribeEvents::POSTTYPE . '&eventDisplay=day' .'&eventDate=' . $wp_rewrite->preg_index(1);
-			$newRules[$base . '/(\d{4}-\d{2}-\d{2})/ical/?$' ] = 'index.php?post_type=' . TribeEvents::POSTTYPE . '&eventDisplay=day' .'&eventDate=' . $wp_rewrite->preg_index(1) . '&ical=1';
-			$newRules[$base . '(\d{4}-\d{2}-\d{2})$'] = 'index.php?post_type=' . TribeEvents::POSTTYPE . '&eventDisplay=day' .'&eventDate=' . $wp_rewrite->preg_index(1);
+			$cat_base = trailingslashit( $tec->taxRewriteSlug );
+			$cat_base = "(.*)" . $cat_base . "(?:[^/]+/)*";
+			$generator->set_cat_base( $cat_base );
 
-			$newRules[$baseTax . '([^/]+)/' . $week . '/?$'] = 'index.php?tribe_events_cat=' . $wp_rewrite->preg_index(2) . '&post_type=' . TribeEvents::POSTTYPE . '&eventDisplay=week';
-			$newRules[$baseTax . '([^/]+)/' . $week . '/(\d{4}-\d{2}-\d{2})$'] = 'index.php?tribe_events_cat=' . $wp_rewrite->preg_index(2) . '&post_type=' . TribeEvents::POSTTYPE . '&eventDisplay=week' .'&eventDate=' . $wp_rewrite->preg_index(3);
-			$newRules[$baseTax . '([^/]+)/' . $photo . '/?$'] = 'index.php?tribe_events_cat=' . $wp_rewrite->preg_index(2) . '&post_type=' . TribeEvents::POSTTYPE . '&eventDisplay=photo';
-			$newRules[$baseTax . '([^/]+)/' . $today . '/?$'] = 'index.php?tribe_events_cat=' . $wp_rewrite->preg_index(2) . '&post_type=' . TribeEvents::POSTTYPE . '&eventDisplay=day';
-			$newRules[$baseTax . '([^/]+)/' . $day . '/(\d{4}-\d{2}-\d{2})/?$'] = 'index.php?tribe_events_cat=' . $wp_rewrite->preg_index(2) . '&post_type=' . TribeEvents::POSTTYPE . '&eventDisplay=day' .'&eventDate=' . $wp_rewrite->preg_index(3);
-			$newRules[$baseTax . '([^/]+)/(\d{4}-\d{2}-\d{2})/?$'] = 'index.php?tribe_events_cat=' . $wp_rewrite->preg_index(2) . '&post_type=' . TribeEvents::POSTTYPE . '&eventDisplay=day' .'&eventDate=' . $wp_rewrite->preg_index(3);
-
-			$newRules[$baseTag . '([^/]+)/' . $week . '/?$'] = 'index.php?tag=' . $wp_rewrite->preg_index(2) . '&post_type=' . TribeEvents::POSTTYPE . '&eventDisplay=week';
-			$newRules[$baseTag . '([^/]+)/' . $week . '/(\d{4}-\d{2}-\d{2})$'] = 'index.php?tag=' . $wp_rewrite->preg_index(2) . '&post_type=' . TribeEvents::POSTTYPE . '&eventDisplay=week' .'&eventDate=' . $wp_rewrite->preg_index(3);
-			$newRules[$baseTag . '([^/]+)/' . $photo . '/?$'] = 'index.php?tag=' . $wp_rewrite->preg_index(2) . '&post_type=' . TribeEvents::POSTTYPE . '&eventDisplay=photo';
-			$newRules[$baseTag . '([^/]+)/' . $today . '/?$'] = 'index.php?tag=' . $wp_rewrite->preg_index(2) . '&post_type=' . TribeEvents::POSTTYPE . '&eventDisplay=day';
-			$newRules[$baseTag . '([^/]+)/' . $day . '/(\d{4}-\d{2}-\d{2})/?$'] = 'index.php?tag=' . $wp_rewrite->preg_index(2) . '&post_type=' . TribeEvents::POSTTYPE . '&eventDisplay=day' .'&eventDate=' . $wp_rewrite->preg_index(3);
-			$newRules[$baseTag . '([^/]+)/(\d{4}-\d{2}-\d{2})/?$'] = 'index.php?tag=' . $wp_rewrite->preg_index(2) . '&post_type=' . TribeEvents::POSTTYPE . '&eventDisplay=day' .'&eventDate=' . $wp_rewrite->preg_index(3);
-
-			$wp_rewrite->rules = $newRules + $wp_rewrite->rules;
+			$tag_base = trailingslashit( $tec->tagRewriteSlug );
+			$tag_base = "(.*)" . $tag_base;
+			$generator->set_tag_base( $tag_base );
+			return $generator;
 		}
 
 		/**
@@ -1091,6 +1082,9 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		 * @since 3.0
 		 */
 		public function pre_get_posts( $query ){
+			if ( $query->is_single() && $query->get('eventDate') ) {
+				$this->set_post_id_for_recurring_event_query( $query );
+			}
 			if( !empty($query->tribe_is_event_pro_query) ) {
 				switch( $query->query_vars['eventDisplay'] ) {
 					case 'week':
@@ -1114,6 +1108,49 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 						break;
 				}
 				apply_filters('tribe_events_pro_pre_get_posts', $query);
+			}
+		}
+
+		/**
+		 * A recurring event will have the base post's slug in the
+		 * 'name' query var. We need to remove that and replace it
+		 * with the correct post's ID
+		 *
+		 * @param WP_Query $query
+		 * @return void
+		 */
+		private function set_post_id_for_recurring_event_query( $query ) {
+			// TODO: cache this, probably preemptively --jbrinley
+			$date = $query->get( 'eventDate' );
+			$slug = $query->get( 'name' );
+			if ( empty($date) || empty($slug) ) {
+				return; // we shouldn't be here
+			}
+			global $wpdb;
+			$parent_sql = "SELECT ID FROM {$wpdb->posts} WHERE post_name=%s AND post_type=%s";
+			$parent_sql = $wpdb->prepare( $parent_sql, $slug, TribeEvents::POSTTYPE );
+			$parent_id = $wpdb->get_var($parent_sql);
+
+			$parent_start = get_post_meta($parent_id, '_EventStartDate', true);
+			if ( empty($parent_start) ) {
+				return; // how does this series not have a start date?
+			} else {
+				$parent_start_date = date('Y-m-d', strtotime($parent_start));
+				$parent_start_time = date('H:i:s', strtotime($parent_start));
+			}
+
+			if ( $parent_start_date == $date ) {
+				$post_id = $parent_id;
+			} else {
+				$child_sql = "SELECT ID FROM {$wpdb->posts} p INNER JOIN {$wpdb->postmeta} m ON m.post_id=p.ID AND m.meta_key='_EventStartDate' WHERE p.post_parent=%d AND p.post_type=%s AND m.meta_value=%s";
+				$child_sql = $wpdb->prepare( $child_sql, $parent_id, TribeEvents::POSTTYPE, $date.' '.$parent_start_time );
+				$post_id = $wpdb->get_var($child_sql);
+			}
+
+			if ( $post_id ) {
+				unset( $query->query_vars['name'] );
+				unset( $query->query_vars['tribe_events']);
+				$query->set('p', $post_id);
 			}
 		}
 
