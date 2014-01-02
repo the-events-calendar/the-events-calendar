@@ -9,15 +9,6 @@ if ( !defined( 'ABSPATH' ) ) { die( '-1' ); }
 if ( !class_exists( 'TribeEventsQuery' ) ) {
 	class TribeEventsQuery {
 
-		public static $start_date;
-		public static $end_date;
-		public static $is_event;
-		public static $is_event_category;
-		public static $is_event_venue;
-		public static $is_event_organizer;
-		public static $is_event_query;
-
-
 		/**
 		 * Initialize The Events Calendar query filters and post processing.
 		 *
@@ -40,7 +31,8 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 		/**
 		 * Set any query flags
 		 *
-		 * @return $query WP_Query
+		 * @param WP_Query $query
+		 * @return void
 		 * @author Jessica Yazbek
 		 * @since 3.0.3
 		 **/
@@ -141,13 +133,6 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 		 */
 		public static function pre_get_posts( $query ) {
 
-			// setup static const to preserve query type through hooks
-			self::$is_event = $query->tribe_is_event;
-			self::$is_event_category = $query->tribe_is_event_category;
-			self::$is_event_venue = $query->tribe_is_event_venue;
-			self::$is_event_organizer = $query->tribe_is_event_organizer;
-			self::$is_event_query = $query->tribe_is_event_query;
-
 			if ( $query->is_main_query() && is_home() ) {
 				// check option for including events in the main wordpress loop, if true, add events post type
 				if ( tribe_get_option( 'showEventsInMainLoop', false ) ) {
@@ -170,8 +155,6 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 			}
 
 			if ( $query->tribe_is_event || $query->tribe_is_event_category ) {
-				self::$start_date = null;
-				self::$end_date = null;
 
 				if ( ! ( $query->is_main_query() && $query->get( 'eventDisplay' ) == 'month' ) ) {
 					add_filter( 'posts_fields', array( __CLASS__, 'posts_fields' ), 10, 2 );
@@ -222,7 +205,6 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 						if ( $query->get( 'eventDate' ) != '' ) {
 							$query->set( 'start_date', $query->get( 'eventDate' ) );
 							$query->set( 'eventDate', $query->get( 'eventDate' ) );
-							self::$start_date = $query->get( 'start_date' );
 						}
 						break;
 					case 'upcoming':
@@ -244,17 +226,13 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 						}
 						$query->set( 'orderby', self::set_orderby() );
 						$query->set( 'hide_upcoming', true );
-						self::$start_date = $query->get( 'start_date' );
-						self::$end_date = $query->get( 'end_date' );
 						break;
-						$query->set( 'eventDate', '' );
 					}
 				} else {
 					$query->set( 'hide_upcoming', true );
 					$query->set( 'start_date', date_i18n( TribeDateUtils::DBDATETIMEFORMAT ) );
 					$query->set( 'orderby', self::set_orderby() );
 					$query->set( 'order', self::set_order() );
-					self::$start_date = $query->get( 'start_date' );
 				}
 
 				// eventCat becomes a standard taxonomy query - will need to deprecate and update views eventually
@@ -365,41 +343,40 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 			return $query;
 		}
 
-        /**
-         * Modifies the GROUP BY statement for Tribe Events queries.
-         *
-         * @param string $groupby_sql The current GROUP BY statement.
-         * @param WP_Query $query The current query.
-         * @return string The modified GROUP BY content.
-         */
-        public static function posts_groupby( $groupby_sql, $query ) {
-			global $wpdb;
-			if ( $query->tribe_is_event_query || $query->tribe_is_multi_posttype ) {
+		/**
+		 * Modifies the GROUP BY statement for Tribe Events queries.
+		 *
+		 * @param string $groupby_sql The current GROUP BY statement.
+		 * @param WP_Query $query The current query.
+		 * @return string The modified GROUP BY content.
+		 */
+		public static function posts_groupby( $groupby_sql, $query ) {
+			if ( !empty($query->tribe_is_event_query) || !empty($query->tribe_is_multi_posttype) ) {
 				return apply_filters( 'tribe_events_query_posts_groupby', '', $query );
 			} else {
 				return $groupby_sql;
 			}
 		}
 
-        /**
-         * Adds DISTINCT to the query.
-         *
-         * @param string $distinct The current DISTINCT statement.
-         * @return string The modified DISTINCT statement.
-         */
-        public static function posts_distinct( $distinct ) {
+		/**
+		 * Adds DISTINCT to the query.
+		 *
+		 * @param string $distinct The current DISTINCT statement.
+		 * @return string The modified DISTINCT statement.
+		 */
+		public static function posts_distinct( $distinct ) {
 			return "DISTINCT";
 		}
 
-        /**
-         * Adds the proper fields to the FIELDS statement in the query.
-         *
-         * @param string $fields The current/original FIELDS statement.
-         * @param WP_Query $query The current query object.
-         * @return string The modified FIELDS statement.
-         */
-        public static function posts_fields( $field_sql, $query ) {
-			if ( self::$is_event ) {
+		/**
+		 * Adds the proper fields to the FIELDS statement in the query.
+		 *
+		 * @param string $field_sql The current/original FIELDS statement.
+		 * @param WP_Query $query The current query object.
+		 * @return string The modified FIELDS statement.
+		 */
+		public static function posts_fields( $field_sql, $query ) {
+			if ( !empty($query->tribe_is_event) ) {
 				global $wpdb;
 				$fields = array();
 				$fields['event_start_date'] = "{$wpdb->postmeta}.meta_value as EventStartDate";
@@ -493,7 +470,7 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 				$start_date = !empty( $query->start_date ) ? $query->start_date : $query->get( 'start_date' );
 				$end_date = !empty( $query->end_date ) ? $query->end_date : $query->get( 'end_date' );
 
-				// we can't store end date directly because it messes up the distinc clause
+				// we can't store end date directly because it messes up the distinct clause
 				$event_end_date = apply_filters('tribe_events_query_end_date_column', 'tribe_event_end_date.meta_value');
 
 				// event start date
@@ -523,7 +500,7 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 		}
 
 		/**
-		 * Internal method for properly setting a currated orderby value to $wp_query
+		 * Internal method for properly setting a curated orderby value to $wp_query
 		 * @param string $default
 		 * @return string
 		 */
@@ -627,13 +604,13 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 			return $hide_upcoming_ids;
 		}
 
-        /**
-         * Gets the event counts for individual days.
-         *
-         * @param array $args
-         * @return array The counts array.
-         */
-        public static function getEventCounts( $args = array() ) {
+		/**
+		 * Gets the event counts for individual days.
+		 *
+		 * @param array $args
+		 * @return array The counts array.
+		 */
+		public static function getEventCounts( $args = array() ) {
 			global $wpdb;
 			do_action('log', 'getEventCounts() $args', 'tribe-events-query', $args);
 			$date = date( 'Y-m-d' );
@@ -771,14 +748,14 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 			return $return;
 		}
 
-        /**
-         * The number of days between two arbitrary dates.
-         *
-         * @param string $date1 The first date.
-         * @param string $date2 The second date.
-         * @return int The number of days between two dates.
-         */
-        public static function dateDiff( $date1, $date2 ) {
+		/**
+		 * The number of days between two arbitrary dates.
+		 *
+		 * @param string $date1 The first date.
+		 * @param string $date2 The second date.
+		 * @return int The number of days between two dates.
+		 */
+		public static function dateDiff( $date1, $date2 ) {
 			$current = $date1;
 			$datetime2 = date_create( $date2 );
 			$count = 0;
@@ -841,6 +818,7 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 		/**
 		 * Remove empty values from the query args
 		 *
+		 * @param mixed $arg
 		 * @return bool
 		 * @author Jessica Yazbek
 		 **/

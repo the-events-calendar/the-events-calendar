@@ -348,7 +348,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			//add_filter( 'the_content', array($this, 'emptyEventContent' ), 1 );
 			add_filter( 'wp_title', array($this, 'maybeAddEventTitle' ), 10, 2 );
 			add_filter( 'bloginfo_rss',	array($this, 'add_space_to_rss' ) );
-			add_filter( 'post_type_link', array($this, 'addDateToRecurringEvents'), 10, 2 );
 			add_filter( 'post_updated_messages', array($this, 'updatePostMessage') );
 
 			/* Add nav menu item - thanks to http://wordpress.org/extend/plugins/cpt-archives-in-nav-menus/ */
@@ -962,49 +961,13 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		}
 
 		/**
-		 * Add the date to the recurring events
-		 *
-		 * @param string $permalink
-		 * @param WP_Post $post
+		 * Sorts the meta to ensure we are getting the real start date
+		 * @deprecated since 3.4
+		 * @param int $postId
 		 * @return string
 		 */
-		public function addDateToRecurringEvents($permalink, $post) {
-			if(  function_exists('tribe_is_recurring_event') && $post->post_type == self::POSTTYPE && tribe_is_recurring_event($post->ID) && !is_search()) {
-				if( is_admin() && (!isset($post->EventStartDate) || !$post->EventStartDate) ) {
-					if( isset($_REQUEST['eventDate'] ) ) {
-						$post->EventStartDate = $_REQUEST['eventDate'];
-					} else	{
-						$post->EventStartDate = TribeEvents::getRealStartDate( $post->ID );
-					}
-				}
-
-				// prevent any call from outside the tribe from appending bad date on the end of recurring permalinks (looking at Yoast WP SEO)
-				if(!isset($post->EventStartDate) || !$post->EventStartDate)
-					return $permalink;
-
-				if( '' == get_option('permalink_structure') ) {
-					return add_query_arg('eventDate', TribeDateUtils::dateOnly( $post->EventStartDate ), $permalink );
-				} else {
-					return trailingslashit($permalink) . TribeDateUtils::dateOnly( isset($post->EventStartDate) ? $post->EventStartDate : null );
-				}
-			}
-			return $permalink;
-		}
-
-		/**
-		 * Sorts the meta to ensure we are getting the real start date
-		 * @param $postId
-		 * @return null
-		 */
 		public static function getRealStartDate( $postId ) {
-			$start_dates = get_post_meta( $postId, '_EventStartDate' );
-
-			if( is_array( $start_dates ) && sizeof( $start_dates ) > 0 ) {
-				sort($start_dates);
-				return $start_dates[0];
-			}
-
-			return null;
+			return TribeEvents::get_series_start_date($postId);
 		}
 
 		/**
@@ -2014,11 +1977,12 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 * @return string The date string for the earliest occurrence of the event
 		 */
 		public static function get_series_start_date( $post_id ) {
-			$start_dates = get_post_meta( $post_id, '_EventStartDate', false );
-			if ( $start_dates ) {
-				return min($start_dates);
+			if ( function_exists('tribe_get_recurrence_start_dates') ) {
+				$start_dates = tribe_get_recurrence_start_dates($post_id);
+				return reset($start_dates);
+			} else {
+				return get_post_meta( $post_id, '_EventStartDate', true );
 			}
-			return '';
 		}
 
 		/**
@@ -2445,20 +2409,19 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				case 'single':
 					global $post;
 					$p = $secondary ? $secondary : $post;
-					remove_filter( 'post_type_link', array($this, 'addDateToRecurringEvents') );
 					$link = trailingslashit(get_permalink($p));
-					add_filter( 'post_type_link', array($this, 'addDateToRecurringEvents'), 10, 2 );
 					$eventUrl = trailingslashit( esc_url($link) );
 					break;
 				case 'day':
+					// TODO: Move this to pro?
 					$date = strtotime($secondary);
 					$secondary = date('Y-m-d', $date);
 					$eventUrl = trailingslashit( esc_url($eventUrl . $secondary) );
 					break;
 				case 'all':
-					remove_filter( 'post_type_link', array($this, 'addDateToRecurringEvents') );
+					// TODO: Move this to pro?
 					$eventUrl = trailingslashit(get_permalink());
-					add_filter( 'post_type_link', array($this, 'addDateToRecurringEvents'), 10, 2 );
+					// TODO: Remove date from permalink
 					$eventUrl = trailingslashit( esc_url($eventUrl . 'all') );
 					break;
 				default:
@@ -2718,6 +2681,11 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			}
 			// don't do anything on autosave or auto-draft either or massupdates
 			if ( wp_is_post_autosave( $postId ) || $post->post_status == 'auto-draft' || isset($_GET['bulk_edit']) || (isset($_REQUEST['action']) && $_REQUEST['action'] == 'inline-save') ) {
+				return;
+			}
+
+			// don't do anything on other wp_insert_post calls
+			if ( isset($_POST['post_ID']) && $postId != $_POST['post_ID'] ) {
 				return;
 			}
 
