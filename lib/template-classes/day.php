@@ -68,14 +68,27 @@ if( !class_exists('Tribe_Events_Pro_Day_Template')){
 			global $wp_query;
 
 			if ( $wp_query->have_posts() ) {
-				foreach ( $wp_query->posts as &$post ) {
+				$unsorted_posts = $wp_query->posts;
+				foreach ( $unsorted_posts as &$post ) {
 					$post->timeslot = tribe_event_is_all_day( $post->ID )
 						? __( 'All Day', 'tribe-events-calendar-pro' )
 						: $post->timeslot = tribe_get_start_date( $post, false, 'ga ' );
 				}
+				unset($post);
+
+				// Make sure All Day events come first
+				$all_day = array();
+				$hourly = array();
+				foreach($unsorted_posts as $i => $post) {
+					if ($post->timeslot == __('All Day', 'tribe-events-calendar-pro')) {
+						$all_day[$i] = $post;
+					} else {
+						$hourly[$i] = $post;
+					}
+				}
+				$wp_query->posts = array_values($all_day + $hourly);
 				$wp_query->rewind_posts();
 			}
-
 		}
 
 		/**
