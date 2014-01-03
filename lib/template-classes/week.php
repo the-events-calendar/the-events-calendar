@@ -45,8 +45,8 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 
 			// let's get this show on the road
 			// self::set_current_day( self::$start_of_week );
-			self::set_week_days();
 			self::setup_loop();
+			self::set_week_days();
 
 			// save tribe bar args
 			if ( empty( self::$tribe_bar_args ) ) {
@@ -201,14 +201,37 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 			for ( $n = self::$start_of_week; $n < self::$start_of_week + self::$week_length; $n++ ) {
 				$day_offset = ( 0 < self::$start_of_week ) ? $n - self::$start_of_week : $n;
 				$date = date( 'Y-m-d', strtotime( self::$start_of_week_date . " +$day_offset days" ) );
-				$week_days[ $n ] = (object) array(
+				$week_days[ $n ] = array(
 					'date' => $date,
 					'display' => date( 'D', strtotime( self::$start_of_week_date . " +$day_offset days" ) ) .' <span class="tribe-events-daynum">'. date( 'jS', strtotime( self::$start_of_week_date . " +$day_offset days" ) ) .'</span>',
 					'is_today' => ( $date == self::$today ) ? true : false,
 					'is_past' => ( $date < self::$today ) ? true : false,
 					'is_future' => ( $date > self::$today ) ? true : false,
-					'has_events' => ( empty( self::$events->all_day ) || empty( self::$events->hourly ) ) ? true : false
+					'has_events' => ( ! empty( self::$events->all_day_map[0][$n] ) || ! empty( self::$events->hourly[$n] ) ) ? true : false
 				);
+				// check if there are all day events on this day (this is easy to tell)
+				$has_events = ! empty( self::$events->all_day_map[0][$n] ) ? true : false;
+
+				// if not, check the hourly events
+				if ( ! $has_events ) {
+					$day_start = strtotime( tribe_event_beginning_of_day( $date ) );
+					$day_end = strtotime( tribe_event_end_of_day( $date ) );
+					foreach ( self::$events->hourly as $hourly_event ) {
+						$event_start = strtotime($hourly_event->_EventStartDate);
+						$event_end = strtotime($hourly_event->_EventEndDate);
+						if ( ( $event_start >= $day_start && $event_start <= $day_end ) 
+							// event ends today
+							|| ( $event_end >= $day_start && $event_end <= $day_end )
+							// event spans across today
+							|| ( $event_start <= $day_start && $event_end >= $day_end )
+							) {
+							$has_events = true;
+							break;
+						}
+					}
+				}
+				$week_days[$n]['has_events'] = $has_events;
+				$week_days[$n] = (object) $week_days[$n];
 			}
 			self::$week_days = $week_days;
 		}
@@ -266,6 +289,7 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 
 			// get it started off with at least 1 row
 			self::$events->all_day_map[] = array_fill( self::$start_of_week, self::$week_length, null );
+
 			foreach ( $wp_query->posts as $event_key_id => $event ) {
 
 				// convert the start and end dates of the event into timestamps
@@ -534,8 +558,8 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 			if ( self::$loop_type == 'allday' && !empty( self::$events->all_day[ self::$event_id ] ) ) {
 				return self::$events->all_day[ self::$event_id ]->ID;
 			} else if ( self::$loop_type == 'hourly' ) {
-					return self::$event_id;
-				}
+				return self::$event_id;
+			}
 			return null;
 		}
 
