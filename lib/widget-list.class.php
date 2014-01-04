@@ -121,7 +121,13 @@ if( !class_exists( 'TribeEventsListWidget' ) ) {
 				echo "</ol><!-- .hfeed -->";
 
 				/* Display link to all events */
-				echo '<p class="tribe-events-widget-link"><a href="' . $event_url . '" rel="bookmark">' . __('View All Events', 'tribe-events-calendar' ) . '</a></p>';
+				echo '<p class="tribe-events-widget-link"><a href="' . $event_url . '" rel="bookmark">';
+				if ( empty( $category ) ) {
+					_e( 'View All Events', 'tribe-events-calendar' );
+				} else {
+					_e( 'View All Events in Category', 'tribe-events-calendar' );
+				}
+				echo '</a></p>';
 			}
 			else {
 				echo '<p>' . __('There are no upcoming events at this time.', 'tribe-events-calendar') . '</p>';
