@@ -48,14 +48,14 @@ if( !class_exists( 'TribeEventsListWidget' ) ) {
          * @param string $namespace The namespace for the widget template stuff.
          * @param string $pluginPath The pluginpath so we can locate the template stuff.
          */
-        function widget_output( $args, $instance, $template_name='widgets/list-widget') {
+        function widget_output( $args, $instance, $template_name='widgets/list-widget' ) {
 			global $wp_query, $tribe_ecp, $post;
 			extract( $args, EXTR_SKIP );
 			// The view expects all these $instance variables, which may not be set without pro
-			$instance = wp_parse_args($instance, array(
+			$instance = wp_parse_args( $instance, array(
 				'limit' => 5,
 				'title' => '',
-			));
+			) );
 			extract( $instance, EXTR_SKIP );
 
 			// temporarily unset the tribe bar params so they don't apply
@@ -68,7 +68,7 @@ if( !class_exists( 'TribeEventsListWidget' ) ) {
 			}
 
 			// extracting $instance provides $title, $limit
-			$title = apply_filters('widget_title', $title );
+			$title = apply_filters( 'widget_title', $title );
 			if ( ! isset( $category ) || $category === '-1' ) {
 				$category = 0;
 			}
@@ -130,7 +130,7 @@ if( !class_exists( 'TribeEventsListWidget' ) ) {
 				echo '</a></p>';
 			}
 			else {
-				echo '<p>' . __('There are no upcoming events at this time.', 'tribe-events-calendar') . '</p>';
+				echo '<p>' . __( 'There are no upcoming events at this time.', 'tribe-events-calendar' ) . '</p>';
 			}
 
 			/* After widget (defined by themes). */
@@ -172,7 +172,7 @@ if( !class_exists( 'TribeEventsListWidget' ) ) {
          */
         function form( $instance ) {
 			/* Set up default widget settings. */
-			$defaults = array( 'title' => __( 'Upcoming Events', 'tribe-events-calendar' ), 'limit' => '5', 'no_upcoming_events' => false);
+			$defaults = array( 'title' => __( 'Upcoming Events', 'tribe-events-calendar' ), 'limit' => '5', 'no_upcoming_events' => false );
 			$instance = wp_parse_args( (array) $instance, $defaults );
 			$tribe_ecp = TribeEvents::instance();
 			include( $tribe_ecp->pluginPath . 'admin-views/widget-admin-list.php' );
