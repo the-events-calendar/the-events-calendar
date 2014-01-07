@@ -812,7 +812,7 @@ class TribeEventsRecurrenceMeta {
 	 *
 	 * @return array
 	 */
-	public function addMinToStartDateInOrderBy( $orderby, $query ) {
+	public static function addMinToStartDateInOrderBy( $orderby, $query ) {
 		if ( isset( $query->query_vars['tribeHideRecurrence'] ) && $query->query_vars['tribeHideRecurrence'] == 1 ) {
 			global $wpdb;
 			$orderby = str_replace("{$wpdb->postmeta}.meta_value", "MIN($wpdb->postmeta.meta_value)", $orderby);
