@@ -18,7 +18,7 @@
 
 	if(dbug){
 		if(!$().isotope){
-			debug.warn('TEC Debug: vendor bootstrapDatepicker was not loaded before its dependant file tribe-photo-view.js');
+			debug.warn('TEC Debug: vendor isotope was not loaded before its dependant file tribe-photo-view.js');
 		}
 	}
 

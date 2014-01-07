@@ -31,43 +31,35 @@
 
 		ts.date = $tribe_header.data('date');
 
-		function disableSpecificWeekDays(date) {
-			var start_day = $tribe_header.data('startofweek');
-			var daysToDisable = [0, 1, 2, 3, 4, 5, 6];
-			delete daysToDisable[start_day];
-			var day = date.getDay();
-			for (i = 0; i < daysToDisable.length; i++) {
-				if ($.inArray(day, daysToDisable) != -1) {
-					return 'disabled';
+		var days_to_disable = [0, 1, 2, 3, 4, 5, 6],
+			index = days_to_disable.indexOf(start_day);
+
+		if (index > -1)
+			days_to_disable.splice(index, 1);
+
+		$('#tribe-bar-date')
+			.bootstrapDatepicker({
+				format: 'yyyy-mm-dd',
+				weekStart: start_day,
+				daysOfWeekDisabled: days_to_disable,
+				autoclose: true
+			})
+			.on('changeDate', function(e){
+				var day = ('0' + e.date.getDate()).slice(-2),
+					month = ('0' + (e.date.getMonth() + 1)).slice(-2),
+					year = e.date.getFullYear(),
+					date = year + '-' + month  + '-' + day;
+
+				ts.date = date;
+
+				date_mod = true;
+
+				if (tt.no_bar() || tt.live_ajax() && tt.pushstate) {
+					if (!tt.reset_on())
+						tribe_events_bar_weekajax_actions(e, date);
 				}
-			}
-			return '';
-		}
 
-		var tribe_var_datepickerOpts = {
-			format: 'yyyy-mm-dd',
-			showAnim: 'fadeIn',
-			onRender: disableSpecificWeekDays
-		};
-
-		var tribeBarDate = $('#tribe-bar-date').bootstrapDatepicker(tribe_var_datepickerOpts).on('changeDate',function (e) {
-
-			var day = ('0' + e.date.getDate()).slice(-2),
-				month = ('0' + (e.date.getMonth() + 1)).slice(-2),
-				year = e.date.getFullYear(),
-				date = year + '-' + month  + '-' + day;
-
-			ts.date = date;
-
-			date_mod = true;
-			tribeBarDate.hide();
-
-			if (tt.no_bar() || tt.live_ajax() && tt.pushstate) {
-				if (!tt.reset_on())
-					tribe_events_bar_weekajax_actions(e, date);
-			}
-
-		}).data('datepicker');
+			});
 
 		function tribe_go_to_8() {
 			var $start = $('.time-row-8AM');
