@@ -789,7 +789,7 @@ class TribeEventsRecurrenceMeta {
 	 *
 	 * @return array
 	 */
-	public function addMinToStartDateInFields( $fields, $query ) {
+	public static function addMinToStartDateInFields( $fields, $query ) {
 		if ( isset( $query->query_vars['tribeHideRecurrence'] ) && $query->query_vars['tribeHideRecurrence'] == 1 ) {
 			global $wpdb;
 			foreach ( $fields as &$f ) {
