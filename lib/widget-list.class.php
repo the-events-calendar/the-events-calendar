@@ -73,11 +73,8 @@ if( !class_exists( 'TribeEventsListWidget' ) ) {
 				$category = 0;
 			}
 
-			if ( tribe_get_option( 'viewOption' ) == 'upcoming' ) {
-				$event_url = tribe_get_listview_link( $category );
-			} else {
-				$event_url = tribe_get_gridview_link( $category );
-			}
+	        // Link to the main events page (should work even if month/list views are disabled)
+	        $event_url = tribe_get_events_link();
 
 			if ( function_exists( 'tribe_get_events' ) ) {
 
