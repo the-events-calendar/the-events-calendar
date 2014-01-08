@@ -128,7 +128,7 @@ if ( !class_exists('TribeField') ) {
 			$size = esc_attr( $args['size'] );
 			$html = $args['html'];
 			$error = (bool) $args['error'];
-			$value = esc_attr( $value );
+			$value = is_array($value) ? array_map('esc_attr', $value) : esc_attr($value);
 			$conditional = $args['conditional'];
 			$display_callback = $args['display_callback'];
 			$if_empty = (bool) $args['if_empty'];
