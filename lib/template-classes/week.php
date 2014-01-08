@@ -488,8 +488,6 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 
 			$post = $event;
 
-			$classes = parent::event_classes( $classes );
-
 			// we need to adjust on behalf of weekly span scripts
 			$day_span_length = $event->days_between + 1;
 			if ( $day_span_length > 0 )

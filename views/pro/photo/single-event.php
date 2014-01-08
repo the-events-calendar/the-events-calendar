@@ -47,7 +47,7 @@ global $post;
 	<!-- Event Content -->
 	<?php do_action( 'tribe_events_before_the_content' ); ?>
 	<div class="tribe-events-list-photo-description tribe-events-content entry-summary description">
-		<?php the_excerpt(); ?>
+		<?php echo tribe_events_get_the_excerpt() ?>
 	</div>
 	<?php do_action( 'tribe_events_after_the_content' ) ?>
 
