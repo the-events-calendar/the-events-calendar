@@ -287,8 +287,8 @@ if (!class_exists('TribeEventsAdminList')) {
 						self::advance_date();
 				}
 				if ( $column_id == 'end-date' ) {
-					if ( ! empty( self::$events_list[0]->EventEndDate ) )
-						echo tribe_event_format_date( strtotime( self::$events_list[0]->EventEndDate ), false );
+
+					echo tribe_get_end_date( self::$events_list[0] );
 
 					if ( self::$start_col_first )
 						self::advance_date();

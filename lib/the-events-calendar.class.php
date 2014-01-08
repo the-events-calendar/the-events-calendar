@@ -22,7 +22,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		const VENUE_POST_TYPE = 'tribe_venue';
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
 		const PLUGIN_DOMAIN = 'tribe-events-calendar';
-		const VERSION = '3.2';
+		const VERSION = '3.3.1';
 		const FEED_URL = 'http://tri.be/category/products/feed/';
 		const INFO_API_URL = 'http://wpapi.org/api/plugin/the-events-calendar.php';
 		const WP_PLUGIN_URL = 'http://wordpress.org/extend/plugins/the-events-calendar/';
@@ -3199,9 +3199,25 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 			}
 
-			$_EventStartDate = (isset($_EventStartDate)) ? $_EventStartDate : null;
-			$_EventEndDate = (isset($_EventEndDate)) ? $_EventEndDate : null;
 			$_EventAllDay = isset($_EventAllDay) ? $_EventAllDay : false;
+			$_EventStartDate = (isset($_EventStartDate)) ? $_EventStartDate : null;
+
+			if ( isset( $_EventEndDate ) ) {
+				if ( $_EventAllDay && TribeDateUtils::timeOnly( $_EventEndDate ) != '23:59:59' && TribeDateUtils::timeOnly( tribe_event_end_of_day() ) != '23:59:59' ) {
+
+					// If it's an all day event and the EOD cutoff is later than midnight
+					// set the end date to be the previous day so it displays correctly in the datepicker
+					// so the datepickers will match. we'll set the correct end time upon saving
+					// @todo: remove this once we're allowed to have all day events without a start/end time
+
+					$_EventEndDate = date_create( $_EventEndDate );
+					$_EventEndDate->modify( '-1 day' );
+					$_EventEndDate = $_EventEndDate->format( TribeDateUtils::DBDATETIMEFORMAT );
+
+				}
+			} else {
+				$_EventEndDate = null;
+			}
 			$isEventAllDay = ( $_EventAllDay == 'yes' || ! TribeDateUtils::dateOnly( $_EventStartDate ) ) ? 'checked="checked"' : ''; // default is all day for new posts
 			$startMonthOptions 		= TribeEventsViewHelpers::getMonthOptions( $_EventStartDate );
 			$endMonthOptions 		= TribeEventsViewHelpers::getMonthOptions( $_EventEndDate );
@@ -4142,7 +4158,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 			$filters['tribe-bar-date'] = array( 'name'    => 'tribe-bar-date',
 			                                    'caption' => $caption,
-			                                    'html'    => '<input type="text" name="tribe-bar-date" style="position: relative; z-index:10000" id="tribe-bar-date" value="' . esc_attr( $value ) . '" placeholder="'. __('Date', 'tribe-events-calendar') .'">
+			                                    'html'    => '<input type="text" name="tribe-bar-date" style="position: relative;" id="tribe-bar-date" value="' . esc_attr( $value ) . '" placeholder="'. __('Date', 'tribe-events-calendar') .'">
 								<input type="hidden" name="tribe-bar-date-day" id="tribe-bar-date-day" class="tribe-no-param" value="">' );
 
 			return $filters;

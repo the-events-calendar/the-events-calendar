@@ -40,28 +40,43 @@ $ga_query_string = '?utm_source=helptab&utm_medium=plugin-tec&utm_campaign=in-ap
 $premium_add_ons = array();
 $premium_add_ons[] = array(
         'title' => __('The Events Calendar PRO', 'tribe-events-calendar'),
-        'link' => apply_filters('tribe_help_tab_ecp_tribe_url', TribeEvents::$tribeUrl . 'wordpress-events-calendar-pro/' . $ga_query_string),
+        'link' => apply_filters('tribe_help_tab_ecp_tribe_url', 'http://m.tri.be/dr'),
     );
     $premium_add_ons[] = array(
-        'title' => __('Eventbrite Tickets', 'tribe-events-calendar'),
-        'link' => apply_filters('tribe_help_tab_eventbrite_tribe_url', TribeEvents::$tribeUrl . 'shop/wordpress-eventbrite-tickets/' . $ga_query_string),
+        'title' => __('The Events Calendar: Eventbrite Tickets', 'tribe-events-calendar'),
+        'link' => apply_filters('tribe_help_tab_eventbrite_tribe_url', 'http://m.tri.be/ds'),
     );
     $premium_add_ons[] = array(
-        'title' => __('Community Events', 'tribe-events-calendar'),
-        'link' => apply_filters('tribe_help_tab_community_events_tribe_url', TribeEvents::$tribeUrl . 'shop/wordpress-community-events/' . $ga_query_string),
+        'title' => __('The Events Calendar: Community Events', 'tribe-events-calendar'),
+        'link' => apply_filters('tribe_help_tab_community_events_tribe_url', 'http://m.tri.be/dt'),
     );
     $premium_add_ons[] = array(
-        'title' => __('Facebook Events', 'tribe-events-calendar'),
-        'link' => apply_filters('tribe_help_tab_facebook_events_tribe_url', TribeEvents::$tribeUrl . 'facebook-events/' . $ga_query_string),
+        'title' => __('The Events Calendar: Facebook Events', 'tribe-events-calendar'),
+        'link' => apply_filters('tribe_help_tab_facebook_events_tribe_url', 'http://m.tri.be/du'),
     );
     $premium_add_ons[] = array(
-        'title' => __('WooTickets', 'tribe-events-calendar'),
-        'link' => apply_filters('tribe_help_tab_wootickets_tribe_url', TribeEvents::$tribeUrl . 'shop/wootickets/' . $ga_query_string),
+        'title' => __('The Events Calendar: WooCommerce Tickets', 'tribe-events-calendar'),
+        'link' => apply_filters('tribe_help_tab_wootickets_tribe_url', 'http://m.tri.be/dv'),
     );
 
     $premium_add_ons[] = array(
-        'title' => __('Faceted Filters', 'tribe-events-calendar'),
-	'link' => apply_filters('tribe_help_tab_wootickets_tribe_url', TribeEvents::$tribeUrl . 'shop/faceted-filters/' . $ga_query_string), // TODO make sure this link is correct
+        'title' => __('The Events Calendar: EDD Tickets', 'tribe-events-calendar'),
+        'link' => apply_filters('tribe_help_tab_eddtickets_tribe_url', 'http://m.tri.be/dw'),
+    );
+
+    $premium_add_ons[] = array(
+        'title' => __('The Events Calendar: WPEC Tickets', 'tribe-events-calendar'),
+        'link' => apply_filters('tribe_help_tab_wpectickets_tribe_url', 'http://m.tri.be/dx'),
+    );
+
+    $premium_add_ons[] = array(
+        'title' => __('The Events Calendar: Shopp Tickets', 'tribe-events-calendar'),
+        'link' => apply_filters('tribe_help_tab_shopptickets_tribe_url', 'http://m.tri.be/dy'),
+    );
+
+    $premium_add_ons[] = array(
+        'title' => __('The Events Calendar: Filter Bar (coming early 2014)', 'tribe-events-calendar'),
+		// 'link' => apply_filters('tribe_help_tab_wootickets_tribe_url', TribeEvents::$tribeUrl . 'shop/faceted-filters/' . $ga_query_string), // TODO make sure this link is correct
 );
 $premium_add_ons = (array) apply_filters( 'tribe_help_tab_premium_addons', $premium_add_ons ); // TODO should we replace this with an RSS feed??
 
@@ -192,7 +207,7 @@ $more_text = __('More...', 'tribe-events-calendar');
 	<ul>
 	<?php foreach ($premium_add_ons as $addon) :
 		echo '<li>';
-		if ( isset($addon['link']) ) echo '<a href="'.$addon['link'].'">';
+		if ( isset($addon['link']) ) echo '<a href="'.$addon['link'].'" target="_blank">';
 		echo $addon['title'];
 		if ( isset($addon['coming_soon']) ) echo ( is_string($addon['coming_soon']) ) ? ' '.$addon['coming_soon'] : ' '.__('(Coming Soon!)', 'tribe-events-calendar');
 		if ( isset($addon['link']) ) echo '</a>';

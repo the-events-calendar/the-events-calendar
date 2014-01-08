@@ -10,8 +10,7 @@ if ( tribe_get_option( 'defaultValueReplace' ) && $post->post_type != TribeEvent
 	$_VenueCity = tribe_get_option( 'eventsDefaultCity' );
 	$_VenueState = tribe_get_option( 'eventsDefaultState' );
 	$_VenueProvince = tribe_get_option( 'eventsDefaultProvince' );
-	// @todo: rename defaultCountry to eventsDefaultCountry for consistency?
-	$_VenueCountry = tribe_get_option( 'defaultCountry' );
+	$_VenueCountry = tribe_get_option( 'eventsDefaultCountry' );
 	$_VenueZip = tribe_get_option( 'eventsDefaultZip' );
 	$_VenuePhone = tribe_get_option( 'eventsDefaultPhone' );
 }

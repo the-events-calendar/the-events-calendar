@@ -66,14 +66,23 @@ if( class_exists( 'TribeEvents' ) ) {
 			$event = get_post( $event );			
 		}
 
-		if( tribe_event_is_all_day( $event ) )
+		if( tribe_event_is_all_day( $event ) ) {
 			 $displayTime = false;
+		}
 
 		if( empty($event->EventEndDate) && is_object( $event ) ) {
 			$event->EventEndDate = tribe_get_event_meta( $event->ID, '_EventEndDate', true );
 		}
 
 		if( isset($event->EventEndDate) ){
+			if ( tribe_event_is_all_day( $event ) && empty( $event->_end_date_fixed ) && TribeDateUtils::timeOnly( $event->EventEndDate ) != '23:59:59' && TribeDateUtils::timeOnly( tribe_event_end_of_day() ) != '23:59' ) {
+				// set the event end date to be one day earlier, if it's an all day event and the cutoff is past midnight
+				// @todo remove this once we can have all day events without a start / end time
+				$event->EventEndDate = date_create( $event->EventEndDate );
+				$event->EventEndDate->modify( '-1 day' );
+				$event->EventEndDate = $event->EventEndDate->format( TribeDateUtils::DBDATEFORMAT );
+				$event->_end_date_fixed = true;
+			}
 			$date = strtotime( $event->EventEndDate );
 		} else{
 			return; // '&mdash;';
