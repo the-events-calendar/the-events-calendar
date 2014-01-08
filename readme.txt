@@ -201,6 +201,10 @@ Our Premium Plugins:
 
 3.x is a complete overhaul of the plugin, and as a result we're starting the changelog fresh. For release notes from the 2.x lifecycle, see <a href="http://m.tri.be/k">our 2.x release notes.</a>
 
+= 3.3.1 =
+
+* Fixed the automated recurrence description for events with no end date
+
 = 3.3 =
 
 * Fixed an issue with featured venue widget not returning expected results in all conditions (thanks to millcreekpark on the forums for the heads up here!)
