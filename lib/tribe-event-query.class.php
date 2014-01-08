@@ -399,7 +399,7 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
          * @return string The modified FIELDS statement.
          */
         public static function posts_fields( $field_sql, $query ) {
-			if ( self::$is_event ) {
+			if ( isset( $query->tribe_is_event ) && $query->tribe_is_event ) {
 				global $wpdb;
 				$fields = array();
 				$fields['event_start_date'] = "{$wpdb->postmeta}.meta_value as EventStartDate";
