@@ -517,8 +517,11 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 
 				TribeEventsQuery::init();
 
+				$states[] = 'publish';
+				if ( 0 < get_current_user_id() ) $states[] = 'private';
+
 				$args = array(
-					'post_status' => array( 'publish', 'private', 'future' ),
+					'post_status' => $states,
 					'eventDate' => $_POST["eventDate"],
 					'eventDisplay' => 'day'
 					);
