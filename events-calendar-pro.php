@@ -1329,17 +1329,18 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		 */
 		public function setup_hide_recurrence_in_query( $query ) {
 
+			// don't hide any recurrences on the all recurrences view
 			if ( tribe_is_showing_all() )
 				return $query;
 
+			// don't hide any recurrences in the admin
 			if ( is_admin() && !( defined('DOING_AJAX') && DOING_AJAX ) ) {
 				return $query;
 			}
 
-			if ( !isset($query->query_vars['tribeHideRecurrence']) ) {
-				if ( ( !empty( $_REQUEST['tribeHideRecurrence'] ) && $_REQUEST['tribeHideRecurrence'] == '1' ) || ( empty( $_REQUEST['tribeHideRecurrence'] ) && empty( $_REQUEST['action'] ) && tribe_get_option( 'hideSubsequentRecurrencesDefault', false ) ) ) {
-					$query->query_vars['tribeHideRecurrence'] = 1;
-				}
+			// if the admin option is set to hide recurrences, or the user option is set
+			if ( tribe_get_option( 'hideSubsequentRecurrencesDefault', false ) == true || ( isset( $_REQUEST['tribeHideRecurrence'] ) && $_REQUEST['tribeHideRecurrence'] == '1' ) ) {
+				$query->query_vars['tribeHideRecurrence'] = 1;
 			}
 
 			return $query;
