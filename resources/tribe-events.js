@@ -766,7 +766,14 @@ try {
 
 		tf.tooltips();
 
-        // remove events header subnav pagination if no results
+       //remove border on list view event before month divider
+        function list_find_month_last_event() {
+            if ($('.tribe-events-list').length) {
+                $('.tribe-events-list-separator-month').prev('.vevent').addClass('tribe-event-end-month');
+            }            
+        }
+        list_find_month_last_event();
+         // remove events header subnav pagination if no results
         if ($('.tribe-events-list .tribe-events-notices').length) {
             $('#tribe-events-header .tribe-events-sub-nav').empty();
         }
@@ -779,6 +786,7 @@ try {
 		// ajax complete function to remove active spinner
 		$(te).on( 'tribe_ev_ajaxSuccess', function() {
 			$('.tribe-events-active-spinner').remove();
+            list_find_month_last_event();
 		});
 
 		if(dbug){
