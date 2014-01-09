@@ -1211,6 +1211,28 @@ h2.tribe-events-tickets-title {
    @ Template: /modules/bar.php
 =============================================*/
 
+/* Datepicker
+   ========================================================================== */
+.datepicker td,
+.datepicker table tr td span {
+	-webkit-border-radius: 0;
+  	-moz-border-radius: 0;
+ 	 border-radius: 0;
+} 
+.datepicker td {
+ 	 border-top: 1px solid #EDEDED;
+	
+}  
+.datepicker table tr td.active.active,
+.datepicker table tr td span.active.active {
+	background: #666;
+}
+.datepicker table tr td.active.active:hover,
+.datepicker table tr td span.active.active:hover {
+	background: #DADADA;
+	color: inherit;
+}
+
 #tribe-events-bar {
 	width: 100%;
 	min-width: 220px;
