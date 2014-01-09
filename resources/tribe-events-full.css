@@ -1842,11 +1842,11 @@ only screen and (min-device-pixel-ratio: 2) {
 
 /* Twenty Fourteen
 ========================================================================== */
-	#tribe-events-pg-template #tribe-events {
+	.tribe-theme-twentyfourteen #tribe-events-pg-template #tribe-events {
 		padding: 20px;
 	}
 @media screen and (min-width: 1080px) {
-	#tribe-events-pg-template {
+	.tribe-theme-twentyfourteen #tribe-events-pg-template {
 		padding-left: 222px;
 	}
 }
