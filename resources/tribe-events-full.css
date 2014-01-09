@@ -1835,3 +1835,19 @@ only screen and (min-device-pixel-ratio: 2) {
 		background-image: url(images/events-bar/icon-map@2x.png);
 	}
 }
+
+/* ==========================================================================
+  Theme Compatibility
+   ========================================================================== */
+
+/* Twenty Fourteen
+========================================================================== */
+	#tribe-events-pg-template #tribe-events {
+		padding: 20px;
+	}
+@media screen and (min-width: 1080px) {
+	#tribe-events-pg-template {
+		padding-left: 222px;
+	}
+}
+
