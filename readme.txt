@@ -31,7 +31,7 @@ The team at Modern Tribe stands by our work and offers light support every Wedne
 
 The Events Calendar is built to work out of the box. Just turn it on, configure the settings to match your needs and you'll be making events within less than 5 minutes.
 
-By developers, for developers...it's ready to be the foundation for your wildest hack sessions. Complete with a skeleton stylesheet to theme fast and efficiently, loads of tools including partial template overrides, a host of template tags, hooks and filters, <a href="http://m.tri.be/2b">careful documentation</a>, as well as a <a href="https://github.com/moderntribe">library of code snippets</a> on GitHub. The Events Calendar is built FOR people who build websites.
+By developers, for developers...it's ready to be the foundation for your wildest hack sessions. Complete with a skeleton stylesheet to theme fast and efficiently, loads of tools including partial template overrides, a host of template tags, hooks and filters, <a href="http://m.tri.be/eu">careful documentation</a>, as well as a <a href="https://github.com/moderntribe">library of code snippets</a> on GitHub. The Events Calendar is built FOR people who build websites.
 
 Whether your vision is big or small, we have you in mind.
 
@@ -166,7 +166,7 @@ We do. If you check out our <a href="http://m.tri.be/2n">Frequently Asked Questi
 
 == Documentation ==
 
-All of our online documentation can be found on <a href="http://m.tri.be/2o">our documentation site</a>.
+All of our online documentation can be found on <a href="http://m.tri.be/eu">our documentation site</a>.
 
 Some docs you may find particularly useful are:
 
@@ -399,7 +399,7 @@ If you aren't familiar with The Events Calendar, check out our <a href="http://m
 
 Additional resources available include:
 
-* <a href="http://m.tri.be/2o">Documentation</a>
+* <a href="http://m.tri.be/eu">Documentation</a>
 * <a href="http://m.tri.be/2n">FAQ</a>
 * <a href="http://m.tri.be/2t">Help Videos</a>
 * <a href="http://m.tri.be/2u">Tutorials</a>
