@@ -157,7 +157,6 @@ if (!class_exists('TribeEventsTemplates')) {
 		 * @author Jessica Yazbek
 		 **/
 		public static function theme_body_class( $classes ) {
-			echo __LINE__;
 			$child_theme = get_option( 'stylesheet' );
 			$parent_theme = get_option( 'template' );
 
