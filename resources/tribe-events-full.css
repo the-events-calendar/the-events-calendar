@@ -1842,8 +1842,14 @@ only screen and (min-device-pixel-ratio: 2) {
 
 /* Twenty Fourteen
 ========================================================================== */
+	.tribe-events-week.tribe-theme-twentyfourteen #masthead {
+		z-index: 1001;
+	}
 	.tribe-theme-twentyfourteen #tribe-events-pg-template #tribe-events {
 		padding: 20px;
+	}
+	.tribe-theme-twentyfourteen  #tribe-bar-views .tribe-bar-views-list {
+		z-index: 3;
 	}
 @media screen and (min-width: 1080px) {
 	.tribe-theme-twentyfourteen #tribe-events-pg-template {
