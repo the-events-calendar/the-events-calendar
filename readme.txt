@@ -29,7 +29,7 @@ The team at Modern Tribe stands by our work and offers light support every Wedne
 
 = PLUG-N-PLAY & HIGHLY CUSTOMIZABLE =
 
-The Events Calendar is built to work out of the box. Just turn it on, configure the settings to match your needs and you'll be making events within less than 5 minutes.
+The Events Calendar is built to work out of the box: it doesn’t use a shortcode (nor is one available). Just turn it on, configure the settings to match your needs and you'll be making events within less than 5 minutes.
 
 By developers, for developers...it's ready to be the foundation for your wildest hack sessions. Complete with a skeleton stylesheet to theme fast and efficiently, loads of tools including partial template overrides, a host of template tags, hooks and filters, <a href="http://m.tri.be/eu">careful documentation</a>, as well as a <a href="https://github.com/moderntribe">library of code snippets</a> on GitHub. The Events Calendar is built FOR people who build websites.
 
@@ -118,6 +118,10 @@ If you're unclear about the installation process or get stuck, check out our <a 
 
 
 == Frequently Asked Questions ==
+
+= Is there a shortcode available for The Events Calendar? +
+
+No, this plugin does not use a shortcode nor is one available at the time being.
 
 = Are there any troubleshooting steps you'd suggest I try that might resolve my issue before I post a new thread? =
 
