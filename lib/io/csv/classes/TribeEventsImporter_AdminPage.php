@@ -205,7 +205,7 @@ class TribeEventsImporter_AdminPage {
 		$importer = TribeEventsImporter_FileImporter::get_importer($type, $file_reader);
 		$importer->set_map(get_option('tribe_events_import_column_mapping', array()));
 		$importer->set_type(get_option('tribe_events_import_type'));
-		$importer->set_limit(100);
+		$importer->set_limit( absint( apply_filters( 'tribe_events_csv_batch_size', 100 ) ) );
 		$importer->set_offset(get_option('tribe_events_importer_has_header', 0));
 		return $importer;
 	}
