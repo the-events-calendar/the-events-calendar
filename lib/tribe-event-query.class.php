@@ -571,8 +571,8 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 		public static function posts_orderby( $order_sql, $query ) {
 			global $wpdb;
 			if ( $query->tribe_is_event || $query->tribe_is_event_category ) {
-				$order = ( isset( $query->query['order'] ) && ! empty( $query->query['order'] ) ) ? $query->query['order'] : $query->get( 'order' );
-				$orderby = ( isset( $query->query['orderby'] ) && ! empty( $query->query['orderby'] ) ) ? $query->query['orderby'] : $query->get( 'orderby' );
+				$order = ( isset( $query->order) && ! empty( $query->order ) ) ? $query->order : $query->get( 'order' );
+				$orderby = ( isset( $query->orderby) && ! empty( $query->orderby ) ) ? $query->orderby : $query->get( 'orderby' );
 
 				$order_sql = "DATE({$wpdb->postmeta}.meta_value) {$order}, TIME({$wpdb->postmeta}.meta_value) {$order}";
 
