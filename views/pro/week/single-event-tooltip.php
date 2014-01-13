@@ -53,9 +53,9 @@ if ( !defined('ABSPATH') ) { die('-1'); } ?>
 
 		<p class="entry-summary description">
 		<?php if ( has_excerpt( $event->ID ) ) {
-			echo TribeEvents::truncate( $event->post_excerpt, 30 );
+			echo TribeEvents::instance()->truncate( $event->post_excerpt, 30 );
 		} else {
-			echo TribeEvents::truncate( $event->post_content, 30 );
+			echo TribeEvents::instance()->truncate( $event->post_content, 30 );
 		} ?>
 		</p><!-- .entry-summary -->
 
