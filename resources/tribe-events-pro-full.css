@@ -997,6 +997,21 @@ div.tribe-countdown-text {
 		line-height: 52px;
 		cursor: pointer;
 	}
+
+	.tribe-grid-body .mobile-trigger.has-events:after {
+		background-color: #666;
+		border-radius: 50%;
+		content: "";
+		display: block;
+		height: 8px;
+		margin: 5px auto;
+		padding: 0;
+		width: 8px;
+	}
+
+	.tribe-grid-body .tribe-events-has-events .tribe-events-daynum:after {
+		display:none;
+	}
 	
 	.slimScrollBar,
 	.slimScrollRail {

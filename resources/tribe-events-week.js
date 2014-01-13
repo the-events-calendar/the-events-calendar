@@ -266,19 +266,52 @@
 
 		}
 
+		function tribe_mobile_set_days_with_events(){
+
+			$('.mobile-trigger')
+				.each(function () {
+
+					var $this = $(this);
+
+					if($this.find('.vevent').length)
+						$this.addClass('has-events');
+
+				});
+
+		}
+
 		function tribe_mobile_week_setup(){
 
 			var $today = $('.tribe-week-today'),
 				$mobile_trigger = $('.mobile-trigger'),
 				$tribe_grid = $('#tribe-events-content > .tribe-events-grid');
 
+			tribe_mobile_set_days_with_events();
+
 			if(!$('#tribe-mobile-container').length)
 				$('<div id="tribe-mobile-container" />').insertAfter($tribe_grid);
 
-			if($today.length)
-				tribe_mobile_setup_day($today.attr('title'));
-			else
-				tribe_mobile_setup_day($mobile_trigger.first().attr('title'));
+			var $target;
+
+			if($today.length){
+
+				if($today.is('.has-events'))
+					$target = $today;
+				else if($mobile_trigger.filter('.has-events').length)
+					$target = $mobile_trigger.filter('.has-events').eq(0);
+				else
+					$target = $mobile_trigger.first();
+
+			} else {
+
+				if($mobile_trigger.filter('.has-events').length)
+					$target = $mobile_trigger.filter('.has-events').eq(0);
+				else
+					$target = $mobile_trigger.first();
+
+			}
+
+			tribe_mobile_setup_day($target.attr('title'));
 
 		}
 		
@@ -354,11 +387,11 @@
 		}
 
 		$tribe_container
-			.on('click', '.tribe-events-sub-nav a', function (e) {
+			.on('click', '.tribe-events-nav-previous, .tribe-events-nav-next', function (e) {
 				e.preventDefault();
 				if (ts.ajax_running)
 					return;
-				var $this = $(this);
+				var $this = $(this).find('a');
 				ts.popping = false;
 				ts.date = $this.attr("data-week");
 				td.cur_url = $this.attr("href");

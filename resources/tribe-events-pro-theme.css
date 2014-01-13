@@ -303,6 +303,18 @@
 	.tribe-grid-body .tribe-events-past.tribe-events-has-events.mobile-active .tribe-events-daynum:after {
 		background: #666;
 	}
+
+	.tribe-grid-body .mobile-trigger.has-events:after {
+		background-color: #666;
+		border-radius: 50%;
+		content: "";
+		display: block;
+		height: 8px;
+		margin: 5px auto;
+		padding: 0;
+		width: 8px;
+	}
+
 	
 	.tribe-grid-body .mobile-active .tribe-events-daynum,
 	.tribe-grid-body .mobile-active.column,
