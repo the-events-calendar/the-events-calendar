@@ -437,6 +437,10 @@ if ( class_exists( 'TribeEvents' ) ) {
 	function tribe_events_event_classes() {
 	    global $post, $wp_query;
 
+		// May be called when the global $post object does not exist - ie during ajax loads of various views
+		// ... creating a dummy object allows the method to proceed semi-gracefully (interim measure only)
+		if ( ! is_object( $post ) ) $post = (object) array( 'ID' => 0 );
+
 	    $classes = array( 'hentry', 'vevent', 'type-tribe_events', 'post-' . $post->ID, 'tribe-clearfix' );
 	    $tribe_cat_slugs = tribe_get_event_cat_slugs( $post->ID );
 
