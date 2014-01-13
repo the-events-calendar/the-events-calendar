@@ -208,11 +208,11 @@
 		}  				
 
 		$('#tribe-events')
-			.on('click', '.tribe-events-sub-nav a', function (e) {
+			.on('click', '.tribe-events-nav-previous, .tribe-events-nav-next', function (e) {
 				e.preventDefault();
 				if (ts.ajax_running)
 					return;
-				var $this = $(this);
+				var $this = $(this).find('a');
 				ts.date = $this.data("month");
 				tf.update_picker(ts.date);
 				if (ts.filter_cats)

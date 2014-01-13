@@ -363,6 +363,7 @@ h2.tribe-events-page-title,
 	color: #fff;
 	font-weight: bold;
 	padding: 1em 0;
+	white-space: nowrap;
 	border-left: 1px solid #666;
 	border-right: 1px solid #666;
 }
