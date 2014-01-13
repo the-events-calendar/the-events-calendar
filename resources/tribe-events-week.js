@@ -456,7 +456,7 @@
 			tribe_events_bar_weekajax_actions(e, null);
 		});
 
-		tf.snap('#tribe-events-content', 'body', '#tribe-events-footer .tribe-events-nav-previous a, #tribe-events-footer .tribe-events-nav-next a');
+		tf.snap('#tribe-events-content', 'body', '#tribe-events-footer .tribe-events-nav-previous, #tribe-events-footer .tribe-events-nav-next');
 
 		$(te).on("tribe_ev_runAjax", function () {
 			tribe_events_week_ajax_post();
