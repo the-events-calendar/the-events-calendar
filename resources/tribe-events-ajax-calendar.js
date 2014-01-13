@@ -241,7 +241,7 @@
 				}
 			});
 
-		tf.snap('#tribe-bar-form', 'body', '#tribe-events-footer .tribe-events-nav-previous a, #tribe-events-footer .tribe-events-nav-next a');
+		tf.snap('#tribe-bar-form', 'body', '#tribe-events-footer .tribe-events-nav-previous, #tribe-events-footer .tribe-events-nav-next');
 
 		/**
 		 * @function tribe_events_bar_calendar_ajax_actions
