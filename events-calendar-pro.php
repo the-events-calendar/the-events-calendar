@@ -1378,7 +1378,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 
 			$params = array(
 				'action' => 'TEMPLATE',
-				'text' => urlencode( strip_tags( urlencode( $post->post_title ) ) ),
+				'text' => urlencode( strip_tags( $post->post_title ) ),
 				'dates' => $dates,
 				'details' => urlencode( strip_tags( apply_filters( 'the_content', $event_details ) ) ),
 				'location' => urlencode( $location ),
