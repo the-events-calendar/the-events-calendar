@@ -106,9 +106,13 @@ if( !class_exists( 'TribeEventsListWidget' ) ) {
 			echo $before_widget;
 
       do_action( 'tribe_events_before_list_widget' );
-
+      		
+      		do_action( 'tribe_events_list_widget_before_the_title' );
+			
 			/* Title of widget (before and after defined by themes). */
 			echo ( $title ) ? $before_title . $title . $after_title : '';
+			
+			do_action( 'tribe_events_list_widget_after_the_title' );
 
 			if ( $posts ) {
 				/* Display list of events. */

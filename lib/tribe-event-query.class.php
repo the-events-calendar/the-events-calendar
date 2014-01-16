@@ -16,6 +16,7 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 		public static $is_event_venue;
 		public static $is_event_organizer;
 		public static $is_event_query;
+		public static $src_query;
 
 
 		/**
@@ -45,6 +46,8 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 		 * @since 3.0.3
 		 **/
 		public static function parse_query( $query ) {
+
+			self::$src_query = $query->query;
 
 			if ( ! $query->is_main_query() ) {
 				$query->is_home = false;
@@ -523,40 +526,59 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 		}
 
 		/**
-		 * Internal method for properly setting a currated orderby value to $wp_query
+		 * Internal method for properly setting a currated orderby value to $wp_query.
+		 *
+		 * If optional param $default is not provided it will default to 'event_date' - unless a custom
+		 * orderby param was specified (via tribe_get_events() for example) - in which case that value
+		 * will be used.
+		 *
 		 * @param string $default
 		 * @return string
 		 */
-		public static function set_orderby( $default = 'event_date' ) {
+		public static function set_orderby( $default = null ) {
+			// What should $default be?
+			if ( null === $default && isset( self::$src_query['orderby'] ) ) $default = self::$src_query['orderby'];
+			elseif ( null === $default ) $default = 'event_date';
+
 			$url_param = !empty( $_GET['orderby'] ) ? $_GET['orderby'] : null;
 			$url_param = !empty( $_GET['tribe-orderby'] ) ? $_GET['tribe-orderby'] : $url_param;
 			$url_param = strtolower( $url_param );
+
 			switch ( $url_param ) {
-			case 'tribe_sort_ecp_venue_filter':
-				$orderby = 'venue';
-				break;
-			case 'tribe_sort_ecp_organizer_filter':
-				$orderby = 'organizer';
-				break;
-			case 'title':
-				$orderby = $url_param;
-				break;
-			default:
-				$orderby = $default;
-				break;
+				case 'tribe_sort_ecp_venue_filter':
+					$orderby = 'venue';
+					break;
+				case 'tribe_sort_ecp_organizer_filter':
+					$orderby = 'organizer';
+					break;
+				case 'title':
+					$orderby = $url_param;
+					break;
+				default:
+					$orderby = $default;
+					break;
 			}
 			return $orderby;
 		}
 
 		/**
-		 * Internal method for properly setting a currated order value to $wp_query
+		 * Internal method for properly setting a currated order value to $wp_query.
+		 *
+		 * If optional param $default is not provided it will default to 'ASC' - unless a custom order
+		 * was specified (via tribe_get_events() for example) - in which case that value will be used.
+		 *
 		 * @param string $default
 		 * @return string
 		 */
-		public static function set_order( $default = 'ASC' ) {
+		public static function set_order( $default = null ) {
+			// What should $default be?
+			if ( null === $default && isset( self::$src_query['order'] ) ) $default = self::$src_query['order'];
+			elseif ( null === $default ) $default = 'ASC';
+
 			$url_param = !empty( $_GET['order'] ) ? $_GET['order'] : null;
 			$url_param = !empty( $_GET['tribe-order'] ) ? $_GET['tribe-order'] : $url_param;
 			$url_param = strtoupper( $url_param );
+
 			$order = in_array( $url_param, array( 'ASC', 'DESC' ) ) ? $url_param : $default;
 			return $order;
 		}
@@ -571,8 +593,8 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 		public static function posts_orderby( $order_sql, $query ) {
 			global $wpdb;
 			if ( $query->tribe_is_event || $query->tribe_is_event_category ) {
-				$order = ( isset( $query->query['order'] ) && ! empty( $query->query['order'] ) ) ? $query->query['order'] : $query->get( 'order' );
-				$orderby = ( isset( $query->query['orderby'] ) && ! empty( $query->query['orderby'] ) ) ? $query->query['orderby'] : $query->get( 'orderby' );
+				$order = ( isset( $query->order) && ! empty( $query->order ) ) ? $query->order : $query->get( 'order' );
+				$orderby = ( isset( $query->orderby) && ! empty( $query->orderby ) ) ? $query->orderby : $query->get( 'orderby' );
 
 				$order_sql = "DATE({$wpdb->postmeta}.meta_value) {$order}, TIME({$wpdb->postmeta}.meta_value) {$order}";
 

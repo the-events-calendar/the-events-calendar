@@ -29,9 +29,9 @@ The team at Modern Tribe stands by our work and offers light support every Wedne
 
 = PLUG-N-PLAY & HIGHLY CUSTOMIZABLE =
 
-The Events Calendar is built to work out of the box. Just turn it on, configure the settings to match your needs and you'll be making events within less than 5 minutes.
+The Events Calendar is built to work out of the box: it doesn’t use a shortcode (nor is one available). Just turn it on, configure the settings to match your needs and you'll be making events within less than 5 minutes.
 
-By developers, for developers...it's ready to be the foundation for your wildest hack sessions. Complete with a skeleton stylesheet to theme fast and efficiently, loads of tools including partial template overrides, a host of template tags, hooks and filters, <a href="http://m.tri.be/2b">careful documentation</a>, as well as a <a href="https://github.com/moderntribe">library of code snippets</a> on GitHub. The Events Calendar is built FOR people who build websites.
+By developers, for developers...it's ready to be the foundation for your wildest hack sessions. Complete with a skeleton stylesheet to theme fast and efficiently, loads of tools including partial template overrides, a host of template tags, hooks and filters, <a href="http://m.tri.be/eu">careful documentation</a>, as well as a <a href="https://github.com/moderntribe">library of code snippets</a> on GitHub. The Events Calendar is built FOR people who build websites.
 
 Whether your vision is big or small, we have you in mind.
 
@@ -119,6 +119,10 @@ If you're unclear about the installation process or get stuck, check out our <a 
 
 == Frequently Asked Questions ==
 
+= Is there a shortcode available for The Events Calendar? +
+
+No, this plugin does not use a shortcode nor is one available at the time being.
+
 = Are there any troubleshooting steps you'd suggest I try that might resolve my issue before I post a new thread? =
 
 First, make sure that you're running the latest version of The Events Calendar (3.3 as of this release). If you're running Events Calendar PRO it needs to match the version number of The Events Calendar. And if you've got any other add-ons, make sure those are current / running the latest code as well.
@@ -166,7 +170,7 @@ We do. If you check out our <a href="http://m.tri.be/2n">Frequently Asked Questi
 
 == Documentation ==
 
-All of our online documentation can be found on <a href="http://m.tri.be/2o">our documentation site</a>.
+All of our online documentation can be found on <a href="http://m.tri.be/eu">our documentation site</a>.
 
 Some docs you may find particularly useful are:
 
@@ -399,7 +403,7 @@ If you aren't familiar with The Events Calendar, check out our <a href="http://m
 
 Additional resources available include:
 
-* <a href="http://m.tri.be/2o">Documentation</a>
+* <a href="http://m.tri.be/eu">Documentation</a>
 * <a href="http://m.tri.be/2n">FAQ</a>
 * <a href="http://m.tri.be/2t">Help Videos</a>
 * <a href="http://m.tri.be/2u">Tutorials</a>

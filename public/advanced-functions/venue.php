@@ -33,8 +33,15 @@ if( class_exists( 'TribeEvents' ) ) {
 	 * @category Venue Functions
 	 * @since 2.0.1
 	 */
-	function tribe_create_venue($args) {
+	function tribe_create_venue( $args ) {
+		// Avoid an unwanted side effects stemming from the following hook ('unnamed venue' bug)
+		remove_action( 'save_post', array( TribeEvents::instance(), 'save_venue_data' ), 16, 2 );
+
 		$postId = TribeEventsAPI::createVenue($args);
+
+		// Restore the action so as not to interfere with any other operations later in the request
+		add_action( 'save_post', array( TribeEvents::instance(), 'save_venue_data' ), 16, 2 );
+
 		return $postId;
 	}
 
