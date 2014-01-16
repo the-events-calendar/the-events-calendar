@@ -15,7 +15,7 @@ A premium add-on to The Events Calendar plugin (required), enabling recurrence, 
 
 <a href="http://m.tri.be/3r">Events Calendar PRO</a> is a awesomely dynamic add-on for The Events Calendar that adds more features and functionality to an already robust plugin.
 
-The Events Calendar allows you to create and manage events with ease from right within your WordPress dash. With Events Calendar PRO, you can go even further with recurring events, more calendar views (including Day and Week), Location Search, more widget options, and much more.
+The Events Calendar allows you to create and manage events with ease from right within your WordPress dash; no shortcode is needed (nor is one available).  With Events Calendar PRO, you can go even further with recurring events, more calendar views (including Day and Week), Location Search, more widget options, and much more.
 
 Plus, Events Calendar PRO users get access to our premium support forums. Need help or have a question? Post there and we'll get back to you within 24 hours (during the week). We're proud of our great support team and want to help you kick butt with Events Calendar PRO.
 
@@ -60,9 +60,14 @@ If this is your first time using The Events Calendar and Events Calendar PRO, yo
 * Are you developer looking to build a custom frontend view? We created an example plugin that demonstrates how to register a new view. You can download the plugin at GitHub here: https://github.com/moderntribe/tribe-events-agenda-view
 * Take care of your license key. Though not required to create your first event, you'll want to get it in place as soon as possible to guarantee your access to support and upgrades. Need help finding your license key? Check out http://m.tri.be/3w
 
-Otherwise, if you're feeling adventurous, you can get started by heading to the Events menu and adding your first event.¬†
+Otherwise, if you're feeling adventurous, you can get started by heading to the Events menu and adding your first event.
 
 == Frequently Asked Questions ==
+
+= Is there a shortcode available for Events Calendar PRO? +
+
+No, this plugin does not use a shortcode nor is one available at the time being.
+
 
 = Are there any troubleshooting steps you'd suggest I try that might resolve my issue before I post a new thread? =
 
