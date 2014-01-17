@@ -295,6 +295,14 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 
 3.x is a complete overhaul of the plugin, and as a result we're starting the changelog fresh. For release notes from the 2.x lifecycle, see <a href="http://m.tri.be/k">our 2.x release notes.</a>
 
+= 3.4 =
+
+* Fixed a bug where past events were listed in the incorrect order.
+* Number of events that can be imported from CSV in a single batch is now customizable to help avoid timeouts in low powered environments.
+* Compatibility improvements with WP E-Commerce.
+* Fixes bug with display of comments for single event pages.
+* Fixes issue with tribe_create_venue() API function (resulting in unnamed venues).
+
 = 3.3.1 =
 
 * Fixed a bug where all day events created prior to 3.3 would show as ending on the previous day.
