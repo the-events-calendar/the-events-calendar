@@ -51,7 +51,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			'supports' => array('title','editor','excerpt','author','thumbnail', 'custom-fields', 'comments'),
 			'taxonomies' => array('post_tag'),
 			'capability_type' => array('tribe_event', 'tribe_events'),
-			'map_meta_cap' => true
+			'map_meta_cap' => true,
 		);
 
 		/**
@@ -384,6 +384,8 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			add_action( 'tribe_events_post_errors', array( 'TribeEventsPostException', 'displayMessage' ) );
 			add_action( 'tribe_settings_top', array( 'TribeEventsOptionsException', 'displayMessage') );
 			add_action( 'admin_enqueue_scripts', array( $this, 'addAdminScriptsAndStyles' ) );
+			add_filter( 'tribe_events_register_event_type_args', array( $this, 'setDashicon' ) );
+			add_action( 'admin_print_scripts', array( $this, 'adminIcon' ) );
 			add_action( 'plugins_loaded', array( $this, 'accessibleMonthForm'), -10 );
 			add_action( 'the_post', array( $this, 'setReccuringEventDates' ) );
 			add_action( "trash_" . TribeEvents::VENUE_POST_TYPE, array($this, 'cleanupPostVenues'));
@@ -1366,7 +1368,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				'view_item' => __('View Event', 'tribe-events-calendar'),
 				'search_items' => __('Search Events', 'tribe-events-calendar'),
 				'not_found' => __('No events found', 'tribe-events-calendar'),
-				'not_found_in_trash' => __('No events found in Trash', 'tribe-events-calendar')
+				'not_found_in_trash' => __('No events found in Trash', 'tribe-events-calendar'),
 			);
 
 			$this->postVenueTypeArgs['labels'] = array(
@@ -1753,6 +1755,57 @@ if ( !class_exists( 'TribeEvents' ) ) {
 						break;
 				}
 			}
+		}
+
+		/**
+		 * Modify the post type args to set Dashicon if we're in WP 3.8+
+		 *
+		 * @return array post type args
+		 * @author Jessica Yazbek
+		 **/
+		function setDashicon( $postTypeArgs ) {
+			global $wp_version;
+
+			if ( version_compare( $wp_version, 3.8 ) >= 0 ) {
+				$postTypeArgs['menu_icon'] = 'dashicons-calendar';
+			}
+
+			return $postTypeArgs;
+
+		}
+
+		/**
+		 * Sets icon css for WP < 3.8
+		 *
+		 * @return void
+		 * @author Jessica Yazbek
+		 **/
+		function adminIcon() {
+
+			global $wp_version;
+
+			if ( version_compare( $wp_version, 3.8 ) < 0 ) { ?>
+				<style type="text/css">
+					/* = Events Icon
+					=============================================*/
+					.events-cal #icon-edit {background:url(<?php echo $this->pluginUrl ?>resources/images/events-screen-icon.png) no-repeat 6px 3px; -webkit-background-size: 23px 25px; background-size: 23px 25px;}
+					#adminmenu #menu-posts-tribe_events div.wp-menu-image {background:url(<?php echo $this->pluginUrl ?>resources/images/menu.png) no-repeat 0 -32px; -webkit-background-size: 29px 64px; background-size: 29px 64px;}
+					#adminmenu #menu-posts-tribe_events:hover div.wp-menu-image, #adminmenu #menu-posts-tribe_events.wp-has-current-submenu div.wp-menu-image {background-position:0 0;}
+
+					/* = Retina Icon
+					=============================================*/
+					@media
+					only screen and (min--moz-device-pixel-ratio: 2),
+					only screen and (-o-min-device-pixel-ratio: 2/1),
+					only screen and (-webkit-min-device-pixel-ratio: 2),
+					only screen and (min-device-pixel-ratio: 2) {
+						#adminmenu #menu-posts-tribe_events div.wp-menu-image {
+							background-image: url(<?php echo $this->pluginUrl ?>resources/images/menu@2x.png);
+						}				}
+
+				</style>
+			<?php
+			} 
 		}
 
 		/**

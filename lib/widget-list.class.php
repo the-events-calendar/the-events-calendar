@@ -73,11 +73,8 @@ if( !class_exists( 'TribeEventsListWidget' ) ) {
 				$category = 0;
 			}
 
-			if ( tribe_get_option( 'viewOption' ) == 'upcoming' ) {
-				$event_url = tribe_get_listview_link( $category );
-			} else {
-				$event_url = tribe_get_gridview_link( $category );
-			}
+	        // Link to the main events page (should work even if month/list views are disabled)
+	        $event_url = tribe_get_events_link();
 
 			if ( function_exists( 'tribe_get_events' ) ) {
 
@@ -108,8 +105,14 @@ if( !class_exists( 'TribeEventsListWidget' ) ) {
 			/* Before widget (defined by themes). */
 			echo $before_widget;
 
+      do_action( 'tribe_events_before_list_widget' );
+      		
+      		do_action( 'tribe_events_list_widget_before_the_title' );
+			
 			/* Title of widget (before and after defined by themes). */
 			echo ( $title ) ? $before_title . $title . $after_title : '';
+			
+			do_action( 'tribe_events_list_widget_after_the_title' );
 
 			if ( $posts ) {
 				/* Display list of events. */
@@ -132,6 +135,8 @@ if( !class_exists( 'TribeEventsListWidget' ) ) {
 			else {
 				echo '<p>' . __( 'There are no upcoming events at this time.', 'tribe-events-calendar' ) . '</p>';
 			}
+
+      do_action( 'tribe_events_after_list_widget' );
 
 			/* After widget (defined by themes). */
 			echo $after_widget;
