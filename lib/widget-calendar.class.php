@@ -33,7 +33,11 @@ class TribeEventsMiniCalendarWidget extends WP_Widget {
 
 		$tax_query = TribeEventsMiniCalendar::instance()->get_tax_query_from_widget_options( json_decode( $instance['filters'] ), $instance['operand'] );
 
+		do_action( 'tribe_events_mini_cal_before_the_title' );
+
 		echo ( $instance['title'] ) ? $args['before_title'] . $instance['title'] . $args['after_title'] : '';
+
+		do_action( 'tribe_events_mini_cal_after_the_title' );
 
 		$instance['tax_query'] = $tax_query;
 

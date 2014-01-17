@@ -28,9 +28,11 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 			<?php echo tribe_get_meta_group( $venue_ID, 'tribe_event_venue' ) ?>
 		</div>
 	</div>
+
 	<?php if ( 0 === $events->post_count ): ?>
 		<?php _e('No upcoming events.', 'tribe-events-calendar-pro'); ?>
 	<?php else: ?>
+	<?php do_action( 'tribe_events_venue_widget_before_the_list' ); ?>
 	<ul class="tribe-venue-widget-list">
 		<?php while ( $events->have_posts() ): ?>
 			<?php $events->the_post(); ?>
@@ -46,5 +48,6 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 			</li>
 	<?php endwhile;	?>
 	</ul>
+	<?php do_action( 'tribe_events_venue_widget_after_the_list' ); ?>
 	<?php endif; ?>
 </div>
