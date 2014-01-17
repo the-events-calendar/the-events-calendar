@@ -24,6 +24,29 @@
 			start_day = 0,
 			date_mod = false;
 
+		if (!Array.prototype.indexOf){
+			
+			Array.prototype.indexOf = function(elt /*, from*/)
+			{
+				var len = this.length >>> 0;
+
+				var from = Number(arguments[1]) || 0;
+				from = (from < 0)
+					? Math.ceil(from)
+					: Math.floor(from);
+				if (from < 0)
+					from += len;
+
+				for (; from < len; from++)
+				{
+					if (from in this &&
+						this[from] === elt)
+						return from;
+				}
+				return -1;
+			};
+		}
+
 		if($tribe_header.length)
 			start_day = $tribe_header.data('startofweek');
 
@@ -445,7 +468,7 @@
 				);
 
 			} else {
-				if (ts.do_string)
+				if (ts.url_params.length)
 					window.location = td.cur_url + '?' + ts.url_params;
 				else
 					window.location = td.cur_url;
