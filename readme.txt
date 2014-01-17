@@ -302,6 +302,7 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Compatibility improvements with WP E-Commerce.
 * Fixes bug with display of comments for single event pages.
 * Fixes issue with tribe_create_venue() API function (resulting in unnamed venues).
+* Fixes bug leading to list widget linking to deactivated views.
 
 = 3.3.1 =
 
