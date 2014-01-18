@@ -74,11 +74,13 @@ var tribe_events_bar_action;
 
 				dbug && debug.info('TEC Debug: bootstrapDatepicker was just initialized in "tribe-events-bar.js" on:', $tribedate);
 
+				td.datepicker_opts = {
+					format: 'yyyy-mm-dd',
+					autoclose: true
+				};
+
 				$tribedate
-					.bootstrapDatepicker({
-						format: 'yyyy-mm-dd',
-						autoclose: true
-					});
+					.bootstrapDatepicker(td.datepicker_opts);
 			}
 		}
 

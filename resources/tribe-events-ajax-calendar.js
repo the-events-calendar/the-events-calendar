@@ -32,11 +32,14 @@
 			}
 		}
 
-		$tribedate.bootstrapDatepicker({
-				format: 'yyyy-mm',
-				minViewMode: 'months',
-				autoclose: true
-			})
+		td.datepicker_opts = {
+			format: 'yyyy-mm',
+			minViewMode: 'months',
+			autoclose: true
+		};
+
+		$tribedate
+			.bootstrapDatepicker(td.datepicker_opts)
 			.on('changeDate', function(e){
 
 				var year = e.date.getFullYear(),
