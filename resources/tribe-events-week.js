@@ -25,7 +25,7 @@
 			date_mod = false;
 
 		if (!Array.prototype.indexOf){
-			
+
 			Array.prototype.indexOf = function(elt /*, from*/)
 			{
 				var len = this.length >>> 0;
@@ -60,13 +60,15 @@
 		if (index > -1)
 			days_to_disable.splice(index, 1);
 
-		$('#tribe-bar-date')
-			.bootstrapDatepicker({
-				format: 'yyyy-mm-dd',
-				weekStart: start_day,
-				daysOfWeekDisabled: days_to_disable,
-				autoclose: true
-			})
+		td.datepicker_opts = {
+			format: 'yyyy-mm-dd',
+			weekStart: start_day,
+			daysOfWeekDisabled: days_to_disable,
+			autoclose: true
+		};
+
+			$('#tribe-bar-date')
+			.bootstrapDatepicker(td.datepicker_opts)
 			.on('changeDate', function(e){
 				var day = ('0' + e.date.getDate()).slice(-2),
 					month = ('0' + (e.date.getMonth() + 1)).slice(-2),

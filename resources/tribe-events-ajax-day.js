@@ -167,7 +167,7 @@
 
 			if (!ts.popping) {
 
-				ts.url_params = '';
+				ts.url_params = {};
 
 				ts.params = {
 					action: 'tribe_event_day',
