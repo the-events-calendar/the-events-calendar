@@ -203,8 +203,12 @@ try {
 		var $loadingImg = $('.tribe-events-ajax-loading:first').clone().addClass('tribe-events-active-spinner');
 		$loadingImg.prependTo('#tribe-events-content');
 		$(this).addClass('tribe-events-loading').css('opacity', .25)
-    }
-    })(jQuery);
+    };
+
+	if ( tribe_bootstrap_datepicker_strings.dates != null )
+		$.fn.datepicker.dates['en'] = tribe_bootstrap_datepicker_strings.dates;
+
+})(jQuery);
 
 (function (window, document, $, dbug, undefined) {
     /**
@@ -565,12 +569,19 @@ try {
         update_picker: function (date) {
 			var $bar_date = $("#tribe-bar-date");
             if ($().bootstrapDatepicker && $bar_date.length) {
-				$bar_date.bootstrapDatepicker("setValue", date);
+				// for ie8 and under
+				if (window.attachEvent && !window.addEventListener) {
+					$bar_date.bootstrapDatepicker("remove");
+					$bar_date.val('');
+					$bar_date.bootstrapDatepicker(tribe_ev.data.datepicker_opts);
+				}
+				$bar_date.bootstrapDatepicker("setDate", date);
 				dbug && debug.info('TEC Debug: tribe_ev.fn.update_picker sent "' + date + '" to the boostrapDatepicker');
             } else if ($bar_date.length) {
 				$bar_date.val(date);
 				dbug && debug.warn('TEC Debug: tribe_ev.fn.update_picker sent "' + date + '" to ' + $bar_date);
             } else {
+
 				dbug && debug.warn('TEC Debug: tribe_ev.fn.update_picker couldnt send "' + date + '" to any object.');
 			}
         },
@@ -686,6 +697,7 @@ try {
         base_url: '',
         cur_url: tribe_ev.fn.url_path(document.URL),
         cur_date: tribe_ev.fn.current_date(),
+		datepicker_opts: {},
         initial_url: tribe_ev.fn.url_path(document.URL),
         params: tribe_ev.fn.get_params()
     };
@@ -740,6 +752,9 @@ try {
 	 */
 
 	$(document).ready(function () {
+
+		var datepicker = $.fn.datepicker.noConflict();
+		$.fn.bootstrapDatepicker = datepicker;
 
 		dbug && debug.info('TEC Debug: Tribe Events JS init, Init Timer started from tribe-events.js.');
 
