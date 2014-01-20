@@ -303,6 +303,8 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Fixes bug with display of comments for single event pages.
 * Fixes issue with tribe_create_venue() API function (resulting in unnamed venues).
 * Fixes bug leading to list widget linking to deactivated views.
+* Added hooks for use in widgets
+* Added styles for compatibility with the Twenty Fourteen theme
 
 = 3.3.1 =
 
