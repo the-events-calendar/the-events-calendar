@@ -209,6 +209,7 @@ Our Premium Plugins:
 = 3.3.1 =
 
 * Fixed the automated recurrence description for events with no end date
+* Added hooks for use in widgets
 
 = 3.3 =
 
