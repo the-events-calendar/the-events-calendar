@@ -23,16 +23,17 @@ var tribe_events_bar_action;
 	 * dbug = tribe_debug
 	 */
 
-	if(dbug){
-		if(!$().bootstrapDatepicker){
-			debug.warn('TEC Debug: vendor bootstrapDatepicker was not loaded before its dependant file tribe-events-bar.js');
-		}
-		if(!$().placeholder){
-			debug.warn('TEC Debug: vendor placeholder was not loaded before its dependant file tribe-events-bar.js');
-		}
-	}
-
 	$(document).ready(function () {
+
+		if(dbug){
+			if(!$().bootstrapDatepicker){
+				debug.warn('TEC Debug: vendor bootstrapDatepicker was not loaded before its dependant file tribe-events-bar.js');
+			}
+			if(!$().placeholder){
+				debug.warn('TEC Debug: vendor placeholder was not loaded before its dependant file tribe-events-bar.js');
+			}
+		}
+
 		var $tribebar = $('#tribe-bar-form'),
 			$tribedate = $('#tribe-bar-date'),
 			$tribebarselect = $('select[name=tribe-bar-view]');
@@ -73,14 +74,13 @@ var tribe_events_bar_action;
 
 				dbug && debug.info('TEC Debug: bootstrapDatepicker was just initialized in "tribe-events-bar.js" on:', $tribedate);
 
-				var tribe_var_datepickerOpts = {
+				td.datepicker_opts = {
 					format: 'yyyy-mm-dd',
-					showAnim: 'fadeIn'
+					autoclose: true
 				};
 
-				var tribeBarDate = $tribedate.bootstrapDatepicker(tribe_var_datepickerOpts).on('changeDate',function () {
-					tribeBarDate.hide();
-				}).data('datepicker');
+				$tribedate
+					.bootstrapDatepicker(td.datepicker_opts);
 			}
 		}
 

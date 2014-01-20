@@ -1788,8 +1788,8 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				<style type="text/css">
 					/* = Events Icon
 					=============================================*/
-					.events-cal #icon-edit {background:url(images/events-screen-icon.png) no-repeat 6px 3px; -webkit-background-size: 23px 25px; background-size: 23px 25px;}
-					#adminmenu #menu-posts-tribe_events div.wp-menu-image {background:url(images/menu.png) no-repeat 0 -32px; -webkit-background-size: 29px 64px; background-size: 29px 64px;}
+					.events-cal #icon-edit {background:url(<?php echo $this->pluginUrl ?>resources/images/events-screen-icon.png) no-repeat 6px 3px; -webkit-background-size: 23px 25px; background-size: 23px 25px;}
+					#adminmenu #menu-posts-tribe_events div.wp-menu-image {background:url(<?php echo $this->pluginUrl ?>resources/images/menu.png) no-repeat 0 -32px; -webkit-background-size: 29px 64px; background-size: 29px 64px;}
 					#adminmenu #menu-posts-tribe_events:hover div.wp-menu-image, #adminmenu #menu-posts-tribe_events.wp-has-current-submenu div.wp-menu-image {background-position:0 0;}
 
 					/* = Retina Icon
@@ -1800,7 +1800,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 					only screen and (-webkit-min-device-pixel-ratio: 2),
 					only screen and (min-device-pixel-ratio: 2) {
 						#adminmenu #menu-posts-tribe_events div.wp-menu-image {
-							background-image: url(images/menu@2x.png);
+							background-image: url(<?php echo $this->pluginUrl ?>resources/images/menu@2x.png);
 						}				}
 
 				</style>
