@@ -297,6 +297,7 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 
 = 3.4 =
 
+* Complete overhaul and update to new fork of datepicker for all views. Corrects day 31 empty next month bug and adds many new features for future expansion.
 * Fixed a bug where past events were listed in the incorrect order.
 * Number of events that can be imported from CSV in a single batch is now customizable to help avoid timeouts in low powered environments.
 * Compatibility improvements with WP E-Commerce.
