@@ -306,6 +306,11 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Fixes bug leading to list widget linking to deactivated views.
 * Added hooks for use in widgets
 * Added styles for compatibility with the Twenty Fourteen theme
+* Fixed typo in the rel attribute on "Previous Events" links
+* When the List Widget is set to display events from a particular category, the "View All Events" link will now read "View All Events in Category"
+* Fixed an SQL error that could occur when our queries are mixed with multiple post types and a meta query
+* Classes that identify the current theme are now echoed by the body_class() function
+* Updated the admin icon to use a dashicon in 3.8+
 
 = 3.3.1 =
 
