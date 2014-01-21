@@ -32,40 +32,37 @@
 			}
 		}
 
-		var tribe_var_datepickerOpts = {
+		td.datepicker_opts = {
 			format: 'yyyy-mm',
-			showAnim: 'fadeIn',
-			viewMode: 'months'
+			minViewMode: 'months',
+			autoclose: true
 		};
 
-		var tribeBarDate = $tribedate.bootstrapDatepicker(tribe_var_datepickerOpts).on('changeDate', function (e) {
+		$tribedate
+			.bootstrapDatepicker(td.datepicker_opts)
+			.on('changeDate', function(e){
 
-			var year = e.date.getFullYear(),
-				month = ('0' + (e.date.getMonth() + 1)).slice(-2);
+				var year = e.date.getFullYear(),
+					month = ('0' + (e.date.getMonth() + 1)).slice(-2);
 
-			tribeBarDate.hide();
+				date_mod = true;
 
-			date_mod = true;
+				ts.date = year + '-' + month;
 
-			tf.update_picker(e.date);
+				if (tt.no_bar() || tt.live_ajax() && tt.pushstate) {
+					if (ts.ajax_running)
+						return;
+					if (ts.filter_cats)
+						td.cur_url = $('#tribe-events-header').data('baseurl') + ts.date + '/';
+					else
+						td.cur_url = base_url + ts.date + '/';
+					ts.popping = false;
+					tf.pre_ajax(function () {
+						tribe_events_calendar_ajax_post();
+					});
+				}
 
-			ts.date = year + '-' + month;
-
-			if (tt.no_bar() || tt.live_ajax() && tt.pushstate) {
-				if (ts.ajax_running)
-					return;
-				if (ts.filter_cats)
-					td.cur_url = $('#tribe-events-header').data('baseurl') + ts.date + '/';
-				else
-					td.cur_url = base_url + ts.date + '/';
-				ts.popping = false;
-				tf.pre_ajax(function () {
-					tribe_events_calendar_ajax_post();
-				});
-			}
-		}).data('datepicker');
-
-
+			});
 
 		if (tt.pushstate && !tt.map_view()) {
 
@@ -286,7 +283,7 @@
 				);
 
 			} else {
-				if (ts.do_string)
+				if (ts.url_params.length)
 					window.location = td.cur_url + '?' + ts.url_params;
 				else
 					window.location = td.cur_url;
