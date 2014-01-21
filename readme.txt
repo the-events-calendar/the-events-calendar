@@ -206,10 +206,14 @@ Our Premium Plugins:
 
 3.x is a complete overhaul of the plugin, and as a result we're starting the changelog fresh. For release notes from the 2.x lifecycle, see <a href="http://m.tri.be/k">our 2.x release notes.</a>
 
-= 3.3.1 =
+= 3.4 = 
 
+* Added extra reassurance that All Day events will show first on Day view
 * Fixed the automated recurrence description for events with no end date
 * Added hooks for use in widgets
+* HTML tags are now properly stripped from Google Calendar descriptions
+* Fixed a bug where the wrapper div was incorrectly being replicated each time you navigated within the mini calendar widget
+* Fixed a bug where the "Show only the first instance of each recurring event" option was only affecting the first page of events
 
 = 3.3 =
 
@@ -329,6 +333,10 @@ Still not happy? Shoot us an email to pro@tri.be or tweet to @moderntribeinc and
 == Upgrade Notice ==
 
 IMPORTANT NOTICE: 3.x upgrade is a HUGE upgrade from 2.x versions. If you are upgrading from an older version, please test thoroughly before updating on your live website.
+
+= 3.4 =
+
+Please see the changelog for the complete list of changes in this release. Remember to always make a backup of your database and files before updating!
 
 = 3.3 =
 
