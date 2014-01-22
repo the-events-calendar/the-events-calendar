@@ -210,10 +210,13 @@ Our Premium Plugins:
 
 * Added extra reassurance that All Day events will show first on Day view
 * Fixed the automated recurrence description for events with no end date
-* Added hooks for use in widgets
-* HTML tags are now properly stripped from Google Calendar descriptions
-* Fixed a bug where the wrapper div was incorrectly being replicated each time you navigated within the mini calendar widget
+* Added hooks for use in widgets (thanks to Daniel Maier on the forums for reporting this!)
+* HTML tags are now properly stripped from Google Calendar descriptions (thanks to masspeaceaction for reporting this bug at the forums!)
+* Fixed a bug where the wrapper div was incorrectly being replicated each time you navigated within the mini calendar widget (thanks to timhengeveld for reporting this bug!)
+* Fixed a bug where the calendar widget redirected improperly when set to show 0 events (thanks to Oliver for reporting this one on the forum!)
 * Fixed a bug where the "Show only the first instance of each recurring event" option was only affecting the first page of events
+* Addressed an issue where the “View All Events” link accessed disabled months for certain PRO users (thanks to yvrmark for reporting this bug!)
+* Scheduled events are no longer exposed before being published (thanks to adamfitz for the explanation here!)
 
 = 3.3 =
 
