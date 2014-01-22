@@ -301,9 +301,9 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Fixed a bug where past events were listed in the incorrect order (Thanks to Alastair on the forums for reporting this one!)
 * Number of events that can be imported from CSV in a single batch is now customizable to help avoid timeouts in low powered environments(Thanks to baynature on the forums for the original report here!)
 * General compatibility improvements to ensure better integration with WP e-Commerce
-* Fixes bug with display of comments for single event pages (Thanks to John on the forums for reporting this bug!)
-* Fixes issue with tribe_create_venue() API function, resulting in unnamed venues (Thanks to Oliver for the original report of this!)
-* Fixes bug leading to list widget linking to deactivated views
+* Fixed bug with display of comments for single event pages (Thanks to John on the forums for reporting this bug!)
+* Fixed issue with tribe_create_venue() API function, resulting in unnamed venues (Thanks to Oliver for the original report of this!)
+* Fixed bug leading to list widget linking to deactivated views
 * Added hooks for use in widgets (Thanks to Andy Fragen for the request on this one!)
 * Added styles for compatibility with the Twenty Fourteen theme
 * Fixed typo in the rel attribute on "Previous Events" links (thanks to Nate on the forums for his report!)
