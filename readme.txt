@@ -297,19 +297,22 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 
 = 3.4 =
 
-* Complete overhaul and update to new fork of datepicker for all views. Corrects day 31 empty next month bug and adds many new features for future expansion.
-* Fixed a bug where past events were listed in the incorrect order.
-* Number of events that can be imported from CSV in a single batch is now customizable to help avoid timeouts in low powered environments.
-* Compatibility improvements with WP E-Commerce.
-* Fixes bug with display of comments for single event pages.
-* Fixes issue with tribe_create_venue() API function (resulting in unnamed venues).
-* Fixes bug leading to list widget linking to deactivated views.
-* Added hooks for use in widgets
+* Complete overhaul and update to new fork of datepicker for all views! Corrects day 31 empty next month bug and adds many new features for future expansion (Thanks to Eric on the forums for the first report on this!)
+* Fixed a bug where past events were listed in the incorrect order (Thanks to Alastair on the forums for reporting this one!)
+* Number of events that can be imported from CSV in a single batch is now customizable to help avoid timeouts in low powered environments(Thanks to baynature on the forums for the original report here!)
+* General compatibility improvements to ensure better integration with WP e-Commerce
+* Fixes bug with display of comments for single event pages (Thanks to John on the forums for reporting this bug!)
+* Fixes issue with tribe_create_venue() API function, resulting in unnamed venues (Thanks to Oliver for the original report of this!)
+* Fixes bug leading to list widget linking to deactivated views
+* Added hooks for use in widgets (Thanks to Andy Fragen for the request on this one!)
 * Added styles for compatibility with the Twenty Fourteen theme
-* Fixed typo in the rel attribute on "Previous Events" links
-* When the List Widget is set to display events from a particular category, the "View All Events" link will now read "View All Events in Category"
-* Fixed an SQL error that could occur when our queries are mixed with multiple post types and a meta query
+* Fixed typo in the rel attribute on "Previous Events" links (thanks to Nate on the forums for his report!)
+* When the List Widget is set to display events from a particular category, the "View All Events" link will now read "View All Events in Category" (Thanks to WCKG on our UserVoice page for requesting this tweak!)
+* Fixed an SQL error that could occur when our queries are mixed with multiple post types and a meta query (Thanks to karen on the forums for the heads up here!)
 * Classes that identify the current theme are now echoed by the body_class() function
+* Addressed an issue where the admin CSS was referencing non-existent images (thanks to geoz on the dot-org forum for the report here!)
+* Fixed a few broken/outdated links on the Help page
+* Tweaked the update notice prompts that display to appear more consistently in certain environments
 * Updated the admin icon to use a dashicon in 3.8+
 
 = 3.3.1 =
