@@ -26,10 +26,10 @@ if ( !defined('ABSPATH') ) { die('-1'); } ?>
 	<?php elseif ( tribe_is_upcoming() ) : ?>
 		<?php if( get_previous_posts_link() ) : ?>
 			<li class="tribe-events-nav-previous tribe-events-nav-left">
-			<a href="<?php echo tribe_get_upcoming_link() ?>" rel="pref"><?php _e( '&laquo; Previous Events', 'tribe-events-calendar' ) ?></a>
+			<a href="<?php echo tribe_get_upcoming_link() ?>" rel="prev"><?php _e( '&laquo; Previous Events', 'tribe-events-calendar' ) ?></a>
 		<?php elseif ( tribe_has_past_events() ) : ?>
 			<li class="tribe-events-nav-previous tribe-events-nav-left tribe-events-past">
-			<a href="<?php echo tribe_get_past_link() ?>" rel="pref"><?php _e( '&laquo; Previous Events', 'tribe-events-calendar' ) ?></a>
+			<a href="<?php echo tribe_get_past_link() ?>" rel="prev"><?php _e( '&laquo; Previous Events', 'tribe-events-calendar' ) ?></a>
 		<?php endif; ?>
 		</li><!-- .tribe-events-nav-previous -->
 	<?php endif; ?>
@@ -38,7 +38,7 @@ if ( !defined('ABSPATH') ) { die('-1'); } ?>
 	<?php if( tribe_is_past() ) : ?>
 		<?php if( get_query_var( 'paged' ) > 1 ) : ?>
 			<li class="tribe-events-nav-previous tribe-events-nav-right tribe-events-past">
-				<a href="<?php echo tribe_get_past_link() ?>" rel="pref"><?php _e( 'Next Events &raquo;', 'tribe-events-calendar' ) ?></a>
+				<a href="<?php echo tribe_get_past_link() ?>" rel="next"><?php _e( 'Next Events &raquo;', 'tribe-events-calendar' ) ?></a>
 		<?php elseif( !get_previous_posts_link() ) : ?>
 			<li class="tribe-events-nav-previous tribe-events-nav-right">
 				<a href="<?php echo tribe_get_upcoming_link() ?>" rel="next"><?php _e( 'Next Events &raquo;', 'tribe-events-calendar' ) ?></a>

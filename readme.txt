@@ -5,7 +5,7 @@ Tags: events, calendar, event, venue, organizer, dates, date, google maps, confe
 Donate link: http://m.tri.be/29
 Requires at least: 3.6
 Tested up to: 3.8
-Stable tag: 3.3.1
+Stable tag: 3.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -29,9 +29,9 @@ The team at Modern Tribe stands by our work and offers light support every Wedne
 
 = PLUG-N-PLAY & HIGHLY CUSTOMIZABLE =
 
-The Events Calendar is built to work out of the box. Just turn it on, configure the settings to match your needs and you'll be making events within less than 5 minutes.
+The Events Calendar is built to work out of the box: it doesn’t use a shortcode (nor is one available). Just turn it on, configure the settings to match your needs and you'll be making events within less than 5 minutes.
 
-By developers, for developers...it's ready to be the foundation for your wildest hack sessions. Complete with a skeleton stylesheet to theme fast and efficiently, loads of tools including partial template overrides, a host of template tags, hooks and filters, <a href="http://m.tri.be/2b">careful documentation</a>, as well as a <a href="https://github.com/moderntribe">library of code snippets</a> on GitHub. The Events Calendar is built FOR people who build websites.
+By developers, for developers...it's ready to be the foundation for your wildest hack sessions. Complete with a skeleton stylesheet to theme fast and efficiently, loads of tools including partial template overrides, a host of template tags, hooks and filters, <a href="http://m.tri.be/eu">careful documentation</a>, as well as a <a href="https://github.com/moderntribe">library of code snippets</a> on GitHub. The Events Calendar is built FOR people who build websites.
 
 Whether your vision is big or small, we have you in mind.
 
@@ -119,11 +119,15 @@ If you're unclear about the installation process or get stuck, check out our <a 
 
 == Frequently Asked Questions ==
 
+= Is there a shortcode available for The Events Calendar? +
+
+No, this plugin does not use a shortcode nor is one available at the time being.
+
 = Are there any troubleshooting steps you'd suggest I try that might resolve my issue before I post a new thread? =
 
-First, make sure that you're running the latest version of The Events Calendar (3.3 as of this release). If you're running Events Calendar PRO it needs to match the version number of The Events Calendar. And if you've got any other add-ons, make sure those are current / running the latest code as well.
+First, make sure that you're running the latest version of The Events Calendar (3.4 as of this release). If you're running Events Calendar PRO it needs to match the version number of The Events Calendar. And if you've got any other add-ons, make sure those are current / running the latest code as well.
 
-The most common issues we see are either plugin or theme conflicts. You can test if a plugin or theme is conflicting by manually deactivating other plugins until just The Events Calendar 3.3 is running on your site. If the issue persists from there, revert to the default Twenty Thirteen theme. If the issue is resolved after deactivating a specific plugin or your theme, you'll know that is the source of the conflict.
+The most common issues we see are either plugin or theme conflicts. You can test if a plugin or theme is conflicting by manually deactivating other plugins until just The Events Calendar 3.4 is running on your site. If the issue persists from there, revert to the default Twenty Thirteen theme. If the issue is resolved after deactivating a specific plugin or your theme, you'll know that is the source of the conflict.
 
 Note that we aren't going to say "tough luck" if you identify a plugin/theme conflict. While we can't guarantee 100% integration with any plugin or theme out there, we will do our best (and reach out the plugin/theme author as needed) to figure out a solution that benefits everyone.
 
@@ -154,7 +158,7 @@ Currently, the following add-ons are available for The Events Calendar/Events Ca
 * <a href="http://m.tri.be/ci">EDD Tickets</a>, for using our ticketing framework to sell tickets on your events through The Events Calendar + Easy Digital Downloads.
 * <a href="http://m.tri.be/cu">WPEC Tickets</a>, for using WP-eCommerce + The Events Calendar to sell event tickets directly from the frontend of your site. 
 * <a href="http://m.tri.be/dp">Shopp Tickets</a>, for harnessing the power of Shopp to sell event tickets on your WordPress site. 
-* Filter Bar (COMING SOON) for adding advanced frontend filtering capabilities to your events calendar.
+* <a href="http://m.tri.be/fa">Filter Bar</a>, for adding advanced frontend filtering capabilities to your events calendar.
 
 = I have a feature idea. What's the best way to tell you about it? =
 
@@ -166,7 +170,7 @@ We do. If you check out our <a href="http://m.tri.be/2n">Frequently Asked Questi
 
 == Documentation ==
 
-All of our online documentation can be found on <a href="http://m.tri.be/2o">our documentation site</a>.
+All of our online documentation can be found on <a href="http://m.tri.be/eu">our documentation site</a>.
 
 Some docs you may find particularly useful are:
 
@@ -227,7 +231,7 @@ The plugin is produced by <a href="http://m.tri.be/2s">Modern Tribe Inc</a>.
 * Dutch from Erik Massop
 * Finnish by Ari-Pekka Koponen
 * French from Bastien BC
-* German from Oliver Heinrich
+* German from by Dieter Dannecker
 * Greek from Maria Tsilimidou
 * Icelandic by Baldvin Berndsen
 * Italian from Roberto Scano
@@ -238,9 +242,9 @@ The plugin is produced by <a href="http://m.tri.be/2s">Modern Tribe Inc</a>.
 * Serbian from Marko Manojlovic
 * Spanish from Hector Gil Rizo
 * Swedish from Ben Andersen
-* Turkish by Burak Pehlevan
+* Turkish by Derin Korman
 
-* Previous translators include Mikhail Michouris, Ed Boon, Rick van Dalen, Jacob Roel Meijering, hristian Andersen, Michael Sebel, Filippo Montanari, David Decker, Kamil Szymanski, "Terje With Lunndal", Sagi Shrieber, Matthew Meyer, Arno Faure, Fanny Heraud, Vincent G from Host1Free, , Petri Kajander, Fran Rosa, Nico (wsMaurik), Panos Efstratiou, Dominique Monhardt, Thomas Butzek, Kjell Vestnes, Luiza Libardi, Diego Meneghetti, Beno Burgener and Alexey Fedorov
+* Previous translators include Mikhail Michouris, Ed Boon, Rick van Dalen, Jacob Roel Meijering, hristian Andersen, Michael Sebel, Filippo Montanari, David Decker, Kamil Szymanski, "Terje With Lunndal", Sagi Shrieber, Matthew Meyer, Arno Faure, Fanny Heraud, Vincent G from Host1Free, , Petri Kajander, Fran Rosa, Nico (wsMaurik), Panos Efstratiou, Dominique Monhardt, Thomas Butzek, Kjell Vestnes, Oliver Heinrich, Luiza Libardi, Diego Meneghetti, Beno Burgener, Burak Pehlevan, and Alexey Fedorov
 
 == Add-Ons ==
 
@@ -263,7 +267,7 @@ Our Premium Plugins:
 * <a href="http://m.tri.be/ci" target="_blank">The Events Calendar: EDD Tickets Tickets</a>
 * <a href="http://m.tri.be/cu" target="_blank">The Events Calendar: WPEC Tickets</a>
 * <a href="http://m.tri.be/dp" target="_blank">The Events Calendar: Shopp Tickets</a>
-* The Events Calendar: Filter Bar (coming early 2014)
+* <a href="http://m.tri.be/fa" target="_blank">The Events Calendar: Filter Bar</a>
 
 == Versioning ==
 
@@ -290,6 +294,26 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 = IMPORTANT NOTICE =
 
 3.x is a complete overhaul of the plugin, and as a result we're starting the changelog fresh. For release notes from the 2.x lifecycle, see <a href="http://m.tri.be/k">our 2.x release notes.</a>
+
+= 3.4 =
+
+* Complete overhaul and update to new fork of datepicker for all views! Corrects day 31 empty next month bug and adds many new features for future expansion (Thanks to Eric on the forums for the first report on this!)
+* Fixed a bug where past events were listed in the incorrect order (Thanks to Alastair on the forums for reporting this one!)
+* Number of events that can be imported from CSV in a single batch is now customizable to help avoid timeouts in low powered environments (Thanks to baynature on the forums for the original report here!)
+* General compatibility improvements to ensure better integration with WP e-Commerce
+* Fixed bug with display of comments for single event pages (Thanks to John on the forums for reporting this bug!)
+* Fixed issue with tribe_create_venue() API function, resulting in unnamed venues (Thanks to Oliver for the original report of this!)
+* Fixed bug leading to list widget linking to deactivated views
+* Added hooks for use in widgets (Thanks to Andy Fragen for the request on this one!)
+* Added styles for compatibility with the Twenty Fourteen theme
+* Fixed typo in the rel attribute on "Previous Events" links (thanks to Nate on the forums for his report!)
+* When the List Widget is set to display events from a particular category, the "View All Events" link will now read "View All Events in Category" (Thanks to WCKG on our UserVoice page for requesting this tweak!)
+* Fixed an SQL error that could occur when our queries are mixed with multiple post types and a meta query (Thanks to karen on the forums for the heads up here!)
+* Classes that identify the current theme are now echoed by the body_class() function
+* Addressed an issue where the admin CSS was referencing non-existent images (thanks to geoz on the dot-org forum for the report here!)
+* Fixed a few broken/outdated links on the Help page
+* Tweaked the update notice prompts that display to appear more consistently in certain environments
+* Updated the admin icon to use a dashicon in 3.8+
 
 = 3.3.1 =
 
@@ -399,7 +423,7 @@ If you aren't familiar with The Events Calendar, check out our <a href="http://m
 
 Additional resources available include:
 
-* <a href="http://m.tri.be/2o">Documentation</a>
+* <a href="http://m.tri.be/eu">Documentation</a>
 * <a href="http://m.tri.be/2n">FAQ</a>
 * <a href="http://m.tri.be/2t">Help Videos</a>
 * <a href="http://m.tri.be/2u">Tutorials</a>
@@ -419,6 +443,10 @@ Still not happy? Shoot us an email to pro@tri.be or tweet to @moderntribeinc and
 == Upgrade Notice ==
 
 IMPORTANT NOTICE: 3.x upgrade is a HUGE upgrade from 2.x versions. If you are upgrading from an older version, please test thoroughly before updating on your live website.
+
+= 3.4 =
+
+Please see the changelog for the complete list of changes in this release. Remember to always make a backup of your database and files before updating!
 
 = 3.3.1 =
 

@@ -48,14 +48,14 @@ if( !class_exists( 'TribeEventsListWidget' ) ) {
          * @param string $namespace The namespace for the widget template stuff.
          * @param string $pluginPath The pluginpath so we can locate the template stuff.
          */
-        function widget_output( $args, $instance, $template_name='widgets/list-widget') {
+        function widget_output( $args, $instance, $template_name='widgets/list-widget' ) {
 			global $wp_query, $tribe_ecp, $post;
 			extract( $args, EXTR_SKIP );
 			// The view expects all these $instance variables, which may not be set without pro
-			$instance = wp_parse_args($instance, array(
+			$instance = wp_parse_args( $instance, array(
 				'limit' => 5,
 				'title' => '',
-			));
+			) );
 			extract( $instance, EXTR_SKIP );
 
 			// temporarily unset the tribe bar params so they don't apply
@@ -68,16 +68,13 @@ if( !class_exists( 'TribeEventsListWidget' ) ) {
 			}
 
 			// extracting $instance provides $title, $limit
-			$title = apply_filters('widget_title', $title );
+			$title = apply_filters( 'widget_title', $title );
 			if ( ! isset( $category ) || $category === '-1' ) {
 				$category = 0;
 			}
 
-			if ( tribe_get_option( 'viewOption' ) == 'upcoming' ) {
-				$event_url = tribe_get_listview_link( $category );
-			} else {
-				$event_url = tribe_get_gridview_link( $category );
-			}
+	        // Link to the main events page (should work even if month/list views are disabled)
+	        $event_url = tribe_get_events_link();
 
 			if ( function_exists( 'tribe_get_events' ) ) {
 
@@ -108,8 +105,14 @@ if( !class_exists( 'TribeEventsListWidget' ) ) {
 			/* Before widget (defined by themes). */
 			echo $before_widget;
 
+      do_action( 'tribe_events_before_list_widget' );
+      		
+      		do_action( 'tribe_events_list_widget_before_the_title' );
+			
 			/* Title of widget (before and after defined by themes). */
 			echo ( $title ) ? $before_title . $title . $after_title : '';
+			
+			do_action( 'tribe_events_list_widget_after_the_title' );
 
 			if ( $posts ) {
 				/* Display list of events. */
@@ -121,11 +124,19 @@ if( !class_exists( 'TribeEventsListWidget' ) ) {
 				echo "</ol><!-- .hfeed -->";
 
 				/* Display link to all events */
-				echo '<p class="tribe-events-widget-link"><a href="' . $event_url . '" rel="bookmark">' . __('View All Events', 'tribe-events-calendar' ) . '</a></p>';
+				echo '<p class="tribe-events-widget-link"><a href="' . $event_url . '" rel="bookmark">';
+				if ( empty( $category ) ) {
+					_e( 'View All Events', 'tribe-events-calendar' );
+				} else {
+					_e( 'View All Events in Category', 'tribe-events-calendar' );
+				}
+				echo '</a></p>';
 			}
 			else {
-				echo '<p>' . __('There are no upcoming events at this time.', 'tribe-events-calendar') . '</p>';
+				echo '<p>' . __( 'There are no upcoming events at this time.', 'tribe-events-calendar' ) . '</p>';
 			}
+
+      do_action( 'tribe_events_after_list_widget' );
 
 			/* After widget (defined by themes). */
 			echo $after_widget;
@@ -166,7 +177,7 @@ if( !class_exists( 'TribeEventsListWidget' ) ) {
          */
         function form( $instance ) {
 			/* Set up default widget settings. */
-			$defaults = array( 'title' => __( 'Upcoming Events', 'tribe-events-calendar' ), 'limit' => '5', 'no_upcoming_events' => false);
+			$defaults = array( 'title' => __( 'Upcoming Events', 'tribe-events-calendar' ), 'limit' => '5', 'no_upcoming_events' => false );
 			$instance = wp_parse_args( (array) $instance, $defaults );
 			$tribe_ecp = TribeEvents::instance();
 			include( $tribe_ecp->pluginPath . 'admin-views/widget-admin-list.php' );

@@ -1211,6 +1211,28 @@ h2.tribe-events-tickets-title {
    @ Template: /modules/bar.php
 =============================================*/
 
+/* Datepicker
+   ========================================================================== */
+.datepicker td,
+.datepicker table tr td span {
+	-webkit-border-radius: 0;
+  	-moz-border-radius: 0;
+ 	 border-radius: 0;
+} 
+.datepicker td {
+ 	 border-top: 1px solid #EDEDED;
+	
+}  
+.datepicker table tr td.active.active,
+.datepicker table tr td span.active.active {
+	background: #666;
+}
+.datepicker table tr td.active.active:hover,
+.datepicker table tr td span.active.active:hover {
+	background: #DADADA;
+	color: inherit;
+}
+
 #tribe-events-bar {
 	width: 100%;
 	min-width: 220px;
@@ -1835,3 +1857,25 @@ only screen and (min-device-pixel-ratio: 2) {
 		background-image: url(images/events-bar/icon-map@2x.png);
 	}
 }
+
+/* ==========================================================================
+  Theme Compatibility
+   ========================================================================== */
+
+/* Twenty Fourteen
+========================================================================== */
+	.tribe-events-week.tribe-theme-twentyfourteen #masthead {
+		z-index: 1001;
+	}
+	.tribe-theme-twentyfourteen #tribe-events-pg-template #tribe-events {
+		padding: 20px;
+	}
+	.tribe-theme-twentyfourteen  #tribe-bar-views .tribe-bar-views-list {
+		z-index: 3;
+	}
+@media screen and (min-width: 1080px) {
+	.tribe-theme-twentyfourteen #tribe-events-pg-template {
+		padding-left: 222px;
+	}
+}
+

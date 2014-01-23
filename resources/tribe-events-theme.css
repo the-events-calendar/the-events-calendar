@@ -435,40 +435,6 @@ h2.tribe-events-page-title,
 	max-width: none;
 }
 
-/* = Events Filter Styles
-=============================================*/
-
-/* Vertical Filter Styles */
-.tribe-events-filter-view #tribe_events_filters_wrapper {
-	width: 26.6%; 
-	padding: 0 5.32% 15px 0;
-}
-
-.tribe-events-filter-view #tribe-events-content {
-	width: 68.08%;  
-}
-
-/* Other Filter styles */
-.tribe-events-filter-view .tribe-events-filter_content {
-	background-color: #f6f6f6;
-	padding: 2em 1.5em;
-}
-
-.tribe_events_filter_item {
-	padding-bottom: .4em;
-	border-bottom: 0;
-}
-
-#tribe_events_filters_wrapper h3 {    
-	margin-bottom: 1em;
-	text-transform: uppercase;
-	color: #b2b2b2;
-}
-
-#tribe_events_filters_wrapper .tribe_events_filter_item.closed h3 span:after {
-	border-top-color: transparent;
-}
-
 /* = WooTickets
 =============================================*/
 h2.tribe-events-tickets-title {

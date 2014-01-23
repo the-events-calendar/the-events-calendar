@@ -1,9 +1,3 @@
-/* = Events Icon
-=============================================*/
-.events-cal #icon-edit {background:url(images/events-screen-icon.png) no-repeat 6px 3px; -webkit-background-size: 23px 25px; background-size: 23px 25px;}
-#adminmenu #menu-posts-tribe_events div.wp-menu-image {background:url(images/menu.png) no-repeat 0 -32px; -webkit-background-size: 29px 64px; background-size: 29px 64px;}
-#adminmenu #menu-posts-tribe_events:hover div.wp-menu-image, #adminmenu #menu-posts-tribe_events.wp-has-current-submenu div.wp-menu-image {background-position:0 0;}
-
 /* = Shared CSS Elements
 =============================================*/
 .invalid input{border: 2px solid red !important;}
@@ -205,8 +199,8 @@ td.tribe_message {padding-bottom: 10px !important;}
 
 /* = jQuery UI
 =============================================*/
-.ui-widget-overlay {background: #666666 url(images/ui-bg_diagonals-thick_20_666666_40x40.png) 50% 50% repeat; opacity: .50;filter:Alpha(Opacity=50); }
-.ui-widget-shadow {margin: -5px 0 0 -5px; padding: 5px; background: #000000 url(images/ui-bg_flat_10_000000_40x100.png) 50% 50% repeat-x; opacity: .20;filter:Alpha(Opacity=20); -moz-border-radius: 5px; -webkit-border-radius: 5px; }
+.ui-widget-overlay {background: #666666; opacity: .50;filter:Alpha(Opacity=50); }
+.ui-widget-shadow {margin: -5px 0 0 -5px; padding: 5px; background: #000000; opacity: .20;filter:Alpha(Opacity=20); -moz-border-radius: 5px; -webkit-border-radius: 5px; }
 .ui-resizable {position: relative;}
 .ui-resizable-handle {position: absolute;font-size: 0.1px;z-index: 99999; display: block;}
 .ui-resizable-disabled .ui-resizable-handle, .ui-resizable-autohide .ui-resizable-handle {display: none; }
@@ -273,9 +267,6 @@ only screen and (-webkit-min-device-pixel-ratio: 2),
 only screen and (min-device-pixel-ratio: 2) {
 	.events-cal #icon-edit {
 		background-image: url(images/events-screen-icon@2x.png);
-	}
-	#adminmenu #menu-posts-tribe_events div.wp-menu-image {
-		background-image: url(images/menu@2x.png);
 	}
 	#tribe-loading span {
 		background-image: url(images/tribe-loading@2x.gif);
