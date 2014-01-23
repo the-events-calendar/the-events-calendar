@@ -444,6 +444,10 @@ Still not happy? Shoot us an email to pro@tri.be or tweet to @moderntribeinc and
 
 IMPORTANT NOTICE: 3.x upgrade is a HUGE upgrade from 2.x versions. If you are upgrading from an older version, please test thoroughly before updating on your live website.
 
+= 3.4 =
+
+Please see the changelog for the complete list of changes in this release. Remember to always make a backup of your database and files before updating!
+
 = 3.3.1 =
 
 Fixed a bug with all day events when event cutoff time is set to be past midnight.
