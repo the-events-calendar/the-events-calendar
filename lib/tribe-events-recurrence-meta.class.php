@@ -641,6 +641,7 @@ class TribeEventsRecurrenceMeta {
 		$custom_text = "";
 		$occurrence_text = "";
 		$recType = '';
+		$recEndType = '';
 		$recEndCount = '';
 		$recCustomType = '';
 		$recCustomInterval = null;
@@ -701,6 +702,8 @@ class TribeEventsRecurrenceMeta {
 		// end text
 		if ( $recEndType == "On" ) {
 			$endText = ' '.sprintf(__(" until %s", 'tribe-events-calendar-pro'), date_i18n(get_option('date_format'), strtotime($recEnd))) ;
+		} elseif ( $recEndType == 'Never' ) {
+			$endText = '';
 		} else {
 			$endText = $occurrence_text;
 		}
@@ -789,7 +792,7 @@ class TribeEventsRecurrenceMeta {
 	 *
 	 * @return array
 	 */
-	public function addMinToStartDateInFields( $fields, $query ) {
+	public static function addMinToStartDateInFields( $fields, $query ) {
 		if ( isset( $query->query_vars['tribeHideRecurrence'] ) && $query->query_vars['tribeHideRecurrence'] == 1 ) {
 			global $wpdb;
 			foreach ( $fields as &$f ) {
@@ -812,7 +815,7 @@ class TribeEventsRecurrenceMeta {
 	 *
 	 * @return array
 	 */
-	public function addMinToStartDateInOrderBy( $orderby, $query ) {
+	public static function addMinToStartDateInOrderBy( $orderby, $query ) {
 		if ( isset( $query->query_vars['tribeHideRecurrence'] ) && $query->query_vars['tribeHideRecurrence'] == 1 ) {
 			global $wpdb;
 			$orderby = str_replace("{$wpdb->postmeta}.meta_value", "MIN($wpdb->postmeta.meta_value)", $orderby);
