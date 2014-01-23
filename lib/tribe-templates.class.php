@@ -261,7 +261,7 @@ if (!class_exists('TribeEventsTemplates')) {
 		 * @param string $title
 		 * @return string
 		 */
-		public function modify_global_post_title( $title = '' ) {
+		public static function modify_global_post_title( $title = '' ) {
 			global $post;
 
 			// Set the title to an empty string (but record the original)
