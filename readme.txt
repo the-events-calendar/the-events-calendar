@@ -171,11 +171,11 @@ The plugin is produced by <a href="http://m.tri.be/45">Modern Tribe Inc</a>.
 * Portuguese from Antonio Pratas
 * Romanian from Mihai Burcea
 * Serbian from Marko Manojlovic
-* Spanish from Hector Gil Rizo
+* Spanish from Juanjo Reparaz Sarasola
 * Swedish from Ben Andersen
 * Turkish by Derin Korman
 
-* Previous translators include Mikhail Michouris, Ed Boon, Rick van Dalen, Jacob Roel Meijering, hristian Andersen, Michael Sebel, Oliver Heinrich, Filippo Montanari, David Decker, Kamil Szymanski, "Terje With Lunndal", Sagi Shrieber, Matthew Meyer, Arno Faure, Fanny Heraud, Vincent G from Host1Free, , Petri Kajander, Fran Rosa, Nico (wsMaurik), Panos Efstratiou, Dominique Monhardt, Thomas Butzek, Kjell Vestnes, Luiza Libardi, Diego Meneghetti, Benoit Burgener, Burak Pehlevan, and Alexey Fedorov
+* Previous translators include Mikhail Michouris, Ed Boon, Rick van Dalen, Jacob Roel Meijering, hristian Andersen, Michael Sebel, Oliver Heinrich, Filippo Montanari, David Decker, Kamil Szymanski, "Terje With Lunndal", Sagi Shrieber, Matthew Meyer, Arno Faure, Fanny Heraud, Vincent G from Host1Free, , Petri Kajander, Fran Rosa, Nico (wsMaurik), Panos Efstratiou, Dominique Monhardt, Thomas Butzek, Kjell Vestnes, Luiza Libardi, Diego Meneghetti, Benoit Burgener, Hector Gil Rizo, Burak Pehlevan, and Alexey Fedorov
 
 == Add-Ons ==
 
@@ -205,6 +205,9 @@ Our Premium Plugins:
 = IMPORTANT NOTICE =
 
 3.x is a complete overhaul of the plugin, and as a result we're starting the changelog fresh. For release notes from the 2.x lifecycle, see <a href="http://m.tri.be/k">our 2.x release notes.</a>
+
+= 3.5 =
+Incorporated updated Spanish translation files, courtesy of Juanjo Reparaz Sarasola
 
 = 3.4 = 
 
