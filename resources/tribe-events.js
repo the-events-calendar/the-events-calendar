@@ -205,8 +205,13 @@ try {
 		$(this).addClass('tribe-events-loading').css('opacity', .25)
 	};
 
+	if ( "undefined" !== typeof $.fn.datepicker ) {
+		var datepicker = $.fn.datepicker.noConflict();
+		$.fn.bootstrapDatepicker = datepicker;
+	}
+
 	if ( "undefined" !== typeof tribe_bootstrap_datepicker_strings && tribe_bootstrap_datepicker_strings.dates != null )
-		$.fn.datepicker.dates['en'] = tribe_bootstrap_datepicker_strings.dates;
+		$.fn.bootstrapDatepicker.dates['en'] = tribe_bootstrap_datepicker_strings.dates;
 
 })(jQuery);
 
@@ -751,12 +756,9 @@ try {
 	 * dbug = tribe_debug
 	 */
 
-	$(document).ready(function () {
 
-		if ( "undefined" !== typeof $.fn.datepicker ) {
-			var datepicker = $.fn.datepicker.noConflict();
-			$.fn.bootstrapDatepicker = datepicker;
-		}
+
+	$(document).ready(function () {
 
 		dbug && debug.info('TEC Debug: Tribe Events JS init, Init Timer started from tribe-events.js.');
 
