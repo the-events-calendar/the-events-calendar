@@ -1601,8 +1601,8 @@
 			$this.datepicker('show');
 		}
 	);
-	$(function(){
-		$('[data-provide="datepicker-inline"]').datepicker();
-	});
+//	$(function(){
+//		$('[data-provide="datepicker-inline"]').datepicker();
+//	});
 
 }( window.jQuery ));
