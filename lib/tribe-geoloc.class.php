@@ -583,7 +583,7 @@ class TribeEventsGeoLoc {
 			$response['html'] .= ob_get_clean();
 		}
 
-		apply_filters( 'tribe_events_ajax_response', $response );
+		$response = apply_filters( 'tribe_events_ajax_response', $response );
 
 		header( 'Content-type: application/json' );
 		echo json_encode( $response );
