@@ -784,13 +784,13 @@ class TribeEventsGeoLoc {
 			$link     = get_permalink( $event->ID );
 
 			$markers[] = array(
-				'lat'     => $lat,
-				'lng'     => $lng,
-				'title'   => $title,
+				'lat' => $lat,
+				'lng' => $lng,
+				'title' => $title,
 				'address' => $address,
-				'link'    => $link,
-				'venue' => $venue_id,
-				'event' => $event->ID
+				'link' => $link,
+				'venue_id' => $venue_id,
+				'event_id' => $event->ID
 			);
 		}
 
