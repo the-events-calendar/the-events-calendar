@@ -68,6 +68,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			require_once( 'lib/tribe-date-series-rules.class.php' );
 			require_once( 'lib/tribe-ecp-custom-meta.class.php' );
 			require_once( 'lib/tribe-events-recurrence-meta.class.php' );
+			require_once( 'lib/TribeEvents_RecurrenceSeriesBreaker.php' );
 			require_once( 'lib/tribe-events-recurrence-instance.php');
 			require_once( 'lib/tribe-recurrence.class.php' );
 			require_once( 'lib/tribe-events-recurrence-permalinks.class.php' );
@@ -662,9 +663,8 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		 * @since 3.0.2
 		 **/
 		public static function posts_fields($fields){
-			global $wpdb;
 			$fields['event_duration']= "tribe_event_duration.meta_value as EventDuration";
-			$fields['event_end_date'] = "IF(tribe_event_duration.meta_value IS NULL, tribe_event_end_date.meta_value, DATE_ADD(CAST({$wpdb->postmeta}.meta_value AS DATETIME), INTERVAL tribe_event_duration.meta_value SECOND)) as EventEndDate";
+			$fields['event_end_date'] = "tribe_event_end_date.meta_value as EventEndDate";
 			return $fields;
 		}
 

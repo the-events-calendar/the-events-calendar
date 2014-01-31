@@ -36,7 +36,7 @@ class TribeEventsRecurrenceMeta {
 		add_action( 'tribe_events_date_display', array( __CLASS__, 'loadRecurrenceData' ) );
 		add_action(	'wp_trash_post', array( __CLASS__, 'deleteRecurringEvent') );
 
-		add_action(	'pre_post_update', array( __CLASS__, 'maybeBreakFromSeries' ) );
+		add_action(	'wp_insert_post_data', array( __CLASS__, 'maybeBreakFromSeries' ), 100, 2 );
 		add_action( 'admin_notices', array( __CLASS__, 'showRecurrenceErrorFlash') );
 		add_action( 'tribe_recurring_event_error', array( __CLASS__, 'setupRecurrenceErrorMsg'), 10, 2 );
 
@@ -82,12 +82,14 @@ class TribeEventsRecurrenceMeta {
 	 */
 	public static function updateRecurrenceMeta($event_id, $data) {
 		// save recurrence
-		if( isset($data['recurrence']) ){
+		if ( isset($data['recurrence_action']) && $data['recurrence_action'] != self::UPDATE_TYPE_ALL ) {
+			$recurrence_meta = NULL;
+		} elseif ( isset($data['recurrence']) ){
 			$recurrence_meta = $data['recurrence'];
 			// for an update when the event start/end dates change
 			$recurrence_meta['EventStartDate'] = $data['EventStartDate'];
 			$recurrence_meta['EventEndDate'] = $data['EventEndDate'];
-		}else{
+		} else {
 			$recurrence_meta = null;
 		}
 
@@ -129,65 +131,49 @@ class TribeEventsRecurrenceMeta {
 		}
 	}
 
+	public static function filter_passthrough( $data ){
+		return $data;
+	}
+
 	/**
 	 * Handles updating recurring events.
-	 * @param integer $postId ID of the event being updated
-	 * @return void
+	 * @param array $post_object_data Data stored in the posts table
+	 * @param array $submitted_data All data submitted to wp_insert_post()
+	 * @return array The $post_object_data, or an empty array if we're overriding
 	 */
-	public static function maybeBreakFromSeries( $postId ) {
-		add_action( 'pre_post_update', '__return_null' ); // so we don't break the action iterator
-		remove_action( 'pre_post_update', array( __CLASS__, 'maybeBreakFromSeries' ) );
-
-		// make new series for future events
-		if( isset( $_POST['recurrence_action'] ) && $_POST['recurrence_action'] && $_POST['recurrence_action'] == TribeEventsRecurrenceMeta::UPDATE_TYPE_FUTURE) {
-			// if this is the first event in the series, then we don't need to break it into two series
-			if( $_POST['EventStartDate'] != TribeDateUtils::dateOnly( TribeEvents::get_series_start_date($postId) )) {
-				// move recurrence end to the last date of the series before today
-				$numOccurrences = self::adjustRecurrenceEnd( $postId, $_POST['EventStartDate'] );
-
-				// prune future occurrences on original event
-				self::removeFutureOccurrences( $postId, $_POST['EventStartDate'] );
-
-				if ($_POST['recurrence']['end-type'] == 'After') {
-					// num occurrences for new series is total occurrences minus occurrences still in original series
-					$_POST['recurrence']['end-count'] = $_POST['recurrence']['end-count'] - $numOccurrences;
-				}
-
-				// redirect form to new event
-				$post = self::cloneEvent( $_POST );
-
-				// remove past occurrences of new event
-				self::removePastOccurrences( $post, $_POST['EventStartDate'] );
-				// actual event end time potentially needs to be adjusted up
-				self::adjustEndDate( $post );
-
-				// clear this so no infinite loop - clear after new post is inserted so it can be used in the recurrence logic
-				$_POST['recurrence_action'] = null;
-
-				// redirect back to event screen
-				wp_safe_redirect('post.php?post=' . $post . '&action=edit&message=1');
-				exit();
-			}
-		// break from series
-		} else if(isset( $_POST['recurrence_action'] ) && $_POST['recurrence_action'] && $_POST['recurrence_action'] == TribeEventsRecurrenceMeta::UPDATE_TYPE_SINGLE) {
-			// new event should have no recurrence
-			$_REQUEST['recurrence'] = $_POST['recurrence'] = null;
-
-			// create new event
-			$post = self::cloneEvent( $_POST );
-
-			// remove this occurrance from the original series
-			self::removeOccurrence( $postId, $_POST['EventStartDate'] );
-
-			// the end date on original series will need to be moved if it was the first event in the series removed
-			self::adjustEndDate( $postId );
-
-			$_POST['recurrence_action'] = null;
-
-			// redirect back to event screen
-			wp_safe_redirect('post.php?post=' . $post . '&action=edit&message=1');
-			exit();
+	public static function maybeBreakFromSeries( $post_object_data, $submitted_data ) {
+		if ( empty($submitted_data['ID']) ) {
+			return $post_object_data; // can't break out from a new post
 		}
+		if ( empty($submitted_data['recurrence_action']) ) {
+			return $post_object_data; // no signal to break out
+		}
+		$postId = $submitted_data['ID'];
+
+		$is_first_in_series = ($post_object_data['post_parent'] == 0);
+
+		$breaker = new TribeEvents_RecurrenceSeriesBreaker();
+
+		if ( $submitted_data['recurrence_action'] == TribeEventsRecurrenceMeta::UPDATE_TYPE_FUTURE ) {
+			if ( $is_first_in_series ) {
+				// can't break an entire series off of itself
+			} else {
+				$post_object_data['post_parent'] = 0;
+				$breaker->break_remaining_events_from_series( $postId );
+			}
+		} elseif ( $submitted_data['recurrence_action'] == TribeEventsRecurrenceMeta::UPDATE_TYPE_SINGLE ) {
+			if ( $is_first_in_series ) {
+				$breaker->break_first_event_from_series( $postId );
+			} else {
+				$post_object_data['post_parent'] = 0;
+				$breaker->break_single_event_from_series( $postId );
+			}
+		} elseif ( !$is_first_in_series ) {
+			// We don't want child events to diverge. Update the parent event.
+			$post_object_data['ID'] = $post_object_data['post_parent'];
+			$post_object_data['post_parent'] = 0;
+		}
+		return $post_object_data;
 	}
 
 
@@ -470,6 +456,7 @@ class TribeEventsRecurrenceMeta {
 			$recurrence->setMinDate(strtotime(self::$scheduler->get_earliest_date()));
 			$recurrence->setMaxDate(strtotime(self::$scheduler->get_latest_date()));
 			$dates = (array) $recurrence->getDates();
+			$to_update = array();
 
 			if ( $recurrence->constrainedByMaxDate() !== FALSE ) {
 				update_post_meta($postId, '_EventNextPendingRecurrence', date(DateSeriesRules::DATE_FORMAT, $recurrence->constrainedByMaxDate()));
@@ -479,14 +466,20 @@ class TribeEventsRecurrenceMeta {
 				$start_date = strtotime( get_post_meta($instance, '_EventStartDate', true) );
 				$found = array_search( $start_date, $dates );
 				if ( $found === FALSE ) {
+					do_action( 'tribe_events_deleting_child_post', $instance, $start_date );
 					wp_delete_post( $instance, TRUE );
 				} else {
+					$to_update[$instance] = $dates[$found];
 					unset($dates[$found]); // so we don't re-add it
 				}
 			}
 
 			foreach($dates as $date) {
 				$instance = new Tribe_Events_Recurrence_Instance( $postId, $date );
+				$instance->save();
+			}
+			foreach ( $to_update as $instance_id => $date ) {
+				$instance = new Tribe_Events_Recurrence_Instance( $postId, $date, $instance_id );
 				$instance->save();
 			}
 		}

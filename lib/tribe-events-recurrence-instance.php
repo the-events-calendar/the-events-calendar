@@ -8,9 +8,10 @@ class Tribe_Events_Recurrence_Instance {
 	private $start_date = NULL;
 	private $post_id = 0;
 
-	public function __construct( $parent_id, $start_date ) {
+	public function __construct( $parent_id, $start_date, $instance_id = 0 ) {
 		$this->parent_id = $parent_id;
 		$this->start_date = new DateTime('@'.$start_date);
+		$this->post_id = $instance_id;
 	}
 
 	public function save() {
@@ -29,9 +30,12 @@ class Tribe_Events_Recurrence_Instance {
 
 		$duration = $this->get_duration();
 		$end_date = $this->get_end_date();
-		update_post_meta( $this->post_id,'_EventStartDate', $this->start_date->format(DateSeriesRules::DATE_FORMAT) );
-		update_post_meta( $this->post_id,'_EventEndDate', $end_date->format(DateSeriesRules::DATE_FORMAT) );
-		update_post_meta( $this->post_id,'_EventDuration', $duration );
+		update_post_meta( $this->post_id, '_EventStartDate', $this->start_date->format(DateSeriesRules::DATE_FORMAT) );
+		update_post_meta( $this->post_id, '_EventEndDate', $end_date->format(DateSeriesRules::DATE_FORMAT) );
+		update_post_meta( $this->post_id, '_EventDuration', $duration );
+		update_post_meta( $this->post_id, '_EventOrganizerID', $this->get_organizer() );
+		update_post_meta( $this->post_id, '_EventVenueID', $this->get_venue() );
+		$this->set_terms();
 	}
 
 	public function get_id() {
@@ -47,5 +51,30 @@ class Tribe_Events_Recurrence_Instance {
 		$end_timestamp = $this->start_date->getTimestamp() + $duration;
 		return new DateTime('@'.$end_timestamp);
 	}
+
+	public function get_organizer() {
+		$organizer = get_post_meta( $this->parent_id, '_EventOrganizerID', TRUE );
+		if ( empty( $organizer) ) {
+			return 0;
+		}
+		return (int)$organizer;
+	}
+
+	public function get_venue() {
+		$venue = get_post_meta( $this->parent_id, '_EventVenueID', TRUE );
+		if ( empty( $venue ) ) {
+			return 0;
+		}
+		return (int)$venue;
+	}
+
+	private function set_terms() {
+		$taxonomies = get_object_taxonomies(TribeEvents::POSTTYPE);
+		foreach ( $taxonomies as $tax ) {
+			$terms = wp_get_object_terms( $this->parent_id, $tax, array( 'fields' => 'ids' ) );
+			wp_set_object_terms( $this->post_id, $terms, $tax );
+		}
+	}
+
 }
  

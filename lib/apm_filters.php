@@ -169,7 +169,7 @@ class TribeDateFilter {
 			if ( $key === 'ecp_start_date' )
 				$field = "$wpdb->postmeta.meta_value";
 			if ( $key === 'ecp_end_date' )
-				$field = "IFNULL(DATE_ADD(CAST($wpdb->postmeta.meta_value AS DATETIME), INTERVAL eventDuration.meta_value SECOND), eventEnd.meta_value)";
+				$field = "eventEnd.meta_value";
 
 			if ( empty( $field ) )
 				continue;
