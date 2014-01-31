@@ -440,16 +440,21 @@ if ( class_exists( 'TribeEvents' ) ) {
 
 		// May be called when the global $post object does not exist - ie during ajax loads of various views
 		// ... creating a dummy object allows the method to proceed semi-gracefully (interim measure only)
+		
+		//If $post object doesn't exist and an $event_id wasn't specified, then use a dummy object
 		if ( ! is_object( $post ) ) {
+			$post = (object) array( 'ID' => $event_id );
+		} elseif($event_id != 0) {
 			$post = (object) array( 'ID' => $event_id );
 		}
 
 	    $classes = array( 'hentry', 'vevent', 'type-tribe_events', 'post-' . $post->ID, 'tribe-clearfix' );
 	    $tribe_cat_slugs = tribe_get_event_cat_slugs( $post->ID );
 
-	    foreach( $tribe_cat_slugs as $tribe_cat_slug ) {
-	        $classes[] = 'tribe-events-category-'. $tribe_cat_slug;
-	    }
+		foreach( $tribe_cat_slugs as $tribe_cat_slug ) {
+			if(!empty($tribe_cat_slug))
+				$classes[] = 'tribe-events-category-'. $tribe_cat_slug;
+		}
 	    if ( $venue_id = tribe_get_venue_id( $post->ID ) ) {
 	        $classes[] = 'tribe-events-venue-'. $venue_id;
 	    }
