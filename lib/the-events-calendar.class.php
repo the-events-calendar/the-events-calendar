@@ -1866,7 +1866,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 *
 		 * @return array of options
 		 */
-		public static function getOptions( $force = FALSE ) {
+		public static function getOptions( $force = false ) {
 			if ( !isset( self::$options ) || $force ) {
 				$options = get_option( TribeEvents::OPTIONNAME, array() );
 				self::$options = apply_filters( 'tribe_get_options', $options );
@@ -2208,7 +2208,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		public function default_view() {
 			// Compare the stored default view option to the list of available views
 			$default = $this->getOption('viewOption', '');
-			$available_views = (array) apply_filters( 'tribe-events-bar-views', array(), FALSE );
+			$available_views = (array) apply_filters( 'tribe-events-bar-views', array(), false );
 
 			foreach ( $available_views as $view )
 				if ( $default === $view['displaying']) return $default;
@@ -3549,11 +3549,22 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 */
 		public function nextMonth( $date ) {
 			if ( PHP_INT_SIZE <= 4 ) {
-				if ( date('Y-m-d', strtotime($date)) > '2037-11-30' ) {
-					throw new OverflowException(__('Date out of range.', 'tribe-events-calendar'));
+				if ( date( 'Y-m-d', strtotime( $date ) ) > '2037-11-30' ) {
+					throw new OverflowException( __( 'Date out of range.', 'tribe-events-calendar' ) );
 				}
 			}
-			return date( 'Y-m', strtotime( $date . ' +1 month' ) );
+
+			// create a new date object
+			$date = new DateTime( $date );
+
+			// set date object to be the first of the month -- all months have this day!
+			$date->setDate( $date->format( 'Y' ), $date->format( 'm' ), 1 );
+
+			// add a month
+			$date->modify( '+1 month' );
+
+			// return the year-month
+			return $date->format( 'Y-m' );
 		}
 
 		/**
@@ -3566,11 +3577,22 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 */
 		public function previousMonth( $date ) {
 			if ( PHP_INT_SIZE <= 4 ) {
-				if ( date('Y-m-d', strtotime($date)) < '1902-02-01' ) {
-					throw new OverflowException(__('Date out of range.', 'tribe-events-calendar'));
+				if ( date( 'Y-m-d', strtotime( $date ) ) < '1902-02-01' ) {
+					throw new OverflowException( __( 'Date out of range.', 'tribe-events-calendar' ) );
 				}
 			}
-			return date( 'Y-m', strtotime( $date . ' -1 month' ) );
+
+			// create a new date object
+			$date = new DateTime( $date );
+
+			// set date object to be the first of the month -- all months have this day!
+			$date->setDate( $date->format( 'Y' ), $date->format( 'm' ), 1 );
+
+			// subtract a month
+			$date->modify( '-1 month' );
+
+			// return the year-month
+			return $date->format( 'Y-m' );
 		}
 
 		/**
