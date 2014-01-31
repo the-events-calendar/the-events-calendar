@@ -2111,7 +2111,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				$this->displaying = 'admin';
 			} else {
 				global $wp_query;
-				if ( $wp_query->is_main_query() && !empty( $wp_query->tribe_is_event_query ) ) {
+				if ( $wp_query && $wp_query->is_main_query() && !empty( $wp_query->tribe_is_event_query ) ) {
 					$this->displaying = isset( $wp_query->query_vars['eventDisplay'] ) ? $wp_query->query_vars['eventDisplay'] : tribe_get_option( 'viewOption', 'upcoming' );
 
 					if ( is_single() && $this->displaying != 'all' )
