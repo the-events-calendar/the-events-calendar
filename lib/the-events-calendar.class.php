@@ -2418,12 +2418,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 					$secondary = date('Y-m-d', $date);
 					$eventUrl = trailingslashit( esc_url($eventUrl . $secondary) );
 					break;
-				case 'all':
-					// TODO: Move this to pro?
-					$eventUrl = trailingslashit(get_permalink());
-					// TODO: Remove date from permalink
-					$eventUrl = trailingslashit( esc_url($eventUrl . 'all') );
-					break;
 				default:
 					$eventUrl = esc_url($eventUrl);
 					break;
@@ -2470,11 +2464,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 					global $post;
 					$p = $secondary ? $secondary : $post;
 					$eventUrl = get_permalink($p);
-					break;
-				case 'all':
-					remove_filter( 'post_type_link', array($this, 'addDateToRecurringEvents') );
-					$eventUrl = add_query_arg('eventDisplay', 'all', get_permalink() );
-					add_filter( 'post_type_link', array( $this, 'addDateToRecurringEvents' ), 10, 2 );
 					break;
 				case 'home':
 				default:
