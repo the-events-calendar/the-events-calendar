@@ -755,11 +755,8 @@ if( class_exists( 'TribeEventsPro' ) ) {
 					echo '<div class="tribe-related-event-info">';
 						echo '<h3 class="tribe-related-events-title summary"><a href="'. tribe_get_event_link( $post ) .'" class="url" rel="bookmark">'. get_the_title( $post->ID ) .'</a></h3>';
 
-						if ( class_exists( 'TribeEvents' ) && $post->post_type == TribeEvents::POSTTYPE && function_exists( 'tribe_events_event_schedule_details' ) ) {
+						if ( $post->post_type == TribeEvents::POSTTYPE ) {
 							echo tribe_events_event_schedule_details( $post );
-						}
-						if ( class_exists( 'TribeEvents' ) && $post->post_type == TribeEvents::POSTTYPE && function_exists( 'tribe_events_event_recurring_info_tooltip' ) ) {
-							echo tribe_events_event_recurring_info_tooltip( $post->ID );
 						}
 					echo '</div>';
 				echo '</li>';
@@ -808,5 +805,39 @@ if( class_exists( 'TribeEventsPro' ) ) {
 		return apply_filters( 'tribe_get_related_posts',  $posts ) ;
 	}
 
+	/**
+	 * show the recurring event info in a tooltip
+	 *
+	 * return the details of the start/end date/time
+	 *
+	 * @since  3.0
+	 * @param int     $post_id
+	 * @return string
+	 */
+	function tribe_events_event_recurring_info_tooltip( $post_id = null ) {
+		if ( empty( $post_id ) ) {
+			$post_id = get_the_ID();
+		}
+		$tooltip = '';
+		if ( tribe_is_recurring_event( $post_id ) ) {
+			$tooltip .= '<div class="recurringinfo">';
+			$tooltip .= '<div class="event-is-recurring">';
+			$tooltip .= '<span class="tribe-events-divider">|</span>';
+			$tooltip .= __( 'Recurring Event', 'tribe-events-calendar' );
+			$tooltip .= sprintf(' <a href="%s">%s</a>',
+				tribe_all_occurences_link( $post_id, false ),
+				__( '(See all)', 'tribe-events-calendar' )
+			);
+			$tooltip .= '<div id="tribe-events-tooltip-'. $post_id .'" class="tribe-events-tooltip recurring-info-tooltip">';
+			$tooltip .= '<div class="tribe-events-event-body">';
+			$tooltip .= tribe_get_recurrence_text( $post_id );
+			$tooltip .= '</div>';
+			$tooltip .= '<span class="tribe-events-arrow"></span>';
+			$tooltip .= '</div>';
+			$tooltip .= '</div>';
+			$tooltip .= '</div>';
+		}
+		return apply_filters( 'tribe_events_event_recurring_info_tooltip', $tooltip );
+	}
 
 }

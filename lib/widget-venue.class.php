@@ -33,10 +33,18 @@ if( !class_exists( 'TribeVenueWidget') ) {
 			if ( $hide_if_empty && empty( $events ) )
 				return;
 
+			$ecp = TribeEventsPro::instance();
+			$tooltip_status = $ecp->recurring_info_tooltip_status();
+			$ecp->disable_recurring_info_tooltip();
+
 			echo $before_widget;
 			echo ( $instance['title'] ) ? $args['before_title'] . $instance['title'] . $args['after_title'] : '';
 			include( TribeEventsTemplates::getTemplateHierarchy( 'pro/widgets/venue-widget.php' ) );
 			echo $after_widget;
+
+			if ( $tooltip_status ) {
+				$ecp->enable_recurring_info_tooltip();
+			}
 
 			wp_reset_postdata();
 		}

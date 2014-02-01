@@ -151,6 +151,9 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			add_filter( 'tribe_event_meta_organizer_name', array('Tribe_Register_Meta_Pro','organizer_name'), 10, 2);
 			add_filter( 'tribe_events_single_event_the_meta_group_venue', array( $this, 'single_event_the_meta_group_venue'), 10, 2);
 
+			$this->enable_recurring_info_tooltip();
+			add_action( 'tribe_events_before_the_grid', array( $this, 'disable_recurring_info_tooltip' ), 10, 0 );
+			add_action( 'tribe_events_after_the_grid', array( $this, 'enable_recurring_info_tooltip' ), 10, 0 );
 			add_action( 'tribe_events_single_event_after_the_meta', array( $this, 'register_related_events_view' ) );
 
 			// add_action( 'tribe_events_single_event_meta_init', array( $this, 'single_event_meta_init'), 10, 4);
@@ -224,6 +227,32 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			if ( $this->show_related_events() ) {
 				tribe_single_related_events();
 			}
+		}
+
+		/**
+		 * Append the recurring info tooltip after an event schedule
+		 * @param string $schedule_details
+		 * @param int $event_id
+		 * @return string
+		 */
+		public function append_recurring_info_tooltip( $schedule_details, $event_id = 0 ) {
+			$tooltip = tribe_events_event_recurring_info_tooltip($event_id);
+			return $schedule_details . $tooltip;
+		}
+
+		public function enable_recurring_info_tooltip() {
+			add_filter( 'tribe_events_event_schedule_details', array( $this, 'append_recurring_info_tooltip' ), 9, 2 );
+		}
+
+		public function disable_recurring_info_tooltip() {
+			remove_filter( 'tribe_events_event_schedule_details', array( $this, 'append_recurring_info_tooltip' ), 9, 2 );
+		}
+
+		public function recurring_info_tooltip_status() {
+			if ( has_filter( 'tribe_events_event_schedule_details', array( $this, 'append_recurring_info_tooltip' ) ) ) {
+				return TRUE;
+			}
+			return FALSE;
 		}
 
 		/**
