@@ -475,11 +475,11 @@ class TribeEventsRecurrenceMeta {
 			}
 
 			foreach($dates as $date) {
-				$instance = new Tribe_Events_Recurrence_Instance( $postId, $date );
+				$instance = new TribeEventsPro_RecurrenceInstance( $postId, $date );
 				$instance->save();
 			}
 			foreach ( $to_update as $instance_id => $date ) {
-				$instance = new Tribe_Events_Recurrence_Instance( $postId, $date, $instance_id );
+				$instance = new TribeEventsPro_RecurrenceInstance( $postId, $date, $instance_id );
 				$instance->save();
 			}
 		}
@@ -506,7 +506,7 @@ class TribeEventsRecurrenceMeta {
 		}
 
 		foreach($dates as $date) {
-			$instance = new Tribe_Events_Recurrence_Instance( $event_id, $date );
+			$instance = new TribeEventsPro_RecurrenceInstance( $event_id, $date );
 			$instance->save();
 		}
 

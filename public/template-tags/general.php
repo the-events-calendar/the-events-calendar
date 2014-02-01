@@ -85,12 +85,8 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	if (!function_exists( 'tribe_all_occurences_link' )) {
 		function tribe_all_occurences_link( $postId = null, $echo = true )  {
 			$postId = TribeEvents::postIdHelper( $postId );
-			$post = get_post($postId);
-			if ( !empty($post->post_parent) ) {
-				$post = get_post($post->post_parent);
-			}
 			$tribe_ecp = TribeEvents::instance();
-			$link = apply_filters('tribe_all_occurences_link', $tribe_ecp->getLink('all'));
+			$link = apply_filters('tribe_all_occurences_link', $tribe_ecp->getLink('all', $postId));
 			if( $echo ) {
 				echo $link;
 			} else {

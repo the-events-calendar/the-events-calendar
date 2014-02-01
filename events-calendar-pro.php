@@ -44,6 +44,8 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		public $photoSlug = 'photo';
 		public $todaySlug = 'today';
 		public static $updateUrl = 'http://tri.be/';
+		/** @var TribeEvents_RecurrencePermalinks */
+		public $permalink_editor = NULL;
 		const REQUIRED_TEC_VERSION = '3.3';
 		const VERSION = '3.3';
 
@@ -69,7 +71,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			require_once( 'lib/tribe-ecp-custom-meta.class.php' );
 			require_once( 'lib/tribe-events-recurrence-meta.class.php' );
 			require_once( 'lib/TribeEvents_RecurrenceSeriesBreaker.php' );
-			require_once( 'lib/tribe-events-recurrence-instance.php');
+			require_once( 'lib/tribeeventspro-recurrenceinstance.php');
 			require_once( 'lib/tribe-recurrence.class.php' );
 			require_once( 'lib/tribe-events-recurrence-permalinks.class.php' );
 			require_once( 'lib/widget-venue.class.php' );
@@ -192,8 +194,8 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			add_filter( 'wp' , array( $this, 'detect_recurrence_redirect' ) );
 			add_filter( 'wp', array( $this, 'filter_canonical_link_on_recurring_events' ), 10, 1 );
 
-			$permalink_editor = apply_filters( 'tribe_events_permalink_editor', new TribeEvents_RecurrencePermalinks() );
-			add_filter( 'post_type_link', array($permalink_editor, 'filter_recurring_event_permalinks'), 10, 4 );
+			$this->permalink_editor = apply_filters( 'tribe_events_permalink_editor', new TribeEvents_RecurrencePermalinks() );
+			add_filter( 'post_type_link', array($this->permalink_editor, 'filter_recurring_event_permalinks'), 10, 4 );
 
 			add_filter( 'tribe_events_register_venue_type_args', array( $this, 'addSupportsThumbnail' ), 10, 1 );
 			add_filter( 'tribe_events_register_organizer_type_args', array( $this, 'addSupportsThumbnail' ), 10, 1 );
@@ -1582,6 +1584,13 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 				case 'map':
 					$eventUrl = add_query_arg( array( 'eventDisplay' => $type ), $eventUrl );
 					break;
+				case 'all':
+					remove_filter( 'post_type_link', array($this->permalink_editor, 'filter_recurring_event_permalinks'), 10, 4 );
+					$post_id = $secondary ? $secondary : get_the_ID();
+					$post_id = wp_get_post_parent_id( $post_id );
+					$eventUrl = add_query_arg('eventDisplay', 'all', get_permalink($post_id) );
+					add_filter( 'post_type_link', array($this->permalink_editor, 'filter_recurring_event_permalinks'), 10, 4 );
+					break;
 				default:
 					break;
 			}
@@ -1618,6 +1627,14 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 					if ( !empty( $secondary ) ) {
 						$eventUrl = esc_url( trailingslashit( $eventUrl ) . $secondary );
 					}
+					break;
+				case 'all':
+					remove_filter( 'post_type_link', array($this->permalink_editor, 'filter_recurring_event_permalinks'), 10, 4 );
+					$post_id = $secondary ? $secondary : get_the_ID();
+					$post_id = wp_get_post_parent_id( $post_id );
+					$eventUrl = trailingslashit(get_permalink($post_id));
+					$eventUrl = trailingslashit( esc_url($eventUrl . 'all') );
+					add_filter( 'post_type_link', array($this->permalink_editor, 'filter_recurring_event_permalinks'), 10, 4 );
 					break;
 				default:
 					break;

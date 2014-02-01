@@ -1,9 +1,9 @@
 <?php
 
 /**
- * Class Tribe_Events_Recurrence_Instance
+ * Class TribeEventsPro_RecurrenceInstance
  */
-class Tribe_Events_Recurrence_Instance {
+class TribeEventsPro_RecurrenceInstance {
 	private $parent_id = 0;
 	private $start_date = NULL;
 	private $post_id = 0;
@@ -33,8 +33,7 @@ class Tribe_Events_Recurrence_Instance {
 		update_post_meta( $this->post_id, '_EventStartDate', $this->start_date->format(DateSeriesRules::DATE_FORMAT) );
 		update_post_meta( $this->post_id, '_EventEndDate', $end_date->format(DateSeriesRules::DATE_FORMAT) );
 		update_post_meta( $this->post_id, '_EventDuration', $duration );
-		update_post_meta( $this->post_id, '_EventOrganizerID', $this->get_organizer() );
-		update_post_meta( $this->post_id, '_EventVenueID', $this->get_venue() );
+		$this->copy_meta(); // everything else
 		$this->set_terms();
 	}
 
@@ -66,6 +65,12 @@ class Tribe_Events_Recurrence_Instance {
 			return 0;
 		}
 		return (int)$venue;
+	}
+
+	private function copy_meta() {
+		require_once('tribeeventspro-postmetacopier.php');
+		$copier = new TribeEventsPro_PostMetaCopier();
+		$copier->copy_meta($this->parent_id, $this->post_id);
 	}
 
 	private function set_terms() {
