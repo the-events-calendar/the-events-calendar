@@ -82,7 +82,7 @@ class TribeEventsRecurrenceMeta {
 	 */
 	public static function updateRecurrenceMeta($event_id, $data) {
 		// save recurrence
-		if ( isset($data['recurrence_action']) && $data['recurrence_action'] != self::UPDATE_TYPE_ALL ) {
+		if ( !empty($data['recurrence_action']) && $data['recurrence_action'] != self::UPDATE_TYPE_ALL ) {
 			$recurrence_meta = NULL;
 		} elseif ( isset($data['recurrence']) ){
 			$recurrence_meta = $data['recurrence'];
@@ -290,119 +290,6 @@ class TribeEventsRecurrenceMeta {
 		$date = TribeDateUtils::addTimeToDate( $date, TribeDateUtils::timeOnly($startDate) );
 
 		delete_post_meta( $postId, '_EventStartDate', $date );
-	}
-
-	/**
-	 * Removes all occurrences of an event that are after a given date
- 	 * @param integer $postId ID of the event that occurrences will be deleted from
-	 * @param string $date date to delete occurrences after, current date if not specified
-	 * @return void
-	 */
-	private static function removeFutureOccurrences( $postId, $date = null ) {
-		$date = $date ? strtotime($date) : time();
-
-		$occurrences = tribe_get_recurrence_start_dates($postId);
-
-		foreach($occurrences as $occurrence) {
-			if (strtotime(TribeDateUtils::dateOnly($occurrence)) >= $date ) {
-				delete_post_meta($postId, '_EventStartDate', $occurrence);
-			}
-		}
-	}
-
-	/**
-	 * Removes all occurrences of an event that are before a given date
- 	 * @param integer $postId ID of the event that occurrences will be deleted from
-	 * @param string $date date to delete occurrences before, current date if not specified
-	 * @return void
-	 */
-	private static function removePastOccurrences( $postId, $date = null ) {
-		$date = $date ? strtotime($date) : time();
-		$occurrences = tribe_get_recurrence_start_dates($postId);
-
-		foreach($occurrences as $occurrence) {
-			if (strtotime(TribeDateUtils::dateOnly($occurrence)) < $date ) {
-				delete_post_meta($postId, '_EventStartDate', $occurrence);
-			}
-		}
-	}
-
-
-	/**
-	 * Adjust the end date of a series to be the start date of the last instance after a given date.  This function is used
-	 * when a series is split into two and the original series needs to be shortened to the start date of the new series
- 	 * @param integer $postId ID of the event that will have it's series end adjusted
-	 * @param string $date new end date for the series
-	 * @return the number of occurrences in the shortened series.  This is useful if you need to know how many occurrences
-	 * the new series should have
-	 */
-	private static function adjustRecurrenceEnd( $postId, $date = null ) {
-		$date = $date ? strtotime($date) : time();
-
-		$occurrences = tribe_get_recurrence_start_dates($postId);
-		$occurrenceCount = 0;
-		sort($occurrences);
-
-		if( is_array($occurrences) && sizeof($occurrences) > 0 ) {
-			$prev = $occurrences[0];
-		}
-
-		foreach($occurrences as $occurrence) {
-			$occurrenceCount++; // keep track of how many we are keeping
-			if (strtotime(TribeDateUtils::dateOnly($occurrence)) > $date ) {
-				$recurrenceMeta = get_post_meta($postId, '_EventRecurrence', true);
-				$recurrenceMeta['end'] = date(DateSeriesRules::DATE_ONLY_FORMAT, strtotime($prev));
-
-				update_post_meta($postId, '_EventRecurrence', $recurrenceMeta);
-				break;
-			}
-
-			$prev = $occurrence;
-		}
-
-		// useful for knowing how many occurrences are needed for new series
-		return $occurrenceCount;
-	}
-
-	/**
-	 * Change the EventEndDate of a recurring event.  This is needed when a recurring series is split into two series.  The new series
-	 * has to have its end date adjusted.  Note:  EventEndDate is only set once per recurring event and is the end date of the first occurrence.
-	 * Subsequent occurrences have a calculated event date based on duration of the first event (EventEndDate - EventStartDate)
- 	 * @param integer $postId ID of the event that will have it's series end date adjusted
-	 * @return void
-	 */
-	private static function adjustEndDate( $postId ) {
-		$occurrences = tribe_get_recurrence_start_dates($postId);
-		sort($occurrences);
-
-		$duration = get_post_meta($postId, '_EventDuration', true);
-
-		if( is_array($occurrences) && sizeof($occurrences) > 0 ) {
-			update_post_meta($postId, '_EventEndDate', date(DateSeriesRules::DATE_FORMAT, strtotime($occurrences[0]) + $duration));
-		}
-	}
-
-	/**
-	 * Clone an event when splitting up a recurring series
- 	 * @param array $data The event information for the original event
-	 * @return int|WP_Error
-	 */
-	private static function cloneEvent( $data ) {
-      $old_id = $data['ID'];
-
-		$data['ID'] = null;
-		$new_event = wp_insert_post($data);
-      self::cloneEventAttachments( $old_id, $new_event );
-
-		return $new_event;
-	}
-
-	private static function cloneEventAttachments( $old_event, $new_event ) {
-		// Update the post thumbnail.
-		if ( has_post_thumbnail( $old_event ) ) {
-    		$thumbnail_id = get_post_thumbnail_id( $old_event );
-    		update_post_meta( $new_event, '_thumbnail_id', $thumbnail_id );
-		}
 	}
 
 	/**

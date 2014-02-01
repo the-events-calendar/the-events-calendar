@@ -1137,6 +1137,33 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 					case 'photo':
 						$query->set( 'hide_upcoming', false );
 						break;
+					case 'all':
+						// TODO: cache this, probably preemptively --jbrinley
+						$slug = $query->get( 'name' );
+						if ( empty($slug) ) {
+							break; // we shouldn't be here
+						}
+						unset( $query->query_vars['name'] );
+						unset( $query->query_vars['tribe_events']);
+						global $wpdb;
+						$parent_sql = "SELECT ID FROM {$wpdb->posts} WHERE post_name=%s AND post_type=%s";
+						$parent_sql = $wpdb->prepare( $parent_sql, $slug, TribeEvents::POSTTYPE );
+						$parent_id = $wpdb->get_var($parent_sql);
+						if ( empty($parent_id) ) {
+							$query->set('p', -1);
+							break;
+						}
+						$children_sql = "SELECT ID FROM {$wpdb->posts} WHERE ID=%d OR post_parent=%d AND post_type=%s";
+						$children_sql = $wpdb->prepare( $children_sql, $parent_id, $parent_id, TribeEvents::POSTTYPE );
+						$all_ids = $wpdb->get_col($children_sql);
+
+						if ( empty($all_ids) ) {
+							$query->set('p', -1);
+							break;
+						}
+
+						$query->set('post__in', $all_ids);
+						break;
 				}
 				apply_filters('tribe_events_pro_pre_get_posts', $query);
 			}
