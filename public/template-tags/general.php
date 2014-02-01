@@ -733,42 +733,6 @@ if ( class_exists( 'TribeEvents' ) ) {
 	}
 
 	/**
-	 * show the recurring event info in a tooltip
-	 *
-	 * return the details of the start/end date/time
-	 *
-	 * @since  3.0
-	 * @param int     $post_id
-	 * @return string
-	 */
-	function tribe_events_event_recurring_info_tooltip( $post_id = null ) {
-		if ( is_null( $post_id ) )
-			$post_id = get_the_ID();
-		$tooltip = '';
-		if ( class_exists( 'TribeEventsPro' ) ) { // should this be a template tag?
-			if ( tribe_is_recurring_event( $post_id ) ) {
-				$tooltip .= '<div class="recurringinfo">';
-				$tooltip .= '<div class="event-is-recurring">';
-				$tooltip .= '<span class="tribe-events-divider">|</span>';
-				$tooltip .= __( 'Recurring Event', 'tribe-events-calendar' );
-				$tooltip .= sprintf(' <a href="%s">%s</a>',
-					tribe_all_occurences_link( $post_id, false ),
-					__( '(See all)', 'tribe-events-calendar' )
-					);
-				$tooltip .= '<div id="tribe-events-tooltip-'. $post_id .'" class="tribe-events-tooltip recurring-info-tooltip">';
-				$tooltip .= '<div class="tribe-events-event-body">';
-				$tooltip .= tribe_get_recurrence_text( $post_id );
-				$tooltip .= '</div>';
-				$tooltip .= '<span class="tribe-events-arrow"></span>';
-				$tooltip .= '</div>';
-				$tooltip .= '</div>';
-				$tooltip .= '</div>';
-			}
-		}
-		return apply_filters( 'tribe_events_event_recurring_info_tooltip', $tooltip );
-	}
-
-	/**
 	 * Return the details of the start/end date/time.
 	 *
 	 * The highest level means of customizing this function's output is simply to adjust the WordPress date and time
@@ -805,7 +769,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 * @param int|null $event
 	 * @return string
 	 */
-	function tribe_events_event_schedule_details( $event = null ) {
+	function tribe_events_event_schedule_details( $event = null, $before = '', $after = '' ) {
 		if ( is_null( $event ) ) {
 			global $post;
 			$event = $post;
@@ -904,6 +868,10 @@ if ( class_exists( 'TribeEvents' ) ) {
 				$schedule .= ( $show_end_time ? tribe_get_end_date( $event, false, $time_format ) : '' ) . '<span class="value-title" title="'. $microformatEndFormat .'"></span>';
 				$schedule .= '</span>';
 			}
+		}
+
+		if ( !empty($schedule) ) {
+			$schedule = $before . $schedule . $after;
 		}
 
 		return apply_filters( 'tribe_events_event_schedule_details', $schedule );
