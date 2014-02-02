@@ -1,9 +1,9 @@
 <?php
 
 /**
- * Class TribeEvents_RecurrenceSeriesBreaker_Test
+ * Class TribeEventsPro_RecurrenceSeriesSplitter_Test
  */
-class TribeEvents_RecurrenceSeriesBreaker_Test extends WP_UnitTestCase {
+class TribeEventsPro_RecurrenceSeriesSplitter_Test extends WP_UnitTestCase {
 	public function test_break_single_event_from_series() {
 		$start_date = date('Y-m-d', strtotime('2014-05-01'));
 		$event_args = array(
@@ -33,7 +33,7 @@ class TribeEvents_RecurrenceSeriesBreaker_Test extends WP_UnitTestCase {
 
 		$child_to_break = $original_children[2]; // 2014-05-22
 
-		$breaker = new TribeEvents_RecurrenceSeriesBreaker();
+		$breaker = new TribeEventsPro_RecurrenceSeriesSplitter();
 
 		$breaker->break_single_event_from_series($child_to_break);
 
@@ -95,7 +95,7 @@ class TribeEvents_RecurrenceSeriesBreaker_Test extends WP_UnitTestCase {
 			'fields' => 'ids',
 		));
 
-		$breaker = new TribeEvents_RecurrenceSeriesBreaker();
+		$breaker = new TribeEventsPro_RecurrenceSeriesSplitter();
 
 		$breaker->break_first_event_from_series($post_id);
 		$this->assertEmpty(get_post_meta($post_id, '_EventRecurrence', TRUE));
@@ -152,7 +152,7 @@ class TribeEvents_RecurrenceSeriesBreaker_Test extends WP_UnitTestCase {
 
 		$child_to_break = $original_children[2]; // 2014-05-22
 
-		$breaker = new TribeEvents_RecurrenceSeriesBreaker();
+		$breaker = new TribeEventsPro_RecurrenceSeriesSplitter();
 
 		$breaker->break_remaining_events_from_series($child_to_break);
 

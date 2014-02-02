@@ -152,7 +152,7 @@ class TribeEventsRecurrenceMeta {
 
 		$is_first_in_series = ($post_object_data['post_parent'] == 0);
 
-		$breaker = new TribeEvents_RecurrenceSeriesBreaker();
+		$breaker = new TribeEventsPro_RecurrenceSeriesSplitter();
 
 		if ( $submitted_data['recurrence_action'] == TribeEventsRecurrenceMeta::UPDATE_TYPE_FUTURE ) {
 			if ( $is_first_in_series ) {

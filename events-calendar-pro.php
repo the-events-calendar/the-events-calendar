@@ -44,7 +44,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		public $photoSlug = 'photo';
 		public $todaySlug = 'today';
 		public static $updateUrl = 'http://tri.be/';
-		/** @var TribeEvents_RecurrencePermalinks */
+		/** @var TribeEventsPro_RecurrencePermalinks */
 		public $permalink_editor = NULL;
 		const REQUIRED_TEC_VERSION = '3.3';
 		const VERSION = '3.3';
@@ -65,15 +65,15 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			$this->daySlug = sanitize_title(__('day', 'tribe-events-calendar-pro'));
 			$this->todaySlug = sanitize_title(__('today', 'tribe-events-calendar-pro'));
 
-			require_once( 'lib/TribeEventsPro_SchemaUpdater.php' );
+			require_once( 'lib/tribeeventspro-schemaupdater.php' );
 			require_once( 'lib/tribe-pro-template-factory.class.php' );
 			require_once( 'lib/tribe-date-series-rules.class.php' );
 			require_once( 'lib/tribe-ecp-custom-meta.class.php' );
 			require_once( 'lib/tribe-events-recurrence-meta.class.php' );
-			require_once( 'lib/TribeEvents_RecurrenceSeriesBreaker.php' );
+			require_once( 'lib/tribeeventspro-recurrenceseriessplitter.php' );
 			require_once( 'lib/tribeeventspro-recurrenceinstance.php');
 			require_once( 'lib/tribe-recurrence.class.php' );
-			require_once( 'lib/tribe-events-recurrence-permalinks.class.php' );
+			require_once( 'lib/tribeeventspro-recurrencepermalinks.php' );
 			require_once( 'lib/widget-venue.class.php' );
 			require_once( 'lib/tribe-mini-calendar.class.php' );
 			require_once( 'lib/widget-countdown.class.php' );
@@ -194,7 +194,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			add_filter( 'wp' , array( $this, 'detect_recurrence_redirect' ) );
 			add_filter( 'wp', array( $this, 'filter_canonical_link_on_recurring_events' ), 10, 1 );
 
-			$this->permalink_editor = apply_filters( 'tribe_events_permalink_editor', new TribeEvents_RecurrencePermalinks() );
+			$this->permalink_editor = apply_filters( 'tribe_events_permalink_editor', new TribeEventsPro_RecurrencePermalinks() );
 			add_filter( 'post_type_link', array($this->permalink_editor, 'filter_recurring_event_permalinks'), 10, 4 );
 
 			add_filter( 'tribe_events_register_venue_type_args', array( $this, 'addSupportsThumbnail' ), 10, 1 );
@@ -988,7 +988,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		}
 
 		private function get_rewrite_generator( WP_Rewrite $wp_rewrite ) {
-			require_once( 'lib/TribeEventsPro_RewriteRuleGenerator.php' );
+			require_once( 'lib/tribeeventspro-rewriterulegenerator.php' );
 			$generator = new TribeEventsPro_RewriteRuleGenerator( $wp_rewrite );
 			$tec = TribeEvents::instance();
 

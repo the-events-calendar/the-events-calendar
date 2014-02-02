@@ -1,9 +1,9 @@
 <?php
 
 /**
- * Class TribeEvents_RecurrenceSeriesBreaker
+ * Class TribeEventsPro_RecurrenceSeriesSplitter
  */
-class TribeEvents_RecurrenceSeriesBreaker {
+class TribeEventsPro_RecurrenceSeriesSplitter {
 	/**
 	 * @param int $first_event_of_new_series The post ID of the first event of the new series
 	 * @return void
