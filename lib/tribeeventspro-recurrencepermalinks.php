@@ -20,6 +20,7 @@ class TribeEventsPro_RecurrencePermalinks {
 				$post_link = str_replace("%$post->post_type%", $slug, $permastruct);
 			}
 			$post_link = trailingslashit($post_link) . $date;
+			$post_link = str_replace(trailingslashit(home_url()), '', $post_link);
 			$post_link = home_url( user_trailingslashit($post_link) );
 		}
 		return $post_link;
