@@ -162,7 +162,7 @@ The plugin is produced by <a href="http://m.tri.be/45">Modern Tribe Inc</a>.
 * Dutch from Erik Massop
 * Finnish by Ari-Pekka Koponen
 * French from Bastien BC
-* German from Dieter Dannecker
+* German from Oliver Heinrich
 * Greek from Maria Tsilimidou
 * Icelandic by Baldvin √ñrn Berndsen
 * Italian from Roberto Scano
@@ -171,13 +171,13 @@ The plugin is produced by <a href="http://m.tri.be/45">Modern Tribe Inc</a>.
 * Norwegian Nynorsk by Torbjørn Lauen
 * Polish from Marek Kosina
 * Portuguese from Antonio Pratas
-* Romanian from Mihai Burcea
+* Romanian from Cosmin Vaman
 * Serbian from Marko Manojlovic
 * Spanish from Juanjo Reparaz Sarasola
 * Swedish from Ben Andersen
 * Turkish by Derin Korman
 
-* Previous translators include Mikhail Michouris, Ed Boon, Rick van Dalen, Jacob Roel Meijering, hristian Andersen, Michael Sebel, Oliver Heinrich, Filippo Montanari, David Decker, Kamil Szymanski, "Terje With Lunndal", Sagi Shrieber, Matthew Meyer, Arno Faure, Fanny Heraud, Vincent G from Host1Free, , Petri Kajander, Fran Rosa, Nico (wsMaurik), Panos Efstratiou, Dominique Monhardt, Thomas Butzek, Kjell Vestnes, Luiza Libardi, Diego Meneghetti, Benoit Burgener, Hector Gil Rizo, Burak Pehlevan, and Alexey Fedorov
+* Previous translators include Mikhail Michouris, Ed Boon, Rick van Dalen, Jacob Roel Meijering, hristian Andersen, Michael Sebel, Mihai Burcea, Filippo Montanari, David Decker, Kamil Szymanski, "Terje With Lunndal", Sagi Shrieber, Matthew Meyer, Arno Faure, Fanny Heraud, Vincent G from Host1Free, , Petri Kajander, Fran Rosa, Nico (wsMaurik), Panos Efstratiou, Dominique Monhardt, Thomas Butzek, Kjell Vestnes, Luiza Libardi, Diego Meneghetti, Benoit Burgener, Hector Gil Rizo, Burak Pehlevan, and Alexey Fedorov
 
 == Add-Ons ==
 
@@ -213,6 +213,7 @@ Incorporated updated Spanish translation files, courtesy of Juanjo Reparaz Saras
 Added new Montenegrin translation files, courtesy of Sasa Vukovic
 Added updated Norwegian Bokmål translation files, courtesy of Morten Ruud
 Added new Norwegian Nynorsk translation files, courtesy of Torbjørn Lauen
+Added updated Romanian translation files, courtesy of Cosmin Vaman
 
 = 3.4 = 
 
