@@ -36,12 +36,12 @@ class TribeEventsRecurrenceMeta {
 		add_action( 'tribe_events_date_display', array( __CLASS__, 'loadRecurrenceData' ) );
 		add_action(	'wp_trash_post', array( __CLASS__, 'deleteRecurringEvent') );
 
-		add_action(	'wp_insert_post_data', array( __CLASS__, 'maybeBreakFromSeries' ), 100, 2 );
 		add_action( 'admin_notices', array( __CLASS__, 'showRecurrenceErrorFlash') );
 		add_action( 'tribe_recurring_event_error', array( __CLASS__, 'setupRecurrenceErrorMsg'), 10, 2 );
 
     //add_filter( 'tribe_get_event_link', array( __CLASS__, 'addDateToEventPermalink'), 10, 2 );
-    add_filter( 'post_row_actions', array( __CLASS__, 'removeQuickEdit'), 10, 2 );
+    add_filter( 'post_row_actions', array( __CLASS__, 'edit_post_row_actions'), 10, 2 );
+		add_action( 'admin_action_tribe_split', array( __CLASS__, 'handle_split_request' ), 10, 1 );
     add_action( 'wp_before_admin_bar_render', array( __CLASS__, 'admin_bar_render'));
 
     	add_filter( 'tribe_events_query_posts_groupby', array( __CLASS__, 'addGroupBy' ), 10, 2 );
@@ -53,26 +53,60 @@ class TribeEventsRecurrenceMeta {
 		self::reset_scheduler();
 	}
 
+	/**
+	 * Change the link for a recurring event to edit its series
+	 * @return void
+	 */
 	public static function admin_bar_render(){
 		global $post, $wp_admin_bar;
 		if( !is_admin() &&  tribe_is_recurring_event( $post )) {
 			$edit_link = $wp_admin_bar->get_node('edit');
 			// becuase on some pages we actually don't have the edit option
-			if( !empty($edit_link->href)) {
-				$edit_link->href = $edit_link->href . '&eventDate=' . TribeDateUtils::dateOnly($post->EventStartDate);
+			if( !empty($edit_link->href) && !empty($post->post_parent) ) {
+				$edit_link->href = get_edit_post_link( $post->post_parent );
 				$wp_admin_bar->remove_menu('edit');
 				$wp_admin_bar->add_node($edit_link);
 			}
 		}
 	}
 
-   public static function removeQuickEdit( $actions, $post ) {
-      if( tribe_is_recurring_event( $post ) ) {
-         unset($actions['inline hide-if-no-js']);
-      }
+	public static function edit_post_row_actions( $actions, $post ) {
+		if( tribe_is_recurring_event( $post ) ) {
+			unset($actions['inline hide-if-no-js']);
+			$first_in_series = $post->post_parent ? $post->post_parent : $post->ID;
+			if ( isset($actions['edit']) && 'trash' != $post->post_status ) {
+				if ( current_user_can('edit_post', $post->ID) ) {
+					$split_url = wp_nonce_url(add_query_arg(array('action' => 'tribe_split' ), remove_query_arg('action', get_edit_post_link( $post->ID, FALSE ))), 'tribe_split_'.$post->ID);
+					$actions['split'] = sprintf('<a href="%s" title="%s">%s</a>', esc_url($split_url), esc_attr(__('Break this event out of its series and edit it independently', 'tribe-events-calendar-pro')), __('Break from Series', 'tribe-events-calendar-pro'));
+				}
+				// TODO: an option to split all following events from series -- jbrinley
+				if ( current_user_can('edit_post', $first_in_series) ) {
+					$edit_series_url = get_edit_post_link( $first_in_series, 'display' );
+					$actions['edit'] = sprintf('<a href="%s" title="%s">%s</a>', esc_url($edit_series_url), esc_attr(__('Edit all events in this series', 'tribe-events-calendar-pro')), __('Edit Series', 'tribe-events-calendar-pro'));
+				}
+			}
+		}
+		return $actions;
+	}
 
-      return $actions;
-   }
+	public static function handle_split_request() {
+		// TODO: would be nice to have a way to add it back into the series (i.e., an undo)
+		$post_id = isset($_REQUEST['post']) ? $_REQUEST['post'] : 0;
+		check_admin_referer('tribe_split_' . $post_id);
+		if ( !current_user_can('edit_post', $post_id) ) {
+			wp_die('You do not have sufficient capabilities to edit this event', 'tribe-events-calendar-pro');
+			exit();
+		}
+
+		$splitter = new TribeEventsPro_RecurrenceSeriesSplitter();
+		$splitter->break_single_event_from_series($post_id);
+
+		// TODO: show a message?
+
+		$edit_url = get_edit_post_link($post_id, FALSE);
+		wp_redirect($edit_url);
+		exit();
+	}
 
 	/**
 	 * Update event recurrence when a recurring event is saved
@@ -82,9 +116,7 @@ class TribeEventsRecurrenceMeta {
 	 */
 	public static function updateRecurrenceMeta($event_id, $data) {
 		// save recurrence
-		if ( !empty($data['recurrence_action']) && $data['recurrence_action'] != self::UPDATE_TYPE_ALL ) {
-			$recurrence_meta = NULL;
-		} elseif ( isset($data['recurrence']) ){
+		if ( isset($data['recurrence']) ){
 			$recurrence_meta = $data['recurrence'];
 			// for an update when the event start/end dates change
 			$recurrence_meta['EventStartDate'] = $data['EventStartDate'];
@@ -105,6 +137,10 @@ class TribeEventsRecurrenceMeta {
 	 * @return void
 	 */
 	public static function loadRecurrenceData($postId) {
+		$post = get_post($postId);
+		if ( !empty($post->post_parent) ) {
+			return; // don't show recurrence fields for instances of a recurring event
+		}
 		// convert array to variables that can be used in the view
 		extract(TribeEventsRecurrenceMeta::getRecurrenceMeta($postId));
 
@@ -134,48 +170,6 @@ class TribeEventsRecurrenceMeta {
 	public static function filter_passthrough( $data ){
 		return $data;
 	}
-
-	/**
-	 * Handles updating recurring events.
-	 * @param array $post_object_data Data stored in the posts table
-	 * @param array $submitted_data All data submitted to wp_insert_post()
-	 * @return array The $post_object_data, or an empty array if we're overriding
-	 */
-	public static function maybeBreakFromSeries( $post_object_data, $submitted_data ) {
-		if ( empty($submitted_data['ID']) ) {
-			return $post_object_data; // can't break out from a new post
-		}
-		if ( empty($submitted_data['recurrence_action']) ) {
-			return $post_object_data; // no signal to break out
-		}
-		$postId = $submitted_data['ID'];
-
-		$is_first_in_series = ($post_object_data['post_parent'] == 0);
-
-		$breaker = new TribeEventsPro_RecurrenceSeriesSplitter();
-
-		if ( $submitted_data['recurrence_action'] == TribeEventsRecurrenceMeta::UPDATE_TYPE_FUTURE ) {
-			if ( $is_first_in_series ) {
-				// can't break an entire series off of itself
-			} else {
-				$post_object_data['post_parent'] = 0;
-				$breaker->break_remaining_events_from_series( $postId );
-			}
-		} elseif ( $submitted_data['recurrence_action'] == TribeEventsRecurrenceMeta::UPDATE_TYPE_SINGLE ) {
-			if ( $is_first_in_series ) {
-				$breaker->break_first_event_from_series( $postId );
-			} else {
-				$post_object_data['post_parent'] = 0;
-				$breaker->break_single_event_from_series( $postId );
-			}
-		} elseif ( !$is_first_in_series ) {
-			// We don't want child events to diverge. Update the parent event.
-			$post_object_data['ID'] = $post_object_data['post_parent'];
-			$post_object_data['post_parent'] = 0;
-		}
-		return $post_object_data;
-	}
-
 
 	/**
 	 * Setup an error message if there is a problem with a given recurrence.

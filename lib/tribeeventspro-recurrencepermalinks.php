@@ -11,7 +11,11 @@ class TribeEventsPro_RecurrencePermalinks {
 		}
 
 		$permastruct = $this->get_permastruct( $post );
-		$date = $this->get_date_string( $post );
+		if ( $leavename && empty($post->post_parent) ) {
+			$date = 'all'; // sample permalink for the series
+		} else {
+			$date = $this->get_date_string( $post );
+		}
 		$parent = $this->get_primary_event( $post );
 		$slug = $parent->post_name;
 

@@ -135,7 +135,6 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			add_action( 'wp_loaded', array( $this, 'allow_cpt_search' ) );
 			add_action( 'plugin_row_meta', array( $this, 'addMetaLinks' ), 10, 2 );
 			add_filter( 'get_delete_post_link', array( $this, 'adjust_date_on_recurring_event_trash_link' ), 10, 2 );
-			add_action( 'admin_footer', array( $this, 'addDeleteDialogForRecurringEvents' ) );
 			add_filter( 'tribe_get_events_title', array( $this, 'reset_page_title'));
 			add_filter( 'tribe_events_add_title', array($this, 'maybeAddEventTitle' ), 10, 3 );
 
@@ -814,23 +813,6 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 				$link = add_query_arg( 'eventDate', $_REQUEST['eventDate'], $link );
 			}
 			return $link;
-	      }
-
-		/**
-		 * Adds the dialog box for when you try to delete a specific instance of a recurring event.
-		 *
-		 * @return void
-		 */
-		public function addDeleteDialogForRecurringEvents() {
-			global $current_screen, $post;
-			if ( is_admin() && isset( $current_screen->post_type ) && $current_screen->post_type == TribeEvents::POSTTYPE
-				&& (
-					( isset( $current_screen->id ) && $current_screen->id == 'edit-'.TribeEvents::POSTTYPE ) // listing page
-					|| ( ( isset( $post->ID ) ) && tribe_is_recurring_event( $post->ID ) ) // single event page
-				)
-			)
-			// load the dialog
-			require_once( TribeEvents::instance()->pluginPath.'admin-views/recurrence-dialog.php' );
 	      }
 
 		/**
