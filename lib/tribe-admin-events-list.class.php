@@ -30,8 +30,7 @@ if (!class_exists('TribeEventsAdminList')) {
 				add_filter( 'manage_' . TribeEvents::POSTTYPE . '_posts_columns', array(__CLASS__, 'column_headers'));
 				add_filter( 'tribe_apm_headers_' . TribeEvents::POSTTYPE, array(__CLASS__, 'column_headers_check'), 10, 1 );
 				add_filter( 'posts_results',  array(__CLASS__, 'cache_posts_results'));
-				add_filter( 'get_edit_post_link',  array(__CLASS__, 'add_event_occurrance_to_edit_link'), 10, 2);
-				add_filter( 'views_edit-tribe_events',		array( __CLASS__, 'update_event_counts' ) );			
+				add_filter( 'views_edit-tribe_events',		array( __CLASS__, 'update_event_counts' ) );
 				add_action( 'manage_posts_custom_column', array(__CLASS__, 'custom_columns'), 10, 2);
 				add_action( 'manage_edit-' . TribeEvents::POSTTYPE . '_sortable_columns', array(__CLASS__, 'register_date_sortables'), 10, 2);
 			
@@ -338,26 +337,6 @@ if (!class_exists('TribeEventsAdminList')) {
 				if ( $column_id == 'end-date' ) {
 					echo tribe_get_end_date($post_id, false);
 				}
-		}
-	
-		/**
-		 * Add the date to the edit link for recurring events.
-		 *
-		 * @param string $link The current link.
-		 * @param int $eventId The event id.
-		 * @return string The modified link.
-		 */
-		public static function add_event_occurrance_to_edit_link($link, $eventId) {
-			if ( get_query_var('post_type') != TribeEvents::POSTTYPE ) {
-				return $link;
-			}
-
-			// if is a recurring event
-			if ( function_exists('tribe_is_recurring_event') && tribe_is_recurring_event($eventId) && isset(self::$events_list[0])) {
-				$link = add_query_arg('eventDate', urlencode( TribeDateUtils::dateOnly( self::$events_list[0]->EventStartDate ) ), $link);
-			}
-		
-			return $link;
 		}
 	
 		/**
