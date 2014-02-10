@@ -70,10 +70,11 @@ class TribeEventsRecurrenceMeta {
 			$first_id_in_series = $post->post_parent ? $post->post_parent : $post->ID;
 			if ( isset($actions['edit']) && 'trash' != $post->post_status ) {
 				if ( current_user_can('edit_post', $post->ID) ) {
-					$split_url = wp_nonce_url(add_query_arg(array('action' => 'tribe_split' ), remove_query_arg('action', get_edit_post_link( $post->ID, FALSE ))), 'tribe_split_'.$post->ID);
-					$actions['split'] = sprintf('<a href="%s" title="%s">%s</a>', esc_url($split_url), esc_attr(__('Break this event out of its series and edit it independently', 'tribe-events-calendar-pro')), __('Break from Series', 'tribe-events-calendar-pro'));
+					$actions['split'] = sprintf('<a href="%s" title="%s">%s</a>', esc_url( wp_nonce_url( self::get_split_series_url($post->ID, FALSE, FALSE), 'tribe_split_'.$post->ID ) ), esc_attr(__('Break this event out of its series and edit it independently', 'tribe-events-calendar-pro')), __('Break from Series', 'tribe-events-calendar-pro'));
+					if ( !$is_first_in_series ) {
+						$actions['split_all'] = sprintf('<a href="%s" title="%s">%s</a>', esc_url( wp_nonce_url( self::get_split_series_url($post->ID, FALSE, TRUE), 'tribe_split_'.$post->ID ) ), esc_attr(__('Break this and all subsequent events into a separate series', 'tribe-events-calendar-pro')), __('Break All Following from Series', 'tribe-events-calendar-pro'));
+					}
 				}
-				// TODO: an option to split all following events from series -- jbrinley
 				if ( current_user_can('edit_post', $first_id_in_series) ) {
 					$edit_series_url = get_edit_post_link( $first_id_in_series, 'display' );
 					$actions['edit'] = sprintf('<a href="%s" title="%s">%s</a>', esc_url($edit_series_url), esc_attr(__('Edit all events in this series', 'tribe-events-calendar-pro')), __('Edit Series', 'tribe-events-calendar-pro'));
@@ -97,6 +98,36 @@ class TribeEventsRecurrenceMeta {
 		return $actions;
 	}
 
+	private static function get_split_series_url( $id, $context = 'display', $all = FALSE ) {
+		if ( ! $post = get_post( $id ) )
+			return;
+
+		if ( 'revision' === $post->post_type ) {
+			return;
+		}
+
+		if ( !current_user_can( 'edit_post', $post->ID ) ) {
+			return;
+		}
+
+		$post_type_object = get_post_type_object( $post->post_type );
+		if ( !$post_type_object ) {
+			return;
+		}
+
+		$args = array('action' => 'tribe_split');
+		if ( $all ) {
+			$args['split_all'] = 1;
+		}
+		$url = admin_url(sprintf($post_type_object->_edit_link, $post->ID));
+		$url = add_query_arg($args, $url);
+		if ( $context == 'display' ) {
+			$url = esc_url($url);
+		}
+
+		return apply_filters( 'tribe_events_get_split_series_link', $url, $post->ID, $context, $all );
+	}
+
 	public static function handle_split_request() {
 		// TODO: would be nice to have a way to add it back into the series (i.e., an undo)
 		$post_id = isset($_REQUEST['post']) ? $_REQUEST['post'] : 0;
@@ -107,7 +138,12 @@ class TribeEventsRecurrenceMeta {
 		}
 
 		$splitter = new TribeEventsPro_RecurrenceSeriesSplitter();
-		$splitter->break_single_event_from_series($post_id);
+
+		if ( !empty($_REQUEST['split_all']) ) {
+			$splitter->break_remaining_events_from_series($post_id);
+		} else {
+			$splitter->break_single_event_from_series($post_id);
+		}
 
 		// TODO: show a message?
 
