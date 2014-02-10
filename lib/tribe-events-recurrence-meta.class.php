@@ -689,7 +689,8 @@ class TribeEventsRecurrenceMeta {
 	 */
 	public static function addGroupBy( $group_by, $query ) {
 		if ( isset( $query->query_vars['tribeHideRecurrence'] ) && $query->query_vars['tribeHideRecurrence'] == 1 ) {
-			$group_by .= ' ID';
+			global $wpdb;
+			$group_by .= " IF( {$wpdb->posts}.post_parent = 0, {$wpdb->posts}.ID, {$wpdb->posts}.post_parent )";
 		}
 		return $group_by;
 	}

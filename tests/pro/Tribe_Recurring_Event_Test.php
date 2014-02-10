@@ -344,5 +344,56 @@ class Tribe_Recurring_Event_Test extends WP_UnitTestCase {
 		));
 		$this->assertEquals($child_id, reset($results));
 	}
+
+	public function test_tribeHideRecurrence_queries() {
+		$start_date = date('Y-m-d', strtotime('2014-05-01'));
+		$event_args = array(
+			'post_type' => TribeEvents::POSTTYPE,
+			'post_title' => __CLASS__,
+			'post_name' => 'test-tribeHideRecurrence',
+			'post_content' => __FUNCTION__,
+			'post_status' => 'publish',
+			'EventStartDate' => $start_date,
+			'EventEndDate' => $start_date,
+			'EventStartHour' => 16,
+			'EventEndHour' => 17,
+			'EventStartMinute' => 0,
+			'EventEndMinute' => 0,
+			'recurrence' => array(
+				'end-type' => 'After',
+				'end-count' => 8,
+				'type' => 'Every Week',
+			)
+		);
+		$post_id = TribeEventsAPI::createEvent($event_args);
+
+		$children = get_posts(array(
+			'post_type' => TribeEvents::POSTTYPE,
+			'post_parent' => $post_id,
+			'fields' => 'ids',
+			'posts_per_page' => 10,
+		));
+
+		$query = new WP_Query();
+		$results = $query->query(array(
+			'post_type' => TribeEvents::POSTTYPE,
+			'fields' => 'ids',
+			'tribeHideRecurrence' => 1,
+			'start_date' => '2014-05-01',
+			'eventDisplay' => 'custom',
+		));
+		$this->assertCount(1, $results);
+		$this->assertEquals($post_id, reset($results));
+
+		$results = $query->query(array(
+			'post_type' => TribeEvents::POSTTYPE,
+			'fields' => 'ids',
+			'tribeHideRecurrence' => 1,
+			'start_date' => '2014-06-01',
+			'eventDisplay' => 'custom',
+		));
+		$this->assertCount(1, $results);
+		$this->assertEquals($children[4], reset($results));
+	}
 }
  
