@@ -34,7 +34,10 @@ class TribeEventsRecurrenceMeta {
 	public static function init() {
 		add_action( 'tribe_events_update_meta', array( __CLASS__, 'updateRecurrenceMeta' ), 1, 3 );
 		add_action( 'tribe_events_date_display', array( __CLASS__, 'loadRecurrenceData' ) );
-		add_action(	'wp_trash_post', array( __CLASS__, 'deleteRecurringEvent') );
+		add_action(	'wp_trash_post', array( __CLASS__, 'handle_trash_request') );
+		add_action( 'before_delete_post', array( __CLASS__, 'handle_delete_request') );
+		add_action( 'untrashed_post', array( __CLASS__, 'handle_untrash_request' ) );
+		add_filter( 'get_edit_post_link', array( __CLASS__, 'filter_edit_post_link' ), 10, 3 );
 
 		add_action( 'admin_notices', array( __CLASS__, 'showRecurrenceErrorFlash') );
 		add_action( 'tribe_recurring_event_error', array( __CLASS__, 'setupRecurrenceErrorMsg'), 10, 2 );
@@ -42,7 +45,6 @@ class TribeEventsRecurrenceMeta {
     //add_filter( 'tribe_get_event_link', array( __CLASS__, 'addDateToEventPermalink'), 10, 2 );
     add_filter( 'post_row_actions', array( __CLASS__, 'edit_post_row_actions'), 10, 2 );
 		add_action( 'admin_action_tribe_split', array( __CLASS__, 'handle_split_request' ), 10, 1 );
-    add_action( 'wp_before_admin_bar_render', array( __CLASS__, 'admin_bar_render'));
 
     	add_filter( 'tribe_events_query_posts_groupby', array( __CLASS__, 'addGroupBy' ), 10, 2 );
 
@@ -53,36 +55,42 @@ class TribeEventsRecurrenceMeta {
 		self::reset_scheduler();
 	}
 
-	/**
-	 * Change the link for a recurring event to edit its series
-	 * @return void
-	 */
-	public static function admin_bar_render(){
-		global $post, $wp_admin_bar;
-		if( !is_admin() &&  tribe_is_recurring_event( $post )) {
-			$edit_link = $wp_admin_bar->get_node('edit');
-			// becuase on some pages we actually don't have the edit option
-			if( !empty($edit_link->href) && !empty($post->post_parent) ) {
-				$edit_link->href = get_edit_post_link( $post->post_parent );
-				$wp_admin_bar->remove_menu('edit');
-				$wp_admin_bar->add_node($edit_link);
-			}
+	public static function filter_edit_post_link( $url, $post_id, $context ) {
+		if ( tribe_is_recurring_event($post_id) && $parent = wp_get_post_parent_id($post_id) ) {
+			return get_edit_post_link($parent, $context);
 		}
+		return $url;
 	}
 
 	public static function edit_post_row_actions( $actions, $post ) {
 		if( tribe_is_recurring_event( $post ) ) {
 			unset($actions['inline hide-if-no-js']);
-			$first_in_series = $post->post_parent ? $post->post_parent : $post->ID;
+			$post_type_object = get_post_type_object(TribeEvents::POSTTYPE);
+			$is_first_in_series = empty($post->post_parent);
+			$first_id_in_series = $post->post_parent ? $post->post_parent : $post->ID;
 			if ( isset($actions['edit']) && 'trash' != $post->post_status ) {
 				if ( current_user_can('edit_post', $post->ID) ) {
 					$split_url = wp_nonce_url(add_query_arg(array('action' => 'tribe_split' ), remove_query_arg('action', get_edit_post_link( $post->ID, FALSE ))), 'tribe_split_'.$post->ID);
 					$actions['split'] = sprintf('<a href="%s" title="%s">%s</a>', esc_url($split_url), esc_attr(__('Break this event out of its series and edit it independently', 'tribe-events-calendar-pro')), __('Break from Series', 'tribe-events-calendar-pro'));
 				}
 				// TODO: an option to split all following events from series -- jbrinley
-				if ( current_user_can('edit_post', $first_in_series) ) {
-					$edit_series_url = get_edit_post_link( $first_in_series, 'display' );
+				if ( current_user_can('edit_post', $first_id_in_series) ) {
+					$edit_series_url = get_edit_post_link( $first_id_in_series, 'display' );
 					$actions['edit'] = sprintf('<a href="%s" title="%s">%s</a>', esc_url($edit_series_url), esc_attr(__('Edit all events in this series', 'tribe-events-calendar-pro')), __('Edit Series', 'tribe-events-calendar-pro'));
+				}
+			}
+			if ( $is_first_in_series ) {
+				if ( !empty($actions['trash']) ) {
+					$actions['trash'] = "<a class='submitdelete' title='" . esc_attr( __( 'Move all events in this series to the Trash', 'tribe-events-calendar-pro' ) ) . "' href='" . get_delete_post_link( $post->ID ) . "'>" . __( 'Trash Series', 'tribe-events-calendar-pro' ) . "</a>";
+				}
+				if ( !empty($actions['delete']) ) {
+					$actions['delete'] = "<a class='submitdelete' title='" . esc_attr( __( 'Delete all events in this series permanently', 'tribe-events-calendar-pro' ) ) . "' href='" . get_delete_post_link( $post->ID, '', true ) . "'>" . __( 'Delete Series Permanently', 'tribe-events-calendar-pro' ) . "</a>";
+				}
+			}
+			if ( !empty($actions['untrash']) ) { // if the whole series is in the trash, restore the whole series together
+				$first_event = get_post($first_id_in_series);
+				if ( $first_event->post_status == 'trash' ) {
+					$actions['untrash'] = "<a title='" . esc_attr( __( 'Restore all events in this series from the Trash', 'tribe-events-calendar-pro' ) ) . "' href='" . wp_nonce_url( admin_url( sprintf( $post_type_object->_edit_link . '&amp;action=untrash', $first_id_in_series ) ), 'untrash-post_' . $first_id_in_series ) . "'>" . __( 'Restore Series', 'tribe-events-calendar-pro' ) . "</a>";
 				}
 			}
 		}
@@ -106,6 +114,45 @@ class TribeEventsRecurrenceMeta {
 		$edit_url = get_edit_post_link($post_id, FALSE);
 		wp_redirect($edit_url);
 		exit();
+	}
+
+	public static function handle_trash_request( $post_id ) {
+		if ( tribe_is_recurring_event($post_id) && !wp_get_post_parent_id($post_id) ) {
+			self::trash_all_children($post_id);
+		}
+	}
+
+	private static function trash_all_children( $post_id ) {
+		$children = self::get_child_event_ids($post_id);
+		foreach ( $children as $child_id ) {
+			wp_trash_post($child_id);
+		}
+	}
+
+	public static function handle_untrash_request( $post_id ) {
+		if ( tribe_is_recurring_event($post_id) && !wp_get_post_parent_id($post_id) ) {
+			self::untrash_all_children($post_id);
+		}
+	}
+
+	private static function untrash_all_children( $post_id ) {
+		$children = self::get_child_event_ids($post_id, array('post_status' => 'trash'));
+		foreach ( $children as $child_id ) {
+			wp_untrash_post($child_id);
+		}
+	}
+
+	public static function handle_delete_request( $post_id ) {
+		if ( tribe_is_recurring_event($post_id) && !wp_get_post_parent_id($post_id) ) {
+			self::permanently_delete_all_children($post_id);
+		}
+	}
+
+	private static function permanently_delete_all_children( $post_id ) {
+		$children = self::get_child_event_ids($post_id);
+		foreach ( $children as $child_id ) {
+			wp_delete_post($child_id, TRUE);
+		}
 	}
 
 	/**
@@ -146,25 +193,6 @@ class TribeEventsRecurrenceMeta {
 
 		$premium = TribeEventsPro::instance();
 		include( TribeEventsPro::instance()->pluginPath . 'admin-views/event-recurrence.php' );
-	}
-
-	/**
-	 * Deletes a SINGLE occurrence of a recurring event
-	 * @param integer $postId ID of the event that may have an occurence deleted from it
-	 * @return void
-	 */
-	public static function deleteRecurringEvent($postId) {
-		if (isset($_REQUEST['event_start']) && !isset($_REQUEST['deleteAll'])) {
-			$occurrenceDate = $_REQUEST['event_start'];
-		}else{
-			$occurrenceDate = null;
-		}
-
-		if( $occurrenceDate ) {
-			self::removeOccurrence( $postId, $occurrenceDate );
-			wp_safe_redirect( add_query_arg( 'post_type', TribeEvents::POSTTYPE, admin_url( 'edit.php' ) ) );
-			exit();
-		}
 	}
 
 	public static function filter_passthrough( $data ){
@@ -271,21 +299,6 @@ class TribeEventsRecurrenceMeta {
 		return $meta;
 	}
 
-
-	/**
-	 * Deletes a single occurrence of an event
- 	 * @param integer $postId ID of the event that occurrence will be deleted from
-	 * @param string $date date of occurrence to delete
-	 * @return void
-	 */
-	private static function removeOccurrence( $postId, $date ) {
-		// TODO: get the post for the instance and delete it
-		$startDate = TribeEvents::get_series_start_date($postId);
-		$date = TribeDateUtils::addTimeToDate( $date, TribeDateUtils::timeOnly($startDate) );
-
-		delete_post_meta( $postId, '_EventStartDate', $date );
-	}
-
 	/**
 	 * Recurrence validation method.  This is checked after saving an event, but before splitting a series out into multiple occurrences
  	 * @param int $event_id The event object that is being saved
@@ -312,24 +325,30 @@ class TribeEventsRecurrenceMeta {
 		return $valid;
 	}
 
-	/**
-	 * Do the actual work of saving a recurring series of events
-	 * @param int $postId The event that is being saved
-	 * @param bool $updated
-	 * @return void
-	 */
-	public static function saveEvents( $postId ) {
-
-		$existing_instances = get_posts(array(
-			'post_parent' => $postId,
+	public function get_child_event_ids( $post_id, $args = array() ) {
+		// TODO: caching
+		$args = wp_parse_args( $args, array(
+			'post_parent' => $post_id,
 			'post_type' => TribeEvents::POSTTYPE,
 			'posts_per_page' => -1,
 			'fields' => 'ids',
 			'post_status' => 'any',
 			'meta_key' => '_EventStartDate',
-			'orderby' => 'meta_key',
+			'orderby' => 'meta_value',
 			'order' => 'ASC',
 		));
+		$children = get_posts($args);
+		return $children;
+	}
+
+	/**
+	 * Do the actual work of saving a recurring series of events
+	 * @param int $postId The event that is being saved
+	 * @return void
+	 */
+	public static function saveEvents( $postId ) {
+
+		$existing_instances = self::get_child_event_ids($postId);
 
 		$recurrence = self::getRecurrenceForEvent($postId);
 

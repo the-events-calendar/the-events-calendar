@@ -134,7 +134,6 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			add_action( 'widgets_init', array( $this, 'pro_widgets_init' ), 100 );
 			add_action( 'wp_loaded', array( $this, 'allow_cpt_search' ) );
 			add_action( 'plugin_row_meta', array( $this, 'addMetaLinks' ), 10, 2 );
-			add_filter( 'get_delete_post_link', array( $this, 'adjust_date_on_recurring_event_trash_link' ), 10, 2 );
 			add_filter( 'tribe_get_events_title', array( $this, 'reset_page_title'));
 			add_filter( 'tribe_events_add_title', array($this, 'maybeAddEventTitle' ), 10, 3 );
 
@@ -805,24 +804,6 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			}
 			return $source_array;
 		}
-
-		/**
-		 * Sets up the link for deleting recurring events instances.
-		 *
-		 * @param string $link The current post delete link.
-		 * @param int $postId The current post/event id.
-		 * @return string The modified link.
-		 * @author Joey Kudish
-		 */
-		public function adjust_date_on_recurring_event_trash_link( $link, $postId ) {
-			global $post;
-			if ( isset($_REQUEST['deleteAll']) ) {
-				$link = remove_query_arg( array( 'eventDate', 'deleteAll'), $link );
-			} elseif ( (isset($post->ID)) && tribe_is_recurring_event($post->ID) && isset($_REQUEST['eventDate']) ) {
-				$link = add_query_arg( 'eventDate', $_REQUEST['eventDate'], $link );
-			}
-			return $link;
-	      }
 
 		/**
 		 * Determines whether or not to show the custom fields metabox for events.
