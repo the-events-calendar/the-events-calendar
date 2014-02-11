@@ -214,6 +214,7 @@ Added new Montenegrin translation files, courtesy of Sasa Vukovic
 Added updated Norwegian Bokmål translation files, courtesy of Morten Ruud
 Added new Norwegian Nynorsk translation files, courtesy of Torbjørn Lauen
 Added updated Romanian translation files, courtesy of Cosmin Vaman
+Added updated German files by Oliver Heinrich
 
 = 3.4 = 
 
