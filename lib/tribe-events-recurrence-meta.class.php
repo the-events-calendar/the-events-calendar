@@ -39,6 +39,12 @@ class TribeEventsRecurrenceMeta {
 		add_action( 'untrashed_post', array( __CLASS__, 'handle_untrash_request' ) );
 		add_filter( 'get_edit_post_link', array( __CLASS__, 'filter_edit_post_link' ), 10, 3 );
 
+		add_filter( 'preprocess_comment', array( __CLASS__, 'set_parent_for_recurring_event_comments' ), 10, 1 );
+		add_action( 'pre_get_comments', array( __CLASS__, 'set_post_id_for_recurring_event_comment_queries' ), 10, 1 );
+		add_action( 'comment_post_redirect', array( __CLASS__, 'fix_redirect_after_comment_is_posted' ), 10, 2 );
+		add_action( 'wp_update_comment_count', array( __CLASS__, 'update_comment_counts_on_child_events'), 10, 3 );
+		add_filter( 'comments_array', array( __CLASS__, 'set_comments_array_on_child_events' ), 10, 2 );
+
 		add_action( 'admin_notices', array( __CLASS__, 'showRecurrenceErrorFlash') );
 		add_action( 'tribe_recurring_event_error', array( __CLASS__, 'setupRecurrenceErrorMsg'), 10, 2 );
 
@@ -189,6 +195,87 @@ class TribeEventsRecurrenceMeta {
 		foreach ( $children as $child_id ) {
 			wp_delete_post($child_id, TRUE);
 		}
+	}
+
+	/**
+	 * Comments on recurring events should be kept with the parent event
+	 *
+	 * @param array $commentdata
+	 * @return array
+	 */
+	public static function set_parent_for_recurring_event_comments( $commentdata ) {
+		if ( isset($commentdata['comment_post_ID']) && tribe_is_recurring_event($commentdata['comment_post_ID']) ) {
+			$event = get_post($commentdata['comment_post_ID']);
+			if ( !empty($event->post_parent) ) {
+				$commentdata['comment_post_ID'] = $event->post_parent;
+			}
+		}
+		return $commentdata;
+	}
+
+	/**
+	 * When displaying comments on a recurring event, get them from the parent
+	 *
+	 * @param WP_Comment_Query $query
+	 * @return void
+	 */
+	public static function set_post_id_for_recurring_event_comment_queries( $query ) {
+		if ( !empty($query->query_vars['post_id']) && tribe_is_recurring_event($query->query_vars['post_id']) ) {
+			$event = get_post($query->query_vars['post_id']);
+			if ( !empty($event->post_parent) ) {
+				$query->query_vars['post_id'] = $event->post_parent;
+			}
+		}
+	}
+
+	public static function fix_redirect_after_comment_is_posted( $location, $comment ) {
+		if ( tribe_is_recurring_event($comment->comment_post_ID) ) {
+			if ( isset($_REQUEST['comment_post_ID']) && $_REQUEST['comment_post_ID'] != $comment->comment_post_ID ) {
+				$child = get_post($_REQUEST['comment_post_ID']);
+				if ( $child->post_parent == $comment->comment_post_ID ) {
+					$location = str_replace( get_permalink($comment->comment_post_ID), get_permalink($child->ID), $location );
+				}
+			}
+		}
+		return $location;
+	}
+
+	public static function update_comment_counts_on_child_events( $parent_id, $new_count, $old_count ) {
+		if ( tribe_is_recurring_event($parent_id) ) {
+			$event = get_post($parent_id);
+			if ( !empty($event->post_parent) ) {
+				return; // no idea how we got here, but don't update anything
+			}
+			/** @var wpdb $wpdb */
+			global $wpdb;
+			$wpdb->update( $wpdb->posts, array('comment_count' => $new_count), array('post_parent' => $parent_id, 'post_type' => TribeEvents::POSTTYPE) );
+
+			$child_ids = self::get_child_event_ids($parent_id);
+			foreach ( $child_ids as $child ) {
+				clean_post_cache($child);
+			}
+		}
+	}
+
+	public static function set_comments_array_on_child_events( $comments, $post_id ) {
+		if ( empty($comments) && tribe_is_recurring_event($post_id) ) {
+			$event = get_post($post_id);
+			if ( !empty($event->post_parent) ) {
+				/** @var wpdb $wpdb */
+				global $wpdb, $user_ID;
+				$commenter = wp_get_current_commenter();
+				$comment_author = $commenter['comment_author']; // Escaped by sanitize_comment_cookies()
+				$comment_author_email = $commenter['comment_author_email'];  // Escaped by sanitize_comment_cookies()
+				if ( $user_ID) {
+					$comments = $wpdb->get_results($wpdb->prepare("SELECT * FROM $wpdb->comments WHERE comment_post_ID = %d AND (comment_approved = '1' OR ( user_id = %d AND comment_approved = '0' ) )  ORDER BY comment_date_gmt", $event->post_parent, $user_ID));
+				} else if ( empty($comment_author) ) {
+					$comments = get_comments( array('post_id' => $event->post_parent, 'status' => 'approve', 'order' => 'ASC') );
+				} else {
+					$comments = $wpdb->get_results($wpdb->prepare("SELECT * FROM $wpdb->comments WHERE comment_post_ID = %d AND ( comment_approved = '1' OR ( comment_author = %s AND comment_author_email = %s AND comment_approved = '0' ) ) ORDER BY comment_date_gmt", $event->post_parent, wp_specialchars_decode($comment_author,ENT_QUOTES), $comment_author_email));
+				}
+			}
+		}
+		return $comments;
 	}
 
 	/**

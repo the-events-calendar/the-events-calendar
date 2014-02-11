@@ -55,10 +55,12 @@ class TribeEventsPro_RecurrenceSeriesSplitter {
 
 		$new_parent = get_post( $first_event_of_new_series );
 		$new_parent->post_parent = 0;
+		$new_parent->comment_count = 0;
 		wp_update_post($new_parent);
 		foreach ( $children_to_move_to_new_series as $child_id ) {
 			$child = get_post($child_id);
 			$child->post_parent = $first_event_of_new_series;
+			$child->comment_count = 0;
 			wp_update_post($child);
 		}
 	}
@@ -104,6 +106,7 @@ class TribeEventsPro_RecurrenceSeriesSplitter {
 			} else {
 				$child->post_parent = $first_child->ID;
 			}
+			$child->comment_count = 0;
 			wp_update_post($child);
 		}
 	}
@@ -134,6 +137,7 @@ class TribeEventsPro_RecurrenceSeriesSplitter {
 		update_post_meta( $parent_id, '_EventRecurrence', $parent_recurrence );
 
 		$post->post_parent = 0;
+		$post->comment_count = 0;
 		wp_update_post($post);
 	}
 

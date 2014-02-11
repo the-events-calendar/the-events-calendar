@@ -395,5 +395,78 @@ class Tribe_Recurring_Event_Test extends WP_UnitTestCase {
 		$this->assertCount(1, $results);
 		$this->assertEquals($children[4], reset($results));
 	}
+
+	public function test_child_post_comments() {
+		$_SERVER['REMOTE_ADDR'] = null; // to avoid PHP notice
+
+		// we need an admin user to bypass comment flood protection
+		$author_id = $this->factory->user->create( array( 'role' => 'administrator' ) );
+		$old_current_user = get_current_user_id();
+		wp_set_current_user( $author_id );
+
+		$start_date = date('Y-m-d', strtotime('2014-05-01'));
+		$event_args = array(
+			'post_type' => TribeEvents::POSTTYPE,
+			'post_title' => __CLASS__,
+			'post_name' => 'test-tribeHideRecurrence',
+			'post_content' => __FUNCTION__,
+			'post_status' => 'publish',
+			'EventStartDate' => $start_date,
+			'EventEndDate' => $start_date,
+			'EventStartHour' => 16,
+			'EventEndHour' => 17,
+			'EventStartMinute' => 0,
+			'EventEndMinute' => 0,
+			'recurrence' => array(
+				'end-type' => 'After',
+				'end-count' => 8,
+				'type' => 'Every Week',
+			)
+		);
+		$post_id = TribeEventsAPI::createEvent($event_args);
+
+		$children = get_posts(array(
+			'post_type' => TribeEvents::POSTTYPE,
+			'post_parent' => $post_id,
+			'fields' => 'ids',
+			'posts_per_page' => 10,
+		));
+
+		$comment_id = wp_new_comment(array(
+			'comment_post_ID' => $post_id,
+			'comment_author' => 'Comment Author',
+			'comment_author_url' => '',
+			'comment_author_email' => 'test@example.com',
+			'comment_type' => '',
+			'comment_content' => 'This is a comment on '.$post_id,
+		));
+		$comment = get_comment($comment_id);
+		$this->assertEquals( $post_id, $comment->comment_post_ID );
+
+
+		$comment_id = wp_new_comment(array(
+			'comment_post_ID' => $children[2],
+			'comment_author' => 'Comment Author',
+			'comment_author_url' => '',
+			'comment_author_email' => 'test@example.com',
+			'comment_type' => '',
+			'comment_content' => 'This is a comment on '.$children[2],
+		));
+		$comment = get_comment($comment_id);
+		$this->assertEquals( $post_id, $comment->comment_post_ID );
+
+		$comments = get_comments(array(
+			'post_id' => $post_id,
+		));
+		$this->assertCount( 2, $comments );
+
+		$comments = get_comments(array(
+			'post_id' => $children[1],
+		));
+		$this->assertCount( 2, $comments );
+
+
+		wp_set_current_user( $old_current_user );
+	}
 }
  
