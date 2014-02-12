@@ -1213,6 +1213,10 @@ h2.tribe-events-tickets-title {
 
 /* Datepicker
    ========================================================================== */
+.datepicker {
+	z-index:1000 !important;
+}
+
 .datepicker td,
 .datepicker table tr td span {
 	-webkit-border-radius: 0;
