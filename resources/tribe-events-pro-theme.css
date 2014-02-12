@@ -91,6 +91,10 @@
 	font-weight: bold;
 }
 
+.tribe-events-grid .hentry.vevent {
+	padding:4px;
+}
+
 .tribe-events-grid .tribe-grid-header .tribe-grid-content-wrap .column {
 	border-left-color: #666;
 }
