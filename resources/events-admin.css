@@ -17,12 +17,13 @@ input::-webkit-input-placeholder, textarea::-webkit-input-placeholder { color: #
 	display:inline-block;
     font-weight: normal;
     padding: 0;
+    height: 14.5px;
 	}
 .view-calendar-link-div {
 	display: inline-block;
 	position: absolute;
-	left: 155px;
-	margin-top: 14px;
+	left: 200px;
+	margin-top: 18px;
 }
 
 /* = Post Type Editing
