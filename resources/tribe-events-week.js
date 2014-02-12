@@ -195,12 +195,17 @@
 
 				// set length and position from top for our event and show it. Also set length for the event anchor so the entire event is clickable.
 
-				$this.css({
-					"height": event_length + "px",
-					"top": event_position_top + "px"
-				}).find('a').css({
-						"height": event_length - 16 + "px"
-					});
+				var link_setup = {"height": event_length - 16 + "px"};
+
+				$this
+					.css({
+						"height": event_length + "px",
+						"top": event_position_top + "px"
+					})
+					.find('a')
+					.css(link_setup)
+					.parent()
+					.css(link_setup);
 			});
 
 			// Fade our events in upon js load
