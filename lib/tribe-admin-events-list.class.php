@@ -23,7 +23,7 @@ if (!class_exists('TribeEventsAdminList')) {
 				add_filter( 'posts_distinct', array( __CLASS__, 'events_search_distinct'));
 				add_filter( 'posts_join',		array( __CLASS__, 'events_search_join' ), 10, 2 );
 				add_filter( 'posts_where',		array( __CLASS__, 'events_search_where' ), 10, 2 );
-				add_filter( 'posts_orderby',  array( __CLASS__, 'events_search_orderby' ) );
+				add_filter( 'posts_orderby',  array( __CLASS__, 'events_search_orderby' ), 10, 2 );
 				add_filter( 'posts_groupby', array( __CLASS__, 'events_search_groupby' ) );
 				add_filter( 'posts_fields',	array( __CLASS__, 'events_search_fields' ) );
 				add_filter( 'post_limits',		array( __CLASS__, 'events_search_limits' ) );
@@ -156,19 +156,22 @@ if (!class_exists('TribeEventsAdminList')) {
 		 * @param string orderby
 		 * @return string modified orderby clause
 		 */
-		public static function events_search_orderby( $orderby_sql ) {
+		public static function events_search_orderby( $orderby_sql, $query ) {
 			if ( get_query_var('post_type') != TribeEvents::POSTTYPE ) {
 				return $orderby_sql;
 			}
+			
+			global $wpdb;
+			$sort_column = ( $query->is_main_query() ) ? $wpdb->postmeta : 'eventStart';
 		
-			$endDateSQL = " IFNULL(DATE_ADD(CAST(eventStart.meta_value AS DATETIME), INTERVAL eventDuration.meta_value SECOND), eventEnd.meta_value) ";
+			$endDateSQL = " IFNULL(DATE_ADD(CAST($sort_column.meta_value AS DATETIME), INTERVAL eventDuration.meta_value SECOND), eventEnd.meta_value) ";
 			$order = get_query_var('order') ? get_query_var('order') : 'asc';
 			$orderby = get_query_var('orderby') ? get_query_var('orderby') : 'start-date';
 		
 			if ($orderby == 'start-date')
-				$orderby_sql = ' eventStart.meta_value ' . $order . ', ' . $endDateSQL . $order;
+				$orderby_sql = " {$sort_column}.meta_value {$order}, {$endDateSQL} {$order}";
 			else if ($orderby == 'end-date')
-				$orderby_sql = $endDateSQL . $order . ', eventStart.meta_value ' . $order;
+				$orderby_sql = "{$endDateSQL} {$order}, {$sort_column}.meta_value {$order}";
 
 			return $orderby_sql;
 		}
