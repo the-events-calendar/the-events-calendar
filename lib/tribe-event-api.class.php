@@ -301,7 +301,7 @@ if (!class_exists('TribeEventsAPI')) {
 		
 			if ( (isset($data['Venue']) && $data['Venue']) || self::someVenueDataSet($data) ) {
 				$postdata = array(
-					'post_title' => $data['Venue'] ? $data['Venue'] : "Unnamed Venue",
+					'post_title' => $data['Venue'] ? $data['Venue'] : __( "Unnamed Venue", 'tribe-events-calendar' ),
 					'post_type' => TribeEvents::VENUE_POST_TYPE,
 					'post_status' => $post_status,
 				);			
