@@ -274,6 +274,7 @@ if (!class_exists('TribeEventsAPI')) {
 		 */		
 		public static function updateOrganizer($organizerId, $data) {
 			TribeEventsAPI::saveOrganizerMeta($organizerId, $data);
+			do_action( 'tribe_events_organizer_updated', $organizerId, $data );
 		}
 	
 		/**

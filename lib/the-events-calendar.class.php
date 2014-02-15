@@ -2753,6 +2753,10 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 * @return void
 		 */
 		public function addEventMeta( $postId, $post ) {
+
+			// Remove this hook to avoid an infinite loop, because saveEventMeta calls wp_update_post when the post is set to always show in calendar
+			remove_action( 'save_post_'.self::POSTTYPE, array( $this, 'addEventMeta' ), 15, 2 );
+
 			// only continue if it's an event post
 			if ( $post->post_type != self::POSTTYPE || defined('DOING_AJAX') ) {
 				return;
@@ -2787,6 +2791,10 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 
 			TribeEventsAPI::saveEventMeta($postId, $_POST, $post);
+
+			// Add this hook back in
+			add_action( 'save_post_'.self::POSTTYPE, array( $this, 'addEventMeta' ), 15, 2 );
+
 		}
 
 		/**
@@ -2919,8 +2927,8 @@ if ( !class_exists( 'TribeEvents' ) ) {
 					}
 				}
 
-			}
-		}
+						}
+					}
 
 		/**
 		 * If you are saving a venue separate from an event.
