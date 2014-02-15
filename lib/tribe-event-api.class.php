@@ -232,6 +232,7 @@ if (!class_exists('TribeEventsAPI')) {
 
 				if( !is_wp_error($organizerId) ) {
 					TribeEventsAPI::saveOrganizerMeta($organizerId, $data);
+					do_action( 'tribe_events_organizer_created', $organizerId, $data );
 					return $organizerId;
 				}
 			} else {
@@ -275,6 +276,7 @@ if (!class_exists('TribeEventsAPI')) {
 		public static function updateOrganizer($organizerId, $data) {
 			wp_update_post( array('post_title' => $data['Organizer'], 'ID'=>$organizerId ));		
 			TribeEventsAPI::saveOrganizerMeta($organizerId, $data);
+			do_action( 'tribe_events_organizer_updated', $organizerId, $data );
 		}
 	
 		/**
