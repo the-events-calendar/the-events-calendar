@@ -577,14 +577,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 		}
 
 		if ( $withCurrencySymbol && is_numeric( $cost ) ) {
-			$currency = tribe_get_event_meta( $postId, '_EventCurrencySymbol', true );
-			if ( ! $currency ) $currency = tribe_get_option( 'defaultCurrencySymbol', '$' );
-
-			$reverse_position = tribe_get_event_meta( $postId, '_EventCurrencyPosition', true );
-			if ( ! $reverse_position ) $reverse_position = tribe_get_option( 'reverseCurrencyPosition', false );
-			else $reverse_position = ( 'suffix' === $reverse_position );
-
-			$cost = $reverse_position ? $cost . $currency : $currency . $cost;
+			$cost = tribe_format_currency( $cost );
 		}
 
 		return apply_filters( 'tribe_get_cost', $cost, $postId, $withCurrencySymbol );
@@ -601,6 +594,39 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 */
 	function tribe_get_formatted_cost( $postId = null ) {
 		return apply_filters( 'tribe_get_formatted_cost', tribe_get_cost( $postId, true ) );
+	}
+
+
+	/**
+	 * Receives a float and formats it with a currency symbol
+	 *
+	 * @param $cost pricing to format
+	 */
+	function tribe_format_currency( $cost, $postId = null, $currency_symbol = null, $reverse_position = null ) {
+
+		$postId = TribeEvents::postIdHelper( $postId );
+
+		if ( $postId && $currency_symbol == null ) {
+			$currency_symbol = tribe_get_event_meta( $postId, '_EventCurrencySymbol', true );
+		}
+
+		if ( ! $currency_symbol || ! $postId ) {
+			$currency_symbol = tribe_get_option( 'defaultCurrencySymbol', '$' );
+		}
+
+		if ( $postId && $reverse_position == null ) {
+			$reverse_position = tribe_get_event_meta( $postId, '_EventCurrencyPosition', true );
+			$reverse_position = ( 'suffix' === $reverse_position );
+		}
+
+		if ( ! $reverse_position || ! $postId ) {
+			$reverse_position = tribe_get_option( 'reverseCurrencyPosition', false );
+		}
+
+		$cost = $reverse_position ? $cost . $currency_symbol : $currency_symbol . $cost;
+
+		return $cost;
+
 	}
 
 	/**
