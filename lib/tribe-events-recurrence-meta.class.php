@@ -48,7 +48,11 @@ class TribeEventsRecurrenceMeta {
 		add_action( 'admin_notices', array( __CLASS__, 'showRecurrenceErrorFlash') );
 		add_action( 'tribe_recurring_event_error', array( __CLASS__, 'setupRecurrenceErrorMsg'), 10, 2 );
 
-    //add_filter( 'tribe_get_event_link', array( __CLASS__, 'addDateToEventPermalink'), 10, 2 );
+		add_filter( 'manage_' . TribeEvents::POSTTYPE . '_posts_columns', array(__CLASS__, 'list_table_column_headers'));
+		add_action( 'manage_' . TribeEvents::POSTTYPE . '_posts_custom_column', array(__CLASS__, 'populate_custom_list_table_columns'), 10, 2);
+
+
+		//add_filter( 'tribe_get_event_link', array( __CLASS__, 'addDateToEventPermalink'), 10, 2 );
     add_filter( 'post_row_actions', array( __CLASS__, 'edit_post_row_actions'), 10, 2 );
 		add_action( 'admin_action_tribe_split', array( __CLASS__, 'handle_split_request' ), 10, 1 );
 
@@ -66,6 +70,21 @@ class TribeEventsRecurrenceMeta {
 			return get_edit_post_link($parent, $context);
 		}
 		return $url;
+	}
+
+	public static function list_table_column_headers( $columns ) {
+		$columns['recurring'] = __( 'Recurring', 'tribe-events-calendar-pro' );
+		return $columns;
+	}
+
+	public static function populate_custom_list_table_columns( $column, $post_id ) {
+		if ( $column == 'recurring' ) {
+			if ( tribe_is_recurring_event( $post_id ) ) {
+				echo __( 'Yes', 'tribe-events-calendar-pro' );
+			} else {
+				echo __( '—', 'tribe-events-calendar-pro' );
+			}
+		}
 	}
 
 	public static function edit_post_row_actions( $actions, $post ) {
@@ -449,7 +468,12 @@ class TribeEventsRecurrenceMeta {
 	}
 
 	public function get_child_event_ids( $post_id, $args = array() ) {
-		// TODO: caching
+		$cache = new TribeEventsCache();
+		$children = $cache->get('child_events_'.$post_id, 'save_post');
+		if ( is_array($children) ) {
+			return $children;
+		}
+
 		$args = wp_parse_args( $args, array(
 			'post_parent' => $post_id,
 			'post_type' => TribeEvents::POSTTYPE,
@@ -461,6 +485,7 @@ class TribeEventsRecurrenceMeta {
 			'order' => 'ASC',
 		));
 		$children = get_posts($args);
+		$cache->set('child_events_'.$post_id, $children, 'save_post');
 		return $children;
 	}
 

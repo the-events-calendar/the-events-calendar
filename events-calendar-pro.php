@@ -1800,11 +1800,11 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			 * Dummy function to avoid fatal error in edge upgrade case
 			 *
 			 * @todo remove in 3.1
-			 * @return void
+			 * @return bool
 			 * @author Jessica Yazbek
 			 **/
 			function tribe_is_recurring_event() {
-
+				return FALSE;
 			}
 		}
 		if ( !class_exists( 'TribeEvents' ) ) {

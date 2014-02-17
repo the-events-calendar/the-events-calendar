@@ -12,6 +12,7 @@ if( class_exists( 'TribeEventsPro' ) ) {
 
 	if ( !function_exists( 'tribe_get_mapview_link' ) ) {
 		function tribe_get_mapview_link( $term = null ) {
+			global $wp_query;
 			if ( isset( $wp_query->query_vars[TribeEvents::TAXONOMY] ) )
 				$term = $wp_query->query_vars[TribeEvents::TAXONOMY];
 			$output = TribeEvents::instance()->getLink( 'map', null, $term );
