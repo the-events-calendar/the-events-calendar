@@ -380,7 +380,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			add_action( 'tribe_settings_top', array( 'TribeEventsOptionsException', 'displayMessage') );
 			add_action( 'admin_enqueue_scripts', array( $this, 'addAdminScriptsAndStyles' ) );
 			add_action( 'plugins_loaded', array( $this, 'accessibleMonthForm'), -10 );
-			add_action( 'the_post', array( $this, 'setReccuringEventDates' ) );
 			add_action( "trash_" . TribeEvents::VENUE_POST_TYPE, array($this, 'cleanupPostVenues'));
 			add_action( "trash_" . TribeEvents::ORGANIZER_POST_TYPE, array($this, 'cleanupPostOrganizers'));
 			add_action( "wp_ajax_tribe_event_validation", array($this,'ajax_form_validate') );
@@ -431,7 +430,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			add_action( 'admin_head', array( $this, 'setInitialMenuMetaBoxes' ), 500 );
 			add_action( 'plugin_action_links_' . trailingslashit( $this->pluginDir ) . 'the-events-calendar.php', array( $this, 'addLinksToPluginActions' ) );
 			add_action( 'admin_menu', array( $this, 'addHelpAdminMenuItem' ), 50 );
-			add_action( 'comment_form', array( $this, 'addHiddenRecurringField' ) );
 
 			/* VIEWS AJAX CALLS */
 			add_action( 'wp_ajax_tribe_calendar', array( $this, 'calendar_ajax_call' ) );
@@ -459,19 +457,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			if ( $this->displaying === 'month' ) {
 				Tribe_Template_Factory::asset_package( 'ajax-calendar' );
 			}
-		}
-
-		/**
-		 * Test to see if the right version of Pro is active.
-		 *
-		 * @TODO This is really only used by the community plugin and it's also testing against an old version of TEC and comparing with an irrelevant PRO version. This should be deprecated.
-		 *
-		 * @param string $version
-		 * @return bool
-		 * @since 2.0.7
-		 */
-		public static function ecpActive( $version = '2.0.7' ) {
-			return class_exists( 'TribeEventsPro' ) && defined('TribeEventsPro::VERSION') && version_compare( TribeEventsPro::VERSION, $version, '>=');
 		}
 
 		/**
@@ -2139,29 +2124,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			// Update the saved option
 			$this->setOption('viewOption', $view);
 			return $view;
-		}
-
-		/**
-		 * Set the dates of recurring events.
-		 *
-		 * @param WP_Post $post The current event object.
-		 * @return void
-		 */
-		public function setReccuringEventDates( $post ) {
-			if( function_exists('tribe_is_recurring_event') &&
-				is_singular(self::POSTTYPE) &&
-				tribe_is_recurring_event() &&
-				!tribe_is_showing_all() &&
-				!tribe_is_upcoming() &&
-				!tribe_is_past() &&
-				!tribe_is_month() &&
-				!tribe_is_by_date() ) {
-
-				$startTime = self::get_series_start_date($post->ID);
-				$startTime = TribeDateUtils::timeOnly($startTime);
-				$post->EventStartDate = TribeDateUtils::addTimeToDate($post->EventStartDate, $startTime);
-				$post->EventEndDate = date( TribeDateUtils::DBDATETIMEFORMAT, strtotime($post->EventStartDate) + get_post_meta($post->ID, '_EventDuration', true) );
-			}
 		}
 
 		/**
@@ -4039,18 +4001,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				$link = add_query_arg(array('post_type' => self::POSTTYPE), $link);
 			}
 			return $link;
-		}
-
-		/**
-		 * Adds a hidden field to recurring events comments forms that stores the eventDate.
-		 *
-		 * @author PaulHughes01
-		 * @since 2.0.8
-		 *
-		 * @return void
-		 */
-		public function addHiddenRecurringField() {
-			echo '<input type="hidden" name="eventDate" value="' . get_query_var( 'eventDate' ) . '" />';
 		}
 
 		/**

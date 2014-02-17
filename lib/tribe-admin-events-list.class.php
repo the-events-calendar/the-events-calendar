@@ -8,7 +8,6 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 
 if (!class_exists('TribeEventsAdminList')) {
 	class TribeEventsAdminList {
-		public static $events_list;
 		protected static $start_col_active = true;
 		protected static $end_col_active = true;
 		protected static $start_col_first = true;
@@ -29,60 +28,11 @@ if (!class_exists('TribeEventsAdminList')) {
 				add_filter( 'post_limits',		array( __CLASS__, 'events_search_limits' ) );
 				add_filter( 'manage_' . TribeEvents::POSTTYPE . '_posts_columns', array(__CLASS__, 'column_headers'));
 				add_filter( 'tribe_apm_headers_' . TribeEvents::POSTTYPE, array(__CLASS__, 'column_headers_check'), 10, 1 );
-				add_filter( 'posts_results',  array(__CLASS__, 'cache_posts_results'));
 				add_filter( 'views_edit-tribe_events',		array( __CLASS__, 'update_event_counts' ) );
 				add_action( 'manage_posts_custom_column', array(__CLASS__, 'custom_columns'), 10, 2);
 				add_action( 'manage_edit-' . TribeEvents::POSTTYPE . '_sortable_columns', array(__CLASS__, 'register_date_sortables'), 10, 2);
 			
-				// event deletion
-				add_filter( 'get_delete_post_link', array(__CLASS__, 'add_date_to_recurring_event_trash_link'), 10, 2 );	
-				add_filter( 'post_row_actions', array(__CLASS__, 'add_recurring_event_view_link'));
 			}
-		}
-		
-		/**
-		 * Adds the View link for recurring events.
-		 *
-		 * @param array $actions The current action links.
-		 * @return array The modified action links.
-		 */
-		public static function add_recurring_event_view_link($actions) {
-			global $post;
-			if ( function_exists('tribe_is_recurring_event') && is_array(self::$events_list) && tribe_is_recurring_event(self::$events_list[0]->ID) && isset(self::$events_list[0]) ) {
-				$actions['view'] = '<a href="' . tribe_get_event_link(self::$events_list[0]) . '" title="' . esc_attr( sprintf( __( 'View &#8220;%s&#8221;', 'tribe-events-calendar' ), $post->post_title ) ) . '" rel="permalink">' . __( 'View', 'tribe-events-calendar' ) . '</a>';
-			}
-
-			return $actions;
-		}
-	
-		/**
-		 * Add the date to the Trash link for recurring events, so that the instance is removed.
-		 *
-		 * @param string $link The current link.
-		 * @param int $postId The post id.
-		 * @return string The modified link.
-		 */
-		public static function add_date_to_recurring_event_trash_link( $link, $postId ) {
-			if ( function_exists('tribe_is_recurring_event') && is_array(self::$events_list) && tribe_is_recurring_event($postId) && isset(self::$events_list[0]) ) {
-				return add_query_arg( array( 'eventDate'=>urlencode( TribeDateUtils::dateOnly( self::$events_list[0]->EventStartDate ) ) ), $link );
-			}
-		
-			return $link;
-		} 
-
-		/**
-		 * Cache the results.
-		 *
-		 * @param array $posts The posts returned.
-		 * @return array The posts returned.
-		 */
-		public static function cache_posts_results($posts) {
-			if ( get_query_var('post_type') == TribeEvents::POSTTYPE && sizeof(self::$events_list) <= 0 ) {
-				// sort by start date
-				self::$events_list = $posts; // cache results so i can get the end dates later
-			}
-		
-			return $posts;
 		}
 
 		/**
@@ -229,9 +179,6 @@ if (!class_exists('TribeEventsAdminList')) {
 			unset($columns['date']);
 			$columns['start-date'] = __( 'Start Date', 'tribe-events-calendar' );
 			$columns['end-date'] = __( 'End Date', 'tribe-events-calendar' );
-			if ( function_exists( 'tribe_is_recurring_event' ) ) {
-				$columns['recurring'] = __( 'Recurring?', 'tribe-events-calendar' );
-			}
 			
 			return $columns;
 		}
@@ -272,73 +219,18 @@ if (!class_exists('TribeEventsAdminList')) {
 		 * @return void
 		 */
 		public static function custom_columns( $column_id, $post_id ) {
-			if(self::$events_list && sizeof(self::$events_list) > 0) {
-				if ( $column_id == 'events-cats' ) {
-					$event_cats = get_the_term_list( $post_id, TribeEvents::TAXONOMY, '', ', ', '' );
-					echo ( $event_cats ) ? strip_tags( $event_cats ) : '—';
-				}
-				if ( $column_id == 'start-date' ) {
-
-					if ( ! empty( self::$events_list[0]->EventStartDate ) )
-						echo tribe_event_format_date( strtotime( self::$events_list[0]->EventStartDate ), false );
-
-					if ( ! self::$end_col_active || ! self::$start_col_first )
-						self::advance_date();
-				}
-				if ( $column_id == 'end-date' ) {
-
-					echo tribe_get_end_date( self::$events_list[0] );
-
-					if ( self::$start_col_first )
-						self::advance_date();
-				}
-
-				if ( $column_id == 'recurring' ) {
-					if ( function_exists('tribe_is_recurring_event') && tribe_is_recurring_event( $post_id ) ) {
-						echo __("Yes", 'tribe-events-calendar');
-					} else {
-						__("No", 'tribe-events-calendar');
-					}
-				}
-			} else {
-				self::ajax_custom_columns($column_id, $post_id);
+			if ( $column_id == 'events-cats' ) {
+				$event_cats = get_the_term_list( $post_id, TribeEvents::TAXONOMY, '', ', ', '' );
+				echo ( $event_cats ) ? strip_tags( $event_cats ) : '—';
+			}
+			if ( $column_id == 'start-date' ) {
+				echo tribe_get_start_date( $post_id, false );
+			}
+			if ( $column_id == 'end-date' ) {
+				echo tribe_get_end_date( $post_id, false );
 			}
 		}
-		
-		/**
-		 * Next date.
-		 *
-		 * @return void
-		 */
-		protected static function advance_date() {
-			array_shift( self::$events_list );
-		}
-	
-		/**
-		 * AJAX handler for custom columns.
-		 *
-		 * @param string $column_id The column id/name.
-		 * @param int $post_id The post id for the data.
-		 * @return void
-		 */
-		public static function ajax_custom_columns ($column_id, $post_id) {
-				if ( $column_id == 'events-cats' ) {
-					$event_cats = get_the_term_list( $post_id, TribeEvents::TAXONOMY, '', ', ', '' );
-					echo ( $event_cats ) ? strip_tags( $event_cats ) : '—';
-				}
-			
-				if ( $column_id == 'recurring' ) {
-					echo sizeof(get_post_meta($post_id, '_EventStartDate')) > 1 ? "Yes" : "No";
-				}			
-			
-				if ( $column_id == 'start-date' ) {
-					echo tribe_get_start_date($post_id, false);
-				}
-				if ( $column_id == 'end-date' ) {
-					echo tribe_get_end_date($post_id, false);
-				}
-		}
-	
+
 		/**
 		 * Update event counts.
 		 *
