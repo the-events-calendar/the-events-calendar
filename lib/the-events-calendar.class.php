@@ -356,10 +356,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 			add_filter( 'generate_rewrite_rules', array( $this, 'filterRewriteRules' ) );
 
-			if ( !is_admin() ) {
-				add_filter( 'get_comment_link', array( $this, 'newCommentLink' ), 10, 2 );
-			}
-
 			/* Setup Tribe Events Bar */
 			add_filter( 'tribe-events-bar-views',  array($this, 'setup_listview_in_bar'), 1, 1 );
 			add_filter( 'tribe-events-bar-views',  array($this, 'setup_gridview_in_bar'), 5, 1 );
@@ -4011,25 +4007,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
                 $submenu['edit.php?post_type=' . self::POSTTYPE][500] = array( __('Help', 'tribe-events-calendar'), 'manage_options' , add_query_arg( array( 'post_type' => self::POSTTYPE, 'page' => 'tribe-events-calendar', 'tab' => 'help' ), 'edit.php?post_type=tribe_events&page=tribe-events-calendar&tab=help' ) );
             }
-		}
-
-		/**
-		 * Filter call that returns the proper link for after a comment is submitted to a recurring event.
-		 *
-		 * @author PaulHughes01
-		 * @since 2.0.8
-		 *
-		 * @param string $content
-		 * @param object $comment the comment object
-		 * @return string the link
-		 */
-		public function newCommentLink( $content, $comment ) {
-			if ( function_exists( 'tribe_is_recurring_event' ) && tribe_is_recurring_event( get_the_ID() ) && isset( $_REQUEST['eventDate'] ) ) {
-				$link = trailingslashit( $this->getLink( 'single' ) ) . $_REQUEST['eventDate'] . '#comment-' . $comment->comment_ID;
-			} else {
-				$link = $content;
-			}
-			return $link;
 		}
 
 		/**
