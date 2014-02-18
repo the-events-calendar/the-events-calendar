@@ -236,7 +236,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		 * @return string
 		 */
 		public function append_recurring_info_tooltip( $schedule_details, $event_id = 0 ) {
-			$tooltip = tribe_events_event_recurring_info_tooltip($event_id);
+			$tooltip = tribe_events_recurrence_tooltip($event_id);
 			return $schedule_details . $tooltip;
 		}
 

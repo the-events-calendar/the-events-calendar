@@ -798,11 +798,11 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	 *
 	 * return the details of the start/end date/time
 	 *
-	 * @since  3.0
+	 * @since  3.5
 	 * @param int     $post_id
 	 * @return string
 	 */
-	function tribe_events_event_recurring_info_tooltip( $post_id = null ) {
+	function tribe_events_recurrence_tooltip( $post_id = null ) {
 		if ( empty( $post_id ) ) {
 			$post_id = get_the_ID();
 		}
@@ -825,7 +825,9 @@ if( class_exists( 'TribeEventsPro' ) ) {
 			$tooltip .= '</div>';
 			$tooltip .= '</div>';
 		}
-		return apply_filters( 'tribe_events_event_recurring_info_tooltip', $tooltip );
+
+		$tooltip = apply_filters( 'tribe_events_event_recurring_info_tooltip', $tooltip ); // for backwards-compat, will be removed
+		return apply_filters( 'tribe_events_recurrence_tooltip', $tooltip );
 	}
 
 }
