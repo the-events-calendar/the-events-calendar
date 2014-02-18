@@ -36,7 +36,7 @@ class TribeEventsPro_RecurrenceInstance_Test extends WP_UnitTestCase {
 			'EventEndMinute' => 0,
 		));
 		$instance = new TribeEventsPro_RecurrenceInstance( $parent_id, strtotime('2014-03-01 16:00:00'));
-		$this->assertEquals( strtotime('2014-03-01 16:00:00')+3600, $instance->get_end_date()->getTimestamp() );
+		$this->assertEquals( strtotime('2014-03-01 16:00:00')+3600, $instance->get_end_date()->format('U') );
 	}
 
 	public function test_save() {

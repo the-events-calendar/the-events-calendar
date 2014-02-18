@@ -47,7 +47,7 @@ class TribeEventsPro_RecurrenceInstance {
 
 	public function get_end_date() {
 		$duration = $this->get_duration();
-		$end_timestamp = $this->start_date->getTimestamp() + $duration;
+		$end_timestamp = (int)($this->start_date->format('U')) + $duration;
 		return new DateTime('@'.$end_timestamp);
 	}
 
