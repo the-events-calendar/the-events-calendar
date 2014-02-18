@@ -3,6 +3,10 @@ jQuery(document).ready(function($) {
 	// Load the Chosen JQuery plugin for all select elements with the class 'chosen'.
 	$('.chosen, .tribe-field-dropdown_chosen select').chosen();
 	$('.select2, .tribe-field-dropdown_select2 select').select2({width: '250px'});
+		
+	// Grab HTML from hidden Calendar link and append to Header on Event Listing Page
+	var viewCalLinkHTML = $('#view-calendar-link-div').html();
+	$('.edit-php.post-type-tribe_events #wpbody-content .wrap h2:eq(0)').append(viewCalLinkHTML		);
 
 	if($('select[name="tribeEventsTemplate"]' ).length && $('select[name="tribeEventsTemplate"]' ).val() === '' ){
 		$templates = $('select[name="tribeEventsTemplate"]' );
