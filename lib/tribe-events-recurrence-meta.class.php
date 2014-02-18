@@ -95,10 +95,12 @@ class TribeEventsRecurrenceMeta {
 			$first_id_in_series = $post->post_parent ? $post->post_parent : $post->ID;
 			if ( isset($actions['edit']) && 'trash' != $post->post_status ) {
 				if ( current_user_can('edit_post', $post->ID) ) {
-					$actions['split'] = sprintf('<a href="%s" title="%s">%s</a>', esc_url( wp_nonce_url( self::get_split_series_url($post->ID, FALSE, FALSE), 'tribe_split_'.$post->ID ) ), esc_attr(__('Break this event out of its series and edit it independently', 'tribe-events-calendar-pro')), __('Break from Series', 'tribe-events-calendar-pro'));
+					$split_actions = array();
+					$split_actions['split'] = sprintf('<a href="%s" class="tribe-split tribe-split-single" title="%s">%s</a>', esc_url( wp_nonce_url( self::get_split_series_url($post->ID, FALSE, FALSE), 'tribe_split_'.$post->ID ) ), esc_attr(__('Break this event out of its series and edit it independently', 'tribe-events-calendar-pro')), __('Break from Series', 'tribe-events-calendar-pro'));
 					if ( !$is_first_in_series ) {
-						$actions['split_all'] = sprintf('<a href="%s" title="%s">%s</a>', esc_url( wp_nonce_url( self::get_split_series_url($post->ID, FALSE, TRUE), 'tribe_split_'.$post->ID ) ), esc_attr(__('Break this and all subsequent events into a separate series', 'tribe-events-calendar-pro')), __('Break All Following from Series', 'tribe-events-calendar-pro'));
+						$split_actions['split_all'] = sprintf('<a href="%s" class="tribe-split tribe-split-all" title="%s">%s</a>', esc_url( wp_nonce_url( self::get_split_series_url($post->ID, FALSE, TRUE), 'tribe_split_'.$post->ID ) ), esc_attr(__('Break this and all subsequent events into a separate series', 'tribe-events-calendar-pro')), __('Break All Following from Series', 'tribe-events-calendar-pro'));
 					}
+					$actions = TribeEvents::array_insert_after_key( 'edit', $actions, $split_actions );
 				}
 				if ( current_user_can('edit_post', $first_id_in_series) ) {
 					$edit_series_url = get_edit_post_link( $first_id_in_series, 'display' );
