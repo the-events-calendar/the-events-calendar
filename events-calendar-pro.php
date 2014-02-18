@@ -1110,31 +1110,19 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 						$query->set( 'hide_upcoming', false );
 						break;
 					case 'all':
-						// TODO: cache this, probably preemptively --jbrinley
 						$slug = $query->get( 'name' );
 						if ( empty($slug) ) {
 							break; // we shouldn't be here
 						}
 						unset( $query->query_vars['name'] );
 						unset( $query->query_vars['tribe_events']);
-						global $wpdb;
-						$parent_sql = "SELECT ID FROM {$wpdb->posts} WHERE post_name=%s AND post_type=%s";
-						$parent_sql = $wpdb->prepare( $parent_sql, $slug, TribeEvents::POSTTYPE );
-						$parent_id = $wpdb->get_var($parent_sql);
-						if ( empty($parent_id) ) {
-							$query->set('p', -1);
-							break;
-						}
-						$children_sql = "SELECT ID FROM {$wpdb->posts} WHERE ID=%d OR post_parent=%d AND post_type=%s";
-						$children_sql = $wpdb->prepare( $children_sql, $parent_id, $parent_id, TribeEvents::POSTTYPE );
-						$all_ids = $wpdb->get_col($children_sql);
 
+						$all_ids = TribeEventsRecurrenceMeta::get_events_by_slug( $slug );
 						if ( empty($all_ids) ) {
 							$query->set('p', -1);
-							break;
+						} else {
+							$query->set('post__in', $all_ids);
 						}
-
-						$query->set('post__in', $all_ids);
 						break;
 				}
 				apply_filters('tribe_events_pro_pre_get_posts', $query);
@@ -1150,11 +1138,18 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		 * @return void
 		 */
 		private function set_post_id_for_recurring_event_query( $query ) {
-			// TODO: cache this, probably preemptively --jbrinley
 			$date = $query->get( 'eventDate' );
 			$slug = $query->get( 'name' );
 			if ( empty($date) || empty($slug) ) {
 				return; // we shouldn't be here
+			}
+			$cache = new TribeEventsCache();
+			$post_id = $cache->get('single_event_'.$slug.'_'.$date, 'save_post' );
+			if ( !empty($post_id) ) {
+				unset( $query->query_vars['name'] );
+				unset( $query->query_vars['tribe_events']);
+				$query->set('p', $post_id);
+				return;
 			}
 			global $wpdb;
 			$parent_sql = "SELECT ID FROM {$wpdb->posts} WHERE post_name=%s AND post_type=%s";
@@ -1181,6 +1176,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 				unset( $query->query_vars['name'] );
 				unset( $query->query_vars['tribe_events']);
 				$query->set('p', $post_id);
+				$cache->set('single_event_'.$slug.'_'.$date, $post_id, 0, 'save_post' );
 			}
 		}
 

@@ -45,16 +45,8 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	 * @return array Start times, as Y-m-d H:i:s
 	 */
 	function tribe_get_recurrence_start_dates( $post_id = null ) {
-		// TODO: caching of recurrences
-		/** @var wpdb $wpdb */
-		global $wpdb;
 		$post_id = TribeEvents::postIdHelper($post_id);
-		$ancestors = get_post_ancestors($post_id);
-		$post_id = empty($ancestors) ? $post_id : end($ancestors);
-		$sql = "SELECT meta_value FROM {$wpdb->postmeta} m INNER JOIN {$wpdb->posts} p ON p.ID=m.post_id AND (p.post_parent=%d OR p.ID=%d) WHERE meta_key='_EventStartDate' ORDER BY meta_value ASC";
-		$sql = $wpdb->prepare($sql, $post_id, $post_id);
-		$result = $wpdb->get_col($sql);
-		return $result;
+		return TribeEventsRecurrenceMeta::get_start_dates( $post_id );
 	}
 
 	/**
@@ -70,8 +62,7 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	if (!function_exists( 'tribe_get_recurrence_text' )) {
 		function tribe_get_recurrence_text( $postId = null )  {
 			$postId = TribeEvents::postIdHelper( $postId );
-			$tribe_ecp = TribeEvents::instance();
-		  	return apply_filters( 'tribe_get_recurrence_text', TribeEventsRecurrenceMeta::recurrenceToTextByPost( $postId ) );
+			return apply_filters( 'tribe_get_recurrence_text', TribeEventsRecurrenceMeta::recurrenceToTextByPost( $postId ) );
 		}
 	}
 

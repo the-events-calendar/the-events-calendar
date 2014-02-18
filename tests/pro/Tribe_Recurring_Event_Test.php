@@ -145,15 +145,20 @@ class Tribe_Recurring_Event_Test extends WP_UnitTestCase {
 			'post_parent' => $post_id,
 			'post_status' => 'publish',
 			'fields' => 'ids',
+			'posts_per_page' => 25,
 		));
 
 		TribeEventsApi::updateEvent($post_id, $event_args);
+
 		$updated_children = get_posts(array(
 			'post_type' => TribeEvents::POSTTYPE,
 			'post_parent' => $post_id,
 			'post_status' => 'publish',
 			'fields' => 'ids',
+			'posts_per_page' => 25,
 		));
+		$this->assertCount(4, $original_children);
+		$this->assertCount(4, $updated_children);
 		$this->assertEqualSets($original_children, $updated_children);
 	}
 
@@ -195,7 +200,8 @@ class Tribe_Recurring_Event_Test extends WP_UnitTestCase {
 		));
 
 		foreach ( $children as $child_id ) {
-			$this->assertEqualSets( array($tags[1]), wp_get_object_terms($child_id, 'post_tag', array('fields' => 'ids')));
+			$child_terms = wp_get_object_terms($child_id, 'post_tag', array('fields' => 'ids'));
+			$this->assertEqualSets( array($tags[1]), $child_terms );
 		}
 	}
 

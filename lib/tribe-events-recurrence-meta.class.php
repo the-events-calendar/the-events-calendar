@@ -489,14 +489,74 @@ class TribeEventsRecurrenceMeta {
 		return $children;
 	}
 
+	public static function get_events_by_slug( $slug ) {
+		$cache = new TribeEventsCache();
+		$all_ids = $cache->get('events_by_slug_'.$slug, 'save_post');
+		if ( is_array($all_ids) ) {
+			return $all_ids;
+		}
+		/** @var wpdb $wpdb */
+		global $wpdb;
+		$parent_sql = "SELECT ID FROM {$wpdb->posts} WHERE post_name=%s AND post_type=%s";
+		$parent_sql = $wpdb->prepare( $parent_sql, $slug, TribeEvents::POSTTYPE );
+		$parent_id = $wpdb->get_var($parent_sql);
+		if ( empty($parent_id) ) {
+			return array();
+		}
+		$children_sql = "SELECT ID FROM {$wpdb->posts} WHERE ID=%d OR post_parent=%d AND post_type=%s";
+		$children_sql = $wpdb->prepare( $children_sql, $parent_id, $parent_id, TribeEvents::POSTTYPE );
+		$all_ids = $wpdb->get_col($children_sql);
+
+		if ( empty($all_ids) ) {
+			return array();
+		}
+
+		$cache->set( 'events_by_slug_'.$slug, $all_ids, 0, 'save_post' );
+		return $all_ids;
+	}
+
+
+	/**
+	 * Get the start dates of all instances of the event,
+	 * in ascending order
+	 *
+	 * @param int $post_id
+	 * @return array Start times, as Y-m-d H:i:s
+	 */
+	public static function get_start_dates( $post_id ) {
+		$cache = new TribeEventsCache();
+		$dates = $cache->get( 'event_dates_'.$post_id, 'save_post' );
+		if ( is_array($dates) ) {
+			return $dates;
+		}
+		/** @var wpdb $wpdb */
+		global $wpdb;
+		$ancestors = get_post_ancestors($post_id);
+		$post_id = empty($ancestors) ? $post_id : end($ancestors);
+		$sql = "SELECT meta_value FROM {$wpdb->postmeta} m INNER JOIN {$wpdb->posts} p ON p.ID=m.post_id AND (p.post_parent=%d OR p.ID=%d) WHERE meta_key='_EventStartDate' ORDER BY meta_value ASC";
+		$sql = $wpdb->prepare($sql, $post_id, $post_id);
+		$result = $wpdb->get_col($sql);
+		$cache->set( 'recurrence_start_dates_'.$post_id, $result, 0, 'save_post' );
+		return $result;
+	}
+
 	/**
 	 * Do the actual work of saving a recurring series of events
 	 * @param int $postId The event that is being saved
 	 * @return void
 	 */
 	public static function saveEvents( $postId ) {
-
-		$existing_instances = self::get_child_event_ids($postId);
+		// don't use self::get_child_event_ids() due to caching that hasn't yet flushed
+		$existing_instances = get_posts(array(
+			'post_parent' => $postId,
+			'post_type' => TribeEvents::POSTTYPE,
+			'posts_per_page' => -1,
+			'fields' => 'ids',
+			'post_status' => 'any',
+			'meta_key' => '_EventStartDate',
+			'orderby' => 'meta_value',
+			'order' => 'ASC',
+		));
 
 		$recurrence = self::getRecurrenceForEvent($postId);
 
