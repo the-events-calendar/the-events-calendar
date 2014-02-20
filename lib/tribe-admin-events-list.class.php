@@ -21,7 +21,7 @@ if (!class_exists('TribeEventsAdminList')) {
 			if ( is_admin() && ! ( defined('DOING_AJAX') && DOING_AJAX ) ) {
 				//add_filter( 'posts_distinct', array( __CLASS__, 'events_search_distinct'));
 				add_filter( 'posts_join',		array( __CLASS__, 'events_search_join' ), 10, 2 );
-				add_filter( 'posts_where',		array( __CLASS__, 'events_search_where' ), 10, 2 );
+				//add_filter( 'posts_where',		array( __CLASS__, 'events_search_where' ), 10, 2 );
 				add_filter( 'posts_orderby',  array( __CLASS__, 'events_search_orderby' ) );
 				add_filter( 'posts_groupby', array( __CLASS__, 'events_search_groupby' ) );
 				add_filter( 'posts_fields',	array( __CLASS__, 'events_search_fields' ) );
@@ -76,7 +76,6 @@ if (!class_exists('TribeEventsAdminList')) {
 			if ( $query->is_main_query() )
 				$join .= " LEFT JOIN {$wpdb->postmeta} ON {$wpdb->posts}.ID = {$wpdb->postmeta}.post_id AND ({$wpdb->postmeta}.meta_key = '_EventStartDate' or {$wpdb->postmeta}.meta_key is null) ";
 
-			$join .= " LEFT JOIN {$wpdb->postmeta} as eventDuration ON( {$wpdb->posts}.ID = eventDuration.post_id AND eventDuration.meta_key = '_EventDuration') ";
 			$join .= " LEFT JOIN {$wpdb->postmeta} as eventEnd ON( {$wpdb->posts}.ID = eventEnd.post_id AND eventEnd.meta_key = '_EventEndDate') ";
 
 			return $join;
@@ -92,9 +91,7 @@ if (!class_exists('TribeEventsAdminList')) {
 			if ( get_query_var('post_type') != TribeEvents::POSTTYPE )
 				return $where;
 
-			global $wpdb;
 
-			//$where .= ' AND ( eventStart.meta_key = "_EventStartDate" AND eventDuration.meta_key = "_EventDuration" ) ';
 
 			return $where;
 		}
