@@ -1805,7 +1805,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 				</style>
 			<?php
-			} 
+			}
 		}
 
 		/**
@@ -4096,8 +4096,9 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		}
 
 		public function addHelpAdminMenuItem() {
+			$hideSettingsTabs = TribeEvents::instance()->getNetworkOption( 'hideSettingsTabs', array( ) );
 			// prevent users who cannot manage the plugin to see addons link
-			if( current_user_can( 'edit_tribe_events' ) ) {
+			if ( current_user_can( 'edit_tribe_events' ) && ! in_array( 'help', $hideSettingsTabs ) ) {
 				global $submenu;
                 // This fails in IIS with open_basedir
                 //$submenu['edit.php?post_type=' . self::POSTTYPE][500] = array( __('Help', 'tribe-events-calendar'), 'manage_options' , add_query_arg( array( 'post_type' => self::POSTTYPE, 'page' => 'tribe-events-calendar', 'tab' => 'help' ), admin_url( 'edit.php' ) ) );
