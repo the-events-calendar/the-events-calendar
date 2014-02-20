@@ -3933,6 +3933,8 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			if ( !defined( 'TRIBE_DISABLE_TOOLBAR_ITEMS' ) || !TRIBE_DISABLE_TOOLBAR_ITEMS ) {
 				global $wp_admin_bar;
 
+				$hideSettingsTabs = TribeEvents::instance()->getNetworkOption( 'hideSettingsTabs', array( ) );
+
 				$wp_admin_bar->add_menu( array(
 					'id' => 'tribe-events',
 					'title' => __( 'Events', 'tribe-events-calendar' ),
@@ -4002,7 +4004,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 					) );
 				}
 
-				if ( current_user_can( 'manage_options' ) ) {
+				if ( current_user_can( 'manage_options' ) && ! in_array( 'help', $hideSettingsTabs ) ) {
 					$wp_admin_bar->add_menu( array(
 						'id' => 'tribe-events-help',
 						'title' => __( 'Help', 'tribe-events-calendar' ),
