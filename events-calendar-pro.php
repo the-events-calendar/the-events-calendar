@@ -201,7 +201,6 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			// filter the query sql to get the recurrence end date
 			add_filter( 'tribe_events_query_posts_joins', array($this, 'posts_join'));
 			add_filter( 'tribe_events_query_posts_fields', array($this, 'posts_fields'));
-			add_filter( 'tribe_events_query_end_date_column', array($this, 'end_date_column'));
 
 			// let day view enabled status happen naturally
 			remove_filter( 'tribe_events_is_view_enabled', array( TribeEvents::instance(), 'enable_day_view' ), 10, 2 );
@@ -701,7 +700,6 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		 * @since 3.0.2
 		 **/
 		public static function posts_fields($fields){
-			$fields['event_duration']= "tribe_event_duration.meta_value as EventDuration";
 			$fields['event_end_date'] = "tribe_event_end_date.meta_value as EventEndDate";
 			return $fields;
 		}
@@ -715,21 +713,8 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		 **/
 		public static function posts_join($joins){
 			global $wpdb;
-			$joins['event_duration'] = " LEFT JOIN {$wpdb->postmeta} as tribe_event_duration ON ( {$wpdb->posts}.ID = tribe_event_duration.post_id AND tribe_event_duration.meta_key = '_EventDuration' ) ";
 			$joins['event_end_date'] = " LEFT JOIN {$wpdb->postmeta} as tribe_event_end_date ON ( {$wpdb->posts}.ID = tribe_event_end_date.post_id AND tribe_event_end_date.meta_key = '_EventEndDate' ) ";
 			return $joins;
-		}
-
-		/**
-		 * Filter the event end date column name to use the start date + duration to get the end date (to accomodate recurrence)
-		 *
-		 * @return string
-		 * @author Jessica Yazbek
-		 * @since 3.0.2
-		 **/
-		public static function end_date_column($fieldname) {
-			global $wpdb;
-			return ("IF(tribe_event_duration.meta_value IS NULL, tribe_event_end_date.meta_value, DATE_ADD(CAST({$wpdb->postmeta}.meta_value AS DATETIME), INTERVAL tribe_event_duration.meta_value SECOND))");
 		}
 
 		/**

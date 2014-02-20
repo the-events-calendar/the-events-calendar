@@ -165,7 +165,7 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 				} else {
 					// for a default event continue as everything is normal
 					$remaining_minutes_in_day = $daily_mins - abs( ( strtotime( self::get_current_date() ) - strtotime( $event->EventStartDate ) ) / 60 );
-					$duration = ( $event->EventDuration / 60 );
+					$duration = get_post_meta( $event->ID, '_EventDuration', TRUE) / 60;
 					if ( $duration > $remaining_minutes_in_day ) {
 						// this will happen in the case of a multi-day event that extends beyond the end of the week
 						$duration = $remaining_minutes_in_day;
