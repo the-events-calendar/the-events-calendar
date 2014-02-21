@@ -6,5 +6,5 @@ jQuery( document ).ready( function () {
 		maxHeight = h > maxHeight ? h : maxHeight;
 	} );
 
-	jQuery( "div.tribe-addon .caption" ).css('height', maxHeight);
+	jQuery( "div.tribe-addon:not(.first) .caption" ).css('height', maxHeight);
 } );

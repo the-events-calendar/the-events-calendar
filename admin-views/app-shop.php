@@ -34,7 +34,7 @@
 		<?php
 		$category = $product->category;
 		} ?>
-		<div class="tribe-addon<?php if ( $i == 1) { echo ' first'; } ?>">
+		<div class="tribe-addon<?php if ( $i == 1) { echo ' first tribe-clearfix'; } ?>">
 			<div class="thumb">
 				<a href="<?php echo $product->permalink; ?>"><img src="<?php echo $product->featured_image_url; ?>" /></a>
 			</div>
