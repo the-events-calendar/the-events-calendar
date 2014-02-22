@@ -375,9 +375,9 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 			add_action( 'admin_menu', array( $this, 'addEventBox' ) );
 			add_action( 'wp_insert_post', array( $this, 'addPostOrigin' ), 10, 2 );
-			add_action( 'save_post', array( $this, 'addEventMeta' ), 15, 2 );
-			add_action( 'save_post', array( $this, 'save_venue_data' ), 16, 2 );
-			add_action( 'save_post', array( $this, 'save_organizer_data' ), 16, 2 );
+			add_action( 'save_post_'.self::POSTTYPE, array( $this, 'addEventMeta' ), 15, 2 );
+			add_action( 'save_post_'.self::VENUE_POST_TYPE, array( $this, 'save_venue_data' ), 16, 2 );
+			add_action( 'save_post_'.self::ORGANIZER_POST_TYPE, array( $this, 'save_organizer_data' ), 16, 2 );
 			add_action( 'save_post', array( $this, 'addToPostAuditTrail' ), 10, 2 );
 			add_action( 'publish_'.self::POSTTYPE, array( $this, 'publishAssociatedTypes'), 25, 2 );
 			add_action( 'parse_query', array( $this, 'setDisplay' ), 51, 0);
@@ -1486,6 +1486,8 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		public function addVenueAndOrganizerEditor() {
 			add_submenu_page( '/edit.php?post_type='.TribeEvents::POSTTYPE, __( 'Venues','tribe-events-calendar' ), __( 'Venues','tribe-events-calendar' ), 'edit_tribe_venues', 'edit.php?post_type='.TribeEvents::VENUE_POST_TYPE );
 			add_submenu_page( '/edit.php?post_type='.TribeEvents::POSTTYPE, __( 'Organizers','tribe-events-calendar' ), __( 'Organizers','tribe-events-calendar' ), 'edit_tribe_organizers', 'edit.php?post_type='.TribeEvents::ORGANIZER_POST_TYPE );
+			add_submenu_page( 'edit.php?post_type='.TribeEvents::VENUE_POST_TYPE, __( 'Add New Venue','tribe-events-calendar' ), __( 'Add New Venue','tribe-events-calendar' ), 'edit_tribe_venues', 'post-new.php?post_type='.TribeEvents::VENUE_POST_TYPE );
+			add_submenu_page( 'edit.php?post_type='.TribeEvents::ORGANIZER_POST_TYPE, __( 'Add New Organizer','tribe-events-calendar' ), __( 'Add New Organizer','tribe-events-calendar' ), 'edit_tribe_organizers', 'post-new.php?post_type='.TribeEvents::ORGANIZER_POST_TYPE );
 		}
 
 
@@ -1866,7 +1868,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 *
 		 * @return array of options
 		 */
-		public static function getOptions( $force = FALSE ) {
+		public static function getOptions( $force = false ) {
 			if ( !isset( self::$options ) || $force ) {
 				$options = get_option( TribeEvents::OPTIONNAME, array() );
 				self::$options = apply_filters( 'tribe_get_options', $options );
@@ -2208,7 +2210,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		public function default_view() {
 			// Compare the stored default view option to the list of available views
 			$default = $this->getOption('viewOption', '');
-			$available_views = (array) apply_filters( 'tribe-events-bar-views', array(), FALSE );
+			$available_views = (array) apply_filters( 'tribe-events-bar-views', array(), false );
 
 			foreach ( $available_views as $view )
 				if ( $default === $view['displaying']) return $default;
@@ -2753,6 +2755,10 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 * @return void
 		 */
 		public function addEventMeta( $postId, $post ) {
+
+			// Remove this hook to avoid an infinite loop, because saveEventMeta calls wp_update_post when the post is set to always show in calendar
+			remove_action( 'save_post_'.self::POSTTYPE, array( $this, 'addEventMeta' ), 15, 2 );
+
 			// only continue if it's an event post
 			if ( $post->post_type != self::POSTTYPE || defined('DOING_AJAX') ) {
 				return;
@@ -2761,12 +2767,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			if ( wp_is_post_autosave( $postId ) || $post->post_status == 'auto-draft' || isset($_GET['bulk_edit']) || (isset($_REQUEST['action']) && $_REQUEST['action'] == 'inline-save') ) {
 				return;
 			}
-
-			// remove these actions even if nonce is not set
-			// note: we're removing these because these actions are actually for PRO,
-			// these functions are used when editing an existing venue or organizer
-			remove_action( 'save_post', array( $this, 'save_venue_data' ), 16, 2 );
-			remove_action( 'save_post', array( $this, 'save_organizer_data' ), 16, 2 );
 
 			if( !isset($_POST['ecp_nonce']) )
 				return;
@@ -2793,6 +2793,10 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 
 			TribeEventsAPI::saveEventMeta($postId, $_POST, $post);
+
+			// Add this hook back in
+			add_action( 'save_post_'.self::POSTTYPE, array( $this, 'addEventMeta' ), 15, 2 );
+
 		}
 
 		/**
@@ -2876,10 +2880,11 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 */
 		public function publishAssociatedTypes( $postID, $post ) {
 
-			remove_action( 'save_post', array( $this, 'save_venue_data' ), 16, 2 );
-			remove_action( 'save_post', array( $this, 'save_organizer_data' ), 16, 2 );
 			remove_action( 'save_post', array( $this, 'addToPostAuditTrail' ), 10, 2 );
 
+			// don't need to save the venue or organizer data when we are just publishing
+			remove_action( 'save_post_'.self::VENUE_POST_TYPE, array( $this, 'save_venue_data' ), 16, 2 );
+			remove_action( 'save_post_'.self::ORGANIZER_POST_TYPE, array( $this, 'save_organizer_data' ), 16, 2 );
 
 			// save venue and organizer info on first pass
 			if( isset( $post->post_status ) && $post->post_status == 'publish' ) {
@@ -2924,72 +2929,34 @@ if ( !class_exists( 'TribeEvents' ) ) {
 					}
 				}
 
-				if ( $did_save ) {
-					// put the $wp_filter pointer back where we found it
-					reset($wp_filter['save_post']);
-					foreach ( array_keys($wp_filter['save_post']) as $key ) {
-						if ( $key == $wp_filter_index ) {
-							break;
 						}
-						next($wp_filter['save_post']);
 					}
-				}
-			}
-
-		}
 
 		/**
-		 * If you are saving a new venue separate from an event.
+		 * If you are saving a venue separate from an event.
 		 *
 		 * @param int $postID The venue id.
 		 * @param WP_Post $post The post object.
 		 * @return null|void
 		 */
 		public function save_venue_data( $postID = null, $post=null ) {
-			global $_POST;
 
-			//There is a possibility to get stuck in an infinite loop.
-			//That would be bad.
-			remove_action( 'save_post', array( $this, 'save_venue_data' ), 16, 2 );
-
-			if( !isset($_POST['venue']) )
-				$_POST['venue'] = null;
-
-			// don't do anything on autosave or auto-draft either or massupdates
-			// Or inline saves, or data being posted without a venue Or
-			// finally, called from the save_post action, but on save_posts that
-			// are not venue posts
-			if ( ( $post->post_type != self::VENUE_POST_TYPE && $postID ) && (
-				wp_is_post_autosave( $postID ) ||
-				in_array( $post->post_status, array( 'auto-draft', 'draft' ) ) ||
-				isset( $_GET['bulk_edit'] ) ||
-				! $_POST['venue'] ||
-				( isset( $_REQUEST['action'] ) && $_REQUEST['action'] == 'inline-save' ) ) ) {
+			// $_POST['venue'] will only be set on the full venue edit screen, so this avoids quick & bulk edit
+			if ( empty( $_POST['venue'] ) )
 				return;
-			}
 
+			//  Don't continue if autosaving
+			if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE )
+				return;
+
+			// @TODO move this to the API function
 			if ( !current_user_can( 'edit_tribe_venues' ) )
 				return;
 
-			$data = $_POST['venue'];
-			if ( empty($data['Venue']) ) {
-				if ( !empty($_POST['post_title']) ) {
-					$data['Venue'] = $_POST['post_title'];
-				} else {
-					$data['Venue'] = __('Unnamed Venue', 'tribe-events-calendar');
-				}
-			}
+			$data = stripslashes_deep ( $_POST['venue'] );
 
-			$data = stripslashes_deep($data);
 			$venue_id = TribeEventsAPI::updateVenue( $postID, $data );
 
-			/**
-			 * Put our hook back
-			 * @link http://codex.wordpress.org/Plugin_API/Action_Reference/save_post#Avoiding_infinite_loops
-			 */
-			add_action( 'save_post', array( $this, 'save_venue_data' ), 16, 2 );
-
-			// return $venue_id;
 		}
 		/**
 		 * Get venue info.
@@ -3028,58 +2995,29 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		}
 
 		/**
-		 * If you are saving a new organizer along with the event, we will do this:
+		 * If you are saving an organizer separate from an event.
 		 *
 		 * @param int $postID The organizer id.
 		 * @param WP_Post $post The post object.
 		 * @return null|void
 		 */
 		public function save_organizer_data( $postID = null, $post=null ) {
-			global $_POST;
 
-			//There is a possibility to get stuck in an infinite loop.
-			//That would be bad.
-			remove_action( 'save_post', array( $this, 'save_organizer_data' ), 16, 2 );
-
-			// don't do anything on autosave or auto-draft either or massupdates
-			// Or inline saves, or data being posted without a organizer Or
-			// finally, called from the save_post action, but on save_posts that
-			// are not organizer posts
-
-			if( !isset($_POST['organizer']) )
-				$_POST['organizer'] = null;
-
-			if ( ( $post->post_type != self::ORGANIZER_POST_TYPE && $postID ) && (
-				wp_is_post_autosave( $postID ) ||
-				in_array( $post->post_status, array( 'auto-draft', 'draft' ) ) ||
-				isset( $_GET['bulk_edit'] ) ||
-				! $_POST['organizer'] ||
-				( isset( $_REQUEST['action'] ) && $_REQUEST['action'] == 'inline-save' ) ) ) {
+			// $_POST['organizer'] will only be set on the full organizer edit screen, so this avoids quick & bulk edit
+			if ( empty( $_POST['organizer'] ) )
 				return;
-			}
 
+			//  Don't continue if autosaving
+			if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE )
+				return;
+
+			// @TODO move this to the API function
 			if ( !current_user_can( 'edit_tribe_organizers' ) )
 				return;
 
-			$data = $_POST['organizer'];
-			if ( empty($data['Organizer']) ) {
-				if ( !empty($_POST['post_title']) ) {
-					$data['Organizer'] = $_POST['post_title'];
-				} else {
-					$data['Organizer'] = __('Unnamed Organizer', 'tribe-events-calendar');
-				}
-			}
-			$data = stripslashes_deep($data);
+			$data = stripslashes_deep ( $_POST['organizer'] );
 
-			$organizer_id = TribeEventsAPI::updateOrganizer($postID, $data);
-
-			/**
-			 * Put our hook back
-			 * @link http://codex.wordpress.org/Plugin_API/Action_Reference/save_post#Avoiding_infinite_loops
-			 */
-			add_action( 'save_post', array( $this, 'save_organizer_data' ), 16, 2 );
-
-			// return $organizer_id;
+			TribeEventsAPI::updateOrganizer( $postID, $data );
 		}
 
 		/**
@@ -3541,11 +3479,22 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 */
 		public function nextMonth( $date ) {
 			if ( PHP_INT_SIZE <= 4 ) {
-				if ( date('Y-m-d', strtotime($date)) > '2037-11-30' ) {
-					throw new OverflowException(__('Date out of range.', 'tribe-events-calendar'));
+				if ( date( 'Y-m-d', strtotime( $date ) ) > '2037-11-30' ) {
+					throw new OverflowException( __( 'Date out of range.', 'tribe-events-calendar' ) );
 				}
 			}
-			return date( 'Y-m', strtotime( $date . ' +1 month' ) );
+
+			// create a new date object
+			$date = new DateTime( $date );
+
+			// set date object to be the first of the month -- all months have this day!
+			$date->setDate( $date->format( 'Y' ), $date->format( 'm' ), 1 );
+
+			// add a month
+			$date->modify( '+1 month' );
+
+			// return the year-month
+			return $date->format( 'Y-m' );
 		}
 
 		/**
@@ -3558,11 +3507,22 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 */
 		public function previousMonth( $date ) {
 			if ( PHP_INT_SIZE <= 4 ) {
-				if ( date('Y-m-d', strtotime($date)) < '1902-02-01' ) {
-					throw new OverflowException(__('Date out of range.', 'tribe-events-calendar'));
+				if ( date( 'Y-m-d', strtotime( $date ) ) < '1902-02-01' ) {
+					throw new OverflowException( __( 'Date out of range.', 'tribe-events-calendar' ) );
 				}
 			}
-			return date( 'Y-m', strtotime( $date . ' -1 month' ) );
+
+			// create a new date object
+			$date = new DateTime( $date );
+
+			// set date object to be the first of the month -- all months have this day!
+			$date->setDate( $date->format( 'Y' ), $date->format( 'm' ), 1 );
+
+			// subtract a month
+			$date->modify( '-1 month' );
+
+			// return the year-month
+			return $date->format( 'Y-m' );
 		}
 
 		/**
@@ -4045,7 +4005,8 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		public function addViewCalendar() {
 			global $current_screen;
 			if ( $current_screen->id == 'edit-' . self::POSTTYPE )
-				echo '<div class="view-calendar-link-div"><h2 class="wrap"><a class="add-new-h2 view-calendar-link" href="' . $this->getLink() . '">' . __( 'View Calendar', 'tribe-events-calendar' ) . '</a></h2></div>';
+				//Output hidden DIV with Calendar link to be displayed via javascript
+				echo '<div id="view-calendar-link-div" style="display:none;"><a class="add-new-h2" href="' . $this->getLink() . '">' . __( 'View Calendar', 'tribe-events-calendar' ) . '</a></div>';
 		}
 
 		/**
