@@ -242,18 +242,7 @@
 		function tribe_mobile_setup_day(date){
 
 			var $container = $('#tribe-mobile-container'),
-				$day_blocks = $('.tribe-mobile-day'),
-				$mobile_trigger = $('.mobile-trigger'),
 				$target_day = $('.tribe-mobile-day[data-day="' + date + '"]');
-
-			$mobile_trigger
-				.removeClass('mobile-active');
-
-			$mobile_trigger
-				.filter('[title="' + date + '"]')
-				.addClass('mobile-active');
-
-			$day_blocks.hide();
 
 			if($target_day.length){
 				$target_day.show();
@@ -266,65 +255,25 @@
 
 		}
 
-		function tribe_mobile_set_days_with_events(){
-
-			$('.mobile-trigger')
-				.each(function () {
-
-					var $this = $(this);
-
-					if($this.find('.vevent').length)
-						$this.addClass('has-events');
-
-				});
-
-		}
-
 		function tribe_mobile_week_setup(){
 
-			var $today = $('.tribe-week-today'),
-				$mobile_trigger = $('.mobile-trigger'),
+			var $mobile_days = $('.tribe-events-mobile-day'),
 				$tribe_grid = $('#tribe-events-content > .tribe-events-grid');
-
-			tribe_mobile_set_days_with_events();
 
 			if(!$('#tribe-mobile-container').length)
 				$('<div id="tribe-mobile-container" />').insertAfter($tribe_grid);
-
-			var $target;
-
-			if($today.length){
-
-				if($today.is('.has-events'))
-					$target = $today;
-				else if($mobile_trigger.filter('.has-events').length)
-					$target = $mobile_trigger.filter('.has-events').eq(0);
-				else
-					$target = $mobile_trigger.first();
-
-			} else {
-
-				if($mobile_trigger.filter('.has-events').length)
-					$target = $mobile_trigger.filter('.has-events').eq(0);
-				else
-					$target = $mobile_trigger.first();
-
-			}
-
-			tribe_mobile_setup_day($target.attr('title'));
-
-		}
-		
-		function tribe_mobile_day_dates(){
-		
-			if($('.tribe-grid-body .tribe-events-daynum').length)
-				return;
-
-			$('.mobile-trigger').each(function () {
+			
+			$mobile_days.each(function () {
 				var $this = $(this),
-					$col_attr = $this.attr("title"),
-					$col_date = $('.tribe-grid-header').find('[title="' + $col_attr + '"] .tribe-events-daynum').clone();
-				$this.append($col_date);
+					day_date = $this.attr('title'),
+					$mobile_day = $('.tribe-mobile-day[data-day="' + day_date + '"]'),
+					$grid_day_col = $('.tribe-grid-header .column[title="' + day_date + '"]'),
+					day_attr = $grid_day_col.find('span').attr('data-full-date');
+				
+				if(!$mobile_day.find('h5').length && $mobile_day.find('.tribe-events-mobile').length)
+					$mobile_day.prepend('<h5 class="tribe-mobile-day-date">' + day_attr + '</h5>');
+				
+				tribe_mobile_setup_day(day_date);
 			});
 
 		}
@@ -332,14 +281,10 @@
 		function tribe_week_view_init(callback, resize) {
 			if($body.is('.tribe-mobile')){
 				tribe_mobile_week_setup();
-				tribe_mobile_day_dates();
 			} else {
 				tribe_set_allday_placeholder_height();
 				tribe_set_allday_spanning_events_width();
 				tribe_add_right_class();
-				if(resize)
-					$('.tribe-grid-content-wrap .column').css('height', 'auto');
-				$('.tribe-grid-body .tribe-events-daynum').remove();
 				tribe_display_week_view();
 				if (callback && typeof( callback ) === "function")
 					callback();
@@ -399,12 +344,6 @@
 				tf.pre_ajax(function () {
 					tribe_events_week_ajax_post();
 				});
-			})
-			.on('click', '.mobile-trigger', function (e) {
-				if($body.is('.tribe-mobile')){
-					e.preventDefault();
-					tribe_mobile_setup_day($(this).attr('title'));
-				}
 			});
 
 		/**

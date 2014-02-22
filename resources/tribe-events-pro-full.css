@@ -92,7 +92,7 @@
 }
 
 .tribe-events-grid .slimScrollBar {
-	z-index:1000 !important
+	z-index: 1000 !important
 }
 
 .tribe-grid-body {
@@ -983,131 +983,28 @@ div.tribe-countdown-text {
 	/* = Week Grid Template Styles
    	   @ Template: week.php
 	=============================================*/
-	.tribe-events-grid .column.first,
-	.tribe-week-grid-hours,
-	.tribe-grid-allday,
-	.tribe-week-grid-inner-wrap,
-	.tribe-grid-header span,
-	.tribe-grid-body div[id*="tribe-events-event-"] {
-		display: none !important;
+	.tribe-events-week .tribe-events-grid {
+		display: none;
 	}
-
-	.mobile-trigger {
-		height: 52px !important;
-		line-height: 52px;
-		cursor: pointer;
-	}
-
-	.tribe-grid-body .mobile-trigger.has-events:after {
-		background-color: #666;
-		border-radius: 50%;
-		content: "";
-		display: block;
-		height: 8px;
-		margin: 5px auto;
-		padding: 0;
-		width: 8px;
-	}
-
-	.tribe-grid-body .tribe-events-has-events .tribe-events-daynum:after {
-		display:none;
-	}
-	
-	.slimScrollBar,
-	.slimScrollRail {
-		display: none !important;
-	}
-	
-	div.slimScrollDiv {
-		height: auto !important;
-	}
-	
-	/* columns & structure */
-	.tribe-events-grid {
-		border: 0;
-	}
-	
-	.tribe-week-grid-wrapper {
-		height: auto !important;
-		border: 1px solid #bbb;
-	}
-	
-	.tribe-grid-content-wrap {
-		padding-left: 0;	
-	}
-	
-	.tribe-events-grid .tribe-grid-content-wrap .column {
-		border-left: 0;
-	}
-	
-	.tribe-events-grid .column ~ .column {
-		border-left: 1px solid #bbb;
-	}
-	
-	.tribe-grid-body .tribe-events-daynum {
-		display: block;
-		margin: 12px auto 0;
-		font-size: 14px;
-		text-align: center;
-		font-size: 14px;
-		line-height: 1;
-		color: #999;
+	.tribe-mobile-day-date {
+		text-transform: uppercase;
 		font-weight: bold;
-	}
-	
-	.tribe-grid-body .tribe-events-has-events .tribe-events-daynum:after {
-		margin: 5px auto 0;
-	}
-	
-	/* grid header */
-	.tribe-grid-header {
-		border-bottom: 0;
-		border-right: 1px solid #bbb;
-		border-left: 1px solid #bbb;
-		border-top: 1px solid #bbb;
-	}
-	
-	.tribe-grid-header .column {
-		padding: 7px 1em;
-		height: auto !important;
-	}
-	
-	.tribe-grid-header .tribe-grid-content-wrap .column {
-		border-left-color: transparent;
-	}
-	
-	/* Specific Classes */
-	.tribe-grid-body .tribe-events-has-events.tribe-week-today .tribe-events-daynum:after,
-	.tribe-grid-body .tribe-events-has-events.mobile-active .tribe-events-daynum:after,
-	.tribe-grid-body .tribe-events-past.tribe-events-has-events.mobile-active .tribe-events-daynum:after {
-		background: #fff;
-	}
-	
-	.tribe-grid-body .mobile-active .tribe-events-daynum,
-	.tribe-grid-body .tribe-week-today.column,
-	.tribe-grid-body .mobile-active.column,
-	.tribe-week-today .tribe-events-daynum,
-	.tribe-grid-body .tribe-events-future.mobile-active .tribe-events-daynum {
-		color: #fff;
-	}
-	
-	.tribe-grid-body .column.tribe-week-today,
-	.tribe-grid-body .tribe-week-today.mobile-active.column {
-		background-color: #666;
-		color: #fff;
-	}
-	
-	.tribe-grid-body .mobile-active.column {
-		background-color: #999;
-		color: #fff;
-	}
-	
-	.tribe-grid-body .tribe-events-past.tribe-events-has-events .tribe-events-daynum:after {
-		background-color: #999;
-	}
-	
-	.tribe-grid-body .tribe-events-future .tribe-events-daynum {
+		font-size: 16px;
+		margin: 5px 0 0;
+		background-color: #eee;
 		color: #333;
+		padding: 6px 10px;
+	}
+	.tribe-events-week #tribe-mobile-container {
+		margin-top: 26px;
+	}
+	.tribe-events-week #tribe-mobile-container .hentry.vevent,
+	.tribe-events-week #tribe-mobile-container .hentry.vevent ~ .hentry.vevent {
+		padding-left: 8px;
+		padding-right: 8px;
+	}
+	.tribe-events-week #tribe-mobile-container .hentry.vevent .tribe-events-read-more {
+		margin-top: 0;
 	}
 	
 	/* = Photo View Template Styles 

@@ -223,8 +223,6 @@ if ( class_exists( 'TribeEventsPro' ) ) {
 		}
 	}
 
-
-
 	/**
 	 * get event object
 	 *
