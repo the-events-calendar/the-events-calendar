@@ -2014,6 +2014,47 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 	
 }
 
+/* = Mobile Styles (max-width: 600px)
+=============================================*/
+@media (max-width: 600px) {
+
+	/* = WooTickets
+	=============================================*/
+	table.tribe-events-tickets .tickets_price {
+		padding-left: 10px;
+	}
+
+	td.tickets_name {
+		font-size: 18px;
+	}
+	
+	table.tribe-events-tickets td.tickets_description {
+		padding-top: 0;
+	}
+
+	table.tribe-events-tickets,
+	table.tribe-events-tickets tbody {
+		display: block
+	}
+	
+	table.tribe-events-tickets tr {
+		display: block;
+		border-top: 1px solid #ddd;
+		padding-top: 10px;
+		padding-bottom: 8px;
+	}
+	
+	table.tribe-events-tickets td {
+		display: inline-block;
+		border: 0;
+	}
+
+	table.tribe-events-tickets td.woocommerce {
+		border-bottom: 0;
+	}
+	
+}
+
 /* = Events Retina
 =============================================*/
 @media 
