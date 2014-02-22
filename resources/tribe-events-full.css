@@ -2021,7 +2021,14 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 	/* = WooTickets
 	=============================================*/
 	table.tribe-events-tickets .tickets_price {
-		padding-left: 10px;
+		display: block;
+		padding-top: 0;
+		padding-bottom: 6px;
+		padding-left: 0;
+	}
+
+	td.wpec {
+		width: 84px;
 	}
 
 	td.tickets_name {
@@ -2030,6 +2037,7 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 	
 	table.tribe-events-tickets td.tickets_description {
 		padding-top: 0;
+		padding-left: 0;
 	}
 
 	table.tribe-events-tickets,
