@@ -1486,6 +1486,8 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		public function addVenueAndOrganizerEditor() {
 			add_submenu_page( '/edit.php?post_type='.TribeEvents::POSTTYPE, __( 'Venues','tribe-events-calendar' ), __( 'Venues','tribe-events-calendar' ), 'edit_tribe_venues', 'edit.php?post_type='.TribeEvents::VENUE_POST_TYPE );
 			add_submenu_page( '/edit.php?post_type='.TribeEvents::POSTTYPE, __( 'Organizers','tribe-events-calendar' ), __( 'Organizers','tribe-events-calendar' ), 'edit_tribe_organizers', 'edit.php?post_type='.TribeEvents::ORGANIZER_POST_TYPE );
+			add_submenu_page( 'edit.php?post_type='.TribeEvents::VENUE_POST_TYPE, __( 'Add New Venue','tribe-events-calendar' ), __( 'Add New Venue','tribe-events-calendar' ), 'edit_tribe_venues', 'post-new.php?post_type='.TribeEvents::VENUE_POST_TYPE );
+			add_submenu_page( 'edit.php?post_type='.TribeEvents::ORGANIZER_POST_TYPE, __( 'Add New Organizer','tribe-events-calendar' ), __( 'Add New Organizer','tribe-events-calendar' ), 'edit_tribe_organizers', 'post-new.php?post_type='.TribeEvents::ORGANIZER_POST_TYPE );
 		}
 
 
