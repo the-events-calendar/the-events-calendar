@@ -6,7 +6,7 @@ jQuery(document).ready(function($) {
 		
 	// Grab HTML from hidden Calendar link and append to Header on Event Listing Page
 	var viewCalLinkHTML = $('#view-calendar-link-div').html();
-	$('.edit-php.post-type-tribe_events #wpbody-content .wrap h2:eq(0)').append(viewCalLinkHTML		);
+	$(viewCalLinkHTML).insertAfter('.edit-php.post-type-tribe_events #wpbody-content .wrap h2:eq(0) a');
 
 	if($('select[name="tribeEventsTemplate"]' ).length && $('select[name="tribeEventsTemplate"]' ).val() === '' ){
 		$templates = $('select[name="tribeEventsTemplate"]' );
