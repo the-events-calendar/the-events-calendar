@@ -121,7 +121,7 @@
 			} else {	
 				if(date_name) {
 					$container
-						.append('<div class="tribe-mobile-day" data-day="' + date + '"><h3 class="mobile-grid-day-heading">Events for <span>'+ date_name + '</span></h3></div>');
+						.append('<div class="tribe-mobile-day" data-day="' + date + '"><h3 class="tribe-mobile-day-heading">Events for <span>'+ date_name + '</span></h3></div>');
 				} else {
 					$container
 						.append('<div class="tribe-mobile-day" data-day="' + date + '"></div>');

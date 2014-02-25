@@ -1942,7 +1942,7 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 		display: inline-block;
 	}
 	
-	.mobile-grid-day-heading {
+	.tribe-mobile-day-heading {
 		font-size:16px;
 		margin-bottom:10px;
 	}
