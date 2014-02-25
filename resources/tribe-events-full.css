@@ -1941,6 +1941,10 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 		margin-top: 8px;
 		display: inline-block;
 	}
+	
+	.mobile-grid-day-heading {
+		font-size:18px;
+	}
 
 	/* = Calendar (large) Grid Template Styles
        @ Template: month.php

@@ -100,7 +100,7 @@
 
 		}
 
-		function tribe_mobile_setup_day(date){
+		function tribe_mobile_setup_day(date, date_name){
 
 			var $container = $('#tribe-mobile-container'),
 				$day_blocks = $('.tribe-mobile-day'),
@@ -118,9 +118,9 @@
 
 			if($target_day.length){
 				$target_day.show();
-			} else {
+			} else {			
 				$container
-					.append('<div class="tribe-mobile-day" data-day="' + date + '"></div>');
+					.append('<div class="tribe-mobile-day" data-day="' + date + '"><h3 class="mobile-grid-day-heading">Events for <span>'+ date_name + '</span></h3></div>');
 
 				tribe_mobile_load_events(date);
 			}
@@ -137,9 +137,9 @@
 				$('<div id="tribe-mobile-container" />').insertAfter($tribe_grid);
 
 			if($today.length)
-				tribe_mobile_setup_day($today.attr('data-day'));
+				tribe_mobile_setup_day($today.attr('data-day'), $today.attr('data-date-name'));
 			else
-				tribe_mobile_setup_day($mobile_trigger.first().attr('data-day'));
+				tribe_mobile_setup_day($mobile_trigger.first().attr('data-day'), $mobile_trigger.first().attr('data-date-name'));
 
 		}
 		
@@ -230,14 +230,14 @@
 			.on('click', '[id*="tribe-events-daynum-"] a', function (e) {
 				if($body.is('.tribe-mobile')){
 					e.preventDefault();
-					tribe_mobile_setup_day($(this).closest('.mobile-trigger').attr('data-day'));
+					tribe_mobile_setup_day($(this).closest('.mobile-trigger').attr('data-day'), $(this).closest('.mobile-trigger').attr('data-date-name'));
 				}
 			})
 			.on('click', '.mobile-trigger', function (e) {
 				if($body.is('.tribe-mobile')){
 					e.preventDefault();
 					e.stopPropagation();
-					tribe_mobile_setup_day($(this).attr('data-day'));
+					tribe_mobile_setup_day($(this).attr('data-day'), $(this).attr('data-date-name'));
 				}
 			});
 

@@ -39,6 +39,11 @@ global $wp_locale;
 			<td class="<?php tribe_events_the_month_day_classes() ?>" 
 				<?php if( isset( $daydata['daynum'] ) ) { ?>
 					data-day="<?php echo $daydata['daynum'] ?>"
+					<?php
+						//Add Day Name Option for Responsive Header
+						$day_name = date(get_option('date_format'), strtotime($daydata['events']->query_vars['eventDate'] . '-' . $daydata['daynum']));
+					?>
+					data-date-name="<?php echo $day_name  ?>"
 				<?php } ?>
 			>
 				<?php tribe_get_template_part( 'month/single', 'day' ) ?>
