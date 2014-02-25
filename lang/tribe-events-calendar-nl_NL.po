@@ -6,8 +6,8 @@ msgstr ""
 "Project-Id-Version: The Events Calendar\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-02-04 18:03-0800\n"
-"PO-Revision-Date: 2014-02-19 14:27+0100\n"
-"Last-Translator: Ita Pronk <ita@ifra.nl>\n"
+"PO-Revision-Date: 2014-02-24 09:39+0100\n"
+"Last-Translator: Frans Pronk <beheer@ifra.nl>\n"
 "Language-Team: Modern Tribe, Inc. <pro@tri.be>\n"
 "Language: nl_NL\n"
 "MIME-Version: 1.0\n"
@@ -3853,7 +3853,7 @@ msgstr "Bekijk details"
 
 #: ../views/modules/bar.php:34 ../views/modules/bar.php:64
 msgid "Find Events"
-msgstr "Vind gebeurtenissen"
+msgstr "Zoeken"
 
 #: ../views/modules/bar.php:41
 msgid "Event Views Navigation"
