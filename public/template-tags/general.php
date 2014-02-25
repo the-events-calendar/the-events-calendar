@@ -616,9 +616,9 @@ if( class_exists( 'TribeEventsPro' ) ) {
 			case null :
 				return __( 'Today', 'tribe-events-calendar-pro' );
 			case 'previous day' :
-				return __( '&laquo; Previous Day', 'tribe-events-calendar-pro' );
+				return __( '<span>&laquo;</span> Previous Day', 'tribe-events-calendar-pro' );
 			case 'next day' :
-				return __( 'Next Day &raquo;', 'tribe-events-calendar-pro' );
+				return __( 'Next Day <span>&raquo;</span>', 'tribe-events-calendar-pro' );
 			case 'yesterday' :
 				return __( 'Yesterday', 'tribe-events-calendar-pro' );
 			case 'tomorrow' :
