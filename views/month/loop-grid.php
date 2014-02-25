@@ -41,9 +41,14 @@ global $wp_locale;
 					data-day="<?php echo $daydata['daynum'] ?>"
 					<?php
 						//Add Day Name Option for Responsive Header
-						$day_name = date(get_option('date_format'), strtotime($daydata['events']->query_vars['eventDate'] . '-' . $daydata['daynum']));
+						if($daydata['total_events'] > 0) {
+							$day_name = date(get_option('date_format'), strtotime($daydata['events']->query_vars['eventDate'] . '-' . $daydata['daynum']));
 					?>
-					data-date-name="<?php echo $day_name  ?>"
+							data-date-name="<?php echo $day_name ?>"
+					<?php
+						}
+					?>
+					
 				<?php } ?>
 			>
 				<?php tribe_get_template_part( 'month/single', 'day' ) ?>

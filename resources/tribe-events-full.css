@@ -1943,7 +1943,8 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 	}
 	
 	.mobile-grid-day-heading {
-		font-size:18px;
+		font-size:16px;
+		margin-bottom:10px;
 	}
 
 	/* = Calendar (large) Grid Template Styles
