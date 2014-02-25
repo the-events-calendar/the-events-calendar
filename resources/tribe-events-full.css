@@ -1753,11 +1753,29 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 	}
 	.tribe-events-sub-nav li a {
 		display: inline-block;
-		padding: 10px 15px;
+		padding: 10px 20px;
 		background: #666;
 		color: #fff;
 		white-space: normal;
+		position:relative;
 	}
+	
+	.tribe-events-sub-nav .tribe-events-nav-previous a span{
+		display:block;
+		content:"\ab";
+		position:absolute;
+		left:10px;
+		top:10px;
+	}
+	
+	.tribe-events-sub-nav .tribe-events-nav-next a span{
+		display:block;
+		content: "\00BB";
+		position:absolute;
+		right:10px;
+		top:10px;
+	}
+	
 	.tribe-events-sub-nav li a:visited,
 	.tribe-events-sub-nav li a:hover {
 		color: #fff;
