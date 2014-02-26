@@ -216,26 +216,6 @@ jQuery(document).ready(function($) {
 	
 	$( '[name="recurrence[end]"]' ).datepicker('option', 'onSelect', function() {
 		$('[name="recurrence[end]"]').removeClass('placeholder');
-	});	
-	
-	/* Fix for deleting multiple events */
-	$('.wp-admin.events-cal.edit-php #doaction').click(function(e) {
-		if($("[name='action'] option:selected").val() == "trash") {
-			if(confirm("Are you sure you want to trash all occurrences of these events? All recurrence data will be lost.")) {
-				var ids = new Array();
-
-				$('[name="post[]"]:checked').each(function() {
-					var curval = $(this).val();
-					if(ids[curval]) {
-						$(this).prop('checked', false);
-					}
-
-					ids[curval] = true;
-				});
-			} else {
-				e.preventDefault();
-			}
-		}
 	});
 	
 	function isExistingRecurringEvent() {
