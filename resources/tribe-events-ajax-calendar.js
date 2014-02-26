@@ -120,6 +120,7 @@
 				$target_day.show();
 			} else {	
 				if(date_name) {
+					console.log(date_name);
 					$container
 						.append('<div class="tribe-mobile-day" data-day="' + date + '"><h3 class="tribe-mobile-day-heading">Events for <span>'+ date_name + '</span></h3></div>');
 				} else {

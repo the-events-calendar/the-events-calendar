@@ -42,7 +42,7 @@ global $wp_locale;
 					<?php
 						//Add Day Name Option for Responsive Header
 						if($daydata['total_events'] > 0) {
-							$day_name = date(get_option('date_format'), strtotime($daydata['events']->query_vars['eventDate'] . '-' . $daydata['daynum']));
+							$day_name = date(get_option('date_format'), strtotime($daydata['date']));
 					?>
 							data-date-name="<?php echo $day_name ?>"
 					<?php
