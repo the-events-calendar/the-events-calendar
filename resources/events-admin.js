@@ -288,6 +288,12 @@ jQuery(document).ready(function($) {
 		// Update the text.
 		$('#recurrence-pattern-description').text( recurrence_text );
 	}
+
+	var recurrence_updated = function() {
+		updateRecurrenceText();
+		set_recurrence_end_min_date();
+	};
+	$('#recurrence_end, #EventStartDate, #EventEndDate').datepicker('option', 'onClose', recurrence_updated);
 	
 	$('.recurrence-row, .custom-recurrence-row').on('change', function(event) {
 		if ( !$('.recurrence-pattern-description-row').is(':visible') ) {
@@ -295,8 +301,15 @@ jQuery(document).ready(function($) {
 		}
 		updateRecurrenceText();
 	});
-	$('#recurrence_end, #EventStartDate, #EventEndDate').datepicker('option', 'onClose', updateRecurrenceText);
-	
+
+	var set_recurrence_end_min_date = function() {
+		var start = $('#EventStartDate').val();
+		if ( start != '' ) {
+			$('#recurrence_end').datepicker('option', 'minDate', start);
+		}
+	};
+	set_recurrence_end_min_date();
+
 	$('input[name="post[]"]').click( function(e) {
 		var event_id = $(this).val();
 		
