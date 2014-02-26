@@ -183,7 +183,7 @@ $modules = TribeEventsTickets::modules();
 							   class="button-primary" />
 
 						<input type='button' id='ticket_form_cancel' name='ticket_form_cancel' value="Cancel"
-							   class="button-highlighted" />
+							   class="button-secondary" />
 					</td>
 				</tr>
 

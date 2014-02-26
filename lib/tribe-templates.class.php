@@ -81,6 +81,9 @@ if (!class_exists('TribeEventsTemplates')) {
 				return $template;
 			}
 
+			// add the theme slug to the body class
+			add_filter( 'body_class', array( __CLASS__, 'theme_body_class' ) );
+
 			if ( tribe_get_option( 'tribeEventsTemplate', 'default' ) == '' ) {
 				return self::getTemplateHierarchy( 'default-template' );
 			} else {
@@ -144,6 +147,32 @@ if (!class_exists('TribeEventsTemplates')) {
 		 */
 		public static function add_singular_body_class( $classes ) {
 			$classes[] = 'singular';
+			return $classes;
+		}
+
+		/**
+		 * Add the theme to the body class
+		 *
+		 * @return array $classes
+		 * @author Jessica Yazbek
+		 **/
+		public static function theme_body_class( $classes ) {
+			$child_theme = get_option( 'stylesheet' );
+			$parent_theme = get_option( 'template' );
+
+			// if the 2 options are the same, then there is no child theme
+			if ( $child_theme == $parent_theme ) {
+				$child_theme = false;
+			}
+
+			if ( $child_theme ) {
+				$theme_classes = "tribe-theme-parent-$parent_theme tribe-theme-child-$child_theme";
+			} else {
+				$theme_classes = "tribe-theme-$parent_theme";
+			}
+
+			$classes[] = $theme_classes;
+
 			return $classes;
 		}
 
@@ -232,7 +261,7 @@ if (!class_exists('TribeEventsTemplates')) {
 		 * @param string $title
 		 * @return string
 		 */
-		public function modify_global_post_title( $title = '' ) {
+		public static function modify_global_post_title( $title = '' ) {
 			global $post;
 
 			// Set the title to an empty string (but record the original)

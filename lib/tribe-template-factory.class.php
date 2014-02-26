@@ -498,6 +498,8 @@ if( !class_exists('Tribe_Template_Factory') ) {
 						'daysMin' => array_merge( $tec->daysOfWeekMin, array( $tec->daysOfWeekMin[0] ) ),
 						'months' => array_values( $tec->monthsFull ),
 						'monthsShort' => array_values( $tec->monthsShort ),
+						'clear' => 'Clear',
+						'today' => 'Today',
 					);
 					wp_localize_script( $prefix . '-bootstrap-datepicker', 'tribe_bootstrap_datepicker_strings', array( 'dates' => $localized_datepicker_array ) );
 					break;
