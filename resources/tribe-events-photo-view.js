@@ -18,7 +18,7 @@
 
 	if(dbug){
 		if(!$().isotope){
-			debug.warn('TEC Debug: vendor bootstrapDatepicker was not loaded before its dependant file tribe-photo-view.js');
+			debug.warn('TEC Debug: vendor isotope was not loaded before its dependant file tribe-photo-view.js');
 		}
 	}
 
@@ -361,7 +361,7 @@
 				);
 			} else {
 
-				if (ts.do_string)
+				if (ts.url_params.length)
 					window.location = td.cur_url + '?' + ts.url_params;
 				else
 					window.location = td.cur_url;

@@ -19,6 +19,7 @@ $week = 0;
 ?>
 <div class="tribe-mini-calendar-grid-wrapper">
 	<table class="tribe-mini-calendar" <?php tribe_events_the_mini_calendar_header_attributes() ?>>
+		<?php do_action( 'tribe_events_mini_cal_before_header' ); ?>
 		<thead class="tribe-mini-calendar-nav">
 			<tr>
 				<td colspan="7">
@@ -31,7 +32,8 @@ $week = 0;
 				</td>
 			</tr>
 		</thead>
-
+		<?php do_action( 'tribe_events_mini_cal_after_header' ); ?>
+	<?php do_action( 'tribe_events_mini_cal_before_the_grid' ); ?>	
 	<thead>
 		<tr>
 		<?php foreach($days_of_week as $day) : ?>
@@ -56,5 +58,6 @@ $week = 0;
 			<?php endwhile; ?>
 			</tr>
 		</tbody>
+		<?php do_action( 'tribe_events_mini_cal_after_the_grid' ); ?>	
 	</table>
 </div> <!-- .tribe-mini-calendar-grid-wrapper -->

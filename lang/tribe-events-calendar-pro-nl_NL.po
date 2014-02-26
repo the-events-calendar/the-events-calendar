@@ -2,9 +2,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Events Calendar Pro\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-07-02 11:28-0800\n"
-"PO-Revision-Date: 2013-08-27 23:45+0200\n"
-"Last-Translator: Erik Massop <e.massop@hccnet.nl>\n"
+"POT-Creation-Date: 2014-02-04 18:18-0800\n"
+"PO-Revision-Date: 2014-02-14 15:36+0100\n"
+"Last-Translator: Ita Pronk <ita@ifra.nl>\n"
 "Language-Team: DECKERWEB <deckerweb.mobil@googlemail.com>\n"
 "Language: nl_NL\n"
 "MIME-Version: 1.0\n"
@@ -16,7 +16,7 @@ msgstr ""
 "_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2\n"
 "X-Poedit-Basepath: ./\n"
 "X-Textdomain-Support: yes\n"
-"X-Generator: Poedit 1.5.5\n"
+"X-Generator: Poedit 1.6.3\n"
 "X-Poedit-SearchPath-0: ..\n"
 
 #: ../events-calendar-pro.php:61
@@ -28,7 +28,7 @@ msgid "photo"
 msgstr "foto"
 
 #: ../events-calendar-pro.php:63
-#: ../lib/tribe-events-recurrence-meta.class.php:621
+#: ../lib/tribe-events-recurrence-meta.class.php:685
 msgid "day"
 msgstr "dag"
 
@@ -36,41 +36,49 @@ msgstr "dag"
 msgid "today"
 msgstr "vandaag"
 
-#: ../events-calendar-pro.php:261
+#: ../events-calendar-pro.php:292
 msgid "Events for week of"
 msgstr "Evenementen in de week van"
 
-#: ../events-calendar-pro.php:267 ../events-calendar-pro.php:334
+#: ../events-calendar-pro.php:298 ../events-calendar-pro.php:366
 msgid "Events for"
 msgstr "Evenementen op"
 
-#: ../events-calendar-pro.php:272 ../events-calendar-pro.php:339
+#: ../events-calendar-pro.php:303 ../events-calendar-pro.php:372
 msgid "Past Events"
 msgstr "Afgelopen evenementen"
 
-#: ../events-calendar-pro.php:274 ../events-calendar-pro.php:341
-#: ../lib/widget-advanced-list.class.php:51
+#: ../events-calendar-pro.php:305 ../events-calendar-pro.php:374
+#: ../lib/widget-advanced-list.class.php:54
 msgid "Upcoming Events"
 msgstr "Toekomstige evenementen"
 
-#: ../events-calendar-pro.php:280 ../events-calendar-pro.php:321
+#: ../events-calendar-pro.php:311 ../events-calendar-pro.php:353
 msgid "All events for"
 msgstr "Evenementen in"
 
-#: ../events-calendar-pro.php:328
+#: ../events-calendar-pro.php:360
 #, php-format
 msgid "Events for week of %s"
 msgstr "Evenementen in de week van %s"
 
-#: ../events-calendar-pro.php:817 ../admin-views/tribe-options-defaults.php:35
+#: ../events-calendar-pro.php:868 ../admin-views/tribe-options-defaults.php:35
 msgid "Default Content"
 msgstr "Standaardinhoud"
 
-#: ../events-calendar-pro.php:819 ../admin-views/event-meta-options.php:3
+#: ../events-calendar-pro.php:870 ../admin-views/event-meta-options.php:3
 msgid "Additional Fields"
 msgstr "Extra velden"
 
-#: ../events-calendar-pro.php:828
+#: ../events-calendar-pro.php:879
+msgid "Hide related events"
+msgstr "Verberg gerelateerde Events"
+
+#: ../events-calendar-pro.php:880
+msgid "Remove related events from the single event view"
+msgstr "Verwijder gerelateerde Events uit de Single Event weergave."
+
+#: ../events-calendar-pro.php:896
 msgid ""
 "Thanks for buying Events Calendar PRO! From all of us at Modern Tribe, we "
 "sincerely appreciate it. If you're looking for help with Events Calendar "
@@ -78,15 +86,23 @@ msgid ""
 "calendar kick ass... and hope the resources provided below will help get you "
 "there."
 msgstr ""
+"Bedankt voor het kopen van Events Calendar PRO! Wij moderne mensen waarderen "
+"dit oprecht. Als je hulp nodig hebt bij Events Calendar PRO dan ben je hier "
+"op de juiste plaats. Wij helpen je graag jouw Events Calendar te laten "
+"knallen! Hopelijk helpen onderstaande onderwerpen je snel!"
 
-#: ../events-calendar-pro.php:839
+#: ../events-calendar-pro.php:907
 msgid ""
 "If this is your first time using The Events Calendar Pro, you're in for a "
 "treat and are already well on your way to creating a first event. Here are "
 "some basics we've found helpful for users jumping into it for the first time:"
 msgstr ""
+"Als dit de eerste keer is dat je Events Calendar PRO gebruikt, dan bof je "
+"want je staat op het punt je eerste Event te creëren. Hier zijn een aantal "
+"basisprincipes die nuttig zijn voor gebruikers die voor het eerst in de "
+"diepe springen:"
 
-#: ../events-calendar-pro.php:842
+#: ../events-calendar-pro.php:910
 #, php-format
 msgid ""
 "%sOur New User Primer%s was designed for folks in your exact position. "
@@ -94,8 +110,11 @@ msgid ""
 "accompanying screenshots, the primer aims to take you from zero to hero in "
 "no time."
 msgstr ""
+"%sOns nieuwe gebruikers introductie%s is ontworpen voor mensen zoals u. Met "
+"stap-voor-stap video's en gedocumenteerde rondleidingen met begeleidende "
+"screenshots brengt deze introductie in korte tijd op vlieghoogte."
 
-#: ../events-calendar-pro.php:844
+#: ../events-calendar-pro.php:912
 #, php-format
 msgid ""
 "%sInstallation/Setup FAQs%s from our support page can help give an overview "
@@ -103,16 +122,22 @@ msgid ""
 "helpful as it aims to address any basic install questions not addressed by "
 "the new user primer."
 msgstr ""
+"%sInstallatie/Setup FAQs%s op onze supportpagina geeft overzicht van wat de "
+"plugin wel en niet kan doen. Dit gedeelte van de FAQs kan je helpen bij "
+"basale installatie vragen van niet nieuwe gebruikers."
 
-#: ../events-calendar-pro.php:846
+#: ../events-calendar-pro.php:914
 #, php-format
 msgid ""
 "Are you developer looking to build your own frontend view? We created an "
 "example plugin that demonstrates how to register a new view. You can "
 "%sdownload the plugin at GitHub%s to get started."
 msgstr ""
+"Ben jij een ontwikkelaar die een eigen interface bouwt? Wij hebben een "
+"voorbeeld plugin gemaakt die laat zien hoe je een nieuwe layout registreert. "
+"Je kunt %sdownload de plugin op GitHub%s om te starten"
 
-#: ../events-calendar-pro.php:848
+#: ../events-calendar-pro.php:916
 #, php-format
 msgid ""
 "Take care of your license key. Though not required to create your first "
@@ -120,21 +145,29 @@ msgid ""
 "access to support and upgrades. %sHere's how to find your license key%s, if "
 "you don't have it handy."
 msgstr ""
+"Wees zuinig op je licentiesleutel. Hoewel niet vereist voor het maken van je "
+"eerste event, je zult ’em zo snel mogelijk bij de hand willen hebben om "
+"verzekerd te zijn van toegang tot support en upgrades. %sZo vind je jouw "
+"licentienummer%s, voor als je ’em niet bij de hand hebt."
 
-#: ../events-calendar-pro.php:850
+#: ../events-calendar-pro.php:918
 msgid ""
 "Otherwise, if you're feeling adventurous, you can get started by heading to "
 "the Events menu and adding your first event."
 msgstr ""
+"Of, als je avontuurlijk voelt, ga dan gelijk naar het Events menu en voeg je "
+"eerste Event toe."
 
-#: ../events-calendar-pro.php:862
+#: ../events-calendar-pro.php:930
 #, php-format
 msgid ""
 "Written documentation can only take things so far...sometimes, you need help "
 "from a real person. This is where our %ssupport forums%s come into play."
 msgstr ""
+"Geschreven documentatie kan niet alles oplossen... Soms heb je hulp van een "
+"echt persoon nodig; dáár gaat onze %ssupport forums%s een rol gaan spelen."
 
-#: ../events-calendar-pro.php:863
+#: ../events-calendar-pro.php:931
 #, php-format
 msgid ""
 "Users who have purchased an Events Calendar PRO license are granted total "
@@ -144,8 +177,14 @@ msgid ""
 "PRO forums daily throughout the business week, and no thread should go more "
 "than 24-hours without a response."
 msgstr ""
+"Gebruikers die een Events Calendar PRO-licentie hebben gekocht krijgen "
+"volledige toegang tot ons %spremium supportforum%s. In tegenstelling tot de "
+"%sWordPress.org steun forum %s, waar onze betrokkenheid beperkt is tot het "
+"identificeren en patchen van bugs, hebben we een toegewijd support-team voor "
+"PRO-gebruikers. We zijn doordeweeks dagelijks op de PRO forums, en draadjes "
+"krijgen binnen 24 uur een reactie."
 
-#: ../events-calendar-pro.php:864
+#: ../events-calendar-pro.php:932
 msgid ""
 "Our number one goal is helping you succeed, and to whatever extent possible, "
 "we'll help troubleshoot and guide your customizations or tweaks. While we "
@@ -154,8 +193,14 @@ msgid ""
 "can to point you in the right direction and to make you -- and your client, "
 "as is often more importantly the case -- satisfied."
 msgstr ""
+"Ons voornaamste doel is jou te helpen slagen en al is het maar even "
+"mogelijk, wij helpen je probleem op te lossen en begeleiden je aanpassingen "
+"of tweaks. Terwijl we zal niet je website voor je bouwen en we niet kunnen "
+"garanderen dat je 100% geïntegreerd zult zijn met elk thema of plugin, we "
+"zullen er alles aan doen om je goed op weg te helpen zodat je — of liever: "
+"jouw klant, zoals wat vaak het geval zal zijn — tevreden bent."
 
-#: ../events-calendar-pro.php:865
+#: ../events-calendar-pro.php:933
 msgid ""
 "Before posting a new thread, please do a search to make sure your issue "
 "hasn't already been addressed. When posting please make sure to provide as "
@@ -163,58 +208,63 @@ msgid ""
 "feasible), and make sure that you've identified whether a plugin / theme "
 "conflict could be at play in your initial message."
 msgstr ""
+"Kijk eerst of jouw vraag of probleem niet al een keer gesteld en beantwoord "
+"is voordat je een nieuwe draadje post. Geef in je eerste bericht zoveel "
+"mogelijk informatie over het probleem als je kunt (met screenshots of "
+"screencasts indien mogelijk), en zorg ervoor dat je hebt gecontroleerd of "
+"een plugin / thema het conflict zou kunnen veroorzaken."
 
-#: ../events-calendar-pro.php:939
+#: ../events-calendar-pro.php:1007
 msgid "Day View"
 msgstr "Dagweergave"
 
-#: ../events-calendar-pro.php:942
+#: ../events-calendar-pro.php:1010
 msgid "Week View"
 msgstr "Weekweergave"
 
-#: ../events-calendar-pro.php:1335
+#: ../events-calendar-pro.php:1415
 msgid "Settings"
 msgstr "Instellingen"
 
-#: ../events-calendar-pro.php:1398
+#: ../events-calendar-pro.php:1478
 #, php-format
 msgid "Calendar powered by %sThe Events Calendar PRO%s"
 msgstr "Kalender aangedreven door %sThe Events Calendar PRO%s"
 
-#: ../events-calendar-pro.php:1411
+#: ../events-calendar-pro.php:1491
 msgid "Support"
 msgstr "Ondersteuning"
 
-#: ../events-calendar-pro.php:1413
+#: ../events-calendar-pro.php:1493
 msgid "View All Add-Ons"
 msgstr "Bekijk alle add-ons"
 
-#: ../events-calendar-pro.php:1463
+#: ../events-calendar-pro.php:1579
 msgid "Week"
 msgstr "Week"
 
-#: ../events-calendar-pro.php:1479 ../admin-views/event-recurrence.php:82
-#: ../admin-views/event-recurrence.php:127
+#: ../events-calendar-pro.php:1595 ../admin-views/event-recurrence.php:84
+#: ../admin-views/event-recurrence.php:129
 msgid "Day"
 msgstr "Dag"
 
-#: ../events-calendar-pro.php:1495
+#: ../events-calendar-pro.php:1611
 msgid "Photo"
 msgstr "Foto"
 
-#: ../events-calendar-pro.php:1511
+#: ../events-calendar-pro.php:1627
 msgid "Day Of"
 msgstr "Datum"
 
-#: ../events-calendar-pro.php:1513
+#: ../events-calendar-pro.php:1629
 msgid "Week Of"
 msgstr "Week van"
 
-#: ../events-calendar-pro.php:1634
+#: ../events-calendar-pro.php:1750
 msgid "The Events Calendar"
 msgstr "The Events Calendar"
 
-#: ../events-calendar-pro.php:1635
+#: ../events-calendar-pro.php:1751
 #, php-format
 msgid ""
 "To begin using Events Calendar PRO, please install the latest version of <a "
@@ -429,6 +479,7 @@ msgid "Checkbox"
 msgstr "Checkbox"
 
 #: ../admin-views/event-meta-options.php:31
+#: ../lib/TribeEventsFilter_GeoLoc.php:41
 msgid "Dropdown"
 msgstr "Dropdown"
 
@@ -535,218 +586,226 @@ msgstr "Op"
 msgid "After"
 msgstr "Na"
 
-#: ../admin-views/event-recurrence.php:23
+#: ../admin-views/event-recurrence.php:20
+msgid "Never"
+msgstr "Nooit"
+
+#: ../admin-views/event-recurrence.php:24
 msgid "You must select a recurrence end date"
 msgstr "Je moet een terugkeereinddatum selecteren"
 
-#: ../admin-views/event-recurrence.php:30
+#: ../admin-views/event-recurrence.php:31
 msgid "Frequency"
 msgstr "Frequentie"
 
-#: ../admin-views/event-recurrence.php:32
+#: ../admin-views/event-recurrence.php:33
 msgid "Day(s)"
 msgstr "dagen"
 
-#: ../admin-views/event-recurrence.php:32
+#: ../admin-views/event-recurrence.php:33
 msgid "Daily"
 msgstr "Dagelijks"
 
-#: ../admin-views/event-recurrence.php:33
+#: ../admin-views/event-recurrence.php:34
 msgid "Week(s) on:"
 msgstr "weken, op:"
 
-#: ../admin-views/event-recurrence.php:33
+#: ../admin-views/event-recurrence.php:34
 msgid "Weekly"
 msgstr "Wekelijks"
 
-#: ../admin-views/event-recurrence.php:34
+#: ../admin-views/event-recurrence.php:35
 msgid "Month(s) on the:"
 msgstr "maanden, op de:"
 
-#: ../admin-views/event-recurrence.php:34
+#: ../admin-views/event-recurrence.php:35
 msgid "Monthly"
 msgstr "Maandelijks"
 
-#: ../admin-views/event-recurrence.php:35
+#: ../admin-views/event-recurrence.php:36
 msgid "Year(s) on:"
 msgstr "Jaar, in:"
 
-#: ../admin-views/event-recurrence.php:35
+#: ../admin-views/event-recurrence.php:36
 msgid "Yearly"
 msgstr "Jaarlijks"
 
-#: ../admin-views/event-recurrence.php:37
+#: ../admin-views/event-recurrence.php:38
 msgid "Every"
 msgstr "elke"
 
-#: ../admin-views/event-recurrence.php:41
+#: ../admin-views/event-recurrence.php:42
 msgid "Frequency of recurring event must be a number"
 msgstr "Frequentie van het terugkerende evenement moet een getal zijn"
 
-#: ../admin-views/event-recurrence.php:49
+#: ../admin-views/event-recurrence.php:50
 msgid "M"
 msgstr "Ma"
 
-#: ../admin-views/event-recurrence.php:50
+#: ../admin-views/event-recurrence.php:51
 msgid "Tu"
 msgstr "Di"
 
-#: ../admin-views/event-recurrence.php:51
+#: ../admin-views/event-recurrence.php:52
 msgid "W"
 msgstr "Wo"
 
-#: ../admin-views/event-recurrence.php:52
+#: ../admin-views/event-recurrence.php:53
 msgid "Th"
 msgstr "Do"
 
-#: ../admin-views/event-recurrence.php:53
+#: ../admin-views/event-recurrence.php:54
 msgid "F"
 msgstr "Vr"
 
-#: ../admin-views/event-recurrence.php:54
+#: ../admin-views/event-recurrence.php:55
 msgid "Sa"
 msgstr "Za"
 
-#: ../admin-views/event-recurrence.php:55
+#: ../admin-views/event-recurrence.php:56
 msgid "Su"
 msgstr "Zo"
 
-#: ../admin-views/event-recurrence.php:63
-#: ../admin-views/event-recurrence.php:112
+#: ../admin-views/event-recurrence.php:64
+#: ../admin-views/event-recurrence.php:114
 msgid "First"
 msgstr "Eerste"
 
-#: ../admin-views/event-recurrence.php:64
-#: ../admin-views/event-recurrence.php:113
+#: ../admin-views/event-recurrence.php:65
+#: ../admin-views/event-recurrence.php:115
 msgid "Second"
 msgstr "Tweede"
 
-#: ../admin-views/event-recurrence.php:65
-#: ../admin-views/event-recurrence.php:114
+#: ../admin-views/event-recurrence.php:66
+#: ../admin-views/event-recurrence.php:116
 msgid "Third"
 msgstr "Derde"
 
-#: ../admin-views/event-recurrence.php:66
-#: ../admin-views/event-recurrence.php:115
+#: ../admin-views/event-recurrence.php:67
+#: ../admin-views/event-recurrence.php:117
 msgid "Fourth"
 msgstr "Vierde"
 
-#: ../admin-views/event-recurrence.php:67
-#: ../admin-views/event-recurrence.php:116
+#: ../admin-views/event-recurrence.php:68
+msgid "Fifth"
+msgstr "Vijfde"
+
+#: ../admin-views/event-recurrence.php:69
+#: ../admin-views/event-recurrence.php:118
 msgid "Last"
 msgstr "Laatste"
 
-#: ../admin-views/event-recurrence.php:74
-#: ../admin-views/event-recurrence.php:119
-#: ../lib/tribe-events-recurrence-meta.class.php:654
+#: ../admin-views/event-recurrence.php:76
+#: ../admin-views/event-recurrence.php:121
+#: ../lib/tribe-events-recurrence-meta.class.php:720
 msgid "Monday"
 msgstr "Maandag"
 
-#: ../admin-views/event-recurrence.php:75
-#: ../admin-views/event-recurrence.php:120
-#: ../lib/tribe-events-recurrence-meta.class.php:654
+#: ../admin-views/event-recurrence.php:77
+#: ../admin-views/event-recurrence.php:122
+#: ../lib/tribe-events-recurrence-meta.class.php:720
 msgid "Tuesday"
 msgstr "Dinsdag"
 
-#: ../admin-views/event-recurrence.php:76
-#: ../admin-views/event-recurrence.php:121
-#: ../lib/tribe-events-recurrence-meta.class.php:654
+#: ../admin-views/event-recurrence.php:78
+#: ../admin-views/event-recurrence.php:123
+#: ../lib/tribe-events-recurrence-meta.class.php:720
 msgid "Wednesday"
 msgstr "Woensdag"
 
-#: ../admin-views/event-recurrence.php:77
-#: ../admin-views/event-recurrence.php:122
-#: ../lib/tribe-events-recurrence-meta.class.php:654
+#: ../admin-views/event-recurrence.php:79
+#: ../admin-views/event-recurrence.php:124
+#: ../lib/tribe-events-recurrence-meta.class.php:720
 msgid "Thursday"
 msgstr "Donderdag"
 
-#: ../admin-views/event-recurrence.php:78
-#: ../admin-views/event-recurrence.php:123
-#: ../lib/tribe-events-recurrence-meta.class.php:654
+#: ../admin-views/event-recurrence.php:80
+#: ../admin-views/event-recurrence.php:125
+#: ../lib/tribe-events-recurrence-meta.class.php:720
 msgid "Friday"
 msgstr "Vrijdag"
 
-#: ../admin-views/event-recurrence.php:79
-#: ../admin-views/event-recurrence.php:124
-#: ../lib/tribe-events-recurrence-meta.class.php:654
+#: ../admin-views/event-recurrence.php:81
+#: ../admin-views/event-recurrence.php:126
+#: ../lib/tribe-events-recurrence-meta.class.php:720
 msgid "Saturday"
 msgstr "Zaterdag"
 
-#: ../admin-views/event-recurrence.php:80
-#: ../admin-views/event-recurrence.php:125
-#: ../lib/tribe-events-recurrence-meta.class.php:654
+#: ../admin-views/event-recurrence.php:82
+#: ../admin-views/event-recurrence.php:127
+#: ../lib/tribe-events-recurrence-meta.class.php:720
 msgid "Sunday"
 msgstr "Zondag"
 
-#: ../admin-views/event-recurrence.php:91
+#: ../admin-views/event-recurrence.php:93
 msgid "Jan"
 msgstr "Jan"
 
-#: ../admin-views/event-recurrence.php:92
+#: ../admin-views/event-recurrence.php:94
 msgid "Feb"
 msgstr "Feb"
 
-#: ../admin-views/event-recurrence.php:93
+#: ../admin-views/event-recurrence.php:95
 msgid "Mar"
-msgstr "Mrt"
+msgstr "Maanden"
 
-#: ../admin-views/event-recurrence.php:94
+#: ../admin-views/event-recurrence.php:96
 msgid "Apr"
 msgstr "Apr"
 
-#: ../admin-views/event-recurrence.php:95
-#: ../lib/tribe-events-recurrence-meta.class.php:680
+#: ../admin-views/event-recurrence.php:97
+#: ../lib/tribe-events-recurrence-meta.class.php:746
 msgid "May"
 msgstr "Mei"
 
-#: ../admin-views/event-recurrence.php:96
+#: ../admin-views/event-recurrence.php:98
 msgid "Jun"
 msgstr "Jun"
 
-#: ../admin-views/event-recurrence.php:100
+#: ../admin-views/event-recurrence.php:102
 msgid "Jul"
 msgstr "Jul"
 
-#: ../admin-views/event-recurrence.php:101
+#: ../admin-views/event-recurrence.php:103
 msgid "Aug"
 msgstr "Aug"
 
-#: ../admin-views/event-recurrence.php:102
+#: ../admin-views/event-recurrence.php:104
 msgid "Sep"
 msgstr "Sep"
 
-#: ../admin-views/event-recurrence.php:103
+#: ../admin-views/event-recurrence.php:105
 msgid "Oct"
 msgstr "Okt"
 
-#: ../admin-views/event-recurrence.php:104
+#: ../admin-views/event-recurrence.php:106
 msgid "Nov"
 msgstr "Nov"
 
-#: ../admin-views/event-recurrence.php:105
+#: ../admin-views/event-recurrence.php:107
 msgid "Dec"
 msgstr "Dec"
 
-#: ../admin-views/event-recurrence.php:110
+#: ../admin-views/event-recurrence.php:112
 msgid "On the:"
 msgstr "Op de:"
 
-#: ../admin-views/event-recurrence.php:135
+#: ../admin-views/event-recurrence.php:137
 #: ../views/tribe-ECP-views-old/views/single-venue.php:58
 msgid "Description:"
 msgstr "Beschrijving:"
 
-#: ../admin-views/event-recurrence.php:143
+#: ../admin-views/event-recurrence.php:145
 msgid "Recurrence Description:"
 msgstr "Terugkeerbeschrijving:"
 
-#: ../admin-views/event-recurrence.php:148
+#: ../admin-views/event-recurrence.php:150
 msgid ""
-"Create a custom plain language description of the recurrance. Leave it blank "
+"Create a custom plain language description of the recurrence. Leave it blank "
 "and we'll automate it."
 msgstr ""
-"Maak een eigen duidelijke beschrijving van de terugkeerregel. Bij een leeg "
-"veld wordt deze automatisch aangemaakt."
+"Maak een aangepaste duidelijke beschrijving van de herhaling. En leeg veld "
+"zullen wij automatiseren."
 
 #: ../admin-views/support-form.php:11
 msgid "Need help? Send us a support request."
@@ -884,7 +943,6 @@ msgstr ""
 #: ../admin-views/widget-admin-countdown.php:10
 #: ../admin-views/widget-admin-venue.php:9
 #: ../admin-views/widget-calendar.php:2
-#: ../vendor/tribe-related-posts/tribe-related-posts-widget.php:70
 msgid "Title:"
 msgstr "Titel:"
 
@@ -1011,243 +1069,207 @@ msgstr "Ander"
 msgid "Recurrence Pattern:"
 msgstr "Terugkeerpatroon:"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:462
+#: ../lib/tribe-events-recurrence-meta.class.php:471
 msgid ""
 "Monthly custom recurrences cannot have a dash set as the day to occur on."
 msgstr ""
 "Maandelijkse maatwerkterugkeer kan niet een streepje hebben als "
 "herhalingsdag."
 
-#: ../lib/tribe-events-recurrence-meta.class.php:465
+#: ../lib/tribe-events-recurrence-meta.class.php:474
 msgid ""
 "Yearly custom recurrences cannot have a dash set as the day to occur on."
 msgstr "Jaarlijkse maatwerkterugkeer kan niet een streepje als herhalingsdag."
 
-#: ../lib/tribe-events-recurrence-meta.class.php:592
-#: ../lib/tribe-events-recurrence-meta.class.php:607
+#: ../lib/tribe-events-recurrence-meta.class.php:656
+#: ../lib/tribe-events-recurrence-meta.class.php:671
 msgid "Every day"
 msgstr "Elke dag"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:593
-#, php-format
-msgid " for %d day"
-msgid_plural " for %d days"
-msgstr[0] " voor %d dag"
-msgstr[1] " voor %d dagen"
-
-#: ../lib/tribe-events-recurrence-meta.class.php:596
-#: ../lib/tribe-events-recurrence-meta.class.php:612
+#: ../lib/tribe-events-recurrence-meta.class.php:660
+#: ../lib/tribe-events-recurrence-meta.class.php:676
 msgid "Every week"
 msgstr "Elke week"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:597
-#, php-format
-msgid " for %d week"
-msgid_plural " for %d weeks"
-msgstr[0] " voor %d week"
-msgstr[1] " voor %d weken"
-
-#: ../lib/tribe-events-recurrence-meta.class.php:599
-#: ../lib/tribe-events-recurrence-meta.class.php:618
+#: ../lib/tribe-events-recurrence-meta.class.php:663
+#: ../lib/tribe-events-recurrence-meta.class.php:682
 msgid "Every month"
 msgstr "Elke maand"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:600
-#, php-format
-msgid " for %d month"
-msgid_plural " for %d months"
-msgstr[0] " voor %d maand"
-msgstr[1] " voor %d maanden"
-
-#: ../lib/tribe-events-recurrence-meta.class.php:602
-#: ../lib/tribe-events-recurrence-meta.class.php:625
+#: ../lib/tribe-events-recurrence-meta.class.php:666
+#: ../lib/tribe-events-recurrence-meta.class.php:689
 msgid "Every year"
 msgstr "Elk jaar"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:603
-#, php-format
-msgid " for %d year"
-msgid_plural " for %d years"
-msgstr[0] " voor %d jaar"
-msgstr[1] " voor %d jaren"
-
-#: ../lib/tribe-events-recurrence-meta.class.php:608
+#: ../lib/tribe-events-recurrence-meta.class.php:672
 #, php-format
 msgid "Every %d days"
 msgstr "Elke %d dagen"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:609
-#: ../lib/tribe-events-recurrence-meta.class.php:615
-#: ../lib/tribe-events-recurrence-meta.class.php:622
-#: ../lib/tribe-events-recurrence-meta.class.php:634
-#, php-format
-msgid ", recurring %d time"
-msgid_plural ", recurring %d times"
-msgstr[0] ", %d keer terugkerend"
-msgstr[1] ", %d keer terugkerend"
-
-#: ../lib/tribe-events-recurrence-meta.class.php:613
+#: ../lib/tribe-events-recurrence-meta.class.php:677
 #, php-format
 msgid "Every %d weeks"
 msgstr "Elke %d weken"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:614
+#: ../lib/tribe-events-recurrence-meta.class.php:678
 #, php-format
 msgid " on %s"
 msgstr " op %s"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:619
+#: ../lib/tribe-events-recurrence-meta.class.php:683
 #, php-format
 msgid "Every %d months"
 msgstr "Elke %d maanden"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:621
+#: ../lib/tribe-events-recurrence-meta.class.php:685
 #, php-format
 msgid " on the %s %s"
 msgstr " op de %s %s"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:626
+#: ../lib/tribe-events-recurrence-meta.class.php:690
 #, php-format
 msgid "Every %d years"
 msgstr "Elke %d jaar"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:628
+#: ../lib/tribe-events-recurrence-meta.class.php:692
 msgid "last"
 msgstr "laatste"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:633
+#: ../lib/tribe-events-recurrence-meta.class.php:697
 #, php-format
 msgid " on the %s %s of %s"
 msgstr " op de %s %s van %s"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:640
+#: ../lib/tribe-events-recurrence-meta.class.php:704
 #, php-format
 msgid " until %s"
 msgstr " tot %s"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:645
+#: ../lib/tribe-events-recurrence-meta.class.php:711
 #, php-format
 msgid "%s%s%s"
 msgstr "%s%s%s"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:660
+#: ../lib/tribe-events-recurrence-meta.class.php:726
 msgid ", and"
 msgstr ", en"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:662
+#: ../lib/tribe-events-recurrence-meta.class.php:728
 msgid "and"
 msgstr "en"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:664
+#: ../lib/tribe-events-recurrence-meta.class.php:730
 msgid ","
 msgstr ","
 
-#: ../lib/tribe-events-recurrence-meta.class.php:679
+#: ../lib/tribe-events-recurrence-meta.class.php:745
 msgid "January"
 msgstr "januari"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:679
+#: ../lib/tribe-events-recurrence-meta.class.php:745
 msgid "February"
 msgstr "februari"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:679
+#: ../lib/tribe-events-recurrence-meta.class.php:745
 msgid "March"
 msgstr "maart"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:679
+#: ../lib/tribe-events-recurrence-meta.class.php:745
 msgid "April"
 msgstr "april"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:680
+#: ../lib/tribe-events-recurrence-meta.class.php:746
 msgid "June"
 msgstr "juni"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:680
+#: ../lib/tribe-events-recurrence-meta.class.php:746
 msgid "July"
 msgstr "juli"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:680
+#: ../lib/tribe-events-recurrence-meta.class.php:746
 msgid "August"
 msgstr "augustus"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:680
+#: ../lib/tribe-events-recurrence-meta.class.php:746
 msgid "September"
 msgstr "september"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:680
+#: ../lib/tribe-events-recurrence-meta.class.php:746
 msgid "October"
 msgstr "october"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:680
+#: ../lib/tribe-events-recurrence-meta.class.php:746
 msgid "November"
 msgstr "november"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:680
+#: ../lib/tribe-events-recurrence-meta.class.php:746
 msgid "December"
 msgstr "december"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:686
+#: ../lib/tribe-events-recurrence-meta.class.php:752
 msgid ", and "
 msgstr " en "
 
-#: ../lib/tribe-events-recurrence-meta.class.php:688
+#: ../lib/tribe-events-recurrence-meta.class.php:754
 msgid " and "
 msgstr " en "
 
-#: ../lib/tribe-events-recurrence-meta.class.php:690
+#: ../lib/tribe-events-recurrence-meta.class.php:756
 msgid ", "
 msgstr ", "
 
-#: ../lib/tribe-events-recurrence-meta.class.php:747
+#: ../lib/tribe-events-recurrence-meta.class.php:862
 msgid "Recurring event instances"
 msgstr "Weergave terugkerende evenementen"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:748
-msgid "Show only the first instance of each recurring event."
-msgstr "Laat alleen de eerste instantie van elk terugkerend evenementen zien."
+#: ../lib/tribe-events-recurrence-meta.class.php:863
+msgid ""
+"Show only the first instance of each recurring event (only affects list-"
+"style views)."
+msgstr ""
+"Laat alleen de eerste van elk terugkerend Event zien (heeft alleen "
+"betrekking op list-style weergaven)."
 
-#: ../lib/tribe-events-recurrence-meta.class.php:754
+#: ../lib/tribe-events-recurrence-meta.class.php:869
 msgid "Front-end recurring event instances toggle"
 msgstr "Zichtbaarheid terugkerende evenementen"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:755
+#: ../lib/tribe-events-recurrence-meta.class.php:870
 msgid ""
 "Allow users to decide whether to show all instances of a recurring event."
 msgstr ""
 "Laat gebruikers beslissen of alle instanties van terugkerende evenementen "
 "zichtbaar zijn."
 
-#: ../lib/tribe-events-recurrence-meta.class.php:811
-msgid "Your recurrence pattern would create greater than "
-msgstr "Je terugkeerpatroon zou meer dan "
+#: ../lib/tribe-events-recurrence-meta.class.php:877
+msgid "Clean up recurring events after"
+msgstr "Verwijder terugkerende Events erna."
 
-#: ../lib/tribe-geoloc.class.php:117
+#: ../lib/tribe-events-recurrence-meta.class.php:878
+msgid "Automatically remove recurring event instances older than this"
+msgstr "Verwijder terugkerende Events ouder dan dit automatisch"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:885
+msgid "Create recurring events in advance for"
+msgstr "Maak terugkerende Events vooraf voor"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:886
+msgid "Recurring events will be created this far in advance"
+msgstr "Terugkerende Events zullen zo ver van tevoren worden gemaakt"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:907
+msgid " months"
+msgstr "maanden"
+
+#: ../lib/tribe-geoloc.class.php:101
 msgid "Distance"
 msgstr "Afstand"
 
-#: ../lib/tribe-geoloc.class.php:124
-#, php-format
-msgid "Title: %s"
-msgstr "Titel: %s"
-
-#: ../lib/tribe-geoloc.class.php:126
-#, php-format
-msgid "%sType: %s"
-msgstr "%sType: %s"
-
-#: ../lib/tribe-geoloc.class.php:126
-msgid "Select Dropdown"
-msgstr "Selecteer dropdown"
-
-#: ../lib/tribe-geoloc.class.php:127
-msgid "Radio Buttons"
-msgstr "Radio buttons"
-
-#: ../lib/tribe-geoloc.class.php:180
+#: ../lib/tribe-geoloc.class.php:133
 msgid "Map view search distance limit"
 msgstr "Bovengrens voor zoekafstand in kaartweergave"
 
-#: ../lib/tribe-geoloc.class.php:182
+#: ../lib/tribe-geoloc.class.php:135
 msgid ""
 "Set the distance that the location search covers (find events within X "
 "distance units of location search input)."
@@ -1255,23 +1277,23 @@ msgstr ""
 "Geef de maximale afstand voor de zoekopdracht op locatie (vind evenementen "
 "binnen X afstandeenheden van de locatieinvoer)."
 
-#: ../lib/tribe-geoloc.class.php:188
+#: ../lib/tribe-geoloc.class.php:141
 msgid "Map view distance unit"
 msgstr "Afstandseenheid voor kaartweergave"
 
-#: ../lib/tribe-geoloc.class.php:192
+#: ../lib/tribe-geoloc.class.php:145
 msgid "Miles"
 msgstr "Miles"
 
-#: ../lib/tribe-geoloc.class.php:193
+#: ../lib/tribe-geoloc.class.php:146
 msgid "Kilometers"
 msgstr "Kilometers"
 
-#: ../lib/tribe-geoloc.class.php:196
+#: ../lib/tribe-geoloc.class.php:149
 msgid "Fix geolocation data"
 msgstr "Geolocatiedata updaten"
 
-#: ../lib/tribe-geoloc.class.php:196
+#: ../lib/tribe-geoloc.class.php:149
 #, php-format
 msgid ""
 "You have %d venues for which we don't have geolocation data. We need to use "
@@ -1282,11 +1304,11 @@ msgstr ""
 "gebruiken de Google Maps API om deze informatie te vinden. Dit kan een "
 "tijdje duren (ongeveer 1 minuut per 200 locaties)."
 
-#: ../lib/tribe-geoloc.class.php:205
+#: ../lib/tribe-geoloc.class.php:158
 msgid "Hide location search"
 msgstr "Verberg zoeken op locatie"
 
-#: ../lib/tribe-geoloc.class.php:206
+#: ../lib/tribe-geoloc.class.php:159
 msgid ""
 "Removes location search field from the events bar on all views except for "
 "map view."
@@ -1294,19 +1316,34 @@ msgstr ""
 "Verwijdert het locatiezoekveld uit de evenementenbalk bij alle weergaven "
 "behalve de kaartweergave."
 
-#: ../lib/tribe-geoloc.class.php:256
+#: ../lib/tribe-geoloc.class.php:211
 msgid "Map"
 msgstr "Kaart"
 
-#: ../lib/tribe-geoloc.class.php:286
+#: ../lib/tribe-geoloc.class.php:241
 msgid "Near"
 msgstr "Dichtbij"
 
-#: ../lib/tribe-geoloc.class.php:872
+#: ../lib/tribe-geoloc.class.php:242
+msgid "Location"
+msgstr "Locatie"
+
+#: ../lib/tribe-geoloc.class.php:548
+#, php-format
+msgid "No results were found for events in or near <strong>\"%s\"</strong>."
+msgstr ""
+"Er zijn geen resultaten gevonden voor Events in of in de buurt van <strong>"
+"\"%s\"</strong>."
+
+#: ../lib/tribe-geoloc.class.php:551
+msgid "There were no results found."
+msgstr "Geen resultaten gevonden."
+
+#: ../lib/tribe-geoloc.class.php:812
 msgid "Fix venues data"
 msgstr "Update locatiedata"
 
-#: ../lib/tribe-geoloc.class.php:903
+#: ../lib/tribe-geoloc.class.php:846
 #, php-format
 msgid ""
 "You have venues for which we don't have Geolocation information. <a "
@@ -1315,7 +1352,7 @@ msgstr ""
 "Je hebt locaties waarvoor géén geolocatie-informatie aanwezig is. <a "
 "href='%s'>Klik hier on deze aan te maken</a>."
 
-#: ../lib/tribe-geoloc.class.php:929
+#: ../lib/tribe-geoloc.class.php:872
 #, php-format
 msgid "Fixed geolocation data for %d venues"
 msgstr "Geolocatiedata voor %d locaties geüpdatet"
@@ -1328,35 +1365,44 @@ msgstr "Voeg toe aan Google Calendar"
 msgid "Google Calendar"
 msgstr "Google Calendar"
 
-#: ../lib/tribe-ical.class.php:43 ../lib/tribe-ical.class.php:89
+#: ../lib/tribe-ical.class.php:43 ../lib/tribe-ical.class.php:93
 msgid "iCal Import"
 msgstr "iCal-import"
 
-#: ../lib/tribe-ical.class.php:76
+#: ../lib/tribe-ical.class.php:80
 msgid "Month's Events"
 msgstr "Evenementen deze maand"
 
-#: ../lib/tribe-ical.class.php:79
+#: ../lib/tribe-ical.class.php:83
 msgid "Week's Events"
 msgstr "Evenementen deze week"
 
-#: ../lib/tribe-ical.class.php:82
+#: ../lib/tribe-ical.class.php:86
 msgid "Day's Events"
 msgstr "Evenementen deze dag"
 
-#: ../lib/tribe-ical.class.php:85
+#: ../lib/tribe-ical.class.php:89
 msgid "Listed Events"
 msgstr "Gevonden evenementen"
 
-#: ../lib/tribe-ical.class.php:89
+#: ../lib/tribe-ical.class.php:93
 msgid "Import is filter/view sensitive"
 msgstr "Import is afhankelijk van filter en weergave"
 
-#: ../lib/widget-advanced-list.class.php:16
+#: ../lib/TribeEventsFilter_GeoLoc.php:37
+#, php-format
+msgid "Type: %s %s"
+msgstr "Type: %s%s"
+
+#: ../lib/TribeEventsFilter_GeoLoc.php:46
+msgid "Radio Buttons"
+msgstr "Radio buttons"
+
+#: ../lib/widget-advanced-list.class.php:18
 msgid "A widget that displays the next upcoming x events."
 msgstr "Een widget, die de komende x activiteiten toont."
 
-#: ../lib/widget-advanced-list.class.php:22
+#: ../lib/widget-advanced-list.class.php:24
 msgid "Events List"
 msgstr "Evenementenlijst"
 
@@ -1365,7 +1411,7 @@ msgid "The events calendar mini calendar widget"
 msgstr "The Events Calender-minikalenderwidget"
 
 #: ../lib/widget-calendar.class.php:10 ../lib/widget-calendar.class.php:31
-#: ../lib/widget-calendar.class.php:59
+#: ../lib/widget-calendar.class.php:63
 msgid "Events Calendar"
 msgstr "Evenementenkalender"
 
@@ -1386,29 +1432,29 @@ msgstr ""
 msgid "Events Featured Venue"
 msgstr "Evenementen op deze locatie"
 
-#: ../lib/template-classes/day.php:73
+#: ../lib/template-classes/day.php:76 ../lib/template-classes/day.php:85
+#: ../views/pro/week/loop-grid-allday.php:23
 #: ../views/tribe-ECP-views-old/views/featured-widget.php:59
 #: ../views/tribe-ECP-views-old/views/list-widget.php:57
-#: ../views/week/loop-grid-allday.php:23
 msgid "All Day"
 msgstr "Hele dag"
 
-#: ../lib/template-classes/day.php:102
+#: ../lib/template-classes/day.php:129
 #, php-format
 msgid ""
-"There were no results found for <strong>\"%s\"</strong> on this day. Try "
-"searching another day."
+"No matching events listed under %s scheduled for <strong>%s</strong>. Please "
+"try another day."
 msgstr ""
-"Er zijn geen resultaten gevonden voor <strong>\"%s\"</strong> op deze dag. "
-"Probeer een andere dag."
+"Geen overeenkomstige events gevonden voor  %s gepland voor <strong>%s</"
+"strong>. Probeer een andere dag."
 
-#: ../lib/template-classes/day.php:106
+#: ../lib/template-classes/day.php:132
 #, php-format
 msgid "No events scheduled for <strong>%s</strong>. Please try another day."
 msgstr ""
 "Geen evenementen gevonden voor <strong>%s</strong>. Probeer een andere dag."
 
-#: ../lib/template-classes/week.php:78
+#: ../lib/template-classes/week.php:87
 #, php-format
 msgid ""
 "There were no results found for <strong>\"%s\"</strong> this week. Try "
@@ -1417,99 +1463,129 @@ msgstr ""
 "Er zijn géén resultaten gevonden voor <strong>\"%s\"</strong> deze week. "
 "Probeer een andere week. "
 
-#: ../public/template-tags/general.php:104
+#: ../lib/template-classes/week.php:90
+#, php-format
+msgid ""
+"No results were found for events in or near <strong>\"%s\"</strong> this "
+"week. Try searching another week."
+msgstr ""
+"Er zijn géén resultaten gevonden voor Events in de buurt van <strong>\"%s\"</"
+"strong> deze week. Probeer te zoeken in een andere week. "
+
+#: ../lib/template-classes/week.php:93
+msgid "No results were found for this week. Try searching another week."
+msgstr ""
+"Er zijn géén resultaten gevonden voor deze week. Probeer in een andere week "
+"te zoeken."
+
+#: ../public/template-tags/general.php:91
 msgid "Show only the first upcoming instance of recurring events"
 msgstr "Laat alleen de eerste van de toekomstige terugkerende evenementen zien"
 
-#: ../public/template-tags/general.php:296
+#: ../public/template-tags/general.php:283
+#: ../public/template-tags/general.php:297
 #: ../public/template-tags/general.php:310
-#: ../public/template-tags/general.php:323
+#: ../public/template-tags/general.php:311
 #: ../public/template-tags/general.php:324
-#: ../public/template-tags/general.php:337
+#: ../public/template-tags/general.php:325
 #: ../public/template-tags/general.php:338
-#: ../public/template-tags/general.php:351
+#: ../public/template-tags/general.php:339
 #: ../public/template-tags/general.php:352
-#: ../public/template-tags/general.php:365
+#: ../public/template-tags/general.php:353
 #: ../public/template-tags/general.php:366
-#: ../public/template-tags/general.php:379
+#: ../public/template-tags/general.php:367
 #: ../public/template-tags/general.php:380
-#: ../public/template-tags/general.php:393
+#: ../public/template-tags/general.php:381
 #: ../public/template-tags/general.php:394
-#: ../public/template-tags/general.php:407
-#: ../public/template-tags/general.php:408
+#: ../public/template-tags/general.php:395
 msgid "No default set"
 msgstr "Geen standaard ingesteld"
 
-#: ../public/template-tags/general.php:297
+#: ../public/template-tags/general.php:284
 #, php-format
 msgid "The current default organizer is: %s"
 msgstr "De huidige standaardorganisator is: %s"
 
-#: ../public/template-tags/general.php:311
+#: ../public/template-tags/general.php:298
 #, php-format
 msgid "The current default venue is: %s"
 msgstr "De huidige standaardlocatie is: %s"
 
-#: ../public/template-tags/general.php:325
+#: ../public/template-tags/general.php:312
 #, php-format
 msgid "The current default address is: %s"
 msgstr "Het huidige standaardadres is: %s"
 
-#: ../public/template-tags/general.php:339
+#: ../public/template-tags/general.php:326
 #, php-format
 msgid "The current default city is: %s"
 msgstr "De huidige standaardstad is: %s"
 
-#: ../public/template-tags/general.php:353
+#: ../public/template-tags/general.php:340
 #, php-format
 msgid "The current default state is: %s"
 msgstr "De huidige standaardstaat is: %s"
 
-#: ../public/template-tags/general.php:367
+#: ../public/template-tags/general.php:354
 #, php-format
 msgid "The current default province is: %s"
 msgstr "De huidige standaardprovincie is: %s"
 
-#: ../public/template-tags/general.php:381
+#: ../public/template-tags/general.php:368
 #, php-format
 msgid "The current default postal code/zip code is: %s"
 msgstr "De huidige standaardpostcode is: %s"
 
-#: ../public/template-tags/general.php:395
+#: ../public/template-tags/general.php:382
 #, php-format
 msgid "The current default country is: %s"
 msgstr "Het huidige standaardland is: %s"
 
-#: ../public/template-tags/general.php:409
+#: ../public/template-tags/general.php:396
 #, php-format
 msgid "The current default phone is: %s"
 msgstr "Het huidige standaardtelefoonnummer is: %s"
 
-#: ../public/template-tags/general.php:604
+#: ../public/template-tags/general.php:556
+#: ../public/template-tags/general.php:575
+#: ../public/template-tags/general.php:664
+#: ../public/template-tags/general.php:682
+msgid "Date out of range."
+msgstr "Datum buiten bereik."
+
+#: ../public/template-tags/general.php:617
 msgid "Today"
 msgstr "Vandaag"
 
-#: ../public/template-tags/general.php:607
+#: ../public/template-tags/general.php:619
 msgid "&laquo; Previous Day"
 msgstr "&laquo; Vorige dag"
 
-#: ../public/template-tags/general.php:610
+#: ../public/template-tags/general.php:621
 msgid "Next Day &raquo;"
 msgstr "Volgende dag &raquo;"
 
-#: ../public/template-tags/general.php:613
+#: ../public/template-tags/general.php:623
 msgid "Yesterday"
 msgstr "Gisteren"
 
-#: ../public/template-tags/general.php:616
+#: ../public/template-tags/general.php:625
 msgid "Tomorrow"
 msgstr "Morgen"
 
-#: ../public/template-tags/general.php:710
+#: ../public/template-tags/general.php:729
 msgid "Related Events"
 msgstr "Gerelateerde evenementen"
 
-#: ../vendor/advanced-post-manager/demo/demo.php:31
+#: ../public/template-tags/week.php:251
+msgid "&laquo; Previous Week"
+msgstr "&laquo; Vorige week"
+
+#: ../public/template-tags/week.php:264
+msgid "Next Week &raquo;"
+msgstr "Volgende week &raquo;"
+
+#: ../vendor/advanced-post-manager/demo/demo.php:30
 #, php-format
 msgid ""
 "It looks like you might not have any demo data. <a href=\"%s\">Download our "
@@ -1569,11 +1645,11 @@ msgid "what i’m querying. probably a key in the options array in $filters"
 msgstr ""
 "wat ik zoek. Waarschijnlijk een key in de instellingenarray in $filters"
 
-#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:523
+#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:526
 msgid "Choose a Saved Filter"
 msgstr "Kies een opgeslagen filter"
 
-#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:639
+#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:642
 msgid "Add a Filter"
 msgstr "Voeg een filter toe"
 
@@ -1648,7 +1724,7 @@ msgstr "Afbreken"
 
 #: ../vendor/pue-client/admin-views/license-key.view.php:9
 #: ../vendor/pue-client/admin-views/license-key.view.php:13
-#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:185
+#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:292
 msgid "License Key"
 msgstr "Licentiekey"
 
@@ -1661,36 +1737,36 @@ msgid "Replace empty fields"
 msgstr "Vervang lege velden"
 
 #: ../vendor/pue-client/admin-views/license-key.view.php:25
-#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:186
+#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:293
 msgid "A valid license key is required for support and updates"
 msgstr "Een geldige licentiekey is noodzakelijk voor support en updates"
 
-#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:254
+#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:361
 msgid "License key(s) updated."
 msgstr "Licentiekey(s) geüpdatet."
 
-#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:294
+#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:401
 msgid "Sorry, key validation server is not available."
 msgstr "Sorry, de keygeldigheidsserver is niet beschikbaar."
 
-#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:296
+#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:403
 msgid "Sorry, this key is expired."
 msgstr "Sorry, deze key is verlopen."
 
-#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:298
+#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:405
 msgid "Sorry, this key is out of installs."
 msgstr "Sorry, deze key heeft te veel installaties."
 
-#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:300
+#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:407
 msgid "Sorry, this key is not valid."
 msgstr "Sorry, deze key is niet geldig."
 
-#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:303
+#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:410
 #, php-format
 msgid "Valid Key! Expires on %s"
 msgstr "Geldige Key! Vervaldatum %s"
 
-#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:307
+#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:414
 #, php-format
 msgid ""
 "Hmmm... something's wrong with this validator. Please contact <a href=\"%s"
@@ -1699,57 +1775,89 @@ msgstr ""
 "Hmmmm... er is iets fout gegaan met de geldigheidscontrole. Graag contact "
 "opnemen met <a href=\"%s\">support.</a>"
 
-#: ../vendor/tribe-related-posts/tribe-related-posts-widget.php:20
-msgid "Displays posts related to the post."
-msgstr "Laat berichten gerelateerd aan deze zien."
+#: ../vendor/tribe-support/tribe-support.class.php:52
+msgid ""
+"Sometimes it's hard to tell what's going wrong without knowing more about "
+"your system steup. For your convenience, we've put together a little report "
+"on what's cooking under the hood."
+msgstr ""
+"Soms is het moeilijk om te vertellen wat er fout gaat zonder meer over jouw "
+"systeem setup te weten. Om het je makkelijk te maken hebben we een klein "
+"verslag gemaakt over wat er aan de hand zou kunnen zijn."
 
-#: ../vendor/tribe-related-posts/tribe-related-posts-widget.php:22
-msgid "Related Posts"
-msgstr "Gerelateerde berichten"
+#: ../vendor/tribe-support/tribe-support.class.php:53
+msgid ""
+"If you suspect that the problem you're having is related to another plugin, "
+"or we're just plain having trouble reproducing your bug report, please copy "
+"and send all of this to our support team."
+msgstr ""
+"Als je vermoedt dat het probleem gerelateerd is aan een andere plugin, of we "
+"kunnen je bug report simpelweg niet reproduceren, maak dan van alles een "
+"kopie en stuur dit naar onze supportafdeling."
 
-#: ../vendor/tribe-related-posts/tribe-related-posts-widget.php:72
-msgid "Count:"
-msgstr "Aantal:"
+#: ../vendor/tribe-support/tribe-support.class.php:57
+msgid "System Information"
+msgstr "Systeem informatie"
 
-#: ../vendor/tribe-related-posts/tribe-related-posts-widget.php:80
-msgid "Display Thumbnails?"
-msgstr "Thumbnails weergeven?"
-
-#: ../vendor/tribe-related-posts/tribe-related-posts-widget.php:83
-msgid "Only Display Related Posts?"
-msgstr "Alleen gerelateerde berichten weergeven?"
-
-#: ../vendor/tribe-related-posts/tribe-related-posts-widget.php:86
-msgid "Post Type:"
-msgstr "Berichttype:"
-
-#: ../vendor/tribe-support/tribe-support.class.php:54
+#: ../vendor/tribe-support/tribe-support.class.php:71
 msgid "Send a support request for this site."
 msgstr "Stuur een supportverzoek voor deze site."
 
-#: ../views/single-organizer.php:30 ../views/single-venue.php:31
+#: ../views/pro/single-organizer.php:31 ../views/pro/single-venue.php:31
 msgid "&larr; Back to Events"
 msgstr "&larr; Terug naar de evenementen"
 
-#: ../views/day/nav.php:16
+#: ../views/pro/day/nav.php:16
 msgid "Day Navigation"
 msgstr "Dagnavigatie"
 
-#: ../views/day/single-event.php:75 ../views/map/single-event.php:81
+#: ../views/pro/day/single-event.php:75 ../views/pro/map/single-event.php:81
 msgid "Find out more"
-msgstr ""
+msgstr "Lees meer"
 
-#: ../views/map/nav.php:22 ../views/photo/nav.php:22
+#: ../views/pro/map/nav.php:22 ../views/pro/photo/nav.php:22
 msgid "Events List Navigation"
 msgstr "Evenementenlijstnavigatie"
 
-#: ../views/map/nav.php:25 ../views/photo/nav.php:25
+#: ../views/pro/map/nav.php:25 ../views/pro/photo/nav.php:25
 msgid "&laquo; Previous Events"
 msgstr "&laquo; Eerdere evenementen"
 
-#: ../views/map/nav.php:32 ../views/photo/nav.php:32
+#: ../views/pro/map/nav.php:32 ../views/pro/photo/nav.php:32
 msgid "Next Events &raquo;"
 msgstr "Latere evenementen &raquo;"
+
+#: ../views/pro/week/loop-grid.php:19
+msgid "Hours"
+msgstr "Uren"
+
+#: ../views/pro/week/nav.php:16
+msgid "Week Navigation"
+msgstr "Weeknavigatie"
+
+#: ../views/pro/widgets/countdown-widget.php:20
+msgid "days"
+msgstr "dagen"
+
+#: ../views/pro/widgets/countdown-widget.php:24
+msgid "hours"
+msgstr "uren"
+
+#: ../views/pro/widgets/countdown-widget.php:28
+msgid "min"
+msgstr "min"
+
+#: ../views/pro/widgets/countdown-widget.php:33
+msgid "sec"
+msgstr "sec"
+
+#: ../views/pro/widgets/list-widget.php:74
+msgid "Organizer:"
+msgstr "Organisator:"
+
+#: ../views/pro/widgets/venue-widget.php:33
+msgid "No upcoming events."
+msgstr "Geen toekomstige evenementen."
 
 #: ../views/tribe-ECP-views-old/views/list-widget.php:110
 msgid "Price:"
@@ -1799,45 +1907,70 @@ msgstr "Datum:"
 msgid "Cost:"
 msgstr "Kosten:"
 
-#: ../views/week/loop-grid.php:19
-msgid "Hours"
-msgstr "Uren"
+#~ msgid " for %d day"
+#~ msgid_plural " for %d days"
+#~ msgstr[0] " voor %d dag"
+#~ msgstr[1] " voor %d dagen"
 
-#: ../views/week/nav.php:16
-msgid "Week Navigation"
-msgstr "Weeknavigatie"
+#~ msgid " for %d week"
+#~ msgid_plural " for %d weeks"
+#~ msgstr[0] " voor %d week"
+#~ msgstr[1] " voor %d weken"
 
-#: ../views/week/nav.php:19
-msgid "Previous Week"
-msgstr "Vorige week"
+#~ msgid " for %d month"
+#~ msgid_plural " for %d months"
+#~ msgstr[0] " voor %d maand"
+#~ msgstr[1] " voor %d maanden"
 
-#: ../views/week/nav.php:22
-msgid "Next Week"
-msgstr "Volgende week"
+#~ msgid " for %d year"
+#~ msgid_plural " for %d years"
+#~ msgstr[0] " voor %d jaar"
+#~ msgstr[1] " voor %d jaren"
 
-#: ../views/widgets/countdown-widget.php:20
-msgid "days"
-msgstr "dagen"
+#~ msgid ", recurring %d time"
+#~ msgid_plural ", recurring %d times"
+#~ msgstr[0] ", %d keer terugkerend"
+#~ msgstr[1] ", %d keer terugkerend"
 
-#: ../views/widgets/countdown-widget.php:24
-msgid "hours"
-msgstr "uren"
+#~ msgid "Your recurrence pattern would create greater than "
+#~ msgstr "Je terugkeerpatroon zou meer dan "
 
-#: ../views/widgets/countdown-widget.php:28
-msgid "min"
-msgstr "min"
+#~ msgid "Title: %s"
+#~ msgstr "Titel: %s"
 
-#: ../views/widgets/countdown-widget.php:33
-msgid "sec"
-msgstr "sec"
+#~ msgid "Select Dropdown"
+#~ msgstr "Selecteer dropdown"
 
-#: ../views/widgets/list-widget.php:61
-msgid "Organizer:"
-msgstr "Organisator:"
+#~ msgid ""
+#~ "There were no results found for <strong>\"%s\"</strong> on this day. Try "
+#~ "searching another day."
+#~ msgstr ""
+#~ "Er zijn geen resultaten gevonden voor <strong>\"%s\"</strong> op deze "
+#~ "dag. Probeer een andere dag."
 
-#: ../views/widgets/venue-widget.php:32
-msgid "No upcoming events."
-msgstr "Geen toekomstige evenementen."
+#~ msgid "Displays posts related to the post."
+#~ msgstr "Laat berichten gerelateerd aan deze zien."
+
+#~ msgid "Related Posts"
+#~ msgstr "Gerelateerde berichten"
+
+#~ msgid "Count:"
+#~ msgstr "Aantal:"
+
+#~ msgid "Display Thumbnails?"
+#~ msgstr "Thumbnails weergeven?"
+
+#~ msgid "Only Display Related Posts?"
+#~ msgstr "Alleen gerelateerde berichten weergeven?"
+
+#~ msgid "Post Type:"
+#~ msgstr "Berichttype:"
+
+#~ msgid "Previous Week"
+#~ msgstr "Vorige week"
+
+#~ msgid "Next Week"
+#~ msgstr "Volgende week"
 
 #~ msgctxt "date format for timeslot heading in day view"
 #~ msgid "ga "
@@ -1845,15 +1978,6 @@ msgstr "Geen toekomstige evenementen."
 
 #~ msgid "D jS"
 #~ msgstr "D j"
-
-#~ msgid "Location"
-#~ msgstr "Locatie"
-
-#~ msgid "&laquo; Previous Week"
-#~ msgstr "&laquo; Vorige week"
-
-#~ msgid "Next Week &raquo;"
-#~ msgstr "Volgende week &raquo;"
 
 #~ msgid ""
 #~ "Want to modify the display of this widget? Try a %stemplate override%s."

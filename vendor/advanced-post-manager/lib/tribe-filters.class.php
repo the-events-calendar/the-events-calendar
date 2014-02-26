@@ -579,7 +579,7 @@ class Tribe_Filters {
 		foreach ( $terms as $term ) {
 			$opts[$term->term_id] = $term->name;
 		}
-		return $this->select_field($this->prefix . $key, $opts, $value['value'], true);
+		return self::select_field($this->prefix . $key, $opts, $value['value'], true);
 	}
 
 	protected function meta_row($key, $value, $filter) {
@@ -591,20 +591,20 @@ class Tribe_Filters {
 		// We have explicit dropdown options.
 		if ( isset($filter['options']) && ! empty($filter['options']) ) {
 			$query_options = apply_filters( 'tribe_query_options', $this->query_options, $key, $filter );
-			$ret .= $this->select_field( $is_key, $query_options, $value['query_option'] );
-			$ret .= $this->select_field( $val_key, $filter['options'], $value['value'], true);
+			$ret .= self::select_field( $is_key, $query_options, $value['query_option'] );
+			$ret .= self::select_field( $val_key, $filter['options'], $value['value'], true);
 		}
 		// No explicit options. We're showing a search field
 		else {
 			$query_options = apply_filters( 'tribe_query_options', $this->query_search_options, $key, $filter );
 			$input_class = apply_filters( 'tribe_filter_input_class', 'text', $filter, $key, $value );
-			$ret .= $this->select_field( $is_key, $query_options, $value['query_option'] );
+			$ret .= self::select_field( $is_key, $query_options, $value['query_option'] );
 			$ret .= "<input type='text' name='{$val_key}' value='{$value['value']}' class='{$input_class}' >";
 		}
 		return $ret;
 	}
 
-	public function select_field($name, $options = null, $active = '', $allow_multi = false ) {
+	public static function select_field($name, $options = null, $active = '', $allow_multi = false ) {
 
 		$is_multi = ( is_array($active) && count($active) > 1 ) ? true : false;
 		if ( ! $allow_multi ) {

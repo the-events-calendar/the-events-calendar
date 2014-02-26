@@ -4,8 +4,8 @@ Contributors:  ModernTribe, roblagatta, MZAWeb, ryancurban, faction23, jazbek, j
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget, pro
 Donate link: http://m.tri.be/29
 Requires at least: 3.6
-Tested up to: 3.7.1
-Stable tag: 3.3
+Tested up to: 3.8
+Stable tag: 3.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -15,7 +15,7 @@ A premium add-on to The Events Calendar plugin (required), enabling recurrence, 
 
 <a href="http://m.tri.be/3r">Events Calendar PRO</a> is a awesomely dynamic add-on for The Events Calendar that adds more features and functionality to an already robust plugin.
 
-The Events Calendar allows you to create and manage events with ease from right within your WordPress dash. With Events Calendar PRO, you can go even further with recurring events, more calendar views (including Day and Week), Location Search, more widget options, and much more.
+The Events Calendar allows you to create and manage events with ease from right within your WordPress dash; no shortcode is needed (nor is one available).  With Events Calendar PRO, you can go even further with recurring events, more calendar views (including Day and Week), Location Search, more widget options, and much more.
 
 Plus, Events Calendar PRO users get access to our premium support forums. Need help or have a question? Post there and we'll get back to you within 24 hours (during the week). We're proud of our great support team and want to help you kick butt with Events Calendar PRO.
 
@@ -60,9 +60,14 @@ If this is your first time using The Events Calendar and Events Calendar PRO, yo
 * Are you developer looking to build a custom frontend view? We created an example plugin that demonstrates how to register a new view. You can download the plugin at GitHub here: https://github.com/moderntribe/tribe-events-agenda-view
 * Take care of your license key. Though not required to create your first event, you'll want to get it in place as soon as possible to guarantee your access to support and upgrades. Need help finding your license key? Check out http://m.tri.be/3w
 
-Otherwise, if you're feeling adventurous, you can get started by heading to the Events menu and adding your first event.¬†
+Otherwise, if you're feeling adventurous, you can get started by heading to the Events menu and adding your first event.
 
 == Frequently Asked Questions ==
+
+= Is there a shortcode available for Events Calendar PRO? +
+
+No, this plugin does not use a shortcode nor is one available at the time being.
+
 
 = Are there any troubleshooting steps you'd suggest I try that might resolve my issue before I post a new thread? =
 
@@ -87,7 +92,7 @@ Currently, the following add-ons are available for The Events Calendar/Events Ca
 * <a href="http://m.tri.be/ci">EDD Tickets</a>, for using our ticketing framework to sell tickets on your events through The Events Calendar + Easy Digital Downloads.
 * <a href="http://m.tri.be/cu">WPEC Tickets</a>, for using WP-eCommerce + The Events Calendar to sell event tickets directly from the frontend of your site. 
 * <a href="http://m.tri.be/dp">Shopp Tickets</a>, for harnessing the power of Shopp to sell event tickets on your WordPress site. 
-* Filter Bar (COMING SOON) for adding advanced frontend filtering capabilities to your events calendar.
+* <a href="http://m.tri.be/fa">Filter Bar</a>, for adding advanced frontend filtering capabilities to your events calendar.
 
 = I have a feature idea. What's the best way to tell you about it? =
 
@@ -149,28 +154,30 @@ The plugin is produced by <a href="http://m.tri.be/45">Modern Tribe Inc</a>.
 
 * Arabic from Mamdouh Samy
 * Bosnian from Marko Manojlovic
-* Brazilian Portuguese from Dionizio Bonfim Bach
+* Brazilian Portuguese from Emerson Marques
 * Catalan from Barbara Partegos Rof
 * Croatian from Marko Manojlovic
 * Czech from Martin Kristan and Petr Bastan
 * Danish from Anonymous
-* Dutch from Erik Massop
+* Dutch from J.F.M. Cornelissen and Frans Pronk
 * Finnish by Ari-Pekka Koponen
 * French from Bastien BC
 * German from Oliver Heinrich
 * Greek from Maria Tsilimidou
 * Icelandic by Baldvin √ñrn Berndsen
 * Italian from Roberto Scano
-* Norwegian from Andreas Lorentsen
+* Montenegrin from Sasa Vukovic
+* Norwegian Bokmål by Morten Ruud
+* Norwegian Nynorsk by Torbjørn Lauen
 * Polish from Marek Kosina
 * Portuguese from Antonio Pratas
-* Romanian from Mihai Burcea
+* Romanian from Cosmin Vaman
 * Serbian from Marko Manojlovic
-* Spanish from Hector Gil Rizo
+* Spanish from Juanjo Reparaz Sarasola
 * Swedish from Ben Andersen
-* Turkish by Burak Pehlevan
+* Turkish by Derin Korman
 
-* Previous translators include Mikhail Michouris, Ed Boon, Rick van Dalen, Jacob Roel Meijering, hristian Andersen, Michael Sebel, Filippo Montanari, David Decker, Kamil Szymanski, "Terje With Lunndal", Sagi Shrieber, Matthew Meyer, Arno Faure, Fanny Heraud, Vincent G from Host1Free, , Petri Kajander, Fran Rosa, Nico (wsMaurik), Panos Efstratiou, Dominique Monhardt, Thomas Butzek, Kjell Vestnes, Luiza Libardi, Diego Meneghetti, Benoit Burgener, and Alexey Fedorov
+* Previous translators include Mikhail Michouris, Erik Massop, Ed Boon, Rick van Dalen, Jacob Roel Meijering, hristian Andersen, Michael Sebel, Dionizio Bonfim Bach, Mihai Burcea, Filippo Montanari, David Decker, Kamil Szymanski, "Terje With Lunndal", Sagi Shrieber, Matthew Meyer, Arno Faure, Fanny Heraud, Vincent G from Host1Free, , Petri Kajander, Fran Rosa, Nico (wsMaurik), Panos Efstratiou, Dominique Monhardt, Thomas Butzek, Kjell Vestnes, Luiza Libardi, Diego Meneghetti, Benoit Burgener, Hector Gil Rizo, Burak Pehlevan, and Alexey Fedorov
 
 == Add-Ons ==
 
@@ -193,13 +200,35 @@ Our Premium Plugins:
 * <a href="http://m.tri.be/ci" target="_blank">The Events Calendar: EDD Tickets Tickets</a>
 * <a href="http://m.tri.be/cu" target="_blank">The Events Calendar: WPEC Tickets</a>
 * <a href="http://m.tri.be/dp" target="_blank">The Events Calendar: Shopp Tickets</a>
-* The Events Calendar: Filter Bar (coming early 2014)
+* <a href="http://m.tri.be/fa" target="_blank">The Events Calendar: Filter Bar</a>
 
 == Changelog ==
 
 = IMPORTANT NOTICE =
 
 3.x is a complete overhaul of the plugin, and as a result we're starting the changelog fresh. For release notes from the 2.x lifecycle, see <a href="http://m.tri.be/k">our 2.x release notes.</a>
+
+= 3.5 =
+Incorporated updated Spanish translation files, courtesy of Juanjo Reparaz Sarasola
+Added new Montenegrin translation files, courtesy of Sasa Vukovic
+Added updated Norwegian Bokmål translation files, courtesy of Morten Ruud
+Added new Norwegian Nynorsk translation files, courtesy of Torbjørn Lauen
+Added updated Romanian translation files, courtesy of Cosmin Vaman
+Added updated German translation files by Oliver Heinrich
+Added updated Brazilian Portuguese translation files from Emerson Marques
+Added updated Dutch translation files from J.F.M. Cornelissen and Frans Pronk
+
+= 3.4 = 
+
+* Added extra reassurance that All Day events will show first on Day view
+* Fixed the automated recurrence description for events with no end date
+* Added hooks for use in widgets (thanks to Daniel Maier on the forums for reporting this!)
+* HTML tags are now properly stripped from Google Calendar descriptions (thanks to masspeaceaction for reporting this bug at the forums!)
+* Fixed a bug where the wrapper div was incorrectly being replicated each time you navigated within the mini calendar widget (thanks to timhengeveld for reporting this bug!)
+* Fixed a bug where the calendar widget redirected improperly when set to show 0 events (thanks to Oliver for reporting this one on the forum!)
+* Fixed a bug where the "Show only the first instance of each recurring event" option was only affecting the first page of events
+* Addressed an issue where the “View All Events” link accessed disabled months for certain PRO users (thanks to yvrmark for reporting this bug!)
+* Scheduled events are no longer exposed before being published (thanks to adamfitz for the explanation here!)
 
 = 3.3 =
 
@@ -319,6 +348,10 @@ Still not happy? Shoot us an email to pro@tri.be or tweet to @moderntribeinc and
 == Upgrade Notice ==
 
 IMPORTANT NOTICE: 3.x upgrade is a HUGE upgrade from 2.x versions. If you are upgrading from an older version, please test thoroughly before updating on your live website.
+
+= 3.4 =
+
+Please see the changelog for the complete list of changes in this release. Remember to always make a backup of your database and files before updating!
 
 = 3.3 =
 

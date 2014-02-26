@@ -2,7 +2,7 @@
 /*
 Plugin Name: The Events Calendar PRO
 Description: The Events Calendar PRO, a premium add-on to the open source The Events Calendar plugin (required), enables recurring events, custom attributes, venue pages, new widgets and a host of other premium features.
-Version: 3.3
+Version: 3.4
 Author: Modern Tribe, Inc.
 Author URI: http://m.tri.be/20
 Text Domain: tribe-events-calendar-pro
@@ -46,8 +46,8 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		public static $updateUrl = 'http://tri.be/';
 		/** @var TribeEventsPro_RecurrencePermalinks */
 		public $permalink_editor = NULL;
-		const REQUIRED_TEC_VERSION = '3.3';
-		const VERSION = '3.3';
+		const REQUIRED_TEC_VERSION = '3.4';
+		const VERSION = '3.4';
 
         /**
          * Class constructor.
@@ -503,11 +503,14 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 
 				TribeEventsQuery::init();
 
+				$states[] = 'publish';
+				if ( 0 < get_current_user_id() ) $states[] = 'private';
+
 				$args = array(
-					'post_status' => array( 'publish', 'private', 'future' ),
+					'post_status' => $states,
 					'eventDate' => $_POST["eventDate"],
 					'eventDisplay' => 'week'
-					);
+				);
 
 				if ( isset( $_POST['tribe_event_category'] ) ) {
 					$args[TribeEvents::TAXONOMY] = $_POST['tribe_event_category'];
@@ -555,11 +558,14 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 
 				TribeEventsQuery::init();
 
+				$states[] = 'publish';
+				if ( 0 < get_current_user_id() ) $states[] = 'private';
+
 				$args = array(
-					'post_status' => array( 'publish', 'private', 'future' ),
+					'post_status' => $states,
 					'eventDate' => $_POST["eventDate"],
 					'eventDisplay' => 'day'
-					);
+				);
 
 				if ( isset( $_POST['tribe_event_category'] ) ) {
 					$args[TribeEvents::TAXONOMY] = $_POST['tribe_event_category'];
@@ -635,7 +641,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 						// retrieve event object
 						$get_recurrence_event = new WP_Query( $recurrence_check );
 						// if a reccurence event actually exists then proceed with redirection
-						if( !empty($get_recurrence_event->posts) && tribe_is_recurring_event($get_recurrence_event->posts[0]->ID)){
+						if( !empty($get_recurrence_event->posts) && tribe_is_recurring_event($get_recurrence_event->posts[0]->ID) && get_post_status($get_recurrence_event->posts[0]) == 'publish' ){
 
 							// get next recurrence
 							$next_recurrence = $this->get_last_recurrence( $get_recurrence_event->posts );
@@ -1377,17 +1383,18 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		 */
 		public function setup_hide_recurrence_in_query( $query ) {
 
+			// don't hide any recurrences on the all recurrences view
 			if ( tribe_is_showing_all() )
 				return $query;
 
+			// don't hide any recurrences in the admin
 			if ( is_admin() && !( defined('DOING_AJAX') && DOING_AJAX ) ) {
 				return $query;
 			}
 
-			if ( !isset($query->query_vars['tribeHideRecurrence']) ) {
-				if ( ( !empty( $_REQUEST['tribeHideRecurrence'] ) && $_REQUEST['tribeHideRecurrence'] == '1' ) || ( empty( $_REQUEST['tribeHideRecurrence'] ) && empty( $_REQUEST['action'] ) && tribe_get_option( 'hideSubsequentRecurrencesDefault', false ) ) ) {
-					$query->query_vars['tribeHideRecurrence'] = 1;
-				}
+			// if the admin option is set to hide recurrences, or the user option is set
+			if ( tribe_get_option( 'hideSubsequentRecurrencesDefault', false ) == true || ( isset( $_REQUEST['tribeHideRecurrence'] ) && $_REQUEST['tribeHideRecurrence'] == '1' ) ) {
+				$query->query_vars['tribeHideRecurrence'] = 1;
 			}
 
 			return $query;
@@ -1419,10 +1426,10 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 
 			$params = array(
 				'action' => 'TEMPLATE',
-				'text' => str_replace( ' ', '+', strip_tags( urlencode( $post->post_title ) ) ),
+				'text' => urlencode( strip_tags( $post->post_title ) ),
 				'dates' => $dates,
-				'details' => str_replace( ' ', '+', strip_tags( apply_filters( 'the_content', urlencode( $event_details ) ) ) ),
-				'location' => str_replace( ' ', '+', urlencode( $location ) ),
+				'details' => urlencode( strip_tags( apply_filters( 'the_content', $event_details ) ) ),
+				'location' => urlencode( $location ),
 				'sprop' => get_option( 'blogname' ),
 				'trp' => 'false',
 				'sprop' => 'website:' . home_url(),

@@ -716,6 +716,7 @@ class TribeEventsRecurrenceMeta {
 		$custom_text = "";
 		$occurrence_text = "";
 		$recType = '';
+		$recEndType = '';
 		$recEndCount = '';
 		$recCustomType = '';
 		$recCustomInterval = null;
@@ -776,6 +777,8 @@ class TribeEventsRecurrenceMeta {
 		// end text
 		if ( $recEndType == "On" ) {
 			$endText = ' '.sprintf(__(" until %s", 'tribe-events-calendar-pro'), date_i18n(get_option('date_format'), strtotime($recEnd))) ;
+		} elseif ( $recEndType == 'Never' ) {
+			$endText = '';
 		} else {
 			$endText = $occurrence_text;
 		}

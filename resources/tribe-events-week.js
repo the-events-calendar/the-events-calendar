@@ -24,6 +24,29 @@
 			start_day = 0,
 			date_mod = false;
 
+		if (!Array.prototype.indexOf){
+
+			Array.prototype.indexOf = function(elt /*, from*/)
+			{
+				var len = this.length >>> 0;
+
+				var from = Number(arguments[1]) || 0;
+				from = (from < 0)
+					? Math.ceil(from)
+					: Math.floor(from);
+				if (from < 0)
+					from += len;
+
+				for (; from < len; from++)
+				{
+					if (from in this &&
+						this[from] === elt)
+						return from;
+				}
+				return -1;
+			};
+		}
+
 		if($tribe_header.length)
 			start_day = $tribe_header.data('startofweek');
 
@@ -31,43 +54,37 @@
 
 		ts.date = $tribe_header.data('date');
 
-		function disableSpecificWeekDays(date) {
-			var start_day = $tribe_header.data('startofweek');
-			var daysToDisable = [0, 1, 2, 3, 4, 5, 6];
-			delete daysToDisable[start_day];
-			var day = date.getDay();
-			for (i = 0; i < daysToDisable.length; i++) {
-				if ($.inArray(day, daysToDisable) != -1) {
-					return 'disabled';
-				}
-			}
-			return '';
-		}
+		var days_to_disable = [0, 1, 2, 3, 4, 5, 6],
+			index = days_to_disable.indexOf(start_day);
 
-		var tribe_var_datepickerOpts = {
+		if (index > -1)
+			days_to_disable.splice(index, 1);
+
+		td.datepicker_opts = {
 			format: 'yyyy-mm-dd',
-			showAnim: 'fadeIn',
-			onRender: disableSpecificWeekDays
+			weekStart: start_day,
+			daysOfWeekDisabled: days_to_disable,
+			autoclose: true
 		};
 
-		var tribeBarDate = $('#tribe-bar-date').bootstrapDatepicker(tribe_var_datepickerOpts).on('changeDate',function (e) {
+			$('#tribe-bar-date')
+			.bootstrapDatepicker(td.datepicker_opts)
+			.on('changeDate', function(e){
+				var day = ('0' + e.date.getDate()).slice(-2),
+					month = ('0' + (e.date.getMonth() + 1)).slice(-2),
+					year = e.date.getFullYear(),
+					date = year + '-' + month  + '-' + day;
 
-			var day = ('0' + e.date.getDate()).slice(-2),
-				month = ('0' + (e.date.getMonth() + 1)).slice(-2),
-				year = e.date.getFullYear(),
-				date = year + '-' + month  + '-' + day;
+				ts.date = date;
 
-			ts.date = date;
+				date_mod = true;
 
-			date_mod = true;
-			tribeBarDate.hide();
+				if (tt.no_bar() || tt.live_ajax() && tt.pushstate) {
+					if (!tt.reset_on())
+						tribe_events_bar_weekajax_actions(e, date);
+				}
 
-			if (tt.no_bar() || tt.live_ajax() && tt.pushstate) {
-				if (!tt.reset_on())
-					tribe_events_bar_weekajax_actions(e, date);
-			}
-
-		}).data('datepicker');
+			});
 
 		function tribe_go_to_8() {
 			var $start = $('.time-row-8AM');
@@ -178,12 +195,17 @@
 
 				// set length and position from top for our event and show it. Also set length for the event anchor so the entire event is clickable.
 
-				$this.css({
-					"height": event_length + "px",
-					"top": event_position_top + "px"
-				}).find('a').css({
-						"height": event_length - 16 + "px"
-					});
+				var link_setup = {"height": event_length - 16 + "px"};
+
+				$this
+					.css({
+						"height": event_length + "px",
+						"top": event_position_top + "px"
+					})
+					.find('a')
+					.css(link_setup)
+					.parent()
+					.css(link_setup);
 			});
 
 			// Fade our events in upon js load
@@ -453,7 +475,7 @@
 				);
 
 			} else {
-				if (ts.do_string)
+				if (ts.url_params.length)
 					window.location = td.cur_url + '?' + ts.url_params;
 				else
 					window.location = td.cur_url;

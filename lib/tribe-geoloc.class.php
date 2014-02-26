@@ -372,11 +372,11 @@ class TribeEventsGeoLoc {
 		$data_arr = json_decode( $data["body"] );
 
 		if ( ! empty( $data_arr->results[0]->geometry->location->lat ) ) {
-			update_post_meta( $venueId, self::LAT, $data_arr->results[0]->geometry->location->lat );
+			update_post_meta( $venueId, self::LAT, (string) $data_arr->results[0]->geometry->location->lat );
 		}
 
 		if ( ! empty( $data_arr->results[0]->geometry->location->lng ) ) {
-			update_post_meta( $venueId, self::LNG, $data_arr->results[0]->geometry->location->lng );
+			update_post_meta( $venueId, self::LNG, (string) $data_arr->results[0]->geometry->location->lng );
 		}
 
 		// Saving the aggregated address so we don't need to ping google on every save
@@ -560,6 +560,7 @@ class TribeEventsGeoLoc {
 		                   'view'        => $view_state,
 		);
 
+		// @TODO: clean this up / refactor the following conditional
 		if ( $have_events) {
 			global $wp_query, $post;
 			$data     = $query->posts;
@@ -583,7 +584,7 @@ class TribeEventsGeoLoc {
 			$response['html'] .= ob_get_clean();
 		}
 
-		apply_filters( 'tribe_events_ajax_response', $response );
+		$response = apply_filters( 'tribe_events_ajax_response', $response );
 
 		header( 'Content-type: application/json' );
 		echo json_encode( $response );
@@ -783,12 +784,19 @@ class TribeEventsGeoLoc {
 			$title    = $event->post_title;
 			$link     = get_permalink( $event->ID );
 
-			$markers[] = array( 'lat'     => $lat,
-			                    'lng'     => $lng,
-			                    'title'   => $title,
-			                    'address' => $address,
-			                    'link'    => $link );
+			// replace commas with decimals in case they were saved with the european number format
+			$lat 	  = str_replace( ',', '.', $lat );
+			$lng 	  = str_replace( ',', '.', $lng );
 
+			$markers[] = array(
+				'lat' => $lat,
+				'lng' => $lng,
+				'title' => $title,
+				'address' => $address,
+				'link' => $link,
+				'venue_id' => $venue_id,
+				'event_id' => $event->ID
+			);
 		}
 
 		return $markers;

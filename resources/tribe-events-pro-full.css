@@ -145,6 +145,11 @@
 }
 
 /* Global Week Event Styles */
+
+.tribe-events-grid .hentry.vevent {
+	padding:4px;
+}
+
 .tribe-events-grid div[id*='tribe-events-event-'] {
 	visibility: hidden;
 }

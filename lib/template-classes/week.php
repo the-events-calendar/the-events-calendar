@@ -238,7 +238,7 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 		 * @since  3.0
 		 * @author tim@imaginesimplicty.com
 		 */
-		function get_week_days() {
+		public static function get_week_days() {
 			return self::$week_days;
 		}
 
@@ -250,7 +250,7 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 		 * @since  3.0
 		 * @author tim@imaginesimplicty.com
 		 */
-		function get_events( $obj = null ) {
+		public static function get_events( $obj = null ) {
 			if ( !empty( self::$events->{$obj} ) )
 				return (array) self::$events->{$obj};
 
@@ -440,7 +440,7 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 		 * @author tim@imaginesimplicty.com
 		 * @return int
 		 */
-		function get_current_day() {
+		public static function get_current_day() {
 			return self::$current_day;
 		}
 
@@ -462,7 +462,7 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 		 * @author tim@imaginesimplicty.com
 		 * @return void
 		 */
-		function column_classes() {
+		public static function column_classes() {
 			if ( self::$week_days[ self::$current_day ]->is_today )
 				echo 'tribe-week-today';
 		}
@@ -510,7 +510,7 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 		 * @author tim@imaginesimplicty.com
 		 * @param int     $event_id
 		 */
-		function set_event_id( $event_id ) {
+		public static function set_event_id( $event_id ) {
 			self::$event_id = $event_id;
 		}
 
@@ -521,7 +521,7 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 		 * @author tim@imaginesimplicty.com
 		 * @return int self::event_id
 		 */
-		function get_event_id() {
+		public static function get_event_id() {
 			if ( self::$loop_type == 'allday' && !empty( self::$events->all_day[ self::$event_id ] ) ) {
 				return self::$events->all_day[ self::$event_id ]->ID;
 			} else if ( self::$loop_type == 'hourly' ) {
@@ -537,7 +537,7 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 		 * @author tim@imaginesimplicty.com
 		 * @return object $event
 		 */
-		function get_allday_event() {
+		public static function get_allday_event() {
 			$event = !empty( self::$events->all_day[ self::$event_id ] ) ? self::$events->all_day[ self::$event_id ] : null;
 			return $event;
 		}
@@ -549,7 +549,7 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 		 * @author tim@imaginesimplicty.com
 		 * @return object $event
 		 */
-		function get_hourly_event( $event_id = null ) {
+		public static function get_hourly_event( $event_id = null ) {
 			$event_id = !empty( $event_id ) ? $event_id : self::get_event_id();
 			if( empty($event_id))
 				return null;
