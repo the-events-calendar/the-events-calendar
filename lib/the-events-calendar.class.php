@@ -3681,7 +3681,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		public function addMetaLinks( $links, $file ) {
 			if ( $file == $this->pluginDir . 'the-events-calendar.php' ) {
 				$anchor = __( 'Support', 'tribe-events-calendar' );
-				$links []= '<a href="'.self::$dotOrgSupportUrl.'">' . $anchor . '</a>';
+				$links []= '<a href="'.self::$dotOrgSupportUrl.'" target="_blank">' . $anchor . '</a>';
 
 				$anchor = __( 'View All Add-Ons', 'tribe-events-calendar' );
 				$link = add_query_arg( array(
@@ -3689,7 +3689,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 					'utm_medium' => 'plugin-tec',
 					'utm_source' => 'plugins-manager'
 				), self::$tribeUrl . self::$addOnPath );
-				$links []= '<a href="' . $link . '">' . $anchor . '</a>';
+				$links []= '<a href="' . $link . '" target="_blank">' . $anchor . '</a>';
 			}
 			return $links;
 		}
