@@ -1251,6 +1251,9 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		 */
 	    public function admin_enqueue_scripts() {
 	    	wp_enqueue_script( TribeEvents::POSTTYPE.'-premium-admin', $this->pluginUrl . 'resources/events-admin.js', array( 'jquery-ui-datepicker' ), apply_filters( 'tribe_events_pro_js_version', TribeEventsPro::VERSION ), true );
+		    wp_localize_script( TribeEvents::POSTTYPE.'-premium-admin', 'TribeEventsProAdmin', array(
+			    'bulkDeleteConfirmationMessage' => __( 'Are you sure you want to trash all occurrences of these events? All recurrence data will be lost.', 'tribe-events-calendar-pro' ),
+		    ));
 	    }
 
 		/**

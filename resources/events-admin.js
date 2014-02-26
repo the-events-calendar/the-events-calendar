@@ -319,5 +319,25 @@ jQuery(document).ready(function($) {
 			$('input[name="post[]"][value="' + event_id + '"]').prop( 'checked', false );
 		}
 	});
+
+	/* Fix for deleting multiple events */
+	$('.wp-admin.events-cal.edit-php #doaction').click(function(e) {
+		if($("[name='action'] option:selected").val() == "trash") {
+			if(confirm(TribeEventsProAdmin.bulkDeleteConfirmationMessage)) {
+				var ids = new Array();
+
+				$('[name="post[]"]:checked').each(function() {
+					var curval = $(this).val();
+					if(ids[curval]) {
+						$(this).prop('checked', false);
+					}
+
+					ids[curval] = true;
+				});
+			} else {
+				e.preventDefault();
+			}
+		}
+	});
 	
 });
