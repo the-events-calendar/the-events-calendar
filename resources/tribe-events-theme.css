@@ -555,7 +555,7 @@ h2.tribe-events-tickets-title {
 	#tribe-events-content .tribe-events-calendar td.tribe-events-present:hover,
 	.tribe-events-calendar td.tribe-events-present div[id*="tribe-events-daynum-"],
 	.tribe-events-calendar td.tribe-events-present div[id*="tribe-events-daynum-"] > a {
-		background-color: #eee;
+		background-color: #dedede;
 		color: #333;
 	}
 	.tribe-events-calendar td.tribe-events-present.mobile-active,
