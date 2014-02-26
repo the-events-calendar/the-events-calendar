@@ -56,7 +56,7 @@ if (!class_exists('TribeEventsAdminList')) {
 				return $fields;
 			}
 			global $wpdb;
-			$fields .= ", {$wpdb->postmeta}.meta_value as EventStartDate, IFNULL(DATE_ADD(CAST({$wpdb->postmeta}.meta_value AS DATETIME), INTERVAL eventDuration.meta_value SECOND), eventEnd.meta_value) as EventEndDate ";
+			$fields .= ", {$wpdb->postmeta}.meta_value as EventStartDate, eventEnd.meta_value as EventEndDate ";
 			return $fields;
 		}
 
@@ -107,7 +107,7 @@ if (!class_exists('TribeEventsAdminList')) {
 				return $orderby_sql;
 			}
 		
-			$endDateSQL = " IFNULL(DATE_ADD(CAST(eventStart.meta_value AS DATETIME), INTERVAL eventDuration.meta_value SECOND), eventEnd.meta_value) ";
+			$endDateSQL = " eventEnd.meta_value ";
 			$order = get_query_var('order') ? get_query_var('order') : 'asc';
 			$orderby = get_query_var('orderby') ? get_query_var('orderby') : 'start-date';
 		
