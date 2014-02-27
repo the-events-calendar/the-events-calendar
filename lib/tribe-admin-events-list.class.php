@@ -22,10 +22,10 @@ if (!class_exists('TribeEventsAdminList')) {
 				//add_filter( 'posts_distinct', array( __CLASS__, 'events_search_distinct'));
 				add_filter( 'posts_join',		array( __CLASS__, 'events_search_join' ), 10, 2 );
 				//add_filter( 'posts_where',		array( __CLASS__, 'events_search_where' ), 10, 2 );
-				add_filter( 'posts_orderby',  array( __CLASS__, 'events_search_orderby' ) );
-				add_filter( 'posts_groupby', array( __CLASS__, 'events_search_groupby' ) );
-				add_filter( 'posts_fields',	array( __CLASS__, 'events_search_fields' ) );
-				add_filter( 'post_limits',		array( __CLASS__, 'events_search_limits' ) );
+				add_filter( 'posts_orderby',  array( __CLASS__, 'events_search_orderby' ), 10, 2 );
+				//add_filter( 'posts_groupby', array( __CLASS__, 'events_search_groupby' ), 10, 2 );
+				add_filter( 'posts_fields',	array( __CLASS__, 'events_search_fields' ), 10, 2 );
+				add_filter( 'post_limits',		array( __CLASS__, 'events_search_limits' ), 10, 2 );
 				add_filter( 'manage_' . TribeEvents::POSTTYPE . '_posts_columns', array(__CLASS__, 'column_headers'));
 				add_filter( 'tribe_apm_headers_' . TribeEvents::POSTTYPE, array(__CLASS__, 'column_headers_check'), 10, 1 );
 				add_filter( 'views_edit-tribe_events',		array( __CLASS__, 'update_event_counts' ) );
@@ -49,10 +49,11 @@ if (!class_exists('TribeEventsAdminList')) {
 		 * events category
 		 *
 		 * @param string $fields The current fields query part.
+		 * @param WP_Query $query
 		 * @return string The modified form.
 		 */
-		public static function events_search_fields( $fields ) {
-			if ( get_query_var('post_type') != TribeEvents::POSTTYPE ) {
+		public static function events_search_fields( $fields, $query ) {
+			if ( !$query->is_main_query() || $query->get('post_type') != TribeEvents::POSTTYPE ) {
 				return $fields;
 			}
 			global $wpdb;
@@ -70,12 +71,11 @@ if (!class_exists('TribeEventsAdminList')) {
 		 */
 		public static function events_search_join( $join, $query ) {
 			global $wpdb;
-			if ( get_query_var('post_type') != TribeEvents::POSTTYPE )
+			if ( !$query->is_main_query() || $query->get('post_type') != TribeEvents::POSTTYPE ) {
 				return $join;
+			}
 
-			if ( $query->is_main_query() )
-				$join .= " LEFT JOIN {$wpdb->postmeta} ON {$wpdb->posts}.ID = {$wpdb->postmeta}.post_id AND ({$wpdb->postmeta}.meta_key = '_EventStartDate' or {$wpdb->postmeta}.meta_key is null) ";
-
+			$join .= " LEFT JOIN {$wpdb->postmeta} ON {$wpdb->posts}.ID = {$wpdb->postmeta}.post_id AND ({$wpdb->postmeta}.meta_key = '_EventStartDate' or {$wpdb->postmeta}.meta_key is null) ";
 			$join .= " LEFT JOIN {$wpdb->postmeta} as eventEnd ON( {$wpdb->posts}.ID = eventEnd.post_id AND eventEnd.meta_key = '_EventEndDate') ";
 
 			return $join;
@@ -100,46 +100,50 @@ if (!class_exists('TribeEventsAdminList')) {
 		 * orderby filter for standard admin queries
 		 *
 		 * @param string orderby
+		 * @param WP_QUery $query
 		 * @return string modified orderby clause
 		 */
-		public static function events_search_orderby( $orderby_sql ) {
-			if ( get_query_var('post_type') != TribeEvents::POSTTYPE ) {
+		public static function events_search_orderby( $orderby_sql, $query ) {
+			global $wpdb;
+			if ( !$query->is_main_query() || $query->get('post_type') != TribeEvents::POSTTYPE ) {
 				return $orderby_sql;
 			}
+
 		
 			$endDateSQL = " eventEnd.meta_value ";
-			$order = get_query_var('order') ? get_query_var('order') : 'asc';
-			$orderby = get_query_var('orderby') ? get_query_var('orderby') : 'start-date';
+			$order = $query->get('order') ? $query->get('order') : 'asc';
+			$orderby = $query->get('orderby') ? $query->get('orderby') : 'start-date';
 		
-			if ($orderby == 'start-date')
-				$orderby_sql = ' eventStart.meta_value ' . $order . ', ' . $endDateSQL . $order;
-			else if ($orderby == 'end-date')
-				$orderby_sql = $endDateSQL . $order . ', eventStart.meta_value ' . $order;
+			if ($orderby == 'start-date') {
+				$orderby_sql = " {$wpdb->postmeta}.meta_value " . $order . ', ' . $endDateSQL . $order;
+			} else if ($orderby == 'end-date') {
+				$orderby_sql = $endDateSQL . $order . ", {$wpdb->postmeta}.meta_value " . $order;
+			}
 
 			return $orderby_sql;
 		}
 		
-		public static function events_search_groupby( $groupby_sql ) {
-			if ( get_query_var( 'post_type' ) != TribeEvents::POSTTYPE ) {
-               return $groupby_sql;
-        	}
-        	$groupby_sql = "";
-           
-        	return $groupby_sql;
+		public static function events_search_groupby( $groupby_sql, $query ) {
+			if ( !$query->is_main_query() || $query->get('post_type') != TribeEvents::POSTTYPE ) {
+				return $groupby_sql;
+			}
+			$groupby_sql = "";
+			return $groupby_sql;
 		}
 
 		/**
 		 * limit filter for admin queries
 		 *
 		 * @param string limits clause
+		 * @param WP_Query $query
 		 * @return string modified limits clause
 		 */
-		public static function events_search_limits( $limits ) {
-			if ( ( get_query_var( 'post_type' ) != TribeEvents::POSTTYPE ) || defined( 'DOING_AJAX' ) && DOING_AJAX ) {
+		public static function events_search_limits( $limits, $query ) {
+			if ( !$query->is_main_query() || $query->get('post_type') != TribeEvents::POSTTYPE || ( defined( 'DOING_AJAX' ) && DOING_AJAX ) ) {
 				return $limits;
 			}
 			global $current_screen;
-			$paged = (int) get_query_var('paged');
+			$paged = (int) $query->get('paged');
 			if (empty($paged)) {
 					$paged = 1;
 			}
