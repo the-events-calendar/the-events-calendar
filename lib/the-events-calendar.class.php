@@ -9,7 +9,7 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 if ( !class_exists( 'TribeEvents' ) ) {
 
 	/**
-	* The Events Calendar Pro Class
+	* The Events Calendar Class
 	*
 	* This is where all the magic happens, the unicorns run wild and the leprechauns use WordPress to schedule events.
 	*/
