@@ -316,9 +316,10 @@
 	=============================================*/	
  	.tribe-events-single ul.tribe-related-events li {
  		margin-bottom: 12px;
+		padding:10px 0px;
  	}
  	.tribe-events-single ul.tribe-related-events li .tribe-related-event-info {
-		padding: 10px 10px 10px 0;
+		padding: 0px 10px 10px 0;
 	}
 
 }

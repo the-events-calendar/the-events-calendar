@@ -1129,10 +1129,21 @@ div.tribe-countdown-text {
  		margin-right: 0;
  		margin-bottom: 12px;
  		width: 100%;
- 	}
+		padding:10px;
+ 	}	
+	.tribe-events-single ul.tribe-related-events li:after {content: ""; display: table;}
+	.tribe-events-single ul.tribe-related-events li:after {clear: both;}
+	.tribe-events-single ul.tribe-related-events li {zoom: 1;}
+	
  	.tribe-events-single ul.tribe-related-events li .tribe-related-event-info {
-		padding: 10px;
+		float:left;
+		width:60%;
+		padding:0 10px 10px 0;
 	}
+	.tribe-events-single ul.tribe-related-events .tribe-related-events-thumbnail {
+		float:right;
+		width:30%;
+	}	
 	.tribe-events-single ul.tribe-related-events .tribe-related-events-title {
 		margin-bottom: 4px;
 	}
@@ -1169,5 +1180,4 @@ div.tribe-countdown-text {
 		margin: 0 auto 12px;
 		position: static !important;
 	}
-
 }
