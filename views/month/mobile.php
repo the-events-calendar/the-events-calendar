@@ -8,6 +8,10 @@
 
 ?>
 
+<script type="text/html" id="tribe_tmpl_month_mobile_day_header">
+	<div class="tribe-mobile-day" data-day="[[=date]]">[[ if(date_name.length) { ]]<h3 class="tribe-mobile-day-heading">Events for <span>[[=raw date_name]]</span></h3>[[ } ]]</div>
+</script>
+
 <script type="text/html" id="tribe_tmpl_month_mobile">
 	<div class="tribe-events-mobile hentry vevent tribe-clearfix tribe-events-mobile-event-[[=eventId]]">
 		<h4 class="summary">

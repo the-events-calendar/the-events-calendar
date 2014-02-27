@@ -22,7 +22,7 @@ $end = tribe_get_end_date( $post, FALSE, 'U' );
 
 
 /**
- * ***How to Use the New Javascript Templating System in this View***
+ * ***How to Use the Javascript Templating System in this View***
  *
  * Month view (and week in events pro) has implemented javascript templating to power its rich tooltips and mobile views as of Events Version 3.3.
  * This is a guide on how to modify, extend and use this functionality.
