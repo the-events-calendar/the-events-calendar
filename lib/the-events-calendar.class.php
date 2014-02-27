@@ -1037,14 +1037,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 					$new_title = apply_filters( 'tribe_events_day_view_title', sprintf(__("Events for %s", 'tribe-events-calendar'), $title_date) . ' ' . $sep . ' ', $sep, $title_date );
 					break;
 				default:
-					global $post;
-					if( get_query_var('post_type') == self::POSTTYPE && is_single() && $this->getOption('tribeEventsTemplate') != '' ) {
-						$new_title = $post->post_title . ' ' . $sep . ' ' . $title;
-					} elseif( get_query_var('post_type') == self::VENUE_POST_TYPE && $this->getOption('tribeEventsTemplate') != '' ) {
-						$new_title = apply_filters( 'tribe_events_venue_view_title', sprintf(__("Events at %s", 'tribe-events-calendar'), $post->post_title) . ' ' . $sep . ' ' . $title,  $sep );
-					} else {
-						$new_title = $title;
-					}
+					$new_title = $title;
 					break;
 			}
 			return apply_filters( 'tribe_events_add_title', $new_title, $title, $sep );
