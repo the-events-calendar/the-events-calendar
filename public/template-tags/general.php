@@ -581,7 +581,9 @@ if ( class_exists( 'TribeEvents' ) ) {
 			$cost = esc_html( $cost );
 		}
 
-		if ( $withCurrencySymbol ) {
+		// check if the currency symbol is desired, and it's just a number in the field
+		// be sure to account for european formats in decimals, and thousands separators
+		if ( $withCurrencySymbol && is_numeric( str_replace(array(',','.'), '', $cost))) {
 			$cost = tribe_format_currency( $cost );
 		}
 
