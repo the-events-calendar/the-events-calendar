@@ -929,12 +929,25 @@ try {
 
 		ts.view && dbug && debug.time('Tribe JS Init Timer');
 
-		/* Themers can override the mobile break with out modifying template files if they like. */
+		/**
+		 *
+		 * Themers can override the mobile break with an override in function.php
+		 *
+			 add_action( 'tribe_events_view_data_attributes', 'kill_responsive' );
+					function kill_responsive( $attributes ) {
+					$attributes['kill-responsive'] = 1;
+					$attributes['mobilebreak'] = 500;
+					return $attributes;
+			 }
+		 */
 
-		if($body.tribe_has_attr('data-mobilebreak'))
-			td.mobile_break = $body.attr('data-mobilebreak');
-		else if($tribe_content.length && $tribe_content.tribe_has_attr('data-mobilebreak'))
-			td.mobile_break = $tribe_content.attr('data-mobilebreak');
+		if($tribe_events.length && $tribe_events.tribe_has_attr('data-mobilebreak'))
+			td.mobile_break = parseInt($tribe_events.attr('data-mobilebreak'));
+
+		if($tribe_events.length && $tribe_events.tribe_has_attr('data-kill-responsive') && $tribe_events.attr('data-kill-responsive') == '1')
+			td.mobile_break = 0;
+		else
+			$body.addClass('tribe-is-responsive');
 
 		/* Let's hide the widget calendar if we find more than one instance */
 		$(".tribe-events-calendar-widget").not(":eq(0)").hide();
