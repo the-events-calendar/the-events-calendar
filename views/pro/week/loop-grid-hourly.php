@@ -19,7 +19,12 @@ $hour_format = apply_filters( 'tribe_events_pro_week_hour_format', 'gA' );
 <div class="tribe-week-grid-wrapper">
 	<div class="tribe-week-grid-outer-wrap tribe-clearfix">
 		<div class="tribe-week-grid-inner-wrap">
-			<?php for ( $hour = 0; $hour <= 23; $hour++ ) : ?>
+			<?php 
+				$multiday_cutoff = explode( ':', tribe_get_option( 'multiDayCutoff', '00:00' ) );
+				$multiday_cutoff[0] = ltrim($multiday_cutoff[0], '0');
+
+				for ( $hour = $multiday_cutoff[0]; $hour <= $multiday_cutoff[0] + 23; $hour++ ) : 
+			?>
 				<div class="tribe-week-grid-block" data-hour="<?php echo $hour; ?>">
 					<div></div>
 				</div>
@@ -32,7 +37,7 @@ $hour_format = apply_filters( 'tribe_events_pro_week_hour_format', 'gA' );
 
 		<?php // Hours ?>
 		<div class="column tribe-week-grid-hours">
-			<?php for ( $hour = 0; $hour <= 23; $hour++ ) : ?>
+			<?php for ( $hour = $multiday_cutoff[0]; $hour <= $multiday_cutoff[0] + 23; $hour++ ) : ?>
 			<div class="time-row-<?php echo date_i18n( 'gA', mktime( $hour ) ); ?>"><?php echo date_i18n( $hour_format, mktime( $hour ) ); ?></div>
 			<?php endfor; ?>
 		</div><!-- tribe-week-grid-hours -->
