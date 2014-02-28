@@ -581,7 +581,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 			$cost = esc_html( $cost );
 		}
 
-		if ( $withCurrencySymbol && is_numeric( $cost ) ) {
+		if ( $withCurrencySymbol ) {
 			$cost = tribe_format_currency( $cost );
 		}
 
@@ -611,11 +611,15 @@ if ( class_exists( 'TribeEvents' ) ) {
 
 		$postId = TribeEvents::postIdHelper( $postId );
 
+		// if no currency symbol was passed, and we're looking at a particular event,
+		// let's check if there was a currency symbol set on that event
 		if ( $postId && $currency_symbol == null ) {
 			$currency_symbol = tribe_get_event_meta( $postId, '_EventCurrencySymbol', true );
 		}
 
-		if ( ! $currency_symbol || ! $postId ) {
+		// if no currency symbol was passed, or we're not looking at a particular event,
+		// let's get the default currency symbol
+		if ( ! $postId || ! $currency_symbol ) {
 			$currency_symbol = tribe_get_option( 'defaultCurrencySymbol', '$' );
 		}
 
