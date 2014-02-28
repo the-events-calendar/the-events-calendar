@@ -162,6 +162,56 @@ class Tribe_Recurring_Event_Test extends WP_UnitTestCase {
 		$this->assertEqualSets($original_children, $updated_children);
 	}
 
+	public function test_changing_start_date() {
+		$start_date = date('Y-m-d', strtotime('2014-05-01'));
+		$event_args = array(
+			'post_type' => TribeEvents::POSTTYPE,
+			'post_title' => __CLASS__,
+			'post_content' => __FUNCTION__,
+			'post_status' => 'publish',
+			'EventStartDate' => $start_date,
+			'EventEndDate' => $start_date,
+			'EventStartHour' => 16,
+			'EventEndHour' => 17,
+			'EventStartMinute' => 0,
+			'EventEndMinute' => 0,
+			'recurrence' => array(
+				'end-type' => 'After',
+				'end-count' => 5,
+				'type' => 'Every Day',
+			)
+		);
+		$post_id = TribeEventsAPI::createEvent($event_args);
+		$original_dates = tribe_get_recurrence_start_dates($post_id);
+		$this->assertEqualSets(
+			array(
+				'2014-05-01 16:00:00',
+				'2014-05-02 16:00:00',
+				'2014-05-03 16:00:00',
+				'2014-05-04 16:00:00',
+				'2014-05-05 16:00:00',
+			),
+			$original_dates
+		);
+
+		$new_date = date('Y-m-d', strtotime('2014-05-08'));
+		$event_args['EventStartDate'] = $new_date;
+		$event_args['EventEndDate'] = $new_date;
+		TribeEventsApi::updateEvent($post_id, $event_args);
+
+		$new_dates = tribe_get_recurrence_start_dates($post_id);
+		$this->assertEqualSets(
+			array(
+				'2014-05-08 16:00:00',
+				'2014-05-09 16:00:00',
+				'2014-05-10 16:00:00',
+				'2014-05-11 16:00:00',
+				'2014-05-12 16:00:00',
+			),
+			$new_dates
+		);
+	}
+
 	public function test_terms_on_update() {
 		$tags = array(
 			$this->factory->tag->create_object(array('name' => 'test tag a')),

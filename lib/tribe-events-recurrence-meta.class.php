@@ -633,8 +633,7 @@ class TribeEventsRecurrenceMeta {
 		}
 		$rules = TribeEventsRecurrenceMeta::getSeriesRules($event_id);
 
-		// use the recurrence start meta if necessary because we can't guarantee which order the start date will come back in
-		$recStart = strtotime(self::get_series_start_date($event_id));
+		$recStart = strtotime( get_post_meta($event_id, '_EventStartDate', TRUE) );
 
 		switch( $recEndType ) {
 			case 'On':
