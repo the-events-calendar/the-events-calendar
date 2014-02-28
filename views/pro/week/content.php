@@ -14,7 +14,7 @@
 
 if ( !defined('ABSPATH') ) { die('-1'); } ?>
 
-<div id="tribe-events-content" class="tribe-events-week-grid tribe-clearfix" data-mobilebreak="768">
+<div id="tribe-events-content" class="tribe-events-week-grid tribe-clearfix">
 	
 	<!-- Calendar Title -->
 	<?php do_action( 'tribe_events_before_the_title') ?>
