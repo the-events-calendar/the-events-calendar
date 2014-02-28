@@ -69,8 +69,8 @@ var tribe_events_bar_action;
 		});
 
 		if (!$('.tribe-events-week-grid').length) {
-			// includes temporary check for map view, as it currently has the grid view body class
-			if (!$('.events-gridview').length || tt.map_view()) {
+
+			if (ts.view !== 'month') {
 
 				dbug && debug.info('TEC Debug: bootstrapDatepicker was just initialized in "tribe-events-bar.js" on:', $tribedate);
 
