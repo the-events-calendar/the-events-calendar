@@ -969,7 +969,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 		//      This doesn't work on php 5.2
 		//  $interval = $start_date->diff($end_date);
 
-		return TribeEventsQuery::dateDiff( $start_date->format( 'Y-m-d' ), $end_date->format( 'Y-m-d' ) );
+		return TribeDateUtils::dateDiff( $start_date->format( 'Y-m-d' ), $end_date->format( 'Y-m-d' ) );
 	}
 
 	/**
