@@ -268,7 +268,7 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 						'taxonomy' => TribeEvents::TAXONOMY,
 						'field' => is_numeric( $query->get( TribeEvents::TAXONOMY ) ) ? 'id' : 'slug',
 						'terms' => $query->get( TribeEvents::TAXONOMY ),
-						'include_children' => false,
+						'include_children' => apply_filters( 'tribe_events_query_include_children', true ),
 					);
 				}
 
