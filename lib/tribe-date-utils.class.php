@@ -143,9 +143,12 @@ if(!class_exists('TribeDateUtils')) {
 		 */
 		public static function dateDiff( $date1, $date2 ) {
 
-			$start = new DateTime($date1);
-			$end = new DateTime($date2);
-			$days = round(($end->format('U') - $start->format('U')) / (60*60*24));
+			$start = new DateTime( $date1 );
+			$end   = new DateTime( $date2 );
+
+			// Get number of days between by finding seconds between and dividing by # of seconds in a day
+			$days  = round( ( $end->format( 'U' ) - $start->format( 'U' ) ) / ( 60 * 60 * 24 ) );
+
 			return $days;
 
 		}
