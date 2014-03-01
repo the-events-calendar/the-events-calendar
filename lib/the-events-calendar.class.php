@@ -2875,7 +2875,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 			remove_action( 'save_post', array( $this, 'addToPostAuditTrail' ), 10, 2 );
 
-			// don't need to save the venue or organizer data when we are just publishing
+			// don't need to save the venue or organizer meta when we are just publishing
 			remove_action( 'save_post_'.self::VENUE_POST_TYPE, array( $this, 'save_venue_data' ), 16, 2 );
 			remove_action( 'save_post_'.self::ORGANIZER_POST_TYPE, array( $this, 'save_organizer_data' ), 16, 2 );
 
@@ -2922,8 +2922,13 @@ if ( !class_exists( 'TribeEvents' ) ) {
 					}
 				}
 
-						}
-					}
+			}
+
+			// put the actions back
+			add_action( 'save_post_'.self::VENUE_POST_TYPE, array( $this, 'save_venue_data' ), 16, 2 );
+			add_action( 'save_post_'.self::ORGANIZER_POST_TYPE, array( $this, 'save_organizer_data' ), 16, 2 );
+
+		}
 
 		/**
 		 * If you are saving a venue separate from an event.
