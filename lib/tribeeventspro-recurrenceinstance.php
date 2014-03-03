@@ -21,20 +21,26 @@ class TribeEventsPro_RecurrenceInstance {
 		unset($post_to_save['guid']);
 		$post_to_save['post_parent'] = $parent->ID;
 		$post_to_save['post_name'] = $parent->post_name.'-'.$this->start_date->format('Y-m-d');
-		if ( !empty($this->post_id) ) {
-			$post_to_save['ID'] = $this->post_id;
-			//$post_to_save['guid'] = get_the_guid($this->post_id);
-			$this->post_id = wp_update_post($post_to_save);
-		} else {
-			$post_to_save['guid'] = esc_url( add_query_arg(array('eventDate' => $this->start_date->format('Y-m-d')), $parent->guid) );
-			$this->post_id = wp_insert_post($post_to_save);
-		}
 
 		$duration = $this->get_duration();
 		$end_date = $this->get_end_date();
-		update_post_meta( $this->post_id, '_EventStartDate', $this->start_date->format(DateSeriesRules::DATE_FORMAT) );
-		update_post_meta( $this->post_id, '_EventEndDate', $end_date->format(DateSeriesRules::DATE_FORMAT) );
-		update_post_meta( $this->post_id, '_EventDuration', $duration );
+
+		if ( !empty($this->post_id) ) { // update the existing post
+			$post_to_save['ID'] = $this->post_id;
+			//$post_to_save['guid'] = get_the_guid($this->post_id);
+			$this->post_id = wp_update_post($post_to_save);
+			update_post_meta( $this->post_id, '_EventStartDate', $this->start_date->format(DateSeriesRules::DATE_FORMAT) );
+			update_post_meta( $this->post_id, '_EventEndDate', $end_date->format(DateSeriesRules::DATE_FORMAT) );
+			update_post_meta( $this->post_id, '_EventDuration', $duration );
+		} else { // add a new post
+			$post_to_save['guid'] = esc_url( add_query_arg(array('eventDate' => $this->start_date->format('Y-m-d')), $parent->guid) );
+			$this->post_id = wp_insert_post($post_to_save);
+			// save several queries by calling add_post_meta when we have a new post
+			add_post_meta( $this->post_id, '_EventStartDate', $this->start_date->format(DateSeriesRules::DATE_FORMAT) );
+			add_post_meta( $this->post_id, '_EventEndDate', $end_date->format(DateSeriesRules::DATE_FORMAT) );
+			add_post_meta( $this->post_id, '_EventDuration', $duration );
+		}
+
 		$this->copy_meta(); // everything else
 		$this->set_terms();
 	}
