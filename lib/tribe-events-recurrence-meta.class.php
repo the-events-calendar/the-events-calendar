@@ -62,6 +62,10 @@ class TribeEventsRecurrenceMeta {
 
 		add_action( 'load-edit.php', array( __CLASS__, 'combineRecurringRequestIds' ) );
 
+		add_action( 'updated_post_meta', array( __CLASS__, 'update_child_thumbnails' ), 4, 40 );
+		add_action( 'added_post_meta', array( __CLASS__, 'update_child_thumbnails' ), 4, 40 );
+		add_action( 'deleted_post_meta', array( __CLASS__, 'remove_child_thumbnails' ), 4, 40 );
+
 		self::reset_scheduler();
 	}
 
@@ -991,5 +995,33 @@ class TribeEventsRecurrenceMeta {
 		}
 		$start_dates = tribe_get_recurrence_start_dates($post_id);
 		return reset($start_dates);
+	}
+
+	public static function update_child_thumbnails( $meta_id, $post_id, $meta_key, $meta_value ) {
+		static $recursing = FALSE;
+		if ( $recursing || $meta_key != '_thumbnail_id' || !tribe_is_recurring_event( $post_id ) ) {
+			return;
+		}
+		$recursing = TRUE; // don't repeat this for child events
+
+		$children = self::get_child_event_ids( $post_id );
+		foreach ( $children as $child_id ) {
+			update_post_meta( $child_id, $meta_key, $meta_value );
+		}
+		$recursing = FALSE;
+	}
+
+	public static function remove_child_thumbnails( $meta_ids, $post_id, $meta_key, $meta_value ) {
+		static $recursing = FALSE;
+		if ( $recursing || $meta_key != '_thumbnail_id' || !tribe_is_recurring_event( $post_id ) ) {
+			return;
+		}
+		$recursing = TRUE; // don't repeat this for child events
+
+		$children = self::get_child_event_ids( $post_id );
+		foreach ( $children as $child_id ) {
+			delete_post_meta( $child_id, $meta_key, $meta_value );
+		}
+		$recursing = FALSE;
 	}
 }
