@@ -84,8 +84,9 @@ class TribeEventsPro_RecurrenceInstance {
 	private function set_terms() {
 		$taxonomies = get_object_taxonomies(TribeEvents::POSTTYPE);
 		foreach ( $taxonomies as $tax ) {
-			$terms = wp_get_object_terms( $this->parent_id, $tax, array( 'fields' => 'ids' ) );
-			wp_set_object_terms( $this->post_id, $terms, $tax );
+			$terms = get_the_terms( $this->parent_id, $tax );
+			$term_ids = empty($terms) ? array() : wp_list_pluck( $terms, 'term_id' );
+			wp_set_object_terms( $this->post_id, $term_ids, $tax );
 		}
 	}
 
