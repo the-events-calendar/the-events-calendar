@@ -18,13 +18,15 @@ class TribeEventsPro_RecurrenceInstance {
 		$parent = get_post($this->parent_id);
 		$post_to_save = get_object_vars($parent);
 		unset($post_to_save['ID']);
-		$post_to_save['post_parent'] = $parent->ID;
 		unset($post_to_save['guid']);
+		$post_to_save['post_parent'] = $parent->ID;
+		$post_to_save['post_name'] = $parent->post_name.'-'.$this->start_date->format('Y-m-d');
 		if ( !empty($this->post_id) ) {
 			$post_to_save['ID'] = $this->post_id;
 			//$post_to_save['guid'] = get_the_guid($this->post_id);
 			$this->post_id = wp_update_post($post_to_save);
 		} else {
+			$post_to_save['guid'] = esc_url( add_query_arg(array('eventDate' => $this->start_date->format('Y-m-d')), $parent->guid) );
 			$this->post_id = wp_insert_post($post_to_save);
 		}
 
