@@ -3937,29 +3937,27 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				}
 
 				if ( current_user_can( 'manage_options' ) ) {
-					$wp_admin_bar->add_menu( array(
-						'id' => 'tribe-events-settings',
-						'title' => __( 'Settings', 'tribe-events-calendar' ),
-						'parent' => 'tribe-events-settings-group'
-					) );
-				}
 
-				if ( current_user_can( 'manage_options' ) ) {
-					$wp_admin_bar->add_menu( array(
-						'id' => 'tribe-events-settings-sub',
-						'title' => __( 'Events', 'tribe-events-calendar' ),
-						'href' => trailingslashit( get_admin_url() ) . 'edit.php?post_type=' . self::POSTTYPE . '&amp;page=tribe-events-calendar',
-						'parent' => 'tribe-events-settings'
-					) );
-				}
+					$hide_all_settings = TribeEvents::instance()->getNetworkOption( 'allSettingsTabsHidden', '0' );
+					if ( $hide_all_settings == '0' ) {
+						$wp_admin_bar->add_menu( array(
+							'id' => 'tribe-events-settings',
+							'title' => __( 'Settings', 'tribe-events-calendar' ),
+							'href' => trailingslashit( get_admin_url() ) . 'edit.php?post_type=' . self::POSTTYPE . '&amp;page=tribe-events-calendar',
+							'parent' => 'tribe-events-settings-group'
+						) );
+					}
 
-				if ( current_user_can( 'manage_options' ) ) {
-					$wp_admin_bar->add_menu( array(
-						'id' => 'tribe-events-help',
-						'title' => __( 'Help', 'tribe-events-calendar' ),
-						'href' => trailingslashit( get_admin_url() ) . 'edit.php?post_type=' . self::POSTTYPE . '&amp;page=tribe-events-calendar&amp;tab=help',
-						'parent' => 'tribe-events-settings-group'
-					) );
+					// Only show help link if it's not blocked in network admin.
+					$hidden_settings_tabs = TribeEvents::instance()->getNetworkOption( 'hideSettingsTabs', array( ) );
+					if ( !in_array( 'help', $hidden_settings_tabs ) ) {
+						$wp_admin_bar->add_menu( array(
+							'id' => 'tribe-events-help',
+							'title' => __( 'Help', 'tribe-events-calendar' ),
+							'href' => trailingslashit( get_admin_url() ) . 'edit.php?post_type=' . self::POSTTYPE . '&amp;page=tribe-events-calendar&amp;tab=help',
+							'parent' => 'tribe-events-settings-group'
+						) );
+					}
 				}
 			}
 		}
@@ -4047,14 +4045,13 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		}
 
 		public function addHelpAdminMenuItem() {
-			// prevent users who cannot manage the plugin to see addons link
-			if( current_user_can( 'edit_tribe_events' ) ) {
-				global $submenu;
-                // This fails in IIS with open_basedir
-                //$submenu['edit.php?post_type=' . self::POSTTYPE][500] = array( __('Help', 'tribe-events-calendar'), 'manage_options' , add_query_arg( array( 'post_type' => self::POSTTYPE, 'page' => 'tribe-events-calendar', 'tab' => 'help' ), admin_url( 'edit.php' ) ) );
+			global $submenu;
 
-                $submenu['edit.php?post_type=' . self::POSTTYPE][500] = array( __('Help', 'tribe-events-calendar'), 'manage_options' , add_query_arg( array( 'post_type' => self::POSTTYPE, 'page' => 'tribe-events-calendar', 'tab' => 'help' ), 'edit.php?post_type=tribe_events&page=tribe-events-calendar&tab=help' ) );
-            }
+			// Only show help link if it's not blocked in network admin.
+			$hidden_settings_tabs = TribeEvents::instance()->getNetworkOption( 'hideSettingsTabs', array( ) );
+			if ( !in_array( 'help', $hidden_settings_tabs ) ) {
+				$submenu['edit.php?post_type=' . self::POSTTYPE][500] = array( __('Help', 'tribe-events-calendar'), 'manage_options' , add_query_arg( array( 'post_type' => self::POSTTYPE, 'page' => 'tribe-events-calendar', 'tab' => 'help' ), 'edit.php?post_type=tribe_events&page=tribe-events-calendar&tab=help' ) );
+			}
 		}
 
 		/**
