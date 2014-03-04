@@ -27,9 +27,9 @@
 <li class="tribe-events-list-widget-events <?php tribe_events_event_classes() ?>">
 	
 	<?php do_action( 'tribe_events_list_widget_before_the_event_title' ); ?>
-	
+	<!-- Event Title -->
 	<h4 class="entry-title summary">
-			<a href="<?php echo tribe_get_event_link(); ?>" rel="bookmark"><?php the_title(); ?></a>
+		<a href="<?php echo tribe_get_event_link(); ?>" rel="bookmark"><?php the_title(); ?></a>
 	</h4>
 	
 	<?php do_action( 'tribe_events_list_widget_after_the_event_title' ); ?>	
@@ -41,7 +41,7 @@
 		<?php echo tribe_events_event_schedule_details(); ?>
 	</div>
 	
-	<?php do_action( 'tribe_events_list_widget_before_the_meta' ) ?>
+	<?php do_action( 'tribe_events_list_widget_after_the_meta' ) ?>
 	
-	<!-- Event Title -->
+	
 </li>
