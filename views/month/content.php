@@ -14,7 +14,7 @@
 
 if ( !defined('ABSPATH') ) { die('-1'); } ?>
 
-<div id="tribe-events-content" class="tribe-events-month" data-mobilebreak="768">
+<div id="tribe-events-content" class="tribe-events-month">
 	
 	<!-- Month Title -->
 	<?php do_action( 'tribe_events_before_the_title' ) ?>
