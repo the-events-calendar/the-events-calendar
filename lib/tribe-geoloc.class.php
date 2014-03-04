@@ -728,7 +728,10 @@ class TribeEventsGeoLoc {
 	 * @return mixed
 	 */
 	public function estimate_center_point() {
-		global $wpdb;
+		global $wpdb, $wp_query;
+
+		$event_ids = wp_list_pluck($wp_query->posts, 'ID');
+		$event_ids = implode(',', $event_ids);
 
 		$data = get_transient( self::ESTIMATION_CACHE_KEY );
 
@@ -748,7 +751,7 @@ class TribeEventsGeoLoc {
 				        FROM   $wpdb->postmeta
 				        WHERE  ( meta_key = '" . self::LAT . "'
 				            OR meta_key = '" . self::LNG . "')
-				            AND post_id IN (SELECT meta_value FROM $wpdb->postmeta WHERE meta_key='_EventVenueID')
+				            AND post_id IN (SELECT meta_value FROM $wpdb->postmeta WHERE meta_key='_EventVenueID' AND post_id IN ($event_ids) )
 				            ) coors
 		";
 
