@@ -1,6 +1,3 @@
-[submodule "vendor/tribe-support"]
-	path = vendor/tribe-support
-	url = moderntribe_git@git.tri.be:tribe-support
 [submodule "vendor/tribe-common-libraries"]
 	path = vendor/tribe-common-libraries
 	url = moderntribe_git@git.tri.be:tribe-common-libraries
