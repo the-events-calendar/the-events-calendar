@@ -50,7 +50,7 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 			self::$src_query = $query->query;
 
 			// make sure is_home doesn't get set to true on subqueries
-			if ( ! $query->is_main_query() ) {
+			if ( ! $query->is_main_query() && self::is_static_homepage() ) {
 				$query->is_home = false;
 			}
 
@@ -136,6 +136,15 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 				$query->is_home = !empty( $query->query_vars['is_home'] ) ? $query->query_vars['is_home'] : false;
 				do_action( 'tribe_events_parse_query', $query );
 			}
+		}
+
+		/**
+		 * Indicates if the current request is for the homepage, where the homepage is a static front page.
+		 *
+		 * @return bool
+		 */
+		protected static function is_static_homepage() {
+			return 'page' == get_option('show_on_front') && get_query_var('page_id') == get_option('page_for_posts') || is_front_page();
 		}
 
 		/**
