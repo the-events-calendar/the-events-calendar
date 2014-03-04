@@ -298,7 +298,6 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 = 3.4.1 =
 
 * Fixed an issue where jQuery UI Datepicker could overwrite our datepicker before its noconflict method was called
-* Added help tab support dump so that users with support packages can include additional information in their support tickets.
 
 = 3.4 =
 
