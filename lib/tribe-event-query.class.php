@@ -49,11 +49,6 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 
 			self::$src_query = $query->query;
 
-			// make sure is_home doesn't get set to true on subqueries
-			if ( ! $query->is_main_query() ) {
-				$query->is_home = false;
-			}
-
 			// include events in search results
 			if ( $query->is_search && $query->get( 'post_type' ) == '' ) {
 				$query->set( 'post_type', 'any' );
