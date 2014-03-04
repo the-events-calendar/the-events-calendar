@@ -10,25 +10,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
-if ( ! class_exists( 'TribeEventsProSupport' ) ) {
+if ( ! class_exists( 'TribeEventsSupport' ) ) {
 
-	class TribeEventsProSupport {
+	class TribeEventsSupport {
 
-		private static $debug_log = array();
 		public static $support;
 
 		private function __construct() {
-			add_action( 'tribe_debug', array( $this, 'logDebug' ), 8, 3 );
 			add_action( 'tribe_help_tab_sections', array( $this, 'displayHelpTabInfo' ), 10, 0 );
-		}
-
-		/**
-		 * Add support link to Debug Bar
-		 */
-		public function addSupportLink() {
-			if ( class_exists( 'Debug_Bar' ) ) {
-				TribeEvents::debug( self::supportLink() );
-			}
 		}
 
 		/**
@@ -36,7 +25,7 @@ if ( ! class_exists( 'TribeEventsProSupport' ) ) {
 		 */
 		public function displayHelpTabInfo() {
 
-			if ( !current_user_can( 'administrator' ) ) return;
+			if ( ! current_user_can( 'administrator' ) ) return;
 
 			// TODO: can we detect if someone has an ACTIVE support license here?
 			$keys = apply_filters( 'tribe-pue-install-keys', array() );
@@ -52,20 +41,6 @@ if ( ! class_exists( 'TribeEventsProSupport' ) ) {
 			echo( apply_filters( 'tribe_help_tab_system', $system_text ) );
 			echo self::formattedSupportStats();
 			self::formattedSupportStatsStyle();
-		}
-
-		/**
-		 * Generate a support link based on the user's options. This link is serialized and base64 encoded. On the other end we can decode it and then unserialize it to create a ticket.
-		 *
-		 * @return string
-		 * @author Peter Chester
-		 */
-		public static function supportLink() {
-			$text = __( 'Send a support request for this site.', 'tribe-events-calendar-pro' );
-			$link = TribeEvents::$tribeUrl . 'support?supportinfo=' . self::generateSupportHash();
-			$html = '<div class="tribe-support-link"><a href="' . $link . '" target="_blank">' . $text . '</a></div>';
-
-			return apply_filters( 'tribe-events-pro-support-link', $html, $link );
 		}
 
 		/**
@@ -130,23 +105,8 @@ if ( ! class_exists( 'TribeEventsProSupport' ) ) {
 				'theme'             => wp_get_theme()->get( 'Name' ),
 				'multisite'         => is_multisite(),
 				'settings'          => TribeEvents::getOptions(),
-				//'errors' => self::$debug_log
 			);
 			$systeminfo = apply_filters( 'tribe-events-pro-support', $systeminfo );
-
-			return $systeminfo;
-		}
-
-		/**
-		 * Generate a hash with all the system support information
-		 *
-		 * @return string of encoded support info
-		 * @author Peter Chester
-		 */
-		public static function generateSupportHash() {
-			$systeminfo = self::getSupportStats();
-			$systeminfo = serialize( $systeminfo );
-			$systeminfo = base64_encode( $systeminfo );
 
 			return $systeminfo;
 		}
@@ -228,24 +188,6 @@ if ( ! class_exists( 'TribeEventsProSupport' ) ) {
 		<?php
 		}
 
-		/**
-		 * capture log messages for support requests.
-		 *
-		 * @param string $title  message to display in log
-		 * @param mixed  $data   optional data to display
-		 * @param string $format optional format (log|warning|error|notice)
-		 *
-		 * @return void
-		 * @author Peter Chester
-		 */
-		public function logDebug( $title, $data = false, $format = 'log' ) {
-			self::$debug_log[] = array(
-				'title'  => $title,
-				'data'   => $data,
-				'format' => $format,
-			);
-		}
-
 		/****************** SINGLETON GUTS ******************/
 
 		/**
@@ -265,6 +207,6 @@ if ( ! class_exists( 'TribeEventsProSupport' ) ) {
 
 	}
 
-	TribeEventsProSupport::getInstance();
+	TribeEventsSupport::getInstance();
 }
 ?>
