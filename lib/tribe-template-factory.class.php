@@ -591,12 +591,17 @@ if( !class_exists('Tribe_Template_Factory') ) {
 							break;
 						case 'full':
 							$stylesheets['tribe-events-calendar-style']        = 'tribe-events-full.css';
-							$stylesheets['tribe-events-calendar-mobile-style'] = 'tribe-events-full-mobile.css';
+							if ($mobile_break > 0) {
+								$stylesheets['tribe-events-calendar-mobile-style'] = 'tribe-events-full-mobile.css';
+							}
 							break;
 						default: // tribe styles
 							$stylesheets['tribe-events-full-calendar-style']   = 'tribe-events-full.css';
 							$stylesheets['tribe-events-calendar-style']        = 'tribe-events-theme.css';
-							$stylesheets['tribe-events-calendar-mobile-style'] = 'tribe-events-theme-mobile.css';
+							if ($mobile_break > 0) {
+								$stylesheets['tribe-events-calendar-full-mobile-style'] = 'tribe-events-full-mobile.css';
+								$stylesheets['tribe-events-calendar-mobile-style'] = 'tribe-events-theme-mobile.css';
+							}
 							break;
 					}
 
@@ -622,13 +627,13 @@ if( !class_exists('Tribe_Template_Factory') ) {
 							$url = apply_filters( 'tribe_events_stylesheet_url', $url, $name );
 
 							// set the $media attribute
-							if ( $name == 'tribe-events-calendar-mobile-style' ) {
-								$media = "all and (max-width: {$mobile_break}px)";
+							if ( $name == 'tribe-events-calendar-mobile-style' || $name == 'tribe-events-calendar-full-mobile-style' ) {
+								$media = "(max-width: {$mobile_break}px)";
+								wp_enqueue_style( $name, $url, array('tribe-events-calendar-style'), TribeEvents::VERSION, $media );
 							} else {
-								$media = 'all';
+								wp_register_style( $name, $url, array(), TribeEvents::VERSION );
+								wp_enqueue_style( $name );
 							}
-							// enqueue
-							wp_enqueue_style( $name, $url, array(), TribeEvents::VERSION, $media );
 						}
 					}
 
