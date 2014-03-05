@@ -414,39 +414,76 @@ jQuery(document).ready(function($) {
 	var $tribe_views = $('#tribe-field-tribeEnableViews');
 
 	if( $tribe_views.length ) {
+
+		var $default_view_select = $('.tribe-field-dropdown_select2 select[name="viewOption"]'),
+			$view_inputs = $tribe_views.find('input:checkbox'),
+			$view_desc = $('#tribe-field-tribeEnableViews .tribe-field-wrap p.description'),
+			view_options = {};
+
+		function create_view_array(){
+
+			$default_view_select
+				.find('option')
+				.each(function () {
+
+					var $this = $(this);
+
+					view_options[$this.attr('value')] = $this.text();
+
+				});
+
+		}
+
+		function set_selected_views(){
+
+			$default_view_select
+				.find('option')
+				.remove();
+
+			$view_inputs
+				.each(function () {
+
+					var $this = $(this);
+
+					if($this.is(':checked')){
+
+						var value = $this.val();
+
+						$default_view_select
+							.append('<option value="' + value + '">' + view_options[value] + '</option>');
+
+					}
+
+				});
+
+			$default_view_select
+				.find('option')
+				.first()
+				.attr('selected', 'selected');
+
+			$default_view_select
+				.select2('destroy')
+				.select2({width: '250px'});
+
+		}
+
+		create_view_array();
+		set_selected_views();
+
 		$tribe_views
 			.on('change', 'input:checkbox', function () {
 
-				var $this = $(this),
-					$desc = $('#tribe-field-tribeEnableViews .tribe-field-wrap p.description'),
-					views = [];
+				var $this = $(this);
 
-				if( $('[name="tribeEnableViews[]"]:checked').size() < 1 ) {
+				if( $('[name="tribeEnableViews[]"]:checked').length < 1 ) {
 					$this.attr('checked',true);
-					$desc.css('color', 'red');
+					$view_desc.css('color', 'red');
 				} else {
-					$desc.removeAttr('style');
+					$view_desc.removeAttr('style');
 				}
-				$('select[name="viewOption"] option').each(function() {
 
-					var $this = $(this),
-						option_val = $this.val();
+				set_selected_views();
 
-
-					if( $('#tribe-field-tribeEnableViews input[value=' + option_val + ']').is(":checked") ) {
-						$this.prop('disabled',false);
-					} else {
-						$this.removeProp('selected');
-						$this.prop('disabled', true);
-					}
-				});
-				$('[name="tribeEnableViews[]"]:checked').each(function(){
-					views.push( $(this).val() );
-				});
-				if( typeof $('select[name="viewOption"] option:selected').first().val() == 'undefined' || ! $.inArray( $('select[name="viewOption"] option:selected').first().val(), views ) ) {
-					$('select[name="viewOption"] option').not(':disabled').first().attr('selected','selected');
-				}
-				$('select[name="viewOption"]').trigger("change");
     	});
     }
 	
