@@ -76,6 +76,63 @@ if( !class_exists('Tribe_PRO_Template_Factory') ) {
 					wp_localize_script( 'tribe-events-pro-geoloc', 'GeoLoc', $data );
 
 					break;
+
+				case 'events-pro-css':
+					$stylesheets  = array();
+					$mobile_break = tribe_get_mobile_breakpoint();
+
+					// Get the selected style option
+					$style_option = tribe_get_option( 'stylesheetOption', 'tribe' );
+
+					// Determine the stylesheet files for the selected option
+					switch ( $style_option ) {
+						case 'skeleton':
+							$stylesheets['tribe-events-calendar-pro-style'] = 'tribe-events-pro-skeleton.css';
+							break;
+						case 'full':
+							$stylesheets['tribe-events-calendar-pro-style']        = 'tribe-events-pro-full.css';
+							$stylesheets['tribe-events-calendar-pro-mobile-style'] = 'tribe-events-pro-full-mobile.css';
+							break;
+						default: // tribe styles
+							$stylesheets['tribe-events-full-pro-calendar-style']   = 'tribe-events-pro-full.css';
+							$stylesheets['tribe-events-calendar-pro-style']        = 'tribe-events-pro-theme.css';
+							$stylesheets['tribe-events-calendar-pro-mobile-style'] = 'tribe-events-pro-theme-mobile.css';
+							break;
+					}
+
+					// put override css at the end of the array
+					$stylesheets['tribe-events-calendar-pro-override-style'] = 'tribe-events/pro/tribe-events-pro.css';
+
+					// do the enqueues
+					foreach ( $stylesheets as $name => $css_file ) {
+						if ( $name == 'tribe-events-calendar-pro-override-style' ) {
+							$user_stylesheet_url = TribeEventsTemplates::locate_stylesheet( $css_file );
+							if ( $user_stylesheet_url ) {
+								wp_enqueue_style( $name, $user_stylesheet_url );
+							}
+						} else {
+
+							// get full URL
+							$url = tribe_events_pro_resource_url( $css_file );
+
+							// get the minified file
+							$url = self::getMinFile( $url, true );
+
+							// apply filters
+							$url = apply_filters( 'tribe_events_pro_stylesheet_url', $url, $name );
+
+							// set the $media attribute
+							if ( $name == 'tribe-events-calendar-pro-mobile-style' ) {
+								$media = "all and (max-width: {$mobile_break}px)";
+							} else {
+								$media = 'all';
+							}
+							// enqueue
+							wp_enqueue_style( $name, $url, array(), TribeEvents::VERSION, $media );
+						}
+					}
+
+					break;
 			}
 			parent::asset_package( $name, $deps );
 		}
