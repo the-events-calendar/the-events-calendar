@@ -446,28 +446,37 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 * @since 3.0
 	 **/
 	function tribe_events_the_header_attributes( $current_view = null ) {
-		$attrs = array();
-		$current_view = !empty( $current_view ) ? $current_view : basename(tribe_get_current_template());
-		$attrs['data-title'] = wp_title('&raquo;', false);
-		switch($current_view) {
+		$attrs               = array();
+		$current_view        = ! empty( $current_view ) ? $current_view : basename( tribe_get_current_template() );
+		$attrs['data-title'] = wp_title( '&raquo;', false );
+		switch ( $current_view ) {
 			case 'month.php' :
-				$attrs['data-view'] = 'month';
-				$attrs['data-date'] =  date( 'Y-m', strtotime( tribe_get_month_view_date() ) );
-				$attrs['data-baseurl'] =  tribe_get_gridview_link(false);
-			break;
+				$attrs['data-view']    = 'month';
+				$attrs['data-date']    = date( 'Y-m', strtotime( tribe_get_month_view_date() ) );
+				$attrs['data-baseurl'] = tribe_get_gridview_link( false );
+				break;
 			case 'list.php' :
-				$attrs['data-view']= 'list';
+				$attrs['data-view'] = 'list';
 				if ( tribe_is_upcoming() ) {
-					$attrs['data-baseurl'] = tribe_get_listview_link(false);
-				} elseif( tribe_is_past() ) {
-					$attrs['data-view']= 'past';
-					$attrs['data-baseurl'] = tribe_get_listview_past_link(false);
+					$attrs['data-baseurl'] = tribe_get_listview_link( false );
+				} elseif ( tribe_is_past() ) {
+					$attrs['data-view']    = 'past';
+					$attrs['data-baseurl'] = tribe_get_listview_past_link( false );
 				}
-			break;
+				break;
 		}
-		$attrs = apply_filters('tribe_events_header_attributes', $attrs, $current_view);
-		foreach ($attrs as $attr => $value) {
-			echo " $attr=".'"'.$value.'"';
+
+		if ( apply_filters( 'tribe_events_kill_responsive', false ) ) {
+			add_filter( 'tribe_events_mobile_breakpoint', '__return_zero' );
+		}
+
+		if ( has_filter( 'tribe_events_mobile_breakpoint' ) ) {
+			$attrs['data-mobilebreak'] = tribe_get_mobile_breakpoint();
+		}
+
+			$attrs = apply_filters( 'tribe_events_header_attributes', $attrs, $current_view );
+		foreach ( $attrs as $attr => $value ) {
+			echo " $attr=" . '"' . $value . '"';
 		}
 	}
 
@@ -1253,7 +1262,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 * @since  3.5
 	 */
 	function tribe_get_mobile_breakpoint( $default = 768 ) {
-		return apply_filters( 'tribe_events_mobile_breakpoint', $default );
+		return apply_filters( 'tribe_events_mobile_breakpoint', $breakpoint );
 	}
 
 }

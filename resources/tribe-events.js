@@ -944,9 +944,7 @@ try {
 		if($tribe_events.length && $tribe_events.tribe_has_attr('data-mobilebreak'))
 			td.mobile_break = parseInt($tribe_events.attr('data-mobilebreak'));
 
-		if($tribe_events.length && $tribe_events.tribe_has_attr('data-kill-responsive') && $tribe_events.attr('data-kill-responsive') == '1')
-			td.mobile_break = 0;
-		else
+		if($tribe_events.length && td.mobile_break > 0)
 			$body.addClass('tribe-is-responsive');
 
 		/* Let's hide the widget calendar if we find more than one instance */
