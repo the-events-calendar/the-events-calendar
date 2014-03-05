@@ -2,6 +2,11 @@
  * The Events Calendar Full Mobile Stylesheet
  * (Some of these styles may override your current theme's styles)
  *
+ * Default Breakpoint: 768px
+ *
+ * This breakpoint can be customized using the 'tribe_events_mobile_breakpoint' filter,
+ * or the responsive nature of the plugins can be removed by using the 'tribe_events_kill_responsive' filter.
+ *
  * To add your own custom styles, create a stylesheet with the name
  * tribe-events.css in the tribe-events/ directory of your theme.
  * Your new stylesheet will be loaded after our own stylesheet.
@@ -13,12 +18,6 @@
  * @author Modern Tribe Inc.
  *s
  */
- 
- 
-/* = Mobile Styles (max-width: 768px)
-Default max-width is 768px
-Custom Breakpoint can be set using the 'tribe_events_view_data_attributes' filter
-=============================================*/
 
 .tribe-mobile #main {
 	padding-top: 0;	
@@ -359,7 +358,7 @@ a.tribe-events-gmap {
 	font-weight: normal;
 }
 
-/* = Mobile Styles (max-width: 600px)
+/* = Mobile Styles: Tickets (max-width: 600px)
 =============================================*/
 @media (max-width: 600px) {
 

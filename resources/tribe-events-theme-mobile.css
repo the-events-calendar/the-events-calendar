@@ -1,6 +1,11 @@
 /**
  * The Events Calendar Tribe Theme Mobile Stylesheet
  *
+ * Default Breakpoint: 768px
+ *
+ * This breakpoint can be customized using the 'tribe_events_mobile_breakpoint' filter,
+ * or the responsive nature of the plugins can be removed by using the 'tribe_events_kill_responsive' filter.
+ *
  * To add your own custom styles, create a stylesheet with the name
  * tribe-events.css in the tribe-events/ directory of your theme.
  * Your new stylesheet will be loaded after our own stylesheet.
@@ -12,7 +17,6 @@
  * @author Modern Tribe Inc.
  *
  */
-
 
 /* = General Template Header/Footer Nav
 =============================================*/
