@@ -2,14 +2,19 @@
  * The Events Calendar Pro Full Mobile Stylesheet
  * (Some of these styles may override your current theme's styles)
  *
+ * Default Breakpoint: 768px
+ *
+ * This breakpoint can be customized using the 'tribe_events_mobile_breakpoint' filter,
+ * or the responsive nature of the plugins can be removed by using the 'tribe_events_kill_responsive' filter.
+ *
  * To add your own custom styles, create a stylesheet with the name
- * tribe-events-pro.css in the tribe-events/pro/ directory of your theme.
+ * tribe-events.css in the tribe-events/pro/ directory of your theme.
  * Your new stylesheet will be loaded after our own stylesheet.
  *
- * To replace our stylsheet altogether, you can use the 'tribe_events_pro_stylesheet_url' filter.
+ * To replace our stylsheet altogether, you can use the 'tribe_events_stylesheet_url' filter.
  *
- * @package TribeEventsCalendarPro
- * @since  1.0
+ * @package TribeEventsCalendar
+ * @since  3.0
  * @author Modern Tribe Inc.
  *
  */
@@ -204,7 +209,7 @@ h3.tribe-events-related-events-title {
 	display: block;
 }
 
-/* = Mobile Styles (max-width: 600px)
+/* = Mobile Styles: Photo View (max-width: 600px)
 =============================================*/
 @media (max-width: 600px) {
 	
