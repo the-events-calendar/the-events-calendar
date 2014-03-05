@@ -1262,7 +1262,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 * @since  3.5
 	 */
 	function tribe_get_mobile_breakpoint( $default = 768 ) {
-		return apply_filters( 'tribe_events_mobile_breakpoint', $breakpoint );
+		return apply_filters( 'tribe_events_mobile_breakpoint', $default );
 	}
 
 }
