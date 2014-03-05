@@ -517,7 +517,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 * @return bool
 	 */
 	function tribe_events_admin_show_cost_field(){
-		$modules = apply_filters( 'tribe_events_tickets_modules', NULL );
+		$modules = apply_filters( 'tribe_events_tickets_modules', null );
 		$event_origin = get_post_meta( get_the_ID(), '_EventOrigin', true );
 		$show_cost = empty( $modules ) ||
 					 class_exists( 'Event_Tickets_PRO' ) ||
@@ -1241,6 +1241,19 @@ if ( class_exists( 'TribeEvents' ) ) {
 			}
 		}
 		return apply_filters( 'tribe_events_is_view_enabled', $enabled, $view, $enabled_views );
+	}
+
+	/**
+	 * Get the breakpoint for switching to mobile styles
+	 *
+	 * @param int $breakpoint The default width (in pixels) at which to break into mobile styles
+	 *
+	 * @return int
+	 * @author Jessica Yazbek
+	 * @since  3.5
+	 */
+	function tribe_get_mobile_breakpoint( $default = 768 ) {
+		return apply_filters( 'tribe_events_mobile_breakpoint', $default );
 	}
 
 }
