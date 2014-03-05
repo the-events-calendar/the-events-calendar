@@ -533,8 +533,7 @@ msgstr "WooTickets"
 
 #: ../admin-views/tribe-options-help.php:63
 msgid "Faceted Filters"
-msgstr "Faceted Filters
-"
+msgstr "Faceted Filters"
 
 #: ../admin-views/tribe-options-help.php:71
 msgid "Documentation"

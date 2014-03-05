@@ -157,6 +157,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 * Queries the events using WordPress get_posts() by setting the post type and sorting by event date.
 	 *
 	 * @param array $args query vars with added defaults including post_type of events, sorted (orderby) by event date (order) ascending
+	 * @param bool $full (optional) if the full query object is required or just an array of event posts
 	 * @return array List of posts.
 	 * @link http://codex.wordpress.org/Template_Tags/get_posts
 	 * @link http://codex.wordpress.org/Function_Reference/get_post
@@ -164,8 +165,8 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 * @see get_posts()
 	 * @since 2.0
 	 */
-	function tribe_get_events( $args = array() ) {
-		return apply_filters( 'tribe_get_events', TribeEventsQuery::getEvents( $args ), $args );
+	function tribe_get_events( $args = array(), $full = false ) {
+		return apply_filters( 'tribe_get_events', TribeEventsQuery::getEvents( $args, $full ), $args, $full );
 	}
 
 	/**
@@ -194,11 +195,11 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 */
 	function tribe_event_is_multiday( $postId = null ) {
 		$postId = TribeEvents::postIdHelper( $postId );
-		$start = (array)tribe_get_event_meta( $postId, '_EventStartDate', false );
+		$start = (array) tribe_get_event_meta( $postId, '_EventStartDate', false );
 		sort( $start );
-		$start = strtotime( $start[0] );
+		$start = $start[0];
 		$end = strtotime( tribe_get_event_meta( $postId, '_EventEndDate', true ) );
-		$output = date( 'd-m-Y', $start ) != date( 'd-m-Y', $end );
+		$output = ( $end > strtotime( tribe_event_end_of_day( $start ) ) );
 		return apply_filters( 'tribe_event_is_multiday', $output, $postId, $start, $end );
 	}
 
@@ -430,12 +431,47 @@ if ( class_exists( 'TribeEvents' ) ) {
 	/**
 	 * Prints out classes on an event wrapper
 	 *
+	 * @param id|0 $current_view
 	 * @return void
 	 * @since 3.0
 	 **/
-	function tribe_events_event_classes() {
-		$classes = apply_filters('tribe_events_event_classes', array());
-		echo implode(' ', $classes);
+	function tribe_events_event_classes($event_id = 0) {
+	    global $post, $wp_query;
+
+		// May be called when the global $post object does not exist - ie during ajax loads of various views
+		// ... creating a dummy object allows the method to proceed semi-gracefully (interim measure only)
+		
+		//If $post object doesn't exist and an $event_id wasn't specified, then use a dummy object
+		if ( ! is_object( $post ) ) {
+			$post = (object) array( 'ID' => $event_id );
+		} elseif($event_id != 0) {
+			$post = (object) array( 'ID' => $event_id );
+		}
+
+	    $classes = array( 'hentry', 'vevent', 'type-tribe_events', 'post-' . $post->ID, 'tribe-clearfix' );
+	    $tribe_cat_slugs = tribe_get_event_cat_slugs( $post->ID );
+
+		foreach( $tribe_cat_slugs as $tribe_cat_slug ) {
+			if(!empty($tribe_cat_slug))
+				$classes[] = 'tribe-events-category-'. $tribe_cat_slug;
+		}
+	    if ( $venue_id = tribe_get_venue_id( $post->ID ) ) {
+	        $classes[] = 'tribe-events-venue-'. $venue_id;
+	    }
+	    if ( $organizer_id = tribe_get_organizer_id( $post->ID ) ) {
+	        $classes[] = 'tribe-events-organizer-'. $organizer_id;
+	    }
+	    // added first class for css
+	    if ( ( $wp_query->current_post == 0 ) && !tribe_is_day() ) {
+	        $classes[] = 'tribe-events-first';
+	    }
+	    // added last class for css
+	    if ( $wp_query->current_post == $wp_query->post_count-1 ) {
+	        $classes[] = 'tribe-events-last';
+	        }
+
+	    $classes = apply_filters('tribe_events_event_classes', $classes);
+	    echo implode(' ', $classes);
 	}
 
 	/**
@@ -446,33 +482,33 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 * @since 3.0
 	 **/
 	function tribe_events_the_header_attributes( $current_view = null ) {
-		$attrs               = array();
-		$current_view        = ! empty( $current_view ) ? $current_view : basename( tribe_get_current_template() );
-		$attrs['data-title'] = wp_title( '&raquo;', false );
-		switch ( $current_view ) {
+		$attrs = array();
+		$current_view = !empty( $current_view ) ? $current_view : basename(tribe_get_current_template());
+		$attrs['data-title'] = wp_title('&raquo;', false);
+		switch($current_view) {
 			case 'month.php' :
-				$attrs['data-view']    = 'month';
-				$attrs['data-date']    = date( 'Y-m', strtotime( tribe_get_month_view_date() ) );
-				$attrs['data-baseurl'] = tribe_get_gridview_link( false );
-				break;
+				$attrs['data-view'] = 'month';
+				$attrs['data-date'] =  date( 'Y-m', strtotime( tribe_get_month_view_date() ) );
+				$attrs['data-baseurl'] =  tribe_get_gridview_link(false);
+			break;
 			case 'list.php' :
-				$attrs['data-view'] = 'list';
+				$attrs['data-view']= 'list';
 				if ( tribe_is_upcoming() ) {
-					$attrs['data-baseurl'] = tribe_get_listview_link( false );
-				} elseif ( tribe_is_past() ) {
-					$attrs['data-view']    = 'past';
-					$attrs['data-baseurl'] = tribe_get_listview_past_link( false );
+					$attrs['data-baseurl'] = tribe_get_listview_link(false);
+				} elseif( tribe_is_past() ) {
+					$attrs['data-view']= 'past';
+					$attrs['data-baseurl'] = tribe_get_listview_past_link(false);
 				}
-				break;
+			break;
 		}
 
 		if ( has_filter( 'tribe_events_mobile_breakpoint' ) ) {
 			$attrs['data-mobilebreak'] = tribe_get_mobile_breakpoint();
 		}
 
-			$attrs = apply_filters( 'tribe_events_header_attributes', $attrs, $current_view );
-		foreach ( $attrs as $attr => $value ) {
-			echo " $attr=" . '"' . $value . '"';
+		$attrs = apply_filters('tribe_events_header_attributes', $attrs, $current_view);
+		foreach ($attrs as $attr => $value) {
+			echo " $attr=".'"'.$value.'"';
 		}
 	}
 
@@ -551,14 +587,10 @@ if ( class_exists( 'TribeEvents' ) ) {
 			$cost = esc_html( $cost );
 		}
 
-		if ( $withCurrencySymbol && is_numeric( $cost ) ) {
-			$currency = tribe_get_event_meta( $postId, '_EventCurrencySymbol', true );
-
-			if ( !$currency ) {
-				$currency = tribe_get_option( 'defaultCurrencySymbol', '$' );
-			}
-
-			$cost = $currency . $cost;
+		// check if the currency symbol is desired, and it's just a number in the field
+		// be sure to account for european formats in decimals, and thousands separators
+		if ( $withCurrencySymbol && is_numeric( str_replace(array(',','.'), '', $cost))) {
+			$cost = tribe_format_currency( $cost );
 		}
 
 		return apply_filters( 'tribe_get_cost', $cost, $postId, $withCurrencySymbol );
@@ -575,6 +607,42 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 */
 	function tribe_get_formatted_cost( $postId = null ) {
 		return apply_filters( 'tribe_get_formatted_cost', tribe_get_cost( $postId, true ) );
+	}
+
+	/**
+	 * Receives a float and formats it with a currency symbol
+	 *
+	 * @param $cost pricing to format
+	 */
+	function tribe_format_currency( $cost, $postId = null, $currency_symbol = null, $reverse_position = null ) {
+
+		$postId = TribeEvents::postIdHelper( $postId );
+
+		// if no currency symbol was passed, and we're looking at a particular event,
+		// let's check if there was a currency symbol set on that event
+		if ( $postId && $currency_symbol == null ) {
+			$currency_symbol = tribe_get_event_meta( $postId, '_EventCurrencySymbol', true );
+		}
+
+		// if no currency symbol was passed, or we're not looking at a particular event,
+		// let's get the default currency symbol
+		if ( ! $postId || ! $currency_symbol ) {
+			$currency_symbol = tribe_get_option( 'defaultCurrencySymbol', '$' );
+		}
+
+		if ( $postId && $reverse_position == null ) {
+			$reverse_position = tribe_get_event_meta( $postId, '_EventCurrencyPosition', true );
+			$reverse_position = ( 'suffix' === $reverse_position );
+		}
+
+		if ( ! $reverse_position || ! $postId ) {
+			$reverse_position = tribe_get_option( 'reverseCurrencyPosition', false );
+		}
+
+		$cost = $reverse_position ? $cost . $currency_symbol : $currency_symbol . $cost;
+
+		return $cost;
+
 	}
 
 	/**
@@ -906,7 +974,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 		//      This doesn't work on php 5.2
 		//  $interval = $start_date->diff($end_date);
 
-		return TribeEventsQuery::dateDiff( $start_date->format( 'Y-m-d' ), $end_date->format( 'Y-m-d' ) );
+		return TribeDateUtils::dateDiff( $start_date->format( 'Y-m-d' ), $end_date->format( 'Y-m-d' ) );
 	}
 
 	/**
@@ -1079,7 +1147,6 @@ if ( class_exists( 'TribeEvents' ) ) {
 		}
 	}
 
-
 	/**
 	 * Get a list of the views that are enabled
 	 *
@@ -1249,6 +1316,24 @@ if ( class_exists( 'TribeEvents' ) ) {
 	}
 
 	/**
+	 * Effectively aliases WP's get_the_excerpt() function, except that it additionally strips shortcodes
+	 * during ajax requests.
+	 *
+	 * The reason for this is that shortcodes added by other plugins/themes may not have been registered
+	 * by the time our ajax responses are generated. To avoid leaving unparsed shortcodes in our excerpts
+	 * then we strip out anything that looks like one.
+	 *
+	 * If this is undesirable the use of this function can simply be replaced within template overrides by
+	 * WP's own get_the_excerpt() function.
+	 *
+	 * @return string
+	 */
+	function tribe_events_get_the_excerpt() {
+		if ( ! defined('DOING_AJAX' ) || ! DOING_AJAX ) return get_the_excerpt();
+		return preg_replace( '#\[.+\]#U', '', get_the_excerpt() );
+	}
+
+	/**
 	 * Get the breakpoint for switching to mobile styles
 	 *
 	 * @param int $breakpoint The default width (in pixels) at which to break into mobile styles
@@ -1260,5 +1345,4 @@ if ( class_exists( 'TribeEvents' ) ) {
 	function tribe_get_mobile_breakpoint( $default = 768 ) {
 		return apply_filters( 'tribe_events_mobile_breakpoint', $default );
 	}
-
 }

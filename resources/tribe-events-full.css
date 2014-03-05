@@ -397,26 +397,22 @@ h2.tribe-events-page-title a:focus {
 	float: left;
 	margin-right: 5px;
 	text-align: left;
-	white-space: nowrap;
 }
 #tribe-events-header .tribe-events-sub-nav .tribe-events-nav-next,
 #tribe-events-footer .tribe-events-sub-nav .tribe-events-nav-next {
 	float: right;
 	margin-left: 5px;
 	text-align: right;
-	white-space: nowrap;
 }
 #tribe-events-header .tribe-events-sub-nav .tribe-events-nav-left,
 #tribe-events-footer .tribe-events-sub-nav .tribe-events-nav-left {
 	float: left;
 	text-align: left;
-	white-space: nowrap;
 }
 #tribe-events-header .tribe-events-sub-nav .tribe-events-nav-right,
 #tribe-events-footer .tribe-events-sub-nav .tribe-events-nav-right {
 	float: right;
 	text-align: right;
-	white-space: nowrap;
 }
 
 .tribe-events-ajax-loading {
@@ -480,7 +476,7 @@ select.tribe-events-dropdown {
 #tribe-events-events-picker, 
 #tribe-events-picker {
 	display: inline;
-}	
+}
 
 /* = Calendar View & List View Template Styles
    @ Template: month.php & list.php
@@ -979,7 +975,7 @@ select.tribe-events-dropdown {
 	line-height: 1;
 	border-top: 1px solid #e7e7e7;
 }
-.tribe-events-calendar td .tribe-events-viewmore a {
+.tribe-events-calendar td .tribe-events-viewmore a{
 	font-size: 100%;
 }
 .tribe-events-calendar th {
@@ -1135,6 +1131,32 @@ h2.tribe-events-tickets-title {
 /* = Events Navigation Bar
    @ Template: modules/bar.php
 =============================================*/
+/* Datepicker
+   ========================================================================== */
+.datepicker {
+	z-index:1000 !important;
+}
+
+.datepicker td,
+.datepicker table tr td span {
+	-webkit-border-radius: 0;
+  	-moz-border-radius: 0;
+ 	 border-radius: 0;
+} 
+.datepicker td {
+ 	 border-top: 1px solid #EDEDED;
+	
+}  
+.datepicker table tr td.active.active,
+.datepicker table tr td span.active.active {
+	background: #666;
+}
+.datepicker table tr td.active.active:hover,
+.datepicker table tr td span.active.active:hover {
+	background: #DADADA;
+	color: inherit;
+}
+
 #tribe-events-bar {
 	width: 100%;
 	min-width: 220px;
@@ -1690,6 +1712,27 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 	-webkit-background-size: 12px 16px;
     		background-size: 12px 16px;
 	background-position: 2px 50%;
+}
+
+/* ==========================================================================
+  Theme Compatibility
+   ========================================================================== */
+
+/* Twenty Fourteen
+========================================================================== */
+.tribe-events-week.tribe-theme-twentyfourteen #masthead {
+	z-index: 1001;
+}
+.tribe-theme-twentyfourteen #tribe-events-pg-template #tribe-events {
+	padding: 20px;
+}
+.tribe-theme-twentyfourteen  #tribe-bar-views .tribe-bar-views-list {
+	z-index: 3;
+}
+@media screen and (min-width: 1080px) {
+	.tribe-theme-twentyfourteen #tribe-events-pg-template {
+		padding-left: 222px;
+	}
 }
 
 /* = Events Retina

@@ -146,6 +146,13 @@ $generalTab = array(
 			'size' => 'small',
 			'default' => '$',
 		),
+		'reverseCurrencyPosition' => array(
+			'type' => 'checkbox_bool',
+			'label' => __( 'Currency symbol follows value', 'tribe-events-calendar' ),
+			'tooltip' => __( 'The currency symbol normally precedes the value. Enabling this option positions the symbol after the value.', 'tribe-events-calendar' ),
+			'default' => false,
+			'validation_type' => 'boolean',
+		),
 		'tribeEventsDisplayTitle' => array(
 			'type' => 'html',
 			'html' => '<h3>' . __( 'Map Settings', 'tribe-events-calendar' ) . '</h3>',

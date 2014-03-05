@@ -33,41 +33,40 @@
 			}
 		}
 
-		var tribe_var_datepickerOpts = {
+		td.datepicker_opts = {
 			format: 'yyyy-mm',
-			showAnim: 'fadeIn',
-			viewMode: 'months'
+			minViewMode: 'months',
+			autoclose: true
 		};
 
-		var tribeBarDate = $tribedate.bootstrapDatepicker(tribe_var_datepickerOpts).on('changeDate', function (e) {
+		$tribedate
+			.bootstrapDatepicker(td.datepicker_opts)
+			.on('changeDate', function(e){
 
-			var year = e.date.getFullYear(),
-				month = ('0' + (e.date.getMonth() + 1)).slice(-2);
+				var year = e.date.getFullYear(),
+					month = ('0' + (e.date.getMonth() + 1)).slice(-2);
 
-			tribeBarDate.hide();
+				date_mod = true;
 
-			date_mod = true;
+				ts.date = year + '-' + month;
 
-			tf.update_picker(e.date);
+				if (tt.no_bar() || tt.live_ajax() && tt.pushstate) {
+					if (ts.ajax_running)
+						return;
+					if (ts.filter_cats)
+						td.cur_url = $('#tribe-events-header').data('baseurl') + ts.date + '/';
+					else
+						td.cur_url = base_url + ts.date + '/';
+					ts.popping = false;
+					tf.pre_ajax(function () {
+						tribe_events_calendar_ajax_post();
+					});
+				}
 
-			ts.date = year + '-' + month;
-
-			if (tt.no_bar() || tt.live_ajax() && tt.pushstate) {
-				if (ts.ajax_running)
-					return;
-				if (ts.filter_cats)
-					td.cur_url = $('#tribe-events-header').data('baseurl') + ts.date + '/';
-				else
-					td.cur_url = base_url + ts.date + '/';
-				ts.popping = false;
-				tf.pre_ajax(function () {
-					tribe_events_calendar_ajax_post();
-				});
-			}
-		}).data('datepicker');
+			});
 
 		function tribe_mobile_load_events(date){
-		
+
 			var date_adj = date;
 			if(date < 10)
 				date_adj = '0' + date;
@@ -207,7 +206,7 @@
 					tf.set_form(ts.params);
 				}
 			});
-		}  				
+		}
 
 		$('#tribe-events')
 			.on('click', '.tribe-events-nav-previous, .tribe-events-nav-next', function (e) {
@@ -231,7 +230,7 @@
 			})
 			.on('click', '[id*="tribe-events-daynum-"] a', function (e) {
 				if($body.is('.tribe-mobile')){
-					e.preventDefault();
+				e.preventDefault();
 
 					var $trigger = $(this).closest('.mobile-trigger');
 					tribe_mobile_setup_day($trigger.attr('data-day'), $trigger.attr('data-date-name'));
@@ -241,7 +240,7 @@
 			.on('click', '.mobile-trigger', function (e) {
 				if($body.is('.tribe-mobile')){
 					e.preventDefault();
-					e.stopPropagation();
+				e.stopPropagation();
 					tribe_mobile_setup_day($(this).attr('data-day'), $(this).attr('data-date-name'));
 				}
 			});
@@ -406,7 +405,7 @@
 				);
 
 			} else {
-				if (ts.do_string)
+				if (ts.url_params.length)
 					window.location = td.cur_url + '?' + ts.url_params;
 				else
 					window.location = td.cur_url;

@@ -18,7 +18,8 @@
 
 	$(document).ready(function () {
 
-		var tribe_is_paged = tf.get_url_param('tribe_paged');
+		var tribe_is_paged = tf.get_url_param('tribe_paged'),
+			$venue_view = $('#tribe-events > .tribe-events-venue');
 
 		if (tribe_is_paged) {
 			ts.paged = tribe_is_paged;
@@ -43,7 +44,7 @@
 
 				var state = event.originalEvent.state;
 
-				if (state) {
+				if (state && !$venue_view.length) {
 					ts.do_string = false;
 					ts.pushstate = false;
 					ts.popping = true;
@@ -254,7 +255,7 @@
 					}
 				);
 			} else {
-				if (ts.do_string)
+				if (ts.url_params.length)
 					window.location = td.cur_url + '?' + ts.url_params;
 				else
 					window.location = td.cur_url;

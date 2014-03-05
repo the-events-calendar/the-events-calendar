@@ -160,7 +160,7 @@ if ( !class_exists( 'TribeSettings' ) ) {
 		 * @return void
 		 */
 		public function addPage() {
-			if ( !is_multisite() || ( is_multisite() && TribeEvents::getNetworkOption( 'allSettingsTabsHidden', '0' ) == '0' ) ) {
+			if ( !is_multisite() || ( is_multisite() && TribeEvents::instance()->getNetworkOption( 'allSettingsTabsHidden', '0' ) == '0' ) ) {
 				$this->admin_page = add_submenu_page( 'edit.php?post_type=' . TribeEvents::POSTTYPE, __( 'The Events Calendar Settings', 'tribe-events-calendar'), __('Settings', 'tribe-events-calendar'), $this->requiredCap, $this->adminSlug, array( $this, 'generatePage' ) );
 			}
 		}

@@ -33,7 +33,7 @@ if( class_exists( 'TribeEvents' ) ) {
 	 * @category Venue Functions
 	 * @since 2.0.1
 	 */
-	function tribe_create_venue($args) {
+	function tribe_create_venue( $args ) {
 		$postId = TribeEventsAPI::createVenue($args);
 		return $postId;
 	}

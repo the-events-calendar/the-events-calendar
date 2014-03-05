@@ -124,20 +124,30 @@ class TribeEventsTicketsAttendeesTable extends WP_List_Table {
 	/**
 	 * Handler for the order status column
 	 *
+	 * @todo revise in 3.4.3: we can then simplify this code and remove the checks against order_status string literals
 	 * @param $item
-	 *
 	 * @return string
 	 */
 	function column_order_status( $item ) {
+		$icon = '';
+		$warning = false;
 
-		$icon = "";
+		// Check if the order_warning flag has been set (to indicate the order has been cancelled, refunded etc)
+		if ( isset( $item['order_warning']) && $item['order_warning'] ) $warning = true;
 
-		if ( strtolower( $item['order_status'] ) !== 'completed' &&  strtolower( $item['order_status'] ) !== 'paid' ) {
+		// Additional check for backwards compatibility @todo remove this check clause in 3.4.3
+		if ( ! isset( $item['order_warning'] ) && strtolower( $item['order_status'] ) !== 'completed' &&  strtolower( $item['order_status'] ) !== 'paid' )
+			$warning = true;
+
+		// If the warning flag is set, add the appropriate icon
+		if ( $warning ) {
 			$tec  = TribeEvents::instance();
 			$icon = sprintf( "<span class='warning'><img src='%s'/></span> ", trailingslashit( $tec->pluginUrl ) . 'resources/warning.png' );
 		}
 
-		return $icon . ucwords( $item['order_status'] );
+		// Look for an order_status_label, fall back on the actual order_status string @todo remove fallback in 3.4.3
+		$label = isset( $item['order_status_label'] ) ? $item['order_status_label'] : ucwords( $item['order_status'] );
+		return $icon . $label;
 	}
 
 	/**
