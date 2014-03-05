@@ -466,10 +466,6 @@ if ( class_exists( 'TribeEvents' ) ) {
 				break;
 		}
 
-		if ( apply_filters( 'tribe_events_kill_responsive', false ) ) {
-			add_filter( 'tribe_events_mobile_breakpoint', '__return_zero' );
-		}
-
 		if ( has_filter( 'tribe_events_mobile_breakpoint' ) ) {
 			$attrs['data-mobilebreak'] = tribe_get_mobile_breakpoint();
 		}

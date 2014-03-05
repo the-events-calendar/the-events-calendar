@@ -578,6 +578,12 @@ if( !class_exists('Tribe_Template_Factory') ) {
 					wp_localize_script( 'tribe-events-list', 'TribeList', $ajax_data );
 					break;
 				case 'events-css':
+
+					// check if responsive should be killed
+					if ( apply_filters( 'tribe_events_kill_responsive', false ) ) {
+						add_filter( 'tribe_events_mobile_breakpoint', '__return_zero' );
+					}
+
 					$stylesheets  = array();
 					$mobile_break = tribe_get_mobile_breakpoint();
 
