@@ -933,12 +933,10 @@ try {
 		 *
 		 * Themers can override the mobile break with an override in function.php
 		 *
-			 add_action( 'tribe_events_view_data_attributes', 'kill_responsive' );
-					function kill_responsive( $attributes ) {
-					$attributes['kill-responsive'] = 1;
-					$attributes['mobilebreak'] = 500;
-					return $attributes;
-			 }
+				add_action( 'tribe_events_mobile_breakpoint', 'mobile_breakpoint' );
+				function mobile_breakpoint() {
+					return 500;
+				}
 		 */
 
 		if($tribe_events.length && $tribe_events.tribe_has_attr('data-mobilebreak'))
