@@ -791,5 +791,22 @@ if( class_exists( 'TribeEventsPro' ) ) {
 		return apply_filters( 'tribe_get_related_posts',  $posts ) ;
 	}
 
+	/**
+	 * Returns or echoes a url to a file in the Events Calendar PRO plugin resources directory
+	 *
+	 * @param string $resource the filename of the resource
+	 * @param bool $echo whether or not to echo the url
+	 * @return string
+	 * @author Jessica Yazbek
+	 * @since 3.5
+	 **/
+	function tribe_events_pro_resource_url($resource, $echo = false) {
+		$url = apply_filters('tribe_events_pro_resource_url', trailingslashit( TribeEventsPro::instance()->pluginUrl ).'resources/'.$resource, $resource);
+		if ($echo) {
+			echo $url;
+		}
+		return $url;
+	}
+
 
 }
