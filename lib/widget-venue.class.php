@@ -22,22 +22,29 @@ if( !class_exists( 'TribeVenueWidget') ) {
 				$hide_if_empty = false;
 
 			// Get all the upcoming events for this venue.
-			$events = tribe_get_events( array( 
+			$events = tribe_get_events( array(
 				'post_type' => TribeEvents::POSTTYPE,
 				'venue' => $venue_ID,
-				'posts_per_page' => $count, 
+				'posts_per_page' => $count,
 				'eventDisplay' => 'upcoming'
-			) );
+			), true );
 
 			// If there are no events, and the user has set to hide if empty, don't display the widget.
-			if ( $hide_if_empty && empty( $events ) )
+			if ( $hide_if_empty && ! $events->have_posts() )
 				return;
 
 			echo $before_widget;
+			
+			do_action( 'tribe_events_venue_widget_before_the_title' );
+			
 			echo ( $instance['title'] ) ? $args['before_title'] . $instance['title'] . $args['after_title'] : '';
+			
+			do_action( 'tribe_events_venue_widget_after_the_title' );
+
 			include( TribeEventsTemplates::getTemplateHierarchy( 'pro/widgets/venue-widget.php' ) );
 			echo $after_widget;
 
+			wp_reset_postdata();
 		}
 
 		// Include the file for the administration view of the widget.

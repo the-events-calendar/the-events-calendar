@@ -141,9 +141,8 @@ class TribeiCal {
 			$events_posts   = array();
 			$events_posts[] = $post;
 		} else {
-			TribeEventsQuery::init();
-			$events_query = TribeEventsQuery::getEvents( array( 'posts_per_page'=> - 1, 'eventDisplay' => $event_display ), true );
-			$events_posts = $events_query->posts;
+			global $wp_query;
+			$events_posts = $wp_query->posts;
 		}
 
 		foreach ( $events_posts as $event_post ) {
