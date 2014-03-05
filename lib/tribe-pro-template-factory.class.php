@@ -91,12 +91,17 @@ if( !class_exists('Tribe_PRO_Template_Factory') ) {
 							break;
 						case 'full':
 							$stylesheets['tribe-events-calendar-pro-style']        = 'tribe-events-pro-full.css';
-							$stylesheets['tribe-events-calendar-pro-mobile-style'] = 'tribe-events-pro-full-mobile.css';
+							if ($mobile_break > 0) {
+								$stylesheets['tribe-events-calendar-pro-mobile-style'] = 'tribe-events-pro-full-mobile.css';
+							}
 							break;
 						default: // tribe styles
 							$stylesheets['tribe-events-full-pro-calendar-style']   = 'tribe-events-pro-full.css';
 							$stylesheets['tribe-events-calendar-pro-style']        = 'tribe-events-pro-theme.css';
-							$stylesheets['tribe-events-calendar-pro-mobile-style'] = 'tribe-events-pro-theme-mobile.css';
+							if ($mobile_break > 0) {
+								$stylesheets['tribe-events-calendar-full-pro-mobile-style'] = 'tribe-events-pro-full-mobile.css';
+								$stylesheets['tribe-events-calendar-pro-mobile-style'] = 'tribe-events-pro-theme-mobile.css';
+							}
 							break;
 					}
 
