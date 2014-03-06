@@ -177,16 +177,22 @@ if ( class_exists( 'TribeEventsPro' ) ) {
 		case 'allday':
 			Tribe_Events_Pro_Week_Template::set_event_id( $event_id );
 			return true;
-			break;
 		case 'hourly':
 			$event = Tribe_Events_Pro_Week_Template::get_hourly_event( $event_id );
-			if ( !empty( $event->EventStartDate ) && date( 'Y-m-d', strtotime( $event->EventStartDate ) ) <= tribe_events_week_get_the_date( false ) && date( 'Y-m-d', strtotime( $event->EventEndDate ) ) >= tribe_events_week_get_the_date( false ) ) {
-				Tribe_Events_Pro_Week_Template::set_event_id( $event_id );
-				return true;
-			} else {
+			if ( empty($event->EventStartDate) ) {
 				return false;
 			}
-			break;
+			$calendar_date = tribe_events_week_get_the_date( false );
+			$beginning_of_day = tribe_event_beginning_of_day( $calendar_date, 'Y-m-d H:i:s' );
+			$end_of_day = tribe_event_end_of_day( $calendar_date, 'Y-m-d H:i:s' );
+			if ( $event->EventStartDate > $end_of_day ) {
+				return false;
+			}
+			if ( $event->EventEndDate <= $beginning_of_day ) {
+				return false;
+			}
+			Tribe_Events_Pro_Week_Template::set_event_id( $event_id );
+			return true;
 		}
 		return false;
 	}

@@ -39,8 +39,8 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 
 			self::$prior_event_date = (object) array( 'EventStartDate'=>null, 'EventEndDate'=>null );
 			self::$today = date_i18n( 'Y-m-d', strtotime( 'today' ) );
-			self::$start_of_week_date = tribe_get_first_week_day();
-			self::$end_of_week_date = date_i18n( 'Y-m-d', strtotime( '+' . self::$week_length - 1 . ' days', strtotime( self::$start_of_week_date ) ) );
+			self::$start_of_week_date = tribe_event_beginning_of_day( tribe_get_first_week_day() );
+			self::$end_of_week_date = tribe_event_end_of_day( date('Y-m-d', strtotime( self::$start_of_week_date . ' +' . self::$week_length - 1 . ' days' ) ) );
 			self::$start_of_week = get_option( 'start_of_week', 0 );
 
 			// let's get this show on the road
@@ -140,31 +140,35 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 				break;
 			case 'week-hourly':
 				$event = self::get_hourly_event();
-				$daily_mins = 1440;
-				$data_hour = 0;
-				$data_min = 0;
+				$start_of_day_timestamp = tribe_event_beginning_of_day( self::get_current_date(), 'U' );
+				$end_of_day_timestamp = tribe_event_end_of_day( self::get_current_date(), 'U' );
+				$data_hour =  date( 'G', $start_of_day_timestamp );
+				$data_min = date('i', $start_of_day_timestamp );
 				if ( $event->days_between > 0 ) {
-					if ( in_array( $event->ID, self::$daily_span_ids ) && date( 'Y-m-d', strtotime( $event->EventEndDate ) ) == self::get_current_date() ) {
+					if ( in_array( $event->ID, self::$daily_span_ids ) && strtotime( $event->EventEndDate ) < $end_of_day_timestamp ) {
 						// if the event is longer than a day we want to account for that with an offset for the ending time
-						$duration = abs( ( strtotime( self::get_current_date() ) - strtotime( $event->EventEndDate ) ) / 60 );
+						$duration = ( strtotime( $event->EventEndDate ) - $start_of_day_timestamp ) / 60;
 						$event_span_index = array_search( $event->ID, self::$daily_span_ids );
 						unset( self::$daily_span_ids[$event_span_index] );
 					} else if (
-						( in_array( $event->ID, self::$daily_span_ids ) && date( 'Y-m-d', strtotime( $event->EventEndDate ) ) > self::get_current_date() ) ||
-						( date( 'Y-m-d', strtotime( $event->EventStartDate ) ) < date( 'Y-m-d', strtotime( self::$start_of_week_date ) ) )
+						( in_array( $event->ID, self::$daily_span_ids ) && strtotime( $event->EventEndDate ) > $end_of_day_timestamp ) ||
+						( strtotime( $event->EventStartDate ) < strtotime( self::$start_of_week_date ) )
 						) {
 						// if there is a day in between start/end we just want to fill the spacer with the total mins in the day.
-						$duration = $daily_mins;
+						$duration = ( $end_of_day_timestamp - $start_of_day_timestamp ) / 60;
+						if ( !in_array($event->ID, self::$daily_span_ids) ) {
+							self::$daily_span_ids[] = $event->ID;
+						}
 					} else {
 						self::$daily_span_ids[] = $event->ID;
 						// if the event is longer than a day we want to account for that with an offset
-						$duration = $daily_mins - abs( ( strtotime( self::get_current_date() ) - strtotime( $event->EventStartDate ) ) / 60 );
+						$duration = ( $end_of_day_timestamp - strtotime( $event->EventStartDate ) ) / 60;
 						$data_hour = date( 'G', strtotime( $event->EventStartDate ) );
 						$data_min = date( 'i', strtotime( $event->EventStartDate ) );
 					}
 				} else {
 					// for a default event continue as everything is normal
-					$remaining_minutes_in_day = $daily_mins - abs( ( strtotime( self::get_current_date() ) - strtotime( $event->EventStartDate ) ) / 60 );
+					$remaining_minutes_in_day = ( $end_of_day_timestamp - strtotime( $event->EventStartDate ) / 60 );
 					$duration = ( $event->EventDuration / 60 );
 					if ( $duration > $remaining_minutes_in_day ) {
 						// this will happen in the case of a multi-day event that extends beyond the end of the week
@@ -284,7 +288,7 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 				$event_start_day_of_week = date( 'w', strtotime( $start_date_compare ) );
 
 				// determine the number of days between the starting date and the end of the event
-				$event->days_between = tribe_get_days_between( $start_date_compare, $end_date_compare );
+				$event->days_between = tribe_get_days_between( $start_date_compare, $end_date_compare, TRUE );
 
 				// make sure that our days between will not extend past the end of the week
 				$event->days_between = $event->days_between >= self::$week_length - $event_start_day_of_week ? ( self::$week_length - $event_start_day_of_week ) : (int) $event->days_between;
