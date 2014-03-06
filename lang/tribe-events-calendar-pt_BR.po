@@ -6,7 +6,7 @@ msgstr ""
 "Project-Id-Version: The Events Calendar\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-02-04 18:03-0800\n"
-"PO-Revision-Date: 2014-02-12 21:34-0300\n"
+"PO-Revision-Date: 2014-03-06 14:04-0800\n"
 "Last-Translator: Emerson Marques Pedro <emersonmp@gmail.com>\n"
 "Language-Team: Emerson Marques Pedro <emersonmp@gmail.com>\n"
 "Language: pt_BR\n"
@@ -19,7 +19,7 @@ msgstr ""
 "_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2\n"
 "X-Poedit-Basepath: ./\n"
 "X-Textdomain-Support: yes\n"
-"X-Generator: Poedit 1.6.3\n"
+"X-Generator: Poedit 1.6.4\n"
 "X-Poedit-SearchPath-0: ..\n"
 
 #: ../admin-views/app-shop.php:4
@@ -121,7 +121,7 @@ msgstr "Preço:"
 #: ../admin-views/events-meta-box.php:139
 msgid "Enter a 0 for events that are free or leave blank to hide the field."
 msgstr ""
-"Digite ) para eventos gratuitos ou deixe em branco para esconder o campo."
+"Digite 0 para eventos gratuitos ou deixe em branco para esconder o campo."
 
 #: ../admin-views/organizer-meta-box.php:12
 msgid "Organizer Name:"
