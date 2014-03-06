@@ -39,9 +39,16 @@ a.tribe-events-gmap {
 }
 #tribe-events-header,
 #tribe-events-footer {
-	background-color: #666;
 	position: relative;
 }
+.single-tribe_events #tribe-events-footer,
+.tribe-events-day #tribe-events-footer,
+.events-list #tribe-events-footer,
+.tribe-events-map #tribe-events-footer,
+.tribe-events-photo #tribe-events-footer {
+	border-top:0;
+}
+
 #tribe-events-header:before,
 #tribe-events-header:after,
 #tribe-events-footer:before,
@@ -68,19 +75,21 @@ a.tribe-events-gmap {
 #tribe-events-footer .tribe-events-sub-nav .tribe-events-nav-next,
 #tribe-events-footer .tribe-events-sub-nav .tribe-events-nav-previous {
 	display: block;
-	width: 50%;
+	width: 50%;	
 	margin: 0;
 	-webkit-box-sizing: border-box;
 	   -moz-box-sizing: border-box;
-			box-sizing: border-box;		
+			box-sizing: border-box;	
 }
 .tribe-events-sub-nav li a {
-	display: inline-block;
+	display: block;
 	padding: 10px 20px;
-	background: #666;
 	color: #fff;
 	white-space: normal;
 	position:relative;
+	padding-bottom: 1000px;
+    margin-bottom: -990px;
+	background: #666;
 }
 
 .tribe-events-sub-nav .tribe-events-nav-previous a span{
