@@ -305,7 +305,7 @@ jQuery(document).ready(function($) {
 	var set_recurrence_end_min_date = function() {
 		var start = $('#EventStartDate').val();
 		if ( start != '' ) {
-			$('#recurrence_end').datepicker('option', 'minDate', start);
+			$('#recurrence_end').attr('placeholder', start).datepicker('option', 'minDate', start);
 		}
 	};
 	set_recurrence_end_min_date();
