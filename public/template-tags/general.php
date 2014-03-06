@@ -958,18 +958,30 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 *
 	 * @param string $start_date
 	 * @param string $end_date
+	 * @param string|bool $day_cutoff
 	 * @return int
 	 * @author Modern Tribe
 	 * @see TribeEventsQuery::dateDiff()
 	 **/
-	function tribe_get_days_between( $start_date, $end_date ) {
+	function tribe_get_days_between( $start_date, $end_date, $day_cutoff = '00:00' ) {
+		if ( $day_cutoff === FALSE ) {
+			$day_cutoff = '00:00';
+		} elseif ( $day_cutoff === TRUE ) {
+			$day_cutoff = tribe_get_option( 'multiDayCutoff', '00:00' );
+		}
 
 		$start_date = new DateTime( $start_date );
-		$end_date   = new DateTime( $end_date );
+		if ( $start_date < new DateTime( $start_date->format( 'Y-m-d '.$day_cutoff ) ) ) {
+			$start_date->modify('-1 day');
+		}
+		$end_date = new DateTime( $end_date );
+		if ( $end_date <= new DateTime( $end_date->format( 'Y-m-d '.$day_cutoff ) ) ) {
+			$end_date->modify('-1 day');
+		}
 		//      This doesn't work on php 5.2
 		//  $interval = $start_date->diff($end_date);
 
-		return TribeDateUtils::dateDiff( $start_date->format( 'Y-m-d' ), $end_date->format( 'Y-m-d' ) );
+		return TribeDateUtils::dateDiff( $start_date->format( 'Y-m-d '.$day_cutoff ), $end_date->format( 'Y-m-d '.$day_cutoff ) );
 	}
 
 	/**
