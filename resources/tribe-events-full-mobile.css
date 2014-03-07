@@ -367,6 +367,25 @@ a.tribe-events-gmap {
 	font-weight: normal;
 }
 
+
+/* = Twenty Fourteen Styling
+   @ Template: ALL
+=============================================*/
+
+.tribe-theme-twentyfourteen .entry-content .tribe-events-calendar th, .tribe-theme-twentyfourteen .tribe-events-calendar th {
+	padding:3px;
+	border-width:0;
+}
+
+.tribe-theme-twentyfourteen #tribe-events-pg-template {
+	padding-left:0;
+	padding-right:0;
+}
+
+.tribe-theme-twentyfourteen.events-archive .entry-content {
+	width:90%;
+}
+
 /* = Mobile Styles: Tickets (max-width: 600px)
 =============================================*/
 @media (max-width: 600px) {

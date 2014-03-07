@@ -132,3 +132,16 @@
 	background-color:#21759b;
 	color: #fff;
 }
+
+/* = Twenty Fourteen Styling
+   @ Template: ALL
+=============================================*/
+
+.tribe-theme-twentyfourteen #tribe-events-pg-template {
+	padding-left:0;
+	padding-right:0;
+}
+
+.tribe-theme-twentyfourteen #tribe-events-pg-template #tribe-events {
+	padding:10px;
+}
