@@ -340,6 +340,15 @@ a.tribe-events-gmap {
 	width: 40%;
 }
 
+.tribe-bar-disabled {
+	width:100%;
+	float:none;
+}
+
+.tribe-bar-disabled #tribe-bar-views .tribe-bar-views-list {
+	padding:0;
+}
+
 /* = Events Page Template Styles
 =============================================*/
 #tribe-events-pg-template {
