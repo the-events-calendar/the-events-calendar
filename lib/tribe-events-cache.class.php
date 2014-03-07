@@ -10,6 +10,10 @@
  */
 class TribeEventsCache {
 
+	public static function setup() {
+		wp_cache_add_non_persistent_groups(array('tribe-events-non-persistent'));
+	}
+
 	/**
 	 * @param string $id
 	 * @param mixed $value
@@ -19,7 +23,12 @@ class TribeEventsCache {
 	 * @return bool
 	 */
 	public function set( $id, $value, $expiration = 0, $expiration_trigger = '' ) {
-		return wp_cache_set( $this->get_id($id, $expiration_trigger), $value, 'tribe-events', $expiration );
+		if ( $expiration == -1 ) {
+			$group = 'tribe-events';
+		} else {
+			$group = 'tribe-events-non-persistent';
+		}
+		return wp_cache_set( $this->get_id($id, $expiration_trigger), $value, $group, $expiration );
 	}
 
 	/**

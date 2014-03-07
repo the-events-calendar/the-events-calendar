@@ -835,7 +835,7 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 				do_action( 'log', 'no cache hit', 'tribe-events-cache', $args );
 				// do_action( 'log', 'uncached query', 'tribe-events-query', $wpdb->last_query);
 				$result = new WP_Query( $args );
-				$cache->set( $cache_key, $result, 0, 'save_post' );
+				$cache->set( $cache_key, $result, -1, 'save_post' );
 			}
 
 			if ( ! empty( $result->posts ) ) {

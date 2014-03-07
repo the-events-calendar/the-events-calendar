@@ -387,6 +387,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			add_action( "wp_ajax_tribe_event_validation", array($this,'ajax_form_validate') );
 			add_action( 'tribe_debug', array( $this, 'renderDebug' ), 10, 2 );
 			add_action( 'plugins_loaded', array('TribeEventsCacheListener', 'instance') );
+			add_action( 'plugins_loaded', array('TribeEventsCache', 'setup') );
 
 			// Load organizer and venue editors
 			add_action( 'admin_menu', array( $this, 'addVenueAndOrganizerEditor' ) );
