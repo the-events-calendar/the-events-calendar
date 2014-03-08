@@ -183,8 +183,9 @@ if ( class_exists( 'TribeEventsPro' ) ) {
 				return false;
 			}
 			$calendar_date = tribe_events_week_get_the_date( false );
-			$beginning_of_day = tribe_event_beginning_of_day( $calendar_date, 'Y-m-d H:i:s' );
-			$end_of_day = tribe_event_end_of_day( $calendar_date, 'Y-m-d H:i:s' );
+			// use rounded beginning/end of day because calendar grid only starts on the hour
+			$beginning_of_day = tribe_event_beginning_of_day( $calendar_date, 'Y-m-d H:00:00' );
+			$end_of_day = tribe_event_end_of_day( $calendar_date, 'Y-m-d H:00:00' );
 			if ( $event->EventStartDate > $end_of_day ) {
 				return false;
 			}

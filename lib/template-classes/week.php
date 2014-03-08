@@ -21,6 +21,7 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 		public static $today;
 		public static $start_of_week_date;
 		public static $end_of_week_date;
+		public static $day_cutoff_rounded;
 		public static $start_of_week;
 		public static $week_length = 7;
 		public static $week_days;
@@ -39,9 +40,10 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 
 			self::$prior_event_date = (object) array( 'EventStartDate'=>null, 'EventEndDate'=>null );
 			self::$today = date_i18n( 'Y-m-d', strtotime( 'today' ) );
-			self::$start_of_week_date = tribe_event_beginning_of_day( tribe_get_first_week_day() );
-			self::$end_of_week_date = tribe_event_end_of_day( date('Y-m-d', strtotime( self::$start_of_week_date . ' +' . self::$week_length - 1 . ' days' ) ) );
+			self::$start_of_week_date = self::get_rounded_beginning_of_day( tribe_get_first_week_day(), 'Y-m-d H:i:s' );
+			self::$end_of_week_date = self::get_rounded_end_of_day( date('Y-m-d', strtotime( self::$start_of_week_date . ' +' . self::$week_length - 1 . ' days' ) ), 'Y-m-d H:i:s' );
 			self::$start_of_week = get_option( 'start_of_week', 0 );
+			self::$day_cutoff_rounded = date('H:00', strtotime(self::$start_of_week_date));
 
 			// let's get this show on the road
 			// self::set_current_day( self::$start_of_week );
@@ -140,8 +142,8 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 				break;
 			case 'week-hourly':
 				$event = self::get_hourly_event();
-				$start_of_day_timestamp = tribe_event_beginning_of_day( self::get_current_date(), 'U' );
-				$end_of_day_timestamp = tribe_event_end_of_day( self::get_current_date(), 'U' );
+				$start_of_day_timestamp = self::get_rounded_beginning_of_day( self::get_current_date(), 'U' );
+				$end_of_day_timestamp = self::get_rounded_end_of_day( self::get_current_date(), 'U' );
 				$data_hour =  date( 'G', $start_of_day_timestamp );
 				$data_min = date('i', $start_of_day_timestamp );
 				if ( $event->days_between > 0 ) {
@@ -288,7 +290,7 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 				$event_start_day_of_week = date( 'w', strtotime( $start_date_compare ) );
 
 				// determine the number of days between the starting date and the end of the event
-				$event->days_between = tribe_get_days_between( $start_date_compare, $end_date_compare, TRUE );
+				$event->days_between = tribe_get_days_between( $start_date_compare, $end_date_compare, self::$day_cutoff_rounded );
 
 				// make sure that our days between will not extend past the end of the week
 				$event->days_between = $event->days_between >= self::$week_length - $event_start_day_of_week ? ( self::$week_length - $event_start_day_of_week ) : (int) $event->days_between;
@@ -565,6 +567,16 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 			} else {
 				return null;
 			}
+		}
+
+		protected static function get_rounded_beginning_of_day( $date, $format = 'U' ) {
+			$date = tribe_event_beginning_of_day( $date, 'Y-m-d H:00:00' );
+			return date($format, strtotime($date));
+		}
+
+		protected static function get_rounded_end_of_day( $date, $format = 'U' ) {
+			$date = tribe_event_end_of_day( $date, 'Y-m-d H:00:00' );
+			return date($format, strtotime($date));
 		}
 
 	}
