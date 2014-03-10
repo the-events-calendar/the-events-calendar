@@ -30,7 +30,6 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 		public static $current_day = -1;
 		public static $event_id = -1;
 		public static $prior_event_date = null;
-		public static $daily_span_ids = array();
 		public static $event_key_track = array();
 		public static $loop_type = 'hourly';
 
@@ -146,28 +145,18 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 				$end_of_day_timestamp = self::get_rounded_end_of_day( self::get_current_date(), 'U' );
 				$data_hour =  date( 'G', $start_of_day_timestamp );
 				$data_min = date('i', $start_of_day_timestamp );
-				if ( $event->days_between > 0 ) {
-					if ( in_array( $event->ID, self::$daily_span_ids ) && strtotime( $event->EventEndDate ) < $end_of_day_timestamp ) {
-						// if the event is longer than a day we want to account for that with an offset for the ending time
-						$duration = ( strtotime( $event->EventEndDate ) - $start_of_day_timestamp ) / 60;
-						$event_span_index = array_search( $event->ID, self::$daily_span_ids );
-						unset( self::$daily_span_ids[$event_span_index] );
-					} else if (
-						( in_array( $event->ID, self::$daily_span_ids ) && strtotime( $event->EventEndDate ) > $end_of_day_timestamp ) ||
-						( strtotime( $event->EventStartDate ) < strtotime( self::$start_of_week_date ) )
-						) {
+				if ( strtotime($event->EventStartDate) < $start_of_day_timestamp ) {
+					if ( strtotime( $event->EventEndDate ) > $end_of_day_timestamp ) {
 						// if there is a day in between start/end we just want to fill the spacer with the total mins in the day.
 						$duration = ( $end_of_day_timestamp - $start_of_day_timestamp ) / 60;
-						if ( !in_array($event->ID, self::$daily_span_ids) ) {
-							self::$daily_span_ids[] = $event->ID;
-						}
 					} else {
-						self::$daily_span_ids[] = $event->ID;
-						// if the event is longer than a day we want to account for that with an offset
-						$duration = ( $end_of_day_timestamp - strtotime( $event->EventStartDate ) ) / 60;
-						$data_hour = date( 'G', strtotime( $event->EventStartDate ) );
-						$data_min = date( 'i', strtotime( $event->EventStartDate ) );
+						$duration = ( strtotime( $event->EventEndDate ) - $start_of_day_timestamp ) / 60;
 					}
+				} elseif ( strtotime( $event->EventEndDate ) > $end_of_day_timestamp ) {
+					// if the event is longer than a day we want to account for that with an offset
+					$duration = ( $end_of_day_timestamp - strtotime( $event->EventStartDate ) ) / 60;
+					$data_hour = date( 'G', strtotime( $event->EventStartDate ) );
+					$data_min = date( 'i', strtotime( $event->EventStartDate ) );
 				} else {
 					// for a default event continue as everything is normal
 					$remaining_minutes_in_day = ( $end_of_day_timestamp - strtotime( $event->EventStartDate ) / 60 );
