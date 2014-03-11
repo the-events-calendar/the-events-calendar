@@ -243,11 +243,11 @@ The plugin is produced by <a href="http://m.tri.be/2s">Modern Tribe Inc</a>.
 * Portuguese from Antonio Pratas
 * Romanian from Cosmin Vaman
 * Serbian from Marko Manojlovic
-* Spanish from Hector Gil Rizo
+* Spanish from Juan Jose Reparaz Sarasola
 * Swedish from Ben Andersen
 * Turkish by Derin Korman
 
-* Previous translators include Mikhail Michouris, Bastien BC, Dionizio Bonfim Bach, Mihai Burcea, Ed Boon, Rick van Dalen, Jacob Roel Meijering, hristian Andersen, Michael Sebel, Filippo Montanari, David Decker, Kamil Szymanski, Erik Massop, “Terje With Lunndal", Andreas Lorentsen, Sagi Shrieber, Matthew Meyer, Arno Faure, Fanny Heraud, Vincent G from Host1Free, , Petri Kajander, Fran Rosa, Nico (wsMaurik), Panos Efstratiou, Dominique Monhardt, Thomas Butzek, Kjell Vestnes, Luiza Libardi, Diego Meneghetti, Beno Burgener, Burak Pehlevan, and Alexey Fedorov
+* Previous translators include Mikhail Michouris, Bastien BC, Dionizio Bonfim Bach, Mihai Burcea, Ed Boon, Rick van Dalen, Jacob Roel Meijering, hristian Andersen, Michael Sebel, Filippo Montanari, David Decker, Kamil Szymanski, Erik Massop, “Terje With Lunndal", Andreas Lorentsen, Sagi Shrieber, Hector Gil Rizo, Matthew Meyer, Arno Faure, Fanny Heraud, Vincent G from Host1Free, , Petri Kajander, Fran Rosa, Nico (wsMaurik), Panos Efstratiou, Dominique Monhardt, Thomas Butzek, Kjell Vestnes, Luiza Libardi, Diego Meneghetti, Beno Burgener, Burak Pehlevan, and Alexey Fedorov
 
 == Add-Ons ==
 
@@ -308,6 +308,7 @@ Added updated German translation files by Oliver Heinrich
 Added updated Brazilian Portuguese translation files courtesy of Emerson Marques
 Added updated Dutch translation files courtesy of J.F.M. Cornelissen and Frans Pronk
 Added updated French translation files from Laurent Proulx
+Added updated Spanish translation files from Juan Jose Reparaz Sarasola
 
 = 3.4.1 =
 
