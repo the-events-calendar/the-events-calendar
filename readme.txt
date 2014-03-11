@@ -173,7 +173,7 @@ The plugin is produced by <a href="http://m.tri.be/45">Modern Tribe Inc</a>.
 * Portuguese from Antonio Pratas
 * Romanian from Cosmin Vaman
 * Serbian from Marko Manojlovic
-* Spanish from Juanjo Reparaz Sarasola
+* Spanish from Juan Jose Reparaz Sarasola
 * Swedish from Ben Andersen
 * Turkish by Derin Korman
 
@@ -209,7 +209,7 @@ Our Premium Plugins:
 3.x is a complete overhaul of the plugin, and as a result we're starting the changelog fresh. For release notes from the 2.x lifecycle, see <a href="http://m.tri.be/k">our 2.x release notes.</a>
 
 = 3.5 =
-Incorporated updated Spanish translation files, courtesy of Juanjo Reparaz Sarasola
+Incorporated updated Spanish translation files, courtesy of Juan Jose Reparaz Sarasola
 Added new Montenegrin translation files, courtesy of Sasa Vukovic
 Added updated Norwegian Bokmål translation files, courtesy of Morten Ruud
 Added new Norwegian Nynorsk translation files, courtesy of Torbjørn Lauen
