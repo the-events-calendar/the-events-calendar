@@ -925,6 +925,10 @@ div.tribe-countdown-text {
 	color:#fff;
 }
 
+.tribe-theme-twentyfourteen #primary-sidebar div.tribe-countdown-number {
+	font-size:24px;
+}
+
 
 /* = Events Venue Widget
 =============================================*/
