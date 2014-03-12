@@ -300,14 +300,24 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 
 = 3.5 =
 
-Added new Montenegrin translation files, courtesy of Sasa Vukovic
-Added updated Norwegian Bokmål translation files, courtesy of Morten Ruud
-Added new Norwegian Nynorsk translation files, courtesy of Torbjørn Lauen
-Added updated Romanian translation files, courtesy of Cosmin Vaman
-Added updated German translation files by Oliver Heinrich
-Added updated Brazilian Portuguese translation files courtesy of Emerson Marques
-Added updated Dutch translation files courtesy of J.F.M. Cornelissen and Frans Pronk
-Added updated French translation files from Laurent Proulx
+* Added new Montenegrin translation files, courtesy of Sasa Vukovic
+* Added updated Norwegian Bokmål translation files, courtesy of Morten Ruud
+* Added new Norwegian Nynorsk translation files, courtesy of Torbjørn Lauen
+* Added updated Romanian translation files, courtesy of Cosmin Vaman
+* Added updated German translation files by Oliver Heinrich
+* Added updated Brazilian Portuguese translation files courtesy of Emerson Marques
+* Added updated Dutch translation files courtesy of J.F.M. Cornelissen and Frans Pronk
+* Added updated French translation files from Laurent Proulx
+* Added fully responsive styling for all Events Views
+* Updated Countdown widget styling to match TwentyElevent/TwentyTwelve/TwentyThirteen/TwentyFourteen theme styling
+* Fixed a responsive layout issue with the Classic Tribe Bar 
+* Fixed a responsive layout issue with days not lining up properly in the Month view in TwentyFourteen
+* Fixed an issue where the address wasn't displaying properly in the single venue view
+* Fixed an issue where events can overlap the Date Picker in week view
+* Fixed a styling issue with the 'Cancel' button when creating tickets for an event
+* Fixed an issue where the 'View Calendar' link wasn't displaying correctly on the Event List page in the admin
+* Fixed an issue where the <select> dropdown wasn't firing events correctly when using Skeleton styles
+
 
 = 3.4.1 =
 
