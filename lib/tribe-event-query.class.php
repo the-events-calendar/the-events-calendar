@@ -641,7 +641,7 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 			// custom sql to get ids of posts that hide_upcoming_ids
 			$hide_upcoming_ids = $wpdb->get_col( "SELECT {$wpdb->postmeta}.post_id FROM {$wpdb->postmeta} WHERE {$wpdb->postmeta}.meta_key = '_EventHideFromUpcoming' AND {$wpdb->postmeta}.meta_value = 'yes'" );
 			$hide_upcoming_ids = apply_filters( 'tribe_events_hide_from_upcoming_ids', $hide_upcoming_ids );
-			$cache->set( $cache_key, $hide_upcoming_ids, 3600, 'save_post' );
+			$cache->set( $cache_key, $hide_upcoming_ids, HOUR_IN_SECONDS, 'save_post' );
 			return $hide_upcoming_ids;
 		}
 
@@ -689,7 +689,7 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 				do_action( 'log', 'no cache hit '.__LINE__, 'tribe-events-cache', $args );
 				$post_id_query = new WP_Query();
 				$post_ids = $post_id_query->query( $args );
-				$cache->set( $cache_key, $post_ids, 0, 'save_post' );
+				$cache->set( $cache_key, $post_ids, TribeEventsCache::NON_PERSISTENT, 'save_post' );
 			}
 
 			do_action('log', 'Month view post ids found', 'tribe-events-query', $post_ids);
@@ -782,7 +782,7 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 			$return = array( 'counts' => $counts, 'event_ids' => $event_ids );
 			$cache = new TribeEventsCache;
 			$cache_key = 'daily_counts_and_ids_'.serialize($args);
-			$cache->set( $cache_key, $return, 0, 'save_post' );
+			$cache->set( $cache_key, $return, TribeEventsCache::NON_PERSISTENT, 'save_post' );
 			do_action( 'log', 'final event counts result', 'tribe-events-query', $return );
 			return $return;
 		}
@@ -835,7 +835,7 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 				do_action( 'log', 'no cache hit', 'tribe-events-cache', $args );
 				// do_action( 'log', 'uncached query', 'tribe-events-query', $wpdb->last_query);
 				$result = new WP_Query( $args );
-				$cache->set( $cache_key, $result, -1, 'save_post' );
+				$cache->set( $cache_key, $result, TribeEventsCache::NON_PERSISTENT, 'save_post' );
 			}
 
 			if ( ! empty( $result->posts ) ) {
