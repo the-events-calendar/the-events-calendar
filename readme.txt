@@ -209,15 +209,16 @@ Our Premium Plugins:
 3.x is a complete overhaul of the plugin, and as a result we're starting the changelog fresh. For release notes from the 2.x lifecycle, see <a href="http://m.tri.be/k">our 2.x release notes.</a>
 
 = 3.5 =
-Incorporated updated Spanish translation files, courtesy of Juan Jose Reparaz Sarasola
-Added new Montenegrin translation files, courtesy of Sasa Vukovic
-Added updated Norwegian Bokmål translation files, courtesy of Morten Ruud
-Added new Norwegian Nynorsk translation files, courtesy of Torbjørn Lauen
-Added updated Romanian translation files, courtesy of Cosmin Vaman
-Added updated German translation files by Oliver Heinrich
-Added updated Brazilian Portuguese translation files from Emerson Marques
-Added updated Dutch translation files from J.F.M. Cornelissen and Frans Pronk
-Added updated French translation files from Laurent Proulx
+* Incorporated updated Spanish translation files, courtesy of Juan Jose Reparaz Sarasola
+* Added new Montenegrin translation files, courtesy of Sasa Vukovic
+* Added updated Norwegian Bokmål translation files, courtesy of Morten Ruud
+* Added new Norwegian Nynorsk translation files, courtesy of Torbjørn Lauen
+* Added updated Romanian translation files, courtesy of Cosmin Vaman
+* Added updated German translation files by Oliver Heinrich
+* Added updated Brazilian Portuguese translation files from Emerson Marques
+* Added updated Dutch translation files from J.F.M. Cornelissen and Frans Pronk
+* Added updated French translation files from Laurent Proulx
+* Fixed an issue where the Category class wasn't properly being added to events when paging in Week View
 
 = 3.4 = 
 
