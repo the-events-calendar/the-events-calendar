@@ -491,7 +491,7 @@ class TribeEventsRecurrenceMeta {
 			'order' => 'ASC',
 		));
 		$children = get_posts($args);
-		$cache->set('child_events_'.$post_id, $children, 'save_post');
+		$cache->set('child_events_'.$post_id, $children, TribeEventsCache::NO_EXPIRATION, 'save_post');
 		return $children;
 	}
 
@@ -517,7 +517,7 @@ class TribeEventsRecurrenceMeta {
 			return array();
 		}
 
-		$cache->set( 'events_by_slug_'.$slug, $all_ids, 0, 'save_post' );
+		$cache->set( 'events_by_slug_'.$slug, $all_ids, TribeEventsCache::NO_EXPIRATION, 'save_post' );
 		return $all_ids;
 	}
 
@@ -542,7 +542,7 @@ class TribeEventsRecurrenceMeta {
 		$sql = "SELECT meta_value FROM {$wpdb->postmeta} m INNER JOIN {$wpdb->posts} p ON p.ID=m.post_id AND (p.post_parent=%d OR p.ID=%d) WHERE meta_key='_EventStartDate' ORDER BY meta_value ASC";
 		$sql = $wpdb->prepare($sql, $post_id, $post_id);
 		$result = $wpdb->get_col($sql);
-		$cache->set( 'recurrence_start_dates_'.$post_id, $result, 0, 'save_post' );
+		$cache->set( 'recurrence_start_dates_'.$post_id, $result, TribeEventsCache::NO_EXPIRATION, 'save_post' );
 		return $result;
 	}
 

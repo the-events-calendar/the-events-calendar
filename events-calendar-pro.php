@@ -1167,7 +1167,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 				unset( $query->query_vars['name'] );
 				unset( $query->query_vars['tribe_events']);
 				$query->set('p', $post_id);
-				$cache->set('single_event_'.$slug.'_'.$date, $post_id, 0, 'save_post' );
+				$cache->set('single_event_'.$slug.'_'.$date, $post_id, TribeEventsCache::NO_EXPIRATION, 'save_post' );
 			}
 		}
 
