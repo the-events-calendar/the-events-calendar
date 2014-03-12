@@ -564,7 +564,8 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 		}
 
 		protected static function get_rounded_end_of_day( $date, $format = 'U' ) {
-			$date = tribe_event_end_of_day( $date, 'Y-m-d H:00:00' );
+			$date = ((int)tribe_event_end_of_day( $date, 'U' )) + 1;
+			$date = date( 'Y-m-d H:00:00', $date );
 			return date($format, strtotime($date));
 		}
 
