@@ -62,6 +62,8 @@ class TribeEventsRecurrenceMeta {
 
 		add_action( 'load-edit.php', array( __CLASS__, 'combineRecurringRequestIds' ) );
 
+		add_action( 'load-post.php', array( __CLASS__, 'enqueue_post_editor_notices' ), 10, 1 );
+
 		add_action( 'updated_post_meta', array( __CLASS__, 'update_child_thumbnails' ), 4, 40 );
 		add_action( 'added_post_meta', array( __CLASS__, 'update_child_thumbnails' ), 4, 40 );
 		add_action( 'deleted_post_meta', array( __CLASS__, 'remove_child_thumbnails' ), 4, 40 );
@@ -1023,5 +1025,16 @@ class TribeEventsRecurrenceMeta {
 			delete_post_meta( $child_id, $meta_key, $meta_value );
 		}
 		$recursing = FALSE;
+	}
+
+	public static function enqueue_post_editor_notices() {
+		if ( tribe_is_recurring_event() ) {
+			add_action( 'admin_notices', array( __CLASS__, 'display_post_editor_recurring_notice' ), 10, 0 );
+		}
+	}
+
+	public static function display_post_editor_recurring_notice() {
+		$message = __( 'You are currently editing all events in a recurring series.', 'tribe-events-calendar-pro' );
+		printf('<div class="updated"><p>%s</p></div>', $message);
 	}
 }
