@@ -225,7 +225,7 @@ if( class_exists( 'TribeEvents' ) ) {
 	function tribe_get_month_view_date() {
 		global $wp_query;
 
-		$date = date_i18n( TribeDateUtils::DBDATEFORMAT, strtotime(date('Y-m-01'), current_time('timestamp')) );
+		$date = date_i18n( TribeDateUtils::DBDATEFORMAT, strtotime( date( 'Y-m-01', current_time( 'timestamp' ) ) ) );
 		if ( isset( $_REQUEST["eventDate"] ) && $_REQUEST["eventDate"] ) {
 			$date = $_REQUEST["eventDate"] . '-01';
 		} else if ( !empty( $wp_query->query_vars['eventDate'] ) ) {
