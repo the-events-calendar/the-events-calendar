@@ -653,6 +653,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 								$current_url = str_replace( $wp_query->query['eventDate'], $next_recurrence, home_url( $wp->request ) );
 							}
 						}
+						break;
 					}
 
 					// A child event should be using its parent's slug. If it's using its own, redirect.
@@ -1299,6 +1300,8 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		 */
 	    public function admin_enqueue_scripts() {
 	    	wp_enqueue_script( TribeEvents::POSTTYPE.'-premium-admin', $this->pluginUrl . 'resources/events-admin.js', array( 'jquery-ui-datepicker' ), apply_filters( 'tribe_events_pro_js_version', TribeEventsPro::VERSION ), true );
+		    $data = apply_filters( 'tribe_events_pro_localize_script', array(), 'TribeEventsProAdmin', TribeEvents::POSTTYPE.'-premium-admin' );
+		    wp_localize_script( TribeEvents::POSTTYPE.'-premium-admin', 'TribeEventsProAdmin', $data);
 	    }
 
 		/**
@@ -1367,6 +1370,8 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 				$geoloc = TribeEventsGeoLoc::instance();
 
 				$data = array( 'geocenter' => $geoloc->estimate_center_point() );
+
+				$data = apply_filters( 'tribe_events_pro_localize_script', $data, 'TribeEventsPro', 'tribe-events-pro' );
 
 				wp_localize_script( 'tribe-events-pro', 'TribeEventsPro', $data );
 

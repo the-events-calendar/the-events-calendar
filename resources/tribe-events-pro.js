@@ -394,6 +394,18 @@ if (Object.prototype.hasOwnProperty.call(window, 'tribe_ev')) {
 
 		}
 
+		$('#wp-toolbar').on('click', '.tribe-split-single a, .tribe-split-all a', function() {
+			var message = '';
+			if ( $(this).parent().hasClass('tribe-split-all') ) {
+				message = TribeEventsPro.recurrence.splitAllMessage;
+			} else {
+				message = TribeEventsPro.recurrence.splitSingleMessage;
+			}
+			if ( !window.confirm(message) ) {
+				return false;
+			}
+		});
+
 		dbug && debug.info('TEC Debug: tribe-events-pro.js successfully loaded');
 
 	});

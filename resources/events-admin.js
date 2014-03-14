@@ -310,9 +310,9 @@ jQuery(document).ready(function($) {
 	$('.wp-list-table.posts').on( 'click', '.tribe-split', function() {
 		var message = '';
 		if ( $(this).hasClass('tribe-split-all') ) {
-			message = 'You are about to split this series in two. The event you selected and all subsequent events in the series will be separated into a new series of events that you can edit independently of the original series.\n\nThis action cannot be undone.';
+			message = TribeEventsProAdmin.recurrence.splitAllMessage;
 		} else {
-			message = 'You are about to break this event out of its series. You will be able to edit it independently of the original series.\n\nThis action cannot be undone.';
+			message = TribeEventsProAdmin.recurrence.splitSingleMessage;
 		}
 		if ( !window.confirm(message) ) {
 			return false;
