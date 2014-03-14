@@ -55,6 +55,7 @@ class TribeEventsRecurrenceMeta {
 		//add_filter( 'tribe_get_event_link', array( __CLASS__, 'addDateToEventPermalink'), 10, 2 );
     add_filter( 'post_row_actions', array( __CLASS__, 'edit_post_row_actions'), 10, 2 );
 		add_action( 'admin_action_tribe_split', array( __CLASS__, 'handle_split_request' ), 10, 1 );
+		add_action( 'wp_before_admin_bar_render', array( __CLASS__, 'admin_bar_render'));
 
     	add_filter( 'tribe_events_query_posts_groupby', array( __CLASS__, 'addGroupBy' ), 10, 2 );
 
@@ -76,6 +77,47 @@ class TribeEventsRecurrenceMeta {
 			return get_edit_post_link($parent, $context);
 		}
 		return $url;
+	}
+
+	/**
+	 * Change the link for a recurring event to edit its series
+	 * @return void
+	 */
+	public static function admin_bar_render(){
+		/** @var WP_Admin_Bar $wp_admin_bar */
+		global $post, $wp_admin_bar;
+		if ( is_admin() || !tribe_is_recurring_event( $post ) ) {
+			return;
+		}
+		if ( get_query_var('eventDisplay') == 'all' ) {
+			return;
+		}
+		$menu_parent = $wp_admin_bar->get_node('edit');
+		if ( !$menu_parent ) {
+			return;
+		}
+		if ( current_user_can('edit_post', $post->ID) ) {
+			$wp_admin_bar->add_node(array(
+				'id' => 'edit-series',
+				'title' => __( 'Edit All in Series', 'tribe-events-calendar-pro' ),
+				'parent' => 'edit',
+				'href' => $menu_parent->href,
+			));
+			$wp_admin_bar->add_node(array(
+				'id' => 'split-single',
+				'title' => __( 'Break from Series', 'tribe-events-calendar-pro' ),
+				'parent' => 'edit',
+				'href' => esc_url( wp_nonce_url( self::get_split_series_url($post->ID, FALSE, FALSE), 'tribe_split_'.$post->ID ) ),
+			));
+			if ( !empty($post->post_parent) ) {
+				$wp_admin_bar->add_node(array(
+					'id' => 'split-series',
+					'title' => __( 'Edit Future Events', 'tribe-events-calendar-pro' ),
+					'parent' => 'edit',
+					'href' => esc_url( wp_nonce_url( self::get_split_series_url($post->ID, FALSE, TRUE), 'tribe_split_'.$post->ID ) ),
+				));
+			}
+		}
 	}
 
 	public static function list_table_column_headers( $columns ) {
