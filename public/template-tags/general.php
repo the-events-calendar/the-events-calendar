@@ -991,7 +991,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 	function tribe_prepare_for_json( $string ){
 
 		$value = trim( htmlspecialchars( $string, ENT_QUOTES, 'UTF-8' ) );
-		$value = str_replace('&quot;', '"', $value);
+		$value = str_replace( '"', '&quot;', $value );
 
 		return $value;
 	}
@@ -999,85 +999,68 @@ if ( class_exists( 'TribeEvents' ) ) {
 	/**
 	 * Returns json for javascript templating functions throughout the plugin.
 	 *
-	 * @since  3.3
+	 * @since 3.3
 	 * @param $event
 	 * @param $additional
 	 * @author Modern Tribe
 	 * @return string
 	 */
-	function tribe_events_template_data( $event, $additional = null ) {
-
-		$json = array();
+	function tribe_events_template_data( $event, array $additional = null ) {
 		$has_image = false;
-
-		$json['eventId'] = $event->ID;
-		$json['title'] = tribe_prepare_for_json( $event->post_title );
-		$json['permalink'] = tribe_get_event_link( $event->ID );
-
 		$start_time = '';
+		$end_time = '';
+		$image_src = '';
+		$image_tool_src = '';
 
-		if ( !empty( $event->EventStartDate ) )
+		if ( ! empty( $event->EventStartDate ) )
 			$start_time .= date_i18n( get_option( 'date_format', 'F j, Y' ), strtotime( $event->EventStartDate ) );
-		if ( !tribe_get_event_meta( $event->ID, '_EventAllDay', true ) )
+
+		if ( ! tribe_get_event_meta( $event->ID, '_EventAllDay', true ) )
 			$start_time .= ' ' . date_i18n( get_option( 'time_format', 'g:i a' ), strtotime( $event->EventStartDate ) );
 
-		$json['startTime'] = $start_time;
-
-		$end_time = '';
-
-		if ( !empty( $event->EventEndDate ) && $event->EventStartDate !== $event->EventEndDate ) {
-
-			if ( date_i18n( 'Y-m-d', strtotime( $event->EventStartDate ) ) == date_i18n( 'Y-m-d', strtotime( $event->EventEndDate ) ) ) {
-
+		if ( ! empty( $event->EventEndDate ) && $event->EventStartDate !== $event->EventEndDate ) {
+			if ( date( 'Y-m-d', strtotime( $event->EventStartDate ) ) == date( 'Y-m-d', strtotime( $event->EventEndDate ) ) ) {
 				$time_format = get_option( 'time_format', 'g:i a' );
 
-				if ( !tribe_get_event_meta( $event->ID, '_EventAllDay', true ) )
+				if ( ! tribe_get_event_meta( $event->ID, '_EventAllDay', true ) )
 					$end_time .= date_i18n( $time_format, strtotime( $event->EventEndDate ) );
 			} else {
-
 				$end_time .= date_i18n( get_option( 'date_format', 'F j, Y' ), strtotime( $event->EventEndDate ) );
 
-				if ( !tribe_get_event_meta( $event->ID, '_EventAllDay', true ) )
+				if ( ! tribe_get_event_meta( $event->ID, '_EventAllDay', true ) )
 					$end_time .= ' ' . date_i18n( get_option( 'time_format', 'g:i a' ), strtotime( $event->EventEndDate ) );
 			}
 		}
 
-		$json['endTime'] = $end_time;
-
-		$image_src = '';
-
 		if ( function_exists( 'has_post_thumbnail' ) && has_post_thumbnail( $event->ID ) ) {
-
 			$has_image = true;
-
 			$image_arr = wp_get_attachment_image_src( get_post_thumbnail_id( $event->ID ), 'medium' );
 			$image_src = $image_arr[0];
-
 		}
 
-		$json['imageSrc'] = $image_src;
-
-		$image_tool_src = '';
-
-		if( $has_image ){
-
+		if ( $has_image ) {
 			$image_tool_arr = wp_get_attachment_image_src( get_post_thumbnail_id( $event->ID ), array( 75, 75 ) );
 			$image_tool_src = $image_tool_arr[0];
-
 		}
 
-		$json['imageTooltipSrc'] = $image_tool_src;
+		if ( has_excerpt( $event->ID ) ) $excerpt = $event->post_excerpt;
+		else $excerpt = $event->post_content;
+		$excerpt = tribe_prepare_for_json( TribeEvents::instance()->truncate( $excerpt, 30 ) );
 
-		if ( has_excerpt( $event->ID ) ) {
-			$excerpt = tribe_prepare_for_json( TribeEvents::truncate( $event->post_excerpt, 30 ) );
-		} else {
-			$excerpt = tribe_prepare_for_json( TribeEvents::truncate( $event->post_content, 30 ) );
-		}
+		$json = array(
+			'eventId' => $event->ID,
+			'title' => tribe_prepare_for_json( $event->post_title ),
+			'permalink' => tribe_get_event_link( $event->ID ),
+			'imageSrc' => $image_src,
+			'startTime' => $start_time,
+			'endTime' => $end_time,
+			'imageTooltipSrc' => $image_tool_src,
+			'excerpt' => $excerpt
+		);
 
-		$json['excerpt'] = $excerpt;
-
-		if( $additional ){
-			$json = array_merge( (array)$json, (array)$additional );
+		if ( $additional ) {
+			$additional = array_map( 'tribe_prepare_for_json', $additional );
+			$json = array_merge( (array) $json, (array) $additional );
 		}
 
 		return json_encode( $json );
