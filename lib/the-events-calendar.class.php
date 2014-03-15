@@ -2758,9 +2758,8 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				return;
 			}
 			// don't do anything on autosave or auto-draft either or massupdates
-			if ( wp_is_post_autosave( $postId ) || $post->post_status == 'auto-draft' || isset($_GET['bulk_edit']) || (isset($_REQUEST['action']) && $_REQUEST['action'] == 'inline-save') ) {
+			if ( wp_is_post_autosave( $postId ) || $post->post_status == 'auto-draft' || isset($_GET['bulk_edit']) || (isset($_REQUEST['action']) && $_REQUEST['action'] == 'inline-save') )
 				return;
-			}
 
 			if( !isset($_POST['ecp_nonce']) )
 				return;
@@ -2932,7 +2931,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		}
 
 		/**
-		 * If you are saving a venue separate from an event.
+		 * Make sure the venue meta gets saved
 		 *
 		 * @param int $postID The venue id.
 		 * @param WP_Post $post The post object.
@@ -2940,21 +2939,17 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 */
 		public function save_venue_data( $postID = null, $post=null ) {
 
-			// $_POST['venue'] will only be set on the full venue edit screen, so this avoids quick & bulk edit
-			if ( empty( $_POST['venue'] ) )
-				return;
-
-			//  Don't continue if autosaving
-			if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE )
+			// Don't save the venue meta if there wasn't one submitted
+			if ( empty( $_POST['Venue'] ) )
 				return;
 
 			// @TODO move this to the API function
 			if ( !current_user_can( 'edit_tribe_venues' ) )
 				return;
 
-			$data = stripslashes_deep ( $_POST['venue'] );
+			$data = stripslashes_deep ( $_POST['Venue'] );
 
-			$venue_id = TribeEventsAPI::updateVenue( $postID, $data );
+			TribeEventsAPI::updateVenue( $postID, $data );
 
 		}
 		/**
@@ -2994,7 +2989,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		}
 
 		/**
-		 * If you are saving an organizer separate from an event.
+		 * Make sure the organizer meta gets saved
 		 *
 		 * @param int $postID The organizer id.
 		 * @param WP_Post $post The post object.
@@ -3002,19 +2997,15 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 */
 		public function save_organizer_data( $postID = null, $post=null ) {
 
-			// $_POST['organizer'] will only be set on the full organizer edit screen, so this avoids quick & bulk edit
-			if ( empty( $_POST['organizer'] ) )
-				return;
-
-			//  Don't continue if autosaving
-			if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE )
+			// Don't save the organizer meta if there wasn't one submitted
+			if ( empty( $_POST['Organizer'] ) )
 				return;
 
 			// @TODO move this to the API function
 			if ( !current_user_can( 'edit_tribe_organizers' ) )
 				return;
 
-			$data = stripslashes_deep ( $_POST['organizer'] );
+			$data = stripslashes_deep ( $_POST['Organizer'] );
 
 			TribeEventsAPI::updateOrganizer( $postID, $data );
 		}
