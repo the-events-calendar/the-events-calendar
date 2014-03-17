@@ -38,11 +38,6 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 		 **/
 		public static function parse_query( $query ) {
 
-			// make sure is_home doesn't get set to true on subqueries
-			if ( ! $query->is_main_query() ) {
-				$query->is_home = false;
-			}
-
 			// include events in search results
 			if ( $query->is_search && $query->get( 'post_type' ) == '' ) {
 				$query->set( 'post_type', 'any' );
@@ -243,7 +238,7 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 						'taxonomy' => TribeEvents::TAXONOMY,
 						'field' => is_numeric( $query->get( TribeEvents::TAXONOMY ) ) ? 'id' : 'slug',
 						'terms' => $query->get( TribeEvents::TAXONOMY ),
-						'include_children' => false,
+						'include_children' => apply_filters( 'tribe_events_query_include_children', true ),
 					);
 				}
 
@@ -724,7 +719,7 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 						) );
 						$start_date = new DateTime( $args['start_date'] );
 						$end_date = new DateTime( $args['end_date'] );
-						$days = self::dateDiff( $start_date->format( 'Y-m-d' ), $end_date->format( 'Y-m-d' ) );
+						$days = TribeDateUtils::dateDiff( $start_date->format( 'Y-m-d' ), $end_date->format( 'Y-m-d' ) );
 						$term_id = isset( $wp_query->query_vars[TribeEvents::TAXONOMY] ) ? $wp_query->query_vars[TribeEvents::TAXONOMY] : null;
 						if ( is_int( $term_id ) ) {
 							$term = get_term_by( 'id', $term_id, TribeEvents::TAXONOMY );
@@ -785,24 +780,6 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 			$cache->set( $cache_key, $return, TribeEventsCache::NON_PERSISTENT, 'save_post' );
 			do_action( 'log', 'final event counts result', 'tribe-events-query', $return );
 			return $return;
-		}
-
-		/**
-		 * The number of days between two arbitrary dates.
-		 *
-		 * @param string $date1 The first date.
-		 * @param string $date2 The second date.
-		 * @return int The number of days between two dates.
-		 */
-		public static function dateDiff( $date1, $date2 ) {
-			$current = $date1;
-			$datetime2 = date_create( $date2 );
-			$count = 0;
-			while ( date_create( $current ) < $datetime2 ) {
-				$current = gmdate( "Y-m-d", strtotime( "+1 day", strtotime( $current ) ) );
-				$count++;
-			}
-			return $count;
 		}
 
 		/**

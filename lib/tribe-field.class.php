@@ -395,7 +395,7 @@ if ( !class_exists('TribeField') ) {
 			$field .= '<textarea';
 			$field .= $this->doFieldName();
 			$field .= '>';
-			$field .= stripslashes($this->value);
+			$field .= esc_html( stripslashes( $this->value ) );
 			$field .= '</textarea>';
 			$field .= $this->doScreenReaderLabel();
 			$field .= $this->doFieldDivEnd();

@@ -9,7 +9,7 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 if ( !class_exists( 'TribeEvents' ) ) {
 
 	/**
-	* The Events Calendar Pro Class
+	* The Events Calendar Class
 	*
 	* This is where all the magic happens, the unicorns run wild and the leprechauns use WordPress to schedule events.
 	*/
@@ -240,6 +240,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			require_once( 'tribe-view-helpers.class.php' );
 			require_once( 'tribe-events-bar.class.php' );
 			require_once( 'tribe-the-events-calendar-import.class.php' );
+			require_once( 'tribe-support.class.php' );
 			//require_once( 'tribe-debug-bar.class.php' );
 			require_once( 'tribe-amalgamator.php' );
 			require_once( 'tribe-events-update.class.php' );
@@ -982,14 +983,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 					$new_title = apply_filters( 'tribe_events_day_view_title', sprintf(__("Events for %s", 'tribe-events-calendar'), $title_date) . ' ' . $sep . ' ', $sep, $title_date );
 					break;
 				default:
-					global $post;
-					if( get_query_var('post_type') == self::POSTTYPE && is_single() && $this->getOption('tribeEventsTemplate') != '' ) {
-						$new_title = $post->post_title . ' ' . $sep . ' ' . $title;
-					} elseif( get_query_var('post_type') == self::VENUE_POST_TYPE && $this->getOption('tribeEventsTemplate') != '' ) {
-						$new_title = apply_filters( 'tribe_events_venue_view_title', sprintf(__("Events at %s", 'tribe-events-calendar'), $post->post_title) . ' ' . $sep . ' ' . $title,  $sep );
-					} else {
-						$new_title = $title;
-					}
+					$new_title = $title;
 					break;
 			}
 			return apply_filters( 'tribe_events_add_title', $new_title, $title, $sep );
@@ -1752,7 +1746,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 				</style>
 			<?php
-			} 
+			}
 		}
 
 		/**
@@ -2675,9 +2669,8 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				return;
 			}
 			// don't do anything on autosave or auto-draft either or massupdates
-			if ( wp_is_post_autosave( $postId ) || $post->post_status == 'auto-draft' || isset($_GET['bulk_edit']) || (isset($_REQUEST['action']) && $_REQUEST['action'] == 'inline-save') ) {
+			if ( wp_is_post_autosave( $postId ) || $post->post_status == 'auto-draft' || isset($_GET['bulk_edit']) || (isset($_REQUEST['action']) && $_REQUEST['action'] == 'inline-save') )
 				return;
-			}
 
 			// don't do anything on other wp_insert_post calls
 			if ( isset($_POST['post_ID']) && $postId != $_POST['post_ID'] ) {
@@ -2798,7 +2791,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 			remove_action( 'save_post', array( $this, 'addToPostAuditTrail' ), 10, 2 );
 
-			// don't need to save the venue or organizer data when we are just publishing
+			// don't need to save the venue or organizer meta when we are just publishing
 			remove_action( 'save_post_'.self::VENUE_POST_TYPE, array( $this, 'save_venue_data' ), 16, 2 );
 			remove_action( 'save_post_'.self::ORGANIZER_POST_TYPE, array( $this, 'save_organizer_data' ), 16, 2 );
 
@@ -2845,11 +2838,16 @@ if ( !class_exists( 'TribeEvents' ) ) {
 					}
 				}
 
-						}
-					}
+			}
+
+			// put the actions back
+			add_action( 'save_post_'.self::VENUE_POST_TYPE, array( $this, 'save_venue_data' ), 16, 2 );
+			add_action( 'save_post_'.self::ORGANIZER_POST_TYPE, array( $this, 'save_organizer_data' ), 16, 2 );
+
+		}
 
 		/**
-		 * If you are saving a venue separate from an event.
+		 * Make sure the venue meta gets saved
 		 *
 		 * @param int $postID The venue id.
 		 * @param WP_Post $post The post object.
@@ -2857,21 +2855,17 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 */
 		public function save_venue_data( $postID = null, $post=null ) {
 
-			// $_POST['venue'] will only be set on the full venue edit screen, so this avoids quick & bulk edit
-			if ( empty( $_POST['venue'] ) )
-				return;
-
-			//  Don't continue if autosaving
-			if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE )
+			// Don't save the venue meta if there wasn't one submitted
+			if ( empty( $_POST['Venue'] ) )
 				return;
 
 			// @TODO move this to the API function
 			if ( !current_user_can( 'edit_tribe_venues' ) )
 				return;
 
-			$data = stripslashes_deep ( $_POST['venue'] );
+			$data = stripslashes_deep ( $_POST['Venue'] );
 
-			$venue_id = TribeEventsAPI::updateVenue( $postID, $data );
+			TribeEventsAPI::updateVenue( $postID, $data );
 
 		}
 		/**
@@ -2911,7 +2905,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		}
 
 		/**
-		 * If you are saving an organizer separate from an event.
+		 * Make sure the organizer meta gets saved
 		 *
 		 * @param int $postID The organizer id.
 		 * @param WP_Post $post The post object.
@@ -2919,19 +2913,15 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 */
 		public function save_organizer_data( $postID = null, $post=null ) {
 
-			// $_POST['organizer'] will only be set on the full organizer edit screen, so this avoids quick & bulk edit
-			if ( empty( $_POST['organizer'] ) )
-				return;
-
-			//  Don't continue if autosaving
-			if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE )
+			// Don't save the organizer meta if there wasn't one submitted
+			if ( empty( $_POST['Organizer'] ) )
 				return;
 
 			// @TODO move this to the API function
 			if ( !current_user_can( 'edit_tribe_organizers' ) )
 				return;
 
-			$data = stripslashes_deep ( $_POST['organizer'] );
+			$data = stripslashes_deep ( $_POST['Organizer'] );
 
 			TribeEventsAPI::updateOrganizer( $postID, $data );
 		}
@@ -3854,29 +3844,27 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				}
 
 				if ( current_user_can( 'manage_options' ) ) {
-					$wp_admin_bar->add_menu( array(
-						'id' => 'tribe-events-settings',
-						'title' => __( 'Settings', 'tribe-events-calendar' ),
-						'parent' => 'tribe-events-settings-group'
-					) );
-				}
 
-				if ( current_user_can( 'manage_options' ) ) {
-					$wp_admin_bar->add_menu( array(
-						'id' => 'tribe-events-settings-sub',
-						'title' => __( 'Events', 'tribe-events-calendar' ),
-						'href' => trailingslashit( get_admin_url() ) . 'edit.php?post_type=' . self::POSTTYPE . '&amp;page=tribe-events-calendar',
-						'parent' => 'tribe-events-settings'
-					) );
-				}
+					$hide_all_settings = TribeEvents::instance()->getNetworkOption( 'allSettingsTabsHidden', '0' );
+					if ( $hide_all_settings == '0' ) {
+						$wp_admin_bar->add_menu( array(
+							'id' => 'tribe-events-settings',
+							'title' => __( 'Settings', 'tribe-events-calendar' ),
+							'href' => trailingslashit( get_admin_url() ) . 'edit.php?post_type=' . self::POSTTYPE . '&amp;page=tribe-events-calendar',
+							'parent' => 'tribe-events-settings-group'
+						) );
+					}
 
-				if ( current_user_can( 'manage_options' ) ) {
-					$wp_admin_bar->add_menu( array(
-						'id' => 'tribe-events-help',
-						'title' => __( 'Help', 'tribe-events-calendar' ),
-						'href' => trailingslashit( get_admin_url() ) . 'edit.php?post_type=' . self::POSTTYPE . '&amp;page=tribe-events-calendar&amp;tab=help',
-						'parent' => 'tribe-events-settings-group'
-					) );
+					// Only show help link if it's not blocked in network admin.
+					$hidden_settings_tabs = TribeEvents::instance()->getNetworkOption( 'hideSettingsTabs', array( ) );
+					if ( !in_array( 'help', $hidden_settings_tabs ) ) {
+						$wp_admin_bar->add_menu( array(
+							'id' => 'tribe-events-help',
+							'title' => __( 'Help', 'tribe-events-calendar' ),
+							'href' => trailingslashit( get_admin_url() ) . 'edit.php?post_type=' . self::POSTTYPE . '&amp;page=tribe-events-calendar&amp;tab=help',
+							'parent' => 'tribe-events-settings-group'
+						) );
+					}
 				}
 			}
 		}
@@ -3964,14 +3952,13 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		}
 
 		public function addHelpAdminMenuItem() {
-			// prevent users who cannot manage the plugin to see addons link
-			if( current_user_can( 'edit_tribe_events' ) ) {
-				global $submenu;
-                // This fails in IIS with open_basedir
-                //$submenu['edit.php?post_type=' . self::POSTTYPE][500] = array( __('Help', 'tribe-events-calendar'), 'manage_options' , add_query_arg( array( 'post_type' => self::POSTTYPE, 'page' => 'tribe-events-calendar', 'tab' => 'help' ), admin_url( 'edit.php' ) ) );
+			global $submenu;
 
-                $submenu['edit.php?post_type=' . self::POSTTYPE][500] = array( __('Help', 'tribe-events-calendar'), 'manage_options' , add_query_arg( array( 'post_type' => self::POSTTYPE, 'page' => 'tribe-events-calendar', 'tab' => 'help' ), 'edit.php?post_type=tribe_events&page=tribe-events-calendar&tab=help' ) );
-            }
+			// Only show help link if it's not blocked in network admin.
+			$hidden_settings_tabs = TribeEvents::instance()->getNetworkOption( 'hideSettingsTabs', array( ) );
+			if ( !in_array( 'help', $hidden_settings_tabs ) ) {
+				$submenu['edit.php?post_type=' . self::POSTTYPE][500] = array( __('Help', 'tribe-events-calendar'), 'manage_options' , add_query_arg( array( 'post_type' => self::POSTTYPE, 'page' => 'tribe-events-calendar', 'tab' => 'help' ), 'edit.php?post_type=tribe_events&page=tribe-events-calendar&tab=help' ) );
+			}
 		}
 
 		/**

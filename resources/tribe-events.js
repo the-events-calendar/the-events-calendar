@@ -688,7 +688,19 @@ try {
 		 */
 		starting_delim: function () {
 			return tribe_ev.state.cur_url.indexOf('?') != -1 ? '&' : '?';
-		}
+		},
+		/**
+		 * @type Boolean tribe_ev.tests.webkit
+		 * @since 3.0
+		 * @desc tribe_ev.tests.webkit checks if webkit is the browser in use and returns true or false.
+		 * @example <caption>Execute an if else on the presence of pushstate</caption>
+		 * if (tribe_ev.tests.webkit) {
+		 *		// is webkit
+		 * ) else {
+		 *     // is not webkit
+		 * }
+		 */
+		webkit: 'WebkitAppearance' in document.documentElement.style
 	};
 
 	/**

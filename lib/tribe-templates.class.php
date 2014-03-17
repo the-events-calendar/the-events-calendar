@@ -75,14 +75,14 @@ if (!class_exists('TribeEventsTemplates')) {
 			// hijack this method right up front if it's a 404
 			if ( is_404() && $events->displaying == 'single-event' && apply_filters( 'tribe_events_templates_is_404', '__return_true' ) )
 				return get_404_template();
+				
+			// add the theme slug to the body class
+			add_filter( 'body_class', array( __CLASS__, 'theme_body_class' ) );
 
 			// no non-events need apply
 			if ( ! in_array( get_query_var( 'post_type' ), array( TribeEvents::POSTTYPE, TribeEvents::VENUE_POST_TYPE, TribeEvents::ORGANIZER_POST_TYPE ) ) && ! is_tax( TribeEvents::TAXONOMY ) ) {
 				return $template;
 			}
-
-			// add the theme slug to the body class
-			add_filter( 'body_class', array( __CLASS__, 'theme_body_class' ) );
 
 			if ( tribe_get_option( 'tribeEventsTemplate', 'default' ) == '' ) {
 				return self::getTemplateHierarchy( 'default-template' );

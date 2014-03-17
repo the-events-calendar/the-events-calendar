@@ -133,7 +133,26 @@ if(!class_exists('TribeDateUtils')) {
 		public static function timeBetween( $date1, $date2 ) {
 		 return abs(strtotime($date1) - strtotime($date2));
 		}
-		
+
+		/**
+		 * The number of days between two arbitrary dates.
+		 *
+		 * @param string $date1 The first date.
+		 * @param string $date2 The second date.
+		 * @return int The number of days between two dates.
+		 */
+		public static function dateDiff( $date1, $date2 ) {
+
+			$start = new DateTime( $date1 );
+			$end   = new DateTime( $date2 );
+
+			// Get number of days between by finding seconds between and dividing by # of seconds in a day
+			$days  = round( ( $end->format( 'U' ) - $start->format( 'U' ) ) / ( 60 * 60 * 24 ) );
+
+			return $days;
+
+		}
+
 		/**
 		 * Returns the last day of the month given a php date.
 		 *
