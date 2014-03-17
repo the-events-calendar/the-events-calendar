@@ -30,7 +30,7 @@ if( !class_exists( 'TribeVenueWidget') ) {
 			), true );
 
 			// If there are no events, and the user has set to hide if empty, don't display the widget.
-			if ( $hide_if_empty && empty( $events ) )
+			if ( $hide_if_empty && ! $events->have_posts() )
 				return;
 
 			$ecp = TribeEventsPro::instance();
