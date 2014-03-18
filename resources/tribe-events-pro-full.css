@@ -916,6 +916,19 @@ div.tribe-countdown-text {
 	clear: both;
 	margin: 0 0 10px 0;
 }
+/* Twenty Thirteen Footer Widget */
+.tribe-theme-twentythirteen #secondary div.tribe-countdown-number, .tribe-theme-twentyfourteen #primary-sidebar div.tribe-countdown-number, .tribe-theme-twentyfourteen #footer-sidebar div.tribe-countdown-number {
+	color:#fff;
+	text-shadow:1px 1px #000;
+}
+.tribe-theme-twentythirteen #secondary span.tribe-countdown-under {
+	color:#fff;
+}
+
+.tribe-theme-twentyfourteen #primary-sidebar div.tribe-countdown-number {
+	font-size:24px;
+}
+
 
 /* = Events Venue Widget
 =============================================*/
