@@ -25,11 +25,9 @@
 			date_mod = false;
 
 		if ($('.tribe-events-calendar').length && $('#tribe-events-bar').length) {
-			if (initial_date) {
-				if (initial_date.length > 7) {
-					$('#tribe-bar-date-day').val(initial_date.slice(-3));
-					$tribedate.val(initial_date.substring(0, 7));
-				}
+			if (initial_date && initial_date.length > 7){
+				$('#tribe-bar-date-day').val(initial_date.slice(-3));
+				$tribedate.val(initial_date.substring(0, 7));
 			}
 		}
 
@@ -160,7 +158,7 @@
 
 		}
 
-		function tribe_month_view_init(callback, resize) {
+		function tribe_month_view_init(resize) {
 			if($body.is('.tribe-mobile')){
 				tribe_mobile_day_abbr();
 				tribe_mobile_month_setup();
@@ -170,10 +168,10 @@
 			}
 		}
 		
-		tribe_month_view_init(false, true);
+		tribe_month_view_init(true);
 
 		$(te).on('tribe_ev_resizeComplete', function () {
-			tribe_month_view_init(false, true);
+			tribe_month_view_init(true);
 		});
 
 		if (tt.pushstate && !tt.map_view()) {
@@ -377,7 +375,7 @@
 
 							$('#tribe-events-content').replaceWith($the_content);
 
-							tribe_month_view_init(false, true);
+							tribe_month_view_init(true);
 
 							ts.page_title = $('#tribe-events-header').data('title');
 							document.title = ts.page_title;
