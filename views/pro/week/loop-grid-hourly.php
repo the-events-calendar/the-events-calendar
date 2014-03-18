@@ -39,7 +39,7 @@ $hour_format = apply_filters( 'tribe_events_pro_week_hour_format', 'gA' );
 		<?php // Content ?>
 		<div class="tribe-grid-content-wrap">
 			<?php while ( tribe_events_week_have_days() ) : tribe_events_week_the_day(); ?>
-			<div title="<?php tribe_events_week_get_the_date(); ?>" class="column <?php tribe_events_week_column_classes(); ?>">
+			<div title="<?php tribe_events_week_get_the_date(); ?>" class="tribe-events-mobile-day column <?php tribe_events_week_column_classes(); ?>">
 				<?php foreach ( tribe_events_week_get_hourly() as $event ) : if ( tribe_events_week_setup_event( $event ) ) : ?>
 					<?php tribe_get_template_part( 'pro/week/single-event', 'hourly' ); ?>
 				<?php endif; endforeach; ?>
