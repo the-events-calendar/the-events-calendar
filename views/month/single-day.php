@@ -14,9 +14,7 @@
 if ( !defined('ABSPATH') ) { die('-1'); } ?>
 
 <?php
-
 $day = tribe_events_get_current_month_day();
-
 ?>
 
 <?php if ( $day['date'] != 'previous' && $day['date'] != 'next' ) : ?>
@@ -40,7 +38,14 @@ $day = tribe_events_get_current_month_day();
 	<!-- View More -->
 	<?php if ( $day['view_more'] && tribe_events_is_view_enabled( 'day' ) ) : ?>
 		<div class="tribe-events-viewmore">
-			<a href="<?php echo $day['view_more'] ?>">View All <?php echo $day['total_events'] ?> &raquo;</a>
+			<?php
+				if($day['total_events'] > 1 || $day['total_events'] == 0) {
+					$events_label = __( 'Events ', 'tribe-events-calendar' );
+				} else {
+					$events_label = __( 'Event ', 'tribe-events-calendar' );
+				}
+			?>
+			<a href="<?php echo $day['view_more'] ?>">View All <?php echo $day['total_events'] . " " . $events_label ?> &raquo;</a>
 		</div>
 	<?php endif ?>
 
