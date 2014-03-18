@@ -2939,6 +2939,12 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 */
 		public function save_venue_data( $postID = null, $post=null ) {
 
+			global $current_screen;
+
+			if ( ! empty( $current_screen ) && $current_screen->id == 'tribe_venue' ) { // single venue page
+				$_POST['Venue'] = isset($_POST['venue']) ? stripslashes_deep($_POST['venue']) : null;
+			}
+
 			// Don't save the venue meta if there wasn't one submitted
 			if ( empty( $_POST['Venue'] ) )
 				return;
@@ -2997,6 +3003,11 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 */
 		public function save_organizer_data( $postID = null, $post=null ) {
 
+			global $current_screen;
+
+			if ( ! empty( $current_screen ) && $current_screen->id == 'tribe_organizer' ) { // single organizer
+				$_POST['Organizer'] = isset($_POST['organizer']) ? stripslashes_deep($_POST['organizer']) : null;
+			}
 			// Don't save the organizer meta if there wasn't one submitted
 			if ( empty( $_POST['Organizer'] ) )
 				return;
