@@ -235,7 +235,7 @@ if( !class_exists('Tribe_Events_Month_Template')){
 			// setup counters
 			$rawOffset = date( 'w', strtotime($first_day_of_month) ) - $startOfWeek;
 			$prev_month_offset = (int) ( ( $rawOffset < 0 ) ? $rawOffset + 7 : $rawOffset ); // month begins on day x
-			$days_in_month = (int) date( 't', strtotime($first_day_of_month) );
+			$days_in_month = (int) date( 't', strtotime( $first_day_of_month ) );
 			$days_in_calendar =  $days_in_month + $prev_month_offset;
 			while ($days_in_calendar % 7 > 0) {
 				$days_in_calendar++;
