@@ -132,7 +132,7 @@ if (!class_exists('TribeEventsTemplates')) {
 		 * @return void
 		 * @author Jessica Yazbek
 		 **/
-		function default_events_template_body_class( $classes )
+		public static function default_events_template_body_class( $classes )
 		{
 			$classes[] = 'tribe-events-page-template';
 			return $classes;
