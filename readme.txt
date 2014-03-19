@@ -219,6 +219,8 @@ Our Premium Plugins:
 * Added updated Dutch translation files from J.F.M. Cornelissen and Frans Pronk
 * Added updated French translation files from Laurent Proulx
 * Fixed an issue where the Category class wasn't properly being added to events when paging in Week View
+* Fixed issue with popstate and bug in webkit when coming back from single venue view.
+* Fixed issue were week view title would be cut off on short events.
 
 = 3.4 = 
 
