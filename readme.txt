@@ -320,6 +320,11 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Fixed an issue where the <select> dropdown wasn't firing events correctly when using Skeleton styles
 * Fixed default view selector sync with available views checkboxes in settings admin.
 * Removed javascript dependency on wp body class function in month view.
+* Fixed issues with admin settings, with thanks to Grégory Viguier
+* Fixed issue with unnecessary separator symbols in title output
+* Help screen improvements
+* Fixed issue affecting handling of sticky posts
+* Improved handling of categories to automatically include child categories
 
 
 = 3.4.1 =
