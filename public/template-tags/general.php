@@ -782,42 +782,6 @@ if ( class_exists( 'TribeEvents' ) ) {
 	}
 
 	/**
-	 * show the recurring event info in a tooltip
-	 *
-	 * return the details of the start/end date/time
-	 *
-	 * @since  3.0
-	 * @param int     $post_id
-	 * @return string
-	 */
-	function tribe_events_event_recurring_info_tooltip( $post_id = null ) {
-		if ( is_null( $post_id ) )
-			$post_id = get_the_ID();
-		$tooltip = '';
-		if ( class_exists( 'TribeEventsPro' ) ) { // should this be a template tag?
-			if ( tribe_is_recurring_event( $post_id ) ) {
-				$tooltip .= '<div class="recurringinfo">';
-				$tooltip .= '<div class="event-is-recurring">';
-				$tooltip .= '<span class="tribe-events-divider">|</span>';
-				$tooltip .= __( 'Recurring Event', 'tribe-events-calendar' );
-				$tooltip .= sprintf(' <a href="%s">%s</a>',
-					tribe_all_occurences_link( $post_id, false ),
-					__( '(See all)', 'tribe-events-calendar' )
-					);
-				$tooltip .= '<div id="tribe-events-tooltip-'. $post_id .'" class="tribe-events-tooltip recurring-info-tooltip">';
-				$tooltip .= '<div class="tribe-events-event-body">';
-				$tooltip .= tribe_get_recurrence_text( $post_id );
-				$tooltip .= '</div>';
-				$tooltip .= '<span class="tribe-events-arrow"></span>';
-				$tooltip .= '</div>';
-				$tooltip .= '</div>';
-				$tooltip .= '</div>';
-			}
-		}
-		return apply_filters( 'tribe_events_event_recurring_info_tooltip', $tooltip );
-	}
-
-	/**
 	 * Return the details of the start/end date/time.
 	 *
 	 * The highest level means of customizing this function's output is simply to adjust the WordPress date and time
@@ -854,7 +818,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 * @param int|null $event
 	 * @return string
 	 */
-	function tribe_events_event_schedule_details( $event = null ) {
+	function tribe_events_event_schedule_details( $event = null, $before = '', $after = '' ) {
 		if ( is_null( $event ) ) {
 			global $post;
 			$event = $post;
@@ -955,6 +919,10 @@ if ( class_exists( 'TribeEvents' ) ) {
 			}
 		}
 
+		if ( !empty($schedule) ) {
+			$schedule = $before . $schedule . $after;
+		}
+
 		return apply_filters( 'tribe_events_event_schedule_details', $schedule );
 	}
 
@@ -963,18 +931,30 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 *
 	 * @param string $start_date
 	 * @param string $end_date
+	 * @param string|bool $day_cutoff
 	 * @return int
 	 * @author Modern Tribe
-	 * @see TribeEventsQuery::dateDiff()
+	 * @see TribeDateUtils::dateDiff()
 	 **/
-	function tribe_get_days_between( $start_date, $end_date ) {
+	function tribe_get_days_between( $start_date, $end_date, $day_cutoff = '00:00' ) {
+		if ( $day_cutoff === FALSE ) {
+			$day_cutoff = '00:00';
+		} elseif ( $day_cutoff === TRUE ) {
+			$day_cutoff = tribe_get_option( 'multiDayCutoff', '00:00' );
+		}
 
 		$start_date = new DateTime( $start_date );
-		$end_date   = new DateTime( $end_date );
+		if ( $start_date < new DateTime( $start_date->format( 'Y-m-d '.$day_cutoff ) ) ) {
+			$start_date->modify('-1 day');
+		}
+		$end_date = new DateTime( $end_date );
+		if ( $end_date <= new DateTime( $end_date->format( 'Y-m-d '.$day_cutoff ) ) ) {
+			$end_date->modify('-1 day');
+		}
 		//      This doesn't work on php 5.2
 		//  $interval = $start_date->diff($end_date);
 
-		return TribeDateUtils::dateDiff( $start_date->format( 'Y-m-d' ), $end_date->format( 'Y-m-d' ) );
+		return TribeDateUtils::dateDiff( $start_date->format( 'Y-m-d '.$day_cutoff ), $end_date->format( 'Y-m-d '.$day_cutoff ) );
 	}
 
 	/**

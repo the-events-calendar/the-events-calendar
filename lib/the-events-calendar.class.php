@@ -349,7 +349,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			//add_filter( 'the_content', array($this, 'emptyEventContent' ), 1 );
 			add_filter( 'wp_title', array($this, 'maybeAddEventTitle' ), 10, 2 );
 			add_filter( 'bloginfo_rss',	array($this, 'add_space_to_rss' ) );
-			add_filter( 'post_type_link', array($this, 'addDateToRecurringEvents'), 10, 2 );
 			add_filter( 'post_updated_messages', array($this, 'updatePostMessage') );
 
 			/* Add nav menu item - thanks to http://wordpress.org/extend/plugins/cpt-archives-in-nav-menus/ */
@@ -357,10 +356,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			add_filter( 'wp_nav_menu_objects', array( $this, 'add_current_menu_item_class_to_events'), null, 2);
 
 			add_filter( 'generate_rewrite_rules', array( $this, 'filterRewriteRules' ) );
-
-			if ( !is_admin() ) {
-				add_filter( 'get_comment_link', array( $this, 'newCommentLink' ), 10, 2 );
-			}
 
 			/* Setup Tribe Events Bar */
 			add_filter( 'tribe-events-bar-views',  array($this, 'setup_listview_in_bar'), 1, 1 );
@@ -388,12 +383,12 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			add_filter( 'tribe_events_register_event_type_args', array( $this, 'setDashicon' ) );
 			add_action( 'admin_print_scripts', array( $this, 'adminIcon' ) );
 			add_action( 'plugins_loaded', array( $this, 'accessibleMonthForm'), -10 );
-			add_action( 'the_post', array( $this, 'setReccuringEventDates' ) );
 			add_action( "trash_" . TribeEvents::VENUE_POST_TYPE, array($this, 'cleanupPostVenues'));
 			add_action( "trash_" . TribeEvents::ORGANIZER_POST_TYPE, array($this, 'cleanupPostOrganizers'));
 			add_action( "wp_ajax_tribe_event_validation", array($this,'ajax_form_validate') );
 			add_action( 'tribe_debug', array( $this, 'renderDebug' ), 10, 2 );
 			add_action( 'plugins_loaded', array('TribeEventsCacheListener', 'instance') );
+			add_action( 'plugins_loaded', array('TribeEventsCache', 'setup') );
 
 			// Load organizer and venue editors
 			add_action( 'admin_menu', array( $this, 'addVenueAndOrganizerEditor' ) );
@@ -439,7 +434,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			add_action( 'admin_head', array( $this, 'setInitialMenuMetaBoxes' ), 500 );
 			add_action( 'plugin_action_links_' . trailingslashit( $this->pluginDir ) . 'the-events-calendar.php', array( $this, 'addLinksToPluginActions' ) );
 			add_action( 'admin_menu', array( $this, 'addHelpAdminMenuItem' ), 50 );
-			add_action( 'comment_form', array( $this, 'addHiddenRecurringField' ) );
 
 			/* VIEWS AJAX CALLS */
 			add_action( 'wp_ajax_tribe_calendar', array( $this, 'calendar_ajax_call' ) );
@@ -467,19 +461,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			if ( $this->displaying === 'month' ) {
 				Tribe_Template_Factory::asset_package( 'ajax-calendar' );
 			}
-		}
-
-		/**
-		 * Test to see if the right version of Pro is active.
-		 *
-		 * @TODO This is really only used by the community plugin and it's also testing against an old version of TEC and comparing with an irrelevant PRO version. This should be deprecated.
-		 *
-		 * @param string $version
-		 * @return bool
-		 * @since 2.0.7
-		 */
-		public static function ecpActive( $version = '2.0.7' ) {
-			return class_exists( 'TribeEventsPro' ) && defined('TribeEventsPro::VERSION') && version_compare( TribeEventsPro::VERSION, $version, '>=');
 		}
 
 		/**
@@ -965,49 +946,13 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		}
 
 		/**
-		 * Add the date to the recurring events
-		 *
-		 * @param string $permalink
-		 * @param WP_Post $post
+		 * Sorts the meta to ensure we are getting the real start date
+		 * @deprecated since 3.4
+		 * @param int $postId
 		 * @return string
 		 */
-		public function addDateToRecurringEvents($permalink, $post) {
-			if(  function_exists('tribe_is_recurring_event') && $post->post_type == self::POSTTYPE && tribe_is_recurring_event($post->ID) && !is_search()) {
-				if( is_admin() && (!isset($post->EventStartDate) || !$post->EventStartDate) ) {
-					if( isset($_REQUEST['eventDate'] ) ) {
-						$post->EventStartDate = $_REQUEST['eventDate'];
-					} else	{
-						$post->EventStartDate = TribeEvents::getRealStartDate( $post->ID );
-					}
-				}
-
-				// prevent any call from outside the tribe from appending bad date on the end of recurring permalinks (looking at Yoast WP SEO)
-				if(!isset($post->EventStartDate) || !$post->EventStartDate)
-					return $permalink;
-
-				if( '' == get_option('permalink_structure') ) {
-					return add_query_arg('eventDate', TribeDateUtils::dateOnly( $post->EventStartDate ), $permalink );
-				} else {
-					return trailingslashit($permalink) . TribeDateUtils::dateOnly( isset($post->EventStartDate) ? $post->EventStartDate : null );
-				}
-			}
-			return $permalink;
-		}
-
-		/**
-		 * Sorts the meta to ensure we are getting the real start date
-		 * @param $postId
-		 * @return null
-		 */
 		public static function getRealStartDate( $postId ) {
-			$start_dates = get_post_meta( $postId, '_EventStartDate' );
-
-			if( is_array( $start_dates ) && sizeof( $start_dates ) > 0 ) {
-				sort($start_dates);
-				return $start_dates[0];
-			}
-
-			return null;
+			return TribeEvents::get_series_start_date($postId);
 		}
 
 		/**
@@ -2051,11 +1996,12 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 * @return string The date string for the earliest occurrence of the event
 		 */
 		public static function get_series_start_date( $post_id ) {
-			$start_dates = get_post_meta( $post_id, '_EventStartDate', false );
-			if ( $start_dates ) {
-				return min($start_dates);
+			if ( function_exists('tribe_get_recurrence_start_dates') ) {
+				$start_dates = tribe_get_recurrence_start_dates($post_id);
+				return reset($start_dates);
+			} else {
+				return get_post_meta( $post_id, '_EventStartDate', true );
 			}
-			return '';
 		}
 
 		/**
@@ -2216,29 +2162,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			// Update the saved option
 			$this->setOption('viewOption', $view);
 			return $view;
-		}
-
-		/**
-		 * Set the dates of recurring events.
-		 *
-		 * @param WP_Post $post The current event object.
-		 * @return void
-		 */
-		public function setReccuringEventDates( $post ) {
-			if( function_exists('tribe_is_recurring_event') &&
-				is_singular(self::POSTTYPE) &&
-				tribe_is_recurring_event() &&
-				!tribe_is_showing_all() &&
-				!tribe_is_upcoming() &&
-				!tribe_is_past() &&
-				!tribe_is_month() &&
-				!tribe_is_by_date() ) {
-
-				$startTime = self::get_series_start_date($post->ID);
-				$startTime = TribeDateUtils::timeOnly($startTime);
-				$post->EventStartDate = TribeDateUtils::addTimeToDate($post->EventStartDate, $startTime);
-				$post->EventEndDate = date( TribeDateUtils::DBDATETIMEFORMAT, strtotime($post->EventStartDate) + get_post_meta($post->ID, '_EventDuration', true) );
-			}
 		}
 
 		/**
@@ -2482,21 +2405,14 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				case 'single':
 					global $post;
 					$p = $secondary ? $secondary : $post;
-					remove_filter( 'post_type_link', array($this, 'addDateToRecurringEvents') );
 					$link = trailingslashit(get_permalink($p));
-					add_filter( 'post_type_link', array($this, 'addDateToRecurringEvents'), 10, 2 );
 					$eventUrl = trailingslashit( esc_url($link) );
 					break;
 				case 'day':
+					// TODO: Move this to pro?
 					$date = strtotime($secondary);
 					$secondary = date('Y-m-d', $date);
 					$eventUrl = trailingslashit( esc_url($eventUrl . $secondary) );
-					break;
-				case 'all':
-					remove_filter( 'post_type_link', array($this, 'addDateToRecurringEvents') );
-					$eventUrl = trailingslashit(get_permalink());
-					add_filter( 'post_type_link', array($this, 'addDateToRecurringEvents'), 10, 2 );
-					$eventUrl = trailingslashit( esc_url($eventUrl . 'all') );
 					break;
 				default:
 					$eventUrl = esc_url($eventUrl);
@@ -2544,11 +2460,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 					global $post;
 					$p = $secondary ? $secondary : $post;
 					$eventUrl = get_permalink($p);
-					break;
-				case 'all':
-					remove_filter( 'post_type_link', array($this, 'addDateToRecurringEvents') );
-					$eventUrl = add_query_arg('eventDisplay', 'all', get_permalink() );
-					add_filter( 'post_type_link', array( $this, 'addDateToRecurringEvents' ), 10, 2 );
 					break;
 				case 'home':
 				default:
@@ -2760,6 +2671,11 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			// don't do anything on autosave or auto-draft either or massupdates
 			if ( wp_is_post_autosave( $postId ) || $post->post_status == 'auto-draft' || isset($_GET['bulk_edit']) || (isset($_REQUEST['action']) && $_REQUEST['action'] == 'inline-save') )
 				return;
+
+			// don't do anything on other wp_insert_post calls
+			if ( isset($_POST['post_ID']) && $postId != $_POST['post_ID'] ) {
+				return;
+			}
 
 			if( !isset($_POST['ecp_nonce']) )
 				return;
@@ -4057,25 +3973,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		}
 
 		/**
-		 * Filter call that returns the proper link for after a comment is submitted to a recurring event.
-		 *
-		 * @author PaulHughes01
-		 * @since 2.0.8
-		 *
-		 * @param string $content
-		 * @param object $comment the comment object
-		 * @return string the link
-		 */
-		public function newCommentLink( $content, $comment ) {
-			if ( function_exists( 'tribe_is_recurring_event' ) && tribe_is_recurring_event( get_the_ID() ) && isset( $_REQUEST['eventDate'] ) ) {
-				$link = trailingslashit( $this->getLink( 'single' ) ) . $_REQUEST['eventDate'] . '#comment-' . $comment->comment_ID;
-			} else {
-				$link = $content;
-			}
-			return $link;
-		}
-
-		/**
 		 * When the edit-tags.php screen loads, setup filters
 		 * to fix the tagcloud links
 		 *
@@ -4105,18 +4002,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				$link = add_query_arg(array('post_type' => self::POSTTYPE), $link);
 			}
 			return $link;
-		}
-
-		/**
-		 * Adds a hidden field to recurring events comments forms that stores the eventDate.
-		 *
-		 * @author PaulHughes01
-		 * @since 2.0.8
-		 *
-		 * @return void
-		 */
-		public function addHiddenRecurringField() {
-			echo '<input type="hidden" name="eventDate" value="' . get_query_var( 'eventDate' ) . '" />';
 		}
 
 		/**

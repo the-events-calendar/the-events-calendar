@@ -92,7 +92,7 @@ if( class_exists( 'TribeEvents' ) ) {
 		$tribe_ecp = TribeEvents::instance();
 		$tribe_is_showing_all = ($tribe_ecp->displaying == 'all') ? true : false;
 		if( $tribe_is_showing_all )
-			add_filter( 'tribe_events_event_recurring_info_tooltip', '__return_false' );
+			add_filter( 'tribe_events_recurrence_tooltip', '__return_false' );
 		return apply_filters('tribe_is_showing_all', $tribe_is_showing_all);
 	}
 

@@ -229,31 +229,30 @@ jQuery(document).ready(function($) {
 	}
 
 	var $picker_recur_end = $('[name="recurrence[end]"]'),
-		$is_recurring = $('[name="is_recurring"]'),
-		$recur_action = $('[name="recurrence_action"]');
+		$is_recurring = $('[name="is_recurring"]');
 
 	$("#EventCountry").change(function() {
 		var countryLabel = $(this).find('option:selected').val();
 		tribeShowHideCorrectStateProvinceInput( countryLabel );
 	});
 
-	// If recurrence changes on a recurring event, then show warning, and automatically change whole recurrence
-	if($is_recurring.val() == "true" && !$recur_action.val() ) {
+	// If recurrence changes on a recurring event, then show warning
+	if($is_recurring.val() == "true" ) {
 		function recurrenceChanged() {
 			$('#recurrence-changed-row').show();
-			$recur_action.val(2);
 		}
 
 		$('.recurrence-row input, .custom-recurrence-row input,.recurrence-row select, .custom-recurrence-row select').change(recurrenceChanged);
-		$picker_recur_end.datepicker('option', 'onSelect', recurrenceChanged);
+		$picker_recur_end.bind('recurrenceEndChanged', recurrenceChanged);
 	}
 
 	$picker_recur_end.datepicker('option', 'onSelect', function() {
 		$picker_recur_end.removeClass('placeholder');
+		$(this).trigger('recurrenceEndChanged');
 	});
 	
 	function isExistingRecurringEvent() {
-		return $is_recurring.val() == "true" && !$recur_action.val() && !$recur_action.val()
+		return $is_recurring.val() == "true";
 	}
 	
 	$('#EventInfo input, #EventInfo select').change(function() {
@@ -264,71 +263,6 @@ jQuery(document).ready(function($) {
 
 	eventSubmitButton.click(function() {
 		$(this).data('clicked', true);
-	});
-	
-	/* Recurring Events Dialog */
-	$('.wp-admin.events-cal #post').submit(function(e) {
-		var self = $(this);
-		
-		if( isExistingRecurringEvent() ) { // not a new event
-			e.preventDefault();
-			$('#recurring-dialog').dialog({
-				modal: true,
-				buttons: [{
-						text:"Only This Event",
-						click: function() { 
-							$('[name="recurrence_action"]').val(3);
-							
-							if (eventSubmitButton.data('clicked') )
-								$('<input type="hidden" name="' + eventSubmitButton.attr('name') + '" value="' + eventSubmitButton.val() + '"/>').appendTo(self);
-							
-							$(this).dialog("close"); 							
-							self.submit();
-						}
-				}, {
-						text:"All Events",
-						click: function() { 
-							$('[name="recurrence_action"]').val(2);
-
-							if (eventSubmitButton.data('clicked') )
-								$('<input type="hidden" name="' + eventSubmitButton.attr('name') + '" value="' + eventSubmitButton.val() + '"/>').appendTo(self);							
-
-							$(this).dialog("close"); 
-							self.submit();
-						}				
-				}],
-				close: function() {
-					eventSubmitButton.data('clicked', null);
-				}
-			});
-		}
-	});	
-	
-	$('.wp-admin.events-cal .submitdelete').click(function(e) {
-
-		var link = $(this);
-
-		if ( isExistingRecurringEvent() ) {
-			e.preventDefault();
-
-			$('#deletion-dialog').dialog({
-				//submitdelete
-				modal: true,
-				buttons: [{
-					text: "Only This Event",
-					click: function() {
-						document.location = link.attr('href') + '&event_start=' + $(this).data('start');
-					}
-				},
-				{
-					text: "All Events",
-					click: function() {
-						document.location = link.attr('href') + '&deleteAll';
-					}
-				}]
-			});
-		}
-
 	});
 
 	// recurrence ui

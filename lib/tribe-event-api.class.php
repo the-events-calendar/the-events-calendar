@@ -101,8 +101,6 @@ if (!class_exists('TribeEventsAPI')) {
 			
 			$data['EventDuration'] = strtotime($data['EventEndDate']) - $startTimestamp;
 
-			$old_data['EventStartDate'] = TribeEvents::get_series_start_date($event_id);
-		
 			update_post_meta( $event_id, '_EventShowMapLink', isset( $data['venue']['EventShowMapLink'] ) );
 			update_post_meta( $event_id, '_EventShowMap', isset( $data['venue']['EventShowMap'] ) );
 
@@ -139,12 +137,10 @@ if (!class_exists('TribeEventsAPI')) {
 			foreach ( $tribe_ecp->metaTags as $tag ) {
 				$htmlElement = ltrim( $tag, '_' );
 				if ( isset( $data[$htmlElement] ) && $tag != TribeEvents::EVENTSERROROPT ) {
-					if ( is_string($data[$htmlElement]) )
+					if ( is_string($data[$htmlElement]) ) {
 						$data[$htmlElement] = filter_var($data[$htmlElement], FILTER_SANITIZE_STRING);
-					if ( isset( $old_data[$htmlElement] ) )
-						update_post_meta( $event_id, $tag, $data[$htmlElement], $old_data[$htmlElement] );
-					else
-						update_post_meta( $event_id, $tag, $data[$htmlElement] );
+					}
+					update_post_meta( $event_id, $tag, $data[$htmlElement] );
 				}
 			}
 

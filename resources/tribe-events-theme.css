@@ -75,6 +75,10 @@ ul.tribe-events-sub-nav a,
 	display: none;
 }
 
+.event-is-recurring .tribe-events-divider {
+	display: inline;
+}
+
 /* Featured Images */
 .tribe-events-event-image {
 	margin-bottom: 1.25em;
