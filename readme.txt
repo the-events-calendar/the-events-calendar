@@ -309,6 +309,7 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Added updated Dutch translation files courtesy of J.F.M. Cornelissen and Frans Pronk
 * Added updated French translation files from Laurent Proulx
 * Added fully responsive styling for all Events Views
+* Added javascript templating for use in tooltips and mobile views were needed.
 * Updated Countdown widget styling to match TwentyElevent/TwentyTwelve/TwentyThirteen/TwentyFourteen theme styling
 * Fixed a responsive layout issue with the Classic Tribe Bar 
 * Fixed a responsive layout issue with days not lining up properly in the Month view in TwentyFourteen
@@ -317,6 +318,8 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Fixed a styling issue with the 'Cancel' button when creating tickets for an event
 * Fixed an issue where the 'View Calendar' link wasn't displaying correctly on the Event List page in the admin
 * Fixed an issue where the <select> dropdown wasn't firing events correctly when using Skeleton styles
+* Fixed default view selector sync with available views checkboxes in settings admin.
+* Removed javascript dependency on wp body class function in month view.
 
 
 = 3.4.1 =
