@@ -1319,37 +1319,9 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 					|| is_active_widget( false, false, 'next_event' )
 					|| is_active_widget( false, false, 'tribe-events-venue-widget')
 				) {
-				// Tribe Events CSS filename
-				$event_file = 'tribe-events-pro.css';
-				$stylesheet_option = tribe_get_option( 'stylesheetOption', 'tribe' );
 
-				// What Option was selected
-				switch( $stylesheet_option ) {
-					case 'skeleton':
-					case 'full':
-						$event_file_option = 'tribe-events-pro-'. $stylesheet_option .'.css';
-						break;
-					default:
-						$event_file_option = 'tribe-events-pro-theme.css';
-						break;
-				}
+				Tribe_PRO_Template_Factory::asset_package( 'events-pro-css' );
 
-				$styleUrl = trailingslashit( $this->pluginUrl ) . 'resources/' . $event_file_option;
-				$styleUrl = apply_filters( 'tribe_events_pro_stylesheet_url', $styleUrl );
-
-				// Is there a pro override file in the theme?
-				$styleOverrideUrl = TribeEventsTemplates::locate_stylesheet( 'tribe-events/pro/'. $event_file );
-
-				// Load up stylesheet from theme or plugin
-				if( $styleUrl && $stylesheet_option == 'tribe' ) {
-					wp_enqueue_style( 'full-calendar-pro-style', trailingslashit( $this->pluginUrl ) . 'resources/tribe-events-pro-full.css', array(), apply_filters( 'tribe_events_pro_css_version', TribeEventsPro::VERSION ) );
-					wp_enqueue_style( TribeEvents::POSTTYPE . '-calendar-pro-style', $styleUrl, array(), apply_filters( 'tribe_events_pro_css_version', TribeEventsPro::VERSION ) );
-				} else {
-					wp_enqueue_style( TribeEvents::POSTTYPE . '-calendar-pro-style', $styleUrl, array(), apply_filters( 'tribe_events_pro_css_version', TribeEventsPro::VERSION ) );
-				}
-				if( $styleOverrideUrl ) {
-					wp_enqueue_style( TribeEvents::POSTTYPE . '-calendar-pro-override-style', $styleOverrideUrl, array(), apply_filters( 'tribe_events_pro_css_version', TribeEventsPro::VERSION ) );
-				}
 			}
 		}
 

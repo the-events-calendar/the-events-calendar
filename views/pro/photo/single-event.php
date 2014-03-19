@@ -19,6 +19,8 @@ global $post;
 
  ?>
 
+<div class="tribe-events-photo-event-wrap">
+
 <?php echo tribe_event_featured_image( null, 'medium' ); ?>
 
  <div class="tribe-events-event-details tribe-clearfix">
@@ -52,3 +54,5 @@ global $post;
 	<?php do_action( 'tribe_events_after_the_content' ) ?>
 
 </div><!-- /.tribe-events-event-details -->
+
+</div><!-- /.tribe-events-photo-event-wrap -->

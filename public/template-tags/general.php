@@ -630,9 +630,9 @@ if( class_exists( 'TribeEventsPro' ) ) {
 			case null :
 				return __( 'Today', 'tribe-events-calendar-pro' );
 			case 'previous day' :
-				return __( '&laquo; Previous Day', 'tribe-events-calendar-pro' );
+				return __( '<span>&laquo;</span> Previous Day', 'tribe-events-calendar-pro' );
 			case 'next day' :
-				return __( 'Next Day &raquo;', 'tribe-events-calendar-pro' );
+				return __( 'Next Day <span>&raquo;</span>', 'tribe-events-calendar-pro' );
 			case 'yesterday' :
 				return __( 'Yesterday', 'tribe-events-calendar-pro' );
 			case 'tomorrow' :
@@ -838,5 +838,23 @@ if( class_exists( 'TribeEventsPro' ) ) {
 		$tooltip = apply_filters( 'tribe_events_event_recurring_info_tooltip', $tooltip ); // for backwards-compat, will be removed
 		return apply_filters( 'tribe_events_recurrence_tooltip', $tooltip );
 	}
+
+	/*
+	 * Returns or echoes a url to a file in the Events Calendar PRO plugin resources directory
+	 *
+	 * @param string $resource the filename of the resource
+	 * @param bool $echo whether or not to echo the url
+	 * @return string
+	 * @author Jessica Yazbek
+	 * @since 3.5
+	 **/
+	function tribe_events_pro_resource_url($resource, $echo = false) {
+		$url = apply_filters('tribe_events_pro_resource_url', trailingslashit( TribeEventsPro::instance()->pluginUrl ).'resources/'.$resource, $resource);
+		if ($echo) {
+			echo $url;
+		}
+		return $url;
+	}
+
 
 }
