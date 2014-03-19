@@ -231,7 +231,7 @@ The plugin is produced by <a href="http://m.tri.be/2s">Modern Tribe Inc</a>.
 * Danish from Anonymous
 * Dutch from J.F.M. Cornelissen and Frans Pronk
 * Finnish by Ari-Pekka Koponen
-* French from Bastien BC
+* French from Laurent Proulx
 * German from by Oliver Heinrich
 * Greek from Maria Tsilimidou
 * Icelandic by Baldvin Berndsen
@@ -247,7 +247,7 @@ The plugin is produced by <a href="http://m.tri.be/2s">Modern Tribe Inc</a>.
 * Swedish from Ben Andersen
 * Turkish by Derin Korman
 
-* Previous translators include Mikhail Michouris, Dionizio Bonfim Bach, Mihai Burcea, Ed Boon, Rick van Dalen, Jacob Roel Meijering, hristian Andersen, Michael Sebel, Filippo Montanari, David Decker, Kamil Szymanski, Erik Massop, “Terje With Lunndal", Andreas Lorentsen, Sagi Shrieber, Matthew Meyer, Arno Faure, Fanny Heraud, Vincent G from Host1Free, , Petri Kajander, Fran Rosa, Nico (wsMaurik), Panos Efstratiou, Dominique Monhardt, Thomas Butzek, Kjell Vestnes, Luiza Libardi, Diego Meneghetti, Beno Burgener, Burak Pehlevan, and Alexey Fedorov
+* Previous translators include Mikhail Michouris, Bastien BC, Dionizio Bonfim Bach, Mihai Burcea, Ed Boon, Rick van Dalen, Jacob Roel Meijering, hristian Andersen, Michael Sebel, Filippo Montanari, David Decker, Kamil Szymanski, Erik Massop, “Terje With Lunndal", Andreas Lorentsen, Sagi Shrieber, Matthew Meyer, Arno Faure, Fanny Heraud, Vincent G from Host1Free, , Petri Kajander, Fran Rosa, Nico (wsMaurik), Panos Efstratiou, Dominique Monhardt, Thomas Butzek, Kjell Vestnes, Luiza Libardi, Diego Meneghetti, Beno Burgener, Burak Pehlevan, and Alexey Fedorov
 
 == Add-Ons ==
 
@@ -300,13 +300,24 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 
 = 3.5 =
 
-Added new Montenegrin translation files, courtesy of Sasa Vukovic
-Added updated Norwegian Bokmål translation files, courtesy of Morten Ruud
-Added new Norwegian Nynorsk translation files, courtesy of Torbjørn Lauen
-Added updated Romanian translation files, courtesy of Cosmin Vaman
-Added updated German translation files by Oliver Heinrich
-Added updated Brazilian Portuguese translation files courtesy of Emerson Marques
-Added updated Dutch translation files courtesy of J.F.M. Cornelissen and Frans Pronk
+* Added new Montenegrin translation files, courtesy of Sasa Vukovic
+* Added updated Norwegian Bokmål translation files, courtesy of Morten Ruud
+* Added new Norwegian Nynorsk translation files, courtesy of Torbjørn Lauen
+* Added updated Romanian translation files, courtesy of Cosmin Vaman
+* Added updated German translation files by Oliver Heinrich
+* Added updated Brazilian Portuguese translation files courtesy of Emerson Marques
+* Added updated Dutch translation files courtesy of J.F.M. Cornelissen and Frans Pronk
+* Added updated French translation files from Laurent Proulx
+* Added fully responsive styling for all Events Views
+* Updated Countdown widget styling to match TwentyElevent/TwentyTwelve/TwentyThirteen/TwentyFourteen theme styling
+* Fixed a responsive layout issue with the Classic Tribe Bar 
+* Fixed a responsive layout issue with days not lining up properly in the Month view in TwentyFourteen
+* Fixed an issue where the address wasn't displaying properly in the single venue view
+* Fixed an issue where events can overlap the Date Picker in week view
+* Fixed a styling issue with the 'Cancel' button when creating tickets for an event
+* Fixed an issue where the 'View Calendar' link wasn't displaying correctly on the Event List page in the admin
+* Fixed an issue where the <select> dropdown wasn't firing events correctly when using Skeleton styles
+
 
 = 3.4.1 =
 

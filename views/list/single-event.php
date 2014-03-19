@@ -53,7 +53,6 @@ $has_venue_address = ( $venue_address ) ? ' location': '';
 	<!-- Schedule & Recurrence Details -->
 	<div class="updated published time-details">
 		<?php echo tribe_events_event_schedule_details() ?>
-		<?php echo tribe_events_event_recurring_info_tooltip() ?>
 	</div>
 	
 	<?php if ( $venue_details ) : ?>

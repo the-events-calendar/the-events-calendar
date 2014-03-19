@@ -49,4 +49,7 @@ if ( !defined('ABSPATH') ) { die('-1'); } ?>
 	</div><!-- #tribe-events-footer -->
 	<?php do_action( 'tribe_events_after_footer' ) ?>
 	
+	<?php tribe_get_template_part( 'month/mobile' ); ?>
+	<?php tribe_get_template_part( 'month/tooltip' ); ?>
+	
 </div><!-- #tribe-events-content -->

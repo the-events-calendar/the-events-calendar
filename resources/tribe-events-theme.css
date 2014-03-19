@@ -28,9 +28,9 @@
 .tribe-events-calendar td.tribe-events-present div[id*="tribe-events-daynum-"] > a,
 #tribe_events_filters_wrapper input[type=submit],
 .tribe-events-button,
-.entry-content .tribe-events-button,
+#tribe-events .tribe-events-button,
 .tribe-events-button.tribe-inactive,
-.entry-content .tribe-events-button:hover,
+#tribe-events .tribe-events-button:hover,
 .tribe-events-button:hover,
 .tribe-events-button.tribe-active:hover {
 	background-color: #21759b;
@@ -43,7 +43,7 @@
 
 .tribe-events-button.tribe-inactive,
 .tribe-events-button:hover,
-.entry-content .tribe-events-button:hover,
+#tribe-events .tribe-events-button:hover,
 .tribe-events-button.tribe-active:hover {
 	color:#fff;
 }
@@ -73,6 +73,10 @@ ul.tribe-events-sub-nav a,
 /* Event Schedule Detail Styling */
 .tribe-events-divider {
 	display: none;
+}
+
+.event-is-recurring .tribe-events-divider {
+	display: inline;
 }
 
 /* Featured Images */
@@ -108,13 +112,6 @@ h2.tribe-events-page-title,
 .single-tribe_events #tribe-events-header {
  	display: none;
 }
-
-@media only screen and (max-width: 767px) {
-	#tribe-events-header .tribe-events-sub-nav li a {
-	 	display: none;
-	}
-}
-
 
 /* = List View Template Styles
    @ Template: list.php
@@ -201,13 +198,6 @@ h2.tribe-events-page-title,
 	padding-right: 3px;
 }
 
-@media only screen and (max-width: 767px) {
- .tribe-events-list .tribe-events-loop .tribe-events-event-meta .recurringinfo {
- 	display: block;
- 	padding: 0;
- }
-}
-
 /* = List View & Single Venue (Pro Version) Template Styles
    @ Template: list.php & single-venue.php
 =============================================*/
@@ -219,7 +209,6 @@ h2.tribe-events-page-title,
 	max-width: 700px;
 	margin: 0 auto;
 }
-
 
 /* = Single Event Template Styles
    @ Template: single-event.php
@@ -252,7 +241,6 @@ h2.tribe-events-page-title,
 .single-tribe_events .tribe-events-cal-links {
 	margin-bottom: 1.75em;
 	display: block;
-	overflow: hidden;
 }
 
 .single-tribe_events a.tribe-events-ical, 
@@ -288,18 +276,9 @@ h2.tribe-events-page-title,
 .single-tribe_events .tribe-events-event-meta {
 	font-size: 14px;
 }
-@media only screen and (max-width: 767px) {
-	.single-tribe_events .tribe-events-schedule .recurringinfo {
-		display: block;
-		margin: 1em 0 0;
-	}
-	.single-tribe_events .tribe-events-schedule .recurringinfo .tribe-events-divider {
-		display: none;
-	}
-}
 
 /* = Calendar Styles (includes styles for both large & small calendars)
-   @ Template: calendar.php & calendar-widget.php
+   @ Template: month.php & widgets/calendar-widget.php
 =============================================*/
 /* Global Calendar Styles */
 #tribe-events-content .tribe-events-calendar td {
@@ -312,18 +291,17 @@ h2.tribe-events-page-title,
 	        transition: all .2s cubic-bezier(0.550, 0.085, 0.680, 0.530);
 }
 
-#tribe-events-content .tribe-events-calendar td:hover{
+#tribe-events-content .tribe-events-calendar td:hover {
 	background: #f7f7f7;
 	-webkit-box-shadow: rgba(0,0,0, 0.2) 0px 0px 10px;
-			box-shadow: rgba(0,0,0, 0.2) 0px 0px 10px;	
-
+			box-shadow: rgba(0,0,0, 0.2) 0px 0px 10px;
 }
 
-.tribe-events-othermonth{
+.tribe-events-othermonth {
 	background: #f9f9f9;
 }
 
-#tribe-events-content .tribe-events-calendar .tribe-events-othermonth:hover{
+#tribe-events-content .tribe-events-calendar .tribe-events-othermonth:hover {
 	-webkit-box-shadow: none;
 			box-shadow: none;
 }
@@ -340,11 +318,9 @@ h2.tribe-events-page-title,
 	font-weight: bold;
 }
 
-
-.tribe-events-calendar div[id*="tribe-events-daynum-"] a:hover{
+.tribe-events-calendar div[id*="tribe-events-daynum-"] a:hover {
 	color:#666;	
 }
-
 
 .tribe-events-calendar td.tribe-events-past div[id*="tribe-events-daynum-"], 
 .tribe-events-calendar td.tribe-events-past div[id*="tribe-events-daynum-"] > a {
@@ -390,8 +366,8 @@ h2.tribe-events-page-title,
 	background-color: #666;
 	color: #fff;
 	font-weight: bold;
-	letter-spacing: 0;
 	padding: 1em 0;
+	white-space: nowrap;
 	border-left: 1px solid #666;
 	border-right: 1px solid #666;
 }
@@ -441,13 +417,13 @@ h2.tribe-events-tickets-title {
 	font-size: 17px;
 }
 
-/* = Retina
+/* = Events Retina
 =============================================*/
 @media 
-only screen and (min--moz-device-pixel-ratio: 2),
-only screen and (-o-min-device-pixel-ratio: 2/1),
-only screen and (-webkit-min-device-pixel-ratio: 2),
-only screen and (min-device-pixel-ratio: 2) {
+(min--moz-device-pixel-ratio: 2),
+(-o-min-device-pixel-ratio: 2/1),
+(-webkit-min-device-pixel-ratio: 2),
+(min-device-pixel-ratio: 2) {
 	.tribe-events-tooltip .tribe-events-arrow {
 		background-image: url(images/tribe-theme/tribe-theme-tooltips@2x.png);
 	}

@@ -15,11 +15,10 @@ if( class_exists( 'TribeEvents' ) ) {
 	 *
 	 * Returns the event start date and time
 	 *
-	 * @param int $event (optional) This only works for non recurring events
+	 * @param int $event (optional)
 	 * @param bool $displayTime If true shows date and time, if false only shows date
 	 * @param string $dateFormat Allows date and time formating using standard php syntax (http://php.net/manual/en/function.date.php)
 	 * @return string Date
-	 * @todo support $postId for recurring events.
 	 * @since 2.0
 	 */
 	function tribe_get_start_date( $event = null, $displayTime = true, $dateFormat = '' )  {
@@ -50,11 +49,10 @@ if( class_exists( 'TribeEvents' ) ) {
 	 *
 	 * Returns the event end date
 	 *
-	 * @param int $event (optional) this only works for non recurring events
+	 * @param int $event (optional)
 	 * @param bool $displayTime If true shows date and time, if false only shows date
 	 * @param string $dateFormat Allows date and time formating using standard php syntax (http://php.net/manual/en/function.date.php)
 	 * @return string Date
-	 * @todo support $postId for recurring events.
 	 * @since 2.0
 	 */
 	function tribe_get_end_date( $event = null, $displayTime = true, $dateFormat = '' )  {
