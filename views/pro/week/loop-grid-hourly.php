@@ -21,7 +21,7 @@ $hour_format = apply_filters( 'tribe_events_pro_week_hour_format', 'gA' );
 		<div class="tribe-week-grid-inner-wrap">
 			<?php 
 				$multiday_cutoff = explode( ':', tribe_get_option( 'multiDayCutoff', '00:00' ) );
-				$multiday_cutoff[0] = ltrim($multiday_cutoff[0], '0');
+				$multiday_cutoff[0] = (int) ltrim($multiday_cutoff[0], '0');
 
 				for ( $hour = $multiday_cutoff[0]; $hour <= $multiday_cutoff[0] + 23; $hour++ ) : 
 					//If hour is greater than 24, then wrap back around to 0
