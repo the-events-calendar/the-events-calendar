@@ -11,7 +11,7 @@
  * @package TribeEventsCalendar
  * @since  1.0
  * @author Modern Tribe Inc.
- *tribe-b
+ *
  */
 
 /* = Global & Miscellaneous Styles
@@ -251,7 +251,7 @@ select.tribe-events-dropdown {
 }
 
 /* = Grid View & List View Template Styles
-   @ Template: calendar.php & list.php
+   @ Template: month.php & list.php
 =============================================*/
 #tribe-events-content {
 	position: relative;
@@ -398,14 +398,12 @@ select.tribe-events-dropdown {
 }
 
 /* Date Seperators */
-
 .tribe-events-list .vevent.hentry.tribe-event-end-month {
 	border-bottom: 0;
 	padding-bottom: 0;
 }
 
 /* Date/Time */
-
 .single-tribe_events .tribe-events-schedule h2 {
 	display: inline-block;
 	zoom: 1;
@@ -483,7 +481,7 @@ select.tribe-events-dropdown {
 }
 
 /* = Calendar Styles (includes styles for both large & small calendars)
-   @ Template: calendar.php & calendar-widget.php
+   @ Template: month.php & widgets/calendar-widget.php
 =============================================*/
 /* Global Calendar Styles */
 #tribe-events-content table.tribe-events-calendar {
@@ -549,7 +547,7 @@ select.tribe-events-dropdown {
 	right: 30px;
 }
 
-/* recurring info tooltip */
+/* Recurring info tooltip */
 .recurringinfo {
 	display: inline-block;
 	zoom: 1;
@@ -559,21 +557,6 @@ select.tribe-events-dropdown {
 .event-is-recurring {
 	position: relative;
 }
-
-/*
-.event-is-recurring img {
-	width: 16px;
-	height: 16px;
-	opacity: .7;
-	display: inline;
-	vertical-align: middle;
-	box-shadow: none !important;
-}
-
-.event-is-recurring:hover img {
-	opacity: 1.0;
-}
-*/
 
 .recurring-info-tooltip.tribe-events-tooltip {
 	left: 10px;
@@ -658,7 +641,7 @@ select.tribe-events-dropdown {
 }
 
 /* = Events List Widget Styles (Sidebar)
-   @ Template: list-widget.php
+   @ Template: widgets/list-widget.php
 =============================================*/
 .tribe-events-list-widget ol,
 .tribe-events-adv-list-widget ol {
@@ -734,7 +717,7 @@ h2.tribe-events-tickets-title {
 }
 
 /* = Events Navigation Bar
-   @ Template: /modules/bar.php
+   @ Template: modules/bar.php
 =============================================*/
 
 /* Views Select */
@@ -840,22 +823,4 @@ h2.tribe-events-tickets-title {
 }
 .tribe-bar-mini #tribe-bar-views ul.tribe-bar-view-list {
 	display: none;
-}
-
-/* Swap out our view nav to be a select input */
-@media screen and (max-width: 845px) {
-	#tribe-bar-views ul.tribe-bar-view-list {
-		display: none;
-	}
-	#tribe-bar-views .tribe-bar-view-select,
-	#tribe-bar-views .tribe-bar-view-select ~ .tribe-select2 {
-		display: block;
-	}
-}
-
-/* Ensure that our filters show at proper width */
-@media screen and (min-width: 676px) {
-	.tribe-bar-full #tribe-bar-filters .tribe-bar-drop-content {
-		display: inline !important;
-	}
 }
