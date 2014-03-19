@@ -37,30 +37,21 @@ class TribeEventsRecurrenceScheduler {
 		if ( !wp_next_scheduled(self::CRON_HOOK) ) {
 			wp_schedule_event( time(), 'daily', self::CRON_HOOK );
 		}
-		add_action( self::CRON_HOOK, array( $this, 'clean_up_old_recurring_events' ), 10, 0 );
+		//add_action( self::CRON_HOOK, array( $this, 'clean_up_old_recurring_events' ), 10, 0 );
 		add_action( self::CRON_HOOK, array( $this, 'schedule_future_recurring_events' ), 20, 0 );
 	}
 
 	public function remove_hooks() {
-		remove_action( self::CRON_HOOK, array( $this, 'clean_up_old_recurring_events' ), 10, 0 );
+		//remove_action( self::CRON_HOOK, array( $this, 'clean_up_old_recurring_events' ), 10, 0 );
 		remove_action( self::CRON_HOOK, array( $this, 'schedule_future_recurring_events' ), 20, 0 );
 	}
 
 	public function clean_up_old_recurring_events() {
 		/** @var wpdb $wpdb */
 		global $wpdb;
-		$post_ids = $wpdb->get_col($wpdb->prepare("SELECT DISTINCT post_id FROM {$wpdb->postmeta} WHERE meta_key='_EventStartDate' AND meta_value < %s", $this->earliest_date));
+		$post_ids = $wpdb->get_col($wpdb->prepare("SELECT DISTINCT post_id FROM {$wpdb->postmeta} m LEFT JOIN {$wpdb->posts} p ON p.ID=m.post_id WHERE p.post_parent <> 0 AND m.meta_key='_EventStartDate' AND m.meta_value < %s", $this->earliest_date));
 		foreach ( $post_ids as $post_id ) {
-			$dates = get_post_meta( $post_id, '_EventStartDate', FALSE );
-			sort($dates);
-			array_shift($dates); // keep the first date
-			foreach ( $dates as $d ) {
-				if ( $d < $this->earliest_date ) {
-					delete_post_meta( $post_id, '_EventStartDate', $d );
-				} else {
-					break; // since we're sorted, we know that all the reset wil be valid
-				}
-			}
+			wp_delete_post($post_id, TRUE);
 		}
 	}
 

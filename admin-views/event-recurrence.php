@@ -1,9 +1,8 @@
 		<tr class="recurrence-row">
 			<td><?php _e('Recurrence:','tribe-events-calendar-pro'); ?></td>
 			<td>
-				<?php $has_recurrences = ( count( get_post_meta( $postId, '_EventStartDate' ) ) > 1 ) ? true : false; ?>
+				<?php $has_recurrences = tribe_is_recurring_event($postId); ?>
 				<input type="hidden" name="is_recurring" value="<?php echo (isset($recType) && $recType != "None" && $has_recurrences) ? "true" : "false" ?>" />
-				<input type="hidden" name="recurrence_action" value="" />
 				<select name="recurrence[type]">
 					<option data-plural="" value="None" <?php selected($recType, "None") ?>><?php _e('None','tribe-events-calendar-pro'); ?></option>
 					<option data-single="<?php _e( 'day', 'tribe-events-calendar-pro' ); ?>" data-plural="<?php _e( 'days', 'tribe-events-calendar-pro' ); ?>" value="Every Day" <?php selected($recType, "Every Day") ?>><?php _e('Every Day','tribe-events-calendar-pro'); ?></option>

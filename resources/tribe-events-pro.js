@@ -144,73 +144,97 @@ if (Object.prototype.hasOwnProperty.call(window, 'tribe_ev')) {
 
 				if ($('body').hasClass('tribe-events-week')) {
 
-					var $tip = $this.find('.tribe-events-tooltip');
+					if($this.tribe_has_attr('data-tribejson')){
 
-					if (!$this.parents('.tribe-grid-allday').length) {
+						if (!$this.parents('.tribe-grid-allday').length) {
 
-						var $wrapper = $('.tribe-week-grid-wrapper');
-						var $parent = $this.parent();
-						var $container = $parent.parent();
+							var $tip = $this.find('.tribe-events-tooltip');
 
-						var pwidth = Math.ceil($container.width());
-						var cwidth = Math.ceil($this.width());
-						var twidth = Math.ceil($tip.outerWidth());
-						var gheight = $wrapper.height();
+							if(!$tip.length){
+								var data = $this.data('tribejson');
 
-						var scroll = $wrapper.scrollTop();
-						var coffset = $parent.position();
-						var poffset = $this.position();
-						var ptop = Math.ceil(poffset.top);
-						var toffset = scroll - ptop;
+								$this
+									.append(tribe_tmpl('tribe_tmpl_tooltip', data));
 
-						var isright = $parent.hasClass('tribe-events-right');
-						var wcheck;
-						var theight;
-						var available;
-						var cssmap = {};
+								$tip = $this.find('.tribe-events-tooltip');
+							}
 
-						if (!$tip.hasClass('hovered')) {
-							$tip.data('ow', twidth).addClass('hovered');
-						}
+							var $wrapper = $('.tribe-week-grid-wrapper');
+							var $parent = $this.parent();
+							var $container = $parent.parent();
 
-						if (isright)
-							wcheck = Math.ceil(coffset.left) - 20;
-						else
-							wcheck = pwidth - cwidth - Math.ceil(coffset.left);
+							var pwidth = Math.ceil($container.width());
+							var cwidth = Math.ceil($this.width());
+							var twidth = Math.ceil($tip.outerWidth());
+							var gheight = $wrapper.height();
 
-						if (twidth >= wcheck)
-							twidth = wcheck;
-						else if ($tip.data('ow') > wcheck)
-							twidth = wcheck;
-						else
-							twidth = $tip.data('ow');
+							var scroll = $wrapper.scrollTop();
+							var coffset = $parent.position();
+							var poffset = $this.position();
+							var ptop = Math.ceil(poffset.top);
+							var toffset = scroll - ptop;
 
-						if (isright)
-							cssmap = { "right": cwidth + 20, "bottom": "auto", "width": twidth + "px"};
-						else
-							cssmap = { "left": cwidth + 20, "bottom": "auto", "width": twidth + "px"};
+							var isright = $parent.hasClass('tribe-events-right');
+							var wcheck;
+							var theight;
+							var available;
+							var cssmap = {};
 
-						$tip.css(cssmap);
+							if (!$tip.hasClass('hovered')) {
+								$tip.data('ow', twidth).addClass('hovered');
+							}
 
-						theight = $tip.height();
-
-						if (toffset >= 0) {
-							toffset = toffset + 5;
-						} else {
-							available = toffset + gheight;
-							if (theight > available)
-								toffset = available - theight - 8;
+							if (isright)
+								wcheck = Math.ceil(coffset.left) - 20;
 							else
-								toffset = 5;
+								wcheck = pwidth - cwidth - Math.ceil(coffset.left);
+
+							if (twidth >= wcheck)
+								twidth = wcheck;
+							else if ($tip.data('ow') > wcheck)
+								twidth = wcheck;
+							else
+								twidth = $tip.data('ow');
+
+							if (isright)
+								cssmap = { "right": cwidth + 20, "bottom": "auto", "width": twidth + "px"};
+							else
+								cssmap = { "left": cwidth + 20, "bottom": "auto", "width": twidth + "px"};
+
+							$tip.css(cssmap);
+
+							theight = $tip.height();
+
+							if (toffset >= 0) {
+								toffset = toffset + 5;
+							} else {
+								available = toffset + gheight;
+								if (theight > available)
+									toffset = available - theight - 8;
+								else
+									toffset = 5;
+							}
+
+							$tip.css("top", toffset).show();
+
+						} else {
+							var $tip = $this.find('.tribe-events-tooltip');
+
+							if(!$tip.length){
+								var data = $this.data('tribejson');
+
+								$this
+									.find('div')
+									.append(tribe_tmpl('tribe_tmpl_tooltip', data));
+
+								$tip = $this.find('.tribe-events-tooltip');
+							}
+
+							bottomPad = $this.outerHeight() + 6;
+							$tip.css('bottom', bottomPad).show();
 						}
 
-						$tip.css("top", toffset).show();
-
-					} else {
-						bottomPad = $this.outerHeight() + 6;
-						$tip.css('bottom', bottomPad).show();
 					}
-
 
 				}
 
@@ -393,6 +417,18 @@ if (Object.prototype.hasOwnProperty.call(window, 'tribe_ev')) {
 			tf.snap('#tribe-geo-wrapper', '#tribe-geo-wrapper', '#tribe-events-footer .tribe-events-nav-previous a, #tribe-events-footer .tribe-events-nav-next a');
 
 		}
+
+		$('#wp-toolbar').on('click', '.tribe-split-single a, .tribe-split-all a', function() {
+			var message = '';
+			if ( $(this).parent().hasClass('tribe-split-all') ) {
+				message = TribeEventsPro.recurrence.splitAllMessage;
+			} else {
+				message = TribeEventsPro.recurrence.splitSingleMessage;
+			}
+			if ( !window.confirm(message) ) {
+				return false;
+			}
+		});
 
 		dbug && debug.info('TEC Debug: tribe-events-pro.js successfully loaded');
 

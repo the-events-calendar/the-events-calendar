@@ -161,7 +161,7 @@ The plugin is produced by <a href="http://m.tri.be/45">Modern Tribe Inc</a>.
 * Danish from Anonymous
 * Dutch from J.F.M. Cornelissen and Frans Pronk
 * Finnish by Ari-Pekka Koponen
-* French from Bastien BC
+* French from Laurent Proulx
 * German from Oliver Heinrich
 * Greek from Maria Tsilimidou
 * Icelandic by Baldvin √ñrn Berndsen
@@ -173,11 +173,11 @@ The plugin is produced by <a href="http://m.tri.be/45">Modern Tribe Inc</a>.
 * Portuguese from Antonio Pratas
 * Romanian from Cosmin Vaman
 * Serbian from Marko Manojlovic
-* Spanish from Juanjo Reparaz Sarasola
+* Spanish from Juan Jose Reparaz Sarasola
 * Swedish from Ben Andersen
 * Turkish by Derin Korman
 
-* Previous translators include Mikhail Michouris, Erik Massop, Ed Boon, Rick van Dalen, Jacob Roel Meijering, hristian Andersen, Michael Sebel, Dionizio Bonfim Bach, Mihai Burcea, Filippo Montanari, David Decker, Kamil Szymanski, "Terje With Lunndal", Sagi Shrieber, Matthew Meyer, Arno Faure, Fanny Heraud, Vincent G from Host1Free, , Petri Kajander, Fran Rosa, Nico (wsMaurik), Panos Efstratiou, Dominique Monhardt, Thomas Butzek, Kjell Vestnes, Luiza Libardi, Diego Meneghetti, Benoit Burgener, Hector Gil Rizo, Burak Pehlevan, and Alexey Fedorov
+* Previous translators include Mikhail Michouris, Bastien BC, Erik Massop, Ed Boon, Rick van Dalen, Jacob Roel Meijering, hristian Andersen, Michael Sebel, Dionizio Bonfim Bach, Mihai Burcea, Filippo Montanari, David Decker, Kamil Szymanski, "Terje With Lunndal", Sagi Shrieber, Matthew Meyer, Arno Faure, Fanny Heraud, Vincent G from Host1Free, , Petri Kajander, Fran Rosa, Nico (wsMaurik), Panos Efstratiou, Dominique Monhardt, Thomas Butzek, Kjell Vestnes, Luiza Libardi, Diego Meneghetti, Benoit Burgener, Hector Gil Rizo, Burak Pehlevan, and Alexey Fedorov
 
 == Add-Ons ==
 
@@ -209,14 +209,16 @@ Our Premium Plugins:
 3.x is a complete overhaul of the plugin, and as a result we're starting the changelog fresh. For release notes from the 2.x lifecycle, see <a href="http://m.tri.be/k">our 2.x release notes.</a>
 
 = 3.5 =
-Incorporated updated Spanish translation files, courtesy of Juanjo Reparaz Sarasola
-Added new Montenegrin translation files, courtesy of Sasa Vukovic
-Added updated Norwegian Bokmål translation files, courtesy of Morten Ruud
-Added new Norwegian Nynorsk translation files, courtesy of Torbjørn Lauen
-Added updated Romanian translation files, courtesy of Cosmin Vaman
-Added updated German translation files by Oliver Heinrich
-Added updated Brazilian Portuguese translation files from Emerson Marques
-Added updated Dutch translation files from J.F.M. Cornelissen and Frans Pronk
+* Incorporated updated Spanish translation files, courtesy of Juan Jose Reparaz Sarasola
+* Added new Montenegrin translation files, courtesy of Sasa Vukovic
+* Added updated Norwegian Bokmål translation files, courtesy of Morten Ruud
+* Added new Norwegian Nynorsk translation files, courtesy of Torbjørn Lauen
+* Added updated Romanian translation files, courtesy of Cosmin Vaman
+* Added updated German translation files by Oliver Heinrich
+* Added updated Brazilian Portuguese translation files from Emerson Marques
+* Added updated Dutch translation files from J.F.M. Cornelissen and Frans Pronk
+* Added updated French translation files from Laurent Proulx
+* Fixed an issue where the Category class wasn't properly being added to events when paging in Week View
 
 = 3.4 = 
 

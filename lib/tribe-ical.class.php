@@ -117,6 +117,25 @@ class TribeiCal {
 		}
 	}
 
+	/**
+	 * Gets all events in the month
+	 *
+	 * @static
+	 *
+	 * @return array events in the month
+	 */
+	private static function get_month_view_events() {
+		do_action('tribe_events_before_view'); // this will trigger the month view query setup
+		$events_posts = array();
+		while ( tribe_events_have_month_days() ) {
+			tribe_events_the_month_day();
+			$month_day = tribe_events_get_current_month_day();
+			if ( isset( $month_day['events'] ) && $month_day['total_events'] > 0 ) {
+				$events_posts = array_merge( $month_day['events']->posts, $events_posts );
+			}
+		}
+		return $events_posts;
+	}
 
 	/**
 	 * Generates the iCal file
@@ -133,17 +152,14 @@ class TribeiCal {
 		$blogHome    = get_bloginfo( 'url' );
 		$blogName    = get_bloginfo( 'name' );
 
-		$event_display = ! empty( $_REQUEST['tribe_display'] ) ? $_REQUEST['tribe_display'] : 'upcoming';
-		if ( $event_display == 'list' )
-			$event_display = 'upcoming';
-
 		if ( $post ) {
 			$events_posts   = array();
 			$events_posts[] = $post;
+		} else if ( tribe_is_month() ) {
+			$events_posts = self::get_month_view_events();
 		} else {
-			TribeEventsQuery::init();
-			$events_query = TribeEventsQuery::getEvents( array( 'posts_per_page'=> - 1, 'eventDisplay' => $event_display ), true );
-			$events_posts = $events_query->posts;
+			global $wp_query;
+			$events_posts = $wp_query->posts;
 		}
 
 		foreach ( $events_posts as $event_post ) {

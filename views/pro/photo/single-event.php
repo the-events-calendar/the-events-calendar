@@ -19,6 +19,8 @@ global $post;
 
  ?>
 
+<div class="tribe-events-photo-event-wrap">
+
 <?php echo tribe_event_featured_image( null, 'medium' ); ?>
 
  <div class="tribe-events-event-details tribe-clearfix">
@@ -39,7 +41,7 @@ global $post;
 				<?php if ( ! empty( $post->distance ) ) : ?>
 				<strong>[<?php echo tribe_get_distance_with_unit( $post->distance ); ?>]</strong>
 				<?php endif; ?>
-				<?php echo tribe_events_event_schedule_details(), tribe_events_event_recurring_info_tooltip(); ?>
+				<?php echo tribe_events_event_schedule_details(); ?>
 			</div>
 		</div><!-- .tribe-events-event-meta -->
 	<?php do_action( 'tribe_events_after_the_meta' ); ?>
@@ -52,3 +54,5 @@ global $post;
 	<?php do_action( 'tribe_events_after_the_content' ) ?>
 
 </div><!-- /.tribe-events-event-details -->
+
+</div><!-- /.tribe-events-photo-event-wrap -->

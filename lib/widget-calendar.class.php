@@ -23,6 +23,9 @@ class TribeEventsMiniCalendarWidget extends WP_Widget {
 	}
 
 	function widget( $args, $instance ) {
+		$ecp = TribeEventsPro::instance();
+		$tooltip_status = $ecp->recurring_info_tooltip_status();
+		$ecp->disable_recurring_info_tooltip();
 
 		add_filter( 'tribe_events_list_show_ical_link', '__return_false' );
 
@@ -46,6 +49,10 @@ class TribeEventsMiniCalendarWidget extends WP_Widget {
 		echo $args['after_widget'];
 
 		remove_filter( 'tribe_events_list_show_ical_link', '__return_false' );
+
+		if ( $tooltip_status ) {
+			$ecp->enable_recurring_info_tooltip();
+		}
 
 	}
 

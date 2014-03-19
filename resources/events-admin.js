@@ -305,7 +305,7 @@ jQuery(document).ready(function($) {
 	var set_recurrence_end_min_date = function() {
 		var start = $('#EventStartDate').val();
 		if ( start != '' ) {
-			$('#recurrence_end').datepicker('option', 'minDate', start);
+			$('#recurrence_end').attr('placeholder', start).datepicker('option', 'minDate', start);
 		}
 	};
 	set_recurrence_end_min_date();
@@ -320,10 +320,22 @@ jQuery(document).ready(function($) {
 		}
 	});
 
+	$('.wp-list-table.posts').on( 'click', '.tribe-split', function() {
+		var message = '';
+		if ( $(this).hasClass('tribe-split-all') ) {
+			message = TribeEventsProAdmin.recurrence.splitAllMessage;
+		} else {
+			message = TribeEventsProAdmin.recurrence.splitSingleMessage;
+		}
+		if ( !window.confirm(message) ) {
+			return false;
+		}
+	});
+
 	/* Fix for deleting multiple events */
 	$('.wp-admin.events-cal.edit-php #doaction').click(function(e) {
 		if($("[name='action'] option:selected").val() == "trash") {
-			if(confirm(TribeEventsProAdmin.bulkDeleteConfirmationMessage)) {
+			if(confirm(TribeEventsProAdmin.recurrence.bulkDeleteConfirmationMessage)) {
 				var ids = new Array();
 
 				$('[name="post[]"]:checked').each(function() {

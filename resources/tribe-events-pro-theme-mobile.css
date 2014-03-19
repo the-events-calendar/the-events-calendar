@@ -1,0 +1,69 @@
+/**
+ * The Events Calendar Pro Tribe Theme Mobile Stylesheet
+ *
+ * Default Breakpoint: 768px
+ *
+ * This breakpoint can be customized using the 'tribe_events_mobile_breakpoint' filter,
+ * or the responsive nature of the plugins can be removed by using the 'tribe_events_kill_responsive' filter.
+ *
+ * To add your own custom styles, create a stylesheet with the name
+ * tribe-events.css in the tribe-events/pro/ directory of your theme.
+ * Your new stylesheet will be loaded after our own stylesheet.
+ *
+ * To replace our stylsheet altogether, you can use the 'tribe_events_stylesheet_url' filter.
+ *
+ * @package TribeEventsCalendar
+ * @since  3.0
+ * @author Modern Tribe Inc.
+ *
+ */
+
+/* = Week Grid Template Styles
+   @ Template: week.php
+=============================================*/
+.tribe-mobile-day-date {
+	text-transform: uppercase;
+	font-weight: bold;
+	font-size: 16px;
+	margin: 5px 0 0;
+	padding: 6px 10px;
+	background: #E0E0E0;
+	color: #fff;
+	line-height: 1;
+}
+
+/* = Photo View Template Styles 
+   @ Template: photo.php
+=============================================*/
+.vevent.tribe-events-photo-event .tribe-events-photo-event-wrap:hover {
+	background: #FAFAFA;
+}
+.tribe-events-photo .tribe-events-loop .vevent.hentry .tribe-events-event-meta {
+	margin: 6px 0;
+}
+
+/* = Single Venue Template Styles (Pro Version)
+   @ Template: single-venue.php
+=============================================*/
+.tribe-events-venue .tribe-events-venue-meta {
+	padding: 0 0 12px;
+}
+.tribe-events-venue .tribe-events-map-wrap {
+	float: none;
+	margin: 5px 0 12px;
+	width: 98%;
+}
+.tribe-events-event-meta address.tribe-events-address {
+	padding: 0;
+}
+
+/* = Related Events
+   @ Template: single-event.php
+=============================================*/	
+.tribe-events-single ul.tribe-related-events li {
+	margin-bottom: 12px;
+	padding:10px 0px;
+}
+.tribe-events-single ul.tribe-related-events li .tribe-related-event-info {
+	padding: 0px 10px 10px 0;
+}
