@@ -4,12 +4,12 @@
  * Class TribeEventsPro_SchemaUpdater
  */
 class TribeEventsPro_SchemaUpdater {
-	const SCHEMA_VERSION = '3.99';
+	const SCHEMA_VERSION = '3.5';
 
 	private function do_updates() {
 		set_time_limit(0);
-		if ( $this->is_version_in_db_less_than('3.99') ) {
-			$this->update_3_99();
+		if ( $this->is_version_in_db_less_than('3.5') ) {
+			$this->update_3_5();
 		}
 		tribe_update_option( 'pro-schema-version', self::SCHEMA_VERSION );
 	}
@@ -22,7 +22,7 @@ class TribeEventsPro_SchemaUpdater {
 		return FALSE;
 	}
 
-	private function update_3_99() {
+	private function update_3_5() {
 		$this->recurring_events_from_meta_to_child_posts();
 	}
 
