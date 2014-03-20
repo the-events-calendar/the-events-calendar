@@ -133,6 +133,14 @@ if ( ! class_exists( 'TribeEventsSupport' ) ) {
 						break;
 				}
 
+				if ( is_array( $v ) ) {
+					$keys = array_keys( $v );
+					$key = array_shift( $keys );
+					$is_numeric_array = is_numeric( $key );
+					unset( $keys );
+					unset( $key );
+				}
+
 				$output .= sprintf( '<dt>%s</dt>', $k );
 				if ( empty( $v ) ) {
 					$output .= '<dd class="support-stats-null">-</dd>';
@@ -140,7 +148,7 @@ if ( ! class_exists( 'TribeEventsSupport' ) ) {
 					$output .= sprintf( '<dd class="support-stats-bool">%s</dd>', $v );
 				} elseif ( is_string( $v ) ) {
 					$output .= sprintf( '<dd class="support-stats-string">%s</dd>', $v );
-				} elseif ( is_array( $v ) && is_numeric( array_shift( array_keys( $v ) ) ) ) {
+				} elseif ( is_array( $v ) && $is_numeric_array ) {
 					$output .= sprintf( '<dd class="support-stats-array"><ul><li>%s</li></ul></dd>', join( '</li><li>', $v ) );
 				} else {
 					$formatted_v = array();
