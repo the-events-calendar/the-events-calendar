@@ -1,9 +1,6 @@
 [submodule "vendor/tribe-common-libraries"]
 	path = vendor/tribe-common-libraries
 	url = moderntribe_git@git.tri.be:tribe-common-libraries
-[submodule "vendor/pue-client"]
-	path = vendor/pue-client
-	url = moderntribe_git@git.tri.be:pue-client
 [submodule "vendor/isotope"]
 	path = vendor/isotope
 	url = git://github.com/desandro/isotope.git
