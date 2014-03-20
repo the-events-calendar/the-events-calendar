@@ -6,7 +6,7 @@ msgstr ""
 "Project-Id-Version: The Events Calendar\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-02-04 18:03-0800\n"
-"PO-Revision-Date: 2014-03-06 14:04-0800\n"
+"PO-Revision-Date: 2014-03-19 16:20-0800\n"
 "Last-Translator: Emerson Marques Pedro <emersonmp@gmail.com>\n"
 "Language-Team: Emerson Marques Pedro <emersonmp@gmail.com>\n"
 "Language: pt_BR\n"
@@ -1423,7 +1423,7 @@ msgstr "Organizadores"
 #: ../lib/the-events-calendar.class.php:1389
 #: ../public/advanced-functions/meta.php:443 ../views/tickets/email.php:362
 msgid "Organizer"
-msgstr "Orgazanidor"
+msgstr "Organizador"
 
 #: ../lib/the-events-calendar.class.php:1391
 msgid "Add New Organizer"
