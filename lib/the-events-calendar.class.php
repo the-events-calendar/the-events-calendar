@@ -267,6 +267,9 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			// CSV Importer
 			require_once( 'io/csv/ecp-events-importer.php' );
 
+			// PUE
+			require_once( 'pue/pue-client.php' );
+
 			// Load multisite defaults
 			if ( is_multisite() ) {
 				$tribe_events_mu_defaults = array();
