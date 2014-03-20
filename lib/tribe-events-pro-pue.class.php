@@ -33,10 +33,6 @@ if( !class_exists( 'TribeEventsProPUE' ) ) {
 		 */
 		public function __construct( $plugin_file ) {
 			self::$plugin_file = $plugin_file;
-			if ( !class_exists( 'TribeCommonLibraries' ) ) {
-				require_once( dirname( self::$plugin_file ) . '/vendor/tribe-common-libraries/tribe-common-libraries.class.php' );
-			}
-			TribeCommonLibraries::register( 'tribe-pue-client', '1.6', dirname( self::$plugin_file ) . '/vendor/pue-client/pue-client.php' );
 			add_action( 'tribe_helper_activation_complete', array( $this, 'load_plugin_update_engine' ) );
 			register_activation_hook( self::$plugin_file, array( $this, 'register_uninstall_hook' ) );
 		}
