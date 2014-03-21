@@ -60,15 +60,18 @@ class TribeEventsImporter_FileImporter_Events extends TribeEventsImporter_FileIm
 	}
 
 	private function get_event_end_date( array $record ) {
+		$start_date = $this->get_event_start_date( $record );
 		$end_date = $this->get_value_by_key( $record, 'event_end_date' );
 		$end_time = $this->get_value_by_key( $record, 'event_end_time' );
+		if ( empty($end_date) ) {
+			$end_date = $start_date;
+		}
 		if ( !empty($end_time) ) {
 			$end_date .= ' '.$end_time;
 		}
 		if ( !empty($end_date) ) {
 			$end_date = date('Y-m-d H:i:s', strtotime($end_date));
 		}
-		$start_date = $this->get_event_start_date( $record );
 		if ( $end_date < $start_date ) {
 			$end_date = $start_date;
 		}
