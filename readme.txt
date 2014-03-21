@@ -52,6 +52,7 @@ Just getting started? Definitely watch and read through the <a href="http://m.tr
 * Widget: Upcoming events
 * Events Taxonomies (Categories & Tags)
 * Completely ajaxified for super smooth browsing
+* Completely responsive from mobile to tablet to desktop
 * Tested on the major theme frameworks such as Genesis, Woo Themes, Thesis and many more.
 * Increase your SEO with Microformats
 * Internationalized & Translated
@@ -308,7 +309,7 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Added updated Brazilian Portuguese translation files courtesy of Emerson Marques
 * Added updated Dutch translation files courtesy of J.F.M. Cornelissen and Frans Pronk
 * Added updated French translation files from Laurent Proulx
-* Added fully responsive styling for all Events Views
+* Added fully responsive styles and functionality for all Events Views
 * Added javascript templating for use in tooltips and mobile views were needed.
 * Updated Countdown widget styling to match TwentyElevent/TwentyTwelve/TwentyThirteen/TwentyFourteen theme styling
 * Fixed a responsive layout issue with the Classic Tribe Bar 
