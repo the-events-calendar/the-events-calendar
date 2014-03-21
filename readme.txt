@@ -325,6 +325,8 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Help screen improvements
 * Fixed issue affecting handling of sticky posts
 * Improved handling of categories to automatically include child categories
+* Removed recurrence-related code unused by core
+* Fixed handling of errors when importing malformed CSV files
 
 
 = 3.4.1 =
