@@ -221,6 +221,12 @@ Our Premium Plugins:
 * Fixed an issue where the Category class wasn't properly being added to events when paging in Week View
 * Fixed issue with popstate and bug in webkit when coming back from single venue view.
 * Fixed issue were week view title would be cut off on short events.
+* Changed how recurring events are stored, to give a unique post ID to each recurrence
+* Changed the workflow for breaking instances of a recurring event out of their series
+* Fixed recurring event permalinks in tag archives
+* Changed Week view to use the "End of day cutoff" setting
+* Updated the recurrence UI to prevent setting a recurrence end date before the series start date
+* Fixed an issue where deleting an instance of a recurring event would delete the entire series
 
 = 3.4 = 
 
