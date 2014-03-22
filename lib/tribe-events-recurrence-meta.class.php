@@ -525,7 +525,7 @@ class TribeEventsRecurrenceMeta {
 		return $valid;
 	}
 
-	public function get_child_event_ids( $post_id, $args = array() ) {
+	public static function get_child_event_ids( $post_id, $args = array() ) {
 		$cache = new TribeEventsCache();
 		$children = $cache->get('child_events_'.$post_id, 'save_post');
 		if ( is_array($children) ) {
