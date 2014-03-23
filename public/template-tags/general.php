@@ -434,8 +434,11 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 * @return void
 	 * @since 3.0
 	 **/
-	function tribe_events_event_classes() {
-	    global $post, $wp_query;
+	function tribe_events_event_classes( $event=null ) {
+		global $post, $wp_query;
+
+		// Need to reassign variable as $event in week view doesn't seem to be same a global $post
+		if ( ! empty( $event ) ) { $post = $event; }
 
 		// May be called when the global $post object does not exist - ie during ajax loads of various views
 		// ... creating a dummy object allows the method to proceed semi-gracefully (interim measure only)
