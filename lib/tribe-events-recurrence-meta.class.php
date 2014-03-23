@@ -582,6 +582,9 @@ class TribeEventsRecurrenceMeta {
 	 * @return array Start times, as Y-m-d H:i:s
 	 */
 	public static function get_start_dates( $post_id ) {
+		if ( empty($post_id) ) {
+			return array();
+		}
 		$cache = new TribeEventsCache();
 		$dates = $cache->get( 'event_dates_'.$post_id, 'save_post' );
 		if ( is_array($dates) ) {
