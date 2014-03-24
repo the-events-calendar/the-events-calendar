@@ -228,6 +228,11 @@ Our Premium Plugins:
 * Changed Week view to use the "End of day cutoff" setting
 * Updated the recurrence UI to prevent setting a recurrence end date before the series start date
 * Fixed an issue where deleting an instance of a recurring event would delete the entire series
+* Fixed an issue where the Mini Calendar Widget could skip February when navigating through the months
+* Optimized some queries related to map view
+* Fixed an issue where the "Hide if no events" checkbox was not working in the Featured Venue widget
+* Fixed an issue where the iCal button would always download all events, instead of the events currently being viewed
+* Fixed a variety of untranslatable strings
 
 = 3.4 = 
 
