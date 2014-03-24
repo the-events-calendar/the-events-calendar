@@ -328,6 +328,11 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Improved handling of categories to automatically include child categories
 * Removed recurrence-related code unused by core
 * Fixed handling of errors when importing malformed CSV files
+* Fixed an issue where Venue & Organizer titles could be set to "Unnamed"
+* Fixed an issue where using a comma in the event cost field would disable the currency symbol from displaying
+* Optimized some code
+* Fixed a variety of untranslatable strings
+* Updated link to the Filter Bar plugin in the help tab
 
 
 = 3.4.1 =
