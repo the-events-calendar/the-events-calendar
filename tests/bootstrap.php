@@ -3,11 +3,11 @@
 $GLOBALS['wp_tests_options']['active_plugins'][] = 'the-events-calendar/the-events-calendar.php';
 $pro_path = getenv( 'TRIBE_PRO_DIRECTORY' );
 if ( !empty($pro_path) ) {
-	$GLOBALS['wp_tests_options']['active_plugins'][] = 'events-calendar-pro/events-calendar-pro.php';
+	$GLOBALS['wp_tests_options']['active_plugins'][] = $pro_path;
 }
 $community_path = getenv( 'TRIBE_COMMUNITY_DIRECTORY' );
 if ( !empty($community_path) ) {
-	$GLOBALS['wp_tests_options']['active_plugins'][] = 'tribe-community-events/tribe-community-events.php';
+	$GLOBALS['wp_tests_options']['active_plugins'][] = $community_path;
 }
 $GLOBALS['wp_tests_options']['permalink_structure'] = '%postname%/';
 

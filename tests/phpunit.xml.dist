@@ -13,9 +13,8 @@
 		>
 	<testsuites>
 		<testsuite name="Events">
-			<directory>./core</directory>
-			<directory>../../events-calendar-pro/tests/pro</directory>
-			<directory>../../tribe-community-events/tests/community</directory>
+			<directory>./phpunit</directory>
+			<directory>../../events-pro/tests/phpunit</directory>
 		</testsuite>
 	</testsuites>
 	<groups>
@@ -26,12 +25,10 @@
 	<filter>
 		<whitelist processsUncoveredFilesFromWhitelist="true">
 			<directory suffix=".php">..</directory>
-			<directory suffix=".php">../../events-calendar-pro</directory>
-			<directory suffix=".php">../../tribe-community-events</directory>
+			<directory suffix=".php">../../events-pro</directory>
 			<exclude>
 				<directory>.</directory>
-				<directory>../../events-calendar-pro/tests</directory>
-				<directory>../../tribe-community-events/tests</directory>
+				<directory>../../events-pro/tests</directory>
 			</exclude>
 		</whitelist>
 	</filter>
