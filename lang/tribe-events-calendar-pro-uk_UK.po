@@ -1,0 +1,1907 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Events Calendar Pro 3.2\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-02-04 18:18-0800\n"
+"PO-Revision-Date: 2014-03-25 11:02-0800\n"
+"Last-Translator: \n"
+"Language-Team: Modern Tribe, Inc. <support@tri.be>\n"
+"Language: uk_UA\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.6.4\n"
+"X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Poedit-SearchPath-0: ..\n"
+
+#: ../events-calendar-pro.php:61
+msgid "week"
+msgstr "тиждень"
+
+#: ../events-calendar-pro.php:62
+msgid "photo"
+msgstr "фото"
+
+#: ../events-calendar-pro.php:63
+#: ../lib/tribe-events-recurrence-meta.class.php:685
+msgid "day"
+msgstr "день"
+
+#: ../events-calendar-pro.php:64
+msgid "today"
+msgstr "сьогодні"
+
+#: ../events-calendar-pro.php:292
+msgid "Events for week of"
+msgstr "Події на тиждень з"
+
+#: ../events-calendar-pro.php:298 ../events-calendar-pro.php:366
+msgid "Events for"
+msgstr "Події на"
+
+#: ../events-calendar-pro.php:303 ../events-calendar-pro.php:372
+msgid "Past Events"
+msgstr "Останні події"
+
+#: ../events-calendar-pro.php:305 ../events-calendar-pro.php:374
+#: ../lib/widget-advanced-list.class.php:54
+msgid "Upcoming Events"
+msgstr "Майбутні події"
+
+#: ../events-calendar-pro.php:311 ../events-calendar-pro.php:353
+msgid "All events for"
+msgstr "Всі події на"
+
+#: ../events-calendar-pro.php:360
+#, php-format
+msgid "Events for week of %s"
+msgstr "Події на тиждень %s"
+
+#: ../events-calendar-pro.php:868 ../admin-views/tribe-options-defaults.php:35
+msgid "Default Content"
+msgstr "Вміст за замовчуванням"
+
+#: ../events-calendar-pro.php:870 ../admin-views/event-meta-options.php:3
+msgid "Additional Fields"
+msgstr "Додаткові поля"
+
+#: ../events-calendar-pro.php:879
+msgid "Hide related events"
+msgstr "Приховати зв'язані події"
+
+#: ../events-calendar-pro.php:880
+msgid "Remove related events from the single event view"
+msgstr "Видалити події пов'язані з однією подією"
+
+#: ../events-calendar-pro.php:896
+msgid ""
+"Thanks for buying Events Calendar PRO! From all of us at Modern Tribe, we "
+"sincerely appreciate it. If you're looking for help with Events Calendar "
+"PRO, you've come to the right place. We are committed to helping make your "
+"calendar kick ass... and hope the resources provided below will help get you "
+"there."
+msgstr ""
+"Дякуємо за покупку Events Calendar PRO! Ми всі, у Modern Tribe, щиро цінуємо "
+"це. Якщо ви шукаєте допомогу у  Events Calendar PRO, ви прийшли в потрібне "
+"місце. Ми сповнені рішучості допомогти зробити ваш календар найкращим ... і "
+"сподіваюся, що ресурси, наведені нижче, допоможуть вам там."
+
+#: ../events-calendar-pro.php:907
+msgid ""
+"If this is your first time using The Events Calendar Pro, you're in for a "
+"treat and are already well on your way to creating a first event. Here are "
+"some basics we've found helpful for users jumping into it for the first time:"
+msgstr ""
+"Якщо це перший раз використання Вами Events Calendar Pro, Ви на вірному "
+"шляху до створення першої події. Тут зібрані деякі базові допоміжні "
+"матеріали для коритувачів, що вперше користуються:"
+
+#: ../events-calendar-pro.php:910
+#, php-format
+msgid ""
+"%sOur New User Primer%s was designed for folks in your exact position. "
+"Featuring both step-by-step videos and written walkthroughs that feature "
+"accompanying screenshots, the primer aims to take you from zero to hero in "
+"no time."
+msgstr ""
+"%sІнструкція нового користувача%s був розроблений для людей, в точному "
+"положенні. Завдяки покроковому відео та письмовому покроковому керівництву, "
+"що супроводжується скріншотами, інструкція дооможе Вам пройти шлях від нуля "
+"до досвідченого користувача."
+
+#: ../events-calendar-pro.php:912
+#, php-format
+msgid ""
+"%sInstallation/Setup FAQs%s from our support page can help give an overview "
+"of what the plugin can and cannot do. This section of the FAQs may be "
+"helpful as it aims to address any basic install questions not addressed by "
+"the new user primer."
+msgstr ""
+"%sВстановлення / налаштування Питання та відповіді%s з нашої сторінки "
+"підтримки ви можете отримати огляд того, що плагін може і не може зробити. "
+"Цей розділ може бути корисним, оскільки вын спрямований на вирішення будь-"
+"яких основних питань установки, що не охоплені у інструкції користувача."
+
+#: ../events-calendar-pro.php:914
+#, php-format
+msgid ""
+"Are you developer looking to build your own frontend view? We created an "
+"example plugin that demonstrates how to register a new view. You can "
+"%sdownload the plugin at GitHub%s to get started."
+msgstr ""
+"Ви розробник та хочете побудувати свій власний вид зовнішнього інтерфейсу? "
+"Ми створили приклад плагіна, який демонструє, як зареєструвати новий "
+"інтерфейс. Ви можете %sзавантажити плагін на GitHub%s для початку."
+
+#: ../events-calendar-pro.php:916
+#, php-format
+msgid ""
+"Take care of your license key. Though not required to create your first "
+"event, you'll want to get it in place as soon as possible to guarantee your "
+"access to support and upgrades. %sHere's how to find your license key%s, if "
+"you don't have it handy."
+msgstr ""
+"Подбайте про свій ліцензійний ключ. Хоча це і не потрібно, щоб створити свою "
+"першу подію, ви хочете отримати якомога швидше доступ до підтримки та "
+"модернізації. % sТут ви знайдете свій ліцензійний ключ%s, якщо у вас його ще "
+"нема."
+
+#: ../events-calendar-pro.php:918
+msgid ""
+"Otherwise, if you're feeling adventurous, you can get started by heading to "
+"the Events menu and adding your first event."
+msgstr ""
+"В іншому випадку, якщо ви впевнені, ви можете почати роботу, створивши в "
+"меню Події вашу першу подію."
+
+#: ../events-calendar-pro.php:930
+#, php-format
+msgid ""
+"Written documentation can only take things so far...sometimes, you need help "
+"from a real person. This is where our %ssupport forums%s come into play."
+msgstr ""
+"Письмова документація містить тільки речі досі відомі, та іноді, вам "
+"потрібна допомога від реальної людини. Тут наш %sфорум підтримки%s вступає у "
+"гру."
+
+#: ../events-calendar-pro.php:931
+#, php-format
+msgid ""
+"Users who have purchased an Events Calendar PRO license are granted total "
+"access to our %spremium support forums%s. Unlike at the %sWordPress.org "
+"support forum%s, where our involvement is limited to identifying and "
+"patching bugs, we have a dedicated support team for PRO users. We're on the "
+"PRO forums daily throughout the business week, and no thread should go more "
+"than 24-hours without a response."
+msgstr ""
+"Комерційні користувачі, що користуються PRO ліцензією мають повний доступ до "
+"нашого %sпреміум форуму підтримки%s. На відміну від %sWordPress.org форуму "
+"підтримки%s, де наша участь обмежується виявленням та виправленням помилок, "
+"у нас є спеціальна група підтримки про користувачів. Ми на PRO форумі щодня "
+"протягом робочого тижня, і жодне з питань не залишається без выдповіді більш "
+"24-годин."
+
+#: ../events-calendar-pro.php:932
+msgid ""
+"Our number one goal is helping you succeed, and to whatever extent possible, "
+"we'll help troubleshoot and guide your customizations or tweaks. While we "
+"won't build your site for you, and we can't guarantee we'll be able to get "
+"you 100% integrated with every theme or plugin out there, we'll do all we "
+"can to point you in the right direction and to make you -- and your client, "
+"as is often more importantly the case -- satisfied."
+msgstr ""
+"Наша мета бути номером один, допомагає вам добитися успіху, і в тому обсязі, "
+"можливо, ми допоможемо вам усунути проблеми. У той самий час ми будемо "
+"допрацьовувати наш продукт, щоб він на 100% відповідав вашим потребам. Але "
+"ми наразі не можемо гарантувати, що плагін буде підтримувати та "
+"інтегруватись з кожною темою та плагіном."
+
+#: ../events-calendar-pro.php:933
+msgid ""
+"Before posting a new thread, please do a search to make sure your issue "
+"hasn't already been addressed. When posting please make sure to provide as "
+"much detail about the problem as you can (with screenshots or screencasts if "
+"feasible), and make sure that you've identified whether a plugin / theme "
+"conflict could be at play in your initial message."
+msgstr ""
+"Перед відправкою нового питання, будь ласка скористайтесь пошуком, щоб "
+"переконатися, що ваше питання ще не розглядалося. При розміщенні будь ласка "
+"переконайтеся, що надали максимально повну інформацію про проблему, як ви "
+"можете (з скріншот або відеоролик, якщо це можливо), і переконайтеся, що ви "
+"визначили, чи є конфлікт плагіну або теми  у вашому повідомленні."
+
+#: ../events-calendar-pro.php:1007
+msgid "Day View"
+msgstr "Перегляд по дням"
+
+#: ../events-calendar-pro.php:1010
+msgid "Week View"
+msgstr "Перегляд по тижням"
+
+#: ../events-calendar-pro.php:1415
+msgid "Settings"
+msgstr "Налаштування"
+
+#: ../events-calendar-pro.php:1478
+#, php-format
+msgid "Calendar powered by %sThe Events Calendar PRO%s"
+msgstr "Календар розроблено %sThe Events Calendar PRO%s"
+
+#: ../events-calendar-pro.php:1491
+msgid "Support"
+msgstr "Підтримка"
+
+#: ../events-calendar-pro.php:1493
+msgid "View All Add-Ons"
+msgstr "Переглянути усі доповнення"
+
+#: ../events-calendar-pro.php:1579
+msgid "Week"
+msgstr "Тиждень"
+
+#: ../events-calendar-pro.php:1595 ../admin-views/event-recurrence.php:84
+#: ../admin-views/event-recurrence.php:129
+msgid "Day"
+msgstr "День"
+
+#: ../events-calendar-pro.php:1611
+msgid "Photo"
+msgstr "Фото"
+
+#: ../events-calendar-pro.php:1627
+msgid "Day Of"
+msgstr "День"
+
+#: ../events-calendar-pro.php:1629
+msgid "Week Of"
+msgstr "Тиждень"
+
+#: ../events-calendar-pro.php:1750
+msgid "The Events Calendar"
+msgstr "Календар подій"
+
+#: ../events-calendar-pro.php:1751
+#, php-format
+msgid ""
+"To begin using Events Calendar PRO, please install the latest version of <a "
+"href=\"%s\" class=\"thickbox\" title=\"%s\">The Events Calendar</a>."
+msgstr ""
+"Щоб почати використовувати Календар подій PRO, будь ласка, встановіть "
+"останню версію <a href=\"%s\" class=\"thickbox\" title=\"%s\"> Календар "
+"подій </ A>."
+
+#: ../admin-views/event-defaults.php:1
+msgid "Customize Defaults"
+msgstr "Налаштувати замовчування"
+
+#: ../admin-views/event-defaults.php:2
+msgid ""
+"These settings change the default event form. For example, if you set a "
+"default venue, this field will be automatically filled in on a new event."
+msgstr ""
+"Ці параметри змінюють форму подій за замовчуванням. Наприклад, якщо ви "
+"встановите місце за замовчуванням, це поле буде автоматично заповнена на "
+"новий."
+
+#: ../admin-views/event-defaults.php:5 ../admin-views/event-defaults.php:9
+#: ../admin-views/tribe-options-defaults.php:55
+msgid "Automatically replace empty fields with default values"
+msgstr "Автоматично замінити порожні поля зі значеннями за замовчуванням"
+
+#: ../admin-views/event-defaults.php:13
+msgid "Enabled"
+msgstr "Включено"
+
+#: ../admin-views/event-defaults.php:19
+msgid "Default Organizer for Events"
+msgstr "Організатор за замовченням для подій"
+
+#: ../admin-views/event-defaults.php:22
+msgid "Default Organizer"
+msgstr "Організатор за замовченням"
+
+#: ../admin-views/event-defaults.php:23
+msgid "The default organizer value"
+msgstr "Зазначити організатора за замовченням"
+
+#: ../admin-views/event-defaults.php:23 ../admin-views/event-defaults.php:31
+#: ../admin-views/event-defaults.php:38 ../admin-views/event-defaults.php:45
+#: ../admin-views/event-defaults.php:66 ../admin-views/event-defaults.php:74
+#: ../admin-views/event-defaults.php:82 ../admin-views/event-defaults.php:108
+#, php-format
+msgid "The current default value is <strong>%s</strong>"
+msgstr "Поточне значення за замовчуванням <strong>%s</strong>"
+
+#: ../admin-views/event-defaults.php:27
+msgid "Default Venue for Events"
+msgstr "Місце проведення за замовчуванням для Подій"
+
+#: ../admin-views/event-defaults.php:30
+msgid "Default Venue"
+msgstr "Місце проведення за замовчуванням"
+
+#: ../admin-views/event-defaults.php:31
+msgid "The default venue value"
+msgstr "Значення за замовчуванням місце"
+
+#: ../admin-views/event-defaults.php:35 ../admin-views/event-defaults.php:37
+msgid "Default Address"
+msgstr "Адреса за замовчуванням"
+
+#: ../admin-views/event-defaults.php:38
+msgid "The default address value"
+msgstr "Значення за замовчуванням адреса"
+
+#: ../admin-views/event-defaults.php:42 ../admin-views/event-defaults.php:44
+msgid "Default City"
+msgstr "Місто за замовчуванням"
+
+#: ../admin-views/event-defaults.php:45
+msgid "The default city value"
+msgstr "Місто, значення за замовчуванням"
+
+#: ../admin-views/event-defaults.php:50
+msgid "Default State"
+msgstr "Область за замовчуванням"
+
+#: ../admin-views/event-defaults.php:52 ../admin-views/event-defaults.php:73
+msgid "Default Province or State"
+msgstr "Область чи Регіон за замовчуванням"
+
+#: ../admin-views/event-defaults.php:55
+msgid "Select a State:"
+msgstr "Виберіть Область:"
+
+#: ../admin-views/event-defaults.php:66 ../admin-views/event-defaults.php:74
+msgid "The default  value"
+msgstr "Значення за замовчуванням"
+
+#: ../admin-views/event-defaults.php:71
+msgid "Default Province"
+msgstr "Регіон за замовчуванням"
+
+#: ../admin-views/event-defaults.php:79 ../admin-views/event-defaults.php:81
+msgid "Default Postal Code"
+msgstr "Поштовий код за замовчуванням"
+
+#: ../admin-views/event-defaults.php:82
+msgid "The default Postal Code value"
+msgstr "Значення поштового коду за замовчуванням"
+
+#: ../admin-views/event-defaults.php:87
+msgid "Default Country for Events"
+msgstr "Країна за замовчуванням"
+
+#: ../admin-views/event-defaults.php:105 ../admin-views/event-defaults.php:107
+msgid "Default Phone"
+msgstr "Телефон за замовчуванням"
+
+#: ../admin-views/event-defaults.php:108
+msgid "The default phone value"
+msgstr "Телефон за замовчуванням, значення"
+
+#: ../admin-views/event-defaults.php:112
+#: ../admin-views/tribe-options-defaults.php:198
+msgid "Use a custom list of countries"
+msgstr "Використовувати користувальницький список країн"
+
+#: ../admin-views/event-defaults.php:114
+msgid "Use the following list:"
+msgstr "Використовувати наступний список:"
+
+#: ../admin-views/event-defaults.php:116
+msgid ""
+"One country per line in the following format: <br/>US, United States <br/> "
+"UK, United Kingdom."
+msgstr ""
+"Одна країна в рядку в наступному форматі: <br/> США, Сполучені Штати <br/> "
+"UK, Великобританія."
+
+#: ../admin-views/event-defaults.php:116
+msgid "(Replaces the default list.)"
+msgstr "(Замінює список за замовчуванням.)"
+
+#: ../admin-views/event-meta-options.php:4
+msgid ""
+"Use additional fields to add unique content fields to the event admin, which "
+"can be used by anyone who creates events. Upon publication they'll appear in "
+"the event metabox that accompanies your event listing, alongside the date/"
+"time/venue/organizer/etc. </p><p>Each new piece of data needs:"
+msgstr ""
+"Використовуйте додаткові поля, щоб додати унікальні поля контенту адміна "
+"подій, які можуть бути використані всіма, хто створює події. За публікації "
+"вони з'являться в METABOX подій, яка супроводжує позицією в каталозі подій, "
+"поряд з дата / час / місце / організатор / і т.д.. </p><p>Кожен нова частина "
+"потреб в даних:"
+
+#: ../admin-views/event-meta-options.php:6
+msgid "Label (e.g. Meal Plans)"
+msgstr "Етикетка (постер)"
+
+#: ../admin-views/event-meta-options.php:7
+msgid "At least one option (e.g. Vegetarian, Kosher, Paleo)"
+msgstr ""
+"Принаймні, один з варіантів (наприклад, Вегетаріанська, Кошерна, Палео)"
+
+#: ../admin-views/event-meta-options.php:8
+msgid "Field type. These are:"
+msgstr "Тип поля. До них відносяться:"
+
+#: ../admin-views/event-meta-options.php:10
+msgid "Text - for the user to input text"
+msgstr "Текст - для введення тексту користувача"
+
+#: ../admin-views/event-meta-options.php:11
+msgid "URL - for the user to input a URL"
+msgstr "URL - для введення користувацького URL"
+
+#: ../admin-views/event-meta-options.php:12
+msgid "Checkbox - for multiple choice"
+msgstr "Прапорці - для мульти вибору"
+
+#: ../admin-views/event-meta-options.php:13
+msgid "Radio Button - to select only one"
+msgstr "Кнопка Перемикач - тільки для одного вибору"
+
+#: ../admin-views/event-meta-options.php:14
+msgid "Dropdown Menu - for a dropdown menu"
+msgstr "Випадаючий список - для випадаючого меню"
+
+#: ../admin-views/event-meta-options.php:19
+msgid "Field Label"
+msgstr "Мітка поля"
+
+#: ../admin-views/event-meta-options.php:19
+msgid "Field Type"
+msgstr "Тип Поля"
+
+#: ../admin-views/event-meta-options.php:19
+msgid "Options (one per line)"
+msgstr "Опції (по одній у рядку)"
+
+#: ../admin-views/event-meta-options.php:27
+msgid "Text"
+msgstr "Текст"
+
+#: ../admin-views/event-meta-options.php:28
+msgid "URL"
+msgstr "URL"
+
+#: ../admin-views/event-meta-options.php:29
+msgid "Radio"
+msgstr "Перемикач"
+
+#: ../admin-views/event-meta-options.php:30
+msgid "Checkbox"
+msgstr "Прапорці"
+
+#: ../admin-views/event-meta-options.php:31
+#: ../lib/TribeEventsFilter_GeoLoc.php:41
+msgid "Dropdown"
+msgstr "Випадаючий список"
+
+#: ../admin-views/event-meta-options.php:37
+msgid "Add another"
+msgstr "Додати іншу"
+
+#: ../admin-views/event-meta-options.php:39
+msgid "Remove"
+msgstr "Видалити"
+
+#: ../admin-views/event-meta-options.php:47
+#, php-format
+msgid ""
+"Enter the field label as you want it to appear (this will be the label in "
+"the same way \"Start Date,\" \"Organizer,\" etc appear in the event details "
+"box on the frontend). Select whether the field will be a text field; URL "
+"field; radio buttons; checkboxes; or a dropdown. All of these with the "
+"exception of text and URL allow for multiple options to be included, which "
+"you can add — one per-line — in the right-hand column. If you feel "
+"flummoxed, we've got you covered with a %s."
+msgstr ""
+"Введіть мітку поля, яке з'являтиметься (це буде мітка таким же чином,  "
+"\"Дата початку, \" \"Організатор, \" і т.д. з'являються у разі Подробиці на "
+"інтерфейсі). Виберіть, чи буде поле текстове; URL; перемикач; галочки, або "
+"випадаюче меню. Все це, за винятком тексту і URL передбачають мульти "
+"варіативність, які будуть включені, і в які можна додавати варіанти — по "
+"одному на строчку — у правій колонці. Якщо ви відчуваєте невпевненість, ми "
+"Вам допоможемо  %s."
+
+#: ../admin-views/event-meta-options.php:48
+msgid "video tutorial that will walk you through the process"
+msgstr "відео-підручник, що проведе вас через весь процес"
+
+#: ../admin-views/event-meta-options.php:51
+msgid "Editor \"Custom Fields\" meta box"
+msgstr "Редактор  \"Користувальницькі поля \" мета вікно"
+
+#: ../admin-views/event-meta-options.php:53
+msgid "Show"
+msgstr "Показувати"
+
+#: ../admin-views/event-meta-options.php:54
+msgid "Hide"
+msgstr "Сховати"
+
+#: ../admin-views/event-meta-options.php:55
+msgid ""
+"Enabling this option this will not remove custom field data or "
+"functionality, just the default meta box editor."
+msgstr ""
+"Включення цієї опції, це не буде видаляти дані користувача або "
+"функціональність, просто редактор коробки мета замовчуванням поля."
+
+#: ../admin-views/event-meta-options.php:64
+msgid ""
+"Are you sure you wish to remove this field and its data from all events? "
+"Once you click OK this cannot be undone."
+msgstr ""
+"Are you sure you wish to remove this field and its data from all events? "
+"Once you click OK this cannot be undone."
+
+#: ../admin-views/event-meta.php:7
+msgid "Additional Event Fields"
+msgstr "Додаткові поля події"
+
+#: ../admin-views/event-recurrence.php:2
+msgid "Recurrence:"
+msgstr "Повторення:"
+
+#: ../admin-views/event-recurrence.php:8
+msgid "None"
+msgstr "Жоден"
+
+#: ../admin-views/event-recurrence.php:9
+msgid "Every Day"
+msgstr "Кожен День"
+
+#: ../admin-views/event-recurrence.php:10
+msgid "Every Week"
+msgstr "Кожен тиждень"
+
+#: ../admin-views/event-recurrence.php:11
+msgid "Every Month"
+msgstr "Кожен Місяць"
+
+#: ../admin-views/event-recurrence.php:12
+msgid "Every Year"
+msgstr "Кожен Рік"
+
+#: ../admin-views/event-recurrence.php:13
+msgid "Custom"
+msgstr "Пользовательский"
+
+#: ../admin-views/event-recurrence.php:16
+msgid "and will end"
+msgstr "і закінчиться"
+
+#: ../admin-views/event-recurrence.php:18
+msgid "On"
+msgstr "На"
+
+#: ../admin-views/event-recurrence.php:19
+msgid "After"
+msgstr "Після"
+
+#: ../admin-views/event-recurrence.php:20
+msgid "Never"
+msgstr "Ніколи"
+
+#: ../admin-views/event-recurrence.php:24
+msgid "You must select a recurrence end date"
+msgstr "Ви повинні вибрати повторення та кінцеву дату"
+
+#: ../admin-views/event-recurrence.php:31
+msgid "Frequency"
+msgstr "Частота"
+
+#: ../admin-views/event-recurrence.php:33
+msgid "Day(s)"
+msgstr "День (Дні)"
+
+#: ../admin-views/event-recurrence.php:33
+msgid "Daily"
+msgstr "Щодня"
+
+#: ../admin-views/event-recurrence.php:34
+msgid "Week(s) on:"
+msgstr "Тиждень (ні) на:"
+
+#: ../admin-views/event-recurrence.php:34
+msgid "Weekly"
+msgstr "Щотижня"
+
+#: ../admin-views/event-recurrence.php:35
+msgid "Month(s) on the:"
+msgstr "Місяць (і) на:"
+
+#: ../admin-views/event-recurrence.php:35
+msgid "Monthly"
+msgstr "Щомісяця"
+
+#: ../admin-views/event-recurrence.php:36
+msgid "Year(s) on:"
+msgstr "Рік (и) на:"
+
+#: ../admin-views/event-recurrence.php:36
+msgid "Yearly"
+msgstr "Щороку"
+
+#: ../admin-views/event-recurrence.php:38
+msgid "Every"
+msgstr "Кожен"
+
+#: ../admin-views/event-recurrence.php:42
+msgid "Frequency of recurring event must be a number"
+msgstr "Частота повторюваної події повинна бути числом"
+
+#: ../admin-views/event-recurrence.php:50
+msgid "M"
+msgstr "Пон"
+
+#: ../admin-views/event-recurrence.php:51
+msgid "Tu"
+msgstr "Вівт"
+
+#: ../admin-views/event-recurrence.php:52
+msgid "W"
+msgstr "Сер"
+
+#: ../admin-views/event-recurrence.php:53
+msgid "Th"
+msgstr "Четв"
+
+#: ../admin-views/event-recurrence.php:54
+msgid "F"
+msgstr "П'ят"
+
+#: ../admin-views/event-recurrence.php:55
+msgid "Sa"
+msgstr "Суб"
+
+#: ../admin-views/event-recurrence.php:56
+msgid "Su"
+msgstr "Нед"
+
+#: ../admin-views/event-recurrence.php:64
+#: ../admin-views/event-recurrence.php:114
+msgid "First"
+msgstr "Перший"
+
+#: ../admin-views/event-recurrence.php:65
+#: ../admin-views/event-recurrence.php:115
+msgid "Second"
+msgstr "Другий"
+
+#: ../admin-views/event-recurrence.php:66
+#: ../admin-views/event-recurrence.php:116
+msgid "Third"
+msgstr "Третій"
+
+#: ../admin-views/event-recurrence.php:67
+#: ../admin-views/event-recurrence.php:117
+msgid "Fourth"
+msgstr "Четвертий"
+
+#: ../admin-views/event-recurrence.php:68
+msgid "Fifth"
+msgstr "П'ятий"
+
+#: ../admin-views/event-recurrence.php:69
+#: ../admin-views/event-recurrence.php:118
+msgid "Last"
+msgstr "Останнє"
+
+#: ../admin-views/event-recurrence.php:76
+#: ../admin-views/event-recurrence.php:121
+#: ../lib/tribe-events-recurrence-meta.class.php:720
+msgid "Monday"
+msgstr "Понеділок"
+
+#: ../admin-views/event-recurrence.php:77
+#: ../admin-views/event-recurrence.php:122
+#: ../lib/tribe-events-recurrence-meta.class.php:720
+msgid "Tuesday"
+msgstr "Вівторок"
+
+#: ../admin-views/event-recurrence.php:78
+#: ../admin-views/event-recurrence.php:123
+#: ../lib/tribe-events-recurrence-meta.class.php:720
+msgid "Wednesday"
+msgstr "Середа"
+
+#: ../admin-views/event-recurrence.php:79
+#: ../admin-views/event-recurrence.php:124
+#: ../lib/tribe-events-recurrence-meta.class.php:720
+msgid "Thursday"
+msgstr "Четвер"
+
+#: ../admin-views/event-recurrence.php:80
+#: ../admin-views/event-recurrence.php:125
+#: ../lib/tribe-events-recurrence-meta.class.php:720
+msgid "Friday"
+msgstr "П'ятниця"
+
+#: ../admin-views/event-recurrence.php:81
+#: ../admin-views/event-recurrence.php:126
+#: ../lib/tribe-events-recurrence-meta.class.php:720
+msgid "Saturday"
+msgstr "Субота"
+
+#: ../admin-views/event-recurrence.php:82
+#: ../admin-views/event-recurrence.php:127
+#: ../lib/tribe-events-recurrence-meta.class.php:720
+msgid "Sunday"
+msgstr "Неділя"
+
+#: ../admin-views/event-recurrence.php:93
+msgid "Jan"
+msgstr "Січ"
+
+#: ../admin-views/event-recurrence.php:94
+msgid "Feb"
+msgstr "Лют"
+
+#: ../admin-views/event-recurrence.php:95
+msgid "Mar"
+msgstr "Бер"
+
+#: ../admin-views/event-recurrence.php:96
+msgid "Apr"
+msgstr "Квіт"
+
+#: ../admin-views/event-recurrence.php:97
+#: ../lib/tribe-events-recurrence-meta.class.php:746
+msgid "May"
+msgstr "Трав"
+
+#: ../admin-views/event-recurrence.php:98
+msgid "Jun"
+msgstr "Черв"
+
+#: ../admin-views/event-recurrence.php:102
+msgid "Jul"
+msgstr "Лип"
+
+#: ../admin-views/event-recurrence.php:103
+msgid "Aug"
+msgstr "Серп"
+
+#: ../admin-views/event-recurrence.php:104
+msgid "Sep"
+msgstr "Вер"
+
+#: ../admin-views/event-recurrence.php:105
+msgid "Oct"
+msgstr "Жовт"
+
+#: ../admin-views/event-recurrence.php:106
+msgid "Nov"
+msgstr "Лист"
+
+#: ../admin-views/event-recurrence.php:107
+msgid "Dec"
+msgstr "Груд"
+
+#: ../admin-views/event-recurrence.php:112
+msgid "On the:"
+msgstr "На:"
+
+#: ../admin-views/event-recurrence.php:137
+#: ../views/tribe-ECP-views-old/views/single-venue.php:58
+msgid "Description:"
+msgstr "Опис:"
+
+#: ../admin-views/event-recurrence.php:145
+msgid "Recurrence Description:"
+msgstr "Повторення Опис:"
+
+#: ../admin-views/event-recurrence.php:150
+msgid ""
+"Create a custom plain language description of the recurrence. Leave it blank "
+"and we'll automate it."
+msgstr ""
+"Створення користувацького текстового опису повторення. Залиште це поле "
+"порожнім, і ми будемо автоматично його заповнимо."
+
+#: ../admin-views/support-form.php:11
+msgid "Need help? Send us a support request."
+msgstr "Потрібна допомога? Надішліть нам запит до служби підтримки."
+
+#: ../admin-views/support-form.php:14
+#, php-format
+msgid ""
+"Tell us about the problem you're seeing in as much detail as possible. "
+"Please note that we'll also be sending some basic system information along "
+"with this request so that we can better diagnose the issue. If you would "
+"like to contact us without sending any system information, please visit our "
+"support page at %s. Thanks!"
+msgstr ""
+"Розкажіть нам про проблему настільки детально, наскільки це можливо. "
+"Зверніть увагу, що ми також отримуємо деяку базову інформацію про вашу "
+"систему разом з цим проханням, для кращого діагностування проблеми. Якщо ви "
+"хочете зв'язатися з нами без відправки інформації про систему, будь ласка, "
+"відвідаєте нашу сторінку підтримки на %s. Дякуємо!"
+
+#: ../admin-views/support-form.php:18
+msgid "Send a Support Request"
+msgstr "Надіслати запит у  службу підтримки"
+
+#: ../admin-views/tribe-options-defaults.php:6
+#: ../admin-views/tribe-options-defaults.php:15
+msgid "No Default"
+msgstr "Нема замовчування"
+
+#: ../admin-views/tribe-options-defaults.php:22
+msgid "Select a State"
+msgstr "Виберіть область"
+
+#: ../admin-views/tribe-options-defaults.php:39
+msgid ""
+"<p>Choose the default venue & organizer. Set default address information to "
+"save time when entering a new venue or organizer.</p><p>You can override "
+"these settings as you enter a new event.</p>"
+msgstr ""
+"<p> Виберіть місце та організатора за замовчуванням. Заповніть адресну "
+"інформацію за замовчуванням, щоб заощадити час при введенні нового місця або "
+"організатора. </ P> Ви можете змінити ці установки, коли ви вводите нову "
+"подію. </ P>"
+
+#: ../admin-views/tribe-options-defaults.php:51
+msgid "Options"
+msgstr "Налаштування"
+
+#: ../admin-views/tribe-options-defaults.php:61
+msgid ""
+"Check this box to have the organizer and venue fields pre-populated with the "
+"default values below for any new event that is created."
+msgstr ""
+"Встановіть цей прапорець, щоб мати поля попередньо заповнені зі значеннями "
+"за замовчуванням для організатора та місця проведення  для будь-якої нової "
+"події, якиа створюється."
+
+#: ../admin-views/tribe-options-defaults.php:65
+#: ../admin-views/widget-admin-advanced-list.php:29 ../lib/apm_filters.php:44
+msgid "Organizer"
+msgstr "Організатор"
+
+#: ../admin-views/tribe-options-defaults.php:69
+msgid "Default organizer"
+msgstr "Організатор за замовчуванням"
+
+#: ../admin-views/tribe-options-defaults.php:73
+msgid "No saved organizers yet."
+msgstr "Ще нема збереженного організатора."
+
+#: ../admin-views/tribe-options-defaults.php:82
+#: ../admin-views/widget-admin-advanced-list.php:28 ../lib/apm_filters.php:39
+msgid "Venue"
+msgstr "Місце"
+
+#: ../admin-views/tribe-options-defaults.php:86
+msgid "Default venue"
+msgstr "Місце за замовчуванням"
+
+#: ../admin-views/tribe-options-defaults.php:90
+msgid "No saved venues yet."
+msgstr "Ще нема збереженого місця."
+
+#: ../admin-views/tribe-options-defaults.php:99
+#: ../admin-views/widget-admin-advanced-list.php:30
+msgid "Address"
+msgstr "Адреса"
+
+#: ../admin-views/tribe-options-defaults.php:103
+msgid ""
+"You can use this setting to set specific, individual defaults for any new "
+"Venue you create (these will not be used for your default venue)."
+msgstr ""
+"Ви можете використовувати цей параметр, щоб встановити конкретні, "
+"індивідуальні налаштування за замовчуванням для будь-якого нового Місця "
+"проведення, що ви створюєте (вони не будуть використовуватися для вашого "
+"місця за замовчуванням)."
+
+#: ../admin-views/tribe-options-defaults.php:107
+msgid "Default address"
+msgstr "Адреса за замовчуванням"
+
+#: ../admin-views/tribe-options-defaults.php:120
+msgid "Default city"
+msgstr "Місто за замовчуванням"
+
+#: ../admin-views/tribe-options-defaults.php:133
+msgid "Default state"
+msgstr "Область за замовчуванням"
+
+#: ../admin-views/tribe-options-defaults.php:146
+msgid "Default province"
+msgstr "Регіон за замовчуванням"
+
+#: ../admin-views/tribe-options-defaults.php:159
+msgid "Default postal code/zip code"
+msgstr "Поштовий індекс за замовчуванням"
+
+#: ../admin-views/tribe-options-defaults.php:172
+msgid "Default country"
+msgstr "Країна за замовчуванням"
+
+#: ../admin-views/tribe-options-defaults.php:185
+msgid "Default phone"
+msgstr "Телефон за замовчуванням"
+
+#: ../admin-views/tribe-options-defaults.php:201
+msgid ""
+"One country per line in the following format: <br>US, United States <br> UK, "
+"United Kingdom. <br> (Replaces the default list.)"
+msgstr ""
+"Одна країна в рядку в наступному форматі: <br>US, United States <br> UK, "
+"United Kingdom. <br> (Замінює список за замовчуванням.)"
+
+#: ../admin-views/widget-admin-advanced-list.php:11
+#: ../admin-views/widget-admin-calendar.php:10
+#: ../admin-views/widget-admin-countdown.php:10
+#: ../admin-views/widget-admin-venue.php:9
+#: ../admin-views/widget-calendar.php:2
+msgid "Title:"
+msgstr "Назва:"
+
+#: ../admin-views/widget-admin-advanced-list.php:16
+#: ../admin-views/widget-admin-venue.php:20
+#: ../admin-views/widget-calendar.php:8
+msgid "Number of events to show:"
+msgstr "Номера подій для показу:"
+
+#: ../admin-views/widget-admin-advanced-list.php:25
+msgid "Display:"
+msgstr "Показувати:"
+
+#: ../admin-views/widget-admin-advanced-list.php:31
+msgid "City"
+msgstr "Місто"
+
+#: ../admin-views/widget-admin-advanced-list.php:32
+msgid "State (US) Or Province (Int)"
+msgstr "Область або регіон"
+
+#: ../admin-views/widget-admin-advanced-list.php:33
+msgid "Postal Code"
+msgstr "Поштовий індекс"
+
+#: ../admin-views/widget-admin-advanced-list.php:34
+msgid "Country"
+msgstr "Країна"
+
+#: ../admin-views/widget-admin-advanced-list.php:35
+msgid "Phone"
+msgstr "Телефон"
+
+#: ../admin-views/widget-admin-advanced-list.php:36
+msgid "Price"
+msgstr "Ціна"
+
+#: ../admin-views/widget-admin-advanced-list.php:43
+msgid "Category:"
+msgstr "Категорія:"
+
+#: ../admin-views/widget-admin-advanced-list.php:47
+msgid "All Events"
+msgstr "Усі події"
+
+#: ../admin-views/widget-admin-advanced-list.php:58
+#: ../admin-views/widget-admin-venue.php:28
+msgid "Hide this widget if there are no upcoming events:"
+msgstr "Приховати цей віджет якщо немає майбутніх подій:"
+
+#: ../admin-views/widget-admin-countdown.php:12
+msgid "Event:"
+msgstr "Подія:"
+
+#: ../admin-views/widget-admin-countdown.php:21
+msgid "Show seconds:"
+msgstr "Показувати секунди:"
+
+#: ../admin-views/widget-admin-countdown.php:24
+msgid "Countdown Completed Text:"
+msgstr "Текст, коли зворотний відлік завершено:"
+
+#: ../admin-views/widget-admin-venue.php:11
+msgid "Venue:"
+msgstr "Місце:"
+
+#: ../admin-views/widget-calendar.php:24
+msgid "Filters"
+msgstr "Фільтри"
+
+#: ../admin-views/widget-calendar.php:42
+msgid "remove"
+msgstr "видалити"
+
+#: ../admin-views/widget-calendar.php:53
+msgid "Match all"
+msgstr "Повне співпадіння"
+
+#: ../admin-views/widget-calendar.php:56
+msgid "Match any"
+msgstr "Будьяке співпадіння"
+
+#: ../admin-views/widget-calendar.php:60
+msgid "Add a filter"
+msgstr "Додати фільтр"
+
+#: ../admin-views/widget-calendar.php:63
+msgid "Select one..."
+msgstr "Вибрати один..."
+
+#: ../lib/apm_filters.php:49
+msgid "Start Date"
+msgstr "Дата початку"
+
+#: ../lib/apm_filters.php:54
+msgid "End Date"
+msgstr "Дата закінчення"
+
+#: ../lib/apm_filters.php:59
+msgid "Event Cost"
+msgstr "Ціна події"
+
+#: ../lib/apm_filters.php:64
+msgid "Event Cats"
+msgstr "Умови події"
+
+#: ../lib/apm_filters.php:69
+msgid "Title"
+msgstr "Назва"
+
+#: ../lib/apm_filters.php:74
+msgid "Recurring"
+msgstr "Періодичне"
+
+#: ../lib/apm_filters.php:79
+msgid "Description"
+msgstr "Опис"
+
+#: ../lib/meta-pro.php:97
+msgid "Other"
+msgstr "Інша"
+
+#: ../lib/meta-pro.php:121
+msgid "Recurrence Pattern:"
+msgstr "Повторення узору:"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:471
+msgid ""
+"Monthly custom recurrences cannot have a dash set as the day to occur on."
+msgstr ""
+"Щомісячні користувальницькі рецидиви не може мати тире встановлений як день, "
+"щоб відбутися на."
+
+#: ../lib/tribe-events-recurrence-meta.class.php:474
+msgid ""
+"Yearly custom recurrences cannot have a dash set as the day to occur on."
+msgstr ""
+"Щорічні користувальницькі рецидиви не може мати тире встановлений як день, "
+"щоб відбутися на. "
+
+#: ../lib/tribe-events-recurrence-meta.class.php:656
+#: ../lib/tribe-events-recurrence-meta.class.php:671
+msgid "Every day"
+msgstr "Кожен день"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:660
+#: ../lib/tribe-events-recurrence-meta.class.php:676
+msgid "Every week"
+msgstr "Кожен тиждень"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:663
+#: ../lib/tribe-events-recurrence-meta.class.php:682
+msgid "Every month"
+msgstr "Кожен місяць"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:666
+#: ../lib/tribe-events-recurrence-meta.class.php:689
+msgid "Every year"
+msgstr "Кожен рік"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:672
+#, php-format
+msgid "Every %d days"
+msgstr "Кожні %d днів"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:677
+#, php-format
+msgid "Every %d weeks"
+msgstr "Кожні %d тижнів"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:678
+#, php-format
+msgid " on %s"
+msgstr " на %s"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:683
+#, php-format
+msgid "Every %d months"
+msgstr "Кожні %d місяців"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:685
+#, php-format
+msgid " on the %s %s"
+msgstr " на %s %s"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:690
+#, php-format
+msgid "Every %d years"
+msgstr "Кожні %d років"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:692
+msgid "last"
+msgstr "остання"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:697
+#, php-format
+msgid " on the %s %s of %s"
+msgstr " на %s %s з %s"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:704
+#, php-format
+msgid " until %s"
+msgstr " до %s"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:711
+#, php-format
+msgid "%s%s%s"
+msgstr "%s%s%s"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:726
+msgid ", and"
+msgstr ", та"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:728
+msgid "and"
+msgstr "та"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:730
+msgid ","
+msgstr ","
+
+#: ../lib/tribe-events-recurrence-meta.class.php:745
+msgid "January"
+msgstr "Січень"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:745
+msgid "February"
+msgstr "Лютий"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:745
+msgid "March"
+msgstr "Березень"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:745
+msgid "April"
+msgstr "Квітень"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:746
+msgid "June"
+msgstr "Червень"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:746
+msgid "July"
+msgstr "Липень"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:746
+msgid "August"
+msgstr "Серпень"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:746
+msgid "September"
+msgstr "Вересень"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:746
+msgid "October"
+msgstr "Жовтень"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:746
+msgid "November"
+msgstr "Листопад"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:746
+msgid "December"
+msgstr "Грудень"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:752
+msgid ", and "
+msgstr ", та "
+
+#: ../lib/tribe-events-recurrence-meta.class.php:754
+msgid " and "
+msgstr " та "
+
+#: ../lib/tribe-events-recurrence-meta.class.php:756
+msgid ", "
+msgstr ", "
+
+#: ../lib/tribe-events-recurrence-meta.class.php:862
+msgid "Recurring event instances"
+msgstr "Повторювані випадки подій"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:863
+msgid ""
+"Show only the first instance of each recurring event (only affects list-"
+"style views)."
+msgstr ""
+"Показати тільки перший примірник кожного повторюваного події (впливає тільки "
+"на вигляд список стилі)."
+
+#: ../lib/tribe-events-recurrence-meta.class.php:869
+msgid "Front-end recurring event instances toggle"
+msgstr "Фронтальний перемикач повторюваних подій"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:870
+msgid ""
+"Allow users to decide whether to show all instances of a recurring event."
+msgstr ""
+"Дозволити користувачам вирішити, чи слід показати всі екземпляри "
+"повторюваного події."
+
+#: ../lib/tribe-events-recurrence-meta.class.php:877
+msgid "Clean up recurring events after"
+msgstr "Очищення повторювані події після"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:878
+msgid "Automatically remove recurring event instances older than this"
+msgstr "Автоматичне видалення повторюваних примірників подій старше, ніж ця"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:885
+msgid "Create recurring events in advance for"
+msgstr "Створити повторювану подію заздалегідь для"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:886
+msgid "Recurring events will be created this far in advance"
+msgstr "Повторювані події будуть створені заздалегідь"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:907
+msgid " months"
+msgstr "місяць"
+
+#: ../lib/tribe-geoloc.class.php:101
+msgid "Distance"
+msgstr "Відстань"
+
+#: ../lib/tribe-geoloc.class.php:133
+msgid "Map view search distance limit"
+msgstr "Пергляд карти у заданому пошуковому обмеженні"
+
+#: ../lib/tribe-geoloc.class.php:135
+msgid ""
+"Set the distance that the location search covers (find events within X "
+"distance units of location search input)."
+msgstr ""
+"Встановіть відстань, що вкриватиме пошук за місцем (знайти події в X "
+"одиницях відстані від вхідного значення пошуку)."
+
+#: ../lib/tribe-geoloc.class.php:141
+msgid "Map view distance unit"
+msgstr "Показувати карту з одиницями вимірювання відстані"
+
+#: ../lib/tribe-geoloc.class.php:145
+msgid "Miles"
+msgstr "Милі"
+
+#: ../lib/tribe-geoloc.class.php:146
+msgid "Kilometers"
+msgstr "Кілометри"
+
+#: ../lib/tribe-geoloc.class.php:149
+msgid "Fix geolocation data"
+msgstr "Фіксовані дані з геолокації"
+
+#: ../lib/tribe-geoloc.class.php:149
+#, php-format
+msgid ""
+"You have %d venues for which we don't have geolocation data. We need to use "
+"the Google Maps API to get that information. Doing this may take a while "
+"(aprox. 1 minute for every 200 venues)."
+msgstr ""
+"У вас є %d  мысць, для яких ми не маємо даних геолокації. Ми повинні "
+"використовувати API Карт Google, щоб отримати цю інформацію. Це може зайняти "
+"деякий час (приблизно 1 хвилини для кожних 200 місць)."
+
+#: ../lib/tribe-geoloc.class.php:158
+msgid "Hide location search"
+msgstr "Сховати пошук місця"
+
+#: ../lib/tribe-geoloc.class.php:159
+msgid ""
+"Removes location search field from the events bar on all views except for "
+"map view."
+msgstr ""
+"Видаляє поле місця розташування пошуку на панелі подій на всіх "
+"представлених, за выйнятком перегляду карти."
+
+#: ../lib/tribe-geoloc.class.php:211
+msgid "Map"
+msgstr "Карта"
+
+#: ../lib/tribe-geoloc.class.php:241
+msgid "Near"
+msgstr "Поряд"
+
+#: ../lib/tribe-geoloc.class.php:242
+msgid "Location"
+msgstr "Місце"
+
+#: ../lib/tribe-geoloc.class.php:548
+#, php-format
+msgid "No results were found for events in or near <strong>\"%s\"</strong>."
+msgstr ""
+"Жодного результату не знайдено для подій, подлизу <strong>\"%s\"</strong>."
+
+#: ../lib/tribe-geoloc.class.php:551
+msgid "There were no results found."
+msgstr "Жодного результату не знайдено."
+
+#: ../lib/tribe-geoloc.class.php:812
+msgid "Fix venues data"
+msgstr "Фіксовані дані місць"
+
+#: ../lib/tribe-geoloc.class.php:846
+#, php-format
+msgid ""
+"You have venues for which we don't have Geolocation information. <a "
+"href='%s'>Click here to generate it</a>."
+msgstr ""
+"У вас є місця, на які не вказано інформації про геолокацію. <a "
+"href='%s'>Натисніть тут для генерації</a>."
+
+#: ../lib/tribe-geoloc.class.php:872
+#, php-format
+msgid "Fixed geolocation data for %d venues"
+msgstr "Основні дані геолокації для %d місць"
+
+#: ../lib/tribe-ical.class.php:42
+msgid "Add to Google Calendar"
+msgstr "Додати у Календар Google"
+
+#: ../lib/tribe-ical.class.php:42
+msgid "Google Calendar"
+msgstr "Календар Google"
+
+#: ../lib/tribe-ical.class.php:43 ../lib/tribe-ical.class.php:93
+msgid "iCal Import"
+msgstr "iCal Імпорт"
+
+#: ../lib/tribe-ical.class.php:80
+msgid "Month's Events"
+msgstr "Події місяця"
+
+#: ../lib/tribe-ical.class.php:83
+msgid "Week's Events"
+msgstr "Події тижня"
+
+#: ../lib/tribe-ical.class.php:86
+msgid "Day's Events"
+msgstr "Події дня"
+
+#: ../lib/tribe-ical.class.php:89
+msgid "Listed Events"
+msgstr "Події у списку"
+
+#: ../lib/tribe-ical.class.php:93
+msgid "Import is filter/view sensitive"
+msgstr "Імпорт є фільтр / перегляд чутливий"
+
+#: ../lib/TribeEventsFilter_GeoLoc.php:37
+#, php-format
+msgid "Type: %s %s"
+msgstr "Тип: %s %s"
+
+#: ../lib/TribeEventsFilter_GeoLoc.php:46
+msgid "Radio Buttons"
+msgstr "Перемикачі"
+
+#: ../lib/widget-advanced-list.class.php:18
+msgid "A widget that displays the next upcoming x events."
+msgstr "Віджет, який відображає наступні  х подій."
+
+#: ../lib/widget-advanced-list.class.php:24
+msgid "Events List"
+msgstr "Список подій"
+
+#: ../lib/widget-calendar.class.php:8
+msgid "The events calendar mini calendar widget"
+msgstr "Міні віджет календаря"
+
+#: ../lib/widget-calendar.class.php:10 ../lib/widget-calendar.class.php:31
+#: ../lib/widget-calendar.class.php:63
+msgid "Events Calendar"
+msgstr "Календар подій"
+
+#: ../lib/widget-countdown.class.php:13
+msgid "Displays the time remaining until a specified event."
+msgstr "Відображає час, що залишився до настання певної події."
+
+#: ../lib/widget-countdown.class.php:15
+msgid "Events Countdown"
+msgstr "Зворотній відлік до події "
+
+#: ../lib/widget-venue.class.php:12
+msgid "Displays a list of upcoming events at a specific venue."
+msgstr "Відображає список майбутніх подій у певному місці."
+
+#: ../lib/widget-venue.class.php:14
+msgid "Events Featured Venue"
+msgstr "Популярні місця проведення подій"
+
+#: ../lib/template-classes/day.php:76 ../lib/template-classes/day.php:85
+#: ../views/pro/week/loop-grid-allday.php:23
+#: ../views/tribe-ECP-views-old/views/featured-widget.php:59
+#: ../views/tribe-ECP-views-old/views/list-widget.php:57
+msgid "All Day"
+msgstr "Увесь день"
+
+#: ../lib/template-classes/day.php:129
+#, php-format
+msgid ""
+"No matching events listed under %s scheduled for <strong>%s</strong>. Please "
+"try another day."
+msgstr ""
+"Немає відповідних подій, перерахованих в %s графіку на <strong>%s</strong>. "
+"Будь ласка, змініть день."
+
+#: ../lib/template-classes/day.php:132
+#, php-format
+msgid "No events scheduled for <strong>%s</strong>. Please try another day."
+msgstr "Події не заплановано на <strong>%s</strong>. Будь ласка, змініть день."
+
+#: ../lib/template-classes/week.php:87
+#, php-format
+msgid ""
+"There were no results found for <strong>\"%s\"</strong> this week. Try "
+"searching another week."
+msgstr ""
+" Не знайдено жодного результату для <strong>\"%s\"</strong> на цьому тижні. "
+"Спробуйте змінити тиждень."
+
+#: ../lib/template-classes/week.php:90
+#, php-format
+msgid ""
+"No results were found for events in or near <strong>\"%s\"</strong> this "
+"week. Try searching another week."
+msgstr ""
+"Нічого не знайдено для подій в межах або поблизу <strong>\"%s\"</strong>  на "
+"цьому тижні.  Спробуйте змінити тиждень."
+
+#: ../lib/template-classes/week.php:93
+msgid "No results were found for this week. Try searching another week."
+msgstr "Нічого не знайдено протягом цього тижня. Спробуйте змінити тиждень."
+
+#: ../public/template-tags/general.php:91
+msgid "Show only the first upcoming instance of recurring events"
+msgstr "Показати тільки першу майбутню подію з повторюваних"
+
+#: ../public/template-tags/general.php:283
+#: ../public/template-tags/general.php:297
+#: ../public/template-tags/general.php:310
+#: ../public/template-tags/general.php:311
+#: ../public/template-tags/general.php:324
+#: ../public/template-tags/general.php:325
+#: ../public/template-tags/general.php:338
+#: ../public/template-tags/general.php:339
+#: ../public/template-tags/general.php:352
+#: ../public/template-tags/general.php:353
+#: ../public/template-tags/general.php:366
+#: ../public/template-tags/general.php:367
+#: ../public/template-tags/general.php:380
+#: ../public/template-tags/general.php:381
+#: ../public/template-tags/general.php:394
+#: ../public/template-tags/general.php:395
+msgid "No default set"
+msgstr "Нема набору за замовченням"
+
+#: ../public/template-tags/general.php:284
+#, php-format
+msgid "The current default organizer is: %s"
+msgstr "Поточний організатор за замовчуванням: %s"
+
+#: ../public/template-tags/general.php:298
+#, php-format
+msgid "The current default venue is: %s"
+msgstr "Поточне місце за замовчуванням: %s"
+
+#: ../public/template-tags/general.php:312
+#, php-format
+msgid "The current default address is: %s"
+msgstr "Поточна адреса за замовчуванням: %s"
+
+#: ../public/template-tags/general.php:326
+#, php-format
+msgid "The current default city is: %s"
+msgstr "Поточне місто за замовчуванням: %s"
+
+#: ../public/template-tags/general.php:340
+#, php-format
+msgid "The current default state is: %s"
+msgstr "Поточна область за замовчуванням: %s"
+
+#: ../public/template-tags/general.php:354
+#, php-format
+msgid "The current default province is: %s"
+msgstr "Поточний регіон за замовчуванням: %s"
+
+#: ../public/template-tags/general.php:368
+#, php-format
+msgid "The current default postal code/zip code is: %s"
+msgstr "Поточний поштовий індекс за замовчуванням: %s"
+
+#: ../public/template-tags/general.php:382
+#, php-format
+msgid "The current default country is: %s"
+msgstr "Поточна країна за замовчуванням: %s"
+
+#: ../public/template-tags/general.php:396
+#, php-format
+msgid "The current default phone is: %s"
+msgstr "Поточний телефон за замовчуванням: %s"
+
+#: ../public/template-tags/general.php:556
+#: ../public/template-tags/general.php:575
+#: ../public/template-tags/general.php:664
+#: ../public/template-tags/general.php:682
+msgid "Date out of range."
+msgstr "Дата поза діапазоном"
+
+#: ../public/template-tags/general.php:617
+msgid "Today"
+msgstr "Сьогодні"
+
+#: ../public/template-tags/general.php:619
+msgid "&laquo; Previous Day"
+msgstr "&laquo; Попередній день"
+
+#: ../public/template-tags/general.php:621
+msgid "Next Day &raquo;"
+msgstr "Наступний день &raquo;"
+
+#: ../public/template-tags/general.php:623
+msgid "Yesterday"
+msgstr "Вчора"
+
+#: ../public/template-tags/general.php:625
+msgid "Tomorrow"
+msgstr "Завтра"
+
+#: ../public/template-tags/general.php:729
+msgid "Related Events"
+msgstr "Подібні події"
+
+#: ../public/template-tags/week.php:251
+msgid "&laquo; Previous Week"
+msgstr "&laquo; Попередній тиждень"
+
+#: ../public/template-tags/week.php:264
+msgid "Next Week &raquo;"
+msgstr "Наступний тиждень &raquo;"
+
+#: ../vendor/advanced-post-manager/demo/demo.php:30
+#, php-format
+msgid ""
+"It looks like you might not have any demo data. <a href=\"%s\">Download our "
+"data</a> and use the <a href=\"%s\">WordPress Importer</a>."
+msgstr ""
+"Схоже, що ви, не має яких-небудь демонстраційних даних. <a href=\"%s\"> "
+"Завантажити наші дані</a> і використовувати <a href=\"%s\">WordPress "
+"Importer</a>."
+
+#: ../vendor/advanced-post-manager/lib/tribe-columns.class.php:44
+msgid "Column Name"
+msgstr "Назва колонки"
+
+#: ../vendor/advanced-post-manager/lib/tribe-columns.class.php:134
+msgid "Add a Column"
+msgstr "Додати колонку"
+
+#: ../vendor/advanced-post-manager/lib/tribe-columns.class.php:141
+msgid "Comments"
+msgstr "Коментарі"
+
+#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:52
+#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:72
+msgid "Is"
+msgstr "Це"
+
+#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:53
+#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:73
+msgid "Is Not"
+msgstr "Це не"
+
+#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:67
+msgid "LIKE"
+msgstr "ПОДОБАЄТЬСЯ"
+
+#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:71
+msgid "Search"
+msgstr "Пошук"
+
+#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:82
+msgid "Member Type"
+msgstr "Користувацький тип"
+
+#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:86
+msgid "Cafe"
+msgstr "Кафе"
+
+#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:87
+msgid "Private Desk"
+msgstr "Приватна дошка"
+
+#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:88
+msgid "Office"
+msgstr "Офіс"
+
+#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:95
+msgid "what i’m querying. probably a key in the options array in $filters"
+msgstr "те, що я запитував. ймовірно, ключ у налаштуваннях масиву у $filters"
+
+#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:526
+msgid "Choose a Saved Filter"
+msgstr "Вибрати Збережений фільтр"
+
+#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:642
+msgid "Add a Filter"
+msgstr "Додати фільтр"
+
+#: ../vendor/advanced-post-manager/lib/tribe-meta-box-helper.php:44
+msgid "Extended Information"
+msgstr "Розширена інформація"
+
+#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:124
+#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:397
+msgid "Delete this image"
+msgstr "Видалити це зображення"
+
+#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:124
+#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:352
+#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:397
+msgid "Delete"
+msgstr "Видалити"
+
+#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:348
+msgid "Uploaded files"
+msgstr "Завантажены файли"
+
+#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:358
+msgid "Upload new files"
+msgstr "Завантажити новый файл"
+
+#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:361
+msgid "Add another file"
+msgstr "Додати ще файл"
+
+#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:404
+msgid "Add more images"
+msgstr "Додати быльше зображень"
+
+#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:412
+msgid "Select a color"
+msgstr "Выберіть колір"
+
+#: ../vendor/advanced-post-manager/views/edit-filters.php:7
+#: ../vendor/advanced-post-manager/views/edit-filters.php:8
+msgid "Click to toggle"
+msgstr "Натисніть, щоб переключити"
+
+#: ../vendor/advanced-post-manager/views/edit-filters.php:8
+msgid "Filters &amp; Columns"
+msgstr "Фільтри &amp; Колонки"
+
+#: ../vendor/advanced-post-manager/views/edit-filters.php:17
+msgid "Apply"
+msgstr "Підтвердити"
+
+#: ../vendor/advanced-post-manager/views/edit-filters.php:18
+msgid "Clear"
+msgstr "Очистити"
+
+#: ../vendor/advanced-post-manager/views/edit-filters.php:19
+#: ../vendor/advanced-post-manager/views/edit-filters.php:26
+msgid "Save"
+msgstr "Зберегти"
+
+#: ../vendor/advanced-post-manager/views/edit-filters.php:21
+msgid "Export to CSV"
+msgstr "Експортувати у CSV"
+
+#: ../vendor/advanced-post-manager/views/edit-filters.php:25
+msgid "Filter Name"
+msgstr "Назва фільтру"
+
+#: ../vendor/advanced-post-manager/views/edit-filters.php:27
+msgid "Cancel"
+msgstr "Відміна"
+
+#: ../vendor/pue-client/admin-views/license-key.view.php:9
+#: ../vendor/pue-client/admin-views/license-key.view.php:13
+#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:292
+msgid "License Key"
+msgstr "Ключ активації"
+
+#: ../vendor/pue-client/admin-views/license-key.view.php:10
+msgid "A valid license key is required for support and updates."
+msgstr "Діючий ліцензійний ключ потрібно для підтримки і оновлень."
+
+#: ../vendor/pue-client/admin-views/license-key.view.php:16
+msgid "Replace empty fields"
+msgstr "Замініть порожні поля"
+
+#: ../vendor/pue-client/admin-views/license-key.view.php:25
+#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:293
+msgid "A valid license key is required for support and updates"
+msgstr "Діючий ліцензійний ключ необхідний для підтримки та оновлення"
+
+#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:361
+msgid "License key(s) updated."
+msgstr "Ліцензійн(ий/і) ключы обновлено."
+
+#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:401
+msgid "Sorry, key validation server is not available."
+msgstr "На жаль, сервер для перевірки ключа не доступний."
+
+#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:403
+msgid "Sorry, this key is expired."
+msgstr "На жаль, цей ключ закінчився."
+
+#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:405
+msgid "Sorry, this key is out of installs."
+msgstr "На жаль, цей ключ поза установок."
+
+#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:407
+msgid "Sorry, this key is not valid."
+msgstr "Вибачте, але ключ э не дійсним"
+
+#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:410
+#, php-format
+msgid "Valid Key! Expires on %s"
+msgstr "Ключ дыйсний до %s"
+
+#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:414
+#, php-format
+msgid ""
+"Hmmm... something's wrong with this validator. Please contact <a href=\"%s"
+"\">support.</a>"
+msgstr ""
+"Вибачте, щось відбулось не так з перевіркою. Будь-ласка зв'яжіться з <a href="
+"\"%s\">підтримкою.</a>"
+
+#: ../vendor/tribe-support/tribe-support.class.php:52
+msgid ""
+"Sometimes it's hard to tell what's going wrong without knowing more about "
+"your system steup. For your convenience, we've put together a little report "
+"on what's cooking under the hood."
+msgstr ""
+"Іноді важко сказати, що відбувається не так, не знаючи більше про Вашу "
+"систему. Для вашої зручності ми зібрали невеликий звіт про те, що у середині."
+
+#: ../vendor/tribe-support/tribe-support.class.php:53
+msgid ""
+"If you suspect that the problem you're having is related to another plugin, "
+"or we're just plain having trouble reproducing your bug report, please copy "
+"and send all of this to our support team."
+msgstr ""
+"Якщо ви підозрюєте, що проблема у вас виникли пов'язана з іншим плагіном, "
+"або ми просто виникли проблеми відтворення звіт про помилку, скопіюйте і "
+"відправте все це в нашу службу підтримки."
+
+#: ../vendor/tribe-support/tribe-support.class.php:57
+msgid "System Information"
+msgstr "Системна інформація"
+
+#: ../vendor/tribe-support/tribe-support.class.php:71
+msgid "Send a support request for this site."
+msgstr "Надіслати запит в службу підтримки з цього сайту."
+
+#: ../views/pro/single-organizer.php:31 ../views/pro/single-venue.php:31
+msgid "&larr; Back to Events"
+msgstr "&larr; Повернутись до Подій"
+
+#: ../views/pro/day/nav.php:16
+msgid "Day Navigation"
+msgstr "Сортування за днями"
+
+#: ../views/pro/day/single-event.php:75 ../views/pro/map/single-event.php:81
+msgid "Find out more"
+msgstr "Дізнатися більше"
+
+#: ../views/pro/map/nav.php:22 ../views/pro/photo/nav.php:22
+msgid "Events List Navigation"
+msgstr "Сортування Подій за Списком "
+
+#: ../views/pro/map/nav.php:25 ../views/pro/photo/nav.php:25
+msgid "&laquo; Previous Events"
+msgstr "&laquo; Попередні Події"
+
+#: ../views/pro/map/nav.php:32 ../views/pro/photo/nav.php:32
+msgid "Next Events &raquo;"
+msgstr "Наступні Події &raquo;"
+
+#: ../views/pro/week/loop-grid.php:19
+msgid "Hours"
+msgstr "Години"
+
+#: ../views/pro/week/nav.php:16
+msgid "Week Navigation"
+msgstr "Сортування за тижнями"
+
+#: ../views/pro/widgets/countdown-widget.php:20
+msgid "days"
+msgstr "дні"
+
+#: ../views/pro/widgets/countdown-widget.php:24
+msgid "hours"
+msgstr "години"
+
+#: ../views/pro/widgets/countdown-widget.php:28
+msgid "min"
+msgstr "хв"
+
+#: ../views/pro/widgets/countdown-widget.php:33
+msgid "sec"
+msgstr "сек"
+
+#: ../views/pro/widgets/list-widget.php:74
+msgid "Organizer:"
+msgstr "Організатор:"
+
+#: ../views/pro/widgets/venue-widget.php:33
+msgid "No upcoming events."
+msgstr "Нема найближчих подій."
+
+#: ../views/tribe-ECP-views-old/views/list-widget.php:110
+msgid "Price:"
+msgstr "Ціна:"
+
+#: ../views/tribe-ECP-views-old/views/single-venue.php:24
+msgid "&laquo; Back to Events"
+msgstr "&laquo; Повернутись до Подій"
+
+#: ../views/tribe-ECP-views-old/views/single-venue.php:37
+msgid "Name:"
+msgstr "Ім'я: "
+
+#: ../views/tribe-ECP-views-old/views/single-venue.php:41
+msgid "Phone:"
+msgstr "Телефон:"
+
+#: ../views/tribe-ECP-views-old/views/single-venue.php:47
+msgid "Address:"
+msgstr "Адреса:"
+
+#: ../views/tribe-ECP-views-old/views/single-venue.php:49
+msgid "Click to view a Google Map"
+msgstr "Натиснути для перегляду карти Google"
+
+#: ../views/tribe-ECP-views-old/views/single-venue.php:49
+msgid "Google Map"
+msgstr "Мапа Google"
+
+#: ../views/tribe-ECP-views-old/views/single-venue.php:76
+msgid "Upcoming Events At This Venue"
+msgstr "Найближчі Події у цьому регіоні"
+
+#: ../views/tribe-ECP-views-old/views/single-venue.php:96
+msgid "Start:"
+msgstr "Початок:"
+
+#: ../views/tribe-ECP-views-old/views/single-venue.php:100
+msgid "End:"
+msgstr "Кінець:"
+
+#: ../views/tribe-ECP-views-old/views/single-venue.php:105
+msgid "Date:"
+msgstr "Дата:"
+
+#: ../views/tribe-ECP-views-old/views/single-venue.php:114
+msgid "Cost:"
+msgstr "Ціна:"
