@@ -500,7 +500,7 @@ try {
 		mobile_class: function(){
 			var $body = $('body');
 
-			if(tribe_ev.data.v_width < tribe_ev.data.mobile_break)
+			if(tribe_ev.data.v_width <= tribe_ev.data.mobile_break)
 				$body.addClass('tribe-mobile');
 			else
 				$body.removeClass('tribe-mobile');
