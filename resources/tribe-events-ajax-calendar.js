@@ -171,7 +171,7 @@
 		tribe_month_view_init(true);
 
 		$(te).on('tribe_ev_resizeComplete', function () {
-			//tribe_month_view_init(true);
+			tribe_month_view_init(true);
 		});
 
 		if (tt.pushstate && !tt.map_view()) {
