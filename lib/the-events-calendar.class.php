@@ -2856,7 +2856,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 * @param WP_Post $post The post object.
 		 * @return null|void
 		 */
-		public function save_venue_data( $postID = null, $post=null ) {
+		public function save_venue_data( $postID = null, $post = null ) {
 
 			global $current_screen;
 
