@@ -30,8 +30,12 @@ if( !class_exists( 'TribeVenueWidget') ) {
 			), true );
 
 			// If there are no events, and the user has set to hide if empty, don't display the widget.
-			if ( $hide_if_empty && empty( $events ) )
+			if ( $hide_if_empty && ! $events->have_posts() )
 				return;
+
+			$ecp = TribeEventsPro::instance();
+			$tooltip_status = $ecp->recurring_info_tooltip_status();
+			$ecp->disable_recurring_info_tooltip();
 
 			echo $before_widget;
 			
@@ -43,6 +47,10 @@ if( !class_exists( 'TribeVenueWidget') ) {
 
 			include( TribeEventsTemplates::getTemplateHierarchy( 'pro/widgets/venue-widget.php' ) );
 			echo $after_widget;
+
+			if ( $tooltip_status ) {
+				$ecp->enable_recurring_info_tooltip();
+			}
 
 			wp_reset_postdata();
 		}

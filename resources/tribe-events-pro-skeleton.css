@@ -70,9 +70,11 @@
 	text-align: center;
 	text-transform: uppercase;
 	padding: 1em 0;
+	letter-spacing: 1px;
 }
 .tribe-grid-header .column a {
 	color: #333;
+	font-weight: bold;
 }
 
 /* columns & structure */
@@ -176,8 +178,10 @@
 .tribe-grid-allday .column.first span {
 	position: absolute;
 	top: 50%;
-	left: 0;
 	margin-top: -12px;
+	width: 30px;
+	left: 50%;
+	margin-left: -15px;
 }
 .tribe-grid-allday .hentry.vevent {
 	margin:0;
@@ -191,7 +195,7 @@
 .tribe-grid-allday .hentry.vevent h3.entry-title {
 	padding: 0;
 }
-/* truncated all day titles */
+/* Truncated all day titles */
 .tribe-grid-allday .hentry.vevent h3.entry-title a.url {
 	padding: 8px 6px;
 	display: inline-block;
@@ -226,6 +230,7 @@
 .tribe-grid-body .hentry.vevent {
  	width: 100%;
  	height: 100%;
+	padding:4px;
 }
 .tribe-grid-body div[id*="tribe-events-event-"] { 		
  	font-weight: bold; 
@@ -286,10 +291,8 @@
 /* = Photo View Template Styles 
    @ Template: photo.php
 =============================================*/
-/********** Masonry Layout **********/
 
 /* CSS3 Transitions */
-
 #tribe-events-content.tribe-events-list {
 	padding: 1px 0 !important;
 }
@@ -345,7 +348,6 @@
 
 /* Tile Styling */
 .tribe-events-photo-event {
-
 	padding: 0;
 	position: relative;	
 }
@@ -597,8 +599,7 @@
 	-ms-transition: all 1s linear;
 	transition: all 1s linear;
 }
-#tribe-geo-loading img/*,
-#tribe-photo-loading img*/ {
+#tribe-geo-loading img {
 	position: absolute;
 	left: 50%;
 	top: 50%;
@@ -620,7 +621,6 @@
 /* = Single Venue Template Styles (Pro Version)
    @ Template: single-venue.php
 =============================================*/
-
 .tribe-events-venue .tribe-events-map-wrap #tribe-events-gmap {
 	height: 0 !important;
 	padding-top: 50%;
@@ -686,7 +686,7 @@ h3.tribe-events-related-events-title {
 }
 
 /* = Events Calendar Widget Styles (Sidebar)
-   @ Template: calendar-widget.php
+   @ Template: widgets/calendar-widget.php
 =============================================*/
 .tribe-events-calendar-widget #tribe-events-calendar-wrap {
 	width: 100%;
@@ -757,6 +757,7 @@ h3.tribe-events-related-events-title {
 }
  
 /* = Events Countdown Widget
+   @ Template: widgets/countdown-widget.php
 =============================================*/
 .tribe-countdown-timer span.tribe-countdown-seconds,
 .tribe-countdown-timer span.format, 

@@ -2,7 +2,7 @@
 /*
 Plugin Name: The Events Calendar PRO
 Description: The Events Calendar PRO, a premium add-on to the open source The Events Calendar plugin (required), enables recurring events, custom attributes, venue pages, new widgets and a host of other premium features.
-Version: 3.4
+Version: 3.5
 Author: Modern Tribe, Inc.
 Author URI: http://m.tri.be/20
 Text Domain: tribe-events-calendar-pro
@@ -44,8 +44,10 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		public $photoSlug = 'photo';
 		public $todaySlug = 'today';
 		public static $updateUrl = 'http://tri.be/';
-		const REQUIRED_TEC_VERSION = '3.4';
-		const VERSION = '3.4';
+		/** @var TribeEventsPro_RecurrencePermalinks */
+		public $permalink_editor = NULL;
+		const REQUIRED_TEC_VERSION = '3.5';
+		const VERSION = '3.5';
 
         /**
          * Class constructor.
@@ -63,11 +65,15 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			$this->daySlug = sanitize_title(__('day', 'tribe-events-calendar-pro'));
 			$this->todaySlug = sanitize_title(__('today', 'tribe-events-calendar-pro'));
 
+			require_once( 'lib/tribeeventspro-schemaupdater.php' );
 			require_once( 'lib/tribe-pro-template-factory.class.php' );
 			require_once( 'lib/tribe-date-series-rules.class.php' );
 			require_once( 'lib/tribe-ecp-custom-meta.class.php' );
 			require_once( 'lib/tribe-events-recurrence-meta.class.php' );
+			require_once( 'lib/tribeeventspro-recurrenceseriessplitter.php' );
+			require_once( 'lib/tribeeventspro-recurrenceinstance.php');
 			require_once( 'lib/tribe-recurrence.class.php' );
+			require_once( 'lib/tribeeventspro-recurrencepermalinks.php' );
 			require_once( 'lib/widget-venue.class.php' );
 			require_once( 'lib/tribe-mini-calendar.class.php' );
 			require_once( 'lib/widget-countdown.class.php' );
@@ -91,11 +97,13 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			require_once ( 'lib/tribe-ical.class.php' );
 			TribeiCal::init();
 
+			if ( TribeEventsPro_SchemaUpdater::update_required() ) {
+				add_action( 'admin_init', array( 'TribeEventsPro_SchemaUpdater', 'init' ), 10, 0 );
+			}
 
 			// Tribe common resources
 			require_once( 'vendor/tribe-common-libraries/tribe-common-libraries.class.php' );
 			TribeCommonLibraries::register( 'advanced-post-manager', '1.0.5', $this->pluginPath . 'vendor/advanced-post-manager/tribe-apm.php' );
-			TribeCommonLibraries::register( 'tribe-support', '0.2', $this->pluginPath. 'vendor/tribe-support/tribe-support.class.php' );
 
 			add_action( 'tribe_helper_activation_complete', array( $this, 'helpersLoaded' ) );
 
@@ -125,8 +133,6 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			add_action( 'widgets_init', array( $this, 'pro_widgets_init' ), 100 );
 			add_action( 'wp_loaded', array( $this, 'allow_cpt_search' ) );
 			add_action( 'plugin_row_meta', array( $this, 'addMetaLinks' ), 10, 2 );
-			add_filter( 'get_delete_post_link', array( $this, 'adjust_date_on_recurring_event_trash_link' ), 10, 2 );
-			add_action( 'admin_footer', array( $this, 'addDeleteDialogForRecurringEvents' ) );
 			add_filter( 'tribe_get_events_title', array( $this, 'reset_page_title'));
 			add_filter( 'tribe_events_add_title', array($this, 'maybeAddEventTitle' ), 10, 3 );
 
@@ -144,6 +150,9 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			add_filter( 'tribe_event_meta_organizer_name', array('Tribe_Register_Meta_Pro','organizer_name'), 10, 2);
 			add_filter( 'tribe_events_single_event_the_meta_group_venue', array( $this, 'single_event_the_meta_group_venue'), 10, 2);
 
+			$this->enable_recurring_info_tooltip();
+			add_action( 'tribe_events_before_the_grid', array( $this, 'disable_recurring_info_tooltip' ), 10, 0 );
+			add_action( 'tribe_events_after_the_grid', array( $this, 'enable_recurring_info_tooltip' ), 10, 0 );
 			add_action( 'tribe_events_single_event_after_the_meta', array( $this, 'register_related_events_view' ) );
 
 			// add_action( 'tribe_events_single_event_meta_init', array( $this, 'single_event_meta_init'), 10, 4);
@@ -182,13 +191,15 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			add_filter( 'wp' , array( $this, 'detect_recurrence_redirect' ) );
 			add_filter( 'wp', array( $this, 'filter_canonical_link_on_recurring_events' ), 10, 1 );
 
+			$this->permalink_editor = apply_filters( 'tribe_events_permalink_editor', new TribeEventsPro_RecurrencePermalinks() );
+			add_filter( 'post_type_link', array($this->permalink_editor, 'filter_recurring_event_permalinks'), 10, 4 );
+
 			add_filter( 'tribe_events_register_venue_type_args', array( $this, 'addSupportsThumbnail' ), 10, 1 );
 			add_filter( 'tribe_events_register_organizer_type_args', array( $this, 'addSupportsThumbnail' ), 10, 1 );
 
 			// filter the query sql to get the recurrence end date
 			add_filter( 'tribe_events_query_posts_joins', array($this, 'posts_join'));
 			add_filter( 'tribe_events_query_posts_fields', array($this, 'posts_fields'));
-			add_filter( 'tribe_events_query_end_date_column', array($this, 'end_date_column'));
 
 			// let day view enabled status happen naturally
 			remove_filter( 'tribe_events_is_view_enabled', array( TribeEvents::instance(), 'enable_day_view' ), 10, 2 );
@@ -214,6 +225,32 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			if ( $this->show_related_events() ) {
 				tribe_single_related_events();
 			}
+		}
+
+		/**
+		 * Append the recurring info tooltip after an event schedule
+		 * @param string $schedule_details
+		 * @param int $event_id
+		 * @return string
+		 */
+		public function append_recurring_info_tooltip( $schedule_details, $event_id = 0 ) {
+			$tooltip = tribe_events_recurrence_tooltip($event_id);
+			return $schedule_details . $tooltip;
+		}
+
+		public function enable_recurring_info_tooltip() {
+			add_filter( 'tribe_events_event_schedule_details', array( $this, 'append_recurring_info_tooltip' ), 9, 2 );
+		}
+
+		public function disable_recurring_info_tooltip() {
+			remove_filter( 'tribe_events_event_schedule_details', array( $this, 'append_recurring_info_tooltip' ), 9, 2 );
+		}
+
+		public function recurring_info_tooltip_status() {
+			if ( has_filter( 'tribe_events_event_schedule_details', array( $this, 'append_recurring_info_tooltip' ) ) ) {
+				return TRUE;
+			}
+			return FALSE;
 		}
 
 		/**
@@ -615,7 +652,17 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 								$current_url = str_replace( $wp_query->query['eventDate'], $next_recurrence, home_url( $wp->request ) );
 							}
 						}
+						break;
+					}
 
+					// A child event should be using its parent's slug. If it's using its own, redirect.
+					if ( tribe_is_recurring_event(get_the_ID()) ) {
+						$event = get_post(get_the_ID());
+						if ( !empty($event->post_parent) ) {
+							if ( isset($wp_query->query['name']) && $wp_query->query['name'] == $event->post_name ) {
+								$current_url = get_permalink($event->ID);
+							}
+						}
 					}
 					break;
 
@@ -659,9 +706,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		 * @since 3.0.2
 		 **/
 		public static function posts_fields($fields){
-			global $wpdb;
-			$fields['event_duration']= "tribe_event_duration.meta_value as EventDuration";
-			$fields['event_end_date'] = "IF(tribe_event_duration.meta_value IS NULL, tribe_event_end_date.meta_value, DATE_ADD(CAST({$wpdb->postmeta}.meta_value AS DATETIME), INTERVAL tribe_event_duration.meta_value SECOND)) as EventEndDate";
+			$fields['event_end_date'] = "tribe_event_end_date.meta_value as EventEndDate";
 			return $fields;
 		}
 
@@ -674,21 +719,8 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		 **/
 		public static function posts_join($joins){
 			global $wpdb;
-			$joins['event_duration'] = " LEFT JOIN {$wpdb->postmeta} as tribe_event_duration ON ( {$wpdb->posts}.ID = tribe_event_duration.post_id AND tribe_event_duration.meta_key = '_EventDuration' ) ";
 			$joins['event_end_date'] = " LEFT JOIN {$wpdb->postmeta} as tribe_event_end_date ON ( {$wpdb->posts}.ID = tribe_event_end_date.post_id AND tribe_event_end_date.meta_key = '_EventEndDate' ) ";
 			return $joins;
-		}
-
-		/**
-		 * Filter the event end date column name to use the start date + duration to get the end date (to accomodate recurrence)
-		 *
-		 * @return string
-		 * @author Jessica Yazbek
-		 * @since 3.0.2
-		 **/
-		public static function end_date_column($fieldname) {
-			global $wpdb;
-			return ("IF(tribe_event_duration.meta_value IS NULL, tribe_event_end_date.meta_value, DATE_ADD(CAST({$wpdb->postmeta}.meta_value AS DATETIME), INTERVAL tribe_event_duration.meta_value SECOND))");
 		}
 
 		/**
@@ -763,41 +795,6 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			}
 			return $source_array;
 		}
-
-		/**
-		 * Sets up the link for deleting recurring events instances.
-		 *
-		 * @param string $link The current post delete link.
-		 * @param int $postId The current post/event id.
-		 * @return string The modified link.
-		 * @author Joey Kudish
-		 */
-		public function adjust_date_on_recurring_event_trash_link( $link, $postId ) {
-			global $post;
-			if ( isset($_REQUEST['deleteAll']) ) {
-				$link = remove_query_arg( array( 'eventDate', 'deleteAll'), $link );
-			} elseif ( (isset($post->ID)) && tribe_is_recurring_event($post->ID) && isset($_REQUEST['eventDate']) ) {
-				$link = add_query_arg( 'eventDate', $_REQUEST['eventDate'], $link );
-			}
-			return $link;
-	      }
-
-		/**
-		 * Adds the dialog box for when you try to delete a specific instance of a recurring event.
-		 *
-		 * @return void
-		 */
-		public function addDeleteDialogForRecurringEvents() {
-			global $current_screen, $post;
-			if ( is_admin() && isset( $current_screen->post_type ) && $current_screen->post_type == TribeEvents::POSTTYPE
-				&& (
-					( isset( $current_screen->id ) && $current_screen->id == 'edit-'.TribeEvents::POSTTYPE ) // listing page
-					|| ( ( isset( $post->ID ) ) && tribe_is_recurring_event( $post->ID ) ) // single event page
-				)
-			)
-			// load the dialog
-			require_once( TribeEvents::instance()->pluginPath.'admin-views/recurrence-dialog.php' );
-	      }
 
 		/**
 		 * Determines whether or not to show the custom fields metabox for events.
@@ -938,55 +935,37 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		/**
 		 * Add rewrite routes for custom PRO stuff and views.
 		 *
-		 * @param array $wp_rewrite The current rewrite rules.
-		 * @return array The modified array of rewrite rules.
-		 * @author Timothy Wood
-		 * @since 3.0
+		 * @param WP_Rewrite $wp_rewrite The WP_Rewrite object
+		 * @return void
 		 */
 		public function add_routes( $wp_rewrite ) {
+			$generator = $this->get_rewrite_generator($wp_rewrite);
+
+			$week_rules = $generator->get_week_rules($this->weekSlug);
+			$photo_rules = $generator->get_photo_rules($this->photoSlug);
+			$today_rules = $generator->get_today_rules($this->todaySlug);
+			$day_rules = $generator->get_day_rules($this->daySlug);
+			$tax_rules = $generator->get_taxonomy_rules();
+
+			$wp_rewrite->rules = $week_rules + $photo_rules + $today_rules + $day_rules + $tax_rules + $wp_rewrite->rules;
+		}
+
+		private function get_rewrite_generator( WP_Rewrite $wp_rewrite ) {
+			require_once( 'lib/tribeeventspro-rewriterulegenerator.php' );
+			$generator = new TribeEventsPro_RewriteRuleGenerator( $wp_rewrite );
 			$tec = TribeEvents::instance();
-			// $base = trailingslashit( $tec->getOption( 'eventsSlug', 'events' ) );
 
 			$base = trailingslashit( $tec->rewriteSlug );
-			$baseSingle = trailingslashit( $tec->rewriteSlugSingular );
-			$baseTax = trailingslashit( $tec->taxRewriteSlug );
-			$baseTax = "(.*)" . $baseTax . "(?:[^/]+/)*";
-			$baseTag = trailingslashit( $tec->tagRewriteSlug );
-			$baseTag = "(.*)" . $baseTag;
+			$generator->set_base( $base );
 
-			$photo = $this->photoSlug;
-			$day = $this->daySlug;
-			$today = $this->todaySlug;
-			$week = $this->weekSlug;
-			$newRules = array();
-			// week permalink rules
-			$newRules[$base . $week . '/?$'] = 'index.php?post_type=' . TribeEvents::POSTTYPE . '&eventDisplay=week';
-			$newRules[$base . $week . '/(\d{2})/?$'] = 'index.php?post_type=' . TribeEvents::POSTTYPE . '&eventDisplay=week' .'&eventDate=' . $wp_rewrite->preg_index(1);
-			$newRules[$base . $week . '/(\d{4}-\d{2}-\d{2})/?$'] = 'index.php?post_type=' . TribeEvents::POSTTYPE . '&eventDisplay=week' .'&eventDate=' . $wp_rewrite->preg_index(1);
-			// photo permalink rules
-			$newRules[$base . $photo . '/?$'] = 'index.php?post_type=' . TribeEvents::POSTTYPE . '&eventDisplay=photo';
-			$newRules[$base . $photo . '/(\d{4}-\d{2}-\d{2})/?$'] = 'index.php?post_type=' . TribeEvents::POSTTYPE . '&eventDisplay=photo' .'&eventDate=' . $wp_rewrite->preg_index(1);
-			// day permalink rules
-			$newRules[$base . $today . '/?$'] = 'index.php?post_type=' . TribeEvents::POSTTYPE . '&eventDisplay=day';
-			$newRules[$base . $day . '/(\d{4}-\d{2}-\d{2})/?$'] = 'index.php?post_type=' . TribeEvents::POSTTYPE . '&eventDisplay=day' .'&eventDate=' . $wp_rewrite->preg_index(1);
-			$newRules[$base . '/(\d{4}-\d{2}-\d{2})/ical/?$' ] = 'index.php?post_type=' . TribeEvents::POSTTYPE . '&eventDisplay=day' .'&eventDate=' . $wp_rewrite->preg_index(1) . '&ical=1';
-			$newRules[$base . '(\d{4}-\d{2}-\d{2})$'] = 'index.php?post_type=' . TribeEvents::POSTTYPE . '&eventDisplay=day' .'&eventDate=' . $wp_rewrite->preg_index(1);
+			$cat_base = trailingslashit( $tec->taxRewriteSlug );
+			$cat_base = "(.*)" . $cat_base . "(?:[^/]+/)*";
+			$generator->set_cat_base( $cat_base );
 
-			$newRules[$baseTax . '([^/]+)/' . $week . '/?$'] = 'index.php?tribe_events_cat=' . $wp_rewrite->preg_index(2) . '&post_type=' . TribeEvents::POSTTYPE . '&eventDisplay=week';
-			$newRules[$baseTax . '([^/]+)/' . $week . '/(\d{4}-\d{2}-\d{2})$'] = 'index.php?tribe_events_cat=' . $wp_rewrite->preg_index(2) . '&post_type=' . TribeEvents::POSTTYPE . '&eventDisplay=week' .'&eventDate=' . $wp_rewrite->preg_index(3);
-			$newRules[$baseTax . '([^/]+)/' . $photo . '/?$'] = 'index.php?tribe_events_cat=' . $wp_rewrite->preg_index(2) . '&post_type=' . TribeEvents::POSTTYPE . '&eventDisplay=photo';
-			$newRules[$baseTax . '([^/]+)/' . $today . '/?$'] = 'index.php?tribe_events_cat=' . $wp_rewrite->preg_index(2) . '&post_type=' . TribeEvents::POSTTYPE . '&eventDisplay=day';
-			$newRules[$baseTax . '([^/]+)/' . $day . '/(\d{4}-\d{2}-\d{2})/?$'] = 'index.php?tribe_events_cat=' . $wp_rewrite->preg_index(2) . '&post_type=' . TribeEvents::POSTTYPE . '&eventDisplay=day' .'&eventDate=' . $wp_rewrite->preg_index(3);
-			$newRules[$baseTax . '([^/]+)/(\d{4}-\d{2}-\d{2})/?$'] = 'index.php?tribe_events_cat=' . $wp_rewrite->preg_index(2) . '&post_type=' . TribeEvents::POSTTYPE . '&eventDisplay=day' .'&eventDate=' . $wp_rewrite->preg_index(3);
-
-			$newRules[$baseTag . '([^/]+)/' . $week . '/?$'] = 'index.php?tag=' . $wp_rewrite->preg_index(2) . '&post_type=' . TribeEvents::POSTTYPE . '&eventDisplay=week';
-			$newRules[$baseTag . '([^/]+)/' . $week . '/(\d{4}-\d{2}-\d{2})$'] = 'index.php?tag=' . $wp_rewrite->preg_index(2) . '&post_type=' . TribeEvents::POSTTYPE . '&eventDisplay=week' .'&eventDate=' . $wp_rewrite->preg_index(3);
-			$newRules[$baseTag . '([^/]+)/' . $photo . '/?$'] = 'index.php?tag=' . $wp_rewrite->preg_index(2) . '&post_type=' . TribeEvents::POSTTYPE . '&eventDisplay=photo';
-			$newRules[$baseTag . '([^/]+)/' . $today . '/?$'] = 'index.php?tag=' . $wp_rewrite->preg_index(2) . '&post_type=' . TribeEvents::POSTTYPE . '&eventDisplay=day';
-			$newRules[$baseTag . '([^/]+)/' . $day . '/(\d{4}-\d{2}-\d{2})/?$'] = 'index.php?tag=' . $wp_rewrite->preg_index(2) . '&post_type=' . TribeEvents::POSTTYPE . '&eventDisplay=day' .'&eventDate=' . $wp_rewrite->preg_index(3);
-			$newRules[$baseTag . '([^/]+)/(\d{4}-\d{2}-\d{2})/?$'] = 'index.php?tag=' . $wp_rewrite->preg_index(2) . '&post_type=' . TribeEvents::POSTTYPE . '&eventDisplay=day' .'&eventDate=' . $wp_rewrite->preg_index(3);
-
-			$wp_rewrite->rules = $newRules + $wp_rewrite->rules;
+			$tag_base = trailingslashit( $tec->tagRewriteSlug );
+			$tag_base = "(.*)" . $tag_base;
+			$generator->set_tag_base( $tag_base );
+			return $generator;
 		}
 
 		/**
@@ -1097,6 +1076,9 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		 * @since 3.0
 		 */
 		public function pre_get_posts( $query ){
+			if ( $query->is_single() && $query->get('eventDate') ) {
+				$this->set_post_id_for_recurring_event_query( $query );
+			}
 			if( !empty($query->tribe_is_event_pro_query) ) {
 				switch( $query->query_vars['eventDisplay'] ) {
 					case 'week':
@@ -1118,8 +1100,74 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 					case 'photo':
 						$query->set( 'hide_upcoming', false );
 						break;
+					case 'all':
+						$slug = $query->get( 'name' );
+						if ( empty($slug) ) {
+							break; // we shouldn't be here
+						}
+						unset( $query->query_vars['name'] );
+						unset( $query->query_vars['tribe_events']);
+
+						$all_ids = TribeEventsRecurrenceMeta::get_events_by_slug( $slug );
+						if ( empty($all_ids) ) {
+							$query->set('p', -1);
+						} else {
+							$query->set('post__in', $all_ids);
+						}
+						break;
 				}
 				apply_filters('tribe_events_pro_pre_get_posts', $query);
+			}
+		}
+
+		/**
+		 * A recurring event will have the base post's slug in the
+		 * 'name' query var. We need to remove that and replace it
+		 * with the correct post's ID
+		 *
+		 * @param WP_Query $query
+		 * @return void
+		 */
+		private function set_post_id_for_recurring_event_query( $query ) {
+			$date = $query->get( 'eventDate' );
+			$slug = $query->get( 'name' );
+			if ( empty($date) || empty($slug) ) {
+				return; // we shouldn't be here
+			}
+			$cache = new TribeEventsCache();
+			$post_id = $cache->get('single_event_'.$slug.'_'.$date, 'save_post' );
+			if ( !empty($post_id) ) {
+				unset( $query->query_vars['name'] );
+				unset( $query->query_vars['tribe_events']);
+				$query->set('p', $post_id);
+				return;
+			}
+			global $wpdb;
+			$parent_sql = "SELECT ID FROM {$wpdb->posts} WHERE post_name=%s AND post_type=%s";
+			$parent_sql = $wpdb->prepare( $parent_sql, $slug, TribeEvents::POSTTYPE );
+			$parent_id = $wpdb->get_var($parent_sql);
+
+			$parent_start = get_post_meta($parent_id, '_EventStartDate', true);
+			if ( empty($parent_start) ) {
+				return; // how does this series not have a start date?
+			} else {
+				$parent_start_date = date('Y-m-d', strtotime($parent_start));
+				$parent_start_time = date('H:i:s', strtotime($parent_start));
+			}
+
+			if ( $parent_start_date == $date ) {
+				$post_id = $parent_id;
+			} else {
+				$child_sql = "SELECT ID FROM {$wpdb->posts} p INNER JOIN {$wpdb->postmeta} m ON m.post_id=p.ID AND m.meta_key='_EventStartDate' WHERE p.post_parent=%d AND p.post_type=%s AND m.meta_value=%s";
+				$child_sql = $wpdb->prepare( $child_sql, $parent_id, TribeEvents::POSTTYPE, $date.' '.$parent_start_time );
+				$post_id = $wpdb->get_var($child_sql);
+			}
+
+			if ( $post_id ) {
+				unset( $query->query_vars['name'] );
+				unset( $query->query_vars['tribe_events']);
+				$query->set('p', $post_id);
+				$cache->set('single_event_'.$slug.'_'.$date, $post_id, TribeEventsCache::NO_EXPIRATION, 'save_post' );
 			}
 		}
 
@@ -1251,6 +1299,8 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		 */
 	    public function admin_enqueue_scripts() {
 	    	wp_enqueue_script( TribeEvents::POSTTYPE.'-premium-admin', $this->pluginUrl . 'resources/events-admin.js', array( 'jquery-ui-datepicker' ), apply_filters( 'tribe_events_pro_js_version', TribeEventsPro::VERSION ), true );
+		    $data = apply_filters( 'tribe_events_pro_localize_script', array(), 'TribeEventsProAdmin', TribeEvents::POSTTYPE.'-premium-admin' );
+		    wp_localize_script( TribeEvents::POSTTYPE.'-premium-admin', 'TribeEventsProAdmin', $data);
 	    }
 
 		/**
@@ -1269,37 +1319,9 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 					|| is_active_widget( false, false, 'next_event' )
 					|| is_active_widget( false, false, 'tribe-events-venue-widget')
 				) {
-				// Tribe Events CSS filename
-				$event_file = 'tribe-events-pro.css';
-				$stylesheet_option = tribe_get_option( 'stylesheetOption', 'tribe' );
 
-				// What Option was selected
-				switch( $stylesheet_option ) {
-					case 'skeleton':
-					case 'full':
-						$event_file_option = 'tribe-events-pro-'. $stylesheet_option .'.css';
-						break;
-					default:
-						$event_file_option = 'tribe-events-pro-theme.css';
-						break;
-				}
+				Tribe_PRO_Template_Factory::asset_package( 'events-pro-css' );
 
-				$styleUrl = trailingslashit( $this->pluginUrl ) . 'resources/' . $event_file_option;
-				$styleUrl = apply_filters( 'tribe_events_pro_stylesheet_url', $styleUrl );
-
-				// Is there a pro override file in the theme?
-				$styleOverrideUrl = TribeEventsTemplates::locate_stylesheet( 'tribe-events/pro/'. $event_file );
-
-				// Load up stylesheet from theme or plugin
-				if( $styleUrl && $stylesheet_option == 'tribe' ) {
-					wp_enqueue_style( 'full-calendar-pro-style', trailingslashit( $this->pluginUrl ) . 'resources/tribe-events-pro-full.css', array(), apply_filters( 'tribe_events_pro_css_version', TribeEventsPro::VERSION ) );
-					wp_enqueue_style( TribeEvents::POSTTYPE . '-calendar-pro-style', $styleUrl, array(), apply_filters( 'tribe_events_pro_css_version', TribeEventsPro::VERSION ) );
-				} else {
-					wp_enqueue_style( TribeEvents::POSTTYPE . '-calendar-pro-style', $styleUrl, array(), apply_filters( 'tribe_events_pro_css_version', TribeEventsPro::VERSION ) );
-				}
-				if( $styleOverrideUrl ) {
-					wp_enqueue_style( TribeEvents::POSTTYPE . '-calendar-pro-override-style', $styleOverrideUrl, array(), apply_filters( 'tribe_events_pro_css_version', TribeEventsPro::VERSION ) );
-				}
 			}
 		}
 
@@ -1319,6 +1341,8 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 				$geoloc = TribeEventsGeoLoc::instance();
 
 				$data = array( 'geocenter' => $geoloc->estimate_center_point() );
+
+				$data = apply_filters( 'tribe_events_pro_localize_script', $data, 'TribeEventsPro', 'tribe-events-pro' );
 
 				wp_localize_script( 'tribe-events-pro', 'TribeEventsPro', $data );
 
@@ -1523,6 +1547,13 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 				case 'map':
 					$eventUrl = add_query_arg( array( 'eventDisplay' => $type ), $eventUrl );
 					break;
+				case 'all':
+					remove_filter( 'post_type_link', array($this->permalink_editor, 'filter_recurring_event_permalinks'), 10, 4 );
+					$post_id = $secondary ? $secondary : get_the_ID();
+					$post_id = wp_get_post_parent_id( $post_id );
+					$eventUrl = add_query_arg('eventDisplay', 'all', get_permalink($post_id) );
+					add_filter( 'post_type_link', array($this->permalink_editor, 'filter_recurring_event_permalinks'), 10, 4 );
+					break;
 				default:
 					break;
 			}
@@ -1559,6 +1590,14 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 					if ( !empty( $secondary ) ) {
 						$eventUrl = esc_url( trailingslashit( $eventUrl ) . $secondary );
 					}
+					break;
+				case 'all':
+					remove_filter( 'post_type_link', array($this->permalink_editor, 'filter_recurring_event_permalinks'), 10, 4 );
+					$post_id = $secondary ? $secondary : get_the_ID();
+					$post_id = wp_get_post_parent_id( $post_id );
+					$eventUrl = trailingslashit(get_permalink($post_id));
+					$eventUrl = trailingslashit( esc_url($eventUrl . 'all') );
+					add_filter( 'post_type_link', array($this->permalink_editor, 'filter_recurring_event_permalinks'), 10, 4 );
 					break;
 				default:
 					break;
@@ -1725,11 +1764,11 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			 * Dummy function to avoid fatal error in edge upgrade case
 			 *
 			 * @todo remove in 3.1
-			 * @return void
+			 * @return bool
 			 * @author Jessica Yazbek
 			 **/
 			function tribe_is_recurring_event() {
-
+				return FALSE;
 			}
 		}
 		if ( !class_exists( 'TribeEvents' ) ) {

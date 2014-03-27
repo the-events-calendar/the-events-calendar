@@ -1,11 +1,11 @@
 === The Events Calendar PRO ===
 
-Contributors:  ModernTribe, roblagatta, MZAWeb, ryancurban, faction23, jazbek, jbrinley, kyleunzicker, leahkoerper, WebsiteBakery, barry.hughes, kellykathryn, neillmcshea, peterchester, reid.peifer, shane.pearlman
+Contributors:  ModernTribe, roblagatta, MZAWeb, ryancurban, faction23, jazbek, jbrinley, kyleunzicker, leahkoerper, WebsiteBakery, barry.hughes, kellykathryn, ckpicker, neillmcshea, peterchester, reid.peifer, shane.pearlman
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget, pro
 Donate link: http://m.tri.be/29
 Requires at least: 3.6
-Tested up to: 3.8
-Stable tag: 3.4
+Tested up to: 3.8.1
+Stable tag: 3.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -132,6 +132,7 @@ The plugin is produced by <a href="http://m.tri.be/45">Modern Tribe Inc</a>.
 * <a href="http://profiles.wordpress.org/users/faction23">Samuel Estok</a>
 * <a href="http://profiles.wordpress.org/users/neillmcshea">Neill McShea</a>
 * <a href="http://profiles.wordpress.org/users/kellykathryn">Kelly Groves</a>
+* <a href="http://profiles.wordpress.org/users/ckpicker”>Casey Picker</a>
 * <a href="http://profiles.wordpress.org/users/leahkoerper">Leah Koerper</a>
 * <a href="http://profiles.wordpress.org/users/peterchester">Peter Chester</a>
 * <a href="http://profiles.wordpress.org/users/reid.peifer">Reid Peifer</a>
@@ -154,28 +155,31 @@ The plugin is produced by <a href="http://m.tri.be/45">Modern Tribe Inc</a>.
 
 * Arabic from Mamdouh Samy
 * Bosnian from Marko Manojlovic
-* Brazilian Portuguese from Dionizio Bonfim Bach
+* Brazilian Portuguese from Emerson Marques
 * Catalan from Barbara Partegos Rof
 * Croatian from Marko Manojlovic
 * Czech from Martin Kristan and Petr Bastan
 * Danish from Anonymous
-* Dutch from Erik Massop
+* Dutch from J.F.M. Cornelissen and Frans Pronk
 * Finnish by Ari-Pekka Koponen
-* French from Bastien BC
-* German from Dieter Dannecker
+* French from Laurent Proulx
+* German from Oliver Heinrich
 * Greek from Maria Tsilimidou
 * Icelandic by Baldvin √ñrn Berndsen
 * Italian from Roberto Scano
-* Norwegian from Andreas Lorentsen
+* Montenegrin from Sasa Vukovic
+* Norwegian Bokmål by Morten Ruud
+* Norwegian Nynorsk by Torbjørn Lauen
 * Polish from Marek Kosina
 * Portuguese from Antonio Pratas
-* Romanian from Mihai Burcea
+* Romanian from Cosmin Vaman
 * Serbian from Marko Manojlovic
-* Spanish from Hector Gil Rizo
+* Spanish from Juan Jose Reparaz Sarasola
 * Swedish from Ben Andersen
 * Turkish by Derin Korman
+* Ukranian by Vasiliy
 
-* Previous translators include Mikhail Michouris, Ed Boon, Rick van Dalen, Jacob Roel Meijering, hristian Andersen, Michael Sebel, Oliver Heinrich, Filippo Montanari, David Decker, Kamil Szymanski, "Terje With Lunndal", Sagi Shrieber, Matthew Meyer, Arno Faure, Fanny Heraud, Vincent G from Host1Free, , Petri Kajander, Fran Rosa, Nico (wsMaurik), Panos Efstratiou, Dominique Monhardt, Thomas Butzek, Kjell Vestnes, Luiza Libardi, Diego Meneghetti, Benoit Burgener, Burak Pehlevan, and Alexey Fedorov
+* Previous translators include Mikhail Michouris, Bastien BC, Erik Massop, Ed Boon, Rick van Dalen, Jacob Roel Meijering, hristian Andersen, Michael Sebel, Dionizio Bonfim Bach, Mihai Burcea, Filippo Montanari, David Decker, Kamil Szymanski, "Terje With Lunndal", Sagi Shrieber, Matthew Meyer, Arno Faure, Fanny Heraud, Vincent G from Host1Free, , Petri Kajander, Fran Rosa, Nico (wsMaurik), Panos Efstratiou, Dominique Monhardt, Thomas Butzek, Kjell Vestnes, Luiza Libardi, Diego Meneghetti, Benoit Burgener, Hector Gil Rizo, Burak Pehlevan, and Alexey Fedorov
 
 == Add-Ons ==
 
@@ -205,6 +209,34 @@ Our Premium Plugins:
 = IMPORTANT NOTICE =
 
 3.x is a complete overhaul of the plugin, and as a result we're starting the changelog fresh. For release notes from the 2.x lifecycle, see <a href="http://m.tri.be/k">our 2.x release notes.</a>
+
+= 3.5 =
+
+* Incorporated fully responsive styles and functionality for all Events views! For an overview of the changes, see <a href="http://m.tri.be/hv">this blog post</a>
+* Changed how recurring events are stored, to give a unique post ID to each recurrence
+* Fixed an issue where the Category class wasn't properly being added to events when paging in Week View (thanks to Andy Fragen on the forums for reporting this!)
+* Fixed issue with popstate and bug in webkit when coming back from single venue view
+* Fixed issue were week view title would be cut off on short events (thanks to umediagroup on the forums for their report of this!)
+* Changed the workflow for breaking instances of a recurring event out of their series
+* Fixed recurring event permalinks in tag archives
+* Changed Week view to use the "End of day cutoff" setting (thanks to zengirl on the forums for the report here!)
+* Updated the recurrence UI to prevent setting a recurrence end date before the series start date
+* Fixed an issue where deleting an instance of a recurring event would delete the entire series
+* Fixed an issue where the Mini Calendar Widget could skip February when navigating through the months (thanks to timhengeveld on the forums for this report!)
+* Optimized some queries related to map view (thanks to crack00r on the forums for the report that got us thinking about this!)
+* Fixed an issue where the "Hide if no events" checkbox was not working in the Featured Venue widget
+* Fixed an issue where the iCal button would always download all events, instead of the events currently being viewed (thanks to philmacaulay on the forums for the first report of this!)
+* Fixed a variety of untranslatable strings
+* Incorporated new Ukranian translation files, courtesy of Vasiliy
+* Incorporated updated Spanish translation files, courtesy of Juan Jose Reparaz Sarasola
+* Incorporated new Montenegrin translation files, courtesy of Sasa Vukovic
+* Incorporated updated Norwegian Bokmål translation files, courtesy of Morten Ruud
+* Incorporated new Norwegian Nynorsk translation files, courtesy of Torbjørn Lauen
+* Incorporated updated Romanian translation files, courtesy of Cosmin Vaman
+* Incorporated updated German translation files by Oliver Heinrich
+* Incorporated updated Brazilian Portuguese translation files from Emerson Marques
+* Incorporated updated Dutch translation files from J.F.M. Cornelissen and Frans Pronk
+* Incorporated updated French translation files from Laurent Proulx
 
 = 3.4 = 
 
@@ -336,6 +368,10 @@ Still not happy? Shoot us an email to pro@tri.be or tweet to @moderntribeinc and
 == Upgrade Notice ==
 
 IMPORTANT NOTICE: 3.x upgrade is a HUGE upgrade from 2.x versions. If you are upgrading from an older version, please test thoroughly before updating on your live website.
+
+= 3.5 =
+
+Please see the changelog for the complete list of changes in this release. Remember to always make a backup of your database and files before updating!
 
 = 3.4 =
 

@@ -1,15 +1,19 @@
 <?php
-define('ABSPATH', 1);
-require_once('../../events/lib/tribe-date-utils.class.php');
-require_once('../lib/tribe-date-series-rules.class.php');
 
-class MonthSeriesRulesTest extends PHPUnit_Framework_TestCase
+/**
+ * Class MonthSeriesRules_Test
+ *
+ * @group pro
+ * @group recurrence
+ */
+class MonthSeriesRules_Test extends WP_UnitTestCase
 {
 	const DATE_FORMAT = "Y-m-d";
 	protected $date;
 
-	protected function setUp() {
+	public function setUp() {
 		$this->date = strtotime("2011-04-23");
+		parent::setUp();
 	}
 
 	public function testNextMonth()

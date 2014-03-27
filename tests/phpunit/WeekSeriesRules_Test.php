@@ -1,15 +1,19 @@
 <?php
-define('ABSPATH', 1);
-require_once('../../events/lib/tribe-date-utils.class.php');
-require_once('../lib/tribe-date-series-rules.class.php');
 
-class WeekSeriesRulesTest extends PHPUnit_Framework_TestCase
+/**
+ * Class WeekSeriesRules_Test
+ *
+ * @group pro
+ * @group recurrence
+ */
+class WeekSeriesRules_Test extends WP_UnitTestCase
 {
 	const DATE_FORMAT = "Y-m-d";
 	protected $date;
 
-	protected function setUp() {
+	public function setUp() {
 		$this->date = strtotime("2011-04-23"); // a saturday
+		parent::setUp();
 	}
 
 	public function testNextWeek()

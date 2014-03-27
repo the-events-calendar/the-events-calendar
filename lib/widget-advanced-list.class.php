@@ -26,9 +26,19 @@ if( !class_exists( 'TribeEventsAdvancedListWidget' ) ) {
 		}
 
 		function widget( $args, $instance ) {
+			$ecp = TribeEventsPro::instance();
+			$tooltip_status = $ecp->recurring_info_tooltip_status();
+			$ecp->disable_recurring_info_tooltip();
+
 			// Use parent's output function with the premium template.
 			self::$params = $instance;
-			return parent::widget_output( $args, $instance, 'pro/widgets/list-widget' );
+			$output = parent::widget_output( $args, $instance, 'pro/widgets/list-widget' );
+
+			if ( $tooltip_status ) {
+				$ecp->enable_recurring_info_tooltip();
+			}
+
+			return $output;
 		}
 
 		function update( $new_instance, $old_instance ) {

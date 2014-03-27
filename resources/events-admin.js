@@ -288,6 +288,12 @@ jQuery(document).ready(function($) {
 		// Update the text.
 		$('#recurrence-pattern-description').text( recurrence_text );
 	}
+
+	var recurrence_updated = function() {
+		updateRecurrenceText();
+		set_recurrence_end_min_date();
+	};
+	$('#recurrence_end, #EventStartDate, #EventEndDate').datepicker('option', 'onClose', recurrence_updated);
 	
 	$('.recurrence-row, .custom-recurrence-row').on('change', function(event) {
 		if ( !$('.recurrence-pattern-description-row').is(':visible') ) {
@@ -295,8 +301,15 @@ jQuery(document).ready(function($) {
 		}
 		updateRecurrenceText();
 	});
-	$('#recurrence_end, #EventStartDate, #EventEndDate').datepicker('option', 'onClose', updateRecurrenceText);
-	
+
+	var set_recurrence_end_min_date = function() {
+		var start = $('#EventStartDate').val();
+		if ( start != '' ) {
+			$('#recurrence_end').attr('placeholder', start).datepicker('option', 'minDate', start);
+		}
+	};
+	set_recurrence_end_min_date();
+
 	$('input[name="post[]"]').click( function(e) {
 		var event_id = $(this).val();
 		
@@ -304,6 +317,38 @@ jQuery(document).ready(function($) {
 			$('input[name="post[]"][value="' + event_id + '"]').prop( 'checked', true );
 		} else {
 			$('input[name="post[]"][value="' + event_id + '"]').prop( 'checked', false );
+		}
+	});
+
+	$('.wp-list-table.posts').on( 'click', '.tribe-split', function() {
+		var message = '';
+		if ( $(this).hasClass('tribe-split-all') ) {
+			message = TribeEventsProAdmin.recurrence.splitAllMessage;
+		} else {
+			message = TribeEventsProAdmin.recurrence.splitSingleMessage;
+		}
+		if ( !window.confirm(message) ) {
+			return false;
+		}
+	});
+
+	/* Fix for deleting multiple events */
+	$('.wp-admin.events-cal.edit-php #doaction').click(function(e) {
+		if($("[name='action'] option:selected").val() == "trash") {
+			if(confirm(TribeEventsProAdmin.recurrence.bulkDeleteConfirmationMessage)) {
+				var ids = new Array();
+
+				$('[name="post[]"]:checked').each(function() {
+					var curval = $(this).val();
+					if(ids[curval]) {
+						$(this).prop('checked', false);
+					}
+
+					ids[curval] = true;
+				});
+			} else {
+				e.preventDefault();
+			}
 		}
 	});
 	

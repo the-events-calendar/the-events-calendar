@@ -43,16 +43,20 @@ $venue_id = get_the_ID();
 		<?php do_action('tribe_events_single_venue_before_title') ?>
 		<?php the_title('<h2 class="entry-title author fn org">','</h2>'); ?>
 		<?php do_action('tribe_events_single_venue_after_title') ?>
+		
+		<div class="tribe-events-event-meta">
+		
+			<?php if ( tribe_show_google_map_link() ) : ?>
+				<!-- Google Map Link -->
+				<?php echo tribe_get_meta('tribe_event_venue_gmap_link'); ?>
+			<?php endif; ?>
 
-		<?php if ( tribe_show_google_map_link() ) : ?>
-			<!-- Google Map Link -->
-			<?php echo tribe_get_meta('tribe_event_venue_gmap_link'); ?>
-		<?php endif; ?>
-
-		<!-- Venue Meta -->
-		<?php do_action('tribe_events_single_venue_before_the_meta') ?>
-		<?php echo tribe_get_meta_group( 'tribe_event_venue' ) ?>
-		<?php do_action('tribe_events_single_venue_after_the_meta') ?>
+			<!-- Venue Meta -->
+			<?php do_action('tribe_events_single_venue_before_the_meta') ?>
+			<?php echo tribe_get_meta_group( 'tribe_event_venue' ) ?>
+			<?php do_action('tribe_events_single_venue_after_the_meta') ?>
+			
+		</div><!-- .tribe-events-event-meta -->
 
 		<!-- Venue Description -->
 		<?php if( get_the_content() ) : ?>

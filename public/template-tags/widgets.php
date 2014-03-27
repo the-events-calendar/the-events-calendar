@@ -68,7 +68,7 @@ function tribe_events_the_mini_calendar_next_link() {
 	} catch ( OverflowException $e ) {
 		$html = '';
 	}
-	echo apply_filters( 'tribe_events_the_mini_calendar_prev_link', $html );
+	echo apply_filters( 'tribe_events_the_mini_calendar_next_link', $html );
 }
 
 /**

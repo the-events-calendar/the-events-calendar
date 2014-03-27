@@ -23,9 +23,7 @@
 
 .tribe-events-grid .tribe-grid-header .tribe-week-today {
  	background-color: #21759b;
- }
-
-
+}
 
 .tribe-grid-allday .hentry.vevent > div,
 .tribe-grid-body div[id*="tribe-events-event-"] .hentry.vevent,
@@ -45,7 +43,6 @@
  	color: #fff;	
 }
 
-
 /* = Day Grid Template Styles
    @ Template: day.php
 =============================================*/
@@ -54,18 +51,15 @@
 	margin: 1.5em 0 .25em;
 	background-color: transparent;
 	padding: 6px 10px;
-	/*border-top: 1px solid #ccc;
-	border-bottom: 1px solid #ccc;
-	color: #ccc;*/
 	background: #E0E0E0;
 	color:#fff;
 	text-align: center;
 	line-height: 1;
 }
+
 .tribe-events-day .tribe-events-day-time-slot .vevent {
 	margin-left: 0;
 }
-
 
 /* = Week Grid Template Styles
    @ Template: week.php
@@ -89,6 +83,10 @@
 	border-right: 1px solid #666;
 	background-color: #666;
 	font-weight: bold;
+}
+
+.tribe-events-grid .hentry.vevent {
+	padding:4px;
 }
 
 .tribe-events-grid .tribe-grid-header .tribe-grid-content-wrap .column {
@@ -115,10 +113,10 @@
 	width: 7px;
 	height: 20px;
 	background-position: -30px 0;
-	left: -5px;
+	left: -19px;
 }
 .tribe-grid-body .tribe-events-right .tribe-events-tooltip .tribe-events-arrow {
-	right: -5px;
+	right: -19px;
 	background-position: -22px 0;
 }
 
@@ -126,7 +124,6 @@
 .tribe-week-grid-block div { 
 	border-top-color: #d2d2d2;
 }
-
 
 /* = Map View Template Styles 
    @ Template: map.php
@@ -158,7 +155,6 @@
 	top: -8px;
 }
 
-
 /* = Single Venue Template Styles (Pro Version)
    @ Template: single-venue.php
 =============================================*/
@@ -184,7 +180,6 @@
 	font-weight: normal;
 }
 
-
 /* = Single Organizer Template Styles (Pro Version)
    @ Template: single-organizer.php
 =============================================*/
@@ -199,7 +194,6 @@
 	font-weight: normal;
 }
 
-
 /* = Photo View Template Styles 
    @ Template: photo.php
 =============================================*/
@@ -207,15 +201,13 @@
 	margin-top: 23px;
 }
 
-#tribe-events-photo-events .vevent.tribe-events-photo-event {
+.vevent.tribe-events-photo-event .tribe-events-photo-event-wrap {
 	border: 0;
+	background: #f6f6f6;
 }
 
 /* Tile Styling */
-.tribe-events-photo-event  {
-	background: #f6f6f6;
-}
-.tribe-events-photo-event:hover {
+.vevent.tribe-events-photo-event .tribe-events-photo-event-wrap:hover {
 	background: #fff;
 }
 
@@ -245,7 +237,6 @@
 .tribe-events-photo #tribe-events-header li a {
 	display: none !important;
 }
-
 
 /* = Related Events
    @ Template: single-event.php

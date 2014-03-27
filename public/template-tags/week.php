@@ -177,16 +177,23 @@ if ( class_exists( 'TribeEventsPro' ) ) {
 		case 'allday':
 			Tribe_Events_Pro_Week_Template::set_event_id( $event_id );
 			return true;
-			break;
 		case 'hourly':
 			$event = Tribe_Events_Pro_Week_Template::get_hourly_event( $event_id );
-			if ( !empty( $event->EventStartDate ) && date( 'Y-m-d', strtotime( $event->EventStartDate ) ) <= tribe_events_week_get_the_date( false ) && date( 'Y-m-d', strtotime( $event->EventEndDate ) ) >= tribe_events_week_get_the_date( false ) ) {
-				Tribe_Events_Pro_Week_Template::set_event_id( $event_id );
-				return true;
-			} else {
+			if ( empty($event->EventStartDate) ) {
 				return false;
 			}
-			break;
+			$calendar_date = tribe_events_week_get_the_date( false );
+			// use rounded beginning/end of day because calendar grid only starts on the hour
+			$beginning_of_day = tribe_event_beginning_of_day( $calendar_date, 'Y-m-d H:00:00' );
+			$end_of_day = tribe_event_end_of_day( $calendar_date, 'Y-m-d H:00:00' );
+			if ( $event->EventStartDate > $end_of_day ) {
+				return false;
+			}
+			if ( $event->EventEndDate <= $beginning_of_day ) {
+				return false;
+			}
+			Tribe_Events_Pro_Week_Template::set_event_id( $event_id );
+			return true;
 		}
 		return false;
 	}
@@ -248,7 +255,7 @@ if ( class_exists( 'TribeEventsPro' ) ) {
 		try {
 			$url = tribe_get_last_week_permalink();
 			if ( empty($text) ) {
-				$text = __('&laquo; Previous Week', 'tribe-events-calendar-pro' );
+				$text = __('<span>&laquo;</span> Previous Week', 'tribe-events-calendar-pro' );
 			}
 			$html = sprintf( '<a %s href="%s" rel="prev">%s</a>', tribe_events_the_nav_attributes( 'prev', false ), $url, $text );
 		} catch ( OverflowException $e ) {
@@ -261,7 +268,7 @@ if ( class_exists( 'TribeEventsPro' ) ) {
 		try {
 			$url = tribe_get_next_week_permalink();
 			if ( empty($text) ) {
-				$text = __( 'Next Week &raquo;', 'tribe-events-calendar-pro' );
+				$text = __( 'Next Week <span>&raquo;</span>', 'tribe-events-calendar-pro' );
 			}
 			$html = sprintf( '<a %s href="%s" rel="next">%s</a>', tribe_events_the_nav_attributes( 'next', false ), $url, $text );
 		} catch ( OverflowException $e ) {

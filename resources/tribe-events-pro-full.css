@@ -14,23 +14,23 @@
  *
  */
  
- .tribe-events-user-recurrence-toggle {
- 	display: block;
+.tribe-events-user-recurrence-toggle {
+	display: block;
  	text-align: center;
  	margin-bottom: 15px;
  	font-style: italic;
  	font-size: 12px;
  	clear: both;
- }
+}
 
-
- .tribe-events-user-recurrence-toggle label:hover {
+.tribe-events-user-recurrence-toggle label:hover {
   	cursor: pointer;
-  }
-
- .tribe-events-user-recurrence-toggle input {
- 	margin-right: 5px;
  }
+
+.tribe-events-user-recurrence-toggle input {
+ 	margin-right: 5px;
+}
+ 
 /* = Day Grid Template Styles
    @ Template: day.php
 =============================================*/
@@ -76,10 +76,12 @@
 	text-align: center;
 	text-transform: uppercase;
 	padding: 1em 0;
+	letter-spacing: 1px;
 }
 
 .tribe-grid-header .column a {
 	color: #333;
+	font-weight: bold;
 }
 
 /* columns & structure */
@@ -90,7 +92,7 @@
 }
 
 .tribe-events-grid .slimScrollBar {
-	z-index:1000 !important
+	z-index: 1000 !important
 }
 
 .tribe-grid-body {
@@ -145,6 +147,11 @@
 }
 
 /* Global Week Event Styles */
+
+.tribe-events-grid .hentry.vevent {
+	padding:4px;
+}
+
 .tribe-events-grid div[id*='tribe-events-event-'] {
 	visibility: hidden;
 }
@@ -201,9 +208,11 @@
 }
 .tribe-grid-allday .column.first span {
 	position: absolute;
-	top: 50%;
-	left: 0;
+	top: 50%;	
 	margin-top: -12px;
+	width: 30px;
+	left: 50%;
+	margin-left: -15px;
 }
 .tribe-grid-allday .hentry.vevent {
 	margin: 0;
@@ -217,7 +226,7 @@
 .tribe-grid-allday .hentry.vevent h3.entry-title {
 	padding: 0;
 }
-/* truncated all day titles */
+/* Truncated all day titles */
 .tribe-grid-allday .hentry.vevent h3.entry-title a.url {
 	padding: 8px 6px;
 	display: inline-block;
@@ -316,10 +325,8 @@
 /* = Photo View Template Styles 
    @ Template: photo.php
 =============================================*/
-/********** Masonry Layout **********/
 
 /* CSS3 Transitions */
-
 #tribe-events-content.tribe-events-list {
 	padding: 1px 0 !important;
 }
@@ -355,10 +362,15 @@
 	width: 29.2%;
 	margin: 0 4% 30px 0;
 	padding: 0;
-	border: 1px solid #eee;
+	border-bottom: 0;
 	-webkit-box-sizing: border-box;
 	   -moz-box-sizing: border-box;
 			box-sizing: border-box;
+}
+
+.vevent.tribe-events-photo-event .tribe-events-photo-event-wrap {
+	border: 1px solid #eee;
+	border-bottom: 1px solid #ddd;
 }
 
 #tribe-events-photo-events.photo-two-col .vevent.tribe-events-photo-event {
@@ -386,10 +398,14 @@
 }
 
 .tribe-events-photo-event  {
-	background: #FAFAFA;
 	padding: 4%;
 }
-.tribe-events-photo-event:hover {
+
+.tribe-events-photo-event-wrap {
+	background: #FAFAFA;
+}
+
+.tribe-events-photo-event-wrap:hover {
 	background: #fff;
 	-webkit-box-shadow: rgba(0,0,0, 0.1) 0px 0px 10px;
 			box-shadow: rgba(0,0,0, 0.1) 0px 0px 10px;
@@ -609,8 +625,7 @@
 /* = View Loading / Pagination Styles 
    @ Template: map.php & photo.php
 =============================================*/
-#tribe-geo-loading/*,
-#tribe-photo-loading*/ {
+#tribe-geo-loading {
 	display: none;
 	position: absolute;
 	width: 100%;
@@ -626,8 +641,7 @@
 	-ms-transition: all 1s linear;
 	transition: all 1s linear;
 }
-#tribe-geo-loading img/*,
-#tribe-photo-loading img*/ {
+#tribe-geo-loading img {
 	position: absolute;
 	left: 50%;
 	top: 50%;
@@ -696,7 +710,6 @@
 }
 
 .tribe-events-venue address.venue-address,
-.tribe-events-venue address.venue-address span.street-address,
 .tribe-events-venue address.venue-address span.tel,
 .tribe-events-venue address.venue-address span.url {
 	display: block;
@@ -783,7 +796,7 @@ h3.tribe-events-related-events-title {
  
 .tribe-events-single ul.tribe-related-events,
 .post .tribe-events-single ul.tribe-related-events {
-	margin: 0 -4% 8% 0;
+	margin: 0 0 8% 0;
 	padding: 0;
 	border: none;
 } 
@@ -838,22 +851,9 @@ h3.tribe-events-related-events-title {
 	display: none;
 }
 
-@media only screen and (max-width: 767px) {
-	.tribe-events-single ul.tribe-related-events {
-		margin: 0;
-	}
-	
- .tribe-events-single ul.tribe-related-events li {
- 	float: none;
- 	margin-right: 0;
- 	width: 100%;
- }
-}
-
 /* = Events Calendar Widget Styles (Sidebar)
-   @ Template: list-widget.php
+   @ Template: widgets/list-widget.php
 =============================================*/
-
 .tribe-events-adv-list-widget ol li {
 	margin-bottom: 30px;
 	list-style: none;
@@ -877,6 +877,7 @@ h3.tribe-events-related-events-title {
 }
  
 /* = Events Countdown Widget
+   @ Template: widgets/countdown-widget.php
 =============================================*/
 .tribe-countdown-timer span.tribe-countdown-seconds,
 .tribe-countdown-timer span.format, 
@@ -884,6 +885,7 @@ h3.tribe-events-related-events-title {
 	display: none;
 }
 div.tribe-countdown-timer {
+	min-height:60px;
 	text-align: center;
 	line-height: 1.5em;
 	padding-top: 10px;
@@ -912,8 +914,22 @@ div.tribe-countdown-text {
 	clear: both;
 	margin: 0 0 10px 0;
 }
+/* Twenty Thirteen Footer Widget */
+.tribe-theme-twentythirteen #secondary div.tribe-countdown-number, .tribe-theme-twentyfourteen #primary-sidebar div.tribe-countdown-number, .tribe-theme-twentyfourteen #footer-sidebar div.tribe-countdown-number {
+	color:#fff;
+	text-shadow:1px 1px #000;
+}
+.tribe-theme-twentythirteen #secondary span.tribe-countdown-under {
+	color:#fff;
+}
+
+.tribe-theme-twentyfourteen #primary-sidebar div.tribe-countdown-number {
+	font-size:24px;
+}
+
 
 /* = Events Venue Widget
+   @ Template: widgets/venue-widget.php
 =============================================*/
 .tribe-venue-widget-venue-name a {
 	font-weight: bold;

@@ -1,13 +1,19 @@
 <?php
-require_once('../lib/date-series-rules.php');
 
-class DaySeriesRulesTest extends PHPUnit_Framework_TestCase
+/**
+ * Class DaySeriesRules_Test
+ *
+ * @group pro
+ * @group recurrence
+ */
+class DaySeriesRules_Test extends WP_UnitTestCase
 {
 	const DATE_FORMAT = "Y-m-d";
 	protected $date;
 
-	protected function setUp() {
+	public function setUp() {
 		$this->date = strtotime("2011-04-23");
+		parent::setUp();
 	}
 
 	public function testNextDay()
