@@ -162,6 +162,16 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 				}
 			}
 
+			// check option for including events in the wordpress archive, if true, add events post type
+			if ( tribe_get_option( 'showEventsInArchive', false ) ) {
+				add_filter( 'getarchives_where', array( 'TribeEventsQuery', 'filter_add_event_post_type' ), 10, 1 );
+				if ( $query->is_main_query() && is_archive() ) {
+					$query->query_vars['post_type'] = isset( $query->query_vars['post_type'] ) ? ( array ) $query->query_vars['post_type'] : array( 'post' );
+					$query->query_vars['post_type'][] = TribeEvents::POSTTYPE;
+					$query->tribe_is_multi_posttype = true;
+				}
+			}
+
 			if ( $query->tribe_is_multi_posttype ) {
 				do_action( 'log', 'multi_posttype', 'default', $query->tribe_is_multi_posttype );
 				add_filter( 'posts_fields', array( __CLASS__, 'multi_type_posts_fields' ), 10, 2 );
@@ -368,6 +378,12 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 			}
 
 			return $query;
+		}
+
+		public static function filter_add_event_post_type( $where ) {
+			$pattern = "post_type = 'post'";
+			$replacement = "(post_type = 'post' OR post_type = '" . TribeEvents::POSTTYPE . "')";
+			return str_replace( $pattern, $replacement, $where );
 		}
 
         /**
