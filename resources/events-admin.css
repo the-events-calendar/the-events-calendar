@@ -13,18 +13,6 @@ input::-webkit-input-placeholder, textarea::-webkit-input-placeholder { color: #
 .fixed .column-start-date, .fixed .column-end-date, .fixed .column-events-cats {width:14%;}
 #additional-field-table input, #additional-field-table select, #additional-field-table textarea { width: 200px; }
 #additional-field-table tbody tr { height: 72px; }
-.view-calendar-link {
-	display:inline-block;
-    font-weight: normal;
-    padding: 0;
-    height: 14.5px;
-	}
-.view-calendar-link-div {
-	display: inline-block;
-	position: absolute;
-	left: 200px;
-	margin-top: 18px;
-}
 
 /* = Post Type Editing
 =============================================*/

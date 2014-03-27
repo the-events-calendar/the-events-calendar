@@ -1048,6 +1048,19 @@ if ( class_exists( 'TribeEvents' ) ) {
 			return tribe_get_event_meta( $id, $meta, $single );
 		}
 	}
+
+	if ( !function_exists( 'tribe_events_event_recurring_info_tooltip' ) ) {
+		/**
+		 * @deprecated
+		 */
+		function tribe_events_event_recurring_info_tooltip( $post_id = null ) {
+			_deprecated_function( __FUNCTION__, '3.5', 'tribe_events_recurrence_tooltip()' );
+			if ( function_exists('tribe_events_recurrence_tooltip') ) {
+				tribe_events_recurrence_tooltip( $post_id );
+			}
+		}
+	}
+
 	if ( !function_exists( 'tribe_the_map_link' ) ) {
 		/**
 		 * @deprecated

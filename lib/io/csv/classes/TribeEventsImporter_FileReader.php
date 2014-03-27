@@ -41,7 +41,7 @@ class TribeEventsImporter_FileReader {
 		}
 		$row = $this->file->current();
 		$this->file->next();
-		return $row;
+		return empty($row) ? array() : $row;
 	}
 
 	public function get_last_line_number_read() {

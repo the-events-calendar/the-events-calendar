@@ -1,9 +1,9 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: The Events Calendar v3.3.1\n"
+"Project-Id-Version: The Events Calendar v3.4.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-07-02 11:27-0800\n"
-"PO-Revision-Date: 2014-01-18 13:10:24+0000\n"
+"PO-Revision-Date: 2014-02-11 10:35:41+0000\n"
 "Last-Translator: Thomas Butzek <ThomasButzek@live.de>\n"
 "Language-Team: DECKERWEB <deckerweb.mobil@googlemail.com>\n"
 "MIME-Version: 1.0\n"
@@ -221,7 +221,7 @@ msgid "Display Settings"
 msgstr "Darstellungsoptionen"
 
 #: admin-views/tribe-options-display.php:34
-#, fuzzy, php-format, php-format, php-format, php-format, php-format, php-format, php-format, php-format
+#, fuzzy, php-format, php-format, php-format, php-format, php-format, php-format, php-format, php-format, php-format, php-format, php-format, php-format, php-format
 #@ tribe-events-calendar
 msgid "<p>The settings below control the display of your calendar. If things don't look right, try switching between the three style sheet options or pick a page template from your theme.</p><p>There are going to be situations where no out-of-the-box template is 100&#37; perfect. Check out our <a href=\"%s\">our themer's guide</a> for instructions on custom modifications. Want to create a new view? Grab a copy of the <a href=\"%s\">Sample Agenda View plugin from Github</a></p>"
 msgstr "<p>Die Einstellungen steuern die Ansicht Ihres Kalenders. Falls etwas nicht richtig angezeigt wird, versuchen Sie zwischen den drei Stylingoptionen zu wechseln oder nutzen Sie eine Vorlage Ihres Wordpress Themes.</p><p>Die mitgelieferte Vorlage passt möglicherweise nicht für jeden Zweck optimal. Lesen Sie dazu unseren <a href=\"%s\">\"Themer's Guide\"</a>  für Informationen zu eigenen Modifikationen. Wenn Sie eine neue \\\"View\\\" erstellen wollen, nutzen Sie ein <a href=\"%s\">Beispiel View Plugin von Github</a></p>"
@@ -407,7 +407,7 @@ msgstr "Kommentare auf den Veranstaltungsseiten aktivieren."
 #: admin-views/tribe-options-general.php:88
 #@ tribe-events-calendar
 msgid "Include events in main blog loop"
-msgstr "Veranstaltungen im Blog Loob integrieren"
+msgstr "Veranstaltungen in Blog Loop integrieren (Veranstaltungen werden zusammen mit den normalen Artikel angezeigt)"
 
 #: admin-views/tribe-options-general.php:89
 #@ tribe-events-calendar
@@ -554,212 +554,186 @@ msgstr "Sie sind auf dem neuesten Stand!"
 msgid "The Events Calendar PRO"
 msgstr "Der Events Calendar PRO"
 
-#: admin-views/tribe-options-help.php:86
-#@ tribe-events-calendar
-msgid "Documentation"
-msgstr "Dokumentation"
-
-#: admin-views/tribe-options-help.php:90
-#@ tribe-events-calendar
-msgid "FAQ"
-msgstr "FAQ"
-
-#: admin-views/tribe-options-help.php:94
-#: lib/the-events-calendar.class.php:763
-#: lib/the-events-calendar.class.php:3959
-#: lib/the-events-calendar.class.php:4055
+#: lib/the-events-calendar.class.php:765
+#: lib/the-events-calendar.class.php:4000
+#: lib/the-events-calendar.class.php:4096
 #@ tribe-events-calendar
 msgid "Help"
 msgstr "Hilfe"
 
-#: admin-views/tribe-options-help.php:98
-#@ tribe-events-calendar
-msgid "Tutorials"
-msgstr "Tutorials"
-
-#: admin-views/tribe-options-help.php:102
-#@ tribe-events-calendar
-msgid "Release Notes"
-msgstr "Release Notes"
-
-#: admin-views/tribe-options-help.php:106
-#@ tribe-events-calendar
-msgid "Forums"
-msgstr "Foren"
-
-#: admin-views/tribe-options-help.php:114
+#: admin-views/tribe-options-help.php:87
 #@ tribe-events-calendar
 msgid "If this is your first time using The Events Calendar, you're in for a treat and are already well on your way to creating a first event. Here are some basics we've found helpful for users jumping into it for the first time:"
 msgstr "Wenn Sie Events Calendar das erste Mal nutzen, sind Sie auf dem besten Weg Ihre erste Veranstaltung zu erstellen. Hier finden Sie Basiswissen, welches hilfreich bei der ersten Benutzung ist:"
 
-#: admin-views/tribe-options-help.php:117
+#: admin-views/tribe-options-help.php:90
 #, php-format
 #@ tribe-events-calendar
 msgid "%sOur New User Primer%s was designed for folks in your exact position. Featuring both step-by-step videos and written walkthroughs that feature accompanying screenshots, the primer aims to take you from zero to hero in no time."
 msgstr "Unser %sNew User Primer%s wurde für Personen wie Sie entwickelt. Step-by-Step Videos als auch ausführliche Anleitung inklusive Screenshots helfen Ihnen sich schnell zurecht zu finden."
 
-#: admin-views/tribe-options-help.php:119
+#: admin-views/tribe-options-help.php:92
 #, php-format
 #@ tribe-events-calendar
 msgid "%sInstallation/Setup FAQs%s from our support page can help give an overview of what the plugin can and cannot do. This section of the FAQs may be helpful as it aims to address any basic install questions not addressed by the new user primer."
 msgstr "Die %sInstallation/Setup FAQ%s von unserer Supportseite hilft Ihnen einen Überblick über die Funktionen des Plugins zu geben. Dieser Abschnitt der FAQ kann hilfreich sein, da er alle Basis Installationsfragen erläutert, welche nicht im \\\"New User Primer\\\" enthalten sind."
 
-#: admin-views/tribe-options-help.php:121
+#: admin-views/tribe-options-help.php:94
 #, php-format
 #@ tribe-events-calendar
 msgid "Are you developer looking to build your own frontend view? We created an example plugin that demonstrates how to register a new view. You can %sdownload the plugin at GitHub%s to get started."
 msgstr "Sind Sie ein Entwickler, welcher eine eigene Ansicht für Ihre Website entwickeln will? Wir haben ein Beispiel Plugin erstellt, welche demonstriert, wie eine neue \\\"View\\\" registriert werden kann. Sie können das %sPlugin auf GitHub%s herunterladen."
 
-#: admin-views/tribe-options-help.php:123
+#: admin-views/tribe-options-help.php:96
 #@ tribe-events-calendar
 msgid "Otherwise, if you're feeling adventurous, you can get started by heading to the Events menu and adding your first event."
 msgstr "Wenn Sie direkt durchstarten möchten, können Sie jetzt im Veranstaltungen Menü Ihre erste Veranstaltungen erstellen."
 
-#: admin-views/tribe-options-help.php:127
+#: admin-views/tribe-options-help.php:100
 #, php-format
 #@ tribe-events-calendar
 msgid "We've redone our support page from the ground up in an effort to better help our users. Head over to our %sSupport Page%s and you'll find lots of great resources, including:"
 msgstr "Wir haben unsere Support Seite von Grund auf überarbeitet, um unsere Kunden besser unterstützen zu können. Wechseln Sie zu  %sSupport Seite%s und finden Sie eine Vielzahl von Unterlagen, inklusive:"
 
-#: admin-views/tribe-options-help.php:129
+#: admin-views/tribe-options-help.php:102
 #, php-format
 #@ tribe-events-calendar
 msgid "%sTemplate tags, functions, and hooks & filters%s for The Events Calendar &amp; Events Calendar PRO"
 msgstr "%sTemplate tags, Funktionen und Hooks & Filter%s für \\\" The Events Calendar &amp; Events Calendar PRO\\\""
 
-#: admin-views/tribe-options-help.php:131
+#: admin-views/tribe-options-help.php:104
 #, php-format
 #@ tribe-events-calendar
 msgid "%sFrequently Asked Questions%s ranging from the most basic setup questions to advanced themer tweaks"
 msgstr "%sFrequently Asked Questions%s für die Basis Setup Fragen für Anpassungen von Themes."
 
-#: admin-views/tribe-options-help.php:133
+#: admin-views/tribe-options-help.php:106
 #, php-format
 #@ tribe-events-calendar
 msgid "%sTutorials%s written by both members of our team and users from the community, covering custom queries, integration with third-party themes and plugins, etc."
 msgstr "%sTutorials%s, welche von Mitgliedern unseres Teams und Nutzern der Community erstellt wurden, welche individuelle Abfragen, die Integration von Themes von Drittanbietern und Plugins, etc. beschreiben."
 
-#: admin-views/tribe-options-help.php:135
+#: admin-views/tribe-options-help.php:108
 #@ tribe-events-calendar
 msgid "Release notes for painting an overall picture of the plugin's lifecycle and when features/bug fixes were introduced."
 msgstr "Release Notes mit einer Übersicht über den Plugin Lifecylce und wann neue Features / Bug Fixes umgesetzt wurden."
 
-#: admin-views/tribe-options-help.php:137
+#: admin-views/tribe-options-help.php:110
 #, php-format
 #@ tribe-events-calendar
 msgid "%sAdd-on documentation%s for all of Modern Tribe's official extensions for The Events Calendar (including WooTickets, Community Events, Eventbrite Tickets, Facebook Events, etc)"
 msgstr "%sAdd-on Dokumentation%s für alle offiziellen Modern Tribe Erweiterungen für \\\" The Events Calendar\\\" (inklsuive WooTickets, Community Events, Eventbrite Tickets, Facebook Events, etc)"
 
-#: admin-views/tribe-options-help.php:139
+#: admin-views/tribe-options-help.php:112
 #, php-format
 #@ tribe-events-calendar
 msgid "We've also got a %sModern Tribe UserVoice%s page where we're actively watching for feature ideas from the community. If after playing with the plugin and reviewing the resources above, you're finding a feature isn't present that should be, let us know. Vote up existing feature requests or add your own, and help us shape the future of the products business in a way that best meets the community's needs."
 msgstr "Es existiert auch eine %sModern Tribe UserVoice%s Seite, welche wir auf neue Features der Community hin überprüfen. Sollten Sie nach Nutzung des Plugin und der oben genannten Unterlagen feststellen, dass ein gewünschtes Features nicht verfügbar ist, informieren Sie uns! Stimmen Sie für existierende Features ab oder fügen Sie selbst neue hinzu. Helfen Sie uns die Entwicklung des Produktes zu steuern, um die Anfoderungen der Community am besten erfüllen zu können."
 
-#: admin-views/tribe-options-help.php:143
+#: admin-views/tribe-options-help.php:116
 #, php-format
 #@ tribe-events-calendar
 msgid "Written documentation can only take things so far...sometimes, you need help from a real person. This is where our %ssupport forums%s come into play."
 msgstr "Eine Dokumentation ist oft hilfreich, kann aber nicht immer die Unterstützung durch einen echten Supportmitarbeiter ersetzen. An dieser Stelle kommt unser %sSupport Forums%s ins Spiel."
 
-#: admin-views/tribe-options-help.php:144
+#: admin-views/tribe-options-help.php:117
 #, php-format
 #@ tribe-events-calendar
 msgid "Users of the free The Events Calendar should post their support concerns to the plugin's %sWordPress.org support forum%s. While we are happy to help identify and fix bugs that are reported at WordPress.org, please make sure to read our %ssupport expectations sticky thread%s before posting so you understand our limitations."
 msgstr "Nutzer des frei verfügbaren Plugin \\\"The Events Calendar\\\" können Ihre Supportanfragen im %sWordPress.org support forum%s stellen. Wir unterstützen gerne auf WordPress.org und versuchen Fehler zu beheben. Bitte stellen Sie vorher jedoch sicher, dass Sie unsere %ssupport expectations sticky thread%s gelesen haben, bevor Sie eine Frage stellen, um die Grenzen des Supports zu verstehen."
 
-#: admin-views/tribe-options-help.php:145
+#: admin-views/tribe-options-help.php:118
 #@ tribe-events-calendar
 msgid "We hit the WordPress.org forum throughout the week, watching for bugs. If you report a legitimate bug that we're able to reproduce, we will log it and patch for an upcoming release. However we are unfortunately unable to provide customization tips or assist in integrating with 3rd party plugins or themes."
 msgstr "Wir prüfen das WordPress.org Forum während der Woche, um Fehler zu erkennen. Wenn Sie eine offensichtlien Fehler finden, den wir reproduzieren können, werden wir in aufnehmen und im nächsten Release korrigieren. Jedoch sind wir leider nicht in der Lage, Tipps für Anpassungen zu geben oder bei der Untstützung von Plugins oder Themes von Drittanbietern zu geben."
 
-#: admin-views/tribe-options-help.php:146
+#: admin-views/tribe-options-help.php:119
 #, php-format
 #@ tribe-events-calendar
 msgid "If you're a user of The Events Calendar and would like more support, please %spurchase a PRO license%s. We hit the PRO forums daily, and can provide a deeper level of customization/integration support for paying users than we can on WordPress.org."
 msgstr "Wenn Sie als Nutzer von \\\"The Events Calendar\\\" mehr Unterstützung benötigen, erwerben Sie bitte eine %sPRO Lizenz%s. Wir überprüfen das PRO Forum täglich and können Nutzer auf einer detailierten Ebene bei Anpassungen oder Integrationen unterstützen, als auf WordPress.org."
 
-#: admin-views/tribe-options-help.php:150
-#, fuzzy, php-format, php-format, php-format, php-format, php-format, php-format, php-format, php-format
+#: admin-views/tribe-options-help.php:123
+#, fuzzy, php-format, php-format, php-format, php-format, php-format, php-format, php-format, php-format, php-format, php-format, php-format, php-format, php-format
 #@ tribe-events-calendar
 msgid "If you find that you aren't getting the level of service you've come to expect from Modern Tribe, shoot us an email at %s or tweet %s and tell us why. We'll do what we can to make it right."
 msgstr "Wenn Sie nicht die benötigte Hilfe bekommen, schicken Sie uns eine E-Mail an %s oder einen Tweet %s und sagen uns warum. Wir werden unser Bestes geben, um Ihnen zu helfen."
 
-#: admin-views/tribe-options-help.php:151
+#: admin-views/tribe-options-help.php:124
 #@ tribe-events-calendar
 msgid "More..."
 msgstr "Mehr..."
 
-#: admin-views/tribe-options-help.php:159
+#: admin-views/tribe-options-help.php:132
 #@ tribe-events-calendar
 msgid "Hi! We are Modern Tribe and we are here to help you kick ass. Thanks so much for installing our labor of love!"
 msgstr "Hallo! Wir sind Modern Tribe. Vielen Dank für die Installation!"
 
-#: admin-views/tribe-options-help.php:165
+#: admin-views/tribe-options-help.php:138
 #@ tribe-events-calendar
 msgid "Getting Started"
 msgstr "Schnellstart"
 
-#: admin-views/tribe-options-help.php:168
+#: admin-views/tribe-options-help.php:141
 #, fuzzy
 #@ tribe-events-calendar
 msgid "Support Resources To Help You Kick Ass"
 msgstr "Support Unterlagen"
 
-#: admin-views/tribe-options-help.php:171
+#: admin-views/tribe-options-help.php:144
 #, fuzzy
 #@ tribe-events-calendar
 msgid "Forums: Because Everyone Needs A Buddy"
 msgstr "Foren: Weil jeder Freunde braucht"
 
-#: admin-views/tribe-options-help.php:174
+#: admin-views/tribe-options-help.php:147
 #@ tribe-events-calendar
 msgid "Not getting help?"
 msgstr "Keine Hilfe gefunden?"
 
-#: admin-views/tribe-options-help.php:186
-#: lib/the-events-calendar.class.php:510
+#: admin-views/tribe-options-help.php:159
+#: lib/the-events-calendar.class.php:512
 #: lib/tribe-settings.class.php:135
 #@ tribe-events-calendar
 msgid "The Events Calendar"
 msgstr "Veranstaltungskalender"
 
-#: admin-views/tribe-options-help.php:190
+#: admin-views/tribe-options-help.php:163
 #@ tribe-events-calendar
 msgid "Latest Version:"
 msgstr "Neueste Version:"
 
-#: admin-views/tribe-options-help.php:191
+#: admin-views/tribe-options-help.php:164
 #@ tribe-events-calendar
 msgid "Author:"
 msgstr "Autor:"
 
-#: admin-views/tribe-options-help.php:191
+#: admin-views/tribe-options-help.php:164
 #@ tribe-events-calendar
 msgid "Modern Tribe Inc"
 msgstr "Modern Tribe Inc"
 
-#: admin-views/tribe-options-help.php:192
+#: admin-views/tribe-options-help.php:165
 #@ tribe-events-calendar
 msgid "Requires:"
 msgstr "Benötigt:"
 
-#: admin-views/tribe-options-help.php:192
+#: admin-views/tribe-options-help.php:165
 #@ tribe-events-calendar
 msgid "WordPress "
 msgstr "WordPress "
 
-#: admin-views/tribe-options-help.php:193
+#: admin-views/tribe-options-help.php:166
 #@ tribe-events-calendar
 msgid "Wordpress.org Plugin Page"
 msgstr "Wordpress.org Plugin Seite"
 
-#: admin-views/tribe-options-help.php:198
+#: admin-views/tribe-options-help.php:171
 #@ tribe-events-calendar
 msgid "Average Rating"
 msgstr "Durchschnittliche Bewertung"
 
-#: admin-views/tribe-options-help.php:202
+#: admin-views/tribe-options-help.php:175
 #, php-format
 #@ tribe-events-calendar
 msgid "Based on %d rating"
@@ -767,22 +741,22 @@ msgid_plural "Based on %d ratings"
 msgstr[0] "Basierend auf %d Bewertung"
 msgstr[1] "Basierend auf %d Bewertungen"
 
-#: admin-views/tribe-options-help.php:203
+#: admin-views/tribe-options-help.php:176
 #@ tribe-events-calendar
 msgid "Give us 5 stars!"
 msgstr "Geben Sie uns 5 Sterne!"
 
-#: admin-views/tribe-options-help.php:206
+#: admin-views/tribe-options-help.php:179
 #@ tribe-events-calendar
 msgid "Premium Add-Ons"
 msgstr "Premium Add-Ons"
 
-#: admin-views/tribe-options-help.php:212
+#: admin-views/tribe-options-help.php:185
 #@ tribe-events-calendar
 msgid "(Coming Soon!)"
 msgstr "(erscheint bald)"
 
-#: admin-views/tribe-options-help.php:219
+#: admin-views/tribe-options-help.php:192
 #@ tribe-events-calendar
 msgid "News and Tutorials"
 msgstr "News und Tutorials"
@@ -1050,679 +1024,679 @@ msgstr "Verkaufsende:"
 msgid "When will ticket sales occur? If you don't set a start/end date for sales, tickets will be available from now until the event ends."
 msgstr "Wann soll der Kartenverkauf stattfinden? Wenn kein Verkaufsstart/ -ende festgelegt wird, werden Karten von jetzt bis zum Veranstaltungsende angeboten."
 
-#: lib/the-events-calendar.class.php:515
+#: lib/the-events-calendar.class.php:517
 #@ tribe-events-calendar
 msgid "month"
 msgstr "Monat"
 
-#: lib/the-events-calendar.class.php:516
+#: lib/the-events-calendar.class.php:518
 #@ tribe-events-calendar
 msgid "upcoming"
 msgstr "anstehend"
 
-#: lib/the-events-calendar.class.php:517
+#: lib/the-events-calendar.class.php:519
 #@ tribe-events-calendar
 msgid "past"
 msgstr "vergangen"
 
-#: lib/the-events-calendar.class.php:519
+#: lib/the-events-calendar.class.php:521
 #@ tribe-events-calendar
 msgid "venue"
 msgstr "Ort"
 
-#: lib/the-events-calendar.class.php:529
+#: lib/the-events-calendar.class.php:531
 #, php-format
 #@ tribe-events-calendar
 msgid "Initializing Tribe Events on %s"
 msgstr "Tribe Events wird eingerichtet für %s"
 
-#: lib/the-events-calendar.class.php:642
+#: lib/the-events-calendar.class.php:644
 #, php-format
 #@ tribe-events-calendar
 msgid "Your version of The Events Calendar is not up-to-date with one of your The Events Calendar add-ons. Please %supdate now.%s"
 msgstr "Ihre Version des Events Calendar ist nicht aktuell genug, um dieses Add-On zu nutzen. Bitte %supdaten Sie jetzt%s."
 
-#: lib/the-events-calendar.class.php:659
-#, fuzzy, php-format, php-format, php-format, php-format, php-format, php-format, php-format, php-format
+#: lib/the-events-calendar.class.php:661
+#, fuzzy, php-format, php-format, php-format, php-format, php-format, php-format, php-format, php-format, php-format, php-format, php-format, php-format, php-format
 #@ tribe-events-calendar
 msgid "The following plugins are out of date: <b>%s</b>. All add-ons contain dependencies on The Events Calendar and will not function properly unless paired with the right version. %sWant to pair an older version%s?"
 msgstr "Die folgenden Plugins sind veraltet: <b>%s</b>. Bitte %supdateen Sie jetzt%s.  Alle Erweiterungen sind mit dem Events Calendar verbunden und funktionieren nicht richtig, wenn die Versionen nicht zusammenpassen. %sWollen Sie eine ältere Version nutzen%s?"
 
-#: lib/the-events-calendar.class.php:723
-#: lib/the-events-calendar.class.php:758
+#: lib/the-events-calendar.class.php:725
 #: lib/the-events-calendar.class.php:760
+#: lib/the-events-calendar.class.php:762
 #@ tribe-events-calendar
 msgid "Licenses"
 msgstr "Lizenzen"
 
-#: lib/the-events-calendar.class.php:727
+#: lib/the-events-calendar.class.php:729
 #, php-format
 #@ tribe-events-calendar
 msgid "<p>The license key you received when completing your purchase from %s will grant you access to support and updates until it expires. You do not need to enter the key below for the plugins to work, but you will need to enter it to get automatic updates. <strong>Find your license keys at <a href=\"%s\" target=\"_blank\">%s</a></strong>.</p> <p>Each paid add-on has its own unique license key. Simply paste the key into its appropriate field on below, and give it a moment to validate. You know you're set when a green expiration date appears alongside a \"valid\" message.</p> <p>If you're seeing a red message telling you that your key isn't valid or is out of installs, visit <a href=\"%s\" target=\"_blank\">%s</a> to manage your installs or renew / upgrade your license.</p><p>Not seeing an update but expecting one? In WordPress, go to <a href=\"%s\">Dashboard > Updates</a> and click \"Check Again\".</p>"
 msgstr "<p>Der Lizenzschlüssel von %s, den Sie erhalten haben, wird Ihnen Zugriff auf das Supportforum gewähren bis er abgelaufen ist. Sie müssen den Schüssel nicht eingeben damit die Plugins funktionieren, aber um Updates zu erhalten muss der Schüssel eingegeben sein. Sie finden Ihren Lizenzschlüssel unter <a href=\"%s\">%s</a>.</p> <p>Jedes bezahlte Plugin hat einen einzigartigen Lizenzschlüssel. Fügen Sie den Schlüssel einfach in das Feld ein und warten Sie einen Moment bis er verifiziert ist. </p><p>Wenn Sie sehen, eine rote Meldung, dass Ihre Schlüssel nicht gültig ist oder aus installiert sind, gehen Sie zu <a href=\"%s\" target=\"_blank\">%s</a> Ihre Installationen zu verwalten oder zu erneuern / aktualisieren Sie Ihre Lizenz.</p><p>Kein Update obwohl der Schüssel passt? In WordPress, gehen Sie zu <a href=\"%s\">Dashboard > Updates</a> und klicken \"Erneut prüfen\".</p>"
 
-#: lib/the-events-calendar.class.php:750
+#: lib/the-events-calendar.class.php:752
 #@ tribe-events-calendar
 msgid "General"
 msgstr "Allgemein"
 
-#: lib/the-events-calendar.class.php:751
+#: lib/the-events-calendar.class.php:753
 #@ tribe-events-calendar
 msgid "Display"
 msgstr "Darstellung"
 
-#: lib/the-events-calendar.class.php:802
+#: lib/the-events-calendar.class.php:804
 #, php-format
 #@ tribe-events-calendar
 msgid "Sorry, The Events Calendar requires WordPress %s or higher. Please upgrade your WordPress install."
 msgstr "Das The Events Calendar Plugin erfordert WordPress Version %s oder h&ouml;her. Bitte aktualisieren Sie Ihre WordPress-Installation entsprechend, bevor Sie fortfahren."
 
-#: lib/the-events-calendar.class.php:805
+#: lib/the-events-calendar.class.php:807
 #, php-format
 #@ tribe-events-calendar
 msgid "Sorry, The Events Calendar requires PHP %s or higher. Talk to your Web host about moving you to a newer version of PHP."
 msgstr "Das The Events Calendar Plugin erfordert PHP Version %s oder höher. Kontaktieren Sie Ihren Webhosting-Anbieter, um auf eine höhere PHP-Version aktualisieren zu können."
 
-#: lib/the-events-calendar.class.php:1020
-#: lib/widget-list.class.php:169
+#: lib/the-events-calendar.class.php:1022
+#: lib/widget-list.class.php:180
 #: public/template-tags/loop.php:138
 #@ tribe-events-calendar
 msgid "Upcoming Events"
 msgstr "Anstehende Veranstaltungen"
 
-#: lib/the-events-calendar.class.php:1023
+#: lib/the-events-calendar.class.php:1025
 #: public/template-tags/loop.php:168
 #@ tribe-events-calendar
 msgid "Past Events"
 msgstr "Vergangene Veranstaltungen"
 
-#: lib/the-events-calendar.class.php:1028
-#: lib/the-events-calendar.class.php:1035
+#: lib/the-events-calendar.class.php:1030
+#: lib/the-events-calendar.class.php:1037
 #: public/template-tags/loop.php:173
 #, php-format
 #@ tribe-events-calendar
 msgid "Events for %s"
 msgstr "Veranstaltungen für %s"
 
-#: lib/the-events-calendar.class.php:1030
+#: lib/the-events-calendar.class.php:1032
 #@ tribe-events-calendar
 msgid "Events this month"
 msgstr "Veranstaltungen diesen Monat"
 
-#: lib/the-events-calendar.class.php:1042
+#: lib/the-events-calendar.class.php:1044
 #, php-format
 #@ tribe-events-calendar
 msgid "Events at %s"
 msgstr "Veranstaltungen im %s"
 
-#: lib/the-events-calendar.class.php:1061
+#: lib/the-events-calendar.class.php:1063
 #@ tribe-events-calendar
 msgid "No description has been entered for this event."
 msgstr "Für diese Veranstaltung wurde keine Beschreibung eingetragen."
 
-#: lib/the-events-calendar.class.php:1323
+#: lib/the-events-calendar.class.php:1325
 #@ tribe-events-calendar
 msgid "category"
 msgstr "Kategorie"
 
-#: lib/the-events-calendar.class.php:1333
+#: lib/the-events-calendar.class.php:1335
 #@ tribe-events-calendar
 msgid "tag"
 msgstr "Tag"
 
 #: lib/io/csv/admin-views/import.php:47
-#: lib/the-events-calendar.class.php:1360
-#: lib/the-events-calendar.class.php:3889
-#: lib/the-events-calendar.class.php:3950
+#: lib/the-events-calendar.class.php:1362
+#: lib/the-events-calendar.class.php:3930
+#: lib/the-events-calendar.class.php:3991
 #@ tribe-events-calendar
 msgid "Events"
 msgstr "Veranstaltungen"
 
-#: lib/the-events-calendar.class.php:1361
+#: lib/the-events-calendar.class.php:1363
 #@ tribe-events-calendar
 msgid "Event"
 msgstr "Veranstaltung"
 
-#: lib/the-events-calendar.class.php:1362
-#: lib/the-events-calendar.class.php:1375
-#: lib/the-events-calendar.class.php:1388
+#: lib/the-events-calendar.class.php:1364
+#: lib/the-events-calendar.class.php:1377
+#: lib/the-events-calendar.class.php:1390
 #@ tribe-events-calendar
 msgid "Add New"
 msgstr "Hinzufügen"
 
-#: lib/the-events-calendar.class.php:1363
+#: lib/the-events-calendar.class.php:1365
 #@ tribe-events-calendar
 msgid "Add New Event"
 msgstr "Neue Veranstaltung hinzufügen"
 
-#: lib/the-events-calendar.class.php:1364
+#: lib/the-events-calendar.class.php:1366
 #@ tribe-events-calendar
 msgid "Edit Event"
 msgstr "Veranstaltung bearbeiten"
 
-#: lib/the-events-calendar.class.php:1365
+#: lib/the-events-calendar.class.php:1367
 #@ tribe-events-calendar
 msgid "New Event"
 msgstr "Neue Veranstaltung"
 
-#: lib/the-events-calendar.class.php:1366
+#: lib/the-events-calendar.class.php:1368
 #@ tribe-events-calendar
 msgid "View Event"
 msgstr "Veranstaltung ansehen"
 
-#: lib/the-events-calendar.class.php:1367
+#: lib/the-events-calendar.class.php:1369
 #@ tribe-events-calendar
 msgid "Search Events"
 msgstr "Veranstaltungen suchen"
 
-#: lib/the-events-calendar.class.php:1368
+#: lib/the-events-calendar.class.php:1370
 #@ tribe-events-calendar
 msgid "No events found"
 msgstr "Es wurden keine Veranstaltungen gefunden"
 
-#: lib/the-events-calendar.class.php:1369
+#: lib/the-events-calendar.class.php:1371
 #@ tribe-events-calendar
 msgid "No events found in Trash"
 msgstr "Es befinden sich keine Veranstaltungen im Papierkorb"
 
 #: lib/io/csv/admin-views/import.php:45
-#: lib/the-events-calendar.class.php:1373
-#: lib/the-events-calendar.class.php:1485
+#: lib/the-events-calendar.class.php:1375
+#: lib/the-events-calendar.class.php:1487
 #@ tribe-events-calendar
 msgid "Venues"
 msgstr "Veranstaltungsorte"
 
-#: lib/the-events-calendar.class.php:1374
+#: lib/the-events-calendar.class.php:1376
 #: public/advanced-functions/meta.php:381
 #: views/tickets/email.php:343
 #@ tribe-events-calendar
 msgid "Venue"
 msgstr "Veranstaltungsort"
 
-#: lib/the-events-calendar.class.php:1376
+#: lib/the-events-calendar.class.php:1378
 #@ tribe-events-calendar
 msgid "Add New Venue"
 msgstr "Neuen Veranstaltungsort hinzufügen"
 
-#: lib/the-events-calendar.class.php:1377
+#: lib/the-events-calendar.class.php:1379
 #@ tribe-events-calendar
 msgid "Edit Venue"
 msgstr "Veranstaltungsort bearbeiten"
 
-#: lib/the-events-calendar.class.php:1378
+#: lib/the-events-calendar.class.php:1380
 #@ tribe-events-calendar
 msgid "New Venue"
 msgstr "Neuer Veranstaltungsort"
 
-#: lib/the-events-calendar.class.php:1379
+#: lib/the-events-calendar.class.php:1381
 #@ tribe-events-calendar
 msgid "View Venue"
 msgstr "Veranstaltungsort anzeigen"
 
-#: lib/the-events-calendar.class.php:1380
+#: lib/the-events-calendar.class.php:1382
 #@ tribe-events-calendar
 msgid "Search Venues"
 msgstr "Veranstaltungsorte suchen"
 
-#: lib/the-events-calendar.class.php:1381
+#: lib/the-events-calendar.class.php:1383
 #@ tribe-events-calendar
 msgid "No venue found"
 msgstr "Es wurde kein Veranstaltungsort gefunden"
 
-#: lib/the-events-calendar.class.php:1382
+#: lib/the-events-calendar.class.php:1384
 #@ tribe-events-calendar
 msgid "No venues found in Trash"
 msgstr "Es befinden sich keine Veranstaltungsorte im Papierkorb"
 
 #: lib/io/csv/admin-views/import.php:46
-#: lib/the-events-calendar.class.php:1386
-#: lib/the-events-calendar.class.php:1486
+#: lib/the-events-calendar.class.php:1388
+#: lib/the-events-calendar.class.php:1488
 #@ tribe-events-calendar
 msgid "Organizers"
 msgstr "Veranstalter"
 
-#: lib/the-events-calendar.class.php:1387
+#: lib/the-events-calendar.class.php:1389
 #: public/advanced-functions/meta.php:443
 #: views/tickets/email.php:362
 #@ tribe-events-calendar
 msgid "Organizer"
 msgstr "Veranstalter"
 
-#: lib/the-events-calendar.class.php:1389
+#: lib/the-events-calendar.class.php:1391
 #@ tribe-events-calendar
 msgid "Add New Organizer"
 msgstr "Neuen Veranstalter hinzufügen"
 
-#: lib/the-events-calendar.class.php:1390
+#: lib/the-events-calendar.class.php:1392
 #@ tribe-events-calendar
 msgid "Edit Organizer"
 msgstr "Veranstalter bearbeiten"
 
-#: lib/the-events-calendar.class.php:1391
+#: lib/the-events-calendar.class.php:1393
 #@ tribe-events-calendar
 msgid "New Organizer"
 msgstr "Neuer Veranstalter"
 
-#: lib/the-events-calendar.class.php:1392
+#: lib/the-events-calendar.class.php:1394
 #@ tribe-events-calendar
 msgid "View Organizer"
 msgstr "Veranstalter ansehen"
 
-#: lib/the-events-calendar.class.php:1393
+#: lib/the-events-calendar.class.php:1395
 #@ tribe-events-calendar
 msgid "Search Organizers"
 msgstr "Veranstalter suchen"
 
-#: lib/the-events-calendar.class.php:1394
+#: lib/the-events-calendar.class.php:1396
 #@ tribe-events-calendar
 msgid "No organizer found"
 msgstr "Es wurde kein Veranstalter gefunden"
 
-#: lib/the-events-calendar.class.php:1395
+#: lib/the-events-calendar.class.php:1397
 #@ tribe-events-calendar
 msgid "No organizers found in Trash"
 msgstr "Es befinden sich keine Veranstalter im Papierkorb"
 
-#: lib/the-events-calendar.class.php:1399
+#: lib/the-events-calendar.class.php:1401
 #: lib/tribe-admin-events-list.class.php:226
 #@ tribe-events-calendar
 msgid "Event Categories"
 msgstr "Veranstalt.-Kategorien"
 
-#: lib/the-events-calendar.class.php:1401
+#: lib/the-events-calendar.class.php:1403
 #@ tribe-events-calendar
 msgid "Search Event Categories"
 msgstr "Veranstaltungskategorien suchen"
 
-#: lib/the-events-calendar.class.php:1402
+#: lib/the-events-calendar.class.php:1404
 #@ tribe-events-calendar
 msgid "All Event Categories"
 msgstr "Alle Veranstaltungskategorien"
 
-#: lib/the-events-calendar.class.php:1403
+#: lib/the-events-calendar.class.php:1405
 #@ tribe-events-calendar
 msgid "Parent Event Category"
 msgstr "Übergeordnete Veranstaltungskategorie"
 
-#: lib/the-events-calendar.class.php:1404
+#: lib/the-events-calendar.class.php:1406
 #@ tribe-events-calendar
 msgid "Parent Event Category:"
 msgstr "Übergeordnete Veranstaltungskategorie:"
 
-#: lib/the-events-calendar.class.php:1405
+#: lib/the-events-calendar.class.php:1407
 #@ tribe-events-calendar
 msgid "Edit Event Category"
 msgstr "Veranstaltungskategorie bearbeiten"
 
-#: lib/the-events-calendar.class.php:1406
+#: lib/the-events-calendar.class.php:1408
 #@ tribe-events-calendar
 msgid "Update Event Category"
 msgstr "Veranstaltungskategorie aktualisieren"
 
-#: lib/the-events-calendar.class.php:1407
+#: lib/the-events-calendar.class.php:1409
 #@ tribe-events-calendar
 msgid "Add New Event Category"
 msgstr "Neue Veranstaltungskategorie hinzufügen"
 
-#: lib/the-events-calendar.class.php:1408
+#: lib/the-events-calendar.class.php:1410
 #@ tribe-events-calendar
 msgid "New Event Category Name"
 msgstr "Neuer Veranstaltungskategorie-Name"
 
-#: lib/the-events-calendar.class.php:1424
+#: lib/the-events-calendar.class.php:1426
 #, php-format
 #@ tribe-events-calendar
 msgid "Event updated. <a href=\"%s\">View event</a>"
 msgstr "Veranstaltung aktualisiert. <a href=\"%s\">Diese Veranstaltung ansehen</a>"
 
-#: lib/the-events-calendar.class.php:1425
-#: lib/the-events-calendar.class.php:1442
-#: lib/the-events-calendar.class.php:1459
+#: lib/the-events-calendar.class.php:1427
+#: lib/the-events-calendar.class.php:1444
+#: lib/the-events-calendar.class.php:1461
 #@ tribe-events-calendar
 msgid "Custom field updated."
 msgstr "Benutzerdefiniertes Feld aktualisiert."
 
-#: lib/the-events-calendar.class.php:1426
-#: lib/the-events-calendar.class.php:1443
-#: lib/the-events-calendar.class.php:1460
+#: lib/the-events-calendar.class.php:1428
+#: lib/the-events-calendar.class.php:1445
+#: lib/the-events-calendar.class.php:1462
 #@ tribe-events-calendar
 msgid "Custom field deleted."
 msgstr "Benutzerdefiniertes Feld gel&ouml;scht."
 
-#: lib/the-events-calendar.class.php:1427
+#: lib/the-events-calendar.class.php:1429
 #@ tribe-events-calendar
 msgid "Event updated."
 msgstr "Veranstaltung aktualisiert."
 
 #. translators: %s: date and time of the revision
-#: lib/the-events-calendar.class.php:1429
+#: lib/the-events-calendar.class.php:1431
 #, php-format
 #@ tribe-events-calendar
 msgid "Event restored to revision from %s"
 msgstr "Veranstaltung wiederhergestellt mit der Revision von %s"
 
-#: lib/the-events-calendar.class.php:1430
+#: lib/the-events-calendar.class.php:1432
 #, php-format
 #@ tribe-events-calendar
 msgid "Event published. <a href=\"%s\">View event</a>"
 msgstr "Veranstaltung ver&ouml;ffentlicht. <a href=\"%s\">Diese Veranstaltung ansehen</a>"
 
-#: lib/the-events-calendar.class.php:1431
+#: lib/the-events-calendar.class.php:1433
 #@ tribe-events-calendar
 msgid "Event saved."
 msgstr "Veranstaltung gespeichert."
 
-#: lib/the-events-calendar.class.php:1432
+#: lib/the-events-calendar.class.php:1434
 #, php-format
 #@ tribe-events-calendar
 msgid "Event submitted. <a target=\"_blank\" href=\"%s\">Preview event</a>"
 msgstr "Veranstaltung hinzugefügt. <a target=\"_blank\" href=\"%s\">Vorschau</a>"
 
-#: lib/the-events-calendar.class.php:1433
+#: lib/the-events-calendar.class.php:1435
 #, php-format
 #@ tribe-events-calendar
 msgid "Event scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s\">Preview event</a>"
 msgstr "Veranstaltung geplant für: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s\">Vorschau</a>"
 
-#: lib/the-events-calendar.class.php:1435
-#: lib/the-events-calendar.class.php:1452
-#: lib/the-events-calendar.class.php:1469
+#: lib/the-events-calendar.class.php:1437
+#: lib/the-events-calendar.class.php:1454
+#: lib/the-events-calendar.class.php:1471
 #@ tribe-events-calendar
 msgid "M j, Y @ G:i"
 msgstr "M j, Y @ G:i"
 
-#: lib/the-events-calendar.class.php:1436
+#: lib/the-events-calendar.class.php:1438
 #, php-format
 #@ tribe-events-calendar
 msgid "Event draft updated. <a target=\"_blank\" href=\"%s\">Preview event</a>"
 msgstr "Veranstaltungsentwurf aktualisiert. <a target=\"_blank\" href=\"%s\">Vorschau</a>"
 
-#: lib/the-events-calendar.class.php:1441
+#: lib/the-events-calendar.class.php:1443
 #, php-format
 #@ tribe-events-calendar
 msgid "Venue updated. <a href=\"%s\">View venue</a>"
 msgstr "Veranstaltungsort aktualisiert. <a href=\"%s\">Diesen Ort ansehen</a>"
 
-#: lib/the-events-calendar.class.php:1444
+#: lib/the-events-calendar.class.php:1446
 #@ tribe-events-calendar
 msgid "Venue updated."
 msgstr "Veranstaltungsort aktualisiert."
 
 #. translators: %s: date and time of the revision
-#: lib/the-events-calendar.class.php:1446
+#: lib/the-events-calendar.class.php:1448
 #, php-format
 #@ tribe-events-calendar
 msgid "Venue restored to revision from %s"
 msgstr "Veranstaltungsort wiederhergestellt mit der Revision von %s"
 
-#: lib/the-events-calendar.class.php:1447
+#: lib/the-events-calendar.class.php:1449
 #, php-format
 #@ tribe-events-calendar
 msgid "Venue published. <a href=\"%s\">View venue</a>"
 msgstr "Veranstaltungsort ver&ouml;ffentlicht. <a href=\"%s\">Diesen Ort ansehen</a>"
 
-#: lib/the-events-calendar.class.php:1448
+#: lib/the-events-calendar.class.php:1450
 #@ tribe-events-calendar
 msgid "Venue saved."
 msgstr "Veranstaltungsort gespeichert."
 
-#: lib/the-events-calendar.class.php:1449
+#: lib/the-events-calendar.class.php:1451
 #, php-format
 #@ tribe-events-calendar
 msgid "Venue submitted. <a target=\"_blank\" href=\"%s\">Preview venue</a>"
 msgstr "Veranstaltungsort hinzugef&uuml;gt. <a target=\"_blank\" href=\"%s\">Vorschau</a>"
 
-#: lib/the-events-calendar.class.php:1450
+#: lib/the-events-calendar.class.php:1452
 #, php-format
 #@ tribe-events-calendar
 msgid "Venue scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s\">Preview venue</a>"
 msgstr "Veranstaltungsort geplant f&uuml;r: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s\">Vorschau</a>"
 
-#: lib/the-events-calendar.class.php:1453
+#: lib/the-events-calendar.class.php:1455
 #, php-format
 #@ tribe-events-calendar
 msgid "Venue draft updated. <a target=\"_blank\" href=\"%s\">Preview venue</a>"
 msgstr "Entwurf des Veranstaltungsortes aktualisiert. <a target=\"_blank\" href=\"%s\">Vorschau</a>"
 
-#: lib/the-events-calendar.class.php:1458
+#: lib/the-events-calendar.class.php:1460
 #, php-format
 #@ tribe-events-calendar
 msgid "Organizer updated. <a href=\"%s\">View organizer</a>"
 msgstr "Veranstalter aktualisiert. <a href=\"%s\">Diesen Veranstalter ansehen</a>"
 
-#: lib/the-events-calendar.class.php:1461
+#: lib/the-events-calendar.class.php:1463
 #@ tribe-events-calendar
 msgid "Organizer updated."
 msgstr "Veranstalter aktualisiert."
 
 #. translators: %s: date and time of the revision
-#: lib/the-events-calendar.class.php:1463
+#: lib/the-events-calendar.class.php:1465
 #, php-format
 #@ tribe-events-calendar
 msgid "Organizer restored to revision from %s"
 msgstr "Veranstalter wiederhergestellt mit der Revision von %s"
 
-#: lib/the-events-calendar.class.php:1464
+#: lib/the-events-calendar.class.php:1466
 #, php-format
 #@ tribe-events-calendar
 msgid "Organizer published. <a href=\"%s\">View organizer</a>"
 msgstr "Veranstalter publiziert. <a href=\"%s\">Diesen Veranstalter ansehen</a>"
 
-#: lib/the-events-calendar.class.php:1465
+#: lib/the-events-calendar.class.php:1467
 #@ tribe-events-calendar
 msgid "Organizer saved."
 msgstr "Veranstalter gespeichert."
 
-#: lib/the-events-calendar.class.php:1466
+#: lib/the-events-calendar.class.php:1468
 #, php-format
 #@ tribe-events-calendar
 msgid "Organizer submitted. <a target=\"_blank\" href=\"%s\">Preview organizer</a>"
 msgstr "Veranstalter hinzugefügt. <a target=\"_blank\" href=\"%s\">Vorschau</a>"
 
-#: lib/the-events-calendar.class.php:1467
+#: lib/the-events-calendar.class.php:1469
 #, php-format
 #@ tribe-events-calendar
 msgid "Organizer scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s\">Preview organizer</a>"
 msgstr "Veranstalter geplant für: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s\">Vorschau</a>"
 
-#: lib/the-events-calendar.class.php:1470
+#: lib/the-events-calendar.class.php:1472
 #, php-format
 #@ tribe-events-calendar
 msgid "Organizer draft updated. <a target=\"_blank\" href=\"%s\">Preview organizer</a>"
 msgstr "Entwurf des Veranstalters aktualisiert. <a target=\"_blank\" href=\"%s\">Vorschau</a>"
 
-#: lib/the-events-calendar.class.php:1511
+#: lib/the-events-calendar.class.php:1507
 #@ tribe-events-calendar
 msgid "Use Saved Venue:"
 msgstr "Gespeicherte Veranstaltungsorte:"
 
-#: lib/the-events-calendar.class.php:1540
+#: lib/the-events-calendar.class.php:1530
 #@ tribe-events-calendar
 msgid "Use Saved Organizer:"
 msgstr "Gespeicherter Veranstalter:"
 
-#: lib/the-events-calendar.class.php:1580
+#: lib/the-events-calendar.class.php:1570
 #@ tribe-events-calendar
 msgid "Use New Venue"
 msgstr "Veranstaltungsort wählen ..."
 
-#: lib/the-events-calendar.class.php:1582
+#: lib/the-events-calendar.class.php:1572
 #@ tribe-events-calendar
 msgid "My Venues"
 msgstr "Meine Veranstaltungsorte"
 
-#: lib/the-events-calendar.class.php:1587
+#: lib/the-events-calendar.class.php:1577
 #@ tribe-events-calendar
 msgid "Available Venues"
 msgstr "Verfügbare Veranstaltungsorte"
 
-#: lib/the-events-calendar.class.php:1598
+#: lib/the-events-calendar.class.php:1588
 #@ tribe-events-calendar
 msgid "No saved venue exists."
 msgstr "Keine gespeicherten Veranstaltungsorte"
 
-#: lib/the-events-calendar.class.php:1637
+#: lib/the-events-calendar.class.php:1627
 #@ tribe-events-calendar
 msgid "Use New Organizer"
 msgstr "Veranstalter wählen ..."
 
-#: lib/the-events-calendar.class.php:1639
+#: lib/the-events-calendar.class.php:1629
 #@ tribe-events-calendar
 msgid "My Organizers"
 msgstr "Meine Veranstalter"
 
-#: lib/the-events-calendar.class.php:1644
+#: lib/the-events-calendar.class.php:1634
 #@ tribe-events-calendar
 msgid "Available Organizers"
 msgstr "Verfügbare Veranstalter"
 
-#: lib/the-events-calendar.class.php:1655
+#: lib/the-events-calendar.class.php:1645
 #@ tribe-events-calendar
 msgid "No saved organizer exists."
 msgstr "Keine gespeicherten Veranstalter"
 
-#: lib/the-events-calendar.class.php:1782
+#: lib/the-events-calendar.class.php:1823
 #@ tribe-events-calendar
 msgid "Next"
 msgstr "Nächste"
 
-#: lib/the-events-calendar.class.php:1783
+#: lib/the-events-calendar.class.php:1824
 #@ tribe-events-calendar
 msgid "Prev"
 msgstr "Vorherige"
 
-#: lib/the-events-calendar.class.php:1784
+#: lib/the-events-calendar.class.php:1825
 #@ tribe-events-calendar
 msgid "Today"
 msgstr "Heute"
 
-#: lib/the-events-calendar.class.php:1785
+#: lib/the-events-calendar.class.php:1826
 #@ tribe-events-calendar
 msgid "Done"
 msgstr "Erledigt"
 
-#: lib/the-events-calendar.class.php:1994
+#: lib/the-events-calendar.class.php:2035
 #@ tribe-events-calendar
 msgid "Network"
 msgstr "Netzwerk"
 
-#: lib/the-events-calendar.class.php:2938
+#: lib/the-events-calendar.class.php:2979
 #@ tribe-events-calendar
 msgid "Unnamed Venue"
 msgstr "Unbenannter Veranstaltungsort"
 
-#: lib/the-events-calendar.class.php:3028
+#: lib/the-events-calendar.class.php:3069
 #@ tribe-events-calendar
 msgid "Unnamed Organizer"
 msgstr "Unbenannter Veranstalter"
 
-#: lib/the-events-calendar.class.php:3534
+#: lib/the-events-calendar.class.php:3575
 #@ tribe-events-calendar
 msgid "Event Options"
 msgstr "Veranstaltungsoptionen"
 
-#: lib/the-events-calendar.class.php:3536
+#: lib/the-events-calendar.class.php:3577
 #@ tribe-events-calendar
 msgid "Venue Information"
 msgstr "Informationen zum Veranstaltungsort"
 
-#: lib/the-events-calendar.class.php:3541
+#: lib/the-events-calendar.class.php:3582
 #@ tribe-events-calendar
 msgid "Organizer Information"
 msgstr "Informationen zum Veranstalter"
 
-#: lib/the-events-calendar.class.php:3738
+#: lib/the-events-calendar.class.php:3779
 #@ tribe-events-calendar
 msgid "Support"
 msgstr "Unterstützung"
 
-#: lib/the-events-calendar.class.php:3741
+#: lib/the-events-calendar.class.php:3782
 #@ tribe-events-calendar
 msgid "View All Add-Ons"
 msgstr "Alle Erweiterungen (Add-Ons) ansehen"
 
-#: lib/the-events-calendar.class.php:3758
+#: lib/the-events-calendar.class.php:3799
 #@ tribe-events-calendar
 msgid "News from Modern Tribe"
 msgstr "Neues von Modern Tribe"
 
-#: lib/the-events-calendar.class.php:3839
+#: lib/the-events-calendar.class.php:3880
 #@ tribe-events-calendar
 msgid "Additional Functionality"
 msgstr "Erweiterte Funktionalität"
 
-#: lib/the-events-calendar.class.php:3844
+#: lib/the-events-calendar.class.php:3885
 #@ tribe-events-calendar
 msgid "Looking for additional functionality including recurring events, ticket sales, publicly submitted events, new views and more?"
 msgstr "Benötigen Sie weitere Funktionen inklusive wiederkehrende Veranstaltungen, Kartenverkauf, Öffentliche Veranstaltungserstellung, neue Ansichten und mehr?"
 
-#: lib/the-events-calendar.class.php:3844
+#: lib/the-events-calendar.class.php:3885
 #, php-format
 #@ tribe-events-calendar
 msgid "Check out the <a href=\"%s\">available add-ons</a>."
 msgstr "Nutzen Sie unsere  <a href=\"%s\">Veranstaltungserweiterungen</a>."
 
-#: lib/the-events-calendar.class.php:3916
-#: lib/the-events-calendar.class.php:4007
+#: lib/the-events-calendar.class.php:3957
+#: lib/the-events-calendar.class.php:4048
 #@ tribe-events-calendar
 msgid "View Calendar"
 msgstr "Kalenderansicht"
 
-#: lib/the-events-calendar.class.php:3924
+#: lib/the-events-calendar.class.php:3965
 #@ tribe-events-calendar
 msgid "Add Event"
 msgstr "Veranstaltung erstellen"
 
-#: lib/the-events-calendar.class.php:3933
+#: lib/the-events-calendar.class.php:3974
 #@ tribe-events-calendar
 msgid "Edit Events"
 msgstr "Veranstaltungen bearbeiten"
 
-#: lib/the-events-calendar.class.php:3942
-#: lib/the-events-calendar.class.php:4043
+#: lib/the-events-calendar.class.php:3983
+#: lib/the-events-calendar.class.php:4084
 #: lib/tribe-settings.class.php:164
 #@ tribe-events-calendar
 msgid "Settings"
 msgstr "Einstellungen"
 
-#: lib/the-events-calendar.class.php:3978
+#: lib/the-events-calendar.class.php:4019
 #, php-format
 #@ tribe-events-calendar
 msgid "Welcome to The Events Calendar! Your events calendar can be found at %s. To change the events slug, visit %sEvents -> Settings%s."
 msgstr "Willkommen bei \"The Events Calendar\"! Ihre Veranstaltungskalender finden Sie hier: %s Um die Veranstaltungsoptionen zu verändern gehen Sie zu %sVeranstaltunngen -> Einstellungen%s."
 
-#: lib/the-events-calendar.class.php:4044
+#: lib/the-events-calendar.class.php:4085
 #@ tribe-events-calendar
 msgid "Calendar"
 msgstr "Kalender"
 
-#: lib/the-events-calendar.class.php:4129
+#: lib/the-events-calendar.class.php:4170
 #@ tribe-events-calendar
 msgid "List"
 msgstr "Liste"
 
-#: lib/the-events-calendar.class.php:4140
+#: lib/the-events-calendar.class.php:4181
 #@ tribe-events-calendar
 msgid "Month"
 msgstr "Monat"
 
-#: lib/the-events-calendar.class.php:4181
-#: lib/the-events-calendar.class.php:4193
+#: lib/the-events-calendar.class.php:4222
+#: lib/the-events-calendar.class.php:4234
 #@ tribe-events-calendar
 msgid "Date"
 msgstr "Datum"
 
-#: lib/the-events-calendar.class.php:4184
+#: lib/the-events-calendar.class.php:4225
 #@ tribe-events-calendar
 msgid "Events In"
 msgstr "Veranstaltungen am"
 
-#: lib/the-events-calendar.class.php:4186
+#: lib/the-events-calendar.class.php:4227
 #@ tribe-events-calendar
 msgid "Events From"
 msgstr "Veranstaltungen am"
 
-#: lib/the-events-calendar.class.php:4374
+#: lib/the-events-calendar.class.php:4415
 #: views/list/nav.php:23
 #: views/list/nav.php:29
 #: views/list/nav.php:32
@@ -1730,7 +1704,7 @@ msgstr "Veranstaltungen am"
 msgid "&laquo; Previous Events"
 msgstr "&laquo; Vorherige Veranstaltungen"
 
-#: lib/the-events-calendar.class.php:4375
+#: lib/the-events-calendar.class.php:4416
 #: views/list/nav.php:41
 #: views/list/nav.php:44
 #: views/list/nav.php:50
@@ -3511,12 +3485,12 @@ msgstr "Ein Widget, dass die nächsten Veranstaltungen anzeigt."
 msgid "Events List"
 msgstr "Veranstaltungsliste"
 
-#: lib/widget-list.class.php:124
+#: lib/widget-list.class.php:129
 #@ tribe-events-calendar
 msgid "View All Events"
 msgstr "Alle Veranstaltungen ansehen"
 
-#: lib/widget-list.class.php:127
+#: lib/widget-list.class.php:136
 #@ tribe-events-calendar
 msgid "There are no upcoming events at this time."
 msgstr "Es gibt derzeit keine anstehenden Veranstaltungen."
@@ -3721,22 +3695,22 @@ msgstr "Tags:"
 msgid "Loading Events"
 msgstr "Veranstaltungen laden"
 
-#: public/template-tags/general.php:567
+#: public/template-tags/general.php:571
 #@ tribe-events-calendar
 msgid "Free"
 msgstr "Eintritt frei"
 
-#: public/template-tags/general.php:753
+#: public/template-tags/general.php:757
 #@ tribe-events-calendar
 msgid "Recurring Event"
 msgstr "Wiederkehrene Veranstaltung"
 
-#: public/template-tags/general.php:756
+#: public/template-tags/general.php:760
 #@ tribe-events-calendar
 msgid "(See all)"
 msgstr "(Alle anzeigen)"
 
-#: public/template-tags/general.php:1068
+#: public/template-tags/general.php:1072
 #, php-format
 #@ tribe-events-calendar
 msgid "Calendar powered by %sThe Events Calendar%s"
@@ -4146,8 +4120,8 @@ msgstr "Konnte %s nicht speichern."
 msgid "There were no results found."
 msgstr "Es wurden keine Ergebnisse gefunden."
 
-#: lib/the-events-calendar.class.php:3504
-#: lib/the-events-calendar.class.php:3521
+#: lib/the-events-calendar.class.php:3545
+#: lib/the-events-calendar.class.php:3562
 #@ tribe-events-calendar
 msgid "Date out of range."
 msgstr "Datum außerhalb des Bereichs."
@@ -4176,13 +4150,13 @@ msgstr "Keine anstehenden Veranstaltungen unter %s. Prüfen Sie die anstehenden 
 msgid "No matching events listed under %s. Check out upcoming events for this category or view the full calendar."
 msgstr "Keine übereinstimmenden Veranstaltungen unter %s. Prüfen Sie die anstehenden Veranstaltungen für diese Kategorie oder wählen Sie den gesamten Kalender."
 
-#: lib/tribe-templates.class.php:501
+#: lib/tribe-templates.class.php:530
 #, php-format
 #@ tribe-events-calendar
 msgid "Template overrides should be moved to the correct subdirectory: %s"
 msgstr "Vorlage sollte in das richtige Unterverzeichnis verschoben werden: %s"
 
-#: lib/tribe-templates.class.php:542
+#: lib/tribe-templates.class.php:571
 #, php-format
 #@ tribe-events-calendar
 msgid "Template overrides should be moved to the correct subdirectory: tribe_get_template_part('%s')"
@@ -4197,7 +4171,7 @@ msgstr "Zeit:"
 #. gettext fix: identical singular and plural forms found, that may be ambiguous! Please check the code!
 #: public/template-tags/general.php:278
 #: lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:63
-#: lib/the-events-calendar.class.php:1400
+#: lib/the-events-calendar.class.php:1402
 #@ {bug-detected}
 #@ tribe-events-calendar
 msgid "Event Category"
@@ -4325,13 +4299,226 @@ msgstr "Eine Spalte in der CSV-Datei muss den Veranstaltungstitel enthalten, ein
 msgid "Questions? <a href=\"%s\">Watch the video</a>."
 msgstr "Fragen? <a href=\"%s\">Schauen Sie das Video an</a>."
 
-#: lib/the-events-calendar.class.php:4159
+#: lib/the-events-calendar.class.php:4200
 #@ tribe-events-calendar
-msgid "Find"
-msgstr "Finde"
+msgid "Search"
+msgstr "Suche"
 
-#: lib/the-events-calendar.class.php:4161
+#: lib/widget-list.class.php:131
 #@ tribe-events-calendar
-msgid "Search key"
-msgstr "Suchbegriff"
+msgid "View All Events in Category"
+msgstr "Zeige alle Veranstaltungen der Kategorie"
 
+#: lib/the-events-calendar.class.php:4202
+#@ tribe-events-calendar
+msgid "Keyword"
+msgstr "Begriff"
+
+<!DOCTYPE html>
+<!--[if IE 8]>
+<html xmlns="http://www.w3.org/1999/xhtml" class="ie8 wp-toolbar"  lang="de-DE">
+<![endif]-->
+<!--[if !(IE 8) ]><!-->
+<html xmlns="http://www.w3.org/1999/xhtml" class="wp-toolbar"  lang="de-DE">
+<!--<![endif]-->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>FileManager &lsaquo; (TEST) Treffpunkt Jazz (TEST) &#8212; WordPress</title>
+<script type="text/javascript">
+addLoadEvent = function(func){if(typeof jQuery!="undefined")jQuery(document).ready(func);else if(typeof wpOnload!='function'){wpOnload=func;}else{var oldonload=wpOnload;wpOnload=function(){oldonload();func();}}};
+var ajaxurl = '/wp-admin/admin-ajax.php',
+	pagenow = 'wp-filemanager/fm',
+	typenow = '',
+	adminpage = 'wp-filemanager-fm-php',
+	thousandsSeparator = '.',
+	decimalPoint = ',',
+	isRtl = 0;
+</script>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<link rel='stylesheet' href='http://test.treffpunkt-jazz.de/wp-admin/load-styles.php?c=0&amp;dir=ltr&amp;load=dashicons,admin-bar,wp-admin,buttons,wp-auth-check&amp;ver=3.8.1' type='text/css' media='all' />
+<link rel='stylesheet' id='open-sans-css'  href='//fonts.googleapis.com/css?family=Open+Sans%3A300italic%2C400italic%2C600italic%2C300%2C400%2C600&#038;subset=latin%2Clatin-ext&#038;ver=3.8.1' type='text/css' media='all' />
+<link rel='stylesheet' id='colors-css'  href='http://test.treffpunkt-jazz.de/wp-admin/css/colors/midnight/colors.min.css?ver=3.8.1' type='text/css' media='all' />
+<!--[if lte IE 7]>
+<link rel='stylesheet' id='ie-css'  href='http://test.treffpunkt-jazz.de/wp-admin/css/ie.min.css?ver=3.8.1' type='text/css' media='all' />
+<![endif]-->
+<link rel='stylesheet' id='cptchStylesheet-css'  href='http://test.treffpunkt-jazz.de/wp-content/plugins/captcha/css/style.css?ver=3.8.1' type='text/css' media='all' />
+<link rel='stylesheet' id='tribe_events-admin-css'  href='http://test.treffpunkt-jazz.de/wp-content/plugins/the-events-calendar/resources/events-admin.css?ver=3.4.1' type='text/css' media='all' />
+<link rel='stylesheet' id='wysija-admin-css-widget-css'  href='http://test.treffpunkt-jazz.de/wp-content/plugins/wysija-newsletters/css/admin-widget.css?ver=2.5.9.4' type='text/css' media='all' />
+<link rel='stylesheet' id='thickbox-css'  href='http://test.treffpunkt-jazz.de/wp-includes/js/thickbox/thickbox.css?ver=20131201' type='text/css' media='all' />
+
+<script type='text/javascript'>
+/* <![CDATA[ */
+var userSettings = {"url":"\/","uid":"3","time":"1392115643"};/* ]]> */
+</script>
+<script type='text/javascript' src='http://test.treffpunkt-jazz.de/wp-admin/load-scripts.php?c=0&amp;load%5B%5D=jquery-core,jquery-migrate,utils&amp;ver=3.8.1'></script>
+<script type="text/javascript">var _wpColorScheme = {"icons":{"base":"#f1f2f3","focus":"#fff","current":"#fff"}};</script>
+<style type="text/css" media="print">#wpadminbar { display:none; }</style>
+</head>
+<body class="wp-admin wp-core-ui no-js  wp-filemanager-fm-php admin-bar branch-3-8 version-3-8-1 admin-color-midnight locale-de-de no-customize-support no-svg">
+<script type="text/javascript">
+	document.body.className = document.body.className.replace('no-js','js');
+</script>
+
+	<script type="text/javascript">
+		(function() {
+			var request, b = document.body, c = 'className', cs = 'customize-support', rcs = new RegExp('(^|\\s+)(no-)?'+cs+'(\\s+|$)');
+
+			request = true;
+
+			b[c] = b[c].replace( rcs, ' ' );
+			b[c] += ( window.postMessage && request ? ' ' : ' no-' ) + cs;
+		}());
+	</script>
+	
+<div id="wpwrap">
+<a tabindex="1" href="#wpbody-content" class="screen-reader-shortcut">Zum Hauptinhalt springen</a>
+
+<div id="adminmenuback"></div>
+<div id="adminmenuwrap">
+<ul id="adminmenu" role="navigation">
+
+
+	<li class="wp-first-item wp-has-submenu wp-not-current-submenu menu-top menu-top-first menu-icon-dashboard menu-top-last" id="menu-dashboard">
+	<a href='index.php' class="wp-first-item wp-has-submenu wp-not-current-submenu menu-top menu-top-first menu-icon-dashboard menu-top-last" aria-haspopup="true"><div class="wp-menu-arrow"><div></div></div><div class='wp-menu-image'><br /></div><div class='wp-menu-name'>Übersicht</div></a>
+	<ul class='wp-submenu wp-submenu-wrap'><li class='wp-submenu-head'>Übersicht</li><li class="wp-first-item"><a href='index.php' class="wp-first-item">Home</a></li><li><a href='update-core.php'>Aktualisierungen <span class='update-plugins count-2' title='1 Plugin-Update, 1 Theme-Aktualisierung'><span class='update-count'>2</span></span></a></li></ul></li>
+	<li class="wp-not-current-submenu wp-menu-separator"><div class="separator"></div></li>
+	<li class="wp-has-submenu wp-not-current-submenu open-if-no-js menu-top menu-icon-post menu-top-first" id="menu-posts">
+	<a href='edit.php' class="wp-has-submenu wp-not-current-submenu open-if-no-js menu-top menu-icon-post menu-top-first" aria-haspopup="true"><div class="wp-menu-arrow"><div></div></div><div class='wp-menu-image'><br /></div><div class='wp-menu-name'>Beiträge</div></a>
+	<ul class='wp-submenu wp-submenu-wrap'><li class='wp-submenu-head'>Beiträge</li><li class="wp-first-item"><a href='edit.php' class="wp-first-item">Alle Beiträge</a></li><li><a href='post-new.php'>Erstellen</a></li><li><a href='edit-tags.php?taxonomy=category'>Kategorien</a></li><li><a href='edit-tags.php?taxonomy=post_tag'>Schlagworte</a></li></ul></li>
+	<li class="wp-has-submenu wp-not-current-submenu menu-top menu-icon-tribe_events" id="menu-posts-tribe_events">
+	<a href='edit.php?post_type=tribe_events' class="wp-has-submenu wp-not-current-submenu menu-top menu-icon-tribe_events" aria-haspopup="true"><div class="wp-menu-arrow"><div></div></div><div class='wp-menu-image dashicons dashicons-calendar'><br /></div><div class='wp-menu-name'>Veranstaltungen</div></a>
+	<ul class='wp-submenu wp-submenu-wrap'><li class='wp-submenu-head'>Veranstaltungen</li><li class="wp-first-item"><a href='edit.php?post_type=tribe_events' class="wp-first-item">Veranstaltungen</a></li><li><a href='post-new.php?post_type=tribe_events'>Hinzufügen</a></li><li><a href='edit-tags.php?taxonomy=post_tag&amp;post_type=tribe_events'>Schlagworte</a></li><li><a href='edit-tags.php?taxonomy=tribe_events_cat&amp;post_type=tribe_events'>Veranstalt.-Kategorien</a></li><li><a href='edit.php?post_type=tribe_venue'>Veranstaltungsorte</a></li><li><a href='edit.php?post_type=tribe_organizer'>Veranstalter</a></li><li><a href='edit.php?post_type=tribe_events&#038;page=treffpunkt-jazz/treffpunkt-jazz.php'>Treffpunkt Jazz</a></li><li><a href='edit.php?post_type=tribe_events&#038;page=events-importer'>CSV Import</a></li><li><a href='edit.php?post_type=tribe_events&#038;page=tribe-events-calendar'>Einstellungen</a></li><li><a href='edit.php?post_type=tribe_events&page=tribe-events-calendar&tab=help'>Hilfe</a></li><li><a href='edit.php?post_type=tribe_events&#038;page=tribe-app-shop'>Add-Ons</a></li></ul></li>
+	<li class="wp-has-submenu wp-not-current-submenu menu-top menu-icon-media" id="menu-media">
+	<a href='upload.php' class="wp-has-submenu wp-not-current-submenu menu-top menu-icon-media" aria-haspopup="true"><div class="wp-menu-arrow"><div></div></div><div class='wp-menu-image'><br /></div><div class='wp-menu-name'>Medien</div></a>
+	<ul class='wp-submenu wp-submenu-wrap'><li class='wp-submenu-head'>Medien</li><li class="wp-first-item"><a href='upload.php' class="wp-first-item">Medienübersicht</a></li><li><a href='media-new.php'>Datei hinzufügen</a></li><li><a href='upload.php?page=isc_missing_sources_page'>Fehlende Bildquellen</a></li></ul></li>
+	<li class="wp-has-submenu wp-not-current-submenu menu-top menu-icon-page" id="menu-pages">
+	<a href='edit.php?post_type=page' class="wp-has-submenu wp-not-current-submenu menu-top menu-icon-page" aria-haspopup="true"><div class="wp-menu-arrow"><div></div></div><div class='wp-menu-image'><br /></div><div class='wp-menu-name'>Seiten</div></a>
+	<ul class='wp-submenu wp-submenu-wrap'><li class='wp-submenu-head'>Seiten</li><li class="wp-first-item"><a href='edit.php?post_type=page' class="wp-first-item">Alle Seiten</a></li><li><a href='post-new.php?post_type=page'>Erstellen</a></li></ul></li>
+	<li class="wp-not-current-submenu menu-top menu-icon-comments" id="menu-comments">
+	<a href='edit-comments.php' class="wp-not-current-submenu menu-top menu-icon-comments" ><div class="wp-menu-arrow"><div></div></div><div class='wp-menu-image'><br /></div><div class='wp-menu-name'>Kommentare <span class='awaiting-mod count-0'><span class='pending-count'>0</span></span></div></a></li>
+	<li class="wp-has-submenu wp-not-current-submenu menu-top menu-icon-generic toplevel_page_wpcf7" id="toplevel_page_wpcf7"><a href='admin.php?page=wpcf7' class="wp-has-submenu wp-not-current-submenu menu-top menu-icon-generic toplevel_page_wpcf7" aria-haspopup="true"><div class="wp-menu-arrow"><div></div></div><div class='wp-menu-image'><br /></div><div class='wp-menu-name'>Formular</div></a>
+	<ul class='wp-submenu wp-submenu-wrap'><li class='wp-submenu-head'>Formular</li><li class="wp-first-item"><a href='admin.php?page=wpcf7' class="wp-first-item">Kontaktformulare</a></li><li><a href='admin.php?page=wpcf7-new'>Neues Formular</a></li></ul></li>
+	<li class="wp-has-submenu wp-not-current-submenu menu-top toplevel_page_wysija_campaigns menu-top-last" id="toplevel_page_wysija_campaigns"><a href='admin.php?page=wysija_campaigns' class="wp-has-submenu wp-not-current-submenu menu-top toplevel_page_wysija_campaigns menu-top-last" aria-haspopup="true"><div class="wp-menu-arrow"><div></div></div><div class='wp-menu-image'><img src="http://test.treffpunkt-jazz.de/wp-content/plugins/wysija-newsletters/img/mail.png" alt="" /></div><div class='wp-menu-name'>Wysija</div></a>
+	<ul class='wp-submenu wp-submenu-wrap'><li class='wp-submenu-head'>Wysija</li><li class="wp-first-item"><a href='admin.php?page=wysija_campaigns' class="wp-first-item">Newsletter</a></li><li><a href='admin.php?page=wysija_subscribers'>Abonnenten</a></li><li><a href='admin.php?page=wysija_config'>Einstellungen</a></li></ul></li>
+	<li class="wp-not-current-submenu wp-menu-separator"><div class="separator"></div></li>
+	<li class="wp-has-submenu wp-not-current-submenu menu-top menu-icon-appearance menu-top-first" id="menu-appearance">
+	<a href='themes.php' class="wp-has-submenu wp-not-current-submenu menu-top menu-icon-appearance menu-top-first" aria-haspopup="true"><div class="wp-menu-arrow"><div></div></div><div class='wp-menu-image'><br /></div><div class='wp-menu-name'>Design</div></a>
+	<ul class='wp-submenu wp-submenu-wrap'><li class='wp-submenu-head'>Design</li><li class="wp-first-item"><a href='themes.php' class="wp-first-item">Themes</a></li><li><a href='customize.php'>Anpassen</a></li><li><a href='widgets.php'>Widgets</a></li><li><a href='nav-menus.php'>Menüs</a></li><li><a href='themes.php?page=core_functions.php'>TheStyle Theme Options</a></li><li><a href='themes.php?page=custom-background'>Hintergrund</a></li><li><a href='theme-editor.php'>Editor</a></li></ul></li>
+	<li class="wp-has-submenu wp-not-current-submenu menu-top menu-icon-plugins" id="menu-plugins">
+	<a href='plugins.php' class="wp-has-submenu wp-not-current-submenu menu-top menu-icon-plugins" aria-haspopup="true"><div class="wp-menu-arrow"><div></div></div><div class='wp-menu-image'><br /></div><div class='wp-menu-name'>Plugins <span class='update-plugins count-1'><span class='plugin-count'>1</span></span></div></a>
+	<ul class='wp-submenu wp-submenu-wrap'><li class='wp-submenu-head'>Plugins <span class='update-plugins count-1'><span class='plugin-count'>1</span></span></li><li class="wp-first-item"><a href='plugins.php' class="wp-first-item">Installierte Plugins</a></li><li><a href='plugin-install.php'>Installieren</a></li><li><a href='plugin-editor.php'>Editor</a></li></ul></li>
+	<li class="wp-has-submenu wp-not-current-submenu menu-top menu-icon-users" id="menu-users">
+	<a href='users.php' class="wp-has-submenu wp-not-current-submenu menu-top menu-icon-users" aria-haspopup="true"><div class="wp-menu-arrow"><div></div></div><div class='wp-menu-image'><br /></div><div class='wp-menu-name'>Benutzer</div></a>
+	<ul class='wp-submenu wp-submenu-wrap'><li class='wp-submenu-head'>Benutzer</li><li class="wp-first-item"><a href='users.php' class="wp-first-item">Alle Benutzer</a></li><li><a href='user-new.php'>Neu hinzufügen</a></li><li><a href='profile.php'>Dein Profil</a></li><li><a href='users.php?page=users_extended'>Users Extended</a></li><li><a href='users.php?page=roles'>Roles</a></li><li><a href='users.php?page=role-new'>Add New Role</a></li></ul></li>
+	<li class="wp-has-submenu wp-not-current-submenu menu-top menu-icon-tools" id="menu-tools">
+	<a href='tools.php' class="wp-has-submenu wp-not-current-submenu menu-top menu-icon-tools" aria-haspopup="true"><div class="wp-menu-arrow"><div></div></div><div class='wp-menu-image'><br /></div><div class='wp-menu-name'>Werkzeuge</div></a>
+	<ul class='wp-submenu wp-submenu-wrap'><li class='wp-submenu-head'>Werkzeuge</li><li class="wp-first-item"><a href='tools.php' class="wp-first-item">Verfügbare Werkzeuge</a></li><li><a href='import.php'>Daten importieren</a></li><li><a href='export.php'>Daten exportieren</a></li><li><a href='tools.php?page=codestyling-localization/codestyling-localization.php'>Lokalisierung</a></li></ul></li>
+	<li class="wp-has-submenu wp-not-current-submenu menu-top menu-icon-settings menu-top-last" id="menu-settings">
+	<a href='options-general.php' class="wp-has-submenu wp-not-current-submenu menu-top menu-icon-settings menu-top-last" aria-haspopup="true"><div class="wp-menu-arrow"><div></div></div><div class='wp-menu-image'><br /></div><div class='wp-menu-name'>Einstellungen</div></a>
+	<ul class='wp-submenu wp-submenu-wrap'><li class='wp-submenu-head'>Einstellungen</li><li class="wp-first-item"><a href='options-general.php' class="wp-first-item">Allgemein</a></li><li><a href='options-writing.php'>Schreiben</a></li><li><a href='options-reading.php'>Lesen</a></li><li><a href='options-discussion.php'>Diskussion</a></li><li><a href='options-media.php'>Medien</a></li><li><a href='options-permalink.php'>Permalinks</a></li><li><a href='options-general.php?page=user_extra_fields'>Cimy User Extra Fields</a></li><li><a href='options-general.php?page=isc_settings_page'>Image Control</a></li><li><a href='options-general.php?page=updraftplus'>UpdraftPlus Sicherungen</a></li><li><a href='options-general.php?page=members-settings'>Members</a></li><li><a href='options-general.php?page=configure-smtp/configure-smtp.php'>SMTP</a></li><li><a href='options-general.php?page=obfuscate-email/obfuscate-email.php'>Obfuscate E-mail</a></li></ul></li>
+	<li class="wp-not-current-submenu wp-menu-separator"><div class="separator"></div></li>
+	<li class="wp-has-submenu wp-not-current-submenu menu-top toplevel_page_bws_plugins menu-top-first" id="toplevel_page_bws_plugins"><a href='admin.php?page=bws_plugins' class="wp-has-submenu wp-not-current-submenu menu-top toplevel_page_bws_plugins menu-top-first" aria-haspopup="true"><div class="wp-menu-arrow"><div></div></div><div class='wp-menu-image'><img src="http://test.treffpunkt-jazz.de/wp-content/plugins/captcha/images/px.png" alt="" /></div><div class='wp-menu-name'>BWS Plugins</div></a>
+	<ul class='wp-submenu wp-submenu-wrap'><li class='wp-submenu-head'>BWS Plugins</li><li class="wp-first-item"><a href='admin.php?page=bws_plugins' class="wp-first-item">BWS Plugins</a></li><li><a href='admin.php?page=captcha.php'>Captcha</a></li></ul></li>
+	<li class="wp-has-submenu wp-has-current-submenu wp-menu-open menu-top menu-icon-generic toplevel_page_wp-filemanager/fm" id="toplevel_page_wp-filemanager-fm"><a href='admin.php?page=wp-filemanager/fm.php' class="wp-has-submenu wp-has-current-submenu wp-menu-open menu-top menu-icon-generic toplevel_page_wp-filemanager/fm" ><div class="wp-menu-arrow"><div></div></div><div class='wp-menu-image'><br /></div><div class='wp-menu-name'>FileManager</div></a>
+	<ul class='wp-submenu wp-submenu-wrap'><li class='wp-submenu-head'>FileManager</li><li class="wp-first-item current"><a href='admin.php?page=wp-filemanager/fm.php' class="wp-first-item current">FileManager</a></li><li><a href='admin.php?page=wpfileman'>Configuration</a></li></ul></li>
+	<li class="wp-not-current-submenu menu-top toplevel_page_WP-Optimize menu-top-last" id="toplevel_page_WP-Optimize">
+	<a href='admin.php?page=WP-Optimize' class="wp-not-current-submenu menu-top toplevel_page_WP-Optimize menu-top-last" ><div class="wp-menu-arrow"><div></div></div><div class='wp-menu-image'><img src="http://test.treffpunkt-jazz.de/wp-content/plugins/wp-optimize/wpo.png" alt="" /></div><div class='wp-menu-name'>WP-Optimize</div></a></li><li id="collapse-menu" class="hide-if-no-js"><div id="collapse-button"><div></div></div><span>Menü einklappen</span></li></ul>
+</div>
+<div id="wpcontent">
+
+		<div id="wpadminbar" class="nojq nojs" role="navigation">
+			<a class="screen-reader-shortcut" href="#wp-toolbar" tabindex="1">Springe zur Werkzeugleiste</a>
+			<div class="quicklinks" id="wp-toolbar" role="navigation" aria-label="Obere Navigationswerkzeugleiste" tabindex="0">
+				<ul id="wp-admin-bar-root-default" class="ab-top-menu">
+		<li id="wp-admin-bar-menu-toggle"><a class="ab-item"  href="#"><span class="ab-icon"></span><span class="screen-reader-text">Menü</span></a>		</li>
+		<li id="wp-admin-bar-wp-logo" class="menupop"><a class="ab-item"  aria-haspopup="true" href="http://test.treffpunkt-jazz.de/wp-admin/about.php" title="Über WordPress"><span class="ab-icon"></span></a><div class="ab-sub-wrapper"><ul id="wp-admin-bar-wp-logo-default" class="ab-submenu">
+		<li id="wp-admin-bar-about"><a class="ab-item"  href="http://test.treffpunkt-jazz.de/wp-admin/about.php">Über WordPress</a>		</li></ul><ul id="wp-admin-bar-wp-logo-external" class="ab-sub-secondary ab-submenu">
+		<li id="wp-admin-bar-wporg"><a class="ab-item"  href="http://wordpress.org/">WordPress.org</a>		</li>
+		<li id="wp-admin-bar-documentation"><a class="ab-item"  href="http://codex.wordpress.org/">Dokumentation</a>		</li>
+		<li id="wp-admin-bar-support-forums"><a class="ab-item"  href="http://forum.wpde.org">Support-Foren</a>		</li>
+		<li id="wp-admin-bar-feedback"><a class="ab-item"  href="http://wordpress.org/support/forum/requests-and-feedback">Feedback</a>		</li></ul></div>		</li>
+		<li id="wp-admin-bar-site-name" class="menupop"><a class="ab-item"  aria-haspopup="true" href="http://test.treffpunkt-jazz.de/">(TEST) Treffpunkt Jazz (TEST)</a><div class="ab-sub-wrapper"><ul id="wp-admin-bar-site-name-default" class="ab-submenu">
+		<li id="wp-admin-bar-view-site"><a class="ab-item"  href="http://test.treffpunkt-jazz.de/">Zur Seite</a>		</li></ul></div>		</li>
+		<li id="wp-admin-bar-updates"><a class="ab-item"  href="http://test.treffpunkt-jazz.de/wp-admin/update-core.php" title="1 Plugin-Update, 1 Theme-Aktualisierung"><span class="ab-icon"></span><span class="ab-label">2</span><span class="screen-reader-text">1 Plugin-Update, 1 Theme-Aktualisierung</span></a>		</li>
+		<li id="wp-admin-bar-comments"><a class="ab-item"  href="http://test.treffpunkt-jazz.de/wp-admin/edit-comments.php" title="0 Kommentare warten auf Moderation"><span class="ab-icon"></span><span id="ab-awaiting-mod" class="ab-label awaiting-mod pending-count count-0">0</span></a>		</li>
+		<li id="wp-admin-bar-new-content" class="menupop"><a class="ab-item"  aria-haspopup="true" href="http://test.treffpunkt-jazz.de/wp-admin/post-new.php" title="Hinzufügen"><span class="ab-icon"></span><span class="ab-label">Neu</span></a><div class="ab-sub-wrapper"><ul id="wp-admin-bar-new-content-default" class="ab-submenu">
+		<li id="wp-admin-bar-new-post"><a class="ab-item"  href="http://test.treffpunkt-jazz.de/wp-admin/post-new.php">Beitrag</a>		</li>
+		<li id="wp-admin-bar-new-media"><a class="ab-item"  href="http://test.treffpunkt-jazz.de/wp-admin/media-new.php">Datei</a>		</li>
+		<li id="wp-admin-bar-new-page"><a class="ab-item"  href="http://test.treffpunkt-jazz.de/wp-admin/post-new.php?post_type=page">Seite</a>		</li>
+		<li id="wp-admin-bar-new-tribe_events"><a class="ab-item"  href="http://test.treffpunkt-jazz.de/wp-admin/post-new.php?post_type=tribe_events">Veranstaltung</a>		</li>
+		<li id="wp-admin-bar-new-user"><a class="ab-item"  href="http://test.treffpunkt-jazz.de/wp-admin/user-new.php">Benutzer</a>		</li>
+		<li id="wp-admin-bar-members-new-role"><a class="ab-item"  href="http://test.treffpunkt-jazz.de/wp-admin/users.php?page=role-new">Role</a>		</li></ul></div>		</li>
+		<li id="wp-admin-bar-tribe-events" class="menupop"><a class="ab-item"  aria-haspopup="true" href="http://test.treffpunkt-jazz.de/events/">Veranstaltungen</a><div class="ab-sub-wrapper"><ul id="wp-admin-bar-tribe-events-group" class="ab-submenu">
+		<li id="wp-admin-bar-tribe-events-view-calendar"><a class="ab-item"  href="http://test.treffpunkt-jazz.de/events/">Kalenderansicht</a>		</li>
+		<li id="wp-admin-bar-tribe-events-add-event"><a class="ab-item"  href="http://test.treffpunkt-jazz.de/wp-admin/post-new.php?post_type=tribe_events">Veranstaltung erstellen</a>		</li>
+		<li id="wp-admin-bar-tribe-events-edit-events"><a class="ab-item"  href="http://test.treffpunkt-jazz.de/wp-admin/edit.php?post_type=tribe_events">Veranstaltungen bearbeiten</a>		</li></ul><div id="wp-admin-bar-tribe-events-add-ons-group-container" class="ab-group-container"><ul id="wp-admin-bar-tribe-community-events-group" class="ab-submenu">
+		<li id="wp-admin-bar-tribe-community-events-submit"><a class="ab-item"  href="http://test.treffpunkt-jazz.de/events/community/add">Community: Übermittle die Veranstaltung</a>		</li>
+		<li id="wp-admin-bar-tribe-community-events-my-events"><a class="ab-item"  href="http://test.treffpunkt-jazz.de/events/community/list">Community: Meine Veranstaltungen</a>		</li></ul></div><ul id="wp-admin-bar-tribe-events-settings-group" class="ab-submenu">
+		<li id="wp-admin-bar-tribe-events-settings" class="menupop"><div class="ab-item ab-empty-item"  aria-haspopup="true">Einstellungen</div><div class="ab-sub-wrapper"><ul id="wp-admin-bar-tribe-events-settings-default" class="ab-submenu">
+		<li id="wp-admin-bar-tribe-events-settings-sub"><a class="ab-item"  href="http://test.treffpunkt-jazz.de/wp-admin/edit.php?post_type=tribe_events&#038;page=tribe-events-calendar">Veranstaltungen</a>		</li>
+		<li id="wp-admin-bar-tribe-community-events-settings-sub"><a class="ab-item"  href="http://test.treffpunkt-jazz.de/wp-admin/edit.php?post_type=tribe_events&#038;page=tribe-events-calendar&#038;tab=community">Community Veranstaltungen</a>		</li></ul></div>		</li>
+		<li id="wp-admin-bar-tribe-events-help"><a class="ab-item"  href="http://test.treffpunkt-jazz.de/wp-admin/edit.php?post_type=tribe_events&#038;page=tribe-events-calendar&#038;tab=help">Hilfe</a>		</li>
+		<li id="wp-admin-bar-tribe-events-app-shop"><a class="ab-item"  href="http://test.treffpunkt-jazz.de/wp-admin/edit.php?post_type=tribe_events&#038;page=tribe-app-shop">Add-Ons</a>		</li></ul></div>		</li></ul><ul id="wp-admin-bar-top-secondary" class="ab-top-secondary ab-top-menu">
+		<li id="wp-admin-bar-my-account" class="menupop with-avatar"><a class="ab-item"  aria-haspopup="true" href="http://test.treffpunkt-jazz.de/wp-admin/profile.php" title="Mein Benutzerprofil">Willkommen, Treffpunkt Jazz<img alt='' src='http://0.gravatar.com/avatar/6aef9eccf6aa50c702bfb70a1e02204e?s=26&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D26&amp;r=G' class='avatar avatar-26 photo' height='26' width='26' /></a><div class="ab-sub-wrapper"><ul id="wp-admin-bar-user-actions" class="ab-submenu">
+		<li id="wp-admin-bar-user-info"><a class="ab-item" tabindex="-1" href="http://test.treffpunkt-jazz.de/wp-admin/profile.php"><img alt='' src='http://0.gravatar.com/avatar/6aef9eccf6aa50c702bfb70a1e02204e?s=64&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /><span class='display-name'>Treffpunkt Jazz</span></a>		</li>
+		<li id="wp-admin-bar-edit-profile"><a class="ab-item"  href="http://test.treffpunkt-jazz.de/wp-admin/profile.php">Profil bearbeiten</a>		</li>
+		<li id="wp-admin-bar-logout"><a class="ab-item"  href="http://test.treffpunkt-jazz.de/wp-login.php?action=logout&#038;_wpnonce=edcfe2b127">Abmelden</a>		</li></ul></div>		</li></ul>			</div>
+						<a class="screen-reader-shortcut" href="http://test.treffpunkt-jazz.de/wp-login.php?action=logout&#038;_wpnonce=edcfe2b127">Abmelden</a>
+					</div>
+
+		
+<div id="wpbody">
+
+<div id="wpbody-content" aria-label="Hauptinhalt" tabindex="0">
+		<div id="screen-meta" class="metabox-prefs">
+
+			<div id="contextual-help-wrap" class="hidden no-sidebar" tabindex="-1" aria-label="Kontexthilfe-Tab">
+				<div id="contextual-help-back"></div>
+				<div id="contextual-help-columns">
+					<div class="contextual-help-tabs">
+						<ul>
+												</ul>
+					</div>
+
+					
+					<div class="contextual-help-tabs-wrap">
+											</div>
+				</div>
+			</div>
+				</div>
+		                <div class="updated"><p>Eines oder mehrere Bilder haben keine Quelle. Bitte besuche die Liste mit <a href="http://test.treffpunkt-jazz.de/wp-admin/upload.php?page=isc_missing_sources_page">fehlenden Bilderquellen</a>.</p></div>
+            <link rel='stylesheet' href='http://test.treffpunkt-jazz.de/wp-content/plugins/wp-filemanager/incl/phpfm.css' type='text/css'><center><br />
+<div class="clear"></div></div><!-- wpbody-content -->
+<div class="clear"></div></div><!-- wpbody -->
+<div class="clear"></div></div><!-- wpcontent -->
+
+<div id="wpfooter">
+		<p id="footer-left" class="alignleft">
+		<span id="footer-thankyou">Danke, dass du <a href="http://wordpress.org">WordPress</a> benutzt. | <a href="http://wpde.org">WordPress Deutschland</a> </span>	</p>
+	<p id="footer-upgrade" class="alignright">
+		Version 3.8.1	</p>
+	<div class="clear"></div>
+</div>
+	<div id="wp-auth-check-wrap" class="hidden">
+	<div id="wp-auth-check-bg"></div>
+	<div id="wp-auth-check">
+	<div class="wp-auth-check-close" tabindex="0" title="Schließen"></div>
+			<div id="wp-auth-check-form" data-src="http://test.treffpunkt-jazz.de/wp-login.php?interim-login=1"></div>
+			<div class="wp-auth-fallback">
+		<p><b class="wp-auth-fallback-expired" tabindex="0">Sitzung abgelaufen</b></p>
+		<p><a href="http://test.treffpunkt-jazz.de/wp-login.php" target="_blank">Bitte melde dich nochmal an.</a>
+		Die Login-Seite wird sich in einem neuen Fenster öffnen. Nach dem Einloggen kannst du das Fenster schließen und zu dieser Seite zurückkehren.</p>
+	</div>
+	</div>
+	</div>
+	
+<script type='text/javascript'>
+/* <![CDATA[ */
+var commonL10n = {"warnDelete":"Du bist dabei, die ausgew\u00e4hlten Punkte end\u00fcltig zu l\u00f6schen. Dr\u00fccke 'Abbrechen' zum Stoppen, 'OK' zum L\u00f6schen."};var heartbeatSettings = {"nonce":"05faf2149b"};var authcheckL10n = {"beforeunload":"Deine Session ist abgelaufen. Du kannst dich erneut einloggen oder zur Login-Seite gehen.","interval":"180"};var thickboxL10n = {"next":"N\u00e4chste >","prev":"< Vorherige","image":"Bild","of":"von","close":"Schlie\u00dfen","noiframes":"Diese Funktion ben\u00f6tigt iframes. Du hast jedoch iframes deaktiviert oder dein Browser unterst\u00fctzt diese nicht.","loadingAnimation":"http:\/\/test.treffpunkt-jazz.de\/wp-includes\/js\/thickbox\/loadingAnimation.gif"};/* ]]> */
+</script>
+<script type='text/javascript' src='http://test.treffpunkt-jazz.de/wp-admin/load-scripts.php?c=0&amp;load%5B%5D=hoverIntent,common,admin-bar,svg-painter,heartbeat,wp-auth-check,thickbox&amp;ver=3.8.1'></script>
+
+<div class="clear"></div></div><!-- wpwrap -->
+<script type="text/javascript">if(typeof wpOnload=='function')wpOnload();</script>
+</body>
+</html>

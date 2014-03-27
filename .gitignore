@@ -10,3 +10,5 @@
 
 compiler.jar
 *.ps1
+
+phpunit.xml

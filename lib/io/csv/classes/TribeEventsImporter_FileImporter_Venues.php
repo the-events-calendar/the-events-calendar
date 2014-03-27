@@ -14,15 +14,14 @@ class TribeEventsImporter_FileImporter_Venues extends TribeEventsImporter_FileIm
 	}
 
 	protected function update_post( $post_id, array $record ) {
-		$this->hack_to_remove_broken_filters();
 		$venue = $this->build_venue_array( $record );
 		TribeEventsAPI::updateVenue( $post_id, $venue );
 	}
 
 	protected function create_post( array $record ) {
-		$this->hack_to_remove_broken_filters();
 		$venue = $this->build_venue_array( $record );
 		$id = TribeEventsAPI::createVenue( $venue );
+		TribeEventsAPI::updateVenue( $id, $venue );
 		return $id;
 	}
 
@@ -42,13 +41,6 @@ class TribeEventsImporter_FileImporter_Venues extends TribeEventsImporter_FileIm
 			$venue['Country'] = 'United States';
 		}
 		return $venue;
-	}
-
-	private function hack_to_remove_broken_filters() {
-		// a stupid hack for some stupid code
-		// the callback will automatically replace every Venue title with "Unnamed Venue"
-		$TribeEvents = TribeEvents::instance();
-		remove_action( 'save_post', array( $TribeEvents, 'save_venue_data' ), 16, 2 );
 	}
 
 }

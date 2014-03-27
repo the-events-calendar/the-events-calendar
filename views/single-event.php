@@ -28,8 +28,7 @@ $event_id = get_the_ID();
 	<?php the_title( '<h2 class="tribe-events-single-event-title summary">', '</h2>' ); ?>
 
 	<div class="tribe-events-schedule updated published tribe-clearfix">
-		<h3><?php echo tribe_events_event_schedule_details(); ?></h3>
-		<?php echo tribe_events_event_recurring_info_tooltip(); ?>
+		<?php echo tribe_events_event_schedule_details( $event_id, '<h3>', '</h3>'); ?>
 		<?php  if ( tribe_get_cost() ) :  ?>
 			<span class="tribe-events-divider">|</span>
 			<span class="tribe-events-cost"><?php echo tribe_get_cost( null, true ) ?></span>
@@ -41,8 +40,8 @@ $event_id = get_the_ID();
 		<!-- Navigation -->
 		<h3 class="tribe-events-visuallyhidden"><?php _e( 'Event Navigation', 'tribe-events-calendar' ) ?></h3>
 		<ul class="tribe-events-sub-nav">
-			<li class="tribe-events-nav-previous"><?php tribe_the_prev_event_link( '&laquo; %title%' ) ?></li>
-			<li class="tribe-events-nav-next"><?php tribe_the_next_event_link( '%title% &raquo;' ) ?></li>
+			<li class="tribe-events-nav-previous"><?php tribe_the_prev_event_link( '<span>&laquo;</span> %title%' ) ?></li>
+			<li class="tribe-events-nav-next"><?php tribe_the_next_event_link( '%title% <span>&raquo;</span>' ) ?></li>
 		</ul><!-- .tribe-events-sub-nav -->
 	</div><!-- #tribe-events-header -->
 
@@ -72,8 +71,8 @@ $event_id = get_the_ID();
 		<!-- Navigation -->
 		<h3 class="tribe-events-visuallyhidden"><?php _e( 'Event Navigation', 'tribe-events-calendar' ) ?></h3>
 		<ul class="tribe-events-sub-nav">
-			<li class="tribe-events-nav-previous"><?php tribe_the_prev_event_link( '&laquo; %title%' ) ?></li>
-			<li class="tribe-events-nav-next"><?php tribe_the_next_event_link( '%title% &raquo;' ) ?></li>
+			<li class="tribe-events-nav-previous"><?php tribe_the_prev_event_link( '<span>&laquo;</span> %title%' ) ?></li>
+			<li class="tribe-events-nav-next"><?php tribe_the_next_event_link( '%title% <span>&raquo;</span>' ) ?></li>
 		</ul><!-- .tribe-events-sub-nav -->
 	</div><!-- #tribe-events-footer -->
 

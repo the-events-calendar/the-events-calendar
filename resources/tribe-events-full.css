@@ -11,21 +11,21 @@
  * @package TribeEventsCalendar
  * @since  1.0
  * @author Modern Tribe Inc.
- *s
+ *
  */
 
 /* = Global & Miscellaneous Styles
 =============================================*/
-
 #tribe-events-pg-template {
 	max-width: 1000px;
 	margin: 0 auto;
 }
+
 /* Default Events Template Base HTML STyles */
 .tribe-events-after-html {
 	clear: both;
 }
-#tribe-events-pg-template .tribe-events-content p,
+#tribe-events .tribe-events-content p,
 .tribe-events-before-html p,
 .tribe-events-after-html p {
 	margin: 0 0 10px;
@@ -127,10 +127,6 @@
 	text-decoration: none;
 }
 
-.tribe-events-read-more {
-	display: block;
-}
-
 /* Important Link Styles */
 ul.tribe-events-sub-nav a,
 .tribe-events-back a, 
@@ -153,7 +149,8 @@ ul.tribe-events-sub-nav a:hover,
 }
 
 /* Global Main Button Style */
-.tribe-events-button, .entry-content .tribe-events-button {
+.tribe-events-button, 
+#tribe-events .tribe-events-button {
 	background-color: #666;
 	color: #fff;
 	background-image: none;
@@ -171,6 +168,10 @@ ul.tribe-events-sub-nav a:hover,
 	-webkit-box-shadow: none;
 			box-shadow: none;
 	text-decoration: none;
+	display: inline-block;
+	zoom: 1;
+	*display: inline;
+	vertical-align: middle;
 }
 
 .tribe-events-button.tribe-active {
@@ -180,7 +181,7 @@ ul.tribe-events-sub-nav a:hover,
 
 .tribe-events-button.tribe-inactive,
 .tribe-events-button:hover,
-.entry-content .tribe-events-button:hover,
+#tribe-events .tribe-events-button:hover,
 .tribe-events-button.tribe-active:hover {
 	background-color: #ddd;
 	color:#444;
@@ -259,6 +260,12 @@ a.tribe-events-gcal {
 
 /* Remove "Edit" Link from unneeded templates */
 .events-archive span.edit-link {
+	display: none;
+}
+
+/* Remove unused header / footer elements on non-event page template */
+header.entry-header,
+footer.entry-meta {
 	display: none;
 }
 
@@ -471,37 +478,8 @@ select.tribe-events-dropdown {
 	display: inline;
 }
 
-@media only screen and (max-width: 767px) {
-	#tribe-events-header .tribe-events-sub-nav .tribe-events-nav-next,
-	#tribe-events-header .tribe-events-sub-nav .tribe-events-nav-previous,
-	#tribe-events-footer .tribe-events-sub-nav .tribe-events-nav-next,
-	#tribe-events-footer .tribe-events-sub-nav .tribe-events-nav-previous {
-		display: block;
-		width: 50%;
-		margin: 0;
-		-webkit-box-sizing: border-box;
-		   -moz-box-sizing: border-box;
-				box-sizing: border-box;		
-	}
-	.tribe-events-sub-nav li a {
-		display: block;
-		padding: 10px 15px;
-		background: #666666;
-		color: #fff;
-		white-space: normal;
-	}
-	.tribe-events-sub-nav .tribe-events-nav-previous,
-	.tribe-events-sub-nav .tribe-events-nav-left {
-		padding: 0 1px;
-	}
-	.tribe-events-sub-nav .tribe-events-nav-next,
-	.tribe-events-sub-nav .tribe-events-nav-right {
-		padding: 0 0 0 1px;
-	}
-}	
-
 /* = Calendar View & List View Template Styles
-   @ Template: calendar.php & list.php
+   @ Template: month.php & list.php
 =============================================*/
 #tribe-events-content {
 	position: relative;
@@ -643,10 +621,6 @@ select.tribe-events-dropdown {
 	padding: 0;
 }
 
-.tribe-events-list .tribe-events-loop .tribe-events-content p {
-	margin: 0;
-}
-
 /* Date Seperators */
 .tribe-events-list-separator-year {
 	display: block;
@@ -676,25 +650,6 @@ select.tribe-events-dropdown {
 	padding-bottom: 0;
 }
 
-@media only screen and (max-width: 767px) {
-	.tribe-events-list .tribe-events-event-image {
-		float: none;
-		width: 100%;
-		margin: 0 0 20px 0;
-	}
-.tribe-events-list .tribe-events-event-image + div.tribe-events-content {
-	float: none;
-	width: 100%;
-}	
-	.tribe-events-list .tribe-events-loop .tribe-events-event-meta .recurringinfo {
-		display: block;
-		margin: 8px 0 0;
-	}
-	.tribe-events-list .tribe-events-loop .tribe-events-event-meta .recurringinfo .tribe-events-divider {
-		display: none;
-	}
-}
-
 /* = List View & Single Venue (Pro Version) Template Styles
    @ Template: list.php & single-venue.php
 =============================================*/
@@ -711,7 +666,6 @@ select.tribe-events-dropdown {
 	float: left;
 	padding: 0 5% 0 0;
 }
-.events-archive .tribe-events-content p, 
 .single-tribe_venue .tribe-events-loop .tribe-events-content p {
 	margin: 0;
 }
@@ -793,20 +747,6 @@ select.tribe-events-dropdown {
 
 .single-tribe_events .tribe-events-schedule .tribe-events-cost {
 	vertical-align: middle;
-}
-
-/* Cal Links */
-.single-tribe_events .tribe-events-cal-links { 
-	display: inline-block;
-	zoom: 1;
-	*display: inline;
-	margin: 0 0 20px 0;
-	vertical-align: middle;
-}
-
-.single-tribe_events a.tribe-events-ical,
-.single-tribe_events a.tribe-events-gcal {
-	margin-bottom: 0;
 }
 
 /* Featured Image */
@@ -907,23 +847,9 @@ select.tribe-events-dropdown {
 .sidebar.single-tribe_events .tribe-events-content {
 	padding: 0;
 }
-@media only screen and (max-width: 767px) {
-	.single-tribe_events .tribe-events-schedule h3 {
-		display: block;
-		margin-bottom: 10px;
-	}
-	.single-tribe_events .tribe-events-schedule .recurringinfo .tribe-events-divider {
-		display: none;
-	}
-	.tribe-events-event-meta .tribe-events-meta-group, 
-	.tribe-events-event-meta .column {
-		float: none;
-		width: 100%;
-	}
-}
 
 /* = Calendar Styles (includes styles for both large & small calendars)
-   @ Template: calendar.php & calendar-widget.php
+   @ Template: month.php & widgets/calendar-widget.php
 =============================================*/
 /* Global Calendar Styles */
 #tribe-events-content table.tribe-events-calendar {
@@ -931,6 +857,8 @@ select.tribe-events-dropdown {
 	clear: both;
 	font-size: 12px;
 	border-collapse: collapse;
+	table-layout: fixed;
+	width: 100%;
 }
 #tribe-events-content table.tribe-events-calendar, 
 #tribe-events-content .tribe-events-calendar td {
@@ -959,6 +887,9 @@ select.tribe-events-dropdown {
 	vertical-align: top;
 	padding: 0 0 .5em;
 	font-size: 12px;
+	-webkit-box-sizing: border-box;
+	   -moz-box-sizing: border-box;
+			box-sizing: border-box;
 }
 .vevent.viewmore {
 	font-weight:bold;
@@ -1003,7 +934,7 @@ select.tribe-events-dropdown {
 	right: 30px;
 }
 
-/* recurring info tooltip */
+/* Recurring info tooltip */
 .recurringinfo {
 	display: inline-block;
 	vertical-align: middle;
@@ -1021,20 +952,6 @@ select.tribe-events-dropdown {
 .event-is-recurring:hover {
 	color: #000;
 }
-
-/*
-.event-is-recurring img {
-	width: 16px;
-	height: 16px;
-	opacity: .7;
-	display: inline;
-	vertical-align: middle;	
-	box-shadow: none !important;
-}
-.event-is-recurring:hover img {
-	opacity: 1.0;
-}
-*/
 
 .recurring-info-tooltip.tribe-events-tooltip {
 	left: 10px;
@@ -1062,7 +979,7 @@ select.tribe-events-dropdown {
 	font-size: 100%;
 }
 .tribe-events-calendar th {
-	width: 250px;
+	width: 14.28%;
 	height: 10px;
 	background-color: #ddd;
 	color: #333;
@@ -1084,6 +1001,7 @@ select.tribe-events-dropdown {
 #tribe-events-content .tribe-events-calendar div[id*="tribe-events-event-"] h3.tribe-events-month-event-title {
 	line-height: 1.25;
 	font-size: 13px;
+	overflow: hidden;
 	font-weight: normal;
 	font-family: sans-serif;
 	font-weight: bold;
@@ -1130,9 +1048,12 @@ select.tribe-events-dropdown {
 	font-size: 11px;
 	line-height: 1.5;
 }
+#tribe-mobile-container {
+	display: none;
+}
 
 /* = Events List Widget Styles (Sidebar)
-   @ Template: list-widget.php
+   @ Template: widgets/list-widget.php
 =============================================*/
 
 .tribe-events-list-widget ol li {
@@ -1208,11 +1129,14 @@ h2.tribe-events-tickets-title {
 }
 
 /* = Events Navigation Bar
-   @ Template: /modules/bar.php
+   @ Template: modules/bar.php
 =============================================*/
-
 /* Datepicker
    ========================================================================== */
+.datepicker {
+	z-index:1000 !important;
+}
+
 .datepicker td,
 .datepicker table tr td span {
 	-webkit-border-radius: 0;
@@ -1254,7 +1178,6 @@ h2.tribe-events-tickets-title {
 }
 
 /* Form Elements */
-
 #tribe-bar-form input {
 	font-size: 15px;
 	margin: 0 4px 0 0;
@@ -1333,7 +1256,6 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 }
 
 /* Tribe Bar Full Layout */
-
 #tribe-bar-form .tribe-bar-filters {
 	position: relative;
 	float: left;
@@ -1421,8 +1343,8 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 
 #tribe-bar-views .tribe-bar-views-list {
 	list-style-type: none;
-	margin: 0 0 0 5px;
-	padding: 0;
+	margin: 0;
+	padding: 0 0 0 5px;
 	position: absolute;
 	left: 0;
 	top: auto;
@@ -1431,8 +1353,8 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 }
 #tribe-bar-views li.tribe-bar-views-option {
 	line-height: 14px;
-	margin: 0 5px 0 0;
-	padding: 0;
+	margin: 0;
+	padding: 0 5px 0 0;
 	list-style: none;
 	background: none;
 	filter: "progid:DXImageTransform.Microsoft.gradient(enabled=false)";
@@ -1490,7 +1412,6 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 }
 
 /* Tribe Bar Mini Styles */
-
 #tribe-bar-form.tribe-bar-mini * {
 	font-size: 12px;
 }
@@ -1541,13 +1462,10 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 }
 
 .tribe-bar-mini #tribe-bar-views .tribe-bar-views-list .tribe-bar-views-option a {
-	padding: 4px 10px;
+	padding: 4px 15px;
 }
 
-
-
 /* Tribe Bar Collapse Styles */
-
 #tribe-bar-collapse-toggle {
 	display: none;
 	float: left;
@@ -1630,15 +1548,6 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 	margin: 0;
 }
 
-@media only screen and (max-width: 767px) {
-	.tribe-bar-collapse #tribe-bar-collapse-toggle {
-		width: 60%;
-	}
-	
-	#tribe-bar-form.tribe-bar-collapse #tribe-bar-views  {
-		width: 40%;
-	}
-}
 .tribe-bar-is-disabled .tribe-events-page-title {
 	line-height: 45px;
 	text-align: left;
@@ -1750,7 +1659,7 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 	display: inline-block;
 }
 
-/* default icon */
+/* Default icon */
 .tribe-select2-results-views span[class^="tribe-icon-"],
 .tribe-bar-views-list span[class^="tribe-icon-"],
 .tribe-bar-view-list a[class^="tribe-icon-"] {
@@ -1805,12 +1714,34 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 	background-position: 2px 50%;
 }
 
-/* Events Retina Bits */
+/* ==========================================================================
+  Theme Compatibility
+   ========================================================================== */
+
+/* Twenty Fourteen
+========================================================================== */
+.tribe-events-week.tribe-theme-twentyfourteen #masthead {
+	z-index: 1001;
+}
+.tribe-theme-twentyfourteen #tribe-events-pg-template #tribe-events {
+	padding: 20px;
+}
+.tribe-theme-twentyfourteen  #tribe-bar-views .tribe-bar-views-list {
+	z-index: 3;
+}
+@media screen and (min-width: 1080px) {
+	.tribe-theme-twentyfourteen #tribe-events-pg-template {
+		padding-left: 222px;
+	}
+}
+
+/* = Events Retina
+=============================================*/
 @media 
-only screen and (min--moz-device-pixel-ratio: 2),
-only screen and (-o-min-device-pixel-ratio: 2/1),
-only screen and (-webkit-min-device-pixel-ratio: 2),
-only screen and (min-device-pixel-ratio: 2) {
+(min--moz-device-pixel-ratio: 2),
+(-o-min-device-pixel-ratio: 2/1),
+(-webkit-min-device-pixel-ratio: 2),
+(min-device-pixel-ratio: 2) {
 	.tribe-events-tooltip .tribe-events-arrow {
 		background-image: url(images/tribe-tooltips@2x.png);
 	}
@@ -1823,8 +1754,7 @@ only screen and (min-device-pixel-ratio: 2) {
 	#tribe-events-bar [class^="tribe-bar-button-"]:after {
 		background-image: url(../vendor/select2/select2x2.png);
 	}
-
-	/* default icon */
+	/* Default icon */
 	.tribe-select2-results-views span[class^="tribe-icon-"],
 	.tribe-bar-views-list span[class^="tribe-icon-"],
 	.tribe-bar-view-list a[class^="tribe-icon-"] {
@@ -1857,25 +1787,3 @@ only screen and (min-device-pixel-ratio: 2) {
 		background-image: url(images/events-bar/icon-map@2x.png);
 	}
 }
-
-/* ==========================================================================
-  Theme Compatibility
-   ========================================================================== */
-
-/* Twenty Fourteen
-========================================================================== */
-	.tribe-events-week.tribe-theme-twentyfourteen #masthead {
-		z-index: 1001;
-	}
-	.tribe-theme-twentyfourteen #tribe-events-pg-template #tribe-events {
-		padding: 20px;
-	}
-	.tribe-theme-twentyfourteen  #tribe-bar-views .tribe-bar-views-list {
-		z-index: 3;
-	}
-@media screen and (min-width: 1080px) {
-	.tribe-theme-twentyfourteen #tribe-events-pg-template {
-		padding-left: 222px;
-	}
-}
-

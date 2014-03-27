@@ -179,11 +179,11 @@ $modules = TribeEventsTickets::modules();
 					<td>
 						<input type="hidden" name="ticket_id" id="ticket_id" class="ticket_field" value="" />
 
-						<input type='button' id='ticket_form_save' name='ticket_form_save' value="Save this ticket"
+						<input type='button' id='ticket_form_save' name='ticket_form_save' value="<?php _e( 'Save this ticket', 'tribe-events-calendar' ); ?>"
 							   class="button-primary" />
 
 						<input type='button' id='ticket_form_cancel' name='ticket_form_cancel' value="Cancel"
-							   class="button-highlighted" />
+							   class="button-secondary" />
 					</td>
 				</tr>
 

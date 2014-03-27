@@ -1,67 +1,100 @@
 jQuery(document).ready(function($) {
 
-	// Load the Chosen JQuery plugin for all select elements with the class 'chosen'.
-	$('.chosen, .tribe-field-dropdown_chosen select').chosen();
-	$('.select2, .tribe-field-dropdown_select2 select').select2({width: '250px'});
+	var $view_select = $('.tribe-field-dropdown_select2 select'),
+		viewCalLinkHTML = $('#view-calendar-link-div').html(),
+		$template_select = $('select[name="tribeEventsTemplate"]'),
+		$event_pickers = $('#tribe-event-datepickers');
 
-	if($('select[name="tribeEventsTemplate"]' ).length && $('select[name="tribeEventsTemplate"]' ).val() === '' ){
-		$templates = $('select[name="tribeEventsTemplate"]' );
-		var name = $templates.find("option:selected" ).text();
-		$templates.prev('.select2-container' ).children().children('span').text(name);
+	// initialize  chosen and select2
+
+	$('.chosen, .tribe-field-dropdown_chosen select').chosen();
+	$('.select2').select2({width: '250px'});
+	$view_select.select2({width: '250px'});
+		
+	// Grab HTML from hidden Calendar link and append to Header on Event Listing Page
+	$(viewCalLinkHTML)
+		.insertAfter('.edit-php.post-type-tribe_events #wpbody-content .wrap h2:eq(0) a');
+
+	if($template_select.length && $template_select.val() === '' ){
+
+		var t_name = $template_select.find("option:selected" ).text();
+
+		$template_select
+			.prev('.select2-container')
+			.children()
+			.children('span')
+			.text(t_name);
 	}
 
 	//not done by default on front end
-	$('.hide-if-js').hide();
 
-	if(typeof(TEC) != 'undefined'){
+	$('.hide-if-js')
+		.hide();
+
+	if(typeof(TEC) !== 'undefined'){
 
 		var startofweek = 0;
 
-		if($('#tribe-event-datepickers').length)
-			startofweek = $('#tribe-event-datepickers').data('startofweek');
+		if($event_pickers.length)
+			startofweek = $event_pickers.data('startofweek');
 
 		var datepickerOpts = { 
-			dateFormat: 'yy-mm-dd',
-			showAnim: 'fadeIn',
-			changeMonth: true,
-			changeYear: true,
-			numberOfMonths: 3,
-			firstDay: startofweek,
-			showButtonPanel: true,
-			onSelect: function(selectedDate) {
-				var option = this.id == "EventStartDate" ? "minDate" : "maxDate";
-				var instance = $(this).data("datepicker");
-				var date = $.datepicker.parseDate(instance.settings.dateFormat || $.datepicker._defaults.dateFormat, selectedDate, instance.settings);
-				dates.not(this).not('#recurrence_end').datepicker("option", option, date);
-			}
-		};
+				dateFormat: 'yy-mm-dd',
+				showAnim: 'fadeIn',
+				changeMonth: true,
+				changeYear: true,
+				numberOfMonths: 3,
+				firstDay: startofweek,
+				showButtonPanel: true,
+				onSelect: function(selectedDate) {
+					var option = this.id == "EventStartDate" ? "minDate" : "maxDate",
+						instance = $(this).data("datepicker"),
+						date = $.datepicker.parseDate(instance.settings.dateFormat || $.datepicker._defaults.dateFormat, selectedDate, instance.settings);
+
+					dates
+						.not(this)
+						.not('#recurrence_end')
+						.datepicker("option", option, date);
+				}
+			};
+
 		$.extend(datepickerOpts, TEC);
-		var dates = $("#EventStartDate, #EventEndDate, .datepicker").datepicker(datepickerOpts);
+
+		var dates = $("#EventStartDate, #EventEndDate, .datepicker").datepicker(datepickerOpts),
+			$all_day_check = $('#allDayCheckbox'),
+			$tod_options = $(".timeofdayoptions"),
+			$time_format = $("#EventTimeFormatDiv"),
+			$start_end_month = $("select[name='EventStartMonth'], select[name='EventEndMonth']"),
+			$start_month = $("select[name='EventStartMonth']"),
+			$end_month = $('select[name="EventEndMonth"]'),
+			selectObject;
 		
 		// toggle time input
+
 		function toggleDayTimeDisplay(){
-			if( $('#allDayCheckbox').prop('checked') === true ) {
-				$(".timeofdayoptions").hide();
-				$("#EventTimeFormatDiv").hide();
+			if( $all_day_check.prop('checked') === true ) {
+				$tod_options.hide();
+				$time_format.hide();
 			} else {
-				$(".timeofdayoptions").show();
-				$("#EventTimeFormatDiv").show();				
+				$tod_options.show();
+				$time_format.show();
 			}
 		}
-		// check on click
-		$('#allDayCheckbox').click(function(){
-			toggleDayTimeDisplay();
-		});
-		// check on load
+
+		$all_day_check
+			.click(function(){
+				toggleDayTimeDisplay();
+			});
+
 		toggleDayTimeDisplay();
 		
 		var tribeDaysPerMonth = [29,31,28,31,30,31,30,31,31,30,31,30,31];
 		
 		// start and end date select sections
-		var tribeStartDays = [ $('#28StartDays'), $('#29StartDays'), $('#30StartDays'), $('#31StartDays') ];
-		var tribeEndDays = [ $('#28EndDays'), $('#29EndDays'), $('#30EndDays'), $('#31EndDays') ];
-				
-		$("select[name='EventStartMonth'], select[name='EventEndMonth']").change(function() {
+		var tribeStartDays = [ $('#28StartDays'), $('#29StartDays'), $('#30StartDays'), $('#31StartDays') ],
+			tribeEndDays = [ $('#28EndDays'), $('#29EndDays'), $('#30EndDays'), $('#31EndDays') ];
+
+		$start_end_month.change(function() {
 			var t = $(this);
 			var startEnd = t.attr("name");
 			// get changed select field
@@ -78,27 +111,28 @@ jQuery(document).ready(function($) {
 
 			$('.event' + startEnd + 'DateField').remove();
 			if( startEnd == "Start") {
-				var selectObject = tribeStartDays[ tribeDaysPerMonth[ chosenMonth ] - 28 ];
+				selectObject = tribeStartDays[ tribeDaysPerMonth[ chosenMonth ] - 28 ];
 				selectObject.val( currentDateField.val() );
-				$("select[name='EventStartMonth']").after( selectObject );
+				$start_month.after( selectObject );
 			} else {
-				var selectObject = tribeEndDays[ tribeDaysPerMonth[ chosenMonth ] - 28 ];
+				selectObject = tribeEndDays[ tribeDaysPerMonth[ chosenMonth ] - 28 ];
 				selectObject.val( currentDateField.val() );
-				$('select[name="EventEndMonth"]').after( selectObject );
+				$end_month.after( selectObject );
 			}
 		});
-		
-		$("select[name='EventStartMonth'], select[name='EventEndMonth']").change();
+
+		$start_end_month.change();
 		
 		$("select[name='EventStartYear']").change(function() {
-			$("select[name='EventStartMonth']").change();
+			$start_month.change();
 		});
 		
 		$("select[name='EventEndYear']").change(function() {
-			$("select[name='EventEndMonth']").change();
+			$end_month.change();
 		});
 
-		// Form validation
+		// Form validation todo: what does this do?
+
 		$("form[name='post']").submit(function() {
 			if( $("#isEventNo").attr('checked') === true || $("#isEventNo").attr('checked') === "checked" ) {
 				// do not validate since this is not an event
@@ -108,9 +142,8 @@ jQuery(document).ready(function($) {
 		});
 
 		// hide unnecessary fields
-		var venueFields = $(".venue");
-
-		var savedVenue = $("#saved_venue");
+		var venueFields = $(".venue"),
+			savedVenue = $("#saved_venue");
 		
 		if ( savedVenue.length > 0 && savedVenue.val() != '0' ) {
 			venueFields.hide();
@@ -130,9 +163,8 @@ jQuery(document).ready(function($) {
 			}
 		});
 		// hide unnecessary fields
-		var organizerFields = $(".organizer");
-
-		var savedorganizer = $("#saved_organizer");
+		var organizerFields = $(".organizer"),
+			savedorganizer = $("#saved_organizer");
 		
 		if ( savedorganizer.length > 0 && savedorganizer.val() != '0' ) {
 			organizerFields.hide();
@@ -140,27 +172,29 @@ jQuery(document).ready(function($) {
 		}
 		
 		savedorganizer.change(function() {
-			if ( $(this).val() == '0' ) {
-				organizerFields.fadeIn()
-					//.find("input, select").val('').removeAttr('checked');
-			}
-			else {
+			if ( $(this).val() == '0' )
+				organizerFields.fadeIn();
+			else
 				organizerFields.fadeOut();
-			}
 		});
 	}
 
 	//show state/province input based on first option in countries list, or based on user input of country
+
+	var $state_prov_chzn = $("#StateProvinceSelect_chzn"),
+		$state_prov_text = $("#StateProvinceText");
+
+
 	function tribeShowHideCorrectStateProvinceInput(country) {
 		if (country == 'US' || country == 'United States') {
-			$("#StateProvinceSelect_chzn").show();
-			$("#StateProvinceText").hide();
+			$state_prov_chzn.show();
+			$state_prov_text.hide();
 		} else if ( country != '' ) {
-			$("#StateProvinceText").show();
-			$("#StateProvinceSelect_chzn").hide();
+			$state_prov_text.show();
+			$state_prov_chzn.hide();
 		} else {
-			$("#StateProvinceText").hide();
-			$("#StateProvinceSelect_chzn").hide();
+			$state_prov_text.hide();
+			$state_prov_chzn.hide();
 		}
 	}
 	
@@ -194,133 +228,42 @@ jQuery(document).ready(function($) {
 
 	}
 
+	var $picker_recur_end = $('[name="recurrence[end]"]'),
+		$is_recurring = $('[name="is_recurring"]');
+
 	$("#EventCountry").change(function() {
 		var countryLabel = $(this).find('option:selected').val();
 		tribeShowHideCorrectStateProvinceInput( countryLabel );
 	});
 
-	// If recurrence changes on a recurring event, then show warning, and automatically change whole recurrence
-	if($('[name="is_recurring"]').val() == "true" && !$('[name="recurrence_action"]').val() ) {	
+	// If recurrence changes on a recurring event, then show warning
+	if($is_recurring.val() == "true" ) {
 		function recurrenceChanged() {
 			$('#recurrence-changed-row').show();
-			$('[name="recurrence_action"]').val(2);
 		}
 
-		$('.recurrence-row input, .custom-recurrence-row input,.recurrence-row select, .custom-recurrence-row select').change(recurrenceChanged)
-		$( '[name="recurrence[end]"]' ).datepicker('option', 'onSelect', recurrenceChanged);
+		$('.recurrence-row input, .custom-recurrence-row input,.recurrence-row select, .custom-recurrence-row select').change(recurrenceChanged);
+		$picker_recur_end.bind('recurrenceEndChanged', recurrenceChanged);
 	}
-	
-	$( '[name="recurrence[end]"]' ).datepicker('option', 'onSelect', function() {
-		$('[name="recurrence[end]"]').removeClass('placeholder');
-	});	
-	
-	/* Fix for deleting multiple events */
-	$('.wp-admin.events-cal.edit-php #doaction').click(function(e) {
-		if($("[name='action'] option:selected").val() == "trash") {
-			if(confirm("Are you sure you want to trash all occurrences of these events? All recurrence data will be lost.")) {
-				var ids = new Array();
 
-				$('[name="post[]"]:checked').each(function() {
-					var curval = $(this).val();
-					if(ids[curval]) {
-						$(this).prop('checked', false);
-					}
-
-					ids[curval] = true;
-				});
-			} else {
-				e.preventDefault();
-			}
-		}
+	$picker_recur_end.datepicker('option', 'onSelect', function() {
+		$picker_recur_end.removeClass('placeholder');
+		$(this).trigger('recurrenceEndChanged');
 	});
 	
 	function isExistingRecurringEvent() {
-		return $('[name="is_recurring"]').val() == "true" && !$('[name="recurrence_action"]').val() && !$('[name="recurrence_action"]').val()
-	}
-	
-	function resetSubmitButton() {
-		$('#publishing-action .button-primary-disabled').removeClass('button-primary-disabled');
-		$('#publishing-action #ajax-loading').css('visibility', 'hidden');
-		
+		return $is_recurring.val() == "true";
 	}
 	
 	$('#EventInfo input, #EventInfo select').change(function() {
 		$('.rec-error').hide();
-	})
+	});
 	
 	var eventSubmitButton = $('.wp-admin.events-cal #post #publishing-action input[type="submit"]');
-	eventSubmitButton.click(function(e) {
+
+	eventSubmitButton.click(function() {
 		$(this).data('clicked', true);
 	});
-	
-	/* Recurring Events Dialog */
-	$('.wp-admin.events-cal #post').submit(function(e) {
-		var self = $(this);
-		
-		if( isExistingRecurringEvent() ) { // not a new event
-			e.preventDefault();
-			$('#recurring-dialog').dialog({
-				modal: true,
-				buttons: [{
-						text:"Only This Event",
-						click: function() { 
-							$('[name="recurrence_action"]').val(3);
-							
-							if (eventSubmitButton.data('clicked') )
-								$('<input type="hidden" name="' + eventSubmitButton.attr('name') + '" value="' + eventSubmitButton.val() + '"/>').appendTo(self);
-							
-							$(this).dialog("close"); 							
-							self.submit();
-						}
-				}, {
-						text:"All Events",
-						click: function() { 
-							$('[name="recurrence_action"]').val(2);
-
-							if (eventSubmitButton.data('clicked') )
-								$('<input type="hidden" name="' + eventSubmitButton.attr('name') + '" value="' + eventSubmitButton.val() + '"/>').appendTo(self);							
-
-							$(this).dialog("close"); 
-							self.submit();
-						}				
-				}],
-				close: function() {
-					eventSubmitButton.data('clicked', null);
-				}
-			});
-		}
-	});	
-	
-	$('.wp-admin.events-cal .submitdelete').click(function(e) {
-
-		var link = $(this);
-
-		if ( isExistingRecurringEvent() ) {
-			e.preventDefault();
-
-			$('#deletion-dialog').dialog({
-				//submitdelete
-				modal: true,
-				buttons: [{
-					text: "Only This Event",
-					click: function() {
-						document.location = link.attr('href') + '&event_start=' + $(this).data('start');
-					}
-				},
-				{
-					text: "All Events",
-					click: function() {
-						document.location = link.attr('href') + '&deleteAll';
-					}
-				}]
-			});
-		}
-
-	});
-	
-	function setupSubmitButton() {
-		//publishing-action		
-	}
 
 	// recurrence ui
 	$('[name="recurrence[type]"]').change(function() {
@@ -401,32 +344,80 @@ jQuery(document).ready(function($) {
 	
 	// Default Layout Settings
 	// shows / hides proper views that are to be used on front-end
-	if( $('#tribe-field-tribeEnableViews').length ) {
-		$('#tribe-field-tribeEnableViews').on('change', 'input:checkbox', function () {
-			reset_val = false;
-			if( jQuery('[name="tribeEnableViews[]"]:checked').size() < 1 ) {
-				$(this).attr('checked',true);
-				$('#tribe-field-tribeEnableViews .tribe-field-wrap p.description').css('color', 'red');
-			} else {
-				$('#tribe-field-tribeEnableViews .tribe-field-wrap p.description').removeAttr('style');
-			}
-			$('select[name="viewOption"] option').each(function(i,val) {
-				option_val = $(this).val();
-				if( $('#tribe-field-tribeEnableViews input[value=' + option_val + ']').is(":checked") ) { 
-					$(this).prop('disabled',false);
-				} else { 
-					$(this).removeProp('selected');
-					$(this).prop('disabled', true);
+
+	var $tribe_views = $('#tribe-field-tribeEnableViews');
+
+	if( $tribe_views.length ) {
+
+		var $default_view_select = $('.tribe-field-dropdown_select2 select[name="viewOption"]'),
+			$view_inputs = $tribe_views.find('input:checkbox'),
+			$view_desc = $('#tribe-field-tribeEnableViews .tribe-field-wrap p.description'),
+			view_options = {};
+
+		function create_view_array(){
+
+			$default_view_select
+				.find('option')
+				.each(function () {
+
+					var $this = $(this);
+
+					view_options[$this.attr('value')] = $this.text();
+
+				});
+
+		}
+
+		function set_selected_views(){
+
+			$default_view_select
+				.find('option')
+				.remove();
+
+			$view_inputs
+				.each(function () {
+
+					var $this = $(this);
+
+					if($this.is(':checked')){
+
+						var value = $this.val();
+
+						$default_view_select
+							.append('<option value="' + value + '">' + view_options[value] + '</option>');
+
+					}
+
+				});
+
+			$default_view_select
+				.find('option')
+				.first()
+				.attr('selected', 'selected');
+
+			$default_view_select
+				.select2('destroy')
+				.select2({width: '250px'});
+
+		}
+
+		create_view_array();
+		set_selected_views();
+
+		$tribe_views
+			.on('change', 'input:checkbox', function () {
+
+				var $this = $(this);
+
+				if( $('[name="tribeEnableViews[]"]:checked').length < 1 ) {
+					$this.attr('checked',true);
+					$view_desc.css('color', 'red');
+				} else {
+					$view_desc.removeAttr('style');
 				}
-    		});
-    		views = new Array();
-    		$('[name="tribeEnableViews[]"]:checked').each(function(){
-    			views.push( $(this).val() );
-    		});
-			if( typeof $('select[name="viewOption"] option:selected').first().val() == 'undefined' || ! $.inArray( $('select[name="viewOption"] option:selected').first().val(), views ) ) {
-				$('select[name="viewOption"] option').not(':disabled').first().attr('selected','selected');
-	    	}
-    		$('select[name="viewOption"]').trigger("change");
+
+				set_selected_views();
+
     	});
     }
 	
