@@ -248,7 +248,7 @@ The plugin is produced by <a href="http://m.tri.be/2s">Modern Tribe Inc</a>.
 * Spanish from Hector Gil Rizo
 * Swedish from Ben Andersen
 * Turkish by Derin Korman
-* Ukranian by Vasiliy
+* Ukranian by Vasily Vishnyakov
 
 * Previous translators include Mikhail Michouris, Bastien BC, Dionizio Bonfim Bach, Mihai Burcea, Ed Boon, Rick van Dalen, Jacob Roel Meijering, hristian Andersen, Michael Sebel, Filippo Montanari, David Decker, Kamil Szymanski, Erik Massop, “Terje With Lunndal", Andreas Lorentsen, Sagi Shrieber, Matthew Meyer, Arno Faure, Fanny Heraud, Vincent G from Host1Free, , Petri Kajander, Fran Rosa, Nico (wsMaurik), Panos Efstratiou, Dominique Monhardt, Thomas Butzek, Kjell Vestnes, Luiza Libardi, Diego Meneghetti, Beno Burgener, Burak Pehlevan, and Alexey Fedorov
 
@@ -326,7 +326,7 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Fixed an issue where using a comma in the event cost field would disable the currency symbol from displaying (thanks to Bernhard for first reporting this over at the forums!)
 * Fixed a variety of untranslatable strings
 * Updated link to the Filter Bar plugin in the help tab
-* Added new Ukranian translation files, courtesy of Vasiliy
+* Added new Ukranian translation files, courtesy of Vasily Vishnyakov
 * Added new Montenegrin translation files, courtesy of Sasa Vukovic
 * Added updated Norwegian Bokmål translation files, courtesy of Morten Ruud
 * Added new Norwegian Nynorsk translation files, courtesy of Torbjørn Lauen
