@@ -177,7 +177,7 @@ The plugin is produced by <a href="http://m.tri.be/45">Modern Tribe Inc</a>.
 * Spanish from Juan Jose Reparaz Sarasola
 * Swedish from Ben Andersen
 * Turkish by Derin Korman
-* Ukranian by Vasiliy
+* Ukranian by Vasily Vishnyakov
 
 * Previous translators include Mikhail Michouris, Bastien BC, Erik Massop, Ed Boon, Rick van Dalen, Jacob Roel Meijering, hristian Andersen, Michael Sebel, Dionizio Bonfim Bach, Mihai Burcea, Filippo Montanari, David Decker, Kamil Szymanski, "Terje With Lunndal", Sagi Shrieber, Matthew Meyer, Arno Faure, Fanny Heraud, Vincent G from Host1Free, , Petri Kajander, Fran Rosa, Nico (wsMaurik), Panos Efstratiou, Dominique Monhardt, Thomas Butzek, Kjell Vestnes, Luiza Libardi, Diego Meneghetti, Benoit Burgener, Hector Gil Rizo, Burak Pehlevan, and Alexey Fedorov
 
@@ -227,7 +227,7 @@ Our Premium Plugins:
 * Fixed an issue where the "Hide if no events" checkbox was not working in the Featured Venue widget
 * Fixed an issue where the iCal button would always download all events, instead of the events currently being viewed (thanks to philmacaulay on the forums for the first report of this!)
 * Fixed a variety of untranslatable strings
-* Incorporated new Ukranian translation files, courtesy of Vasiliy
+* Incorporated new Ukranian translation files, courtesy of Vasily Vishnyakovw
 * Incorporated updated Spanish translation files, courtesy of Juan Jose Reparaz Sarasola
 * Incorporated new Montenegrin translation files, courtesy of Sasa Vukovic
 * Incorporated updated Norwegian Bokmål translation files, courtesy of Morten Ruud
