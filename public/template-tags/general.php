@@ -434,7 +434,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 * @return void
 	 * @since 3.0
 	 **/
-	function tribe_events_event_classes( $event=null ) {
+	function tribe_events_event_classes( $event = null ) {
 		global $post, $wp_query;
 
 		// Need to reassign variable as $event in week view doesn't seem to be same a global $post
