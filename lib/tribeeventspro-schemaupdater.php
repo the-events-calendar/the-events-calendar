@@ -49,12 +49,17 @@ class TribeEventsPro_SchemaUpdater {
 
 	private function convert_recurring_event_to_child_posts( $event_id ) {
 		$start_dates = get_post_meta( $event_id, '_EventStartDate', false );
+		if ( !is_array($start_dates) ) {
+			return;
+		}
 		sort($start_dates);
 		$original = array_shift($start_dates);
 		$start_dates = array_map( 'strtotime', $start_dates );
 		foreach($start_dates as $date) {
-			$instance = new TribeEventsPro_RecurrenceInstance( $event_id, $date );
-			$instance->save();
+			if ( !empty($date) ) {
+				$instance = new TribeEventsPro_RecurrenceInstance( $event_id, $date );
+				$instance->save();
+			}
 		}
 		delete_post_meta( $event_id, '_EventStartDate' );
 		update_post_meta( $event_id, '_EventStartDate', $original );
