@@ -123,7 +123,7 @@ if( class_exists( 'TribeEvents' ) ) {
 	 */
 	function tribe_event_beginning_of_day( $date = null, $format = 'Y-m-d H:i:s' ){
 		$multiday_cutoff = explode( ':', tribe_get_option( 'multiDayCutoff', '00:00' ) );
-		$hours_to_add = $multiday_cutoff[0] == '12' ? '00' : $multiday_cutoff[0];
+		$hours_to_add = $multiday_cutoff[0];
 		$minutes_to_add = $multiday_cutoff[1];
 		if( is_null($date) || empty($date) ) {
 			return apply_filters( 'tribe_event_beginning_of_day', Date($format, strtotime( date( 'Y-m-d' ) . ' +' . $hours_to_add . ' hours ' . $minutes_to_add . ' minutes' ) ) );
@@ -141,7 +141,7 @@ if( class_exists( 'TribeEvents' ) ) {
 	 */
 	function tribe_event_end_of_day( $date = null, $format = 'Y-m-d H:i:s' ){
 		$multiday_cutoff = explode( ':', tribe_get_option( 'multiDayCutoff', '00:00' ) );
-		$hours_to_add = $multiday_cutoff[0] == '12' ? '00' : $multiday_cutoff[0];
+		$hours_to_add = $multiday_cutoff[0];
 		$minutes_to_add = $multiday_cutoff[1];
 		if( is_null($date) || empty($date) ) {
 			return apply_filters( 'tribe_event_end_of_day', Date($format, strtotime('tomorrow ' . ' +' . $hours_to_add . ' hours ' . $minutes_to_add . ' minutes' ) - 1 ) );
