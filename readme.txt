@@ -5,7 +5,7 @@ Tags: events, calendar, event, venue, organizer, dates, date, google maps, confe
 Donate link: http://m.tri.be/29
 Requires at least: 3.6
 Tested up to: 3.8.1
-Stable tag: 3.5
+Stable tag: 3.5.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -126,9 +126,9 @@ No, this plugin does not use a shortcode nor is one available at the time being.
 
 = Are there any troubleshooting steps you'd suggest I try that might resolve my issue before I post a new thread? =
 
-First, make sure that you're running the latest version of The Events Calendar (3.5 as of this release). If you're running Events Calendar PRO it needs to match the version number of The Events Calendar. And if you've got any other add-ons, make sure those are current / running the latest code as well.
+First, make sure that you're running the latest version of The Events Calendar (3.5.1 as of this release). If you're running Events Calendar PRO it needs to match the version number of The Events Calendar. And if you've got any other add-ons, make sure those are current / running the latest code as well.
 
-The most common issues we see are either plugin or theme conflicts. You can test if a plugin or theme is conflicting by manually deactivating other plugins until just The Events Calendar 3.5 is running on your site. If the issue persists from there, revert to the default Twenty Fourteen theme. If the issue is resolved after deactivating a specific plugin or your theme, you'll know that is the source of the conflict.
+The most common issues we see are either plugin or theme conflicts. You can test if a plugin or theme is conflicting by manually deactivating other plugins until just The Events Calendar 3.5.1 is running on your site. If the issue persists from there, revert to the default Twenty Fourteen theme. If the issue is resolved after deactivating a specific plugin or your theme, you'll know that is the source of the conflict.
 
 Note that we aren't going to say "tough luck" if you identify a plugin/theme conflict. While we can't guarantee 100% integration with any plugin or theme out there, we will do our best (and reach out the plugin/theme author as needed) to figure out a solution that benefits everyone.
 
@@ -300,6 +300,13 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 = IMPORTANT NOTICE =
 
 3.x is a complete overhaul of the plugin, and as a result we're starting the changelog fresh. For release notes from the 2.x lifecycle, see <a href="http://m.tri.be/k">our 2.x release notes.</a>
+
+= 3.5.1 =
+
+* Fixed a bug where default events view dropdown on Settings page did not reflect the actual current default events view
+* Addressed poor display issues related to how week view rendered events on sites where the end of the day cutoff was set to midnight (thanks to Andy Fragen on the forums for catching this!)
+* Patched a problem where events in both a parent and child category would display multiple times in list view (thanks to Quentin for catching this one!)
+* Fixed an issue where tribe-events-full.css caused blog post titles to disappear for some users (thanks to Cynthia on the forums for the original report here!)
 
 = 3.5 =
 
