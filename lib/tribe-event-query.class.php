@@ -144,7 +144,7 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 				add_filter( 'posts_fields', array( __CLASS__, 'multi_type_posts_fields' ), 10, 2 );
 				add_filter( 'posts_join', array( __CLASS__, 'posts_join' ), 10, 2 );
 				add_filter( 'posts_join', array( __CLASS__, 'posts_join_orderby' ), 10, 2 );
-				//add_filter( 'posts_distinct', array( __CLASS__, 'posts_distinct' ) );
+				add_filter( 'posts_distinct', array( __CLASS__, 'posts_distinct' ) );
 				add_filter( 'posts_groupby', array( __CLASS__, 'posts_groupby' ), 10, 2 );
 				add_filter( 'posts_orderby', array( __CLASS__, 'posts_orderby' ), 10, 2 );
 				do_action( 'tribe_events_pre_get_posts', $query );
@@ -158,7 +158,7 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 					add_filter( 'posts_join', array( __CLASS__, 'posts_join' ), 10, 2 );
 					add_filter( 'posts_join', array( __CLASS__, 'posts_join_orderby' ), 10, 2 );
 					add_filter( 'posts_where', array( __CLASS__, 'posts_where' ), 10, 2 );
-					//add_filter( 'posts_distinct', array( __CLASS__, 'posts_distinct' ) );
+					add_filter( 'posts_distinct', array( __CLASS__, 'posts_distinct' ) );
 					add_filter( 'posts_groupby', array( __CLASS__, 'posts_groupby' ), 10, 2 );
 				} else {
 					// reduce number of queries triggered by main WP_Query on month view
