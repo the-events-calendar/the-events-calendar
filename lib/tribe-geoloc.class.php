@@ -730,14 +730,19 @@ class TribeEventsGeoLoc {
 	public function estimate_center_point() {
 		global $wpdb, $wp_query;
 
-		$event_ids = wp_list_pluck($wp_query->posts, 'ID');
-		$event_ids = implode(',', $event_ids);
 
 		$data = get_transient( self::ESTIMATION_CACHE_KEY );
 
 		if ( empty( $data ) ) {
 
-			$sql = "SELECT Max(lat) max_lat,
+			$data = array();
+
+			if ( ! empty( $wp_query->posts ) ) {
+
+				$event_ids = wp_list_pluck( $wp_query->posts, 'ID' );
+				$event_ids = implode( ',', $event_ids );
+
+				$sql = "SELECT Max(lat) max_lat,
 					       Max(lng) max_lng,
 					       Min(lat) min_lat,
 					       Min(lng) min_lng
@@ -755,11 +760,12 @@ class TribeEventsGeoLoc {
 				            ) coors
 		";
 
-			$data = $wpdb->get_results( $sql, ARRAY_A );
+				$data = $wpdb->get_results( $sql, ARRAY_A );
 
-			if ( ! empty( $data ) )
-				$data = array_shift( $data );
-
+				if ( ! empty( $data ) ) {
+					$data = array_shift( $data );
+				}
+			}
 			set_transient( self::ESTIMATION_CACHE_KEY, $data, 5000 );
 		}
 
