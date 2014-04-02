@@ -923,6 +923,9 @@ class TribeEventsRecurrenceMeta {
 	 * @return string The new group by clause.
 	 */
 	public static function addGroupBy( $group_by, $query ) {
+		if ( tribe_is_month() || tribe_is_week() ) {
+			return $group_by;
+		}
 		if ( isset( $query->query_vars['tribeHideRecurrence'] ) && $query->query_vars['tribeHideRecurrence'] == 1 ) {
 			global $wpdb;
 			$group_by .= " IF( {$wpdb->posts}.post_parent = 0, {$wpdb->posts}.ID, {$wpdb->posts}.post_parent )";
