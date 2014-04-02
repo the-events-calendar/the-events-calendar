@@ -59,6 +59,7 @@ class TribeEventsPro_SchemaUpdater {
 			if ( !empty($date) ) {
 				$instance = new TribeEventsPro_RecurrenceInstance( $event_id, $date );
 				$instance->save();
+				delete_post_meta( $event_id, '_EventStartDate', date('Y-m-d H:i:s', $date) );
 			}
 		}
 		delete_post_meta( $event_id, '_EventStartDate' );
