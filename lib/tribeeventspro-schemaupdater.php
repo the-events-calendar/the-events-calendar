@@ -53,8 +53,10 @@ class TribeEventsPro_SchemaUpdater {
 		$original = array_shift($start_dates);
 		$start_dates = array_map( 'strtotime', $start_dates );
 		foreach($start_dates as $date) {
+			if ( empty($date) ) continue;
 			$instance = new TribeEventsPro_RecurrenceInstance( $event_id, $date );
 			$instance->save();
+			delete_post_meta( $event_id, '_EventStartDate', date('Y-m-d H:i:s', $date) );
 		}
 		delete_post_meta( $event_id, '_EventStartDate' );
 		update_post_meta( $event_id, '_EventStartDate', $original );
