@@ -215,6 +215,7 @@ Our Premium Plugins:
 * Patched a bug where the “Recurring event instances” setting was impacting month view, instead of just appearing on list-based views (thanks to alexhammerstein on the forums for this report!)
 * Addressed an issue caused by our recurrence refactor where certain sites/hosting providers experienced a fatal error blocking admins from the dashboard (thanks to Jared on the forums for the first report!)
 * Fixed an uncaught exception/fatal error that appeared during the conversion of recurring events for some users (thanks to Mariruth on the forum for the first report of this!)
+* Patched a SQL error that appeared on sites without any events (thanks to user nothingtodo on the forums for the report here!)
 
 = 3.5 =
 
