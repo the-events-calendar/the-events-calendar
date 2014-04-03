@@ -41,7 +41,7 @@
 		<?php echo tribe_events_event_schedule_details(); ?>
 	</div>
 	
-	<?php do_action( 'tribe_events_list_widget_before_the_meta' ) ?>
+	<?php do_action( 'tribe_events_list_widget_after_the_meta' ) ?>
 	
 	<!-- Event Title -->
 </li>
