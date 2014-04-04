@@ -226,10 +226,14 @@
 			tribe_ev.fn.equal_height($(".tribe-grid-allday .column"));
 
 			// set the height of the other columns for week days to be as tall as the main container
-
-			var week_day_height = $(".tribe-grid-body").height();
-
-			$(".tribe-grid-body .tribe-grid-content-wrap .column").height(week_day_height);
+			
+			setTimeout(function(){
+				
+				var week_day_height = $(".tribe-grid-body").height();
+				
+				$(".tribe-grid-body .tribe-grid-content-wrap .column").height(week_day_height);
+				
+			}, 250);
 
 		}
 
