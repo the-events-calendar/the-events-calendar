@@ -157,6 +157,100 @@ try {
 	t_fail && (tribe_storage = false);
 } catch (e) {}
 
+(function(){
+
+/**
+	 * @function tribe_tmpl
+	 * @since 3.3
+	 * @desc Javascript templating function based on John Resigs micro-templating approach and expanded upon by cho45. Tags and function name changed here to avoid conflicts.
+	 * @param id The javascript template
+	 * @param data The data object
+	 */
+
+	/**
+	 * https://github.com/cho45/micro-template.js
+	 * (c) cho45 http://cho45.github.com/mit-license
+	 */
+	function tribe_tmpl(id, data) {
+		var me = arguments.callee;
+		if (!me.cache[id]) me.cache[id] = (function () {
+			var name = id, string = /^[\w\-]+$/.test(id) ? me.get(id): (name = 'template(string)', id); // no warnings
+			var line = 1, body = (
+				"try { " +
+					(me.variable ?  "var " + me.variable + " = this.stash;" : "with (this.stash) { ") +
+					"this.ret += '"  +
+					string.
+						replace(/\[\[/g, '\x11').replace(/\]\]/g, '\x13'). // if you want other tag, just edit this line
+						replace(/'(?![^\x11\x13]+?\x13)/g, '\\x27').
+						replace(/^\s*|\s*$/g, '').
+						replace(/\n/g, function () { return "';\nthis.line = " + (++line) + "; this.ret += '\\n" }).
+						replace(/\x11=raw(.+?)\x13/g, "' + ($1) + '").
+						replace(/\x11=(.+?)\x13/g, "' + this.escapeHTML($1) + '").
+						replace(/\x11(.+?)\x13/g, "'; $1; this.ret += '") +
+					"'; " + (me.variable ? "" : "}") + "return this.ret;" +
+					"} catch (e) { throw 'TemplateError: ' + e + ' (on " + name + "' + ' line ' + this.line + ')'; } " +
+					"//@ sourceURL=" + name + "\n" // source map
+				).replace(/this\.ret \+= '';/g, '');
+			var func = new Function(body);
+			var map  = { '&' : '&amp;', '<' : '&lt;', '>' : '&gt;', '\x22' : '&#x22;', '\x27' : '&#x27;' };
+			var escapeHTML = function (string) { return (''+string).replace(/[&<>\'\"]/g, function (_) { return map[_] }) };
+			return function (stash) { return func.call(me.context = { escapeHTML: escapeHTML, line: 1, ret : '', stash: stash }) };
+		})();
+		return data ? me.cache[id](data) : me.cache[id];
+	}
+	tribe_tmpl.cache = {};
+	tribe_tmpl.get = function (id) { return document.getElementById(id).innerHTML };
+
+	/**
+	 * Extended template function:
+	 *   requires: basic template() function
+	 *   provides:
+	 *     include(id)
+	 *     wrapper(id, function () {})
+	 */
+	function tribe_tmpl_extended(id, data) {
+		var fun = function (data) {
+			data.include = function (name, args) {
+				var stash = {};
+				for (var key in tribe_tmpl.context.stash) if (tribe_tmpl.context.stash.hasOwnProperty(key)) {
+					stash[key] = tribe_tmpl.context.stash[key];
+				}
+				if (args) for (var key in args) if (args.hasOwnProperty(key)) {
+					stash[key] = args[key];
+				}
+				var context = tribe_tmpl.context;
+				context.ret += tribe_tmpl(name, stash);
+				tribe_tmpl.context = context;
+			};
+
+			data.wrapper = function (name, fun) {
+				var current = tribe_tmpl.context.ret;
+				tribe_tmpl.context.ret = '';
+				fun.apply(tribe_tmpl.context);
+				var content = tribe_tmpl.context.ret;
+				var orig_content = tribe_tmpl.context.stash.content;
+				tribe_tmpl.context.stash.content = content;
+				tribe_tmpl.context.ret = current + tribe_tmpl(name, tribe_tmpl.context.stash);
+				tribe_tmpl.context.stash.content = orig_content;
+			};
+
+			return tribe_tmpl(id, data);
+		};
+
+		return data ? fun(data) : fun;
+	}
+
+	tribe_tmpl.get = function (id) {
+		var fun = tribe_tmpl_extended.get;
+		return fun ? fun(id) : document.getElementById(id).innerHTML;
+	};
+
+	this.tribe_tmpl = tribe_tmpl;
+	this.tribe_tmpl_extended = tribe_tmpl_extended;
+
+
+})();
+
 /**
  * @external "jQuery.fn"
  * @desc The jQuery plugin namespace.
@@ -164,6 +258,7 @@ try {
 
 
 (function ($, undefined) {
+
 	/**
 	 * @function external:"jQuery.fn".tribe_clear_form
 	 * @since 3.0
@@ -217,7 +312,7 @@ try {
 
 (function (window, document, $, dbug, undefined) {
 	/**
-	 * @namespace tribe_ev
+     * @namespace tribe_ev.fn
 	 * @since 3.0
 	 * @desc tribe_ev.fn namespace stores all the custom functions used throughout the core events plugin.
 	 */
@@ -296,6 +391,21 @@ try {
 			}
 		},
 		/**
+		 * @function tribe_ev.fn.execute_resize
+		 * @since 3.0
+		 * @desc tribe_ev.fn.execute_resize groups together functions that should execute at the end of the window resize event.
+		 */
+		execute_resize: function () {
+
+			var prev_width = tribe_ev.data.v_width;
+			tribe_ev.fn.update_viewport_variables();
+			if(prev_width !== tribe_ev.data.v_width){
+				tribe_ev.fn.mobile_class();
+				$(tribe_ev.events).trigger('tribe_ev_resizeComplete');
+			}
+
+		},
+        /**
 		 * @function tribe_ev.fn.get_base_url
 		 * @since 3.0
 		 * @desc tribe_ev.fn.get_base_url can be used on any events view to get the base_url for that view, even when on a category subset for that view.
@@ -388,6 +498,19 @@ try {
 			return ($tribe_events.length && $tribe_events.tribe_has_attr('data-category') && $tribe_events.data('category') !== '') ? true : false;
 		},
 		/**
+		 * @function tribe_ev.fn.mobile_class
+		 * @since 3.0
+		 * @desc tribe_ev.fn.mobile_class adds or removes a mobile class from the body element based on the mobile breakpoint.
+		 */
+		mobile_class: function(){
+			var $body = $('body');
+
+			if(tribe_ev.data.v_width <= tribe_ev.data.mobile_break)
+				$body.addClass('tribe-mobile');
+			else
+				$body.removeClass('tribe-mobile');
+		},
+        /**
 		 * @function tribe_ev.fn.parse_string
 		 * @since 3.0
 		 * @desc tribe_ev.fn.parse_string converts a string to an object.
@@ -415,6 +538,17 @@ try {
 			}
 		},
 		/**
+		 * @function tribe_ev.fn.scroll_to
+		 * @since 3.3
+		 * @desc tribe_ev.fn.scroll_to animates the body to the target with the passed duration and offset.
+		 * @param {String} target the id of the target to scroll the body to.
+		 * @param {Number} offset the vertical offset from the target..
+		 * @param {Number} duration the duration of the scroll animation.
+		 */
+		scroll_to: function (target, offset, duration) {
+			$('html, body').stop().animate({scrollTop: $(target).offset().top - offset}, {duration: duration});
+		},
+        /**
 		 * @function tribe_ev.fn.serialize
 		 * @since 3.0
 		 * @desc tribe_ev.fn.serialize serializes the passed input types. Enable/disable stack in place to protect inputs during process, especially for live ajax mode.
@@ -523,6 +657,7 @@ try {
 				$('html, body').animate({scrollTop: $(container).offset().top - 120}, {duration: 0});
 			});
 		},
+
 		/**
 		 * @function tribe_ev.fn.tooltips
 		 * @since 3.0
@@ -532,11 +667,12 @@ try {
 		 */
 		tooltips: function () {
 
-			$('#tribe-events').on('mouseenter', 'div[id*="tribe-events-event-"], div[id*="tribe-events-daynum-"]:has(a), div.event-is-recurring',function () {
+            $('#tribe-events').on('mouseenter', 'div[id*="tribe-events-event-"], div.event-is-recurring',function () {
 
 				var bottomPad = 0,
 					$this = $(this),
-					$body = $('body');
+					$body = $('body'),
+					$tip;
 
 				if ($body.hasClass('events-gridview')) { // Cal View Tooltips
 					bottomPad = $this.find('a').outerHeight() + 18;
@@ -551,8 +687,28 @@ try {
 					bottomPad = $this.outerHeight() - 6;
 				}
 				if (!$body.hasClass('tribe-events-week')) {
+					if($body.hasClass('events-gridview')){
+						$tip = $this.find('.tribe-events-tooltip');
+
+						if(!$tip.length){
+							var data = $this.data('tribejson');
+
+							if (typeof data == 'string')
+								data = $.parseJSON(data);
+
+							$this
+								.append(tribe_tmpl('tribe_tmpl_tooltip', data));
+
+							$tip = $this.find('.tribe-events-tooltip');
+
+							$tip.css('bottom', bottomPad).show();
+						} else {
+							$tip.css('bottom', bottomPad).show();
+						}
+					} else {
 					$this.find('.tribe-events-tooltip').css('bottom', bottomPad).show();
 				}
+                }
 
 			}).on('mouseleave', 'div[id*="tribe-events-event-"], div[id*="tribe-events-daynum-"]:has(a), div.event-is-recurring', function () {
 					$(this).find('.tribe-events-tooltip').stop(true, false).fadeOut(200);
@@ -589,6 +745,15 @@ try {
 
 				dbug && debug.warn('TEC Debug: tribe_ev.fn.update_picker couldnt send "' + date + '" to any object.');
 			}
+		},
+		/**
+		 * @function tribe_ev.fn.update_viewport_variables
+		 * @since 3.0
+		 * @desc tribe_ev.fn.update_viewport_variables surprisingly updates the viewport variables stored in the tribe_ev.data object.
+		 */
+		update_viewport_variables: function () {
+			tribe_ev.data.v_height = $(window).height();
+			tribe_ev.data.v_width = $(window).width();
 		},
 		/**
 		 * @function tribe_ev.fn.url_path
@@ -688,7 +853,19 @@ try {
 		 */
 		starting_delim: function () {
 			return tribe_ev.state.cur_url.indexOf('?') != -1 ? '&' : '?';
-		}
+		},
+		/**
+		 * @type Boolean tribe_ev.tests.webkit
+		 * @since 3.0
+		 * @desc tribe_ev.tests.webkit checks if webkit is the browser in use and returns true or false.
+		 * @example <caption>Execute an if else on the presence of pushstate</caption>
+		 * if (tribe_ev.tests.webkit) {
+		 *		// is webkit
+		 * ) else {
+		 *     // is not webkit
+		 * }
+		 */
+		webkit: 'WebkitAppearance' in document.documentElement.style
 	};
 
 	/**
@@ -704,7 +881,10 @@ try {
 		cur_date: tribe_ev.fn.current_date(),
 		datepicker_opts: {},
 		initial_url: tribe_ev.fn.url_path(document.URL),
-		params: tribe_ev.fn.get_params()
+		mobile_break: 768,
+        params: tribe_ev.fn.get_params(),
+		v_height:0,
+		v_width:0
 	};
 
 	/**
@@ -762,8 +942,13 @@ try {
 
 		dbug && debug.info('TEC Debug: Tribe Events JS init, Init Timer started from tribe-events.js.');
 
-		var $tribe_events = $('#tribe-events'),
-			$tribe_events_header = $('#tribe-events-header');
+		tf.update_viewport_variables();
+
+		var $body = $('body'),
+			$tribe_events = $('#tribe-events'),
+			$tribe_content = $('#tribe-events-content'),
+			$tribe_events_header = $('#tribe-events-header'),
+			resize_timer;
 
 		$tribe_events.removeClass('tribe-no-js');
 		ts.category = tf.get_category();
@@ -780,10 +965,27 @@ try {
 
 		ts.view && dbug && debug.time('Tribe JS Init Timer');
 
+		/**
+		 *
+		 * Themers can override the mobile break with an override in function.php
+		 *
+				add_action( 'tribe_events_mobile_breakpoint', 'mobile_breakpoint' );
+				function mobile_breakpoint() {
+					return 500;
+				}
+		 */
+
+		if($tribe_events.length && $tribe_events.tribe_has_attr('data-mobilebreak'))
+			td.mobile_break = parseInt($tribe_events.attr('data-mobilebreak'));
+
+		if($tribe_events.length && td.mobile_break > 0)
+			$body.addClass('tribe-is-responsive');
+
 		/* Let's hide the widget calendar if we find more than one instance */
 		$(".tribe-events-calendar-widget").not(":eq(0)").hide();
 
 		tf.tooltips();
+		tf.mobile_class();
 
 		//remove border on list view event before month divider
 		function list_find_month_last_event() {
@@ -807,6 +1009,14 @@ try {
 			$('.tribe-events-active-spinner').remove();
 			list_find_month_last_event();
 		});
+
+		$(window)
+			.resize(function () {
+
+				clearTimeout(resize_timer);
+				resize_timer = setTimeout(tf.execute_resize, 200);
+
+			});
 
 		if(dbug){
 			debug.groupCollapsed('TEC Debug: Browser and events settings information:');

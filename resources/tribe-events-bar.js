@@ -55,7 +55,7 @@ var tribe_events_bar_action;
 			} else {
 				$tribebar.removeClass('tribe-bar-full').addClass('tribe-bar-mini');
 			}
-			if (tribeBarWidth < 670) {
+			if (tribeBarWidth < 728) {
 				$tribebar.removeClass('tribe-bar-mini').addClass('tribe-bar-collapse');
 			} else {
 				$tribebar.removeClass('tribe-bar-collapse');
@@ -69,8 +69,8 @@ var tribe_events_bar_action;
 		});
 
 		if (!$('.tribe-events-week-grid').length) {
-			// includes temporary check for map view, as it currently has the grid view body class
-			if (!$('.events-gridview').length || tt.map_view()) {
+
+			if (ts.view !== 'month') {
 
 				dbug && debug.info('TEC Debug: bootstrapDatepicker was just initialized in "tribe-events-bar.js" on:', $tribedate);
 
@@ -157,6 +157,20 @@ var tribe_events_bar_action;
 				tribe_events_bar_change_view();
 
 			} 
+		});
+		
+		// change views with select (for skeleton styles)
+		$tribebar.on('change', '.tribe-bar-views-select', function(e) {
+			e.preventDefault();
+			var $this = $("option:selected", this);
+
+			var target = $this.data('view');
+
+			ts.cur_url = $('option[data-view='+ target +']').val();
+			ts.view_target = $('select[name=tribe-bar-view] option[value="' + ts.cur_url + '"]').data('view');
+			tribe_events_bar_action = 'change_view';
+			tribe_events_bar_change_view();
+
 		});
 
 		$tribebar.on('click', '#tribe-bar-collapse-toggle', function () {

@@ -14,15 +14,14 @@ class TribeEventsImporter_FileImporter_Organizers extends TribeEventsImporter_Fi
 	}
 
 	protected function update_post( $post_id, array $record ) {
-		$this->hack_to_remove_broken_filters();
 		$organizer = $this->build_organizer_array( $record );
 		TribeEventsAPI::updateOrganizer( $post_id, $organizer );
 	}
 
 	protected function create_post( array $record ) {
-		$this->hack_to_remove_broken_filters();
 		$organizer = $this->build_organizer_array( $record );
 		$id = TribeEventsAPI::createOrganizer( $organizer );
+		TribeEventsAPI::updateOrganizer( $id, $organizer );
 		return $id;
 	}
 
@@ -35,12 +34,4 @@ class TribeEventsImporter_FileImporter_Organizers extends TribeEventsImporter_Fi
 		);
 		return $organizer;
 	}
-
-	private function hack_to_remove_broken_filters() {
-		// a stupid hack for some stupid code
-		// the callback will automatically replace every organizer title with "Unnamed Organizer"
-		$TribeEvents = TribeEvents::instance();
-		remove_action( 'save_post', array( $TribeEvents, 'save_organizer_data' ), 16, 2 );
-	}
-
 }
