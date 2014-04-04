@@ -769,7 +769,29 @@ try {
 		 */
 		url_path: function (url) {
 			return url.split("?")[0];
-		}
+		},
+		/**
+		 * @function tribe_ev.fn.equal_height
+		 * @since 3.5.1
+		 * @desc tribe_ev.fn.equal_height gets the tallest height of a set of elements and sets them to the same height.
+		 * @param {Object} $group The group of elements to get and set tallest height from.
+		 * @example <caption>Get and set the height to the tallest of a set of elements.</caption>
+		 * $('#tribe-events .columns').tribe_ev.fn.equal_height();
+		 */
+		equal_height: function ($group) {
+			var tallest = 0;
+			$group.css('height', 'auto');
+			$group.each(function () {
+				var this_height = $(this).outerHeight();
+				if (this_height > tallest) {
+					tallest = this_height;
+				}
+			});
+			setTimeout(function() {
+				$group.css('height', tallest);
+			}, 100);	
+		}	
+		
 	};
 
 	/**
