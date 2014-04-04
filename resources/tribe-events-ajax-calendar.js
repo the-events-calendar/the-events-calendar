@@ -41,13 +41,6 @@
 			.bootstrapDatepicker(td.datepicker_opts)
 			.on('changeDate', function(e){
 
-				var year = e.date.getFullYear(),
-					month = ('0' + (e.date.getMonth() + 1)).slice(-2);
-
-				date_mod = true;
-
-				ts.date = year + '-' + month;
-
 				if (tt.no_bar() || tt.live_ajax() && tt.pushstate) {
 					if (ts.ajax_running)
 						return;
