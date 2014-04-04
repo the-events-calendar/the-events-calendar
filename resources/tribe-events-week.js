@@ -218,16 +218,12 @@
 			tribe_find_overlapped_events($week_events);
 
 			// set the height of the header columns to the height of the tallest
-
-			var header_column_height = $(".tribe-grid-header .tribe-grid-content-wrap .column").outerHeight();
-
-			$(".tribe-grid-header .column").height(header_column_height);
+			
+			tribe_ev.fn.equal_height($(".tribe-grid-header .tribe-grid-content-wrap .column"));
 
 			// set the height of the allday columns to the height of the tallest
-
-			var all_day_height = $(".tribe-grid-allday .tribe-grid-content-wrap").height();
-
-			$(".tribe-grid-allday .column").height(all_day_height);
+			
+			tribe_ev.fn.equal_height($(".tribe-grid-allday .column"));
 
 			// set the height of the other columns for week days to be as tall as the main container
 
