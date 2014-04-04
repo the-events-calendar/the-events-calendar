@@ -1026,6 +1026,10 @@ if ( class_exists( 'TribeEvents' ) ) {
 		if ( has_excerpt( $event->ID ) ) $excerpt = $event->post_excerpt;
 		else $excerpt = $event->post_content;
 		$excerpt = tribe_prepare_for_json( TribeEvents::instance()->truncate( $excerpt, 30 ) );
+		
+		foreach ( tribe_get_event_cat_slugs( $event->ID ) as $slug ) {
+			$cat = $slug;
+		}
 
 		$json = array(
 			'eventId' => $event->ID,
@@ -1035,7 +1039,8 @@ if ( class_exists( 'TribeEvents' ) ) {
 			'startTime' => $start_time,
 			'endTime' => $end_time,
 			'imageTooltipSrc' => $image_tool_src,
-			'excerpt' => $excerpt
+			'excerpt' => $excerpt,
+			'category' => $cat,
 		);
 
 		if ( $additional ) {
