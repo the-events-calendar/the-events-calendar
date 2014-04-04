@@ -429,13 +429,14 @@ if ( class_exists( 'TribeEvents' ) ) {
 	}
 
 	/**
-	 * Prints out classes on an event wrapper
+	 * Prints out or returns classes on an event wrapper
 	 *
 	 * @param id|0 $current_view
-	 * @return void
+	 * @param echo|true 
+	 * @return void or string
 	 * @since 3.0
 	 **/
-	function tribe_events_event_classes($event_id = 0) {
+	function tribe_events_event_classes($event_id = 0, $echo = true) {
 	    global $post, $wp_query;
 
 		// May be called when the global $post object does not exist - ie during ajax loads of various views
@@ -471,7 +472,10 @@ if ( class_exists( 'TribeEvents' ) ) {
 	        }
 
 	    $classes = apply_filters('tribe_events_event_classes', $classes);
-	    echo implode(' ', $classes);
+		if($echo)
+			echo implode(' ', $classes);
+		else
+			return implode(' ', $classes);
 	}
 
 	/**
