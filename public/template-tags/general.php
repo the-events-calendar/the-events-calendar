@@ -1039,7 +1039,8 @@ if ( class_exists( 'TribeEvents' ) ) {
 			'startTime' => $start_time,
 			'endTime' => $end_time,
 			'imageTooltipSrc' => $image_tool_src,
-			'excerpt' => $excerpt
+			'excerpt' => $excerpt,
+			'categoryClasses' => tribe_prepare_for_json(tribe_events_event_classes($event->ID, false))
 		);
 
 		if ( $additional ) {
