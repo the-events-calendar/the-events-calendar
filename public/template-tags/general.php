@@ -975,7 +975,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 	function tribe_prepare_for_json( $string ){
 
 		$value = trim( htmlspecialchars( $string, ENT_QUOTES, 'UTF-8' ) );
-		$value = str_replace( '"', '&quot;', $value );
+		$value = str_replace( '&quot;', '"', $value );
 
 		return $value;
 	}
