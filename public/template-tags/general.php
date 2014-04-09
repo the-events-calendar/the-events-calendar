@@ -472,10 +472,10 @@ if ( class_exists( 'TribeEvents' ) ) {
 	        }
 
 	    $classes = apply_filters('tribe_events_event_classes', $classes);
-		if($echo)
-			echo implode(' ', $classes);
+		if( $echo )
+			echo implode( ' ', $classes );
 		else
-			return implode(' ', $classes);
+			return implode( ' ', $classes );
 	}
 
 	/**
@@ -1040,7 +1040,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 			'endTime' => $end_time,
 			'imageTooltipSrc' => $image_tool_src,
 			'excerpt' => $excerpt,
-			'categoryClasses' => tribe_prepare_for_json(tribe_events_event_classes($event->ID, false))
+			'categoryClasses' => tribe_prepare_for_json( tribe_events_event_classes( $event->ID, false ) )
 		);
 
 		if ( $additional ) {
