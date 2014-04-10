@@ -479,22 +479,22 @@ class TribeEventsRecurrenceMeta {
 	 */
 	protected static function recurrenceMetaDefault( $meta = array() ){
 		$default_meta = array(
-			'type' => null,
-			'end-type' => null,
-			'end' => null,
-			'end-count' => null,
-			'custom-type' => null,
-			'custom-interval' => null,
-			'custom-type-text' => null,
-			'occurrence-count-text' => null,
-			'recurrence-description' => null,
-			'custom-week-day' => null,
-			'custom-month-number' => null,
-			'custom-month-day' => null,
-			'custom-year-month' => array(),
-			'custom-year-filter' => null,
-			'custom-year-month-number' => null,
-			'custom-year-month-day' => null );
+			'type' => null, // string - None, Every Day, Every Week, Every Month, Every Year, Custom
+			'end-type' => null, // string - On, After, Never
+			'end' => null, // string - YYYY-MM-DD - If end-type is On, recurrence ends on this date
+			'end-count' => null, // int - If end-type is After, recurrence ends after this many instances
+			'custom-type' => null, // string - Daily, Weekly, Monthly, Yearly - only used if type is Custom
+			'custom-interval' => null, // int - If type is Custom, the interval between custom-type units
+			'custom-type-text' => null, // string - Display value for admin
+			'occurrence-count-text' => null, // string - Display value for admin
+			'recurrence-description' => null, // string - Custom description for the recurrence pattern
+			'custom-week-day' => null, // int[] - 1 = Monday, 7 = Sunday, days when type is Custom
+			'custom-month-number' => null, // string|int - 1-31, First-Fifth, or Last
+			'custom-month-day' => null, // int - 1 = Monday, 7 = Sunday
+			'custom-year-month' => array(), // int[] - 1 = January
+			'custom-year-filter' => null, // int - 1 or 0
+			'custom-year-month-number' => null, // as custom-month-number, for Yearly custom-type
+			'custom-year-month-day' => null ); // as custom-month-day, for Yearly custom-type
 		$meta = wp_parse_args( (array) $meta, $default_meta );
 		return $meta;
 	}
