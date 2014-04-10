@@ -1039,6 +1039,8 @@ if ( class_exists( 'TribeEvents' ) ) {
 		else $excerpt = $event->post_content;
 		$excerpt = tribe_prepare_for_json( TribeEvents::instance()->truncate( $excerpt, 30 ) );
 
+		$categoryClasses = tribe_prepare_for_json( tribe_events_event_classes( $event->ID, false ) );
+		
 		$json = array(
 			'eventId' => $event->ID,
 			'title' => tribe_prepare_for_json( $event->post_title ),
@@ -1048,7 +1050,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 			'endTime' => $end_time,
 			'imageTooltipSrc' => $image_tool_src,
 			'excerpt' => $excerpt,
-			'categoryClasses' => tribe_prepare_for_json( tribe_events_event_classes( $event->ID, false ) )
+			'categoryClasses' => $categoryClasses,
 		);
 
 		if ( $additional ) {
