@@ -431,51 +431,59 @@ if ( class_exists( 'TribeEvents' ) ) {
 	/**
 	 * Prints out or returns classes on an event wrapper
 	 *
-	 * @param id|0 $current_view
-	 * @param echo|true 
+	 * @param $event|0 post id or object
+	 * @param $echo|true
 	 * @return void or string
 	 * @since 3.0
 	 **/
-	function tribe_events_event_classes($event_id = 0, $echo = true) {
-	    global $post, $wp_query;
+	function tribe_events_event_classes( $event = 0, $echo = true ) {
+		global $post, $wp_query;
 
 		// May be called when the global $post object does not exist - ie during ajax loads of various views
 		// ... creating a dummy object allows the method to proceed semi-gracefully (interim measure only)
-		
+
 		//If $post object doesn't exist and an $event_id wasn't specified, then use a dummy object
-		if ( ! is_object( $post ) ) {
-			$post = (object) array( 'ID' => $event_id );
-		} elseif($event_id != 0) {
-			$post = (object) array( 'ID' => $event_id );
+		if ( is_a( 'WP_Post', $event ) ) {
+			$event_id = $event->ID;
+		} elseif ( $event !== 0 ) {
+			$event_id = $event;
+		} else {
+			$event_id = $post->ID;
 		}
 
-	    $classes = array( 'hentry', 'vevent', 'type-tribe_events', 'post-' . $post->ID, 'tribe-clearfix' );
-	    $tribe_cat_slugs = tribe_get_event_cat_slugs( $post->ID );
-
-		foreach( $tribe_cat_slugs as $tribe_cat_slug ) {
-			if(!empty($tribe_cat_slug))
-				$classes[] = 'tribe-events-category-'. $tribe_cat_slug;
+		if ( ! $event_id ) {
+			return '';
 		}
-	    if ( $venue_id = tribe_get_venue_id( $post->ID ) ) {
-	        $classes[] = 'tribe-events-venue-'. $venue_id;
-	    }
-	    if ( $organizer_id = tribe_get_organizer_id( $post->ID ) ) {
-	        $classes[] = 'tribe-events-organizer-'. $organizer_id;
-	    }
-	    // added first class for css
-	    if ( ( $wp_query->current_post == 0 ) && !tribe_is_day() ) {
-	        $classes[] = 'tribe-events-first';
-	    }
-	    // added last class for css
-	    if ( $wp_query->current_post == $wp_query->post_count-1 ) {
-	        $classes[] = 'tribe-events-last';
-	        }
 
-	    $classes = apply_filters('tribe_events_event_classes', $classes);
-		if( $echo )
+		$classes         = array( 'hentry', 'vevent', 'type-tribe_events', 'post-' . $event_id, 'tribe-clearfix' );
+		$tribe_cat_slugs = tribe_get_event_cat_slugs( $post->ID );
+
+		foreach ( $tribe_cat_slugs as $tribe_cat_slug ) {
+			if ( ! empty( $tribe_cat_slug ) ) {
+				$classes[] = 'tribe-events-category-' . $tribe_cat_slug;
+			}
+		}
+		if ( $venue_id = tribe_get_venue_id( $event_id ) ) {
+			$classes[] = 'tribe-events-venue-' . $venue_id;
+		}
+		if ( $organizer_id = tribe_get_organizer_id( $event_id ) ) {
+			$classes[] = 'tribe-events-organizer-' . $organizer_id;
+		}
+		// added first class for css
+		if ( ( $wp_query->current_post == 0 ) && ! tribe_is_day() ) {
+			$classes[] = 'tribe-events-first';
+		}
+		// added last class for css
+		if ( $wp_query->current_post == $wp_query->post_count - 1 ) {
+			$classes[] = 'tribe-events-last';
+		}
+
+		$classes = apply_filters( 'tribe_events_event_classes', $classes );
+		if ( $echo ) {
 			echo implode( ' ', $classes );
-		else
+		} else {
 			return implode( ' ', $classes );
+		}
 	}
 
 	/**
@@ -941,9 +949,9 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 * @see TribeDateUtils::dateDiff()
 	 **/
 	function tribe_get_days_between( $start_date, $end_date, $day_cutoff = '00:00' ) {
-		if ( $day_cutoff === FALSE ) {
+		if ( $day_cutoff === false ) {
 			$day_cutoff = '00:00';
-		} elseif ( $day_cutoff === TRUE ) {
+		} elseif ( $day_cutoff === true ) {
 			$day_cutoff = tribe_get_option( 'multiDayCutoff', '00:00' );
 		}
 
