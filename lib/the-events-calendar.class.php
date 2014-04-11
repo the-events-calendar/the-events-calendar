@@ -451,6 +451,11 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			// backwards compatibility
 			add_filter( 'tribe_get_single_option', array( $this, 'filter_multiday_cutoff' ), 10, 3 );
 
+			if ( defined('WP_LOAD_IMPORTERS') && WP_LOAD_IMPORTERS ) {
+				add_filter( 'wp_import_post_data_raw', array( $this, 'filter_wp_import_data_before' ), 10, 1 );
+				add_filter( 'wp_import_post_data_processed', array( $this, 'filter_wp_import_data_after' ), 10, 1 );
+			}
+
 		}
 
 		/**
@@ -4179,6 +4184,49 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			}
 
 			return $query;
+		}
+
+		/**
+		 * If recurring events are imported using the WP importer, WP will flag
+		 * each instance as a duplicate. Here we alter the title so that
+		 * WP sees them as distinct posts.
+		 *
+		 * @param array $post
+		 * @return array
+		 * @see TribeEvents::filter_wp_import_data_after()
+		 */
+		public function filter_wp_import_data_before( $post ) {
+			if ( $post['post_type'] == TribeEvents::POSTTYPE && !empty($post['post_parent']) ) {
+				$start_date = '';
+				if ( isset($post['postmeta']) && is_array($post['postmeta']) ) {
+					foreach ( $post['postmeta'] as $meta ) {
+						if ( $meta['key'] == '_EventStartDate' ) {
+							$start_date = $meta['value'];
+							break;
+						}
+					}
+				}
+				if ( !empty($start_date) ) {
+					$post['post_title'] .= '[tribe_start_date]'.$start_date.'[/tribe_start_date]';
+				}
+			}
+			return $post;
+		}
+
+
+		/**
+		 * Event titles have been modified by filter_wp_import_data_before().
+		 * This puts them back how they belong.
+		 *
+		 * @param array $post
+		 * @return array
+		 * @see TribeEvents::filter_wp_import_data_before()
+		 */
+		public function filter_wp_import_data_after( $post ) {
+			if ( $post['post_type'] == TribeEvents::POSTTYPE ) {
+				$post['post_title'] = preg_replace('#\[tribe_start_date\].*?\[\/tribe_start_date\]#', '', $post['post_title']);
+			}
+			return $post;
 		}
 
 		/* VIEWS AJAX CALLS */
