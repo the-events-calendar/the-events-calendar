@@ -3831,7 +3831,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 * @return null
 		 */
 		public function addToolbarItems() {
-			if ( !defined( 'TRIBE_DISABLE_TOOLBAR_ITEMS' ) || !TRIBE_DISABLE_TOOLBAR_ITEMS ) {
+			if ( ( !defined( 'TRIBE_DISABLE_TOOLBAR_ITEMS' ) || !TRIBE_DISABLE_TOOLBAR_ITEMS ) && !is_network_admin() ) {
 				global $wp_admin_bar;
 
 				$wp_admin_bar->add_menu( array(
