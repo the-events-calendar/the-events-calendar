@@ -641,16 +641,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 						$get_recurrence_event = new WP_Query( $recurrence_check );
 						// if a reccurence event actually exists then proceed with redirection
 						if( !empty($get_recurrence_event->posts) && tribe_is_recurring_event($get_recurrence_event->posts[0]->ID) && get_post_status($get_recurrence_event->posts[0]) == 'publish' ){
-
-							// get next recurrence
-							$next_recurrence = $this->get_last_recurrence( $get_recurrence_event->posts );
-
-							// set current url to the next available recurrence and await redirection
-							if ( empty( $wp_query->query['eventDate'] ) ) {
-								$current_url = home_url( $wp->request ) . '/' . $next_recurrence;
-							} else {
-								$current_url = str_replace( $wp_query->query['eventDate'], $next_recurrence, home_url( $wp->request ) );
-							}
+							$current_url = TribeEvents::instance()->getLink('all', $get_recurrence_event->posts[0]->ID);
 						}
 						break;
 					}
@@ -726,31 +717,47 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		/**
 		 * Loop through recurrence posts array and find out the next recurring datetime from right now
 		 *
-		 * @param  array  $event_list
-		 * @return $next_recurrence (Y-m-d format)
-		 * @author Timothy Wood
-		 * @since 3.0
+		 * @param  array $event_list
+		 * @return string $next_recurrence (Y-m-d format)
+		 *
+		 * @deprecated since 3.6 - Use TribeEventsPro::get_last_recurrence_id()
 		 */
 		public function get_last_recurrence( $event_list = array() ){
+			$id = $this->get_last_recurrence_id( $event_list );
+			if ( empty($id) ) {
+				return '';
+			}
+			$right_now = current_time( 'timestamp' );
+			$next_recurrence = date_i18n( 'Y-m-d', strtotime(get_post_meta($id, '_EventStartDate', TRUE)));
+
+			return apply_filters( 'tribe_events_pro_get_last_recurrence', $next_recurrence, $event_list, $right_now );
+
+		}
+
+		/**
+		 * Loop through recurrence posts array and find out the next recurring instance from right now
+		 * @param WP_Post[] $event_list
+		 *
+		 * @return int
+		 */
+		public function get_last_recurrence_id( $event_list ) {
 			global $wp_query;
 
 			$event_list = empty($event_list) ? $wp_query->posts : $event_list;
 			$right_now = current_time( 'timestamp' );
-			$next_recurrence = null;
+			$next_recurrence = 0;
 
 			// find next recurrence date by loop
 			foreach( $event_list as $key => $event ){
 				if( $right_now < strtotime( $event->EventStartDate ) ) {
-					$next_recurrence = date_i18n( 'Y-m-d', strtotime($event->EventStartDate) );
+					$next_recurrence = $event;
 				}
 			}
 			if( empty($next_recurrence) && !empty($event_list) ){
-				$first_key = reset(array_keys($event_list));
-				$next_recurrence = date_i18n( 'Y-m-d', strtotime( $event_list[$first_key]->EventStartDate ) );
+				$next_recurrence = reset($event_list);
 			}
 
-			return apply_filters( 'tribe_events_pro_get_last_recurrence', $next_recurrence, $event_list, $right_now );
-
+			return apply_filters( 'tribe_events_pro_get_last_recurrence_id', $next_recurrence->ID, $event_list, $right_now );
 		}
 
 		/**
@@ -1550,7 +1557,10 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 				case 'all':
 					remove_filter( 'post_type_link', array($this->permalink_editor, 'filter_recurring_event_permalinks'), 10, 4 );
 					$post_id = $secondary ? $secondary : get_the_ID();
-					$post_id = wp_get_post_parent_id( $post_id );
+					$parent_id = wp_get_post_parent_id( $post_id );
+					if ( !empty($parent_id) ) {
+						$post_id = $parent_id;
+					}
 					$eventUrl = add_query_arg('eventDisplay', 'all', get_permalink($post_id) );
 					add_filter( 'post_type_link', array($this->permalink_editor, 'filter_recurring_event_permalinks'), 10, 4 );
 					break;
@@ -1574,21 +1584,21 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		public function get_link( $eventUrl, $type, $secondary, $term ){
 			switch( $type ) {
 				case 'week':
-					$eventUrl = trailingslashit( esc_url( $eventUrl . $this->weekSlug ) );
+					$eventUrl = trailingslashit( esc_url_raw( $eventUrl . $this->weekSlug ) );
 					if ( !empty( $secondary ) ) {
-						$eventUrl = esc_url( trailingslashit( $eventUrl ) . $secondary );
+						$eventUrl = esc_url_raw( trailingslashit( $eventUrl ) . $secondary );
 					}
 					break;
 				case 'photo':
-					$eventUrl = trailingslashit( esc_url( $eventUrl . $this->photoSlug ) );
+					$eventUrl = trailingslashit( esc_url_raw( $eventUrl . $this->photoSlug ) );
 					if ( !empty( $secondary ) ) {
-						$eventUrl = esc_url( trailingslashit( $eventUrl ) . $secondary );
+						$eventUrl = esc_url_raw( trailingslashit( $eventUrl ) . $secondary );
 					}
 					break;
 				case 'map':
-					$eventUrl = trailingslashit( esc_url( $eventUrl . TribeEventsGeoLoc::instance()->rewrite_slug ) );
+					$eventUrl = trailingslashit( esc_url_raw( $eventUrl . TribeEventsGeoLoc::instance()->rewrite_slug ) );
 					if ( !empty( $secondary ) ) {
-						$eventUrl = esc_url( trailingslashit( $eventUrl ) . $secondary );
+						$eventUrl = esc_url_raw( trailingslashit( $eventUrl ) . $secondary );
 					}
 					break;
 				case 'all':
@@ -1596,7 +1606,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 					$post_id = $secondary ? $secondary : get_the_ID();
 					$post_id = wp_get_post_parent_id( $post_id );
 					$eventUrl = trailingslashit(get_permalink($post_id));
-					$eventUrl = trailingslashit( esc_url($eventUrl . 'all') );
+					$eventUrl = trailingslashit( esc_url_raw($eventUrl . 'all') );
 					add_filter( 'post_type_link', array($this->permalink_editor, 'filter_recurring_event_permalinks'), 10, 4 );
 					break;
 				default:
