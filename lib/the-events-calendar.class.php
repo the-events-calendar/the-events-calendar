@@ -3881,6 +3881,23 @@ if ( !class_exists( 'TribeEvents' ) ) {
 					) );
 				}
 
+				if ( current_user_can( 'publish_tribe_events' ) ) {
+					$import_node = $wp_admin_bar->get_node( 'tribe-events-import' );
+					if ( !is_object( $import_node ) ) {
+						$wp_admin_bar->add_menu( array(
+							'id' => 'tribe-events-import',
+							'title' => __( 'Import', 'tribe-events-calendar' ),
+							'parent' => 'tribe-events-import-group'
+						) );
+					}
+					$wp_admin_bar->add_menu( array(
+						'id' => 'tribe-csv-import',
+						'title' => __( 'CSV', 'tribe-events-calendar' ),
+						'href' => add_query_arg( array('post_type' => TribeEvents::POSTTYPE, 'page' => 'events-importer'), admin_url('edit.php') ),
+						'parent' => 'tribe-events-import'
+					) );
+				}
+
 				if ( current_user_can( 'manage_options' ) ) {
 
 					$hide_all_settings = TribeEvents::instance()->getNetworkOption( 'allSettingsTabsHidden', '0' );
