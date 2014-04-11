@@ -2386,7 +2386,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		public function getLink	( $type = 'home', $secondary = false, $term = null ) {
 			// if permalinks are off or user doesn't want them: ugly.
 			if( '' == get_option('permalink_structure') ) {
-				return esc_url($this->uglyLink($type, $secondary));
+				return esc_url_raw($this->uglyLink($type, $secondary));
 			}
 
 			// account for semi-pretty permalinks
@@ -2411,38 +2411,38 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 			switch( $type ) {
 				case 'home':
-					$eventUrl = trailingslashit( esc_url($eventUrl) );
+					$eventUrl = trailingslashit( esc_url_raw($eventUrl) );
 					break;
 				case 'month':
 					if ( $secondary ) {
-						$eventUrl = trailingslashit( esc_url($eventUrl . $secondary) );
+						$eventUrl = trailingslashit( esc_url_raw($eventUrl . $secondary) );
 					} else {
-						$eventUrl = trailingslashit( esc_url($eventUrl . $this->monthSlug) );
+						$eventUrl = trailingslashit( esc_url_raw($eventUrl . $this->monthSlug) );
 					}
 					break;
 				case 'upcoming':
-					$eventUrl = trailingslashit( esc_url($eventUrl . $this->upcomingSlug) );
+					$eventUrl = trailingslashit( esc_url_raw($eventUrl . $this->upcomingSlug) );
 					break;
 				case 'past':
-					$eventUrl = trailingslashit( esc_url($eventUrl . $this->pastSlug) );
+					$eventUrl = trailingslashit( esc_url_raw($eventUrl . $this->pastSlug) );
 					break;
 				case 'dropdown':
-					$eventUrl = esc_url($eventUrl);
+					$eventUrl = esc_url_raw($eventUrl);
 					break;
 				case 'single':
 					global $post;
 					$p = $secondary ? $secondary : $post;
 					$link = trailingslashit(get_permalink($p));
-					$eventUrl = trailingslashit( esc_url($link) );
+					$eventUrl = trailingslashit( esc_url_raw($link) );
 					break;
 				case 'day':
 					// TODO: Move this to pro?
 					$date = strtotime($secondary);
 					$secondary = date('Y-m-d', $date);
-					$eventUrl = trailingslashit( esc_url($eventUrl . $secondary) );
+					$eventUrl = trailingslashit( esc_url_raw($eventUrl . $secondary) );
 					break;
 				default:
-					$eventUrl = esc_url($eventUrl);
+					$eventUrl = esc_url_raw($eventUrl);
 					break;
 			}
 			return apply_filters( 'tribe_events_getLink', $eventUrl, $type, $secondary, $term );
