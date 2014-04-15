@@ -437,6 +437,10 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 
 			$view_state = 'photo';
 
+			if ( isset( $_POST['tribe_event_category'] ) ) {
+				$args[TribeEvents::TAXONOMY] = $_POST['tribe_event_category'];
+			}
+
 			/* if past view */
 			if ( ! empty( $_POST['tribe_event_display'] ) && $_POST['tribe_event_display'] == 'past' ){
 				$view_state = 'past';
