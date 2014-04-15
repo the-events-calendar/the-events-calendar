@@ -178,8 +178,9 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 				}
 
 				// if a user selects a date in the event bar we want it to persist as long as possible
-				if ( !empty( $_REQUEST['tribe-bar-date'] ) ) {
+				if ( ! empty( $_REQUEST['tribe-bar-date'] ) ) {
 					$query->set( 'eventDate', $_REQUEST['tribe-bar-date'] );
+					do_action( 'log', 'changed eventDate to tribe-bar-date', 'tribe-events-query', $_REQUEST['tribe-bar-date'] );
 				}
 
 				// if a user provides a search term we want to use that in the search params
@@ -192,7 +193,21 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 				if ( !empty( $query->query_vars['eventDisplay'] ) ) {
 					switch ( $query->query_vars['eventDisplay'] ) {
 					case 'custom':
-							// if set this allows for a custom query to not be burdened with these settings
+						// if set this allows for a custom query to not be burdened with these settings
+						break;
+					case 'month':
+						// make sure start and end date are set
+						if ( $query->get( 'start_date' ) == '') {
+							$event_date = ( $query->get( 'eventDate' ) != '' )
+								? $query->get( 'eventDate' )
+								: date_i18n( TribeDateUtils::DBDATETIMEFORMAT );
+							$query->set( 'start_date', tribe_event_beginning_of_day( $event_date ) );
+						}
+
+						if ( $query->get( 'end_date' == '' ) ) {
+							$query->set( 'end_date', tribe_event_end_of_day( $query->get('start_date')) );
+						}
+
 						break;
 					case 'all':
 						$query->set( 'orderby', self::set_orderby( null, $query ) );
@@ -684,6 +699,8 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 				do_action( 'log', 'no cache hit '.__LINE__, 'tribe-events-cache', $args );
 				$post_id_query = new WP_Query();
 				$post_ids = $post_id_query->query( $args );
+				do_action( 'log', 'final args for month view post ids', 'tribe-events-query', $post_id_query->query_vars );
+				do_action('log', 'Month view getEventCounts SQL', 'tribe-events-query', $post_id_query->request);
 				$cache->set( $cache_key, $post_ids, TribeEventsCache::NON_PERSISTENT, 'save_post' );
 			}
 
@@ -696,6 +713,7 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 					default :
 						global $wp_query;
 						$output_date_format = '%Y-%m-%d %H:%i:%s';
+						do_action( 'log', 'raw counts args', 'tribe-events-query', $args );
 						$raw_counts = $wpdb->get_results( $wpdb->prepare( "
 							SELECT 	tribe_event_start.post_id as ID, 
 									tribe_event_start.meta_value as EventStartDate, 
@@ -713,12 +731,13 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 							ORDER BY menu_order ASC, DATE(tribe_event_start.meta_value) ASC, TIME(tribe_event_start.meta_value) ASC;",
 							$output_date_format,
 							$output_date_format,
-							$args['start_date'],
-							$args['end_date'],
+							$post_id_query->query_vars['start_date'],
+							$post_id_query->query_vars['end_date'],
 							implode( ',', array_map( 'intval', $post_ids ) )
 						) );
-						$start_date = new DateTime( $args['start_date'] );
-						$end_date = new DateTime( $args['end_date'] );
+						do_action( 'log', 'raw counts query', 'tribe-events-query', $wpdb->last_query );
+						$start_date = new DateTime( $post_id_query->query_vars['start_date'] );
+						$end_date = new DateTime( $post_id_query->query_vars['end_date'] );
 						$days = TribeDateUtils::dateDiff( $start_date->format( 'Y-m-d' ), $end_date->format( 'Y-m-d' ) );
 						$term_id = isset( $wp_query->query_vars[TribeEvents::TAXONOMY] ) ? $wp_query->query_vars[TribeEvents::TAXONOMY] : null;
 						if ( is_int( $term_id ) ) {

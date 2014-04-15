@@ -129,6 +129,8 @@ if( !class_exists('Tribe_Events_Month_Template')){
 
 			$count_args = self::$args;
 
+			do_action( 'log', 'get_daily_counts $date', 'tribe-events-query', $date );
+
 			$count_args['eventDisplay'] = 'month';
 			$count_args['eventDate'] = date( 'Y-m', strtotime( $date ) );
 			$count_args['start_date'] = tribe_event_beginning_of_day( $date );
@@ -199,6 +201,7 @@ if( !class_exists('Tribe_Events_Month_Template')){
 		 * @since 3.0
 		 **/
 		public function setup_view() {
+			do_action( 'log', 'setup view month view args', 'tribe-month', self::$args );
 			$requested_date = isset( self::$args['eventDate'] ) ? self::$args['eventDate'] : tribe_get_month_view_date();
 
 			$first_day_of_month = date( 'Y-m-01', strtotime( $requested_date ) );
