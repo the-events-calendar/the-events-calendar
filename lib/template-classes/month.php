@@ -137,6 +137,7 @@ if( !class_exists('Tribe_Events_Month_Template')){
 			$count_args['end_date'] = tribe_event_end_of_day( date('Y-m-t', strtotime( $date ) ) );
 			$count_args['hide_upcoming_ids'] = self::$hide_upcoming_ids;
 			$count_args['post_status'] = is_user_logged_in() ? array( 'publish', 'private' ) : 'publish';
+			$count_args['tribeHideRecurrence'] = false;
 
 			$result = TribeEventsQuery::getEventCounts( $count_args );
 
@@ -295,7 +296,7 @@ if( !class_exists('Tribe_Events_Month_Template')){
 			if ( self::$current_day + 1 < count( self::$calendar_days ) ) {
 				return true;
 			} elseif ( self::$current_day + 1 == count( self::$calendar_days ) && count( self::$calendar_days ) > 0 ) {
-				do_action_ref_array('tribe_events_calendar_loop_end', array(&$this));
+				do_action('tribe_events_calendar_loop_end');
 				// Do some cleaning up after the loop
 				self::rewind_days();
 			}
