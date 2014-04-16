@@ -1379,6 +1379,11 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 				return $query;
 			}
 
+			// don't override an explicitly passed value
+			if ( isset( $query->query_vars['tribeHideRecurrence'] ) ) {
+				return $query;
+			}
+
 			// if the admin option is set to hide recurrences, or the user option is set
 			if ( tribe_get_option( 'hideSubsequentRecurrencesDefault', false ) == true || ( isset( $_REQUEST['tribeHideRecurrence'] ) && $_REQUEST['tribeHideRecurrence'] == '1' ) ) {
 				$query->query_vars['tribeHideRecurrence'] = 1;

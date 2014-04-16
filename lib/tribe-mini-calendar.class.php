@@ -96,7 +96,8 @@ class TribeEventsMiniCalendar {
 			$args = array( 'eventDate'		=> $_POST["eventDate"],
 			               'count'			=> $_POST["count"],
 			               'tax_query'		=> $tax_query,
-			               'filter_date'	=> true 
+			               'filter_date'	=> true,
+			               'tribeHideRecurrence' => false,
 			               );
 
 			ob_start();
@@ -224,12 +225,14 @@ class TribeEventsMiniCalendar {
 			// hijack the main query to load the events via provided $args
 			if ( !is_null( $this->args ) ) {
 				$query_args = array( 
-								 'posts_per_page'               => $this->args['count'],
-			                     'tax_query'                    => $this->args['tax_query'],
-			                     'eventDisplay'                 => 'custom',
-			                     'start_date'					=> $this->get_month(),
-			                     'post_status'                  => array( 'publish' ),
-			                     'is_tribe_mini_calendar'       => true );
+				                     'posts_per_page'               => $this->args['count'],
+				                     'tax_query'                    => $this->args['tax_query'],
+				                     'eventDisplay'                 => 'custom',
+				                     'start_date'                   => $this->get_month(),
+				                     'post_status'                  => array( 'publish' ),
+				                     'is_tribe_mini_calendar'       => true,
+				                     'tribeHideRecurrence'          => false,
+				);
 
 
 				// set end date if initial load, or ajax month switch

@@ -450,6 +450,31 @@ class Tribe_Recurring_Event_Test extends WP_UnitTestCase {
 		));
 		$this->assertCount(1, $results);
 		$this->assertEquals($children[4], reset($results));
+
+		$query = new WP_Query();
+		$results = $query->query(array(
+			'post_type' => TribeEvents::POSTTYPE,
+			'fields' => 'ids',
+			'tribeHideRecurrence' => 0,
+			'start_date' => '2014-05-01',
+			'eventDisplay' => 'custom',
+		));
+		$this->assertCount(8, $results);
+
+		$option = tribe_get_option( 'hideSubsequentRecurrencesDefault', false );
+		tribe_update_option( 'hideSubsequentRecurrencesDefault', TRUE );
+
+		$query = new WP_Query();
+		$results = $query->query(array(
+			'post_type' => TribeEvents::POSTTYPE,
+			'fields' => 'ids',
+			'tribeHideRecurrence' => 0,
+			'start_date' => '2014-05-01',
+			'eventDisplay' => 'custom',
+		));
+		$this->assertCount(8, $results);
+
+		tribe_update_option( 'hideSubsequentRecurrencesDefault', $option );
 	}
 
 	public function test_child_post_comments() {
