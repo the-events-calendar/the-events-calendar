@@ -242,7 +242,9 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 					}
 				} else {
 					$query->set( 'hide_upcoming', true );
-					$query->set( 'start_date', date_i18n( TribeDateUtils::DBDATETIMEFORMAT ) );
+					$start_date = $query->get('start_date');
+					$start_date = $start_date ? strtotime($start_date) : FALSE;
+					$query->set( 'start_date', date_i18n( TribeDateUtils::DBDATETIMEFORMAT, $start_date ) );
 					$query->set( 'orderby', self::set_orderby( null, $query ) );
 					$query->set( 'order', self::set_order( null, $query ) );
 				}
