@@ -166,6 +166,9 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 * @since 2.0
 	 */
 	function tribe_get_events( $args = array(), $full = false ) {
+		if ( empty ( $args['eventDisplay'] ) ) {
+			$args['eventDisplay'] = 'custom';
+		}
 		return apply_filters( 'tribe_get_events', TribeEventsQuery::getEvents( $args, $full ), $args, $full );
 	}
 

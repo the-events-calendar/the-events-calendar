@@ -193,7 +193,15 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 				if ( !empty( $query->query_vars['eventDisplay'] ) ) {
 					switch ( $query->query_vars['eventDisplay'] ) {
 					case 'custom':
-						// if set this allows for a custom query to not be burdened with these settings
+						// if the eventDisplay is 'custom', all we're gonna do is make sure the start and end dates are formatted
+						$start_date = $query->get( 'start_date' );
+						if ( $start_date ) {
+							$query->set( 'start_date', date_i18n( TribeDateUtils::DBDATETIMEFORMAT, strtotime( $start_date ) ) );
+						}
+						$end_date = $query->get( 'end_date' );
+						if ( $end_date ) {
+							$query->set( 'end_date', date_i18n( TribeDateUtils::DBDATETIMEFORMAT, strtotime( $end_date ) ) );
+						}
 						break;
 					case 'month':
 						// make sure start and end date are set
@@ -242,9 +250,7 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 					}
 				} else {
 					$query->set( 'hide_upcoming', true );
-					$start_date = $query->get('start_date');
-					$start_date = $start_date ? strtotime($start_date) : FALSE;
-					$query->set( 'start_date', date_i18n( TribeDateUtils::DBDATETIMEFORMAT, $start_date ) );
+					$query->set( 'start_date', date_i18n( TribeDateUtils::DBDATETIMEFORMAT ) );
 					$query->set( 'orderby', self::set_orderby( null, $query ) );
 					$query->set( 'order', self::set_order( null, $query ) );
 				}
