@@ -58,7 +58,7 @@ class TribeEventsRecurrenceScheduler {
 	public function schedule_future_recurring_events() {
 		/** @var wpdb $wpdb */
 		global $wpdb;
-		$post_ids = $wpdb->get_col($wpdb->prepare("SELECT DISTINCT post_id FROM {$wpdb->postmeta} WHERE meta_key='_EventNextPendingRecurrence' AND meta_value < %s", $this->latest_date));
+		$post_ids = $wpdb->get_col($wpdb->prepare("SELECT DISTINCT m.post_id FROM {$wpdb->postmeta} m INNER JOIN {$wpdb->posts} p ON m.post_id=p.ID WHERE m.meta_key='_EventNextPendingRecurrence' AND m.meta_value < %s AND p.post_parent = 0", $this->latest_date));
 		foreach ( $post_ids as $post_id ) {
 			TribeEventsRecurrenceMeta::save_pending_events($post_id);
 		}
