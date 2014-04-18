@@ -73,7 +73,7 @@ if (!class_exists('TribeEventsTemplates')) {
 			do_action( 'tribe_tec_template_chooser', $template );
 
 			// hijack this method right up front if it's a 404
-			if ( is_404() && $events->displaying == 'single-event' && apply_filters( 'tribe_events_templates_is_404', '__return_true' ) )
+			if ( is_404() && $events->displaying == 'single-event' )
 				return get_404_template();
 				
 			// add the theme slug to the body class
@@ -334,6 +334,11 @@ if (!class_exists('TribeEventsTemplates')) {
 				$template = self::getTemplateHierarchy( 'month', array( 'disable_view_check' => true ) );
 			}
 
+			// day view
+			if( tribe_is_day() ) {
+				$template = self::getTemplateHierarchy( 'day' );
+			}
+
 			// single event view
 			if ( is_singular( TribeEvents::POSTTYPE ) && ! tribe_is_showing_all() ) {
 				$template = self::getTemplateHierarchy( 'single-event', array( 'disable_view_check' => true ) );
@@ -363,6 +368,11 @@ if (!class_exists('TribeEventsTemplates')) {
 			// calendar view
 			else if ( tribe_is_month() ) {
 				$class = 'Tribe_Events_Month_Template';
+			}
+
+			// day view
+			if( tribe_is_day() ) {
+				$class = 'Tribe_Events_Day_Template';
 			}
 
 			// single event view
