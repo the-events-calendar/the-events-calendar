@@ -4,8 +4,8 @@ Contributors:  ModernTribe, roblagatta, MZAWeb, ryancurban, faction23, jazbek, j
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget, pro
 Donate link: http://m.tri.be/29
 Requires at least: 3.6
-Tested up to: 3.8.1
-Stable tag: 3.5.1
+Tested up to: 3.9
+Stable tag: 3.5.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -210,6 +210,10 @@ Our Premium Plugins:
 
 3.x is a complete overhaul of the plugin, and as a result we're starting the changelog fresh. For release notes from the 2.x lifecycle, see <a href="http://m.tri.be/k">our 2.x release notes.</a>
 
+= 3.5.2 =
+
+* Fixed a bug that creates duplicate instances of events scheduled past the future cutoff date
+
 = 3.5.1 =
 
 * Patched a bug where the “Recurring event instances” setting was impacting month view, instead of just appearing on list-based views (thanks to alexhammerstein on the forums for this report!)
@@ -375,6 +379,10 @@ Still not happy? Shoot us an email to pro@tri.be or tweet to @moderntribeinc and
 == Upgrade Notice ==
 
 IMPORTANT NOTICE: 3.x upgrade is a HUGE upgrade from 2.x versions. If you are upgrading from an older version, please test thoroughly before updating on your live website.
+
+= 3.5.2 =
+
+Please see the changelog for the complete list of changes in this release. Remember to always make a backup of your database and files before updating!
 
 = 3.5.1 =
 
