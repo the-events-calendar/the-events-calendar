@@ -731,10 +731,6 @@ if( class_exists( 'TribeEventsPro' ) ) {
 
 	/**
 	 * Echos the single events page related events boxes.
-	 *
-	 * @param mixed $tag The specific tags you want it relating to.
-	 * @param mixed $category The specific categories you want it relating to.
-	 * @param int $count The number of related events to find.
 	 * @return void.
 	 */
 	function tribe_single_related_events( ) {
