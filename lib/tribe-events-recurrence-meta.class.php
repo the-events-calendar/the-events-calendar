@@ -657,7 +657,7 @@ class TribeEventsRecurrenceMeta {
 	public static function save_pending_events( $event_id ) {
 		if ( wp_get_post_parent_id($event_id) != 0 ) {
 			return;
-		}
+  	}
 		$next_pending = get_post_meta( $event_id, '_EventNextPendingRecurrence', TRUE );
 		if ( empty($next_pending) ) {
 			return;
