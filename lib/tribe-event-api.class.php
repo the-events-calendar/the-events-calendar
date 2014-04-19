@@ -107,22 +107,24 @@ if (!class_exists('TribeEventsAPI')) {
 			if ( isset( $data['post_status'] ) ) {
 				$post_status = $data['post_status'];
 			} else {
-
-				if ( isset( $data["Organizer"]["OrganizerID"] ) ) {
-					$post_status = get_post( $data["Organizer"]['OrganizerID'] )->post_status;
-				}
-
-				if ( isset( $data['Venue']["VenueID"] ) ) {
-					$post_status = get_post( $data['Venue']['VenueID'] )->post_status;
-				}
-
+				$post_status = get_post_status($event_id);
 			}
 
 			if ( isset( $data["Organizer"] ) ) {
-				$data['EventOrganizerID'] = TribeEventsAPI::saveEventOrganizer( $data["Organizer"], $event, $post_status );
+				if ( isset( $data["Organizer"]["OrganizerID"] ) ) {
+					$organizer_post_status = get_post( $data["Organizer"]['OrganizerID'] )->post_status;
+				} else {
+					$organizer_post_status = $post_status;
+				}
+				$data['EventOrganizerID'] = TribeEventsAPI::saveEventOrganizer( $data["Organizer"], $event, $organizer_post_status );
 			}
 			if ( isset( $data["Venue"] ) ) {
-				$data['EventVenueID'] = TribeEventsAPI::saveEventVenue( $data["Venue"], $event, $post_status );
+				if ( isset( $data['Venue']["VenueID"] ) ) {
+					$venue_post_status = get_post( $data['Venue']['VenueID'] )->post_status;
+				} else {
+					$venue_post_status = $post_status;
+				}
+				$data['EventVenueID'] = TribeEventsAPI::saveEventVenue( $data["Venue"], $event, $venue_post_status );
 			}
 
 			$cost = ( isset( $data['EventCost'] ) ) ? $data['EventCost'] : '';
@@ -227,6 +229,7 @@ if (!class_exists('TribeEventsAPI')) {
 				$organizerId = wp_insert_post($postdata, true);		
 
 				if( !is_wp_error($organizerId) ) {
+					self::saveOrganizerMeta( $organizerId, $data );
 					do_action( 'tribe_events_organizer_created', $organizerId, $data );
 					return $organizerId;
 				}
@@ -305,6 +308,7 @@ if (!class_exists('TribeEventsAPI')) {
 				$venueId = wp_insert_post($postdata, true);
 
 				if( !is_wp_error($venueId) ) {
+					self::saveVenueMeta( $venueId, $data );
 					do_action( 'tribe_events_venue_created', $venueId, $data );
 					return $venueId;
 				}
