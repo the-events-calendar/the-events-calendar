@@ -238,7 +238,7 @@ if( !class_exists('Tribe_Template_Factory') ) {
 				TribeEvents::setNotice( 'events-not-found', sprintf( __('No upcoming events listed under %s. Check out upcoming events for this category or view the full calendar.', 'tribe-events-calendar'), $tax_term ) );
 			}
 			elseif ( ! empty( $tax_term ) && tribe_is_upcoming() ) {
-				TribeEvents::setNotice( 'events-not-found', sprintf( __('No matching events listed under %s. Check out upcoming events for this category or view the full calendar.', 'tribe-events-calendar'), $tax_term ) );
+				TribeEvents::setNotice( 'events-not-found', sprintf( __('No matching events listed under %s. Go view the full calendar.', 'tribe-events-calendar'), $tax_term ) );
 			}
 			elseif ( ! empty( $tax_term ) && tribe_is_past() ) {
 				TribeEvents::setNotice( 'events-past-not-found', __('No previous events ', 'tribe-events-calendar') );
