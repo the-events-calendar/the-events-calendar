@@ -1628,8 +1628,11 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			$resources_url = trailingslashit( $this->pluginUrl ) . 'resources/';
 			$vendor_url = trailingslashit( $this->pluginUrl ) . 'vendor/';
 
-			// admin stylesheet - always loaded for a few persistent things (e.g. icon)
-			wp_enqueue_style( self::POSTTYPE . '-admin', $resources_url . 'events-admin.css', array(), apply_filters( 'tribe_events_css_version', self::VERSION ) );
+			// admin stylesheet - only load admin stylesheet when on Tribe pages
+			// persistent CSS for icon support in < 3.8 is loaded in adminIcon()
+			if ( isset($current_screen->id) && true === strpos( $current_screen->id, 'tribe' ) ) {
+				wp_enqueue_style( self::POSTTYPE . '-admin', $resources_url . 'events-admin.css', array(), apply_filters( 'tribe_events_css_version', self::VERSION ) );
+			}
 
 			// settings screen
 			if (isset($current_screen->id) && $current_screen->id == 'settings_page_tribe-settings') {
