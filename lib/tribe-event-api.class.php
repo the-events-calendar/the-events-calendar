@@ -111,7 +111,7 @@ if (!class_exists('TribeEventsAPI')) {
 			}
 
 			if ( isset( $data["Organizer"] ) ) {
-				if ( isset( $data["Organizer"]["OrganizerID"] ) ) {
+				if ( !empty( $data["Organizer"]["OrganizerID"] ) ) {
 					$organizer_post_status = get_post( $data["Organizer"]['OrganizerID'] )->post_status;
 				} else {
 					$organizer_post_status = $post_status;
@@ -119,7 +119,7 @@ if (!class_exists('TribeEventsAPI')) {
 				$data['EventOrganizerID'] = TribeEventsAPI::saveEventOrganizer( $data["Organizer"], $event, $organizer_post_status );
 			}
 			if ( isset( $data["Venue"] ) ) {
-				if ( isset( $data['Venue']["VenueID"] ) ) {
+				if ( !empty( $data['Venue']["VenueID"] ) ) {
 					$venue_post_status = get_post( $data['Venue']['VenueID'] )->post_status;
 				} else {
 					$venue_post_status = $post_status;
@@ -178,7 +178,8 @@ if (!class_exists('TribeEventsAPI')) {
 					// Only an ID was passed and we should do nothing.
 					return $data['OrganizerID'];
 				} else {
-					return TribeEventsAPI::updateOrganizer($data['OrganizerID'], $data);
+					TribeEventsAPI::updateOrganizer($data['OrganizerID'], $data);
+					return $data['OrganizerID'];
 				}
 			} else {
 				return TribeEventsAPI::createOrganizer($data, $post_status);
@@ -203,7 +204,8 @@ if (!class_exists('TribeEventsAPI')) {
 					$show_map_link = get_post_meta( $data['VenueID'], '_VenueShowMapLink', true );
 					$data['ShowMap'] = $show_map ? $show_map : 'false';
 					$data['ShowMapLink'] = $show_map_link ? $show_map_link : 'false';
-					return TribeEventsAPI::updateVenue($data['VenueID'], $data);
+					TribeEventsAPI::updateVenue($data['VenueID'], $data);
+					return $data['VenueID'];
 				}
 			} else {
 				return TribeEventsAPI::createVenue($data, $post_status);
