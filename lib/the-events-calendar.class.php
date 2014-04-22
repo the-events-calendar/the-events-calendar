@@ -384,7 +384,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			add_action( 'tribe_settings_top', array( 'TribeEventsOptionsException', 'displayMessage') );
 			add_action( 'admin_enqueue_scripts', array( $this, 'addAdminScriptsAndStyles' ) );
 			add_filter( 'tribe_events_register_event_type_args', array( $this, 'setDashicon' ) );
-			add_action( 'admin_print_scripts', array( $this, 'adminIcon' ) );
 			add_action( 'plugins_loaded', array( $this, 'accessibleMonthForm'), -10 );
 			add_action( "trash_" . TribeEvents::VENUE_POST_TYPE, array($this, 'cleanupPostVenues'));
 			add_action( "trash_" . TribeEvents::ORGANIZER_POST_TYPE, array($this, 'cleanupPostOrganizers'));
@@ -1629,7 +1628,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			$vendor_url = trailingslashit( $this->pluginUrl ) . 'vendor/';
 
 			// admin stylesheet - only load admin stylesheet when on Tribe pages
-			// persistent CSS for icon support in < 3.8 is loaded in adminIcon()
 			if ( isset($current_screen->id) && true === strpos( $current_screen->id, 'tribe' ) ) {
 				wp_enqueue_style( self::POSTTYPE . '-admin', $resources_url . 'events-admin.css', array(), apply_filters( 'tribe_events_css_version', self::VERSION ) );
 			}
@@ -1728,40 +1726,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 			return $postTypeArgs;
 
-		}
-
-		/**
-		 * Sets icon css for WP < 3.8
-		 *
-		 * @return void
-		 * @author Jessica Yazbek
-		 **/
-		function adminIcon() {
-
-			global $wp_version;
-
-			if ( version_compare( $wp_version, 3.8 ) < 0 ) { ?>
-				<style type="text/css">
-					/* = Events Icon
-					=============================================*/
-					.events-cal #icon-edit {background:url(<?php echo $this->pluginUrl ?>resources/images/events-screen-icon.png) no-repeat 6px 3px; -webkit-background-size: 23px 25px; background-size: 23px 25px;}
-					#adminmenu #menu-posts-tribe_events div.wp-menu-image {background:url(<?php echo $this->pluginUrl ?>resources/images/menu.png) no-repeat 0 -32px; -webkit-background-size: 29px 64px; background-size: 29px 64px;}
-					#adminmenu #menu-posts-tribe_events:hover div.wp-menu-image, #adminmenu #menu-posts-tribe_events.wp-has-current-submenu div.wp-menu-image {background-position:0 0;}
-
-					/* = Retina Icon
-					=============================================*/
-					@media
-					only screen and (min--moz-device-pixel-ratio: 2),
-					only screen and (-o-min-device-pixel-ratio: 2/1),
-					only screen and (-webkit-min-device-pixel-ratio: 2),
-					only screen and (min-device-pixel-ratio: 2) {
-						#adminmenu #menu-posts-tribe_events div.wp-menu-image {
-							background-image: url(<?php echo $this->pluginUrl ?>resources/images/menu@2x.png);
-						}				}
-
-				</style>
-			<?php
-			}
 		}
 
 		/**
