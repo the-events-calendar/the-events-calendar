@@ -84,10 +84,6 @@ if (!class_exists('TribeEventsAPI')) {
 					$data['EventStartDate'] = date( TribeDateUtils::DBDATETIMEFORMAT, strtotime($data['EventStartDate'] . " " . $data['EventStartHour'] . ":" . $data['EventStartMinute'] . ":00 " . $data['EventStartMeridian']) );
 					$data['EventEndDate'] = date( TribeDateUtils::DBDATETIMEFORMAT, strtotime($data['EventEndDate'] . " " . $data['EventEndHour'] . ":" . $data['EventEndMinute'] . ":00 " . $data['EventEndMeridian']) );
 
-					// Is the end date intended to be midnight? Adjust to 00:00 the next day
-					if ( 'pm' === strtolower( $data['EventEndMeridian'] ) && '1200' === $data['EventEndHour'] . $data['EventEndMinute'] )
-						$data['EventEndDate'] = date( TribeDateUtils::DBDATETIMEFORMAT, strtotime( $data['EventEndDate'] ) + ( 60 * 60 * 12 ) );
-
 				} else {
 					$data['EventStartDate'] = date( TribeDateUtils::DBDATETIMEFORMAT, strtotime($data['EventStartDate'] . " " . $data['EventStartHour'] . ":" . $data['EventStartMinute'] . ":00") );
 					$data['EventEndDate'] = date( TribeDateUtils::DBDATETIMEFORMAT, strtotime($data['EventEndDate'] . " " . $data['EventEndHour'] . ":" . $data['EventEndMinute'] . ":00") );				
