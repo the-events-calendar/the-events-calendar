@@ -92,7 +92,9 @@ if( !class_exists('Tribe_Events_Month_Template')){
 		 **/
 		public function set_notices() {
 			global $wp_query;
+			$tribe = TribeEvents::instance();
 			$search_term = '';
+			$tax_term = '';
 
 			// setup a search term for query or via ajax
 			if ( ! empty( $wp_query->query_vars['s'] ) ) {
@@ -100,6 +102,11 @@ if( !class_exists('Tribe_Events_Month_Template')){
 			}
 			elseif ( ! empty($_REQUEST['tribe-bar-search'] ) ) {
 				$search_term = $_REQUEST['tribe-bar-search'];
+			}
+			
+			if ( is_tax( $tribe->get_event_taxonomy() ) ) {
+				$tax_term = get_term_by( 'slug', get_query_var( 'term' ), $tribe->get_event_taxonomy() );
+				$tax_term = esc_html( $tax_term->name );
 			}
 
 			// If there are no events we should be able to reduce the event_daily_counts array (the number of events in
@@ -110,6 +117,10 @@ if( !class_exists('Tribe_Events_Month_Template')){
 
 			if ( $no_events && ! empty($search_term)) {
 				TribeEvents::setNotice( 'event-search-no-results', sprintf( __( 'There were no results found for <strong>"%s"</strong> this month. Try searching next month.', 'tribe-events-calendar' ), esc_html( $search_term ) ) );
+			}
+			// if attempting to view a category archive.
+			elseif ( ! empty( $tax_term ) && $no_events ) {
+				TribeEvents::setNotice( 'events-not-found', sprintf( __('No matching events listed under %s. Go view the full calendar.', 'tribe-events-calendar'), $tax_term ) );
 			}
 			elseif ( $no_events ) {
 				TribeEvents::setNotice( 'event-search-no-results', __( 'There were no results found.', 'tribe-events-calendar' ) );

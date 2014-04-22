@@ -243,6 +243,10 @@ if( !class_exists('Tribe_Template_Factory') ) {
 			elseif ( ! empty( $tax_term ) && tribe_is_past() ) {
 				TribeEvents::setNotice( 'events-past-not-found', __('No previous events ', 'tribe-events-calendar') );
 			}
+			// if on any other view and attempting to view a category archive.
+			elseif ( ! empty( $tax_term ) ) {
+				TribeEvents::setNotice( 'events-not-found', sprintf( __('No matching events listed under %s. Go view the full calendar.', 'tribe-events-calendar'), $tax_term ) );
+			}
 			else {
 				TribeEvents::setNotice( 'event-search-no-results', __( 'There were no results found.', 'tribe-events-calendar' ) );
 			}
