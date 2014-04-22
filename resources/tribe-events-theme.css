@@ -113,6 +113,20 @@ h2.tribe-events-page-title,
  	display: none;
 }
 
+/* = Day Grid Template Styles
+   @ Template: day.php
+=============================================*/
+.tribe-events-day .tribe-events-day-time-slot h5 {
+	font-size: 21px;
+	margin: 1.5em 0 .25em;
+	background-color: transparent;
+	padding: 6px 10px;
+	background: #E0E0E0;
+	color:#fff;
+	text-align: center;
+	line-height: 1;
+}
+
 /* = List View Template Styles
    @ Template: list.php
 =============================================*/

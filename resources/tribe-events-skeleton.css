@@ -250,6 +250,19 @@ select.tribe-events-dropdown {
 	display: inline;
 }
 
+/* = Day Grid Template Styles
+   @ Template: day.php
+=============================================*/
+.tribe-events-day .tribe-events-day-time-slot h5 {
+	text-transform: uppercase;
+	font-weight: bold;
+	font-size: 14px;
+	margin: 2.5em 0 0;
+}
+.tribe-events-day .tribe-events-day-time-slot .vevent {
+	margin-left: 5%;
+}
+
 /* = Grid View & List View Template Styles
    @ Template: month.php & list.php
 =============================================*/
