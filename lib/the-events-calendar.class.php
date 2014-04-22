@@ -2853,25 +2853,18 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 * @return null|void
 		 */
 		public function save_venue_data( $postID = null, $post = null ) {
-
-			global $current_screen;
-
-			if ( ! empty( $current_screen ) && $current_screen->id == 'tribe_venue' ) { // single venue page
-				$_POST['Venue'] = isset($_POST['venue']) ? stripslashes_deep($_POST['venue']) : null;
+			// was a venue submitted from the single venue post editor?
+			if ( empty($_POST['post_ID']) || $_POST['post_ID'] != $postID || empty($_POST['venue']) ) {
+				return;
 			}
 
-			// Don't save the venue meta if there wasn't one submitted
-			if ( empty( $_POST['Venue'] ) )
+			// is the current user allowed to edit this venue?
+			if ( !current_user_can( 'edit_tribe_venue', $postID ) ) {
 				return;
+			}
 
-			// @TODO move this to the API function
-			if ( !current_user_can( 'edit_tribe_venues' ) )
-				return;
-
-			$data = stripslashes_deep ( $_POST['Venue'] );
-
+			$data = stripslashes_deep ( $_POST['venue'] );
 			TribeEventsAPI::updateVenue( $postID, $data );
-
 		}
 		/**
 		 * Get venue info.
@@ -2917,22 +2910,17 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 * @return null|void
 		 */
 		public function save_organizer_data( $postID = null, $post=null ) {
-
-			global $current_screen;
-
-			if ( ! empty( $current_screen ) && $current_screen->id == 'tribe_organizer' ) { // single organizer
-				$_POST['Organizer'] = isset($_POST['organizer']) ? stripslashes_deep($_POST['organizer']) : null;
+			// was an organizer submitted from the single organizer post editor?
+			if ( empty($_POST['post_ID']) || $_POST['post_ID'] != $postID || empty($_POST['organizer']) ) {
+				return;
 			}
-			// Don't save the organizer meta if there wasn't one submitted
-			if ( empty( $_POST['Organizer'] ) )
+
+			// is the current user allowed to edit this venue?
+			if ( !current_user_can( 'edit_tribe_organizer', $postID ) ) {
 				return;
+			}
 
-			// @TODO move this to the API function
-			if ( !current_user_can( 'edit_tribe_organizers' ) )
-				return;
-
-			$data = stripslashes_deep ( $_POST['Organizer'] );
-
+			$data = stripslashes_deep ( $_POST['organizer'] );
 			TribeEventsAPI::updateOrganizer( $postID, $data );
 		}
 
