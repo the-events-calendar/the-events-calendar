@@ -783,15 +783,20 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 * @since  3.0
 	 * @param int     $post_id
 	 * @param string  $size
+	 * @param bool $link
 	 * @return string
 	 */
-	function tribe_event_featured_image( $post_id = null, $size = 'full' ) {
+	function tribe_event_featured_image( $post_id = null, $size = 'full', $link = true ) {
 		if ( is_null( $post_id ) )
 			$post_id = get_the_ID();
 		$image_src = wp_get_attachment_image_src( get_post_thumbnail_id( $post_id ), $size );
 		$featured_image = '';
-		if ( !empty( $image_src ) ) {
+		
+		//if link is not specifically excluded, then include <a>
+		if ( !empty( $image_src ) && $link ) {
 			$featured_image .= '<div class="tribe-events-event-image"><a href="'. tribe_get_event_link() .'" title="'. get_the_title( $post_id ) .'"><img src="'.  $image_src[0] .'" title="'. get_the_title( $post_id ) .'" /></a></div>';
+		} elseif ( !empty( $image_src ) ) {
+			$featured_image .= '<div class="tribe-events-event-image"><img src="'.  $image_src[0] .'" title="'. get_the_title( $post_id ) .'" /></div>';
 		}
 		return apply_filters( 'tribe_event_featured_image', $featured_image, $post_id, $size, $image_src );
 	}
