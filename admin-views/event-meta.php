@@ -4,7 +4,7 @@ if ( empty($customFields) || !is_array($customFields) ) {
 } ?>
 <table id="event-meta" class="eventtable">
    <tbody>
-      <tr><td colspan="2" class="snp_sectionheader"><h4><?php _e('Additional Event Fields','tribe-events-calendar-pro'); ?></h4></td></tr>
+      <tr><td colspan="2" class="tribe_sectionheader"><h4><?php _e('Additional Event Fields','tribe-events-calendar-pro'); ?></h4></td></tr>
       <?php foreach ($customFields as $customField): ?>
          <?php $val = get_post_meta(get_the_ID(), $customField['name'], true) ?>
          <tr>
