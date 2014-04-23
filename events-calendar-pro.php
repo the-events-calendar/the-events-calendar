@@ -1415,7 +1415,20 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			$dates = ( get_post_meta( $postId, '_EventAllDay', true ) ) ? date( 'Ymd', $start_date ) . '/' . date( 'Ymd', $end_date ) : date( 'Ymd', $start_date ) . 'T' . date( 'Hi00', $start_date ) . '/' . date( 'Ymd', $end_date ) . 'T' . date( 'Hi00', $end_date );
 			$location = trim( $tribeEvents->fullAddressString( $postId ) );
 			$base_url = 'http://www.google.com/calendar/event';
-			$event_details = substr( get_the_content(), 0, 996 ) . '...';
+			
+			//Strip tags
+			$event_details = strip_tags( get_the_content() );			
+			
+			//Truncate Event Description and add permalink if greater than 996 characters
+			if ( strlen( $event_details ) > 996 ) {
+				$event_url = get_permalink();
+				$event_details = substr( $event_details, 0, 996 );
+			
+				//Only add the permalink if it's shorter than 900 characters, so we don't exceed the browser's URL limits
+				if ( strlen( $event_url ) < 900 ) {
+					$event_details .= ' (View Full Event Description Here: ' . $event_url . ')';
+				}
+			}
 
 			$params = array(
 				'action' => 'TEMPLATE',
