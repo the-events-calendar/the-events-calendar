@@ -27,7 +27,9 @@ class TribeEventsPro_RecurrenceInstance {
 
 		if ( !empty($this->post_id) ) { // update the existing post
 			$post_to_save['ID'] = $this->post_id;
-			//$post_to_save['guid'] = get_the_guid($this->post_id);
+			if ( get_post_status($this->post_id) == 'trash' ) {
+				$post_to_save['post_status'] = get_post_status($this->post_id);
+			}
 			$this->post_id = wp_update_post($post_to_save);
 			update_post_meta( $this->post_id, '_EventStartDate', $this->start_date->format(DateSeriesRules::DATE_FORMAT) );
 			update_post_meta( $this->post_id, '_EventEndDate', $end_date->format(DateSeriesRules::DATE_FORMAT) );

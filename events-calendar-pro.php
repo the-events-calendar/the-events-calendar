@@ -1124,6 +1124,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 							$query->set('p', -1);
 						} else {
 							$query->set('post__in', $all_ids);
+							$query->set('post_status', 'publish');
 						}
 						break;
 				}
