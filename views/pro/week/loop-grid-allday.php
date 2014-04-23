@@ -16,7 +16,7 @@ if ( !defined('ABSPATH') ) { die('-1'); } ?>
 <?php 
 
 tribe_events_week_set_loop_type( 'allday' );
-tribe_events_week_reset_the_day_map();
+
 $all_day_map = tribe_events_week_get_all_day_map();
 
 $all_day_array = array_filter( $all_day_map[0] );
