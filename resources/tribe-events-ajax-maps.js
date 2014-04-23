@@ -294,7 +294,7 @@
 						'max_pages': response.max_pages,
 						'tribe_paged': response.tribe_paged,
 						'timestamp': new Date().getTime()
-					};
+					};					
 
 					ts.initial_load = false;
 
@@ -312,6 +312,11 @@
 						} else {
 
 							$('.tribe-events-nav-next').show();
+						}
+						
+						//If no events are returned, then hide Header 
+						if (response.total_count == 0) {
+							$('#tribe-events-header').hide();
 						}
 					}
 
