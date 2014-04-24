@@ -9,6 +9,7 @@
  * @since 3.6
  */
 
+if ( ! tribe_address_exists() ) return;
 $phone = tribe_get_phone();
 ?>
 

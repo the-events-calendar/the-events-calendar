@@ -361,11 +361,20 @@ if ( class_exists('TribeEvents') ) {
 	/**
 	 * Return the single event meta
 	 *
+	 * @deprecated since 3.6
+	 * @todo remove in 3.7
 	 * @return string
 	 * @since 3.0
 	 * @author Jessica Yazbek
 	 **/
 	function tribe_events_single_event_meta() {
+		// Use the new template driven approach to rendering meta data unless the user opts to use the old system
+		if ( ! apply_filters( 'tribe_events_single_event_meta_legacy_mode', false ) ) {
+			tribe_get_template_part( 'modules/meta' );
+			return '';
+		}
+
+		// For users using the meta factory ("legacy mode")...
 		$event_id = get_the_ID();
 		$skeleton_mode = apply_filters( 'tribe_events_single_event_the_meta_skeleton', false, $event_id ) ;
 		$group_venue = apply_filters( 'tribe_events_single_event_the_meta_group_venue', false, $event_id );

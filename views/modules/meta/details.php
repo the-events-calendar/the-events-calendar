@@ -73,8 +73,13 @@
 
 		<?php endif ?>
 
-		<dt> <?php _e( 'Cost:', 'tribe-events-calendar' ) ?> </dt>
-		<dd class="tribe-events-event-cost"> <?php esc_html_e( tribe_get_formatted_cost() ) ?> </dd>
+		<?php
+		$cost = tribe_get_formatted_cost();
+		if ( ! empty( $cost ) ):
+		?>
+			<dt> <?php _e( 'Cost:', 'tribe-events-calendar' ) ?> </dt>
+			<dd class="tribe-events-event-cost"> <?php esc_html_e( tribe_get_formatted_cost() ) ?> </dd>
+		<?php endif ?>
 
 		<?php
 		echo tribe_get_event_categories( get_the_id(),array(
