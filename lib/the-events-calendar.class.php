@@ -22,7 +22,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		const VENUE_POST_TYPE = 'tribe_venue';
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
 		const PLUGIN_DOMAIN = 'tribe-events-calendar';
-		const VERSION = '3.4.1';
+		const VERSION = '3.5.1';
 		const FEED_URL = 'http://tri.be/category/products/feed/';
 		const INFO_API_URL = 'http://wpapi.org/api/plugin/the-events-calendar.php';
 		const WP_PLUGIN_URL = 'http://wordpress.org/extend/plugins/the-events-calendar/';
@@ -384,7 +384,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			add_action( 'tribe_settings_top', array( 'TribeEventsOptionsException', 'displayMessage') );
 			add_action( 'admin_enqueue_scripts', array( $this, 'addAdminScriptsAndStyles' ) );
 			add_filter( 'tribe_events_register_event_type_args', array( $this, 'setDashicon' ) );
-			add_action( 'admin_print_scripts', array( $this, 'adminIcon' ) );
 			add_action( 'plugins_loaded', array( $this, 'accessibleMonthForm'), -10 );
 			add_action( "trash_" . TribeEvents::VENUE_POST_TYPE, array($this, 'cleanupPostVenues'));
 			add_action( "trash_" . TribeEvents::ORGANIZER_POST_TYPE, array($this, 'cleanupPostOrganizers'));
@@ -447,6 +446,15 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 			// Upgrade material.
 			add_action( 'admin_init', array( $this, 'checkSuiteIfJustUpdated' ) );
+
+			// backwards compatibility
+			add_filter( 'tribe_get_single_option', array( $this, 'filter_multiday_cutoff' ), 10, 3 );
+
+			if ( defined('WP_LOAD_IMPORTERS') && WP_LOAD_IMPORTERS ) {
+				add_filter( 'wp_import_post_data_raw', array( $this, 'filter_wp_import_data_before' ), 10, 1 );
+				add_filter( 'wp_import_post_data_processed', array( $this, 'filter_wp_import_data_after' ), 10, 1 );
+			}
+
 		}
 
 		/**
@@ -1619,8 +1627,10 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			$resources_url = trailingslashit( $this->pluginUrl ) . 'resources/';
 			$vendor_url = trailingslashit( $this->pluginUrl ) . 'vendor/';
 
-			// admin stylesheet - always loaded for a few persistent things (e.g. icon)
-			wp_enqueue_style( self::POSTTYPE . '-admin', $resources_url . 'events-admin.css', array(), apply_filters( 'tribe_events_css_version', self::VERSION ) );
+			// admin stylesheet - only load admin stylesheet when on Tribe pages
+			if ( isset($current_screen->id) && true === strpos( $current_screen->id, 'tribe' ) ) {
+				wp_enqueue_style( self::POSTTYPE . '-admin', $resources_url . 'events-admin.css', array(), apply_filters( 'tribe_events_css_version', self::VERSION ) );
+			}
 
 			// settings screen
 			if (isset($current_screen->id) && $current_screen->id == 'settings_page_tribe-settings') {
@@ -1685,14 +1695,10 @@ if ( !class_exists( 'TribeEvents' ) ) {
 						break;
 					case self::VENUE_POST_TYPE :
 
-						wp_enqueue_style( self::VENUE_POST_TYPE.'-hide-visibility', trailingslashit( $this->pluginUrl ) . 'resources/hide-visibility.css', array(), apply_filters( 'tribe_events_css_version', self::VERSION ) );
-
 						// hook for other plugins
 						do_action('tribe_venues_enqueue');
 						break;
 					case self::ORGANIZER_POST_TYPE :
-
-						wp_enqueue_style( self::ORGANIZER_POST_TYPE.'-hide-visibility', trailingslashit( $this->pluginUrl ) . 'resources/hide-visibility.css', array(), apply_filters( 'tribe_events_css_version', self::VERSION ) );
 
 						// hook for other plugins
 						do_action('tribe_organizers_enqueue');
@@ -1716,40 +1722,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 			return $postTypeArgs;
 
-		}
-
-		/**
-		 * Sets icon css for WP < 3.8
-		 *
-		 * @return void
-		 * @author Jessica Yazbek
-		 **/
-		function adminIcon() {
-
-			global $wp_version;
-
-			if ( version_compare( $wp_version, 3.8 ) < 0 ) { ?>
-				<style type="text/css">
-					/* = Events Icon
-					=============================================*/
-					.events-cal #icon-edit {background:url(<?php echo $this->pluginUrl ?>resources/images/events-screen-icon.png) no-repeat 6px 3px; -webkit-background-size: 23px 25px; background-size: 23px 25px;}
-					#adminmenu #menu-posts-tribe_events div.wp-menu-image {background:url(<?php echo $this->pluginUrl ?>resources/images/menu.png) no-repeat 0 -32px; -webkit-background-size: 29px 64px; background-size: 29px 64px;}
-					#adminmenu #menu-posts-tribe_events:hover div.wp-menu-image, #adminmenu #menu-posts-tribe_events.wp-has-current-submenu div.wp-menu-image {background-position:0 0;}
-
-					/* = Retina Icon
-					=============================================*/
-					@media
-					only screen and (min--moz-device-pixel-ratio: 2),
-					only screen and (-o-min-device-pixel-ratio: 2/1),
-					only screen and (-webkit-min-device-pixel-ratio: 2),
-					only screen and (min-device-pixel-ratio: 2) {
-						#adminmenu #menu-posts-tribe_events div.wp-menu-image {
-							background-image: url(<?php echo $this->pluginUrl ?>resources/images/menu@2x.png);
-						}				}
-
-				</style>
-			<?php
-			}
 		}
 
 		/**
@@ -1803,6 +1775,26 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			echo "/* ]]> */\n";
 			echo "</script>\n";
 
+		}
+
+		/**
+		 * We used to store midnight as 12:00. It should be 00:00.
+		 *
+		 * @param string $cutoff
+		 * @param string $default
+		 * @param string $option
+		 *
+		 * @return string
+		 */
+		public function filter_multiday_cutoff( $cutoff, $default, $option ) {
+			if ( $option == 'multiDayCutoff' ) {
+				$value = explode(':', $cutoff);
+				if ( $value[0] == '12' ) {
+					$value[0] = '00';
+					$cutoff = implode(':', $value);
+				}
+			}
+			return $cutoff;
 		}
 
 		/**
@@ -2362,7 +2354,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		public function getLink	( $type = 'home', $secondary = false, $term = null ) {
 			// if permalinks are off or user doesn't want them: ugly.
 			if( '' == get_option('permalink_structure') ) {
-				return esc_url($this->uglyLink($type, $secondary));
+				return esc_url_raw($this->uglyLink($type, $secondary));
 			}
 
 			// account for semi-pretty permalinks
@@ -2387,38 +2379,38 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 			switch( $type ) {
 				case 'home':
-					$eventUrl = trailingslashit( esc_url($eventUrl) );
+					$eventUrl = trailingslashit( esc_url_raw($eventUrl) );
 					break;
 				case 'month':
 					if ( $secondary ) {
-						$eventUrl = trailingslashit( esc_url($eventUrl . $secondary) );
+						$eventUrl = trailingslashit( esc_url_raw($eventUrl . $secondary) );
 					} else {
-						$eventUrl = trailingslashit( esc_url($eventUrl . $this->monthSlug) );
+						$eventUrl = trailingslashit( esc_url_raw($eventUrl . $this->monthSlug) );
 					}
 					break;
 				case 'upcoming':
-					$eventUrl = trailingslashit( esc_url($eventUrl . $this->upcomingSlug) );
+					$eventUrl = trailingslashit( esc_url_raw($eventUrl . $this->upcomingSlug) );
 					break;
 				case 'past':
-					$eventUrl = trailingslashit( esc_url($eventUrl . $this->pastSlug) );
+					$eventUrl = trailingslashit( esc_url_raw($eventUrl . $this->pastSlug) );
 					break;
 				case 'dropdown':
-					$eventUrl = esc_url($eventUrl);
+					$eventUrl = esc_url_raw($eventUrl);
 					break;
 				case 'single':
 					global $post;
 					$p = $secondary ? $secondary : $post;
 					$link = trailingslashit(get_permalink($p));
-					$eventUrl = trailingslashit( esc_url($link) );
+					$eventUrl = trailingslashit( esc_url_raw($link) );
 					break;
 				case 'day':
 					// TODO: Move this to pro?
 					$date = strtotime($secondary);
 					$secondary = date('Y-m-d', $date);
-					$eventUrl = trailingslashit( esc_url($eventUrl . $secondary) );
+					$eventUrl = trailingslashit( esc_url_raw($eventUrl . $secondary) );
 					break;
 				default:
-					$eventUrl = esc_url($eventUrl);
+					$eventUrl = esc_url_raw($eventUrl);
 					break;
 			}
 			return apply_filters( 'tribe_events_getLink', $eventUrl, $type, $secondary, $term );
@@ -2856,26 +2848,19 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 * @param WP_Post $post The post object.
 		 * @return null|void
 		 */
-		public function save_venue_data( $postID = null, $post=null ) {
-
-			global $current_screen;
-
-			if ( ! empty( $current_screen ) && $current_screen->id == 'tribe_venue' ) { // single venue page
-				$_POST['Venue'] = isset($_POST['venue']) ? stripslashes_deep($_POST['venue']) : null;
+		public function save_venue_data( $postID = null, $post = null ) {
+			// was a venue submitted from the single venue post editor?
+			if ( empty($_POST['post_ID']) || $_POST['post_ID'] != $postID || empty($_POST['venue']) ) {
+				return;
 			}
 
-			// Don't save the venue meta if there wasn't one submitted
-			if ( empty( $_POST['Venue'] ) )
+			// is the current user allowed to edit this venue?
+			if ( !current_user_can( 'edit_tribe_venue', $postID ) ) {
 				return;
+			}
 
-			// @TODO move this to the API function
-			if ( !current_user_can( 'edit_tribe_venues' ) )
-				return;
-
-			$data = stripslashes_deep ( $_POST['Venue'] );
-
+			$data = stripslashes_deep ( $_POST['venue'] );
 			TribeEventsAPI::updateVenue( $postID, $data );
-
 		}
 		/**
 		 * Get venue info.
@@ -2921,22 +2906,17 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 * @return null|void
 		 */
 		public function save_organizer_data( $postID = null, $post=null ) {
-
-			global $current_screen;
-
-			if ( ! empty( $current_screen ) && $current_screen->id == 'tribe_organizer' ) { // single organizer
-				$_POST['Organizer'] = isset($_POST['organizer']) ? stripslashes_deep($_POST['organizer']) : null;
+			// was an organizer submitted from the single organizer post editor?
+			if ( empty($_POST['post_ID']) || $_POST['post_ID'] != $postID || empty($_POST['organizer']) ) {
+				return;
 			}
-			// Don't save the organizer meta if there wasn't one submitted
-			if ( empty( $_POST['Organizer'] ) )
+
+			// is the current user allowed to edit this venue?
+			if ( !current_user_can( 'edit_tribe_organizer', $postID ) ) {
 				return;
+			}
 
-			// @TODO move this to the API function
-			if ( !current_user_can( 'edit_tribe_organizers' ) )
-				return;
-
-			$data = stripslashes_deep ( $_POST['Organizer'] );
-
+			$data = stripslashes_deep ( $_POST['organizer'] );
 			TribeEventsAPI::updateOrganizer( $postID, $data );
 		}
 
@@ -3802,7 +3782,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 * @return null
 		 */
 		public function addToolbarItems() {
-			if ( !defined( 'TRIBE_DISABLE_TOOLBAR_ITEMS' ) || !TRIBE_DISABLE_TOOLBAR_ITEMS ) {
+			if ( ( !defined( 'TRIBE_DISABLE_TOOLBAR_ITEMS' ) || !TRIBE_DISABLE_TOOLBAR_ITEMS ) && !is_network_admin() ) {
 				global $wp_admin_bar;
 
 				$wp_admin_bar->add_menu( array(
@@ -3854,6 +3834,23 @@ if ( !class_exists( 'TribeEvents' ) ) {
 						'title' => __( 'Edit Events', 'tribe-events-calendar' ),
 						'href' => trailingslashit( get_admin_url() ) . 'edit.php?post_type=' . self::POSTTYPE,
 						'parent' => 'tribe-events-group'
+					) );
+				}
+
+				if ( current_user_can( 'publish_tribe_events' ) ) {
+					$import_node = $wp_admin_bar->get_node( 'tribe-events-import' );
+					if ( !is_object( $import_node ) ) {
+						$wp_admin_bar->add_menu( array(
+							'id' => 'tribe-events-import',
+							'title' => __( 'Import', 'tribe-events-calendar' ),
+							'parent' => 'tribe-events-import-group'
+						) );
+					}
+					$wp_admin_bar->add_menu( array(
+						'id' => 'tribe-csv-import',
+						'title' => __( 'CSV', 'tribe-events-calendar' ),
+						'href' => add_query_arg( array('post_type' => TribeEvents::POSTTYPE, 'page' => 'events-importer'), admin_url('edit.php') ),
+						'parent' => 'tribe-events-import'
 					) );
 				}
 
@@ -4138,6 +4135,49 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			}
 
 			return $query;
+		}
+
+		/**
+		 * If recurring events are imported using the WP importer, WP will flag
+		 * each instance as a duplicate. Here we alter the title so that
+		 * WP sees them as distinct posts.
+		 *
+		 * @param array $post
+		 * @return array
+		 * @see TribeEvents::filter_wp_import_data_after()
+		 */
+		public function filter_wp_import_data_before( $post ) {
+			if ( $post['post_type'] == TribeEvents::POSTTYPE && !empty($post['post_parent']) ) {
+				$start_date = '';
+				if ( isset($post['postmeta']) && is_array($post['postmeta']) ) {
+					foreach ( $post['postmeta'] as $meta ) {
+						if ( $meta['key'] == '_EventStartDate' ) {
+							$start_date = $meta['value'];
+							break;
+						}
+					}
+				}
+				if ( !empty($start_date) ) {
+					$post['post_title'] .= '[tribe_start_date]'.$start_date.'[/tribe_start_date]';
+				}
+			}
+			return $post;
+		}
+
+
+		/**
+		 * Event titles have been modified by filter_wp_import_data_before().
+		 * This puts them back how they belong.
+		 *
+		 * @param array $post
+		 * @return array
+		 * @see TribeEvents::filter_wp_import_data_before()
+		 */
+		public function filter_wp_import_data_after( $post ) {
+			if ( $post['post_type'] == TribeEvents::POSTTYPE ) {
+				$post['post_title'] = preg_replace('#\[tribe_start_date\].*?\[\/tribe_start_date\]#', '', $post['post_title']);
+			}
+			return $post;
 		}
 
 		/* VIEWS AJAX CALLS */

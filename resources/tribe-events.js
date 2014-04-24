@@ -396,9 +396,14 @@ try {
 		 * @desc tribe_ev.fn.execute_resize groups together functions that should execute at the end of the window resize event.
 		 */
 		execute_resize: function () {
+
+			var prev_width = tribe_ev.data.v_width;
 			tribe_ev.fn.update_viewport_variables();
-			tribe_ev.fn.mobile_class();
-			$(tribe_ev.events).trigger('tribe_ev_resizeComplete');
+			if(prev_width !== tribe_ev.data.v_width){
+				tribe_ev.fn.mobile_class();
+				$(tribe_ev.events).trigger('tribe_ev_resizeComplete');
+			}
+
 		},
         /**
 		 * @function tribe_ev.fn.get_base_url
@@ -500,7 +505,7 @@ try {
 		mobile_class: function(){
 			var $body = $('body');
 
-			if(tribe_ev.data.v_width < tribe_ev.data.mobile_break)
+			if(tribe_ev.data.v_width <= tribe_ev.data.mobile_break)
 				$body.addClass('tribe-mobile');
 			else
 				$body.removeClass('tribe-mobile');
@@ -764,7 +769,29 @@ try {
 		 */
 		url_path: function (url) {
 			return url.split("?")[0];
-		}
+		},
+		/**
+		 * @function tribe_ev.fn.equal_height
+		 * @since 3.5.1
+		 * @desc tribe_ev.fn.equal_height gets the tallest height of a set of elements and sets them to the same height.
+		 * @param {Object} $group The group of elements to get and set tallest height from.
+		 * @example <caption>Get and set the height to the tallest of a set of elements.</caption>
+		 * $('#tribe-events .columns').tribe_ev.fn.equal_height();
+		 */
+		equal_height: function ($group) {
+			var tallest = 0;
+			$group.css('height', 'auto');
+			$group.each(function () {
+				var this_height = $(this).outerHeight();
+				if (this_height > tallest) {
+					tallest = this_height;
+				}
+			});
+			setTimeout(function() {
+				$group.css('height', tallest);
+			}, 100);	
+		}	
+		
 	};
 
 	/**

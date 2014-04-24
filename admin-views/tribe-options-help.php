@@ -75,9 +75,9 @@ $premium_add_ons[] = array(
     );
 
     $premium_add_ons[] = array(
-        'title' => __('The Events Calendar: Filter Bar (coming early 2014)', 'tribe-events-calendar'),
-		// 'link' => apply_filters('tribe_help_tab_wootickets_tribe_url', TribeEvents::$tribeUrl . 'shop/faceted-filters/' . $ga_query_string), // TODO make sure this link is correct
-);
+        'title' => __('The Events Calendar: Filter Bar', 'tribe-events-calendar'),
+		'link' => apply_filters('tribe_help_tab_filterbar_tribe_url', 'http://m.tri.be/hu'),
+	);
 $premium_add_ons = (array) apply_filters( 'tribe_help_tab_premium_addons', $premium_add_ons ); // TODO should we replace this with an RSS feed??
 
 

@@ -402,7 +402,6 @@ jQuery(document).ready(function($) {
 		}
 
 		create_view_array();
-		set_selected_views();
 
 		$tribe_views
 			.on('change', 'input:checkbox', function () {

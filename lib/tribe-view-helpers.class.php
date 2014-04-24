@@ -446,6 +446,10 @@ if (!class_exists('TribeEventsViewHelpers')) {
 				}
 				$hours[$hour] = $hour;
 			}
+
+			// In a 12hr context lets put 12 at the start (so the sequence will run 12, 1, 2, 3 ... 11)
+			if ( 12 === $rangeMax ) array_unshift( $hours, array_pop( $hours ) );
+
 			return $hours;
 		}
 

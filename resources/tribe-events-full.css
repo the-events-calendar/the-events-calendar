@@ -264,8 +264,15 @@ a.tribe-events-gcal {
 }
 
 /* Remove unused header / footer elements on non-event page template */
-header.entry-header,
-footer.entry-meta {
+.events-archive header.entry-header,
+.events-archive footer.entry-meta,
+.single-tribe_events header.entry-header,
+.single-tribe_events footer.entry-meta,
+.single-tribe_venue  header.entry-header,
+.single-tribe_venue footer.entry-meta,
+.single-tribe_organizer header.entry-header,
+.single-tribe_organizer footer.entry-meta
+ {
 	display: none;
 }
 

@@ -21,7 +21,6 @@ class TribeEventsImporter_FileImporter_Organizers extends TribeEventsImporter_Fi
 	protected function create_post( array $record ) {
 		$organizer = $this->build_organizer_array( $record );
 		$id = TribeEventsAPI::createOrganizer( $organizer );
-		TribeEventsAPI::updateOrganizer( $id, $organizer );
 		return $id;
 	}
 

@@ -1,63 +1,56 @@
-# The Events Calendar by Modern Tribe, Inc.
-# Copyright (C) Modern Tribe, Inc.
-# This file is distributed under the same license as the The Events Calendar package.
 msgid ""
 msgstr ""
-"Project-Id-Version: The Events Calendar 3.5\n"
+"Project-Id-Version: The Events Calendar 3.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-03-27 10:09-0800\n"
-"PO-Revision-Date: 2014-04-21 17:09-0800\n"
+"POT-Creation-Date: 2014-03-25 10:52-0800\n"
+"PO-Revision-Date: 2014-03-25 11:02-0800\n"
 "Last-Translator: \n"
-"Language-Team: Modern Tribe <pro@tri.be>\n"
-"Language: cs_CZ\n"
+"Language-Team: Modern Tribe, Inc. <support@tri.be>\n"
+"Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Poedit-SourceCharset: UTF-8\n"
-"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:1,2,4c;_n_noop:1,2;"
-"_nx_noop:1,2,3c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;"
-"esc_html_x:1,2c\n"
-"X-Poedit-Basepath: ./\n"
-"X-Textdomain-Support: yes\n"
 "X-Generator: Poedit 1.6.4\n"
+"X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-SearchPath-0: ..\n"
 
 #: ../admin-views/app-shop.php:4
 msgid "Tribe Event Add-Ons"
-msgstr "Tribe doplňky pro akce"
+msgstr "Tribe Event доповнення"
 
 #: ../admin-views/app-shop.php:50
 msgid "Version"
-msgstr "Verze"
+msgstr "Версія"
 
 #: ../admin-views/app-shop.php:53
 msgid "Last Update"
-msgstr "Poslední aktualizace"
+msgstr "Останнє оновлення"
 
 #: ../admin-views/event-sidebar-options.php:11
 msgid "Hide From Event Listings"
-msgstr "Skrýt ve výpisu akcí"
+msgstr "Сховати зі списку подій"
 
 #: ../admin-views/event-sidebar-options.php:12
 msgid "Sticky in Calendar View"
-msgstr "Zvýraznit v kalendáři"
+msgstr "Від календаря стікерами"
 
 #: ../admin-views/events-audit-trail.php:41
 msgid "Auditing Information"
-msgstr "Informace o auditu"
+msgstr "Перевірочна інформація"
 
 #: ../admin-views/events-audit-trail.php:47
 msgid "Created by:"
-msgstr "Vytvořil:"
+msgstr "Зроблено:"
 
 #: ../admin-views/events-audit-trail.php:51
 msgid "Audit Trail:"
-msgstr "Auditní stopa:"
+msgstr "Перевірити тріал:"
 
 #: ../admin-views/events-meta-box.php:26
 msgid "Event Time &amp; Date"
-msgstr "Datum a čas akce"
+msgstr "Час події &amp; Дата"
 
 #: ../admin-views/events-meta-box.php:32
 msgid ""
@@ -65,69 +58,65 @@ msgid ""
 "update all future events.  If you did not mean to change all events, then "
 "please refresh the page."
 msgstr ""
-"Změnili jste pravidla pro opakování této akce.  Uložením této akce "
-"zaktualizujete i všechny budoucí akce.  Pokud jste nechtěli měnit všechny "
-"akce, pak prosím obnovte tuto stránku."
+"Ви змінили правила повторення цієї події. Збереження подія оновить всі "
+"майбутні події. Якщо ти не хотів, щоб змінилися всі події, то, будь ласка, "
+"оновіть сторінку."
 
-#
 #: ../admin-views/events-meta-box.php:35
 msgid "All Day Event:"
-msgstr "Celodenní akce:"
+msgstr "Подія на весь день:"
 
-#
 #: ../admin-views/events-meta-box.php:39
 msgid "Start Date &amp; Time:"
-msgstr "Datum a čas zahájení:"
+msgstr "Дата початку &amp; Час:"
 
 #: ../admin-views/events-meta-box.php:42 ../admin-views/events-meta-box.php:63
 msgid "YYYY-MM-DD"
-msgstr "RRRR-MM-DD"
+msgstr "YYYY-MM-DD"
 
-#
 #: ../admin-views/events-meta-box.php:60
 msgid "End Date &amp; Time:"
-msgstr "Datum a čas ukončení:"
+msgstr "Закінчення Дата та Час"
 
 #: ../admin-views/events-meta-box.php:85
 msgid "Event Location Details"
-msgstr "Údaje o místě konání akce"
+msgstr "Деталі місця"
 
 #: ../admin-views/events-meta-box.php:93
 msgid "Event Organizer Details"
-msgstr "Údaje o pořadateli akce"
+msgstr "Деталі організатора"
 
-#
 #: ../admin-views/events-meta-box.php:101
 msgid "Event Website"
-msgstr "Webová stránka akce"
+msgstr "Сайт події"
 
 #: ../admin-views/events-meta-box.php:104
 msgid "URL:"
-msgstr "URL adresa:"
+msgstr "URL:"
 
 #: ../admin-views/events-meta-box.php:115
 #: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:61
 msgid "Event Cost"
-msgstr "Vstupné na akci"
+msgstr "Ціна події"
 
 #: ../admin-views/events-meta-box.php:118
 msgid "Currency Symbol:"
-msgstr "Symbol měny:"
+msgstr "Символ валюти:"
 
 #: ../admin-views/events-meta-box.php:134
 #: ../public/advanced-functions/meta.php:319
 msgid "Cost:"
-msgstr "Cena:"
+msgstr "Ціна:"
 
 #: ../admin-views/events-meta-box.php:139
 msgid "Enter a 0 for events that are free or leave blank to hide the field."
 msgstr ""
-"Zadejte hodnotu 0 pro akce, které jsou zdarma. Pokud nic nezadáte, pole bude "
-"skryto."
+"Введіть 0 для подій, які є безкоштовними або залиште поле порожнім, щоб "
+"приховати поле."
 
 #: ../admin-views/organizer-meta-box.php:12
 msgid "Organizer Name:"
-msgstr "Jméno pořadatele:"
+msgstr "Назва організатора:"
 
 #: ../admin-views/organizer-meta-box.php:19
 #: ../admin-views/tickets/attendees.php:39
@@ -135,7 +124,7 @@ msgstr "Jméno pořadatele:"
 #: ../public/advanced-functions/meta.php:407
 #: ../public/advanced-functions/meta.php:469
 msgid "Phone:"
-msgstr "Telefon:"
+msgstr "Телефон:"
 
 #: ../admin-views/organizer-meta-box.php:23
 #: ../admin-views/tickets/attendees.php:45
@@ -144,12 +133,12 @@ msgstr "Telefon:"
 #: ../public/advanced-functions/meta.php:433
 #: ../public/advanced-functions/meta.php:495
 msgid "Website:"
-msgstr "Webová stránka:"
+msgstr "Сайт:"
 
 #: ../admin-views/organizer-meta-box.php:27
 #: ../public/advanced-functions/meta.php:482
 msgid "Email:"
-msgstr "Email:"
+msgstr "Е-mail:"
 
 #: ../admin-views/organizer-meta-box.php:28
 msgid ""
@@ -157,115 +146,109 @@ msgid ""
 "obfuscate\">obfuscating</a> any e-mail address published on your site to "
 "best avoid it getting harvested by spammers."
 msgstr ""
-"Aby váš web nebyl zdrojem pro spammery, je vhodné <a href=\"http://wordpress."
-"org/plugins/tags/obfuscate\">maskovat</a> všechny emailové adresy zveřejněné "
-"na vašich stránkách."
+"Ви можете розглянути <a href=\"http://wordpress.org/plugins/tags/obfuscate"
+"\"> Приховування </> будь-якої адресу електронної пошти, опублікованими на "
+"вашому сайті, щоб найкращим чином уникнути його отримання спамерами."
 
 #: ../admin-views/tickets/attendees.php:9 ../admin-views/tickets/list.php:41
 #: ../lib/tickets/tribe-tickets-pro.php:73
 msgid "Attendees"
-msgstr "Účastníci"
+msgstr "Учасники"
 
-#
 #: ../admin-views/tickets/attendees.php:14
 msgid "Event Summary"
-msgstr "Přehled akce"
+msgstr "Сводка події"
 
-#
 #: ../admin-views/tickets/attendees.php:22
 msgid "Event Details"
-msgstr "Údaje o akci"
+msgstr "Деталі події"
 
 #: ../admin-views/tickets/attendees.php:24
 msgid "Start Date / Time:"
-msgstr "Datum / čas zahájení:"
+msgstr "Дата/Час початку:"
 
 #: ../admin-views/tickets/attendees.php:26
 msgid "End Date / Time:"
-msgstr "Datum / čas ukončení:"
+msgstr "Дата/Час завершення:"
 
 #: ../admin-views/tickets/attendees.php:34
 msgid "Venue:"
-msgstr "Místo konání:"
+msgstr "Місце:"
 
-#
 #: ../admin-views/tickets/attendees.php:52
 msgid "Ticket Sales"
-msgstr "Tržby za vstupenky"
+msgstr "Продаж квитків"
 
 #: ../admin-views/tickets/attendees.php:64 ../admin-views/tickets/list.php:67
 #, php-format
 msgid "Sold %d"
-msgstr "Prodáno %d"
+msgstr "Продано %d"
 
 #: ../admin-views/tickets/attendees.php:66 ../admin-views/tickets/list.php:69
 #, php-format
 msgid "Sold %d of %d"
-msgstr "Prodáno %d z celkem %d"
+msgstr "Продано %d з %d"
 
-#
 #: ../admin-views/tickets/attendees.php:81
 msgid "Tickets sold:"
-msgstr "Prodáno vstupenek:"
+msgstr "Квитки продаються:"
 
 #: ../admin-views/tickets/attendees.php:85
 msgid "Checked in:"
-msgstr "Zaškrtnutých:"
+msgstr "Перевірено в:"
 
 #: ../admin-views/tickets/attendees.php:105
 msgid "Send the attendee list by email"
-msgstr "Poslat seznam účastníků emailem"
+msgstr "Надіслати до списку учасників електронною поштою"
 
-#
 #: ../admin-views/tickets/attendees.php:109
 msgid "Select a User:"
-msgstr "Vybrat uživatele:"
+msgstr "Виберіть користувача:"
 
 #: ../admin-views/tickets/attendees.php:110
 msgid "Select..."
-msgstr "Vybrat"
+msgstr "Виберіть..."
 
 #: ../admin-views/tickets/attendees.php:112
 msgid "or"
-msgstr "nebo"
+msgstr "або"
 
-#
 #: ../admin-views/tickets/attendees.php:114
 msgid "Email Address:"
-msgstr "Emailová adresa:"
+msgstr "Електронна адреса:"
 
 #: ../admin-views/tickets/list.php:21
 msgid "Edit"
-msgstr "Upravit"
+msgstr "Редагувати"
 
 #: ../admin-views/tickets/list.php:22
 msgid "Delete"
-msgstr "Smazat"
+msgstr "Видалити"
 
 #: ../admin-views/tickets/list.php:24
 #, php-format
 msgid "Edit in %s"
-msgstr "Upravit v %s"
+msgstr "Редагувати у %s"
 
 #: ../admin-views/tickets/list.php:27
 msgid "View"
-msgstr "Zobrazit"
+msgstr "Перегляд"
 
 #: ../admin-views/tickets/list.php:41 ../lib/tickets/tribe-tickets-pro.php:73
 msgid "See who purchased tickets to this event"
-msgstr "Kdo si koupil vstupenky na tuto akci"
+msgstr "Дивіться, хто придбав квитки на цю подію"
 
 #: ../admin-views/tickets/meta-box.php:21
 msgid ""
 "This event was created using Community Events. Are you sure you want to sell "
 "tickets for it?"
 msgstr ""
-"Tato akce byla vytvořena pomocí Komunitních akcí. Opravdu si přejete "
-"prodávat vstupenky na tuto akci?"
+"Ця подія була створена за допомогою громадських заходів. Ви впевнені, що "
+"хочете продати квитки на нього?"
 
 #: ../admin-views/tickets/meta-box.php:32
 msgid "Upload image for the ticket header"
-msgstr "Nahrát obrázek pro záhlaví vstupenky"
+msgstr "Додати зображення для заголовка квитка"
 
 #: ../admin-views/tickets/meta-box.php:33
 msgid ""
@@ -273,85 +256,81 @@ msgid ""
 "then scaled for mobile. If you would like \"retina\" support use an image "
 "sized to 1160px wide."
 msgstr ""
-"Maximální velikost obrázku v emailu bude 580 pixelů na šířku s volnou výškou "
-"a pro mobilní zařízení bude obrázek následně zmenšen. Pokud chcete mít "
-"podporu pro \"Retina\" displej, použijte obrázek široký 1160 pixelů."
+"Максимальний розмір зображення в електронній пошті буде 580px в ширину і "
+"будь-якої висоти, а потім масштабується для мобільних пристроїв. Якщо ви "
+"хотіли б використовувати \"retina\"підтримка зображень розміром до 1160px "
+"завширшки."
 
-#
 #: ../admin-views/tickets/meta-box.php:36
 msgid "Select an Image"
-msgstr "Zvolit obrázek"
+msgstr "Вибрати зображення"
 
 #: ../admin-views/tickets/meta-box.php:44
 msgid "Remove"
-msgstr "Odstranit"
+msgstr "Видалити"
 
-#
 #: ../admin-views/tickets/meta-box.php:62
 #: ../admin-views/tickets/meta-box.php:72
 msgid "Add new ticket"
-msgstr "Přidat novou vstupenku"
+msgstr "Додати новий квиток"
 
-#
 #: ../admin-views/tickets/meta-box.php:73
 msgid "Edit ticket"
-msgstr "Upravit vstupenku"
+msgstr "Редагувати квиток"
 
 #: ../admin-views/tickets/meta-box.php:79
 msgid "Sell using:"
-msgstr "Prodej pomocí:"
+msgstr "Продаємо за допомогою:"
 
-#
 #: ../admin-views/tickets/meta-box.php:96
 msgid "Ticket Name:"
-msgstr "Název vstupenky:"
+msgstr "Назва квитка:"
 
 #: ../admin-views/tickets/meta-box.php:103
 msgid "Ticket Description:"
-msgstr "Popis vstupenky:"
+msgstr "Опис квитка:"
 
 #: ../admin-views/tickets/meta-box.php:112
 msgid "Price:"
-msgstr "Cena:"
+msgstr "Ціна:"
 
 #: ../admin-views/tickets/meta-box.php:118
 msgid "(0 or empty for free tickets)"
-msgstr "(pro vstupné zdarma ponechte prázdné nebo zadejte 0)"
+msgstr "(0 або пусто для безкоштовної події)"
 
-#
 #: ../admin-views/tickets/meta-box.php:124
 msgid "Start sale:"
-msgstr "Začátek prodeje:"
+msgstr "Початок продажу:"
 
-#
 #: ../admin-views/tickets/meta-box.php:148
 msgid "End sale:"
-msgstr "Konec prodeje:"
+msgstr "Кінець продажу:"
 
 #: ../admin-views/tickets/meta-box.php:170
 msgid ""
 "When will ticket sales occur? If you don't set a start/end date for sales, "
 "tickets will be available from now until the event ends."
 msgstr ""
-"Kdy nastane prodej vstupenek? Pokud nenastavíte začátek a konec prodeje, "
-"budou vstupenky k dispozici od této chvíle až do ukončení akce."
+"Коли відбудеться продажу квитків? Якщо ви не встановите час початку / кінця "
+"дату продажу, квитки будуть доступні з сьогоднішнього дня і до закінчення "
+"події."
 
 #: ../admin-views/tickets/meta-box.php:182
+#, fuzzy
 msgid "Save this ticket"
-msgstr "Uložit vstupenku"
+msgstr "Встановити як заголовок квитка"
 
 #: ../admin-views/tribe-options-display.php:4
 msgid "Default Events Template"
-msgstr "Výchozí šablona akcí"
+msgstr "Шаблон події за замовчуванням"
 
 #: ../admin-views/tribe-options-display.php:5
 msgid "Default Page Template"
-msgstr "Výchozí šablona stránky"
+msgstr "Шаблон сторінки за замовчуванням"
 
-#
 #: ../admin-views/tribe-options-display.php:29
 msgid "Display Settings"
-msgstr "Nastavení zobrazení"
+msgstr "Налаштування показу"
 
 #: ../admin-views/tribe-options-display.php:34
 #, php-format
@@ -364,160 +343,151 @@ msgid ""
 "create a new view? Grab a copy of the <a href=\"%s\">Sample Agenda View "
 "plugin from Github</a></p>"
 msgstr ""
-"<p>Následující nastavení ovlivňuje zobrazování vašeho kalendáře. Pokud se "
-"vám něco nezobrazuje správně, zkuste přepnout mezi třemi dodanými styly nebo "
-"zvolte šablonu pro stránky z vámi použité WordPress šablony.</p><p>Mohou "
-"nastat situace, kdy žádná z hotových šablon nebude úplně perfektní. "
-"Podívejte se na <a href=\"%s\">naší příručku šablonáře</a> s pokyny pro "
-"uživatelské úpravy. Chcete si vytvořit nový typ zobrazení? Stáhněte si "
-"vzorový plugin <a href=\"%s\">Sample Agenda View</a> z Github</p>"
+"<p>Наведені нижче параметри управляють відображенням календаря. Якщо речі не "
+"виглядають вірно, спробуйте переключитися між трьома стилями листів або "
+"виберіть шаблон сторінки з вашої теми.</p><p>Нажаль поки що бувають "
+"ситуації, коли не коробочний варіант шаблону не є на 100&#37 ідеальним. "
+"Перевірте наш <a href=\"%s\">посібник по темах в</a> Інструкції з "
+"користувальницьких модифікацій. Хочете створити новий шаблон? Візьміть копію "
+"<a href=\"%s\">Sample Agenda View plugin на Github</a></p>"
 
-#
 #: ../admin-views/tribe-options-display.php:49
 msgid "Basic Template Settings"
-msgstr "Základní nastavení šablony"
+msgstr "Основні налаштування шаблону"
 
-#
 #: ../admin-views/tribe-options-display.php:53
 msgid "Default stylesheet used for events templates"
-msgstr "Výchozí CSS styl použitý pro šablony akcí"
+msgstr "Стиль за замовчуванням, що використовуэться для шаблону події"
 
 #: ../admin-views/tribe-options-display.php:56
 msgid "Skeleton Styles"
-msgstr "Základní styly"
+msgstr "Стиль, що налаштовується"
 
 #: ../admin-views/tribe-options-display.php:58
 msgid ""
 "Only includes enough css to achieve complex layouts like calendar and week "
 "view."
 msgstr ""
-"Zahrnují pouze CSS pro dosažení složitějších rozvržení prvků jako je "
-"kalendář a týdenní přehled."
+"Містить лише досить CSS для досягнення складні макети, таких, як календар і "
+"тиждень."
 
 #: ../admin-views/tribe-options-display.php:60
 msgid "Full Styles"
-msgstr "Úplné styly"
+msgstr "Повні стилі"
 
 #: ../admin-views/tribe-options-display.php:62
 msgid "More detailed styling, tries to grab styles from your theme."
-msgstr "Detailnější stylování, pokusí se převzít styly z vaší šablony."
+msgstr "Більш детальний стиль, спробуйте використати стилі з вашої теми."
 
-#
 #: ../admin-views/tribe-options-display.php:64
 msgid "Tribe Events Styles"
-msgstr "Tribe Events styly"
+msgstr "Стилі від Tribe Events"
 
 #: ../admin-views/tribe-options-display.php:66
 msgid "A fully designed and styled theme for your events pages."
-msgstr "Plně navržená a nastylovaná šablona pro stránky vašich akcí."
+msgstr "Повністью дезайнерські та стилізовані теми для ваших подій."
 
-#
 #: ../admin-views/tribe-options-display.php:73
 msgid "Events template"
-msgstr "Šablona akcí"
+msgstr "Стилі подій"
 
 #: ../admin-views/tribe-options-display.php:74
 msgid ""
 "Choose a page template to control the appearance of your calendar and event "
 "content."
 msgstr ""
-"Vyberte šablonu stránky, která ovlivní vzhled vašeho kalendáře a obsahu akce."
+"Виберіть шаблон сторінки, щоб контролювати зовнішній вигляд вашого календаря "
+"і змісту подій."
 
 #: ../admin-views/tribe-options-display.php:82
 msgid "Enable event views"
-msgstr "Povolit zobrazení akcí"
+msgstr "Включити перегляд подій"
 
 #: ../admin-views/tribe-options-display.php:83
 msgid "You must select at least one view."
-msgstr "Musíte vybrat alespoň jedno zobrazení."
+msgstr "Ви повинні вибрати хоча б один вид."
 
-#
 #: ../admin-views/tribe-options-display.php:90
 msgid "Default view"
-msgstr "Výchozí zobrazení"
+msgstr "Прегляд за замовчуванням"
 
 #: ../admin-views/tribe-options-display.php:98
 msgid "Disable the Event Search Bar"
-msgstr "Vypnout vyhledávací lištu akcí"
+msgstr "Відключення панелі пошуку"
 
 #: ../admin-views/tribe-options-display.php:99
 msgid "Check this to use the classic header."
-msgstr "Zaškrtněte tuto volbu pokud chcete použít klasickou hlavičku."
+msgstr "Переконайтеся що використовувається класичний заголовок."
 
 #: ../admin-views/tribe-options-display.php:105
 msgid "Month view events per day"
-msgstr "Počet akcí na den v měsíčním přehledu"
+msgstr "Місячні події по днях"
 
 #: ../admin-views/tribe-options-display.php:106
 msgid "Allow more than the default 3 events per day in month view."
-msgstr "Povolit více než výchozí 3 akce na den v měsíčním přehledu."
+msgstr "Дозволити більше чим, по умовчанням 3 подій в день на місяць бачити."
 
-#
 #: ../admin-views/tribe-options-display.php:113
 msgid "Advanced Template Settings"
-msgstr "Rozšířená nastavení šablony"
+msgstr "Розширені налаштування шаблону"
 
-#
 #: ../admin-views/tribe-options-display.php:117
 msgid "Add HTML before event content"
-msgstr "Přidat HTML kód před obsah akce"
+msgstr "Додати HTML до контенту події"
 
 #: ../admin-views/tribe-options-display.php:118
 msgid ""
 "If you are familiar with HTML, you can add additional code before the event "
 "template. Some themes may require this to help with styling or layout."
 msgstr ""
-"Pokud se vyznáte v HTML, můžete zde přidat dodatečný kód před šablonu akce. "
-"Některé šablony mohou toto vyžadovat jako pomoc při stylování nebo rozložení "
-"prvků."
+"Якщо ви знайомі з HTML, ви можете додати додатковий код перед шаблоном "
+"подій. Деякі теми можуть потребувати це, щоб допомогти з дизайном або "
+"макетом."
 
-#
 #: ../admin-views/tribe-options-display.php:123
 msgid "Add HTML after event content"
-msgstr "Přidat HTML kód za obsah akce"
+msgstr "Додати HTML після змісту подій"
 
 #: ../admin-views/tribe-options-display.php:124
 msgid ""
 "If you are familiar with HTML, you can add additional code after the event "
 "template. Some themes may require this to help with styling or layout."
 msgstr ""
-"Pokud se vyznáte v HTML, můžete zde přidat dodatečný kód za šablonu akce. "
-"Některé šablony mohou toto vyžadovat jako pomoc při stylování nebo rozložení "
-"prvků."
+"Якщо ви знайомі з HTML, ви можете додати додатковий код після шаблону подій. "
+"Деякі теми можуть потребувати це, щоб допомогти з дизайном або макетом."
 
 #: ../admin-views/tribe-options-general.php:14
 msgid "Finding & extending your calendar."
-msgstr "Nalezení a přidání dalších funkcí do vašeho kalendáře."
+msgstr "Пошук і розширення календаря."
 
 #: ../admin-views/tribe-options-general.php:19
 msgid "Finding your calendar."
-msgstr "Nalezení vašeho kalendáře."
+msgstr "Пошук вашого календаря."
 
-#
 #: ../admin-views/tribe-options-general.php:24
 msgid "Where's my calendar?"
-msgstr "Kde najdu svůj kalendář?"
+msgstr "Де мій календар?"
 
 #: ../admin-views/tribe-options-general.php:24
 msgid "Right here"
-msgstr "Přímo zde"
+msgstr " Прямо тут"
 
 #: ../admin-views/tribe-options-general.php:28
 msgid ""
 "Looking for additional functionality including recurring events, custom "
 "meta, community events, ticket sales and more?"
 msgstr ""
-"Hledáte další funkce, včetně opakujících se akcí, vlastní meta data, "
-"komunitní akce, prodej vstupenek a další?"
+"Дивлячись на додатковій функціональності в тому числі повторюваних подій, "
+"користувальницькі мета, громадських заходів, продажу квитків і більше? Прямо "
+"тут"
 
-#
 #: ../admin-views/tribe-options-general.php:28
 msgid "Check out the available add-ons"
-msgstr "Prohlédněte si dostupné doplňky"
+msgstr "Check out the available add-ons"
 
 #: ../admin-views/tribe-options-general.php:33
 msgid "We hope our plugin is helping you out."
-msgstr "Doufáme, že je náš plugin pro vás užitečný."
+msgstr "Ми сподіваємося, що наш плагін допомагає вам."
 
 #: ../admin-views/tribe-options-general.php:37
 msgid ""
@@ -526,15 +496,15 @@ msgid ""
 "is recognition. Add a small text-only link at the bottom of your calendar "
 "pointing to The Events Calendar project."
 msgstr ""
-"Říkáte si: \"Wow, to je ale úžasný plugin! Měl bych poděkovat Modern Tribe "
-"za jejich těžkou práci.\" Největším poděkováním, které bychom si mohli přát "
-"je uznání. Stačí přidat malý textový odkaz v dolní části vašeho kalendáře "
-"odkazující na projekt The Events Calendar."
+"Ви думаєте \"Нічого собі, цей плагін дивно! Я повинен сказати спасибі  "
+"Modern Tribe  для всієї їхньої важкої роботи. \" Найбільші завдяки ми могли "
+"попросити це визнання. Додати невелику текстову тільки посилання в нижній "
+"частині вашого календарного вказуючи на  The Events Calendar project."
 
 #: ../admin-views/tribe-options-general.php:37
 #: ../admin-views/tribe-options-general.php:42
 msgid "See an example of the link"
-msgstr "Prohlédněte si příklad odkazu"
+msgstr "Переглянути варіант посилання"
 
 #: ../admin-views/tribe-options-general.php:42
 msgid ""
@@ -543,71 +513,65 @@ msgid ""
 "is recognition. Add a small text only link at the bottom of your calendar "
 "pointing to The Events Calendar project."
 msgstr ""
-"Říkáte si: \"Wow, to je ale úžasný plugin! Měl bych poděkovat Modern Tribe "
-"za jejich těžkou práci.\" Největším poděkováním, které bychom si mohli přát "
-"je uznání. Stačí přidat malý textový odkaz v dolní části vašeho kalendáře "
-"odkazující na projekt The Events Calendar."
+"Ви думаєте \"Нічого собі, цей плагін дивно! Я повинен сказати спасибі  "
+"Modern Tribe  для всієї їхньої важкої роботи. \" Найбільші завдяки ми могли "
+"попросити це визнання. Додати невелику текстову тільки посилання в нижній "
+"частині вашого календаря вказуючи на  The Events Calendar project."
 
-#
 #: ../admin-views/tribe-options-general.php:47
 msgid "Show The Events Calendar link"
-msgstr "Zobrazit odkaz na stránky pluginu The Events Calendar"
+msgstr "Показувати посилання на  Events Calendar"
 
-#
 #: ../admin-views/tribe-options-general.php:61
 msgid "General Settings"
-msgstr "Obecné nastavení"
+msgstr "Головні налаштування"
 
-#
 #: ../admin-views/tribe-options-general.php:65
 msgid "Number of events to show per page"
-msgstr "Počet zobrazených akcí na stránku"
+msgstr "Кількість подій, що буде показано на сторінці"
 
 #: ../admin-views/tribe-options-general.php:72
 msgid "Use Javascript to control date filtering"
-msgstr "Použít Javascript pro filtrování podle data"
+msgstr "Використовувати Javascript для контролю дати фільтрації"
 
 #: ../admin-views/tribe-options-general.php:73
 msgid ""
 "This option is disabled when \"Disable the Event Search Bar\" is checked on "
 "the Display settings tab."
 msgstr ""
-"Tato volba není aktivní pokud je na panelu Zobrazování zaškrtnuta volba "
-"\"Vypnout vyhledávací lištu akcí\"."
+"Ця опція відключена, коли \"Відключити  рядку пошуку  події \" перевіряється "
+"на вкладці \"Установки дисплея\"."
 
 #: ../admin-views/tribe-options-general.php:73
 msgid ""
 "Enable live ajax for datepicker on front end (User submit not required)."
 msgstr ""
-"Povolit živý ajax pro datepicker na front endu (uživatel nemusí potvrzovat "
-"výběr tlačítkem)."
+"Включити Ajax для DatePicker на сайті (Користувачу надсилати не потрібно)."
 
-#
 #: ../admin-views/tribe-options-general.php:81
 msgid "Show comments"
-msgstr "Zobrazit komentáře"
+msgstr "Показувати коментарі"
 
-#
 #: ../admin-views/tribe-options-general.php:82
 msgid "Enable comments on event pages."
-msgstr "Povolit komentáře na stránkách akce."
+msgstr "Виводити коментарі на сторінках подій"
 
 #: ../admin-views/tribe-options-general.php:88
 msgid "Include events in main blog loop"
-msgstr "Zahrnout akce do hlavního výpisu příspěvků"
+msgstr "Закріпити події в головному блозі"
 
 #: ../admin-views/tribe-options-general.php:89
 msgid ""
 "Show events with the site's other posts. When this box is checked, events "
 "will also continue to appear on the default events page."
 msgstr ""
-"Zobrazit akce spolu s ostatními příspěvky na webu. Pokud je tato volba "
-"zaškrtnuta, akce se budou také nadále zobrazovat na výchozí stránce akcí."
+"Show events with the site's other posts. When this box is checked, events "
+"will also continue to appear on the default events page."
 
 #: ../admin-views/tribe-options-general.php:95
 #: ../admin-views/tribe-options-general.php:101
 msgid "Events URL slug"
-msgstr "Název v URL u akcí"
+msgstr "Короткий URL події"
 
 #: ../admin-views/tribe-options-general.php:96
 #, php-format
@@ -617,30 +581,29 @@ msgid ""
 "%s</a>. In order to edit the slug here, <a href=\"%soptions-permalink.php"
 "\">enable pretty permalinks</a>."
 msgstr ""
-"Název v URL pro stránku akcí nelze změnit, protože nemáte zapnuté používání "
-"trvalých odkazů. Vaše současná URL adresa pro stránku akcí je <a href=\"%s\">"
-"%s</a>. Chcete-li upravit název v URL, musíte nejdříve <a href=\"%soptions-"
-"permalink.php\">zapnout trvalé odkazy</a>."
+"Ви не можете редагувати короткий лінк для вашої сторінки подій, якщо ви не "
+"увімкнули постійні посилання. Нинішній URL для вашої сторінки події <a href="
+"\"%s\"> %s </a>. Для того щоб відредагувати колроткий лінк тут, <a href="
+"\"%soptions-permalink.php\"> включити досить постійні </a>."
 
 #: ../admin-views/tribe-options-general.php:108
 #: ../public/template-tags/options.php:20
 msgid "The slug used for building the events URL."
-msgstr "Název v URL použitý při tvorbě URL adres Akcí."
+msgstr "короткий лінк використовується для побудови URL подій."
 
 #: ../admin-views/tribe-options-general.php:108
 #, php-format
 msgid "Your current events URL is: %s"
-msgstr "Vaše současná URL adresa pro Akce je: %s"
+msgstr "URL поточної події: %s"
 
 #: ../admin-views/tribe-options-general.php:113
 #: ../public/template-tags/options.php:43
 msgid "Here is the iCal feed URL for your events:"
-msgstr "Zde je URL adresa iCal zdroje vašich akcí:"
+msgstr "Оце URL iCal ленти для ваших заходів:"
 
-#
 #: ../admin-views/tribe-options-general.php:118
 msgid "Single event URL slug"
-msgstr "Název v URL u jednotlivé akce"
+msgstr "Короткий URL однієї події"
 
 #: ../admin-views/tribe-options-general.php:125
 #, php-format
@@ -648,82 +611,78 @@ msgid ""
 "The above should ideally be plural, and this singular.<br />Your single "
 "event URL is: %s"
 msgstr ""
-"Výše uvedený by měl být v ideálním případě v množném čísle a tento v "
-"jednotném.<br />Vaše URL adresa pro jednotlivou Akci je: %s"
+"Вище в ідеалі має бути множинне, і ця особлива <br /> Ваш одиночний URL "
+"події:. %s"
 
 #: ../admin-views/tribe-options-general.php:130
 msgid "End of day cutoff"
-msgstr "Mezní hranice pro konec dne"
+msgstr "Кінець дня відсічення"
 
 #: ../admin-views/tribe-options-general.php:138
 msgid ""
 "Have an event that runs past midnight? Select a time after that event's end "
 "to avoid showing the event on the next day's calendar."
 msgstr ""
-"Máte akci, která trvá i po půlnoci? Zde si můžete nastavit čas kdy akce "
-"daného dne končí a tím zabráníte aby se tato akce zobrazila v kalendáři "
-"následujícího dne."
+"Є подія, яка проходить за північ? Виберіть час після закінчення цього "
+"заходу, щоб не показувати подію в календарі на наступний день."
 
 #: ../admin-views/tribe-options-general.php:143
 msgid "Default currency symbol"
-msgstr "Výchozí symbol měny"
+msgstr "За замовчуванням символ валюти"
 
 #: ../admin-views/tribe-options-general.php:144
 msgid ""
 "Set the default currency symbol for event costs. Note that this only impacts "
 "future events, and changes made will not apply retroactively."
 msgstr ""
-"Zadejte výchozí symbol měny pro vstupné na akci. Berte na vědomí, že tato "
-"volba a její případná změna se projeví pouze u nových akcí, ale nikoliv "
-"zpětně."
+"Встановіть символ валюти за замовчуванням для витрат на заходи. Зверніть "
+"увагу, що це тільки впливає на майбутні події і зміни, внесені не мають "
+"зворотної сили."
 
 #: ../admin-views/tribe-options-general.php:151
 msgid "Currency symbol follows value"
-msgstr "Symbol měny uvádět za hodnotou"
+msgstr "Символ валюти після значення"
 
 #: ../admin-views/tribe-options-general.php:152
 msgid ""
 "The currency symbol normally precedes the value. Enabling this option "
 "positions the symbol after the value."
 msgstr ""
-"Symbol měny se obvykle uvádí před hodnotou. Zaškrtnutím této volby se symbol "
-"vloží za hodnotu."
+"Символ валюти зазвичай передує значення. Включення цієї опції позиціонує "
+"символ після значення."
 
-#
 #: ../admin-views/tribe-options-general.php:158
 msgid "Map Settings"
-msgstr "Nastavení map"
+msgstr "Налаштування карти"
 
 #: ../admin-views/tribe-options-general.php:162
 msgid "Enable Google Maps"
-msgstr "Povolit Mapy Google"
+msgstr "Включити Google Maps"
 
 #: ../admin-views/tribe-options-general.php:163
 msgid "Check to enable maps for events and venues."
-msgstr "Zaškrtnutím této volby povolíte mapy pro akce a místa konání."
+msgstr "Перевірте, щоб включити карти для подій і місць."
 
 #: ../admin-views/tribe-options-general.php:170
 msgid "Google Maps default zoom level"
-msgstr "Výchozí měřítko Map Google"
+msgstr "Google Maps рівень масштабування за замовчуванням."
 
-#
 #: ../admin-views/tribe-options-general.php:171
 msgid "0 = zoomed out; 21 = zoomed in."
-msgstr "0 = oddálený; 21 = přiblížený."
+msgstr "0 = мінімальний масштаб , 21 = максімальний масштаб"
 
-#
 #: ../admin-views/tribe-options-general.php:179
 msgid "Miscellaneous Settings"
-msgstr "Další nastavení"
+msgstr "інші настройки"
 
 #: ../admin-views/tribe-options-general.php:183
 msgid "Duplicate Venues &amp; Organizers"
-msgstr "Duplicitní Místa konání a Pořadatelé"
+msgstr "Повторювані місця проведення та організатори"
 
 #: ../admin-views/tribe-options-general.php:183
 #: ../lib/tribe-amalgamator.php:252
 msgid "Merge Duplicates"
-msgstr "Sloučit duplicity"
+msgstr "Злиття дублікатів"
 
 #: ../admin-views/tribe-options-general.php:183
 msgid ""
@@ -731,15 +690,13 @@ msgid ""
 "Calendar from a pre-3.0 version. Click this button to automatically merge "
 "identical venues and organizers."
 msgstr ""
-"Při aktualizaci pluginu The Events Calendar z verze starší než 3.0 se může "
-"stát, že objevíte duplicitní zaznamy u pořadatelů a míst konání. Kliknutím "
-"na toto tlačítko dojde k automatickému sloučení identických míst konání a "
-"pořadatelů."
+"Ви можете знайти однакові місця та організаторів при оновленні події "
+"календаря, від версії pre-3.0. Натисніть цю кнопку, щоб автоматично "
+"об'єднати ідентичні місця і організаторів."
 
-#
 #: ../admin-views/tribe-options-general.php:188
 msgid "Debug mode"
-msgstr "Debug režim"
+msgstr "Режим налагодження"
 
 #: ../admin-views/tribe-options-general.php:194
 #, php-format
@@ -749,66 +706,59 @@ msgid ""
 "browser, then we recommend that you install the %s and look for the \"Tribe"
 "\" tab in the debug output."
 msgstr ""
-"Zaškrtnutím této volby se budou zapisovat debug informace. Standardně se "
-"budou zapisovat do chybového logu PHP na vašem serveru. Pokud si přejete, "
-"aby se zprávy protokolu zobrazovaly ve vašem prohlížeči, pak doporučujeme "
-"nainstalovat %s a podívat se do záložky \"Tribe\" v debug výstupu."
+"Увімкніть цей параметр, вести лог інформації налагодження. За умовчанням це "
+"буде логуватися буде вестись на свій сервер PHP журналі помилок. Якщо ви "
+"хотіли б бачити повідомлення журналу у вашому браузері, то ми рекомендуємо "
+"вам встановити %s і відшукати вкладці \"Tribe\" у виведенні налагодження."
 
 #: ../admin-views/tribe-options-general.php:194
 msgid "Debug Bar Plugin"
-msgstr "Debug Bar Plugin"
+msgstr "Плагін Бар Відладки"
 
 #: ../admin-views/tribe-options-help.php:19
 msgid "You need to upgrade!"
-msgstr "Je třeba provést aktualizaci!"
+msgstr "Вам треба оновитись!"
 
 #: ../admin-views/tribe-options-help.php:19
 msgid "You are up to date!"
-msgstr "Používáte nejnovější verzi!"
+msgstr "Ви в курсі подій!"
 
-#
 #: ../admin-views/tribe-options-help.php:42
 msgid "The Events Calendar PRO"
-msgstr "The Events Calendar Pro"
+msgstr "Events Calendar PRO версія"
 
-#
 #: ../admin-views/tribe-options-help.php:46
 msgid "The Events Calendar: Eventbrite Tickets"
-msgstr "The Events Calendar: Eventbrite Tickets"
+msgstr "Events Calendar: Квитки Eventbrite"
 
-#
 #: ../admin-views/tribe-options-help.php:50
 msgid "The Events Calendar: Community Events"
-msgstr "The Events Calendar: Community Events"
+msgstr "Events Calendar: Суспільні події "
 
-#
 #: ../admin-views/tribe-options-help.php:54
 msgid "The Events Calendar: Facebook Events"
-msgstr "The Events Calendar: Facebook Events"
+msgstr "Events Calendar: Події на Facebook"
 
-#
 #: ../admin-views/tribe-options-help.php:58
 msgid "The Events Calendar: WooCommerce Tickets"
-msgstr "The Events Calendar: WooCommerce Tickets"
+msgstr "Events Calendar: Квитки у WooCommerce"
 
-#
 #: ../admin-views/tribe-options-help.php:63
 msgid "The Events Calendar: EDD Tickets"
-msgstr "The Events Calendar: EDD Tickets"
+msgstr "Events Calendar: EDD Квитки"
 
-#
 #: ../admin-views/tribe-options-help.php:68
 msgid "The Events Calendar: WPEC Tickets"
-msgstr "The Events Calendar: WPEC Tickets"
+msgstr "Events Calendar: WPEC Квитки"
 
-#
 #: ../admin-views/tribe-options-help.php:73
 msgid "The Events Calendar: Shopp Tickets"
-msgstr "The Events Calendar: Shopp Tickets"
+msgstr "Events Calendar: Магазин Квитків"
 
 #: ../admin-views/tribe-options-help.php:78
+#, fuzzy
 msgid "The Events Calendar: Filter Bar"
-msgstr "The Events Calendar: Filter Bar"
+msgstr "Не отримуючи допомогу?"
 
 #: ../admin-views/tribe-options-help.php:87
 msgid ""
@@ -816,9 +766,10 @@ msgid ""
 "and are already well on your way to creating a first event. Here are some "
 "basics we've found helpful for users jumping into it for the first time:"
 msgstr ""
-"Pokud teprve začínáte s pluginem The Events Calendar, čeká vás příjemné "
-"překvapení a jste již na cestě k vytvoření vaší první akce. Zde je několik "
-"základních informací, které mohou být užitečné pro začátečníky:"
+"Якщо це ваш перший раз, використовуючи події календаря, ви знаходитесь в для "
+"задоволення і вже добре на вашому шляху до створення першої події. Оце деякі "
+"основи, які ми знайшли корисними для користувачів стрибки у нього в перший "
+"раз:"
 
 #: ../admin-views/tribe-options-help.php:90
 #, php-format
@@ -828,9 +779,10 @@ msgid ""
 "accompanying screenshots, the primer aims to take you from zero to hero in "
 "no time."
 msgstr ""
-"%sNaše příručka nového uživatele%s byla vytvořena přávě pro vás. Pomocí "
-"video průvodců a popisných návodů se screenshoty přestanete být pouhým "
-"začátečníkem ve velmi krátkém čase."
+"%sOur New User Primer%s був розроблений для людей, в точному положенні. "
+"Завдяки лише основним крок за кроком відео і письмові покрокові керівництва, "
+"які показують, що супроводжують скріншоти, пріклад прагне зайняти вас від "
+"нуля до героя в одну мить."
 
 #: ../admin-views/tribe-options-help.php:92
 #, php-format
@@ -840,10 +792,10 @@ msgid ""
 "helpful as it aims to address any basic install questions not addressed by "
 "the new user primer."
 msgstr ""
-"%sFAQ k instalaci a nastavení%s na naší stránce podpory vám poskytne přehled "
-"o tom, co plugin může a nemůže dělat. Tato sekce často kladených otázek "
-"ohledně základní instalace je užitečná zejména v případech, které nejsou "
-"řešeny v příručce nového uživatele."
+"%sInstallation/Setup FAQs%s від нашої сторінці підтримки с може допомогти "
+"дати огляд того, що плагін може і не може зробити. Цей розділ поширених "
+"запитань може бути корисним, якщо оскільки це спрямована на вирішення будь-"
+"яких основні установки питань не охоплених нового користувача приклад"
 
 #: ../admin-views/tribe-options-help.php:94
 #, php-format
@@ -852,18 +804,17 @@ msgid ""
 "example plugin that demonstrates how to register a new view. You can "
 "%sdownload the plugin at GitHub%s to get started."
 msgstr ""
-"Jste vývojář, který si chce vytvořit své vlastní zobrazení akcí na front "
-"endu? Vytvořili jsme pro vás příkladový plugin, který ukazuje, jak si "
-"zaregistrovat nové zobrazení. Pro začátek si můžete %sstáhnout plugin z "
-"GitHub%s."
+"Ви розробник хочете побудувати свій власний вид зовнішнього інтерфейсу? Ми "
+"створили приклад плагін, який демонструє, як зареєструвати новий від. Ви "
+"можете%sdownload the plugin at GitHub%s, щоб почати."
 
 #: ../admin-views/tribe-options-help.php:96
 msgid ""
 "Otherwise, if you're feeling adventurous, you can get started by heading to "
 "the Events menu and adding your first event."
 msgstr ""
-"Pokud jste ale dobrodružné povahy, můžete rovnou přejít do nabídky Akce a "
-"vytvořit vaši první akci."
+"В іншому випадку, якщо ви шукаєте пригод, ви можете почати роботу, очоливши "
+"в меню Події та додавання вашого першої події."
 
 #: ../admin-views/tribe-options-help.php:100
 #, php-format
@@ -872,9 +823,9 @@ msgid ""
 "our users. Head over to our %sSupport Page%s and you'll find lots of great "
 "resources, including:"
 msgstr ""
-"Abychom mohli lépe pomoci našim uživatelům, naši stránku podpory jsme "
-"předělali úplně od základů. Vydejte se tedy na naši %sstránku podpory%s, kde "
-"najdete spoustu skvělých informačních zdrojů, včetně:"
+"Ми заново зробили нашу сторінку підтримки з нуля в спробі краще допомогти "
+"нашим користувачам. Зайдемо на нашому  %sSupport Page%s, і ви знайдете "
+"багато великих ресурсів, у тому числі:"
 
 #: ../admin-views/tribe-options-help.php:102
 #, php-format
@@ -882,8 +833,8 @@ msgid ""
 "%sTemplate tags, functions, and hooks & filters%s for The Events Calendar "
 "&amp; Events Calendar PRO"
 msgstr ""
-"%sŠablonové tagy, funkce, háky a filtry%s implementované v pluginu The "
-"Events Calendar a Events Calendar PRO"
+"%sTemplate tags, functions, and hooks & filters%s для The Events Calendar "
+"&amp; Events Calendar PRO"
 
 #: ../admin-views/tribe-options-help.php:104
 #, php-format
@@ -891,8 +842,8 @@ msgid ""
 "%sFrequently Asked Questions%s ranging from the most basic setup questions "
 "to advanced themer tweaks"
 msgstr ""
-"%sČasto kladené otázky%s pokrývající dotazy na základní nastavení až po "
-"pokročilé vychytávky v šablonách"
+"%sFrequently Asked Questions%s, починаючи від самих основних питань "
+"установки для просунутих Themer налаштувань"
 
 #: ../admin-views/tribe-options-help.php:106
 #, php-format
@@ -901,17 +852,17 @@ msgid ""
 "community, covering custom queries, integration with third-party themes and "
 "plugins, etc."
 msgstr ""
-"%sNávody%s jak od členů našeho týmu tak i od uživatelů z komunity vysvětlují "
-"tematiku vlastních dotazů či integraci s pluginy a šablonami třetích stran, "
-"apod."
+"%sTutorials%s написана обидва учасниками нашої команди і користувачів зі "
+"спільноти, що охоплює користувача запитів, інтеграції зі сторонніми тим і "
+"плагінів і т.д."
 
 #: ../admin-views/tribe-options-help.php:108
 msgid ""
 "Release notes for painting an overall picture of the plugin's lifecycle and "
 "when features/bug fixes were introduced."
 msgstr ""
-"Poznámky k verzi pro nastíněníí celkového obrazu o životním cyklu pluginu a "
-"kdy byly zavedeny funkce či opraveny chyby."
+"Примітки до випуску для фарбування загальну картину життєвого циклу плагіна "
+"і коли були введені виправлення помилок  та впроваджено  особливості ."
 
 #: ../admin-views/tribe-options-help.php:110
 #, php-format
@@ -920,9 +871,9 @@ msgid ""
 "The Events Calendar (including WooTickets, Community Events, Eventbrite "
 "Tickets, Facebook Events, etc)"
 msgstr ""
-"%sDokumentace k doplňkům%s pro všechny oficiální doplňky od Modern Tribe pro "
-"plugin The Events Calendar (včetně WooTickets, Community Events, Eventbrite "
-"Tickets, Facebook Events, atd.)"
+"%sAdd-on documentation%s  для всіх офіційних розширень Modern Tribe's The "
+"Events Calendaя, (у тому числі WooTickets, Community Events, Eventbrite "
+"Tickets, Facebook Events і т.д.)"
 
 #: ../admin-views/tribe-options-help.php:112
 #, php-format
@@ -934,12 +885,12 @@ msgid ""
 "add your own, and help us shape the future of the products business in a way "
 "that best meets the community's needs."
 msgstr ""
-"Máme také stránku %sModern Tribe UserVoice%s, kde aktivně sledujeme nápady z "
-"komunity na nové funkce. Pokud po vyzkoušení pluginu a prozkoumání výše "
-"uvedených zdrojů vás napadne funkce, kterou plugin nemá a měl by mít, dejte "
-"nám vědět. Hlasujte pro stávající požadavky na nové funkce nebo přidejte své "
-"vlastní a pomozte nám tak utvářet budoucnost produktu způsobem, který "
-"nejlépe vyhovuje potřebám komunity."
+"Ми також отримали%sModern Tribe UserVoice%s сторінку, де ми активно дивитися "
+"для художніх ідей від спільноти. Якщо після гри з плагіном і розглядають "
+"вищевказані ресурси, ви знаходите відсутню функцію, що слід було зробити , "
+"повідомте нам про це. Голосувати за існуючі побажання або додати свої "
+"власні, і допомогти нам визначити майбутнє бізнесу продуктів таким чином, "
+"щоб найкращим чином відповідає потребам спільноти."
 
 #: ../admin-views/tribe-options-help.php:116
 #, php-format
@@ -947,8 +898,8 @@ msgid ""
 "Written documentation can only take things so far...sometimes, you need help "
 "from a real person. This is where our %ssupport forums%s come into play."
 msgstr ""
-"Písemná dokumentace má přeci jenom své limity a někdy zkrátka potřebujete "
-"pomoc od skutečné osoby. A právě zde vstupují do hry naše %sfóra podpory%s."
+"Письмова документація може приймати тільки речі досі ... іноді, вам потрібна "
+"допомога від реальної людини. Це де наші %ssupport forums%s  вступають в гру."
 
 #: ../admin-views/tribe-options-help.php:117
 #, php-format
@@ -959,11 +910,11 @@ msgid ""
 "to read our %ssupport expectations sticky thread%s before posting so you "
 "understand our limitations."
 msgstr ""
-"Uživatelé bezplatné verze pluginu The Events Calendar by měli posílat své "
-"dotazy na %sfórum podpory na WordPress.org%s. Přestože rádi pomůžeme "
-"identifikovat a opravit chyby, které jsou hlášeny na webu WordPress.org, "
-"před posláním příspěvku si prosím přečtěte naše %szvýrazněné vlákno "
-"očekávané podpory%s, abyste lépe pochopili naše omezení."
+"Користувачам безкоштовної Календар подій повинні розміщувати свої проблеми "
+"підтримки для плагіна%sWordPress.org support forum%s. Хоча ми будемо раді "
+"допомогти виявити і виправити помилки, про які повідомляється в WordPress."
+"org, будь ласка, не забудьте прочитати наші %ssupport expectations sticky "
+"thread%s , перш ніж відправляти так що ви розумієте наші обмеження."
 
 #: ../admin-views/tribe-options-help.php:118
 msgid ""
@@ -973,11 +924,11 @@ msgid ""
 "provide customization tips or assist in integrating with 3rd party plugins "
 "or themes."
 msgstr ""
-"Fórum na WordPress.org sledujeme během celého týdne kvůli přehledu o "
-"nahlášených chybách. Pokud ohlásíte legitimní chybu, kterou jsme schopni "
-"reprodukovat, my ji zaznamenáme a vydáme opravu v nadcházející verzi. "
-"Nicméně bohužel nejsme schopni poskytovat rady pro přizpůsobení nebo pomáhat "
-"při integraci s pluginy nebo šablonami třetích stran."
+"Ви потрапили на форум WordPress.org протягом тижня, спостерігаючи за "
+"помилками. Якщо ви повідомляєте законну помилку, яку ми в стані відтворити, "
+"ми будемо логуватися буде вестись його в патч для майбутнього релізу. Однак "
+"ми, на жаль не в змозі забезпечити поради з налаштування або допомагати в "
+"інтеграції з 3 учасники плагіни або теми."
 
 #: ../admin-views/tribe-options-help.php:119
 #, php-format
@@ -987,10 +938,10 @@ msgid ""
 "deeper level of customization/integration support for paying users than we "
 "can on WordPress.org."
 msgstr ""
-"Pokud jste uživatelem pluginu The Events Calendar a chtěli byste větší "
-"podporu, zvažte %szakoupení PRO licence%s. Naše PRO fórum sledujeme každý "
-"den a platícím uživatelům můžeme poskytnout větší míru podpory ohledně "
-"přizpůsobení či integrace než uživatelům na webu WordPress.org."
+"Якщо ви є користувачем події календаря, і хотів би більше підтримки, будь "
+"ласка %spurchase a PRO license%s, У вас  буде в Форуми щодня, і може "
+"забезпечити більш глибокий рівень підтримки налаштування / інтеграції для "
+"проплативших користувачів, ніж ми можемо на WordPress.org."
 
 #: ../admin-views/tribe-options-help.php:123
 #, php-format
@@ -999,51 +950,52 @@ msgid ""
 "expect from Modern Tribe, shoot us an email at %s or tweet %s and tell us "
 "why. We'll do what we can to make it right."
 msgstr ""
-"Pokud si myslíte, že se vám od Modern Tribe nedostává očekávané úrovně "
-"služeb, pošlete nám email na %s nebo tweet na %s a řekněte proč. Uděláme vše "
-"co je v našich silách, abychom to dali do pořádku."
+"Якщо ви виявите, що ви не отримуєте рівень обслуговування який ви звикли "
+"очікувати від сучасного племені, відсилайте нам по електронній пошті за "
+"адресою %s or tweet %s  і розповісти нам, чому. Ми зробимо все можливе, щоб "
+"зробити це вірно."
 
 #: ../admin-views/tribe-options-help.php:124
 msgid "More..."
-msgstr "Více..."
+msgstr "Більше...."
 
 #: ../admin-views/tribe-options-help.php:132
 msgid ""
 "Hi! We are Modern Tribe and we are here to help you kick ass. Thanks so much "
 "for installing our labor of love!"
 msgstr ""
-"Ahoj! Jmenujeme se Modern Tribe a jsme tu, abychom vám pomohli to pořádně "
-"rozjet. Moc děkujeme za to, že jste si nainstalovali dílo naší lásky!"
+"Привіт! Ми Modern Tribe і ми тут, щоб допомогти тобі. Дуже вдячні, що "
+"встановили наш плагін, зроблений з любов'ю!"
 
 #: ../admin-views/tribe-options-help.php:138
 msgid "Getting Started"
-msgstr "Začínáme"
+msgstr "Приступаючи до роботи"
 
 #: ../admin-views/tribe-options-help.php:141
 msgid "Support Resources To Help You Kick Ass"
-msgstr "Podpůrné zdroje informací na rozjezd"
+msgstr "Ресурси пыдтримки для того, щоб вам допомогти."
 
 #: ../admin-views/tribe-options-help.php:144
 msgid "Forums: Because Everyone Needs A Buddy"
-msgstr "Fórum: Protože každý potřebuje parťáka"
+msgstr "Форум: Тому що кожен повинен приятелем"
 
 #: ../admin-views/tribe-options-help.php:147
 msgid "Not getting help?"
-msgstr "Nedostává se vám pomoci?"
+msgstr "Не отримуючи допомогу?"
 
 #: ../admin-views/tribe-options-help.php:159
 #: ../lib/the-events-calendar.class.php:497
 #: ../lib/tribe-settings.class.php:135
 msgid "The Events Calendar"
-msgstr "The Events Calendar"
+msgstr "Не отримуючи допомогу?"
 
 #: ../admin-views/tribe-options-help.php:163
 msgid "Latest Version:"
-msgstr "Nejnovější verze:"
+msgstr "Остання версія:"
 
 #: ../admin-views/tribe-options-help.php:164
 msgid "Author:"
-msgstr "Autor:"
+msgstr "Автор:"
 
 #: ../admin-views/tribe-options-help.php:164
 msgid "Modern Tribe Inc"
@@ -1051,7 +1003,7 @@ msgstr "Modern Tribe Inc"
 
 #: ../admin-views/tribe-options-help.php:165
 msgid "Requires:"
-msgstr "Vyžaduje:"
+msgstr "Потрібно:"
 
 #: ../admin-views/tribe-options-help.php:165
 msgid "WordPress "
@@ -1059,139 +1011,136 @@ msgstr "WordPress"
 
 #: ../admin-views/tribe-options-help.php:166
 msgid "Wordpress.org Plugin Page"
-msgstr "Oficiální stránka pluginu v adresáři WordPressu"
+msgstr "Сторінка плагіну на Wordpress.org"
 
 #: ../admin-views/tribe-options-help.php:171
 msgid "Average Rating"
-msgstr "Průměrné hodnocení"
+msgstr "Середня оцінка"
 
 #: ../admin-views/tribe-options-help.php:176
 msgid "Give us 5 stars!"
-msgstr "Dejte nám 5 hvězdiček"
+msgstr "Поставте нам 5 зірок!"
 
 #: ../admin-views/tribe-options-help.php:179
 msgid "Premium Add-Ons"
-msgstr "Premium doplňky"
+msgstr "Преміальні надбудови"
 
 #: ../admin-views/tribe-options-help.php:185
 msgid "(Coming Soon!)"
-msgstr "(Připravujeme)"
+msgstr "(Скоро буде!)"
 
 #: ../admin-views/tribe-options-help.php:192
 msgid "News and Tutorials"
-msgstr "Aktuality a návody"
+msgstr "Новини та посібники"
 
-#
 #: ../admin-views/tribe-options-network.php:14
 msgid "Network Settings"
-msgstr "Nastavení v síti webů"
+msgstr "Налаштування мережі"
 
 #: ../admin-views/tribe-options-network.php:18
 msgid ""
 "This is where all of the global network settings for Modern Tribe's The "
 "Events Calendar can be modified."
 msgstr ""
-"Zde si můžete změnit veškerá globální nastavení pluginu The Events Calendar "
-"pro celou síť webů."
+"Це де всі глобальні налаштування мережі для Modern Tribe's The Events "
+"Calendar, можуть бути змінені."
 
 #: ../admin-views/tribe-options-network.php:26
 msgid "Hide the following settings tabs on every site:"
-msgstr "Skrýt následující panely s nastavením na každém webu:"
+msgstr "Приховати наступні параметри вкладки на кожному сайті:"
 
 #: ../admin-views/venue-meta-box.php:20
 msgid "Venue Name:"
-msgstr "Místo konání:"
+msgstr "Назва місця:"
 
 #: ../admin-views/venue-meta-box.php:27
 #: ../public/advanced-functions/meta.php:421
 msgid "Address:"
-msgstr "Adresa:"
+msgstr "Адреса:"
 
 #: ../admin-views/venue-meta-box.php:31
 msgid "City:"
-msgstr "Město:"
+msgstr "Місто:"
 
 #: ../admin-views/venue-meta-box.php:35
 msgid "Country:"
-msgstr "Země:"
+msgstr "Країна:"
 
 #: ../admin-views/venue-meta-box.php:73
 msgid "State or Province:"
-msgstr "Kraj:"
+msgstr "Штат або провінція:"
 
 #: ../admin-views/venue-meta-box.php:76
 msgid "Select a State:"
-msgstr "Vyberte stát:"
+msgstr "Виберіть штат:"
 
 #: ../admin-views/venue-meta-box.php:89
 msgid "Postal Code:"
-msgstr "PSČ:"
+msgstr "Поштовий індекс:"
 
 #: ../admin-views/venue-meta-box.php:112 ../admin-views/venue-meta-box.php:134
 msgid "Show Google Map:"
-msgstr "Zobrazit Google mapu:"
+msgstr "Показувати карту Google:"
 
 #: ../admin-views/venue-meta-box.php:122 ../admin-views/venue-meta-box.php:144
 msgid "Show Google Maps Link:"
-msgstr "Zobrazit odkaz na Mapy Google:"
+msgstr "Показувати посилання на карту Google:"
 
 #: ../admin-views/widget-admin-list.php:11
 msgid "Title:"
-msgstr "Název:"
+msgstr "Назва:"
 
 #: ../admin-views/widget-admin-list.php:16
 msgid "Show:"
-msgstr "Zobrazit:"
+msgstr "Показувати:"
 
 #: ../admin-views/widget-admin-list.php:24
 msgid "Show widget only if there are upcoming events:"
-msgstr "Zobrazit widget pouze pokud jsou nadcházející akce:"
+msgstr "Показати віджет, тільки якщо є майбутні події:"
 
 #: ../lib/io/csv/admin-views/columns.php:22
 #, php-format
 msgid "Column Mapping: %s"
-msgstr "Mapování sloupců: %s"
+msgstr "Відображення стовпців: %s"
 
 #: ../lib/io/csv/admin-views/columns.php:28
 msgid "Please choose the fields that best match the columns in your CSV file."
 msgstr ""
-"Vyberte prosím pole, která nejlépe odpovídají sloupcům ve vašem CSV souboru."
+"Будь ласка, виберіть поля, які найкраще відповідають стовпцям у файлі CSV."
 
 #: ../lib/io/csv/admin-views/columns.php:33
 msgid "Column Headings"
-msgstr "Záhlaví sloupců"
+msgstr "Заголовки стовпців"
 
-#
 #: ../lib/io/csv/admin-views/columns.php:34
 msgid "Event Fields"
-msgstr "Pole akce"
+msgstr "Поля події"
 
 #: ../lib/io/csv/admin-views/columns.php:45
 msgid "Perform Import"
-msgstr "Importovat"
+msgstr "Виконайте імпорт"
 
-#
 #: ../lib/io/csv/admin-views/header.php:11
 msgid "Events Import (CSV)"
-msgstr "Import akcí (CSV)"
+msgstr "Імпорт подій у (CSV)"
 
 #: ../lib/io/csv/admin-views/import.php:17
 msgid "Import Instructions"
-msgstr "Instrukce pro importování"
+msgstr "Ымпортувати інструкції"
 
 #: ../lib/io/csv/admin-views/import.php:20
 msgid "If your events have Organizers or Venues, please import those first."
 msgstr ""
-"Pokud vaše akce mají Pořadatele nebo Místa konání, importujte je prosím jako "
-"první."
+"Якщо ваші події мають організаторів або місць проведення, будь ласка "
+"імпортувати їх першими. К імпорту організаторів або місць проведення:"
 
 #: ../lib/io/csv/admin-views/import.php:21
 msgid "To import organizers or venues:"
-msgstr "Pro import Pořadatelů a Míst konání:"
+msgstr "К імпорту організаторів або місць проведення:"
 
 #: ../lib/io/csv/admin-views/import.php:23
 msgid "Select the appropriate import type."
-msgstr "Vyberte příslušný typ importu."
+msgstr "Виберіть відповідний тип імпорту."
 
 #: ../lib/io/csv/admin-views/import.php:24
 #: ../lib/io/csv/admin-views/import.php:30
@@ -1199,16 +1148,16 @@ msgid ""
 "Upload a CSV file with one record on each line. The first line may contain "
 "column names (check the box below)."
 msgstr ""
-"Nahrajte CSV soubor s jedním záznamem na každém řádku. První řádek může "
-"obsahovat záhlaví sloupců (zaškrtněte políčko níže)."
+"Завантажити файл CSV з одним записом у кожному рядку. Перший рядок може "
+"містити імена стовпців (чекбокс нижче)."
 
 #: ../lib/io/csv/admin-views/import.php:25
 msgid ""
 "One column in your CSV should have the Organizer/Venue name. All other "
 "fields are optional."
 msgstr ""
-"Jeden ze sloupců ve vašem CSV souboru by měl obsahovat jméno Pořadatele/"
-"Místa konání. Ostatní pole jsou volitelná."
+"Один стовпчик у вашому CSV повинен мати ім'я організатора / місця проведення "
+"подіїї. Всі інші поля є необов'язковими."
 
 #: ../lib/io/csv/admin-views/import.php:26
 #: ../lib/io/csv/admin-views/import.php:32
@@ -1216,52 +1165,52 @@ msgid ""
 "After you upload your file, you'll have the opportunity to indicate how the "
 "columns in your CSV map to fields in The Events Calendar."
 msgstr ""
-"Po nahrání souboru budete mít možnost namapovat jednotlivé sloupce vašeho "
-"CSV na patřičná pole v pluginu The Events Calendar."
+"Після того як ви завантажили файл, у вас буде можливість вказати, як стовпці "
+"в вашій карті CSV є полями в події календаря."
 
 #: ../lib/io/csv/admin-views/import.php:28
 msgid "After importing your Organizers and Venues, import your Events:"
 msgstr ""
-"Po naimportování vašich Pořadatelů a Míst konání můžete importovat vaše Akce:"
+"Після імпорту вашіх Організаторів та місць проведення, імпортувати події:"
 
 #: ../lib/io/csv/admin-views/import.php:31
 msgid ""
 "One column in your CSV should have the Event title. Another should have the "
 "Event start date. All other fields are optional."
 msgstr ""
-"Jeden ze sloupců ve vašem CSV souboru by měl obsahovat jméno akce. Další by "
-"měl obsahovat počáteční datum akce. Ostatní pole jsou volitelná."
+"Один стовпчик у вашому CSV повинен мати заголовок події. Інший повинен мати "
+"дату початку події . Всі інші поля є необов'язковими."
 
 #: ../lib/io/csv/admin-views/import.php:36
 #, php-format
 msgid "Questions? <a href=\"%s\">Watch the video</a>."
-msgstr "Máte dotazy? <a href=\"%s\">Podívejte se na video</a>."
+msgstr "Питання? <a href=\"%s\"> Подивіться відео ."
 
 #: ../lib/io/csv/admin-views/import.php:43
 msgid "Import Type:"
-msgstr "Typ importu:"
+msgstr "Тип імпорту:"
 
 #: ../lib/io/csv/admin-views/import.php:45
 #: ../lib/the-events-calendar.class.php:1317
 #: ../lib/the-events-calendar.class.php:1429
 msgid "Venues"
-msgstr "Místa konání"
+msgstr "Місця проведення"
 
 #: ../lib/io/csv/admin-views/import.php:46
 #: ../lib/the-events-calendar.class.php:1330
 #: ../lib/the-events-calendar.class.php:1430
 msgid "Organizers"
-msgstr "Pořadatelé"
+msgstr "Організатори"
 
 #: ../lib/io/csv/admin-views/import.php:47
 #: ../lib/the-events-calendar.class.php:1304
 #: ../lib/the-events-calendar.class.php:3810
 msgid "Events"
-msgstr "Akce"
+msgstr "Події"
 
 #: ../lib/io/csv/admin-views/import.php:55
 msgid "CSV File:"
-msgstr "CSV soubor:"
+msgstr "CSV-файл:"
 
 #: ../lib/io/csv/admin-views/import.php:58
 msgid ""
@@ -1270,46 +1219,45 @@ msgid ""
 "the file, or pass it through a <a href='http://i-tools.org/charset/exec?"
 "dest=utf-8&src=auto&download=1'>conversion tool</a>."
 msgstr ""
-"Nahrajte správně formátovaný CSV soubor v kódování UTF-8. Nejste si jisti, "
-"zda je váš soubor v kódování UTF-8? Ujistěte se, že jste při ukládání "
-"souboru zadali správné kódování znaků, nebo jej převeďte prostřednictvím <a "
-"href='http://i-tools.org/charset/exec?"
-"dest=utf-8&src=auto&download=1'>konverzního nástroje</a>."
+"Додати в правильному форматі, UTF-8 кодований CSV файл. Не впевнений, в "
+"UTF-8 кодуванні ваш файл? Переконайтеся в тому, щоб вказати кодування, коли "
+"ви збережете файл, або передати його через інструмент <a перетворення "
+"href='http://i-tools.org/charset/exec?dest=utf-8&src=auto&download=1'> ."
 
 #: ../lib/io/csv/admin-views/import.php:66
 msgid "This file has column names in the first row"
-msgstr "Soubor má v prvním řádku záhlaví sloupců"
+msgstr "Цей файл має імена стовпців у першому рядку"
 
 #: ../lib/io/csv/admin-views/import.php:77
 msgid "Import CSV File"
-msgstr "Importovat CSV soubor"
+msgstr "Імпорт CSV-файлу"
 
 #: ../lib/io/csv/admin-views/result.php:13
 msgid "Import Result"
-msgstr "Výsledek importu"
+msgstr "Підсумок імпорту"
 
 #: ../lib/io/csv/admin-views/result.php:15
 msgid "Import complete!"
-msgstr "Importování bylo dokončeno!"
+msgstr "Імпорт закінчено!"
 
 #: ../lib/io/csv/admin-views/result.php:17
 #, php-format
 msgid "Inserted: %d"
-msgstr "Vloženo: %d"
+msgstr "Додано: %d"
 
 #: ../lib/io/csv/admin-views/result.php:18
 #, php-format
 msgid "Updated: %d"
-msgstr "Aktualizováno: %d"
+msgstr "Оновлено: %d"
 
 #: ../lib/io/csv/admin-views/result.php:19
 #, php-format
 msgid "Skipped: %d"
-msgstr "Vynecháno: %d"
+msgstr "Пропущені: %d"
 
 #: ../lib/io/csv/admin-views/result.php:23
 msgid "The import statistics above have the following meaning:"
-msgstr "Výše uvedená statistika importu má následující význam:"
+msgstr "Статистика імпорту , маєе такі данні:"
 
 #: ../lib/io/csv/admin-views/result.php:24
 msgid ""
@@ -1319,223 +1267,221 @@ msgid ""
 "li><li><strong>Skipped:</strong> A row was found in the CSV file that could "
 "not be imported. Please see below for the invalid rows.</li></ol>"
 msgstr ""
-"<ol><li><strong>Vloženo:</strong> Nový záznam byl úspěšně vložen.</"
-"li><li><strong>Aktualizováno:</strong> Byl nalezen záznam se stejným jménem "
-"a/nebo počátečním datem. Existující záznam byl aktualizován s novou hodnotou "
-"ze souboru.</li><li><strong>Vynecháno:</strong> V souboru CSV byl nalezen "
-"řádek, který nemohl být importován. Údaje o neplatných řádcích naleznete "
-"níže.</li></ol>"
+"<ol> <li> <strong> Поставлено: </strong> Новий елемент був успішно "
+"добавлений </ li> <li> <strong> Оновлено:. </ STRONG> пункт був знайдений з "
+"тим же ім'ям і / або датою початку. Існуючий пункт був оновлений з новим "
+"значенням з файлу </ li> <li> <strong> Пропущено:. </strong> рядок була "
+"знайдена у файлі CSV, які не могли бути імпортовані. Будь ласка, див нижче "
+"для недійсних рядків. </li> </ol>"
 
 #: ../lib/io/csv/admin-views/result.php:27
 #, php-format
 msgid "Skipped row numbers: %s"
-msgstr "Čísla vynechaných řádků: %s"
+msgstr "Пропущені номери рядків: %s"
 
 #: ../lib/io/csv/classes/TribeEventsImporter_AdminPage.php:15
 #: ../lib/io/csv/classes/TribeEventsImporter_AdminPage.php:16
 msgid "CSV Import"
-msgstr "CSV Import"
+msgstr "CSV Імпорт"
 
 #: ../lib/io/csv/classes/TribeEventsImporter_AdminPage.php:29
 #: ../lib/io/csv/classes/TribeEventsImporter_AdminPage.php:147
 msgid "The file went away. Please try again."
-msgstr "Soubor není k dispozici. Zkuste to prosím znovu."
+msgstr "Відправлення файлу відхилено. Будь ласка, спробуйте ще раз."
 
 #: ../lib/io/csv/classes/TribeEventsImporter_AdminPage.php:113
 msgid "We were unable to process your request. Please try again."
-msgstr "Nepodařilo se zpracovat váš požadavek. Zkuste to prosím znovu."
+msgstr "Нам не вдалося обробити ваш запит. Будь ласка, спробуйте ще раз."
 
 #: ../lib/io/csv/classes/TribeEventsImporter_AdminPage.php:154
 msgid "<p>The following fields are required for a successful import:</p>"
-msgstr "<p>Pro úspěšný import jsou vyžadována následující pole:</p>"
+msgstr "<p> Наступні поля є обов'язковими для успішного імпорту: </ P>"
 
 #: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:33
 msgid "Do Not Import"
-msgstr "Neimportovat"
+msgstr "НЕ імпортувати"
 
 #: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:50
 msgid "Event Name"
-msgstr "Název akce"
+msgstr "Назва події"
 
 #: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:51
 msgid "Event Description"
-msgstr "Popis akce"
+msgstr "Опис події"
 
 #: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:52
 msgid "Event Start Date"
-msgstr "Počáteční datum akce"
+msgstr "Дата початку події"
 
 #: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:53
 msgid "Event Start Time"
-msgstr "Čas zahájení akce"
+msgstr "Час початку заходу"
 
 #: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:54
 msgid "Event End Date"
-msgstr "Koncové datum akce"
+msgstr "Дата закінчення події"
 
-#
 #: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:55
 msgid "Event End Time"
-msgstr "Čas ukončení akce"
+msgstr "Час закінчення події"
 
-#
 #: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:56
 msgid "All Day Event"
-msgstr "Celodenní akce"
+msgstr "Подія на весь день"
 
 #: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:57
 msgid "Event Venue Name"
-msgstr "Místo konání akce"
+msgstr "Назва місця проведення подіїї"
 
 #: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:58
 msgid "Event Organizer Name"
-msgstr "Jméno pořadatele akce"
+msgstr "Назва організатора події"
 
 #: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:59
 msgid "Event Show Map Link"
-msgstr "Zobrazit odkaz na mapu akce"
+msgstr "Показати на мапі лінк на подію"
 
-#
 #: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:60
 msgid "Event Show Map"
-msgstr "Zobrazit mapu akce"
+msgstr "Показати на карті подію"
 
-#
 #: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:62
 msgid "Event Phone"
-msgstr "Telefon akce"
+msgstr "Телефон події"
 
 #: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:63
 #: ../lib/the-events-calendar.class.php:1344
 msgid "Event Category"
-msgstr "Rubrika akcí"
+msgstr "Категорія подій"
 
 #: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:70
 msgid "Venue Name"
-msgstr "Místo konání"
+msgstr "Назва місця проведення"
 
 #: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:71
 msgid "Venue Country"
-msgstr "Země místa konání"
+msgstr "Країна місця проведення"
 
 #: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:72
 msgid "Venue Address"
-msgstr "Adresa místa konání"
+msgstr "Адреса місця проведення"
 
 #: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:73
 msgid "Venue Addres 2"
-msgstr "Adresa místa konání (2)"
+msgstr "Адреса місця проведення 2"
 
 #: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:74
 msgid "Venue City"
-msgstr "Město místa konání"
+msgstr "Місто місця проведення"
 
 #: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:75
 msgid "Venue State/Province"
-msgstr "Kraj místa konání"
+msgstr "Штат / Провінція місця проведення"
 
 #: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:76
 msgid "Venue Zip"
-msgstr "PSČ místa konání"
+msgstr "Поштовий індекс місця проведення"
 
 #: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:77
 msgid "Venue Phone"
-msgstr "Telefon místa konání"
+msgstr "Телефон місця проведення"
 
 #: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:83
 msgid "Organizer Name"
-msgstr "Jméno pořadatele"
+msgstr "Назва організатора"
 
 #: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:84
 msgid "Organizer Email"
-msgstr "Email pořadatele"
+msgstr "Email організатора"
 
 #: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:85
 msgid "Organizer Website"
-msgstr "Web pořadatele"
+msgstr "Сайт організатора"
 
 #: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:86
 msgid "Organizer Phone"
-msgstr "Telefon pořadatele"
+msgstr "Телефон організатора"
 
 #: ../lib/io/csv/classes/TribeEventsImporter_FileImporter.php:38
 #, php-format
 msgid "No importer defined for %s"
-msgstr "Pro %s není definovaný importer"
+msgstr "Певно нема імпорту для %s"
 
 #: ../lib/io/csv/classes/TribeEventsImporter_FileImporter.php:110
 #, php-format
 msgid "Missing required fields in row %d."
-msgstr "Chybí vyžadovaná pole v řádku %d."
+msgstr "Відсутня обов'язкові поля в рядку %d."
 
 #: ../lib/io/csv/classes/TribeEventsImporter_FileImporter.php:117
 #, php-format
 msgid "Failed to import record in row %d."
-msgstr "Nepodařilo se importovat záznam v řádku %d."
+msgstr "Не вдалося імпортувати запис в рядку %d."
 
 #: ../lib/io/csv/classes/TribeEventsImporter_FileImporter.php:126
 #, php-format
 msgid "%s (post ID %d) updated."
-msgstr "Příspěvek %s (ID: %d) byl aktualizován."
+msgstr "%s (повідомлення з ID %d) оновлено."
 
 #: ../lib/io/csv/classes/TribeEventsImporter_FileImporter.php:130
 #, php-format
 msgid "%s (post ID %d) created."
-msgstr "Příspěvek %s (ID: %d) byl vytvořen."
+msgstr "%s (повідомлення з ID %d) створено."
 
 #: ../lib/io/csv/classes/TribeEventsImporter_FileUploader.php:28
 #, php-format
 msgid "Temporary file not found. Could not save %s."
-msgstr "Dočasný soubor nebyl nalezen. Nepodařilo se uložit soubor %s."
+msgstr "Тимчасовий файл не знайдений. Не вдалося зберегти %s ."
 
 #: ../lib/io/csv/classes/TribeEventsImporter_FileUploader.php:36
 #, php-format
 msgid "Could not save %s."
-msgstr "Soubor %s nelze uložit."
+msgstr "Не вдалося зберегти %s ."
 
 #: ../lib/pue/admin-views/license-key.view.php:9
 #: ../lib/pue/admin-views/license-key.view.php:13
 #: ../lib/pue/lib/pue_plugin_update_engine.class.php:292
+#, fuzzy
 msgid "License Key"
-msgstr "Licenční klíč"
+msgstr "Ліцензія"
 
 #: ../lib/pue/admin-views/license-key.view.php:10
 msgid "A valid license key is required for support and updates."
-msgstr "Platný licenční klíč je vyžadován pro podporu a aktualizace."
+msgstr ""
 
 #: ../lib/pue/admin-views/license-key.view.php:16
 msgid "Replace empty fields"
-msgstr "Nahradit prázdná pole"
+msgstr ""
 
 #: ../lib/pue/admin-views/license-key.view.php:25
 #: ../lib/pue/lib/pue_plugin_update_engine.class.php:293
 msgid "A valid license key is required for support and updates"
-msgstr "Platný licenční klíč je vyžadován pro podporu a aktualizace"
+msgstr ""
 
 #: ../lib/pue/lib/pue_plugin_update_engine.class.php:361
+#, fuzzy
 msgid "License key(s) updated."
-msgstr "Licenční klíč(e) byl aktualizován."
+msgstr "Місце проведення оновлено."
 
 #: ../lib/pue/lib/pue_plugin_update_engine.class.php:401
 msgid "Sorry, key validation server is not available."
-msgstr "Omlouváme se, ale server k ověření klíče není dostupný."
+msgstr ""
 
 #: ../lib/pue/lib/pue_plugin_update_engine.class.php:403
 msgid "Sorry, this key is expired."
-msgstr "Omlouváme se, ale platnost tohoto klíče skončila."
+msgstr ""
 
 #: ../lib/pue/lib/pue_plugin_update_engine.class.php:405
 msgid "Sorry, this key is out of installs."
-msgstr "Omlouváme se, ale tento klíč je mimo instalaci."
+msgstr ""
 
 #: ../lib/pue/lib/pue_plugin_update_engine.class.php:407
 msgid "Sorry, this key is not valid."
-msgstr "Omlouváme se, ale tento klíč není platný."
+msgstr ""
 
 #: ../lib/pue/lib/pue_plugin_update_engine.class.php:410
 #, php-format
 msgid "Valid Key! Expires on %s"
-msgstr "Platný klíč! Platnost tohoto klíče skončí %s"
+msgstr ""
 
 #: ../lib/pue/lib/pue_plugin_update_engine.class.php:414
 #, php-format
@@ -1543,8 +1489,6 @@ msgid ""
 "Hmmm... something's wrong with this validator. Please contact <a href=\"%s"
 "\">support.</a>"
 msgstr ""
-"Hmmm... něco je špatně s tímto validátorem. Kontaktujte prosím <a href=\"%s"
-"\">podporu.</a>"
 
 #: ../lib/template-classes/month.php:112
 #, php-format
@@ -1552,38 +1496,38 @@ msgid ""
 "There were no results found for <strong>\"%s\"</strong> this month. Try "
 "searching next month."
 msgstr ""
-"Nebyly nalezeny žádné záznamy pro <strong>\"%s\"</strong> v tomto měsíci. "
-"Zkuste hledat v dalším měsíci."
+"Результатів не знайдено для <strong>  \" %s \" </ STRONG> в цьому місяці. "
+"Спробуйте знайти в наступному місяці."
 
 #: ../lib/template-classes/month.php:115
 #: ../lib/tribe-template-factory.class.php:247
 msgid "There were no results found."
-msgstr "Nebyly nalezeny žádné záznamy."
+msgstr "Там жодного результату не знайдено."
 
 #: ../lib/template-classes/single-event.php:101
 msgid "This event has passed."
-msgstr "Tato akce již proběhla."
+msgstr "Ця подія пройшла."
 
 #: ../lib/the-events-calendar.class.php:502
 msgid "month"
-msgstr "měsíc"
+msgstr "місяць"
 
 #: ../lib/the-events-calendar.class.php:503
 msgid "upcoming"
-msgstr "nadcházející"
+msgstr "майбутні"
 
 #: ../lib/the-events-calendar.class.php:504
 msgid "past"
-msgstr "uplynulé"
+msgstr "попередні"
 
 #: ../lib/the-events-calendar.class.php:506
 msgid "venue"
-msgstr "místo"
+msgstr "місце проведення"
 
 #: ../lib/the-events-calendar.class.php:516
 #, php-format
 msgid "Initializing Tribe Events on %s"
-msgstr "Initializing Tribe Events on %s"
+msgstr "Ініціалізація Tribe Events  - %s"
 
 #: ../lib/the-events-calendar.class.php:629
 #, php-format
@@ -1591,8 +1535,8 @@ msgid ""
 "Your version of The Events Calendar is not up-to-date with one of your The "
 "Events Calendar add-ons. Please %supdate now.%s"
 msgstr ""
-"Vaše verze pluginu The Events Calendar není dostatečně aktuální s jedním z "
-"jeho doplňků. Proveďte prosím %saktualizaci.%s"
+"Ваша версія  The Events Calendar, не є актуальною з одним з ваших The Events "
+"Calendar  доповнень. Будь ласка %supdate now.%s"
 
 #: ../lib/the-events-calendar.class.php:646
 #, php-format
@@ -1601,15 +1545,15 @@ msgid ""
 "dependencies on The Events Calendar and will not function properly unless "
 "paired with the right version. %sWant to pair an older version%s?"
 msgstr ""
-"Následující pluginy jsou zastaralé: <b>%s</b>. Všechny doplňky jsou závislé "
-"na pluginu The Events Calendar a nebudou fungovat správně, pokud nejsou "
-"spárovány se správnou verzí. %sChcete spárovat starší verzi%s?"
+"Наступні доданки застаріли: <b> %s </b>. Всі доповнення містять залежність "
+"від  The Events Calendar, і не буде функціонувати належним чином, якщо не в "
+"парі з вірної версії. %sWant to pair an older version%s?"
 
 #: ../lib/the-events-calendar.class.php:710
 #: ../lib/the-events-calendar.class.php:745
 #: ../lib/the-events-calendar.class.php:747
 msgid "Licenses"
-msgstr "Licence"
+msgstr "Ліцензія"
 
 #: ../lib/the-events-calendar.class.php:714
 #, php-format
@@ -1628,34 +1572,34 @@ msgid ""
 "expecting one? In WordPress, go to <a href=\"%s\">Dashboard > Updates</a> "
 "and click \"Check Again\".</p>"
 msgstr ""
-"<p>Licenční klíč, který jste obdrželi při dokončování vašeho nákupu na %s, "
-"vám umožňuje přístup k zákaznické podpoře a aktualizacím. Svůj klíč nemusíte "
-"zadávat aby byly pluginy plně funkční. Nicméně bez vloženého klíče nebude "
-"možné provést automatické aktualizace. <strong>Své licenční klíče můžete "
-"najít na stránce <a href=\"%s\" target=\"_blank\">%s</a></strong>.</p> "
-"<p>Každý plugin/doplněk má svůj unikátní licenční klíč. Do příslušného "
-"políčka v níže uvedeném seznamu stačí vložit klíč a chvíli počkat na "
-"ověření. Jakmile se objeví zeleně Datum platnosti společně s nápisem \"valid"
-"\", je vše hotovo.</p> <p>Pokud však vidíte červeně zprávu, která říká že "
-"váš klíč není platný nebo že je mimo instalaci, navštivte web <a href=\"%s\" "
-"target=\"_blank\">%s</a>, kde si můžete spravovat své instalace nebo obnovit "
-"platnost licence.</p> <p>Pokud se vám nezobrazila očekávaná aktualizace, "
-"přejděte ve WordPressu na stránku <a href=\"%s\">Nástěnka > Aktualizace</a> "
-"a klikněte na \"Zkontrolovat znovu\".</p>"
+"<p>Ліцензійний ключ ви отримали при заповненні вашої покупкою від %s надасть "
+"вам доступ для підтримки та оновлення до закінчення терміну його дії. Вам не "
+"потрібно вводити ключ нижче для плагіни для роботи, але вам потрібно буде "
+"ввести його, щоб отримати автоматичне оновлення. <strong> Знайти ліцензійні "
+"ключі на <a href=\"%s\" target=\"_blank\">%s</a></strong>.</p> <p>Кожен "
+"заплатив додаток має свій власний унікальний ліцензійний ключ. Просто "
+"вставте ключ в його відповідному полі на нижче, і дати йому час, щоб "
+"перевірки. Ви знаєте, що встановлюється, коли зелений дата закінчення "
+"терміну дії з'являється поруч повідомленні  \"діє \". </p> Якщо ви бачите "
+"червоний повідомлення про те, що ваш ключ недійсний або знаходиться поза "
+"установок , візит <a href=\"%s\" target=\"_blank\">%s</a>для управління "
+"встановлює або продовжити / оновити ліцензію. </p> Не бачачи в оновленні, "
+"але очікував один? У WordPress, перейдіть до <a href=\"%s\">Дошка > "
+"Оґновлення</a> і натисніть \"Перевірте знову \".</p>"
 
 #: ../lib/the-events-calendar.class.php:737
 msgid "General"
-msgstr "Obecné"
+msgstr "Головна"
 
 #: ../lib/the-events-calendar.class.php:738
 msgid "Display"
-msgstr "Zobrazování"
+msgstr "Показувати"
 
 #: ../lib/the-events-calendar.class.php:750
 #: ../lib/the-events-calendar.class.php:3877
 #: ../lib/the-events-calendar.class.php:3974
 msgid "Help"
-msgstr "Nápověda"
+msgstr "Допомога"
 
 #: ../lib/the-events-calendar.class.php:789
 #, php-format
@@ -1663,8 +1607,8 @@ msgid ""
 "Sorry, The Events Calendar requires WordPress %s or higher. Please upgrade "
 "your WordPress install."
 msgstr ""
-"Omlouváme se, ale plugin The Events Calendar vyžaduje alespoň WordPress %s. "
-"Aktualizujte si prosím svůj WordPress."
+"На жаль,The Events Calendar, потрібно WordPress %s  або вище. Будь ласка, "
+"поновіть ваш WordPress."
 
 #: ../lib/the-events-calendar.class.php:792
 #, php-format
@@ -1672,227 +1616,225 @@ msgid ""
 "Sorry, The Events Calendar requires PHP %s or higher. Talk to your Web host "
 "about moving you to a newer version of PHP."
 msgstr ""
-"Omlouváme se, ale plugin The Events Calendar vyžaduje alespoň PHP %s. "
-"Požádejte svého poskytovatele webhostingu o přechod na novější verzi PHP."
+"На жаль для , , The Events Calendar, потрібно PHP %s або вище. Поговоріть зі "
+"своїм веб-хостером про переїзд вас до нової версії PHP."
 
 #: ../lib/the-events-calendar.class.php:971 ../lib/widget-list.class.php:180
 #: ../public/template-tags/loop.php:138
 msgid "Upcoming Events"
-msgstr "Nadcházející akce"
+msgstr "Майбутні події"
 
 #: ../lib/the-events-calendar.class.php:974
 #: ../public/template-tags/loop.php:168
 msgid "Past Events"
-msgstr "Uplynulé akce"
+msgstr "Попередні події"
 
 #: ../lib/the-events-calendar.class.php:979
 #: ../lib/the-events-calendar.class.php:986
 #: ../public/template-tags/loop.php:173
 #, php-format
 msgid "Events for %s"
-msgstr "Akce na %s"
+msgstr "Події для %s"
 
 #: ../lib/the-events-calendar.class.php:981
 msgid "Events this month"
-msgstr "Akce na tento měsíc"
+msgstr "Події цього місяця"
 
 #: ../lib/the-events-calendar.class.php:1005
 msgid "No description has been entered for this event."
-msgstr "Pro tuto akci nebyl zadán žádný popis."
+msgstr "Немає опису даної події."
 
 #: ../lib/the-events-calendar.class.php:1267
 msgid "category"
-msgstr "rubrika"
+msgstr "категорія"
 
 #: ../lib/the-events-calendar.class.php:1277
 msgid "tag"
-msgstr "stitek"
+msgstr "мітка"
 
 #: ../lib/the-events-calendar.class.php:1305
 msgid "Event"
-msgstr "Akce"
+msgstr "Подія"
 
 #: ../lib/the-events-calendar.class.php:1306
 #: ../lib/the-events-calendar.class.php:1319
 #: ../lib/the-events-calendar.class.php:1332
 msgid "Add New"
-msgstr "Vytvořit akci"
+msgstr "Додати нову"
 
 #: ../lib/the-events-calendar.class.php:1307
 msgid "Add New Event"
-msgstr "Vytvořit novou akci"
+msgstr "Додати нову подію"
 
 #: ../lib/the-events-calendar.class.php:1308
 msgid "Edit Event"
-msgstr "Upravit akci"
+msgstr "Редагувати подію"
 
 #: ../lib/the-events-calendar.class.php:1309
 msgid "New Event"
-msgstr "Vytvořit akci"
+msgstr "Нова подія"
 
 #: ../lib/the-events-calendar.class.php:1310
 msgid "View Event"
-msgstr "Zobrazit akci"
+msgstr "Переглянути подію"
 
 #: ../lib/the-events-calendar.class.php:1311
 msgid "Search Events"
-msgstr "Hledat akce"
+msgstr "Пошук подій"
 
 #: ../lib/the-events-calendar.class.php:1312
 msgid "No events found"
-msgstr "Nebyly nalezeny žádné akce"
+msgstr "Жодної події не знайдено"
 
 #: ../lib/the-events-calendar.class.php:1313
 msgid "No events found in Trash"
-msgstr "V koši nebyly nalezeny žádné akce"
+msgstr "Жодної події не знайдено у смітнику"
 
 #: ../lib/the-events-calendar.class.php:1318
 #: ../public/advanced-functions/meta.php:381 ../views/tickets/email.php:343
 msgid "Venue"
-msgstr "Místo konání"
+msgstr "Місце проведення"
 
 #: ../lib/the-events-calendar.class.php:1320
 #: ../lib/the-events-calendar.class.php:1431
 msgid "Add New Venue"
-msgstr "Vytvořit nové místo konání"
+msgstr "Додати нове місце проведення"
 
 #: ../lib/the-events-calendar.class.php:1321
 msgid "Edit Venue"
-msgstr "Upravit místo konání"
+msgstr "Редагувати місце проведення"
 
 #: ../lib/the-events-calendar.class.php:1322
 msgid "New Venue"
-msgstr "Vytvořit místo konání"
+msgstr "Нове місце проведення"
 
 #: ../lib/the-events-calendar.class.php:1323
 msgid "View Venue"
-msgstr "Zobrazit místo konání"
+msgstr "Переглянути місце проведення"
 
 #: ../lib/the-events-calendar.class.php:1324
 msgid "Search Venues"
-msgstr "Hledat místa konání"
+msgstr "Пошук місць проведення"
 
 #: ../lib/the-events-calendar.class.php:1325
 msgid "No venue found"
-msgstr "Nebylo nalezeno žádné místo konání"
+msgstr "Жодного місця проведення не знайдено"
 
 #: ../lib/the-events-calendar.class.php:1326
 msgid "No venues found in Trash"
-msgstr "V koši nebyly nalezeny žádné místa konání"
+msgstr "Жодного місця проведення не знайдено у смітнику"
 
 #: ../lib/the-events-calendar.class.php:1331
 #: ../public/advanced-functions/meta.php:443 ../views/tickets/email.php:362
 msgid "Organizer"
-msgstr "Pořadatel"
+msgstr "Організатор"
 
 #: ../lib/the-events-calendar.class.php:1333
 #: ../lib/the-events-calendar.class.php:1432
 msgid "Add New Organizer"
-msgstr "Vytvořit nového pořadatele"
+msgstr "Додати нового організатора"
 
 #: ../lib/the-events-calendar.class.php:1334
 msgid "Edit Organizer"
-msgstr "Upravit pořadatele"
+msgstr "Редагувати організатора"
 
 #: ../lib/the-events-calendar.class.php:1335
 msgid "New Organizer"
-msgstr "Vytvořit pořadatele"
+msgstr "Новий організатор"
 
-#
 #: ../lib/the-events-calendar.class.php:1336
 msgid "View Organizer"
-msgstr "Zobrazit pořadatele"
+msgstr "Переглянути організатора"
 
 #: ../lib/the-events-calendar.class.php:1337
 msgid "Search Organizers"
-msgstr "Hledat pořadatele"
+msgstr "Пошук організаторів"
 
 #: ../lib/the-events-calendar.class.php:1338
 msgid "No organizer found"
-msgstr "Nebyl nalezen žádný pořadatel"
+msgstr "Жодного з організаторів не знайдено"
 
 #: ../lib/the-events-calendar.class.php:1339
 msgid "No organizers found in Trash"
-msgstr "V koši nebyli nalezeni žádní pořadatelé"
+msgstr "Жодного з організаторів не знайдено у смітнику"
 
 #: ../lib/the-events-calendar.class.php:1343
 #: ../lib/tribe-admin-events-list.class.php:176
 msgid "Event Categories"
-msgstr "Rubriky akcí"
+msgstr "Категорії подій"
 
 #: ../lib/the-events-calendar.class.php:1345
 msgid "Search Event Categories"
-msgstr "Hledat rubriky akcí"
+msgstr "Пошук по категоріям подій"
 
 #: ../lib/the-events-calendar.class.php:1346
 msgid "All Event Categories"
-msgstr "Všechny rubriky akcí"
+msgstr "Усі категорії подій"
 
 #: ../lib/the-events-calendar.class.php:1347
 msgid "Parent Event Category"
-msgstr "Nadřazená rubrika akcí"
+msgstr "Батьківська категорія подій"
 
 #: ../lib/the-events-calendar.class.php:1348
 msgid "Parent Event Category:"
-msgstr "Nadřazená rubrika akcí:"
+msgstr "Батьківська категорія подій:"
 
 #: ../lib/the-events-calendar.class.php:1349
 msgid "Edit Event Category"
-msgstr "Upravit rubriku akcí"
+msgstr "Редагувати категорію подій"
 
 #: ../lib/the-events-calendar.class.php:1350
 msgid "Update Event Category"
-msgstr "Aktualizovat rubriku akcí"
+msgstr "Оновити категорію подій"
 
 #: ../lib/the-events-calendar.class.php:1351
 msgid "Add New Event Category"
-msgstr "Vytvořit novou rubriku akcí"
+msgstr "Додати нову категорію подій"
 
 #: ../lib/the-events-calendar.class.php:1352
 msgid "New Event Category Name"
-msgstr "Název nové rubriky akcí"
+msgstr "Назва нової категорії подій"
 
 #: ../lib/the-events-calendar.class.php:1368
 #, php-format
 msgid "Event updated. <a href=\"%s\">View event</a>"
-msgstr "Akce byla aktualizována. <a href=\"%s\">Zobrazit akci</a>"
+msgstr "Подію оновлено. <a href=\"%s\">Переглянути подію</a>"
 
 #: ../lib/the-events-calendar.class.php:1369
 #: ../lib/the-events-calendar.class.php:1386
 #: ../lib/the-events-calendar.class.php:1403
 msgid "Custom field updated."
-msgstr "Uživatelské pole bylo aktualizováno."
+msgstr "Користувацькі поля оновлено."
 
 #: ../lib/the-events-calendar.class.php:1370
 #: ../lib/the-events-calendar.class.php:1387
 #: ../lib/the-events-calendar.class.php:1404
 msgid "Custom field deleted."
-msgstr "Uživatelské pole bylo smazáno."
+msgstr "Користувацькі поля видалено."
 
 #: ../lib/the-events-calendar.class.php:1371
 msgid "Event updated."
-msgstr "Akce byla aktualizována."
+msgstr "Подію оновлено."
 
 #: ../lib/the-events-calendar.class.php:1373
 #, php-format
 msgid "Event restored to revision from %s"
-msgstr "Byla obnovena verze Akce %s"
+msgstr "Подію відновлено для перегляду з %s"
 
 #: ../lib/the-events-calendar.class.php:1374
 #, php-format
 msgid "Event published. <a href=\"%s\">View event</a>"
-msgstr "Akce byla publikována. <a href=\"%s\">Zobrazit akci</a>"
+msgstr "Подію опубліковано. <a href=\"%s\">Переглянути подію</a>"
 
 #: ../lib/the-events-calendar.class.php:1375
 msgid "Event saved."
-msgstr "Akce byla uložena."
+msgstr "Подія збережена."
 
 #: ../lib/the-events-calendar.class.php:1376
 #, php-format
 msgid "Event submitted. <a target=\"_blank\" href=\"%s\">Preview event</a>"
 msgstr ""
-"Akce byla odeslána ke schválení. <a target=\"_blank\" href=\"%s\">Zobrazit "
-"náhled akce</a>"
+"Подію підтверджено. <a target=\"_blank\" href=\"%s\">Переглянути подію</a>"
 
 #: ../lib/the-events-calendar.class.php:1377
 #, php-format
@@ -1900,53 +1842,53 @@ msgid ""
 "Event scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s"
 "\">Preview event</a>"
 msgstr ""
-"Akce bude automaticky publikována: <strong>%1$s</strong>. <a target=\"_blank"
-"\" href=\"%2$s\">Zobrazit náhled akce</a>"
+"Подію заплановано на: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s"
+"\">Переглянути подію</a>"
 
 #: ../lib/the-events-calendar.class.php:1379
 #: ../lib/the-events-calendar.class.php:1396
 #: ../lib/the-events-calendar.class.php:1413
 msgid "M j, Y @ G:i"
-msgstr "j.n.Y, G:i"
+msgstr "M j, Y @ G:i"
 
 #: ../lib/the-events-calendar.class.php:1380
 #, php-format
 msgid "Event draft updated. <a target=\"_blank\" href=\"%s\">Preview event</a>"
 msgstr ""
-"Koncept Akce byl uložen. <a target=\"_blank\" href=\"%s\">Zobrazit náhled "
-"akce</a>"
+"Проект події оновлено. <a target=\"_blank\" href=\"%s\">Переглянути подію</a>"
 
 #: ../lib/the-events-calendar.class.php:1385
 #, php-format
 msgid "Venue updated. <a href=\"%s\">View venue</a>"
 msgstr ""
-"Místo konání bylo aktualizováno. <a href=\"%s\">Zobrazit místo konání</a>"
+"Місце проведення оновлено  <a href=\"%s\">Переглянути місце проведення</a>"
 
 #: ../lib/the-events-calendar.class.php:1388
 msgid "Venue updated."
-msgstr "Místo konání bylo aktualizováno."
+msgstr "Місце проведення оновлено."
 
 #: ../lib/the-events-calendar.class.php:1390
 #, php-format
 msgid "Venue restored to revision from %s"
-msgstr "Byla obnovena verze Místa konání %s"
+msgstr "Місце проведення відновлено для перегляду з %s"
 
 #: ../lib/the-events-calendar.class.php:1391
 #, php-format
 msgid "Venue published. <a href=\"%s\">View venue</a>"
 msgstr ""
-"Místo konání bylo publikováno. <a href=\"%s\">Zobrazit místo konání</a>"
+"Місце проведення опубліковано. <a href=\"%s\">Переглянути місце проведення</"
+"a>"
 
 #: ../lib/the-events-calendar.class.php:1392
 msgid "Venue saved."
-msgstr "Místo konání bylo uloženo."
+msgstr "Місце проведення збережено."
 
 #: ../lib/the-events-calendar.class.php:1393
 #, php-format
 msgid "Venue submitted. <a target=\"_blank\" href=\"%s\">Preview venue</a>"
 msgstr ""
-"Místo konání bylo odesláno ke schválení. <a target=\"_blank\" href=\"%s"
-"\">Zobrazit náhled místa konání</a>"
+"Місце проведення підтверджено. <a target=\"_blank\" href=\"%s\">Переглянути "
+"місце проведення</a>"
 
 #: ../lib/the-events-calendar.class.php:1394
 #, php-format
@@ -1954,46 +1896,46 @@ msgid ""
 "Venue scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s"
 "\">Preview venue</a>"
 msgstr ""
-"Místo konání bude automaticky publikováno: <strong>%1$s</strong>. <a target="
-"\"_blank\" href=\"%2$s\">Zobrazit náhled místa konání</a>"
+"Місце проведення заплановано на: <strong>%1$s</strong>. <a target=\"_blank\" "
+"href=\"%2$s\">Попередній перегляд місця проведення</a>"
 
 #: ../lib/the-events-calendar.class.php:1397
 #, php-format
 msgid "Venue draft updated. <a target=\"_blank\" href=\"%s\">Preview venue</a>"
 msgstr ""
-"Koncept Místa konání byl uložen. <a target=\"_blank\" href=\"%s\">Zobrazit "
-"náhled místa konání</a>"
+"Проект місця проведення оновлено. <a target=\"_blank\" href=\"%s"
+"\">Попередній перегляд місця проведення</a>"
 
 #: ../lib/the-events-calendar.class.php:1402
 #, php-format
 msgid "Organizer updated. <a href=\"%s\">View organizer</a>"
-msgstr "Pořadatel byl aktualizován. <a href=\"%s\">Zobrazit pořadatele</a>"
+msgstr "Організатора оновлено. <a href=\"%s\">Подивитись організатора</a>"
 
 #: ../lib/the-events-calendar.class.php:1405
 msgid "Organizer updated."
-msgstr "Pořadatel byl aktualizován."
+msgstr "Організатора оновлено."
 
 #: ../lib/the-events-calendar.class.php:1407
 #, php-format
 msgid "Organizer restored to revision from %s"
-msgstr "Byla obnovena verze Pořadatele %s"
+msgstr "Організатора відновлено для перегляду з %s"
 
 #: ../lib/the-events-calendar.class.php:1408
 #, php-format
 msgid "Organizer published. <a href=\"%s\">View organizer</a>"
-msgstr "Pořadatel byl publikován. <a href=\"%s\">Zobrazit pořadatele</a>"
+msgstr "Організатора опубліковано. <a href=\"%s\">Подивитись організатора</a>"
 
 #: ../lib/the-events-calendar.class.php:1409
 msgid "Organizer saved."
-msgstr "Pořadatel byl uložen."
+msgstr "Організатора збережено."
 
 #: ../lib/the-events-calendar.class.php:1410
 #, php-format
 msgid ""
 "Organizer submitted. <a target=\"_blank\" href=\"%s\">Preview organizer</a>"
 msgstr ""
-"Pořadatel byl odeslán ke schválení. <a target=\"_blank\" href=\"%s"
-"\">Zobrazit náhled pořadatele</a>"
+"Організатор представлені. . <a target=\"_blank\" href=\"%s\"> Попередній "
+"організатор</a>"
 
 #: ../lib/the-events-calendar.class.php:1411
 #, php-format
@@ -2001,8 +1943,8 @@ msgid ""
 "Organizer scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" href="
 "\"%2$s\">Preview organizer</a>"
 msgstr ""
-"Pořadatel bude automaticky publikován: <strong>%1$s</strong>. <a target="
-"\"_blank\" href=\"%2$s\">Zobrazit náhled pořadatele</a>"
+"Організатором заплановано на: <strong>%1$s</strong>. <a target=\"_blank\" "
+"href=\"%2$s\">Подивитись організатора</a>"
 
 #: ../lib/the-events-calendar.class.php:1414
 #, php-format
@@ -2010,141 +1952,133 @@ msgid ""
 "Organizer draft updated. <a target=\"_blank\" href=\"%s\">Preview organizer</"
 "a>"
 msgstr ""
-"Koncept Pořadatele byl uložen. <a target=\"_blank\" href=\"%s\">Zobrazit "
-"náhled pořadatele</a>"
+"Організатор проекту оновлюється.<a target=\"_blank\" href=\"%s\"> Попередній "
+"організатор</a>"
 
 #: ../lib/the-events-calendar.class.php:1451
 msgid "Use Saved Venue:"
-msgstr "Použít uložené místo konání:"
+msgstr "Використовувати існуючі місця проведення:"
 
-#
 #: ../lib/the-events-calendar.class.php:1474
 msgid "Use Saved Organizer:"
-msgstr "Použít uloženého pořadatele:"
+msgstr "Використовувати існуючих організаторів:"
 
-#
 #: ../lib/the-events-calendar.class.php:1514
 msgid "Use New Venue"
-msgstr "Vytvořit nové místo konání"
+msgstr "Використовувати нові місця проведення"
 
-#
 #: ../lib/the-events-calendar.class.php:1516
 msgid "My Venues"
-msgstr "Moje Místa konání"
+msgstr "Мої місця проведення"
 
-#
 #: ../lib/the-events-calendar.class.php:1521
 msgid "Available Venues"
-msgstr "Místa konání k dispozici"
+msgstr "Доступні місця проведення"
 
 #: ../lib/the-events-calendar.class.php:1532
 msgid "No saved venue exists."
-msgstr "Zatím nebylo uloženo žádné místo."
+msgstr "Нема збережених місць проведення"
 
-#
 #: ../lib/the-events-calendar.class.php:1571
 msgid "Use New Organizer"
-msgstr "Vytvořit nového pořadatele"
+msgstr "Використовувати нового організатора"
 
-#
 #: ../lib/the-events-calendar.class.php:1573
 msgid "My Organizers"
-msgstr "Moji Pořadatelé"
+msgstr "Мої організатори"
 
-#
 #: ../lib/the-events-calendar.class.php:1578
 msgid "Available Organizers"
-msgstr "Pořadatelé k dispozici"
+msgstr "Доступні організатори"
 
-#
 #: ../lib/the-events-calendar.class.php:1589
 msgid "No saved organizer exists."
-msgstr "Zatím nebyl uložen žádný pořadatel."
+msgstr "Нема жодного організатора."
 
 #: ../lib/the-events-calendar.class.php:1767
 msgid "Next"
-msgstr "Další"
+msgstr "Наступна"
 
 #: ../lib/the-events-calendar.class.php:1768
 msgid "Prev"
-msgstr "Předchozí"
+msgstr "Попередня"
 
 #: ../lib/the-events-calendar.class.php:1769
 msgid "Today"
-msgstr "Dnes"
+msgstr "Сьогодні"
 
 #: ../lib/the-events-calendar.class.php:1770
 msgid "Done"
-msgstr "Hotovo"
+msgstr "Виконано"
 
 #: ../lib/the-events-calendar.class.php:1979
 msgid "Network"
-msgstr "Síť webů"
+msgstr "Мережа"
 
 #: ../lib/the-events-calendar.class.php:3403
 #: ../lib/the-events-calendar.class.php:3431
 msgid "Date out of range."
-msgstr "Datum je mimo platný rozsah."
+msgstr "Дата поза діапазоном."
 
 #: ../lib/the-events-calendar.class.php:3455
 msgid "Event Options"
-msgstr "Nastavení akce"
+msgstr "Опціі Події"
 
 #: ../lib/the-events-calendar.class.php:3457
 msgid "Venue Information"
-msgstr "Informace o místě konání"
+msgstr "Інформація про місце проведення"
 
 #: ../lib/the-events-calendar.class.php:3462
 msgid "Organizer Information"
-msgstr "Informace o pořadateli"
+msgstr "Інформація про організатора"
 
 #: ../lib/the-events-calendar.class.php:3659
 msgid "Support"
-msgstr "Podpora"
+msgstr "Підтримка"
 
 #: ../lib/the-events-calendar.class.php:3662
 msgid "View All Add-Ons"
-msgstr "Prohlédnout všechny doplňky"
+msgstr "Преглянути всі надбудови"
 
 #: ../lib/the-events-calendar.class.php:3679
 msgid "News from Modern Tribe"
-msgstr "Novinky od Modern Tribe"
+msgstr "Новини від Modern Tribe"
 
 #: ../lib/the-events-calendar.class.php:3760
 msgid "Additional Functionality"
-msgstr "Další funkce"
+msgstr "Додаткові функціональні можливості"
 
 #: ../lib/the-events-calendar.class.php:3765
 msgid ""
 "Looking for additional functionality including recurring events, ticket "
 "sales, publicly submitted events, new views and more?"
 msgstr ""
-"Hledáte další funkce, včetně opakujících se akcí, prodeje vstupenek, veřejně "
-"přidávaných akcí, nových způsobů zobrazení a další?"
+"Дивлячись на додатковій функціональності в тому числі повторюваних подій, "
+"продажу квитків, публічно представлених подій, нових поглядів і більше?"
 
 #: ../lib/the-events-calendar.class.php:3765
 #, php-format
 msgid "Check out the <a href=\"%s\">available add-ons</a>."
-msgstr "Podívejte se na <a href=\"%s\">dostupné doplňky</a>."
+msgstr "Перевірте <a href=\"%s\"> доступні доповнення A>."
 
 #: ../lib/the-events-calendar.class.php:3837
 #: ../lib/the-events-calendar.class.php:3927
 msgid "View Calendar"
-msgstr "Zobrazit kalendář"
+msgstr "Перегляд Календаря"
 
 #: ../lib/the-events-calendar.class.php:3845
 msgid "Add Event"
-msgstr "Vytvořit akci"
+msgstr "Додати Подію"
 
 #: ../lib/the-events-calendar.class.php:3854
 msgid "Edit Events"
-msgstr "Přehled akcí"
+msgstr "Редагувати Подію"
 
 #: ../lib/the-events-calendar.class.php:3866
 #: ../lib/the-events-calendar.class.php:3963
 #: ../lib/tribe-settings.class.php:164
 msgid "Settings"
-msgstr "Nastavení"
+msgstr "Налаштування"
 
 #: ../lib/the-events-calendar.class.php:3897
 #, php-format
@@ -2152,135 +2086,128 @@ msgid ""
 "Welcome to The Events Calendar! Your events calendar can be found at %s. To "
 "change the events slug, visit %sEvents -> Settings%s."
 msgstr ""
-"Vítejte u pluginu The Events Calendar! Váš kalendář akcí naleznete na adrese "
-"%s. Název v URL pro akce můžete změnit na stránce %sAkce -> Nastavení%s."
+"Ласкаво просимо в Календар подій! Ваш календар можна знайти на %s. Щоб "
+"змінити короткий лінк події, відвідати%sEvents -> Settings%s."
 
 #: ../lib/the-events-calendar.class.php:3964
 msgid "Calendar"
-msgstr "Kalendář"
+msgstr "Календар"
 
 #: ../lib/the-events-calendar.class.php:4017
 msgid "List"
-msgstr "Seznam"
+msgstr "Список"
 
-#
 #: ../lib/the-events-calendar.class.php:4028
 msgid "Month"
-msgstr "Měsíc"
+msgstr "Місяць"
 
 #: ../lib/the-events-calendar.class.php:4047
 #: ../lib/the-events-calendar.class.php:4049
 msgid "Search"
-msgstr "Hledat"
+msgstr "Пошук"
 
-#
 #: ../lib/the-events-calendar.class.php:4069
 #: ../lib/the-events-calendar.class.php:4081
 msgid "Date"
-msgstr "Datum"
+msgstr "Дата"
 
-#
 #: ../lib/the-events-calendar.class.php:4072
 msgid "Events In"
-msgstr "Akce v"
+msgstr "Події у"
 
-#
 #: ../lib/the-events-calendar.class.php:4074
 msgid "Events From"
-msgstr "Akce od"
+msgstr "Події з"
 
 #: ../lib/the-events-calendar.class.php:4262
 msgid "&laquo; Previous Events"
-msgstr "&laquo; Předchozí akce"
+msgstr "&laquo; Попередня подія"
 
 #: ../lib/the-events-calendar.class.php:4263
 msgid "Next Events &raquo;"
-msgstr "Další akce &raquo;"
+msgstr "Наступна подія &raquo;"
 
 #: ../lib/tickets/tribe-tickets-attendees.php:67
 msgid "Order #"
-msgstr "Objednávka č."
+msgstr "Замовлення #"
 
 #: ../lib/tickets/tribe-tickets-attendees.php:68
 msgid "Order Status"
-msgstr "Stav objednávky"
+msgstr "Статус замовлення"
 
 #: ../lib/tickets/tribe-tickets-attendees.php:69
 msgid "Purchaser name"
-msgstr "Jméno kupce"
+msgstr "Ім'я покупця"
 
 #: ../lib/tickets/tribe-tickets-attendees.php:70
 msgid "Purchaser email"
-msgstr "Email kupce"
+msgstr "Покупця  email"
 
 #: ../lib/tickets/tribe-tickets-attendees.php:71
 msgid "Ticket type"
-msgstr "Typ vstupenky"
+msgstr "Тип квитків"
 
-#
 #: ../lib/tickets/tribe-tickets-attendees.php:72
 #: ../views/tickets/email.php:316
 msgid "Ticket #"
-msgstr "Vstupenka č."
+msgstr "Квиток #"
 
 #: ../lib/tickets/tribe-tickets-attendees.php:73
 #: ../views/tickets/email.php:328
 msgid "Security Code"
-msgstr "Kontrolní kód"
+msgstr "Захистний код"
 
 #: ../lib/tickets/tribe-tickets-attendees.php:74
 #: ../lib/tickets/tribe-tickets-attendees.php:161
 #: ../lib/tickets/tribe-tickets-attendees.php:217
 msgid "Check in"
-msgstr "Zaškrtnout"
+msgstr "Зареєструватися"
 
 #: ../lib/tickets/tribe-tickets-attendees.php:162
 #: ../lib/tickets/tribe-tickets-attendees.php:217
 msgid "Undo Check in"
-msgstr "Zrušit zaškrtnutí"
+msgstr "Скасування приїзду"
 
 #: ../lib/tickets/tribe-tickets-attendees.php:196
 msgid "Print"
-msgstr "Tisk"
+msgstr "Друк"
 
-#
 #: ../lib/tickets/tribe-tickets-attendees.php:197
 msgid "Email"
 msgstr "Email"
 
-#
 #: ../lib/tickets/tribe-tickets-attendees.php:198
 msgid "Export"
-msgstr "Export"
+msgstr "Експорт"
 
 #: ../lib/tickets/tribe-tickets-attendees.php:204
 msgid "Filter by ticket #, order # or security code"
-msgstr "Filtrovat podle čísla vstupenky, objednávky nebo kontrolního kódu"
+msgstr "Сортувати по квиток #, ордеру # або захисному коду"
 
-#
 #: ../lib/tickets/tribe-tickets-metabox.php:24
 msgid "Tickets"
-msgstr "Vstupenky"
+msgstr "Квитки"
 
 #: ../lib/tickets/tribe-tickets-metabox.php:62
 msgid "Ticket header image"
-msgstr "Obrázek v záhlaví vstupenky"
+msgstr "Зображення заголовка квитка"
 
 #: ../lib/tickets/tribe-tickets-metabox.php:62
 msgid "Set as ticket header"
-msgstr "Použít jako obrázek v záhlaví vstupenky"
+msgstr "Встановити як заголовок квитка"
 
 #: ../lib/tickets/tribe-tickets-pro.php:107
 msgid "You need to select a user or type a valid email address"
-msgstr "Je třeba vybrat uživatele nebo zadat platnou emailovou adresu"
+msgstr ""
+"Вам потрібно вибрати користувача або введіть діючий адресу електронної пошти"
 
 #: ../lib/tickets/tribe-tickets-pro.php:108
 msgid "Sending..."
-msgstr "Odesílání..."
+msgstr "Відправка ..."
 
 #: ../lib/tickets/tribe-tickets-pro.php:136
 msgid "Columns"
-msgstr "Sloupce"
+msgstr "Стовпці"
 
 #: ../lib/tickets/tribe-tickets-pro.php:137
 msgid ""
@@ -2288,135 +2215,132 @@ msgid ""
 "selection works in the table below, in the email, for print and for the CSV "
 "export."
 msgstr ""
-"Pomocí záložky &#8222;Nastavení zobrazených informací&#8220; si můžete "
-"vybrat, které sloupce chcete zobrazit. Tento výběr se projeví při výpisu, "
-"při odesílání emailem, při tisku a při exportu do CSV souboru."
+"Ви можете використовувати \"Параметри екрану\", щоб вибрати, які стовпці ви "
+"хочете побачити. Вибір працює в таблиці нижче, в електронній пошті, для "
+"друку і для експорту CSV."
 
 #: ../lib/tickets/tribe-tickets-pro.php:229
 msgid "Yes"
-msgstr "Ano"
+msgstr "Так"
 
 #: ../lib/tickets/tribe-tickets-pro.php:258
 msgid "attendees"
-msgstr "ucastnici"
+msgstr "учасники"
 
 #: ../lib/tickets/tribe-tickets-pro.php:309
 #, php-format
 msgid "Attendee List for: %s"
-msgstr "Seznam účastníků na: %s"
+msgstr "Список відвідувачів для: %s"
 
 #: ../lib/tickets/tribe-tickets.php:298
 msgid "Your ticket has been saved."
-msgstr "Vaše vstupenka byla uložena."
+msgstr "Ваш квиток був збережений."
 
 #: ../lib/tickets/tribe-tickets.php:375
 msgid "Your ticket has been deleted."
-msgstr "Vaše vstupenka byla smazána."
+msgstr "Ваш квиток був видалений."
 
 #: ../lib/tribe-admin-events-list.class.php:181
 msgid "Start Date"
-msgstr "Počáteční datum"
+msgstr "Дата початку"
 
 #: ../lib/tribe-admin-events-list.class.php:182
 msgid "End Date"
-msgstr "Koncové datum"
+msgstr "Дата закінчення"
 
 #: ../lib/tribe-admin-events-list.class.php:252
 #, php-format
 msgid "All %s"
-msgstr "Celkem %s"
+msgstr "Усі %s"
 
-#
 #: ../lib/tribe-app-shop.class.php:62 ../lib/tribe-app-shop.class.php:63
 #: ../lib/tribe-app-shop.class.php:87
 msgid "Event Add-Ons"
-msgstr "Doplňky pro akce"
+msgstr "Надбудови події"
 
 #: ../lib/tribe-debug-bar.class.php:29
 msgid "Tribe"
-msgstr "Tribe"
+msgstr "Покоління"
 
-#
 #: ../lib/tribe-event-api.class.php:300
 msgid "Unnamed Venue"
-msgstr "Neznámé místo konání"
+msgstr "Безіменне місце проведення"
 
 #: ../lib/tribe-event-api.class.php:368 ../lib/tribe-view-helpers.class.php:44
 #: ../public/template-tags/venue.php:240
 msgid "United States"
-msgstr "Spojené státy"
+msgstr "Сполучені Штати"
 
 #: ../lib/tribe-event-exception.class.php:17
 #: ../lib/tribe-event-exception.class.php:34
 msgid "Error"
-msgstr "Chyba"
+msgstr "Помилка"
 
 #: ../lib/tribe-field.class.php:182
 msgid "Invalid field type specified"
-msgstr "Uvedený typ pole je neplatný"
+msgstr "Вказано невірний тип поля"
 
 #: ../lib/tribe-field.class.php:452
 msgid "No radio options specified"
-msgstr "Nebyly specifikovány položky přepínače"
+msgstr "No radio options specified"
 
 #: ../lib/tribe-field.class.php:489
 msgid "No checkbox options specified"
-msgstr "Nebyly specifikovány položky zaškrtávacího políčka"
+msgstr "Не обрано жодного варіанту чекбоксів"
 
 #: ../lib/tribe-field.class.php:544
 msgid "No select options specified"
-msgstr "Nebyly specifikovány položky rozbalovacího seznamu"
+msgstr "Не вибрано ждоного параметру"
 
 #: ../lib/tribe-settings-tab.class.php:219
 msgid "There are no fields setup for this tab yet."
-msgstr "Pro tento panel nejsou zatím nastavena žádná pole."
+msgstr "Поки що відсутнє поле установки для цієї вкладці "
 
-#
 #: ../lib/tribe-settings.class.php:164 ../lib/tribe-settings.class.php:176
 msgid "The Events Calendar Settings"
-msgstr "Nastavení pro The Events Calendar"
+msgstr "Налаштування Events Calendar"
 
-#
 #: ../lib/tribe-settings.class.php:176
 msgid "Events Settings"
-msgstr "Nastavení akcí"
+msgstr "Налаштування події"
 
 #: ../lib/tribe-settings.class.php:225
 #, php-format
 msgid "%s Settings"
-msgstr "Nastavení %s"
+msgstr "%s Налаштування"
 
 #: ../lib/tribe-settings.class.php:239
 msgid "You've requested a non-existent tab."
-msgstr "Požadovaný panel neexistuje."
+msgstr "Ви запросили неіснуючу вкладку."
 
 #: ../lib/tribe-settings.class.php:247
 msgid " Save Changes"
-msgstr "Uložit změny"
+msgstr "Зберегти зміни"
 
 #: ../lib/tribe-settings.class.php:299
 msgid "You don't have permission to do that."
-msgstr "Nemáte dostatečné oprávnění pro tuto činnost."
+msgstr "Ви не маєте дозволу для цього."
 
 #: ../lib/tribe-settings.class.php:305
 msgid "The request was sent insecurely."
-msgstr "Požadavek byl odeslán nezabezpečený."
+msgstr "Запит був відправлений незахищений."
 
 #: ../lib/tribe-settings.class.php:311
 msgid "The request wasn't sent from this tab."
-msgstr "Požadavek nebyl odeslán z tohoto panelu."
+msgstr "Запиту не було відправлено з цієї вкладки."
 
 #: ../lib/tribe-settings.class.php:476
 msgid "Your form had the following errors:"
-msgstr "Ve formuláři se vyskytly následující chyby:"
+msgstr "Ваша форма мала такі помилки:"
 
 #: ../lib/tribe-settings.class.php:485
 msgid "None of your settings were saved. Please try again."
-msgstr "Žádné z vašich nastavení nebylo uloženo. Zkuste to prosím znovu."
+msgstr ""
+"Жоден з ваших налаштувань не були збережені. Будь ласка, спробуйте ще раз."
 
 #: ../lib/tribe-settings.class.php:509
 msgid "Settings saved."
-msgstr "Nastavení bylo uloženo."
+msgstr "Зміни збережено."
 
 #: ../lib/tribe-support.class.php:34
 msgid ""
@@ -2424,8 +2348,6 @@ msgid ""
 "your system steup. For your convenience, we've put together a little report "
 "on what's cooking under the hood."
 msgstr ""
-"Někdy je těžké říct, co je špatně bez podrobnějších informací o nastavení "
-"vašeho systému. Proto jsme sestavili malou zprávu o tom, co máte pod kapotou."
 
 #: ../lib/tribe-support.class.php:35
 msgid ""
@@ -2433,23 +2355,23 @@ msgid ""
 "or we're just plain having trouble reproducing your bug report, please copy "
 "and send all of this to our support team."
 msgstr ""
-"Pokud máte podezření, že váš problém má spojitost s jiným pluginem anebo jen "
-"zkrátka máme potíže s reprodukcí vašeho chybového hlášení, prosím zkopírujte "
-"a pošlete to vše našemu týmu technické podpory."
 
 #: ../lib/tribe-support.class.php:39
+#, fuzzy
 msgid "System Information"
-msgstr "Informace o systému"
+msgstr "Інформація про місце проведення"
 
 #: ../lib/tribe-template-factory.class.php:232
 #, php-format
 msgid "There were no results found for <strong>\"%s\"</strong>."
-msgstr "Nebyly nalezeny žádné záznamy pro <strong>\"%s\"</strong>."
+msgstr "Немає результатів для <strong>\"%s\"</strong>."
 
 #: ../lib/tribe-template-factory.class.php:235
 #, php-format
 msgid "No results were found for events in or near <strong>\"%s\"</strong>."
-msgstr "Nebyly nalezeny žádné akce poblíž místa <strong>\"%s\"</strong>."
+msgstr ""
+"Нічого не знайдено для подій в межах або поблизу <strong>  \" %s \" </"
+"strong>."
 
 #: ../lib/tribe-template-factory.class.php:238
 #, php-format
@@ -2457,8 +2379,8 @@ msgid ""
 "No upcoming events listed under %s. Check out upcoming events for this "
 "category or view the full calendar."
 msgstr ""
-"Žádné nadcházející akce v rubrice %s. Podívejte se na nadcházející akce z "
-"této rubriky nebo si zobrazte úplný kalendář."
+"Немає майбутніх подій, перерахованих у %s. Перевірте нових подій для цієї "
+"категорії або переглянути повний календар."
 
 #: ../lib/tribe-template-factory.class.php:241
 #, php-format
@@ -2466,18 +2388,17 @@ msgid ""
 "No matching events listed under %s. Check out upcoming events for this "
 "category or view the full calendar."
 msgstr ""
-"Nebyly nalezeny žádné akce v rubrice %s. Podívejte se na nadcházející akce z "
-"této rubriky nebo si zobrazte úplný kalendář."
+"Немає відповідних подій, перерахованих у %s. Перевірте нові події для цієї "
+"категорії або перегляньте повний календар."
 
-#
 #: ../lib/tribe-template-factory.class.php:244
 msgid "No previous events "
-msgstr "Žádné předchozí akce"
+msgstr "Нема попередніх подій"
 
 #: ../lib/tribe-templates.class.php:543
 #, php-format
 msgid "Template overrides should be moved to the correct subdirectory: %s"
-msgstr "Přepisy šablon je třeba přemístit do správného podadresáře: %s"
+msgstr "Шаблон перевизначення слід перенести у відповідні підкаталоги: %s"
 
 #: ../lib/tribe-templates.class.php:584
 #, php-format
@@ -2485,7 +2406,7 @@ msgid ""
 "Template overrides should be moved to the correct subdirectory: "
 "tribe_get_template_part('%s')"
 msgstr ""
-"Přepisy šablon je třeba přemístit do správného podadresáře: "
+"Шаблон перевизначення слід перенести у відповідні підкаталоги: "
 "tribe_get_template_part('%s')"
 
 #: ../lib/tribe-the-events-calendar-import.class.php:64
@@ -2503,21 +2424,22 @@ msgid ""
 "><br/> You have events that need to be migrated.  Please visit the bottom of "
 "the <a href=\"%s\">settings page</a> to perform the migration."
 msgstr ""
-"Vítejte u Events 2.0! Jde o obrovský pokrok od verze 1.6.5. Před "
-"pokračováním dál se prosím ujistěte, že máte vytvořenu zálohu dat. Můžete se "
-"snadno <a href=\"%s\">vrátit ke starší verzi</a>, pokud si chcete nejprve "
-"vytvořit zálohu. Tato aktualizace zahrnuje dva hlavní kroky, <a href=\"%s"
-"\">migraci dat</a> a aktualizaci šablon podle potřeby. Došlo k významným "
-"změnám u tagů šablon a funkcí. Než budete pokračovat, podívejte se na náš <a "
-"href=\"%s\">návod na aktualizaci</a> a pročtěte si FAQ a znalostní bázi na "
-"<a href=\"%s\">stránce podpory</a>. Pokud teprve začínáte s pluginem The "
-"Events Calendar, můžete si přečíst naši <a href=\"%s\">příručku nového "
-"uživatele</a>.<br/><br/> Je nutné přenést data stávajících akcí.  Migraci "
-"můžete provést ve spodní části <a href=\"%s\">stránky s nastavením</a>."
+"Ласкаво просимо в Events 2.0! У цій версії відбулись значні зміни в "
+"порівнянні з 1.6.5. Будь ласка, переконайтеся, що ви створили резервну "
+"копію, перш ніж рушити далі. Ви можете легко <a href=\"%s\">повернутися до "
+"старої версії</a> якщо ви хочете зробити спершу резервну копію. Це оновлення "
+"містить в собі основні кроки, <a href=\"%s\">поновлення шаблонів в міру "
+"необхідності. Відбулись значні зміни в тегах шаблонів і функцій. Перевірте "
+"наш<a href=\"%s\">посібник з оновлення</a> та почитайте довідку та Базу "
+"знань з<a href=\"%s\">Сторінка супроводу</a>, перш ніж почати. Якщо ви "
+"новачок в The Events Calendar,Ви можете ознайомитися з нашими <a href=\"%s"
+"\">прикладами для користувача</a>.<br/><br/> У вас є події, які повинні бути "
+"перенесені. Будь ласка, відвідайте <a href=\"%s\">Сторінку налаштування</a> "
+"для виконання міграції."
 
 #: ../lib/tribe-the-events-calendar-import.class.php:86
 msgid "Upgrade from The Events Calendar"
-msgstr "Upgrade z pluginu The Events Calendar"
+msgstr "Оновлення з Events Calendar"
 
 #: ../lib/tribe-the-events-calendar-import.class.php:87
 msgid ""
@@ -2525,67 +2447,69 @@ msgid ""
 "upgraded. Please be sure to back up your database before initiating the "
 "upgrade. This process can not be undone."
 msgstr ""
-"Zdá se, že máte nějaké staré kalendářové data akcí, které musí být "
-"aktualizovány. Před aktualizací proveďte raději kompletní zálohu databáze. "
-"Tento proces nelze vrátit zpět."
+"Схоже, що у вас є старий Календар подій дані, які повинні бути оновлені. "
+"Будь ласка, не забудьте створити резервну копію бази даних перед початком "
+"оновлення. Цей процес не може бути скасовано."
 
 #: ../lib/tribe-the-events-calendar-import.class.php:88
 msgid "Migrate Data!"
-msgstr "Migrace dat!"
+msgstr "Перенесення даних!"
 
 #: ../lib/tribe-the-events-calendar-import.class.php:166
 #, php-format
 msgid "You successfully migrated (%d) entries."
-msgstr "Úspěšně se převedlo %d položek."
+msgstr "Ви успішно перенесені ( %d) записів."
 
 #: ../lib/tribe-the-events-calendar-import.class.php:242
 msgid "Install has 1 or more legacy event!"
-msgstr "Instalace obsahuje jeden nebo více Akcí starší verze!"
+msgstr "Установка має 1 або більше застарілий подія!"
 
 #: ../lib/tribe-validate.class.php:77 ../lib/tribe-validate.class.php:115
 msgid "Invalid or incomplete field passed"
-msgstr "Zadáno neplatné nebo neúplné pole"
+msgstr "Невірний або неповної поле пройшло"
 
 #: ../lib/tribe-validate.class.php:78 ../lib/tribe-validate.class.php:110
 #: ../lib/tribe-validate.class.php:116
 msgid "Field ID:"
-msgstr "ID pole:"
+msgstr "Поле ID:"
 
 #: ../lib/tribe-validate.class.php:109
 msgid "Non-existant field validation function passed"
-msgstr "Zadána neexistující validační funkce pole"
+msgstr ""
+"Возможно, вы имели в виду: Non-existent field validation function "
+"passedНеіснуючим функція перевірки поля пройшло"
 
 #: ../lib/tribe-validate.class.php:135 ../lib/tribe-validate.class.php:153
 #, php-format
 msgid "%s must contain numbers and letters only"
-msgstr "%s se musí skládat pouze z číslic a písmen"
+msgstr "%s повинно містити цифри і букви тільки"
 
 #: ../lib/tribe-validate.class.php:171
 #, php-format
 msgid "%s must contain numbers, letters and dots only"
-msgstr "%s se musí skládat pouze z číslic, písmen a teček."
+msgstr "%s повинно містити цифри, букви і точки тільки"
 
 #: ../lib/tribe-validate.class.php:187
 #, php-format
 msgid "%s must be a positive number."
-msgstr "%s musí být kladné číslo."
+msgstr "%s повинно бути позитивним числом."
 
 #: ../lib/tribe-validate.class.php:204
 #, php-format
 msgid "%s must be a valid slug (numbers, letters, dashes, and underscores)."
 msgstr ""
-"%s musí být platným názvem v URL (číslice, písmena, pomlčky, a podtržítka)."
+"%s повинно бути допустимим короткий лінк (цифри, букви, тире і підкреслення)."
 
 #: ../lib/tribe-validate.class.php:221
 #, php-format
 msgid "%s must be a valid absolute URL."
-msgstr "%s musí být platná absolutní adresa URL."
+msgstr "%s повинно бути допустимим абсолютним URL."
 
 #: ../lib/tribe-validate.class.php:239 ../lib/tribe-validate.class.php:258
 #: ../lib/tribe-validate.class.php:279
 #, php-format
 msgid "%s must have a value that's part of its options."
-msgstr "%s musí mít hodnotu, která je jednou z možných voleb."
+msgstr "%s повинно мати значення, який є частиною його опцій."
 
 #: ../lib/tribe-validate.class.php:295
 #, php-format
@@ -2593,1314 +2517,1595 @@ msgid ""
 "Comparison validation failed because no comparison value was provided, for "
 "field %s"
 msgstr ""
-"Kontrola porovnávání se nezdařila, protože nebyla zadána porovnávací hodnota "
-"pro pole %s"
+"Перевірка Порівняння не вдалася, оскільки не було представлено жодного "
+"значення в порівнянні, для області %s"
 
 #: ../lib/tribe-validate.class.php:302
 #, php-format
 msgid "%s cannot be the same as %s."
-msgstr "%s nemůže být stejné jako %s."
+msgstr "%s не може бути таким самим, як %s."
 
 #: ../lib/tribe-validate.class.php:304
 #, php-format
 msgid "%s cannot be a duplicate"
-msgstr "%s nemůže být duplicitní"
+msgstr "%s не може дублюватись"
 
 #: ../lib/tribe-validate.class.php:322
 #, php-format
 msgid "%s must be a number or percentage."
-msgstr "%s musí být číslo nebo procento."
+msgstr "%s має бути число або відсоток."
 
 #: ../lib/tribe-validate.class.php:386
 #, php-format
 msgid "%s must be a number between 0 and 21."
-msgstr "%s musí být číslo v rozmezí 0 až 21."
+msgstr "%s має бути число між 0 та 21."
 
 #: ../lib/tribe-validate.class.php:404
 #, php-format
 msgid ""
 "%s must consist of letters, numbers, dashes, apostrophes, and spaces only."
-msgstr "%s se musí skládat pouze z písmen, číslic, pomlček, apostrofů a mezer."
+msgstr ""
+"%s повинен складатися тільки з букв, цифр, тире, апострофів та пробілів."
 
 #: ../lib/tribe-validate.class.php:422
 #, php-format
 msgid "%s must consist of letters, spaces, apostrophes, and dashes."
-msgstr "%s se musí skládat pouze z písmen, mezer, apostrofů a pomlček."
+msgstr "%s повинен складатися з букв, пробілів, апострофів та тире."
 
 #: ../lib/tribe-validate.class.php:438
 #, php-format
 msgid "%s must consist of 5 numbers."
-msgstr "%s se musí skládat z 5 čísel."
+msgstr "%s повинен складатись з 5 цифр."
 
 #: ../lib/tribe-validate.class.php:454
 #, php-format
 msgid "%s must be a phone number."
-msgstr "%s musí být telefonní číslo."
+msgstr "%s повинен бути номер телефону."
 
 #: ../lib/tribe-validate.class.php:472
 msgid ""
 "Country List must be formatted as one country per line in the following "
 "format: <br>US, United States <br> UK, United Kingdom."
 msgstr ""
-"Seznam zemí musí být formátován jako jedna země na řádek v následujícím "
-"formátu: <br>US, United States <br> UK, United Kingdom."
+"Список країн повинен бути відформатований по одній країні в рядку, у "
+"наступному форматі: <br>США, Сполучені Штати <br> UK, Великобританія."
 
 #: ../lib/tribe-view-helpers.class.php:24
 #: ../lib/tribe-view-helpers.class.php:43
 msgid "Select a Country:"
-msgstr "Vyberte zemi:"
+msgstr "Виберіть країну:"
 
 #: ../lib/tribe-view-helpers.class.php:45
+#, fuzzy
 msgid "Afghanistan"
-msgstr "Afghánistán"
+msgstr "Афганістан"
 
 #: ../lib/tribe-view-helpers.class.php:46
+#, fuzzy
 msgid "Albania"
-msgstr "Albánie"
+msgstr "Албанія"
 
 #: ../lib/tribe-view-helpers.class.php:47
+#, fuzzy
 msgid "Algeria"
-msgstr "Alžírsko"
+msgstr "Алжир"
 
 #: ../lib/tribe-view-helpers.class.php:48
+#, fuzzy
 msgid "American Samoa"
-msgstr "Americká Samoa"
+msgstr "Американське Самоа"
 
 #: ../lib/tribe-view-helpers.class.php:49
+#, fuzzy
 msgid "Andorra"
-msgstr "Andorra"
+msgstr "Андорра"
 
 #: ../lib/tribe-view-helpers.class.php:50
+#, fuzzy
 msgid "Angola"
-msgstr "Angola"
+msgstr "Ангола"
 
 #: ../lib/tribe-view-helpers.class.php:51
+#, fuzzy
 msgid "Anguilla"
-msgstr "Anguilla"
+msgstr "Ангілья"
 
 #: ../lib/tribe-view-helpers.class.php:52
+#, fuzzy
 msgid "Antarctica"
-msgstr "Antarktida"
+msgstr "Антарктида"
 
 #: ../lib/tribe-view-helpers.class.php:53
+#, fuzzy
 msgid "Antigua And Barbuda"
-msgstr "Antigua a Barbuda"
+msgstr "Антигуа і Барбуда"
 
 #: ../lib/tribe-view-helpers.class.php:54
+#, fuzzy
 msgid "Argentina"
-msgstr "Argentina"
+msgstr "Аргентина"
 
 #: ../lib/tribe-view-helpers.class.php:55
+#, fuzzy
 msgid "Armenia"
-msgstr "Arménie"
+msgstr "Вірменія"
 
 #: ../lib/tribe-view-helpers.class.php:56
+#, fuzzy
 msgid "Aruba"
-msgstr "Aruba"
+msgstr "Аруба"
 
 #: ../lib/tribe-view-helpers.class.php:57
+#, fuzzy
 msgid "Australia"
-msgstr "Austrálie"
+msgstr "Австралія"
 
 #: ../lib/tribe-view-helpers.class.php:58
+#, fuzzy
 msgid "Austria"
-msgstr "Rakousko"
+msgstr "Австрія"
 
 #: ../lib/tribe-view-helpers.class.php:59
 msgid "Azerbaijan"
-msgstr "Ázerbájdžán"
+msgstr ""
 
 #: ../lib/tribe-view-helpers.class.php:60
+#, fuzzy
 msgid "Bahamas"
-msgstr "Bahamy"
+msgstr "Багами"
 
 #: ../lib/tribe-view-helpers.class.php:61
+#, fuzzy
 msgid "Bahrain"
-msgstr "Bahrajn"
+msgstr "Бахрейн"
 
 #: ../lib/tribe-view-helpers.class.php:62
+#, fuzzy
 msgid "Bangladesh"
-msgstr "Bangladéš"
+msgstr "Бангладеш"
 
 #: ../lib/tribe-view-helpers.class.php:63
+#, fuzzy
 msgid "Barbados"
-msgstr "Barbados"
+msgstr "Барбадос"
 
 #: ../lib/tribe-view-helpers.class.php:64
+#, fuzzy
 msgid "Belarus"
-msgstr "Bělorusko"
+msgstr "Білорусь"
 
 #: ../lib/tribe-view-helpers.class.php:65
+#, fuzzy
 msgid "Belgium"
-msgstr "Belgie"
+msgstr "Бельгія"
 
 #: ../lib/tribe-view-helpers.class.php:66
+#, fuzzy
 msgid "Belize"
-msgstr "Belize"
+msgstr "Беліз"
 
 #: ../lib/tribe-view-helpers.class.php:67
+#, fuzzy
 msgid "Benin"
-msgstr "Benin"
+msgstr "Бенін"
 
 #: ../lib/tribe-view-helpers.class.php:68
+#, fuzzy
 msgid "Bermuda"
-msgstr "Bermudy"
+msgstr "Бермуди"
 
 #: ../lib/tribe-view-helpers.class.php:69
+#, fuzzy
 msgid "Bhutan"
-msgstr "Bhútán"
+msgstr "Бутан"
 
 #: ../lib/tribe-view-helpers.class.php:70
+#, fuzzy
 msgid "Bolivia"
-msgstr "Bolívie"
+msgstr "Болівія"
 
 #: ../lib/tribe-view-helpers.class.php:71
+#, fuzzy
 msgid "Bosnia And Herzegowina"
-msgstr "Bosna a Hercegovina"
+msgstr "Боснія і Герцеговина"
 
 #: ../lib/tribe-view-helpers.class.php:72
+#, fuzzy
 msgid "Botswana"
-msgstr "Botswana"
+msgstr "Ботсвана"
 
 #: ../lib/tribe-view-helpers.class.php:73
+#, fuzzy
 msgid "Bouvet Island"
-msgstr "Bouvetův ostrov"
+msgstr "Острів Буве"
 
 #: ../lib/tribe-view-helpers.class.php:74
+#, fuzzy
 msgid "Brazil"
-msgstr "Brazílie"
+msgstr "Бразилія"
 
 #: ../lib/tribe-view-helpers.class.php:75
+#, fuzzy
 msgid "British Indian Ocean Territory"
-msgstr "Britské indickooceánské území"
+msgstr "Британська територія Індійського океану"
 
 #: ../lib/tribe-view-helpers.class.php:76
+#, fuzzy
 msgid "Brunei Darussalam"
-msgstr "Brunej"
+msgstr "Бруней- Даруссалам"
 
 #: ../lib/tribe-view-helpers.class.php:77
+#, fuzzy
 msgid "Bulgaria"
-msgstr "Bulharsko"
+msgstr "Болгарія"
 
 #: ../lib/tribe-view-helpers.class.php:78
+#, fuzzy
 msgid "Burkina Faso"
-msgstr "Burkina Faso"
+msgstr "Буркіна- Фасо"
 
 #: ../lib/tribe-view-helpers.class.php:79
+#, fuzzy
 msgid "Burundi"
-msgstr "Burundi"
+msgstr "Бурунді"
 
 #: ../lib/tribe-view-helpers.class.php:80
+#, fuzzy
 msgid "Cambodia"
-msgstr "Kambodža"
+msgstr "Камбоджа"
 
 #: ../lib/tribe-view-helpers.class.php:81
 msgid "Cameroon"
-msgstr "Kamerun"
+msgstr ""
 
 #: ../lib/tribe-view-helpers.class.php:82
+#, fuzzy
 msgid "Canada"
-msgstr "Kanada"
+msgstr "Канада"
 
 #: ../lib/tribe-view-helpers.class.php:83
+#, fuzzy
 msgid "Cape Verde"
-msgstr "Kapverdy"
+msgstr "Кабо- Верде"
 
 #: ../lib/tribe-view-helpers.class.php:84
+#, fuzzy
 msgid "Cayman Islands"
-msgstr "Kajmanské ostrovy"
+msgstr "Кайманові острови"
 
 #: ../lib/tribe-view-helpers.class.php:85
+#, fuzzy
 msgid "Central African Republic"
-msgstr "Středoafrická republika"
+msgstr "Центрально -Африканська Республіка"
 
 #: ../lib/tribe-view-helpers.class.php:86
+#, fuzzy
 msgid "Chad"
-msgstr "Čad"
+msgstr "Чад"
 
 #: ../lib/tribe-view-helpers.class.php:87
+#, fuzzy
 msgid "Chile"
-msgstr "Chile"
+msgstr "Чилі"
 
 #: ../lib/tribe-view-helpers.class.php:88
+#, fuzzy
 msgid "China"
-msgstr "Čína"
+msgstr "Китай"
 
 #: ../lib/tribe-view-helpers.class.php:89
+#, fuzzy
 msgid "Christmas Island"
-msgstr "Vánoční ostrov"
+msgstr "Острів Різдва"
 
 #: ../lib/tribe-view-helpers.class.php:90
+#, fuzzy
 msgid "Cocos (Keeling) Islands"
-msgstr "Kokosové (Keelingovy) ostrovy"
+msgstr "Кокосові ( Кілінг ) острови"
 
 #: ../lib/tribe-view-helpers.class.php:91
+#, fuzzy
 msgid "Colombia"
-msgstr "Kolumbie"
+msgstr "Колумбія"
 
 #: ../lib/tribe-view-helpers.class.php:92
+#, fuzzy
 msgid "Comoros"
-msgstr "Komory"
+msgstr "Комори"
 
 #: ../lib/tribe-view-helpers.class.php:93
+#, fuzzy
 msgid "Congo"
-msgstr "Republika Kongo"
+msgstr "Конго"
 
 #: ../lib/tribe-view-helpers.class.php:94
+#, fuzzy
 msgid "Congo, The Democratic Republic Of The"
-msgstr "Demokratická republika Kongo"
+msgstr "Конго , Демократична Республіка"
 
 #: ../lib/tribe-view-helpers.class.php:95
+#, fuzzy
 msgid "Cook Islands"
-msgstr "Cookovy ostrovy"
+msgstr "Острови Кука"
 
 #: ../lib/tribe-view-helpers.class.php:96
+#, fuzzy
 msgid "Costa Rica"
-msgstr "Kostarika"
+msgstr "Коста -Ріка"
 
 #: ../lib/tribe-view-helpers.class.php:97
+#, fuzzy
 msgid "Cote D'Ivoire"
-msgstr "Pobřeží slonoviny"
+msgstr "Кот- д'Івуар"
 
 #: ../lib/tribe-view-helpers.class.php:98
+#, fuzzy
 msgid "Croatia (Local Name: Hrvatska)"
-msgstr "Chorvatsko"
+msgstr "Хорватія (місцева назва : Hrvatska )"
 
 #: ../lib/tribe-view-helpers.class.php:99
+#, fuzzy
 msgid "Cuba"
-msgstr "Kuba"
+msgstr "Куба"
 
 #: ../lib/tribe-view-helpers.class.php:100
+#, fuzzy
 msgid "Cyprus"
-msgstr "Kypr"
+msgstr "Кіпр"
 
 #: ../lib/tribe-view-helpers.class.php:101
+#, fuzzy
 msgid "Czech Republic"
-msgstr "Česká republika"
+msgstr "Чехія"
 
 #: ../lib/tribe-view-helpers.class.php:102
+#, fuzzy
 msgid "Denmark"
-msgstr "Dánsko"
+msgstr "Данія"
 
 #: ../lib/tribe-view-helpers.class.php:103
+#, fuzzy
 msgid "Djibouti"
-msgstr "Džibutsko"
+msgstr "Джибуті"
 
 #: ../lib/tribe-view-helpers.class.php:104
+#, fuzzy
 msgid "Dominica"
-msgstr "Dominika"
+msgstr "Домініка"
 
 #: ../lib/tribe-view-helpers.class.php:105
+#, fuzzy
 msgid "Dominican Republic"
-msgstr "Dominikánská republika"
+msgstr "Домініканська Республіка"
 
 #: ../lib/tribe-view-helpers.class.php:106
+#, fuzzy
 msgid "East Timor"
-msgstr "Východní Timor"
+msgstr "Східний Тимор"
 
 #: ../lib/tribe-view-helpers.class.php:107
+#, fuzzy
 msgid "Ecuador"
-msgstr "Ekvádor"
+msgstr "Еквадор"
 
 #: ../lib/tribe-view-helpers.class.php:108
+#, fuzzy
 msgid "Egypt"
-msgstr "Egypt"
+msgstr "Єгипет"
 
 #: ../lib/tribe-view-helpers.class.php:109
+#, fuzzy
 msgid "El Salvador"
-msgstr "Salvador"
+msgstr "Сальвадор"
 
 #: ../lib/tribe-view-helpers.class.php:110
+#, fuzzy
 msgid "Equatorial Guinea"
-msgstr "Rovníková Guinea"
+msgstr "Екваторіальна Гвінея"
 
 #: ../lib/tribe-view-helpers.class.php:111
+#, fuzzy
 msgid "Eritrea"
-msgstr "Eritrea"
+msgstr "Еритрея"
 
 #: ../lib/tribe-view-helpers.class.php:112
+#, fuzzy
 msgid "Estonia"
-msgstr "Estonsko"
+msgstr "Естонія"
 
 #: ../lib/tribe-view-helpers.class.php:113
+#, fuzzy
 msgid "Ethiopia"
-msgstr "Etiopie"
+msgstr "Ефіопія"
 
 #: ../lib/tribe-view-helpers.class.php:114
+#, fuzzy
 msgid "Falkland Islands (Malvinas)"
-msgstr "Falklandy (Malvíny)"
+msgstr "Фолклендські ( Мальвінські ) острови"
 
 #: ../lib/tribe-view-helpers.class.php:115
+#, fuzzy
 msgid "Faroe Islands"
-msgstr "Faerské ostrovy"
+msgstr "Фарерські острови"
 
 #: ../lib/tribe-view-helpers.class.php:116
+#, fuzzy
 msgid "Fiji"
-msgstr "Fidži"
+msgstr "Фіджі"
 
 #: ../lib/tribe-view-helpers.class.php:117
+#, fuzzy
 msgid "Finland"
-msgstr "Finsko"
+msgstr "Фінляндія"
 
 #: ../lib/tribe-view-helpers.class.php:118
+#, fuzzy
 msgid "France"
-msgstr "Francie"
+msgstr "Франція"
 
 #: ../lib/tribe-view-helpers.class.php:119
+#, fuzzy
 msgid "France, Metropolitan"
-msgstr "Metropolitní Francie"
+msgstr "Франція , митрополит"
 
 #: ../lib/tribe-view-helpers.class.php:120
+#, fuzzy
 msgid "French Guiana"
-msgstr "Francouzská Guyana"
+msgstr "Французька Гвіана"
 
 #: ../lib/tribe-view-helpers.class.php:121
+#, fuzzy
 msgid "French Polynesia"
-msgstr "Francouzská Polynésie"
+msgstr "Французька Полінезія"
 
 #: ../lib/tribe-view-helpers.class.php:122
+#, fuzzy
 msgid "French Southern Territories"
-msgstr "Francouzská jižní a antarktická území"
+msgstr "Французькі південні території"
 
 #: ../lib/tribe-view-helpers.class.php:123
+#, fuzzy
 msgid "Gabon"
-msgstr "Gabon"
+msgstr "Габон"
 
 #: ../lib/tribe-view-helpers.class.php:124
+#, fuzzy
 msgid "Gambia"
-msgstr "Gambie"
+msgstr "Гамбія"
 
 #: ../lib/tribe-view-helpers.class.php:125
 #: ../lib/tribe-view-helpers.class.php:318
 msgid "Georgia"
-msgstr "Gruzie"
+msgstr ""
 
 #: ../lib/tribe-view-helpers.class.php:126
+#, fuzzy
 msgid "Germany"
-msgstr "Německo"
+msgstr "Німеччина"
 
 #: ../lib/tribe-view-helpers.class.php:127
+#, fuzzy
 msgid "Ghana"
-msgstr "Ghana"
+msgstr "Гана"
 
 #: ../lib/tribe-view-helpers.class.php:128
+#, fuzzy
 msgid "Gibraltar"
-msgstr "Gibraltar"
+msgstr "Гібралтар"
 
 #: ../lib/tribe-view-helpers.class.php:129
+#, fuzzy
 msgid "Greece"
-msgstr "Řecko"
+msgstr "Греція"
 
 #: ../lib/tribe-view-helpers.class.php:130
+#, fuzzy
 msgid "Greenland"
-msgstr "Grónsko"
+msgstr "Гренландія"
 
 #: ../lib/tribe-view-helpers.class.php:131
+#, fuzzy
 msgid "Grenada"
-msgstr "Grenada"
+msgstr "Гренада"
 
 #: ../lib/tribe-view-helpers.class.php:132
+#, fuzzy
 msgid "Guadeloupe"
-msgstr "Guadeloupe"
+msgstr "Гваделупа"
 
 #: ../lib/tribe-view-helpers.class.php:133
+#, fuzzy
 msgid "Guam"
-msgstr "Guam"
+msgstr "Гуам"
 
 #: ../lib/tribe-view-helpers.class.php:134
+#, fuzzy
 msgid "Guatemala"
-msgstr "Guatemala"
+msgstr "Гватемала"
 
 #: ../lib/tribe-view-helpers.class.php:135
+#, fuzzy
 msgid "Guinea"
-msgstr "Guinea"
+msgstr "Гвінея"
 
 #: ../lib/tribe-view-helpers.class.php:136
+#, fuzzy
 msgid "Guinea-Bissau"
-msgstr "Guinea-Bissau"
+msgstr "Гвінея -Бісау"
 
 #: ../lib/tribe-view-helpers.class.php:137
+#, fuzzy
 msgid "Guyana"
-msgstr "Guyana"
+msgstr "Гайана"
 
 #: ../lib/tribe-view-helpers.class.php:138
+#, fuzzy
 msgid "Haiti"
-msgstr "Haiti"
+msgstr "Гаїті"
 
 #: ../lib/tribe-view-helpers.class.php:139
+#, fuzzy
 msgid "Heard And Mc Donald Islands"
-msgstr "Heardův ostrov a McDonaldovy ostrovy"
+msgstr "Херд і Мак Дональд острови"
 
 #: ../lib/tribe-view-helpers.class.php:140
+#, fuzzy
 msgid "Holy See (Vatican City State)"
-msgstr "Svatý stolec (Vatikán)"
+msgstr "Святий Престол ( Ватикан )"
 
 #: ../lib/tribe-view-helpers.class.php:141
+#, fuzzy
 msgid "Honduras"
-msgstr "Honduras"
+msgstr "Гондурас"
 
 #: ../lib/tribe-view-helpers.class.php:142
+#, fuzzy
 msgid "Hong Kong"
-msgstr "Hongkong"
+msgstr "Гонконг"
 
 #: ../lib/tribe-view-helpers.class.php:143
+#, fuzzy
 msgid "Hungary"
-msgstr "Maďarsko"
+msgstr "Угорщина"
 
 #: ../lib/tribe-view-helpers.class.php:144
+#, fuzzy
 msgid "Iceland"
-msgstr "Island"
+msgstr "Ісландія"
 
 #: ../lib/tribe-view-helpers.class.php:145
+#, fuzzy
 msgid "India"
-msgstr "Indie"
+msgstr "Індія"
 
 #: ../lib/tribe-view-helpers.class.php:146
+#, fuzzy
 msgid "Indonesia"
-msgstr "Indonésie"
+msgstr "Індонезія"
 
 #: ../lib/tribe-view-helpers.class.php:147
+#, fuzzy
 msgid "Iran (Islamic Republic Of)"
-msgstr "Írán"
+msgstr "Іран ( Ісламська Республіка)"
 
 #: ../lib/tribe-view-helpers.class.php:148
+#, fuzzy
 msgid "Iraq"
-msgstr "Irák"
+msgstr "Ірак"
 
 #: ../lib/tribe-view-helpers.class.php:149
+#, fuzzy
 msgid "Ireland"
-msgstr "Irsko"
+msgstr "Ірландія"
 
 #: ../lib/tribe-view-helpers.class.php:150
+#, fuzzy
 msgid "Israel"
-msgstr "Izrael"
+msgstr "Ізраїль"
 
 #: ../lib/tribe-view-helpers.class.php:151
+#, fuzzy
 msgid "Italy"
-msgstr "Itálie"
+msgstr "Італія"
 
 #: ../lib/tribe-view-helpers.class.php:152
+#, fuzzy
 msgid "Jamaica"
-msgstr "Jamajka"
+msgstr "Ямайка"
 
 #: ../lib/tribe-view-helpers.class.php:153
+#, fuzzy
 msgid "Japan"
-msgstr "Japonsko"
+msgstr "Японія"
 
 #: ../lib/tribe-view-helpers.class.php:154
+#, fuzzy
 msgid "Jordan"
-msgstr "Jordánsko"
+msgstr "Джордан"
 
 #: ../lib/tribe-view-helpers.class.php:155
+#, fuzzy
 msgid "Kazakhstan"
-msgstr "Kazachstán"
+msgstr "Казахстан"
 
 #: ../lib/tribe-view-helpers.class.php:156
+#, fuzzy
 msgid "Kenya"
-msgstr "Keňa"
+msgstr "Кенія"
 
 #: ../lib/tribe-view-helpers.class.php:157
+#, fuzzy
 msgid "Kiribati"
-msgstr "Kiribati"
+msgstr "Кірібаті"
 
 #: ../lib/tribe-view-helpers.class.php:158
+#, fuzzy
 msgid "Korea, Democratic People's Republic Of"
-msgstr "Severní Korea"
+msgstr "Корея , Корейська Народно- Демократична Республіка"
 
 #: ../lib/tribe-view-helpers.class.php:159
+#, fuzzy
 msgid "Korea, Republic Of"
-msgstr "Jižní Korea"
+msgstr "Республіка Корея"
 
 #: ../lib/tribe-view-helpers.class.php:160
+#, fuzzy
 msgid "Kuwait"
-msgstr "Kuvajt"
+msgstr "Кувейт"
 
 #: ../lib/tribe-view-helpers.class.php:161
 msgid "Kyrgyzstan"
-msgstr "Kyrgyzstán"
+msgstr ""
 
 #: ../lib/tribe-view-helpers.class.php:162
+#, fuzzy
 msgid "Lao People's Democratic Republic"
-msgstr "Laos"
+msgstr "Лаоська Народно- Демократична Республіка"
 
 #: ../lib/tribe-view-helpers.class.php:163
+#, fuzzy
 msgid "Latvia"
-msgstr "Lotyšsko"
+msgstr "Латвія"
 
 #: ../lib/tribe-view-helpers.class.php:164
+#, fuzzy
 msgid "Lebanon"
-msgstr "Libanon"
+msgstr "Ліван"
 
 #: ../lib/tribe-view-helpers.class.php:165
+#, fuzzy
 msgid "Lesotho"
-msgstr "Lesotho"
+msgstr "Лесото"
 
 #: ../lib/tribe-view-helpers.class.php:166
+#, fuzzy
 msgid "Liberia"
-msgstr "Libérie"
+msgstr "Ліберія"
 
 #: ../lib/tribe-view-helpers.class.php:167
+#, fuzzy
 msgid "Libya"
-msgstr "Libye"
+msgstr "Лівія"
 
 #: ../lib/tribe-view-helpers.class.php:168
+#, fuzzy
 msgid "Liechtenstein"
-msgstr "Lichtenštejnsko"
+msgstr "Ліхтенштейн"
 
 #: ../lib/tribe-view-helpers.class.php:169
+#, fuzzy
 msgid "Lithuania"
-msgstr "Litva"
+msgstr "Литва"
 
 #: ../lib/tribe-view-helpers.class.php:170
+#, fuzzy
 msgid "Luxembourg"
-msgstr "Lucembursko"
+msgstr "Люксембург"
 
 #: ../lib/tribe-view-helpers.class.php:171
+#, fuzzy
 msgid "Macau"
-msgstr "Macao"
+msgstr "Макао"
 
 #: ../lib/tribe-view-helpers.class.php:172
+#, fuzzy
 msgid "Macedonia"
-msgstr "Makedonie"
+msgstr "Македонія"
 
 #: ../lib/tribe-view-helpers.class.php:173
+#, fuzzy
 msgid "Madagascar"
-msgstr "Madagaskar"
+msgstr "Мадагаскар"
 
 #: ../lib/tribe-view-helpers.class.php:174
+#, fuzzy
 msgid "Malawi"
-msgstr "Malawi"
+msgstr "Малаві"
 
 #: ../lib/tribe-view-helpers.class.php:175
+#, fuzzy
 msgid "Malaysia"
-msgstr "Malajsie"
+msgstr "Малайзія"
 
 #: ../lib/tribe-view-helpers.class.php:176
+#, fuzzy
 msgid "Maldives"
-msgstr "Maledivy"
+msgstr "Мальдіви"
 
 #: ../lib/tribe-view-helpers.class.php:177
+#, fuzzy
 msgid "Mali"
-msgstr "Mali"
+msgstr "Малі"
 
 #: ../lib/tribe-view-helpers.class.php:178
+#, fuzzy
 msgid "Malta"
-msgstr "Malta"
+msgstr "Мальта"
 
 #: ../lib/tribe-view-helpers.class.php:179
+#, fuzzy
 msgid "Marshall Islands"
-msgstr "Marshallovy ostrovy"
+msgstr "Маршаллові Острови"
 
 #: ../lib/tribe-view-helpers.class.php:180
+#, fuzzy
 msgid "Martinique"
-msgstr "Martinik"
+msgstr "Мартиніка"
 
 #: ../lib/tribe-view-helpers.class.php:181
+#, fuzzy
 msgid "Mauritania"
-msgstr "Mauritánie"
+msgstr "Мавританія"
 
 #: ../lib/tribe-view-helpers.class.php:182
+#, fuzzy
 msgid "Mauritius"
-msgstr "Mauricius"
+msgstr "Маврикій"
 
 #: ../lib/tribe-view-helpers.class.php:183
+#, fuzzy
 msgid "Mayotte"
-msgstr "Mayotte"
+msgstr "Майотта"
 
 #: ../lib/tribe-view-helpers.class.php:184
+#, fuzzy
 msgid "Mexico"
-msgstr "Mexiko"
+msgstr "Мексика"
 
 #: ../lib/tribe-view-helpers.class.php:185
+#, fuzzy
 msgid "Micronesia, Federated States Of"
-msgstr "Mikronésie"
+msgstr "Мікронезія , Федеративні Штати"
 
 #: ../lib/tribe-view-helpers.class.php:186
+#, fuzzy
 msgid "Moldova, Republic Of"
-msgstr "Moldavsko"
+msgstr "Молдова"
 
 #: ../lib/tribe-view-helpers.class.php:187
+#, fuzzy
 msgid "Monaco"
-msgstr "Monako"
+msgstr "Монако"
 
 #: ../lib/tribe-view-helpers.class.php:188
+#, fuzzy
 msgid "Mongolia"
-msgstr "Mongolsko"
+msgstr "Монголія"
 
 #: ../lib/tribe-view-helpers.class.php:189
+#, fuzzy
 msgid "Montenegro"
-msgstr "Černá Hora"
+msgstr "Чорногорія"
 
 #: ../lib/tribe-view-helpers.class.php:190
+#, fuzzy
 msgid "Montserrat"
-msgstr "Montserrat"
+msgstr "Монтсеррат"
 
 #: ../lib/tribe-view-helpers.class.php:191
+#, fuzzy
 msgid "Morocco"
-msgstr "Maroko"
+msgstr "Марокко"
 
 #: ../lib/tribe-view-helpers.class.php:192
+#, fuzzy
 msgid "Mozambique"
-msgstr "Mosambik"
+msgstr "Мозамбік"
 
 #: ../lib/tribe-view-helpers.class.php:193
+#, fuzzy
 msgid "Myanmar"
-msgstr "Myanmar"
+msgstr "М'янма"
 
 #: ../lib/tribe-view-helpers.class.php:194
+#, fuzzy
 msgid "Namibia"
-msgstr "Namibie"
+msgstr "Намібія"
 
 #: ../lib/tribe-view-helpers.class.php:195
+#, fuzzy
 msgid "Nauru"
-msgstr "Nauru"
+msgstr "Науру"
 
 #: ../lib/tribe-view-helpers.class.php:196
+#, fuzzy
 msgid "Nepal"
-msgstr "Nepál"
+msgstr "Непал"
 
 #: ../lib/tribe-view-helpers.class.php:197
+#, fuzzy
 msgid "Netherlands"
-msgstr "Nizozemsko"
+msgstr "Нідерланди"
 
 #: ../lib/tribe-view-helpers.class.php:198
+#, fuzzy
 msgid "Netherlands Antilles"
-msgstr "Nizozemské Antily"
+msgstr "Нідерландські Антильські острови"
 
 #: ../lib/tribe-view-helpers.class.php:199
+#, fuzzy
 msgid "New Caledonia"
-msgstr "Nová Kaledonie"
+msgstr "Нова Каледонія"
 
 #: ../lib/tribe-view-helpers.class.php:200
+#, fuzzy
 msgid "New Zealand"
-msgstr "Nový Zéland"
+msgstr "Нова Зеландія"
 
 #: ../lib/tribe-view-helpers.class.php:201
+#, fuzzy
 msgid "Nicaragua"
-msgstr "Nikaragua"
+msgstr "Нікарагуа"
 
 #: ../lib/tribe-view-helpers.class.php:202
+#, fuzzy
 msgid "Niger"
-msgstr "Niger"
+msgstr "Нігер"
 
 #: ../lib/tribe-view-helpers.class.php:203
+#, fuzzy
 msgid "Nigeria"
-msgstr "Nigérie"
+msgstr "Нігерія"
 
 #: ../lib/tribe-view-helpers.class.php:204
+#, fuzzy
 msgid "Niue"
-msgstr "Niue"
+msgstr "Ніуе"
 
 #: ../lib/tribe-view-helpers.class.php:205
+#, fuzzy
 msgid "Norfolk Island"
-msgstr "Norfolk"
+msgstr "Острів Норфолк"
 
 #: ../lib/tribe-view-helpers.class.php:206
+#, fuzzy
 msgid "Northern Mariana Islands"
-msgstr "Severní Mariany"
+msgstr "Північні Маріанські острови"
 
 #: ../lib/tribe-view-helpers.class.php:207
+#, fuzzy
 msgid "Norway"
-msgstr "Norsko"
+msgstr "Норвегія"
 
 #: ../lib/tribe-view-helpers.class.php:208
+#, fuzzy
 msgid "Oman"
-msgstr "Omán"
+msgstr "Оман"
 
 #: ../lib/tribe-view-helpers.class.php:209
+#, fuzzy
 msgid "Pakistan"
-msgstr "Pákistán"
+msgstr "Пакистан"
 
 #: ../lib/tribe-view-helpers.class.php:210
+#, fuzzy
 msgid "Palau"
-msgstr "Palau"
+msgstr "Палау"
 
 #: ../lib/tribe-view-helpers.class.php:211
+#, fuzzy
 msgid "Panama"
-msgstr "Panama"
+msgstr "Панама"
 
 #: ../lib/tribe-view-helpers.class.php:212
+#, fuzzy
 msgid "Papua New Guinea"
-msgstr "Papua-Nová Guinea"
+msgstr "Папуа - Нова Гвінея"
 
 #: ../lib/tribe-view-helpers.class.php:213
+#, fuzzy
 msgid "Paraguay"
-msgstr "Paraguay"
+msgstr "Парагвай"
 
 #: ../lib/tribe-view-helpers.class.php:214
+#, fuzzy
 msgid "Peru"
-msgstr "Peru"
+msgstr "Перу"
 
 #: ../lib/tribe-view-helpers.class.php:215
+#, fuzzy
 msgid "Philippines"
-msgstr "Filipíny"
+msgstr "Філіппіни"
 
 #: ../lib/tribe-view-helpers.class.php:216
+#, fuzzy
 msgid "Pitcairn"
-msgstr "Pitcairnovy ostrovy"
+msgstr "Піткерн"
 
 #: ../lib/tribe-view-helpers.class.php:217
+#, fuzzy
 msgid "Poland"
-msgstr "Polsko"
+msgstr "Польща"
 
 #: ../lib/tribe-view-helpers.class.php:218
+#, fuzzy
 msgid "Portugal"
-msgstr "Portugalsko"
+msgstr "Португалія"
 
 #: ../lib/tribe-view-helpers.class.php:219
+#, fuzzy
 msgid "Puerto Rico"
-msgstr "Portoriko"
+msgstr "Пуерто-Ріко"
 
 #: ../lib/tribe-view-helpers.class.php:220
+#, fuzzy
 msgid "Qatar"
-msgstr "Katar"
+msgstr "Катар"
 
 #: ../lib/tribe-view-helpers.class.php:221
+#, fuzzy
 msgid "Reunion"
-msgstr "Réunion"
+msgstr "Возз'єднання"
 
 #: ../lib/tribe-view-helpers.class.php:222
+#, fuzzy
 msgid "Romania"
-msgstr "Rumunsko"
+msgstr "Румунія"
 
 #: ../lib/tribe-view-helpers.class.php:223
+#, fuzzy
 msgid "Russian Federation"
-msgstr "Rusko"
+msgstr "Російський Федерація"
 
 #: ../lib/tribe-view-helpers.class.php:224
+#, fuzzy
 msgid "Rwanda"
-msgstr "Rwanda"
+msgstr "Руанда"
 
 #: ../lib/tribe-view-helpers.class.php:225
+#, fuzzy
 msgid "Saint Kitts And Nevis"
-msgstr "Svatý Kryštof a Nevis"
+msgstr "Сент -Кітс і Невіс"
 
 #: ../lib/tribe-view-helpers.class.php:226
+#, fuzzy
 msgid "Saint Lucia"
-msgstr "Svatá Lucie"
+msgstr "Сент -Люсія"
 
 #: ../lib/tribe-view-helpers.class.php:227
+#, fuzzy
 msgid "Saint Vincent And The Grenadines"
-msgstr "Svatý Vincenc a Grenadiny"
+msgstr "Сент-Вінсент і Гренадіни"
 
 #: ../lib/tribe-view-helpers.class.php:228
+#, fuzzy
 msgid "Samoa"
-msgstr "Samoa"
+msgstr "Самоа"
 
 #: ../lib/tribe-view-helpers.class.php:229
+#, fuzzy
 msgid "San Marino"
-msgstr "San Marino"
+msgstr "Сан-Марино"
 
 #: ../lib/tribe-view-helpers.class.php:230
+#, fuzzy
 msgid "Sao Tome And Principe"
-msgstr "Svatý Tomáš a Princův ostrov"
+msgstr "Сан-Томе і Прінсіпі"
 
 #: ../lib/tribe-view-helpers.class.php:231
+#, fuzzy
 msgid "Saudi Arabia"
-msgstr "Saúdská Arábie"
+msgstr "Саудівська Аравія"
 
 #: ../lib/tribe-view-helpers.class.php:232
+#, fuzzy
 msgid "Senegal"
-msgstr "Senegal"
+msgstr "Сенегал"
 
 #: ../lib/tribe-view-helpers.class.php:233
+#, fuzzy
 msgid "Serbia"
-msgstr "Srbsko"
+msgstr "Сербія"
 
 #: ../lib/tribe-view-helpers.class.php:234
+#, fuzzy
 msgid "Seychelles"
-msgstr "Seychely"
+msgstr "Сейшели"
 
 #: ../lib/tribe-view-helpers.class.php:235
+#, fuzzy
 msgid "Sierra Leone"
-msgstr "Sierra Leone"
+msgstr "Сьєрра-Леоне"
 
 #: ../lib/tribe-view-helpers.class.php:236
+#, fuzzy
 msgid "Singapore"
-msgstr "Singapur"
+msgstr "Сінгапур"
 
 #: ../lib/tribe-view-helpers.class.php:237
+#, fuzzy
 msgid "Slovakia (Slovak Republic)"
-msgstr "Slovensko"
+msgstr "Словаччина (Словацька Республіка)"
 
 #: ../lib/tribe-view-helpers.class.php:238
+#, fuzzy
 msgid "Slovenia"
-msgstr "Slovinsko"
+msgstr "Словенія"
 
 #: ../lib/tribe-view-helpers.class.php:239
+#, fuzzy
 msgid "Solomon Islands"
-msgstr "Šalamounovy ostrovy"
+msgstr "Соломонові острови"
 
 #: ../lib/tribe-view-helpers.class.php:240
+#, fuzzy
 msgid "Somalia"
-msgstr "Somálsko"
+msgstr "Сомалі"
 
 #: ../lib/tribe-view-helpers.class.php:241
+#, fuzzy
 msgid "South Africa"
-msgstr "Jihoafrická republika"
+msgstr "Південна Африка"
 
 #: ../lib/tribe-view-helpers.class.php:242
+#, fuzzy
 msgid "South Georgia, South Sandwich Islands"
-msgstr "Jižní Georgie a Jižní Sandwichovy ostrovy"
+msgstr "Південна Джорджія , Південні Сандвічеві острови"
 
 #: ../lib/tribe-view-helpers.class.php:243
+#, fuzzy
 msgid "Spain"
-msgstr "Španělsko"
+msgstr "Іспанія"
 
 #: ../lib/tribe-view-helpers.class.php:244
+#, fuzzy
 msgid "Sri Lanka"
-msgstr "Šrí Lanka"
+msgstr "Шрі -Ланка"
 
 #: ../lib/tribe-view-helpers.class.php:245
+#, fuzzy
 msgid "St. Helena"
-msgstr "Svatá Helena"
+msgstr "Святої Єлени"
 
 #: ../lib/tribe-view-helpers.class.php:246
+#, fuzzy
 msgid "St. Pierre And Miquelon"
-msgstr "Saint-Pierre a Miquelon"
+msgstr "Сен-П'єр і Мікелон"
 
 #: ../lib/tribe-view-helpers.class.php:247
+#, fuzzy
 msgid "Sudan"
-msgstr "Súdán"
+msgstr "Судан"
 
 #: ../lib/tribe-view-helpers.class.php:248
+#, fuzzy
 msgid "Suriname"
-msgstr "Surinam"
+msgstr "Сурінам"
 
 #: ../lib/tribe-view-helpers.class.php:249
+#, fuzzy
 msgid "Svalbard And Jan Mayen Islands"
-msgstr "Špicberky"
+msgstr "Шпіцберген і Ян -Майєн"
 
 #: ../lib/tribe-view-helpers.class.php:250
+#, fuzzy
 msgid "Swaziland"
-msgstr "Svazijsko"
+msgstr "Свазіленд"
 
 #: ../lib/tribe-view-helpers.class.php:251
+#, fuzzy
 msgid "Sweden"
-msgstr "Švédsko"
+msgstr "Швеція"
 
 #: ../lib/tribe-view-helpers.class.php:252
+#, fuzzy
 msgid "Switzerland"
-msgstr "Švýcarsko"
+msgstr "Швейцарія"
 
 #: ../lib/tribe-view-helpers.class.php:253
+#, fuzzy
 msgid "Syrian Arab Republic"
-msgstr "Sýrie"
+msgstr "Сирійська Арабська Республіка"
 
 #: ../lib/tribe-view-helpers.class.php:254
+#, fuzzy
 msgid "Taiwan"
-msgstr "Tchaj-wan (Čínská republika)"
+msgstr "Тайвань"
 
 #: ../lib/tribe-view-helpers.class.php:255
+#, fuzzy
 msgid "Tajikistan"
-msgstr "Tádžikistán"
+msgstr "Таджикистан"
 
 #: ../lib/tribe-view-helpers.class.php:256
+#, fuzzy
 msgid "Tanzania, United Republic Of"
-msgstr "Tanzanie"
+msgstr "Танзанія , Об'єднана Республіка"
 
 #: ../lib/tribe-view-helpers.class.php:257
+#, fuzzy
 msgid "Thailand"
-msgstr "Thajsko"
+msgstr "Таїланд"
 
 #: ../lib/tribe-view-helpers.class.php:258
+#, fuzzy
 msgid "Togo"
-msgstr "Togo"
+msgstr "Того"
 
 #: ../lib/tribe-view-helpers.class.php:259
+#, fuzzy
 msgid "Tokelau"
-msgstr "Tokelau"
+msgstr "Токелау"
 
 #: ../lib/tribe-view-helpers.class.php:260
+#, fuzzy
 msgid "Tonga"
-msgstr "Tonga"
+msgstr "Тонга"
 
 #: ../lib/tribe-view-helpers.class.php:261
+#, fuzzy
 msgid "Trinidad And Tobago"
-msgstr "Trinidad a Tobago"
+msgstr "Тринідад і Тобаго"
 
 #: ../lib/tribe-view-helpers.class.php:262
+#, fuzzy
 msgid "Tunisia"
-msgstr "Tunisko"
+msgstr "Туніс"
 
 #: ../lib/tribe-view-helpers.class.php:263
+#, fuzzy
 msgid "Turkey"
-msgstr "Turecko"
+msgstr "Туреччина"
 
 #: ../lib/tribe-view-helpers.class.php:264
+#, fuzzy
 msgid "Turkmenistan"
-msgstr "Turkmenistán"
+msgstr "Туркменістан"
 
 #: ../lib/tribe-view-helpers.class.php:265
+#, fuzzy
 msgid "Turks And Caicos Islands"
-msgstr "Turks a Caicos"
+msgstr "Острови Теркс і Кайкос"
 
 #: ../lib/tribe-view-helpers.class.php:266
+#, fuzzy
 msgid "Tuvalu"
-msgstr "Tuvalu"
+msgstr "Тувалу"
 
 #: ../lib/tribe-view-helpers.class.php:267
+#, fuzzy
 msgid "Uganda"
-msgstr "Uganda"
+msgstr "Руанда"
 
 #: ../lib/tribe-view-helpers.class.php:268
+#, fuzzy
 msgid "Ukraine"
-msgstr "Ukrajina"
+msgstr "Україна"
 
 #: ../lib/tribe-view-helpers.class.php:269
+#, fuzzy
 msgid "United Arab Emirates"
-msgstr "Spojené arabské emiráty"
+msgstr "Об'єднані Арабські Емірати"
 
 #: ../lib/tribe-view-helpers.class.php:270
+#, fuzzy
 msgid "United Kingdom"
-msgstr "Spojené království"
+msgstr "Великобританія"
 
 #: ../lib/tribe-view-helpers.class.php:271
+#, fuzzy
 msgid "United States Minor Outlying Islands"
-msgstr "Menší odlehlé ostrovy Spojených států amerických"
+msgstr "Сполучені Штати Америки Зовнішні малі острови"
 
 #: ../lib/tribe-view-helpers.class.php:272
+#, fuzzy
 msgid "Uruguay"
-msgstr "Uruguay"
+msgstr "Уругвай"
 
 #: ../lib/tribe-view-helpers.class.php:273
+#, fuzzy
 msgid "Uzbekistan"
-msgstr "Uzbekistán"
+msgstr "Узбекистан"
 
 #: ../lib/tribe-view-helpers.class.php:274
+#, fuzzy
 msgid "Vanuatu"
-msgstr "Vanuatu"
+msgstr "Вануату"
 
 #: ../lib/tribe-view-helpers.class.php:275
+#, fuzzy
 msgid "Venezuela"
-msgstr "Venezuela"
+msgstr "Венесуела"
 
 #: ../lib/tribe-view-helpers.class.php:276
+#, fuzzy
 msgid "Viet Nam"
-msgstr "Vietnam"
+msgstr "В'єтнам"
 
 #: ../lib/tribe-view-helpers.class.php:277
+#, fuzzy
 msgid "Virgin Islands (British)"
-msgstr "Britské Panenské ostrovy"
+msgstr "Віргінські острови (Британські)"
 
 #: ../lib/tribe-view-helpers.class.php:278
+#, fuzzy
 msgid "Virgin Islands (U.S.)"
-msgstr "Americké Panenské ostrovy"
+msgstr "Віргінські острови ( США)"
 
 #: ../lib/tribe-view-helpers.class.php:279
+#, fuzzy
 msgid "Wallis And Futuna Islands"
-msgstr "Wallis a Futuna"
+msgstr "Уолліс Футуна"
 
 #: ../lib/tribe-view-helpers.class.php:280
+#, fuzzy
 msgid "Western Sahara"
-msgstr "Západní Sahara"
+msgstr "Західна Сахара"
 
 #: ../lib/tribe-view-helpers.class.php:281
+#, fuzzy
 msgid "Yemen"
-msgstr "Jemen"
+msgstr "Ємен"
 
 #: ../lib/tribe-view-helpers.class.php:282
+#, fuzzy
 msgid "Zambia"
-msgstr "Zambie"
+msgstr "Замбія"
 
 #: ../lib/tribe-view-helpers.class.php:283
+#, fuzzy
 msgid "Zimbabwe"
-msgstr "Zimbabwe"
+msgstr "Зімбабве"
 
 #: ../lib/tribe-view-helpers.class.php:308
+#, fuzzy
 msgid "Alabama"
-msgstr "Alabama"
+msgstr "Алабама"
 
 #: ../lib/tribe-view-helpers.class.php:309
+#, fuzzy
 msgid "Alaska"
-msgstr "Aljaška"
+msgstr "Аляска"
 
 #: ../lib/tribe-view-helpers.class.php:310
+#, fuzzy
 msgid "Arizona"
-msgstr "Arizona"
+msgstr "Арізона"
 
 #: ../lib/tribe-view-helpers.class.php:311
+#, fuzzy
 msgid "Arkansas"
-msgstr "Arkansas"
+msgstr "Арканзас"
 
 #: ../lib/tribe-view-helpers.class.php:312
+#, fuzzy
 msgid "California"
-msgstr "Kalifornie"
+msgstr "Каліфорнія"
 
 #: ../lib/tribe-view-helpers.class.php:313
+#, fuzzy
 msgid "Colorado"
-msgstr "Colorado"
+msgstr "Колорадо"
 
 #: ../lib/tribe-view-helpers.class.php:314
+#, fuzzy
 msgid "Connecticut"
-msgstr "Connecticut"
+msgstr "Коннектикут"
 
 #: ../lib/tribe-view-helpers.class.php:315
+#, fuzzy
 msgid "Delaware"
-msgstr "Delaware"
+msgstr "Делавер"
 
 #: ../lib/tribe-view-helpers.class.php:316
+#, fuzzy
 msgid "District of Columbia"
-msgstr "District of Columbia"
+msgstr "Округ Колумбія"
 
 #: ../lib/tribe-view-helpers.class.php:317
+#, fuzzy
 msgid "Florida"
-msgstr "Florida"
+msgstr "Флорида"
 
 #: ../lib/tribe-view-helpers.class.php:319
+#, fuzzy
 msgid "Hawaii"
-msgstr "Havaj"
+msgstr "Гаваї"
 
 #: ../lib/tribe-view-helpers.class.php:320
+#, fuzzy
 msgid "Idaho"
-msgstr "Idaho"
+msgstr "Айдахо"
 
 #: ../lib/tribe-view-helpers.class.php:321
+#, fuzzy
 msgid "Illinois"
-msgstr "Illinois"
+msgstr "Іллінойс"
 
 #: ../lib/tribe-view-helpers.class.php:322
+#, fuzzy
 msgid "Indiana"
-msgstr "Indiana"
+msgstr "Індіана"
 
 #: ../lib/tribe-view-helpers.class.php:323
+#, fuzzy
 msgid "Iowa"
-msgstr "Iowa"
+msgstr "Айова"
 
 #: ../lib/tribe-view-helpers.class.php:324
+#, fuzzy
 msgid "Kansas"
-msgstr "Kansas"
+msgstr "Канзас"
 
 #: ../lib/tribe-view-helpers.class.php:325
+#, fuzzy
 msgid "Kentucky"
-msgstr "Kentucky"
+msgstr "Кентуккі"
 
 #: ../lib/tribe-view-helpers.class.php:326
+#, fuzzy
 msgid "Louisiana"
-msgstr "Louisiana"
+msgstr "Луїзіана"
 
 #: ../lib/tribe-view-helpers.class.php:327
+#, fuzzy
 msgid "Maine"
-msgstr "Maine"
+msgstr "Мен"
 
 #: ../lib/tribe-view-helpers.class.php:328
+#, fuzzy
 msgid "Maryland"
-msgstr "Maryland"
+msgstr "Меріленд"
 
 #: ../lib/tribe-view-helpers.class.php:329
+#, fuzzy
 msgid "Massachusetts"
-msgstr "Massachusetts"
+msgstr "Массачусетс"
 
 #: ../lib/tribe-view-helpers.class.php:330
+#, fuzzy
 msgid "Michigan"
-msgstr "Michigan"
+msgstr "Мічиган"
 
 #: ../lib/tribe-view-helpers.class.php:331
+#, fuzzy
 msgid "Minnesota"
-msgstr "Minnesota"
+msgstr "Міннесота"
 
 #: ../lib/tribe-view-helpers.class.php:332
+#, fuzzy
 msgid "Mississippi"
-msgstr "Mississippi"
+msgstr "Міссісіпі"
 
 #: ../lib/tribe-view-helpers.class.php:333
+#, fuzzy
 msgid "Missouri"
-msgstr "Missouri"
+msgstr "Міссурі"
 
 #: ../lib/tribe-view-helpers.class.php:334
+#, fuzzy
 msgid "Montana"
-msgstr "Montana"
+msgstr "Монтана"
 
 #: ../lib/tribe-view-helpers.class.php:335
+#, fuzzy
 msgid "Nebraska"
-msgstr "Nebraska"
+msgstr "Небраска"
 
 #: ../lib/tribe-view-helpers.class.php:336
+#, fuzzy
 msgid "Nevada"
-msgstr "Nevada"
+msgstr "Невада"
 
 #: ../lib/tribe-view-helpers.class.php:337
+#, fuzzy
 msgid "New Hampshire"
-msgstr "New Hampshire"
+msgstr "Нью -Гемпшир"
 
 #: ../lib/tribe-view-helpers.class.php:338
+#, fuzzy
 msgid "New Jersey"
-msgstr "New Jersey"
+msgstr "Нью- Джерсі"
 
 #: ../lib/tribe-view-helpers.class.php:339
+#, fuzzy
 msgid "New Mexico"
-msgstr "Nové Mexiko"
+msgstr "Нью -Мексико"
 
 #: ../lib/tribe-view-helpers.class.php:340
+#, fuzzy
 msgid "New York"
-msgstr "New York"
+msgstr "Нью -Йорк"
 
 #: ../lib/tribe-view-helpers.class.php:341
+#, fuzzy
 msgid "North Carolina"
-msgstr "Severní Karolína"
+msgstr "Північна Кароліна"
 
 #: ../lib/tribe-view-helpers.class.php:342
+#, fuzzy
 msgid "North Dakota"
-msgstr "Severní Dakota"
+msgstr "Північна Дакота"
 
 #: ../lib/tribe-view-helpers.class.php:343
+#, fuzzy
 msgid "Ohio"
-msgstr "Ohio"
+msgstr "Огайо"
 
 #: ../lib/tribe-view-helpers.class.php:344
+#, fuzzy
 msgid "Oklahoma"
-msgstr "Oklahoma"
+msgstr "Оклахома"
 
 #: ../lib/tribe-view-helpers.class.php:345
+#, fuzzy
 msgid "Oregon"
-msgstr "Oregon"
+msgstr "Орегон"
 
 #: ../lib/tribe-view-helpers.class.php:346
+#, fuzzy
 msgid "Pennsylvania"
-msgstr "Pensylvánie"
+msgstr "Пенсільванія"
 
 #: ../lib/tribe-view-helpers.class.php:347
+#, fuzzy
 msgid "Rhode Island"
-msgstr "Rhode Island"
+msgstr "Род-Айленд"
 
 #: ../lib/tribe-view-helpers.class.php:348
+#, fuzzy
 msgid "South Carolina"
-msgstr "Jižní Karolína"
+msgstr "Південна Кароліна"
 
 #: ../lib/tribe-view-helpers.class.php:349
+#, fuzzy
 msgid "South Dakota"
-msgstr "Jižní Dakota"
+msgstr "Південна Дакота"
 
 #: ../lib/tribe-view-helpers.class.php:350
+#, fuzzy
 msgid "Tennessee"
-msgstr "Tennessee"
+msgstr "Теннессі"
 
 #: ../lib/tribe-view-helpers.class.php:351
+#, fuzzy
 msgid "Texas"
-msgstr "Texas"
+msgstr "Техас"
 
 #: ../lib/tribe-view-helpers.class.php:352
+#, fuzzy
 msgid "Utah"
-msgstr "Utah"
+msgstr "Юта"
 
 #: ../lib/tribe-view-helpers.class.php:353
+#, fuzzy
 msgid "Vermont"
-msgstr "Vermont"
+msgstr "Вермонт"
 
 #: ../lib/tribe-view-helpers.class.php:354
+#, fuzzy
 msgid "Virginia"
-msgstr "Virginie"
+msgstr "Вірджинія"
 
 #: ../lib/tribe-view-helpers.class.php:355
+#, fuzzy
 msgid "Washington"
-msgstr "Washington"
+msgstr "Вашингтон"
 
 #: ../lib/tribe-view-helpers.class.php:356
+#, fuzzy
 msgid "West Virginia"
-msgstr "Západní Virginie"
+msgstr "Західна Вірджинія"
 
 #: ../lib/tribe-view-helpers.class.php:357
+#, fuzzy
 msgid "Wisconsin"
-msgstr "Wisconsin"
+msgstr "Вісконсін"
 
 #: ../lib/tribe-view-helpers.class.php:358
+#, fuzzy
 msgid "Wyoming"
-msgstr "Wyoming"
+msgstr "Вайомінг"
 
-#
 #: ../lib/widget-list.class.php:21
 msgid "A widget that displays upcoming events."
-msgstr "Widget, který zobrazuje seznam nadcházejících akcí."
+msgstr "Віджет, який відображає заплановані події."
 
 #: ../lib/widget-list.class.php:27
 msgid "Events List"
-msgstr "Seznam akcí"
+msgstr "Список подій"
 
 #: ../lib/widget-list.class.php:129
 msgid "View All Events"
-msgstr "Zobrazit všechny akce"
+msgstr "Переглянути всі події"
 
 #: ../lib/widget-list.class.php:131
 msgid "View All Events in Category"
-msgstr "Zobrazit všechny akce z rubriky"
+msgstr "Переглянути всі події у категорії"
 
 #: ../lib/widget-list.class.php:136
 msgid "There are no upcoming events at this time."
-msgstr "V tuto chvíli nejsou k dispozici žádné nadcházející akce."
+msgstr "Там немає майбутніх подій в цей час."
 
 #: ../public/advanced-functions/meta.php:39
 #: ../public/advanced-functions/meta.php:65
 msgid "Start:"
-msgstr "Zahájení:"
+msgstr "Початок:"
 
 #: ../public/advanced-functions/meta.php:46
 #: ../public/advanced-functions/meta.php:72
 msgid "End:"
-msgstr "Ukončení:"
+msgstr "Закінчення:"
 
 #: ../public/advanced-functions/meta.php:55
 #: ../public/advanced-functions/meta.php:81
 msgid "Date:"
-msgstr "Datum:"
+msgstr "Дата:"
 
 #: ../public/advanced-functions/meta.php:90
 #: ../public/advanced-functions/meta.php:99
 msgid "Time:"
-msgstr "Čas:"
+msgstr "Час:"
 
 #: ../public/advanced-functions/meta.php:282
 msgid "Click to view a Google Map"
-msgstr "Klikněte pro zobrazení ve službě Mapy Google"
+msgstr "Натисніть, щоб побачити в Google Map"
 
-#
 #: ../public/advanced-functions/meta.php:283
 msgid "+ Google Map"
-msgstr "+ Mapa Google"
+msgstr "+ Google Map"
 
 #: ../public/advanced-functions/meta.php:294
 msgid "Details"
-msgstr "Podrobnosti"
+msgstr "Деталі"
 
-#
 #: ../public/advanced-functions/meta.php:345
 msgid "Event Tags:"
-msgstr "Štítky akce:"
+msgstr "Мітки події:"
 
 #: ../public/advanced-functions/meta.php:371
 msgid "Origin:"
-msgstr "Původ:"
+msgstr "Орігінал:"
 
 #: ../public/advanced-functions/meta.php:508
 msgid "Event:"
-msgstr "Akce:"
+msgstr "Подія:"
 
-#
 #: ../public/template-tags/deprecated.php:1156
 msgid "Category"
-msgstr "Rubrika"
+msgstr "Категорія"
 
 #: ../public/template-tags/general.php:308
 msgid "Tags:"
-msgstr "Štítky:"
+msgstr "Мітки:"
 
-#
 #: ../public/template-tags/general.php:409
 msgid "Loading Events"
-msgstr "Načítání akcí"
+msgstr "Завантаження Події"
 
 #: ../public/template-tags/general.php:585
 msgid "Free"
-msgstr "Zdarma"
+msgstr "Безкоштовно"
 
 #: ../public/template-tags/general.php:1186
 #, php-format
 msgid "Calendar powered by %sThe Events Calendar%s"
-msgstr "Vytvořeno pomocí %sThe Events Calendar%s"
+msgstr "Календар зроблен %sThe Events Calendar%s"
 
 #: ../public/template-tags/options.php:20
 #, php-format
 msgid "Your current Events URL is %s"
-msgstr "Vaše současná URL adresa pro Akce je %s"
+msgstr "URL поточної події  %s"
 
 #: ../public/template-tags/options.php:31
 #, php-format
@@ -3908,114 +4113,134 @@ msgid ""
 "You <strong>cannot</strong> use the same slug as above. The above should "
 "ideally be plural, and this singular.<br />Your single Event URL is like: %s"
 msgstr ""
-"<strong>Nelze</strong> použít stejný název v URL jako výše uvedený. Ten by "
-"měl být v ideálním případě v množném čísle a tento v jednotném.<br />Vaše "
-"URL adresa pro jednotlivou Akci vypadá takto: %s"
+"Ви <strong> не може </ STRONG> використовувати той же короткий URL, що й "
+"вище. Вище в ідеалі має бути узагальнюючий, а цей індивідуальний <br /> Ваш "
+"URL події:  %s"
 
-#
 #: ../views/list/nav.php:17
 msgid "Events List Navigation"
-msgstr "Navigace pro seznam akcí"
+msgstr "Перегляд переліком"
 
 #: ../views/list/nav.php:23 ../views/list/nav.php:29 ../views/list/nav.php:32
+#, fuzzy
 msgid "<span>&laquo;</span> Previous Events"
-msgstr "<span>&laquo;</span> Předchozí akce"
+msgstr "&laquo; Попередня подія"
 
 #: ../views/list/nav.php:41 ../views/list/nav.php:44 ../views/list/nav.php:50
+#, fuzzy
 msgid "Next Events <span>&raquo;</span>"
-msgstr "Další akce <span>&raquo;</span>"
+msgstr "Наступна подія &raquo;"
 
 #: ../views/list/single-event.php:75
 msgid "Find out more"
-msgstr "Více informací"
+msgstr "Дізнайтеся більше"
 
-#
 #: ../views/modules/bar.php:34 ../views/modules/bar.php:64
 msgid "Find Events"
-msgstr "Hledat akce"
+msgstr "Пошук події"
 
 #: ../views/modules/bar.php:41
 msgid "Event Views Navigation"
-msgstr "Navigace pro zobrazení akce"
+msgstr "Перегляд по подіям"
 
-#
 #: ../views/modules/bar.php:42
 msgid "View As"
-msgstr "Zobrazit jako"
+msgstr "Подивитися як"
 
-#
 #: ../views/month/nav.php:18
 msgid "Calendar Month Navigation"
-msgstr "Navigace pro měsíce v kalendáři"
+msgstr "Календар навігація по місяцях"
 
 #: ../views/month/single-day.php:43
+#, fuzzy
 msgid "Events "
-msgstr "akce "
+msgstr "Події"
 
 #: ../views/month/single-day.php:45
+#, fuzzy
 msgid "Event "
-msgstr "akci "
+msgstr "Подія"
 
-#
 #: ../views/single-event.php:23
 msgid "&laquo; All Events"
-msgstr "&laquo; všechny akce"
+msgstr "&laquo; Усі події"
 
-#
 #: ../views/single-event.php:41 ../views/single-event.php:72
 msgid "Event Navigation"
-msgstr "Navigace pro akce"
+msgstr "Навігація подія"
 
-#
 #: ../views/tickets/attendees-email.php:25
 msgid "Attendee List"
-msgstr "Seznam účastníků"
+msgstr "Список відвідувачів"
 
-#
 #: ../views/tickets/email.php:39
 msgid "Your tickets"
-msgstr "Vaše vstupenky"
+msgstr "Ваші квитки"
 
 #: ../views/tickets/email.php:320
 msgid "Ticket Type"
-msgstr "Typ vstupenky"
+msgstr "Тип квитка"
 
 #: ../views/tickets/email.php:324
 msgid "Purchaser"
-msgstr "Kupující"
-
-#~ msgctxt "Currency symbol position"
-#~ msgid "Before cost"
-#~ msgstr "Před cenou"
-
-#~ msgctxt "Currency symbol position"
-#~ msgid "After cost"
-#~ msgstr "Za cenou"
-
-#~ msgctxt "not available"
-#~ msgid "n/a"
-#~ msgstr "není k dispozici"
-
-#~ msgid "Based on %d rating"
-#~ msgid_plural "Based on %d ratings"
-#~ msgstr[0] "Hodnotil %d uživatel"
-#~ msgstr[1] "Hodnotili %d uživatelé"
-#~ msgstr[2] "Hodnotilo %d uživatelů"
+msgstr "Покупець"
 
 #~ msgid ""
-#~ "The above setting was not saved. Other settings were successfully saved."
-#~ msgid_plural ""
-#~ "The above settings were not saved. Other settings were successfully saved."
-#~ msgstr[0] ""
-#~ "Výše uvedené nastavení nebylo uloženo. Ostatní nastavení byla úspěšně "
-#~ "uložena."
-#~ msgstr[1] ""
-#~ "Výše uvedená nastavení nebyla uložena. Ostatní nastavení byla úspěšně "
-#~ "uložena."
-#~ msgstr[2] ""
-#~ "Výše uvedená nastavení nebyla uložena. Ostatní nastavení byla úspěšně "
-#~ "uložena."
+#~ "Would you like to change only this instance of the event, or all future "
+#~ "events in this series?"
+#~ msgstr ""
+#~ "Хочете змінити тільки цей екземпляр події, або всі майбутні події в цій "
+#~ "серії?"
 
-#~ msgctxt "non-existant function name passed for field validation"
-#~ msgid "with function name:"
-#~ msgstr "se jménem funkce:"
+#~ msgid "Only This Event:"
+#~ msgstr "Тільки ця подія:"
+
+#~ msgid "All other future events in the series will remain the same."
+#~ msgstr "Всі інші майбутні заходи у цій серії залишаться як були."
+
+#~ msgid "All Events:"
+#~ msgstr "Усі події:"
+
+#~ msgid ""
+#~ "All future events in the series will be changed. Any changes made to "
+#~ "other events will be kept."
+#~ msgstr ""
+#~ "Всі майбутні заходи у цій серії буде змінений. Зберігатимуться будь-які "
+#~ "зміни в інших заходах."
+
+#~ msgid ""
+#~ "Would you like to delete only this instance of the event, or all future "
+#~ "events in this series?"
+#~ msgstr ""
+#~ "Хочете, щоб видалити тільки цей екземпляр події, або всі майбутні події в "
+#~ "цій серії?"
+
+#~ msgid "All other future events in the series will not be deleted."
+#~ msgstr "Всі інші майбутні заходи у цій серії не будуть видалені."
+
+#~ msgid "All future events in the series will be deleted."
+#~ msgstr "Всі майбутні заходи у цій серії будуть видалені."
+
+#~ msgid "The Events Calendar: Filter Bar (coming early 2014)"
+#~ msgstr "Events Calendar: Бар Фільтрів (буде вже у 2014)"
+
+#~ msgid "Events at %s"
+#~ msgstr "Події біля %s"
+
+#~ msgid "Unnamed Organizer"
+#~ msgstr "Безіменний організатор"
+
+#~ msgid "View &#8220;%s&#8221;"
+#~ msgstr "Дивитись &#8220;%s&#8221;"
+
+#~ msgid "Recurring?"
+#~ msgstr "Нове?"
+
+#~ msgid "No"
+#~ msgstr "Ні"
+
+#~ msgid "Recurring Event"
+#~ msgstr "Періодична подія"
+
+#~ msgid "(See all)"
+#~ msgstr "(Переглянути всі)"

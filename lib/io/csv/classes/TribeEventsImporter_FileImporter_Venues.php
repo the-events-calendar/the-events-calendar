@@ -21,7 +21,6 @@ class TribeEventsImporter_FileImporter_Venues extends TribeEventsImporter_FileIm
 	protected function create_post( array $record ) {
 		$venue = $this->build_venue_array( $record );
 		$id = TribeEventsAPI::createVenue( $venue );
-		TribeEventsAPI::updateVenue( $id, $venue );
 		return $id;
 	}
 

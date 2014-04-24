@@ -12,8 +12,8 @@ class TribeEventsImporter_AdminPage {
 	public function register_admin_page() {
 		add_submenu_page(
 			'edit.php?post_type='.TribeEvents::POSTTYPE,
-			__('CSV Import','tribe-events-calendar'),
-			__('CSV Import','tribe-events-calendar'),
+			__('Import: CSV','tribe-events-calendar'),
+			__('Import: CSV','tribe-events-calendar'),
 			'administrator',
 			'events-importer',
 			array( $this, 'render_admin_page_contents' )
