@@ -1695,14 +1695,10 @@ if ( !class_exists( 'TribeEvents' ) ) {
 						break;
 					case self::VENUE_POST_TYPE :
 
-						wp_enqueue_style( self::VENUE_POST_TYPE.'-hide-visibility', trailingslashit( $this->pluginUrl ) . 'resources/hide-visibility.css', array(), apply_filters( 'tribe_events_css_version', self::VERSION ) );
-
 						// hook for other plugins
 						do_action('tribe_venues_enqueue');
 						break;
 					case self::ORGANIZER_POST_TYPE :
-
-						wp_enqueue_style( self::ORGANIZER_POST_TYPE.'-hide-visibility', trailingslashit( $this->pluginUrl ) . 'resources/hide-visibility.css', array(), apply_filters( 'tribe_events_css_version', self::VERSION ) );
 
 						// hook for other plugins
 						do_action('tribe_organizers_enqueue');
