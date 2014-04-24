@@ -33,7 +33,6 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 
 		private static $instance;
 
-		//instance variables
 		public $pluginDir;
 		public $pluginPath;
 		public $pluginUrl;
@@ -46,6 +45,12 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		public static $updateUrl = 'http://tri.be/';
 		/** @var TribeEventsPro_RecurrencePermalinks */
 		public $permalink_editor = NULL;
+
+		/**
+		 * @var TribeEventsPro_SingleEventMeta
+		 */
+		public $single_event_meta;
+
 		const REQUIRED_TEC_VERSION = '3.5.1';
 		const VERSION = '3.5.2';
 
@@ -616,6 +621,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			TribeEventsRecurrenceMeta::init();
 			TribeEventsGeoLoc::instance();
 			$this->displayMetaboxCustomFields();
+			$this->single_event_meta = new TribeEventsPro_SingleEventMeta;
 		}
 
 		/**
