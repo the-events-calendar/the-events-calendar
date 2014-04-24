@@ -17,6 +17,8 @@ foreach( $views as $view ) {
 	$views_options[$view['displaying']] = $view['anchor'];
 }
 
+$sample_date = strtotime( 'January 15 ' . date( 'Y' ) );
+
 $displayTab = array(
 	'priority' => 20,
 	'fields' =>  apply_filters( 'tribe_display_settings_tab_fields', array(
@@ -99,6 +101,23 @@ $displayTab = array(
 					'tooltip' => __( 'Check this to use the classic header.', 'tribe-events-calendar' ),
 					'default' => false,
 					'validation_type' => 'boolean',
+		),
+		'datepickerFormat' => array(
+			'type'    => 'dropdown_select2',
+			'label'   => __( 'Datepicker Date Format', 'tribe-events-calendar' ),
+			'tooltip' => __( 'Select the date format to use in datepickers', 'tribe-events-calendar' ),
+			'default' => 'Y-m-d',
+			'options' => array(
+				'Y-m-d' => date( 'Y-m-d', $sample_date ),
+				'n/j/Y' => date( 'n/j/Y', $sample_date ),
+				'm/d/Y' => date( 'm/d/Y', $sample_date ),
+				'j/n/Y' => date( 'j/n/Y', $sample_date ),
+				'd/m/Y' => date( 'd/m/Y', $sample_date ),
+				'n-j-Y' => date( 'n-j-Y', $sample_date ),
+				'm-d-Y' => date( 'm-d-Y', $sample_date ),
+				'j-n-Y' => date( 'j-n-Y', $sample_date ),
+				'd-m-Y' => date( 'd-m-Y', $sample_date ),
+			),
 		),
 		'monthEventAmount' => array(
 			'type' => 'text',
