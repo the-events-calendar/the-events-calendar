@@ -91,7 +91,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			require_once( 'public/template-tags/venue.php' );
 			require_once( 'public/template-tags/widgets.php' );
 			require_once( 'lib/tribe-geoloc.class.php' );
-			require_once( 'lib/meta-pro.php' );
+			require_once( 'lib/SingleEventMeta.php' );
 
 			//iCal
 			require_once ( 'lib/tribe-ical.class.php' );
@@ -146,8 +146,8 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			add_filter( 'tribe_events_single_event_the_meta_addon', array($this,'single_event_the_meta_addon'), 10, 2);
 			add_filter( 'tribe_events_single_event_meta_group_template_keys', array( $this, 'single_event_meta_group_template_keys'), 10);
 			add_filter( 'tribe_events_single_event_meta_template_keys', array( $this, 'single_event_meta_template_keys'), 10);
-			add_filter( 'tribe_event_meta_venue_name', array('Tribe_Register_Meta_Pro', 'venue_name'), 10, 2);
-			add_filter( 'tribe_event_meta_organizer_name', array('Tribe_Register_Meta_Pro','organizer_name'), 10, 2);
+			add_filter( 'tribe_event_meta_venue_name', array('TribeEventsPro_SingleEventMeta', 'venue_name'), 10, 2);
+			add_filter( 'tribe_event_meta_organizer_name', array('TribeEventsPro_SingleEventMeta','organizer_name'), 10, 2);
 			add_filter( 'tribe_events_single_event_the_meta_group_venue', array( $this, 'single_event_the_meta_group_venue'), 10, 2);
 
 			$this->enable_recurring_info_tooltip();

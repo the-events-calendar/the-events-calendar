@@ -3,9 +3,9 @@
 // Don't load directly
 if ( !defined( 'ABSPATH' ) ) die( '-1' );
 
-if ( ! class_exists( 'Tribe_Register_Meta_Pro' ) ) {
+if ( ! class_exists('TribeEventsPro_SingleEventMeta') ) {
 
-	class Tribe_Register_Meta_Pro {
+	class TribeEventsPro_SingleEventMeta {
 
 		/**
 		 * Responsible for displaying a user's custom recurrence pattern description.
@@ -108,7 +108,7 @@ if ( ! class_exists( 'Tribe_Register_Meta_Pro' ) ) {
 	tribe_register_meta( 'tribe_event_custom_meta', array(
 		'label' => '',
 		'priority' => 60,
-		'filter_callback' => array( 'Tribe_Register_Meta_Pro', 'custom_meta' ),
+		'filter_callback' => array( 'TribeEventsPro_SingleEventMeta', 'custom_meta' ),
 		'group' => 'tribe_event_group_custom_meta'
 	) );
 
@@ -128,7 +128,7 @@ if ( ! class_exists( 'Tribe_Register_Meta_Pro' ) ) {
 				'meta_before'=>'<dd class="%s">',
 				'meta_after'=>'</dd>'
 			),
-		'filter_callback' => array( 'Tribe_Register_Meta_Pro', 'custom_recurrence_description' ),
+		'filter_callback' => array( 'TribeEventsPro_SingleEventMeta', 'custom_recurrence_description' ),
 		'group' => 'tribe_event_details'
 	) );
 
