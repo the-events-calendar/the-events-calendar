@@ -121,18 +121,13 @@ if( !class_exists( 'TribeEventsListWidget' ) ) {
 			do_action( 'tribe_events_list_widget_after_the_title' );
 
 			if ( $posts ) {
-				/* Display list of events. */
-				echo '<ol class="hfeed vcalendar">';
-				foreach( $posts as $post ) :
-					setup_postdata( $post );
-					tribe_get_template_part( $template_name );
-				endforeach;
-				echo "</ol><!-- .hfeed -->";
 				
-				/* Display link to events */
-				echo '<p class="tribe-events-widget-link"><a href="' . $event_url . '" rel="bookmark">';	
+				//Include widget view
+				include TribeEventsTemplates::getTemplateHierarchy( $template_name );				
 				
-				if ( empty( $category ) ) {
+				echo '<p class="tribe-events-widget-link"><a href="' . $event_url . '" rel="bookmark">';
+				
+				if ( $category <= 0 ) {
 					_e( 'View All Events', 'tribe-events-calendar' );			
 				} else {
 					_e( 'View All Events in Category', 'tribe-events-calendar' );
