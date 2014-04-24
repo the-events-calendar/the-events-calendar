@@ -274,6 +274,7 @@ if ( class_exists( 'Tribe_Meta_Factory' ) ) {
 		/**
 		 * Get the venue map link
 		 *
+		 * @deprecated since 3.6 use tribe_get_map_link_html() instead
 		 * @return string
 		 */
 		public static function gmap_link() {
