@@ -9,7 +9,7 @@
  * @since 3.6
  */
 
-$fields = ( isset( $fields ) && is_array( $fields ) ) ? $fields : array();
+if ( ! isset( $fields ) || empty( $fields ) || ! is_array( $fields ) ) return;
 ?>
 
 <div class="tribe-events-meta-group tribe-events-meta-group-other">
