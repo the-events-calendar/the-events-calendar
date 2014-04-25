@@ -102,6 +102,59 @@ $displayTab = array(
 					'default' => false,
 					'validation_type' => 'boolean',
 		),
+		'monthEventAmount' => array(
+			'type' => 'text',
+		 	'label' => __( 'Month view events per day', 'tribe-events-calendar' ),
+		 	'tooltip' => __( 'Allow more than the default 3 events per day in month view.', 'tribe-events-calendar' ),
+			'validation_type' => 'positive_int',
+			'size' => 'small',
+			'default' => '3'
+		),
+		'tribeEventsDateFormatSettingsTitle' => array(
+			'type' => 'html',
+			'html' => '<h3>' . __( 'Date Format Settings', 'tribe-events-calendar' ) . '</h3>',
+		),
+		'tribeEventsDateFormatExplanation' => array(
+			'type' => 'html',
+			'html' => __('<p>The following three fields accept the format options available to the <a href="http://php.net/date">php date()</a> function.</p>', 'tribe-events-calendar'),
+		),
+		'dateWithYearFormat' => array(
+			'type' => 'text',
+			'label' => __('Date with year', 'tribe-events-calendar'),
+			'tooltip' => __('Enter the format to use for displaying dates with the year. Used  when showing an event from a past or future year, also dates in view headers.', 'tribe-events-calendar' ),
+			'default' => get_option('date_format'),
+			'size' => 'medium',
+			'validation_type' => 'html',
+		),
+		'dateWithoutYearFormat' => array(
+			'type' => 'text',
+			'label' => __('Date without year', 'tribe-events-calendar'),
+			'tooltip' => __('Enter the format to use for displaying dates without. Used  when showing an event from the current year.', 'tribe-events-calendar' ),
+			'default' => 'F j',
+			'size' => 'medium',
+			'validation_type' => 'html',
+		),
+		'monthAndYearFormat' => array(
+			'type' => 'text',
+			'label' => __('Month and year format', 'tribe-events-calendar'),
+			'default' => 'F y',
+			'size' => 'medium',
+			'validation_type' => 'html',
+		),
+		'dateTimeSeparator' => array(
+			'type' => 'text',
+			'label' => __('Date time separator', 'tribe-events-calendar'),
+			'default' => ' @ ',
+			'size' => 'small',
+			'validation_type' => 'html',
+		),
+		'timeRangeSeparator' => array(
+			'type' => 'text',
+			'label' => __('Time range separator', 'tribe-events-calendar'),
+			'default' => ' - ',
+			'size' => 'small',
+			'validation_type' => 'html',
+		),
 		'datepickerFormat' => array(
 			'type'    => 'dropdown_select2',
 			'label'   => __( 'Datepicker Date Format', 'tribe-events-calendar' ),
@@ -118,14 +171,7 @@ $displayTab = array(
 				'j-n-Y' => date( 'j-n-Y', $sample_date ),
 				'd-m-Y' => date( 'd-m-Y', $sample_date ),
 			),
-		),
-		'monthEventAmount' => array(
-			'type' => 'text',
-		 	'label' => __( 'Month view events per day', 'tribe-events-calendar' ),
-		 	'tooltip' => __( 'Allow more than the default 3 events per day in month view.', 'tribe-events-calendar' ),
-			'validation_type' => 'positive_int',
-			'size' => 'small',
-			'default' => '3'
+			'validation_type' => 'options',
 		),
 		'tribeEventsAdvancedSettingsTitle' => array(
 			'type' => 'html',
