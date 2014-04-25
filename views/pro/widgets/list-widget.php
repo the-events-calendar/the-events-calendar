@@ -19,8 +19,17 @@
 if ( !defined('ABSPATH') ) { die('-1'); } ?>
 
 <?php 
-$widget_args = tribe_events_get_adv_list_widget_args(); 
-extract($widget_args);
+	$widget_args = tribe_events_get_adv_list_widget_args(); 
+	extract($widget_args);
+	
+	if ( ! empty( $category ) ) {
+		// Link to the main category archive page
+		$event_url = get_term_link( (int)$category, TribeEvents::TAXONOMY );
+		
+	} else {
+		// Link to the main events page
+		$event_url = tribe_get_events_link();
+	}
 ?>
 <ol class="hfeed vcalendar">
 <?php
@@ -91,3 +100,9 @@ extract($widget_args);
 	endforeach;
 ?>
 </ol><!-- .hfeed -->
+
+<p class="tribe-events-widget-link">
+	<a href="<?php echo $event_url; ?>" rel="bookmark">
+		<?php ($category <= 0 ? _e( 'View All Events', 'tribe-events-calendar' ) : _e( 'View All Events in Category', 'tribe-events-calendar' ) ); ?>
+	</a>
+</p>
