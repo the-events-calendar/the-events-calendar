@@ -71,16 +71,7 @@ if( !class_exists( 'TribeEventsListWidget' ) ) {
 			$title = apply_filters( 'widget_title', $title );
 			if ( ! isset( $category ) || $category === '-1' ) {
 				$category = 0;
-			}
-
-			if ( ! empty( $category ) ) {
-				// Link to the main category archive page
-				$event_url = get_term_link( (int)$category, TribeEvents::TAXONOMY );
-				
-			} else {
-				// Link to the main events page (should work even if month/list views are disabled)
-				$event_url = tribe_get_events_link();
-			}
+			}			
 
 			if ( function_exists( 'tribe_get_events' ) ) {
 
@@ -125,14 +116,6 @@ if( !class_exists( 'TribeEventsListWidget' ) ) {
 				//Include widget view
 				include TribeEventsTemplates::getTemplateHierarchy( $template_name );				
 				
-				echo '<p class="tribe-events-widget-link"><a href="' . $event_url . '" rel="bookmark">';
-				
-				if ( $category <= 0 ) {
-					_e( 'View All Events', 'tribe-events-calendar' );			
-				} else {
-					_e( 'View All Events in Category', 'tribe-events-calendar' );
-				}
-				echo '</a></p>';
 			}
 			else {
 				echo '<p>' . __( 'There are no upcoming events at this time.', 'tribe-events-calendar' ) . '</p>';
