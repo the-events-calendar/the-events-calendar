@@ -39,6 +39,9 @@ class TribeEventsAdvancedListWidget extends TribeEventsListWidget {
 		$tooltip_status = $ecp->recurring_info_tooltip_status();
 		$ecp->disable_recurring_info_tooltip();
 
+		// @todo remove after 3.7 (continuity helper for upgrading users)
+		if ( isset( $instance['category'] ) ) $this->include_cat_id( $instance['filters'], $instance['category'] );
+
 		// Make the instance data available to our taxonomy_filters callback
 		$this->instance = $instance;
 
@@ -61,10 +64,13 @@ class TribeEventsAdvancedListWidget extends TribeEventsListWidget {
 		$instance['zip']       = $new_instance['zip'];
 		$instance['phone']     = $new_instance['phone'];
 		$instance['cost']      = $new_instance['cost'];
-		$instance['category']  = $new_instance['category'];
 		$instance['organizer'] = $new_instance['organizer'];
 		$instance['operand']   = strip_tags( $new_instance['operand'] );
 		$instance['filters']   = maybe_unserialize( $new_instance['filters'] );
+
+		// @todo remove after 3.7 (added for continuity when users transition from 3.5.x or earlier to this release)
+		if ( isset( $old_instance['category'] ) )
+			$this->include_cat_id( $instance['filters'], $old_instance['category'] );
 
 		return $instance;
 	}
@@ -82,11 +88,14 @@ class TribeEventsAdvancedListWidget extends TribeEventsListWidget {
 			'zip' => false,
 			'phone' => false,
 			'cost' => false,
-			'category' => false,
+			'category' => false, // @todo remove this element after 3.7
 			'organizer' => false,
 			'operand' => 'OR',
 			'filters' => null
 		) );
+
+		// @todo remove after 3.7
+		$this->include_cat_id( $instance['filters'], $instance['category'] );
 
 		$taxonomies = get_object_taxonomies( TribeEvents::POSTTYPE, 'objects' );
 		$taxonomies = array_reverse( $taxonomies );
@@ -94,4 +103,28 @@ class TribeEventsAdvancedListWidget extends TribeEventsListWidget {
 		include( TribeEventsPro::instance()->pluginPath . 'admin-views/widget-admin-advanced-list.php' );
 	}
 
+	/**
+	 * Adds the provided category ID to the list of filters.
+	 *
+	 * In 3.6 taxonomy filters were added to this widget (as already existed for the calendar
+	 * widget): this helper exists to provide some continuity for users upgrading from a 3.5.x
+	 * release or earlier, transitioning any existing category setting to the new filters
+	 * list.
+	 *
+	 * @todo remove after 3.7
+	 * @param mixed &$filters
+	 * @param int $id
+	 */
+	protected function include_cat_id( &$filters, $id ) {
+		$id = (string) absint( $id ); // An absint for sanity but a string for comparison purposes
+		$tax = TribeEvents::TAXONOMY;
+		if ( '0' === $id || ! is_string( $filters ) ) return;
+
+		$filters = (array) json_decode( $filters, true );
+
+		if ( isset( $filters[$tax] ) && ! in_array( $id, $filters[$tax] ) ) $filters[$tax][] = $id;
+		elseif ( ! isset( $filters[$tax] ) ) $filters[$tax] = array( $id );
+
+		$filters = json_encode( $filters );
+	}
 }
