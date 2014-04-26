@@ -983,14 +983,14 @@ if ( !class_exists( 'TribeEvents' ) ) {
 					break;
 				case 'month':
 					if(get_query_var('eventDate')){
-						$title_date = date_i18n("F Y",strtotime(get_query_var('eventDate')));
+						$title_date = date_i18n(tribe_get_option('monthAndYearFormat', 'F Y') ,strtotime(get_query_var('eventDate')));
 						$new_title = apply_filters( 'tribe_month_grid_view_title', sprintf(__("Events for %s", 'tribe-events-calendar'), $title_date ) . ' ' . $sep . ' ' . $title, $sep, $title_date );
 					}else{
 						$new_title = apply_filters( 'tribe_events_this_month_title', sprintf(__("Events this month", 'tribe-events-calendar'), get_query_var('eventDate') ) . ' ' . $sep . ' ' . $title, $sep );
 					}
 					break;
 				case 'day':
-					$title_date = date_i18n("l, F jS Y",strtotime(get_query_var('eventDate')));
+					$title_date = date_i18n(tribe_get_date_format(true),strtotime(get_query_var('eventDate')));
 					$new_title = apply_filters( 'tribe_events_day_view_title', sprintf(__("Events for %s", 'tribe-events-calendar'), $title_date) . ' ' . $sep . ' ', $sep, $title_date );
 					break;
 				default:
@@ -2408,8 +2408,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 					$eventUrl = trailingslashit( esc_url_raw($link) );
 					break;
 				case 'day':
-					// TODO: Move this to pro?
-					$date = strtotime($secondary);
+					$date = strtotime( $secondary );
 					$secondary = date('Y-m-d', $date);
 					$eventUrl = trailingslashit( esc_url_raw($eventUrl . $secondary) );
 					break;
@@ -2592,16 +2591,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			if ( preg_match( '/(AM|am)/', $meridian ) && $hour == 12 ) $hour = "00";
 			$date = $this->dateHelper($date);
 			return "$date $hour:$minute:00";
-		}
-
-		/**
-		 * Get the datetime format we want.
-		 *
-		 * @param string $dateFormat the default date format to use.
-		 * @return string The date time format representation we want.
-		 */
-		public function getTimeFormat( $dateFormat = TribeDateUtils::DATEONLYFORMAT ) {
-			return $dateFormat . ' ' . get_option( 'time_format', TribeDateUtils::TIMEFORMAT );
 		}
 
 		/**
@@ -3311,6 +3300,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 * Given a week of the year (WW), returns the YYYY-MM-DD of the first day of the week
 		 *
 		 * @deprecated
+		 * @TODO: remove
 		 * @param  string $week expects string or int 2 of 1-52 (weeks of the year)
 		 * @return string $date (YYYY-MM-DD)
 		 */

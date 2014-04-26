@@ -802,6 +802,8 @@ if ( class_exists( 'TribeEvents' ) ) {
 	}
 
 	/**
+	 * Get the date format specified in the tribe options
+	 *
 	 * @param bool $with_year
 	 *
 	 * @return mixed
@@ -812,7 +814,23 @@ if ( class_exists( 'TribeEvents' ) ) {
 		} else {
 			$format = tribe_get_option( 'dateWithoutYearFormat', 'F j' );
 		}
+
 		return apply_filters( 'tribe_date_format', $format );
+
+	}
+
+	/**
+	 * @param bool $with_year
+	 *
+	 * @return mixed|void
+	 */
+	function tribe_get_datetime_format( $with_year = false ) {
+		$format = tribe_get_date_format( $with_year );
+		$format .= tribe_get_option( 'datetimeSeparator', ' @ ' );
+		$format .= get_option( 'time_format' );
+
+		return apply_filters( 'tribe_datetime_format', $format );
+
 	}
 
 	/**
@@ -988,23 +1006,28 @@ if ( class_exists( 'TribeEvents' ) ) {
 		$image_src = '';
 		$image_tool_src = '';
 
-		if ( ! empty( $event->EventStartDate ) )
-			$start_time .= date_i18n( get_option( 'date_format', 'F j, Y' ), strtotime( $event->EventStartDate ) );
+		$date_format = tribe_get_date_format( true );
+		$time_format = get_option( 'time_format', TribeDateUtils::TIMEFORMAT );
+
+		$date_time_separator = tribe_get_option('dateTimeSeparator', ' @ ');
+
+		if ( ! empty( $event->EventStartDate ) ) {
+			$start_time .= date_i18n( $date_format, strtotime( $event->EventStartDate ) );
+		}
 
 		if ( ! tribe_get_event_meta( $event->ID, '_EventAllDay', true ) )
-			$start_time .= ' ' . date_i18n( get_option( 'time_format', 'g:i a' ), strtotime( $event->EventStartDate ) );
+			$start_time .= $date_time_separator . date_i18n( $time_format, strtotime( $event->EventStartDate ) );
 
 		if ( ! empty( $event->EventEndDate ) && $event->EventStartDate !== $event->EventEndDate ) {
 			if ( date( 'Y-m-d', strtotime( $event->EventStartDate ) ) == date( 'Y-m-d', strtotime( $event->EventEndDate ) ) ) {
-				$time_format = get_option( 'time_format', 'g:i a' );
 
 				if ( ! tribe_get_event_meta( $event->ID, '_EventAllDay', true ) )
 					$end_time .= date_i18n( $time_format, strtotime( $event->EventEndDate ) );
 			} else {
-				$end_time .= date_i18n( get_option( 'date_format', 'F j, Y' ), strtotime( $event->EventEndDate ) );
+				$end_time .= date_i18n( $date_format, strtotime( $event->EventEndDate ) );
 
 				if ( ! tribe_get_event_meta( $event->ID, '_EventAllDay', true ) )
-					$end_time .= ' ' . date_i18n( get_option( 'time_format', 'g:i a' ), strtotime( $event->EventEndDate ) );
+					$end_time .= $date_time_separator . date_i18n( $time_format, strtotime( $event->EventEndDate ) );
 			}
 		}
 
@@ -1023,18 +1046,18 @@ if ( class_exists( 'TribeEvents' ) ) {
 		else $excerpt = $event->post_content;
 		$excerpt = tribe_prepare_for_json( TribeEvents::instance()->truncate( $excerpt, 30 ) );
 
-		$categoryClasses = tribe_prepare_for_json( tribe_events_event_classes( $event->ID, false ) );
-		
+		$category_classes = tribe_prepare_for_json( tribe_events_event_classes( $event->ID, false ) );
+
 		$json = array(
-			'eventId' => $event->ID,
-			'title' => tribe_prepare_for_json( $event->post_title ),
-			'permalink' => tribe_get_event_link( $event->ID ),
-			'imageSrc' => $image_src,
-			'startTime' => $start_time,
-			'endTime' => $end_time,
+			'eventId'         => $event->ID,
+			'title'           => tribe_prepare_for_json( $event->post_title ),
+			'permalink'       => tribe_get_event_link( $event->ID ),
+			'imageSrc'        => $image_src,
+			'startTime'       => $start_time,
+			'endTime'         => $end_time,
 			'imageTooltipSrc' => $image_tool_src,
-			'excerpt' => $excerpt,
-			'categoryClasses' => $categoryClasses,
+			'excerpt'         => $excerpt,
+			'categoryClasses' => $category_classes,
 		);
 
 		if ( $additional ) {

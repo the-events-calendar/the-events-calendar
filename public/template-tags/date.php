@@ -101,17 +101,25 @@ if( class_exists( 'TribeEvents' ) ) {
 	 * @since 2.0
 	 */
 	function tribe_event_format_date($date, $displayTime = true,  $dateFormat = '')  {
-		$tribe_ecp = TribeEvents::instance();
 
-		if( $dateFormat ) $format = $dateFormat;
-		else $format = get_option( 'date_format', TribeDateUtils::DATEONLYFORMAT );
+		if ( $dateFormat ) {
+			$format = $dateFormat;
+		} else {
+			if ( $displayTime ) {
+				$format = tribe_get_datetime_format( true );
+			} else {
+				$format = tribe_get_date_format( true );
+			}
+		}
 
-		if ( $displayTime )
-			$format = $tribe_ecp->getTimeFormat( $format );
+		if ( ! TribeDateUtils::isTimestamp( $date ) ) {
+			$date = strtotime( $date );
+		}
 
-		$shortMonthNames = ( strstr( $format, 'M' ) ) ? true : false;
-		$date = date_i18n ( $format, $date );
-		return str_replace( array_keys($tribe_ecp->monthNames( $shortMonthNames )), $tribe_ecp->monthNames( $shortMonthNames ), $date);
+		$date = date_i18n( $format, $date );
+
+		return apply_filters( 'tribe_event_formatted_date', $date, $displayTime, $dateFormat );
+
 	}
 
 	/**
