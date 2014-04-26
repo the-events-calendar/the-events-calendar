@@ -1497,7 +1497,8 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		 * @author Elliot Wiltshire
 		 */
 		public function pro_widgets_init() {
-			require_once( 'lib/widget-advanced-list.class.php' );
+			require_once 'lib/Widgets.php';
+			require_once 'lib/widget-advanced-list.class.php';
 			unregister_widget( 'TribeEventsListWidget' );
 			register_widget( 'TribeEventsAdvancedListWidget' );
 			register_widget( 'TribeEventsMiniCalendarWidget' );

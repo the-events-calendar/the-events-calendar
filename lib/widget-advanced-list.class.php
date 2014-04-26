@@ -5,66 +5,93 @@
  * Creates a widget that displays the next upcoming x events
  */
 
-// Don't load directly
 if ( !defined('ABSPATH') ) { die('-1'); }
+if ( ! class_exists( 'TribeEventsAdvancedListWidget' ) ) return;
 
-if( !class_exists( 'TribeEventsAdvancedListWidget' ) ) {
-	class TribeEventsAdvancedListWidget extends TribeEventsListWidget {
+class TribeEventsAdvancedListWidget extends TribeEventsListWidget {
 
-		static $params = array();
+	static $params = array();
+	public $instance = array();
 
-		function TribeEventsAdvancedListWidget() {
-			/* Widget settings. */
-			$widget_ops = array( 'classname' => 'tribe-events-adv-list-widget', 'description' => __( 'A widget that displays the next upcoming x events.', 'tribe-events-calendar-pro' ) );
+	public function __construct() {
+		$widget_ops = array(
+			'classname' => 'tribe-events-adv-list-widget',
+			'description' => __( 'A widget that displays the next upcoming x events.', 'tribe-events-calendar-pro' ) );
 
-			/* Widget control settings. */
-			$control_ops = array( 'id_base' => 'tribe-events-adv-list-widget' );
+		$control_ops = array( 'id_base' => 'tribe-events-adv-list-widget' );
 
-			/* Create the widget. */
-			$this->WP_Widget( 'tribe-events-adv-list-widget', __( 'Events List', 'tribe-events-calendar-pro' ), $widget_ops, $control_ops );
-
-		}
-
-		function widget( $args, $instance ) {
-			$ecp = TribeEventsPro::instance();
-			$tooltip_status = $ecp->recurring_info_tooltip_status();
-			$ecp->disable_recurring_info_tooltip();
-
-			// Use parent's output function with the premium template.
-			self::$params = $instance;
-			$output = parent::widget_output( $args, $instance, 'pro/widgets/list-widget' );
-
-			if ( $tooltip_status ) {
-				$ecp->enable_recurring_info_tooltip();
-			}
-
-			return $output;
-		}
-
-		function update( $new_instance, $old_instance ) {
-			$instance = parent::update( $new_instance, $old_instance );
-
-			/* Process remaining options. */
-			/* Strip tags (if needed) and update the widget settings. */
-			$instance['venue']     = $new_instance['venue'];
-			$instance['country']   = $new_instance['country'];
-			$instance['address']   = $new_instance['address'];
-			$instance['city']      = $new_instance['city'];
-			$instance['region']    = $new_instance['region'];
-			$instance['zip']       = $new_instance['zip'];
-			$instance['phone']     = $new_instance['phone'];
-			$instance['cost']      = $new_instance['cost'];
-			$instance['category']  = $new_instance['category'];
-			$instance['organizer'] = $new_instance['organizer'];
-			return $instance;
-		}
-
-		function form( $instance ) {
-			/* Set up default widget settings. */
-			$defaults = array( 'title' => __( 'Upcoming Events', 'tribe-events-calendar-pro' ), 'limit' => '5', 'no_upcoming_events' => false, 'venue' => false, 'country' => true, 'address' => false, 'city' => true, 'region' => true, 'zip' => false, 'phone' => false, 'cost' => false,'category' => false, 'organizer' => false);
-			$instance = wp_parse_args( (array) $instance, $defaults );
-			include( TribeEventsPro::instance()->pluginPath . 'admin-views/widget-admin-advanced-list.php' );
-		}
-
+		parent::__construct( 'tribe-events-adv-list-widget', __( 'Events List', 'tribe-events-calendar-pro' ), $widget_ops, $control_ops );
+		add_filter( 'tribe_events_list_widget_query_args', array( $this, 'taxonomy_filters' ) );
 	}
+
+	public function taxonomy_filters( $query ) {
+		if ( empty( $this->instance ) ) return $query;
+		$tax_query = TribeEventsPro_Widgets::get_tax_query_from_widget_options( json_decode( $this->instance['filters'] ), $this->instance['operand'] );
+
+		if ( isset( $query['tax_query'] ) ) $query['tax_query'] = array_merge( $query['tax_query'], $tax_query );
+		else $query['tax_query'] = $tax_query;
+
+		return $query;
+	}
+
+	public function widget( $args, $instance ) {
+		$ecp = TribeEventsPro::instance();
+		$tooltip_status = $ecp->recurring_info_tooltip_status();
+		$ecp->disable_recurring_info_tooltip();
+
+		// Make the instance data available to our taxonomy_filters callback
+		$this->instance = $instance;
+
+		// Use parent's output function with the premium template.
+		self::$params = $instance;
+		$output = parent::widget_output( $args, $instance, 'pro/widgets/list-widget' );
+
+		if ( $tooltip_status ) $ecp->enable_recurring_info_tooltip();
+		return $output;
+	}
+
+	public function update( $new_instance, $old_instance ) {
+		$instance = parent::update( $new_instance, $old_instance );
+
+		$instance['venue']     = $new_instance['venue'];
+		$instance['country']   = $new_instance['country'];
+		$instance['address']   = $new_instance['address'];
+		$instance['city']      = $new_instance['city'];
+		$instance['region']    = $new_instance['region'];
+		$instance['zip']       = $new_instance['zip'];
+		$instance['phone']     = $new_instance['phone'];
+		$instance['cost']      = $new_instance['cost'];
+		$instance['category']  = $new_instance['category'];
+		$instance['organizer'] = $new_instance['organizer'];
+		$instance['operand']   = strip_tags( $new_instance['operand'] );
+		$instance['filters']   = maybe_unserialize( $new_instance['filters'] );
+
+		return $instance;
+	}
+
+	public function form( $instance ) {
+		$instance = wp_parse_args( (array) $instance, array(
+			'title' => __( 'Upcoming Events', 'tribe-events-calendar-pro' ),
+			'limit' => '5',
+			'no_upcoming_events' => false,
+			'venue' => false,
+			'country' => true,
+			'address' => false,
+			'city' => true,
+			'region' => true,
+			'zip' => false,
+			'phone' => false,
+			'cost' => false,
+			'category' => false,
+			'organizer' => false,
+			'operand' => 'OR',
+			'filters' => null
+		) );
+
+		$taxonomies = get_object_taxonomies( TribeEvents::POSTTYPE, 'objects' );
+		$taxonomies = array_reverse( $taxonomies );
+
+		include( TribeEventsPro::instance()->pluginPath . 'admin-views/widget-admin-advanced-list.php' );
+	}
+
 }
