@@ -50,15 +50,25 @@ if( !class_exists( 'TribeEventsListWidget' ) ) {
          */
         function widget_output( $args, $instance, $template_name='widgets/list-widget' ) {
 			global $wp_query, $tribe_ecp, $post;
-			extract( $args, EXTR_SKIP );
-			// The view expects all these $instance variables, which may not be set without pro
+
 			$instance = wp_parse_args( $instance, array(
 				'limit' => 5,
-				'title' => '',
+				'title' => ''
 			) );
+
+	        /**
+	         * @var $after_title
+	         * @var $after_widget
+	         * @var $before_title
+	         * @var $before_widget
+	         * @var $limit
+	         * @var $no_upcoming_events
+	         * @var $title
+	         */
+	        extract( $args, EXTR_SKIP );
 			extract( $instance, EXTR_SKIP );
 
-			// temporarily unset the tribe bar params so they don't apply
+			// Temporarily unset the tribe bar params so they don't apply
 			$hold_tribe_bar_args =  array();
 			foreach ( $_REQUEST as $key => $value ) {
 				if ( $value && strpos( $key, 'tribe-bar-' ) === 0 ) {
@@ -67,95 +77,61 @@ if( !class_exists( 'TribeEventsListWidget' ) ) {
 				}
 			}
 
-			// extracting $instance provides $title, $limit
 			$title = apply_filters( 'widget_title', $title );
-			if ( ! isset( $category ) || $category === '-1' ) {
-				$category = 0;
-			}
+			if ( ! isset( $category ) || $category === '-1' ) $category = 0;
 
-			if ( ! empty( $category ) ) {
-				// Link to the main category archive page
-				$event_url = get_term_link( (int)$category, TribeEvents::TAXONOMY );
-				
-			} else {
-				// Link to the main events page (should work even if month/list views are disabled)
-				$event_url = tribe_get_events_link();
-			}
+			// Form a link to the main category page (or archive page, if appropriate)
+			if ( ! empty( $category ) ) $event_url = get_term_link( (int) $category, TribeEvents::TAXONOMY );
+			else $event_url = tribe_get_events_link();
 
-			if ( function_exists( 'tribe_get_events' ) ) {
+			if ( ! function_exists( 'tribe_get_events' ) ) return;
 
-				$args = array(
-					'eventDisplay'   => 'upcoming',
-					'posts_per_page' => $limit,
-				);
-
-				if ( ! empty( $category ) ) {
-					$args['tax_query'] = array(
-						array(
-							'taxonomy'         => TribeEvents::TAXONOMY,
-							'terms'            => $category,
-							'field'            => 'ID',
-							'include_children' => false
-						)
-					);
-				}
-
-				$posts    = tribe_get_events( $args );
-			}
+			$posts = tribe_get_events( apply_filters( 'tribe_events_list_widget_query_args', array(
+				'eventDisplay'   => 'upcoming',
+				'posts_per_page' => $limit
+			) ) );
 
 			// if no posts, and the don't show if no posts checked, let's bail
-			if ( ! $posts && $no_upcoming_events ) {
-				return;
-			}
+			if ( ! $posts && $no_upcoming_events ) return;
 
 			/* Before widget (defined by themes). */
 			echo $before_widget;
 
-      do_action( 'tribe_events_before_list_widget' );
-      		
-      		do_action( 'tribe_events_list_widget_before_the_title' );
-			
-			/* Title of widget (before and after defined by themes). */
+			do_action( 'tribe_events_before_list_widget' );
+			do_action( 'tribe_events_list_widget_before_the_title' );
 			echo ( $title ) ? $before_title . $title . $after_title : '';
-			
 			do_action( 'tribe_events_list_widget_after_the_title' );
 
 			if ( $posts ) {
-				/* Display list of events. */
 				echo '<ol class="hfeed vcalendar">';
-				foreach( $posts as $post ) :
-					setup_postdata( $post );
-					tribe_get_template_part( $template_name );
-				endforeach;
+
+				foreach( $posts as $post ) {
+					setup_postdata($post);
+					tribe_get_template_part($template_name);
+				}
+
 				echo "</ol><!-- .hfeed -->";
-				
-				/* Display link to events */
+
 				echo '<p class="tribe-events-widget-link"><a href="' . $event_url . '" rel="bookmark">';	
 				
-				if ( empty( $category ) ) {
-					_e( 'View All Events', 'tribe-events-calendar' );			
-				} else {
-					_e( 'View All Events in Category', 'tribe-events-calendar' );
-				}
+				if ( empty( $category ) ) _e( 'View All Events', 'tribe-events-calendar' );
+				else _e( 'View All Events in Category', 'tribe-events-calendar' );
+
 				echo '</a></p>';
 			}
 			else {
 				echo '<p>' . __( 'There are no upcoming events at this time.', 'tribe-events-calendar' ) . '</p>';
 			}
 
-      do_action( 'tribe_events_after_list_widget' );
+			do_action( 'tribe_events_after_list_widget' );
 
 			/* After widget (defined by themes). */
 			echo $after_widget;
 			wp_reset_query();
 
-			// reinstate the tribe bar params
-			if ( ! empty( $hold_tribe_bar_args ) ) {
-				foreach ( $hold_tribe_bar_args as $key => $value ) {
-					$_REQUEST[$key] = $value;
-				}
-			}
-			
+			// Reinstate the tribe bar params
+			if ( ! empty( $hold_tribe_bar_args ) )
+				foreach ( $hold_tribe_bar_args as $key => $value ) $_REQUEST[$key] = $value;
 		}
 
         /**
@@ -166,14 +142,14 @@ if( !class_exists( 'TribeEventsListWidget' ) ) {
          * @return array The new widget settings.
          */
         function update( $new_instance, $old_instance ) {
-				$instance = $old_instance;
+			$instance = $old_instance;
 
-				/* Strip tags (if needed) and update the widget settings. */
-				$instance['title'] = strip_tags( $new_instance['title'] );
-				$instance['limit'] = $new_instance['limit'];
-				$instance['no_upcoming_events'] = $new_instance['no_upcoming_events'];
+			/* Strip tags (if needed) and update the widget settings. */
+			$instance['title'] = strip_tags( $new_instance['title'] );
+			$instance['limit'] = $new_instance['limit'];
+			$instance['no_upcoming_events'] = $new_instance['no_upcoming_events'];
 
-				return $instance;
+			return $instance;
 		}
 
         /**
