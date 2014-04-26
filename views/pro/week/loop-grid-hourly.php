@@ -14,7 +14,7 @@
 if ( !defined('ABSPATH') ) { die('-1'); }
 
 tribe_events_week_set_loop_type( 'hourly' );
-$hour_format = apply_filters( 'tribe_events_pro_week_hour_format', 'gA' );
+$hour_format = apply_filters( 'tribe_events_pro_week_hour_format', get_option('time_format', 'gA') );
 ?>
 <div class="tribe-week-grid-wrapper">
 	<div class="tribe-week-grid-outer-wrap tribe-clearfix">
@@ -44,7 +44,7 @@ $hour_format = apply_filters( 'tribe_events_pro_week_hour_format', 'gA' );
 		<?php // Hours ?>
 		<div class="column tribe-week-grid-hours">
 			<?php for ( $hour = $multiday_cutoff[0]; $hour <= $multiday_cutoff[0] + 23; $hour++ ) : ?>
-			<div class="time-row-<?php echo date_i18n( 'gA', mktime( $hour ) ); ?>"><?php echo date_i18n( $hour_format, mktime( $hour ) ); ?></div>
+			<div class="time-row-<?php echo date_i18n( 'gA', mktime( $hour ) ); ?>"><?php echo date_i18n( $hour_format, strtotime($hour.':00') ); ?></div>
 			<?php endfor; ?>
 		</div><!-- tribe-week-grid-hours -->
 		<?php // Content ?>
