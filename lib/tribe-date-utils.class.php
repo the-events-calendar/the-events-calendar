@@ -92,7 +92,7 @@ if(!class_exists('TribeDateUtils')) {
 		 */
 		public static function endOfDay( $date, $isTimestamp = false ) {
 			$date = $isTimestamp ? $date : strtotime($date);
-			$date = date(TribeDateUtils::DBDATEFORMAT, $date );
+			$date = date( TribeDateUtils::DBDATEFORMAT, $date );
 			$date = strtotime($date . ' 23:59:59');
 			return date(TribeDateUtils::DBDATETIMEFORMAT, $date );
 		}
@@ -262,6 +262,21 @@ if(!class_exists('TribeDateUtils')) {
 		public static function numberToDay($number) {
 			$days = array(1 => "Monday", 2 => "Tuesday", 3 => "Wednesday", 4 => "Thursday", 5 => "Friday", 6 => "Saturday", 7 => "Sunday");
 			return $days[$number];
+		}
+
+		/**
+		 * check if a given string is a timestamp
+		 *
+		 * @param $timestamp
+		 *
+		 * @return bool
+		 */
+		public static function isTimestamp( $timestamp ) {
+			if ( is_numeric( $timestamp ) && (int) $timestamp == $timestamp && date( 'U', $timestamp ) == $timestamp ) {
+				return true;
+			}
+
+			return false;
 		}
 	}
 }
