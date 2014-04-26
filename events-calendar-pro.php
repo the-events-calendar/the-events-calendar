@@ -882,14 +882,24 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			switch ( $tab ) {
 				case 'display':
 					$fields = TribeEvents::array_insert_after_key( 'tribeDisableTribeBar', $fields, array(
-						'hideRelatedEvents' => array(
-							'type'            => 'checkbox_bool',
-							'label'           => __( 'Hide related events', 'tribe-events-calendar-pro' ),
-							'tooltip'         => __( 'Remove related events from the single event view', 'tribe-events-calendar-pro' ),
-							'default'         => false,
-							'validation_type' => 'boolean',
-						),
-					) );
+							'hideRelatedEvents' => array(
+								'type'            => 'checkbox_bool',
+								'label'           => __( 'Hide related events', 'tribe-events-calendar-pro' ),
+								'tooltip'         => __( 'Remove related events from the single event view', 'tribe-events-calendar-pro' ),
+								'default'         => false,
+								'validation_type' => 'boolean',
+							),
+						) );
+					$fields = TribeEvents::array_insert_after_key( 'monthAndYearFormat', $fields, array(
+							'weekDayFormat' => array(
+								'type' => 'text',
+								'label' => __('Week Day Format', 'tribe-events-calendar-pro'),
+								'tooltip' => __('Enter the format to use for week days. Used  when showing an days of the week in Week view.', 'tribe-events-calendar-pro' ),
+								'default' => 'D jS',
+								'size' => 'medium',
+								'validation_type' => 'html',
+							),
+						) );
 					break;
 			}
 			return $fields;
