@@ -11,20 +11,19 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 if( !class_exists( 'TribeEventsListWidget' ) ) {
 	class TribeEventsListWidget extends WP_Widget {
 
-		/**
-		 * The main widget method.
-		 *
-		 * @return void
-		 */
-		function TribeEventsListWidget() {
-			/* Widget settings. */
-			$widget_ops = array( 'classname' => 'tribe-events-list-widget', 'description' => __( 'A widget that displays upcoming events.', 'tribe-events-calendar' ) );
+		public function __construct() {
+			$widget_ops = array(
+				'classname' => 'tribe-events-list-widget',
+				'description' => __( 'A widget that displays upcoming events.', 'tribe-events-calendar'
+			) );
 
-			/* Widget control settings. */
 			$control_ops = array( 'id_base' => 'tribe-events-list-widget' );
 
-			/* Create the widget. */
-			$this->WP_Widget( 'tribe-events-list-widget', __( 'Events List', 'tribe-events-calendar' ), $widget_ops, $control_ops );
+			parent::__construct(
+				'tribe-events-list-widget',
+				__( 'Events List', 'tribe-events-calendar' ),
+				$widget_ops, $control_ops
+			);
 		}
 
 		/**
