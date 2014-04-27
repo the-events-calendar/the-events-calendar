@@ -10,20 +10,27 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 
 if( !class_exists( 'TribeEventsListWidget' ) ) {
 	class TribeEventsListWidget extends WP_Widget {
-
-		public function __construct() {
-			$widget_ops = array(
+		/**
+		 * Allows widgets extending this one to pass through their own unique name, ID base etc.
+		 *
+		 * @param string $id_base
+		 * @param string $name
+		 * @param array $widget_options
+		 * @param array $control_options
+		 */
+		public function __construct( $id_base = '', $name = '', $widget_options = array(), $control_options = array() ) {
+			$widget_options = array_merge( array(
 				'classname' => 'tribe-events-list-widget',
-				'description' => __( 'A widget that displays upcoming events.', 'tribe-events-calendar'
-			) );
-
-			$control_ops = array( 'id_base' => 'tribe-events-list-widget' );
-
-			parent::__construct(
-				'tribe-events-list-widget',
-				__( 'Events List', 'tribe-events-calendar' ),
-				$widget_ops, $control_ops
+				'description' => __( 'A widget that displays upcoming events.', 'tribe-events-calendar' ) ),
+				$widget_options
 			);
+
+			$control_options = array_merge( array( 'id_base' => 'tribe-events-list-widget' ), $control_options );
+
+			$id_base = empty( $id_base ) ? 'tribe-events-list-widget' : $id_base;
+			$name = empty( $name ) ? __( 'Events List', 'tribe-events-calendar' ) : $name;
+
+			parent::__construct( $id_base, $name, $widget_options, $control_options );
 		}
 
 		/**
