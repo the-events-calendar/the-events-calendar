@@ -27,7 +27,6 @@ if( !class_exists('Tribe_Events_Day_Template')){
 
 			parent::hooks();
 
-			add_filter( 'tribe_get_ical_link', array( $this, 'ical_link' ), 20, 1 );
 			add_filter( 'tribe_events_header_attributes',  array( $this, 'header_attributes' ) );
 		}
 
@@ -44,16 +43,11 @@ if( !class_exists('Tribe_Events_Day_Template')){
 
 			$attrs['data-view'] = 'day';
 			$attrs['data-baseurl'] = tribe_get_day_link( $current_day );
-			$attrs['data-date'] = Date('Y-m-d', strtotime( $current_day) );
+			$attrs['data-date'] = Date(TribeDateUtils::DBDATEFORMAT, strtotime( $current_day) );
+			// @TODO use tribe_get_date_format
 			$attrs['data-header'] = Date("l, F jS Y", strtotime( $current_day ) );
 
-			return apply_filters('tribe_events_pro_header_attributes', $attrs);
-		}
-
-		public function ical_link( $link ){
-			global $wp_query;
-			$day = $wp_query->get('start_date');
-			return trailingslashit( esc_url(trailingslashit( tribe_get_day_link( $day ) ) . '?ical=1' ) );
+			return $attrs;
 		}
 
 		/**
