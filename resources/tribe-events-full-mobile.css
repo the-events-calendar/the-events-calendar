@@ -362,9 +362,9 @@ a.tribe-events-gmap {
 	text-align: center;
 	margin-top: 10px;
 }
-#tribe-events-footer + a.tribe-events-ical.tribe-events-button {
+#tribe-events-footer ~ a.tribe-events-ical.tribe-events-button {
 	float: none;
-	margin: 0 auto;
+	margin: 0 auto 10px;
 	-webkit-border-radius: 0;
 			border-radius: 0;	
 	display: block;
