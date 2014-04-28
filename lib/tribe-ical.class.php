@@ -17,12 +17,20 @@ class TribeiCal {
 
 	/**
 	 * Returns the url for the iCal generator for lists of posts
+	 *
+	 * @param $protocol bool|string any alternative protocol for the link, false to leave it unchanged
 	 * @static
 	 * @return string
 	 */
-	public static function get_ical_link() {
-		$tec = TribeEvents::instance();
-		return trailingslashit( $tec->getLink( 'home' ) ) . '?ical=1';
+	public static function get_ical_link( $protocol = false ) {
+		$tec       = TribeEvents::instance();
+		$ical_link = trailingslashit( $tec->getLink( 'home' ) ) . '?ical=1';
+		if ( is_string( $protocol ) ) {
+			$scheme    = parse_url( $ical_link, PHP_URL_SCHEME );
+			$ical_link = str_replace( "$scheme://", "$protocol://", $ical_link );
+		}
+
+		return $ical_link;
 	}
 
 	/**
@@ -40,7 +48,7 @@ class TribeiCal {
 
 		echo '<div class="tribe-events-cal-links">';
 			echo '<a class="tribe-events-gcal tribe-events-button" target="_blank" href="' . tribe_get_gcal_link() . '" title="' . __( 'Add to Google Calendar', 'tribe-events-calendar-pro' ) . '">+ ' . __( 'Google Calendar', 'tribe-events-calendar-pro' ) . '</a>';
-			echo '<a class="tribe-events-ical tribe-events-button" target="_blank" href="' . tribe_get_single_ical_link() . '">+ ' . __( 'iCal Import', 'tribe-events-calendar-pro' ) . '</a>';
+		echo '<a class="tribe-events-ical tribe-events-button" target="_blank" href="' . tribe_get_single_ical_link() . '">+ ' . __( 'iCal Import', 'tribe-events-calendar-pro' ) . '</a>';
 		echo '</div><!-- .tribe-events-cal-links -->';
 	}
 
@@ -90,7 +98,8 @@ class TribeiCal {
 				break;
 		}
 
-		$ical    = '<a class="tribe-events-ical tribe-events-button" title="' . __( 'Import is filter/view sensitive', 'tribe-events-calendar-pro' ) . '" href="' . tribe_get_ical_link() . '">+ ' . __( 'iCal Import', 'tribe-events-calendar-pro' ) . ' ' . $modifier . '</a>';
+		$ical = '<a class="tribe-events-ical tribe-events-button" title="' . __( 'Import is filter/view sensitive', 'tribe-events-calendar-pro' ) . '" href="' . tribe_get_ical_link() . '">+ ' . __( 'iCal Import', 'tribe-events-calendar-pro' ) . ' ' . $modifier . '</a>';
+		$ical .= '<a class="tribe-events-ical tribe-events-button" title="' . __( 'Subscribe is filter/view sensitive', 'tribe-events-calendar-pro' ) . '" href="' . tribe_get_ical_link( 'webcal' ) . '">+ ' . __( 'iCal Subscribe', 'tribe-events-calendar-pro' ) . ' ' . $modifier . '</a>';
 		echo $ical;
 
 		return $content;
