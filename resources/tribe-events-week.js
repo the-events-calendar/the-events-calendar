@@ -261,7 +261,7 @@
 
 		}
 
-		function tribe_mobile_setup_day(date){
+		function tribe_mobile_setup_day(date, day_attr){
 
 			var $container = $('#tribe-mobile-container'),
 				$target_day = $('.tribe-mobile-day[data-day="' + date + '"]');
@@ -274,6 +274,13 @@
 
 				tribe_mobile_load_events(date);
 			}
+
+            if(!$target_day.length)
+                $target_day = $('.tribe-mobile-day[data-day="' + date + '"]');
+
+            if(!$target_day.find('h5').length && $target_day.find('.tribe-events-mobile').length)
+                $target_day.prepend('<h5 class="tribe-mobile-day-date">' + day_attr + '</h5>');
+
 
 		}
 
@@ -288,14 +295,10 @@
 			$mobile_days.each(function () {
 				var $this = $(this),
 					day_date = $this.attr('title'),
-					$mobile_day = $('.tribe-mobile-day[data-day="' + day_date + '"]'),
-					$grid_day_col = $('.tribe-grid-header .column[title="' + day_date + '"]'),
+					$grid_day_col = $('.tribe-grid-content-wrap .column[title="' + day_date + '"]'),
 					day_attr = $grid_day_col.find('span').attr('data-full-date');
 				
-				if(!$mobile_day.find('h5').length && $mobile_day.find('.tribe-events-mobile').length)
-					$mobile_day.prepend('<h5 class="tribe-mobile-day-date">' + day_attr + '</h5>');
-				
-				tribe_mobile_setup_day(day_date);
+				tribe_mobile_setup_day(day_date, day_attr);
 			});
 
 		}
