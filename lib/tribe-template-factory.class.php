@@ -558,8 +558,8 @@ if( !class_exists('Tribe_Template_Factory') ) {
 				case 'ajax-dayview':
 					$ajax_data = array( "ajaxurl"   => admin_url( 'admin-ajax.php', ( is_ssl() ? 'https' : 'http' ) ),
 										'post_type' => TribeEvents::POSTTYPE );
-					$path = Tribe_Template_Factory::getMinFile( $resources_url . 'tribe-events-ajax-day.js', true );
-					wp_enqueue_script( 'tribe-events-ajax-day', $path, array('tribe-events'), apply_filters( 'tribe_events_js_version', TribeEvents::VERSION ), true );
+					$path = self::getMinFile( $resources_url . 'tribe-events-ajax-day.js', true );
+					wp_enqueue_script( 'tribe-events-ajax-day', $path, array('tribe-events-bar'), apply_filters( 'tribe_events_js_version', TribeEvents::VERSION ), true );
 					wp_localize_script( 'tribe-events-ajax-day', 'TribeCalendar', $ajax_data );
 					break;
 				case 'events-css':
