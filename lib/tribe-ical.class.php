@@ -13,6 +13,7 @@ class TribeiCal {
 		add_filter( 'tribe_events_after_footer',                   array( __CLASS__, 'maybe_add_link'     ), 10, 1 );
 		add_action( 'tribe_events_single_event_after_the_content', array( __CLASS__, 'single_event_links' )        );
 		add_action( 'tribe_tec_template_chooser',                  array( __CLASS__, 'do_ical_template'   )        );
+		add_filter( 'tribe_get_ical_link', 							array( __CLASS__, 'day_view_ical_link' ), 20, 1 );
 	}
 
 	/**
@@ -23,6 +24,23 @@ class TribeiCal {
 	public static function get_ical_link() {
 		$tec = TribeEvents::instance();
 		return trailingslashit( $tec->getLink( 'home' ) ) . '?ical=1';
+	}
+
+
+	/**
+	 * Make sure ical link has the date in the URL instead of "today" on day view
+	 *
+	 * @param $link
+	 *
+	 * @return string
+	 */
+	public static function day_view_ical_link( $link ){
+		if ( tribe_is_day() ) {
+			global $wp_query;
+			$day = $wp_query->get('start_date');
+			$link = trailingslashit( esc_url(trailingslashit( tribe_get_day_link( $day ) ) . '?ical=1' ) );
+		}
+		return $link;
 	}
 
 	/**
