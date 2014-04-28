@@ -1390,36 +1390,36 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 			$messages[self::VENUE_POST_TYPE] = array(
 				0 => '', // Unused. Messages start at index 1.
-				1 => sprintf( __('Venue updated. <a href="%s">View venue</a>', 'tribe-events-calendar'), esc_url( get_permalink($post_ID) ) ),
+				1 => __('Venue updated.', 'tribe-events-calendar'),
 				2 => __('Custom field updated.', 'tribe-events-calendar'),
 				3 => __('Custom field deleted.', 'tribe-events-calendar'),
 				4 => __('Venue updated.', 'tribe-events-calendar'),
 				/* translators: %s: date and time of the revision */
 				5 => isset($_GET['revision']) ? sprintf( __('Venue restored to revision from %s', 'tribe-events-calendar'), wp_post_revision_title( (int) $_GET['revision'], false ) ) : false,
-				6 => sprintf( __('Venue published. <a href="%s">View venue</a>', 'tribe-events-calendar'), esc_url( get_permalink($post_ID) ) ),
+				6 => __('Venue published.', 'tribe-events-calendar'),
 				7 => __('Venue saved.', 'tribe-events-calendar'),
-				8 => sprintf( __('Venue submitted. <a target="_blank" href="%s">Preview venue</a>', 'tribe-events-calendar'), esc_url( add_query_arg( 'preview', 'true', get_permalink($post_ID) ) ) ),
-				9 => sprintf( __('Venue scheduled for: <strong>%1$s</strong>. <a target="_blank" href="%2$s">Preview venue</a>', 'tribe-events-calendar'),
+				8 => __('Venue submitted.', 'tribe-events-calendar'),
+				9 => sprintf( __('Venue scheduled for: <strong>%1$s</strong>.', 'tribe-events-calendar'),
 				// translators: Publish box date format, see http://php.net/date
-				date_i18n( __( 'M j, Y @ G:i' , 'tribe-events-calendar'), strtotime( $post->post_date ) ), esc_url( get_permalink($post_ID) ) ),
-				10 => sprintf( __('Venue draft updated. <a target="_blank" href="%s">Preview venue</a>', 'tribe-events-calendar'), esc_url( add_query_arg( 'preview', 'true', get_permalink($post_ID) ) ) ),
+				date_i18n( __( 'M j, Y @ G:i' , 'tribe-events-calendar'), strtotime( $post->post_date ) ) ),
+				10 => __('Venue draft updated.', 'tribe-events-calendar'),
 				);
 
 			$messages[self::ORGANIZER_POST_TYPE] = array(
 				0 => '', // Unused. Messages start at index 1.
-				1 => sprintf( __('Organizer updated. <a href="%s">View organizer</a>', 'tribe-events-calendar'), esc_url( get_permalink($post_ID) ) ),
+				1 => __('Organizer updated.', 'tribe-events-calendar'),
 				2 => __('Custom field updated.', 'tribe-events-calendar'),
 				3 => __('Custom field deleted.', 'tribe-events-calendar'),
 				4 => __('Organizer updated.', 'tribe-events-calendar'),
 				/* translators: %s: date and time of the revision */
 				5 => isset($_GET['revision']) ? sprintf( __('Organizer restored to revision from %s', 'tribe-events-calendar'), wp_post_revision_title( (int) $_GET['revision'], false ) ) : false,
-				6 => sprintf( __('Organizer published. <a href="%s">View organizer</a>', 'tribe-events-calendar'), esc_url( get_permalink($post_ID) ) ),
+				6 => __('Organizer published.', 'tribe-events-calendar'),
 				7 => __('Organizer saved.', 'tribe-events-calendar'),
-				8 => sprintf( __('Organizer submitted. <a target="_blank" href="%s">Preview organizer</a>', 'tribe-events-calendar'), esc_url( add_query_arg( 'preview', 'true', get_permalink($post_ID) ) ) ),
-				9 => sprintf( __('Organizer scheduled for: <strong>%1$s</strong>. <a target="_blank" href="%2$s">Preview organizer</a>', 'tribe-events-calendar'),
+				8 => __('Organizer submitted.', 'tribe-events-calendar'),
+				9 => sprintf( __('Organizer scheduled for: <strong>%1$s</strong>.', 'tribe-events-calendar'),
 				// translators: Publish box date format, see http://php.net/date
-				date_i18n( __( 'M j, Y @ G:i' , 'tribe-events-calendar'), strtotime( $post->post_date ) ), esc_url( get_permalink($post_ID) ) ),
-				10 => sprintf( __('Organizer draft updated. <a target="_blank" href="%s">Preview organizer</a>', 'tribe-events-calendar'), esc_url( add_query_arg( 'preview', 'true', get_permalink($post_ID) ) ) ),
+				date_i18n( __( 'M j, Y @ G:i' , 'tribe-events-calendar'), strtotime( $post->post_date ) ) ),
+				10 => __('Organizer draft updated.', 'tribe-events-calendar'),
 			);
 
 			return $messages;
