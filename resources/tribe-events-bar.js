@@ -241,7 +241,7 @@ var tribe_events_bar_action;
 
 			$(te).trigger('tribe_ev_preCollectBarParams');
 
-			$('#tribe-bar-form input').each(function () {
+			$('#tribe-bar-form input, #tribe-bar-form select').each(function () {
 				var $this = $(this);
 				if ($this.val().length && !$this.hasClass('tribe-no-param')) {
 					if ($this.is(':checkbox')) {
