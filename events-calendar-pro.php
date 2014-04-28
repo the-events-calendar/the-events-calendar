@@ -27,7 +27,6 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-
 if ( !class_exists( 'TribeEventsPro' ) ) {
 	class TribeEventsPro {
 
@@ -45,7 +44,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		public $todaySlug = 'today';
 		public static $updateUrl = 'http://tri.be/';
 		/** @var TribeEventsPro_RecurrencePermalinks */
-		public $permalink_editor = NULL;
+		public $permalink_editor = null;
 		const REQUIRED_TEC_VERSION = '3.5.1';
 		const VERSION = '3.5.2';
 
@@ -155,8 +154,6 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			add_action( 'tribe_events_after_the_grid', array( $this, 'enable_recurring_info_tooltip' ), 10, 0 );
 			add_action( 'tribe_events_single_event_after_the_meta', array( $this, 'register_related_events_view' ) );
 
-			// add_action( 'tribe_events_single_event_meta_init', array( $this, 'single_event_meta_init'), 10, 4);
-
 			// see function tribe_convert_units( $value, $unit_from, $unit_to )
 			add_filter( 'tribe_convert_kms_to_miles_ratio', array( $this, 'kms_to_miles_ratio' ) );
 			add_filter( 'tribe_convert_miles_to_kms_ratio', array( $this, 'miles_to_kms_ratio' ) );
@@ -196,6 +193,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 
 			add_filter( 'tribe_events_register_venue_type_args', array( $this, 'addSupportsThumbnail' ), 10, 1 );
 			add_filter( 'tribe_events_register_organizer_type_args', array( $this, 'addSupportsThumbnail' ), 10, 1 );
+			add_action( 'post_updated_messages', array( $this, 'updatePostMessages' ), 20 );
 
 			// filter the query sql to get the recurrence end date
 			add_filter( 'tribe_events_query_posts_joins', array($this, 'posts_join'));
@@ -210,10 +208,10 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		 * @return bool Whether related events should be shown in the single view
 		 */
 		public function show_related_events() {
-			if ( tribe_get_option('hideRelatedEvents', FALSE) == TRUE ) {
-				return FALSE;
+			if ( tribe_get_option('hideRelatedEvents', false) == true ) {
+				return false;
 			}
-			return TRUE;
+			return true;
 		}
 
 		/**
@@ -248,9 +246,9 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 
 		public function recurring_info_tooltip_status() {
 			if ( has_filter( 'tribe_events_event_schedule_details', array( $this, 'append_recurring_info_tooltip' ) ) ) {
-				return TRUE;
+				return true;
 			}
-			return FALSE;
+			return false;
 		}
 
 		/**
@@ -732,7 +730,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 				return '';
 			}
 			$right_now = current_time( 'timestamp' );
-			$next_recurrence = date_i18n( 'Y-m-d', strtotime(get_post_meta($id, '_EventStartDate', TRUE)));
+			$next_recurrence = date_i18n( 'Y-m-d', strtotime(get_post_meta($id, '_EventStartDate', true)));
 
 			return apply_filters( 'tribe_events_pro_get_last_recurrence', $next_recurrence, $event_list, $right_now );
 
@@ -799,7 +797,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		public static function array_insert_after_key( $key, $source_array, $insert_array ) {
 			if ( array_key_exists( $key, $source_array ) ) {
 				$position = array_search( $key, array_keys( $source_array ) ) + 1;
-				$source_array = array_slice($source_array, 0, $position, true) + $insert_array + array_slice($source_array, $position, NULL, true);
+				$source_array = array_slice($source_array, 0, $position, true) + $insert_array + array_slice($source_array, $position, null, true);
 			} else {
 				// If no key is found, then add it to the end of the array.
 				$source_array += $insert_array;
@@ -1485,6 +1483,36 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		}
 
 		/**
+		 * Enable "view post" links on metaposts
+		 *
+		 * @param $messages array
+		 * return array
+		 */
+		public function updatePostMessages ($messages) {
+			global $post, $post_ID;
+
+			$messages[TribeEvents::VENUE_POST_TYPE][1] = sprintf( __('Venue updated. <a href="%s">View venue</a>', 'tribe-events-calendar-pro'), esc_url( get_permalink($post_ID) ) );
+				/* translators: %s: date and time of the revision */
+			$messages[TribeEvents::VENUE_POST_TYPE][6] = sprintf( __('Venue published. <a href="%s">View venue</a>', 'tribe-events-calendar-pro'), esc_url( get_permalink($post_ID) ) );
+			$messages[TribeEvents::VENUE_POST_TYPE][8] = sprintf( __('Venue submitted. <a target="_blank" href="%s">Preview venue</a>', 'tribe-events-calendar-pro'), esc_url( add_query_arg( 'preview', 'true', get_permalink($post_ID) ) ) );
+			$messages[TribeEvents::VENUE_POST_TYPE][9] = sprintf( __('Venue scheduled for: <strong>%1$s</strong>. <a target="_blank" href="%2$s">Preview venue</a>', 'tribe-events-calendar-pro'),
+					// translators: Publish box date format, see http://php.net/date
+					date_i18n( __( 'M j, Y @ G:i' , 'tribe-events-calendar-pro'), strtotime( $post->post_date ) ), esc_url( get_permalink($post_ID) ) );
+			$messages[TribeEvents::VENUE_POST_TYPE][10] = sprintf( __('Venue draft updated. <a target="_blank" href="%s">Preview venue</a>', 'tribe-events-calendar-pro'), esc_url( add_query_arg( 'preview', 'true', get_permalink($post_ID) ) ) );
+
+			$messages[TribeEvents::ORGANIZER_POST_TYPE][1] = sprintf( __('Organizer updated. <a href="%s">View organizer</a>', 'tribe-events-calendar'), esc_url( get_permalink($post_ID) ) );
+			$messages[TribeEvents::ORGANIZER_POST_TYPE][6] = sprintf( __('Organizer published. <a href="%s">View organizer</a>', 'tribe-events-calendar'), esc_url( get_permalink($post_ID) ) );
+			$messages[TribeEvents::ORGANIZER_POST_TYPE][8] = sprintf( __('Organizer submitted. <a target="_blank" href="%s">Preview organizer</a>', 'tribe-events-calendar'), esc_url( add_query_arg( 'preview', 'true', get_permalink($post_ID) ) ) );
+			$messages[TribeEvents::ORGANIZER_POST_TYPE][9] = sprintf( __('Organizer scheduled for: <strong>%1$s</strong>. <a target="_blank" href="%2$s">Preview organizer</a>', 'tribe-events-calendar'),
+					// translators: Publish box date format, see http://php.net/date
+					date_i18n( __( 'M j, Y @ G:i' , 'tribe-events-calendar'), strtotime( $post->post_date ) ), esc_url( get_permalink($post_ID) ) );
+			$messages[TribeEvents::ORGANIZER_POST_TYPE][10] = sprintf( __('Organizer draft updated. <a target="_blank" href="%s">Preview organizer</a>', 'tribe-events-calendar'), esc_url( add_query_arg( 'preview', 'true', get_permalink($post_ID) ) ) );
+
+			return $messages;
+
+		}
+
+		/**
 		 * Includes and handles registration/de-registration of the advanced list widget. Idea from John Gadbois.
 		 *
 		 * @return void
@@ -1801,7 +1829,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			 * @author Jessica Yazbek
 			 **/
 			function tribe_is_recurring_event() {
-				return FALSE;
+				return false;
 			}
 		}
 		if ( !class_exists( 'TribeEvents' ) ) {
