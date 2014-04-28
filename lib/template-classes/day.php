@@ -3,7 +3,7 @@
  * @for Day Template
  * This file contains hooks and functions required to set up the day view.
  *
- * @package TribeEventsCalendarPro
+ * @package TribeEventsCalendar
  * @since  3.0
  * @author Modern Tribe Inc.
  *
@@ -60,13 +60,13 @@ if( !class_exists('Tribe_Events_Day_Template')){
 
 			global $wp_query;
 
-			$time_format = apply_filters( 'tribe_events_pro_day_timeslot_format', 'ga ' );
+			$time_format = apply_filters( 'tribe_events_day_timeslot_format', 'ga ' );
 
 			if ( $wp_query->have_posts() ) {
 				$unsorted_posts = $wp_query->posts;
 				foreach ( $unsorted_posts as &$post ) {
 					$post->timeslot = tribe_event_is_all_day( $post->ID )
-						? __( 'All Day', 'tribe-events-calendar-pro' )
+						? __( 'All Day', 'tribe-events-calendar' )
 						: $post->timeslot = tribe_get_start_date( $post, false, $time_format );
 				}
 				unset($post);
@@ -75,7 +75,7 @@ if( !class_exists('Tribe_Events_Day_Template')){
 				$all_day = array();
 				$hourly = array();
 				foreach($unsorted_posts as $i => $post) {
-					if ($post->timeslot == __('All Day', 'tribe-events-calendar-pro')) {
+					if ($post->timeslot == __('All Day', 'tribe-events-calendar')) {
 						$all_day[$i] = $post;
 					} else {
 						$hourly[$i] = $post;
@@ -119,10 +119,10 @@ if( !class_exists('Tribe_Events_Day_Template')){
 
 			// No events found on this day
 			if ( empty($search_term) && empty($geographic_term) && ! empty($tax_term) ) {
-				TribeEvents::setNotice( 'events-not-found', sprintf( __( 'No matching events listed under %s scheduled for <strong>%s</strong>. Please try another day.', 'tribe-events-calendar-pro' ), $tax_term, date_i18n( get_option( 'date_format' ), strtotime( get_query_var( 'eventDate' ) ) ) ) );
+				TribeEvents::setNotice( 'events-not-found', sprintf( __( 'No matching events listed under %s scheduled for <strong>%s</strong>. Please try another day.', 'tribe-events-calendar' ), $tax_term, date_i18n( get_option( 'date_format' ), strtotime( get_query_var( 'eventDate' ) ) ) ) );
 			}
 			elseif ( empty($search_term) && empty($geographic_term) ) {
-				TribeEvents::setNotice( 'events-not-found', sprintf( __( 'No events scheduled for <strong>%s</strong>. Please try another day.', 'tribe-events-calendar-pro' ), date_i18n( get_option( 'date_format' ), strtotime( get_query_var( 'eventDate' ) ) ) ) );
+				TribeEvents::setNotice( 'events-not-found', sprintf( __( 'No events scheduled for <strong>%s</strong>. Please try another day.', 'tribe-events-calendar' ), date_i18n( get_option( 'date_format' ), strtotime( get_query_var( 'eventDate' ) ) ) ) );
 			}
 			else parent::set_notices();
 		}
