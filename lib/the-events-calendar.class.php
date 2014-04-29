@@ -203,78 +203,80 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 */
 		protected function loadLibraries() {
 			// Exceptions Helper
-			require_once( 'tribe-event-exception.class.php' );
+			require_once 'tribe-event-exception.class.php';
+
+			// Tribe common resources
+			require_once $this->pluginPath . 'vendor/tribe-common-libraries/tribe-common-libraries.class.php';
 
 			// Load Template Tags
-			require_once( $this->pluginPath.'public/template-tags/query.php' );
-			require_once( $this->pluginPath.'public/template-tags/general.php' );
-			require_once( $this->pluginPath.'public/template-tags/month.php' );
-			require_once( $this->pluginPath.'public/template-tags/loop.php' );
-			require_once( $this->pluginPath.'public/template-tags/google-map.php' );
-			require_once( $this->pluginPath.'public/template-tags/organizer.php' );
-			require_once( $this->pluginPath.'public/template-tags/venue.php' );
-			require_once( $this->pluginPath.'public/template-tags/date.php' );
-			require_once( $this->pluginPath.'public/template-tags/link.php' );
-			require_once( $this->pluginPath.'public/template-tags/widgets.php' );
-			require_once( $this->pluginPath.'public/template-tags/meta.php' );
+			require_once $this->pluginPath.'public/template-tags/query.php';
+			require_once $this->pluginPath.'public/template-tags/general.php';
+			require_once $this->pluginPath.'public/template-tags/month.php';
+			require_once $this->pluginPath.'public/template-tags/loop.php';
+			require_once $this->pluginPath.'public/template-tags/google-map.php';
+			require_once $this->pluginPath.'public/template-tags/organizer.php';
+			require_once $this->pluginPath.'public/template-tags/venue.php';
+			require_once $this->pluginPath.'public/template-tags/date.php';
+			require_once $this->pluginPath.'public/template-tags/link.php';
+			require_once $this->pluginPath.'public/template-tags/widgets.php';
+			require_once $this->pluginPath.'public/template-tags/meta.php';
 
 			// Load Advanced Functions
-			require_once( $this->pluginPath.'public/advanced-functions/event.php' );
-			require_once( $this->pluginPath.'public/advanced-functions/venue.php' );
-			require_once( $this->pluginPath.'public/advanced-functions/organizer.php' );
+			require_once $this->pluginPath.'public/advanced-functions/event.php';
+			require_once $this->pluginPath.'public/advanced-functions/venue.php';
+			require_once $this->pluginPath.'public/advanced-functions/organizer.php';
 
 			// Load Deprecated Template Tags
 			if ( ! defined( 'TRIBE_DISABLE_DEPRECATED_TAGS' ) ) {
-				require_once( $this->pluginPath.'public/template-tags/deprecated.php' );
+				require_once $this->pluginPath.'public/template-tags/deprecated.php';
 			}
 
 			// Load Classes
-			require_once( 'tribe-meta-factory.class.php' );
-			require_once( 'widget-list.class.php' );
-			require_once( 'tribe-admin-events-list.class.php' );
-			require_once( 'tribe-date-utils.class.php' );
-			require_once( 'tribe-template-factory.class.php' );
-			require_once( 'tribe-templates.class.php' );
-			require_once( 'tribe-event-api.class.php' );
-			require_once( 'tribe-event-query.class.php' );
-			require_once( 'tribe-view-helpers.class.php' );
-			require_once( 'tribe-events-bar.class.php' );
-			require_once( 'tribe-the-events-calendar-import.class.php' );
-			require_once( 'tribe-support.class.php' );
+			require_once 'tribe-meta-factory.class.php';
+			require_once 'widget-list.class.php';
+			require_once 'tribe-admin-events-list.class.php';
+			require_once 'tribe-date-utils.class.php';
+			require_once 'tribe-template-factory.class.php';
+			require_once 'tribe-templates.class.php';
+			require_once 'tribe-event-api.class.php';
+			require_once 'tribe-event-query.class.php';
+			require_once 'tribe-view-helpers.class.php';
+			require_once 'tribe-events-bar.class.php';
+			require_once 'tribe-the-events-calendar-import.class.php';
+			require_once 'tribe-support.class.php';
 			//require_once( 'tribe-debug-bar.class.php' );
-			require_once( 'tribe-amalgamator.php' );
-			require_once( 'tribe-events-update.class.php' );
+			require_once 'tribe-amalgamator.php';
+			require_once 'tribe-events-update.class.php';
 
 			// Load Template Classes
-			require_once( 'template-classes/month.php' );
-			require_once( 'template-classes/list.php' );
-			require_once( 'template-classes/single-event.php' );
+			require_once 'template-classes/month.php';
+			require_once 'template-classes/list.php';
+			require_once 'template-classes/single-event.php';
 
 			// caching
-			require_once( 'tribe-events-cache.class.php' );
+			require_once 'tribe-events-cache.class.php';
 
 			// App Shop
-			if (!defined("TRIBE_HIDE_UPSELL") || TRIBE_HIDE_UPSELL !== true ){
-				require_once( 'tribe-app-shop.class.php' );
-			}
+			if ( ! defined( 'TRIBE_HIDE_UPSELL' ) || TRIBE_HIDE_UPSELL !== true )
+				require_once 'tribe-app-shop.class.php';
 
 			// Tickets
-			require_once( 'tickets/tribe-tickets-pro.php' );
-			require_once( 'tickets/tribe-ticket-object.php' );
-			require_once( 'tickets/tribe-tickets.php' );
-			require_once( 'tickets/tribe-tickets-metabox.php' );
+			require_once 'tickets/tribe-tickets-pro.php';
+			require_once 'tickets/tribe-ticket-object.php';
+			require_once 'tickets/tribe-tickets.php';
+			require_once 'tickets/tribe-tickets-metabox.php';
 
 			// CSV Importer
-			require_once( 'io/csv/ecp-events-importer.php' );
+			require_once 'io/csv/ecp-events-importer.php';
 
 			// PUE
-			require_once( 'pue/pue-client.php' );
+			require_once 'pue/pue-client.php';
 
 			// Load multisite defaults
 			if ( is_multisite() ) {
 				$tribe_events_mu_defaults = array();
 				if ( file_exists( WP_CONTENT_DIR . '/tribe-events-mu-defaults.php' ) )
-					require_once( WP_CONTENT_DIR . '/tribe-events-mu-defaults.php' );
+					require_once WP_CONTENT_DIR . '/tribe-events-mu-defaults.php';
 				self::$tribeEventsMuDefaults = apply_filters( 'tribe_events_mu_defaults', $tribe_events_mu_defaults );
 			}
 		}
