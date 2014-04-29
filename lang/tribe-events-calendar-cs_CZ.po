@@ -5,8 +5,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: The Events Calendar 3.5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-03-27 10:09-0800\n"
-"PO-Revision-Date: 2014-04-21 17:09-0800\n"
+"POT-Creation-Date: 2014-04-23 16:59-0800\n"
+"PO-Revision-Date: 2014-04-29 15:48-0800\n"
 "Last-Translator: \n"
 "Language-Team: Modern Tribe <pro@tri.be>\n"
 "Language: cs_CZ\n"
@@ -20,7 +20,7 @@ msgstr ""
 "esc_html_x:1,2c\n"
 "X-Poedit-Basepath: ./\n"
 "X-Textdomain-Support: yes\n"
-"X-Generator: Poedit 1.6.4\n"
+"X-Generator: Poedit 1.6.5\n"
 "X-Poedit-SearchPath-0: ..\n"
 
 #: ../admin-views/app-shop.php:4
@@ -114,6 +114,16 @@ msgstr "Vstupné na akci"
 msgid "Currency Symbol:"
 msgstr "Symbol měny:"
 
+#: ../admin-views/events-meta-box.php:128
+msgctxt "Currency symbol position"
+msgid "Before cost"
+msgstr "Před cenou"
+
+#: ../admin-views/events-meta-box.php:129
+msgctxt "Currency symbol position"
+msgid "After cost"
+msgstr "Za cenou"
+
 #: ../admin-views/events-meta-box.php:134
 #: ../public/advanced-functions/meta.php:319
 msgid "Cost:"
@@ -191,7 +201,7 @@ msgstr "Místo konání:"
 #
 #: ../admin-views/tickets/attendees.php:52
 msgid "Ticket Sales"
-msgstr "Tržby za vstupenky"
+msgstr "Prodeje vstupenek"
 
 #: ../admin-views/tickets/attendees.php:64 ../admin-views/tickets/list.php:67
 #, php-format
@@ -758,6 +768,11 @@ msgstr ""
 msgid "Debug Bar Plugin"
 msgstr "Debug Bar Plugin"
 
+#: ../admin-views/tribe-options-help.php:18
+msgctxt "not available"
+msgid "n/a"
+msgstr "není k dispozici"
+
 #: ../admin-views/tribe-options-help.php:19
 msgid "You need to upgrade!"
 msgstr "Je třeba provést aktualizaci!"
@@ -1032,7 +1047,7 @@ msgid "Not getting help?"
 msgstr "Nedostává se vám pomoci?"
 
 #: ../admin-views/tribe-options-help.php:159
-#: ../lib/the-events-calendar.class.php:497
+#: ../lib/the-events-calendar.class.php:505
 #: ../lib/tribe-settings.class.php:135
 msgid "The Events Calendar"
 msgstr "The Events Calendar"
@@ -1064,6 +1079,14 @@ msgstr "Oficiální stránka pluginu v adresáři WordPressu"
 #: ../admin-views/tribe-options-help.php:171
 msgid "Average Rating"
 msgstr "Průměrné hodnocení"
+
+#: ../admin-views/tribe-options-help.php:175
+#, php-format
+msgid "Based on %d rating"
+msgid_plural "Based on %d ratings"
+msgstr[0] "Hodnotil %d uživatel"
+msgstr[1] "Hodnotili %d uživatelé"
+msgstr[2] "Hodnotilo %d uživatelů"
 
 #: ../admin-views/tribe-options-help.php:176
 msgid "Give us 5 stars!"
@@ -1242,20 +1265,20 @@ msgid "Import Type:"
 msgstr "Typ importu:"
 
 #: ../lib/io/csv/admin-views/import.php:45
-#: ../lib/the-events-calendar.class.php:1317
-#: ../lib/the-events-calendar.class.php:1429
+#: ../lib/the-events-calendar.class.php:1325
+#: ../lib/the-events-calendar.class.php:1437
 msgid "Venues"
 msgstr "Místa konání"
 
 #: ../lib/io/csv/admin-views/import.php:46
-#: ../lib/the-events-calendar.class.php:1330
-#: ../lib/the-events-calendar.class.php:1430
+#: ../lib/the-events-calendar.class.php:1338
+#: ../lib/the-events-calendar.class.php:1438
 msgid "Organizers"
 msgstr "Pořadatelé"
 
 #: ../lib/io/csv/admin-views/import.php:47
-#: ../lib/the-events-calendar.class.php:1304
-#: ../lib/the-events-calendar.class.php:3810
+#: ../lib/the-events-calendar.class.php:1312
+#: ../lib/the-events-calendar.class.php:3794
 msgid "Events"
 msgstr "Akce"
 
@@ -1333,8 +1356,9 @@ msgstr "Čísla vynechaných řádků: %s"
 
 #: ../lib/io/csv/classes/TribeEventsImporter_AdminPage.php:15
 #: ../lib/io/csv/classes/TribeEventsImporter_AdminPage.php:16
-msgid "CSV Import"
-msgstr "CSV Import"
+#, fuzzy
+msgid "Import: CSV"
+msgstr "Importovat CSV soubor"
 
 #: ../lib/io/csv/classes/TribeEventsImporter_AdminPage.php:29
 #: ../lib/io/csv/classes/TribeEventsImporter_AdminPage.php:147
@@ -1406,7 +1430,8 @@ msgid "Event Phone"
 msgstr "Telefon akce"
 
 #: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:63
-#: ../lib/the-events-calendar.class.php:1344
+#: ../lib/the-events-calendar.class.php:1352
+#: ../public/template-tags/general.php:281
 msgid "Event Category"
 msgstr "Rubrika akcí"
 
@@ -1546,7 +1571,7 @@ msgstr ""
 "Hmmm... něco je špatně s tímto validátorem. Kontaktujte prosím <a href=\"%s"
 "\">podporu.</a>"
 
-#: ../lib/template-classes/month.php:112
+#: ../lib/template-classes/month.php:119
 #, php-format
 msgid ""
 "There were no results found for <strong>\"%s\"</strong> this month. Try "
@@ -1555,8 +1580,17 @@ msgstr ""
 "Nebyly nalezeny žádné záznamy pro <strong>\"%s\"</strong> v tomto měsíci. "
 "Zkuste hledat v dalším měsíci."
 
-#: ../lib/template-classes/month.php:115
-#: ../lib/tribe-template-factory.class.php:247
+#: ../lib/template-classes/month.php:123
+#: ../lib/tribe-template-factory.class.php:241
+#: ../lib/tribe-template-factory.class.php:248
+#, fuzzy, php-format
+msgid "No matching events listed under %s. Go view the full calendar."
+msgstr ""
+"Nebyly nalezeny žádné akce v rubrice %s. Podívejte se na nadcházející akce z "
+"této rubriky nebo si zobrazte úplný kalendář."
+
+#: ../lib/template-classes/month.php:126
+#: ../lib/tribe-template-factory.class.php:251
 msgid "There were no results found."
 msgstr "Nebyly nalezeny žádné záznamy."
 
@@ -1564,28 +1598,28 @@ msgstr "Nebyly nalezeny žádné záznamy."
 msgid "This event has passed."
 msgstr "Tato akce již proběhla."
 
-#: ../lib/the-events-calendar.class.php:502
+#: ../lib/the-events-calendar.class.php:510
 msgid "month"
 msgstr "měsíc"
 
-#: ../lib/the-events-calendar.class.php:503
+#: ../lib/the-events-calendar.class.php:511
 msgid "upcoming"
 msgstr "nadcházející"
 
-#: ../lib/the-events-calendar.class.php:504
+#: ../lib/the-events-calendar.class.php:512
 msgid "past"
 msgstr "uplynulé"
 
-#: ../lib/the-events-calendar.class.php:506
+#: ../lib/the-events-calendar.class.php:514
 msgid "venue"
 msgstr "místo"
 
-#: ../lib/the-events-calendar.class.php:516
+#: ../lib/the-events-calendar.class.php:524
 #, php-format
 msgid "Initializing Tribe Events on %s"
 msgstr "Initializing Tribe Events on %s"
 
-#: ../lib/the-events-calendar.class.php:629
+#: ../lib/the-events-calendar.class.php:637
 #, php-format
 msgid ""
 "Your version of The Events Calendar is not up-to-date with one of your The "
@@ -1594,7 +1628,7 @@ msgstr ""
 "Vaše verze pluginu The Events Calendar není dostatečně aktuální s jedním z "
 "jeho doplňků. Proveďte prosím %saktualizaci.%s"
 
-#: ../lib/the-events-calendar.class.php:646
+#: ../lib/the-events-calendar.class.php:654
 #, php-format
 msgid ""
 "The following plugins are out of date: <b>%s</b>. All add-ons contain "
@@ -1605,13 +1639,13 @@ msgstr ""
 "na pluginu The Events Calendar a nebudou fungovat správně, pokud nejsou "
 "spárovány se správnou verzí. %sChcete spárovat starší verzi%s?"
 
-#: ../lib/the-events-calendar.class.php:710
-#: ../lib/the-events-calendar.class.php:745
-#: ../lib/the-events-calendar.class.php:747
+#: ../lib/the-events-calendar.class.php:718
+#: ../lib/the-events-calendar.class.php:753
+#: ../lib/the-events-calendar.class.php:755
 msgid "Licenses"
 msgstr "Licence"
 
-#: ../lib/the-events-calendar.class.php:714
+#: ../lib/the-events-calendar.class.php:722
 #, php-format
 msgid ""
 "<p>The license key you received when completing your purchase from %s will "
@@ -1643,21 +1677,21 @@ msgstr ""
 "přejděte ve WordPressu na stránku <a href=\"%s\">Nástěnka > Aktualizace</a> "
 "a klikněte na \"Zkontrolovat znovu\".</p>"
 
-#: ../lib/the-events-calendar.class.php:737
+#: ../lib/the-events-calendar.class.php:745
 msgid "General"
 msgstr "Obecné"
 
-#: ../lib/the-events-calendar.class.php:738
+#: ../lib/the-events-calendar.class.php:746
 msgid "Display"
 msgstr "Zobrazování"
 
-#: ../lib/the-events-calendar.class.php:750
-#: ../lib/the-events-calendar.class.php:3877
-#: ../lib/the-events-calendar.class.php:3974
+#: ../lib/the-events-calendar.class.php:758
+#: ../lib/the-events-calendar.class.php:3878
+#: ../lib/the-events-calendar.class.php:3975
 msgid "Help"
 msgstr "Nápověda"
 
-#: ../lib/the-events-calendar.class.php:789
+#: ../lib/the-events-calendar.class.php:797
 #, php-format
 msgid ""
 "Sorry, The Events Calendar requires WordPress %s or higher. Please upgrade "
@@ -1666,7 +1700,7 @@ msgstr ""
 "Omlouváme se, ale plugin The Events Calendar vyžaduje alespoň WordPress %s. "
 "Aktualizujte si prosím svůj WordPress."
 
-#: ../lib/the-events-calendar.class.php:792
+#: ../lib/the-events-calendar.class.php:800
 #, php-format
 msgid ""
 "Sorry, The Events Calendar requires PHP %s or higher. Talk to your Web host "
@@ -1675,226 +1709,226 @@ msgstr ""
 "Omlouváme se, ale plugin The Events Calendar vyžaduje alespoň PHP %s. "
 "Požádejte svého poskytovatele webhostingu o přechod na novější verzi PHP."
 
-#: ../lib/the-events-calendar.class.php:971 ../lib/widget-list.class.php:180
+#: ../lib/the-events-calendar.class.php:979 ../lib/widget-list.class.php:187
 #: ../public/template-tags/loop.php:138
 msgid "Upcoming Events"
 msgstr "Nadcházející akce"
 
-#: ../lib/the-events-calendar.class.php:974
+#: ../lib/the-events-calendar.class.php:982
 #: ../public/template-tags/loop.php:168
 msgid "Past Events"
 msgstr "Uplynulé akce"
 
-#: ../lib/the-events-calendar.class.php:979
-#: ../lib/the-events-calendar.class.php:986
+#: ../lib/the-events-calendar.class.php:987
+#: ../lib/the-events-calendar.class.php:994
 #: ../public/template-tags/loop.php:173
 #, php-format
 msgid "Events for %s"
 msgstr "Akce na %s"
 
-#: ../lib/the-events-calendar.class.php:981
+#: ../lib/the-events-calendar.class.php:989
 msgid "Events this month"
 msgstr "Akce na tento měsíc"
 
-#: ../lib/the-events-calendar.class.php:1005
+#: ../lib/the-events-calendar.class.php:1013
 msgid "No description has been entered for this event."
 msgstr "Pro tuto akci nebyl zadán žádný popis."
 
-#: ../lib/the-events-calendar.class.php:1267
+#: ../lib/the-events-calendar.class.php:1275
 msgid "category"
 msgstr "rubrika"
 
-#: ../lib/the-events-calendar.class.php:1277
+#: ../lib/the-events-calendar.class.php:1285
 msgid "tag"
 msgstr "stitek"
 
-#: ../lib/the-events-calendar.class.php:1305
+#: ../lib/the-events-calendar.class.php:1313
 msgid "Event"
 msgstr "Akce"
 
-#: ../lib/the-events-calendar.class.php:1306
-#: ../lib/the-events-calendar.class.php:1319
-#: ../lib/the-events-calendar.class.php:1332
+#: ../lib/the-events-calendar.class.php:1314
+#: ../lib/the-events-calendar.class.php:1327
+#: ../lib/the-events-calendar.class.php:1340
 msgid "Add New"
 msgstr "Vytvořit akci"
 
-#: ../lib/the-events-calendar.class.php:1307
+#: ../lib/the-events-calendar.class.php:1315
 msgid "Add New Event"
 msgstr "Vytvořit novou akci"
 
-#: ../lib/the-events-calendar.class.php:1308
+#: ../lib/the-events-calendar.class.php:1316
 msgid "Edit Event"
 msgstr "Upravit akci"
 
-#: ../lib/the-events-calendar.class.php:1309
+#: ../lib/the-events-calendar.class.php:1317
 msgid "New Event"
 msgstr "Vytvořit akci"
 
-#: ../lib/the-events-calendar.class.php:1310
+#: ../lib/the-events-calendar.class.php:1318
 msgid "View Event"
 msgstr "Zobrazit akci"
 
-#: ../lib/the-events-calendar.class.php:1311
+#: ../lib/the-events-calendar.class.php:1319
 msgid "Search Events"
 msgstr "Hledat akce"
 
-#: ../lib/the-events-calendar.class.php:1312
+#: ../lib/the-events-calendar.class.php:1320
 msgid "No events found"
 msgstr "Nebyly nalezeny žádné akce"
 
-#: ../lib/the-events-calendar.class.php:1313
+#: ../lib/the-events-calendar.class.php:1321
 msgid "No events found in Trash"
 msgstr "V koši nebyly nalezeny žádné akce"
 
-#: ../lib/the-events-calendar.class.php:1318
+#: ../lib/the-events-calendar.class.php:1326
 #: ../public/advanced-functions/meta.php:381 ../views/tickets/email.php:343
 msgid "Venue"
 msgstr "Místo konání"
 
-#: ../lib/the-events-calendar.class.php:1320
-#: ../lib/the-events-calendar.class.php:1431
+#: ../lib/the-events-calendar.class.php:1328
+#: ../lib/the-events-calendar.class.php:1439
 msgid "Add New Venue"
 msgstr "Vytvořit nové místo konání"
 
-#: ../lib/the-events-calendar.class.php:1321
+#: ../lib/the-events-calendar.class.php:1329
 msgid "Edit Venue"
 msgstr "Upravit místo konání"
 
-#: ../lib/the-events-calendar.class.php:1322
+#: ../lib/the-events-calendar.class.php:1330
 msgid "New Venue"
 msgstr "Vytvořit místo konání"
 
-#: ../lib/the-events-calendar.class.php:1323
+#: ../lib/the-events-calendar.class.php:1331
 msgid "View Venue"
 msgstr "Zobrazit místo konání"
 
-#: ../lib/the-events-calendar.class.php:1324
+#: ../lib/the-events-calendar.class.php:1332
 msgid "Search Venues"
 msgstr "Hledat místa konání"
 
-#: ../lib/the-events-calendar.class.php:1325
+#: ../lib/the-events-calendar.class.php:1333
 msgid "No venue found"
 msgstr "Nebylo nalezeno žádné místo konání"
 
-#: ../lib/the-events-calendar.class.php:1326
+#: ../lib/the-events-calendar.class.php:1334
 msgid "No venues found in Trash"
 msgstr "V koši nebyly nalezeny žádné místa konání"
 
-#: ../lib/the-events-calendar.class.php:1331
+#: ../lib/the-events-calendar.class.php:1339
 #: ../public/advanced-functions/meta.php:443 ../views/tickets/email.php:362
 msgid "Organizer"
 msgstr "Pořadatel"
 
-#: ../lib/the-events-calendar.class.php:1333
-#: ../lib/the-events-calendar.class.php:1432
+#: ../lib/the-events-calendar.class.php:1341
+#: ../lib/the-events-calendar.class.php:1440
 msgid "Add New Organizer"
 msgstr "Vytvořit nového pořadatele"
 
-#: ../lib/the-events-calendar.class.php:1334
+#: ../lib/the-events-calendar.class.php:1342
 msgid "Edit Organizer"
 msgstr "Upravit pořadatele"
 
-#: ../lib/the-events-calendar.class.php:1335
+#: ../lib/the-events-calendar.class.php:1343
 msgid "New Organizer"
 msgstr "Vytvořit pořadatele"
 
 #
-#: ../lib/the-events-calendar.class.php:1336
+#: ../lib/the-events-calendar.class.php:1344
 msgid "View Organizer"
 msgstr "Zobrazit pořadatele"
 
-#: ../lib/the-events-calendar.class.php:1337
+#: ../lib/the-events-calendar.class.php:1345
 msgid "Search Organizers"
 msgstr "Hledat pořadatele"
 
-#: ../lib/the-events-calendar.class.php:1338
+#: ../lib/the-events-calendar.class.php:1346
 msgid "No organizer found"
 msgstr "Nebyl nalezen žádný pořadatel"
 
-#: ../lib/the-events-calendar.class.php:1339
+#: ../lib/the-events-calendar.class.php:1347
 msgid "No organizers found in Trash"
 msgstr "V koši nebyli nalezeni žádní pořadatelé"
 
-#: ../lib/the-events-calendar.class.php:1343
-#: ../lib/tribe-admin-events-list.class.php:176
+#: ../lib/the-events-calendar.class.php:1351
+#: ../lib/tribe-admin-events-list.class.php:177
 msgid "Event Categories"
 msgstr "Rubriky akcí"
 
-#: ../lib/the-events-calendar.class.php:1345
+#: ../lib/the-events-calendar.class.php:1353
 msgid "Search Event Categories"
 msgstr "Hledat rubriky akcí"
 
-#: ../lib/the-events-calendar.class.php:1346
+#: ../lib/the-events-calendar.class.php:1354
 msgid "All Event Categories"
 msgstr "Všechny rubriky akcí"
 
-#: ../lib/the-events-calendar.class.php:1347
+#: ../lib/the-events-calendar.class.php:1355
 msgid "Parent Event Category"
 msgstr "Nadřazená rubrika akcí"
 
-#: ../lib/the-events-calendar.class.php:1348
+#: ../lib/the-events-calendar.class.php:1356
 msgid "Parent Event Category:"
 msgstr "Nadřazená rubrika akcí:"
 
-#: ../lib/the-events-calendar.class.php:1349
+#: ../lib/the-events-calendar.class.php:1357
 msgid "Edit Event Category"
 msgstr "Upravit rubriku akcí"
 
-#: ../lib/the-events-calendar.class.php:1350
+#: ../lib/the-events-calendar.class.php:1358
 msgid "Update Event Category"
 msgstr "Aktualizovat rubriku akcí"
 
-#: ../lib/the-events-calendar.class.php:1351
+#: ../lib/the-events-calendar.class.php:1359
 msgid "Add New Event Category"
 msgstr "Vytvořit novou rubriku akcí"
 
-#: ../lib/the-events-calendar.class.php:1352
+#: ../lib/the-events-calendar.class.php:1360
 msgid "New Event Category Name"
 msgstr "Název nové rubriky akcí"
 
-#: ../lib/the-events-calendar.class.php:1368
+#: ../lib/the-events-calendar.class.php:1376
 #, php-format
 msgid "Event updated. <a href=\"%s\">View event</a>"
 msgstr "Akce byla aktualizována. <a href=\"%s\">Zobrazit akci</a>"
 
-#: ../lib/the-events-calendar.class.php:1369
-#: ../lib/the-events-calendar.class.php:1386
-#: ../lib/the-events-calendar.class.php:1403
+#: ../lib/the-events-calendar.class.php:1377
+#: ../lib/the-events-calendar.class.php:1394
+#: ../lib/the-events-calendar.class.php:1411
 msgid "Custom field updated."
 msgstr "Uživatelské pole bylo aktualizováno."
 
-#: ../lib/the-events-calendar.class.php:1370
-#: ../lib/the-events-calendar.class.php:1387
-#: ../lib/the-events-calendar.class.php:1404
+#: ../lib/the-events-calendar.class.php:1378
+#: ../lib/the-events-calendar.class.php:1395
+#: ../lib/the-events-calendar.class.php:1412
 msgid "Custom field deleted."
 msgstr "Uživatelské pole bylo smazáno."
 
-#: ../lib/the-events-calendar.class.php:1371
+#: ../lib/the-events-calendar.class.php:1379
 msgid "Event updated."
 msgstr "Akce byla aktualizována."
 
-#: ../lib/the-events-calendar.class.php:1373
+#: ../lib/the-events-calendar.class.php:1381
 #, php-format
 msgid "Event restored to revision from %s"
 msgstr "Byla obnovena verze Akce %s"
 
-#: ../lib/the-events-calendar.class.php:1374
+#: ../lib/the-events-calendar.class.php:1382
 #, php-format
 msgid "Event published. <a href=\"%s\">View event</a>"
 msgstr "Akce byla publikována. <a href=\"%s\">Zobrazit akci</a>"
 
-#: ../lib/the-events-calendar.class.php:1375
+#: ../lib/the-events-calendar.class.php:1383
 msgid "Event saved."
 msgstr "Akce byla uložena."
 
-#: ../lib/the-events-calendar.class.php:1376
+#: ../lib/the-events-calendar.class.php:1384
 #, php-format
 msgid "Event submitted. <a target=\"_blank\" href=\"%s\">Preview event</a>"
 msgstr ""
 "Akce byla odeslána ke schválení. <a target=\"_blank\" href=\"%s\">Zobrazit "
 "náhled akce</a>"
 
-#: ../lib/the-events-calendar.class.php:1377
+#: ../lib/the-events-calendar.class.php:1385
 #, php-format
 msgid ""
 "Event scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s"
@@ -1903,52 +1937,52 @@ msgstr ""
 "Akce bude automaticky publikována: <strong>%1$s</strong>. <a target=\"_blank"
 "\" href=\"%2$s\">Zobrazit náhled akce</a>"
 
-#: ../lib/the-events-calendar.class.php:1379
-#: ../lib/the-events-calendar.class.php:1396
-#: ../lib/the-events-calendar.class.php:1413
+#: ../lib/the-events-calendar.class.php:1387
+#: ../lib/the-events-calendar.class.php:1404
+#: ../lib/the-events-calendar.class.php:1421
 msgid "M j, Y @ G:i"
 msgstr "j.n.Y, G:i"
 
-#: ../lib/the-events-calendar.class.php:1380
+#: ../lib/the-events-calendar.class.php:1388
 #, php-format
 msgid "Event draft updated. <a target=\"_blank\" href=\"%s\">Preview event</a>"
 msgstr ""
 "Koncept Akce byl uložen. <a target=\"_blank\" href=\"%s\">Zobrazit náhled "
 "akce</a>"
 
-#: ../lib/the-events-calendar.class.php:1385
+#: ../lib/the-events-calendar.class.php:1393
 #, php-format
 msgid "Venue updated. <a href=\"%s\">View venue</a>"
 msgstr ""
 "Místo konání bylo aktualizováno. <a href=\"%s\">Zobrazit místo konání</a>"
 
-#: ../lib/the-events-calendar.class.php:1388
+#: ../lib/the-events-calendar.class.php:1396
 msgid "Venue updated."
 msgstr "Místo konání bylo aktualizováno."
 
-#: ../lib/the-events-calendar.class.php:1390
+#: ../lib/the-events-calendar.class.php:1398
 #, php-format
 msgid "Venue restored to revision from %s"
 msgstr "Byla obnovena verze Místa konání %s"
 
-#: ../lib/the-events-calendar.class.php:1391
+#: ../lib/the-events-calendar.class.php:1399
 #, php-format
 msgid "Venue published. <a href=\"%s\">View venue</a>"
 msgstr ""
 "Místo konání bylo publikováno. <a href=\"%s\">Zobrazit místo konání</a>"
 
-#: ../lib/the-events-calendar.class.php:1392
+#: ../lib/the-events-calendar.class.php:1400
 msgid "Venue saved."
 msgstr "Místo konání bylo uloženo."
 
-#: ../lib/the-events-calendar.class.php:1393
+#: ../lib/the-events-calendar.class.php:1401
 #, php-format
 msgid "Venue submitted. <a target=\"_blank\" href=\"%s\">Preview venue</a>"
 msgstr ""
 "Místo konání bylo odesláno ke schválení. <a target=\"_blank\" href=\"%s"
 "\">Zobrazit náhled místa konání</a>"
 
-#: ../lib/the-events-calendar.class.php:1394
+#: ../lib/the-events-calendar.class.php:1402
 #, php-format
 msgid ""
 "Venue scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s"
@@ -1957,37 +1991,37 @@ msgstr ""
 "Místo konání bude automaticky publikováno: <strong>%1$s</strong>. <a target="
 "\"_blank\" href=\"%2$s\">Zobrazit náhled místa konání</a>"
 
-#: ../lib/the-events-calendar.class.php:1397
+#: ../lib/the-events-calendar.class.php:1405
 #, php-format
 msgid "Venue draft updated. <a target=\"_blank\" href=\"%s\">Preview venue</a>"
 msgstr ""
 "Koncept Místa konání byl uložen. <a target=\"_blank\" href=\"%s\">Zobrazit "
 "náhled místa konání</a>"
 
-#: ../lib/the-events-calendar.class.php:1402
+#: ../lib/the-events-calendar.class.php:1410
 #, php-format
 msgid "Organizer updated. <a href=\"%s\">View organizer</a>"
 msgstr "Pořadatel byl aktualizován. <a href=\"%s\">Zobrazit pořadatele</a>"
 
-#: ../lib/the-events-calendar.class.php:1405
+#: ../lib/the-events-calendar.class.php:1413
 msgid "Organizer updated."
 msgstr "Pořadatel byl aktualizován."
 
-#: ../lib/the-events-calendar.class.php:1407
+#: ../lib/the-events-calendar.class.php:1415
 #, php-format
 msgid "Organizer restored to revision from %s"
 msgstr "Byla obnovena verze Pořadatele %s"
 
-#: ../lib/the-events-calendar.class.php:1408
+#: ../lib/the-events-calendar.class.php:1416
 #, php-format
 msgid "Organizer published. <a href=\"%s\">View organizer</a>"
 msgstr "Pořadatel byl publikován. <a href=\"%s\">Zobrazit pořadatele</a>"
 
-#: ../lib/the-events-calendar.class.php:1409
+#: ../lib/the-events-calendar.class.php:1417
 msgid "Organizer saved."
 msgstr "Pořadatel byl uložen."
 
-#: ../lib/the-events-calendar.class.php:1410
+#: ../lib/the-events-calendar.class.php:1418
 #, php-format
 msgid ""
 "Organizer submitted. <a target=\"_blank\" href=\"%s\">Preview organizer</a>"
@@ -1995,7 +2029,7 @@ msgstr ""
 "Pořadatel byl odeslán ke schválení. <a target=\"_blank\" href=\"%s"
 "\">Zobrazit náhled pořadatele</a>"
 
-#: ../lib/the-events-calendar.class.php:1411
+#: ../lib/the-events-calendar.class.php:1419
 #, php-format
 msgid ""
 "Organizer scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" href="
@@ -2004,7 +2038,7 @@ msgstr ""
 "Pořadatel bude automaticky publikován: <strong>%1$s</strong>. <a target="
 "\"_blank\" href=\"%2$s\">Zobrazit náhled pořadatele</a>"
 
-#: ../lib/the-events-calendar.class.php:1414
+#: ../lib/the-events-calendar.class.php:1422
 #, php-format
 msgid ""
 "Organizer draft updated. <a target=\"_blank\" href=\"%s\">Preview organizer</"
@@ -2013,108 +2047,108 @@ msgstr ""
 "Koncept Pořadatele byl uložen. <a target=\"_blank\" href=\"%s\">Zobrazit "
 "náhled pořadatele</a>"
 
-#: ../lib/the-events-calendar.class.php:1451
+#: ../lib/the-events-calendar.class.php:1459
 msgid "Use Saved Venue:"
 msgstr "Použít uložené místo konání:"
 
 #
-#: ../lib/the-events-calendar.class.php:1474
+#: ../lib/the-events-calendar.class.php:1482
 msgid "Use Saved Organizer:"
 msgstr "Použít uloženého pořadatele:"
 
 #
-#: ../lib/the-events-calendar.class.php:1514
+#: ../lib/the-events-calendar.class.php:1522
 msgid "Use New Venue"
 msgstr "Vytvořit nové místo konání"
 
 #
-#: ../lib/the-events-calendar.class.php:1516
+#: ../lib/the-events-calendar.class.php:1524
 msgid "My Venues"
 msgstr "Moje Místa konání"
 
 #
-#: ../lib/the-events-calendar.class.php:1521
+#: ../lib/the-events-calendar.class.php:1529
 msgid "Available Venues"
 msgstr "Místa konání k dispozici"
 
-#: ../lib/the-events-calendar.class.php:1532
+#: ../lib/the-events-calendar.class.php:1540
 msgid "No saved venue exists."
 msgstr "Zatím nebylo uloženo žádné místo."
 
 #
-#: ../lib/the-events-calendar.class.php:1571
+#: ../lib/the-events-calendar.class.php:1579
 msgid "Use New Organizer"
 msgstr "Vytvořit nového pořadatele"
 
 #
-#: ../lib/the-events-calendar.class.php:1573
+#: ../lib/the-events-calendar.class.php:1581
 msgid "My Organizers"
 msgstr "Moji Pořadatelé"
 
 #
-#: ../lib/the-events-calendar.class.php:1578
+#: ../lib/the-events-calendar.class.php:1586
 msgid "Available Organizers"
 msgstr "Pořadatelé k dispozici"
 
 #
-#: ../lib/the-events-calendar.class.php:1589
+#: ../lib/the-events-calendar.class.php:1597
 msgid "No saved organizer exists."
 msgstr "Zatím nebyl uložen žádný pořadatel."
 
-#: ../lib/the-events-calendar.class.php:1767
+#: ../lib/the-events-calendar.class.php:1743
 msgid "Next"
 msgstr "Další"
 
-#: ../lib/the-events-calendar.class.php:1768
+#: ../lib/the-events-calendar.class.php:1744
 msgid "Prev"
 msgstr "Předchozí"
 
-#: ../lib/the-events-calendar.class.php:1769
+#: ../lib/the-events-calendar.class.php:1745
 msgid "Today"
 msgstr "Dnes"
 
-#: ../lib/the-events-calendar.class.php:1770
+#: ../lib/the-events-calendar.class.php:1746
 msgid "Done"
 msgstr "Hotovo"
 
-#: ../lib/the-events-calendar.class.php:1979
+#: ../lib/the-events-calendar.class.php:1975
 msgid "Network"
 msgstr "Síť webů"
 
-#: ../lib/the-events-calendar.class.php:3403
-#: ../lib/the-events-calendar.class.php:3431
+#: ../lib/the-events-calendar.class.php:3387
+#: ../lib/the-events-calendar.class.php:3415
 msgid "Date out of range."
 msgstr "Datum je mimo platný rozsah."
 
-#: ../lib/the-events-calendar.class.php:3455
+#: ../lib/the-events-calendar.class.php:3439
 msgid "Event Options"
 msgstr "Nastavení akce"
 
-#: ../lib/the-events-calendar.class.php:3457
+#: ../lib/the-events-calendar.class.php:3441
 msgid "Venue Information"
 msgstr "Informace o místě konání"
 
-#: ../lib/the-events-calendar.class.php:3462
+#: ../lib/the-events-calendar.class.php:3446
 msgid "Organizer Information"
 msgstr "Informace o pořadateli"
 
-#: ../lib/the-events-calendar.class.php:3659
+#: ../lib/the-events-calendar.class.php:3643
 msgid "Support"
 msgstr "Podpora"
 
-#: ../lib/the-events-calendar.class.php:3662
+#: ../lib/the-events-calendar.class.php:3646
 msgid "View All Add-Ons"
 msgstr "Prohlédnout všechny doplňky"
 
-#: ../lib/the-events-calendar.class.php:3679
+#: ../lib/the-events-calendar.class.php:3663
 msgid "News from Modern Tribe"
 msgstr "Novinky od Modern Tribe"
 
-#: ../lib/the-events-calendar.class.php:3760
+#: ../lib/the-events-calendar.class.php:3744
 msgid "Additional Functionality"
 msgstr "Další funkce"
 
-#: ../lib/the-events-calendar.class.php:3765
+#: ../lib/the-events-calendar.class.php:3749
 msgid ""
 "Looking for additional functionality including recurring events, ticket "
 "sales, publicly submitted events, new views and more?"
@@ -2122,31 +2156,40 @@ msgstr ""
 "Hledáte další funkce, včetně opakujících se akcí, prodeje vstupenek, veřejně "
 "přidávaných akcí, nových způsobů zobrazení a další?"
 
-#: ../lib/the-events-calendar.class.php:3765
+#: ../lib/the-events-calendar.class.php:3749
 #, php-format
 msgid "Check out the <a href=\"%s\">available add-ons</a>."
 msgstr "Podívejte se na <a href=\"%s\">dostupné doplňky</a>."
 
-#: ../lib/the-events-calendar.class.php:3837
-#: ../lib/the-events-calendar.class.php:3927
+#: ../lib/the-events-calendar.class.php:3821
+#: ../lib/the-events-calendar.class.php:3928
 msgid "View Calendar"
 msgstr "Zobrazit kalendář"
 
-#: ../lib/the-events-calendar.class.php:3845
+#: ../lib/the-events-calendar.class.php:3829
 msgid "Add Event"
 msgstr "Vytvořit akci"
 
-#: ../lib/the-events-calendar.class.php:3854
+#: ../lib/the-events-calendar.class.php:3838
 msgid "Edit Events"
 msgstr "Přehled akcí"
 
-#: ../lib/the-events-calendar.class.php:3866
-#: ../lib/the-events-calendar.class.php:3963
+#: ../lib/the-events-calendar.class.php:3849
+#, fuzzy
+msgid "Import"
+msgstr "CSV Import"
+
+#: ../lib/the-events-calendar.class.php:3855
+msgid "CSV"
+msgstr "CSV"
+
+#: ../lib/the-events-calendar.class.php:3867
+#: ../lib/the-events-calendar.class.php:3964
 #: ../lib/tribe-settings.class.php:164
 msgid "Settings"
 msgstr "Nastavení"
 
-#: ../lib/the-events-calendar.class.php:3897
+#: ../lib/the-events-calendar.class.php:3898
 #, php-format
 msgid ""
 "Welcome to The Events Calendar! Your events calendar can be found at %s. To "
@@ -2155,45 +2198,45 @@ msgstr ""
 "Vítejte u pluginu The Events Calendar! Váš kalendář akcí naleznete na adrese "
 "%s. Název v URL pro akce můžete změnit na stránce %sAkce -> Nastavení%s."
 
-#: ../lib/the-events-calendar.class.php:3964
+#: ../lib/the-events-calendar.class.php:3965
 msgid "Calendar"
 msgstr "Kalendář"
 
-#: ../lib/the-events-calendar.class.php:4017
+#: ../lib/the-events-calendar.class.php:4018
 msgid "List"
 msgstr "Seznam"
 
 #
-#: ../lib/the-events-calendar.class.php:4028
+#: ../lib/the-events-calendar.class.php:4029
 msgid "Month"
 msgstr "Měsíc"
 
-#: ../lib/the-events-calendar.class.php:4047
-#: ../lib/the-events-calendar.class.php:4049
+#: ../lib/the-events-calendar.class.php:4048
+#: ../lib/the-events-calendar.class.php:4050
 msgid "Search"
 msgstr "Hledat"
 
 #
-#: ../lib/the-events-calendar.class.php:4069
-#: ../lib/the-events-calendar.class.php:4081
+#: ../lib/the-events-calendar.class.php:4070
+#: ../lib/the-events-calendar.class.php:4082
 msgid "Date"
 msgstr "Datum"
 
 #
-#: ../lib/the-events-calendar.class.php:4072
+#: ../lib/the-events-calendar.class.php:4073
 msgid "Events In"
 msgstr "Akce v"
 
 #
-#: ../lib/the-events-calendar.class.php:4074
+#: ../lib/the-events-calendar.class.php:4075
 msgid "Events From"
 msgstr "Akce od"
 
-#: ../lib/the-events-calendar.class.php:4262
+#: ../lib/the-events-calendar.class.php:4306
 msgid "&laquo; Previous Events"
 msgstr "&laquo; Předchozí akce"
 
-#: ../lib/the-events-calendar.class.php:4263
+#: ../lib/the-events-calendar.class.php:4307
 msgid "Next Events &raquo;"
 msgstr "Další akce &raquo;"
 
@@ -2313,15 +2356,15 @@ msgstr "Vaše vstupenka byla uložena."
 msgid "Your ticket has been deleted."
 msgstr "Vaše vstupenka byla smazána."
 
-#: ../lib/tribe-admin-events-list.class.php:181
+#: ../lib/tribe-admin-events-list.class.php:182
 msgid "Start Date"
 msgstr "Počáteční datum"
 
-#: ../lib/tribe-admin-events-list.class.php:182
+#: ../lib/tribe-admin-events-list.class.php:183
 msgid "End Date"
 msgstr "Koncové datum"
 
-#: ../lib/tribe-admin-events-list.class.php:252
+#: ../lib/tribe-admin-events-list.class.php:253
 #, php-format
 msgid "All %s"
 msgstr "Celkem %s"
@@ -2337,11 +2380,11 @@ msgid "Tribe"
 msgstr "Tribe"
 
 #
-#: ../lib/tribe-event-api.class.php:300
+#: ../lib/tribe-event-api.class.php:306
 msgid "Unnamed Venue"
 msgstr "Neznámé místo konání"
 
-#: ../lib/tribe-event-api.class.php:368 ../lib/tribe-view-helpers.class.php:44
+#: ../lib/tribe-event-api.class.php:375 ../lib/tribe-view-helpers.class.php:44
 #: ../public/template-tags/venue.php:240
 msgid "United States"
 msgstr "Spojené státy"
@@ -2414,6 +2457,21 @@ msgstr "Ve formuláři se vyskytly následující chyby:"
 msgid "None of your settings were saved. Please try again."
 msgstr "Žádné z vašich nastavení nebylo uloženo. Zkuste to prosím znovu."
 
+#: ../lib/tribe-settings.class.php:485
+msgid ""
+"The above setting was not saved. Other settings were successfully saved."
+msgid_plural ""
+"The above settings were not saved. Other settings were successfully saved."
+msgstr[0] ""
+"Výše uvedené nastavení nebylo uloženo. Ostatní nastavení byla úspěšně "
+"uložena."
+msgstr[1] ""
+"Výše uvedená nastavení nebyla uložena. Ostatní nastavení byla úspěšně "
+"uložena."
+msgstr[2] ""
+"Výše uvedená nastavení nebyla uložena. Ostatní nastavení byla úspěšně "
+"uložena."
+
 #: ../lib/tribe-settings.class.php:509
 msgid "Settings saved."
 msgstr "Nastavení bylo uloženo."
@@ -2458,15 +2516,6 @@ msgid ""
 "category or view the full calendar."
 msgstr ""
 "Žádné nadcházející akce v rubrice %s. Podívejte se na nadcházející akce z "
-"této rubriky nebo si zobrazte úplný kalendář."
-
-#: ../lib/tribe-template-factory.class.php:241
-#, php-format
-msgid ""
-"No matching events listed under %s. Check out upcoming events for this "
-"category or view the full calendar."
-msgstr ""
-"Nebyly nalezeny žádné akce v rubrice %s. Podívejte se na nadcházející akce z "
 "této rubriky nebo si zobrazte úplný kalendář."
 
 #
@@ -2554,6 +2603,11 @@ msgstr "ID pole:"
 #: ../lib/tribe-validate.class.php:109
 msgid "Non-existant field validation function passed"
 msgstr "Zadána neexistující validační funkce pole"
+
+#: ../lib/tribe-validate.class.php:110
+msgctxt "non-existant function name passed for field validation"
+msgid "with function name:"
+msgstr "se jménem funkce:"
 
 #: ../lib/tribe-validate.class.php:135 ../lib/tribe-validate.class.php:153
 #, php-format
@@ -3816,15 +3870,15 @@ msgstr "Widget, který zobrazuje seznam nadcházejících akcí."
 msgid "Events List"
 msgstr "Seznam akcí"
 
-#: ../lib/widget-list.class.php:129
+#: ../lib/widget-list.class.php:136
 msgid "View All Events"
 msgstr "Zobrazit všechny akce"
 
-#: ../lib/widget-list.class.php:131
+#: ../lib/widget-list.class.php:138
 msgid "View All Events in Category"
 msgstr "Zobrazit všechny akce z rubriky"
 
-#: ../lib/widget-list.class.php:136
+#: ../lib/widget-list.class.php:143
 msgid "There are no upcoming events at this time."
 msgstr "V tuto chvíli nejsou k dispozici žádné nadcházející akce."
 
@@ -3879,20 +3933,20 @@ msgstr "Akce:"
 msgid "Category"
 msgstr "Rubrika"
 
-#: ../public/template-tags/general.php:308
+#: ../public/template-tags/general.php:311
 msgid "Tags:"
 msgstr "Štítky:"
 
 #
-#: ../public/template-tags/general.php:409
+#: ../public/template-tags/general.php:412
 msgid "Loading Events"
 msgstr "Načítání akcí"
 
-#: ../public/template-tags/general.php:585
+#: ../public/template-tags/general.php:600
 msgid "Free"
 msgstr "Zdarma"
 
-#: ../public/template-tags/general.php:1186
+#: ../public/template-tags/general.php:1209
 #, php-format
 msgid "Calendar powered by %sThe Events Calendar%s"
 msgstr "Vytvořeno pomocí %sThe Events Calendar%s"
@@ -3983,39 +4037,3 @@ msgstr "Typ vstupenky"
 #: ../views/tickets/email.php:324
 msgid "Purchaser"
 msgstr "Kupující"
-
-#~ msgctxt "Currency symbol position"
-#~ msgid "Before cost"
-#~ msgstr "Před cenou"
-
-#~ msgctxt "Currency symbol position"
-#~ msgid "After cost"
-#~ msgstr "Za cenou"
-
-#~ msgctxt "not available"
-#~ msgid "n/a"
-#~ msgstr "není k dispozici"
-
-#~ msgid "Based on %d rating"
-#~ msgid_plural "Based on %d ratings"
-#~ msgstr[0] "Hodnotil %d uživatel"
-#~ msgstr[1] "Hodnotili %d uživatelé"
-#~ msgstr[2] "Hodnotilo %d uživatelů"
-
-#~ msgid ""
-#~ "The above setting was not saved. Other settings were successfully saved."
-#~ msgid_plural ""
-#~ "The above settings were not saved. Other settings were successfully saved."
-#~ msgstr[0] ""
-#~ "Výše uvedené nastavení nebylo uloženo. Ostatní nastavení byla úspěšně "
-#~ "uložena."
-#~ msgstr[1] ""
-#~ "Výše uvedená nastavení nebyla uložena. Ostatní nastavení byla úspěšně "
-#~ "uložena."
-#~ msgstr[2] ""
-#~ "Výše uvedená nastavení nebyla uložena. Ostatní nastavení byla úspěšně "
-#~ "uložena."
-
-#~ msgctxt "non-existant function name passed for field validation"
-#~ msgid "with function name:"
-#~ msgstr "se jménem funkce:"
