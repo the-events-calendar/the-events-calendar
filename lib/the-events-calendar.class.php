@@ -203,78 +203,80 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 */
 		protected function loadLibraries() {
 			// Exceptions Helper
-			require_once( 'tribe-event-exception.class.php' );
+			require_once 'tribe-event-exception.class.php';
+
+			// Tribe common resources
+			require_once $this->pluginPath . 'vendor/tribe-common-libraries/tribe-common-libraries.class.php';
 
 			// Load Template Tags
-			require_once( $this->pluginPath.'public/template-tags/query.php' );
-			require_once( $this->pluginPath.'public/template-tags/general.php' );
-			require_once( $this->pluginPath.'public/template-tags/month.php' );
-			require_once( $this->pluginPath.'public/template-tags/loop.php' );
-			require_once( $this->pluginPath.'public/template-tags/google-map.php' );
-			require_once( $this->pluginPath.'public/template-tags/organizer.php' );
-			require_once( $this->pluginPath.'public/template-tags/venue.php' );
-			require_once( $this->pluginPath.'public/template-tags/date.php' );
-			require_once( $this->pluginPath.'public/template-tags/link.php' );
-			require_once( $this->pluginPath.'public/template-tags/widgets.php' );
-			require_once( $this->pluginPath.'public/template-tags/meta.php' );
+			require_once $this->pluginPath.'public/template-tags/query.php';
+			require_once $this->pluginPath.'public/template-tags/general.php';
+			require_once $this->pluginPath.'public/template-tags/month.php';
+			require_once $this->pluginPath.'public/template-tags/loop.php';
+			require_once $this->pluginPath.'public/template-tags/google-map.php';
+			require_once $this->pluginPath.'public/template-tags/organizer.php';
+			require_once $this->pluginPath.'public/template-tags/venue.php';
+			require_once $this->pluginPath.'public/template-tags/date.php';
+			require_once $this->pluginPath.'public/template-tags/link.php';
+			require_once $this->pluginPath.'public/template-tags/widgets.php';
+			require_once $this->pluginPath.'public/template-tags/meta.php';
 
 			// Load Advanced Functions
-			require_once( $this->pluginPath.'public/advanced-functions/event.php' );
-			require_once( $this->pluginPath.'public/advanced-functions/venue.php' );
-			require_once( $this->pluginPath.'public/advanced-functions/organizer.php' );
+			require_once $this->pluginPath.'public/advanced-functions/event.php';
+			require_once $this->pluginPath.'public/advanced-functions/venue.php';
+			require_once $this->pluginPath.'public/advanced-functions/organizer.php';
 
 			// Load Deprecated Template Tags
 			if ( ! defined( 'TRIBE_DISABLE_DEPRECATED_TAGS' ) ) {
-				require_once( $this->pluginPath.'public/template-tags/deprecated.php' );
+				require_once $this->pluginPath.'public/template-tags/deprecated.php';
 			}
 
 			// Load Classes
-			require_once( 'tribe-meta-factory.class.php' );
-			require_once( 'widget-list.class.php' );
-			require_once( 'tribe-admin-events-list.class.php' );
-			require_once( 'tribe-date-utils.class.php' );
-			require_once( 'tribe-template-factory.class.php' );
-			require_once( 'tribe-templates.class.php' );
-			require_once( 'tribe-event-api.class.php' );
-			require_once( 'tribe-event-query.class.php' );
-			require_once( 'tribe-view-helpers.class.php' );
-			require_once( 'tribe-events-bar.class.php' );
-			require_once( 'tribe-the-events-calendar-import.class.php' );
-			require_once( 'tribe-support.class.php' );
+			require_once 'tribe-meta-factory.class.php';
+			require_once 'widget-list.class.php';
+			require_once 'tribe-admin-events-list.class.php';
+			require_once 'tribe-date-utils.class.php';
+			require_once 'tribe-template-factory.class.php';
+			require_once 'tribe-templates.class.php';
+			require_once 'tribe-event-api.class.php';
+			require_once 'tribe-event-query.class.php';
+			require_once 'tribe-view-helpers.class.php';
+			require_once 'tribe-events-bar.class.php';
+			require_once 'tribe-the-events-calendar-import.class.php';
+			require_once 'tribe-support.class.php';
 			//require_once( 'tribe-debug-bar.class.php' );
-			require_once( 'tribe-amalgamator.php' );
-			require_once( 'tribe-events-update.class.php' );
+			require_once 'tribe-amalgamator.php';
+			require_once 'tribe-events-update.class.php';
 
 			// Load Template Classes
-			require_once( 'template-classes/month.php' );
-			require_once( 'template-classes/list.php' );
-			require_once( 'template-classes/single-event.php' );
+			require_once 'template-classes/month.php';
+			require_once 'template-classes/list.php';
+			require_once 'template-classes/single-event.php';
 
 			// caching
-			require_once( 'tribe-events-cache.class.php' );
+			require_once 'tribe-events-cache.class.php';
 
 			// App Shop
-			if (!defined("TRIBE_HIDE_UPSELL") || TRIBE_HIDE_UPSELL !== true ){
-				require_once( 'tribe-app-shop.class.php' );
-			}
+			if ( ! defined( 'TRIBE_HIDE_UPSELL' ) || TRIBE_HIDE_UPSELL !== true )
+				require_once 'tribe-app-shop.class.php';
 
 			// Tickets
-			require_once( 'tickets/tribe-tickets-pro.php' );
-			require_once( 'tickets/tribe-ticket-object.php' );
-			require_once( 'tickets/tribe-tickets.php' );
-			require_once( 'tickets/tribe-tickets-metabox.php' );
+			require_once 'tickets/tribe-tickets-pro.php';
+			require_once 'tickets/tribe-ticket-object.php';
+			require_once 'tickets/tribe-tickets.php';
+			require_once 'tickets/tribe-tickets-metabox.php';
 
 			// CSV Importer
-			require_once( 'io/csv/ecp-events-importer.php' );
+			require_once 'io/csv/ecp-events-importer.php';
 
 			// PUE
-			require_once( 'pue/pue-client.php' );
+			require_once 'pue/pue-client.php';
 
 			// Load multisite defaults
 			if ( is_multisite() ) {
 				$tribe_events_mu_defaults = array();
 				if ( file_exists( WP_CONTENT_DIR . '/tribe-events-mu-defaults.php' ) )
-					require_once( WP_CONTENT_DIR . '/tribe-events-mu-defaults.php' );
+					require_once WP_CONTENT_DIR . '/tribe-events-mu-defaults.php';
 				self::$tribeEventsMuDefaults = apply_filters( 'tribe_events_mu_defaults', $tribe_events_mu_defaults );
 			}
 		}
@@ -1391,36 +1393,36 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 			$messages[self::VENUE_POST_TYPE] = array(
 				0 => '', // Unused. Messages start at index 1.
-				1 => sprintf( __('Venue updated. <a href="%s">View venue</a>', 'tribe-events-calendar'), esc_url( get_permalink($post_ID) ) ),
+				1 => __('Venue updated.', 'tribe-events-calendar'),
 				2 => __('Custom field updated.', 'tribe-events-calendar'),
 				3 => __('Custom field deleted.', 'tribe-events-calendar'),
 				4 => __('Venue updated.', 'tribe-events-calendar'),
 				/* translators: %s: date and time of the revision */
 				5 => isset($_GET['revision']) ? sprintf( __('Venue restored to revision from %s', 'tribe-events-calendar'), wp_post_revision_title( (int) $_GET['revision'], false ) ) : false,
-				6 => sprintf( __('Venue published. <a href="%s">View venue</a>', 'tribe-events-calendar'), esc_url( get_permalink($post_ID) ) ),
+				6 => __('Venue published.', 'tribe-events-calendar'),
 				7 => __('Venue saved.', 'tribe-events-calendar'),
-				8 => sprintf( __('Venue submitted. <a target="_blank" href="%s">Preview venue</a>', 'tribe-events-calendar'), esc_url( add_query_arg( 'preview', 'true', get_permalink($post_ID) ) ) ),
-				9 => sprintf( __('Venue scheduled for: <strong>%1$s</strong>. <a target="_blank" href="%2$s">Preview venue</a>', 'tribe-events-calendar'),
+				8 => __('Venue submitted.', 'tribe-events-calendar'),
+				9 => sprintf( __('Venue scheduled for: <strong>%1$s</strong>.', 'tribe-events-calendar'),
 				// translators: Publish box date format, see http://php.net/date
-				date_i18n( __( 'M j, Y @ G:i' , 'tribe-events-calendar'), strtotime( $post->post_date ) ), esc_url( get_permalink($post_ID) ) ),
-				10 => sprintf( __('Venue draft updated. <a target="_blank" href="%s">Preview venue</a>', 'tribe-events-calendar'), esc_url( add_query_arg( 'preview', 'true', get_permalink($post_ID) ) ) ),
+				date_i18n( __( 'M j, Y @ G:i' , 'tribe-events-calendar'), strtotime( $post->post_date ) ) ),
+				10 => __('Venue draft updated.', 'tribe-events-calendar'),
 				);
 
 			$messages[self::ORGANIZER_POST_TYPE] = array(
 				0 => '', // Unused. Messages start at index 1.
-				1 => sprintf( __('Organizer updated. <a href="%s">View organizer</a>', 'tribe-events-calendar'), esc_url( get_permalink($post_ID) ) ),
+				1 => __('Organizer updated.', 'tribe-events-calendar'),
 				2 => __('Custom field updated.', 'tribe-events-calendar'),
 				3 => __('Custom field deleted.', 'tribe-events-calendar'),
 				4 => __('Organizer updated.', 'tribe-events-calendar'),
 				/* translators: %s: date and time of the revision */
 				5 => isset($_GET['revision']) ? sprintf( __('Organizer restored to revision from %s', 'tribe-events-calendar'), wp_post_revision_title( (int) $_GET['revision'], false ) ) : false,
-				6 => sprintf( __('Organizer published. <a href="%s">View organizer</a>', 'tribe-events-calendar'), esc_url( get_permalink($post_ID) ) ),
+				6 => __('Organizer published.', 'tribe-events-calendar'),
 				7 => __('Organizer saved.', 'tribe-events-calendar'),
-				8 => sprintf( __('Organizer submitted. <a target="_blank" href="%s">Preview organizer</a>', 'tribe-events-calendar'), esc_url( add_query_arg( 'preview', 'true', get_permalink($post_ID) ) ) ),
-				9 => sprintf( __('Organizer scheduled for: <strong>%1$s</strong>. <a target="_blank" href="%2$s">Preview organizer</a>', 'tribe-events-calendar'),
+				8 => __('Organizer submitted.', 'tribe-events-calendar'),
+				9 => sprintf( __('Organizer scheduled for: <strong>%1$s</strong>.', 'tribe-events-calendar'),
 				// translators: Publish box date format, see http://php.net/date
-				date_i18n( __( 'M j, Y @ G:i' , 'tribe-events-calendar'), strtotime( $post->post_date ) ), esc_url( get_permalink($post_ID) ) ),
-				10 => sprintf( __('Organizer draft updated. <a target="_blank" href="%s">Preview organizer</a>', 'tribe-events-calendar'), esc_url( add_query_arg( 'preview', 'true', get_permalink($post_ID) ) ) ),
+				date_i18n( __( 'M j, Y @ G:i' , 'tribe-events-calendar'), strtotime( $post->post_date ) ) ),
+				10 => __('Organizer draft updated.', 'tribe-events-calendar'),
 			);
 
 			return $messages;
@@ -1696,14 +1698,10 @@ if ( !class_exists( 'TribeEvents' ) ) {
 						break;
 					case self::VENUE_POST_TYPE :
 
-						wp_enqueue_style( self::VENUE_POST_TYPE.'-hide-visibility', trailingslashit( $this->pluginUrl ) . 'resources/hide-visibility.css', array(), apply_filters( 'tribe_events_css_version', self::VERSION ) );
-
 						// hook for other plugins
 						do_action('tribe_venues_enqueue');
 						break;
 					case self::ORGANIZER_POST_TYPE :
-
-						wp_enqueue_style( self::ORGANIZER_POST_TYPE.'-hide-visibility', trailingslashit( $this->pluginUrl ) . 'resources/hide-visibility.css', array(), apply_filters( 'tribe_events_css_version', self::VERSION ) );
 
 						// hook for other plugins
 						do_action('tribe_organizers_enqueue');

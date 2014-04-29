@@ -1064,26 +1064,27 @@ Date.prototype.format = function (mask, utc) {
 	 */
 
 	tribe_ev.state = {
-		ajax_running: false,
-		ajax_timer: 0,
-		category: '',
-		date: '',
-        datepicker_format:'0',
-		do_string: false,
-		filters: false,
-		filter_cats: false,
-		initial_load: true,
-        mdate: '',
-		paged: 1,
-		page_title: '',
-		params: {},
-		popping: false,
-		pushstate: true,
-		pushcount: 0,
-		recurrence: false,
-		url_params: {},
-		view: '',
-		view_target: ''
+        ajax_running     : false,
+        ajax_timer       : 0,
+        ajax_trigger     : '',
+        category         : '',
+        date             : '',
+        datepicker_format: '0',
+        do_string        : false,
+        filters          : false,
+        filter_cats      : false,
+        initial_load     : true,
+        mdate            : '',
+        paged            : 1,
+        page_title       : '',
+        params           : {},
+        popping          : false,
+        pushstate        : true,
+        pushcount        : 0,
+        recurrence       : false,
+        url_params       : {},
+        view             : '',
+        view_target      : ''
 	};
 
 })(window, document, jQuery, tribe_debug);
