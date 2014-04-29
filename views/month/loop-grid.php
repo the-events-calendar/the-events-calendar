@@ -29,7 +29,7 @@ global $wp_locale;
 		<?php endforeach; ?>
 		</tr>
 	</thead>
-	<tbody class="hfeed vcalendar">
+	<tbody class="vcalendar">
 		<tr>
 		<?php while (tribe_events_have_month_days()) : tribe_events_the_month_day(); ?>
 			<?php if ( $week != tribe_events_get_current_week() ) : $week++; ?>
