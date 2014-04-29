@@ -36,6 +36,7 @@ var tribe_events_bar_action;
 
 		var $tribebar = $('#tribe-bar-form'),
 			$tribedate = $('#tribe-bar-date'),
+            $tribe_events = $('#tribe-events'),
 			$tribebarselect = $('select[name=tribe-bar-view]');
 
 		/**
@@ -72,10 +73,31 @@ var tribe_events_bar_action;
 
 			if (ts.view !== 'month') {
 
+                // begin display date formatting
+
+                var date_format = 'yyyy-mm-dd';
+
+                if(ts.datepicker_format !== '0'){
+
+                    // we are not using the default query date format, lets grab it from the data array
+
+                    date_format = td.datepicker_formats.default[ts.datepicker_format];
+
+                    var url_date = tf.get_url_param('tribe-bar-date');
+
+                    // if url date is set and datepicker format is different from query format
+                    // we need to fix the input value to emulate that before kicking in the datepicker
+
+                    if(url_date)
+                        $tribedate.val(tribeDateFormat(url_date, ts.datepicker_format));
+                }
+
+
+
 				dbug && debug.info('TEC Debug: bootstrapDatepicker was just initialized in "tribe-events-bar.js" on:', $tribedate);
 
 				td.datepicker_opts = {
-					format: 'yyyy-mm-dd',
+					format: date_format,
 					autoclose: true
 				};
 
@@ -189,8 +211,13 @@ var tribe_events_bar_action;
 				var $this = $(this);
 				if ($this.is('#tribe-bar-date')) {
 					if ($this.val().length) {
-						ts.params[$this.attr('name')] = $this.val();
-						ts.url_params[$this.attr('name')] = $this.val();
+                        if(ts.view === 'month'){
+                            ts.params[$this.attr('name')] = tribeDateFormat(ts.mdate, "tribeMonthQuery");
+                            ts.url_params[$this.attr('name')] = tribeDateFormat(ts.mdate, "tribeMonthQuery");
+                        } else {
+                            ts.params[$this.attr('name')] = tribeDateFormat($this.val(), "tribeQuery");
+                            ts.url_params[$this.attr('name')] = tribeDateFormat($this.val(), "tribeQuery");
+                        }
 					} else if($this.is('.placeholder') && $this.is('.bd-updated')){
 						ts.url_params[$this.attr('name')] = $this.attr('data-oldDate');
 					} else {
