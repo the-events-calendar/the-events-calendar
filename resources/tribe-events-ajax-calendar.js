@@ -47,8 +47,13 @@
             // if url date is set and datepicker format is different from query format
             // we need to fix the input value to emulate that before kicking in the datepicker
 
-            if(initial_date)
-                $tribedate.val(tribeDateFormat(initial_date + '-01', mask_key));
+            if(initial_date){
+                if(initial_date.length <= 7)
+                    initial_date = initial_date + '-01';
+
+                $tribedate.val(tribeDateFormat(initial_date, mask_key));
+            }
+
 
         }
 
@@ -289,7 +294,6 @@
 				if ($tribedate.val().length) {
                     if(ts.datepicker_format !== '0'){
                         ts.date = tribeDateFormat($tribedate.bootstrapDatepicker('getDate'), 'tribeMonthQuery');
-                        console.log(ts.date)
                     } else {
                         ts.date = $tribedate.val();
                     }
