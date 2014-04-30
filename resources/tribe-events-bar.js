@@ -215,7 +215,6 @@ var tribe_events_bar_action;
                             ts.params[$this.attr('name')] = tribeDateFormat(ts.mdate, "tribeMonthQuery");
                             ts.url_params[$this.attr('name')] = tribeDateFormat(ts.mdate, "tribeMonthQuery");
                         } else {
-                            console.log(tribeDateFormat($this.bootstrapDatepicker('getDate'), "tribeQuery"));
                             ts.params[$this.attr('name')] = tribeDateFormat($this.bootstrapDatepicker('getDate'), "tribeQuery");
                             ts.url_params[$this.attr('name')] = tribeDateFormat($this.bootstrapDatepicker('getDate'), "tribeQuery");
                         }
