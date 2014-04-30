@@ -624,8 +624,14 @@ if (!class_exists('TribeEventsTemplates')) {
 
 		/**
 		 * convert the post_date_gmt to the event date for feeds
+		 *
+		 * @param $time the post_date
+		 * @param $d the date format to return
+		 * @param $gmt whether this is a gmt time
+		 *
+		 * @return int|string
 		 */
-		function event_date_to_pubDate($time, $d, $gmt) {
+		public static function event_date_to_pubDate($time, $d, $gmt) {
 			global $post;
 			if ( $post->post_type == TribeEvents::POSTTYPE && is_feed() && $gmt ) {
 				$time = tribe_get_start_date( $post->ID, false, $d );
