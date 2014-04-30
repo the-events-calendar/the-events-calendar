@@ -22,7 +22,7 @@ if ( !defined('ABSPATH') ) { die('-1'); } ?>
 	$widget_args = tribe_events_get_adv_list_widget_args(); 
 	extract($widget_args);
 	
-	if ( ! empty( $category ) ) {
+	if ( $category > 0 ) {
 		// Link to the main category archive page
 		$event_url = get_term_link( (int)$category, TribeEvents::TAXONOMY );
 		
