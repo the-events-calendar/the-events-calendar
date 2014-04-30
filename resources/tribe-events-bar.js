@@ -215,8 +215,9 @@ var tribe_events_bar_action;
                             ts.params[$this.attr('name')] = tribeDateFormat(ts.mdate, "tribeMonthQuery");
                             ts.url_params[$this.attr('name')] = tribeDateFormat(ts.mdate, "tribeMonthQuery");
                         } else {
-                            ts.params[$this.attr('name')] = tribeDateFormat($this.val(), "tribeQuery");
-                            ts.url_params[$this.attr('name')] = tribeDateFormat($this.val(), "tribeQuery");
+                            console.log(tribeDateFormat($this.bootstrapDatepicker('getDate'), "tribeQuery"));
+                            ts.params[$this.attr('name')] = tribeDateFormat($this.bootstrapDatepicker('getDate'), "tribeQuery");
+                            ts.url_params[$this.attr('name')] = tribeDateFormat($this.bootstrapDatepicker('getDate'), "tribeQuery");
                         }
 					} else if($this.is('.placeholder') && $this.is('.bd-updated')){
 						ts.url_params[$this.attr('name')] = $this.attr('data-oldDate');
@@ -283,7 +284,7 @@ var tribe_events_bar_action;
 				if ($this.val().length && !$this.hasClass('tribe-no-param')) {
                     if (ts.view !== 'month' && ts.datepicker_format !== '0' && $this.is($tribedate)) {
 
-                        ts.url_params[$this.attr('name')] = tribeDateFormat($this.val(), 'tribeQuery');
+                        ts.url_params[$this.attr('name')] = tribeDateFormat($this.bootstrapDatepicker('getDate'), 'tribeQuery');
 
                     } else {
                         if ($this.is(':checkbox')) {
