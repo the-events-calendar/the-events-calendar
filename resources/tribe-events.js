@@ -867,12 +867,14 @@ Date.prototype.format = function (mask, utc) {
 			var $bar_date = $("#tribe-bar-date");
 			if ($().bootstrapDatepicker && $bar_date.length) {
 				// for ie8 and under
+                tribe_ev.state.updating_picker = true;
 				if (window.attachEvent && !window.addEventListener) {
 					$bar_date.bootstrapDatepicker("remove");
 					$bar_date.val('');
 					$bar_date.bootstrapDatepicker(tribe_ev.data.datepicker_opts);
 				}
 				$bar_date.bootstrapDatepicker("setDate", date);
+                tribe_ev.state.updating_picker = false;
 				dbug && debug.info('TEC Debug: tribe_ev.fn.update_picker sent "' + date + '" to the boostrapDatepicker');
 			} else if ($bar_date.length) {
 				$bar_date.val(date);
@@ -1082,6 +1084,7 @@ Date.prototype.format = function (mask, utc) {
         pushstate        : true,
         pushcount        : 0,
         recurrence       : false,
+        updating_picker  : false,
         url_params       : {},
         view             : '',
         view_target      : ''
