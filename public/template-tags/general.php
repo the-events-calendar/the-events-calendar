@@ -205,11 +205,12 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	 *
 	 * Returns a sitewide ical link
 	 *
+	 * @param $protocol bool|string any alternative protocol for the link, false to leave it unchanged
 	 * @return string URL for ical dump.
 	 * @since 2.0
 	 */
-	function tribe_get_ical_link() {
-		$output = TribeiCal::get_ical_link();
+	function tribe_get_ical_link( $protocol = false ) {
+		$output = TribeiCal::get_ical_link( $protocol );
 		return apply_filters( 'tribe_get_ical_link', $output );
 	}
 
