@@ -86,10 +86,8 @@ class TribeEventsTicketsAttendeesTable extends WP_List_Table {
 	 * @return string
 	 */
 	function column_default( $item, $column ) {
-		if ( empty( $item[$column] ) )
-			return '';
-
-		return $item[$column];
+		$value = empty( $item[$column] ) ? '' : $item[$column];
+		return apply_filters( 'tribe_events_tickets_attendees_table_column', $value, $item, $column );
 	}
 
 	/**
