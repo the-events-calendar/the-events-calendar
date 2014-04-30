@@ -18,10 +18,10 @@
 
 	$(document).ready(function () {
 
+        var base_url = $('#tribe-events-footer .tribe-events-nav-next a').attr('href').slice(0, -11);
+
 		if (ts.filter_cats)
-			var base_url = $('#tribe-events-header').data('baseurl').slice(0, -11);
-		else
-			var base_url = $('#tribe-events-footer .tribe-events-nav-next a').attr('href').slice(0, -11);
+			base_url = $('#tribe-events-header').data('baseurl').slice(0, -11);
 
 		ts.date = $('#tribe-events-header').data('date');
 
@@ -75,7 +75,7 @@
 
 		$('#tribe-events').on('click', '.tribe-events-nav-previous a, .tribe-events-nav-next a', function (e) {
 			e.preventDefault();
-			if (ts.ajax_running)
+			if (ts.ajax_running || ts.updating_picker)
 				return;
 			var $this = $(this);
 			ts.popping = false;
@@ -84,7 +84,10 @@
 				td.cur_url = base_url + ts.date + '/';
 			else
 				td.cur_url = $this.attr("href");
-			tf.update_picker(ts.date);
+            if(ts.datepicker_format !== '0')
+                tf.update_picker(tribeDateFormat(ts.date, td.datepicker_formats.default[ts.datepicker_format]));
+            else
+                tf.update_picker(ts.date);
 			tf.pre_ajax(function () {
 				tribe_events_day_ajax_post();
 			});
@@ -129,7 +132,10 @@
 			$('#tribe-bar-date').on('changeDate', function (e) {
 				if (!tt.reset_on()) {
 					ts.popping = false;
-					ts.date = $(this).val();
+                    if(ts.datepicker_format !== '0')
+                        ts.date = tribeDateFormat($(this).bootstrapDatepicker('getDate'), "tribeQuery");
+                    else
+                        ts.date = $(this).val();
 					td.cur_url = base_url + ts.date + '/';
 					tf.pre_ajax(function () {
 						tribe_events_day_ajax_post();
