@@ -220,7 +220,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			require_once $this->pluginPath.'public/template-tags/link.php';
 			require_once $this->pluginPath.'public/template-tags/widgets.php';
 			require_once $this->pluginPath.'public/template-tags/meta.php';
-			require_once $this->pluginPath.'public/template-tags/ical.php';
 
 			// Load Advanced Functions
 			require_once $this->pluginPath.'public/advanced-functions/event.php';
@@ -459,10 +458,18 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			}
 
 
-			//iCal
-			require_once ( 'tribe-ical.class.php' );
-			TribeiCal::init();
+			add_action( 'plugins_loaded', array( $this, 'init_ical' ), 2, 0 );
 
+
+		}
+
+		public function init_ical() {
+			//iCal
+			if ( !class_exists('TribeiCal') ) {
+				require_once ( 'tribe-ical.class.php' );
+				TribeiCal::init();
+				require_once $this->pluginPath.'public/template-tags/ical.php';
+			}
 		}
 
 		/**
