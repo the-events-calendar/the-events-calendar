@@ -92,10 +92,6 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			require_once( 'lib/tribe-geoloc.class.php' );
 			require_once( 'lib/meta-pro.php' );
 
-			//iCal
-			require_once ( 'lib/tribe-ical.class.php' );
-			TribeiCal::init();
-
 			if ( TribeEventsPro_SchemaUpdater::update_required() ) {
 				add_action( 'admin_init', array( 'TribeEventsPro_SchemaUpdater', 'init' ), 10, 0 );
 			}
