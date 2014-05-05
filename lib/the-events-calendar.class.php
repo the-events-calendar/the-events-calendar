@@ -220,6 +220,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			require_once $this->pluginPath.'public/template-tags/link.php';
 			require_once $this->pluginPath.'public/template-tags/widgets.php';
 			require_once $this->pluginPath.'public/template-tags/meta.php';
+			require_once $this->pluginPath.'public/template-tags/ical.php';
 
 			// Load Advanced Functions
 			require_once $this->pluginPath.'public/advanced-functions/event.php';
@@ -456,6 +457,11 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				add_filter( 'wp_import_post_data_raw', array( $this, 'filter_wp_import_data_before' ), 10, 1 );
 				add_filter( 'wp_import_post_data_processed', array( $this, 'filter_wp_import_data_after' ), 10, 1 );
 			}
+
+
+			//iCal
+			require_once ( 'tribe-ical.class.php' );
+			TribeiCal::init();
 
 		}
 
