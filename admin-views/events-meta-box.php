@@ -38,7 +38,7 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 		<tr>
 			<td style="width:175px;"><?php _e('Start Date &amp; Time:','tribe-events-calendar'); ?></td>
 			<td id="tribe-event-datepickers" data-startofweek="<?php echo get_option( 'start_of_week' ); ?>">
-				<input autocomplete="off" tabindex="<?php tribe_events_tab_index(); ?>" type="text" class="datepicker" name="EventStartDate" id="EventStartDate"  value="<?php echo esc_attr($EventStartDate) ?>" />
+				<input autocomplete="off" tabindex="<?php tribe_events_tab_index(); ?>" type="text" class="tribe-datepicker" name="EventStartDate" id="EventStartDate"  value="<?php echo esc_attr($EventStartDate) ?>" />
 				<span class="helper-text hide-if-js"><?php _e('YYYY-MM-DD', 'tribe-events-calendar') ?></span>
 				<span class='timeofdayoptions'>
 					@
@@ -59,7 +59,7 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 		<tr>
 			<td><?php _e('End Date &amp; Time:','tribe-events-calendar'); ?></td>
 			<td>
-				<input autocomplete="off" type="text" class="datepicker" name="EventEndDate" id="EventEndDate"  value="<?php echo esc_attr( $EventEndDate ); ?>" />
+				<input autocomplete="off" type="text" class="tribe-datepicker" name="EventEndDate" id="EventEndDate"  value="<?php echo esc_attr( $EventEndDate ); ?>" />
 				<span class="helper-text hide-if-js"><?php _e('YYYY-MM-DD', 'tribe-events-calendar') ?></span>
 				<span class='timeofdayoptions'>
 					@
