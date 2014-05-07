@@ -30,6 +30,9 @@ if ( !defined('ABSPATH') ) { die('-1'); } ?>
 		// Link to the main events page
 		$event_url = tribe_get_events_link();
 	}
+	
+	//Check if any posts were found
+	if ( $posts ) {
 ?>
 <ol class="hfeed vcalendar">
 <?php
@@ -106,3 +109,11 @@ if ( !defined('ABSPATH') ) { die('-1'); } ?>
 		<?php ($category <= 0 ? _e( 'View All Events', 'tribe-events-calendar' ) : _e( 'View All Events in Category', 'tribe-events-calendar' ) ); ?>
 	</a>
 </p>
+<?php
+	//No Events were Found
+	} else {
+?>
+		<p><?php _e( 'There are no upcoming events at this time.', 'tribe-events-calendar' ); ?></p>
+<?php
+	}
+?>
