@@ -185,7 +185,7 @@ var tribe_events_bar_action;
 		$('#tribe-bar-filters').before($('#tribe-bar-dates'));
 
 		$(te).on("tribe_ev_serializeBar", function () {
-			$('form#tribe-bar-form input, #tribeHideRecurrence').each(function () {
+			$('form#tribe-bar-form input, form#tribe-bar-form select, #tribeHideRecurrence').each(function () {
 				var $this = $(this);
 				if ($this.is('#tribe-bar-date')) {
 					if ($this.val().length) {
@@ -241,7 +241,7 @@ var tribe_events_bar_action;
 
 			$(te).trigger('tribe_ev_preCollectBarParams');
 
-			$('#tribe-bar-form input').each(function () {
+			$('#tribe-bar-form input, #tribe-bar-form select').each(function () {
 				var $this = $(this);
 				if ($this.val().length && !$this.hasClass('tribe-no-param')) {
 					if ($this.is(':checkbox')) {

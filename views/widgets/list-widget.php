@@ -22,7 +22,7 @@
  * @author Modern Tribe Inc.
  *
  */
-?>
+if ( !defined('ABSPATH') ) { die('-1'); } ?>
 
 <ol class="hfeed vcalendar">
 <?php
@@ -54,3 +54,5 @@
 	endforeach;
 ?>
 </ol><!-- .hfeed -->
+
+<p class="tribe-events-widget-link"><a href="<?php echo tribe_get_events_link(); ?>" rel="bookmark"><?php _e( 'View All Events', 'tribe-events-calendar' );	?></a></p>

@@ -47,6 +47,8 @@ if( class_exists( 'TribeEvents' ) ) {
 
 		do_action('tribe_events_after_show_month');
 
+		$month_class->shutdown_view();
+
 		// reinstate the tribe bar params
 		if ( ! empty( $hold_tribe_bar_args ) ) {
 			foreach ( $hold_tribe_bar_args as $key => $value ) {

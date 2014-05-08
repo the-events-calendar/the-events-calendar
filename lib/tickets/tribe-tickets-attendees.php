@@ -86,10 +86,8 @@ class TribeEventsTicketsAttendeesTable extends WP_List_Table {
 	 * @return string
 	 */
 	function column_default( $item, $column ) {
-		if ( empty( $item[$column] ) )
-			return '';
-
-		return $item[$column];
+		$value = empty( $item[$column] ) ? '' : $item[$column];
+		return apply_filters( 'tribe_events_tickets_attendees_table_column', $value, $item, $column );
 	}
 
 	/**
@@ -214,10 +212,13 @@ class TribeEventsTicketsAttendeesTable extends WP_List_Table {
 	 * @return array
 	 */
 	function get_bulk_actions() {
-		$actions = array( 'check_in' => __( 'Check in', 'tribe-events-calendar' ), 'uncheck_in' => __( 'Undo Check in', 'tribe-events-calendar' ) );
+		$actions = array(
+			'check_in' => __( 'Check in', 'tribe-events-calendar' ),
+			'uncheck_in' => __( 'Undo Check in', 'tribe-events-calendar' ),
+			'delete_attendee' => __( 'Delete', 'tribe-events-calendar' )
+		);
 
-		return $actions;
-
+		return (array) apply_filters( 'tribe_events_tickets_attendees_table_bulk_actions', $actions );
 	}
 
 
@@ -225,43 +226,71 @@ class TribeEventsTicketsAttendeesTable extends WP_List_Table {
 	 * Handler for the different bulk actions
 	 */
 	function process_bulk_action() {
-		if ( 'check_in' === $this->current_action() ) {
-			if ( isset( $_GET['attendee'] ) ) {
-
-				foreach ( $_GET['attendee'] as $attendee_provider ) {
-					$vars = explode( "|", $attendee_provider );
-					if ( isset( $vars[1] ) && is_callable( array( $vars[1], 'get_instance' ) ) ) {
-						$obj = call_user_func( array( $vars[1], 'get_instance' ) );
-
-						if ( ! is_subclass_of( $obj, 'TribeEventsTickets' ) )
-							return;
-
-						$obj->checkin( $vars[0] );
-					}
-				}
-			}
+		switch ( $this->current_action() ) {
+			case 'check_in': $this->bulk_check_in(); break;
+			case 'uncheck_in': $this->bulk_uncheck_in(); break;
+			case 'delete_attendee': $this->bulk_delete(); break;
+			default: do_action( 'tribe_events_tickets_attendees_table_process_bulk_action', $this->current_action() ); break;
 		}
+	}
 
+	protected function bulk_check_in() {
+		if ( ! isset( $_GET['attendee'] ) ) return;
 
-		if ( 'uncheck_in' === $this->current_action() ) {
-			if ( isset( $_GET['attendee'] ) ) {
-
-				foreach ( $_GET['attendee'] as $attendee_provider ) {
-					$vars = explode( "|", $attendee_provider );
-					if ( isset( $vars[1] ) && is_callable( array( $vars[1], 'get_instance' ) ) ) {
-						$obj = call_user_func( array( $vars[1], 'get_instance' ) );
-
-						if ( ! is_subclass_of( $obj, 'TribeEventsTickets' ) )
-							return;
-
-						$obj->uncheckin( $vars[0] );
-					}
-
-				}
-
-			}
+		foreach ( (array) $_GET['attendee'] as $attendee ) {
+			list( $id, $addon ) = $this->attendee_reference( $attendee );
+			if ( false === $id ) continue;
+			$addon->checkin( $id );
 		}
+	}
 
+	protected function bulk_uncheck_in() {
+		if ( ! isset( $_GET['attendee'] ) ) return;
+
+		foreach ( (array) $_GET['attendee'] as $attendee ) {
+			list( $id, $addon ) = $this->attendee_reference( $attendee );
+			if ( false === $id ) continue;
+			$addon->uncheckin( $id );
+		}
+	}
+
+	protected function bulk_delete() {
+		if ( ! isset( $_GET['attendee'] ) ) return;
+
+		foreach ( (array) $_GET['attendee'] as $attendee ) {
+			list( $id, $addon ) = $this->attendee_reference( $attendee );
+			if ( false === $id ) continue;
+			$addon->delete_ticket( null, $id );
+		}
+	}
+
+	/**
+	 * Returns the attendee ID and instance of the specific ticketing solution or "addon" used 
+	 * to handle it.
+	 *
+	 * This is used in the context of bulk actions where each attendee table entry is identified
+	 * by a string of the pattern {id}|{ticket_class} - where possible this method turns that into
+	 * an array consisting of the attendee object ID and the relevant ticketing object.
+	 *
+	 * If this cannot be determined, both array elements will be set to false.
+	 *
+	 * @param $reference
+	 * @return array
+	 */
+	protected function attendee_reference( $reference ) {
+		$failed = array( false, false );
+		if ( false === strpos( $reference, '|' ) ) return $failed;
+
+		$parts = explode( '|', $reference );
+		if ( count( $parts ) < 2 ) return $failed;
+
+		$id = absint( $parts[0] );
+		if ( $id <= 0 ) return $failed;
+
+		$addon = call_user_func( array( $parts[1], 'get_instance' ) );
+		if ( ! is_subclass_of( $addon, 'TribeEventsTickets' ) ) return $failed;
+
+		return array( $id, $addon );
 	}
 
 	/**
