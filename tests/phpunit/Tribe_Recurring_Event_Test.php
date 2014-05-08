@@ -438,6 +438,7 @@ class Tribe_Recurring_Event_Test extends WP_UnitTestCase {
 			'tribe_events' => 'test-permalinks', // this will be present for a normal request
 			'name' => 'test-permalinks',
 			'eventDate' => '2014-05-01',
+			'eventDisplay' => 'custom',
 		));
 		$this->assertEquals($post_id, reset($results));
 
@@ -448,6 +449,7 @@ class Tribe_Recurring_Event_Test extends WP_UnitTestCase {
 			'tribe_events' => 'test-permalinks', // this will be present for a normal request
 			'name' => 'test-permalinks',
 			'eventDate' => '2014-05-08',
+			'eventDisplay' => 'custom',
 		));
 		$this->assertEquals($child_id, reset($results));
 	}
