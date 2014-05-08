@@ -461,7 +461,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 		}
 
 		$classes         = array( 'hentry', 'vevent', 'type-tribe_events', 'post-' . $event_id, 'tribe-clearfix' );
-		$tribe_cat_slugs = tribe_get_event_cat_slugs( $post->ID );
+		$tribe_cat_slugs = tribe_get_event_cat_slugs( $event_id );
 
 		foreach ( $tribe_cat_slugs as $tribe_cat_slug ) {
 			if ( ! empty( $tribe_cat_slug ) ) {

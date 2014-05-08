@@ -111,15 +111,8 @@ if( !class_exists( 'TribeEventsListWidget' ) ) {
 			
 			do_action( 'tribe_events_list_widget_after_the_title' );
 
-			if ( $posts ) {
-				
-				//Include widget view
-				include TribeEventsTemplates::getTemplateHierarchy( $template_name );				
-				
-			}
-			else {
-				echo '<p>' . __( 'There are no upcoming events at this time.', 'tribe-events-calendar' ) . '</p>';
-			}
+			//Include Template File			
+			include TribeEventsTemplates::getTemplateHierarchy( $template_name );	
 
       do_action( 'tribe_events_after_list_widget' );
 
