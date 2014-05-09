@@ -411,7 +411,8 @@ if ( class_exists( 'TribeEvents' ) ) {
 		$before = wptexturize( $before );
 		$before = convert_chars( $before );
 		$before = wpautop( $before );
-		$before = '<div class="tribe-events-before-html">'. stripslashes( shortcode_unautop( $before  ) ) .'</div>';
+		$before = do_shortcode( stripslashes( shortcode_unautop( $before ) ) );
+		$before = '<div class="tribe-events-before-html">' . $before . '</div>';
 		$before = $before.'<span class="tribe-events-ajax-loading"><img class="tribe-events-spinner-medium" src="'.tribe_events_resource_url('images/tribe-loading.gif').'" alt="'.__('Loading Events', 'tribe-events-calendar').'" /></span>';
 
 		echo apply_filters( 'tribe_events_before_html', $before );
@@ -429,7 +430,8 @@ if ( class_exists( 'TribeEvents' ) ) {
 		$after = wptexturize( $after );
 		$after = convert_chars( $after );
 		$after = wpautop( $after );
-		$after = '<div class="tribe-events-after-html">'. stripslashes( shortcode_unautop( $after ) ) .'</div>';
+		$after = do_shortcode( stripslashes( shortcode_unautop( $after ) ) );
+		$after = '<div class="tribe-events-after-html">' . $after . '</div>';
 
 		echo apply_filters( 'tribe_events_after_html', $after );
 	}
@@ -462,7 +464,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 		}
 
 		$classes         = array( 'hentry', 'vevent', 'type-tribe_events', 'post-' . $event_id, 'tribe-clearfix' );
-		$tribe_cat_slugs = tribe_get_event_cat_slugs( $post->ID );
+		$tribe_cat_slugs = tribe_get_event_cat_slugs( $event_id );
 
 		foreach ( $tribe_cat_slugs as $tribe_cat_slug ) {
 			if ( ! empty( $tribe_cat_slug ) ) {
