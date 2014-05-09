@@ -98,10 +98,6 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			require_once( 'lib/tribe-geoloc.class.php' );
 			require_once( 'lib/SingleEventMeta.php' );
 
-			//iCal
-			require_once ( 'lib/tribe-ical.class.php' );
-			TribeiCal::init();
-
 			if ( TribeEventsPro_SchemaUpdater::update_required() ) {
 				add_action( 'admin_init', array( 'TribeEventsPro_SchemaUpdater', 'init' ), 10, 0 );
 			}
@@ -215,10 +211,10 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		 * @return bool Whether related events should be shown in the single view
 		 */
 		public function show_related_events() {
-			if ( tribe_get_option('hideRelatedEvents', FALSE) == TRUE ) {
-				return FALSE;
+			if ( tribe_get_option('hideRelatedEvents', false) == true ) {
+				return false;
 			}
-			return TRUE;
+			return true;
 		}
 
 		/**
@@ -253,9 +249,9 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 
 		public function recurring_info_tooltip_status() {
 			if ( has_filter( 'tribe_events_event_schedule_details', array( $this, 'append_recurring_info_tooltip' ) ) ) {
-				return TRUE;
+				return true;
 			}
-			return FALSE;
+			return false;
 		}
 
 		/**
@@ -738,7 +734,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 				return '';
 			}
 			$right_now = current_time( 'timestamp' );
-			$next_recurrence = date_i18n( 'Y-m-d', strtotime(get_post_meta($id, '_EventStartDate', TRUE)));
+			$next_recurrence = date_i18n( 'Y-m-d', strtotime(get_post_meta($id, '_EventStartDate', true)));
 
 			return apply_filters( 'tribe_events_pro_get_last_recurrence', $next_recurrence, $event_list, $right_now );
 
@@ -805,7 +801,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		public static function array_insert_after_key( $key, $source_array, $insert_array ) {
 			if ( array_key_exists( $key, $source_array ) ) {
 				$position = array_search( $key, array_keys( $source_array ) ) + 1;
-				$source_array = array_slice($source_array, 0, $position, true) + $insert_array + array_slice($source_array, $position, NULL, true);
+				$source_array = array_slice($source_array, 0, $position, true) + $insert_array + array_slice($source_array, $position, null, true);
 			} else {
 				// If no key is found, then add it to the end of the array.
 				$source_array += $insert_array;
@@ -1491,6 +1487,36 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		}
 
 		/**
+		 * Enable "view post" links on metaposts
+		 *
+		 * @param $messages array
+		 * return array
+		 */
+		public function updatePostMessages ($messages) {
+			global $post, $post_ID;
+
+			$messages[TribeEvents::VENUE_POST_TYPE][1] = sprintf( __('Venue updated. <a href="%s">View venue</a>', 'tribe-events-calendar-pro'), esc_url( get_permalink($post_ID) ) );
+				/* translators: %s: date and time of the revision */
+			$messages[TribeEvents::VENUE_POST_TYPE][6] = sprintf( __('Venue published. <a href="%s">View venue</a>', 'tribe-events-calendar-pro'), esc_url( get_permalink($post_ID) ) );
+			$messages[TribeEvents::VENUE_POST_TYPE][8] = sprintf( __('Venue submitted. <a target="_blank" href="%s">Preview venue</a>', 'tribe-events-calendar-pro'), esc_url( add_query_arg( 'preview', 'true', get_permalink($post_ID) ) ) );
+			$messages[TribeEvents::VENUE_POST_TYPE][9] = sprintf( __('Venue scheduled for: <strong>%1$s</strong>. <a target="_blank" href="%2$s">Preview venue</a>', 'tribe-events-calendar-pro'),
+					// translators: Publish box date format, see http://php.net/date
+					date_i18n( __( 'M j, Y @ G:i' , 'tribe-events-calendar-pro'), strtotime( $post->post_date ) ), esc_url( get_permalink($post_ID) ) );
+			$messages[TribeEvents::VENUE_POST_TYPE][10] = sprintf( __('Venue draft updated. <a target="_blank" href="%s">Preview venue</a>', 'tribe-events-calendar-pro'), esc_url( add_query_arg( 'preview', 'true', get_permalink($post_ID) ) ) );
+
+			$messages[TribeEvents::ORGANIZER_POST_TYPE][1] = sprintf( __('Organizer updated. <a href="%s">View organizer</a>', 'tribe-events-calendar'), esc_url( get_permalink($post_ID) ) );
+			$messages[TribeEvents::ORGANIZER_POST_TYPE][6] = sprintf( __('Organizer published. <a href="%s">View organizer</a>', 'tribe-events-calendar'), esc_url( get_permalink($post_ID) ) );
+			$messages[TribeEvents::ORGANIZER_POST_TYPE][8] = sprintf( __('Organizer submitted. <a target="_blank" href="%s">Preview organizer</a>', 'tribe-events-calendar'), esc_url( add_query_arg( 'preview', 'true', get_permalink($post_ID) ) ) );
+			$messages[TribeEvents::ORGANIZER_POST_TYPE][9] = sprintf( __('Organizer scheduled for: <strong>%1$s</strong>. <a target="_blank" href="%2$s">Preview organizer</a>', 'tribe-events-calendar'),
+					// translators: Publish box date format, see http://php.net/date
+					date_i18n( __( 'M j, Y @ G:i' , 'tribe-events-calendar'), strtotime( $post->post_date ) ), esc_url( get_permalink($post_ID) ) );
+			$messages[TribeEvents::ORGANIZER_POST_TYPE][10] = sprintf( __('Organizer draft updated. <a target="_blank" href="%s">Preview organizer</a>', 'tribe-events-calendar'), esc_url( add_query_arg( 'preview', 'true', get_permalink($post_ID) ) ) );
+
+			return $messages;
+
+		}
+
+		/**
 		 * Includes and handles registration/de-registration of the advanced list widget. Idea from John Gadbois.
 		 *
 		 * @return void
@@ -1807,7 +1833,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			 * @author Jessica Yazbek
 			 **/
 			function tribe_is_recurring_event() {
-				return FALSE;
+				return false;
 			}
 		}
 		if ( !class_exists( 'TribeEvents' ) ) {
