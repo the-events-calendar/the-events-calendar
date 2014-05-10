@@ -370,8 +370,8 @@ class TribeEventsRecurrenceMeta {
 	 */
 	public static function updateRecurrenceMeta($event_id, $data) {
 		// save recurrence
-		if ( isset($data['recurrence']) ){
-			$current = get_post_meta( $event_id, '_EventRecurrence', TRUE );
+		$current = get_post_meta( $event_id, '_EventRecurrence', TRUE );
+		if ( !empty($data['recurrence']) ){
 			$recurrence_meta = wp_parse_args($data['recurrence'], $current);
 			// for an update when the event start/end dates change
 			$recurrence_meta['EventStartDate'] = $data['EventStartDate'];
@@ -380,7 +380,7 @@ class TribeEventsRecurrenceMeta {
 			$recurrence_meta = null;
 		}
 
-		if( TribeEventsRecurrenceMeta::isRecurrenceValid( $event_id, $recurrence_meta ) ) {
+		if( !empty($current) || TribeEventsRecurrenceMeta::isRecurrenceValid( $event_id, $recurrence_meta ) ) {
 			$updated = update_post_meta($event_id, '_EventRecurrence', $recurrence_meta);
 			TribeEventsRecurrenceMeta::saveEvents($event_id, $updated);
 		}

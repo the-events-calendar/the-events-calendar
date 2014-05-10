@@ -602,5 +602,36 @@ class Tribe_Recurring_Event_Test extends WP_UnitTestCase {
 
 		wp_set_current_user( $old_current_user );
 	}
+
+	public function test_remove_recurrence() {
+		$start_date = date('Y-m-d', strtotime('2014-05-01'));
+		$event_args = array(
+			'post_type' => TribeEvents::POSTTYPE,
+			'post_title' => __CLASS__,
+			'post_content' => __FUNCTION__,
+			'post_status' => 'publish',
+			'EventStartDate' => $start_date,
+			'EventEndDate' => $start_date,
+			'EventStartHour' => 16,
+			'EventEndHour' => 17,
+			'EventStartMinute' => 0,
+			'EventEndMinute' => 0,
+			'recurrence' => array(
+				'end-type' => 'After',
+				'end-count' => 5,
+				'type' => 'Every Day',
+			)
+		);
+		$post_id = TribeEventsAPI::createEvent($event_args);
+
+		$original_dates = tribe_get_recurrence_start_dates($post_id);
+		$this->assertCount(5, $original_dates);
+
+		$event_args['recurrence'] = array();
+		TribeEventsApi::updateEvent($post_id, $event_args);
+
+		$new_dates = tribe_get_recurrence_start_dates($post_id);
+		$this->assertCount(1, $new_dates);
+	}
 }
  
