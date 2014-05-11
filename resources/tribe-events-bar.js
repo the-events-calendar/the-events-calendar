@@ -90,9 +90,10 @@ var tribe_events_bar_action;
 
                     if(url_date)
                         $tribedate.val(tribeDateFormat(url_date, ts.datepicker_format));
+                    else if(ts.view === 'day' && $tribedate.val().length !== 0) {
+                        $tribedate.val(tribeDateFormat($tribedate.val(), ts.datepicker_format));
+                    }
                 }
-
-
 
 				dbug && debug.info('TEC Debug: bootstrapDatepicker was just initialized in "tribe-events-bar.js" on:', $tribedate);
 
