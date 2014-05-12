@@ -35,7 +35,7 @@ if( class_exists( 'TribeEvents' ) ) {
 		} else {
 			$return = true;
 		}
-		return apply_filters('tribe_is_new_event_day', $return);
+		return apply_filters( 'tribe_is_new_event_day', $return );
 	}
 
 	/**

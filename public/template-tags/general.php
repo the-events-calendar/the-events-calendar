@@ -1008,6 +1008,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 		$image_src = '';
 		$image_tool_src = '';
 
+		// @TODO use tribe_events_event_schedule_details()
 		$date_format = tribe_get_date_format( true );
 		$time_format = get_option( 'time_format', TribeDateUtils::TIMEFORMAT );
 
