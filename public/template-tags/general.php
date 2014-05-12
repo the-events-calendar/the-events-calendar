@@ -55,11 +55,12 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 *
 	 * @param string $slug
 	 * @param null|string $name
+	 * @param array $data optional array of vars to inject into the template part
 	 * @uses TribeEventsTemplates::getTemplateHierarchy
 	 * @author Jessica Yazbek
 	 * @since 3.0
 	 **/
-	function tribe_get_template_part( $slug, $name = null ) {
+	function tribe_get_template_part( $slug, $name = null, array $data = null ) {
 
 		// Execute code for this part
 		do_action( 'tribe_pre_get_template_part_' . $slug, $slug, $name );
@@ -73,6 +74,8 @@ if ( class_exists( 'TribeEvents' ) ) {
 		// Allow template parts to be filtered
 		$templates = apply_filters( 'tribe_get_template_part_templates', $templates, $slug, $name );
 
+		// Make any provided variables available in the template's symbol table
+		if ( is_array( $data ) ) extract( $data );
 
 		// loop through templates, return first one found.
 		foreach( $templates as $template ) {
@@ -461,7 +464,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 		}
 
 		$classes         = array( 'hentry', 'vevent', 'type-tribe_events', 'post-' . $event_id, 'tribe-clearfix' );
-		$tribe_cat_slugs = tribe_get_event_cat_slugs( $post->ID );
+		$tribe_cat_slugs = tribe_get_event_cat_slugs( $event_id );
 
 		foreach ( $tribe_cat_slugs as $tribe_cat_slug ) {
 			if ( ! empty( $tribe_cat_slug ) ) {
