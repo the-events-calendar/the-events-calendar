@@ -102,18 +102,24 @@ if( class_exists( 'TribeEvents' ) ) {
 	 */
 	function tribe_event_format_date($date, $displayTime = true,  $dateFormat = '')  {
 
+		if ( ! TribeDateUtils::isTimestamp( $date ) ) {
+			$date = strtotime( $date );
+		}
+
 		if ( $dateFormat ) {
 			$format = $dateFormat;
 		} else {
-			if ( $displayTime ) {
-				$format = tribe_get_datetime_format( true );
-			} else {
-				$format = tribe_get_date_format( true );
-			}
-		}
+			$date_year = date( 'Y', $date );
+			$cur_year = date( 'Y', current_time( 'timestamp' ) );
 
-		if ( ! TribeDateUtils::isTimestamp( $date ) ) {
-			$date = strtotime( $date );
+			// only show the year in the date if it's not in the current year
+			$with_year = $date_year == $cur_year ? false : true;
+
+			if ( $displayTime ) {
+				$format = tribe_get_datetime_format( $with_year );
+			} else {
+				$format = tribe_get_date_format( $with_year );
+			}
 		}
 
 		$date = date_i18n( $format, $date );
