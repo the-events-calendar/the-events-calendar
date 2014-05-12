@@ -1040,8 +1040,8 @@ Date.prototype.format = function (mask, utc) {
 		cur_url: tribe_ev.fn.url_path(document.URL),
 		cur_date: tribe_ev.fn.current_date(),
         datepicker_formats: {
-            default:['yyyy-mm-dd','m/d/yyyy','mm/dd/yyyy','d/m/yyyy','dd/mm/yyyy','m-d-yyyy','mm-dd-yyyy','d-m-yyyy','dd-mm-yyyy'],
-            month:['yyyy-mm','m/yyyy','mm/yyyy','m/yyyy','mm/yyyy','m-yyyy','mm-yyyy','m-yyyy','mm-yyyy']
+            'main':['yyyy-mm-dd','m/d/yyyy','mm/dd/yyyy','d/m/yyyy','dd/mm/yyyy','m-d-yyyy','mm-dd-yyyy','d-m-yyyy','dd-mm-yyyy'],
+            'month':['yyyy-mm','m/yyyy','mm/yyyy','m/yyyy','mm/yyyy','m-yyyy','mm-yyyy','m-yyyy','mm-yyyy']
         },
 		datepicker_opts: {},
 		initial_url: tribe_ev.fn.url_path(document.URL),

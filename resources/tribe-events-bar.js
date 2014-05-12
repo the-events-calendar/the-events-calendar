@@ -81,7 +81,7 @@ var tribe_events_bar_action;
 
                     // we are not using the default query date format, lets grab it from the data array
 
-                    date_format = td.datepicker_formats.default[ts.datepicker_format];
+                    date_format = td.datepicker_formats.main[ts.datepicker_format];
 
                     var url_date = tf.get_url_param('tribe-bar-date');
 
