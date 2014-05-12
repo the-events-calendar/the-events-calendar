@@ -85,7 +85,7 @@
 			else
 				td.cur_url = $this.attr("href");
             if(ts.datepicker_format !== '0')
-                tf.update_picker(tribeDateFormat(ts.date, td.datepicker_formats.default[ts.datepicker_format]));
+                tf.update_picker(tribeDateFormat(ts.date, td.datepicker_formats.main[ts.datepicker_format]));
             else
                 tf.update_picker(ts.date);
 			tf.pre_ajax(function () {

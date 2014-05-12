@@ -75,7 +75,7 @@
 
             // we are not using the default query date format, lets grab it from the data array
 
-            date_format = td.datepicker_formats.default[ts.datepicker_format];
+            date_format = td.datepicker_formats.main[ts.datepicker_format];
 
             var url_date = tf.get_url_param('tribe-bar-date');
 
@@ -387,7 +387,7 @@
                 ts.date = $this.attr("data-week");
 				td.cur_url = $this.attr("href");
                 if(ts.datepicker_format !== '0')
-                    tf.update_picker(tribeDateFormat(ts.date, td.datepicker_formats.default[ts.datepicker_format]));
+                    tf.update_picker(tribeDateFormat(ts.date, td.datepicker_formats.main[ts.datepicker_format]));
                 else
 				    tf.update_picker(ts.date);
 				tf.pre_ajax(function () {
