@@ -38,19 +38,16 @@ class TribeEventsAdvancedListWidget extends TribeEventsListWidget {
 		$ecp = TribeEventsPro::instance();
 		$tooltip_status = $ecp->recurring_info_tooltip_status();
 		$ecp->disable_recurring_info_tooltip();
+		$this->instance_defaults( $instance );
 
 		// @todo remove after 3.7 (continuity helper for upgrading users)
-		if ( isset( $instance['category'] ) ) $this->include_cat_id( $instance['filters'], $instance['category'] );
+		if ( isset( $this->instance['category'] ) ) $this->include_cat_id( $this->instance['filters'], $this->instance['category'] );
 
-		// Make the instance data available to our taxonomy_filters callback
-		$this->instance = $instance;
-
-		// Use parent's output function with the premium template.
-		self::$params = $instance;
-		$output = parent::widget_output( $args, $instance, 'pro/widgets/list-widget' );
+		// Use parent's output function with the premium template (static member needed for compat with parent class in core)
+		self::$params = $this->instance;
 
 		if ( $tooltip_status ) $ecp->enable_recurring_info_tooltip();
-		return $output;
+		parent::widget_output( $args, $this->instance, 'pro/widgets/list-widget' );
 	}
 
 	public function update( $new_instance, $old_instance ) {
@@ -69,14 +66,29 @@ class TribeEventsAdvancedListWidget extends TribeEventsListWidget {
 		$instance['filters']   = maybe_unserialize( $new_instance['filters'] );
 
 		// @todo remove after 3.7 (added for continuity when users transition from 3.5.x or earlier to this release)
-		if ( isset( $old_instance['category'] ) )
-			$this->include_cat_id( $instance['filters'], $old_instance['category'] );
+		if ( isset( $old_instance['category'] ) ) {
+			$this->include_cat_id($instance['filters'], $old_instance['category']);
+			unset( $instance['category'] );
+		}
 
 		return $instance;
 	}
 
 	public function form( $instance ) {
-		$instance = wp_parse_args( (array) $instance, array(
+		$this->instance_defaults( $instance );
+
+		// @todo remove after 3.7
+		$this->include_cat_id( $this->instance['filters'], $this->instance['category'] );
+
+		$taxonomies = get_object_taxonomies( TribeEvents::POSTTYPE, 'objects' );
+		$taxonomies = array_reverse( $taxonomies );
+
+		$instance = $this->instance;
+		include( TribeEventsPro::instance()->pluginPath . 'admin-views/widget-admin-advanced-list.php' );
+	}
+
+	protected function instance_defaults( $instance ) {
+		$this->instance = wp_parse_args( (array) $instance, array(
 			'title' => __( 'Upcoming Events', 'tribe-events-calendar-pro' ),
 			'limit' => '5',
 			'no_upcoming_events' => false,
@@ -91,16 +103,8 @@ class TribeEventsAdvancedListWidget extends TribeEventsListWidget {
 			'category' => false, // @todo remove this element after 3.7
 			'organizer' => false,
 			'operand' => 'OR',
-			'filters' => null
+			'filters' => ''
 		) );
-
-		// @todo remove after 3.7
-		$this->include_cat_id( $instance['filters'], $instance['category'] );
-
-		$taxonomies = get_object_taxonomies( TribeEvents::POSTTYPE, 'objects' );
-		$taxonomies = array_reverse( $taxonomies );
-
-		include( TribeEventsPro::instance()->pluginPath . 'admin-views/widget-admin-advanced-list.php' );
 	}
 
 	/**
