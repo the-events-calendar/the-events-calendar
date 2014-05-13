@@ -26,7 +26,7 @@ class TribeEventsAdvancedListWidget extends TribeEventsListWidget {
 
 	public function taxonomy_filters( $query ) {
 		if ( empty( $this->instance ) ) return $query;
-		$tax_query = TribeEventsPro_Widgets::get_tax_query_from_widget_options( json_decode( $this->instance['filters'] ), $this->instance['operand'] );
+		$tax_query = TribeEventsPro_Widgets::form_tax_query( json_decode( $this->instance['filters'] ), $this->instance['operand'] );
 
 		if ( isset( $query['tax_query'] ) ) $query['tax_query'] = array_merge( $query['tax_query'], $tax_query );
 		else $query['tax_query'] = $tax_query;

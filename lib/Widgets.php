@@ -8,7 +8,7 @@ class TribeEventsPro_Widgets {
 	 * @param $operand
 	 * @return array|null
 	 */
-	public static function get_tax_query_from_widget_options( $filters, $operand ) {
+	public static function form_tax_query( $filters, $operand ) {
 		if ( empty( $filters ) ) return null;
 
 		$tax_query = array();
