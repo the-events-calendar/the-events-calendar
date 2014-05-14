@@ -13,9 +13,13 @@ class TribeiCal {
 		add_filter( 'tribe_events_after_footer',                   array( __CLASS__, 'maybe_add_link'     ), 10, 1 );
 		add_action( 'tribe_events_single_event_after_the_content', array( __CLASS__, 'single_event_links' )        );
 		add_action( 'tribe_tec_template_chooser',                  array( __CLASS__, 'do_ical_template'   )        );
+		add_filter( 'tribe_get_ical_link', 						   array( __CLASS__, 'day_view_ical_link' ), 20, 1 );
 		add_action( 'wp_head',                                     array( __CLASS__, 'set_feed_link'      ), 2,  0 );
 	}
 
+	/**
+	 * outputs a <link> element for the ical feed
+	 */
 	public static function set_feed_link() {
 		if ( !current_theme_supports('automatic-feed-links') ) {
 			return;
@@ -29,20 +33,29 @@ class TribeiCal {
 
 	/**
 	 * Returns the url for the iCal generator for lists of posts
-	 *
-	 * @param $protocol bool|string any alternative protocol for the link, false to leave it unchanged
 	 * @static
 	 * @return string
 	 */
-	public static function get_ical_link( $protocol = false ) {
-		$tec       = TribeEvents::instance();
-		$ical_link = trailingslashit( $tec->getLink( 'home' ) ) . '?ical=1';
-		if ( is_string( $protocol ) ) {
-			$scheme    = parse_url( $ical_link, PHP_URL_SCHEME );
-			$ical_link = str_replace( "$scheme://", "$protocol://", $ical_link );
-		}
+	public static function get_ical_link() {
+		$tec = TribeEvents::instance();
+		return trailingslashit( $tec->getLink( 'home' ) ) . '?ical=1';
+	}
 
-		return $ical_link;
+
+	/**
+	 * Make sure ical link has the date in the URL instead of "today" on day view
+	 *
+	 * @param $link
+	 *
+	 * @return string
+	 */
+	public static function day_view_ical_link( $link ){
+		if ( tribe_is_day() ) {
+			global $wp_query;
+			$day = $wp_query->get('start_date');
+			$link = trailingslashit( esc_url(trailingslashit( tribe_get_day_link( $day ) ) . '?ical=1' ) );
+		}
+		return $link;
 	}
 
 	/**
@@ -59,8 +72,8 @@ class TribeiCal {
 		}
 
 		echo '<div class="tribe-events-cal-links">';
-			echo '<a class="tribe-events-gcal tribe-events-button" target="_blank" href="' . tribe_get_gcal_link() . '" title="' . __( 'Add to Google Calendar', 'tribe-events-calendar-pro' ) . '">+ ' . __( 'Google Calendar', 'tribe-events-calendar-pro' ) . '</a>';
-		echo '<a class="tribe-events-ical tribe-events-button" target="_blank" href="' . tribe_get_single_ical_link() . '">+ ' . __( 'iCal Import', 'tribe-events-calendar-pro' ) . '</a>';
+		echo '<a class="tribe-events-gcal tribe-events-button" href="' . tribe_get_gcal_link() . '" title="' . __( 'Add to Google Calendar', 'tribe-events-calendar-pro' ) . '">+ ' . __( 'Google Calendar', 'tribe-events-calendar-pro' ) . '</a>';
+		echo '<a class="tribe-events-ical tribe-events-button" href="' . tribe_get_single_ical_link() . '">+ ' . __( 'iCal Import', 'tribe-events-calendar-pro' ) . '</a>';
 		echo '</div><!-- .tribe-events-cal-links -->';
 	}
 
@@ -110,8 +123,7 @@ class TribeiCal {
 				break;
 		}
 
-		$ical = '<a class="tribe-events-ical tribe-events-button" target="_blank" title="' . __( 'Import is filter/view sensitive', 'tribe-events-calendar-pro' ) . '" href="' . tribe_get_ical_link() . '">+ ' . __( 'iCal Import', 'tribe-events-calendar-pro' ) . ' ' . $modifier . '</a>';
-		$ical .= '<a class="tribe-events-ical tribe-events-button" target="_blank" title="' . __( 'Subscribe is filter/view sensitive', 'tribe-events-calendar-pro' ) . '" href="' . tribe_get_ical_link( 'webcal' ) . '">+ ' . __( 'iCal Subscribe', 'tribe-events-calendar-pro' ) . ' ' . $modifier . '</a>';
+		$ical    = '<a class="tribe-events-ical tribe-events-button" title="' . __( 'Import is filter/view sensitive', 'tribe-events-calendar-pro' ) . '" href="' . tribe_get_ical_link() . '">+ ' . __( 'iCal Import', 'tribe-events-calendar-pro' ) . ' ' . $modifier . '</a>';
 		echo $ical;
 
 		return $content;
