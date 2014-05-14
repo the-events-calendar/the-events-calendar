@@ -57,7 +57,7 @@ if (!class_exists('TribeEventsAdminList')) {
 				return $fields;
 			}
 			global $wpdb;
-			$fields .= ", {$wpdb->postmeta}.meta_value as EventStartDate, eventEnd.meta_value as EventEndDate ";
+			$fields .= ", eventStart.meta_value as EventStartDate, eventEnd.meta_value as EventEndDate ";
 			return $fields;
 		}
 
@@ -75,8 +75,8 @@ if (!class_exists('TribeEventsAdminList')) {
 				return $join;
 			}
 
-			$join .= " LEFT JOIN {$wpdb->postmeta} ON {$wpdb->posts}.ID = {$wpdb->postmeta}.post_id AND ({$wpdb->postmeta}.meta_key = '_EventStartDate' or {$wpdb->postmeta}.meta_key is null) ";
-			$join .= " LEFT JOIN {$wpdb->postmeta} as eventEnd ON( {$wpdb->posts}.ID = eventEnd.post_id AND eventEnd.meta_key = '_EventEndDate') ";
+			$join .= " LEFT JOIN {$wpdb->postmeta} as eventStart ON ( {$wpdb->posts}.ID = eventStart.post_id AND eventStart.meta_key = '_EventStartDate' ) ";
+			$join .= " LEFT JOIN {$wpdb->postmeta} as eventEnd ON ( {$wpdb->posts}.ID = eventEnd.post_id AND eventEnd.meta_key = '_EventEndDate' ) ";
 
 			return $join;
 		}
@@ -113,11 +113,12 @@ if (!class_exists('TribeEventsAdminList')) {
 			$endDateSQL = " eventEnd.meta_value ";
 			$order = $query->get('order') ? $query->get('order') : 'asc';
 			$orderby = $query->get('orderby') ? $query->get('orderby') : 'start-date';
+			if ( $orderby == 'event_date' ) { $orderby = 'start-date'; };
 		
 			if ($orderby == 'start-date') {
-				$orderby_sql = " {$wpdb->postmeta}.meta_value " . $order . ', ' . $endDateSQL . $order;
+				$orderby_sql = " eventStart.meta_value " . $order . ', ' . $endDateSQL . $order;
 			} else if ($orderby == 'end-date') {
-				$orderby_sql = $endDateSQL . $order . ", {$wpdb->postmeta}.meta_value " . $order;
+				$orderby_sql = $endDateSQL . $order . ", eventStart.meta_value " . $order;
 			}
 
 			return $orderby_sql;

@@ -69,9 +69,8 @@ if ( !class_exists( 'TribeSettingsTab' ) ) {
 				$this->{$key} = apply_filters( 'tribe_settings_tab_'.$key, $$key, $id );
 			}
 
-
 			// run actions & filters
-			if ( !$network_admin ) {
+			if ( ! $network_admin ) {
 				add_filter( 'tribe_settings_all_tabs', array( $this, 'addAllTabs' ) );
 			}
 			add_filter( 'tribe_settings_tabs', array( $this, 'addTab' ), $priority );
@@ -91,7 +90,7 @@ if ( !class_exists( 'TribeSettingsTab' ) ) {
 		public function addTab( $tabs ) {
 			$hideSettingsTabs = TribeEvents::instance()->getNetworkOption( 'hideSettingsTabs', array( ) );
 			if ( ( isset( $this->fields ) || has_action( 'tribe_settings_content_tab_' . $this->id ) ) && ( empty( $hideSettingsTabs ) || !in_array( $this->id, $hideSettingsTabs ) ) ) {
-				if ( ( is_network_admin() && $this->args['network_admin'] ) || ( !is_network_admin() && !$this->args['network_admin'] ) ) {
+				if ( ( is_network_admin() && $this->args['network_admin'] ) || ( ! is_network_admin() && ! $this->args['network_admin'] ) ) {
 					$tabs[$this->id] = $this->name;
 					add_filter( 'tribe_settings_fields', array( $this, 'addFields' ) );
 					add_filter( 'tribe_settings_no_save_tabs', array( $this, 'showSaveTab' ) );

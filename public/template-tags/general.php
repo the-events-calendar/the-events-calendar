@@ -55,11 +55,12 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 *
 	 * @param string $slug
 	 * @param null|string $name
+	 * @param array $data optional array of vars to inject into the template part
 	 * @uses TribeEventsTemplates::getTemplateHierarchy
 	 * @author Jessica Yazbek
 	 * @since 3.0
 	 **/
-	function tribe_get_template_part( $slug, $name = null ) {
+	function tribe_get_template_part( $slug, $name = null, array $data = null ) {
 
 		// Execute code for this part
 		do_action( 'tribe_pre_get_template_part_' . $slug, $slug, $name );
@@ -73,6 +74,8 @@ if ( class_exists( 'TribeEvents' ) ) {
 		// Allow template parts to be filtered
 		$templates = apply_filters( 'tribe_get_template_part_templates', $templates, $slug, $name );
 
+		// Make any provided variables available in the template's symbol table
+		if ( is_array( $data ) ) extract( $data );
 
 		// loop through templates, return first one found.
 		foreach( $templates as $template ) {
@@ -166,6 +169,9 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 * @since 2.0
 	 */
 	function tribe_get_events( $args = array(), $full = false ) {
+		if ( empty ( $args['eventDisplay'] ) ) {
+			$args['eventDisplay'] = 'custom';
+		}
 		return apply_filters( 'tribe_get_events', TribeEventsQuery::getEvents( $args, $full ), $args, $full );
 	}
 
@@ -405,7 +411,8 @@ if ( class_exists( 'TribeEvents' ) ) {
 		$before = wptexturize( $before );
 		$before = convert_chars( $before );
 		$before = wpautop( $before );
-		$before = '<div class="tribe-events-before-html">'. stripslashes( shortcode_unautop( $before  ) ) .'</div>';
+		$before = do_shortcode( stripslashes( shortcode_unautop( $before ) ) );
+		$before = '<div class="tribe-events-before-html">' . $before . '</div>';
 		$before = $before.'<span class="tribe-events-ajax-loading"><img class="tribe-events-spinner-medium" src="'.tribe_events_resource_url('images/tribe-loading.gif').'" alt="'.__('Loading Events', 'tribe-events-calendar').'" /></span>';
 
 		echo apply_filters( 'tribe_events_before_html', $before );
@@ -423,7 +430,8 @@ if ( class_exists( 'TribeEvents' ) ) {
 		$after = wptexturize( $after );
 		$after = convert_chars( $after );
 		$after = wpautop( $after );
-		$after = '<div class="tribe-events-after-html">'. stripslashes( shortcode_unautop( $after ) ) .'</div>';
+		$after = do_shortcode( stripslashes( shortcode_unautop( $after ) ) );
+		$after = '<div class="tribe-events-after-html">' . $after . '</div>';
 
 		echo apply_filters( 'tribe_events_after_html', $after );
 	}
@@ -780,15 +788,20 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 * @since  3.0
 	 * @param int     $post_id
 	 * @param string  $size
+	 * @param bool $link
 	 * @return string
 	 */
-	function tribe_event_featured_image( $post_id = null, $size = 'full' ) {
+	function tribe_event_featured_image( $post_id = null, $size = 'full', $link = true ) {
 		if ( is_null( $post_id ) )
 			$post_id = get_the_ID();
 		$image_src = wp_get_attachment_image_src( get_post_thumbnail_id( $post_id ), $size );
 		$featured_image = '';
-		if ( !empty( $image_src ) ) {
+		
+		//if link is not specifically excluded, then include <a>
+		if ( !empty( $image_src ) && $link ) {
 			$featured_image .= '<div class="tribe-events-event-image"><a href="'. tribe_get_event_link() .'" title="'. get_the_title( $post_id ) .'"><img src="'.  $image_src[0] .'" title="'. get_the_title( $post_id ) .'" /></a></div>';
+		} elseif ( !empty( $image_src ) ) {
+			$featured_image .= '<div class="tribe-events-event-image"><img src="'.  $image_src[0] .'" title="'. get_the_title( $post_id ) .'" /></div>';
 		}
 		return apply_filters( 'tribe_event_featured_image', $featured_image, $post_id, $size, $image_src );
 	}

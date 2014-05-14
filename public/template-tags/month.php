@@ -47,6 +47,8 @@ if( class_exists( 'TribeEvents' ) ) {
 
 		do_action('tribe_events_after_show_month');
 
+		$month_class->shutdown_view();
+
 		// reinstate the tribe bar params
 		if ( ! empty( $hold_tribe_bar_args ) ) {
 			foreach ( $hold_tribe_bar_args as $key => $value ) {
@@ -226,12 +228,13 @@ if( class_exists( 'TribeEvents' ) ) {
 		global $wp_query;
 
 		$date = date_i18n( TribeDateUtils::DBDATEFORMAT, strtotime( date( 'Y-m-01', current_time( 'timestamp' ) ) ) );
-		if ( isset( $_REQUEST["eventDate"] ) && $_REQUEST["eventDate"] ) {
+		if ( ! empty( $_REQUEST['tribe-bar-date'] ) ) {
+			$date = $_REQUEST["tribe-bar-date"] . '-01';
+		} else if ( isset( $_REQUEST["eventDate"] ) && $_REQUEST["eventDate"] ) {
 			$date = $_REQUEST["eventDate"] . '-01';
 		} else if ( !empty( $wp_query->query_vars['eventDate'] ) ) {
-			$date = $wp_query->query_vars['eventDate'];
+			$date = $wp_query->query_vars['eventDate'].'-01';
 		}
-
 		return apply_filters( 'tribe_get_month_view_date', $date );
 	}
 

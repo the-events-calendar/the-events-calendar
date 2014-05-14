@@ -71,10 +71,7 @@ if( !class_exists( 'TribeEventsListWidget' ) ) {
 			$title = apply_filters( 'widget_title', $title );
 			if ( ! isset( $category ) || $category === '-1' ) {
 				$category = 0;
-			}
-
-	        // Link to the main events page (should work even if month/list views are disabled)
-	        $event_url = tribe_get_events_link();
+			}			
 
 			if ( function_exists( 'tribe_get_events' ) ) {
 
@@ -114,27 +111,8 @@ if( !class_exists( 'TribeEventsListWidget' ) ) {
 			
 			do_action( 'tribe_events_list_widget_after_the_title' );
 
-			if ( $posts ) {
-				/* Display list of events. */
-				echo '<ol class="hfeed vcalendar">';
-				foreach( $posts as $post ) :
-					setup_postdata( $post );
-					tribe_get_template_part( $template_name );
-				endforeach;
-				echo "</ol><!-- .hfeed -->";
-
-				/* Display link to all events */
-				echo '<p class="tribe-events-widget-link"><a href="' . $event_url . '" rel="bookmark">';
-				if ( empty( $category ) ) {
-					_e( 'View All Events', 'tribe-events-calendar' );
-				} else {
-					_e( 'View All Events in Category', 'tribe-events-calendar' );
-				}
-				echo '</a></p>';
-			}
-			else {
-				echo '<p>' . __( 'There are no upcoming events at this time.', 'tribe-events-calendar' ) . '</p>';
-			}
+			//Include Template File			
+			include TribeEventsTemplates::getTemplateHierarchy( $template_name );	
 
       do_action( 'tribe_events_after_list_widget' );
 

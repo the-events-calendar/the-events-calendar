@@ -60,6 +60,8 @@ if (!class_exists('TribeEventsTemplates')) {
 
 			add_action( 'wp_head', array( __CLASS__, 'wpHeadFinished' ), 999 );
 
+			add_filter( 'get_post_time', array(__CLASS__, 'event_date_to_pubDate'), 10 , 3 );
+
 		}
 
 		/**
@@ -620,6 +622,24 @@ if (!class_exists('TribeEventsTemplates')) {
 			return $located;
 		}
 
+		/**
+		 * convert the post_date_gmt to the event date for feeds
+		 *
+		 * @param $time the post_date
+		 * @param $d the date format to return
+		 * @param $gmt whether this is a gmt time
+		 *
+		 * @return int|string
+		 */
+		public static function event_date_to_pubDate($time, $d, $gmt) {
+			global $post;
+			if ( $post->post_type == TribeEvents::POSTTYPE && is_feed() && $gmt ) {
+				$time = tribe_get_start_date( $post->ID, false, $d );
+				$time = mysql2date( $d, $time );
+			}
+			return $time;
+		}
+
 
 		/**
 		 * Query is complete.
@@ -678,7 +698,7 @@ if (!class_exists('TribeEventsTemplates')) {
 		public static function maybeSpoofQuery() {
 
 			// hijack this method right up front if it's a password protected post and the password isn't entered
-			if ( is_single() && post_password_required() ) {
+			if ( is_single() && post_password_required() || is_feed() ) {
 				return;
 			}
 

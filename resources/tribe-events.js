@@ -923,26 +923,27 @@ try {
 	 * @desc tribe_ev.state is mainly used in events ajax operations, though a few variables are set on doc ready.
 	 */
 
-	tribe_ev.state = {
-		ajax_running: false,
-		ajax_timer: 0,
-		category: '',
-		date: '',
-		do_string: false,
-		filters: false,
-		filter_cats: false,
-		initial_load: true,
-		paged: 1,
-		page_title: '',
-		params: {},
-		popping: false,
-		pushstate: true,
-		pushcount: 0,
-		recurrence: false,
-		url_params: {},
-		view: '',
-		view_target: ''
-	};
+    tribe_ev.state = {
+        ajax_running: false,
+        ajax_timer  : 0,
+        ajax_trigger: '',
+        category    : '',
+        date        : '',
+        do_string   : false,
+        filters     : false,
+        filter_cats : false,
+        initial_load: true,
+        paged       : 1,
+        page_title  : '',
+        params      : {},
+        popping     : false,
+        pushstate   : true,
+        pushcount   : 0,
+        recurrence  : false,
+        url_params  : {},
+        view        : '',
+        view_target : ''
+    };
 
 })(window, document, jQuery, tribe_debug);
 
@@ -968,7 +969,6 @@ try {
 
 		var $body = $('body'),
 			$tribe_events = $('#tribe-events'),
-			$tribe_content = $('#tribe-events-content'),
 			$tribe_events_header = $('#tribe-events-header'),
 			resize_timer;
 

@@ -131,7 +131,7 @@ if(!class_exists('TribeDateUtils')) {
 	  	 * @return int The number of seconds between the dates.
 	  	 */
 		public static function timeBetween( $date1, $date2 ) {
-		 return abs(strtotime($date1) - strtotime($date2));
+			return abs(strtotime($date1) - strtotime($date2));
 		}
 
 		/**
