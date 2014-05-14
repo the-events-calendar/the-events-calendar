@@ -5,13 +5,15 @@
  * Creates a widget that displays the next upcoming x events
  */
 
-if ( !defined('ABSPATH') ) { die('-1'); }
+if ( ! defined( 'ABSPATH' ) ) { die('-1'); }
 if ( ! class_exists( 'TribeEventsAdvancedListWidget' ) ) return;
 
 class TribeEventsAdvancedListWidget extends TribeEventsListWidget {
-
-	static $params = array();
+	/**
+	 * @var array
+	 */
 	public $instance = array();
+
 
 	public function __construct() {
 		$widget_ops = array(
@@ -43,9 +45,6 @@ class TribeEventsAdvancedListWidget extends TribeEventsListWidget {
 		// @todo remove after 3.7 (continuity helper for upgrading users)
 		if ( isset( $this->instance['category'] ) ) $this->include_cat_id( $this->instance['filters'], $this->instance['category'] );
 
-		// Use parent's output function with the premium template (static member needed for compat with parent class in core)
-		self::$params = $this->instance;
-
 		if ( $tooltip_status ) $ecp->enable_recurring_info_tooltip();
 		parent::widget_output( $args, $this->instance, 'pro/widgets/list-widget' );
 	}
@@ -76,9 +75,7 @@ class TribeEventsAdvancedListWidget extends TribeEventsListWidget {
 
 	public function form( $instance ) {
 		$this->instance_defaults( $instance );
-
-		// @todo remove after 3.7
-		$this->include_cat_id( $this->instance['filters'], $this->instance['category'] );
+		$this->include_cat_id( $this->instance['filters'], $this->instance['category'] ); // @todo remove after 3.7
 
 		$taxonomies = get_object_taxonomies( TribeEvents::POSTTYPE, 'objects' );
 		$taxonomies = array_reverse( $taxonomies );

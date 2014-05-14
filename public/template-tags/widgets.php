@@ -119,9 +119,10 @@ function tribe_events_get_mini_calendar_args() {
 /**
  * Return arguments passed to advanced list widget
  *
+ * @deprecated 3.6
  * @return array
  * @author Jessica Yazbek
  **/
 function tribe_events_get_adv_list_widget_args() {
-	return apply_filters( 'tribe_events_get_adv_list_widget_args', TribeEventsAdvancedListWidget::$params );
+	return apply_filters( 'tribe_events_get_adv_list_widget_args', false );
 }
