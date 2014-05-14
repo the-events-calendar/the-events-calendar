@@ -2684,7 +2684,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			$preview_post_id = get_post_meta( $event_id, $meta_key, true );
 			$doing_preview   = $_REQUEST['wp-preview'] == 'dopreview' ? true : false;
 
-			if ( $_POST[$posttype][$posttype_id] == '0' ) {
+			if ( empty($_POST[$posttype][$posttype_id]) ) {
 				// the event is set to use a new metapost
 				if ( $doing_preview ) {
 					// we're previewing
