@@ -318,13 +318,6 @@ class Tribe_Filters {
 			$ours .= ' empty-result-set';
 		}
 
-		if( !empty( $wp_query->tribe_is_week ) ) {
-			$ours .= ' tribe-events-week';
-		}
-		if( !empty( $wp_query->tribe_is_day ) ) {
-			$ours .= ' tribe-events-day';
-		}
-
 		$classes = $ours . ' ' . trim($classes);
 		return trim($classes) . ' ';
 	}

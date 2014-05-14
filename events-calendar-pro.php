@@ -39,9 +39,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		public $pluginSlug;
 		public $licenseKey;
 		public $weekSlug = 'week';
-		public $daySlug = 'day';
 		public $photoSlug = 'photo';
-		public $todaySlug = 'today';
 		public static $updateUrl = 'http://tri.be/';
 		/** @var TribeEventsPro_RecurrencePermalinks */
 		public $permalink_editor = NULL;
@@ -67,8 +65,6 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 
 			$this->weekSlug = sanitize_title(__('week', 'tribe-events-calendar-pro'));
 			$this->photoSlug = sanitize_title(__('photo', 'tribe-events-calendar-pro'));
-			$this->daySlug = sanitize_title(__('day', 'tribe-events-calendar-pro'));
-			$this->todaySlug = sanitize_title(__('today', 'tribe-events-calendar-pro'));
 
 			require_once( 'lib/tribeeventspro-schemaupdater.php' );
 			require_once( 'lib/tribe-pro-template-factory.class.php' );
@@ -84,7 +80,6 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			require_once( 'lib/widget-countdown.class.php' );
 			require_once( 'lib/widget-calendar.class.php' );
 
-			require_once( 'lib/template-classes/day.php' );
 			require_once( 'lib/template-classes/map.php' );
 			require_once( 'lib/template-classes/photo.php' );
 			require_once( 'lib/template-classes/single-organizer.php' );
@@ -117,7 +112,6 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			add_action( 'tribe_settings_do_tabs', array( $this, 'add_settings_tabs' ) );
 			add_filter( 'tribe_settings_tab_fields', array( $this, 'filter_settings_tab_fields' ), 10, 2 );
 			add_filter( 'generate_rewrite_rules', array( $this, 'add_routes' ), 11 );
-			add_filter( 'tribe_events_buttons_the_buttons', array($this, 'add_view_buttons'));
 			add_action( 'tribe_events_parse_query', array( $this, 'parse_query'));
 			add_action( 'tribe_events_pre_get_posts', array( $this, 'pre_get_posts'));
 			add_filter( 'tribe_enable_recurring_event_queries', '__return_true', 10, 1 );
@@ -164,18 +158,11 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 
 			/* Setup Tribe Events Bar */
 			add_filter( 'tribe-events-bar-views', array( $this, 'setup_weekview_in_bar' ), 10, 1 );
-			add_filter( 'tribe-events-bar-views', array( $this, 'setup_dayview_in_bar' ), 15, 1 );
 			add_filter( 'tribe-events-bar-views', array( $this, 'setup_photoview_in_bar' ), 30, 1 );
 			add_filter( 'tribe_events_ugly_link', array( $this, 'ugly_link' ), 10, 3);
 			add_filter( 'tribe_events_getLink', array( $this, 'get_link' ), 10, 4 );
-			add_filter( 'tribe-events-bar-date-search-default-value', array( $this, 'maybe_setup_date_in_bar' ) );
 			add_filter( 'tribe_bar_datepicker_caption', array( $this, 'setup_datepicker_label' ), 10, 1 );
 			add_action( 'tribe_events_after_the_title', array( $this, 'add_recurring_occurance_setting_to_list' ) );
-			add_filter( 'tribe_get_day_link', array( $this, 'add_empty_date_dayview_link' ), 10, 2 );
-
-			/* AJAX for loading day view */
-			add_action( 'wp_ajax_tribe_event_day', array( $this, 'wp_ajax_tribe_event_day' ) );
-			add_action( 'wp_ajax_nopriv_tribe_event_day', array( $this, 'wp_ajax_tribe_event_day' ) );
 
 			/* AJAX for loading photo view */
 
@@ -183,7 +170,6 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			add_action( 'wp_ajax_nopriv_tribe_photo', array( $this, 'wp_ajax_tribe_photo' ) );
 
 			/* AJAX for loading week view */
-
 			add_action( 'wp_ajax_tribe_week', array( $this, 'wp_ajax_tribe_week' ) );
 			add_action( 'wp_ajax_nopriv_tribe_week', array( $this, 'wp_ajax_tribe_week' ) );
 
@@ -201,9 +187,6 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			// filter the query sql to get the recurrence end date
 			add_filter( 'tribe_events_query_posts_joins', array($this, 'posts_join'));
 			add_filter( 'tribe_events_query_posts_fields', array($this, 'posts_fields'));
-
-			// let day view enabled status happen naturally
-			remove_filter( 'tribe_events_is_view_enabled', array( TribeEvents::instance(), 'enable_day_view' ), 10, 2 );
 
 		}
 
@@ -332,9 +315,6 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 						$sep
 					);
 					break;
-				case 'day':
-					$new_title = __( 'Events for', 'tribe-events-calendar-pro' ) . ' ' .Date("l, F jS Y", strtotime($wp_query->get('start_date'))) . ' ' . $sep . ' ';
-					break;
 				case 'photo':
 				case 'map':
 					if( tribe_is_past() ) {
@@ -399,11 +379,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 					date_i18n( $date_format, strtotime( tribe_get_first_week_day($wp_query->get('start_date') ) ) )
 					);
 			}
-			// day view title
-			if( tribe_is_day() ) {
-				$reset_title = __( 'Events for', 'tribe-events-calendar-pro' ) . ' ' .
-					date_i18n( $date_format, strtotime( $wp_query->get('start_date') ) );
-			}
+
 			// map or photo view titles
 			if( tribe_is_map() || tribe_is_photo() ) {
 				if( tribe_is_past() ) {
@@ -547,62 +523,6 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 				echo json_encode( $response );
 				die();
 			}
-		}
-
-		/**
-		 * AJAX handler for tribe_event_day (dayview navigation)
-		 * This loads up the day view shard with all the appropriate events for the day
-		 *
-		 * @return void
-		 * @author Timothy Wood
-		 * @since 3.0
-		 */
-		function wp_ajax_tribe_event_day(){
-			if ( isset( $_POST["eventDate"] ) && $_POST["eventDate"] ) {
-
-				TribeEventsQuery::init();
-
-				$states[] = 'publish';
-				if ( 0 < get_current_user_id() ) $states[] = 'private';
-
-				$args = array(
-					'post_status' => $states,
-					'eventDate' => $_POST["eventDate"],
-					'eventDisplay' => 'day'
-				);
-
-				if ( isset( $_POST['tribe_event_category'] ) ) {
-					$args[TribeEvents::TAXONOMY] = $_POST['tribe_event_category'];
-				}
-
-				$query = TribeEventsQuery::getEvents( $args, true );
-
-				global $wp_query, $post;
-				$wp_query = $query;
-
-				if ( have_posts() ) {
-					the_post(); // TODO: why is this here?
-					rewind_posts(); // so we don't skip the first post when rendering
-				}
-
-				add_filter( 'tribe_is_day', '__return_true' ); // simplest way to declare that this is a day view
-
-				ob_start();
-				tribe_get_view( 'pro/day/content' );
-
-				$response = array(
-					'html'            => ob_get_clean(),
-					'success'         => true,
-					'total_count'     => $query->found_posts,
-					'view'            => 'day',
-				);
-				apply_filters( 'tribe_events_ajax_response', $response );
-
-				header( 'Content-type: application/json' );
-				echo json_encode( $response );
-				die();
-			}
-
 		}
 
 		/**
@@ -799,6 +719,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		 * @deprecated since 3.2, use TribeEvents::array_insert_after_key()
 		 */
 		public static function array_insert_after_key( $key, $source_array, $insert_array ) {
+			// @TODO return value from core TEC function
 			if ( array_key_exists( $key, $source_array ) ) {
 				$position = array_search( $key, array_keys( $source_array ) ) + 1;
 				$source_array = array_slice($source_array, 0, $position, true) + $insert_array + array_slice($source_array, $position, null, true);
@@ -956,11 +877,9 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 
 			$week_rules = $generator->get_week_rules($this->weekSlug);
 			$photo_rules = $generator->get_photo_rules($this->photoSlug);
-			$today_rules = $generator->get_today_rules($this->todaySlug);
-			$day_rules = $generator->get_day_rules($this->daySlug);
 			$tax_rules = $generator->get_taxonomy_rules();
 
-			$wp_rewrite->rules = $week_rules + $photo_rules + $today_rules + $day_rules + $tax_rules + $wp_rewrite->rules;
+			$wp_rewrite->rules = $week_rules + $photo_rules + $tax_rules + $wp_rewrite->rules;
 		}
 
 		private function get_rewrite_generator( WP_Rewrite $wp_rewrite ) {
@@ -982,38 +901,19 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		}
 
 		/**
-		 * Add the View Selection buttons for the custom PRO views.
-		 *
-		 * @param string $html The current view selector HTML.
-		 * @return string The modified view selector HTML.
-		 * @author Timothy Wood
-		 * @since 3.0
-		 */
-		public function add_view_buttons( $html ){
-			global $wp_query;
-			$day_class = ($wp_query->tribe_is_day) ? 'tribe-events-button-on' : 'tribe-events-button-off';
-			$week_class = ($wp_query->tribe_is_week) ? 'tribe-events-button-on' : 'tribe-events-button-off';
-			$html .= sprintf('<a class="%s" href="%s">%s</a><a class="%s" href="%s">%s</a>',
-				$day_class,
-				tribe_get_day_link(),
-				__( 'Day View', 'tribe-events-calendar-pro' ),
-				$week_class,
-				tribe_get_week_permalink(),
-				__( 'Week View', 'tribe-events-calendar-pro' )
-				);
-			return $html;
-		}
-
-		/**
 		 * Adds the proper css class(es) to the body tag.
 		 *
 		 * @param array $classes The current array of body classes.
 		 * @return array The modified array of body classes.
 		 * @author Timothy Wood
 		 * @since 3.0
+		 * @TODO move this to template class
 		 */
 		public function body_class( $classes ){
 			global $wp_query;
+
+			// @TODO do we really need all these array_diff()s?
+
 			if( $wp_query->tribe_is_event_query ) {
 				if( $wp_query->tribe_is_week ) {
 					$classes[] = ' tribe-events-week';
@@ -1022,11 +922,6 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 				}
 				if( $wp_query->tribe_is_photo ) {
 					$classes[] = ' tribe-events-photo';
-					// remove the default gridview class from core
-					$classes = array_diff($classes, array('events-gridview'));
-				}
-				if( $wp_query->tribe_is_day ) {
-					$classes[] = ' tribe-events-day';
 					// remove the default gridview class from core
 					$classes = array_diff($classes, array('events-gridview'));
 				}
@@ -1051,7 +946,6 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		 **/
 		public function parse_query( $query ) {
 			$query->tribe_is_week = false;
-			$query->tribe_is_day = false;
 			$query->tribe_is_photo = false;
 			$query->tribe_is_map = false;
 			$query->tribe_is_event_pro_query = false;
@@ -1060,11 +954,6 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 				switch( $query->query_vars['eventDisplay'] ){
 					case 'week':
 						$query->tribe_is_week = true;
-					break;
-					case 'day':
-						// a little hack to prevent 404 from happening on day view
-						add_filter( 'tribe_events_templates_is_404', '__return_false' );
-						$query->tribe_is_day = true;
 					break;
 					case 'photo':
 						$query->tribe_is_photo = true;
@@ -1100,14 +989,6 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 						$query->set( 'start_date', $week );
 						$query->set( 'end_date', tribe_get_last_week_day( $week ) );
 						$query->set( 'posts_per_page', -1 ); // show ALL week posts
-						$query->set( 'hide_upcoming', false );
-						break;
-					case 'day':
-						$event_date = $query->get('eventDate') != '' ? $query->get('eventDate') : Date('Y-m-d', current_time('timestamp'));
-						$query->set( 'eventDate', $event_date );
-						$query->set( 'start_date', tribe_event_beginning_of_day( $event_date ) );
-						$query->set( 'end_date', tribe_event_end_of_day( $event_date ) );
-						$query->set( 'posts_per_page', -1 ); // show ALL day posts
 						$query->set( 'hide_upcoming', false );
 						break;
 					case 'photo':
@@ -1195,7 +1076,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		 */
 		public function select_venue_template( $template ) {
 			_deprecated_function( __FUNCTION__, '3.0', 'select_page_template( $template )' );
-			return select_page_template( $template );
+			return $this->select_page_template( $template );
 		}
 
 		/**
@@ -1219,10 +1100,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			if( tribe_is_week() ) {
 				$template = TribeEventsTemplates::getTemplateHierarchy( 'pro/week' );
 			}
-			// day view
-			if( tribe_is_day() ) {
-				$template = TribeEventsTemplates::getTemplateHierarchy( 'pro/day' );
-			}
+
 			// photo view
 			if( tribe_is_photo() ){
 				$template = TribeEventsTemplates::getTemplateHierarchy( 'pro/photo' );
@@ -1256,10 +1134,6 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			// week view
 			if( tribe_is_week() ) {
 				$class = 'Tribe_Events_Pro_Week_Template';
-			}
-			// day view
-			if( tribe_is_day() ) {
-				$class = 'Tribe_Events_Pro_Day_Template';
 			}
 			// photo view
 			if( tribe_is_photo() ){
@@ -1348,6 +1222,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		 */
 		public function enqueue_pro_scripts() {
 			if ( tribe_is_event_query() ) {
+				// @TODO filter the tribe_events_resource_url() function
 				$resources_url = trailingslashit( $this->pluginUrl ) . 'resources/';
 				$path = Tribe_Template_Factory::getMinFile( $resources_url . 'tribe-events-pro.js', true );
 				wp_enqueue_script( 'tribe-events-pro', $path, array( 'jquery', 'tribe-events-calendar-script' ), apply_filters( 'tribe_events_pro_js_version', TribeEventsPro::VERSION ), false );
@@ -1594,7 +1469,6 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		 */
 		public function ugly_link( $eventUrl, $type, $secondary ){
 			switch( $type ) {
-				case 'day':
 				case 'week':
 					$eventUrl = add_query_arg('post_type', TribeEvents::POSTTYPE, home_url() );
 					// if we're on an Event Cat, show the cat link, except for home.
@@ -1687,22 +1561,6 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		}
 
 		/**
-		 * Add day view to the views selector in the tribe events bar.
-		 *
-		 * @param array $views The current array of views registered to the tribe bar.
-		 * @return array The views registered with day view added.
-		 * @author Daniel Dvorkin
-		 * @since 3.0
-		 */
-		public function setup_dayview_in_bar( $views ) {
-			$views[] = array( 'displaying' => 'day',
-			                  'anchor'     => __( 'Day', 'tribe-events-calendar-pro' ),
-			                  'event_bar_hook'       => 'tribe_events_before_template',
-			                  'url'        => tribe_get_day_link() );
-			return $views;
-		}
-
-		/**
 		 * Add photo view to the views selector in the tribe events bar.
 		 *
 		 * @param array $views The current array of views registered to the tribe bar.
@@ -1727,9 +1585,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		 * @since 3.0
 		 */
 		public function setup_datepicker_label ( $caption ) {
-			if ( tribe_is_day() ) {
-				$caption = __('Day Of', 'tribe-events-calendar-pro');
-			} elseif ( tribe_is_week() ) {
+			if ( tribe_is_week() ) {
 				$caption = __('Week Of', 'tribe-events-calendar-pro');
 			}
 			return $caption;
@@ -1745,21 +1601,6 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		public function add_recurring_occurance_setting_to_list () {
 			if ( tribe_get_option( 'userToggleSubsequentRecurrences', true ) && ! tribe_is_showing_all() && ( tribe_is_upcoming() || tribe_is_past() || tribe_is_map() || tribe_is_photo() ) || apply_filters( 'tribe_events_display_user_toggle_subsequent_recurrences', false ) )
 				echo tribe_recurring_instances_toggle();
-		}
-
-		/**
-		 * If we are on day view and a date has been passed, make sure that is selected in the tribe bar.
-		 *
-		 * @param string $value The current default date.
-		 * @return string The new date.
-		 * @since 3.0
-		 */
-		function maybe_setup_date_in_bar( $value ) {
-			global $wp_query;
-			if ( !empty( $wp_query->query_vars['eventDisplay'] ) && $wp_query->query_vars['eventDisplay'] === 'day' ) {
-				$value = date( TribeDateUtils::DBDATEFORMAT, strtotime( $wp_query->query_vars['eventDate'] ) );
-			}
-			return $value;
 		}
 
 		/**
@@ -1781,24 +1622,6 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		function miles_to_kms_ratio() {
 			return 1.60934;
 		}
-
-		/**
-		 * Adds /today to the day view link if no day is passed.
-		 *
-		 * @param string $link The current link.
-		 * @param string|null $date The date passed.
-		 * @return string The modified link.
-		 * @author Paul Hughes
-		 * @since 3.0
-		 */
-		public function add_empty_date_dayview_link( $link, $date ) {
-			if ( is_null( $date ) ) {
-				$tribe_ecp = TribeEvents::instance();
-				$link = trailingslashit( trailingslashit( $tribe_ecp->getLink( '' ) ) . $this->todaySlug );
-			}
-			return $link;
-		}
-
 
 		/**
 		 * The singleton function.

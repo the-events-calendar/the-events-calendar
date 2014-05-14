@@ -19,17 +19,6 @@
  *
  */
 
-/* = Day Grid Template Styles
-   @ Template: day.php
-=============================================*/
-.tribe-events-day .tribe-events-day-time-slot h5 {
-	margin-top: 2em;
-}
-
-.tribe-events-day .tribe-events-day-time-slot .vevent {
-	margin-left: 0;
-}
-
 /* = Week Grid Template Styles
    @ Template: week.php
 =============================================*/
