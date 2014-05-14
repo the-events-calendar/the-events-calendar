@@ -13,6 +13,18 @@ class TribeiCal {
 		add_filter( 'tribe_events_after_footer',                   array( __CLASS__, 'maybe_add_link'     ), 10, 1 );
 		add_action( 'tribe_events_single_event_after_the_content', array( __CLASS__, 'single_event_links' )        );
 		add_action( 'tribe_tec_template_chooser',                  array( __CLASS__, 'do_ical_template'   )        );
+		add_action( 'wp_head',                                     array( __CLASS__, 'set_feed_link'      ), 2,  0 );
+	}
+
+	public static function set_feed_link() {
+		if ( !current_theme_supports('automatic-feed-links') ) {
+			return;
+		}
+		$separator = _x('&raquo;', 'feed link', 'tribe-events-calendar');
+		$feed_title = sprintf(__('%1$s %2$s iCal Feed', 'tribe-events-calendar'), get_bloginfo('name'), $separator);
+
+		printf('<link rel="alternate" type="text/calendar" title="%s" href="%s" />', $feed_title, tribe_get_ical_link());
+		echo "\n";
 	}
 
 	/**
