@@ -457,6 +457,19 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				add_filter( 'wp_import_post_data_processed', array( $this, 'filter_wp_import_data_after' ), 10, 1 );
 			}
 
+
+			add_action( 'plugins_loaded', array( $this, 'init_ical' ), 2, 0 );
+
+
+		}
+
+		public function init_ical() {
+			//iCal
+			if ( !class_exists('TribeiCal') ) {
+				require_once ( 'tribe-ical.class.php' );
+				TribeiCal::init();
+				require_once $this->pluginPath.'public/template-tags/ical.php';
+			}
 		}
 
 		/**
@@ -2646,11 +2659,62 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				$cleaned_tag = str_replace('_Event','',$meta);
 				$default = tribe_get_option('eventsDefault'.$cleaned_tag);
 				$default = apply_filters('filter_eventsDefault'.$cleaned_tag,$default);
-				return (get_post_meta( $id, $meta, $single ) !== false) ? get_post_meta( $id, $meta, $single ) : $default;
+				return (get_post_meta( $id, $meta, $single ) !== false ) ? get_post_meta( $id, $meta, $single ) : $default;
 			}else{
 				return get_post_meta( $id, $meta, $single );
 			}
 
+		}
+
+		/**
+		 * ensure only one venue or organizer is created during post preview
+		 * subsequent previews will reuse that same post
+		 *
+		 * ensure that preview post is the one that's used when the event is published,
+		 * unless we're publishing with a saved venue
+		 * @param $post_type can be 'venue' or 'organizer'
+		 */
+		protected function manage_preview_metapost( $post_type, $event_id ) {
+
+			if ( ! in_array( $post_type, array( 'venue', 'organizer' ) ) ) {
+				return;
+			}
+
+			$posttype        = ucfirst( $post_type );
+			$posttype_id     = $posttype . 'ID';
+			$meta_key        = '_preview_' . $post_type . '_id';
+			$valid_post_id   = "tribe_get_{$post_type}_id";
+			$create          = "create$posttype";
+			$preview_post_id = get_post_meta( $event_id, $meta_key, true );
+			$doing_preview   = $_REQUEST['wp-preview'] == 'dopreview' ? true : false;
+
+			if ( empty($_POST[$posttype][$posttype_id]) ) {
+				// the event is set to use a new metapost
+				if ( $doing_preview ) {
+					// we're previewing
+					if ( $preview_post_id && $preview_post_id == $valid_post_id( $preview_post_id ) ) {
+						// a preview post has been created and is valid, update that
+						wp_update_post( array( 'ID' => $preview_post_id, 'post_title' => $_POST[$posttype][$posttype] ) );
+					} else {
+						// a preview post has not been created yet, or is not valid - create one and save the ID
+						$preview_post_id = TribeEventsAPI::$create( $_POST[$posttype], 'draft' );
+						update_post_meta( $event_id, $meta_key, $preview_post_id );
+					}
+				}
+
+				if ($preview_post_id) {
+					// set the preview post id as the event metapost id in the $_POST array
+					// so TribeEventsAPI::saveEventVenue() doesn't make a new post
+					$_POST[$posttype][$posttype_id] = (int) $preview_post_id;
+				}
+			} else {
+				// we're using a saved metapost, discard any preview post
+				if ( $preview_post_id ) {
+					wp_delete_post( $preview_post_id );
+					global $wpdb;
+					$wpdb->query( "DELETE FROM $wpdb->postmeta WHERE `meta_key` = '$meta_key' AND `meta_value` = $preview_post_id" );
+				}
+			}
 		}
 
 		/**
@@ -2690,6 +2754,12 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			$_POST['Organizer'] = isset($_POST['organizer']) ? stripslashes_deep($_POST['organizer']) : null;
 			$_POST['Venue'] = isset($_POST['venue']) ? stripslashes_deep($_POST['venue']) : null;
 
+
+			/**
+			 * handle previewed venues and organizers
+			 */
+			$this->manage_preview_metapost( 'venue', $postId );
+			$this->manage_preview_metapost( 'organizer', $postId );
 
 			/**
 			 * When using pro and we have a VenueID/OrganizerID, we just save the ID, because we're not
@@ -2798,13 +2868,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 			// save venue and organizer info on first pass
 			if( isset( $post->post_status ) && $post->post_status == 'publish' ) {
-				// need to tread lightly here so that we don't break other plugins using save_post
-				// see http://xplus3.net/2011/08/18/wordpress-action-nesting/
-
-				// track the current position of the array_pointer
-				global $wp_filter;
-				$wp_filter_index = key($wp_filter['save_post']);
-				$did_save = false;
 
 				//get venue and organizer and publish them
 				$pm = get_post_custom($post->ID);

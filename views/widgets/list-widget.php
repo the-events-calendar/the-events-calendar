@@ -22,7 +22,11 @@
  * @author Modern Tribe Inc.
  *
  */
-if ( !defined('ABSPATH') ) { die('-1'); } ?>
+if ( !defined('ABSPATH') ) { die('-1'); } 
+
+//Check if any posts were found
+if ( $posts ) {
+?>
 
 <ol class="hfeed vcalendar">
 <?php
@@ -56,3 +60,12 @@ if ( !defined('ABSPATH') ) { die('-1'); } ?>
 </ol><!-- .hfeed -->
 
 <p class="tribe-events-widget-link"><a href="<?php echo tribe_get_events_link(); ?>" rel="bookmark"><?php _e( 'View All Events', 'tribe-events-calendar' );	?></a></p>
+
+<?php
+//No Events were Found
+} else {
+?>
+	<p><?php _e( 'There are no upcoming events at this time.', 'tribe-events-calendar' ); ?></p>
+<?php
+}
+?>
