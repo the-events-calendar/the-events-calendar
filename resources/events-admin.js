@@ -33,6 +33,16 @@ jQuery(document).ready(function($) {
 
 	if(typeof(TEC) !== 'undefined'){
 
+        var _MS_PER_DAY = 1000 * 60 * 60 * 24;
+
+        function date_diff_in_days(a, b) {
+
+            var utc1 = Date.UTC(a.getFullYear(), a.getMonth(), a.getDate());
+            var utc2 = Date.UTC(b.getFullYear(), b.getMonth(), b.getDate());
+
+            return Math.floor((utc2 - utc1) / _MS_PER_DAY);
+        }
+
 		var startofweek = 0;
 
 		if($event_pickers.length)
@@ -49,15 +59,24 @@ jQuery(document).ready(function($) {
 				numberOfMonths: 3,
 				firstDay: startofweek,
 				showButtonPanel: true,
+                beforeShow: function(element, object){
+                    object.input.data('prevDate', object.input.datepicker("getDate"));
+                },
 				onSelect: function(selectedDate) {
 					var option = this.id == "EventStartDate" ? "minDate" : "maxDate",
 						instance = $(this).data("datepicker"),
 						date = $.datepicker.parseDate(instance.settings.dateFormat || $.datepicker._defaults.dateFormat, selectedDate, instance.settings);
 
                     if(this.id === "EventStartDate" && $recurrence_type.val() !== 'None'){
+
+                        var startDate = $('#EventStartDate').data('prevDate'),
+                            dateDif = date_diff_in_days(startDate, $end_date.datepicker('getDate')),
+                            endDate = new Date(date.setDate(date.getDate() + dateDif));
+
                         $end_date
-                            .datepicker("option", option, date)
-                            .datepicker("setDate", date);
+                            .datepicker("option", option, endDate)
+                            .datepicker("setDate", endDate);
+
                     } else {
                         dates
                             .not(this)
