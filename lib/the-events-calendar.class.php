@@ -1067,14 +1067,18 @@ if ( !class_exists( 'TribeEvents' ) ) {
 					$classes[] = 'cat_' . sanitize_html_class($term->slug, $term->term_taxonomy_id);
 				}
 			}
+
+			// Remove the .hentry class if it is a single event page (it is positioned elsewhere in the template markup)
+			if ( tribe_is_event( $post->ID ) && is_singular() && in_array( 'hentry', $classes ) )
+				unset( $classes[array_search( 'hentry', $classes )] );
+
 			return $classes;
 		}
 
 		/**
 		 * Add capabilities to Events
 		 *
-		 * @return void
-		 */
+		 * @return void		 */
 		private function addCapabilities() {
 			$role = get_role( 'administrator' );
 			if ( $role ) {
