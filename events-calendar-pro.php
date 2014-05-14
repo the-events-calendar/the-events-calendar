@@ -311,7 +311,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 				case 'week':
 					$new_title = sprintf( '%s %s %s ',
 						__( 'Events for week of', 'tribe-events-calendar-pro' ),
-						date( "l, F jS Y", strtotime( tribe_get_first_week_day( $wp_query->get( 'start_date' ) ) ) ),
+						date_i18n( tribe_get_date_format(true), strtotime( tribe_get_first_week_day( $wp_query->get( 'start_date' ) ) ) ),
 						$sep
 					);
 					break;
@@ -364,7 +364,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 
 			global $wp_query;
 			$tec = TribeEvents::instance();
-			$date_format = apply_filters( 'tribe_events_pro_page_title_date_format', 'l, F jS Y' );
+			$date_format = apply_filters( 'tribe_events_pro_page_title_date_format', tribe_get_date_format( true ) );
 
 			if( tribe_is_showing_all() ){
 				$reset_title = sprintf( '%s %s',
@@ -805,14 +805,24 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			switch ( $tab ) {
 				case 'display':
 					$fields = TribeEvents::array_insert_after_key( 'tribeDisableTribeBar', $fields, array(
-						'hideRelatedEvents' => array(
-							'type'            => 'checkbox_bool',
-							'label'           => __( 'Hide related events', 'tribe-events-calendar-pro' ),
-							'tooltip'         => __( 'Remove related events from the single event view', 'tribe-events-calendar-pro' ),
-							'default'         => false,
-							'validation_type' => 'boolean',
-						),
-					) );
+							'hideRelatedEvents' => array(
+								'type'            => 'checkbox_bool',
+								'label'           => __( 'Hide related events', 'tribe-events-calendar-pro' ),
+								'tooltip'         => __( 'Remove related events from the single event view', 'tribe-events-calendar-pro' ),
+								'default'         => false,
+								'validation_type' => 'boolean',
+							),
+						) );
+					$fields = TribeEvents::array_insert_after_key( 'monthAndYearFormat', $fields, array(
+							'weekDayFormat' => array(
+								'type' => 'text',
+								'label' => __('Week Day Format', 'tribe-events-calendar-pro'),
+								'tooltip' => __('Enter the format to use for week days. Used  when showing an days of the week in Week view.', 'tribe-events-calendar-pro' ),
+								'default' => 'D jS',
+								'size' => 'medium',
+								'validation_type' => 'html',
+							),
+						) );
 					break;
 			}
 			return $fields;
