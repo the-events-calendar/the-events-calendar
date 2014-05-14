@@ -23,9 +23,9 @@ $tickets  = TribeEventsTickets::get_event_tickets( $event_id );
 						<?php
 						echo sprintf( '<h4>%s</h4>', esc_html( __( 'Event Details', 'tribe-events-calendar' ) ) );
 
-						echo sprintf( '<strong>%s </strong> %s', esc_html( __( 'Start Date / Time:', 'tribe-events-calendar' ) ), tribe_get_start_date( $event_id, false, get_option( 'date_format' ) . ' ' . get_option( 'time_format' ) ) );
+						echo sprintf( '<strong>%s </strong> %s', esc_html( __( 'Start Date / Time:', 'tribe-events-calendar' ) ), tribe_get_start_date( $event_id, false, tribe_get_datetime_format(true) ) );
 						echo "<br/>";
-						echo sprintf( '<strong>%s </strong> %s', esc_html( __( 'End Date / Time:', 'tribe-events-calendar' ) ), tribe_get_end_date( $event_id, false, get_option( 'date_format' ) . ' ' . get_option( 'time_format' ) ) );
+						echo sprintf( '<strong>%s </strong> %s', esc_html( __( 'End Date / Time:', 'tribe-events-calendar' ) ), tribe_get_end_date( $event_id, false, tribe_get_datetime_format(true) ) );
 
 						$venue_id = tribe_get_venue_id( $event_id );
 						if ( ! empty( $venue_id ) )

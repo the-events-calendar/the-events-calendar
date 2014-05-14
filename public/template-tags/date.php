@@ -101,17 +101,31 @@ if( class_exists( 'TribeEvents' ) ) {
 	 * @since 2.0
 	 */
 	function tribe_event_format_date($date, $displayTime = true,  $dateFormat = '')  {
-		$tribe_ecp = TribeEvents::instance();
 
-		if( $dateFormat ) $format = $dateFormat;
-		else $format = get_option( 'date_format', TribeDateUtils::DATEONLYFORMAT );
+		if ( ! TribeDateUtils::isTimestamp( $date ) ) {
+			$date = strtotime( $date );
+		}
 
-		if ( $displayTime )
-			$format = $tribe_ecp->getTimeFormat( $format );
+		if ( $dateFormat ) {
+			$format = $dateFormat;
+		} else {
+			$date_year = date( 'Y', $date );
+			$cur_year = date( 'Y', current_time( 'timestamp' ) );
 
-		$shortMonthNames = ( strstr( $format, 'M' ) ) ? true : false;
-		$date = date_i18n ( $format, $date );
-		return str_replace( array_keys($tribe_ecp->monthNames( $shortMonthNames )), $tribe_ecp->monthNames( $shortMonthNames ), $date);
+			// only show the year in the date if it's not in the current year
+			$with_year = $date_year == $cur_year ? false : true;
+
+			if ( $displayTime ) {
+				$format = tribe_get_datetime_format( $with_year );
+			} else {
+				$format = tribe_get_date_format( $with_year );
+			}
+		}
+
+		$date = date_i18n( $format, $date );
+
+		return apply_filters( 'tribe_event_formatted_date', $date, $displayTime, $dateFormat );
+
 	}
 
 	/**
