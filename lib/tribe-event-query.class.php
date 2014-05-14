@@ -217,6 +217,14 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 						}
 
 						break;
+					case 'day':
+						$event_date = $query->get('eventDate') != '' ? $query->get('eventDate') : Date('Y-m-d', current_time('timestamp'));
+						$query->set( 'eventDate', $event_date );
+						$query->set( 'start_date', tribe_event_beginning_of_day( $event_date ) );
+						$query->set( 'end_date', tribe_event_end_of_day( $event_date ) );
+						$query->set( 'posts_per_page', -1 ); // show ALL day posts
+						$query->set( 'hide_upcoming', false );
+						break;
 					case 'all':
 						$query->set( 'orderby', self::set_orderby( null, $query ) );
 						$query->set( 'order', self::set_order( null, $query ) );

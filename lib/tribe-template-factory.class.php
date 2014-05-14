@@ -454,6 +454,7 @@ if( !class_exists('Tribe_Template_Factory') ) {
 			$resources_url = trailingslashit( $tec->pluginUrl ) . 'resources/';
 			$vendor_url = trailingslashit( $tec->pluginUrl ) . 'vendor/';
 
+			// @TODO make this more DRY
 			switch( $name ) {
 				case 'jquery-resize':
 					$path = self::getMinFile( $vendor_url . 'jquery-resize/jquery.ba-resize.js', true );
@@ -557,6 +558,13 @@ if( !class_exists('Tribe_Template_Factory') ) {
 					$path = self::getMinFile( $resources_url . 'tribe-events-ajax-list.js', true );
 					wp_enqueue_script( 'tribe-events-list', $path, $deps, apply_filters( 'tribe_events_js_version', TribeEvents::VERSION ), true );
 					wp_localize_script( 'tribe-events-list', 'TribeList', $ajax_data );
+					break;
+				case 'ajax-dayview':
+					$ajax_data = array( "ajaxurl"   => admin_url( 'admin-ajax.php', ( is_ssl() ? 'https' : 'http' ) ),
+										'post_type' => TribeEvents::POSTTYPE );
+					$path = self::getMinFile( $resources_url . 'tribe-events-ajax-day.js', true );
+					wp_enqueue_script( 'tribe-events-ajax-day', $path, array('tribe-events-bar'), apply_filters( 'tribe_events_js_version', TribeEvents::VERSION ), true );
+					wp_localize_script( 'tribe-events-ajax-day', 'TribeCalendar', $ajax_data );
 					break;
 				case 'events-css':
 

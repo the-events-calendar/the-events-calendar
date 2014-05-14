@@ -175,6 +175,12 @@ if( class_exists( 'TribeEvents' ) ) {
 			);
 		}
 
+		// day view title
+		if( tribe_is_day() ) {
+			$title = __( 'Events for', 'tribe-events-calendar' ) . ' ' .
+				date_i18n( 'l, F jS Y', strtotime( $wp_query->get('start_date') ) );
+		}
+
 		if ( is_tax( $tribe_ecp->get_event_taxonomy() ) ) {
 			$cat = get_queried_object();
 			if ( $depth ) {

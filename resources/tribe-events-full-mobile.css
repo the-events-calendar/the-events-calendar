@@ -31,6 +31,17 @@ a.tribe-events-gmap {
 	width: 100%;
 }
 
+/* = Day Grid Template Styles
+   @ Template: day.php
+=============================================*/
+.tribe-events-day .tribe-events-day-time-slot h5 {
+	margin-top: 2em;
+}
+
+.tribe-events-day .tribe-events-day-time-slot .vevent {
+	margin-left: 0;
+}
+
 /* = General Template Header/Footer Nav
 =============================================*/
 #tribe-events #tribe-events-header,
