@@ -717,7 +717,8 @@ class TribeEventsRecurrenceMeta {
 		/** @var int $recEndCount */
 		extract(TribeEventsRecurrenceMeta::getRecurrenceMeta($event_id));
 		if ( $recType == 'None' ) {
-			return NULL;
+			require_once('tribe-null-recurrence.php');
+			return new TribeNullRecurrence();
 		}
 		$rules = TribeEventsRecurrenceMeta::getSeriesRules($event_id);
 
