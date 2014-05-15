@@ -336,22 +336,15 @@ if (Object.prototype.hasOwnProperty.call(window, 'tribe_ev')) {
 		 */
 
 		function tribe_ical_url() {
-			$('a.tribe-events-ical').each(function() {
-				var $this = $(this);
-				var icalLink = $this.attr('href'),
-					url = document.URL,
-					separator = '?';
+			var url = document.URL,
+				separator = '?';
 
-				if (url.indexOf('?') > 0)
-					separator = '&';
+			if (url.indexOf('?') > 0)
+				separator = '&';
 
-				if (icalLink.substring(0,9) == 'webcal://')
-					url = url.replace(/https?:\/\//, 'webcal://');
+			var new_link = url + separator + 'ical=1' + '&' + 'tribe_display=' + ts.view;
 
-				var new_link = url + separator + 'ical=1' + '&' + 'tribe_display=' + ts.view;
-
-				$(this).attr('href', new_link);
-			});
+			$('a.tribe-events-ical').attr('href', new_link);
 		}
 
 		$(te).on("tribe_ev_ajaxSuccess", function () {
