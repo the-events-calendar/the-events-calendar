@@ -2510,6 +2510,58 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		}
 
 		/**
+		 * Returns the GCal export link for a given event id.
+		 *
+		 * @param int $postId The post id requested.
+		 * @return string The URL for the GCal export link.
+		 */
+		public function googleCalendarLink( $postId = null ) {
+			global $post;
+			$tribeEvents = TribeEvents::instance();
+
+			if ( $postId === null || !is_numeric( $postId ) ) {
+				$postId = $post->ID;
+			}
+			// protecting for reccuring because the post object will have the start/end date available
+			$start_date = isset($post->EventStartDate) ? strtotime($post->EventStartDate) : strtotime( get_post_meta( $postId, '_EventStartDate', true ) );
+			$end_date = isset($post->EventEndDate) ?
+				strtotime( $post->EventEndDate . ( get_post_meta( $postId, '_EventAllDay', true ) ? ' + 1 day' : '') ) :
+				strtotime( get_post_meta( $postId, '_EventEndDate', true ) . ( get_post_meta( $postId, '_EventAllDay', true ) ? ' + 1 day' : '') );
+
+			$dates = ( get_post_meta( $postId, '_EventAllDay', true ) ) ? date( 'Ymd', $start_date ) . '/' . date( 'Ymd', $end_date ) : date( 'Ymd', $start_date ) . 'T' . date( 'Hi00', $start_date ) . '/' . date( 'Ymd', $end_date ) . 'T' . date( 'Hi00', $end_date );
+			$location = trim( $tribeEvents->fullAddressString( $postId ) );
+			$base_url = 'http://www.google.com/calendar/event';
+
+			//Strip tags
+			$event_details = strip_tags( get_the_content() );
+
+			//Truncate Event Description and add permalink if greater than 996 characters
+			if ( strlen( $event_details ) > 996 ) {
+				$event_url = get_permalink();
+				$event_details = substr( $event_details, 0, 996 );
+
+				//Only add the permalink if it's shorter than 900 characters, so we don't exceed the browser's URL limits
+				if ( strlen( $event_url ) < 900 ) {
+					$event_details .= ' (View Full Event Description Here: ' . $event_url . ')';
+				}
+			}
+
+			$params = array(
+				'action' => 'TEMPLATE',
+				'text' => urlencode( strip_tags( $post->post_title ) ),
+				'dates' => $dates,
+				'details' => urlencode( strip_tags( apply_filters( 'the_content', $event_details ) ) ),
+				'location' => urlencode( $location ),
+				'sprop' => get_option( 'blogname' ),
+				'trp' => 'false',
+				'sprop' => 'website:' . home_url(),
+			);
+			$params = apply_filters( 'tribe_google_calendar_parameters', $params );
+			$url = add_query_arg( $params, $base_url );
+			return esc_url( $url );
+		}
+
+		/**
 		 * Returns a link to google maps for the given event
 		 *
 		 * @return string a fully qualified link to http://maps.google.com/ for this event
