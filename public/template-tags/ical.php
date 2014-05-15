@@ -1,5 +1,7 @@
 <?php
 
+// @TODO two functions that do the exact same thing
+// @TODO move these to the link.php template tags file
 if ( !function_exists('tribe_get_single_ical_link') ) {
 	/**
 	 * iCal Link (Single)
@@ -21,12 +23,11 @@ if ( !function_exists('tribe_get_ical_link') ) {
 	 *
 	 * Returns a sitewide ical link
 	 *
-	 * @param $protocol bool|string any alternative protocol for the link, false to leave it unchanged
 	 * @return string URL for ical dump.
 	 * @since 3.6
 	 */
-	function tribe_get_ical_link( $protocol = false ) {
-		$output = TribeiCal::get_ical_link( $protocol );
+	function tribe_get_ical_link() {
+		$output = TribeiCal::get_ical_link();
 		return apply_filters( 'tribe_get_ical_link', $output );
 	}
 }
