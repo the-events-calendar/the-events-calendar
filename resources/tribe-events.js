@@ -1183,6 +1183,30 @@ Date.prototype.format = function (mask, utc) {
 			list_find_month_last_event();
 		});
 
+		/**
+		 * @function tribe_ical_url
+		 * @since 3.0
+		 * @desc tribe_ical_url This function adds required params to the ical url. Runs on doc ready, and hooks into 'tribe_ev_ajaxSuccess' also.
+		 */
+
+		function tribe_ical_url() {
+			var url = document.URL,
+				separator = '?';
+
+			if (url.indexOf('?') > 0)
+				separator = '&';
+
+			var new_link = url + separator + 'ical=1' + '&' + 'tribe_display=' + ts.view;
+
+			$('a.tribe-events-ical').attr('href', new_link);
+		}
+
+		$(te).on("tribe_ev_ajaxSuccess", function () {
+			tribe_ical_url();
+		});
+
+		tribe_ical_url();
+
 		$(window)
 			.resize(function () {
 
