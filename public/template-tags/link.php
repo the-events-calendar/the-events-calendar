@@ -331,23 +331,5 @@ if( class_exists( 'TribeEvents' ) ) {
 		return apply_filters( 'tribe_get_event_website_url', $url, $post_id );
 	}
 
-	/**
-	 * Google Calendar Link
-	 *
-	 * Returns an "add to Google Calendar link for a single event. Must be used in the loop
-	 *
-	 * @param int $postId (optional)
-	 * @return string URL for google calendar.
-	 * @since 2.0
-	 */
-	function tribe_get_gcal_link( $postId = null )  {
-		$postId = TribeEvents::postIdHelper( $postId );
-		$tribe_ecp = TribeEvents::instance();
-		$output = esc_url($tribe_ecp->googleCalendarLink( $postId ));
-		return apply_filters('tribe_get_gcal_link', $output);
-	}
-
-
-
 }
 ?>
