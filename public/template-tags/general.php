@@ -188,22 +188,6 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	}
 
 	/**
-	 * Google Calendar Link
-	 *
-	 * Returns an add to Google Calendar link. Must be used in the loop
-	 *
-	 * @param int $postId (optional)
-	 * @return string URL for google calendar.
-	 * @since 2.0
-	 */
-	function tribe_get_gcal_link( $postId = null )  {
-		$postId = TribeEvents::postIdHelper( $postId );
-		$tribe_ecp = TribeEventsPro::instance();
-		$output = esc_url($tribe_ecp->googleCalendarLink( $postId ));
-		return apply_filters('tribe_get_gcal_link', $output);
-	}
-
-	/**
 	* Get Related Events
 	*
 	* Get a list of related events to the current post
