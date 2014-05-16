@@ -1,6 +1,6 @@
 === The Events Calendar ===
 
-Contributors:  ModernTribe, roblagatta, MZAWeb, ryancurban, faction23, jazbek, jbrinley, kyleunzicker, leahkoerper, brook-tribe, ckpicker, WebsiteBakery, barry.hughes, kellykathryn, neillmcshea, peterchester, reid.peifer, shane.pearlman
+Contributors:  ModernTribe, roblagatta, MZAWeb, ryancurban, faction23, jazbek, jbrinley, kyleunzicker, leahkoerper, brook-tribe, ckpicker, barry.hughes, kellykathryn, neillmcshea, peterchester, reid.peifer, shane.pearlman
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
 Donate link: http://m.tri.be/29
 Requires at least: 3.6
@@ -311,6 +311,9 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Added new Afrikaans translation files courtesy of Liza Welsh
 * Added updated Czech translation files courtesy of Petr Bastan
 * Added updated Greek translation files courtesy of Yannis Troullinos
+* Improved user interface for event start/end times in the event editor (when working in 12hr format)
+* Improved microformats implementation across multiple views
+* Added shortcode support to the before/after calendar HTML fields
 
 = 3.5.1 =
 
