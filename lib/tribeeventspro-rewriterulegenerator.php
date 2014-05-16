@@ -49,26 +49,6 @@ class TribeEventsPro_RewriteRuleGenerator {
 		return $rules;
 	}
 
-	public function get_today_rules( $today_base ) {
-		$rules = array(
-			$this->base . $today_base . '/?$' => 'index.php?post_type=' . TribeEvents::POSTTYPE . '&eventDisplay=day',
-			$this->cat_base . '([^/]+)/' . $today_base . '/?$' => 'index.php?tribe_events_cat=' . $this->rewrite->preg_index(2) . '&post_type=' . TribeEvents::POSTTYPE . '&eventDisplay=day',
-			$this->tag_base . '([^/]+)/' . $today_base . '/?$' => 'index.php?tag=' . $this->rewrite->preg_index(2) . '&post_type=' . TribeEvents::POSTTYPE . '&eventDisplay=day',
-		);
-		return $rules;
-	}
-
-	public function get_day_rules( $day_base ) {
-		$rules = array(
-			$this->base . $day_base . '/(\d{4}-\d{2}-\d{2})/?$' => 'index.php?post_type=' . TribeEvents::POSTTYPE . '&eventDisplay=day' .'&eventDate=' . $this->rewrite->preg_index(1),
-			$this->base . '/(\d{4}-\d{2}-\d{2})/ical/?$' => 'index.php?post_type=' . TribeEvents::POSTTYPE . '&eventDisplay=day' .'&eventDate=' . $this->rewrite->preg_index(1) . '&ical=1',
-			$this->base . '(\d{4}-\d{2}-\d{2})$' => 'index.php?post_type=' . TribeEvents::POSTTYPE . '&eventDisplay=day' .'&eventDate=' . $this->rewrite->preg_index(1),
-			$this->cat_base . '([^/]+)/' . $day_base . '/(\d{4}-\d{2}-\d{2})/?$' => 'index.php?tribe_events_cat=' . $this->rewrite->preg_index(2) . '&post_type=' . TribeEvents::POSTTYPE . '&eventDisplay=day' .'&eventDate=' . $this->rewrite->preg_index(3),
-			$this->tag_base . '([^/]+)/' . $day_base . '/(\d{4}-\d{2}-\d{2})/?$' => 'index.php?tag=' . $this->rewrite->preg_index(2) . '&post_type=' . TribeEvents::POSTTYPE . '&eventDisplay=day' .'&eventDate=' . $this->rewrite->preg_index(3),
-		);
-		return $rules;
-	}
-
 	public function get_taxonomy_rules() {
 		$rules = array(
 			$this->cat_base . '([^/]+)/(\d{4}-\d{2}-\d{2})/?$' => 'index.php?tribe_events_cat=' . $this->rewrite->preg_index(2) . '&post_type=' . TribeEvents::POSTTYPE . '&eventDisplay=day' .'&eventDate=' . $this->rewrite->preg_index(3),

@@ -16,29 +16,23 @@
  *
  */
 
-if ( !defined('ABSPATH') ) die('-1');
+if ( !defined('ABSPATH') ) { die('-1'); } ?>
 
-// Have taxonomy filters been applied?
-$filters = json_decode( $filters, true );
-
-// Is the filter restricted to a single taxonomy?
-$single_taxonomy = ( is_array( $filters ) && 1 === count( $filters ) );
-$single_term = false;
-
-// Pull the actual taxonomy and list of terms into scope
-if ( $single_taxonomy ) foreach ( $filters as $taxonomy => $terms );
-
-// If we have a single taxonomy and a single term, the View All link should point to the relevant archive page
-if ( $single_taxonomy && 1 === count( $terms ) ) {
-	$link_to_archive = true;
-	$link_to_all = get_term_link( absint( $terms[0] ), $taxonomy );
-}
-
-// Otherwise link to the main events page
-else {
-	$link_to_archive = false;
-	$link_to_all = tribe_get_events_link();
-}
+<?php 
+	$widget_args = tribe_events_get_adv_list_widget_args(); 
+	extract($widget_args);
+	
+	if ( $category > 0 ) {
+		// Link to the main category archive page
+		$event_url = get_term_link( (int)$category, TribeEvents::TAXONOMY );
+		
+	} else {
+		// Link to the main events page
+		$event_url = tribe_get_events_link();
+	}
+	
+	//Check if any posts were found
+	if ( $posts ) {
 ?>
 <ol class="hfeed vcalendar">
 <?php
@@ -111,7 +105,15 @@ else {
 </ol><!-- .hfeed -->
 
 <p class="tribe-events-widget-link">
-	<a href="<?php esc_attr_e( esc_url( $link_to_all ) ) ?>" rel="bookmark">
-		<?php _e( 'View More&hellip;', 'tribe-events-calendar' ) ?>
+	<a href="<?php echo $event_url; ?>" rel="bookmark">
+		<?php ($category <= 0 ? _e( 'View All Events', 'tribe-events-calendar' ) : _e( 'View All Events in Category', 'tribe-events-calendar' ) ); ?>
 	</a>
 </p>
+<?php
+	//No Events were Found
+	} else {
+?>
+		<p><?php _e( 'There are no upcoming events at this time.', 'tribe-events-calendar' ); ?></p>
+<?php
+	}
+?>

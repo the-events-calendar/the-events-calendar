@@ -30,9 +30,9 @@ class TribeEventsMiniCalendar {
 	 **/
 	public function get_month()	{
 		if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
-			return isset( $_POST["eventDate"] ) ? $_POST["eventDate"] : date_i18n( TribeDateUtils::DBDATEFORMAT );
+			return isset( $_POST["eventDate"] ) ? $_POST["eventDate"] : date_i18n( TribeDateUtils::DBDATETIMEFORMAT );
 		}
-		return date_i18n( TribeDateUtils::DBDATEFORMAT );
+		return date_i18n( TribeDateUtils::DBDATETIMEFORMAT );
 	}
 
 	/**
@@ -234,14 +234,14 @@ class TribeEventsMiniCalendar {
 				                     'tribeHideRecurrence'          => false,
 				);
 
-
 				// set end date if initial load, or ajax month switch
 				if ( ! defined( 'DOING_AJAX' ) || ( defined( 'DOING_AJAX' ) && $_POST['action'] == 'tribe-mini-cal' ) ) {
-					$query_args['end_date']	= substr_replace($this->get_month(), TribeDateUtils::getLastDayOfMonth( strtotime( $this->get_month() ) ), -2);
+					$query_args['end_date']	= substr_replace($this->get_month(), TribeDateUtils::getLastDayOfMonth( strtotime( $this->get_month() ) ), -11);
 					$query_args['end_date'] = TribeDateUtils::endOfDay($query_args['end_date']);
 				}
 
 				$wp_query = TribeEventsQuery::getEvents( $query_args, true );
+
 			}
 		}
 	}

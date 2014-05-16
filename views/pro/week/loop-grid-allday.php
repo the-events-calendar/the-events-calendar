@@ -19,7 +19,8 @@ tribe_events_week_set_loop_type( 'allday' );
 
 $all_day_map = tribe_events_week_get_all_day_map();
 
-$all_day_array = array_filter( $all_day_map[0] );
+//Filter out empty all day array items
+$all_day_array = array_filter( $all_day_map[0], "is_numeric" );
 
 //Hide All Day row if there are no All Day events
 if ( !empty( $all_day_array ) ) :
