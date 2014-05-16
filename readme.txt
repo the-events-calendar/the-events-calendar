@@ -222,6 +222,13 @@ Our Premium Plugins:
 * Added updated Greek translation files, courtesy of Yannis Troullinos
 * Added taxonomy filters to the advanced events list widget
 * Deprecated the meta walker and added new templates for custom field data
+* Fixed recurring event URLs when using default permalinks
+* Fixed the query for days with events in the mini calendar widget
+* Prevent the re-creation of deleted instances of recurring events, when the original event is re-saved or the series is split
+* Fixed switching a recurring event to a non-recurring event
+* Handle recurring events when importing events from a WordPress XML export
+* tribe_get_events() now provides a default value for the eventDisplay query parameter
+* Added the iCalendar feed that was formerly only available with Pro
 
 = 3.5.2 =
 
