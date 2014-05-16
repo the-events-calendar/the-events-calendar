@@ -220,6 +220,8 @@ Our Premium Plugins:
 * Added new Afrikaans translation files, courtesy of Liza Welsh
 * Added updated Czech translation files, courtesy of Petr Bastan
 * Added updated Greek translation files, courtesy of Yannis Troullinos
+* Added taxonomy filters to the advanced events list widget
+* Deprecated the meta walker and added new templates for custom field data
 
 = 3.5.2 =
 
