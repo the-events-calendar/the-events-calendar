@@ -1,4 +1,6 @@
 <?php
+$this->attendees_table->prepare_items();
+
 $event_id = isset( $_GET["event_id"] ) ? intval( $_GET["event_id"] ) : 0;
 $event    = get_post( $event_id );
 $tickets  = TribeEventsTickets::get_event_tickets( $event_id );
@@ -21,9 +23,9 @@ $tickets  = TribeEventsTickets::get_event_tickets( $event_id );
 						<?php
 						echo sprintf( '<h4>%s</h4>', esc_html( __( 'Event Details', 'tribe-events-calendar' ) ) );
 
-						echo sprintf( '<strong>%s </strong> %s', esc_html( __( 'Start Date / Time:', 'tribe-events-calendar' ) ), tribe_get_start_date( $event_id, false, get_option( 'date_format' ) . ' ' . get_option( 'time_format' ) ) );
+						echo sprintf( '<strong>%s </strong> %s', esc_html( __( 'Start Date / Time:', 'tribe-events-calendar' ) ), tribe_get_start_date( $event_id, false, tribe_get_datetime_format(true) ) );
 						echo "<br/>";
-						echo sprintf( '<strong>%s </strong> %s', esc_html( __( 'End Date / Time:', 'tribe-events-calendar' ) ), tribe_get_end_date( $event_id, false, get_option( 'date_format' ) . ' ' . get_option( 'time_format' ) ) );
+						echo sprintf( '<strong>%s </strong> %s', esc_html( __( 'End Date / Time:', 'tribe-events-calendar' ) ), tribe_get_end_date( $event_id, false, tribe_get_datetime_format(true) ) );
 
 						$venue_id = tribe_get_venue_id( $event_id );
 						if ( ! empty( $venue_id ) )
@@ -96,10 +98,7 @@ $tickets  = TribeEventsTickets::get_event_tickets( $event_id );
 		<input type="hidden" name="page" value="<?php echo esc_attr( $_GET['page'] ); ?>" />
 		<input type="hidden" name="event_id" id="event_id" value="<?php echo $event_id; ?>" />
 		<input type="hidden" name="post_type" value="<?php echo TribeEvents::POSTTYPE; ?>" />
-		<?php
-		$this->attendees_table->prepare_items();
-		$this->attendees_table->display()
-		?>
+		<?php $this->attendees_table->display()	?>
 	</form>
 
 	<div id="attendees_email_wrapper" title="<?php _e( 'Send the attendee list by email', 'tribe-events-calendar' );?>">

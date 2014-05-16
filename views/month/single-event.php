@@ -189,6 +189,6 @@ $end = tribe_get_end_date( $post, FALSE, 'U' );
 ?>
 
 <div id="tribe-events-event-<?php echo $event_id ?>" class="<?php tribe_events_event_classes() ?>" data-tribejson='<?php echo tribe_events_template_data( $post ); ?>'>
-	<h3 class="tribe-events-month-event-title summary"><a href="<?php tribe_event_link( $post ); ?>" class="url"><?php the_title() ?></a></h3>
+	<h3 class="tribe-events-month-event-title entry-title summary"><a href="<?php tribe_event_link( $post ); ?>" class="url"><?php the_title() ?></a></h3>
 </div><!-- #tribe-events-event-# -->
 

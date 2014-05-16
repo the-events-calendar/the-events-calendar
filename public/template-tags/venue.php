@@ -55,7 +55,7 @@ if( class_exists( 'TribeEvents' ) ) {
 	function tribe_get_venue( $postId = null, $with_link = false )  {
 		if ( $with_link ) {	_deprecated_argument( __FUNCTION__, '2.0.1' ); }
 		$postId = tribe_get_venue_id( $postId );
-		$venue = ($postId > 0) ? esc_html(get_post( $postId )->post_title) : null;
+		$venue = ($postId > 0) ? esc_html(get_the_title($postId)) : null;
 		return apply_filters('tribe_get_venue', $venue);
 	}
 

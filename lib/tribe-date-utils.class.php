@@ -92,7 +92,7 @@ if(!class_exists('TribeDateUtils')) {
 		 */
 		public static function endOfDay( $date, $isTimestamp = false ) {
 			$date = $isTimestamp ? $date : strtotime($date);
-			$date = date(TribeDateUtils::DBDATEFORMAT, $date );
+			$date = date( TribeDateUtils::DBDATEFORMAT, $date );
 			$date = strtotime($date . ' 23:59:59');
 			return date(TribeDateUtils::DBDATETIMEFORMAT, $date );
 		}
@@ -131,7 +131,7 @@ if(!class_exists('TribeDateUtils')) {
 	  	 * @return int The number of seconds between the dates.
 	  	 */
 		public static function timeBetween( $date1, $date2 ) {
-		 return abs(strtotime($date1) - strtotime($date2));
+			return abs(strtotime($date1) - strtotime($date2));
 		}
 
 		/**
@@ -262,6 +262,21 @@ if(!class_exists('TribeDateUtils')) {
 		public static function numberToDay($number) {
 			$days = array(1 => "Monday", 2 => "Tuesday", 3 => "Wednesday", 4 => "Thursday", 5 => "Friday", 6 => "Saturday", 7 => "Sunday");
 			return $days[$number];
+		}
+
+		/**
+		 * check if a given string is a timestamp
+		 *
+		 * @param $timestamp
+		 *
+		 * @return bool
+		 */
+		public static function isTimestamp( $timestamp ) {
+			if ( is_numeric( $timestamp ) && (int) $timestamp == $timestamp && date( 'U', $timestamp ) == $timestamp ) {
+				return true;
+			}
+
+			return false;
 		}
 	}
 }
