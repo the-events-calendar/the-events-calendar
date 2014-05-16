@@ -320,6 +320,14 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Fixed an incorrect redirect when visiting an event with the wrong date in the URL
 * Correctly save venue and organizer information when an event is saved
 * Move the iCalendar feed to the core plugin
+* List Widget: Moved all HTML Markup (and the loop) to the template
+* Now only enqueueing events-admin.css on appropriate Events Pages
+* Fixed an issue where Category CSS classes were being removed from Events when in Responsive Mode
+* Removed all obsolete references to hide-visibility.css
+* Now appending the Event Permalink to the Event Description when importing into Google Calendar
+* Removed the hyperlink on the Featured image in the Event single template
+* Improved the 'No Events Found' messaging for various scenarios to more helpful and descriptive
+* Fixed an issue where duplicate Prev/Next Nav elements would display in Photo & Map View when no events were found
 
 = 3.5.1 =
 
