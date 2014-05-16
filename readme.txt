@@ -311,9 +311,12 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Added new Afrikaans translation files courtesy of Liza Welsh
 * Added updated Czech translation files courtesy of Petr Bastan
 * Added updated Greek translation files courtesy of Yannis Troullinos
+* Added shortcode support to the before/after calendar HTML fields
+* Added facilities for easier customization of ticketing plugin attendee tables
+* Added ability to remove entries from ticketing plugin attendee tables
 * Improved user interface for event start/end times in the event editor (when working in 12hr format)
 * Improved microformats implementation across multiple views
-* Added shortcode support to the before/after calendar HTML fields
+* Deprecated the meta walker and added new templates for the display of single event meta
 
 = 3.5.1 =
 
