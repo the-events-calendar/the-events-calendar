@@ -317,6 +317,9 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Improved user interface for event start/end times in the event editor (when working in 12hr format)
 * Improved microformats implementation across multiple views
 * Deprecated the meta walker and added new templates for the display of single event meta
+* Fixed an incorrect redirect when visiting an event with the wrong date in the URL
+* Correctly save venue and organizer information when an event is saved
+* Move the iCalendar feed to the core plugin
 
 = 3.5.1 =
 
