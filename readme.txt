@@ -229,6 +229,12 @@ Our Premium Plugins:
 * Handle recurring events when importing events from a WordPress XML export
 * tribe_get_events() now provides a default value for the eventDisplay query parameter
 * Added the iCalendar feed that was formerly only available with Pro
+* List Widget: Moved all HTML Markup (and the loop) to the template
+* Fixed an issue where Category CSS classes were being removed from Events when in Responsive Mode
+* Fixed an issue where duplicate Prev/Next Nav elements would display in Photo & Map View when no events were found
+* Now hiding the 'All Day' bar in Week View when no All Day events are found
+* Added a 'View All Events at this Venue' link to the Featured Venue Widget
+* Split out the Related Events code to it's own template file: views/PRO/related-events.php
 
 = 3.5.2 =
 
