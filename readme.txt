@@ -314,6 +314,9 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Added shortcode support to the before/after calendar HTML fields
 * Added facilities for easier customization of ticketing plugin attendee tables
 * Added ability to remove entries from ticketing plugin attendee tables
+* Added support for various datepicker date formats in the front end
+* Improved tribe bar handling of custom inputs
+* Improved datepicker namespacing in admin to avoid collisions with other plugins
 * Improved user interface for event start/end times in the event editor (when working in 12hr format)
 * Improved microformats implementation across multiple views
 * Deprecated the meta walker and added new templates for the display of single event meta
@@ -323,6 +326,8 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * List Widget: Moved all HTML Markup (and the loop) to the template
 * Now only enqueueing events-admin.css on appropriate Events Pages
 * Fixed an issue where Category CSS classes were being removed from Events when in Responsive Mode
+* Fixed an issue where page 2 or more of past view on list view was inaccessible
+* Fixed an issue with double quotes being incorrectly escaped for tribe json function
 * Removed all obsolete references to hide-visibility.css
 * Now appending the Event Permalink to the Event Description when importing into Google Calendar
 * Removed the hyperlink on the Featured image in the Event single template
