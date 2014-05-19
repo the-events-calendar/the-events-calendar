@@ -221,6 +221,7 @@ Our Premium Plugins:
 * Added updated Czech translation files, courtesy of Petr Bastan
 * Added updated Greek translation files, courtesy of Yannis Troullinos
 * Added taxonomy filters to the advanced events list widget
+* Added a feature to make the end date follow the start date when editing recurrence in the admin
 * Deprecated the meta walker and added new templates for custom field data
 * Fixed recurring event URLs when using default permalinks
 * Fixed the query for days with events in the mini calendar widget
