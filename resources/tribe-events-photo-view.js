@@ -333,6 +333,11 @@
 								}
 							}
 
+							//If no events are returned, then hide Header 
+							if (response.max_pages == 0) {
+								$('#tribe-events-header').hide();
+							}
+
 							ts.page_title = $('#tribe-events-header').data('title');
 							document.title = ts.page_title;
 

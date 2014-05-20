@@ -312,12 +312,12 @@
 						} else {
 
 							$('.tribe-events-nav-next').show();
-						}
-						
-						//If no events are returned, then hide Header 
-						if (response.total_count == 0) {
-							$('#tribe-events-header').hide();
-						}
+						}					
+					}
+
+					//If no events are returned, then hide Header 
+					if (response.total_count == 0) {
+						$('#tribe-events-header').hide();
 					}
 
 					$.each(response.markers, function (i, e) {
