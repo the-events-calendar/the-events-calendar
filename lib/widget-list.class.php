@@ -8,9 +8,8 @@
 // Don't load directly
 if ( !defined('ABSPATH') ) die('-1');
 
-if( class_exists( 'TribeEventsListWidget' ) ) return;
-
-class TribeEventsListWidget extends WP_Widget {
+class TribeEventsListWidget extends WP_Widget
+{
 	/**
 	 * Allows widgets extending this one to pass through their own unique name, ID base etc.
 	 *
@@ -19,19 +18,20 @@ class TribeEventsListWidget extends WP_Widget {
 	 * @param array $widget_options
 	 * @param array $control_options
 	 */
-	public function __construct( $id_base = '', $name = '', $widget_options = array(), $control_options = array() ) {
-		$widget_options = array_merge( array(
+	public function __construct($id_base = '', $name = '', $widget_options = array(), $control_options = array())
+	{
+		$widget_options = array_merge(array(
 				'classname' => 'tribe-events-list-widget',
-				'description' => __( 'A widget that displays upcoming events.', 'tribe-events-calendar' ) ),
+				'description' => __('A widget that displays upcoming events.', 'tribe-events-calendar')),
 			$widget_options
 		);
 
-		$control_options = array_merge( array( 'id_base' => 'tribe-events-list-widget' ), $control_options );
+		$control_options = array_merge(array('id_base' => 'tribe-events-list-widget'), $control_options);
 
-		$id_base = empty( $id_base ) ? 'tribe-events-list-widget' : $id_base;
-		$name = empty( $name ) ? __( 'Events List', 'tribe-events-calendar' ) : $name;
+		$id_base = empty($id_base) ? 'tribe-events-list-widget' : $id_base;
+		$name = empty($name) ? __('Events List', 'tribe-events-calendar') : $name;
 
-		parent::__construct( $id_base, $name, $widget_options, $control_options );
+		parent::__construct($id_base, $name, $widget_options, $control_options);
 	}
 
 	/**
@@ -41,8 +41,9 @@ class TribeEventsListWidget extends WP_Widget {
 	 * @param array $instance
 	 * @return string The widget output (html).
 	 */
-	function widget( $args, $instance ) {
-		return $this->widget_output( $args, $instance );
+	function widget($args, $instance)
+	{
+		return $this->widget_output($args, $instance);
 	}
 
 	/**
@@ -55,13 +56,14 @@ class TribeEventsListWidget extends WP_Widget {
 	 * @param string $namespace The namespace for the widget template stuff.
 	 * @param string $pluginPath The pluginpath so we can locate the template stuff.
 	 */
-	function widget_output( $args, $instance, $template_name='widgets/list-widget' ) {
+	function widget_output($args, $instance, $template_name = 'widgets/list-widget')
+	{
 		global $wp_query, $tribe_ecp, $post;
 
-		$instance = wp_parse_args( $instance, array(
+		$instance = wp_parse_args($instance, array(
 			'limit' => 5,
 			'title' => ''
-		) );
+		));
 
 		/**
 		 * @var $after_title
@@ -72,46 +74,46 @@ class TribeEventsListWidget extends WP_Widget {
 		 * @var $no_upcoming_events
 		 * @var $title
 		 */
-		extract( $args, EXTR_SKIP );
-		extract( $instance, EXTR_SKIP );
+		extract($args, EXTR_SKIP);
+		extract($instance, EXTR_SKIP);
 
 		// Temporarily unset the tribe bar params so they don't apply
-		$hold_tribe_bar_args =  array();
-		foreach ( $_REQUEST as $key => $value ) {
-			if ( $value && strpos( $key, 'tribe-bar-' ) === 0 ) {
+		$hold_tribe_bar_args = array();
+		foreach ($_REQUEST as $key => $value) {
+			if ($value && strpos($key, 'tribe-bar-') === 0) {
 				$hold_tribe_bar_args[$key] = $value;
-				unset( $_REQUEST[$key] );
+				unset($_REQUEST[$key]);
 			}
 		}
 
-		$title = apply_filters( 'widget_title', $title );
-		if ( ! function_exists( 'tribe_get_events' ) ) return;
+		$title = apply_filters('widget_title', $title);
+		if (!function_exists('tribe_get_events')) return;
 
-		$posts = tribe_get_events( apply_filters( 'tribe_events_list_widget_query_args', array(
-			'eventDisplay'   => 'upcoming',
+		$posts = tribe_get_events(apply_filters('tribe_events_list_widget_query_args', array(
+			'eventDisplay' => 'upcoming',
 			'posts_per_page' => $limit
-		) ) );
+		)));
 
 		// If no posts, and the don't show if no posts checked, let's bail
-		if ( ! $posts && $no_upcoming_events ) return;
+		if (!$posts && $no_upcoming_events) return;
 
 		echo $before_widget;
-		do_action( 'tribe_events_before_list_widget' );
-		do_action( 'tribe_events_list_widget_before_the_title' );
+		do_action('tribe_events_before_list_widget');
+		do_action('tribe_events_list_widget_before_the_title');
 
-		echo ( $title ) ? $before_title . $title . $after_title : '';
-		do_action( 'tribe_events_list_widget_after_the_title' );
+		echo ($title) ? $before_title . $title . $after_title : '';
+		do_action('tribe_events_list_widget_after_the_title');
 
 		// Include template file
-		include TribeEventsTemplates::getTemplateHierarchy( $template_name );
-		do_action( 'tribe_events_after_list_widget' );
+		include TribeEventsTemplates::getTemplateHierarchy($template_name);
+		do_action('tribe_events_after_list_widget');
 
 		echo $after_widget;
 		wp_reset_query();
 
 		// Reinstate the tribe bar params
-		if ( ! empty( $hold_tribe_bar_args ) )
-			foreach ( $hold_tribe_bar_args as $key => $value )
+		if (!empty($hold_tribe_bar_args))
+			foreach ($hold_tribe_bar_args as $key => $value)
 				$_REQUEST[$key] = $value;
 	}
 
@@ -122,11 +124,12 @@ class TribeEventsListWidget extends WP_Widget {
 	 * @param array $old_instance
 	 * @return array The new widget settings.
 	 */
-	function update( $new_instance, $old_instance ) {
+	function update($new_instance, $old_instance)
+	{
 		$instance = $old_instance;
 
 		/* Strip tags (if needed) and update the widget settings. */
-		$instance['title'] = strip_tags( $new_instance['title'] );
+		$instance['title'] = strip_tags($new_instance['title']);
 		$instance['limit'] = $new_instance['limit'];
 		$instance['no_upcoming_events'] = $new_instance['no_upcoming_events'];
 
@@ -139,23 +142,25 @@ class TribeEventsListWidget extends WP_Widget {
 	 * @param array $instance
 	 * @return string The output for the admin widget form.
 	 */
-	function form( $instance ) {
+	function form($instance)
+	{
 		/* Set up default widget settings. */
-		$defaults = array( 'title' => __( 'Upcoming Events', 'tribe-events-calendar' ), 'limit' => '5', 'no_upcoming_events' => false );
-		$instance = wp_parse_args( (array) $instance, $defaults );
+		$defaults = array('title' => __('Upcoming Events', 'tribe-events-calendar'), 'limit' => '5', 'no_upcoming_events' => false);
+		$instance = wp_parse_args((array)$instance, $defaults);
 		$tribe_ecp = TribeEvents::instance();
-		include( $tribe_ecp->pluginPath . 'admin-views/widget-admin-list.php' );
+		include($tribe_ecp->pluginPath . 'admin-views/widget-admin-list.php');
 	}
 }
 
 /* Add function to the widgets_ hook. */
-add_action( 'widgets_init', 'events_list_load_widgets', 90 );
+add_action('widgets_init', 'events_list_load_widgets', 90);
 
 /**
  * Function that registers widget.
  *
  * @return void
  */
-function events_list_load_widgets() {
-	register_widget( 'TribeEventsListWidget' );
+function events_list_load_widgets()
+{
+	register_widget('TribeEventsListWidget');
 }
