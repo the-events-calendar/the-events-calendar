@@ -120,7 +120,7 @@ if( !class_exists('Tribe_Events_Month_Template')){
 			}
 			// if attempting to view a category archive.
 			elseif ( ! empty( $tax_term ) && $no_events ) {
-				TribeEvents::setNotice( 'events-not-found', sprintf( __('No matching events listed under %s. Go view the full calendar.', 'tribe-events-calendar'), $tax_term ) );
+				TribeEvents::setNotice( 'events-not-found', sprintf( __('No matching events listed under %s. Please try viewing the full calendar for a complete list of events.', 'tribe-events-calendar'), $tax_term ) );
 			}
 			elseif ( $no_events ) {
 				TribeEvents::setNotice( 'event-search-no-results', __( 'There were no results found.', 'tribe-events-calendar' ) );
