@@ -2532,11 +2532,13 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			$location = trim( $tribeEvents->fullAddressString( $postId ) );
 			$base_url = 'http://www.google.com/calendar/event';
 
-			//Strip tags
-			$event_details = strip_tags( get_the_content() );
+			$event_details = get_the_content();
 
 			//Truncate Event Description and add permalink if greater than 996 characters
 			if ( strlen( $event_details ) > 996 ) {
+				//Strip tags
+				$event_details = strip_tags( $event_details );
+
 				$event_url = get_permalink();
 				$event_details = substr( $event_details, 0, 996 );
 
@@ -2550,7 +2552,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				'action' => 'TEMPLATE',
 				'text' => urlencode( strip_tags( $post->post_title ) ),
 				'dates' => $dates,
-				'details' => urlencode( strip_tags( apply_filters( 'the_content', $event_details ) ) ),
+				'details' => urlencode( apply_filters( 'the_content', $event_details ) ),
 				'location' => urlencode( $location ),
 				'sprop' => get_option( 'blogname' ),
 				'trp' => 'false',
