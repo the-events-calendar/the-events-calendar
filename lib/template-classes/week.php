@@ -99,7 +99,7 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 				
 			// if attempting to view a category archive.
 			elseif ( ! empty( $tax_term ) )
-				TribeEvents::setNotice( 'events-not-found', sprintf( __('No matching events listed under %s. Go view the full calendar.', 'tribe-events-calendar'), $tax_term ) );
+				TribeEvents::setNotice( 'events-not-found', sprintf( __('No matching events listed under %s. Please try viewing the full calendar for a complete list of events.', 'tribe-events-calendar'), $tax_term ) );
 
 			else
 				TribeEvents::setNotice( 'event-search-no-results', __( 'No results were found for this week. Try searching another week.', 'tribe-events-calendar-pro' ) );
