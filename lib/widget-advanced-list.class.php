@@ -5,8 +5,7 @@
  * Creates a widget that displays the next upcoming x events
  */
 
-if ( ! defined( 'ABSPATH' ) ) { die('-1'); }
-if ( ! class_exists( 'TribeEventsAdvancedListWidget' ) ) return;
+if ( ! defined( 'ABSPATH' ) ) die('-1');
 
 class TribeEventsAdvancedListWidget extends TribeEventsListWidget {
 	/**
