@@ -771,8 +771,8 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			new TribeSettingsTab( 'display', __('Display', 'tribe-events-calendar'), $displayTab );
 			// If none of the addons are activated, do not show the licenses tab.
 
-			$addons_active = class_exists( 'TribePluginUpdateEngineChecker' ); // true if there are pue based addons available.
-			if ( $addons_active ) {
+			$addons = apply_filters( 'tribe_licensable_addons', array() );
+			if ( !empty($addons) ) {
 				$license_fields = apply_filters( 'tribe_license_fields', $tribe_licences_tab_fields );
 				if ( is_multisite() ) {
 					new TribeSettingsTab( 'licenses', __('Licenses', 'tribe-events-calendar'), array('priority' => '40', 'network_admin' => true, 'fields' => $license_fields ) );
