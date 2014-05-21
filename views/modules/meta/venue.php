@@ -11,6 +11,7 @@
 
 if ( ! tribe_address_exists() ) return;
 $phone = tribe_get_phone();
+$website = tribe_get_venue_website_link()
 ?>
 
 <div class="tribe-events-meta-group tribe-events-meta-group-venue">
@@ -19,11 +20,6 @@ $phone = tribe_get_phone();
 		<?php do_action( 'tribe_events_single_meta_venue_section_start' ) ?>
 
 		<dd class="author fn org"> <?php echo tribe_get_venue() ?> </dd>
-
-		<?php if ( ! empty( $phone ) ):	?>
-			<dt> <?php _e( 'Phone:', 'tribe-events-calendar' ) ?> </dt>
-			<dd class="tel"> <?php esc_html_e( $phone ) ?> </dd>
-		<?php endif ?>
 
 		<?php
 		// Do we have an address?
@@ -37,8 +33,15 @@ $phone = tribe_get_phone();
 		if ( ! empty( $address ) ) echo '<dd class="location">' . "$address $gmap_link </dd>";
 		?>
 
-		<dt> <?php _e( 'Website:', 'tribe-events-calendar' ) ?> </dt>
-		<dd class="url"> <?php echo tribe_get_venue_website_link() ?> </dd>
+		<?php if ( ! empty( $phone ) ): ?>
+			<dt> <?php _e( 'Phone:', 'tribe-events-calendar' ) ?> </dt>
+			<dd class="tel"> <?php esc_html_e( $phone ) ?> </dd>
+		<?php endif ?>
+
+		<?php if ( ! empty( $website ) ): ?>
+			<dt> <?php _e( 'Website:', 'tribe-events-calendar' ) ?> </dt>
+			<dd class="url"> <?php esc_html_e( $website ) ?> </dd>
+		<?php endif ?>
 
 		<?php do_action( 'tribe_events_single_meta_venue_section_end' ) ?>
 	</dl>

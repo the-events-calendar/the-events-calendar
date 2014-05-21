@@ -8,6 +8,10 @@
  * @package TribeEventsCalendar
  * @since 3.6
  */
+
+$phone = tribe_get_organizer_phone();
+$email = tribe_get_organizer_email();
+$website = tribe_get_organizer_website_link();
 ?>
 
 <div class="tribe-events-meta-group tribe-events-meta-group-organizer">
@@ -17,14 +21,20 @@
 
 		<dd class="fn org"> <?php echo tribe_get_organizer() ?> </dd>
 
-		<dt> <?php _e( 'Phone:', 'tribe-events-calendar' ) ?> </dt>
-		<dd class="tel"> <?php echo tribe_get_organizer_phone() ?> </dd>
+		<?php if ( ! empty( $phone ) ): ?>
+			<dt> <?php _e( 'Phone:', 'tribe-events-calendar' ) ?> </dt>
+			<dd class="tel"> <?php echo tribe_get_organizer_phone() ?> </dd>
+		<?php endif ?>
 
-		<dt> <?php _e( 'Email:', 'tribe-events-calendar' ) ?> </dt>
-		<dd class="email"> <?php echo tribe_get_organizer_email() ?> </dd>
+		<?php if ( ! empty( $email ) ): ?>
+			<dt> <?php _e( 'Email:', 'tribe-events-calendar' ) ?> </dt>
+			<dd class="email"> <?php echo tribe_get_organizer_email() ?> </dd>
+		<?php endif ?>
 
-		<dt> <?php _e( 'Website:', 'tribe-events-calendar' ) ?> </dt>
-		<dd class="url"> <?php echo tribe_get_organizer_website_link() ?> </dd>
+		<?php if ( ! empty( $website ) ): ?>
+			<dt> <?php _e( 'Website:', 'tribe-events-calendar' ) ?> </dt>
+			<dd class="url"> <?php echo tribe_get_organizer_website_link() ?> </dd>
+		<?php endif ?>
 
 		<?php do_action( 'tribe_events_single_meta_organizer_section_end' ) ?>
 	</dl>
