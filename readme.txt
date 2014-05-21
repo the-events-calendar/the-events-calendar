@@ -235,7 +235,10 @@ Our Premium Plugins:
 * Fixed an issue where duplicate Prev/Next Nav elements would display in Photo & Map View when no events were found
 * Now hiding the 'All Day' bar in Week View when no All Day events are found
 * Added a 'View All Events at this Venue' link to the Featured Venue Widget
-* Split out the Related Events code to it's own template file: views/PRO/related-events.php
+* Split out the Related Events code to it's own template file: views/pro/related-events.php
+* Fixed an issue where the selected category wasn't being respecting when paginating on Photo View
+* Fixed an issue where using the Mini Calendar widget could break comments on posts
+* The mini calendar widget will no longer display expired events in the list below the calendar
 
 = 3.5.2 =
 
