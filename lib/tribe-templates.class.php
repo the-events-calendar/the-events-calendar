@@ -373,7 +373,7 @@ if (!class_exists('TribeEventsTemplates')) {
 			}
 
 			// day view
-			if( tribe_is_day() ) {
+			else if( tribe_is_day() ) {
 				$class = 'Tribe_Events_Day_Template';
 			}
 
