@@ -71,6 +71,7 @@ if ( !class_exists( 'TribePluginUpdateEngineChecker' ) ) {
 			if ( ! defined( 'TRIBE_DISABLE_PUE' ) || TRIBE_DISABLE_PUE !== true )
 				add_filter( 'pre_set_site_transient_update_plugins', array( $this, 'check_for_updates' ) );
 
+			add_filter( 'tribe_licensable_addons', array( $this, 'build_addon_list' ) );
 			add_action( 'tribe_license_fields', array( $this, 'do_license_key_fields' ) );
 			add_action( 'tribe_settings_after_content_tab_licenses', array( $this, 'do_license_key_javascript' ) );
 			add_action( 'tribe_settings_success_message', array( $this, 'do_license_key_success_message' ), 10, 2 );
@@ -266,6 +267,17 @@ if ( !class_exists( 'TribePluginUpdateEngineChecker' ) ) {
 
 
 		/********************** General Functions **********************/
+
+		/**
+		 * Compile  a list of addons
+		 * @author Peter Chester
+		 * @param array $addons list of addons
+		 * @return array list of addons
+		 */
+		public function build_addon_list( $addons = array() ) {
+			$addons[] = $this->get_plugin_name();
+			return $addons;
+		}
 
 		/**
 		 * Inserts license key fields on license key page

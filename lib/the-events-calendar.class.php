@@ -771,8 +771,8 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			new TribeSettingsTab( 'display', __('Display', 'tribe-events-calendar'), $displayTab );
 			// If none of the addons are activated, do not show the licenses tab.
 
-			$addons_active = class_exists( 'TribePluginUpdateEngineChecker' ); // true if there are pue based addons available.
-			if ( $addons_active ) {
+			$addons = apply_filters( 'tribe_licensable_addons', array() );
+			if ( !empty($addons) ) {
 				$license_fields = apply_filters( 'tribe_license_fields', $tribe_licences_tab_fields );
 				if ( is_multisite() ) {
 					new TribeSettingsTab( 'licenses', __('Licenses', 'tribe-events-calendar'), array('priority' => '40', 'network_admin' => true, 'fields' => $license_fields ) );
@@ -2532,11 +2532,13 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			$location = trim( $tribeEvents->fullAddressString( $postId ) );
 			$base_url = 'http://www.google.com/calendar/event';
 
-			//Strip tags
-			$event_details = strip_tags( get_the_content() );
+			$event_details = get_the_content();
 
 			//Truncate Event Description and add permalink if greater than 996 characters
 			if ( strlen( $event_details ) > 996 ) {
+				//Strip tags
+				$event_details = strip_tags( $event_details );
+
 				$event_url = get_permalink();
 				$event_details = substr( $event_details, 0, 996 );
 
@@ -2550,7 +2552,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				'action' => 'TEMPLATE',
 				'text' => urlencode( strip_tags( $post->post_title ) ),
 				'dates' => $dates,
-				'details' => urlencode( strip_tags( apply_filters( 'the_content', $event_details ) ) ),
+				'details' => urlencode( apply_filters( 'the_content', $event_details ) ),
 				'location' => urlencode( $location ),
 				'sprop' => get_option( 'blogname' ),
 				'trp' => 'false',
