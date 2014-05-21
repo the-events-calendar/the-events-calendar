@@ -162,6 +162,7 @@ The plugin is produced by <a href="http://m.tri.be/45">Modern Tribe Inc</a>.
 * Czech from Petr Bastan
 * Danish from Anonymous
 * Dutch from J.F.M. Cornelissen and Frans Pronk
+* Estonian from Sandras
 * Finnish by Ari-Pekka Koponen
 * French from Laurent Proulx
 * German from Dennis Gruebner
@@ -239,6 +240,7 @@ Our Premium Plugins:
 * Fixed an issue where the selected category wasn't being respecting when paginating on Photo View
 * Fixed an issue where using the Mini Calendar widget could break comments on posts
 * The mini calendar widget will no longer display expired events in the list below the calendar
+* Added Estonian translation files courtesy of Sandras
 
 = 3.5.2 =
 
