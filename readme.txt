@@ -333,6 +333,21 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Removed the hyperlink on the Featured image in the Event single template
 * Improved the 'No Events Found' messaging for various scenarios to more helpful and descriptive
 * Fixed an issue where duplicate Prev/Next Nav elements would display in Photo & Map View when no events were found
+* Moved Day view from Events Calendar Pro to The Events Calendar
+* Fixed an issue where switching between views would show events from incorrect dates
+* Fixed an issue where selecting a date in the Tribe Bar may not have desired results when object caching is on
+* Added settings for specifying custom formats for dates that are displayed throughout the plugin
+* Ordered events in the events RSS feed by event date
+* Removed "View Venue" links when Events Calendar Pro is not active
+* Fixed a bug where each time you previewed an event with unsaved data, it could create duplicate Venues and Organizers
+* Remove Events dropdown from the admin bar when you're in the network admin. Props @cfoellmann
+* Ensured that external links on the TEC row in the admin Plugins page now open in a new tab. Props @cfoellmann
+* Added a readme page for the Github repository
+* Updated Danish translation files. Props @bechster
+* Fixed an issue that was causing Venue and Organizer data not to be saved in some situations
+* Fixed an issue with multi-day All Day events were not showing at the top of Day view
+* Fixed an issue where the iCal feed was exporting all events rather than the currently displaying events
+
 
 = 3.5.1 =
 
