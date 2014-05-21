@@ -831,7 +831,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 */
 	function tribe_get_datetime_format( $with_year = false ) {
 		$format = tribe_get_date_format( $with_year );
-		$format .= tribe_get_option( 'datetimeSeparator', ' @ ' );
+		$format .= tribe_get_option( 'dateTimeSeparator', ' @ ' );
 		$format .= get_option( 'time_format' );
 
 		return apply_filters( 'tribe_datetime_format', $format );
@@ -861,6 +861,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 * @since 3.0
 	 * @param int|null $event
 	 * @return string
+	 * @TODO use tribe_get_datetime_format() and related functions if possible
 	 */
 	function tribe_events_event_schedule_details( $event = null, $before = '', $after = '' ) {
 		if ( is_null( $event ) ) {
