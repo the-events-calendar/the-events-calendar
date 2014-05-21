@@ -233,6 +233,7 @@ The plugin is produced by <a href="http://m.tri.be/2s">Modern Tribe Inc</a>.
 * Czech from Petr Bastan
 * Danish from Anonymous
 * Dutch from J.F.M. Cornelissen and Frans Pronk
+* Estonian from Sandras
 * Finnish by Ari-Pekka Koponen
 * French from Laurent Proulx
 * German from Dennis Gruebner 
@@ -347,6 +348,7 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Fixed an issue that was causing Venue and Organizer data not to be saved in some situations
 * Fixed an issue with multi-day All Day events were not showing at the top of Day view
 * Fixed an issue where the iCal feed was exporting all events rather than the currently displaying events
+* Added Estonian translation files courtesy of Sandras
 
 
 = 3.5.1 =
