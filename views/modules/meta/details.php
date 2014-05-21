@@ -18,6 +18,7 @@
 		do_action( 'tribe_events_single_meta_details_section_start' );
 
 		$time_format = get_option( 'time_format', TribeDateUtils::TIMEFORMAT );
+		$time_range_separator = tribe_get_option('timeRangeSeparator', ' - ');
 
 		$start_datetime = tribe_get_start_date();
 		$start_date = tribe_get_start_date( null, false );
@@ -68,7 +69,7 @@
 
 			<dt> <?php _e( 'Time:', 'tribe-events-calendar' ) ?> </dt>
 			<dd> <abbr class="tribe-events-abbr updated published dtstart" title="<?php esc_attr_e( $end_ts ) ?>">
-					<?php if ( $start_time == $end_time ) esc_html_e( $start_time ); else esc_html_e( $start_time .' - '. $end_time ); ?>
+					<?php if ( $start_time == $end_time ) esc_html_e( $start_time ); else esc_html_e( $start_time . $time_range_separator . $end_time ); ?>
 				</abbr> </dd>
 
 		<?php endif ?>
