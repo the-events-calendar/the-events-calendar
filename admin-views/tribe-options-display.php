@@ -138,7 +138,7 @@ $displayTab = array(
 			'type' => 'text',
 			'label' => __('Month and year format', 'tribe-events-calendar'),
 			'tooltip' => __('Enter the format to use for dates that show a month and year only. Used on month view.', 'tribe-events-calendar' ),
-			'default' => 'F y',
+			'default' => 'F Y',
 			'size' => 'medium',
 			'validation_type' => 'html',
 		),
