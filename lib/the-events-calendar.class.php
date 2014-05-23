@@ -428,7 +428,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			add_action( 'tribe_settings_content_tab_help', array( $this, 'doHelpTab' ) );
 			add_action( 'tribe_settings_validate_tab_network', array( $this, 'saveAllTabsHidden' ) );
 			add_action( 'load-tribe_events_page_tribe-events-calendar', array( 'Tribe_Amalgamator', 'listen_for_migration_button' ), 10, 0 );
-			add_action( 'tribe_settings_after_save_display', 'flush_rewrite_rules');
+			add_action( 'tribe_settings_after_save', array($this, 'flushRewriteRules'));
 			add_action( 'load-edit-tags.php', array( $this, 'prepare_to_fix_tagcloud_links' ), 10, 0 );
 
 			// add-on compatibility
@@ -1879,13 +1879,9 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			if ( $apply_filters == true ) {
 				$options = apply_filters( 'tribe-events-save-options', $options );
 			}
+			// @TODO use TribeEvents::getOptions
 			if ( update_option( TribeEvents::OPTIONNAME, $options ) ) {
 				self::$options = apply_filters( 'tribe_get_options', $options );
-				if ( isset( TribeEvents::$options['eventsSlug'] ) ) {
-					if ( TribeEvents::$options['eventsSlug'] != '' ) {
-						TribeEvents::flushRewriteRules();
-					}
-				}
 				return true;
 			} else {
 				TribeEvents::$options = TribeEvents::getOptions();
@@ -1911,6 +1907,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 * Get all network options for the Events Calendar
 		 *
 		 * @return array of options
+		 * @TODO add force option, implement in setNetworkOptions
 		 */
 		public static function getNetworkOptions() {
 			if ( !isset( self::$networkOptions ) ) {
@@ -1957,11 +1954,10 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			if ( $apply_filters == true ) {
 				$options = apply_filters( 'tribe-events-save-network-options', $options );
 			}
+
+			// @TODO use getNetworkOptions + force
 			if ( update_site_option( TribeEvents::OPTIONNAMENETWORK, $options ) ) {
 				self::$networkOptions = apply_filters( 'tribe_get_network_options', $options );
-				if ( isset( self::$networkOptions['eventsSlug'] ) && self::$networkOptions['eventsSlug'] != '' ) {
-					$this->flushRewriteRules();
-				}
 			} else {
 				self::$networkOptions = self::getNetworkOptions();
 			}
@@ -1973,6 +1969,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 * @param string $name The name of the tribe network option.
 		 * @param mixed $value The value of the option you're setting.
 		 * @return void
+		 * @TODO remove, unused
 		 */
 		public function setNetworkOption($name, $value) {
 			$newOption = array();
@@ -2034,6 +2031,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 * Save hidden tabs
 		 *
 		 * @return void
+		 * @TODO move somewhere else
 		 */
 		public function saveAllTabsHidden() {
 			$all_tabs_keys = array_keys( apply_filters( 'tribe_settings_all_tabs', array() ) );
@@ -2260,10 +2258,13 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 */
 		public static function flushRewriteRules() {
 
-			global $wp_rewrite;
-			$wp_rewrite->flush_rules();
-			// in case this was called too early, let's get it in the end.
-			add_action('shutdown', array('TribeEvents', 'flushRewriteRules'));
+			$tec = self::instance();
+
+			// reregister custom post type to make sure slugs are updated
+			$tec->postTypeArgs['rewrite']['slug'] = sanitize_title( $tec->getRewriteSlugSingular() );
+			register_post_type( self::POSTTYPE, apply_filters( 'tribe_events_register_event_type_args', $tec->postTypeArgs ) );
+
+			add_action( 'shutdown', 'flush_rewrite_rules' );
 		}
 		/**
 		 * Adds the event specific query vars to WordPress
@@ -2297,15 +2298,11 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 * @return void
 		 */
 		public function filterRewriteRules( $wp_rewrite ) {
-			if ( '' == get_option('permalink_structure') ) {
-
-			}
 
 			$this->rewriteSlug         = $this->getRewriteSlug();
 			$this->rewriteSlugSingular = $this->getRewriteSlugSingular();
 			$this->taxRewriteSlug      = $this->getTaxRewriteSlug();
 			$this->tagRewriteSlug      = $this->getTagRewriteSlug();
-
 
 			$base       = trailingslashit( $this->rewriteSlug );
 			$singleBase = trailingslashit( $this->rewriteSlugSingular );
