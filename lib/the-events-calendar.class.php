@@ -467,17 +467,28 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 
 			add_action( 'plugins_loaded', array( $this, 'init_ical' ), 2, 0 );
+			add_action( 'plugins_loaded', array( $this, 'init_day_view' ), 2 );
 
 
 		}
 
 		public function init_ical() {
 			//iCal
-			if ( !class_exists('TribeiCal') ) {
-				require_once ( 'tribe-ical.class.php' );
+			if ( !class_exists('TribeiCal' ) ) {
+				require_once 'tribe-ical.class.php' ;
 				TribeiCal::init();
 				require_once $this->pluginPath.'public/template-tags/ical.php';
 			}
+		}
+
+		/**
+ 		 * Load the day view template tags
+		 * Loaded late due to potential upgrade conflict since moving them from pro
+		 * @TODO move this require to be with the rest of the template tag includes in 3.8
+		 */
+		public function init_day_view() {
+			// load day view functions
+			require_once $this->pluginPath . 'public/template-tags/day.php';
 		}
 
 		/**

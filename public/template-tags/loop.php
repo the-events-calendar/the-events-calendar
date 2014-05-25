@@ -39,20 +39,6 @@ if( class_exists( 'TribeEvents' ) ) {
 	}
 
 	/**
-	 * Single Day Test
-	 *
-	 * Returns true if the query is set for single day, false otherwise
-	 * 
-	 * @return bool
-	 * @since 2.0
-	 */
-	function tribe_is_day()  {
-		$tribe_ecp = TribeEvents::instance();
-		$is_day = ($tribe_ecp->displaying == 'day') ? true : false;
-		return apply_filters('tribe_is_day', $is_day);
-	}
-
-	/**
 	 * Past Loop View Test
 	 *
 	 * Returns true if the query is set for past events, false otherwise
