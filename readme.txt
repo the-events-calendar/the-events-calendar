@@ -234,7 +234,7 @@ The plugin is produced by <a href="http://m.tri.be/2s">Modern Tribe Inc</a>.
 * Czech from Petr Bastan
 * Danish from Anonymous
 * Dutch from J.F.M. Cornelissen and Frans Pronk
-* Estonian from Sandras
+* Estonian from Andra Saimre
 * Finnish by Ari-Pekka Koponen
 * French from Laurent Proulx
 * German from Dennis Gruebner 
@@ -341,7 +341,7 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Added a readme page for the Github repository
 * Fixed an issue with multi-day All Day events were not showing at the top of Day view
 * Fixed an issue where the iCal feed was exporting all events rather than the currently displaying events (thanks to Glenn on the forums for the report!)
-* Added new Estonian translation files, courtesy of Sandras
+* Added new Estonian translation files, courtesy of Andra Saimre
 * Added updated German translation files, courtesy of Dennis Gruebner
 * Added updated Swedish translation files, courtesy of Jonas Reinicke
 * Added new Latvian translation files, courtesy of Raivis Dejus
