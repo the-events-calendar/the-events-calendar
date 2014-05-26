@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: The Events Calendar 3.5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-05-20 11:53-0800\n"
-"PO-Revision-Date: 2014-05-20 11:53-0800\n"
+"POT-Creation-Date: 2014-05-26 09:20-0800\n"
+"PO-Revision-Date: 2014-05-26 09:20-0800\n"
 "Last-Translator: \n"
 "Language-Team: Modern Tribe, Inc. <pro@tri.be>\n"
 "Language: en_US\n"
@@ -115,7 +115,7 @@ msgstr ""
 
 #: ../admin-views/events-meta-box.php:134
 #: ../public/advanced-functions/meta.php:320
-#: ../views/modules/meta/details.php:80
+#: ../views/modules/meta/details.php:81
 msgid "Cost:"
 msgstr ""
 
@@ -132,7 +132,7 @@ msgstr ""
 #: ../admin-views/venue-meta-box.php:93
 #: ../public/advanced-functions/meta.php:408
 #: ../public/advanced-functions/meta.php:470
-#: ../views/modules/meta/organizer.php:20 ../views/modules/meta/venue.php:24
+#: ../views/modules/meta/organizer.php:25 ../views/modules/meta/venue.php:37
 msgid "Phone:"
 msgstr ""
 
@@ -142,14 +142,14 @@ msgstr ""
 #: ../public/advanced-functions/meta.php:359
 #: ../public/advanced-functions/meta.php:434
 #: ../public/advanced-functions/meta.php:496
-#: ../views/modules/meta/details.php:103
-#: ../views/modules/meta/organizer.php:26 ../views/modules/meta/venue.php:40
+#: ../views/modules/meta/details.php:104
+#: ../views/modules/meta/organizer.php:35 ../views/modules/meta/venue.php:42
 msgid "Website:"
 msgstr ""
 
 #: ../admin-views/organizer-meta-box.php:27
 #: ../public/advanced-functions/meta.php:483
-#: ../views/modules/meta/organizer.php:23
+#: ../views/modules/meta/organizer.php:30
 msgid "Email:"
 msgstr ""
 
@@ -1161,7 +1161,7 @@ msgstr ""
 
 #: ../lib/io/csv/admin-views/import.php:47
 #: ../lib/the-events-calendar.class.php:1343
-#: ../lib/the-events-calendar.class.php:3928
+#: ../lib/the-events-calendar.class.php:3927
 msgid "Events"
 msgstr ""
 
@@ -1387,7 +1387,7 @@ msgstr ""
 
 #: ../lib/pue/admin-views/license-key.view.php:9
 #: ../lib/pue/admin-views/license-key.view.php:13
-#: ../lib/pue/lib/pue_plugin_update_engine.class.php:291
+#: ../lib/pue/lib/pue_plugin_update_engine.class.php:303
 msgid "License Key"
 msgstr ""
 
@@ -1400,36 +1400,36 @@ msgid "Replace empty fields"
 msgstr ""
 
 #: ../lib/pue/admin-views/license-key.view.php:25
-#: ../lib/pue/lib/pue_plugin_update_engine.class.php:292
+#: ../lib/pue/lib/pue_plugin_update_engine.class.php:304
 msgid "A valid license key is required for support and updates"
 msgstr ""
 
-#: ../lib/pue/lib/pue_plugin_update_engine.class.php:360
+#: ../lib/pue/lib/pue_plugin_update_engine.class.php:372
 msgid "License key(s) updated."
 msgstr ""
 
-#: ../lib/pue/lib/pue_plugin_update_engine.class.php:400
+#: ../lib/pue/lib/pue_plugin_update_engine.class.php:412
 msgid "Sorry, key validation server is not available."
 msgstr ""
 
-#: ../lib/pue/lib/pue_plugin_update_engine.class.php:402
+#: ../lib/pue/lib/pue_plugin_update_engine.class.php:414
 msgid "Sorry, this key is expired."
 msgstr ""
 
-#: ../lib/pue/lib/pue_plugin_update_engine.class.php:404
+#: ../lib/pue/lib/pue_plugin_update_engine.class.php:416
 msgid "Sorry, this key is out of installs."
 msgstr ""
 
-#: ../lib/pue/lib/pue_plugin_update_engine.class.php:406
+#: ../lib/pue/lib/pue_plugin_update_engine.class.php:418
 msgid "Sorry, this key is not valid."
 msgstr ""
 
-#: ../lib/pue/lib/pue_plugin_update_engine.class.php:409
+#: ../lib/pue/lib/pue_plugin_update_engine.class.php:421
 #, php-format
 msgid "Valid Key! Expires on %s"
 msgstr ""
 
-#: ../lib/pue/lib/pue_plugin_update_engine.class.php:413
+#: ../lib/pue/lib/pue_plugin_update_engine.class.php:425
 #, php-format
 msgid ""
 "Hmmm... something's wrong with this validator. Please contact <a href=\"%s"
@@ -1554,8 +1554,8 @@ msgid "Display"
 msgstr ""
 
 #: ../lib/the-events-calendar.class.php:783
-#: ../lib/the-events-calendar.class.php:4012
-#: ../lib/the-events-calendar.class.php:4109
+#: ../lib/the-events-calendar.class.php:4011
+#: ../lib/the-events-calendar.class.php:4108
 msgid "Help"
 msgstr ""
 
@@ -1646,7 +1646,7 @@ msgstr ""
 
 #: ../lib/the-events-calendar.class.php:1357
 #: ../public/advanced-functions/meta.php:382
-#: ../views/modules/meta/venue.php:17 ../views/tickets/email.php:343
+#: ../views/modules/meta/venue.php:18 ../views/tickets/email.php:343
 msgid "Venue"
 msgstr ""
 
@@ -1681,7 +1681,7 @@ msgstr ""
 
 #: ../lib/the-events-calendar.class.php:1370
 #: ../public/advanced-functions/meta.php:444
-#: ../views/modules/meta/organizer.php:14 ../views/tickets/email.php:362
+#: ../views/modules/meta/organizer.php:18 ../views/tickets/email.php:362
 msgid "Organizer"
 msgstr ""
 
@@ -1928,132 +1928,132 @@ msgstr ""
 msgid "Done"
 msgstr ""
 
-#: ../lib/the-events-calendar.class.php:2002
+#: ../lib/the-events-calendar.class.php:1999
 msgid "Network"
 msgstr ""
 
-#: ../lib/the-events-calendar.class.php:3521
-#: ../lib/the-events-calendar.class.php:3549
+#: ../lib/the-events-calendar.class.php:3520
+#: ../lib/the-events-calendar.class.php:3548
 #: ../public/template-tags/link.php:125 ../public/template-tags/link.php:143
 msgid "Date out of range."
 msgstr ""
 
-#: ../lib/the-events-calendar.class.php:3573
+#: ../lib/the-events-calendar.class.php:3572
 msgid "Event Options"
 msgstr ""
 
-#: ../lib/the-events-calendar.class.php:3575
+#: ../lib/the-events-calendar.class.php:3574
 msgid "Venue Information"
 msgstr ""
 
-#: ../lib/the-events-calendar.class.php:3580
+#: ../lib/the-events-calendar.class.php:3579
 msgid "Organizer Information"
 msgstr ""
 
-#: ../lib/the-events-calendar.class.php:3777
+#: ../lib/the-events-calendar.class.php:3776
 msgid "Support"
 msgstr ""
 
-#: ../lib/the-events-calendar.class.php:3780
+#: ../lib/the-events-calendar.class.php:3779
 msgid "View All Add-Ons"
 msgstr ""
 
-#: ../lib/the-events-calendar.class.php:3797
+#: ../lib/the-events-calendar.class.php:3796
 msgid "News from Modern Tribe"
 msgstr ""
 
-#: ../lib/the-events-calendar.class.php:3878
+#: ../lib/the-events-calendar.class.php:3877
 msgid "Additional Functionality"
 msgstr ""
 
-#: ../lib/the-events-calendar.class.php:3883
+#: ../lib/the-events-calendar.class.php:3882
 msgid ""
 "Looking for additional functionality including recurring events, ticket "
 "sales, publicly submitted events, new views and more?"
 msgstr ""
 
-#: ../lib/the-events-calendar.class.php:3883
+#: ../lib/the-events-calendar.class.php:3882
 #, php-format
 msgid "Check out the <a href=\"%s\">available add-ons</a>."
 msgstr ""
 
-#: ../lib/the-events-calendar.class.php:3955
-#: ../lib/the-events-calendar.class.php:4062
+#: ../lib/the-events-calendar.class.php:3954
+#: ../lib/the-events-calendar.class.php:4061
 msgid "View Calendar"
 msgstr ""
 
-#: ../lib/the-events-calendar.class.php:3963
+#: ../lib/the-events-calendar.class.php:3962
 msgid "Add Event"
 msgstr ""
 
-#: ../lib/the-events-calendar.class.php:3972
+#: ../lib/the-events-calendar.class.php:3971
 msgid "Edit Events"
 msgstr ""
 
-#: ../lib/the-events-calendar.class.php:3983
+#: ../lib/the-events-calendar.class.php:3982
 msgid "Import"
 msgstr ""
 
-#: ../lib/the-events-calendar.class.php:3989
+#: ../lib/the-events-calendar.class.php:3988
 msgid "CSV"
 msgstr ""
 
-#: ../lib/the-events-calendar.class.php:4001
-#: ../lib/the-events-calendar.class.php:4098
-#: ../lib/tribe-settings.class.php:164
+#: ../lib/the-events-calendar.class.php:4000
+#: ../lib/the-events-calendar.class.php:4097
+#: ../lib/tribe-settings.class.php:163
 msgid "Settings"
 msgstr ""
 
-#: ../lib/the-events-calendar.class.php:4032
+#: ../lib/the-events-calendar.class.php:4031
 #, php-format
 msgid ""
 "Welcome to The Events Calendar! Your events calendar can be found at %s. To "
 "change the events slug, visit %sEvents -> Settings%s."
 msgstr ""
 
-#: ../lib/the-events-calendar.class.php:4099
+#: ../lib/the-events-calendar.class.php:4098
 msgid "Calendar"
 msgstr ""
 
-#: ../lib/the-events-calendar.class.php:4170
+#: ../lib/the-events-calendar.class.php:4169
 msgid "List"
 msgstr ""
 
-#: ../lib/the-events-calendar.class.php:4181
+#: ../lib/the-events-calendar.class.php:4180
 msgid "Month"
 msgstr ""
 
-#: ../lib/the-events-calendar.class.php:4195
+#: ../lib/the-events-calendar.class.php:4194
 msgid "Day"
 msgstr ""
 
-#: ../lib/the-events-calendar.class.php:4216
-#: ../lib/the-events-calendar.class.php:4218
+#: ../lib/the-events-calendar.class.php:4215
+#: ../lib/the-events-calendar.class.php:4217
 msgid "Search"
 msgstr ""
 
-#: ../lib/the-events-calendar.class.php:4240
-#: ../lib/the-events-calendar.class.php:4255
+#: ../lib/the-events-calendar.class.php:4239
+#: ../lib/the-events-calendar.class.php:4254
 msgid "Date"
 msgstr ""
 
-#: ../lib/the-events-calendar.class.php:4243
+#: ../lib/the-events-calendar.class.php:4242
 msgid "Events In"
 msgstr ""
 
-#: ../lib/the-events-calendar.class.php:4245
+#: ../lib/the-events-calendar.class.php:4244
 msgid "Events From"
 msgstr ""
 
-#: ../lib/the-events-calendar.class.php:4247
+#: ../lib/the-events-calendar.class.php:4246
 msgid "Day Of"
 msgstr ""
 
-#: ../lib/the-events-calendar.class.php:4463
+#: ../lib/the-events-calendar.class.php:4462
 msgid "&laquo; Previous Events"
 msgstr ""
 
-#: ../lib/the-events-calendar.class.php:4464
+#: ../lib/the-events-calendar.class.php:4463
 msgid "Next Events &raquo;"
 msgstr ""
 
@@ -2264,48 +2264,48 @@ msgstr ""
 msgid "There are no fields setup for this tab yet."
 msgstr ""
 
-#: ../lib/tribe-settings.class.php:164 ../lib/tribe-settings.class.php:176
+#: ../lib/tribe-settings.class.php:163 ../lib/tribe-settings.class.php:175
 msgid "The Events Calendar Settings"
 msgstr ""
 
-#: ../lib/tribe-settings.class.php:176
+#: ../lib/tribe-settings.class.php:175
 msgid "Events Settings"
 msgstr ""
 
-#: ../lib/tribe-settings.class.php:225
+#: ../lib/tribe-settings.class.php:224
 #, php-format
 msgid "%s Settings"
 msgstr ""
 
-#: ../lib/tribe-settings.class.php:239
+#: ../lib/tribe-settings.class.php:238
 msgid "You've requested a non-existent tab."
 msgstr ""
 
-#: ../lib/tribe-settings.class.php:247
+#: ../lib/tribe-settings.class.php:246
 msgid " Save Changes"
 msgstr ""
 
-#: ../lib/tribe-settings.class.php:299
+#: ../lib/tribe-settings.class.php:298
 msgid "You don't have permission to do that."
 msgstr ""
 
-#: ../lib/tribe-settings.class.php:305
+#: ../lib/tribe-settings.class.php:304
 msgid "The request was sent insecurely."
 msgstr ""
 
-#: ../lib/tribe-settings.class.php:311
+#: ../lib/tribe-settings.class.php:310
 msgid "The request wasn't sent from this tab."
 msgstr ""
 
-#: ../lib/tribe-settings.class.php:476
+#: ../lib/tribe-settings.class.php:475
 msgid "Your form had the following errors:"
 msgstr ""
 
-#: ../lib/tribe-settings.class.php:485
+#: ../lib/tribe-settings.class.php:484
 msgid "None of your settings were saved. Please try again."
 msgstr ""
 
-#: ../lib/tribe-settings.class.php:485
+#: ../lib/tribe-settings.class.php:484
 msgid ""
 "The above setting was not saved. Other settings were successfully saved."
 msgid_plural ""
@@ -2313,7 +2313,7 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../lib/tribe-settings.class.php:509
+#: ../lib/tribe-settings.class.php:508
 msgid "Settings saved."
 msgstr ""
 
@@ -3683,25 +3683,25 @@ msgstr ""
 
 #: ../public/advanced-functions/meta.php:39
 #: ../public/advanced-functions/meta.php:65
-#: ../views/modules/meta/details.php:36 ../views/modules/meta/details.php:55
+#: ../views/modules/meta/details.php:37 ../views/modules/meta/details.php:56
 msgid "Start:"
 msgstr ""
 
 #: ../public/advanced-functions/meta.php:46
 #: ../public/advanced-functions/meta.php:72
-#: ../views/modules/meta/details.php:39 ../views/modules/meta/details.php:58
+#: ../views/modules/meta/details.php:40 ../views/modules/meta/details.php:59
 msgid "End:"
 msgstr ""
 
 #: ../public/advanced-functions/meta.php:55
 #: ../public/advanced-functions/meta.php:81
-#: ../views/modules/meta/details.php:47 ../views/modules/meta/details.php:66
+#: ../views/modules/meta/details.php:48 ../views/modules/meta/details.php:67
 msgid "Date:"
 msgstr ""
 
 #: ../public/advanced-functions/meta.php:90
 #: ../public/advanced-functions/meta.php:99
-#: ../views/modules/meta/details.php:69
+#: ../views/modules/meta/details.php:70
 msgid "Time:"
 msgstr ""
 
@@ -3721,7 +3721,7 @@ msgid "Details"
 msgstr ""
 
 #: ../public/advanced-functions/meta.php:346
-#: ../views/modules/meta/details.php:97
+#: ../views/modules/meta/details.php:98
 msgid "Event Tags:"
 msgstr ""
 
@@ -3749,7 +3749,7 @@ msgstr ""
 msgid "Free"
 msgstr ""
 
-#: ../public/template-tags/general.php:1214
+#: ../public/template-tags/general.php:1215
 #, php-format
 msgid "Calendar powered by %sThe Events Calendar%s"
 msgstr ""
@@ -3816,10 +3816,6 @@ msgstr ""
 
 #: ../views/modules/bar.php:42
 msgid "View As"
-msgstr ""
-
-#: ../views/modules/meta/details.php:71
-msgid " - "
 msgstr ""
 
 #: ../views/month/nav.php:18
