@@ -60,6 +60,8 @@ if (!class_exists('TribeEventsTemplates')) {
 
 			add_action( 'wp_head', array( __CLASS__, 'wpHeadFinished' ), 999 );
 
+			add_filter( 'get_post_time', array(__CLASS__, 'event_date_to_pubDate'), 10 , 3 );
+
 		}
 
 		/**
@@ -73,7 +75,7 @@ if (!class_exists('TribeEventsTemplates')) {
 			do_action( 'tribe_tec_template_chooser', $template );
 
 			// hijack this method right up front if it's a 404
-			if ( is_404() && $events->displaying == 'single-event' && apply_filters( 'tribe_events_templates_is_404', '__return_true' ) )
+			if ( is_404() && $events->displaying == 'single-event' )
 				return get_404_template();
 				
 			// add the theme slug to the body class
@@ -334,6 +336,11 @@ if (!class_exists('TribeEventsTemplates')) {
 				$template = self::getTemplateHierarchy( 'month', array( 'disable_view_check' => true ) );
 			}
 
+			// day view
+			if( tribe_is_day() ) {
+				$template = self::getTemplateHierarchy( 'day' );
+			}
+
 			// single event view
 			if ( is_singular( TribeEvents::POSTTYPE ) && ! tribe_is_showing_all() ) {
 				$template = self::getTemplateHierarchy( 'single-event', array( 'disable_view_check' => true ) );
@@ -363,6 +370,11 @@ if (!class_exists('TribeEventsTemplates')) {
 			// calendar view
 			else if ( tribe_is_month() ) {
 				$class = 'Tribe_Events_Month_Template';
+			}
+
+			// day view
+			else if( tribe_is_day() ) {
+				$class = 'Tribe_Events_Day_Template';
 			}
 
 			// single event view
@@ -620,6 +632,24 @@ if (!class_exists('TribeEventsTemplates')) {
 			return $located;
 		}
 
+		/**
+		 * convert the post_date_gmt to the event date for feeds
+		 *
+		 * @param $time the post_date
+		 * @param $d the date format to return
+		 * @param $gmt whether this is a gmt time
+		 *
+		 * @return int|string
+		 */
+		public static function event_date_to_pubDate($time, $d, $gmt) {
+			global $post;
+			if ( $post->post_type == TribeEvents::POSTTYPE && is_feed() && $gmt ) {
+				$time = tribe_get_start_date( $post->ID, false, $d );
+				$time = mysql2date( $d, $time );
+			}
+			return $time;
+		}
+
 
 		/**
 		 * Query is complete.
@@ -678,7 +708,7 @@ if (!class_exists('TribeEventsTemplates')) {
 		public static function maybeSpoofQuery() {
 
 			// hijack this method right up front if it's a password protected post and the password isn't entered
-			if ( is_single() && post_password_required() ) {
+			if ( is_single() && post_password_required() || is_feed() ) {
 				return;
 			}
 

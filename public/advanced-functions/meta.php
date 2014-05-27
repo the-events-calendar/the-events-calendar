@@ -177,7 +177,7 @@ if ( class_exists( 'Tribe_Meta_Factory' ) ) {
 				$_tribe_meta_factory->meta[$meta_id]['label'],
 				$origin_to_display,
 				$meta_id );
-			return apply_filters( 'tribe_event_meta_event_orgin', $origin );
+			return apply_filters( 'tribe_event_meta_event_origin', $origin );
 		}
 
 
@@ -274,6 +274,7 @@ if ( class_exists( 'Tribe_Meta_Factory' ) ) {
 		/**
 		 * Get the venue map link
 		 *
+		 * @deprecated since 3.6 use tribe_get_map_link_html() instead
 		 * @return string
 		 */
 		public static function gmap_link() {

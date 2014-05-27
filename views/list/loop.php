@@ -18,7 +18,7 @@ global $more;
 $more = false;
 ?>
 
-<div class="tribe-events-loop hfeed vcalendar">
+<div class="tribe-events-loop vcalendar">
 
 	<?php while ( have_posts() ) : the_post(); ?>
 		<?php do_action( 'tribe_events_inside_before_loop' ); ?>

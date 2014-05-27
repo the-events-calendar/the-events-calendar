@@ -92,7 +92,9 @@ if( !class_exists('Tribe_Events_Month_Template')){
 		 **/
 		public function set_notices() {
 			global $wp_query;
+			$tribe = TribeEvents::instance();
 			$search_term = '';
+			$tax_term = '';
 
 			// setup a search term for query or via ajax
 			if ( ! empty( $wp_query->query_vars['s'] ) ) {
@@ -100,6 +102,11 @@ if( !class_exists('Tribe_Events_Month_Template')){
 			}
 			elseif ( ! empty($_REQUEST['tribe-bar-search'] ) ) {
 				$search_term = $_REQUEST['tribe-bar-search'];
+			}
+			
+			if ( is_tax( $tribe->get_event_taxonomy() ) ) {
+				$tax_term = get_term_by( 'slug', get_query_var( 'term' ), $tribe->get_event_taxonomy() );
+				$tax_term = esc_html( $tax_term->name );
 			}
 
 			// If there are no events we should be able to reduce the event_daily_counts array (the number of events in
@@ -110,6 +117,10 @@ if( !class_exists('Tribe_Events_Month_Template')){
 
 			if ( $no_events && ! empty($search_term)) {
 				TribeEvents::setNotice( 'event-search-no-results', sprintf( __( 'There were no results found for <strong>"%s"</strong> this month. Try searching next month.', 'tribe-events-calendar' ), esc_html( $search_term ) ) );
+			}
+			// if attempting to view a category archive.
+			elseif ( ! empty( $tax_term ) && $no_events ) {
+				TribeEvents::setNotice( 'events-not-found', sprintf( __('No matching events listed under %s. Please try viewing the full calendar for a complete list of events.', 'tribe-events-calendar'), $tax_term ) );
 			}
 			elseif ( $no_events ) {
 				TribeEvents::setNotice( 'event-search-no-results', __( 'There were no results found.', 'tribe-events-calendar' ) );
@@ -129,12 +140,15 @@ if( !class_exists('Tribe_Events_Month_Template')){
 
 			$count_args = self::$args;
 
+			do_action( 'log', 'get_daily_counts $date', 'tribe-events-query', $date );
+
 			$count_args['eventDisplay'] = 'month';
 			$count_args['eventDate'] = date( 'Y-m', strtotime( $date ) );
 			$count_args['start_date'] = tribe_event_beginning_of_day( $date );
 			$count_args['end_date'] = tribe_event_end_of_day( date('Y-m-t', strtotime( $date ) ) );
 			$count_args['hide_upcoming_ids'] = self::$hide_upcoming_ids;
 			$count_args['post_status'] = is_user_logged_in() ? array( 'publish', 'private' ) : 'publish';
+			$count_args['tribeHideRecurrence'] = false;
 
 			$result = TribeEventsQuery::getEventCounts( $count_args );
 
@@ -199,6 +213,7 @@ if( !class_exists('Tribe_Events_Month_Template')){
 		 * @since 3.0
 		 **/
 		public function setup_view() {
+			do_action( 'log', 'setup view month view args', 'tribe-month', self::$args );
 			$requested_date = isset( self::$args['eventDate'] ) ? self::$args['eventDate'] : tribe_get_month_view_date();
 
 			$first_day_of_month = date( 'Y-m-01', strtotime( $requested_date ) );
@@ -292,7 +307,7 @@ if( !class_exists('Tribe_Events_Month_Template')){
 			if ( self::$current_day + 1 < count( self::$calendar_days ) ) {
 				return true;
 			} elseif ( self::$current_day + 1 == count( self::$calendar_days ) && count( self::$calendar_days ) > 0 ) {
-				do_action_ref_array('tribe_events_calendar_loop_end', array(&$this));
+				do_action('tribe_events_calendar_loop_end');
 				// Do some cleaning up after the loop
 				self::rewind_days();
 			}

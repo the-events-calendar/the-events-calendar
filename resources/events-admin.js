@@ -10,7 +10,7 @@ jQuery(document).ready(function($) {
 	$('.chosen, .tribe-field-dropdown_chosen select').chosen();
 	$('.select2').select2({width: '250px'});
 	$view_select.select2({width: '250px'});
-		
+
 	// Grab HTML from hidden Calendar link and append to Header on Event Listing Page
 	$(viewCalLinkHTML)
 		.insertAfter('.edit-php.post-type-tribe_events #wpbody-content .wrap h2:eq(0) a');
@@ -33,12 +33,25 @@ jQuery(document).ready(function($) {
 
 	if(typeof(TEC) !== 'undefined'){
 
+        var _MS_PER_DAY = 1000 * 60 * 60 * 24;
+
+        function date_diff_in_days(a, b) {
+
+            var utc1 = Date.UTC(a.getFullYear(), a.getMonth(), a.getDate());
+            var utc2 = Date.UTC(b.getFullYear(), b.getMonth(), b.getDate());
+
+            return Math.floor((utc2 - utc1) / _MS_PER_DAY);
+        }
+
 		var startofweek = 0;
 
 		if($event_pickers.length)
 			startofweek = $event_pickers.data('startofweek');
 
-		var datepickerOpts = { 
+        var $recurrence_type = $('[name="recurrence[type]"]'),
+            $end_date = $('#EventEndDate');
+
+		var datepickerOpts = {
 				dateFormat: 'yy-mm-dd',
 				showAnim: 'fadeIn',
 				changeMonth: true,
@@ -46,21 +59,36 @@ jQuery(document).ready(function($) {
 				numberOfMonths: 3,
 				firstDay: startofweek,
 				showButtonPanel: true,
+                beforeShow: function(element, object){
+                    object.input.data('prevDate', object.input.datepicker("getDate"));
+                },
 				onSelect: function(selectedDate) {
 					var option = this.id == "EventStartDate" ? "minDate" : "maxDate",
 						instance = $(this).data("datepicker"),
 						date = $.datepicker.parseDate(instance.settings.dateFormat || $.datepicker._defaults.dateFormat, selectedDate, instance.settings);
 
-					dates
-						.not(this)
-						.not('#recurrence_end')
-						.datepicker("option", option, date);
+                    if(this.id === "EventStartDate" && $recurrence_type.val() !== 'None'){
+
+                        var startDate = $('#EventStartDate').data('prevDate'),
+                            dateDif = date_diff_in_days(startDate, $end_date.datepicker('getDate')),
+                            endDate = new Date(date.setDate(date.getDate() + dateDif));
+
+                        $end_date
+                            .datepicker("option", option, endDate)
+                            .datepicker("setDate", endDate);
+
+                    } else {
+                        dates
+                            .not(this)
+                            .not('#recurrence_end')
+                            .datepicker("option", option, date);
+                    }
 				}
 			};
 
 		$.extend(datepickerOpts, TEC);
 
-		var dates = $("#EventStartDate, #EventEndDate, .datepicker").datepicker(datepickerOpts),
+		var dates = $("#EventStartDate, #EventEndDate, .tribe-datepicker").datepicker(datepickerOpts),
 			$all_day_check = $('#allDayCheckbox'),
 			$tod_options = $(".timeofdayoptions"),
 			$time_format = $("#EventTimeFormatDiv"),
@@ -68,7 +96,7 @@ jQuery(document).ready(function($) {
 			$start_month = $("select[name='EventStartMonth']"),
 			$end_month = $('select[name="EventEndMonth"]'),
 			selectObject;
-		
+
 		// toggle time input
 
 		function toggleDayTimeDisplay(){
@@ -87,9 +115,9 @@ jQuery(document).ready(function($) {
 			});
 
 		toggleDayTimeDisplay();
-		
+
 		var tribeDaysPerMonth = [29,31,28,31,30,31,30,31,31,30,31,30,31];
-		
+
 		// start and end date select sections
 		var tribeStartDays = [ $('#28StartDays'), $('#29StartDays'), $('#30StartDays'), $('#31StartDays') ],
 			tribeEndDays = [ $('#28EndDays'), $('#29EndDays'), $('#30EndDays'), $('#31EndDays') ];
@@ -122,11 +150,11 @@ jQuery(document).ready(function($) {
 		});
 
 		$start_end_month.change();
-		
+
 		$("select[name='EventStartYear']").change(function() {
 			$start_month.change();
 		});
-		
+
 		$("select[name='EventEndYear']").change(function() {
 			$end_month.change();
 		});
@@ -144,12 +172,12 @@ jQuery(document).ready(function($) {
 		// hide unnecessary fields
 		var venueFields = $(".venue"),
 			savedVenue = $("#saved_venue");
-		
+
 		if ( savedVenue.length > 0 && savedVenue.val() != '0' ) {
 			venueFields.hide();
 			$('[name="venue[Venue]"]').val('');
 		}
-		
+
 		savedVenue.change(function() {
 			if ( $(this).val() == '0' ) {
 				venueFields.fadeIn();
@@ -165,12 +193,12 @@ jQuery(document).ready(function($) {
 		// hide unnecessary fields
 		var organizerFields = $(".organizer"),
 			savedorganizer = $("#saved_organizer");
-		
+
 		if ( savedorganizer.length > 0 && savedorganizer.val() != '0' ) {
 			organizerFields.hide();
 			$('input',organizerFields).val('');
 		}
-		
+
 		savedorganizer.change(function() {
 			if ( $(this).val() == '0' )
 				organizerFields.fadeIn();
@@ -197,7 +225,7 @@ jQuery(document).ready(function($) {
 			$state_prov_chzn.hide();
 		}
 	}
-	
+
 	tribeShowHideCorrectStateProvinceInput( $("#EventCountry > option:selected").val() );
 
 	var $hidesub = $('[name="hideSubsequentRecurrencesDefault"]'),
@@ -250,15 +278,15 @@ jQuery(document).ready(function($) {
 		$picker_recur_end.removeClass('placeholder');
 		$(this).trigger('recurrenceEndChanged');
 	});
-	
+
 	function isExistingRecurringEvent() {
 		return $is_recurring.val() == "true";
 	}
-	
+
 	$('#EventInfo input, #EventInfo select').change(function() {
 		$('.rec-error').hide();
 	});
-	
+
 	var eventSubmitButton = $('.wp-admin.events-cal #post #publishing-action input[type="submit"]');
 
 	eventSubmitButton.click(function() {
@@ -276,16 +304,16 @@ jQuery(document).ready(function($) {
 			$('[name="recurrence[custom-type]"]').change();
 		} else if (curOption == "None") {
 			$('#recurrence-end').hide();
-			$('#custom-recurrence-frequency').hide();				
+			$('#custom-recurrence-frequency').hide();
 		} else {
 			$('#recurrence-end').show();
 			$('#custom-recurrence-frequency').hide();
 		}
 	});
-	
+
 	$('[name="recurrence[end-type]"]').change(function() {
 		var val = $(this).find('option:selected').val();
-		
+
 		if (val == "On") {
 			$('#rec-count').hide();
 			$('#recurrence_end').show();
@@ -296,7 +324,7 @@ jQuery(document).ready(function($) {
 			$('#rec-count').show();
 		}
 	});
-	
+
 	$('[name="recurrence[custom-type]"]').change(function() {
 		$('.custom-recurrence-row').hide();
 		var option = $(this).find('option:selected'), customSelector = option.data('tablerow');
@@ -304,20 +332,20 @@ jQuery(document).ready(function($) {
 		$('#recurrence-interval-type').text(option.data('plural'));
 		$('[name="recurrence[custom-type-text]"]').val(option.data('plural'));
 	});
-	
+
 	$('#recurrence_end_count').change(function() {
 		$('[name="recurrence[type]"]').change();
-	});	
-	
+	});
+
 	$('[name="recurrence[type]"]').change(function() {
 		var option = $(this).find('option:selected'), numOccurrences = $('#recurrence_end_count').val();
 		$('#occurence-count-text').text(numOccurrences == 1 ? option.data('single') : option.data('plural'));
 		$('[name="recurrence[occurrence-count-text]"]').val($('#occurence-count-text').text());
 	});
-	
+
 	$('[name="recurrence[custom-month-number]"]').change(function() {
 		var option = $(this).find('option:selected'), dayselect = $('[name="recurrence[custom-month-day]"]');
-		
+
 		if(isNaN(option.val())) {
 			dayselect.show();
 		} else {
@@ -341,7 +369,7 @@ jQuery(document).ready(function($) {
 			.find("li:contains('Organizers')")
 			.addClass('current');
 	}
-	
+
 	// Default Layout Settings
 	// shows / hides proper views that are to be used on front-end
 
@@ -419,7 +447,7 @@ jQuery(document).ready(function($) {
 
     	});
     }
-	
+
 });
 
 /**

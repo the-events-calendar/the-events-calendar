@@ -31,6 +31,17 @@ a.tribe-events-gmap {
 	width: 100%;
 }
 
+/* = Day Grid Template Styles
+   @ Template: day.php
+=============================================*/
+.tribe-events-day .tribe-events-day-time-slot h5 {
+	margin-top: 2em;
+}
+
+.tribe-events-day .tribe-events-day-time-slot .vevent {
+	margin-left: 0;
+}
+
 /* = General Template Header/Footer Nav
 =============================================*/
 #tribe-events #tribe-events-header,
@@ -362,9 +373,9 @@ a.tribe-events-gmap {
 	text-align: center;
 	margin-top: 10px;
 }
-#tribe-events-footer + a.tribe-events-ical.tribe-events-button {
+#tribe-events-footer ~ a.tribe-events-ical.tribe-events-button {
 	float: none;
-	margin: 0 auto;
+	margin: 0 auto 10px;
 	-webkit-border-radius: 0;
 			border-radius: 0;	
 	display: block;

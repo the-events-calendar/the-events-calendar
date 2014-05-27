@@ -63,26 +63,26 @@ if ( !class_exists( 'TribePluginUpdateEngineChecker' ) ) {
 		 * @return void
 		 */
 		function hooks(){
-			//Override requests for plugin information
+			// Override requests for plugin information
 			add_filter('plugins_api', array(&$this, 'inject_info'), 10, 3);
 
 			// Check for updates when the WP updates are checked and inject our update if needed.
 			// Only add filter if the TRIBE_DISABLE_PUE constant is not set as true.
-			if ( !defined( "TRIBE_DISABLE_PUE" ) || TRIBE_DISABLE_PUE !== true ) {
-				add_filter('pre_set_site_transient_update_plugins', array(&$this, 'check_for_updates'));
-			}
+			if ( ! defined( 'TRIBE_DISABLE_PUE' ) || TRIBE_DISABLE_PUE !== true )
+				add_filter( 'pre_set_site_transient_update_plugins', array( $this, 'check_for_updates' ) );
 
-			add_action('tribe_license_fields', array(&$this, 'do_license_key_fields'));
-			add_action('tribe_settings_after_content_tab_licenses', array(&$this, 'do_license_key_javascript'));
-			add_action('tribe_settings_success_message', array(&$this, 'do_license_key_success_message'), 10, 2);
+			add_filter( 'tribe_licensable_addons', array( $this, 'build_addon_list' ) );
+			add_action( 'tribe_license_fields', array( $this, 'do_license_key_fields' ) );
+			add_action( 'tribe_settings_after_content_tab_licenses', array( $this, 'do_license_key_javascript' ) );
+			add_action( 'tribe_settings_success_message', array( $this, 'do_license_key_success_message' ), 10, 2 );
 
-			// key validation
-			add_action( 'wp_ajax_pue-validate-key_'.$this->get_slug(), array($this, 'ajax_validate_key' ) );
+			// Key validation
+			add_action( 'wp_ajax_pue-validate-key_' . $this->get_slug(), array( $this, 'ajax_validate_key' ) );
 
-			//dashboard message "dismiss upgrade" link
-			add_action( "wp_ajax_".$this->dismiss_upgrade, array(&$this, 'dashboard_dismiss_upgrade'));
+			// Dashboard message "dismiss upgrade" link
+			add_action( 'wp_ajax_' . $this->dismiss_upgrade, array( $this, 'dashboard_dismiss_upgrade' ) );
 
-			add_filter( 'tribe-pue-install-keys', array( &$this, 'return_install_key' ) );
+			add_filter( 'tribe-pue-install-keys', array( $this, 'return_install_key' ) );
 		}
 
 		/********************** Getter / Setter Functions **********************/
@@ -267,6 +267,17 @@ if ( !class_exists( 'TribePluginUpdateEngineChecker' ) ) {
 
 
 		/********************** General Functions **********************/
+
+		/**
+		 * Compile  a list of addons
+		 * @author Peter Chester
+		 * @param array $addons list of addons
+		 * @return array list of addons
+		 */
+		public function build_addon_list( $addons = array() ) {
+			$addons[] = $this->get_plugin_name();
+			return $addons;
+		}
 
 		/**
 		 * Inserts license key fields on license key page

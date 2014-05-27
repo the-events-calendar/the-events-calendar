@@ -26,6 +26,26 @@ if( class_exists( 'TribeEvents' ) ) {
 	}
 
 	/**
+	 * Returns a formed HTML link to Google Maps for the given event.
+	 *
+	 *
+	 *
+	 * @param string $postId
+	 * @return string A fully qualified link to http://maps.google.com/ for this event
+	 * @since 3.6
+	 */
+	function tribe_get_map_link_html( $postId = null )  {
+		$link = sprintf('<a class="tribe-events-gmap" href="%s" title="%s" target="_blank">%s</a>',
+			tribe_get_map_link( $postId ),
+			__( 'Click to view a Google Map', 'tribe-events-calendar' ),
+			__( '+ Google Map', 'tribe-events-calendar' )
+		);
+
+		// @todo remove tribe_event_meta_gmap_link in 3.7
+		return apply_filters( 'tribe_get_map_link_html', apply_filters( 'tribe_event_meta_gmap_link', $link ) );
+	}
+
+	/**
 	 * Google Map Embed
 	 *
 	 * Returns an embedded google maps for an event

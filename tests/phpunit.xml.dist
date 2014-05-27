@@ -15,6 +15,8 @@
 		<testsuite name="Events">
 			<directory>./phpunit</directory>
 			<directory>../../events-pro/tests/phpunit</directory>
+			<directory>../../events-community/tests/phpunit</directory>
+			<directory>../../events-importer-ical/tests/phpunit</directory>
 		</testsuite>
 	</testsuites>
 	<groups>
@@ -26,9 +28,13 @@
 		<whitelist processsUncoveredFilesFromWhitelist="true">
 			<directory suffix=".php">..</directory>
 			<directory suffix=".php">../../events-pro</directory>
+			<directory suffix=".php">../../events-community</directory>
+			<directory suffix=".php">../../events-importer-ical</directory>
 			<exclude>
 				<directory>.</directory>
 				<directory>../../events-pro/tests</directory>
+				<directory>../../events-community/tests</directory>
+				<directory>../../events-importer-ical/tests</directory>
 			</exclude>
 		</whitelist>
 	</filter>

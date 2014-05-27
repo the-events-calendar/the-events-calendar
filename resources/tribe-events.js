@@ -157,6 +157,142 @@ try {
 	t_fail && (tribe_storage = false);
 } catch (e) {}
 
+/*
+ * Date Format 1.2.3
+ * (c) 2007-2009 Steven Levithan <stevenlevithan.com>
+ * MIT license
+ *
+ * Includes enhancements by Scott Trenda <scott.trenda.net>
+ * and Kris Kowal <cixar.com/~kris.kowal/>
+ *
+ * Accepts a date, a mask, or a date and a mask.
+ * Returns a formatted version of the given date.
+ * The date defaults to the current date/time.
+ * The mask defaults to dateFormat.masks.default.
+ */
+
+var tribeDateFormat = function () {
+    var	token = /d{1,4}|m{1,4}|yy(?:yy)?|([HhMsTt])\1?|[LloSZ]|"[^"]*"|'[^']*'/g,
+        timezone = /\b(?:[PMCEA][SDP]T|(?:Pacific|Mountain|Central|Eastern|Atlantic) (?:Standard|Daylight|Prevailing) Time|(?:GMT|UTC)(?:[-+]\d{4})?)\b/g,
+        timezoneClip = /[^-+\dA-Z]/g,
+        pad = function (val, len) {
+            val = String(val);
+            len = len || 2;
+            while (val.length < len) val = "0" + val;
+            return val;
+        };
+
+    // Regexes and supporting functions are cached through closure
+    return function (date, mask, utc) {
+        var dF = tribeDateFormat;
+
+        // You can't provide utc if you skip other args (use the "UTC:" mask prefix)
+        if (arguments.length == 1 && Object.prototype.toString.call(date) == "[object String]" && !/\d/.test(date)) {
+            mask = date;
+            date = undefined;
+        }
+
+        if (typeof date === 'string')
+            date = date.replace(/-/g, "/");
+
+        // Passing date through Date applies Date.parse, if necessary
+        date = date ? new Date(date) : new Date;
+        if (isNaN(date)) throw SyntaxError("invalid date");
+
+        mask = String(dF.masks[mask] || mask || dF.masks["default"]);
+
+        // Allow setting the utc argument via the mask
+        if (mask.slice(0, 4) == "UTC:") {
+            mask = mask.slice(4);
+            utc = true;
+        }
+
+        var	_ = utc ? "getUTC" : "get",
+            d = date[_ + "Date"](),
+            D = date[_ + "Day"](),
+            m = date[_ + "Month"](),
+            y = date[_ + "FullYear"](),
+            H = date[_ + "Hours"](),
+            M = date[_ + "Minutes"](),
+            s = date[_ + "Seconds"](),
+            L = date[_ + "Milliseconds"](),
+            o = utc ? 0 : date.getTimezoneOffset(),
+            flags = {
+                d:    d,
+                dd:   pad(d),
+                ddd:  dF.i18n.dayNames[D],
+                dddd: dF.i18n.dayNames[D + 7],
+                m:    m + 1,
+                mm:   pad(m + 1),
+                mmm:  dF.i18n.monthNames[m],
+                mmmm: dF.i18n.monthNames[m + 12],
+                yy:   String(y).slice(2),
+                yyyy: y,
+                h:    H % 12 || 12,
+                hh:   pad(H % 12 || 12),
+                H:    H,
+                HH:   pad(H),
+                M:    M,
+                MM:   pad(M),
+                s:    s,
+                ss:   pad(s),
+                l:    pad(L, 3),
+                L:    pad(L > 99 ? Math.round(L / 10) : L),
+                t:    H < 12 ? "a"  : "p",
+                tt:   H < 12 ? "am" : "pm",
+                T:    H < 12 ? "A"  : "P",
+                TT:   H < 12 ? "AM" : "PM",
+                Z:    utc ? "UTC" : (String(date).match(timezone) || [""]).pop().replace(timezoneClip, ""),
+                o:    (o > 0 ? "-" : "+") + pad(Math.floor(Math.abs(o) / 60) * 100 + Math.abs(o) % 60, 4),
+                S:    ["th", "st", "nd", "rd"][d % 10 > 3 ? 0 : (d % 100 - d % 10 != 10) * d % 10]
+            };
+
+        return mask.replace(token, function ($0) {
+            return $0 in flags ? flags[$0] : $0.slice(1, $0.length - 1);
+        });
+    };
+}();
+
+tribeDateFormat.masks = {
+    "default"        : "ddd mmm dd yyyy HH:MM:ss",
+    "tribeQuery"     : "yyyy-mm-dd",
+    "tribeMonthQuery": "yyyy-mm",
+    "0"              : 'yyyy-mm-dd',
+    "1"              : 'm/d/yyyy',
+    "2"              : 'mm/dd/yyyy',
+    "3"              : 'd/m/yyyy',
+    "4"              : 'dd/mm/yyyy',
+    "5"              : 'm-d-yyyy',
+    "6"              : 'mm-dd-yyyy',
+    "7"              : 'd-m-yyyy',
+    "8"              : 'dd-mm-yyyy',
+    "m0"             : 'yyyy-mm',
+    "m1"             : 'm/yyyy',
+    "m2"             : 'mm/yyyy',
+    "m3"             : 'm/yyyy',
+    "m4"             : 'mm/yyyy',
+    "m5"             : 'm-yyyy',
+    "m6"             : 'mm-yyyy',
+    "m7"             : 'm-yyyy',
+    "m8"             : 'mm-yyyy'
+
+};
+
+tribeDateFormat.i18n = {
+    dayNames: [
+        "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat",
+        "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"
+    ],
+    monthNames: [
+        "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec",
+        "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"
+    ]
+};
+
+Date.prototype.format = function (mask, utc) {
+    return tribeDateFormat(this, mask, utc);
+};
+
 (function(){
 
 /**
@@ -731,12 +867,14 @@ try {
 			var $bar_date = $("#tribe-bar-date");
 			if ($().bootstrapDatepicker && $bar_date.length) {
 				// for ie8 and under
+                tribe_ev.state.updating_picker = true;
 				if (window.attachEvent && !window.addEventListener) {
 					$bar_date.bootstrapDatepicker("remove");
 					$bar_date.val('');
 					$bar_date.bootstrapDatepicker(tribe_ev.data.datepicker_opts);
 				}
 				$bar_date.bootstrapDatepicker("setDate", date);
+                tribe_ev.state.updating_picker = false;
 				dbug && debug.info('TEC Debug: tribe_ev.fn.update_picker sent "' + date + '" to the boostrapDatepicker');
 			} else if ($bar_date.length) {
 				$bar_date.val(date);
@@ -769,7 +907,29 @@ try {
 		 */
 		url_path: function (url) {
 			return url.split("?")[0];
-		}
+		},
+		/**
+		 * @function tribe_ev.fn.equal_height
+		 * @since 3.5.1
+		 * @desc tribe_ev.fn.equal_height gets the tallest height of a set of elements and sets them to the same height.
+		 * @param {Object} $group The group of elements to get and set tallest height from.
+		 * @example <caption>Get and set the height to the tallest of a set of elements.</caption>
+		 * $('#tribe-events .columns').tribe_ev.fn.equal_height();
+		 */
+		equal_height: function ($group) {
+			var tallest = 0;
+			$group.css('height', 'auto');
+			$group.each(function () {
+				var this_height = $(this).outerHeight();
+				if (this_height > tallest) {
+					tallest = this_height;
+				}
+			});
+			setTimeout(function() {
+				$group.css('height', tallest);
+			}, 100);	
+		}	
+		
 	};
 
 	/**
@@ -879,6 +1039,10 @@ try {
 		base_url: '',
 		cur_url: tribe_ev.fn.url_path(document.URL),
 		cur_date: tribe_ev.fn.current_date(),
+        datepicker_formats: {
+            'main':['yyyy-mm-dd','m/d/yyyy','mm/dd/yyyy','d/m/yyyy','dd/mm/yyyy','m-d-yyyy','mm-dd-yyyy','d-m-yyyy','dd-mm-yyyy'],
+            'month':['yyyy-mm','m/yyyy','mm/yyyy','m/yyyy','mm/yyyy','m-yyyy','mm-yyyy','m-yyyy','mm-yyyy']
+        },
 		datepicker_opts: {},
 		initial_url: tribe_ev.fn.url_path(document.URL),
 		mobile_break: 768,
@@ -902,24 +1066,28 @@ try {
 	 */
 
 	tribe_ev.state = {
-		ajax_running: false,
-		ajax_timer: 0,
-		category: '',
-		date: '',
-		do_string: false,
-		filters: false,
-		filter_cats: false,
-		initial_load: true,
-		paged: 1,
-		page_title: '',
-		params: {},
-		popping: false,
-		pushstate: true,
-		pushcount: 0,
-		recurrence: false,
-		url_params: {},
-		view: '',
-		view_target: ''
+        ajax_running     : false,
+        ajax_timer       : 0,
+        ajax_trigger     : '',
+        category         : '',
+        date             : '',
+        datepicker_format: '0',
+        do_string        : false,
+        filters          : false,
+        filter_cats      : false,
+        initial_load     : true,
+        mdate            : '',
+        paged            : 1,
+        page_title       : '',
+        params           : {},
+        popping          : false,
+        pushstate        : true,
+        pushcount        : 0,
+        recurrence       : false,
+        updating_picker  : false,
+        url_params       : {},
+        view             : '',
+        view_target      : ''
 	};
 
 })(window, document, jQuery, tribe_debug);
@@ -950,6 +1118,8 @@ try {
 			$tribe_events_header = $('#tribe-events-header'),
 			resize_timer;
 
+
+
 		$tribe_events.removeClass('tribe-no-js');
 		ts.category = tf.get_category();
 		td.base_url = tf.get_base_url();
@@ -962,6 +1132,9 @@ try {
 		} else if ($tribe_events_header.length && $tribe_events_header.tribe_has_attr('data-view')) {
 			ts.view = $tribe_events_header.data('view');
 		}
+
+        if($tribe_events.tribe_has_attr('data-datepicker_format') && $tribe_events.attr('data-datepicker_format').length === 1)
+            ts.datepicker_format = $tribe_events.attr('data-datepicker_format');
 
 		ts.view && dbug && debug.time('Tribe JS Init Timer');
 
@@ -1009,6 +1182,30 @@ try {
 			$('.tribe-events-active-spinner').remove();
 			list_find_month_last_event();
 		});
+
+		/**
+		 * @function tribe_ical_url
+		 * @since 3.0
+		 * @desc tribe_ical_url This function adds required params to the ical url. Runs on doc ready, and hooks into 'tribe_ev_ajaxSuccess' also.
+		 */
+
+		function tribe_ical_url() {
+			var url = document.URL,
+				separator = '?';
+
+			if (url.indexOf('?') > 0)
+				separator = '&';
+
+			var new_link = url + separator + 'ical=1' + '&' + 'tribe_display=' + ts.view;
+
+			$('a.tribe-events-ical').attr('href', new_link);
+		}
+
+		$(te).on("tribe_ev_ajaxSuccess", function () {
+			tribe_ical_url();
+		});
+
+		tribe_ical_url();
 
 		$(window)
 			.resize(function () {

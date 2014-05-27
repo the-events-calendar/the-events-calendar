@@ -11,18 +11,6 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 if( class_exists( 'TribeEvents' ) ) {
 
 	/**
-	 * Link Event Day
-	 *
-	 * @param string $date
-	 * @return string URL
-	 * @since 2.0
-	 */
-	function tribe_get_day_link( $date = null ) {
-		$tribe_ecp = TribeEvents::instance();
-		return apply_filters('tribe_get_day_link', $tribe_ecp->getLink('day', $date), $date);
-	}
-
-	/**
 	 * Link to Previous Event (Display)
 	 *
 	 * Displays a link to the previous post by start date for the given event

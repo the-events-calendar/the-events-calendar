@@ -83,6 +83,7 @@ if (!class_exists('TribeEventsAPI')) {
 				if( isset( $data['EventStartMeridian'] ) ) {
 					$data['EventStartDate'] = date( TribeDateUtils::DBDATETIMEFORMAT, strtotime($data['EventStartDate'] . " " . $data['EventStartHour'] . ":" . $data['EventStartMinute'] . ":00 " . $data['EventStartMeridian']) );
 					$data['EventEndDate'] = date( TribeDateUtils::DBDATETIMEFORMAT, strtotime($data['EventEndDate'] . " " . $data['EventEndHour'] . ":" . $data['EventEndMinute'] . ":00 " . $data['EventEndMeridian']) );
+
 				} else {
 					$data['EventStartDate'] = date( TribeDateUtils::DBDATETIMEFORMAT, strtotime($data['EventStartDate'] . " " . $data['EventStartHour'] . ":" . $data['EventStartMinute'] . ":00") );
 					$data['EventEndDate'] = date( TribeDateUtils::DBDATETIMEFORMAT, strtotime($data['EventEndDate'] . " " . $data['EventEndHour'] . ":" . $data['EventEndMinute'] . ":00") );				
@@ -107,22 +108,24 @@ if (!class_exists('TribeEventsAPI')) {
 			if ( isset( $data['post_status'] ) ) {
 				$post_status = $data['post_status'];
 			} else {
-
-				if ( isset( $data["Organizer"]["OrganizerID"] ) ) {
-					$post_status = get_post( $data["Organizer"]['OrganizerID'] )->post_status;
-				}
-
-				if ( isset( $data['Venue']["VenueID"] ) ) {
-					$post_status = get_post( $data['Venue']['VenueID'] )->post_status;
-				}
-
+				$post_status = get_post_status($event_id);
 			}
 
 			if ( isset( $data["Organizer"] ) ) {
-				$data['EventOrganizerID'] = TribeEventsAPI::saveEventOrganizer( $data["Organizer"], $event, $post_status );
+				if ( !empty( $data["Organizer"]["OrganizerID"] ) ) {
+					$organizer_post_status = get_post( $data["Organizer"]['OrganizerID'] )->post_status;
+				} else {
+					$organizer_post_status = $post_status;
+				}
+				$data['EventOrganizerID'] = TribeEventsAPI::saveEventOrganizer( $data["Organizer"], $event, $organizer_post_status );
 			}
 			if ( isset( $data["Venue"] ) ) {
-				$data['EventVenueID'] = TribeEventsAPI::saveEventVenue( $data["Venue"], $event, $post_status );
+				if ( !empty( $data['Venue']["VenueID"] ) ) {
+					$venue_post_status = get_post( $data['Venue']['VenueID'] )->post_status;
+				} else {
+					$venue_post_status = $post_status;
+				}
+				$data['EventVenueID'] = TribeEventsAPI::saveEventVenue( $data["Venue"], $event, $venue_post_status );
 			}
 
 			$cost = ( isset( $data['EventCost'] ) ) ? $data['EventCost'] : '';
@@ -176,7 +179,8 @@ if (!class_exists('TribeEventsAPI')) {
 					// Only an ID was passed and we should do nothing.
 					return $data['OrganizerID'];
 				} else {
-					return TribeEventsAPI::updateOrganizer($data['OrganizerID'], $data);
+					TribeEventsAPI::updateOrganizer($data['OrganizerID'], $data);
+					return $data['OrganizerID'];
 				}
 			} else {
 				return TribeEventsAPI::createOrganizer($data, $post_status);
@@ -201,7 +205,8 @@ if (!class_exists('TribeEventsAPI')) {
 					$show_map_link = get_post_meta( $data['VenueID'], '_VenueShowMapLink', true );
 					$data['ShowMap'] = $show_map ? $show_map : 'false';
 					$data['ShowMapLink'] = $show_map_link ? $show_map_link : 'false';
-					return TribeEventsAPI::updateVenue($data['VenueID'], $data);
+					TribeEventsAPI::updateVenue($data['VenueID'], $data);
+					return $data['VenueID'];
 				}
 			} else {
 				return TribeEventsAPI::createVenue($data, $post_status);
@@ -227,6 +232,7 @@ if (!class_exists('TribeEventsAPI')) {
 				$organizerId = wp_insert_post($postdata, true);		
 
 				if( !is_wp_error($organizerId) ) {
+					self::saveOrganizerMeta( $organizerId, $data );
 					do_action( 'tribe_events_organizer_created', $organizerId, $data );
 					return $organizerId;
 				}
@@ -305,6 +311,7 @@ if (!class_exists('TribeEventsAPI')) {
 				$venueId = wp_insert_post($postdata, true);
 
 				if( !is_wp_error($venueId) ) {
+					self::saveVenueMeta( $venueId, $data );
 					do_action( 'tribe_events_venue_created', $venueId, $data );
 					return $venueId;
 				}

@@ -238,10 +238,14 @@ if( !class_exists('Tribe_Template_Factory') ) {
 				TribeEvents::setNotice( 'events-not-found', sprintf( __('No upcoming events listed under %s. Check out upcoming events for this category or view the full calendar.', 'tribe-events-calendar'), $tax_term ) );
 			}
 			elseif ( ! empty( $tax_term ) && tribe_is_upcoming() ) {
-				TribeEvents::setNotice( 'events-not-found', sprintf( __('No matching events listed under %s. Check out upcoming events for this category or view the full calendar.', 'tribe-events-calendar'), $tax_term ) );
+				TribeEvents::setNotice( 'events-not-found', sprintf( __('No matching events listed under %s. Please try viewing the full calendar for a complete list of events.', 'tribe-events-calendar'), $tax_term ) );
 			}
 			elseif ( ! empty( $tax_term ) && tribe_is_past() ) {
 				TribeEvents::setNotice( 'events-past-not-found', __('No previous events ', 'tribe-events-calendar') );
+			}
+			// if on any other view and attempting to view a category archive.
+			elseif ( ! empty( $tax_term ) ) {
+				TribeEvents::setNotice( 'events-not-found', sprintf( __('No matching events listed under %s. Please try viewing the full calendar for a complete list of events.', 'tribe-events-calendar'), $tax_term ) );
 			}
 			else {
 				TribeEvents::setNotice( 'event-search-no-results', __( 'There were no results found.', 'tribe-events-calendar' ) );
@@ -450,6 +454,7 @@ if( !class_exists('Tribe_Template_Factory') ) {
 			$resources_url = trailingslashit( $tec->pluginUrl ) . 'resources/';
 			$vendor_url = trailingslashit( $tec->pluginUrl ) . 'vendor/';
 
+			// @TODO make this more DRY
 			switch( $name ) {
 				case 'jquery-resize':
 					$path = self::getMinFile( $vendor_url . 'jquery-resize/jquery.ba-resize.js', true );
@@ -553,6 +558,13 @@ if( !class_exists('Tribe_Template_Factory') ) {
 					$path = self::getMinFile( $resources_url . 'tribe-events-ajax-list.js', true );
 					wp_enqueue_script( 'tribe-events-list', $path, $deps, apply_filters( 'tribe_events_js_version', TribeEvents::VERSION ), true );
 					wp_localize_script( 'tribe-events-list', 'TribeList', $ajax_data );
+					break;
+				case 'ajax-dayview':
+					$ajax_data = array( "ajaxurl"   => admin_url( 'admin-ajax.php', ( is_ssl() ? 'https' : 'http' ) ),
+										'post_type' => TribeEvents::POSTTYPE );
+					$path = self::getMinFile( $resources_url . 'tribe-events-ajax-day.js', true );
+					wp_enqueue_script( 'tribe-events-ajax-day', $path, array('tribe-events-bar'), apply_filters( 'tribe_events_js_version', TribeEvents::VERSION ), true );
+					wp_localize_script( 'tribe-events-ajax-day', 'TribeCalendar', $ajax_data );
 					break;
 				case 'events-css':
 

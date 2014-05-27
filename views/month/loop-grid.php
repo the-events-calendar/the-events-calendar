@@ -29,7 +29,7 @@ global $wp_locale;
 		<?php endforeach; ?>
 		</tr>
 	</thead>
-	<tbody class="hfeed vcalendar">
+	<tbody class="vcalendar">
 		<tr>
 		<?php while (tribe_events_have_month_days()) : tribe_events_the_month_day(); ?>
 			<?php if ( $week != tribe_events_get_current_week() ) : $week++; ?>
@@ -42,7 +42,7 @@ global $wp_locale;
 					<?php
 						//Add Day Name Option for Responsive Header
 						if($daydata['total_events'] > 0) {
-							$day_name = date(get_option('date_format'), strtotime($daydata['date']));
+							$day_name = tribe_event_format_date( $daydata['date'], false );
 					?>
 							data-date-name="<?php echo $day_name ?>"
 					<?php

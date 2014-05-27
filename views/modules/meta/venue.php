@@ -1,0 +1,48 @@
+<?php
+/**
+ * Single Event Meta (Venue) Template
+ *
+ * Override this template in your own theme by creating a file at:
+ * [your-theme]/tribe-events/modules/meta/venue.php
+ *
+ * @package TribeEventsCalendar
+ * @since 3.6
+ */
+
+if ( ! tribe_address_exists() ) return;
+$phone = tribe_get_phone();
+$website = tribe_get_venue_website_link()
+?>
+
+<div class="tribe-events-meta-group tribe-events-meta-group-venue">
+	<h3 class="tribe-events-single-section-title"> <?php _e('Venue', 'tribe-events-calendar' ) ?> </h3>
+	<dl>
+		<?php do_action( 'tribe_events_single_meta_venue_section_start' ) ?>
+
+		<dd class="author fn org"> <?php echo tribe_get_venue() ?> </dd>
+
+		<?php
+		// Do we have an address?
+		$address = tribe_address_exists() ? '<address class="tribe-events-address">' . tribe_get_full_address() . '</address>' : '';
+
+		// Do we have a Google Map link to display?
+		$gmap_link = tribe_show_google_map_link() ? tribe_get_map_link_html() : '';
+		$gmap_link = apply_filters( 'tribe_event_meta_venue_address_gmap', $gmap_link );
+
+		// Display if appropriate
+		if ( ! empty( $address ) ) echo '<dd class="location">' . "$address $gmap_link </dd>";
+		?>
+
+		<?php if ( ! empty( $phone ) ): ?>
+			<dt> <?php _e( 'Phone:', 'tribe-events-calendar' ) ?> </dt>
+			<dd class="tel"> <?php esc_html_e( $phone ) ?> </dd>
+		<?php endif ?>
+
+		<?php if ( ! empty( $website ) ): ?>
+			<dt> <?php _e( 'Website:', 'tribe-events-calendar' ) ?> </dt>
+			<dd class="url"> <?php esc_html_e( $website ) ?> </dd>
+		<?php endif ?>
+
+		<?php do_action( 'tribe_events_single_meta_venue_section_end' ) ?>
+	</dl>
+</div>

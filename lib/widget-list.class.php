@@ -6,193 +6,161 @@
  */
 
 // Don't load directly
-if ( !defined('ABSPATH') ) { die('-1'); }
+if ( !defined('ABSPATH') ) die('-1');
 
-if( !class_exists( 'TribeEventsListWidget' ) ) {
-	class TribeEventsListWidget extends WP_Widget {
+class TribeEventsListWidget extends WP_Widget
+{
+	/**
+	 * Allows widgets extending this one to pass through their own unique name, ID base etc.
+	 *
+	 * @param string $id_base
+	 * @param string $name
+	 * @param array $widget_options
+	 * @param array $control_options
+	 */
+	public function __construct($id_base = '', $name = '', $widget_options = array(), $control_options = array())
+	{
+		$widget_options = array_merge(array(
+				'classname' => 'tribe-events-list-widget',
+				'description' => __('A widget that displays upcoming events.', 'tribe-events-calendar')),
+			$widget_options
+		);
 
-        /**
-         * The main widget method.
-         *
-         * @return void
-         */
-        function TribeEventsListWidget() {
-			/* Widget settings. */
-			$widget_ops = array( 'classname' => 'tribe-events-list-widget', 'description' => __( 'A widget that displays upcoming events.', 'tribe-events-calendar' ) );
+		$control_options = array_merge(array('id_base' => 'tribe-events-list-widget'), $control_options);
 
-			/* Widget control settings. */
-			$control_ops = array( 'id_base' => 'tribe-events-list-widget' );
+		$id_base = empty($id_base) ? 'tribe-events-list-widget' : $id_base;
+		$name = empty($name) ? __('Events List', 'tribe-events-calendar') : $name;
 
-			/* Create the widget. */
-			$this->WP_Widget( 'tribe-events-list-widget', __( 'Events List', 'tribe-events-calendar' ), $widget_ops, $control_ops );
-		}
-
-        /**
-         * The main widget output function.
-         *
-         * @param array $args
-         * @param array $instance
-         * @return string The widget output (html).
-         */
-        function widget( $args, $instance ) {
-			return $this->widget_output( $args, $instance );
-		}
-
-        /**
-         * The main widget output function (called by the class's widget() function).
-         *
-         * @param array $args
-         * @param array $instance
-         * @param string $template_name The template name.
-         * @param string $subfolder The subfolder where the template can be found.
-         * @param string $namespace The namespace for the widget template stuff.
-         * @param string $pluginPath The pluginpath so we can locate the template stuff.
-         */
-        function widget_output( $args, $instance, $template_name='widgets/list-widget' ) {
-			global $wp_query, $tribe_ecp, $post;
-			extract( $args, EXTR_SKIP );
-			// The view expects all these $instance variables, which may not be set without pro
-			$instance = wp_parse_args( $instance, array(
-				'limit' => 5,
-				'title' => '',
-			) );
-			extract( $instance, EXTR_SKIP );
-
-			// temporarily unset the tribe bar params so they don't apply
-			$hold_tribe_bar_args =  array();
-			foreach ( $_REQUEST as $key => $value ) {
-				if ( $value && strpos( $key, 'tribe-bar-' ) === 0 ) {
-					$hold_tribe_bar_args[$key] = $value;
-					unset( $_REQUEST[$key] );
-				}
-			}
-
-			// extracting $instance provides $title, $limit
-			$title = apply_filters( 'widget_title', $title );
-			if ( ! isset( $category ) || $category === '-1' ) {
-				$category = 0;
-			}
-
-	        // Link to the main events page (should work even if month/list views are disabled)
-	        $event_url = tribe_get_events_link();
-
-			if ( function_exists( 'tribe_get_events' ) ) {
-
-				$args = array(
-					'eventDisplay'   => 'upcoming',
-					'posts_per_page' => $limit,
-				);
-
-				if ( ! empty( $category ) ) {
-					$args['tax_query'] = array(
-						array(
-							'taxonomy'         => TribeEvents::TAXONOMY,
-							'terms'            => $category,
-							'field'            => 'ID',
-							'include_children' => false
-						)
-					);
-				}
-
-				$posts    = tribe_get_events( $args );
-			}
-
-			// if no posts, and the don't show if no posts checked, let's bail
-			if ( ! $posts && $no_upcoming_events ) {
-				return;
-			}
-
-			/* Before widget (defined by themes). */
-			echo $before_widget;
-
-      do_action( 'tribe_events_before_list_widget' );
-      		
-      		do_action( 'tribe_events_list_widget_before_the_title' );
-			
-			/* Title of widget (before and after defined by themes). */
-			echo ( $title ) ? $before_title . $title . $after_title : '';
-			
-			do_action( 'tribe_events_list_widget_after_the_title' );
-
-			if ( $posts ) {
-				/* Display list of events. */
-				echo '<ol class="hfeed vcalendar">';
-				foreach( $posts as $post ) :
-					setup_postdata( $post );
-					tribe_get_template_part( $template_name );
-				endforeach;
-				echo "</ol><!-- .hfeed -->";
-
-				/* Display link to all events */
-				echo '<p class="tribe-events-widget-link"><a href="' . $event_url . '" rel="bookmark">';
-				if ( empty( $category ) ) {
-					_e( 'View All Events', 'tribe-events-calendar' );
-				} else {
-					_e( 'View All Events in Category', 'tribe-events-calendar' );
-				}
-				echo '</a></p>';
-			}
-			else {
-				echo '<p>' . __( 'There are no upcoming events at this time.', 'tribe-events-calendar' ) . '</p>';
-			}
-
-      do_action( 'tribe_events_after_list_widget' );
-
-			/* After widget (defined by themes). */
-			echo $after_widget;
-			wp_reset_query();
-
-			// reinstate the tribe bar params
-			if ( ! empty( $hold_tribe_bar_args ) ) {
-				foreach ( $hold_tribe_bar_args as $key => $value ) {
-					$_REQUEST[$key] = $value;
-				}
-			}
-			
-		}
-
-        /**
-         * The function for saving widget updates in the admin section.
-         *
-         * @param array $new_instance
-         * @param array $old_instance
-         * @return array The new widget settings.
-         */
-        function update( $new_instance, $old_instance ) {
-				$instance = $old_instance;
-
-				/* Strip tags (if needed) and update the widget settings. */
-				$instance['title'] = strip_tags( $new_instance['title'] );
-				$instance['limit'] = $new_instance['limit'];
-				$instance['no_upcoming_events'] = $new_instance['no_upcoming_events'];
-
-				return $instance;
-		}
-
-        /**
-         * Output the admin form for the widget.
-         *
-         * @param array $instance
-         * @return string The output for the admin widget form.
-         */
-        function form( $instance ) {
-			/* Set up default widget settings. */
-			$defaults = array( 'title' => __( 'Upcoming Events', 'tribe-events-calendar' ), 'limit' => '5', 'no_upcoming_events' => false );
-			$instance = wp_parse_args( (array) $instance, $defaults );
-			$tribe_ecp = TribeEvents::instance();
-			include( $tribe_ecp->pluginPath . 'admin-views/widget-admin-list.php' );
-		}
+		parent::__construct($id_base, $name, $widget_options, $control_options);
 	}
-
-	/* Add function to the widgets_ hook. */
-	add_action( 'widgets_init', 'events_list_load_widgets', 90 );
 
 	/**
-     * Function that registers widget.
-     *
-     * @return void
+	 * The main widget output function.
+	 *
+	 * @param array $args
+	 * @param array $instance
+	 * @return string The widget output (html).
 	 */
-	function events_list_load_widgets() {
-		register_widget( 'TribeEventsListWidget' );
+	function widget($args, $instance)
+	{
+		return $this->widget_output($args, $instance);
 	}
+
+	/**
+	 * The main widget output function (called by the class's widget() function).
+	 *
+	 * @param array $args
+	 * @param array $instance
+	 * @param string $template_name The template name.
+	 * @param string $subfolder The subfolder where the template can be found.
+	 * @param string $namespace The namespace for the widget template stuff.
+	 * @param string $pluginPath The pluginpath so we can locate the template stuff.
+	 */
+	function widget_output($args, $instance, $template_name = 'widgets/list-widget')
+	{
+		global $wp_query, $tribe_ecp, $post;
+
+		$instance = wp_parse_args($instance, array(
+			'limit' => 5,
+			'title' => ''
+		));
+
+		/**
+		 * @var $after_title
+		 * @var $after_widget
+		 * @var $before_title
+		 * @var $before_widget
+		 * @var $limit
+		 * @var $no_upcoming_events
+		 * @var $title
+		 */
+		extract($args, EXTR_SKIP);
+		extract($instance, EXTR_SKIP);
+
+		// Temporarily unset the tribe bar params so they don't apply
+		$hold_tribe_bar_args = array();
+		foreach ($_REQUEST as $key => $value) {
+			if ($value && strpos($key, 'tribe-bar-') === 0) {
+				$hold_tribe_bar_args[$key] = $value;
+				unset($_REQUEST[$key]);
+			}
+		}
+
+		$title = apply_filters('widget_title', $title);
+		if (!function_exists('tribe_get_events')) return;
+
+		$posts = tribe_get_events(apply_filters('tribe_events_list_widget_query_args', array(
+			'eventDisplay' => 'upcoming',
+			'posts_per_page' => $limit
+		)));
+
+		// If no posts, and the don't show if no posts checked, let's bail
+		if (!$posts && $no_upcoming_events) return;
+
+		echo $before_widget;
+		do_action('tribe_events_before_list_widget');
+		do_action('tribe_events_list_widget_before_the_title');
+
+		echo ($title) ? $before_title . $title . $after_title : '';
+		do_action('tribe_events_list_widget_after_the_title');
+
+		// Include template file
+		include TribeEventsTemplates::getTemplateHierarchy($template_name);
+		do_action('tribe_events_after_list_widget');
+
+		echo $after_widget;
+		wp_reset_query();
+
+		// Reinstate the tribe bar params
+		if (!empty($hold_tribe_bar_args))
+			foreach ($hold_tribe_bar_args as $key => $value)
+				$_REQUEST[$key] = $value;
+	}
+
+	/**
+	 * The function for saving widget updates in the admin section.
+	 *
+	 * @param array $new_instance
+	 * @param array $old_instance
+	 * @return array The new widget settings.
+	 */
+	function update($new_instance, $old_instance)
+	{
+		$instance = $old_instance;
+
+		/* Strip tags (if needed) and update the widget settings. */
+		$instance['title'] = strip_tags($new_instance['title']);
+		$instance['limit'] = $new_instance['limit'];
+		$instance['no_upcoming_events'] = $new_instance['no_upcoming_events'];
+
+		return $instance;
+	}
+
+	/**
+	 * Output the admin form for the widget.
+	 *
+	 * @param array $instance
+	 * @return string The output for the admin widget form.
+	 */
+	function form($instance)
+	{
+		/* Set up default widget settings. */
+		$defaults = array('title' => __('Upcoming Events', 'tribe-events-calendar'), 'limit' => '5', 'no_upcoming_events' => false);
+		$instance = wp_parse_args((array)$instance, $defaults);
+		$tribe_ecp = TribeEvents::instance();
+		include($tribe_ecp->pluginPath . 'admin-views/widget-admin-list.php');
+	}
+}
+
+/* Add function to the widgets_ hook. */
+add_action('widgets_init', 'events_list_load_widgets', 90);
+
+/**
+ * Function that registers widget.
+ *
+ * @return void
+ */
+function events_list_load_widgets()
+{
+	register_widget('TribeEventsListWidget');
 }
