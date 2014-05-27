@@ -51,15 +51,7 @@ if( !class_exists('Tribe_PRO_Template_Factory') ) {
 					wp_enqueue_script( 'tribe-events-pro-isotope', $path1, array('tribe-events-pro'), apply_filters( 'tribe_events_pro_js_version', TribeEventsPro::VERSION ), true );
 					wp_enqueue_script('tribe-events-pro-photo', $path2, array('tribe-events-pro-isotope'), apply_filters( 'tribe_events_pro_js_version', TribeEventsPro::VERSION ), true);
 					wp_localize_script( 'tribe-events-pro-photo', 'TribePhoto', $ajax_data );
-					break;					
-				case 'ajax-dayview':
-					$ajax_data = array( "ajaxurl"   => admin_url( 'admin-ajax.php', ( is_ssl() ? 'https' : 'http' ) ),
-					                    'post_type' => TribeEvents::POSTTYPE );
-					$path = Tribe_Template_Factory::getMinFile( $resources_url . 'tribe-events-ajax-day.js', true );
-					wp_enqueue_script( 'tribe-events-pro-ajax-day', $path, array('tribe-events-pro'), apply_filters( 'tribe_events_pro_js_version', TribeEventsPro::VERSION ), true );
-					wp_localize_script( 'tribe-events-pro-ajax-day', 'TribeCalendar', $ajax_data );
 					break;
-
 				case 'ajax-maps':
 					$http = is_ssl() ? 'https' : 'http';
 
@@ -129,9 +121,9 @@ if( !class_exists('Tribe_PRO_Template_Factory') ) {
 							// set the $media attribute
 							if ( $name == 'tribe-events-calendar-pro-mobile-style' || $name == 'tribe-events-calendar-full-pro-mobile-style' ) {
 								$media = "(max-width: {$mobile_break}px)";
-								wp_enqueue_style( $name, $url, array('tribe-events-calendar-pro-style'), TribeEvents::VERSION, $media );
+								wp_enqueue_style( $name, $url, array('tribe-events-calendar-pro-style'), TribeEventsPro::VERSION, $media );
 							} else {
-								wp_register_style( $name, $url, array(), TribeEvents::VERSION );
+								wp_register_style( $name, $url, array(), TribeEventsPro::VERSION );
 								wp_enqueue_style( $name );
 							}
 						}

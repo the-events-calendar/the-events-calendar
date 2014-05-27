@@ -1,11 +1,11 @@
 === The Events Calendar PRO ===
 
-Contributors:  ModernTribe, roblagatta, MZAWeb, ryancurban, faction23, jazbek, jbrinley, kyleunzicker, leahkoerper, WebsiteBakery, barry.hughes, kellykathryn, ckpicker, neillmcshea, peterchester, reid.peifer, shane.pearlman
+Contributors:  ModernTribe, roblagatta, faction23, jazbek, jbrinley, caseypatrickdriscoll, leahkoerper, WebsiteBakery, barry.hughes, ckpicker, neillmcshea, peterchester, reid.peifer, shane.pearlman
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget, pro
 Donate link: http://m.tri.be/29
-Requires at least: 3.6
-Tested up to: 3.9
-Stable tag: 3.5.2
+Requires at least: 3.7
+Tested up to: 3.9.1
+Stable tag: 3.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -124,14 +124,11 @@ The plugin is produced by <a href="http://m.tri.be/45">Modern Tribe Inc</a>.
 
 * <a href="http://profiles.wordpress.org/users/jazbek">Jessica Yazbek</a>
 * <a href="http://profiles.wordpress.org/users/roblagatta">Rob La Gatta</a>
-* <a href="http://profiles.wordpress.org/users/MZAWeb">Daniel Dvorkin</a>
 * <a href="http://profiles.wordpress.org/users/barryhughes">Barry Hughes</a>
-* <a href="http://profiles.wordpress.org/users/ryancurban">Ryan Urban</a>
-* <a href="http://profiles.wordpress.org/users/kyleunzicker">Kyle Unzicker</a>
 * <a href="http://profiles.wordpress.org/users/jbrinley">Jonathan Brinley</a>
+* <a href="http://profiles.wordpress.org/users/caseypatrickdriscoll”>Casey Driscoll</a>
 * <a href="http://profiles.wordpress.org/users/faction23">Samuel Estok</a>
 * <a href="http://profiles.wordpress.org/users/neillmcshea">Neill McShea</a>
-* <a href="http://profiles.wordpress.org/users/kellykathryn">Kelly Groves</a>
 * <a href="http://profiles.wordpress.org/users/ckpicker”>Casey Picker</a>
 * <a href="http://profiles.wordpress.org/users/leahkoerper">Leah Koerper</a>
 * <a href="http://profiles.wordpress.org/users/peterchester">Peter Chester</a>
@@ -142,6 +139,10 @@ The plugin is produced by <a href="http://m.tri.be/45">Modern Tribe Inc</a>.
 
 * <a href="http://profiles.wordpress.org/users/paulhughes01">Paul Hughes</a>
 * <a href="http://profiles.wordpress.org/users/codearachnid">Timothy Wood</a>
+* <a href="http://profiles.wordpress.org/users/MZAWeb">Daniel Dvorkin</a>
+* <a href="http://profiles.wordpress.org/users/kyleunzicker">Kyle Unzicker</a>
+* <a href="http://profiles.wordpress.org/users/kellykathryn">Kelly Groves</a>
+* <a href="http://profiles.wordpress.org/users/ryancurban">Ryan Urban</a>
 * <a href="http://profiles.wordpress.org/users/jonahcoyote">Jonah West</a>
 * <a href="http://profiles.wordpress.org/users/jkudish">Joachim Kudish</a>
 * <a href="http://profiles.wordpress.org/users/nickciske">Nick Ciske</a>
@@ -153,20 +154,23 @@ The plugin is produced by <a href="http://m.tri.be/45">Modern Tribe Inc</a>.
 
 = Translators =
 
+* Afrikaans from Liza Welsh
 * Arabic from Mamdouh Samy
 * Bosnian from Marko Manojlovic
 * Brazilian Portuguese from Emerson Marques
 * Catalan from Barbara Partegos Rof
 * Croatian from Marko Manojlovic
-* Czech from Martin Kristan and Petr Bastan
+* Czech from Petr Bastan
 * Danish from Anonymous
 * Dutch from J.F.M. Cornelissen and Frans Pronk
+* Estonian from Andra Saimre
 * Finnish by Ari-Pekka Koponen
 * French from Laurent Proulx
-* German from Oliver Heinrich
-* Greek from Maria Tsilimidou
+* German from Dennis Gruebner
+* Greek from Yannis Troullinos
 * Icelandic by Baldvin √ñrn Berndsen
 * Italian from Roberto Scano
+* Latvian from Raivis Dejus
 * Montenegrin from Sasa Vukovic
 * Norwegian Bokmål by Morten Ruud
 * Norwegian Nynorsk by Torbjørn Lauen
@@ -175,11 +179,11 @@ The plugin is produced by <a href="http://m.tri.be/45">Modern Tribe Inc</a>.
 * Romanian from Cosmin Vaman
 * Serbian from Marko Manojlovic
 * Spanish from Juan Jose Reparaz Sarasola
-* Swedish from Ben Andersen
+* Swedish from Jonas Reinicke
 * Turkish by Derin Korman
 * Ukranian by Vasily Vishnyakov
 
-* Previous translators include Mikhail Michouris, Bastien BC, Erik Massop, Ed Boon, Rick van Dalen, Jacob Roel Meijering, hristian Andersen, Michael Sebel, Dionizio Bonfim Bach, Mihai Burcea, Filippo Montanari, David Decker, Kamil Szymanski, "Terje With Lunndal", Sagi Shrieber, Matthew Meyer, Arno Faure, Fanny Heraud, Vincent G from Host1Free, , Petri Kajander, Fran Rosa, Nico (wsMaurik), Panos Efstratiou, Dominique Monhardt, Thomas Butzek, Kjell Vestnes, Luiza Libardi, Diego Meneghetti, Benoit Burgener, Hector Gil Rizo, Burak Pehlevan, and Alexey Fedorov
+* Previous translators include Maria Tsilimidou, Martin Kristan, Ben Andersen, Oliver Heinrich, Mikhail Michouris, Bastien BC, Erik Massop, Ed Boon, Rick van Dalen, Jacob Roel Meijering, hristian Andersen, Michael Sebel, Dionizio Bonfim Bach, Mihai Burcea, Filippo Montanari, David Decker, Kamil Szymanski, "Terje With Lunndal", Sagi Shrieber, Matthew Meyer, Arno Faure, Fanny Heraud, Vincent G from Host1Free, , Petri Kajander, Fran Rosa, Nico (wsMaurik), Panos Efstratiou, Dominique Monhardt, Thomas Butzek, Kjell Vestnes, Luiza Libardi, Diego Meneghetti, Benoit Burgener, Hector Gil Rizo, Burak Pehlevan, and Alexey Fedorov
 
 == Add-Ons ==
 
@@ -209,6 +213,35 @@ Our Premium Plugins:
 = IMPORTANT NOTICE =
 
 3.x is a complete overhaul of the plugin, and as a result we're starting the changelog fresh. For release notes from the 2.x lifecycle, see <a href="http://m.tri.be/k">our 2.x release notes.</a>
+
+= 3.6 =
+
+* Incorporated taxonomy filters to the advanced events list widget
+* Incorporated a feature to make the end date follow the start date when editing recurrence in the admin
+* Deprecated the meta walker and added new templates for custom field data
+* Fixed recurring event URLs when using default permalinks
+* Fixed the query for days with events in the mini calendar widget
+* Added code to prevent the re-creation of deleted instances of recurring events, when the original event is re-saved or the series is split
+* Fixed switching a recurring event to a non-recurring event
+* Incorporated code to better handle recurring events when importing events from a WordPress XML export
+* tribe_get_events() now provides a default value for the eventDisplay query parameter
+* Added the iCalendar feed that was formerly only available with Pro
+* Moved all HTML Markup (and the loop) to the List Widgettemplate
+* Fixed an issue where Category CSS classes were being removed from Events when in Responsive Mode
+* Fixed an issue where duplicate Prev/Next Nav elements would display in Photo & Map View when no events were found
+* Incorporated code to hide the 'All Day' bar in Week View when no All Day events are found
+* Added a 'View All Events at this Venue' link to the Featured Venue Widget
+* Split out the Related Events code to it's own template file: views/pro/related-events.php
+* Fixed an issue where the selected category wasn't being respecting when paginating on Photo View
+* Fixed an issue where using the Mini Calendar widget could break comments on posts
+* Incorporated code so that the mini calendar widget will no longer display expired events in the list below the calendar
+* Incorporated new Estonian translation files, courtesy of Andra Saimre
+* Incorporated updated German translation files, courtesy of Dennis Gruebner
+* Incorporated updated Swedish translation files, courtesy of Jonas Reinicke
+* Incorporated new Latvian translation files, courtesy of Raivis Dejus
+* Incorporated new Afrikaans translation files, courtesy of Liza Welsh
+* Incorporated updated Czech translation files, courtesy of Petr Bastan
+* Incorporated updated Greek translation files, courtesy of Yannis Troullinos
 
 = 3.5.2 =
 
@@ -379,6 +412,10 @@ Still not happy? Shoot us an email to pro@tri.be or tweet to @moderntribeinc and
 == Upgrade Notice ==
 
 IMPORTANT NOTICE: 3.x upgrade is a HUGE upgrade from 2.x versions. If you are upgrading from an older version, please test thoroughly before updating on your live website.
+
+= 3.6 =
+
+Please see the changelog for the complete list of changes in this release. Remember to always make a backup of your database and files before updating!
 
 = 3.5.2 =
 

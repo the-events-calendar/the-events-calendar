@@ -62,7 +62,7 @@ class TribeEventsPro_RecurrenceSeriesSplitter_Test extends WP_UnitTestCase {
 		$this->assertEquals( '2014-05-22 16:00:00', get_post_meta($child_to_break, '_EventStartDate', TRUE));
 
 		$parent_recurrence = get_post_meta( $post_id, '_EventRecurrence', TRUE );
-		$this->assertContains( '2014-05-22', $parent_recurrence['excluded-dates'] );
+		$this->assertContains( '2014-05-22 16:00:00', $parent_recurrence['excluded-dates'] );
 
 		$recurrence_spec = get_post_meta( $post_id, '_EventRecurrence', TRUE );
 		$this->assertEquals( 4, $recurrence_spec['end-count'] );

@@ -547,6 +547,9 @@ class TribeEventsGeoLoc {
 		elseif ( ! $have_events && isset($_POST['tribe-bar-geoloc']) ) {
 			TribeEvents::setNotice( 'event-search-no-results', sprintf( __( 'No results were found for events in or near <strong>"%s"</strong>.', 'tribe-events-calendar-pro' ), esc_html($_POST['tribe-bar-geoloc']) ) );
 		}
+		elseif ( ! $have_events && isset( $_POST['tribe_event_category'] ) ) {
+			TribeEvents::setNotice( 'events-not-found', sprintf( __('No matching events listed under %s. Please try viewing the full calendar for a complete list of events.', 'tribe-events-calendar'), esc_html($_POST['tribe_event_category']) ) );
+		}
 		elseif ( ! $have_events ) {
 			TribeEvents::setNotice( 'event-search-no-results', __( 'There were no results found.', 'tribe-events-calendar-pro' ) );
 		}

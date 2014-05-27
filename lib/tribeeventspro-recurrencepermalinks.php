@@ -19,7 +19,13 @@ class TribeEventsPro_RecurrencePermalinks {
 		$parent = $this->get_primary_event( $post );
 		$slug = $parent->post_name;
 
-		if ( !empty($permastruct) ) {
+		if ( get_option('permalink_structure') == '' ) {
+			$post_link = remove_query_arg(TribeEvents::POSTTYPE, $post_link);
+			$post_link = add_query_arg(array(
+				TribeEvents::POSTTYPE => $slug,
+				'eventDate' => $date,
+			), $post_link);
+		} elseif ( !empty($permastruct) ) {
 			if ( ! $leavename ) {
 				$post_link = str_replace("%$post->post_type%", $slug, $permastruct);
 			}
@@ -35,9 +41,6 @@ class TribeEventsPro_RecurrencePermalinks {
 			return FALSE;
 		}
 		if ( !tribe_is_recurring_event($post->ID) ) {
-			return FALSE;
-		}
-		if ( get_option('permalink_structure') == '' ) {
 			return FALSE;
 		}
 		$unpublished = isset($post->post_status) && in_array( $post->post_status, array( 'draft', 'pending', 'auto-draft' ) );

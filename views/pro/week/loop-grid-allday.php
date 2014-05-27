@@ -17,6 +17,13 @@ if ( !defined('ABSPATH') ) { die('-1'); } ?>
 
 tribe_events_week_set_loop_type( 'allday' );
 
+$all_day_map = tribe_events_week_get_all_day_map();
+
+//Filter out empty all day array items
+$all_day_array = array_filter( $all_day_map[0], "is_numeric" );
+
+//Hide All Day row if there are no All Day events
+if ( !empty( $all_day_array ) ) :
 ?>
 <div class="tribe-grid-allday clearfix">
 	<div class="column first">
@@ -32,3 +39,6 @@ tribe_events_week_set_loop_type( 'allday' );
 		<?php endwhile; ?>
 	</div><!-- .tribe-grid-content-wrap -->
 </div><!-- .tribe-grid-allday -->
+<?php
+endif;
+?>

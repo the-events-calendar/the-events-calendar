@@ -262,8 +262,15 @@ class TribeEventsRecurrenceMeta {
 	}
 
 	public static function handle_delete_request( $post_id ) {
-		if ( tribe_is_recurring_event($post_id) && !wp_get_post_parent_id($post_id) ) {
-			self::permanently_delete_all_children($post_id);
+		if ( tribe_is_recurring_event($post_id) ) {
+			$parent = wp_get_post_parent_id($post_id);
+			if ( empty($parent) ) {
+				self::permanently_delete_all_children($post_id);
+			} else {
+				$recurrence_meta = get_post_meta( $parent, '_EventRecurrence', TRUE );
+				$recurrence_meta['excluded-dates'][] = get_post_meta( $post_id, '_EventStartDate', TRUE );
+				update_post_meta( $parent, '_EventRecurrence', $recurrence_meta );
+			}
 		}
 	}
 
@@ -363,8 +370,9 @@ class TribeEventsRecurrenceMeta {
 	 */
 	public static function updateRecurrenceMeta($event_id, $data) {
 		// save recurrence
-		if ( isset($data['recurrence']) ){
-			$recurrence_meta = $data['recurrence'];
+		$current = get_post_meta( $event_id, '_EventRecurrence', TRUE );
+		if ( !empty($data['recurrence']) ){
+			$recurrence_meta = wp_parse_args($data['recurrence'], $current);
 			// for an update when the event start/end dates change
 			$recurrence_meta['EventStartDate'] = $data['EventStartDate'];
 			$recurrence_meta['EventEndDate'] = $data['EventEndDate'];
@@ -372,7 +380,7 @@ class TribeEventsRecurrenceMeta {
 			$recurrence_meta = null;
 		}
 
-		if( TribeEventsRecurrenceMeta::isRecurrenceValid( $event_id, $recurrence_meta ) ) {
+		if( !empty($current) || TribeEventsRecurrenceMeta::isRecurrenceValid( $event_id, $recurrence_meta ) ) {
 			$updated = update_post_meta($event_id, '_EventRecurrence', $recurrence_meta);
 			TribeEventsRecurrenceMeta::saveEvents($event_id, $updated);
 		}
@@ -464,6 +472,7 @@ class TribeEventsRecurrenceMeta {
 			$recurrence_meta['recCustomYearFilter'] = $recurrenceData['custom-year-filter'];
 			$recurrence_meta['recCustomYearMonthNumber'] = $recurrenceData['custom-year-month-number'];
 			$recurrence_meta['recCustomYearMonthDay'] = $recurrenceData['custom-year-month-day'];
+			$recurrence_meta['recExcludedDates'] = $recurrenceData['excluded-dates'];
 		}
 
 		$recurrence_meta = wp_parse_args( $recurrence_meta, self::$recurrence_default_meta );
@@ -479,22 +488,24 @@ class TribeEventsRecurrenceMeta {
 	 */
 	protected static function recurrenceMetaDefault( $meta = array() ){
 		$default_meta = array(
-			'type' => null,
-			'end-type' => null,
-			'end' => null,
-			'end-count' => null,
-			'custom-type' => null,
-			'custom-interval' => null,
-			'custom-type-text' => null,
-			'occurrence-count-text' => null,
-			'recurrence-description' => null,
-			'custom-week-day' => null,
-			'custom-month-number' => null,
-			'custom-month-day' => null,
-			'custom-year-month' => array(),
-			'custom-year-filter' => null,
-			'custom-year-month-number' => null,
-			'custom-year-month-day' => null );
+			'type' => null, // string - None, Every Day, Every Week, Every Month, Every Year, Custom
+			'end-type' => null, // string - On, After, Never
+			'end' => null, // string - YYYY-MM-DD - If end-type is On, recurrence ends on this date
+			'end-count' => null, // int - If end-type is After, recurrence ends after this many instances
+			'custom-type' => null, // string - Daily, Weekly, Monthly, Yearly - only used if type is Custom
+			'custom-interval' => null, // int - If type is Custom, the interval between custom-type units
+			'custom-type-text' => null, // string - Display value for admin
+			'occurrence-count-text' => null, // string - Display value for admin
+			'recurrence-description' => null, // string - Custom description for the recurrence pattern
+			'custom-week-day' => null, // int[] - 1 = Monday, 7 = Sunday, days when type is Custom
+			'custom-month-number' => null, // string|int - 1-31, First-Fifth, or Last
+			'custom-month-day' => null, // int - 1 = Monday, 7 = Sunday
+			'custom-year-month' => array(), // int[] - 1 = January
+			'custom-year-filter' => null, // int - 1 or 0
+			'custom-year-month-number' => null, // as custom-month-number, for Yearly custom-type
+			'custom-year-month-day' => null, // as custom-month-day, for Yearly custom-type
+			'excluded-dates' => array(), // dates that the event will not occur
+		);
 		$meta = wp_parse_args( (array) $meta, $default_meta );
 		return $meta;
 	}
@@ -613,7 +624,7 @@ class TribeEventsRecurrenceMeta {
 			'post_type' => TribeEvents::POSTTYPE,
 			'posts_per_page' => -1,
 			'fields' => 'ids',
-			'post_status' => 'any',
+			'post_status' => get_post_stati(),
 			'meta_key' => '_EventStartDate',
 			'orderby' => 'meta_value',
 			'order' => 'ASC',
@@ -643,9 +654,13 @@ class TribeEventsRecurrenceMeta {
 				}
 			}
 
+			$excluded = array_map('strtotime', self::get_excluded_dates( $postId) );
+
 			foreach($dates as $date) {
-				$instance = new TribeEventsPro_RecurrenceInstance( $postId, $date );
-				$instance->save();
+				if ( !in_array( $date, $excluded) ) {
+					$instance = new TribeEventsPro_RecurrenceInstance( $postId, $date );
+					$instance->save();
+				}
 			}
 			foreach ( $to_update as $instance_id => $date ) {
 				$instance = new TribeEventsPro_RecurrenceInstance( $postId, $date, $instance_id );
@@ -677,11 +692,22 @@ class TribeEventsRecurrenceMeta {
 			update_post_meta($event_id, '_EventNextPendingRecurrence', date(DateSeriesRules::DATE_FORMAT, $recurrence->constrainedByMaxDate()));
 		}
 
+		$excluded = array_map('strtotime', self::get_excluded_dates( $event_id) );
 		foreach($dates as $date) {
-			$instance = new TribeEventsPro_RecurrenceInstance( $event_id, $date );
-			$instance->save();
+			if ( !in_array( $date, $excluded) ) {
+				$instance = new TribeEventsPro_RecurrenceInstance( $event_id, $date );
+				$instance->save();
+			}
 		}
 
+	}
+
+	private static function get_excluded_dates( $event_id ) {
+		$meta = self::getRecurrenceMeta( $event_id );
+		if ( empty($meta['recExcludedDates']) || !is_array($meta['recExcludedDates']) ) {
+			return array();
+		}
+		return $meta['recExcludedDates'];
 	}
 
 	private static function getRecurrenceForEvent( $event_id ) {
@@ -691,7 +717,8 @@ class TribeEventsRecurrenceMeta {
 		/** @var int $recEndCount */
 		extract(TribeEventsRecurrenceMeta::getRecurrenceMeta($event_id));
 		if ( $recType == 'None' ) {
-			return NULL;
+			require_once('tribe-null-recurrence.php');
+			return new TribeNullRecurrence();
 		}
 		$rules = TribeEventsRecurrenceMeta::getSeriesRules($event_id);
 

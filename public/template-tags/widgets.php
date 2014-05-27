@@ -46,10 +46,10 @@ function tribe_events_the_mini_calendar_prev_link() {
  * @author Jessica Yazbek
  **/
 function tribe_events_the_mini_calendar_title() {
-	$tribe_ecp = TribeEvents::instance();
-	$args = tribe_events_get_mini_calendar_args();
-	$date = strtotime($args['eventDate']);
-	$title = $tribe_ecp->monthsShort[date( 'M', $date )] . date( ' Y', $date );
+	$args        = tribe_events_get_mini_calendar_args();
+	$date        = strtotime( $args['eventDate'] );
+	$date_format = tribe_get_option( 'monthAndYearFormat', 'M Y' );
+	$title = tribe_event_format_date( $date, false, $date_format );
 	echo apply_filters( 'tribe_events_the_mini_calendar_title', $title );
 }
 
@@ -119,9 +119,10 @@ function tribe_events_get_mini_calendar_args() {
 /**
  * Return arguments passed to advanced list widget
  *
+ * @deprecated 3.6
  * @return array
  * @author Jessica Yazbek
  **/
 function tribe_events_get_adv_list_widget_args() {
-	return apply_filters( 'tribe_events_get_adv_list_widget_args', TribeEventsAdvancedListWidget::$params );
+	return apply_filters( 'tribe_events_get_adv_list_widget_args', false );
 }

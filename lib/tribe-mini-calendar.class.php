@@ -30,9 +30,9 @@ class TribeEventsMiniCalendar {
 	 **/
 	public function get_month()	{
 		if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
-			return isset( $_POST["eventDate"] ) ? $_POST["eventDate"] : date_i18n( TribeDateUtils::DBDATEFORMAT );
+			return isset( $_POST["eventDate"] ) ? $_POST["eventDate"] : date_i18n( TribeDateUtils::DBDATETIMEFORMAT );
 		}
-		return date_i18n( TribeDateUtils::DBDATEFORMAT );
+		return date_i18n( TribeDateUtils::DBDATETIMEFORMAT );
 	}
 
 	/**
@@ -96,7 +96,8 @@ class TribeEventsMiniCalendar {
 			$args = array( 'eventDate'		=> $_POST["eventDate"],
 			               'count'			=> $_POST["count"],
 			               'tax_query'		=> $tax_query,
-			               'filter_date'	=> true 
+			               'filter_date'	=> true,
+			               'tribeHideRecurrence' => false,
 			               );
 
 			ob_start();
@@ -224,21 +225,23 @@ class TribeEventsMiniCalendar {
 			// hijack the main query to load the events via provided $args
 			if ( !is_null( $this->args ) ) {
 				$query_args = array( 
-								 'posts_per_page'               => $this->args['count'],
-			                     'tax_query'                    => $this->args['tax_query'],
-			                     'eventDisplay'                 => 'custom',
-			                     'start_date'					=> $this->get_month(),
-			                     'post_status'                  => array( 'publish' ),
-			                     'is_tribe_mini_calendar'       => true );
-
+				                     'posts_per_page'               => $this->args['count'],
+				                     'tax_query'                    => $this->args['tax_query'],
+				                     'eventDisplay'                 => 'custom',
+				                     'start_date'                   => $this->get_month(),
+				                     'post_status'                  => array( 'publish' ),
+				                     'is_tribe_mini_calendar'       => true,
+				                     'tribeHideRecurrence'          => false,
+				);
 
 				// set end date if initial load, or ajax month switch
 				if ( ! defined( 'DOING_AJAX' ) || ( defined( 'DOING_AJAX' ) && $_POST['action'] == 'tribe-mini-cal' ) ) {
-					$query_args['end_date']	= substr_replace($this->get_month(), TribeDateUtils::getLastDayOfMonth( strtotime( $this->get_month() ) ), -2);
+					$query_args['end_date']	= substr_replace($this->get_month(), TribeDateUtils::getLastDayOfMonth( strtotime( $this->get_month() ) ), -11);
 					$query_args['end_date'] = TribeDateUtils::endOfDay($query_args['end_date']);
 				}
 
 				$wp_query = TribeEventsQuery::getEvents( $query_args, true );
+
 			}
 		}
 	}
@@ -251,32 +254,6 @@ class TribeEventsMiniCalendar {
 			// stop paying attention to the widget count setting, we're done with it
 			remove_action( 'pre_get_posts', array( $this, 'set_count' ), 1000 );
 		}
-	}
-
-	public function get_tax_query_from_widget_options( $filters, $operand ) {
-
-		if ( empty( $filters ) )
-			return null;
-
-		$tax_query = array();
-
-		foreach ( $filters as $tax => $terms ) {
-			if ( empty( $terms ) )
-				continue;
-
-			$tax_operand = 'AND';
-			if ( $operand == 'OR' )
-				$tax_operand = 'IN';
-
-			$arr         = array( 'taxonomy' => $tax, 'field' => 'id', 'operator' => $tax_operand, 'terms' => $terms );
-			$tax_query[] = $arr;
-		}
-
-		if ( count( $tax_query ) > 1 ) {
-			$tax_query['relation'] = $operand;
-		}
-
-		return $tax_query;
 	}
 
 	/* Query Filters */

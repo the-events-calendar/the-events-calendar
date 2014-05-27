@@ -68,10 +68,17 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 		 * */
 		function set_notices() {
 			global $wp_query;
+			$tribe = TribeEvents::instance();
 			$search_term = $geographic_term = '';
+			$tax_term = '';
 
 			// We have events to display, no need for notices!
 			if ( ! empty( self::$events->all_day ) || ! empty( self::$events->hourly ) ) return;
+			
+			if ( is_tax( $tribe->get_event_taxonomy() ) ) {
+				$tax_term = get_term_by( 'slug', get_query_var( 'term' ), $tribe->get_event_taxonomy() );
+				$tax_term = esc_html( $tax_term->name );
+			}
 
 			// Was the user searching for a keyword or place?
 			if ( !empty( $wp_query->query_vars['s'] ) )
@@ -89,6 +96,10 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 
 			elseif ( ! empty( $geographic_term ) )
 				TribeEvents::setNotice( 'event-search-no-results', sprintf( __( 'No results were found for events in or near <strong>"%s"</strong> this week. Try searching another week.', 'tribe-events-calendar-pro' ), esc_html($geographic_term) ) );
+				
+			// if attempting to view a category archive.
+			elseif ( ! empty( $tax_term ) )
+				TribeEvents::setNotice( 'events-not-found', sprintf( __('No matching events listed under %s. Please try viewing the full calendar for a complete list of events.', 'tribe-events-calendar'), $tax_term ) );
 
 			else
 				TribeEvents::setNotice( 'event-search-no-results', __( 'No results were found for this week. Try searching another week.', 'tribe-events-calendar-pro' ) );
@@ -198,14 +209,14 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 		 */
 		function set_week_days() {
 			$week_days = array();
-			$display_format = apply_filters( 'tribe_events_pro_week_header_date_format', 'D jS' );
+			$display_format = apply_filters( 'tribe_events_pro_week_header_date_format', tribe_get_option('weekDayFormat', 'D jS') );
 
 			for ( $n = self::$start_of_week; $n < self::$start_of_week + self::$week_length; $n++ ) {
 				$day_offset = ( 0 < self::$start_of_week ) ? $n - self::$start_of_week : $n;
 				$date = date( 'Y-m-d', strtotime( self::$start_of_week_date . " +$day_offset days" ) );
 				$week_days[ $n ] = array(
 					'date' => $date,
-					'display' => '<span data-full-date="'. date_i18n( $display_format, strtotime( self::$start_of_week_date . " +$day_offset days" ) ) .'">'. date( 'D jS', strtotime( self::$start_of_week_date . " +$day_offset days" ) ) .'</span>',
+					'display' => '<span data-full-date="'. date_i18n( $display_format, strtotime( self::$start_of_week_date . " +$day_offset days" ) ) .'">'. date_i18n( $display_format, strtotime( self::$start_of_week_date . " +$day_offset days" ) ) .'</span>',
 					'is_today' => ( $date == self::$today ) ? true : false,
 					'is_past' => ( $date < self::$today ) ? true : false,
 					'is_future' => ( $date > self::$today ) ? true : false,

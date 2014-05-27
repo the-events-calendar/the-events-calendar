@@ -18,7 +18,7 @@
 						<option value="After" <?php selected($recEndType, "After") ?>><?php _e('After','tribe-events-calendar-pro'); ?></option>
 						<option value="Never" <?php selected($recEndType, "Never") ?>><?php _e('Never','tribe-events-calendar-pro'); ?></option>
 					</select>
-					<input autocomplete="off" placeholder="<?php echo TribeDateUtils::dateOnly( date(TribeDateUtils::DBDATEFORMAT) ) ?>" type="text" class="datepicker" name="recurrence[end]" id="recurrence_end"  value="<?php echo $recEnd  ?>" style="display:<?php echo !$recEndType || $recEndType == "On" ? "inline" : "none"; ?>"/>
+					<input autocomplete="off" placeholder="<?php echo TribeDateUtils::dateOnly( date(TribeDateUtils::DBDATEFORMAT) ) ?>" type="text" class="tribe-datepicker" name="recurrence[end]" id="recurrence_end"  value="<?php echo $recEnd  ?>" style="display:<?php echo !$recEndType || $recEndType == "On" ? "inline" : "none"; ?>"/>
 					<span id="rec-count" style="display:<?php echo $recEndType == "After" ? "inline" : "none"; ?>"><input autocomplete="off" type="text" name="recurrence[end-count]" id="recurrence_end_count"  value="<?php echo $recEndCount ? $recEndCount : 1 ?>" style='width: 40px;'/> <span id='occurence-count-text'><?php echo isset($recOccurrenceCountText) ? $recOccurrenceCountText : ""; ?></span></span>
 					<span id="rec-end-error" class="rec-error"><?php _e('You must select a recurrence end date','tribe-events-calendar-pro'); ?></span>
 				</span>

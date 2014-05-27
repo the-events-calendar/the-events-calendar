@@ -17,11 +17,12 @@ class TribeEventsPro_RecurrenceSeriesSplitter {
 		$children = get_posts(array(
 			'post_type' => TribeEvents::POSTTYPE,
 			'post_parent' => $parent_id,
-			'post_status' => 'any',
+			'post_status' => get_post_stati(),
 			'meta_key' => '_EventStartDate',
 			'orderby' => 'meta_key',
 			'order' => 'ASC',
 			'fields' => 'ids',
+			'posts_per_page' => -1,
 		));
 
 		$children_to_move_to_new_series = array();
@@ -128,7 +129,7 @@ class TribeEventsPro_RecurrenceSeriesSplitter {
 		add_post_meta( $event_to_break_out, '_EventOriginalParent', $parent_id );
 
 		$parent_recurrence = get_post_meta( $parent_id, '_EventRecurrence', TRUE );
-		$parent_recurrence['excluded-dates'][] = date('Y-m-d', strtotime(get_post_meta( $event_to_break_out, '_EventStartDate', TRUE )));
+		$parent_recurrence['excluded-dates'][] = get_post_meta( $event_to_break_out, '_EventStartDate', TRUE );
 
 		if ( $parent_recurrence['end-type'] == 'After' ) {
 			$parent_recurrence['end-count']--;

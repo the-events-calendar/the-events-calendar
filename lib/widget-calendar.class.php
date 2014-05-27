@@ -34,7 +34,7 @@ class TribeEventsMiniCalendarWidget extends WP_Widget {
 		$defaults = array( 'title' => __( 'Events Calendar', 'tribe-events-calendar-pro' ), 'count' => 5, 'filters' => null, 'operand' => 'OR' );
 		$instance = wp_parse_args( (array) $instance, $defaults );
 
-		$tax_query = TribeEventsMiniCalendar::instance()->get_tax_query_from_widget_options( json_decode( $instance['filters'] ), $instance['operand'] );
+		$tax_query = TribeEventsPro_Widgets::form_tax_query( json_decode( $instance['filters'] ), $instance['operand'] );
 
 		do_action( 'tribe_events_mini_cal_before_the_title' );
 

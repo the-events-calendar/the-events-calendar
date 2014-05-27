@@ -9,7 +9,7 @@
 ?>
 
 <script type="text/html" id="tribe_tmpl_week_mobile">
-	<div class="tribe-events-mobile hentry vevent tribe-clearfix tribe-events-mobile-event-[[=eventId]]">
+	<div class="tribe-events-mobile hentry vevent tribe-clearfix tribe-events-mobile-event-[[=eventId]][[ if(categoryClasses.length) { ]] [[= categoryClasses]][[ } ]]">
 		<h4 class="summary">
 			<a class="url" href="[[=permalink]]" title="[[=title]]" rel="bookmark">[[=title]]</a>
 		</h4>

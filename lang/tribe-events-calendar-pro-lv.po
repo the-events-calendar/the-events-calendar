@@ -1,0 +1,1986 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Events Calendar Pro 3.5\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-03-27 10:11-0800\n"
+"PO-Revision-Date: 2014-04-23 15:56-0800\n"
+"Last-Translator: \n"
+"Language-Team: Modern Tribe, Inc. <support@tri.be>\n"
+"Language: en_US\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.6.4\n"
+"X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-SearchPath-0: ..\n"
+
+#: ../admin-views/event-defaults.php:1
+msgid "Customize Defaults"
+msgstr "Pielāgot noklusēto"
+
+#: ../admin-views/event-defaults.php:2
+msgid ""
+"These settings change the default event form. For example, if you set a "
+"default venue, this field will be automatically filled in on a new event."
+msgstr ""
+"Šī iespēja maina noklusēto notikuma formu. Piemēram, ja gribat norādīt "
+"noklusēto notikuma vietu, šis lauks tiks automātiski pielikts visām notikumu "
+"formām."
+
+#: ../admin-views/event-defaults.php:5 ../admin-views/event-defaults.php:9
+#: ../admin-views/tribe-options-defaults.php:55
+msgid "Automatically replace empty fields with default values"
+msgstr "Automātiski aizvietot tukšos laukus ar noklusētajām vērtībām"
+
+#: ../admin-views/event-defaults.php:13
+msgid "Enabled"
+msgstr "Aktivizēts"
+
+#: ../admin-views/event-defaults.php:19
+msgid "Default Organizer for Events"
+msgstr "Noklusētais notikuma organizators"
+
+#: ../admin-views/event-defaults.php:22
+msgid "Default Organizer"
+msgstr "Noklusētais organizators"
+
+#: ../admin-views/event-defaults.php:23
+msgid "The default organizer value"
+msgstr "Noklusētā organizatora vērtība"
+
+#: ../admin-views/event-defaults.php:23 ../admin-views/event-defaults.php:31
+#: ../admin-views/event-defaults.php:38 ../admin-views/event-defaults.php:45
+#: ../admin-views/event-defaults.php:66 ../admin-views/event-defaults.php:74
+#: ../admin-views/event-defaults.php:82 ../admin-views/event-defaults.php:108
+#, php-format
+msgid "The current default value is <strong>%s</strong>"
+msgstr "Šobrīd noklusētā vērtība ir <strong>%s</strong>"
+
+#: ../admin-views/event-defaults.php:27
+msgid "Default Venue for Events"
+msgstr "Noklusētā notikuma vieta"
+
+#: ../admin-views/event-defaults.php:30
+msgid "Default Venue"
+msgstr "Noklusētā vieta"
+
+#: ../admin-views/event-defaults.php:31
+msgid "The default venue value"
+msgstr "Noklusētā vietas vērtība"
+
+#: ../admin-views/event-defaults.php:35 ../admin-views/event-defaults.php:37
+msgid "Default Address"
+msgstr "Noklusētā adrese"
+
+#: ../admin-views/event-defaults.php:38
+msgid "The default address value"
+msgstr "Noklusētā adreses vērtība"
+
+#: ../admin-views/event-defaults.php:42 ../admin-views/event-defaults.php:44
+msgid "Default City"
+msgstr "Noklusētā pilsēta"
+
+#: ../admin-views/event-defaults.php:45
+msgid "The default city value"
+msgstr "Noklusētā pilsētas vērtība"
+
+#: ../admin-views/event-defaults.php:50
+msgid "Default State"
+msgstr "Noklusētais štats"
+
+#: ../admin-views/event-defaults.php:52 ../admin-views/event-defaults.php:73
+msgid "Default Province or State"
+msgstr "Noklusētais rajons"
+
+#: ../admin-views/event-defaults.php:55
+msgid "Select a State:"
+msgstr "Izvēlieties štatu:"
+
+#: ../admin-views/event-defaults.php:66 ../admin-views/event-defaults.php:74
+msgid "The default  value"
+msgstr "Noklusētā vērtība"
+
+#: ../admin-views/event-defaults.php:71
+msgid "Default Province"
+msgstr "Noklusētais rajons"
+
+#: ../admin-views/event-defaults.php:79 ../admin-views/event-defaults.php:81
+msgid "Default Postal Code"
+msgstr "Noklusētais pasta indekss"
+
+#: ../admin-views/event-defaults.php:82
+msgid "The default Postal Code value"
+msgstr "Noklusētā pasta indeksa vērtība"
+
+#: ../admin-views/event-defaults.php:87
+msgid "Default Country for Events"
+msgstr "Noklusētā notikumu valsts"
+
+#: ../admin-views/event-defaults.php:105 ../admin-views/event-defaults.php:107
+msgid "Default Phone"
+msgstr "Noklusētais telefons"
+
+#: ../admin-views/event-defaults.php:108
+msgid "The default phone value"
+msgstr "Noklusētā telefona vērtība"
+
+#: ../admin-views/event-defaults.php:112
+#: ../admin-views/tribe-options-defaults.php:198
+msgid "Use a custom list of countries"
+msgstr "Izmantot pielāgotu valstu sarakstu"
+
+#: ../admin-views/event-defaults.php:114
+msgid "Use the following list:"
+msgstr "Izmantot sekojošo sarakstu:"
+
+#: ../admin-views/event-defaults.php:116
+msgid ""
+"One country per line in the following format: <br/>US, United States <br/> "
+"UK, United Kingdom."
+msgstr ""
+"Katrā rindiņā viena valsts šādā formātā: <br/>US, United States <br/> UK, "
+"United Kingdom."
+
+#: ../admin-views/event-defaults.php:116
+msgid "(Replaces the default list.)"
+msgstr "(nomainiet noklusēto sarakstu.)"
+
+#: ../admin-views/event-meta-options.php:3 ../events-calendar-pro.php:867
+msgid "Additional Fields"
+msgstr "Papildus lauki"
+
+#: ../admin-views/event-meta-options.php:4
+msgid ""
+"Use additional fields to add unique content fields to the event admin, which "
+"can be used by anyone who creates events. Upon publication they'll appear in "
+"the event metabox that accompanies your event listing, alongside the date/"
+"time/venue/organizer/etc. </p><p>Each new piece of data needs:"
+msgstr ""
+"Izmantojiet papildus laukus, lai pievienotu notikumam unikālus apraksta "
+"laukus. Publicējot notikumu šie lauki būs redzami notikuma meta datu laukā "
+"kopā ar datumu, laiku, vietu utt. </p><p>Katram jaunam laukam vajag:"
+
+#: ../admin-views/event-meta-options.php:6
+msgid "Label (e.g. Meal Plans)"
+msgstr "Nosaukums (piem. pusdienu plāni)"
+
+#: ../admin-views/event-meta-options.php:7
+msgid "At least one option (e.g. Vegetarian, Kosher, Paleo)"
+msgstr "Vismaz vienu vērtību (piem. Vegetarian, Kosher, Paleo)"
+
+#: ../admin-views/event-meta-options.php:8
+msgid "Field type. These are:"
+msgstr "Lauka tips. Šie ir:"
+
+#: ../admin-views/event-meta-options.php:10
+msgid "Text - for the user to input text"
+msgstr "Teksts - kur lietotājam ievadīt tekstu"
+
+#: ../admin-views/event-meta-options.php:11
+msgid "URL - for the user to input a URL"
+msgstr "URL - kur lietotājam ievadīt URL"
+
+#: ../admin-views/event-meta-options.php:12
+msgid "Checkbox - for multiple choice"
+msgstr "Izvēles rūtiņa - vairākām izvēlēm"
+
+#: ../admin-views/event-meta-options.php:13
+msgid "Radio Button - to select only one"
+msgstr "Radio poga - Vienai izvēlei"
+
+#: ../admin-views/event-meta-options.php:14
+msgid "Dropdown Menu - for a dropdown menu"
+msgstr "Izvēle no saraksta - izvēlei no saraksta"
+
+#: ../admin-views/event-meta-options.php:19
+msgid "Field Label"
+msgstr "Lauka nosaukums"
+
+#: ../admin-views/event-meta-options.php:19
+msgid "Field Type"
+msgstr "Lauka tips"
+
+#: ../admin-views/event-meta-options.php:19
+msgid "Options (one per line)"
+msgstr "Iespējas (katra vienā rindiņā)"
+
+#: ../admin-views/event-meta-options.php:27
+msgid "Text"
+msgstr "Teksts"
+
+#: ../admin-views/event-meta-options.php:28
+msgid "URL"
+msgstr "URL"
+
+#: ../admin-views/event-meta-options.php:29
+msgid "Radio"
+msgstr "Radio izvēle"
+
+#: ../admin-views/event-meta-options.php:30
+msgid "Checkbox"
+msgstr "Izvēles rūtiņa"
+
+#: ../admin-views/event-meta-options.php:31
+#: ../lib/TribeEventsFilter_GeoLoc.php:41
+msgid "Dropdown"
+msgstr "Izvēle no saraksta"
+
+#: ../admin-views/event-meta-options.php:37
+msgid "Add another"
+msgstr "Pievienot vēl"
+
+#: ../admin-views/event-meta-options.php:39
+msgid "Remove"
+msgstr "Izņemt"
+
+#: ../admin-views/event-meta-options.php:47
+#, php-format
+msgid ""
+"Enter the field label as you want it to appear (this will be the label in "
+"the same way \"Start Date,\" \"Organizer,\" etc appear in the event details "
+"box on the frontend). Select whether the field will be a text field; URL "
+"field; radio buttons; checkboxes; or a dropdown. All of these with the "
+"exception of text and URL allow for multiple options to be included, which "
+"you can add — one per-line — in the right-hand column. If you feel "
+"flummoxed, we've got you covered with a %s."
+msgstr ""
+"Ievadiet lauka nosaukumu. (Šis būs kā \"Sākuma datums\", \"Organizators\", "
+"utt un attēlosies notikuma aprakstā). Izvēlieties tipu. Papildus informācija "
+"%s."
+
+#: ../admin-views/event-meta-options.php:48
+msgid "video tutorial that will walk you through the process"
+msgstr "video pamācībā, kas visu paskaidros"
+
+#: ../admin-views/event-meta-options.php:51
+msgid "Editor \"Custom Fields\" meta box"
+msgstr "\"Papildus lauku\" kastes redaktors"
+
+#: ../admin-views/event-meta-options.php:53
+msgid "Show"
+msgstr "Rādīt"
+
+#: ../admin-views/event-meta-options.php:54
+msgid "Hide"
+msgstr "Slēpt"
+
+#: ../admin-views/event-meta-options.php:55
+msgid ""
+"Enabling this option this will not remove custom field data or "
+"functionality, just the default meta box editor."
+msgstr ""
+"Šīs iespējas aktivizēšana neaizvāks papildus laukus, tikai to rediģēšanas "
+"kasti."
+
+#: ../admin-views/event-meta-options.php:64
+msgid ""
+"Are you sure you wish to remove this field and its data from all events? "
+"Once you click OK this cannot be undone."
+msgstr ""
+"Vai tiešām vēlaties dzēst visus laukus visiem notikumiem? Ja uzklikšķināsiet "
+"ok, šo nevarēs atgūt."
+
+#: ../admin-views/event-meta.php:7
+msgid "Additional Event Fields"
+msgstr "Papildus lauki:"
+
+#: ../admin-views/event-recurrence.php:2
+msgid "Recurrence:"
+msgstr "Atkārtošanās:"
+
+#: ../admin-views/event-recurrence.php:7
+msgid "None"
+msgstr "Nekas"
+
+#: ../admin-views/event-recurrence.php:8 ../events-calendar-pro.php:65
+#: ../lib/tribe-events-recurrence-meta.class.php:818
+msgid "day"
+msgstr "diena"
+
+#: ../admin-views/event-recurrence.php:8
+#: ../views/pro/widgets/countdown-widget.php:20
+msgid "days"
+msgstr "dienas"
+
+#: ../admin-views/event-recurrence.php:8
+msgid "Every Day"
+msgstr "Katru dienu"
+
+#: ../admin-views/event-recurrence.php:9 ../events-calendar-pro.php:63
+msgid "week"
+msgstr "nedēļa"
+
+#: ../admin-views/event-recurrence.php:9
+msgid "weeks"
+msgstr "nedēļas"
+
+#: ../admin-views/event-recurrence.php:9
+msgid "Every Week"
+msgstr "Katru nedēļu"
+
+#: ../admin-views/event-recurrence.php:10
+msgid "month"
+msgstr "mēnesis"
+
+#: ../admin-views/event-recurrence.php:10
+msgid "months"
+msgstr "mēneši"
+
+#: ../admin-views/event-recurrence.php:10
+msgid "Every Month"
+msgstr "Katru mēnesi"
+
+#: ../admin-views/event-recurrence.php:11
+msgid "year"
+msgstr "gads"
+
+#: ../admin-views/event-recurrence.php:11
+msgid "years"
+msgstr "gadi"
+
+#: ../admin-views/event-recurrence.php:11
+msgid "Every Year"
+msgstr "Katru gadu"
+
+#: ../admin-views/event-recurrence.php:12
+msgid "event"
+msgstr "notikums"
+
+#: ../admin-views/event-recurrence.php:12
+msgid "events"
+msgstr "notikumi"
+
+#: ../admin-views/event-recurrence.php:12
+msgid "Custom"
+msgstr "Pielāgots"
+
+#: ../admin-views/event-recurrence.php:15
+msgid "and will end"
+msgstr "un beigsies"
+
+#: ../admin-views/event-recurrence.php:17
+msgid "On"
+msgstr "Notiek"
+
+#: ../admin-views/event-recurrence.php:18
+msgid "After"
+msgstr "Pēc"
+
+#: ../admin-views/event-recurrence.php:19
+msgid "Never"
+msgstr "Nekad"
+
+#: ../admin-views/event-recurrence.php:23
+msgid "You must select a recurrence end date"
+msgstr "Jums jānorāda atkārtošanās un datums"
+
+#: ../admin-views/event-recurrence.php:30
+msgid "Frequency"
+msgstr "Biežums"
+
+#: ../admin-views/event-recurrence.php:32
+msgid "Day(s)"
+msgstr "Diena(s)"
+
+#: ../admin-views/event-recurrence.php:32
+msgid "Daily"
+msgstr "Ik dienu"
+
+#: ../admin-views/event-recurrence.php:33
+msgid "Week(s) on:"
+msgstr "Nedēļa(s)"
+
+#: ../admin-views/event-recurrence.php:33
+msgid "Weekly"
+msgstr "Ik nedēļu"
+
+#: ../admin-views/event-recurrence.php:34
+msgid "Month(s) on the:"
+msgstr "Mēneši: "
+
+#: ../admin-views/event-recurrence.php:34
+msgid "Monthly"
+msgstr "Ik mēnesi"
+
+#: ../admin-views/event-recurrence.php:35
+msgid "Year(s) on:"
+msgstr "Gadi:"
+
+#: ../admin-views/event-recurrence.php:35
+msgid "Yearly"
+msgstr "Ik gadu"
+
+#: ../admin-views/event-recurrence.php:37
+msgid "Every"
+msgstr "Katru"
+
+#: ../admin-views/event-recurrence.php:41
+msgid "Frequency of recurring event must be a number"
+msgstr "Biežumam ir jābūt skaitlim"
+
+#: ../admin-views/event-recurrence.php:49
+msgid "M"
+msgstr "P"
+
+#: ../admin-views/event-recurrence.php:50
+msgid "Tu"
+msgstr "O"
+
+#: ../admin-views/event-recurrence.php:51
+msgid "W"
+msgstr "T"
+
+#: ../admin-views/event-recurrence.php:52
+msgid "Th"
+msgstr "C"
+
+#: ../admin-views/event-recurrence.php:53
+msgid "F"
+msgstr "P"
+
+#: ../admin-views/event-recurrence.php:54
+msgid "Sa"
+msgstr "S"
+
+#: ../admin-views/event-recurrence.php:55
+msgid "Su"
+msgstr "Sv"
+
+#: ../admin-views/event-recurrence.php:63
+#: ../admin-views/event-recurrence.php:113
+msgid "First"
+msgstr "Pirmais"
+
+#: ../admin-views/event-recurrence.php:64
+#: ../admin-views/event-recurrence.php:114
+msgid "Second"
+msgstr "Otrais"
+
+#: ../admin-views/event-recurrence.php:65
+#: ../admin-views/event-recurrence.php:115
+msgid "Third"
+msgstr "Trešais"
+
+#: ../admin-views/event-recurrence.php:66
+#: ../admin-views/event-recurrence.php:116
+msgid "Fourth"
+msgstr "Ceturtais"
+
+#: ../admin-views/event-recurrence.php:67
+msgid "Fifth"
+msgstr "Piektais"
+
+#: ../admin-views/event-recurrence.php:68
+#: ../admin-views/event-recurrence.php:117
+msgid "Last"
+msgstr "Pēdējais"
+
+#: ../admin-views/event-recurrence.php:75
+#: ../admin-views/event-recurrence.php:120
+#: ../lib/tribe-events-recurrence-meta.class.php:853
+msgid "Monday"
+msgstr "Pirmdiena"
+
+#: ../admin-views/event-recurrence.php:76
+#: ../admin-views/event-recurrence.php:121
+#: ../lib/tribe-events-recurrence-meta.class.php:853
+msgid "Tuesday"
+msgstr "Otrdiena"
+
+#: ../admin-views/event-recurrence.php:77
+#: ../admin-views/event-recurrence.php:122
+#: ../lib/tribe-events-recurrence-meta.class.php:853
+msgid "Wednesday"
+msgstr "Trešdiena"
+
+#: ../admin-views/event-recurrence.php:78
+#: ../admin-views/event-recurrence.php:123
+#: ../lib/tribe-events-recurrence-meta.class.php:853
+msgid "Thursday"
+msgstr "Ceturtdiena"
+
+#: ../admin-views/event-recurrence.php:79
+#: ../admin-views/event-recurrence.php:124
+#: ../lib/tribe-events-recurrence-meta.class.php:853
+msgid "Friday"
+msgstr "Piektdiena"
+
+#: ../admin-views/event-recurrence.php:80
+#: ../admin-views/event-recurrence.php:125
+#: ../lib/tribe-events-recurrence-meta.class.php:853
+msgid "Saturday"
+msgstr "Sestdiena"
+
+#: ../admin-views/event-recurrence.php:81
+#: ../admin-views/event-recurrence.php:126
+#: ../lib/tribe-events-recurrence-meta.class.php:853
+msgid "Sunday"
+msgstr "Svētdiena"
+
+#: ../admin-views/event-recurrence.php:83
+#: ../admin-views/event-recurrence.php:128 ../events-calendar-pro.php:1634
+msgid "Day"
+msgstr "Diena"
+
+#: ../admin-views/event-recurrence.php:92
+msgid "Jan"
+msgstr "Jan"
+
+#: ../admin-views/event-recurrence.php:93
+msgid "Feb"
+msgstr "Feb"
+
+#: ../admin-views/event-recurrence.php:94
+msgid "Mar"
+msgstr "Mar"
+
+#: ../admin-views/event-recurrence.php:95
+msgid "Apr"
+msgstr "Apr"
+
+#: ../admin-views/event-recurrence.php:96
+#: ../lib/tribe-events-recurrence-meta.class.php:879
+msgid "May"
+msgstr "Mai"
+
+#: ../admin-views/event-recurrence.php:97
+msgid "Jun"
+msgstr "Jun"
+
+#: ../admin-views/event-recurrence.php:101
+msgid "Jul"
+msgstr "Jul"
+
+#: ../admin-views/event-recurrence.php:102
+msgid "Aug"
+msgstr "Aug"
+
+#: ../admin-views/event-recurrence.php:103
+msgid "Sep"
+msgstr "Sep"
+
+#: ../admin-views/event-recurrence.php:104
+msgid "Oct"
+msgstr "Okt"
+
+#: ../admin-views/event-recurrence.php:105
+msgid "Nov"
+msgstr "Nov"
+
+#: ../admin-views/event-recurrence.php:106
+msgid "Dec"
+msgstr "Dec"
+
+#: ../admin-views/event-recurrence.php:111
+msgid "On the:"
+msgstr "Notiek:"
+
+#: ../admin-views/event-recurrence.php:136
+#: ../views/tribe-ECP-views-old/views/single-venue.php:58
+msgid "Description:"
+msgstr "Apraksts:"
+
+#: ../admin-views/event-recurrence.php:144
+msgid "Recurrence Description:"
+msgstr "Atkārtošanās apraksts:"
+
+#: ../admin-views/event-recurrence.php:149
+msgid ""
+"Create a custom plain language description of the recurrence. Leave it blank "
+"and we'll automate it."
+msgstr ""
+"Pielāgots atkārtošanās apraksts vienkāršā valodā. Atstājiet tukšu un mēs to "
+"automatizēsim."
+
+#: ../admin-views/tribe-options-defaults.php:6
+#: ../admin-views/tribe-options-defaults.php:15
+msgid "No Default"
+msgstr "Nav noklusētais"
+
+#: ../admin-views/tribe-options-defaults.php:22
+msgid "Select a State"
+msgstr "Izvēlieites štatu"
+
+#: ../admin-views/tribe-options-defaults.php:35 ../events-calendar-pro.php:865
+msgid "Default Content"
+msgstr "Noklusētais saturs"
+
+#: ../admin-views/tribe-options-defaults.php:39
+msgid ""
+"<p>Choose the default venue & organizer. Set default address information to "
+"save time when entering a new venue or organizer.</p><p>You can override "
+"these settings as you enter a new event.</p>"
+msgstr ""
+"<p>Izvēlieties noklusēto vietu un organizatoru. Ievadiet noklusēto adresi.</"
+"p><p>Šīs vērtības varēs mainīt rediģējot konkrēto notikumu.</p>"
+
+#: ../admin-views/tribe-options-defaults.php:51
+msgid "Options"
+msgstr "Iespējas"
+
+#: ../admin-views/tribe-options-defaults.php:61
+msgid ""
+"Check this box to have the organizer and venue fields pre-populated with the "
+"default values below for any new event that is created."
+msgstr ""
+"Izvēlieites šo iespēju, lai automātiski aizpildītu formas laukus ar "
+"noklusētajām vērtībām."
+
+#: ../admin-views/tribe-options-defaults.php:65
+#: ../admin-views/widget-admin-advanced-list.php:29 ../lib/apm_filters.php:44
+msgid "Organizer"
+msgstr "Organizators"
+
+#: ../admin-views/tribe-options-defaults.php:69
+msgid "Default organizer"
+msgstr "Noklusētais organizators"
+
+#: ../admin-views/tribe-options-defaults.php:73
+msgid "No saved organizers yet."
+msgstr "Vēl nav saglabāts neviens organizators."
+
+#: ../admin-views/tribe-options-defaults.php:82
+#: ../admin-views/widget-admin-advanced-list.php:28 ../lib/apm_filters.php:39
+msgid "Venue"
+msgstr "Vieta"
+
+#: ../admin-views/tribe-options-defaults.php:86
+msgid "Default venue"
+msgstr "Noklusētā vieta"
+
+#: ../admin-views/tribe-options-defaults.php:90
+msgid "No saved venues yet."
+msgstr "Vēl nav saglabāta neviena vieta."
+
+#: ../admin-views/tribe-options-defaults.php:99
+#: ../admin-views/widget-admin-advanced-list.php:30
+msgid "Address"
+msgstr "Adrese"
+
+#: ../admin-views/tribe-options-defaults.php:103
+msgid ""
+"You can use this setting to set specific, individual defaults for any new "
+"Venue you create (these will not be used for your default venue)."
+msgstr ""
+"Šīs iespējas tiks izmantotas visām jaunajām vietām kā noklusētās (netiks "
+"izmantotas noklusētajai vietai)."
+
+#: ../admin-views/tribe-options-defaults.php:107
+msgid "Default address"
+msgstr "Noklusētā adrese"
+
+#: ../admin-views/tribe-options-defaults.php:120
+msgid "Default city"
+msgstr "Noklusētā pilsēta"
+
+#: ../admin-views/tribe-options-defaults.php:133
+msgid "Default state"
+msgstr "Noklusētais štats"
+
+#: ../admin-views/tribe-options-defaults.php:146
+msgid "Default province"
+msgstr "Noklusētais rajons"
+
+#: ../admin-views/tribe-options-defaults.php:159
+msgid "Default postal code/zip code"
+msgstr "Noklusētais pasta indekss"
+
+#: ../admin-views/tribe-options-defaults.php:172
+msgid "Default country"
+msgstr "Noklusētā valsts"
+
+#: ../admin-views/tribe-options-defaults.php:185
+msgid "Default phone"
+msgstr "Noklusētais telefons"
+
+#: ../admin-views/tribe-options-defaults.php:201
+msgid ""
+"One country per line in the following format: <br>US, United States <br> UK, "
+"United Kingdom. <br> (Replaces the default list.)"
+msgstr ""
+"Katra valsts savārindā šādā formātā: <br>US, United States <br> UK, United "
+"Kingdom. <br> (aizstāj noklusēto sarakstu)"
+
+#: ../admin-views/widget-admin-advanced-list.php:11
+#: ../admin-views/widget-admin-calendar.php:10
+#: ../admin-views/widget-admin-countdown.php:10
+#: ../admin-views/widget-admin-venue.php:9
+#: ../admin-views/widget-calendar.php:2
+msgid "Title:"
+msgstr "Nosaukums:"
+
+#: ../admin-views/widget-admin-advanced-list.php:16
+#: ../admin-views/widget-admin-venue.php:20
+#: ../admin-views/widget-calendar.php:8
+msgid "Number of events to show:"
+msgstr "Rādāmo notikumu skaits:"
+
+#: ../admin-views/widget-admin-advanced-list.php:25
+msgid "Display:"
+msgstr "Attēlot:"
+
+#: ../admin-views/widget-admin-advanced-list.php:31
+msgid "City"
+msgstr "Pilsēta"
+
+#: ../admin-views/widget-admin-advanced-list.php:32
+msgid "State (US) Or Province (Int)"
+msgstr "Štats vai rajons"
+
+#: ../admin-views/widget-admin-advanced-list.php:33
+msgid "Postal Code"
+msgstr "Pasta indekss"
+
+#: ../admin-views/widget-admin-advanced-list.php:34
+msgid "Country"
+msgstr "Valsts"
+
+#: ../admin-views/widget-admin-advanced-list.php:35
+msgid "Phone"
+msgstr "Telefons"
+
+#: ../admin-views/widget-admin-advanced-list.php:36
+msgid "Price"
+msgstr "Cena"
+
+#: ../admin-views/widget-admin-advanced-list.php:43
+msgid "Category:"
+msgstr "Kategorija:"
+
+#: ../admin-views/widget-admin-advanced-list.php:47
+msgid "All Events"
+msgstr "Visi notikumi"
+
+#: ../admin-views/widget-admin-advanced-list.php:58
+#: ../admin-views/widget-admin-venue.php:28
+msgid "Hide this widget if there are no upcoming events:"
+msgstr "Paslēpt šo bloku, ja nav nākotnes notikumu:"
+
+#: ../admin-views/widget-admin-countdown.php:12
+msgid "Event:"
+msgstr "Notikums"
+
+#: ../admin-views/widget-admin-countdown.php:21
+msgid "Show seconds:"
+msgstr "Rādīt sekundes:"
+
+#: ../admin-views/widget-admin-countdown.php:24
+msgid "Countdown Completed Text:"
+msgstr "Pabaigtas atskaites teksts:"
+
+#: ../admin-views/widget-admin-venue.php:11
+msgid "Venue:"
+msgstr "Vieta:"
+
+#: ../admin-views/widget-calendar.php:24
+msgid "Filters"
+msgstr "Filtri"
+
+#: ../admin-views/widget-calendar.php:42
+msgid "remove"
+msgstr "aizvākt"
+
+#: ../admin-views/widget-calendar.php:53
+msgid "Match all"
+msgstr "Meklēt visus"
+
+#: ../admin-views/widget-calendar.php:56
+msgid "Match any"
+msgstr "Meklēt jebkuru"
+
+#: ../admin-views/widget-calendar.php:60
+msgid "Add a filter"
+msgstr "Pievienot filtru"
+
+#: ../admin-views/widget-calendar.php:63
+msgid "Select one..."
+msgstr "Izvēlieties vienu..."
+
+#: ../events-calendar-pro.php:64
+msgid "photo"
+msgstr "foto"
+
+#: ../events-calendar-pro.php:66
+msgid "today"
+msgstr "šodien"
+
+#: ../events-calendar-pro.php:329
+msgid "Events for week of"
+msgstr "Visi notikumi šajā nedēļā"
+
+#: ../events-calendar-pro.php:335 ../events-calendar-pro.php:403
+msgid "Events for"
+msgstr "Visi notikumi"
+
+#: ../events-calendar-pro.php:340 ../events-calendar-pro.php:409
+msgid "Past Events"
+msgstr "Pagātnes notikumi"
+
+#: ../events-calendar-pro.php:342 ../events-calendar-pro.php:411
+#: ../lib/widget-advanced-list.class.php:64
+msgid "Upcoming Events"
+msgstr "Nākotnes notikumi"
+
+#: ../events-calendar-pro.php:348 ../events-calendar-pro.php:390
+msgid "All events for"
+msgstr "Visi notikumi"
+
+#: ../events-calendar-pro.php:397
+#, php-format
+msgid "Events for week of %s"
+msgstr "%s nedēļas notikumi"
+
+#: ../events-calendar-pro.php:876
+msgid "Hide related events"
+msgstr "Slēpt saistītos notikumus"
+
+#: ../events-calendar-pro.php:877
+msgid "Remove related events from the single event view"
+msgstr "Noņemt saistītos notikumus no viena notikuma attēlojuma"
+
+#: ../events-calendar-pro.php:893
+msgid ""
+"Thanks for buying Events Calendar PRO! From all of us at Modern Tribe, we "
+"sincerely appreciate it. If you're looking for help with Events Calendar "
+"PRO, you've come to the right place. We are committed to helping make your "
+"calendar kick ass... and hope the resources provided below will help get you "
+"there."
+msgstr ""
+"Paldies, ka nopirkāt Events Calendar PRO! Mēs Modern Tribe to ļoti "
+"novērtējam. Ja meklējat palīdzību ar Events Calendar PRO, Jūs esat īstajā "
+"vietā. Mēs ļoti gribam, lai Jūsu kalendārs būtu superīgs... un ceram, ka "
+"zemāk pieejamie resursi palīdzēs."
+
+#: ../events-calendar-pro.php:904
+msgid ""
+"If this is your first time using The Events Calendar Pro, you're in for a "
+"treat and are already well on your way to creating a first event. Here are "
+"some basics we've found helpful for users jumping into it for the first time:"
+msgstr ""
+"Ja šī ir pirmā reize, kad izmantojat Events Calendar Pro, jūs gaida "
+"pārsteigums, jo mēs jau esam pusceļā līdz pirmā pasākuma izveidei. Te ir "
+"dažas noderīgas, lietas:"
+
+#: ../events-calendar-pro.php:907
+#, php-format
+msgid ""
+"%sOur New User Primer%s was designed for folks in your exact position. "
+"Featuring both step-by-step videos and written walkthroughs that feature "
+"accompanying screenshots, the primer aims to take you from zero to hero in "
+"no time."
+msgstr ""
+"%sMūsu jauno lietotāju sagatavotājs%s ir radīts tieši cilvēkiem Jūsu "
+"stāvoklī. Tajā ir detalizēti video un apraksti ar bildēm, lai palīdzētu Jums "
+"apgūt pamatlietas."
+
+#: ../events-calendar-pro.php:909
+#, php-format
+msgid ""
+"%sInstallation/Setup FAQs%s from our support page can help give an overview "
+"of what the plugin can and cannot do. This section of the FAQs may be "
+"helpful as it aims to address any basic install questions not addressed by "
+"the new user primer."
+msgstr ""
+"%sInstalēšanas BUJ%s no mūsu atbalsta lapām palīdzēs saprast, ko šis "
+"spraudnis spēj un ko nespēj."
+
+#: ../events-calendar-pro.php:911
+#, php-format
+msgid ""
+"Are you developer looking to build your own frontend view? We created an "
+"example plugin that demonstrates how to register a new view. You can "
+"%sdownload the plugin at GitHub%s to get started."
+msgstr ""
+"Esat izstrādātājs, kas grib veidot pats savu lietotāja saskarni? Esam "
+"izveidojuši vienkāršu spraudni, kas demonstrē, kā piereģistrēt jaunu skatu. "
+"Spraudnis %sir pieejams GitHub%s."
+
+#: ../events-calendar-pro.php:913
+#, php-format
+msgid ""
+"Take care of your license key. Though not required to create your first "
+"event, you'll want to get it in place as soon as possible to guarantee your "
+"access to support and upgrades. %sHere's how to find your license key%s, if "
+"you don't have it handy."
+msgstr ""
+"Rūpējieties par savu licences atslēgu. Lai arī tā nav nepieciešama pirmā "
+"pasākuma izveidei, bez tās nebūs pieejami atjauninājumi un atbalsts. %sEjiet "
+"šeit, lai uzzinātu savu atslēgu%s."
+
+#: ../events-calendar-pro.php:915
+msgid ""
+"Otherwise, if you're feeling adventurous, you can get started by heading to "
+"the Events menu and adding your first event."
+msgstr ""
+"Vai arī dodieties uz Notikumu (Events) sadaļu, lai pievienotu savu pirmo "
+"notikumu."
+
+#: ../events-calendar-pro.php:927
+#, php-format
+msgid ""
+"Written documentation can only take things so far...sometimes, you need help "
+"from a real person. This is where our %ssupport forums%s come into play."
+msgstr ""
+"Apraksti un pamācības var palīdzēt tikai līdz zināmai robežai... reizēm ir "
+"nepieciešama īsta cilvēka palīdzība. Ja jums tāda ir nepieciešama, nāciet uz "
+"%smūsu atbalsta forumu%s."
+
+#: ../events-calendar-pro.php:928
+#, php-format
+msgid ""
+"Users who have purchased an Events Calendar PRO license are granted total "
+"access to our %spremium support forums%s. Unlike at the %sWordPress.org "
+"support forum%s, where our involvement is limited to identifying and "
+"patching bugs, we have a dedicated support team for PRO users. We're on the "
+"PRO forums daily throughout the business week, and no thread should go more "
+"than 24-hours without a response."
+msgstr ""
+"Lietotājiem, kas iegādājušies Events Calendar PRO licenci, ir pilna pieeja "
+"mūsu %sīpašo biedru atbalsta forumam%s. Atšķirībā no %sWordPress.org "
+"atbalsta foruma%s, kur mūsu iesaiste beidzas ar kļūdu novēršanu, Pro forumā "
+"strādā speciāla atbalsta komanda. Darba nedēļas laikā šajā forumā atbildi "
+"jums vajadzētu saņemt 24 stundu laikā."
+
+#: ../events-calendar-pro.php:929
+msgid ""
+"Our number one goal is helping you succeed, and to whatever extent possible, "
+"we'll help troubleshoot and guide your customizations or tweaks. While we "
+"won't build your site for you, and we can't guarantee we'll be able to get "
+"you 100% integrated with every theme or plugin out there, we'll do all we "
+"can to point you in the right direction and to make you -- and your client, "
+"as is often more importantly the case -- satisfied."
+msgstr ""
+"Mūsu galvenais uzdevums ir rūpēties par jūsu panākumiem, mēs palīdzēsim "
+"atrast kļūdu un veikt nepieciešamos pielāgojumus. Lai arī neuzņemamies "
+"uzbūvēt lapu jūsu vietā, mēs garantējam 100% iesaisti un sadarbību ar "
+"jebkuru spraudni un tēmu."
+
+#: ../events-calendar-pro.php:930
+msgid ""
+"Before posting a new thread, please do a search to make sure your issue "
+"hasn't already been addressed. When posting please make sure to provide as "
+"much detail about the problem as you can (with screenshots or screencasts if "
+"feasible), and make sure that you've identified whether a plugin / theme "
+"conflict could be at play in your initial message."
+msgstr ""
+"Pirms jauna atbalsta pavediena uzsākšanas, lūdzu apskatiet, vai jūsu "
+"problema jau nav atrisināta kādā citā pavedienā. Pievienojot atbalsta "
+"pieprasījumu norādiet pēc iespējas vairāk informācijas arī ar ekrānattēliem "
+"un video, ja tas ir iespējams. "
+
+#: ../events-calendar-pro.php:986
+msgid "Day View"
+msgstr "Dienas skats"
+
+#: ../events-calendar-pro.php:989
+msgid "Week View"
+msgstr "Nedēļas skats"
+
+#: ../events-calendar-pro.php:1439
+msgid "Settings"
+msgstr "Iestatījumi"
+
+#: ../events-calendar-pro.php:1502
+#, php-format
+msgid "Calendar powered by %sThe Events Calendar PRO%s"
+msgstr "Kalendāru darbina %sThe Events Calendar PRO%s"
+
+#: ../events-calendar-pro.php:1515
+msgid "Support"
+msgstr "Atbalsts:"
+
+#: ../events-calendar-pro.php:1517
+msgid "View All Add-Ons"
+msgstr "Aplūkot visus papildinājumus"
+
+#: ../events-calendar-pro.php:1618
+msgid "Week"
+msgstr "Nedēļa"
+
+#: ../events-calendar-pro.php:1650
+msgid "Photo"
+msgstr "Foto"
+
+#: ../events-calendar-pro.php:1666
+msgid "Day Of"
+msgstr "Diena"
+
+#: ../events-calendar-pro.php:1668
+msgid "Week Of"
+msgstr "Nedēļa"
+
+#: ../events-calendar-pro.php:1789
+msgid "The Events Calendar"
+msgstr "Notikumu kalendārs"
+
+#: ../events-calendar-pro.php:1790
+#, php-format
+msgid ""
+"To begin using Events Calendar PRO, please install the latest version of <a "
+"href=\"%s\" class=\"thickbox\" title=\"%s\">The Events Calendar</a>."
+msgstr ""
+"Lai sāktu lietot Events Calendar PRO, lūdzu uzinstalējiet jaunāko <a href="
+"\"%s\" class=\"thickbox\" title=\"%s\">The Events Calendar</a> versiju."
+
+#: ../lib/TribeEventsFilter_GeoLoc.php:37
+#, php-format
+msgid "Type: %s %s"
+msgstr "Tips: %s %s"
+
+#: ../lib/TribeEventsFilter_GeoLoc.php:46
+msgid "Radio Buttons"
+msgstr "Radio pogas"
+
+#: ../lib/apm_filters.php:49
+msgid "Start Date"
+msgstr "Sākuma datums"
+
+#: ../lib/apm_filters.php:54
+msgid "End Date"
+msgstr "Beigu datums"
+
+#: ../lib/apm_filters.php:59
+msgid "Event Cost"
+msgstr "Notikuma izmaksas"
+
+#: ../lib/apm_filters.php:64
+msgid "Event Cats"
+msgstr "Notikuma kategorijas"
+
+#: ../lib/apm_filters.php:69
+msgid "Title"
+msgstr "Virsraksts"
+
+#: ../lib/apm_filters.php:74 ../lib/tribe-events-recurrence-meta.class.php:132
+msgid "Recurring"
+msgstr "Atkārtošanās"
+
+#: ../lib/apm_filters.php:79
+msgid "Description"
+msgstr "Apraksts"
+
+#: ../lib/meta-pro.php:97
+msgid "Other"
+msgstr "Citi"
+
+#: ../lib/meta-pro.php:121
+msgid "Recurrence Pattern:"
+msgstr "Atkārtošanās veids"
+
+#: ../lib/template-classes/day.php:76 ../lib/template-classes/day.php:85
+#: ../views/pro/week/loop-grid-allday.php:23
+#: ../views/tribe-ECP-views-old/views/featured-widget.php:59
+#: ../views/tribe-ECP-views-old/views/list-widget.php:57
+msgid "All Day"
+msgstr "Visu dienu"
+
+#: ../lib/template-classes/day.php:129
+#, php-format
+msgid ""
+"No matching events listed under %s scheduled for <strong>%s</strong>. Please "
+"try another day."
+msgstr ""
+"Nav atrasts neviens notikums %s, kas paredzēti uz <strong>%s</strong>. "
+"Lūdzu, mēģiniet citu dienu."
+
+#: ../lib/template-classes/day.php:132
+#, php-format
+msgid "No events scheduled for <strong>%s</strong>. Please try another day."
+msgstr ""
+"Nav paredzēts neviens notikums <strong>%s</strong>. Lūdzu mēģiniet citu "
+"dienu."
+
+#: ../lib/template-classes/week.php:88
+#, php-format
+msgid ""
+"There were no results found for <strong>\"%s\"</strong> this week. Try "
+"searching another week."
+msgstr ""
+"Nav paredzēts neviens notikums <strong>\"%s\"</strong> šajā nedēļā. Mēģiniet "
+"meklēt citā nedēļā."
+
+#: ../lib/template-classes/week.php:91
+#, php-format
+msgid ""
+"No results were found for events in or near <strong>\"%s\"</strong> this "
+"week. Try searching another week."
+msgstr ""
+"Nav paredzēts neviens notikums netālu no <strong>\"%s\"</strong> šajā "
+"nedēļā. Mēģiniet meklēt citā nedēļā."
+
+#: ../lib/template-classes/week.php:94
+msgid "No results were found for this week. Try searching another week."
+msgstr "Šajā nedēļā nav neviens notikums. Mēģiniet meklēt citā nedēļā."
+
+#: ../lib/tribe-events-recurrence-meta.class.php:104
+msgid "Edit Series"
+msgstr "Rediģēt sēriju"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:110
+msgid "Break from Series"
+msgstr "Atdalīt no sērijas"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:120
+msgid "Edit Future Events"
+msgstr "Labot nākotnes notikumus"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:139
+msgid "Yes"
+msgstr "Jā"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:141
+msgid "—"
+msgstr "—"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:155
+msgid "Break this event out of its series and edit it independently"
+msgstr "Atdalīt šo notikumu no sērijas un rediģēt to atsevišķi"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:155
+msgid "Edit Single"
+msgstr "Labot vienu"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:157
+msgid ""
+"Split the series in two at this point, creating a new series out of this and "
+"all subsequent events"
+msgstr ""
+"Sadalīt šo sēriju divās šajā punktā, izveidojot jaunu sēriju no šī un "
+"nākotnes notikumiem."
+
+#: ../lib/tribe-events-recurrence-meta.class.php:157
+msgid "Edit Upcoming"
+msgstr "Labot nākotnes"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:163
+msgid "Edit all events in this series"
+msgstr "Labot visus sērijas notikumus"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:163
+msgid "Edit All"
+msgstr "Labot visus"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:168
+msgid "Move all events in this series to the Trash"
+msgstr "Pārvietot visus sērijas notikumus uz miskasti"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:168
+msgid "Trash Series"
+msgstr "Izmest sēriju"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:171
+msgid "Delete all events in this series permanently"
+msgstr "Neatgriezeniski dzēst visus šīs sērijas notikumus"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:171
+msgid "Delete Series Permanently"
+msgstr "Neatgriezeniski dzēst sēriju"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:177
+msgid "Restore all events in this series from the Trash"
+msgstr "Atjaunot visus šīs sērijas notikumus no miskastes"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:177
+msgid "Restore Series"
+msgstr "Atjaunot sēriju"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:515
+msgid ""
+"Monthly custom recurrences cannot have a dash set as the day to occur on."
+msgstr ""
+"Notikumem, kas atkārtojas katru mēnesi, atkārtošanās diena nevar būt "
+"svītriņa."
+
+#: ../lib/tribe-events-recurrence-meta.class.php:518
+msgid ""
+"Yearly custom recurrences cannot have a dash set as the day to occur on."
+msgstr ""
+"Notikumem, kas atkārtojas katru gadu, atkārtošanās diena nevar būt svītriņa."
+
+#: ../lib/tribe-events-recurrence-meta.class.php:789
+#: ../lib/tribe-events-recurrence-meta.class.php:804
+msgid "Every day"
+msgstr "Katru dienu"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:793
+#: ../lib/tribe-events-recurrence-meta.class.php:809
+msgid "Every week"
+msgstr "Katru nedēļu"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:796
+#: ../lib/tribe-events-recurrence-meta.class.php:815
+msgid "Every month"
+msgstr "Katru mēnesi"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:799
+#: ../lib/tribe-events-recurrence-meta.class.php:822
+msgid "Every year"
+msgstr "Katru gadu"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:805
+#, php-format
+msgid "Every %d days"
+msgstr "Katras %d dienas"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:810
+#, php-format
+msgid "Every %d weeks"
+msgstr "Katras %d nedēļas"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:811
+#, php-format
+msgid " on %s"
+msgstr " %s"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:816
+#, php-format
+msgid "Every %d months"
+msgstr "Katrus %d menešus"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:818
+#, php-format
+msgid " on the %s %s"
+msgstr " %s %s"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:823
+#, php-format
+msgid "Every %d years"
+msgstr "Katrus %d gadus"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:825
+msgid "last"
+msgstr "pēdējais"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:830
+#, php-format
+msgid " on the %s %s of %s"
+msgstr " %s %s no %s"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:837
+#, php-format
+msgid " until %s"
+msgstr " līdz %s"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:844
+#, php-format
+msgid "%s%s%s"
+msgstr "%s%s%s"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:859
+msgid ", and"
+msgstr ", un"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:861
+msgid "and"
+msgstr "un"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:863
+msgid ","
+msgstr ","
+
+#: ../lib/tribe-events-recurrence-meta.class.php:878
+msgid "January"
+msgstr "Janvāris"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:878
+msgid "February"
+msgstr "Februāris"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:878
+msgid "March"
+msgstr "Marts"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:878
+msgid "April"
+msgstr "Aprīlis"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:879
+msgid "June"
+msgstr "Jūnijs"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:879
+msgid "July"
+msgstr "Jūlijs"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:879
+msgid "August"
+msgstr "Augusts"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:879
+msgid "September"
+msgstr "Septembris"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:879
+msgid "October"
+msgstr "Oktobris"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:879
+msgid "November"
+msgstr "Novembris"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:879
+msgid "December"
+msgstr "Decembris"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:885
+msgid ", and "
+msgstr ", un "
+
+#: ../lib/tribe-events-recurrence-meta.class.php:887
+msgid " and "
+msgstr " un "
+
+#: ../lib/tribe-events-recurrence-meta.class.php:889
+msgid ", "
+msgstr ", "
+
+#: ../lib/tribe-events-recurrence-meta.class.php:952
+msgid "Recurring event instances"
+msgstr "Atkārtotie notikumi"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:953
+msgid ""
+"Show only the first instance of each recurring event (only affects list-"
+"style views)."
+msgstr ""
+"Rādī tikai pirmo katra atkārtotā notikuma instanci (attiecas vienīgi uz "
+"saraksta skatiem)"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:959
+msgid "Front-end recurring event instances toggle"
+msgstr "Lietotāja saskarnes notikumu atkārtojuma pārslēgs"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:960
+msgid ""
+"Allow users to decide whether to show all instances of a recurring event."
+msgstr ""
+"Atļāut lietotājiem izvēlēties vai attēlot visas atkārtoto notikumu instances."
+
+#: ../lib/tribe-events-recurrence-meta.class.php:967
+msgid "Clean up recurring events after"
+msgstr "Attīrīt atkārtotos notikumus pēc"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:968
+msgid "Automatically remove recurring event instances older than this"
+msgstr "Automātiski aizvākt atkārtotos notikumus, kas vecāki par šo"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:975
+msgid "Create recurring events in advance for"
+msgstr "Izveidot atkārtotos notikumus tik tālā nākotnē"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:976
+msgid "Recurring events will be created this far in advance"
+msgstr "Atkārtotie notikumi tiks izveidoti šitik tālu nākotnē"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:997
+msgid " months"
+msgstr " mēneši"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:1090
+msgid "You are currently editing all events in a recurring series."
+msgstr "Jūs šobrīd rediģējat visus notikumu sērijas notikumus."
+
+#: ../lib/tribe-events-recurrence-meta.class.php:1099
+msgid ""
+"You are about to split this series in two.\n"
+"\n"
+"The event you selected and all subsequent events in the series will be "
+"separated into a new series of events that you can edit independently of the "
+"original series.\n"
+"\n"
+"This action cannot be undone."
+msgstr ""
+"Jūs tūdaļ sadalīsiet šo notikumu divos.\n"
+"\n"
+"Jūsu izvēlētais notikums un visi tālākie notikumi kļūs par jaunu notikumu "
+"sēriju un tos varēs rediģēt neatkarīgi no sākotnējās sērijas.\n"
+"\n"
+"Šī ir neatgriezeniska darbība."
+
+#: ../lib/tribe-events-recurrence-meta.class.php:1100
+msgid ""
+"You are about to break this event out of its series.\n"
+"\n"
+"You will be able to edit it independently of the original series.\n"
+"\n"
+"This action cannot be undone."
+msgstr ""
+"Jūs tūdaļ izrausiet šo notikumu no kopējās notikumu ķēdes.\n"
+"\n"
+"Jūs varēsiet rediģēt to neatkarīgi no pārējiem notikumiem.\n"
+"\n"
+"Šī ir neatgriezeniska darbība."
+
+#: ../lib/tribe-events-recurrence-meta.class.php:1101
+msgid ""
+"Are you sure you want to trash all occurrences of these events? All "
+"recurrence data will be lost."
+msgstr ""
+"Vai tiešām dzēst visas šo notikumu instances? Visi dati par atkārtošanos "
+"tiks pazaudēti."
+
+#: ../lib/tribe-geoloc.class.php:101
+msgid "Distance"
+msgstr "Attālims"
+
+#: ../lib/tribe-geoloc.class.php:133
+msgid "Map view search distance limit"
+msgstr "Kartes skata meklēšanas limits"
+
+#: ../lib/tribe-geoloc.class.php:135
+msgid ""
+"Set the distance that the location search covers (find events within X "
+"distance units of location search input)."
+msgstr ""
+"Norādiet attālumu, kurā tiks meklēti notikumi (atrast notikumus X attālimā "
+"no norādītās vietas)."
+
+#: ../lib/tribe-geoloc.class.php:141
+msgid "Map view distance unit"
+msgstr "Kartes skata attāluma vienība"
+
+#: ../lib/tribe-geoloc.class.php:145
+msgid "Miles"
+msgstr "Jūdzes"
+
+#: ../lib/tribe-geoloc.class.php:146
+msgid "Kilometers"
+msgstr "Kilometri"
+
+#: ../lib/tribe-geoloc.class.php:149
+msgid "Fix geolocation data"
+msgstr "Iegūt ģeolokācijas datus"
+
+#: ../lib/tribe-geoloc.class.php:149
+#, php-format
+msgid ""
+"You have %d venues for which we don't have geolocation data. We need to use "
+"the Google Maps API to get that information. Doing this may take a while "
+"(aprox. 1 minute for every 200 venues)."
+msgstr ""
+"Jums ir %d vietas, kuram nav ģeolokācijas datu. Šo informāciju var iegūt "
+"izmantojot Google Maps API. Tas var aizņemt zināmu laiku(apmēram 200 vietas "
+"minūtē)."
+
+#: ../lib/tribe-geoloc.class.php:158
+msgid "Hide location search"
+msgstr "Paslēpt vietas meklēšanu"
+
+#: ../lib/tribe-geoloc.class.php:159
+msgid ""
+"Removes location search field from the events bar on all views except for "
+"map view."
+msgstr ""
+"Aizvāc vietas meklēšanas lauku no notikumu joslas visos skatos izņemot "
+"kartes skatu."
+
+#: ../lib/tribe-geoloc.class.php:211
+msgid "Map"
+msgstr "Karte"
+
+#: ../lib/tribe-geoloc.class.php:241
+msgid "Near"
+msgstr "Netālu"
+
+#: ../lib/tribe-geoloc.class.php:242
+msgid "Location"
+msgstr "Vieta"
+
+#: ../lib/tribe-geoloc.class.php:548
+#, php-format
+msgid "No results were found for events in or near <strong>\"%s\"</strong>."
+msgstr "Nav atrasts neviens notikums <strong>\"%s\"</strong> apkaimē."
+
+#: ../lib/tribe-geoloc.class.php:551
+msgid "There were no results found."
+msgstr "Nav atrasts neviens rezultāts."
+
+#: ../lib/tribe-geoloc.class.php:820
+msgid "Fix venues data"
+msgstr "Nofiksēt vietu datus"
+
+#: ../lib/tribe-geoloc.class.php:854
+#, php-format
+msgid ""
+"You have venues for which we don't have Geolocation information. <a "
+"href='%s'>Click here to generate it</a>."
+msgstr ""
+"Jums ir vietas, par kurām nav pieejama ģeolokācijas informācija. <a "
+"href='%s'>Klikšķiniet te, lai izveidotu to</a>."
+
+#: ../lib/tribe-geoloc.class.php:880
+#, php-format
+msgid "Fixed geolocation data for %d venues"
+msgstr "Fiksēti ģeolokācijas dati %d vietām"
+
+#: ../lib/tribe-ical.class.php:42
+msgid "Add to Google Calendar"
+msgstr "Pievienot Google kalendāram"
+
+#: ../lib/tribe-ical.class.php:42
+msgid "Google Calendar"
+msgstr "Google kalendārs"
+
+#: ../lib/tribe-ical.class.php:43 ../lib/tribe-ical.class.php:93
+msgid "iCal Import"
+msgstr "iCal Imports"
+
+#: ../lib/tribe-ical.class.php:80
+msgid "Month's Events"
+msgstr "Mēneša notikumi"
+
+#: ../lib/tribe-ical.class.php:83
+msgid "Week's Events"
+msgstr "Nedēļas notikumi"
+
+#: ../lib/tribe-ical.class.php:86
+msgid "Day's Events"
+msgstr "Dienas notikumi"
+
+#: ../lib/tribe-ical.class.php:89
+msgid "Listed Events"
+msgstr "Attēlotie notikumi"
+
+#: ../lib/tribe-ical.class.php:93
+msgid "Import is filter/view sensitive"
+msgstr "Import is filter/view sensitive"
+
+#: ../lib/widget-advanced-list.class.php:18
+msgid "A widget that displays the next upcoming x events."
+msgstr "Logdaļa, kas attēlo nākamos X notikumus."
+
+#: ../lib/widget-advanced-list.class.php:24
+msgid "Events List"
+msgstr "Notikumu saraksts"
+
+#: ../lib/widget-calendar.class.php:8
+msgid "The events calendar mini calendar widget"
+msgstr "Notikumu kalendāra mini kalendāra logdaļa"
+
+#: ../lib/widget-calendar.class.php:10 ../lib/widget-calendar.class.php:34
+#: ../lib/widget-calendar.class.php:70
+msgid "Events Calendar"
+msgstr "Notikumu kalendārs"
+
+#: ../lib/widget-countdown.class.php:13
+msgid "Displays the time remaining until a specified event."
+msgstr "Rādīt laiku līdz konkrētā notikuma sākumam."
+
+#: ../lib/widget-countdown.class.php:15
+msgid "Events Countdown"
+msgstr "Notikumu atskaite"
+
+#: ../lib/widget-venue.class.php:12
+msgid "Displays a list of upcoming events at a specific venue."
+msgstr "Rādīt nākamo notikumu sarakstu konkrētāveitā."
+
+#: ../lib/widget-venue.class.php:14
+msgid "Events Featured Venue"
+msgstr "Notikuma speciālā vieta"
+
+#: ../public/template-tags/general.php:96
+msgid "Show only the first upcoming instance of recurring events"
+msgstr "Rādīt tikai nākamo atkārtojamā notikuma instanci"
+
+#: ../public/template-tags/general.php:288
+#: ../public/template-tags/general.php:303
+#: ../public/template-tags/general.php:317
+#: ../public/template-tags/general.php:318
+#: ../public/template-tags/general.php:332
+#: ../public/template-tags/general.php:333
+#: ../public/template-tags/general.php:347
+#: ../public/template-tags/general.php:348
+#: ../public/template-tags/general.php:362
+#: ../public/template-tags/general.php:363
+#: ../public/template-tags/general.php:377
+#: ../public/template-tags/general.php:378
+#: ../public/template-tags/general.php:392
+#: ../public/template-tags/general.php:393
+#: ../public/template-tags/general.php:407
+#: ../public/template-tags/general.php:408
+msgid "No default set"
+msgstr "Noklusētais nav norādīts"
+
+#: ../public/template-tags/general.php:290
+#, php-format
+msgid "The current default organizer is: %s"
+msgstr "Noklusētais organizators ir: %s"
+
+#: ../public/template-tags/general.php:305
+#, php-format
+msgid "The current default venue is: %s"
+msgstr "Noklusētā vietas vērtība ir: %s"
+
+#: ../public/template-tags/general.php:320
+#, php-format
+msgid "The current default address is: %s"
+msgstr "Noklusētā adreses vērtība ir: %s"
+
+#: ../public/template-tags/general.php:335
+#, php-format
+msgid "The current default city is: %s"
+msgstr "Noklusētā pilsētas vērtība ir: %s"
+
+#: ../public/template-tags/general.php:350
+#, php-format
+msgid "The current default state is: %s"
+msgstr "Noklusētā štata vērtība ir: %s"
+
+#: ../public/template-tags/general.php:365
+#, php-format
+msgid "The current default province is: %s"
+msgstr "Noklusētā rajona vērtība ir: %s"
+
+#: ../public/template-tags/general.php:380
+#, php-format
+msgid "The current default postal code/zip code is: %s"
+msgstr "Noklusētā pasta indeksa vērtība ir: %s"
+
+#: ../public/template-tags/general.php:395
+#, php-format
+msgid "The current default country is: %s"
+msgstr "Noklusētā valsts vērtība ir: %s"
+
+#: ../public/template-tags/general.php:410
+#, php-format
+msgid "The current default phone is: %s"
+msgstr "Noklusētā telefona vērtība ir: %s"
+
+#: ../public/template-tags/general.php:570
+#: ../public/template-tags/general.php:589
+#: ../public/template-tags/general.php:678
+#: ../public/template-tags/general.php:696
+msgid "Date out of range."
+msgstr "Datums nav norādītajā intervālā."
+
+#: ../public/template-tags/general.php:631
+msgid "Today"
+msgstr "Šodien"
+
+#: ../public/template-tags/general.php:633
+msgid "<span>&laquo;</span> Previous Day"
+msgstr "<span>&laquo;</span> Iepriekšējā diena"
+
+#: ../public/template-tags/general.php:635
+msgid "Next Day <span>&raquo;</span>"
+msgstr "Nākamā diena <span>&raquo;</span>"
+
+#: ../public/template-tags/general.php:637
+msgid "Yesterday"
+msgstr "Vakar"
+
+#: ../public/template-tags/general.php:639
+msgid "Tomorrow"
+msgstr "Rīt"
+
+#: ../public/template-tags/general.php:743
+msgid "Related Events"
+msgstr "Saistītie notikumi"
+
+#: ../public/template-tags/general.php:823
+msgid "Recurring Event"
+msgstr "Atkārtotie notikumi"
+
+#: ../public/template-tags/general.php:826
+msgid "(See all)"
+msgstr "(Apskatīt visu)"
+
+#: ../public/template-tags/week.php:258
+msgid "<span>&laquo;</span> Previous Week"
+msgstr "<span>&laquo;</span> Iepriekšējā nedēļa"
+
+#: ../public/template-tags/week.php:271
+msgid "Next Week <span>&raquo;</span>"
+msgstr "Nākamā nedēļa <span>&raquo;</span>"
+
+#: ../vendor/advanced-post-manager/demo/demo.php:30
+#, php-format
+msgid ""
+"It looks like you might not have any demo data. <a href=\"%s\">Download our "
+"data</a> and use the <a href=\"%s\">WordPress Importer</a>."
+msgstr ""
+"Izskatās, ka Jums nav demo datu. <a href=\"%s\">Paņemiet mūsu</a> un "
+"izmantojiet  <a href=\"%s\">WordPress Importer</a>."
+
+#: ../vendor/advanced-post-manager/lib/tribe-columns.class.php:44
+msgid "Column Name"
+msgstr "Kolonnas nosaukums"
+
+#: ../vendor/advanced-post-manager/lib/tribe-columns.class.php:134
+msgid "Add a Column"
+msgstr "Pievienot kolonnu"
+
+#: ../vendor/advanced-post-manager/lib/tribe-columns.class.php:141
+msgid "Comments"
+msgstr "Komentāri"
+
+#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:52
+#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:72
+msgid "Is"
+msgstr "Ir"
+
+#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:53
+#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:73
+msgid "Is Not"
+msgstr "Nav"
+
+#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:67
+msgid "LIKE"
+msgstr "LIKE"
+
+#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:71
+msgid "Search"
+msgstr "Meklēt"
+
+#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:82
+msgid "Member Type"
+msgstr "Biedra tips"
+
+#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:86
+msgid "Cafe"
+msgstr "Kafejnīca"
+
+#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:87
+msgid "Private Desk"
+msgstr "Privātais galds"
+
+#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:88
+msgid "Office"
+msgstr "Birojs"
+
+#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:95
+msgid "what i’m querying. probably a key in the options array in $filters"
+msgstr "what i’m querying. probably a key in the options array in $filters"
+
+#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:526
+msgid "Choose a Saved Filter"
+msgstr "Izvēlieties saglabāto filtru"
+
+#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:642
+msgid "Add a Filter"
+msgstr "Pievienot filtru"
+
+#: ../vendor/advanced-post-manager/lib/tribe-meta-box-helper.php:44
+msgid "Extended Information"
+msgstr "Papildus informācija"
+
+#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:124
+#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:397
+msgid "Delete this image"
+msgstr "Dzēst šo attēlu"
+
+#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:124
+#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:352
+#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:397
+msgid "Delete"
+msgstr "Dzēst"
+
+#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:348
+msgid "Uploaded files"
+msgstr "Pievienotie faili"
+
+#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:358
+msgid "Upload new files"
+msgstr "Pievienot jaunu failu"
+
+#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:361
+msgid "Add another file"
+msgstr "Pievienot vēl vienu failu"
+
+#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:404
+msgid "Add more images"
+msgstr "Pievienot vēl attēlus"
+
+#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:412
+msgid "Select a color"
+msgstr "Izvēlēties krāsu"
+
+#: ../vendor/advanced-post-manager/views/edit-filters.php:7
+#: ../vendor/advanced-post-manager/views/edit-filters.php:8
+msgid "Click to toggle"
+msgstr "Klikšķiniet lai pārslēgtu"
+
+#: ../vendor/advanced-post-manager/views/edit-filters.php:8
+msgid "Filters &amp; Columns"
+msgstr "Filtri un kolonnas"
+
+#: ../vendor/advanced-post-manager/views/edit-filters.php:17
+msgid "Apply"
+msgstr "Pielietot"
+
+#: ../vendor/advanced-post-manager/views/edit-filters.php:18
+msgid "Clear"
+msgstr "Attīrīt"
+
+#: ../vendor/advanced-post-manager/views/edit-filters.php:19
+#: ../vendor/advanced-post-manager/views/edit-filters.php:26
+msgid "Save"
+msgstr "Saglabāt"
+
+#: ../vendor/advanced-post-manager/views/edit-filters.php:21
+msgid "Export to CSV"
+msgstr "Eksportēt uz CSV"
+
+#: ../vendor/advanced-post-manager/views/edit-filters.php:25
+msgid "Filter Name"
+msgstr "Filtra nosaukums"
+
+#: ../vendor/advanced-post-manager/views/edit-filters.php:27
+msgid "Cancel"
+msgstr "Atcelt"
+
+#: ../vendor/pue-client/admin-views/license-key.view.php:9
+#: ../vendor/pue-client/admin-views/license-key.view.php:13
+#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:292
+msgid "License Key"
+msgstr "Licences atslēga"
+
+#: ../vendor/pue-client/admin-views/license-key.view.php:10
+msgid "A valid license key is required for support and updates."
+msgstr "Atbalstam un atjauninājumiem nepieciešama derīga licences atslēga."
+
+#: ../vendor/pue-client/admin-views/license-key.view.php:16
+msgid "Replace empty fields"
+msgstr "Aizvietot tukšos laukus"
+
+#: ../vendor/pue-client/admin-views/license-key.view.php:25
+#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:293
+msgid "A valid license key is required for support and updates"
+msgstr "Atbalstam un atjauninājumiem ir nepieciešama derīga licences atslēga"
+
+#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:361
+msgid "License key(s) updated."
+msgstr "Licences atslēga(s) ir atjauninātas."
+
+#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:401
+msgid "Sorry, key validation server is not available."
+msgstr "Diemžēl, atslēgu validācijas serveris nav pieejams."
+
+#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:403
+msgid "Sorry, this key is expired."
+msgstr "Diemžēl šī atslēga ir beigusies."
+
+#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:405
+msgid "Sorry, this key is out of installs."
+msgstr "Diemžēl šīs atslēgas instalāciju skaits ir beidzies."
+
+#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:407
+msgid "Sorry, this key is not valid."
+msgstr "Diemžēl šī atslēga nav derīga."
+
+#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:410
+#, php-format
+msgid "Valid Key! Expires on %s"
+msgstr "Derīga atslēga! Beidzas %s"
+
+#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:414
+#, php-format
+msgid ""
+"Hmmm... something's wrong with this validator. Please contact <a href=\"%s"
+"\">support.</a>"
+msgstr ""
+"Hmmm... problēma ar validatoru. Lūdzu, sazinieties ar <a href=\"%s"
+"\">atbalstu.</a>"
+
+#: ../views/pro/day/nav.php:16
+msgid "Day Navigation"
+msgstr "Dienu navigācija"
+
+#: ../views/pro/day/single-event.php:74 ../views/pro/map/single-event.php:80
+msgid "Find out more"
+msgstr "Uzzināt vairāk"
+
+#: ../views/pro/map/nav.php:22 ../views/pro/photo/nav.php:22
+msgid "Events List Navigation"
+msgstr "Notikumu saraksta navigācija"
+
+#: ../views/pro/map/nav.php:25 ../views/pro/photo/nav.php:25
+msgid "<span>&laquo;</span> Previous Events"
+msgstr "<span>&laquo;</span> Iepriekšējie notikumi"
+
+#: ../views/pro/map/nav.php:32 ../views/pro/photo/nav.php:32
+msgid "Next Events <span>&raquo;</span>"
+msgstr "Nākamie notikumi <span>&raquo;</span>"
+
+#: ../views/pro/single-organizer.php:31 ../views/pro/single-venue.php:31
+msgid "&larr; Back to Events"
+msgstr "&larr; Atpakaļ uz notikumiem"
+
+#: ../views/pro/week/loop-grid.php:19
+msgid "Hours"
+msgstr "Stundas"
+
+#: ../views/pro/week/nav.php:16
+msgid "Week Navigation"
+msgstr "Nedēļas navigācija"
+
+#: ../views/pro/widgets/countdown-widget.php:24
+msgid "hours"
+msgstr "stundas"
+
+#: ../views/pro/widgets/countdown-widget.php:28
+msgid "min"
+msgstr "min"
+
+#: ../views/pro/widgets/countdown-widget.php:33
+msgid "sec"
+msgstr "sek"
+
+#: ../views/pro/widgets/list-widget.php:74
+msgid "Organizer:"
+msgstr "Organizators:"
+
+#: ../views/pro/widgets/venue-widget.php:33
+msgid "No upcoming events."
+msgstr "Nav neviena nākotnes notikuma."
+
+#: ../views/tribe-ECP-views-old/views/list-widget.php:110
+msgid "Price:"
+msgstr "Cena:"
+
+#: ../views/tribe-ECP-views-old/views/single-venue.php:24
+msgid "&laquo; Back to Events"
+msgstr "&laquo; Atpakaļ uz notikumiem"
+
+#: ../views/tribe-ECP-views-old/views/single-venue.php:37
+msgid "Name:"
+msgstr "Nosaukums:"
+
+#: ../views/tribe-ECP-views-old/views/single-venue.php:41
+msgid "Phone:"
+msgstr "Telefons:"
+
+#: ../views/tribe-ECP-views-old/views/single-venue.php:47
+msgid "Address:"
+msgstr "Adrese:"
+
+#: ../views/tribe-ECP-views-old/views/single-venue.php:49
+msgid "Click to view a Google Map"
+msgstr "Klikšķiniet, lai aplūkotu Google karti"
+
+#: ../views/tribe-ECP-views-old/views/single-venue.php:49
+msgid "Google Map"
+msgstr "Google karte"
+
+#: ../views/tribe-ECP-views-old/views/single-venue.php:76
+msgid "Upcoming Events At This Venue"
+msgstr "Visi nākotnes notikumi šajā vietā"
+
+#: ../views/tribe-ECP-views-old/views/single-venue.php:96
+msgid "Start:"
+msgstr "Sākums:"
+
+#: ../views/tribe-ECP-views-old/views/single-venue.php:100
+msgid "End:"
+msgstr "Beigas:"
+
+#: ../views/tribe-ECP-views-old/views/single-venue.php:105
+msgid "Date:"
+msgstr "Datums:"
+
+#: ../views/tribe-ECP-views-old/views/single-venue.php:114
+msgid "Cost:"
+msgstr "Izmaksas:"

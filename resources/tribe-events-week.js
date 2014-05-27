@@ -19,6 +19,7 @@
 	$(document).ready(function () {
 
 		var $body = $('body'),
+            $tribedate = $('#tribe-bar-date'),
 			$tribe_container = $('#tribe-events'),
 			$tribe_bar = $('#tribe-events-bar'),
 			$tribe_header = $('#tribe-events-header'),
@@ -53,7 +54,12 @@
 
 		$tribe_bar.addClass('tribe-has-datepicker');
 
-		ts.date = $tribe_header.data('date');
+        var initial_date = $tribe_header.data('date');
+
+        if(ts.datepicker_format !== '0')
+            initial_date = tribeDateFormat(initial_date, "tribeQuery");
+
+		ts.date = initial_date;
 
 		var days_to_disable = [0, 1, 2, 3, 4, 5, 6],
 			index = days_to_disable.indexOf(start_day);
@@ -61,25 +67,40 @@
 		if (index > -1)
 			days_to_disable.splice(index, 1);
 
+        // begin display date formatting
+
+        var date_format = 'yyyy-mm-dd';
+
+        if(ts.datepicker_format !== '0'){
+
+            // we are not using the default query date format, lets grab it from the data array
+
+            date_format = td.datepicker_formats.main[ts.datepicker_format];
+
+            var url_date = tf.get_url_param('tribe-bar-date');
+
+            // if url date is set and datepicker format is different from query format
+            // we need to fix the input value to emulate that before kicking in the datepicker
+
+            if(url_date)
+                $tribedate.val(tribeDateFormat(url_date, ts.datepicker_format));
+        }
+
 		td.datepicker_opts = {
-			format: 'yyyy-mm-dd',
+			format: date_format,
 			weekStart: start_day,
 			daysOfWeekDisabled: days_to_disable,
 			autoclose: true
 		};
 
-			$('#tribe-bar-date')
+        $tribedate
 			.bootstrapDatepicker(td.datepicker_opts)
 			.on('changeDate', function(e){
-				var day = ('0' + e.date.getDate()).slice(-2),
-					month = ('0' + (e.date.getMonth() + 1)).slice(-2),
-					year = e.date.getFullYear(),
-					date = year + '-' + month  + '-' + day;
-
+                if(ts.updating_picker)
+                    return;
+				var date = tribeDateFormat(e.date, "tribeQuery");
 				ts.date = date;
-
 				date_mod = true;
-
 				if (tt.no_bar() || tt.live_ajax() && tt.pushstate) {
 					if (!tt.reset_on())
 						tribe_events_bar_weekajax_actions(e, date);
@@ -218,22 +239,22 @@
 			tribe_find_overlapped_events($week_events);
 
 			// set the height of the header columns to the height of the tallest
-
-			var header_column_height = $(".tribe-grid-header .tribe-grid-content-wrap .column").outerHeight();
-
-			$(".tribe-grid-header .column").height(header_column_height);
+			
+			tribe_ev.fn.equal_height($(".tribe-grid-header .tribe-grid-content-wrap .column"));
 
 			// set the height of the allday columns to the height of the tallest
-
-			var all_day_height = $(".tribe-grid-allday .tribe-grid-content-wrap").height();
-
-			$(".tribe-grid-allday .column").height(all_day_height);
+			
+			tribe_ev.fn.equal_height($(".tribe-grid-allday .column"));
 
 			// set the height of the other columns for week days to be as tall as the main container
-
-			var week_day_height = $(".tribe-grid-body").height();
-
-			$(".tribe-grid-body .tribe-grid-content-wrap .column").height(week_day_height);
+			
+			setTimeout(function(){
+				
+				var week_day_height = $(".tribe-grid-body").height();
+				
+				$(".tribe-grid-body .tribe-grid-content-wrap .column").height(week_day_height);
+				
+			}, 250);
 
 		}
 
@@ -261,7 +282,7 @@
 
 		}
 
-		function tribe_mobile_setup_day(date){
+		function tribe_mobile_setup_day(date, day_attr){
 
 			var $container = $('#tribe-mobile-container'),
 				$target_day = $('.tribe-mobile-day[data-day="' + date + '"]');
@@ -274,6 +295,13 @@
 
 				tribe_mobile_load_events(date);
 			}
+
+            if(!$target_day.length)
+                $target_day = $('.tribe-mobile-day[data-day="' + date + '"]');
+
+            if(!$target_day.find('h5').length && $target_day.find('.tribe-events-mobile').length)
+                $target_day.prepend('<h5 class="tribe-mobile-day-date">' + day_attr + '</h5>');
+
 
 		}
 
@@ -288,14 +316,10 @@
 			$mobile_days.each(function () {
 				var $this = $(this),
 					day_date = $this.attr('title'),
-					$mobile_day = $('.tribe-mobile-day[data-day="' + day_date + '"]'),
-					$grid_day_col = $('.tribe-grid-header .column[title="' + day_date + '"]'),
+					$grid_day_col = $('.tribe-grid-content-wrap .column[title="' + day_date + '"]'),
 					day_attr = $grid_day_col.find('span').attr('data-full-date');
 				
-				if(!$mobile_day.find('h5').length && $mobile_day.find('.tribe-events-mobile').length)
-					$mobile_day.prepend('<h5 class="tribe-mobile-day-date">' + day_attr + '</h5>');
-				
-				tribe_mobile_setup_day(day_date);
+				tribe_mobile_setup_day(day_date, day_attr);
 			});
 
 		}
@@ -360,9 +384,12 @@
 					return;
 				var $this = $(this).find('a');
 				ts.popping = false;
-				ts.date = $this.attr("data-week");
+                ts.date = $this.attr("data-week");
 				td.cur_url = $this.attr("href");
-				tf.update_picker(ts.date);
+                if(ts.datepicker_format !== '0')
+                    tf.update_picker(tribeDateFormat(ts.date, td.datepicker_formats.main[ts.datepicker_format]));
+                else
+				    tf.update_picker(ts.date);
 				tf.pre_ajax(function () {
 					tribe_events_week_ajax_post();
 				});
@@ -393,7 +420,11 @@
 
 				} else if($tdate.length && $tdate.val() !== ''){
 
-					ts.date = $tdate.val();
+                    if(ts.datepicker_format !== '0')
+                        ts.date = tribeDateFormat($tdate.bootstrapDatepicker('getDate'), "tribeQuery");
+                    else
+                        ts.date = $tdate.val();
+
 					td.cur_url = td.base_url + ts.date + '/';
 
 				} else if(date_mod) {
