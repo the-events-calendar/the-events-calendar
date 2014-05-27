@@ -308,7 +308,7 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 = 3.6 =
 
 * Added shortcode support to the before/after calendar HTML fields (thanks to aurelio on the forums for the idea!)
-* Added facilities for easier customization of ticketing plugin attendee tables (thanks to Mike Z from Tuna Traffic for the assistance!)
+* Added facilities for easier customization of ticketing plugin attendee tables (thanks to Mike Z from Tuna Traffic and his awesome developer, Evan, for the assistance!)
 * Added ability to remove entries from ticketing plugin attendee tables (thanks to user artworkcreative on the forum for the heads up!)
 * Added support for various datepicker date formats in the front end (thanks to africaatlanta on the forums for getting the ball rolling on this!)
 * Improved tribe bar handling of custom inputs (thanks to manishie on the forums for the report!)
