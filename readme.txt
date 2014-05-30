@@ -5,7 +5,7 @@ Tags: events, calendar, event, venue, organizer, dates, date, google maps, confe
 Donate link: http://m.tri.be/29
 Requires at least: 3.7
 Tested up to: 3.9.1
-Stable tag: 3.6
+Stable tag: 3.6.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -214,8 +214,9 @@ Our Premium Plugins:
 
 3.x is a complete overhaul of the plugin, and as a result we're starting the changelog fresh. For release notes from the 2.x lifecycle, see <a href="http://m.tri.be/k">our 2.x release notes.</a>
 
-= 3.7 =
+= 3.6.1 =
 
+* Fix minification issue.
 * Incorporated updated Greek translation files, courtesy of Yannis Troullinos
 
 = 3.6 =
@@ -286,7 +287,7 @@ Our Premium Plugins:
 * Incorporated updated Dutch translation files from J.F.M. Cornelissen and Frans Pronk
 * Incorporated updated French translation files from Laurent Proulx
 
-= 3.4 = 
+= 3.4 =
 
 * Added extra reassurance that All Day events will show first on Day view
 * Fixed the automated recurrence description for events with no end date
