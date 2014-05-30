@@ -5,7 +5,7 @@ Tags: events, calendar, event, venue, organizer, dates, date, google maps, confe
 Donate link: http://m.tri.be/29
 Requires at least: 3.7
 Tested up to: 3.9.1
-Stable tag: 3.6
+Stable tag: 3.6.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -213,6 +213,10 @@ Our Premium Plugins:
 = IMPORTANT NOTICE =
 
 3.x is a complete overhaul of the plugin, and as a result we're starting the changelog fresh. For release notes from the 2.x lifecycle, see <a href="http://m.tri.be/k">our 2.x release notes.</a>
+
+= 3.6.1 =
+
+* Resolved issue with minified assets
 
 = 3.6 =
 
