@@ -35,12 +35,12 @@ $website = tribe_get_venue_website_link()
 
 		<?php if ( ! empty( $phone ) ): ?>
 			<dt> <?php _e( 'Phone:', 'tribe-events-calendar' ) ?> </dt>
-			<dd class="tel"> <?php esc_html_e( $phone ) ?> </dd>
+			<dd class="tel"> <?php echo $phone ?> </dd>
 		<?php endif ?>
 
 		<?php if ( ! empty( $website ) ): ?>
 			<dt> <?php _e( 'Website:', 'tribe-events-calendar' ) ?> </dt>
-			<dd class="url"> <?php esc_html_e( $website ) ?> </dd>
+			<dd class="url"> <?php echo $website ?> </dd>
 		<?php endif ?>
 
 		<?php do_action( 'tribe_events_single_meta_venue_section_end' ) ?>
