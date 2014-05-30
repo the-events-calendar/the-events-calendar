@@ -79,6 +79,7 @@ class TribeEventsPro_RecurrenceSeriesSplitter {
 			'orderby' => 'meta_key',
 			'order' => 'ASC',
 			'fields' => 'ids',
+			'posts_per_page' => -1,
 		));
 
 		if ( empty($children) ) {

@@ -83,7 +83,7 @@ class TribeEventsPro_RecurrenceSeriesSplitter_Test extends WP_UnitTestCase {
 			'EventEndMinute' => 0,
 			'recurrence' => array(
 				'end-type' => 'After',
-				'end-count' => 5,
+				'end-count' => 50,
 				'type' => 'Every Week',
 			)
 		);
@@ -93,6 +93,8 @@ class TribeEventsPro_RecurrenceSeriesSplitter_Test extends WP_UnitTestCase {
 			'post_parent' => $post_id,
 			'post_status' => 'publish',
 			'fields' => 'ids',
+			'eventDisplay' => 'custom',
+			'posts_per_page' => -1,
 		));
 
 		$breaker = new TribeEventsPro_RecurrenceSeriesSplitter();
@@ -105,22 +107,26 @@ class TribeEventsPro_RecurrenceSeriesSplitter_Test extends WP_UnitTestCase {
 			'post_parent' => $post_id,
 			'post_status' => 'publish',
 			'fields' => 'ids',
+			'eventDisplay' => 'custom',
+			'posts_per_page' => -1,
 		));
 		$this->assertEmpty($updated_children);
 
 		$new_parent = get_post($original_children[0]);
 
 		$this->assertEmpty($new_parent->post_parent);
-		$this->assertCount( 3, get_posts( array(
+		$this->assertCount( 48, get_posts( array(
 			'post_type' => TribeEvents::POSTTYPE,
 			'post_parent' => $new_parent->ID,
 			'post_status' => 'publish',
 			'fields' => 'ids',
+			'eventDisplay' => 'custom',
+			'posts_per_page' => -1,
 		)));
 		$this->assertEquals( '2014-05-08 16:00:00', get_post_meta($new_parent->ID, '_EventStartDate', TRUE));
 
 		$recurrence_spec = get_post_meta( $new_parent->ID, '_EventRecurrence', TRUE );
-		$this->assertEquals( 4, $recurrence_spec['end-count'] );
+		$this->assertEquals( 49, $recurrence_spec['end-count'] );
 	}
 
 	public function test_break_remaining_events_from_series() {

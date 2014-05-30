@@ -216,7 +216,8 @@ Our Premium Plugins:
 
 = 3.6.1 =
 
-* Resolved issue with minified assets
+* Fix minification issue.
+* Incorporated updated Greek translation files, courtesy of Yannis Troullinos
 
 = 3.6 =
 
@@ -286,7 +287,7 @@ Our Premium Plugins:
 * Incorporated updated Dutch translation files from J.F.M. Cornelissen and Frans Pronk
 * Incorporated updated French translation files from Laurent Proulx
 
-= 3.4 = 
+= 3.4 =
 
 * Added extra reassurance that All Day events will show first on Day view
 * Fixed the automated recurrence description for events with no end date
