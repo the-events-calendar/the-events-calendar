@@ -187,8 +187,6 @@ jQuery(document).ready(function($) {
 					
 				}
 			}
-		} else if ( rec_end_type == 'On' ) {
-			
 		}
 		
 		if ( rec_type != 'Custom' ) {
