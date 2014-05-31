@@ -55,9 +55,9 @@ if( !class_exists('Tribe_PRO_Template_Factory') ) {
 				case 'ajax-maps':
 					$http = is_ssl() ? 'https' : 'http';
 
-					wp_register_script( 'gmaps', $http . '://maps.google.com/maps/api/js?sensor=false', array( 'tribe-events-pro' ) );
+					wp_register_script( 'tribe-gmaps', $http . '://maps.google.com/maps/api/js?sensor=false', array( 'tribe-events-pro' ) );
 					$path = Tribe_Template_Factory::getMinFile( $resources_url . 'tribe-events-ajax-maps.js', true );
-					wp_register_script( 'tribe-events-pro-geoloc', $path, array( 'gmaps', parent::get_placeholder_handle() ), apply_filters( 'tribe_events_pro_js_version', TribeEventsPro::VERSION ) );
+					wp_register_script( 'tribe-events-pro-geoloc', $path, array( 'tribe-gmaps', parent::get_placeholder_handle() ), apply_filters( 'tribe_events_pro_js_version', TribeEventsPro::VERSION ) );
 					wp_enqueue_script( 'tribe-events-pro-geoloc' );
 
 					$geoloc = TribeEventsGeoLoc::instance();
