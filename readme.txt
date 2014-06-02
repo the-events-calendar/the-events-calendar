@@ -307,9 +307,10 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 
 = 3.6.1 =
 
-* Fix minification issues.
-* Incorporated updated Greek translation files, courtesy of Yannis Troullinos
+* Fixed some JS/CSS minification issues
 * Fixed an issue where the "Hide From Event Listings" checkbox was not hiding events from Month view
+* Incorporated updated Greek translation files, courtesy of Yannis Troullinos
+
 
 = 3.6 =
 
