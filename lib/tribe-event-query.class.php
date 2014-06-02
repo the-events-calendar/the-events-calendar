@@ -215,6 +215,7 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 						if ( $query->get( 'end_date' == '' ) ) {
 							$query->set( 'end_date', tribe_event_end_of_day( $query->get('start_date')) );
 						}
+						$query->set( 'hide_upcoming', true );
 
 						break;
 					case 'day':
