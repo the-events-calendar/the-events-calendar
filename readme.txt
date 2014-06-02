@@ -217,10 +217,10 @@ Our Premium Plugins:
 
 = 3.6.1 =
 
-* Fixed minification issue
-* Fixed calendar widget list pagination issue
+* Fixed some CSS/JS minification issues
+* Fixed a bug where the calendar widget list pagination wasn’t working properly
+* Fixed an issue where the Google Maps API script didn't have a more specific script handle (thanks to @isagenix on the forum for the heads up!)
 * Incorporated updated Greek translation files, courtesy of Yannis Troullinos
-* Fixed an issue where the Google Maps API script didn't have a more specific script handle.  Thanks to @isagenix on the forum for the heads up on that issue!
 
 = 3.6 =
 
