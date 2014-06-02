@@ -1,6 +1,6 @@
 === The Events Calendar ===
 
-Contributors:  ModernTribe, roblagatta, faction23, caseypatrickdriscoll, jazbek, jbrinley, kyleunzicker, leahkoerper, brook-tribe, ckpicker, barry.hughes, neillmcshea, peterchester, reid.peifer, shane.pearlman
+Contributors:  ModernTribe, roblagatta, faction23, caseypatrickdriscoll, jazbek, jbrinley, leahkoerper, brook-tribe, ckpicker, barry.hughes, neillmcshea, peterchester, reid.peifer, shane.pearlman
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
 Donate link: http://m.tri.be/29
 Requires at least: 3.7
@@ -309,6 +309,7 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 
 * Fix minification issues.
 * Incorporated updated Greek translation files, courtesy of Yannis Troullinos
+* Fixed an issue where the "Hide From Event Listings" checkbox was not hiding events from Month view
 
 = 3.6 =
 
