@@ -309,6 +309,7 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 
 * Fix minification issues.
 * Incorporated updated Greek translation files, courtesy of Yannis Troullinos
+* Fixed an issue where the "Hide From Event Listings" checkbox was not hiding events from Month view
 
 = 3.6 =
 
