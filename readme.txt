@@ -217,7 +217,8 @@ Our Premium Plugins:
 
 = 3.6.1 =
 
-* Fix minification issue.
+* Fixed minification issue
+* Fixed calendar widget list pagination issue
 * Incorporated updated Greek translation files, courtesy of Yannis Troullinos
 
 = 3.6 =
