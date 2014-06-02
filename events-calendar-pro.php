@@ -49,7 +49,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		 */
 		public $single_event_meta;
 
-		const REQUIRED_TEC_VERSION = '3.6';
+		const REQUIRED_TEC_VERSION = '3.6.1';
 		const VERSION = '3.6.1';
 
         /**

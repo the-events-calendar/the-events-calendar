@@ -1,6 +1,6 @@
 === The Events Calendar PRO ===
 
-Contributors:  ModernTribe, roblagatta, faction23, jazbek, jbrinley, caseypatrickdriscoll, leahkoerper, WebsiteBakery, barry.hughes, ckpicker, neillmcshea, peterchester, reid.peifer, shane.pearlman
+Contributors:  ModernTribe, roblagatta, faction23, jazbek, jbrinley, caseypatrickdriscoll, leahkoerper, barry.hughes, ckpicker, neillmcshea, brook-tribe, peterchester, reid.peifer, shane.pearlman
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget, pro
 Donate link: http://m.tri.be/29
 Requires at least: 3.7
@@ -134,6 +134,7 @@ The plugin is produced by <a href="http://m.tri.be/45">Modern Tribe Inc</a>.
 * <a href="http://profiles.wordpress.org/users/peterchester">Peter Chester</a>
 * <a href="http://profiles.wordpress.org/users/reid.peifer">Reid Peifer</a>
 * <a href="http://profiles.wordpress.org/users/shane.pearlman">Shane Pearlman</a>
+* <a href="http://profiles.wordpress.org/users/brook-tribe”>Brook Harding</a>
 
 = Past Contributors =
 
@@ -216,7 +217,9 @@ Our Premium Plugins:
 
 = 3.6.1 =
 
-* Fix minification issue.
+* Fixed some CSS/JS minification issues
+* Fixed a bug where the calendar widget list pagination wasn’t working properly
+* Fixed an issue where the Google Maps API script didn't have a more specific script handle (thanks to @isagenix on the forum for the heads up!)
 * Incorporated updated Greek translation files, courtesy of Yannis Troullinos
 
 = 3.6 =
