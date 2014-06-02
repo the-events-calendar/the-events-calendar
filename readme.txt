@@ -220,6 +220,7 @@ Our Premium Plugins:
 * Fixed minification issue
 * Fixed calendar widget list pagination issue
 * Incorporated updated Greek translation files, courtesy of Yannis Troullinos
+* Fixed an issue where the Google Maps API script didn't have a more specific script handle.  Thanks to @isagenix on the forum for the heads up on that issue!
 
 = 3.6 =
 
