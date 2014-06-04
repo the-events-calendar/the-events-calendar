@@ -51,7 +51,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			'supports' => array('title','editor','excerpt','author','thumbnail', 'custom-fields', 'comments'),
 			'taxonomies' => array('post_tag'),
 			'capability_type' => array('tribe_event', 'tribe_events'),
-			'map_meta_cap' => true,
+			'map_meta_cap' => true
 		);
 
 		/**
@@ -161,6 +161,12 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		public $daysOfWeekMin;
 		public $monthsFull;
 		public $monthsShort;
+		
+		public $singular_venue_label;
+		public $plural_venue_label;
+
+		public $singular_organizer_label;
+		public $plural_organizer_label;
 
 		public static $tribeEventsMuDefaults;
 
@@ -402,7 +408,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			// Load organizer and venue editors
 			add_action( 'admin_menu', array( $this, 'addVenueAndOrganizerEditor' ) );
 			add_action( 'tribe_venue_table_top', array( $this, 'displayEventVenueDropdown' ) );
-			add_action( 'tribe_organizer_table_top', array( $this, 'displayEventOrganizerDropdown' ) );
+			add_action( 'tribe_organizer_table_top', array( $this, 'displayEventOrganizerDropdown' ) );			
 
 			add_action( 'template_redirect', array( $this, 'template_redirect') );
 			add_filter( 'tribe_events_promo_banner', array( $this, 'promo_banner_prevent_bot') );
@@ -482,6 +488,48 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		}
 
 		/**
+		 * Allow users to specify their own plural label for Venues
+		 * @return string
+		 */
+		public function get_venue_label_plural() {
+			return apply_filters( 'tribe_venue_label_plural', 'Venues' );
+		}
+
+		/**
+		 * Allow users to specify their own singular label for Venues
+		 * @return string
+		 */
+		public function get_venue_label_singular() {
+			$single_label = apply_filters( 'tribe_venue_label_singular', 'Venue' );
+
+			//Change venue slug also
+			$this->postVenueTypeArgs['rewrite']['slug'] = sanitize_title( $single_label );
+
+			return $single_label;
+		}
+
+		/**
+		 * Allow users to specify their own plural label for Organizers
+		 * @return string
+		 */
+		public function get_organizer_label_plural() {
+			return apply_filters( 'tribe_organizer_label_plural', 'Organizers' );
+		}
+
+		/**
+		 * Allow users to specify their own singular label for Organizers
+		 * @return string
+		 */
+		public function get_organizer_label_singular() {
+			$single_label = apply_filters( 'tribe_organizer_label_singular', 'Organizer' );
+
+			//Change organizer slug also
+			$this->postOrganizerTypeArgs['rewrite']['slug'] = sanitize_title( $single_label );
+
+			return $single_label;
+		}
+
+		/**
  		 * Load the day view template tags
 		 * Loaded late due to potential upgrade conflict since moving them from pro
 		 * @TODO move this require to be with the rest of the template tag includes in 3.8
@@ -554,6 +602,11 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			$this->postOrganizerTypeArgs['public'] = class_exists( 'TribeEventsPro' ) ? true : false;
 			$this->currentDay = '';
 			$this->errors = '';
+			$this->singular_venue_label = $this->get_venue_label_singular();
+			$this->plural_venue_label = $this->get_venue_label_plural();
+			$this->singular_organizer_label = $this->get_organizer_label_singular();
+			$this->plural_organizer_label = $this->get_organizer_label_plural();
+
 			TribeEventsQuery::init();
 			$this->registerPostType();
 
@@ -1364,29 +1417,29 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			);
 
 			$this->postVenueTypeArgs['labels'] = array(
-				'name' => __('Venues', 'tribe-events-calendar'),
-				'singular_name' => __('Venue', 'tribe-events-calendar'),
+				'name' => __($this->plural_venue_label, 'tribe-events-calendar'),
+				'singular_name' => __($this->singular_venue_label, 'tribe-events-calendar'),
 				'add_new' => __('Add New', 'tribe-events-calendar'),
-				'add_new_item' => __('Add New Venue', 'tribe-events-calendar'),
-				'edit_item' => __('Edit Venue', 'tribe-events-calendar'),
-				'new_item' => __('New Venue', 'tribe-events-calendar'),
-				'view_item' => __('View Venue', 'tribe-events-calendar'),
-				'search_items' => __('Search Venues', 'tribe-events-calendar'),
-				'not_found' => __('No venue found', 'tribe-events-calendar'),
-				'not_found_in_trash' => __('No venues found in Trash', 'tribe-events-calendar')
+				'add_new_item' => __('Add New ' . $this->singular_venue_label, 'tribe-events-calendar'),
+				'edit_item' => __('Edit ' . $this->singular_venue_label, 'tribe-events-calendar'),
+				'new_item' => __('New ' . $this->singular_venue_label, 'tribe-events-calendar'),
+				'view_item' => __('View ' . $this->singular_venue_label, 'tribe-events-calendar'),
+				'search_items' => __('Search ' . $this->plural_venue_label, 'tribe-events-calendar'),
+				'not_found' => __('No '. strtolower( $this->singular_venue_label ) .' found', 'tribe-events-calendar'),
+				'not_found_in_trash' => __('No ' . strtolower( $this->plural_venue_label ) . ' found in Trash', 'tribe-events-calendar')
 			);
 
 			$this->postOrganizerTypeArgs['labels'] = array(
-				'name' => __('Organizers', 'tribe-events-calendar'),
-				'singular_name' => __('Organizer', 'tribe-events-calendar'),
+				'name' => __($this->plural_organizer_label, 'tribe-events-calendar'),
+				'singular_name' => __($this->singular_organizer_label, 'tribe-events-calendar'),
 				'add_new' => __('Add New', 'tribe-events-calendar'),
-				'add_new_item' => __('Add New Organizer', 'tribe-events-calendar'),
-				'edit_item' => __('Edit Organizer', 'tribe-events-calendar'),
-				'new_item' => __('New Organizer', 'tribe-events-calendar'),
-				'view_item' => __('View Organizer', 'tribe-events-calendar'),
-				'search_items' => __('Search Organizers', 'tribe-events-calendar'),
-				'not_found' => __('No organizer found', 'tribe-events-calendar'),
-				'not_found_in_trash' => __('No organizers found in Trash', 'tribe-events-calendar')
+				'add_new_item' => __('Add New ' . $this->singular_organizer_label, 'tribe-events-calendar'),
+				'edit_item' => __('Edit ' . $this->singular_organizer_label, 'tribe-events-calendar'),
+				'new_item' => __('New ' . $this->singular_organizer_label, 'tribe-events-calendar'),
+				'view_item' => __('View ' . $this->singular_organizer_label, 'tribe-events-calendar'),
+				'search_items' => __('Search ' . $this->plural_organizer_label, 'tribe-events-calendar'),
+				'not_found' => __('No ' . strtolower( $this->singular_organizer_label ) . ' found', 'tribe-events-calendar'),
+				'not_found_in_trash' => __('No ' . strtolower( $this->singular_organizer_label ) . ' found in Trash', 'tribe-events-calendar')
 			);
 
 			$this->taxonomyLabels = array(
@@ -1432,36 +1485,36 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 			$messages[self::VENUE_POST_TYPE] = array(
 				0 => '', // Unused. Messages start at index 1.
-				1 => __('Venue updated.', 'tribe-events-calendar'),
+				1 => __($this->singular_venue_label . ' updated.', 'tribe-events-calendar'),
 				2 => __('Custom field updated.', 'tribe-events-calendar'),
 				3 => __('Custom field deleted.', 'tribe-events-calendar'),
-				4 => __('Venue updated.', 'tribe-events-calendar'),
+				4 => __($this->singular_venue_label . ' updated.', 'tribe-events-calendar'),
 				/* translators: %s: date and time of the revision */
-				5 => isset($_GET['revision']) ? sprintf( __('Venue restored to revision from %s', 'tribe-events-calendar'), wp_post_revision_title( (int) $_GET['revision'], false ) ) : false,
-				6 => __('Venue published.', 'tribe-events-calendar'),
-				7 => __('Venue saved.', 'tribe-events-calendar'),
-				8 => __('Venue submitted.', 'tribe-events-calendar'),
-				9 => sprintf( __('Venue scheduled for: <strong>%1$s</strong>.', 'tribe-events-calendar'),
+				5 => isset($_GET['revision']) ? sprintf( __($this->singular_venue_label . ' restored to revision from %s', 'tribe-events-calendar'), wp_post_revision_title( (int) $_GET['revision'], false ) ) : false,
+				6 => __($this->singular_venue_label . ' published.', 'tribe-events-calendar'),
+				7 => __($this->singular_venue_label . ' saved.', 'tribe-events-calendar'),
+				8 => __($this->singular_venue_label . ' submitted.', 'tribe-events-calendar'),
+				9 => sprintf( __($this->singular_venue_label . ' scheduled for: <strong>%1$s</strong>.', 'tribe-events-calendar'),
 				// translators: Publish box date format, see http://php.net/date
 				date_i18n( __( 'M j, Y @ G:i' , 'tribe-events-calendar'), strtotime( $post->post_date ) ) ),
-				10 => __('Venue draft updated.', 'tribe-events-calendar'),
+				10 => __($this->singular_venue_label . ' draft updated.', 'tribe-events-calendar'),
 				);
 
 			$messages[self::ORGANIZER_POST_TYPE] = array(
 				0 => '', // Unused. Messages start at index 1.
-				1 => __('Organizer updated.', 'tribe-events-calendar'),
+				1 => __($this->singular_organizer_label . ' updated.', 'tribe-events-calendar'),
 				2 => __('Custom field updated.', 'tribe-events-calendar'),
 				3 => __('Custom field deleted.', 'tribe-events-calendar'),
-				4 => __('Organizer updated.', 'tribe-events-calendar'),
+				4 => __($this->singular_organizer_label . ' updated.', 'tribe-events-calendar'),
 				/* translators: %s: date and time of the revision */
-				5 => isset($_GET['revision']) ? sprintf( __('Organizer restored to revision from %s', 'tribe-events-calendar'), wp_post_revision_title( (int) $_GET['revision'], false ) ) : false,
-				6 => __('Organizer published.', 'tribe-events-calendar'),
-				7 => __('Organizer saved.', 'tribe-events-calendar'),
-				8 => __('Organizer submitted.', 'tribe-events-calendar'),
-				9 => sprintf( __('Organizer scheduled for: <strong>%1$s</strong>.', 'tribe-events-calendar'),
+				5 => isset($_GET['revision']) ? sprintf( __($this->singular_organizer_label . ' restored to revision from %s', 'tribe-events-calendar'), wp_post_revision_title( (int) $_GET['revision'], false ) ) : false,
+				6 => __($this->singular_organizer_label . ' published.', 'tribe-events-calendar'),
+				7 => __($this->singular_organizer_label . ' saved.', 'tribe-events-calendar'),
+				8 => __($this->singular_organizer_label . ' submitted.', 'tribe-events-calendar'),
+				9 => sprintf( __($this->singular_organizer_label . ' scheduled for: <strong>%1$s</strong>.', 'tribe-events-calendar'),
 				// translators: Publish box date format, see http://php.net/date
 				date_i18n( __( 'M j, Y @ G:i' , 'tribe-events-calendar'), strtotime( $post->post_date ) ) ),
-				10 => __('Organizer draft updated.', 'tribe-events-calendar'),
+				10 => __($this->singular_organizer_label . ' draft updated.', 'tribe-events-calendar'),
 			);
 
 			return $messages;
@@ -1476,10 +1529,11 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 * @return void
 		 */
 		public function addVenueAndOrganizerEditor() {
-			add_submenu_page( '/edit.php?post_type='.TribeEvents::POSTTYPE, __( 'Venues','tribe-events-calendar' ), __( 'Venues','tribe-events-calendar' ), 'edit_tribe_venues', 'edit.php?post_type='.TribeEvents::VENUE_POST_TYPE );
-			add_submenu_page( '/edit.php?post_type='.TribeEvents::POSTTYPE, __( 'Organizers','tribe-events-calendar' ), __( 'Organizers','tribe-events-calendar' ), 'edit_tribe_organizers', 'edit.php?post_type='.TribeEvents::ORGANIZER_POST_TYPE );
-			add_submenu_page( 'edit.php?post_type='.TribeEvents::VENUE_POST_TYPE, __( 'Add New Venue','tribe-events-calendar' ), __( 'Add New Venue','tribe-events-calendar' ), 'edit_tribe_venues', 'post-new.php?post_type='.TribeEvents::VENUE_POST_TYPE );
-			add_submenu_page( 'edit.php?post_type='.TribeEvents::ORGANIZER_POST_TYPE, __( 'Add New Organizer','tribe-events-calendar' ), __( 'Add New Organizer','tribe-events-calendar' ), 'edit_tribe_organizers', 'post-new.php?post_type='.TribeEvents::ORGANIZER_POST_TYPE );
+
+			add_submenu_page( '/edit.php?post_type='.TribeEvents::POSTTYPE, __( $this->plural_venue_label,'tribe-events-calendar' ), __( $this->plural_venue_label,'tribe-events-calendar' ), 'edit_tribe_venues', 'edit.php?post_type='.TribeEvents::VENUE_POST_TYPE );
+			add_submenu_page( '/edit.php?post_type='.TribeEvents::POSTTYPE, __( $this->plural_organizer_label,'tribe-events-calendar' ), __( $this->plural_organizer_label,'tribe-events-calendar' ), 'edit_tribe_organizers', 'edit.php?post_type='.TribeEvents::ORGANIZER_POST_TYPE );
+			add_submenu_page( 'edit.php?post_type='.TribeEvents::VENUE_POST_TYPE, __( 'Add New ' . $this->singular_venue_label,'tribe-events-calendar' ), __( 'Add New ' . $this->singular_venue_label,'tribe-events-calendar' ), 'edit_tribe_venues', 'post-new.php?post_type='.TribeEvents::VENUE_POST_TYPE );
+			add_submenu_page( 'edit.php?post_type='.TribeEvents::ORGANIZER_POST_TYPE, __( 'Add New ' . $this->singular_organizer_label,'tribe-events-calendar' ), __( 'Add New ' . $this->singular_organizer_label,'tribe-events-calendar' ), 'edit_tribe_organizers', 'post-new.php?post_type='.TribeEvents::ORGANIZER_POST_TYPE );
 		}
 
 
@@ -1498,7 +1552,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			$VenueID = apply_filters( 'tribe_display_event_venue_dropdown_id', $VenueID );
 			?>
 			<tr class="">
-				<td style="width:170px"><?php _e( 'Use Saved Venue:','tribe-events-calendar' ); ?></td>
+				<td style="width:170px"><?php _e( 'Use Saved '. $this->singular_venue_label . ':','tribe-events-calendar' ); ?></td>
 				<td><?php $this->saved_venues_dropdown( $VenueID ); ?></td>
 			</tr>
 			<?php
@@ -1521,7 +1575,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 			?>
 			<tr class="" >
-				<td style="width:170px"><label for="saved_organizer"><?php _e( 'Use Saved Organizer:', 'tribe-events-calendar' ); ?></label></td>
+				<td style="width:170px"><label for="saved_organizer"><?php _e( 'Use Saved '. $this->singular_organizer_label . ':', 'tribe-events-calendar' ); ?></label></td>
 				<td><?php $this->saved_organizers_dropdown( $curOrg ); ?></td>
 			</tr>
 			<?php
@@ -1561,14 +1615,14 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			}
 			if ( $venues || $my_venues ) {
 				echo '<select class="chosen venue-dropdown" name="' . esc_attr( $name ) . '" id="saved_venue">';
-				echo '<option value="0">' . __( 'Use New Venue' ,  'tribe-events-calendar' ) . '</option>';
+				echo '<option value="0">' . __( 'Use New ' . $this->singular_venue_label ,  'tribe-events-calendar' ) . '</option>';
 				if( $my_venues ) {
-					echo $venues ? '<optgroup label="' . apply_filters('tribe_events_saved_venues_dropdown_my_optgroup', __('My Venues', 'tribe-events-calendar')) . '">' : '';
+					echo $venues ? '<optgroup label="' . apply_filters('tribe_events_saved_venues_dropdown_my_optgroup', __('My ' . $this->plural_venue_label, 'tribe-events-calendar')) . '">' : '';
 					echo $my_venue_options;
 					echo $venues ? '</optgroup>' : '';
 				}
 				if ( $venues ) {
-					echo $my_venues ? '<optgroup label="' . apply_filters('tribe_events_saved_venues_dropdown_optgroup', __('Available Venues', 'tribe-events-calendar')) . '">' : '';
+					echo $my_venues ? '<optgroup label="' . apply_filters('tribe_events_saved_venues_dropdown_optgroup', __('Available ' . $this->plural_venue_label, 'tribe-events-calendar')) . '">' : '';
 					foreach ( $venues as $venue ) {
 						$venue_title = wp_kses( get_the_title( $venue->ID ), array() );
 						echo '<option data-address="' . esc_attr( $this->fullAddressString( $venue->ID ) ) . '" value="' . esc_attr( $venue->ID ) .'"';
@@ -1579,7 +1633,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				}
 				echo '</select>';
 			} else {
-				echo '<p class="nosaved">' . __( 'No saved venue exists.', 'tribe-events-calendar' ) . '</p>';
+				echo '<p class="nosaved">' . __( 'No saved '. strtolower( $this->singular_venue_label ) .' exists.', 'tribe-events-calendar' ) . '</p>';
 			}
 		}
 
@@ -1618,14 +1672,14 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			}
 			if ( $organizers || $my_organizers ) {
 				echo '<select class="chosen organizer-dropdown" name="' . esc_attr( $name ) . '" id="saved_organizer">';
-				echo '<option value="0">' . __( 'Use New Organizer' ,  'tribe-events-calendar' ) . '</option>';
+				echo '<option value="0">' . __( 'Use New ' . $this->singular_organizer_label ,  'tribe-events-calendar' ) . '</option>';
 				if( $my_organizers ) {
-					echo $organizers ? '<optgroup label="' . apply_filters('tribe_events_saved_organizers_dropdown_my_optgroup', __('My Organizers', 'tribe-events-calendar')) . '">' : '';
+					echo $organizers ? '<optgroup label="' . apply_filters('tribe_events_saved_organizers_dropdown_my_optgroup', __('My ' . $this->plural_organizer_label, 'tribe-events-calendar')) . '">' : '';
 					echo $my_organizers_options;
 					echo $organizers ? '</optgroup>' : '';
 				}
 				if ( $organizers ) {
-					echo $my_organizers ? '<optgroup label="' . apply_filters('tribe_events_saved_organizers_dropdown_optgroup', __('Available Organizers', 'tribe-events-calendar')) . '">' : '';
+					echo $my_organizers ? '<optgroup label="' . apply_filters('tribe_events_saved_organizers_dropdown_optgroup', __('Available ' . $this->plural_organizer_label, 'tribe-events-calendar')) . '">' : '';
 					foreach ( $organizers as $organizer ) {
 						$organizer_title = wp_kses( get_the_title( $organizer->ID ), array() );
 						echo '<option value="' . esc_attr( $organizer->ID ) .'"';
@@ -1636,7 +1690,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				}
 				echo '</select>';
 			} else {
-				echo '<p class="nosaved">' . __( 'No saved organizer exists.', 'tribe-events-calendar' ) . '</p>';
+				echo '<p class="nosaved">' . __( 'No saved '. strtolower( $this->singular_organizer_label ) .' exists.', 'tribe-events-calendar' ) . '</p>';
 			}
 		}
 
@@ -3582,12 +3636,12 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			add_meta_box( 'tribe_events_event_details', $this->pluginName, array( $this, 'EventsChooserBox' ), self::POSTTYPE, 'normal', 'high' );
 			add_meta_box( 'tribe_events_event_options', __('Event Options', 'tribe-events-calendar'), array( $this, 'eventMetaBox' ), self::POSTTYPE, 'side', 'default' );
 
-			add_meta_box( 'tribe_events_venue_details', __('Venue Information', 'tribe-events-calendar'), array( $this, 'VenueMetaBox' ), self::VENUE_POST_TYPE, 'normal', 'high' );
+			add_meta_box( 'tribe_events_venue_details', __( $this->singular_venue_label . ' Information', 'tribe-events-calendar'), array( $this, 'VenueMetaBox' ), self::VENUE_POST_TYPE, 'normal', 'high' );
 
 			if ( ! class_exists( 'TribeEventsPro' ) )
 				remove_meta_box( 'slugdiv', self::VENUE_POST_TYPE, 'normal' );
 
-			add_meta_box( 'tribe_events_organizer_details', __('Organizer Information', 'tribe-events-calendar'), array( $this, 'OrganizerMetaBox' ), self::ORGANIZER_POST_TYPE, 'normal', 'high' );
+			add_meta_box( 'tribe_events_organizer_details', __( $this->singular_organizer_label . ' Information', 'tribe-events-calendar'), array( $this, 'OrganizerMetaBox' ), self::ORGANIZER_POST_TYPE, 'normal', 'high' );
 		}
 
 		/**

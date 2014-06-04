@@ -35,6 +35,30 @@ if( class_exists( 'TribeEvents' ) ) {
 	}
 
 	/**
+	 * Get Organizer Label Singular
+	 *
+	 * Returns the singular version of the Organizer Label
+	 *
+	 * @return string
+	 * @since 3.6
+	 */
+	function tribe_get_organizer_label_singular() {
+		return apply_filters( 'tribe_organizer_label_singular', 'Organizer' );
+	}
+
+	/**
+	 * Get Organizer Label Plural
+	 *
+	 * Returns the plural version of the Organizer Label
+	 *
+	 * @return string
+	 * @since 3.6
+	 */
+	function tribe_get_organizer_label_plural() {
+		return apply_filters( 'tribe_organizer_label_plural', 'Organizers' );
+	}
+
+	/**
 	 * Get Organizer
 	 *
 	 * Returns the name of the Organizer

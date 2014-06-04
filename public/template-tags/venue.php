@@ -29,6 +29,30 @@ if( class_exists( 'TribeEvents' ) ) {
 	}
 
 	/**
+	 * Get Venue Label Singular
+	 *
+	 * Returns the singular version of the Venue Label
+	 *
+	 * @return string
+	 * @since 3.6
+	 */
+	function tribe_get_venue_label_singular() {
+		return apply_filters( 'tribe_venue_label_singular', 'Venue' );
+	}
+
+	/**
+	 * Get Venue Label Plural
+	 *
+	 * Returns the plural version of the Venue Label
+	 *
+	 * @return string
+	 * @since 3.6
+	 */
+	function tribe_get_venue_label_plural() {
+		return apply_filters( 'tribe_venue_label_plural', 'Venues' );
+	}
+
+	/**
 	 * Venue Test
 	 *
 	 * Returns true or false depending on if the post id for the event has a venue or if the post id is a venue
