@@ -51,5 +51,5 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 	<?php do_action( 'tribe_events_venue_widget_after_the_list' ); ?>
 	<?php endif; ?>
 	
-	<a href="<?php echo tribe_get_venue_link( $venue_ID, false ); ?>"><?php _e( 'View All Events at this ' . tribe_get_venue_label_singular(), 'tribe-events-calendar' ); ?></a>
+	<a href="<?php echo tribe_get_venue_link( $venue_ID, false ); ?>"><?php printf(__( 'View all Events at this %s','tribe-events-calendar'), tribe_get_venue_label_singular()); ?></a>
 </div>
