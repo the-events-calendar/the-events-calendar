@@ -502,9 +502,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		public function get_venue_label_singular() {
 			$single_label = apply_filters( 'tribe_venue_label_singular', 'Venue' );
 
-			//Change venue slug also
-			$this->postVenueTypeArgs['rewrite']['slug'] = sanitize_title( $single_label );
-
 			return $single_label;
 		}
 
@@ -522,9 +519,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 */
 		public function get_organizer_label_singular() {
 			$single_label = apply_filters( 'tribe_organizer_label_singular', 'Organizer' );
-
-			//Change organizer slug also
-			$this->postOrganizerTypeArgs['rewrite']['slug'] = sanitize_title( $single_label );
 
 			return $single_label;
 		}
@@ -594,18 +588,19 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			$this->pastSlug = sanitize_title(__('past', 'tribe-events-calendar'));
 			$this->daySlug = sanitize_title(__('day', 'tribe-events-calendar'));
 			$this->todaySlug = sanitize_title(__('today', 'tribe-events-calendar'));
+			$this->singular_venue_label = $this->get_venue_label_singular();
+			$this->plural_venue_label = $this->get_venue_label_plural();
+			$this->singular_organizer_label = $this->get_organizer_label_singular();
+			$this->plural_organizer_label = $this->get_organizer_label_plural();
 			$this->postTypeArgs['rewrite']['slug'] = sanitize_title($this->rewriteSlugSingular);
-			$this->postVenueTypeArgs['rewrite']['slug'] = sanitize_title(__( 'venue', 'tribe-events-calendar' ));
+			$this->postVenueTypeArgs['rewrite']['slug'] = sanitize_title( $this->singular_venue_label );
 			$this->postVenueTypeArgs['show_in_nav_menus'] = class_exists( 'TribeEventsPro' ) ? true : false;
+			$this->postOrganizerTypeArgs['rewrite']['slug'] = sanitize_title( $this->singular_organizer_label );
 			$this->postOrganizerTypeArgs['show_in_nav_menus'] = class_exists( 'TribeEventsPro' ) ? true : false;
 			$this->postVenueTypeArgs['public'] = class_exists( 'TribeEventsPro' ) ? true : false;
 			$this->postOrganizerTypeArgs['public'] = class_exists( 'TribeEventsPro' ) ? true : false;
 			$this->currentDay = '';
 			$this->errors = '';
-			$this->singular_venue_label = $this->get_venue_label_singular();
-			$this->plural_venue_label = $this->get_venue_label_plural();
-			$this->singular_organizer_label = $this->get_organizer_label_singular();
-			$this->plural_organizer_label = $this->get_organizer_label_plural();
 
 			TribeEventsQuery::init();
 			$this->registerPostType();
