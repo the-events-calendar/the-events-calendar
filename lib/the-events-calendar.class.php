@@ -1417,8 +1417,8 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			);
 
 			$this->postVenueTypeArgs['labels'] = array(
-				'name' => __($this->plural_venue_label, 'tribe-events-calendar'),
-				'singular_name' => __($this->singular_venue_label, 'tribe-events-calendar'),
+				'name' => $this->plural_venue_label,
+				'singular_name' => $this->singular_venue_label,
 				'add_new' => __('Add New', 'tribe-events-calendar'),
 				'add_new_item' => sprintf(__( 'Add New %s','tribe-events-calendar'), $this->singular_venue_label),
 				'edit_item' => sprintf(__( 'Edit %s','tribe-events-calendar'), $this->singular_venue_label),
@@ -1430,8 +1430,8 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			);
 
 			$this->postOrganizerTypeArgs['labels'] = array(
-				'name' => __($this->plural_organizer_label, 'tribe-events-calendar'),
-				'singular_name' => __($this->singular_organizer_label, 'tribe-events-calendar'),
+				'name' => $this->plural_organizer_label,
+				'singular_name' => $this->singular_organizer_label,
 				'add_new' => __('Add New', 'tribe-events-calendar'),
 				'add_new_item' => sprintf(__( 'Add New %s','tribe-events-calendar'), $this->singular_organizer_label),
 				'edit_item' => sprintf(__( 'Edit %s','tribe-events-calendar'), $this->singular_organizer_label),
