@@ -1420,26 +1420,26 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				'name' => __($this->plural_venue_label, 'tribe-events-calendar'),
 				'singular_name' => __($this->singular_venue_label, 'tribe-events-calendar'),
 				'add_new' => __('Add New', 'tribe-events-calendar'),
-				'add_new_item' => __('Add New ' . $this->singular_venue_label, 'tribe-events-calendar'),
-				'edit_item' => __('Edit ' . $this->singular_venue_label, 'tribe-events-calendar'),
-				'new_item' => __('New ' . $this->singular_venue_label, 'tribe-events-calendar'),
-				'view_item' => __('View ' . $this->singular_venue_label, 'tribe-events-calendar'),
-				'search_items' => __('Search ' . $this->plural_venue_label, 'tribe-events-calendar'),
-				'not_found' => __('No '. strtolower( $this->singular_venue_label ) .' found', 'tribe-events-calendar'),
-				'not_found_in_trash' => __('No ' . strtolower( $this->plural_venue_label ) . ' found in Trash', 'tribe-events-calendar')
+				'add_new_item' => sprintf(__( 'Add New %s','tribe-events-calendar'), $this->singular_venue_label),
+				'edit_item' => sprintf(__( 'Edit %s','tribe-events-calendar'), $this->singular_venue_label),
+				'new_item' => sprintf(__( 'New %s','tribe-events-calendar'), $this->singular_venue_label),
+				'view_item' => sprintf(__( 'View %s','tribe-events-calendar'), $this->singular_venue_label),
+				'search_items' => sprintf(__( 'Search %s','tribe-events-calendar'), $this->plural_venue_label),
+				'not_found' => sprintf(__( 'No %s found','tribe-events-calendar'), strtolower( $this->plural_venue_label )),
+				'not_found_in_trash' => sprintf(__( 'No %s found in Trash','tribe-events-calendar'), strtolower( $this->plural_venue_label )),
 			);
 
 			$this->postOrganizerTypeArgs['labels'] = array(
 				'name' => __($this->plural_organizer_label, 'tribe-events-calendar'),
 				'singular_name' => __($this->singular_organizer_label, 'tribe-events-calendar'),
 				'add_new' => __('Add New', 'tribe-events-calendar'),
-				'add_new_item' => __('Add New ' . $this->singular_organizer_label, 'tribe-events-calendar'),
-				'edit_item' => __('Edit ' . $this->singular_organizer_label, 'tribe-events-calendar'),
-				'new_item' => __('New ' . $this->singular_organizer_label, 'tribe-events-calendar'),
-				'view_item' => __('View ' . $this->singular_organizer_label, 'tribe-events-calendar'),
-				'search_items' => __('Search ' . $this->plural_organizer_label, 'tribe-events-calendar'),
-				'not_found' => __('No ' . strtolower( $this->singular_organizer_label ) . ' found', 'tribe-events-calendar'),
-				'not_found_in_trash' => __('No ' . strtolower( $this->singular_organizer_label ) . ' found in Trash', 'tribe-events-calendar')
+				'add_new_item' => sprintf(__( 'Add New %s','tribe-events-calendar'), $this->singular_organizer_label),
+				'edit_item' => sprintf(__( 'Edit %s','tribe-events-calendar'), $this->singular_organizer_label),
+				'new_item' => sprintf(__( 'New %s','tribe-events-calendar'), $this->singular_organizer_label),
+				'view_item' => sprintf(__( 'View %s','tribe-events-calendar'), $this->singular_organizer_label),
+				'search_items' => sprintf(__( 'Search %s','tribe-events-calendar'), $this->plural_organizer_label),
+				'not_found' => sprintf(__( 'No %s found','tribe-events-calendar'), strtolower( $this->plural_organizer_label )),
+				'not_found_in_trash' => sprintf(__( 'No %s found in Trash','tribe-events-calendar'), strtolower( $this->plural_organizer_label )),
 			);
 
 			$this->taxonomyLabels = array(
@@ -1485,36 +1485,36 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 			$messages[self::VENUE_POST_TYPE] = array(
 				0 => '', // Unused. Messages start at index 1.
-				1 => __($this->singular_venue_label . ' updated.', 'tribe-events-calendar'),
+				1 => sprintf(__( '%s updated.','tribe-events-calendar'), $this->singular_venue_label),
 				2 => __('Custom field updated.', 'tribe-events-calendar'),
 				3 => __('Custom field deleted.', 'tribe-events-calendar'),
-				4 => __($this->singular_venue_label . ' updated.', 'tribe-events-calendar'),
+				4 => sprintf(__( '%s updated.','tribe-events-calendar'), $this->singular_venue_label),
 				/* translators: %s: date and time of the revision */
-				5 => isset($_GET['revision']) ? sprintf( __($this->singular_venue_label . ' restored to revision from %s', 'tribe-events-calendar'), wp_post_revision_title( (int) $_GET['revision'], false ) ) : false,
-				6 => __($this->singular_venue_label . ' published.', 'tribe-events-calendar'),
-				7 => __($this->singular_venue_label . ' saved.', 'tribe-events-calendar'),
-				8 => __($this->singular_venue_label . ' submitted.', 'tribe-events-calendar'),
-				9 => sprintf( __($this->singular_venue_label . ' scheduled for: <strong>%1$s</strong>.', 'tribe-events-calendar'),
+				5 => isset($_GET['revision']) ? sprintf( __('%s restored to revision from %s', 'tribe-events-calendar'), $this->singular_venue_label, wp_post_revision_title( (int) $_GET['revision'], false ) ) : false,
+				6 => sprintf(__( '%s published.','tribe-events-calendar'), $this->singular_venue_label),
+				7 => sprintf(__( '%s saved.','tribe-events-calendar'), $this->singular_venue_label),
+				8 => sprintf(__( '%s submitted.','tribe-events-calendar'), $this->singular_venue_label),
+				9 => sprintf( __('%s scheduled for: <strong>%2$s</strong>.', 'tribe-events-calendar'), $this->singular_venue_label, 
 				// translators: Publish box date format, see http://php.net/date
 				date_i18n( __( 'M j, Y @ G:i' , 'tribe-events-calendar'), strtotime( $post->post_date ) ) ),
-				10 => __($this->singular_venue_label . ' draft updated.', 'tribe-events-calendar'),
+				10 => sprintf(__( '%s draft updated.','tribe-events-calendar'), $this->singular_venue_label),
 				);
 
 			$messages[self::ORGANIZER_POST_TYPE] = array(
 				0 => '', // Unused. Messages start at index 1.
-				1 => __($this->singular_organizer_label . ' updated.', 'tribe-events-calendar'),
+				1 => sprintf(__( '%s updated.','tribe-events-calendar'), $this->singular_organizer_label),
 				2 => __('Custom field updated.', 'tribe-events-calendar'),
 				3 => __('Custom field deleted.', 'tribe-events-calendar'),
-				4 => __($this->singular_organizer_label . ' updated.', 'tribe-events-calendar'),
+				4 => sprintf(__( '%s updated.','tribe-events-calendar'), $this->singular_organizer_label),
 				/* translators: %s: date and time of the revision */
-				5 => isset($_GET['revision']) ? sprintf( __($this->singular_organizer_label . ' restored to revision from %s', 'tribe-events-calendar'), wp_post_revision_title( (int) $_GET['revision'], false ) ) : false,
-				6 => __($this->singular_organizer_label . ' published.', 'tribe-events-calendar'),
-				7 => __($this->singular_organizer_label . ' saved.', 'tribe-events-calendar'),
-				8 => __($this->singular_organizer_label . ' submitted.', 'tribe-events-calendar'),
-				9 => sprintf( __($this->singular_organizer_label . ' scheduled for: <strong>%1$s</strong>.', 'tribe-events-calendar'),
+				5 => isset($_GET['revision']) ? sprintf( __('%s restored to revision from %s', 'tribe-events-calendar'), $this->singular_organizer_label, wp_post_revision_title( (int) $_GET['revision'], false ) ) : false,
+				6 => sprintf(__( '%s published.','tribe-events-calendar'), $this->singular_organizer_label),
+				7 => sprintf(__( '%s saved.','tribe-events-calendar'), $this->singular_organizer_label),
+				8 => sprintf(__( '%s submitted.','tribe-events-calendar'), $this->singular_organizer_label),
+				9 => sprintf( __('%s scheduled for: <strong>%2$s</strong>.', 'tribe-events-calendar'), $this->singular_organizer_label, 
 				// translators: Publish box date format, see http://php.net/date
 				date_i18n( __( 'M j, Y @ G:i' , 'tribe-events-calendar'), strtotime( $post->post_date ) ) ),
-				10 => __($this->singular_organizer_label . ' draft updated.', 'tribe-events-calendar'),
+				10 => sprintf(__( '%s draft updated.','tribe-events-calendar'), $this->singular_organizer_label),
 			);
 
 			return $messages;
@@ -1575,7 +1575,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 			?>
 			<tr class="" >
-				<td style="width:170px"><label for="saved_organizer"><?php _e( 'Use Saved '. $this->singular_organizer_label . ':', 'tribe-events-calendar' ); ?></label></td>
+				<td style="width:170px"><label for="saved_organizer"><?php printf(__( 'Use Saved %s:','tribe-events-calendar'), $this->singular_organizer_label ); ?></label></td>
 				<td><?php $this->saved_organizers_dropdown( $curOrg ); ?></td>
 			</tr>
 			<?php
@@ -1617,12 +1617,12 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				echo '<select class="chosen venue-dropdown" name="' . esc_attr( $name ) . '" id="saved_venue">';
 				echo '<option value="0">' . __( 'Use New ' . $this->singular_venue_label ,  'tribe-events-calendar' ) . '</option>';
 				if( $my_venues ) {
-					echo $venues ? '<optgroup label="' . apply_filters('tribe_events_saved_venues_dropdown_my_optgroup', __('My ' . $this->plural_venue_label, 'tribe-events-calendar')) . '">' : '';
+					echo $venues ? '<optgroup label="' . apply_filters('tribe_events_saved_venues_dropdown_my_optgroup', sprintf(__( 'My %s','tribe-events-calendar'), $this->plural_venue_label)) . '">' : '';
 					echo $my_venue_options;
 					echo $venues ? '</optgroup>' : '';
 				}
 				if ( $venues ) {
-					echo $my_venues ? '<optgroup label="' . apply_filters('tribe_events_saved_venues_dropdown_optgroup', __('Available ' . $this->plural_venue_label, 'tribe-events-calendar')) . '">' : '';
+					echo $my_venues ? '<optgroup label="' . apply_filters('tribe_events_saved_venues_dropdown_optgroup', sprintf(__( 'Available %s','tribe-events-calendar'), $this->plural_venue_label)) . '">' : '';
 					foreach ( $venues as $venue ) {
 						$venue_title = wp_kses( get_the_title( $venue->ID ), array() );
 						echo '<option data-address="' . esc_attr( $this->fullAddressString( $venue->ID ) ) . '" value="' . esc_attr( $venue->ID ) .'"';
@@ -1633,7 +1633,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				}
 				echo '</select>';
 			} else {
-				echo '<p class="nosaved">' . __( 'No saved '. strtolower( $this->singular_venue_label ) .' exists.', 'tribe-events-calendar' ) . '</p>';
+				echo '<p class="nosaved">' . sprintf(__( 'No saved %s exists.','tribe-events-calendar'), strtolower( $this->singular_venue_label )) . '</p>';
 			}
 		}
 
@@ -1672,14 +1672,14 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			}
 			if ( $organizers || $my_organizers ) {
 				echo '<select class="chosen organizer-dropdown" name="' . esc_attr( $name ) . '" id="saved_organizer">';
-				echo '<option value="0">' . __( 'Use New ' . $this->singular_organizer_label ,  'tribe-events-calendar' ) . '</option>';
+				echo '<option value="0">' . sprintf(__( 'Use New %s','tribe-events-calendar'), $this->singular_organizer_label) . '</option>';
 				if( $my_organizers ) {
-					echo $organizers ? '<optgroup label="' . apply_filters('tribe_events_saved_organizers_dropdown_my_optgroup', __('My ' . $this->plural_organizer_label, 'tribe-events-calendar')) . '">' : '';
+					echo $organizers ? '<optgroup label="' . apply_filters('tribe_events_saved_organizers_dropdown_my_optgroup', sprintf(__( 'My %s','tribe-events-calendar'), $this->plural_organizer_label)) . '">' : '';
 					echo $my_organizers_options;
 					echo $organizers ? '</optgroup>' : '';
 				}
 				if ( $organizers ) {
-					echo $my_organizers ? '<optgroup label="' . apply_filters('tribe_events_saved_organizers_dropdown_optgroup', __('Available ' . $this->plural_organizer_label, 'tribe-events-calendar')) . '">' : '';
+					echo $my_organizers ? '<optgroup label="' . apply_filters('tribe_events_saved_organizers_dropdown_optgroup', sprintf(__( 'Available %s','tribe-events-calendar'), $this->plural_organizer_label)) . '">' : '';
 					foreach ( $organizers as $organizer ) {
 						$organizer_title = wp_kses( get_the_title( $organizer->ID ), array() );
 						echo '<option value="' . esc_attr( $organizer->ID ) .'"';
@@ -1690,7 +1690,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				}
 				echo '</select>';
 			} else {
-				echo '<p class="nosaved">' . __( 'No saved '. strtolower( $this->singular_organizer_label ) .' exists.', 'tribe-events-calendar' ) . '</p>';
+				echo '<p class="nosaved">' .  sprintf(__( 'No saved %s exists.','tribe-events-calendar'), strtolower( $this->singular_organizer_label )) . '</p>';
 			}
 		}
 
