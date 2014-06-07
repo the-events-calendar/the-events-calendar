@@ -70,11 +70,11 @@ if( class_exists( 'TribeEvents' ) ) {
 	function tribe_get_organizer( $postId = null)  {
 		$postId = TribeEvents::postIdHelper( $postId );
 		$organizer_id = (int) tribe_get_organizer_id( $postId );
+		$output = '';
 		if ($organizer_id > 0) {
 			$output = esc_html(get_the_title( $organizer_id ));
-			return apply_filters( 'tribe_get_organizer', $output );
 		}
-		return null;
+		return apply_filters( 'tribe_get_organizer', $output );
 	}
 
 	/**
