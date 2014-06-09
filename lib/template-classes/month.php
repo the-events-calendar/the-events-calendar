@@ -233,7 +233,7 @@ if( !class_exists('Tribe_Events_Month_Template')){
 
 			if ( empty(self::$tribe_bar_args) ) {
 				foreach ( $_REQUEST as $key => $value ) {
-					if ( $value && strpos($key, 'tribe-bar-') === 0 && $key != 'tribe-bar-date' ) {
+					if ( $value && strpos($key, 'tribe') === 0 && $key != 'tribe-bar-date' ) {
 						self::$tribe_bar_args[$key] = $value;
 					}
 				}
