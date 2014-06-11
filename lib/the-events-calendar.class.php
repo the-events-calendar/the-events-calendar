@@ -388,10 +388,12 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			add_action( 'admin_menu', array( $this, 'addEventBox' ) );
 			add_action( 'wp_insert_post', array( $this, 'addPostOrigin' ), 10, 2 );
 			add_action( 'save_post_'.self::POSTTYPE, array( $this, 'addEventMeta' ), 15, 2 );
+			add_action( 'save_post', array( $this, 'update_earliest_latest' ), 20 );
 			add_action( 'save_post_'.self::VENUE_POST_TYPE, array( $this, 'save_venue_data' ), 16, 2 );
 			add_action( 'save_post_'.self::ORGANIZER_POST_TYPE, array( $this, 'save_organizer_data' ), 16, 2 );
 			add_action( 'save_post', array( $this, 'addToPostAuditTrail' ), 10, 2 );
 			add_action( 'publish_'.self::POSTTYPE, array( $this, 'publishAssociatedTypes'), 25, 2 );
+			add_action( 'delete_post', array( $this, 'maybe_rebuild_earliest_latest' ) );
 			add_action( 'parse_query', array( $this, 'setDisplay' ), 51, 0);
 			add_action( 'tribe_events_post_errors', array( 'TribeEventsPostException', 'displayMessage' ) );
 			add_action( 'tribe_settings_top', array( 'TribeEventsOptionsException', 'displayMessage') );
@@ -401,6 +403,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			add_action( "trash_" . TribeEvents::VENUE_POST_TYPE, array($this, 'cleanupPostVenues'));
 			add_action( "trash_" . TribeEvents::ORGANIZER_POST_TYPE, array($this, 'cleanupPostOrganizers'));
 			add_action( "wp_ajax_tribe_event_validation", array($this,'ajax_form_validate') );
+			add_action( 'tribe_debug', array( $this, 'renderDebug' ), 10, 2 );
 			add_action( 'tribe_debug', array( $this, 'renderDebug' ), 10, 2 );
 			add_action( 'plugins_loaded', array('TribeEventsCacheListener', 'instance') );
 			add_action( 'plugins_loaded', array('TribeEventsCache', 'setup') );
@@ -2903,7 +2906,75 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 			// Add this hook back in
 			add_action( 'save_post_'.self::POSTTYPE, array( $this, 'addEventMeta' ), 15, 2 );
+		}
 
+		/**
+		 * Intelligently updates our record of the earliest start date/latest event date in
+		 * the system. If the existing earliest/latest values have not been superseded by the new post's
+		 * start/end date then no update takes place.
+		 *
+		 * This is deliberately hooked into save_post, rather than save_post_tribe_events, to avoid issues
+		 * where the removal/restoration of hooks within addEventMeta() etc might stop this method from
+		 * actually being called (relates to a core WP bug).
+		 */
+		public function update_earliest_latest( $post_id ) {
+			// Bail if this isn't an event
+			if ( TribeEvents::POSTTYPE !== get_post_type( $post_id ) ) return;
+
+			// If the event isn't going to be visible (perhaps it's been trashed) rebuild dates and bail
+			if ( ! in_array( get_post_status( $post_id ), array( 'publish', 'private', 'protected' ) ) ) {
+				$this->rebuild_earliest_latest();
+				return;
+			}
+
+			$current_min = tribe_events_earliest_date();
+			$current_max = tribe_events_latest_date();
+
+			$event_start = tribe_get_start_date( $post_id, false, TribeDateUtils::DBDATETIMEFORMAT );
+			$event_end = tribe_get_end_date( $post_id, false, TribeDateUtils::DBDATETIMEFORMAT );
+
+			if ( $current_min > $event_start ) tribe_update_option( 'earliest_date', $event_start );
+			if ( $current_max < $event_end ) tribe_update_option( 'latest_date', $event_end );
+		}
+
+		/**
+		 * Fires on delete_post and decides whether or not to rebuild our record or
+		 * earliest/latest event dates (which will be done when deleted_post fires,
+		 * so that the deleted event is removed from the db before we recalculate).
+		 *
+		 * @param $post_id
+		 */
+		public function maybe_rebuild_earliest_latest( $post_id ) {
+			if ( self::POSTTYPE === get_post_type( $post_id ) )
+				add_action( 'deleted_post', array( $this, 'rebuild_earliest_latest' ) );
+		}
+
+		/**
+		 * Determine the earliest start date and latest end date currently in the database
+		 * and store those values for future use.
+		 */
+		public function rebuild_earliest_latest() {
+			global $wpdb;
+			remove_action( 'deleted_post', array( $this, 'rebuild_earliest_latest' ) );
+
+			$earliest = strtotime( $wpdb->get_var( $wpdb->prepare("
+				SELECT MIN(meta_value) FROM $wpdb->postmeta
+				JOIN $wpdb->posts ON post_id = ID
+				WHERE meta_key = '_EventStartDate'
+				AND post_type = '%s'
+				AND post_status IN ('publish', 'private', 'protected')
+			", self::POSTTYPE ) ) );
+
+			$latest = strtotime( $wpdb->get_var( $wpdb->prepare("
+				SELECT MAX(meta_value) FROM $wpdb->postmeta
+				JOIN $wpdb->posts ON post_id = ID
+				WHERE meta_key = '_EventEndDate'
+				AND post_type = '%s'
+				AND post_status IN ('publish', 'private', 'protected')
+			", self::POSTTYPE ) ) );
+
+			if ( $earliest ) tribe_update_option( 'earliest_date', date( TribeDateUtils::DBDATETIMEFORMAT, $earliest ) );
+			if ( $latest ) tribe_update_option( 'latest_date', date( TribeDateUtils::DBDATETIMEFORMAT, $latest ) );
 		}
 
 		/**

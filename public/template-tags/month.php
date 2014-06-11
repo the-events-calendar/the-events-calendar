@@ -241,16 +241,24 @@ if( class_exists( 'TribeEvents' ) ) {
 	/**
 	 * Display an html link to the previous month. Used in the month navigation.
 	 *
+	 * No link will be returned if the link is to a month that precedes any existing
+	 * events.
+	 *
 	 * @return void
 	 * @author Jessica Yazbek
 	 * @uses tribe_get_previous_month_text()
 	 * @since 3.0
 	 **/
 	function tribe_events_the_previous_month_link() {
+		$html = '';
 		$url = tribe_get_previous_month_link();
 		$date = TribeEvents::instance()->previousMonth( tribe_get_month_view_date() );
-		$text = tribe_get_previous_month_text();
-		$html = '<a data-month="'. $date .'" href="' . $url . '" rel="prev"><span>&laquo;</span> '. $text .' </a>';
+
+		if ( $date >= tribe_events_earliest_date( TribeDateUtils::DBYEARMONTHTIMEFORMAT ) ) {
+			$text = tribe_get_previous_month_text();
+			$html = '<a data-month="' . $date . '" href="' . $url . '" rel="prev"><span>&laquo;</span> ' . $text . ' </a>';
+		}
+
 		echo apply_filters('tribe_events_the_previous_month_link', $html);
 	}
 
@@ -263,14 +271,17 @@ if( class_exists( 'TribeEvents' ) ) {
 	 * @since 3.0
 	 **/
 	function tribe_events_the_next_month_link() {
+		$html = '';
 		$url = tribe_get_next_month_link();
-		try {
+		$text = tribe_get_next_month_text();
+
+		// Check if $url is populated (an empty string may indicate the date was out-of-bounds, ie on 32bit servers)
+		if ( ! empty( $url ) ) {
 			$date = TribeEvents::instance()->nextMonth( tribe_get_month_view_date() );
-			$text = tribe_get_next_month_text();
-			$html = '<a data-month="'. $date .'" href="' . $url . '" rel="next">'. $text .' <span>&raquo;</span></a>';
-		} catch ( OverflowException $e ) {
-			$html = '';
+			if ( $date <= tribe_events_latest_date( TribeDateUtils::DBYEARMONTHTIMEFORMAT ) )
+				$html = '<a data-month="' . $date . '" href="' . $url . '" rel="next">' . $text . ' <span>&raquo;</span></a>';
 		}
+
 		echo apply_filters('tribe_events_the_next_month_link', $html);
 	}
 
