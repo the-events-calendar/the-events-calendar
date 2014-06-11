@@ -278,5 +278,19 @@ if(!class_exists('TribeDateUtils')) {
 
 			return false;
 		}
+
+		/**
+		 * Accepts a string representing a date/time and attempts to convert it to
+		 * the specified format, returning an empty string if this is not possible.
+		 *
+		 * @param $dt_string
+		 * @param $new_format
+		 * @return string
+		 */
+		public static function reformat( $dt_string, $new_format ) {
+			$timestamp = strtotime( $dt_string );
+			$revised = date( $new_format, $timestamp );
+			return $revised ? $revised : '';
+		}
 	}
 }
