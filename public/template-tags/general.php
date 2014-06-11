@@ -1337,4 +1337,48 @@ if ( class_exists( 'TribeEvents' ) ) {
 	function tribe_get_mobile_breakpoint( $default = 768 ) {
 		return apply_filters( 'tribe_events_mobile_breakpoint', $default );
 	}
+
+	/**
+	 * Returns the latest known event end date, which can be expected to be a string
+	 * in MySQL datetime format (unless some other specific format is provided).
+	 *
+	 * If this is impossible to determine it will return boolean false.
+	 *
+	 * @param string $format
+	 * @return mixed bool|string
+	 */
+	function tribe_events_latest_date( $format = TribeDateUtils::DBDATETIMEFORMAT ) {
+		// Check if the latest end date is already known
+		$latest = tribe_get_option( 'latest_date', false );
+		if ( false !== $latest ) return TribeDateUtils::reformat( $latest, $format );
+
+		// If not, try to determine now
+		TribeEvents::instance()->rebuild_earliest_latest();
+		$latest = tribe_get_option( 'latest_date', false );
+		if ( false !== $latest ) return TribeDateUtils::reformat( $latest, $format );
+
+		return false;
+	}
+
+	/**
+	 * Returns the earliest known event start date, which can be expected to be a string
+	 * in MySQL datetime format (unless some other specific format is provided).
+	 *
+	 * If this is impossible to determine it will return boolean false.
+	 *
+	 * @param string $format
+	 * @return mixed bool|string
+	 */
+	function tribe_events_earliest_date( $format = TribeDateUtils::DBDATETIMEFORMAT ) {
+		// Check if the earliest start date is already known
+		$earliest = get_option( 'earliest_date', false );
+		if ( false !== $earliest ) return TribeDateUtils::reformat( $earliest, $format );
+
+		// If not, try to determine now
+		TribeEvents::instance()->rebuild_earliest_latest();
+		$earliest = get_option( 'earliest_date', false );
+		if ( false !== $earliest ) return TribeDateUtils::reformat( $earliest, $format );
+
+		return false;
+	}
 }
