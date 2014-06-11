@@ -253,28 +253,32 @@ if ( class_exists( 'TribeEventsPro' ) ) {
 
 	function tribe_previous_week_link( $text = '' ) {
 		try {
+			$date = tribe_get_first_week_day();
+			if ( $date <= tribe_events_earliest_date( TribeDateUtils::DBDATEFORMAT ) ) return '';
+
 			$url = tribe_get_last_week_permalink();
-			if ( empty($text) ) {
-				$text = __('<span>&laquo;</span> Previous Week', 'tribe-events-calendar-pro' );
-			}
-			$html = sprintf( '<a %s href="%s" rel="prev">%s</a>', tribe_events_the_nav_attributes( 'prev', false ), $url, $text );
-		} catch ( OverflowException $e ) {
-			$html = '';
+			if ( empty($text) ) $text = __('<span>&laquo;</span> Previous Week', 'tribe-events-calendar-pro' );
+
+			if ( ! empty( $url ) )
+				return sprintf( '<a %s href="%s" rel="prev">%s</a>', tribe_events_the_nav_attributes( 'prev', false ), $url, $text );
 		}
-		return $html;
+		catch ( OverflowException $e ) {
+			return '';
+		}
 	}
 
 	function tribe_next_week_link( $text = '' ) {
 		try {
+			$date = date( TribeDateUtils::DBDATEFORMAT, strtotime( tribe_get_first_week_day() . ' +1 week' ) );
+			if ( $date >= tribe_events_latest_date( TribeDateUtils::DBDATEFORMAT ) ) return '';
+
 			$url = tribe_get_next_week_permalink();
-			if ( empty($text) ) {
-				$text = __( 'Next Week <span>&raquo;</span>', 'tribe-events-calendar-pro' );
-			}
-			$html = sprintf( '<a %s href="%s" rel="next">%s</a>', tribe_events_the_nav_attributes( 'next', false ), $url, $text );
+			if ( empty($text) ) $text = __( 'Next Week <span>&raquo;</span>', 'tribe-events-calendar-pro' );
+
+			return sprintf( '<a %s href="%s" rel="next">%s</a>', tribe_events_the_nav_attributes( 'next', false ), $url, $text );
 		} catch ( OverflowException $e ) {
-			$html = '';
+			return '';
 		}
-		return $html;
 	}
 
 }

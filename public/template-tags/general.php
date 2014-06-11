@@ -494,6 +494,7 @@ if( class_exists( 'TribeEventsPro' ) ) {
 				throw new OverflowException(__('Date out of range.', 'tribe-events-calendar-pro'));
 			}
 		}
+
 		$week = date('Y-m-d', strtotime( $week . ' -1 week'));
 		return apply_filters('tribe_get_last_week_permalink', tribe_get_week_permalink( $week ) );
 	}
