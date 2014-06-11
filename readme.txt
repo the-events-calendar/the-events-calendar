@@ -311,7 +311,6 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Fixed an issue where the "Hide From Event Listings" checkbox was not hiding events from Month view
 * Incorporated updated Greek translation files, courtesy of Yannis Troullinos
 
-
 = 3.6 =
 
 * Added shortcode support to the before/after calendar HTML fields (thanks to aurelio on the forums for the idea!)
@@ -326,6 +325,7 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Fixed an incorrect redirect when visiting an event with the wrong date in the URL
 * Addressed a bug that prevented correctly saving venue and organizer information when an event is saved
 * Moved the iCalendar feed to the core The Events Calendar plugin
+* Moved the Google Calendar feed to the core The Events Calendar plugin
 * Moved all HTML Markup (and the loop) to the List Widget template (thanks to cityofroundrock for the idea!)
 * Now only enqueueing events-admin.css on appropriate Events Pages (thanks to verdipro on the forums for reporting this!)
 * Fixed an issue where Category CSS classes were being removed from Events when in Responsive Mode (thanks to Andy Fragen for the report!)
