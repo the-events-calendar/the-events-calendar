@@ -298,7 +298,13 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 		 */
 		function setup_loop() {
 			global $wp_query;
-			self::$events = (object) array( 'all_day_map' => array(), 'all_day' => array(), 'hourly' => array(), 'hours' => array( 'start'=>null, 'end'=>null ) );
+			self::$events = (object) array(
+				'all_day_map' => array(),
+				'all_day' => array(),
+				'hourly_day_map' => array(),
+				'hourly' => array(),
+				'hours' => array( 'start'=>null, 'end'=>null )
+			);
 
 			// get it started off with at least 1 row
 			self::$events->all_day_map[] = array_fill( self::$start_of_week, self::$week_length, null );
@@ -391,7 +397,33 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 					}
 					self::$events->hourly[ $event_key_id ] = $event;
 				}
-			}		
+			}
+
+			self::map_hourlies();
+		}
+
+		/**
+		 * Create a quick look-up table of days of the week (by offset, ie 1-7), used for checking
+		 * if a given week day contains events/get the specific event IDs.
+		 */
+		protected static function map_hourlies() {
+			$day_map = array_fill( 1, 7, array() );
+			$day_starts = tribe_event_beginning_of_day( self::$start_of_week_date );
+			$day_ends = tribe_event_end_of_day( self::$start_of_week_date );
+			$events = self::$events->hourly;
+
+			foreach ( $day_map as $offset => &$event_ids ) {
+				// Look at our hourly events: do any fit within the current day?
+				foreach ( $events as $event )
+					if ( $event->EventStartDate >= $day_starts && $event->EventStartDate <= $day_ends ) $day_map[$offset][] = $event->ID;
+					elseif ( $event->EventEndDate >= $day_starts && $event->EventEndDate <= $day_ends ) $day_map[$offset][] = $event->ID;
+
+				// Push our start/end datetimes forward one day
+				$day_starts = date( TribeDateUtils::DBDATETIMEFORMAT, strtotime( "$day_starts +1 day" ) );
+				$day_ends = date( TribeDateUtils::DBDATETIMEFORMAT, strtotime( "$day_ends +1 day" ) );
+			}
+
+			self::$events->hourly_day_map = $day_map;
 		}
 
 		/**

@@ -281,4 +281,21 @@ if ( class_exists( 'TribeEventsPro' ) ) {
 		}
 	}
 
+	/**
+	 * For use within the week view template to determine if the current day in the
+	 * loop contains events.
+	 *
+	 * @return bool
+	 */
+	function tribe_events_current_week_day_has_events() {
+		// Do we have any all day events taking place today?
+		$day_counter = Tribe_Events_Pro_Week_Template::get_current_day();
+		$map = tribe_events_week_get_all_day_map();
+		if ( null !== $map[0][$day_counter] ) return true;
+
+		// Do we have any hourly events taking place today?
+		$hourly = Tribe_Events_Pro_Week_Template::get_events( 'hourly_day_map' );
+		return empty( $hourly[$day_counter] ) ? false : true;
+	}
+
 }
