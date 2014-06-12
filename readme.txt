@@ -229,6 +229,7 @@ The plugin is produced by <a href="http://m.tri.be/2s">Modern Tribe Inc</a>.
 * Arabic from Mamdouh Samy
 * Bosnian from Marko Manojlovic
 * Brazilian Portuguese by Emerson Marques
+* Bulgarian from Nedko Ivanov
 * Catalan from Barbara Partegos Rof
 * Croatian from Marko Manojlovic
 * Czech from Petr Bastan
@@ -304,6 +305,10 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 = IMPORTANT NOTICE =
 
 3.x is a complete overhaul of the plugin, and as a result we're starting the changelog fresh. For release notes from the 2.x lifecycle, see <a href="http://m.tri.be/k">our 2.x release notes.</a>
+
+= 3.7. =
+
+* Incorporated new Bulgarian translation files, courtesy of Nedko Ivanov
 
 = 3.6.1 =
 
