@@ -294,7 +294,7 @@ if ( class_exists( 'TribeEventsPro' ) ) {
 		if ( null !== $map[0][$day_counter] ) return true;
 
 		// Do we have any hourly events taking place today?
-		$hourly = Tribe_Events_Pro_Week_Template::get_events( 'hourly_day_map' );
+		$hourly = Tribe_Events_Pro_Week_Template::get_events( 'hourly_map' );
 		return empty( $hourly[$day_counter] ) ? false : true;
 	}
 

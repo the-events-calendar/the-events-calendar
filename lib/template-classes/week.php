@@ -301,7 +301,7 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 			self::$events = (object) array(
 				'all_day_map' => array(),
 				'all_day' => array(),
-				'hourly_day_map' => array(),
+				'hourly_map' => array(),
 				'hourly' => array(),
 				'hours' => array( 'start'=>null, 'end'=>null )
 			);
@@ -414,16 +414,23 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 
 			foreach ( $day_map as $offset => &$event_ids ) {
 				// Look at our hourly events: do any fit within the current day?
-				foreach ( $events as $event )
-					if ( $event->EventStartDate >= $day_starts && $event->EventStartDate <= $day_ends ) $day_map[$offset][] = $event->ID;
-					elseif ( $event->EventEndDate >= $day_starts && $event->EventEndDate <= $day_ends ) $day_map[$offset][] = $event->ID;
+				foreach ( $events as $event ) {
+					// Start time is within the current day?
+					if ($event->EventStartDate >= $day_starts && $event->EventStartDate <= $day_ends) $day_map[$offset][] = $event->ID;
+
+					// End time is within the current day?
+					elseif ($event->EventEndDate >= $day_starts && $event->EventEndDate <= $day_ends) $day_map[$offset][] = $event->ID;
+
+					// Spans the current day (starts earlier but ends after the start point)
+					elseif ($event->EventStartDate <= $day_starts && $event->EventEndDate >= $day_starts) $day_map[$offset][] = $event->ID;
+				}
 
 				// Push our start/end datetimes forward one day
 				$day_starts = date( TribeDateUtils::DBDATETIMEFORMAT, strtotime( "$day_starts +1 day" ) );
 				$day_ends = date( TribeDateUtils::DBDATETIMEFORMAT, strtotime( "$day_ends +1 day" ) );
 			}
 
-			self::$events->hourly_day_map = $day_map;
+			self::$events->hourly_map = $day_map;
 		}
 
 		/**
