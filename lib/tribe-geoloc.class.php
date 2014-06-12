@@ -431,20 +431,17 @@ class TribeEventsGeoLoc {
 	}
 
 	/**
-	 * Returns the default geo fence size in kms.
+	 * Returns the geofence size in kms.
+	 *
 	 * @return mixed|void
 	 */
-	private function get_geofence_default_size() {
+	private function get_geofence_size() {
+		$default  = tribe_get_option( 'geoloc_default_geofence', 25 );
+		$geofence = apply_filters( 'tribe_geoloc_geofence', $default );
+		$unit     = tribe_get_option( 'geoloc_default_unit', 'miles' );
 
-		$tec = TribeEvents::instance();
-
-		$geofence = $tec->getOption( 'geoloc_default_geofence', 25 );
-		$unit     = $tec->getOption( 'geoloc_default_unit', 'miles' );
-
-		//Our queries need the size always in kms
-		$geofence = tribe_convert_units( $geofence, $unit, 'kms' );
-
-		return apply_filters( 'tribe_geoloc_geofence', $geofence );
+		// Ensure we use the correct internal unit of measure (kilometres)
+		return tribe_convert_units( $geofence, $unit, 'kms' );
 	}
 
 	/**
@@ -460,7 +457,7 @@ class TribeEventsGeoLoc {
 
 
 		if ( empty( $geofence_radio ) ) {
-			$geofence_radio = $this->get_geofence_default_size();
+			$geofence_radio = $this->get_geofence_size();
 		}
 
 		// get the limits of the geofence

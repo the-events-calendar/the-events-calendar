@@ -3,28 +3,31 @@
 class TribeEventsFilter_GeoLoc extends TribeEventsFilter {
 	public $type = 'select';
 
-	protected function get_values() {
-		$distances = array(
-			'5'   => '5 miles',
-			'10'  => '10 miles',
-			'25'  => '25 miles',
-			'50'  => '50 miles',
-			'100' => '100 miles',
-			'250' => '250 miles',
-		);
-		$distances = apply_filters( 'geoloc-values-for-filters', $distances );
+	/**
+	 * Default values for the distance filter (regardless of the actual unit of measure).
+	 *
+	 * @var array
+	 */
+	protected $distances = array( 5, 10, 25, 50, 100, 250 );
 
-		$distances_values = array();
-		foreach ( $distances as $value => $name ) {
-			$distances_values[] = array(
-				'name'  => $name,
-				'value' => $value,
-			);
+
+	protected function get_values() {
+		$distances = array();
+		$steps = apply_filters( 'geoloc-values-for-filters', $this->distances );
+		$unit = tribe_get_option( 'geoloc_default_unit', 'miles' );
+
+		switch ( $unit ) {
+			case 'miles': $unit = __( 'Miles', 'tribe-events-calendar-pro' ); break;
+			case 'kms':   $unit = __( 'Kilometers', 'tribe-events-calendar-pro' ); break;
 		}
 
-		return $distances_values;
-	}
+		foreach ( $steps as $value ) $distances[] = array(
+			'name'  => sprintf( __( '%d %s', 'tribe-events-calendar-pro' ), $value, $unit ),
+			'value' => $value,
+		);
 
+		return $distances;
+	}
 
 	public function get_admin_form() {
 		$title = $this->get_title_field();
@@ -56,15 +59,15 @@ class TribeEventsFilter_GeoLoc extends TribeEventsFilter {
 	}
 
 	/**
-	 * If the user selected a geofence in the Filters Bar add-on, use it for the query filter.
-	 * @param $distance
+	 * Alter the geofence size if necessary.
 	 *
+	 * Any corrections to the unit of measure that may be required will take place
+	 * in TribeEventsGeoLoc::get_geofence_size().
+	 *
+	 * @param $distance
 	 * @return mixed
 	 */
 	public function setup_geofence_in_query( $distance ) {
-		if ( !empty( $this->currentValue ) ) {
-			$distance = tribe_convert_units( $this->currentValue, 'miles', 'kms' );
-		}
-		return $distance;
+		return ! empty( $this->currentValue ) ? $this->currentValue : $distance;
 	}
 }
