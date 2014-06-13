@@ -270,7 +270,6 @@ if ( !class_exists( 'TribePluginUpdateEngineChecker' ) ) {
 
 		/**
 		 * Compile  a list of addons
-		 * @author Peter Chester
 		 * @param array $addons list of addons
 		 * @return array list of addons
 		 */
@@ -283,8 +282,6 @@ if ( !class_exists( 'TribePluginUpdateEngineChecker' ) ) {
 		 * Inserts license key fields on license key page
 		 *
 		 * @param array $fields List of fields
-		 * @author jkudish
-		 * @author Peter Chester
 		 * @since 1.1
 		 * @return array Modified list of fields.
 		 */
@@ -313,7 +310,6 @@ if ( !class_exists( 'TribePluginUpdateEngineChecker' ) ) {
 		 * Inserts the javascript that makes the ajax checking
 		 * work on the license key page
 		 *
-		 * @author jkudish
 		 * @since 2.0.5
 		 * @return void
 		 */
@@ -360,7 +356,6 @@ if ( !class_exists( 'TribePluginUpdateEngineChecker' ) ) {
 		 *
 		 * @param string $message
 		 * @param string $tab
-		 * @author jkudish
 		 * @since 2.0.5
 		 * @return string
 		 */
@@ -644,7 +639,6 @@ if ( !class_exists( 'TribePluginUpdateEngineChecker' ) ) {
 		 *
 		 * @param string $option_key
 		 * @param bool|mixed $default
-		 * @author Peter Chester
 		 * @since 1.4
 		 * @return null|mixed
 		 */
@@ -666,7 +660,6 @@ if ( !class_exists( 'TribePluginUpdateEngineChecker' ) ) {
 		 *
 		 * @param mixed $option_key
 		 * @param mixed $value
-		 * @author Peter Chester
 		 * @since 1.4
 		 */
 		function update_option( $option_key, $value ) {
@@ -802,8 +795,6 @@ if ( !class_exists( 'TribePluginUpdateEngineChecker' ) ) {
 		 * @param $insert_array
 		 * @return array
 		 *
-		 * @author codearachnid
-		 * @author Peter Chester
 		 * @since 1.3
 		 */
 		public static function array_insert_after_key( $key, $source_array, $insert_array ) {
@@ -824,7 +815,6 @@ if ( !class_exists( 'TribePluginUpdateEngineChecker' ) ) {
 		 *
 		 * @return array $keys
 		 *
-		 * @author Peter Chester
 		 * @since 1.6
 		 */
 		public function return_install_key( $keys = array() ) {

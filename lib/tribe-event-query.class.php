@@ -33,7 +33,6 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 		 *
 		 * @param WP_Query $query
 		 * @return void
-		 * @author Jessica Yazbek
 		 * @since 3.0.3
 		 **/
 		public static function parse_query( $query ) {
@@ -873,7 +872,6 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 		 * to avoid conflicts with previous postmeta joins
 		 *
 		 * @return string
-		 * @author Jessica Yazbek
 		 **/
 		private static function postmeta_table( $query ) {
 
@@ -907,7 +905,6 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 		 *
 		 * @param mixed $arg
 		 * @return bool
-		 * @author Jessica Yazbek
 		 **/
 		private static function filter_args($arg) {
 			if (empty($arg) && $arg !== false)

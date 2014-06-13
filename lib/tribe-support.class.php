@@ -47,7 +47,6 @@ if ( ! class_exists( 'TribeEventsSupport' ) ) {
 		 * Collect system information for support
 		 *
 		 * @return array of system data for support
-		 * @author Peter Chester
 		 */
 		public static function getSupportStats() {
 			$user = wp_get_current_user();
@@ -115,7 +114,6 @@ if ( ! class_exists( 'TribeEventsSupport' ) ) {
 		 * Render system information into a pretty output
 		 *
 		 * @return string pretty HTML
-		 * @author Peter Chester
 		 */
 		public static function formattedSupportStats() {
 			$systeminfo = self::getSupportStats();

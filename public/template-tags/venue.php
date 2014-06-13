@@ -303,7 +303,6 @@ if( class_exists( 'TribeEvents' ) ) {
 	/**
 	 * Get all the venues
 	 *
-	 * @author PaulHughes01
 	 * @since 2.1
 	 * @param bool $only_with_upcoming Only return venues with upcoming events attached to them.
 	 * @param $posts_per_page

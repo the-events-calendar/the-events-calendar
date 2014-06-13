@@ -5,7 +5,6 @@
  *
  * @package TribeEventsCalendar
  * @since  2.1
- * @author Modern Tribe Inc.
  *
  */
 

@@ -10,7 +10,6 @@ if ( !class_exists('TribeField') ) {
 	 * Instantiate it whenever you need a field
 	 *
 	 * @since 2.0.5
-	 * @author jkudish
 	 */
 	class TribeField {
 
@@ -55,7 +54,6 @@ if ( !class_exists('TribeField') ) {
 		 * Class constructor
 		 *
 		 * @since 2.0.5
-		 * @author jkudish
 		 * @param string $id the field id
 		 * @param array $field the field settings
 		 * @param null|mixed $value the field's current value
@@ -155,7 +153,6 @@ if ( !class_exists('TribeField') ) {
 		 * logs an error if it fails
 		 *
 		 * @since 2.0.5
-		 * @author jkudish
 		 * @return void
 		 */
 		public function doField() {
@@ -190,7 +187,6 @@ if ( !class_exists('TribeField') ) {
 		 * returns the field's start
 		 *
 		 * @since 2.0.5
-		 * @author jkudish
 		 * @return string the field start
 		 */
 		public function doFieldStart() {
@@ -207,7 +203,6 @@ if ( !class_exists('TribeField') ) {
 		 * returns the field's end
 		 *
 		 * @since 2.0.5
-		 * @author jkudish
 		 * @return string the field end
 		 */
 		public function doFieldEnd() {
@@ -220,7 +215,6 @@ if ( !class_exists('TribeField') ) {
 		 * returns the field's label
 		 *
 		 * @since 2.0.5
-		 * @author jkudish
 		 * @return string the field label
 		 */
 		public function doFieldLabel() {
@@ -234,7 +228,6 @@ if ( !class_exists('TribeField') ) {
 		 * returns the field's div start
 		 *
 		 * @since 2.0.5
-		 * @author jkudish
 		 * @return string the field div start
 		 */
 		public function doFieldDivStart() {
@@ -246,7 +239,6 @@ if ( !class_exists('TribeField') ) {
 		 * returns the field's div end
 		 *
 		 * @since 2.0.5
-		 * @author jkudish
 		 * @return string the field div end
 		 */
 		public function doFieldDivEnd() {
@@ -259,7 +251,6 @@ if ( !class_exists('TribeField') ) {
 		 * returns the field's tooltip/description
 		 *
 		 * @since 2.0.5
-		 * @author jkudish
 		 * @return string the field tooltip
 		 */
 		public function doToolTip() {
@@ -273,7 +264,6 @@ if ( !class_exists('TribeField') ) {
 		 * returns the screen reader label
 		 *
 		 * @since 2.0.5
-		 * @author jkudish
 		 * @return string the screen reader label
 		 */
 		public function doScreenReaderLabel() {
@@ -287,7 +277,6 @@ if ( !class_exists('TribeField') ) {
 		 * returns the field's value
 		 *
 		 * @since 2.0.5
-		 * @author jkudish
 		 * @return string the field value
 		 */
 		public function doFieldValue() {
@@ -302,7 +291,6 @@ if ( !class_exists('TribeField') ) {
 		 *
 		 * @param bool $multi
 		 * @since 2.0.5
-		 * @author jkudish
 		 * @return string the field name
 		 */
 		public function doFieldName($multi = false) {
@@ -320,7 +308,6 @@ if ( !class_exists('TribeField') ) {
 		 * Return a string of attributes for the field
 		 *
 		 * @return string
-		 * @author Jessica Yazbek
 		 * @since 3.0.4
 		 **/
 		public function doFieldAttributes()	{
@@ -337,7 +324,6 @@ if ( !class_exists('TribeField') ) {
 		 * generate a heading field
 		 *
 		 * @since 2.0.5
-		 * @author jkudish
 		 * @return string the field
 		 */
 		public function heading() {
@@ -349,7 +335,6 @@ if ( !class_exists('TribeField') ) {
 		 * generate an html field
 		 *
 		 * @since 2.0.5
-		 * @author jkudish
 		 * @return string the field
 		 */
 		public function html() {
@@ -363,7 +348,6 @@ if ( !class_exists('TribeField') ) {
 		 * generate a simple text field
 		 *
 		 * @since 2.0.5
-		 * @author jkudish
 		 * @return string the field
 		 */
 		public function text() {
@@ -385,7 +369,6 @@ if ( !class_exists('TribeField') ) {
 		 * generate a textarea field
 		 *
 		 * @since 2.0.5
-		 * @author jkudish
 		 * @return string the field
 		 */
 		public function textarea() {
@@ -407,7 +390,6 @@ if ( !class_exists('TribeField') ) {
 		 * generate a wp_editor field
 		 *
 		 * @since 3.0.0
-		 * @author Kyle Unzicker
 		 * @return string the field
 		 */
 		public function wysiwyg() {
@@ -432,7 +414,6 @@ if ( !class_exists('TribeField') ) {
 		 * generate a radio button field
 		 *
 		 * @since 2.0.5
-		 * @author jkudish
 		 * @return string the field
 		 */
 		public function radio() {
@@ -460,7 +441,6 @@ if ( !class_exists('TribeField') ) {
 		 * generate a checkbox_list field
 		 *
 		 * @since 2.0.5
-		 * @author jkudish, modified by nciske
 		 * @return string the field
 		 */
 		public function checkbox_list() {
@@ -497,7 +477,6 @@ if ( !class_exists('TribeField') ) {
 		 * generate a boolean checkbox field
 		 *
 		 * @since 2.0.5
-		 * @author jkudish
 		 * @return string the field
 		 */
 		public function checkbox_bool() {
@@ -519,7 +498,6 @@ if ( !class_exists('TribeField') ) {
 		 * generate a dropdown field
 		 *
 		 * @since 2.0.5
-		 * @author jkudish
 		 * @return string the field
 		 */
 		public function dropdown() {
@@ -554,7 +532,6 @@ if ( !class_exists('TribeField') ) {
 		 * right css class applied to it
 		 *
 		 * @since 2.0.5
-		 * @author jkudish
 		 * @return string the field
 		 */
 		public function dropdown_chosen() {
@@ -568,7 +545,6 @@ if ( !class_exists('TribeField') ) {
 		 * right css class applied to it
 		 *
 		 * @since 2.0.5
-		 * @author jkudish
 		 * @return string the field
 		 */
 		public function dropdown_select2() {
@@ -580,7 +556,6 @@ if ( !class_exists('TribeField') ) {
 		 * generate a license key field
 		 *
 		 * @since 2.0.5
-		 * @author jkudish
 		 * @return string the field
 		 */
 		public function license_key() {

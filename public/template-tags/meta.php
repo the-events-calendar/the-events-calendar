@@ -365,7 +365,6 @@ if ( class_exists('TribeEvents') ) {
 	 * @todo remove in 3.7
 	 * @return string
 	 * @since 3.0
-	 * @author Jessica Yazbek
 	 **/
 	function tribe_events_single_event_meta() {
 		// Use the new template driven approach to rendering meta data unless the user opts to use the old system

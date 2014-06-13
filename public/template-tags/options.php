@@ -13,7 +13,6 @@ if ( !defined('ABSPATH') ) { die('-1'); }
  * display the events slug description
  *
  * @since 2.0.5
- * @author jkudish
  * @return string, the string to display
  */
 function tribe_display_current_events_slug() {
@@ -24,7 +23,6 @@ function tribe_display_current_events_slug() {
  * display the event single slug description
  *
  * @since 2.0.5
- * @author jkudish
  * @return string, the string to display
  */
 function tribe_display_current_single_event_slug() {
@@ -35,7 +33,6 @@ function tribe_display_current_single_event_slug() {
  * display the iCal description
  *
  * @since 2.0.5
- * @author jkudish
  * @return string, the string to display
  */
 function tribe_display_current_ical_link() {

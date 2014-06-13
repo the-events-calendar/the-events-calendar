@@ -10,7 +10,6 @@ if ( !class_exists( 'TribeSettings' ) ) {
 	 * instantiation takes place in TribeEvents
 	 *
 	 * @since 2.0.5
-	 * @author jkudish
 	 */
 	class TribeSettings {
 
@@ -111,7 +110,6 @@ if ( !class_exists( 'TribeSettings' ) ) {
 		 * Static Singleton Factory Method
 		 *
 		 * @since 2.0.5
-		 * @author jkudish
 		 * @return TribeSettings
 		 */
 		public static function instance() {
@@ -126,7 +124,6 @@ if ( !class_exists( 'TribeSettings' ) ) {
 		 * Class constructor
 		 *
 		 * @since 2.0.5
-		 * @author jkudish
 		 * @return void
 		 */
 		public function __construct() {
@@ -155,7 +152,6 @@ if ( !class_exists( 'TribeSettings' ) ) {
 		 * create the main option page
 		 *
 		 * @since 2.0.5
-		 * @author jkudish
 		 * @return void
 		 */
 		public function addPage() {
@@ -168,7 +164,6 @@ if ( !class_exists( 'TribeSettings' ) ) {
 		 * create the network options page
 		 *
 		 * @since 2.1
-		 * @author PaulHughes01
 		 * @return void
 		 */
 		public function addNetworkPage() {
@@ -179,7 +174,6 @@ if ( !class_exists( 'TribeSettings' ) ) {
 		 * init all the tabs
 		 *
 		 * @since 2.0.5
-		 * @author jkudish
 		 * @return void
 		 */
 		public function initTabs() {
@@ -212,7 +206,6 @@ if ( !class_exists( 'TribeSettings' ) ) {
 		 * includes the view file
 		 *
 		 * @since 2.0.5
-		 * @author jkudish
 		 * @return void
 		 */
 		public function generatePage() {
@@ -258,7 +251,6 @@ if ( !class_exists( 'TribeSettings' ) ) {
 		 * generate the tabs in the settings screen
 		 *
 		 * @since 2.0.5
-		 * @author PaulHughes01, jkudish
 		 * @return void
 		 */
 		public function generateTabs() {
@@ -284,7 +276,6 @@ if ( !class_exists( 'TribeSettings' ) ) {
 		 * validate the settings
 		 *
 		 * @since 2.0.5
-		 * @author jkudish
 		 * @return void
 		 */
 		public function validate() {
@@ -366,7 +357,6 @@ if ( !class_exists( 'TribeSettings' ) ) {
 		 * save the settings
 		 *
 		 * @since 2.0.5
-		 * @author jkudish
 		 * @return void
 		 */
 		public function save() {
@@ -459,7 +449,6 @@ if ( !class_exists( 'TribeSettings' ) ) {
 		 * display errors, if any, after saving
 		 *
 		 * @since 2.0.5
-		 * @author PaulHughes01, jkudish
 		 * @return void
 		 */
 		public function displayErrors() {
@@ -495,7 +484,6 @@ if ( !class_exists( 'TribeSettings' ) ) {
 		 * display success message after saving
 		 *
 		 * @since 2.0.5
-		 * @author PaulHughes01, jkudish
 		 * @return void
 		 */
 		public function displaySuccess() {
@@ -515,7 +503,6 @@ if ( !class_exists( 'TribeSettings' ) ) {
 		 * delete temporary options
 		 *
 		 * @since 2.0.6
-		 * @author jkudish
 		 * @return void
 		 */
 		public function deleteOptions() {

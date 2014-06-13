@@ -5,8 +5,6 @@
  * The parent class for managing the view methods in core and addons
  *
  * @since  3.0
- * @author tim@imaginesimplicity.com
- * @author jessica@
  */
 
 if ( !defined('ABSPATH') )
@@ -161,7 +159,6 @@ if( !class_exists('Tribe_Template_Factory') ) {
 		 * Add classes to events on this view
 		 *
 		 * @return array
-		 * @author Jessica Yazbek
 		 * @since 3.0
 		 **/
 		public function event_classes( $classes ) {
@@ -313,7 +310,6 @@ if( !class_exists('Tribe_Template_Factory') ) {
 		 * Unhook all the hooks set up on this view
 		 *
 		 * @return void
-		 * @author 
 		 **/
 		protected function unhook() {
 
@@ -646,7 +642,6 @@ if( !class_exists('Tribe_Template_Factory') ) {
 		 * @param string $url The path or URL to the un-minified file.
 		 * @param bool $default_to_original Whether to just return original path if min version not found.
 		 * @return string|false The path/url to minified version or false, if file not found.
-		 * @author Paul Hughes
 		 * @since 3.0
 		 */
 		public static function getMinFile( $url, $default_to_original = false ) {

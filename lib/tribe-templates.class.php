@@ -151,7 +151,6 @@ if (!class_exists('TribeEventsTemplates')) {
 		 * add body class when default events template is used
 		 *
 		 * @return void
-		 * @author Jessica Yazbek
 		 **/
 		public static function default_events_template_body_class( $classes )
 		{
@@ -188,7 +187,6 @@ if (!class_exists('TribeEventsTemplates')) {
 		 * Add the theme to the body class
 		 *
 		 * @return array $classes
-		 * @author Jessica Yazbek
 		 **/
 		public static function theme_body_class( $classes ) {
 			$child_theme = get_option( 'stylesheet' );
@@ -484,7 +482,6 @@ if (!class_exists('TribeEventsTemplates')) {
 		 *  - plugin_path
 		 *  - disable_view_check - bypass the check to see if the view is enabled
 		 * @return template path
-		 * @author Matt Wiebe
 		 **/
 		public static function getTemplateHierarchy( $template, $args = array() ) {
 			if ( ! is_array( $args ) ) {

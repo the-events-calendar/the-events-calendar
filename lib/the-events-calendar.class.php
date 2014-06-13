@@ -684,7 +684,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 * Check add-ons to make sure they are supported by currently running TEC version.
 		 *
 		 * @since 2.0.5
-		 * @author Paul Hughes
 		 * @return void
 		 */
 		public function checkAddOnCompatibility() {
@@ -752,7 +751,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 * Init the settings API and add a hook to add your own setting tabs
 		 *
 		 * @since 2.0.5
-		 * @author jkudish
 		 * @return void
 		 */
 		public function initOptions() {
@@ -779,7 +777,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 * Create setting tabs
 		 *
 		 * @since 2.0.5
-		 * @author jkudish
 		 * @return void
 		 */
 		public function doSettingTabs() {
@@ -948,7 +945,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 * @param string|bool $data Optional data to display
 		 * @param string $format Optional format (log|warning|error|notice)
 		 * @return void
-		 * @author Peter Chester
 		 */
 		public static function debug( $title, $data = false, $format = 'log' ) {
 			do_action( 'tribe_debug', $title, $data, $format );
@@ -961,7 +957,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 * @param string|bool $data - optional data to display
 		 * @param string $format - optional format (log|warning|error|notice)
 		 * @return void
-		 * @author Peter Chester
 		 */
 		public function renderDebug( $title, $data = false, $format = 'log' ) {
 			$format = ucfirst( $format );
@@ -1805,7 +1800,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 * Modify the post type args to set Dashicon if we're in WP 3.8+
 		 *
 		 * @return array post type args
-		 * @author Jessica Yazbek
 		 **/
 		function setDashicon( $postTypeArgs ) {
 			global $wp_version;
@@ -2981,7 +2975,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 * Adds the '_<posttype>Origin' meta field for a newly inserted events-calendar post.
 		 *
 		 * @since 2.1
-		 * @author paulhughes
 		 * @param int $postId, the post ID
 		 * @param WP_Post $post, the post object
 		 * @return void
@@ -3021,7 +3014,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 * Adds to the '_<posttype>AuditTrail' meta field for an events-calendar post.
 		 *
 		 * @since 2.1
-		 * @author paulhughes
 		 * @param int $postId, the post ID
 		 * @param WP_Post $post, the post object
 		 * @return void
@@ -3051,7 +3043,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 * Publishes associated venue/organizer when an event is published
 		 *
 		 * @since 2.0.6
-		 * @author nciske
 		 * @param int $postID, the post ID
 		 * @param WP_Post $post, the post object
 		 * @return void
@@ -4152,7 +4143,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 * Displays activation welcome admin notice.
 		 *
 		 * @since 2.0.8
-		 * @author PaulHughes01
 		 *
 		 * @return void
 		 */
@@ -4168,7 +4158,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 * Resets the option such that the activation message is again displayed on reactivation.
 		 *
 		 * @since 2.0.8
-		 * @author PaulHughes01
 		 *
 		 * @return void
 		 */
@@ -4181,7 +4170,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 * Displays the View Calendar link at the top of the Events list in admin.
 		 *
 		 * @since 2.0.8
-		 * @author PaulHughes01
 		 *
 		 * @return void
 		 */
@@ -4196,7 +4184,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 * Set the menu-edit-page to default display the events-related items.
 		 *
 		 * @since 2.0.8
-		 * @author PaulHughes01
 		 *
 		 * @return void
 		 */
@@ -4278,7 +4265,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 * @param string $link The current link.
 		 * @param string|null $date The date passed.
 		 * @return string The modified link.
-		 * @author Paul Hughes
 		 * @since 3.0
 		 */
 		public function add_empty_date_dayview_link( $link, $date ) {
@@ -4317,7 +4303,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 *
 		 * @param array $views The current array of views registered to the tribe bar.
 		 * @return array The views registered with day view added.
-		 * @author Daniel Dvorkin
 		 * @since 3.0
 		 */
 		public function setup_dayview_in_bar( $views ) {
@@ -4392,7 +4377,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 * Removes views that have been deselected in the Template Settings as hidden from the view array.
 		 *
 		 * @since 3.0
-		 * @author PaulHughes01
 		 *
 		 * @param array $views The current views array.
 		 * @param bool $visible
@@ -4568,8 +4552,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 * @param $insert_array
 		 * @return array
 		 *
-		 * @author codearachnid
-		 * @author Peter Chester
 		 * @since 3.0
 		 */
 		public static function array_insert_after_key( $key, $source_array, $insert_array ) {
@@ -4644,7 +4626,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 * This loads up the day view shard with all the appropriate events for the day
 		 *
 		 * @return void
-		 * @author Timothy Wood
 		 * @since 3.0
 		 */
 		function wp_ajax_tribe_event_day(){
@@ -4701,7 +4682,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 * be run.
 		 *
 		 * @return void
-		 * @author Paul Hughes
 		 * @since 3.0
 		 */
 		public function checkSuiteIfJustUpdated() {

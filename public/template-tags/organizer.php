@@ -159,7 +159,6 @@ if( class_exists( 'TribeEvents' ) ) {
 	 *
 	 * @param $postId post ID for an event
 	 * @return string
-	 * @author  Modern Tribe
 	 **/
 	if ( !function_exists( 'tribe_get_organizer_website_url' ) ) { // wrapped in if function exists to maintain compatibility with community events 3.0.x. wrapper not needed after 3.1.x.
 		function tribe_get_organizer_website_url( $postId = null ){
@@ -177,7 +176,6 @@ if( class_exists( 'TribeEvents' ) ) {
 	 * @param $post_id post ID for an event
 	 * @param $label text for the link
 	 * @return string
-	 * @author  Modern Tribe
 	 **/
 	function tribe_get_organizer_website_link( $post_id = null, $label = null ){
 		$post_id = tribe_get_organizer_id( $post_id );
@@ -203,7 +201,6 @@ if( class_exists( 'TribeEvents' ) ) {
 	/**
 	 * Get all the organizers
 	 *
-	 * @author PaulHughes01
 	 * @since 2.1
 	 * @param $deprecated
 	 * @param $posts_per_page Maximum number of results

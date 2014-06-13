@@ -24,7 +24,6 @@ if( class_exists( 'TribeEvents' ) ) {
 	 * @param array $args query args to pass to the month view
 	 * @param string $template_path template to use, defaults to the full month view
 	 * @return void
-	 * @author Jessica Yazbek
 	 * @since 3.0
 	 **/
 	function tribe_show_month( $args = array(), $template_path = 'month/content' ) {
@@ -86,7 +85,6 @@ if( class_exists( 'TribeEvents' ) ) {
 	 * </ code >
 	 *
 	 * @return bool
-	 * @author Jessica Yazbek
 	 * @see Tribe_Events_Month_Template::have_days()
 	 * @since 3.0
 	 **/
@@ -109,7 +107,6 @@ if( class_exists( 'TribeEvents' ) ) {
 	 * </ code >
 	 *
 	 * @return void
-	 * @author Jessica Yazbek
 	 * @see Tribe_Events_Month_Template::the_day()
 	 * @since 3.0
 	 **/
@@ -132,7 +129,6 @@ if( class_exists( 'TribeEvents' ) ) {
 	 * </ code >
 	 *
 	 * @return int
-	 * @author Jessica Yazbek
 	 * @see Tribe_Events_Month_Template::get_current_week()
 	 * @since 3.0 
 	 **/
@@ -155,7 +151,6 @@ if( class_exists( 'TribeEvents' ) ) {
 	 * 	'date' => 'previous' or 'next'
 	 *
 	 * @return array
-	 * @author Jessica Yazbek
 	 * @see Tribe_Events_Month_Template::get_current_day()
 	 * @since 3.0
 	 **/
@@ -168,7 +163,6 @@ if( class_exists( 'TribeEvents' ) ) {
 	 * Outputs classes for the current month day, including special classes for past / present / future days
 	 *
 	 * @return void
-	 * @author Jessica Yazbek
 	 * @see Tribe_Events_Month_Template::day_classes()
 	 * @since 3.0 
 	 **/
@@ -181,7 +175,6 @@ if( class_exists( 'TribeEvents' ) ) {
 	 * Outputs classes for the current single event in the month loop
 	 *
 	 * @return void
-	 * @author Jessica Yazbek
 	 * @see Tribe_Events_Month_Template::event_classes()
 	 * @since 3.0 
 	 **/
@@ -193,7 +186,6 @@ if( class_exists( 'TribeEvents' ) ) {
 	 * Returns whether there are any events in the month
 	 *
 	 * @return bool
-	 * @author Jessica Yazbek
 	 * @see Tribe_Events_Month_Template::get_daily_counts()
 	 * @since 3.1.1
 	 **/
@@ -245,7 +237,6 @@ if( class_exists( 'TribeEvents' ) ) {
 	 * events.
 	 *
 	 * @return void
-	 * @author Jessica Yazbek
 	 * @uses tribe_get_previous_month_text()
 	 * @since 3.0
 	 **/
@@ -266,7 +257,6 @@ if( class_exists( 'TribeEvents' ) ) {
 	 * Display an html link to the next month. Used in the month navigation.
 	 *
 	 * @return void
-	 * @author Jessica Yazbek
 	 * @uses tribe_get_next_month_text()
 	 * @since 3.0
 	 **/

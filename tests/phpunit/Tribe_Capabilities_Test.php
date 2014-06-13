@@ -11,15 +11,13 @@
  *
  * @package TribeEvents
  * @since 2.0.5
- * @author Paul Hughes
  */
 class Tribe_Capabilities_Test extends WP_UnitTestCase {
 	/**
 	 * Test to make sure the administrator role has all the capabilities related to tribe events.
 	 *
  	 * @since 2.0.5
-	 * @author Paul Hughes
-	 */	
+	 */
 	public function test_administrator_role_capabilities() {
 	
 		$role = get_role('administrator');
@@ -73,8 +71,7 @@ class Tribe_Capabilities_Test extends WP_UnitTestCase {
 	 * Test to make sure the editor role has all the capabilities related to tribe events.
 	 *
  	 * @since 2.0.5
-	 * @author Paul Hughes
-	 */	
+	 */
 	public function test_editor_role_capabilities() {
 	
 		$role = get_role('editor');
@@ -128,8 +125,7 @@ class Tribe_Capabilities_Test extends WP_UnitTestCase {
 	 * Test to make sure the author role has the proper capabilities related to tribe events.
 	 *
  	 * @since 2.0.5
-	 * @author Paul Hughes
-	 */	
+	 */
 	public function test_author_role_capabilities() {
 	
 		$role = get_role('author');
@@ -183,8 +179,7 @@ class Tribe_Capabilities_Test extends WP_UnitTestCase {
 	 * Test to make sure the contributor role has the proper capabilities related to tribe events.
 	 *
  	 * @since 2.0.5
-	 * @author Paul Hughes
-	 */	
+	 */
 	public function test_contributor_role_capabilities() {
 	
 		$role = get_role('contributor');
@@ -238,8 +233,7 @@ class Tribe_Capabilities_Test extends WP_UnitTestCase {
 	 * Test to make sure the subscriber role has the proper capabilities related to tribe events.
 	 *
  	 * @since 2.0.5
-	 * @author Paul Hughes
-	 */		
+	 */
 	public function test_subscriber_role_capabilities() {
 	
 		$role = get_role('subscriber');

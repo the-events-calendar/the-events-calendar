@@ -7,7 +7,6 @@
  *
  * @package TribeEvents
  * @since 2.0.5
- * @author Paul Hughes
  */
 class Tribe_Previous_Ecp_Versions_Test extends WP_UnitTestCase {
 
@@ -15,7 +14,6 @@ class Tribe_Previous_Ecp_Versions_Test extends WP_UnitTestCase {
 	 * Check to make sure that the 'previous_ecp_versions' option exists.
 	 *
  	 * @since 2.0.5
-	 * @author Paul Hughes
 	 */
 	function test_previous_ecp_versions_exists() {
 		$this->assertTrue( count( tribe_get_option( 'previous_ecp_versions' ) ) > 0 );
@@ -25,7 +23,6 @@ class Tribe_Previous_Ecp_Versions_Test extends WP_UnitTestCase {
 	 * Check to make sure that 'previous_ecp_versions' is saving correctly.
  	 *
  	 * @since 2.0.5
-	 * @author Paul Hughes
 	 */
 	function test_previous_ecp_versions_saving() {
 		$tribe_ecp = TribeEvents::instance();

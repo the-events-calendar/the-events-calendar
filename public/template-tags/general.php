@@ -15,7 +15,6 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 *
 	 * @param bool|string $class Classname you want to instantiate
 	 * @return void
-	 * @author Jessica Yazbek
 	 * @uses TribeEventsTemplates::instantiate_template_class()
 	 * @since 3.0
 	 **/
@@ -29,7 +28,6 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 *
 	 * @param bool|string $view View slug
 	 * @return void
-	 * @author Jessica Yazbek
 	 * @since 3.0
 	 **/
 	function tribe_get_view( $view = false ) {
@@ -57,7 +55,6 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 * @param null|string $name
 	 * @param array $data optional array of vars to inject into the template part
 	 * @uses TribeEventsTemplates::getTemplateHierarchy
-	 * @author Jessica Yazbek
 	 * @since 3.0
 	 **/
 	function tribe_get_template_part( $slug, $name = null, array $data = null ) {
@@ -538,7 +535,6 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 * @param string $resource the filename of the resource
 	 * @param bool $echo whether or not to echo the url
 	 * @return string
-	 * @author Jessica Yazbek
 	 * @since 3.0
 	 **/
 	function tribe_events_resource_url($resource, $echo = false) {
@@ -573,7 +569,6 @@ if ( class_exists( 'TribeEvents' ) ) {
 
 	/**
 	 * conditional tag to determine if the cost field should be shown in the admin editors.
-	 * @author tim@imaginesimplicity.com
 	 * @since 3.0
 	 * @return bool
 	 */
@@ -668,7 +663,6 @@ if ( class_exists( 'TribeEvents' ) ) {
 	/**
 	 * Get the minimum cost of all events.
 	 *
-	 * @author PaulHughes01
 	 * @since 2.1
 	 * @return int the minimum cost.
 	 */
@@ -694,7 +688,6 @@ if ( class_exists( 'TribeEvents' ) ) {
 	/**
 	 * Get the maximum cost of all events.
 	 *
-	 * @author PaulHughes01
 	 * @since 2.1
 	 * @return int the maximum cost.
 	 */
@@ -756,7 +749,6 @@ if ( class_exists( 'TribeEvents' ) ) {
 	/**
 	 * Placeholder function that is used for ticketing plugins meant to be filtered by such plugins
 	 *
-	 * @author jkudish
 	 * @since 2.1
 	 * @return void
 	 */
@@ -773,7 +765,6 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 * helper function to remove empty lines from multi-line strings
 	 *
 	 * @since 2.0.5
-	 * @author jkudish
 	 * @link http://stackoverflow.com/questions/709669/how-do-i-remove-blank-lines-from-text-in-php
 	 * @param string  $multi_line_string a multiline string
 	 * @return string the same string without empty lines
@@ -953,7 +944,6 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 * @param string $end_date
 	 * @param string|bool $day_cutoff
 	 * @return int
-	 * @author Modern Tribe
 	 * @see TribeDateUtils::dateDiff()
 	 **/
 	function tribe_get_days_between( $start_date, $end_date, $day_cutoff = '00:00' ) {
@@ -985,7 +975,6 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 * @since  3.3
 	 * @param $string
 	 * @return string
-	 * @author Modern Tribe
 	 */
 
 	function tribe_prepare_for_json( $string ){
@@ -1002,7 +991,6 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 * @since 3.3
 	 * @param $event
 	 * @param $additional
-	 * @author Modern Tribe
 	 * @return string
 	 */
 	function tribe_events_template_data( $event, array $additional = null ) {
@@ -1088,7 +1076,6 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 * @param array $args Args to be passed to TribeEventsQuery::getEvents()
 	 * @param bool $initialize Whether the list view template class needs to be included and initialized
 	 * @return string
-	 * @author Modern Tribe
 	 **/
 	function tribe_include_view_list( $args = null, $initialize = true ) {
 		global $wp_query;
@@ -1124,7 +1111,6 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 *
 	 * @param bool $echo Whether or not to echo the notices html
 	 * @return void | string
-	 * @author Modern Tribe
 	 * @see TribeEvents::getNotices()
 	 **/
 	function tribe_events_the_notices( $echo = true ) {
@@ -1144,7 +1130,6 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 *
 	 * @param array $views Default list of views
 	 * @return array
-	 * @author Modern Tribe
 	 * @see tribeEnableViews option
 	 **/
 	function tribe_events_enabled_views( $views ) {
@@ -1159,7 +1144,6 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 * Get a list of the views that are disabled
 	 *
 	 * @return array
-	 * @author Modern Tribe
 	 **/
 	function tribe_events_disabled_views() {
 		static $disabled;
@@ -1226,7 +1210,6 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 * Return the filters registered in the tribe bar
 	 *
 	 * @return array
-	 * @author Jessica Yazbek
 	 * @since 3.0
 	 **/
 	function tribe_events_get_filters()	{
@@ -1237,7 +1220,6 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 * Return the views registered in the tribe bar
 	 *
 	 * @return array
-	 * @author Jessica Yazbek
 	 * @since 3.0
 	 **/
 	function tribe_events_get_views()	{
@@ -1292,7 +1274,6 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 *
 	 * @param string $view Name of view to check, should match what's in TribeEvents->displaying when on that view
 	 * @return bool
-	 * @author Jessica Yazbek
 	 * @since 3.1
 	 **/
 	function tribe_events_is_view_enabled( $view ) {
@@ -1331,7 +1312,6 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 * @param int $breakpoint The default width (in pixels) at which to break into mobile styles
 	 *
 	 * @return int
-	 * @author Jessica Yazbek
 	 * @since  3.5
 	 */
 	function tribe_get_mobile_breakpoint( $default = 768 ) {

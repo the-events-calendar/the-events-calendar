@@ -103,7 +103,6 @@ class TribeEventsBar {
 	 * Adds a body class of tribe-bar-is-disabled when the Tribe Bar is disabled.
 	 * 
 	 * @return array The new body class array
-	 * @author Kyle Unzicker
 	 * @since 3.0
 	 */	
 	public function body_class( $classes ){
@@ -117,7 +116,6 @@ class TribeEventsBar {
 	 * Returns the opening tag of the disabled bar wrapper
 	 * 
 	 * @return string
-	 * @author Kyle Unzicker
 	 * @since 3.0
 	 */	
 	public function disabled_bar_before( $before ) {
@@ -131,7 +129,6 @@ class TribeEventsBar {
 	 * Returns the closing tag of the disabled bar wrapper
 	 * 
 	 * @return array The new body class array
-	 * @author Kyle Unzicker
 	 * @since 3.0
 	 */
 	public function disabled_bar_after( $after ) {
