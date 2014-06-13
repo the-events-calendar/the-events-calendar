@@ -1122,6 +1122,16 @@ class TribeEventsRecurrenceMeta {
 	public static function display_post_editor_recurring_notice() {
 		$message = __( 'You are currently editing all events in a recurring series.', 'tribe-events-calendar-pro' );
 		printf('<div class="updated"><p>%s</p></div>', $message);
+
+		$pending = get_post_meta( get_the_ID(), '_EventNextPendingRecurrence', TRUE );
+		if ( $pending ) {
+			$start_dates = tribe_get_recurrence_start_dates(get_the_ID());
+			$count = count($start_dates);
+			$last = end($start_dates);
+			$pending_message = __( '%d instances of this event have been created through %s. <a href="%s">Learn more.</a>', 'tribe-events-calendar-pro');
+			$pending_message = sprintf( $pending_message, $count, date_i18n(tribe_get_date_format(true), strtotime($last)), 'http://m.tri.be/lq');
+			printf('<div class="updated"><p>%s</p></div>', $pending_message);
+		}
 	}
 
 	public static function localize_scripts( $data, $object_name, $script_handle ) {
