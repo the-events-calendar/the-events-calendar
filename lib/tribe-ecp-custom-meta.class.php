@@ -5,7 +5,6 @@
  *
  * This class allows users to create custom fields in the settings & displays the
  * custom fields in the event editor
- * @author John Gadbois
  */
 class TribeEventsCustomMeta {
 	public static function init() {
@@ -21,7 +20,6 @@ class TribeEventsCustomMeta {
 	 * 
 	 * Removes a custom field from the database and from any events that may be using that field.
 	 * @return void
-	 * @author  
 	 */
     public static function remove_meta_field() {
 			global $wpdb, $tribe_ecp;
@@ -96,7 +94,6 @@ class TribeEventsCustomMeta {
 
 	/**
 	 * enforce saving on additional fields tab
-	 * @author jkudish
 	 * @since 2.0.5
 	 * @return void
 	 */
@@ -156,7 +153,6 @@ class TribeEventsCustomMeta {
 	 *
 	 * retrieve a custom field's value by searching its label
 	 * instead of its (more obscure) ID
-	 * @author Joachim Kudish
 	 * @since 2.0.3
 	 * @param (string) $label, the label to search for
 	 * @param (int) $eventID (optional), the event to look for, defaults to global $post

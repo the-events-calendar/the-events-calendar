@@ -219,7 +219,6 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	 * Displays the saved organizer
 	 * Used in the settings screen
 	 *
-	 * @author jkudish
 	 * @since 2.0.5
 	 * @return void
 	 */
@@ -234,7 +233,6 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	 * Displays the saved venue
 	 * Used in the settings screen
 	 *
-	 * @author jkudish
 	 * @since 2.0.5
 	 * @return void
 	 */
@@ -249,7 +247,6 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	 * Displays the saved address
 	 * Used in the settings screen
 	 *
-	 * @author jkudish
 	 * @since 2.0.5
 	 * @return void
 	 */
@@ -264,7 +261,6 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	 * Displays the saved city
 	 * Used in the settings screen
 	 *
-	 * @author jkudish
 	 * @since 2.0.5
 	 * @return void
 	 */
@@ -279,7 +275,6 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	 * Displays the saved state
 	 * Used in the settings screen
 	 *
-	 * @author jkudish
 	 * @since 2.0.5
 	 * @return void
 	 */
@@ -294,7 +289,6 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	 * Displays the saved province
 	 * Used in the settings screen
 	 *
-	 * @author jkudish
 	 * @since 2.0.5
 	 * @return void
 	 */
@@ -309,7 +303,6 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	 * Displays the saved zip
 	 * Used in the settings screen
 	 *
-	 * @author jkudish
 	 * @since 2.0.5
 	 * @return void
 	 */
@@ -324,7 +317,6 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	 * Displays the saved country
 	 * Used in the settings screen
 	 *
-	 * @author jkudish
 	 * @since 2.0.5
 	 * @return void
 	 */
@@ -339,7 +331,6 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	 * Displays the saved phone
 	 * Used in the settings screen
 	 *
-	 * @author jkudish
 	 * @since 2.0.5
 	 * @return void
 	 */
@@ -558,7 +549,6 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	 * Template tag to get related posts for the current post.
 	 *
 	 * @since 1.1
-	 * @author Paul Hughes
 	 * @param int $count number of related posts to return.
 	 * @param int|obj $post the post to get related posts to, defaults to current global $post
 	 * @return array the related posts.
@@ -637,7 +627,6 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	 * @param string $resource the filename of the resource
 	 * @param bool $echo whether or not to echo the url
 	 * @return string
-	 * @author Jessica Yazbek
 	 * @since 3.5
 	 **/
 	function tribe_events_pro_resource_url($resource, $echo = false) {

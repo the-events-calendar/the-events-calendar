@@ -7,7 +7,6 @@
  *
  * @package TribeEventsCalendarPro
  * @since  2.1
- * @author Modern Tribe Inc.
  *
  */
 
@@ -63,7 +62,6 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 		 * Set the notices used on week view
 		 *
 		 * @since  3.0
-		 * @author tim@imaginesimplicty.com
 		 * @return void
 		 * */
 		function set_notices() {
@@ -110,7 +108,6 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 		 *
 		 * @return void
 		 * @since  3.0
-		 * @author tim@imaginesimplicty.com
 		 * */
 		protected function hooks() {
 			parent::hooks();
@@ -123,7 +120,6 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 		 *
 		 * @param $post
 		 * @return void
-		 * @author Jessica Yazbek
 		 * @since 3.0
 		 **/
 		public function manage_sensitive_info( $post ) {
@@ -142,7 +138,6 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 		 *
 		 * @return string
 		 * @since  3.0
-		 * @author tim@imaginesimplicty.com
 		 * */
 		function header_attributes( $attrs, $current_view ) {
 			switch ( $current_view ) {
@@ -204,7 +199,6 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 		 * This will set the self::week_days array with proper offset for start day in settings
 		 *
 		 * @since  3.0
-		 * @author tim@imaginesimplicty.com
 		 * @return  void
 		 */
 		function set_week_days() {
@@ -254,7 +248,6 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 		 *
 		 * @return bool True if calendar days are available, false if not.
 		 * @since  3.0
-		 * @author tim@imaginesimplicty.com
 		 * */
 		public static function have_days() {
 			if ( self::$current_day < ( self::$start_of_week + self::$week_length ) - 1 ) {
@@ -268,7 +261,6 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 		 *
 		 * @return array $week_days
 		 * @since  3.0
-		 * @author tim@imaginesimplicty.com
 		 */
 		public static function get_week_days() {
 			return self::$week_days;
@@ -280,7 +272,6 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 		 * @param string  $obj
 		 * @return object self::events->{$obj}
 		 * @since  3.0
-		 * @author tim@imaginesimplicty.com
 		 */
 		public static function get_events( $obj = null ) {
 			if ( !empty( self::$events->{$obj} ) )
@@ -294,7 +285,6 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 		 *
 		 * @return void
 		 * @since  3.0
-		 * @author tim@imaginesimplicty.com
 		 */
 		function setup_loop() {
 			global $wp_query;
@@ -438,7 +428,6 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 		 *
 		 * @return void
 		 * @since  3.0
-		 * @author tim@imaginesimplicty.com
 		 */
 		public static function the_day() {
 			if ( self::$current_day == -1 ) {
@@ -454,7 +443,6 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 		 * reset the internal counter for the current day
 		 *
 		 * @since  3.0
-		 * @author tim@imaginesimplicty.com
 		 * @return void
 		 */
 		public static function reset_the_day() {
@@ -465,7 +453,6 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 		 * returns the current iterator for the all day map row
 		 *
 		 * @since  3.0
-		 * @author tim@imaginesimplicty.com
 		 * @return int
 		 */
 		public static function get_the_day_map() {
@@ -476,7 +463,6 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 		 * internal mechanism to increment the all day map counter
 		 *
 		 * @since  3.0
-		 * @author tim@imaginesimplicty.com
 		 * @return void
 		 */
 		public static function the_day_map() {
@@ -487,7 +473,6 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 		 * reset the internal counter for all day map counter
 		 *
 		 * @since  3.0
-		 * @author tim@imaginesimplicty.com
 		 * @return void
 		 */
 		public static function reset_the_day_map() {
@@ -498,7 +483,6 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 		 * set internal mechanism for tracking what the current day of the week is within the display loops
 		 *
 		 * @since  3.0
-		 * @author tim@imaginesimplicty.com
 		 * @param int     $day_id
 		 */
 		function set_current_day( $day_id ) {
@@ -509,7 +493,6 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 		 * get internal increment for current day of the week
 		 *
 		 * @since  3.0
-		 * @author tim@imaginesimplicty.com
 		 * @return int
 		 */
 		public static function get_current_day() {
@@ -520,7 +503,6 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 		 * get the current date based on the current day of week
 		 *
 		 * @since  3.0
-		 * @author tim@imaginesimplicty.com
 		 * @return date( 'Y-m-d' )
 		 */
 		function get_current_date() {
@@ -531,7 +513,6 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 		 * css column classes used during loop
 		 *
 		 * @since  3.0
-		 * @author tim@imaginesimplicty.com
 		 * @return void
 		 */
 		public static function column_classes() {
@@ -553,7 +534,6 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 		 * css event wrapper classes used during loop
 		 *
 		 * @since  3.0
-		 * @author tim@imaginesimplicty.com
 		 * @param $classes
 		 * @return void
 		 */
@@ -589,7 +569,6 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 		 * set the internal event id for tracking between methods/templates
 		 *
 		 * @since  3.0
-		 * @author tim@imaginesimplicty.com
 		 * @param int     $event_id
 		 */
 		public static function set_event_id( $event_id ) {
@@ -600,7 +579,6 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 		 * access the internal var for tracking the event id
 		 *
 		 * @since  3.0
-		 * @author tim@imaginesimplicty.com
 		 * @return int self::event_id
 		 */
 		public static function get_event_id() {
@@ -616,7 +594,6 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 		 * Based on set event id return an all day event
 		 *
 		 * @since  3.0
-		 * @author tim@imaginesimplicty.com
 		 * @return object $event
 		 */
 		public static function get_allday_event() {
@@ -628,7 +605,6 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 		 * Based on set event id return an hourly type event
 		 *
 		 * @since  3.0
-		 * @author tim@imaginesimplicty.com
 		 * @return object $event
 		 */
 		public static function get_hourly_event( $event_id = null ) {

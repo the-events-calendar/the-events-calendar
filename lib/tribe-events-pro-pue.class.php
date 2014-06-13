@@ -2,7 +2,6 @@
 /**
  * Manage upgrades for the Tribe Events Pro plugin
  *
- * @author Peter Chester
  */
 
 // Don't load directly

@@ -5,7 +5,6 @@
  *
  * @package TribeEventsCalendarPro
  * @since  2.1
- * @author Modern Tribe Inc.
  *
  */
 
@@ -96,7 +95,6 @@ if ( !class_exists( 'Tribe_Events_Pro_Single_Organizer_Template' ) ) {
 		 * @param string $slug The slug referencing the template.
 		 * @param string $name The name of the specific template.
 		 * @return array The new array of templates to include.
-		 * @author Paul Hughes
 		 * @since 3.0
 		 */
 		public function remove_list_navigation( $templates, $slug, $name ) {

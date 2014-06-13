@@ -12,7 +12,6 @@
  *
  * @package TribeEventsCalendarPro
  * @since  1.0
- * @author Modern Tribe Inc.
  *
  */
 

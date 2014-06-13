@@ -7,7 +7,6 @@
  *
  * @package TribeEventsCalendar
  * @since  3.0
- * @author Modern Tribe Inc.
  *
  */
 if ( !defined('ABSPATH') ) { die('-1'); } ?>
