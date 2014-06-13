@@ -10,13 +10,11 @@
  * Ignored since 3.0. These capabilities don't match up with what the plugin actually sets. -- jbrinley
  *
  * @package TribeEvents
- * @since 2.0.5
  */
 class Tribe_Capabilities_Test extends WP_UnitTestCase {
 	/**
 	 * Test to make sure the administrator role has all the capabilities related to tribe events.
 	 *
- 	 * @since 2.0.5
 	 */
 	public function test_administrator_role_capabilities() {
 	
@@ -70,7 +68,6 @@ class Tribe_Capabilities_Test extends WP_UnitTestCase {
 	/**
 	 * Test to make sure the editor role has all the capabilities related to tribe events.
 	 *
- 	 * @since 2.0.5
 	 */
 	public function test_editor_role_capabilities() {
 	
@@ -124,7 +121,6 @@ class Tribe_Capabilities_Test extends WP_UnitTestCase {
 	/**
 	 * Test to make sure the author role has the proper capabilities related to tribe events.
 	 *
- 	 * @since 2.0.5
 	 */
 	public function test_author_role_capabilities() {
 	
@@ -178,7 +174,6 @@ class Tribe_Capabilities_Test extends WP_UnitTestCase {
 	/**
 	 * Test to make sure the contributor role has the proper capabilities related to tribe events.
 	 *
- 	 * @since 2.0.5
 	 */
 	public function test_contributor_role_capabilities() {
 	
@@ -232,7 +227,6 @@ class Tribe_Capabilities_Test extends WP_UnitTestCase {
 	/**
 	 * Test to make sure the subscriber role has the proper capabilities related to tribe events.
 	 *
- 	 * @since 2.0.5
 	 */
 	public function test_subscriber_role_capabilities() {
 	

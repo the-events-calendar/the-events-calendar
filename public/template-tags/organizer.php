@@ -17,7 +17,6 @@ if( class_exists( 'TribeEvents' ) ) {
 	 *
 	 * @param int $postId Can supply either event id or organizer id, if none specified, current post is used
 	 * @return int Organizer
-	 * @since 2.0
 	 */
 	function tribe_get_organizer_id( $postId = null)  {
 		$postId = TribeEvents::postIdHelper( $postId );
@@ -40,7 +39,6 @@ if( class_exists( 'TribeEvents' ) ) {
 	 * Returns the singular version of the Organizer Label
 	 *
 	 * @return string
-	 * @since 3.6
 	 */
 	function tribe_get_organizer_label_singular() {
 		return apply_filters( 'tribe_organizer_label_singular', 'Organizer' );
@@ -52,7 +50,6 @@ if( class_exists( 'TribeEvents' ) ) {
 	 * Returns the plural version of the Organizer Label
 	 *
 	 * @return string
-	 * @since 3.6
 	 */
 	function tribe_get_organizer_label_plural() {
 		return apply_filters( 'tribe_organizer_label_plural', 'Organizers' );
@@ -65,7 +62,6 @@ if( class_exists( 'TribeEvents' ) ) {
 	 *
 	 * @param int $postId Can supply either event id or organizer id, if none specified, current post is used
 	 * @return string Organizer's Name
-	 * @since 2.0
 	 */
 	function tribe_get_organizer( $postId = null)  {
 		$postId = TribeEvents::postIdHelper( $postId );
@@ -84,7 +80,6 @@ if( class_exists( 'TribeEvents' ) ) {
 	 *
 	 * @param int $postId Can supply either event id or organizer id, if none specified, current post is used
 	 * @return bool
-	 * @since 2.0
 	 */
 	function tribe_has_organizer( $postId = null) {
 		$postId = TribeEvents::postIdHelper( $postId );
@@ -99,7 +94,6 @@ if( class_exists( 'TribeEvents' ) ) {
 	 *
 	 * @param int $postId Can supply either event id or organizer id, if none specified, current post is used
 	 * @return string Organizer's Email
-	 * @since 2.0
 	 */
 	function tribe_get_organizer_email( $postId = null)  {
 		$postId = TribeEvents::postIdHelper( $postId );
@@ -116,7 +110,6 @@ if( class_exists( 'TribeEvents' ) ) {
 	 * @param bool $full_link If true displays full html links around organizers name, if false returns just the link without displaying it
 	 * @param bool $echo If true, echo the link, otherwise return
 	 * @return string Organizer Name and Url
-	 * @since 2.0
 	 */
 	function tribe_get_organizer_link( $postId = null, $full_link = true, $echo = true ) {
 		$postId = TribeEvents::postIdHelper( $postId );
@@ -144,7 +137,6 @@ if( class_exists( 'TribeEvents' ) ) {
 	 *
 	 * @param int $postId Can supply either event id or organizer id, if none specified, current post is used
 	 * @return string Organizer's Phone Number
-	 * @since 2.0
 	 */
 	function tribe_get_organizer_phone( $postId = null)  {
 		$postId = TribeEvents::postIdHelper( $postId );
@@ -201,7 +193,6 @@ if( class_exists( 'TribeEvents' ) ) {
 	/**
 	 * Get all the organizers
 	 *
-	 * @since 2.1
 	 * @param $deprecated
 	 * @param $posts_per_page Maximum number of results
 	 * @return array An array of organizer post objects.

@@ -6,12 +6,10 @@
  * @group core
  *
  * @package TribeEvents
- * @since 2.0.5
  */
 class Tribe_Event_Creation_Test extends WP_UnitTestCase {
 
 	/**
- 	 * @since 2.0.5
 	 * @var holds example data for the post
 	 */
 	var $postExampleSettings;
@@ -19,7 +17,6 @@ class Tribe_Event_Creation_Test extends WP_UnitTestCase {
 	/**
 	 * Extend the setUp() function by assigning values for the event creation.
 	 *
- 	 * @since 2.0.5
 	 * @uses $postExampleSettings
 	 */
 	function setUp() {
@@ -47,7 +44,6 @@ class Tribe_Event_Creation_Test extends WP_UnitTestCase {
 	/**
 	 * Check to make sure that the post object is created from a returned post ID.
 	 *
- 	 * @since 2.0.5
 	 * @uses $postExampleSettings
 	 */
 	function test_tribe_create_event_template_tag_post_object_created() {
@@ -59,7 +55,6 @@ class Tribe_Event_Creation_Test extends WP_UnitTestCase {
 	/**
 	 * Check to make sure that the event data is saved properly.
 	 *
- 	 * @since 2.0.5
 	 */
 	function test_tribe_create_event_template_tag_meta_information() {
 		$post = get_post( tribe_create_event( $this->postExampleSettings ) );
@@ -80,7 +75,6 @@ class Tribe_Event_Creation_Test extends WP_UnitTestCase {
 	/**
 	 * Check to make sure that the post object is created from a returned post ID.
 	 *
- 	 * @since 2.0.5
 	 * @uses $postExampleSettings
 	 */
 	function test_tribe_create_event_API_post_object_created() {
@@ -92,7 +86,6 @@ class Tribe_Event_Creation_Test extends WP_UnitTestCase {
 	/**
 	 * Check to make sure that the event data is saved properly.
 	 *
- 	 * @since 2.0.5
 	 */
 	function test_tribe_create_event_API_meta_information() {
 		$post = get_post( TribeEventsAPI::createEvent( $this->postExampleSettings ) );

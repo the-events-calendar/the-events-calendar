@@ -16,7 +16,6 @@ class TribeEventsUpdate
 	 * Dispatch the update functions
 	 *
 	 * @return bool
-	 * @since 3.0.3
 	 **/
 	public function update_dispatch( $updated, $slug, $plugin_name, $new_version, $old_version ) {
 		if ( $slug == $this->slug ) { 
@@ -39,7 +38,6 @@ class TribeEventsUpdate
 	 * Update to version 3.0.4
 	 *
 	 * @return bool
-	 * @since 3.0.4
 	 **/
 	function update_to_3_1 ( $old_version ) {
 		// flush rewrite rules needed when updating to 3.1

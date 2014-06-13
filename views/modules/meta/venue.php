@@ -6,7 +6,6 @@
  * [your-theme]/tribe-events/modules/meta/venue.php
  *
  * @package TribeEventsCalendar
- * @since 3.6
  */
 
 if ( ! tribe_address_exists() ) return;

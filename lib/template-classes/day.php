@@ -4,7 +4,6 @@
  * This file contains hooks and functions required to set up the day view.
  *
  * @package TribeEventsCalendar
- * @since  3.0
  *
  */
 
@@ -20,7 +19,6 @@ if( !class_exists('Tribe_Events_Day_Template')){
 		 * Set up hooks for this template
 		 *
 		 * @return void
-		 * @since 3.0
 		 **/
 		public function hooks() {
 
@@ -34,7 +32,6 @@ if( !class_exists('Tribe_Events_Day_Template')){
 		 * Add header attributes for day view
 		 *
 		 * @return string
-		 * @since 3.0
 		 **/
 		public function header_attributes( $attrs ) {
 
@@ -59,7 +56,6 @@ if( !class_exists('Tribe_Events_Day_Template')){
 		 * Organize and reorder the events posts according to time slot
 		 *
 		 * @return void
-		 * @since 3.0
 		 **/
 		public function setup_view() {
 
@@ -95,7 +91,6 @@ if( !class_exists('Tribe_Events_Day_Template')){
 		 * Set up the notices for this template
 		 *
 		 * @return void
-		 * @since 3.0
 		 **/
 		public function set_notices() {
 			global $wp_query;

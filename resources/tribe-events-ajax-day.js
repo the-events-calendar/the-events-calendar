@@ -27,7 +27,6 @@
 
 		/**
 		 * @function tribe_day_add_classes
-		 * @since 3.0
 		 * @desc Add css classes needed for correct styling of the day list.
 		 */
 
@@ -97,7 +96,6 @@
 
 		/**
 		 * @function tribe_events_bar_dayajax_actions
-		 * @since 3.0
 		 * @desc On events bar submit, this function collects the current state of the bar and sends it to the day view ajax handler.
 		 * @param {event} e The event object.
 		 */
@@ -159,7 +157,6 @@
 
 		/**
 		 * @function tribe_events_day_ajax_post
-		 * @since 3.0
 		 * @desc The ajax handler for day view.
 		 * Fires the custom event 'tribe_ev_serializeBar' at start, then 'tribe_ev_collectParams' to gather any additional parameters before actually launching the ajax post request.
 		 * As post begins 'tribe_ev_ajaxStart' and 'tribe_ev_dayView_AjaxStart' are fired, and then 'tribe_ev_ajaxSuccess' and 'tribe_ev_dayView_ajaxSuccess' are fired on success.

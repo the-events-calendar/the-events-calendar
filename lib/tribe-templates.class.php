@@ -113,7 +113,6 @@ if (!class_exists('TribeEventsTemplates')) {
 		 *
 		 * @param bool $class
 		 * @return void
-		 * @since 3.0
 		 **/
 		public static function instantiate_template_class( $class = false ) {
 			if ( tribe_is_event_query() ) {
@@ -246,7 +245,6 @@ if (!class_exists('TribeEventsTemplates')) {
 		 * Spoof the global post just once
 		 *
 		 * @return void
-		 * @since 3.0
 		 **/
 		public static function spoof_the_post() {
 			$GLOBALS['post'] = self::spoofed_post();
@@ -452,7 +450,6 @@ if (!class_exists('TribeEventsTemplates')) {
 		 *
 		 * @param WP_Query $query
 		 * @return WP_Query
-		 * @since 2.1
 		 */
 		public static function showInLoops( $query ) {
 

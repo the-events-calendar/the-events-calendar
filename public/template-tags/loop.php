@@ -17,7 +17,6 @@ if( class_exists( 'TribeEvents' ) ) {
 	 * is different than the previous post. Will always return true for the first event in the loop.
 	 *
 	 * @return bool
-	 * @since 2.0
 	 */
 	function tribe_is_new_event_day()  {
 		global $post;
@@ -44,7 +43,6 @@ if( class_exists( 'TribeEvents' ) ) {
 	 * Returns true if the query is set for past events, false otherwise
 	 * 
 	 * @return bool
-	 * @since 2.0
 	 */
 	function tribe_is_past()  {
 		global $wp_query;
@@ -58,7 +56,6 @@ if( class_exists( 'TribeEvents' ) ) {
 	 * Returns true if the query is set for upcoming events, false otherwise
 	 * 
 	 * @return bool
-	 * @since 2.0
 	 */
 	function tribe_is_upcoming()  {
 		global $wp_query;
@@ -72,7 +69,6 @@ if( class_exists( 'TribeEvents' ) ) {
 	 * Returns true if the query is set to show all events, false otherwise
 	 * 
 	 * @return bool
-	 * @since 2.0
 	 */
 	function tribe_is_showing_all()  {
 		$tribe_ecp = TribeEvents::instance();
@@ -88,7 +84,6 @@ if( class_exists( 'TribeEvents' ) ) {
 	 *  Check if current display is "bydate"
 	 *
 	 * @return bool
-	 * @since 2.0
 	 */
 	function tribe_is_by_date() {
 		$tribe_ecp = TribeEvents::instance();
@@ -102,8 +97,7 @@ if( class_exists( 'TribeEvents' ) ) {
 	 * Display an event's title with pseudo-breadcrumb if on a category
 	 *
 	 * @param bool $depth include linked title
-	 * @since 2.0
-	 */ 
+	 */
 	function tribe_events_title( $depth = true )  {
 		echo apply_filters('tribe_events_title', tribe_get_events_title( $depth ));
 	}
@@ -115,7 +109,6 @@ if( class_exists( 'TribeEvents' ) ) {
 	 *
 	 * @param bool $depth include linked title
 	 * @return string title
-	 * @since 2.0
 	 */
 	function tribe_get_events_title( $depth = true )  {
 		global $wp_query;
@@ -186,7 +179,6 @@ if( class_exists( 'TribeEvents' ) ) {
 	 * Returns a link to the upcoming events in list view. Used in the loop view.
 	 *
 	 * @return string URL
-	 * @since 2.0
 	 */
 	function tribe_get_upcoming_link()  {
 		$tribe_ecp = TribeEvents::instance();
@@ -198,7 +190,6 @@ if( class_exists( 'TribeEvents' ) ) {
 	 * Used to determine if a link to past events should be displayed.
 	 *
 	 * @return bool
-	 * @since 3.3
 	 */
 	function tribe_has_past_events() {
 		global $wp_query;
@@ -223,7 +214,6 @@ if( class_exists( 'TribeEvents' ) ) {
 	 * Returns a link to the previous events in list view. Used in the loop view.
 	 *
 	 * @return string URL
-	 * @since 2.0
 	 */
 	function tribe_get_past_link()  {
 		$tribe_ecp = TribeEvents::instance();
@@ -236,7 +226,6 @@ if( class_exists( 'TribeEvents' ) ) {
 	 * Determines if we are in the main Loop (home/archives/tags)
 	 *
 	 * @return bool
-	 * @since 2.1
 	 */
 	function tribe_is_in_main_loop()  {
 		return apply_filters('tribe_is_main_loop', TribeEventsTemplates::$isMainLoop);
@@ -246,7 +235,6 @@ if( class_exists( 'TribeEvents' ) ) {
 	 * Determines if we are in list view.
 	 *
 	 * @return bool
-	 * @since 2.1
 	 */
 	function tribe_is_list_view()  {
 		if ( tribe_is_event_query() && ( tribe_is_upcoming() || tribe_is_past() || ( is_single() && tribe_is_showing_all() ) ) ) {
@@ -262,7 +250,6 @@ if( class_exists( 'TribeEvents' ) ) {
 	 * Used in list loop, displays the date headers between events in the loop when the month / year has changed
 	 *
 	 * @return void
-	 * @since 3.0
 	 **/
 	function tribe_events_list_the_date_headers() {
 
@@ -305,7 +292,6 @@ if( class_exists( 'TribeEvents' ) ) {
 	 * Checks whether we're on a particular view
 	 *
 	 * @return bool
-	 * @since 3.0
 	 **/
 	function tribe_is_view( $view = false ) {
 		return $view === TribeEvents::instance()->displaying;

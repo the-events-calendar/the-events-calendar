@@ -6,7 +6,6 @@
  * [your-theme]/tribe-events/modules/meta/details.php
  *
  * @package TribeEventsCalendar
- * @since 3.6
  */
 
 $phone = tribe_get_organizer_phone();

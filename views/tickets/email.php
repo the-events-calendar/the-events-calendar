@@ -16,7 +16,6 @@
  * 							  'security_code')
  *
  * @package TribeEventsCalendar
- * @since  3.0
  *
  */
 ?>

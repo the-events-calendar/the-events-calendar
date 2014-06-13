@@ -33,7 +33,6 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 		 *
 		 * @param WP_Query $query
 		 * @return void
-		 * @since 3.0.3
 		 **/
 		public static function parse_query( $query ) {
 

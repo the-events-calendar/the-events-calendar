@@ -18,7 +18,6 @@
  * @return string
  *
  * @package TribeEventsCalendar
- * @since  2.1
  *
  */
 if ( !defined('ABSPATH') ) { die('-1'); } 

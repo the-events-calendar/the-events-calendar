@@ -4,7 +4,6 @@
  * This file contains the hook logic required to create an effective calendar month view.
  *
  * @package TribeEventsCalendar
- * @since  2.1
  *
  */
 
@@ -37,7 +36,6 @@ if( !class_exists('Tribe_Events_Month_Template')){
 		 * Set the notices used on month view
 		 *
 		 * @param array $args Set of $wp_query params for the month view, if none passed then will default to $wp_query
-		 * @since 3.0
 		 */
 		public function __construct( $args = null ) {
 			if ( $args === null ) {
@@ -61,7 +59,6 @@ if( !class_exists('Tribe_Events_Month_Template')){
 		 * Add any special hooks for this view
 		 *
 		 * @return void
-		 * @since 3.0.2
 		 **/
 		protected function hooks() {
 			parent::hooks();
@@ -85,7 +82,6 @@ if( !class_exists('Tribe_Events_Month_Template')){
 		 * Set the notices used on month view
 		 *
 		 * @return void
-		 * @since 3.0
 		 **/
 		public function set_notices() {
 			global $wp_query;
@@ -130,7 +126,6 @@ if( !class_exists('Tribe_Events_Month_Template')){
 		 *
 		 * @param int $date
 		 * @return array
-		 * @since 3.0
 		 */
 		private static function get_daily_counts( $date ) {
 			global $wp_query;
@@ -167,7 +162,6 @@ if( !class_exists('Tribe_Events_Month_Template')){
 		 * @param int $date
 		 * @param array $args
 		 * @return string
-		 * @since 3.0
 		 */
 		private static function view_more_link( $date, $args ) {
 			if( !empty(self::$event_daily_counts[$date]) && (int) self::$event_daily_counts[$date] > self::$posts_per_page_limit ) {
@@ -207,7 +201,6 @@ if( !class_exists('Tribe_Events_Month_Template')){
 		 * Sets up an array of $days based on the current query, that can be used in the calendar loop
 		 *
 		 * @return void
-		 * @since 3.0
 		 **/
 		public function setup_view() {
 			do_action( 'log', 'setup view month view args', 'tribe-month', self::$args );
@@ -298,7 +291,6 @@ if( !class_exists('Tribe_Events_Month_Template')){
 		 * Checks whether there are more calendar days to display
 		 *
 		 * @return bool True if calendar days are available, false if not.
-		 * @since 3.0
 		 **/
 		public static function have_days() {
 			if ( self::$current_day + 1 < count( self::$calendar_days ) ) {
@@ -315,7 +307,6 @@ if( !class_exists('Tribe_Events_Month_Template')){
 		 * Advances the internal day counter (and week counter, if appropriate)
 		 *
 		 * @return void
-		 * @since 3.0
 		 **/
 		public static function the_day() {
 			if ( self::have_days() ) {
@@ -329,7 +320,6 @@ if( !class_exists('Tribe_Events_Month_Template')){
 		/**
 		 * Rewind the posts and reset post index.
 		 *
-		 * @since 1.5.0
 		 * @access public
 		 */
 		public static function rewind_days() {
@@ -341,7 +331,6 @@ if( !class_exists('Tribe_Events_Month_Template')){
 		 * Returns the current day according to self::$current_day
 		 *
 		 * @return int
-		 * @since 3.0
 		 **/
 		public static function get_current_day() {
 			if ( count( self::$calendar_days ) && self::$current_day < count( self::$calendar_days ) && isset( self::$calendar_days[self::$current_day] ) ) {
@@ -354,7 +343,6 @@ if( !class_exists('Tribe_Events_Month_Template')){
 		 * Generates and returns a set of classes for the current day
 		 *
 		 * @return string Classes
-		 * @since 3.0
 		 **/
 		public static function day_classes() {
 			$ppf = '';
@@ -397,7 +385,6 @@ if( !class_exists('Tribe_Events_Month_Template')){
 		 * Returns self::$current_week
 		 *
 		 * @return int $current_week
-		 * @since 3.0
 		 **/
 		public static function get_current_week() {
 			return self::$current_week;
@@ -407,7 +394,6 @@ if( !class_exists('Tribe_Events_Month_Template')){
 		 * Generates and returns a set of classes for the current day
 		 *
 		 * @return string Classes
-		 * @since 3.0
 		 **/
 		public function event_classes( $classes ) {
 

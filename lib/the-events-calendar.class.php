@@ -617,7 +617,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		/**
 		 * Upgrade the database if an older version of events was installed.
 		 *
-		 * @since 2.0.1
 		 */
 		public function maybeMigrateDatabase( ) {
 			// future migrations should actually check the db_version
@@ -668,7 +667,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		/**
 		 * Set the Calendar Version in the options table if it's not already set.
 		 *
-		 * @since 2.0.1
 		 */
 		public function maybeSetTECVersion() {
 			if ( version_compare($this->getOption('latest_ecp_version'), self::VERSION, '<') ) {
@@ -683,7 +681,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		/**
 		 * Check add-ons to make sure they are supported by currently running TEC version.
 		 *
-		 * @since 2.0.5
 		 * @return void
 		 */
 		public function checkAddOnCompatibility() {
@@ -750,7 +747,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		/**
 		 * Init the settings API and add a hook to add your own setting tabs
 		 *
-		 * @since 2.0.5
 		 * @return void
 		 */
 		public function initOptions() {
@@ -776,7 +772,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		/**
 		 * Create setting tabs
 		 *
-		 * @since 2.0.5
 		 * @return void
 		 */
 		public function doSettingTabs() {
@@ -1517,7 +1512,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 * Adds the submenu items for editing the Venues and Organizers.
 		 * Used to be PRO only feature, but as of 3.0, it is part of Core.
 		 *
-		 * @since 2.0
 		 *
 		 * @return void
 		 */
@@ -1578,7 +1572,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 * helper function for displaying the saved venue dropdown
 		 * Used to be a PRO only feature, but as of 3.0, it is part of Core.
 		 *
-		 * @since 2.0
 		 * @param mixed $current the current saved venue
 		 * @param string $name the name value for the field
 		 */
@@ -1634,7 +1627,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 * helper function for displaying the saved organizer dropdown
 		 * Used to be a PRO only feature, but as of 3.0, it is part of Core.
 		 *
-		 * @since 2.0
 		 * @param mixed $current the current saved venue
 		 * @param string $name the name value for the field
 		 */
@@ -2974,7 +2966,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		/**
 		 * Adds the '_<posttype>Origin' meta field for a newly inserted events-calendar post.
 		 *
-		 * @since 2.1
 		 * @param int $postId, the post ID
 		 * @param WP_Post $post, the post object
 		 * @return void
@@ -3013,7 +3004,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		/**
 		 * Adds to the '_<posttype>AuditTrail' meta field for an events-calendar post.
 		 *
-		 * @since 2.1
 		 * @param int $postId, the post ID
 		 * @param WP_Post $post, the post object
 		 * @return void
@@ -3042,7 +3032,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		/**
 		 * Publishes associated venue/organizer when an event is published
 		 *
-		 * @since 2.0.6
 		 * @param int $postID, the post ID
 		 * @param WP_Post $post, the post object
 		 * @return void
@@ -4037,7 +4026,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		/**
 		 * Add the buttons/dropdown to the admin toolbar
 		 *
-		 * @since 2.0.7
 		 * @return null
 		 */
 		public function addToolbarItems() {
@@ -4142,7 +4130,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		/**
 		 * Displays activation welcome admin notice.
 		 *
-		 * @since 2.0.8
 		 *
 		 * @return void
 		 */
@@ -4157,7 +4144,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		/**
 		 * Resets the option such that the activation message is again displayed on reactivation.
 		 *
-		 * @since 2.0.8
 		 *
 		 * @return void
 		 */
@@ -4169,7 +4155,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		/**
 		 * Displays the View Calendar link at the top of the Events list in admin.
 		 *
-		 * @since 2.0.8
 		 *
 		 * @return void
 		 */
@@ -4183,7 +4168,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		/**
 		 * Set the menu-edit-page to default display the events-related items.
 		 *
-		 * @since 2.0.8
 		 *
 		 * @return void
 		 */
@@ -4265,7 +4249,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 * @param string $link The current link.
 		 * @param string|null $date The date passed.
 		 * @return string The modified link.
-		 * @since 3.0
 		 */
 		public function add_empty_date_dayview_link( $link, $date ) {
 			if ( is_null( $date ) ) {
@@ -4303,7 +4286,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 *
 		 * @param array $views The current array of views registered to the tribe bar.
 		 * @return array The views registered with day view added.
-		 * @since 3.0
 		 */
 		public function setup_dayview_in_bar( $views ) {
 			$views[] = array( 'displaying' => 'day',
@@ -4376,7 +4358,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		/**
 		 * Removes views that have been deselected in the Template Settings as hidden from the view array.
 		 *
-		 * @since 3.0
 		 *
 		 * @param array $views The current views array.
 		 * @param bool $visible
@@ -4461,7 +4442,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 * The List View AJAX handler.
 		 *
 		 * @return void
-		 * @since 3.0
 		 */
 		function list_ajax_call() {
 
@@ -4552,7 +4532,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 * @param $insert_array
 		 * @return array
 		 *
-		 * @since 3.0
 		 */
 		public static function array_insert_after_key( $key, $source_array, $insert_array ) {
 			if ( array_key_exists( $key, $source_array ) ) {
@@ -4582,7 +4561,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 * The Calendar View AJAX Handler.
 		 *
 		 * @return void
-		 * @since 3.0
 		 */
 		function calendar_ajax_call() {
 
@@ -4626,7 +4604,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 * This loads up the day view shard with all the appropriate events for the day
 		 *
 		 * @return void
-		 * @since 3.0
 		 */
 		function wp_ajax_tribe_event_day(){
 			if ( isset( $_POST["eventDate"] ) && $_POST["eventDate"] ) {
@@ -4682,7 +4659,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 * be run.
 		 *
 		 * @return void
-		 * @since 3.0
 		 */
 		public function checkSuiteIfJustUpdated() {
 			$plugins = apply_filters( 'tribe_tec_addons', array( 'TribeEventsCalendar' => array( 'plugin_name' => 'The Events Calendar', 'required_version' => self::VERSION, 'current_version' => self::VERSION, 'plugin_dir_file' => basename( dirname( __FILE__ ) ) . '/the-events-calendar.php' ) ) );
