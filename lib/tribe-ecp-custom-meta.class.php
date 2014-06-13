@@ -107,47 +107,47 @@ class TribeEventsCustomMeta {
 	}
 
 	/**
-	 * save_meta_options
-	 *
-	 * saves the custom field configuration (what custom fields exist for events)
+	 * Save/update the additional field structure.
 	 *
 	 * @param $ecp_options
-	 *
 	 * @return array
 	 */
 	public static function save_meta_options($ecp_options) {
-		$count = 1;
+		// Maintain a record of the highest assigned custom field index
+		$max_index = isset( $ecp_options['custom-fields-max-index'] )
+			? $ecp_options['custom-fields-max-index']
+			: count( $ecp_options['custom-fields'] ) + 1;
+
+		// Clear the existing list of custom fields
 		$ecp_options['custom-fields'] = array();
 
 		// save the view state for custom fields
 		$ecp_options['disable_metabox_custom_fields'] = $_POST['disable_metabox_custom_fields'];
 		
-		for ( $i = 0; $i < count( $_POST['custom-field'] ); $i++ ) {
-			$name = strip_tags( $_POST['custom-field'][$i] );
-			$type = strip_tags( $_POST['custom-field-type'][$i] );
-			$values = strip_tags( $_POST['custom-field-options'][$i] );
+		foreach ( $_POST['custom-field'] as $index => $field ) {
+			$name = strip_tags( $_POST['custom-field'][$index] );
+			$type = strip_tags( $_POST['custom-field-type'][$index] );
+			$values = strip_tags( $_POST['custom-field-options'][$index] );
 
 			// Remove empty lines
 			$values = preg_replace( "/(^[\r\n]*|[\r\n]+)[\s\t]*[\r\n]+/", "\r\n", $values );
 			$values = rtrim( $values );
 
-		/*while( isset($_POST['custom-field-' . $count]) ) {
-			$name = strip_tags($_POST['custom-field-' . $count]);
-			$type = strip_tags($_POST['custom-field-type-' . $count]);
-			$values = strip_tags($_POST['custom-field-options-' . $count]);
-		*/
-			if( $name ) {
-				$ecp_options['custom-fields'][] = array(
-          'name' => '_ecp_custom_' . $count,
-					'label' => $name,
-					'type' => $type,
-					'values' => $values
-				);
-			}
+			// The indicies of pre-existing custom fields begin with an underscore - so if
+			// the index does not have an underscore we need to assign a new one
+			if ( 0 === strpos( $index, '_' ) ) $assigned_index = substr( $index, 1 );
+			else $assigned_index = ++$max_index;
 
-			$count++;
+			if( $name ) $ecp_options['custom-fields'][$assigned_index] = array(
+				'name' => '_ecp_custom_' . $assigned_index,
+				'label' => $name,
+				'type' => $type,
+				'values' => $values
+			);
 		}
 
+		// Update the max index and return the updated options array
+		$ecp_options['custom-fields-max-index'] = $max_index;
 		return $ecp_options;
 	}
 
