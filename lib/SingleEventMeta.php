@@ -57,7 +57,6 @@ class TribeEventsPro_SingleEventMeta {
 	 * @deprecated since 3.6
 	 * @param string $meta_id The meta group this is in.
 	 * @return string The custom description.
-	 * @since 3.0
 	 */
 	public static function custom_recurrence_description( $meta_id ){
 		global $_tribe_meta_factory;
@@ -78,7 +77,6 @@ class TribeEventsPro_SingleEventMeta {
 	 * @param string $html The current venue name.
 	 * @param string $meta_id The meta group this is in.
 	 * @return string The modified/linked venue name.
-	 * @since 3.0
 	 */
 	public static function venue_name( $html, $meta_id ){
 		global $_tribe_meta_factory;
@@ -99,7 +97,6 @@ class TribeEventsPro_SingleEventMeta {
 	 * @param string $html The current organizer name.
 	 * @param string $meta_id The meta group this is in.
 	 * @return string The modified/linked organizer name.
-	 * @since 3.0
 	 */
 	public static function organizer_name( $html, $meta_id ){
 		global $_tribe_meta_factory;
@@ -118,7 +115,6 @@ class TribeEventsPro_SingleEventMeta {
 	 * @deprecated since 3.6
 	 * @param string $meta_id The meta group this is in.
 	 * @return string The custom meta.
-	 * @since 3.0
 	 */
 	public static function custom_meta( $meta_id ){
 		global $_tribe_meta_factory;

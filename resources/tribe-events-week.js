@@ -397,7 +397,6 @@
 
 		/**
 		 * @function tribe_events_bar_weekajax_actions
-		 * @since 3.0
 		 * @desc On events bar submit, this function collects the current state of the bar and sends it to the week view ajax handler.
 		 * @param {event} e The event object.
 		 * @param {string} date Date passed by datepicker.
@@ -456,7 +455,6 @@
 
 		/**
 		 * @function tribe_events_week_ajax_post
-		 * @since 3.0
 		 * @desc The ajax handler for week view.
 		 * Fires the custom event 'tribe_ev_serializeBar' at start, then 'tribe_ev_collectParams' to gather any additional parameters before actually launching the ajax post request.
 		 * As post begins 'tribe_ev_ajaxStart' and 'tribe_ev_weekView_AjaxStart' are fired, and then 'tribe_ev_ajaxSuccess' and 'tribe_ev_weekView_ajaxSuccess' are fired on success.

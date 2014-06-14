@@ -94,7 +94,6 @@ class TribeEventsCustomMeta {
 
 	/**
 	 * enforce saving on additional fields tab
-	 * @since 2.0.5
 	 * @return void
 	 */
 	public static function force_save_meta() {
@@ -153,7 +152,6 @@ class TribeEventsCustomMeta {
 	 *
 	 * retrieve a custom field's value by searching its label
 	 * instead of its (more obscure) ID
-	 * @since 2.0.3
 	 * @param (string) $label, the label to search for
 	 * @param (int) $eventID (optional), the event to look for, defaults to global $post
 	 * @return (string) value of the field

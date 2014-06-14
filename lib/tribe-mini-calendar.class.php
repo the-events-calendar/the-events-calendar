@@ -26,7 +26,6 @@ class TribeEventsMiniCalendar {
 	 *
 	 * @param string $format
 	 * @return string
-	 * @since 3.0
 	 */
 	public function get_month( $format = TribeDateUtils::DBDATETIMEFORMAT )	{
 		if ( defined( 'DOING_AJAX' ) && DOING_AJAX )
@@ -39,7 +38,6 @@ class TribeEventsMiniCalendar {
 	 * Get the args passed to the mini calendar
 	 *
 	 * @return array
-	 * @since 3.0
 	 **/
 	public function get_args() {
 		return $this->args;

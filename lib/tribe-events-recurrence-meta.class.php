@@ -945,7 +945,6 @@ class TribeEventsRecurrenceMeta {
 	/**
 	 * Adds the Group By that hides future occurences of recurring events if setting is set to.
 	 *
-	 * @since 3.0
 	 *
 	 * @param string $group_by The current group by clause.
 	 * @param $query
@@ -965,7 +964,6 @@ class TribeEventsRecurrenceMeta {
 	/**
 	 * Adds setting for hiding subsequent occurrences by default.
 	 *
-	 * @since 3.0
 	 *
 	 * @param array $args
 	 * @param string $id
@@ -1033,7 +1031,6 @@ class TribeEventsRecurrenceMeta {
 	/**
 	 * Combines the ['post'] piece of the $_REQUEST variable so it only has unique post ids.
 	 *
-	 * @since 3.0
 	 *
 	 * @return void
 	 */

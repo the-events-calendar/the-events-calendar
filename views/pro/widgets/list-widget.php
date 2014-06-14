@@ -11,7 +11,6 @@
  * $address, $city, $state, $province'], $zip, $country, $phone, $cost
  *
  * @package TribeEventsCalendarPro
- * @since  1.0
  *
  */
 

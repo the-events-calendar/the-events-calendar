@@ -26,7 +26,6 @@ if ( class_exists( 'TribeEventsPro' ) ) {
 	/**
 	 * set the loop type for week view between all day and hourly events
 	 *
-	 * @since  3.0
 	 * @param string  $loop_type
 	 * @return void
 	 */
@@ -39,7 +38,6 @@ if ( class_exists( 'TribeEventsPro' ) ) {
 	 * Whether there are more calendar days available in the loop.
 	 *
 	 * @return bool True if calendar days are available, false if end of loop.
-	 * @since 3.0
 	 * @return  void
 	 * */
 	function tribe_events_week_have_days() {
@@ -49,7 +47,6 @@ if ( class_exists( 'TribeEventsPro' ) ) {
 	/**
 	 * increment the current day loop
 	 *
-	 * @since 3.0
 	 * @return void
 	 */
 	function tribe_events_week_the_day() {
@@ -59,7 +56,6 @@ if ( class_exists( 'TribeEventsPro' ) ) {
 	/**
 	 * increment the row for the all day map
 	 *
-	 * @since 3.0
 	 * @return void
 	 */
 	function tribe_events_week_the_day_map() {
@@ -72,7 +68,6 @@ if ( class_exists( 'TribeEventsPro' ) ) {
 	/**
 	 * provide a clean way to reset the counter for the all day map row iterator
 	 *
-	 * @since 3.0
 	 * @return void
 	 */
 	function tribe_events_week_reset_the_day_map() {
@@ -82,7 +77,6 @@ if ( class_exists( 'TribeEventsPro' ) ) {
 	/**
 	 * setup css classes for daily columns in week view
 	 *
-	 * @since  3.0
 	 * @return void
 	 */
 	function tribe_events_week_column_classes() {
@@ -137,7 +131,6 @@ if ( class_exists( 'TribeEventsPro' ) ) {
 	/**
 	 * get map of all day events for week view
 	 *
-	 * @since  3.0
 	 * @return array of event ids
 	 */
 	function tribe_events_week_get_all_day_map() {
@@ -148,7 +141,6 @@ if ( class_exists( 'TribeEventsPro' ) ) {
 	/**
 	 * get array of hourly event objects
 	 *
-	 * @since  3.0
 	 * @return array of hourly event objects
 	 */
 	function tribe_events_week_get_hourly() {
@@ -159,7 +151,6 @@ if ( class_exists( 'TribeEventsPro' ) ) {
 	/**
 	 * set internal mechanism for setting event id for retrieval with other tags
 	 *
-	 * @since  3.0
 	 * @param int     $event_id
 	 * @return boolean
 	 */
@@ -193,7 +184,6 @@ if ( class_exists( 'TribeEventsPro' ) ) {
 	/**
 	 * get internal event id pointer
 	 *
-	 * @since  3.0
 	 * @return int $event_id
 	 */
 	function tribe_events_week_get_event_id( $echo = true ) {
@@ -208,7 +198,6 @@ if ( class_exists( 'TribeEventsPro' ) ) {
 	/**
 	 * check to see if placeholder should be used in template in place of event block
 	 *
-	 * @since  3.0
 	 * @return boolean
 	 */
 	function tribe_events_week_is_all_day_placeholder() {
@@ -223,7 +212,6 @@ if ( class_exists( 'TribeEventsPro' ) ) {
 	/**
 	 * get event object
 	 *
-	 * @since  3.0
 	 * @return object
 	 */
 	function tribe_events_week_get_event() {

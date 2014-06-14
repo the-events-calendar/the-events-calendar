@@ -15,7 +15,6 @@
  * readme on templates hooks and filters (TO-DO)
  *
  * @package TribeEventsCalendarPro
- * @since  3.0
  *
  */
  
