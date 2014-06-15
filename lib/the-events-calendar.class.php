@@ -252,7 +252,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			require_once 'tribe-events-bar.class.php';
 			require_once 'tribe-the-events-calendar-import.class.php';
 			require_once 'tribe-support.class.php';
-			//require_once( 'tribe-debug-bar.class.php' );
 			require_once 'tribe-amalgamator.php';
 			require_once 'tribe-events-update.class.php';
 
@@ -361,7 +360,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 
 			add_filter( 'query_vars',		array( $this, 'eventQueryVars' ) );
-			//add_filter( 'the_content', array($this, 'emptyEventContent' ), 1 );
 			add_filter( 'wp_title', array($this, 'maybeAddEventTitle' ), 10, 2 );
 			add_filter( 'bloginfo_rss',	array($this, 'add_space_to_rss' ) );
 			add_filter( 'post_updated_messages', array($this, 'updatePostMessage') );
@@ -611,7 +609,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			self::debug(sprintf(__('Initializing Tribe Events on %s','tribe-events-calendar'),date('M, jS \a\t h:m:s a')));
 			$this->maybeMigrateDatabase();
 			$this->maybeSetTECVersion();
-			// TribeEventsQuery::deregister();
 		}
 
 		/**
@@ -3260,8 +3257,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			}else{
 				$post = $event;
 
-				//echo $post->ID;
-
 				if($post->ID){
 					$saved = true;
 				}else{
@@ -3325,7 +3320,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				foreach ( $defaults as $tag ) {
 
 					$cleaned_tag = str_replace('_Venue','',$tag);
-					//echo $tag.' | '.$cleaned_tag.'<BR>';
 
 					$var_name = '_Venue'.$cleaned_tag;
 
@@ -3860,9 +3854,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				)
 			);
 			// TODO: Finish rewriting this query to be WP_QUERY based
-			// TribeEventsQuery::deregister();
-			// $event_link = new WP_Query($args);
-			// print_r($event_link);
 
 			$results = $wpdb->get_row($eventsQuery, OBJECT);
 			if(is_object($results)) {
