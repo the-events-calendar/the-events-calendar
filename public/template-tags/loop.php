@@ -187,25 +187,53 @@ if( class_exists( 'TribeEvents' ) ) {
 	}
 
 	/**
-	 * Used to determine if a link to past events should be displayed.
+	 * Are there any events previous to the current events in $wp_query
 	 *
-	 * @return bool
+	 * @param string $return what to return, 'bool' or 'event'
+	 *
+	 * @return mixed
 	 */
-	function tribe_has_past_events() {
+	function tribe_has_previous_event( $return = 'bool' ) {
 		global $wp_query;
-		$past_events = false;
+		$previous_event = false;
 
 		if ( tribe_is_event_query() ) {
-			// Reform the current event query to look for past events
+			// Reverse the current event query to look for past events
 			$args = (array) $wp_query->query;
 			$args['eventDisplay'] = 'past';
 			$args['posts_per_page'] = 1;
 
 			$events = tribe_get_events( $args );
-			$past_events = count( $events ) > 0;
+			if ( count( $events ) > 0 && $return == 'event' ) {
+				$previous_event = $events[0];
+			} else {
+				$previous_event = count( $events ) > 0;
+			}
+
 		}
 
-		return apply_filters( 'tribe_has_past_events', $past_events );
+		// @todo 'tribe_has_past_events' filter is @deprecated as of 3.7
+		return apply_filters( 'tribe_has_previous_event', apply_filters('tribe_has_past_events', $previous_event ) );
+	}
+
+	/**
+	 * Is the previous event in the past
+	 *
+	 * @see tribe_has_previous_event()
+	 */
+	function tribe_is_previous_event_past() {
+
+		$is_past_event = false;
+		$previous_event = tribe_has_previous_event( 'event' );
+
+		if ( ! empty( $previous_event ) ) {
+			$previous_event_end_time = strtotime( tribe_get_end_date( $previous_event ) );
+			if ( $previous_event_end_time < time() ) {
+				$is_past_event = true;
+			}
+		}
+
+		return apply_filters( 'tribe_is_previous_event_past', $is_past_event, $previous_event );
 	}
 
 	/**
@@ -220,7 +248,6 @@ if( class_exists( 'TribeEvents' ) ) {
 		$output = $tribe_ecp->getLink('past');
 		return apply_filters('tribe_get_past_link', $output);
 	}
-
 
 	/**
 	 * Determines if we are in the main Loop (home/archives/tags)
@@ -286,6 +313,47 @@ if( class_exists( 'TribeEvents' ) ) {
 
 			echo apply_filters('tribe_events_list_the_date_headers', $html, $event_month, $event_year);
 		}		
+	}
+
+	/**
+	 * Determine classes to apply to left side nav links
+	 *
+	 * @param $side
+	 */
+	function tribe_left_navigation_classes() {
+
+		$classes        = array();
+		$tribe_paged    = ( ! empty( $_REQUEST['tribe_paged'] ) ) ? $_REQUEST['tribe_paged'] : 1;
+
+		$classes['direction'] = tribe_is_upcoming() ? 'tribe-events-nav-previous' : 'tribe-events-nav-next';
+		$classes['side']      = 'tribe-events-nav-left';
+
+		if ( tribe_is_past() || ( ( tribe_is_upcoming() && $tribe_paged == 1 ) ) ) {
+			$classes['past'] = 'tribe-events-past';
+		}
+		$classes = apply_filters( 'tribe_left_navigation_classes', $classes );
+		return implode( ' ', $classes );
+	}
+
+	/**
+	 * Determine classes to apply to right side nav links
+	 *
+	 * @param $side
+	 */
+	function tribe_right_navigation_classes() {
+
+		$classes        = array();
+		$tribe_paged    = ( ! empty( $_REQUEST['tribe_paged'] ) ) ? $_REQUEST['tribe_paged'] : 1;
+
+		$classes['direction'] = tribe_is_upcoming() ? 'tribe-events-nav-next' : 'tribe-events-nav-previous';
+		$classes['side'] = 'tribe-events-nav-right';
+
+		if ( tribe_is_past() && $tribe_paged > 1 ) {
+			$classes['past'] = 'tribe-events-past';
+		}
+
+		$classes = apply_filters( 'tribe_right_navigation_classes', $classes );
+		return implode( ' ', $classes );
 	}
 
 	/**
