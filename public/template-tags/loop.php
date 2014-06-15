@@ -117,33 +117,7 @@ if( class_exists( 'TribeEvents' ) ) {
 		$title = __('Upcoming Events', 'tribe-events-calendar');
 
 		// TODO: Use the displayed dates for the title
-		/*
-		if ( tribe_is_upcoming() || isset( $_REQUEST['tribe-bar-date'] ) ) {
-
-			$start_date = date( 'Y-m-d', strtotime( $wp_query->get( 'start_date' ) ) );
-
-			if ( $wp_query->get( 'start_date' ) && $start_date != date('Y-m-d') ) {
-
-				if ( get_query_var('paged') > 1 ) {
-					// get the date of the first post
-					$first_post = reset($wp_query->posts);
-					$start_date = date('Y-m-d', strtotime($first_post->EventStartDate));
-				}
-				$format = __('Events for %1$s', 'tribe-events-calendar');
-				$args = array(date_i18n( get_option( 'date_format', 'Y-m-d' ), strtotime($start_date) ));
-
-				// Get the date of the last post
-				if ( count($wp_query->posts) > 1 ) {
-					$last_post = end($wp_query->posts);
-					$last_post_date = date('Y-m-d', strtotime($last_post->EventStartDate));
-					if ( $last_post_date != $start_date ) {
-						$format = __('Events for %1$s through %2$s', 'tribe-events-calendar');
-						$args[] = date_i18n( get_option( 'date_format', 'Y-m-d' ), strtotime($last_post_date) );
-					}
-				}
-				$title = vsprintf($format, $args); 
-			}
-		} else */if ( tribe_is_past() ) {
+		if ( tribe_is_past() ) {
 			$title = __( 'Past Events', 'tribe-events-calendar' );
 		}
 

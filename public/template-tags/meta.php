@@ -114,7 +114,6 @@ if ( class_exists('TribeEvents') ) {
 		$meta = Tribe_Meta_Factory::get_args( $meta_id );
 
 		// internal check for hiding items in the meta
-		// if( $is_the_meta && ! $meta['show_on_meta'] ){
 		if( ! $meta['show_on_meta'] ){
 			return false;
 		}

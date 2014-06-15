@@ -317,7 +317,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 * @return mixed meta value(s)
 	 */
 	function tribe_get_event_meta( $postId = null, $meta = false, $single = true ) {
-		//$postId = TribeEvents::postIdHelper( $postId );
+		$postId = TribeEvents::postIdHelper( $postId );
 		$tribe_ecp = TribeEvents::instance();
 		$output = $tribe_ecp->getEventMeta( $postId, $meta, $single );
 		return apply_filters( 'tribe_get_event_meta', $output, $postId, $meta, $single );
@@ -538,7 +538,6 @@ if ( class_exists( 'TribeEvents' ) ) {
 			unset($days_of_week[$i]);
 			$days_of_week[$i] = $day;
 		}
-		// $days_of_week = array_values($days_of_week);
 		return apply_filters('tribe_events_get_days_of_week', $days_of_week);
 	}
 
@@ -928,8 +927,6 @@ if ( class_exists( 'TribeEvents' ) ) {
 		if ( $end_date <= new DateTime( $end_date->format( 'Y-m-d '.$day_cutoff ) ) ) {
 			$end_date->modify('-1 day');
 		}
-		//      This doesn't work on php 5.2
-		//  $interval = $start_date->diff($end_date);
 
 		return TribeDateUtils::dateDiff( $start_date->format( 'Y-m-d '.$day_cutoff ), $end_date->format( 'Y-m-d '.$day_cutoff ) );
 	}

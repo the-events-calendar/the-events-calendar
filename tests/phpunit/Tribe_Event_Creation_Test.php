@@ -68,7 +68,6 @@ class Tribe_Event_Creation_Test extends WP_UnitTestCase {
 		$this->assertEquals( 1, get_post_meta( $post->ID, '_EventShowMapLink', true ) );
 		$this->assertEquals( 1, get_post_meta( $post->ID, '_EventShowMapLink', true ) );
 		$this->assertEquals( 1, get_post_meta( $post->ID, '_EventShowMap', true ) );
-		//$this->assertEquals( '2012-01-01 01:15:00', TribeEvents::get_series_start_date( $post->ID ) );
 		$this->assertEquals( '2012-01-03 15:25:00', get_post_meta( $post->ID, '_EventEndDate', true ) );
 	}
 
@@ -99,7 +98,6 @@ class Tribe_Event_Creation_Test extends WP_UnitTestCase {
 		$this->assertEquals( 1, get_post_meta( $post->ID, '_EventShowMapLink', true ) );
 		$this->assertEquals( 1, get_post_meta( $post->ID, '_EventShowMapLink', true ) );
 		$this->assertEquals( 1, get_post_meta( $post->ID, '_EventShowMap', true ) );
-		//$this->assertEquals( '2012-01-01 01:15:00', TribeEvents::get_series_start_date( $post->ID ) );
 		$this->assertEquals( '2012-01-03 15:25:00', get_post_meta( $post->ID, '_EventEndDate', true ) );
 	}
 

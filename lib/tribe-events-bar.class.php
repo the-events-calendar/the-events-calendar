@@ -23,10 +23,6 @@ class TribeEventsBar {
 		add_filter( 'body_class', array( $this, 'body_class') );
 		add_action('tribe_events_bar_before_template',  array( $this, 'disabled_bar_before') );
 		add_action('tribe_events_bar_after_template',  array( $this, 'disabled_bar_after') );
-
-		// add_action( 'tribe-events-bar-show-filters', array( $this, 'print_filters_helper' ) );
-		// add_action( 'tribe-events-bar-show-views', 	 array( $this, 'print_views_helper' ) );
-
 	}
 
 	/**

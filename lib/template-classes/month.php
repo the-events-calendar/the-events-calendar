@@ -255,9 +255,7 @@ if( !class_exists('Tribe_Events_Month_Template')){
 			// get $cur_calendar_day up to speed
 			$cur_calendar_day += $prev_month_offset;
 
-			// if (in_array(0, self::$event_daily_counts)) {
-				$empty_query = new WP_Query();
-			// }
+			$empty_query = new WP_Query();
 
 			// add days for this month
 			for ($i = 0; $i < $days_in_month; $i++) {
@@ -347,7 +345,6 @@ if( !class_exists('Tribe_Events_Month_Template')){
 		public static function day_classes() {
 			$ppf = '';
 			$calendar_day = self::$calendar_days[self::$current_day];
-			// echo $calendar_day['date'];
 			if ($calendar_day['date'] == 'previous' || $calendar_day['date'] == 'next') {
 				$ppf = 'tribe-events-othermonth';
 			} else {

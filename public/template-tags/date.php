@@ -37,7 +37,7 @@ if( class_exists( 'TribeEvents' ) ) {
 		if( isset($event->EventStartDate) ){
 			$date = strtotime( $event->EventStartDate );
 		}else{
-			return; // '&mdash;';
+			return;
 		}
 
 		return tribe_event_format_date($date, $displayTime, $dateFormat );
@@ -81,7 +81,7 @@ if( class_exists( 'TribeEvents' ) ) {
 			}
 			$date = strtotime( $event->EventEndDate );
 		} else{
-			return; // '&mdash;';
+			return;
 		}
 
 		return tribe_event_format_date( $date, $displayTime, $dateFormat );

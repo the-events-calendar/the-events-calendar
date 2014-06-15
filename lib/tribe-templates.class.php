@@ -455,8 +455,8 @@ if (!class_exists('TribeEventsTemplates')) {
 
 			if ( ! is_admin() && tribe_get_option( 'showInLoops' ) && ( $query->is_home() || $query->is_tag ) && empty( $query->query_vars['post_type'] ) && false == $query->query_vars['suppress_filters'] ) {
 
+				// @todo remove
 				// 3.3 know-how for main query check
-				// if (method_exists($query, 'is_main_query')) {
 				if ( self::is_main_loop( $query ) ) {
 					self::$isMainLoop = true;
 					$post_types = array('post', TribeEvents::POSTTYPE);
