@@ -951,7 +951,7 @@ class TribeEventsRecurrenceMeta {
 	 * @return string The new group by clause.
 	 */
 	public static function addGroupBy( $group_by, $query ) {
-		if ( tribe_is_month() || tribe_is_week() ) {
+		if ( tribe_is_month() || tribe_is_week() || tribe_is_day() ) {
 			return $group_by;
 		}
 		if ( isset( $query->query_vars['tribeHideRecurrence'] ) && $query->query_vars['tribeHideRecurrence'] == 1 ) {

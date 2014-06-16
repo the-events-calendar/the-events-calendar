@@ -1209,7 +1209,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		public function setup_hide_recurrence_in_query( $query ) {
 
 			// don't hide any recurrences on the all recurrences view
-			if ( tribe_is_showing_all() )
+			if ( tribe_is_showing_all() || tribe_is_week() || tribe_is_month() || tribe_is_day() )
 				return $query;
 
 			// don't hide any recurrences in the admin
