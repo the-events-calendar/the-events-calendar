@@ -48,9 +48,17 @@ if( !class_exists( 'TribeCountdownWidget') ) {
 				'show_seconds' => true,
 				'complete' => 'Hooray!',
 			);
+
 			$instance = wp_parse_args( (array) $instance, $defaults);
 			$limit = apply_filters( 'tribe_events_pro_countdown_widget_limit', 250 );
-			$events = tribe_get_events( array( 'eventDisplay' => 'upcoming', 'posts_per_page' => $limit ) );
+			$paged = apply_filters( 'tribe_events_pro_countdown_widget_paged', 1 );
+
+			$events = tribe_get_events( array(
+				'eventDisplay' => 'upcoming',
+				'posts_per_page' => $limit,
+				'paged' => $paged
+			) );
+
 			include( TribeEventsPro::instance()->pluginPath . 'admin-views/widget-admin-countdown.php' );
 		}
 
