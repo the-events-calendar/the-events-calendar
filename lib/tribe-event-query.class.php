@@ -223,6 +223,7 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 						$query->set( 'end_date', tribe_event_end_of_day( $event_date ) );
 						$query->set( 'posts_per_page', -1 ); // show ALL day posts
 						$query->set( 'hide_upcoming', false );
+						$query->set( 'order', self::set_order( 'ASC', $query ) );
 						break;
 					case 'all':
 						$query->set( 'orderby', self::set_orderby( null, $query ) );

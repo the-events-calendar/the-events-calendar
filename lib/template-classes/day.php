@@ -70,19 +70,20 @@ if( !class_exists('Tribe_Events_Day_Template')){
 						? __( 'All Day', 'tribe-events-calendar-pro' )
 						: tribe_get_start_date( $post, false, $time_format );
 				}
-				unset($post);
+				unset( $post );
 
 				// Make sure All Day events come first
 				$all_day = array();
-				$hourly = array();
-				foreach($unsorted_posts as $i => $post) {
-					if ($post->timeslot == __('All Day', 'tribe-events-calendar')) {
+				$hourly  = array();
+				foreach ( $unsorted_posts as $i => $post ) {
+					if ( $post->timeslot == __( 'All Day', 'tribe-events-calendar' ) ) {
 						$all_day[$i] = $post;
 					} else {
 						$hourly[$i] = $post;
 					}
 				}
-				$wp_query->posts = array_values($all_day + $hourly);
+
+				$wp_query->posts = array_values( $all_day + $hourly );
 				$wp_query->rewind_posts();
 			}
 		}
