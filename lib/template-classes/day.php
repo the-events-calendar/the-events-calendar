@@ -66,24 +66,31 @@ if( !class_exists('Tribe_Events_Day_Template')){
 			if ( $wp_query->have_posts() ) {
 				$unsorted_posts = $wp_query->posts;
 				foreach ( $unsorted_posts as &$post ) {
-					$post->timeslot = tribe_event_is_all_day( $post->ID )
-						? __( 'All Day', 'tribe-events-calendar-pro' )
-						: tribe_get_start_date( $post, false, $time_format );
+					if ( tribe_event_is_all_day( $post->ID ) ) {
+						$post->timeslot = __( 'All Day', 'tribe-events-calendar' );
+					} else if ( strtotime( tribe_get_start_date( $post->ID, true, TribeDateUtils::DBDATETIMEFORMAT ) ) < strtotime( $wp_query->get( 'start_date' ) ) ) {
+						$post->timeslot = __( 'Ongoing', 'tribe-events-calendar' );
+					} else {
+						$post->timeslot = tribe_get_start_date( $post, false, $time_format );
+					}
 				}
 				unset( $post );
 
 				// Make sure All Day events come first
 				$all_day = array();
+				$ongoing = array();
 				$hourly  = array();
 				foreach ( $unsorted_posts as $i => $post ) {
 					if ( $post->timeslot == __( 'All Day', 'tribe-events-calendar' ) ) {
 						$all_day[$i] = $post;
+					} else if ( $post->timeslot == __( 'Ongoing', 'tribe-events-calendar' ) ) {
+						$ongoing[$i] = $post;
 					} else {
 						$hourly[$i] = $post;
 					}
 				}
 
-				$wp_query->posts = array_values( $all_day + $hourly );
+				$wp_query->posts = array_values( $all_day + $ongoing + $hourly );
 				$wp_query->rewind_posts();
 			}
 		}
