@@ -167,7 +167,7 @@ class TribeDateFilter {
 			$field = '';
 
 			if ( $key === 'ecp_start_date' )
-				$field = "$wpdb->postmeta.meta_value";
+				$field = "eventStart.meta_value";
 			if ( $key === 'ecp_end_date' )
 				$field = "eventEnd.meta_value";
 
