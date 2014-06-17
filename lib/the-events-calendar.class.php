@@ -4066,9 +4066,9 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 			$parent = 'edit.php?post_type=' . self::POSTTYPE;
 			$title = __( 'Help', 'tribe-events-calendar' );
-			$slug = add_query_arg( array( 'post_type' => self::POSTTYPE, 'page' => 'tribe-events-calendar', 'tab' => 'help' ) );
+			$slug = add_query_arg( array( 'post_type' => self::POSTTYPE, 'page' => 'tribe-events-calendar', 'tab' => 'help' ), 'edit.php' );
 
-			add_submenu_page( $parent, $title, $title, 'manage_options', $slug, 'edit.php?post_type=tribe_events&page=tribe-events-calendar&tab=help');
+			add_submenu_page( $parent, $title, $title, 'manage_options', $slug, '' );
 		}
 
 		/**
