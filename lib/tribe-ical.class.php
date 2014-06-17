@@ -72,7 +72,7 @@ class TribeiCal {
 
 		echo '<div class="tribe-events-cal-links">';
 		echo '<a class="tribe-events-gcal tribe-events-button" href="' . tribe_get_gcal_link() . '" title="' . __( 'Add to Google Calendar', 'tribe-events-calendar' ) . '">+ ' . __( 'Google Calendar', 'tribe-events-calendar-pro' ) . '</a>';
-		echo '<a class="tribe-events-ical tribe-events-button" href="' . tribe_get_single_ical_link() . '">+ ' . __( 'iCal Import', 'tribe-events-calendar' ) . '</a>';
+		echo '<a class="tribe-events-ical tribe-events-button" href="' . tribe_get_single_ical_link() . '">+ ' . __( 'iCal Export', 'tribe-events-calendar' ) . '</a>';
 		echo '</div><!-- .tribe-events-cal-links -->';
 	}
 
