@@ -788,7 +788,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 							'weekDayFormat' => array(
 								'type' => 'text',
 								'label' => __('Week Day Format', 'tribe-events-calendar-pro'),
-								'tooltip' => __('Enter the format to use for week days. Used  when showing an days of the week in Week view.', 'tribe-events-calendar-pro' ),
+								'tooltip' => __('Enter the format to use for week days. Used when showing days of the week in Week view.', 'tribe-events-calendar-pro' ),
 								'default' => 'D jS',
 								'size' => 'medium',
 								'validation_type' => 'html',
