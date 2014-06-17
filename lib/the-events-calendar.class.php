@@ -4056,19 +4056,19 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		}
 
 		/**
- 		 * Add help menu item to the admin
+		 * Add help menu item to the admin (unless blocked via network admin settings).
 		 *
-		 * @return void
 		 * @todo move to an admin class
 		 */
 		public function addHelpAdminMenuItem() {
-			global $submenu;
-
-			// Only show help link if it's not blocked in network admin.
 			$hidden_settings_tabs = TribeEvents::instance()->getNetworkOption( 'hideSettingsTabs', array( ) );
-			if ( !in_array( 'help', $hidden_settings_tabs ) ) {
-				$submenu['edit.php?post_type=' . self::POSTTYPE][500] = array( __('Help', 'tribe-events-calendar'), 'manage_options' , add_query_arg( array( 'post_type' => self::POSTTYPE, 'page' => 'tribe-events-calendar', 'tab' => 'help' ), 'edit.php?post_type=tribe_events&page=tribe-events-calendar&tab=help' ) );
-			}
+			if ( in_array( 'help', $hidden_settings_tabs ) ) return;
+
+			$parent = 'edit.php?post_type=' . self::POSTTYPE;
+			$title = __( 'Help', 'tribe-events-calendar' );
+			$slug = add_query_arg( array( 'post_type' => self::POSTTYPE, 'page' => 'tribe-events-calendar', 'tab' => 'help' ), 'edit.php' );
+
+			add_submenu_page( $parent, $title, $title, 'manage_options', $slug, '' );
 		}
 
 		/**

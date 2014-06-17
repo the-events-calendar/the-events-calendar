@@ -488,8 +488,8 @@ if ( !class_exists('TribeField') ) {
 				$field .= '>';
 				foreach ($this->options as $option_id => $title) {
 					$field .= '<option value="'.esc_attr( $option_id ).'"';
-					$field .= selected( $this->value, $option_id, false );
-					$field .= isset($this->value[0]) ? selected( $this->value[0], $option_id, false ) : '';
+					if ( is_array( $this->value ) ) $field .= isset($this->value[0]) ? selected( $this->value[0], $option_id, false ) : '';
+					else $field .= selected( $this->value, $option_id, false );
 					$field .= '>'.esc_html( $title ).'</option>';
 				}
 				$field .= '</select>';
