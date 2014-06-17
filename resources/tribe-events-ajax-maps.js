@@ -21,7 +21,6 @@
 
 		/**
 		 * @function tribe_ev.fn.map_add_marker
-		 * @since 3.0
 		 * @desc tribe_ev.fn.map_add_marker adds event markers to the map on geoloc view.
 		 * @param {String} lat Marker latitude.
 		 * @param {String} lng Marker longitude.
@@ -74,7 +73,6 @@
 
 		/**
 		 * @function tribe_test_location
-		 * @since 3.0
 		 * @desc tribe_test_location clears the lat and lng values in event bar if needed. Also hides or shows the geofence filter if present.
 		 */
 
@@ -232,7 +230,6 @@
 
 		/**
 		 * @function tribe_generate_map_params
-		 * @since 3.0
 		 * @desc tribe_generate_map_params generates query parameters for the map view ajax call.
 		 */
 
@@ -262,7 +259,6 @@
 
 		/**
 		 * @function tribe_map_processOption
-		 * @since 3.0
 		 * @desc tribe_map_processOption is the main ajax event query for map view.
 		 */
 
@@ -417,7 +413,6 @@
 
 		/**
 		 * @function tribe_events_bar_mapajax_actions
-		 * @since 3.0
 		 * @desc On events bar submit, this function collects the current state of the bar and sends it to the map view ajax handler.
 		 * @param {event} e The event object.
 		 */
@@ -457,7 +452,6 @@
 
 		/**
 		 * @function deleteMarkers
-		 * @since 3.0
 		 * @desc Clears markers from the active map.
 		 */
 
@@ -473,7 +467,6 @@
 
 		/**
 		 * @function centerMap
-		 * @since 3.0
 		 * @desc Centers the active map.
 		 */
 

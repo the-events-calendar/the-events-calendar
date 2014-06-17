@@ -4,8 +4,6 @@
  * Output data attributes needed to update the month with ajax
  *
  * @return void
- * @since 3.0
- * @author Jessica Yazbek
  **/
 function tribe_events_the_mini_calendar_header_attributes () {
 
@@ -28,8 +26,6 @@ function tribe_events_the_mini_calendar_header_attributes () {
  * Output a link for the mini calendar month previous nav, includes data attributes needed to update the month with ajax
  *
  * @return void
- * @since 3.0
- * @author Jessica Yazbek
  **/
 function tribe_events_the_mini_calendar_prev_link() {
 	$tribe_ecp = TribeEvents::instance();
@@ -42,8 +38,6 @@ function tribe_events_the_mini_calendar_prev_link() {
  * Output a link for the mini calendar month previous nav, includes data attributes needed to update the month with ajax
  *
  * @return void
- * @since 3.0
- * @author Jessica Yazbek
  **/
 function tribe_events_the_mini_calendar_title() {
 	$args        = tribe_events_get_mini_calendar_args();
@@ -57,8 +51,6 @@ function tribe_events_the_mini_calendar_title() {
  * Output a link for the mini calendar month next nav, includes data attributes needed to update the month with ajax
  *
  * @return void
- * @since 3.0
- * @author Jessica Yazbek
  **/
 function tribe_events_the_mini_calendar_next_link() {
 	$tribe_ecp = TribeEvents::instance();
@@ -75,8 +67,6 @@ function tribe_events_the_mini_calendar_next_link() {
  * Output a link for the mini calendar day, includes data attributes needed to update the event list below with ajax
  *
  * @return void
- * @since 3.0
- * @author Jessica Yazbek
  **/
 function tribe_events_the_mini_calendar_day_link() {
 	$day = tribe_events_get_current_month_day();
@@ -110,7 +100,6 @@ function tribe_events_the_mini_calendar_day_link() {
  * Return arguments passed to mini calendar widget
  *
  * @return array
- * @author Jessica Yazbek
  **/
 function tribe_events_get_mini_calendar_args() {
 	return apply_filters( 'tribe_events_get_mini_calendar_args', TribeEventsMiniCalendar::instance()->get_args() );
@@ -121,7 +110,6 @@ function tribe_events_get_mini_calendar_args() {
  *
  * @deprecated 3.6
  * @return array
- * @author Jessica Yazbek
  **/
 function tribe_events_get_adv_list_widget_args() {
 	return apply_filters( 'tribe_events_get_adv_list_widget_args', false );

@@ -34,7 +34,6 @@ class Tribe_Columns {
 	 * @param array $fallback If no columns are active, showing all of them might suck. These are the fallbacks for that case.
 	 *
 	 * @return void
-	 * @author Matt Wiebe
 	 **/
 
 	public function __construct( $post_type, $columns = array(), $active = array(), $fallback = array() ) {

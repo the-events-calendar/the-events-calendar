@@ -11,8 +11,6 @@
  * $address, $city, $state, $province'], $zip, $country, $phone, $cost
  *
  * @package TribeEventsCalendarPro
- * @since  1.0
- * @author Modern Tribe Inc.
  *
  */
 

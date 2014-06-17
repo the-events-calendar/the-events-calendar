@@ -4,8 +4,6 @@
  * This file contains hooks and functions required to set up the photo view.
  *
  * @package TribeEventsCalendarPro
- * @since  3.0
- * @author Modern Tribe Inc.
  *
  */
 
@@ -32,7 +30,6 @@ if( !class_exists('Tribe_Events_Pro_Photo_Template')){
 		 * Add header attributes for photo view
 		 *
 		 * @return string
-		 * @since 3.0
 		 **/
 		public function header_attributes($attrs) {
 			$attrs['data-view'] = 'photo';
@@ -46,7 +43,6 @@ if( !class_exists('Tribe_Events_Pro_Photo_Template')){
 		 *
 		 * @param $classes
 		 * @return array
-		 * @since 3.0
 		 **/
 		public function event_classes( $classes ) {
 			$classes[] = 'tribe-events-photo-event';
