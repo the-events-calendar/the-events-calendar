@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: The Events Calendar 3.6\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-06-17 14:32-0800\n"
-"PO-Revision-Date: 2014-06-17 14:35-0800\n"
+"POT-Creation-Date: 2014-06-17 14:58-0800\n"
+"PO-Revision-Date: 2014-06-17 14:59-0800\n"
 "Last-Translator: \n"
 "Language-Team: Yannis Troullinos <troull88@yahoo.gr>\n"
 "Language: el_GR\n"
@@ -2487,6 +2487,10 @@ msgstr "Προσθήκη στο Ημερολόγιο Google"
 #: ../lib/tribe-ical.class.php:74
 msgid "Google Calendar"
 msgstr "Ημερολόγιο Google "
+
+#: ../lib/tribe-ical.class.php:75
+msgid "Download .ics file"
+msgstr ""
 
 #: ../lib/tribe-ical.class.php:75
 #, fuzzy
