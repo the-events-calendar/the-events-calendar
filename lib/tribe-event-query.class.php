@@ -302,14 +302,6 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 				);
 			}
 
-			// proprietary metaKeys go to standard meta
-			if ( $query->tribe_is_event_query && $query->get( 'metaKey' ) != '' ) {
-				$meta_query[] = array(
-					'key' => $query->get( 'metaKey' ),
-					'value' => $query->get( 'metaValue' )
-				);
-			}
-
 			// enable pagination setup
 			if ( $query->tribe_is_event_query && $query->get( 'numResults' ) != '' ) {
 				$query->set( 'posts_per_page', $query->get( 'numResults' ) );
