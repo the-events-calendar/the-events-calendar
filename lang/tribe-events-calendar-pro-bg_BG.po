@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Events Calendar Pro 3.5\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-05-26 09:21-0800\n"
-"PO-Revision-Date: 2014-06-12 15:48-0800\n"
+"PO-Revision-Date: 2014-06-16 17:38-0800\n"
 "Last-Translator: \n"
 "Language-Team: Modern Tribe, Inc. <pro@tri.be>\n"
 "MIME-Version: 1.0\n"
@@ -338,7 +338,7 @@ msgstr "месец"
 
 #: ../admin-views/event-recurrence.php:10
 msgid "months"
-msgstr "месеци"
+msgstr "месеца"
 
 #: ../admin-views/event-recurrence.php:10
 msgid "Every Month"
@@ -496,7 +496,7 @@ msgstr "Последен(на)"
 #: ../admin-views/event-recurrence.php:120
 #: ../lib/tribe-events-recurrence-meta.class.php:883
 msgid "Monday"
-msgstr "Понеделник"
+msgstr "Пон"
 
 #: ../admin-views/event-recurrence.php:76
 #: ../admin-views/event-recurrence.php:121
@@ -1498,7 +1498,7 @@ msgstr "Повтарящите събития ще се създават тол�
 
 #: ../lib/tribe-events-recurrence-meta.class.php:1030
 msgid " months"
-msgstr " месеци"
+msgstr " месеца"
 
 #: ../lib/tribe-events-recurrence-meta.class.php:1123
 msgid "You are currently editing all events in a recurring series."
@@ -1582,9 +1582,10 @@ msgid ""
 "the Google Maps API to get that information. Doing this may take a while "
 "(aprox. 1 minute for every 200 venues)."
 msgstr ""
-"Имате %d места, за които не разполагаме с информация за местоположението им. "
-"Ще е необходимо да използваме Google Maps API, за да намерим тези данни. "
-"Това може да отнеме известно време (прибл. 1 минута за всеки 200 места)."
+"Имате %d място/места, за които не разполагаме с информация за "
+"местоположението им. Ще е необходимо да използваме Google Maps API, за да "
+"намерим тези данни. Това може да отнеме известно време (прибл. 1 минута за "
+"всеки 200 места)."
 
 #: ../lib/tribe-geoloc.class.php:158
 msgid "Hide location search"
@@ -1635,7 +1636,7 @@ msgstr ""
 #: ../lib/tribe-geoloc.class.php:889
 #, php-format
 msgid "Fixed geolocation data for %d venues"
-msgstr "Поправена информация за местопожението на %d места"
+msgstr "Поправена е информацията за местопожението на %d място/места"
 
 #: ../lib/widget-advanced-list.class.php:20
 msgid "A widget that displays the next upcoming x events."
