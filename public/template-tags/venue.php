@@ -17,7 +17,6 @@ if( class_exists( 'TribeEvents' ) ) {
 	 *
 	 * @param int $postId can supply either event id or venue id, if none specified, current post is used
 	 * @return int Venue ID
-	 * @since 2.0
 	 */
 	function tribe_get_venue_id( $postId = null ) {
 		$postId = TribeEvents::postIdHelper( $postId );
@@ -34,7 +33,6 @@ if( class_exists( 'TribeEvents' ) ) {
 	 * Returns the singular version of the Venue Label
 	 *
 	 * @return string
-	 * @since 3.6
 	 */
 	function tribe_get_venue_label_singular() {
 		return apply_filters( 'tribe_venue_label_singular', 'Venue' );
@@ -46,7 +44,6 @@ if( class_exists( 'TribeEvents' ) ) {
 	 * Returns the plural version of the Venue Label
 	 *
 	 * @return string
-	 * @since 3.6
 	 */
 	function tribe_get_venue_label_plural() {
 		return apply_filters( 'tribe_venue_label_plural', 'Venues' );
@@ -59,7 +56,6 @@ if( class_exists( 'TribeEvents' ) ) {
 	 *
 	 * @param int $postId Can supply either event id or venue id, if none specified, current post is used
 	 * @return bool
-	 * @since 2.0
 	 */
 	function tribe_has_venue( $postId = null) {
 		$has_venue = (tribe_get_venue_id( $postId ) > 0 ) ? true : false;
@@ -74,7 +70,6 @@ if( class_exists( 'TribeEvents' ) ) {
 	 * @param int $postId Can supply either event id or venue id, if none specified, current post is used
 	 * @param bool $with_link (deprecated in 2.0.1)
 	 * @return string Venue Name
-	 * @since 2.0
 	 */
 	function tribe_get_venue( $postId = null, $with_link = false )  {
 		if ( $with_link ) {	_deprecated_argument( __FUNCTION__, '2.0.1' ); }
@@ -91,7 +86,6 @@ if( class_exists( 'TribeEvents' ) ) {
 	 * @param int $postId Can supply either event id or venue id, if none specified, current post is used
 	 * @param bool $display If true displays full html links around venue's name, if false returns just the link without displaying it
 	 * @return string Venue if $display is set to false, void if it's set to true.
-	 * @since 2.0
 	 */
 	function tribe_get_venue_link( $postId = null, $display = true )  {
 
@@ -123,7 +117,6 @@ if( class_exists( 'TribeEvents' ) ) {
 	 *
 	 * @param int $postId Can supply either event id or venue id, if none specified, current post is used
 	 * @return string Country
-	 * @since 2.0
 	 */
 	function tribe_get_country( $postId = null)  {
 		$postId = tribe_get_venue_id( $postId );
@@ -139,7 +132,6 @@ if( class_exists( 'TribeEvents' ) ) {
 	 * @param int $postId Can supply either event id or venue id, if none specified, current post is used
 	 * @param bool $includeVenueName
 	 * @return string Formatted event address
-	 * @since 2.0
 	 */
 	function tribe_get_full_address( $postId = null, $includeVenueName = false )  {
 		$postId = tribe_get_venue_id( $postId );
@@ -154,7 +146,6 @@ if( class_exists( 'TribeEvents' ) ) {
 	 *
 	 * @param int $postId Can supply either event id or venue id, if none specified, current post is used
 	 * @return bool True if any part of an address exists
-	 * @since 2.0
 	 */
 	function tribe_address_exists( $postId = null )  {
 		if (
@@ -177,7 +168,6 @@ if( class_exists( 'TribeEvents' ) ) {
 	 *
 	 * @param int $postId Can supply either event id or venue id, if none specified, current post is used
 	 * @return string Street address
-	 * @since 2.0
 	 */
 	function tribe_get_address( $postId = null)  {
 		$postId = tribe_get_venue_id( $postId );
@@ -192,7 +182,6 @@ if( class_exists( 'TribeEvents' ) ) {
 	 *
 	 * @param int $postId Can supply either event id or venue id, if none specified, current post is used
 	 * @return string City
-	 * @since 2.0
 	 */
 	function tribe_get_city( $postId = null)  {
 		$postId = tribe_get_venue_id( $postId );
@@ -208,7 +197,6 @@ if( class_exists( 'TribeEvents' ) ) {
 	 * @param int $postId Can supply either event id or venue id, if none specified, current post is used
 	 * @return string State
 	 * @todo Depricate tribe_get_stateprovince or tribe_get_region
-	 * @since 2.0
 	 */
 	function tribe_get_stateprovince( $postId = null)  {
 		$postId = tribe_get_venue_id( $postId );
@@ -223,7 +211,6 @@ if( class_exists( 'TribeEvents' ) ) {
 	 *
 	 * @param int $postId Can supply either event id or venue id, if none specified, current post is used
 	 * @return string State
-	 * @since 2.0
 	 */
 	function tribe_get_state( $postId = null)  {
 		$postId = tribe_get_venue_id( $postId );
@@ -238,7 +225,6 @@ if( class_exists( 'TribeEvents' ) ) {
 	 *
 	 * @param int $postId Can supply either event id or venue id, if none specified, current post is used
 	 * @return string Province
-	 * @since 2.0
 	 */
 	function tribe_get_province( $postId = null)  {
 		$postId = tribe_get_venue_id( $postId );
@@ -254,7 +240,6 @@ if( class_exists( 'TribeEvents' ) ) {
 	 * @param int $postId Can supply either event id or venue id, if none specified, current post is used
 	 * @return string
 	 * @todo Depricate tribe_get_region or tribe_get_stateprovince
-	 * @since 2.0
 	 */
 	function tribe_get_region( $postId = null )  {
 		$postId = tribe_get_venue_id( $postId );
@@ -277,7 +262,6 @@ if( class_exists( 'TribeEvents' ) ) {
 	 *
 	 * @param int $postId Can supply either event id or venue id, if none specified, current post is used
 	 * @return string Zip code
-	 * @since 2.0
 	 */
 	function tribe_get_zip( $postId = null)  {
 		$postId = tribe_get_venue_id( $postId );
@@ -292,7 +276,6 @@ if( class_exists( 'TribeEvents' ) ) {
 	 *
 	 * @param int $postId Can supply either event id or venue id, if none specified, current post is used
 	 * @return string Phone number
-	 * @since 2.0
 	 */
 	function tribe_get_phone( $postId = null)  {
 		$postId = tribe_get_venue_id( $postId );
@@ -303,8 +286,6 @@ if( class_exists( 'TribeEvents' ) ) {
 	/**
 	 * Get all the venues
 	 *
-	 * @author PaulHughes01
-	 * @since 2.1
 	 * @param bool $only_with_upcoming Only return venues with upcoming events attached to them.
 	 * @param $posts_per_page
 	 * @param bool $suppress_filters

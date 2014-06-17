@@ -12,7 +12,6 @@ function load_tribe_debug_bar($panels) {
 		/**
 		 * Debug bar class for the Events Calendar to support debugging.
 		 *
-		 * @author Peter Chester
 		 */
 		class TribeDebugBar extends Debug_Bar_Panel {
 
@@ -69,7 +68,6 @@ function load_tribe_debug_bar($panels) {
 			 * @param string|bool $data Optional data to display
 			 * @param string $format Optional format (log|warning|error|notice)
 			 * @return void
-			 * @author Peter Chester
 			 */
 			public function logDebug( $title, $data = false, $format = 'log' ) {
 				self::$debug_log[] = array(

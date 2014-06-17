@@ -41,7 +41,6 @@ var tribe_events_bar_action;
 
 		/**
 		 * @function eventsBarWidth
-		 * @since 3.0
 		 * @desc eventsBarWidth applies responsive css classes to the bar to adjust its layout for smaller screens.
 		 * @param {jQuery} $tribebar The event bar jquery object.
 		 */
@@ -248,7 +247,6 @@ var tribe_events_bar_action;
 
 		/**
 		 * @function tribe_events_bar_change_view
-		 * @since 3.0
 		 * @desc tribe_events_bar_change_view handles switching views and collecting any params from the events bar. It also fires 2 custom actions that can be hooked into: 'tribe_ev_preCollectBarParams' and 'tribe_ev_postCollectBarParams'.
 		 */
 

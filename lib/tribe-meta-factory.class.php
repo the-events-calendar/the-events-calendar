@@ -7,8 +7,6 @@
  * Widget Factory which allows for registration, sorting, assignment, templating and
  * deregistration of meta items within a Tribe Meta container (similar to "sidebar")
  * 
- * @since  3.0
- * @author tim@imaginesimplicity.com
  */
 
 if ( !defined('ABSPATH') ) 
@@ -28,8 +26,6 @@ if( !class_exists('Tribe_Meta_Factory') ) {
 
 		/**
 		 * register meta or meta_groups
-		 * @since  3.0
-		 * @author tim@imaginesimplicity.com
 		 * @param  string $meta
 		 * @param  array  $args
 		 * @return bool
@@ -102,8 +98,6 @@ if( !class_exists('Tribe_Meta_Factory') ) {
 
 		/**
 		 * check to see if meta item has been defined
-		 * @since  3.0
-		 * @author tim@imaginesimplicity.com
 		 * @param  string $meta_id
 		 * @param  string $type
 		 * @return boolean
@@ -116,8 +110,6 @@ if( !class_exists('Tribe_Meta_Factory') ) {
 
 		/**
 		 * get meta arguments
-		 * @since  3.0
-		 * @author tim@imaginesimplicity.com
 		 * @param  string $meta_id
 		 * @param  string $type
 		 * @return array of arguments
@@ -131,8 +123,6 @@ if( !class_exists('Tribe_Meta_Factory') ) {
 		/**
 		 * get the set order of meta items
 		 * useful when generically displaying meta for skeleton view or bulk assignments
-		 * @since  3.0
-		 * @author tim@imaginesimplicity.com
 		 * @param  string $meta_id
 		 * @return array of ordered meta ids
 		 */
@@ -160,8 +150,6 @@ if( !class_exists('Tribe_Meta_Factory') ) {
 
 		/**
 		 * set the visibility of a meta item when using a bulk display tag
-		 * @since  3.0
-		 * @author tim@imaginesimplicity.com
 		 * @param string  $meta_id
 		 * @param string  $type
 		 * @param boolean $status
@@ -203,8 +191,6 @@ if( !class_exists('Tribe_Meta_Factory') ) {
 
 		/**
 		 * return a completed meta template for display
-		 * @since  3.0
-		 * @author tim@imaginesimplicity.com
 		 * @uses   self::embed_classes for css classes
 		 * @param  string $label   
 		 * @param  string $meta    

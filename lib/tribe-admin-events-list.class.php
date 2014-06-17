@@ -19,11 +19,8 @@ if (!class_exists('TribeEventsAdminList')) {
 		 */
 		public static function init() {
 			if ( is_admin() && ! ( defined('DOING_AJAX') && DOING_AJAX ) ) {
-				//add_filter( 'posts_distinct', array( __CLASS__, 'events_search_distinct'));
 				add_filter( 'posts_join',		array( __CLASS__, 'events_search_join' ), 10, 2 );
-				//add_filter( 'posts_where',		array( __CLASS__, 'events_search_where' ), 10, 2 );
 				add_filter( 'posts_orderby',  array( __CLASS__, 'events_search_orderby' ), 10, 2 );
-				//add_filter( 'posts_groupby', array( __CLASS__, 'events_search_groupby' ), 10, 2 );
 				add_filter( 'posts_fields',	array( __CLASS__, 'events_search_fields' ), 10, 2 );
 				add_filter( 'post_limits',		array( __CLASS__, 'events_search_limits' ), 10, 2 );
 				add_filter( 'manage_' . TribeEvents::POSTTYPE . '_posts_columns', array(__CLASS__, 'column_headers'));

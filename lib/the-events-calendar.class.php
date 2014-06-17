@@ -21,12 +21,11 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		const POSTTYPE = 'tribe_events';
 		const VENUE_POST_TYPE = 'tribe_venue';
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
-		const PLUGIN_DOMAIN = 'tribe-events-calendar';
+
 		const VERSION = '3.6.1';
 		const FEED_URL = 'http://tri.be/category/products/feed/';
 		const INFO_API_URL = 'http://wpapi.org/api/plugin/the-events-calendar.php';
 		const WP_PLUGIN_URL = 'http://wordpress.org/extend/plugins/the-events-calendar/';
-		const PREFIX = 'events';
 
 		/**
 		 * Notices to be displayed in the admin
@@ -69,6 +68,8 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			'exclude_from_search' => true
 		);
 
+		protected $taxonomyLabels;
+
 		/**
 		 * Args for organizer post type
 		 * @var array
@@ -84,11 +85,9 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			'exclude_from_search' => true
 		);
 
-		protected $taxonomyLabels;
-
 		public static $tribeUrl = 'http://tri.be/';
 		public static $addOnPath = 'products/';
-		public static $supportPath = 'support/';
+
 		public static $dotOrgSupportUrl = 'http://wordpress.org/tags/the-events-calendar';
 
 		protected static $instance;
@@ -102,7 +101,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		public $daySlug = 'day';
 		public $todaySlug = 'today';
 		protected $postExceptionThrown = false;
-		protected $optionsExceptionThrown = false;
+
 		protected static $options;
 		protected static $networkOptions;
 		public $displaying;
@@ -112,9 +111,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		public $pluginName;
 		public $date;
 		protected $tabIndexStart = 2000;
-
-		public $form_errors = array();
-		public $form_message = array();
 
 		public $metaTags = array(
 			'_EventAllDay',
@@ -154,14 +150,14 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			'_OrganizerPhone'
 		);
 
-		public $states = array();
 		public $currentPostTimestamp;
+
 		public $daysOfWeekShort;
 		public $daysOfWeek;
 		public $daysOfWeekMin;
 		public $monthsFull;
 		public $monthsShort;
-		
+
 		public $singular_venue_label;
 		public $plural_venue_label;
 
@@ -252,7 +248,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			require_once 'tribe-events-bar.class.php';
 			require_once 'tribe-the-events-calendar-import.class.php';
 			require_once 'tribe-support.class.php';
-			//require_once( 'tribe-debug-bar.class.php' );
 			require_once 'tribe-amalgamator.php';
 			require_once 'tribe-events-update.class.php';
 
@@ -361,7 +356,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 
 			add_filter( 'query_vars',		array( $this, 'eventQueryVars' ) );
-			//add_filter( 'the_content', array($this, 'emptyEventContent' ), 1 );
 			add_filter( 'wp_title', array($this, 'maybeAddEventTitle' ), 10, 2 );
 			add_filter( 'bloginfo_rss',	array($this, 'add_space_to_rss' ) );
 			add_filter( 'post_updated_messages', array($this, 'updatePostMessage') );
@@ -399,7 +393,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			add_action( 'tribe_settings_top', array( 'TribeEventsOptionsException', 'displayMessage') );
 			add_action( 'admin_enqueue_scripts', array( $this, 'addAdminScriptsAndStyles' ) );
 			add_filter( 'tribe_events_register_event_type_args', array( $this, 'setDashicon' ) );
-			add_action( 'plugins_loaded', array( $this, 'accessibleMonthForm'), -10 );
 			add_action( "trash_" . TribeEvents::VENUE_POST_TYPE, array($this, 'cleanupPostVenues'));
 			add_action( "trash_" . TribeEvents::ORGANIZER_POST_TYPE, array($this, 'cleanupPostOrganizers'));
 			add_action( "wp_ajax_tribe_event_validation", array($this,'ajax_form_validate') );
@@ -411,11 +404,9 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			// Load organizer and venue editors
 			add_action( 'admin_menu', array( $this, 'addVenueAndOrganizerEditor' ) );
 			add_action( 'tribe_venue_table_top', array( $this, 'displayEventVenueDropdown' ) );
-			add_action( 'tribe_organizer_table_top', array( $this, 'displayEventOrganizerDropdown' ) );			
+			add_action( 'tribe_organizer_table_top', array( $this, 'displayEventOrganizerDropdown' ) );
 
 			add_action( 'template_redirect', array( $this, 'template_redirect') );
-			add_filter( 'tribe_events_promo_banner', array( $this, 'promo_banner_prevent_bot') );
-
 
 			if( defined('TRIBE_SHOW_EVENT_AUDITING') && TRIBE_SHOW_EVENT_AUDITING )
 				add_action('tribe_events_details_bottom', array($this,'showAuditingData') );
@@ -537,14 +528,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		}
 
 		/**
-		 * @param string $html
-		 * @return string
-		 */
-		public function promo_banner_prevent_bot( $html ){
-			return $html;
-		}
-
-		/**
 		 * Enqueue ajax handling for calendar grid view
 		 */
 		function enqueue_for_ajax_calendar() {
@@ -611,13 +594,11 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			self::debug(sprintf(__('Initializing Tribe Events on %s','tribe-events-calendar'),date('M, jS \a\t h:m:s a')));
 			$this->maybeMigrateDatabase();
 			$this->maybeSetTECVersion();
-			// TribeEventsQuery::deregister();
 		}
 
 		/**
 		 * Upgrade the database if an older version of events was installed.
 		 *
-		 * @since 2.0.1
 		 */
 		public function maybeMigrateDatabase( ) {
 			// future migrations should actually check the db_version
@@ -668,7 +649,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		/**
 		 * Set the Calendar Version in the options table if it's not already set.
 		 *
-		 * @since 2.0.1
 		 */
 		public function maybeSetTECVersion() {
 			if ( version_compare($this->getOption('latest_ecp_version'), self::VERSION, '<') ) {
@@ -683,8 +663,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		/**
 		 * Check add-ons to make sure they are supported by currently running TEC version.
 		 *
-		 * @since 2.0.5
-		 * @author Paul Hughes
 		 * @return void
 		 */
 		public function checkAddOnCompatibility() {
@@ -751,8 +729,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		/**
 		 * Init the settings API and add a hook to add your own setting tabs
 		 *
-		 * @since 2.0.5
-		 * @author jkudish
 		 * @return void
 		 */
 		public function initOptions() {
@@ -778,8 +754,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		/**
 		 * Create setting tabs
 		 *
-		 * @since 2.0.5
-		 * @author jkudish
 		 * @return void
 		 */
 		public function doSettingTabs() {
@@ -948,7 +922,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 * @param string|bool $data Optional data to display
 		 * @param string $format Optional format (log|warning|error|notice)
 		 * @return void
-		 * @author Peter Chester
 		 */
 		public static function debug( $title, $data = false, $format = 'log' ) {
 			do_action( 'tribe_debug', $title, $data, $format );
@@ -961,7 +934,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 * @param string|bool $data - optional data to display
 		 * @param string $format - optional format (log|warning|error|notice)
 		 * @return void
-		 * @author Peter Chester
 		 */
 		public function renderDebug( $title, $data = false, $format = 'log' ) {
 			$format = ucfirst( $format );
@@ -1086,30 +1058,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			}
 			return apply_filters( 'tribe_events_add_title', $new_title, $title, $sep );
 
-		}
-
-		/**
-		 * Empty the event content
-		 *
-		 * @param string $content
-		 * @return string
-		 */
-		public function emptyEventContent( $content ) {
-			global $post;
-			if ( '' == $content && isset($post->post_type) && $post->post_type == self::POSTTYPE ) {
-				$content = __('No description has been entered for this event.', 'tribe-events-calendar');
-			}
-			return $content;
-		}
-
-		/**
-		 * Spoof GET vars to match the request for jumping months or years.
-		 */
-		public function accessibleMonthForm() {
-			if ( isset($_GET['EventJumpToMonth']) && isset($_GET['EventJumpToYear'] )) {
-				$_GET['eventDisplay'] = 'month';
-				$_GET['eventDate'] = intval($_GET['EventJumpToYear']) . '-' . intval($_GET['EventJumpToMonth']);
-			}
 		}
 
 		/**
@@ -1492,7 +1440,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				6 => sprintf(__( '%s published.','tribe-events-calendar'), $this->singular_venue_label),
 				7 => sprintf(__( '%s saved.','tribe-events-calendar'), $this->singular_venue_label),
 				8 => sprintf(__( '%s submitted.','tribe-events-calendar'), $this->singular_venue_label),
-				9 => sprintf( __('%s scheduled for: <strong>%2$s</strong>.', 'tribe-events-calendar'), $this->singular_venue_label, 
+				9 => sprintf( __('%s scheduled for: <strong>%2$s</strong>.', 'tribe-events-calendar'), $this->singular_venue_label,
 				// translators: Publish box date format, see http://php.net/date
 				date_i18n( __( 'M j, Y @ G:i' , 'tribe-events-calendar'), strtotime( $post->post_date ) ) ),
 				10 => sprintf(__( '%s draft updated.','tribe-events-calendar'), $this->singular_venue_label),
@@ -1509,7 +1457,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				6 => sprintf(__( '%s published.','tribe-events-calendar'), $this->singular_organizer_label),
 				7 => sprintf(__( '%s saved.','tribe-events-calendar'), $this->singular_organizer_label),
 				8 => sprintf(__( '%s submitted.','tribe-events-calendar'), $this->singular_organizer_label),
-				9 => sprintf( __('%s scheduled for: <strong>%2$s</strong>.', 'tribe-events-calendar'), $this->singular_organizer_label, 
+				9 => sprintf( __('%s scheduled for: <strong>%2$s</strong>.', 'tribe-events-calendar'), $this->singular_organizer_label,
 				// translators: Publish box date format, see http://php.net/date
 				date_i18n( __( 'M j, Y @ G:i' , 'tribe-events-calendar'), strtotime( $post->post_date ) ) ),
 				10 => sprintf(__( '%s draft updated.','tribe-events-calendar'), $this->singular_organizer_label),
@@ -1520,16 +1468,14 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 		/**
 		 * Adds the submenu items for editing the Venues and Organizers.
-		 * Used to be PRO only feature, but as of 3.0, it is part of Core.
+		 * Used to be a PRO only feature, but as of 3.0, it is part of Core.
 		 *
-		 * @since 2.0
 		 *
 		 * @return void
 		 */
 		public function addVenueAndOrganizerEditor() {
-
-			add_submenu_page( '/edit.php?post_type='.TribeEvents::POSTTYPE, __( $this->plural_venue_label,'tribe-events-calendar' ), __( $this->plural_venue_label,'tribe-events-calendar' ), 'edit_tribe_venues', 'edit.php?post_type='.TribeEvents::VENUE_POST_TYPE );
-			add_submenu_page( '/edit.php?post_type='.TribeEvents::POSTTYPE, __( $this->plural_organizer_label,'tribe-events-calendar' ), __( $this->plural_organizer_label,'tribe-events-calendar' ), 'edit_tribe_organizers', 'edit.php?post_type='.TribeEvents::ORGANIZER_POST_TYPE );
+			add_submenu_page( 'edit.php?post_type='.TribeEvents::POSTTYPE, __( $this->plural_venue_label,'tribe-events-calendar' ), __( $this->plural_venue_label,'tribe-events-calendar' ), 'edit_tribe_venues', 'edit.php?post_type='.TribeEvents::VENUE_POST_TYPE );
+			add_submenu_page( 'edit.php?post_type='.TribeEvents::POSTTYPE, __( $this->plural_organizer_label,'tribe-events-calendar' ), __( $this->plural_organizer_label,'tribe-events-calendar' ), 'edit_tribe_organizers', 'edit.php?post_type='.TribeEvents::ORGANIZER_POST_TYPE );
 			add_submenu_page( 'edit.php?post_type='.TribeEvents::VENUE_POST_TYPE, __( 'Add New ' . $this->singular_venue_label,'tribe-events-calendar' ), __( 'Add New ' . $this->singular_venue_label,'tribe-events-calendar' ), 'edit_tribe_venues', 'post-new.php?post_type='.TribeEvents::VENUE_POST_TYPE );
 			add_submenu_page( 'edit.php?post_type='.TribeEvents::ORGANIZER_POST_TYPE, __( 'Add New ' . $this->singular_organizer_label,'tribe-events-calendar' ), __( 'Add New ' . $this->singular_organizer_label,'tribe-events-calendar' ), 'edit_tribe_organizers', 'post-new.php?post_type='.TribeEvents::ORGANIZER_POST_TYPE );
 		}
@@ -1583,7 +1529,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 * helper function for displaying the saved venue dropdown
 		 * Used to be a PRO only feature, but as of 3.0, it is part of Core.
 		 *
-		 * @since 2.0
 		 * @param mixed $current the current saved venue
 		 * @param string $name the name value for the field
 		 */
@@ -1639,7 +1584,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 * helper function for displaying the saved organizer dropdown
 		 * Used to be a PRO only feature, but as of 3.0, it is part of Core.
 		 *
-		 * @since 2.0
 		 * @param mixed $current the current saved venue
 		 * @param string $name the name value for the field
 		 */
@@ -1805,7 +1749,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 * Modify the post type args to set Dashicon if we're in WP 3.8+
 		 *
 		 * @return array post type args
-		 * @author Jessica Yazbek
 		 **/
 		function setDashicon( $postTypeArgs ) {
 			global $wp_version;
@@ -1942,7 +1885,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			if ( $apply_filters == true ) {
 				$options = apply_filters( 'tribe-events-save-options', $options );
 			}
-			// @TODO use TribeEvents::getOptions
+				// @TODO use TribeEvents::getOptions
 			if ( update_option( TribeEvents::OPTIONNAME, $options ) ) {
 				self::$options = apply_filters( 'tribe_get_options', $options );
 				return true;
@@ -2024,21 +1967,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			} else {
 				self::$networkOptions = self::getNetworkOptions();
 			}
-		}
-
-		/**
-		 * Saves the network option.
-		 *
-		 * @param string $name The name of the tribe network option.
-		 * @param mixed $value The value of the option you're setting.
-		 * @return void
-		 * @TODO remove, unused
-		 */
-		public function setNetworkOption($name, $value) {
-			$newOption = array();
-			$newOption[$name] = $value;
-			$options = self::getNetworkOptions();
-			$this->setNetworkOptions( wp_parse_args( $newOption, $options ) );
 		}
 
 		/**
@@ -2249,19 +2177,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			// Update the saved option
 			$this->setOption('viewOption', $view);
 			return $view;
-		}
-
-		/**
-		 * Helper method to return an array of 1-12 for months
-		 *
-		 * @return array
-		 */
-		public function months( ) {
-			$months = array();
-			foreach( range( 1, 12 ) as $month ) {
-				$months[ $month ] = $month;
-			}
-			return $months;
 		}
 
 		/**
@@ -2626,27 +2541,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		/**
 		 * Returns a link to google maps for the given event
 		 *
-		 * @return string a fully qualified link to http://maps.google.com/ for this event
-		 */
-		public function get_google_maps_args() {
-
-			$locationMetaSuffixes = array( 'address', 'city', 'region', 'zip', 'country' );
-			$toUrlEncode = "";
-			$languageCode = substr( get_bloginfo( 'language' ), 0, 2 );
-			foreach( $locationMetaSuffixes as $val ) {
-				$metaVal = call_user_func('tribe_get_'.$val);
-				if ( $metaVal )
-					$toUrlEncode .= $metaVal . " ";
-			}
-			if ( $toUrlEncode )
-				return 'f=q&amp;source=embed&amp;hl=' . $languageCode . '&amp;geocode=&amp;q='. urlencode( trim( $toUrlEncode ) );
-			return "";
-
-		}
-
-		/**
-		 * Returns a link to google maps for the given event
-		 *
 		 * @param string $postId
 		 * @return string a fully qualified link to http://maps.google.com/ for this event
 		 */
@@ -2925,7 +2819,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			if ( ! in_array( get_post_status( $post_id ), array( 'publish', 'private', 'protected' ) ) ) {
 				$this->rebuild_earliest_latest();
 				return;
-			}
+		}
 
 			$current_min = tribe_events_earliest_date();
 			$current_max = tribe_events_latest_date();
@@ -2980,8 +2874,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		/**
 		 * Adds the '_<posttype>Origin' meta field for a newly inserted events-calendar post.
 		 *
-		 * @since 2.1
-		 * @author paulhughes
 		 * @param int $postId, the post ID
 		 * @param WP_Post $post, the post object
 		 * @return void
@@ -3020,8 +2912,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		/**
 		 * Adds to the '_<posttype>AuditTrail' meta field for an events-calendar post.
 		 *
-		 * @since 2.1
-		 * @author paulhughes
 		 * @param int $postId, the post ID
 		 * @param WP_Post $post, the post object
 		 * @return void
@@ -3050,8 +2940,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		/**
 		 * Publishes associated venue/organizer when an event is published
 		 *
-		 * @since 2.0.6
-		 * @author nciske
 		 * @param int $postID, the post ID
 		 * @param WP_Post $post, the post object
 		 * @return void
@@ -3280,8 +3168,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			}else{
 				$post = $event;
 
-				//echo $post->ID;
-
 				if($post->ID){
 					$saved = true;
 				}else{
@@ -3345,7 +3231,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				foreach ( $defaults as $tag ) {
 
 					$cleaned_tag = str_replace('_Venue','',$tag);
-					//echo $tag.' | '.$cleaned_tag.'<BR>';
 
 					$var_name = '_Venue'.$cleaned_tag;
 
@@ -3587,31 +3472,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		}
 
 		/**
-		 * Given a date (YYYY-MM-DD), returns the first day of the next week
-		 *
-		 * @deprecated
-		 * @param date
-		 * @return date
-		 */
-		public function nextWeek( $date ) {
-			_deprecated_function( __FUNCTION__, '3.0' );
-			$dateParts = explode( '-', $date );
-			if ( $dateParts[1] == 12 ) {
-				$dateParts[0]++;
-				$dateParts[1] = "01";
-				$dateParts[2] = "01";
-			} else {
-				$dateParts[1]++;
-				$dateParts[2] = "01";
-			}
-			if ( $dateParts[1] < 10 && strlen( $dateParts[1] ) == 1 ) {
-				$dateParts[1] = "0" . $dateParts[1];
-			}
-			$return =	$dateParts[0] . '-' . $dateParts[1];
-			return $return;
-		}
-
-		/**
 		 * Given a date (YYYY-MM-DD), return the first day of the previous week
 		 *
 		 * @deprecated
@@ -3720,19 +3580,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		}
 
 		/**
-		 * Get the date string.
-		 *
-		 * @param string $date The date.
-		 * @return string The pretty date.
-		 */
-		public function getDateString( $date ) {
-			$monthNames = $this->monthNames();
-			$dateParts = explode( '-', $date );
-			$timestamp = mktime( 0, 0, 0, $dateParts[1], 1, $dateParts[0] );
-			return $monthNames[date( "F", $timestamp )] . " " . $dateParts[0];
-		}
-
-		/**
 		 * Get the date string (shortened).
 		 *
 		 * @param string $date The date.
@@ -3753,23 +3600,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		public function tabIndex() {
 			$this->tabIndexStart++;
 			return $this->tabIndexStart - 1;
-		}
-
-		/**
-		 * Get events. This is like the WP function get_posts().
-		 *
-		 * @param array $args Any args for the query.
-		 * @return array The posts/events returned.
-		 */
-		public function getEvents( $args = array() ) {
-			$defaults = array(
-				'post_type' => TribeEvents::POSTTYPE, // tribe_events by default
-				'orderby' => 'event_date',
-				'order' => 'ASC'
-			);
-
-			$args = wp_parse_args( $args, $defaults);
-			return TribeEventsQuery::getEvents($args);
 		}
 
 		/**
@@ -3880,9 +3710,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 				)
 			);
 			// TODO: Finish rewriting this query to be WP_QUERY based
-			// TribeEventsQuery::deregister();
-			// $event_link = new WP_Query($args);
-			// print_r($event_link);
 
 			$results = $wpdb->get_row($eventsQuery, OBJECT);
 			if(is_object($results)) {
@@ -4046,7 +3873,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		/**
 		 * Add the buttons/dropdown to the admin toolbar
 		 *
-		 * @since 2.0.7
 		 * @return null
 		 */
 		public function addToolbarItems() {
@@ -4151,8 +3977,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		/**
 		 * Displays activation welcome admin notice.
 		 *
-		 * @since 2.0.8
-		 * @author PaulHughes01
 		 *
 		 * @return void
 		 */
@@ -4167,8 +3991,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		/**
 		 * Resets the option such that the activation message is again displayed on reactivation.
 		 *
-		 * @since 2.0.8
-		 * @author PaulHughes01
 		 *
 		 * @return void
 		 */
@@ -4180,8 +4002,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		/**
 		 * Displays the View Calendar link at the top of the Events list in admin.
 		 *
-		 * @since 2.0.8
-		 * @author PaulHughes01
 		 *
 		 * @return void
 		 */
@@ -4195,8 +4015,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		/**
 		 * Set the menu-edit-page to default display the events-related items.
 		 *
-		 * @since 2.0.8
-		 * @author PaulHughes01
 		 *
 		 * @return void
 		 */
@@ -4224,12 +4042,25 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			}
 		}
 
+		/**
+		 * Add links to the plugins row
+		 *
+		 * @param $actions
+		 * @return mixed
+		 * @todo move to an admin class
+		 */
 		public function addLinksToPluginActions( $actions ) {
 			$actions['settings'] = '<a href="' . add_query_arg( array( 'post_type' => self::POSTTYPE, 'page' => 'tribe-events-calendar' ), admin_url( 'edit.php' ) ) .'">' . __('Settings', 'tribe-events-calendar') . '</a>';
 			$actions['tribe-calendar'] = '<a href="' . $this->getLink() .'">' . __('Calendar', 'tribe-events-calendar') . '</a>';
 			return $actions;
 		}
 
+		/**
+ 		 * Add help menu item to the admin
+		 *
+		 * @return void
+		 * @todo move to an admin class
+		 */
 		public function addHelpAdminMenuItem() {
 			global $submenu;
 
@@ -4278,8 +4109,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 * @param string $link The current link.
 		 * @param string|null $date The date passed.
 		 * @return string The modified link.
-		 * @author Paul Hughes
-		 * @since 3.0
 		 */
 		public function add_empty_date_dayview_link( $link, $date ) {
 			if ( is_null( $date ) ) {
@@ -4317,8 +4146,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 *
 		 * @param array $views The current array of views registered to the tribe bar.
 		 * @return array The views registered with day view added.
-		 * @author Daniel Dvorkin
-		 * @since 3.0
 		 */
 		public function setup_dayview_in_bar( $views ) {
 			$views[] = array( 'displaying' => 'day',
@@ -4391,8 +4218,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		/**
 		 * Removes views that have been deselected in the Template Settings as hidden from the view array.
 		 *
-		 * @since 3.0
-		 * @author PaulHughes01
 		 *
 		 * @param array $views The current views array.
 		 * @param bool $visible
@@ -4415,7 +4240,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		}
 
 		/**
-		 * Set the tribe_paged query var.
+		 * Disable the canonical redirect if tribe_paged is set
 		 *
 		 * @param WP_Query $query The current query object.
 		 * @return WP_Query The modified query object.
@@ -4477,7 +4302,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 * The List View AJAX handler.
 		 *
 		 * @return void
-		 * @since 3.0
 		 */
 		function list_ajax_call() {
 
@@ -4532,8 +4356,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 			$paged = $tribe_paged;
 
-			add_filter( 'tribe_events_list_pagination', array( __CLASS__, 'clear_module_pagination' ), 10 );
-
 			if ( $query->query_vars['eventDisplay'] == 'list' ) {
 				$this->displaying = 'upcoming';
 			} elseif ( $query->query_vars['eventDisplay'] == 'past' ) {
@@ -4568,9 +4390,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 * @param $insert_array
 		 * @return array
 		 *
-		 * @author codearachnid
-		 * @author Peter Chester
-		 * @since 3.0
 		 */
 		public static function array_insert_after_key( $key, $source_array, $insert_array ) {
 			if ( array_key_exists( $key, $source_array ) ) {
@@ -4584,23 +4403,9 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		}
 
 		/**
-		 * Clear pagination.
-		 *
-		 * @param string $html The current html.
-		 * @return string the modified html.
-		 */
-		public static function clear_module_pagination( $html ) {
-			$html = '<li class="tribe-events-nav-previous"><a href="#" id="tribe-events-paged-prev" class="tribe-events-paged">' . __( '&laquo; Previous Events', 'tribe-events-calendar' ) . '</a></li>';
-			$html .= '<li class="tribe-events-nav-next"><a href="#" id="tribe-events-paged-next" class="tribe-events-paged">' . __( 'Next Events &raquo;', 'tribe-events-calendar' ) . '</a></li>';
-			return $html;
-
-		}
-
-		/**
 		 * The Calendar View AJAX Handler.
 		 *
 		 * @return void
-		 * @since 3.0
 		 */
 		function calendar_ajax_call() {
 
@@ -4644,8 +4449,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 * This loads up the day view shard with all the appropriate events for the day
 		 *
 		 * @return void
-		 * @author Timothy Wood
-		 * @since 3.0
 		 */
 		function wp_ajax_tribe_event_day(){
 			if ( isset( $_POST["eventDate"] ) && $_POST["eventDate"] ) {
@@ -4701,8 +4504,6 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 * be run.
 		 *
 		 * @return void
-		 * @author Paul Hughes
-		 * @since 3.0
 		 */
 		public function checkSuiteIfJustUpdated() {
 			$plugins = apply_filters( 'tribe_tec_addons', array( 'TribeEventsCalendar' => array( 'plugin_name' => 'The Events Calendar', 'required_version' => self::VERSION, 'current_version' => self::VERSION, 'plugin_dir_file' => basename( dirname( __FILE__ ) ) . '/the-events-calendar.php' ) ) );

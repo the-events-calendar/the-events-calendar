@@ -33,8 +33,6 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 		 *
 		 * @param WP_Query $query
 		 * @return void
-		 * @author Jessica Yazbek
-		 * @since 3.0.3
 		 **/
 		public static function parse_query( $query ) {
 
@@ -348,10 +346,8 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 			if ( is_admin() && $query->tribe_is_event_query && !empty( $current_screen->id ) && $current_screen->id == 'edit-' . TribeEvents::POSTTYPE ) {
 				if ( ( !defined( 'DOING_AJAX' ) ) || ( defined( 'DOING_AJAX' ) && !( DOING_AJAX ) ) ) {
 
-					// remove_filter( 'posts_join', array( __CLASS__, 'posts_join' ), 10, 2 );
 					remove_filter( 'posts_where', array( __CLASS__, 'posts_where' ), 10, 2 );
 					remove_filter( 'posts_fields', array( __CLASS__, 'posts_fields' ) );
-					//remove_filter( 'posts_distinct', array( __CLASS__, 'posts_distinct' ) );
 					remove_filter( 'posts_groupby', array( __CLASS__, 'posts_groupby' ) );
 					remove_filter( 'posts_orderby', array( __CLASS__, 'posts_orderby' ), 10, 2 );
 					$query->set( 'post__not_in', '' );
@@ -847,7 +843,6 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 				do_action( 'log', 'cache hit', 'tribe-events-cache', $args );
 			} else {
 				do_action( 'log', 'no cache hit', 'tribe-events-cache', $args );
-				// do_action( 'log', 'uncached query', 'tribe-events-query', $wpdb->last_query);
 				$result = new WP_Query( $args );
 				$cache->set( $cache_key, $result, TribeEventsCache::NON_PERSISTENT, 'save_post' );
 			}
@@ -873,7 +868,6 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 		 * to avoid conflicts with previous postmeta joins
 		 *
 		 * @return string
-		 * @author Jessica Yazbek
 		 **/
 		private static function postmeta_table( $query ) {
 
@@ -907,7 +901,6 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 		 *
 		 * @param mixed $arg
 		 * @return bool
-		 * @author Jessica Yazbek
 		 **/
 		private static function filter_args($arg) {
 			if (empty($arg) && $arg !== false)

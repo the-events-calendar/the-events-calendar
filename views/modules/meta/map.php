@@ -6,7 +6,6 @@
  * [your-theme]/tribe-events/modules/meta/details.php
  *
  * @package TribeEventsCalendar
- * @since 3.6
  */
 
 $map = apply_filters( 'tribe_event_meta_venue_map', tribe_get_embedded_map() );

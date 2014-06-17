@@ -16,8 +16,6 @@
  * 							  'security_code')
  *
  * @package TribeEventsCalendar
- * @since  3.0
- * @author Modern Tribe Inc.
  *
  */
 ?>

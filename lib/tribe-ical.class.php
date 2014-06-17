@@ -62,7 +62,6 @@ class TribeiCal {
 	 * Generates the markup for iCal and gCal single event links
 	 *
 	 * @return void
-	 * @since 3.0
 	 **/
 	public static function single_event_links()	{
 

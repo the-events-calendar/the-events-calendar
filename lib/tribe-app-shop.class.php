@@ -175,8 +175,6 @@ if ( ! class_exists( 'TribeAppShop' ) ) {
 		/**
 		 * Static Singleton Factory Method
 		 *
-		 * @since  2.0.5
-		 * @author jkudish
 		 * @return TribeAppShop
 		 */
 		public static function instance() {

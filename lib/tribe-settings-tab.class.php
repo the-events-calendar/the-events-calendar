@@ -9,8 +9,6 @@ if ( !class_exists( 'TribeSettingsTab' ) ) {
 	 * this is a public API, use it to create tabs
 	 * simply by instantiating this class
 	 *
-	 * @since 2.0.5
-	 * @author jkudish
 	 */
 	class TribeSettingsTab {
 
@@ -41,8 +39,6 @@ if ( !class_exists( 'TribeSettingsTab' ) ) {
 		/**
 		 * class constructor
 		 *
-		 * @since 2.0.5
-		 * @author jkudish
 		 * @param string $id the tab's id (no spaces or special characters)
 		 * @param string $name the tab's visible name
 		 * @param array $args additional arguments for the tab
@@ -82,8 +78,6 @@ if ( !class_exists( 'TribeSettingsTab' ) ) {
 		 * and adds the current tab to it
 		 * does not add a tab if it's empty
 		 *
-		 * @since 2.0.5
-		 * @author jkudish
 		 * @param array $tabs the $tabs from TribeSettings
 		 * @return array $tabs the filtered tabs
 		 */
@@ -103,8 +97,6 @@ if ( !class_exists( 'TribeSettingsTab' ) ) {
 		/**
 		 * Adds this tab to the list of total tabs, even if it is not displayed.
 		 *
-		 * @since 2.1
-		 * @author PaulHughes01
 		 * @param array $allTabs All the tabs from TribeSettings.
 		 * @return array $allTabs All the tabs.
 		 */
@@ -118,8 +110,6 @@ if ( !class_exists( 'TribeSettingsTab' ) ) {
 		 * filters the fields array from TribeSettings
 		 * and adds the current tab's fields to it
 		 *
-		 * @since 2.0.5
-		 * @author jkudish
 		 * @param array $field the $fields from TribeSettings
 		 * @return array $fields the filtered fields
 		 */
@@ -136,8 +126,6 @@ if ( !class_exists( 'TribeSettingsTab' ) ) {
 		 * sets whether the current tab should show the save
 		 * button or not
 		 *
-		 * @since 2.0.5
-		 * @author jkudish
 		 * @param array $noSaveTabs the $noSaveTabs from TribeSettings
 		 * @return array $noSaveTabs the filtered non saving tabs
 		 */
@@ -150,8 +138,6 @@ if ( !class_exists( 'TribeSettingsTab' ) ) {
 		/**
 		 * displays the content for the tab
 		 *
-		 * @since 2.0.5
-		 * @author jkudish
 		 * @return void
 		 */
 		public function doContent() {

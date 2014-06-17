@@ -7,9 +7,7 @@
 if ( !defined('ABSPATH') ) { die('-1'); }
 
 if( is_admin() ){
-	
-	//$postid = intval($_GET['post']);
-	
+
 	global $post;
 	
 	if ( isset($post->ID) && isset($post->post_type) ) {
