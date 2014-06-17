@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: The Events Calendar 3.5\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-05-26 09:20-0800\n"
-"PO-Revision-Date: 2014-06-12 15:48-0800\n"
+"PO-Revision-Date: 2014-06-16 17:38-0800\n"
 "Last-Translator: \n"
 "Language-Team: Modern Tribe, Inc. <pro@tri.be>\n"
 "Language: bg_BG\n"
@@ -161,7 +161,7 @@ msgid ""
 "obfuscate\">obfuscating</a> any e-mail address published on your site to "
 "best avoid it getting harvested by spammers."
 msgstr ""
-"Може би искате да обмислите <a href=\"http://wordpress.org/plugins/tags/"
+"Може би искате да обмислите да <a href=\"http://wordpress.org/plugins/tags/"
 "obfuscate\">прикриете</a> имейл адресите, публикувани на вашия сайт, с цел "
 "да избегнете атаки от спамъри."
 
@@ -526,7 +526,7 @@ msgstr "Формат на датата в прозореца за избор н�
 
 #: ../admin-views/tribe-options-display.php:181
 msgid "Advanced Template Settings"
-msgstr "Разширени настройки на темплейтите"
+msgstr "Разширени настройки на шаблоните"
 
 #: ../admin-views/tribe-options-display.php:185
 msgid "Add HTML before event content"
@@ -1169,11 +1169,11 @@ msgstr "Град:"
 
 #: ../admin-views/venue-meta-box.php:35
 msgid "Country:"
-msgstr "Област:"
+msgstr "Държава:"
 
 #: ../admin-views/venue-meta-box.php:73
 msgid "State or Province:"
-msgstr "Щат или провинция:"
+msgstr "Област (щат):"
 
 #: ../admin-views/venue-meta-box.php:76
 msgid "Select a State:"
@@ -2074,7 +2074,7 @@ msgstr "Използвай запаметен организатор:"
 
 #: ../lib/the-events-calendar.class.php:1553
 msgid "Use New Venue"
-msgstr "Създаване на мястя"
+msgstr "Създаване на място"
 
 #: ../lib/the-events-calendar.class.php:1555
 msgid "My Venues"
@@ -2176,11 +2176,11 @@ msgstr "Проверете <a href=\"%s\">наличните add-ons</a>."
 #: ../lib/the-events-calendar.class.php:3954
 #: ../lib/the-events-calendar.class.php:4061
 msgid "View Calendar"
-msgstr "Виж календара"
+msgstr "Към календара"
 
 #: ../lib/the-events-calendar.class.php:3962
 msgid "Add Event"
-msgstr "Добави събитие"
+msgstr "Добавяне на събитие"
 
 #: ../lib/the-events-calendar.class.php:3971
 msgid "Edit Events"
@@ -2459,7 +2459,7 @@ msgstr "Списък със събития"
 
 #: ../lib/tribe-ical.class.php:126
 msgid "Import is filter/view sensitive"
-msgstr "Импортирането се повлиява от  filter/view"
+msgstr "Импортирането се променя в зависимот от изгледа и филтъра"
 
 #: ../lib/tribe-settings-tab.class.php:218
 msgid "There are no fields setup for this tab yet."
