@@ -4149,7 +4149,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 */
 		public function setup_dayview_in_bar( $views ) {
 			$views[] = array( 'displaying' => 'day',
-							  'anchor'     => __( 'Day', 'tribe-events-calendar-pro' ),
+							  'anchor'     => __( 'Day', 'tribe-events-calendar' ),
 							  'event_bar_hook'       => 'tribe_events_before_template',
 							  'url'        => tribe_get_day_link() );
 			return $views;
