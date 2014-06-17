@@ -20,7 +20,7 @@ if ( !is_wp_error($tec_info) ) {
 }
 
 $news_rss = fetch_feed(TribeEvents::FEED_URL);
-if ( !is_wp_error($news_rss) ) {
+if ( ! is_wp_error($news_rss) ) {
 	$maxitems = $news_rss->get_item_quantity( apply_filters('tribe_help_tab_rss_max_items', 5) );
 	$rss_items = $news_rss->get_items(0, $maxitems);
 	$news_feed = array();
@@ -39,49 +39,49 @@ $ga_query_string = '?utm_source=helptab&utm_medium=plugin-tec&utm_campaign=in-ap
 
 $premium_add_ons = array();
 $premium_add_ons[] = array(
-        'title' => __('The Events Calendar PRO', 'tribe-events-calendar'),
-        'link' => apply_filters('tribe_help_tab_ecp_tribe_url', 'http://m.tri.be/dr'),
+        'title' => __( 'The Events Calendar PRO', 'tribe-events-calendar' ),
+        'link' => apply_filters( 'tribe_help_tab_ecp_tribe_url', 'http://m.tri.be/dr' ),
     );
     $premium_add_ons[] = array(
-        'title' => __('The Events Calendar: Eventbrite Tickets', 'tribe-events-calendar'),
-        'link' => apply_filters('tribe_help_tab_eventbrite_tribe_url', 'http://m.tri.be/ds'),
+        'title' => __( 'The Events Calendar: Eventbrite Tickets', 'tribe-events-calendar' ),
+        'link' => apply_filters( 'tribe_help_tab_eventbrite_tribe_url', 'http://m.tri.be/ds' ),
     );
     $premium_add_ons[] = array(
-        'title' => __('The Events Calendar: Community Events', 'tribe-events-calendar'),
-        'link' => apply_filters('tribe_help_tab_community_events_tribe_url', 'http://m.tri.be/dt'),
+        'title' => __( 'The Events Calendar: Community Events', 'tribe-events-calendar' ),
+        'link' => apply_filters( 'tribe_help_tab_community_events_tribe_url', 'http://m.tri.be/dt' ),
     );
     $premium_add_ons[] = array(
-        'title' => __('The Events Calendar: Facebook Events', 'tribe-events-calendar'),
-        'link' => apply_filters('tribe_help_tab_facebook_events_tribe_url', 'http://m.tri.be/du'),
+        'title' => __( 'The Events Calendar: Facebook Events', 'tribe-events-calendar' ),
+        'link' => apply_filters( 'tribe_help_tab_facebook_events_tribe_url', 'http://m.tri.be/du' ),
     );
     $premium_add_ons[] = array(
-        'title' => __('The Events Calendar: WooCommerce Tickets', 'tribe-events-calendar'),
-        'link' => apply_filters('tribe_help_tab_wootickets_tribe_url', 'http://m.tri.be/dv'),
-    );
-
-    $premium_add_ons[] = array(
-        'title' => __('The Events Calendar: EDD Tickets', 'tribe-events-calendar'),
-        'link' => apply_filters('tribe_help_tab_eddtickets_tribe_url', 'http://m.tri.be/dw'),
+        'title' => __( 'The Events Calendar: WooCommerce Tickets', 'tribe-events-calendar' ),
+        'link' => apply_filters( 'tribe_help_tab_wootickets_tribe_url', 'http://m.tri.be/dv' ),
     );
 
     $premium_add_ons[] = array(
-        'title' => __('The Events Calendar: WPEC Tickets', 'tribe-events-calendar'),
-        'link' => apply_filters('tribe_help_tab_wpectickets_tribe_url', 'http://m.tri.be/dx'),
+        'title' => __( 'The Events Calendar: EDD Tickets', 'tribe-events-calendar' ),
+        'link' => apply_filters( 'tribe_help_tab_eddtickets_tribe_url', 'http://m.tri.be/dw' ),
     );
 
     $premium_add_ons[] = array(
-        'title' => __('The Events Calendar: Shopp Tickets', 'tribe-events-calendar'),
-        'link' => apply_filters('tribe_help_tab_shopptickets_tribe_url', 'http://m.tri.be/dy'),
+        'title' => __( 'The Events Calendar: WPEC Tickets', 'tribe-events-calendar' ),
+        'link' => apply_filters( 'tribe_help_tab_wpectickets_tribe_url', 'http://m.tri.be/dx' ),
     );
 
     $premium_add_ons[] = array(
-        'title' => __('The Events Calendar: Filter Bar', 'tribe-events-calendar'),
-		'link' => apply_filters('tribe_help_tab_filterbar_tribe_url', 'http://m.tri.be/hu'),
+        'title' => __( 'The Events Calendar: Shopp Tickets', 'tribe-events-calendar' ),
+        'link' => apply_filters( 'tribe_help_tab_shopptickets_tribe_url', 'http://m.tri.be/dy' ),
+    );
+
+    $premium_add_ons[] = array(
+        'title' => __( 'The Events Calendar: Filter Bar', 'tribe-events-calendar' ),
+		'link' => apply_filters( 'tribe_help_tab_filterbar_tribe_url', 'http://m.tri.be/hu' ),
 	);
 $premium_add_ons = (array) apply_filters( 'tribe_help_tab_premium_addons', $premium_add_ons ); // TODO should we replace this with an RSS feed??
 
 
-$getting_started_text = "If you're looking for help with The Events Calendar, you've come to the right place. We are committed to helping make your calendar kick ass...and hope the resources provided below will help get you there.";
+$getting_started_text = __( "If you're looking for help with The Events Calendar, you've come to the right place. We are committed to helping make your calendar kick ass...and hope the resources provided below will help get you there.", 'tribe-events-calendar' );
 $getting_started_text = apply_filters( 'tribe_help_tab_getting_started_text', $getting_started_text );
 
 $intro_text[] = '<p>' . __("If this is your first time using The Events Calendar, you're in for a treat and are already well on your way to creating a first event. Here are some basics we've found helpful for users jumping into it for the first time:", 'tribe-events-calendar') . '</p>';
