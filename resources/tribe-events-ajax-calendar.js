@@ -69,9 +69,6 @@
 
                 ts.mdate = e.date;
 
-               // if(!tf.date_in_range(ts.mdate))
-                    //return;
-
 				var year = e.date.getFullYear(),
 					month = ('0' + (e.date.getMonth() + 1)).slice(-2);
 
