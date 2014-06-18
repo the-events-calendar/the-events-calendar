@@ -1307,12 +1307,12 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 */
 	function tribe_events_earliest_date( $format = TribeDateUtils::DBDATETIMEFORMAT ) {
 		// Check if the earliest start date is already known
-		$earliest = get_option( 'earliest_date', false );
+		$earliest = tribe_get_option( 'earliest_date', false );
 		if ( false !== $earliest ) return TribeDateUtils::reformat( $earliest, $format );
 
 		// If not, try to determine now
 		TribeEvents::instance()->rebuild_earliest_latest();
-		$earliest = get_option( 'earliest_date', false );
+		$earliest = tribe_get_option( 'earliest_date', false );
 		if ( false !== $earliest ) return TribeDateUtils::reformat( $earliest, $format );
 
 		return false;
