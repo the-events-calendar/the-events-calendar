@@ -6,14 +6,14 @@
 // Don't load directly
 if ( !defined('ABSPATH') ) { die('-1'); }
 ?>
-<h3><?php _e('License Key', 'tribe-plugin-update-engine'); ?></h3>
-<p><?php _e('A valid license key is required for support and updates.', 'tribe-plugin-update-engine') ?></p>
+<h3><?php _e('License Key', 'tribe-events-calendar'); ?></h3>
+<p><?php _e('A valid license key is required for support and updates.', 'tribe-events-calendar') ?></p>
 <table class="form-table">
 	<tr>
-		<th scope="row"><?php _e('License Key','tribe-plugin-update-engine'); ?></th>
+		<th scope="row"><?php _e('License Key','tribe-events-calendar'); ?></th>
 		<td>
 			<fieldset>
-			<label title='<?php _e('Replace empty fields','tribe-plugin-update-engine'); ?>'>
+			<label title='<?php _e('Replace empty fields','tribe-events-calendar'); ?>'>
 				<input type="text" name="install_key" id="install_key" value="<?php echo $this->install_key ?>" size="45" />
 			</label>
 			<legend class="screen-reader-text">
@@ -22,7 +22,7 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 				<span id='valid-key' style='display:none;color:green'></span>
 				<span id='invalid-key' style='display:none;color:red'></span>
 			</p>
-			<p id="key-description"><?php _e( 'A valid license key is required for support and updates', 'tribe-plugin-update-engine' ); ?></p>
+			<p id="key-description"><?php _e( 'A valid license key is required for support and updates', 'tribe-events-calendar' ); ?></p>
 			</legend>
 			</fieldset>
 		</td>

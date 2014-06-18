@@ -285,8 +285,8 @@ if ( !class_exists( 'TribePluginUpdateEngineChecker' ) ) {
 					'type' => 'license_key',
 					'size' => 'large',
 					'validation_type' => 'license_key',
-					'label' => sprintf( __('License Key', 'tribe-plugin-update-engine') ),
-					'tooltip' => __('A valid license key is required for support and updates', 'tribe-plugin-update-engine'),
+					'label' => sprintf( __('License Key', 'tribe-events-calendar') ),
+					'tooltip' => __('A valid license key is required for support and updates', 'tribe-events-calendar'),
 					'parent_option' => false,
 				),
 			));
@@ -350,7 +350,7 @@ if ( !class_exists( 'TribePluginUpdateEngineChecker' ) ) {
 			if ( $tab != 'licenses' )
 				return $message;
 
-			return '<div id="message" class="updated"><p><strong>' . __( 'License key(s) updated.', 'tribe-plugin-update-engine' ) . '</strong></p></div>';
+			return '<div id="message" class="updated"><p><strong>' . __( 'License key(s) updated.', 'tribe-events-calendar' ) . '</strong></p></div>';
 
 		}
 
@@ -390,16 +390,16 @@ if ( !class_exists( 'TribePluginUpdateEngineChecker' ) ) {
 				$pluginInfo = $this->request_info( $queryArgs );
 
 				if (empty($pluginInfo)) {
-					$response['message'] = __('Sorry, key validation server is not available.','tribe-plugin-update-engine');
+					$response['message'] = __('Sorry, key validation server is not available.','tribe-events-calendar');
 				} elseif (isset($pluginInfo->api_expired) && $pluginInfo->api_expired == 1) {
-					$response['message'] = __('Sorry, this key is expired.','tribe-plugin-update-engine');
+					$response['message'] = __('Sorry, this key is expired.','tribe-events-calendar');
 				} elseif (isset($pluginInfo->api_upgrade) && $pluginInfo->api_upgrade == 1) {
-					$response['message'] = __('Sorry, this key is out of installs.','tribe-plugin-update-engine');
+					$response['message'] = __('Sorry, this key is out of installs.','tribe-events-calendar');
 				} elseif (isset($pluginInfo->api_invalid) && $pluginInfo->api_invalid == 1) {
-					$response['message'] = __('Sorry, this key is not valid.','tribe-plugin-update-engine');
+					$response['message'] = __('Sorry, this key is not valid.','tribe-events-calendar');
 				} else {
 					$response['status'] = 1;
-					$response['message'] = sprintf(__('Valid Key! Expires on %s','tribe-plugin-update-engine'),$pluginInfo->expiration);
+					$response['message'] = sprintf(__('Valid Key! Expires on %s','tribe-events-calendar'),$pluginInfo->expiration);
 					$response['expiration'] = $pluginInfo->expiration;
 				}
 			} else {
