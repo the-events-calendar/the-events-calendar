@@ -105,7 +105,7 @@ if ( ! class_exists( 'TribeEventsSupport' ) ) {
 				'multisite'          => is_multisite(),
 				'settings'           => TribeEvents::getOptions(),
 				'WordPress timezone' => get_option( 'timezone_string', __( 'Unknown or not set', 'tribe-events-calendar' ) ),
-				'server datetime'    => date_default_timezone_get()
+				'server timezone'    => date_default_timezone_get()
 			);
 			$systeminfo = apply_filters( 'tribe-events-pro-support', $systeminfo );
 
