@@ -574,10 +574,10 @@ if( class_exists( 'TribeEventsPro' ) ) {
 			$tooltip .= '<div class="recurringinfo">';
 			$tooltip .= '<div class="event-is-recurring">';
 			$tooltip .= '<span class="tribe-events-divider">|</span>';
-			$tooltip .= __( 'Recurring Event', 'tribe-events-calendar' );
+			$tooltip .= __( 'Recurring Event', 'tribe-events-calendar-pro' );
 			$tooltip .= sprintf(' <a href="%s">%s</a>',
 				tribe_all_occurences_link( $post_id, false ),
-				__( '(See all)', 'tribe-events-calendar' )
+				__( '(See all)', 'tribe-events-calendar-pro' )
 			);
 			$tooltip .= '<div id="tribe-events-tooltip-'. $post_id .'" class="tribe-events-tooltip recurring-info-tooltip">';
 			$tooltip .= '<div class="tribe-events-event-body">';
