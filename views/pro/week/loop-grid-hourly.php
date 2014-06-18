@@ -42,7 +42,7 @@ $hour_format = apply_filters( 'tribe_events_pro_week_hour_format', get_option('t
 		<?php // Hours ?>
 		<div class="column tribe-week-grid-hours">
 			<?php for ( $hour = $multiday_cutoff[0]; $hour <= $multiday_cutoff[0] + 23; $hour++ ) : ?>
-			<div class="time-row-<?php echo date_i18n( 'gA', mktime( $hour ) ); ?>"><?php echo date_i18n( $hour_format, strtotime($hour.':00') ); ?></div>
+			<div class="time-row-<?php echo date_i18n( 'gA', mktime( $hour ) ); ?>"><?php echo date_i18n( $hour_format, strtotime(($hour%24).':00') ); ?></div>
 			<?php endfor; ?>
 		</div><!-- tribe-week-grid-hours -->
 		<?php // Content ?>
