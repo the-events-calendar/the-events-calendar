@@ -4,10 +4,11 @@
  */
 
 // Don't load directly
-if ( !defined('ABSPATH') ) { die('-1'); }
+if ( ! defined('ABSPATH') ) die('-1');
+
 ?>
-<h3><?php _e('License Key', 'tribe-events-calendar'); ?></h3>
-<p><?php _e('A valid license key is required for support and updates.', 'tribe-events-calendar') ?></p>
+<h3><?php _e( 'License Key', 'tribe-events-calendar' ); ?></h3>
+<p><?php _e( 'A valid license key is required for support and updates.', 'tribe-events-calendar' ) ?></p>
 <table class="form-table">
 	<tr>
 		<th scope="row"><?php _e('License Key','tribe-events-calendar'); ?></th>
@@ -54,7 +55,7 @@ function validateKey() {
 				jQuery('#invalid-key').hide();
 			} else {
 				jQuery('#invalid-key').show();
-				jQuery('#invalid-key').text(data.message);
+				jQuery('#invalid-key').html(data.message);
 				jQuery('#valid-key').hide();
 			}
 		});

@@ -324,11 +324,11 @@ if ( !class_exists( 'TribePluginUpdateEngineChecker' ) ) {
 							jQuery(this_id+' .ajax-loading-license').hide();
 							if(data.status == '1') {
 								jQuery(this_id+' .valid-key').show();
-								jQuery(this_id+' .valid-key').text(data.message);
+								jQuery(this_id+' .valid-key').html(data.message);
 								jQuery(this_id+' .invalid-key').hide();
 							} else {
 								jQuery(this_id+' .invalid-key').show();
-								jQuery(this_id+' .invalid-key').text(data.message);
+								jQuery(this_id+' .invalid-key').html(data.message);
 								jQuery(this_id+' .valid-key').hide();
 							}
 						});
@@ -389,15 +389,21 @@ if ( !class_exists( 'TribePluginUpdateEngineChecker' ) ) {
 
 				$pluginInfo = $this->request_info( $queryArgs );
 
-				if (empty($pluginInfo)) {
-					$response['message'] = __('Sorry, key validation server is not available.','tribe-events-calendar');
-				} elseif (isset($pluginInfo->api_expired) && $pluginInfo->api_expired == 1) {
-					$response['message'] = __('Sorry, this key is expired.','tribe-events-calendar');
-				} elseif (isset($pluginInfo->api_upgrade) && $pluginInfo->api_upgrade == 1) {
-					$response['message'] = __('Sorry, this key is out of installs.','tribe-events-calendar');
-				} elseif (isset($pluginInfo->api_invalid) && $pluginInfo->api_invalid == 1) {
+				if ( empty( $pluginInfo ) ) {
+					$response['message'] = __( 'Sorry, key validation server is not available.', 'tribe-events-calendar' );
+				}
+				elseif ( isset( $pluginInfo->api_expired ) && $pluginInfo->api_expired == 1 ) {
+					$response['message'] = __( 'Sorry, this key is expired.', 'tribe-events-calendar' );
+
+				} elseif ( isset( $pluginInfo->api_upgrade ) && $pluginInfo->api_upgrade == 1 ) {
+					$problem = __( 'Sorry, this key is out of installs.','tribe-events-calendar' );
+					$helpful_link = sprintf( '<a href="%s" target="_blank">%s</a>', 'http://m.tri.be/lz', __( 'Why am I seeing this message?' ) );
+					$response['message'] = "$problem $helpful_link";
+				}
+				elseif ( isset( $pluginInfo->api_invalid ) && $pluginInfo->api_invalid == 1 ) {
 					$response['message'] = __('Sorry, this key is not valid.','tribe-events-calendar');
-				} else {
+				}
+				else {
 					$response['status'] = 1;
 					$response['message'] = sprintf(__('Valid Key! Expires on %s','tribe-events-calendar'),$pluginInfo->expiration);
 					$response['expiration'] = $pluginInfo->expiration;
