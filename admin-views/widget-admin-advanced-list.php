@@ -70,9 +70,9 @@ if ( empty( $instance['filters'] ) ) {
 				$tax_obj = get_taxonomy( $tax );
 
 				foreach ( $terms as $term ) {
-					if ( empty( $term ) )
-						continue;
+					if ( empty( $term ) ) { continue; }
 					$term_obj = get_term( $term, $tax );
+					if ( ! isset( $term_obj ) ) { continue; }
 					echo sprintf( "<li><p>%s: %s&nbsp;&nbsp;<span><a href='#' class='calendar-widget-remove-filter' data-tax='%s' data-term='%s'>(".__('remove', 'tribe-events-calendar-pro').")</a></span></p></li>", $tax_obj->labels->name, $term_obj->name, $tax, $term_obj->term_id );
 				}
 			}
