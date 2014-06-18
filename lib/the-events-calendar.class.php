@@ -4020,26 +4020,24 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 */
 		public function setInitialMenuMetaBoxes() {
 			global $current_screen;
-			if ( $current_screen->id == 'nav-menus' ) {
-				$user = wp_get_current_user();
-				if ( !get_user_option( 'tribe_setDefaultNavMenuBoxes', $user->ID ) ) {
+			if ( $current_screen->id != 'nav-menus' ) return;
+			$user_id = wp_get_current_user()->ID;
+			if ( get_user_option( 'tribe_setDefaultNavMenuBoxes', $user_id ) ) return;
 
-					$current_hidden_boxes = array();
-					$current_hidden_boxes =  get_user_option( 'metaboxhidden_nav-menus', $user->ID );
-					if ( $array_key = array_search( 'add-' . self::POSTTYPE, $current_hidden_boxes ) )
-						unset( $current_hidden_boxes[$array_key] );
-					if ( $array_key = array_search( 'add-' . self::VENUE_POST_TYPE, $current_hidden_boxes ) )
-						unset( $current_hidden_boxes[$array_key] );
-					if ( $array_key = array_search( 'add-' . self::ORGANIZER_POST_TYPE, $current_hidden_boxes ) )
-						unset( $current_hidden_boxes[$array_key] );
-					if ( $array_key = array_search( 'add-' . self::TAXONOMY, $current_hidden_boxes ) )
-						unset( $current_hidden_boxes[$array_key] );
+			$current_hidden_boxes = array();
+			$current_hidden_boxes =  get_user_option( 'metaboxhidden_nav-menus', $user_id );
 
-					update_user_option( $user->ID, 'metaboxhidden_nav-menus', $current_hidden_boxes, true );
+			if ( $array_key = array_search( 'add-' . self::POSTTYPE, $current_hidden_boxes ) )
+				unset( $current_hidden_boxes[$array_key] );
+			if ( $array_key = array_search( 'add-' . self::VENUE_POST_TYPE, $current_hidden_boxes ) )
+				unset( $current_hidden_boxes[$array_key] );
+			if ( $array_key = array_search( 'add-' . self::ORGANIZER_POST_TYPE, $current_hidden_boxes ) )
+				unset( $current_hidden_boxes[$array_key] );
+			if ( $array_key = array_search( 'add-' . self::TAXONOMY, $current_hidden_boxes ) )
+				unset( $current_hidden_boxes[$array_key] );
 
-					update_user_option( $user->ID, 'tribe_setDefaultNavMenuBoxes', true, true );
-				}
-			}
+			update_user_option( $user_id, 'metaboxhidden_nav-menus', $current_hidden_boxes, true );
+			update_user_option( $user_id, 'tribe_setDefaultNavMenuBoxes', true, true );
 		}
 
 		/**
