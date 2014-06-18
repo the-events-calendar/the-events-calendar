@@ -463,6 +463,9 @@
 
 		function tribe_events_week_ajax_post() {
 
+            if(tf.invalid_date(ts.date))
+                return;
+
 			var $tribe_header = $('#tribe-events-header');
 
 			$('.tribe-events-grid').tribe_spin();

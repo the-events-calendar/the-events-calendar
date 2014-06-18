@@ -96,7 +96,8 @@
 
 		var $tribe_container = $('#tribe-events'),
 			$geo_bar_input = $('#tribe-bar-geoloc'),
-			$geo_options = $("#tribe-geo-options");
+			$geo_options = $("#tribe-geo-options"),
+            invalid_date = false;
 
 		var options = {
 			zoom: 5,
@@ -246,6 +247,14 @@
 
 			$(te).trigger('tribe_ev_serializeBar');
 
+            if(tf.invalid_date_in_params(ts.params)){
+                ts.ajax_running = false;
+                invalid_date = true;
+                return;
+            } else {
+                invalid_date = false;
+            }
+
 			ts.params = $.param(ts.params);
 
 			$(te).trigger('tribe_ev_collectParams');
@@ -263,8 +272,6 @@
 		 */
 
 		function tribe_map_processOption() {
-			$('#tribe-events-content .tribe-events-loop').tribe_spin();
-			deleteMarkers();
 
 			if (!ts.popping) {
 				tribe_generate_map_params();
@@ -273,6 +280,12 @@
 					ts.do_string = true;
 				}
 			}
+
+            if(invalid_date)
+                return;
+
+            $('#tribe-events-content .tribe-events-loop').tribe_spin();
+            deleteMarkers();
 
 			$.post(GeoLoc.ajaxurl, ts.params, function (response) {
 

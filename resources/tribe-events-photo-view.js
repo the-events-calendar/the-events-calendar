@@ -232,9 +232,6 @@
 
 		function tribe_events_photo_ajax_post() {
 
-			$('#tribe-events-header').tribe_spin();
-			tribe_show_loader();
-
 			if (!ts.popping) {
 
 				ts.ajax_running = true;
@@ -264,6 +261,14 @@
 				}
 
 				$(te).trigger('tribe_ev_serializeBar');
+
+                if(tf.invalid_date_in_params(ts.params)){
+                    ts.ajax_running = false;
+                    return;
+                }
+
+                $('#tribe-events-header').tribe_spin();
+                tribe_show_loader();
 
 				ts.params = $.param(ts.params);
 				ts.url_params = $.param(ts.url_params);
