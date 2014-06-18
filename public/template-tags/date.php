@@ -136,10 +136,12 @@ if( class_exists( 'TribeEvents' ) ) {
 		$multiday_cutoff = explode( ':', tribe_get_option( 'multiDayCutoff', '00:00' ) );
 		$hours_to_add = $multiday_cutoff[0];
 		$minutes_to_add = $multiday_cutoff[1];
-		if( is_null($date) || empty($date) ) {
-			return apply_filters( 'tribe_event_beginning_of_day', Date($format, strtotime( date( 'Y-m-d' ) . ' +' . $hours_to_add . ' hours ' . $minutes_to_add . ' minutes' ) ) );
-		} else {
-			return apply_filters( 'tribe_event_beginning_of_day', Date($format, strtotime( date( 'Y-m-d', strtotime($date) ) . ' +' . $hours_to_add . ' hours ' . $minutes_to_add . ' minutes' ) ) );
+
+		if ( is_null( $date ) || empty( $date ) ) {
+			return apply_filters( 'tribe_event_beginning_of_day', Date($format, strtotime( date( 'Y-m-d' ) . ' +' . $hours_to_add . ' hours ' . $minutes_to_add . ' minutes' ) + 1 ) );
+		}
+		else {
+			return apply_filters( 'tribe_event_beginning_of_day', Date($format, strtotime( date( 'Y-m-d', strtotime($date) ) . ' +' . $hours_to_add . ' hours ' . $minutes_to_add . ' minutes' ) + 1 ) );
 		}
 	}
 
@@ -154,10 +156,12 @@ if( class_exists( 'TribeEvents' ) ) {
 		$multiday_cutoff = explode( ':', tribe_get_option( 'multiDayCutoff', '00:00' ) );
 		$hours_to_add = $multiday_cutoff[0];
 		$minutes_to_add = $multiday_cutoff[1];
-		if( is_null($date) || empty($date) ) {
-			return apply_filters( 'tribe_event_end_of_day', Date($format, strtotime('tomorrow ' . ' +' . $hours_to_add . ' hours ' . $minutes_to_add . ' minutes' ) - 1 ) );
-		} else {
-			return apply_filters( 'tribe_event_end_of_day', Date($format, strtotime( date( 'Y-m-d', strtotime($date) ) . ' +1 day ' . $hours_to_add . ' hours ' . $minutes_to_add . ' minutes' ) - 1 ) );
+
+		if ( is_null( $date ) || empty( $date ) ) {
+			return apply_filters('tribe_event_end_of_day', Date($format, strtotime('tomorrow ' . ' +' . $hours_to_add . ' hours ' . $minutes_to_add . ' minutes' ) + 1 ) );
+		}
+		else {
+			return apply_filters('tribe_event_end_of_day', Date($format, strtotime(date('Y-m-d', strtotime($date)) . ' +1 day ' . $hours_to_add . ' hours ' . $minutes_to_add . ' minutes' ) + 1 ) );
 		}
 	}
 
