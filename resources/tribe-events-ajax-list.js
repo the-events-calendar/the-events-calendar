@@ -150,7 +150,6 @@
 
 		function tribe_events_list_ajax_post() {
 
-			$('#tribe-events-content .tribe-events-loop').tribe_spin();
 			ts.ajax_running = true;
 
 			if (!ts.popping) {
@@ -180,6 +179,13 @@
 				}
 
 				$(te).trigger('tribe_ev_serializeBar');
+
+                if(tf.invalid_date_in_params(ts.params)){
+                    ts.ajax_running = false;
+                    return;
+                }
+
+                $('#tribe-events-content .tribe-events-loop').tribe_spin();
 
 				ts.params = $.param(ts.params);
 				ts.url_params = $.param(ts.url_params);

@@ -196,7 +196,8 @@ var tribeDateFormat = function () {
 
         // Passing date through Date applies Date.parse, if necessary
         date = date ? new Date(date) : new Date;
-        if (isNaN(date)) throw SyntaxError("invalid date");
+        if (isNaN(date))
+            return;
 
         mask = String(dF.masks[mask] || mask || dF.masks["default"]);
 
@@ -453,10 +454,12 @@ Date.prototype.format = function (mask, utc) {
 		 * @example var right_now = tribe_ev.fn.current_date();
 		 */
 		current_date: function () {
-			var today = new Date();
-			var dd = today.getDate();
-			var mm = today.getMonth() + 1;
-			var yyyy = today.getFullYear();
+
+			var today = new Date(),
+                dd = today.getDate(),
+                mm = today.getMonth() + 1,
+                yyyy = today.getFullYear();
+
 			if (dd < 10) {
 				dd = '0' + dd
 			}
@@ -605,6 +608,27 @@ Date.prototype.format = function (mask, utc) {
 		in_params: function (params, term) {
 			return params.toLowerCase().indexOf(term);
 		},
+        /**
+         * @function tribe_ev.fn.invalid_date
+         * @desc tribe_ev.fn.invalid_date tests a date object and confirms if it is actually valid by forcing parseDate on it.
+         * @returns {Boolean} Returns true if date is invalid, false if valid.
+         * @example  if(tf.invalid_date(ts.date)) return;
+         */
+        invalid_date: function(date){
+
+            date = new Date(date);
+            return isNaN(date);
+
+        },
+        invalid_date_in_params: function(params){
+
+            if(params.hasOwnProperty('tribe-bar-date')){
+                var date = new Date(params['tribe-bar-date']);
+                return isNaN(date);
+            }
+            return false;
+
+        },
 		/**
 		 * @function tribe_ev.fn.is_category
 		 * @desc tribe_ev.fn.is_category test for whether the view is a category subpage in the pretty permalink system.

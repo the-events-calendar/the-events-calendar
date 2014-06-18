@@ -165,6 +165,9 @@
 
 		function tribe_events_day_ajax_post() {
 
+            if(tf.invalid_date(ts.date))
+                return;
+
 			ts.pushcount = 0;
 			ts.ajax_running = true;
 

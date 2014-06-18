@@ -69,6 +69,9 @@
 
                 ts.mdate = e.date;
 
+               // if(!tf.date_in_range(ts.mdate))
+                    //return;
+
 				var year = e.date.getFullYear(),
 					month = ('0' + (e.date.getMonth() + 1)).slice(-2);
 
@@ -339,6 +342,9 @@
 		 */
 
 		function tribe_events_calendar_ajax_post() {
+
+            if(tf.invalid_date(ts.date))
+                return;
 
 			$('.tribe-events-calendar').tribe_spin();
 			ts.pushcount = 0;
