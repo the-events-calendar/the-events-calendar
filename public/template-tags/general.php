@@ -695,7 +695,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 	/**
 	 * Event in Category Conditional
 	 *
-	 * Returns true if the event is in the specified catagory slug
+	 * Returns true if the event is in the specified category slug
 	 *
 	 * @param string $event_cat_slug
 	 * @param int $event_id
