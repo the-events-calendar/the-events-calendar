@@ -4524,6 +4524,21 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			}
 		}
 
+		/**
+		 * Helper used to test if PRO is present and activated.
+		 *
+		 * This method should no longer be used, but is being retained to avoid potential
+		 * for fatal errors where core is updated before an addon plugin - such as Community
+		 * Events 3.4 or earlier - which might otherwise occur were it removed completely.
+		 *
+		 * @deprecated as of 3.7, remove in 4.0
+		 * @param string $version
+		 * @return bool
+		 */
+		public static function ecpActive( $version = '2.0.7' ) {
+			return class_exists( 'TribeEventsPro' ) && defined('TribeEventsPro::VERSION') && version_compare( TribeEventsPro::VERSION, $version, '>=');
+		}
+
 	} // end TribeEvents class
 
 } // end if !class_exists TribeEvents
