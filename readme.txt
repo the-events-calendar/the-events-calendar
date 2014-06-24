@@ -161,6 +161,7 @@ The plugin is produced by <a href="http://m.tri.be/45">Modern Tribe Inc</a>.
 * Brazilian Portuguese from Emerson Marques
 * Bulgarian from Nedko Ivanov
 * Catalan from Barbara Partegos Rof
+* Chinese from Massound Huang
 * Croatian from Marko Manojlovic
 * Czech from Petr Bastan
 * Danish from Anonymous
@@ -219,6 +220,7 @@ Our Premium Plugins:
 = 3.7 =
 
 * Incorporated new Bulgarian translation files, courtesy of Nedko Ivanov
+* Incorporated new Chinese translation files, courtesy of Massound Huang
 
 = 3.6.1 =
 
