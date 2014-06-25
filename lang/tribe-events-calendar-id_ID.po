@@ -1,0 +1,4058 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: The Events Calendar 3.5\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-06-17 14:58-0800\n"
+"PO-Revision-Date: 2014-06-24 16:52-0800\n"
+"Last-Translator: \n"
+"Language-Team: Modern Tribe, Inc. <pro@tri.be>\n"
+"Language: id_ID\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.6.5\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:1,2,4c;_n_noop:1,2;"
+"_nx_noop:1,2,3c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;"
+"esc_html_x:1,2c\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Poedit-SearchPath-0: ..\n"
+
+#: ../admin-views/app-shop.php:4
+msgid "Tribe Event Add-Ons"
+msgstr "Tribe Event Add-Ons"
+
+#: ../admin-views/app-shop.php:50
+msgid "Version"
+msgstr "Versi"
+
+#: ../admin-views/app-shop.php:53
+msgid "Last Update"
+msgstr "Update Terakhir"
+
+#: ../admin-views/event-sidebar-options.php:11
+msgid "Hide From Event Listings"
+msgstr "Sembunyikan Dari Daftar Event"
+
+#: ../admin-views/event-sidebar-options.php:12
+msgid "Sticky in Calendar View"
+msgstr "Sticky di Kalender"
+
+#: ../admin-views/events-audit-trail.php:39
+msgid "Auditing Information"
+msgstr "Informasi Audit"
+
+#: ../admin-views/events-audit-trail.php:45
+msgid "Created by:"
+msgstr "Dibuat oleh:"
+
+#: ../admin-views/events-audit-trail.php:49
+msgid "Audit Trail:"
+msgstr "Audit Trail:"
+
+#: ../admin-views/events-meta-box.php:26
+msgid "Event Time &amp; Date"
+msgstr "Waktu &amp; Tanggal Event"
+
+#: ../admin-views/events-meta-box.php:32
+msgid ""
+"You have changed the recurrence rules of this event.  Saving the event will "
+"update all future events.  If you did not mean to change all events, then "
+"please refresh the page."
+msgstr ""
+"Anda telah mengubah aturan terulangnya event ini. Menyimpan event akan "
+"memperbarui semua event di masa depan. Jika Anda tidak bermaksud untuk "
+"mengubah semua event, maka silakan refresh halaman."
+
+#: ../admin-views/events-meta-box.php:35
+msgid "All Day Event:"
+msgstr "Event Sepanjang Hari:"
+
+#: ../admin-views/events-meta-box.php:39
+msgid "Start Date &amp; Time:"
+msgstr "Tanggal Mulai &amp; Waktu:"
+
+#: ../admin-views/events-meta-box.php:42 ../admin-views/events-meta-box.php:63
+msgid "YYYY-MM-DD"
+msgstr "YYYY-MM-DD"
+
+#: ../admin-views/events-meta-box.php:60
+msgid "End Date &amp; Time:"
+msgstr "Tanggal Akhir &amp; Waktu:"
+
+#: ../admin-views/events-meta-box.php:87
+msgid "Event Location Details"
+msgstr "Detil Lokasi Event"
+
+#: ../admin-views/events-meta-box.php:95
+msgid "Event Organizer Details"
+msgstr "Detil Penyelenggara Event"
+
+#: ../admin-views/events-meta-box.php:103
+msgid "Event Website"
+msgstr "Situs Web Event"
+
+#: ../admin-views/events-meta-box.php:106
+msgid "URL:"
+msgstr "URL:"
+
+#: ../admin-views/events-meta-box.php:117
+#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:61
+msgid "Event Cost"
+msgstr "Biaya Event"
+
+#: ../admin-views/events-meta-box.php:120
+msgid "Currency Symbol:"
+msgstr "Simbol Mata Uang:"
+
+#: ../admin-views/events-meta-box.php:130
+msgctxt "Currency symbol position"
+msgid "Before cost"
+msgstr "Biaya sebelum"
+
+#: ../admin-views/events-meta-box.php:131
+msgctxt "Currency symbol position"
+msgid "After cost"
+msgstr "Biaya sesudah"
+
+#: ../admin-views/events-meta-box.php:136
+#: ../public/advanced-functions/meta.php:320
+#: ../views/modules/meta/details.php:80
+msgid "Cost:"
+msgstr "Biaya:"
+
+#: ../admin-views/events-meta-box.php:141
+msgid "Enter a 0 for events that are free or leave blank to hide the field."
+msgstr ""
+"Masukkan 0 untuk event yang gratis atau biarkan kosong untuk menyembunyikan "
+"field."
+
+#: ../admin-views/organizer-meta-box.php:12
+#: ../admin-views/venue-meta-box.php:20
+#, php-format
+msgid "%s Name:"
+msgstr "%s Nama:"
+
+#: ../admin-views/organizer-meta-box.php:19
+#: ../admin-views/tickets/attendees.php:41
+#: ../admin-views/venue-meta-box.php:93
+#: ../public/advanced-functions/meta.php:408
+#: ../public/advanced-functions/meta.php:470
+#: ../views/modules/meta/organizer.php:24 ../views/modules/meta/venue.php:36
+msgid "Phone:"
+msgstr "Telepon:"
+
+#: ../admin-views/organizer-meta-box.php:23
+#: ../admin-views/tickets/attendees.php:47
+#: ../admin-views/venue-meta-box.php:97
+#: ../public/advanced-functions/meta.php:359
+#: ../public/advanced-functions/meta.php:434
+#: ../public/advanced-functions/meta.php:496
+#: ../views/modules/meta/details.php:103
+#: ../views/modules/meta/organizer.php:34 ../views/modules/meta/venue.php:41
+msgid "Website:"
+msgstr "Situs Web:"
+
+#: ../admin-views/organizer-meta-box.php:27
+#: ../public/advanced-functions/meta.php:483
+#: ../views/modules/meta/organizer.php:29
+msgid "Email:"
+msgstr "Email"
+
+#: ../admin-views/organizer-meta-box.php:28
+msgid ""
+"You may want to consider <a href=\"http://wordpress.org/plugins/tags/"
+"obfuscate\">obfuscating</a> any e-mail address published on your site to "
+"best avoid it getting harvested by spammers."
+msgstr ""
+"Anda mungkin ingin mempertimbangkan <a href=\"http://wordpress.org/plugins/"
+"tags/obfuscate\">obfuscating </a> alamat e-mail yang dipublikasikan di situs "
+"Anda untuk menghindari spammer."
+
+#: ../admin-views/tickets/attendees.php:11 ../admin-views/tickets/list.php:41
+#: ../lib/tickets/tribe-tickets-pro.php:73
+msgid "Attendees"
+msgstr "Peserta"
+
+#: ../admin-views/tickets/attendees.php:16
+msgid "Event Summary"
+msgstr "Ringkasan Event"
+
+#: ../admin-views/tickets/attendees.php:24
+msgid "Event Details"
+msgstr "Detil event"
+
+#: ../admin-views/tickets/attendees.php:26
+msgid "Start Date / Time:"
+msgstr "Tanggal Mulai / Waktu:"
+
+#: ../admin-views/tickets/attendees.php:28
+msgid "End Date / Time:"
+msgstr "Tanggal Akhir / Waktu:"
+
+#: ../admin-views/tickets/attendees.php:54
+msgid "Ticket Sales"
+msgstr "Penjualan Tiket"
+
+#: ../admin-views/tickets/attendees.php:66 ../admin-views/tickets/list.php:67
+#, php-format
+msgid "Sold %d"
+msgstr "Terjual %d"
+
+#: ../admin-views/tickets/attendees.php:68 ../admin-views/tickets/list.php:69
+#, php-format
+msgid "Sold %d of %d"
+msgstr "Terjual %d dari %d"
+
+#: ../admin-views/tickets/attendees.php:83
+msgid "Tickets sold:"
+msgstr "Tiket terjual:"
+
+#: ../admin-views/tickets/attendees.php:87
+msgid "Checked in:"
+msgstr "Telah Check in:"
+
+#: ../admin-views/tickets/attendees.php:104
+msgid "Send the attendee list by email"
+msgstr "Kirimkan daftar peserta melalui email"
+
+#: ../admin-views/tickets/attendees.php:108
+msgid "Select a User:"
+msgstr "Pilih User:"
+
+#: ../admin-views/tickets/attendees.php:109
+msgid "Select..."
+msgstr "Pilih ..."
+
+#: ../admin-views/tickets/attendees.php:111
+msgid "or"
+msgstr "atau"
+
+#: ../admin-views/tickets/attendees.php:113
+msgid "Email Address:"
+msgstr "Alamat Email:"
+
+#: ../admin-views/tickets/list.php:21
+msgid "Edit"
+msgstr "Ubah"
+
+#: ../admin-views/tickets/list.php:22
+#: ../lib/tickets/tribe-tickets-attendees.php:215
+msgid "Delete"
+msgstr "Hapus"
+
+#: ../admin-views/tickets/list.php:24
+#, php-format
+msgid "Edit in %s"
+msgstr "Edit dalam %s"
+
+#: ../admin-views/tickets/list.php:27
+msgid "View"
+msgstr "Lihat"
+
+#: ../admin-views/tickets/list.php:41 ../lib/tickets/tribe-tickets-pro.php:73
+msgid "See who purchased tickets to this event"
+msgstr "Lihat yang membeli tiket untuk event ini"
+
+#: ../admin-views/tickets/meta-box.php:21
+msgid ""
+"This event was created using Community Events. Are you sure you want to sell "
+"tickets for it?"
+msgstr ""
+"Event ini dibuat menggunakan Community Events. Apakah Anda yakin ingin "
+"menjual tiket untuk ini?"
+
+#: ../admin-views/tickets/meta-box.php:32
+msgid "Upload image for the ticket header"
+msgstr "Upload gambar untuk header tiket"
+
+#: ../admin-views/tickets/meta-box.php:33
+msgid ""
+"The maximum image size in the email will be 580px wide by any height, and "
+"then scaled for mobile. If you would like \"retina\" support use an image "
+"sized to 1160px wide."
+msgstr ""
+"Ukuran gambar maksimal dalam email akan memiliki lebar 580px dengan tinggi "
+"apapun, dan kemudian diatur skalanya untuk mobile. Jika Anda ingin dukungan "
+"\"retina\" gunakan gambar berukuran lebar 1160px."
+
+#: ../admin-views/tickets/meta-box.php:36
+msgid "Select an Image"
+msgstr "Pilih Gambar"
+
+#: ../admin-views/tickets/meta-box.php:44
+msgid "Remove"
+msgstr "Hapus"
+
+#: ../admin-views/tickets/meta-box.php:62
+#: ../admin-views/tickets/meta-box.php:72
+msgid "Add new ticket"
+msgstr "Tambahkan tiket baru"
+
+#: ../admin-views/tickets/meta-box.php:73
+msgid "Edit ticket"
+msgstr "Sunting tiket"
+
+#: ../admin-views/tickets/meta-box.php:79
+msgid "Sell using:"
+msgstr "Jual menggunakan:"
+
+#: ../admin-views/tickets/meta-box.php:96
+msgid "Ticket Name:"
+msgstr "Nama Tiket:"
+
+#: ../admin-views/tickets/meta-box.php:103
+msgid "Ticket Description:"
+msgstr "Keterangan Tiket:"
+
+#: ../admin-views/tickets/meta-box.php:112
+msgid "Price:"
+msgstr "Harga"
+
+#: ../admin-views/tickets/meta-box.php:118
+msgid "(0 or empty for free tickets)"
+msgstr "(0 atau kosong untuk tiket gratis)"
+
+#: ../admin-views/tickets/meta-box.php:124
+msgid "Start sale:"
+msgstr "Mulai dijual:"
+
+#: ../admin-views/tickets/meta-box.php:148
+msgid "End sale:"
+msgstr "Akhir penjualan:"
+
+#: ../admin-views/tickets/meta-box.php:170
+msgid ""
+"When will ticket sales occur? If you don't set a start/end date for sales, "
+"tickets will be available from now until the event ends."
+msgstr ""
+"Kapan akan terjadi penjualan tiket? Jika Anda tidak menetapkan tanggal awal/"
+"akhir untuk penjualan, tiket akan tersedia dari sekarang sampai event "
+"berakhir."
+
+#: ../admin-views/tickets/meta-box.php:182
+msgid "Save this ticket"
+msgstr "Simpan tiket ini"
+
+#: ../admin-views/tribe-options-display.php:4
+msgid "Default Events Template"
+msgstr "Template Event Standar"
+
+#: ../admin-views/tribe-options-display.php:5
+msgid "Default Page Template"
+msgstr "Template Bawaan Halaman"
+
+#: ../admin-views/tribe-options-display.php:31
+msgid "Display Settings"
+msgstr "Pengaturan Tampilan"
+
+#: ../admin-views/tribe-options-display.php:36
+#, php-format
+msgid ""
+"<p>The settings below control the display of your calendar. If things don't "
+"look right, try switching between the three style sheet options or pick a "
+"page template from your theme.</p><p>There are going to be situations where "
+"no out-of-the-box template is 100&#37; perfect. Check out our <a href=\"%s"
+"\">our themer's guide</a> for instructions on custom modifications. Want to "
+"create a new view? Grab a copy of the <a href=\"%s\">Sample Agenda View "
+"plugin from Github</a></p>"
+msgstr ""
+"<p>Pengaturan di bawah mengontrol tampilan kalender Anda. Jika hal-hal tidak "
+"beres, coba beralih antara tiga pilihan style sheet atau pilih template "
+"halaman dari tema Anda. </ P> Akan ada situasi dimana tidak ada template "
+"yang out-of-the-box  100&#37; sempurna. Lihat <a href=\"%s\">panduan theme "
+"kami</ a> untuk petunjuk tentang modifikasi kustom. Ingin membuat tampilan "
+"baru? Ambil salinan <a href =\"%s \">Contoh Agenda View plugin dari Github </"
+"a></p>"
+
+#: ../admin-views/tribe-options-display.php:51
+msgid "Basic Template Settings"
+msgstr "Pengaturan Template Dasar"
+
+#: ../admin-views/tribe-options-display.php:55
+msgid "Default stylesheet used for events templates"
+msgstr "Standar stylesheet yang digunakan untuk template event"
+
+#: ../admin-views/tribe-options-display.php:58
+msgid "Skeleton Styles"
+msgstr "Styles Skeleton"
+
+#: ../admin-views/tribe-options-display.php:60
+msgid ""
+"Only includes enough css to achieve complex layouts like calendar and week "
+"view."
+msgstr ""
+"Hanya mencakup cukup css untuk mencapai tata letak yang kompleks seperti "
+"kalender dan tampilan mingguan."
+
+#: ../admin-views/tribe-options-display.php:62
+msgid "Full Styles"
+msgstr "Styles Penuh"
+
+#: ../admin-views/tribe-options-display.php:64
+msgid "More detailed styling, tries to grab styles from your theme."
+msgstr ""
+"Styling yang lebih rinci, mencoba untuk mengambil style dari tema Anda."
+
+#: ../admin-views/tribe-options-display.php:66
+msgid "Tribe Events Styles"
+msgstr "Event Styles Tribe"
+
+#: ../admin-views/tribe-options-display.php:68
+msgid "A fully designed and styled theme for your events pages."
+msgstr ""
+"Tema yang sudah sepenuhnya dirancang dan ditata untuk halaman event Anda."
+
+#: ../admin-views/tribe-options-display.php:75
+msgid "Events template"
+msgstr "Template Event"
+
+#: ../admin-views/tribe-options-display.php:76
+msgid ""
+"Choose a page template to control the appearance of your calendar and event "
+"content."
+msgstr ""
+"Pilih template halaman untuk mengontrol tampilan kalender dan konten event."
+
+#: ../admin-views/tribe-options-display.php:84
+msgid "Enable event views"
+msgstr "Aktifkan tampilan event"
+
+#: ../admin-views/tribe-options-display.php:85
+msgid "You must select at least one view."
+msgstr "Anda harus memilih setidaknya satu tampilan."
+
+#: ../admin-views/tribe-options-display.php:92
+msgid "Default view"
+msgstr "Tampilan default"
+
+#: ../admin-views/tribe-options-display.php:100
+msgid "Disable the Event Search Bar"
+msgstr "Nonaktifkan Event Search Bar"
+
+#: ../admin-views/tribe-options-display.php:101
+msgid "Check this to use the classic header."
+msgstr "Aktifkan ini untuk menggunakan header klasik."
+
+#: ../admin-views/tribe-options-display.php:107
+msgid "Month view events per day"
+msgstr "Tampilan bulan event per hari"
+
+#: ../admin-views/tribe-options-display.php:108
+msgid "Allow more than the default 3 events per day in month view."
+msgstr "Memungkinkan lebih dari default 3 event per hari dalam tampilan bulan."
+
+#: ../admin-views/tribe-options-display.php:115
+msgid "Date Format Settings"
+msgstr "Pengaturan Format Tanggal"
+
+#: ../admin-views/tribe-options-display.php:119
+msgid ""
+"<p>The following three fields accept the date format options available to "
+"the php date() function. <a href=\"http://codex.wordpress.org/"
+"Formatting_Date_and_Time\" target=\"_blank\">Learn how to make your own date "
+"format here</a>.</p>"
+msgstr ""
+"<p> Tiga field berikut menerima opsi format tanggal yang tersedia dalam "
+"function php date() . <a href=\"http://codex.wordpress.org/"
+"Formatting_Date_and_Time\" target=\"_blank\"> Pelajari cara membuat format "
+"tanggal Anda sendiri di sini </a>. </p>"
+
+#: ../admin-views/tribe-options-display.php:123
+msgid "Date with year"
+msgstr "Tanggal dengan tahun"
+
+#: ../admin-views/tribe-options-display.php:124
+msgid ""
+"Enter the format to use for displaying dates with the year. Used when "
+"showing an event from a past or future year, also used for dates in view "
+"headers."
+msgstr ""
+"Masukkan format yang akan digunakan untuk menampilkan tanggal dengan tahun. "
+"Digunakan ketika menampilkan event dari tahun lalu atau masa depan, juga "
+"digunakan untuk tanggal dalam tampilan header."
+
+#: ../admin-views/tribe-options-display.php:131
+msgid "Date without year"
+msgstr "Tanggal tanpa tahun"
+
+#: ../admin-views/tribe-options-display.php:132
+msgid ""
+"Enter the format to use for displaying dates without a year. Used when "
+"showing an event from the current year."
+msgstr ""
+"Masukkan format yang akan digunakan untuk menampilkan tanggal tanpa tahun. "
+"Digunakan ketika menampilkan event dari tahun berjalan."
+
+#: ../admin-views/tribe-options-display.php:139
+msgid "Month and year format"
+msgstr "Bulan dan tahun Format"
+
+#: ../admin-views/tribe-options-display.php:140
+msgid ""
+"Enter the format to use for dates that show a month and year only. Used on "
+"month view."
+msgstr ""
+"Masukkan format yang digunakan untuk tanggal yang menunjukkan bulan dan "
+"tahun saja. Digunakan pada tampilan bulan."
+
+#: ../admin-views/tribe-options-display.php:147
+msgid "Date time separator"
+msgstr "Pemisah tanggal waktu"
+
+#: ../admin-views/tribe-options-display.php:148
+msgid ""
+"Enter the separator that will be placed between the date and time, when both "
+"are shown."
+msgstr ""
+"Masukkan pemisah yang akan ditempatkan di antara tanggal dan waktu, ketika "
+"keduanya ditampilkan."
+
+#: ../admin-views/tribe-options-display.php:155
+msgid "Time range separator"
+msgstr "Pemisah rentang waktu"
+
+#: ../admin-views/tribe-options-display.php:156
+msgid ""
+"Enter the separator that will be used between the start and end time of an "
+"event."
+msgstr ""
+"Masukkan pemisah yang akan digunakan antara awal dan akhir waktu dari sebuah "
+"event."
+
+#: ../admin-views/tribe-options-display.php:163
+msgid "Datepicker Date Format"
+msgstr "Format Datepicker Tanggal"
+
+#: ../admin-views/tribe-options-display.php:164
+msgid "Select the date format to use in datepickers"
+msgstr "Pilih format tanggal untuk digunakan dalam datepickers"
+
+#: ../admin-views/tribe-options-display.php:181
+msgid "Advanced Template Settings"
+msgstr "Pengaturan Template Lanjutan"
+
+#: ../admin-views/tribe-options-display.php:185
+msgid "Add HTML before event content"
+msgstr "Tambahkan HTML sebelum konten event "
+
+#: ../admin-views/tribe-options-display.php:186
+msgid ""
+"If you are familiar with HTML, you can add additional code before the event "
+"template. Some themes may require this to help with styling or layout."
+msgstr ""
+"Jika Anda sudah familiar dengan HTML, Anda dapat menambahkan kode tambahan "
+"sebelum template event. Beberapa tema mungkin memerlukan ini untuk membantu "
+"dengan gaya atau tata letak."
+
+#: ../admin-views/tribe-options-display.php:191
+msgid "Add HTML after event content"
+msgstr "Tambahkan HTML setelah konten event"
+
+#: ../admin-views/tribe-options-display.php:192
+msgid ""
+"If you are familiar with HTML, you can add additional code after the event "
+"template. Some themes may require this to help with styling or layout."
+msgstr ""
+"Jika Anda sudah familiar dengan HTML, Anda dapat menambahkan kode tambahan "
+"setelah template event. Beberapa tema mungkin memerlukan ini untuk membantu "
+"dengan gaya atau tata letak."
+
+#: ../admin-views/tribe-options-general.php:14
+msgid "Finding & extending your calendar."
+msgstr "Menemukan & memperpanjang kalender Anda."
+
+#: ../admin-views/tribe-options-general.php:19
+msgid "Finding your calendar."
+msgstr "Mencari kalender Anda."
+
+#: ../admin-views/tribe-options-general.php:24
+msgid "Where's my calendar?"
+msgstr "Dimana kalender saya?"
+
+#: ../admin-views/tribe-options-general.php:24
+msgid "Right here"
+msgstr "Di sini"
+
+#: ../admin-views/tribe-options-general.php:28
+msgid ""
+"Looking for additional functionality including recurring events, custom "
+"meta, community events, ticket sales and more?"
+msgstr ""
+"Mencari fungsi tambahan termasuk event berulang, custom meta, event "
+"komunitas, penjualan tiket dan lainnya?"
+
+#: ../admin-views/tribe-options-general.php:28
+msgid "Check out the available add-ons"
+msgstr "Check out add-ons yang tersedia"
+
+#: ../admin-views/tribe-options-general.php:33
+msgid "We hope our plugin is helping you out."
+msgstr "Kami berharap Plugin kami dapat membantu Anda."
+
+#: ../admin-views/tribe-options-general.php:37
+msgid ""
+"Are you thinking \"Wow, this plugin is amazing! I should say thanks to "
+"Modern Tribe for all their hard work.\" The greatest thanks we could ask for "
+"is recognition. Add a small text-only link at the bottom of your calendar "
+"pointing to The Events Calendar project."
+msgstr ""
+"Apakah Anda berpikir \"Wow, plugin ini luar biasa! Saya harus mengucapkan "
+"terima kasih kepada modern Tribe untuk semua kerja keras mereka.\" "
+"Penghargaan terbesar yang kita bisa minta adalah pengakuan. Tambahkan link "
+"teks-only kecil di bagian bawah kalender Anda untuk proyek The Events "
+"Calendar."
+
+#: ../admin-views/tribe-options-general.php:37
+#: ../admin-views/tribe-options-general.php:42
+msgid "See an example of the link"
+msgstr "Lihat contoh link"
+
+#: ../admin-views/tribe-options-general.php:42
+msgid ""
+"Are you thinking \"Wow, this plugin is amazing! I should say thanks to "
+"Modern Tribe for all their hard work.\" The greatest thanks we could ask for "
+"is recognition. Add a small text only link at the bottom of your calendar "
+"pointing to The Events Calendar project."
+msgstr ""
+"Apakah Anda berpikir \"Wow, plugin ini luar biasa! Saya harus mengucapkan "
+"terima kasih kepada modern Tribe untuk semua kerja keras mereka.\" "
+"Penghargaan terbesar yang kita bisa minta adalah pengakuan. Tambahkan link "
+"text-only kecil di bagian bawah kalender Anda untuk proyek The Events "
+"Calendar."
+
+#: ../admin-views/tribe-options-general.php:47
+msgid "Show The Events Calendar link"
+msgstr "Tampilkan Link The Events Calendar"
+
+#: ../admin-views/tribe-options-general.php:61
+msgid "General Settings"
+msgstr "Pengaturan Umum"
+
+#: ../admin-views/tribe-options-general.php:65
+msgid "Number of events to show per page"
+msgstr "Jumlah event yang ditampilkan per halaman"
+
+#: ../admin-views/tribe-options-general.php:72
+msgid "Use Javascript to control date filtering"
+msgstr "Gunakan Javascript untuk mengontrol filtering tanggal"
+
+#: ../admin-views/tribe-options-general.php:73
+msgid ""
+"This option is disabled when \"Disable the Event Search Bar\" is checked on "
+"the Display settings tab."
+msgstr ""
+"Pilihan ini dinonaktifkan ketika \"Nonaktifkan Event Search Bar \" dicentang "
+"pada tab Pengaturan tampilan."
+
+#: ../admin-views/tribe-options-general.php:73
+msgid ""
+"Enable live ajax for datepicker on front end (User submit not required)."
+msgstr ""
+"Aktifkan live ajax untuk datepicker pada front end (User submit tidak "
+"diperlukan)."
+
+#: ../admin-views/tribe-options-general.php:81
+msgid "Show comments"
+msgstr "Tampilkan komentar"
+
+#: ../admin-views/tribe-options-general.php:82
+msgid "Enable comments on event pages."
+msgstr "Aktifkan komentar pada halaman event."
+
+#: ../admin-views/tribe-options-general.php:88
+msgid "Include events in main blog loop"
+msgstr "Sertakan event di blog loop utama"
+
+#: ../admin-views/tribe-options-general.php:89
+msgid ""
+"Show events with the site's other posts. When this box is checked, events "
+"will also continue to appear on the default events page."
+msgstr ""
+"Tampilkan event dengan posting lain di situs. Bila kotak ini dicentang, "
+"event juga akan terus muncul pada halaman default event."
+
+#: ../admin-views/tribe-options-general.php:95
+#: ../admin-views/tribe-options-general.php:101
+msgid "Events URL slug"
+msgstr "URL slug event"
+
+#: ../admin-views/tribe-options-general.php:96
+#, php-format
+msgid ""
+"You cannot edit the slug for your events page as you do not have pretty "
+"permalinks enabled. The current URL for your events page is <a href=\"%s\">"
+"%s</a>. In order to edit the slug here, <a href=\"%soptions-permalink.php"
+"\">enable pretty permalinks</a>."
+msgstr ""
+"Anda tidak dapat mengedit slug untuk halaman event Anda karena Anda tidak "
+"mengaktifkan permalinks cantik. URL saat ini untuk halaman event Anda adalah "
+"<a href=\"%s\">%s</a>. Untuk mengedit slug di sini, <a href=\"%soptions-"
+"permalink.php\">aktifkan permalinks cantik</a>."
+
+#: ../admin-views/tribe-options-general.php:108
+#: ../public/template-tags/options.php:18
+msgid "The slug used for building the events URL."
+msgstr "Slug yang digunakan untuk membangun URL event."
+
+#: ../admin-views/tribe-options-general.php:108
+#, php-format
+msgid "Your current events URL is: %s"
+msgstr "URL event saat ini Anda adalah: %s"
+
+#: ../admin-views/tribe-options-general.php:113
+#: ../public/template-tags/options.php:37
+msgid "Here is the iCal feed URL for your events:"
+msgstr "Berikut adalah URL feed iCal untuk event Anda:"
+
+#: ../admin-views/tribe-options-general.php:118
+msgid "Single event URL slug"
+msgstr "Slug URL event tunggal"
+
+#: ../admin-views/tribe-options-general.php:125
+#, php-format
+msgid ""
+"The above should ideally be plural, and this singular.<br />Your single "
+"event URL is: %s"
+msgstr ""
+"Di atas idealnya harus plural, dan ini tunggal <br />URL event tunggal Anda "
+"adalah:. %s"
+
+#: ../admin-views/tribe-options-general.php:130
+msgid "End of day cutoff"
+msgstr "Cutoff akhir hari"
+
+#: ../admin-views/tribe-options-general.php:138
+msgid ""
+"Have an event that runs past midnight? Select a time after that event's end "
+"to avoid showing the event on the next day's calendar."
+msgstr ""
+"Memiliki event yang berjalan lewat tengah malam? Pilih waktu setelah akhir "
+"acara untuk menghindari menampilkan acara pada kalender hari berikutnya."
+
+#: ../admin-views/tribe-options-general.php:143
+msgid "Default currency symbol"
+msgstr "Simbol mata uang default"
+
+#: ../admin-views/tribe-options-general.php:144
+msgid ""
+"Set the default currency symbol for event costs. Note that this only impacts "
+"future events, and changes made will not apply retroactively."
+msgstr ""
+"Tentukan simbol mata uang default untuk biaya event. Catatan bahwa ini hanya "
+"berdampak pada event masa depan, dan perubahan yang dilakukan tidak akan "
+"berlaku surut."
+
+#: ../admin-views/tribe-options-general.php:151
+msgid "Currency symbol follows value"
+msgstr "Simbol mata uang berikut nilai"
+
+#: ../admin-views/tribe-options-general.php:152
+msgid ""
+"The currency symbol normally precedes the value. Enabling this option "
+"positions the symbol after the value."
+msgstr ""
+"Simbol mata uang biasanya mendahului nilai. Mengaktifkan opsi ini posisi "
+"simbol setelah nilai."
+
+#: ../admin-views/tribe-options-general.php:158
+msgid "Map Settings"
+msgstr "Pengaturan Peta"
+
+#: ../admin-views/tribe-options-general.php:162
+msgid "Enable Google Maps"
+msgstr "Aktifkan Google Maps"
+
+#: ../admin-views/tribe-options-general.php:163
+msgid "Check to enable maps for events and venues."
+msgstr "Centang untuk mengaktifkan peta untuk event dan venue."
+
+#: ../admin-views/tribe-options-general.php:170
+msgid "Google Maps default zoom level"
+msgstr "Tingkat zoom default Google Maps "
+
+#: ../admin-views/tribe-options-general.php:171
+msgid "0 = zoomed out; 21 = zoomed in."
+msgstr "0 = zoomed out; 21 = zoomed in."
+
+#: ../admin-views/tribe-options-general.php:179
+msgid "Miscellaneous Settings"
+msgstr "Pengaturan Miscellaneous"
+
+#: ../admin-views/tribe-options-general.php:183
+msgid "Duplicate Venues &amp; Organizers"
+msgstr "Duplikat Venues &amp; Penyelenggara"
+
+#: ../admin-views/tribe-options-general.php:183
+#: ../lib/tribe-amalgamator.php:252
+msgid "Merge Duplicates"
+msgstr "Gabung Duplikat"
+
+#: ../admin-views/tribe-options-general.php:183
+msgid ""
+"You might find duplicate venues and organizers when updating The Events "
+"Calendar from a pre-3.0 version. Click this button to automatically merge "
+"identical venues and organizers."
+msgstr ""
+"Anda mungkin menemukan duplikat venue dan penyelenggara ketika memperbarui "
+"The Events Calendar dari versi pre-3.0. Klik tombol ini untuk secara "
+"otomatis menggabungkan venue identik dan penyelenggara."
+
+#: ../admin-views/tribe-options-general.php:188
+msgid "Debug mode"
+msgstr "Modus Debug"
+
+#: ../admin-views/tribe-options-general.php:194
+#, php-format
+msgid ""
+"Enable this option to log debug information. By default this will log to "
+"your server PHP error log. If you'd like to see the log messages in your "
+"browser, then we recommend that you install the %s and look for the \"Tribe"
+"\" tab in the debug output."
+msgstr ""
+"Aktifkan opsi ini untuk informasi log debug. Secara default ini akan masuk "
+"ke log error server PHP Anda. Jika Anda ingin melihat pesan log di browser "
+"Anda, maka kami menyarankan Anda menginstal %s dan mencari \"Tribe\" tab "
+"dalam output debug."
+
+#: ../admin-views/tribe-options-general.php:194
+msgid "Debug Bar Plugin"
+msgstr "Debug Bar Plugin"
+
+#: ../admin-views/tribe-options-help.php:18
+msgctxt "not available"
+msgid "n/a"
+msgstr "n/a"
+
+#: ../admin-views/tribe-options-help.php:19
+msgid "You need to upgrade!"
+msgstr "Anda perlu meng-upgrade!"
+
+#: ../admin-views/tribe-options-help.php:19
+msgid "You are up to date!"
+msgstr "Anda up to date!"
+
+#: ../admin-views/tribe-options-help.php:42
+msgid "The Events Calendar PRO"
+msgstr "The Events Calendar PRO"
+
+#: ../admin-views/tribe-options-help.php:46
+msgid "The Events Calendar: Eventbrite Tickets"
+msgstr "The Events Calendar: Eventbrite Tickets"
+
+#: ../admin-views/tribe-options-help.php:50
+msgid "The Events Calendar: Community Events"
+msgstr "The Events Calendar: Community Events"
+
+#: ../admin-views/tribe-options-help.php:54
+msgid "The Events Calendar: Facebook Events"
+msgstr "The Events Calendar: Facebook Events"
+
+#: ../admin-views/tribe-options-help.php:58
+msgid "The Events Calendar: WooCommerce Tickets"
+msgstr "The Events Calendar: WooCommerce Tickets"
+
+#: ../admin-views/tribe-options-help.php:63
+msgid "The Events Calendar: EDD Tickets"
+msgstr "The Events Calendar: EDD Tickets"
+
+#: ../admin-views/tribe-options-help.php:68
+msgid "The Events Calendar: WPEC Tickets"
+msgstr "The Events Calendar: WPEC Tickets"
+
+#: ../admin-views/tribe-options-help.php:73
+msgid "The Events Calendar: Shopp Tickets"
+msgstr "The Events Calendar: Shopp Tickets"
+
+#: ../admin-views/tribe-options-help.php:78
+msgid "The Events Calendar: Filter Bar"
+msgstr "The Events Calendar: Filter Bar"
+
+#: ../admin-views/tribe-options-help.php:87
+msgid ""
+"If this is your first time using The Events Calendar, you're in for a treat "
+"and are already well on your way to creating a first event. Here are some "
+"basics we've found helpful for users jumping into it for the first time:"
+msgstr ""
+"Jika ini adalah pertama kalinya Anda menggunakan The Events Calendar, Anda "
+"berada di jalur yang tepat untuk membuat event pertama. Berikut adalah "
+"beberapa dasar yang kami temukan bermanfaat bagi pengguna untuk memulai:"
+
+#: ../admin-views/tribe-options-help.php:90
+#, php-format
+msgid ""
+"%sOur New User Primer%s was designed for folks in your exact position. "
+"Featuring both step-by-step videos and written walkthroughs that feature "
+"accompanying screenshots, the primer aims to take you from zero to hero in "
+"no time."
+msgstr ""
+"%sNew User Primer Kami%s dirancang untuk orang-orang seperti Anda. "
+"Menampilkan baik video langkah-demi-langkah dan walkthrough tertulis yang "
+"disertai screenshot, primer bertujuan untuk membawa Anda dari zero menjadi "
+"hero dalam waktu singkat."
+
+#: ../admin-views/tribe-options-help.php:92
+#, php-format
+msgid ""
+"%sInstallation/Setup FAQs%s from our support page can help give an overview "
+"of what the plugin can and cannot do. This section of the FAQs may be "
+"helpful as it aims to address any basic install questions not addressed by "
+"the new user primer."
+msgstr ""
+"%sInstalasi/Setup FAQ %s dari halaman dukungan kami dapat membantu "
+"memberikan gambaran tentang apa yang plugin bisa dan tidak bisa lakukan. "
+"Bagian ini dari FAQ dapat membantu karena bertujuan membantu pertanyaan "
+"dasar tentang instalasi yang tidak ditangani oleh new user primer."
+
+#: ../admin-views/tribe-options-help.php:94
+#, php-format
+msgid ""
+"Are you developer looking to build your own frontend view? We created an "
+"example plugin that demonstrates how to register a new view. You can "
+"%sdownload the plugin at GitHub%s to get started."
+msgstr ""
+"Apakah Anda pengembang ingin membangun tampilan frontend sendiri? Kami "
+"menciptakan plugin contoh yang menunjukkan bagaimana untuk mendaftarkan "
+"tampilan baru. Anda dapat %smen-download plugin di GitHub%s untuk memulai."
+
+#: ../admin-views/tribe-options-help.php:96
+msgid ""
+"Otherwise, if you're feeling adventurous, you can get started by heading to "
+"the Events menu and adding your first event."
+msgstr ""
+"Jika tidak, jika Anda merasa petualang, Anda bisa memulai dengan menuju ke "
+"menu Event dan menambahkan event pertama Anda."
+
+#: ../admin-views/tribe-options-help.php:100
+#, php-format
+msgid ""
+"We've redone our support page from the ground up in an effort to better help "
+"our users. Head over to our %sSupport Page%s and you'll find lots of great "
+"resources, including:"
+msgstr ""
+"Kami telah redone halaman dukungan kami dari bawah ke atas dalam upaya untuk "
+"lebih membantu pengguna kami. Singgah ke %s Halaman Dukungan%s dan Anda akan "
+"menemukan banyak sumber daya yang besar, termasuk:"
+
+#: ../admin-views/tribe-options-help.php:102
+#, php-format
+msgid ""
+"%sTemplate tags, functions, and hooks & filters%s for The Events Calendar "
+"&amp; Events Calendar PRO"
+msgstr ""
+"%sTemplate tags, functions, dan hooks & filters%s untuk The Events Calendar "
+"&amp; Events Calendar PRO"
+
+#: ../admin-views/tribe-options-help.php:104
+#, php-format
+msgid ""
+"%sFrequently Asked Questions%s ranging from the most basic setup questions "
+"to advanced themer tweaks"
+msgstr ""
+"%sPertanyaan yang Sering Diajukan%s mulai dari pertanyaan konfigurasi paling "
+"dasar sampai tweak themer mahir"
+
+#: ../admin-views/tribe-options-help.php:106
+#, php-format
+msgid ""
+"%sTutorials%s written by both members of our team and users from the "
+"community, covering custom queries, integration with third-party themes and "
+"plugins, etc."
+msgstr ""
+"%sTutorial%s ditulis oleh kedua anggota tim kami dan pengguna dari "
+"komunitas, meliputi query kustom, integrasi dengan tema pihak ketiga dan "
+"plugin, dll"
+
+#: ../admin-views/tribe-options-help.php:108
+msgid ""
+"Release notes for painting an overall picture of the plugin's lifecycle and "
+"when features/bug fixes were introduced."
+msgstr ""
+"Rilis catatan untuk melukis gambaran keseluruhan siklus hidup plugin dan "
+"ketika fitur/perbaikan bug diperkenalkan."
+
+#: ../admin-views/tribe-options-help.php:110
+#, php-format
+msgid ""
+"%sAdd-on documentation%s for all of Modern Tribe's official extensions for "
+"The Events Calendar (including WooTickets, Community Events, Eventbrite "
+"Tickets, Facebook Events, etc)"
+msgstr ""
+"%s Add-on dokumentasi %s untuk semua ekstensi resmi modern Tribe untuk The "
+"Events Calendar (termasuk WooTickets, Community Events, Eventbrite Tiket, "
+"Facebook Events, dll)"
+
+#: ../admin-views/tribe-options-help.php:112
+#, php-format
+msgid ""
+"We've also got a %sModern Tribe UserVoice%s page where we're actively "
+"watching for feature ideas from the community. If after playing with the "
+"plugin and reviewing the resources above, you're finding a feature isn't "
+"present that should be, let us know. Vote up existing feature requests or "
+"add your own, and help us shape the future of the products business in a way "
+"that best meets the community's needs."
+msgstr ""
+"Kami juga punya halaman %sModern Tribe UserVoice %s dimana kami secara aktif "
+"mengawasi ide-ide fitur dari komunitas. Jika setelah bermain dengan plugin "
+"dan mengkaji sumber daya di atas, Anda menemukan fitur yang seharusnya ada, "
+"beritahu kami. Vote up permintaan fitur yang ada atau tambahkan sendiri, dan "
+"bantu kami membentuk masa depan bisnis produk dengan cara yang paling sesuai "
+"dengan kebutuhan komunitas."
+
+#: ../admin-views/tribe-options-help.php:116
+#, php-format
+msgid ""
+"Written documentation can only take things so far...sometimes, you need help "
+"from a real person. This is where our %ssupport forums%s come into play."
+msgstr ""
+"Dokumentasi tertulis hanya dapat membantul sejauh ini ... kadang-kadang, "
+"Anda membutuhkan bantuan dari orang yang nyata. Di sinilah %sforum dukungan"
+"%s kami ikut bermain."
+
+#: ../admin-views/tribe-options-help.php:117
+#, php-format
+msgid ""
+"Users of the free The Events Calendar should post their support concerns to "
+"the plugin's %sWordPress.org support forum%s. While we are happy to help "
+"identify and fix bugs that are reported at WordPress.org, please make sure "
+"to read our %ssupport expectations sticky thread%s before posting so you "
+"understand our limitations."
+msgstr ""
+"Pengguna dari The Events Calendar harus posting masalah dukungan mereka "
+"terhadap plugin %sdukungan WordPress.org forum %s . Sementara kami senang "
+"untuk membantu mengidentifikasi dan memperbaiki bug yang dilaporkan di "
+"WordPress.org, pastikan untuk membaca kami %s harapan dukungan benang "
+"lengket %s sebelum posting sehingga Anda memahami keterbatasan kita."
+
+#: ../admin-views/tribe-options-help.php:118
+msgid ""
+"We hit the WordPress.org forum throughout the week, watching for bugs. If "
+"you report a legitimate bug that we're able to reproduce, we will log it and "
+"patch for an upcoming release. However we are unfortunately unable to "
+"provide customization tips or assist in integrating with 3rd party plugins "
+"or themes."
+msgstr ""
+"Kami memukul forum WordPress.org sepanjang minggu, menonton untuk bug. Jika "
+"Anda melaporkan bug yang sah bahwa kita mampu mereproduksi, kita akan log "
+"itu dan patch untuk rilis mendatang. Namun kami sayangnya tidak dapat "
+"memberikan tips kustomisasi atau membantu dalam mengintegrasikan dengan "
+"plugin pihak ke-3 atau tema."
+
+#: ../admin-views/tribe-options-help.php:119
+#, php-format
+msgid ""
+"If you're a user of The Events Calendar and would like more support, please "
+"%spurchase a PRO license%s. We hit the PRO forums daily, and can provide a "
+"deeper level of customization/integration support for paying users than we "
+"can on WordPress.org."
+msgstr ""
+"Jika Anda adalah seorang pengguna dari The Events Calendar dan ingin lebih "
+"banyak dukungan, silakan %s membeli lisensi PRO %s . Kami memukul forum PRO "
+"setiap hari, dan dapat memberikan tingkat yang lebih dalam dukungan "
+"kustomisasi / integrasi untuk membayar pengguna dari yang kita dapat di "
+"WordPress.org."
+
+#: ../admin-views/tribe-options-help.php:123
+#, php-format
+msgid ""
+"If you find that you aren't getting the level of service you've come to "
+"expect from Modern Tribe, shoot us an email at %s or tweet %s and tell us "
+"why. We'll do what we can to make it right."
+msgstr ""
+"Jika Anda menemukan bahwa Anda tidak mendapatkan tingkat pelayanan yang "
+"telah datang ke harapkan dari Modern Tribe, menembak kami email pada %s atau "
+"tweet %s dan memberi tahu kami mengapa. Kami akan melakukan apa yang kami "
+"bisa untuk membuatnya benar."
+
+#: ../admin-views/tribe-options-help.php:124
+msgid "More..."
+msgstr "Lanjut..."
+
+#: ../admin-views/tribe-options-help.php:132
+msgid ""
+"Hi! We are Modern Tribe and we are here to help you kick ass. Thanks so much "
+"for installing our labor of love!"
+msgstr ""
+"Hi! Kami Modern Tribe dan kami di sini untuk membantu Anda kick ass. Terima "
+"kasih banyak telah menginstal pekerjaan cinta kami!"
+
+#: ../admin-views/tribe-options-help.php:138
+msgid "Getting Started"
+msgstr "Memulai"
+
+#: ../admin-views/tribe-options-help.php:141
+msgid "Support Resources To Help You Kick Ass"
+msgstr "Sumber Daya Dukungan Untuk Membantu Anda Kick Ass"
+
+#: ../admin-views/tribe-options-help.php:144
+msgid "Forums: Because Everyone Needs A Buddy"
+msgstr "Forum: Karena Semua Orang Perlu Teman"
+
+#: ../admin-views/tribe-options-help.php:147
+msgid "Not getting help?"
+msgstr "Tidak mendapatkan bantuan?"
+
+#: ../admin-views/tribe-options-help.php:159
+#: ../lib/the-events-calendar.class.php:567
+#: ../lib/tribe-settings.class.php:129
+msgid "The Events Calendar"
+msgstr "The Events Calendar"
+
+#: ../admin-views/tribe-options-help.php:163
+msgid "Latest Version:"
+msgstr "Versi Terbaru:"
+
+#: ../admin-views/tribe-options-help.php:164
+msgid "Author:"
+msgstr "Author:"
+
+#: ../admin-views/tribe-options-help.php:164
+msgid "Modern Tribe Inc"
+msgstr "Modern Tribe Inc"
+
+#: ../admin-views/tribe-options-help.php:165
+msgid "Requires:"
+msgstr "Membutuhkan:"
+
+#: ../admin-views/tribe-options-help.php:165
+msgid "WordPress "
+msgstr "WordPress "
+
+#: ../admin-views/tribe-options-help.php:166
+msgid "Wordpress.org Plugin Page"
+msgstr "Halaman Plugin Wordpress.org"
+
+#: ../admin-views/tribe-options-help.php:171
+msgid "Average Rating"
+msgstr "Rata-rata Penilaian"
+
+#: ../admin-views/tribe-options-help.php:175
+#, php-format
+msgid "Based on %d rating"
+msgid_plural "Based on %d ratings"
+msgstr[0] "Berdasarkan %d ulasan"
+
+#: ../admin-views/tribe-options-help.php:176
+msgid "Give us 5 stars!"
+msgstr "Beri kami 5 stars!"
+
+#: ../admin-views/tribe-options-help.php:179
+msgid "Premium Add-Ons"
+msgstr "Premium Add-Ons"
+
+#: ../admin-views/tribe-options-help.php:185
+msgid "(Coming Soon!)"
+msgstr "(Segera Hadir!)"
+
+#: ../admin-views/tribe-options-help.php:192
+msgid "News and Tutorials"
+msgstr "Berita dan Tutorial"
+
+#: ../admin-views/tribe-options-network.php:14
+msgid "Network Settings"
+msgstr "Pengaturan Jaringan"
+
+#: ../admin-views/tribe-options-network.php:18
+msgid ""
+"This is where all of the global network settings for Modern Tribe's The "
+"Events Calendar can be modified."
+msgstr ""
+"Ini adalah di mana semua pengaturan jaringan global untuk  Modern Tribe's "
+"The Events Calendar dapat dimodifikasi."
+
+#: ../admin-views/tribe-options-network.php:26
+msgid "Hide the following settings tabs on every site:"
+msgstr "Sembunyikan pengaturan tab berikut pada setiap situs:"
+
+#: ../admin-views/venue-meta-box.php:27
+#: ../public/advanced-functions/meta.php:422
+msgid "Address:"
+msgstr "Alamat:"
+
+#: ../admin-views/venue-meta-box.php:31
+msgid "City:"
+msgstr "Kota :"
+
+#: ../admin-views/venue-meta-box.php:35
+msgid "Country:"
+msgstr "Negara:"
+
+#: ../admin-views/venue-meta-box.php:73
+msgid "State or Province:"
+msgstr "Negara atau Provinsi:"
+
+#: ../admin-views/venue-meta-box.php:76
+msgid "Select a State:"
+msgstr "Pilih Negara Bagian:"
+
+#: ../admin-views/venue-meta-box.php:89
+msgid "Postal Code:"
+msgstr "Kodepos:"
+
+#: ../admin-views/venue-meta-box.php:112 ../admin-views/venue-meta-box.php:134
+msgid "Show Google Map:"
+msgstr "Tampilkan Google Map:"
+
+#: ../admin-views/venue-meta-box.php:122 ../admin-views/venue-meta-box.php:144
+msgid "Show Google Maps Link:"
+msgstr "Tampilkan Link Google Maps:"
+
+#: ../admin-views/widget-admin-list.php:11
+msgid "Title:"
+msgstr "Judul:"
+
+#: ../admin-views/widget-admin-list.php:16
+msgid "Show:"
+msgstr "Tampilkan:"
+
+#: ../admin-views/widget-admin-list.php:24
+msgid "Show widget only if there are upcoming events:"
+msgstr "Tampilkan widget hanya jika ada event mendatang:"
+
+#: ../lib/io/csv/admin-views/columns.php:22
+#, php-format
+msgid "Column Mapping: %s"
+msgstr "Pemetaan Kolom: %s"
+
+#: ../lib/io/csv/admin-views/columns.php:28
+msgid "Please choose the fields that best match the columns in your CSV file."
+msgstr "Pilihlah field yang paling cocok dengan kolom dalam file CSV Anda."
+
+#: ../lib/io/csv/admin-views/columns.php:33
+msgid "Column Headings"
+msgstr "Heding Kolom"
+
+#: ../lib/io/csv/admin-views/columns.php:34
+msgid "Event Fields"
+msgstr "Field Event"
+
+#: ../lib/io/csv/admin-views/columns.php:45
+msgid "Perform Import"
+msgstr "Lakukan Impor"
+
+#: ../lib/io/csv/admin-views/header.php:11
+msgid "Events Import (CSV)"
+msgstr "Impor Event(CSV)"
+
+#: ../lib/io/csv/admin-views/import.php:17
+msgid "Import Instructions"
+msgstr "Instruksi Impor"
+
+#: ../lib/io/csv/admin-views/import.php:20
+msgid "If your events have Organizers or Venues, please import those first."
+msgstr ""
+"Jika event Anda memiliki Penyelenggara atau Venues, silakan impor terlebih "
+"dahulu."
+
+#: ../lib/io/csv/admin-views/import.php:21
+msgid "To import organizers or venues:"
+msgstr "Untuk mengimpor penyelenggara atau tempat:"
+
+#: ../lib/io/csv/admin-views/import.php:23
+msgid "Select the appropriate import type."
+msgstr "Pilih jenis impor yang sesuai."
+
+#: ../lib/io/csv/admin-views/import.php:24
+#: ../lib/io/csv/admin-views/import.php:30
+msgid ""
+"Upload a CSV file with one record on each line. The first line may contain "
+"column names (check the box below)."
+msgstr ""
+"Upload file CSV dengan satu record pada setiap baris. Baris pertama mungkin "
+"berisi nama kolom (centang kotak di bawah)."
+
+#: ../lib/io/csv/admin-views/import.php:25
+msgid ""
+"One column in your CSV should have the Organizer/Venue name. All other "
+"fields are optional."
+msgstr ""
+"Salah satu kolom di CSV Anda harus memiliki nama Penyelenggara/Tempat. Semua "
+"field lain adalah opsional."
+
+#: ../lib/io/csv/admin-views/import.php:26
+#: ../lib/io/csv/admin-views/import.php:32
+msgid ""
+"After you upload your file, you'll have the opportunity to indicate how the "
+"columns in your CSV map to fields in The Events Calendar."
+msgstr ""
+"Setelah Anda meng-upload file Anda, Anda akan memiliki kesempatan untuk "
+"menunjukkan bagaimana kolom dalam peta CSV dipetakan ke The Events Calendar."
+
+#: ../lib/io/csv/admin-views/import.php:28
+msgid "After importing your Organizers and Venues, import your Events:"
+msgstr "Setelah mengimpor Penyelenggara dan Venues, impor Event Anda:"
+
+#: ../lib/io/csv/admin-views/import.php:31
+msgid ""
+"One column in your CSV should have the Event title. Another should have the "
+"Event start date. All other fields are optional."
+msgstr ""
+"Salah satu kolom di CSV Anda harus memiliki judul Event. Lain harus memiliki "
+"tanggal mulai Event. Semua field lain adalah opsional."
+
+#: ../lib/io/csv/admin-views/import.php:36
+#, php-format
+msgid "Questions? <a href=\"%s\">Watch the video</a>."
+msgstr "Pertanyaan? <a href =\"%s\">Simak video</ a>."
+
+#: ../lib/io/csv/admin-views/import.php:43
+msgid "Import Type:"
+msgstr "Jenis Impor:"
+
+#: ../lib/io/csv/admin-views/import.php:45
+msgid "Venues"
+msgstr "Tempat"
+
+#: ../lib/io/csv/admin-views/import.php:46
+msgid "Organizers"
+msgstr "Penyelenggara"
+
+#: ../lib/io/csv/admin-views/import.php:47
+#: ../lib/the-events-calendar.class.php:1353
+#: ../lib/the-events-calendar.class.php:3884
+msgid "Events"
+msgstr "Event"
+
+#: ../lib/io/csv/admin-views/import.php:55
+msgid "CSV File:"
+msgstr "File CSV:"
+
+#: ../lib/io/csv/admin-views/import.php:58
+msgid ""
+"Upload a properly formatted, UTF-8 encoded CSV file. Not sure if your file "
+"is UTF-8 encoded? Make sure to specify the character encoding when you save "
+"the file, or pass it through a <a href='http://i-tools.org/charset/exec?"
+"dest=utf-8&src=auto&download=1'>conversion tool</a>."
+msgstr ""
+"Upload diformat dengan benar, UTF-8 dikodekan file CSV. Tidak yakin apakah "
+"file Anda UTF-8 dikodekan? Pastikan untuk menetapkan pengkodean karakter "
+"ketika Anda menyimpan file, atau menyebarkannya melalui alat konversi <a "
+"href='http://i-tools.org/charset/exec?"
+"dest=utf-8&src=auto&download=1'>conversion tool</a>."
+
+#: ../lib/io/csv/admin-views/import.php:66
+msgid "This file has column names in the first row"
+msgstr "Berkas ini memiliki nama kolom pada baris pertama"
+
+#: ../lib/io/csv/admin-views/import.php:77
+msgid "Import CSV File"
+msgstr "Impor File CSV"
+
+#: ../lib/io/csv/admin-views/result.php:13
+msgid "Import Result"
+msgstr "Impor Hasil"
+
+#: ../lib/io/csv/admin-views/result.php:15
+msgid "Import complete!"
+msgstr "Impor selesai!"
+
+#: ../lib/io/csv/admin-views/result.php:17
+#, php-format
+msgid "Inserted: %d"
+msgstr "Dimasukkan: %d"
+
+#: ../lib/io/csv/admin-views/result.php:18
+#, php-format
+msgid "Updated: %d"
+msgstr "Diperbarui: %d"
+
+#: ../lib/io/csv/admin-views/result.php:19
+#, php-format
+msgid "Skipped: %d"
+msgstr "dilewatkan: %d"
+
+#: ../lib/io/csv/admin-views/result.php:23
+msgid "The import statistics above have the following meaning:"
+msgstr "Statistik impor di atas memiliki arti sebagai berikut:"
+
+#: ../lib/io/csv/admin-views/result.php:24
+msgid ""
+"<ol><li><strong>Inserted:</strong> A new item was inserted successfully.</"
+"li><li><strong>Updated:</strong> An item was found with the same name and/or "
+"start date. The existing item was updated with the new value from the file.</"
+"li><li><strong>Skipped:</strong> A row was found in the CSV file that could "
+"not be imported. Please see below for the invalid rows.</li></ol>"
+msgstr ""
+"<ol> <li> <strong> Dimasukkan: </ strong> Sebuah item baru dimasukkan "
+"berhasil </ li> <strong> Diperbarui:. </ strong> Item ditemukan dengan nama "
+"yang sama dan / atau start date. Item yang ada diperbarui dengan nilai baru "
+"dari file </ li> <strong> Dilewati:. </ Strong> baris A ditemukan dalam file "
+"CSV yang tidak dapat diimpor. Silakan lihat di bawah untuk baris tidak "
+"valid. </ Li> </ ol>"
+
+#: ../lib/io/csv/admin-views/result.php:27
+#, php-format
+msgid "Skipped row numbers: %s"
+msgstr "Nomor baris dilewati: %s"
+
+#: ../lib/io/csv/classes/TribeEventsImporter_AdminPage.php:15
+#: ../lib/io/csv/classes/TribeEventsImporter_AdminPage.php:16
+msgid "Import: CSV"
+msgstr "Impor: CSV"
+
+#: ../lib/io/csv/classes/TribeEventsImporter_AdminPage.php:29
+#: ../lib/io/csv/classes/TribeEventsImporter_AdminPage.php:147
+msgid "The file went away. Please try again."
+msgstr "File pergi. Silakan coba lagi."
+
+#: ../lib/io/csv/classes/TribeEventsImporter_AdminPage.php:113
+msgid "We were unable to process your request. Please try again."
+msgstr "Kami tidak dapat memproses permintaan Anda. Silakan coba lagi."
+
+#: ../lib/io/csv/classes/TribeEventsImporter_AdminPage.php:154
+msgid "<p>The following fields are required for a successful import:</p>"
+msgstr "<p>Field berikut diperlukan agar impor sukses:</p>"
+
+#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:33
+msgid "Do Not Import"
+msgstr "Jangan Impor"
+
+#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:50
+msgid "Event Name"
+msgstr "Nama Event"
+
+#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:51
+msgid "Event Description"
+msgstr "Deskripsi Event"
+
+#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:52
+msgid "Event Start Date"
+msgstr "Tanggal Mulai Event"
+
+#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:53
+msgid "Event Start Time"
+msgstr "Waktu Mulai Event"
+
+#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:54
+msgid "Event End Date"
+msgstr "Tanggal Event Berakhir"
+
+#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:55
+msgid "Event End Time"
+msgstr "Akhir Waktu Event"
+
+#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:56
+msgid "All Day Event"
+msgstr "Event Sepanjang Hari"
+
+#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:57
+msgid "Event Venue Name"
+msgstr "Nama Tempat Event "
+
+#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:58
+msgid "Event Organizer Name"
+msgstr "Nama Penyelenggara Event"
+
+#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:59
+msgid "Event Show Map Link"
+msgstr "Link Event Tampilkan Peta"
+
+#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:60
+msgid "Event Show Map"
+msgstr "Tampilkan Peta Event"
+
+#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:62
+msgid "Event Phone"
+msgstr "Telepon Event"
+
+#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:63
+#: ../lib/the-events-calendar.class.php:1393
+#: ../public/template-tags/general.php:268
+msgid "Event Category"
+msgstr "Kategori Event"
+
+#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:69
+msgid "Venue Name"
+msgstr "Nama Tempat"
+
+#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:70
+msgid "Venue Country"
+msgstr "Negara Tempat"
+
+#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:71
+msgid "Venue Address"
+msgstr "Alamat Tempat"
+
+#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:72
+msgid "Venue Addres 2"
+msgstr "Alamat Tempat 2"
+
+#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:73
+msgid "Venue City"
+msgstr "Kota Tempat"
+
+#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:74
+msgid "Venue State/Province"
+msgstr "Negara Bagian/Provinsi Tempat"
+
+#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:75
+msgid "Venue Zip"
+msgstr "Zip Tempat"
+
+#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:76
+msgid "Venue Phone"
+msgstr "Telepon Tempat"
+
+#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:82
+msgid "Organizer Name"
+msgstr "Nama Penyelenggara"
+
+#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:83
+msgid "Organizer Email"
+msgstr "Email Penyelenggara"
+
+#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:84
+msgid "Organizer Website"
+msgstr "Situs Web Penyelenggara"
+
+#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:85
+msgid "Organizer Phone"
+msgstr "Telepon Penyelenggara"
+
+#: ../lib/io/csv/classes/TribeEventsImporter_FileImporter.php:38
+#, php-format
+msgid "No importer defined for %s"
+msgstr "Tidak ada importir yang ditetapkan untuk %s"
+
+#: ../lib/io/csv/classes/TribeEventsImporter_FileImporter.php:110
+#, php-format
+msgid "Missing required fields in row %d."
+msgstr "Hilang field yang dibutuhkan dalam baris %d ."
+
+#: ../lib/io/csv/classes/TribeEventsImporter_FileImporter.php:117
+#, php-format
+msgid "Failed to import record in row %d."
+msgstr "Gagal mengimpor rekor di baris %d ."
+
+#: ../lib/io/csv/classes/TribeEventsImporter_FileImporter.php:126
+#, php-format
+msgid "%s (post ID %d) updated."
+msgstr "%s (post ID %d ) diperbarui."
+
+#: ../lib/io/csv/classes/TribeEventsImporter_FileImporter.php:130
+#, php-format
+msgid "%s (post ID %d) created."
+msgstr "%s (post ID %d ) dibuat."
+
+#: ../lib/io/csv/classes/TribeEventsImporter_FileUploader.php:28
+#, php-format
+msgid "Temporary file not found. Could not save %s."
+msgstr "File sementara tidak ditemukan. Tidak dapat menyimpan %s ."
+
+#: ../lib/io/csv/classes/TribeEventsImporter_FileUploader.php:36
+#, php-format
+msgid "Could not save %s."
+msgstr "Tidak dapat menyimpan %s ."
+
+#: ../lib/pue/admin-views/license-key.view.php:9
+#: ../lib/pue/admin-views/license-key.view.php:13
+#: ../lib/pue/lib/pue_plugin_update_engine.class.php:288
+msgid "License Key"
+msgstr "License Key"
+
+#: ../lib/pue/admin-views/license-key.view.php:10
+msgid "A valid license key is required for support and updates."
+msgstr "Kunci lisensi yang valid diperlukan untuk dukungan dan update."
+
+#: ../lib/pue/admin-views/license-key.view.php:16
+msgid "Replace empty fields"
+msgstr "Ganti field kosong"
+
+#: ../lib/pue/admin-views/license-key.view.php:25
+#: ../lib/pue/lib/pue_plugin_update_engine.class.php:289
+msgid "A valid license key is required for support and updates"
+msgstr "Kunci lisensi yang valid diperlukan untuk dukungan dan update"
+
+#: ../lib/pue/lib/pue_plugin_update_engine.class.php:353
+msgid "License key(s) updated."
+msgstr "Kunci lisensi diperbarui."
+
+#: ../lib/pue/lib/pue_plugin_update_engine.class.php:393
+msgid "Sorry, key validation server is not available."
+msgstr "Maaf, server validasi kunci tidak tersedia."
+
+#: ../lib/pue/lib/pue_plugin_update_engine.class.php:395
+msgid "Sorry, this key is expired."
+msgstr "Maaf, kunci ini kadaluarsa."
+
+#: ../lib/pue/lib/pue_plugin_update_engine.class.php:397
+msgid "Sorry, this key is out of installs."
+msgstr "Maaf, kunci ini keluar dari instalasi."
+
+#: ../lib/pue/lib/pue_plugin_update_engine.class.php:399
+msgid "Sorry, this key is not valid."
+msgstr "Maaf, kunci ini tidak valid."
+
+#: ../lib/pue/lib/pue_plugin_update_engine.class.php:402
+#, php-format
+msgid "Valid Key! Expires on %s"
+msgstr "Kunci Valid! Berakhir pada %s"
+
+#: ../lib/pue/lib/pue_plugin_update_engine.class.php:406
+#, php-format
+msgid ""
+"Hmmm... something's wrong with this validator. Please contact <a href=\"%s"
+"\">support.</a>"
+msgstr ""
+"Hmmm ... ada yang salah dengan validator ini. Silahkan hubungi <a href =\"%s"
+"\">dukungan.</a>"
+
+#: ../lib/template-classes/day.php:70 ../lib/template-classes/day.php:79
+msgid "All Day"
+msgstr "Sepanjang Hari"
+
+#: ../lib/template-classes/day.php:122
+#, php-format
+msgid ""
+"No matching events listed under %s scheduled for <strong>%s</strong>. Please "
+"try another day."
+msgstr ""
+"Tidak ada event yang cocok terdaftar di bawah %s dijadwalkan untuk <strong>"
+"%s</strong>. Silakan coba hari lain."
+
+#: ../lib/template-classes/day.php:125
+#, php-format
+msgid "No events scheduled for <strong>%s</strong>. Please try another day."
+msgstr ""
+"Tidak ada event yang dijadwalkan untuk <strong>%s</strong>. Silakan coba "
+"hari lain."
+
+#: ../lib/template-classes/month.php:112
+#, php-format
+msgid ""
+"There were no results found for <strong>\"%s\"</strong> this month. Try "
+"searching next month."
+msgstr ""
+"Tidak ada hasil yang ditemukan untuk <strong>\"%s\"</strong> bulan ini. Coba "
+"cari di bulan depan."
+
+#: ../lib/template-classes/month.php:116
+#: ../lib/tribe-template-factory.class.php:230
+#: ../lib/tribe-template-factory.class.php:237
+#, php-format
+msgid ""
+"No matching events listed under %s. Please try viewing the full calendar for "
+"a complete list of events."
+msgstr ""
+"Tidak ada event yang cocok terdaftar di bawah %s . Silakan coba melihat "
+"kalender penuh untuk daftar lengkap event."
+
+#: ../lib/template-classes/month.php:119
+#: ../lib/tribe-template-factory.class.php:240
+msgid "There were no results found."
+msgstr "Tidak ada hasil yang ditemukan."
+
+#: ../lib/template-classes/single-event.php:97
+msgid "This event has passed."
+msgstr "Event ini telah berlalu."
+
+#: ../lib/the-events-calendar.class.php:572
+msgid "month"
+msgstr "bulan"
+
+#: ../lib/the-events-calendar.class.php:573
+msgid "upcoming"
+msgstr "mendatang"
+
+#: ../lib/the-events-calendar.class.php:574
+msgid "past"
+msgstr "lalu"
+
+#: ../lib/the-events-calendar.class.php:575
+msgid "day"
+msgstr "hari"
+
+#: ../lib/the-events-calendar.class.php:576
+msgid "today"
+msgstr "hari ini"
+
+#: ../lib/the-events-calendar.class.php:594
+#, php-format
+msgid "Initializing Tribe Events on %s"
+msgstr "Menginisialisasi Tribe Events pada %s"
+
+#: ../lib/the-events-calendar.class.php:702
+#, php-format
+msgid ""
+"Your version of The Events Calendar is not up-to-date with one of your The "
+"Events Calendar add-ons. Please %supdate now.%s"
+msgstr ""
+"Versi The Events Calendar Anda  tidak up-to-date dengan salah satu dari add-"
+"on The Events Calendar Anda. Silakan %smemperbarui sekarang.%s"
+
+#: ../lib/the-events-calendar.class.php:719
+#, php-format
+msgid ""
+"The following plugins are out of date: <b>%s</b>. All add-ons contain "
+"dependencies on The Events Calendar and will not function properly unless "
+"paired with the right version. %sWant to pair an older version%s?"
+msgstr ""
+"Plugin berikut ini kadaluarsa: <b>%s</b>. Semua add-on mengandung "
+"ketergantungan pada The Events Calendar dan tidak akan berfungsi dengan baik "
+"kecuali dipasangkan dengan versi yang tepat. %s Ingin memasangkan dengan "
+"versi lama%s?"
+
+#: ../lib/the-events-calendar.class.php:779
+#: ../lib/the-events-calendar.class.php:814
+#: ../lib/the-events-calendar.class.php:816
+msgid "Licenses"
+msgstr "Lisensi"
+
+#: ../lib/the-events-calendar.class.php:783
+#, php-format
+msgid ""
+"<p>The license key you received when completing your purchase from %s will "
+"grant you access to support and updates until it expires. You do not need to "
+"enter the key below for the plugins to work, but you will need to enter it "
+"to get automatic updates. <strong>Find your license keys at <a href=\"%s\" "
+"target=\"_blank\">%s</a></strong>.</p> <p>Each paid add-on has its own "
+"unique license key. Simply paste the key into its appropriate field on "
+"below, and give it a moment to validate. You know you're set when a green "
+"expiration date appears alongside a \"valid\" message.</p> <p>If you're "
+"seeing a red message telling you that your key isn't valid or is out of "
+"installs, visit <a href=\"%s\" target=\"_blank\">%s</a> to manage your "
+"installs or renew / upgrade your license.</p><p>Not seeing an update but "
+"expecting one? In WordPress, go to <a href=\"%s\">Dashboard > Updates</a> "
+"and click \"Check Again\".</p>"
+msgstr ""
+"<p>Kunci lisensi yang Anda terima saat menyelesaikan pembelian Anda dari %s "
+"akan memberikan Anda akses untuk dukungan dan update sampai habis masa "
+"berlakunya. Anda tidak perlu memasukkan kunci di bawah ini agar plugin "
+"bekerja, tetapi Anda akan perlu untuk memasukkannya untuk mendapatkan update "
+"otomatis. <strong>Temukan kunci lisensi Anda di<a href=\"%s\" target=\"_blank"
+"\">%s</a></strong>.</p> <p>Setiap add-on berbayar memiliki kunci lisensi "
+"unik sendiri. Cukup paste kunci ke field yang sesuai di bawah, dan berikan "
+"waktu untuk validasi. Anda tahu bahwa Anda sistem siap ketika tanggal "
+"kadaluarsa hijau muncul di samping pesan \"valid \".</p> </p>Jika Anda "
+"melihat pesan merah memberitahu Anda bahwa kunci tidak valid atau keluar "
+"dari install , kunjungi <a href =\"%s\"target =\"_blank\">%s</a> untuk "
+"mengelola instalasi atau memperbarui/meng-upgrade lisensi Anda.</p><p>Tidak "
+"melihat update tapi mengharapkan satu? Di WordPress, pergi ke <a href =\"%s"
+"\">Dashboard > Updates </a> dan klik \"Periksa Lagi\".</p>"
+
+#: ../lib/the-events-calendar.class.php:806
+msgid "General"
+msgstr "Umum "
+
+#: ../lib/the-events-calendar.class.php:807
+msgid "Display"
+msgstr "Tampilan"
+
+#: ../lib/the-events-calendar.class.php:819
+#: ../lib/the-events-calendar.class.php:3968
+#: ../lib/the-events-calendar.class.php:4068
+msgid "Help"
+msgstr "Bantuan"
+
+#: ../lib/the-events-calendar.class.php:858
+#, php-format
+msgid ""
+"Sorry, The Events Calendar requires WordPress %s or higher. Please upgrade "
+"your WordPress install."
+msgstr ""
+"Maaf, The Events Calendar membutuhkan WordPress %s atau lebih tinggi. "
+"Silakan meng-upgrade instalasi WordPress Anda."
+
+#: ../lib/the-events-calendar.class.php:861
+#, php-format
+msgid ""
+"Sorry, The Events Calendar requires PHP %s or higher. Talk to your Web host "
+"about moving you to a newer version of PHP."
+msgstr ""
+"Maaf, The Events Calendar membutuhkan PHP %s atau lebih tinggi. Hubungi host "
+"Web Anda tentang pindah ke versi terbaru dari PHP."
+
+#: ../lib/the-events-calendar.class.php:1038 ../lib/widget-list.class.php:148
+#: ../public/template-tags/loop.php:117
+msgid "Upcoming Events"
+msgstr "Event Mendatang"
+
+#: ../lib/the-events-calendar.class.php:1041
+#: ../public/template-tags/loop.php:121
+msgid "Past Events"
+msgstr "Event Lampau"
+
+#: ../lib/the-events-calendar.class.php:1046
+#: ../lib/the-events-calendar.class.php:1053
+#: ../public/template-tags/loop.php:126
+#, php-format
+msgid "Events for %s"
+msgstr "Event untuk %s"
+
+#: ../lib/the-events-calendar.class.php:1048
+msgid "Events this month"
+msgstr "Event bulan ini"
+
+#: ../lib/the-events-calendar.class.php:1316
+msgid "category"
+msgstr "kategori"
+
+#: ../lib/the-events-calendar.class.php:1326
+msgid "tag"
+msgstr "tag"
+
+#: ../lib/the-events-calendar.class.php:1354
+msgid "Event"
+msgstr "Event"
+
+#: ../lib/the-events-calendar.class.php:1355
+#: ../lib/the-events-calendar.class.php:1368
+#: ../lib/the-events-calendar.class.php:1381
+msgid "Add New"
+msgstr "Tambahkan Baru"
+
+#: ../lib/the-events-calendar.class.php:1356
+msgid "Add New Event"
+msgstr "Tambah Event Baru"
+
+#: ../lib/the-events-calendar.class.php:1357
+msgid "Edit Event"
+msgstr "Sunting Event"
+
+#: ../lib/the-events-calendar.class.php:1358
+msgid "New Event"
+msgstr "Event Baru"
+
+#: ../lib/the-events-calendar.class.php:1359
+msgid "View Event"
+msgstr "Lihat Event"
+
+#: ../lib/the-events-calendar.class.php:1360
+msgid "Search Events"
+msgstr "Cari Event"
+
+#: ../lib/the-events-calendar.class.php:1361
+msgid "No events found"
+msgstr "Tidak ada event ditemukan"
+
+#: ../lib/the-events-calendar.class.php:1362
+msgid "No events found in Trash"
+msgstr "Tidak ada event yang ditemukan di Sampah"
+
+#: ../lib/the-events-calendar.class.php:1369
+#: ../lib/the-events-calendar.class.php:1382
+#, php-format
+msgid "Add New %s"
+msgstr "Add New %s"
+
+#: ../lib/the-events-calendar.class.php:1370
+#: ../lib/the-events-calendar.class.php:1383
+#, php-format
+msgid "Edit %s"
+msgstr "Ubah %s"
+
+#: ../lib/the-events-calendar.class.php:1371
+#: ../lib/the-events-calendar.class.php:1384
+#, php-format
+msgid "New %s"
+msgstr "Baru %s"
+
+#: ../lib/the-events-calendar.class.php:1372
+#: ../lib/the-events-calendar.class.php:1385
+#, php-format
+msgid "View %s"
+msgstr "Lihat %s"
+
+#: ../lib/the-events-calendar.class.php:1373
+#: ../lib/the-events-calendar.class.php:1386
+#, php-format
+msgid "Search %s"
+msgstr "Pencarian %s"
+
+#: ../lib/the-events-calendar.class.php:1374
+#: ../lib/the-events-calendar.class.php:1387
+#, php-format
+msgid "No %s found"
+msgstr "Tidak ada %s berhasil ditemukan"
+
+#: ../lib/the-events-calendar.class.php:1375
+#: ../lib/the-events-calendar.class.php:1388
+#, php-format
+msgid "No %s found in Trash"
+msgstr "Tidak ada %s ditemukan di Sampah"
+
+#: ../lib/the-events-calendar.class.php:1392
+#: ../lib/tribe-admin-events-list.class.php:174
+msgid "Event Categories"
+msgstr "Kategori Event"
+
+#: ../lib/the-events-calendar.class.php:1394
+msgid "Search Event Categories"
+msgstr "Cari Kategori Event"
+
+#: ../lib/the-events-calendar.class.php:1395
+msgid "All Event Categories"
+msgstr "Semua Kategori Event"
+
+#: ../lib/the-events-calendar.class.php:1396
+msgid "Parent Event Category"
+msgstr "Induk Kategori Event"
+
+#: ../lib/the-events-calendar.class.php:1397
+msgid "Parent Event Category:"
+msgstr "Induk Kategori Event:"
+
+#: ../lib/the-events-calendar.class.php:1398
+msgid "Edit Event Category"
+msgstr "Sunting Kategori Event"
+
+#: ../lib/the-events-calendar.class.php:1399
+msgid "Update Event Category"
+msgstr "Perbarui Kategori Event"
+
+#: ../lib/the-events-calendar.class.php:1400
+msgid "Add New Event Category"
+msgstr "Tambah Kategori Event Baru"
+
+#: ../lib/the-events-calendar.class.php:1401
+msgid "New Event Category Name"
+msgstr "Nama Kategori Event Baru "
+
+#: ../lib/the-events-calendar.class.php:1417
+#, php-format
+msgid "Event updated. <a href=\"%s\">View event</a>"
+msgstr "Event diperbarui. <a href=\"%s\">Lihat event </a>"
+
+#: ../lib/the-events-calendar.class.php:1418
+#: ../lib/the-events-calendar.class.php:1435
+#: ../lib/the-events-calendar.class.php:1452
+msgid "Custom field updated."
+msgstr "Field kustom diperbarui."
+
+#: ../lib/the-events-calendar.class.php:1419
+#: ../lib/the-events-calendar.class.php:1436
+#: ../lib/the-events-calendar.class.php:1453
+msgid "Custom field deleted."
+msgstr "Field kustom dihapus."
+
+#: ../lib/the-events-calendar.class.php:1420
+msgid "Event updated."
+msgstr "Event diperbarui."
+
+#: ../lib/the-events-calendar.class.php:1422
+#, php-format
+msgid "Event restored to revision from %s"
+msgstr "Event dikembalikan ke revisi dari %s"
+
+#: ../lib/the-events-calendar.class.php:1423
+#, php-format
+msgid "Event published. <a href=\"%s\">View event</a>"
+msgstr "Event diterbitkan.  <a href=\"%s\">Lihat event </a>"
+
+#: ../lib/the-events-calendar.class.php:1424
+msgid "Event saved."
+msgstr "Event disimpan."
+
+#: ../lib/the-events-calendar.class.php:1425
+#, php-format
+msgid "Event submitted. <a target=\"_blank\" href=\"%s\">Preview event</a>"
+msgstr ""
+"Event disampaikan. <a target=\"_blank\" href=\"%s\"> Preview event </a>"
+
+#: ../lib/the-events-calendar.class.php:1426
+#, php-format
+msgid ""
+"Event scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s"
+"\">Preview event</a>"
+msgstr ""
+"Event dijadwalkan untuk: <strong>%1$s</strong>. <a target=\"_blank\" href="
+"\"%2$s\">Preview event</a>"
+
+#: ../lib/the-events-calendar.class.php:1428
+#: ../lib/the-events-calendar.class.php:1445
+#: ../lib/the-events-calendar.class.php:1462
+msgid "M j, Y @ G:i"
+msgstr "M j, Y @ G: i"
+
+#: ../lib/the-events-calendar.class.php:1429
+#, php-format
+msgid "Event draft updated. <a target=\"_blank\" href=\"%s\">Preview event</a>"
+msgstr ""
+"Rancangan event diperbarui. <a target=\"_blank\" href=\"%s\">Preview event</"
+"a>"
+
+#: ../lib/the-events-calendar.class.php:1434
+#: ../lib/the-events-calendar.class.php:1437
+#: ../lib/the-events-calendar.class.php:1451
+#: ../lib/the-events-calendar.class.php:1454
+#, php-format
+msgid "%s updated."
+msgstr "%s diperbarui."
+
+#: ../lib/the-events-calendar.class.php:1439
+#: ../lib/the-events-calendar.class.php:1456
+#, php-format
+msgid "%s restored to revision from %s"
+msgstr "%s dikembalikan ke revisi dari %s"
+
+#: ../lib/the-events-calendar.class.php:1440
+#: ../lib/the-events-calendar.class.php:1457
+#, php-format
+msgid "%s published."
+msgstr "%s diterbitkan."
+
+#: ../lib/the-events-calendar.class.php:1441
+#: ../lib/the-events-calendar.class.php:1458
+#, php-format
+msgid "%s saved."
+msgstr "%s disimpan."
+
+#: ../lib/the-events-calendar.class.php:1442
+#: ../lib/the-events-calendar.class.php:1459
+#, php-format
+msgid "%s submitted."
+msgstr "%s disampaikan."
+
+#: ../lib/the-events-calendar.class.php:1443
+#: ../lib/the-events-calendar.class.php:1460
+#, php-format
+msgid "%s scheduled for: <strong>%2$s</strong>."
+msgstr "%s dijadwalkan untuk: <strong>%2$s</ strong>."
+
+#: ../lib/the-events-calendar.class.php:1446
+#: ../lib/the-events-calendar.class.php:1463
+#, php-format
+msgid "%s draft updated."
+msgstr "%s rancangan diperbarui."
+
+#: ../lib/the-events-calendar.class.php:1479
+#: ../lib/the-events-calendar.class.php:1480
+msgid "Add New "
+msgstr "Tambah Baru "
+
+#: ../lib/the-events-calendar.class.php:1499
+msgid "Use Saved "
+msgstr "Gunakan Tersimpan "
+
+#: ../lib/the-events-calendar.class.php:1522
+#, php-format
+msgid "Use Saved %s:"
+msgstr "Gunakan Tersimpan %s :"
+
+#: ../lib/the-events-calendar.class.php:1561
+msgid "Use New "
+msgstr "Gunakan Baru "
+
+#: ../lib/the-events-calendar.class.php:1563
+#: ../lib/the-events-calendar.class.php:1619
+#, php-format
+msgid "My %s"
+msgstr "%s Saya"
+
+#: ../lib/the-events-calendar.class.php:1568
+#: ../lib/the-events-calendar.class.php:1624
+#, php-format
+msgid "Available %s"
+msgstr "Tersedia %s"
+
+#: ../lib/the-events-calendar.class.php:1579
+#: ../lib/the-events-calendar.class.php:1635
+#, php-format
+msgid "No saved %s exists."
+msgstr "Tidak ada %s disimpan."
+
+#: ../lib/the-events-calendar.class.php:1617
+#, php-format
+msgid "Use New %s"
+msgstr "Gunakan %s Baru"
+
+#: ../lib/the-events-calendar.class.php:1776
+msgid "Next"
+msgstr "Berikutnya"
+
+#: ../lib/the-events-calendar.class.php:1777
+msgid "Prev"
+msgstr "Sebelumnya"
+
+#: ../lib/the-events-calendar.class.php:1778
+#: ../public/template-tags/day.php:92
+msgid "Today"
+msgstr "Hari ini"
+
+#: ../lib/the-events-calendar.class.php:1779
+msgid "Done"
+msgstr "Selesai"
+
+#: ../lib/the-events-calendar.class.php:1990
+msgid "Network"
+msgstr "Jaringan"
+
+#: ../lib/the-events-calendar.class.php:3511
+#: ../lib/the-events-calendar.class.php:3539
+#: ../public/template-tags/day.php:140 ../public/template-tags/day.php:159
+msgid "Date out of range."
+msgstr "Tanggal di luar jangkauan."
+
+#: ../lib/the-events-calendar.class.php:3563
+msgid "Event Options"
+msgstr "Pilihan Event"
+
+#: ../lib/the-events-calendar.class.php:3565
+#: ../lib/the-events-calendar.class.php:3570
+msgid " Information"
+msgstr " Informasi"
+
+#: ../lib/the-events-calendar.class.php:3734
+msgid "Support"
+msgstr "Mendukung "
+
+#: ../lib/the-events-calendar.class.php:3737
+msgid "View All Add-Ons"
+msgstr "Lihat Semua Add-On"
+
+#: ../lib/the-events-calendar.class.php:3754
+msgid "News from Modern Tribe"
+msgstr "Berita dari Modern Tribe"
+
+#: ../lib/the-events-calendar.class.php:3835
+msgid "Additional Functionality"
+msgstr "Fungsi Tambahan"
+
+#: ../lib/the-events-calendar.class.php:3840
+msgid ""
+"Looking for additional functionality including recurring events, ticket "
+"sales, publicly submitted events, new views and more?"
+msgstr ""
+"Mencari fungsi tambahan termasuk event berulang, penjualan tiket, event "
+"disampaikan secara terbuka, tampilan baru dan lainnya?"
+
+#: ../lib/the-events-calendar.class.php:3840
+#, php-format
+msgid "Check out the <a href=\"%s\">available add-ons</a>."
+msgstr "Periksa <a href=\"%s\">add-on yang tersedia</a>."
+
+#: ../lib/the-events-calendar.class.php:3911
+#: ../lib/the-events-calendar.class.php:4012
+msgid "View Calendar"
+msgstr "Lihat Kalender"
+
+#: ../lib/the-events-calendar.class.php:3919
+msgid "Add Event"
+msgstr "Tambahkan Event"
+
+#: ../lib/the-events-calendar.class.php:3928
+msgid "Edit Events"
+msgstr "Sunting Events"
+
+#: ../lib/the-events-calendar.class.php:3939
+msgid "Import"
+msgstr "Impor"
+
+#: ../lib/the-events-calendar.class.php:3945
+msgid "CSV"
+msgstr "CSV"
+
+#: ../lib/the-events-calendar.class.php:3957
+#: ../lib/the-events-calendar.class.php:4053
+#: ../lib/tribe-settings.class.php:155
+msgid "Settings"
+msgstr "Pengaturan"
+
+#: ../lib/the-events-calendar.class.php:3986
+#, php-format
+msgid ""
+"Welcome to The Events Calendar! Your events calendar can be found at %s. To "
+"change the events slug, visit %sEvents -> Settings%s."
+msgstr ""
+"Selamat Datang di The Events Calendar! Kalender event Anda dapat ditemukan "
+"di %s . Untuk mengubah slug event, kunjungi %s Events -> Pengaturan%s ."
+
+#: ../lib/the-events-calendar.class.php:4054
+msgid "Calendar"
+msgstr "Kalender"
+
+#: ../lib/the-events-calendar.class.php:4129
+msgid "List"
+msgstr "Daftar"
+
+#: ../lib/the-events-calendar.class.php:4140
+msgid "Month"
+msgstr "Bulan"
+
+#: ../lib/the-events-calendar.class.php:4152
+msgid "Day"
+msgstr "Hari"
+
+#: ../lib/the-events-calendar.class.php:4173
+#: ../lib/the-events-calendar.class.php:4175
+msgid "Search"
+msgstr "Pencarian"
+
+#: ../lib/the-events-calendar.class.php:4197
+#: ../lib/the-events-calendar.class.php:4212
+msgid "Date"
+msgstr "Tanggal"
+
+#: ../lib/the-events-calendar.class.php:4200
+msgid "Events In"
+msgstr "Event Dalam"
+
+#: ../lib/the-events-calendar.class.php:4202
+msgid "Events From"
+msgstr "Events Dari"
+
+#: ../lib/the-events-calendar.class.php:4204
+msgid "Day Of"
+msgstr "Day Of"
+
+#: ../lib/tickets/tribe-tickets-attendees.php:64
+msgid "Order #"
+msgstr "Pesanan #"
+
+#: ../lib/tickets/tribe-tickets-attendees.php:65
+msgid "Order Status"
+msgstr "Status Pesanan"
+
+#: ../lib/tickets/tribe-tickets-attendees.php:66
+msgid "Purchaser name"
+msgstr "Nama Pembeli"
+
+#: ../lib/tickets/tribe-tickets-attendees.php:67
+msgid "Purchaser email"
+msgstr "Email Pembeli"
+
+#: ../lib/tickets/tribe-tickets-attendees.php:68
+msgid "Ticket type"
+msgstr "Jenis Tiket"
+
+#: ../lib/tickets/tribe-tickets-attendees.php:69
+#: ../views/tickets/email.php:314
+msgid "Ticket #"
+msgstr "Tiket #"
+
+#: ../lib/tickets/tribe-tickets-attendees.php:70
+#: ../views/tickets/email.php:326
+msgid "Security Code"
+msgstr "Kode Keamanan"
+
+#: ../lib/tickets/tribe-tickets-attendees.php:71
+#: ../lib/tickets/tribe-tickets-attendees.php:156
+#: ../lib/tickets/tribe-tickets-attendees.php:213
+msgid "Check in"
+msgstr "Check-in"
+
+#: ../lib/tickets/tribe-tickets-attendees.php:157
+#: ../lib/tickets/tribe-tickets-attendees.php:214
+msgid "Undo Check in"
+msgstr "Undo Check-in"
+
+#: ../lib/tickets/tribe-tickets-attendees.php:191
+msgid "Print"
+msgstr "Cetak"
+
+#: ../lib/tickets/tribe-tickets-attendees.php:192
+msgid "Email"
+msgstr "Email"
+
+#: ../lib/tickets/tribe-tickets-attendees.php:193
+#: ../lib/tribe-ical.class.php:111
+msgid "Export"
+msgstr "Ekspor"
+
+#: ../lib/tickets/tribe-tickets-attendees.php:199
+msgid "Filter by ticket #, order # or security code"
+msgstr "Filter dengan tiket #, urutan # atau kode keamanan"
+
+#: ../lib/tickets/tribe-tickets-metabox.php:24
+msgid "Tickets"
+msgstr "Tiket"
+
+#: ../lib/tickets/tribe-tickets-metabox.php:62
+msgid "Ticket header image"
+msgstr "Header image Tiket"
+
+#: ../lib/tickets/tribe-tickets-metabox.php:62
+msgid "Set as ticket header"
+msgstr "Set sebagai header tiket"
+
+#: ../lib/tickets/tribe-tickets-pro.php:107
+msgid "You need to select a user or type a valid email address"
+msgstr "Anda harus memilih pengguna atau ketik alamat email yang valid"
+
+#: ../lib/tickets/tribe-tickets-pro.php:108
+msgid "Sending..."
+msgstr "Mengirim ..."
+
+#: ../lib/tickets/tribe-tickets-pro.php:136
+msgid "Columns"
+msgstr "Kolom"
+
+#: ../lib/tickets/tribe-tickets-pro.php:137
+msgid ""
+"You can use Screen Options to select which columns you want to see. The "
+"selection works in the table below, in the email, for print and for the CSV "
+"export."
+msgstr ""
+"Anda dapat menggunakan Opsi Layar untuk memilih kolom mana yang ingin Anda "
+"lihat. Plihan bekerja di tabel di bawah ini, dalam email, untuk cetak dan "
+"untuk ekspor CSV."
+
+#: ../lib/tickets/tribe-tickets-pro.php:229
+msgid "Yes"
+msgstr "Ya"
+
+#: ../lib/tickets/tribe-tickets-pro.php:258
+msgid "attendees"
+msgstr "peserta"
+
+#: ../lib/tickets/tribe-tickets-pro.php:309
+#, php-format
+msgid "Attendee List for: %s"
+msgstr "Daftar peserta untuk: %s"
+
+#: ../lib/tickets/tribe-tickets.php:298
+msgid "Your ticket has been saved."
+msgstr "Tiket Anda telah disimpan."
+
+#: ../lib/tickets/tribe-tickets.php:375
+msgid "Your ticket has been deleted."
+msgstr "Tiket Anda telah dihapus."
+
+#: ../lib/tribe-admin-events-list.class.php:179
+msgid "Start Date"
+msgstr "Tanggal Mulai"
+
+#: ../lib/tribe-admin-events-list.class.php:180
+msgid "End Date"
+msgstr "Tanggal Berakhir"
+
+#: ../lib/tribe-admin-events-list.class.php:250
+#, php-format
+msgid "All %s"
+msgstr "Semua %s"
+
+#: ../lib/tribe-app-shop.class.php:62 ../lib/tribe-app-shop.class.php:63
+#: ../lib/tribe-app-shop.class.php:87
+msgid "Event Add-Ons"
+msgstr "Add-On Event"
+
+#: ../lib/tribe-debug-bar.class.php:28
+msgid "Tribe"
+msgstr "Tribe"
+
+#: ../lib/tribe-event-api.class.php:306
+msgid "Unnamed Venue"
+msgstr "Venue Belum Diberi Nama"
+
+#: ../lib/tribe-event-api.class.php:375 ../lib/tribe-view-helpers.class.php:44
+#: ../public/template-tags/venue.php:249
+msgid "United States"
+msgstr "Amerika Serikat"
+
+#: ../lib/tribe-event-exception.class.php:17
+#: ../lib/tribe-event-exception.class.php:34
+msgid "Error"
+msgstr "Error"
+
+#: ../lib/tribe-field.class.php:176
+msgid "Invalid field type specified"
+msgstr "Jenis field tidak valid"
+
+#: ../lib/tribe-field.class.php:414
+msgid "No radio options specified"
+msgstr "Tidak ada pilihan radio yang ditentukan"
+
+#: ../lib/tribe-field.class.php:449
+msgid "No checkbox options specified"
+msgstr "Tidak ada checkbox  centang yang ditentukan"
+
+#: ../lib/tribe-field.class.php:500
+msgid "No select options specified"
+msgstr "Tidak ada opsi select ditentukan"
+
+#: ../lib/tribe-ical.class.php:27
+msgctxt "feed link"
+msgid "&raquo;"
+msgstr "&raquo;"
+
+#: ../lib/tribe-ical.class.php:28
+#, php-format
+msgid "%1$s %2$s iCal Feed"
+msgstr "%1$s %2$s iCal Feed"
+
+#: ../lib/tribe-ical.class.php:74
+msgid "Add to Google Calendar"
+msgstr "Tambahkan ke Google Calendar"
+
+#: ../lib/tribe-ical.class.php:74
+msgid "Google Calendar"
+msgstr "Kalender Google"
+
+#: ../lib/tribe-ical.class.php:75
+msgid "Download .ics file"
+msgstr "Download file ics."
+
+#: ../lib/tribe-ical.class.php:75
+msgid "iCal Export"
+msgstr "Ekspor iCal "
+
+#: ../lib/tribe-ical.class.php:98
+msgid "Month's Events"
+msgstr "Event Bulan"
+
+#: ../lib/tribe-ical.class.php:101
+msgid "Week's Events"
+msgstr "Event Minggu"
+
+#: ../lib/tribe-ical.class.php:104
+msgid "Day's Events"
+msgstr "Event Hari"
+
+#: ../lib/tribe-ical.class.php:107
+msgid "Listed Events"
+msgstr "Event yang Terdaftar"
+
+#: ../lib/tribe-ical.class.php:112
+msgid ""
+"Use this to share calendar data with Google Calendar, Apple iCal and other "
+"compatible apps"
+msgstr ""
+"Gunakan ini untuk berbagi data kalender dengan Google Calendar, Apple iCal "
+"dan aplikasi lain yang kompatibel"
+
+#: ../lib/tribe-settings-tab.class.php:204
+msgid "There are no fields setup for this tab yet."
+msgstr "Tidak ada field setup untuk tab ini."
+
+#: ../lib/tribe-settings.class.php:155 ../lib/tribe-settings.class.php:165
+msgid "The Events Calendar Settings"
+msgstr "Pengaturan The Events Calendar"
+
+#: ../lib/tribe-settings.class.php:165
+msgid "Events Settings"
+msgstr "Pengaturan Event"
+
+#: ../lib/tribe-settings.class.php:210
+#, php-format
+msgid "%s Settings"
+msgstr "%s Pengaturan"
+
+#: ../lib/tribe-settings.class.php:224
+msgid "You've requested a non-existent tab."
+msgstr "Anda telah meminta tab yang tidak ada."
+
+#: ../lib/tribe-settings.class.php:232
+msgid " Save Changes"
+msgstr " Simpan Perubahan "
+
+#: ../lib/tribe-settings.class.php:280
+msgid "You don't have permission to do that."
+msgstr "Anda tidak memiliki izin untuk melakukan itu."
+
+#: ../lib/tribe-settings.class.php:286
+msgid "The request was sent insecurely."
+msgstr "Permintaan dikirim insecurely."
+
+#: ../lib/tribe-settings.class.php:292
+msgid "The request wasn't sent from this tab."
+msgstr "Permintaan tidak dikirim dari tab ini."
+
+#: ../lib/tribe-settings.class.php:453
+msgid "Your form had the following errors:"
+msgstr "Formulir Anda memiliki error berikut:"
+
+#: ../lib/tribe-settings.class.php:462
+msgid "None of your settings were saved. Please try again."
+msgstr ""
+"Tak satu pun dari pengaturan Anda berhasil disimpan. Silakan coba lagi."
+
+#: ../lib/tribe-settings.class.php:462
+msgid ""
+"The above setting was not saved. Other settings were successfully saved."
+msgid_plural ""
+"The above settings were not saved. Other settings were successfully saved."
+msgstr[0] ""
+"Pengaturan di atas tidak disimpan. Pengaturan lain berhasil disimpan."
+
+#: ../lib/tribe-settings.class.php:484
+msgid "Settings saved."
+msgstr "Pengaturan disimpan."
+
+#: ../lib/tribe-support.class.php:34
+msgid ""
+"Sometimes it's hard to tell what's going wrong without knowing more about "
+"your system steup. For your convenience, we've put together a little report "
+"on what's cooking under the hood."
+msgstr ""
+"Kadang-kadang sulit untuk mengatakan apa yang salah tanpa mengetahui lebih "
+"lanjut tentang setup sistem anda. Untuk kenyamanan Anda, kami telah "
+"mengumpulkan laporan kecil."
+
+#: ../lib/tribe-support.class.php:35
+msgid ""
+"If you suspect that the problem you're having is related to another plugin, "
+"or we're just plain having trouble reproducing your bug report, please copy "
+"and send all of this to our support team."
+msgstr ""
+"Jika Anda menduga bahwa masalah yang Anda alami terkait dengan plugin lain, "
+"atau kita sekadar mengalami kesulitan mereproduksi laporan bug Anda, "
+"silahkan salin dan kirim semua ini untuk tim dukungan kami."
+
+#: ../lib/tribe-support.class.php:39
+msgid "System Information"
+msgstr "Informasi Sistem"
+
+#: ../lib/tribe-template-factory.class.php:221
+#, php-format
+msgid "There were no results found for <strong>\"%s\"</strong>."
+msgstr "Tidak ada hasil yang ditemukan untuk <strong>\"%s\"</strong>."
+
+#: ../lib/tribe-template-factory.class.php:224
+#, php-format
+msgid "No results were found for events in or near <strong>\"%s\"</strong>."
+msgstr ""
+"Tidak ada hasil yang ditemukan untuk event di atau dekat <strong>\"%s\"</"
+"strong>."
+
+#: ../lib/tribe-template-factory.class.php:227
+#, php-format
+msgid ""
+"No upcoming events listed under %s. Check out upcoming events for this "
+"category or view the full calendar."
+msgstr ""
+"Tidak ada event mendatang terdaftar di bawah %s . Periksa event mendatang "
+"untuk kategori ini atau tampilkan kalender penuh."
+
+#: ../lib/tribe-template-factory.class.php:233
+msgid "No previous events "
+msgstr "Tidak ada event sebelumnya "
+
+#: ../lib/tribe-templates.class.php:568
+#, php-format
+msgid "Template overrides should be moved to the correct subdirectory: %s"
+msgstr "Menimpa Template harus dipindahkan ke subdirektori yang benar: %s"
+
+#: ../lib/tribe-templates.class.php:609
+#, php-format
+msgid ""
+"Template overrides should be moved to the correct subdirectory: "
+"tribe_get_template_part('%s')"
+msgstr ""
+"Menimpa template harus dipindah ke subdirektori yang benar: "
+"tribe_get_template_part('%s')"
+
+#: ../lib/tribe-the-events-calendar-import.class.php:64
+#, php-format
+msgid ""
+"Welcome to Events 2.0! This is a HUGE upgrade from 1.6.5. Please make sure "
+"you have backed up before proceeding any further. You can easily <a href=\"%s"
+"\">revert to an old version</a> if you want to backup first. This upgrade "
+"includes two major steps, <a href=\"%s\">migrating data</a> &amp; updating "
+"your templates as necessary. There have been significant changes to the "
+"template tags and functions. Check out our <a href=\"%s\">walk-through on "
+"the upgrade</a> before proceeding and check out the FAQ &amp; Knowledge base "
+"from the <a href=\"%s\">support page</a>. If you're new to The Events "
+"Calendar, you may want to review our <a href=\"%s\">new user primer</a>.<br/"
+"><br/> You have events that need to be migrated.  Please visit the bottom of "
+"the <a href=\"%s\">settings page</a> to perform the migration."
+msgstr ""
+"Selamat datang di Events 2.0! Ini adalah upgrade besar dari 1.6.5. Pastikan "
+"Anda telah membuat back-up sebelum melanjutkan lebih jauh. Anda dapat dengan "
+"mudah <a href=\"%s\"> kembali ke versi lama </a> jika Anda ingin backup "
+"terlebih dahulu. Upgrade ini mencakup dua langkah utama, <a href=\"%s"
+"\">migrasi data </a> &amp; memperbarui template Anda jika diperlukan. Ada "
+"perubahan yang signifikan terhadap tag template dan fungsi. Lihat <a href="
+"\"%s\">walk-through upgrade</a> sebelum melanjutkan dan periksa FAQ &amp; "
+"Pengetahuan dasar dari <a href=\"%s\">halaman dukungan </a>. Jika Anda baru "
+"untuk The Events Calendar, Anda mungkin ingin meninjau <a href=\"%s\"> "
+"primer pengguna baru</a> kami. <br/><br/> Anda memiliki event yang perlu "
+"dimigrasi. Silakan kunjungi bawah <a href=\"%s\">halaman pengaturan </a> "
+"untuk melakukan migrasi."
+
+#: ../lib/tribe-the-events-calendar-import.class.php:86
+msgid "Upgrade from The Events Calendar"
+msgstr "Upgrade dari The Events Calendar"
+
+#: ../lib/tribe-the-events-calendar-import.class.php:87
+msgid ""
+"It appears that you have some old events calendar data that needs to be "
+"upgraded. Please be sure to back up your database before initiating the "
+"upgrade. This process can not be undone."
+msgstr ""
+"Tampaknya Anda memiliki beberapa data events calendar lama yang perlu di-"
+"upgrade. Pastikan untuk membuat back-up database Anda sebelum memulai "
+"upgrade. Proses ini tidak bisa dibatalkan."
+
+#: ../lib/tribe-the-events-calendar-import.class.php:88
+msgid "Migrate Data!"
+msgstr "Migrasi Data!"
+
+#: ../lib/tribe-the-events-calendar-import.class.php:166
+#, php-format
+msgid "You successfully migrated (%d) entries."
+msgstr "Anda berhasil migrasikan ( %d ) entri."
+
+#: ../lib/tribe-the-events-calendar-import.class.php:242
+msgid "Install has 1 or more legacy event!"
+msgstr "Instal memiliki 1 atau lebih warisan event!"
+
+#: ../lib/tribe-validate.class.php:73 ../lib/tribe-validate.class.php:111
+msgid "Invalid or incomplete field passed"
+msgstr "Field yang tidak valid atau tidak lengkap lewat"
+
+#: ../lib/tribe-validate.class.php:74 ../lib/tribe-validate.class.php:106
+#: ../lib/tribe-validate.class.php:112
+msgid "Field ID:"
+msgstr "Field ID:"
+
+#: ../lib/tribe-validate.class.php:105
+msgid "Non-existant field validation function passed"
+msgstr "fungsi validasi field non-existant lewat"
+
+#: ../lib/tribe-validate.class.php:106
+msgctxt "non-existant function name passed for field validation"
+msgid "with function name:"
+msgstr "dengan nama fungsi:"
+
+#: ../lib/tribe-validate.class.php:129 ../lib/tribe-validate.class.php:145
+#, php-format
+msgid "%s must contain numbers and letters only"
+msgstr "%s harus berisi angka dan huruf saja"
+
+#: ../lib/tribe-validate.class.php:161
+#, php-format
+msgid "%s must contain numbers, letters and dots only"
+msgstr "%s harus berisi angka, huruf dan titik saja"
+
+#: ../lib/tribe-validate.class.php:175
+#, php-format
+msgid "%s must be a positive number."
+msgstr "%s harus angka positif."
+
+#: ../lib/tribe-validate.class.php:190
+#, php-format
+msgid "%s must be a valid slug (numbers, letters, dashes, and underscores)."
+msgstr "%s harus slug valid (angka, huruf, tanda hubung, dan garis bawah)."
+
+#: ../lib/tribe-validate.class.php:205
+#, php-format
+msgid "%s must be a valid absolute URL."
+msgstr "%s harus mutlak URL yang valid."
+
+#: ../lib/tribe-validate.class.php:221 ../lib/tribe-validate.class.php:238
+#: ../lib/tribe-validate.class.php:257
+#, php-format
+msgid "%s must have a value that's part of its options."
+msgstr "%s harus memiliki nilai yang merupakan bagian dari pilihan."
+
+#: ../lib/tribe-validate.class.php:271
+#, php-format
+msgid ""
+"Comparison validation failed because no comparison value was provided, for "
+"field %s"
+msgstr ""
+"Validasi perbandingan gagal karena tidak ada nilai perbandingan diberikan, "
+"untuk field %s"
+
+#: ../lib/tribe-validate.class.php:278
+#, php-format
+msgid "%s cannot be the same as %s."
+msgstr "%s tidak bisa sama dengan %s ."
+
+#: ../lib/tribe-validate.class.php:280
+#, php-format
+msgid "%s cannot be a duplicate"
+msgstr "%s tidak dapat duplikat"
+
+#: ../lib/tribe-validate.class.php:296
+#, php-format
+msgid "%s must be a number or percentage."
+msgstr "%s harus berupa angka atau persentase."
+
+#: ../lib/tribe-validate.class.php:350
+#, php-format
+msgid "%s must be a number between 0 and 21."
+msgstr "%s harus berupa angka antara 0 dan 21."
+
+#: ../lib/tribe-validate.class.php:366
+#, php-format
+msgid ""
+"%s must consist of letters, numbers, dashes, apostrophes, and spaces only."
+msgstr ""
+"%s harus terdiri dari huruf, angka, tanda hubung, apostrof, dan spasi saja."
+
+#: ../lib/tribe-validate.class.php:382
+#, php-format
+msgid "%s must consist of letters, spaces, apostrophes, and dashes."
+msgstr "%s harus terdiri dari huruf, spasi, apostrof, dan tanda hubung."
+
+#: ../lib/tribe-validate.class.php:396
+#, php-format
+msgid "%s must consist of 5 numbers."
+msgstr "%s harus terdiri dari 5 angka."
+
+#: ../lib/tribe-validate.class.php:410
+#, php-format
+msgid "%s must be a phone number."
+msgstr "%s harus berupa nomor telepon."
+
+#: ../lib/tribe-validate.class.php:426
+msgid ""
+"Country List must be formatted as one country per line in the following "
+"format: <br>US, United States <br> UK, United Kingdom."
+msgstr ""
+"Daftar Negara harus diformat sebagai salah satu negara per baris dalam "
+"format berikut: <br> AS, Amerika Serikat <br> UK, United Kingdom."
+
+#: ../lib/tribe-view-helpers.class.php:24
+#: ../lib/tribe-view-helpers.class.php:43
+msgid "Select a Country:"
+msgstr "Pilih Negara:"
+
+#: ../lib/tribe-view-helpers.class.php:45
+msgid "Afghanistan"
+msgstr "Afganistan"
+
+#: ../lib/tribe-view-helpers.class.php:46
+msgid "Albania"
+msgstr "Albania"
+
+#: ../lib/tribe-view-helpers.class.php:47
+msgid "Algeria"
+msgstr "Aljazair"
+
+#: ../lib/tribe-view-helpers.class.php:48
+msgid "American Samoa"
+msgstr "Samoa Amerika"
+
+#: ../lib/tribe-view-helpers.class.php:49
+msgid "Andorra"
+msgstr "Andora"
+
+#: ../lib/tribe-view-helpers.class.php:50
+msgid "Angola"
+msgstr "Angola"
+
+#: ../lib/tribe-view-helpers.class.php:51
+msgid "Anguilla"
+msgstr "Anguilla"
+
+#: ../lib/tribe-view-helpers.class.php:52
+msgid "Antarctica"
+msgstr "Antartika"
+
+#: ../lib/tribe-view-helpers.class.php:53
+msgid "Antigua And Barbuda"
+msgstr "Antigua dan Barbuda"
+
+#: ../lib/tribe-view-helpers.class.php:54
+msgid "Argentina"
+msgstr "Argentina"
+
+#: ../lib/tribe-view-helpers.class.php:55
+msgid "Armenia"
+msgstr "Armenia"
+
+#: ../lib/tribe-view-helpers.class.php:56
+msgid "Aruba"
+msgstr "Aruba"
+
+#: ../lib/tribe-view-helpers.class.php:57
+msgid "Australia"
+msgstr "Australia"
+
+#: ../lib/tribe-view-helpers.class.php:58
+msgid "Austria"
+msgstr "Austria"
+
+#: ../lib/tribe-view-helpers.class.php:59
+msgid "Azerbaijan"
+msgstr "Azerbaijan"
+
+#: ../lib/tribe-view-helpers.class.php:60
+msgid "Bahamas"
+msgstr "Bahama"
+
+#: ../lib/tribe-view-helpers.class.php:61
+msgid "Bahrain"
+msgstr "Bahrain"
+
+#: ../lib/tribe-view-helpers.class.php:62
+msgid "Bangladesh"
+msgstr "Bangladesh"
+
+#: ../lib/tribe-view-helpers.class.php:63
+msgid "Barbados"
+msgstr "Barbados"
+
+#: ../lib/tribe-view-helpers.class.php:64
+msgid "Belarus"
+msgstr "Belarusia"
+
+#: ../lib/tribe-view-helpers.class.php:65
+msgid "Belgium"
+msgstr "Belgia"
+
+#: ../lib/tribe-view-helpers.class.php:66
+msgid "Belize"
+msgstr "Belize"
+
+#: ../lib/tribe-view-helpers.class.php:67
+msgid "Benin"
+msgstr "Benin"
+
+#: ../lib/tribe-view-helpers.class.php:68
+msgid "Bermuda"
+msgstr "Bermuda"
+
+#: ../lib/tribe-view-helpers.class.php:69
+msgid "Bhutan"
+msgstr "Bhutan"
+
+#: ../lib/tribe-view-helpers.class.php:70
+msgid "Bolivia"
+msgstr "Bolivia"
+
+#: ../lib/tribe-view-helpers.class.php:71
+msgid "Bosnia And Herzegowina"
+msgstr "Bosnia Herzegovina"
+
+#: ../lib/tribe-view-helpers.class.php:72
+msgid "Botswana"
+msgstr "Botswana"
+
+#: ../lib/tribe-view-helpers.class.php:73
+msgid "Bouvet Island"
+msgstr "Pulau Bouvet"
+
+#: ../lib/tribe-view-helpers.class.php:74
+msgid "Brazil"
+msgstr "Brazil"
+
+#: ../lib/tribe-view-helpers.class.php:75
+msgid "British Indian Ocean Territory"
+msgstr "Teritorial Inggris di Samudra Hindia"
+
+#: ../lib/tribe-view-helpers.class.php:76
+msgid "Brunei Darussalam"
+msgstr "Brunei Darussalam"
+
+#: ../lib/tribe-view-helpers.class.php:77
+msgid "Bulgaria"
+msgstr "Bulgaria"
+
+#: ../lib/tribe-view-helpers.class.php:78
+msgid "Burkina Faso"
+msgstr "Burkina Faso"
+
+#: ../lib/tribe-view-helpers.class.php:79
+msgid "Burundi"
+msgstr "Burundi"
+
+#: ../lib/tribe-view-helpers.class.php:80
+msgid "Cambodia"
+msgstr "Kamboja"
+
+#: ../lib/tribe-view-helpers.class.php:81
+msgid "Cameroon"
+msgstr "Kamerun"
+
+#: ../lib/tribe-view-helpers.class.php:82
+msgid "Canada"
+msgstr "Kanada"
+
+#: ../lib/tribe-view-helpers.class.php:83
+msgid "Cape Verde"
+msgstr "Cape Verde"
+
+#: ../lib/tribe-view-helpers.class.php:84
+msgid "Cayman Islands"
+msgstr "Kepulauan Cayman"
+
+#: ../lib/tribe-view-helpers.class.php:85
+msgid "Central African Republic"
+msgstr "Republik Afrika Tengah"
+
+#: ../lib/tribe-view-helpers.class.php:86
+msgid "Chad"
+msgstr "Cad"
+
+#: ../lib/tribe-view-helpers.class.php:87
+msgid "Chile"
+msgstr "Chili"
+
+#: ../lib/tribe-view-helpers.class.php:88
+msgid "China"
+msgstr "Cina"
+
+#: ../lib/tribe-view-helpers.class.php:89
+msgid "Christmas Island"
+msgstr "Pulau Christmas"
+
+#: ../lib/tribe-view-helpers.class.php:90
+msgid "Cocos (Keeling) Islands"
+msgstr "Kepulauan Cocos (Keeling)"
+
+#: ../lib/tribe-view-helpers.class.php:91
+msgid "Colombia"
+msgstr "Kolumbia"
+
+#: ../lib/tribe-view-helpers.class.php:92
+msgid "Comoros"
+msgstr "Komoro"
+
+#: ../lib/tribe-view-helpers.class.php:93
+msgid "Congo"
+msgstr "Kongo"
+
+#: ../lib/tribe-view-helpers.class.php:94
+msgid "Congo, The Democratic Republic Of The"
+msgstr "Kongo, Republik Demokratik"
+
+#: ../lib/tribe-view-helpers.class.php:95
+msgid "Cook Islands"
+msgstr "Kepulauan Cook"
+
+#: ../lib/tribe-view-helpers.class.php:96
+msgid "Costa Rica"
+msgstr "Kosta Rika"
+
+#: ../lib/tribe-view-helpers.class.php:97
+msgid "Cote D'Ivoire"
+msgstr "Pantai Gading"
+
+#: ../lib/tribe-view-helpers.class.php:98
+msgid "Croatia (Local Name: Hrvatska)"
+msgstr "Kroasia (Nama Lokal: Hrvatska)"
+
+#: ../lib/tribe-view-helpers.class.php:99
+msgid "Cuba"
+msgstr "Kuba"
+
+#: ../lib/tribe-view-helpers.class.php:100
+msgid "Cyprus"
+msgstr "Syprus"
+
+#: ../lib/tribe-view-helpers.class.php:101
+msgid "Czech Republic"
+msgstr "Cekoslovakia, Republik"
+
+#: ../lib/tribe-view-helpers.class.php:102
+msgid "Denmark"
+msgstr "Denmark"
+
+#: ../lib/tribe-view-helpers.class.php:103
+msgid "Djibouti"
+msgstr "Djibouti"
+
+#: ../lib/tribe-view-helpers.class.php:104
+msgid "Dominica"
+msgstr "Dominika"
+
+#: ../lib/tribe-view-helpers.class.php:105
+msgid "Dominican Republic"
+msgstr "Dominika, Republik"
+
+#: ../lib/tribe-view-helpers.class.php:106
+msgid "East Timor"
+msgstr "Timor Timur"
+
+#: ../lib/tribe-view-helpers.class.php:107
+msgid "Ecuador"
+msgstr "Ekuador"
+
+#: ../lib/tribe-view-helpers.class.php:108
+msgid "Egypt"
+msgstr "Mesir"
+
+#: ../lib/tribe-view-helpers.class.php:109
+msgid "El Salvador"
+msgstr "El Salvador"
+
+#: ../lib/tribe-view-helpers.class.php:110
+msgid "Equatorial Guinea"
+msgstr "Guinea Ekuatorial"
+
+#: ../lib/tribe-view-helpers.class.php:111
+msgid "Eritrea"
+msgstr "Eritrea"
+
+#: ../lib/tribe-view-helpers.class.php:112
+msgid "Estonia"
+msgstr "Estonia"
+
+#: ../lib/tribe-view-helpers.class.php:113
+msgid "Ethiopia"
+msgstr "Etiopia"
+
+#: ../lib/tribe-view-helpers.class.php:114
+msgid "Falkland Islands (Malvinas)"
+msgstr "Kepulauan Falkland (Malvinas)"
+
+#: ../lib/tribe-view-helpers.class.php:115
+msgid "Faroe Islands"
+msgstr "Kepulauan Faroe"
+
+#: ../lib/tribe-view-helpers.class.php:116
+msgid "Fiji"
+msgstr "Fiji"
+
+#: ../lib/tribe-view-helpers.class.php:117
+msgid "Finland"
+msgstr "Finlandia"
+
+#: ../lib/tribe-view-helpers.class.php:118
+msgid "France"
+msgstr "Perancis"
+
+#: ../lib/tribe-view-helpers.class.php:119
+msgid "France, Metropolitan"
+msgstr "France, Metropolitan"
+
+#: ../lib/tribe-view-helpers.class.php:120
+msgid "French Guiana"
+msgstr "Guyana Prancis"
+
+#: ../lib/tribe-view-helpers.class.php:121
+msgid "French Polynesia"
+msgstr "Perancis Polinesia"
+
+#: ../lib/tribe-view-helpers.class.php:122
+msgid "French Southern Territories"
+msgstr "Teritorial Prancis di Selatan"
+
+#: ../lib/tribe-view-helpers.class.php:123
+msgid "Gabon"
+msgstr "Gabon"
+
+#: ../lib/tribe-view-helpers.class.php:124
+msgid "Gambia"
+msgstr "Gambia"
+
+#: ../lib/tribe-view-helpers.class.php:125
+#: ../lib/tribe-view-helpers.class.php:318
+msgid "Georgia"
+msgstr "Georgia"
+
+#: ../lib/tribe-view-helpers.class.php:126
+msgid "Germany"
+msgstr "Jerman"
+
+#: ../lib/tribe-view-helpers.class.php:127
+msgid "Ghana"
+msgstr "Ghana"
+
+#: ../lib/tribe-view-helpers.class.php:128
+msgid "Gibraltar"
+msgstr "Gibraltar"
+
+#: ../lib/tribe-view-helpers.class.php:129
+msgid "Greece"
+msgstr "Yunani"
+
+#: ../lib/tribe-view-helpers.class.php:130
+msgid "Greenland"
+msgstr "Greenland"
+
+#: ../lib/tribe-view-helpers.class.php:131
+msgid "Grenada"
+msgstr "Grenada"
+
+#: ../lib/tribe-view-helpers.class.php:132
+msgid "Guadeloupe"
+msgstr "Guadeloupe"
+
+#: ../lib/tribe-view-helpers.class.php:133
+msgid "Guam"
+msgstr "Guam"
+
+#: ../lib/tribe-view-helpers.class.php:134
+msgid "Guatemala"
+msgstr "Guatemala"
+
+#: ../lib/tribe-view-helpers.class.php:135
+msgid "Guinea"
+msgstr "Guinea"
+
+#: ../lib/tribe-view-helpers.class.php:136
+msgid "Guinea-Bissau"
+msgstr "Guinea-Bissau"
+
+#: ../lib/tribe-view-helpers.class.php:137
+msgid "Guyana"
+msgstr "Guyana"
+
+#: ../lib/tribe-view-helpers.class.php:138
+msgid "Haiti"
+msgstr "Haiti"
+
+#: ../lib/tribe-view-helpers.class.php:139
+msgid "Heard And Mc Donald Islands"
+msgstr "Heard And Mc Donald, Kepulauan"
+
+#: ../lib/tribe-view-helpers.class.php:140
+msgid "Holy See (Vatican City State)"
+msgstr "Holy See (Vatican City State)"
+
+#: ../lib/tribe-view-helpers.class.php:141
+msgid "Honduras"
+msgstr "Honduras"
+
+#: ../lib/tribe-view-helpers.class.php:142
+msgid "Hong Kong"
+msgstr "Hong Kong"
+
+#: ../lib/tribe-view-helpers.class.php:143
+msgid "Hungary"
+msgstr "Hungaria"
+
+#: ../lib/tribe-view-helpers.class.php:144
+msgid "Iceland"
+msgstr "Islandia"
+
+#: ../lib/tribe-view-helpers.class.php:145
+msgid "India"
+msgstr "India"
+
+#: ../lib/tribe-view-helpers.class.php:146
+msgid "Indonesia"
+msgstr "Indonesia"
+
+#: ../lib/tribe-view-helpers.class.php:147
+msgid "Iran (Islamic Republic Of)"
+msgstr "Iran (Islamic Republic Of)"
+
+#: ../lib/tribe-view-helpers.class.php:148
+msgid "Iraq"
+msgstr "Irak"
+
+#: ../lib/tribe-view-helpers.class.php:149
+msgid "Ireland"
+msgstr "Irlandia"
+
+#: ../lib/tribe-view-helpers.class.php:150
+msgid "Israel"
+msgstr "Israel"
+
+#: ../lib/tribe-view-helpers.class.php:151
+msgid "Italy"
+msgstr "Italia"
+
+#: ../lib/tribe-view-helpers.class.php:152
+msgid "Jamaica"
+msgstr "Jamaika"
+
+#: ../lib/tribe-view-helpers.class.php:153
+msgid "Japan"
+msgstr "Jepang"
+
+#: ../lib/tribe-view-helpers.class.php:154
+msgid "Jordan"
+msgstr "Yordan"
+
+#: ../lib/tribe-view-helpers.class.php:155
+msgid "Kazakhstan"
+msgstr "Kazakstan"
+
+#: ../lib/tribe-view-helpers.class.php:156
+msgid "Kenya"
+msgstr "Kenya"
+
+#: ../lib/tribe-view-helpers.class.php:157
+msgid "Kiribati"
+msgstr "Kiribati"
+
+#: ../lib/tribe-view-helpers.class.php:158
+msgid "Korea, Democratic People's Republic Of"
+msgstr "Korea, Republik Demokratik Rakyat"
+
+#: ../lib/tribe-view-helpers.class.php:159
+msgid "Korea, Republic Of"
+msgstr "Korea, Republik"
+
+#: ../lib/tribe-view-helpers.class.php:160
+msgid "Kuwait"
+msgstr "Kuwait"
+
+#: ../lib/tribe-view-helpers.class.php:161
+msgid "Kyrgyzstan"
+msgstr "Kirgistan"
+
+#: ../lib/tribe-view-helpers.class.php:162
+msgid "Lao People's Democratic Republic"
+msgstr "Lao People's Democratic Republic"
+
+#: ../lib/tribe-view-helpers.class.php:163
+msgid "Latvia"
+msgstr "Latvia"
+
+#: ../lib/tribe-view-helpers.class.php:164
+msgid "Lebanon"
+msgstr "Libanon"
+
+#: ../lib/tribe-view-helpers.class.php:165
+msgid "Lesotho"
+msgstr "Lesotho"
+
+#: ../lib/tribe-view-helpers.class.php:166
+msgid "Liberia"
+msgstr "Liberia"
+
+#: ../lib/tribe-view-helpers.class.php:167
+msgid "Libya"
+msgstr "Libya"
+
+#: ../lib/tribe-view-helpers.class.php:168
+msgid "Liechtenstein"
+msgstr "Liechtenstein"
+
+#: ../lib/tribe-view-helpers.class.php:169
+msgid "Lithuania"
+msgstr "Lituania"
+
+#: ../lib/tribe-view-helpers.class.php:170
+msgid "Luxembourg"
+msgstr "Luksemburg"
+
+#: ../lib/tribe-view-helpers.class.php:171
+msgid "Macau"
+msgstr "Makau"
+
+#: ../lib/tribe-view-helpers.class.php:172
+msgid "Macedonia"
+msgstr "Makadonia"
+
+#: ../lib/tribe-view-helpers.class.php:173
+msgid "Madagascar"
+msgstr "Madagaskar"
+
+#: ../lib/tribe-view-helpers.class.php:174
+msgid "Malawi"
+msgstr "Malawi"
+
+#: ../lib/tribe-view-helpers.class.php:175
+msgid "Malaysia"
+msgstr "Malaysia"
+
+#: ../lib/tribe-view-helpers.class.php:176
+msgid "Maldives"
+msgstr "Maladewa"
+
+#: ../lib/tribe-view-helpers.class.php:177
+msgid "Mali"
+msgstr "Mali"
+
+#: ../lib/tribe-view-helpers.class.php:178
+msgid "Malta"
+msgstr "Malta"
+
+#: ../lib/tribe-view-helpers.class.php:179
+msgid "Marshall Islands"
+msgstr "Kepulauan Marshall"
+
+#: ../lib/tribe-view-helpers.class.php:180
+msgid "Martinique"
+msgstr "Martinique"
+
+#: ../lib/tribe-view-helpers.class.php:181
+msgid "Mauritania"
+msgstr "Mauritania"
+
+#: ../lib/tribe-view-helpers.class.php:182
+msgid "Mauritius"
+msgstr "Maurisius"
+
+#: ../lib/tribe-view-helpers.class.php:183
+msgid "Mayotte"
+msgstr "Mayotte"
+
+#: ../lib/tribe-view-helpers.class.php:184
+msgid "Mexico"
+msgstr "Meksiko"
+
+#: ../lib/tribe-view-helpers.class.php:185
+msgid "Micronesia, Federated States Of"
+msgstr "Mikronesia, Federasi Serikat Dari"
+
+#: ../lib/tribe-view-helpers.class.php:186
+msgid "Moldova, Republic Of"
+msgstr "Moldova, Republik"
+
+#: ../lib/tribe-view-helpers.class.php:187
+msgid "Monaco"
+msgstr "Monako"
+
+#: ../lib/tribe-view-helpers.class.php:188
+msgid "Mongolia"
+msgstr "Mongolia"
+
+#: ../lib/tribe-view-helpers.class.php:189
+msgid "Montenegro"
+msgstr "Montenegro"
+
+#: ../lib/tribe-view-helpers.class.php:190
+msgid "Montserrat"
+msgstr "Montserrat"
+
+#: ../lib/tribe-view-helpers.class.php:191
+msgid "Morocco"
+msgstr "Maroko"
+
+#: ../lib/tribe-view-helpers.class.php:192
+msgid "Mozambique"
+msgstr "Mozambik"
+
+#: ../lib/tribe-view-helpers.class.php:193
+msgid "Myanmar"
+msgstr "Myanmar"
+
+#: ../lib/tribe-view-helpers.class.php:194
+msgid "Namibia"
+msgstr "Namibia"
+
+#: ../lib/tribe-view-helpers.class.php:195
+msgid "Nauru"
+msgstr "Nauru"
+
+#: ../lib/tribe-view-helpers.class.php:196
+msgid "Nepal"
+msgstr "Nepal"
+
+#: ../lib/tribe-view-helpers.class.php:197
+msgid "Netherlands"
+msgstr "Belanda"
+
+#: ../lib/tribe-view-helpers.class.php:198
+msgid "Netherlands Antilles"
+msgstr "Belanda Antilla"
+
+#: ../lib/tribe-view-helpers.class.php:199
+msgid "New Caledonia"
+msgstr "Kaledonia Baru"
+
+#: ../lib/tribe-view-helpers.class.php:200
+msgid "New Zealand"
+msgstr "Selandia Baru"
+
+#: ../lib/tribe-view-helpers.class.php:201
+msgid "Nicaragua"
+msgstr "Nikaragua"
+
+#: ../lib/tribe-view-helpers.class.php:202
+msgid "Niger"
+msgstr "Niger"
+
+#: ../lib/tribe-view-helpers.class.php:203
+msgid "Nigeria"
+msgstr "Nigeria"
+
+#: ../lib/tribe-view-helpers.class.php:204
+msgid "Niue"
+msgstr "Niue"
+
+#: ../lib/tribe-view-helpers.class.php:205
+msgid "Norfolk Island"
+msgstr "Pulau Norfolk"
+
+#: ../lib/tribe-view-helpers.class.php:206
+msgid "Northern Mariana Islands"
+msgstr "Kepulauan Mariana Utara"
+
+#: ../lib/tribe-view-helpers.class.php:207
+msgid "Norway"
+msgstr "Norwegia"
+
+#: ../lib/tribe-view-helpers.class.php:208
+msgid "Oman"
+msgstr "Oman"
+
+#: ../lib/tribe-view-helpers.class.php:209
+msgid "Pakistan"
+msgstr "Pakistan"
+
+#: ../lib/tribe-view-helpers.class.php:210
+msgid "Palau"
+msgstr "Palau"
+
+#: ../lib/tribe-view-helpers.class.php:211
+msgid "Panama"
+msgstr "Panama"
+
+#: ../lib/tribe-view-helpers.class.php:212
+msgid "Papua New Guinea"
+msgstr "Papua Nugini"
+
+#: ../lib/tribe-view-helpers.class.php:213
+msgid "Paraguay"
+msgstr "Paraguay"
+
+#: ../lib/tribe-view-helpers.class.php:214
+msgid "Peru"
+msgstr "Peru"
+
+#: ../lib/tribe-view-helpers.class.php:215
+msgid "Philippines"
+msgstr "Filipina"
+
+#: ../lib/tribe-view-helpers.class.php:216
+msgid "Pitcairn"
+msgstr "Pitcairn"
+
+#: ../lib/tribe-view-helpers.class.php:217
+msgid "Poland"
+msgstr "Polandia"
+
+#: ../lib/tribe-view-helpers.class.php:218
+msgid "Portugal"
+msgstr "Portugal"
+
+#: ../lib/tribe-view-helpers.class.php:219
+msgid "Puerto Rico"
+msgstr "Puerto Riko"
+
+#: ../lib/tribe-view-helpers.class.php:220
+msgid "Qatar"
+msgstr "Qatar"
+
+#: ../lib/tribe-view-helpers.class.php:221
+msgid "Reunion"
+msgstr "Reunion"
+
+#: ../lib/tribe-view-helpers.class.php:222
+msgid "Romania"
+msgstr "Rumania"
+
+#: ../lib/tribe-view-helpers.class.php:223
+msgid "Russian Federation"
+msgstr "Federasi Rusia"
+
+#: ../lib/tribe-view-helpers.class.php:224
+msgid "Rwanda"
+msgstr "Rwanda"
+
+#: ../lib/tribe-view-helpers.class.php:225
+msgid "Saint Kitts And Nevis"
+msgstr "Saint Kitts dan Nevis"
+
+#: ../lib/tribe-view-helpers.class.php:226
+msgid "Saint Lucia"
+msgstr "Saint Lusia"
+
+#: ../lib/tribe-view-helpers.class.php:227
+msgid "Saint Vincent And The Grenadines"
+msgstr "Saint Vincent dan Grenadines"
+
+#: ../lib/tribe-view-helpers.class.php:228
+msgid "Samoa"
+msgstr "Samoa"
+
+#: ../lib/tribe-view-helpers.class.php:229
+msgid "San Marino"
+msgstr "San Marino"
+
+#: ../lib/tribe-view-helpers.class.php:230
+msgid "Sao Tome And Principe"
+msgstr "Sao Tome Dan Principe"
+
+#: ../lib/tribe-view-helpers.class.php:231
+msgid "Saudi Arabia"
+msgstr "Arab Saudi"
+
+#: ../lib/tribe-view-helpers.class.php:232
+msgid "Senegal"
+msgstr "Senegal"
+
+#: ../lib/tribe-view-helpers.class.php:233
+msgid "Serbia"
+msgstr "Serbia"
+
+#: ../lib/tribe-view-helpers.class.php:234
+msgid "Seychelles"
+msgstr "Seychelles"
+
+#: ../lib/tribe-view-helpers.class.php:235
+msgid "Sierra Leone"
+msgstr "Sierra Leone"
+
+#: ../lib/tribe-view-helpers.class.php:236
+msgid "Singapore"
+msgstr "Singapura"
+
+#: ../lib/tribe-view-helpers.class.php:237
+msgid "Slovakia (Slovak Republic)"
+msgstr "Slovakia (Republik Slovak)"
+
+#: ../lib/tribe-view-helpers.class.php:238
+msgid "Slovenia"
+msgstr "Slovenia"
+
+#: ../lib/tribe-view-helpers.class.php:239
+msgid "Solomon Islands"
+msgstr "Kepulauan Solomon"
+
+#: ../lib/tribe-view-helpers.class.php:240
+msgid "Somalia"
+msgstr "Somalia"
+
+#: ../lib/tribe-view-helpers.class.php:241
+msgid "South Africa"
+msgstr "Afrika Selatan"
+
+#: ../lib/tribe-view-helpers.class.php:242
+msgid "South Georgia, South Sandwich Islands"
+msgstr "South Georgia, South Sandwich Islands"
+
+#: ../lib/tribe-view-helpers.class.php:243
+msgid "Spain"
+msgstr "Spanyol"
+
+#: ../lib/tribe-view-helpers.class.php:244
+msgid "Sri Lanka"
+msgstr "Sri Lanka"
+
+#: ../lib/tribe-view-helpers.class.php:245
+msgid "St. Helena"
+msgstr "St. Helena"
+
+#: ../lib/tribe-view-helpers.class.php:246
+msgid "St. Pierre And Miquelon"
+msgstr "St Pierre Dan Miquelon"
+
+#: ../lib/tribe-view-helpers.class.php:247
+msgid "Sudan"
+msgstr "Sudan"
+
+#: ../lib/tribe-view-helpers.class.php:248
+msgid "Suriname"
+msgstr "Suriname"
+
+#: ../lib/tribe-view-helpers.class.php:249
+msgid "Svalbard And Jan Mayen Islands"
+msgstr "Svalbard And Jan Mayen Islands"
+
+#: ../lib/tribe-view-helpers.class.php:250
+msgid "Swaziland"
+msgstr "Swaziland"
+
+#: ../lib/tribe-view-helpers.class.php:251
+msgid "Sweden"
+msgstr "Swedia"
+
+#: ../lib/tribe-view-helpers.class.php:252
+msgid "Switzerland"
+msgstr "Swiss"
+
+#: ../lib/tribe-view-helpers.class.php:253
+msgid "Syrian Arab Republic"
+msgstr "Suriah"
+
+#: ../lib/tribe-view-helpers.class.php:254
+msgid "Taiwan"
+msgstr "Taiwan"
+
+#: ../lib/tribe-view-helpers.class.php:255
+msgid "Tajikistan"
+msgstr "Tajikistan"
+
+#: ../lib/tribe-view-helpers.class.php:256
+msgid "Tanzania, United Republic Of"
+msgstr "Tanzania, United Republic Of"
+
+#: ../lib/tribe-view-helpers.class.php:257
+msgid "Thailand"
+msgstr "Thailand"
+
+#: ../lib/tribe-view-helpers.class.php:258
+msgid "Togo"
+msgstr "Togo"
+
+#: ../lib/tribe-view-helpers.class.php:259
+msgid "Tokelau"
+msgstr "Tokelau"
+
+#: ../lib/tribe-view-helpers.class.php:260
+msgid "Tonga"
+msgstr "Tonga"
+
+#: ../lib/tribe-view-helpers.class.php:261
+msgid "Trinidad And Tobago"
+msgstr "Trinidad dan Tobago"
+
+#: ../lib/tribe-view-helpers.class.php:262
+msgid "Tunisia"
+msgstr "Tunisia"
+
+#: ../lib/tribe-view-helpers.class.php:263
+msgid "Turkey"
+msgstr "Turki"
+
+#: ../lib/tribe-view-helpers.class.php:264
+msgid "Turkmenistan"
+msgstr "Turkmenistan"
+
+#: ../lib/tribe-view-helpers.class.php:265
+msgid "Turks And Caicos Islands"
+msgstr "Kepulauan Turks dan Caicos"
+
+#: ../lib/tribe-view-helpers.class.php:266
+msgid "Tuvalu"
+msgstr "Tuvalu"
+
+#: ../lib/tribe-view-helpers.class.php:267
+msgid "Uganda"
+msgstr "Uganda"
+
+#: ../lib/tribe-view-helpers.class.php:268
+msgid "Ukraine"
+msgstr "Ukraina"
+
+#: ../lib/tribe-view-helpers.class.php:269
+msgid "United Arab Emirates"
+msgstr "Uni Emirat Arab"
+
+#: ../lib/tribe-view-helpers.class.php:270
+msgid "United Kingdom"
+msgstr "Inggris"
+
+#: ../lib/tribe-view-helpers.class.php:271
+msgid "United States Minor Outlying Islands"
+msgstr "Amerika Serikat Minor Outlying Islands"
+
+#: ../lib/tribe-view-helpers.class.php:272
+msgid "Uruguay"
+msgstr "Uruguay"
+
+#: ../lib/tribe-view-helpers.class.php:273
+msgid "Uzbekistan"
+msgstr "Uzbekistan"
+
+#: ../lib/tribe-view-helpers.class.php:274
+msgid "Vanuatu"
+msgstr "Vanuatu"
+
+#: ../lib/tribe-view-helpers.class.php:275
+msgid "Venezuela"
+msgstr "Venezuela"
+
+#: ../lib/tribe-view-helpers.class.php:276
+msgid "Viet Nam"
+msgstr "Vietnam"
+
+#: ../lib/tribe-view-helpers.class.php:277
+msgid "Virgin Islands (British)"
+msgstr "Kepulauan Virgin (Inggris)"
+
+#: ../lib/tribe-view-helpers.class.php:278
+msgid "Virgin Islands (U.S.)"
+msgstr "Kepulauan Virgin (AS)"
+
+#: ../lib/tribe-view-helpers.class.php:279
+msgid "Wallis And Futuna Islands"
+msgstr "Wallis And Futuna Islands"
+
+#: ../lib/tribe-view-helpers.class.php:280
+msgid "Western Sahara"
+msgstr "Sahara Barat"
+
+#: ../lib/tribe-view-helpers.class.php:281
+msgid "Yemen"
+msgstr "Yaman"
+
+#: ../lib/tribe-view-helpers.class.php:282
+msgid "Zambia"
+msgstr "Zambia"
+
+#: ../lib/tribe-view-helpers.class.php:283
+msgid "Zimbabwe"
+msgstr "Zimbabwe"
+
+#: ../lib/tribe-view-helpers.class.php:308
+msgid "Alabama"
+msgstr "Alabama"
+
+#: ../lib/tribe-view-helpers.class.php:309
+msgid "Alaska"
+msgstr "Alaska"
+
+#: ../lib/tribe-view-helpers.class.php:310
+msgid "Arizona"
+msgstr "Arizona"
+
+#: ../lib/tribe-view-helpers.class.php:311
+msgid "Arkansas"
+msgstr "Arkansas"
+
+#: ../lib/tribe-view-helpers.class.php:312
+msgid "California"
+msgstr "California"
+
+#: ../lib/tribe-view-helpers.class.php:313
+msgid "Colorado"
+msgstr "Colorado"
+
+#: ../lib/tribe-view-helpers.class.php:314
+msgid "Connecticut"
+msgstr "Connecticut"
+
+#: ../lib/tribe-view-helpers.class.php:315
+msgid "Delaware"
+msgstr "Delaware"
+
+#: ../lib/tribe-view-helpers.class.php:316
+msgid "District of Columbia"
+msgstr "District of Columbia"
+
+#: ../lib/tribe-view-helpers.class.php:317
+msgid "Florida"
+msgstr "Florida"
+
+#: ../lib/tribe-view-helpers.class.php:319
+msgid "Hawaii"
+msgstr "Hawai"
+
+#: ../lib/tribe-view-helpers.class.php:320
+msgid "Idaho"
+msgstr "Idaho"
+
+#: ../lib/tribe-view-helpers.class.php:321
+msgid "Illinois"
+msgstr "Illinois"
+
+#: ../lib/tribe-view-helpers.class.php:322
+msgid "Indiana"
+msgstr "Indiana"
+
+#: ../lib/tribe-view-helpers.class.php:323
+msgid "Iowa"
+msgstr "Iowa"
+
+#: ../lib/tribe-view-helpers.class.php:324
+msgid "Kansas"
+msgstr "Kansas"
+
+#: ../lib/tribe-view-helpers.class.php:325
+msgid "Kentucky"
+msgstr "Kentucky"
+
+#: ../lib/tribe-view-helpers.class.php:326
+msgid "Louisiana"
+msgstr "Louisiana"
+
+#: ../lib/tribe-view-helpers.class.php:327
+msgid "Maine"
+msgstr "Maine"
+
+#: ../lib/tribe-view-helpers.class.php:328
+msgid "Maryland"
+msgstr "Maryland"
+
+#: ../lib/tribe-view-helpers.class.php:329
+msgid "Massachusetts"
+msgstr "Massachusetts"
+
+#: ../lib/tribe-view-helpers.class.php:330
+msgid "Michigan"
+msgstr "Michigan"
+
+#: ../lib/tribe-view-helpers.class.php:331
+msgid "Minnesota"
+msgstr "Minnesota"
+
+#: ../lib/tribe-view-helpers.class.php:332
+msgid "Mississippi"
+msgstr "Mississippi."
+
+#: ../lib/tribe-view-helpers.class.php:333
+msgid "Missouri"
+msgstr "Missouri"
+
+#: ../lib/tribe-view-helpers.class.php:334
+msgid "Montana"
+msgstr "Montana"
+
+#: ../lib/tribe-view-helpers.class.php:335
+msgid "Nebraska"
+msgstr "Nebraska"
+
+#: ../lib/tribe-view-helpers.class.php:336
+msgid "Nevada"
+msgstr "Nevada"
+
+#: ../lib/tribe-view-helpers.class.php:337
+msgid "New Hampshire"
+msgstr "New Hampshire"
+
+#: ../lib/tribe-view-helpers.class.php:338
+msgid "New Jersey"
+msgstr "New Jersey"
+
+#: ../lib/tribe-view-helpers.class.php:339
+msgid "New Mexico"
+msgstr "New Mexico"
+
+#: ../lib/tribe-view-helpers.class.php:340
+msgid "New York"
+msgstr "New York."
+
+#: ../lib/tribe-view-helpers.class.php:341
+msgid "North Carolina"
+msgstr "North Carolina"
+
+#: ../lib/tribe-view-helpers.class.php:342
+msgid "North Dakota"
+msgstr "North Dakota"
+
+#: ../lib/tribe-view-helpers.class.php:343
+msgid "Ohio"
+msgstr "Ohio"
+
+#: ../lib/tribe-view-helpers.class.php:344
+msgid "Oklahoma"
+msgstr "Oklahoma"
+
+#: ../lib/tribe-view-helpers.class.php:345
+msgid "Oregon"
+msgstr "Oregon"
+
+#: ../lib/tribe-view-helpers.class.php:346
+msgid "Pennsylvania"
+msgstr "Pennsylvania"
+
+#: ../lib/tribe-view-helpers.class.php:347
+msgid "Rhode Island"
+msgstr "Rhode Island"
+
+#: ../lib/tribe-view-helpers.class.php:348
+msgid "South Carolina"
+msgstr "Carolina Selatan"
+
+#: ../lib/tribe-view-helpers.class.php:349
+msgid "South Dakota"
+msgstr "South Dakota"
+
+#: ../lib/tribe-view-helpers.class.php:350
+msgid "Tennessee"
+msgstr "Tennessee"
+
+#: ../lib/tribe-view-helpers.class.php:351
+msgid "Texas"
+msgstr "Texas"
+
+#: ../lib/tribe-view-helpers.class.php:352
+msgid "Utah"
+msgstr "Utah"
+
+#: ../lib/tribe-view-helpers.class.php:353
+msgid "Vermont"
+msgstr "Vermont"
+
+#: ../lib/tribe-view-helpers.class.php:354
+msgid "Virginia"
+msgstr "Virginia"
+
+#: ../lib/tribe-view-helpers.class.php:355
+msgid "Washington"
+msgstr "Washington"
+
+#: ../lib/tribe-view-helpers.class.php:356
+msgid "West Virginia"
+msgstr "Virginia Barat"
+
+#: ../lib/tribe-view-helpers.class.php:357
+msgid "Wisconsin"
+msgstr "Wisconsin"
+
+#: ../lib/tribe-view-helpers.class.php:358
+msgid "Wyoming"
+msgstr "Wyoming"
+
+#: ../lib/widget-list.class.php:25
+msgid "A widget that displays upcoming events."
+msgstr "Sebuah widget yang menampilkan event mendatang."
+
+#: ../lib/widget-list.class.php:32
+msgid "Events List"
+msgstr "Daftar Event"
+
+#: ../public/advanced-functions/meta.php:39
+#: ../public/advanced-functions/meta.php:65
+#: ../views/modules/meta/details.php:36 ../views/modules/meta/details.php:55
+msgid "Start:"
+msgstr "Mulai:"
+
+#: ../public/advanced-functions/meta.php:46
+#: ../public/advanced-functions/meta.php:72
+#: ../views/modules/meta/details.php:39 ../views/modules/meta/details.php:58
+msgid "End:"
+msgstr "End:"
+
+#: ../public/advanced-functions/meta.php:55
+#: ../public/advanced-functions/meta.php:81
+#: ../views/modules/meta/details.php:47 ../views/modules/meta/details.php:66
+msgid "Date:"
+msgstr "Tanggal:"
+
+#: ../public/advanced-functions/meta.php:90
+#: ../public/advanced-functions/meta.php:99
+#: ../views/modules/meta/details.php:69
+msgid "Time:"
+msgstr "Waktu"
+
+#: ../public/advanced-functions/meta.php:283
+#: ../public/template-tags/google-map.php:38
+msgid "Click to view a Google Map"
+msgstr "Klik untuk melihat Google Map"
+
+#: ../public/advanced-functions/meta.php:284
+#: ../public/template-tags/google-map.php:39
+msgid "+ Google Map"
+msgstr "+ Google Map"
+
+#: ../public/advanced-functions/meta.php:295
+#: ../views/modules/meta/details.php:13
+msgid "Details"
+msgstr "Detil"
+
+#: ../public/advanced-functions/meta.php:346
+#: ../views/modules/meta/details.php:97
+msgid "Event Tags:"
+msgstr "Tag Event:"
+
+#: ../public/advanced-functions/meta.php:372
+msgid "Origin:"
+msgstr "Asal:"
+
+#: ../public/advanced-functions/meta.php:382
+msgid "Venue"
+msgstr "Venue"
+
+#: ../public/advanced-functions/meta.php:444
+msgid "Organizer"
+msgstr "Penyelenggara"
+
+#: ../public/advanced-functions/meta.php:509
+msgid "Event:"
+msgstr "Event:"
+
+#: ../public/template-tags/day.php:94
+msgid "<span>&laquo;</span> Previous Day"
+msgstr "<span>&laquo;</span> Hari Sebelumnya"
+
+#: ../public/template-tags/day.php:96
+msgid "Next Day <span>&raquo;</span>"
+msgstr "Hari Berikutnya <span>&raquo;</span>"
+
+#: ../public/template-tags/day.php:98
+msgid "Yesterday"
+msgstr "Kemarin"
+
+#: ../public/template-tags/day.php:100
+msgid "Tomorrow"
+msgstr "Besok"
+
+#: ../public/template-tags/deprecated.php:1156
+msgid "Category"
+msgstr "Kategori"
+
+#: ../public/template-tags/general.php:297
+msgid "Tags:"
+msgstr "Tags:"
+
+#: ../public/template-tags/general.php:393
+msgid "Loading Events"
+msgstr "Memuat Events"
+
+#: ../public/template-tags/general.php:573
+msgid "Free"
+msgstr "Gratis"
+
+#: ../public/template-tags/general.php:1161
+#, php-format
+msgid "Calendar powered by %sThe Events Calendar%s"
+msgstr "Kalender didukung oleh%sThe Events Calendar%s"
+
+#: ../public/template-tags/loop.php:133
+msgid "Events for"
+msgstr "Event untuk"
+
+#: ../public/template-tags/options.php:18
+#, php-format
+msgid "Your current Events URL is %s"
+msgstr "URL Event saat ini Anda adalah %s"
+
+#: ../public/template-tags/options.php:27
+#, php-format
+msgid ""
+"You <strong>cannot</strong> use the same slug as above. The above should "
+"ideally be plural, and this singular.<br />Your single Event URL is like: %s"
+msgstr ""
+"Anda <strong>tidak bisa</strong> menggunakan slug sama seperti di atas. Di "
+"atas idealnya harus plural, dan tunggal <br/> URL event tunggal Anda "
+"seperti:. %s"
+
+#: ../views/day/nav.php:14
+msgid "Day Navigation"
+msgstr "Hari Navigasi"
+
+#: ../views/day/single-event.php:72 ../views/list/single-event.php:76
+msgid "Find out more"
+msgstr "Ketahui lebih lanjut"
+
+#: ../views/list/nav.php:15
+msgid "Events List Navigation"
+msgstr "Navigasi Daftar Event"
+
+#: ../views/list/nav.php:21 ../views/list/nav.php:27 ../views/list/nav.php:30
+msgid "<span>&laquo;</span> Previous Events"
+msgstr "<span>&laquo;</span> Event Sebelumnya"
+
+#: ../views/list/nav.php:39 ../views/list/nav.php:42 ../views/list/nav.php:48
+msgid "Next Events <span>&raquo;</span>"
+msgstr "Event Berikutnya <span>&raquo;</span>"
+
+#: ../views/modules/bar.php:32 ../views/modules/bar.php:62
+msgid "Find Events"
+msgstr "Cari Event"
+
+#: ../views/modules/bar.php:39
+msgid "Event Views Navigation"
+msgstr "Navigasi Tampilan Event"
+
+#: ../views/modules/bar.php:40
+msgid "View As"
+msgstr "View As"
+
+#: ../views/month/nav.php:16
+msgid "Calendar Month Navigation"
+msgstr "Kalender Bulan Navigasi"
+
+#: ../views/month/single-day.php:41
+msgid "Events "
+msgstr "Events "
+
+#: ../views/month/single-day.php:43
+msgid "Event "
+msgstr "Event "
+
+#: ../views/single-event.php:21
+msgid "&laquo; All Events"
+msgstr "&laquo; Semua Event"
+
+#: ../views/single-event.php:39 ../views/single-event.php:80
+msgid "Event Navigation"
+msgstr "Event Navigasi"
+
+#: ../views/tickets/attendees-email.php:23
+msgid "Attendee List"
+msgstr "Daftar Peserta"
+
+#: ../views/tickets/email.php:37
+msgid "Your tickets"
+msgstr "Tiket Anda"
+
+#: ../views/tickets/email.php:318
+msgid "Ticket Type"
+msgstr "Jenis Tiket"
+
+#: ../views/tickets/email.php:322
+msgid "Purchaser"
+msgstr "Pembeli"
+
+#: ../views/widgets/list-widget.php:60
+msgid "View All Events"
+msgstr "Lihat Semua Event"
+
+#: ../views/widgets/list-widget.php:66
+msgid "There are no upcoming events at this time."
+msgstr "Tidak ada event mendatang saat ini."
