@@ -35,19 +35,19 @@
          <td><input type="text" name="custom-field[<?php echo $index ?>]" data-persisted='<?php echo $count != sizeof($field) ? "yes" : "no" ?>' data-name-template='custom-field' data-count='<?php echo esc_attr($count) ?>' value="<?php echo isset($field['label']) ? esc_attr(stripslashes($field['label'])) : ""; ?>"/></td>
 			<td>
 				<select name="custom-field-type[<?php echo $index ?>]" data-name-template='custom-field-type' data-count='<?php echo $count ?>'>
-					<option value="text" <?php selected(isset($field['type']) && $field['type'] == 'textarea') ?>><?php _e('Text','tribe-events-calendar-pro'); ?></option>
-					<option value="url" <?php selected(isset($field['type']) && $field['type'] == 'url') ?>><?php _e('URL','tribe-events-calendar-pro'); ?></option>
-					<option value="radio" <?php selected(isset($field['type']) && $field['type'] == 'radio') ?>><?php _e('Radio','tribe-events-calendar-pro'); ?></option>
-					<option value="checkbox" <?php selected(isset($field['type']) && $field['type'] == 'checkbox') ?>><?php _e('Checkbox','tribe-events-calendar-pro'); ?></option>
-					<option value="dropdown" <?php selected(isset($field['type']) && $field['type'] == 'dropdown') ?>><?php _e('Dropdown','tribe-events-calendar-pro'); ?></option>
+					<option value="text" <?php selected( isset($field['type'] ) && $field['type'] == 'textarea' ) ?>><?php _e( 'Text', 'tribe-events-calendar-pro' ) ?></option>
+					<option value="url" <?php selected( isset($field['type'] ) && $field['type'] == 'url' ) ?>><?php _e( 'URL', 'tribe-events-calendar-pro' ) ?></option>
+					<option value="radio" <?php selected( isset($field['type'] ) && $field['type'] == 'radio' ) ?>><?php _e( 'Radio', 'tribe-events-calendar-pro' ) ?></option>
+					<option value="checkbox" <?php selected( isset($field['type'] ) && $field['type'] == 'checkbox' ) ?>><?php _e( 'Checkbox', 'tribe-events-calendar-pro' ) ?></option>
+					<option value="dropdown" <?php selected( isset($field['type'] ) && $field['type'] == 'dropdown' ) ?>><?php _e( 'Dropdown', 'tribe-events-calendar-pro' ) ?></option>
 				</select>
 			</td>
-			<td><textarea name="custom-field-options[<?php echo $index ?>]" style='display: <?php echo (isset($field['type']) && ($field['type'] == 'radio' || $field['type'] == 'checkbox' || $field['type'] == 'dropdown')) ? "inline" : "none" ?>;' data-name-template='custom-field-options' data-count='<?php echo esc_attr($count) ?>' rows="3"><?php echo stripslashes(esc_textarea(isset($field['values']) ? $field['values'] : "")) ?></textarea></td>
+			<td><textarea name="custom-field-options[<?php echo $index ?>]" style='display: <?php echo (isset($field['type']) && ($field['type'] == 'radio' || $field['type'] == 'checkbox' || $field['type'] == 'dropdown')) ? "inline" : "none" ?>;' data-name-template='custom-field-options' data-count='<?php echo esc_attr($count) ?>' rows="3"><?php echo stripslashes( esc_textarea( isset( $field['values'] ) ? $field['values'] : '' ) ) ?></textarea></td>
 			<td>
 				<?php if ( $count === $total ): ?>
-					<a name="add-field" href='#add-field' class='add-another-field'><?php _e('Add another','tribe-events-calendar-pro'); ?></a>
-            <?php else: ?>
-               <a name="remove-field" href='#remove-field' class='remove-another-field'><?php _e('Remove','tribe-events-calendar-pro'); ?></a>
+					<a name="add-field" href='#add-field' class='add-another-field'><?php _e( 'Add another', 'tribe-events-calendar-pro' ) ?></a>
+				<?php else: ?>
+					<a name="remove-field" href='#remove-field' class='remove-another-field'><?php _e( 'Remove', 'tribe-events-calendar-pro' ) ?></a>
 				<?php endif ?>
 			</td>
 		</tr>
