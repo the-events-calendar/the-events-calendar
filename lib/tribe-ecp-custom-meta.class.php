@@ -122,8 +122,14 @@ class TribeEventsCustomMeta {
 		
 		foreach ( $_POST['custom-field'] as $index => $field ) {
 			$name = strip_tags( $_POST['custom-field'][$index] );
-			$type = strip_tags( $_POST['custom-field-type'][$index] );
-			$values = strip_tags( $_POST['custom-field-options'][$index] );
+			$type = 'text';
+			$values = '';
+
+			// For new fields, it's possible the type/value hasn't been defined (fallback to defaults if so)
+			if ( isset( $_POST['custom-field-type'][$index] ) ) {
+				$type = strip_tags($_POST['custom-field-type'][$index]);
+				$values = strip_tags($_POST['custom-field-options'][$index]);
+			}
 
 			// Remove empty lines
 			$values = preg_replace( "/(^[\r\n]*|[\r\n]+)[\s\t]*[\r\n]+/", "\r\n", $values );

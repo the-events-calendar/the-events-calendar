@@ -19,24 +19,24 @@
 	<thead><tr><th><?php _e('Field Label','tribe-events-calendar-pro'); ?></th><th><?php _e('Field Type','tribe-events-calendar-pro'); ?></th><th><?php _e('Options (one per line)','tribe-events-calendar-pro'); ?></th><th></th></tr></thead>
 	<tbody>
 	<?php
-	$customFields[] = array();
 	$total = count( $customFields );
 	$count = 0;
 
-	foreach ( $customFields as $index => $field ):
+	// Append an extra (blank) entry at the end of the list as a convenience for admins
+	$customFields[] = array();
+
+	foreach ( $customFields as $field ):
 		// Track our progress through the list of custom fields
-		$count++;
-		$is_final = ( $count === $total );
+		$last_row = ( $count++ === $total );
 
-		// For existing fields, prefix indicies with an underscore so that we can
-		// differentiate between these fields and newly created ones (and thus
-		// maintain the relationship between index and value)
-		$index = '_' . esc_attr( $index );
+		// Reuse the existing index (and maintain an underscore prefix - to differentiate
+		// between existing fields and newly created ones (so we can maintain the relationship
+		// between keys and values)
+		if ( isset( $field['name'] ) && 0 === strpos( $field['name'], '_ecp_custom' ) )
+			$index = esc_attr( substr( $field['name'], 11 ) );
 
-		// The final row is a placeholder added for user convenience, do not
-		// apply a numeric index to it - otherwise it will not be assigned the
-		// correct index
-		if ( $is_final ) $index = '';
+		// In all other cases, we'll leave things open for a new index to be applied
+		else $index = '';
 		?>
 		<tr>
          <td><input type="text" name="custom-field[<?php echo $index ?>]" data-persisted='<?php echo $count != sizeof($field) ? "yes" : "no" ?>' data-name-template='custom-field' data-count='<?php echo esc_attr($count) ?>' value="<?php echo isset($field['label']) ? esc_attr(stripslashes($field['label'])) : ""; ?>"/></td>
@@ -51,7 +51,7 @@
 			</td>
 			<td><textarea name="custom-field-options[<?php echo $index ?>]" style='display: <?php echo (isset($field['type']) && ($field['type'] == 'radio' || $field['type'] == 'checkbox' || $field['type'] == 'dropdown')) ? "inline" : "none" ?>;' data-name-template='custom-field-options' data-count='<?php echo esc_attr($count) ?>' rows="3"><?php echo stripslashes( esc_textarea( isset( $field['values'] ) ? $field['values'] : '' ) ) ?></textarea></td>
 			<td>
-				<?php if ( $is_final ): ?>
+				<?php if ( $last_row ): ?>
 					<a name="add-field" href='#add-field' class='add-another-field'><?php _e( 'Add another', 'tribe-events-calendar-pro' ) ?></a>
 				<?php else: ?>
 					<a name="remove-field" href='#remove-field' class='remove-another-field'><?php _e( 'Remove', 'tribe-events-calendar-pro' ) ?></a>
