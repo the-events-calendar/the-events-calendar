@@ -396,20 +396,20 @@ if ( !class_exists( 'TribePluginUpdateEngineChecker' ) ) {
 					$response['message'] = __( 'Sorry, this key is expired.', 'tribe-events-calendar' );
 
 				} elseif ( isset( $pluginInfo->api_upgrade ) && $pluginInfo->api_upgrade == 1 ) {
-					$problem = __( 'Sorry, this key is out of installs.','tribe-events-calendar' );
+					$problem = __( 'Sorry, this key is out of installs.', 'tribe-events-calendar' );
 					$helpful_link = sprintf( '<a href="%s" target="_blank">%s</a>', 'http://m.tri.be/lz', __( 'Why am I seeing this message?' ) );
 					$response['message'] = "$problem $helpful_link";
 				}
 				elseif ( isset( $pluginInfo->api_invalid ) && $pluginInfo->api_invalid == 1 ) {
-					$response['message'] = __('Sorry, this key is not valid.','tribe-events-calendar');
+					$response['message'] = __( 'Sorry, this key is not valid.', 'tribe-events-calendar' );
 				}
 				else {
 					$response['status'] = 1;
-					$response['message'] = sprintf(__('Valid Key! Expires on %s','tribe-events-calendar'),$pluginInfo->expiration);
+					$response['message'] = sprintf( __( 'Valid Key! Expires on %s', 'tribe-events-calendar' ),$pluginInfo->expiration);
 					$response['expiration'] = $pluginInfo->expiration;
 				}
 			} else {
-				$response['message'] = sprintf( __( 'Hmmm... something\'s wrong with this validator. Please contact <a href="%s">support.</a>', 'plugin-update-engine' ), 'http://m.tri.be/1u' );
+				$response['message'] = sprintf( __( 'Hmmm... something\'s wrong with this validator. Please contact <a href="%s">support.</a>', 'tribe-events-calendar' ), 'http://m.tri.be/1u' );
 			}
 			echo json_encode($response);
 			exit;
