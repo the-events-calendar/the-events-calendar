@@ -172,6 +172,7 @@ The plugin is produced by <a href="http://m.tri.be/45">Modern Tribe Inc</a>.
 * German from Dennis Gruebner
 * Greek from Yannis Troullinos
 * Icelandic by Baldvin √ñrn Berndsen
+* Indonesian by Didik Priyanto
 * Italian from Roberto Scano
 * Latvian from Raivis Dejus
 * Montenegrin from Sasa Vukovic
@@ -221,6 +222,7 @@ Our Premium Plugins:
 
 * Incorporated new Bulgarian translation files, courtesy of Nedko Ivanov
 * Incorporated new Chinese translation files, courtesy of Massound Huang
+* Incorporated new Indonesian translation files, courtesy of Didik Priyanto
 
 = 3.6.1 =
 

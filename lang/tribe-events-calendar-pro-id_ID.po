@@ -1,0 +1,2001 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Events Calendar Pro 3.5\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-06-19 17:41-0800\n"
+"PO-Revision-Date: 2014-06-24 16:52-0800\n"
+"Last-Translator: \n"
+"Language-Team: Modern Tribe, Inc. <pro@tri.be>\n"
+"Language: id_ID\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.6.5\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:1,2,4c;_n_noop:1,2;"
+"_nx_noop:1,2,3c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;"
+"esc_html_x:1,2c\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SearchPath-0: ..\n"
+
+#: ../admin-views/event-defaults.php:1
+msgid "Customize Defaults"
+msgstr "Sesuaikan Default"
+
+#: ../admin-views/event-defaults.php:2
+msgid ""
+"These settings change the default event form. For example, if you set a "
+"default venue, this field will be automatically filled in on a new event."
+msgstr ""
+"Pengaturan ini mengubah bentuk default event. Misalnya, jika Anda menetapkan "
+"tempat default, field ini akan otomatis terisi pada acara baru."
+
+#: ../admin-views/event-defaults.php:5 ../admin-views/event-defaults.php:9
+#: ../admin-views/tribe-options-defaults.php:55
+msgid "Automatically replace empty fields with default values"
+msgstr "Secara otomatis mengganti field kosong dengan nilai default"
+
+#: ../admin-views/event-defaults.php:13
+msgid "Enabled"
+msgstr "Diaktifkan"
+
+#: ../admin-views/event-defaults.php:19
+msgid "Default Organizer for Events"
+msgstr "Penyelenggara Default untuk Acara"
+
+#: ../admin-views/event-defaults.php:22
+msgid "Default Organizer"
+msgstr "Penyelenggara Default"
+
+#: ../admin-views/event-defaults.php:23
+msgid "The default organizer value"
+msgstr "Nilai Penyelenggara default"
+
+#: ../admin-views/event-defaults.php:23 ../admin-views/event-defaults.php:31
+#: ../admin-views/event-defaults.php:38 ../admin-views/event-defaults.php:45
+#: ../admin-views/event-defaults.php:66 ../admin-views/event-defaults.php:74
+#: ../admin-views/event-defaults.php:82 ../admin-views/event-defaults.php:108
+#, php-format
+msgid "The current default value is <strong>%s</strong>"
+msgstr "Nilai default saat ini adalah <strong>%s</strong>"
+
+#: ../admin-views/event-defaults.php:27
+msgid "Default Venue for Events"
+msgstr "Tempat Default untuk Acara"
+
+#: ../admin-views/event-defaults.php:30
+msgid "Default Venue"
+msgstr "Venue Default"
+
+#: ../admin-views/event-defaults.php:31
+msgid "The default venue value"
+msgstr "Nilai venue default"
+
+#: ../admin-views/event-defaults.php:35 ../admin-views/event-defaults.php:37
+msgid "Default Address"
+msgstr "Alamat Default"
+
+#: ../admin-views/event-defaults.php:38
+msgid "The default address value"
+msgstr "Nilai alamat default"
+
+#: ../admin-views/event-defaults.php:42 ../admin-views/event-defaults.php:44
+msgid "Default City"
+msgstr "Kota Default"
+
+#: ../admin-views/event-defaults.php:45
+msgid "The default city value"
+msgstr "Nilai default kota"
+
+#: ../admin-views/event-defaults.php:50
+msgid "Default State"
+msgstr "Negara Bagian Default"
+
+#: ../admin-views/event-defaults.php:52 ../admin-views/event-defaults.php:73
+msgid "Default Province or State"
+msgstr "Provinsi atau Negara Bagian Default"
+
+#: ../admin-views/event-defaults.php:55
+msgid "Select a State:"
+msgstr "Pilih Negara Bagian:"
+
+#: ../admin-views/event-defaults.php:66 ../admin-views/event-defaults.php:74
+msgid "The default  value"
+msgstr "Nilai default"
+
+#: ../admin-views/event-defaults.php:71
+msgid "Default Province"
+msgstr "Provinsi Default"
+
+#: ../admin-views/event-defaults.php:79 ../admin-views/event-defaults.php:81
+msgid "Default Postal Code"
+msgstr "Kodepos Default"
+
+#: ../admin-views/event-defaults.php:82
+msgid "The default Postal Code value"
+msgstr "Nilai Default Kodepos"
+
+#: ../admin-views/event-defaults.php:87
+msgid "Default Country for Events"
+msgstr "Negara Default untuk Acara"
+
+#: ../admin-views/event-defaults.php:105 ../admin-views/event-defaults.php:107
+msgid "Default Phone"
+msgstr "Telepon Default"
+
+#: ../admin-views/event-defaults.php:108
+msgid "The default phone value"
+msgstr "Nilai telepon default"
+
+#: ../admin-views/event-defaults.php:112
+#: ../admin-views/tribe-options-defaults.php:198
+msgid "Use a custom list of countries"
+msgstr "Gunakan daftar kustom negara"
+
+#: ../admin-views/event-defaults.php:114
+msgid "Use the following list:"
+msgstr "Gunakan daftar berikut:"
+
+#: ../admin-views/event-defaults.php:116
+msgid ""
+"One country per line in the following format: <br/>US, United States <br/> "
+"UK, United Kingdom."
+msgstr ""
+"Satu negara per baris dalam format berikut: <br/>AS, Amerika Serikat <br/> "
+"UK, United Kingdom."
+
+#: ../admin-views/event-defaults.php:116
+msgid "(Replaces the default list.)"
+msgstr "(Menggantikan daftar default.)"
+
+#: ../admin-views/event-meta-options.php:3 ../events-calendar-pro.php:772
+msgid "Additional Fields"
+msgstr "Field-field Tambahan"
+
+#: ../admin-views/event-meta-options.php:4
+msgid ""
+"Use additional fields to add unique content fields to the event admin, which "
+"can be used by anyone who creates events. Upon publication they'll appear in "
+"the event metabox that accompanies your event listing, alongside the date/"
+"time/venue/organizer/etc. </p><p>Each new piece of data needs:"
+msgstr ""
+"Gunakan kolom tambahan untuk menambahkan kolom konten unik ke admin acara, "
+"yang dapat digunakan oleh siapa saja yang membuat event. Setelah publikasi "
+"mereka akan muncul dalam metabox acara yang menyertai daftar acara Anda, di "
+"samping tanggal/waktu/tempat/penyelenggara /dll. </p><p> Setiap bagian baru "
+"dari data membutuhkan:"
+
+#: ../admin-views/event-meta-options.php:6
+msgid "Label (e.g. Meal Plans)"
+msgstr "Label (misalnya Rencana Meal)"
+
+#: ../admin-views/event-meta-options.php:7
+msgid "At least one option (e.g. Vegetarian, Kosher, Paleo)"
+msgstr "Setidaknya satu pilihan (misalnya Vegetarian, Kosher, Paleo)"
+
+#: ../admin-views/event-meta-options.php:8
+msgid "Field type. These are:"
+msgstr "Jenis field. Ini adalah:"
+
+#: ../admin-views/event-meta-options.php:10
+msgid "Text - for the user to input text"
+msgstr "Teks - bagi pengguna untuk input teks"
+
+#: ../admin-views/event-meta-options.php:11
+msgid "URL - for the user to input a URL"
+msgstr "URL - bagi pengguna untuk memasukkan URL"
+
+#: ../admin-views/event-meta-options.php:12
+msgid "Checkbox - for multiple choice"
+msgstr "Checkbox - untuk pilihan ganda"
+
+#: ../admin-views/event-meta-options.php:13
+msgid "Radio Button - to select only one"
+msgstr "Radio Button - untuk memilih hanya satu"
+
+#: ../admin-views/event-meta-options.php:14
+msgid "Dropdown Menu - for a dropdown menu"
+msgstr "Dropdown Menu - untuk menu dropdown"
+
+#: ../admin-views/event-meta-options.php:19
+msgid "Field Label"
+msgstr "Label Field"
+
+#: ../admin-views/event-meta-options.php:19
+msgid "Field Type"
+msgstr "Tipe Field"
+
+#: ../admin-views/event-meta-options.php:19
+msgid "Options (one per line)"
+msgstr "Pilihan (satu per baris)"
+
+#: ../admin-views/event-meta-options.php:33
+msgid "Text"
+msgstr "Teks"
+
+#: ../admin-views/event-meta-options.php:34
+msgid "URL"
+msgstr "URL"
+
+#: ../admin-views/event-meta-options.php:35
+msgid "Radio"
+msgstr "Radio"
+
+#: ../admin-views/event-meta-options.php:36
+msgid "Checkbox"
+msgstr "Checkbox"
+
+#: ../admin-views/event-meta-options.php:37
+#: ../lib/TribeEventsFilter_GeoLoc.php:44
+msgid "Dropdown"
+msgstr "Dropdown"
+
+#: ../admin-views/event-meta-options.php:43
+msgid "Add another"
+msgstr "Tambahkan lagi"
+
+#: ../admin-views/event-meta-options.php:45
+msgid "Remove"
+msgstr "Hapus"
+
+#: ../admin-views/event-meta-options.php:53
+#, php-format
+msgid ""
+"Enter the field label as you want it to appear (this will be the label in "
+"the same way \"Start Date,\" \"Organizer,\" etc appear in the event details "
+"box on the frontend). Select whether the field will be a text field; URL "
+"field; radio buttons; checkboxes; or a dropdown. All of these with the "
+"exception of text and URL allow for multiple options to be included, which "
+"you can add — one per-line — in the right-hand column. If you feel "
+"flummoxed, we've got you covered with a %s."
+msgstr ""
+"Masukkan label field seperti yang Anda inginkan untuk muncul (ini akan "
+"menjadi label dengan cara yang sama\"Tanggal Mulai,\" \"Penyelenggara,\" dll "
+"muncul dalam kotak rincian acara di frontend). Pilih apakah field akan "
+"menjadi field teks; field URL; tombol radio; checkbox; atau dropdown. Semua "
+"ini dengan pengecualian teks dan URL memungkinkan untuk beberapa pilihan "
+"untuk dimasukkan, yang dapat Anda tambahkan — satu per-line — di kolom "
+"sebelah kanan. Jika Anda merasa bingung, kami bantu Anda dengan %s ."
+
+#: ../admin-views/event-meta-options.php:54
+msgid "video tutorial that will walk you through the process"
+msgstr "Video tutorial yang akan memandu Anda melalui proses"
+
+#: ../admin-views/event-meta-options.php:57
+msgid "Editor \"Custom Fields\" meta box"
+msgstr "Editor \"Custom Fields\" meta box"
+
+#: ../admin-views/event-meta-options.php:59
+msgid "Show"
+msgstr "Tampilkan"
+
+#: ../admin-views/event-meta-options.php:60
+msgid "Hide"
+msgstr "Sembunyikan"
+
+#: ../admin-views/event-meta-options.php:61
+msgid ""
+"Enabling this option this will not remove custom field data or "
+"functionality, just the default meta box editor."
+msgstr ""
+"Mengaktifkan opsi ini ini tidak akan menghapus data field kustom atau "
+"fungsi, hanya editor meta box default."
+
+#: ../admin-views/event-meta-options.php:70
+msgid ""
+"Are you sure you wish to remove this field and its data from all events? "
+"Once you click OK this cannot be undone."
+msgstr ""
+"Apakah Anda yakin Anda ingin menghapus field ini dan data dari semua acara? "
+"Setelah Anda klik OK ini tidak dapat dibatalkan."
+
+#: ../admin-views/event-meta.php:7
+msgid "Additional Event Fields"
+msgstr "Field Tambahan Acara"
+
+#: ../admin-views/event-recurrence.php:2
+msgid "Recurrence:"
+msgstr "Berulang:"
+
+#: ../admin-views/event-recurrence.php:7
+msgid "None"
+msgstr "Tidak"
+
+#: ../admin-views/event-recurrence.php:8
+#: ../lib/tribe-events-recurrence-meta.class.php:848
+msgid "day"
+msgstr "hari"
+
+#: ../admin-views/event-recurrence.php:8
+#: ../views/pro/widgets/countdown-widget.php:18
+msgid "days"
+msgstr "hari"
+
+#: ../admin-views/event-recurrence.php:8
+msgid "Every Day"
+msgstr "Setiap Hari"
+
+#: ../admin-views/event-recurrence.php:9 ../events-calendar-pro.php:66
+msgid "week"
+msgstr "minggu"
+
+#: ../admin-views/event-recurrence.php:9
+msgid "weeks"
+msgstr "minggu"
+
+#: ../admin-views/event-recurrence.php:9
+msgid "Every Week"
+msgstr "Setiap Minggu"
+
+#: ../admin-views/event-recurrence.php:10
+msgid "month"
+msgstr "bulan"
+
+#: ../admin-views/event-recurrence.php:10
+msgid "months"
+msgstr "bulan"
+
+#: ../admin-views/event-recurrence.php:10
+msgid "Every Month"
+msgstr "Setiap Bulan"
+
+#: ../admin-views/event-recurrence.php:11
+msgid "year"
+msgstr "tahun"
+
+#: ../admin-views/event-recurrence.php:11
+msgid "years"
+msgstr "tahun"
+
+#: ../admin-views/event-recurrence.php:11
+msgid "Every Year"
+msgstr "Setiap Tahun"
+
+#: ../admin-views/event-recurrence.php:12
+msgid "event"
+msgstr "acara"
+
+#: ../admin-views/event-recurrence.php:12
+msgid "events"
+msgstr "Acara-acara"
+
+#: ../admin-views/event-recurrence.php:12
+msgid "Custom"
+msgstr "Kustom"
+
+#: ../admin-views/event-recurrence.php:15
+msgid "and will end"
+msgstr "dan akan berakhir"
+
+#: ../admin-views/event-recurrence.php:17
+msgid "On"
+msgstr "Nyala"
+
+#: ../admin-views/event-recurrence.php:18
+msgid "After"
+msgstr "Setelah"
+
+#: ../admin-views/event-recurrence.php:19
+msgid "Never"
+msgstr "Tidak Pernah"
+
+#: ../admin-views/event-recurrence.php:23
+msgid "You must select a recurrence end date"
+msgstr "Anda harus memilih tanggal akhir keberulangan"
+
+#: ../admin-views/event-recurrence.php:30
+msgid "Frequency"
+msgstr "Frekuensi"
+
+#: ../admin-views/event-recurrence.php:32
+msgid "Day(s)"
+msgstr "Hari"
+
+#: ../admin-views/event-recurrence.php:32
+msgid "Daily"
+msgstr "Harian"
+
+#: ../admin-views/event-recurrence.php:33
+msgid "Week(s) on:"
+msgstr "Minggu pada:"
+
+#: ../admin-views/event-recurrence.php:33
+msgid "Weekly"
+msgstr "Mingguan"
+
+#: ../admin-views/event-recurrence.php:34
+msgid "Month(s) on the:"
+msgstr "Bulan pada:"
+
+#: ../admin-views/event-recurrence.php:34
+msgid "Monthly"
+msgstr "Bulanan"
+
+#: ../admin-views/event-recurrence.php:35
+msgid "Year(s) on:"
+msgstr "Tahun pada:"
+
+#: ../admin-views/event-recurrence.php:35
+msgid "Yearly"
+msgstr "Tahunan"
+
+#: ../admin-views/event-recurrence.php:37
+msgid "Every"
+msgstr "Setiap"
+
+#: ../admin-views/event-recurrence.php:41
+msgid "Frequency of recurring event must be a number"
+msgstr "Frekuensi kejadian berulang harus berupa angka"
+
+#: ../admin-views/event-recurrence.php:49
+msgid "M"
+msgstr "Sn"
+
+#: ../admin-views/event-recurrence.php:50
+msgid "Tu"
+msgstr "Sl"
+
+#: ../admin-views/event-recurrence.php:51
+msgid "W"
+msgstr "Rb"
+
+#: ../admin-views/event-recurrence.php:52
+msgid "Th"
+msgstr "Km"
+
+#: ../admin-views/event-recurrence.php:53
+msgid "F"
+msgstr "Jm"
+
+#: ../admin-views/event-recurrence.php:54
+msgid "Sa"
+msgstr "Sb"
+
+#: ../admin-views/event-recurrence.php:55
+msgid "Su"
+msgstr "Mg"
+
+#: ../admin-views/event-recurrence.php:63
+#: ../admin-views/event-recurrence.php:113
+msgid "First"
+msgstr "Pertama"
+
+#: ../admin-views/event-recurrence.php:64
+#: ../admin-views/event-recurrence.php:114
+msgid "Second"
+msgstr "Kedua"
+
+#: ../admin-views/event-recurrence.php:65
+#: ../admin-views/event-recurrence.php:115
+msgid "Third"
+msgstr "Ketiga"
+
+#: ../admin-views/event-recurrence.php:66
+#: ../admin-views/event-recurrence.php:116
+msgid "Fourth"
+msgstr "Keempat"
+
+#: ../admin-views/event-recurrence.php:67
+msgid "Fifth"
+msgstr "Kelima"
+
+#: ../admin-views/event-recurrence.php:68
+#: ../admin-views/event-recurrence.php:117
+msgid "Last"
+msgstr "Terakhir"
+
+#: ../admin-views/event-recurrence.php:75
+#: ../admin-views/event-recurrence.php:120
+#: ../lib/tribe-events-recurrence-meta.class.php:883
+msgid "Monday"
+msgstr "Senin"
+
+#: ../admin-views/event-recurrence.php:76
+#: ../admin-views/event-recurrence.php:121
+#: ../lib/tribe-events-recurrence-meta.class.php:883
+msgid "Tuesday"
+msgstr "Selasa"
+
+#: ../admin-views/event-recurrence.php:77
+#: ../admin-views/event-recurrence.php:122
+#: ../lib/tribe-events-recurrence-meta.class.php:883
+msgid "Wednesday"
+msgstr "Rabu"
+
+#: ../admin-views/event-recurrence.php:78
+#: ../admin-views/event-recurrence.php:123
+#: ../lib/tribe-events-recurrence-meta.class.php:883
+msgid "Thursday"
+msgstr "Kamis"
+
+#: ../admin-views/event-recurrence.php:79
+#: ../admin-views/event-recurrence.php:124
+#: ../lib/tribe-events-recurrence-meta.class.php:883
+msgid "Friday"
+msgstr "Jum'at"
+
+#: ../admin-views/event-recurrence.php:80
+#: ../admin-views/event-recurrence.php:125
+#: ../lib/tribe-events-recurrence-meta.class.php:883
+msgid "Saturday"
+msgstr "Sabtu"
+
+#: ../admin-views/event-recurrence.php:81
+#: ../admin-views/event-recurrence.php:126
+#: ../lib/tribe-events-recurrence-meta.class.php:883
+msgid "Sunday"
+msgstr "Minggu"
+
+#: ../admin-views/event-recurrence.php:83
+#: ../admin-views/event-recurrence.php:128
+msgid "Day"
+msgstr "Hari"
+
+#: ../admin-views/event-recurrence.php:92
+msgid "Jan"
+msgstr "Jan"
+
+#: ../admin-views/event-recurrence.php:93
+msgid "Feb"
+msgstr "Feb"
+
+#: ../admin-views/event-recurrence.php:94
+msgid "Mar"
+msgstr "Mar"
+
+#: ../admin-views/event-recurrence.php:95
+msgid "Apr"
+msgstr "Apr"
+
+#: ../admin-views/event-recurrence.php:96
+#: ../lib/tribe-events-recurrence-meta.class.php:909
+msgid "May"
+msgstr "Mei"
+
+#: ../admin-views/event-recurrence.php:97
+msgid "Jun"
+msgstr "Jun"
+
+#: ../admin-views/event-recurrence.php:101
+msgid "Jul"
+msgstr "Jul"
+
+#: ../admin-views/event-recurrence.php:102
+msgid "Aug"
+msgstr "Agt"
+
+#: ../admin-views/event-recurrence.php:103
+msgid "Sep"
+msgstr "Sep"
+
+#: ../admin-views/event-recurrence.php:104
+msgid "Oct"
+msgstr "Okt"
+
+#: ../admin-views/event-recurrence.php:105
+msgid "Nov"
+msgstr "Nov"
+
+#: ../admin-views/event-recurrence.php:106
+msgid "Dec"
+msgstr "Des"
+
+#: ../admin-views/event-recurrence.php:111
+msgid "On the:"
+msgstr "Pada:"
+
+#: ../admin-views/event-recurrence.php:136
+msgid "Description:"
+msgstr "Deskripsi:"
+
+#: ../admin-views/event-recurrence.php:144
+msgid "Recurrence Description:"
+msgstr "Deskripsi Keberulangan:"
+
+#: ../admin-views/event-recurrence.php:149
+msgid ""
+"Create a custom plain language description of the recurrence. Leave it blank "
+"and we'll automate it."
+msgstr ""
+"Buat deskripsi keberulangan dengan singkat. Biarkan kosong dan kami akan "
+"mengotomatisasi itu."
+
+#: ../admin-views/tribe-options-defaults.php:6
+#: ../admin-views/tribe-options-defaults.php:15
+msgid "No Default"
+msgstr "Tidak ada default"
+
+#: ../admin-views/tribe-options-defaults.php:22
+msgid "Select a State"
+msgstr "Pilih Negara Bagian"
+
+#: ../admin-views/tribe-options-defaults.php:35 ../events-calendar-pro.php:770
+msgid "Default Content"
+msgstr "Konten Default"
+
+#: ../admin-views/tribe-options-defaults.php:39
+msgid ""
+"<p>Choose the default venue & organizer. Set default address information to "
+"save time when entering a new venue or organizer.</p><p>You can override "
+"these settings as you enter a new event.</p>"
+msgstr ""
+"<p>Pilih tempat & penyelenggara default. Set informasi alamat default untuk "
+"menghemat waktu ketika memasukkan tempat atau organizer baru. </p><p>Anda "
+"dapat mengganti pengaturan ini saat Anda memasukkan acara baru. </p>"
+
+#: ../admin-views/tribe-options-defaults.php:51
+msgid "Options"
+msgstr "Pilihan"
+
+#: ../admin-views/tribe-options-defaults.php:61
+msgid ""
+"Check this box to have the organizer and venue fields pre-populated with the "
+"default values below for any new event that is created."
+msgstr ""
+"Centang kotak ini agar field penyelenggara dan tempat diisi sebelumnya "
+"dengan nilai default di bawah ini untuk setiap acara baru yang dibuat."
+
+#: ../admin-views/tribe-options-defaults.php:65
+#: ../admin-views/widget-admin-advanced-list.php:29
+msgid "Organizer"
+msgstr "Penyelenggara"
+
+#: ../admin-views/tribe-options-defaults.php:69
+msgid "Default organizer"
+msgstr "Penyelenggara default"
+
+#: ../admin-views/tribe-options-defaults.php:73
+msgid "No saved organizers yet."
+msgstr "Belum ada penyelenggara tersimpan."
+
+#: ../admin-views/tribe-options-defaults.php:82
+#: ../admin-views/widget-admin-advanced-list.php:28
+msgid "Venue"
+msgstr "Tempat"
+
+#: ../admin-views/tribe-options-defaults.php:86
+msgid "Default venue"
+msgstr "Tempat standar"
+
+#: ../admin-views/tribe-options-defaults.php:90
+msgid "No saved venues yet."
+msgstr "Belum ada tempat tersimpan."
+
+#: ../admin-views/tribe-options-defaults.php:99
+#: ../admin-views/widget-admin-advanced-list.php:30
+msgid "Address"
+msgstr "Alamat"
+
+#: ../admin-views/tribe-options-defaults.php:103
+msgid ""
+"You can use this setting to set specific, individual defaults for any new "
+"Venue you create (these will not be used for your default venue)."
+msgstr ""
+"Anda dapat menggunakan pengaturan ini untuk mengatur spesifik, default "
+"individual untuk setiap tempat baru yang Anda buat (ini tidak akan digunakan "
+"untuk tempat default)."
+
+#: ../admin-views/tribe-options-defaults.php:107
+msgid "Default address"
+msgstr "Alamat default"
+
+#: ../admin-views/tribe-options-defaults.php:120
+msgid "Default city"
+msgstr "Kota default"
+
+#: ../admin-views/tribe-options-defaults.php:133
+msgid "Default state"
+msgstr "Negara Bagian default"
+
+#: ../admin-views/tribe-options-defaults.php:146
+msgid "Default province"
+msgstr "Provinsi default"
+
+#: ../admin-views/tribe-options-defaults.php:159
+msgid "Default postal code/zip code"
+msgstr "Kodepos default"
+
+#: ../admin-views/tribe-options-defaults.php:172
+msgid "Default country"
+msgstr "Negara default"
+
+#: ../admin-views/tribe-options-defaults.php:185
+msgid "Default phone"
+msgstr "Telepon default"
+
+#: ../admin-views/tribe-options-defaults.php:201
+msgid ""
+"One country per line in the following format: <br>US, United States <br> UK, "
+"United Kingdom. <br> (Replaces the default list.)"
+msgstr ""
+"Satu negara per baris dalam format berikut: <br>AS, Amerika Serikat <br> UK, "
+"United Kingdom. <br> (Menggantikan daftar default.)"
+
+#: ../admin-views/widget-admin-advanced-list.php:11
+#: ../admin-views/widget-admin-calendar.php:10
+#: ../admin-views/widget-admin-countdown.php:11
+#: ../admin-views/widget-admin-venue.php:9
+#: ../admin-views/widget-calendar.php:2
+msgid "Title:"
+msgstr "Judul:"
+
+#: ../admin-views/widget-admin-advanced-list.php:16
+#: ../admin-views/widget-admin-venue.php:20
+#: ../admin-views/widget-calendar.php:8
+msgid "Number of events to show:"
+msgstr "Jumlah acara yang ditunjukkan:"
+
+#: ../admin-views/widget-admin-advanced-list.php:25
+msgid "Display:"
+msgstr "Tampilan:"
+
+#: ../admin-views/widget-admin-advanced-list.php:31
+msgid "City"
+msgstr "Kota"
+
+#: ../admin-views/widget-admin-advanced-list.php:32
+msgid "State (US) Or Province (Int)"
+msgstr "Negara Bagian (AS) atau Provinsi (Int)"
+
+#: ../admin-views/widget-admin-advanced-list.php:33
+msgid "Postal Code"
+msgstr "Kodepos"
+
+#: ../admin-views/widget-admin-advanced-list.php:34
+msgid "Country"
+msgstr "Negara"
+
+#: ../admin-views/widget-admin-advanced-list.php:35
+msgid "Phone"
+msgstr "Telepon"
+
+#: ../admin-views/widget-admin-advanced-list.php:36
+msgid "Price"
+msgstr "Harga"
+
+#: ../admin-views/widget-admin-advanced-list.php:58
+#: ../admin-views/widget-calendar.php:24
+msgid "Filters"
+msgstr "Filter"
+
+#: ../admin-views/widget-admin-advanced-list.php:76
+#: ../admin-views/widget-calendar.php:42
+msgid "remove"
+msgstr "hapus"
+
+#: ../admin-views/widget-admin-advanced-list.php:87
+#: ../admin-views/widget-calendar.php:53
+msgid "Match all"
+msgstr "Cocok dengan semua"
+
+#: ../admin-views/widget-admin-advanced-list.php:90
+#: ../admin-views/widget-calendar.php:56
+msgid "Match any"
+msgstr "Sama setiap"
+
+#: ../admin-views/widget-admin-advanced-list.php:94
+#: ../admin-views/widget-calendar.php:60
+msgid "Add a filter"
+msgstr "Menambahkan filter"
+
+#: ../admin-views/widget-admin-advanced-list.php:97
+#: ../admin-views/widget-calendar.php:63
+msgid "Select one..."
+msgstr "Pilih salah satu ..."
+
+#: ../admin-views/widget-admin-advanced-list.php:124
+#: ../admin-views/widget-admin-venue.php:28
+msgid "Hide this widget if there are no upcoming events:"
+msgstr "Sembunyikan widget ini jika tidak ada acara mendatang:"
+
+#: ../admin-views/widget-admin-countdown.php:15
+msgid "Event:"
+msgstr "Acara:"
+
+#: ../admin-views/widget-admin-countdown.php:23
+msgid "Show seconds:"
+msgstr "Tampilkan detik:"
+
+#: ../admin-views/widget-admin-countdown.php:28
+msgid "Countdown Completed Text:"
+msgstr "Countdown Selesai Teks:"
+
+#: ../admin-views/widget-admin-venue.php:11
+msgid "Venue:"
+msgstr "Tempat:"
+
+#: ../events-calendar-pro.php:67
+msgid "photo"
+msgstr "foto"
+
+#: ../events-calendar-pro.php:304
+msgid "Events for week of"
+msgstr "Kegiatan untuk minggu"
+
+#: ../events-calendar-pro.php:312 ../events-calendar-pro.php:375
+msgid "Past Events"
+msgstr "Acara Lampau"
+
+#: ../events-calendar-pro.php:314 ../events-calendar-pro.php:377
+#: ../lib/widget-advanced-list.class.php:88
+msgid "Upcoming Events"
+msgstr "Acara Mendatang"
+
+#: ../events-calendar-pro.php:320 ../events-calendar-pro.php:360
+msgid "All events for"
+msgstr "Semua acara untuk"
+
+#: ../events-calendar-pro.php:367
+#, php-format
+msgid "Events for week of %s"
+msgstr "Acara untuk minggu dari %s"
+
+#: ../events-calendar-pro.php:781
+msgid "Hide related events"
+msgstr "Sembunyikan acara terkait"
+
+#: ../events-calendar-pro.php:782
+msgid "Remove related events from the single event view"
+msgstr "Hapus acara terkait dari tampilan acara tunggal"
+
+#: ../events-calendar-pro.php:790
+msgid "Week Day Format"
+msgstr "Format Week Day"
+
+#: ../events-calendar-pro.php:791
+msgid ""
+"Enter the format to use for week days. Used  when showing an days of the "
+"week in Week view."
+msgstr ""
+"Masukkan format yang akan digunakan untuk hari. Digunakan ketika menunjukkan "
+"hari dalam seminggu dalam tampilan Minggu."
+
+#: ../events-calendar-pro.php:808
+msgid ""
+"Thanks for buying Events Calendar PRO! From all of us at Modern Tribe, we "
+"sincerely appreciate it. If you're looking for help with Events Calendar "
+"PRO, you've come to the right place. We are committed to helping make your "
+"calendar kick ass... and hope the resources provided below will help get you "
+"there."
+msgstr ""
+"Terima kasih untuk telah Events Calendar PRO! Dari kami semua di Modern "
+"Tribe, kami sangat menghargai itu. Jika Anda sedang mencari bantuan tentang "
+"Events Calendar PRO, Anda telah datang ke tempat yang tepat. Kami "
+"berkomitmen untuk membantu membuat kalender Anda kick ass... dan berharap "
+"sumber daya yang disediakan di bawah ini akan membantu Anda."
+
+#: ../events-calendar-pro.php:819
+msgid ""
+"If this is your first time using The Events Calendar Pro, you're in for a "
+"treat and are already well on your way to creating a first event. Here are "
+"some basics we've found helpful for users jumping into it for the first time:"
+msgstr ""
+"Jika ini adalah pertama kalinya Anda menggunakan The Events Calendar Pro, "
+"Anda berada di jalur yang tempat untuk menciptakan acara pertama. Berikut "
+"adalah beberapa dasar yang kami temukan bermanfaat bagi pengguna pemula:"
+
+#: ../events-calendar-pro.php:822
+#, php-format
+msgid ""
+"%sOur New User Primer%s was designed for folks in your exact position. "
+"Featuring both step-by-step videos and written walkthroughs that feature "
+"accompanying screenshots, the primer aims to take you from zero to hero in "
+"no time."
+msgstr ""
+"%sPrimer Pengguna Baru Kami%s dirancang untuk orang-orang dalam posisi "
+"seperti Anda. Menampilkan baik video langkah-demi-langkah dan walkthrough "
+"tertulis yang disertai screenshot, primer bertujuan untuk membawa Anda dari "
+"zero ke hero dalam waktu singkat."
+
+#: ../events-calendar-pro.php:824
+#, php-format
+msgid ""
+"%sInstallation/Setup FAQs%s from our support page can help give an overview "
+"of what the plugin can and cannot do. This section of the FAQs may be "
+"helpful as it aims to address any basic install questions not addressed by "
+"the new user primer."
+msgstr ""
+"%sInstalasi/Setup FAQ%s dari halaman dukungan kami dapat membantu memberikan "
+"gambaran tentang apa plugin yang bisa dan tidak bisa lakukan. Bagian ini "
+"dari FAQ dapat membantu karena bertujuan untuk menjawab pertanyaan dasar "
+"tentag instalasi yang tidak ditangani oleh primer pengguna baru."
+
+#: ../events-calendar-pro.php:826
+#, php-format
+msgid ""
+"Are you developer looking to build your own frontend view? We created an "
+"example plugin that demonstrates how to register a new view. You can "
+"%sdownload the plugin at GitHub%s to get started."
+msgstr ""
+"Apakah Anda pengembang ingin membangun tampilan frontend sendiri? Kami "
+"menciptakan plugin contoh yang menunjukkan bagaimana untuk mendaftarkan view "
+"baru. Anda dapat %smen-download plugin di GitHub%s untuk memulai."
+
+#: ../events-calendar-pro.php:828
+#, php-format
+msgid ""
+"Take care of your license key. Though not required to create your first "
+"event, you'll want to get it in place as soon as possible to guarantee your "
+"access to support and upgrades. %sHere's how to find your license key%s, if "
+"you don't have it handy."
+msgstr ""
+"Jaga kunci lisensi Anda. Meskipun tidak diperlukan untuk membuat acara "
+"pertama Anda, Anda akan ingin untuk mendapatkannya di tempat secepat mungkin "
+"untuk menjamin akses Anda untuk dukungan dan upgrade. %sBerikut adalah cara "
+"untuk menemukan kunci lisensi Anda%s , jika Anda tidak memilikinya."
+
+#: ../events-calendar-pro.php:830
+msgid ""
+"Otherwise, if you're feeling adventurous, you can get started by heading to "
+"the Events menu and adding your first event."
+msgstr ""
+"Jika tidak, jika Anda merasa petualang, Anda bisa memulai dengan menuju ke "
+"menu Acara dan menambahkan event pertama Anda."
+
+#: ../events-calendar-pro.php:842
+#, php-format
+msgid ""
+"Written documentation can only take things so far...sometimes, you need help "
+"from a real person. This is where our %ssupport forums%s come into play."
+msgstr ""
+"Dokumentasi tertulis hanya dapat membantu sejauh ini ... kadang-kadang, Anda "
+"membutuhkan bantuan dari orang nyata. Di sinilah %sforum dukungan%s kami "
+"membantu."
+
+#: ../events-calendar-pro.php:843
+#, php-format
+msgid ""
+"Users who have purchased an Events Calendar PRO license are granted total "
+"access to our %spremium support forums%s. Unlike at the %sWordPress.org "
+"support forum%s, where our involvement is limited to identifying and "
+"patching bugs, we have a dedicated support team for PRO users. We're on the "
+"PRO forums daily throughout the business week, and no thread should go more "
+"than 24-hours without a response."
+msgstr ""
+"Pengguna yang telah membeli sebuah lisensi Events Calendar PRO diberikan "
+"akses total ke %s forum dukungan premium%s kami . Tidak seperti pada %sforum "
+"dukungan WordPress.org%s , di mana keterlibatan kami terbatas untuk "
+"mengidentifikasi dan menambal bug, kami memiliki tim dukungan khusus untuk "
+"pengguna PRO. Kami berada di forum PRO setiap hari sepanjang minggu bisnis, "
+"dan tidak ada thread yang 24 jam tanpa tanggapan."
+
+#: ../events-calendar-pro.php:844
+msgid ""
+"Our number one goal is helping you succeed, and to whatever extent possible, "
+"we'll help troubleshoot and guide your customizations or tweaks. While we "
+"won't build your site for you, and we can't guarantee we'll be able to get "
+"you 100% integrated with every theme or plugin out there, we'll do all we "
+"can to point you in the right direction and to make you -- and your client, "
+"as is often more importantly the case -- satisfied."
+msgstr ""
+"Tujuan nomor satu kami adalah membantu Anda sukses, dan sampai batas apa pun "
+"yang mungkin, kami akan membantu memecahkan masalah dan membimbing "
+"kustomisasi atau tweak. Meskipun kami tidak akan membangun situs Anda untuk "
+"Anda, dan kami tidak dapat menjamin kita akan bisa mendapatkan 100% "
+"terintegrasi dengan setiap tema atau plugin yang di luar sana, kami akan "
+"melakukan semua yang kami bisa untuk menunjukkan Anda ke arah yang benar dan "
+"untuk membuat Anda - dan klien Anda, seperti yang sering lebih penting "
+"terjadi -- puas."
+
+#: ../events-calendar-pro.php:845
+msgid ""
+"Before posting a new thread, please do a search to make sure your issue "
+"hasn't already been addressed. When posting please make sure to provide as "
+"much detail about the problem as you can (with screenshots or screencasts if "
+"feasible), and make sure that you've identified whether a plugin / theme "
+"conflict could be at play in your initial message."
+msgstr ""
+"Sebelum posting thread baru, silakan melakukan pencarian untuk memastikan "
+"masalah Anda belum tertangani. Ketika posting pastikan untuk memberikan "
+"sedetail tentang masalah yang Anda bisa (dengan screenshot atau screencasts "
+"jika mungkin), dan pastikan bahwa Anda telah mengidentifikasi apakah konflik "
+"plugin/theme bisa bermain dalam pesan awal Anda."
+
+#: ../events-calendar-pro.php:1252
+msgid "Settings"
+msgstr "Pengaturan"
+
+#: ../events-calendar-pro.php:1277
+#, php-format
+msgid "Venue updated. <a href=\"%s\">View venue</a>"
+msgstr "Venue diperbarui. <a href=\"%s\">View venue</a>"
+
+#: ../events-calendar-pro.php:1279
+#, php-format
+msgid "Venue published. <a href=\"%s\">View venue</a>"
+msgstr "Tempat diterbitkan. <a href=\"%s\">Lihat tempat</a>"
+
+#: ../events-calendar-pro.php:1280
+#, php-format
+msgid "Venue submitted. <a target=\"_blank\" href=\"%s\">Preview venue</a>"
+msgstr ""
+"Tempat disampaikan. <a target=\"_blank\" href=\"%s\">Preview tempat</a>"
+
+#: ../events-calendar-pro.php:1281
+#, php-format
+msgid ""
+"Venue scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s"
+"\">Preview venue</a>"
+msgstr ""
+"Tempat dijadwalkan untuk:<strong>%1$s</strong>. <a target=\"_blank\" href="
+"\"%2$s\">Preview tempat</a>"
+
+#: ../events-calendar-pro.php:1283 ../events-calendar-pro.php:1291
+msgid "M j, Y @ G:i"
+msgstr "M j, Y @ G: i"
+
+#: ../events-calendar-pro.php:1284
+#, php-format
+msgid "Venue draft updated. <a target=\"_blank\" href=\"%s\">Preview venue</a>"
+msgstr ""
+"Draft tempat diperbarui. <a target=\"_blank\" href=\"%s\">Preview tempat</a>"
+
+#: ../events-calendar-pro.php:1286
+#, php-format
+msgid "Organizer updated. <a href=\"%s\">View organizer</a>"
+msgstr "Penyelenggara diperbarui. <a href=\"%s\">View penyelenggara</a>"
+
+#: ../events-calendar-pro.php:1287
+#, php-format
+msgid "Organizer published. <a href=\"%s\">View organizer</a>"
+msgstr "Penyelenggara diterbitkan.<a href=\"%s\">Lihat penyelenggara</a>"
+
+#: ../events-calendar-pro.php:1288
+#, php-format
+msgid ""
+"Organizer submitted. <a target=\"_blank\" href=\"%s\">Preview organizer</a>"
+msgstr ""
+"Penyelenggara disampaikan. <a target=\"_blank\" href=\"%s\">Preview "
+"penyelenggara</a>"
+
+#: ../events-calendar-pro.php:1289
+#, php-format
+msgid ""
+"Organizer scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" href="
+"\"%2$s\">Preview organizer</a>"
+msgstr ""
+"Penyelenggara dijadwalkan untuk:  <strong>%1$s</strong>. <a target=\"_blank"
+"\" href=\"%2$s\">Preview peenyelenggara</a>"
+
+#: ../events-calendar-pro.php:1292
+#, php-format
+msgid ""
+"Organizer draft updated. <a target=\"_blank\" href=\"%s\">Preview organizer</"
+"a>"
+msgstr ""
+"Rancangan penyelenggara diperbarui. <a target=\"_blank\" href=\"%s\">Preview "
+"penyelenggara</a>"
+
+#: ../events-calendar-pro.php:1338
+#, php-format
+msgid "Calendar powered by %sThe Events Calendar PRO%s"
+msgstr "Kalender didukung oleh %sThe Events Calendar PRO%s"
+
+#: ../events-calendar-pro.php:1351
+msgid "Support"
+msgstr "Dukungan"
+
+#: ../events-calendar-pro.php:1353
+msgid "View All Add-Ons"
+msgstr "Lihat Semua Add-On"
+
+#: ../events-calendar-pro.php:1450
+msgid "Week"
+msgstr "Minggu"
+
+#: ../events-calendar-pro.php:1464
+msgid "Photo"
+msgstr "Foto"
+
+#: ../events-calendar-pro.php:1478
+msgid "Week Of"
+msgstr "Minggu"
+
+#: ../events-calendar-pro.php:1561
+msgid "The Events Calendar"
+msgstr "The Events Calendar"
+
+#: ../events-calendar-pro.php:1562
+#, php-format
+msgid ""
+"To begin using Events Calendar PRO, please install the latest version of <a "
+"href=\"%s\" class=\"thickbox\" title=\"%s\">The Events Calendar</a>."
+msgstr ""
+"Untuk mulai menggunakan Events Calendar PRO, silahkan install versi terbaru "
+"dari <a href=\"%s\" class=\"thickbox\" title=\"%s\">The Events Calendar</a>."
+
+#: ../lib/SingleEventMeta.php:139
+#: ../views/pro/modules/meta/additional-fields.php:15
+msgid "Other"
+msgstr "Lain-lain"
+
+#: ../lib/SingleEventMeta.php:165
+msgid "Recurrence Pattern:"
+msgstr "Pola Perulangan:"
+
+#: ../lib/TribeEventsFilter_GeoLoc.php:20 ../lib/tribe-geoloc.class.php:145
+msgid "Miles"
+msgstr "Mil"
+
+#: ../lib/TribeEventsFilter_GeoLoc.php:21 ../lib/tribe-geoloc.class.php:146
+msgid "Kilometers"
+msgstr "Kilometer"
+
+#: ../lib/TribeEventsFilter_GeoLoc.php:25
+#, php-format
+msgid "%d %s"
+msgstr ""
+
+#: ../lib/TribeEventsFilter_GeoLoc.php:40
+#, php-format
+msgid "Type: %s %s"
+msgstr "Jenis: %s %s"
+
+#: ../lib/TribeEventsFilter_GeoLoc.php:49
+msgid "Radio Buttons"
+msgstr "Radio Buttons"
+
+#: ../lib/apm_filters.php:49
+msgid "Start Date"
+msgstr "Tanggal Mulai"
+
+#: ../lib/apm_filters.php:54
+msgid "End Date"
+msgstr "Tanggal Berakhir"
+
+#: ../lib/apm_filters.php:59
+msgid "Event Cost"
+msgstr "Biaya Acara"
+
+#: ../lib/apm_filters.php:64
+msgid "Event Cats"
+msgstr "Kategori Acara"
+
+#: ../lib/apm_filters.php:69
+msgid "Title"
+msgstr "Judul"
+
+#: ../lib/apm_filters.php:74 ../lib/tribe-events-recurrence-meta.class.php:132
+msgid "Recurring"
+msgstr "Berulang"
+
+#: ../lib/apm_filters.php:79
+msgid "Description"
+msgstr "Deskripsi"
+
+#: ../lib/template-classes/week.php:91
+#, php-format
+msgid ""
+"There were no results found for <strong>\"%s\"</strong> this week. Try "
+"searching another week."
+msgstr ""
+"Tidak ada hasil yang ditemukan untuk <strong>\"%s\"</strong> minggu ini. "
+"Coba cari di minggu lain."
+
+#: ../lib/template-classes/week.php:94
+#, php-format
+msgid ""
+"No results were found for events in or near <strong>\"%s\"</strong> this "
+"week. Try searching another week."
+msgstr ""
+"Tidak ada hasil yang ditemukan untuk acara-acara di atau dekat <strong>\"%s"
+"\"</strong> minggu ini. Coba cari di minggu lain."
+
+#: ../lib/template-classes/week.php:98 ../lib/tribe-geoloc.class.php:548
+#, php-format
+msgid ""
+"No matching events listed under %s. Please try viewing the full calendar for "
+"a complete list of events."
+msgstr ""
+"Tidak ada acara yang cocok terdaftar di bawah %s . Silakan coba melihat "
+"kalender penuh untuk daftar lengkap acara."
+
+#: ../lib/template-classes/week.php:101
+msgid "No results were found for this week. Try searching another week."
+msgstr ""
+"Tidak ada hasil yang ditemukan untuk minggu ini. Coba cari di minggu lain."
+
+#: ../lib/tribe-events-recurrence-meta.class.php:104
+msgid "Edit Series"
+msgstr "Sunting Series"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:110
+msgid "Break from Series"
+msgstr "Pisahkan dari Series"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:120
+msgid "Edit Future Events"
+msgstr "Mengedit Acara Masa Depan"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:139
+msgid "Yes"
+msgstr "Ya"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:141
+msgid "—"
+msgstr "—"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:155
+msgid "Break this event out of its series and edit it independently"
+msgstr "Pisahkan acara ini dari seri dan edit secara independen"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:155
+msgid "Edit Single"
+msgstr "Edit Tunggal"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:157
+msgid ""
+"Split the series in two at this point, creating a new series out of this and "
+"all subsequent events"
+msgstr ""
+"Membagi seri jadi dua pada saat ini, menciptakan seri baru dari ini dan "
+"semua Acara selanjutnya"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:157
+msgid "Edit Upcoming"
+msgstr "Edit Mendatang"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:163
+msgid "Edit all events in this series"
+msgstr "Edit semua acara dalam seri ini"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:163
+msgid "Edit All"
+msgstr "Edit Semua"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:168
+msgid "Move all events in this series to the Trash"
+msgstr "Pindahkan semua acara dalam seri ini ke Tong Sampah"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:168
+msgid "Trash Series"
+msgstr "Sampah Series"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:171
+msgid "Delete all events in this series permanently"
+msgstr "Hapus semua acara dalam seri ini secara permanen"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:171
+msgid "Delete Series Permanently"
+msgstr "Hapus Series Permanen"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:177
+msgid "Restore all events in this series from the Trash"
+msgstr "Pulihkan semua acara dalam seri ini dari Sampah"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:177
+msgid "Restore Series"
+msgstr "Kembalikan Series"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:526
+msgid ""
+"Monthly custom recurrences cannot have a dash set as the day to occur on."
+msgstr ""
+"Perulangan kustom Bulanan tidak dapat memiliki dash ditetapkan sebagai hari "
+"terjadi pada."
+
+#: ../lib/tribe-events-recurrence-meta.class.php:529
+msgid ""
+"Yearly custom recurrences cannot have a dash set as the day to occur on."
+msgstr ""
+"Perulangan kustom tahunan tidak dapat memiliki dash ditetapkan sebagai hari "
+"terjadi pada."
+
+#: ../lib/tribe-events-recurrence-meta.class.php:819
+#: ../lib/tribe-events-recurrence-meta.class.php:834
+msgid "Every day"
+msgstr "Setiap hari"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:820
+#, php-format
+msgid " for %d day"
+msgid_plural " for %d days"
+msgstr[0] "untuk %d hari"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:823
+#: ../lib/tribe-events-recurrence-meta.class.php:839
+msgid "Every week"
+msgstr "Setiap minggu"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:824
+#, php-format
+msgid " for %d week"
+msgid_plural " for %d weeks"
+msgstr[0] "untuk %d minggu"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:826
+#: ../lib/tribe-events-recurrence-meta.class.php:845
+msgid "Every month"
+msgstr "Setiap bulan"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:827
+#, php-format
+msgid " for %d month"
+msgid_plural " for %d months"
+msgstr[0] " untuk %d bulan"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:829
+#: ../lib/tribe-events-recurrence-meta.class.php:852
+msgid "Every year"
+msgstr "Setiap tahun"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:830
+#, php-format
+msgid " for %d year"
+msgid_plural " for %d years"
+msgstr[0] " untuk %d tahun"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:835
+#, php-format
+msgid "Every %d days"
+msgstr "Setiap %d hari"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:836
+#: ../lib/tribe-events-recurrence-meta.class.php:842
+#: ../lib/tribe-events-recurrence-meta.class.php:849
+#: ../lib/tribe-events-recurrence-meta.class.php:861
+#, php-format
+msgid ", recurring %d time"
+msgid_plural ", recurring %d times"
+msgstr[0] ", berulang %d kali"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:840
+#, php-format
+msgid "Every %d weeks"
+msgstr "Setiap %d minggu"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:841
+#, php-format
+msgid " on %s"
+msgstr " pada %s"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:846
+#, php-format
+msgid "Every %d months"
+msgstr "Setiap %d bulan"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:848
+#, php-format
+msgid " on the %s %s"
+msgstr " pada %s %s"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:853
+#, php-format
+msgid "Every %d years"
+msgstr "Setiap %d tahun"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:855
+msgid "last"
+msgstr "lerakhir"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:860
+#, php-format
+msgid " on the %s %s of %s"
+msgstr " pada %s %s dari %s"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:867
+#, php-format
+msgid " until %s"
+msgstr " sampai %s"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:874
+#, php-format
+msgid "%s%s%s"
+msgstr "%s%s%s"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:889
+msgid ", and"
+msgstr ", dan"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:891
+msgid "and"
+msgstr "dan "
+
+#: ../lib/tribe-events-recurrence-meta.class.php:893
+msgid ","
+msgstr ","
+
+#: ../lib/tribe-events-recurrence-meta.class.php:908
+msgid "January"
+msgstr "Januari"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:908
+msgid "February"
+msgstr "Februari"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:908
+msgid "March"
+msgstr "Maret"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:908
+msgid "April"
+msgstr "April"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:909
+msgid "June"
+msgstr "Juni"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:909
+msgid "July"
+msgstr "Juli"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:909
+msgid "August"
+msgstr "Agustus"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:909
+msgid "September"
+msgstr "September"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:909
+msgid "October"
+msgstr "Oktober"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:909
+msgid "November"
+msgstr "November"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:909
+msgid "December"
+msgstr "Desember"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:915
+msgid ", and "
+msgstr ", dan "
+
+#: ../lib/tribe-events-recurrence-meta.class.php:917
+msgid " and "
+msgstr " dan "
+
+#: ../lib/tribe-events-recurrence-meta.class.php:919
+msgid ", "
+msgstr ", "
+
+#: ../lib/tribe-events-recurrence-meta.class.php:981
+msgid "Recurring event instances"
+msgstr "Contoh acara Berulang"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:982
+msgid ""
+"Show only the first instance of each recurring event (only affects list-"
+"style views)."
+msgstr ""
+"Tampilkan hanya contoh pertama dari setiap acara berulang (hanya "
+"mempengaruhi tampilan daftar-style)."
+
+#: ../lib/tribe-events-recurrence-meta.class.php:988
+msgid "Front-end recurring event instances toggle"
+msgstr "Front-end contoh peristiwa berulang beralih"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:989
+msgid ""
+"Allow users to decide whether to show all instances of a recurring event."
+msgstr ""
+"Memungkinkan pengguna untuk memutuskan apakah akan menampilkan semua contoh "
+"peristiwa berulang."
+
+#: ../lib/tribe-events-recurrence-meta.class.php:996
+msgid "Clean up recurring events after"
+msgstr "Bersihkan peristiwa berulang setelah"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:997
+msgid "Automatically remove recurring event instances older than this"
+msgstr ""
+"Secara otomatis menghapus berulang contoh event yang lebih tua dari ini"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:1004
+msgid "Create recurring events in advance for"
+msgstr "Buat berulang peristiwa di muka untuk"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:1005
+msgid "Recurring events will be created this far in advance"
+msgstr "Peristiwa berulang akan dibuat ini jauh di muka"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:1026
+msgid " months"
+msgstr " bulan"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:1117
+msgid "You are currently editing all events in a recurring series."
+msgstr "Anda sedang mengedit semua acara dalam serangkaian berulang."
+
+#: ../lib/tribe-events-recurrence-meta.class.php:1125
+#, php-format
+msgid ""
+"%d instances of this event have been created through %s. <a href=\"%s"
+"\">Learn more.</a>"
+msgstr ""
+
+#: ../lib/tribe-events-recurrence-meta.class.php:1136
+msgid ""
+"You are about to split this series in two.\n"
+"\n"
+"The event you selected and all subsequent events in the series will be "
+"separated into a new series of events that you can edit independently of the "
+"original series.\n"
+"\n"
+"This action cannot be undone."
+msgstr ""
+"Anda akan membagi dua seri ini.\n"
+"\n"
+"Acara yang Anda pilih dan semua acara berikutnya dalam seri ini akan "
+"dipisahkan menjadi seri baru acara yang dapat Anda edit secara independen "
+"dari serial aslinya. \n"
+"\n"
+"Tindakan tidak bisa dibatalkan."
+
+#: ../lib/tribe-events-recurrence-meta.class.php:1137
+msgid ""
+"You are about to break this event out of its series.\n"
+"\n"
+"You will be able to edit it independently of the original series.\n"
+"\n"
+"This action cannot be undone."
+msgstr ""
+"Anda akan memisahkan acara ini dari serialnya.\n"
+"\n"
+"Anda akan dapat mengeditnya secara independen dari serial aslinya.\n"
+"\n"
+"tindakan ini tidak dapat dibatalkan."
+
+#: ../lib/tribe-events-recurrence-meta.class.php:1138
+msgid ""
+"Are you sure you want to trash all occurrences of these events? All "
+"recurrence data will be lost."
+msgstr ""
+"Apakah Anda yakin ingin masukkan sampah semua kejadian dari acara ini? Semua "
+"data perulangan akan hilang."
+
+#: ../lib/tribe-geoloc.class.php:101
+msgid "Distance"
+msgstr "Jarak"
+
+#: ../lib/tribe-geoloc.class.php:133
+msgid "Map view search distance limit"
+msgstr "Tampilan peta batas jarak pencarian"
+
+#: ../lib/tribe-geoloc.class.php:135
+msgid ""
+"Set the distance that the location search covers (find events within X "
+"distance units of location search input)."
+msgstr ""
+"Mengatur jarak yang dicover pencarian lokasi (temukan acara dalam unit jarak "
+"X dari lokasi pencarian masukan)."
+
+#: ../lib/tribe-geoloc.class.php:141
+msgid "Map view distance unit"
+msgstr "Unit jarak tampilan peta"
+
+#: ../lib/tribe-geoloc.class.php:149
+msgid "Fix geolocation data"
+msgstr "Perbaiki data geolocation"
+
+#: ../lib/tribe-geoloc.class.php:149
+#, php-format
+msgid ""
+"You have %d venues for which we don't have geolocation data. We need to use "
+"the Google Maps API to get that information. Doing this may take a while "
+"(aprox. 1 minute for every 200 venues)."
+msgstr ""
+"Anda memiliki %d tempat yang kami tidak memiliki data geolocation. Kita "
+"perlu menggunakan Google Maps API untuk mendapatkan informasi tersebut. "
+"Melakukan hal ini dapat memakan waktu cukup lama (sekitar 1 menit untuk "
+"setiap 200 tempat)."
+
+#: ../lib/tribe-geoloc.class.php:158
+msgid "Hide location search"
+msgstr "Sembunyikan pencarian lokasi"
+
+#: ../lib/tribe-geoloc.class.php:159
+msgid ""
+"Removes location search field from the events bar on all views except for "
+"map view."
+msgstr ""
+"Menghapus kolom pencarian lokasi dari bar acara pada semua view kecuali "
+"untuk tampilan peta."
+
+#: ../lib/tribe-geoloc.class.php:211
+msgid "Map"
+msgstr "Peta"
+
+#: ../lib/tribe-geoloc.class.php:241
+msgid "Near"
+msgstr "Dekat"
+
+#: ../lib/tribe-geoloc.class.php:242
+msgid "Location"
+msgstr "Lokasi"
+
+#: ../lib/tribe-geoloc.class.php:545
+#, php-format
+msgid "No results were found for events in or near <strong>\"%s\"</strong>."
+msgstr ""
+"Tidak ada hasil yang ditemukan untuk acara-acara di atau dekat <strong>\"%s"
+"\"</strong>."
+
+#: ../lib/tribe-geoloc.class.php:551
+msgid "There were no results found."
+msgstr "Tidak ada hasil yang ditemukan."
+
+#: ../lib/tribe-geoloc.class.php:826
+msgid "Fix venues data"
+msgstr "Perbaiki data tempat"
+
+#: ../lib/tribe-geoloc.class.php:860
+#, php-format
+msgid ""
+"You have venues for which we don't have Geolocation information. <a "
+"href='%s'>Click here to generate it</a>."
+msgstr ""
+"Anda memiliki tempat yang kami tidak memiliki informasi Geolocation. <a "
+"href='%s'>Klik di sini untuk generate itu</a>."
+
+#: ../lib/tribe-geoloc.class.php:886
+#, php-format
+msgid "Fixed geolocation data for %d venues"
+msgstr "Data geolocation tetap untuk %d tempat"
+
+#: ../lib/widget-advanced-list.class.php:20
+msgid "A widget that displays the next upcoming x events."
+msgstr "Sebuah widget yang menampilkan x acara mendatang selanjutnya."
+
+#: ../lib/widget-advanced-list.class.php:24
+msgid "Events List"
+msgstr "Daftar Acara"
+
+#: ../lib/widget-calendar.class.php:8
+msgid "The events calendar mini calendar widget"
+msgstr "The events calendar mini calendar widget"
+
+#: ../lib/widget-calendar.class.php:10 ../lib/widget-calendar.class.php:34
+#: ../lib/widget-calendar.class.php:70
+msgid "Events Calendar"
+msgstr "Events Calendar"
+
+#: ../lib/widget-countdown.class.php:13
+msgid "Displays the time remaining until a specified event."
+msgstr "Menampilkan sisa waktu sampai acara tertentu."
+
+#: ../lib/widget-countdown.class.php:15
+msgid "Events Countdown"
+msgstr "Countdown Acara"
+
+#: ../lib/widget-venue.class.php:12
+msgid "Displays a list of upcoming events at a specific venue."
+msgstr "Menampilkan daftar acara mendatang di tempat tertentu."
+
+#: ../lib/widget-venue.class.php:14
+msgid "Events Featured Venue"
+msgstr "Venue Unggulan Acara"
+
+#: ../public/template-tags/general.php:93
+msgid "Show only the first upcoming instance of recurring events"
+msgstr "Tampilkan hanya contoh acara pertama dari acara berulang"
+
+#: ../public/template-tags/general.php:217
+#: ../public/template-tags/general.php:230
+#: ../public/template-tags/general.php:242
+#: ../public/template-tags/general.php:243
+#: ../public/template-tags/general.php:255
+#: ../public/template-tags/general.php:256
+#: ../public/template-tags/general.php:268
+#: ../public/template-tags/general.php:269
+#: ../public/template-tags/general.php:281
+#: ../public/template-tags/general.php:282
+#: ../public/template-tags/general.php:294
+#: ../public/template-tags/general.php:295
+#: ../public/template-tags/general.php:307
+#: ../public/template-tags/general.php:308
+#: ../public/template-tags/general.php:320
+#: ../public/template-tags/general.php:321
+msgid "No default set"
+msgstr "Tidak ada set default"
+
+#: ../public/template-tags/general.php:219
+#, php-format
+msgid "The current default organizer is: %s"
+msgstr "Penyelenggara default saat ini adalah: %s"
+
+#: ../public/template-tags/general.php:232
+#, php-format
+msgid "The current default venue is: %s"
+msgstr "Tempat default saat ini adalah: %s"
+
+#: ../public/template-tags/general.php:245
+#, php-format
+msgid "The current default address is: %s"
+msgstr "Alamat default saat ini adalah: %s"
+
+#: ../public/template-tags/general.php:258
+#, php-format
+msgid "The current default city is: %s"
+msgstr "Kota default saat ini adalah: %s"
+
+#: ../public/template-tags/general.php:271
+#, php-format
+msgid "The current default state is: %s"
+msgstr "Negara bagian default saat ini adalah: %s"
+
+#: ../public/template-tags/general.php:284
+#, php-format
+msgid "The current default province is: %s"
+msgstr "Provinsi default saat ini adalah: %s"
+
+#: ../public/template-tags/general.php:297
+#, php-format
+msgid "The current default postal code/zip code is: %s"
+msgstr "Kode pos default saat ini adalah: %s"
+
+#: ../public/template-tags/general.php:310
+#, php-format
+msgid "The current default country is: %s"
+msgstr "Negara default saat ini adalah: %s"
+
+#: ../public/template-tags/general.php:323
+#, php-format
+msgid "The current default phone is: %s"
+msgstr "Telepon standar saat ini adalah: %s"
+
+#: ../public/template-tags/general.php:462
+#: ../public/template-tags/general.php:481
+msgid "Date out of range."
+msgstr "Tanggal luar jangkauan."
+
+#: ../public/template-tags/general.php:577
+msgid "Recurring Event"
+msgstr "Acara Berulang"
+
+#: ../public/template-tags/general.php:580
+msgid "(See all)"
+msgstr "(Lihat semua)"
+
+#: ../public/template-tags/week.php:237
+msgid "<span>&laquo;</span> Previous Week"
+msgstr "<span>&laquo;</span> Minggu Sebelumnya"
+
+#: ../public/template-tags/week.php:253
+msgid "Next Week <span>&raquo;</span>"
+msgstr "Minggu berikutnya <span>&raquo;</span>"
+
+#: ../vendor/advanced-post-manager/demo/demo.php:30
+#, php-format
+msgid ""
+"It looks like you might not have any demo data. <a href=\"%s\">Download our "
+"data</a> and use the <a href=\"%s\">WordPress Importer</a>."
+msgstr ""
+"Sepertinya Anda mungkin tidak memiliki data demo. <a href=\"%s\">Download "
+"data kami</a>  dan gunakan <a href=\"%s\">WordPress Importer</a>."
+
+#: ../vendor/advanced-post-manager/lib/tribe-columns.class.php:43
+msgid "Column Name"
+msgstr "Nama Kolom"
+
+#: ../vendor/advanced-post-manager/lib/tribe-columns.class.php:133
+msgid "Add a Column"
+msgstr "Tambah Kolom"
+
+#: ../vendor/advanced-post-manager/lib/tribe-columns.class.php:140
+msgid "Comments"
+msgstr "Komentar"
+
+#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:50
+#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:70
+msgid "Is"
+msgstr "Adalah"
+
+#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:51
+#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:71
+msgid "Is Not"
+msgstr "Bukan"
+
+#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:65
+msgid "LIKE"
+msgstr "LIKE"
+
+#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:69
+msgid "Search"
+msgstr "Pencarian"
+
+#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:80
+msgid "Member Type"
+msgstr "Tipe Anggota"
+
+#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:84
+msgid "Cafe"
+msgstr "Kafe"
+
+#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:85
+msgid "Private Desk"
+msgstr "Private Desk"
+
+#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:86
+msgid "Office"
+msgstr "Kantor"
+
+#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:93
+msgid "what i’m querying. probably a key in the options array in $filters"
+msgstr "apa yang saya query. mungkin kunci dalam pilihan array dalam $filters"
+
+#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:517
+msgid "Choose a Saved Filter"
+msgstr "Pilih Filter Tersimpan"
+
+#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:633
+msgid "Add a Filter"
+msgstr "Tambahkan Filter"
+
+#: ../vendor/advanced-post-manager/lib/tribe-meta-box-helper.php:44
+msgid "Extended Information"
+msgstr "Informasi Tambahan"
+
+#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:115
+#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:388
+msgid "Delete this image"
+msgstr "Hapus gambar ini"
+
+#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:115
+#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:343
+#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:388
+msgid "Delete"
+msgstr "Hapus"
+
+#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:339
+msgid "Uploaded files"
+msgstr "File upload"
+
+#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:349
+msgid "Upload new files"
+msgstr "Upload file baru"
+
+#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:352
+msgid "Add another file"
+msgstr "Tambah file lain"
+
+#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:395
+msgid "Add more images"
+msgstr "Tambahkan lebih banyak gambar"
+
+#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:403
+msgid "Select a color"
+msgstr "Pilih warna"
+
+#: ../vendor/advanced-post-manager/views/edit-filters.php:7
+#: ../vendor/advanced-post-manager/views/edit-filters.php:8
+msgid "Click to toggle"
+msgstr "Klik untuk toggle"
+
+#: ../vendor/advanced-post-manager/views/edit-filters.php:8
+msgid "Filters &amp; Columns"
+msgstr "Filter &amp; Kolom"
+
+#: ../vendor/advanced-post-manager/views/edit-filters.php:17
+msgid "Apply"
+msgstr "Terapkan"
+
+#: ../vendor/advanced-post-manager/views/edit-filters.php:18
+msgid "Clear"
+msgstr "Bersihkan"
+
+#: ../vendor/advanced-post-manager/views/edit-filters.php:19
+#: ../vendor/advanced-post-manager/views/edit-filters.php:26
+msgid "Save"
+msgstr "Simpan"
+
+#: ../vendor/advanced-post-manager/views/edit-filters.php:21
+msgid "Export to CSV"
+msgstr "Ekspor ke CSV"
+
+#: ../vendor/advanced-post-manager/views/edit-filters.php:25
+msgid "Filter Name"
+msgstr "Nama Filter"
+
+#: ../vendor/advanced-post-manager/views/edit-filters.php:27
+msgid "Cancel"
+msgstr "Batalkan"
+
+#: ../views/pro/map/nav.php:20 ../views/pro/photo/nav.php:20
+msgid "Events List Navigation"
+msgstr "Daftar Acara Navigasi"
+
+#: ../views/pro/map/nav.php:23 ../views/pro/photo/nav.php:23
+msgid "<span>&laquo;</span> Previous Events"
+msgstr "<span>&laquo;</span> Acara Sebelumnya"
+
+#: ../views/pro/map/nav.php:30 ../views/pro/photo/nav.php:30
+msgid "Next Events <span>&raquo;</span>"
+msgstr "Acara berikutnya <span>&raquo;</span>"
+
+#: ../views/pro/map/single-event.php:78
+msgid "Find out more"
+msgstr "Ketahui lebih lanjut"
+
+#: ../views/pro/related-events.php:28
+msgid "Related Events"
+msgstr "Acara Terkait"
+
+#: ../views/pro/single-organizer.php:29 ../views/pro/single-venue.php:29
+msgid "&larr; Back to Events"
+msgstr "&larr; Kembali ke Events"
+
+#: ../views/pro/week/loop-grid-allday.php:28
+msgid "All Day"
+msgstr "Semua Hari"
+
+#: ../views/pro/week/loop-grid.php:17
+msgid "Hours"
+msgstr "Jam"
+
+#: ../views/pro/week/nav.php:14
+msgid "Week Navigation"
+msgstr "Navigasi Minggu"
+
+#: ../views/pro/widgets/countdown-widget.php:22
+msgid "hours"
+msgstr "jam"
+
+#: ../views/pro/widgets/countdown-widget.php:26
+msgid "min"
+msgstr "menit"
+
+#: ../views/pro/widgets/countdown-widget.php:31
+msgid "sec"
+msgstr "detik"
+
+#: ../views/pro/widgets/list-widget.php:97
+msgid "Organizer:"
+msgstr "Penyelenggara:"
+
+#: ../views/pro/widgets/list-widget.php:116
+msgid "View More&hellip;"
+msgstr "Lihat Lebih&hellip;"
+
+#: ../views/pro/widgets/list-widget.php:123
+msgid "There are no upcoming events at this time."
+msgstr "Tidak ada acara mendatang saat ini."
+
+#: ../views/pro/widgets/venue-widget.php:31
+msgid "No upcoming events."
+msgstr "Tidak ada acara mendatang."
+
+#: ../views/pro/widgets/venue-widget.php:52
+#, fuzzy, php-format
+msgid "View all Events at this %s"
+msgstr "Lihat Semua Acara di tempat ini"
+
+#~ msgid "Price:"
+#~ msgstr "Harga:"
+
+#~ msgid "&laquo; Back to Events"
+#~ msgstr "&laquo; Kembali ke Events"
+
+#~ msgid "Name:"
+#~ msgstr "Nama:"
+
+#~ msgid "Phone:"
+#~ msgstr "Telepon:"
+
+#~ msgid "Address:"
+#~ msgstr "Alamat:"
+
+#~ msgid "Click to view a Google Map"
+#~ msgstr "Klik untuk melihat Google Map"
+
+#~ msgid "Google Map"
+#~ msgstr "Google Map"
+
+#~ msgid "Upcoming Events At This Venue"
+#~ msgstr "Acara Mendatang di tempat ini"
+
+#~ msgid "Start:"
+#~ msgstr "Mulai:"
+
+#~ msgid "End:"
+#~ msgstr "Akhir:"
+
+#~ msgid "Date:"
+#~ msgstr "Tanggal:"
+
+#~ msgid "Cost:"
+#~ msgstr "Biaya:"
