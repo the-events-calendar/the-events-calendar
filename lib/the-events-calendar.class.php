@@ -379,6 +379,8 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 			add_filter( 'tribe_get_day_link', array( $this, 'add_empty_date_dayview_link' ), 10, 2 );
 
+
+			add_filter( 'admin_footer_text', array( $this, 'tribe_admin_footer_text' ), 1, 2 );			
 			add_action( 'admin_menu', array( $this, 'addEventBox' ) );
 			add_action( 'wp_insert_post', array( $this, 'addPostOrigin' ), 10, 2 );
 			add_action( 'save_post_'.self::POSTTYPE, array( $this, 'addEventMeta' ), 15, 2 );
@@ -470,6 +472,17 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			add_action( 'plugins_loaded', array( $this, 'init_day_view' ), 2 );
 
 
+		}
+
+		public function tribe_admin_footer_text( $footer_text ) {
+			global $current_screen;
+		
+			// only display custom text on Tribe Admin Pages
+			if ( isset($current_screen->id) && strpos( $current_screen->id, 'tribe' ) !== false ) {
+				return sprintf( __( 'Rate <strong>The Events Calendar</strong> <a href="%1$s" target="_blank">&#9733;&#9733;&#9733;&#9733;&#9733;</a> on <a href="%1$s" target="_blank">WordPress.org</a> to keep this plugin free.  Thanks from the friendly folks at Modern Tribe.' ), __( 'http://wordpress.org/support/view/plugin-reviews/the-events-calendar?filter=5' ) );				
+			} else {
+				return $footer_text;
+			}	
 		}
 
 		public function init_ical() {
@@ -1667,7 +1680,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 			// admin stylesheet - only load admin stylesheet when on Tribe pages
 			if ( isset($current_screen->id) && true === strpos( $current_screen->id, 'tribe' ) ) {
-			wp_enqueue_style( self::POSTTYPE . '-admin', $resources_url . 'events-admin.css', array(), apply_filters( 'tribe_events_css_version', self::VERSION ) );
+				wp_enqueue_style( self::POSTTYPE . '-admin', $resources_url . 'events-admin.css', array(), apply_filters( 'tribe_events_css_version', self::VERSION ) );
 			}
 
 			// settings screen
