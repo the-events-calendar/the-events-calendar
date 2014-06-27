@@ -101,7 +101,7 @@ a.tribe-events-gmap {
 	background: #666;
 }
 
-.tribe-events-sub-nav .tribe-events-nav-previous a span{
+.tribe-events-sub-nav .tribe-events-nav-left a span{
 	display:block;
 	content:"\ab";
 	position:absolute;
@@ -109,7 +109,7 @@ a.tribe-events-gmap {
 	top:10px;
 }
 
-.tribe-events-sub-nav .tribe-events-nav-next a span{
+.tribe-events-sub-nav .tribe-events-nav-right a span{
 	display:block;
 	content: "\00BB";
 	position:absolute;
