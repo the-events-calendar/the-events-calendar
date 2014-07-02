@@ -89,21 +89,21 @@
 			<td></td>
 			<td>
 				<div>
-					<label><input type="checkbox" name="recurrence[custom-year-month][]" value="1" <?php checked(in_array("1", $recCustomYearMonth)) ?>/> <?php _e('Jan','tribe-events-calendar-pro'); ?></label>
-					<label><input type="checkbox" name="recurrence[custom-year-month][]" value="2" <?php checked(in_array("2", $recCustomYearMonth)) ?>/> <?php _e('Feb','tribe-events-calendar-pro'); ?></label>
-					<label><input type="checkbox" name="recurrence[custom-year-month][]" value="3" <?php checked(in_array("3", $recCustomYearMonth)) ?>/> <?php _e('Mar','tribe-events-calendar-pro'); ?></label>
-					<label><input type="checkbox" name="recurrence[custom-year-month][]" value="4" <?php checked(in_array("4", $recCustomYearMonth)) ?>/> <?php _e('Apr','tribe-events-calendar-pro'); ?></label>
-					<label><input type="checkbox" name="recurrence[custom-year-month][]" value="5" <?php checked(in_array("5", $recCustomYearMonth)) ?>/> <?php _e('May','tribe-events-calendar-pro'); ?></label>
-					<label><input type="checkbox" name="recurrence[custom-year-month][]" value="6" <?php checked(in_array("6", $recCustomYearMonth)) ?>/> <?php _e('Jun','tribe-events-calendar-pro'); ?></label>
+					<label><input type="checkbox" name="recurrence[custom-year-month][]" value="1" <?php checked(in_array("1", $recCustomYearMonth)) ?>/> <?php echo date_i18n( 'M', mktime( 12, 0, 0, 1, 1, 2020 ) ) ?></label>
+					<label><input type="checkbox" name="recurrence[custom-year-month][]" value="2" <?php checked(in_array("2", $recCustomYearMonth)) ?>/> <?php echo date_i18n( 'M', mktime( 12, 0, 0, 2, 1, 2020 ) ) ?></label>
+					<label><input type="checkbox" name="recurrence[custom-year-month][]" value="3" <?php checked(in_array("3", $recCustomYearMonth)) ?>/> <?php echo date_i18n( 'M', mktime( 12, 0, 0, 3, 1, 2020 ) ) ?></label>
+					<label><input type="checkbox" name="recurrence[custom-year-month][]" value="4" <?php checked(in_array("4", $recCustomYearMonth)) ?>/> <?php echo date_i18n( 'M', mktime( 12, 0, 0, 4, 1, 2020 ) ) ?></label>
+					<label><input type="checkbox" name="recurrence[custom-year-month][]" value="5" <?php checked(in_array("5", $recCustomYearMonth)) ?>/> <?php echo date_i18n( 'M', mktime( 12, 0, 0, 5, 1, 2020 ) ) ?></label>
+					<label><input type="checkbox" name="recurrence[custom-year-month][]" value="6" <?php checked(in_array("6", $recCustomYearMonth)) ?>/> <?php echo date_i18n( 'M', mktime( 12, 0, 0, 6, 1, 2020 ) ) ?></label>
 				</div>
 				<div style="clear:both"></div>
 				<div>
-					<label><input type="checkbox" name="recurrence[custom-year-month][]" value="7" <?php checked(in_array("7", $recCustomYearMonth)) ?>/> <?php _e('Jul','tribe-events-calendar-pro'); ?></label>
-					<label><input type="checkbox" name="recurrence[custom-year-month][]" value="8" <?php checked(in_array("8", $recCustomYearMonth)) ?>/> <?php _e('Aug','tribe-events-calendar-pro'); ?></label>
-					<label><input type="checkbox" name="recurrence[custom-year-month][]" value="9" <?php checked(in_array("9", $recCustomYearMonth)) ?>/> <?php _e('Sep','tribe-events-calendar-pro'); ?></label>
-					<label><input type="checkbox" name="recurrence[custom-year-month][]" value="10" <?php checked(in_array("10", $recCustomYearMonth)) ?>/> <?php _e('Oct','tribe-events-calendar-pro'); ?></label>
-					<label><input type="checkbox" name="recurrence[custom-year-month][]" value="11" <?php checked(in_array("11", $recCustomYearMonth)) ?>/> <?php _e('Nov','tribe-events-calendar-pro'); ?></label>
-					<label><input type="checkbox" name="recurrence[custom-year-month][]" value="12" <?php checked(in_array("12", $recCustomYearMonth)) ?>/> <?php _e('Dec','tribe-events-calendar-pro'); ?></label>
+					<label><input type="checkbox" name="recurrence[custom-year-month][]" value="7" <?php checked(in_array("7", $recCustomYearMonth)) ?>/> <?php echo date_i18n( 'M', mktime( 12, 0, 0, 7, 1, 2020 ) ) ?></label>
+					<label><input type="checkbox" name="recurrence[custom-year-month][]" value="8" <?php checked(in_array("8", $recCustomYearMonth)) ?>/> <?php echo date_i18n( 'M', mktime( 12, 0, 0, 8, 1, 2020 ) ) ?></label>
+					<label><input type="checkbox" name="recurrence[custom-year-month][]" value="9" <?php checked(in_array("9", $recCustomYearMonth)) ?>/> <?php echo date_i18n( 'M', mktime( 12, 0, 0, 9, 1, 2020 ) ) ?></label>
+					<label><input type="checkbox" name="recurrence[custom-year-month][]" value="10" <?php checked(in_array("10", $recCustomYearMonth)) ?>/> <?php echo date_i18n( 'M', mktime( 12, 0, 0, 10, 1, 2020 ) ) ?></label>
+					<label><input type="checkbox" name="recurrence[custom-year-month][]" value="11" <?php checked(in_array("11", $recCustomYearMonth)) ?>/> <?php echo date_i18n( 'M', mktime( 12, 0, 0, 11, 1, 2020 ) ) ?></label>
+					<label><input type="checkbox" name="recurrence[custom-year-month][]" value="12" <?php checked(in_array("12", $recCustomYearMonth)) ?>/> <?php echo date_i18n( 'M', mktime( 12, 0, 0, 12, 1, 2020 ) ) ?></label>
 				</div>
 				<div style="clear:both"></div>				
 				<div>

@@ -24,7 +24,8 @@
 			$tribe_bar = $('#tribe-events-bar'),
 			$tribe_header = $('#tribe-events-header'),
 			start_day = 0,
-			date_mod = false;
+			date_mod = false,
+            $first_event = $('.column.tribe-week-grid-hours div:first-child');
 
 		if (!Array.prototype.indexOf){
 
@@ -108,14 +109,15 @@
 
 			});
 
-		function tribe_go_to_8() {
-			var $start = $('.time-row-8AM');
-			$('.tribe-week-grid-wrapper').slimScroll({
-				height: '500px',
-				railVisible: true,
-				alwaysVisible: true,
-				start: $start
-			});
+		function tribe_go_to_earliest_event() {
+
+            $('.tribe-week-grid-wrapper').slimScroll({
+                height: '500px',
+                railVisible: true,
+                alwaysVisible: true,
+                start: $first_event
+            });
+
 		}
 
 		function tribe_add_right_class() {
@@ -180,17 +182,18 @@
 
 		function tribe_display_week_view() {
 
-			var $week_events = $(".tribe-grid-body .tribe-grid-content-wrap .column > div[id*='tribe-events-event-']");
-			var grid_height = $(".tribe-week-grid-inner-wrap").height();
+			var $week_events = $(".tribe-grid-body .tribe-grid-content-wrap .column > div[id*='tribe-events-event-']"),
+                grid_height = $(".tribe-week-grid-inner-wrap").height(),
+                offset_top = 5000;
 
 			$week_events.each(function () {
 
 				// iterate through each event in the main grid and set their length plus position in time.
 
-				var $this = $(this);
-				var event_hour = $this.attr("data-hour");
-				var event_length = $this.attr("data-duration");
-				var event_min = $this.attr("data-min");
+				var $this = $(this),
+                    event_hour = $this.attr("data-hour"),
+                    event_length = $this.attr("data-duration"),
+                    event_min = $this.attr("data-min");
 
 				// $event_target is our grid block with the same data-hour value as our event.
 
@@ -219,6 +222,11 @@
 
 				var link_setup = {"height": event_length - 16 + "px"};
 
+                if(event_position_top < offset_top){
+                    offset_top = event_position_top;
+                    $first_event = $this;
+                }
+
 				$this
 					.css({
 						"height": event_length + "px",
@@ -229,6 +237,11 @@
 					.parent()
 					.css(link_setup);
 			});
+
+            if(!$week_events.length)
+                $first_event = $('.column.tribe-week-grid-hours div:first-child');
+
+            tribe_go_to_earliest_event();
 
 			// Fade our events in upon js load
 
@@ -324,7 +337,7 @@
 
 		}
 
-		function tribe_week_view_init(callback, resize) {
+		function tribe_week_view_init() {
 			if($body.is('.tribe-mobile')){
 				tribe_mobile_week_setup();
 			} else {
@@ -332,15 +345,13 @@
 				tribe_set_allday_spanning_events_width();
 				tribe_add_right_class();
 				tribe_display_week_view();
-				if (callback && typeof( callback ) === "function")
-					callback();
 			}
 		}
 
-		tribe_week_view_init(tribe_go_to_8(), false);
+		tribe_week_view_init();
 
 		$(te).on('tribe_ev_resizeComplete', function () {
-			tribe_week_view_init(false, true);
+			tribe_week_view_init();
 		});
 
 		if (tt.pushstate && !tt.map_view()) {
@@ -397,7 +408,6 @@
 
 		/**
 		 * @function tribe_events_bar_weekajax_actions
-		 * @since 3.0
 		 * @desc On events bar submit, this function collects the current state of the bar and sends it to the week view ajax handler.
 		 * @param {event} e The event object.
 		 * @param {string} date Date passed by datepicker.
@@ -456,7 +466,6 @@
 
 		/**
 		 * @function tribe_events_week_ajax_post
-		 * @since 3.0
 		 * @desc The ajax handler for week view.
 		 * Fires the custom event 'tribe_ev_serializeBar' at start, then 'tribe_ev_collectParams' to gather any additional parameters before actually launching the ajax post request.
 		 * As post begins 'tribe_ev_ajaxStart' and 'tribe_ev_weekView_AjaxStart' are fired, and then 'tribe_ev_ajaxSuccess' and 'tribe_ev_weekView_ajaxSuccess' are fired on success.
@@ -464,6 +473,9 @@
 		 */
 
 		function tribe_events_week_ajax_post() {
+
+            if(tf.invalid_date(ts.date))
+                return;
 
 			var $tribe_header = $('#tribe-events-header');
 
@@ -537,7 +549,7 @@
 
 							$('#tribe-events-content.tribe-events-week-grid').replaceWith($the_content);
 
-							tribe_week_view_init(tribe_go_to_8(), false);
+							tribe_week_view_init();
 
 							$("div[id*='tribe-events-event-']").hide().fadeIn('fast');
 

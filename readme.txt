@@ -161,6 +161,7 @@ The plugin is produced by <a href="http://m.tri.be/45">Modern Tribe Inc</a>.
 * Brazilian Portuguese from Emerson Marques
 * Bulgarian from Nedko Ivanov
 * Catalan from Barbara Partegos Rof
+* Chinese from Massound Huang
 * Croatian from Marko Manojlovic
 * Czech from Petr Bastan
 * Danish from Anonymous
@@ -171,6 +172,7 @@ The plugin is produced by <a href="http://m.tri.be/45">Modern Tribe Inc</a>.
 * German from Dennis Gruebner
 * Greek from Yannis Troullinos
 * Icelandic by Baldvin √ñrn Berndsen
+* Indonesian by Didik Priyanto
 * Italian from Roberto Scano
 * Latvian from Raivis Dejus
 * Montenegrin from Sasa Vukovic
@@ -218,7 +220,10 @@ Our Premium Plugins:
 
 = 3.7 =
 
+* Added admin message when a recurring event extends beyond the cutoff date
 * Incorporated new Bulgarian translation files, courtesy of Nedko Ivanov
+* Incorporated new Chinese translation files, courtesy of Massound Huang
+* Incorporated new Indonesian translation files, courtesy of Didik Priyanto
 
 = 3.6.1 =
 

@@ -4,15 +4,6 @@
  *
  * Compatible with custom post types since WordPress 3.0
  * Support input types: text, textarea, checkbox, checkbox list, radio box, select, wysiwyg, file, image, date, time, color
- *
- * @author Rilwis <rilwis@gmail.com>
- * @author Matt Wiebe
- * @author Modern Tribe, Inc.
- * @link http://www.deluxeblogtips.com/p/meta-box-script-for-wordpress.html
- * @example meta-box-usage.php Sample declaration and usage of meta boxes
- * @version: 3.2.2
- *
- * @license GNU General Public License v2.0
  */
 if ( ! class_exists( 'Tribe_Meta_Box' ) ) {
 /**

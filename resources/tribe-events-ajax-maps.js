@@ -21,7 +21,6 @@
 
 		/**
 		 * @function tribe_ev.fn.map_add_marker
-		 * @since 3.0
 		 * @desc tribe_ev.fn.map_add_marker adds event markers to the map on geoloc view.
 		 * @param {String} lat Marker latitude.
 		 * @param {String} lng Marker longitude.
@@ -74,7 +73,6 @@
 
 		/**
 		 * @function tribe_test_location
-		 * @since 3.0
 		 * @desc tribe_test_location clears the lat and lng values in event bar if needed. Also hides or shows the geofence filter if present.
 		 */
 
@@ -98,7 +96,8 @@
 
 		var $tribe_container = $('#tribe-events'),
 			$geo_bar_input = $('#tribe-bar-geoloc'),
-			$geo_options = $("#tribe-geo-options");
+			$geo_options = $("#tribe-geo-options"),
+            invalid_date = false;
 
 		var options = {
 			zoom: 5,
@@ -232,7 +231,6 @@
 
 		/**
 		 * @function tribe_generate_map_params
-		 * @since 3.0
 		 * @desc tribe_generate_map_params generates query parameters for the map view ajax call.
 		 */
 
@@ -249,6 +247,14 @@
 
 			$(te).trigger('tribe_ev_serializeBar');
 
+            if(tf.invalid_date_in_params(ts.params)){
+                ts.ajax_running = false;
+                invalid_date = true;
+                return;
+            } else {
+                invalid_date = false;
+            }
+
 			ts.params = $.param(ts.params);
 
 			$(te).trigger('tribe_ev_collectParams');
@@ -262,13 +268,10 @@
 
 		/**
 		 * @function tribe_map_processOption
-		 * @since 3.0
 		 * @desc tribe_map_processOption is the main ajax event query for map view.
 		 */
 
 		function tribe_map_processOption() {
-			$('#tribe-events-content .tribe-events-loop').tribe_spin();
-			deleteMarkers();
 
 			if (!ts.popping) {
 				tribe_generate_map_params();
@@ -277,6 +280,12 @@
 					ts.do_string = true;
 				}
 			}
+
+            if(invalid_date)
+                return;
+
+            $('#tribe-events-content .tribe-events-loop').tribe_spin();
+            deleteMarkers();
 
 			$.post(GeoLoc.ajaxurl, ts.params, function (response) {
 
@@ -417,7 +426,6 @@
 
 		/**
 		 * @function tribe_events_bar_mapajax_actions
-		 * @since 3.0
 		 * @desc On events bar submit, this function collects the current state of the bar and sends it to the map view ajax handler.
 		 * @param {event} e The event object.
 		 */
@@ -457,7 +465,6 @@
 
 		/**
 		 * @function deleteMarkers
-		 * @since 3.0
 		 * @desc Clears markers from the active map.
 		 */
 
@@ -473,7 +480,6 @@
 
 		/**
 		 * @function centerMap
-		 * @since 3.0
 		 * @desc Centers the active map.
 		 */
 

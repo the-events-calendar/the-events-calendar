@@ -5,7 +5,6 @@
  * Usage: include this file on any plugin that may have shared code BEFORE the 'plugins_loaded' action is completed.
  * After including this file, register the helper files using the TribeCommonLibraries::register() instead of including the files directly.
  *
- * @author Peter Chester
  * @version 1.1
  */
 

@@ -945,15 +945,13 @@ class TribeEventsRecurrenceMeta {
 	/**
 	 * Adds the Group By that hides future occurences of recurring events if setting is set to.
 	 *
-	 * @since 3.0
-	 * @author PaulHughes
 	 *
 	 * @param string $group_by The current group by clause.
 	 * @param $query
 	 * @return string The new group by clause.
 	 */
 	public static function addGroupBy( $group_by, $query ) {
-		if ( tribe_is_month() || tribe_is_week() ) {
+		if ( tribe_is_month() || tribe_is_week() || tribe_is_day() ) {
 			return $group_by;
 		}
 		if ( isset( $query->query_vars['tribeHideRecurrence'] ) && $query->query_vars['tribeHideRecurrence'] == 1 ) {
@@ -966,8 +964,6 @@ class TribeEventsRecurrenceMeta {
 	/**
 	 * Adds setting for hiding subsequent occurrences by default.
 	 *
-	 * @since 3.0
-	 * @author PaulHughes
 	 *
 	 * @param array $args
 	 * @param string $id
@@ -1035,8 +1031,6 @@ class TribeEventsRecurrenceMeta {
 	/**
 	 * Combines the ['post'] piece of the $_REQUEST variable so it only has unique post ids.
 	 *
-	 * @since 3.0
-	 * @author Paul Hughes
 	 *
 	 * @return void
 	 */
@@ -1122,6 +1116,16 @@ class TribeEventsRecurrenceMeta {
 	public static function display_post_editor_recurring_notice() {
 		$message = __( 'You are currently editing all events in a recurring series.', 'tribe-events-calendar-pro' );
 		printf('<div class="updated"><p>%s</p></div>', $message);
+
+		$pending = get_post_meta( get_the_ID(), '_EventNextPendingRecurrence', TRUE );
+		if ( $pending ) {
+			$start_dates = tribe_get_recurrence_start_dates(get_the_ID());
+			$count = count($start_dates);
+			$last = end($start_dates);
+			$pending_message = __( '%d instances of this event have been created through %s. <a href="%s">Learn more.</a>', 'tribe-events-calendar-pro');
+			$pending_message = sprintf( $pending_message, $count, date_i18n(tribe_get_date_format(true), strtotime($last)), 'http://m.tri.be/lq');
+			printf('<div class="updated"><p>%s</p></div>', $pending_message);
+		}
 	}
 
 	public static function localize_scripts( $data, $object_name, $script_handle ) {

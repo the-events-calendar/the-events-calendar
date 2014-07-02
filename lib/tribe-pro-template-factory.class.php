@@ -20,8 +20,6 @@ if( !class_exists('Tribe_PRO_Template_Factory') ) {
 		 * @param string $name The name of the package reqested.
 		 * @param array $deps An array of dependencies (this should be the registered name that is registered to the wp_enqueue functions).
 		 * @return void
-		 * @author Timothy Wood
-		 * @since 3.0
 		 */
 		public static function asset_package( $name, $deps = array() ){
 
