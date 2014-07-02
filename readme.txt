@@ -224,6 +224,7 @@ Our Premium Plugins:
 * Incorporated new Bulgarian translation files, courtesy of Nedko Ivanov
 * Incorporated new Chinese translation files, courtesy of Massound Huang
 * Incorporated new Indonesian translation files, courtesy of Didik Priyanto
+* Added the ability to override the labels & slugs for Venues/Organizers
 
 = 3.6.1 =
 
