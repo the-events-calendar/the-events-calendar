@@ -1,6 +1,8 @@
 jQuery( document ).ready( function ( $ ) {
-	
-	function fix_widget_height() {
+
+    var $widget_wrapper = $('.tribe-mini-calendar-wrapper').parent();
+
+    function fix_widget_height() {
 		var wrapper = $('.tribe-mini-calendar-wrapper');		
 		if( $('.tribe-mini-calendar-wrapper.layout-wide').length && $('.tribe-mini-calendar-right').length ) {			
 			var right_bar = $('.tribe-mini-calendar-right');
@@ -34,7 +36,7 @@ jQuery( document ).ready( function ( $ ) {
 		current = year + '-' + (month[1] ? month:'0' + month[0]) + '-' + (day[1] ? day:'0' + day[0]),
 		current_ym = current.slice(0,7);
 
-	$( '.tribe_mini_calendar_widget' )
+    $widget_wrapper
 		.on( 'click', '.tribe-mini-calendar-nav-link', function ( e ) {
 			e.preventDefault();
 
