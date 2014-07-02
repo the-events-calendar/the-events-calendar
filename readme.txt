@@ -220,6 +220,7 @@ Our Premium Plugins:
 
 = 3.7 =
 
+* Added admin message when a recurring event extends beyond the cutoff date
 * Incorporated new Bulgarian translation files, courtesy of Nedko Ivanov
 * Incorporated new Chinese translation files, courtesy of Massound Huang
 * Incorporated new Indonesian translation files, courtesy of Didik Priyanto
