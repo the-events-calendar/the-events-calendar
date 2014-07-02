@@ -220,6 +220,9 @@ Our Premium Plugins:
 
 = 3.7 =
 
+* Fixed issue were non standard widget init would break the ajax on the mini calendar
+* Added feature to scroll to first event of week on week view, instead of to 8am
+* Fixed a bug in chrome were the browser back button would drop category when used
 * Added admin message when a recurring event extends beyond the cutoff date
 * Incorporated new Bulgarian translation files, courtesy of Nedko Ivanov
 * Incorporated new Chinese translation files, courtesy of Massound Huang
