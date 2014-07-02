@@ -320,6 +320,9 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Fixed some JS/CSS minification issues
 * Fixed an issue where the "Hide From Event Listings" checkbox was not hiding events from Month view
 * Incorporated updated Greek translation files, courtesy of Yannis Troullinos
+* Added the ability to override the labels & slugs for Venues/Organizers
+* Fixed an issue where the plugin wasn't correctly outputting the class names to body_class() for custom page templates
+* Added promotional blurb to plugin footer
 
 = 3.6 =
 
