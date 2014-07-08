@@ -78,9 +78,8 @@ if( class_exists( 'TribeEvents' ) ) {
 	 * @category Event Functions
 	 */
 	function tribe_delete_event($postId, $force_delete = false) {
-		$success = TribeEventsAPI::deleteEvent($postId, $args);
+		$success = TribeEventsAPI::deleteEvent($postId, $force_delete);
 		return $success;
 	}
 
 }
-?>
