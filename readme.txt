@@ -311,6 +311,7 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 = 3.7. =
 
 * Added date validation to each views ajax query. No invalid dates allowed through.
+* Fixed PHP notice when calling tribe_delete_events, courtesy of studiotenfour
 * Incorporated new Bulgarian translation files, courtesy of Nedko Ivanov
 * Incorporated new Chinese translation files, courtesy of Massound Huang
 * Incorporated new Indonesian translation files, courtesy of Didik Priyanto
