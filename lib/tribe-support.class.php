@@ -31,12 +31,12 @@ if ( ! class_exists( 'TribeEventsSupport' ) ) {
 			$keys = apply_filters( 'tribe-pue-install-keys', array() );
 			if ( empty( $keys ) ) return;
 
-			$system_text[] = '<p>' . __( "Sometimes it's hard to tell what's going wrong without knowing more about your system steup. For your convenience, we've put together a little report on what's cooking under the hood.", 'tribe-events-calendar-pro' ) . '</p>';
-			$system_text[] = '<p>' . __( "If you suspect that the problem you're having is related to another plugin, or we're just plain having trouble reproducing your bug report, please copy and send all of this to our support team.", 'tribe-events-calendar-pro' ) . '</p>';
+			$system_text[] = '<p>' . __( "Sometimes it's hard to tell what's going wrong without knowing more about your system steup. For your convenience, we've put together a little report on what's cooking under the hood.", 'tribe-events-calendar' ) . '</p>';
+			$system_text[] = '<p>' . __( "If you suspect that the problem you're having is related to another plugin, or we're just plain having trouble reproducing your bug report, please copy and send all of this to our support team.", 'tribe-events-calendar' ) . '</p>';
 			$system_text   = implode( $system_text );
 			?>
 
-			<h3><?php _e( 'System Information', 'tribe-events-calendar-pro' ); ?></h3>
+			<h3><?php _e( 'System Information', 'tribe-events-calendar' ); ?></h3>
 			<?php
 			echo( apply_filters( 'tribe_help_tab_system', $system_text ) );
 			echo self::formattedSupportStats();
