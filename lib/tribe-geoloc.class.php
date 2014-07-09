@@ -514,8 +514,6 @@ class TribeEventsGeoLoc {
 		TribeEventsQuery::init();
 
 		$defaults = array( 'post_type'      => TribeEvents::POSTTYPE,
-		                   'orderby'        => 'event_date',
-		                   'order'          => 'ASC',
 		                   'posts_per_page' => tribe_get_option( 'postsPerPage', 10 ),
 		                   'paged'          => $tribe_paged,
 		                   'post_status'    => array( 'publish' ),
@@ -539,7 +537,7 @@ class TribeEventsGeoLoc {
 			$lat = isset( $_POST['tribe-bar-geoloc-lat'] ) ? $_POST['tribe-bar-geoloc-lat'] : 0;
 			$lng = isset( $_POST['tribe-bar-geoloc-lng'] ) ? $_POST['tribe-bar-geoloc-lng'] : 0;
 
-			$this->order_posts_by_distance( $query->posts, $lat, $lng );
+			$this->assign_distance_to_posts( $query->posts, $lat, $lng );
 		}
 		elseif ( ! $have_events && isset($_POST['tribe-bar-geoloc']) ) {
 			TribeEvents::setNotice( 'event-search-no-results', sprintf( __( 'No results were found for events in or near <strong>"%s"</strong>.', 'tribe-events-calendar-pro' ), esc_html($_POST['tribe-bar-geoloc']) ) );
@@ -600,7 +598,7 @@ class TribeEventsGeoLoc {
 	 * @param $lat_from
 	 * @param $lng_from
 	 */
-	private function order_posts_by_distance( &$posts, $lat_from, $lng_from ) {
+	private function assign_distance_to_posts( &$posts, $lat_from, $lng_from ) {
 
 		// add distances
 		for ( $i = 0; $i < count( $posts ); $i ++ ) {
@@ -609,66 +607,7 @@ class TribeEventsGeoLoc {
 			$posts[$i]->distance = $this->get_distance_between_coords( $lat_from, $lng_from, $posts[$i]->lat, $posts[$i]->lng );
 		}
 
-		//sort
-		$this->quickSort( $posts );
-
 		//no return, $posts passed by ref
-	}
-
-	/**
-	 * QuickSort Implementation and benchmark from: http://stackoverflow.com/questions/1462503/sort-array-by-object-property-in-php
-	 *
-	 * @param $array
-	 */
-	private function quickSort( &$array ) {
-		$cur           = 1;
-		$stack[1]['l'] = 0;
-		$stack[1]['r'] = count( $array ) - 1;
-
-		do {
-			$l = $stack[$cur]['l'];
-			$r = $stack[$cur]['r'];
-			$cur --;
-
-			do {
-				$i   = $l;
-				$j   = $r;
-				$tmp = $array[(int) ( ( $l + $r ) / 2 )];
-
-				do {
-					/* Divide... */
-					while ( $array[$i]->distance < $tmp->distance ) {
-						$i ++;
-					}
-
-					while ( $tmp->distance < $array[$j]->distance ) {
-						$j --;
-					}
-
-					/* ...and conquer! */
-					if ( $i <= $j ) {
-						$w         = $array[$i];
-						$array[$i] = $array[$j];
-						$array[$j] = $w;
-
-						$i ++;
-						$j --;
-					}
-
-				} while ( $i <= $j );
-
-				if ( $i < $r ) {
-					$cur ++;
-					$stack[$cur]['l'] = $i;
-					$stack[$cur]['r'] = $r;
-				}
-				$r = $j;
-
-			} while ( $l < $r );
-
-		} while ( $cur != 0 );
-
-
 	}
 
 	/**
