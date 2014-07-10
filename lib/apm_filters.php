@@ -207,13 +207,16 @@ class Tribe_Recur_Filter {
 	protected $type = 'recur';
 	protected $meta = '_EventRecurrence';
 
-	protected $opts = array(
-		'is' => 'Yes',
-		'not' => 'No'
-	);
+	protected $opts;
 	protected $not_recur = 's:4:"type";s:4:"None";';
 	
 	public function __construct() {
+
+		$this->opts = array(
+			'is'  => __( 'Yes', 'tribe-events-calendar-pro' ),
+			'not' => __( 'No', 'tribe-events-calendar-pro' )
+		);
+
 		$type = $this->type;
 		add_filter( 'tribe_custom_row'.$type, array($this, 'form_row'), 10, 4 );
 		add_filter( 'tribe_maybe_active'.$type, array($this, 'maybe_set_active'), 10, 3 );
