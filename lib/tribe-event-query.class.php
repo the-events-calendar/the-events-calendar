@@ -219,7 +219,8 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 					case 'day':
 						$event_date = $query->get('eventDate') != '' ? $query->get('eventDate') : Date('Y-m-d', current_time('timestamp'));
 						$query->set( 'eventDate', $event_date );
-						$query->set( 'start_date', tribe_event_beginning_of_day( $event_date ) );
+						$beginning_of_day = strtotime( tribe_event_beginning_of_day( $event_date ) ) + 1;
+						$query->set( 'start_date', date_i18n( TribeDateUtils::DBDATETIMEFORMAT, $beginning_of_day ) );
 						$query->set( 'end_date', tribe_event_end_of_day( $event_date ) );
 						$query->set( 'posts_per_page', -1 ); // show ALL day posts
 						$query->set( 'hide_upcoming', false );
@@ -752,8 +753,8 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 						}
 						for ( $i = 0, $date = $start_date; $i <= $days; $i++, $date->modify( '+1 day' ) ) {
 							$formatted_date = $date->format( 'Y-m-d' );
-							$start_of_day = strtotime( tribe_event_beginning_of_day( $formatted_date ) );
-							$end_of_day = strtotime( tribe_event_end_of_day( $formatted_date ) );
+							$start_of_day = strtotime( tribe_event_beginning_of_day( $formatted_date ) ) + 1;
+							$end_of_day = strtotime( tribe_event_end_of_day( $formatted_date ) ) + 1;
 							$count = 0;
 							$_day_event_ids = array();
 							foreach ( $raw_counts as $record ) {
@@ -763,15 +764,11 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 									// event starts on this day (event start time is between start and end of day)
 									// event ends on this day (event end time is between start and end of day)
 									// event starts before start of day and ends after end of day (spans across this day)
-								if (
-									// event starts today
-									( $record_start >= $start_of_day && $record_start <= $end_of_day ) 
-									   // event ends today
-									|| ( $record_end >= $start_of_day && $record_end <= $end_of_day )
-									   // event spans across today
-									|| ( $record_start <= $start_of_day && $record_end >= $end_of_day )
+								$event_starts_today       = $record_start >= $start_of_day && $record_start < $end_of_day;
+								$event_ends_today         = $record_end >= $start_of_day && $record_end < $end_of_day;
+								$event_spans_across_today = $record_start <= $start_of_day && $record_end > $end_of_day;
 
-									) {
+								if ($event_starts_today ||  $event_ends_today || $event_spans_across_today ) {
 									if ( isset( $term->term_id ) ) {
 										if ( ! has_term( $term, TribeEvents::TAXONOMY, $record->ID ) ) {
 											continue;

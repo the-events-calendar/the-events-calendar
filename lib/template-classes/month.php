@@ -137,7 +137,7 @@ if( !class_exists('Tribe_Events_Month_Template')){
 			$count_args['eventDisplay'] = 'month';
 			$count_args['eventDate'] = date( 'Y-m', strtotime( $date ) );
 			$count_args['start_date'] = tribe_event_beginning_of_day( $date );
-			$count_args['end_date'] = tribe_event_end_of_day( date('Y-m-t', strtotime( $date ) ) );
+			$count_args['end_date'] = tribe_event_end_of_day( date('Y-m-t', strtotime( $date ) + 1 ) );
 			$count_args['hide_upcoming_ids'] = self::$hide_upcoming_ids;
 			$count_args['post_status'] = is_user_logged_in() ? array( 'publish', 'private' ) : 'publish';
 			$count_args['tribeHideRecurrence'] = false;
