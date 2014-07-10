@@ -41,7 +41,7 @@ if( class_exists( 'TribeEvents' ) ) {
 	 * @return string
 	 */
 	function tribe_get_organizer_label_singular() {
-		return apply_filters( 'tribe_organizer_label_singular', 'Organizer' );
+		return apply_filters( 'tribe_organizer_label_singular', __( 'Organizer', 'tribe-events-calendar' ) );
 	}
 
 	/**
@@ -52,7 +52,7 @@ if( class_exists( 'TribeEvents' ) ) {
 	 * @return string
 	 */
 	function tribe_get_organizer_label_plural() {
-		return apply_filters( 'tribe_organizer_label_plural', 'Organizers' );
+		return apply_filters( 'tribe_organizer_label_plural', __( 'Organizers', 'tribe-events-calendar' ) );
 	}
 
 	/**

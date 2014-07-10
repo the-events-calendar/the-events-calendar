@@ -35,7 +35,7 @@ if( class_exists( 'TribeEvents' ) ) {
 	 * @return string
 	 */
 	function tribe_get_venue_label_singular() {
-		return apply_filters( 'tribe_venue_label_singular', 'Venue' );
+		return apply_filters( 'tribe_venue_label_singular', __( 'Venue', 'tribe-events-calendar' ) );
 	}
 
 	/**
@@ -46,7 +46,7 @@ if( class_exists( 'TribeEvents' ) ) {
 	 * @return string
 	 */
 	function tribe_get_venue_label_plural() {
-		return apply_filters( 'tribe_venue_label_plural', 'Venues' );
+		return apply_filters( 'tribe_venue_label_plural', __( 'Venues', 'tribe-events-calendar' ) );
 	}
 
 	/**

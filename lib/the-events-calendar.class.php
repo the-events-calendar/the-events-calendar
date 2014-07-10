@@ -499,7 +499,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 * @return string
 		 */
 		public function get_venue_label_plural() {
-			return apply_filters( 'tribe_venue_label_plural', 'Venues' );
+			return apply_filters( 'tribe_venue_label_plural', __( 'Venues', 'tribe-events-calendar' ) );
 		}
 
 		/**
@@ -507,9 +507,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 * @return string
 		 */
 		public function get_venue_label_singular() {
-			$single_label = apply_filters( 'tribe_venue_label_singular', 'Venue' );
-
-			return $single_label;
+			return apply_filters( 'tribe_venue_label_singular', __( 'Venue', 'tribe-events-calendar' ) );
 		}
 
 		/**
@@ -517,7 +515,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 * @return string
 		 */
 		public function get_organizer_label_plural() {
-			return apply_filters( 'tribe_organizer_label_plural', 'Organizers' );
+			return apply_filters( 'tribe_organizer_label_plural', __( 'Organizers', 'tribe-events-calendar' ) );
 		}
 
 		/**
@@ -525,9 +523,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 		 * @return string
 		 */
 		public function get_organizer_label_singular() {
-			$single_label = apply_filters( 'tribe_organizer_label_singular', 'Organizer' );
-
-			return $single_label;
+			return apply_filters( 'tribe_organizer_label_singular', __( 'Organizer', 'tribe-events-calendar' ) );
 		}
 
 		/**
