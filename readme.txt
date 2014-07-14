@@ -228,6 +228,13 @@ Our Premium Plugins:
 * Incorporated new Chinese translation files, courtesy of Massound Huang
 * Incorporated new Indonesian translation files, courtesy of Didik Priyanto
 * Added the ability to override the labels & slugs for Venues/Organizers
+* Cleaned up PHPDoc comments
+* Fixed issue where lat/long values weren't being stored in the database as strings
+* Ensured lat/long values had European format commas converted to decimal points before sending to Google Maps API
+* Fixed issue where Week view was being affected by "show only first recurrence" settings
+* Added "Ongoing" header to day view to designate multi-day events which span across the day being viewed
+* Fixed some untranslated strings
+* Events are now ordered by date on Map view
 
 = 3.6.1 =
 
