@@ -318,6 +318,9 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Added the ability to override the labels & slugs for Venues/Organizers with the following new filters: tribe_venue_label_singular, tribe_venue_label_plural, tribe_organizer_label_singular, tribe_organizer_label_plural
 * Fixed an issue where the plugin wasn't correctly outputting the class names to body_class() for custom page templates
 * Added promotional blurb to plugin footer
+* Cleaned up PHPDoc comments and some unused code
+* Fixed incorrect ordering of events on Day view
+* Fixed some untranslated strings
 
 = 3.6.1 =
 
