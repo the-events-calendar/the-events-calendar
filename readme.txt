@@ -235,6 +235,7 @@ Our Premium Plugins:
 * Added "Ongoing" header to day view to designate multi-day events which span across the day being viewed
 * Fixed some untranslated strings
 * Events are now ordered by date on Map view
+* Added event classes to the event titles in the venue widget (props @afragen)
 
 = 3.6.1 =
 
