@@ -753,8 +753,8 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 						}
 						for ( $i = 0, $date = $start_date; $i <= $days; $i++, $date->modify( '+1 day' ) ) {
 							$formatted_date = $date->format( 'Y-m-d' );
-							$start_of_day = strtotime( tribe_event_beginning_of_day( $formatted_date ) ) + 1;
-							$end_of_day = strtotime( tribe_event_end_of_day( $formatted_date ) ) + 1;
+							$start_of_day   = strtotime( tribe_event_beginning_of_day( $formatted_date ) );
+							$end_of_day     = strtotime( tribe_event_end_of_day( $formatted_date ) ) + 1;
 							$count = 0;
 							$_day_event_ids = array();
 							foreach ( $raw_counts as $record ) {
@@ -764,11 +764,15 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 									// event starts on this day (event start time is between start and end of day)
 									// event ends on this day (event end time is between start and end of day)
 									// event starts before start of day and ends after end of day (spans across this day)
-								$event_starts_today       = $record_start >= $start_of_day && $record_start < $end_of_day;
-								$event_ends_today         = $record_end >= $start_of_day && $record_end < $end_of_day;
-								$event_spans_across_today = $record_start <= $start_of_day && $record_end > $end_of_day;
+									// note:
+										// events that start exactly on the EOD cutoff will count on the following day
+										// events that end exactly on the EOD cutoff will count on the previous day
 
-								if ($event_starts_today ||  $event_ends_today || $event_spans_across_today ) {
+								$event_starts_today       = $record_start >= $start_of_day && $record_start < $end_of_day;
+								$event_ends_today         = $record_end > $start_of_day && $record_end <= $end_of_day;
+								$event_spans_across_today = $record_start < $start_of_day && $record_end > $end_of_day;
+
+								if ( $event_starts_today || $event_ends_today || $event_spans_across_today ) {
 									if ( isset( $term->term_id ) ) {
 										if ( ! has_term( $term, TribeEvents::TAXONOMY, $record->ID ) ) {
 											continue;
@@ -777,7 +781,7 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 									if ( count( $_day_event_ids ) < apply_filters( 'tribe_events_month_day_limit', tribe_get_option( 'monthEventAmount', '3' ) ) ) {
 										$_day_event_ids[] = $record->ID;
 									}
-									$count++;
+									$count ++;
 								}
 							}
 							$event_ids[ $formatted_date ] = $_day_event_ids;
