@@ -1,6 +1,6 @@
 === The Events Calendar ===
 
-Contributors:  ModernTribe, roblagatta, faction23, caseypatrickdriscoll, jazbek, jbrinley, leahkoerper, brook-tribe, ckpicker, barry.hughes, neillmcshea, peterchester, reid.peifer, shane.pearlman
+Contributors:  ModernTribe, roblagatta, faction23, caseypatrickdriscoll, jazbek, jbrinley, leahkoerper, brook-tribe, ckpicker, barry.hughes, neillmcshea, peterchester, ryancurban, reid.peifer, shane.pearlman
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
 Donate link: http://m.tri.be/29
 Requires at least: 3.7
@@ -12,6 +12,10 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 The Events Calendar is a carefully crafted, extensible plugin that lets you easily share your events. Beautiful. Solid. Awesome.
 
 == Description ==
+
+><strong>A note about support:</strong> We’re here to help troubleshoot bugs, but should set expectations early that the support forums at WordPress.org are only checked once a week. Please read our <a href=“http://wordpress.org/support/topic/welcome-the-events-calendar-users-read-this-first?replies=3”>sticky post</a> before creating a new thread. 
+>
+> Users looking for more timely/in-depth support are encouraged to check out <a href="http://m.tri.be/mj" target="_blank" title="[new window]">Events Calendar PRO</a>.
 
 Create and manage events with ease. Get professional-level quality and features backed by a team you can trust. The Events Calendar will help you kick ass.
 
@@ -26,6 +30,8 @@ The Events Calendar has been audited by many of the industry's WordPress experts
 We've poured hundreds of hours into QA by a dedicated support team, monthly usability tests to guarantee that it's easy to use, and numerous user interviews to make sure you get what you want. We care about quality and crafting products that thrive in the wild.
 
 The team at Modern Tribe stands by our work and offers light support every Wednesday to the community via the WordPress.org support forums. Feel free to ask a question if you're having a problem with implementation or if you find bugs. Looking for help NOW or need a deeper level of support? Add the <a href="http://m.tri.be/2c">premium add-on plugin</a> and you get access to premium support forums with under 24hr response times on weekdays.
+
+Enjoy using The Events Calendar, know how to get under the hood, and want to make money helping people? We're growing our community team. <a href=“http://m.tri.be/mk”>Check it out!</a>
 
 = PLUG-N-PLAY & HIGHLY CUSTOMIZABLE =
 
