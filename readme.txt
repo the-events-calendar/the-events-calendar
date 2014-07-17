@@ -236,6 +236,14 @@ Our Premium Plugins:
 * Fixed some untranslated strings
 * Events are now ordered by date on Map view
 * Added event classes to the event titles in the venue widget (props @afragen)
+* Fixed problem where the relationship between additional fields and their labels could break down (thanks to Alex/integrity for highlighting this)
+* Changed the behaviour of week view pagination so as not to link to weeks before/after the earliest/latest events
+* Altered week view so that it does not link to days which do not contain events
+* Improved the labelling of the iCal export button
+* Fixed a bug relating to the APM start date filter (thanks to dankron for highlighting this issue)
+* Improved the labelling of the date format options
+* Changed the behaviour of the countdown widget to help avoid potential issues with high memory usage
+
 
 = 3.6.1 =
 
