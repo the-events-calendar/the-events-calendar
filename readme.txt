@@ -5,7 +5,7 @@ Tags: events, calendar, event, venue, organizer, dates, date, google maps, confe
 Donate link: http://m.tri.be/29
 Requires at least: 3.7
 Tested up to: 3.9.1
-Stable tag: 3.6.1
+Stable tag: 3.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -220,29 +220,27 @@ Our Premium Plugins:
 
 = 3.7 =
 
-* Fixed issue were non standard widget init would break the ajax on the mini calendar
-* Added feature to scroll to first event of week on week view, instead of to 8am
-* Fixed a bug in chrome were the browser back button would drop category when used
-* Added admin message when a recurring event extends beyond the cutoff date
+* Fixed some untranslatable text strings
+* Altered Week View so so as not to link to days with no events
+* Added the ability to override labels and slugs for venues and organizers
+* Fixed an issue where non-standard widget implementation would break the ajax on the Calendar Widget (thanks to whirlmagazine on the forums for reporting this!)
+* Added feature to scroll to first event of week on week view, instead of to 8am (thank you chaplin35 for bringing this up!)
+* Optimized the Countdown Widget for sites with many events (thanks to vancouverfamily for highlighting this issue!)
+* Fixed a problem where the relationship between additional fields and their labels could lead to conflicts (thank you to integrity for bringing this to our attention!)
+* Added a notification for when a recurring event extends beyond the cutoff setting date
+* Corrected a problem where European format commas for geolocation values were causing problems with Google Maps (thanks to andreassperber for reporting this!)
+* Fixed an issue where Week View was being effected by "show only first recurrence" settings (thank you magictigger for bringing this up on the forum!)
+* Improved the labeling of the date format settings
+* Fixed a bug related to the APM start date filter (thanks to dankron for highlighting this issue!)
+* Cleaned up PHPDoc comments
+* Corrected a problem where events were not ordered chronologically on Map View (thank you mggillespie for reporting this!)
+* Removed 2.x templates from codebase
+* Added event classes to the event titles in the Featured Venue widget (props to @afragen for this!)
+* Changed Week View pagination so as not to link to weeks before/after the earliest/latest events
+* Fixed a bug in Chrome with Photo View where using the browser back button would drop a selected category (thank you to blinktech in the forum for bringing this up!)
 * Incorporated new Bulgarian translation files, courtesy of Nedko Ivanov
 * Incorporated new Chinese translation files, courtesy of Massound Huang
 * Incorporated new Indonesian translation files, courtesy of Didik Priyanto
-* Added the ability to override the labels & slugs for Venues/Organizers
-* Cleaned up PHPDoc comments
-* Fixed issue where lat/long values weren't being stored in the database as strings
-* Ensured lat/long values had European format commas converted to decimal points before sending to Google Maps API
-* Fixed issue where Week view was being affected by "show only first recurrence" settings
-* Added "Ongoing" header to day view to designate multi-day events which span across the day being viewed
-* Fixed some untranslated strings
-* Events are now ordered by date on Map view
-* Added event classes to the event titles in the venue widget (props @afragen)
-* Fixed problem where the relationship between additional fields and their labels could break down (thanks to Alex/integrity for highlighting this)
-* Changed the behaviour of week view pagination so as not to link to weeks before/after the earliest/latest events
-* Altered week view so that it does not link to days which do not contain events
-* Improved the labelling of the iCal export button
-* Fixed a bug relating to the APM start date filter (thanks to dankron for highlighting this issue)
-* Improved the labelling of the date format options
-* Changed the behaviour of the countdown widget to help avoid potential issues with high memory usage
 
 
 = 3.6.1 =
