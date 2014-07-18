@@ -331,6 +331,7 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Improved behaviour of the end-of-day cutoff setting, particularly in month view
 * Fixed an issue where subscriber level users could see the events menu item
 * Enhanced the system info dump by including server and WP timezone data
+* Simplified and cleaned up the code in the nav template for list view
 
 = 3.6.1 =
 
