@@ -287,8 +287,14 @@ if ( ! class_exists( 'TribeEventsTickets' ) ) {
 
 			$ticket->provider_class = $this->className;
 
+			// Allow plugins to hook in before the ticket is saved by the ticket provider
+			do_action('tribe_events_single_ticket_before_save', $post_id, $ticket, $data);
+
 			// Pass the control to the child object
 			$return = $this->save_ticket( $post_id, $ticket, $data );
+
+			// Allow plugins to hook in after the ticket is saved by the ticket provider
+			do_action('tribe_events_single_ticket_after_save', $post_id, $ticket, $data);
 
 			// If saved OK, let's create a tickets list markup to return
 			if ( $return ) {
@@ -398,7 +404,23 @@ if ( ! class_exists( 'TribeEventsTickets' ) ) {
 			$return = get_object_vars( $this->get_ticket( $post_id, $ticket_id ) );
 
 			ob_start();
+
+			/**
+			 * Allow for plugins to insert provider-agnostic ticket
+			 * meta before the ticket provider fills in with
+			 * its own.
+			 */
+            do_action('tribe_events_single_ticket_metabox_advanced_options_before', $post_id, $ticket_id );
+
 			$this->do_metabox_advanced_options( $post_id, $ticket_id );
+
+			/**
+			 * Allow for plugins to insert provider-agnostic ticket
+			 * meta after the ticket provider fills in with
+			 * its own.
+			 */
+            do_action('tribe_events_single_ticket_metabox_advanced_options_after', $post_id, $ticket_id );
+
 			$extra = ob_get_contents();
 			ob_end_clean();
 

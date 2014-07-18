@@ -380,6 +380,12 @@
 				</tr>
 			</table>
 			<?php
+
+                /**
+                 * Allows for plugin developers to attach content to the bottom of the email
+                 * on a per-ticket basis
+                 */
+                do_action('tribe_tickets_ticket_email_single_ticket_bottom', $ticket);
 		}
 		?>
 
