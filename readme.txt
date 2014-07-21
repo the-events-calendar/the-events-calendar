@@ -223,6 +223,7 @@ Our Premium Plugins:
 * Fixed some untranslatable text strings
 * Altered Week View so so as not to link to days with no events
 * Added the ability to override labels and slugs for venues and organizers
+* Fixed some issues with GET params and IE 8/9
 * Fixed an issue where non-standard widget implementation would break the ajax on the Calendar Widget (thanks to whirlmagazine on the forums for reporting this!)
 * Added feature to scroll to first event of week on week view, instead of to 8am (thank you chaplin35 for bringing this up!)
 * Optimized the Countdown Widget for sites with many events (thanks to vancouverfamily for highlighting this issue!)
