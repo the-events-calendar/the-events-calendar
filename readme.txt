@@ -322,6 +322,7 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Incorporated new Chinese translation files, courtesy of Massound Huang
 * Incorporated new Indonesian translation files, courtesy of Didik Priyanto
 * Added the ability to override the labels & slugs for Venues/Organizers with the following new filters: tribe_venue_label_singular, tribe_venue_label_plural, tribe_organizer_label_singular, tribe_organizer_label_plural
+* Fixed some issues with GET params and IE 8/9
 * Fixed an issue where the plugin wasn't correctly outputting the class names to body_class() for custom page templates
 * Added promotional blurb to plugin footer
 * Cleaned up PHPDoc comments and some unused code
