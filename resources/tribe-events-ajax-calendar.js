@@ -19,10 +19,14 @@
 	$(document).ready(function () {
 
 		var $body = $('body'),
-			base_url = $('[class^="tribe-events-nav-"] a').first().attr('href').slice(0, -8),
+            $nav_link = $('[class^="tribe-events-nav-"] a'),
+			base_url = '/',
 			initial_date = tf.get_url_param('tribe-bar-date'),
 			$tribedate = $('#tribe-bar-date'),
 			date_mod = false;
+
+        if($nav_link.length)
+            base_url = $nav_link.first().attr('href').slice(0, -8);
 
 		if ($('.tribe-events-calendar').length && $('#tribe-events-bar').length) {
 			if (initial_date && initial_date.length > 7){

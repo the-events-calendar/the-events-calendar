@@ -18,7 +18,11 @@
 
 	$(document).ready(function () {
 
-		var base_url = $('[class^="tribe-events-nav-"] a').first().attr('href').slice(0, -11);
+		var $nav_link = $('[class^="tribe-events-nav-"] a'),
+            base_url = '/';
+
+        if($nav_link.length)
+            base_url = $nav_link.first().attr('href').slice(0, -11);
 
 		if (ts.filter_cats)
 			base_url = $('#tribe-events-header').data('baseurl').slice(0, -11);
