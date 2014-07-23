@@ -19,7 +19,7 @@
 	$(document).ready(function () {
 
 		var $body = $('body'),
-			base_url = $('#tribe-events-header .tribe-events-nav-next a').attr('href').slice(0, -8),
+			base_url = $('[class^="tribe-events-nav-"] a').first().attr('href').slice(0, -8),
 			initial_date = tf.get_url_param('tribe-bar-date'),
 			$tribedate = $('#tribe-bar-date'),
 			date_mod = false;

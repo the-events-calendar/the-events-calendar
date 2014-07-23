@@ -18,7 +18,7 @@
 
 	$(document).ready(function () {
 
-		var base_url = $('#tribe-events-footer .tribe-events-nav-next a').attr('href').slice(0, -11);
+		var base_url = $('[class^="tribe-events-nav-"] a').first().attr('href').slice(0, -11);
 
 		if (ts.filter_cats)
 			base_url = $('#tribe-events-header').data('baseurl').slice(0, -11);
