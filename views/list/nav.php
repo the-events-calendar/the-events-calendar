@@ -23,7 +23,9 @@ if ( !defined('ABSPATH') ) { die('-1'); } ?>
 	<?php endif; ?>
 
 	<!-- Right Navigation -->
+	<?php if ( tribe_has_next_event() ) : ?>
 	<li class="<?php echo tribe_right_navigation_classes(); ?>">
 		<a href="<?php echo tribe_get_next_events_link() ?>" rel="next"><?php _e( 'Next Events <span>&raquo;</span>', 'tribe-events-calendar' ) ?></a>
 	</li><!-- .tribe-events-nav-right -->
+	<?php endif; ?>
 </ul>

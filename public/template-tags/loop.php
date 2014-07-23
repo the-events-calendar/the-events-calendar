@@ -172,17 +172,19 @@ if( class_exists( 'TribeEvents' ) ) {
 		$previous_event = false;
 
 		if ( tribe_is_event_query() ) {
-			// Reverse the current event query to look for past events
-			$args = (array) $wp_query->query;
-			$args['eventDisplay'] = 'past';
-			$args['posts_per_page'] = 1;
+			// Edit the current event query to look for an upcoming event
+			$args                   = (array) $wp_query->query;
+			$args['eventDisplay']   = 'past';
+
+			if ( tribe_is_past() ) {
+				$args['paged']          = $wp_query->query_vars['paged'] ? $wp_query->query_vars['paged'] + 1 : 2;
+			} else {
+				$args['paged']          = $wp_query->query_vars['paged'] ? $wp_query->query_vars['paged'] - 1 : 0;
+			}
 
 			$events = tribe_get_events( $args );
-			if ( count( $events ) > 0 && $return == 'event' ) {
-				$previous_event = $events[0];
-			} else {
-				$previous_event = count( $events ) > 0;
-			}
+
+			$previous_event = count( $events ) > 0;
 
 		}
 
@@ -191,24 +193,38 @@ if( class_exists( 'TribeEvents' ) ) {
 	}
 
 	/**
-	 * Is the previous event in the past
+	 * Are there any events next (in the future) to the current events in $wp_query
 	 *
-	 * @see tribe_has_previous_event()
+	 * @param string $return what to return, 'bool' or 'event'
+	 *
+	 * @return mixed
 	 */
-	function tribe_is_previous_event_past() {
+	function tribe_has_next_event( $return = 'bool' ) {
+		global $wp_query;
+		$next_event = false;
 
-		$is_past_event = false;
-		$previous_event = tribe_has_previous_event( 'event' );
+		if ( tribe_is_event_query() && ! empty( $wp_query->posts ) ) {
 
-		if ( ! empty( $previous_event ) ) {
-			$previous_event_end_time = strtotime( tribe_get_end_date( $previous_event ) );
-			if ( $previous_event_end_time < time() ) {
-				$is_past_event = true;
+			// Edit the current event query to look for an upcoming event
+			$args                   = (array) $wp_query->query;
+			$args['eventDisplay']   = 'upcoming';
+
+			if ( tribe_is_past() ) {
+				$args['paged']          = $wp_query->query_vars['paged'] ? $wp_query->query_vars['paged'] - 1 : 0;
+			} else {
+				$args['paged']          = $wp_query->query_vars['paged'] ? $wp_query->query_vars['paged'] + 1 : 2;
 			}
+
+			$events = tribe_get_events( $args );
+
+			$next_event = count( $events ) > 0;
+
 		}
 
-		return apply_filters( 'tribe_is_previous_event_past', $is_past_event, $previous_event );
+		// @todo 'tribe_has_past_events' filter is @deprecated as of 3.7
+		return apply_filters( 'tribe_has_next_event', apply_filters('tribe_has_next_events', $next_event ) );
 	}
+
 
 	/**
 	 * Link to Past Events

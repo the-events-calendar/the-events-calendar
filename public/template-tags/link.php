@@ -67,11 +67,11 @@ if( class_exists( 'TribeEvents' ) ) {
 
 		$link = '';
 
-		// if the previous event is in the past, get the "past" link
-		if ( tribe_is_previous_event_past() ) {
-			$link = tribe_get_past_link();
-		} else {
+		if ( tribe_is_upcoming() &&  ( ! empty ( $_REQUEST['tribe_paged'] ) && $_REQUEST['tribe_paged'] > 1 ) ) {
+			// if we're more than one page into the future, the previous link will be in the future as well
 			$link = tribe_get_upcoming_link();
+		} else {
+			$link = tribe_get_past_link();
 		}
 
 		return apply_filters( 'tribe_get_previous_events_link', $link );
@@ -86,7 +86,7 @@ if( class_exists( 'TribeEvents' ) ) {
 
 		$link = '';
 
-		if ( tribe_is_past() &&  ( ! empty ( $_GET['tribe_paged'] ) && $_GET['tribe_paged'] > 1 ) ) {
+		if ( tribe_is_past() &&  ( ! empty ( $_REQUEST['tribe_paged'] ) && $_REQUEST['tribe_paged'] > 1 ) ) {
 			// if we're more than one page into the past, the next link will be in the past as well
 			$link = tribe_get_past_link();
 		} else {
