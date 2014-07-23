@@ -41,6 +41,11 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 				$query->set( 'post_type', 'any' );
 			}
 
+			// set paged
+			if ( $query->is_main_query() && isset( $_GET['tribe_paged'] ) ) {
+				$query->set( 'paged', $_REQUEST['tribe_paged'] );
+			}
+
 			// Add tribe events post type to tag queries
 			if ( $query->is_tag && (array) $query->get( 'post_type' ) != array( TribeEvents::POSTTYPE ) ) {
 				$types = $query->get( 'post_type' );
@@ -239,9 +244,7 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 					case 'upcoming':
 					case 'past' :
 					default: // default display query
-						$tribe_paged = ( ! empty( $_REQUEST['tribe_paged'] ) ) ? $_REQUEST['tribe_paged'] : $query->get('paged');
-						$query->set( 'paged', $tribe_paged );
-						$event_date = ( $query->get( 'eventDate' ) != '' ) 
+						$event_date = ( $query->get( 'eventDate' ) != '' )
 							? $query->get( 'eventDate' ) 
 						: date_i18n( TribeDateUtils::DBDATETIMEFORMAT );
 						if ( ! $query->tribe_is_past ) {
