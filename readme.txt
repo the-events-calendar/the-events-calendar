@@ -5,7 +5,7 @@ Tags: events, calendar, event, venue, organizer, dates, date, google maps, confe
 Donate link: http://m.tri.be/29
 Requires at least: 3.7
 Tested up to: 3.9.1
-Stable tag: 3.6.1
+Stable tag: 3.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -316,22 +316,26 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 
 = 3.7. =
 
-* Added date validation to each views ajax query. No invalid dates allowed through.
-* Fixed PHP notice when calling tribe_delete_events, courtesy of studiotenfour
 * Incorporated new Bulgarian translation files, courtesy of Nedko Ivanov
 * Incorporated new Chinese translation files, courtesy of Massound Huang
 * Incorporated new Indonesian translation files, courtesy of Didik Priyanto
-* Added the ability to override the labels & slugs for Venues/Organizers with the following new filters: tribe_venue_label_singular, tribe_venue_label_plural, tribe_organizer_label_singular, tribe_organizer_label_plural
-* Fixed an issue where the plugin wasn't correctly outputting the class names to body_class() for custom page templates
 * Added promotional blurb to plugin footer
+* Fixed some untranslatable strings
 * Cleaned up PHPDoc comments and some unused code
-* Fixed incorrect ordering of events on Day view
-* Fixed some untranslated strings
-* Improved compatibility when running side-by-side with older versions of Community Events
-* Improved behaviour of the end-of-day cutoff setting, particularly in month view
-* Fixed an issue where subscriber level users could see the events menu item
-* Enhanced the system info dump by including server and WP timezone data
-* Simplified and cleaned up the code in the nav template for list view
+* Fixed an issue where subscriber level users could see the Events admin menu item
+* Fixed an issue where the plugin wasn't correctly outputting the class names to body_class() for custom page templates
+* Improved behavior of the end-of-day cutoff setting, particularly in month view
+* Fixed incorrect ordering of events on Day view (thank you IbInra for reporting this!)
+* Simplified and cleaned up the code in the nav.php template for list view
+* Fixed the PHP notice when calling tribe_delete_events (thanks to studiotenfour for highlighting this!)
+* Added time zone data to the system information listed on the Help page
+* Added exporting to Google Calendar from calendar views (thanks to Memeco on Uservoice for this idea!)
+* Fixed some issues with GET params and IE 8/9 (thank you irishrunner16 for bringing this to our attention!)
+* Added the ability to override labels and slugs for venues/organizers
+* Fixed an issue where manual dates in the Event Bar did not cooperate with AJAX
+* Fixed an issue where all day events were showing on multiple days
+* Corrected an issue with the start times of multi-day events
+* Resolved array to string conversion error (thanks to integrity on the forums!)
 
 = 3.6.1 =
 
