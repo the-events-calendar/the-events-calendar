@@ -4333,10 +4333,13 @@ if ( !class_exists( 'TribeEvents' ) ) {
 
 			$query = TribeEventsQuery::getEvents( $args, true );
 
+			// $hash is used to detect whether the primary arguments in the query have changed (i.e. due to a filter bar request)
+			// if they have, we want to go back to page 1
 			$hash = $query->query_vars;
 
 			$hash['paged']      = null;
 			$hash['start_date'] = null;
+			$hash['end_date']   = null;
 			$hash_str           = md5( maybe_serialize( $hash ) );
 
 			if ( !empty( $_POST['hash'] ) && $hash_str !== $_POST['hash'] ) {
