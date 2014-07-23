@@ -116,6 +116,7 @@ if( class_exists( 'TribeEvents' ) ) {
 	 *
 	 * @param string $term Optional event category to link to.
 	 * @return string URL
+	 * @todo rename
 	 */
 	function tribe_get_gridview_link($term = null)  {
 		$tribe_ecp = TribeEvents::instance();
