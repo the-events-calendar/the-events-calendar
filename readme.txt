@@ -336,6 +336,7 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Fixed an issue where all day events were showing on multiple days
 * Corrected an issue with the start times of multi-day events
 * Resolved array to string conversion error (thanks to integrity on the forums!)
+* Fixed a fatal JS error on calendar pages without navigation links
 
 = 3.6.1 =
 
