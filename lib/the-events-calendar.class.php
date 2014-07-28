@@ -384,11 +384,13 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			add_action( 'admin_menu', array( $this, 'addEventBox' ) );
 			add_action( 'wp_insert_post', array( $this, 'addPostOrigin' ), 10, 2 );
 			add_action( 'save_post_'.self::POSTTYPE, array( $this, 'addEventMeta' ), 15, 2 );
-			add_action( 'save_post', array( $this, 'update_earliest_latest' ), 20 );
+
 			add_action( 'save_post_'.self::VENUE_POST_TYPE, array( $this, 'save_venue_data' ), 16, 2 );
 			add_action( 'save_post_'.self::ORGANIZER_POST_TYPE, array( $this, 'save_organizer_data' ), 16, 2 );
 			add_action( 'save_post', array( $this, 'addToPostAuditTrail' ), 10, 2 );
-			add_action( 'publish_'.self::POSTTYPE, array( $this, 'publishAssociatedTypes'), 25, 2 );
+            add_action( 'save_post', array( $this, 'update_earliest_latest' ), 20 );
+            add_action( 'tribe_events_csv_import_complete', array( $this, 'rebuild_earliest_latest' ) );
+            add_action( 'publish_'.self::POSTTYPE, array( $this, 'publishAssociatedTypes'), 25, 2 );
 			add_action( 'delete_post', array( $this, 'maybe_rebuild_earliest_latest' ) );
 			add_action( 'parse_query', array( $this, 'setDisplay' ), 51, 0);
 			add_action( 'tribe_events_post_errors', array( 'TribeEventsPostException', 'displayMessage' ) );
@@ -2828,7 +2830,7 @@ if ( !class_exists( 'TribeEvents' ) ) {
 			if ( ! in_array( get_post_status( $post_id ), array( 'publish', 'private', 'protected' ) ) ) {
 				$this->rebuild_earliest_latest();
 				return;
-		}
+		    }
 
 			$current_min = tribe_events_earliest_date();
 			$current_max = tribe_events_latest_date();
