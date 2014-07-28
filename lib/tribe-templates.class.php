@@ -31,6 +31,11 @@ if (!class_exists('TribeEventsTemplates')) {
 		 */
 		protected static $original_post_title = false;
 
+		/**
+		 * The template name currently being used
+		 */
+		protected static $template = false;
+
 
 		/**
 		 * Initialize the Template Yumminess!
@@ -81,31 +86,42 @@ if (!class_exists('TribeEventsTemplates')) {
 			// add the theme slug to the body class
 			add_filter( 'body_class', array( __CLASS__, 'theme_body_class' ) );
 
+			// add the template name to the body class
+			add_filter( 'body_class', array( __CLASS__, 'template_body_class' ) );
+
 			// no non-events need apply
-			if ( ! in_array( get_query_var( 'post_type' ), array( TribeEvents::POSTTYPE, TribeEvents::VENUE_POST_TYPE, TribeEvents::ORGANIZER_POST_TYPE ) ) && ! is_tax( TribeEvents::TAXONOMY ) ) {
-				return $template;
-			}
+			// @todo check $wp_query->tribe_is_event_query instead?
+			if ( in_array( get_query_var( 'post_type' ), array( TribeEvents::POSTTYPE, TribeEvents::VENUE_POST_TYPE, TribeEvents::ORGANIZER_POST_TYPE ) ) || is_tax( TribeEvents::TAXONOMY ) ) {
 
-			if ( tribe_get_option( 'tribeEventsTemplate', 'default' ) == '' ) {
-				add_filter( 'body_class', array( __CLASS__, 'default_events_template_body_class' ) );
-				return self::getTemplateHierarchy( 'default-template' );
-			} else {
+				// user has selected a page/custom page template
+				if ( tribe_get_option( 'tribeEventsTemplate', 'default' ) != '' ) {
+					if ( ! is_single() || ! post_password_required() ) {
+						add_action( 'loop_start', array(__CLASS__, 'setup_ecp_template' ) );
+					}
 
-				if ( ! is_single() || ! post_password_required() ) {
-					add_action( 'loop_start', array(__CLASS__, 'setup_ecp_template' ) );
-				}
+					$template = locate_template( tribe_get_option( 'tribeEventsTemplate', 'default' ) == 'default' ? 'page.php' : tribe_get_option( 'tribeEventsTemplate', 'default' ) );
 
-				//Add page template class to body_class()
-				add_filter( 'body_class', array( __CLASS__, 'page_template_body_class' ) );
+					if ( $template ==  '' ) {
+						$template = get_index_template();
+					}
 
-				// remove singular body class if sidebar-page.php
-				if( $template == get_stylesheet_directory() . '/sidebar-page.php' ) {
-					add_filter( 'body_class', array( __CLASS__, 'remove_singular_body_class' ) );
+					// remove singular body class if sidebar-page.php
+					if( $template == get_stylesheet_directory() . '/sidebar-page.php' ) {
+						add_filter( 'body_class', array( __CLASS__, 'remove_singular_body_class' ) );
+					} else {
+						add_filter( 'body_class', array( __CLASS__, 'add_singular_body_class' ) );
+					}
+
 				} else {
-					add_filter( 'body_class', array( __CLASS__, 'add_singular_body_class' ) );
+
+					$template = self::getTemplateHierarchy( 'default-template' );
+					
 				}
-				return $template;
 			}
+
+			self::$template = $template;
+			return $template;
+
 		}
 
 		/**
@@ -131,31 +147,18 @@ if (!class_exists('TribeEventsTemplates')) {
 		 *
 		 * @return mixed
 		 */
-		public static function page_template_body_class( $classes ) {
-		
-			$template = locate_template( tribe_get_option( 'tribeEventsTemplate', 'default' ) == 'default' ? 'page.php' : tribe_get_option( 'tribeEventsTemplate', 'default' ) );
-			if ( $template ==  '' ) {
-				$template = get_index_template();
-			}	
-				
-			$template_filename = explode( '/', $template );
-			$template_filename = end( $template_filename );
-			
-			$classes[] = 'page-template-' . sanitize_title( $template_filename );
-			
+		public static function template_body_class( $classes ) {
+
+			$template_filename = basename( self::$template );
+
+			if ( $template_filename == 'default-template.php' ) {
+				$classes[] = 'tribe-events-page-template';
+			} else {
+				$classes[] = 'page-template-' . sanitize_title( $template_filename );
+			}
+
             return $classes;
         }
-
-		/**
-		 * add body class when default events template is used
-		 *
-		 * @return void
-		 **/
-		public static function default_events_template_body_class( $classes )
-		{
-			$classes[] = 'tribe-events-page-template';
-			return $classes;
-		}
 
 		/**
 		 * Remove "singular" from available body class
@@ -611,7 +614,6 @@ if (!class_exists('TribeEventsTemplates')) {
 					}
 				}
 			}
-
 			return apply_filters( 'tribe_events_template_'.$template, $file );
 		}
 
