@@ -937,6 +937,15 @@ div.tribe-countdown-text {
 	max-width: 100%;
 	height: auto;
 }
+
+.tribe-venue-widget-list .entry-title {
+	margin:0 0 5px;
+}
+
+.tribe-venue-widget-list .hentry {
+	margin-bottom:20px;
+}
+
 /* = Events Calendar Tribe Bar Styles
 =============================================*/
 .tribe-events-uses-geolocation .tribe-bar-date-filter,
