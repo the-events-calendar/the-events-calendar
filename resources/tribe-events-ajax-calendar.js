@@ -19,10 +19,14 @@
 	$(document).ready(function () {
 
 		var $body = $('body'),
-			base_url = $('#tribe-events-header .tribe-events-nav-next a').attr('href').slice(0, -8),
+            $nav_link = $('[class^="tribe-events-nav-"] a'),
+			base_url = '/',
 			initial_date = tf.get_url_param('tribe-bar-date'),
 			$tribedate = $('#tribe-bar-date'),
 			date_mod = false;
+
+        if($nav_link.length)
+            base_url = $nav_link.first().attr('href').slice(0, -8);
 
 		if ($('.tribe-events-calendar').length && $('#tribe-events-bar').length) {
 			if (initial_date && initial_date.length > 7){
@@ -281,7 +285,6 @@
 
 		/**
 		 * @function tribe_events_bar_calendar_ajax_actions
-		 * @since 3.0
 		 * @desc On events bar submit, this function collects the current state of the bar and sends it to the month view ajax handler.
 		 * @param {event} e The event object.
 		 */
@@ -333,7 +336,6 @@
 
 		/**
 		 * @function tribe_events_calendar_ajax_post
-		 * @since 3.0
 		 * @desc The ajax handler for month view.
 		 * Fires the custom event 'tribe_ev_serializeBar' at start, then 'tribe_ev_collectParams' to gather any additional paramters before actually launching the ajax post request.
 		 * As post begins 'tribe_ev_ajaxStart' and 'tribe_ev_monthView_AjaxStart' are fired, and then 'tribe_ev_ajaxSuccess' and 'tribe_ev_monthView_ajaxSuccess' are fired on success.
@@ -341,6 +343,9 @@
 		 */
 
 		function tribe_events_calendar_ajax_post() {
+
+            if(tf.invalid_date(ts.date))
+                return;
 
 			$('.tribe-events-calendar').tribe_spin();
 			ts.pushcount = 0;

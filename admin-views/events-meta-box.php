@@ -82,11 +82,13 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 	</td>
 	</tr>
 	</table>
-	<div class="tribe_sectionheader" style=""><h4><?php _e('Event Location Details', 'tribe-events-calendar'); ?></h4></div>
-		<table id="event_venue" class="eventtable">
-         <?php do_action('tribe_venue_table_top', $postId) ?>
-			<?php include( $this->pluginPath . 'admin-views/venue-meta-box.php' ); ?>
-		</table>
+	<table id="event_venue" class="eventtable">
+		<tr>
+			<td colspan="2" class="tribe_sectionheader"><h4><?php _e('Event Location Details', 'tribe-events-calendar'); ?></h4></td>
+		</tr>
+     <?php do_action('tribe_venue_table_top', $postId) ?>
+		<?php include( $this->pluginPath . 'admin-views/venue-meta-box.php' ); ?>
+	</table>
    <?php do_action('tribe_after_location_details', $postId); ?>
 	<table id="event_organizer" class="eventtable">
 			<tr>

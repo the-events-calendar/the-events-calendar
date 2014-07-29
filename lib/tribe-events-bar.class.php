@@ -23,10 +23,6 @@ class TribeEventsBar {
 		add_filter( 'body_class', array( $this, 'body_class') );
 		add_action('tribe_events_bar_before_template',  array( $this, 'disabled_bar_before') );
 		add_action('tribe_events_bar_after_template',  array( $this, 'disabled_bar_after') );
-
-		// add_action( 'tribe-events-bar-show-filters', array( $this, 'print_filters_helper' ) );
-		// add_action( 'tribe-events-bar-show-views', 	 array( $this, 'print_views_helper' ) );
-
 	}
 
 	/**
@@ -103,9 +99,7 @@ class TribeEventsBar {
 	 * Adds a body class of tribe-bar-is-disabled when the Tribe Bar is disabled.
 	 * 
 	 * @return array The new body class array
-	 * @author Kyle Unzicker
-	 * @since 3.0
-	 */	
+	 */
 	public function body_class( $classes ){
 		if ( tribe_get_option('tribeDisableTribeBar', false) == true ) {
 			$classes[] = 'tribe-bar-is-disabled';
@@ -117,9 +111,7 @@ class TribeEventsBar {
 	 * Returns the opening tag of the disabled bar wrapper
 	 * 
 	 * @return string
-	 * @author Kyle Unzicker
-	 * @since 3.0
-	 */	
+	 */
 	public function disabled_bar_before( $before ) {
 		if ( tribe_get_option('tribeDisableTribeBar', false) == true ) {
 			$before = '<div class="tribe-bar-disabled">';
@@ -131,8 +123,6 @@ class TribeEventsBar {
 	 * Returns the closing tag of the disabled bar wrapper
 	 * 
 	 * @return array The new body class array
-	 * @author Kyle Unzicker
-	 * @since 3.0
 	 */
 	public function disabled_bar_after( $after ) {
 		if ( tribe_get_option('tribeDisableTribeBar', false ) == true ) {

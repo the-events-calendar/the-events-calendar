@@ -31,12 +31,12 @@ if ( ! class_exists( 'TribeEventsSupport' ) ) {
 			$keys = apply_filters( 'tribe-pue-install-keys', array() );
 			if ( empty( $keys ) ) return;
 
-			$system_text[] = '<p>' . __( "Sometimes it's hard to tell what's going wrong without knowing more about your system steup. For your convenience, we've put together a little report on what's cooking under the hood.", 'tribe-events-calendar-pro' ) . '</p>';
-			$system_text[] = '<p>' . __( "If you suspect that the problem you're having is related to another plugin, or we're just plain having trouble reproducing your bug report, please copy and send all of this to our support team.", 'tribe-events-calendar-pro' ) . '</p>';
+			$system_text[] = '<p>' . __( "Sometimes it's hard to tell what's going wrong without knowing more about your system steup. For your convenience, we've put together a little report on what's cooking under the hood.", 'tribe-events-calendar' ) . '</p>';
+			$system_text[] = '<p>' . __( "If you suspect that the problem you're having is related to another plugin, or we're just plain having trouble reproducing your bug report, please copy and send all of this to our support team.", 'tribe-events-calendar' ) . '</p>';
 			$system_text   = implode( $system_text );
 			?>
 
-			<h3><?php _e( 'System Information', 'tribe-events-calendar-pro' ); ?></h3>
+			<h3><?php _e( 'System Information', 'tribe-events-calendar' ); ?></h3>
 			<?php
 			echo( apply_filters( 'tribe_help_tab_system', $system_text ) );
 			echo self::formattedSupportStats();
@@ -47,7 +47,6 @@ if ( ! class_exists( 'TribeEventsSupport' ) ) {
 		 * Collect system information for support
 		 *
 		 * @return array of system data for support
-		 * @author Peter Chester
 		 */
 		public static function getSupportStats() {
 			$user = wp_get_current_user();
@@ -93,18 +92,20 @@ if ( ! class_exists( 'TribeEventsSupport' ) ) {
 			$keys = apply_filters( 'tribe-pue-install-keys', array() );
 
 			$systeminfo = array(
-				'url'               => 'http://' . $_SERVER["HTTP_HOST"],
-				'name'              => $user->display_name,
-				'email'             => $user->user_email,
-				'install keys'      => $keys,
-				'WordPress version' => get_bloginfo( 'version' ),
-				'PHP version'       => phpversion(),
-				'plugins'           => $plugins,
-				'network plugins'   => $network_plugins,
-				'mu plugins'        => $mu_plugins,
-				'theme'             => wp_get_theme()->get( 'Name' ),
-				'multisite'         => is_multisite(),
-				'settings'          => TribeEvents::getOptions(),
+				'url'                => 'http://' . $_SERVER["HTTP_HOST"],
+				'name'               => $user->display_name,
+				'email'              => $user->user_email,
+				'install keys'       => $keys,
+				'WordPress version'  => get_bloginfo( 'version' ),
+				'PHP version'        => phpversion(),
+				'plugins'            => $plugins,
+				'network plugins'    => $network_plugins,
+				'mu plugins'         => $mu_plugins,
+				'theme'              => wp_get_theme()->get( 'Name' ),
+				'multisite'          => is_multisite(),
+				'settings'           => TribeEvents::getOptions(),
+				'WordPress timezone' => get_option( 'timezone_string', __( 'Unknown or not set', 'tribe-events-calendar' ) ),
+				'server timezone'    => date_default_timezone_get()
 			);
 			$systeminfo = apply_filters( 'tribe-events-pro-support', $systeminfo );
 
@@ -115,7 +116,6 @@ if ( ! class_exists( 'TribeEventsSupport' ) ) {
 		 * Render system information into a pretty output
 		 *
 		 * @return string pretty HTML
-		 * @author Peter Chester
 		 */
 		public static function formattedSupportStats() {
 			$systeminfo = self::getSupportStats();

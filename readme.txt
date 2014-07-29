@@ -1,17 +1,21 @@
 === The Events Calendar ===
 
-Contributors:  ModernTribe, roblagatta, faction23, caseypatrickdriscoll, jazbek, jbrinley, leahkoerper, brook-tribe, ckpicker, barry.hughes, neillmcshea, peterchester, reid.peifer, shane.pearlman
+Contributors:  ModernTribe, roblagatta, faction23, caseypatrickdriscoll, jazbek, jbrinley, leahkoerper, brook-tribe, ckpicker, barry.hughes, neillmcshea, peterchester, ryancurban, reid.peifer, shane.pearlman
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
 Donate link: http://m.tri.be/29
 Requires at least: 3.7
 Tested up to: 3.9.1
-Stable tag: 3.6.1
+Stable tag: 3.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 The Events Calendar is a carefully crafted, extensible plugin that lets you easily share your events. Beautiful. Solid. Awesome.
 
 == Description ==
+
+><strong>A note about support:</strong> We’re here to help troubleshoot bugs, but should set expectations early that the support forums at WordPress.org are only checked once a week. Please read our <a href=“http://wordpress.org/support/topic/welcome-the-events-calendar-users-read-this-first?replies=3”>sticky post</a> before creating a new thread. 
+>
+> Users looking for more timely/in-depth support are encouraged to check out <a href="http://m.tri.be/mj" target="_blank" title="[new window]">Events Calendar PRO</a>.
 
 Create and manage events with ease. Get professional-level quality and features backed by a team you can trust. The Events Calendar will help you kick ass.
 
@@ -26,6 +30,8 @@ The Events Calendar has been audited by many of the industry's WordPress experts
 We've poured hundreds of hours into QA by a dedicated support team, monthly usability tests to guarantee that it's easy to use, and numerous user interviews to make sure you get what you want. We care about quality and crafting products that thrive in the wild.
 
 The team at Modern Tribe stands by our work and offers light support every Wednesday to the community via the WordPress.org support forums. Feel free to ask a question if you're having a problem with implementation or if you find bugs. Looking for help NOW or need a deeper level of support? Add the <a href="http://m.tri.be/2c">premium add-on plugin</a> and you get access to premium support forums with under 24hr response times on weekdays.
+
+Enjoy using The Events Calendar, know how to get under the hood, and want to make money helping people? We're growing our community team. <a href=“http://m.tri.be/mk”>Check it out!</a>
 
 = PLUG-N-PLAY & HIGHLY CUSTOMIZABLE =
 
@@ -229,7 +235,9 @@ The plugin is produced by <a href="http://m.tri.be/2s">Modern Tribe Inc</a>.
 * Arabic from Mamdouh Samy
 * Bosnian from Marko Manojlovic
 * Brazilian Portuguese by Emerson Marques
+* Bulgarian from Nedko Ivanov
 * Catalan from Barbara Partegos Rof
+* Chinese from Massound Huang
 * Croatian from Marko Manojlovic
 * Czech from Petr Bastan
 * Danish from Anonymous
@@ -240,6 +248,7 @@ The plugin is produced by <a href="http://m.tri.be/2s">Modern Tribe Inc</a>.
 * German from Dennis Gruebner 
 * Greek from Yannis Troullinos
 * Icelandic by Baldvin Berndsen
+* Indonesian from Didik Priyanto
 * Italian from Roberto Scano
 * Latvian from Raivis Dejus
 * Montenegrin from Sasa Vukovic
@@ -305,11 +314,35 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 
 3.x is a complete overhaul of the plugin, and as a result we're starting the changelog fresh. For release notes from the 2.x lifecycle, see <a href="http://m.tri.be/k">our 2.x release notes.</a>
 
+= 3.7. =
+
+* Incorporated new Bulgarian translation files, courtesy of Nedko Ivanov
+* Incorporated new Chinese translation files, courtesy of Massound Huang
+* Incorporated new Indonesian translation files, courtesy of Didik Priyanto
+* Added promotional blurb to plugin footer
+* Fixed some untranslatable strings
+* Cleaned up PHPDoc comments and some unused code
+* Fixed an issue where subscriber level users could see the Events admin menu item
+* Fixed an issue where the plugin wasn't correctly outputting the class names to body_class() for custom page templates
+* Improved behavior of the end-of-day cutoff setting, particularly in month view
+* Fixed incorrect ordering of events on Day view (thank you IbInra for reporting this!)
+* Simplified and cleaned up the code in the nav.php template for list view
+* Fixed the PHP notice when calling tribe_delete_events (thanks to studiotenfour for highlighting this!)
+* Added time zone data to the system information listed on the Help page
+* Added exporting to Google Calendar from calendar views (thanks to Memeco on Uservoice for this idea!)
+* Fixed some issues with GET params and IE 8/9 (thank you irishrunner16 for bringing this to our attention!)
+* Added the ability to override labels and slugs for venues/organizers
+* Fixed an issue where manual dates in the Event Bar did not cooperate with AJAX
+* Fixed an issue where all day events were showing on multiple days
+* Corrected an issue with the start times of multi-day events
+* Resolved array to string conversion error (thanks to integrity on the forums!)
+* Fixed a fatal JS error on calendar pages without navigation links
+
 = 3.6.1 =
 
-* Fix minification issues.
-* Incorporated updated Greek translation files, courtesy of Yannis Troullinos
+* Fixed some JS/CSS minification issues
 * Fixed an issue where the "Hide From Event Listings" checkbox was not hiding events from Month view
+* Incorporated updated Greek translation files, courtesy of Yannis Troullinos
 
 = 3.6 =
 
@@ -325,6 +358,7 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Fixed an incorrect redirect when visiting an event with the wrong date in the URL
 * Addressed a bug that prevented correctly saving venue and organizer information when an event is saved
 * Moved the iCalendar feed to the core The Events Calendar plugin
+* Moved the Google Calendar feed to the core The Events Calendar plugin
 * Moved all HTML Markup (and the loop) to the List Widget template (thanks to cityofroundrock for the idea!)
 * Now only enqueueing events-admin.css on appropriate Events Pages (thanks to verdipro on the forums for reporting this!)
 * Fixed an issue where Category CSS classes were being removed from Events when in Responsive Mode (thanks to Andy Fragen for the report!)

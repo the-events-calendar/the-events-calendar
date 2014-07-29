@@ -7,7 +7,6 @@ if ( ! function_exists( 'tribe_is_day' ) ) {
 	 * Returns true if the query is set for single day, false otherwise
 	 *
 	 * @return bool
-	 * @since 2.0
 	 */
 	function tribe_is_day() {
 		$tribe_ecp = TribeEvents::instance();
@@ -24,7 +23,6 @@ if ( ! function_exists( 'tribe_get_day_link' ) ) {
 	 *
 	 * @param string $date
 	 * @return string URL
-	 * @since 2.0
 	 */
 	function tribe_get_day_link( $date = null ) {
 		$tribe_ecp = TribeEvents::instance();
@@ -41,7 +39,6 @@ if ( ! function_exists( 'tribe_get_linked_day' ) ) {
 	 * @param string $date
 	 * @param string $day
 	 * @return string HTML linked date
-	 * @since 2.0
 	 */
 	function tribe_get_linked_day($date, $day) {
 		$return = '';
@@ -59,21 +56,26 @@ if ( ! function_exists( 'tribe_the_day_link' ) ) {
 	 * @param string $date 'previous day', 'next day', 'yesterday', 'tomorrow', or any date string that strtotime() can parse
 	 * @param string $text text for the link
 	 * @return void
-	 * @since 3.0
 	 **/
 	function tribe_the_day_link( $date = null, $text = null ) {
+		$html = '';
+
 		try {
 			if ( is_null( $text ) ) {
 				$text = tribe_get_the_day_link_label($date);
 			}
-			$date = tribe_get_the_day_link_date( $date );
 
+			$date = tribe_get_the_day_link_date( $date );
 			$link = tribe_get_day_link($date);
 
-			$html = '<a href="'. $link .'" data-day="'. $date .'" rel="prev">'.$text.'</a>';
-		} catch ( OverflowException $e ) {
-			$html = '';
-		}
+			$earliest = tribe_events_earliest_date( TribeDateUtils::DBDATEFORMAT );
+			$latest = tribe_events_latest_date( TribeDateUtils::DBDATEFORMAT );
+
+			if ( $date >= $earliest && $date <= $latest ) {
+				$html = '<a href="'. $link .'" data-day="'. $date .'" rel="prev">'.$text.'</a>';
+			}
+
+		} catch ( OverflowException $e ) {}
 
 		echo apply_filters( 'tribe_the_day_link', $html );
 	}
@@ -86,7 +88,6 @@ if ( ! function_exists( 'tribe_get_the_day_link_label' ) ) {
 	 * @param string $date_description
 	 *
 	 * @return string
-	 * @since 3.1.1
 	 */
 	function tribe_get_the_day_link_label( $date_description ) {
 		switch ( strtolower( $date_description ) ) {
@@ -112,7 +113,6 @@ if ( ! function_exists( 'tribe_get_the_day_link_date' ) ) {
 	 *
 	 * @param string $date_description
 	 * @return string
-	 * @since 3.1.1
 	 * @throws OverflowException
 	 */
 	function tribe_get_the_day_link_date( $date_description ) {
@@ -135,7 +135,6 @@ if ( ! function_exists( 'tribe_get_next_day_date' ) ) {
 	 *
 	 * @param string $start_date
 	 * @return string
-	 * @since 3.1.1
 	 * @throws OverflowException
 	 */
 	function tribe_get_next_day_date( $start_date ) {
@@ -155,7 +154,6 @@ if ( ! function_exists( 'tribe_get_previous_day_date' ) ) {
 	 *
 	 * @param string $start_date
 	 * @return string
-	 * @since 3.1.1
 	 * @throws OverflowException
 	 */
 	function tribe_get_previous_day_date( $start_date ) {

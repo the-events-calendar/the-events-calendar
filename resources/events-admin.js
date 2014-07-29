@@ -355,18 +355,20 @@ jQuery(document).ready(function($) {
 
 	// Workaround for venue & organizer post types when editing or adding
 	// so events parent menu stays open and active
-	if ( $('#icon-edit').hasClass('icon32-posts-tribe_venue') ) {
+	if ( $('body').hasClass('post-type-tribe_venue') ) {
 		$('#menu-posts-tribe_events, #menu-posts-tribe_events a.wp-has-submenu')
-			.addClass('wp-menu-open wp-has-current-submenu')
+			.addClass('wp-menu-open wp-has-current-submenu wp-has-submenu')
 			.removeClass('wp-not-current-submenu')
-			.find("li:contains('Venues')")
+			.find("li a[href='edit.php?post_type=tribe_venue']")
+			.parent()
 			.addClass('current');
 	}
-	if ( $('#icon-edit').hasClass('icon32-posts-tribe_organizer') ) {
+	if ( $('body').hasClass('post-type-tribe_organizer') ) {
 		$('#menu-posts-tribe_events, #menu-posts-tribe_events a.wp-has-submenu')
-			.addClass('wp-menu-open wp-has-current-submenu')
+			.addClass('wp-menu-open wp-has-current-submenu wp-has-submenu')
 			.removeClass('wp-not-current-submenu')
-			.find("li:contains('Organizers')")
+			.find("li a[href='edit.php?post_type=tribe_organizer']")
+			.parent()
 			.addClass('current');
 	}
 

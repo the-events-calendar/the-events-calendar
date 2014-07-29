@@ -33,14 +33,17 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 		 *
 		 * @param WP_Query $query
 		 * @return void
-		 * @author Jessica Yazbek
-		 * @since 3.0.3
 		 **/
 		public static function parse_query( $query ) {
 
 			// include events in search results
 			if ( $query->is_search && $query->get( 'post_type' ) == '' ) {
 				$query->set( 'post_type', 'any' );
+			}
+
+			// set paged
+			if ( $query->is_main_query() && isset( $_GET['tribe_paged'] ) ) {
+				$query->set( 'paged', $_REQUEST['tribe_paged'] );
 			}
 
 			// Add tribe events post type to tag queries
@@ -221,10 +224,12 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 					case 'day':
 						$event_date = $query->get('eventDate') != '' ? $query->get('eventDate') : Date('Y-m-d', current_time('timestamp'));
 						$query->set( 'eventDate', $event_date );
-						$query->set( 'start_date', tribe_event_beginning_of_day( $event_date ) );
+						$beginning_of_day = strtotime( tribe_event_beginning_of_day( $event_date ) ) + 1;
+						$query->set( 'start_date', date_i18n( TribeDateUtils::DBDATETIMEFORMAT, $beginning_of_day ) );
 						$query->set( 'end_date', tribe_event_end_of_day( $event_date ) );
 						$query->set( 'posts_per_page', -1 ); // show ALL day posts
 						$query->set( 'hide_upcoming', false );
+						$query->set( 'order', self::set_order( 'ASC', $query ) );
 						break;
 					case 'all':
 						$query->set( 'orderby', self::set_orderby( null, $query ) );
@@ -239,9 +244,7 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 					case 'upcoming':
 					case 'past' :
 					default: // default display query
-						$tribe_paged = ( ! empty( $_REQUEST['tribe_paged'] ) ) ? $_REQUEST['tribe_paged'] : $query->get('paged');
-						$query->set( 'paged', $tribe_paged );
-						$event_date = ( $query->get( 'eventDate' ) != '' ) 
+						$event_date = ( $query->get( 'eventDate' ) != '' )
 							? $query->get( 'eventDate' ) 
 						: date_i18n( TribeDateUtils::DBDATETIMEFORMAT );
 						if ( ! $query->tribe_is_past ) {
@@ -304,18 +307,8 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 				);
 			}
 
-			// proprietary metaKeys go to standard meta
-			if ( $query->tribe_is_event_query && $query->get( 'metaKey' ) != '' ) {
-				$meta_query[] = array(
-					'key' => $query->get( 'metaKey' ),
-					'value' => $query->get( 'metaValue' )
-				);
-			}
-
 			// enable pagination setup
-			if ( $query->tribe_is_event_query && $query->get( 'numResults' ) != '' ) {
-				$query->set( 'posts_per_page', $query->get( 'numResults' ) );
-			} elseif ( $query->tribe_is_event_query && $query->get( 'posts_per_page' ) == '' ) {
+			if ( $query->tribe_is_event_query && $query->get( 'posts_per_page' ) == '' ) {
 				$query->set( 'posts_per_page', (int) tribe_get_option( 'postsPerPage', 10 ) );
 			}
 
@@ -348,10 +341,8 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 			if ( is_admin() && $query->tribe_is_event_query && !empty( $current_screen->id ) && $current_screen->id == 'edit-' . TribeEvents::POSTTYPE ) {
 				if ( ( !defined( 'DOING_AJAX' ) ) || ( defined( 'DOING_AJAX' ) && !( DOING_AJAX ) ) ) {
 
-					// remove_filter( 'posts_join', array( __CLASS__, 'posts_join' ), 10, 2 );
 					remove_filter( 'posts_where', array( __CLASS__, 'posts_where' ), 10, 2 );
 					remove_filter( 'posts_fields', array( __CLASS__, 'posts_fields' ) );
-					//remove_filter( 'posts_distinct', array( __CLASS__, 'posts_distinct' ) );
 					remove_filter( 'posts_groupby', array( __CLASS__, 'posts_groupby' ) );
 					remove_filter( 'posts_orderby', array( __CLASS__, 'posts_orderby' ), 10, 2 );
 					$query->set( 'post__not_in', '' );
@@ -765,8 +756,8 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 						}
 						for ( $i = 0, $date = $start_date; $i <= $days; $i++, $date->modify( '+1 day' ) ) {
 							$formatted_date = $date->format( 'Y-m-d' );
-							$start_of_day = strtotime( tribe_event_beginning_of_day( $formatted_date ) );
-							$end_of_day = strtotime( tribe_event_end_of_day( $formatted_date ) );
+							$start_of_day   = strtotime( tribe_event_beginning_of_day( $formatted_date ) );
+							$end_of_day     = strtotime( tribe_event_end_of_day( $formatted_date ) ) + 1;
 							$count = 0;
 							$_day_event_ids = array();
 							foreach ( $raw_counts as $record ) {
@@ -776,15 +767,15 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 									// event starts on this day (event start time is between start and end of day)
 									// event ends on this day (event end time is between start and end of day)
 									// event starts before start of day and ends after end of day (spans across this day)
-								if (
-									// event starts today
-									( $record_start >= $start_of_day && $record_start <= $end_of_day ) 
-									   // event ends today
-									|| ( $record_end >= $start_of_day && $record_end <= $end_of_day )
-									   // event spans across today
-									|| ( $record_start <= $start_of_day && $record_end >= $end_of_day )
+									// note:
+										// events that start exactly on the EOD cutoff will count on the following day
+										// events that end exactly on the EOD cutoff will count on the previous day
 
-									) {
+								$event_starts_today       = $record_start >= $start_of_day && $record_start < $end_of_day;
+								$event_ends_today         = $record_end > $start_of_day && $record_end <= $end_of_day;
+								$event_spans_across_today = $record_start < $start_of_day && $record_end > $end_of_day;
+
+								if ( $event_starts_today || $event_ends_today || $event_spans_across_today ) {
 									if ( isset( $term->term_id ) ) {
 										if ( ! has_term( $term, TribeEvents::TAXONOMY, $record->ID ) ) {
 											continue;
@@ -793,7 +784,7 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 									if ( count( $_day_event_ids ) < apply_filters( 'tribe_events_month_day_limit', tribe_get_option( 'monthEventAmount', '3' ) ) ) {
 										$_day_event_ids[] = $record->ID;
 									}
-									$count++;
+									$count ++;
 								}
 							}
 							$event_ids[ $formatted_date ] = $_day_event_ids;
@@ -847,7 +838,6 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 				do_action( 'log', 'cache hit', 'tribe-events-cache', $args );
 			} else {
 				do_action( 'log', 'no cache hit', 'tribe-events-cache', $args );
-				// do_action( 'log', 'uncached query', 'tribe-events-query', $wpdb->last_query);
 				$result = new WP_Query( $args );
 				$cache->set( $cache_key, $result, TribeEventsCache::NON_PERSISTENT, 'save_post' );
 			}
@@ -873,7 +863,6 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 		 * to avoid conflicts with previous postmeta joins
 		 *
 		 * @return string
-		 * @author Jessica Yazbek
 		 **/
 		private static function postmeta_table( $query ) {
 
@@ -907,7 +896,6 @@ if ( !class_exists( 'TribeEventsQuery' ) ) {
 		 *
 		 * @param mixed $arg
 		 * @return bool
-		 * @author Jessica Yazbek
 		 **/
 		private static function filter_args($arg) {
 			if (empty($arg) && $arg !== false)

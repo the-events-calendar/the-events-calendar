@@ -33,7 +33,7 @@ $tickets  = TribeEventsTickets::get_event_tickets( $event_id );
 
 						if ( ! empty( $venue ) ) {
 							echo "<br/>";
-							echo sprintf( '<strong>%s </strong> %s', esc_html( __( 'Venue:', 'tribe-events-calendar' ) ), esc_html( $venue->post_title ) );
+							echo sprintf( '<strong>%s: </strong> %s', esc_html( __( tribe_get_venue_label_singular(), 'tribe-events-calendar' ) ), esc_html( $venue->post_title ) );
 
 							$phone = get_post_meta( $venue_id, '_VenuePhone', true );
 							if ( ! empty( $phone ) ) {

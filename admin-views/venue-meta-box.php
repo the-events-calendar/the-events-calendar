@@ -17,7 +17,7 @@ if ( tribe_get_option( 'defaultValueReplace' ) && $post->post_type != TribeEvent
 ?>
 <?php if ($post->post_type != TribeEvents::VENUE_POST_TYPE): ?>
    <tr class="venue">
-      <td><?php _e('Venue Name:','tribe-events-calendar'); ?></td>
+      <td><?php printf( __('%s Name:','tribe-events-calendar'), tribe_get_venue_label_singular() ); ?></td>
       <td>
          <input tabindex="<?php tribe_events_tab_index(); ?>" type='text' name='venue[Venue]' size='25'  value='<?php if( isset($_VenueVenue) ) echo esc_attr($_VenueVenue); ?>' />
       </td>

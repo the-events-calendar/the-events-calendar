@@ -9,7 +9,7 @@ if ( !defined('ABSPATH') ) { die('-1'); }
 ?>
 <?php if ( empty($hide_organizer_title) ): ?>
 <tr class="organizer">
-	<td><?php _e('Organizer Name:','tribe-events-calendar'); ?></td>
+	<td><?php printf( __('%s Name:','tribe-events-calendar'), tribe_get_organizer_label_singular() ); ?></td>
 	<td>
 		<input tabindex="<?php tribe_events_tab_index(); ?>" type='text' name='organizer[Organizer]' size='25'  value='<?php echo isset($_OrganizerOrganizer) ? esc_attr($_OrganizerOrganizer) : ""; ?>' />
 	</td>

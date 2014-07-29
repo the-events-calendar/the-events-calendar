@@ -45,7 +45,6 @@ if( class_exists( 'TribeEvents' ) ) {
 	 * @see tribe_create_venue()
 	 * @see tribe_create_organizer()
 	 * @category Event Functions
-	 * @since 2.0.1
 	 */
 	function tribe_create_event($args) {
 		$postId = TribeEventsAPI::createEvent($args);
@@ -62,7 +61,6 @@ if( class_exists( 'TribeEvents' ) ) {
 	 * @see wp_update_post()
 	 * @see tribe_create_event()
 	 * @category Event Functions
-	 * @since 2.0.1
 	 */
 	function tribe_update_event($postId, $args) {
 		$postId = TribeEventsAPI::updateEvent($postId, $args);
@@ -78,12 +76,10 @@ if( class_exists( 'TribeEvents' ) ) {
 	 * @link http://codex.wordpress.org/Function_Reference/wp_delete_post
 	 * @see wp_delete_post()
 	 * @category Event Functions
-	 * @since 2.0.1
 	 */
 	function tribe_delete_event($postId, $force_delete = false) {
-		$success = TribeEventsAPI::deleteEvent($postId, $args);
+		$success = TribeEventsAPI::deleteEvent($postId, $force_delete);
 		return $success;
 	}
 
 }
-?>

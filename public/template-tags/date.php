@@ -19,7 +19,6 @@ if( class_exists( 'TribeEvents' ) ) {
 	 * @param bool $displayTime If true shows date and time, if false only shows date
 	 * @param string $dateFormat Allows date and time formating using standard php syntax (http://php.net/manual/en/function.date.php)
 	 * @return string Date
-	 * @since 2.0
 	 */
 	function tribe_get_start_date( $event = null, $displayTime = true, $dateFormat = '' )  {
 		if ( is_null( $event ) ) {
@@ -38,7 +37,7 @@ if( class_exists( 'TribeEvents' ) ) {
 		if( isset($event->EventStartDate) ){
 			$date = strtotime( $event->EventStartDate );
 		}else{
-			return; // '&mdash;';
+			return;
 		}
 
 		return tribe_event_format_date($date, $displayTime, $dateFormat );
@@ -53,7 +52,6 @@ if( class_exists( 'TribeEvents' ) ) {
 	 * @param bool $displayTime If true shows date and time, if false only shows date
 	 * @param string $dateFormat Allows date and time formating using standard php syntax (http://php.net/manual/en/function.date.php)
 	 * @return string Date
-	 * @since 2.0
 	 */
 	function tribe_get_end_date( $event = null, $displayTime = true, $dateFormat = '' )  {
 		if( is_null( $event ) ) {
@@ -83,7 +81,7 @@ if( class_exists( 'TribeEvents' ) ) {
 			}
 			$date = strtotime( $event->EventEndDate );
 		} else{
-			return; // '&mdash;';
+			return;
 		}
 
 		return tribe_event_format_date( $date, $displayTime, $dateFormat );
@@ -98,7 +96,6 @@ if( class_exists( 'TribeEvents' ) ) {
 	 * @param bool $displayTime If true shows date and time, if false only shows date
 	 * @param string $dateFormat Allows date and time formating using standard php syntax (http://php.net/manual/en/function.date.php)
 	 * @return string
-	 * @since 2.0
 	 */
 	function tribe_event_format_date($date, $displayTime = true,  $dateFormat = '')  {
 

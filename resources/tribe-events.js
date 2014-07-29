@@ -6,7 +6,6 @@
 
 /**
  * @namespace tribe_ev
- * @since 3.0
  * @desc The tribe_ev namespace that stores all custom functions, data, application state and an empty events object to bind custom events to.
  * This Object Literal namespace loads for all tribe events pages and is by design fully public so that themers can hook in and/or extend anything they want from their own files.
  * @example <caption>Test for tribe_ev in your own js and then run one of our functions.</caption>
@@ -197,7 +196,8 @@ var tribeDateFormat = function () {
 
         // Passing date through Date applies Date.parse, if necessary
         date = date ? new Date(date) : new Date;
-        if (isNaN(date)) throw SyntaxError("invalid date");
+        if (isNaN(date))
+            return;
 
         mask = String(dF.masks[mask] || mask || dF.masks["default"]);
 
@@ -297,7 +297,6 @@ Date.prototype.format = function (mask, utc) {
 
 /**
 	 * @function tribe_tmpl
-	 * @since 3.3
 	 * @desc Javascript templating function based on John Resigs micro-templating approach and expanded upon by cho45. Tags and function name changed here to avoid conflicts.
 	 * @param id The javascript template
 	 * @param data The data object
@@ -397,7 +396,6 @@ Date.prototype.format = function (mask, utc) {
 
 	/**
 	 * @function external:"jQuery.fn".tribe_clear_form
-	 * @since 3.0
 	 * @desc Clear a forms inputs with jquery.
 	 * @example <caption>Clear a form with the forms id as a selector.</caption>
 	 * $('#myForm').tribe_clear_form();
@@ -417,7 +415,6 @@ Date.prototype.format = function (mask, utc) {
 	};
 	/**
 	 * @function external:"jQuery.fn".tribe_has_attr
-	 * @since 3.0
 	 * @desc Check if a given element has an attribute.
 	 * @example if($('#myLink').tribe_has_attr('data-cats')) {true} else {false}
 	 */
@@ -426,7 +423,6 @@ Date.prototype.format = function (mask, utc) {
 	};
 	/**
 	 * @function external:"jQuery.fn".tribe_spin
-	 * @since 3.0
 	 * @desc Shows loading spinners for events ajax interactions.
 	 * @example $('#myElement').tribe_spin();
 	 */
@@ -449,21 +445,21 @@ Date.prototype.format = function (mask, utc) {
 (function (window, document, $, dbug, undefined) {
 	/**
      * @namespace tribe_ev.fn
-	 * @since 3.0
 	 * @desc tribe_ev.fn namespace stores all the custom functions used throughout the core events plugin.
 	 */
 	tribe_ev.fn = {
 		/**
 		 * @function tribe_ev.fn.current_date
-		 * @since 3.0
 		 * @desc tribe_ev.fn.current_date simply gets the current date in javascript and formats it to yyyy-mm-dd for use were needed.
 		 * @example var right_now = tribe_ev.fn.current_date();
 		 */
 		current_date: function () {
-			var today = new Date();
-			var dd = today.getDate();
-			var mm = today.getMonth() + 1;
-			var yyyy = today.getFullYear();
+
+			var today = new Date(),
+                dd = today.getDate(),
+                mm = today.getMonth() + 1,
+                yyyy = today.getFullYear();
+
 			if (dd < 10) {
 				dd = '0' + dd
 			}
@@ -474,7 +470,6 @@ Date.prototype.format = function (mask, utc) {
 		},
 		/**
 		 * @function tribe_ev.fn.disable_inputs
-		 * @since 3.0
 		 * @desc tribe_ev.fn.disable_inputs disables all inputs of a specified type inside a parent element, and also disables select2 selects if it discovers any.
 		 * @param {String} parent The top level element you would like all child inputs of the specified type to be disabled for.
 		 * @param {String} type A single or comma separated string of the type of inputs you would like disabled.
@@ -493,7 +488,6 @@ Date.prototype.format = function (mask, utc) {
 		},
 		/**
 		 * @function tribe_ev.fn.disable_empty
-		 * @since 3.0
 		 * @desc tribe_ev.fn.disable_empty disables all empty inputs of a specified type inside a parent element.
 		 * @param {String} parent The top level element you would like all empty child inputs of the specified type to be disabled for.
 		 * @param {String} type A single or comma separated string of the type of empty inputs you would like disabled.
@@ -509,7 +503,6 @@ Date.prototype.format = function (mask, utc) {
 		},
 		/**
 		 * @function tribe_ev.fn.enable_inputs
-		 * @since 3.0
 		 * @desc tribe_ev.fn.enable_inputs enables all inputs of a specified type inside a parent element, and also enables select2 selects if it discovers any.
 		 * @param {String} parent The top level element you would like all child inputs of the specified type to be disabled for.
 		 * @param {String} type A single or comma separated string of the type of inputs you would like enabled.
@@ -528,7 +521,6 @@ Date.prototype.format = function (mask, utc) {
 		},
 		/**
 		 * @function tribe_ev.fn.execute_resize
-		 * @since 3.0
 		 * @desc tribe_ev.fn.execute_resize groups together functions that should execute at the end of the window resize event.
 		 */
 		execute_resize: function () {
@@ -543,7 +535,6 @@ Date.prototype.format = function (mask, utc) {
 		},
         /**
 		 * @function tribe_ev.fn.get_base_url
-		 * @since 3.0
 		 * @desc tribe_ev.fn.get_base_url can be used on any events view to get the base_url for that view, even when on a category subset for that view.
 		 * @returns {String} Either an empty string or base url if data-baseurl is found on #tribe-events-header.
 		 * @example var base_url = tribe_ev.fn.get_base_url();
@@ -558,7 +549,6 @@ Date.prototype.format = function (mask, utc) {
 		},
 		/**
 		 * @function tribe_ev.fn.get_category
-		 * @since 3.0
 		 * @desc tribe_ev.fn.get_category can be used on any events view to get the category for that view.
 		 * @returns {String} Either an empty string or category slug if data-category is found on #tribe-events.
 		 * @example var cat = tribe_ev.fn.get_category();
@@ -571,7 +561,6 @@ Date.prototype.format = function (mask, utc) {
 		},
 		/**
 		 * @function tribe_ev.fn.get_day
-		 * @since 3.0
 		 * @desc tribe_ev.fn.get_day can be used to check the event bar for a day value that was set by the user when using the datepicker.
 		 * @returns {String|Number} Either an empty string or day number if #tribe-bar-date-day has a val() set by user interaction.
 		 * @example var day = tribe_ev.fn.get_day();
@@ -586,7 +575,6 @@ Date.prototype.format = function (mask, utc) {
 		},
 		/**
 		 * @function tribe_ev.fn.get_params
-		 * @since 3.0
 		 * @desc tribe_ev.fn.get_params returns the params of the current document.url.
 		 * @returns {String} any url params sans "?".
 		 * @example var params = tribe_ev.fn.get_params();
@@ -596,7 +584,6 @@ Date.prototype.format = function (mask, utc) {
 		},
 		/**
 		 * @function tribe_ev.fn.get_url_param
-		 * @since 3.0
 		 * @desc tribe_ev.fn.get_url_param returns the value of a passed param name if set.
 		 * @param {String} name The name of the url param value desired.
 		 * @returns {String|Null} the value of a parameter if set or null if not.
@@ -607,7 +594,6 @@ Date.prototype.format = function (mask, utc) {
 		},
 		/**
 		 * @function tribe_ev.fn.in_params
-		 * @since 3.0
 		 * @desc tribe_ev.fn.in_params returns the value of a passed param name if set.
 		 * @param {String} params The parameter string you would like to search for a term.
 		 * @param {String} term The name of the url param value you are checking for.
@@ -622,9 +608,29 @@ Date.prototype.format = function (mask, utc) {
 		in_params: function (params, term) {
 			return params.toLowerCase().indexOf(term);
 		},
+        /**
+         * @function tribe_ev.fn.invalid_date
+         * @desc tribe_ev.fn.invalid_date tests a date object and confirms if it is actually valid by forcing parseDate on it.
+         * @returns {Boolean} Returns true if date is invalid, false if valid.
+         * @example  if(tf.invalid_date(ts.date)) return;
+         */
+        invalid_date: function(date){
+
+            date = new Date(date);
+            return isNaN(date);
+
+        },
+        invalid_date_in_params: function(params){
+
+            if(params.hasOwnProperty('tribe-bar-date')){
+                var date = new Date(params['tribe-bar-date']);
+                return isNaN(date);
+            }
+            return false;
+
+        },
 		/**
 		 * @function tribe_ev.fn.is_category
-		 * @since 3.0
 		 * @desc tribe_ev.fn.is_category test for whether the view is a category subpage in the pretty permalink system.
 		 * @returns {Boolean} Returns true if category page, false if not.
 		 * @example if (tribe_ev.fn.is_category()){ true } else { false }
@@ -635,7 +641,6 @@ Date.prototype.format = function (mask, utc) {
 		},
 		/**
 		 * @function tribe_ev.fn.mobile_class
-		 * @since 3.0
 		 * @desc tribe_ev.fn.mobile_class adds or removes a mobile class from the body element based on the mobile breakpoint.
 		 */
 		mobile_class: function(){
@@ -648,7 +653,6 @@ Date.prototype.format = function (mask, utc) {
 		},
         /**
 		 * @function tribe_ev.fn.parse_string
-		 * @since 3.0
 		 * @desc tribe_ev.fn.parse_string converts a string to an object.
 		 * @param {String} string The string to be converted.
 		 * @returns {Object} Returns mapped object.
@@ -664,7 +668,6 @@ Date.prototype.format = function (mask, utc) {
 		},
 		/**
 		 * @function tribe_ev.fn.pre_ajax
-		 * @since 3.0
 		 * @desc tribe_ev.fn.pre_ajax allows for functions to be executed before ajax begins.
 		 * @param {Function} callback The callback function, expected to be an ajax function for one of our views.
 		 */
@@ -675,7 +678,6 @@ Date.prototype.format = function (mask, utc) {
 		},
 		/**
 		 * @function tribe_ev.fn.scroll_to
-		 * @since 3.3
 		 * @desc tribe_ev.fn.scroll_to animates the body to the target with the passed duration and offset.
 		 * @param {String} target the id of the target to scroll the body to.
 		 * @param {Number} offset the vertical offset from the target..
@@ -686,7 +688,6 @@ Date.prototype.format = function (mask, utc) {
 		},
         /**
 		 * @function tribe_ev.fn.serialize
-		 * @since 3.0
 		 * @desc tribe_ev.fn.serialize serializes the passed input types. Enable/disable stack in place to protect inputs during process, especially for live ajax mode.
 		 * @param {String} form The form element.
 		 * @param {String} type The input types to be serialized.
@@ -703,7 +704,6 @@ Date.prototype.format = function (mask, utc) {
 		},
 		/**
 		 * @function tribe_ev.fn.set_form
-		 * @since 3.0
 		 * @desc tribe_ev.fn.set_form takes a param string and sets a forms inputs to the values received. Extended in the Query Filters plugin.
 		 * @param {String} params The params to be looped over and applied to the named input. Needed for back button browser history when forms are outside of the ajax area.
 		 * @example <caption>Set all inputs in a form(s) to the values in a param string retrieved from the history object on popstate.</caption>
@@ -759,7 +759,6 @@ Date.prototype.format = function (mask, utc) {
 		},
 		/**
 		 * @function tribe_ev.fn.setup_ajax_timer
-		 * @since 3.0
 		 * @desc tribe_ev.fn.setup_ajax_timer is a simple function to add a delay to the execution of a passed callback function, in our case ajax hence the name.
 		 * @param {Function} callback Used to delay ajax execution when in live ajax mode.
 		 * @example <caption>Run some crazy ajax.</caption>
@@ -779,7 +778,6 @@ Date.prototype.format = function (mask, utc) {
 		},
 		/**
 		 * @function tribe_ev.fn.snap
-		 * @since 3.0
 		 * @desc tribe_ev.fn.snap uses jquery to bind a handler to a trigger_parent which uses bubbling of a click event from the trigger to position the document to the passed container. Has an offset of -120 px to get some breathing room.
 		 * @param {String} container the jquery selector to send the document to.
 		 * @param {String} trigger_parent the persistent element to bind the handler to.
@@ -796,7 +794,6 @@ Date.prototype.format = function (mask, utc) {
 
 		/**
 		 * @function tribe_ev.fn.tooltips
-		 * @since 3.0
 		 * @desc tribe_ev.fn.tooltips binds the event handler that covers all tooltip hover events for the various views. Extended in tribe-events-pro.js for the pro views. One of the reasons both these files must load FIRST in the tribe events js stack at all times.
 		 * @example <caption>It's really not that hard... Get yourself inside a doc ready and...</caption>
 		 * 		tribe_ev.fn.tooltips();
@@ -852,7 +849,6 @@ Date.prototype.format = function (mask, utc) {
 		},
 		/**
 		 * @function tribe_ev.fn.update_picker
-		 * @since 3.0
 		 * @desc tribe_ev.fn.update_picker Updates the custom bootstrapDatepicker if it and the event bar is present, or only the event bar input if it is present.
 		 * @param {String} date The date string to update picker or input with.
 		 * @example <caption>Bind a handler that updates the datepicker if present with the date, in this case harvested from a data attribute on the link.</caption>
@@ -886,7 +882,6 @@ Date.prototype.format = function (mask, utc) {
 		},
 		/**
 		 * @function tribe_ev.fn.update_viewport_variables
-		 * @since 3.0
 		 * @desc tribe_ev.fn.update_viewport_variables surprisingly updates the viewport variables stored in the tribe_ev.data object.
 		 */
 		update_viewport_variables: function () {
@@ -895,7 +890,6 @@ Date.prototype.format = function (mask, utc) {
 		},
 		/**
 		 * @function tribe_ev.fn.url_path
-		 * @since 3.0
 		 * @desc tribe_ev.fn.url_path strips query vars from a url passed to it using js split on the ? character.
 		 * @param {String} url The url to remove all vars from.
 		 * @returns {String} Returns a url devoid of any query vars.
@@ -910,7 +904,6 @@ Date.prototype.format = function (mask, utc) {
 		},
 		/**
 		 * @function tribe_ev.fn.equal_height
-		 * @since 3.5.1
 		 * @desc tribe_ev.fn.equal_height gets the tallest height of a set of elements and sets them to the same height.
 		 * @param {Object} $group The group of elements to get and set tallest height from.
 		 * @example <caption>Get and set the height to the tallest of a set of elements.</caption>
@@ -934,14 +927,12 @@ Date.prototype.format = function (mask, utc) {
 
 	/**
 	 * @namespace tribe_ev
-	 * @since 3.0
 	 * @desc tribe_ev.tests namespace stores all the custom tests used throughout the core events plugin.
 	 */
 
 	tribe_ev.tests = {
 		/**
 		 * @function tribe_ev.tests.live_ajax
-		 * @since 3.0
 		 * @desc tribe_ev.tests.live_ajax tests if live ajax is enabled in the events settings tab by checking the data attribute data-live_ajax on #tribe-events in the front end.
 		 * @example <caption>Very easy test to use. In a doc ready:</caption>
 		 * if (tribe_ev.tests.live_ajax()) {
@@ -956,7 +947,6 @@ Date.prototype.format = function (mask, utc) {
 		},
 		/**
 		 * @function tribe_ev.tests.map_view
-		 * @since 3.0
 		 * @desc tribe_ev.tests.map_view test if we are on map view.
 		 * @example <caption>Test if we are on map view</caption>
 		 * if (tribe_ev.tests.map_view()) {
@@ -968,7 +958,6 @@ Date.prototype.format = function (mask, utc) {
 		},
 		/**
 		 * @function tribe_ev.tests.no_bar
-		 * @since 3.0.4
 		 * @desc tribe_ev.tests.has_bar tests if the events bar is enabled on the front end.
 		 * @example <caption>Very easy test to use. In a doc ready:</caption>
 		 * if (tribe_ev.tests.no_bar()) {
@@ -982,7 +971,6 @@ Date.prototype.format = function (mask, utc) {
 		},
 		/**
 		 * @type Boolean tribe_ev.tests.pushstate
-		 * @since 3.0
 		 * @desc tribe_ev.tests.pushstate checks if the history object is available safely and returns true or false.
 		 * @example <caption>Execute an if else on the presence of pushstate</caption>
 		 * if (tribe_ev.tests.pushstate) {
@@ -994,7 +982,6 @@ Date.prototype.format = function (mask, utc) {
 		pushstate: !!(window.history && history.pushState),
 		/**
 		 * @function tribe_ev.tests.reset_on
-		 * @since 3.0
 		 * @desc tribe_ev.tests.reset_on tests if any other function is currently disabling a tribe ajax function.
 		 * @example <caption>In another handler that will be triggering a tribe ajax function:</caption>
 		 * if (!tribe_ev.tests.reset_on()) {
@@ -1006,7 +993,6 @@ Date.prototype.format = function (mask, utc) {
 		},
 		/**
 		 * @function tribe_ev.tests.starting_delim
-		 * @since 3.0
 		 * @desc tribe_ev.tests.starting_delim is used by events url forming functions to determine if "?" is already present. It then sets the delimiter for the next part of the url concatenation to "?" if not found and "&" if it is.
 		 * @example <caption>Test and set delimiter during url string concatenation.</caption>
 		 * 		tribe_ev.state.cur_url += tribe_ev.tests.starting_delim + tribe_ev.state.url_params;
@@ -1016,7 +1002,6 @@ Date.prototype.format = function (mask, utc) {
 		},
 		/**
 		 * @type Boolean tribe_ev.tests.webkit
-		 * @since 3.0
 		 * @desc tribe_ev.tests.webkit checks if webkit is the browser in use and returns true or false.
 		 * @example <caption>Execute an if else on the presence of pushstate</caption>
 		 * if (tribe_ev.tests.webkit) {
@@ -1030,7 +1015,6 @@ Date.prototype.format = function (mask, utc) {
 
 	/**
 	 * @namespace tribe_ev
-	 * @since 3.0
 	 * @desc tribe_ev.data stores information that is sometimes used internally and also contains useful data for themers.
 	 */
 
@@ -1053,7 +1037,6 @@ Date.prototype.format = function (mask, utc) {
 
 	/**
 	 * @namespace tribe_ev
-	 * @since 3.0
 	 * @desc tribe_ev.events is an empty object used to attach all tribe custom events to.
 	 */
 
@@ -1061,7 +1044,6 @@ Date.prototype.format = function (mask, utc) {
 
 	/**
 	 * @namespace tribe_ev
-	 * @since 3.0
 	 * @desc tribe_ev.state is mainly used in events ajax operations, though a few variables are set on doc ready.
 	 */
 
@@ -1185,7 +1167,6 @@ Date.prototype.format = function (mask, utc) {
 
 		/**
 		 * @function tribe_ical_url
-		 * @since 3.0
 		 * @desc tribe_ical_url This function adds required params to the ical url. Runs on doc ready, and hooks into 'tribe_ev_ajaxSuccess' also.
 		 */
 

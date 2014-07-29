@@ -17,7 +17,6 @@ if( class_exists( 'TribeEvents' ) ) {
 	 *
 	 * @param string $postId
 	 * @return string A fully qualified link to http://maps.google.com/ for this event
-	 * @since 2.0
 	 */
 	function tribe_get_map_link( $postId = null )  {
 		$tribe_ecp = TribeEvents::instance();
@@ -32,7 +31,6 @@ if( class_exists( 'TribeEvents' ) ) {
 	 *
 	 * @param string $postId
 	 * @return string A fully qualified link to http://maps.google.com/ for this event
-	 * @since 3.6
 	 */
 	function tribe_get_map_link_html( $postId = null )  {
 		$link = sprintf('<a class="tribe-events-gmap" href="%s" title="%s" target="_blank">%s</a>',
@@ -55,7 +53,6 @@ if( class_exists( 'TribeEvents' ) ) {
 	 * @param int $height
 	 * @param bool $force_load If true, then load the map even if an address is not provided.
 	 * @return string An iframe pulling http://maps.google.com/ for this event
-	 * @since 2.0
 	 */
 	function tribe_get_embedded_map( $postId = null, $width = null, $height = null, $force_load = false )  {
 		$postId = TribeEvents::postIdHelper( $postId );
@@ -99,7 +96,6 @@ if( class_exists( 'TribeEvents' ) ) {
 	 *
      * @param int $postId Id of the post, if none specified, current post is used
 	 * @return bool True if google map option is set to embed the map
-	 * @since 2.0
 	 */
 	function tribe_embed_google_map($postId = null) {
 
@@ -124,7 +120,6 @@ if( class_exists( 'TribeEvents' ) ) {
 	 *
      * @param int $postId Id of the post, if none specified, current post is used
 	 * @return bool True if google map link is set to display the event
-	 * @since 2.0
 	 */
 	function tribe_show_google_map_link($postId = null) {
 

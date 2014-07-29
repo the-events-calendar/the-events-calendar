@@ -62,7 +62,6 @@ class TribeiCal {
 	 * Generates the markup for iCal and gCal single event links
 	 *
 	 * @return void
-	 * @since 3.0
 	 **/
 	public static function single_event_links()	{
 
@@ -72,34 +71,21 @@ class TribeiCal {
 		}
 
 		echo '<div class="tribe-events-cal-links">';
-		echo '<a class="tribe-events-gcal tribe-events-button" href="' . tribe_get_gcal_link() . '" title="' . __( 'Add to Google Calendar', 'tribe-events-calendar' ) . '">+ ' . __( 'Google Calendar', 'tribe-events-calendar-pro' ) . '</a>';
-		echo '<a class="tribe-events-ical tribe-events-button" href="' . tribe_get_single_ical_link() . '">+ ' . __( 'iCal Import', 'tribe-events-calendar' ) . '</a>';
+		echo '<a class="tribe-events-gcal tribe-events-button" href="' . tribe_get_gcal_link() . '" title="' . __( 'Add to Google Calendar', 'tribe-events-calendar' ) . '">+ ' . __( 'Google Calendar', 'tribe-events-calendar' ) . '</a>';
+		echo '<a class="tribe-events-ical tribe-events-button" href="' . tribe_get_single_ical_link() . '" title="' . __('Download .ics file', 'tribe-events-calendar') . '" >+ ' . __( 'iCal Export', 'tribe-events-calendar' ) . '</a>';
 		echo '</div><!-- .tribe-events-cal-links -->';
 	}
 
 	/**
 	 * Generates the markup for the "iCal Import" link for the views.
-	 *
-	 * @static
-	 *
-	 * @param string $content
-	 *
-	 * @return string
 	 */
-	public static function maybe_add_link( $content ) {
+	public static function maybe_add_link() {
 		global $wp_query;
-
 		$show_ical = apply_filters( 'tribe_events_list_show_ical_link', true );
 
-
-		if ( ! $show_ical )
-			return $content;
-
-		if ( tribe_is_month() && ! tribe_events_month_has_events() )
-			return $content;
-
-		if ( is_single() || ! have_posts() )
-			return $content;
+		if ( ! $show_ical ) return;
+		if ( tribe_is_month() && ! tribe_events_month_has_events() ) return;
+		if ( is_single() || ! have_posts() ) return;
 
 		$tec = TribeEvents::instance();
 
@@ -108,7 +94,6 @@ class TribeiCal {
 			$view = $wp_query->query_vars['eventDisplay'];
 
 		switch ( strtolower( $view ) ) {
-
 			case 'month':
 				$modifier = __( "Month's Events", "tribe-events-calendar" );
 				break;
@@ -123,11 +108,11 @@ class TribeiCal {
 				break;
 		}
 
-		$ical    = '<a class="tribe-events-ical tribe-events-button" title="' . __( 'Import is filter/view sensitive', 'tribe-events-calendar' ) . '" href="' . tribe_get_ical_link() . '">+ ' . __( 'iCal Import', 'tribe-events-calendar' ) . ' ' . $modifier . '</a>';
+		$text = apply_filters( 'tribe_events_ical_export_text', __( 'Export', 'tribe-events-calendar' ) . ' ' . $modifier );
+		$title = __( 'Use this to share calendar data with Google Calendar, Apple iCal and other compatible apps', 'tribe-events-calendar' );
+		$ical = '<a class="tribe-events-ical tribe-events-button" title="' . $title . '" href="' . tribe_get_ical_link() . '">+ ' . $text . '</a>';
+
 		echo $ical;
-
-		return $content;
-
 	}
 
 	/**
