@@ -8,7 +8,6 @@ if (Object.prototype.hasOwnProperty.call(window, 'tribe_ev')) {
 
 	/**
 	 * @namespace tribe_ev
-	 * @since 3.0
 	 * @desc tribe_ev.geoloc namespace stores all google maps data used in both map view and for events wide geo search.
 	 */
 
@@ -38,7 +37,6 @@ if (Object.prototype.hasOwnProperty.call(window, 'tribe_ev')) {
 
 		/**
 		 * @function tribe_ev.fn.has_address
-		 * @since 3.0
 		 * @desc tribe_ev.fn.has_address
 		 * @param {String} val The value to compare against the array.
 		 * @param {Array} geocodes Tests for an immediate duplicate in the geocodes array.
@@ -54,7 +52,6 @@ if (Object.prototype.hasOwnProperty.call(window, 'tribe_ev')) {
 
 		/**
 		 * @function tribe_ev.fn.pre_ajax
-		 * @since 3.0
 		 * @desc tribe_ev.fn.pre_ajax allows for functions to be executed before ajax begins.
 		 * @param {Function} callback The callback function, expected to be an ajax function for one of our views.
 		 */
@@ -103,7 +100,6 @@ if (Object.prototype.hasOwnProperty.call(window, 'tribe_ev')) {
 
 		/**
 		 * @function tribe_ev.fn.print_geo_options
-		 * @since 3.0
 		 * @desc tribe_ev.fn.print_geo_options prints out the geolocation options returned by google maps if a geo search term requires refinement.
 		 */
 
@@ -131,7 +127,6 @@ if (Object.prototype.hasOwnProperty.call(window, 'tribe_ev')) {
 
 		/**
 		 * @function tribe_ev.fn.pro_tooltips
-		 * @since 3.0
 		 * @desc tribe_ev.fn.pro_tooltips supplies additional tooltip functions for view use on top of the ones defined in core, especially for week view.
 		 */
 
@@ -243,7 +238,6 @@ if (Object.prototype.hasOwnProperty.call(window, 'tribe_ev')) {
 
 		/**
 		 * @function tribe_ev.fn.process_geocoding
-		 * @since 3.0
 		 * @desc tribe_ev.fn.process_geocoding middle mans the geolocation request to google with its callback.
 		 * @param {String} location The location value, generally from the event bar.
 		 * @param {Function} callback The callback function.
@@ -279,7 +273,6 @@ if (Object.prototype.hasOwnProperty.call(window, 'tribe_ev')) {
 
 		/**
 		 * @function tribe_ev.fn.set_recurrence
-		 * @since 3.0
 		 * @desc tribe_ev.fn.set_recurrence uses local storage to store the user front end setting for the hiding of subsequent recurrences of a recurring event.
 		 * @param {Boolean} recurrence_on Bool sent to set appropriate recurrence storage option.
 		 */
@@ -303,7 +296,6 @@ if (Object.prototype.hasOwnProperty.call(window, 'tribe_ev')) {
 
 		/**
 		 * @function tribe_ev.tests.hide_recurrence
-		 * @since 3.0
 		 * @desc tribe_ev.tests.hide_recurrence uses local storage to store the user front end setting for the hiding of subsequent recurrences of a recurring event.
 		 */
 

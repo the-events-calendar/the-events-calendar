@@ -3,8 +3,6 @@
 /**
  * A class for providing WordPress filters in a manage "posts" view
  *
- * @author Modern Tribe, Inc.
- * @author Matt Wiebe
  **/
 
 if ( ! class_exists( 'Tribe_Filters' ) ) {

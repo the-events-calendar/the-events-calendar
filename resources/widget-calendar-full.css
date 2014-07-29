@@ -8,8 +8,6 @@
  * To replace our stylsheet altogether, you can use the 'tribe_events_pro_widget_calendar_stylesheet_url' filter.
  *
  * @package TribeEventsCalendarPro
- * @since  3.0
- * @author Modern Tribe Inc.
  *
  */
 
@@ -290,7 +288,7 @@
 	margin: 5px 0 0;
 }
 
-.tribe_mini_calendar_widget a.tribe-events-button {
+.tribe-mini-calendar-wrapper a.tribe-events-button {
 	margin-top: 10px;
 	display: inline-block;
 	background-color: #666;

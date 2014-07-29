@@ -27,7 +27,6 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	 *
 	 * @param int $postId (optional)
 	 * @return bool true if event is a recurring event.
-	 * @since 2.0
 	 */
 	if (!function_exists( 'tribe_is_recurring_event' )) {
 		function tribe_is_recurring_event( $postId = null )  {
@@ -57,7 +56,6 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	 *
 	 * @param int $postId (optional)
 	 * @return string Summary of recurrence.
-	 * @since 2.0
 	 */
 	if (!function_exists( 'tribe_get_recurrence_text' )) {
 		function tribe_get_recurrence_text( $postId = null )  {
@@ -72,7 +70,6 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	 * Display link for all occurrences of an event (based on the currently queried event).
 	 *
 	 * @param int $postId (optional)
-	 * @since 2.0
 	 */
 	if (!function_exists( 'tribe_all_occurences_link' )) {
 		function tribe_all_occurences_link( $postId = null, $echo = true )  {
@@ -106,7 +103,6 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	 *
 	 * @param int $postId (optional)
 	 * @return array $data of custom fields
-	 * @since 2.0
 	 */
 	function tribe_get_custom_fields( $postId = null ) {
 		$postId = TribeEvents::postIdHelper( $postId );
@@ -140,7 +136,6 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	 * Display a definition term list of custom fields
 	 *
 	 * @param int $postId (optional)
-	 * @since 2.0
 	 */
 	function tribe_the_custom_fields( $postId = null, $echo = true ) {
 		$fields = tribe_get_custom_fields( $postId );
@@ -164,7 +159,6 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	 * retrieve a custom field's value by searching its label
 	 * instead of its (more obscure) ID
 	 *
-	 * @since 2.0.3
 	 * @param (string) $label, the label to search for
 	 * @param (int) $eventID (optional), the event to look for, defaults to global $post
 	 * @return (string) value of the field
@@ -178,7 +172,6 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	 *
 	 * same as above but echo instead of return
 	 *
-	 * @since 2.0.3
 	 * @param (string) $label, the label to search for
 	 * @param (int) $eventID (optional), the event to look for, defaults to global $post
 	 * @return (string) value of the field
@@ -194,7 +187,6 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	*
 	* @param int $count
 	* @return array Array of events
-	* @since 2.1
 	*/
 	function tribe_get_related_events ($count=3) {
 		return apply_filters('tribe_get_related_events', TribeRelatedEvents::getEvents( $count ) );
@@ -209,7 +201,6 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	* @param int $count
 	* @param bool $thumbnails
 	* @param bool $start_date
-	* @since 2.1
 	*/
 	function tribe_related_events ($title, $count=3, $thumbnails=false, $start_date=false, $get_title=true) {
 		return apply_filters('tribe_related_events', TribeRelatedEvents::displayEvents( $title, $count, $thumbnails, $start_date, $get_title ) );
@@ -219,8 +210,6 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	 * Displays the saved organizer
 	 * Used in the settings screen
 	 *
-	 * @author jkudish
-	 * @since 2.0.5
 	 * @return void
 	 */
 	function tribe_display_saved_organizer() {
@@ -234,8 +223,6 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	 * Displays the saved venue
 	 * Used in the settings screen
 	 *
-	 * @author jkudish
-	 * @since 2.0.5
 	 * @return void
 	 */
 	function tribe_display_saved_venue() {
@@ -249,8 +236,6 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	 * Displays the saved address
 	 * Used in the settings screen
 	 *
-	 * @author jkudish
-	 * @since 2.0.5
 	 * @return void
 	 */
 	function tribe_display_saved_address() {
@@ -264,8 +249,6 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	 * Displays the saved city
 	 * Used in the settings screen
 	 *
-	 * @author jkudish
-	 * @since 2.0.5
 	 * @return void
 	 */
 	function tribe_display_saved_city() {
@@ -279,8 +262,6 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	 * Displays the saved state
 	 * Used in the settings screen
 	 *
-	 * @author jkudish
-	 * @since 2.0.5
 	 * @return void
 	 */
 	function tribe_display_saved_state() {
@@ -294,8 +275,6 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	 * Displays the saved province
 	 * Used in the settings screen
 	 *
-	 * @author jkudish
-	 * @since 2.0.5
 	 * @return void
 	 */
 	function tribe_display_saved_province() {
@@ -309,8 +288,6 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	 * Displays the saved zip
 	 * Used in the settings screen
 	 *
-	 * @author jkudish
-	 * @since 2.0.5
 	 * @return void
 	 */
 	function tribe_display_saved_zip() {
@@ -324,8 +301,6 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	 * Displays the saved country
 	 * Used in the settings screen
 	 *
-	 * @author jkudish
-	 * @since 2.0.5
 	 * @return void
 	 */
 	function tribe_display_saved_country() {
@@ -339,8 +314,6 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	 * Displays the saved phone
 	 * Used in the settings screen
 	 *
-	 * @author jkudish
-	 * @since 2.0.5
 	 * @return void
 	 */
 	function tribe_display_saved_phone() {
@@ -372,7 +345,6 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	/**
 	 * Returns an events distance from location search term
 	 *
-	 * @since 3.0
 	 * @return string
 	 *
 	 */
@@ -448,7 +420,6 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	 * Week Loop View Test
 	 *
 	 * @return bool
-	 * @since 3.0
 	 */
 	function tribe_is_week()  {
 		$is_week = (TribeEvents::instance()->displaying == 'week') ? true : false;
@@ -459,7 +430,6 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	 * Week Loop View Test
 	 *
 	 * @return bool
-	 * @since 3.0
 	 */
 	function tribe_is_photo()  {
 		$is_photo = (TribeEvents::instance()->displaying == 'photo') ? true : false;
@@ -470,7 +440,6 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	 * Map Loop View Test
 	 *
 	 * @return bool
-	 * @since 3.0
 	 */
 	function tribe_is_map()  {
 		$tribe_ecp = TribeEvents::instance();
@@ -485,7 +454,6 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	 * @param string $week
 	 * @param bool $is_current
 	 * @return string $permalink
-	 * @since 3.0
 	 */
 	function tribe_get_last_week_permalink( $week = null ) {
 		$week = !empty( $week ) ? $week : tribe_get_first_week_day();
@@ -494,6 +462,7 @@ if( class_exists( 'TribeEventsPro' ) ) {
 				throw new OverflowException(__('Date out of range.', 'tribe-events-calendar-pro'));
 			}
 		}
+
 		$week = date('Y-m-d', strtotime( $week . ' -1 week'));
 		return apply_filters('tribe_get_last_week_permalink', tribe_get_week_permalink( $week ) );
 	}
@@ -504,7 +473,6 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	 * @uses tribe_get_week_permalink
 	 * @param string $week
 	 * @return string $permalink
-	 * @since 3.0
 	 */
 	function tribe_get_next_week_permalink( $week = null ) {
 		$week = !empty( $week ) ? $week : tribe_get_first_week_day();
@@ -522,7 +490,6 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	 *
 	 * @param string $week
 	 * @return string $permalink
-	 * @since 3.0
 	 */
 	function tribe_get_week_permalink( $week = null, $term = true ){
 		$week = is_null($week) ? false : date('Y-m-d', strtotime( $week ) );
@@ -536,7 +503,6 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	/**
 	 * Get photo permalink by provided date
 	 * @return string $permalink
-	 * @since 3.0
 	 */
 	function tribe_get_photo_permalink( $term = true ) {
 		if ( isset( $wp_query->query_vars[TribeEvents::TAXONOMY] ) )
@@ -556,8 +522,6 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	/**
 	 * Template tag to get related posts for the current post.
 	 *
-	 * @since 1.1
-	 * @author Paul Hughes
 	 * @param int $count number of related posts to return.
 	 * @param int|obj $post the post to get related posts to, defaults to current global $post
 	 * @return array the related posts.
@@ -598,7 +562,6 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	 *
 	 * return the details of the start/end date/time
 	 *
-	 * @since  3.5
 	 * @param int     $post_id
 	 * @return string
 	 */
@@ -611,10 +574,10 @@ if( class_exists( 'TribeEventsPro' ) ) {
 			$tooltip .= '<div class="recurringinfo">';
 			$tooltip .= '<div class="event-is-recurring">';
 			$tooltip .= '<span class="tribe-events-divider">|</span>';
-			$tooltip .= __( 'Recurring Event', 'tribe-events-calendar' );
+			$tooltip .= __( 'Recurring Event', 'tribe-events-calendar-pro' );
 			$tooltip .= sprintf(' <a href="%s">%s</a>',
 				tribe_all_occurences_link( $post_id, false ),
-				__( '(See all)', 'tribe-events-calendar' )
+				__( '(See all)', 'tribe-events-calendar-pro' )
 			);
 			$tooltip .= '<div id="tribe-events-tooltip-'. $post_id .'" class="tribe-events-tooltip recurring-info-tooltip">';
 			$tooltip .= '<div class="tribe-events-event-body">';
@@ -636,8 +599,6 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	 * @param string $resource the filename of the resource
 	 * @param bool $echo whether or not to echo the url
 	 * @return string
-	 * @author Jessica Yazbek
-	 * @since 3.5
 	 **/
 	function tribe_events_pro_resource_url($resource, $echo = false) {
 		$url = apply_filters('tribe_events_pro_resource_url', trailingslashit( TribeEventsPro::instance()->pluginUrl ).'resources/'.$resource, $resource);

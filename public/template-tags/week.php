@@ -26,8 +26,6 @@ if ( class_exists( 'TribeEventsPro' ) ) {
 	/**
 	 * set the loop type for week view between all day and hourly events
 	 *
-	 * @since  3.0
-	 * @author tim@imaginesimplicty.com
 	 * @param string  $loop_type
 	 * @return void
 	 */
@@ -40,7 +38,6 @@ if ( class_exists( 'TribeEventsPro' ) ) {
 	 * Whether there are more calendar days available in the loop.
 	 *
 	 * @return bool True if calendar days are available, false if end of loop.
-	 * @since 3.0
 	 * @return  void
 	 * */
 	function tribe_events_week_have_days() {
@@ -50,8 +47,6 @@ if ( class_exists( 'TribeEventsPro' ) ) {
 	/**
 	 * increment the current day loop
 	 *
-	 * @since 3.0
-	 * @author tim@imaginesimplicity.com
 	 * @return void
 	 */
 	function tribe_events_week_the_day() {
@@ -61,8 +56,6 @@ if ( class_exists( 'TribeEventsPro' ) ) {
 	/**
 	 * increment the row for the all day map
 	 *
-	 * @since 3.0
-	 * @author tim@imaginesimplicity.com
 	 * @return void
 	 */
 	function tribe_events_week_the_day_map() {
@@ -75,8 +68,6 @@ if ( class_exists( 'TribeEventsPro' ) ) {
 	/**
 	 * provide a clean way to reset the counter for the all day map row iterator
 	 *
-	 * @since 3.0
-	 * @author tim@imaginesimplicity.com
 	 * @return void
 	 */
 	function tribe_events_week_reset_the_day_map() {
@@ -86,8 +77,6 @@ if ( class_exists( 'TribeEventsPro' ) ) {
 	/**
 	 * setup css classes for daily columns in week view
 	 *
-	 * @since  3.0
-	 * @author tim@imaginesimplicty.com
 	 * @return void
 	 */
 	function tribe_events_week_column_classes() {
@@ -142,8 +131,6 @@ if ( class_exists( 'TribeEventsPro' ) ) {
 	/**
 	 * get map of all day events for week view
 	 *
-	 * @since  3.0
-	 * @author tim@imaginesimplicty.com
 	 * @return array of event ids
 	 */
 	function tribe_events_week_get_all_day_map() {
@@ -154,8 +141,6 @@ if ( class_exists( 'TribeEventsPro' ) ) {
 	/**
 	 * get array of hourly event objects
 	 *
-	 * @since  3.0
-	 * @author tim@imaginesimplicty.com
 	 * @return array of hourly event objects
 	 */
 	function tribe_events_week_get_hourly() {
@@ -166,8 +151,6 @@ if ( class_exists( 'TribeEventsPro' ) ) {
 	/**
 	 * set internal mechanism for setting event id for retrieval with other tags
 	 *
-	 * @since  3.0
-	 * @author tim@imaginesimplicty.com
 	 * @param int     $event_id
 	 * @return boolean
 	 */
@@ -201,8 +184,6 @@ if ( class_exists( 'TribeEventsPro' ) ) {
 	/**
 	 * get internal event id pointer
 	 *
-	 * @since  3.0
-	 * @author tim@imaginesimplicty.com
 	 * @return int $event_id
 	 */
 	function tribe_events_week_get_event_id( $echo = true ) {
@@ -217,8 +198,6 @@ if ( class_exists( 'TribeEventsPro' ) ) {
 	/**
 	 * check to see if placeholder should be used in template in place of event block
 	 *
-	 * @since  3.0
-	 * @author tim@imaginesimplicty.com
 	 * @return boolean
 	 */
 	function tribe_events_week_is_all_day_placeholder() {
@@ -233,8 +212,6 @@ if ( class_exists( 'TribeEventsPro' ) ) {
 	/**
 	 * get event object
 	 *
-	 * @since  3.0
-	 * @author tim@imaginesimplicty.com
 	 * @return object
 	 */
 	function tribe_events_week_get_event() {
@@ -253,28 +230,49 @@ if ( class_exists( 'TribeEventsPro' ) ) {
 
 	function tribe_previous_week_link( $text = '' ) {
 		try {
+			$date = tribe_get_first_week_day();
+			if ( $date <= tribe_events_earliest_date( TribeDateUtils::DBDATEFORMAT ) ) return '';
+
 			$url = tribe_get_last_week_permalink();
-			if ( empty($text) ) {
-				$text = __('<span>&laquo;</span> Previous Week', 'tribe-events-calendar-pro' );
-			}
-			$html = sprintf( '<a %s href="%s" rel="prev">%s</a>', tribe_events_the_nav_attributes( 'prev', false ), $url, $text );
-		} catch ( OverflowException $e ) {
-			$html = '';
+			if ( empty($text) ) $text = __('<span>&laquo;</span> Previous Week', 'tribe-events-calendar-pro' );
+
+			if ( ! empty( $url ) )
+				return sprintf( '<a %s href="%s" rel="prev">%s</a>', tribe_events_the_nav_attributes( 'prev', false ), $url, $text );
 		}
-		return $html;
+		catch ( OverflowException $e ) {
+			return '';
+		}
 	}
 
 	function tribe_next_week_link( $text = '' ) {
 		try {
+			$date = date( TribeDateUtils::DBDATEFORMAT, strtotime( tribe_get_first_week_day() . ' +1 week' ) );
+			if ( $date >= tribe_events_latest_date( TribeDateUtils::DBDATEFORMAT ) ) return '';
+
 			$url = tribe_get_next_week_permalink();
-			if ( empty($text) ) {
-				$text = __( 'Next Week <span>&raquo;</span>', 'tribe-events-calendar-pro' );
-			}
-			$html = sprintf( '<a %s href="%s" rel="next">%s</a>', tribe_events_the_nav_attributes( 'next', false ), $url, $text );
+			if ( empty($text) ) $text = __( 'Next Week <span>&raquo;</span>', 'tribe-events-calendar-pro' );
+
+			return sprintf( '<a %s href="%s" rel="next">%s</a>', tribe_events_the_nav_attributes( 'next', false ), $url, $text );
 		} catch ( OverflowException $e ) {
-			$html = '';
+			return '';
 		}
-		return $html;
+	}
+
+	/**
+	 * For use within the week view template to determine if the current day in the
+	 * loop contains events.
+	 *
+	 * @return bool
+	 */
+	function tribe_events_current_week_day_has_events() {
+		// Do we have any all day events taking place today?
+		$day_counter = Tribe_Events_Pro_Week_Template::get_current_day();
+		$map = tribe_events_week_get_all_day_map();
+		if ( null !== $map[0][$day_counter] ) return true;
+
+		// Do we have any hourly events taking place today?
+		$hourly = Tribe_Events_Pro_Week_Template::get_events( 'hourly_map' );
+		return empty( $hourly[$day_counter] ) ? false : true;
 	}
 
 }

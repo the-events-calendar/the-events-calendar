@@ -18,29 +18,47 @@
 <table class='wp-list-table widefat' id="additional-field-table" style=''>
 	<thead><tr><th><?php _e('Field Label','tribe-events-calendar-pro'); ?></th><th><?php _e('Field Type','tribe-events-calendar-pro'); ?></th><th><?php _e('Options (one per line)','tribe-events-calendar-pro'); ?></th><th></th></tr></thead>
 	<tbody>
-   <?php $customFields[] = array() ?>
-	<?php foreach ( $customFields as $customField ): ?>
+	<?php
+	$total = count( $customFields );
+	$count = 0;
+
+	// Append an extra (blank) entry at the end of the list as a convenience for admins
+	$customFields[] = array();
+
+	foreach ( $customFields as $field ):
+		// Track our progress through the list of custom fields
+		$last_row = ( $count++ === $total );
+
+		// Reuse the existing index (and maintain an underscore prefix - to differentiate
+		// between existing fields and newly created ones (so we can maintain the relationship
+		// between keys and values)
+		if ( isset( $field['name'] ) && 0 === strpos( $field['name'], '_ecp_custom' ) )
+			$index = esc_attr( substr( $field['name'], 11 ) );
+
+		// In all other cases, we'll leave things open for a new index to be applied
+		else $index = '';
+		?>
 		<tr>
-         <td><input type="text" name="custom-field[]" data-persisted='<?php echo $count != sizeof($customFields) ? "yes" : "no" ?>' data-name-template='custom-field' data-count='<?php echo esc_attr($count) ?>' value="<?php echo isset($customField['label']) ? esc_attr(stripslashes($customField['label'])) : ""; ?>"/></td>
+         <td><input type="text" name="custom-field[<?php echo $index ?>]" data-persisted='<?php echo $count != sizeof($field) ? "yes" : "no" ?>' data-name-template='custom-field' data-count='<?php echo esc_attr($count) ?>' value="<?php echo isset($field['label']) ? esc_attr(stripslashes($field['label'])) : ""; ?>"/></td>
 			<td>
-				<select name="custom-field-type[]" data-name-template='custom-field-type' data-count='<?php echo $count ?>'>
-					<option value="text" <?php selected(isset($customField['type']) && $customField['type'] == 'textarea') ?>><?php _e('Text','tribe-events-calendar-pro'); ?></option>
-					<option value="url" <?php selected(isset($customField['type']) && $customField['type'] == 'url') ?>><?php _e('URL','tribe-events-calendar-pro'); ?></option>
-					<option value="radio" <?php selected(isset($customField['type']) && $customField['type'] == 'radio') ?>><?php _e('Radio','tribe-events-calendar-pro'); ?></option>
-					<option value="checkbox" <?php selected(isset($customField['type']) && $customField['type'] == 'checkbox') ?>><?php _e('Checkbox','tribe-events-calendar-pro'); ?></option>
-					<option value="dropdown" <?php selected(isset($customField['type']) && $customField['type'] == 'dropdown') ?>><?php _e('Dropdown','tribe-events-calendar-pro'); ?></option>
+				<select name="custom-field-type[<?php echo $index ?>]" data-name-template='custom-field-type' data-count='<?php echo $count ?>'>
+					<option value="text" <?php selected( isset($field['type'] ) && $field['type'] == 'textarea' ) ?>><?php _e( 'Text', 'tribe-events-calendar-pro' ) ?></option>
+					<option value="url" <?php selected( isset($field['type'] ) && $field['type'] == 'url' ) ?>><?php _e( 'URL', 'tribe-events-calendar-pro' ) ?></option>
+					<option value="radio" <?php selected( isset($field['type'] ) && $field['type'] == 'radio' ) ?>><?php _e( 'Radio', 'tribe-events-calendar-pro' ) ?></option>
+					<option value="checkbox" <?php selected( isset($field['type'] ) && $field['type'] == 'checkbox' ) ?>><?php _e( 'Checkbox', 'tribe-events-calendar-pro' ) ?></option>
+					<option value="dropdown" <?php selected( isset($field['type'] ) && $field['type'] == 'dropdown' ) ?>><?php _e( 'Dropdown', 'tribe-events-calendar-pro' ) ?></option>
 				</select>
 			</td>
-			<td><textarea style='display: <?php echo (isset($customField['type']) && ($customField['type'] == 'radio' || $customField['type'] == 'checkbox' || $customField['type'] == 'dropdown')) ? "inline" : "none" ?>;' name="custom-field-options[]" data-name-template='custom-field-options' data-count='<?php echo esc_attr($count) ?>' rows="3"><?php echo stripslashes(esc_textarea(isset($customField['values']) ? $customField['values'] : "")) ?></textarea></td>
+			<td><textarea name="custom-field-options[<?php echo $index ?>]" style='display: <?php echo (isset($field['type']) && ($field['type'] == 'radio' || $field['type'] == 'checkbox' || $field['type'] == 'dropdown')) ? "inline" : "none" ?>;' data-name-template='custom-field-options' data-count='<?php echo esc_attr($count) ?>' rows="3"><?php echo stripslashes( esc_textarea( isset( $field['values'] ) ? $field['values'] : '' ) ) ?></textarea></td>
 			<td>
-				<?php if ($count == sizeof($customFields)): ?>
-					<a name="add-field" href='#add-field' class='add-another-field'><?php _e('Add another','tribe-events-calendar-pro'); ?></a>
-            <?php else: ?>
-               <a name="remove-field" href='#remove-field' class='remove-another-field'><?php _e('Remove','tribe-events-calendar-pro'); ?></a>
-				<?php endif; ?>
+				<?php if ( $last_row ): ?>
+					<a name="add-field" href='#add-field' class='add-another-field'><?php _e( 'Add another', 'tribe-events-calendar-pro' ) ?></a>
+				<?php else: ?>
+					<a name="remove-field" href='#remove-field' class='remove-another-field'><?php _e( 'Remove', 'tribe-events-calendar-pro' ) ?></a>
+				<?php endif ?>
 			</td>
 		</tr>
-	<?php $count++; endforeach; ?>
+	<?php endforeach ?>
 	</tbody>
 </table>
 

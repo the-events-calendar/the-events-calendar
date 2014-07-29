@@ -4,8 +4,6 @@
  * This file contains hooks and functions required to set up the single venue view.
  *
  * @package TribeEventsCalendarPro
- * @since  2.1
- * @author Modern Tribe Inc.
  *
  */
 
@@ -24,7 +22,6 @@ if ( !class_exists( 'Tribe_Events_Pro_Single_Venue_Template' ) ) {
 		 * Set up hooks for this template
 		 *
 		 * @return void
-		 * @since 3.0
 		 **/
 		public function hooks() {
 			parent::hooks();
@@ -38,7 +35,6 @@ if ( !class_exists( 'Tribe_Events_Pro_Single_Venue_Template' ) ) {
 		 * Setup meta display in this template
 		 *
 		 * @return void
-		 * @since 3.0
 		 **/
 		public function setup_meta() {
 
@@ -95,7 +91,6 @@ if ( !class_exists( 'Tribe_Events_Pro_Single_Venue_Template' ) ) {
 		 * Do any setup for upcoming events
 		 *
 		 * @return void
-		 * @since 3.0
 		 **/
 		public function setup_upcoming_events() {
 
@@ -113,8 +108,6 @@ if ( !class_exists( 'Tribe_Events_Pro_Single_Venue_Template' ) ) {
 		 * @param string $slug The slug referencing the template.
 		 * @param string $name The name of the specific template.
 		 * @return array The new array of templates to include.
-		 * @author Paul Hughes
-		 * @since 3.0
 		 */
 		public function remove_list_navigation( $templates, $slug, $name ) {
 			if ( $slug == 'list/nav' ) {

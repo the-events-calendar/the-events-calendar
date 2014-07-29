@@ -5,7 +5,7 @@ Tags: events, calendar, event, venue, organizer, dates, date, google maps, confe
 Donate link: http://m.tri.be/29
 Requires at least: 3.7
 Tested up to: 3.9.1
-Stable tag: 3.6.1
+Stable tag: 3.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -159,7 +159,9 @@ The plugin is produced by <a href="http://m.tri.be/45">Modern Tribe Inc</a>.
 * Arabic from Mamdouh Samy
 * Bosnian from Marko Manojlovic
 * Brazilian Portuguese from Emerson Marques
+* Bulgarian from Nedko Ivanov
 * Catalan from Barbara Partegos Rof
+* Chinese from Massound Huang
 * Croatian from Marko Manojlovic
 * Czech from Petr Bastan
 * Danish from Anonymous
@@ -170,6 +172,7 @@ The plugin is produced by <a href="http://m.tri.be/45">Modern Tribe Inc</a>.
 * German from Dennis Gruebner
 * Greek from Yannis Troullinos
 * Icelandic by Baldvin √ñrn Berndsen
+* Indonesian by Didik Priyanto
 * Italian from Roberto Scano
 * Latvian from Raivis Dejus
 * Montenegrin from Sasa Vukovic
@@ -214,6 +217,32 @@ Our Premium Plugins:
 = IMPORTANT NOTICE =
 
 3.x is a complete overhaul of the plugin, and as a result we're starting the changelog fresh. For release notes from the 2.x lifecycle, see <a href="http://m.tri.be/k">our 2.x release notes.</a>
+
+= 3.7 =
+
+* Fixed some untranslatable text strings
+* Altered Week View so so as not to link to days with no events
+* Added the ability to override labels and slugs for venues and organizers
+* Fixed some issues with GET params and IE 8/9
+* Fixed an issue where non-standard widget implementation would break the ajax on the Calendar Widget (thanks to whirlmagazine on the forums for reporting this!)
+* Added feature to scroll to first event of week on week view, instead of to 8am (thank you chaplin35 for bringing this up!)
+* Optimized the Countdown Widget for sites with many events (thanks to vancouverfamily for highlighting this issue!)
+* Fixed a problem where the relationship between additional fields and their labels could lead to conflicts (thank you to integrity for bringing this to our attention!)
+* Added a notification for when a recurring event extends beyond the cutoff setting date
+* Corrected a problem where European format commas for geolocation values were causing problems with Google Maps (thanks to andreassperber for reporting this!)
+* Fixed an issue where Week View was being effected by "show only first recurrence" settings (thank you magictigger for bringing this up on the forum!)
+* Improved the labeling of the date format settings
+* Fixed a bug related to the APM start date filter (thanks to dankron for highlighting this issue!)
+* Cleaned up PHPDoc comments
+* Corrected a problem where events were not ordered chronologically on Map View (thank you mggillespie for reporting this!)
+* Removed 2.x templates from codebase
+* Added event classes to the event titles in the Featured Venue widget (props to @afragen for this!)
+* Changed Week View pagination so as not to link to weeks before/after the earliest/latest events
+* Fixed a bug in Chrome with Photo View where using the browser back button would drop a selected category (thank you to blinktech in the forum for bringing this up!)
+* Incorporated new Bulgarian translation files, courtesy of Nedko Ivanov
+* Incorporated new Chinese translation files, courtesy of Massound Huang
+* Incorporated new Indonesian translation files, courtesy of Didik Priyanto
+
 
 = 3.6.1 =
 

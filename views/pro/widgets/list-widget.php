@@ -11,8 +11,6 @@
  * $address, $city, $state, $province'], $zip, $country, $phone, $cost
  *
  * @package TribeEventsCalendarPro
- * @since  1.0
- * @author Modern Tribe Inc.
  *
  */
 
@@ -115,7 +113,7 @@ if ( $posts ):
 
 	<p class="tribe-events-widget-link">
 		<a href="<?php esc_attr_e( esc_url( $link_to_all ) ) ?>" rel="bookmark">
-			<?php _e( 'View More&hellip;', 'tribe-events-calendar' ) ?>
+			<?php _e( 'View More&hellip;', 'tribe-events-calendar-pro' ) ?>
 		</a>
 	</p>
 <?php

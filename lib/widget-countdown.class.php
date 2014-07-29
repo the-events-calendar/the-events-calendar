@@ -4,18 +4,18 @@ Event Countdown Widget
 */
  
 // Don't load directly.
-if ( !defined('ABSPATH') ) { die('-1'); }
+if ( !defined('ABSPATH') ) die('-1');
  
 if( !class_exists( 'TribeCountdownWidget') ) {
 	class TribeCountdownWidget extends WP_Widget {
  
-		function TribeCountdownWidget() {
+		public function __construct() {
 			$widget_ops = array( 'classname' => 'tribe-events-countdown-widget', 'description' => __( 'Displays the time remaining until a specified event.', 'tribe-events-calendar-pro' ) );
 			$control_ops = array( 'id_base' => 'tribe-events-countdown-widget' );
-			$this->WP_Widget( 'tribe-events-countdown-widget', __('Events Countdown', 'tribe-events-calendar-pro'), $widget_ops, $control_ops );
+			parent::__construct( 'tribe-events-countdown-widget', __('Events Countdown', 'tribe-events-calendar-pro'), $widget_ops, $control_ops );
 		}
  
-		function widget( $args, $instance ) {
+		public function widget( $args, $instance ) {
 			extract( $args );
 			extract( $instance );
 			$title = apply_filters( 'widget_title', $title );
@@ -29,7 +29,7 @@ if( !class_exists( 'TribeCountdownWidget') ) {
 			echo $after_widget;
 		}
  
-		function update( $new_instance, $old_instance ) {
+		public function update( $new_instance, $old_instance ) {
 			$instance = $old_instance;
 			$instance['title'] = strip_tags( $new_instance['title'] );
 			$event_data = explode( '|', $new_instance['event'] );
@@ -40,7 +40,7 @@ if( !class_exists( 'TribeCountdownWidget') ) {
 			return $instance;
 		}
  
-		function form( $instance ) {
+		public function form( $instance ) {
 			$defaults = array(
 				'title' => '',
 				'event_ID' => null,
@@ -48,12 +48,21 @@ if( !class_exists( 'TribeCountdownWidget') ) {
 				'show_seconds' => true,
 				'complete' => 'Hooray!',
 			);
+
 			$instance = wp_parse_args( (array) $instance, $defaults);
-			$events = tribe_get_events( array( 'eventDisplay' => 'upcoming', 'posts_per_page' => '-1' ) );
+			$limit = apply_filters( 'tribe_events_pro_countdown_widget_limit', 250 );
+			$paged = apply_filters( 'tribe_events_pro_countdown_widget_paged', 1 );
+
+			$events = tribe_get_events( array(
+				'eventDisplay' => 'upcoming',
+				'posts_per_page' => $limit,
+				'paged' => $paged
+			) );
+
 			include( TribeEventsPro::instance()->pluginPath . 'admin-views/widget-admin-countdown.php' );
 		}
- 
-		function get_output($event_ID, $complete, $show_seconds, $event_date = null ) {
+
+		public function get_output($event_ID, $complete, $show_seconds, $event_date = null ) {
 			$ret = $complete;
 			
 			ob_start();
@@ -70,8 +79,10 @@ if( !class_exists( 'TribeCountdownWidget') ) {
 			return $ret;
 		}
  
-		// Generate the hidden information to be passed to jQuery.
-		function generate_countdown_output( $seconds, $complete, $hourformat, $event_ID, $event_date = null ) {
+		/**
+		 * Generate the hidden information to be passed to jQuery.
+		 */
+		public function generate_countdown_output( $seconds, $complete, $hourformat, $event_ID, $event_date = null ) {
 			$event = get_post( $event_ID );
 			if ( !is_null( $event_date ) )
 				$event->EventStartDate = $event_date;
@@ -88,6 +99,7 @@ if( !class_exists( 'TribeCountdownWidget') ) {
 	}
  
 	add_action('widgets_init', 'tribe_countdown_register_widget');
+
 	function tribe_countdown_register_widget() {
 		register_widget('TribeCountdownWidget');
 	}

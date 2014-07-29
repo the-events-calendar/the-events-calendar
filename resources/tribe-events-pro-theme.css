@@ -8,8 +8,6 @@
  * To replace our stylsheet altogether, you can use the 'tribe_events_pro_stylesheet_url' filter.
  *
  * @package TribeEventsCalendarPro
- * @since  3.0
- * @author Modern Tribe Inc.
  *
  */
 
@@ -79,7 +77,7 @@
 	border-left-color: #666;
 }
 
-.tribe-grid-header .column a {
+.tribe-grid-header .column span {
 	color: #fff;
 }
 
