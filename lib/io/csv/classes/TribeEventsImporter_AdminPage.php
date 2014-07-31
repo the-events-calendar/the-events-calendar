@@ -14,7 +14,7 @@ class TribeEventsImporter_AdminPage {
 			'edit.php?post_type='.TribeEvents::POSTTYPE,
 			__('Import: CSV','tribe-events-calendar'),
 			__('Import: CSV','tribe-events-calendar'),
-			'administrator',
+			'import',
 			'events-importer',
 			array( $this, 'render_admin_page_contents' )
 		);
