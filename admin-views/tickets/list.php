@@ -21,10 +21,10 @@
 		$controls[] = sprintf( "<span><a href='#' attr-provider='%s' attr-ticket-id='%s' id='ticket_edit_%s' class='ticket_edit'>" . __( 'Edit', "tribe-events-calendar" ) . "</a></span>", $ticket->provider_class, $ticket->ID, $ticket->ID );
 		$controls[] = sprintf( "<span><a href='#' attr-provider='%s' attr-ticket-id='%s' id='ticket_delete_%s' class='ticket_delete'>" . __( 'Delete', "tribe-events-calendar" ) . "</a></span>", $ticket->provider_class, $ticket->ID, $ticket->ID );
 		if ( $ticket->admin_link ) {
-			$controls[] = sprintf( "<span><a href='%s'>" . __('Edit in %s', "tribe-events-calendar") . '</a></span>', esc_url( $ticket->admin_link ), $modules[$ticket->provider_class] );
+			$controls[] = sprintf( "<span><a href='%s'>" . __( 'Edit in %s', "tribe-events-calendar" ) . '</a></span>', esc_url( $ticket->admin_link ), $modules[$ticket->provider_class] );
 		}
 		if ( $ticket->frontend_link && get_post_status( $post_id ) == 'publish' ) {
-			$controls[] = sprintf( "<span><a href='%s'>" . __('View', "tribe-events-calendar") . '</a></span>', esc_url( $ticket->frontend_link ) );
+			$controls[] = sprintf( "<span><a href='%s'>" . __( 'View', "tribe-events-calendar" ) . '</a></span>', esc_url( $ticket->frontend_link ) );
 		}
 
 		$report = $provider_obj->get_ticket_reports_link( $post_id, $ticket->ID );
@@ -32,16 +32,16 @@
 			$controls[] = $report;
 		}
 
-		if ( ( $ticket->provider_class !== $provider ) || $count == 0 ) {
+		if ( ( $ticket->provider_class !== $provider ) || $count == 0 ) :
 			?>
 			<td colspan="4" class="titlewrap">
 				<h4 class="tribe_sectionheader"><?php echo esc_html( $modules[$ticket->provider_class] ); ?>
-						<?php echo $provider_obj->get_event_reports_link( $post_id ); ?>
+					<?php echo $provider_obj->get_event_reports_link( $post_id ); ?>
 					<small>&nbsp;|&nbsp;</small>
 					<?php echo sprintf( "<small><a title='" . __( 'See who purchased tickets to this event', "tribe-events-calendar" ) . "' href='%s'>%s</a></small>", admin_url( sprintf( 'edit.php?post_type=%s&page=%s&event_id=%d', TribeEvents::POSTTYPE, TribeEventsTicketsPro::$attendees_slug, $post_id ) ), __( "Attendees", 'tribe-events-calendar' ) ); ?>
 				</h4>
 			</td>
-			<?php } ?>
+		<?php endif; ?>
 		<tr>
 			<td>
 				<p class="ticket_name"><?php
@@ -63,11 +63,11 @@
 				$stock = $ticket->stock;
 				$sold  = ! empty ( $ticket->qty_sold ) ? $ticket->qty_sold : 0;
 
-				if ( empty( $stock ) && $stock !== 0 ) {
-					echo sprintf( __( "Sold %d", 'tribe-events-calendar' ), $sold );
-				} else {
-					echo sprintf( __( "Sold %d of %d", 'tribe-events-calendar' ), $sold, $sold + $stock );
-				}
+				if ( empty( $stock ) && $stock !== 0 ) : ?>
+					<?php echo sprintf( __( "Sold %d", 'tribe-events-calendar' ), esc_html( $sold ) ); ?>
+				<?php else : ?>
+					<?php echo sprintf( __( "Sold %d of %d", 'tribe-events-calendar' ), esc_html( $sold ), esc_html( $sold + $stock ) ); ?>
+				<?php endif; ?>
 				?>
 			</td>
 			<td width="40%" valign="top">
@@ -75,6 +75,6 @@
 			</td>
 		</tr>
 		<?php
-		$count++;
+		$count ++;
 	} ?>
 </table>
