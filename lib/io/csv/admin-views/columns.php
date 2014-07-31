@@ -1,19 +1,19 @@
 <?php
 /**
  * @var string[] $messages
- * @var string $import_type
+ * @var string   $import_type
  * @var string[] $header
  */
 // Don't load directly
-if ( !defined( 'ABSPATH' ) ) {
+if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
 $mapper = new TribeEventsImporter_ColumnMapper( $import_type );
-if ( isset($_POST['column_map']) ) {
-	$mapper->set_defaults($_POST['column_map']);
+if ( isset( $_POST['column_map'] ) ) {
+	$mapper->set_defaults( $_POST['column_map'] );
 } else {
-	$mapper->set_defaults(get_option('tribe_events_import_column_mapping', array()));
+	$mapper->set_defaults( get_option( 'tribe_events_import_column_mapping', array() ) );
 }
 
 require_once 'header.php';
@@ -21,7 +21,7 @@ require_once 'header.php';
 
 	<h3><?php echo sprintf( __( 'Column Mapping: %s', 'tribe-events-calendar' ), ucwords( $import_type ) ) ?></h3>
 
-<?php if ( !empty( $messages ) ): ?>
+<?php if ( ! empty( $messages ) ): ?>
 	<div class="error"><?php echo implode( '', $messages ); ?></div>
 <?php endif; ?>
 	<div class="form">
@@ -42,14 +42,14 @@ require_once 'header.php';
 
 				<tr>
 					<td colspan="2">
-						<?php submit_button(__('Perform Import', 'tribe-events-calendar')); ?>
+						<?php submit_button( __( 'Perform Import', 'tribe-events-calendar' ) ); ?>
 					</td>
 				</tr>
 
 			</table>
 
-			<input type="hidden" name="import_type" value="<?php echo $import_type ?>"/>
-			<input type="hidden" name="ecp_import_action" value="import"/>
+			<input type="hidden" name="import_type" value="<?php echo $import_type ?>" />
+			<input type="hidden" name="ecp_import_action" value="import" />
 
 
 		</form>

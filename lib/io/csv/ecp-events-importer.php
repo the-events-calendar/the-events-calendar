@@ -1,11 +1,11 @@
 <?php
 
-if ( !function_exists( 'Tribe_Events_Importer_Load' ) ) {
+if ( ! function_exists( 'Tribe_Events_Importer_Load' ) ) {
 
 	function Tribe_Events_Importer_Load() {
-		TribeEventsImporter_Plugin::set_plugin_basename(plugin_basename(__FILE__));
+		TribeEventsImporter_Plugin::set_plugin_basename( plugin_basename( __FILE__ ) );
 		if ( is_admin() ) {
-			add_action( 'init', array('TribeEventsImporter_Plugin', 'initialize_admin'), 10, 0 );
+			add_action( 'init', array( 'TribeEventsImporter_Plugin', 'initialize_admin' ), 10, 0 );
 		}
 	}
 
