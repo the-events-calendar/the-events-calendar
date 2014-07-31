@@ -68,7 +68,6 @@
 				<?php else : ?>
 					<?php echo sprintf( __( "Sold %d of %d", 'tribe-events-calendar' ), esc_html( $sold ), esc_html( $sold + $stock ) ); ?>
 				<?php endif; ?>
-				?>
 			</td>
 			<td width="40%" valign="top">
 				<?php echo esc_html( $ticket->description ); ?>
