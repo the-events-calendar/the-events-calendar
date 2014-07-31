@@ -1,13 +1,15 @@
 <?php
 // Don't load directly
-if ( ! defined( 'ABSPATH' ) )
+if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
+}
 
 $header_id  = get_post_meta( get_the_ID(), $this->image_header_field, true );
 $header_id  = ! empty( $header_id ) ? $header_id : '';
 $header_img = '';
-if ( ! empty( $header_id ) )
+if ( ! empty( $header_id ) ) {
 	$header_img = wp_get_attachment_image( $header_id, 'full' );
+}
 
 $modules = TribeEventsTickets::modules();
 ?>
@@ -21,7 +23,7 @@ $modules = TribeEventsTickets::modules();
 				<p class="error-message"><?php _e( 'This event was created using Community Events. Are you sure you want to sell tickets for it?', 'tribe-events-calendar' ); ?></p>
 			</td>
 		</tr>
-		<?php
+	<?php
 	}
 	?>
 	<tr>
@@ -43,7 +45,7 @@ $modules = TribeEventsTickets::modules();
 						</div>
 						<p class="description"><a href="#" id="tribe_ticket_header_remove"><?php _e('Remove'); ?></a></p>
 
-						<input type="hidden" id="tribe_ticket_header_image_id" name="tribe_ticket_header_image_id" value="<?php echo esc_attr($header_id);?>" />
+						<input type="hidden" id="tribe_ticket_header_image_id" name="tribe_ticket_header_image_id" value="<?php echo esc_attr( $header_id ); ?>" />
 					</td>
 				</tr>
 			</table>
@@ -59,7 +61,7 @@ $modules = TribeEventsTickets::modules();
 	<tr>
 		<td colspan="2" class="tribe_sectionheader">
 			<a href="#" class="button-secondary"
-			   id="ticket_form_toggle"><?php _e( 'Add new ticket', 'tribe-events-calendar' );?></a>
+			   id="ticket_form_toggle"><?php _e( 'Add new ticket', 'tribe-events-calendar' ); ?></a>
 		</td>
 	</tr>
 	<tr id="ticket_form" class="ticket_form">
@@ -76,15 +78,15 @@ $modules = TribeEventsTickets::modules();
 
 				<tr>
 					<td width="20%"><label
-						for="ticket_provider"><?php _e( 'Sell using:', 'tribe-events-calendar' ); ?></label></td>
+							for="ticket_provider"><?php _e( 'Sell using:', 'tribe-events-calendar' ); ?></label></td>
 					<td>
 						<?php
 						$checked = true;
 						foreach ( $modules as $class => $module ) {
 							?>
-							<input <?php checked( $checked );?> type="radio" name="ticket_provider" id="ticket_provider"
-																value="<?php echo esc_attr( $class );?>"
-																class="ticket_field">
+							<input <?php checked( $checked ); ?> type="radio" name="ticket_provider" id="ticket_provider"
+																 value="<?php echo esc_attr( $class ); ?>"
+																 class="ticket_field">
 							<span><?php echo esc_html( $module ); ?></span>
 							<?php
 							$checked = false;
@@ -100,7 +102,7 @@ $modules = TribeEventsTickets::modules();
 				</tr>
 				<tr class="ticket">
 					<td><label
-						for="ticket_description"><?php _e( 'Ticket Description:', 'tribe-events-calendar' ); ?></label>
+							for="ticket_description"><?php _e( 'Ticket Description:', 'tribe-events-calendar' ); ?></label>
 					</td>
 					<td>
 						<textarea rows="5" cols="40" name="ticket_description" class="ticket_field"
@@ -109,35 +111,35 @@ $modules = TribeEventsTickets::modules();
 				</tr>
 				<tr class="ticket">
 					<td><label
-						for="ticket_price"><?php _e( 'Price:', 'tribe-events-calendar' ); ?></label>
+							for="ticket_price"><?php _e( 'Price:', 'tribe-events-calendar' ); ?></label>
 					</td>
 					<td>
 						<input type='text' id='ticket_price' name='ticket_price' class="ticket_field" size='7'
 							   value='' />
 
-                           <p class="description"><?php echo __( "(0 or empty for free tickets)", "tribe-events-calendar" ); ?></p>
+						<p class="description"><?php echo __( "(0 or empty for free tickets)", "tribe-events-calendar" ); ?></p>
 					</td>
 				</tr>
 
 				<tr class="ticket">
 					<td><label
-						for="ticket_price"><?php _e( 'Start sale:', 'tribe-events-calendar' ); ?></label>
+							for="ticket_price"><?php _e( 'Start sale:', 'tribe-events-calendar' ); ?></label>
 					</td>
 					<td>
 						<input autocomplete="off" type="text" class="ticket_field" size='7' name="ticket_start_date"
 							   id="ticket_start_date" value="">
-						<span class='ticket_start_time ticket_time'>
+						<span class="ticket_start_time ticket_time">
 							@
-							<select name='ticket_start_hour' id='ticket_start_hour' class="ticket_field">
+							<select name="ticket_start_hour" id="ticket_start_hour" class="ticket_field">
 								<?php echo $startHourOptions; ?>
 							</select>
-							<select name='ticket_start_minute' id='ticket_start_minute' class="ticket_field">
+							<select name="ticket_start_minute" id="ticket_start_minute" class="ticket_field">
 								<?php echo $startMinuteOptions; ?>
 							</select>
 							<?php if ( ! strstr( get_option( 'time_format', TribeDateUtils::TIMEFORMAT ), 'H' ) ) : ?>
-							<select name='ticket_start_meridian' id='ticket_start_meridian' class="ticket_field">
-								<?php echo $startMeridianOptions; ?>
-							</select>
+								<select name="ticket_start_meridian" id="ticket_start_meridian" class="ticket_field">
+									<?php echo $startMeridianOptions; ?>
+								</select>
 							<?php endif; ?>
 						</span>
 					</td>
@@ -145,44 +147,44 @@ $modules = TribeEventsTickets::modules();
 
 				<tr class="ticket">
 					<td valign="top"><label
-						for="ticket_price"><?php _e( 'End sale:', 'tribe-events-calendar' ); ?></label>
+							for="ticket_price"><?php _e( 'End sale:', 'tribe-events-calendar' ); ?></label>
 					</td>
 					<td valign="top">
 						<input autocomplete="off" type="text" class="ticket_field" size='7' name="ticket_end_date"
 							   id="ticket_end_date" value="">
 
-						<span class='ticket_end_time ticket_time'>
+						<span class="ticket_end_time ticket_time">
 							@
-							<select name='ticket_end_hour' id='ticket_end_hour' class="ticket_field">
+							<select name="ticket_end_hour" id="ticket_end_hour" class="ticket_field">
 								<?php echo $endHourOptions; ?>
 							</select>
-							<select name='ticket_end_minute' id='ticket_end_minute' class="ticket_field">
+							<select name="ticket_end_minute" id="ticket_end_minute" class="ticket_field">
 								<?php echo $endMinuteOptions; ?>
 							</select>
 							<?php if ( ! strstr( get_option( 'time_format', TribeDateUtils::TIMEFORMAT ), 'H' ) ) : ?>
-							<select name='ticket_end_meridian' id='ticket_end_meridian' class="ticket_field">
-								<?php echo $endMeridianOptions; ?>
-							</select>
+								<select name="ticket_end_meridian" id="ticket_end_meridian" class="ticket_field">
+									<?php echo $endMeridianOptions; ?>
+								</select>
 							<?php endif; ?>
 						</span>
 						<br />
 
-						<p class="description"><?php _e( "When will ticket sales occur? If you don't set a start/end date for sales, tickets will be available from now until the event ends.", 'tribe-events-calendar' );?></p>
+						<p class="description"><?php _e( "When will ticket sales occur? If you don't set a start/end date for sales, tickets will be available from now until the event ends.", 'tribe-events-calendar' ); ?></p>
 					</td>
 				</tr>
 
 
-				<?php do_action( 'tribe_events_tickets_metabox_advanced', get_the_ID(), NULL ); ?>
+				<?php do_action( 'tribe_events_tickets_metabox_advanced', get_the_ID(), null ); ?>
 
 				<tr class="ticket bottom">
 					<td></td>
 					<td>
 						<input type="hidden" name="ticket_id" id="ticket_id" class="ticket_field" value="" />
 
-						<input type='button' id='ticket_form_save' name='ticket_form_save' value="<?php _e( 'Save this ticket', 'tribe-events-calendar' ); ?>"
+						<input type="button" id="ticket_form_save" name="ticket_form_save" value="<?php _e( 'Save this ticket', 'tribe-events-calendar' ); ?>"
 							   class="button-primary" />
 
-						<input type='button' id='ticket_form_cancel' name='ticket_form_cancel' value="Cancel"
+						<input type="button" id="ticket_form_cancel" name="ticket_form_cancel" value="Cancel"
 							   class="button-secondary" />
 					</td>
 				</tr>
