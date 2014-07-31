@@ -31,7 +31,7 @@ We've poured hundreds of hours into QA by a dedicated support team, monthly usab
 
 The team at Modern Tribe stands by our work and offers light support every Wednesday to the community via the WordPress.org support forums. Feel free to ask a question if you're having a problem with implementation or if you find bugs. Looking for help NOW or need a deeper level of support? Add the <a href="http://m.tri.be/2c">premium add-on plugin</a> and you get access to premium support forums with under 24hr response times on weekdays.
 
-Enjoy using The Events Calendar, know how to get under the hood, and want to make money helping people? We're growing our community team. <a href=“http://m.tri.be/mk”>Check it out!</a>
+Enjoy using The Events Calendar, know how to get under the hood, and want to make money helping people? We're growing our community team. <a href="http://m.tri.be/mk">Check it out!</a>
 
 = PLUG-N-PLAY & HIGHLY CUSTOMIZABLE =
 
