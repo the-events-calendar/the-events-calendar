@@ -150,8 +150,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 						?>
 						<option value="prefix"> <?php _ex( 'Before cost', 'Currency symbol position', 'tribe-events-calendar' ) ?> </option>
 						<option value="suffix"<?php if ( $suffix ) {
-							echo ' selected="selected"'
-} ?>> <?php _ex( 'After cost', 'Currency symbol position', 'tribe-events-calendar' ) ?> </option>
+							echo ' selected="selected"';
+							} ?><?php _ex( 'After cost', 'Currency symbol position', 'tribe-events-calendar' ) ?> </option>
 					</select>
 				</td>
 			</tr>
