@@ -4,7 +4,9 @@
  */
 
 // Don't load directly
-if ( !defined('ABSPATH') ) { die('-1'); }
+if ( ! defined( 'ABSPATH' ) ) {
+	die( '-1' );
+}
 
 
 require_once 'header.php';
@@ -13,9 +15,9 @@ require_once 'header.php';
 <h3>Importing Data</h3>
 
 <ul>
-<?php foreach ( $messages as $message ): ?>
-	<li><?php esc_html_e($message); ?></li>
-<?php endforeach; ?>
+	<?php foreach ( $messages as $message ): ?>
+		<li><?php esc_html_e( $message ); ?></li>
+	<?php endforeach; ?>
 </ul>
 
 <p>Redirecting...</p>
@@ -23,4 +25,4 @@ require_once 'header.php';
 <?php
 require_once 'footer.php';
 ?>
-<script>window.location.href='<?php echo add_query_arg( array('action'=>'continue') ); ?>';</script>
+<script>window.location.href = '<?php echo add_query_arg( array('action'=>'continue') ); ?>';</script>

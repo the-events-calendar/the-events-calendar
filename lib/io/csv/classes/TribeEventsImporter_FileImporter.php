@@ -7,7 +7,7 @@ abstract class TribeEventsImporter_FileImporter {
 	protected $required_fields = array();
 
 	/** @var TribeEventsImporter_FileReader */
-	private $reader = NULL;
+	private $reader = null;
 	private $map = array();
 	private $inverted_map = array();
 	private $type = '';
@@ -20,7 +20,7 @@ abstract class TribeEventsImporter_FileImporter {
 	private $log = array();
 
 	/**
-	 * @param string $type
+	 * @param string                         $type
 	 * @param TribeEventsImporter_FileReader $file_reader
 	 *
 	 * @return TribeEventsImporter_FileImporter
@@ -29,13 +29,13 @@ abstract class TribeEventsImporter_FileImporter {
 	public static function get_importer( $type, TribeEventsImporter_FileReader $file_reader ) {
 		switch ( $type ) {
 			case 'events':
-				return new TribeEventsImporter_FileImporter_Events($file_reader);
+				return new TribeEventsImporter_FileImporter_Events( $file_reader );
 			case 'venues':
-				return new TribeEventsImporter_FileImporter_Venues($file_reader);
+				return new TribeEventsImporter_FileImporter_Venues( $file_reader );
 			case 'organizers':
-				return new TribeEventsImporter_FileImporter_Organizers($file_reader);
+				return new TribeEventsImporter_FileImporter_Organizers( $file_reader );
 			default:
-				throw new InvalidArgumentException(sprintf(__('No importer defined for %s', 'tribe-events-calendar'), $type));
+				throw new InvalidArgumentException( sprintf( __( 'No importer defined for %s', 'tribe-events-calendar' ), $type ) );
 		}
 	}
 
@@ -47,8 +47,8 @@ abstract class TribeEventsImporter_FileImporter {
 	}
 
 	public function set_map( array $map_array ) {
-		$this->map = $map_array;
-		$this->inverted_map = array_flip($this->map);
+		$this->map          = $map_array;
+		$this->inverted_map = array_flip( $this->map );
 	}
 
 	public function set_type( $type ) {
@@ -56,23 +56,23 @@ abstract class TribeEventsImporter_FileImporter {
 	}
 
 	public function set_limit( $limit ) {
-		$this->limit = (int)$limit;
+		$this->limit = (int) $limit;
 	}
 
 	public function set_offset( $offset ) {
-		$this->offset = (int)$offset;
+		$this->offset = (int) $offset;
 	}
 
 	public function do_import() {
-		$this->reader->set_row($this->offset);
-		for ( $i = 0 ; $i < $this->limit && !$this->import_complete() ; $i++ ) {
+		$this->reader->set_row( $this->offset );
+		for ( $i = 0; $i < $this->limit && ! $this->import_complete(); $i ++ ) {
 			set_time_limit( 30 );
 			$this->import_next_row();
 		}
 	}
 
 	public function get_last_completed_row() {
-		return $this->reader->get_last_line_number_read()+1;
+		return $this->reader->get_last_line_number_read() + 1;
 	}
 
 	public function import_complete() {
@@ -88,7 +88,7 @@ abstract class TribeEventsImporter_FileImporter {
 	}
 
 	public function get_skipped_row_count() {
-		return count($this->skipped);
+		return count( $this->skipped );
 	}
 
 	public function get_skipped_row_numbers() {
@@ -105,29 +105,30 @@ abstract class TribeEventsImporter_FileImporter {
 
 	protected function import_next_row() {
 		$record = $this->reader->read_next_row();
-		$row = $this->reader->get_last_line_number_read()+1;
-		if ( !$this->is_valid_record($record) ) {
-			$this->log[$row] = sprintf(__('Missing required fields in row %d.', 'tribe-events-calendar', $row));
+		$row    = $this->reader->get_last_line_number_read() + 1;
+		if ( ! $this->is_valid_record( $record ) ) {
+			$this->log[$row] = sprintf( __( 'Missing required fields in row %d.', 'tribe-events-calendar', $row ) );
 			$this->skipped[] = $row;
+
 			return;
 		}
 		try {
-			$this->update_or_create_post($record);
+			$this->update_or_create_post( $record );
 		} catch ( Exception $e ) {
-			$this->log[$row] = sprintf(__('Failed to import record in row %d.', 'tribe-events-calendar'), $row);
+			$this->log[$row] = sprintf( __( 'Failed to import record in row %d.', 'tribe-events-calendar' ), $row );
 			$this->skipped[] = $row;
 		}
 	}
 
 	protected function update_or_create_post( array $record ) {
-		if ( $id = $this->match_existing_post($record) ) {
-			$this->update_post($id, $record);
-			$this->updated++;
-			$this->log[$this->reader->get_last_line_number_read()+1] = sprintf( __('%s (post ID %d) updated.', 'tribe-events-calendar'), get_the_title($id), $id );
+		if ( $id = $this->match_existing_post( $record ) ) {
+			$this->update_post( $id, $record );
+			$this->updated ++;
+			$this->log[$this->reader->get_last_line_number_read() + 1] = sprintf( __( '%s (post ID %d) updated.', 'tribe-events-calendar' ), get_the_title( $id ), $id );
 		} else {
-			$id = $this->create_post($record);
-			$this->created++;
-			$this->log[$this->reader->get_last_line_number_read()+1] = sprintf( __('%s (post ID %d) created.', 'tribe-events-calendar'), get_the_title($id), $id );
+			$id = $this->create_post( $record );
+			$this->created ++;
+			$this->log[$this->reader->get_last_line_number_read() + 1] = sprintf( __( '%s (post ID %d) created.', 'tribe-events-calendar' ), get_the_title( $id ), $id );
 		}
 	}
 
@@ -140,19 +141,21 @@ abstract class TribeEventsImporter_FileImporter {
 	protected function is_valid_record( array $record ) {
 		foreach ( $this->get_required_fields() as $field ) {
 			if ( $this->get_value_by_key( $record, $field ) == '' ) {
-				return FALSE;
+				return false;
 			}
 		}
-		return TRUE;
+
+		return true;
 	}
 
 	protected function get_value_by_key( array $record, $key ) {
-		if ( !isset($this->inverted_map[$key]) ) {
+		if ( ! isset( $this->inverted_map[$key] ) ) {
 			return '';
 		}
-		if ( !isset($record[$this->inverted_map[$key]]) ) {
+		if ( ! isset( $record[$this->inverted_map[$key]] ) ) {
 			return '';
 		}
+
 		return $record[$this->inverted_map[$key]];
 	}
 
@@ -161,23 +164,25 @@ abstract class TribeEventsImporter_FileImporter {
 			return 0;
 		}
 		$query_args = array(
-			'post_type' => $post_type,
+			'post_type'   => $post_type,
 			'post_status' => 'publish',
-			'post_title' => $name,
-			'fields' => 'ids',
+			'post_title'  => $name,
+			'fields'      => 'ids',
 		);
 		add_filter( 'posts_search', array( $this, 'filter_query_for_title_search' ), 10, 2 );
 		$ids = get_posts( $query_args );
 		remove_filter( 'posts_search', array( $this, 'filter_query_for_title_search' ), 10, 2 );
+
 		return empty( $ids ) ? 0 : reset( $ids );
 	}
 
 	public function filter_query_for_title_search( $search, WP_Query $wp_query ) {
-		$title = $wp_query->get('post_title');
-		if ( !empty($title) ) {
+		$title = $wp_query->get( 'post_title' );
+		if ( ! empty( $title ) ) {
 			global $wpdb;
-			$search .= $wpdb->prepare(" AND {$wpdb->posts}.post_title=%s", $title);
+			$search .= $wpdb->prepare( " AND {$wpdb->posts}.post_title=%s", $title );
 		}
+
 		return $search;
 	}
 }

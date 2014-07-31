@@ -6,12 +6,13 @@
 class TribeEventsImporter_Plugin {
 	private static $plugin_basename = '';
 	/** @var TribeEventsImporter_AdminPage */
-	private static $admin = NULL;
+	private static $admin = null;
 
 	public static function path( $path ) {
-		$base = dirname(dirname(__FILE__));
+		$base = dirname( dirname( __FILE__ ) );
 		$path = $base . DIRECTORY_SEPARATOR . $path;
-		return untrailingslashit($path);
+
+		return untrailingslashit( $path );
 	}
 
 	public static function set_plugin_basename( $basename ) {
