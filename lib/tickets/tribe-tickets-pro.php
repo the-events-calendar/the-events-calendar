@@ -1,4 +1,5 @@
 <?php
+
 /**
  *
  */
@@ -41,7 +42,7 @@ class TribeEventsTicketsPro {
 	private $attendees_table;
 
 	/**
-	 *	Class constructor.
+	 *    Class constructor.
 	 */
 	public function __construct() {
 
@@ -72,6 +73,7 @@ class TribeEventsTicketsPro {
 
 			$actions['tickets_attendees'] = sprintf( '<a title="%s" href="%s">%s</a>', __( 'See who purchased tickets to this event', 'tribe-events-calendar' ), esc_url( $url ), __( 'Attendees', 'tribe-events-calendar' ) );
 		}
+
 		return $actions;
 	}
 
@@ -80,7 +82,12 @@ class TribeEventsTicketsPro {
 	 */
 	public function attendees_page_register() {
 
-		$this->attendees_page = add_submenu_page( null, 'Attendee list', 'Attendee list', 'edit_posts', TribeEventsTicketsPro::$attendees_slug, array( $this, 'attendees_page_inside' ) );
+		$this->attendees_page = add_submenu_page(
+			null, 'Attendee list', 'Attendee list', 'edit_posts', TribeEventsTicketsPro::$attendees_slug, array(
+				$this,
+				'attendees_page_inside'
+			)
+		);
 
 		add_action( 'admin_enqueue_scripts', array( $this, 'attendees_page_load_css_js' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'attendees_page_load_pointers' ) );
@@ -90,11 +97,13 @@ class TribeEventsTicketsPro {
 
 	/**
 	 * Enqueues the JS and CSS for the attendees page in the admin
+	 *
 	 * @param $hook
 	 */
 	public function attendees_page_load_css_js( $hook ) {
-		if ( $hook != $this->attendees_page )
+		if ( $hook != $this->attendees_page ) {
 			return;
+		}
 
 		$ecp = TribeEvents::instance();
 
@@ -119,8 +128,9 @@ class TribeEventsTicketsPro {
 	 * @param $hook
 	 */
 	public function attendees_page_load_pointers( $hook ) {
-		if ( $hook != $this->attendees_page )
+		if ( $hook != $this->attendees_page ) {
 			return;
+		}
 
 
 		$dismissed = explode( ',', (string) get_user_meta( get_current_user_id(), 'dismissed_wp_pointers', true ) );
@@ -132,7 +142,8 @@ class TribeEventsTicketsPro {
 				'pointer_id' => 'attendees_filters',
 				'target'     => '#screen-options-link-wrap',
 				'options'    => array(
-					'content'  => sprintf( '<h3> %s </h3> <p> %s </p>',
+					'content'  => sprintf(
+						'<h3> %s </h3> <p> %s </p>',
 						__( 'Columns', 'tribe-events-calendar' ),
 						__( 'You can use Screen Options to select which columns you want to see. The selection works in the table below, in the email, for print and for the CSV export.', 'tribe-events-calendar' )
 					),
@@ -148,7 +159,7 @@ class TribeEventsTicketsPro {
 	}
 
 	/**
-	 *	Setups the Attendees screen data.
+	 *    Setups the Attendees screen data.
 	 */
 	public function attendees_page_screen_setup() {
 
@@ -178,6 +189,7 @@ class TribeEventsTicketsPro {
 			$event       = get_post( $_GET['event_id'] );
 			$admin_title = sprintf( "%s - Attendee list", $event->post_title );
 		}
+
 		return $admin_title;
 	}
 
@@ -199,8 +211,9 @@ class TribeEventsTicketsPro {
 	 */
 	private function _generate_filtered_attendees_list( $event_id ) {
 
-		if ( empty( $this->attendees_page ) )
+		if ( empty( $this->attendees_page ) ) {
 			$this->attendees_page = 'tribe_events_page_tickets-attendees';
+		}
 
 		$columns = $this->attendees_table->get_columns();
 		$hidden  = get_hidden_columns( $this->attendees_page );
@@ -225,8 +238,9 @@ class TribeEventsTicketsPro {
 			$row = array();
 			foreach ( $item as $key => $data ) {
 				if ( in_array( $key, $export_columns ) ) {
-					if ( $key == 'check_in' && $data == 1 )
+					if ( $key == 'check_in' && $data == 1 ) {
 						$data = __( 'Yes', 'tribe-events-calendar' );
+					}
 					$row[$key] = $data;
 				}
 			}
@@ -237,16 +251,18 @@ class TribeEventsTicketsPro {
 	}
 
 	/**
-	 *	Checks if the user requested a CSV export from the attendees list.
+	 *    Checks if the user requested a CSV export from the attendees list.
 	 *  If so, generates the download and finishes the execution.
 	 */
 	public function maybe_generate_attendees_csv() {
 
-		if ( empty( $_GET['attendees_csv'] ) || empty( $_GET['attendees_csv_nonce'] ) || empty( $_GET['event_id'] ) )
+		if ( empty( $_GET['attendees_csv'] ) || empty( $_GET['attendees_csv_nonce'] ) || empty( $_GET['event_id'] ) ) {
 			return;
+		}
 
-		if ( ! wp_verify_nonce( $_GET['attendees_csv_nonce'], 'attendees_csv_nonce' ) || ! current_user_can( 'edit_tribe_events' ) )
+		if ( ! wp_verify_nonce( $_GET['attendees_csv_nonce'], 'attendees_csv_nonce' ) || ! current_user_can( 'edit_tribe_events' ) ) {
 			return;
+		}
 
 
 		$items = $this->_generate_filtered_attendees_list( $_GET['event_id'] );
@@ -275,14 +291,16 @@ class TribeEventsTicketsPro {
 	}
 
 	/**
-	 *	Handles the "send to email" action for the attendees list.
+	 *    Handles the "send to email" action for the attendees list.
 	 */
 	public function ajax_handler_attendee_mail_list() {
 
-		if ( ! isset( $_POST["event_id"] ) || ! isset( $_POST["email"] ) || ! ( is_numeric( $_POST["email"] ) || is_email( $_POST["email"] ) ) )
+		if ( ! isset( $_POST["event_id"] ) || ! isset( $_POST["email"] ) || ! ( is_numeric( $_POST["email"] ) || is_email( $_POST["email"] ) ) ) {
 			$this->ajax_error( 'Bad post' );
-		if ( empty( $_POST["nonce"] ) || ! wp_verify_nonce( $_POST["nonce"], 'email-attendee-list' ) || ! current_user_can( 'edit_tribe_events' ) )
+		}
+		if ( empty( $_POST["nonce"] ) || ! wp_verify_nonce( $_POST["nonce"], 'email-attendee-list' ) || ! current_user_can( 'edit_tribe_events' ) ) {
 			$this->ajax_error( 'Cheatin Huh?' );
+		}
 
 		if ( is_email( $_POST["email"] ) ) {
 			$email = $_POST["email"];
@@ -291,8 +309,9 @@ class TribeEventsTicketsPro {
 			$email = $user->data->user_email;
 		}
 
-		if ( empty( $GLOBALS['hook_suffix'] ) )
+		if ( empty( $GLOBALS['hook_suffix'] ) ) {
 			$GLOBALS['hook_suffix'] = 'tribe_ajax';
+		}
 
 		$this->attendees_page_screen_setup();
 
@@ -301,13 +320,14 @@ class TribeEventsTicketsPro {
 		$event = get_post( $_POST["event_id"] );
 
 		ob_start();
-		$attendee_tpl = TribeEventsTemplates::getTemplateHierarchy( 'tickets/attendees-email.php', array('disable_view_check' => true) );
+		$attendee_tpl = TribeEventsTemplates::getTemplateHierarchy( 'tickets/attendees-email.php', array( 'disable_view_check' => true ) );
 		include $attendee_tpl;
 		$content = ob_get_clean();
 
 		add_filter( 'wp_mail_content_type', array( $this, 'set_contenttype' ) );
-		if ( ! wp_mail( $email, sprintf( __( 'Attendee List for: %s', 'tribe-events-calendar' ), $event->post_title ), $content ) )
+		if ( ! wp_mail( $email, sprintf( __( 'Attendee List for: %s', 'tribe-events-calendar' ), $event->post_title ), $content ) ) {
 			$this->ajax_error( 'Error sending email' );
+		}
 
 		$this->ajax_ok( array() );
 	}
@@ -350,8 +370,9 @@ class TribeEventsTicketsPro {
 	 * @param array $tickets
 	 */
 	public function ticket_list_markup( $tickets = array() ) {
-		if ( ! empty( $tickets ) )
+		if ( ! empty( $tickets ) ) {
 			include $this->path . 'admin-views/tickets/list.php';
+		}
 	}
 
 	/**
@@ -391,16 +412,19 @@ class TribeEventsTicketsPro {
 	public function save_image_header( $post_id, $post ) {
 
 		// only continue if it's an event post
-		if ( $post->post_type != TribeEvents::POSTTYPE )
+		if ( $post->post_type != TribeEvents::POSTTYPE ) {
 			return;
+		}
 		// don't do anything on autosave or auto-draft either or massupdates
-		if ( wp_is_post_autosave( $post_id ) || wp_is_post_revision( $post_id ) )
+		if ( wp_is_post_autosave( $post_id ) || wp_is_post_revision( $post_id ) ) {
 			return;
+		}
 
-		if ( empty( $_POST['tribe_ticket_header_image_id'] ) )
+		if ( empty( $_POST['tribe_ticket_header_image_id'] ) ) {
 			delete_post_meta( $post_id, $this->image_header_field );
-		else
+		} else {
 			update_post_meta( $post_id, $this->image_header_field, $_POST['tribe_ticket_header_image_id'] );
+		}
 
 		return;
 	}
@@ -413,8 +437,12 @@ class TribeEventsTicketsPro {
 	protected final function ajax_error( $message = "" ) {
 		header( 'Content-type: application/json' );
 
-		echo json_encode( array( "success" => false,
-								 "message" => $message ) );
+		echo json_encode(
+			array(
+				"success" => false,
+				"message" => $message
+			)
+		);
 		exit;
 	}
 
@@ -432,8 +460,12 @@ class TribeEventsTicketsPro {
 		}
 
 		header( 'Content-type: application/json' );
-		echo json_encode( array( "success" => true,
-								 "data"    => $return ) );
+		echo json_encode(
+			array(
+				"success" => true,
+				"data"    => $return
+			)
+		);
 		exit;
 	}
 
@@ -446,6 +478,7 @@ class TribeEventsTicketsPro {
 			$className      = __CLASS__;
 			self::$instance = new $className;
 		}
+
 		return self::$instance;
 	}
 
