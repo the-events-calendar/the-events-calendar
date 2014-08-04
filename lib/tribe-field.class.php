@@ -1,9 +1,11 @@
 <?php
 
 // Don't load directly
-if ( !defined('ABSPATH') ) die('-1');
+if ( ! defined( 'ABSPATH' ) ) {
+	die( '-1' );
+}
 
-if ( !class_exists('TribeField') ) {
+if ( ! class_exists( 'TribeField' ) ) {
 
 	/**
 	 * helper class that creates fields for use in Settings, MetaBoxes, Users, anywhere.
@@ -52,31 +54,32 @@ if ( !class_exists('TribeField') ) {
 		/**
 		 * Class constructor
 		 *
-		 * @param string $id the field id
-		 * @param array $field the field settings
+		 * @param string     $id    the field id
+		 * @param array      $field the field settings
 		 * @param null|mixed $value the field's current value
+		 *
 		 * @return void
 		 */
-		public function __construct($id, $field, $value = null) {
+		public function __construct( $id, $field, $value = null ) {
 
 			// setup the defaults
 			$this->defaults = array(
-				'type' => 'html',
-				'name' => $id,
-				'attributes' => array(),
-				'class' => null,
-				'label' => null,
-				'tooltip' => null,
-				'size' => 'medium',
-				'html' => null,
-				'error' => false,
-				'value' => $value,
-				'options' => null,
-				'conditional' => true,
+				'type'             => 'html',
+				'name'             => $id,
+				'attributes'       => array(),
+				'class'            => null,
+				'label'            => null,
+				'tooltip'          => null,
+				'size'             => 'medium',
+				'html'             => null,
+				'error'            => false,
+				'value'            => $value,
+				'options'          => null,
+				'conditional'      => true,
 				'display_callback' => null,
-				'if_empty' => null,
-				'can_be_empty' => false,
-				'clear_after' => true,
+				'if_empty'         => null,
+				'can_be_empty'     => false,
+				'clear_after'      => true,
 			);
 
 			// a list of valid field types, to prevent screwy behaviour
@@ -98,15 +101,47 @@ if ( !class_exists('TribeField') ) {
 			$this->valid_field_types = apply_filters( 'tribe_valid_field_types', $this->valid_field_types );
 
 			// parse args with defaults and extract them
-			$args = wp_parse_args($field, $this->defaults);
+			$args = wp_parse_args( $field, $this->defaults );
 
 			// sanitize the values just to be safe
-			$id = esc_attr( $id );
-			$type = esc_attr( $args['type'] );
-			$name = esc_attr( $args['name'] );
-			$class = sanitize_html_class( $args['class'] );
-			$label = wp_kses( $args['label'], array( 'a' => array( 'href' => array(),'title' => array() ),'br' => array(),'em' => array(),'strong' => array(), 'b' => array(), 'i' => array(), 'u' => array(), 'img' => array( 'title' => array(), 'src' => array(), 'alt' => array() ) ) );
-			$tooltip = wp_kses( $args['tooltip'], array( 'a' => array( 'href' => array(),'title' => array() ),'br' => array(),'em' => array(),'strong' => array(), 'b' => array(), 'i' => array(), 'u' => array(), 'img' => array( 'title' => array(), 'src' => array(), 'alt' => array() ), 'code' => array('span' => array()), 'span' => array() ) );
+			$id         = esc_attr( $id );
+			$type       = esc_attr( $args['type'] );
+			$name       = esc_attr( $args['name'] );
+			$class      = sanitize_html_class( $args['class'] );
+			$label      = wp_kses(
+				$args['label'], array(
+					'a'      => array( 'href' => array(), 'title' => array() ),
+					'br'     => array(),
+					'em'     => array(),
+					'strong' => array(),
+					'b'      => array(),
+					'i'      => array(),
+					'u'      => array(),
+					'img'    => array(
+						'title' => array(),
+						'src'   => array(),
+						'alt'   => array()
+					)
+				)
+			);
+			$tooltip    = wp_kses(
+				$args['tooltip'], array(
+					'a'      => array( 'href' => array(), 'title' => array() ),
+					'br'     => array(),
+					'em'     => array(),
+					'strong' => array(),
+					'b'      => array(),
+					'i'      => array(),
+					'u'      => array(),
+					'img'    => array(
+						'title' => array(),
+						'src'   => array(),
+						'alt'   => array()
+					),
+					'code'   => array( 'span' => array() ),
+					'span'   => array()
+				)
+			);
 			$attributes = $args['attributes'];
 			if ( is_array( $attributes ) ) {
 				foreach ( $attributes as $key => &$val ) {
@@ -137,7 +172,7 @@ if ( !class_exists('TribeField') ) {
 
 			// set each instance variable and filter
 			foreach ( $this->defaults as $key => $value ) {
-				$this->{$key} = apply_filters( 'tribe_field_'.$key, $$key, $this->id );
+				$this->{$key} = apply_filters( 'tribe_field_' . $key, $$key, $this->id );
 			}
 
 			// epicness
@@ -154,26 +189,26 @@ if ( !class_exists('TribeField') ) {
 		 */
 		public function doField() {
 
-			if ($this->conditional) {
+			if ( $this->conditional ) {
 
-				if ( $this->display_callback && is_callable($this->display_callback) ) {
+				if ( $this->display_callback && is_callable( $this->display_callback ) ) {
 
 					// if there's a callback, run it
-					call_user_func($this->display_callback);
+					call_user_func( $this->display_callback );
 
-				} elseif ( in_array($this->type, $this->valid_field_types) ) {
+				} elseif ( in_array( $this->type, $this->valid_field_types ) ) {
 
 					// the specified type exists, run the appropriate method
 					$field = call_user_func( array( $this, $this->type ) );
 
 					// filter the output
-					$field = apply_filters( 'tribe_field_output_'.$this->type, $field, $this->id, $this );
-					echo apply_filters( 'tribe_field_output_'.$this->type.'_'.$this->id, $field, $this->id, $this );
+					$field = apply_filters( 'tribe_field_output_' . $this->type, $field, $this->id, $this );
+					echo apply_filters( 'tribe_field_output_' . $this->type . '_' . $this->id, $field, $this->id, $this );
 
 				} else {
 
 					// fail, log the error
-					TribeEvents::debug( __('Invalid field type specified', 'tribe-events-calendar'), $this->type, 'notice');
+					TribeEvents::debug( __( 'Invalid field type specified', 'tribe-events-calendar' ), $this->type, 'notice' );
 
 				}
 
@@ -186,12 +221,13 @@ if ( !class_exists('TribeField') ) {
 		 * @return string the field start
 		 */
 		public function doFieldStart() {
-			$return = '<fieldset id="tribe-field-'.$this->id.'"';
-			$return .= ' class="tribe-field tribe-field-'.$this->type;
-			$return .= ($this->error) ? ' tribe-error' : '';
-			$return .= ($this->size) ? ' tribe-size-'.$this->size : '';
-			$return .= ($this->class) ? ' '.$this->class.'"' : '"';
+			$return = '<fieldset id="tribe-field-' . $this->id . '"';
+			$return .= ' class="tribe-field tribe-field-' . $this->type;
+			$return .= ( $this->error ) ? ' tribe-error' : '';
+			$return .= ( $this->size ) ? ' tribe-size-' . $this->size : '';
+			$return .= ( $this->class ) ? ' ' . $this->class . '"' : '"';
 			$return .= '>';
+
 			return apply_filters( 'tribe_field_start', $return, $this->id, $this->type, $this->error, $this->class, $this );
 		}
 
@@ -202,7 +238,8 @@ if ( !class_exists('TribeField') ) {
 		 */
 		public function doFieldEnd() {
 			$return = '</fieldset>';
-			$return .= ($this->clear_after) ? '<div class="clear"></div>' : '';
+			$return .= ( $this->clear_after ) ? '<div class="clear"></div>' : '';
+
 			return apply_filters( 'tribe_field_end', $return, $this->id, $this );
 		}
 
@@ -213,8 +250,10 @@ if ( !class_exists('TribeField') ) {
 		 */
 		public function doFieldLabel() {
 			$return = '';
-			if ($this->label)
-				$return = '<legend class="tribe-field-label">'.$this->label.'</legend>';
+			if ( $this->label ) {
+				$return = '<legend class="tribe-field-label">' . $this->label . '</legend>';
+			}
+
 			return apply_filters( 'tribe_field_label', $return, $this->label, $this );
 		}
 
@@ -225,6 +264,7 @@ if ( !class_exists('TribeField') ) {
 		 */
 		public function doFieldDivStart() {
 			$return = '<div class="tribe-field-wrap">';
+
 			return apply_filters( 'tribe_field_div_start', $return, $this );
 		}
 
@@ -236,6 +276,7 @@ if ( !class_exists('TribeField') ) {
 		public function doFieldDivEnd() {
 			$return = $this->doToolTip();
 			$return .= '</div>';
+
 			return apply_filters( 'tribe_field_div_end', $return, $this );
 		}
 
@@ -246,8 +287,10 @@ if ( !class_exists('TribeField') ) {
 		 */
 		public function doToolTip() {
 			$return = '';
-			if ($this->tooltip)
-				$return = '<p class="tooltip description">'.$this->tooltip.'</p>';
+			if ( $this->tooltip ) {
+				$return = '<p class="tooltip description">' . $this->tooltip . '</p>';
+			}
+
 			return apply_filters( 'tribe_field_tooltip', $return, $this->tooltip, $this );
 		}
 
@@ -258,8 +301,10 @@ if ( !class_exists('TribeField') ) {
 		 */
 		public function doScreenReaderLabel() {
 			$return = '';
-			if ($this->tooltip)
-				$return = '<label class="screen-reader-text">'.$this->tooltip.'</label>';
+			if ( $this->tooltip ) {
+				$return = '<label class="screen-reader-text">' . $this->tooltip . '</label>';
+			}
+
 			return apply_filters( 'tribe_field_screen_reader_label', $return, $this->tooltip, $this );
 		}
 
@@ -270,8 +315,10 @@ if ( !class_exists('TribeField') ) {
 		 */
 		public function doFieldValue() {
 			$return = '';
-			if ($this->value)
-				$return = ' value="'.$this->value.'"';
+			if ( $this->value ) {
+				$return = ' value="' . $this->value . '"';
+			}
+
 			return apply_filters( 'tribe_field_value', $return, $this->value, $this );
 		}
 
@@ -279,16 +326,19 @@ if ( !class_exists('TribeField') ) {
 		 * returns the field's name
 		 *
 		 * @param bool $multi
+		 *
 		 * @return string the field name
 		 */
-		public function doFieldName($multi = false) {
+		public function doFieldName( $multi = false ) {
 			$return = '';
-			if ($this->name)
-				if( $multi ){
-					$return = ' name="'.$this->name.'[]"';
-				}else{
-					$return = ' name="'.$this->name.'"';
+			if ( $this->name ) {
+				if ( $multi ) {
+					$return = ' name="' . $this->name . '[]"';
+				} else {
+					$return = ' name="' . $this->name . '"';
 				}
+			}
+
 			return apply_filters( 'tribe_field_name', $return, $this->name, $this );
 		}
 
@@ -297,13 +347,14 @@ if ( !class_exists('TribeField') ) {
 		 *
 		 * @return string
 		 **/
-		public function doFieldAttributes()	{
+		public function doFieldAttributes() {
 			$return = '';
 			if ( ! empty( $this->attributes ) ) {
 				foreach ( $this->attributes as $key => $value ) {
-					$return .= ' '.$key.'="'.$value.'"';
+					$return .= ' ' . $key . '="' . $value . '"';
 				}
 			}
+
 			return apply_filters( 'tribe_field_attributes', $return, $this->name, $this );
 		}
 
@@ -313,7 +364,8 @@ if ( !class_exists('TribeField') ) {
 		 * @return string the field
 		 */
 		public function heading() {
-			$field = '<h3>'.$this->label.'</h3>';
+			$field = '<h3>' . $this->label . '</h3>';
+
 			return $field;
 		}
 
@@ -325,6 +377,7 @@ if ( !class_exists('TribeField') ) {
 		public function html() {
 			$field = $this->doFieldLabel();
 			$field .= $this->html;
+
 			return $field;
 		}
 
@@ -346,6 +399,7 @@ if ( !class_exists('TribeField') ) {
 			$field .= $this->doScreenReaderLabel();
 			$field .= $this->doFieldDivEnd();
 			$field .= $this->doFieldEnd();
+
 			return $field;
 		}
 
@@ -366,6 +420,7 @@ if ( !class_exists('TribeField') ) {
 			$field .= $this->doScreenReaderLabel();
 			$field .= $this->doFieldDivEnd();
 			$field .= $this->doFieldEnd();
+
 			return $field;
 		}
 
@@ -376,19 +431,20 @@ if ( !class_exists('TribeField') ) {
 		 */
 		public function wysiwyg() {
 			$settings = array(
-			    'teeny' => true,
-			    'wpautop' => true
-			 );
+				'teeny'   => true,
+				'wpautop' => true
+			);
 			ob_start();
 			wp_editor( html_entity_decode( ( $this->value ) ), $this->name, $settings );
 			$editor = ob_get_clean();
-			$field = $this->doFieldStart();
+			$field  = $this->doFieldStart();
 			$field .= $this->doFieldLabel();
 			$field .= $this->doFieldDivStart();
 			$field .= $editor;
 			$field .= $this->doScreenReaderLabel();
 			$field .= $this->doFieldDivEnd();
 			$field .= $this->doFieldEnd();
+
 			return $field;
 		}
 
@@ -401,20 +457,21 @@ if ( !class_exists('TribeField') ) {
 			$field = $this->doFieldStart();
 			$field .= $this->doFieldLabel();
 			$field .= $this->doFieldDivStart();
-			if ( is_array($this->options) ) {
-				foreach ($this->options as $option_id => $title) {
-					$field .= '<label title="'.esc_attr( $title ).'">';
+			if ( is_array( $this->options ) ) {
+				foreach ( $this->options as $option_id => $title ) {
+					$field .= '<label title="' . esc_attr( $title ) . '">';
 					$field .= '<input type="radio"';
 					$field .= $this->doFieldName();
- 					$field .= ' value="'.esc_attr( $option_id ).'" '.checked( $this->value, $option_id, false ).'/>';
+					$field .= ' value="' . esc_attr( $option_id ) . '" ' . checked( $this->value, $option_id, false ) . '/>';
 					$field .= $title;
 					$field .= '</label>';
 				}
 			} else {
-				$field .= '<span class="tribe-error">'.__('No radio options specified', 'tribe-events-calendar').'</span>';
+				$field .= '<span class="tribe-error">' . __( 'No radio options specified', 'tribe-events-calendar' ) . '</span>';
 			}
 			$field .= $this->doFieldDivEnd();
 			$field .= $this->doFieldEnd();
+
 			return $field;
 		}
 
@@ -428,28 +485,29 @@ if ( !class_exists('TribeField') ) {
 			$field .= $this->doFieldLabel();
 			$field .= $this->doFieldDivStart();
 
-			if( ! is_array( $this->value ) ){
-				if( !empty( $this->value ) ){
+			if ( ! is_array( $this->value ) ) {
+				if ( ! empty( $this->value ) ) {
 					$this->value = array( $this->value );
 				} else {
 					$this->value = array();
 				}
 			}
 
-			if ( is_array($this->options) ) {
-				foreach ($this->options as $option_id => $title) {
-					$field .= '<label title="'.esc_attr( $title ).'">';
+			if ( is_array( $this->options ) ) {
+				foreach ( $this->options as $option_id => $title ) {
+					$field .= '<label title="' . esc_attr( $title ) . '">';
 					$field .= '<input type="checkbox"';
-					$field .= $this->doFieldName(true);
- 					$field .= ' value="'.esc_attr( $option_id ).'" '.checked( in_array($option_id, $this->value), true, false ).'/>';
+					$field .= $this->doFieldName( true );
+					$field .= ' value="' . esc_attr( $option_id ) . '" ' . checked( in_array( $option_id, $this->value ), true, false ) . '/>';
 					$field .= $title;
 					$field .= '</label>';
 				}
 			} else {
-				$field .= '<span class="tribe-error">'.__('No checkbox options specified', 'tribe-events-calendar').'</span>';
+				$field .= '<span class="tribe-error">' . __( 'No checkbox options specified', 'tribe-events-calendar' ) . '</span>';
 			}
 			$field .= $this->doFieldDivEnd();
 			$field .= $this->doFieldEnd();
+
 			return $field;
 		}
 
@@ -464,12 +522,13 @@ if ( !class_exists('TribeField') ) {
 			$field .= $this->doFieldDivStart();
 			$field .= '<input type="checkbox"';
 			$field .= $this->doFieldName();
-			$field .= ' value="1" '.checked( $this->value, true, false );
+			$field .= ' value="1" ' . checked( $this->value, true, false );
 			$field .= $this->doFieldAttributes();
 			$field .= '/>';
 			$field .= $this->doScreenReaderLabel();
 			$field .= $this->doFieldDivEnd();
 			$field .= $this->doFieldEnd();
+
 			return $field;
 		}
 
@@ -482,25 +541,29 @@ if ( !class_exists('TribeField') ) {
 			$field = $this->doFieldStart();
 			$field .= $this->doFieldLabel();
 			$field .= $this->doFieldDivStart();
-			if ( is_array($this->options) && !empty($this->options) ) {
+			if ( is_array( $this->options ) && ! empty( $this->options ) ) {
 				$field .= '<select';
 				$field .= $this->doFieldName();
 				$field .= '>';
-				foreach ($this->options as $option_id => $title) {
-					$field .= '<option value="'.esc_attr( $option_id ).'"';
-					if ( is_array( $this->value ) ) $field .= isset($this->value[0]) ? selected( $this->value[0], $option_id, false ) : '';
-					else $field .= selected( $this->value, $option_id, false );
-					$field .= '>'.esc_html( $title ).'</option>';
+				foreach ( $this->options as $option_id => $title ) {
+					$field .= '<option value="' . esc_attr( $option_id ) . '"';
+					if ( is_array( $this->value ) ) {
+						$field .= isset( $this->value[0] ) ? selected( $this->value[0], $option_id, false ) : '';
+					} else {
+						$field .= selected( $this->value, $option_id, false );
+					}
+					$field .= '>' . esc_html( $title ) . '</option>';
 				}
 				$field .= '</select>';
 				$field .= $this->doScreenReaderLabel();
-			} elseif ($this->if_empty) {
-				$field .= '<span class="empty-field">'.(string) $this->if_empty.'</span>';
+			} elseif ( $this->if_empty ) {
+				$field .= '<span class="empty-field">' . (string) $this->if_empty . '</span>';
 			} else {
-				$field .= '<span class="tribe-error">'.__('No select options specified', 'tribe-events-calendar').'</span>';
+				$field .= '<span class="tribe-error">' . __( 'No select options specified', 'tribe-events-calendar' ) . '</span>';
 			}
 			$field .= $this->doFieldDivEnd();
 			$field .= $this->doFieldEnd();
+
 			return $field;
 		}
 
@@ -513,6 +576,7 @@ if ( !class_exists('TribeField') ) {
 		 */
 		public function dropdown_chosen() {
 			$field = $this->dropdown();
+
 			return $field;
 		}
 
@@ -525,6 +589,7 @@ if ( !class_exists('TribeField') ) {
 		 */
 		public function dropdown_select2() {
 			$field = $this->dropdown();
+
 			return $field;
 		}
 
@@ -542,12 +607,13 @@ if ( !class_exists('TribeField') ) {
 			$field .= $this->doFieldName();
 			$field .= $this->doFieldValue();
 			$field .= '/>';
-			$field .= '<p class="license-test-results"><img src="'.esc_url( admin_url( 'images/wpspin_light.gif' ) ).'" class="ajax-loading-license" alt="Loading" style="display: none"/>';
+			$field .= '<p class="license-test-results"><img src="' . esc_url( admin_url( 'images/wpspin_light.gif' ) ) . '" class="ajax-loading-license" alt="Loading" style="display: none"/>';
 			$field .= '<span class="valid-key"></span>';
 			$field .= '<span class="invalid-key"></span></p>';
 			$field .= $this->doScreenReaderLabel();
 			$field .= $this->doFieldDivEnd();
 			$field .= $this->doFieldEnd();
+
 			return $field;
 		}
 
