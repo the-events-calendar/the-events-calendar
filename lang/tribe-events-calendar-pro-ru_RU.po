@@ -1,0 +1,1947 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Events Calendar Pro 3.7\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-07-17 16:45-0800\n"
+"PO-Revision-Date: 2014-08-04 13:22-0800\n"
+"Last-Translator: \n"
+"Language-Team: Alexander Tinyaev <alexander.tinyaev@gmail.com>\n"
+"Language: ru_RU\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.6.7\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:1,2,4c;_n_noop:1,2;"
+"_nx_noop:1,2,3c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;"
+"esc_html_x:1,2c\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SearchPath-0: ..\n"
+
+#: ../admin-views/event-defaults.php:1
+msgid "Customize Defaults"
+msgstr "Настройка значений по умолчанию"
+
+#: ../admin-views/event-defaults.php:2
+msgid ""
+"These settings change the default event form. For example, if you set a "
+"default venue, this field will be automatically filled in on a new event."
+msgstr ""
+"Эти настройки меняют форму мероприятия по умолчанию. Например, если вы "
+"установите место проведения по умолчанию, это поле будет автоматически "
+"заполнено в новом мероприяитии."
+
+#: ../admin-views/event-defaults.php:5 ../admin-views/event-defaults.php:9
+#: ../admin-views/tribe-options-defaults.php:55
+msgid "Automatically replace empty fields with default values"
+msgstr "Автоматически замещать пустые поля значениями по умолчанию."
+
+#: ../admin-views/event-defaults.php:13
+msgid "Enabled"
+msgstr "Включен"
+
+#: ../admin-views/event-defaults.php:19
+msgid "Default Organizer for Events"
+msgstr "Организатор мероприятий по умолчанию"
+
+#: ../admin-views/event-defaults.php:22
+msgid "Default Organizer"
+msgstr "Организатор по умолчанию"
+
+#: ../admin-views/event-defaults.php:23
+msgid "The default organizer value"
+msgstr "Значение по умолчанию для организатора"
+
+#: ../admin-views/event-defaults.php:23 ../admin-views/event-defaults.php:31
+#: ../admin-views/event-defaults.php:38 ../admin-views/event-defaults.php:45
+#: ../admin-views/event-defaults.php:66 ../admin-views/event-defaults.php:74
+#: ../admin-views/event-defaults.php:82 ../admin-views/event-defaults.php:108
+#, php-format
+msgid "The current default value is <strong>%s</strong>"
+msgstr "Текущее значение по умолчанию <strong>%s</strong>"
+
+#: ../admin-views/event-defaults.php:27
+msgid "Default Venue for Events"
+msgstr "Место проведения мероприятий по умолчанию"
+
+#: ../admin-views/event-defaults.php:30
+msgid "Default Venue"
+msgstr "Место проведения по умолчанию"
+
+#: ../admin-views/event-defaults.php:31
+msgid "The default venue value"
+msgstr "Значение места проведения по умолчанию"
+
+#: ../admin-views/event-defaults.php:35 ../admin-views/event-defaults.php:37
+msgid "Default Address"
+msgstr "Адрес по умолчанию"
+
+#: ../admin-views/event-defaults.php:38
+msgid "The default address value"
+msgstr "Значение адреса по умолчанию"
+
+#: ../admin-views/event-defaults.php:42 ../admin-views/event-defaults.php:44
+msgid "Default City"
+msgstr "Город по умолчанию"
+
+#: ../admin-views/event-defaults.php:45
+msgid "The default city value"
+msgstr "Значение города по умолчанию"
+
+#: ../admin-views/event-defaults.php:50
+msgid "Default State"
+msgstr "Штат по умолчанию"
+
+#: ../admin-views/event-defaults.php:52 ../admin-views/event-defaults.php:73
+msgid "Default Province or State"
+msgstr "Штат или провинция по умолчанию"
+
+#: ../admin-views/event-defaults.php:55
+msgid "Select a State:"
+msgstr "Выбрать штат:"
+
+#: ../admin-views/event-defaults.php:66 ../admin-views/event-defaults.php:74
+msgid "The default  value"
+msgstr "Значение по умолчанию"
+
+#: ../admin-views/event-defaults.php:71
+msgid "Default Province"
+msgstr "Провинция по умолчанию"
+
+#: ../admin-views/event-defaults.php:79 ../admin-views/event-defaults.php:81
+msgid "Default Postal Code"
+msgstr "Почтовый индекс по умолчанию"
+
+#: ../admin-views/event-defaults.php:82
+msgid "The default Postal Code value"
+msgstr "Значение почтового индекса по умолчанию"
+
+#: ../admin-views/event-defaults.php:87
+msgid "Default Country for Events"
+msgstr "Страна мероприятий по умолчанию"
+
+#: ../admin-views/event-defaults.php:105 ../admin-views/event-defaults.php:107
+msgid "Default Phone"
+msgstr "Телефон по умолчанию"
+
+#: ../admin-views/event-defaults.php:108
+msgid "The default phone value"
+msgstr "Значение телефона по умолчанию"
+
+#: ../admin-views/event-defaults.php:112
+#: ../admin-views/tribe-options-defaults.php:198
+msgid "Use a custom list of countries"
+msgstr "Используйте настраиваемый список стран"
+
+#: ../admin-views/event-defaults.php:114
+msgid "Use the following list:"
+msgstr "Используйте следующий список:"
+
+#: ../admin-views/event-defaults.php:116
+msgid ""
+"One country per line in the following format: <br/>US, United States <br/> "
+"UK, United Kingdom."
+msgstr ""
+"Одна страна на строку в следующем формате: <br>США, Соединенные штаты "
+"Америки <br>ВБ, Великобритания."
+
+#: ../admin-views/event-defaults.php:116
+msgid "(Replaces the default list.)"
+msgstr "(Замещает список по умолчанию.)"
+
+#: ../admin-views/event-meta-options.php:3 ../events-calendar-pro.php:772
+msgid "Additional Fields"
+msgstr "Дополнительные поля"
+
+#: ../admin-views/event-meta-options.php:4
+msgid ""
+"Use additional fields to add unique content fields to the event admin, which "
+"can be used by anyone who creates events. Upon publication they'll appear in "
+"the event metabox that accompanies your event listing, alongside the date/"
+"time/venue/organizer/etc. </p><p>Each new piece of data needs:"
+msgstr ""
+"Используйте дополнительные поля и уникальное поля содержимого для "
+"администратора мероприятий, которые могут быть использованы всеми, кто "
+"создает мероприятия. Под публикацией они возникнут в поле мета-данных, "
+"которое будет находится рядом с вашим списком мероприятий возле даты/времени/"
+"места проведения/организатора и т.д. </p><p>Всем данным нужны:"
+
+#: ../admin-views/event-meta-options.php:6
+msgid "Label (e.g. Meal Plans)"
+msgstr "Подпись (например, Планы питания)"
+
+#: ../admin-views/event-meta-options.php:7
+msgid "At least one option (e.g. Vegetarian, Kosher, Paleo)"
+msgstr "Хотя бы один вариант (например, Вегетерианский, Кошерный, Палео)"
+
+#: ../admin-views/event-meta-options.php:8
+msgid "Field type. These are:"
+msgstr "Вид поля. Это:"
+
+#: ../admin-views/event-meta-options.php:10
+msgid "Text - for the user to input text"
+msgstr "Текстовое - для ввода текста пользователя"
+
+#: ../admin-views/event-meta-options.php:11
+msgid "URL - for the user to input a URL"
+msgstr "Ссылка - для ввода ссылок пользователя"
+
+#: ../admin-views/event-meta-options.php:12
+msgid "Checkbox - for multiple choice"
+msgstr "Поле для установки флажка - для множественного выбора"
+
+#: ../admin-views/event-meta-options.php:13
+msgid "Radio Button - to select only one"
+msgstr "Переключатель - чтобы выбрать только одно"
+
+#: ../admin-views/event-meta-options.php:14
+msgid "Dropdown Menu - for a dropdown menu"
+msgstr "Выпадающее меню - для выпадающего меню"
+
+#: ../admin-views/event-meta-options.php:19
+msgid "Field Label"
+msgstr "Подпись поля"
+
+#: ../admin-views/event-meta-options.php:19
+msgid "Field Type"
+msgstr "Вид поля"
+
+#: ../admin-views/event-meta-options.php:19
+msgid "Options (one per line)"
+msgstr "Варианты (на строку)"
+
+#: ../admin-views/event-meta-options.php:45
+msgid "Text"
+msgstr "Текст"
+
+#: ../admin-views/event-meta-options.php:46
+msgid "URL"
+msgstr "Ссылка"
+
+#: ../admin-views/event-meta-options.php:47
+msgid "Radio"
+msgstr "Переключатель"
+
+#: ../admin-views/event-meta-options.php:48
+msgid "Checkbox"
+msgstr "Поле для установки флажка"
+
+#: ../admin-views/event-meta-options.php:49
+#: ../lib/TribeEventsFilter_GeoLoc.php:44
+msgid "Dropdown"
+msgstr "Выпадающее меню"
+
+#: ../admin-views/event-meta-options.php:55
+msgid "Add another"
+msgstr "Добавить еще"
+
+#: ../admin-views/event-meta-options.php:57
+msgid "Remove"
+msgstr "Удалить"
+
+#: ../admin-views/event-meta-options.php:65
+#, php-format
+msgid ""
+"Enter the field label as you want it to appear (this will be the label in "
+"the same way \"Start Date,\" \"Organizer,\" etc appear in the event details "
+"box on the frontend). Select whether the field will be a text field; URL "
+"field; radio buttons; checkboxes; or a dropdown. All of these with the "
+"exception of text and URL allow for multiple options to be included, which "
+"you can add — one per-line — in the right-hand column. If you feel "
+"flummoxed, we've got you covered with a %s."
+msgstr ""
+"Введите подпись поля таким образом, как вы хотите, чтобы она показывалась "
+"(также подпись будет выводиться и в подробностях мероприятия - \"Дата начала"
+"\", \"Организатор\" и т.д.). Выберите, будет ли это поле текстовым, со "
+"ссылкой, переключателем, полем для флажка или выпадающим меню. Все эти "
+"варианты, за исключением текствого поля и поля со ссылкой, позволяют "
+"выбирать несколько вариантов для выбора - один на строку - в правой колонке. "
+"Если вы сбиты с толку, вот что мы предлагаем: %s."
+
+#: ../admin-views/event-meta-options.php:66
+msgid "video tutorial that will walk you through the process"
+msgstr "видео-инструкция, которая пошагово покажет вам процесс"
+
+#: ../admin-views/event-meta-options.php:69
+msgid "Editor \"Custom Fields\" meta box"
+msgstr "Редактор поля мета-данных \"Настраиваемые поля\""
+
+#: ../admin-views/event-meta-options.php:71
+msgid "Show"
+msgstr "Показать"
+
+#: ../admin-views/event-meta-options.php:72
+msgid "Hide"
+msgstr "Скрыть"
+
+#: ../admin-views/event-meta-options.php:73
+#, fuzzy
+msgid ""
+"Enabling this option this will not remove custom field data or "
+"functionality, just the default meta box editor."
+msgstr ""
+"Выбрав этот вариант, вы не удалите данные настроенные данные полей или "
+"функции, только редактор стандартных поля мета-данных."
+
+#: ../admin-views/event-meta-options.php:82
+msgid ""
+"Are you sure you wish to remove this field and its data from all events? "
+"Once you click OK this cannot be undone."
+msgstr ""
+"Вы уверены, что хотите убрать это поле и данные из него со всех событий? Как "
+"только вы нажмете ОК, это действие нельзя будет отменить."
+
+#: ../admin-views/event-meta.php:7
+msgid "Additional Event Fields"
+msgstr "Дополнительные поля мероприятия"
+
+#: ../admin-views/event-recurrence.php:2
+msgid "Recurrence:"
+msgstr "Повторение:"
+
+#: ../admin-views/event-recurrence.php:7
+msgid "None"
+msgstr "Нет"
+
+#: ../admin-views/event-recurrence.php:8
+#: ../lib/tribe-events-recurrence-meta.class.php:848
+msgid "day"
+msgstr "день"
+
+#: ../admin-views/event-recurrence.php:8
+#: ../views/pro/widgets/countdown-widget.php:18
+msgid "days"
+msgstr "дней"
+
+#: ../admin-views/event-recurrence.php:8
+msgid "Every Day"
+msgstr "Каждый день"
+
+#: ../admin-views/event-recurrence.php:9 ../events-calendar-pro.php:66
+msgid "week"
+msgstr "неделя"
+
+#: ../admin-views/event-recurrence.php:9
+msgid "weeks"
+msgstr "недель"
+
+#: ../admin-views/event-recurrence.php:9
+msgid "Every Week"
+msgstr "Каждую неделю"
+
+#: ../admin-views/event-recurrence.php:10
+msgid "month"
+msgstr "месяц"
+
+#: ../admin-views/event-recurrence.php:10
+msgid "months"
+msgstr "месяцев"
+
+#: ../admin-views/event-recurrence.php:10
+msgid "Every Month"
+msgstr "Каждый месяц"
+
+#: ../admin-views/event-recurrence.php:11
+msgid "year"
+msgstr "год"
+
+#: ../admin-views/event-recurrence.php:11
+msgid "years"
+msgstr "лет"
+
+#: ../admin-views/event-recurrence.php:11
+msgid "Every Year"
+msgstr "Каждый год"
+
+#: ../admin-views/event-recurrence.php:12
+msgid "event"
+msgstr "мероприятие"
+
+#: ../admin-views/event-recurrence.php:12
+msgid "events"
+msgstr "мероприятия"
+
+#: ../admin-views/event-recurrence.php:12
+msgid "Custom"
+msgstr "Настроить"
+
+#: ../admin-views/event-recurrence.php:15
+msgid "and will end"
+msgstr "и закончится"
+
+#: ../admin-views/event-recurrence.php:17
+#, fuzzy
+msgid "On"
+msgstr " "
+
+#: ../admin-views/event-recurrence.php:18
+msgid "After"
+msgstr "После"
+
+#: ../admin-views/event-recurrence.php:19
+msgid "Never"
+msgstr "Никогда"
+
+#: ../admin-views/event-recurrence.php:23
+msgid "You must select a recurrence end date"
+msgstr "Вы должны выбрать дату окончания повторения"
+
+#: ../admin-views/event-recurrence.php:30
+msgid "Frequency"
+msgstr "Частота"
+
+#: ../admin-views/event-recurrence.php:32
+msgid "Day(s)"
+msgstr "День (дней)"
+
+#: ../admin-views/event-recurrence.php:32
+msgid "Daily"
+msgstr "Ежедневно"
+
+#: ../admin-views/event-recurrence.php:33
+msgid "Week(s) on:"
+msgstr "Неделя (недель) в:"
+
+#: ../admin-views/event-recurrence.php:33
+msgid "Weekly"
+msgstr "Еженедельно"
+
+#: ../admin-views/event-recurrence.php:34
+msgid "Month(s) on the:"
+msgstr "Месяц(ев) в:"
+
+#: ../admin-views/event-recurrence.php:34
+msgid "Monthly"
+msgstr "Ежемесячно"
+
+#: ../admin-views/event-recurrence.php:35
+msgid "Year(s) on:"
+msgstr "Год (лет) в:"
+
+#: ../admin-views/event-recurrence.php:35
+msgid "Yearly"
+msgstr "Ежегодно"
+
+#: ../admin-views/event-recurrence.php:37
+msgid "Every"
+msgstr "Каждый"
+
+#: ../admin-views/event-recurrence.php:41
+msgid "Frequency of recurring event must be a number"
+msgstr "Частота повторения мероприятия должна быть цифрой"
+
+#: ../admin-views/event-recurrence.php:49
+msgid "M"
+msgstr "Пн"
+
+#: ../admin-views/event-recurrence.php:50
+msgid "Tu"
+msgstr "Вт"
+
+#: ../admin-views/event-recurrence.php:51
+msgid "W"
+msgstr "Ср"
+
+#: ../admin-views/event-recurrence.php:52
+msgid "Th"
+msgstr "Чт"
+
+#: ../admin-views/event-recurrence.php:53
+msgid "F"
+msgstr "Пт"
+
+#: ../admin-views/event-recurrence.php:54
+msgid "Sa"
+msgstr "Сб"
+
+#: ../admin-views/event-recurrence.php:55
+msgid "Su"
+msgstr "Вс"
+
+#: ../admin-views/event-recurrence.php:63
+#: ../admin-views/event-recurrence.php:113
+msgid "First"
+msgstr "Первый"
+
+#: ../admin-views/event-recurrence.php:64
+#: ../admin-views/event-recurrence.php:114
+msgid "Second"
+msgstr "Второй"
+
+#: ../admin-views/event-recurrence.php:65
+#: ../admin-views/event-recurrence.php:115
+msgid "Third"
+msgstr "Третий"
+
+#: ../admin-views/event-recurrence.php:66
+#: ../admin-views/event-recurrence.php:116
+msgid "Fourth"
+msgstr "Четвертый"
+
+#: ../admin-views/event-recurrence.php:67
+msgid "Fifth"
+msgstr "Пятый"
+
+#: ../admin-views/event-recurrence.php:68
+#: ../admin-views/event-recurrence.php:117
+msgid "Last"
+msgstr "Последний"
+
+#: ../admin-views/event-recurrence.php:75
+#: ../admin-views/event-recurrence.php:120
+#: ../lib/tribe-events-recurrence-meta.class.php:883
+msgid "Monday"
+msgstr "Понедельник"
+
+#: ../admin-views/event-recurrence.php:76
+#: ../admin-views/event-recurrence.php:121
+#: ../lib/tribe-events-recurrence-meta.class.php:883
+msgid "Tuesday"
+msgstr "Вторник"
+
+#: ../admin-views/event-recurrence.php:77
+#: ../admin-views/event-recurrence.php:122
+#: ../lib/tribe-events-recurrence-meta.class.php:883
+msgid "Wednesday"
+msgstr "Среда"
+
+#: ../admin-views/event-recurrence.php:78
+#: ../admin-views/event-recurrence.php:123
+#: ../lib/tribe-events-recurrence-meta.class.php:883
+msgid "Thursday"
+msgstr "Четверг"
+
+#: ../admin-views/event-recurrence.php:79
+#: ../admin-views/event-recurrence.php:124
+#: ../lib/tribe-events-recurrence-meta.class.php:883
+msgid "Friday"
+msgstr "Пятница"
+
+#: ../admin-views/event-recurrence.php:80
+#: ../admin-views/event-recurrence.php:125
+#: ../lib/tribe-events-recurrence-meta.class.php:883
+msgid "Saturday"
+msgstr "Суббота"
+
+#: ../admin-views/event-recurrence.php:81
+#: ../admin-views/event-recurrence.php:126
+#: ../lib/tribe-events-recurrence-meta.class.php:883
+msgid "Sunday"
+msgstr "Воскресенье"
+
+#: ../admin-views/event-recurrence.php:83
+#: ../admin-views/event-recurrence.php:128
+msgid "Day"
+msgstr "День"
+
+#: ../admin-views/event-recurrence.php:111
+msgid "On the:"
+msgstr "В:"
+
+#: ../admin-views/event-recurrence.php:136
+msgid "Description:"
+msgstr "Описание:"
+
+#: ../admin-views/event-recurrence.php:144
+msgid "Recurrence Description:"
+msgstr "Описание повторения:"
+
+#: ../admin-views/event-recurrence.php:149
+msgid ""
+"Create a custom plain language description of the recurrence. Leave it blank "
+"and we'll automate it."
+msgstr ""
+"Создайте простое языковое описание повторения. Оставьте поле пустым, и мы "
+"заполним его автоматически."
+
+#: ../admin-views/tribe-options-defaults.php:6
+#: ../admin-views/tribe-options-defaults.php:15
+msgid "No Default"
+msgstr "Нет значения по умолчанию"
+
+#: ../admin-views/tribe-options-defaults.php:22
+msgid "Select a State"
+msgstr "Выберите штат"
+
+#: ../admin-views/tribe-options-defaults.php:35 ../events-calendar-pro.php:770
+msgid "Default Content"
+msgstr "Содержимое по умолчанию"
+
+#: ../admin-views/tribe-options-defaults.php:39
+msgid ""
+"<p>Choose the default venue & organizer. Set default address information to "
+"save time when entering a new venue or organizer.</p><p>You can override "
+"these settings as you enter a new event.</p>"
+msgstr ""
+"Выберите место проведения и организатора по умолчанию. Установите информацию "
+"об адресе по умолчанию, чтобы сэкономить время при вводе нового места или "
+"организатора.</p><p>Вы можете изменить эти параметры, когда будете вводить "
+"новое мероприятие.</p>"
+
+#: ../admin-views/tribe-options-defaults.php:51
+msgid "Options"
+msgstr "Параметры"
+
+#: ../admin-views/tribe-options-defaults.php:61
+msgid ""
+"Check this box to have the organizer and venue fields pre-populated with the "
+"default values below for any new event that is created."
+msgstr ""
+"Поставьте галочку здесь, чтобы поле организатора и места проведения при "
+"создании новых мероприятий были заполнены значениями по умолчанию ниже."
+
+#: ../admin-views/tribe-options-defaults.php:65
+#: ../admin-views/widget-admin-advanced-list.php:29
+msgid "Organizer"
+msgstr "Организатор"
+
+#: ../admin-views/tribe-options-defaults.php:69
+msgid "Default organizer"
+msgstr "Организатор по умолчанию"
+
+#: ../admin-views/tribe-options-defaults.php:73
+msgid "No saved organizers yet."
+msgstr "Сохраненных организаторов пока нет."
+
+#: ../admin-views/tribe-options-defaults.php:82
+#: ../admin-views/widget-admin-advanced-list.php:28
+msgid "Venue"
+msgstr "Место проведения"
+
+#: ../admin-views/tribe-options-defaults.php:86
+msgid "Default venue"
+msgstr "Место проведения по умолчанию"
+
+#: ../admin-views/tribe-options-defaults.php:90
+msgid "No saved venues yet."
+msgstr "Мест проведения по умолчанию пока нет."
+
+#: ../admin-views/tribe-options-defaults.php:99
+#: ../admin-views/widget-admin-advanced-list.php:30
+msgid "Address"
+msgstr "Адрес"
+
+#: ../admin-views/tribe-options-defaults.php:103
+msgid ""
+"You can use this setting to set specific, individual defaults for any new "
+"Venue you create (these will not be used for your default venue)."
+msgstr ""
+"Вы можете использовать эту настройку, чтобы установить особенное, "
+"индивидуальное значение по умолчанию для любого нового места проведения, "
+"которое вы создаете (к месту проведения по умолчанию это применяться не "
+"будет)."
+
+#: ../admin-views/tribe-options-defaults.php:107
+msgid "Default address"
+msgstr "Адрес по умолчанию"
+
+#: ../admin-views/tribe-options-defaults.php:120
+msgid "Default city"
+msgstr "Город по умолчанию"
+
+#: ../admin-views/tribe-options-defaults.php:133
+msgid "Default state"
+msgstr "Штат по умолчанию"
+
+#: ../admin-views/tribe-options-defaults.php:146
+msgid "Default province"
+msgstr "Провинция по умолчанию"
+
+#: ../admin-views/tribe-options-defaults.php:159
+msgid "Default postal code/zip code"
+msgstr "Почтовый индекс по умолчанию"
+
+#: ../admin-views/tribe-options-defaults.php:172
+msgid "Default country"
+msgstr "Страна по умолчанию"
+
+#: ../admin-views/tribe-options-defaults.php:185
+msgid "Default phone"
+msgstr "Телефон по умолчанию"
+
+#: ../admin-views/tribe-options-defaults.php:201
+msgid ""
+"One country per line in the following format: <br>US, United States <br> UK, "
+"United Kingdom. <br> (Replaces the default list.)"
+msgstr ""
+"Одна страна на строку в следующем формате: <br>США, Соединенные штаты "
+"Америки <br>ВБ, Великобритания. <br> (Замещает список по умолчанию)"
+
+#: ../admin-views/widget-admin-advanced-list.php:11
+#: ../admin-views/widget-admin-calendar.php:10
+#: ../admin-views/widget-admin-countdown.php:11
+#: ../admin-views/widget-admin-venue.php:9
+#: ../admin-views/widget-calendar.php:2
+msgid "Title:"
+msgstr "Название:"
+
+#: ../admin-views/widget-admin-advanced-list.php:16
+#: ../admin-views/widget-admin-venue.php:20
+#: ../admin-views/widget-calendar.php:8
+msgid "Number of events to show:"
+msgstr "Количество показанных мероприятий:"
+
+#: ../admin-views/widget-admin-advanced-list.php:25
+msgid "Display:"
+msgstr "Показать:"
+
+#: ../admin-views/widget-admin-advanced-list.php:31
+msgid "City"
+msgstr "Город"
+
+#: ../admin-views/widget-admin-advanced-list.php:32
+msgid "State (US) Or Province (Int)"
+msgstr "Штат (США) или Провинция (Международное)"
+
+#: ../admin-views/widget-admin-advanced-list.php:33
+msgid "Postal Code"
+msgstr "Почтовый код"
+
+#: ../admin-views/widget-admin-advanced-list.php:34
+msgid "Country"
+msgstr "Страна"
+
+#: ../admin-views/widget-admin-advanced-list.php:35
+msgid "Phone"
+msgstr "Телефон"
+
+#: ../admin-views/widget-admin-advanced-list.php:36
+msgid "Price"
+msgstr "Цена"
+
+#: ../admin-views/widget-admin-advanced-list.php:58
+#: ../admin-views/widget-calendar.php:24
+msgid "Filters"
+msgstr "Фильтры"
+
+#: ../admin-views/widget-admin-advanced-list.php:76
+#: ../admin-views/widget-calendar.php:42
+msgid "remove"
+msgstr "удалить"
+
+#: ../admin-views/widget-admin-advanced-list.php:87
+#: ../admin-views/widget-calendar.php:53
+msgid "Match all"
+msgstr "Точное совпадение"
+
+#: ../admin-views/widget-admin-advanced-list.php:90
+#: ../admin-views/widget-calendar.php:56
+msgid "Match any"
+msgstr "Частичное совпадение"
+
+#: ../admin-views/widget-admin-advanced-list.php:94
+#: ../admin-views/widget-calendar.php:60
+msgid "Add a filter"
+msgstr "Добавить фильтр"
+
+#: ../admin-views/widget-admin-advanced-list.php:97
+#: ../admin-views/widget-calendar.php:63
+msgid "Select one..."
+msgstr "Выбрать один..."
+
+#: ../admin-views/widget-admin-advanced-list.php:124
+#: ../admin-views/widget-admin-venue.php:28
+msgid "Hide this widget if there are no upcoming events:"
+msgstr "Скрыть виджет, если нет грядущих мероприятий:"
+
+#: ../admin-views/widget-admin-countdown.php:15
+msgid "Event:"
+msgstr "Мероприятие:"
+
+#: ../admin-views/widget-admin-countdown.php:23
+msgid "Show seconds:"
+msgstr "Показать секунды:"
+
+#: ../admin-views/widget-admin-countdown.php:28
+msgid "Countdown Completed Text:"
+msgstr "Текст для окончания обратного отсчета:"
+
+#: ../admin-views/widget-admin-venue.php:11
+msgid "Venue:"
+msgstr "Место проведения:"
+
+#: ../events-calendar-pro.php:67
+msgid "photo"
+msgstr "фото"
+
+#: ../events-calendar-pro.php:304
+msgid "Events for week of"
+msgstr "Мероприятия недели"
+
+#: ../events-calendar-pro.php:312 ../events-calendar-pro.php:375
+msgid "Past Events"
+msgstr "Прошедшие мероприятия"
+
+#: ../events-calendar-pro.php:314 ../events-calendar-pro.php:377
+#: ../lib/widget-advanced-list.class.php:88
+msgid "Upcoming Events"
+msgstr "Будущие мероприятия"
+
+#: ../events-calendar-pro.php:320 ../events-calendar-pro.php:360
+msgid "All events for"
+msgstr "Все мероприятия для"
+
+#: ../events-calendar-pro.php:367
+#, php-format
+msgid "Events for week of %s"
+msgstr "Мероприятия недели %s"
+
+#: ../events-calendar-pro.php:781
+msgid "Hide related events"
+msgstr "Скрыть похожие мероприятия"
+
+#: ../events-calendar-pro.php:782
+msgid "Remove related events from the single event view"
+msgstr "Убрать похожие мероприятия из вида одного мероприятия"
+
+#: ../events-calendar-pro.php:790
+msgid "Week Day Format"
+msgstr "Формат дня недели"
+
+#: ../events-calendar-pro.php:791
+msgid ""
+"Enter the format to use for week days. Used when showing days of the week in "
+"Week view."
+msgstr ""
+"Введите формат, который будет использоваться для дней недели. Используется "
+"для показа дней недели в недельном виде."
+
+#: ../events-calendar-pro.php:808
+msgid ""
+"Thanks for buying Events Calendar PRO! From all of us at Modern Tribe, we "
+"sincerely appreciate it. If you're looking for help with Events Calendar "
+"PRO, you've come to the right place. We are committed to helping make your "
+"calendar kick ass... and hope the resources provided below will help get you "
+"there."
+msgstr ""
+"Спасибо за покупку Events Calendar PRO! От всех нас в Modern Tribe, мы "
+"искренне благодарим вас за это. Если вам нужна помощь с Events Calendar PRO, "
+"вы пришли по адресу. Мы здесь, чтобы сделать ваш календарь классным... и "
+"надеемся, что ресурсы, приведенные ниже, помогут в этом."
+
+#: ../events-calendar-pro.php:819
+msgid ""
+"If this is your first time using The Events Calendar Pro, you're in for a "
+"treat and are already well on your way to creating a first event. Here are "
+"some basics we've found helpful for users jumping into it for the first time:"
+msgstr ""
+"Если вы пользуетесь The Events Calendar Pro впервые, вы уже на прямом пути к "
+"созданию вашего первого мероприятия. Мы собрали некоторые базовые элементы, "
+"которые могут помочь пользователю-новичку:"
+
+#: ../events-calendar-pro.php:822
+#, php-format
+msgid ""
+"%sOur New User Primer%s was designed for folks in your exact position. "
+"Featuring both step-by-step videos and written walkthroughs that feature "
+"accompanying screenshots, the primer aims to take you from zero to hero in "
+"no time."
+msgstr ""
+"%sНаш учебник для начинающих%s был создан для людей, которые находятся в той "
+"же ситуации, что и вы. Одновременно предоставляя пошаговые видео и "
+"письменные инструкции со скриншотами, учебник сделает из вас мастера за "
+"считанные минуты!"
+
+#: ../events-calendar-pro.php:824
+#, php-format
+msgid ""
+"%sInstallation/Setup FAQs%s from our support page can help give an overview "
+"of what the plugin can and cannot do. This section of the FAQs may be "
+"helpful as it aims to address any basic install questions not addressed by "
+"the new user primer."
+msgstr ""
+"%sFAQ по установке и настройке%s с нашей страницы поддержки даст вам "
+"представление о том, что может и чего не может делать плагин. Этот раздел "
+"FAQ может помочь, так как он обращается ко всем основным вопросам по "
+"установке, не затронутым Учебником."
+
+#: ../events-calendar-pro.php:826
+#, php-format
+msgid ""
+"Are you developer looking to build your own frontend view? We created an "
+"example plugin that demonstrates how to register a new view. You can "
+"%sdownload the plugin at GitHub%s to get started."
+msgstr ""
+"Вы разработчик, который хочет построить собственный вид фронтенд? Мы создали "
+"пример плагина, который демонстрирует, как зарегистрировать новый вид. Вы "
+"можете %sскачать плагин на GitHub%s и начать работу."
+
+#: ../events-calendar-pro.php:828
+#, php-format
+msgid ""
+"Take care of your license key. Though not required to create your first "
+"event, you'll want to get it in place as soon as possible to guarantee your "
+"access to support and upgrades. %sHere's how to find your license key%s, if "
+"you don't have it handy."
+msgstr ""
+"Позаботьтесь о своем лицензионном ключе. Хотя он и не нужен для создания "
+"вашего первого мероприятия, вам нужно будет ввести его как можно скорее, "
+"чтобы гарантировать доступ к поддержке и обновлениям. %sВот как найти ваш "
+"лицензионный ключ%s, если у вас нет его под рукой."
+
+#: ../events-calendar-pro.php:830
+msgid ""
+"Otherwise, if you're feeling adventurous, you can get started by heading to "
+"the Events menu and adding your first event."
+msgstr ""
+"В противном случае, если вам хочется положиться на удачу, вы можете начать с "
+"Меню мероприятий и добавить свое первое мероприятие."
+
+#: ../events-calendar-pro.php:842
+#, php-format
+msgid ""
+"Written documentation can only take things so far...sometimes, you need help "
+"from a real person. This is where our %ssupport forums%s come into play."
+msgstr ""
+"Письменная документация может дойти только до этого места... иногда нужна "
+"помощь реального человека. Здесь в игру и вступают наши %sфорумы поддержки%s."
+
+#: ../events-calendar-pro.php:843
+#, php-format
+msgid ""
+"Users who have purchased an Events Calendar PRO license are granted total "
+"access to our %spremium support forums%s. Unlike at the %sWordPress.org "
+"support forum%s, where our involvement is limited to identifying and "
+"patching bugs, we have a dedicated support team for PRO users. We're on the "
+"PRO forums daily throughout the business week, and no thread should go more "
+"than 24-hours without a response."
+msgstr ""
+"Пользователи, которые приобрели лицензию на Events Calendar PRO, получают "
+"полный доступ к нашим %sпремиальным форумам поддержки%s. В отличии от "
+"%sфорумов поддержки WordPress.org%s, где наше сотрудничество ограничено "
+"определением и исправлением ошибок, у нас есть преданная команда поддержки "
+"для пользователей PRO. Мы находимся на форумах PRO ежедневно всю рабочую "
+"неделю, и ни одно обращение не останется без ответа больше, чем на 24 часа."
+
+#: ../events-calendar-pro.php:844
+msgid ""
+"Our number one goal is helping you succeed, and to whatever extent possible, "
+"we'll help troubleshoot and guide your customizations or tweaks. While we "
+"won't build your site for you, and we can't guarantee we'll be able to get "
+"you 100% integrated with every theme or plugin out there, we'll do all we "
+"can to point you in the right direction and to make you -- and your client, "
+"as is often more importantly the case -- satisfied."
+msgstr ""
+"Наша первостепенная цель - это помочь вам добиться успеха, и в какой бы то "
+"ни было мере, мы поможем устранить неполадки и разобраться с настройками. И "
+"хотя мы не построим ваш сайт за вас, и не будем гарантировать, что сможем "
+"помочь интегрировать его на 100% с любой темой или плагином, мы приложим все "
+"усилия, чтобы дать вам правильное направление и сделать вас - и вашего "
+"клиента, что часто важнее - счастливыми."
+
+#: ../events-calendar-pro.php:845
+#, fuzzy
+msgid ""
+"Before posting a new thread, please do a search to make sure your issue "
+"hasn't already been addressed. When posting please make sure to provide as "
+"much detail about the problem as you can (with screenshots or screencasts if "
+"feasible), and make sure that you've identified whether a plugin / theme "
+"conflict could be at play in your initial message."
+msgstr ""
+"Перед тем, как публиковать новое обращение, пожалуйста, осуществите поиск, "
+"чтобы убедиться, что решение проблемы еще не было найдено. Во время "
+"публикации предоставьте нам как можно больше подробностей в описании "
+"проблемы (со скриншотами, когда это допустимо), и определите, мог ли "
+"конфликт плагина/темы иметь место в вашем начальном сообщении. "
+
+#: ../events-calendar-pro.php:1252
+msgid "Settings"
+msgstr "Настройки"
+
+#: ../events-calendar-pro.php:1277
+#, php-format
+msgid "Venue updated. <a href=\"%s\">View venue</a>"
+msgstr ""
+"Место проведения обновлено. <a href=\"%s\">Просмотреть место проведения</a>"
+
+#: ../events-calendar-pro.php:1279
+#, php-format
+msgid "Venue published. <a href=\"%s\">View venue</a>"
+msgstr ""
+"Место проведения опубликовано. <a href=\"%s\">Просмотреть место проведения</"
+"a>"
+
+#: ../events-calendar-pro.php:1280
+#, php-format
+msgid "Venue submitted. <a target=\"_blank\" href=\"%s\">Preview venue</a>"
+msgstr ""
+"Место проведения подтверждено. <a target=\"_blank\" href=\"%s\">Предпросмотр "
+"места проведения</a>"
+
+#: ../events-calendar-pro.php:1281
+#, php-format
+msgid ""
+"Venue scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s"
+"\">Preview venue</a>"
+msgstr ""
+"Место проведения станет доступно: <strong>%1$s</strong>. <a target=\"_blank"
+"\" href=\"%2$s\">Предпросмотр места проведения</a>"
+
+#: ../events-calendar-pro.php:1283 ../events-calendar-pro.php:1291
+msgid "M j, Y @ G:i"
+msgstr "M j, Y @ G:i"
+
+#: ../events-calendar-pro.php:1284
+#, php-format
+msgid "Venue draft updated. <a target=\"_blank\" href=\"%s\">Preview venue</a>"
+msgstr ""
+"Черновик места проведения обновлен. <a target=\"_blank\" href=\"%s"
+"\">Предпросмотр места проведения</a>"
+
+#: ../events-calendar-pro.php:1286
+#, php-format
+msgid "Organizer updated. <a href=\"%s\">View organizer</a>"
+msgstr "Организатор обновлен. <a href=\"%s\">Посмотреть организатора</a>"
+
+#: ../events-calendar-pro.php:1287
+#, php-format
+msgid "Organizer published. <a href=\"%s\">View organizer</a>"
+msgstr "Организатор опубликован. <a href=\"%s\">Посмотреть организатора</a>"
+
+#: ../events-calendar-pro.php:1288
+#, php-format
+msgid ""
+"Organizer submitted. <a target=\"_blank\" href=\"%s\">Preview organizer</a>"
+msgstr ""
+"Организатор подтвержден. <a target=\"_blank\" href=\"%s\">Предпросмотр "
+"организатора</a>"
+
+#: ../events-calendar-pro.php:1289
+#, php-format
+msgid ""
+"Organizer scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" href="
+"\"%2$s\">Preview organizer</a>"
+msgstr ""
+"Организатор станет доступен: <strong>%1$s</strong>. <a target=\"_blank\" "
+"href=\"%2$s\">Предпросмотр организатора</a>"
+
+#: ../events-calendar-pro.php:1292
+#, php-format
+msgid ""
+"Organizer draft updated. <a target=\"_blank\" href=\"%s\">Preview organizer</"
+"a>"
+msgstr ""
+"Черновик организатора обновлен. <a target=\"_blank\" href=\"%s"
+"\">Предпросмотр организатора</a>"
+
+#: ../events-calendar-pro.php:1338
+#, php-format
+msgid "Calendar powered by %sThe Events Calendar PRO%s"
+msgstr "Календарь на платформе %sThe Events Calendar PRO%s"
+
+#: ../events-calendar-pro.php:1351
+msgid "Support"
+msgstr "Поддержка"
+
+#: ../events-calendar-pro.php:1353
+msgid "View All Add-Ons"
+msgstr "Просмотреть все расширения"
+
+#: ../events-calendar-pro.php:1450
+msgid "Week"
+msgstr "Неделя"
+
+#: ../events-calendar-pro.php:1464
+msgid "Photo"
+msgstr "Фото"
+
+#: ../events-calendar-pro.php:1478
+msgid "Week Of"
+msgstr "Неделя"
+
+#: ../events-calendar-pro.php:1561
+msgid "The Events Calendar"
+msgstr "The Events Calendar"
+
+#: ../events-calendar-pro.php:1562
+#, php-format
+msgid ""
+"To begin using Events Calendar PRO, please install the latest version of <a "
+"href=\"%s\" class=\"thickbox\" title=\"%s\">The Events Calendar</a>."
+msgstr ""
+"Чтобы начать использовать Events Calendar PRO, пожалуйста, установите "
+"последнюю версию <a href=\"%s\" class=\"thickbox\" title=\"%s\">The Events "
+"Calendar</a>."
+
+#: ../lib/SingleEventMeta.php:139
+#: ../views/pro/modules/meta/additional-fields.php:15
+msgid "Other"
+msgstr "Другое"
+
+#: ../lib/SingleEventMeta.php:165
+msgid "Recurrence Pattern:"
+msgstr "Схема повторения:"
+
+#: ../lib/TribeEventsFilter_GeoLoc.php:20 ../lib/tribe-geoloc.class.php:145
+msgid "Miles"
+msgstr "Мили"
+
+#: ../lib/TribeEventsFilter_GeoLoc.php:21 ../lib/tribe-geoloc.class.php:146
+msgid "Kilometers"
+msgstr "Километры"
+
+#: ../lib/TribeEventsFilter_GeoLoc.php:25
+#, php-format
+msgid "%d %s"
+msgstr "%d %s"
+
+#: ../lib/TribeEventsFilter_GeoLoc.php:40
+#, php-format
+msgid "Type: %s %s"
+msgstr "Вид: %s %s"
+
+#: ../lib/TribeEventsFilter_GeoLoc.php:49
+msgid "Radio Buttons"
+msgstr "Переключатели"
+
+#: ../lib/apm_filters.php:49
+msgid "Start Date"
+msgstr "Дата начала"
+
+#: ../lib/apm_filters.php:54
+msgid "End Date"
+msgstr "Дата окончания"
+
+#: ../lib/apm_filters.php:59
+msgid "Event Cost"
+msgstr "Стоимость мероприятия"
+
+#: ../lib/apm_filters.php:64
+msgid "Event Cats"
+msgstr "Рубрики мероприятия"
+
+#: ../lib/apm_filters.php:69
+msgid "Title"
+msgstr "Название"
+
+#: ../lib/apm_filters.php:74 ../lib/tribe-events-recurrence-meta.class.php:132
+msgid "Recurring"
+msgstr "Повторение"
+
+#: ../lib/apm_filters.php:79
+msgid "Description"
+msgstr "Описание"
+
+#: ../lib/apm_filters.php:216
+#: ../lib/tribe-events-recurrence-meta.class.php:139
+msgid "Yes"
+msgstr "Да"
+
+#: ../lib/apm_filters.php:217
+msgid "No"
+msgstr "Нет"
+
+#: ../lib/template-classes/week.php:91
+#, php-format
+msgid ""
+"There were no results found for <strong>\"%s\"</strong> this week. Try "
+"searching another week."
+msgstr ""
+"Для <strong>\"%s\"</strong> на этой неделе результаты не найдены. Попробуйте "
+"поискать на другой неделе."
+
+#: ../lib/template-classes/week.php:94
+#, php-format
+msgid ""
+"No results were found for events in or near <strong>\"%s\"</strong> this "
+"week. Try searching another week."
+msgstr ""
+"Для в или возле <strong>\"%s\"</strong> мероприятия на этой неделе не "
+"найдены. Попробуйте поискать на другой неделе."
+
+#: ../lib/template-classes/week.php:98 ../lib/tribe-geoloc.class.php:546
+#, php-format
+msgid ""
+"No matching events listed under %s. Please try viewing the full calendar for "
+"a complete list of events."
+msgstr ""
+"Нет совпадений с мероприятиями в списке %s. Посмотрите календарь полностью "
+"для полного списка мероприятий."
+
+#: ../lib/template-classes/week.php:101
+msgid "No results were found for this week. Try searching another week."
+msgstr ""
+"Результаты для этой недели не найдены. Попробуйте поискать на другой неделе."
+
+#: ../lib/tribe-events-recurrence-meta.class.php:104
+msgid "Edit Series"
+msgstr "Редактировать серию"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:110
+msgid "Break from Series"
+msgstr "Прервать серию"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:120
+msgid "Edit Future Events"
+msgstr "Редактировать будущие мероприятия"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:141
+msgid "—"
+msgstr "—"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:155
+msgid "Break this event out of its series and edit it independently"
+msgstr "Убрать это мероприятие из его серии и редактировать его отдельно"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:155
+msgid "Edit Single"
+msgstr "Редактировать одно"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:157
+msgid ""
+"Split the series in two at this point, creating a new series out of this and "
+"all subsequent events"
+msgstr ""
+"Разделить серию на две в этой точке, создать новую серию из этого и всех "
+"последующих мероприятий"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:157
+msgid "Edit Upcoming"
+msgstr "Редактировать будущее мероприятие"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:163
+msgid "Edit all events in this series"
+msgstr "Редактировать все мероприятия в этой серии"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:163
+msgid "Edit All"
+msgstr "Редактировать все"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:168
+msgid "Move all events in this series to the Trash"
+msgstr "Переместить все мероприятия из этой серии в Корзину"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:168
+msgid "Trash Series"
+msgstr "Серии в Корзине"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:171
+msgid "Delete all events in this series permanently"
+msgstr "Окончательно удалить все мероприятия из этой серии"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:171
+msgid "Delete Series Permanently"
+msgstr "Окончательно удалить серию"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:177
+msgid "Restore all events in this series from the Trash"
+msgstr "Восстановить все мероприятия из этой серии из Корзины"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:177
+msgid "Restore Series"
+msgstr "Восстановить серию"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:526
+msgid ""
+"Monthly custom recurrences cannot have a dash set as the day to occur on."
+msgstr ""
+"Настраиваемые повторения по месяцу не могут иметь тире вместо дня проведения."
+
+#: ../lib/tribe-events-recurrence-meta.class.php:529
+msgid ""
+"Yearly custom recurrences cannot have a dash set as the day to occur on."
+msgstr ""
+"Настраиваемые повторения по году не могут иметь тире вместо дня проведения."
+
+#: ../lib/tribe-events-recurrence-meta.class.php:819
+#: ../lib/tribe-events-recurrence-meta.class.php:834
+msgid "Every day"
+msgstr "Каждый день"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:820
+#, php-format
+msgid " for %d day"
+msgid_plural " for %d days"
+msgstr[0] "%d день"
+msgstr[1] "%d дня"
+msgstr[2] "%d дней"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:823
+#: ../lib/tribe-events-recurrence-meta.class.php:839
+msgid "Every week"
+msgstr "Каждую неделю"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:824
+#, php-format
+msgid " for %d week"
+msgid_plural " for %d weeks"
+msgstr[0] "%d неделю"
+msgstr[1] "%d недели"
+msgstr[2] "%d недель"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:826
+#: ../lib/tribe-events-recurrence-meta.class.php:845
+msgid "Every month"
+msgstr "Каждый месяц"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:827
+#, php-format
+msgid " for %d month"
+msgid_plural " for %d months"
+msgstr[0] "%d месяц"
+msgstr[1] "%d месяца"
+msgstr[2] "%d месяцев"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:829
+#: ../lib/tribe-events-recurrence-meta.class.php:852
+msgid "Every year"
+msgstr "Каждый год"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:830
+#, php-format
+msgid " for %d year"
+msgid_plural " for %d years"
+msgstr[0] "%d год"
+msgstr[1] "%d года"
+msgstr[2] "%d лет"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:835
+#, php-format
+msgid "Every %d days"
+msgstr "Каждые %d дней"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:836
+#: ../lib/tribe-events-recurrence-meta.class.php:842
+#: ../lib/tribe-events-recurrence-meta.class.php:849
+#: ../lib/tribe-events-recurrence-meta.class.php:861
+#, php-format
+msgid ", recurring %d time"
+msgid_plural ", recurring %d times"
+msgstr[0] ", повторение %d раз"
+msgstr[1] ", повторение %d раза"
+msgstr[2] ", повторение %d раз"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:840
+#, php-format
+msgid "Every %d weeks"
+msgstr "Каждые %d недель"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:841
+#, php-format
+msgid " on %s"
+msgstr "%s"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:846
+#, php-format
+msgid "Every %d months"
+msgstr "Каждые %d месяцев"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:848
+#, php-format
+msgid " on the %s %s"
+msgstr "%s %s"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:853
+#, php-format
+msgid "Every %d years"
+msgstr "Каждые %d лет"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:855
+msgid "last"
+msgstr "последний"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:860
+#, php-format
+msgid " on the %s %s of %s"
+msgstr "%s %s из %s"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:867
+#, php-format
+msgid " until %s"
+msgstr "до %s"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:874
+#, php-format
+msgid "%s%s%s"
+msgstr "%s%s%s"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:889
+msgid ", and"
+msgstr ", и"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:891
+msgid "and"
+msgstr "и"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:893
+msgid ","
+msgstr ","
+
+#: ../lib/tribe-events-recurrence-meta.class.php:908
+msgid "January"
+msgstr "Январь"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:908
+msgid "February"
+msgstr "Февраль"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:908
+msgid "March"
+msgstr "Март"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:908
+msgid "April"
+msgstr "Апрель"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:909
+msgid "May"
+msgstr "Май"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:909
+msgid "June"
+msgstr "Июнь"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:909
+msgid "July"
+msgstr "Июль"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:909
+msgid "August"
+msgstr "Август"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:909
+msgid "September"
+msgstr "Сентябрь"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:909
+msgid "October"
+msgstr "Октябрь"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:909
+msgid "November"
+msgstr "Ноябрь"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:909
+msgid "December"
+msgstr "Декабрь"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:915
+msgid ", and "
+msgstr ", и"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:917
+msgid " and "
+msgstr "и"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:919
+msgid ", "
+msgstr ","
+
+#: ../lib/tribe-events-recurrence-meta.class.php:981
+msgid "Recurring event instances"
+msgstr "Экземпляры повторяющихся мероприятий"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:982
+msgid ""
+"Show only the first instance of each recurring event (only affects list-"
+"style views)."
+msgstr ""
+"Показывать только первый экземпляр каждого повторяющегося мероприятия "
+"(влияет только в случае предствления в виде списка)"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:988
+msgid "Front-end recurring event instances toggle"
+msgstr "Внешний переключатель повторяющихся мероприятий "
+
+#: ../lib/tribe-events-recurrence-meta.class.php:989
+msgid ""
+"Allow users to decide whether to show all instances of a recurring event."
+msgstr ""
+"Разрешить пользователям решать, показывать или нет все экземпляры "
+"повторяющегося мероприятия."
+
+#: ../lib/tribe-events-recurrence-meta.class.php:996
+msgid "Clean up recurring events after"
+msgstr "Очистить повторяющиеся мероприятия после"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:997
+msgid "Automatically remove recurring event instances older than this"
+msgstr ""
+"Автоматически удалять экземпляры повторяющихся мероприятий, старше этого"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:1004
+msgid "Create recurring events in advance for"
+msgstr "Создать повторяющиеся мероприятия заранее для"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:1005
+msgid "Recurring events will be created this far in advance"
+msgstr "Повторяющиеся мероприятия будут созданы настолько раньше"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:1026
+msgid " months"
+msgstr " месяцев"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:1117
+msgid "You are currently editing all events in a recurring series."
+msgstr "Вы сейчас редактируете все мероприятия в повторяющейся серии."
+
+#: ../lib/tribe-events-recurrence-meta.class.php:1125
+#, php-format
+msgid ""
+"%d instances of this event have been created through %s. <a href=\"%s"
+"\">Learn more.</a>"
+msgstr ""
+"%d экземпляров этого мероприятия были созданы на протяжении %s. <a href=\"%s"
+"\">Узнать больше.</a>"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:1136
+msgid ""
+"You are about to split this series in two.\n"
+"\n"
+"The event you selected and all subsequent events in the series will be "
+"separated into a new series of events that you can edit independently of the "
+"original series.\n"
+"\n"
+"This action cannot be undone."
+msgstr ""
+"Вы собираетесь разделить эту серию на две.\n"
+"\n"
+"Мероприятие, которое вы выбрали, и все последующие в серии, будут выделены в "
+"новую серию мероприятий, которую вы можете редактировать отдельно от "
+"оригинальной серии.\n"
+"\n"
+"Это действие нельзя отменить."
+
+#: ../lib/tribe-events-recurrence-meta.class.php:1137
+msgid ""
+"You are about to break this event out of its series.\n"
+"\n"
+"You will be able to edit it independently of the original series.\n"
+"\n"
+"This action cannot be undone."
+msgstr ""
+"Вы собираетесь отделить это мероприятие от серии.\n"
+"\n"
+"Вы будете иметь возможность редактировать его отдельно от оригинальной "
+"серии.\n"
+"\n"
+"Это действие нельзя отменить."
+
+#: ../lib/tribe-events-recurrence-meta.class.php:1138
+msgid ""
+"Are you sure you want to trash all occurrences of these events? All "
+"recurrence data will be lost."
+msgstr ""
+"Вы уверены, что хотите переместить в корзину все экземпляры этих "
+"мероприятий? Все данные о повторении будут утрачены."
+
+#: ../lib/tribe-geoloc.class.php:101
+msgid "Distance"
+msgstr "Расстояние"
+
+#: ../lib/tribe-geoloc.class.php:133
+msgid "Map view search distance limit"
+msgstr "Режим просмотра карты: искать на карте ограничение расстояния"
+
+#: ../lib/tribe-geoloc.class.php:135
+msgid ""
+"Set the distance that the location search covers (find events within X "
+"distance units of location search input)."
+msgstr ""
+"Установить расстояние, которое покрывается поиском местности (найти "
+"мероприятия на расстоянии X единиц ввода поиска местности)"
+
+#: ../lib/tribe-geoloc.class.php:141
+msgid "Map view distance unit"
+msgstr "Режим просмотра карты: единица расстояния"
+
+#: ../lib/tribe-geoloc.class.php:149
+msgid "Fix geolocation data"
+msgstr "Исправить геолокационные данные"
+
+#: ../lib/tribe-geoloc.class.php:149
+#, php-format
+msgid ""
+"You have %d venues for which we don't have geolocation data. We need to use "
+"the Google Maps API to get that information. Doing this may take a while "
+"(aprox. 1 minute for every 200 venues)."
+msgstr ""
+"У вас %d мест проведения, для которых у нас нет геолокационных данных. Нам "
+"нужно использовать API карт Google, чтобы найти эту информацию. Это может "
+"занять некоторое время (прибл. 1 минута на каждые 200 мест)."
+
+#: ../lib/tribe-geoloc.class.php:158
+msgid "Hide location search"
+msgstr "Спрятать поиск по местности"
+
+#: ../lib/tribe-geoloc.class.php:159
+msgid ""
+"Removes location search field from the events bar on all views except for "
+"map view."
+msgstr ""
+"Удаляет поле поиска по местности из строки мероприятий во всех режимах, "
+"кроме режима просмотра карты."
+
+#: ../lib/tribe-geoloc.class.php:211
+msgid "Map"
+msgstr "Карта"
+
+#: ../lib/tribe-geoloc.class.php:241
+msgid "Near"
+msgstr "Рядом"
+
+#: ../lib/tribe-geoloc.class.php:242
+msgid "Location"
+msgstr "Местность"
+
+#: ../lib/tribe-geoloc.class.php:543
+#, php-format
+msgid "No results were found for events in or near <strong>\"%s\"</strong>."
+msgstr ""
+"Результаты для мероприятий в или рядом с <strong>\"%s\"</strong> не найдены."
+
+#: ../lib/tribe-geoloc.class.php:549
+msgid "There were no results found."
+msgstr "Результаты не найдены."
+
+#: ../lib/tribe-geoloc.class.php:765
+msgid "Fix venues data"
+msgstr "Исправить данные места проведения"
+
+#: ../lib/tribe-geoloc.class.php:799
+#, php-format
+msgid ""
+"You have venues for which we don't have Geolocation information. <a "
+"href='%s'>Click here to generate it</a>."
+msgstr ""
+"У вас есть места проведения, для которых у нас отсутсвует геолокационная "
+"информация. <a href='%s'>Нажмите здесь, чтобы сгенерировать ееt</a>."
+
+#: ../lib/tribe-geoloc.class.php:825
+#, php-format
+msgid "Fixed geolocation data for %d venues"
+msgstr "Исправлены геолокационные данные для %d мест"
+
+#: ../lib/widget-advanced-list.class.php:20
+msgid "A widget that displays the next upcoming x events."
+msgstr "Виджет, который показывает следующие x будущих событий."
+
+#: ../lib/widget-advanced-list.class.php:24
+msgid "Events List"
+msgstr "Список мероприятий"
+
+#: ../lib/widget-calendar.class.php:8
+msgid "The events calendar mini calendar widget"
+msgstr "Виджет мини-календаря The events calendar"
+
+#: ../lib/widget-calendar.class.php:10 ../lib/widget-calendar.class.php:34
+#: ../lib/widget-calendar.class.php:70
+msgid "Events Calendar"
+msgstr "Календарь мероприятий"
+
+#: ../lib/widget-countdown.class.php:13
+msgid "Displays the time remaining until a specified event."
+msgstr "Показывает время до определенного мероприятия."
+
+#: ../lib/widget-countdown.class.php:15
+msgid "Events Countdown"
+msgstr "Обратный отсчет до мероприятий"
+
+#: ../lib/widget-venue.class.php:12
+msgid "Displays a list of upcoming events at a specific venue."
+msgstr "Показывает список будущих мероприятий в определенном месте."
+
+#: ../lib/widget-venue.class.php:14
+#, fuzzy
+msgid "Events Featured Venue"
+msgstr "Популярные места проведения мероприятий"
+
+#: ../public/template-tags/general.php:93
+msgid "Show only the first upcoming instance of recurring events"
+msgstr ""
+"Показывать только первый экземпляр будущего мероприятия из серии "
+"повторяющихся"
+
+#: ../public/template-tags/general.php:217
+#: ../public/template-tags/general.php:230
+#: ../public/template-tags/general.php:242
+#: ../public/template-tags/general.php:243
+#: ../public/template-tags/general.php:255
+#: ../public/template-tags/general.php:256
+#: ../public/template-tags/general.php:268
+#: ../public/template-tags/general.php:269
+#: ../public/template-tags/general.php:281
+#: ../public/template-tags/general.php:282
+#: ../public/template-tags/general.php:294
+#: ../public/template-tags/general.php:295
+#: ../public/template-tags/general.php:307
+#: ../public/template-tags/general.php:308
+#: ../public/template-tags/general.php:320
+#: ../public/template-tags/general.php:321
+msgid "No default set"
+msgstr "Нет значения по умолчанию"
+
+#: ../public/template-tags/general.php:219
+#, php-format
+msgid "The current default organizer is: %s"
+msgstr "Текущий организатор по умолчанию: %s"
+
+#: ../public/template-tags/general.php:232
+#, php-format
+msgid "The current default venue is: %s"
+msgstr "Текущее место проведения по умолчанию: %s"
+
+#: ../public/template-tags/general.php:245
+#, php-format
+msgid "The current default address is: %s"
+msgstr "Текущий адрес по умолчанию: %s"
+
+#: ../public/template-tags/general.php:258
+#, php-format
+msgid "The current default city is: %s"
+msgstr "Текущий город по умолчанию: %s"
+
+#: ../public/template-tags/general.php:271
+#, php-format
+msgid "The current default state is: %s"
+msgstr "Текущий штат по умолчанию: %s"
+
+#: ../public/template-tags/general.php:284
+#, php-format
+msgid "The current default province is: %s"
+msgstr "Текущая провинция по умолчанию: %s"
+
+#: ../public/template-tags/general.php:297
+#, php-format
+msgid "The current default postal code/zip code is: %s"
+msgstr "Текущий почтовый индекс по умолчанию: %s"
+
+#: ../public/template-tags/general.php:310
+#, php-format
+msgid "The current default country is: %s"
+msgstr "Текущая страна по умолчанию: %s"
+
+#: ../public/template-tags/general.php:323
+#, php-format
+msgid "The current default phone is: %s"
+msgstr "Текущий телефон по умолчанию: %s"
+
+#: ../public/template-tags/general.php:462
+#: ../public/template-tags/general.php:481
+msgid "Date out of range."
+msgstr "Дата находится вне диапазона."
+
+#: ../public/template-tags/general.php:577
+msgid "Recurring Event"
+msgstr "Повторяющееся мероприятие"
+
+#: ../public/template-tags/general.php:580
+msgid "(See all)"
+msgstr "(Посмотреть все)"
+
+#: ../public/template-tags/week.php:237
+msgid "<span>&laquo;</span> Previous Week"
+msgstr "<span>&laquo;</span> Прошлая неделя"
+
+#: ../public/template-tags/week.php:253
+msgid "Next Week <span>&raquo;</span>"
+msgstr "Следующая неделя <span>&raquo;</span>"
+
+#: ../vendor/advanced-post-manager/demo/demo.php:30
+#, php-format
+msgid ""
+"It looks like you might not have any demo data. <a href=\"%s\">Download our "
+"data</a> and use the <a href=\"%s\">WordPress Importer</a>."
+msgstr ""
+"Кажется, у вас может не быть данных демо. <a href=\"%s\">Загрузите наши "
+"данные</a> и используйте <a href=\"%s\">WordPress Importer</a>."
+
+#: ../vendor/advanced-post-manager/lib/tribe-columns.class.php:43
+msgid "Column Name"
+msgstr "Название колонки"
+
+#: ../vendor/advanced-post-manager/lib/tribe-columns.class.php:133
+msgid "Add a Column"
+msgstr "Добавить колонку"
+
+#: ../vendor/advanced-post-manager/lib/tribe-columns.class.php:140
+msgid "Comments"
+msgstr "Комментарии"
+
+#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:50
+#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:70
+msgid "Is"
+msgstr "Есть"
+
+#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:51
+#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:71
+msgid "Is Not"
+msgstr "Нет"
+
+#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:65
+msgid "LIKE"
+msgstr "Нравится"
+
+#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:69
+msgid "Search"
+msgstr "Поиск"
+
+#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:80
+msgid "Member Type"
+msgstr "Тип участника"
+
+#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:84
+msgid "Cafe"
+msgstr "Кафе"
+
+#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:85
+msgid "Private Desk"
+msgstr "Личный стол"
+
+#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:86
+msgid "Office"
+msgstr "Офис"
+
+#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:93
+#, fuzzy
+msgid "what i’m querying. probably a key in the options array in $filters"
+msgstr "что я ищу. наверное, ключ в параметрах массива в $filters"
+
+#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:517
+msgid "Choose a Saved Filter"
+msgstr "Выбрать сохраненный фильтр"
+
+#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:633
+msgid "Add a Filter"
+msgstr "Добавить фильтр"
+
+#: ../vendor/advanced-post-manager/lib/tribe-meta-box-helper.php:44
+msgid "Extended Information"
+msgstr "Расширенная информация"
+
+#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:115
+#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:388
+msgid "Delete this image"
+msgstr "Удалить это изображение"
+
+#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:115
+#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:343
+#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:388
+msgid "Delete"
+msgstr "Удалить"
+
+#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:339
+msgid "Uploaded files"
+msgstr "Загруженные файлы"
+
+#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:349
+msgid "Upload new files"
+msgstr "Загрузить новые файлы"
+
+#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:352
+msgid "Add another file"
+msgstr "Добавить еще один файл"
+
+#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:395
+msgid "Add more images"
+msgstr "Добавить еще изображения"
+
+#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:403
+msgid "Select a color"
+msgstr "Выбрать цвет"
+
+#: ../vendor/advanced-post-manager/views/edit-filters.php:7
+#: ../vendor/advanced-post-manager/views/edit-filters.php:8
+msgid "Click to toggle"
+msgstr "Нажать для переключения"
+
+#: ../vendor/advanced-post-manager/views/edit-filters.php:8
+msgid "Filters &amp; Columns"
+msgstr "Фильтры &amp; Колонки"
+
+#: ../vendor/advanced-post-manager/views/edit-filters.php:17
+msgid "Apply"
+msgstr "Применить"
+
+#: ../vendor/advanced-post-manager/views/edit-filters.php:18
+msgid "Clear"
+msgstr "Очистить"
+
+#: ../vendor/advanced-post-manager/views/edit-filters.php:19
+#: ../vendor/advanced-post-manager/views/edit-filters.php:26
+msgid "Save"
+msgstr "Сохранить"
+
+#: ../vendor/advanced-post-manager/views/edit-filters.php:21
+msgid "Export to CSV"
+msgstr "Экспорт в CSV"
+
+#: ../vendor/advanced-post-manager/views/edit-filters.php:25
+msgid "Filter Name"
+msgstr "Название фильтра"
+
+#: ../vendor/advanced-post-manager/views/edit-filters.php:27
+msgid "Cancel"
+msgstr "Отмена"
+
+#: ../views/pro/map/nav.php:20 ../views/pro/photo/nav.php:20
+msgid "Events List Navigation"
+msgstr "Навигация списка мероприятий"
+
+#: ../views/pro/map/nav.php:23 ../views/pro/photo/nav.php:23
+msgid "<span>&laquo;</span> Previous Events"
+msgstr "<span>&laquo;</span> Предыдущие мероприятия"
+
+#: ../views/pro/map/nav.php:30 ../views/pro/photo/nav.php:30
+msgid "Next Events <span>&raquo;</span>"
+msgstr "Следующие мероприятия <span>&raquo;</span>"
+
+#: ../views/pro/map/single-event.php:78
+msgid "Find out more"
+msgstr "Узнать больше"
+
+#: ../views/pro/related-events.php:28
+msgid "Related Events"
+msgstr "Похожие мероприятия"
+
+#: ../views/pro/single-organizer.php:29 ../views/pro/single-venue.php:29
+msgid "&larr; Back to Events"
+msgstr "&larr; Назад к мероприятиям"
+
+#: ../views/pro/week/loop-grid-allday.php:28
+msgid "All Day"
+msgstr "Весь день"
+
+#: ../views/pro/week/loop-grid.php:17
+msgid "Hours"
+msgstr "Часы"
+
+#: ../views/pro/week/nav.php:14
+msgid "Week Navigation"
+msgstr "Навигация недели"
+
+#: ../views/pro/widgets/countdown-widget.php:22
+msgid "hours"
+msgstr "часов"
+
+#: ../views/pro/widgets/countdown-widget.php:26
+msgid "min"
+msgstr "минут"
+
+#: ../views/pro/widgets/countdown-widget.php:31
+msgid "sec"
+msgstr "секунд"
+
+#: ../views/pro/widgets/list-widget.php:97
+msgid "Organizer:"
+msgstr "Организатор:"
+
+#: ../views/pro/widgets/list-widget.php:116
+msgid "View More&hellip;"
+msgstr "Посмотреть больше&hellip;"
+
+#: ../views/pro/widgets/list-widget.php:123
+msgid "There are no upcoming events at this time."
+msgstr "На данный момент нет грядущих мероприятий."
+
+#: ../views/pro/widgets/venue-widget.php:31
+msgid "No upcoming events."
+msgstr "Нет будущих мероприятий"
+
+#: ../views/pro/widgets/venue-widget.php:52
+#, fuzzy, php-format
+msgid "View all Events at this %s"
+msgstr "Просмотреть все мероприятия на этом %s"

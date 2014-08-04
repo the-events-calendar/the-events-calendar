@@ -181,6 +181,7 @@ The plugin is produced by <a href="http://m.tri.be/45">Modern Tribe Inc</a>.
 * Polish from Marek Kosina
 * Portuguese from Antonio Pratas
 * Romanian from Cosmin Vaman
+* Russian from Alexander Tinyaev
 * Serbian from Marko Manojlovic
 * Spanish from Juan Jose Reparaz Sarasola
 * Swedish from Jonas Reinicke
@@ -217,6 +218,10 @@ Our Premium Plugins:
 = IMPORTANT NOTICE =
 
 3.x is a complete overhaul of the plugin, and as a result we're starting the changelog fresh. For release notes from the 2.x lifecycle, see <a href="http://m.tri.be/k">our 2.x release notes.</a>
+
+= 3.8 =
+
+* Incorporated Russian translation files, courtesy of Alexander Tinyaev
 
 = 3.7 =
 
