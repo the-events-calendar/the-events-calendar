@@ -1,7 +1,9 @@
 <?php
 
 // don't load directly
-if ( ! defined( 'ABSPATH' ) ) die( '-1' );
+if ( ! defined( 'ABSPATH' ) ) {
+	die( '-1' );
+}
 
 if ( ! class_exists( 'TribeAppShop' ) ) {
 
@@ -66,7 +68,12 @@ if ( ! class_exists( 'TribeAppShop' ) ) {
 
 			$where = 'edit.php?post_type=' . TribeEvents::POSTTYPE;
 
-			$this->admin_page = add_submenu_page( $where, $page_title, $menu_title, $capability, self::MENU_SLUG, array( $this, 'do_menu_page' ) );
+			$this->admin_page = add_submenu_page(
+				$where, $page_title, $menu_title, $capability, self::MENU_SLUG, array(
+					$this,
+					'do_menu_page'
+				)
+			);
 
 			add_action( 'admin_print_styles-' . $this->admin_page, array( $this, 'enqueue' ) );
 
@@ -78,15 +85,19 @@ if ( ! class_exists( 'TribeAppShop' ) ) {
 		public function add_toolbar_item() {
 
 			// prevent users who cannot manage the plugin to see addons link
-			if( current_user_can( 'edit_tribe_events' ) ) {
+			if ( current_user_can( 'edit_tribe_events' ) ) {
 				global $wp_admin_bar;
 
 				$where = 'edit.php?post_type=' . TribeEvents::POSTTYPE;
 
-				$wp_admin_bar->add_menu( array( 'id'     => 'tribe-events-app-shop',
-				                                'title'  => __( 'Event Add-Ons', 'tribe-events-calendar' ),
-				                                'href'   => admin_url( untrailingslashit( $where ) . "&page=" . self::MENU_SLUG ),
-				                                'parent' => 'tribe-events-settings-group' ) );
+				$wp_admin_bar->add_menu(
+							 array(
+								 'id'     => 'tribe-events-app-shop',
+								 'title'  => __( 'Event Add-Ons', 'tribe-events-calendar' ),
+								 'href'   => admin_url( untrailingslashit( $where ) . "&page=" . self::MENU_SLUG ),
+								 'parent' => 'tribe-events-settings-group'
+							 )
+				);
 			}
 		}
 
@@ -114,8 +125,9 @@ if ( ! class_exists( 'TribeAppShop' ) ) {
 					$banner = $remote->banner;
 				}
 
-				if ( empty( $products ) )
+				if ( empty( $products ) ) {
 					return;
+				}
 
 				$categories = array_unique( wp_list_pluck( $products, 'category' ) );
 
