@@ -6,17 +6,19 @@
  */
 
 // Don't load directly
-if ( !defined('ABSPATH') ) { die('-1'); }
+if ( ! defined( 'ABSPATH' ) ) {
+	die( '-1' );
+}
 
-if( class_exists( 'TribeEvents' ) ) {
+if ( class_exists( 'TribeEvents' ) ) {
 
 	/**
 	 * Create an Event
 	 *
-	 * $args accepts all the args that can be passed to wp_insert_post(). 
-	 * In addition to that, the following args can be passed specifically 
+	 * $args accepts all the args that can be passed to wp_insert_post().
+	 * In addition to that, the following args can be passed specifically
 	 * for the process of creating an Event:
-	 * 
+	 *
 	 * - EventStartDate date string (required) - Start date of the Event.
 	 * - EventEndDate date string (required) - End date of the Event.
 	 * - EventAllDay bool - Set to true if event has no start / end time and should run all day.
@@ -32,53 +34,59 @@ if( class_exists( 'TribeEvents' ) ) {
 	 * - EventCost string - Default cost of the Event.
 	 * - Venue array - Array of data to create or update an Venue to be associated with the Event. {@link tribe_create_venue}.
 	 * - Organizer array - Array of data to create or update an Organizer to be associated with the Event. {@link tribe_create_organizer}.
-	 * 
-	 * Note: If ONLY the 'VenueID'/'OrganizerID' value is set in the 'Venue'/'Organizer' array, 
-	 * then the specified Venue/Organizer will be associated with this Event without attempting 
+	 *
+	 * Note: If ONLY the 'VenueID'/'OrganizerID' value is set in the 'Venue'/'Organizer' array,
+	 * then the specified Venue/Organizer will be associated with this Event without attempting
 	 * to edit the Venue/Organizer. If NO 'VenueID'/'OrganizerID' is passed, but other Venue/Organizer
 	 * data is passed, then a new Venue/Organizer will be created.
 	 *
 	 * @param array $args Elements that make up post to insert.
+	 *
 	 * @return int ID of the event that was created. False if insert failed.
-	 * @link http://codex.wordpress.org/Function_Reference/wp_insert_post
-	 * @see wp_insert_post()
-	 * @see tribe_create_venue()
-	 * @see tribe_create_organizer()
+	 * @link     http://codex.wordpress.org/Function_Reference/wp_insert_post
+	 * @see      wp_insert_post()
+	 * @see      tribe_create_venue()
+	 * @see      tribe_create_organizer()
 	 * @category Event Functions
 	 */
-	function tribe_create_event($args) {
-		$postId = TribeEventsAPI::createEvent($args);
+	function tribe_create_event( $args ) {
+		$postId = TribeEventsAPI::createEvent( $args );
+
 		return $postId;
 	}
 
 	/**
 	 * Update an Event
 	 *
-	 * @param int $postId ID of the event to be modified.
-	 * @param array $args Args for updating the post. See {@link tribe_create_event()} for more info.
+	 * @param int   $postId ID of the event to be modified.
+	 * @param array $args   Args for updating the post. See {@link tribe_create_event()} for more info.
+	 *
 	 * @return int ID of the event that was created. False if update failed.
-	 * @link http://codex.wordpress.org/Function_Reference/wp_update_post
-	 * @see wp_update_post()
-	 * @see tribe_create_event()
+	 * @link     http://codex.wordpress.org/Function_Reference/wp_update_post
+	 * @see      wp_update_post()
+	 * @see      tribe_create_event()
 	 * @category Event Functions
 	 */
-	function tribe_update_event($postId, $args) {
-		$postId = TribeEventsAPI::updateEvent($postId, $args);
+	function tribe_update_event( $postId, $args ) {
+		$postId = TribeEventsAPI::updateEvent( $postId, $args );
+
 		return $postId;
 	}
 
 	/**
 	 * Delete an Event
 	 *
-	 * @param int $postId ID of the event to be deleted.
+	 * @param int  $postId       ID of the event to be deleted.
 	 * @param bool $force_delete Whether to bypass trash and force deletion. Defaults to false.
+	 *
 	 * @return bool false if delete failed.
-	 * @link http://codex.wordpress.org/Function_Reference/wp_delete_post
-	 * @see wp_delete_post()
+	 * @link     http://codex.wordpress.org/Function_Reference/wp_delete_post
+	 * @see      wp_delete_post()
 	 * @category Event Functions
 	 */
-	function tribe_delete_event($postId, $force_delete = false) {
-		$success = TribeEventsAPI::deleteEvent($postId, $force_delete);
+	function tribe_delete_event( $postId, $force_delete = false ) {
+		$success = TribeEventsAPI::deleteEvent( $postId, $force_delete );
+
 		return $success;
 	}
 

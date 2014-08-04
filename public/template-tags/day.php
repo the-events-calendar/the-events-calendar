@@ -22,11 +22,13 @@ if ( ! function_exists( 'tribe_get_day_link' ) ) {
 	 * Link Event Day
 	 *
 	 * @param string $date
+	 *
 	 * @return string URL
 	 */
 	function tribe_get_day_link( $date = null ) {
 		$tribe_ecp = TribeEvents::instance();
-		return apply_filters('tribe_get_day_link', $tribe_ecp->getLink('day', $date), $date);
+
+		return apply_filters( 'tribe_get_day_link', $tribe_ecp->getLink( 'day', $date ), $date );
 	}
 }
 
@@ -38,14 +40,16 @@ if ( ! function_exists( 'tribe_get_linked_day' ) ) {
 	 *
 	 * @param string $date
 	 * @param string $day
+	 *
 	 * @return string HTML linked date
 	 */
-	function tribe_get_linked_day($date, $day) {
+	function tribe_get_linked_day( $date, $day ) {
 		$return = '';
-		$return .= "<a href='" . tribe_get_day_link($date) . "'>";
+		$return .= "<a href='" . tribe_get_day_link( $date ) . "'>";
 		$return .= $day;
 		$return .= "</a>";
-		return apply_filters('tribe_get_linked_day', $return);
+
+		return apply_filters( 'tribe_get_linked_day', $return );
 	}
 }
 
@@ -55,6 +59,7 @@ if ( ! function_exists( 'tribe_the_day_link' ) ) {
 	 *
 	 * @param string $date 'previous day', 'next day', 'yesterday', 'tomorrow', or any date string that strtotime() can parse
 	 * @param string $text text for the link
+	 *
 	 * @return void
 	 **/
 	function tribe_the_day_link( $date = null, $text = null ) {
@@ -62,20 +67,21 @@ if ( ! function_exists( 'tribe_the_day_link' ) ) {
 
 		try {
 			if ( is_null( $text ) ) {
-				$text = tribe_get_the_day_link_label($date);
+				$text = tribe_get_the_day_link_label( $date );
 			}
 
 			$date = tribe_get_the_day_link_date( $date );
-			$link = tribe_get_day_link($date);
+			$link = tribe_get_day_link( $date );
 
 			$earliest = tribe_events_earliest_date( TribeDateUtils::DBDATEFORMAT );
-			$latest = tribe_events_latest_date( TribeDateUtils::DBDATEFORMAT );
+			$latest   = tribe_events_latest_date( TribeDateUtils::DBDATEFORMAT );
 
 			if ( $date >= $earliest && $date <= $latest ) {
-				$html = '<a href="'. $link .'" data-day="'. $date .'" rel="prev">'.$text.'</a>';
+				$html = '<a href="' . $link . '" data-day="' . $date . '" rel="prev">' . $text . '</a>';
 			}
 
-		} catch ( OverflowException $e ) {}
+		} catch ( OverflowException $e ) {
+		}
 
 		echo apply_filters( 'tribe_the_day_link', $html );
 	}
@@ -112,20 +118,22 @@ if ( ! function_exists( 'tribe_get_the_day_link_date' ) ) {
 	 * Get the date for the day navigation link.
 	 *
 	 * @param string $date_description
+	 *
 	 * @return string
 	 * @throws OverflowException
 	 */
 	function tribe_get_the_day_link_date( $date_description ) {
-		if ( is_null($date_description) ) {
+		if ( is_null( $date_description ) ) {
 			return TribeEventsPro::instance()->todaySlug;
 		}
 		if ( $date_description == 'previous day' ) {
-			return tribe_get_previous_day_date(get_query_var('start_date'));
+			return tribe_get_previous_day_date( get_query_var( 'start_date' ) );
 		}
 		if ( $date_description == 'next day' ) {
-			return tribe_get_next_day_date(get_query_var('start_date'));
+			return tribe_get_next_day_date( get_query_var( 'start_date' ) );
 		}
-		return date('Y-m-d', strtotime($date_description) );
+
+		return date( 'Y-m-d', strtotime( $date_description ) );
 	}
 }
 
@@ -134,16 +142,18 @@ if ( ! function_exists( 'tribe_get_next_day_date' ) ) {
 	 * Get the next day's date
 	 *
 	 * @param string $start_date
+	 *
 	 * @return string
 	 * @throws OverflowException
 	 */
 	function tribe_get_next_day_date( $start_date ) {
 		if ( PHP_INT_SIZE <= 4 ) {
-			if ( date('Y-m-d', strtotime($start_date)) > '2037-12-30' ) {
-				throw new OverflowException(__('Date out of range.', 'tribe-events-calendar-pro'));
+			if ( date( 'Y-m-d', strtotime( $start_date ) ) > '2037-12-30' ) {
+				throw new OverflowException( __( 'Date out of range.', 'tribe-events-calendar-pro' ) );
 			}
 		}
-		$date = Date('Y-m-d', strtotime($start_date . " +1 day") );
+		$date = Date( 'Y-m-d', strtotime( $start_date . " +1 day" ) );
+
 		return $date;
 	}
 }
@@ -153,16 +163,18 @@ if ( ! function_exists( 'tribe_get_previous_day_date' ) ) {
 	 * Get the previous day's date
 	 *
 	 * @param string $start_date
+	 *
 	 * @return string
 	 * @throws OverflowException
 	 */
 	function tribe_get_previous_day_date( $start_date ) {
 		if ( PHP_INT_SIZE <= 4 ) {
-			if ( date('Y-m-d', strtotime($start_date)) < '1902-01-02' ) {
-				throw new OverflowException(__('Date out of range.', 'tribe-events-calendar-pro'));
+			if ( date( 'Y-m-d', strtotime( $start_date ) ) < '1902-01-02' ) {
+				throw new OverflowException( __( 'Date out of range.', 'tribe-events-calendar-pro' ) );
 			}
 		}
-		$date = Date('Y-m-d', strtotime($start_date . " -1 day") );
+		$date = Date( 'Y-m-d', strtotime( $start_date . " -1 day" ) );
+
 		return $date;
 	}
 }

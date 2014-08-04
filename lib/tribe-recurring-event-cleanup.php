@@ -6,7 +6,7 @@
  * deactivated
  */
 class TribeRecurringEventCleanup {
-	private $recurring = FALSE;
+	private $recurring = false;
 
 	public function __construct() {
 		$this->recurring = apply_filters( 'tribe_enable_recurring_event_queries', $this->recurring );
@@ -17,15 +17,15 @@ class TribeRecurringEventCleanup {
 	 * recurring events status
 	 */
 	public function toggle_recurring_events() {
-		$current_status = tribe_get_option( 'recurring_events_are_hidden', FALSE );
+		$current_status = tribe_get_option( 'recurring_events_are_hidden', false );
 		if ( $current_status == 'hidden' && $this->recurring ) {
 			$this->restore_hidden_events();
 			tribe_update_option( 'recurring_events_are_hidden', 'exposed' );
-		} elseif ( $current_status == 'exposed' && !$this->recurring ) {
+		} elseif ( $current_status == 'exposed' && ! $this->recurring ) {
 			$this->hide_recurring_events();
 			tribe_update_option( 'recurring_events_are_hidden', 'hidden' );
-		} elseif ( !$current_status ) {
-			tribe_update_option( 'recurring_events_are_hidden', ($this->recurring?'exposed':'hidden') );
+		} elseif ( ! $current_status ) {
+			tribe_update_option( 'recurring_events_are_hidden', ( $this->recurring ? 'exposed' : 'hidden' ) );
 		}
 	}
 
@@ -34,7 +34,7 @@ class TribeRecurringEventCleanup {
 	 */
 	private function restore_hidden_events() {
 		global $wpdb;
-		$wpdb->query("UPDATE {$wpdb->postmeta} SET meta_key='_EventStartDate' WHERE meta_key='_HiddenEventStartDate'");
+		$wpdb->query( "UPDATE {$wpdb->postmeta} SET meta_key='_EventStartDate' WHERE meta_key='_HiddenEventStartDate'" );
 	}
 
 	/**
@@ -50,10 +50,10 @@ class TribeRecurringEventCleanup {
 		) AND meta_id NOT IN (
 		  SELECT meta_id FROM ( SELECT meta_id FROM {$wpdb->postmeta} WHERE meta_key='_EventStartDate' GROUP BY post_id HAVING MIN(CAST(meta_value AS DATETIME)) ) b
 		)";
-		$ids = $wpdb->get_col($sql);
+		$ids = $wpdb->get_col( $sql );
 		if ( $ids ) {
-			$sql = sprintf("UPDATE {$wpdb->postmeta} SET meta_key='_HiddenEventStartDate' WHERE meta_id IN (%s)", implode(',', array_map('intval', $ids)));
+			$sql = sprintf( "UPDATE {$wpdb->postmeta} SET meta_key='_HiddenEventStartDate' WHERE meta_id IN (%s)", implode( ',', array_map( 'intval', $ids ) ) );
 		}
-		$wpdb->query($sql);
+		$wpdb->query( $sql );
 	}
 }

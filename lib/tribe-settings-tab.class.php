@@ -1,9 +1,11 @@
 <?php
 
 // Don't load directly
-if ( !defined( 'ABSPATH' ) ) die( '-1' );
+if ( ! defined( 'ABSPATH' ) ) {
+	die( '-1' );
+}
 
-if ( !class_exists( 'TribeSettingsTab' ) ) {
+if ( ! class_exists( 'TribeSettingsTab' ) ) {
 	/**
 	 * helper class that creates a settings tab
 	 * this is a public API, use it to create tabs
@@ -39,19 +41,19 @@ if ( !class_exists( 'TribeSettingsTab' ) ) {
 		/**
 		 * class constructor
 		 *
-		 * @param string $id the tab's id (no spaces or special characters)
+		 * @param string $id   the tab's id (no spaces or special characters)
 		 * @param string $name the tab's visible name
-		 * @param array $args additional arguments for the tab
+		 * @param array  $args additional arguments for the tab
 		 */
 		public function __construct( $id, $name, $args = array() ) {
 
 			// setup the defaults
 			$this->defaults = array(
-				'fields' => array(),
-				'priority' => 50,
-				'show_save' => true,
+				'fields'           => array(),
+				'priority'         => 50,
+				'show_save'        => true,
 				'display_callback' => false,
-				'network_admin' => false,
+				'network_admin'    => false,
 			);
 
 			// parse args with defaults and extract them
@@ -59,10 +61,10 @@ if ( !class_exists( 'TribeSettingsTab' ) ) {
 			extract( $this->args );
 
 			// set each instance variable and filter
-			$this->id = apply_filters( 'tribe_settings_tab_id', $id );
+			$this->id   = apply_filters( 'tribe_settings_tab_id', $id );
 			$this->name = apply_filters( 'tribe_settings_tab_name', $name );
 			foreach ( $this->defaults as $key => $value ) {
-				$this->{$key} = apply_filters( 'tribe_settings_tab_'.$key, $$key, $id );
+				$this->{$key} = apply_filters( 'tribe_settings_tab_' . $key, $$key, $id );
 			}
 
 			// run actions & filters
@@ -79,18 +81,20 @@ if ( !class_exists( 'TribeSettingsTab' ) ) {
 		 * does not add a tab if it's empty
 		 *
 		 * @param array $tabs the $tabs from TribeSettings
+		 *
 		 * @return array $tabs the filtered tabs
 		 */
 		public function addTab( $tabs ) {
-			$hideSettingsTabs = TribeEvents::instance()->getNetworkOption( 'hideSettingsTabs', array( ) );
-			if ( ( isset( $this->fields ) || has_action( 'tribe_settings_content_tab_' . $this->id ) ) && ( empty( $hideSettingsTabs ) || !in_array( $this->id, $hideSettingsTabs ) ) ) {
+			$hideSettingsTabs = TribeEvents::instance()->getNetworkOption( 'hideSettingsTabs', array() );
+			if ( ( isset( $this->fields ) || has_action( 'tribe_settings_content_tab_' . $this->id ) ) && ( empty( $hideSettingsTabs ) || ! in_array( $this->id, $hideSettingsTabs ) ) ) {
 				if ( ( is_network_admin() && $this->args['network_admin'] ) || ( ! is_network_admin() && ! $this->args['network_admin'] ) ) {
 					$tabs[$this->id] = $this->name;
 					add_filter( 'tribe_settings_fields', array( $this, 'addFields' ) );
 					add_filter( 'tribe_settings_no_save_tabs', array( $this, 'showSaveTab' ) );
-					add_filter( 'tribe_settings_content_tab_'.$this->id, array( $this, 'doContent' ) );
+					add_filter( 'tribe_settings_content_tab_' . $this->id, array( $this, 'doContent' ) );
 				}
 			}
+
 			return $tabs;
 		}
 
@@ -98,10 +102,12 @@ if ( !class_exists( 'TribeSettingsTab' ) ) {
 		 * Adds this tab to the list of total tabs, even if it is not displayed.
 		 *
 		 * @param array $allTabs All the tabs from TribeSettings.
+		 *
 		 * @return array $allTabs All the tabs.
 		 */
 		public function addAllTabs( $allTabs ) {
 			$allTabs[$this->id] = $this->name;
+
 			return $allTabs;
 		}
 
@@ -111,14 +117,16 @@ if ( !class_exists( 'TribeSettingsTab' ) ) {
 		 * and adds the current tab's fields to it
 		 *
 		 * @param array $field the $fields from TribeSettings
+		 *
 		 * @return array $fields the filtered fields
 		 */
 		public function addFields( $fields ) {
-			if ( !empty ($this->fields ) ) {
+			if ( ! empty ( $this->fields ) ) {
 				$fields[$this->id] = $this->fields;
 			} elseif ( has_action( 'tribe_settings_content_tab_' . $this->id ) ) {
 				$fields[$this->id] = $this->fields = array( 0 => null ); // just to trick it
 			}
+
 			return $fields;
 		}
 
@@ -127,11 +135,14 @@ if ( !class_exists( 'TribeSettingsTab' ) ) {
 		 * button or not
 		 *
 		 * @param array $noSaveTabs the $noSaveTabs from TribeSettings
+		 *
 		 * @return array $noSaveTabs the filtered non saving tabs
 		 */
 		public function showSaveTab( $noSaveTabs ) {
-			if ( !$this->show_save || empty( $this->fields ) )
+			if ( ! $this->show_save || empty( $this->fields ) ) {
 				$noSaveTabs[$this->id] = $this->id;
+			}
+
 			return $noSaveTabs;
 		}
 
@@ -142,32 +153,37 @@ if ( !class_exists( 'TribeSettingsTab' ) ) {
 		 */
 		public function doContent() {
 			if ( $this->display_callback && is_callable( $this->display_callback ) ) {
-				call_user_func( $this->display_callback ); return;
+				call_user_func( $this->display_callback );
+
+				return;
 			}
 
 			$sent_data = get_option( 'tribe_settings_sent_data', array() );
 
-			if ( is_array( $this->fields ) && !empty( $this->fields ) ) {
+			if ( is_array( $this->fields ) && ! empty( $this->fields ) ) {
 				foreach ( $this->fields as $key => $field ) {
 					if ( isset( $sent_data[$key] ) ) {
 						// if we just saved [or attempted to], get the value that was inputed
 						$value = $sent_data[$key];
 					} else {
-						if ( is_network_admin() )
+						if ( is_network_admin() ) {
 							$parent_option = ( isset( $field['parent_option'] ) ) ? $field['parent_option'] : TribeEvents::OPTIONNAMENETWORK;
-						if ( !is_network_admin() )
+						}
+						if ( ! is_network_admin() ) {
 							$parent_option = ( isset( $field['parent_option'] ) ) ? $field['parent_option'] : TribeEvents::OPTIONNAME;
+						}
 						// get the field's parent_option in order to later get the field's value
 						$parent_option = apply_filters( 'tribe_settings_do_content_parent_option', $parent_option, $key );
-						$default = ( isset( $field['default'] ) ) ? $field['default'] : null;
-						$default = apply_filters( 'tribe_settings_field_default', $default, $field );
+						$default       = ( isset( $field['default'] ) ) ? $field['default'] : null;
+						$default       = apply_filters( 'tribe_settings_field_default', $default, $field );
 
-						if ( !$parent_option ) {
+						if ( ! $parent_option ) {
 							// no parent option, get the straight up value
-							if ( is_network_admin() )
+							if ( is_network_admin() ) {
 								$value = get_site_option( $key, $default );
-							else
+							} else {
 								$value = get_option( $key, $default );
+							}
 						} else {
 							// there's a parent option
 							if ( $parent_option == TribeEvents::OPTIONNAME ) {
@@ -177,17 +193,18 @@ if ( !class_exists( 'TribeSettingsTab' ) ) {
 								$value = TribeEvents::getNetworkOption( $key, $default );
 							} else {
 								// else, get the parent option normally
-								if ( is_network_admin() )
+								if ( is_network_admin() ) {
 									$options = (array) get_site_option( $parent_option );
-								else
+								} else {
 									$options = (array) get_option( $parent_option );
+								}
 								$value = ( isset( $options[$key] ) ) ? $options[$key] : $default;
 							}
 						}
 					}
 
 					// escape the value for display
-					if ( !empty( $field['esc_display'] ) && function_exists( $field['esc_display'] ) ) {
+					if ( ! empty( $field['esc_display'] ) && function_exists( $field['esc_display'] ) ) {
 						$value = $field['esc_display']( $value );
 					} elseif ( is_string( $value ) ) {
 						$value = esc_attr( stripslashes( $value ) );
