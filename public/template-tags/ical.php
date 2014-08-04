@@ -1,7 +1,7 @@
 <?php
 
 // @TODO two functions that do the exact same thing
-if ( !function_exists('tribe_get_single_ical_link') ) {
+if ( ! function_exists( 'tribe_get_single_ical_link' ) ) {
 	/**
 	 * iCal Link (Single)
 	 *
@@ -11,11 +11,12 @@ if ( !function_exists('tribe_get_single_ical_link') ) {
 	 */
 	function tribe_get_single_ical_link() {
 		$output = TribeiCal::get_ical_link();
+
 		return apply_filters( 'tribe_get_ical_link', $output );
 	}
 }
 
-if ( !function_exists('tribe_get_ical_link') ) {
+if ( ! function_exists( 'tribe_get_ical_link' ) ) {
 	/**
 	 * iCal Link
 	 *
@@ -25,6 +26,7 @@ if ( !function_exists('tribe_get_ical_link') ) {
 	 */
 	function tribe_get_ical_link() {
 		$output = TribeiCal::get_ical_link();
+
 		return apply_filters( 'tribe_get_ical_link', $output );
 	}
 

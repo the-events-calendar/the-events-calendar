@@ -6,9 +6,11 @@
  */
 
 // Don't load directly
-if ( !defined('ABSPATH') ) { die('-1'); }
+if ( ! defined( 'ABSPATH' ) ) {
+	die( '-1' );
+}
 
-if( class_exists( 'TribeEvents' ) ) {
+if ( class_exists( 'TribeEvents' ) ) {
 
 	/**
 	 * New Day Test
@@ -18,22 +20,23 @@ if( class_exists( 'TribeEvents' ) ) {
 	 *
 	 * @return bool
 	 */
-	function tribe_is_new_event_day()  {
+	function tribe_is_new_event_day() {
 		global $post;
 		$tribe_ecp = TribeEvents::instance();
-		$retval = false;
-		$now = time();
-		if(isset($post->EventStartDate)) {
+		$retval    = false;
+		$now       = time();
+		if ( isset( $post->EventStartDate ) ) {
 			$postTimestamp = strtotime( $post->EventStartDate, $now );
-			$postTimestamp = strtotime( date( TribeDateUtils::DBDATEFORMAT, $postTimestamp ), $now); // strip the time
+			$postTimestamp = strtotime( date( TribeDateUtils::DBDATEFORMAT, $postTimestamp ), $now ); // strip the time
 			if ( $postTimestamp != $tribe_ecp->currentPostTimestamp ) {
 				$retval = true;
 			}
 			$tribe_ecp->currentPostTimestamp = $postTimestamp;
-			$return = $retval;
+			$return                          = $retval;
 		} else {
 			$return = true;
 		}
+
 		return apply_filters( 'tribe_is_new_event_day', $return );
 	}
 
@@ -41,41 +44,45 @@ if( class_exists( 'TribeEvents' ) ) {
 	 * Past Loop View Test
 	 *
 	 * Returns true if the query is set for past events, false otherwise
-	 * 
+	 *
 	 * @return bool
 	 */
-	function tribe_is_past()  {
+	function tribe_is_past() {
 		global $wp_query;
-		$is_past = !empty( $wp_query->tribe_is_past ) && !tribe_is_showing_all() ? $wp_query->tribe_is_past : false;
-		return apply_filters('tribe_is_past', $is_past );
+		$is_past = ! empty( $wp_query->tribe_is_past ) && ! tribe_is_showing_all() ? $wp_query->tribe_is_past : false;
+
+		return apply_filters( 'tribe_is_past', $is_past );
 	}
 
 	/**
 	 * Upcoming Loop View Test
 	 *
 	 * Returns true if the query is set for upcoming events, false otherwise
-	 * 
+	 *
 	 * @return bool
 	 */
-	function tribe_is_upcoming()  {
+	function tribe_is_upcoming() {
 		global $wp_query;
 		$is_upcoming = ( isset( $wp_query->query_vars['eventDisplay'] ) && $wp_query->query_vars['eventDisplay'] == 'upcoming' ) ? true : false;
-		return apply_filters('tribe_is_upcoming', $is_upcoming );
+
+		return apply_filters( 'tribe_is_upcoming', $is_upcoming );
 	}
-	
+
 	/**
 	 * Show All Test
 	 *
 	 * Returns true if the query is set to show all events, false otherwise
-	 * 
+	 *
 	 * @return bool
 	 */
-	function tribe_is_showing_all()  {
-		$tribe_ecp = TribeEvents::instance();
-		$tribe_is_showing_all = ($tribe_ecp->displaying == 'all') ? true : false;
-		if( $tribe_is_showing_all )
+	function tribe_is_showing_all() {
+		$tribe_ecp            = TribeEvents::instance();
+		$tribe_is_showing_all = ( $tribe_ecp->displaying == 'all' ) ? true : false;
+		if ( $tribe_is_showing_all ) {
 			add_filter( 'tribe_events_recurrence_tooltip', '__return_false' );
-		return apply_filters('tribe_is_showing_all', $tribe_is_showing_all);
+		}
+
+		return apply_filters( 'tribe_is_showing_all', $tribe_is_showing_all );
 	}
 
 	/**
@@ -86,9 +93,10 @@ if( class_exists( 'TribeEvents' ) ) {
 	 * @return bool
 	 */
 	function tribe_is_by_date() {
-		$tribe_ecp = TribeEvents::instance();
+		$tribe_ecp        = TribeEvents::instance();
 		$tribe_is_by_date = ( $tribe_ecp->displaying == 'bydate' ) ? true : false;
-		return apply_filters('tribe_is_by_date', $tribe_is_by_date);
+
+		return apply_filters( 'tribe_is_by_date', $tribe_is_by_date );
 	}
 
 	/**
@@ -98,23 +106,24 @@ if( class_exists( 'TribeEvents' ) ) {
 	 *
 	 * @param bool $depth include linked title
 	 */
-	function tribe_events_title( $depth = true )  {
-		echo apply_filters('tribe_events_title', tribe_get_events_title( $depth ));
+	function tribe_events_title( $depth = true ) {
+		echo apply_filters( 'tribe_events_title', tribe_get_events_title( $depth ) );
 	}
-	
+
 	/**
 	 * Event Title
 	 *
 	 * Return an event's title with pseudo-breadcrumb if on a category
 	 *
 	 * @param bool $depth include linked title
+	 *
 	 * @return string title
 	 */
-	function tribe_get_events_title( $depth = true )  {
+	function tribe_get_events_title( $depth = true ) {
 		global $wp_query;
 		$tribe_ecp = TribeEvents::instance();
 
-		$title = __('Upcoming Events', 'tribe-events-calendar');
+		$title = __( 'Upcoming Events', 'tribe-events-calendar' );
 
 		// TODO: Use the displayed dates for the title
 		if ( tribe_is_past() ) {
@@ -122,42 +131,44 @@ if( class_exists( 'TribeEvents' ) ) {
 		}
 
 
-		if( tribe_is_month() ){
-			$title = sprintf( __( 'Events for %s', 'tribe-events-calendar' ),
+		if ( tribe_is_month() ) {
+			$title = sprintf(
+				__( 'Events for %s', 'tribe-events-calendar' ),
 				date_i18n( tribe_get_option( 'monthAndYearFormat', 'F Y' ), strtotime( tribe_get_month_view_date() ) )
 			);
 		}
 
 		// day view title
-		if( tribe_is_day() ) {
+		if ( tribe_is_day() ) {
 			$title = __( 'Events for', 'tribe-events-calendar' ) . ' ' .
-				date_i18n( tribe_get_date_format(true), strtotime( $wp_query->get('start_date') ) );
+					 date_i18n( tribe_get_date_format( true ), strtotime( $wp_query->get( 'start_date' ) ) );
 		}
 
 		if ( is_tax( $tribe_ecp->get_event_taxonomy() ) ) {
 			$cat = get_queried_object();
 			if ( $depth ) {
-				$title = '<a href="'.tribe_get_events_link().'">'.$title.'</a>';
+				$title = '<a href="' . tribe_get_events_link() . '">' . $title . '</a>';
 				$title .= ' &#8250; ' . $cat->name;
 			} else {
 				$title = $cat->name;
 			}
 		}
 
-		return apply_filters('tribe_template_factory_debug', apply_filters('tribe_get_events_title', $title), 'tribe_get_events_title');
+		return apply_filters( 'tribe_template_factory_debug', apply_filters( 'tribe_get_events_title', $title ), 'tribe_get_events_title' );
 	}
 
 	/**
 	 * Link to Upcoming Events
-	 * 
+	 *
 	 * Returns a link to the upcoming events in list view. Used in the loop view.
 	 *
 	 * @return string URL
 	 */
-	function tribe_get_upcoming_link()  {
+	function tribe_get_upcoming_link() {
 		$tribe_ecp = TribeEvents::instance();
-		$output = $tribe_ecp->getLink('upcoming');
-		return apply_filters('tribe_get_upcoming_link', $output);
+		$output    = $tribe_ecp->getLink( 'upcoming' );
+
+		return apply_filters( 'tribe_get_upcoming_link', $output );
 	}
 
 	/**
@@ -173,13 +184,13 @@ if( class_exists( 'TribeEvents' ) ) {
 
 		if ( tribe_is_event_query() ) {
 			// Edit the current event query to look for an upcoming event
-			$args                   = (array) $wp_query->query;
-			$args['eventDisplay']   = 'past';
+			$args                 = (array) $wp_query->query;
+			$args['eventDisplay'] = 'past';
 
 			if ( tribe_is_past() ) {
-				$args['paged']          = $wp_query->query_vars['paged'] ? $wp_query->query_vars['paged'] + 1 : 2;
+				$args['paged'] = $wp_query->query_vars['paged'] ? $wp_query->query_vars['paged'] + 1 : 2;
 			} else {
-				$args['paged']          = $wp_query->query_vars['paged'] ? $wp_query->query_vars['paged'] - 1 : 0;
+				$args['paged'] = $wp_query->query_vars['paged'] ? $wp_query->query_vars['paged'] - 1 : 0;
 			}
 
 			$events = tribe_get_events( $args );
@@ -189,7 +200,7 @@ if( class_exists( 'TribeEvents' ) ) {
 		}
 
 		// @todo 'tribe_has_past_events' filter is @deprecated as of 3.7
-		return apply_filters( 'tribe_has_previous_event', apply_filters('tribe_has_past_events', $previous_event ) );
+		return apply_filters( 'tribe_has_previous_event', apply_filters( 'tribe_has_past_events', $previous_event ) );
 	}
 
 	/**
@@ -206,13 +217,13 @@ if( class_exists( 'TribeEvents' ) ) {
 		if ( tribe_is_event_query() && ! empty( $wp_query->posts ) ) {
 
 			// Edit the current event query to look for an upcoming event
-			$args                   = (array) $wp_query->query;
-			$args['eventDisplay']   = 'upcoming';
+			$args                 = (array) $wp_query->query;
+			$args['eventDisplay'] = 'upcoming';
 
 			if ( tribe_is_past() ) {
-				$args['paged']          = $wp_query->query_vars['paged'] ? $wp_query->query_vars['paged'] - 1 : 0;
+				$args['paged'] = $wp_query->query_vars['paged'] ? $wp_query->query_vars['paged'] - 1 : 0;
 			} else {
-				$args['paged']          = $wp_query->query_vars['paged'] ? $wp_query->query_vars['paged'] + 1 : 2;
+				$args['paged'] = $wp_query->query_vars['paged'] ? $wp_query->query_vars['paged'] + 1 : 2;
 			}
 
 			$events = tribe_get_events( $args );
@@ -222,21 +233,22 @@ if( class_exists( 'TribeEvents' ) ) {
 		}
 
 		// @todo 'tribe_has_past_events' filter is @deprecated as of 3.7
-		return apply_filters( 'tribe_has_next_event', apply_filters('tribe_has_next_events', $next_event ) );
+		return apply_filters( 'tribe_has_next_event', apply_filters( 'tribe_has_next_events', $next_event ) );
 	}
 
 
 	/**
 	 * Link to Past Events
-	 * 
+	 *
 	 * Returns a link to the previous events in list view. Used in the loop view.
 	 *
 	 * @return string URL
 	 */
-	function tribe_get_past_link()  {
+	function tribe_get_past_link() {
 		$tribe_ecp = TribeEvents::instance();
-		$output = $tribe_ecp->getLink('past');
-		return apply_filters('tribe_get_past_link', $output);
+		$output    = $tribe_ecp->getLink( 'past' );
+
+		return apply_filters( 'tribe_get_past_link', $output );
 	}
 
 	/**
@@ -244,8 +256,8 @@ if( class_exists( 'TribeEvents' ) ) {
 	 *
 	 * @return bool
 	 */
-	function tribe_is_in_main_loop()  {
-		return apply_filters('tribe_is_main_loop', TribeEventsTemplates::$isMainLoop);
+	function tribe_is_in_main_loop() {
+		return apply_filters( 'tribe_is_main_loop', TribeEventsTemplates::$isMainLoop );
 	}
 
 	/**
@@ -253,13 +265,13 @@ if( class_exists( 'TribeEvents' ) ) {
 	 *
 	 * @return bool
 	 */
-	function tribe_is_list_view()  {
+	function tribe_is_list_view() {
 		if ( tribe_is_event_query() && ( tribe_is_upcoming() || tribe_is_past() || ( is_single() && tribe_is_showing_all() ) ) ) {
 			$return = true;
 		} else {
 			$return = false;
 		}
-	
+
 		return apply_filters( 'tribe_is_list_view', $return );
 	}
 
@@ -276,20 +288,19 @@ if( class_exists( 'TribeEvents' ) ) {
 
 		$html = '';
 
-		if ($show_headers) {
+		if ( $show_headers ) {
 
 			global $post, $wp_query;
 
-			$event_year = tribe_get_start_date( $post, false, 'Y' );
-			$event_month = tribe_get_start_date( $post, false, 'm' );
+			$event_year        = tribe_get_start_date( $post, false, 'Y' );
+			$event_month       = tribe_get_start_date( $post, false, 'm' );
 			$month_year_format = tribe_get_option( 'monthAndYearFormat', 'F Y' );
 
-			if ($wp_query->current_post > 0) {
-				$prev_post = $wp_query->posts[$wp_query->current_post - 1];
-				$prev_event_year = tribe_get_start_date( $prev_post, false, 'Y' );
+			if ( $wp_query->current_post > 0 ) {
+				$prev_post        = $wp_query->posts[$wp_query->current_post - 1];
+				$prev_event_year  = tribe_get_start_date( $prev_post, false, 'Y' );
 				$prev_event_month = tribe_get_start_date( $prev_post, false, 'm' );
 			}
-
 
 
 			/*
@@ -301,8 +312,8 @@ if( class_exists( 'TribeEvents' ) ) {
 				$html .= sprintf( "<span class='tribe-events-list-separator-month'><span>%s</span></span>", tribe_get_start_date( $post, false, $month_year_format ) );
 			}
 
-			echo apply_filters('tribe_events_list_the_date_headers', $html, $event_month, $event_year);
-		}		
+			echo apply_filters( 'tribe_events_list_the_date_headers', $html, $event_month, $event_year );
+		}
 	}
 
 	/**
@@ -312,8 +323,8 @@ if( class_exists( 'TribeEvents' ) ) {
 	 */
 	function tribe_left_navigation_classes() {
 
-		$classes        = array();
-		$tribe_paged    = ( ! empty( $_REQUEST['tribe_paged'] ) ) ? $_REQUEST['tribe_paged'] : 1;
+		$classes     = array();
+		$tribe_paged = ( ! empty( $_REQUEST['tribe_paged'] ) ) ? $_REQUEST['tribe_paged'] : 1;
 
 		$classes['direction'] = tribe_is_upcoming() ? 'tribe-events-nav-previous' : 'tribe-events-nav-next';
 		$classes['side']      = 'tribe-events-nav-left';
@@ -322,6 +333,7 @@ if( class_exists( 'TribeEvents' ) ) {
 			$classes['past'] = 'tribe-events-past';
 		}
 		$classes = apply_filters( 'tribe_left_navigation_classes', $classes );
+
 		return implode( ' ', $classes );
 	}
 
@@ -332,17 +344,18 @@ if( class_exists( 'TribeEvents' ) ) {
 	 */
 	function tribe_right_navigation_classes() {
 
-		$classes        = array();
-		$tribe_paged    = ( ! empty( $_REQUEST['tribe_paged'] ) ) ? $_REQUEST['tribe_paged'] : 1;
+		$classes     = array();
+		$tribe_paged = ( ! empty( $_REQUEST['tribe_paged'] ) ) ? $_REQUEST['tribe_paged'] : 1;
 
 		$classes['direction'] = tribe_is_upcoming() ? 'tribe-events-nav-next' : 'tribe-events-nav-previous';
-		$classes['side'] = 'tribe-events-nav-right';
+		$classes['side']      = 'tribe-events-nav-right';
 
 		if ( tribe_is_past() && $tribe_paged > 1 ) {
 			$classes['past'] = 'tribe-events-past';
 		}
 
 		$classes = apply_filters( 'tribe_right_navigation_classes', $classes );
+
 		return implode( ' ', $classes );
 	}
 
