@@ -9,29 +9,30 @@
  *
  */
 class TribeEventsCache {
-	const NO_EXPIRATION = 0;
-	const NON_PERSISTENT = -1;
+	const NO_EXPIRATION  = 0;
+	const NON_PERSISTENT = - 1;
 
 	public static function setup() {
-		wp_cache_add_non_persistent_groups(array('tribe-events-non-persistent'));
+		wp_cache_add_non_persistent_groups( array( 'tribe-events-non-persistent' ) );
 	}
 
 	/**
 	 * @param string $id
-	 * @param mixed $value
-	 * @param int $expiration
+	 * @param mixed  $value
+	 * @param int    $expiration
 	 * @param string $expiration_trigger
 	 *
 	 * @return bool
 	 */
 	public function set( $id, $value, $expiration = 0, $expiration_trigger = '' ) {
 		if ( $expiration == self::NON_PERSISTENT ) {
-			$group = 'tribe-events-non-persistent';
+			$group      = 'tribe-events-non-persistent';
 			$expiration = 1;
 		} else {
 			$group = 'tribe-events';
 		}
-		return wp_cache_set( $this->get_id($id, $expiration_trigger), $value, $group, $expiration );
+
+		return wp_cache_set( $this->get_id( $id, $expiration_trigger ), $value, $group, $expiration );
 	}
 
 	/**
@@ -41,7 +42,7 @@ class TribeEventsCache {
 	 * @return mixed
 	 */
 	public function get( $id, $expiration_trigger = '' ) {
-		return wp_cache_get( $this->get_id($id, $expiration_trigger), 'tribe-events' );
+		return wp_cache_get( $this->get_id( $id, $expiration_trigger ), 'tribe-events' );
 	}
 
 	/**
@@ -51,7 +52,7 @@ class TribeEventsCache {
 	 * @return bool
 	 */
 	public function delete( $id, $expiration_trigger = '' ) {
-		return wp_cache_delete( $this->get_id($id, $expiration_trigger), 'tribe-events' );
+		return wp_cache_delete( $this->get_id( $id, $expiration_trigger ), 'tribe-events' );
 	}
 
 	/**
@@ -61,11 +62,12 @@ class TribeEventsCache {
 	 * @return string
 	 */
 	public function get_id( $key, $expiration_trigger = '' ) {
-		$last = empty($expiration_trigger)?'':$this->get_last_occurrence($expiration_trigger);
-		$id = $key.$last;
-		if ( strlen($id) > 40 ) {
-			$id = md5($id);
+		$last = empty( $expiration_trigger ) ? '' : $this->get_last_occurrence( $expiration_trigger );
+		$id   = $key . $last;
+		if ( strlen( $id ) > 40 ) {
+			$id = md5( $id );
 		}
+
 		return $id;
 	}
 
@@ -75,18 +77,18 @@ class TribeEventsCache {
 	 * @return int
 	 */
 	public function get_last_occurrence( $action ) {
-		return (int)get_option( 'tribe_last_'.$action, time() );
+		return (int) get_option( 'tribe_last_' . $action, time() );
 	}
 
 	/**
 	 * @param string $action
-	 * @param int $timestamp
+	 * @param int    $timestamp
 	 */
 	public function set_last_occurrence( $action, $timestamp = 0 ) {
 		if ( empty( $timestamp ) ) {
 			$timestamp = time();
 		}
-		update_option( 'tribe_last_'.$action, (int)$timestamp );
+		update_option( 'tribe_last_' . $action, (int) $timestamp );
 	}
 }
 
@@ -94,51 +96,51 @@ class TribeEventsCache {
  * Listen for events and update their timestamps
  */
 class TribeEventsCacheListener {
-	private static $instance = NULL;
-	private $cache = NULL;
+	private static $instance = null;
+	private $cache = null;
 
-    /**
-     * Class constructor.
-     *
-     * @return void
-     */
-    public function __construct() {
+	/**
+	 * Class constructor.
+	 *
+	 * @return void
+	 */
+	public function __construct() {
 		$this->cache = new TribeEventsCache();
 	}
 
-    /**
-     * Run the init functionality (like add_hooks).
-     *
-     * @return void
-     */
-    public function init() {
+	/**
+	 * Run the init functionality (like add_hooks).
+	 *
+	 * @return void
+	 */
+	public function init() {
 		$this->add_hooks();
 	}
 
-    /**
-     * Add the hooks necessary.
-     *
-     * @return void
-     */
+	/**
+	 * Add the hooks necessary.
+	 *
+	 * @return void
+	 */
 	private function add_hooks() {
 		add_action( 'save_post', array( $this, 'save_post' ), 0, 2 );
 	}
 
-    /**
-     * Run the caching functionality that is executed on save post.
-     *
-     * @param int $post_id The post_id.
-     * @param WP_Post $post The current post object being saved.
-     */
-    public function save_post( $post_id, $post ) {
-		if ( in_array($post->post_type, TribeEvents::getPostTypes()) ) {
+	/**
+	 * Run the caching functionality that is executed on save post.
+	 *
+	 * @param int     $post_id The post_id.
+	 * @param WP_Post $post    The current post object being saved.
+	 */
+	public function save_post( $post_id, $post ) {
+		if ( in_array( $post->post_type, TribeEvents::getPostTypes() ) ) {
 			$this->cache->set_last_occurrence( 'save_post' );
 		}
 	}
 
 	/**
 	 * For any hook that doesn't need any additional filtering
-	 * 
+	 *
 	 * @param $method
 	 * @param $args
 	 */
@@ -146,26 +148,28 @@ class TribeEventsCacheListener {
 		$this->cache->set_last_occurrence( $method );
 	}
 
-    /**
-     * Instance method of the cache listener.
-     *
-     * @return TribeEventsCacheListener
-     */
-    public static function instance() {
-		if ( empty(self::$instance) ) {
+	/**
+	 * Instance method of the cache listener.
+	 *
+	 * @return TribeEventsCacheListener
+	 */
+	public static function instance() {
+		if ( empty( self::$instance ) ) {
 			self::$instance = self::create_listener();
 		}
+
 		return self::$instance;
 	}
 
-    /**
-     * Create a cache listener.
-     *
-     * @return TribeEventsCacheListener
-     */
-    private static function create_listener() {
+	/**
+	 * Create a cache listener.
+	 *
+	 * @return TribeEventsCacheListener
+	 */
+	private static function create_listener() {
 		$listener = new self();
 		$listener->init();
+
 		return $listener;
 	}
 }

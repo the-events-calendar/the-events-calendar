@@ -25,11 +25,15 @@ if ( ! class_exists( 'TribeEventsSupport' ) ) {
 		 */
 		public function displayHelpTabInfo() {
 
-			if ( ! current_user_can( 'administrator' ) ) return;
+			if ( ! current_user_can( 'administrator' ) ) {
+				return;
+			}
 
 			// TODO: can we detect if someone has an ACTIVE support license here?
 			$keys = apply_filters( 'tribe-pue-install-keys', array() );
-			if ( empty( $keys ) ) return;
+			if ( empty( $keys ) ) {
+				return;
+			}
 
 			$system_text[] = '<p>' . __( "Sometimes it's hard to tell what's going wrong without knowing more about your system steup. For your convenience, we've put together a little report on what's cooking under the hood.", 'tribe-events-calendar' ) . '</p>';
 			$system_text[] = '<p>' . __( "If you suspect that the problem you're having is related to another plugin, or we're just plain having trouble reproducing your bug report, please copy and send all of this to our support team.", 'tribe-events-calendar' ) . '</p>';
@@ -57,9 +61,15 @@ if ( ! class_exists( 'TribeEventsSupport' ) ) {
 				foreach ( $plugins_raw as $k => $v ) {
 					$plugin_details = get_plugin_data( $v );
 					$plugin         = $plugin_details['Name'];
-					if ( ! empty( $plugin_details['Version'] ) ) $plugin .= sprintf( ' version %s', $plugin_details['Version'] );
-					if ( ! empty( $plugin_details['Author'] ) ) $plugin .= sprintf( ' by %s', $plugin_details['Author'] );
-					if ( ! empty( $plugin_details['AuthorURI'] ) ) $plugin .= sprintf( '(%s)', $plugin_details['AuthorURI'] );
+					if ( ! empty( $plugin_details['Version'] ) ) {
+						$plugin .= sprintf( ' version %s', $plugin_details['Version'] );
+					}
+					if ( ! empty( $plugin_details['Author'] ) ) {
+						$plugin .= sprintf( ' by %s', $plugin_details['Author'] );
+					}
+					if ( ! empty( $plugin_details['AuthorURI'] ) ) {
+						$plugin .= sprintf( '(%s)', $plugin_details['AuthorURI'] );
+					}
 					$plugins[] = $plugin;
 				}
 			}
@@ -70,9 +80,15 @@ if ( ! class_exists( 'TribeEventsSupport' ) ) {
 				foreach ( $plugins_raw as $k => $v ) {
 					$plugin_details = get_plugin_data( $v );
 					$plugin         = $plugin_details['Name'];
-					if ( ! empty( $plugin_details['Version'] ) ) $plugin .= sprintf( ' version %s', $plugin_details['Version'] );
-					if ( ! empty( $plugin_details['Author'] ) ) $plugin .= sprintf( ' by %s', $plugin_details['Author'] );
-					if ( ! empty( $plugin_details['AuthorURI'] ) ) $plugin .= sprintf( '(%s)', $plugin_details['AuthorURI'] );
+					if ( ! empty( $plugin_details['Version'] ) ) {
+						$plugin .= sprintf( ' version %s', $plugin_details['Version'] );
+					}
+					if ( ! empty( $plugin_details['Author'] ) ) {
+						$plugin .= sprintf( ' by %s', $plugin_details['Author'] );
+					}
+					if ( ! empty( $plugin_details['AuthorURI'] ) ) {
+						$plugin .= sprintf( '(%s)', $plugin_details['AuthorURI'] );
+					}
 					$network_plugins[] = $plugin;
 				}
 			}
@@ -82,9 +98,15 @@ if ( ! class_exists( 'TribeEventsSupport' ) ) {
 				$mu_plugins_raw = get_mu_plugins();
 				foreach ( $mu_plugins_raw as $k => $v ) {
 					$plugin = $v['Name'];
-					if ( ! empty( $v['Version'] ) ) $plugin .= sprintf( ' version %s', $v['Version'] );
-					if ( ! empty( $v['Author'] ) ) $plugin .= sprintf( ' by %s', $v['Author'] );
-					if ( ! empty( $v['AuthorURI'] ) ) $plugin .= sprintf( '(%s)', $v['AuthorURI'] );
+					if ( ! empty( $v['Version'] ) ) {
+						$plugin .= sprintf( ' version %s', $v['Version'] );
+					}
+					if ( ! empty( $v['Author'] ) ) {
+						$plugin .= sprintf( ' by %s', $v['Author'] );
+					}
+					if ( ! empty( $v['AuthorURI'] ) ) {
+						$plugin .= sprintf( '(%s)', $v['AuthorURI'] );
+					}
 					$mu_plugins[] = $plugin;
 				}
 			}
@@ -134,8 +156,8 @@ if ( ! class_exists( 'TribeEventsSupport' ) ) {
 				}
 
 				if ( is_array( $v ) ) {
-					$keys = array_keys( $v );
-					$key = array_shift( $keys );
+					$keys             = array_keys( $v );
+					$key              = array_shift( $keys );
 					$is_numeric_array = is_numeric( $key );
 					unset( $keys );
 					unset( $key );
@@ -172,25 +194,25 @@ if ( ! class_exists( 'TribeEventsSupport' ) ) {
 			?>
 			<style>
 				dl.support-stats {
-					background    : #000;
-					color         : #888;
-					padding       : 10px;
-					overflow      : scroll;
-					max-height    : 400px;
-					border-radius : 2px;
+					background: #000;
+					color: #888;
+					padding: 10px;
+					overflow: scroll;
+					max-height: 400px;
+					border-radius: 2px;
 				}
 
 				dl.support-stats dt {
-					text-transform : uppercase;
-					font-weight    : bold;
-					width          : 25%;
-					clear          : both;
-					float          : left;
+					text-transform: uppercase;
+					font-weight: bold;
+					width: 25%;
+					clear: both;
+					float: left;
 				}
 
 				dl.support-stats dd {
-					padding-left : 10px;
-					margin-left  : 25%;
+					padding-left: 10px;
+					margin-left: 25%;
 				}
 			</style>
 		<?php
