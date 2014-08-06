@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * Day View Single Event
  * This file contains one event in the day view
@@ -9,26 +9,28 @@
  *
  */
 
-if ( !defined('ABSPATH') ) { die('-1'); } ?>
+if ( ! defined( 'ABSPATH' ) ) {
+	die( '-1' );
+} ?>
 
-<?php 
+<?php
 
 $venue_details = array();
 
-if ($venue_name = tribe_get_meta( 'tribe_event_venue_name' ) ) {
-	$venue_details[] = $venue_name;	
+if ( $venue_name = tribe_get_meta( 'tribe_event_venue_name' ) ) {
+	$venue_details[] = $venue_name;
 }
 
-if ($venue_address = tribe_get_meta( 'tribe_event_venue_address' ) ) {
-	$venue_details[] = $venue_address;	
+if ( $venue_address = tribe_get_meta( 'tribe_event_venue_address' ) ) {
+	$venue_details[] = $venue_address;
 }
 // Venue microformats
-$has_venue = ( $venue_details ) ? ' vcard': '';
-$has_venue_address = ( $venue_address ) ? ' location': '';
+$has_venue = ( $venue_details ) ? ' vcard' : '';
+$has_venue_address = ( $venue_address ) ? ' location' : '';
 ?>
 
 <!-- Event Cost -->
-<?php if ( tribe_get_cost() ) : ?> 
+<?php if ( tribe_get_cost() ) : ?>
 	<div class="tribe-events-event-cost">
 		<span><?php echo tribe_get_cost( null, true ); ?></span>
 	</div>
@@ -51,11 +53,11 @@ $has_venue_address = ( $venue_address ) ? ' location': '';
 	<div class="updated published time-details">
 		<?php echo tribe_events_event_schedule_details() ?>
 	</div>
-	
+
 	<?php if ( $venue_details ) : ?>
 		<!-- Venue Display Info -->
 		<div class="tribe-events-venue-details">
-			<?php echo implode( ', ', $venue_details) ; ?>
+			<?php echo implode( ', ', $venue_details ); ?>
 		</div> <!-- .tribe-events-venue-details -->
 	<?php endif; ?>
 
