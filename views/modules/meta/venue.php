@@ -8,7 +8,9 @@
  * @package TribeEventsCalendar
  */
 
-if ( ! tribe_address_exists() ) return;
+if ( ! tribe_address_exists() ) {
+	return;
+}
 $phone = tribe_get_phone();
 $website = tribe_get_venue_website_link();
 ?>
@@ -29,7 +31,9 @@ $website = tribe_get_venue_website_link();
 		$gmap_link = apply_filters( 'tribe_event_meta_venue_address_gmap', $gmap_link );
 
 		// Display if appropriate
-		if ( ! empty( $address ) ) echo '<dd class="location">' . "$address $gmap_link </dd>";
+		if ( ! empty( $address ) ) {
+			echo '<dd class="location">' . "$address $gmap_link </dd>";
+		}
 		?>
 
 		<?php if ( ! empty( $phone ) ): ?>

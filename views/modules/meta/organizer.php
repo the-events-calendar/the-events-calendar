@@ -14,7 +14,7 @@ $website = tribe_get_organizer_website_link();
 ?>
 
 <div class="tribe-events-meta-group tribe-events-meta-group-organizer">
-	<h3 class="tribe-events-single-section-title"> <?php _e( tribe_get_organizer_label_singular() , 'tribe-events-calendar' ) ?> </h3>
+	<h3 class="tribe-events-single-section-title"> <?php _e( tribe_get_organizer_label_singular(), 'tribe-events-calendar' ) ?> </h3>
 	<dl>
 		<?php do_action( 'tribe_events_single_meta_organizer_section_start' ) ?>
 
