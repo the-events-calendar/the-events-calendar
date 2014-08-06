@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * List View Loop
  * This file sets up the structure for the list loop
@@ -9,9 +9,11 @@
  *
  */
 
-if ( !defined('ABSPATH') ) { die('-1'); } ?>
+if ( ! defined( 'ABSPATH' ) ) {
+	die( '-1' );
+} ?>
 
-<?php 
+<?php
 global $more;
 $more = false;
 ?>
