@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * Month View Nav Template
  * This file loads the month view navigation.
@@ -9,7 +9,9 @@
  *
  */
 
-if ( !defined('ABSPATH') ) { die('-1'); } ?>
+if ( ! defined( 'ABSPATH' ) ) {
+	die( '-1' );
+} ?>
 
 <?php do_action( 'tribe_events_before_nav' ) ?>
 
@@ -18,10 +20,12 @@ if ( !defined('ABSPATH') ) { die('-1'); } ?>
 <ul class="tribe-events-sub-nav">
 	<li class="tribe-events-nav-previous">
 		<?php tribe_events_the_previous_month_link(); ?>
-	</li><!-- .tribe-events-nav-previous -->
+	</li>
+	<!-- .tribe-events-nav-previous -->
 	<li class="tribe-events-nav-next">
 		<?php tribe_events_the_next_month_link(); ?>
-	</li><!-- .tribe-events-nav-next -->
+	</li>
+	<!-- .tribe-events-nav-next -->
 </ul><!-- .tribe-events-sub-nav -->
 
 <?php do_action( 'tribe_events_after_nav' ) ?>

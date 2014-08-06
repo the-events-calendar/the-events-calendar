@@ -9,7 +9,9 @@
 ?>
 
 <script type="text/html" id="tribe_tmpl_month_mobile_day_header">
-	<div class="tribe-mobile-day" data-day="[[=date]]">[[ if(date_name.length) { ]]<h3 class="tribe-mobile-day-heading">Events for <span>[[=raw date_name]]</span></h3>[[ } ]]</div>
+	<div class="tribe-mobile-day" data-day="[[=date]]">[[ if(date_name.length) { ]]
+		<h3 class="tribe-mobile-day-heading">Events for <span>[[=raw date_name]]</span></h3>[[ } ]]
+	</div>
 </script>
 
 <script type="text/html" id="tribe_tmpl_month_mobile">
@@ -17,6 +19,7 @@
 		<h4 class="summary">
 			<a class="url" href="[[=permalink]]" title="[[=title]]" rel="bookmark">[[=title]]</a>
 		</h4>
+
 		<div class="tribe-events-event-body">
 			<div class="updated published time-details">
 				<span class="date-start dtstart">[[=startTime]] </span>
