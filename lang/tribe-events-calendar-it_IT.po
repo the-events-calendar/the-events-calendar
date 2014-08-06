@@ -6,7 +6,7 @@ msgstr ""
 "Project-Id-Version: The Events Calendar\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-07-17 16:44-0800\n"
-"PO-Revision-Date: 2014-08-05 12:28-0800\n"
+"PO-Revision-Date: 2014-08-06 14:31-0800\n"
 "Last-Translator: \n"
 "Language-Team: Modern Tribe, Inc. <pro@tri.be>\n"
 "Language: en_US\n"
@@ -1458,7 +1458,7 @@ msgstr "Organizzatori"
 #: ../lib/the-events-calendar.class.php:1362
 #: ../lib/the-events-calendar.class.php:3893
 msgid "Events"
-msgstr "EventI"
+msgstr "Eventi"
 
 #: ../lib/io/csv/admin-views/import.php:55
 msgid "CSV File:"
