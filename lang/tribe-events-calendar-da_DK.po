@@ -5,9 +5,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: The Events Calendar\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-04-28 11:34+0100\n"
-"PO-Revision-Date: 2014-04-30 13:35+0100\n"
-"Last-Translator: Morten Brunbjerg Bech <bech@rephlex.dk>\n"
+"POT-Creation-Date: 2014-07-17 16:44-0800\n"
+"PO-Revision-Date: 2014-08-06 13:19-0800\n"
+"Last-Translator: \n"
 "Language-Team: Modern Tribe, Inc. <pro@tri.be>\n"
 "Language: da_DK\n"
 "MIME-Version: 1.0\n"
@@ -19,7 +19,7 @@ msgstr ""
 "_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2\n"
 "X-Poedit-Basepath: ./\n"
 "X-Textdomain-Support: yes\n"
-"X-Generator: Poedit 1.6.5\n"
+"X-Generator: Poedit 1.6.7\n"
 "X-Poedit-SearchPath-0: ..\n"
 
 #: ../admin-views/app-shop.php:4
@@ -42,15 +42,15 @@ msgstr "Vis ikke i eventliste"
 msgid "Sticky in Calendar View"
 msgstr "Fremhævet i kalenderoversigt"
 
-#: ../admin-views/events-audit-trail.php:41
+#: ../admin-views/events-audit-trail.php:39
 msgid "Auditing Information"
 msgstr "Information om redigering"
 
-#: ../admin-views/events-audit-trail.php:47
+#: ../admin-views/events-audit-trail.php:45
 msgid "Created by:"
 msgstr "Oprettet af:"
 
-#: ../admin-views/events-audit-trail.php:51
+#: ../admin-views/events-audit-trail.php:49
 msgid "Audit Trail:"
 msgstr "Opdateret af:"
 
@@ -84,65 +84,82 @@ msgstr "YYYY-MM-DD"
 msgid "End Date &amp; Time:"
 msgstr "Sluttidspunkt"
 
-#: ../admin-views/events-meta-box.php:85
+#: ../admin-views/events-meta-box.php:87
 msgid "Event Location Details"
 msgstr "Sted"
 
-#: ../admin-views/events-meta-box.php:93
+#: ../admin-views/events-meta-box.php:95
 msgid "Event Organizer Details"
 msgstr "Arrangør"
 
-#: ../admin-views/events-meta-box.php:101
+#: ../admin-views/events-meta-box.php:103
 msgid "Event Website"
 msgstr "Website"
 
-#: ../admin-views/events-meta-box.php:104
+#: ../admin-views/events-meta-box.php:106
 msgid "URL:"
 msgstr "URL:"
 
-#: ../admin-views/events-meta-box.php:115
+#: ../admin-views/events-meta-box.php:117
 #: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:61
 msgid "Event Cost"
 msgstr "Pris for deltagelse"
 
-#: ../admin-views/events-meta-box.php:118
+#: ../admin-views/events-meta-box.php:120
 msgid "Currency Symbol:"
 msgstr "Valuta:"
 
-#: ../admin-views/events-meta-box.php:134
-#: ../public/advanced-functions/meta.php:319
+#: ../admin-views/events-meta-box.php:130
+msgctxt "Currency symbol position"
+msgid "Before cost"
+msgstr "Før pris"
+
+#: ../admin-views/events-meta-box.php:131
+msgctxt "Currency symbol position"
+msgid "After cost"
+msgstr "Efter pris"
+
+#: ../admin-views/events-meta-box.php:136
+#: ../public/advanced-functions/meta.php:320
+#: ../views/modules/meta/details.php:80
 msgid "Cost:"
 msgstr "Pris:"
 
-#: ../admin-views/events-meta-box.php:139
+#: ../admin-views/events-meta-box.php:141
 msgid "Enter a 0 for events that are free or leave blank to hide the field."
 msgstr ""
 "Skriv 0 hvis deltagelse er gratis. Efterlad feltet blank for ikke at medtage "
 "det."
 
 #: ../admin-views/organizer-meta-box.php:12
-msgid "Organizer Name:"
-msgstr "Navn på arrangør:"
+#: ../admin-views/venue-meta-box.php:20
+#, php-format
+msgid "%s Name:"
+msgstr "%s Navn på stedet:"
 
 #: ../admin-views/organizer-meta-box.php:19
-#: ../admin-views/tickets/attendees.php:39
+#: ../admin-views/tickets/attendees.php:41
 #: ../admin-views/venue-meta-box.php:93
-#: ../public/advanced-functions/meta.php:407
-#: ../public/advanced-functions/meta.php:469
+#: ../public/advanced-functions/meta.php:408
+#: ../public/advanced-functions/meta.php:470
+#: ../views/modules/meta/organizer.php:24 ../views/modules/meta/venue.php:36
 msgid "Phone:"
 msgstr "Telefon:"
 
 #: ../admin-views/organizer-meta-box.php:23
-#: ../admin-views/tickets/attendees.php:45
+#: ../admin-views/tickets/attendees.php:47
 #: ../admin-views/venue-meta-box.php:97
-#: ../public/advanced-functions/meta.php:358
-#: ../public/advanced-functions/meta.php:433
-#: ../public/advanced-functions/meta.php:495
+#: ../public/advanced-functions/meta.php:359
+#: ../public/advanced-functions/meta.php:434
+#: ../public/advanced-functions/meta.php:496
+#: ../views/modules/meta/details.php:103
+#: ../views/modules/meta/organizer.php:34 ../views/modules/meta/venue.php:41
 msgid "Website:"
 msgstr "Hjemmeside:"
 
 #: ../admin-views/organizer-meta-box.php:27
-#: ../public/advanced-functions/meta.php:482
+#: ../public/advanced-functions/meta.php:483
+#: ../views/modules/meta/organizer.php:29
 msgid "Email:"
 msgstr "E-mail:"
 
@@ -156,70 +173,66 @@ msgstr ""
 "obfuscate\">obfuskere</a> de e-mail adresser, der er publiceret på dit site "
 "for at undgå, at de bliver høstet af spammere."
 
-#: ../admin-views/tickets/attendees.php:9 ../admin-views/tickets/list.php:41
+#: ../admin-views/tickets/attendees.php:11 ../admin-views/tickets/list.php:41
 #: ../lib/tickets/tribe-tickets-pro.php:73
 msgid "Attendees"
 msgstr "Deltagere"
 
-#: ../admin-views/tickets/attendees.php:14
+#: ../admin-views/tickets/attendees.php:16
 msgid "Event Summary"
 msgstr "Oversigt"
 
-#: ../admin-views/tickets/attendees.php:22
+#: ../admin-views/tickets/attendees.php:24
 msgid "Event Details"
 msgstr "Detaljer"
 
-#: ../admin-views/tickets/attendees.php:24
+#: ../admin-views/tickets/attendees.php:26
 msgid "Start Date / Time:"
 msgstr "Starttidspunkt / dato"
 
-#: ../admin-views/tickets/attendees.php:26
+#: ../admin-views/tickets/attendees.php:28
 msgid "End Date / Time:"
 msgstr "Sluttidspunkt / dato"
 
-#: ../admin-views/tickets/attendees.php:34
-msgid "Venue:"
-msgstr "Sted:"
-
-#: ../admin-views/tickets/attendees.php:52
+#: ../admin-views/tickets/attendees.php:54
 msgid "Ticket Sales"
 msgstr "Billetsalg"
 
-#: ../admin-views/tickets/attendees.php:64 ../admin-views/tickets/list.php:67
+#: ../admin-views/tickets/attendees.php:66 ../admin-views/tickets/list.php:67
 #, php-format
 msgid "Sold %d"
 msgstr "Solgt %d"
 
-#: ../admin-views/tickets/attendees.php:66 ../admin-views/tickets/list.php:69
+#: ../admin-views/tickets/attendees.php:68 ../admin-views/tickets/list.php:69
 #, php-format
 msgid "Sold %d of %d"
 msgstr "Solgt %d af %d"
 
-#: ../admin-views/tickets/attendees.php:81
+#: ../admin-views/tickets/attendees.php:83
 msgid "Tickets sold:"
 msgstr "Solgte billetter:"
 
-#: ../admin-views/tickets/attendees.php:85
+#: ../admin-views/tickets/attendees.php:87
 msgid "Checked in:"
 msgstr "Tjekket ind:"
 
-#: ../admin-views/tickets/attendees.php:105
+#: ../admin-views/tickets/attendees.php:104
 msgid "Send the attendee list by email"
 msgstr "Send deltagerlisten pr. e-mail"
 
-#: ../admin-views/tickets/attendees.php:109
+#: ../admin-views/tickets/attendees.php:108
 msgid "Select a User:"
 msgstr "Vælg en bruger:"
 
-#: ../admin-views/tickets/attendees.php:110
+#: ../admin-views/tickets/attendees.php:109
 msgid "Select..."
 msgstr "Vælg..."
 
-#: ../admin-views/tickets/attendees.php:112
+#: ../admin-views/tickets/attendees.php:111
 msgid "or"
 msgstr "eller"
 
-#: ../admin-views/tickets/attendees.php:114
+#: ../admin-views/tickets/attendees.php:113
 msgid "Email Address:"
 msgstr "E-mailadresse"
 
@@ -228,6 +241,7 @@ msgid "Edit"
 msgstr "Rediger"
 
 #: ../admin-views/tickets/list.php:22
+#: ../lib/tickets/tribe-tickets-attendees.php:215
 msgid "Delete"
 msgstr "Slet"
 
@@ -328,11 +342,11 @@ msgstr "Standardskabelon for begivenheder"
 msgid "Default Page Template"
 msgstr "Standardskabelon for sider"
 
-#: ../admin-views/tribe-options-display.php:29
+#: ../admin-views/tribe-options-display.php:31
 msgid "Display Settings"
 msgstr "Vis indstillinger"
 
-#: ../admin-views/tribe-options-display.php:34
+#: ../admin-views/tribe-options-display.php:36
 #, php-format
 msgid ""
 "<p>The settings below control the display of your calendar. If things don't "
@@ -351,19 +365,19 @@ msgstr ""
 "visning? Snup en kopi af <a href=\"%s\">The Sample Agenda View plugin fra "
 "Github</a></p>"
 
-#: ../admin-views/tribe-options-display.php:49
+#: ../admin-views/tribe-options-display.php:51
 msgid "Basic Template Settings"
 msgstr "Layoutindstillinger"
 
-#: ../admin-views/tribe-options-display.php:53
+#: ../admin-views/tribe-options-display.php:55
 msgid "Default stylesheet used for events templates"
 msgstr "Standardlayout til begivenhedsskabeloner"
 
-#: ../admin-views/tribe-options-display.php:56
+#: ../admin-views/tribe-options-display.php:58
 msgid "Skeleton Styles"
 msgstr "Simple layouts"
 
-#: ../admin-views/tribe-options-display.php:58
+#: ../admin-views/tribe-options-display.php:60
 msgid ""
 "Only includes enough css to achieve complex layouts like calendar and week "
 "view."
@@ -371,69 +385,155 @@ msgstr ""
 "Inkluderer kun tilstrækkelig css til at opnå komplekse layouts såsom "
 "kalender- og ugevisning."
 
-#: ../admin-views/tribe-options-display.php:60
+#: ../admin-views/tribe-options-display.php:62
 msgid "Full Styles"
 msgstr "Normale layouts"
 
-#: ../admin-views/tribe-options-display.php:62
+#: ../admin-views/tribe-options-display.php:64
 msgid "More detailed styling, tries to grab styles from your theme."
 msgstr "Mere detaljeret styling, forsøger at bruge styles fra dit theme."
 
-#: ../admin-views/tribe-options-display.php:64
+#: ../admin-views/tribe-options-display.php:66
 msgid "Tribe Events Styles"
 msgstr "Tribe layouts"
 
-#: ../admin-views/tribe-options-display.php:66
+#: ../admin-views/tribe-options-display.php:68
 msgid "A fully designed and styled theme for your events pages."
 msgstr "Et fuldt designet og stylet theme til dine begivenhedssider."
 
-#: ../admin-views/tribe-options-display.php:73
+#: ../admin-views/tribe-options-display.php:75
 msgid "Events template"
 msgstr "Begivenhedsskabelon"
 
-#: ../admin-views/tribe-options-display.php:74
+#: ../admin-views/tribe-options-display.php:76
 msgid ""
 "Choose a page template to control the appearance of your calendar and event "
 "content."
 msgstr "Vælg en sideskabelon til visning af din kalender og begivenheder"
 
-#: ../admin-views/tribe-options-display.php:82
+#: ../admin-views/tribe-options-display.php:84
 msgid "Enable event views"
 msgstr "Tillad visning af begivenheder"
 
-#: ../admin-views/tribe-options-display.php:83
+#: ../admin-views/tribe-options-display.php:85
 msgid "You must select at least one view."
 msgstr "Vælg mindst én visningstype."
 
-#: ../admin-views/tribe-options-display.php:90
+#: ../admin-views/tribe-options-display.php:92
 msgid "Default view"
 msgstr "Standardvisning"
 
-#: ../admin-views/tribe-options-display.php:98
+#: ../admin-views/tribe-options-display.php:100
 msgid "Disable the Event Search Bar"
 msgstr "Deaktiver begivenhedssøgefeltet"
 
-#: ../admin-views/tribe-options-display.php:99
+#: ../admin-views/tribe-options-display.php:101
 msgid "Check this to use the classic header."
 msgstr "Sæt kryds i denne, hvis du vil bruge det klassiske sidehoved."
 
-#: ../admin-views/tribe-options-display.php:105
+#: ../admin-views/tribe-options-display.php:107
 msgid "Month view events per day"
 msgstr "Månedsvisning begivenheder pr. dag"
 
-#: ../admin-views/tribe-options-display.php:106
+#: ../admin-views/tribe-options-display.php:108
 msgid "Allow more than the default 3 events per day in month view."
 msgstr "Tillad mere end de 3 standard begivenheder pr. dag i månedsvisning."
 
-#: ../admin-views/tribe-options-display.php:113
+#: ../admin-views/tribe-options-display.php:115
+msgid "Date Format Settings"
+msgstr "Generelle indstillinger"
+
+#: ../admin-views/tribe-options-display.php:119
+msgid ""
+"<p>The following three fields accept the date format options available to "
+"the php date() function. <a href=\"http://codex.wordpress.org/"
+"Formatting_Date_and_Time\" target=\"_blank\">Learn how to make your own date "
+"format here</a>.</p>"
+msgstr ""
+"<p>Følgende tre felter accepterer dato format mulighederne som er "
+"tilgængelige i php date() function. <a href=\"http://codex.wordpress.org/"
+"Formatting_Date_and_Time\" target=\"_blank\">Her kan du se, hvordqan du "
+"laver dine egne dato formater</a>.</p>"
+
+#: ../admin-views/tribe-options-display.php:123
+msgid "Date with year"
+msgstr "Dato med årsangivelse"
+
+#: ../admin-views/tribe-options-display.php:124
+msgid ""
+"Enter the format to use for displaying dates with the year. Used when "
+"showing an event from a past or future year, also used for dates in view "
+"headers."
+msgstr ""
+"Indtast det format som du ønsker der skal bruges, når der indtastes dato med "
+"årsangivelse. Dette bruges når der vises en event fra tidligere år, eller en "
+"event fra kommende år. Bliver også brugt til dato visning i overskrifter."
+
+#: ../admin-views/tribe-options-display.php:131
+msgid "Date without year"
+msgstr "Dato uden årsangivelse"
+
+#: ../admin-views/tribe-options-display.php:132
+msgid ""
+"Enter the format to use for displaying dates without a year. Used when "
+"showing an event from the current year."
+msgstr ""
+"Indtast det format som du ønsker der skal bruges når der indtastes dato uden "
+"årsangivelse. Dette bruges når der vises en event fra det aktuelle år."
+
+#: ../admin-views/tribe-options-display.php:139
+msgid "Month and year format"
+msgstr "Måned og år format"
+
+#: ../admin-views/tribe-options-display.php:140
+msgid ""
+"Enter the format to use for dates that show a month and year only. Used on "
+"month view."
+msgstr ""
+"Indtast det format som skal bruges når der skal vises en måned eller en "
+"årsangivelse. Bliver brugt ved måneds visning."
+
+#: ../admin-views/tribe-options-display.php:147
+msgid "Date time separator"
+msgstr "Dato og tid seperator"
+
+#: ../admin-views/tribe-options-display.php:148
+msgid ""
+"Enter the separator that will be placed between the date and time, when both "
+"are shown."
+msgstr ""
+"Indtast den seperator som skal bruges imellem dato og tidsangivelse, når de "
+"begge vises."
+
+#: ../admin-views/tribe-options-display.php:155
+msgid "Time range separator"
+msgstr "Tidsangivelses seperator"
+
+#: ../admin-views/tribe-options-display.php:156
+msgid ""
+"Enter the separator that will be used between the start and end time of an "
+"event."
+msgstr ""
+"Tilføj den seperator som der skal bruges imellem start og slut tidspunkt for "
+"en event."
+
+#: ../admin-views/tribe-options-display.php:163
+msgid "Datepicker Date Format"
+msgstr "Dato format"
+
+#: ../admin-views/tribe-options-display.php:164
+msgid "Select the date format to use in datepickers"
+msgstr "Vælg det dato format som skal bruges når der vælges dato"
+
+#: ../admin-views/tribe-options-display.php:181
 msgid "Advanced Template Settings"
 msgstr "Advancerede skabelonindstillinger"
 
-#: ../admin-views/tribe-options-display.php:117
+#: ../admin-views/tribe-options-display.php:185
 msgid "Add HTML before event content"
 msgstr "Tilføj HTML før indholdet i begivenheden"
 
-#: ../admin-views/tribe-options-display.php:118
+#: ../admin-views/tribe-options-display.php:186
 msgid ""
 "If you are familiar with HTML, you can add additional code before the event "
 "template. Some themes may require this to help with styling or layout."
@@ -441,11 +541,11 @@ msgstr ""
 "Du kan tilføje HTML før begivenheden. Dette kan være en hjælp, hvis layoutet "
 "eller visningen skal finjusteres."
 
-#: ../admin-views/tribe-options-display.php:123
+#: ../admin-views/tribe-options-display.php:191
 msgid "Add HTML after event content"
 msgstr "Tilføj HTML efter indholdet i begivenheden"
 
-#: ../admin-views/tribe-options-display.php:124
+#: ../admin-views/tribe-options-display.php:192
 msgid ""
 "If you are familiar with HTML, you can add additional code after the event "
 "template. Some themes may require this to help with styling or layout."
@@ -582,7 +682,7 @@ msgstr ""
 "\">klik her</a>."
 
 #: ../admin-views/tribe-options-general.php:108
-#: ../public/template-tags/options.php:20
+#: ../public/template-tags/options.php:18
 msgid "The slug used for building the events URL."
 msgstr "Den korte titel bruges som element i begivenhedens link."
 
@@ -592,7 +692,7 @@ msgid "Your current events URL is: %s"
 msgstr "Link: %s"
 
 #: ../admin-views/tribe-options-general.php:113
-#: ../public/template-tags/options.php:43
+#: ../public/template-tags/options.php:37
 msgid "Here is the iCal feed URL for your events:"
 msgstr "iCal link til dine begivenheder:"
 
@@ -709,6 +809,11 @@ msgstr ""
 msgid "Debug Bar Plugin"
 msgstr "Debug Bar Plugin"
 
+#: ../admin-views/tribe-options-help.php:18
+msgctxt "not available"
+msgid "n/a"
+msgstr "n/a"
+
 #: ../admin-views/tribe-options-help.php:19
 msgid "You need to upgrade!"
 msgstr "Opgradering kræves!"
@@ -752,6 +857,17 @@ msgstr "The Events Calendar: Shopp Tickets"
 #: ../admin-views/tribe-options-help.php:78
 msgid "The Events Calendar: Filter Bar"
 msgstr "The Events Calendar: Filter Bar"
+
+#: ../admin-views/tribe-options-help.php:84
+msgid ""
+"If you're looking for help with The Events Calendar, you've come to the "
+"right place. We are committed to helping make your calendar kick ass...and "
+"hope the resources provided below will help get you there."
+msgstr ""
+"Hvis du søger hjælp til The Event calendar, så er du kommet til det rette "
+"sted. Vi er opsatte på at hjælpe dig med at få din kalender til at virke "
+"fantastisk, og håber på, at de resourcer som vi stiller til rådighed, vil "
+"være tilstrækkelige."
 
 #: ../admin-views/tribe-options-help.php:87
 msgid ""
@@ -976,8 +1092,8 @@ msgid "Not getting help?"
 msgstr "Får du ingen Hjælp?"
 
 #: ../admin-views/tribe-options-help.php:159
-#: ../lib/the-events-calendar.class.php:501
-#: ../lib/tribe-settings.class.php:135
+#: ../lib/the-events-calendar.class.php:576
+#: ../lib/tribe-settings.class.php:129
 msgid "The Events Calendar"
 msgstr "The Events Calendar"
 
@@ -1008,6 +1124,13 @@ msgstr "Wordpress.org Plugin Page"
 #: ../admin-views/tribe-options-help.php:171
 msgid "Average Rating"
 msgstr "Average Rating"
+
+#: ../admin-views/tribe-options-help.php:175
+#, php-format
+msgid "Based on %d rating"
+msgid_plural "Based on %d ratings"
+msgstr[0] "Based on %d rating"
+msgstr[1] "Based on %d ratings"
 
 #: ../admin-views/tribe-options-help.php:176
 msgid "Give us 5 stars!"
@@ -1041,12 +1164,8 @@ msgstr ""
 msgid "Hide the following settings tabs on every site:"
 msgstr "Gem følgende indstillingsfaner på alle sites:"
 
-#: ../admin-views/venue-meta-box.php:20
-msgid "Venue Name:"
-msgstr "Navn på stedet:"
-
 #: ../admin-views/venue-meta-box.php:27
-#: ../public/advanced-functions/meta.php:421
+#: ../public/advanced-functions/meta.php:422
 msgid "Address:"
 msgstr "Adresse:"
 
@@ -1182,20 +1301,20 @@ msgid "Import Type:"
 msgstr "Importtype"
 
 #: ../lib/io/csv/admin-views/import.php:45
-#: ../lib/the-events-calendar.class.php:1321
-#: ../lib/the-events-calendar.class.php:1433
+#: ../lib/the-events-calendar.class.php:502
+#: ../public/template-tags/venue.php:49
 msgid "Venues"
 msgstr "Steder"
 
 #: ../lib/io/csv/admin-views/import.php:46
-#: ../lib/the-events-calendar.class.php:1334
-#: ../lib/the-events-calendar.class.php:1434
+#: ../lib/the-events-calendar.class.php:518
+#: ../public/template-tags/organizer.php:55
 msgid "Organizers"
 msgstr "Arrangører"
 
 #: ../lib/io/csv/admin-views/import.php:47
-#: ../lib/the-events-calendar.class.php:1308
-#: ../lib/the-events-calendar.class.php:3834
+#: ../lib/the-events-calendar.class.php:1362
+#: ../lib/the-events-calendar.class.php:3893
 msgid "Events"
 msgstr "Begivenheder"
 
@@ -1272,8 +1391,8 @@ msgstr "Sprang over rækkenumre: %s"
 
 #: ../lib/io/csv/classes/TribeEventsImporter_AdminPage.php:15
 #: ../lib/io/csv/classes/TribeEventsImporter_AdminPage.php:16
-msgid "CSV Import"
-msgstr "CSV import"
+msgid "Import: CSV"
+msgstr "Importer CSV fil"
 
 #: ../lib/io/csv/classes/TribeEventsImporter_AdminPage.php:29
 #: ../lib/io/csv/classes/TribeEventsImporter_AdminPage.php:147
@@ -1341,55 +1460,56 @@ msgid "Event Phone"
 msgstr "Telefon"
 
 #: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:63
-#: ../lib/the-events-calendar.class.php:1348
+#: ../lib/the-events-calendar.class.php:1402
+#: ../public/template-tags/general.php:268
 msgid "Event Category"
 msgstr "Begivenhedskategori"
 
-#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:70
+#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:69
 msgid "Venue Name"
 msgstr "Venue navn"
 
-#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:71
+#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:70
 msgid "Venue Country"
 msgstr "Venue land"
 
-#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:72
+#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:71
 msgid "Venue Address"
 msgstr "Venue adresse"
 
-#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:73
+#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:72
 msgid "Venue Addres 2"
 msgstr "Sted"
 
-#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:74
+#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:73
 msgid "Venue City"
 msgstr "Venue by"
 
-#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:75
+#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:74
 msgid "Venue State/Province"
 msgstr "Venue område/provins:"
 
-#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:76
+#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:75
 msgid "Venue Zip"
 msgstr "Venue postnr."
 
-#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:77
+#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:76
 msgid "Venue Phone"
 msgstr "Venue telefon"
 
-#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:83
+#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:82
 msgid "Organizer Name"
 msgstr "Navn på arrangør"
 
-#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:84
+#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:83
 msgid "Organizer Email"
 msgstr "Arrangør e-mail"
 
-#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:85
+#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:84
 msgid "Organizer Website"
 msgstr "Arrangørens hjemmeside"
 
-#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:86
+#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:85
 msgid "Organizer Phone"
 msgstr "Arrangørens telefon"
 
@@ -1428,51 +1548,55 @@ msgstr "Midlertidig fil ikke fundet. Kunne ikke gemme %s. "
 msgid "Could not save %s."
 msgstr "Kunne ikke gemme %s."
 
-#: ../lib/pue/admin-views/license-key.view.php:9
-#: ../lib/pue/admin-views/license-key.view.php:13
-#: ../lib/pue/lib/pue_plugin_update_engine.class.php:292
+#: ../lib/pue/admin-views/license-key.view.php:10
+#: ../lib/pue/admin-views/license-key.view.php:14
+#: ../lib/pue/lib/pue_plugin_update_engine.class.php:288
 msgid "License Key"
 msgstr "Licensnøgle"
 
-#: ../lib/pue/admin-views/license-key.view.php:10
+#: ../lib/pue/admin-views/license-key.view.php:11
 msgid "A valid license key is required for support and updates."
 msgstr "Der kræves en gyldig licensnøgle for support og opdateringer."
 
-#: ../lib/pue/admin-views/license-key.view.php:16
+#: ../lib/pue/admin-views/license-key.view.php:17
 msgid "Replace empty fields"
 msgstr "Erstat tomme felter"
 
-#: ../lib/pue/admin-views/license-key.view.php:25
-#: ../lib/pue/lib/pue_plugin_update_engine.class.php:293
+#: ../lib/pue/admin-views/license-key.view.php:26
+#: ../lib/pue/lib/pue_plugin_update_engine.class.php:289
 msgid "A valid license key is required for support and updates"
 msgstr "Der kræves en gyldig licensnøgle for support og opdateringer"
 
-#: ../lib/pue/lib/pue_plugin_update_engine.class.php:361
+#: ../lib/pue/lib/pue_plugin_update_engine.class.php:353
 msgid "License key(s) updated."
 msgstr "Licensnøgle(r) opdateret."
 
-#: ../lib/pue/lib/pue_plugin_update_engine.class.php:401
+#: ../lib/pue/lib/pue_plugin_update_engine.class.php:393
 msgid "Sorry, key validation server is not available."
 msgstr "Desværre, nøglevalideringsserveren er ikke tilgængelig."
 
-#: ../lib/pue/lib/pue_plugin_update_engine.class.php:403
+#: ../lib/pue/lib/pue_plugin_update_engine.class.php:396
 msgid "Sorry, this key is expired."
 msgstr "Desværre, denne nøgle er udløbet."
 
-#: ../lib/pue/lib/pue_plugin_update_engine.class.php:405
+#: ../lib/pue/lib/pue_plugin_update_engine.class.php:399
 msgid "Sorry, this key is out of installs."
 msgstr "Desværre, denne nøgle kan ikke bruges i flere installationer."
 
-#: ../lib/pue/lib/pue_plugin_update_engine.class.php:407
+#: ../lib/pue/lib/pue_plugin_update_engine.class.php:400
+msgid "Why am I seeing this message?"
+msgstr "Hvorfor ser jeg denne besked?"
+
+#: ../lib/pue/lib/pue_plugin_update_engine.class.php:404
 msgid "Sorry, this key is not valid."
 msgstr "Desværre, denne nøgle er ikke gyldig."
 
-#: ../lib/pue/lib/pue_plugin_update_engine.class.php:410
+#: ../lib/pue/lib/pue_plugin_update_engine.class.php:408
 #, php-format
 msgid "Valid Key! Expires on %s"
 msgstr "Gyldig nøgle! Udløber %s"
 
-#: ../lib/pue/lib/pue_plugin_update_engine.class.php:414
+#: ../lib/pue/lib/pue_plugin_update_engine.class.php:412
 #, php-format
 msgid ""
 "Hmmm... something's wrong with this validator. Please contact <a href=\"%s"
@@ -1480,6 +1604,30 @@ msgid ""
 msgstr ""
 "Hmm &hellip; der er noget galt med denne validator. Kontakt venligst <a href="
 "\"%s\">support.</a>"
+
+#: ../lib/template-classes/day.php:70 ../lib/template-classes/day.php:84
+msgid "All Day"
+msgstr "Heldagsbegivenhed "
+
+#: ../lib/template-classes/day.php:72 ../lib/template-classes/day.php:86
+msgid "Ongoing"
+msgstr "Fortsætter"
+
+#: ../lib/template-classes/day.php:130
+#, php-format
+msgid ""
+"No matching events listed under %s scheduled for <strong>%s</strong>. Please "
+"try another day."
+msgstr ""
+"I listen for %s begivenheder planlagt for <strong>%s</strong>. Prøv venligst "
+"en anden dag."
+
+#: ../lib/template-classes/day.php:133
+#, php-format
+msgid "No events scheduled for <strong>%s</strong>. Please try another day."
+msgstr ""
+"Der er ingen begivenheder planlagt for <strong>%s</strong>. Prøv venligst en "
+"anden dag."
 
 #: ../lib/template-classes/month.php:112
 #, php-format
@@ -1490,37 +1638,83 @@ msgstr ""
 "Ingen resultater for <strong>\"%s\"</strong> denne måned. Prøv at søge i "
 "næste måned."
 
-#: ../lib/template-classes/month.php:115
-#: ../lib/tribe-template-factory.class.php:247
+#: ../lib/template-classes/month.php:116
+#: ../lib/tribe-template-factory.class.php:230
+#: ../lib/tribe-template-factory.class.php:237
+#, php-format
+msgid ""
+"No matching events listed under %s. Please try viewing the full calendar for "
+"a complete list of events."
+msgstr ""
+"Ingen matchende begivenheder listet under %s. Tjek kommende begivenheder for "
+"denne kategori eller gennemse kalenderen."
+
+#: ../lib/template-classes/month.php:119
+#: ../lib/tribe-template-factory.class.php:240
 msgid "There were no results found."
 msgstr "Der blev ikke fundet nogen resultater."
 
-#: ../lib/template-classes/single-event.php:101
+#: ../lib/template-classes/single-event.php:97
 msgid "This event has passed."
 msgstr "Dette er en afholdt begivenhed."
 
-#: ../lib/the-events-calendar.class.php:506
+#: ../lib/the-events-calendar.class.php:482
+#, php-format
+msgid ""
+"Rate <strong>The Events Calendar</strong> <a href=\"%1$s\" target=\"_blank"
+"\">&#9733;&#9733;&#9733;&#9733;&#9733;</a> on <a href=\"%1$s\" target="
+"\"_blank\">WordPress.org</a> to keep this plugin free.  Thanks from the "
+"friendly folks at Modern Tribe."
+msgstr ""
+"Bedøm <strong>The Events Calendar</strong> <a href=\"%1$s\" target=\"_blank"
+"\">&#9733;&#9733;&#9733;&#9733;&#9733;</a> på <a href=\"%1$s\" target="
+"\"_blank\">WordPress.org</a> for at bibeholde denne plugin som værende "
+"gratis.  På forhånd tak fra de venlige udviklere fra Modern Tribe."
+
+#: ../lib/the-events-calendar.class.php:482
+msgid ""
+"http://wordpress.org/support/view/plugin-reviews/the-events-calendar?filter=5"
+msgstr ""
+"http://wordpress.org/support/view/plugin-reviews/the-events-calendar?filter=5"
+
+#: ../lib/the-events-calendar.class.php:510
+#: ../public/advanced-functions/meta.php:382
+#: ../public/template-tags/venue.php:38
+msgid "Venue"
+msgstr "Sted"
+
+#: ../lib/the-events-calendar.class.php:526
+#: ../public/advanced-functions/meta.php:444
+#: ../public/template-tags/organizer.php:44
+msgid "Organizer"
+msgstr "Arrangør"
+
+#: ../lib/the-events-calendar.class.php:581
 msgid "month"
 msgstr "måned"
 
-#: ../lib/the-events-calendar.class.php:507
+#: ../lib/the-events-calendar.class.php:582
 msgid "upcoming"
 msgstr "kommende"
 
-#: ../lib/the-events-calendar.class.php:508
+#: ../lib/the-events-calendar.class.php:583
 msgid "past"
 msgstr "tidligere"
 
-#: ../lib/the-events-calendar.class.php:510
-msgid "venue"
-msgstr "sted"
+#: ../lib/the-events-calendar.class.php:584
+msgid "day"
+msgstr "I dag"
 
-#: ../lib/the-events-calendar.class.php:520
+#: ../lib/the-events-calendar.class.php:585
+msgid "today"
+msgstr "I dag"
+
+#: ../lib/the-events-calendar.class.php:603
 #, php-format
 msgid "Initializing Tribe Events on %s"
 msgstr "Indlæser Tribe Events på %s"
 
-#: ../lib/the-events-calendar.class.php:633
+#: ../lib/the-events-calendar.class.php:711
 #, php-format
 msgid ""
 "Your version of The Events Calendar is not up-to-date with one of your The "
@@ -1529,7 +1723,7 @@ msgstr ""
 "Din version af The Events Calendar er ikke kompatible med dine The Events "
 "Calendar Add-ons. %sOpdater venligst%s."
 
-#: ../lib/the-events-calendar.class.php:650
+#: ../lib/the-events-calendar.class.php:728
 #, php-format
 msgid ""
 "The following plugins are out of date: <b>%s</b>. All add-ons contain "
@@ -1540,13 +1734,13 @@ msgstr ""
 "afhængigheder af The Events Calendar og vil ikke fungere korrekt medmindre "
 "de parres med den rigtige version. %sVil du parre en ældre version%s?"
 
-#: ../lib/the-events-calendar.class.php:714
-#: ../lib/the-events-calendar.class.php:749
-#: ../lib/the-events-calendar.class.php:751
+#: ../lib/the-events-calendar.class.php:788
+#: ../lib/the-events-calendar.class.php:823
+#: ../lib/the-events-calendar.class.php:825
 msgid "Licenses"
 msgstr "Licenser"
 
-#: ../lib/the-events-calendar.class.php:718
+#: ../lib/the-events-calendar.class.php:792
 #, php-format
 msgid ""
 "<p>The license key you received when completing your purchase from %s will "
@@ -1577,21 +1771,21 @@ msgstr ""
 "opdaget det endnu, så klik på <a href=\"%s\">Dashboard > Updates</a> og klik "
 "\"Check Again\".</p>"
 
-#: ../lib/the-events-calendar.class.php:741
+#: ../lib/the-events-calendar.class.php:815
 msgid "General"
 msgstr "General"
 
-#: ../lib/the-events-calendar.class.php:742
+#: ../lib/the-events-calendar.class.php:816
 msgid "Display"
 msgstr "Vis"
 
-#: ../lib/the-events-calendar.class.php:754
-#: ../lib/the-events-calendar.class.php:3901
-#: ../lib/the-events-calendar.class.php:3998
+#: ../lib/the-events-calendar.class.php:828
+#: ../lib/the-events-calendar.class.php:3977
+#: ../lib/the-events-calendar.class.php:4075
 msgid "Help"
 msgstr "Hjælp"
 
-#: ../lib/the-events-calendar.class.php:793
+#: ../lib/the-events-calendar.class.php:867
 #, php-format
 msgid ""
 "Sorry, The Events Calendar requires WordPress %s or higher. Please upgrade "
@@ -1600,7 +1794,7 @@ msgstr ""
 "The Events Calendar kræver WordPress %s eller nyere. Venligst opgrader din "
 "WordPress installation."
 
-#: ../lib/the-events-calendar.class.php:796
+#: ../lib/the-events-calendar.class.php:870
 #, php-format
 msgid ""
 "Sorry, The Events Calendar requires PHP %s or higher. Talk to your Web host "
@@ -1609,225 +1803,195 @@ msgstr ""
 "The Events Calendar kræver PHP %s eller nyere. Spørg eventuelt din Web host "
 "om du kan blive opgraderet til en nyere version af PHP."
 
-#: ../lib/the-events-calendar.class.php:975 ../lib/widget-list.class.php:180
-#: ../public/template-tags/loop.php:138
+#: ../lib/the-events-calendar.class.php:1047 ../lib/widget-list.class.php:148
+#: ../public/template-tags/loop.php:117
 msgid "Upcoming Events"
 msgstr "Kommende begivenheder"
 
-#: ../lib/the-events-calendar.class.php:978
-#: ../public/template-tags/loop.php:168
+#: ../lib/the-events-calendar.class.php:1050
+#: ../public/template-tags/loop.php:121
 msgid "Past Events"
 msgstr "Afsluttede begivenheder"
 
-#: ../lib/the-events-calendar.class.php:983
-#: ../lib/the-events-calendar.class.php:990
-#: ../public/template-tags/loop.php:173
+#: ../lib/the-events-calendar.class.php:1055
+#: ../lib/the-events-calendar.class.php:1062
+#: ../public/template-tags/loop.php:126
 #, php-format
 msgid "Events for %s"
 msgstr "Begivenheder for %s"
 
-#: ../lib/the-events-calendar.class.php:985
+#: ../lib/the-events-calendar.class.php:1057
 msgid "Events this month"
 msgstr "Begivenheder denne måned"
 
-#: ../lib/the-events-calendar.class.php:1009
-msgid "No description has been entered for this event."
-msgstr "Denne begivenhed mangler en beskrivelse."
-
-#: ../lib/the-events-calendar.class.php:1271
+#: ../lib/the-events-calendar.class.php:1325
 msgid "category"
 msgstr "kategori"
 
-#: ../lib/the-events-calendar.class.php:1281
+#: ../lib/the-events-calendar.class.php:1335
 msgid "tag"
 msgstr "tag"
 
-#: ../lib/the-events-calendar.class.php:1309
+#: ../lib/the-events-calendar.class.php:1363
 msgid "Event"
 msgstr "Begivenhed"
 
-#: ../lib/the-events-calendar.class.php:1310
-#: ../lib/the-events-calendar.class.php:1323
-#: ../lib/the-events-calendar.class.php:1336
+#: ../lib/the-events-calendar.class.php:1364
+#: ../lib/the-events-calendar.class.php:1377
+#: ../lib/the-events-calendar.class.php:1390
 msgid "Add New"
 msgstr "Tilføj ny"
 
-#: ../lib/the-events-calendar.class.php:1311
+#: ../lib/the-events-calendar.class.php:1365
 msgid "Add New Event"
 msgstr "Tilføj ny begivenhed"
 
-#: ../lib/the-events-calendar.class.php:1312
+#: ../lib/the-events-calendar.class.php:1366
 msgid "Edit Event"
 msgstr "Rediger begivenhed"
 
-#: ../lib/the-events-calendar.class.php:1313
+#: ../lib/the-events-calendar.class.php:1367
 msgid "New Event"
 msgstr "Ny begivenhed"
 
-#: ../lib/the-events-calendar.class.php:1314
+#: ../lib/the-events-calendar.class.php:1368
 msgid "View Event"
 msgstr "Se begivenhed"
 
-#: ../lib/the-events-calendar.class.php:1315
+#: ../lib/the-events-calendar.class.php:1369
 msgid "Search Events"
 msgstr "Søg efter begivenheder"
 
-#: ../lib/the-events-calendar.class.php:1316
+#: ../lib/the-events-calendar.class.php:1370
 msgid "No events found"
 msgstr "Ingen begivenheder funder"
 
-#: ../lib/the-events-calendar.class.php:1317
+#: ../lib/the-events-calendar.class.php:1371
 msgid "No events found in Trash"
 msgstr "Ingen begivenheder funder i papirkurven"
 
-#: ../lib/the-events-calendar.class.php:1322
-#: ../public/advanced-functions/meta.php:381 ../views/tickets/email.php:343
-msgid "Venue"
-msgstr "Sted"
+#: ../lib/the-events-calendar.class.php:1378
+#: ../lib/the-events-calendar.class.php:1391
+#, php-format
+msgid "Add New %s"
+msgstr "Tilføj ny %s"
 
-#: ../lib/the-events-calendar.class.php:1324
-#: ../lib/the-events-calendar.class.php:1435
-msgid "Add New Venue"
-msgstr "Tilføj nyt sted"
+#: ../lib/the-events-calendar.class.php:1379
+#: ../lib/the-events-calendar.class.php:1392
+#, php-format
+msgid "Edit %s"
+msgstr "Rediger i %s"
 
-#: ../lib/the-events-calendar.class.php:1325
-msgid "Edit Venue"
-msgstr "Rediger sted"
+#: ../lib/the-events-calendar.class.php:1380
+#: ../lib/the-events-calendar.class.php:1393
+#, php-format
+msgid "New %s"
+msgstr "Ny %s"
 
-#: ../lib/the-events-calendar.class.php:1326
-msgid "New Venue"
-msgstr "Nyt sted"
+#: ../lib/the-events-calendar.class.php:1381
+#: ../lib/the-events-calendar.class.php:1394
+#, php-format
+msgid "View %s"
+msgstr "Vis %s"
 
-#: ../lib/the-events-calendar.class.php:1327
-msgid "View Venue"
-msgstr "Se sted"
+#: ../lib/the-events-calendar.class.php:1382
+#: ../lib/the-events-calendar.class.php:1395
+#, php-format
+msgid "Search %s"
+msgstr "Søg efter %s"
 
-#: ../lib/the-events-calendar.class.php:1328
-msgid "Search Venues"
-msgstr "Søg efter steder"
+#: ../lib/the-events-calendar.class.php:1383
+#: ../lib/the-events-calendar.class.php:1396
+#, php-format
+msgid "No %s found"
+msgstr "Ingen %s fundet"
 
-#: ../lib/the-events-calendar.class.php:1329
-msgid "No venue found"
-msgstr "Ingen steder fundet"
+#: ../lib/the-events-calendar.class.php:1384
+#: ../lib/the-events-calendar.class.php:1397
+#, php-format
+msgid "No %s found in Trash"
+msgstr "Ingen %s fundet i papirkurven"
 
-#: ../lib/the-events-calendar.class.php:1330
-msgid "No venues found in Trash"
-msgstr "Ingen steder funder i papirkurven"
-
-#: ../lib/the-events-calendar.class.php:1335
-#: ../public/advanced-functions/meta.php:443 ../views/tickets/email.php:362
-msgid "Organizer"
-msgstr "Arrangør"
-
-#: ../lib/the-events-calendar.class.php:1337
-#: ../lib/the-events-calendar.class.php:1436
-msgid "Add New Organizer"
-msgstr "Tilføj ny arrangør"
-
-#: ../lib/the-events-calendar.class.php:1338
-msgid "Edit Organizer"
-msgstr "Rediger arrangør"
-
-#: ../lib/the-events-calendar.class.php:1339
-msgid "New Organizer"
-msgstr "Ny arrangør"
-
-#: ../lib/the-events-calendar.class.php:1340
-msgid "View Organizer"
-msgstr "Se arrangør"
-
-#: ../lib/the-events-calendar.class.php:1341
-msgid "Search Organizers"
-msgstr "Søg efter arrangører"
-
-#: ../lib/the-events-calendar.class.php:1342
-msgid "No organizer found"
-msgstr "Ingen arrangører fundet"
-
-#: ../lib/the-events-calendar.class.php:1343
-msgid "No organizers found in Trash"
-msgstr "Ingen arrangører fundet i papirkurven"
-
-#: ../lib/the-events-calendar.class.php:1347
-#: ../lib/tribe-admin-events-list.class.php:176
+#: ../lib/the-events-calendar.class.php:1401
+#: ../lib/tribe-admin-events-list.class.php:174
 msgid "Event Categories"
 msgstr "Kategorier"
 
-#: ../lib/the-events-calendar.class.php:1349
+#: ../lib/the-events-calendar.class.php:1403
 msgid "Search Event Categories"
 msgstr "Søg efter kategorier"
 
-#: ../lib/the-events-calendar.class.php:1350
+#: ../lib/the-events-calendar.class.php:1404
 msgid "All Event Categories"
 msgstr "Alle kategorier"
 
-#: ../lib/the-events-calendar.class.php:1351
+#: ../lib/the-events-calendar.class.php:1405
 msgid "Parent Event Category"
 msgstr "Forælder kategori"
 
-#: ../lib/the-events-calendar.class.php:1352
+#: ../lib/the-events-calendar.class.php:1406
 msgid "Parent Event Category:"
 msgstr "Forælder kategori:"
 
-#: ../lib/the-events-calendar.class.php:1353
+#: ../lib/the-events-calendar.class.php:1407
 msgid "Edit Event Category"
 msgstr "Rediger kategori"
 
-#: ../lib/the-events-calendar.class.php:1354
+#: ../lib/the-events-calendar.class.php:1408
 msgid "Update Event Category"
 msgstr "Opdater kategori"
 
-#: ../lib/the-events-calendar.class.php:1355
+#: ../lib/the-events-calendar.class.php:1409
 msgid "Add New Event Category"
 msgstr "Tilføj ny kategori"
 
-#: ../lib/the-events-calendar.class.php:1356
+#: ../lib/the-events-calendar.class.php:1410
 msgid "New Event Category Name"
 msgstr "Nyt kategorinavn"
 
-#: ../lib/the-events-calendar.class.php:1372
+#: ../lib/the-events-calendar.class.php:1426
 #, php-format
 msgid "Event updated. <a href=\"%s\">View event</a>"
 msgstr "Begivenheden er opdateret. <a href=\"%s\">Se begivenhed</a>"
 
-#: ../lib/the-events-calendar.class.php:1373
-#: ../lib/the-events-calendar.class.php:1390
-#: ../lib/the-events-calendar.class.php:1407
+#: ../lib/the-events-calendar.class.php:1427
+#: ../lib/the-events-calendar.class.php:1444
+#: ../lib/the-events-calendar.class.php:1461
 msgid "Custom field updated."
 msgstr "Custom field opdateret."
 
-#: ../lib/the-events-calendar.class.php:1374
-#: ../lib/the-events-calendar.class.php:1391
-#: ../lib/the-events-calendar.class.php:1408
+#: ../lib/the-events-calendar.class.php:1428
+#: ../lib/the-events-calendar.class.php:1445
+#: ../lib/the-events-calendar.class.php:1462
 msgid "Custom field deleted."
 msgstr "Custom field slettet."
 
-#: ../lib/the-events-calendar.class.php:1375
+#: ../lib/the-events-calendar.class.php:1429
 msgid "Event updated."
 msgstr "Begivenheden er opdateret."
 
-#: ../lib/the-events-calendar.class.php:1377
+#: ../lib/the-events-calendar.class.php:1431
 #, php-format
 msgid "Event restored to revision from %s"
 msgstr "Begivenheden er genskabt til den gemte version fra %s"
 
-#: ../lib/the-events-calendar.class.php:1378
+#: ../lib/the-events-calendar.class.php:1432
 #, php-format
 msgid "Event published. <a href=\"%s\">View event</a>"
 msgstr "Begivenheden er publiceret. <a href=\"%s\">Se begivenhed</a>"
 
-#: ../lib/the-events-calendar.class.php:1379
+#: ../lib/the-events-calendar.class.php:1433
 msgid "Event saved."
 msgstr "Begivenheden er gemt."
 
-#: ../lib/the-events-calendar.class.php:1380
+#: ../lib/the-events-calendar.class.php:1434
 #, php-format
 msgid "Event submitted. <a target=\"_blank\" href=\"%s\">Preview event</a>"
 msgstr ""
 "Begivenheden er indsendt. <a target=\"_blank\" href=\"%s\">Preview "
 "begivenhed</a>"
 
-#: ../lib/the-events-calendar.class.php:1381
+#: ../lib/the-events-calendar.class.php:1435
 #, php-format
 msgid ""
 "Event scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s"
@@ -1836,204 +2000,156 @@ msgstr ""
 "Begivenheden er planlagt til: <strong>%1$s</strong>. <a target=\"_blank\" "
 "href=\"%2$s\">Preview begivenhed</a>"
 
-#: ../lib/the-events-calendar.class.php:1383
-#: ../lib/the-events-calendar.class.php:1400
-#: ../lib/the-events-calendar.class.php:1417
+#: ../lib/the-events-calendar.class.php:1437
+#: ../lib/the-events-calendar.class.php:1454
+#: ../lib/the-events-calendar.class.php:1471
 msgid "M j, Y @ G:i"
 msgstr "M j, Y @ G:i"
 
-#: ../lib/the-events-calendar.class.php:1384
+#: ../lib/the-events-calendar.class.php:1438
 #, php-format
 msgid "Event draft updated. <a target=\"_blank\" href=\"%s\">Preview event</a>"
 msgstr ""
 "Kladden er opdateret. <a target=\"_blank\" href=\"%s\">Preview begivenhed</a>"
 
-#: ../lib/the-events-calendar.class.php:1389
+#: ../lib/the-events-calendar.class.php:1443
+#: ../lib/the-events-calendar.class.php:1446
+#: ../lib/the-events-calendar.class.php:1460
+#: ../lib/the-events-calendar.class.php:1463
 #, php-format
-msgid "Venue updated. <a href=\"%s\">View venue</a>"
-msgstr "Stedet er opdateret. <a href=\"%s\">Se sted</a>"
+msgid "%s updated."
+msgstr "%s er opdateret."
 
-#: ../lib/the-events-calendar.class.php:1392
-msgid "Venue updated."
-msgstr "Stedet er opdateret."
-
-#: ../lib/the-events-calendar.class.php:1394
+#: ../lib/the-events-calendar.class.php:1448
+#: ../lib/the-events-calendar.class.php:1465
 #, php-format
-msgid "Venue restored to revision from %s"
-msgstr "Stedet er genskabt til den gemte version fra %s"
+msgid "%s restored to revision from %s"
+msgstr "%s er genskabt til den gemte version fra %s"
 
-#: ../lib/the-events-calendar.class.php:1395
+#: ../lib/the-events-calendar.class.php:1449
+#: ../lib/the-events-calendar.class.php:1466
 #, php-format
-msgid "Venue published. <a href=\"%s\">View venue</a>"
-msgstr "Stedet er publiceret. <a href=\"%s\">Se sted</a>"
+msgid "%s published."
+msgstr "%s udgivet."
 
-#: ../lib/the-events-calendar.class.php:1396
-msgid "Venue saved."
-msgstr "Stedet er gemt."
-
-#: ../lib/the-events-calendar.class.php:1397
+#: ../lib/the-events-calendar.class.php:1450
+#: ../lib/the-events-calendar.class.php:1467
 #, php-format
-msgid "Venue submitted. <a target=\"_blank\" href=\"%s\">Preview venue</a>"
-msgstr ""
-"Stedet er indsendt. <a target=\"_blank\" href=\"%s\">Preview stedet</a>"
+msgid "%s saved."
+msgstr "%s blev gemt."
 
-#: ../lib/the-events-calendar.class.php:1398
+#: ../lib/the-events-calendar.class.php:1451
+#: ../lib/the-events-calendar.class.php:1468
 #, php-format
-msgid ""
-"Venue scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s"
-"\">Preview venue</a>"
-msgstr ""
-"Stedet er planlagt til: <strong>%1$s</strong>. <a target=\"_blank\" href="
-"\"%2$s\">Preview stedet</a>"
+msgid "%s submitted."
+msgstr "%s tilføjet."
 
-#: ../lib/the-events-calendar.class.php:1401
+#: ../lib/the-events-calendar.class.php:1452
+#: ../lib/the-events-calendar.class.php:1469
 #, php-format
-msgid "Venue draft updated. <a target=\"_blank\" href=\"%s\">Preview venue</a>"
-msgstr ""
-"Kladden er opdateret. <a target=\"_blank\" href=\"%s\">Preview stedet</a>"
-
-#: ../lib/the-events-calendar.class.php:1406
-#, php-format
-msgid "Organizer updated. <a href=\"%s\">View organizer</a>"
-msgstr "Arrangøren opdateret. <a href=\"%s\">Se arrangøren</a>"
-
-#: ../lib/the-events-calendar.class.php:1409
-msgid "Organizer updated."
-msgstr "Arrangøren opdateret."
-
-#: ../lib/the-events-calendar.class.php:1411
-#, php-format
-msgid "Organizer restored to revision from %s"
-msgstr "Arrangøren er genskabt til den gemte version fra %s"
-
-#: ../lib/the-events-calendar.class.php:1412
-#, php-format
-msgid "Organizer published. <a href=\"%s\">View organizer</a>"
-msgstr "Arrangøren er publiceret. <a href=\"%s\">Se arrangøren</a>"
-
-#: ../lib/the-events-calendar.class.php:1413
-msgid "Organizer saved."
-msgstr "Arrangøren er gemt."
-
-#: ../lib/the-events-calendar.class.php:1414
-#, php-format
-msgid ""
-"Organizer submitted. <a target=\"_blank\" href=\"%s\">Preview organizer</a>"
-msgstr ""
-"Arrangøren er indsendt. <a target=\"_blank\" href=\"%s\">Preview arrangøren</"
-"a>"
-
-#: ../lib/the-events-calendar.class.php:1415
-#, php-format
-msgid ""
-"Organizer scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" href="
-"\"%2$s\">Preview organizer</a>"
-msgstr ""
-"Arrangøren er planlagt til: <strong>%1$s</strong>. <a target=\"_blank\" href="
-"\"%2$s\">Preview arrangøren</a>"
-
-#: ../lib/the-events-calendar.class.php:1418
-#, php-format
-msgid ""
-"Organizer draft updated. <a target=\"_blank\" href=\"%s\">Preview organizer</"
-"a>"
-msgstr ""
-"Kladden er opdateret. <a target=\"_blank\" href=\"%s\">Preview arrangøren</a>"
+msgid "%s scheduled for: <strong>%2$s</strong>."
+msgstr "%s begivenheder planlagt for <strong>%2$s/strong>."
 
 #: ../lib/the-events-calendar.class.php:1455
-msgid "Use Saved Venue:"
+#: ../lib/the-events-calendar.class.php:1472
+#, php-format
+msgid "%s draft updated."
+msgstr "%s kladde er opdateret."
+
+#: ../lib/the-events-calendar.class.php:1488
+#: ../lib/the-events-calendar.class.php:1489
+msgid "Add New "
+msgstr "Tilføj ny"
+
+#: ../lib/the-events-calendar.class.php:1508
+msgid "Use Saved "
 msgstr "Genbrug tidligere sted:"
 
-#: ../lib/the-events-calendar.class.php:1478
-msgid "Use Saved Organizer:"
-msgstr "Genbrug tidligere arrangør:"
+#: ../lib/the-events-calendar.class.php:1531
+#, php-format
+msgid "Use Saved %s:"
+msgstr "Brug gemt %s:"
 
-#: ../lib/the-events-calendar.class.php:1518
-msgid "Use New Venue"
+#: ../lib/the-events-calendar.class.php:1570
+msgid "Use New "
 msgstr "Brug nyt sted"
 
-#: ../lib/the-events-calendar.class.php:1520
-msgid "My Venues"
-msgstr "Mine steder"
-
-#: ../lib/the-events-calendar.class.php:1525
-msgid "Available Venues"
-msgstr "Tilgængelige steder"
-
-#: ../lib/the-events-calendar.class.php:1536
-msgid "No saved venue exists."
-msgstr "Der er ingen gemte steder."
-
-#: ../lib/the-events-calendar.class.php:1575
-msgid "Use New Organizer"
-msgstr "Brug ny arrangør"
+#: ../lib/the-events-calendar.class.php:1572
+#: ../lib/the-events-calendar.class.php:1628
+#, php-format
+msgid "My %s"
+msgstr "Min %s"
 
 #: ../lib/the-events-calendar.class.php:1577
-msgid "My Organizers"
-msgstr "Mine arrangører"
+#: ../lib/the-events-calendar.class.php:1633
+#, php-format
+msgid "Available %s"
+msgstr "Tilgængelig %s"
 
-#: ../lib/the-events-calendar.class.php:1582
-msgid "Available Organizers"
-msgstr "Tilgængelige arrangører"
+#: ../lib/the-events-calendar.class.php:1588
+#: ../lib/the-events-calendar.class.php:1644
+#, php-format
+msgid "No saved %s exists."
+msgstr "%s er ikke gemt noget sted."
 
-#: ../lib/the-events-calendar.class.php:1593
-msgid "No saved organizer exists."
-msgstr "Der er ingen gemte arrangører."
+#: ../lib/the-events-calendar.class.php:1626
+#, php-format
+msgid "Use New %s"
+msgstr "Brug nyt %s"
 
-#: ../lib/the-events-calendar.class.php:1771
+#: ../lib/the-events-calendar.class.php:1785
 msgid "Next"
 msgstr "Næste"
 
-#: ../lib/the-events-calendar.class.php:1772
+#: ../lib/the-events-calendar.class.php:1786
 msgid "Prev"
 msgstr "Forrige"
 
-#: ../lib/the-events-calendar.class.php:1773
+#: ../lib/the-events-calendar.class.php:1787
+#: ../public/template-tags/day.php:92
 msgid "Today"
 msgstr "I dag"
 
-#: ../lib/the-events-calendar.class.php:1774
+#: ../lib/the-events-calendar.class.php:1788
 msgid "Done"
 msgstr "Færdig"
 
-#: ../lib/the-events-calendar.class.php:2003
+#: ../lib/the-events-calendar.class.php:1999
 msgid "Network"
 msgstr "Nerværk"
 
-#: ../lib/the-events-calendar.class.php:3427
-#: ../lib/the-events-calendar.class.php:3455
+#: ../lib/the-events-calendar.class.php:3520
+#: ../lib/the-events-calendar.class.php:3548
+#: ../public/template-tags/day.php:140 ../public/template-tags/day.php:159
 msgid "Date out of range."
 msgstr "Dato uden for interval."
 
-#: ../lib/the-events-calendar.class.php:3479
+#: ../lib/the-events-calendar.class.php:3572
 msgid "Event Options"
 msgstr "Indstillinger for begivenheder"
 
-#: ../lib/the-events-calendar.class.php:3481
-msgid "Venue Information"
+#: ../lib/the-events-calendar.class.php:3574
+#: ../lib/the-events-calendar.class.php:3579
+msgid " Information"
 msgstr "Information om steder"
 
-#: ../lib/the-events-calendar.class.php:3486
-msgid "Organizer Information"
-msgstr "Information om arrangører"
-
-#: ../lib/the-events-calendar.class.php:3683
+#: ../lib/the-events-calendar.class.php:3743
 msgid "Support"
 msgstr "Support"
 
-#: ../lib/the-events-calendar.class.php:3686
+#: ../lib/the-events-calendar.class.php:3746
 msgid "View All Add-Ons"
 msgstr "Se alle Add-ons"
 
-#: ../lib/the-events-calendar.class.php:3703
+#: ../lib/the-events-calendar.class.php:3763
 msgid "News from Modern Tribe"
 msgstr "Nyheder fra Modern Tribe"
 
-#: ../lib/the-events-calendar.class.php:3784
+#: ../lib/the-events-calendar.class.php:3844
 msgid "Additional Functionality"
 msgstr "Yderligere funktionaliteter,"
 
-#: ../lib/the-events-calendar.class.php:3789
+#: ../lib/the-events-calendar.class.php:3849
 msgid ""
 "Looking for additional functionality including recurring events, ticket "
 "sales, publicly submitted events, new views and more?"
@@ -2041,31 +2157,39 @@ msgstr ""
 "Leder du efter yderligere funktionaliteter, såsom gentagende begivenheder, "
 "custom meta, community begivenheder og billetsalg?"
 
-#: ../lib/the-events-calendar.class.php:3789
+#: ../lib/the-events-calendar.class.php:3849
 #, php-format
 msgid "Check out the <a href=\"%s\">available add-ons</a>."
 msgstr "Se de <a href=\"%s\">forskellige add-ons</a>."
 
-#: ../lib/the-events-calendar.class.php:3861
-#: ../lib/the-events-calendar.class.php:3951
+#: ../lib/the-events-calendar.class.php:3920
+#: ../lib/the-events-calendar.class.php:4021
 msgid "View Calendar"
 msgstr "Se kalenderen"
 
-#: ../lib/the-events-calendar.class.php:3869
+#: ../lib/the-events-calendar.class.php:3928
 msgid "Add Event"
 msgstr "Tilføj begivenhed"
 
-#: ../lib/the-events-calendar.class.php:3878
+#: ../lib/the-events-calendar.class.php:3937
 msgid "Edit Events"
 msgstr "Rediger begivenheder"
 
-#: ../lib/the-events-calendar.class.php:3890
-#: ../lib/the-events-calendar.class.php:3987
-#: ../lib/tribe-settings.class.php:164
+#: ../lib/the-events-calendar.class.php:3948
+msgid "Import"
+msgstr "CSV import"
+
+#: ../lib/the-events-calendar.class.php:3954
+msgid "CSV"
+msgstr "CSV"
+
+#: ../lib/the-events-calendar.class.php:3966
+#: ../lib/the-events-calendar.class.php:4060
+#: ../lib/tribe-settings.class.php:155
 msgid "Settings"
 msgstr "Indstillinger"
 
-#: ../lib/the-events-calendar.class.php:3921
+#: ../lib/the-events-calendar.class.php:3995
 #, php-format
 msgid ""
 "Welcome to The Events Calendar! Your events calendar can be found at %s. To "
@@ -2074,98 +2198,99 @@ msgstr ""
 "Velkommen til The Events Calendar! Din calendar kan finds på %s. Du kan "
 "ændre titlen på linket under %sEvents -> Settings%s."
 
-#: ../lib/the-events-calendar.class.php:3988
+#: ../lib/the-events-calendar.class.php:4061
 msgid "Calendar"
 msgstr "Kalender"
 
-#: ../lib/the-events-calendar.class.php:4041
+#: ../lib/the-events-calendar.class.php:4136
 msgid "List"
 msgstr "Liste"
 
-#: ../lib/the-events-calendar.class.php:4052
+#: ../lib/the-events-calendar.class.php:4147
 msgid "Month"
 msgstr "Måned"
 
-#: ../lib/the-events-calendar.class.php:4071
-#: ../lib/the-events-calendar.class.php:4073
+#: ../lib/the-events-calendar.class.php:4159
+msgid "Day"
+msgstr "Vis"
+
+#: ../lib/the-events-calendar.class.php:4180
+#: ../lib/the-events-calendar.class.php:4182
 msgid "Search"
 msgstr "Søg efter begivenheder"
 
-#: ../lib/the-events-calendar.class.php:4093
-#: ../lib/the-events-calendar.class.php:4105
+#: ../lib/the-events-calendar.class.php:4204
+#: ../lib/the-events-calendar.class.php:4219
 msgid "Date"
 msgstr "Dato"
 
-#: ../lib/the-events-calendar.class.php:4096
+#: ../lib/the-events-calendar.class.php:4207
 msgid "Events In"
 msgstr "Begivenheder om"
 
-#: ../lib/the-events-calendar.class.php:4098
+#: ../lib/the-events-calendar.class.php:4209
 msgid "Events From"
 msgstr "Begivenheder fra"
 
-#: ../lib/the-events-calendar.class.php:4286
-msgid "&laquo; Previous Events"
-msgstr "&laquo; Forrige"
+#: ../lib/the-events-calendar.class.php:4211
+msgid "Day Of"
+msgstr "Dag"
 
-#: ../lib/the-events-calendar.class.php:4287
-msgid "Next Events &raquo;"
-msgstr "Næste &raquo;"
-
-#: ../lib/tickets/tribe-tickets-attendees.php:67
+#: ../lib/tickets/tribe-tickets-attendees.php:64
 msgid "Order #"
 msgstr "Ordre #"
 
-#: ../lib/tickets/tribe-tickets-attendees.php:68
+#: ../lib/tickets/tribe-tickets-attendees.php:65
 msgid "Order Status"
 msgstr "Ordrestatus"
 
-#: ../lib/tickets/tribe-tickets-attendees.php:69
+#: ../lib/tickets/tribe-tickets-attendees.php:66
 msgid "Purchaser name"
 msgstr "Købers navn"
 
-#: ../lib/tickets/tribe-tickets-attendees.php:70
+#: ../lib/tickets/tribe-tickets-attendees.php:67
 msgid "Purchaser email"
 msgstr "Købers e-mail"
 
-#: ../lib/tickets/tribe-tickets-attendees.php:71
+#: ../lib/tickets/tribe-tickets-attendees.php:68
 msgid "Ticket type"
 msgstr "Billettype"
 
-#: ../lib/tickets/tribe-tickets-attendees.php:72
-#: ../views/tickets/email.php:316
+#: ../lib/tickets/tribe-tickets-attendees.php:69
+#: ../views/tickets/email.php:314
 msgid "Ticket #"
 msgstr "Billet #"
 
-#: ../lib/tickets/tribe-tickets-attendees.php:73
-#: ../views/tickets/email.php:328
+#: ../lib/tickets/tribe-tickets-attendees.php:70
+#: ../views/tickets/email.php:326
 msgid "Security Code"
 msgstr "Sikkerhedskode"
 
-#: ../lib/tickets/tribe-tickets-attendees.php:74
-#: ../lib/tickets/tribe-tickets-attendees.php:161
-#: ../lib/tickets/tribe-tickets-attendees.php:217
+#: ../lib/tickets/tribe-tickets-attendees.php:71
+#: ../lib/tickets/tribe-tickets-attendees.php:156
+#: ../lib/tickets/tribe-tickets-attendees.php:213
 msgid "Check in"
 msgstr "Tjek ind"
 
-#: ../lib/tickets/tribe-tickets-attendees.php:162
-#: ../lib/tickets/tribe-tickets-attendees.php:217
+#: ../lib/tickets/tribe-tickets-attendees.php:157
+#: ../lib/tickets/tribe-tickets-attendees.php:214
 msgid "Undo Check in"
 msgstr "Fortryd tjek ind"
 
-#: ../lib/tickets/tribe-tickets-attendees.php:196
+#: ../lib/tickets/tribe-tickets-attendees.php:191
 msgid "Print"
 msgstr "Print"
 
-#: ../lib/tickets/tribe-tickets-attendees.php:197
+#: ../lib/tickets/tribe-tickets-attendees.php:192
 msgid "Email"
 msgstr "E-mail"
 
-#: ../lib/tickets/tribe-tickets-attendees.php:198
+#: ../lib/tickets/tribe-tickets-attendees.php:193
+#: ../lib/tribe-ical.class.php:111
 msgid "Export"
 msgstr "Eksportér"
 
-#: ../lib/tickets/tribe-tickets-attendees.php:204
+#: ../lib/tickets/tribe-tickets-attendees.php:199
 msgid "Filter by ticket #, order # or security code"
 msgstr "Filtrer after billetnummer, ordrenummer eller sikkerhedskode"
 
@@ -2223,15 +2348,15 @@ msgstr "Din billet er blevet gemt."
 msgid "Your ticket has been deleted."
 msgstr "Din billet er slettet."
 
-#: ../lib/tribe-admin-events-list.class.php:181
+#: ../lib/tribe-admin-events-list.class.php:179
 msgid "Start Date"
 msgstr "Startdato"
 
-#: ../lib/tribe-admin-events-list.class.php:182
+#: ../lib/tribe-admin-events-list.class.php:180
 msgid "End Date"
 msgstr "Slutdato"
 
-#: ../lib/tribe-admin-events-list.class.php:252
+#: ../lib/tribe-admin-events-list.class.php:250
 #, php-format
 msgid "All %s"
 msgstr "Alle %s"
@@ -2241,16 +2366,16 @@ msgstr "Alle %s"
 msgid "Event Add-Ons"
 msgstr "Event Add-Ons"
 
-#: ../lib/tribe-debug-bar.class.php:29
+#: ../lib/tribe-debug-bar.class.php:28
 msgid "Tribe"
 msgstr "Tribe"
 
-#: ../lib/tribe-event-api.class.php:300
+#: ../lib/tribe-event-api.class.php:306
 msgid "Unnamed Venue"
 msgstr "Unavngivet sted"
 
-#: ../lib/tribe-event-api.class.php:368 ../lib/tribe-view-helpers.class.php:44
-#: ../public/template-tags/venue.php:240
+#: ../lib/tribe-event-api.class.php:375 ../lib/tribe-view-helpers.class.php:44
+#: ../public/template-tags/venue.php:249
 msgid "United States"
 msgstr "United States"
 
@@ -2259,68 +2384,128 @@ msgstr "United States"
 msgid "Error"
 msgstr "Fejl"
 
-#: ../lib/tribe-field.class.php:182
+#: ../lib/tribe-field.class.php:176
 msgid "Invalid field type specified"
 msgstr "Forkert felttype valgt"
 
-#: ../lib/tribe-field.class.php:452
+#: ../lib/tribe-field.class.php:414
 msgid "No radio options specified"
 msgstr "Ingen radio options valgt"
 
-#: ../lib/tribe-field.class.php:489
+#: ../lib/tribe-field.class.php:449
 msgid "No checkbox options specified"
 msgstr "Ingen checkbox options valgt"
 
-#: ../lib/tribe-field.class.php:544
+#: ../lib/tribe-field.class.php:500
 msgid "No select options specified"
 msgstr "Ingen select options valgt"
 
-#: ../lib/tribe-settings-tab.class.php:219
+#: ../lib/tribe-ical.class.php:27
+msgctxt "feed link"
+msgid "&raquo;"
+msgstr "&raquo;"
+
+#: ../lib/tribe-ical.class.php:28
+#, php-format
+msgid "%1$s %2$s iCal Feed"
+msgstr "%1$s %2$s iCal Feed"
+
+#: ../lib/tribe-ical.class.php:74
+msgid "Add to Google Calendar"
+msgstr "Tilfø til Google Calendar"
+
+#: ../lib/tribe-ical.class.php:74
+msgid "Google Calendar"
+msgstr "Google kalender"
+
+#: ../lib/tribe-ical.class.php:75
+msgid "Download .ics file"
+msgstr "Download .ics file"
+
+#: ../lib/tribe-ical.class.php:75
+msgid "iCal Export"
+msgstr "Eksportér"
+
+#: ../lib/tribe-ical.class.php:98
+msgid "Month's Events"
+msgstr "Community Events"
+
+#: ../lib/tribe-ical.class.php:101
+msgid "Week's Events"
+msgstr "Afsluttede begivenheder"
+
+#: ../lib/tribe-ical.class.php:104
+msgid "Day's Events"
+msgstr "Afsluttede begivenheder"
+
+#: ../lib/tribe-ical.class.php:107
+msgid "Listed Events"
+msgstr "Find begivenheder"
+
+#: ../lib/tribe-ical.class.php:112
+msgid ""
+"Use this to share calendar data with Google Calendar, Apple iCal and other "
+"compatible apps"
+msgstr ""
+"Brug denne kalender for at dele kalender data på Google Calendar, Apple iCal "
+"og andre kompatible apps"
+
+#: ../lib/tribe-settings-tab.class.php:204
 msgid "There are no fields setup for this tab yet."
 msgstr "Der er endnu ikke sat nogen felter op på dette faneblad."
 
-#: ../lib/tribe-settings.class.php:164 ../lib/tribe-settings.class.php:176
+#: ../lib/tribe-settings.class.php:155 ../lib/tribe-settings.class.php:165
 msgid "The Events Calendar Settings"
 msgstr "The Events Calendar indstillinger"
 
-#: ../lib/tribe-settings.class.php:176
+#: ../lib/tribe-settings.class.php:165
 msgid "Events Settings"
 msgstr "Indstillinger for begivenheder"
 
-#: ../lib/tribe-settings.class.php:225
+#: ../lib/tribe-settings.class.php:210
 #, php-format
 msgid "%s Settings"
 msgstr "%s indstillinger"
 
-#: ../lib/tribe-settings.class.php:239
+#: ../lib/tribe-settings.class.php:224
 msgid "You've requested a non-existent tab."
 msgstr "Det efterspurgte faneblad findes ikke."
 
-#: ../lib/tribe-settings.class.php:247
+#: ../lib/tribe-settings.class.php:232
 msgid " Save Changes"
 msgstr "Gem ændringer"
 
-#: ../lib/tribe-settings.class.php:299
+#: ../lib/tribe-settings.class.php:280
 msgid "You don't have permission to do that."
 msgstr "Du har ikke rettigheder til dette."
 
-#: ../lib/tribe-settings.class.php:305
+#: ../lib/tribe-settings.class.php:286
 msgid "The request was sent insecurely."
 msgstr "Forespørgslen er ikke afsendt sikkert."
 
-#: ../lib/tribe-settings.class.php:311
+#: ../lib/tribe-settings.class.php:292
 msgid "The request wasn't sent from this tab."
 msgstr "Forespørgslen var ikke sendt fra dette faneblad."
 
-#: ../lib/tribe-settings.class.php:476
+#: ../lib/tribe-settings.class.php:453
 msgid "Your form had the following errors:"
 msgstr "Din formular oplevede følgende fejl:"
 
-#: ../lib/tribe-settings.class.php:485
+#: ../lib/tribe-settings.class.php:462
 msgid "None of your settings were saved. Please try again."
 msgstr "Dine indstillinger blev ikke gemt. Prøv igen."
 
-#: ../lib/tribe-settings.class.php:509
+#: ../lib/tribe-settings.class.php:462
+msgid ""
+"The above setting was not saved. Other settings were successfully saved."
+msgid_plural ""
+"The above settings were not saved. Other settings were successfully saved."
+msgstr[0] ""
+"Indstillingen ovenfor blev ikke gemt. Andre indstillinger blev gemt."
+msgstr[1] ""
+"Indstillingerne ovenfor blev ikke gemt. Andre indstillinger blev gemt."
+
+#: ../lib/tribe-settings.class.php:484
 msgid "Settings saved."
 msgstr "Indstillingerne blev gemt."
 
@@ -2348,18 +2533,22 @@ msgstr ""
 msgid "System Information"
 msgstr "Systeminformation"
 
-#: ../lib/tribe-template-factory.class.php:232
+#: ../lib/tribe-support.class.php:107
+msgid "Unknown or not set"
+msgstr "Ukendt eller ikke valgt"
+
+#: ../lib/tribe-template-factory.class.php:221
 #, php-format
 msgid "There were no results found for <strong>\"%s\"</strong>."
 msgstr "Der blev ikke fundet nogen resultater for <strong>\"%s\"</strong>."
 
-#: ../lib/tribe-template-factory.class.php:235
+#: ../lib/tribe-template-factory.class.php:224
 #, php-format
 msgid "No results were found for events in or near <strong>\"%s\"</strong>."
 msgstr ""
 "Der blev ikke fundet nogen resultater i eller nær <strong>\"%s\"</strong>."
 
-#: ../lib/tribe-template-factory.class.php:238
+#: ../lib/tribe-template-factory.class.php:227
 #, php-format
 msgid ""
 "No upcoming events listed under %s. Check out upcoming events for this "
@@ -2368,25 +2557,16 @@ msgstr ""
 "Ingen kommende begivenheder listet under %s. Tjek kommende begivenheder for "
 "denne kategori eller gennemse kalenderen."
 
-#: ../lib/tribe-template-factory.class.php:241
-#, php-format
-msgid ""
-"No matching events listed under %s. Check out upcoming events for this "
-"category or view the full calendar."
-msgstr ""
-"Ingen matchende begivenheder listet under %s. Tjek kommende begivenheder for "
-"denne kategori eller gennemse kalenderen."
-
-#: ../lib/tribe-template-factory.class.php:244
+#: ../lib/tribe-template-factory.class.php:233
 msgid "No previous events "
 msgstr "Ingen tidligere begivenheder"
 
-#: ../lib/tribe-templates.class.php:543
+#: ../lib/tribe-templates.class.php:568
 #, php-format
 msgid "Template overrides should be moved to the correct subdirectory: %s"
 msgstr "Skabelon-tilsidesættelser bør flyttes til den korrekte undermappe: %s"
 
-#: ../lib/tribe-templates.class.php:584
+#: ../lib/tribe-templates.class.php:609
 #, php-format
 msgid ""
 "Template overrides should be moved to the correct subdirectory: "
@@ -2447,100 +2627,105 @@ msgstr "%d rækker med data er blevet opdateret."
 msgid "Install has 1 or more legacy event!"
 msgstr "Installationen har fundet én eller flere gamle events."
 
-#: ../lib/tribe-validate.class.php:77 ../lib/tribe-validate.class.php:115
+#: ../lib/tribe-validate.class.php:73 ../lib/tribe-validate.class.php:111
 msgid "Invalid or incomplete field passed"
 msgstr "Ugyldigt feldt fundet"
 
-#: ../lib/tribe-validate.class.php:78 ../lib/tribe-validate.class.php:110
-#: ../lib/tribe-validate.class.php:116
+#: ../lib/tribe-validate.class.php:74 ../lib/tribe-validate.class.php:106
+#: ../lib/tribe-validate.class.php:112
 msgid "Field ID:"
 msgstr "Feldt ID:"
 
-#: ../lib/tribe-validate.class.php:109
+#: ../lib/tribe-validate.class.php:105
 msgid "Non-existant field validation function passed"
 msgstr "Ikke-ekstisterende feldtfunktion fundet"
 
-#: ../lib/tribe-validate.class.php:135 ../lib/tribe-validate.class.php:153
+#: ../lib/tribe-validate.class.php:106
+msgctxt "non-existant function name passed for field validation"
+msgid "with function name:"
+msgstr "med funktionsnavn:"
+
+#: ../lib/tribe-validate.class.php:129 ../lib/tribe-validate.class.php:145
 #, php-format
 msgid "%s must contain numbers and letters only"
 msgstr "%s må kun indeholde tal og bogstaver"
 
-#: ../lib/tribe-validate.class.php:171
+#: ../lib/tribe-validate.class.php:161
 #, php-format
 msgid "%s must contain numbers, letters and dots only"
 msgstr "%s må kun indeholde tal, bogstaver og punktummer"
 
-#: ../lib/tribe-validate.class.php:187
+#: ../lib/tribe-validate.class.php:175
 #, php-format
 msgid "%s must be a positive number."
 msgstr "%s skal være et positivt tal"
 
-#: ../lib/tribe-validate.class.php:204
+#: ../lib/tribe-validate.class.php:190
 #, php-format
 msgid "%s must be a valid slug (numbers, letters, dashes, and underscores)."
 msgstr "%s må kun indeholde tal, bogstaver, bindestreger og underscores"
 
-#: ../lib/tribe-validate.class.php:221
+#: ../lib/tribe-validate.class.php:205
 #, php-format
 msgid "%s must be a valid absolute URL."
 msgstr "%s skal være et gyldigt link"
 
-#: ../lib/tribe-validate.class.php:239 ../lib/tribe-validate.class.php:258
-#: ../lib/tribe-validate.class.php:279
+#: ../lib/tribe-validate.class.php:221 ../lib/tribe-validate.class.php:238
+#: ../lib/tribe-validate.class.php:257
 #, php-format
 msgid "%s must have a value that's part of its options."
 msgstr "%s skal have en værdi der afspejler dens valg."
 
-#: ../lib/tribe-validate.class.php:295
+#: ../lib/tribe-validate.class.php:271
 #, php-format
 msgid ""
 "Comparison validation failed because no comparison value was provided, for "
 "field %s"
 msgstr "Fejl på grund af manglende værdi som %s kan måle sig mod."
 
-#: ../lib/tribe-validate.class.php:302
+#: ../lib/tribe-validate.class.php:278
 #, php-format
 msgid "%s cannot be the same as %s."
 msgstr "%s må ikke være det samme som %s."
 
-#: ../lib/tribe-validate.class.php:304
+#: ../lib/tribe-validate.class.php:280
 #, php-format
 msgid "%s cannot be a duplicate"
 msgstr "%s må ikke være en gentagelse."
 
-#: ../lib/tribe-validate.class.php:322
+#: ../lib/tribe-validate.class.php:296
 #, php-format
 msgid "%s must be a number or percentage."
 msgstr "%s skal være et nummer eller en procent."
 
-#: ../lib/tribe-validate.class.php:386
+#: ../lib/tribe-validate.class.php:350
 #, php-format
 msgid "%s must be a number between 0 and 21."
 msgstr "%s skal være et nummer mellem 0 og 21."
 
-#: ../lib/tribe-validate.class.php:404
+#: ../lib/tribe-validate.class.php:366
 #, php-format
 msgid ""
 "%s must consist of letters, numbers, dashes, apostrophes, and spaces only."
 msgstr ""
 "%s må kun indeholde tal, bogstaver, bindestreger, apostroffer og mellemrum."
 
-#: ../lib/tribe-validate.class.php:422
+#: ../lib/tribe-validate.class.php:382
 #, php-format
 msgid "%s must consist of letters, spaces, apostrophes, and dashes."
 msgstr "%s må kun indeholde bogstaver, mellemrum og skråstreger."
 
-#: ../lib/tribe-validate.class.php:438
+#: ../lib/tribe-validate.class.php:396
 #, php-format
 msgid "%s must consist of 5 numbers."
 msgstr "%s skal indeholde 5 cifre."
 
-#: ../lib/tribe-validate.class.php:454
+#: ../lib/tribe-validate.class.php:410
 #, php-format
 msgid "%s must be a phone number."
 msgstr "%s skal være et telefonnummer."
 
-#: ../lib/tribe-validate.class.php:472
+#: ../lib/tribe-validate.class.php:426
 msgid ""
 "Country List must be formatted as one country per line in the following "
 "format: <br>US, United States <br> UK, United Kingdom."
@@ -3710,97 +3895,113 @@ msgstr "Wisconsin"
 msgid "Wyoming"
 msgstr "Wyoming"
 
-#: ../lib/widget-list.class.php:21
+#: ../lib/widget-list.class.php:25
 msgid "A widget that displays upcoming events."
 msgstr "Widget, der viser planlagte begivenheder."
 
-#: ../lib/widget-list.class.php:27
+#: ../lib/widget-list.class.php:32
 msgid "Events List"
 msgstr "Liste"
 
-#: ../lib/widget-list.class.php:129
-msgid "View All Events"
-msgstr "Se alle begivenheder"
-
-#: ../lib/widget-list.class.php:131
-msgid "View All Events in Category"
-msgstr "Se alle begivenheder i denne kategori"
-
-#: ../lib/widget-list.class.php:136
-msgid "There are no upcoming events at this time."
-msgstr "Der er ingen planlagte begivenheder."
-
 #: ../public/advanced-functions/meta.php:39
 #: ../public/advanced-functions/meta.php:65
+#: ../views/modules/meta/details.php:36 ../views/modules/meta/details.php:55
 msgid "Start:"
 msgstr "Start:"
 
 #: ../public/advanced-functions/meta.php:46
 #: ../public/advanced-functions/meta.php:72
+#: ../views/modules/meta/details.php:39 ../views/modules/meta/details.php:58
 msgid "End:"
 msgstr "Slut:"
 
 #: ../public/advanced-functions/meta.php:55
 #: ../public/advanced-functions/meta.php:81
+#: ../views/modules/meta/details.php:47 ../views/modules/meta/details.php:66
 msgid "Date:"
 msgstr "Dato:"
 
 #: ../public/advanced-functions/meta.php:90
 #: ../public/advanced-functions/meta.php:99
+#: ../views/modules/meta/details.php:69
 msgid "Time:"
 msgstr "Tidspunkt:"
 
-#: ../public/advanced-functions/meta.php:282
+#: ../public/advanced-functions/meta.php:283
+#: ../public/template-tags/google-map.php:38
 msgid "Click to view a Google Map"
 msgstr "Click for at se Google Maps kort"
 
-#: ../public/advanced-functions/meta.php:283
+#: ../public/advanced-functions/meta.php:284
+#: ../public/template-tags/google-map.php:39
 msgid "+ Google Map"
 msgstr "+ Google Map"
 
-#: ../public/advanced-functions/meta.php:294
+#: ../public/advanced-functions/meta.php:295
+#: ../views/modules/meta/details.php:13
 msgid "Details"
 msgstr "Detaljer"
 
-#: ../public/advanced-functions/meta.php:345
+#: ../public/advanced-functions/meta.php:346
+#: ../views/modules/meta/details.php:97
 msgid "Event Tags:"
 msgstr "Begivenheds-tags:"
 
-#: ../public/advanced-functions/meta.php:371
+#: ../public/advanced-functions/meta.php:372
 msgid "Origin:"
 msgstr "Oprindelse:"
 
-#: ../public/advanced-functions/meta.php:508
+#: ../public/advanced-functions/meta.php:509
 msgid "Event:"
 msgstr "Begivenhed:"
+
+#: ../public/template-tags/day.php:94
+msgid "<span>&laquo;</span> Previous Day"
+msgstr "&laquo; Forrige"
+
+#: ../public/template-tags/day.php:96
+msgid "Next Day <span>&raquo;</span>"
+msgstr "Næste &raquo;"
+
+#: ../public/template-tags/day.php:98
+msgid "Yesterday"
+msgstr "I går"
+
+#: ../public/template-tags/day.php:100
+msgid "Tomorrow"
+msgstr "Comoros"
 
 #: ../public/template-tags/deprecated.php:1156
 msgid "Category"
 msgstr "Kategori"
 
-#: ../public/template-tags/general.php:308
+#: ../public/template-tags/general.php:297
 msgid "Tags:"
 msgstr "Tags:"
 
-#: ../public/template-tags/general.php:409
+#: ../public/template-tags/general.php:393
 msgid "Loading Events"
 msgstr "Indlæser begivenheder"
 
-#: ../public/template-tags/general.php:585
+#: ../public/template-tags/general.php:573
 msgid "Free"
 msgstr "Gratis"
 
-#: ../public/template-tags/general.php:1186
+#: ../public/template-tags/general.php:1161
 #, php-format
 msgid "Calendar powered by %sThe Events Calendar%s"
 msgstr "Powered by %sThe Events Calendar%s"
 
-#: ../public/template-tags/options.php:20
+#: ../public/template-tags/loop.php:133
+msgid "Events for"
+msgstr "Begivenheder for"
+
+#: ../public/template-tags/options.php:18
 #, php-format
 msgid "Your current Events URL is %s"
 msgstr "Linket til nuværende begivenhed er %s"
 
-#: ../public/template-tags/options.php:31
+#: ../public/template-tags/options.php:27
 #, php-format
 msgid ""
 "You <strong>cannot</strong> use the same slug as above. The above should "
@@ -3810,69 +4011,232 @@ msgstr ""
 "Titlen ovenfor bør være i flertal, og denne titel bør være i ental. <br /> "
 "Linket til individuellet begivenheder er: %s"
 
-#: ../views/list/nav.php:17
-msgid "Events List Navigation"
-msgstr "Listevisning"
+#: ../views/day/nav.php:14
+msgid "Day Navigation"
+msgstr "Begivenhedsvisning"
 
-#: ../views/list/nav.php:23 ../views/list/nav.php:29 ../views/list/nav.php:32
-msgid "<span>&laquo;</span> Previous Events"
-msgstr "&laquo; Forrige"
-
-#: ../views/list/nav.php:41 ../views/list/nav.php:44 ../views/list/nav.php:50
-msgid "Next Events <span>&raquo;</span>"
-msgstr "Næste &raquo;"
-
-#: ../views/list/single-event.php:75
+#: ../views/day/single-event.php:72 ../views/list/single-event.php:76
 msgid "Find out more"
 msgstr "Lær mere"
 
-#: ../views/modules/bar.php:34 ../views/modules/bar.php:64
+#: ../views/list/nav.php:15
+msgid "Events List Navigation"
+msgstr "Listevisning"
+
+#: ../views/list/nav.php:21
+msgid "<span>&laquo;</span> Previous Events"
+msgstr "&laquo; Forrige"
+
+#: ../views/list/nav.php:27
+msgid "Next Events <span>&raquo;</span>"
+msgstr "Næste &raquo;"
+
+#: ../views/modules/bar.php:32 ../views/modules/bar.php:62
 msgid "Find Events"
 msgstr "Find begivenheder"
 
-#: ../views/modules/bar.php:41
+#: ../views/modules/bar.php:39
 msgid "Event Views Navigation"
 msgstr "Event views visning"
 
-#: ../views/modules/bar.php:42
+#: ../views/modules/bar.php:40
 msgid "View As"
 msgstr "Vis som"
 
-#: ../views/month/nav.php:18
+#: ../views/month/nav.php:16
 msgid "Calendar Month Navigation"
 msgstr "Månedsvisning"
 
-#: ../views/month/single-day.php:43
+#: ../views/month/single-day.php:41
 msgid "Events "
 msgstr "Begivenheder"
 
-#: ../views/month/single-day.php:45
+#: ../views/month/single-day.php:43
 msgid "Event "
 msgstr "Begivenhed"
 
-#: ../views/single-event.php:23
+#: ../views/single-event.php:21
 msgid "&laquo; All Events"
 msgstr "&laquo; Alle begivenheder"
 
-#: ../views/single-event.php:41 ../views/single-event.php:72
+#: ../views/single-event.php:39 ../views/single-event.php:80
 msgid "Event Navigation"
 msgstr "Begivenhedsvisning"
 
-#: ../views/tickets/attendees-email.php:25
+#: ../views/tickets/attendees-email.php:23
 msgid "Attendee List"
 msgstr "Deltagerliste"
 
-#: ../views/tickets/email.php:39
+#: ../views/tickets/email.php:37
 msgid "Your tickets"
 msgstr "Dine billetter"
 
-#: ../views/tickets/email.php:320
+#: ../views/tickets/email.php:318
 msgid "Ticket Type"
 msgstr "Billettype"
 
-#: ../views/tickets/email.php:324
+#: ../views/tickets/email.php:322
 msgid "Purchaser"
 msgstr "Køber"
+
+#: ../views/widgets/list-widget.php:60
+msgid "View All Events"
+msgstr "Se alle begivenheder"
+
+#: ../views/widgets/list-widget.php:66
+msgid "There are no upcoming events at this time."
+msgstr "Der er ingen planlagte begivenheder."
+
+#~ msgid "Organizer Name:"
+#~ msgstr "Navn på arrangør:"
+
+#~ msgid "Venue:"
+#~ msgstr "Sted:"
+
+#~ msgid "venue"
+#~ msgstr "sted"
+
+#~ msgid "No description has been entered for this event."
+#~ msgstr "Denne begivenhed mangler en beskrivelse."
+
+#~ msgid "Add New Venue"
+#~ msgstr "Tilføj nyt sted"
+
+#~ msgid "Edit Venue"
+#~ msgstr "Rediger sted"
+
+#~ msgid "New Venue"
+#~ msgstr "Nyt sted"
+
+#~ msgid "View Venue"
+#~ msgstr "Se sted"
+
+#~ msgid "Search Venues"
+#~ msgstr "Søg efter steder"
+
+#~ msgid "No venue found"
+#~ msgstr "Ingen steder fundet"
+
+#~ msgid "No venues found in Trash"
+#~ msgstr "Ingen steder funder i papirkurven"
+
+#~ msgid "Add New Organizer"
+#~ msgstr "Tilføj ny arrangør"
+
+#~ msgid "Edit Organizer"
+#~ msgstr "Rediger arrangør"
+
+#~ msgid "New Organizer"
+#~ msgstr "Ny arrangør"
+
+#~ msgid "View Organizer"
+#~ msgstr "Se arrangør"
+
+#~ msgid "Search Organizers"
+#~ msgstr "Søg efter arrangører"
+
+#~ msgid "No organizer found"
+#~ msgstr "Ingen arrangører fundet"
+
+#~ msgid "No organizers found in Trash"
+#~ msgstr "Ingen arrangører fundet i papirkurven"
+
+#~ msgid "Venue updated. <a href=\"%s\">View venue</a>"
+#~ msgstr "Stedet er opdateret. <a href=\"%s\">Se sted</a>"
+
+#~ msgid "Venue updated."
+#~ msgstr "Stedet er opdateret."
+
+#~ msgid "Venue restored to revision from %s"
+#~ msgstr "Stedet er genskabt til den gemte version fra %s"
+
+#~ msgid "Venue published. <a href=\"%s\">View venue</a>"
+#~ msgstr "Stedet er publiceret. <a href=\"%s\">Se sted</a>"
+
+#~ msgid "Venue saved."
+#~ msgstr "Stedet er gemt."
+
+#~ msgid "Venue submitted. <a target=\"_blank\" href=\"%s\">Preview venue</a>"
+#~ msgstr ""
+#~ "Stedet er indsendt. <a target=\"_blank\" href=\"%s\">Preview stedet</a>"
+
+#~ msgid ""
+#~ "Venue scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" href="
+#~ "\"%2$s\">Preview venue</a>"
+#~ msgstr ""
+#~ "Stedet er planlagt til: <strong>%1$s</strong>. <a target=\"_blank\" href="
+#~ "\"%2$s\">Preview stedet</a>"
+
+#~ msgid ""
+#~ "Venue draft updated. <a target=\"_blank\" href=\"%s\">Preview venue</a>"
+#~ msgstr ""
+#~ "Kladden er opdateret. <a target=\"_blank\" href=\"%s\">Preview stedet</a>"
+
+#~ msgid "Organizer updated. <a href=\"%s\">View organizer</a>"
+#~ msgstr "Arrangøren opdateret. <a href=\"%s\">Se arrangøren</a>"
+
+#~ msgid "Organizer updated."
+#~ msgstr "Arrangøren opdateret."
+
+#~ msgid "Organizer restored to revision from %s"
+#~ msgstr "Arrangøren er genskabt til den gemte version fra %s"
+
+#~ msgid "Organizer published. <a href=\"%s\">View organizer</a>"
+#~ msgstr "Arrangøren er publiceret. <a href=\"%s\">Se arrangøren</a>"
+
+#~ msgid "Organizer saved."
+#~ msgstr "Arrangøren er gemt."
+
+#~ msgid ""
+#~ "Organizer submitted. <a target=\"_blank\" href=\"%s\">Preview organizer</"
+#~ "a>"
+#~ msgstr ""
+#~ "Arrangøren er indsendt. <a target=\"_blank\" href=\"%s\">Preview "
+#~ "arrangøren</a>"
+
+#~ msgid ""
+#~ "Organizer scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" href="
+#~ "\"%2$s\">Preview organizer</a>"
+#~ msgstr ""
+#~ "Arrangøren er planlagt til: <strong>%1$s</strong>. <a target=\"_blank\" "
+#~ "href=\"%2$s\">Preview arrangøren</a>"
+
+#~ msgid ""
+#~ "Organizer draft updated. <a target=\"_blank\" href=\"%s\">Preview "
+#~ "organizer</a>"
+#~ msgstr ""
+#~ "Kladden er opdateret. <a target=\"_blank\" href=\"%s\">Preview "
+#~ "arrangøren</a>"
+
+#~ msgid "Use Saved Organizer:"
+#~ msgstr "Genbrug tidligere arrangør:"
+
+#~ msgid "My Venues"
+#~ msgstr "Mine steder"
+
+#~ msgid "Use New Organizer"
+#~ msgstr "Brug ny arrangør"
+
+#~ msgid "My Organizers"
+#~ msgstr "Mine arrangører"
+
+#~ msgid "Available Organizers"
+#~ msgstr "Tilgængelige arrangører"
+
+#~ msgid "No saved organizer exists."
+#~ msgstr "Der er ingen gemte arrangører."
+
+#~ msgid "Organizer Information"
+#~ msgstr "Information om arrangører"
+
+#~ msgid "&laquo; Previous Events"
+#~ msgstr "&laquo; Forrige"
+
+#~ msgid "Next Events &raquo;"
+#~ msgstr "Næste &raquo;"
+
+#~ msgid "View All Events in Category"
+#~ msgstr "Se alle begivenheder i denne kategori"
 
 #~ msgid ""
 #~ "Would you like to change only this instance of the event, or all future "
@@ -3913,13 +4277,6 @@ msgstr "Køber"
 #~ msgid "Enable ajax to live refresh content."
 #~ msgstr "Brug ajax til 'live' opdatering af indhold."
 
-#~ msgctxt "not available"
-#~ msgid "n/a"
-#~ msgstr "n/a"
-
-#~ msgid "Community Events"
-#~ msgstr "Community Events"
-
 #~ msgid "Facebook Events"
 #~ msgstr "Facebook Events"
 
@@ -3944,11 +4301,6 @@ msgstr "Køber"
 #~ msgid "Forums"
 #~ msgstr "Forums"
 
-#~ msgid "Based on %d rating"
-#~ msgid_plural "Based on %d ratings"
-#~ msgstr[0] "Based on %d rating"
-#~ msgstr[1] "Based on %d ratings"
-
 #~ msgid "Events at %s"
 #~ msgstr "Begivenheder hos %s"
 
@@ -3965,35 +4317,17 @@ msgstr "Køber"
 #~ msgstr "Nej"
 
 #~ msgid ""
-#~ "The above setting was not saved. Other settings were successfully saved."
-#~ msgid_plural ""
-#~ "The above settings were not saved. Other settings were successfully saved."
-#~ msgstr[0] ""
-#~ "Indstillingen ovenfor blev ikke gemt. Andre indstillinger blev gemt."
-#~ msgstr[1] ""
-#~ "Indstillingerne ovenfor blev ikke gemt. Andre indstillinger blev gemt."
-
-#~ msgid ""
 #~ "listed under %s. Check out past events for this category or view the full "
 #~ "calendar."
 #~ msgstr ""
 #~ "vist under %s. Check tidligere begivenheder for denne kategori eller "
 #~ "gennemse kalenderen."
 
-#~ msgid "No events scheduled for <strong>%s</strong>. Please try another day."
-#~ msgstr ""
-#~ "Der er ingen begivenheder planlagt for <strong>%s</strong>. Prøv venligst "
-#~ "en anden dag."
-
 #~ msgid "No upcoming events "
 #~ msgstr "Ingen kommende begivenheder"
 
 #~ msgid "No matching events "
 #~ msgstr "Ingen lignende begivenheder"
-
-#~ msgctxt "non-existant function name passed for field validation"
-#~ msgid "with function name:"
-#~ msgstr "med funktionsnavn:"
 
 #~ msgid "Recurring Event"
 #~ msgstr "Gentagende begivenhed"
