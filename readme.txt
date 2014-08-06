@@ -164,7 +164,7 @@ The plugin is produced by <a href="http://m.tri.be/45">Modern Tribe Inc</a>.
 * Chinese from Massound Huang
 * Croatian from Marko Manojlovic
 * Czech from Petr Bastan
-* Danish from Anonymous
+* Danish from Hans Christian Andersen
 * Dutch from J.F.M. Cornelissen and Frans Pronk
 * Estonian from Andra Saimre
 * Finnish by Ari-Pekka Koponen
@@ -224,6 +224,7 @@ Our Premium Plugins:
 * Incorporated new Russian translation files, courtesy of Alexander Tinyaev
 * Incorporated updated Italian translation files, courtesy of Gabriele Taffi
 * Incorporated updated Spanish translation files, courtesy of Juanjo Navarro
+* Incorporated updated Danish translation files, courtesy of Hans Christian Andersen
 
 = 3.7 =
 
