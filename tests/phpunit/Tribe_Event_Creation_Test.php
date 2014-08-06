@@ -3,7 +3,7 @@
 /**
  * Tests event creation functionality
  *
- * @group core
+ * @group   core
  *
  * @package TribeEvents
  */
@@ -22,22 +22,22 @@ class Tribe_Event_Creation_Test extends WP_UnitTestCase {
 	function setUp() {
 		parent::setUp();
 		$this->postExampleSettings = array(
-			'post_author' => 3,
-			'post_content' => 'This is event content!',
-			'EventAllDay' => false,
+			'post_author'           => 3,
+			'post_content'          => 'This is event content!',
+			'EventAllDay'           => false,
 			'EventHideFromUpcoming' => true,
-			'EventOrganizerID' => 5,
-			'EventVenueID' => 8,
-			'EventShowMapLink' => true,
-			'EventShowMap' => true,
-			'EventStartDate' => '2012-01-01',
-			'EventEndDate' => '2012-01-03',
-			'EventStartHour' => '01',
-			'EventStartMinute' => '15',
-			'EventStartMeridian' => 'am',
-			'EventEndHour' => '03',
-			'EventEndMinute' => '25',
-			'EventEndMeridian' => 'pm'
+			'EventOrganizerID'      => 5,
+			'EventVenueID'          => 8,
+			'EventShowMapLink'      => true,
+			'EventShowMap'          => true,
+			'EventStartDate'        => '2012-01-01',
+			'EventEndDate'          => '2012-01-03',
+			'EventStartHour'        => '01',
+			'EventStartMinute'      => '15',
+			'EventStartMeridian'    => 'am',
+			'EventEndHour'          => '03',
+			'EventEndMinute'        => '25',
+			'EventEndMeridian'      => 'pm'
 		);
 	}
 
@@ -49,7 +49,7 @@ class Tribe_Event_Creation_Test extends WP_UnitTestCase {
 	function test_tribe_create_event_template_tag_post_object_created() {
 		$post = get_post( tribe_create_event( $this->postExampleSettings ) );
 
-		$this->assertInternalType( 'object', $post);
+		$this->assertInternalType( 'object', $post );
 	}
 
 	/**
@@ -77,9 +77,9 @@ class Tribe_Event_Creation_Test extends WP_UnitTestCase {
 	 * @uses $postExampleSettings
 	 */
 	function test_tribe_create_event_API_post_object_created() {
-		$post = get_post( TribeEventsAPI::createEvent($this->postExampleSettings) );
+		$post = get_post( TribeEventsAPI::createEvent( $this->postExampleSettings ) );
 
-		$this->assertInternalType( 'object', $post);
+		$this->assertInternalType( 'object', $post );
 	}
 
 	/**
