@@ -4,7 +4,7 @@
  * @version 3.0
  */
 
-(function (window, document, $, td, te, tf, ts, tt, dbug) {
+(function( window, document, $, td, te, tf, ts, tt, dbug ) {
 
 	/*
 	 * $    = jQuery
@@ -16,27 +16,29 @@
 	 * dbug = tribe_debug
 	 */
 
-	if(dbug){
-		if(!$().isotope){
-			debug.warn('TEC Debug: vendor isotope was not loaded before its dependant file tribe-photo-view.js');
+	if ( dbug ) {
+		if ( !$().isotope ) {
+			debug.warn( 'TEC Debug: vendor isotope was not loaded before its dependant file tribe-photo-view.js' );
 		}
 	}
 
-	$(document).ready(function () {
+	$( document ).ready( function() {
 
-		var tribe_is_paged = tf.get_url_param('tribe_paged'),
-			tribe_display = tf.get_url_param('tribe_event_display'),
-			$container = $('#tribe-events-photo-events'),
+		var tribe_is_paged = tf.get_url_param( 'tribe_paged' ),
+			tribe_display = tf.get_url_param( 'tribe_event_display' ),
+			$container = $( '#tribe-events-photo-events' ),
 			container_width = 0,
 			resize_timer;
 
 		ts.view = 'photo';
 
-		if (tribe_is_paged)
+		if ( tribe_is_paged ) {
 			ts.paged = tribe_is_paged;
+		}
 
-		if(tribe_display == 'past')
+		if ( tribe_display == 'past' ) {
 			ts.view = 'past';
+		}
 
 		/**
 		 * @function tribe_show_loader
@@ -44,8 +46,8 @@
 		 */
 
 		function tribe_show_loader() {
-			$('.photo-loader').show();
-			$('#tribe-events-photo-events').addClass("photo-hidden");
+			$( '.photo-loader' ).show();
+			$( '#tribe-events-photo-events' ).addClass( "photo-hidden" );
 		}
 
 		/**
@@ -54,8 +56,8 @@
 		 */
 
 		function tribe_hide_loader() {
-			$('.photo-loader').hide();
-			$('#tribe-events-photo-events').removeClass("photo-hidden").animate({"opacity": "1"}, {duration: 600});
+			$( '.photo-loader' ).hide();
+			$( '#tribe-events-photo-events' ).removeClass( "photo-hidden" ).animate( {"opacity": "1"}, {duration: 600} );
 		}
 
 		/**
@@ -64,12 +66,13 @@
 		 * @param {jQuery} $container The photo view container.
 		 */
 
-		function tribe_apply_photo_cols($container){
+		function tribe_apply_photo_cols( $container ) {
 			container_width = $container.width();
-			if (container_width < 645) {
-				$container.addClass('photo-two-col');
-			} else {
-				$container.removeClass('photo-two-col');
+			if ( container_width < 645 ) {
+				$container.addClass( 'photo-two-col' );
+			}
+			else {
+				$container.removeClass( 'photo-two-col' );
 			}
 		}
 
@@ -79,105 +82,116 @@
 		 * @param {jQuery} $container The photo view container.
 		 */
 
-		function tribe_setup_isotope($container) {
-			if ($().isotope) {
+		function tribe_setup_isotope( $container ) {
+			if ( $().isotope ) {
 
-				$container.imagesLoaded(function () {
-					$container.isotope({
+				$container.imagesLoaded( function() {
+					$container.isotope( {
 						transformsEnabled: false,
-						containerStyle: {
+						containerStyle   : {
 							position: 'relative',
 							overflow: 'visible'
 						}
-					}, tribe_hide_loader());
-					dbug && debug.info('TEC Debug: imagesLoaded setup isotope on photo view.');
-				});
+					}, tribe_hide_loader() );
+					dbug && debug.info( 'TEC Debug: imagesLoaded setup isotope on photo view.' );
+				} );
 
-				tribe_apply_photo_cols($container);
+				tribe_apply_photo_cols( $container );
 
-				$container.resize(function () {
-					tribe_apply_photo_cols($container);
-					clearTimeout(resize_timer);
-					resize_timer = setTimeout(function(){$container.isotope('reLayout');}, 400);
-				});
+				$container.resize( function() {
+					tribe_apply_photo_cols( $container );
+					clearTimeout( resize_timer );
+					resize_timer = setTimeout( function() {
+						$container.isotope( 'reLayout' );
+					}, 400 );
+				} );
 
-			} else {
-				$('#tribe-events-photo-events').removeClass("photo-hidden").css("opacity", "1");
+			}
+			else {
+				$( '#tribe-events-photo-events' ).removeClass( "photo-hidden" ).css( "opacity", "1" );
 			}
 		}
 
-		tribe_setup_isotope($container);
+		tribe_setup_isotope( $container );
 
-		if (tt.pushstate && !tt.map_view()) {
+		if ( tt.pushstate && !tt.map_view() ) {
 
 			var params = 'action=tribe_photo&tribe_paged=' + ts.paged;
 
-			if (td.params.length)
+			if ( td.params.length ) {
 				params = params + '&' + td.params;
+			}
 
-			if (ts.category)
+			if ( ts.category ) {
 				params = params + '&tribe_event_category=' + ts.category;
+			}
 
-			history.replaceState({
-				"tribe_params": params,
+			history.replaceState( {
+				"tribe_params"    : params,
 				"tribe_url_params": td.params
-			}, '', location.href);
+			}, '', location.href );
 
-			$(window).on('popstate', function (event) {
+			$( window ).on( 'popstate', function( event ) {
 
 				var state = event.originalEvent.state;
 
-				if (state) {
+				if ( state ) {
 					ts.do_string = false;
 					ts.pushstate = false;
 					ts.popping = true;
 					ts.params = state.tribe_params;
 					ts.url_params = state.tribe_url_params;
-					tf.pre_ajax(function () {
+					tf.pre_ajax( function() {
 						tribe_events_photo_ajax_post();
-					});
+					} );
 
-					tf.set_form(ts.params);
+					tf.set_form( ts.params );
 				}
-			});
+			} );
 		}
 
-		$('#tribe-events').on('click', 'li.tribe-events-nav-next a',function (e) {
+		$( '#tribe-events' ).on( 'click', 'li.tribe-events-nav-next a',function( e ) {
 			e.preventDefault();
-			if (ts.ajax_running)
+			if ( ts.ajax_running ) {
 				return;
-			if (ts.view == 'past') {
-				if (ts.paged == '1') {
+			}
+			if ( ts.view == 'past' ) {
+				if ( ts.paged == '1' ) {
 					ts.view = 'photo';
-				} else {
+				}
+				else {
 					ts.paged--;
 				}
-			} else {
+			}
+			else {
 				ts.paged++;
 			}
 			ts.popping = false;
-			tf.pre_ajax(function () {
+			tf.pre_ajax( function() {
 				tribe_events_photo_ajax_post();
-			});
-		}).on('click', 'li.tribe-events-nav-previous a', function (e) {
-				e.preventDefault();
-				if (ts.ajax_running)
-					return;
-				if (ts.view == 'photo') {
-					if (ts.paged == '1') {
-						ts.view = 'past';
-					} else {
-						ts.paged--;
-
-					}
-				} else {
-					ts.paged++;
+			} );
+		} ).on( 'click', 'li.tribe-events-nav-previous a', function( e ) {
+			e.preventDefault();
+			if ( ts.ajax_running ) {
+				return;
+			}
+			if ( ts.view == 'photo' ) {
+				if ( ts.paged == '1' ) {
+					ts.view = 'past';
 				}
-				ts.popping = false;
-				tf.pre_ajax(function () {
-					tribe_events_photo_ajax_post();
-				});
-			});
+				else {
+					ts.paged--;
+
+				}
+			}
+			else {
+				ts.paged++;
+			}
+			ts.popping = false;
+			tf.pre_ajax( function() {
+				tribe_events_photo_ajax_post();
+			} );
+		} );
 
 		/**
 		 * @function tribe_events_bar_photoajax_actions
@@ -185,42 +199,44 @@
 		 * @param {event} e The event object.
 		 */
 
-		function tribe_events_bar_photoajax_actions(e) {
-			if (tribe_events_bar_action != 'change_view') {
+		function tribe_events_bar_photoajax_actions( e ) {
+			if ( tribe_events_bar_action != 'change_view' ) {
 				e.preventDefault();
-				if (ts.ajax_running)
+				if ( ts.ajax_running ) {
 					return;
+				}
 				ts.paged = 1;
 				ts.view = 'photo';
 				ts.popping = false;
-				tf.pre_ajax(function () {
+				tf.pre_ajax( function() {
 					tribe_events_photo_ajax_post();
-				});
+				} );
 			}
 		}
 
-		if (tt.no_bar() || tt.live_ajax() && tt.pushstate) {
-			$('#tribe-bar-date').on('changeDate', function (e) {
-				if (!tt.reset_on())
-					tribe_events_bar_photoajax_actions(e)
-			});
+		if ( tt.no_bar() || tt.live_ajax() && tt.pushstate ) {
+			$( '#tribe-bar-date' ).on( 'changeDate', function( e ) {
+				if ( !tt.reset_on() ) {
+					tribe_events_bar_photoajax_actions( e )
+				}
+			} );
 		}
 
-		$(te).on("tribe_ev_updatingRecurrence", function () {
+		$( te ).on( "tribe_ev_updatingRecurrence", function() {
 			ts.popping = false;
-		});
+		} );
 
-		$('#tribe-bar-form').on('submit', function (e) {
-			if (tribe_events_bar_action != 'change_view') {
-				tribe_events_bar_photoajax_actions(e)
+		$( '#tribe-bar-form' ).on( 'submit', function( e ) {
+			if ( tribe_events_bar_action != 'change_view' ) {
+				tribe_events_bar_photoajax_actions( e )
 			}
-		});
+		} );
 
-		tf.snap('#tribe-events-content', '#tribe-events-content', '#tribe-events-footer .tribe-events-nav-previous a, #tribe-events-footer .tribe-events-nav-next a');
+		tf.snap( '#tribe-events-content', '#tribe-events-content', '#tribe-events-footer .tribe-events-nav-previous a, #tribe-events-footer .tribe-events-nav-next a' );
 
-		$(te).on("tribe_ev_runAjax", function () {
+		$( te ).on( "tribe_ev_runAjax", function() {
 			tribe_events_photo_ajax_post();
-		});
+		} );
 
 		/**
 		 * @function tribe_events_photo_ajax_post
@@ -232,149 +248,158 @@
 
 		function tribe_events_photo_ajax_post() {
 
-			if (!ts.popping) {
+			if ( !ts.popping ) {
 
 				ts.ajax_running = true;
-				if (ts.filter_cats)
-					td.cur_url = $('#tribe-events-header').data('baseurl');
+				if ( ts.filter_cats ) {
+					td.cur_url = $( '#tribe-events-header' ).data( 'baseurl' );
+				}
 
-				var tribe_hash_string = $('#tribe-events-list-hash').val();
+				var tribe_hash_string = $( '#tribe-events-list-hash' ).val();
 
 				ts.params = {
-					action: 'tribe_photo',
-					tribe_paged: ts.paged,
+					action             : 'tribe_photo',
+					tribe_paged        : ts.paged,
 					tribe_event_display: ts.view
 				};
 
 				ts.url_params = {
-					action: 'tribe_photo',
-					tribe_paged: ts.paged,
+					action             : 'tribe_photo',
+					tribe_paged        : ts.paged,
 					tribe_event_display: ts.view
 				};
 
-				if (tribe_hash_string.length) {
+				if ( tribe_hash_string.length ) {
 					ts.params['hash'] = tribe_hash_string;
 				}
 
-				if (ts.category) {
+				if ( ts.category ) {
 					ts.params['tribe_event_category'] = ts.category;
 				}
 
-				$(te).trigger('tribe_ev_serializeBar');
+				$( te ).trigger( 'tribe_ev_serializeBar' );
 
-                if(tf.invalid_date_in_params(ts.params)){
-                    ts.ajax_running = false;
-                    return;
-                }
+				if ( tf.invalid_date_in_params( ts.params ) ) {
+					ts.ajax_running = false;
+					return;
+				}
 
-                $('#tribe-events-header').tribe_spin();
-                tribe_show_loader();
+				$( '#tribe-events-header' ).tribe_spin();
+				tribe_show_loader();
 
-				ts.params = $.param(ts.params);
-				ts.url_params = $.param(ts.url_params);
+				ts.params = $.param( ts.params );
+				ts.url_params = $.param( ts.url_params );
 
-				$(te).trigger('tribe_ev_collectParams');
+				$( te ).trigger( 'tribe_ev_collectParams' );
 
 				ts.pushstate = false;
 				ts.do_string = true;
 
 			}
 
-			if (tt.pushstate && !ts.filter_cats) {
+			if ( tt.pushstate && !ts.filter_cats ) {
 
-				dbug && debug.time('Photo View Ajax Timer');
-				$(te).trigger('tribe_ev_ajaxStart').trigger('tribe_ev_photoView_AjaxStart');
+				dbug && debug.time( 'Photo View Ajax Timer' );
+				$( te ).trigger( 'tribe_ev_ajaxStart' ).trigger( 'tribe_ev_photoView_AjaxStart' );
 
 				$.post(
 					TribePhoto.ajaxurl,
 					ts.params,
-					function (response) {
+					function( response ) {
 
 						ts.initial_load = false;
-						tf.enable_inputs('#tribe_events_filters_form', 'input, select');
+						tf.enable_inputs( '#tribe_events_filters_form', 'input, select' );
 
-						if (response.success) {
+						if ( response.success ) {
 
 							ts.ajax_running = false;
 
 							td.ajax_response = {
-								'total_count': parseInt(response.total_count),
-								'view': response.view,
-								'max_pages': response.max_pages,
+								'total_count': parseInt( response.total_count ),
+								'view'       : response.view,
+								'max_pages'  : response.max_pages,
 								'tribe_paged': response.tribe_paged,
-								'timestamp': new Date().getTime()
+								'timestamp'  : new Date().getTime()
 							};
 
-							$('#tribe-events-list-hash').val(response.hash);
+							$( '#tribe-events-list-hash' ).val( response.hash );
 
 							var $the_content = '';
-							if($.isFunction($.fn.parseHTML))
-								$the_content = $.parseHTML(response.html);
-							else
+							if ( $.isFunction( $.fn.parseHTML ) ) {
+								$the_content = $.parseHTML( response.html );
+							}
+							else {
 								$the_content = response.html;
+							}
 
-							$('#tribe-events-content').replaceWith($the_content);
-							$('#tribe-events-content').prev('#tribe-events-list-hash').remove();
-							$('.tribe-events-promo').next('.tribe-events-promo').remove();
+							$( '#tribe-events-content' ).replaceWith( $the_content );
+							$( '#tribe-events-content' ).prev( '#tribe-events-list-hash' ).remove();
+							$( '.tribe-events-promo' ).next( '.tribe-events-promo' ).remove();
 
-							if (response.view === 'photo') {
-								if (response.max_pages == ts.paged) {
-									$('.tribe-events-nav-next').hide();
-								} else {
-
-									$('.tribe-events-nav-next').show();
+							if ( response.view === 'photo' ) {
+								if ( response.max_pages == ts.paged ) {
+									$( '.tribe-events-nav-next' ).hide();
 								}
-							} else {
-								if (response.max_pages == ts.paged) {
-									$('.tribe-events-nav-previous').hide();
-								} else {
-									$('.tribe-events-nav-previous').show();
+								else {
+
+									$( '.tribe-events-nav-next' ).show();
+								}
+							}
+							else {
+								if ( response.max_pages == ts.paged ) {
+									$( '.tribe-events-nav-previous' ).hide();
+								}
+								else {
+									$( '.tribe-events-nav-previous' ).show();
 								}
 							}
 
 							//If no events are returned, then hide Header 
-							if (response.max_pages == 0) {
-								$('#tribe-events-header').hide();
+							if ( response.max_pages == 0 ) {
+								$( '#tribe-events-header' ).hide();
 							}
 
-							ts.page_title = $('#tribe-events-header').data('title');
+							ts.page_title = $( '#tribe-events-header' ).data( 'title' );
 							document.title = ts.page_title;
 
-							if (ts.do_string) {
-								history.pushState({
-									"tribe_params": ts.params,
+							if ( ts.do_string ) {
+								history.pushState( {
+									"tribe_params"    : ts.params,
 									"tribe_url_params": ts.url_params
-								}, ts.page_title, td.cur_url + '?' + ts.url_params);
+								}, ts.page_title, td.cur_url + '?' + ts.url_params );
 							}
 
-							if (ts.pushstate) {
-								history.pushState({
-									"tribe_params": ts.params,
+							if ( ts.pushstate ) {
+								history.pushState( {
+									"tribe_params"    : ts.params,
 									"tribe_url_params": ts.url_params
-								}, ts.page_title, td.cur_url);
+								}, ts.page_title, td.cur_url );
 							}
 
-							tribe_setup_isotope($('#tribe-events-photo-events'));
+							tribe_setup_isotope( $( '#tribe-events-photo-events' ) );
 
-							$(te).trigger('tribe_ev_ajaxSuccess').trigger('tribe_ev_photoView_AjaxSuccess');
+							$( te ).trigger( 'tribe_ev_ajaxSuccess' ).trigger( 'tribe_ev_photoView_AjaxSuccess' );
 
-							dbug && debug.timeEnd('Photo View Ajax Timer');
+							dbug && debug.timeEnd( 'Photo View Ajax Timer' );
 
 						}
 					}
 				);
-			} else {
+			}
+			else {
 
-				if (ts.url_params.length)
+				if ( ts.url_params.length ) {
 					window.location = td.cur_url + '?' + ts.url_params;
-				else
+				}
+				else {
 					window.location = td.cur_url;
+				}
 			}
 		}
 
-		dbug && debug.info('TEC Debug: tribe-events-photo-view.js successfully loaded');
-		ts.view && dbug && debug.timeEnd('Tribe JS Init Timer');
+		dbug && debug.info( 'TEC Debug: tribe-events-photo-view.js successfully loaded' );
+		ts.view && dbug && debug.timeEnd( 'Tribe JS Init Timer' );
 
-	});
+	} );
 
-})(window, document, jQuery, tribe_ev.data, tribe_ev.events, tribe_ev.fn, tribe_ev.state, tribe_ev.tests, tribe_debug);
+})( window, document, jQuery, tribe_ev.data, tribe_ev.events, tribe_ev.fn, tribe_ev.state, tribe_ev.tests, tribe_debug );
