@@ -1,12 +1,12 @@
-jQuery( document ).ready( function ( $ ) {
+jQuery( document ).ready( function( $ ) {
 
 
 	if ( AttendeesPointer ) {
 		options = $.extend( AttendeesPointer.options, {
-			close:function () {
+			close: function() {
 				$.post( ajaxurl, {
-					pointer:AttendeesPointer.pointer_id,
-					action :'dismiss-wp-pointer'
+					pointer: AttendeesPointer.pointer_id,
+					action : 'dismiss-wp-pointer'
 				} );
 			}
 		} );
@@ -14,22 +14,22 @@ jQuery( document ).ready( function ( $ ) {
 		$( AttendeesPointer.target ).pointer( options ).pointer( 'open' );
 	}
 
-	$( 'input.print' ).on( 'click', function ( e ) {
+	$( 'input.print' ).on( 'click', function( e ) {
 		window.print();
 	} );
 
 	$( "#attendees_email_wrapper" ).dialog( {
-		autoOpen:false,
+		autoOpen   : false,
 		dialogClass: 'attendees_email_dialog',
-		height  :'auto',
-		width   :400,
-		modal   :true,
-		buttons :{
-			"Send":function () {
+		height     : 'auto',
+		width      : 400,
+		modal      : true,
+		buttons    : {
+			"Send": function() {
 
-				var $errors = $('.attendees_email_dialog #email_errors');
-				var $response = $('.attendees_email_dialog #email_response');
-				var $send = $('.attendees_email_dialog #email_send, .attendees_email_dialog .ui-dialog-buttonpane' );
+				var $errors = $( '.attendees_email_dialog #email_errors' );
+				var $response = $( '.attendees_email_dialog #email_response' );
+				var $send = $( '.attendees_email_dialog #email_send, .attendees_email_dialog .ui-dialog-buttonpane' );
 
 				$errors.show();
 
@@ -41,13 +41,13 @@ jQuery( document ).ready( function ( $ ) {
 					$send.hide();
 
 					var opts = {
-						action  :'tribe-ticket-email-attendee-list',
-						email   :$email,
-						nonce   :Attendees.nonce,
-						event_id:$( '#event_id' ).val()
+						action  : 'tribe-ticket-email-attendee-list',
+						email   : $email,
+						nonce   : Attendees.nonce,
+						event_id: $( '#event_id' ).val()
 					};
 
-					$.post( ajaxurl, opts, function ( response ) {
+					$.post( ajaxurl, opts, function( response ) {
 						if ( response.success ) {
 							$errors.removeClass( 'ui-state-error' ).removeClass( 'ui-state-highlight' ).text( '' );
 							var combo = $( '#email_to_user' );
@@ -58,8 +58,9 @@ jQuery( document ).ready( function ( $ ) {
 							$response.hide();
 							$send.show();
 							$errors.hide();
-						} else {
-							tribe_status_bg = $response.css('background');
+						}
+						else {
+							tribe_status_bg = $response.css( 'background' );
 							$errors.removeClass( 'ui-state-highlight' ).addClass( 'ui-state-error' ).text( response.message );
 							$( '.ui-dialog-buttonpane' ).show();
 							$( '.ui-button-text-only:first' ).hide();
@@ -69,7 +70,7 @@ jQuery( document ).ready( function ( $ ) {
 				}
 
 			},
-			Close: function () {
+			Close : function() {
 				$( this ).dialog( "close" );
 				$( '.ui-button-text-only:first' ).show();
 				$( '.attendees_email_dialog #email_response' ).hide();
@@ -79,7 +80,7 @@ jQuery( document ).ready( function ( $ ) {
 			}
 		} } );
 
-	$( "input.email" ).click( function () {
+	$( "input.email" ).click( function() {
 
 		/* Cleanup */
 		var combo = $( '#email_to_user' );
@@ -96,14 +97,15 @@ jQuery( document ).ready( function ( $ ) {
 	} );
 
 
-	$( '#email_to_address' ).on( 'keyup paste', function () {
+	$( '#email_to_address' ).on( 'keyup paste', function() {
 
 		var email = jQuery( this ).val().trim();
 		var combo = $( '#email_to_user' );
 
 		if ( email === '' ) {
 			combo.prop( 'disabled', false );
-		} else {
+		}
+		else {
 			combo.val( '' );
 			combo.prop( 'disabled', 'disabled' );
 		}
@@ -111,11 +113,11 @@ jQuery( document ).ready( function ( $ ) {
 	} );
 
 
-	$( '#filter_attendee' ).on( 'keyup paste', function () {
+	$( '#filter_attendee' ).on( 'keyup paste', function() {
 
 		var search = jQuery( this ).val().toLowerCase();
 
-		$( '#the-list' ).find( 'tr' ).each( function ( i, e ) {
+		$( '#the-list' ).find( 'tr' ).each( function( i, e ) {
 
 			var row = $( e );
 
@@ -125,7 +127,8 @@ jQuery( document ).ready( function ( $ ) {
 
 			if ( attendee.indexOf( search ) === 0 || order.indexOf( search ) === 0 || security.indexOf( search ) === 0 ) {
 				row.show();
-			} else {
+			}
+			else {
 				row.hide();
 			}
 		} );
@@ -133,7 +136,7 @@ jQuery( document ).ready( function ( $ ) {
 	} );
 
 
-	$( '.tickets_checkin' ).click( function ( e ) {
+	$( '.tickets_checkin' ).click( function( e ) {
 
 		var obj = jQuery( this );
 
@@ -147,7 +150,7 @@ jQuery( document ).ready( function ( $ ) {
 		$.post(
 			ajaxurl,
 			params,
-			function ( response ) {
+			function( response ) {
 				if ( response.success ) {
 					obj.parent( 'td' ).parent( 'tr' ).addClass( 'tickets_checked' );
 
@@ -161,7 +164,7 @@ jQuery( document ).ready( function ( $ ) {
 	} );
 
 
-	$( '.tickets_uncheckin' ).click( function ( e ) {
+	$( '.tickets_uncheckin' ).click( function( e ) {
 
 		var obj = jQuery( this );
 
@@ -175,7 +178,7 @@ jQuery( document ).ready( function ( $ ) {
 		$.post(
 			ajaxurl,
 			params,
-			function ( response ) {
+			function( response ) {
 				if ( response.success ) {
 					obj.parent( 'span' ).parent( 'td' ).parent( 'tr' ).removeClass( 'tickets_checked' );
 					$( '#total_checkedin' ).text( parseInt( $( '#total_checkedin' ).text() ) - 1 );
@@ -198,14 +201,17 @@ jQuery( document ).ready( function ( $ ) {
 		var $user = $( '#email_to_user' ).val();
 		var $email = false;
 
-		if ( $user > -1 )
+		if ( $user > - 1 ) {
 			$email = $user;
+		}
 
-		if ( $.trim( $address ) !== '' && tribe_is_email( $address ) )
+		if ( $.trim( $address ) !== '' && tribe_is_email( $address ) ) {
 			$email = $address;
+		}
 
-		if ( !$email )
+		if ( ! $email ) {
 			$( '#email_errors' ).removeClass( 'ui-state-highlight' ).addClass( 'ui-state-error' ).text( Attendees.required );
+		}
 
 		return $email;
 	}
@@ -216,7 +222,7 @@ jQuery( document ).ready( function ( $ ) {
 			k;
 
 		for ( k in arr ) {
-			if ( arr[k]  ) {
+			if ( arr[k] ) {
 				retObj[k] = arr[k];
 			}
 		}
