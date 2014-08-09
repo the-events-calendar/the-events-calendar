@@ -40,16 +40,16 @@ Some nice tips on working with npm [here](http://howtonode.org/introduction-to-n
 npm modules are registered in the dev/package.json as "dependencies" and "devDependancies" in this case.
 Outside of that object you will note something like this:
 
-	"name": "tribe-build",
-      "version": "1.0.0",
-      "repository":"git@github.com:moderntribe/the-events-calendar.git",
+	"name": "the-events-calendar",
+      "version": "3.7",
+      "repository": "git@github.com:moderntribe/the-events-calendar.git",
       "_bowerpath": "dev/bower_components",
       "_resourcepath": "resources",
       "_componentpath": "dev/dev_components",
       "engines": {
         "node": "0.10.30",
         "npm": "1.4.23"
-      },
+      }
 
 Of note here are the keys that begin with an underscore. These are variables for our use in the packages, in this case Grunt tasks generally.
 You can add more as you need for new directories or other uses.
@@ -97,12 +97,12 @@ which will run ALL SUB TASKS IN THE WATCH.JS FILE.
 
 	grunt watch
 
-Now lets run the watch task JUST on the theme css, because i'm only working there today.
+Now lets run the watch task JUST on the resource css, because i'm only working there today.
 (this is not necessary, watch is smart and only compiles what it needs to, this is just an example)
 
-	grunt watch:themecss
+	grunt watch:resourcecss
 
-So to review, `grunt` runs all, `grunt taskname` runs a task with all of its subtasks, and `grunt taskname:subtaskname` runs the specific subtask.
+So to review, `grunt` runs default, `grunt taskname` runs a task with all of its subtasks, and `grunt taskname:subtaskname` runs the specific subtask.
 
 Refer to the watch task in grunt_options/watch.js to understand how the structure and these commands relate.
 
@@ -110,7 +110,10 @@ Refer to the watch task in grunt_options/watch.js to understand how the structur
 
 If you add a new task to this project, document it here!
 
-* `grunt watch:themecss` watches the theme scss folder for changes and uses compass to compile it.
+* `grunt` Runs the full stack of dev tasks.
+* `grunt watch` Watches all files that requires compiling. Use this during dev. Also watches php and emits an event for livereload.
+* `grunt lint` Lints the js and css.
+* `grunt package` Creates a zip ready for distribution.
 
 ##  === Installed Grunt Task Libraries ===
 
