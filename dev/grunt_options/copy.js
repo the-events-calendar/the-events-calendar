@@ -32,7 +32,7 @@ module.exports = {
 				      '!**/tests/**',
 				      '!**/.git/**'
 				],
-				dest: '<%= pkg.name %>/'
+				dest: '<%= pkg._zipfoldername %>/'
 			}]
 	}
 

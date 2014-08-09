@@ -12,7 +12,7 @@
 module.exports = {
 
 	dist: [
-		'<%= pkg.name %>/**'
+		'<%= pkg._zipfoldername %>/**'
 	],
 
 	resourcescripts: [

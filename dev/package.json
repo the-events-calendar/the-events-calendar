@@ -2,9 +2,9 @@
   "name": "the-events-calendar",
   "version": "3.7",
   "repository": "git@github.com:moderntribe/the-events-calendar.git",
-  "_bowerpath": "dev/bower_components",
+  "_zipname": "the-events-calendar",
+  "_zipfoldername": "the-events-calendar",
   "_resourcepath": "resources",
-  "_componentpath": "dev/dev_components",
   "engines": {
     "node": "0.10.30",
     "npm": "1.4.23"

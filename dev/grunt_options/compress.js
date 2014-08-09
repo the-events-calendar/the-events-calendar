@@ -26,12 +26,12 @@ module.exports = {
 		options: {
 			mode   : 'zip',
 			level  : 9,
-			archive: '<%= pkg.name %>.<%= pkg.version %>.zip'
+			archive: '<%= pkg._zipname %>.<%= pkg.version %>.zip'
 		},
 		files  : [
 			{
 				expand: true,
-				src   : ['<%= pkg.name %>/**']
+				src   : ['<%= pkg._zipfoldername %>/**']
 			}
 		]
 	}
