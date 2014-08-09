@@ -306,6 +306,7 @@
 
 		dbug && debug.info( 'TEC Debug: tribe-events-ajax-day.js successfully loaded' );
 		ts.view && dbug && debug.timeEnd( 'Tribe JS Init Timer' );
+
 	} );
 
 })( window, document, jQuery, tribe_ev.data, tribe_ev.events, tribe_ev.fn, tribe_ev.state, tribe_ev.tests, tribe_debug );

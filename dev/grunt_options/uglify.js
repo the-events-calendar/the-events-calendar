@@ -16,9 +16,9 @@ module.exports = {
 
 	resourcescripts: {
 		options: {
-			sourceMapPrefix: 1,
-			sourceMappingURL: function(path) { var file = path.split('/').pop(); return file.replace(/processed.js/,".map");},
-			sourceMap: function(path) { return path.replace(/.js/,".map");}
+			banner: '/*\n' +
+				' * built on <%= grunt.template.today("dd-mm-yyyy") %>\n' +
+				' */\n'
 		},
 		files: {
 			'<%= pkg._resourcepath %>/events-admin.min.js' : '<%= pkg._resourcepath %>/events-admin.processed.js',

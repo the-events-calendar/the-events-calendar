@@ -347,6 +347,7 @@ var tribe_events_bar_action;
 		$tribeDropToggleEl.click( function( e ) {
 			e.stopPropagation();
 		} );
+
 		dbug && debug.info( 'TEC Debug: tribe-events-bar.js successfully loaded' );
 	} );
 
