@@ -781,8 +781,10 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 			require_once( 'tribe-settings-tab.class.php' );
 			require_once( 'tribe-field.class.php' );
 			require_once( 'tribe-validate.class.php' );
+			require_once( 'Activation_Page.php' );
 
 			TribeSettings::instance();
+			Tribe__Events__Activation_Page::init();
 		}
 
 		/**
