@@ -54,54 +54,62 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 *
 	 * Returns an embedded google maps for an event
 	 *
-	 * @param string $postId
+	 * @param string $post_id
 	 * @param int    $width
 	 * @param int    $height
 	 * @param bool   $force_load If true, then load the map even if an address is not provided.
 	 *
 	 * @return string An iframe pulling http://maps.google.com/ for this event
 	 */
-	function tribe_get_embedded_map( $postId = null, $width = null, $height = null, $force_load = false ) {
-		$postId = TribeEvents::postIdHelper( $postId );
-		if ( ! tribe_is_venue( $postId ) && ! tribe_is_event( $postId ) ) {
+	function tribe_get_embedded_map( $post_id = null, $width = null, $height = null, $force_load = false ) {
+		$post_id = TribeEvents::postIdHelper( $post_id );
+
+		if ( ! tribe_is_venue( $post_id ) && ! tribe_is_event( $post_id ) ) {
 			return apply_filters( 'tribe_get_embedded_map', false );
 		}
 
-		$postId               = tribe_is_venue( $postId ) ? $postId : tribe_get_venue_id( $postId );
-		$locationMetaSuffixes = array( 'address', 'city', 'state', 'province', 'zip', 'country' );
-		$toUrlEncode          = "";
+		$venue_id  = tribe_is_venue( $post_id ) ? $post_id : tribe_get_venue_id( $post_id );
+		$location_parts = array( 'address', 'city', 'state', 'province', 'zip', 'country' );
+		$address = '';
 
-		foreach ( $locationMetaSuffixes as $val ) {
+		// Form the address string for the map
+		foreach ( $location_parts as $val ) {
 			$metaVal = call_user_func( 'tribe_get_' . $val );
 			if ( $metaVal ) {
-				$toUrlEncode .= $metaVal . " ";
+				$address .= $metaVal . ' ';
 			}
 		}
 
-		if ( $toUrlEncode ) {
-			$address = $toUrlEncode;
-		} else {
-			$address = null;
-		}
-
-
-		if ( ! $height ) {
-			$height = tribe_get_option( 'embedGoogleMapsHeight', '350' );
-		}
-		if ( ! $width ) {
-			$width = tribe_get_option( 'embedGoogleMapsWidth', '100%' );
-		}
-
-		if ( $address || $force_load ) {
-			ob_start();
-			include( TribeEvents::instance()->pluginPath . 'admin-views/event-map.php' );
-			$google_map = ob_get_contents();
-			ob_get_clean();
-
-			return apply_filters( 'tribe_get_embedded_map', $google_map );
-		} else {
+		if ( empty( $address ) && ! $force_load ) {
 			return apply_filters( 'tribe_get_embedded_map', '' );
 		}
+
+		// Generate the HTML used to "house"  the map
+		ob_start();
+
+		tribe_get_template_part( 'modules/map', null, array(
+			'width' => null === $width ? tribe_get_option( 'embedGoogleMapsWidth', '100%' ) : $width,
+			'height' => null === $height ? tribe_get_option( 'embedGoogleMapsHeight', '350' ) : $height,
+		) );
+
+		$html = ob_get_clean();
+
+		// Google Maps API (URL can be overridden)
+		$url = apply_filters( 'tribe_events_google_maps_api_url', '//maps.googleapis.com/maps/api/js' );
+		wp_enqueue_script( 'tribe_events_google_maps_api', $url, array(), false, true );
+
+		// Setup the support scripts/data
+		$resources_url = trailingslashit( TribeEvents::instance()->pluginUrl ) . 'resources/';
+		$url = Tribe_Template_Factory::getMinFile( $resources_url . 'embedded-map.js', true );
+
+		wp_enqueue_script( 'tribe_events_embedded_map', $url, array(), false, true );
+		wp_localize_script( 'tribe_events_embedded_map', 'tribeEventsEmbeddedMap', array(
+			'address' => $address,
+			'title' => json_encode( tribe_get_venue( $venue_id ) ),
+			'zoom' => tribe_get_option( 'embedGoogleMapsZoom', '10' )
+		) );
+
+		return apply_filters( 'tribe_get_embedded_map', $html );
 	}
 
 	/**
