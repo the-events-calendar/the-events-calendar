@@ -11,11 +11,6 @@ class TribeEventsPro_EmbeddedMaps {
 	const MAP_HANDLE = 'tribe_events_pro_embedded_map';
 
 	/**
-	 * Script handle for the Google Maps API script.
-	 */
-	const GMAP_API = 'tribe_events_pro_gmaps_api';
-
-	/**
 	 * Venue latitude, if known.
 	 *
 	 * @var string
@@ -126,29 +121,13 @@ class TribeEventsPro_EmbeddedMaps {
 	}
 
 	/**
-	 * Sets up Event Calendar PRO's map handling script - and the Google Maps
-	 * JS API script - both in the footer.
-	 *
-	 * It's possible to prevent the Google Maps API from being pulled in by
-	 * setting up a filter as following:
-	 *
-	 *     add_filter( 'tribe_events_pro_add_gmap_api', '__return_false' );
-	 *
-	 * This could be useful in the event of a conflict with some other theme or
-	 * plugin which also works with Google Maps. Similarly, the actual Google
-	 * Maps API URL can be altered using the tribe_events_pro_google_maps_api_url
-	 * hook: this could be useful to force it to a new address or to append an
-	 * API key.
+	 * Sets up Event Calendar PRO's map handling script in the footer.
+	 * Enqueuing of the Google Maps API script is handled within core.
 	 */
 	protected function enqueue_map_scripts() {
 		$resources_url = trailingslashit( TribeEventsPro::instance()->pluginUrl ) . 'resources/';
 		$url = Tribe_Template_Factory::getMinFile( $resources_url . 'embedded-map.js', true );
 		wp_enqueue_script( self::MAP_HANDLE, $url, array( 'jquery' ), false, true );
-
-		if ( apply_filters( 'tribe_events_pro_add_gmap_api', true ) ) {
-			$url = apply_filters( 'tribe_events_pro_google_maps_api_url', '//maps.googleapis.com/maps/api/js' );
-			wp_enqueue_script( self::GMAP_API, $url, array(), false, true );
-		}
 
 		$this->map_script_enqueued = true;
 	}
