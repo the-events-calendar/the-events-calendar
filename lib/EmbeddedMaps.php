@@ -119,7 +119,7 @@ class TribeEventsPro_EmbeddedMaps {
 			$this->enqueue_map_scripts();
 		}
 
-		wp_localize_script( self::MAP_HANDLE, 'tribe_events_pro_single_map', array(
+		wp_localize_script( self::MAP_HANDLE, 'tribeEventsProSingleMap', array(
 			'markers' => $this->embedded_maps,
 			'zoom' => apply_filters( 'tribe_events_pro_single_map_zoom_level', (int) tribe_get_option( 'embedGoogleMapsZoom', 8 ) )
 		));
