@@ -49,6 +49,11 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		 */
 		public $single_event_meta;
 
+		/**
+		 * @var TribeEventsPro_EmbeddedMaps
+		 */
+		public $embedded_maps;
+
 		const REQUIRED_TEC_VERSION = '3.7';
 		const VERSION = '3.7';
 
@@ -91,6 +96,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			require_once( 'public/template-tags/venue.php' );
 			require_once( 'public/template-tags/widgets.php' );
 			require_once( 'lib/tribe-geoloc.class.php' );
+	        require_once( 'lib/EmbeddedMaps.php' );
 			require_once( 'lib/SingleEventMeta.php' );
 
 			if ( TribeEventsPro_SchemaUpdater::update_required() ) {
@@ -522,6 +528,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			TribeEventsGeoLoc::instance();
 			$this->displayMetaboxCustomFields();
 			$this->single_event_meta = new TribeEventsPro_SingleEventMeta;
+			$this->embedded_maps = new TribeEventsPro_EmbeddedMaps;
 		}
 
 		/**
