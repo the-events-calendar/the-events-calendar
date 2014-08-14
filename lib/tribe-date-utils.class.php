@@ -353,5 +353,34 @@ if ( ! class_exists( 'TribeDateUtils' ) ) {
 
 			return $revised ? $revised : '';
 		}
+
+		/**
+		 * Accepts a numeric offset (such as "4" or "-6" as stored in the gmt_offset
+		 * option) and converts it to a strtotime() style modifier that can be used
+		 * to adjust a DateTime object, etc.
+		 *
+		 * @param $offset
+		 *
+		 * @return string
+		 */
+		public static function get_modifier_from_offset( $offset ) {
+			$modifier = '';
+			$offset   = (float) $offset;
+
+			// Separate out hours, minutes, polarity
+			$hours    = (int) $offset;
+			$minutes  = (int) ( ( $offset - $hours ) * 60 );
+			$polarity = ( $offset >= 0 ) ? '+' : '-';
+
+			// Correct hours and minutes to positive values
+			if ( $hours < 0 )   $hours *= -1;
+			if ( $minutes < 0 ) $minutes *= -1;
+
+			// Form the modifier string
+			if ( $hours >= 0 )  $modifier  = "$polarity $hours hours ";
+			if ( $minutes > 0 ) $modifier .= "$minutes minutes";
+
+			return $modifier;
+		}
 	}
 }
