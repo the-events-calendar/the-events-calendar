@@ -358,3 +358,15 @@ a.tribe-rating-link {
 	content:'\2022';
 	padding-right:3px;
 }
+
+/* Media Queries for Mobile Dashboard */
+@media screen and (max-width: 782px) {
+	.tribe-half-column, .tribe-row .tribe-half-column:last-child {
+		width:100%;
+		margin:0 0 20px 0;
+	}
+
+	input[type='email'] {
+		width:100%;
+	}
+}

@@ -25,15 +25,9 @@ $video_url = 'https://www.youtube.com/watch?v=HHohYGTk3QQ';
 		<h3><?php _e( "Newsletter Signup", 'tribe-events-calendar' ); ?></h3>
 		<p><?php _e( "Stay in touch with The Events Calendar Pro. We send out the occiasional update, key developer notices, and even the occasional discount.", 'tribe-events-calendar' ); ?></p>
 		<form action="http://moderntribe.createsend.com/t/r/s/athqh/" method="post">
-		    <p>
-		        <input id="listthkduyk" name="cm-ol-thkduyk" type="checkbox" /> <label for="listthkduyk">Developer News</label>
-		    </p>
-		    <p>
-		        <input id="fieldEmail" size="25" name="cm-athqh-athqh" type="email" placeholder="Email" required />
-		    </p>
-		    <p>
-		        <button type="submit" class="button-primary"><?php _e( 'Sign Up', 'tribe-events-calendar' ); ?></button>
-		    </p>
+			<p><input id="listthkduyk" name="cm-ol-thkduyk" type="checkbox" /> <label for="listthkduyk">Developer News</label></p>
+			<p><input id="fieldEmail" class="regular-text" name="cm-athqh-athqh" type="email" placeholder="Email" required /></p>
+			<button type="submit" class="button-primary"><?php _e( 'Sign Up', 'tribe-events-calendar' ); ?></button>
 		</form>
 	</div>
 </div>

@@ -40,12 +40,8 @@
 		<h3><?php _e( 'PSST... Want a Discount?', 'tribe-events-calendar' ); ?></h3>		
 		<p><?php _e( 'We send out discounts to our core users via our newsletter.' ); ?></p>
 		<form action="http://moderntribe.createsend.com/t/r/s/athqh/" method="post">
-		    <p>
-		        <input id="fieldEmail" size="25" name="cm-athqh-athqh" type="email" placeholder="Email" required />
-		    </p>
-		    <p>
-		        <button type="submit" class="button-primary"><?php _e( 'Sign Up', 'tribe-events-calendar' ); ?></button>
-		    </p>
+			<p><input id="fieldEmail" class="regular-text" name="cm-athqh-athqh" type="email" placeholder="Email" required /><br/></p>
+			<button type="submit" class="button-primary"><?php _e( 'Sign Up', 'tribe-events-calendar' ); ?></button>
 		</form>
 		<br/>
 		<hr/>
