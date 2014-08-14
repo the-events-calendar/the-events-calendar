@@ -260,3 +260,95 @@ only screen and (min-device-pixel-ratio: 2) {
 		background-image: url(images/tribe-loading@2x.gif);
 	}
 }
+
+/* = TEC Welcome Page // Displays after installation
+=============================================*/
+
+.tribe_welcome_page, .tribe_update_page {
+	max-width:1000px;
+}
+
+.tribe-half-column {
+	width:45%;
+	float:left;
+	margin-right:5%;
+	margin-bottom:30px;
+}
+
+.tribe-row:before, .tribe-row:after {
+	content: ""; display: table;
+}
+
+.tribe-row:after {
+	clear: both;
+}
+
+.tribe-row {
+	clear:both;
+}
+
+.tribe-row .tribe-half-column:last-child {
+	margin-right:0;
+	width:50%;
+}
+
+.tribe_welcome_page h2, .tribe_update_page h2 {
+	font-size:30px;
+	margin-bottom:20px;
+}
+
+.tribe_welcome_page h3, .tribe_update_page h3 {
+	font-size:24px;
+	line-height:24px;
+	font-weight:400;
+}
+
+.tribe_welcome_page h4, .tribe_update_page h4 {
+	font-size:18px;
+	font-weight:600;
+	line-height:18px;
+	margin:0;
+}
+
+.tribe_welcome_page p, .tribe_update_page p {
+	font-size:14px;
+}
+
+p.tribe-welcome-message {
+	font-size:20px;
+	font-weight:400;
+}
+
+.tribe_welcome_page h2:before {
+	content:"\f145";
+	font-family:"dashicons";
+	line-height:1;
+	margin-right:5px;
+	font-size:34px;
+	position:relative;
+	top:5px;
+}
+
+.tribe-welcome-video-wrapper {
+	margin-bottom:40px;
+	position: relative;
+	padding-bottom: 56.25%; /* 16:9 */
+	padding-top: 25px;
+	height: 0;
+}
+
+.tribe-welcome-video-wrapper iframe {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+
+a.tribe-rating-link {
+	text-decoration:none;
+}
+
+.tribe-welcome-links {
+	margin-top:30px;
+}

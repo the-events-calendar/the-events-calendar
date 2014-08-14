@@ -111,7 +111,7 @@ class Tribe__Events__Activation_Page {
 
 	public function display_welcome_page() {
 		do_action( 'tribe_settings_top' );
-		echo '<div class="tribe_settings wrap">';
+		echo '<div class="tribe_settings tribe_welcome_page wrap">';
 		echo '<h2>';
 		echo $this->welcome_page_title();
 		echo '</h2>';
@@ -131,7 +131,7 @@ class Tribe__Events__Activation_Page {
 
 	public function display_update_page() {
 		do_action( 'tribe_settings_top' );
-		echo '<div class="tribe_settings wrap">';
+		echo '<div class="tribe_settings tribe_update_page wrap">';
 		echo '<h2>';
 		echo $this->update_page_title();
 		echo '</h2>';
