@@ -261,8 +261,8 @@ only screen and (min-device-pixel-ratio: 2) {
 	}
 }
 
-/* = TEC Welcome Page // Displays after installation
-=============================================*/
+/* = TEC Welcome & Update Pages // Displays after installation & plugin update
+===============================================================================*/
 
 .tribe_welcome_page, .tribe_update_page {
 	max-width:1000px;
@@ -298,6 +298,7 @@ only screen and (min-device-pixel-ratio: 2) {
 }
 
 .tribe_welcome_page h3, .tribe_update_page h3 {
+	margin-top:0;
 	font-size:24px;
 	line-height:24px;
 	font-weight:400;
@@ -319,7 +320,7 @@ p.tribe-welcome-message {
 	font-weight:400;
 }
 
-.tribe_welcome_page h2:before {
+.tribe_welcome_page h2:before, .tribe_update_page h2:before {
 	content:"\f145";
 	font-family:"dashicons";
 	line-height:1;
@@ -349,6 +350,11 @@ a.tribe-rating-link {
 	text-decoration:none;
 }
 
-.tribe-welcome-links {
+.tribe-welcome-links, .tribe-update-links {
 	margin-top:30px;
+}
+
+.tribe_welcome_page li:before, .tribe_update_page li:before {
+	content:'\2022';
+	padding-right:3px;
 }

@@ -8,10 +8,10 @@ $video_url = 'https://www.youtube.com/watch?v=HHohYGTk3QQ';
 
 ?>
 
-<p class="tribe-welcome-message">You are running Version 3.6 and deserve a hug :-)</p>
+<p class="tribe-welcome-message"><?php printf( __( 'You are running Version %s and deserve a hug :-)', 'tribe-events-calendar' ), TribeEvents::VERSION ); ?></p>
 
 <div class="tribe-welcome-video-wrapper">
-	<?php echo wp_oembed_get($video_url); ?>
+	<?php echo wp_oembed_get( $video_url ); ?>
 </div>
 
 <div class="tribe-row">
@@ -29,7 +29,7 @@ $video_url = 'https://www.youtube.com/watch?v=HHohYGTk3QQ';
 		        <input id="listthkduyk" name="cm-ol-thkduyk" type="checkbox" /> <label for="listthkduyk">Developer News</label>
 		    </p>
 		    <p>
-		        <input id="fieldEmail" name="cm-athqh-athqh" type="email" placeholder="Email" required />
+		        <input id="fieldEmail" size="25" name="cm-athqh-athqh" type="email" placeholder="Email" required />
 		    </p>
 		    <p>
 		        <button type="submit" class="button-primary"><?php _e( 'Sign Up', 'tribe-events-calendar' ); ?></button>
