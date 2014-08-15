@@ -1333,7 +1333,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			$tec = TribeEvents::instance();
 			$venue_args = $tec->getVenuePostTypeArgs();
 			$venue_args['exclude_from_search'] = false;
-			register_post_type( TribeEvents::VENUE_POST_TYPE, $venue_args );
+			register_post_type( TribeEvents::VENUE_POST_TYPE, apply_filters( 'tribe_events_register_venue_type_args', $venue_args ) );
 		}
 
 		/**
