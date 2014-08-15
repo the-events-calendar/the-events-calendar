@@ -364,7 +364,8 @@ class TribeEventsGeoLoc {
 		if ( $address === get_post_meta( $venueId, self::ADDRESS, true ) )
 			return false;
 
-		$data = wp_remote_get( "http://maps.googleapis.com/maps/api/geocode/json?address=" . urlencode( $address ) . "&sensor=false" );
+		$url = "http://maps.googleapis.com/maps/api/geocode/json?address=" . urlencode( $address ) . "&sensor=false";
+		$data = wp_remote_get( apply_filters( 'tribe_events_pro_geocode_request_url', $url ) );
 
 		if ( is_wp_error( $data ) || ! isset( $data["body"] ) )
 			return false;
