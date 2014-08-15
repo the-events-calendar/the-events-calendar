@@ -161,6 +161,5 @@ if ( class_exists( 'TribeEvents' ) ) {
 
 		return apply_filters( 'tribe_show_google_map_link', $output );
 	}
-
 }
 ?>
