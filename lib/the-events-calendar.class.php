@@ -2639,7 +2639,7 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 		 * If pretty perms are off, get the ugly link.
 		 *
 		 * @param string $type      The type of link requested.
-		 * @param string $secondary Some secondary data for the link.
+		 * @param bool|string       $secondary Some secondary data for the link.
 		 *
 		 * @return string The ugly link.
 		 */
