@@ -40,6 +40,10 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 * to edit the Venue/Organizer. If NO 'VenueID'/'OrganizerID' is passed, but other Venue/Organizer
 	 * data is passed, then a new Venue/Organizer will be created.
 	 *
+	 * Also note that this function can be used only for the creation of events, supplying
+	 * a post_type argument therefore is superfluous as it will be reset to the events post
+	 * type in any case.
+	 *
 	 * @param array $args Elements that make up post to insert.
 	 *
 	 * @return int ID of the event that was created. False if insert failed.
@@ -50,6 +54,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 * @category Event Functions
 	 */
 	function tribe_create_event( $args ) {
+		$args['post_type'] = TribeEvents::POSTTYPE;
 		$postId = TribeEventsAPI::createEvent( $args );
 
 		return $postId;
