@@ -45,7 +45,11 @@ if ( class_exists( 'TribeEvents' ) ) {
 			return;
 		}
 
-		return tribe_event_format_time( $date, $dateFormat );
+		if ( '' == $dateFormat ) {
+			$dateFormat = tribe_get_time_format();
+		}
+		
+		return tribe_event_format_date( $date, false, $dateFormat );
 	}
 
 	/**
@@ -80,34 +84,12 @@ if ( class_exists( 'TribeEvents' ) ) {
 		} else {
 			return;
 		}
-
-		return tribe_event_format_time( $date, $dateFormat );
-	}
-
-	/**
-	 * Formatted Time
-	 *
-	 * Returns formatted time
-	 *
-	 * @param string $date
-	 * @param string $dateFormat  Allows date and time formating using standard php syntax (http://php.net/manual/en/function.date.php)
-	 *
-	 * @return string
-	 */
-	function tribe_event_format_time( $date, $dateFormat = '' ) {
-
-		if ( ! TribeDateUtils::isTimestamp( $date ) ) {
-			$date = strtotime( $date );
+		
+		if ( '' == $dateFormat ) {
+			$dateFormat = tribe_get_time_format();
 		}
 
-		if ( '' != $dateFormat ) {
-			$format = $dateFormat;
-		} else {
-			$format = tribe_get_time_format();
-		}
-		$date = date_i18n( $format, $date );
-		return apply_filters( 'tribe_event_formatted_time', $date, $dateFormat );
-
+		return tribe_event_format_date( $date, false, $dateFormat );
 	}
 	
 	/**
