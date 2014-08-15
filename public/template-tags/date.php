@@ -12,6 +12,104 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 if ( class_exists( 'TribeEvents' ) ) {
 
+/**
+	 * Start Time
+	 *
+	 * Returns the event start time
+	 *
+	 * @param int    $event       (optional)
+	 * @param string $dateFormat  Allows date and time formating using standard php syntax (http://php.net/manual/en/function.date.php)
+	 *
+	 * @return string Time
+	 */
+	function tribe_get_start_time( $event = null, $dateFormat = '' ) {
+		if ( is_null( $event ) ) {
+			global $post;
+			$event = $post;
+		}
+		if ( is_numeric( $event ) ) {
+			$event = get_post( $event );
+		}
+
+		if ( tribe_event_is_all_day( $event ) ) {
+			return ;
+		}
+
+		if ( empty( $event->EventStartDate ) && is_object( $event ) ) {
+			$event->EventStartDate = tribe_get_event_meta( $event->ID, '_EventStartDate', true );
+		}
+
+		if ( isset( $event->EventStartDate ) ) {
+			$date = strtotime( $event->EventStartDate );
+		} else {
+			return;
+		}
+
+		return tribe_event_format_time( $date, $dateFormat );
+	}
+
+	/**
+	 * End Time
+	 *
+	 * Returns the event end time
+	 *
+	 * @param int    $event       (optional)
+	 * @param string $dateFormat  Allows date and time formating using standard php syntax (http://php.net/manual/en/function.date.php)
+	 *
+	 * @return string Time
+	 */
+	function tribe_get_end_time( $event = null, $dateFormat = '' ) {
+		if ( is_null( $event ) ) {
+			global $post;
+			$event = $post;
+		}
+		if ( is_numeric( $event ) ) {
+			$event = get_post( $event );
+		}
+
+		if ( tribe_event_is_all_day( $event ) ) {
+			return;
+		}
+
+		if ( empty( $event->EventEndDate ) && is_object( $event ) ) {
+			$event->EventEndDate = tribe_get_event_meta( $event->ID, '_EventEndDate', true );
+		}
+
+		if ( isset( $event->EventEndDate ) ) {
+			$date = strtotime( $event->EventEndDate );
+		} else {
+			return;
+		}
+
+		return tribe_event_format_time( $date, $dateFormat );
+	}
+
+	/**
+	 * Formatted Time
+	 *
+	 * Returns formatted time
+	 *
+	 * @param string $date
+	 * @param string $dateFormat  Allows date and time formating using standard php syntax (http://php.net/manual/en/function.date.php)
+	 *
+	 * @return string
+	 */
+	function tribe_event_format_time( $date, $dateFormat = '' ) {
+
+		if ( ! TribeDateUtils::isTimestamp( $date ) ) {
+			$date = strtotime( $date );
+		}
+
+		if ( '' != $dateFormat ) {
+			$format = $dateFormat;
+		} else {
+			$format = tribe_get_time_format();
+		}
+		$date = date_i18n( $format, $date );
+		return apply_filters( 'tribe_event_formatted_time', $date, $dateFormat );
+
+	}
+	
 	/**
 	 * Start Date
 	 *
