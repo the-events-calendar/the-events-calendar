@@ -2753,31 +2753,35 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 		}
 
 		/**
-		 * Returns a link to google maps for the given event
+		 * Returns a link to google maps for the given event. This link can be filtered 
+		 * using the tribe_events_google_map_link hook.
 		 *
-		 * @param string $postId
+		 * @param int|null $post_id
 		 *
 		 * @return string a fully qualified link to http://maps.google.com/ for this event
 		 */
-		public function googleMapLink( $postId = null ) {
-			if ( $postId === null || ! is_numeric( $postId ) ) {
+		public function googleMapLink( $post_id = null ) {
+			if ( $post_id === null || ! is_numeric( $post_id ) ) {
 				global $post;
-				$postId = $post->ID;
+				$post_id = $post->ID;
 			}
 
 			$locationMetaSuffixes = array( 'address', 'city', 'region', 'zip', 'country' );
-			$toUrlEncode          = "";
+			$to_encode = "";
+			$url = '';
+
 			foreach ( $locationMetaSuffixes as $val ) {
-				$metaVal = call_user_func( 'tribe_get_' . $val, $postId );
+				$metaVal = call_user_func( 'tribe_get_' . $val, $post_id );
 				if ( $metaVal ) {
-					$toUrlEncode .= $metaVal . " ";
+					$to_encode .= $metaVal . " ";
 				}
 			}
-			if ( $toUrlEncode ) {
-				return "http://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=" . urlencode( trim( $toUrlEncode ) );
+
+			if ( $to_encode ) {
+				$url = "http://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=" . urlencode( trim( $to_encode ) );
 			}
 
-			return "";
+			return apply_filters( 'tribe_events_google_map_link', $url, $post_id );
 		}
 
 		/**

@@ -95,7 +95,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 		$html = ob_get_clean();
 
 		// Google Maps API (URL can be overridden)
-		$url = apply_filters( 'tribe_events_google_maps_api_url', '//maps.googleapis.com/maps/api/js' );
+		$url = apply_filters( 'tribe_events_google_maps_api', '//maps.googleapis.com/maps/api/js' );
 		wp_enqueue_script( 'tribe_events_google_maps_api', $url, array(), false, true );
 
 		// Setup the support scripts/data
