@@ -3456,9 +3456,9 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 		 * @param WP_Post $event
 		 *
 		 * @return void
+		 * @todo review the heck out of this method.
 		 */
 		public function EventsChooserBox( $event = null ) {
-
 			$saved = false;
 
 			if ( ! $event ) {
@@ -3588,10 +3588,6 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 				$_EventEndDate = null;
 			}
 			$isEventAllDay        = ( $_EventAllDay == 'yes' || ! TribeDateUtils::dateOnly( $_EventStartDate ) ) ? 'checked="checked"' : ''; // default is all day for new posts
-			$startMonthOptions    = TribeEventsViewHelpers::getMonthOptions( $_EventStartDate );
-			$endMonthOptions      = TribeEventsViewHelpers::getMonthOptions( $_EventEndDate );
-			$startYearOptions     = TribeEventsViewHelpers::getYearOptions( $_EventStartDate );
-			$endYearOptions       = TribeEventsViewHelpers::getYearOptions( $_EventEndDate );
 			$startMinuteOptions   = TribeEventsViewHelpers::getMinuteOptions( $_EventStartDate, true );
 			$endMinuteOptions     = TribeEventsViewHelpers::getMinuteOptions( $_EventEndDate );
 			$startHourOptions     = TribeEventsViewHelpers::getHourOptions( $_EventAllDay == 'yes' ? null : $_EventStartDate, true );
