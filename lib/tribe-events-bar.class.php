@@ -40,70 +40,16 @@ class TribeEventsBar {
 	 */
 	public function should_show() {
 		global $wp_query;
-		$show_bar_filter = apply_filters(
-			'tribe-events-bar-should-show', in_array(
-				get_post_type(), array(
-					TribeEvents::VENUE_POST_TYPE,
-					TribeEvents::ORGANIZER_POST_TYPE
-				)
-			) ? false : true
-		);
+		$show_bar_filter = in_array(
+			get_post_type(), array(
+				TribeEvents::VENUE_POST_TYPE,
+				TribeEvents::ORGANIZER_POST_TYPE
+			)
+		) ? false : true;
 		$is_tribe_view   = ( ! empty( $wp_query->tribe_is_event_query ) && ! is_single() && $show_bar_filter );
 
 		return apply_filters( 'tribe-events-bar-should-show', $is_tribe_view );
 	}
-
-	/**
-	 * Add the Tribe Bar to the tribe_events_before_html filter.
-	 *
-	 * @param $content
-	 *
-	 * @filter tribe-events-bar-should-show set it to false to prevent infinite nesting
-	 * @filter tribe-events-bar-filters to get the list of registered filters
-	 * @filter tribe-events-bar-views to get the list of registered views
-	 *
-	 * To add filters:
-	 *
-	 * add_filter( 'tribe-events-bar-filters',  'setup_my_field_in_bar', 1, 1 );
-	 *
-	 * public function setup_my_field_in_bar( $filters ) {
-	 *   $filters[] = array( 'name'    => 'tribe-bar-my-field',
-	 *                       'caption' => 'My Field',
-	 *                       'html'    => '<input type="text" name="tribe-bar-my-field" id="tribe-bar-my-field">' );
-	 *   return $filters;
-	 * }
-	 *
-	 * To add views:
-	 *
-	 * add_filter( 'tribe-events-bar-views',  'my_setup_view_for_bar', 10);
-	 *
-	 * public function my_setup_view_for_bar( $views ) {
-	 *     $tec = TribeEvents::instance();
-	 *     $views[] = array('displaying' => 'myview', 'anchor' => 'My view', 'url' =>  $tec->getOption( 'eventsSlug', 'events' ) . '/my_view_slug'  );
-	 *     return $views;
-	 * }
-	 *
-	 * @return string
-	 */
-	public function show( $content ) {
-
-		$tec = TribeEvents::instance();
-
-		//set it to false to prevent infinite nesting
-		add_filter( 'tribe-events-bar-should-show', '__return_false', 9999 );
-
-		// Load the registered filters and views for the Bar. This values will be used in the template.
-		$filters = apply_filters( 'tribe-events-bar-filters', self::instance()->filters );
-		$views   = apply_filters( 'tribe-events-bar-views', self::instance()->views );
-
-		//Load the template
-		ob_start();
-		include TribeEventsTemplates::getTemplateHierarchy( 'bar.php', array( 'subfolder' => 'modules' ) );
-		$html = ob_get_clean() . $content;
-
-		echo apply_filters( 'tribe_events_bar_show', $html, $filters, $views, $content );
-	}
-
 
 	/**
 	 * Adds a body class of tribe-bar-is-disabled when the Tribe Bar is disabled.
