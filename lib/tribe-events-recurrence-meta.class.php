@@ -57,7 +57,7 @@ class TribeEventsRecurrenceMeta {
 		add_action( 'admin_action_tribe_split', array( __CLASS__, 'handle_split_request' ), 10, 1 );
 		add_action( 'wp_before_admin_bar_render', array( __CLASS__, 'admin_bar_render'));
 
-    	add_filter( 'tribe_events_query_posts_groupby', array( __CLASS__, 'addGroupBy' ), 10, 2 );
+    	add_filter( 'posts_groupby', array( __CLASS__, 'addGroupBy' ), 10, 2 );
 
 		add_filter( 'tribe_settings_tab_fields', array( __CLASS__, 'inject_settings' ), 10, 2 );
 
