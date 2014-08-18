@@ -375,7 +375,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 * Return the single event meta
 	 *
 	 * @deprecated since 3.6
-	 * @todo       remove in 3.7
+	 * @todo       remove in 3.9
 	 * @return string
 	 **/
 	function tribe_events_single_event_meta() {
