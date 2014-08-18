@@ -50,15 +50,6 @@ if ( ! class_exists( 'TribeEventsAdminList' ) ) {
 		}
 
 		/**
-		 * Adds DISTINCT to the query.
-		 *
-		 * @return string "DISTINCT".
-		 */
-		public static function events_search_distinct( $distinct ) {
-			return "DISTINCT";
-		}
-
-		/**
 		 * Fields filter for standard wordpress templates.  Adds the start and end date to queries in the
 		 * events category
 		 *
@@ -98,23 +89,6 @@ if ( ! class_exists( 'TribeEventsAdminList' ) ) {
 		}
 
 		/**
-		 * Where filter for admin queries
-		 *
-		 * @param string   where clause
-		 * @param WP_Query query
-		 *
-		 * @return string modified where clause
-		 */
-		public static function events_search_where( $where, $query ) {
-			if ( get_query_var( 'post_type' ) != TribeEvents::POSTTYPE ) {
-				return $where;
-			}
-
-
-			return $where;
-		}
-
-		/**
 		 * orderby filter for standard admin queries
 		 *
 		 * @param          string orderby
@@ -145,15 +119,6 @@ if ( ! class_exists( 'TribeEventsAdminList' ) ) {
 			}
 
 			return $orderby_sql;
-		}
-
-		public static function events_search_groupby( $groupby_sql, $query ) {
-			if ( ! $query->is_main_query() || $query->get( 'post_type' ) != TribeEvents::POSTTYPE ) {
-				return $groupby_sql;
-			}
-			$groupby_sql = "";
-
-			return $groupby_sql;
 		}
 
 		/**
