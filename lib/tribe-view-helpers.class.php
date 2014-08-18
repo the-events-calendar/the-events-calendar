@@ -529,8 +529,11 @@ if ( ! class_exists( 'TribeEventsViewHelpers' ) ) {
 		 * @param string $date the current date to select  (optional)
 		 *
 		 * @return string a set of HTML options with all months (current month selected)
+		 * @deprecated
+		 * @todo remove in 3.10
 		 */
 		public static function getMonthOptions( $date = "" ) {
+			_deprecated_function( __CLASS__ . '::' . __FUNCTION__ . '()', '3.8' );
 			$tribe_ecp = TribeEvents::instance();
 			$months    = $tribe_ecp->monthNames( true );
 			$options   = '';
@@ -563,8 +566,11 @@ if ( ! class_exists( 'TribeEventsViewHelpers' ) ) {
 		 * @param int    $totalDays number of days in the month
 		 *
 		 * @return string a set of HTML options with all days (current day selected)
+		 * @deprecated
+		 * @todo remove in 3.10
 		 */
 		public static function getDayOptions( $date = "", $totalDays = 31 ) {
+			_deprecated_function( __CLASS__ . '::' . __FUNCTION__ . '()', '3.8' );
 			$days    = TribeEventsViewHelpers::days( $totalDays );
 			$options = '';
 			if ( empty( $date ) ) {
@@ -600,8 +606,11 @@ if ( ! class_exists( 'TribeEventsViewHelpers' ) ) {
 		 * @param string $date the current date (optional)
 		 *
 		 * @return string a set of HTML options with adjacent years (current year selected)
+		 * @deprecated
+		 * @todo remove in 3.10
 		 */
 		public static function getYearOptions( $date = "" ) {
+			_deprecated_function( __CLASS__ . '::' . __FUNCTION__ . '()', '3.8' );
 			$years   = TribeEventsViewHelpers::years();
 			$options = '';
 			if ( empty( $date ) ) {
