@@ -408,10 +408,10 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 			add_action( 'save_post_' . self::VENUE_POST_TYPE, array( $this, 'save_venue_data' ), 16, 2 );
 			add_action( 'save_post_' . self::ORGANIZER_POST_TYPE, array( $this, 'save_organizer_data' ), 16, 2 );
 			add_action( 'save_post', array( $this, 'addToPostAuditTrail' ), 10, 2 );
-			add_action( 'save_post', array( $this, 'update_earliest_latest' ), 20 );
-			add_action( 'tribe_events_csv_import_complete', array( $this, 'rebuild_earliest_latest' ) );
+			add_action( 'save_post_' . self::POSTTYPE, array( $this, 'maybe_update_known_range' ) );
+			add_action( 'tribe_events_csv_import_complete', array( $this, 'rebuild_known_range' ) );
 			add_action( 'publish_' . self::POSTTYPE, array( $this, 'publishAssociatedTypes' ), 25, 2 );
-			add_action( 'delete_post', array( $this, 'maybe_rebuild_earliest_latest' ) );
+			add_action( 'delete_post', array( $this, 'maybe_rebuild_known_range' ) );
 			add_action( 'parse_query', array( $this, 'setDisplay' ), 51, 0 );
 			add_action( 'tribe_events_post_errors', array( 'TribeEventsPostException', 'displayMessage' ) );
 			add_action( 'tribe_settings_top', array( 'TribeEventsOptionsException', 'displayMessage' ) );
@@ -2639,7 +2639,7 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 		 * If pretty perms are off, get the ugly link.
 		 *
 		 * @param string $type      The type of link requested.
-		 * @param string $secondary Some secondary data for the link.
+		 * @param bool|string       $secondary Some secondary data for the link.
 		 *
 		 * @return string The ugly link.
 		 */
@@ -2753,31 +2753,35 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 		}
 
 		/**
-		 * Returns a link to google maps for the given event
+		 * Returns a link to google maps for the given event. This link can be filtered 
+		 * using the tribe_events_google_map_link hook.
 		 *
-		 * @param string $postId
+		 * @param int|null $post_id
 		 *
 		 * @return string a fully qualified link to http://maps.google.com/ for this event
 		 */
-		public function googleMapLink( $postId = null ) {
-			if ( $postId === null || ! is_numeric( $postId ) ) {
+		public function googleMapLink( $post_id = null ) {
+			if ( $post_id === null || ! is_numeric( $post_id ) ) {
 				global $post;
-				$postId = $post->ID;
+				$post_id = $post->ID;
 			}
 
 			$locationMetaSuffixes = array( 'address', 'city', 'region', 'zip', 'country' );
-			$toUrlEncode          = "";
+			$to_encode = "";
+			$url = '';
+
 			foreach ( $locationMetaSuffixes as $val ) {
-				$metaVal = call_user_func( 'tribe_get_' . $val, $postId );
+				$metaVal = call_user_func( 'tribe_get_' . $val, $post_id );
 				if ( $metaVal ) {
-					$toUrlEncode .= $metaVal . " ";
+					$to_encode .= $metaVal . " ";
 				}
 			}
-			if ( $toUrlEncode ) {
-				return "http://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=" . urlencode( trim( $toUrlEncode ) );
+
+			if ( $to_encode ) {
+				$url = "http://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=" . urlencode( trim( $to_encode ) );
 			}
 
-			return "";
+			return apply_filters( 'tribe_events_google_map_link', $url, $post_id );
 		}
 
 		/**
@@ -3056,6 +3060,24 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 		}
 
 		/**
+		 * Intended to run when the save_post_tribe_events action is fired.
+		 *
+		 * At this point we know an event is being updated or created and, if the post is going to
+		 * be visible, we can set up a further action to handle updating our record of the
+		 * populated date range once the post meta containing the start and end date for the post
+		 * has saved.
+		 */
+		public function maybe_update_known_range( $post_id ) {
+			// If the event isn't going to be visible (perhaps it's been trashed) rebuild dates and bail
+			if ( ! in_array( get_post_status( $post_id ), array( 'publish', 'private', 'protected' ) ) ) {
+				$this->rebuild_known_range();
+				return;
+			}
+
+			add_action( 'added_post_meta', array( $this, 'update_known_range' ), 10, 3 );
+		}
+
+		/**
 		 * Intelligently updates our record of the earliest start date/latest event date in
 		 * the system. If the existing earliest/latest values have not been superseded by the new post's
 		 * start/end date then no update takes place.
@@ -3064,24 +3086,15 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 		 * where the removal/restoration of hooks within addEventMeta() etc might stop this method from
 		 * actually being called (relates to a core WP bug).
 		 */
-		public function update_earliest_latest( $post_id ) {
-			// Bail if this isn't an event
-			if ( TribeEvents::POSTTYPE !== get_post_type( $post_id ) ) {
-				return;
-			}
-
-			// If the event isn't going to be visible (perhaps it's been trashed) rebuild dates and bail
-			if ( ! in_array( get_post_status( $post_id ), array( 'publish', 'private', 'protected' ) ) ) {
-				$this->rebuild_earliest_latest();
-
-				return;
-			}
+		public function update_known_range( $meta_id, $object_id, $meta_key  ) {
+			if ( TribeEvents::POSTTYPE !== get_post_type( $object_id ) ) return;
+			if ( '_EventDuration' !== $meta_key ) return;
 
 			$current_min = tribe_events_earliest_date();
 			$current_max = tribe_events_latest_date();
 
-			$event_start = tribe_get_start_date( $post_id, false, TribeDateUtils::DBDATETIMEFORMAT );
-			$event_end   = tribe_get_end_date( $post_id, false, TribeDateUtils::DBDATETIMEFORMAT );
+			$event_start = tribe_get_start_date( $object_id, false, TribeDateUtils::DBDATETIMEFORMAT );
+			$event_end   = tribe_get_end_date( $object_id, false, TribeDateUtils::DBDATETIMEFORMAT );
 
 			if ( $current_min > $event_start ) {
 				tribe_update_option( 'earliest_date', $event_start );
@@ -3098,9 +3111,9 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 		 *
 		 * @param $post_id
 		 */
-		public function maybe_rebuild_earliest_latest( $post_id ) {
+		public function maybe_rebuild_known_range( $post_id ) {
 			if ( self::POSTTYPE === get_post_type( $post_id ) ) {
-				add_action( 'deleted_post', array( $this, 'rebuild_earliest_latest' ) );
+				add_action( 'deleted_post', array( $this, 'rebuild_known_range' ) );
 			}
 		}
 
@@ -3108,9 +3121,9 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 		 * Determine the earliest start date and latest end date currently in the database
 		 * and store those values for future use.
 		 */
-		public function rebuild_earliest_latest() {
+		public function rebuild_known_range() {
 			global $wpdb;
-			remove_action( 'deleted_post', array( $this, 'rebuild_earliest_latest' ) );
+			remove_action( 'deleted_post', array( $this, 'rebuild_known_range' ) );
 
 			$earliest = strtotime(
 				$wpdb->get_var(

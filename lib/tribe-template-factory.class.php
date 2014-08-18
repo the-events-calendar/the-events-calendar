@@ -624,7 +624,7 @@ if ( ! class_exists( 'Tribe_Template_Factory' ) ) {
 
 							// set the $media attribute
 							if ( $name == 'tribe-events-calendar-mobile-style' || $name == 'tribe-events-calendar-full-mobile-style' ) {
-								$media = "(max-width: {$mobile_break}px)";
+								$media = "only screen and (max-width: {$mobile_break}px)";
 								wp_enqueue_style( $name, $url, array( 'tribe-events-calendar-style' ), TribeEvents::VERSION, $media );
 							} else {
 								wp_register_style( $name, $url, array(), TribeEvents::VERSION );
