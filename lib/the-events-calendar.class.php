@@ -257,7 +257,6 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 			require_once 'tribe-event-query.class.php';
 			require_once 'tribe-view-helpers.class.php';
 			require_once 'tribe-events-bar.class.php';
-			require_once 'tribe-the-events-calendar-import.class.php';
 			require_once 'tribe-support.class.php';
 			require_once 'tribe-amalgamator.php';
 			require_once 'tribe-events-update.class.php';
