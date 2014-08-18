@@ -30,7 +30,7 @@ $venue_id = get_the_ID();
 
 	<div class="tribe-events-venue-meta vcard tribe-clearfix">
 
-		<?php if ( tribe_embed_google_map() ) : ?>
+		<?php if ( tribe_embed_google_map() && tribe_address_exists() ) : ?>
 			<!-- Venue Map -->
 			<div class="tribe-events-map-wrap">
 				<?php echo tribe_get_embedded_map( $venue_id, '350px', '200px' ); ?>
@@ -44,7 +44,7 @@ $venue_id = get_the_ID();
 		
 		<div class="tribe-events-event-meta">
 		
-			<?php if ( tribe_show_google_map_link() ) : ?>
+			<?php if ( tribe_show_google_map_link() && tribe_address_exists() ) : ?>
 				<!-- Google Map Link -->
 				<?php echo tribe_get_meta('tribe_event_venue_gmap_link'); ?>
 			<?php endif; ?>
