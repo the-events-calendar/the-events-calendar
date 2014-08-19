@@ -39,33 +39,25 @@ if ( ! class_exists( 'TribeEventsQuery' ) ) {
 		 **/
 		public static function parse_query( $query ) {
 
-			// include events in search results
-			if ( $query->is_search && $query->get( 'post_type' ) == '' ) {
-				$query->set( 'post_type', 'any' );
-			}
-
 			// set paged
 			if ( $query->is_main_query() && isset( $_GET['tribe_paged'] ) ) {
 				$query->set( 'paged', $_REQUEST['tribe_paged'] );
 			}
 
-			// Add tribe events post type to tag queries
-			if ( $query->is_tag && (array) $query->get( 'post_type' ) != array( TribeEvents::POSTTYPE ) ) {
+			// Add tribe events post type to tag and search queries
+			if ( ( $query->is_tag || $query->is_search ) && $query->get( 'post_type' ) != 'any' ) {
+
 				$types = $query->get( 'post_type' );
 				if ( empty( $types ) ) {
-					$types = array( 'post' );
+					$types = 'post';
 				}
-				if ( is_array( $types ) ) {
+
+				$types = (array) $types;
+
+				if ( ! in_array( TribeEvents::POSTTYPE, $types ) ) {
 					$types[] = TribeEvents::POSTTYPE;
-				} else {
-					if ( is_string( $types ) ) {
-						$types = array( $types, TribeEvents::POSTTYPE );
-					} else {
-						if ( $types != 'any' ) {
-							$types = array( 'post', TribeEvents::POSTTYPE );
-						}
-					}
 				}
+
 				$query->set( 'post_type', $types );
 			}
 
