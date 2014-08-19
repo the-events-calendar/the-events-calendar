@@ -45,7 +45,7 @@ if ( ! class_exists( 'Tribe_Events_Day_Template' ) ) {
 			$attrs['data-date']    = Date( 'Y-m-d', strtotime( $current_day ) );
 			$attrs['data-header']  = Date( tribe_get_date_format( true ), strtotime( $current_day ) );
 
-			return apply_filters( 'tribe_events_pro_header_attributes', $attrs );
+			return $attrs;
 		}
 
 		public function ical_link( $link ) {
