@@ -515,6 +515,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 * @param string|null $current_view
 	 *
 	 * @return void
+	 * @todo move to template classes
 	 **/
 	function tribe_events_the_header_attributes( $current_view = null ) {
 		$attrs               = array();
