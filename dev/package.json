@@ -25,6 +25,7 @@
     "grunt-contrib-jshint": "^0.10.0",
     "grunt-contrib-uglify": "^0.5.1",
     "grunt-contrib-watch": "^0.6.1",
+    "grunt-git": "^0.2.14",
     "grunt-newer": "^0.7.0",
     "grunt-preprocess": "^4.0.0",
     "grunt-rename": "^0.1.3",
