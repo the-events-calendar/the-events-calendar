@@ -89,6 +89,8 @@ module.exports = function(grunt) {
 
 	grunt.registerTask(
 		'package', [
+			'gitcheckout:dist',
+			'gitpull:dist',
 			'copy:dist',
 			'compress:dist',
 			'clean:dist'

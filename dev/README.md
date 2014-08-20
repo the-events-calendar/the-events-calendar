@@ -1,6 +1,10 @@
 #  === Dev Setup ===
 
 This project uses Node.js, npm and grunt for task management.
+You will need node installed on your system, and the grunt command line interface globally.
+After that each project just needs a one off 'npm install' to get the build tools setup in this dev folder.
+Read on if you are not familiar with grunt/npm, or to see what tools and configs are in play.
+
 All cli commands found below should be executed at the root of this dev directory, NOT the project root.
 
 ##  === Prerequisites ===
@@ -51,7 +55,7 @@ Outside of that object you will note something like this:
         "npm": "1.4.23"
       }
 
-Of note here are the keys that begin with an underscore. These are variables for our use in the packages, in this case Grunt tasks generally.
+Of note here are the keys that begin with an underscore. These are variables for our use in the packages, in this case Grunt tasks.
 You can add more as you need for new directories or other uses.
 For example, we can use them in Grunt tasks like so:
 
@@ -67,7 +71,7 @@ For example, we can use them in Grunt tasks like so:
 
 When installing new packages make sure you add the flag `--save-dev` to add them to the package.json file.
 
-# === Grunting ===
+# === Grunt ===
 
 ##  === Helpful Grunt Primers ===
 
@@ -131,47 +135,5 @@ Installed grunt plugins and their documentation links:
 * [grunt-contrib-compress](https://github.com/gruntjs/grunt-contrib-compress) Package a zip file for release.
 * [grunt-preprocess](https://npmjs.org/package/grunt-preprocess) Preprocess HTML, JavaScript etc directives based off environment configuration.
 
-##  === Installing Your Own Grunt Task ===
 
-You'll find them in grunts repolist, npm and on github.
-Search here first: [Grunt Plugins Directory](http://gruntjs.com/plugins)
-
-Don't follow all of a tasks instructions for install. :P We've changed things a bit, but dont't worry, these changes actually make it easier for you.
-
-Run the install as they define, but don't add the load task line to the gruntfile, our system autoloads. Eg a line like this:
-
-	grunt.loadNpmTasks('adapt-grunt-tracking-ids');
-
-Is not needed here.
-
-To define your tasks, don't add them to the gruntfile.js. Instead, create a new js file in the dev/grunt_options folder with a filename of the task.
-In the example task above, its task name is `adapt_insert_tracking_ids` so we make a file called "adapt_insert_tracking_ids.js".
-Inside that file we wrap our task in this:
-
-	module.exports = {
-
-		// tasks here
-
-	};
-
-Check the existing files for reference. Also, please note the existing comments in each task file and emulate.
-
-Your last step is to register your task, if you need to.
-Your task can be called without registering with `grunt taskname` but you can also add it to a build flow, and probably will want to.
-This is done at the bottom of the gruntfile.js.
-Here is an example of a task that executes a range of subtasks relating to our theme.
-
-	grunt.registerTask(
-		'theme', [
-			'copy:movelibs',
-			'concat:themelibs',
-			'concat:themescripts',
-			'preprocess:theme',
-			'uglify:theme',
-			'clean:theme',
-			'modernizr:theme',
-			'compass:theme'
-		]);
-
-We can run that group with `grunt theme`.
 
