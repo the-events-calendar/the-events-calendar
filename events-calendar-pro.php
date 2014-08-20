@@ -738,7 +738,6 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 											'_EventConference',
 											'_EventAllDay',
 											'_EventHideFromUpcoming',
-											'_EventAuditTrail',
 											'_EventOrigin',
 											'_EventShowMap',
 											'_EventVenueID',
