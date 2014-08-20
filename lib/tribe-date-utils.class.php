@@ -1,6 +1,6 @@
 <?php
 /**
- * Date utility functions used throughout ECP
+ * Date utility functions used throughout TEC + Addons
  */
 
 // Don't load directly

@@ -160,7 +160,6 @@ if ( ! class_exists( 'TribeEventsAdminList' ) ) {
 		 * @return array The modified column headers.
 		 */
 		public static function column_headers( $columns ) {
-			global $tribe_ecp;
 
 			foreach ( (array) $columns as $key => $value ) {
 				$mycolumns[$key] = $value;

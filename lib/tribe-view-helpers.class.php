@@ -20,7 +20,6 @@ if ( ! class_exists( 'TribeEventsViewHelpers' ) ) {
 		 * @return array The countries array.
 		 */
 		public static function constructCountries( $postId = '', $useDefault = true ) {
-			$tribe_ecp = TribeEvents::instance();
 
 			if ( tribe_get_option( 'tribeEventsCountries' ) != '' ) {
 				$countries = array(
@@ -291,7 +290,7 @@ if ( ! class_exists( 'TribeEventsViewHelpers' ) ) {
 				if ( $countryValue ) {
 					$defaultCountry = array( array_search( $countryValue, $countries ), $countryValue );
 				} else {
-					$defaultCountry = $tribe_ecp->getOption( 'defaultCountry' );
+					$defaultCountry = tribe_get_option( 'defaultCountry' );
 				}
 				if ( $defaultCountry && $defaultCountry[0] != "" ) {
 					$selectCountry = array_shift( $countries );
@@ -534,8 +533,7 @@ if ( ! class_exists( 'TribeEventsViewHelpers' ) ) {
 		 */
 		public static function getMonthOptions( $date = "" ) {
 			_deprecated_function( __CLASS__ . '::' . __FUNCTION__ . '()', '3.8' );
-			$tribe_ecp = TribeEvents::instance();
-			$months    = $tribe_ecp->monthNames( true );
+			$months    = TribeEvents::instance()->monthNames( true );
 			$options   = '';
 			if ( empty( $date ) ) {
 				$month = ( date_i18n( 'j' ) == date_i18n( 't' ) ) ? date( 'F', time() + 86400 ) : date_i18n( 'F' );

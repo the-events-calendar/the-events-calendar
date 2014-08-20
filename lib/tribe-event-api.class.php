@@ -92,7 +92,6 @@ if ( ! class_exists( 'TribeEventsAPI' ) ) {
 		 * @return void
 		 */
 		public static function saveEventMeta( $event_id, $data, $event = null ) {
-			$tribe_ecp = TribeEvents::instance();
 
 			if ( isset( $data['EventAllDay'] ) && ( $data['EventAllDay'] == 'yes' || $data['EventAllDay'] == true || ! isset( $data['EventStartDate'] ) ) ) {
 				$data['EventStartDate'] = tribe_event_beginning_of_day( $data['EventStartDate'] );
@@ -158,7 +157,7 @@ if ( ! class_exists( 'TribeEventsAPI' ) ) {
 			$data['EventCost'] = $cost;
 
 			//update meta fields
-			foreach ( $tribe_ecp->metaTags as $tag ) {
+			foreach ( TribeEvents::instance()->metaTags as $tag ) {
 				$htmlElement = ltrim( $tag, '_' );
 				if ( isset( $data[$htmlElement] ) && $tag != TribeEvents::EVENTSERROROPT ) {
 					if ( is_string( $data[$htmlElement] ) ) {

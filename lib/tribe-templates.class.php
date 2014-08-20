@@ -460,11 +460,10 @@ if ( ! class_exists( 'TribeEventsTemplates' ) ) {
 
 
 		public static function load_ecp_comments_page_template( $template ) {
-			$tribe_ecp = TribeEvents::instance();
 
 			remove_filter( 'comments_template', array( __CLASS__, 'load_ecp_comments_page_template' ) );
 			if ( ! is_single() || tribe_is_showing_all() || ( tribe_get_option( 'showComments', false ) === false ) ) {
-				return $tribe_ecp->pluginPath . 'admin-views/no-comments.php';
+				return TribeEvents::instance()->pluginPath . 'admin-views/no-comments.php';
 			}
 
 			return $template;
