@@ -31,7 +31,7 @@ class TribeEventsPro_RecurrenceSeriesSplitter_Test extends WP_UnitTestCase {
 			'fields' => 'ids',
 		));
 
-		$child_to_break = $original_children[2]; // 2014-05-22
+		$child_to_break = $original_children[2];
 
 		$breaker = new TribeEventsPro_RecurrenceSeriesSplitter();
 
@@ -156,7 +156,7 @@ class TribeEventsPro_RecurrenceSeriesSplitter_Test extends WP_UnitTestCase {
 			'fields' => 'ids',
 		));
 
-		$child_to_break = $original_children[2]; // 2014-05-22
+		$child_to_break = $original_children[2];
 
 		$breaker = new TribeEventsPro_RecurrenceSeriesSplitter();
 

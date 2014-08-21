@@ -43,7 +43,6 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 			self::$day_cutoff_rounded = date('H:00', strtotime(self::$start_of_week_date));
 
 			// let's get this show on the road
-			// self::set_current_day( self::$start_of_week );
 			self::setup_loop();
 			self::set_week_days();
 

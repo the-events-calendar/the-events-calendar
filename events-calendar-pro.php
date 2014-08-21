@@ -156,8 +156,6 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			add_action( 'tribe_events_after_the_grid', array( $this, 'enable_recurring_info_tooltip' ), 10, 0 );
 			add_action( 'tribe_events_single_event_after_the_meta', array( $this, 'register_related_events_view' ) );
 
-			// add_action( 'tribe_events_single_event_meta_init', array( $this, 'single_event_meta_init'), 10, 4);
-
 			// see function tribe_convert_units( $value, $unit_from, $unit_to )
 			add_filter( 'tribe_convert_kms_to_miles_ratio', array( $this, 'kms_to_miles_ratio' ) );
 			add_filter( 'tribe_convert_miles_to_kms_ratio', array( $this, 'miles_to_kms_ratio' ) );
@@ -330,10 +328,6 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			}
 			return apply_filters( 'tribe_events_pro_add_title', $new_title, $title, $sep );
 		}
-
-		// function single_event_meta_init( $meta_templates, $meta_template_keys, $meta_group_templates, $meta_group_template_keys ){
-		// 	if( !empty($))
-		// }
 
         /**
          * Gets the events_before_html content.
@@ -716,7 +710,6 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		 * @return bool Whether to show or not.
 		 */
 	    public function displayMetaboxCustomFields(){
-	    	// 'disable_metabox_custom_fields'
 	    	$show_box = tribe_get_option('disable_metabox_custom_fields');
 	    	if($show_box == 'show') {
 		    	return true;
@@ -751,11 +744,9 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 											'_FacebookID')");
 		    	if( empty($meta_keys) ) {
 		    		remove_post_type_support( TribeEvents::POSTTYPE, 'custom-fields' );
-		    		// update_option('disable_metabox_custom_fields','hide');
 		    		$show_box = 'hide';
 		    		$r = false;
 		    	} else {
-		    		// update_option('disable_metabox_custom_fields','true');
 		    		$show_box = 'show';
 		    		$r = true;
 		    	}

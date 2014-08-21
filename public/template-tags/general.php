@@ -397,7 +397,6 @@ if( class_exists( 'TribeEventsPro' ) ) {
 			$date = new DateTime();
 		}
 
-		// $date = is_null($date) ? new DateTime( $wp_query->get( 'start_date' ) ) : new DateTime( $date );
 		// Clone to avoid altering the original date
 		$r = clone $date;
 		$r->modify(-(($date->format('w') + $offset) % 7) . 'days');

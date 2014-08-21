@@ -276,8 +276,6 @@ class TribeEventsMiniCalendar {
 	public function ajax_change_month_set_date( $query ) {
 
 		if ( isset( $_POST["eventDate"] ) && $_POST["eventDate"] ) {
-			// $query->set( 'eventDate', $_POST["eventDate"] . '-01' );
-			// $query->set( 'start_date', $_POST["eventDate"] . '-01' );
 			$query->set( 'end_date', date( 'Y-m-d', strtotime( TribeEvents::instance()->nextMonth( $_POST["eventDate"] . '-01' ) ) - ( 24 * 3600 ) ) );
 			$query->set( 'eventDisplay', 'month' );
 		}

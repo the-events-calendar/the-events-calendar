@@ -52,8 +52,7 @@ class TribeEventsRecurrenceMeta {
 		add_action( 'manage_' . TribeEvents::POSTTYPE . '_posts_custom_column', array(__CLASS__, 'populate_custom_list_table_columns'), 10, 2);
 
 
-		//add_filter( 'tribe_get_event_link', array( __CLASS__, 'addDateToEventPermalink'), 10, 2 );
-    add_filter( 'post_row_actions', array( __CLASS__, 'edit_post_row_actions'), 10, 2 );
+	    add_filter( 'post_row_actions', array( __CLASS__, 'edit_post_row_actions'), 10, 2 );
 		add_action( 'admin_action_tribe_split', array( __CLASS__, 'handle_split_request' ), 10, 1 );
 		add_action( 'wp_before_admin_bar_render', array( __CLASS__, 'admin_bar_render'));
 
