@@ -464,16 +464,6 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 			add_action( 'plugin_action_links_' . trailingslashit( $this->pluginDir ) . 'the-events-calendar.php', array( $this, 'addLinksToPluginActions' ) );
 			add_action( 'admin_menu', array( $this, 'addHelpAdminMenuItem' ), 50 );
 
-			/* VIEWS AJAX CALLS */
-			add_action( 'wp_ajax_tribe_calendar', array( $this, 'calendar_ajax_call' ) );
-			add_action( 'wp_ajax_nopriv_tribe_calendar', array( $this, 'calendar_ajax_call' ) );
-			add_action( 'wp_ajax_tribe_list', array( $this, 'list_ajax_call' ) );
-			add_action( 'tribe_events_pre_get_posts', array( $this, 'set_tribe_paged' ) );
-			add_action( 'wp_ajax_nopriv_tribe_list', array( $this, 'list_ajax_call' ) );
-			add_action( 'wp_ajax_tribe_event_day', array( $this, 'wp_ajax_tribe_event_day' ) );
-			add_action( 'wp_ajax_nopriv_tribe_event_day', array( $this, 'wp_ajax_tribe_event_day' ) );
-
-
 			// Upgrade material.
 			add_action( 'admin_init', array( $this, 'checkSuiteIfJustUpdated' ) );
 
@@ -554,14 +544,6 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 			require_once $this->pluginPath . 'public/template-tags/day.php';
 		}
 
-		/**
-		 * Enqueue ajax handling for calendar grid view
-		 */
-		function enqueue_for_ajax_calendar() {
-			if ( $this->displaying === 'month' ) {
-				Tribe_Template_Factory::asset_package( 'ajax-calendar' );
-			}
-		}
 
 		/**
 		 * Add code to tell search engines not to index the grid view of the
@@ -4723,99 +4705,6 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 			return $post;
 		}
 
-		/* VIEWS AJAX CALLS */
-
-		/**
-		 * The List View AJAX handler.
-		 *
-		 * @return void
-		 */
-		function list_ajax_call() {
-
-			TribeEventsQuery::init();
-
-			$tribe_paged = ( ! empty( $_POST['tribe_paged'] ) ) ? intval( $_POST['tribe_paged'] ) : 1;
-
-			$args = array(
-				'eventDisplay' => 'upcoming',
-				'post_type'    => TribeEvents::POSTTYPE,
-				'post_status'  => 'publish',
-				'paged'        => $tribe_paged
-			);
-
-			// check & set past display
-			if ( isset( $_POST['tribe_event_display'] ) && $_POST['tribe_event_display'] == 'past' ) {
-				$args['eventDisplay'] = 'past';
-			}
-
-			// check & set event category
-			if ( isset( $_POST['tribe_event_category'] ) ) {
-				$args[TribeEvents::TAXONOMY] = $_POST['tribe_event_category'];
-			}
-
-			$query = TribeEventsQuery::getEvents( $args, true );
-
-			// $hash is used to detect whether the primary arguments in the query have changed (i.e. due to a filter bar request)
-			// if they have, we want to go back to page 1
-			$hash = $query->query_vars;
-
-			$hash['paged']      = null;
-			$hash['start_date'] = null;
-			$hash['end_date']   = null;
-			$hash_str           = md5( maybe_serialize( $hash ) );
-
-			if ( ! empty( $_POST['hash'] ) && $hash_str !== $_POST['hash'] ) {
-				$tribe_paged   = 1;
-				$args['paged'] = 1;
-				$query         = TribeEventsQuery::getEvents( $args, true );
-			}
-
-
-			$response = array(
-				'html'        => '',
-				'success'     => true,
-				'max_pages'   => $query->max_num_pages,
-				'hash'        => $hash_str,
-				'tribe_paged' => $tribe_paged,
-				'total_count' => $query->found_posts,
-				'view'        => 'list',
-			);
-
-			global $wp_query, $post, $paged;
-			$wp_query = $query;
-			if ( ! empty( $query->posts ) ) {
-				$post = $query->posts[0];
-			}
-
-			$paged = $tribe_paged;
-
-			if ( $query->query_vars['eventDisplay'] == 'list' ) {
-				$this->displaying = 'upcoming';
-			} elseif ( $query->query_vars['eventDisplay'] == 'past' ) {
-				$this->displaying = 'past';
-				$response['view'] = 'past';
-			}
-
-			$old_request = $_SERVER;
-			if ( tribe_is_past() ) {
-				$_SERVER['REQUEST_URI'] = $this->rewriteSlug . '/' . 'past/';
-			} else {
-				$_SERVER['REQUEST_URI'] = $this->rewriteSlug . '/' . 'upcoming/';
-			}
-
-			ob_start();
-			tribe_get_view( 'list/content' );
-			$response['html'] .= ob_get_clean();
-			$_SERVER = $old_request;
-
-			apply_filters( 'tribe_events_ajax_response', $response );
-
-			header( 'Content-type: application/json' );
-			echo json_encode( $response );
-
-			die();
-		}
-
 		/**
 		 * Insert an array after a specified key within another array.
 		 *
@@ -4836,104 +4725,6 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 			}
 
 			return $source_array;
-		}
-
-		/**
-		 * The Calendar View AJAX Handler.
-		 *
-		 * @return void
-		 */
-		function calendar_ajax_call() {
-
-			if ( isset( $_POST["eventDate"] ) && $_POST["eventDate"] ) {
-
-				TribeEventsQuery::init();
-
-				// set the global query var for eventDisplay
-				$query_args = array(
-					'post_type'    => self::POSTTYPE,
-					'eventDisplay' => 'month',
-					'eventDate'    => $_POST['eventDate'],
-				);
-
-				$this->displaying = 'month';
-
-				if ( isset( $_POST['tribe_event_category'] ) ) {
-					$query_args['tribe_events_cat'] = $_POST['tribe_event_category'];
-				}
-
-				query_posts( $query_args );
-
-				ob_start();
-
-				tribe_get_view( 'month/content' );
-
-				$response = array(
-					'html'    => ob_get_clean(),
-					'success' => true,
-					'view'    => 'month',
-				);
-				apply_filters( 'tribe_events_ajax_response', $response );
-				header( 'Content-type: application/json' );
-				echo json_encode( $response );
-				die();
-			}
-		}
-
-		/**
-		 * AJAX handler for tribe_event_day (dayview navigation)
-		 * This loads up the day view shard with all the appropriate events for the day
-		 *
-		 * @return void
-		 */
-		function wp_ajax_tribe_event_day() {
-			if ( isset( $_POST["eventDate"] ) && $_POST["eventDate"] ) {
-
-				TribeEventsQuery::init();
-
-				$states[] = 'publish';
-				if ( 0 < get_current_user_id() ) {
-					$states[] = 'private';
-				}
-
-				$args = array(
-					'post_status'  => $states,
-					'eventDate'    => $_POST["eventDate"],
-					'eventDisplay' => 'day'
-				);
-
-				if ( isset( $_POST['tribe_event_category'] ) ) {
-					$args[TribeEvents::TAXONOMY] = $_POST['tribe_event_category'];
-				}
-
-				$query = TribeEventsQuery::getEvents( $args, true );
-
-				global $wp_query, $post;
-				$wp_query = $query;
-
-				if ( have_posts() ) {
-					the_post(); // TODO: why is this here?
-					rewind_posts(); // so we don't skip the first post when rendering
-				}
-
-				add_filter( 'tribe_is_day', '__return_true' ); // simplest way to declare that this is a day view
-
-				ob_start();
-				tribe_get_view( 'day/content' );
-
-				$response = array(
-					'html'        => ob_get_clean(),
-					'success'     => true,
-					'total_count' => $query->found_posts,
-					'view'        => 'day',
-				);
-				apply_filters( 'tribe_events_ajax_response', $response );
-
-				header( 'Content-type: application/json' );
-				echo json_encode( $response );
-				die();
-			}
-
 		}
 
 		/**

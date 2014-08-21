@@ -113,6 +113,32 @@ if ( class_exists( 'TribeEvents' ) ) {
 	}
 
 	/**
+	 * Check if the current request is for a tribe view via ajax
+	 * @return boolean
+	 */
+	function tribe_is_ajax_view_request( $view = false ) {
+		$is_ajax_view_request = false;
+		if ( ( defined( 'DOING_AJAX' ) && DOING_AJAX ) && ! empty( $_REQUEST['action'] ) ) {
+			switch ( $view ) {
+				case false:
+					$is_ajax_view_request = ( ! empty( $_REQUEST['tribe_event_display'] ) || ! empty( $_REQUEST['eventDate'] ) || ! empty( $_REQUEST['tribe-bar-date'] ) || ! empty( $_REQUEST['tribe_paged'] ) );
+					break;
+				case 'month' :
+					$is_ajax_view_request = ( $_REQUEST['action'] == Tribe_Events_Month_Template::AJAX_HOOK );
+					break;
+				case 'list' :
+					$is_ajax_view_request = ( $_REQUEST['action'] == Tribe_Events_List_Template::AJAX_HOOK);
+					break;
+				case 'day' :
+					$is_ajax_view_request = ( $_REQUEST['action'] == Tribe_Events_Day_Template::AJAX_HOOK );
+					break;
+			}
+		}
+
+		return apply_filters( 'tribe_is_ajax_view_request', $is_ajax_view_request, $view );
+	}
+
+	/**
 	 * Update Option
 	 *
 	 * Set specific key from options array, optionally provide a default return value

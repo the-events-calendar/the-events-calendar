@@ -58,6 +58,14 @@ if ( ! class_exists( 'Tribe_Template_Factory' ) ) {
 		protected static $vendor_scripts = array();
 
 		/**
+		 * Constant that holds the ajax hook suffix for the view
+		 *
+		 * @static
+		 * @var string
+		 */
+		const AJAX_HOOK = '';
+
+		/**
 		 * Run include packages, set up hooks
 		 *
 		 * @return void
@@ -74,8 +82,15 @@ if ( ! class_exists( 'Tribe_Template_Factory' ) ) {
 		 **/
 		protected function hooks() {
 
+			$current_class = get_class( $this );
+			$ajax_hook = constant( $current_class . '::AJAX_HOOK' );
+
 			// set up queries, vars, etc that needs to be used in this view
 			add_action( 'tribe_events_before_view', array( $this, 'setup_view' ) );
+
+			// ajax requests
+			add_action( 'wp_ajax_' . $ajax_hook, array( $this, 'ajax_response' ) );
+			add_action( 'wp_ajax_nopriv_' . $ajax_hook, array( $this, 'ajax_response' ) );
 
 			// set notices 
 			add_action( 'tribe_events_before_view', array( $this, 'set_notices' ) );
@@ -284,6 +299,13 @@ if ( ! class_exists( 'Tribe_Template_Factory' ) ) {
 		 **/
 		public function view_wrapper_close() {
 			echo '</div> <!-- #tribe-events-content-wrapper -->';
+		}
+
+		/**
+		 * Function to execute when ajax view is requested
+		 */
+		public function ajax_response() {
+			die();
 		}
 
 		/**
