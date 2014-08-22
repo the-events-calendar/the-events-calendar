@@ -950,12 +950,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 
 		if ( tribe_event_is_multiday( $event ) ) { // multi-date event
 
-			$format2ndday = $format;
-
-			//If it's all day and the end date is in the same month and year, just show the day.
-			if ( tribe_event_is_all_day( $event ) && tribe_get_end_date( $event, false, 'm' ) === tribe_get_start_date( $event, false, 'm' ) && tribe_get_end_date( $event, false, 'Y' ) === date( 'Y' ) ) {
-				$format2ndday = 'j';
-			}
+			$format2ndday = apply_filters( 'tribe_format_second_date_in_range', $format, $event );
 
 			if ( tribe_event_is_all_day( $event ) ) {
 				$schedule .= tribe_get_start_date( $event, true, $format );
