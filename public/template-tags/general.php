@@ -389,7 +389,11 @@ if( class_exists( 'TribeEventsPro' ) ) {
 		global $wp_query;
 		$offset = 7 - get_option( 'start_of_week', 0 );
 
-		$date = is_null( $date ) ? $wp_query->get('start_date') : $date;
+		if ( tribe_is_ajax_view_request() ) {
+			$date = is_null( $date ) ? $_REQUEST['eventDate'] : $date;
+		} else {
+			$date = is_null( $date ) ? $wp_query->get('start_date') : $date;
+		}
 
 		try {
 			$date = new DateTime( $date );
@@ -440,10 +444,11 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	 *
 	 * @return bool
 	 */
-	function tribe_is_map()  {
+	function tribe_is_map() {
 		$tribe_ecp = TribeEvents::instance();
-		$is_map = ($tribe_ecp->displaying == 'map') ? true : false;
-		return apply_filters('tribe_is_map', $is_map);
+		$is_map    = ( $tribe_ecp->displaying == 'map' ) ? true : false;
+
+		return apply_filters( 'tribe_is_map', $is_map );
 	}
 
 	/**

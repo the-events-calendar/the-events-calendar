@@ -11,7 +11,7 @@ if( !class_exists('Tribe_PRO_Template_Factory') ) {
 		 */
 		public function __construct() {
 			parent::__construct();
-			add_action('tribe_events_asset_package', array(__CLASS__, 'asset_package'), 10, 2);
+			add_action( 'tribe_events_asset_package', array( __CLASS__, 'asset_package' ), 10, 2 );
 		}
 
 		/**

@@ -168,14 +168,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			add_filter( 'tribe_bar_datepicker_caption', array( $this, 'setup_datepicker_label' ), 10, 1 );
 			add_action( 'tribe_events_after_the_title', array( $this, 'add_recurring_occurance_setting_to_list' ) );
 
-			/* AJAX for loading photo view */
-
-			add_action( 'wp_ajax_tribe_photo', array( $this, 'wp_ajax_tribe_photo' ) );
-			add_action( 'wp_ajax_nopriv_tribe_photo', array( $this, 'wp_ajax_tribe_photo' ) );
-
-			/* AJAX for loading week view */
-			add_action( 'wp_ajax_tribe_week', array( $this, 'wp_ajax_tribe_week' ) );
-			add_action( 'wp_ajax_nopriv_tribe_week', array( $this, 'wp_ajax_tribe_week' ) );
+			add_filter( 'tribe_is_ajax_view_request', array( $this, 'is_pro_ajax_view_request' ), 10, 2 );
 
 			add_action( 'tribe_events_pre_get_posts' , array( $this, 'setup_hide_recurrence_in_query' ) );
 
@@ -379,135 +372,6 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			}
 
 			return isset($reset_title) ? apply_filters( 'tribe_template_factory_debug', $reset_title, 'tribe_get_events_title' ) : $content;
-		}
-
-		/**
-		 * AJAX handler for tribe_event_photo (Photo view)
-		 *
-		 * @return void
-		 */
-		function wp_ajax_tribe_photo() {
-
-			$tec = TribeEvents::instance();
-
-			TribeEventsQuery::init();
-
-			$tribe_paged = ( !empty( $_POST['tribe_paged'] ) ) ? intval( $_POST['tribe_paged'] ) : 1;
-
-			$args = array( 'eventDisplay'       => 'list',
-			               'post_type'          => TribeEvents::POSTTYPE,
-			               'post_status'        => 'publish',
-			               'paged'              => $tribe_paged );
-
-			$view_state = 'photo';
-
-			if ( isset( $_POST['tribe_event_category'] ) ) {
-				$args[TribeEvents::TAXONOMY] = $_POST['tribe_event_category'];
-			}
-
-			/* if past view */
-			if ( ! empty( $_POST['tribe_event_display'] ) && $_POST['tribe_event_display'] == 'past' ){
-				$view_state = 'past';
-			}
-
-
-			$query = TribeEventsQuery::getEvents( $args, true );
-			$hash  = $query->query_vars;
-
-			$hash['paged']      = null;
-			$hash['start_date'] = null;
-			$hash_str           = md5( maybe_serialize( $hash ) );
-
-			if ( !empty( $_POST['hash'] ) && $hash_str !== $_POST['hash'] ) {
-				$tribe_paged   = 1;
-				$args['paged'] = 1;
-				$query         = TribeEventsQuery::getEvents( $args, true );
-			}
-
-
-			$response = array( 'html'            => '',
-			                   'success'         => true,
-			                   'max_pages'       => $query->max_num_pages,
-			                   'hash'            => $hash_str,
-			                   'tribe_paged'     => $tribe_paged,
-			                   'view'            => $view_state,
-			);
-
-			global $wp_query, $post;
-			$wp_query = $query;
-			if ( !empty( $query->posts ) ) {
-				$post = $query->posts[0];
-			}
-
-			add_filter( 'tribe_events_list_pagination', array( 'TribeEvents', 'clear_module_pagination' ), 10 );
-
-			$tec->displaying = 'photo';
-
-			ob_start();
-
-			tribe_get_view( 'pro/photo/content' );
-
-			$response['html'] .= ob_get_clean();
-
-			apply_filters( 'tribe_events_ajax_response', $response );
-
-			header( 'Content-type: application/json' );
-			echo json_encode( $response );
-
-			die();
-		}
-
-		/**
-		 * AJAX handler for tribe_event_week (weekview navigation)
-		 * This loads up the week view shard with all the appropriate events for the week
-		 *
-		 * @return void
-		 */
-		function wp_ajax_tribe_week(){
-			if ( isset( $_POST["eventDate"] ) && $_POST["eventDate"] ) {
-
-				TribeEventsQuery::init();
-
-				$states[] = 'publish';
-				if ( 0 < get_current_user_id() ) $states[] = 'private';
-
-				$args = array(
-					'post_status' => $states,
-					'eventDate' => $_POST["eventDate"],
-					'eventDisplay' => 'week'
-				);
-
-				if ( isset( $_POST['tribe_event_category'] ) ) {
-					$args[TribeEvents::TAXONOMY] = $_POST['tribe_event_category'];
-				}
-
-				$query = TribeEventsQuery::getEvents( $args, true );
-
-				global $wp_query, $post;
-				$wp_query = $query;
-
-				TribeEvents::instance()->setDisplay();
-
-				$response = array(
-					'html'            => '',
-					'success'         => true,
-					'view'            => 'week',
-				);
-
-				add_filter( 'tribe_is_week', '__return_true' ); // simplest way to declare that this is a week view
-
-				ob_start();
-
-				tribe_get_view( 'pro/week/content' );
-
-				$response['html'] .= ob_get_clean();
-
-				apply_filters( 'tribe_events_ajax_response', $response );
-
-				header( 'Content-type: application/json' );
-				echo json_encode( $response );
-				die();
-			}
 		}
 
 		/**
@@ -1084,6 +948,36 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		}
 
 		/**
+		 * Check the ajax request action looking for pro views
+		 *
+		 * @param $is_ajax_view_request bool
+		 */
+		public function is_pro_ajax_view_request( $is_ajax_view_request, $view ) {
+
+			// if a particular view wasn't requested, or this isn't an ajax request, or there was no action param in the request, don't continue
+			if ( $view == false || ! ( defined( 'DOING_AJAX') && DOING_AJAX ) || empty( $_REQUEST['action'] ) ) {
+				return $is_ajax_view_request;
+			}
+
+			switch ( $view ) {
+				case 'map' :
+					$is_ajax_view_request = ( $_REQUEST['action'] == Tribe_Events_Pro_Map_Template::AJAX_HOOK );
+					break;
+
+				case 'photo' :
+					$is_ajax_view_request = ( $_REQUEST['action'] == Tribe_Events_Pro_Photo_Template::AJAX_HOOK );
+					break;
+
+				case 'week' :
+					$is_ajax_view_request = ( $_REQUEST['action'] == Tribe_Events_Pro_Week_Template::AJAX_HOOK );
+					break;
+			}
+
+			return $is_ajax_view_request;
+
+		}
+
+		/**
 		 * Specify the PHP class for the current page template
 		 *
 		 * @param string $class The current class we are filtering.
@@ -1092,24 +986,19 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		public function get_current_template_class( $class ) {
 
 			// venue view
-			if( is_singular( TribeEvents::VENUE_POST_TYPE ) ) {
+			if ( is_singular( TribeEvents::VENUE_POST_TYPE ) ) {
 				$class = 'Tribe_Events_Pro_Single_Venue_Template';
-			}
-			// organizer view
-			if( is_singular( TribeEvents::ORGANIZER_POST_TYPE ) ) {
+			} // organizer view
+			elseif ( is_singular( TribeEvents::ORGANIZER_POST_TYPE ) ) {
 				$class = 'Tribe_Events_Pro_Single_Organizer_Template';
-			}
-			// week view
-			if( tribe_is_week() ) {
+			} // week view
+			elseif ( tribe_is_week() || tribe_is_ajax_view_request( 'week' ) ) {
 				$class = 'Tribe_Events_Pro_Week_Template';
-			}
-			// photo view
-			if( tribe_is_photo() ){
+			} // photo view
+			elseif ( tribe_is_photo() || tribe_is_ajax_view_request( 'photo' ) ) {
 				$class = 'Tribe_Events_Pro_Photo_Template';
-			}
-
-			// map view
-			if ( tribe_is_map() ) {
+			} // map view
+			elseif ( tribe_is_map() || tribe_is_ajax_view_request( 'map' ) ) {
 				$class = 'Tribe_Events_Pro_Map_Template';
 			}
 
