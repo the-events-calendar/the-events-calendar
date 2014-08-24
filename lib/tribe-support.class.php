@@ -16,7 +16,19 @@ if ( ! class_exists( 'TribeEventsSupport' ) ) {
 
 		public static $support;
 
+		/**
+		 * Fields listed here contain HTML and should be escaped before being
+		 * printed.
+		 *
+		 * @var array
+		 */
+		protected $must_escape = array(
+			'tribeEventsAfterHTML',
+			'tribeEventsBeforeHTML'
+		);
+
 		private function __construct() {
+			$this->must_escape = (array) apply_filters( 'tribe_help_must_escape_fields', $this->must_escape );
 			add_action( 'tribe_help_tab_sections', array( $this, 'displayHelpTabInfo' ), 10, 0 );
 		}
 
@@ -43,8 +55,8 @@ if ( ! class_exists( 'TribeEventsSupport' ) ) {
 			<h3><?php _e( 'System Information', 'tribe-events-calendar' ); ?></h3>
 			<?php
 			echo( apply_filters( 'tribe_help_tab_system', $system_text ) );
-			echo self::formattedSupportStats();
-			self::formattedSupportStatsStyle();
+			echo $this->formattedSupportStats();
+			$this->formattedSupportStatsStyle();
 		}
 
 		/**
@@ -52,7 +64,7 @@ if ( ! class_exists( 'TribeEventsSupport' ) ) {
 		 *
 		 * @return array of system data for support
 		 */
-		public static function getSupportStats() {
+		public function getSupportStats() {
 			$user = wp_get_current_user();
 
 			$plugins = array();
@@ -139,8 +151,8 @@ if ( ! class_exists( 'TribeEventsSupport' ) ) {
 		 *
 		 * @return string pretty HTML
 		 */
-		public static function formattedSupportStats() {
-			$systeminfo = self::getSupportStats();
+		public function formattedSupportStats() {
+			$systeminfo = $this->getSupportStats();
 			$output     = '';
 			$output .= '<dl class="support-stats">';
 			foreach ( $systeminfo as $k => $v ) {
@@ -175,6 +187,9 @@ if ( ! class_exists( 'TribeEventsSupport' ) ) {
 				} else {
 					$formatted_v = array();
 					foreach ( $v as $obj_key => $obj_val ) {
+						if ( in_array( $obj_key, $this->must_escape ) ) {
+							$obj_val = esc_html( $obj_val );
+						}
 						if ( is_array( $obj_val ) ) {
 							$formatted_v[] = sprintf( '<li>%s = <pre>%s</pre></li>', $obj_key, print_r( $obj_val, true ) );
 						} else {
@@ -190,7 +205,7 @@ if ( ! class_exists( 'TribeEventsSupport' ) ) {
 			return $output;
 		}
 
-		public static function formattedSupportStatsStyle() {
+		public function formattedSupportStatsStyle() {
 			?>
 			<style>
 				dl.support-stats {
