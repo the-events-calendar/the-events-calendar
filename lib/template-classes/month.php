@@ -462,7 +462,7 @@ if ( ! class_exists( 'Tribe_Events_Month_Template' ) ) {
 					'eventDate'    => $_POST['eventDate'],
 				);
 
-				$this->displaying = 'month';
+				TribeEvents::instance()->displaying = 'month';
 
 				if ( isset( $_POST['tribe_event_category'] ) ) {
 					$query_args['tribe_events_cat'] = $_POST['tribe_event_category'];

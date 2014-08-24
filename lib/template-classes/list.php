@@ -94,9 +94,9 @@ if ( ! class_exists( 'Tribe_Events_List_Template' ) ) {
 			$paged = $tribe_paged;
 
 			if ( $query->query_vars['eventDisplay'] == 'list' ) {
-				$this->displaying = 'upcoming';
+				TribeEvents::instance()->displaying = 'upcoming';
 			} elseif ( $query->query_vars['eventDisplay'] == 'past' ) {
-				$this->displaying = 'past';
+				TribeEvents::instance()->displaying = 'past';
 				$response['view'] = 'past';
 			}
 

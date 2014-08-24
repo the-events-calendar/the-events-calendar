@@ -166,6 +166,8 @@ if ( ! class_exists( 'Tribe_Events_Day_Template' ) ) {
 					'eventDisplay' => 'day'
 				);
 
+				TribeEvents::instance()->displaying = 'day';
+
 				if ( isset( $_POST['tribe_event_category'] ) ) {
 					$args[TribeEvents::TAXONOMY] = $_POST['tribe_event_category'];
 				}
