@@ -195,7 +195,7 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 		protected function __construct() {
 			$this->pluginPath = trailingslashit( dirname( dirname( __FILE__ ) ) );
 			$this->pluginDir  = trailingslashit( basename( $this->pluginPath ) );
-			$this->pluginUrl  = plugins_url() . '/' . $this->pluginDir;
+			$this->pluginUrl  = plugins_url( $this->pluginDir );
 
 			add_action( 'init', array( $this, 'loadTextDomain' ), 1 );
 
