@@ -452,7 +452,7 @@ if ( ! class_exists( 'TribeEventsViewHelpers' ) ) {
 		 */
 		private static function hours() {
 			$hours      = array();
-			$rangeMax   = ( strstr( get_option( 'time_format', TribeDateUtils::TIMEFORMAT ), 'H' ) ) ? 23 : 12;
+			$rangeMax   = self::is_24hr_format() ? 23 : 12;
 			$rangeStart = $rangeMax > 12 ? 0 : 1;
 			foreach ( range( $rangeStart, $rangeMax ) as $hour ) {
 				if ( $hour < 10 ) {
@@ -467,6 +467,35 @@ if ( ! class_exists( 'TribeEventsViewHelpers' ) ) {
 			}
 
 			return $hours;
+		}
+
+		/**
+		 * Determines if the provided date/time format (or else the default WordPress time_format)
+		 * is 24hr or not.
+		 *
+		 * In inconclusive cases, such as if there are now hour-format characters, 12hr format is
+		 * assumed.
+		 *
+		 * @param null $format
+		 * @return bool
+		 */
+		public static function is_24hr_format( $format = null ) {
+			// Use the provided format or else use the value of the current time_format setting
+			$format = ( null === $format ) ? get_option( 'time_format', TribeDateUtils::TIMEFORMAT ) : $format;
+
+			// Count instances of the H and G symbols
+			$h_symbols = substr_count( $format, 'H' );
+			$g_symbols = substr_count( $format, 'G' );
+
+			// If none have been found then consider the format to be 12hr
+			if ( ! $h_symbols && ! $g_symbols ) return false;
+
+			// It's possible H or G have been included as escaped characters
+			$h_escaped = substr_count( $format, '\H' );
+			$g_escaped = substr_count( $format, '\G' );
+
+			// Final check, accounting for possibility of escaped values
+			return ( $h_symbols > $h_escaped || $g_symbols > $g_escaped );
 		}
 
 		/**
