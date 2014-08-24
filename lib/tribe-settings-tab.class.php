@@ -190,7 +190,7 @@ if ( ! class_exists( 'TribeSettingsTab' ) ) {
 								// get the options from TribeEvents if we're getting the main array
 								$value = TribeEvents::getOption( $key, $default );
 							} elseif ( $parent_option == TribeEvents::OPTIONNAMENETWORK ) {
-								$value = TribeEvents::getNetworkOption( $key, $default );
+								$value = TribeEvents::instance()->getNetworkOption( $key, $default );
 							} else {
 								// else, get the parent option normally
 								if ( is_network_admin() ) {
