@@ -509,7 +509,7 @@ class TribeEventsGeoLoc {
 	 * @param $lat_from
 	 * @param $lng_from
 	 */
-	private function assign_distance_to_posts( &$posts, $lat_from, $lng_from ) {
+	public function assign_distance_to_posts( &$posts, $lat_from, $lng_from ) {
 
 		// add distances
 		for ( $i = 0; $i < count( $posts ); $i ++ ) {
