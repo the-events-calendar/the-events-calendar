@@ -36,17 +36,28 @@ function get_term_count( calendar_filters ) {
 
 jQuery( document ).ready( function( $ ) {
 
+	var $body = $('body' ),
+		select2Opts = {};
+
+	if( $body.is('.wp-customizer') ){
+		select2Opts = {
+			dropdownCssClass: 'customizer-select2'
+		};
+	}
+
 	$( 'div.widgets-sortables' ).on( 'sortstop', function() {
 		setTimeout( function() {
-			$( "#widgets-right select.calendar-widget-add-filter" ).select2();
+			$( "#widgets-right select.calendar-widget-add-filter" ).select2(select2Opts);
 			calendar_toggle_all();
 		}, 600 );
 	} );
 
-	$( "#widgets-right select.calendar-widget-add-filter" ).select2();
 
 
-	$( "body" ).on( 'change', 'select.calendar-widget-add-filter', function( e ) {
+	$( "#widgets-right select.calendar-widget-add-filter" ).select2(select2Opts);
+
+
+	$body.on( 'change', 'select.calendar-widget-add-filter', function( e ) {
 
 		$( '.calendar-widget-filters-container' ).show();
 
@@ -85,7 +96,7 @@ jQuery( document ).ready( function( $ ) {
 
 	} );
 
-	$( 'body' ).on( 'click', '.calendar-widget-remove-filter', function( e ) {
+	$body.on( 'click', '.calendar-widget-remove-filter', function( e ) {
 
 		e.preventDefault();
 
@@ -103,7 +114,7 @@ jQuery( document ).ready( function( $ ) {
 
 		hidden.val( JSON.stringify( calendar_filters ) );
 
-		object.parents( 'li' ).remove();
+		object.closest( 'li' ).remove();
 
 		calendar_toggle( wrapper );
 

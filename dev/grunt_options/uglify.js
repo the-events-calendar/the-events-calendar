@@ -15,11 +15,7 @@
 module.exports = {
 
 	resourcescripts: {
-		options: {
-			banner: '/*\n' +
-				' * built on <%= grunt.template.today("dd-mm-yyyy") %>\n' +
-				' */\n'
-		},
+
 		files: {
 			'<%= pkg._resourcepath %>/calendar-widget-admin.min.js' : '<%= pkg._resourcepath %>/calendar-widget-admin.processed.js',
 			'<%= pkg._resourcepath %>/events-admin.min.js' : '<%= pkg._resourcepath %>/events-admin.processed.js',
