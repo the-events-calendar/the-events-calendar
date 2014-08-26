@@ -55,18 +55,7 @@
 
 			<h4><?php _e( 'News For Events Users', 'tribe-events-calendar' ); ?></h4>
 
-			<p>
-				<a href="" target="_blank">Lorem ipsum dolor sit amet, consectetur adipiscing elit. In quis porttitor massa, non pulvinar ligula. </a>
-			</p>
-
-			<?php
-				/* 
-
-				TODO: Pull in latest news from the blog (Maybe just previous 2 or 3 posts)
-				Should be in the format above
-
-				*/
-			?>
+			<?php TribeEvents::instance()->outputDashboardWidget(3); ?>
 
 		</div>
 	</div>

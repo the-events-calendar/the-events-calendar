@@ -4065,11 +4065,13 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 		/**
 		 * Echo the dashboard widget.
 		 *
+		 * @param int $items
+		 *
 		 * @return void
 		 */
-		public function outputDashboardWidget() {
+		public function outputDashboardWidget( $items = 10 ) {
 			echo '<div class="rss-widget">';
-			wp_widget_rss_output( self::FEED_URL, array( 'items' => 10 ) );
+			wp_widget_rss_output( self::FEED_URL, array( 'items' => $items ) );
 			echo "</div>";
 		}
 
