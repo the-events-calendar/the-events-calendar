@@ -206,6 +206,37 @@ if ( class_exists( 'TribeEvents' ) ) {
 	}
 
 	/**
+	 * Returns the current event post object (if there is one) or else null.
+	 *
+	 * Optionally the post object or ID of an event can be passed in and,
+	 * again, the event post object will be returned if possible.
+	 *
+	 * @param $event
+	 * @return null|WP_Post
+	 */
+	function tribe_events_get_event( $event = null ) {
+		global $post;
+
+		if ( null === $event ) {
+			return $post;
+		}
+
+		if ( is_a( $event, 'WP_Post' ) && TribeEvents::POSTTYPE === get_post_type( $event ) ) {
+			return $post;
+		}
+
+		if ( is_numeric( $event ) && $event == intval( $event ) ) {
+			$event = get_post( $event );
+
+			if ( null !== $event && TribeEvents::POSTTYPE === get_post_type( $event ) ) {
+				return $event;
+			}
+		}
+
+		return null;
+	}
+
+	/**
 	 * All Day Event Test
 	 *
 	 * Returns true if the event is an all day event
