@@ -235,6 +235,7 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 			require_once $this->pluginPath . 'public/template-tags/link.php';
 			require_once $this->pluginPath . 'public/template-tags/widgets.php';
 			require_once $this->pluginPath . 'public/template-tags/meta.php';
+			require_once $this->pluginPath . 'public/template-tags/tickets.php';
 
 			// Load Advanced Functions
 			require_once $this->pluginPath . 'public/advanced-functions/event.php';
