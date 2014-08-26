@@ -244,8 +244,7 @@ if ( ! class_exists( 'TribeEventsQuery' ) ) {
 								$query->set( 'eventDate', $query->get( 'eventDate' ) );
 							}
 							break;
-						case 'upcoming':
-						case 'past' :
+						case 'list':
 						default: // default display query
 							$event_date = ( $query->get( 'eventDate' ) != '' )
 								? $query->get( 'eventDate' )

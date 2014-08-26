@@ -130,7 +130,6 @@ if ( class_exists( 'TribeEvents' ) ) {
 			$title = __( 'Past Events', 'tribe-events-calendar' );
 		}
 
-
 		if ( tribe_is_month() ) {
 			$title = sprintf(
 				__( 'Events for %s', 'tribe-events-calendar' ),
@@ -154,7 +153,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 			}
 		}
 
-		return apply_filters( 'tribe_template_factory_debug', apply_filters( 'tribe_get_events_title', $title ), 'tribe_get_events_title' );
+		return apply_filters( 'tribe_get_events_title', $title );
 	}
 
 	/**
@@ -266,13 +265,8 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 * @return bool
 	 */
 	function tribe_is_list_view() {
-		if ( tribe_is_event_query() && ( tribe_is_upcoming() || tribe_is_past() || ( is_single() && tribe_is_showing_all() ) ) ) {
-			$return = true;
-		} else {
-			$return = false;
-		}
-
-		return apply_filters( 'tribe_is_list_view', $return );
+		$is_list_view = (TribeEvents::instance()->displaying == 'list') ? true : false;
+		return apply_filters( 'tribe_is_list_view', $is_list_view );
 	}
 
 	/**

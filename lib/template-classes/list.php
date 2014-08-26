@@ -93,19 +93,13 @@ if ( ! class_exists( 'Tribe_Events_List_Template' ) ) {
 
 			$paged = $tribe_paged;
 
-			if ( $query->query_vars['eventDisplay'] == 'list' ) {
-				TribeEvents::instance()->displaying = 'upcoming';
-			} elseif ( $query->query_vars['eventDisplay'] == 'past' ) {
-				TribeEvents::instance()->displaying = 'past';
+			TribeEvents::instance()->displaying = 'list';
+
+			if ( ! empty( $_POST['tribe_event_display'] ) && $_POST['tribe_event_display'] == 'past' ){
 				$response['view'] = 'past';
 			}
 
 			$old_request = $_SERVER;
-			if ( tribe_is_past() ) {
-				$_SERVER['REQUEST_URI'] = TribeEvents::instance()->rewriteSlug . '/' . 'past/';
-			} else {
-				$_SERVER['REQUEST_URI'] = TribeEvents::instance()->rewriteSlug . '/' . 'upcoming/';
-			}
 
 			ob_start();
 			tribe_get_view( 'list/content' );
