@@ -1445,7 +1445,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 		}
 
 		// If not, try to determine now
-		TribeEvents::instance()->rebuild_earliest_latest();
+		TribeEvents::instance()->rebuild_known_range();
 		$latest = tribe_get_option( 'latest_date', false );
 		if ( false !== $latest ) {
 			return TribeDateUtils::reformat( $latest, $format );
@@ -1472,7 +1472,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 		}
 
 		// If not, try to determine now
-		TribeEvents::instance()->rebuild_earliest_latest();
+		TribeEvents::instance()->rebuild_known_range();
 		$earliest = tribe_get_option( 'earliest_date', false );
 		if ( false !== $earliest ) {
 			return TribeDateUtils::reformat( $earliest, $format );
