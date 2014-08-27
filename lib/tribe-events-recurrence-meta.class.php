@@ -50,6 +50,7 @@ class TribeEventsRecurrenceMeta {
 
 		add_filter( 'manage_' . TribeEvents::POSTTYPE . '_posts_columns', array(__CLASS__, 'list_table_column_headers'));
 		add_action( 'manage_' . TribeEvents::POSTTYPE . '_posts_custom_column', array(__CLASS__, 'populate_custom_list_table_columns'), 10, 2);
+		add_filter( 'post_class', array( __CLASS__, 'add_recurring_event_post_classes' ), 10, 3 );
 
 
 	    add_filter( 'post_row_actions', array( __CLASS__, 'edit_post_row_actions'), 10, 2 );
@@ -140,6 +141,20 @@ class TribeEventsRecurrenceMeta {
 				echo __( '—', 'tribe-events-calendar-pro' );
 			}
 		}
+	}
+
+	public static function add_recurring_event_post_classes( $classes, $class, $post_id ) {
+		if ( get_post_type($post_id) == TribeEvents::POSTTYPE && tribe_is_recurring_event( $post_id ) ) {
+			$classes[] = 'tribe-recurring-event';
+
+			$post = get_post($post_id);
+			if ( empty($post->post_parent) ) {
+				$classes[] = 'tribe-recurring-event-parent';
+			} else {
+				$classes[] = 'tribe-recurring-event-child';
+			}
+		}
+		return $classes;
 	}
 
 	public static function edit_post_row_actions( $actions, $post ) {
@@ -1137,7 +1152,7 @@ class TribeEventsRecurrenceMeta {
 		$data['recurrence'] = array_merge($data['recurrence'], array(
 			'splitAllMessage' => __( "You are about to split this series in two.\n\nThe event you selected and all subsequent events in the series will be separated into a new series of events that you can edit independently of the original series.\n\nThis action cannot be undone.", 'tribe-events-calendar-pro' ),
 			'splitSingleMessage' => __( "You are about to break this event out of its series.\n\nYou will be able to edit it independently of the original series.\n\nThis action cannot be undone.", 'tribe-events-calendar-pro' ),
-			'bulkDeleteConfirmationMessage' => __( 'Are you sure you want to trash all occurrences of these events? All recurrence data will be lost.', 'tribe-events-calendar-pro' ),
+			'bulkDeleteConfirmationMessage' => __( 'Are you sure you want to trash all occurrences of these events?', 'tribe-events-calendar-pro' ),
 		));
 		return $data;
 	}

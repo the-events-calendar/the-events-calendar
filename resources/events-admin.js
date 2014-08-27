@@ -381,19 +381,7 @@ jQuery( document ).ready( function( $ ) {
 	/* Fix for deleting multiple events */
 	$( '.wp-admin.events-cal.edit-php #doaction' ).click( function( e ) {
 		if ( $( "[name='action'] option:selected" ).val() == "trash" ) {
-			if ( confirm( TribeEventsProAdmin.recurrence.bulkDeleteConfirmationMessage ) ) {
-				var ids = new Array();
-
-				$( '[name="post[]"]:checked' ).each( function() {
-					var curval = $( this ).val();
-					if ( ids[curval] ) {
-						$( this ).prop( 'checked', false );
-					}
-
-					ids[curval] = true;
-				} );
-			}
-			else {
+			if ( $( '.tribe-recurring-event-parent [name="post[]"]:checked').length > 0 && !confirm( TribeEventsProAdmin.recurrence.bulkDeleteConfirmationMessage ) ) {
 				e.preventDefault();
 			}
 		}
