@@ -30,6 +30,10 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	 */
 	if (!function_exists( 'tribe_is_recurring_event' )) {
 		function tribe_is_recurring_event( $postId = null )  {
+			if ( is_object($postId) ) {
+				$postId = $postId->ID;
+			}
+			$postId = $postId ? $postId : get_the_ID();
 			if ( get_post_type($postId) != TribeEvents::POSTTYPE ) {
 				return FALSE;
 			}
