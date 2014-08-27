@@ -721,7 +721,7 @@ class TribeEventsRecurrenceMeta {
 		}
 		$rules = TribeEventsRecurrenceMeta::getSeriesRules($event_id);
 
-		$recStart = strtotime( get_post_meta($event_id, '_EventStartDate', TRUE) );
+		$recStart = strtotime( get_post_meta($event_id, '_EventStartDate', TRUE).'+00:00' );
 
 		switch( $recEndType ) {
 			case 'On':
