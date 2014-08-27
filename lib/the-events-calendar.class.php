@@ -106,8 +106,11 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 		public $taxRewriteSlug = 'event/category';
 		public $tagRewriteSlug = 'event/tag';
 		protected $monthSlug = 'month';
+
+		// @todo remove in 4.0
 		protected $upcomingSlug = 'upcoming';
 		protected $pastSlug = 'past';
+
 		protected $listSlug = 'list';
 		public $daySlug = 'day';
 		public $todaySlug = 'today';
@@ -385,7 +388,7 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 			add_filter( 'wp_nav_menu_objects', array( $this, 'add_current_menu_item_class_to_events' ), null, 2 );
 
 			add_filter( 'generate_rewrite_rules', array( $this, 'filterRewriteRules' ) );
-			add_filter( 'template_redirect', array( $this, 'redirect_past_view_url' ) );
+			add_filter( 'template_redirect', array( $this, 'redirect_past_upcoming_view_urls' ), 11 );
 
 			/* Setup Tribe Events Bar */
 			add_filter( 'tribe-events-bar-views', array( $this, 'setup_listview_in_bar' ), 1, 1 );
@@ -2531,12 +2534,14 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 		}
 
 		/**
-		 * Redirect the legacy past view URLs
+		 * Redirect the legacy past/upcoming view URLs to list
 		 */
-		public function redirect_past_view_url() {
+		public function redirect_past_upcoming_view_urls() {
 
 			if ( strpos( $_SERVER['REQUEST_URI'], $this->getRewriteSlug() . '/' . $this->pastSlug ) !== false ) {
-				wp_redirect( add_query_arg( array( 'tribe_event_display' => 'past' ), str_replace( '/past/', '/list/', $_SERVER['REQUEST_URI'] ) ) );
+				wp_redirect( add_query_arg( array( 'tribe_event_display' => 'past' ), str_replace( '/' . $this->pastSlug . '/', '/' . $this->listSlug . '/', $_SERVER['REQUEST_URI'] ) ) );
+			} elseif ( strpos( $_SERVER['REQUEST_URI'], $this->getRewriteSlug() . '/' . $this->upcomingSlug ) !== false ) {
+				wp_redirect( str_replace( '/' . $this->upcomingSlug . '/', '/' . $this->listSlug . '/', $_SERVER['REQUEST_URI'] ) );
 			}
 
 		}
