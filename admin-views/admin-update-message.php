@@ -50,7 +50,7 @@
 				<a href="" target="_blank"><?php _e( 'Tickets' ); ?></a><br/>
 				<a href="" target="_blank"><?php _e( 'Community Events' ); ?></a><br/>
 				<a href="" target="_blank"><?php _e( 'Filters' ); ?></a><br/>
-				<a href="" target="_blank"><?php _e( 'Facebook' ); ?></a><br/>
+				<a href="" target="_blank"><?php _e( 'Facebook' ); ?></a><br/><br/>
 			</p>
 
 			<h4><?php _e( 'News For Events Users', 'tribe-events-calendar' ); ?></h4>
