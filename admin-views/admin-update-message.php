@@ -10,24 +10,21 @@
 
 <div class="tribe-row">
 	<div class="tribe-half-column">
-		<strong><?php _e( "IMPORTANT NOTICE", 'tribe-events-calendar' ); ?></strong>
-		<p>3.x is a complete overhaul of the plugin, and as a result we're starting the changelog fresh. For release notes from the 2.x lifecycle, see our 2.x release notes.</p>
-
-		<strong>3.6.1</strong>
-		<ul>
-			<li>Fix minification issues.</li>
-			<li>Incorporated updated Greek translation files, courtesy of Yannis Troullinos</li>
-			<li>Fixed an issue where the "Hide From Event Listings" checkbox was not hiding events from Month view</li>
-		</ul>
-
 		<?php
-			/* 
 
-			TODO: Pull in actual changelog (Maybe just previous 2 or 3 versions)
-			Should be in the format above
-
-			*/
-		?>
+		$changelog = new Tribe__Events__Changelog_Reader();
+		foreach ( $changelog->get_changelog() as $section => $messages ):
+			if ( empty($messages) ) {
+				continue;
+			}
+			?><strong><?php esc_html_e($section); ?></strong>
+			<ul>
+				<?php foreach ( $messages as $m ): ?>
+				<li><?php esc_html_e($m); ?></li>
+				<?php endforeach; ?>
+			</ul>
+		<?php
+		endforeach; ?>
 
 	</div>
 
@@ -53,23 +50,12 @@
 				<a href="" target="_blank"><?php _e( 'Tickets' ); ?></a><br/>
 				<a href="" target="_blank"><?php _e( 'Community Events' ); ?></a><br/>
 				<a href="" target="_blank"><?php _e( 'Filters' ); ?></a><br/>
-				<a href="" target="_blank"><?php _e( 'Facebook' ); ?></a><br/>
+				<a href="" target="_blank"><?php _e( 'Facebook' ); ?></a><br/><br/>
 			</p>
 
 			<h4><?php _e( 'News For Events Users', 'tribe-events-calendar' ); ?></h4>
 
-			<p>
-				<a href="" target="_blank">Lorem ipsum dolor sit amet, consectetur adipiscing elit. In quis porttitor massa, non pulvinar ligula. </a>
-			</p>
-
-			<?php
-				/* 
-
-				TODO: Pull in latest news from the blog (Maybe just previous 2 or 3 posts)
-				Should be in the format above
-
-				*/
-			?>
+			<?php TribeEvents::instance()->outputDashboardWidget(3); ?>
 
 		</div>
 	</div>

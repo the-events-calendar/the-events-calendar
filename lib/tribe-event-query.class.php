@@ -381,11 +381,10 @@ if ( ! class_exists( 'TribeEventsQuery' ) ) {
 			if ( ! empty( $query->tribe_is_event_query ) || ! empty( $query->tribe_is_multi_posttype ) ) {
 				if ( has_filter( 'tribe_events_query_posts_groupby' ) ) {
 					_deprecated_function( "The 'tribe_events_query_posts_groupby' filter", '3.8', " the 'posts_groupby' filter" );
+					return apply_filters( 'tribe_events_query_posts_groupby', $groupby_sql, $query );
 				}
-				return apply_filters( 'tribe_events_query_posts_groupby', '', $query );
-			} else {
-				return $groupby_sql;
 			}
+			return $groupby_sql;
 		}
 
 		/**

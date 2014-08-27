@@ -235,6 +235,7 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 			require_once $this->pluginPath . 'public/template-tags/link.php';
 			require_once $this->pluginPath . 'public/template-tags/widgets.php';
 			require_once $this->pluginPath . 'public/template-tags/meta.php';
+			require_once $this->pluginPath . 'public/template-tags/tickets.php';
 
 			// Load Advanced Functions
 			require_once $this->pluginPath . 'public/advanced-functions/event.php';
@@ -4064,11 +4065,13 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 		/**
 		 * Echo the dashboard widget.
 		 *
+		 * @param int $items
+		 *
 		 * @return void
 		 */
-		public function outputDashboardWidget() {
+		public function outputDashboardWidget( $items = 10 ) {
 			echo '<div class="rss-widget">';
-			wp_widget_rss_output( self::FEED_URL, array( 'items' => 10 ) );
+			wp_widget_rss_output( self::FEED_URL, array( 'items' => $items ) );
 			echo "</div>";
 		}
 

@@ -18,7 +18,7 @@ $video_url = 'https://www.youtube.com/watch?v=HHohYGTk3QQ';
 	<div class="tribe-half-column">
 		<h3><?php _e( 'Keep The Events Calendar Core FREE', 'tribe-events-calendar' ); ?></h3>
 		<p><?php _e( "5 star ratings help us bring TEC to more users. More happy users mean more support, more features, and more of everything you know and love about The Events Calendar. We couldn't do this without your support.", 'tribe-events-calendar' ); ?></p>
-		<p><strong><?php _e( 'Rate it five stars today!', 'tribe-events-calendar' ); ?></strong> <a class="tribe-rating-link" href="http://wordpress.org/support/view/plugin-reviews/the-events-calendar?filter=5" target="_blank">★★★★★</a></p>
+		<p><strong><?php _e( 'Rate it five stars today!', 'tribe-events-calendar' ); ?></strong> <a class="tribe-rating-link" href="http://wordpress.org/support/view/plugin-reviews/the-events-calendar?filter=5" target="_blank">&#9733;&#9733;&#9733;&#9733;&#9733;</a></p>
 		<a href="http://wordpress.org/support/view/plugin-reviews/the-events-calendar?filter=5" target="_blank" class="button-primary"><?php _e( 'Rate It', 'tribe-events-calendar' ); ?></a>
 	</div>
 	<div class="tribe-half-column">
@@ -46,13 +46,10 @@ $video_url = 'https://www.youtube.com/watch?v=HHohYGTk3QQ';
 		<p><?php _e( 'FAQs, Documentation, Tutorials and Forums', 'tribe-events-calendar' ); ?></p>		
 	</div>
 	<div class="tribe-half-column">
-		<h4><?php _e( 'Getting Started', 'tribe-events-calendar' ); ?></h4>		
-		<p><?php _e( 'Check out the New User Primer &amp; Tutorials', 'tribe-events-calendar' ); ?></p>
+		<h4><?php _e( 'Release Notes', 'tribe-events-calendar' ); ?></h4>		
+		<p><?php _e( 'Get the Skinny on the Latest Updates', 'tribe-events-calendar' ); ?></p>
 		
-		<h4><?php _e( 'Looking for More Features?', 'tribe-events-calendar' ); ?></h4>
-		<p><?php _e( 'Addons for Community, Tickets, Filters, Facebook and more.', 'tribe-events-calendar' ); ?></p>
-
-		<h4><?php _e( 'Support Resources', 'tribe-events-calendar' ); ?></h4>
-		<p><?php _e( 'FAQs, Documentation, Tutorials and Forums', 'tribe-events-calendar' ); ?></p>		
+		<h4><?php _e( 'News For Events Users', 'tribe-events-calendar' ); ?></h4>
+		<p><?php _e( 'Product Releases, Tutorials and Community Activity', 'tribe-events-calendar' ); ?></p>
 	</div>
 </div>

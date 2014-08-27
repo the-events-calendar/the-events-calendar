@@ -359,6 +359,20 @@ a.tribe-rating-link {
 	padding-right:3px;
 }
 
+.tribe_update_page .rss-widget {
+	margin:1em 0;
+}
+
+.tribe_update_page a.rsswidget {
+	font-size:14px;
+	font-weight:400;
+	line-height:1;
+}
+
+.tribe_update_page .rss-widget li:before {
+	display:none;
+}
+
 /* Media Queries for Mobile Dashboard */
 @media screen and (max-width: 782px) {
 	.tribe-half-column, .tribe-row .tribe-half-column:last-child {
