@@ -418,7 +418,7 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 			add_filter( 'tribe_events_register_event_type_args', array( $this, 'setDashicon' ) );
 			add_action( "trash_" . TribeEvents::VENUE_POST_TYPE, array( $this, 'cleanupPostVenues' ) );
 			add_action( "trash_" . TribeEvents::ORGANIZER_POST_TYPE, array( $this, 'cleanupPostOrganizers' ) );
-			add_action( "wp_ajax_tribe_event_validation", array( $this, 'ajax_form_validate' ) );
+			add_action( 'wp_ajax_tribe_event_validation', array( $this, 'ajax_form_validate' ) );
 			add_action( 'tribe_debug', array( $this, 'renderDebug' ), 10, 2 );
 			add_action( 'tribe_debug', array( $this, 'renderDebug' ), 10, 2 );
 			add_action( 'plugins_loaded', array( 'TribeEventsCacheListener', 'instance' ) );
