@@ -37,19 +37,19 @@ $video_url = 'https://www.youtube.com/watch?v=HHohYGTk3QQ';
 <div class="tribe-row tribe-welcome-links">
 	<div class="tribe-half-column">
 		<h4><?php _e( 'Getting Started', 'tribe-events-calendar' ); ?></h4>		
-		<p><?php _e( 'Check out the New User Primer &amp; Tutorials', 'tribe-events-calendar' ); ?></p>
+		<p><a href="http://m.tri.be/no" target="_blank"><?php _e( 'Check out the New User Primer &amp; Tutorials', 'tribe-events-calendar' ); ?></a></p>
 		
 		<h4><?php _e( 'Looking for More Features?', 'tribe-events-calendar' ); ?></h4>
-		<p><?php _e( 'Addons for Community, Tickets, Filters, Facebook and more.', 'tribe-events-calendar' ); ?></p>
+		<p><a href="http://m.tri.be/np" target="_blank"><?php _e( 'Addons for Community, Tickets, Filters, Facebook and more.', 'tribe-events-calendar' ); ?></a></p>
 
 		<h4><?php _e( 'Support Resources', 'tribe-events-calendar' ); ?></h4>
-		<p><?php _e( 'FAQs, Documentation, Tutorials and Forums', 'tribe-events-calendar' ); ?></p>		
+		<p><a href="http://m.tri.be/nq" target="_blank"><?php _e( 'FAQs, Documentation, Tutorials and Forums', 'tribe-events-calendar' ); ?></a></p>		
 	</div>
 	<div class="tribe-half-column">
 		<h4><?php _e( 'Release Notes', 'tribe-events-calendar' ); ?></h4>		
-		<p><?php _e( 'Get the Skinny on the Latest Updates', 'tribe-events-calendar' ); ?></p>
+		<p><a href="http://m.tri.be/nr" target="_blank"><?php _e( 'Get the Skinny on the Latest Updates', 'tribe-events-calendar' ); ?></a></p>
 		
 		<h4><?php _e( 'News For Events Users', 'tribe-events-calendar' ); ?></h4>
-		<p><?php _e( 'Product Releases, Tutorials and Community Activity', 'tribe-events-calendar' ); ?></p>
+		<p><a href="http://m.tri.be/ns" target="_blank"><?php _e( 'Product Releases, Tutorials and Community Activity', 'tribe-events-calendar' ); ?></a></p>
 	</div>
 </div>
