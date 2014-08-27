@@ -30,8 +30,14 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	 */
 	if (!function_exists( 'tribe_is_recurring_event' )) {
 		function tribe_is_recurring_event( $postId = null )  {
+			if ( get_post_type($postId) != TribeEvents::POSTTYPE ) {
+				return FALSE;
+			}
 			$instances = tribe_get_recurrence_start_dates($postId);
 			$recurring = count($instances) > 1;
+			if ( !$recurring && get_post_meta( $postId, '_EventNextPendingRecurrence', TRUE ) ) {
+				$recurring = TRUE;
+			}
 			return apply_filters( 'tribe_is_recurring_event', $recurring, $postId );
 		}
 	}
