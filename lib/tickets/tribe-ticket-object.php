@@ -61,6 +61,13 @@ if ( ! class_exists( 'TribeEventsTicketObject' ) ) {
 		public $qty_sold;
 
 		/**
+		 * Number of tickets for which an order has been placed but not confirmed or "completed".
+		 *
+		 * @var int
+		 */
+		public $qty_pending = 0;
+
+		/**
 		 * When the ticket should be put on sale
 		 * @var
 		 */
