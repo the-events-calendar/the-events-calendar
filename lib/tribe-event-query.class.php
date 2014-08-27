@@ -256,7 +256,6 @@ if ( ! class_exists( 'TribeEventsQuery' ) ) {
 							} else {
 								$query->set( 'start_date', '' );
 								$query->set( 'end_date', $event_date );
-								$query->set( 'order', self::set_order( 'DESC', $query ) );
 							}
 							$query->set( 'orderby', self::set_orderby( null, $query ) );
 							$query->set( 'hide_upcoming', true );
