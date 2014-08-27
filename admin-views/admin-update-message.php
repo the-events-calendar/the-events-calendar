@@ -20,7 +20,7 @@
 			?><strong><?php esc_html_e($section); ?></strong>
 			<ul>
 				<?php foreach ( $messages as $m ): ?>
-				<li><?php esc_html_e($m); ?></li>
+				<li><?php echo $m; ?></li>
 				<?php endforeach; ?>
 			</ul>
 		<?php
