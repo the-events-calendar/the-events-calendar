@@ -954,9 +954,11 @@ class TribeEventsRecurrenceMeta {
 		if ( tribe_is_month() || tribe_is_week() || tribe_is_day() ) {
 			return $group_by;
 		}
-		if ( isset( $query->query_vars['tribeHideRecurrence'] ) && $query->query_vars['tribeHideRecurrence'] == 1 ) {
-			global $wpdb;
-			$group_by .= " IF( {$wpdb->posts}.post_parent = 0, {$wpdb->posts}.ID, {$wpdb->posts}.post_parent )";
+		if ( ! empty( $query->tribe_is_event_query ) || ! empty( $query->tribe_is_multi_posttype ) ) {
+			if ( isset( $query->query_vars['tribeHideRecurrence'] ) && $query->query_vars['tribeHideRecurrence'] == 1 ) {
+				global $wpdb;
+				$group_by = " IF( {$wpdb->posts}.post_parent = 0, {$wpdb->posts}.ID, {$wpdb->posts}.post_parent )";
+			}
 		}
 		return $group_by;
 	}
