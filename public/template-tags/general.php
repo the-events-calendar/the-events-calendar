@@ -1129,13 +1129,13 @@ if ( class_exists( 'TribeEvents' ) ) {
 		} else {
 			$excerpt = $event->post_content;
 		}
-		$excerpt = tribe_prepare_for_json( TribeEvents::instance()->truncate( $excerpt, 30 ) );
+		$excerpt = TribeEvents::instance()->truncate( $excerpt, 30 );
 
-		$category_classes = tribe_prepare_for_json( tribe_events_event_classes( $event->ID, false ) );
+		$category_classes = tribe_events_event_classes( $event->ID, false );
 
 		$json = array(
 			'eventId'         => $event->ID,
-			'title'           => tribe_prepare_for_json( $event->post_title ),
+			'title'           => $event->post_title,
 			'permalink'       => tribe_get_event_link( $event->ID ),
 			'imageSrc'        => $image_src,
 			'startTime'       => $start_time,
@@ -1146,9 +1146,12 @@ if ( class_exists( 'TribeEvents' ) ) {
 		);
 
 		if ( $additional ) {
-			$additional = array_map( 'tribe_prepare_for_json', $additional );
-			$json       = array_merge( (array) $json, (array) $additional );
+			$json = array_merge( (array) $json, (array) $additional );
 		}
+
+		$json = apply_filters( 'tribe_events_template_data', $json );
+
+		$json = tribe_prepare_for_json_deep( $json );
 
 		return json_encode( $json );
 	}
