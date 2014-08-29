@@ -1070,6 +1070,27 @@ if ( class_exists( 'TribeEvents' ) ) {
 	}
 
 	/**
+	 * Recursively iterate through an nested structure, calling
+	 * tribe_prepare_for_json() on all scalar values
+	 *
+	 * @param mixed $value The data to be cleaned
+	 * @return mixed The clean data
+	 */
+	function tribe_prepare_for_json_deep( $value ) {
+		if ( is_array( $value ) ) {
+			$value = array_map('tribe_prepare_for_json_deep', $value);
+		} elseif ( is_object($value) ) {
+			$vars = get_object_vars( $value );
+			foreach ($vars as $key=>$data) {
+				$value->{$key} = tribe_prepare_for_json_deep( $data );
+			}
+		} elseif ( is_string( $value ) ) {
+			$value = tribe_prepare_for_json($value);
+		}
+		return $value;
+	}
+
+	/**
 	 * Returns json for javascript templating functions throughout the plugin.
 	 *
 	 * @param $event
