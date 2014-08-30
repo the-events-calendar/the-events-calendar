@@ -120,13 +120,18 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 * @return string title
 	 */
 	function tribe_get_events_title( $depth = true ) {
+
 		global $wp_query;
+
 		$tribe_ecp = TribeEvents::instance();
 
 		$title = __( 'Upcoming Events', 'tribe-events-calendar' );
 
-		// TODO: Use the displayed dates for the title
-		if ( tribe_is_past() ) {
+		if ( isset( $_REQUEST['tribe-bar-date'] ) && $wp_query->have_posts() ) {
+			$first_event_date = tribe_get_end_date( $wp_query->posts[0], false );
+			$last_event_date = tribe_get_end_date( $wp_query->posts[count( $wp_query->posts ) - 1], false );
+			$title = sprintf( __( 'Events for %1$s - %2$s', 'tribe-events-calendar'), $first_event_date, $last_event_date );
+		} elseif ( tribe_is_past() ) {
 			$title = __( 'Past Events', 'tribe-events-calendar' );
 		}
 
