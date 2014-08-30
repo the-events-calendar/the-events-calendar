@@ -264,6 +264,7 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 			require_once 'tribe-support.class.php';
 			require_once 'tribe-amalgamator.php';
 			require_once 'tribe-events-update.class.php';
+			require_once 'Backcompat.php';
 
 			// Load Template Classes
 			require_once 'template-classes/month.php';
@@ -472,9 +473,6 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 			// Upgrade material.
 			add_action( 'admin_init', array( $this, 'checkSuiteIfJustUpdated' ) );
 
-			// backwards compatibility
-			add_filter( 'tribe_get_single_option', array( $this, 'filter_multiday_cutoff' ), 10, 3 );
-
 			if ( defined( 'WP_LOAD_IMPORTERS' ) && WP_LOAD_IMPORTERS ) {
 				add_filter( 'wp_import_post_data_raw', array( $this, 'filter_wp_import_data_before' ), 10, 1 );
 				add_filter( 'wp_import_post_data_processed', array( $this, 'filter_wp_import_data_after' ), 10, 1 );
@@ -604,6 +602,7 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 			$this->errors                                     = '';
 
 			TribeEventsQuery::init();
+			Tribe__Events__Backcompat::init();
 			$this->registerPostType();
 
 			self::debug( sprintf( __( 'Initializing Tribe Events on %s', 'tribe-events-calendar' ), date( 'M, jS \a\t h:m:s a' ) ) );
@@ -1954,27 +1953,6 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 			echo "/* ]]> */\n";
 			echo "</script>\n";
 
-		}
-
-		/**
-		 * We used to store midnight as 12:00. It should be 00:00.
-		 *
-		 * @param string $cutoff
-		 * @param string $default
-		 * @param string $option
-		 *
-		 * @return string
-		 */
-		public function filter_multiday_cutoff( $cutoff, $default, $option ) {
-			if ( $option == 'multiDayCutoff' ) {
-				$value = explode( ':', $cutoff );
-				if ( $value[0] == '12' ) {
-					$value[0] = '00';
-					$cutoff   = implode( ':', $value );
-				}
-			}
-
-			return $cutoff;
 		}
 
 		/**
