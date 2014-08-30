@@ -1094,11 +1094,12 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 		 */
 		public function maybeAddEventTitle( $title, $sep = null ) {
 			switch ( get_query_var( 'eventDisplay' ) ) {
-				case 'upcoming':
-					$new_title = apply_filters( 'tribe_upcoming_events_title', __( "Upcoming Events", 'tribe-events-calendar' ) . ' ' . $sep . ' ' . $title, $sep );
-					break;
-				case 'past':
-					$new_title = apply_filters( 'tribe_past_events_title', __( "Past Events", 'tribe-events-calendar' ) . ' ' . $sep . ' ' . $title, $sep );
+				case 'list':
+					if ( tribe_is_upcoming() ) {
+						$new_title = apply_filters( 'tribe_upcoming_events_title', __( "Upcoming Events", 'tribe-events-calendar' ) . ' ' . $sep . ' ' . $title, $sep );
+					} else {
+						$new_title = apply_filters( 'tribe_past_events_title', __( "Past Events", 'tribe-events-calendar' ) . ' ' . $sep . ' ' . $title, $sep );
+					}
 					break;
 				case 'month':
 					if ( get_query_var( 'eventDate' ) ) {
@@ -2321,7 +2322,7 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 			} else {
 				global $wp_query;
 				if ( $wp_query && $wp_query->is_main_query() && ! empty( $wp_query->tribe_is_event_query ) ) {
-					$this->displaying = isset( $wp_query->query_vars['eventDisplay'] ) ? $wp_query->query_vars['eventDisplay'] : tribe_get_option( 'viewOption', 'upcoming' );
+					$this->displaying = isset( $wp_query->query_vars['eventDisplay'] ) ? $wp_query->query_vars['eventDisplay'] : tribe_get_option( 'viewOption', 'list' );
 
 					if ( is_single() && $this->displaying != 'all' ) {
 						$this->displaying = 'single-event';
@@ -2599,10 +2600,10 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 					$eventUrl = trailingslashit( esc_url_raw( $eventUrl . $this->listSlug ) );
 					break;
 				case 'upcoming':
-					$eventUrl = trailingslashit( esc_url_raw( $eventUrl . $this->upcomingSlug ) );
+					$eventUrl = trailingslashit( esc_url_raw( $eventUrl . $this->listSlug ) );
 					break;
 				case 'past':
-					$eventUrl = trailingslashit( esc_url_raw( $eventUrl . $this->pastSlug ) );
+					$eventUrl = trailingslashit( esc_url_raw( add_query_arg( 'tribe_event_display', 'past', $eventUrl . $this->listSlug ) ) );
 					break;
 				case 'dropdown':
 					$eventUrl = esc_url_raw( $eventUrl );
@@ -4521,7 +4522,7 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 		 */
 		public function setup_listview_in_bar( $views ) {
 			$views[] = array(
-				'displaying'     => 'upcoming',
+				'displaying'     => 'list',
 				'event_bar_hook' => 'tribe_events_before_template',
 				'anchor'         => __( 'List', 'tribe-events-calendar' ),
 				'url'            => tribe_get_listview_link()
@@ -4613,7 +4614,7 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 
 			if ( tribe_is_month() ) {
 				$caption = __( 'Events In', 'tribe-events-calendar' );
-			} elseif ( tribe_is_upcoming() || tribe_is_past() ) {
+			} elseif ( tribe_is_list_view() ) {
 				$caption = __( 'Events From', 'tribe-events-calendar' );
 			} elseif ( tribe_is_day() ) {
 				$caption = __( 'Day Of', 'tribe-events-calendar' );

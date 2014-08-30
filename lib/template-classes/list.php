@@ -41,7 +41,7 @@ if ( ! class_exists( 'Tribe_Events_List_Template' ) ) {
 			$tribe_paged = ( ! empty( $_POST['tribe_paged'] ) ) ? intval( $_POST['tribe_paged'] ) : 1;
 
 			$args = array(
-				'eventDisplay' => 'upcoming',
+				'eventDisplay' => 'list',
 				'post_type'    => TribeEvents::POSTTYPE,
 				'post_status'  => 'publish',
 				'paged'        => $tribe_paged
@@ -99,12 +99,9 @@ if ( ! class_exists( 'Tribe_Events_List_Template' ) ) {
 				$response['view'] = 'past';
 			}
 
-			$old_request = $_SERVER;
-
 			ob_start();
 			tribe_get_view( 'list/content' );
 			$response['html'] .= ob_get_clean();
-			$_SERVER = $old_request;
 
 			apply_filters( 'tribe_events_ajax_response', $response );
 
