@@ -50,7 +50,7 @@ class TribeEventsPro_EmbeddedMaps {
 	 * If this is undesirable it can be turned off using a filter hook:
 	 *
 	 *     add_filter( 'tribe_events_pro_replace_embedded_maps', '__return_false' );
-	 *embedded
+	 *
 	 */
 	public function __construct() {
 		if ( apply_filters( 'tribe_events_pro_replace_embedded_maps', true ) ) {
