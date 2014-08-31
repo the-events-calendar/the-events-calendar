@@ -515,8 +515,18 @@ if ( ! class_exists( 'TribeEventsQuery' ) ) {
 
 				$postmeta_table = self::postmeta_table( $query );
 
-				$start_date = ! empty( $query->start_date ) ? $query->start_date : $query->get( 'start_date' );
-				$end_date   = ! empty( $query->end_date ) ? $query->end_date : $query->get( 'end_date' );
+				$start_date = $query->get( 'start_date' );
+				$end_date   = $query->get( 'end_date' );
+
+				// transform to EOD cutoff
+				if ( ! empty( $start_date ) ) {
+					$start_date = tribe_event_beginning_of_day( $query->get( 'start_date' ) );
+				}
+
+				// transform to EOD cutoff
+				if ( ! empty ( $end_date ) ) {
+					$end_date = tribe_event_beginning_of_day( $query->get( 'end_date' ) );
+				}
 
 				// we can't store end date directly because it messes up the distinct clause
 				$event_end_date = apply_filters( 'tribe_events_query_end_date_column', 'tribe_event_end_date.meta_value' );
