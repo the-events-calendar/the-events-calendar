@@ -83,7 +83,7 @@ class TribeEventsImporter_FileImporter_Events extends TribeEventsImporter_FileIm
 	}
 
 	private function is_all_day( array $record ) {
-		$all_day = false;
+		$all_day       = false;
 		$event_all_day = strtolower( $this->get_value_by_key( $record, 'event_all_day' ) );
 		if ( in_array( $event_all_day, array( 'yes', 'true', '1' ) ) ) {
 			$all_day = true;
@@ -114,7 +114,8 @@ class TribeEventsImporter_FileImporter_Events extends TribeEventsImporter_FileIm
 			'EventShowMap'          => $this->get_value_by_key( $record, 'event_show_map' ),
 			'EventCost'             => $this->get_value_by_key( $record, 'event_cost' ),
 			'EventAllDay'           => $all_day,
-			'EventHideFromUpcoming' => $this->get_value_by_key( $record, 'event_hide' )
+			'EventHideFromUpcoming' => $this->get_value_by_key( $record, 'event_hide' ),
+			'EventURL'              => $this->get_value_by_key( $record, 'event_external_link' )
 		);
 
 		if ( $organizer_id = $this->find_matching_organizer_id( $record ) ) {
