@@ -36,12 +36,12 @@ class ECP_APM_Filters {
 	public function ecp_filters() {
 		$filter_args = array(
 			'ecp_venue_filter_key'=>array(
-				'name' => __(tribe_get_venue_label_singular(), 'tribe-events-calendar-pro'),
+				'name' => tribe_get_venue_label_singular(),
 				'custom_type' => 'ecp_venue_filter',
 				'sortable' => 'true'
 			),
 			'ecp_organizer_filter_key'=>array(
-				'name' => __(tribe_get_organizer_label_singular(), 'tribe-events-calendar-pro'),
+				'name' => tribe_get_organizer_label_singular(),
 				'custom_type' => 'ecp_organizer_filter',
 				'sortable' => 'true'
 			),
