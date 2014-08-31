@@ -26,7 +26,7 @@ if( class_exists('TribeEventsPro')) {
 
 			$args = array(
 				'venue' => $post_id,
-				'eventDisplay' => 'upcoming' );
+				'eventDisplay' => 'list' );
 
 			$html = tribe_include_view_list( $args );
 
