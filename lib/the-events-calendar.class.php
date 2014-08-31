@@ -397,9 +397,6 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 			add_filter( 'tribe-events-bar-views', array( $this, 'remove_hidden_views' ), 9999, 2 );
 			/* End Setup Tribe Events Bar */
 
-			add_filter( 'tribe_get_day_link', array( $this, 'add_empty_date_dayview_link' ), 10, 2 );
-
-
 			add_filter( 'admin_footer_text', array( $this, 'tribe_admin_footer_text' ), 1, 2 );
 			add_action( 'admin_menu', array( $this, 'addEventBox' ) );
 			add_action( 'wp_insert_post', array( $this, 'addPostOrigin' ), 10, 2 );
@@ -2600,8 +2597,11 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 					$eventUrl = trailingslashit( esc_url_raw( $link ) );
 					break;
 				case 'day':
-					$date      = strtotime( $secondary );
-					$secondary = date( 'Y-m-d', $date );
+					if ( empty( $secondary ) ) {
+						$secondary = $this->todaySlug;
+					} else {
+						$secondary = tribe_event_format_date($secondary, false, TribeDateUtils::DBDATEFORMAT);
+					}
 					$eventUrl  = trailingslashit( esc_url_raw( $eventUrl . $secondary ) );
 					break;
 				default:
@@ -2631,11 +2631,6 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 
 			switch ( $type ) {
 				case 'day':
-					$eventUrl = add_query_arg( 'post_type', TribeEvents::POSTTYPE, home_url() );
-					// if we're on an Event Cat, show the cat link, except for home.
-					if ( $type !== 'home' && is_tax( TribeEvents::TAXONOMY ) ) {
-						$eventUrl = add_query_arg( TribeEvents::TAXONOMY, get_query_var( 'term' ), $eventUrl );
-					}
 					$eventUrl = add_query_arg( array( 'eventDisplay' => $type ), $eventUrl );
 					if ( $secondary ) {
 						$eventUrl = add_query_arg( array( 'eventDate' => $secondary ), $eventUrl );
@@ -4481,24 +4476,6 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 
 			return $link;
 		}
-
-		/**
-		 * Adds /today to the day view link if no day is passed.
-		 *
-		 * @param string      $link The current link.
-		 * @param string|null $date The date passed.
-		 *
-		 * @return string The modified link.
-		 */
-		public function add_empty_date_dayview_link( $link, $date ) {
-			if ( is_null( $date ) ) {
-				$tribe_ecp = TribeEvents::instance();
-				$link      = trailingslashit( trailingslashit( $tribe_ecp->getLink( '' ) ) . $this->todaySlug );
-			}
-
-			return $link;
-		}
-
 
 		/**
 		 * Set up the list view in the view selector in the tribe events bar.
