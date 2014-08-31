@@ -104,9 +104,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			}
 
 			// Tribe common resources
-			require_once( 'vendor/tribe-common-libraries/tribe-common-libraries.class.php' );
 			TribeCommonLibraries::register( 'advanced-post-manager', '1.0.5', $this->pluginPath . 'vendor/advanced-post-manager/tribe-apm.php' );
-
 			add_action( 'tribe_helper_activation_complete', array( $this, 'helpersLoaded' ) );
 
 			add_action( 'init', array( $this, 'init' ), 10 );
