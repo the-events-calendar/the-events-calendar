@@ -1660,7 +1660,7 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 			}
 			if ( $venues || $my_venues ) {
 				echo '<select class="chosen venue-dropdown" name="' . esc_attr( $name ) . '" id="saved_venue">';
-				echo '<option value="0">' . __( 'Use New ' . $this->singular_venue_label, 'tribe-events-calendar' ) . '</option>';
+				echo '<option value="0">' . sprintf( __( 'Use New %s', 'tribe-events-calendar' ), $this->singular_venue_label ) . '</option>';
 				if ( $my_venues ) {
 					echo $venues ? '<optgroup label="' . apply_filters( 'tribe_events_saved_venues_dropdown_my_optgroup', sprintf( __( 'My %s', 'tribe-events-calendar' ), $this->plural_venue_label ) ) . '">' : '';
 					echo $my_venue_options;
