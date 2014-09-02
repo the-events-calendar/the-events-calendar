@@ -1170,7 +1170,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 			$json = array_merge( (array) $json, (array) $additional );
 		}
 
-		$json = apply_filters( 'tribe_events_template_data', $json );
+		$json = apply_filters( 'tribe_events_template_data_array', $event, $additional, $json );
 
 		$json = tribe_prepare_for_json_deep( $json );
 
