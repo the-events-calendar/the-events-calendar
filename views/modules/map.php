@@ -5,6 +5,8 @@
  *
  *     [your-theme]/tribe-events/modules/map.php
  *
+ * @var $width
+ * @var $height
  */
 
 defined( 'ABSPATH' ) or exit( '-1' );
