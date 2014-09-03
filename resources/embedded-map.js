@@ -1,33 +1,75 @@
-var encoded_address;
+/**
+ * Sets up one or more embedded maps.
+ */
+if ( "function" === typeof jQuery ) jQuery( document ).ready( function( $ ) {
+	var mapHolder,
+		position,
+		streetAddress,
+		venueCoords,
+		venueTitle;
 
-function initialize() {
-	var myOptions = {
-		zoom     : parseInt( tribeEventsEmbeddedMap.zoom ),
-		center   : encoded_address,
-		mapTypeId: google.maps.MapTypeId.ROADMAP
-	};
+	// The tribeEventsSingleMap object must be accessible (as it contains the venue address data etc)
+	if ("undefined" === typeof tribeEventsSingleMap ) return;
 
-	var map = new google.maps.Map( document.getElementById( "tribe-events-gmap" ), myOptions );
+	/**
+	 * Determine whether to use long/lat coordinates (these are preferred) or the venue's street
+	 * address.
+	 */
+	function prepare() {
+		if ( false !== venueCoords ) useCoords();
+		else useAddress();
+	}
 
-	new google.maps.Marker( {
-			map     : map,
-			title   : tribeEventsEmbeddedMap.title,
-			position: encoded_address
-	} );
-}
+	/**
+	 * Use long/lat coordinates to position the pin marker.
+	 */
+	function useCoords() {
+		position = new google.maps.LatLng(venueCoords[0], venueCoords[1]);
+		initialize();
+	}
 
-function codeAddress( address ) {
-	var geocoder = new google.maps.Geocoder();
+	/**
+	 * Use a street address and Google's geocoder to position the pin marker.
+	 */
+	function useAddress() {
+		var geocoder = new google.maps.Geocoder();
 
-	geocoder.geocode(
-		{ 'address': tribeEventsEmbeddedMap.address },
-		function ( results, status ) {
-			if ( status == google.maps.GeocoderStatus.OK ) {
-				encoded_address = results[0].geometry.location;
-				initialize();
+		geocoder.geocode(
+			{ "address": streetAddress },
+			function ( results, status ) {
+				if ( status == google.maps.GeocoderStatus.OK ) {
+					position = results[0].geometry.location;
+					initialize();
+				}
 			}
-		}
-	);
-}
+		);
+	}
 
-codeAddress();
+	/**
+	 * Setup the map and apply a marker.
+	 */
+	function initialize() {
+		var map = new google.maps.Map( mapHolder, {
+			zoom     : parseInt( tribeEventsSingleMap.zoom ),
+			center   : position,
+			mapTypeId: google.maps.MapTypeId.ROADMAP
+		} );
+
+		new google.maps.Marker( {
+			map     : map,
+			title   : venueTitle,
+			position: position
+		} );
+	}
+
+	// Iterate through available addresses and set up the map for each
+	$.each( tribeEventsSingleMap.addresses, function( index, venue ) {
+		mapHolder = document.getElementById( "tribe-events-gmap-" + index );
+		if ( null !== mapHolder ) {
+			streetAddress = "undefined" !== typeof venue.address ? venue.address : false;
+			venueCoords   = "undefined" !== typeof venue.coords  ? venue.coords  : false;
+			venueTitle    = venue.title;
+			prepare();
+		}
+	});
+});
