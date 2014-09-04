@@ -196,6 +196,8 @@ if ( ! class_exists( 'TribeEventsQuery' ) ) {
 
 				$query->query_vars['eventDisplay'] = ! empty( $query->query_vars['eventDisplay'] ) ? $query->query_vars['eventDisplay'] : TribeEvents::instance()->displaying;
 
+				//@todo stop calling EOD cutoff transformations all over the place
+
 				if ( ! empty( $query->query_vars['eventDisplay'] ) ) {
 					switch ( $query->query_vars['eventDisplay'] ) {
 						case 'custom':
@@ -251,12 +253,12 @@ if ( ! class_exists( 'TribeEventsQuery' ) ) {
 								? $query->get( 'eventDate' )
 								: date_i18n( TribeDateUtils::DBDATETIMEFORMAT );
 							if ( ! $query->tribe_is_past ) {
-								$query->set( 'start_date', $event_date );
+								$query->set( 'start_date', tribe_event_beginning_of_day( $event_date ) );
 								$query->set( 'end_date', '' );
 								$query->set( 'order', self::set_order( null, $query ) );
 							} else {
 								$query->set( 'start_date', '' );
-								$query->set( 'end_date', $event_date );
+								$query->set( 'end_date', tribe_event_end_of_day( $event_date ) );
 								$query->set( 'order', self::set_order( 'DESC', $query ) );
 							}
 							$query->set( 'orderby', self::set_orderby( null, $query ) );
@@ -517,16 +519,6 @@ if ( ! class_exists( 'TribeEventsQuery' ) ) {
 
 				$start_date = $query->get( 'start_date' );
 				$end_date   = $query->get( 'end_date' );
-
-				// transform to EOD cutoff
-				if ( ! empty( $start_date ) ) {
-					$start_date = tribe_event_beginning_of_day( $query->get( 'start_date' ) );
-				}
-
-				// transform to EOD cutoff
-				if ( ! empty ( $end_date ) ) {
-					$end_date = tribe_event_end_of_day( $query->get( 'end_date' ) );
-				}
 
 				// we can't store end date directly because it messes up the distinct clause
 				$event_end_date = apply_filters( 'tribe_events_query_end_date_column', 'tribe_event_end_date.meta_value' );
