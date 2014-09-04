@@ -255,7 +255,7 @@ The plugin is produced by <a href="http://m.tri.be/2s">Modern Tribe Inc</a>.
 * Norwegian Bokmål by Morten Ruud
 * Norwegian Nynorsk by Torbjørn Lauen
 * Polish from Marek Kosina
-* Portuguese from Antonio Pratas
+* Portuguese from Sérgio Leite
 * Romanian from Cosmin Vaman
 * Russian from Alexander Tinyaev
 * Serbian from Marko Manojlovic
@@ -264,7 +264,7 @@ The plugin is produced by <a href="http://m.tri.be/2s">Modern Tribe Inc</a>.
 * Turkish by Derin Korman
 * Ukranian by Vasily Vishnyakov
 
-* Previous translators include Dennis Gruebner , J.F.M. Cornelissen, Frans Pronk, Hector Gil Rizo, Roberto Scano, Maria Tsilimidou, Martin Kristan, Oliver Heinrich, Ben Andersen, Mikhail Michouris, Bastien BC, Dionizio Bonfim Bach, Mihai Burcea, Ed Boon, Rick van Dalen, Jacob Roel Meijering, hristian Andersen, Michael Sebel, Filippo Montanari, David Decker, Kamil Szymanski, Erik Massop, “Terje With Lunndal", Andreas Lorentsen, Sagi Shrieber, Matthew Meyer, Arno Faure, Fanny Heraud, Vincent G from Host1Free, , Petri Kajander, Fran Rosa, Nico (wsMaurik), Panos Efstratiou, Dominique Monhardt, Thomas Butzek, Kjell Vestnes, Luiza Libardi, Diego Meneghetti, Beno Burgener, Burak Pehlevan, and Alexey Fedorov
+* Previous translators include Antonio Pratas, Dennis Gruebner , J.F.M. Cornelissen, Frans Pronk, Hector Gil Rizo, Roberto Scano, Maria Tsilimidou, Martin Kristan, Oliver Heinrich, Ben Andersen, Mikhail Michouris, Bastien BC, Dionizio Bonfim Bach, Mihai Burcea, Ed Boon, Rick van Dalen, Jacob Roel Meijering, hristian Andersen, Michael Sebel, Filippo Montanari, David Decker, Kamil Szymanski, Erik Massop, “Terje With Lunndal", Andreas Lorentsen, Sagi Shrieber, Matthew Meyer, Arno Faure, Fanny Heraud, Vincent G from Host1Free, , Petri Kajander, Fran Rosa, Nico (wsMaurik), Panos Efstratiou, Dominique Monhardt, Thomas Butzek, Kjell Vestnes, Luiza Libardi, Diego Meneghetti, Beno Burgener, Burak Pehlevan, and Alexey Fedorov
 
 == Add-Ons ==
 
@@ -323,6 +323,7 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Incorporated updated Danish translation files, courtesy of Hans Christian Andersen
 * Incorporated updated Dutch translation files, courtesy of Dirk Westenberg
 * Incorporated updated German translation files, courtesy of Stefan Dorscht
+* Incorporated updated Portuguese translation files, courtesy of Sérgio Leite
 
 = 3.7. =
 
@@ -399,7 +400,6 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Added updated Czech translation files, courtesy of Petr Bastan
 * Added updated Greek translation files, courtesy of Yannis Troullinos
 * Added new Danish translation files, courtesy of @bechster
-
 
 = 3.5.1 =
 
