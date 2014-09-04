@@ -525,7 +525,7 @@ if ( ! class_exists( 'TribeEventsQuery' ) ) {
 
 				// transform to EOD cutoff
 				if ( ! empty ( $end_date ) ) {
-					$end_date = tribe_event_beginning_of_day( $query->get( 'end_date' ) );
+					$end_date = tribe_event_end_of_day( $query->get( 'end_date' ) );
 				}
 
 				// we can't store end date directly because it messes up the distinct clause
