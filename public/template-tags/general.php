@@ -1168,9 +1168,9 @@ if ( class_exists( 'TribeEvents' ) ) {
 
 		if ( $additional ) {
 			$json = array_merge( (array) $json, (array) $additional );
-		}
+		}		
 
-		$json = apply_filters( 'tribe_events_template_data_array', $event, $additional, $json );
+		$json = apply_filters( 'tribe_events_template_data_array', $json, $event, $additional );
 
 		$json = tribe_prepare_for_json_deep( $json );
 
