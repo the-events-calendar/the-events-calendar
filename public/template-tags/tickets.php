@@ -40,9 +40,9 @@ function tribe_events_has_tickets( $event = null ) {
 function tribe_events_has_soldout( $event = null ) {
 	$has_tickets = tribe_events_has_tickets( $event );
 	$no_stock = tribe_events_count_available_tickets( $event ) < 1;
-	$unlimited_inventory_tems = tribe_events_has_unlimited_stock_tickets( $event );
+	$unlimited_inventory_items = tribe_events_has_unlimited_stock_tickets( $event );
 
-	return ( $has_tickets && $no_stock && ! $unlimited_inventory_tems );
+	return ( $has_tickets && $no_stock && ! $unlimited_inventory_items );
 }
 
 /**
