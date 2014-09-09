@@ -38,6 +38,10 @@ class TribeEventsPro_SingleEventMeta {
 	 * @return string
 	 */
 	public function link_venue( $name ) {
+		// Ordinarily we only need this to happen once
+		remove_filter( 'tribe_get_venue', array( $this, 'link_venue' ) );
+
+		// If this already contains a link do not double wrap it!
 		$contains_link = ( false !== strpos( $name, 'href="' ) );
 		return $contains_link ? '' : '<a href="' . tribe_get_venue_link( null, false ) . '">' . $name . '</a>';
 	}
