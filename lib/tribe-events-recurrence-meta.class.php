@@ -32,7 +32,7 @@ class TribeEventsRecurrenceMeta {
 
 
 	public static function init() {
-		add_action( 'tribe_events_update_meta', array( __CLASS__, 'updateRecurrenceMeta' ), 1, 3 );
+		add_action( 'tribe_events_update_meta', array( __CLASS__, 'updateRecurrenceMeta' ), 20, 2 ); // give other meta a chance to save, first
 		add_action( 'tribe_events_date_display', array( __CLASS__, 'loadRecurrenceData' ) );
 		add_action(	'wp_trash_post', array( __CLASS__, 'handle_trash_request') );
 		add_action( 'before_delete_post', array( __CLASS__, 'handle_delete_request') );
