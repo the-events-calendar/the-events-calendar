@@ -49,6 +49,15 @@ a.tickets_uncheckin {
 	line-height    : 30px;
 }
 
+.ticket_list tr td .totals #sales_breakdown_wrapper {
+    font-size: 14px;
+    line-height: 1;
+}
+
+.ticket_list tr td .totals #sales_breakdown_wrapper #total_issued {
+    margin-right: 14px;
+}
+
 .wp-pointer-arrow {
 	right : 50px !important;
 	left  : auto !important;
