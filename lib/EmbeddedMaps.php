@@ -67,7 +67,6 @@ class TribeEvents_EmbeddedMaps {
 	 *
 	 * @param int  $post_id ID of the pertinent event or venue
 	 * @param int  $width
-		// Google Maps API (URL can be overridden)
 	 * @param int  $height
 	 * @param bool $force_load add the map even if no address data can be found
 	 *
