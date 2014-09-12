@@ -328,6 +328,7 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Incorporated updated German translation files, courtesy of Stefan Dorscht and Oliver Heinrich
 * Incorporated updated Finnish translation files, courtesy of Elias Okkonen
 * Incorporated updated Estonian translation files, courtesy of Andra Saimre
+* Changed capability for importing events from "administrator" to "import"
 
 = 3.7. =
 
