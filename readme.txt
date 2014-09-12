@@ -232,6 +232,10 @@ Our Premium Plugins:
 * Incorporated updated German translation files, courtesy of Stefan Dorscht and Oliver Heinrich
 * Incorporated updated Finnish translation files, courtesy of Elias Okkonen
 * Incorporated updated Estonian translation files, courtesy of Andra Saimre
+* Fix bug that caused instances of a recurring event to disappear when recurrence was removed and then added back to an event
+* Fix bug that caused missing custom meta in events in a recurring series
+* Remove confirmation dialog when bulk deleting events
+* Correctly identify recurring events as recurring even if they only have one instance
 
 = 3.7 =
 
