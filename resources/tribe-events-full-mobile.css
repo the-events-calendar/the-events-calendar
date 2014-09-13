@@ -90,6 +90,10 @@ a.tribe-events-gmap {
 	   -moz-box-sizing: border-box;
 			box-sizing: border-box;	
 }
+/* Hide Header when no events are found */
+.tribe-events-notices + #tribe-events-header {
+	display:none;
+}
 .tribe-events-sub-nav li a {
 	display: block;
 	padding: 10px 20px;

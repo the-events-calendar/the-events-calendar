@@ -241,11 +241,11 @@ The plugin is produced by <a href="http://m.tri.be/2s">Modern Tribe Inc</a>.
 * Croatian from Marko Manojlovic
 * Czech from Petr Bastan
 * Danish from Hans Christian Andersen
-* Dutch from J.F.M. Cornelissen and Frans Pronk
+* Dutch from Dirk Westenberg
 * Estonian from Andra Saimre
-* Finnish by Ari-Pekka Koponen
+* Finnish by Elias Okkonen
 * French from Laurent Proulx
-* German from Dennis Gruebner 
+* German from Stefan Dorscht and Oliver Heinrich
 * Greek from Yannis Troullinos
 * Icelandic by Baldvin Berndsen
 * Indonesian from Didik Priyanto
@@ -255,16 +255,17 @@ The plugin is produced by <a href="http://m.tri.be/2s">Modern Tribe Inc</a>.
 * Norwegian Bokmål by Morten Ruud
 * Norwegian Nynorsk by Torbjørn Lauen
 * Polish from Marek Kosina
-* Portuguese from Antonio Pratas
+* Portuguese from Sérgio Leite
 * Romanian from Cosmin Vaman
 * Russian from Alexander Tinyaev
 * Serbian from Marko Manojlovic
+* Slovenian from Žiga Vajdic
 * Spanish from Juanjo Navarro
 * Swedish from Jonas Reinicke
 * Turkish by Derin Korman
 * Ukranian by Vasily Vishnyakov
 
-* Previous translators include Hector Gil Rizo, Roberto Scano, Maria Tsilimidou, Martin Kristan, Oliver Heinrich, Ben Andersen, Mikhail Michouris, Bastien BC, Dionizio Bonfim Bach, Mihai Burcea, Ed Boon, Rick van Dalen, Jacob Roel Meijering, hristian Andersen, Michael Sebel, Filippo Montanari, David Decker, Kamil Szymanski, Erik Massop, “Terje With Lunndal", Andreas Lorentsen, Sagi Shrieber, Matthew Meyer, Arno Faure, Fanny Heraud, Vincent G from Host1Free, , Petri Kajander, Fran Rosa, Nico (wsMaurik), Panos Efstratiou, Dominique Monhardt, Thomas Butzek, Kjell Vestnes, Luiza Libardi, Diego Meneghetti, Beno Burgener, Burak Pehlevan, and Alexey Fedorov
+* Previous translators include Ari-Pekka Koponen, Antonio Pratas, Dennis Gruebner , J.F.M. Cornelissen, Frans Pronk, Hector Gil Rizo, Roberto Scano, Maria Tsilimidou, Martin Kristan, Oliver Heinrich, Ben Andersen, Mikhail Michouris, Bastien BC, Dionizio Bonfim Bach, Mihai Burcea, Ed Boon, Rick van Dalen, Jacob Roel Meijering, hristian Andersen, Michael Sebel, Filippo Montanari, David Decker, Kamil Szymanski, Erik Massop, “Terje With Lunndal", Andreas Lorentsen, Sagi Shrieber, Matthew Meyer, Arno Faure, Fanny Heraud, Vincent G from Host1Free, , Petri Kajander, Fran Rosa, Nico (wsMaurik), Panos Efstratiou, Dominique Monhardt, Thomas Butzek, Kjell Vestnes, Luiza Libardi, Diego Meneghetti, Beno Burgener, Burak Pehlevan, and Alexey Fedorov
 
 == Add-Ons ==
 
@@ -321,6 +322,13 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Incorporated updated Italian translation files, courtesy of Gabriele Taffi
 * Incorporated updated Spanish translation files, courtesy of Juanjo Navarro
 * Incorporated updated Danish translation files, courtesy of Hans Christian Andersen
+* Incorporated updated Dutch translation files, courtesy of Dirk Westenberg
+* Incorporated updated Portuguese translation files, courtesy of Sérgio Leite
+* Incorporated new Russian translation files, courtesy of Žiga Vajdic
+* Incorporated updated German translation files, courtesy of Stefan Dorscht and Oliver Heinrich
+* Incorporated updated Finnish translation files, courtesy of Elias Okkonen
+* Incorporated updated Estonian translation files, courtesy of Andra Saimre
+* Changed capability for importing events from "administrator" to "import"
 
 = 3.7. =
 
@@ -397,7 +405,6 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Added updated Czech translation files, courtesy of Petr Bastan
 * Added updated Greek translation files, courtesy of Yannis Troullinos
 * Added new Danish translation files, courtesy of @bechster
-
 
 = 3.5.1 =
 

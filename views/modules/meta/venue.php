@@ -8,7 +8,7 @@
  * @package TribeEventsCalendar
  */
 
-if ( ! tribe_address_exists() ) {
+if ( ! tribe_get_venue_id() ) {
 	return;
 }
 $phone = tribe_get_phone();

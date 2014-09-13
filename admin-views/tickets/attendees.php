@@ -71,6 +71,7 @@ $tickets = TribeEventsTickets::get_event_tickets( $event_id );
 						<?php
 
 						$total_sold = 0;
+						$total_pending = 0;
 
 						foreach ( $tickets as $ticket ) : ?>
 
@@ -79,14 +80,24 @@ $tickets = TribeEventsTickets::get_event_tickets( $event_id );
 							$stock = $ticket->stock;
 							$sold = ! empty ( $ticket->qty_sold ) ? $ticket->qty_sold : 0;
 
-							if ( empty( $stock ) && $stock !== 0 ) : ?>
-								<?php echo sprintf( __( "Sold %d", 'tribe-events-calendar' ), esc_html( $sold ) ); ?>
-							<?php else : ?>
-								<?php echo sprintf( __( "Sold %d of %d", 'tribe-events-calendar' ), esc_html( $sold ), esc_html( $sold + $stock ) ); ?>
-							<?php endif; ?>
-							<br />
+							$pending = '';
 
-							<?php $total_sold += $sold;
+							if ( $ticket->qty_pending > 0 ) {
+								$pending = sprintf( _n( '(%d awaiting review)', '(%d awaiting review)', 'tribe-events-calendar', $ticket->qty_pending ), (int) $ticket->qty_pending );
+							}
+
+							if ( empty( $stock ) && $stock !== 0 ) {
+								echo sprintf( __( "Sold %d %s", 'tribe-events-calendar' ), esc_html( $sold ), $pending );
+							}
+							else {
+								echo sprintf( __( "Sold %d of %d %s", 'tribe-events-calendar' ), esc_html( $sold ), esc_html( $sold + $stock ), $pending );
+							}
+
+							echo '<br />';
+
+							$total_sold += $sold;
+							$total_pending += $ticket->qty_pending;
+							$total_completed = $total_sold - $total_pending;
 
 						endforeach; ?>
 					</td>
@@ -100,11 +111,24 @@ $tickets = TribeEventsTickets::get_event_tickets( $event_id );
 								<?php _e( 'Tickets sold:', 'tribe-events-calendar' ) ?>
 								<span id="total_tickets_sold"><?php echo $total_sold ?></span>
 							</span>
+
+							<?php if ( $total_pending > 0 ) : ?>
+								<span id="sales_breakdown_wrapper">
+								<br />
+									<?php _e( 'Finalized:', 'tribe-events-calendar' ); ?>
+									<span id="total_issued"><?php echo $total_completed ?></span>
+
+									<?php _e( 'Awaiting review:', 'tribe-events-calendar' ); ?>
+									<span id="total_pending"><?php echo $total_pending ?></span>
+								</span>
+							<?php endif ?>
+
 							<span id="total_checkedin_wrapper">
 								<br />
 								<?php _e( 'Checked in:', 'tribe-events-calendar' ); ?>
 								<span id="total_checkedin"><?php echo $checkedin ?></span>
 							</span>
+
 						</div>
 					</td>
 				</tr>

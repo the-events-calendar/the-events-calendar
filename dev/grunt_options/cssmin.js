@@ -20,12 +20,6 @@ module.exports = {
 
 	resourcecss: {
 
-		options: {
-			banner: '/*\n' +
-				' * built on <%= grunt.template.today("dd-mm-yyyy") %>\n' +
-				' */\n'
-		},
-
 		expand: true,
 		src   : ['<%= pkg._resourcepath %>/*.css', '<%= pkg._resourcepath %>/!*.min.css'],
 		ext   : '.min.css'

@@ -113,6 +113,32 @@ if ( class_exists( 'TribeEvents' ) ) {
 	}
 
 	/**
+	 * Check if the current request is for a tribe view via ajax
+	 * @return boolean
+	 */
+	function tribe_is_ajax_view_request( $view = false ) {
+		$is_ajax_view_request = false;
+		if ( ( defined( 'DOING_AJAX' ) && DOING_AJAX ) && ! empty( $_REQUEST['action'] ) ) {
+			switch ( $view ) {
+				case false:
+					$is_ajax_view_request = ( ! empty( $_REQUEST['tribe_event_display'] ) || ! empty( $_REQUEST['eventDate'] ) || ! empty( $_REQUEST['tribe-bar-date'] ) || ! empty( $_REQUEST['tribe_paged'] ) );
+					break;
+				case 'month' :
+					$is_ajax_view_request = ( $_REQUEST['action'] == Tribe_Events_Month_Template::AJAX_HOOK );
+					break;
+				case 'list' :
+					$is_ajax_view_request = ( $_REQUEST['action'] == Tribe_Events_List_Template::AJAX_HOOK);
+					break;
+				case 'day' :
+					$is_ajax_view_request = ( $_REQUEST['action'] == Tribe_Events_Day_Template::AJAX_HOOK );
+					break;
+			}
+		}
+
+		return apply_filters( 'tribe_is_ajax_view_request', $is_ajax_view_request, $view );
+	}
+
+	/**
 	 * Update Option
 	 *
 	 * Set specific key from options array, optionally provide a default return value
@@ -177,6 +203,37 @@ if ( class_exists( 'TribeEvents' ) ) {
 		}
 
 		return apply_filters( 'tribe_get_events', TribeEventsQuery::getEvents( $args, $full ), $args, $full );
+	}
+
+	/**
+	 * Returns the current event post object (if there is one) or else null.
+	 *
+	 * Optionally the post object or ID of an event can be passed in and,
+	 * again, the event post object will be returned if possible.
+	 *
+	 * @param $event
+	 * @return null|WP_Post
+	 */
+	function tribe_events_get_event( $event = null ) {
+		global $post;
+
+		if ( null === $event ) {
+			return $post;
+		}
+
+		if ( is_a( $event, 'WP_Post' ) && TribeEvents::POSTTYPE === get_post_type( $event ) ) {
+			return $post;
+		}
+
+		if ( is_numeric( $event ) && $event == intval( $event ) ) {
+			$event = get_post( $event );
+
+			if ( null !== $event && TribeEvents::POSTTYPE === get_post_type( $event ) ) {
+				return $event;
+			}
+		}
+
+		return null;
 	}
 
 	/**
@@ -515,6 +572,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 * @param string|null $current_view
 	 *
 	 * @return void
+	 * @todo move to template classes
 	 **/
 	function tribe_events_the_header_attributes( $current_view = null ) {
 		$attrs               = array();
@@ -932,12 +990,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 
 		if ( tribe_event_is_multiday( $event ) ) { // multi-date event
 
-			$format2ndday = $format;
-
-			//If it's all day and the end date is in the same month and year, just show the day.
-			if ( tribe_event_is_all_day( $event ) && tribe_get_end_date( $event, false, 'm' ) === tribe_get_start_date( $event, false, 'm' ) && tribe_get_end_date( $event, false, 'Y' ) === date( 'Y' ) ) {
-				$format2ndday = 'j';
-			}
+			$format2ndday = apply_filters( 'tribe_format_second_date_in_range', $format, $event );
 
 			if ( tribe_event_is_all_day( $event ) ) {
 				$schedule .= tribe_get_start_date( $event, true, $format );
@@ -1026,6 +1079,27 @@ if ( class_exists( 'TribeEvents' ) ) {
 	}
 
 	/**
+	 * Recursively iterate through an nested structure, calling
+	 * tribe_prepare_for_json() on all scalar values
+	 *
+	 * @param mixed $value The data to be cleaned
+	 * @return mixed The clean data
+	 */
+	function tribe_prepare_for_json_deep( $value ) {
+		if ( is_array( $value ) ) {
+			$value = array_map('tribe_prepare_for_json_deep', $value);
+		} elseif ( is_object($value) ) {
+			$vars = get_object_vars( $value );
+			foreach ($vars as $key=>$data) {
+				$value->{$key} = tribe_prepare_for_json_deep( $data );
+			}
+		} elseif ( is_string( $value ) ) {
+			$value = tribe_prepare_for_json($value);
+		}
+		return $value;
+	}
+
+	/**
 	 * Returns json for javascript templating functions throughout the plugin.
 	 *
 	 * @param $event
@@ -1085,13 +1159,13 @@ if ( class_exists( 'TribeEvents' ) ) {
 		} else {
 			$excerpt = $event->post_content;
 		}
-		$excerpt = tribe_prepare_for_json( TribeEvents::instance()->truncate( $excerpt, 30 ) );
+		$excerpt = TribeEvents::instance()->truncate( $excerpt, 30 );
 
-		$category_classes = tribe_prepare_for_json( tribe_events_event_classes( $event->ID, false ) );
+		$category_classes = tribe_events_event_classes( $event->ID, false );
 
 		$json = array(
 			'eventId'         => $event->ID,
-			'title'           => tribe_prepare_for_json( $event->post_title ),
+			'title'           => $event->post_title,
 			'permalink'       => tribe_get_event_link( $event->ID ),
 			'imageSrc'        => $image_src,
 			'startTime'       => $start_time,
@@ -1102,9 +1176,12 @@ if ( class_exists( 'TribeEvents' ) ) {
 		);
 
 		if ( $additional ) {
-			$additional = array_map( 'tribe_prepare_for_json', $additional );
-			$json       = array_merge( (array) $json, (array) $additional );
-		}
+			$json = array_merge( (array) $json, (array) $additional );
+		}		
+
+		$json = apply_filters( 'tribe_events_template_data_array', $json, $event, $additional );
+
+		$json = tribe_prepare_for_json_deep( $json );
 
 		return json_encode( $json );
 	}
@@ -1401,7 +1478,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 		}
 
 		// If not, try to determine now
-		TribeEvents::instance()->rebuild_earliest_latest();
+		TribeEvents::instance()->rebuild_known_range();
 		$latest = tribe_get_option( 'latest_date', false );
 		if ( false !== $latest ) {
 			return TribeDateUtils::reformat( $latest, $format );
@@ -1428,7 +1505,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 		}
 
 		// If not, try to determine now
-		TribeEvents::instance()->rebuild_earliest_latest();
+		TribeEvents::instance()->rebuild_known_range();
 		$earliest = tribe_get_option( 'earliest_date', false );
 		if ( false !== $earliest ) {
 			return TribeDateUtils::reformat( $earliest, $format );

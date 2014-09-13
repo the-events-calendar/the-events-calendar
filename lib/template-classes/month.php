@@ -34,6 +34,8 @@ if ( ! class_exists( 'Tribe_Events_Month_Template' ) ) {
 		protected $excerpt_length = 30;
 		protected $asset_packages = array( 'ajax-calendar' );
 
+		const AJAX_HOOK = 'tribe_calendar';
+
 		/**
 		 * Set the notices used on month view
 		 *
@@ -441,5 +443,48 @@ if ( ! class_exists( 'Tribe_Events_Month_Template' ) ) {
 
 			return $classes;
 		}
+
+		/**
+		 * Month View Ajax Handler
+		 *
+		 * @return void
+		 */
+		function ajax_response() {
+
+			if ( isset( $_POST['eventDate'] ) && $_POST['eventDate'] ) {
+
+				TribeEventsQuery::init();
+
+				// set the global query var for eventDisplay
+				$query_args = array(
+					'post_type'    => TribeEvents::POSTTYPE,
+					'eventDisplay' => 'month',
+					'eventDate'    => $_POST['eventDate'],
+				);
+
+				TribeEvents::instance()->displaying = 'month';
+
+				if ( isset( $_POST['tribe_event_category'] ) ) {
+					$query_args['tribe_events_cat'] = $_POST['tribe_event_category'];
+				}
+
+				query_posts( $query_args );
+
+				ob_start();
+
+				tribe_get_view( 'month/content' );
+
+				$response = array(
+					'html'    => ob_get_clean(),
+					'success' => true,
+					'view'    => 'month',
+				);
+				apply_filters( 'tribe_events_ajax_response', $response );
+				header( 'Content-type: application/json' );
+				echo json_encode( $response );
+				die();
+			}
+		}
+
 	} // class Tribe_Events_Month_Template
 }

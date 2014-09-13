@@ -98,15 +98,15 @@ if ( ! function_exists( 'tribe_get_the_day_link_label' ) ) {
 	function tribe_get_the_day_link_label( $date_description ) {
 		switch ( strtolower( $date_description ) ) {
 			case null :
-				return __( 'Today', 'tribe-events-calendar-pro' );
+				return __( 'Today', 'tribe-events-calendar' );
 			case 'previous day' :
-				return __( '<span>&laquo;</span> Previous Day', 'tribe-events-calendar-pro' );
+				return __( '<span>&laquo;</span> Previous Day', 'tribe-events-calendar' );
 			case 'next day' :
-				return __( 'Next Day <span>&raquo;</span>', 'tribe-events-calendar-pro' );
+				return __( 'Next Day <span>&raquo;</span>', 'tribe-events-calendar' );
 			case 'yesterday' :
-				return __( 'Yesterday', 'tribe-events-calendar-pro' );
+				return __( 'Yesterday', 'tribe-events-calendar' );
 			case 'tomorrow' :
-				return __( 'Tomorrow', 'tribe-events-calendar-pro' );
+				return __( 'Tomorrow', 'tribe-events-calendar' );
 			default :
 				return date_i18n( 'Y-m-d', strtotime( $date_description ) );
 		}
@@ -149,7 +149,7 @@ if ( ! function_exists( 'tribe_get_next_day_date' ) ) {
 	function tribe_get_next_day_date( $start_date ) {
 		if ( PHP_INT_SIZE <= 4 ) {
 			if ( date( 'Y-m-d', strtotime( $start_date ) ) > '2037-12-30' ) {
-				throw new OverflowException( __( 'Date out of range.', 'tribe-events-calendar-pro' ) );
+				throw new OverflowException( __( 'Date out of range.', 'tribe-events-calendar' ) );
 			}
 		}
 		$date = Date( 'Y-m-d', strtotime( $start_date . " +1 day" ) );
@@ -170,7 +170,7 @@ if ( ! function_exists( 'tribe_get_previous_day_date' ) ) {
 	function tribe_get_previous_day_date( $start_date ) {
 		if ( PHP_INT_SIZE <= 4 ) {
 			if ( date( 'Y-m-d', strtotime( $start_date ) ) < '1902-01-02' ) {
-				throw new OverflowException( __( 'Date out of range.', 'tribe-events-calendar-pro' ) );
+				throw new OverflowException( __( 'Date out of range.', 'tribe-events-calendar' ) );
 			}
 		}
 		$date = Date( 'Y-m-d', strtotime( $start_date . " -1 day" ) );

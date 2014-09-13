@@ -1,6 +1,6 @@
 <?php
 /**
- * Date utility functions used throughout ECP
+ * Date utility functions used throughout TEC + Addons
  */
 
 // Don't load directly
@@ -80,26 +80,13 @@ if ( ! class_exists( 'TribeDateUtils' ) ) {
 		}
 
 		/**
-		 * Returns the date and time.
-		 *
-		 * @param int|string $date        The date (timestamp or string).
-		 * @param bool       $isTimestamp Is $date in timestamp format?
-		 *
-		 * @return string The date and time in DB format.
-		 */
-		public static function dateAndTime( $date, $isTimestamp = false ) {
-			$date = $isTimestamp ? $date : strtotime( $date );
-
-			return date( TribeDateUtils::DBDATETIMEFORMAT, $date );
-		}
-
-		/**
 		 * Returns the end of a given day.
 		 *
 		 * @param int|string $date        The date (timestamp or string).
 		 * @param bool       $isTimestamp Is $date in timestamp format?
 		 *
 		 * @return string The date and time of the end of a given day.
+		 * @todo - do we need this, since we have tribe_event_end_of_day()?
 		 */
 		public static function endOfDay( $date, $isTimestamp = false ) {
 			$date = $isTimestamp ? $date : strtotime( $date );
@@ -116,6 +103,7 @@ if ( ! class_exists( 'TribeDateUtils' ) ) {
 		 * @param bool       $isTimestamp Is $date in timestamp format?
 		 *
 		 * @return string The date and time of the beginning of a given day.
+		 * @todo - do we need this, since we have tribe_event_beginning_of_day()?
 		 */
 		public static function beginningOfDay( $date, $isTimestamp = false ) {
 			$date = $isTimestamp ? $date : strtotime( $date );
@@ -123,20 +111,6 @@ if ( ! class_exists( 'TribeDateUtils' ) ) {
 			$date = strtotime( $date . ' 00:00:00' );
 
 			return date( TribeDateUtils::DBDATETIMEFORMAT, $date );
-		}
-
-		/**
-		 * Add a time to a date..
-		 *
-		 * @param string $date The date.
-		 * @param string $time The time.?
-		 *
-		 * @return string The date plus the time.
-		 */
-		public static function addTimeToDate( $date, $time ) {
-			$date = self::dateOnly( $date );
-
-			return date( TribeDateUtils::DBDATETIMEFORMAT, strtotime( $date . $time ) );
 		}
 
 		/**
@@ -161,11 +135,8 @@ if ( ! class_exists( 'TribeDateUtils' ) ) {
 		 */
 		public static function dateDiff( $date1, $date2 ) {
 
-			$start = new DateTime( $date1 );
-			$end   = new DateTime( $date2 );
-
 			// Get number of days between by finding seconds between and dividing by # of seconds in a day
-			$days = round( ( $end->format( 'U' ) - $start->format( 'U' ) ) / ( 60 * 60 * 24 ) );
+			$days = self::timeBetween( $date1, $date2 ) / ( 60 * 60 * 24 );
 
 			return $days;
 
@@ -207,53 +178,6 @@ if ( ! class_exists( 'TribeDateUtils' ) ) {
 		 */
 		public static function isWeekend( $curdate ) {
 			return in_array( date( 'N', $curdate ), array( 6, 7 ) );
-		}
-
-		/**
-		 * Checks if the specified date format contains any time formatting characters. Useful to determine if a date
-		 * format relates only to the date.
-		 *
-		 * @param $format
-		 *
-		 * @return bool
-		 */
-		public static function formatContainsTime( $format ) {
-			$timeChars   = array(
-				'a',
-				'A',
-				'B',
-				'g',
-				'G',
-				'h',
-				'H',
-				'i',
-				's',
-				'u',
-				'e',
-				'I',
-				'O',
-				'P',
-				'T',
-				'Z',
-				'c',
-				'r',
-				'U'
-			);
-			$formatChars = str_split( $format );
-			$usesTime    = array_intersect( $timeChars, $formatChars );
-
-			return 0 < count( $usesTime );
-		}
-
-		/**
-		 * Checks if the specified date format contains any year-related formatting characters.
-		 *
-		 * @param $format
-		 *
-		 * @return bool
-		 */
-		public static function formatContainsYear( $format ) {
-			return ( false !== strpos( $format, 'y' ) || false !== strpos( $format, 'Y' ) );
 		}
 
 		/**
@@ -307,20 +231,6 @@ if ( ! class_exists( 'TribeDateUtils' ) ) {
 					'th' : date( 'S', mktime( 0, 0, 0, 0, substr( $number, - 1 ), 0 ) ) );
 
 			return apply_filters( 'tribe_events_number_to_ordinal', $output, $number );
-		}
-
-		public static function numberToDay( $number ) {
-			$days = array(
-				1 => "Monday",
-				2 => "Tuesday",
-				3 => "Wednesday",
-				4 => "Thursday",
-				5 => "Friday",
-				6 => "Saturday",
-				7 => "Sunday"
-			);
-
-			return $days[$number];
 		}
 
 		/**

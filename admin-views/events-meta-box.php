@@ -58,7 +58,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<select tabindex="<?php tribe_events_tab_index(); ?>" name="EventStartMinute">
 						<?php echo $startMinuteOptions; ?>
 					</select>
-					<?php if ( ! strstr( get_option( 'time_format', TribeDateUtils::TIMEFORMAT ), 'H' ) ) : ?>
+					<?php if ( ! TribeEventsViewHelpers::is_24hr_format() ) : ?>
 						<select tabindex="<?php tribe_events_tab_index(); ?>" name="EventStartMeridian">
 							<?php echo $startMeridianOptions; ?>
 						</select>
@@ -79,7 +79,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<select tabindex="<?php tribe_events_tab_index(); ?>" name="EventEndMinute">
 						<?php echo $endMinuteOptions; ?>
 					</select>
-					<?php if ( ! strstr( get_option( 'time_format', TribeDateUtils::TIMEFORMAT ), 'H' ) ) : ?>
+					<?php if ( ! TribeEventsViewHelpers::is_24hr_format() ) : ?>
 						<select tabindex="<?php tribe_events_tab_index(); ?>" name="EventEndMeridian">
 							<?php echo $endMeridianOptions; ?>
 						</select>

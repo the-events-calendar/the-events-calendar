@@ -20,7 +20,6 @@ if ( ! class_exists( 'TribeEventsViewHelpers' ) ) {
 		 * @return array The countries array.
 		 */
 		public static function constructCountries( $postId = '', $useDefault = true ) {
-			$tribe_ecp = TribeEvents::instance();
 
 			if ( tribe_get_option( 'tribeEventsCountries' ) != '' ) {
 				$countries = array(
@@ -291,7 +290,7 @@ if ( ! class_exists( 'TribeEventsViewHelpers' ) ) {
 				if ( $countryValue ) {
 					$defaultCountry = array( array_search( $countryValue, $countries ), $countryValue );
 				} else {
-					$defaultCountry = $tribe_ecp->getOption( 'defaultCountry' );
+					$defaultCountry = tribe_get_option( 'defaultCountry' );
 				}
 				if ( $defaultCountry && $defaultCountry[0] != "" ) {
 					$selectCountry = array_shift( $countries );
@@ -453,7 +452,7 @@ if ( ! class_exists( 'TribeEventsViewHelpers' ) ) {
 		 */
 		private static function hours() {
 			$hours      = array();
-			$rangeMax   = ( strstr( get_option( 'time_format', TribeDateUtils::TIMEFORMAT ), 'H' ) ) ? 23 : 12;
+			$rangeMax   = self::is_24hr_format() ? 23 : 12;
 			$rangeStart = $rangeMax > 12 ? 0 : 1;
 			foreach ( range( $rangeStart, $rangeMax ) as $hour ) {
 				if ( $hour < 10 ) {
@@ -468,6 +467,35 @@ if ( ! class_exists( 'TribeEventsViewHelpers' ) ) {
 			}
 
 			return $hours;
+		}
+
+		/**
+		 * Determines if the provided date/time format (or else the default WordPress time_format)
+		 * is 24hr or not.
+		 *
+		 * In inconclusive cases, such as if there are now hour-format characters, 12hr format is
+		 * assumed.
+		 *
+		 * @param null $format
+		 * @return bool
+		 */
+		public static function is_24hr_format( $format = null ) {
+			// Use the provided format or else use the value of the current time_format setting
+			$format = ( null === $format ) ? get_option( 'time_format', TribeDateUtils::TIMEFORMAT ) : $format;
+
+			// Count instances of the H and G symbols
+			$h_symbols = substr_count( $format, 'H' );
+			$g_symbols = substr_count( $format, 'G' );
+
+			// If none have been found then consider the format to be 12hr
+			if ( ! $h_symbols && ! $g_symbols ) return false;
+
+			// It's possible H or G have been included as escaped characters
+			$h_escaped = substr_count( $format, '\H' );
+			$g_escaped = substr_count( $format, '\G' );
+
+			// Final check, accounting for possibility of escaped values
+			return ( $h_symbols > $h_escaped || $g_symbols > $g_escaped );
 		}
 
 		/**
@@ -529,10 +557,12 @@ if ( ! class_exists( 'TribeEventsViewHelpers' ) ) {
 		 * @param string $date the current date to select  (optional)
 		 *
 		 * @return string a set of HTML options with all months (current month selected)
+		 * @deprecated
+		 * @todo remove in 3.10
 		 */
 		public static function getMonthOptions( $date = "" ) {
-			$tribe_ecp = TribeEvents::instance();
-			$months    = $tribe_ecp->monthNames( true );
+			_deprecated_function( __CLASS__ . '::' . __FUNCTION__ . '()', '3.8' );
+			$months    = TribeEvents::instance()->monthNames( true );
 			$options   = '';
 			if ( empty( $date ) ) {
 				$month = ( date_i18n( 'j' ) == date_i18n( 't' ) ) ? date( 'F', time() + 86400 ) : date_i18n( 'F' );
@@ -563,8 +593,11 @@ if ( ! class_exists( 'TribeEventsViewHelpers' ) ) {
 		 * @param int    $totalDays number of days in the month
 		 *
 		 * @return string a set of HTML options with all days (current day selected)
+		 * @deprecated
+		 * @todo remove in 3.10
 		 */
 		public static function getDayOptions( $date = "", $totalDays = 31 ) {
+			_deprecated_function( __CLASS__ . '::' . __FUNCTION__ . '()', '3.8' );
 			$days    = TribeEventsViewHelpers::days( $totalDays );
 			$options = '';
 			if ( empty( $date ) ) {
@@ -600,8 +633,11 @@ if ( ! class_exists( 'TribeEventsViewHelpers' ) ) {
 		 * @param string $date the current date (optional)
 		 *
 		 * @return string a set of HTML options with adjacent years (current year selected)
+		 * @deprecated
+		 * @todo remove in 3.10
 		 */
 		public static function getYearOptions( $date = "" ) {
+			_deprecated_function( __CLASS__ . '::' . __FUNCTION__ . '()', '3.8' );
 			$years   = TribeEventsViewHelpers::years();
 			$options = '';
 			if ( empty( $date ) ) {

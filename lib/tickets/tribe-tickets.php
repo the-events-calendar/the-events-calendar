@@ -11,6 +11,7 @@ if ( ! class_exists( 'TribeEventsTickets' ) ) {
 
 		/**
 		 * All TribeEventsTickets api consumers. It's static, so it's shared across all child.
+		 *
 		 * @var array
 		 */
 		protected static $active_modules = array();
@@ -89,6 +90,26 @@ if ( ! class_exists( 'TribeEventsTickets' ) ) {
 		 * @return mixed
 		 */
 		abstract function get_ticket( $event_id, $ticket_id );
+
+		/**
+		 * Returns the event post corresponding to the possible ticket object/ticket ID.
+		 *
+		 * This is used to help differentiate between products which act as tickets for an
+		 * event and those which do not. If $possible_ticket is not related to any events
+		 * then boolean false will be returned.
+		 *
+		 * This stub method should be treated as if it were an abstract method - ie, the
+		 * concrete class ought to provide the implementation.
+		 *
+		 * @todo convert to abstract method in 4.0
+		 *
+		 * @param $possible_ticket
+		 *
+		 * @return bool|WP_Post
+		 */
+		public function get_event_for_ticket( $possible_ticket ) {
+			return false;
+		}
 
 		/**
 		 * Deletes a ticket
@@ -439,14 +460,52 @@ if ( ! class_exists( 'TribeEventsTickets' ) ) {
 		 *
 		 * @return array
 		 */
-		final static public function get_event_attendees( $event_id ) {
+		public static function get_event_attendees( $event_id ) {
 			$attendees = array();
+
 			foreach ( self::$active_modules as $class => $module ) {
 				$obj       = call_user_func( array( $class, 'get_instance' ) );
 				$attendees = array_merge( $attendees, $obj->get_attendees( $event_id ) );
 			}
 
 			return $attendees;
+		}
+
+		/**
+		 * Returns all tickets for an event (all providers are queried for this information).
+		 *
+		 * @param $event_id
+		 *
+		 * @return array
+		 */
+		public static function get_all_event_tickets( $event_id ) {
+			$tickets = array();
+
+			foreach ( self::$active_modules as $class => $module ) {
+				$obj     = call_user_func( array( $class, 'get_instance' ) );
+				$tickets = array_merge( $tickets, $obj->get_tickets( $event_id ) );
+			}
+
+			return $tickets;
+		}
+
+		/**
+		 * Tests to see if the provided object/ID functions as a ticket for the event
+		 * and returns the corresponding event if so (or else boolean false).
+		 *
+		 * All registered providers are asked to perform this test.
+		 *
+		 * @param $possible_ticket
+		 * @return bool
+		 */
+		public static function find_matching_event( $possible_ticket ) {
+			foreach ( self::$active_modules as $class => $module ) {
+				$obj   = call_user_func( array( $class, 'get_instance' ) );
+				$event = $obj->get_event_for_ticket( $possible_ticket );
+				if ( false !== $event ) return $event;
+			}
+
+			return false;
 		}
 
 		/**

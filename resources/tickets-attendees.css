@@ -37,15 +37,25 @@ a.tickets_uncheckin {
 }
 
 .ticket_list tr td .totals {
-	background  : #ACA000;
-	color       : #fff;
-	font-weight : bold;
-	font-size   : 20px;
-	text-align  : center;
-	width       : 75%;
-	height      : 100px;
-	padding-top : 40px;
-	line-height : 30px;
+	background     : #ACA000;
+	color          : #fff;
+	font-weight    : bold;
+	font-size      : 20px;
+	text-align     : center;
+	width          : 75%;
+	height         : 100px;
+	padding-bottom : 20px;
+	padding-top    : 20px;
+	line-height    : 30px;
+}
+
+.ticket_list tr td .totals #sales_breakdown_wrapper {
+    font-size: 14px;
+    line-height: 1;
+}
+
+.ticket_list tr td .totals #sales_breakdown_wrapper #total_issued {
+    margin-right: 14px;
 }
 
 .wp-pointer-arrow {
