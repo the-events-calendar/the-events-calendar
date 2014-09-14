@@ -1,20 +1,31 @@
 <?php
 
-$GLOBALS['wp_tests_options']['active_plugins'][] = 'the-events-calendar/the-events-calendar.php';
+$GLOBALS['wp_tests_options']['active_plugins'][] = basename(dirname(dirname(__FILE__))).'/the-events-calendar.php';
 
-$pro_path = getenv( 'TRIBE_PRO_DIRECTORY' );
-if ( ! empty( $pro_path ) ) {
-	$GLOBALS['wp_tests_options']['active_plugins'][] = $pro_path;
-}
+/**
+ * Load add-on plugins
+ *
+ * These may be defined as constants in phpunit.xml, or they can
+ * be overridden with environment variables
+ */
 
-$community_path = getenv( 'TRIBE_COMMUNITY_DIRECTORY' );
-if ( ! empty( $community_path ) ) {
-	$GLOBALS['wp_tests_options']['active_plugins'][] = $community_path;
-}
-
-$ical_importer_path = getenv( 'TRIBE_ICAL_IMPORTER_DIRECTORY' );
-if ( ! empty( $ical_importer_path ) ) {
-	$GLOBALS['wp_tests_options']['active_plugins'][] = $ical_importer_path;
+foreach (
+	array(
+		'TRIBE_PRO_PATH',
+		'TRIBE_COMMUNITY_PATH',
+		'TRIBE_ICAL_IMPORTER_PATH',
+	) as $plugin_path_constant
+) {
+	if ( FALSE !== getenv( $plugin_path_constant ) ) {
+		$plugin_path = getenv( $plugin_path_constant );
+	} elseif ( defined($plugin_path_constant) ) {
+		$plugin_path = constant( $plugin_path_constant );
+	} else {
+		$plugin_path = FALSE;
+	}
+	if ( $plugin_path ) {
+		$GLOBALS['wp_tests_options']['active_plugins'][] = $plugin_path;
+	}
 }
 
 $GLOBALS['wp_tests_options']['permalink_structure'] = '%postname%/';

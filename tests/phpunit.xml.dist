@@ -11,6 +11,11 @@
 				 syntaxCheck="false"
 				 bootstrap="bootstrap.php"
 		>
+	<php>
+		<const name="TRIBE_PRO_PATH" value="events-pro/events-calendar-pro.php" />
+		<const name="TRIBE_COMMUNITY_PATH" value="events-community/tribe-community-events.php" />
+		<const name="TRIBE_ICAL_IMPORTER_PATH" value="events-importer-ical/the-events-calendar-ical-importer.php" />
+	</php>
 	<testsuites>
 		<testsuite name="Events">
 			<directory>./phpunit</directory>
