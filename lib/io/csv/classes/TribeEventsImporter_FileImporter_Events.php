@@ -115,7 +115,7 @@ class TribeEventsImporter_FileImporter_Events extends TribeEventsImporter_FileIm
 			'EventCost'             => $this->get_value_by_key( $record, 'event_cost' ),
 			'EventAllDay'           => $all_day,
 			'EventHideFromUpcoming' => $this->get_value_by_key( $record, 'event_hide' ),
-			'EventURL'              => $this->get_value_by_key( $record, 'event_external_link' )
+			'EventURL'              => $this->get_value_by_key( $record, 'event_website' )
 		);
 
 		if ( $organizer_id = $this->find_matching_organizer_id( $record ) ) {
