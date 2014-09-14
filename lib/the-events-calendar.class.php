@@ -1092,32 +1092,12 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 		 * @return mixed|void
 		 */
 		public function maybeAddEventTitle( $title, $sep = null ) {
-			switch ( get_query_var( 'eventDisplay' ) ) {
-				case 'list':
-					if ( tribe_is_upcoming() ) {
-						$new_title = apply_filters( 'tribe_upcoming_events_title', __( "Upcoming Events", 'tribe-events-calendar' ) . ' ' . $sep . ' ' . $title, $sep );
-					} else {
-						$new_title = apply_filters( 'tribe_past_events_title', __( "Past Events", 'tribe-events-calendar' ) . ' ' . $sep . ' ' . $title, $sep );
-					}
-					break;
-				case 'month':
-					if ( get_query_var( 'eventDate' ) ) {
-						$title_date = date_i18n( tribe_get_option( 'monthAndYearFormat', 'F Y' ), strtotime( get_query_var( 'eventDate' ) ) );
-						$new_title  = apply_filters( 'tribe_month_grid_view_title', sprintf( __( "Events for %s", 'tribe-events-calendar' ), $title_date ) . ' ' . $sep . ' ' . $title, $sep, $title_date );
-					} else {
-						$new_title = apply_filters( 'tribe_events_this_month_title', sprintf( __( "Events this month", 'tribe-events-calendar' ), get_query_var( 'eventDate' ) ) . ' ' . $sep . ' ' . $title, $sep );
-					}
-					break;
-				case 'day':
-					$title_date = date_i18n( tribe_get_date_format( true ), strtotime( get_query_var( 'eventDate' ) ) );
-					$new_title  = apply_filters( 'tribe_events_day_view_title', sprintf( __( "Events for %s", 'tribe-events-calendar' ), $title_date ) . ' ' . $sep . ' ', $sep, $title_date );
-					break;
-				default:
-					$new_title = $title;
-					break;
+			global $wp_query;
+			if ( $wp_query->tribe_is_event_query ) {
+				$new_title = tribe_get_events_title() . ' ' . $sep . ' ' . $title;
+				return apply_filters( 'tribe_events_add_title', $new_title, $title, $sep );
 			}
-			return apply_filters( 'tribe_events_add_title', $new_title, $title, $sep );
-
+			return $title;
 		}
 
 		/**
