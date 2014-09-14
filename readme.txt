@@ -227,6 +227,10 @@ Our Premium Plugins:
 * Incorporated updated Danish translation files, courtesy of Hans Christian Andersen
 * Incorporated updated Dutch translation files, courtesy of Dirk Westenberg
 * Incorporated updated German translation files, courtesy of Stefan Dorscht
+* Removed some unused code
+
+
+
 
 = 3.7 =
 
