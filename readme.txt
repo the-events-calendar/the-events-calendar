@@ -329,6 +329,12 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Incorporated updated Finnish translation files, courtesy of Elias Okkonen
 * Incorporated updated Estonian translation files, courtesy of Andra Saimre
 * Changed capability for importing events from "administrator" to "import"
+* Fixed an issue where mobile styles were active when printing
+* Venues with no address now display on the single event page 
+* Fixed an issue where duplicate pagination links were displaying in mobile week view
+* Added plugin activation/upgrade pages
+* Fixed an issue with styling of Recurring Events in the list view widget
+
 
 = 3.7. =
 
