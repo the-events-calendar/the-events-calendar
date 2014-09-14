@@ -335,7 +335,6 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Added plugin activation/upgrade pages
 * Fixed an issue with styling of Recurring Events in the list view widget
 
-
 = 3.7. =
 
 * Incorporated new Bulgarian translation files, courtesy of Nedko Ivanov
