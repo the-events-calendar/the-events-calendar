@@ -334,6 +334,18 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Fixed an issue where duplicate pagination links were displaying in mobile week view
 * Added plugin activation/upgrade pages
 * Fixed an issue with styling of Recurring Events in the list view widget
+* Removed some unused code
+* Fixed list view not respecting the end-of-day cutoff
+* Reformatted the code to adhere to WordPress coding standards
+* Removed /upcoming and /past from list view URLs, and change to /list
+* Past view events are no longer reverse ordered
+* Changed page titles to show date range of currently displayed events when a date is selected in the tribe bar
+* Removed "audit trail" functionality
+* Fixed bug when using default permalinks, where Day view would link to the home page
+* Moved ajax view handlers to the appropriate template classes
+* Added ability to import the Event Website in the CSV importer (props @hvizdak for the pull request)
+* Removed hard-coded format for 2nd date in a date range for all day events, added a new filter 'tribe_format_second_date_in_range'
+* Fixed some untranslated strings
 
 = 3.7. =
 
