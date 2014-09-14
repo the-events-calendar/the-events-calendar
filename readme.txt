@@ -167,9 +167,9 @@ The plugin is produced by <a href="http://m.tri.be/45">Modern Tribe Inc</a>.
 * Danish from Hans Christian Andersen
 * Dutch from Dirk Westenberg
 * Estonian from Andra Saimre
-* Finnish by Ari-Pekka Koponen
+* Finnish by Elias Okkonen
 * French from Laurent Proulx
-* German from Stefan Dorscht
+* German from Stefan Dorscht and Oliver Heinrich
 * Greek from Yannis Troullinos
 * Icelandic by Baldvin √ñrn Berndsen
 * Indonesian by Didik Priyanto
@@ -179,16 +179,17 @@ The plugin is produced by <a href="http://m.tri.be/45">Modern Tribe Inc</a>.
 * Norwegian Bokmål by Morten Ruud
 * Norwegian Nynorsk by Torbjørn Lauen
 * Polish from Marek Kosina
-* Portuguese from Antonio Pratas
+* Portuguese from Sérgio Leite
 * Romanian from Cosmin Vaman
 * Russian from Alexander Tinyaev
 * Serbian from Marko Manojlovic
+* Slovenian from Žiga Vajdic
 * Spanish from Juanjo Navarro
 * Swedish from Jonas Reinicke
 * Turkish by Derin Korman
 * Ukranian by Vasily Vishnyakov
 
-* Previous translators include Dennis Gruebner, J.F.M. Cornelissen, Frans Pronk, Roberto Scano, Maria Tsilimidou, Martin Kristan, Ben Andersen, Oliver Heinrich, Mikhail Michouris, Bastien BC, Erik Massop, Ed Boon, Rick van Dalen, Jacob Roel Meijering, Christian Andersen, Michael Sebel, Dionizio Bonfim Bach, Mihai Burcea, Filippo Montanari, David Decker, Kamil Szymanski, "Terje With Lunndal", Sagi Shrieber, Matthew Meyer, Arno Faure, Fanny Heraud, Vincent G from Host1Free, , Petri Kajander, Fran Rosa, Nico (wsMaurik), Panos Efstratiou, Dominique Monhardt, Thomas Butzek, Kjell Vestnes, Luiza Libardi, Diego Meneghetti, Benoit Burgener, Hector Gil Rizo, Burak Pehlevan, and Alexey Fedorov
+* Previous translators include Ari-Pekka Koponen, Antonio Pratas, Dennis Gruebner, J.F.M. Cornelissen, Frans Pronk, Roberto Scano, Maria Tsilimidou, Martin Kristan, Ben Andersen, Oliver Heinrich, Mikhail Michouris, Bastien BC, Erik Massop, Ed Boon, Rick van Dalen, Jacob Roel Meijering, Christian Andersen, Michael Sebel, Dionizio Bonfim Bach, Mihai Burcea, Filippo Montanari, David Decker, Kamil Szymanski, "Terje With Lunndal", Sagi Shrieber, Matthew Meyer, Arno Faure, Fanny Heraud, Vincent G from Host1Free, , Petri Kajander, Fran Rosa, Nico (wsMaurik), Panos Efstratiou, Dominique Monhardt, Thomas Butzek, Kjell Vestnes, Luiza Libardi, Diego Meneghetti, Benoit Burgener, Hector Gil Rizo, Burak Pehlevan, and Alexey Fedorov
 
 == Add-Ons ==
 
@@ -226,10 +227,16 @@ Our Premium Plugins:
 * Incorporated updated Spanish translation files, courtesy of Juanjo Navarro
 * Incorporated updated Danish translation files, courtesy of Hans Christian Andersen
 * Incorporated updated Dutch translation files, courtesy of Dirk Westenberg
-* Incorporated updated German translation files, courtesy of Stefan Dorscht
+* Incorporated updated Portuguese translation files, courtesy of Sérgio Leite
+* Incorporated new Russian translation files, courtesy of Žiga Vajdic
+* Incorporated updated German translation files, courtesy of Stefan Dorscht and Oliver Heinrich
+* Incorporated updated Finnish translation files, courtesy of Elias Okkonen
+* Incorporated updated Estonian translation files, courtesy of Andra Saimre
+* Fix bug that caused instances of a recurring event to disappear when recurrence was removed and then added back to an event
+* Fix bug that caused missing custom meta in events in a recurring series
+* Remove confirmation dialog when bulk deleting events
+* Correctly identify recurring events as recurring even if they only have one instance
 * Removed some unused code
-
-
 
 
 = 3.7 =
@@ -256,7 +263,6 @@ Our Premium Plugins:
 * Incorporated new Bulgarian translation files, courtesy of Nedko Ivanov
 * Incorporated new Chinese translation files, courtesy of Massound Huang
 * Incorporated new Indonesian translation files, courtesy of Didik Priyanto
-
 
 = 3.6.1 =
 

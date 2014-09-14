@@ -1,60 +1,58 @@
-# Events Calendar Pro by Modern Tribe, Inc.
-# Copyright (C) Modern Tribe, Inc.
-# This file is distributed under the same license as the Events Calendar Pro package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Events Calendar Pro\n"
+"Project-Id-Version: Events Calendar Pro 3.5\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-07-17 16:45-0800\n"
-"PO-Revision-Date: 2014-09-11 14:01-0800\n"
+"PO-Revision-Date: 2014-09-11 13:10-0800\n"
 "Last-Translator: \n"
 "Language-Team: Modern Tribe, Inc. <pro@tri.be>\n"
-"Language: en\n"
+"Language: sl_SI\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Poedit-SourceCharset: UTF-8\n"
-"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;"
-"_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2\n"
-"X-Poedit-Basepath: ./\n"
-"X-Textdomain-Support: yes\n"
 "X-Generator: Poedit 1.6.9\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:1,2,4c;_n_noop:1,2;"
+"_nx_noop:1,2,3c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;"
+"esc_html_x:1,2c\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-Basepath: .\n"
 "X-Poedit-SearchPath-0: ..\n"
 
 #: ../admin-views/event-defaults.php:1
 msgid "Customize Defaults"
-msgstr "Muokkaa oletuksia"
+msgstr "Prikorji privzete možnosti"
 
 #: ../admin-views/event-defaults.php:2
 msgid ""
 "These settings change the default event form. For example, if you set a "
 "default venue, this field will be automatically filled in on a new event."
 msgstr ""
-"Nämä asetukset muuttavat tapahtuma-lomakkeen oletusasetuksia. Jos "
-"esimerkiksi asetat oletustapahtumapaikan, tämä kenttä täytetään "
-"automaattisesti uutta tapahtumaa luotaessa."
+"Te nastavitve bodo spremenile privzeto obliko dogodkov. Na primer, če izbere "
+"privzeto prizorišče, bo to polje avtomatično zapolnjeno na vsakem novel "
+"dogodku"
 
 #: ../admin-views/event-defaults.php:5 ../admin-views/event-defaults.php:9
 #: ../admin-views/tribe-options-defaults.php:55
 msgid "Automatically replace empty fields with default values"
-msgstr "Korvaa tyhjät kentät automaattisesti oletusarvoilla"
+msgstr "Avtomatično zamenjaj prazna polja z privzetimi vrednostmi."
 
 #: ../admin-views/event-defaults.php:13
 msgid "Enabled"
-msgstr "Käytössä"
+msgstr "Omogočeno"
 
 #: ../admin-views/event-defaults.php:19
 msgid "Default Organizer for Events"
-msgstr "Tapahtumien oletusjärjestäjä"
+msgstr "Privzet organizator dogodkov"
 
 #: ../admin-views/event-defaults.php:22
 msgid "Default Organizer"
-msgstr "Oletusjärjestäjä"
+msgstr "Privzet organizator"
 
 #: ../admin-views/event-defaults.php:23
 msgid "The default organizer value"
-msgstr "Oletusjärjestäjän arvo"
+msgstr "Privzeta vrednost organizatorja"
 
 #: ../admin-views/event-defaults.php:23 ../admin-views/event-defaults.php:31
 #: ../admin-views/event-defaults.php:38 ../admin-views/event-defaults.php:45
@@ -62,100 +60,100 @@ msgstr "Oletusjärjestäjän arvo"
 #: ../admin-views/event-defaults.php:82 ../admin-views/event-defaults.php:108
 #, php-format
 msgid "The current default value is <strong>%s</strong>"
-msgstr "Nykyinen oletusarvo on <strong>%s</strong>"
+msgstr "Trenutna privzeta vrednost je <strong>%s</strong>"
 
 #: ../admin-views/event-defaults.php:27
 msgid "Default Venue for Events"
-msgstr "Tapahtumien oletustapahtumapaikka"
+msgstr "Privzeto prizorišče dogodkov"
 
 #: ../admin-views/event-defaults.php:30
 msgid "Default Venue"
-msgstr "Oletustapahtumapaikka"
+msgstr "Privzeto prizorišče"
 
 #: ../admin-views/event-defaults.php:31
 msgid "The default venue value"
-msgstr "Oletustapahtumapaikan arvo"
+msgstr "Privzeta vrednost prizorišča"
 
 #: ../admin-views/event-defaults.php:35 ../admin-views/event-defaults.php:37
 msgid "Default Address"
-msgstr "Oletusosoite"
+msgstr "Privzeti naslov"
 
 #: ../admin-views/event-defaults.php:38
 msgid "The default address value"
-msgstr "Oletusosoitteen arvo"
+msgstr "Privzeta vrednost naslova"
 
 #: ../admin-views/event-defaults.php:42 ../admin-views/event-defaults.php:44
 msgid "Default City"
-msgstr "Oletuskaupunki"
+msgstr "Privzeto mesto"
 
 #: ../admin-views/event-defaults.php:45
 msgid "The default city value"
-msgstr "Oletuskaupungin arvo"
+msgstr "Privzeta vrednost mesta"
 
 #: ../admin-views/event-defaults.php:50
 msgid "Default State"
-msgstr "Oletusosavaltio"
+msgstr "Privzeta zvezna država"
 
 #: ../admin-views/event-defaults.php:52 ../admin-views/event-defaults.php:73
 msgid "Default Province or State"
-msgstr "Oletusmaakunta tai -osavaltio"
+msgstr "Privzeta provinca ali zvezna država"
 
 #: ../admin-views/event-defaults.php:55
 msgid "Select a State:"
-msgstr "Valitse osavaltio:"
+msgstr "Izberi zvezno državo:"
 
 #: ../admin-views/event-defaults.php:66 ../admin-views/event-defaults.php:74
 msgid "The default  value"
-msgstr "Oletusarvo"
+msgstr "Privzeta vrednost"
 
 #: ../admin-views/event-defaults.php:71
 msgid "Default Province"
-msgstr "Oletusmaakunta"
+msgstr "Privzeta provinca"
 
 #: ../admin-views/event-defaults.php:79 ../admin-views/event-defaults.php:81
 msgid "Default Postal Code"
-msgstr "Oletuspostinumero"
+msgstr "Privzeta poštna številka"
 
 #: ../admin-views/event-defaults.php:82
 msgid "The default Postal Code value"
-msgstr "Oletuspostinumeron arvo"
+msgstr "Privzeta vrednost poštne številke"
 
 #: ../admin-views/event-defaults.php:87
 msgid "Default Country for Events"
-msgstr "Tapahtumien oletusmaa"
+msgstr "Privzeta država za dogodke"
 
 #: ../admin-views/event-defaults.php:105 ../admin-views/event-defaults.php:107
 msgid "Default Phone"
-msgstr "Oletuspuhelinnumero"
+msgstr "Privzeta telefonska številka"
 
 #: ../admin-views/event-defaults.php:108
 msgid "The default phone value"
-msgstr "Oletuspuhelinnumeron arvo"
+msgstr "Privzeta vrednost telefonske številke"
 
 #: ../admin-views/event-defaults.php:112
 #: ../admin-views/tribe-options-defaults.php:198
 msgid "Use a custom list of countries"
-msgstr "Käytä mukautettua maalistaa"
+msgstr "Uporabi prikrojen seznam držav"
 
 #: ../admin-views/event-defaults.php:114
 msgid "Use the following list:"
-msgstr "Käytä seuraavaa luetteloa:"
+msgstr "Uporabi sledeči seznam:"
 
 #: ../admin-views/event-defaults.php:116
 msgid ""
 "One country per line in the following format: <br/>US, United States <br/> "
 "UK, United Kingdom."
 msgstr ""
-"Yksi maa riviä kohden seuraavassa muodossa: <br/>US, Yhdysvallat <br/> UK, "
-"Iso-Britannia."
+"Ena država v vrstici v naslednjem formatu: <br/>ZDA, Združene Države Amerike "
+"<br/> VB, Velika Britanija."
 
 #: ../admin-views/event-defaults.php:116
 msgid "(Replaces the default list.)"
-msgstr "(Korvaa oletusluettelon.)"
+msgstr "(Zamenjaj privzeti seznam.)"
 
 #: ../admin-views/event-meta-options.php:3 ../events-calendar-pro.php:772
 msgid "Additional Fields"
-msgstr "Lisäkentät"
+msgstr "Dodatna polja"
 
 #: ../admin-views/event-meta-options.php:4
 msgid ""
@@ -164,59 +162,58 @@ msgid ""
 "the event metabox that accompanies your event listing, alongside the date/"
 "time/venue/organizer/etc. </p><p>Each new piece of data needs:"
 msgstr ""
-"Käytä lisäkenttiä lisätäksesi yksilöllisiä sisältökenttiä tapahtumien "
-"hallintaan, joita voi käyttää kuka tahansa, joka luo tapahtumia. "
-"Julkaisemisen yhteydessä ne näkyvät tapahtuman tietolaatikossa, joka on "
-"tapahtumalistasi yhteydessä,  päivämäärän/ajan/tapahtumapaikan/järjestäjän/"
-"yms. kanssa. </p><p>Jokainen uusi tieto tarvitsee:"
+"Uporabi dodatna polja za dodajanje unikatnih vsebinskih polj administratorju "
+"dogodka, ki jih lahko uporablja vsak, ki ustvarja dogodke. Ob objavi se bodo "
+"pojavili v meta podatkih dogodka, ki jih spremlja, poleg datuma/časa/"
+"prizorišča/organizatorja/itd. </p><p>Vsak nov del podatkov potrebuje:"
 
 #: ../admin-views/event-meta-options.php:6
 msgid "Label (e.g. Meal Plans)"
-msgstr "Etiketti (esim. Erityisruokavaliot)"
+msgstr "Oznako (npr. Jedilnik)"
 
 #: ../admin-views/event-meta-options.php:7
 msgid "At least one option (e.g. Vegetarian, Kosher, Paleo)"
-msgstr "Ainakin yksi vaihtoehto (esim. Kasvisruoka, Laktoositon, Gluteeniton)"
+msgstr "Vsaj eno možnost (npr. Mesni, Vegetarijanski, Veganski)"
 
 #: ../admin-views/event-meta-options.php:8
 msgid "Field type. These are:"
-msgstr "Kentän tyyppi. Nämä ovat:"
+msgstr "Tip polja. Ta so:"
 
 #: ../admin-views/event-meta-options.php:10
 msgid "Text - for the user to input text"
-msgstr "Teksti - käyttäjä voi syöttää tekstiä"
+msgstr "Tekst - za besedilni vnos"
 
 #: ../admin-views/event-meta-options.php:11
 msgid "URL - for the user to input a URL"
-msgstr "URL - käyttäjä syöttää URL-osoitteen"
+msgstr "URL - za vnos povezave"
 
 #: ../admin-views/event-meta-options.php:12
 msgid "Checkbox - for multiple choice"
-msgstr "Valintaruudut - voidaan valita useita"
+msgstr "Checkbox -  za različne možnosti"
 
 #: ../admin-views/event-meta-options.php:13
 msgid "Radio Button - to select only one"
-msgstr "Valintanapit - valitaan vain yksi"
+msgstr "Radio Button - za izbiro zgolj enega"
 
 #: ../admin-views/event-meta-options.php:14
 msgid "Dropdown Menu - for a dropdown menu"
-msgstr "Pudotusvalikko - pudotusvalikolle"
+msgstr "Dropdown meni - za izbiro dropdown menija"
 
 #: ../admin-views/event-meta-options.php:19
 msgid "Field Label"
-msgstr "Kentän otsikko"
+msgstr "Oznaka polja"
 
 #: ../admin-views/event-meta-options.php:19
 msgid "Field Type"
-msgstr "Kentän tyyppi"
+msgstr "Tip polja"
 
 #: ../admin-views/event-meta-options.php:19
 msgid "Options (one per line)"
-msgstr "Vaihtoehdot (yksi per rivi)"
+msgstr "Možnosti (ena v vrstici)"
 
 #: ../admin-views/event-meta-options.php:45
 msgid "Text"
-msgstr "Teksti"
+msgstr "Tekst"
 
 #: ../admin-views/event-meta-options.php:46
 msgid "URL"
@@ -224,24 +221,24 @@ msgstr "URL"
 
 #: ../admin-views/event-meta-options.php:47
 msgid "Radio"
-msgstr "Valintanappi"
+msgstr "Radio"
 
 #: ../admin-views/event-meta-options.php:48
 msgid "Checkbox"
-msgstr "Valintaruutu"
+msgstr "Checkbox"
 
 #: ../admin-views/event-meta-options.php:49
 #: ../lib/TribeEventsFilter_GeoLoc.php:44
 msgid "Dropdown"
-msgstr "Pudotusvalikko"
+msgstr "Dropdown"
 
 #: ../admin-views/event-meta-options.php:55
 msgid "Add another"
-msgstr "Lisää toinen"
+msgstr "Dodaj novega"
 
 #: ../admin-views/event-meta-options.php:57
 msgid "Remove"
-msgstr "Poista"
+msgstr "Odstrani"
 
 #: ../admin-views/event-meta-options.php:65
 #, php-format
@@ -254,320 +251,320 @@ msgid ""
 "you can add — one per-line — in the right-hand column. If you feel "
 "flummoxed, we've got you covered with a %s."
 msgstr ""
-"Kirjoita kentän otsikko niin kuin haluat sen näkyvän (tämä on otsikko "
-"samalla tavalla kuin \"Aloitusaika,\" \"Järjestäjä,\" jne. ja näkyy "
-"tapahtuman tietojen yhteydessä loppukäyttäjälle). Valitse kentän tyypiksi "
-"tekstikenttä, URL-osoite, valintanappi, valintaruutu tai pudotusvalikko. "
-"Kaikki nämä, lukuun ottamatta tekstiä ja URL:ia, voivat sisältää useita "
-"vaihtoehtoja, joita voit lisätä - yksi per rivi - oikeassa laidassa. Jos "
-"asia tuntuu sekavalta, meillä on sinulle %s ."
+"Dodaj oznako polja kot želiš, da se prikazuje (to bo oznaka na enak način "
+"kot je \"Začetni datum,\" \"Organizator,\" itd.,  ki se pojavljajo v okvirju "
+"z podrobnostmi dogodka v frontendu). Izberite ali želite, da je polje "
+"tekstovno polje; URL polje, radio buttons; checkboxes; ali dropdown meni. "
+"Vse te, z izjemo teksta in URLja dovoljujejo več možnosti, ki jih lahko "
+"dodajate — ena na vrstico — v desnem stolpcu. Če se zmedete, vam lahko "
+"pomaga %s."
 
 #: ../admin-views/event-meta-options.php:66
 msgid "video tutorial that will walk you through the process"
-msgstr "opetusvideo, joka opastaa sinut prosessin läpi"
+msgstr "video vodič, ki vas bo sprehodil čez proces"
 
 #: ../admin-views/event-meta-options.php:69
 msgid "Editor \"Custom Fields\" meta box"
-msgstr "Muokkaimen \"Custom Fields\" tietolaatikko"
+msgstr "Urejevalnik \"Prikrojena polja\" meta box"
 
 #: ../admin-views/event-meta-options.php:71
 msgid "Show"
-msgstr "Näytä"
+msgstr "Prikaži"
 
 #: ../admin-views/event-meta-options.php:72
 msgid "Hide"
-msgstr "Piilota"
+msgstr "Skrij"
 
 #: ../admin-views/event-meta-options.php:73
 msgid ""
 "Enabling this option this will not remove custom field data or "
 "functionality, just the default meta box editor."
 msgstr ""
-"Tämä valinta ei poista mukautetun kentän tietoja tai toimintoja, vaan vain "
-"oletus tietolaatikon tapahtuman muokkaimesta."
+"Omogočenje te možnosti ne bo odstranilo podatkov prikrojenih polj oz. "
+"njihove funkcionalnosti, zgolj privzeti meta box urejevalnik"
 
 #: ../admin-views/event-meta-options.php:82
 msgid ""
 "Are you sure you wish to remove this field and its data from all events? "
 "Once you click OK this cannot be undone."
 msgstr ""
-"Oletko varma, että haluat poistaa tämän kentän ja sen tiedot kaikista "
-"tapahtumista? Kun klikkaat OK, toimintoa ei voi peruuttaa."
+"Ali ste prepričani, da želite odstraniti to polje in podatke iz vseh "
+"dogodkov? Ko kliknete OK je to dokončno."
 
 #: ../admin-views/event-meta.php:7
 msgid "Additional Event Fields"
-msgstr "Tapahtuman lisäkenttiä"
+msgstr "Dodatna polja dogodkov"
 
 #: ../admin-views/event-recurrence.php:2
 msgid "Recurrence:"
-msgstr "Toisto:"
+msgstr "Ponavljanje:"
 
 #: ../admin-views/event-recurrence.php:7
 msgid "None"
-msgstr "Ei mitään"
+msgstr "Ne"
 
 #: ../admin-views/event-recurrence.php:8
 #: ../lib/tribe-events-recurrence-meta.class.php:848
 msgid "day"
-msgstr "päivä"
+msgstr "dan"
 
 #: ../admin-views/event-recurrence.php:8
 #: ../views/pro/widgets/countdown-widget.php:18
 msgid "days"
-msgstr "päivää"
+msgstr "dnevi"
 
 #: ../admin-views/event-recurrence.php:8
 msgid "Every Day"
-msgstr "Joka päivä"
+msgstr "Vsak dan"
 
 #: ../admin-views/event-recurrence.php:9 ../events-calendar-pro.php:66
 msgid "week"
-msgstr "viikko"
+msgstr "teden"
 
 #: ../admin-views/event-recurrence.php:9
 msgid "weeks"
-msgstr "viikot"
+msgstr "tedni"
 
 #: ../admin-views/event-recurrence.php:9
 msgid "Every Week"
-msgstr "Joka viikko"
+msgstr "Vsak teden"
 
 #: ../admin-views/event-recurrence.php:10
 msgid "month"
-msgstr "kuukausi"
+msgstr "mesec"
 
 #: ../admin-views/event-recurrence.php:10
 msgid "months"
-msgstr "kuukaudet"
+msgstr "meseci"
 
 #: ../admin-views/event-recurrence.php:10
 msgid "Every Month"
-msgstr "Joka kuukausi"
+msgstr "Vsak mesec"
 
 #: ../admin-views/event-recurrence.php:11
 msgid "year"
-msgstr "vuosi"
+msgstr "leto"
 
 #: ../admin-views/event-recurrence.php:11
 msgid "years"
-msgstr "vuodet"
+msgstr "leta"
 
 #: ../admin-views/event-recurrence.php:11
 msgid "Every Year"
-msgstr "Vuosittain"
+msgstr "Vsako leto"
 
 #: ../admin-views/event-recurrence.php:12
 msgid "event"
-msgstr "tapahtuma"
+msgstr "dogodek"
 
 #: ../admin-views/event-recurrence.php:12
 msgid "events"
-msgstr "tapahtumat"
+msgstr "dogodki"
 
 #: ../admin-views/event-recurrence.php:12
 msgid "Custom"
-msgstr "Mukautettu"
+msgstr "Prikrojeno"
 
 #: ../admin-views/event-recurrence.php:15
 msgid "and will end"
-msgstr "ja päättyy"
+msgstr "se bo končal"
 
 #: ../admin-views/event-recurrence.php:17
 msgid "On"
-msgstr "Ajankohtana"
+msgstr "na"
 
 #: ../admin-views/event-recurrence.php:18
 msgid "After"
-msgstr "Jälkeen"
+msgstr "po"
 
 #: ../admin-views/event-recurrence.php:19
 msgid "Never"
-msgstr "Ei koskaan"
+msgstr "nikoli"
 
 #: ../admin-views/event-recurrence.php:23
 msgid "You must select a recurrence end date"
-msgstr "Sinun täytyy valita toiston päättymispäivä"
+msgstr "Izbrati morati končni datum ponavljanja"
 
 #: ../admin-views/event-recurrence.php:30
 msgid "Frequency"
-msgstr "Toiston tiheys"
+msgstr "Frekvenca"
 
 #: ../admin-views/event-recurrence.php:32
 msgid "Day(s)"
-msgstr "Päivä/päiviä"
+msgstr "Dan(Dnevi)"
 
 #: ../admin-views/event-recurrence.php:32
 msgid "Daily"
-msgstr "Päivittäin"
+msgstr "Dnevno"
 
 #: ../admin-views/event-recurrence.php:33
 msgid "Week(s) on:"
-msgstr "Viikko(ja):"
+msgstr "Teden(Tedni) na:"
 
 #: ../admin-views/event-recurrence.php:33
 msgid "Weekly"
-msgstr "Viikoittain"
+msgstr "Tedensko"
 
 #: ../admin-views/event-recurrence.php:34
 msgid "Month(s) on the:"
-msgstr "Kuukausi(a):"
+msgstr "Mesec(Meseci) na:"
 
 #: ../admin-views/event-recurrence.php:34
 msgid "Monthly"
-msgstr "Kuukausittain"
+msgstr "Mesečno"
 
 #: ../admin-views/event-recurrence.php:35
 msgid "Year(s) on:"
-msgstr "Vuosi(a):"
+msgstr "Leto(Leta) na:"
 
 #: ../admin-views/event-recurrence.php:35
 msgid "Yearly"
-msgstr "Vuosittain"
+msgstr "Letni"
 
 #: ../admin-views/event-recurrence.php:37
 msgid "Every"
-msgstr "Joka"
+msgstr "Vsak"
 
 #: ../admin-views/event-recurrence.php:41
 msgid "Frequency of recurring event must be a number"
-msgstr "Tapahtuman toiston tiheyden täytyy olla numero"
+msgstr "Frekvenca ponavljajočih dogodkov mora biti število"
 
 #: ../admin-views/event-recurrence.php:49
 msgid "M"
-msgstr "Ma"
+msgstr "Pon"
 
 #: ../admin-views/event-recurrence.php:50
 msgid "Tu"
-msgstr "Ti"
+msgstr "Tor"
 
 #: ../admin-views/event-recurrence.php:51
 msgid "W"
-msgstr "Ke"
+msgstr "Sre"
 
 #: ../admin-views/event-recurrence.php:52
 msgid "Th"
-msgstr "To"
+msgstr "Čet"
 
 #: ../admin-views/event-recurrence.php:53
 msgid "F"
-msgstr "Pe"
+msgstr "Pet"
 
 #: ../admin-views/event-recurrence.php:54
 msgid "Sa"
-msgstr "La"
+msgstr "Sob"
 
 #: ../admin-views/event-recurrence.php:55
 msgid "Su"
-msgstr "Su"
+msgstr "Ned"
 
 #: ../admin-views/event-recurrence.php:63
 #: ../admin-views/event-recurrence.php:113
 msgid "First"
-msgstr "Ensimmäinen"
+msgstr "Prvi"
 
 #: ../admin-views/event-recurrence.php:64
 #: ../admin-views/event-recurrence.php:114
 msgid "Second"
-msgstr "Toinen"
+msgstr "Drugi"
 
 #: ../admin-views/event-recurrence.php:65
 #: ../admin-views/event-recurrence.php:115
 msgid "Third"
-msgstr "Kolmas"
+msgstr "Tretji"
 
 #: ../admin-views/event-recurrence.php:66
 #: ../admin-views/event-recurrence.php:116
 msgid "Fourth"
-msgstr "Neljäs"
+msgstr "Četrti"
 
 #: ../admin-views/event-recurrence.php:67
 msgid "Fifth"
-msgstr "Viides"
+msgstr "Peti"
 
 #: ../admin-views/event-recurrence.php:68
 #: ../admin-views/event-recurrence.php:117
 msgid "Last"
-msgstr "Viimeinen"
+msgstr "Zadnji"
 
 #: ../admin-views/event-recurrence.php:75
 #: ../admin-views/event-recurrence.php:120
 #: ../lib/tribe-events-recurrence-meta.class.php:883
 msgid "Monday"
-msgstr "Maanantai"
+msgstr "ponedeljek"
 
 #: ../admin-views/event-recurrence.php:76
 #: ../admin-views/event-recurrence.php:121
 #: ../lib/tribe-events-recurrence-meta.class.php:883
 msgid "Tuesday"
-msgstr "Tiistai"
+msgstr "torek"
 
 #: ../admin-views/event-recurrence.php:77
 #: ../admin-views/event-recurrence.php:122
 #: ../lib/tribe-events-recurrence-meta.class.php:883
 msgid "Wednesday"
-msgstr "Keskiviikko"
+msgstr "sreda"
 
 #: ../admin-views/event-recurrence.php:78
 #: ../admin-views/event-recurrence.php:123
 #: ../lib/tribe-events-recurrence-meta.class.php:883
 msgid "Thursday"
-msgstr "Torstai"
+msgstr "četrtek"
 
 #: ../admin-views/event-recurrence.php:79
 #: ../admin-views/event-recurrence.php:124
 #: ../lib/tribe-events-recurrence-meta.class.php:883
 msgid "Friday"
-msgstr "Perjantai"
+msgstr "petek"
 
 #: ../admin-views/event-recurrence.php:80
 #: ../admin-views/event-recurrence.php:125
 #: ../lib/tribe-events-recurrence-meta.class.php:883
 msgid "Saturday"
-msgstr "Lauantai"
+msgstr "sobota"
 
 #: ../admin-views/event-recurrence.php:81
 #: ../admin-views/event-recurrence.php:126
 #: ../lib/tribe-events-recurrence-meta.class.php:883
 msgid "Sunday"
-msgstr "Sunnuntai"
+msgstr "nedelja"
 
 #: ../admin-views/event-recurrence.php:83
 #: ../admin-views/event-recurrence.php:128
 msgid "Day"
-msgstr "Päivä"
+msgstr "dan"
 
 #: ../admin-views/event-recurrence.php:111
 msgid "On the:"
-msgstr "Päivä:"
+msgstr "Na:"
 
 #: ../admin-views/event-recurrence.php:136
 msgid "Description:"
-msgstr "Kuvaus:"
+msgstr "Opis:"
 
 #: ../admin-views/event-recurrence.php:144
 msgid "Recurrence Description:"
-msgstr "Toiston kuvaus:"
+msgstr "Opis ponavljanja:"
 
 #: ../admin-views/event-recurrence.php:149
 msgid ""
 "Create a custom plain language description of the recurrence. Leave it blank "
 "and we'll automate it."
 msgstr ""
-"Luo selkokielinen kuvaus toistosta. Voit jättää kentän tyhjäksi, jolloin "
-"kuvaus luodaan automaattisesti."
+"Kreirajte prikrojen jezikovni opis ponavljanja. Pustite prazno in bo "
+"avtomatizirano."
 
 #: ../admin-views/tribe-options-defaults.php:6
 #: ../admin-views/tribe-options-defaults.php:15
 msgid "No Default"
-msgstr "Ei oletusta"
+msgstr "Ni privzeto"
 
 #: ../admin-views/tribe-options-defaults.php:22
 msgid "Select a State"
-msgstr "Valitse osavaltio"
+msgstr "Izberi zvezno državo"
 
 #: ../admin-views/tribe-options-defaults.php:35 ../events-calendar-pro.php:770
 msgid "Default Content"
-msgstr "Oletussisältö"
+msgstr "Privzeta vsebina"
 
 #: ../admin-views/tribe-options-defaults.php:39
 msgid ""
@@ -575,98 +572,98 @@ msgid ""
 "save time when entering a new venue or organizer.</p><p>You can override "
 "these settings as you enter a new event.</p>"
 msgstr ""
-"<p>Valitse oletus paikka ja järjestäjä. Aseta oletusosoitetiedot säästäksesi "
-"aikaa, kun lisää uutta paikkaa tai järjestäjää.</p><p>Voit ohittaa nämä "
-"asetukset, kun lisäät uuden tapahtuman.</p>"
+"<p>Izberite privzeto prizorišče in organizatorja. Nastavite privzete "
+"informacije naslova, da prihranite čas ko boste vnašali novega organizatorja "
+"ali prizorišče</p><p>Ko boste ustvarili nov dogodek lahko povozite te "
+"nastavitve.</p>"
 
 #: ../admin-views/tribe-options-defaults.php:51
 msgid "Options"
-msgstr "Vaihtoehdot"
+msgstr "Možnosti"
 
 #: ../admin-views/tribe-options-defaults.php:61
 msgid ""
 "Check this box to have the organizer and venue fields pre-populated with the "
 "default values below for any new event that is created."
 msgstr ""
-"Valitse tämä valintaruutu, jos haluat, että järjestäjä- ja paikkakentät "
-"täytetään valmiiksi oletusarvoilla kaikille uusille tapahtumille, jotka "
-"luodaan."
+"Obkljukajte ta okvir če želite imeti polja organizatorja in prizorišča "
+"vnaprej zapolnjena z privzetimi vrednostmi za vsak nov ustvarjen dogodek. "
 
 #: ../admin-views/tribe-options-defaults.php:65
 #: ../admin-views/widget-admin-advanced-list.php:29
 msgid "Organizer"
-msgstr "Järjestäjä"
+msgstr "Organizator"
 
 #: ../admin-views/tribe-options-defaults.php:69
 msgid "Default organizer"
-msgstr "Oletusjärjestäjä"
+msgstr "Privzeti organizator"
 
 #: ../admin-views/tribe-options-defaults.php:73
 msgid "No saved organizers yet."
-msgstr "Ei vielä tallennettuja järjestäjiä."
+msgstr "Ni še shranjenih organizatorjev"
 
 #: ../admin-views/tribe-options-defaults.php:82
 #: ../admin-views/widget-admin-advanced-list.php:28
 msgid "Venue"
-msgstr "Tapahtumapaikka"
+msgstr "Prizorišče"
 
 #: ../admin-views/tribe-options-defaults.php:86
 msgid "Default venue"
-msgstr "Oletuspaikka"
+msgstr "Privzeto prizorišče"
 
 #: ../admin-views/tribe-options-defaults.php:90
 msgid "No saved venues yet."
-msgstr "Ei vielä tallennettuja tapahtumapaikkoja."
+msgstr "Ni še shranjenih prizorišč"
 
 #: ../admin-views/tribe-options-defaults.php:99
 #: ../admin-views/widget-admin-advanced-list.php:30
 msgid "Address"
-msgstr "Osoite"
+msgstr "Naslov"
 
 #: ../admin-views/tribe-options-defaults.php:103
 msgid ""
 "You can use this setting to set specific, individual defaults for any new "
 "Venue you create (these will not be used for your default venue)."
 msgstr ""
-"Voit käyttää tätä asetusta asettaaksesi erityisiä, yksittäisiä "
-"oletusasetuksia uusille tapahtumapaikoille joita luot (näitä ei käytetä "
-"oletuspaikalle)."
+"Te nastavitve lahko uporabite za nastavitev individualnih privzetih možnosti "
+"za vsako novo prizorišče, ki ga ustvarite (te ne bodo uporabljene za vašo "
+"privzeto prizorišče)."
 
 #: ../admin-views/tribe-options-defaults.php:107
 msgid "Default address"
-msgstr "Oletusosoite"
+msgstr "Privzet naslov"
 
 #: ../admin-views/tribe-options-defaults.php:120
 msgid "Default city"
-msgstr "Oletuskaupunki"
+msgstr "Privzeto mesto"
 
 #: ../admin-views/tribe-options-defaults.php:133
 msgid "Default state"
-msgstr "Oletusosavaltio"
+msgstr "Privzeta zvezna država"
 
 #: ../admin-views/tribe-options-defaults.php:146
 msgid "Default province"
-msgstr "Oletusmaakunta"
+msgstr "Privzeta provinca"
 
 #: ../admin-views/tribe-options-defaults.php:159
 msgid "Default postal code/zip code"
-msgstr "Oletuspostinumero"
+msgstr "Privzeta poštna številka"
 
 #: ../admin-views/tribe-options-defaults.php:172
 msgid "Default country"
-msgstr "Oletusmaa"
+msgstr "Privzeta država"
 
 #: ../admin-views/tribe-options-defaults.php:185
 msgid "Default phone"
-msgstr "Oletuspuhelinnumero"
+msgstr "Privzeta telefonska številka"
 
 #: ../admin-views/tribe-options-defaults.php:201
 msgid ""
 "One country per line in the following format: <br>US, United States <br> UK, "
 "United Kingdom. <br> (Replaces the default list.)"
 msgstr ""
-"Yksi maa per rivi seuraavassa muodossa: <br>US, Yhdysvallat <br> UK, Iso-"
-"Britannia. <br> (Korvaa oletusluettelon.)"
+"Ena država v vrstici v naslednjem formatu: <br>ZDA, Združene Države Amerike "
+"<br> VB, Velika Britanija. <br> (Zamenja privzeti seznam.)"
 
 #: ../admin-views/widget-admin-advanced-list.php:11
 #: ../admin-views/widget-admin-calendar.php:10
@@ -674,138 +671,138 @@ msgstr ""
 #: ../admin-views/widget-admin-venue.php:9
 #: ../admin-views/widget-calendar.php:2
 msgid "Title:"
-msgstr "Otsikko:"
+msgstr "Naslov:"
 
 #: ../admin-views/widget-admin-advanced-list.php:16
 #: ../admin-views/widget-admin-venue.php:20
 #: ../admin-views/widget-calendar.php:8
 msgid "Number of events to show:"
-msgstr "Näytettävien tapahtumien määrä:"
+msgstr "Število dogodkov za ogled:"
 
 #: ../admin-views/widget-admin-advanced-list.php:25
 msgid "Display:"
-msgstr "Näytä:"
+msgstr "Prikaz:"
 
 #: ../admin-views/widget-admin-advanced-list.php:31
 msgid "City"
-msgstr "Kaupunki"
+msgstr "Mesto"
 
 #: ../admin-views/widget-admin-advanced-list.php:32
 msgid "State (US) Or Province (Int)"
-msgstr "Osavaltio (USA) tai maakunta"
+msgstr "Zvezna država (ZDA) ali province (mednarodno)"
 
 #: ../admin-views/widget-admin-advanced-list.php:33
 msgid "Postal Code"
-msgstr "Postinumero"
+msgstr "Poštna številka"
 
 #: ../admin-views/widget-admin-advanced-list.php:34
 msgid "Country"
-msgstr "Maa"
+msgstr "Država"
 
 #: ../admin-views/widget-admin-advanced-list.php:35
 msgid "Phone"
-msgstr "Puhelin"
+msgstr "Telefon"
 
 #: ../admin-views/widget-admin-advanced-list.php:36
 msgid "Price"
-msgstr "Hinta"
+msgstr "Cena"
 
 #: ../admin-views/widget-admin-advanced-list.php:58
 #: ../admin-views/widget-calendar.php:24
 msgid "Filters"
-msgstr "Suodattimet"
+msgstr "Filtri"
 
 #: ../admin-views/widget-admin-advanced-list.php:76
 #: ../admin-views/widget-calendar.php:42
 msgid "remove"
-msgstr "poista"
+msgstr "odstrani"
 
 #: ../admin-views/widget-admin-advanced-list.php:87
 #: ../admin-views/widget-calendar.php:53
 msgid "Match all"
-msgstr "Vaadi kaikki"
+msgstr "Enači vse"
 
 #: ../admin-views/widget-admin-advanced-list.php:90
 #: ../admin-views/widget-calendar.php:56
 msgid "Match any"
-msgstr "Vaadi yksi"
+msgstr "Enači nekatere"
 
 #: ../admin-views/widget-admin-advanced-list.php:94
 #: ../admin-views/widget-calendar.php:60
 msgid "Add a filter"
-msgstr "Lisää suodatin"
+msgstr "Dodaj filter"
 
 #: ../admin-views/widget-admin-advanced-list.php:97
 #: ../admin-views/widget-calendar.php:63
 msgid "Select one..."
-msgstr "Valitse yksi..."
+msgstr "Izberi enega ..."
 
 #: ../admin-views/widget-admin-advanced-list.php:124
 #: ../admin-views/widget-admin-venue.php:28
 msgid "Hide this widget if there are no upcoming events:"
-msgstr "Piilota tämä vimpain, jos ei ole tulevia tapahtumia:"
+msgstr "Skrij ta gradnik, če ni prihajajočih dogodkov:"
 
 #: ../admin-views/widget-admin-countdown.php:15
 msgid "Event:"
-msgstr "Tapahtuma:"
+msgstr "Dogodek:"
 
 #: ../admin-views/widget-admin-countdown.php:23
 msgid "Show seconds:"
-msgstr "Näytä sekunnit:"
+msgstr "Prikaži sekunde:"
 
 #: ../admin-views/widget-admin-countdown.php:28
 msgid "Countdown Completed Text:"
-msgstr "Lähtölaskenta valmis teksti:"
+msgstr "Odštevanje zaključeno tekst:"
 
 #: ../admin-views/widget-admin-venue.php:11
 msgid "Venue:"
-msgstr "Tapahtumapaikka:"
+msgstr "Prizorišče:"
 
 #: ../events-calendar-pro.php:67
 msgid "photo"
-msgstr "kuvaruudukko"
+msgstr "fotografija"
 
 #: ../events-calendar-pro.php:304
 msgid "Events for week of"
-msgstr "Tapahtumat viikolla"
+msgstr "Dogodki za teden od"
 
 #: ../events-calendar-pro.php:312 ../events-calendar-pro.php:375
 msgid "Past Events"
-msgstr "Menneet tapahtumat"
+msgstr "Pretekli dogodki"
 
 #: ../events-calendar-pro.php:314 ../events-calendar-pro.php:377
 #: ../lib/widget-advanced-list.class.php:88
 msgid "Upcoming Events"
-msgstr "Tulevat tapahtumat"
+msgstr "Prihajajoči dogodki"
 
 #: ../events-calendar-pro.php:320 ../events-calendar-pro.php:360
 msgid "All events for"
-msgstr "Kaikki tapahtumat"
+msgstr "Vsi dogodki za"
 
 #: ../events-calendar-pro.php:367
 #, php-format
 msgid "Events for week of %s"
-msgstr "Tapahtumat viikolla %s"
+msgstr "Dogodki za teden od %s"
 
 #: ../events-calendar-pro.php:781
 msgid "Hide related events"
-msgstr "Piilota liittyvät tapahtumat"
+msgstr "Skrij sorodne dogodke"
 
 #: ../events-calendar-pro.php:782
 msgid "Remove related events from the single event view"
-msgstr "Poista vastaavat tapahtumat yksittäisen tapahtuman näkymästä"
+msgstr "Odstrani sorodne dogodke iz pogleda posameznega dogodka"
 
 #: ../events-calendar-pro.php:790
 msgid "Week Day Format"
-msgstr "Viikonpäivien muotoilu"
+msgstr "Format dneva v tednu"
 
 #: ../events-calendar-pro.php:791
 msgid ""
 "Enter the format to use for week days. Used when showing days of the week in "
 "Week view."
 msgstr ""
-"Anna muotoilu käytettäväksi viikonpäiville. Käytetään kun näytetään viikon "
-"päivät kalenterin viikkonäkymässä."
+"Izberite format za uporabo dnevov v tednu. Uporablja se za prikaz dnevov "
+"tedna v tedenskem pogledu. "
 
 #: ../events-calendar-pro.php:808
 msgid ""
@@ -815,11 +812,11 @@ msgid ""
 "calendar kick ass... and hope the resources provided below will help get you "
 "there."
 msgstr ""
-"Kiitos Events Calendar PRO:n hankinnasta! Me kaikki Modern Tribella olemme "
-"vilpittömästi kiitollisia. Jos tarvitset apua Events Calendar PRO:n kanssa, "
-"olet tullut oikeaan paikkaan. Olemme sitoutuneet auttamaan sinua tekemään "
-"kalenteristasi mahtavan... ja toivottavasti alla olevat resurssit auttavat "
-"sinua."
+"Hvala, da ste kupili Events Calendar PRO! Od vseh nas pri Modern Tribe, se "
+"vam iskreno zahvaljujemo. Če želite pomoč pri Events Calendar PRO, ste "
+"prišli na pravo mesto. Smo zavzeti, da vam pomagamo pri tem, da bo vaš "
+"koledar raztural ... in upamo, da vam bodo vsebine priložene spodaj pri tem "
+"pomagale."
 
 #: ../events-calendar-pro.php:819
 msgid ""
@@ -827,9 +824,9 @@ msgid ""
 "treat and are already well on your way to creating a first event. Here are "
 "some basics we've found helpful for users jumping into it for the first time:"
 msgstr ""
-"Jos tämä on ensimmäinen kerta, kun käytät Events Calendar Pro:ta, olet "
-"hyvässä vauhdissa luomaan ensimmäistä tapahtumaasi. Tässä muutamia "
-"perusasioita, jotka olemme huomanneet hyödyllisiksi uusille käyttäjille:"
+"Če prvič uporabljate The Events Calendar Pro, vaš čaka presenečenje in ste "
+"že na zelo dobri poti, da ustvarite vaš prvi dogodek. Tukaj je nekaj osnov, "
+"ki se nam zdijo koristne za uporabnike, ki se prvič srečajo z vtičnikom:"
 
 #: ../events-calendar-pro.php:822
 #, php-format
@@ -839,10 +836,10 @@ msgid ""
 "accompanying screenshots, the primer aims to take you from zero to hero in "
 "no time."
 msgstr ""
-"%sMeidän New User Primer%s on suunniteltu juuri kaltaisillesi käyttäjille. "
-"Mukana on sekä vaihe vaiheelta opastavia opetusvideoita, että kuvilla "
-"varustettuja oppaita, jotka auttavat sinut aloittelijasta vauhtiin alta "
-"aikayksikön."
+"%sOur New User Primer%s je bil zasnovan za uporabnike na vašem mestu. "
+"Vsebuje video vsebine s postopnimi koraki in napisanimi vodiči, ki jih "
+"spremljajo posnetki zaslona. Cilj je, da vas popelje od laika do "
+"profesionalnega uporabnika v trenutku. "
 
 #: ../events-calendar-pro.php:824
 #, php-format
@@ -852,10 +849,10 @@ msgid ""
 "helpful as it aims to address any basic install questions not addressed by "
 "the new user primer."
 msgstr ""
-"%sInstallation/Setup FAQs%s tukisivuillamme saat yleiskuvan siitä, mitä "
-"lisäosalla voi ja ei voi tehdä. Tämä osa UKK:sta voi olla hyödyllinen, koska "
-"siinä pyritään vastaamaan kaikkiin asennuksen aikaisiin peruskysymyksiin, "
-"joita ei käsitellä New User Primer:ssa."
+"%sInstallation/Setup FAQs%s iz naše podporne strain vam lahko pomaga dobiti "
+"pregled nad tem kaj ta vtičnik zmore in česa ne. Ta sekcija FAQ vam bo "
+"pomagala pro reševanju kakršnikoli osnovnih vprašanj, ki miso bili "
+"opredeljena v 'New user primer'. "
 
 #: ../events-calendar-pro.php:826
 #, php-format
@@ -864,9 +861,9 @@ msgid ""
 "example plugin that demonstrates how to register a new view. You can "
 "%sdownload the plugin at GitHub%s to get started."
 msgstr ""
-"Oletko kehittäjä ja haluatko rakentaa oman loppukäyttäjän näkymän? Loimme "
-"esimerkkilisäosan, joka näyttää, miten voit rekisteröidä uuden näkymän. Voit "
-"%sladata lisäosan GitHub:sta%s päästäksesi alkuun."
+"Ali ste razvijalec, ki želi razviti svojevrsten frontend pogled? Izdelali "
+"smo primerek vtičnika, ki demonstrira kako registrirati nov pogled. "
+"%sPrenesete ga lahko na GitHubu%s. "
 
 #: ../events-calendar-pro.php:828
 #, php-format
@@ -876,18 +873,18 @@ msgid ""
 "access to support and upgrades. %sHere's how to find your license key%s, if "
 "you don't have it handy."
 msgstr ""
-"Huolehdi lisenssiavaimestasi. Vaikka et tarvitse sitä luodaksesi ensimmäistä "
-"tapahtumaasi, sinun kannattaa syöttää se niin pian kuin mahdollista "
-"taataksesi pääsyn tukeen ja päivityksiin. %sNäin löydät lisenssiavaimesi%s , "
-"jos sinulla ei ole sitä käsilläsi."
+"Skrbite za vaš licenčni ključ. Čeprav ni potreben, da ustvarite svoj prvi "
+"dogodek, ga boste potrebovali, če boste želeli zagarantirati vaš dostop do "
+"podpore in posodobitev. %sTako lahko najdete svoj licenčni ključ%s, če ga "
+"nimate pri roki."
 
 #: ../events-calendar-pro.php:830
 msgid ""
 "Otherwise, if you're feeling adventurous, you can get started by heading to "
 "the Events menu and adding your first event."
 msgstr ""
-"Muutoin, jos olet seikkailunhaluinen, voit jatkaa Tapahtumat-valikkoon ja "
-"luoda ensimmäisen tapahtumasi."
+"Če se počutite adventurozno, se lahko odpravite na menu dogodkov in dodate "
+"svoj prvi dogodek."
 
 #: ../events-calendar-pro.php:842
 #, php-format
@@ -895,9 +892,8 @@ msgid ""
 "Written documentation can only take things so far...sometimes, you need help "
 "from a real person. This is where our %ssupport forums%s come into play."
 msgstr ""
-"Kirjoitettu dokumentaatio voi auttaa vain tietyn matkaa... joskus tarvitset "
-"oikean ihmisen apua. Tässä vaiheessa löydät apua meidän %stukifoorumeiltamme"
-"%s."
+"Napisana dokumentacija lahko opiše le določeno količino težav ... včasih "
+"boste potrebovali pomoč prave osebe. Tukaj nastopijo naši %ssupport forums%s "
 
 #: ../events-calendar-pro.php:843
 #, php-format
@@ -909,12 +905,12 @@ msgid ""
 "PRO forums daily throughout the business week, and no thread should go more "
 "than 24-hours without a response."
 msgstr ""
-"Käyttäjillä, jotka ovat ostaneet Events Calendar PRO lisenssin, on täysi "
-"pääsy %spremium support foorumeille%s. Toisin kuin %sWordPress.org "
-"tukifoorumeilla%s, jossa osallistumisemme on rajoittunut bugien "
-"tunnistamiseen ja korjaamiseen, PRO käyttäjille on tarjolla oma erikoistunut "
-"asiakastuki. Olemme tavoitettavissa PRO foorumeilla arkipäivisin ja pyrimme "
-"vastaamaan 24 tunnin sisällä kysymyksiisi."
+"Uporabniki, ki so kupili Events Calendar PRO licenco imajo ves dostop do "
+"naših %spremium support forums%s. Ne tako kot na %sWordPress.org support "
+"forum%s, kjer je naša pomoč omejena na prepoznavanje in popravljanje kjučnih "
+"napak, imamo za PRO uporabniko posebno podporno ekipo. Na PRO forumih smo "
+"dnevno prisotni čez delovni teden, in noben zahtevek ne ostane neodgovorjen "
+"za več kot 24 ur. "
 
 #: ../events-calendar-pro.php:844
 msgid ""
@@ -925,12 +921,11 @@ msgid ""
 "can to point you in the right direction and to make you -- and your client, "
 "as is often more importantly the case -- satisfied."
 msgstr ""
-"Meidän päätavoitteemme on auttaa sinua menestymään, ja siinä määrin kuin "
-"mahdollista, autamme sinua vianmäärityksessä, räätälöinnissä ja "
-"hienosäädöissä. Vaikka emme voi rakentaa koko sivustoa sinulle, ja emme voi "
-"taata, että pystymme integroimaan projektisi 100% jokaiseen teemaan tai "
-"lisäosaan, teemme kaikkemme johtaaksemme sinua oikeaan suuntaan ja "
-"tehdäksemme sinut - ja asiakkaasi - tyytyväisiksi."
+"Naš glavni cilj je, da vam pomagamo uspeti, na vsak možen način, tudi pri "
+"kostumizaciji. Čeprav ne moremo zgraditi strani namesto vas in ne moremo "
+"garantirati popolne integracije z vsako temo ali vtičnikom, bomo storili "
+"vse, da vas napotimo v pravo smer in vas -- ter v večini primerov, vašega "
+"naročnika -- pustili zadovoljne."
 
 #: ../events-calendar-pro.php:845
 msgid ""
@@ -940,32 +935,30 @@ msgid ""
 "feasible), and make sure that you've identified whether a plugin / theme "
 "conflict could be at play in your initial message."
 msgstr ""
-"Ennen uuden viestiketjun avaamista, tee haku varmistaaksesi, ettei "
-"ongelmaasi ole jo käsitelty. Kun avaat viestiketjun, varmista että tarjoat "
-"niin paljon yksityiskohtia ongelmasta kuin voit (kuvakaappauksia tai "
-"kuvalähetyksiä jos mahdollista), ja varmista, että olet tunnistanut voiko "
-"lisäosa / teema -konflikteilla olla vaikutusta ongelmaasi."
+"Preden začnete z novo objavo, vas prosimo, da pogledate, če vaša težava ni "
+"bila žeprej rešena. Ko pišete objavo, prosim opišite težavo kolikor podrobno "
+"je to možno (z posnetki zaslona in videoposnetki če je možno), in se prej "
+"prepričajte kateri vtičnik / tema bi lahko vplivala na to. "
 
 #: ../events-calendar-pro.php:1252
 msgid "Settings"
-msgstr "Asetukset"
+msgstr "Nastavitve"
 
 #: ../events-calendar-pro.php:1277
 #, php-format
 msgid "Venue updated. <a href=\"%s\">View venue</a>"
-msgstr "Tapahtumapaikka päivitetty. <a href=\"%s\">Näytä tapahtumapaikka</a>"
+msgstr "Prizorišče posodobljeno.  <a href=\"%s\">Ogled prizorišča</a>"
 
 #: ../events-calendar-pro.php:1279
 #, php-format
 msgid "Venue published. <a href=\"%s\">View venue</a>"
-msgstr "Tapahtumapaikka julkaistu. <a href=\"%s\">Näytä tapahtumapaikka</a>"
+msgstr "Prizorišče objavljeno. <a href=\"%s\">Ogled prizorišča</a>"
 
 #: ../events-calendar-pro.php:1280
 #, php-format
 msgid "Venue submitted. <a target=\"_blank\" href=\"%s\">Preview venue</a>"
 msgstr ""
-"Tapahtumpaikka syötetty. <a target=\"_blank\" href=\"%s\">Esikatsele "
-"tapahtumapaikka</a>"
+"Prizorišče vnešeno. <a target=\"_blank\" href=\"%s\">Predogled prizorišča</a>"
 
 #: ../events-calendar-pro.php:1281
 #, php-format
@@ -973,8 +966,8 @@ msgid ""
 "Venue scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s"
 "\">Preview venue</a>"
 msgstr ""
-"Tapahtumapaikka ajoitettu: <strong>%1$s</strong>. <a target=\"_blank\" href="
-"\"%2$s\">Esikatsele tapahtumapaikkaa</a>"
+"Prizorišče predvideno za: <strong>%1$s</strong>. <a target=\"_blank\" href="
+"\"%2$s\">Predogled prizorišča</a>"
 
 #: ../events-calendar-pro.php:1283 ../events-calendar-pro.php:1291
 msgid "M j, Y @ G:i"
@@ -984,26 +977,26 @@ msgstr "M j, Y @ G:i"
 #, php-format
 msgid "Venue draft updated. <a target=\"_blank\" href=\"%s\">Preview venue</a>"
 msgstr ""
-"Tapahtumapaikan luonnos päivitetty. <a target=\"_blank\" href=\"%s"
-"\">Esikatsele tapahtumapaikka</a>"
+"Osnutek prizorišča posodobljen. <a target=\"_blank\" href=\"%s\">Predogled "
+"prizorišča</a>"
 
 #: ../events-calendar-pro.php:1286
 #, php-format
 msgid "Organizer updated. <a href=\"%s\">View organizer</a>"
-msgstr "Järjestäjä päivitetty. <a href=\"%s\">Näytä järjestäjä</a>"
+msgstr "Organizator posodobljen. <a href=\"%s\">Ogled organizatorja</a>"
 
 #: ../events-calendar-pro.php:1287
 #, php-format
 msgid "Organizer published. <a href=\"%s\">View organizer</a>"
-msgstr "Järjestäjä julkaistu. <a href=\"%s\">Näytä järjestäjä</a>"
+msgstr "Organizator objavljen. <a href=\"%s\">Ogled organizatorja</a>"
 
 #: ../events-calendar-pro.php:1288
 #, php-format
 msgid ""
 "Organizer submitted. <a target=\"_blank\" href=\"%s\">Preview organizer</a>"
 msgstr ""
-"Järjestäjä syötetty. <a target=\"_blank\" href=\"%s\">Esikatsele järjestäjä</"
-"a>"
+"Organizator vnešen. <a target=\"_blank\" href=\"%s\">Predogled "
+"organizatorja</a>"
 
 #: ../events-calendar-pro.php:1289
 #, php-format
@@ -1011,8 +1004,8 @@ msgid ""
 "Organizer scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" href="
 "\"%2$s\">Preview organizer</a>"
 msgstr ""
-"Järjestäjä ajastettu: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s"
-"\">Esikatsele järjestäjä</a>"
+"Organizator predviden za: <strong>%1$s</strong>. <a target=\"_blank\" href="
+"\"%2$s\">Predogled organizatorja</a>"
 
 #: ../events-calendar-pro.php:1292
 #, php-format
@@ -1020,33 +1013,33 @@ msgid ""
 "Organizer draft updated. <a target=\"_blank\" href=\"%s\">Preview organizer</"
 "a>"
 msgstr ""
-"Järjestäjän luonnos päivitetty. <a target=\"_blank\" href=\"%s\">Esikatsele "
-"järjestäjä</a>"
+"Osnutek organizatorja posodobljen. <a target=\"_blank\" href=\"%s"
+"\">Predogled organizatorja</a>"
 
 #: ../events-calendar-pro.php:1338
 #, php-format
 msgid "Calendar powered by %sThe Events Calendar PRO%s"
-msgstr "Kalenterin voimalähteenä %sEvents Calendar PRO%s"
+msgstr "Koledar poganja %sThe Events Calendar PRO%s"
 
 #: ../events-calendar-pro.php:1351
 msgid "Support"
-msgstr "Tuki"
+msgstr "Podpora"
 
 #: ../events-calendar-pro.php:1353
 msgid "View All Add-Ons"
-msgstr "Näytä kaikki lisäosat"
+msgstr "Ogled vseh dodatkov"
 
 #: ../events-calendar-pro.php:1450
 msgid "Week"
-msgstr "Viikko"
+msgstr "Teden"
 
 #: ../events-calendar-pro.php:1464
 msgid "Photo"
-msgstr "Kuva"
+msgstr "Fotografija"
 
 #: ../events-calendar-pro.php:1478
 msgid "Week Of"
-msgstr "Viikko"
+msgstr "Teden od"
 
 #: ../events-calendar-pro.php:1561
 msgid "The Events Calendar"
@@ -1058,25 +1051,26 @@ msgid ""
 "To begin using Events Calendar PRO, please install the latest version of <a "
 "href=\"%s\" class=\"thickbox\" title=\"%s\">The Events Calendar</a>."
 msgstr ""
-"Asenna <a href =\"%s\"class =\"thickbox\"title =\"%s\">The Events "
-"Calendarin</a> uusin versio aloittaaksesi Events Calendar PRO:n käyttö."
+"Da lahko začnete uporabljati The Events Calendar PRO, prosim inštalirajte "
+"zadnjo različico <a href=\"%s\" class=\"thickbox\" title=\"%s\">The Events "
+"Calendar</a>."
 
 #: ../lib/SingleEventMeta.php:139
 #: ../views/pro/modules/meta/additional-fields.php:15
 msgid "Other"
-msgstr "Muut"
+msgstr "Drugo"
 
 #: ../lib/SingleEventMeta.php:165
 msgid "Recurrence Pattern:"
-msgstr "Toistotapa:"
+msgstr "Vzorec ponavljanja:"
 
 #: ../lib/TribeEventsFilter_GeoLoc.php:20 ../lib/tribe-geoloc.class.php:145
 msgid "Miles"
-msgstr "Mailia"
+msgstr "Milje"
 
 #: ../lib/TribeEventsFilter_GeoLoc.php:21 ../lib/tribe-geoloc.class.php:146
 msgid "Kilometers"
-msgstr "Kilometriä"
+msgstr "Kilometri"
 
 #: ../lib/TribeEventsFilter_GeoLoc.php:25
 #, php-format
@@ -1086,48 +1080,48 @@ msgstr "%d %s"
 #: ../lib/TribeEventsFilter_GeoLoc.php:40
 #, php-format
 msgid "Type: %s %s"
-msgstr "Kirjoita: %s %s"
+msgstr "Tip: %s %s"
 
 #: ../lib/TribeEventsFilter_GeoLoc.php:49
 msgid "Radio Buttons"
-msgstr "Valintanapit"
+msgstr "Radio Buttons"
 
 #: ../lib/apm_filters.php:49
 msgid "Start Date"
-msgstr "Aloituspäivä"
+msgstr "Začetni datum"
 
 #: ../lib/apm_filters.php:54
 msgid "End Date"
-msgstr "Päättymispäivä"
+msgstr "Končni datum"
 
 #: ../lib/apm_filters.php:59
 msgid "Event Cost"
-msgstr "Tapahtuman hinta"
+msgstr "Cena dogodka"
 
 #: ../lib/apm_filters.php:64
 msgid "Event Cats"
-msgstr "Tapahtumakategoriat"
+msgstr "Event Cats"
 
 #: ../lib/apm_filters.php:69
 msgid "Title"
-msgstr "Otsikko"
+msgstr "Naslov"
 
 #: ../lib/apm_filters.php:74 ../lib/tribe-events-recurrence-meta.class.php:132
 msgid "Recurring"
-msgstr "Toistuva"
+msgstr "Ponavljanje"
 
 #: ../lib/apm_filters.php:79
 msgid "Description"
-msgstr "Kuvaus"
+msgstr "Opis"
 
 #: ../lib/apm_filters.php:216
 #: ../lib/tribe-events-recurrence-meta.class.php:139
 msgid "Yes"
-msgstr "Kyllä"
+msgstr "Da"
 
 #: ../lib/apm_filters.php:217
 msgid "No"
-msgstr "Ei"
+msgstr "Ne"
 
 #: ../lib/template-classes/week.php:91
 #, php-format
@@ -1135,8 +1129,8 @@ msgid ""
 "There were no results found for <strong>\"%s\"</strong> this week. Try "
 "searching another week."
 msgstr ""
-"Ei tuloksia haulle <strong>\"%s\"</strong> tällä viikolla. Kokeile toista "
-"viikkoa."
+"Ni bilo najdenih rezultatov za <strong>\"%s\"</strong> ta teden. Poizkusite "
+"z iskanjem v drugem tednu."
 
 #: ../lib/template-classes/week.php:94
 #, php-format
@@ -1144,8 +1138,8 @@ msgid ""
 "No results were found for events in or near <strong>\"%s\"</strong> this "
 "week. Try searching another week."
 msgstr ""
-"Tuloksia tapahtumista lähellä <strong>\"%s\"</strong> tätä viikkoa ei "
-"löytynyt. Kokeile toista viikkoa."
+"Ni bilo najdenih rezultatov za dogodke blizu <strong>\"%s\"</strong> ta "
+"teden. Poizkusite z iskanjem v drugem tednu."
 
 #: ../lib/template-classes/week.php:98 ../lib/tribe-geoloc.class.php:546
 #, php-format
@@ -1153,24 +1147,26 @@ msgid ""
 "No matching events listed under %s. Please try viewing the full calendar for "
 "a complete list of events."
 msgstr ""
-"Ei vastaavia tapahtumia: %s. Katso koko kalenteri nähdäksesi tapahtumien "
-"lista kokonaisuudessaan."
+"Ni ustreznih dogodkov navedenih pod %s. Prosim poizkusite z ogledom "
+"celotnega koledarja za popoln seznam dogodkov."
 
 #: ../lib/template-classes/week.php:101
 msgid "No results were found for this week. Try searching another week."
-msgstr "Tuloksia ei löytynyt tälle viikolle. Kokeile toista viikkoa."
+msgstr ""
+"Ni bilo najdenih rezultatov za ta teden. Poizkusite z iskanjem v drugem "
+"tednu."
 
 #: ../lib/tribe-events-recurrence-meta.class.php:104
 msgid "Edit Series"
-msgstr "Muokkaa sarjaa"
+msgstr "Uredi serijo"
 
 #: ../lib/tribe-events-recurrence-meta.class.php:110
 msgid "Break from Series"
-msgstr "Irrota sarjasta"
+msgstr "Odstrani iz serije"
 
 #: ../lib/tribe-events-recurrence-meta.class.php:120
 msgid "Edit Future Events"
-msgstr "Muokkaa tulevia tapahtumia"
+msgstr "Uredi prihodnje dogodke"
 
 #: ../lib/tribe-events-recurrence-meta.class.php:141
 msgid "—"
@@ -1178,120 +1174,122 @@ msgstr "—"
 
 #: ../lib/tribe-events-recurrence-meta.class.php:155
 msgid "Break this event out of its series and edit it independently"
-msgstr ""
-"Irrota tämä tapahtuma tapahtumasarjasta ja muokkaa sitä yksittäisenä "
-"tapahtumana"
+msgstr "Odstrani ta dogodek iz serije in ga uredi neodvisno"
 
 #: ../lib/tribe-events-recurrence-meta.class.php:155
 msgid "Edit Single"
-msgstr "Muokkaa yksittäistä"
+msgstr "Uredi posameznega"
 
 #: ../lib/tribe-events-recurrence-meta.class.php:157
 msgid ""
 "Split the series in two at this point, creating a new series out of this and "
 "all subsequent events"
 msgstr ""
-"Jaa sarja kahtia tästä kohtaa, luoden uuden sarjan, joka sisältää sekä tämän "
-"tapahtuman, että myös tulevat tapahtumat."
+"Deli serijo v dve v tej točki, nastane nova serija iz tega in vseh sledečih "
+"dogodkov."
 
 #: ../lib/tribe-events-recurrence-meta.class.php:157
 msgid "Edit Upcoming"
-msgstr "Muokkaa tulevaa"
+msgstr "Uredi prihajajoče"
 
 #: ../lib/tribe-events-recurrence-meta.class.php:163
 msgid "Edit all events in this series"
-msgstr "Muokkaa kaikkia tapahtumia tässä sarjassa"
+msgstr "Uredi vse dogodke v tej seriji"
 
 #: ../lib/tribe-events-recurrence-meta.class.php:163
 msgid "Edit All"
-msgstr "Muokkaa kaikkia"
+msgstr "Uredi vse"
 
 #: ../lib/tribe-events-recurrence-meta.class.php:168
 msgid "Move all events in this series to the Trash"
-msgstr "Siirrä kaikki tämän sarjan tapahtumat Roskakoriin"
+msgstr "Premakni vse dogodke iz te serije v smeti"
 
 #: ../lib/tribe-events-recurrence-meta.class.php:168
 msgid "Trash Series"
-msgstr "Sarja roskakoriin"
+msgstr "Zavrzi serijo"
 
 #: ../lib/tribe-events-recurrence-meta.class.php:171
 msgid "Delete all events in this series permanently"
-msgstr "Poista kaikki tämän sarjan tapahtumat lopullisesti"
+msgstr "Trajno izbriši vse dogodke v tej seriji"
 
 #: ../lib/tribe-events-recurrence-meta.class.php:171
 msgid "Delete Series Permanently"
-msgstr "Poista sarja pysyvästi"
+msgstr "Trajno izbriši serijo"
 
 #: ../lib/tribe-events-recurrence-meta.class.php:177
 msgid "Restore all events in this series from the Trash"
-msgstr "Palauta kaikki tämän sarjan tapahtumat Roskakorista"
+msgstr "Povrni vse dogodke v tej seriji iz smeti"
 
 #: ../lib/tribe-events-recurrence-meta.class.php:177
 msgid "Restore Series"
-msgstr "Palauta sarja"
+msgstr "Povrni serijo"
 
 #: ../lib/tribe-events-recurrence-meta.class.php:526
 msgid ""
 "Monthly custom recurrences cannot have a dash set as the day to occur on."
-msgstr "Kuukausittaisessa mukautetussa toistossa päivä ei voi olla tyhjä."
+msgstr ""
+"Mesečne prikrojene ponovitve ne morejo imeti nastavljenega vezaja kot dan na "
+"katerega naj bi se zgodile. "
 
 #: ../lib/tribe-events-recurrence-meta.class.php:529
 msgid ""
 "Yearly custom recurrences cannot have a dash set as the day to occur on."
-msgstr "Vuosittaisessa mukautetussa toistossa päivä ei voi olla tyhjä."
+msgstr ""
+"Letne prikrojene ponovitve ne morejo imeti nastavljenega vezaja kot dan na "
+"katerega naj bi se zgodile. "
 
 #: ../lib/tribe-events-recurrence-meta.class.php:819
 #: ../lib/tribe-events-recurrence-meta.class.php:834
 msgid "Every day"
-msgstr "Joka päivä"
+msgstr "Vsak dan"
 
 #: ../lib/tribe-events-recurrence-meta.class.php:820
 #, php-format
 msgid " for %d day"
 msgid_plural " for %d days"
-msgstr[0] " %d päivää"
-msgstr[1] " %d päivää"
+msgstr[0] "za %d dan"
+msgstr[1] "za %d dneve"
 
 #: ../lib/tribe-events-recurrence-meta.class.php:823
 #: ../lib/tribe-events-recurrence-meta.class.php:839
 msgid "Every week"
-msgstr "Joka viikko"
+msgstr "Vsak teden"
 
 #: ../lib/tribe-events-recurrence-meta.class.php:824
 #, php-format
 msgid " for %d week"
 msgid_plural " for %d weeks"
-msgstr[0] " %d viikkoa"
-msgstr[1] " %d viikkoa"
+msgstr[0] "za %d teden "
+msgstr[1] "za %d tedne"
 
 #: ../lib/tribe-events-recurrence-meta.class.php:826
 #: ../lib/tribe-events-recurrence-meta.class.php:845
 msgid "Every month"
-msgstr "Joka kuukausi"
+msgstr "Vsak mesec"
 
 #: ../lib/tribe-events-recurrence-meta.class.php:827
 #, php-format
 msgid " for %d month"
 msgid_plural " for %d months"
-msgstr[0] " %d kuukautta"
-msgstr[1] " %d kuukautta"
+msgstr[0] "za %d mesec"
+msgstr[1] "za %d mesece"
 
 #: ../lib/tribe-events-recurrence-meta.class.php:829
 #: ../lib/tribe-events-recurrence-meta.class.php:852
 msgid "Every year"
-msgstr "Joka vuosi"
+msgstr "Vsako leto"
 
 #: ../lib/tribe-events-recurrence-meta.class.php:830
 #, php-format
 msgid " for %d year"
 msgid_plural " for %d years"
-msgstr[0] " %d vuotta"
-msgstr[1] " %d vuotta"
+msgstr[0] "za %d leto"
+msgstr[1] "za %d let"
 
 #: ../lib/tribe-events-recurrence-meta.class.php:835
 #, php-format
 msgid "Every %d days"
-msgstr "%d päivän välein"
+msgstr "Vsakih %d dni"
 
 #: ../lib/tribe-events-recurrence-meta.class.php:836
 #: ../lib/tribe-events-recurrence-meta.class.php:842
@@ -1300,47 +1298,47 @@ msgstr "%d päivän välein"
 #, php-format
 msgid ", recurring %d time"
 msgid_plural ", recurring %d times"
-msgstr[0] ", toistuu %d kertaa"
-msgstr[1] ", toistuu %d kertaa"
+msgstr[0] ", ponavljajoči %d čas"
+msgstr[1] ", ponavljajoči %d časi"
 
 #: ../lib/tribe-events-recurrence-meta.class.php:840
 #, php-format
 msgid "Every %d weeks"
-msgstr "%d viikon välein"
+msgstr "Vsakih %d tednov"
 
 #: ../lib/tribe-events-recurrence-meta.class.php:841
 #, php-format
 msgid " on %s"
-msgstr " viikonpäivä: %s"
+msgstr "Na %s"
 
 #: ../lib/tribe-events-recurrence-meta.class.php:846
 #, php-format
 msgid "Every %d months"
-msgstr "%d kuukauden välein"
+msgstr "Vsakih %d mesecev"
 
 #: ../lib/tribe-events-recurrence-meta.class.php:848
 #, php-format
 msgid " on the %s %s"
-msgstr " %s %s"
+msgstr "na %s %s"
 
 #: ../lib/tribe-events-recurrence-meta.class.php:853
 #, php-format
 msgid "Every %d years"
-msgstr "%d vuoden välein"
+msgstr "Vsakih %d let"
 
 #: ../lib/tribe-events-recurrence-meta.class.php:855
 msgid "last"
-msgstr "viime"
+msgstr "zadnji"
 
 #: ../lib/tribe-events-recurrence-meta.class.php:860
 #, php-format
 msgid " on the %s %s of %s"
-msgstr " %s %s / %s"
+msgstr "na %s %s od %s"
 
 #: ../lib/tribe-events-recurrence-meta.class.php:867
 #, php-format
 msgid " until %s"
-msgstr " %s saakka"
+msgstr "do %s"
 
 #: ../lib/tribe-events-recurrence-meta.class.php:874
 #, php-format
@@ -1349,11 +1347,11 @@ msgstr "%s%s%s"
 
 #: ../lib/tribe-events-recurrence-meta.class.php:889
 msgid ", and"
-msgstr ", ja"
+msgstr ", in"
 
 #: ../lib/tribe-events-recurrence-meta.class.php:891
 msgid "and"
-msgstr "ja"
+msgstr "in"
 
 #: ../lib/tribe-events-recurrence-meta.class.php:893
 msgid ","
@@ -1361,59 +1359,59 @@ msgstr ","
 
 #: ../lib/tribe-events-recurrence-meta.class.php:908
 msgid "January"
-msgstr "Tammikuu"
+msgstr "Januar"
 
 #: ../lib/tribe-events-recurrence-meta.class.php:908
 msgid "February"
-msgstr "Helmikuu"
+msgstr "Februar"
 
 #: ../lib/tribe-events-recurrence-meta.class.php:908
 msgid "March"
-msgstr "Maaliskuu"
+msgstr "Marec"
 
 #: ../lib/tribe-events-recurrence-meta.class.php:908
 msgid "April"
-msgstr "Huhtikuu"
+msgstr "April"
 
 #: ../lib/tribe-events-recurrence-meta.class.php:909
 msgid "May"
-msgstr "Toukokuu"
+msgstr "Maj"
 
 #: ../lib/tribe-events-recurrence-meta.class.php:909
 msgid "June"
-msgstr "Kesäkuu"
+msgstr "Junij"
 
 #: ../lib/tribe-events-recurrence-meta.class.php:909
 msgid "July"
-msgstr "Heinäkuu"
+msgstr "Julij"
 
 #: ../lib/tribe-events-recurrence-meta.class.php:909
 msgid "August"
-msgstr "Elokuu"
+msgstr "Avgust"
 
 #: ../lib/tribe-events-recurrence-meta.class.php:909
 msgid "September"
-msgstr "Syyskuu"
+msgstr "September"
 
 #: ../lib/tribe-events-recurrence-meta.class.php:909
 msgid "October"
-msgstr "Lokakuu"
+msgstr "Oktober"
 
 #: ../lib/tribe-events-recurrence-meta.class.php:909
 msgid "November"
-msgstr "Marraskuu"
+msgstr "November"
 
 #: ../lib/tribe-events-recurrence-meta.class.php:909
 msgid "December"
-msgstr "Joulukuu"
+msgstr "December"
 
 #: ../lib/tribe-events-recurrence-meta.class.php:915
 msgid ", and "
-msgstr ", ja "
+msgstr ", in"
 
 #: ../lib/tribe-events-recurrence-meta.class.php:917
 msgid " and "
-msgstr " ja "
+msgstr "in"
 
 #: ../lib/tribe-events-recurrence-meta.class.php:919
 msgid ", "
@@ -1421,53 +1419,50 @@ msgstr ", "
 
 #: ../lib/tribe-events-recurrence-meta.class.php:981
 msgid "Recurring event instances"
-msgstr "Toistuvan tapahtuman esiintymät"
+msgstr "Instance ponavljajočega dogodka"
 
 #: ../lib/tribe-events-recurrence-meta.class.php:982
 msgid ""
 "Show only the first instance of each recurring event (only affects list-"
 "style views)."
 msgstr ""
-"Näytä vain kunkin toistuvan tapahtuman ensimmäinen esiintymä (vaikuttaa vain "
-"lista-tyyppisiin näkymiin)."
+"Prikaži zgolj prvo instanco vsakega ponavljajočega se dogodka (vpliva samo "
+"na stil ogleda - seznam)."
 
 #: ../lib/tribe-events-recurrence-meta.class.php:988
 msgid "Front-end recurring event instances toggle"
-msgstr "Toistuvan tapahtuman näyttämisen käyttäjävalinta"
+msgstr "Stikalo za front-end ponavljajoče se instance dogodkov"
 
 #: ../lib/tribe-events-recurrence-meta.class.php:989
 msgid ""
 "Allow users to decide whether to show all instances of a recurring event."
 msgstr ""
-"Salli käyttäjien päättää haluavatko he nähdä kaikki toistuvan tapahtuman "
-"esiintymät."
+"Dovoli uporabnikom, da se sami odločijo ali želijo prikazati vse instance "
+"ponavljajočega dogodka."
 
 #: ../lib/tribe-events-recurrence-meta.class.php:996
 msgid "Clean up recurring events after"
-msgstr "Puhdista toistuvat tapahtumat jälkeen"
+msgstr "Počisti ponavljajoče dogodke zatem"
 
 #: ../lib/tribe-events-recurrence-meta.class.php:997
 msgid "Automatically remove recurring event instances older than this"
-msgstr ""
-"Poista automaattisesti toistuvan tapahtuman esiintymät, jotka ovat tätä "
-"vanhempia"
+msgstr "Avtomatično odstrani instance ponavljajočega dogodka starejše kot"
 
 #: ../lib/tribe-events-recurrence-meta.class.php:1004
 msgid "Create recurring events in advance for"
-msgstr "Luo toistuvia tapahtumia etukäteen"
+msgstr "Kreiraj ponavljajoče dogodke vnaprej za"
 
 #: ../lib/tribe-events-recurrence-meta.class.php:1005
 msgid "Recurring events will be created this far in advance"
-msgstr "Toistuvat tapahtumat luodaan tähän saakka etukäteen"
+msgstr "Ponavljajoči dogodki bodo vnaprej ustvarjeni do"
 
 #: ../lib/tribe-events-recurrence-meta.class.php:1026
 msgid " months"
-msgstr " kuukausia"
+msgstr "meseci"
 
 #: ../lib/tribe-events-recurrence-meta.class.php:1117
 msgid "You are currently editing all events in a recurring series."
-msgstr ""
-"Olet parhaillaan muokkaamassa kaikki tapahtumia toistuvan tapahtuman sarjassa"
+msgstr "Trenutno urejate vse dogodke v ponavljajoči seriji."
 
 #: ../lib/tribe-events-recurrence-meta.class.php:1125
 #, php-format
@@ -1475,8 +1470,8 @@ msgid ""
 "%d instances of this event have been created through %s. <a href=\"%s"
 "\">Learn more.</a>"
 msgstr ""
-"%d tapausta tästä tapahtumasta on luotu %s:n kautta. <a href=\"%s\">Opi "
-"lisää.</a>"
+"%d instance tega eventa so bile kreirane skozi %s. <a href=\"%s\">Izvedi več."
+"</a>"
 
 #: ../lib/tribe-events-recurrence-meta.class.php:1136
 msgid ""
@@ -1488,13 +1483,12 @@ msgid ""
 "\n"
 "This action cannot be undone."
 msgstr ""
-"Olet jakamassa tätä sarjaa kahteen osaan.\n"
+"Serijo boste delili na dva dela.\n"
 "\n"
-"Tapahtuma, jonka olet valinnut ja kaikki sarjan myöhemmät tapahtumat "
-"erotetaan uudeksi sarjaksi, jota voit muokata erikseen, irrallaan "
-"alkuperäisestä sarjasta.\n"
+"Dogodek, ki ste ga izbrali in vsi prihajajoči dogodki bodo ločeni v novo "
+"serijo dogodkov, ki jo lahko urejate neodvisno od prvotne serije.\n"
 "\n"
-"Toimintoa ei voi peruuttaa."
+"To dejanje je nepovratno in dokončno."
 
 #: ../lib/tribe-events-recurrence-meta.class.php:1137
 msgid ""
@@ -1504,42 +1498,43 @@ msgid ""
 "\n"
 "This action cannot be undone."
 msgstr ""
-"Olet irrottamassa tätä tapahtumaa sen sarjasta.\n"
+"Ta dogodek boste vzeli iz njegove serije.\n"
 "\n"
-"Tapahtuman muokkaus yksittäisenä tapahtumana irrallaan sen alkuperäisestä "
-"sarjasta tulee mahdolliseksi.\n"
+"Urejali ga boste lahko neodvisno od prvotne serije.\n"
 "\n"
-"Toimintoa ei voi peruuttaa."
+"To dejanje je nepovratno in dokočno."
 
 #: ../lib/tribe-events-recurrence-meta.class.php:1138
 msgid ""
 "Are you sure you want to trash all occurrences of these events? All "
 "recurrence data will be lost."
 msgstr ""
-"Oletko varma, että haluat poistaa kaikki esiintymät näistä tapahtumista? "
-"Kaikki toistuvuustiedot menetetään."
+"Ali ste prepričani, da želite zavrsti vsa ponavljanja tega dogodka? Vsi "
+"podatki o ponavljanju bodo izgubljeni."
 
 #: ../lib/tribe-geoloc.class.php:101
 msgid "Distance"
-msgstr "Etäisyys"
+msgstr "Razdalja"
 
 #: ../lib/tribe-geoloc.class.php:133
 msgid "Map view search distance limit"
-msgstr "Karttanäkymän haun etäisyyden raja"
+msgstr "Omejitev razdalje v pogledu z zemljevidom"
 
 #: ../lib/tribe-geoloc.class.php:135
 msgid ""
 "Set the distance that the location search covers (find events within X "
 "distance units of location search input)."
-msgstr "Aseta etäisyys, jonka sisältä sijaintihaku hakee."
+msgstr ""
+"Nastavite razdaljo, ki pokriva iskalni niz za to lokacijo (najdi dogodke v X "
+"razdalji od iskalnega niza za lokacijo)."
 
 #: ../lib/tribe-geoloc.class.php:141
 msgid "Map view distance unit"
-msgstr "Karttanäkymän etäisyyden yksikkö"
+msgstr "Enota za razdaljo v pogledu z zemljevidom"
 
 #: ../lib/tribe-geoloc.class.php:149
 msgid "Fix geolocation data"
-msgstr "Korjaa paikannuksen tiedot"
+msgstr "Nastavi/popravi geolokacijske podatke"
 
 #: ../lib/tribe-geoloc.class.php:149
 #, php-format
@@ -1548,46 +1543,46 @@ msgid ""
 "the Google Maps API to get that information. Doing this may take a while "
 "(aprox. 1 minute for every 200 venues)."
 msgstr ""
-"Sinulla on %d tapahtumapaikkoja, joista meillä ei ole paikannustietoja. "
-"Meidän täytyy käyttää Google Maps API:a saadaksemme nämä tiedot. Tämä "
-"saattaa kestää jonkin aikaa (n. 1 minuutti / 200 tapahtumapaikkaa)."
+"Imate %d prizorišč za katere nimamo geolokacijskih podatkov. Uporabiti "
+"moramo Google Maps API, da bi pridobili te informacije. Za to potrebujemo "
+"nekaj časa (približno 1 minuto za vsakih 200 prizorišč)"
 
 #: ../lib/tribe-geoloc.class.php:158
 msgid "Hide location search"
-msgstr "Piilota paikkahaku"
+msgstr "Skrij iskanje po lokacijah"
 
 #: ../lib/tribe-geoloc.class.php:159
 msgid ""
 "Removes location search field from the events bar on all views except for "
 "map view."
 msgstr ""
-"Poistaa paikkahaun hakupalkista kaikissa muissa näkymissä paitsi "
-"karttanäkymässä."
+"Odstrani iskalno polje za lokacije iz iskalne pasice dogodkov v vseh "
+"pogledih razen v pogledu z zemljevidom."
 
 #: ../lib/tribe-geoloc.class.php:211
 msgid "Map"
-msgstr "Kartta"
+msgstr "Zemljevid"
 
 #: ../lib/tribe-geoloc.class.php:241
 msgid "Near"
-msgstr "Lähellä"
+msgstr "Blizu"
 
 #: ../lib/tribe-geoloc.class.php:242
 msgid "Location"
-msgstr "Sijainti"
+msgstr "Lokacija"
 
 #: ../lib/tribe-geoloc.class.php:543
 #, php-format
 msgid "No results were found for events in or near <strong>\"%s\"</strong>."
-msgstr "Ei tuloksia tapahtumista lähellä: <strong>\"%s\"</strong>."
+msgstr "Ni bilo najdenih rezultatov v, ali v bližini <strong>\"%s\"</strong>."
 
 #: ../lib/tribe-geoloc.class.php:549
 msgid "There were no results found."
-msgstr "Tuloksia ei löytynyt."
+msgstr "Ni bilo najdenih rezultatov."
 
 #: ../lib/tribe-geoloc.class.php:765
 msgid "Fix venues data"
-msgstr "Korjaa tapahtumapaikkojen tiedot"
+msgstr "Nastavi/popravi podatke prizorišč."
 
 #: ../lib/tribe-geoloc.class.php:799
 #, php-format
@@ -1595,50 +1590,50 @@ msgid ""
 "You have venues for which we don't have Geolocation information. <a "
 "href='%s'>Click here to generate it</a>."
 msgstr ""
-"Sinulla on tapahtumapaikkoja, joista meillä ei ole paikannustietoa. <a "
-"href='%s'>Paina tästä luodaksesi se</a>."
+"Imate prizorišča za katere nimamo geolokacijskih podatkov. <a "
+"href='%s'>Kliknite tukaj, da jih ustvarite</a>."
 
 #: ../lib/tribe-geoloc.class.php:825
 #, php-format
 msgid "Fixed geolocation data for %d venues"
-msgstr "Paikannustiedot korjattiin %d tapahtumapaikalle"
+msgstr "Popravljeni geolokacijski podatki za %d prizorišč."
 
 #: ../lib/widget-advanced-list.class.php:20
 msgid "A widget that displays the next upcoming x events."
-msgstr "Vimpain, joka näyttää seuraavat x tulevaa tapahtumaa."
+msgstr "Gradnik, ki prikazuje prihahajajoče x dogodke."
 
 #: ../lib/widget-advanced-list.class.php:24
 msgid "Events List"
-msgstr "Tapahtumalista"
+msgstr "Seznam dogodkov"
 
 #: ../lib/widget-calendar.class.php:8
 msgid "The events calendar mini calendar widget"
-msgstr "Tapahtumien minikalenteri-vimpain"
+msgstr "The events calendar mini koledarski gradnik"
 
 #: ../lib/widget-calendar.class.php:10 ../lib/widget-calendar.class.php:34
 #: ../lib/widget-calendar.class.php:70
 msgid "Events Calendar"
-msgstr "Tapahtumakalenteri"
+msgstr "Koledar dogodkov"
 
 #: ../lib/widget-countdown.class.php:13
 msgid "Displays the time remaining until a specified event."
-msgstr "Näyttää tiettyyn tapahtumaan jäljellä olevan ajan."
+msgstr "Prikaži čas, ki je ostal do specifičnega dogodka."
 
 #: ../lib/widget-countdown.class.php:15
 msgid "Events Countdown"
-msgstr "Tapahtuman lähtölaskenta"
+msgstr "Odštevalnik dogodkov"
 
 #: ../lib/widget-venue.class.php:12
 msgid "Displays a list of upcoming events at a specific venue."
-msgstr "Näyttää tapahtumapaikkakohtaisen listan tapahtumista."
+msgstr "Prikaži seznam prihajajočih dogodkov za specifično prizorišče."
 
 #: ../lib/widget-venue.class.php:14
 msgid "Events Featured Venue"
-msgstr "Tapahtumat Esille nostetut Tapahtumapaikka"
+msgstr "Zasidrano prizorišče dogodka"
 
 #: ../public/template-tags/general.php:93
 msgid "Show only the first upcoming instance of recurring events"
-msgstr "Näytä vain ensimmäinen tuleva esiintymä toistuvista tapahtumista"
+msgstr "Prikaži zgolj prvo prihajajočo instanco ponavljajočih se dogodkov. "
 
 #: ../public/template-tags/general.php:217
 #: ../public/template-tags/general.php:230
@@ -1657,73 +1652,73 @@ msgstr "Näytä vain ensimmäinen tuleva esiintymä toistuvista tapahtumista"
 #: ../public/template-tags/general.php:320
 #: ../public/template-tags/general.php:321
 msgid "No default set"
-msgstr "Ei oletusta asetetettuna"
+msgstr "Ni nastavljenih privzetih nastavitev. "
 
 #: ../public/template-tags/general.php:219
 #, php-format
 msgid "The current default organizer is: %s"
-msgstr "Nykyinen oletusjärjestäjä on: %s"
+msgstr "Trenutni privzeti organizator je: %s"
 
 #: ../public/template-tags/general.php:232
 #, php-format
 msgid "The current default venue is: %s"
-msgstr "Nykyinen oletustapahtumapaikka on: %s"
+msgstr "Trenutno privzeto prizorišče je: %s"
 
 #: ../public/template-tags/general.php:245
 #, php-format
 msgid "The current default address is: %s"
-msgstr "Nykyinen oletusosoite on: %s"
+msgstr "Trenutni privzet naslov je: %s"
 
 #: ../public/template-tags/general.php:258
 #, php-format
 msgid "The current default city is: %s"
-msgstr "Nykyinen oletuskaupunki on: %s"
+msgstr "Trenutno privzeto mesto je: %s"
 
 #: ../public/template-tags/general.php:271
 #, php-format
 msgid "The current default state is: %s"
-msgstr "Nykyinen oletusosavaltio on: %s"
+msgstr "Trenutna privzeta zvezna država je: %s"
 
 #: ../public/template-tags/general.php:284
 #, php-format
 msgid "The current default province is: %s"
-msgstr "Nykyinen oletusmaakunta on: %s"
+msgstr "Trenutna privzeta provinca je: %s"
 
 #: ../public/template-tags/general.php:297
 #, php-format
 msgid "The current default postal code/zip code is: %s"
-msgstr "Nykyinen oletuspostinumero on: %s"
+msgstr "Trenutna privzeta poštna številka je: %s"
 
 #: ../public/template-tags/general.php:310
 #, php-format
 msgid "The current default country is: %s"
-msgstr "Nykyinen oletusmaa on: %s"
+msgstr "Trenutna privzeta država je: %s"
 
 #: ../public/template-tags/general.php:323
 #, php-format
 msgid "The current default phone is: %s"
-msgstr "Nykyinen oletuspuhelin on: %s"
+msgstr "Trenutna privzeta telefonska številka je: %s"
 
 #: ../public/template-tags/general.php:462
 #: ../public/template-tags/general.php:481
 msgid "Date out of range."
-msgstr "Päivämäärä rajauksen ulkopuolella."
+msgstr "Datum izven dosega"
 
 #: ../public/template-tags/general.php:577
 msgid "Recurring Event"
-msgstr "Toistuva tapahtuma"
+msgstr "Ponavljajoči dogodek"
 
 #: ../public/template-tags/general.php:580
 msgid "(See all)"
-msgstr "(Katso kaikki)"
+msgstr "(poglej vse)"
 
 #: ../public/template-tags/week.php:237
 msgid "<span>&laquo;</span> Previous Week"
-msgstr "<span>&laquo;</span> Edellinen viikko"
+msgstr "<span>&laquo;</span> Prejšnji teden"
 
 #: ../public/template-tags/week.php:253
 msgid "Next Week <span>&raquo;</span>"
-msgstr "Seuraava viikko <span>&raquo;</span>"
+msgstr "Naslednji teden <span>&raquo;</span>"
 
 #: ../vendor/advanced-post-manager/demo/demo.php:30
 #, php-format
@@ -1731,426 +1726,201 @@ msgid ""
 "It looks like you might not have any demo data. <a href=\"%s\">Download our "
 "data</a> and use the <a href=\"%s\">WordPress Importer</a>."
 msgstr ""
-"Näyttää siltä, ettei sinulla ehkä ole testidataa. <a href =\"%s\">Lataa "
-"meidän datamme</a> ja käytä <a href =\"%s\">WordPress tuontityökalua</a>."
+"Izgleda kot da nimate nobenih demo podatkov. <a href=\"%s\">Prenesite si "
+"naše podatke</a> in uporabite <a href=\"%s\">WordPress Importer</a>."
 
 #: ../vendor/advanced-post-manager/lib/tribe-columns.class.php:43
 msgid "Column Name"
-msgstr "Sarakkeen nimi"
+msgstr "Ime stolpca"
 
 #: ../vendor/advanced-post-manager/lib/tribe-columns.class.php:133
 msgid "Add a Column"
-msgstr "Lisää sarake"
+msgstr "Dodaj stolpec"
 
 #: ../vendor/advanced-post-manager/lib/tribe-columns.class.php:140
 msgid "Comments"
-msgstr "Kommentit"
+msgstr "Komentarji"
 
 #: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:50
 #: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:70
 msgid "Is"
-msgstr "On"
+msgstr "Je"
 
 #: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:51
 #: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:71
 msgid "Is Not"
-msgstr "Ei ole"
+msgstr "Ni"
 
 #: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:65
 msgid "LIKE"
-msgstr "TYKKÄÄ"
+msgstr "LIKE"
 
 #: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:69
 msgid "Search"
-msgstr "Etsi"
+msgstr "Iskanje"
 
 #: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:80
 msgid "Member Type"
-msgstr "Jäsentyyppi"
+msgstr "Tip člana"
 
 #: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:84
 msgid "Cafe"
-msgstr "Kahvila"
+msgstr "Cafe"
 
 #: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:85
 msgid "Private Desk"
-msgstr "Työpiste"
+msgstr "Zasebna miza"
 
 #: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:86
 msgid "Office"
-msgstr "Toimisto"
+msgstr "Pisarna"
 
 #: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:93
 msgid "what i’m querying. probably a key in the options array in $filters"
-msgstr "mitä haen. luultavasti avainta vaihtoehtoryhmässä $filters"
+msgstr "kaj poizvedujem. najbrž ključ med možnostmi izbire v $filtrih."
 
 #: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:517
 msgid "Choose a Saved Filter"
-msgstr "Valitse tallennettu suodatin"
+msgstr "Izberi shranjen filter"
 
 #: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:633
 msgid "Add a Filter"
-msgstr "Lisää suodatin"
+msgstr "Dodaj filter"
 
 #: ../vendor/advanced-post-manager/lib/tribe-meta-box-helper.php:44
 msgid "Extended Information"
-msgstr "Laajennetut tiedot"
+msgstr "Razširjene informacije"
 
 #: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:115
 #: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:388
 msgid "Delete this image"
-msgstr "Poista tämä kuva"
+msgstr "Izbriši to sliko"
 
 #: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:115
 #: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:343
 #: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:388
 msgid "Delete"
-msgstr "Poista"
+msgstr "Izbriši"
 
 #: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:339
 msgid "Uploaded files"
-msgstr "Lähetetyt tiedostot"
+msgstr "Naložene datoteke"
 
 #: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:349
 msgid "Upload new files"
-msgstr "Lisää uusia tiedostoja"
+msgstr "Naloži nove datoteke"
 
 #: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:352
 msgid "Add another file"
-msgstr "Lisää toinen tiedosto"
+msgstr "Dodaj novo datoteko"
 
 #: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:395
 msgid "Add more images"
-msgstr "Lisää kuvia"
+msgstr "Dodaj več slik"
 
 #: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:403
 msgid "Select a color"
-msgstr "Valitse väri"
+msgstr "Izberi barvo"
 
 #: ../vendor/advanced-post-manager/views/edit-filters.php:7
 #: ../vendor/advanced-post-manager/views/edit-filters.php:8
 msgid "Click to toggle"
-msgstr "Klikkaa vaihtaaksesi"
+msgstr "Klikni stikalo"
 
 #: ../vendor/advanced-post-manager/views/edit-filters.php:8
 msgid "Filters &amp; Columns"
-msgstr "Suodattimet ja sarakkeet"
+msgstr "Filtri &amp; Stolpci"
 
 #: ../vendor/advanced-post-manager/views/edit-filters.php:17
 msgid "Apply"
-msgstr "Käytä"
+msgstr "Uporabi"
 
 #: ../vendor/advanced-post-manager/views/edit-filters.php:18
 msgid "Clear"
-msgstr "Tyhjennä"
+msgstr "Počisti"
 
 #: ../vendor/advanced-post-manager/views/edit-filters.php:19
 #: ../vendor/advanced-post-manager/views/edit-filters.php:26
 msgid "Save"
-msgstr "Tallenna"
+msgstr "Shrani"
 
 #: ../vendor/advanced-post-manager/views/edit-filters.php:21
 msgid "Export to CSV"
-msgstr "Vie CSV-tiedostoon"
+msgstr "Izvozi v CSV"
 
 #: ../vendor/advanced-post-manager/views/edit-filters.php:25
 msgid "Filter Name"
-msgstr "Suodattimen nimi"
+msgstr "Ime filtra"
 
 #: ../vendor/advanced-post-manager/views/edit-filters.php:27
 msgid "Cancel"
-msgstr "Peruuta"
+msgstr "Prekliči"
 
 #: ../views/pro/map/nav.php:20 ../views/pro/photo/nav.php:20
 msgid "Events List Navigation"
-msgstr "Tapahtumaluettelon navigointi"
+msgstr "Navigacija po seznamu dogodkov"
 
 #: ../views/pro/map/nav.php:23 ../views/pro/photo/nav.php:23
 msgid "<span>&laquo;</span> Previous Events"
-msgstr "<span>&laquo;</span> Edelliset tapahtumat"
+msgstr "<span>&laquo;</span> Prejšnji dogodki"
 
 #: ../views/pro/map/nav.php:30 ../views/pro/photo/nav.php:30
 msgid "Next Events <span>&raquo;</span>"
-msgstr "Seuraavat tapahtumat <span>&raquo;</span>"
+msgstr "Naslednji dogodki <span>&raquo;</span>"
 
 #: ../views/pro/map/single-event.php:78
 msgid "Find out more"
-msgstr "Lue lisää"
+msgstr "Preberite več"
 
 #: ../views/pro/related-events.php:28
 msgid "Related Events"
-msgstr "Aiheeseen liittyvät tapahtumat"
+msgstr "Sorodni dogodki"
 
 #: ../views/pro/single-organizer.php:29 ../views/pro/single-venue.php:29
 msgid "&larr; Back to Events"
-msgstr "&larr; Takaisin tapahtumiin"
+msgstr "&larr; Nazaj na dogodke"
 
 #: ../views/pro/week/loop-grid-allday.php:28
 msgid "All Day"
-msgstr "Koko päivä"
+msgstr "Ves dan"
 
 #: ../views/pro/week/loop-grid.php:17
 msgid "Hours"
-msgstr "Tunnit"
+msgstr "Ure"
 
 #: ../views/pro/week/nav.php:14
 msgid "Week Navigation"
-msgstr "Viikkonavigaatio"
+msgstr "Tedenska navigacija"
 
 #: ../views/pro/widgets/countdown-widget.php:22
 msgid "hours"
-msgstr "tuntia"
+msgstr "ure"
 
 #: ../views/pro/widgets/countdown-widget.php:26
 msgid "min"
-msgstr "minuuttia"
+msgstr "min"
 
 #: ../views/pro/widgets/countdown-widget.php:31
 msgid "sec"
-msgstr "sekuntia"
+msgstr "sek"
 
 #: ../views/pro/widgets/list-widget.php:97
 msgid "Organizer:"
-msgstr "Järjestäjä:"
+msgstr "Organizator:"
 
 #: ../views/pro/widgets/list-widget.php:116
 msgid "View More&hellip;"
-msgstr "Näytä lisää&hellip;"
+msgstr "Oglej si več&hellip;"
 
 #: ../views/pro/widgets/list-widget.php:123
 msgid "There are no upcoming events at this time."
-msgstr "Tulevia tapahtumia ei tällä hetkellä ole."
+msgstr "Trenutno ni prihajajočih dogodkov."
 
 #: ../views/pro/widgets/venue-widget.php:31
 msgid "No upcoming events."
-msgstr "Ei tulevia tapahtumia."
+msgstr "Ni prihajajočih dogodkov."
 
 #: ../views/pro/widgets/venue-widget.php:52
 #, php-format
 msgid "View all Events at this %s"
-msgstr "Näytä kaikki tapahtumat %s"
-
-#~ msgid "today"
-#~ msgstr "tänään"
-
-#~ msgid "Events for"
-#~ msgstr "Tapahtumat"
-
-#~ msgid "Day View"
-#~ msgstr "Päivänäkymä"
-
-#~ msgid "Week View"
-#~ msgstr "Viikkonäkymä"
-
-#~ msgid "Day Of"
-#~ msgstr "Päivä"
-
-#~ msgid "Jan"
-#~ msgstr "Tammikuu"
-
-#~ msgid "Feb"
-#~ msgstr "Helmikuu"
-
-#~ msgid "Mar"
-#~ msgstr "Maaliskuu"
-
-#~ msgid "Apr"
-#~ msgstr "Huhtikuu"
-
-#~ msgid "Jun"
-#~ msgstr "Kesäkuu"
-
-#~ msgid "Jul"
-#~ msgstr "Heinäkuu"
-
-#~ msgid "Aug"
-#~ msgstr "Elokuu"
-
-#~ msgid "Sep"
-#~ msgstr "Syyskuu"
-
-#~ msgid "Oct"
-#~ msgstr "Lokakuu"
-
-#~ msgid "Dec"
-#~ msgstr "Joulukuu"
-
-#~ msgid "Need help? Send us a support request."
-#~ msgstr "Tarvitsetko apua? Lähetä meille tukipyyntö."
-
-#~ msgid ""
-#~ "Tell us about the problem you're seeing in as much detail as possible. "
-#~ "Please note that we'll also be sending some basic system information "
-#~ "along with this request so that we can better diagnose the issue. If you "
-#~ "would like to contact us without sending any system information, please "
-#~ "visit our support page at %s. Thanks!"
-#~ msgstr ""
-#~ "Kerro meille ongelmasta niin yksityiskohtaisesti kuin mahdollista. "
-#~ "Huomaa, että lähetämme joitakin perus järjestelmätietoja tämän pyynnön "
-#~ "yhteydessä, jotta voimme paremmin diagnosoida ongelman. Jos haluat ottaa "
-#~ "meihin yhteyttä lähettämättä  järjestelmän tietoja, vieraile tukisivuilla "
-#~ "%s . Kiitos!"
-
-#~ msgid "Send a Support Request"
-#~ msgstr "Lähetä tukipyyntö"
-
-#~ msgid "Category:"
-#~ msgstr "Luokka:"
-
-#~ msgid "All Events"
-#~ msgstr "Kaikki tapahtumat"
-
-#~ msgid "Your recurrence pattern would create greater than "
-#~ msgstr "Toistosi loisi enemmän kuin "
-
-#~ msgid "Title: %s"
-#~ msgstr "Otsikko: %s"
-
-#~ msgid "Select Dropdown"
-#~ msgstr "Pudotusvalikko"
-
-#~ msgid "Add to Google Calendar"
-#~ msgstr "Lisää Google-kalenteriin"
-
-#~ msgid "Google Calendar"
-#~ msgstr "Google-kalenteri"
-
-#~ msgid "iCal Import"
-#~ msgstr "iCal-tuonti"
-
-#~ msgid "Month's Events"
-#~ msgstr "Kuukauden tapahtumat"
-
-#~ msgid "Week's Events"
-#~ msgstr "Viikon tapahtumat"
-
-#~ msgid "Day's Events"
-#~ msgstr "Päivän tapahtumat"
-
-#~ msgid "Import is filter/view sensitive"
-#~ msgstr "Suodatin/näkymä vaikuttavat tuontiin"
-
-#~ msgid ""
-#~ "There were no results found for <strong>\"%s\"</strong> on this day. Try "
-#~ "searching another day."
-#~ msgstr ""
-#~ "Ei tuloksia haulle <strong>\"%s\"</strong> tälle päivälle. Kokeile toista "
-#~ "päivää."
-
-#~ msgid "Today"
-#~ msgstr "Tänään"
-
-#~ msgid "&laquo; Previous Day"
-#~ msgstr "«Edellinen päivä"
-
-#~ msgid "Next Day &raquo;"
-#~ msgstr "Seuraava päivä »"
-
-#~ msgid "Yesterday"
-#~ msgstr "Eilen"
-
-#~ msgid "Tomorrow"
-#~ msgstr "Huomenna"
-
-#~ msgid "License Key"
-#~ msgstr "Lisenssiavain"
-
-#~ msgid "A valid license key is required for support and updates."
-#~ msgstr "Voimassaoleva lisenssiavain tarvitaan tukea ja päivityksiä varten."
-
-#~ msgid "Replace empty fields"
-#~ msgstr "Korjaa tyhjät kentät"
-
-#~ msgid "A valid license key is required for support and updates"
-#~ msgstr "Voimassaoleva lisenssiavain tarvitaan tukea ja päivityksiä varten"
-
-#~ msgid "License key(s) updated."
-#~ msgstr "Lisenssiavain/-avaimet päivitetty."
-
-#~ msgid "Sorry, key validation server is not available."
-#~ msgstr "Anteeksi, lisenssinvahvistuspalvelin ei ole käytettävissä."
-
-#~ msgid "Sorry, this key is expired."
-#~ msgstr "Pahoittelut, mutta tämä avain on vanhentunut."
-
-#~ msgid "Sorry, this key is out of installs."
-#~ msgstr "Pahoittelut, mutta tällä avaimella ei ole enää asennuksia jäljellä."
-
-#~ msgid "Sorry, this key is not valid."
-#~ msgstr "Pahoittelut, mutta avain ei ole oikeassa muodossa."
-
-#~ msgid "Valid Key! Expires on %s"
-#~ msgstr "Avain ok! Lisenssi päättyy %s"
-
-#~ msgid ""
-#~ "Hmmm... something's wrong with this validator. Please contact <a href=\"%s"
-#~ "\">support.</a>"
-#~ msgstr ""
-#~ "Hmmm... validoinnissa oli ongelma. Ota yhteyttä <a href =\"%s"
-#~ "\">asiakastukeen.</a>"
-
-#~ msgid "Displays posts related to the post."
-#~ msgstr "Näyttää artikkelit, jotka liittyvät artikkeliin."
-
-#~ msgid "Related Posts"
-#~ msgstr "Aiheeseen liittyvät artikkelit"
-
-#~ msgid "Count:"
-#~ msgstr "Lukumäärä:"
-
-#~ msgid "Display Thumbnails?"
-#~ msgstr "Näytä artikkelikuvat?"
-
-#~ msgid "Only Display Related Posts?"
-#~ msgstr "Näytä vain aiheeseen liittyvät artikkelit?"
-
-#~ msgid "Post Type:"
-#~ msgstr "Artikkelityyppi:"
-
-#~ msgid "Send a support request for this site."
-#~ msgstr "Lähetä tukipyyntö tälle sivustolle."
-
-#~ msgid "Day Navigation"
-#~ msgstr "Päivänavigaatio"
-
-#~ msgid "Price:"
-#~ msgstr "Hinta:"
-
-#~ msgid "&laquo; Back to Events"
-#~ msgstr "«Takaisin tapahtumiin"
-
-#~ msgid "Name:"
-#~ msgstr "Nimi:"
-
-#~ msgid "Phone:"
-#~ msgstr "Puhelin:"
-
-#~ msgid "Address:"
-#~ msgstr "Osoite:"
-
-#~ msgid "Click to view a Google Map"
-#~ msgstr "Klikkaa nähdäksesi Google Mapsissa"
-
-#~ msgid "Google Map"
-#~ msgstr "Google Maps"
-
-#~ msgid "Upcoming Events At This Venue"
-#~ msgstr "Tulevia tapahtumia tässä tapahtumapaikassa"
-
-#~ msgid "Start:"
-#~ msgstr "Aloitus:"
-
-#~ msgid "End:"
-#~ msgstr "Loppu:"
-
-#~ msgid "Date:"
-#~ msgstr "Päivämäärä:"
-
-#~ msgid "Cost:"
-#~ msgstr "Hinta:"
-
-#~ msgid "Previous Week"
-#~ msgstr "Edellinen viikko"
-
-#~ msgid "Next Week"
-#~ msgstr "Seuraava viikolla"
+msgstr "Poglej si vse dogodke %s."

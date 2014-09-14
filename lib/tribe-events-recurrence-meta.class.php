@@ -32,7 +32,7 @@ class TribeEventsRecurrenceMeta {
 
 
 	public static function init() {
-		add_action( 'tribe_events_update_meta', array( __CLASS__, 'updateRecurrenceMeta' ), 1, 3 );
+		add_action( 'tribe_events_update_meta', array( __CLASS__, 'updateRecurrenceMeta' ), 20, 2 ); // give other meta a chance to save, first
 		add_action( 'tribe_events_date_display', array( __CLASS__, 'loadRecurrenceData' ) );
 		add_action(	'wp_trash_post', array( __CLASS__, 'handle_trash_request') );
 		add_action( 'before_delete_post', array( __CLASS__, 'handle_delete_request') );
@@ -661,7 +661,11 @@ class TribeEventsRecurrenceMeta {
 				$found = array_search( $start_date, $dates );
 				if ( $found === FALSE ) {
 					do_action( 'tribe_events_deleting_child_post', $instance, $start_date );
+					// deleting a post would normally add it to the excluded dates array
+					// we don't want that if a child is deleted due to a recurrence change
+					remove_action( 'before_delete_post', array( __CLASS__, 'handle_delete_request') );
 					wp_delete_post( $instance, TRUE );
+					add_action( 'before_delete_post', array( __CLASS__, 'handle_delete_request') );
 				} else {
 					$to_update[$instance] = $dates[$found];
 					unset($dates[$found]); // so we don't re-add it
