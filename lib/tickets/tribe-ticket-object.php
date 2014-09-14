@@ -4,6 +4,12 @@ if ( ! class_exists( 'TribeEventsTicketObject' ) ) {
 	 *    Generic object to hold information about a single ticket
 	 */
 	class TribeEventsTicketObject {
+		/**
+		 * This value - an empty string - should be used to populate the stock
+		 * property in situations where no limit has been placed on stock
+		 * levels.
+		 */
+		const UNLIMITED_STOCK = '';
 
 		/**
 		 * Unique identifier
@@ -50,7 +56,7 @@ if ( ! class_exists( 'TribeEventsTicketObject' ) ) {
 
 		/**
 		 * Amount of tickets of this kind in stock
-		 * @var int
+		 * @var mixed
 		 */
 		public $stock;
 

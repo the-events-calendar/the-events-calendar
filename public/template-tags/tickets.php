@@ -38,7 +38,11 @@ function tribe_events_has_tickets( $event = null ) {
  * @return bool
  */
 function tribe_events_has_soldout( $event = null ) {
-	return ( tribe_events_count_available_tickets( $event ) ) < 1;
+	$has_tickets = tribe_events_has_tickets( $event );
+	$no_stock = tribe_events_count_available_tickets( $event ) < 1;
+	$unlimited_inventory_items = tribe_events_has_unlimited_stock_tickets( $event );
+
+	return ( $has_tickets && $no_stock && ! $unlimited_inventory_items );
 }
 
 /**
@@ -88,6 +92,26 @@ function tribe_events_count_available_tickets( $event = null ) {
 	}
 
 	return $count;
+}
+
+/**
+ * Returns true if the event contains one or more tickets which are not
+ * subject to any inventory limitations.
+ *
+ * @param null $event
+ *
+ * @return bool
+ */
+function tribe_events_has_unlimited_stock_tickets( $event = null ) {
+	if ( null === ( $event = tribe_events_get_event( $event ) ) ) {
+		return 0;
+	}
+
+	foreach ( TribeEventsTickets::get_all_event_tickets( $event->ID ) as $ticket ) {
+		if ( TribeEventsTicketObject::UNLIMITED_STOCK === $ticket->stock ) return true;
+	}
+
+	return false;
 }
 
 /**

@@ -83,7 +83,7 @@ $tickets = TribeEventsTickets::get_event_tickets( $event_id );
 							$pending = '';
 
 							if ( $ticket->qty_pending > 0 ) {
-								$pending = sprintf( __( '(%d orders pending completion)', 'tribe-events-calendar' ), (int) $ticket->qty_pending );
+								$pending = sprintf( _n( '(%d awaiting review)', '(%d awaiting review)', 'tribe-events-calendar', $ticket->qty_pending ), (int) $ticket->qty_pending );
 							}
 
 							if ( empty( $stock ) && $stock !== 0 ) {
@@ -97,6 +97,7 @@ $tickets = TribeEventsTickets::get_event_tickets( $event_id );
 
 							$total_sold += $sold;
 							$total_pending += $ticket->qty_pending;
+							$total_completed = $total_sold - $total_pending;
 
 						endforeach; ?>
 					</td>
@@ -112,9 +113,12 @@ $tickets = TribeEventsTickets::get_event_tickets( $event_id );
 							</span>
 
 							<?php if ( $total_pending > 0 ) : ?>
-								<span id="total_pending_wrapper">
+								<span id="sales_breakdown_wrapper">
 								<br />
-									<?php _e( 'Pending completion:', 'tribe-events-calendar' ); ?>
+									<?php _e( 'Finalized:', 'tribe-events-calendar' ); ?>
+									<span id="total_issued"><?php echo $total_completed ?></span>
+
+									<?php _e( 'Awaiting review:', 'tribe-events-calendar' ); ?>
 									<span id="total_pending"><?php echo $total_pending ?></span>
 								</span>
 							<?php endif ?>

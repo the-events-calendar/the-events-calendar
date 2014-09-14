@@ -915,6 +915,15 @@ if ( class_exists( 'TribeEvents' ) ) {
 		return apply_filters( 'tribe_datetime_format', $format );
 
 	}
+	
+	/** 
+	 * 
+	 * @return mixed|void
+	 */
+	function tribe_get_time_format( ) {
+		$format = get_option('time_format' );
+		return apply_filters( 'tribe_time_format', $format );
+	}
 
 	/**
 	 * Return the details of the start/end date/time.
@@ -1168,9 +1177,9 @@ if ( class_exists( 'TribeEvents' ) ) {
 
 		if ( $additional ) {
 			$json = array_merge( (array) $json, (array) $additional );
-		}
+		}		
 
-		$json = apply_filters( 'tribe_events_template_data_array', $event, $additional, $json );
+		$json = apply_filters( 'tribe_events_template_data_array', $json, $event, $additional );
 
 		$json = tribe_prepare_for_json_deep( $json );
 

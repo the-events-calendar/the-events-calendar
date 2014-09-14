@@ -413,8 +413,8 @@ if ( ! class_exists( 'TribeEventsQuery' ) ) {
 				global $wpdb;
 				$postmeta_table             = self::postmeta_table( $query );
 				$fields                     = array();
-				$fields['event_start_date'] = "{$postmeta_table}.meta_value as EventStartDate";
-				$fields['event_end_date']   = "tribe_event_end_date.meta_value as EventEndDate";
+				$fields['event_start_date'] = "MIN({$postmeta_table}.meta_value) as EventStartDate";
+				$fields['event_end_date']   = "MIN(tribe_event_end_date.meta_value) as EventEndDate";
 				$fields                     = apply_filters( 'tribe_events_query_posts_fields', $fields, $query );
 
 				return $field_sql . ', ' . implode( ', ', $fields );
@@ -640,7 +640,7 @@ if ( ! class_exists( 'TribeEventsQuery' ) ) {
 				$order   = ( isset( $query->order ) && ! empty( $query->order ) ) ? $query->order : $query->get( 'order' );
 				$orderby = ( isset( $query->orderby ) && ! empty( $query->orderby ) ) ? $query->orderby : $query->get( 'orderby' );
 
-				$order_sql = "DATE({$postmeta_table}.meta_value) {$order}, TIME({$postmeta_table}.meta_value) {$order}";
+				$order_sql = "DATE(MIN({$postmeta_table}.meta_value)) {$order}, TIME({$postmeta_table}.meta_value) {$order}";
 
 				do_action( 'log', 'orderby', 'default', $orderby );
 
