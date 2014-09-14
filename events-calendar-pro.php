@@ -293,31 +293,8 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		 * @return 3.0
 		 */
 		function maybeAddEventTitle( $new_title, $title, $sep = null ){
-			global $wp_query;
-
-			switch( TribeEvents::instance()->displaying ){
-				case 'week':
-					$new_title = sprintf( '%s %s %s ',
-						__( 'Events for week of', 'tribe-events-calendar-pro' ),
-						date_i18n( tribe_get_date_format(true), strtotime( tribe_get_first_week_day( $wp_query->get( 'start_date' ) ) ) ),
-						$sep
-					);
-					break;
-				case 'photo':
-				case 'map':
-					if( tribe_is_past() ) {
-						$new_title = __( 'Past Events', 'tribe-events-calendar-pro' ) . ' ' . $sep . ' ';
-					} else {
-						$new_title = __( 'Upcoming Events', 'tribe-events-calendar-pro' ) . ' ' . $sep . ' ';
-					}
-					break;
-			}
-			if( tribe_is_showing_all() ){
-				$new_title = sprintf( '%s %s %s ',
-					__( 'All events for', 'tribe-events-calendar-pro' ),
-					get_the_title(),
-					$sep
-				);
+			if ( empty( $_REQUEST['tribe-bar-date'] ) && ( tribe_is_map() || tribe_is_photo() || tribe_is_week() ) ) {
+				$new_title = $this->reset_page_title( $new_title ). ' ' . $sep . ' ' . $title;
 			}
 			return apply_filters( 'tribe_events_pro_add_title', $new_title, $title, $sep );
 		}
@@ -345,7 +322,6 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		function reset_page_title( $content ){
 
 			global $wp_query;
-			$tec = TribeEvents::instance();
 			$date_format = apply_filters( 'tribe_events_pro_page_title_date_format', tribe_get_date_format( true ) );
 
 			if( tribe_is_showing_all() ){
@@ -360,15 +336,6 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 				$reset_title = sprintf( __('Events for week of %s', 'tribe-events-calendar-pro'),
 					date_i18n( $date_format, strtotime( tribe_get_first_week_day($wp_query->get('start_date') ) ) )
 					);
-			}
-
-			// map or photo view titles
-			if( tribe_is_map() || tribe_is_photo() ) {
-				if( tribe_is_past() ) {
-					$reset_title = __( 'Past Events', 'tribe-events-calendar-pro' );
-				} else {
-					$reset_title = __( 'Upcoming Events', 'tribe-events-calendar-pro' );
-				}
 			}
 
 			return isset($reset_title) ? apply_filters( 'tribe_template_factory_debug', $reset_title, 'tribe_get_events_title' ) : $content;
