@@ -55,7 +55,7 @@ class Tribe__Events__Backcompat {
 	public function filter_default_view( $default_view, $default, $option ) {
 		if ( $option == 'viewOption' ) {
 			if ( $default_view == 'upcoming' ) {
-				$value = 'list';
+				$default_view = 'list';
 			}
 		}
 
