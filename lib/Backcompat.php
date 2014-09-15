@@ -18,7 +18,6 @@ class Tribe__Events__Backcompat {
 		add_filter( 'tribe_get_single_option', array( $this, 'filter_multiday_cutoff' ), 10, 3 );
 		add_filter( 'tribe_get_single_option', array( $this, 'filter_default_view' ), 10, 3 );
 		add_filter( 'tribe_get_single_option', array( $this, 'filter_enabled_views' ), 10, 3 );
-
 		add_action( 'parse_query', array( $this, 'change_qv_to_list' ), 45 );
 	}
 
@@ -91,12 +90,13 @@ class Tribe__Events__Backcompat {
 	public function change_qv_to_list( $query ) {
 
 		if ( $query->get('eventDisplay') == 'upcoming' ) {
+			_deprecated_argument('tribe_get_events', '3.8', "Setting eventDisplay to 'upcoming' is deprecated. Please use 'list' instead.");
 			$query->set( 'eventDisplay', 'list' );
 		}
 
 		if ( $query->get('eventDisplay') == 'past' ) {
 			$query->set( 'eventDisplay', 'list' );
-			$_REQUEST['tribe_event_display'] = 'past';
+			$query->tribe_is_past = true;
 		}
 
 	}

@@ -101,10 +101,10 @@ if ( ! class_exists( 'TribeEventsQuery' ) ) {
 				: false; // move along, this is not the query you are looking for
 
 			// is the query pulling posts from the past
-			if ( ! empty( $_REQUEST['tribe_event_display'] ) && $_REQUEST['tribe_event_display'] == 'past' ) {
+			if ( ( $query->is_main_query() || tribe_is_ajax_view_request() ) && ! empty( $_REQUEST['tribe_event_display'] ) && $_REQUEST['tribe_event_display'] == 'past' ) {
 				$query->tribe_is_past = true;
 			} else {
-				$query->tribe_is_past = false;
+				$query->tribe_is_past = isset( $query->tribe_is_past ) ? $query->tribe_is_past : false;
 			}
 
 			// never allow 404 on month view

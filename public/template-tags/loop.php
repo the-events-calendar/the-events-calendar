@@ -222,7 +222,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 
 			// Edit the current event query to look for an upcoming event
 			$args                 = (array) $wp_query->query;
-			$args['eventDisplay'] = 'upcoming';
+			$args['eventDisplay'] = 'list';
 
 			if ( tribe_is_past() ) {
 				$args['paged'] = $wp_query->query_vars['paged'] ? $wp_query->query_vars['paged'] - 1 : 0;
