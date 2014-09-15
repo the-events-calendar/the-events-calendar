@@ -39,11 +39,6 @@ if ( ! class_exists( 'TribeEventsQuery' ) ) {
 		 **/
 		public static function parse_query( $query ) {
 
-			// include events in search results
-			if ( $query->is_search && $query->get( 'post_type' ) == '' ) {
-				$query->set( 'post_type', 'any' );
-			}
-
 			// set paged
 			if ( $query->is_main_query() && isset( $_GET['tribe_paged'] ) ) {
 				$query->set( 'paged', $_REQUEST['tribe_paged'] );
