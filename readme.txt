@@ -346,6 +346,9 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Added ability to import the Event Website in the CSV importer (props @hvizdak for the pull request)
 * Removed hard-coded format for 2nd date in a date range for all day events, added a new filter 'tribe_format_second_date_in_range'
 * Fixed some untranslated strings
+* Updated Chosen select library to version 1.1.0
+* Fixed bug with widgets breaking the theme customizer layout
+* Fixed some issues with browser history and the view switcher javascript
 
 = 3.7. =
 
