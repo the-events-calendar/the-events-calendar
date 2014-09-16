@@ -915,6 +915,15 @@ if ( class_exists( 'TribeEvents' ) ) {
 		return apply_filters( 'tribe_datetime_format', $format );
 
 	}
+	
+	/** 
+	 * 
+	 * @return mixed|void
+	 */
+	function tribe_get_time_format( ) {
+		$format = get_option('time_format' );
+		return apply_filters( 'tribe_time_format', $format );
+	}
 
 	/**
 	 * Return the details of the start/end date/time.
@@ -1273,9 +1282,6 @@ if ( class_exists( 'TribeEvents' ) ) {
 		$disabled = array();
 		foreach ( $views as $view ) {
 			if ( ! in_array( $view['displaying'], $enabled ) ) {
-				if ( $view['displaying'] == 'upcoming' ) {
-					$disabled[] = 'past';
-				}
 				$disabled[] = $view['displaying'];
 			}
 		}
