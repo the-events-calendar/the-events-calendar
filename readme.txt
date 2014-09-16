@@ -234,6 +234,8 @@ Our Premium Plugins:
 * Incorporated updated Estonian translation files, courtesy of Andra Saimre
 * Fix bug that caused instances of a recurring event to disappear when recurrence was removed and then added back to an event
 * Fix bug that caused missing custom meta in events in a recurring series
+* Fixed bad nesting in advanced list widget breaking the theme customizer
+* Fixed issues with select2 implementation in our widgets breaking the theme customizer
 * Remove confirmation dialog when bulk deleting events
 * Correctly identify recurring events as recurring even if they only have one instance
 * Removed some unused code
