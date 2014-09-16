@@ -1282,9 +1282,6 @@ if ( class_exists( 'TribeEvents' ) ) {
 		$disabled = array();
 		foreach ( $views as $view ) {
 			if ( ! in_array( $view['displaying'], $enabled ) ) {
-				if ( $view['displaying'] == 'upcoming' ) {
-					$disabled[] = 'past';
-				}
 				$disabled[] = $view['displaying'];
 			}
 		}

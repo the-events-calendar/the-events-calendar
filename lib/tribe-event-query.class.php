@@ -104,11 +104,10 @@ if ( ! class_exists( 'TribeEventsQuery' ) ) {
 				: false; // move along, this is not the query you are looking for
 
 			// is the query pulling posts from the past
-			$query->tribe_is_past = ( ! empty( $query->query_vars['eventDisplay'] ) && $query->query_vars['eventDisplay'] == 'past' )
-				? true // query is requesting past posts
-				: false;
-			if ( ! empty( $_REQUEST['tribe_event_display'] ) && $_REQUEST['tribe_event_display'] == 'past' ) {
+			if ( ( $query->is_main_query() || tribe_is_ajax_view_request() ) && ! empty( $_REQUEST['tribe_event_display'] ) && $_REQUEST['tribe_event_display'] == 'past' ) {
 				$query->tribe_is_past = true;
+			} else {
+				$query->tribe_is_past = isset( $query->tribe_is_past ) ? $query->tribe_is_past : false;
 			}
 
 			// never allow 404 on month view
@@ -249,8 +248,7 @@ if ( ! class_exists( 'TribeEventsQuery' ) ) {
 								$query->set( 'eventDate', $query->get( 'eventDate' ) );
 							}
 							break;
-						case 'upcoming':
-						case 'past' :
+						case 'list':
 						default: // default display query
 							$event_date = ( $query->get( 'eventDate' ) != '' )
 								? $query->get( 'eventDate' )
@@ -258,8 +256,9 @@ if ( ! class_exists( 'TribeEventsQuery' ) ) {
 							if ( ! $query->tribe_is_past ) {
 								$query->set( 'start_date', tribe_event_beginning_of_day( $event_date ) );
 								$query->set( 'end_date', '' );
-								$query->set( 'order', self::set_order( null, $query ) );
+								$query->set( 'order', self::set_order( 'ASC', $query ) );
 							} else {
+								// on past view, set the passed date as the end date
 								$query->set( 'start_date', '' );
 								$query->set( 'end_date', tribe_event_end_of_day( $event_date ) );
 								$query->set( 'order', self::set_order( 'DESC', $query ) );

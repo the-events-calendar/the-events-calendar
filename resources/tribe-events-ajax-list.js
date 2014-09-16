@@ -177,7 +177,8 @@
 
 				ts.url_params = {
 					action     : 'tribe_list',
-					tribe_paged: ts.paged
+					tribe_paged: ts.paged,
+					tribe_event_display: ts.view
 				};
 
 				if ( tribe_hash_string.length ) {
