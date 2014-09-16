@@ -91,10 +91,6 @@ module.exports = function(grunt) {
 		'package', [
 			'gitcheckout:dist',
 			'gitpull:dist',
-			'preprocess',
-			'uglify',
-			'cssmin',
-			'clean',
 			'copy:dist',
 			'compress:dist',
 			'clean:dist'
