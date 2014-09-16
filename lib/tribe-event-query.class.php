@@ -44,20 +44,23 @@ if ( ! class_exists( 'TribeEventsQuery' ) ) {
 				$query->set( 'paged', $_REQUEST['tribe_paged'] );
 			}
 
-			// Add tribe events post type to tag and search queries
-			if ( ( $query->is_tag || $query->is_search ) && $query->get( 'post_type' ) != 'any' ) {
-
+			// Add tribe events post type to tag queries
+			if ( $query->is_tag && (array) $query->get( 'post_type' ) != array( TribeEvents::POSTTYPE ) ) {
 				$types = $query->get( 'post_type' );
 				if ( empty( $types ) ) {
-					$types = 'post';
+					$types = array( 'post' );
 				}
-
-				$types = (array) $types;
-
-				if ( ! in_array( TribeEvents::POSTTYPE, $types ) ) {
+				if ( is_array( $types ) ) {
 					$types[] = TribeEvents::POSTTYPE;
+				} else {
+					if ( is_string( $types ) ) {
+						$types = array( $types, TribeEvents::POSTTYPE );
+					} else {
+						if ( $types != 'any' ) {
+							$types = array( 'post', TribeEvents::POSTTYPE );
+						}
+					}
 				}
-
 				$query->set( 'post_type', $types );
 			}
 
@@ -101,11 +104,10 @@ if ( ! class_exists( 'TribeEventsQuery' ) ) {
 				: false; // move along, this is not the query you are looking for
 
 			// is the query pulling posts from the past
-			$query->tribe_is_past = ( ! empty( $query->query_vars['eventDisplay'] ) && $query->query_vars['eventDisplay'] == 'past' )
-				? true // query is requesting past posts
-				: false;
-			if ( ! empty( $_REQUEST['tribe_event_display'] ) && $_REQUEST['tribe_event_display'] == 'past' ) {
+			if ( ( $query->is_main_query() || tribe_is_ajax_view_request() ) && ! empty( $_REQUEST['tribe_event_display'] ) && $_REQUEST['tribe_event_display'] == 'past' ) {
 				$query->tribe_is_past = true;
+			} else {
+				$query->tribe_is_past = isset( $query->tribe_is_past ) ? $query->tribe_is_past : false;
 			}
 
 			// never allow 404 on month view
@@ -196,6 +198,8 @@ if ( ! class_exists( 'TribeEventsQuery' ) ) {
 
 				$query->query_vars['eventDisplay'] = ! empty( $query->query_vars['eventDisplay'] ) ? $query->query_vars['eventDisplay'] : TribeEvents::instance()->displaying;
 
+				//@todo stop calling EOD cutoff transformations all over the place
+
 				if ( ! empty( $query->query_vars['eventDisplay'] ) ) {
 					switch ( $query->query_vars['eventDisplay'] ) {
 						case 'custom':
@@ -244,19 +248,19 @@ if ( ! class_exists( 'TribeEventsQuery' ) ) {
 								$query->set( 'eventDate', $query->get( 'eventDate' ) );
 							}
 							break;
-						case 'upcoming':
-						case 'past' :
+						case 'list':
 						default: // default display query
 							$event_date = ( $query->get( 'eventDate' ) != '' )
 								? $query->get( 'eventDate' )
 								: date_i18n( TribeDateUtils::DBDATETIMEFORMAT );
 							if ( ! $query->tribe_is_past ) {
-								$query->set( 'start_date', $event_date );
+								$query->set( 'start_date', tribe_event_beginning_of_day( $event_date ) );
 								$query->set( 'end_date', '' );
-								$query->set( 'order', self::set_order( null, $query ) );
+								$query->set( 'order', self::set_order( 'ASC', $query ) );
 							} else {
+								// on past view, set the passed date as the end date
 								$query->set( 'start_date', '' );
-								$query->set( 'end_date', $event_date );
+								$query->set( 'end_date', tribe_event_end_of_day( $event_date ) );
 								$query->set( 'order', self::set_order( 'DESC', $query ) );
 							}
 							$query->set( 'orderby', self::set_orderby( null, $query ) );
@@ -381,11 +385,10 @@ if ( ! class_exists( 'TribeEventsQuery' ) ) {
 			if ( ! empty( $query->tribe_is_event_query ) || ! empty( $query->tribe_is_multi_posttype ) ) {
 				if ( has_filter( 'tribe_events_query_posts_groupby' ) ) {
 					_deprecated_function( "The 'tribe_events_query_posts_groupby' filter", '3.8', " the 'posts_groupby' filter" );
+					return apply_filters( 'tribe_events_query_posts_groupby', $groupby_sql, $query );
 				}
-				return apply_filters( 'tribe_events_query_posts_groupby', '', $query );
-			} else {
-				return $groupby_sql;
 			}
+			return $groupby_sql;
 		}
 
 		/**
@@ -412,8 +415,8 @@ if ( ! class_exists( 'TribeEventsQuery' ) ) {
 				global $wpdb;
 				$postmeta_table             = self::postmeta_table( $query );
 				$fields                     = array();
-				$fields['event_start_date'] = "{$postmeta_table}.meta_value as EventStartDate";
-				$fields['event_end_date']   = "tribe_event_end_date.meta_value as EventEndDate";
+				$fields['event_start_date'] = "MIN({$postmeta_table}.meta_value) as EventStartDate";
+				$fields['event_end_date']   = "MIN(tribe_event_end_date.meta_value) as EventEndDate";
 				$fields                     = apply_filters( 'tribe_events_query_posts_fields', $fields, $query );
 
 				return $field_sql . ', ' . implode( ', ', $fields );
@@ -516,8 +519,8 @@ if ( ! class_exists( 'TribeEventsQuery' ) ) {
 
 				$postmeta_table = self::postmeta_table( $query );
 
-				$start_date = ! empty( $query->start_date ) ? $query->start_date : $query->get( 'start_date' );
-				$end_date   = ! empty( $query->end_date ) ? $query->end_date : $query->get( 'end_date' );
+				$start_date = $query->get( 'start_date' );
+				$end_date   = $query->get( 'end_date' );
 
 				// we can't store end date directly because it messes up the distinct clause
 				$event_end_date = apply_filters( 'tribe_events_query_end_date_column', 'tribe_event_end_date.meta_value' );
@@ -639,7 +642,7 @@ if ( ! class_exists( 'TribeEventsQuery' ) ) {
 				$order   = ( isset( $query->order ) && ! empty( $query->order ) ) ? $query->order : $query->get( 'order' );
 				$orderby = ( isset( $query->orderby ) && ! empty( $query->orderby ) ) ? $query->orderby : $query->get( 'orderby' );
 
-				$order_sql = "DATE({$postmeta_table}.meta_value) {$order}, TIME({$postmeta_table}.meta_value) {$order}";
+				$order_sql = "DATE(MIN({$postmeta_table}.meta_value)) {$order}, TIME({$postmeta_table}.meta_value) {$order}";
 
 				do_action( 'log', 'orderby', 'default', $orderby );
 

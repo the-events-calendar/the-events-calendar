@@ -265,6 +265,12 @@ if ( ! class_exists( 'Tribe_Template_Factory' ) ) {
 		 **/
 		public function setup_view() {
 
+			global $wp_query;
+
+			if ( $wp_query->tribe_is_past ) {
+				$wp_query->posts = array_reverse( $wp_query->posts );
+			}
+
 			// set up the excerpt
 			if ( is_int( $this->excerpt_length ) ) {
 				add_filter( 'excerpt_length', array( $this, 'excerpt_length' ) );

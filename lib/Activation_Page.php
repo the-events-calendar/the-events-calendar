@@ -146,6 +146,7 @@ class Tribe__Events__Activation_Page {
 	}
 
 	protected function update_page_content() {
+		require_once("Changelog_Reader.php");
 		return $this->load_template('admin-update-message');
 	}
 

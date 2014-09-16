@@ -136,9 +136,9 @@ if ( ! class_exists( 'Tribe_Events_Day_Template' ) ) {
 
 			// No events found on this day
 			if ( empty( $search_term ) && empty( $geographic_term ) && ! empty( $tax_term ) ) {
-				TribeEvents::setNotice( 'events-not-found', sprintf( __( 'No matching events listed under %s scheduled for <strong>%s</strong>. Please try another day.', 'tribe-events-calendar-pro' ), $tax_term, date_i18n( tribe_get_date_format( true ), strtotime( get_query_var( 'eventDate' ) ) ) ) );
+				TribeEvents::setNotice( 'events-not-found', sprintf( __( 'No matching events listed under %s scheduled for <strong>%s</strong>. Please try another day.', 'tribe-events-calendar' ), $tax_term, date_i18n( tribe_get_date_format( true ), strtotime( get_query_var( 'eventDate' ) ) ) ) );
 			} elseif ( empty( $search_term ) && empty( $geographic_term ) ) {
-				TribeEvents::setNotice( 'events-not-found', sprintf( __( 'No events scheduled for <strong>%s</strong>. Please try another day.', 'tribe-events-calendar-pro' ), date_i18n( tribe_get_date_format( true ), strtotime( get_query_var( 'eventDate' ) ) ) ) );
+				TribeEvents::setNotice( 'events-not-found', sprintf( __( 'No events scheduled for <strong>%s</strong>. Please try another day.', 'tribe-events-calendar' ), date_i18n( tribe_get_date_format( true ), strtotime( get_query_var( 'eventDate' ) ) ) ) );
 			} else {
 				parent::set_notices();
 			}

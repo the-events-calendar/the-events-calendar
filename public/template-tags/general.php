@@ -206,6 +206,37 @@ if ( class_exists( 'TribeEvents' ) ) {
 	}
 
 	/**
+	 * Returns the current event post object (if there is one) or else null.
+	 *
+	 * Optionally the post object or ID of an event can be passed in and,
+	 * again, the event post object will be returned if possible.
+	 *
+	 * @param $event
+	 * @return null|WP_Post
+	 */
+	function tribe_events_get_event( $event = null ) {
+		global $post;
+
+		if ( null === $event ) {
+			return $post;
+		}
+
+		if ( is_a( $event, 'WP_Post' ) && TribeEvents::POSTTYPE === get_post_type( $event ) ) {
+			return $post;
+		}
+
+		if ( is_numeric( $event ) && $event == intval( $event ) ) {
+			$event = get_post( $event );
+
+			if ( null !== $event && TribeEvents::POSTTYPE === get_post_type( $event ) ) {
+				return $event;
+			}
+		}
+
+		return null;
+	}
+
+	/**
 	 * All Day Event Test
 	 *
 	 * Returns true if the event is an all day event
@@ -884,6 +915,15 @@ if ( class_exists( 'TribeEvents' ) ) {
 		return apply_filters( 'tribe_datetime_format', $format );
 
 	}
+	
+	/** 
+	 * 
+	 * @return mixed|void
+	 */
+	function tribe_get_time_format( ) {
+		$format = get_option('time_format' );
+		return apply_filters( 'tribe_time_format', $format );
+	}
 
 	/**
 	 * Return the details of the start/end date/time.
@@ -1039,6 +1079,27 @@ if ( class_exists( 'TribeEvents' ) ) {
 	}
 
 	/**
+	 * Recursively iterate through an nested structure, calling
+	 * tribe_prepare_for_json() on all scalar values
+	 *
+	 * @param mixed $value The data to be cleaned
+	 * @return mixed The clean data
+	 */
+	function tribe_prepare_for_json_deep( $value ) {
+		if ( is_array( $value ) ) {
+			$value = array_map('tribe_prepare_for_json_deep', $value);
+		} elseif ( is_object($value) ) {
+			$vars = get_object_vars( $value );
+			foreach ($vars as $key=>$data) {
+				$value->{$key} = tribe_prepare_for_json_deep( $data );
+			}
+		} elseif ( is_string( $value ) ) {
+			$value = tribe_prepare_for_json($value);
+		}
+		return $value;
+	}
+
+	/**
 	 * Returns json for javascript templating functions throughout the plugin.
 	 *
 	 * @param $event
@@ -1098,13 +1159,13 @@ if ( class_exists( 'TribeEvents' ) ) {
 		} else {
 			$excerpt = $event->post_content;
 		}
-		$excerpt = tribe_prepare_for_json( TribeEvents::instance()->truncate( $excerpt, 30 ) );
+		$excerpt = TribeEvents::instance()->truncate( $excerpt, 30 );
 
-		$category_classes = tribe_prepare_for_json( tribe_events_event_classes( $event->ID, false ) );
+		$category_classes = tribe_events_event_classes( $event->ID, false );
 
 		$json = array(
 			'eventId'         => $event->ID,
-			'title'           => tribe_prepare_for_json( $event->post_title ),
+			'title'           => $event->post_title,
 			'permalink'       => tribe_get_event_link( $event->ID ),
 			'imageSrc'        => $image_src,
 			'startTime'       => $start_time,
@@ -1115,9 +1176,12 @@ if ( class_exists( 'TribeEvents' ) ) {
 		);
 
 		if ( $additional ) {
-			$additional = array_map( 'tribe_prepare_for_json', $additional );
-			$json       = array_merge( (array) $json, (array) $additional );
-		}
+			$json = array_merge( (array) $json, (array) $additional );
+		}		
+
+		$json = apply_filters( 'tribe_events_template_data_array', $json, $event, $additional );
+
+		$json = tribe_prepare_for_json_deep( $json );
 
 		return json_encode( $json );
 	}
@@ -1218,9 +1282,6 @@ if ( class_exists( 'TribeEvents' ) ) {
 		$disabled = array();
 		foreach ( $views as $view ) {
 			if ( ! in_array( $view['displaying'], $enabled ) ) {
-				if ( $view['displaying'] == 'upcoming' ) {
-					$disabled[] = 'past';
-				}
 				$disabled[] = $view['displaying'];
 			}
 		}
@@ -1414,7 +1475,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 		}
 
 		// If not, try to determine now
-		TribeEvents::instance()->rebuild_earliest_latest();
+		TribeEvents::instance()->rebuild_known_range();
 		$latest = tribe_get_option( 'latest_date', false );
 		if ( false !== $latest ) {
 			return TribeDateUtils::reformat( $latest, $format );
@@ -1441,7 +1502,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 		}
 
 		// If not, try to determine now
-		TribeEvents::instance()->rebuild_earliest_latest();
+		TribeEvents::instance()->rebuild_known_range();
 		$earliest = tribe_get_option( 'earliest_date', false );
 		if ( false !== $earliest ) {
 			return TribeDateUtils::reformat( $earliest, $format );

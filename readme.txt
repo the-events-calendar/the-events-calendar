@@ -31,7 +31,7 @@ We've poured hundreds of hours into QA by a dedicated support team, monthly usab
 
 The team at Modern Tribe stands by our work and offers light support every Wednesday to the community via the WordPress.org support forums. Feel free to ask a question if you're having a problem with implementation or if you find bugs. Looking for help NOW or need a deeper level of support? Add the <a href="http://m.tri.be/2c">premium add-on plugin</a> and you get access to premium support forums with under 24hr response times on weekdays.
 
-Enjoy using The Events Calendar, know how to get under the hood, and want to make money helping people? We're growing our community team. <a href="http://m.tri.be/mk">Check it out!</a>
+Enjoy using The Events Calendar, know how to get under the hood and want to make money helping people? We're growing our community team and would love to hear from you. If you’re interested, <a href="http://m.tri.be/mk">check this out!</a>
 
 = PLUG-N-PLAY & HIGHLY CUSTOMIZABLE =
 
@@ -243,9 +243,9 @@ The plugin is produced by <a href="http://m.tri.be/2s">Modern Tribe Inc</a>.
 * Danish from Hans Christian Andersen
 * Dutch from Dirk Westenberg
 * Estonian from Andra Saimre
-* Finnish by Ari-Pekka Koponen
+* Finnish by Elias Okkonen
 * French from Laurent Proulx
-* German from Dennis Gruebner 
+* German from Stefan Dorscht and Oliver Heinrich
 * Greek from Yannis Troullinos
 * Icelandic by Baldvin Berndsen
 * Indonesian from Didik Priyanto
@@ -255,16 +255,17 @@ The plugin is produced by <a href="http://m.tri.be/2s">Modern Tribe Inc</a>.
 * Norwegian Bokmål by Morten Ruud
 * Norwegian Nynorsk by Torbjørn Lauen
 * Polish from Marek Kosina
-* Portuguese from Antonio Pratas
+* Portuguese from Sérgio Leite
 * Romanian from Cosmin Vaman
 * Russian from Alexander Tinyaev
 * Serbian from Marko Manojlovic
+* Slovenian from Žiga Vajdic
 * Spanish from Juanjo Navarro
 * Swedish from Jonas Reinicke
 * Turkish by Derin Korman
 * Ukranian by Vasily Vishnyakov
 
-* Previous translators include J.F.M. Cornelissen, Frans Pronk, Hector Gil Rizo, Roberto Scano, Maria Tsilimidou, Martin Kristan, Oliver Heinrich, Ben Andersen, Mikhail Michouris, Bastien BC, Dionizio Bonfim Bach, Mihai Burcea, Ed Boon, Rick van Dalen, Jacob Roel Meijering, hristian Andersen, Michael Sebel, Filippo Montanari, David Decker, Kamil Szymanski, Erik Massop, “Terje With Lunndal", Andreas Lorentsen, Sagi Shrieber, Matthew Meyer, Arno Faure, Fanny Heraud, Vincent G from Host1Free, , Petri Kajander, Fran Rosa, Nico (wsMaurik), Panos Efstratiou, Dominique Monhardt, Thomas Butzek, Kjell Vestnes, Luiza Libardi, Diego Meneghetti, Beno Burgener, Burak Pehlevan, and Alexey Fedorov
+* Previous translators include Ari-Pekka Koponen, Antonio Pratas, Dennis Gruebner , J.F.M. Cornelissen, Frans Pronk, Hector Gil Rizo, Roberto Scano, Maria Tsilimidou, Martin Kristan, Oliver Heinrich, Ben Andersen, Mikhail Michouris, Bastien BC, Dionizio Bonfim Bach, Mihai Burcea, Ed Boon, Rick van Dalen, Jacob Roel Meijering, hristian Andersen, Michael Sebel, Filippo Montanari, David Decker, Kamil Szymanski, Erik Massop, “Terje With Lunndal", Andreas Lorentsen, Sagi Shrieber, Matthew Meyer, Arno Faure, Fanny Heraud, Vincent G from Host1Free, , Petri Kajander, Fran Rosa, Nico (wsMaurik), Panos Efstratiou, Dominique Monhardt, Thomas Butzek, Kjell Vestnes, Luiza Libardi, Diego Meneghetti, Beno Burgener, Burak Pehlevan, and Alexey Fedorov
 
 == Add-Ons ==
 
@@ -322,6 +323,29 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Incorporated updated Spanish translation files, courtesy of Juanjo Navarro
 * Incorporated updated Danish translation files, courtesy of Hans Christian Andersen
 * Incorporated updated Dutch translation files, courtesy of Dirk Westenberg
+* Incorporated updated Portuguese translation files, courtesy of Sérgio Leite
+* Incorporated new Russian translation files, courtesy of Žiga Vajdic
+* Incorporated updated German translation files, courtesy of Stefan Dorscht and Oliver Heinrich
+* Incorporated updated Finnish translation files, courtesy of Elias Okkonen
+* Incorporated updated Estonian translation files, courtesy of Andra Saimre
+* Changed capability for importing events from "administrator" to "import"
+* Fixed an issue where mobile styles were active when printing
+* Venues with no address now display on the single event page 
+* Fixed an issue where duplicate pagination links were displaying in mobile week view
+* Added plugin activation/upgrade pages
+* Fixed an issue with styling of Recurring Events in the list view widget
+* Removed some unused code
+* Fixed list view not respecting the end-of-day cutoff
+* Reformatted the code to adhere to WordPress coding standards
+* Removed /upcoming and /past from list view URLs, and change to /list
+* Past view events are no longer reverse ordered
+* Changed page titles to show date range of currently displayed events when a date is selected in the tribe bar
+* Removed "audit trail" functionality
+* Fixed bug when using default permalinks, where Day view would link to the home page
+* Moved ajax view handlers to the appropriate template classes
+* Added ability to import the Event Website in the CSV importer (props @hvizdak for the pull request)
+* Removed hard-coded format for 2nd date in a date range for all day events, added a new filter 'tribe_format_second_date_in_range'
+* Fixed some untranslated strings
 
 = 3.7. =
 
@@ -398,7 +422,6 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Added updated Czech translation files, courtesy of Petr Bastan
 * Added updated Greek translation files, courtesy of Yannis Troullinos
 * Added new Danish translation files, courtesy of @bechster
-
 
 = 3.5.1 =
 

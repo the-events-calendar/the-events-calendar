@@ -106,8 +106,12 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 		public $taxRewriteSlug = 'event/category';
 		public $tagRewriteSlug = 'event/tag';
 		protected $monthSlug = 'month';
-		protected $pastSlug = 'past';
+
+		// @todo remove in 4.0
 		protected $upcomingSlug = 'upcoming';
+		protected $pastSlug = 'past';
+
+		protected $listSlug = 'list';
 		public $daySlug = 'day';
 		public $todaySlug = 'today';
 		protected $postExceptionThrown = false;
@@ -235,6 +239,7 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 			require_once $this->pluginPath . 'public/template-tags/link.php';
 			require_once $this->pluginPath . 'public/template-tags/widgets.php';
 			require_once $this->pluginPath . 'public/template-tags/meta.php';
+			require_once $this->pluginPath . 'public/template-tags/tickets.php';
 
 			// Load Advanced Functions
 			require_once $this->pluginPath . 'public/advanced-functions/event.php';
@@ -260,6 +265,8 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 			require_once 'tribe-support.class.php';
 			require_once 'tribe-amalgamator.php';
 			require_once 'tribe-events-update.class.php';
+			require_once 'EmbeddedMaps.php';
+			require_once 'Backcompat.php';
 
 			// Load Template Classes
 			require_once 'template-classes/month.php';
@@ -384,6 +391,7 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 			add_filter( 'wp_nav_menu_objects', array( $this, 'add_current_menu_item_class_to_events' ), null, 2 );
 
 			add_filter( 'generate_rewrite_rules', array( $this, 'filterRewriteRules' ) );
+			add_filter( 'template_redirect', array( $this, 'redirect_past_upcoming_view_urls' ), 11 );
 
 			/* Setup Tribe Events Bar */
 			add_filter( 'tribe-events-bar-views', array( $this, 'setup_listview_in_bar' ), 1, 1 );
@@ -395,9 +403,6 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 
 			add_filter( 'tribe-events-bar-views', array( $this, 'remove_hidden_views' ), 9999, 2 );
 			/* End Setup Tribe Events Bar */
-
-			add_filter( 'tribe_get_day_link', array( $this, 'add_empty_date_dayview_link' ), 10, 2 );
-
 
 			add_filter( 'admin_footer_text', array( $this, 'tribe_admin_footer_text' ), 1, 2 );
 			add_action( 'admin_menu', array( $this, 'addEventBox' ) );
@@ -417,7 +422,7 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 			add_filter( 'tribe_events_register_event_type_args', array( $this, 'setDashicon' ) );
 			add_action( "trash_" . TribeEvents::VENUE_POST_TYPE, array( $this, 'cleanupPostVenues' ) );
 			add_action( "trash_" . TribeEvents::ORGANIZER_POST_TYPE, array( $this, 'cleanupPostOrganizers' ) );
-			add_action( "wp_ajax_tribe_event_validation", array( $this, 'ajax_form_validate' ) );
+			add_action( 'wp_ajax_tribe_event_validation', array( $this, 'ajax_form_validate' ) );
 			add_action( 'tribe_debug', array( $this, 'renderDebug' ), 10, 2 );
 			add_action( 'tribe_debug', array( $this, 'renderDebug' ), 10, 2 );
 			add_action( 'plugins_loaded', array( 'TribeEventsCacheListener', 'instance' ) );
@@ -464,11 +469,10 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 			add_action( 'plugin_action_links_' . trailingslashit( $this->pluginDir ) . 'the-events-calendar.php', array( $this, 'addLinksToPluginActions' ) );
 			add_action( 'admin_menu', array( $this, 'addHelpAdminMenuItem' ), 50 );
 
+			add_action( 'tribe_events_pre_get_posts', array( $this, 'set_tribe_paged' ) );
+
 			// Upgrade material.
 			add_action( 'admin_init', array( $this, 'checkSuiteIfJustUpdated' ) );
-
-			// backwards compatibility
-			add_filter( 'tribe_get_single_option', array( $this, 'filter_multiday_cutoff' ), 10, 3 );
 
 			if ( defined( 'WP_LOAD_IMPORTERS' ) && WP_LOAD_IMPORTERS ) {
 				add_filter( 'wp_import_post_data_raw', array( $this, 'filter_wp_import_data_before' ), 10, 1 );
@@ -487,7 +491,7 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 
 			// only display custom text on Tribe Admin Pages
 			if ( isset( $current_screen->id ) && strpos( $current_screen->id, 'tribe' ) !== false ) {
-				return sprintf( __( 'Rate <strong>The Events Calendar</strong> <a href="%1$s" target="_blank">&#9733;&#9733;&#9733;&#9733;&#9733;</a> on <a href="%1$s" target="_blank">WordPress.org</a> to keep this plugin free.  Thanks from the friendly folks at Modern Tribe.' ), __( 'http://wordpress.org/support/view/plugin-reviews/the-events-calendar?filter=5' ) );
+				return sprintf( __( 'Rate <strong>The Events Calendar</strong> <a href="%1$s" target="_blank">&#9733;&#9733;&#9733;&#9733;&#9733;</a> on <a href="%1$s" target="_blank">WordPress.org</a> to keep this plugin free.  Thanks from the friendly folks at Modern Tribe.', 'tribe-events-calendar' ), __( 'http://wordpress.org/support/view/plugin-reviews/the-events-calendar?filter=5', 'tribe-events-calendar' ) );
 			} else {
 				return $footer_text;
 			}
@@ -579,6 +583,7 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 			$this->taxRewriteSlug                             = $this->getTaxRewriteSlug();
 			$this->tagRewriteSlug                             = $this->getTagRewriteSlug();
 			$this->monthSlug                                  = sanitize_title( __( 'month', 'tribe-events-calendar' ) );
+			$this->listSlug                               	  = sanitize_title( __( 'list', 'tribe-events-calendar' ) );
 			$this->upcomingSlug                               = sanitize_title( __( 'upcoming', 'tribe-events-calendar' ) );
 			$this->pastSlug                                   = sanitize_title( __( 'past', 'tribe-events-calendar' ) );
 			$this->daySlug                                    = sanitize_title( __( 'day', 'tribe-events-calendar' ) );
@@ -598,6 +603,7 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 			$this->errors                                     = '';
 
 			TribeEventsQuery::init();
+			Tribe__Events__Backcompat::init();
 			$this->registerPostType();
 
 			self::debug( sprintf( __( 'Initializing Tribe Events on %s', 'tribe-events-calendar' ), date( 'M, jS \a\t h:m:s a' ) ) );
@@ -1087,31 +1093,12 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 		 * @return mixed|void
 		 */
 		public function maybeAddEventTitle( $title, $sep = null ) {
-			switch ( get_query_var( 'eventDisplay' ) ) {
-				case 'upcoming':
-					$new_title = apply_filters( 'tribe_upcoming_events_title', __( "Upcoming Events", 'tribe-events-calendar' ) . ' ' . $sep . ' ' . $title, $sep );
-					break;
-				case 'past':
-					$new_title = apply_filters( 'tribe_past_events_title', __( "Past Events", 'tribe-events-calendar' ) . ' ' . $sep . ' ' . $title, $sep );
-					break;
-				case 'month':
-					if ( get_query_var( 'eventDate' ) ) {
-						$title_date = date_i18n( tribe_get_option( 'monthAndYearFormat', 'F Y' ), strtotime( get_query_var( 'eventDate' ) ) );
-						$new_title  = apply_filters( 'tribe_month_grid_view_title', sprintf( __( "Events for %s", 'tribe-events-calendar' ), $title_date ) . ' ' . $sep . ' ' . $title, $sep, $title_date );
-					} else {
-						$new_title = apply_filters( 'tribe_events_this_month_title', sprintf( __( "Events this month", 'tribe-events-calendar' ), get_query_var( 'eventDate' ) ) . ' ' . $sep . ' ' . $title, $sep );
-					}
-					break;
-				case 'day':
-					$title_date = date_i18n( tribe_get_date_format( true ), strtotime( get_query_var( 'eventDate' ) ) );
-					$new_title  = apply_filters( 'tribe_events_day_view_title', sprintf( __( "Events for %s", 'tribe-events-calendar' ), $title_date ) . ' ' . $sep . ' ', $sep, $title_date );
-					break;
-				default:
-					$new_title = $title;
-					break;
+			global $wp_query;
+			if ( $wp_query->tribe_is_event_query ) {
+				$new_title = tribe_get_events_title() . ' ' . $sep . ' ' . $title;
+				return apply_filters( 'tribe_events_add_title', $new_title, $title, $sep );
 			}
-			return apply_filters( 'tribe_events_add_title', $new_title, $title, $sep );
-
+			return $title;
 		}
 
 		/**
@@ -1662,7 +1649,7 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 			}
 			if ( $venues || $my_venues ) {
 				echo '<select class="chosen venue-dropdown" name="' . esc_attr( $name ) . '" id="saved_venue">';
-				echo '<option value="0">' . __( 'Use New ' . $this->singular_venue_label, 'tribe-events-calendar' ) . '</option>';
+				echo '<option value="0">' . sprintf( __( 'Use New %s', 'tribe-events-calendar' ), $this->singular_venue_label ) . '</option>';
 				if ( $my_venues ) {
 					echo $venues ? '<optgroup label="' . apply_filters( 'tribe_events_saved_venues_dropdown_my_optgroup', sprintf( __( 'My %s', 'tribe-events-calendar' ), $this->plural_venue_label ) ) . '">' : '';
 					echo $my_venue_options;
@@ -1947,27 +1934,6 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 			echo "/* ]]> */\n";
 			echo "</script>\n";
 
-		}
-
-		/**
-		 * We used to store midnight as 12:00. It should be 00:00.
-		 *
-		 * @param string $cutoff
-		 * @param string $default
-		 * @param string $option
-		 *
-		 * @return string
-		 */
-		public function filter_multiday_cutoff( $cutoff, $default, $option ) {
-			if ( $option == 'multiDayCutoff' ) {
-				$value = explode( ':', $cutoff );
-				if ( $value[0] == '12' ) {
-					$value[0] = '00';
-					$cutoff   = implode( ':', $value );
-				}
-			}
-
-			return $cutoff;
 		}
 
 		/**
@@ -2315,7 +2281,7 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 			} else {
 				global $wp_query;
 				if ( $wp_query && $wp_query->is_main_query() && ! empty( $wp_query->tribe_is_event_query ) ) {
-					$this->displaying = isset( $wp_query->query_vars['eventDisplay'] ) ? $wp_query->query_vars['eventDisplay'] : tribe_get_option( 'viewOption', 'upcoming' );
+					$this->displaying = isset( $wp_query->query_vars['eventDisplay'] ) ? $wp_query->query_vars['eventDisplay'] : tribe_get_option( 'viewOption', 'list' );
 
 					if ( is_single() && $this->displaying != 'all' ) {
 						$this->displaying = 'single-event';
@@ -2470,8 +2436,7 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 			$tagBase    = "(.*)" . $tagBase;
 
 			$month    = $this->monthSlug;
-			$upcoming = $this->upcomingSlug;
-			$past     = $this->pastSlug;
+			$list 	  = $this->listSlug;
 			$today    = $this->todaySlug;
 			$day      = $this->daySlug;
 			$newRules = array();
@@ -2481,18 +2446,16 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 			$newRules[$singleBase . '([^/]+)/(\d{4}-\d{2}-\d{2})/ical/?$'] = 'index.php?ical=1&' . self::POSTTYPE . '=' . $wp_rewrite->preg_index( 1 ) . "&eventDate=" . $wp_rewrite->preg_index( 2 );
 			$newRules[$singleBase . '([^/]+)/all/?$']                      = 'index.php?post_type=' . self::POSTTYPE . '&' . self::POSTTYPE . '=' . $wp_rewrite->preg_index( 1 ) . "&eventDisplay=all";
 
-			$newRules[$base . 'page/(\d+)']                  = 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=upcoming&paged=' . $wp_rewrite->preg_index( 1 );
+			$newRules[$base . 'page/(\d+)']                  = 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=list&paged=' . $wp_rewrite->preg_index( 1 );
 			$newRules[$base . 'ical']                        = 'index.php?post_type=' . self::POSTTYPE . '&ical=1';
-			$newRules[$base . '(feed|rdf|rss|rss2|atom)/?$'] = 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=upcoming&feed=' . $wp_rewrite->preg_index( 1 );
+			$newRules[$base . '(feed|rdf|rss|rss2|atom)/?$'] = 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=list&feed=' . $wp_rewrite->preg_index( 1 );
 			$newRules[$base . $month]                        = 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=month';
-			$newRules[$base . $upcoming . '/page/(\d+)']     = 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=upcoming&paged=' . $wp_rewrite->preg_index( 1 );
-			$newRules[$base . $upcoming]                     = 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=upcoming';
-			$newRules[$base . $past . '/page/(\d+)']         = 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=past&paged=' . $wp_rewrite->preg_index( 1 );
-			$newRules[$base . $past]                         = 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=past';
+			$newRules[$base . $list . '/page/(\d+)']     	 = 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=list&paged=' . $wp_rewrite->preg_index( 1 );
+			$newRules[$base . $list]                     	 = 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=list';
 			$newRules[$base . $today]                        = 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=day';
 			$newRules[$base . '(\d{4}-\d{2})$']              = 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=month' . '&eventDate=' . $wp_rewrite->preg_index( 1 );
 			$newRules[$base . '(\d{4}-\d{2}-\d{2})/?$']      = 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=day&eventDate=' . $wp_rewrite->preg_index( 1 );
-			$newRules[$base . 'feed/?$']                     = 'index.php?post_type=' . self::POSTTYPE . 'eventDisplay=upcoming&&feed=rss2';
+			$newRules[$base . 'feed/?$']                     = 'index.php?post_type=' . self::POSTTYPE . 'eventDisplay=list&&feed=rss2';
 			$newRules[$base . '?$']                          = 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=default';
 
 			// ical
@@ -2500,38 +2463,47 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 			$newRules[$base . '/(\d{4}-\d{2}-\d{2})/ical/?$'] = 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=day' . '&eventDate=' . $wp_rewrite->preg_index( 1 ) . '&ical=1';
 
 			// category rules.
-			$newRules[$catBase . '([^/]+)/page/(\d+)']                          = 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=upcoming&tribe_events_cat=' . $wp_rewrite->preg_index( 2 ) . '&paged=' . $wp_rewrite->preg_index( 3 );
+			$newRules[$catBase . '([^/]+)/page/(\d+)']                          = 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=list&tribe_events_cat=' . $wp_rewrite->preg_index( 2 ) . '&paged=' . $wp_rewrite->preg_index( 3 );
 			$newRules[$catBase . '([^/]+)/' . $month]                           = 'index.php?tribe_events_cat=' . $wp_rewrite->preg_index( 2 ) . '&post_type=' . self::POSTTYPE . '&eventDisplay=month';
-			$newRules[$catBase . '([^/]+)/' . $upcoming . '/page/(\d+)']        = 'index.php?tribe_events_cat=' . $wp_rewrite->preg_index( 2 ) . '&post_type=' . self::POSTTYPE . '&eventDisplay=upcoming&paged=' . $wp_rewrite->preg_index( 3 );
-			$newRules[$catBase . '([^/]+)/' . $upcoming]                        = 'index.php?tribe_events_cat=' . $wp_rewrite->preg_index( 2 ) . '&post_type=' . self::POSTTYPE . '&eventDisplay=upcoming';
-			$newRules[$catBase . '([^/]+)/' . $past . '/page/(\d+)']            = 'index.php?tribe_events_cat=' . $wp_rewrite->preg_index( 2 ) . '&post_type=' . self::POSTTYPE . '&eventDisplay=past&paged=' . $wp_rewrite->preg_index( 3 );
-			$newRules[$catBase . '([^/]+)/' . $past]                            = 'index.php?tribe_events_cat=' . $wp_rewrite->preg_index( 2 ) . '&post_type=' . self::POSTTYPE . '&eventDisplay=past';
+			$newRules[$catBase . '([^/]+)/' . $list . '/page/(\d+)']        	= 'index.php?tribe_events_cat=' . $wp_rewrite->preg_index( 2 ) . '&post_type=' . self::POSTTYPE . '&eventDisplay=list&paged=' . $wp_rewrite->preg_index( 3 );
+			$newRules[$catBase . '([^/]+)/' . $list]                        	= 'index.php?tribe_events_cat=' . $wp_rewrite->preg_index( 2 ) . '&post_type=' . self::POSTTYPE . '&eventDisplay=list';
 			$newRules[$catBase . '([^/]+)/' . $today]                           = 'index.php?tribe_events_cat=' . $wp_rewrite->preg_index( 2 ) . '&post_type=' . self::POSTTYPE . '&eventDisplay=day';
 			$newRules[$catBase . '([^/]+)/' . $day . '/(\d{4}-\d{2}-\d{2})/?$'] = 'index.php?tribe_events_cat=' . $wp_rewrite->preg_index( 2 ) . '&post_type=' . self::POSTTYPE . '&eventDisplay=day' . '&eventDate=' . $wp_rewrite->preg_index( 3 );
 			$newRules[$catBase . '([^/]+)/(\d{4}-\d{2})$']                      = 'index.php?tribe_events_cat=' . $wp_rewrite->preg_index( 2 ) . '&post_type=' . self::POSTTYPE . '&eventDisplay=month' . '&eventDate=' . $wp_rewrite->preg_index( 3 );
 			$newRules[$catBase . '([^/]+)/(\d{4}-\d{2}-\d{2})$']                = 'index.php?tribe_events_cat=' . $wp_rewrite->preg_index( 2 ) . '&post_type=' . self::POSTTYPE . '&eventDisplay=day&eventDate=' . $wp_rewrite->preg_index( 3 );
-			$newRules[$catBase . '([^/]+)/feed/?$']                             = 'index.php?tribe_events_cat=' . $wp_rewrite->preg_index( 2 ) . '&eventDisplay=upcoming&post_type=' . self::POSTTYPE . '&feed=rss2';
-			$newRules[$catBase . '([^/]+)/ical/?$']                             = 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=upcoming&tribe_events_cat=' . $wp_rewrite->preg_index( 2 ) . '&ical=1';
+			$newRules[$catBase . '([^/]+)/feed/?$']                             = 'index.php?tribe_events_cat=' . $wp_rewrite->preg_index( 2 ) . '&eventDisplay=list&post_type=' . self::POSTTYPE . '&feed=rss2';
+			$newRules[$catBase . '([^/]+)/ical/?$']                             = 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=list&tribe_events_cat=' . $wp_rewrite->preg_index( 2 ) . '&ical=1';
 			$newRules[$catBase . '([^/]+)/feed/(feed|rdf|rss|rss2|atom)/?$']    = 'index.php?post_type=' . self::POSTTYPE . '&tribe_events_cat=' . $wp_rewrite->preg_index( 2 ) . '&feed=' . $wp_rewrite->preg_index( 3 );
 			$newRules[$catBase . '([^/]+)/?$']                                  = 'index.php?tribe_events_cat=' . $wp_rewrite->preg_index( 2 ) . '&post_type=' . self::POSTTYPE . '&eventDisplay=' . $this->getOption( 'viewOption', 'month' );
 
 			// tag rules.
-			$newRules[$tagBase . '([^/]+)/page/(\d+)']                          = 'index.php?tag=' . $wp_rewrite->preg_index( 2 ) . '&post_type=' . self::POSTTYPE . '&eventDisplay=upcoming&paged=' . $wp_rewrite->preg_index( 3 );
+			$newRules[$tagBase . '([^/]+)/page/(\d+)']                          = 'index.php?tag=' . $wp_rewrite->preg_index( 2 ) . '&post_type=' . self::POSTTYPE . '&eventDisplay=list&paged=' . $wp_rewrite->preg_index( 3 );
 			$newRules[$tagBase . '([^/]+)/' . $month]                           = 'index.php?tag=' . $wp_rewrite->preg_index( 2 ) . '&post_type=' . self::POSTTYPE . '&eventDisplay=month';
-			$newRules[$tagBase . '([^/]+)/' . $upcoming . '/page/(\d+)']        = 'index.php?tag=' . $wp_rewrite->preg_index( 2 ) . '&post_type=' . self::POSTTYPE . '&eventDisplay=upcoming&paged=' . $wp_rewrite->preg_index( 3 );
-			$newRules[$tagBase . '([^/]+)/' . $upcoming]                        = 'index.php?tag=' . $wp_rewrite->preg_index( 2 ) . '&post_type=' . self::POSTTYPE . '&eventDisplay=upcoming';
-			$newRules[$tagBase . '([^/]+)/' . $past . '/page/(\d+)']            = 'index.php?tag=' . $wp_rewrite->preg_index( 2 ) . '&post_type=' . self::POSTTYPE . '&eventDisplay=past&paged=' . $wp_rewrite->preg_index( 3 );
-			$newRules[$tagBase . '([^/]+)/' . $past]                            = 'index.php?tag=' . $wp_rewrite->preg_index( 2 ) . '&post_type=' . self::POSTTYPE . '&eventDisplay=past';
+			$newRules[$tagBase . '([^/]+)/' . $list . '/page/(\d+)']        	= 'index.php?tag=' . $wp_rewrite->preg_index( 2 ) . '&post_type=' . self::POSTTYPE . '&eventDisplay=list&paged=' . $wp_rewrite->preg_index( 3 );
+			$newRules[$tagBase . '([^/]+)/' . $list]                        	= 'index.php?tag=' . $wp_rewrite->preg_index( 2 ) . '&post_type=' . self::POSTTYPE . '&eventDisplay=list';
 			$newRules[$tagBase . '([^/]+)/' . $today]                           = 'index.php?tag=' . $wp_rewrite->preg_index( 2 ) . '&post_type=' . self::POSTTYPE . '&eventDisplay=day';
 			$newRules[$tagBase . '([^/]+)/(\d{4}-\d{2})$']                      = 'index.php?tag=' . $wp_rewrite->preg_index( 2 ) . '&post_type=' . self::POSTTYPE . '&eventDisplay=month' . '&eventDate=' . $wp_rewrite->preg_index( 3 );
 			$newRules[$tagBase . '([^/]+)/' . $day . '/(\d{4}-\d{2}-\d{2})/?$'] = 'index.php?tag=' . $wp_rewrite->preg_index( 2 ) . '&post_type=' . self::POSTTYPE . '&eventDisplay=day' . '&eventDate=' . $wp_rewrite->preg_index( 3 );
 			$newRules[$tagBase . '([^/]+)/(\d{4}-\d{2}-\d{2})$']                = 'index.php?tag=' . $wp_rewrite->preg_index( 2 ) . '&post_type=' . self::POSTTYPE . '&eventDisplay=day&eventDate=' . $wp_rewrite->preg_index( 3 );
-			$newRules[$tagBase . '([^/]+)/feed/?$']                             = 'index.php?tag=' . $wp_rewrite->preg_index( 2 ) . '&post_type=' . self::POSTTYPE . '&eventDisplay=upcoming&feed=rss2';
-			$newRules[$tagBase . '([^/]+)/ical/?$']                             = 'index.php?tag=' . $wp_rewrite->preg_index( 2 ) . '&post_type=' . self::POSTTYPE . '&eventDisplay=upcoming&ical=1';
+			$newRules[$tagBase . '([^/]+)/feed/?$']                             = 'index.php?tag=' . $wp_rewrite->preg_index( 2 ) . '&post_type=' . self::POSTTYPE . '&eventDisplay=list&feed=rss2';
+			$newRules[$tagBase . '([^/]+)/ical/?$']                             = 'index.php?tag=' . $wp_rewrite->preg_index( 2 ) . '&post_type=' . self::POSTTYPE . '&eventDisplay=list&ical=1';
 			$newRules[$tagBase . '([^/]+)/feed/(feed|rdf|rss|rss2|atom)/?$']    = 'index.php?tag=' . $wp_rewrite->preg_index( 2 ) . '&post_type=' . self::POSTTYPE . '&feed=' . $wp_rewrite->preg_index( 3 );
-			$newRules[$tagBase . '([^/]+)/?$']                                  = 'index.php?tag=' . $wp_rewrite->preg_index( 2 ) . '&post_type=' . self::POSTTYPE . '&eventDisplay=upcoming';
+			$newRules[$tagBase . '([^/]+)/?$']                                  = 'index.php?tag=' . $wp_rewrite->preg_index( 2 ) . '&post_type=' . self::POSTTYPE . '&eventDisplay=list';
 
 			$wp_rewrite->rules = apply_filters( 'tribe_events_rewrite_rules', $newRules + $wp_rewrite->rules, $newRules );
+		}
+
+		/**
+		 * Redirect the legacy past/upcoming view URLs to list
+		 */
+		public function redirect_past_upcoming_view_urls() {
+
+			if ( strpos( $_SERVER['REQUEST_URI'], $this->getRewriteSlug() . '/' . $this->pastSlug ) !== false ) {
+				wp_redirect( add_query_arg( array( 'tribe_event_display' => 'past' ), str_replace( '/' . $this->pastSlug . '/', '/' . $this->listSlug . '/', $_SERVER['REQUEST_URI'] ) ) );
+			} elseif ( strpos( $_SERVER['REQUEST_URI'], $this->getRewriteSlug() . '/' . $this->upcomingSlug ) !== false ) {
+				wp_redirect( str_replace( '/' . $this->upcomingSlug . '/', '/' . $this->listSlug . '/', $_SERVER['REQUEST_URI'] ) );
+			}
+
 		}
 
 		/**
@@ -2583,11 +2555,14 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 						$eventUrl = trailingslashit( esc_url_raw( $eventUrl . $this->monthSlug ) );
 					}
 					break;
+				case 'list':
+					$eventUrl = trailingslashit( esc_url_raw( $eventUrl . $this->listSlug ) );
+					break;
 				case 'upcoming':
-					$eventUrl = trailingslashit( esc_url_raw( $eventUrl . $this->upcomingSlug ) );
+					$eventUrl = trailingslashit( esc_url_raw( $eventUrl . $this->listSlug ) );
 					break;
 				case 'past':
-					$eventUrl = trailingslashit( esc_url_raw( $eventUrl . $this->pastSlug ) );
+					$eventUrl = trailingslashit( esc_url_raw( add_query_arg( 'tribe_event_display', 'past', $eventUrl . $this->listSlug ) ) );
 					break;
 				case 'dropdown':
 					$eventUrl = esc_url_raw( $eventUrl );
@@ -2599,8 +2574,11 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 					$eventUrl = trailingslashit( esc_url_raw( $link ) );
 					break;
 				case 'day':
-					$date      = strtotime( $secondary );
-					$secondary = date( 'Y-m-d', $date );
+					if ( empty( $secondary ) ) {
+						$secondary = $this->todaySlug;
+					} else {
+						$secondary = tribe_event_format_date($secondary, false, TribeDateUtils::DBDATEFORMAT);
+					}
 					$eventUrl  = trailingslashit( esc_url_raw( $eventUrl . $secondary ) );
 					break;
 				default:
@@ -2630,11 +2608,6 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 
 			switch ( $type ) {
 				case 'day':
-					$eventUrl = add_query_arg( 'post_type', TribeEvents::POSTTYPE, home_url() );
-					// if we're on an Event Cat, show the cat link, except for home.
-					if ( $type !== 'home' && is_tax( TribeEvents::TAXONOMY ) ) {
-						$eventUrl = add_query_arg( TribeEvents::TAXONOMY, get_query_var( 'term' ), $eventUrl );
-					}
 					$eventUrl = add_query_arg( array( 'eventDisplay' => $type ), $eventUrl );
 					if ( $secondary ) {
 						$eventUrl = add_query_arg( array( 'eventDate' => $secondary ), $eventUrl );
@@ -4064,11 +4037,13 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 		/**
 		 * Echo the dashboard widget.
 		 *
+		 * @param int $items
+		 *
 		 * @return void
 		 */
-		public function outputDashboardWidget() {
+		public function outputDashboardWidget( $items = 10 ) {
 			echo '<div class="rss-widget">';
-			wp_widget_rss_output( self::FEED_URL, array( 'items' => 10 ) );
+			wp_widget_rss_output( self::FEED_URL, array( 'items' => $items ) );
 			echo "</div>";
 		}
 
@@ -4480,24 +4455,6 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 		}
 
 		/**
-		 * Adds /today to the day view link if no day is passed.
-		 *
-		 * @param string      $link The current link.
-		 * @param string|null $date The date passed.
-		 *
-		 * @return string The modified link.
-		 */
-		public function add_empty_date_dayview_link( $link, $date ) {
-			if ( is_null( $date ) ) {
-				$tribe_ecp = TribeEvents::instance();
-				$link      = trailingslashit( trailingslashit( $tribe_ecp->getLink( '' ) ) . $this->todaySlug );
-			}
-
-			return $link;
-		}
-
-
-		/**
 		 * Set up the list view in the view selector in the tribe events bar.
 		 *
 		 * @param array $views The current views array.
@@ -4506,7 +4463,7 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 		 */
 		public function setup_listview_in_bar( $views ) {
 			$views[] = array(
-				'displaying'     => 'upcoming',
+				'displaying'     => 'list',
 				'event_bar_hook' => 'tribe_events_before_template',
 				'anchor'         => __( 'List', 'tribe-events-calendar' ),
 				'url'            => tribe_get_listview_link()
@@ -4598,7 +4555,7 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 
 			if ( tribe_is_month() ) {
 				$caption = __( 'Events In', 'tribe-events-calendar' );
-			} elseif ( tribe_is_upcoming() || tribe_is_past() ) {
+			} elseif ( tribe_is_list_view() ) {
 				$caption = __( 'Events From', 'tribe-events-calendar' );
 			} elseif ( tribe_is_day() ) {
 				$caption = __( 'Day Of', 'tribe-events-calendar' );

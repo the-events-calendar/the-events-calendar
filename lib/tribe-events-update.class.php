@@ -35,12 +35,24 @@ class TribeEventsUpdate {
 	}
 
 	/**
-	 * Update to version 3.0.4
+	 * Update to version 3.1
 	 *
 	 * @return bool
 	 **/
 	function update_to_3_1( $old_version ) {
 		// flush rewrite rules needed when updating to 3.1
+		flush_rewrite_rules();
+
+		return true;
+	}
+
+	/**
+	 * Update to version 3.8
+	 *
+	 * @return bool
+	 **/
+	function update_to_3_8( $old_version ) {
+		// flush rewrite rules needed when updating to 3.8
 		flush_rewrite_rules();
 
 		return true;

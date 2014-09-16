@@ -12,6 +12,86 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 if ( class_exists( 'TribeEvents' ) ) {
 
+/**
+	 * Start Time
+	 *
+	 * Returns the event start time
+	 *
+	 * @param int    $event       (optional)
+	 * @param string $dateFormat  Allows date and time formating using standard php syntax (http://php.net/manual/en/function.date.php)
+	 *
+	 * @return string|null Time
+	 */
+	function tribe_get_start_time( $event = null, $dateFormat = '' ) {
+		if ( is_null( $event ) ) {
+			global $post;
+			$event = $post;
+		}
+		if ( is_numeric( $event ) ) {
+			$event = get_post( $event );
+		}
+
+		if ( tribe_event_is_all_day( $event ) ) {
+			return ;
+		}
+
+		if ( empty( $event->EventStartDate ) && is_object( $event ) ) {
+			$event->EventStartDate = tribe_get_event_meta( $event->ID, '_EventStartDate', true );
+		}
+
+		if ( isset( $event->EventStartDate ) ) {
+			$date = strtotime( $event->EventStartDate );
+		} else {
+			return;
+		}
+
+		if ( '' == $dateFormat ) {
+			$dateFormat = tribe_get_time_format();
+		}
+		
+		return tribe_event_format_date( $date, false, $dateFormat );
+	}
+
+	/**
+	 * End Time
+	 *
+	 * Returns the event end time
+	 *
+	 * @param int    $event       (optional)
+	 * @param string $dateFormat  Allows date and time formating using standard php syntax (http://php.net/manual/en/function.date.php)
+	 *
+	 * @return string|null Time
+	 */
+	function tribe_get_end_time( $event = null, $dateFormat = '' ) {
+		if ( is_null( $event ) ) {
+			global $post;
+			$event = $post;
+		}
+		if ( is_numeric( $event ) ) {
+			$event = get_post( $event );
+		}
+
+		if ( tribe_event_is_all_day( $event ) ) {
+			return;
+		}
+
+		if ( empty( $event->EventEndDate ) && is_object( $event ) ) {
+			$event->EventEndDate = tribe_get_event_meta( $event->ID, '_EventEndDate', true );
+		}
+
+		if ( isset( $event->EventEndDate ) ) {
+			$date = strtotime( $event->EventEndDate );
+		} else {
+			return;
+		}
+		
+		if ( '' == $dateFormat ) {
+			$dateFormat = tribe_get_time_format();
+		}
+
+		return tribe_event_format_date( $date, false, $dateFormat );
+	}
+	
 	/**
 	 * Start Date
 	 *
@@ -21,7 +101,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 * @param bool   $displayTime If true shows date and time, if false only shows date
 	 * @param string $dateFormat  Allows date and time formating using standard php syntax (http://php.net/manual/en/function.date.php)
 	 *
-	 * @return string Date
+	 * @return string|null Date
 	 */
 	function tribe_get_start_date( $event = null, $displayTime = true, $dateFormat = '' ) {
 		if ( is_null( $event ) ) {
@@ -58,7 +138,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 * @param bool   $displayTime If true shows date and time, if false only shows date
 	 * @param string $dateFormat  Allows date and time formating using standard php syntax (http://php.net/manual/en/function.date.php)
 	 *
-	 * @return string Date
+	 * @return string|null Date
 	 */
 	function tribe_get_end_date( $event = null, $displayTime = true, $dateFormat = '' ) {
 		if ( is_null( $event ) ) {
