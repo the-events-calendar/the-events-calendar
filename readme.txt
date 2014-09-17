@@ -239,7 +239,8 @@ Our Premium Plugins:
 * Remove confirmation dialog when bulk deleting events
 * Correctly identify recurring events as recurring even if they only have one instance
 * Removed some unused code
-
+* Fix bug causing mixed content issues when events are viewed over HTTPS
+* Enhance embedded maps to position markers via longitude/latitude whenever that information is available
 
 = 3.7 =
 
