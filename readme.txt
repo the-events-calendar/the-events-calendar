@@ -359,6 +359,9 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Improved System Information output to make it easier to see HTML used within settings
 * Added a suite of helper functions to make ticketing-based customizations easier
 * Cleaned up code used to build the plugin URL
+* Added new template tag tribe_get_start_time to return Event Start Time
+* Added new template tag tribe_get_end_Time to return Event End Time
+
 
 = 3.7. =
 
