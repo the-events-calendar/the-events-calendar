@@ -349,6 +349,19 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Updated Chosen select library to version 1.1.0
 * Fixed bug with widgets breaking the theme customizer layout
 * Fixed some issues with browser history and the view switcher javascript
+* Enhanced attendee list to optionally summarize the number of tickets held in incomplete orders
+* Fixed a bug stopping pagination links from displaying when needed
+* Removed the requirement to explicitly set the post_type when working with tribe_create_event()
+* Enhanced Google Maps integration to make customization via a template override possible
+* Improved embedded Google Maps implementation to use wp_enqueue_script()
+* Fixed minor bug in network settings
+* Extended support of 24hr time formats to include hours without a leading zero
+* Improved System Information output to make it easier to see HTML used within settings
+* Added a suite of helper functions to make ticketing-based customizations easier
+* Cleaned up code used to build the plugin URL
+* Added new template tag tribe_get_start_time to return Event Start Time
+* Added new template tag tribe_get_end_Time to return Event End Time
+
 
 = 3.7. =
 
