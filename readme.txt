@@ -266,6 +266,7 @@ Our Premium Plugins:
 * Incorporated new Bulgarian translation files, courtesy of Nedko Ivanov
 * Incorporated new Chinese translation files, courtesy of Massound Huang
 * Incorporated new Indonesian translation files, courtesy of Didik Priyanto
+* Fixed re-registering of Venue Post Type so user customizations made from tribe_events_register_venue_type_args are maintained with PRO enabled.
 
 = 3.6.1 =
 
