@@ -267,6 +267,7 @@ if ( ! class_exists( 'Tribe_Template_Factory' ) ) {
 
 			global $wp_query;
 
+			// don't show past posts in reverse order
 			if ( $wp_query->tribe_is_past ) {
 				$wp_query->posts = array_reverse( $wp_query->posts );
 			}

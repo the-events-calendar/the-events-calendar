@@ -74,6 +74,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 * Returns true if the query is set to show all events, false otherwise
 	 *
 	 * @return bool
+	 * @todo move to ECP
 	 */
 	function tribe_is_showing_all() {
 		$tribe_ecp            = TribeEvents::instance();

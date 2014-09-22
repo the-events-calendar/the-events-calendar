@@ -451,6 +451,7 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 			add_action( 'tribe_settings_do_tabs', array( $this, 'doNetworkSettingTab' ), 400 );
 			add_action( 'tribe_settings_content_tab_help', array( $this, 'doHelpTab' ) );
 			add_action( 'tribe_settings_validate_tab_network', array( $this, 'saveAllTabsHidden' ) );
+
 			add_action( 'load-tribe_events_page_tribe-events-calendar', array( 'Tribe_Amalgamator', 'listen_for_migration_button' ), 10, 0 );
 			add_action( 'tribe_settings_after_save', array( $this, 'flushRewriteRules' ) );
 			add_action( 'load-edit-tags.php', array( $this, 'prepare_to_fix_tagcloud_links' ), 10, 0 );
@@ -497,6 +498,11 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 			}
 		}
 
+		/**
+		 * Load the ical template tags
+		 * Loaded late due to potential upgrade conflict since moving them from pro
+		 * @TODO move this require to be with the rest of the template tag includes in 3.9
+		 */
 		public function init_ical() {
 			//iCal
 			if ( ! class_exists( 'TribeiCal' ) ) {
@@ -541,7 +547,7 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 		/**
 		 * Load the day view template tags
 		 * Loaded late due to potential upgrade conflict since moving them from pro
-		 * @TODO move this require to be with the rest of the template tag includes in 3.8
+		 * @TODO move this require to be with the rest of the template tag includes in 3.9
 		 */
 		public function init_day_view() {
 			// load day view functions
@@ -1079,6 +1085,7 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 		 * @param int $postId
 		 *
 		 * @return string
+		 * @todo remove - unused
 		 */
 		public static function getRealStartDate( $postId ) {
 			return TribeEvents::get_series_start_date( $postId );
@@ -2817,6 +2824,7 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 		 * @param string $meridian "am" or "pm".
 		 *
 		 * @return string The date and time.
+		 * @todo remove - unused
 		 */
 		public function dateToTimeStamp( $date, $hour, $minute, $meridian ) {
 			if ( preg_match( '/(PM|pm)/', $meridian ) && $hour < 12 ) {
@@ -2837,6 +2845,7 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 		 * @param string $date The date.
 		 *
 		 * @return string The cleaned-up date.
+		 * @todo remove - unused
 		 */
 		protected function dateHelper( $date ) {
 
@@ -3685,7 +3694,7 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 		 * Given a week of the year (WW), returns the YYYY-MM-DD of the first day of the week
 		 *
 		 * @deprecated
-		 * @TODO: remove
+		 * @TODO: remove - unused
 		 *
 		 * @param  string $week expects string or int 2 of 1-52 (weeks of the year)
 		 *
@@ -3708,6 +3717,7 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 		 * @param date
 		 *
 		 * @return date
+		 * @todo remove - unused
 		 */
 		public function previousWeek( $date ) {
 			_deprecated_function( __FUNCTION__, '3.0' );
