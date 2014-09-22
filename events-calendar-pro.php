@@ -942,6 +942,12 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			if ( tribe_is_map() ) {
 				$template = TribeEventsTemplates::getTemplateHierarchy( 'pro/map' );
 			}
+
+			// recurring "all" view
+			if ( tribe_is_showing_all() ) {
+				$template = TribeEventsTemplates::getTemplateHierarchy( 'list' );
+			}
+
 			return $template;
 		}
 
