@@ -105,7 +105,7 @@ If you're unclear about the installation process or get stuck, check out our <a 
 
 * PHP 5.2 or above
 * WordPress 3.8 or above
-* jQuery 1.7 or above
+* jQuery 1.8 or above
 
 == Screenshots ==
 
