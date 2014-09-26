@@ -3,7 +3,7 @@
 Contributors:  ModernTribe, roblagatta, faction23, jazbek, jbrinley, leahkoerper, brook-tribe, ckpicker, barry.hughes, joshlimecuda, geoffgraham, brianjessee, mdbitz, neillmcshea, peterchester, ryancurban, reid.peifer, shane.pearlman
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
 Donate link: http://m.tri.be/29
-Requires at least: 3.7
+Requires at least: 3.8
 Tested up to: 4.0
 Stable tag: 3.8
 License: GPLv2 or later
@@ -104,7 +104,7 @@ If you're unclear about the installation process or get stuck, check out our <a 
 = Requirements =
 
 * PHP 5.2 or above
-* WordPress 3.7 or above
+* WordPress 3.8 or above
 * jQuery 1.7 or above
 
 == Screenshots ==
