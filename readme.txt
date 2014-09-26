@@ -1,11 +1,11 @@
 === The Events Calendar ===
 
-Contributors:  ModernTribe, roblagatta, faction23, caseypatrickdriscoll, jazbek, jbrinley, leahkoerper, brook-tribe, ckpicker, barry.hughes, neillmcshea, peterchester, ryancurban, reid.peifer, shane.pearlman
+Contributors:  ModernTribe, roblagatta, faction23, jazbek, jbrinley, leahkoerper, brook-tribe, ckpicker, barry.hughes, joshlimecuda, geoffgraham, brianjessee, mdbitz, neillmcshea, peterchester, ryancurban, reid.peifer, shane.pearlman
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
 Donate link: http://m.tri.be/29
 Requires at least: 3.7
-Tested up to: 3.9.1
-Stable tag: 3.7
+Tested up to: 4.0
+Stable tag: 3.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -104,7 +104,7 @@ If you're unclear about the installation process or get stuck, check out our <a 
 = Requirements =
 
 * PHP 5.2 or above
-* WordPress 3.6 or above
+* WordPress 3.7 or above
 * jQuery 1.7 or above
 
 == Screenshots ==
@@ -132,9 +132,9 @@ No, this plugin does not use a shortcode nor is one available at the time being.
 
 = Are there any troubleshooting steps you'd suggest I try that might resolve my issue before I post a new thread? =
 
-First, make sure that you're running the latest version of The Events Calendar (3.6 as of this release). If you're running Events Calendar PRO it needs to match the version number of The Events Calendar. And if you've got any other add-ons, make sure those are current / running the latest code as well.
+First, make sure that you're running the latest version of The Events Calendar (3.8 as of this release). If you're running Events Calendar PRO it needs to match the version number of The Events Calendar. And if you've got any other add-ons, make sure those are current / running the latest code as well.
 
-The most common issues we see are either plugin or theme conflicts. You can test if a plugin or theme is conflicting by manually deactivating other plugins until just The Events Calendar 3.6 is running on your site. If the issue persists from there, revert to the default Twenty Fourteen theme. If the issue is resolved after deactivating a specific plugin or your theme, you'll know that is the source of the conflict.
+The most common issues we see are either plugin or theme conflicts. You can test if a plugin or theme is conflicting by manually deactivating other plugins until just The Events Calendar 3.8 is running on your site. If the issue persists from there, revert to the default Twenty Fourteen theme. If the issue is resolved after deactivating a specific plugin or your theme, you'll know that is the source of the conflict.
 
 Note that we aren't going to say "tough luck" if you identify a plugin/theme conflict. While we can't guarantee 100% integration with any plugin or theme out there, we will do our best (and reach out the plugin/theme author as needed) to figure out a solution that benefits everyone.
 
@@ -203,10 +203,13 @@ The plugin is produced by <a href="http://m.tri.be/2s">Modern Tribe Inc</a>.
 * <a href="http://profiles.wordpress.org/users/barryhughes">Barry Hughes</a>
 * <a href="http://profiles.wordpress.org/users/jbrinley">Jonathan Brinley</a>
 * <a href="http://profiles.wordpress.org/users/faction23">Samuel Estok</a>
+* <a href="http://profiles.wordpress.org/users/brianjessee">Brian Jessee</a>
+* <a href="http://profiles.wordpress.org/users/mdbitz”>Matthew Denton</a>
+* <a href="http://profiles.wordpress.org/users/geoffgraham">Geoff Graham</a>
+* <a href="http://profiles.wordpress.org/users/joshlimecuda”>Josh Mallard</a>
 * <a href="http://profiles.wordpress.org/users/neillmcshea">Neill McShea</a>
 * <a href="http://profiles.wordpress.org/users/brook-tribe”>Brook Harding</a>
 * <a href="http://profiles.wordpress.org/users/ckpicker”>Casey Picker</a>
-* <a href="http://profiles.wordpress.org/users/caseypatrickdriscoll">Casey Driscoll</a>
 * <a href="http://profiles.wordpress.org/users/leahkoerper">Leah Koerper</a>
 * <a href="http://profiles.wordpress.org/users/peterchester">Peter Chester</a>
 * <a href="http://profiles.wordpress.org/users/reid.peifer">Reid Peifer</a>
@@ -218,6 +221,7 @@ The plugin is produced by <a href="http://m.tri.be/2s">Modern Tribe Inc</a>.
 * <a href="http://profiles.wordpress.org/users/kyleunzicker">Kyle Unzicker</a>
 * <a href="http://profiles.wordpress.org/users/MZAWeb">Daniel Dvorkin</a>
 * <a href="http://profiles.wordpress.org/users/ryancurban">Ryan Urban</a>
+* <a href="http://profiles.wordpress.org/users/caseypatrickdriscoll">Casey Driscoll</a>
 * <a href="http://profiles.wordpress.org/users/codearachnid">Timothy Wood</a>
 * <a href="http://profiles.wordpress.org/users/kellykathryn">Kelly Groves</a>
 * <a href="http://profiles.wordpress.org/users/jonahcoyote">Jonah West</a>
@@ -318,6 +322,39 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 
 = 3.8 =
 
+* Changed capability for importing events from "administrator" to "import"
+* Fixed an issue where mobile styles were active when printing (thanks to wallyglenn on the forums for the original report!)
+* Venues with no address now display on the single event page (thanks to Cliff on the forums for the heads up!)
+* Fixed an issue where duplicate pagination links were displaying in mobile week view
+* Added plugin activation/upgrade pages
+* Fixed an issue with styling of Recurring Events in the list view widget (thanks to evigo on the forums for reporting this!)
+* Removed a bunch of unused code
+* Fixed list view not respecting the end-of-day cutoff (thanks to zirok06 for the original report!)
+* Reformatted the overall codebase to adhere to WordPress coding standards
+* Removed /upcoming and /past from list view URLs, and change to /list (thanks to joco18 on the dot-org forum for the heads up here!)
+* Past view events are no longer reverse ordered (another thanks to joco18 on the dot-org forum for this one too!)
+* Changed page titles to show date range of currently displayed events when a date is selected in the tribe bar 
+* Removed the “audit trail" functionality
+* Fixed bug when using default permalinks, where Day view would link to the home page (thanks to thestudiodoor on the forums for first reporting this!)
+* Moved ajax view handlers to the appropriate template classes
+* Added ability to import the Event Website in the CSV importer (props to @hvizdak for the pull request!)
+* Removed hard-coded format for 2nd date in a date range for all day events, added a new filter 'tribe_format_second_date_in_range' (thanks to users on the forum, including Thomas, for the original report!)
+* Fixed some untranslated strings
+* Updated Chosen select library to version 1.1.0 (thanks to Amanda Dalziel for the heads up here!)
+* Fixed bug with widgets breaking the theme customizer layout (thanks to George on the forums for reporting this!)
+* Fixed some issues with browser history and the view switcher javascript (thanks to adambloomer at the WordPress.org forum for the original report!)
+* Enhanced attendee list in tickets framework to optionally summarize the number of tickets held in incomplete orders
+* Fixed a bug stopping pagination links from displaying when needed
+* Removed the requirement to explicitly set the post_type when working with tribe_create_event()
+* Enhanced Google Maps integration to make customization via a template override possible (thanks to Pau, who’s original report got us thinking about this!)
+* Improved embedded Google Maps implementation to use wp_enqueue_script() (thanks to bmcrec on the forums for the original report!)
+* Fixed a minor bug in network settings, which was impacting multisite users
+* Extended support of 24hr time formats to include hours without a leading zero (thanks to Gregory on the forums for the first report!)
+* Improved the plugin’s auto-generated System Information output to make it easier to see HTML used within settings
+* Added a suite of helper functions to make ticketing-based customizations easier (extrapolated from Barry Hughes’ WootLibrary plugin!)
+* Cleaned up code used to build the plugin URL
+* Added new template tag tribe_get_start_time to return Event Start Time
+* Added new template tag tribe_get_end_Time to return Event End Time
 * Incorporated new Russian translation files, courtesy of Alexander Tinyaev
 * Incorporated updated Italian translation files, courtesy of Gabriele Taffi
 * Incorporated updated Spanish translation files, courtesy of Juanjo Navarro
@@ -328,46 +365,9 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Incorporated updated German translation files, courtesy of Stefan Dorscht and Oliver Heinrich
 * Incorporated updated Finnish translation files, courtesy of Elias Okkonen
 * Incorporated updated Estonian translation files, courtesy of Andra Saimre
-* Changed capability for importing events from "administrator" to "import"
-* Fixed an issue where mobile styles were active when printing
-* Venues with no address now display on the single event page 
-* Fixed an issue where duplicate pagination links were displaying in mobile week view
-* Added plugin activation/upgrade pages
-* Fixed an issue with styling of Recurring Events in the list view widget
-* Removed some unused code
-* Fixed list view not respecting the end-of-day cutoff
-* Reformatted the code to adhere to WordPress coding standards
-* Removed /upcoming and /past from list view URLs, and change to /list
-* Past view events are no longer reverse ordered
-* Changed page titles to show date range of currently displayed events when a date is selected in the tribe bar
-* Removed "audit trail" functionality
-* Fixed bug when using default permalinks, where Day view would link to the home page
-* Moved ajax view handlers to the appropriate template classes
-* Added ability to import the Event Website in the CSV importer (props @hvizdak for the pull request)
-* Removed hard-coded format for 2nd date in a date range for all day events, added a new filter 'tribe_format_second_date_in_range'
-* Fixed some untranslated strings
-* Updated Chosen select library to version 1.1.0
-* Fixed bug with widgets breaking the theme customizer layout
-* Fixed some issues with browser history and the view switcher javascript
-* Enhanced attendee list to optionally summarize the number of tickets held in incomplete orders
-* Fixed a bug stopping pagination links from displaying when needed
-* Removed the requirement to explicitly set the post_type when working with tribe_create_event()
-* Enhanced Google Maps integration to make customization via a template override possible
-* Improved embedded Google Maps implementation to use wp_enqueue_script()
-* Fixed minor bug in network settings
-* Extended support of 24hr time formats to include hours without a leading zero
-* Improved System Information output to make it easier to see HTML used within settings
-* Added a suite of helper functions to make ticketing-based customizations easier
-* Cleaned up code used to build the plugin URL
-* Added new template tag tribe_get_start_time to return Event Start Time
-* Added new template tag tribe_get_end_Time to return Event End Time
-
 
 = 3.7. =
 
-* Incorporated new Bulgarian translation files, courtesy of Nedko Ivanov
-* Incorporated new Chinese translation files, courtesy of Massound Huang
-* Incorporated new Indonesian translation files, courtesy of Didik Priyanto
 * Added promotional blurb to plugin footer
 * Fixed some untranslatable strings
 * Cleaned up PHPDoc comments and some unused code
@@ -386,6 +386,9 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Corrected an issue with the start times of multi-day events
 * Resolved array to string conversion error (thanks to integrity on the forums!)
 * Fixed a fatal JS error on calendar pages without navigation links
+* Incorporated new Bulgarian translation files, courtesy of Nedko Ivanov
+* Incorporated new Chinese translation files, courtesy of Massound Huang
+* Incorporated new Indonesian translation files, courtesy of Didik Priyanto
 
 = 3.6.1 =
 
@@ -633,6 +636,14 @@ Still not happy? Shoot us an email to pro@tri.be or tweet to @moderntribeinc and
 == Upgrade Notice ==
 
 IMPORTANT NOTICE: 3.x upgrade is a HUGE upgrade from 2.x versions. If you are upgrading from an older version, please test thoroughly before updating on your live website.
+
+= 3.8 =
+
+Please see the changelog for the complete list of changes in this release. Remember to always make a backup of your database and files before updating!
+
+= 3.7 =
+
+Please see the changelog for the complete list of changes in this release. Remember to always make a backup of your database and files before updating!
 
 = 3.6 =
 
