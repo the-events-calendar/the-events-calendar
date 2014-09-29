@@ -132,7 +132,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			add_action( 'widgets_init', array( $this, 'pro_widgets_init' ), 100 );
 			add_action( 'wp_loaded', array( $this, 'allow_cpt_search' ) );
 			add_action( 'plugin_row_meta', array( $this, 'addMetaLinks' ), 10, 2 );
-			add_filter( 'tribe_get_events_title', array( $this, 'reset_page_title'));
+			add_filter( 'tribe_get_events_title', array( $this, 'reset_page_title' ), 10, 2 );
 			add_filter( 'tribe_events_add_title', array($this, 'maybeAddEventTitle' ), 10, 3 );
 
 			add_filter( 'tribe_promo_banner', array( $this, 'tribePromoBannerPro' ) );
@@ -282,42 +282,21 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		}
 
 		/**
-		 * Modifies the page title for week view.
+		 * Modifies the page title for pro views.
 		 *
 		 * @param string $new_title The currently filtered title.
 		 * @param string $title The oldest default title.
 		 * @param string $sep The separator for title elements.
 		 * @return string The modified title.
-		 * @return 3.0
+		 * @todo remove in 3.10
+		 * @deprecated
 		 */
 		function maybeAddEventTitle( $new_title, $title, $sep = null ){
-			global $wp_query;
-
-			switch( TribeEvents::instance()->displaying ){
-				case 'week':
-					$new_title = sprintf( '%s %s %s ',
-						__( 'Events for week of', 'tribe-events-calendar-pro' ),
-						date_i18n( tribe_get_date_format(true), strtotime( tribe_get_first_week_day( $wp_query->get( 'start_date' ) ) ) ),
-						$sep
-					);
-					break;
-				case 'photo':
-				case 'map':
-					if( tribe_is_past() ) {
-						$new_title = __( 'Past Events', 'tribe-events-calendar-pro' ) . ' ' . $sep . ' ';
-					} else {
-						$new_title = __( 'Upcoming Events', 'tribe-events-calendar-pro' ) . ' ' . $sep . ' ';
-					}
-					break;
+			if ( has_filter( 'tribe_events_pro_add_title' ) ) {
+				_deprecated_function( "The 'tribe_events_pro_add_title' filter", '3.8', " the 'tribe_events_add_title' filter" );
+				return apply_filters( 'tribe_events_pro_add_title', $new_title, $title, $sep );
 			}
-			if( tribe_is_showing_all() ){
-				$new_title = sprintf( '%s %s %s ',
-					__( 'All events for', 'tribe-events-calendar-pro' ),
-					get_the_title(),
-					$sep
-				);
-			}
-			return apply_filters( 'tribe_events_pro_add_title', $new_title, $title, $sep );
+			return $new_title;
 		}
 
         /**
@@ -337,10 +316,11 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		/**
 		 * Sets the page title for the various PRO views.
 		 *
-		 * @param string $content The current title.
+		 * @param string $title The current title.
+		 *
 		 * @return string The modified title.
 		 */
-		function reset_page_title( $content ){
+		function reset_page_title( $title, $depth = true ){
 
 			global $wp_query;
 			$tec = TribeEvents::instance();
@@ -360,16 +340,13 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 					);
 			}
 
-			// map or photo view titles
-			if( tribe_is_map() || tribe_is_photo() ) {
-				if( tribe_is_past() ) {
-					$reset_title = __( 'Past Events', 'tribe-events-calendar-pro' );
-				} else {
-					$reset_title = __( 'Upcoming Events', 'tribe-events-calendar-pro' );
-				}
+			if ( ! empty($reset_title) && is_tax( $tec->get_event_taxonomy() ) && $depth ) {
+				$cat = get_queried_object();
+				$reset_title = '<a href="' . tribe_get_events_link() . '">' . $reset_title . '</a>';
+				$reset_title .= ' &#8250; ' . $cat->name;
 			}
 
-			return isset($reset_title) ? apply_filters( 'tribe_template_factory_debug', $reset_title, 'tribe_get_events_title' ) : $content;
+			return isset($reset_title) ? apply_filters( 'tribe_template_factory_debug', $reset_title, 'tribe_get_events_title' ) : $title;
 		}
 
 		/**
