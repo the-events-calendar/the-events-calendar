@@ -119,6 +119,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 * @param bool $depth include linked title
 	 *
 	 * @return string title
+	 * @todo move logic to template classes
 	 */
 	function tribe_get_events_title( $depth = true ) {
 
@@ -149,17 +150,13 @@ if ( class_exists( 'TribeEvents' ) ) {
 					 date_i18n( tribe_get_date_format( true ), strtotime( $wp_query->get( 'start_date' ) ) );
 		}
 
-		if ( is_tax( $tribe_ecp->get_event_taxonomy() ) ) {
+		if ( is_tax( $tribe_ecp->get_event_taxonomy() ) && $depth ) {
 			$cat = get_queried_object();
-			if ( $depth ) {
-				$title = '<a href="' . tribe_get_events_link() . '">' . $title . '</a>';
-				$title .= ' &#8250; ' . $cat->name;
-			} else {
-				$title = $cat->name;
-			}
+			$title = '<a href="' . tribe_get_events_link() . '">' . $title . '</a>';
+			$title .= ' &#8250; ' . $cat->name;
 		}
 
-		return apply_filters( 'tribe_get_events_title', $title );
+		return apply_filters( 'tribe_get_events_title', $title, $depth );
 	}
 
 	/**

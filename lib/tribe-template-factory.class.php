@@ -118,6 +118,9 @@ if ( ! class_exists( 'Tribe_Template_Factory' ) ) {
 			// hide sensitive event info if post is password protected
 			add_action( 'the_post', array( $this, 'manage_sensitive_info' ) );
 
+			// implement a filter for the page title
+			add_filter( 'wp_title', array( $this, 'modify_wp_title' ), 10, 2 );
+
 			// add body class
 			add_filter( 'body_class', array( $this, 'body_class' ) );
 
@@ -279,6 +282,32 @@ if ( ! class_exists( 'Tribe_Template_Factory' ) ) {
 			if ( is_string( $this->excerpt_more ) ) {
 				add_filter( 'excerpt_more', array( $this, 'excerpt_more' ) );
 			}
+		}
+
+		/**
+		 * Apply filter to the title tag
+		 *
+		 * @param string      $title
+		 * @param string|null $sep
+		 *
+		 * @return mixed|void
+		 * @todo get rid of deprecated tag in 3.10
+		 */
+		final public function modify_wp_title( $title, $sep = null ) {
+			$new_title = $this->get_title( $title, $sep );
+			_deprecated_function( "The 'tribe_events_add_title' filter", '3.8', " the 'tribe_events_title_tag' filter" );
+			return apply_filters( 'tribe_events_title_tag', apply_filters( 'tribe_events_add_title', $new_title, $title, $sep ), $title, $sep );
+		}
+
+		/**
+		 * Get the title for the view
+		 * @param      $title
+		 * @param null $sep
+		 *
+		 * @return string
+		 */
+		protected function get_title( $title, $sep = null ) {
+			return tribe_get_events_title( false ) . ' ' . $sep . ' ' . $title;
 		}
 
 		/**
