@@ -176,7 +176,7 @@ msgstr ""
 #: ../admin-views/recurrence-dialog.php:15
 #: ../admin-views/recurrence-dialog.php:23
 msgid "Only This Event:"
-msgstr "Seulement cet Événement :"
+msgstr "Seulement cet événement :"
 
 #: ../admin-views/recurrence-dialog.php:15
 msgid "All other future events in the series will remain the same."
@@ -187,14 +187,14 @@ msgstr ""
 #: ../admin-views/recurrence-dialog.php:16
 #: ../admin-views/recurrence-dialog.php:24
 msgid "All Events:"
-msgstr "Tous les Événements :"
+msgstr "Tous les événements :"
 
 #: ../admin-views/recurrence-dialog.php:16
 msgid ""
 "All future events in the series will be changed. Any changes made to other "
 "events will be kept."
 msgstr ""
-"Tous les futures Événements de cette ensemble seront changés. Tous "
+"Tous les futures événements de cette ensemble seront changés. Tous "
 "changements effectués sur les autres événements seront inchangés."
 
 #: ../admin-views/recurrence-dialog.php:21
@@ -483,7 +483,7 @@ msgstr ""
 #: ../admin-views/tribe-options-general.php:95
 #: ../admin-views/tribe-options-general.php:101
 msgid "Events URL slug"
-msgstr "Nom (slug) de  L'URL des événements"
+msgstr "Nom de  L'URL des événements"
 
 #: ../admin-views/tribe-options-general.php:96
 #, php-format
@@ -502,7 +502,7 @@ msgstr ""
 #: ../admin-views/tribe-options-general.php:108
 #: ../public/template-tags/options.php:20
 msgid "The slug used for building the events URL."
-msgstr "Le nom (slug) utilisé pour créer l'URL des événements."
+msgstr "Le nom utilisé pour créer l'URL des événements."
 
 #: ../admin-views/tribe-options-general.php:108
 #, php-format
@@ -1065,7 +1065,7 @@ msgstr "Lieu :"
 
 #: ../admin-views/tickets/attendees.php:52
 msgid "Ticket Sales"
-msgstr "Vente de tickets"
+msgstr "Vente de billets"
 
 #: ../admin-views/tickets/attendees.php:64 ../admin-views/tickets/list.php:67
 #, php-format
@@ -1079,7 +1079,7 @@ msgstr "%d vendus sur %d"
 
 #: ../admin-views/tickets/attendees.php:81
 msgid "Tickets sold:"
-msgstr "Tickets vendus :"
+msgstr "Billets vendus :"
 
 #: ../admin-views/tickets/attendees.php:85
 msgid "Checked in:"
@@ -1127,7 +1127,7 @@ msgstr "Voir"
 
 #: ../admin-views/tickets/list.php:41 ../lib/tickets/tribe-tickets-pro.php:73
 msgid "See who purchased tickets to this event"
-msgstr "Voir qui à acheté des tickets pour cet événement"
+msgstr "Voir qui à acheté des billets pour cet événement"
 
 #: ../admin-views/tickets/meta-box.php:21
 msgid ""
@@ -1164,12 +1164,12 @@ msgstr "Supprimer"
 #: ../admin-views/tickets/meta-box.php:62
 #: ../admin-views/tickets/meta-box.php:72
 msgid "Add new ticket"
-msgstr "Ajouter nouveau ticket"
+msgstr "Ajouter nouveau billet"
 
 #
 #: ../admin-views/tickets/meta-box.php:73
 msgid "Edit ticket"
-msgstr "Modifier ticket"
+msgstr "Modifier billet"
 
 #: ../admin-views/tickets/meta-box.php:79
 msgid "Sell using:"
@@ -1178,11 +1178,11 @@ msgstr "Vendre en utilisant :"
 #
 #: ../admin-views/tickets/meta-box.php:96
 msgid "Ticket Name:"
-msgstr "Titre du ticket :"
+msgstr "Titre du billet :"
 
 #: ../admin-views/tickets/meta-box.php:103
 msgid "Ticket Description:"
-msgstr "Description du ticket :"
+msgstr "Description du billet :"
 
 #: ../admin-views/tickets/meta-box.php:112
 msgid "Price:"
@@ -1190,7 +1190,7 @@ msgstr "Prix :"
 
 #: ../admin-views/tickets/meta-box.php:118
 msgid "(0 or empty for free tickets)"
-msgstr "(0 or vide pour des billets gratuits)"
+msgstr "(0 ou vide pour des billets gratuits)"
 
 #
 #: ../admin-views/tickets/meta-box.php:124
@@ -1207,7 +1207,7 @@ msgid ""
 "When will ticket sales occur? If you don't set a start/end date for sales, "
 "tickets will be available from now until the event ends."
 msgstr ""
-"Quand est ce que la vente des tickets aura lieu? Si vous n'entrez pas de "
+"Quand est ce que la vente des billets aura lieu? Si vous n'entrez pas de "
 "date de début/fin de vente, les tickets seront disponibles entre maintenant "
 "jusqu'à la fin de l'événement."
 
@@ -1484,7 +1484,7 @@ msgstr "Pas d'organisateurs"
 
 #: ../lib/the-events-calendar.class.php:1397
 msgid "No organizers found in Trash"
-msgstr "Aucun organisateur dans la Poubelle"
+msgstr "Aucun organisateur dans la poubelle"
 
 #: ../lib/the-events-calendar.class.php:1401
 #: ../lib/tribe-admin-events-list.class.php:226
@@ -1537,13 +1537,13 @@ msgstr "Événement mis à jour. <a href=\"%s\">Voir</a> "
 #: ../lib/the-events-calendar.class.php:1444
 #: ../lib/the-events-calendar.class.php:1461
 msgid "Custom field updated."
-msgstr "Champ Personnalisé mis à jour. "
+msgstr "Champ personnalisé mis à jour. "
 
 #: ../lib/the-events-calendar.class.php:1428
 #: ../lib/the-events-calendar.class.php:1445
 #: ../lib/the-events-calendar.class.php:1462
 msgid "Custom field deleted."
-msgstr "Champ Personnalisé effacé. "
+msgstr "Champ personnalisé effacé. "
 
 #: ../lib/the-events-calendar.class.php:1429
 msgid "Event updated."
@@ -1759,7 +1759,7 @@ msgstr "Organisateur non nommé"
 #: ../lib/the-events-calendar.class.php:3545
 #: ../lib/the-events-calendar.class.php:3562
 msgid "Date out of range."
-msgstr "La date est hors de portée (out of range)"
+msgstr "La date est hors de portée"
 
 #: ../lib/the-events-calendar.class.php:3575
 msgid "Event Options"
@@ -1779,11 +1779,11 @@ msgstr "Support"
 
 #: ../lib/the-events-calendar.class.php:3782
 msgid "View All Add-Ons"
-msgstr "Voir tous les Add-Ons "
+msgstr "Voir tous les ajouts "
 
 #: ../lib/the-events-calendar.class.php:3799
 msgid "News from Modern Tribe"
-msgstr "Actu de Modern Tribe"
+msgstr "Actualité de Modern Tribe"
 
 #: ../lib/the-events-calendar.class.php:3880
 msgid "Additional Functionality"
@@ -1807,17 +1807,17 @@ msgstr "Visitez les <a href=\"%s\">Modules disponibles</a>."
 #: ../lib/the-events-calendar.class.php:3957
 #: ../lib/the-events-calendar.class.php:4048
 msgid "View Calendar"
-msgstr "Afficher Calendrier"
+msgstr "Afficher le calendrier"
 
 #
 #: ../lib/the-events-calendar.class.php:3965
 msgid "Add Event"
-msgstr "Ajouter Événement"
+msgstr "Ajouter un événement"
 
 #
 #: ../lib/the-events-calendar.class.php:3974
 msgid "Edit Events"
-msgstr "Modifier Événements"
+msgstr "Modifier l'événements"
 
 #: ../lib/the-events-calendar.class.php:3983
 #: ../lib/the-events-calendar.class.php:4084
@@ -1923,7 +1923,7 @@ msgstr "Tribe"
 #: ../lib/tribe-event-api.class.php:374 ../lib/tribe-view-helpers.class.php:44
 #: ../public/template-tags/venue.php:240
 msgid "United States"
-msgstr "USA"
+msgstr "États-Unis"
 
 #: ../lib/tribe-event-exception.class.php:17
 #: ../lib/tribe-event-exception.class.php:34
@@ -3405,7 +3405,7 @@ msgstr "Aucun événement à venir prochainement."
 #: ../lib/io/csv/admin-views/columns.php:22
 #, php-format
 msgid "Column Mapping: %s"
-msgstr "Cartographie (mapping) des colonnes : %s"
+msgstr "Mapping des colonnes : %s"
 
 #: ../lib/io/csv/admin-views/columns.php:28
 msgid "Please choose the fields that best match the columns in your CSV file."
@@ -3762,12 +3762,12 @@ msgstr "Email de l'acheteur"
 
 #: ../lib/tickets/tribe-tickets-attendees.php:71
 msgid "Ticket type"
-msgstr "Type de ticket"
+msgstr "Type de billet"
 
 #: ../lib/tickets/tribe-tickets-attendees.php:72
 #: ../views/tickets/email.php:316
 msgid "Ticket #"
-msgstr "Ticket #"
+msgstr "Billet #"
 
 #: ../lib/tickets/tribe-tickets-attendees.php:73
 #: ../views/tickets/email.php:328
@@ -3797,23 +3797,23 @@ msgstr "Email"
 #
 #: ../lib/tickets/tribe-tickets-attendees.php:188
 msgid "Export"
-msgstr "Export"
+msgstr "Exporter"
 
 #: ../lib/tickets/tribe-tickets-attendees.php:194
 msgid "Filter by ticket #, order # or security code"
-msgstr "Filtrer par ticket #, commande # ou code de sécurité"
+msgstr "Filtrer par billets #, commande # ou code de sécurité"
 
 #: ../lib/tickets/tribe-tickets-metabox.php:24
 msgid "Tickets"
-msgstr "Tickets"
+msgstr "Billets"
 
 #: ../lib/tickets/tribe-tickets-metabox.php:62
 msgid "Ticket header image"
-msgstr "Image d'entête du ticket"
+msgstr "Image d'en-tête du billet"
 
 #: ../lib/tickets/tribe-tickets-metabox.php:62
 msgid "Set as ticket header"
-msgstr "Définir en tant qu'entête de ticket"
+msgstr "Définir en tant qu'en-tête de billet"
 
 #: ../lib/tickets/tribe-tickets-pro.php:107
 msgid "You need to select a user or type a valid email address"
@@ -3849,11 +3849,11 @@ msgstr "Liste de participants pour : %s"
 
 #: ../lib/tickets/tribe-tickets.php:298
 msgid "Your ticket has been saved."
-msgstr "Votre ticket à été sauvegardé."
+msgstr "Votre billet à été sauvegardé."
 
 #: ../lib/tickets/tribe-tickets.php:375
 msgid "Your ticket has been deleted."
-msgstr "Votre ticket à été supprimé."
+msgstr "Votre billet à été supprimé."
 
 #: ../public/advanced-functions/meta.php:39
 #: ../public/advanced-functions/meta.php:65
@@ -3877,7 +3877,7 @@ msgstr "Heure:"
 
 #: ../public/advanced-functions/meta.php:282
 msgid "Click to view a Google Map"
-msgstr "Cliquez pour voir une Google Map"
+msgstr "Cliquez pour voir une carte Google"
 
 #
 #: ../public/advanced-functions/meta.php:283
@@ -3984,7 +3984,7 @@ msgstr "Voir en tant que"
 #
 #: ../views/month/nav.php:18
 msgid "Calendar Month Navigation"
-msgstr "Navigation par Calendrier mensuel"
+msgstr "Navigation par calendrier mensuel"
 
 #
 #: ../views/tickets/attendees-email.php:25
@@ -3993,11 +3993,11 @@ msgstr "Liste de participants"
 
 #: ../views/tickets/email.php:39
 msgid "Your tickets"
-msgstr "Vos tickets"
+msgstr "Vos billets"
 
 #: ../views/tickets/email.php:320
 msgid "Ticket Type"
-msgstr "Type de ticket"
+msgstr "Type de billets"
 
 #: ../views/tickets/email.php:324
 msgid "Purchaser"
