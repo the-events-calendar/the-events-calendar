@@ -601,7 +601,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 
 		$attrs = apply_filters( 'tribe_events_header_attributes', $attrs, $current_view );
 		foreach ( $attrs as $attr => $value ) {
-			echo " $attr=" . '"' . $value . '"';
+			echo " $attr=" . '"' . esc_attr( $value ) . '"';
 		}
 	}
 
@@ -915,9 +915,9 @@ if ( class_exists( 'TribeEvents' ) ) {
 		return apply_filters( 'tribe_datetime_format', $format );
 
 	}
-	
-	/** 
-	 * 
+
+	/**
+	 *
 	 * @return mixed|void
 	 */
 	function tribe_get_time_format( ) {
@@ -1177,7 +1177,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 
 		if ( $additional ) {
 			$json = array_merge( (array) $json, (array) $additional );
-		}		
+		}
 
 		$json = apply_filters( 'tribe_events_template_data_array', $json, $event, $additional );
 
