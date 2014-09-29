@@ -133,7 +133,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			add_action( 'wp_loaded', array( $this, 'allow_cpt_search' ) );
 			add_action( 'plugin_row_meta', array( $this, 'addMetaLinks' ), 10, 2 );
 			add_filter( 'tribe_get_events_title', array( $this, 'reset_page_title' ), 10, 2 );
-			add_filter( 'tribe_events_add_title', array($this, 'maybeAddEventTitle' ), 10, 3 );
+			add_filter( 'tribe_events_title_tag', array($this, 'maybeAddEventTitle' ), 10, 3 );
 
 			add_filter( 'tribe_promo_banner', array( $this, 'tribePromoBannerPro' ) );
 			add_filter( 'tribe_help_tab_forums_url', array( $this, 'helpTabForumsLink' ) );
