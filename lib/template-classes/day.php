@@ -50,6 +50,13 @@ if ( ! class_exists( 'Tribe_Events_Day_Template' ) ) {
 			return $attrs;
 		}
 
+
+		/**
+		 * Get the link to download the ical version of day view
+		 * @param $link
+		 *
+		 * @return string
+		 */
 		public function ical_link( $link ) {
 			global $wp_query;
 			$day = $wp_query->get( 'start_date' );
