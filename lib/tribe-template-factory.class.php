@@ -119,7 +119,7 @@ if ( ! class_exists( 'Tribe_Template_Factory' ) ) {
 			add_action( 'the_post', array( $this, 'manage_sensitive_info' ) );
 
 			// implement a filter for the page title
-			add_filter( 'wp_title', array( $this, 'modify_wp_title' ), 10, 2 );
+			add_filter( 'wp_title', array( $this, 'title_tag' ), 10, 2 );
 
 			// add body class
 			add_filter( 'body_class', array( $this, 'body_class' ) );
@@ -293,7 +293,7 @@ if ( ! class_exists( 'Tribe_Template_Factory' ) ) {
 		 * @return mixed|void
 		 * @todo get rid of deprecated tag in 3.10
 		 */
-		final public function modify_wp_title( $title, $sep = null ) {
+		final public function title_tag( $title, $sep = null ) {
 			$new_title = $this->get_title( $title, $sep );
 			_deprecated_function( "The 'tribe_events_add_title' filter", '3.8', " the 'tribe_events_title_tag' filter" );
 			return apply_filters( 'tribe_events_title_tag', apply_filters( 'tribe_events_add_title', $new_title, $title, $sep ), $title, $sep );
