@@ -1102,7 +1102,7 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 		public function maybeAddEventTitle( $title, $sep = null ) {
 			global $wp_query;
 			if ( $wp_query->tribe_is_event_query ) {
-				$new_title = tribe_get_events_title() . ' ' . $sep . ' ' . $title;
+				$new_title = tribe_get_events_title( false ) . ' ' . $sep . ' ' . $title;
 				return apply_filters( 'tribe_events_add_title', $new_title, $title, $sep );
 			}
 			return $title;
