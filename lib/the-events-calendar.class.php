@@ -2537,7 +2537,7 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 			}
 
 			// if we're on an Event Cat, show the cat link, except for home and days.
-			if ( $type !== 'home' && $type !== 'day' && is_tax( self::TAXONOMY ) && $term !== false && ! is_numeric( $term ) ) {
+			if ( $type !== 'home' && is_tax( self::TAXONOMY ) && $term !== false && ! is_numeric( $term ) ) {
 				$term_link = get_term_link( get_query_var( 'term' ), self::TAXONOMY );
 				if ( ! is_wp_error( $term_link ) ) {
 					$eventUrl = trailingslashit( $term_link );
