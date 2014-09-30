@@ -295,7 +295,9 @@ if ( ! class_exists( 'Tribe_Template_Factory' ) ) {
 		 */
 		final public function title_tag( $title, $sep = null ) {
 			$new_title = $this->get_title( $title, $sep );
-			_deprecated_function( "The 'tribe_events_add_title' filter", '3.8', " the 'tribe_events_title_tag' filter" );
+			if ( has_filter( 'tribe_events_add_title' ) ) {
+				_deprecated_function( "The 'tribe_events_add_title' filter", '3.8', " the 'tribe_events_title_tag' filter" );
+			}
 			return apply_filters( 'tribe_events_title_tag', apply_filters( 'tribe_events_add_title', $new_title, $title, $sep ), $title, $sep );
 		}
 
