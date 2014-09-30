@@ -63,7 +63,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 */
 	function tribe_is_upcoming() {
 		global $wp_query;
-		$is_upcoming = ( isset( $wp_query->query_vars['eventDisplay'] ) && $wp_query->query_vars['eventDisplay'] == 'upcoming' ) ? true : false;
+		$is_upcoming = ( tribe_is_list_view() && ! tribe_is_past() ) ? true : false;
 
 		return apply_filters( 'tribe_is_upcoming', $is_upcoming );
 	}
@@ -74,6 +74,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 * Returns true if the query is set to show all events, false otherwise
 	 *
 	 * @return bool
+	 * @todo move to ECP
 	 */
 	function tribe_is_showing_all() {
 		$tribe_ecp            = TribeEvents::instance();
@@ -118,18 +119,23 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 * @param bool $depth include linked title
 	 *
 	 * @return string title
+	 * @todo move logic to template classes
 	 */
 	function tribe_get_events_title( $depth = true ) {
+
 		global $wp_query;
+
 		$tribe_ecp = TribeEvents::instance();
 
 		$title = __( 'Upcoming Events', 'tribe-events-calendar' );
 
-		// TODO: Use the displayed dates for the title
-		if ( tribe_is_past() ) {
+		if ( isset( $_REQUEST['tribe-bar-date'] ) && $wp_query->have_posts() ) {
+			$first_event_date = tribe_get_end_date( $wp_query->posts[0], false );
+			$last_event_date = tribe_get_end_date( $wp_query->posts[count( $wp_query->posts ) - 1], false );
+			$title = sprintf( __( 'Events for %1$s - %2$s', 'tribe-events-calendar'), $first_event_date, $last_event_date );
+		} elseif ( tribe_is_past() ) {
 			$title = __( 'Past Events', 'tribe-events-calendar' );
 		}
-
 
 		if ( tribe_is_month() ) {
 			$title = sprintf(
@@ -144,17 +150,13 @@ if ( class_exists( 'TribeEvents' ) ) {
 					 date_i18n( tribe_get_date_format( true ), strtotime( $wp_query->get( 'start_date' ) ) );
 		}
 
-		if ( is_tax( $tribe_ecp->get_event_taxonomy() ) ) {
+		if ( is_tax( $tribe_ecp->get_event_taxonomy() ) && $depth ) {
 			$cat = get_queried_object();
-			if ( $depth ) {
-				$title = '<a href="' . tribe_get_events_link() . '">' . $title . '</a>';
-				$title .= ' &#8250; ' . $cat->name;
-			} else {
-				$title = $cat->name;
-			}
+			$title = '<a href="' . tribe_get_events_link() . '">' . $title . '</a>';
+			$title .= ' &#8250; ' . $cat->name;
 		}
 
-		return apply_filters( 'tribe_template_factory_debug', apply_filters( 'tribe_get_events_title', $title ), 'tribe_get_events_title' );
+		return apply_filters( 'tribe_get_events_title', $title, $depth );
 	}
 
 	/**
@@ -218,7 +220,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 
 			// Edit the current event query to look for an upcoming event
 			$args                 = (array) $wp_query->query;
-			$args['eventDisplay'] = 'upcoming';
+			$args['eventDisplay'] = 'list';
 
 			if ( tribe_is_past() ) {
 				$args['paged'] = $wp_query->query_vars['paged'] ? $wp_query->query_vars['paged'] - 1 : 0;
@@ -266,13 +268,8 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 * @return bool
 	 */
 	function tribe_is_list_view() {
-		if ( tribe_is_event_query() && ( tribe_is_upcoming() || tribe_is_past() || ( is_single() && tribe_is_showing_all() ) ) ) {
-			$return = true;
-		} else {
-			$return = false;
-		}
-
-		return apply_filters( 'tribe_is_list_view', $return );
+		$is_list_view = (TribeEvents::instance()->displaying == 'list') ? true : false;
+		return apply_filters( 'tribe_is_list_view', $is_list_view );
 	}
 
 	/**

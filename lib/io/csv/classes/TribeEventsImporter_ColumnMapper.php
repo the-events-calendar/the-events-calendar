@@ -63,6 +63,7 @@ class TribeEventsImporter_ColumnMapper {
 			'event_cost'           => __( 'Event Cost', 'tribe-events-calendar' ),
 			'event_phone'          => __( 'Event Phone', 'tribe-events-calendar' ),
 			'event_category'       => __( 'Event Category', 'tribe-events-calendar' ),
+			'event_website'  	   => __( 'Event Website', 'tribe-events-calendar' ),
 		);
 	}
 

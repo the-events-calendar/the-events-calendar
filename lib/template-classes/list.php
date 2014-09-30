@@ -30,6 +30,25 @@ if ( ! class_exists( 'Tribe_Events_List_Template' ) ) {
 		}
 
 		/**
+		 * Get the title for list view
+		 * @param      $title
+		 * @param null $sep
+		 *
+		 * @return string
+		 */
+		protected function get_title( $original_title, $sep = null ) {
+			$new_title = parent::get_title( $original_title, $sep );
+			if ( tribe_is_upcoming() && has_filter( 'tribe_upcoming_events_title' ) ) {
+				_deprecated_function( "The 'tribe_upcoming_events_title' filter", '3.8', " the 'tribe_get_events_title' filter" );
+				$new_title = apply_filters( 'tribe_upcoming_events_title', $new_title, $sep );
+			} elseif ( has_filter( 'tribe_past_events_title' ) ) {
+				_deprecated_function( "The 'tribe_past_events_title' filter", '3.8', " the 'tribe_get_events_title' filter" );
+				$new_title = apply_filters( 'tribe_past_events_title', $new_title, $sep );
+			}
+			return $new_title;
+		}
+
+		/**
 		 * List view ajax handler
 		 *
 		 * @return void
@@ -41,7 +60,7 @@ if ( ! class_exists( 'Tribe_Events_List_Template' ) ) {
 			$tribe_paged = ( ! empty( $_POST['tribe_paged'] ) ) ? intval( $_POST['tribe_paged'] ) : 1;
 
 			$args = array(
-				'eventDisplay' => 'upcoming',
+				'eventDisplay' => 'list',
 				'post_type'    => TribeEvents::POSTTYPE,
 				'post_status'  => 'publish',
 				'paged'        => $tribe_paged
@@ -93,24 +112,15 @@ if ( ! class_exists( 'Tribe_Events_List_Template' ) ) {
 
 			$paged = $tribe_paged;
 
-			if ( $query->query_vars['eventDisplay'] == 'list' ) {
-				TribeEvents::instance()->displaying = 'upcoming';
-			} elseif ( $query->query_vars['eventDisplay'] == 'past' ) {
-				TribeEvents::instance()->displaying = 'past';
-				$response['view'] = 'past';
-			}
+			TribeEvents::instance()->displaying = 'list';
 
-			$old_request = $_SERVER;
-			if ( tribe_is_past() ) {
-				$_SERVER['REQUEST_URI'] = TribeEvents::instance()->rewriteSlug . '/' . 'past/';
-			} else {
-				$_SERVER['REQUEST_URI'] = TribeEvents::instance()->rewriteSlug . '/' . 'upcoming/';
+			if ( ! empty( $_POST['tribe_event_display'] ) && $_POST['tribe_event_display'] == 'past' ){
+				$response['view'] = 'past';
 			}
 
 			ob_start();
 			tribe_get_view( 'list/content' );
 			$response['html'] .= ob_get_clean();
-			$_SERVER = $old_request;
 
 			apply_filters( 'tribe_events_ajax_response', $response );
 

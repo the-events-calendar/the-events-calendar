@@ -35,7 +35,7 @@ var tribe_debug = true;
  * this debug code is stripped out by closure compiler so it is not present in the .min versions.
  */
 
-if ( tribe_debug ) {
+// @ifdef DEBUG
 
 	/*!
 	 * JavaScript Debug - v0.4 - 6/22/2010
@@ -135,7 +135,7 @@ if ( tribe_debug ) {
 			init: []
 		};
 	}
-}
+// @endif
 
 /**
  * @global
@@ -601,7 +601,9 @@ Date.prototype.format = function( mask, utc ) {
 			if ( $( '#tribe-bar-date' ).length ) {
 				dp_day = $( '#tribe-bar-date-day' ).val();
 			}
+			// @ifdef DEBUG
 			dbug && debug.info( 'TEC Debug: tribe_ev.fn.get_day returned this date: "' + dp_day + '".' );
+			// @endif
 			return dp_day;
 		},
 		/**
@@ -696,7 +698,9 @@ Date.prototype.format = function( mask, utc ) {
 			string.replace( /([^&=]+)=?([^&]*)(?:&+|$)/g, function( match, key, value ) {
 				(map[key] = map[key] || []).push( value );
 			} );
+			// @ifdef DEBUG
 			dbug && debug.info( 'TEC Debug: tribe_ev.fn.parse_string returned this map:', map );
+			// @endif
 			return map;
 		},
 		/**
@@ -732,7 +736,9 @@ Date.prototype.format = function( mask, utc ) {
 			tribe_ev.fn.disable_empty( form, type );
 			var params = $( form ).serialize();
 			tribe_ev.fn.disable_inputs( form, type );
+			// @ifdef DEBUG
 			dbug && params && debug.info( 'TEC Debug: tribe_ev.fn.serialize returned these params: "' + params );
+			// @endif
 			return params;
 		},
 		/**
@@ -791,8 +797,9 @@ Date.prototype.format = function( mask, utc ) {
 			} );
 
 			$body.removeClass( 'tribe-reset-on' );
-
+			// @ifdef DEBUG
 			dbug && debug.info( 'TEC Debug: tribe_ev.fn.set_form fired these params: "' + params );
+			// @endif
 		},
 		/**
 		 * @function tribe_ev.fn.setup_ajax_timer
@@ -810,7 +817,9 @@ Date.prototype.format = function( mask, utc ) {
 				tribe_ev.state.ajax_timer = setTimeout( function() {
 					callback();
 				}, timer );
+				// @ifdef DEBUG
 				dbug && debug.info( 'TEC Debug: tribe_ev.fn.setup_ajax_timer fired with a timeout of "' + timer + '" ms' );
+				// @endif
 			}
 		},
 		/**
@@ -913,15 +922,20 @@ Date.prototype.format = function( mask, utc ) {
 				}
 				$bar_date.bootstrapDatepicker( "setDate", date );
 				tribe_ev.state.updating_picker = false;
+				// @ifdef DEBUG
 				dbug && debug.info( 'TEC Debug: tribe_ev.fn.update_picker sent "' + date + '" to the boostrapDatepicker' );
+				// @endif
 			}
 			else if ( $bar_date.length ) {
 				$bar_date.val( date );
+				// @ifdef DEBUG
 				dbug && debug.warn( 'TEC Debug: tribe_ev.fn.update_picker sent "' + date + '" to ' + $bar_date );
+				// @endif
 			}
 			else {
-
+				// @ifdef DEBUG
 				dbug && debug.warn( 'TEC Debug: tribe_ev.fn.update_picker couldnt send "' + date + '" to any object.' );
+				// @endif
 			}
 		},
 		/**
@@ -1133,7 +1147,9 @@ Date.prototype.format = function( mask, utc ) {
 
 	$( document ).ready( function() {
 
+		// @ifdef DEBUG
 		dbug && debug.info( 'TEC Debug: Tribe Events JS init, Init Timer started from tribe-events.js.' );
+		// @endif
 
 		tf.update_viewport_variables();
 
@@ -1162,7 +1178,9 @@ Date.prototype.format = function( mask, utc ) {
 			ts.datepicker_format = $tribe_events.attr( 'data-datepicker_format' );
 		}
 
+		// @ifdef DEBUG
 		ts.view && dbug && debug.time( 'Tribe JS Init Timer' );
+		// @endif
 
 		/**
 		 *
@@ -1244,6 +1262,7 @@ Date.prototype.format = function( mask, utc ) {
 
 			} );
 
+		// @ifdef DEBUG
 		if ( dbug ) {
 			debug.groupCollapsed( 'TEC Debug: Browser and events settings information:' );
 			debug.log( 'User agent reported as: "' + navigator.userAgent );
@@ -1253,5 +1272,6 @@ Date.prototype.format = function( mask, utc ) {
 			debug.groupEnd();
 			debug.info( 'TEC Debug: tribe-events.js successfully loaded' );
 		}
+		// @endif
 	} );
 })( window, document, jQuery, tribe_ev.data, tribe_ev.events, tribe_ev.fn, tribe_ev.state, tribe_ev.tests, tribe_debug );

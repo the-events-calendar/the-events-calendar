@@ -577,7 +577,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 	function tribe_events_the_header_attributes( $current_view = null ) {
 		$attrs               = array();
 		$current_view        = ! empty( $current_view ) ? $current_view : basename( tribe_get_current_template() );
-		$attrs['data-title'] = wp_title( '|', false );
+		$attrs['data-title'] = wp_title( '|', false, 'right' );
 		switch ( $current_view ) {
 			case 'month.php' :
 				$attrs['data-view']    = 'month';
@@ -601,7 +601,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 
 		$attrs = apply_filters( 'tribe_events_header_attributes', $attrs, $current_view );
 		foreach ( $attrs as $attr => $value ) {
-			echo " $attr=" . '"' . $value . '"';
+			echo " $attr=" . '"' . esc_attr( $value ) . '"';
 		}
 	}
 
@@ -915,9 +915,9 @@ if ( class_exists( 'TribeEvents' ) ) {
 		return apply_filters( 'tribe_datetime_format', $format );
 
 	}
-	
-	/** 
-	 * 
+
+	/**
+	 *
 	 * @return mixed|void
 	 */
 	function tribe_get_time_format( ) {
@@ -1177,7 +1177,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 
 		if ( $additional ) {
 			$json = array_merge( (array) $json, (array) $additional );
-		}		
+		}
 
 		$json = apply_filters( 'tribe_events_template_data_array', $json, $event, $additional );
 
@@ -1282,9 +1282,6 @@ if ( class_exists( 'TribeEvents' ) ) {
 		$disabled = array();
 		foreach ( $views as $view ) {
 			if ( ! in_array( $view['displaying'], $enabled ) ) {
-				if ( $view['displaying'] == 'upcoming' ) {
-					$disabled[] = 'past';
-				}
 				$disabled[] = $view['displaying'];
 			}
 		}
