@@ -421,7 +421,9 @@ if ( Object.prototype.hasOwnProperty.call( window, 'tribe_ev' ) ) {
 			}
 		} );
 
+		// @ifdef DEBUG
 		dbug && debug.info( 'TEC Debug: tribe-events-pro.js successfully loaded' );
+		// @endif
 
 	} );
 

@@ -16,11 +16,13 @@
 	 * dbug = tribe_debug
 	 */
 
+	// @ifdef DEBUG
 	if ( dbug ) {
 		if ( !$().isotope ) {
 			debug.warn( 'TEC Debug: vendor isotope was not loaded before its dependant file tribe-photo-view.js' );
 		}
 	}
+	// @endif
 
 	$( document ).ready( function() {
 
@@ -93,7 +95,9 @@
 							overflow: 'visible'
 						}
 					}, tribe_hide_loader() );
+					// @ifdef DEBUG
 					dbug && debug.info( 'TEC Debug: imagesLoaded setup isotope on photo view.' );
+					// @endif
 				} );
 
 				tribe_apply_photo_cols( $container );
@@ -299,7 +303,9 @@
 
 			if ( tt.pushstate && !ts.filter_cats ) {
 
+				// @ifdef DEBUG
 				dbug && debug.time( 'Photo View Ajax Timer' );
+				// @endif
 				$( te ).trigger( 'tribe_ev_ajaxStart' ).trigger( 'tribe_ev_photoView_AjaxStart' );
 
 				$.post(
@@ -380,7 +386,9 @@
 
 							$( te ).trigger( 'tribe_ev_ajaxSuccess' ).trigger( 'tribe_ev_photoView_AjaxSuccess' );
 
+							// @ifdef DEBUG
 							dbug && debug.timeEnd( 'Photo View Ajax Timer' );
+							// @endif
 
 						}
 					}
@@ -397,8 +405,10 @@
 			}
 		}
 
+		// @ifdef DEBUG
 		dbug && debug.info( 'TEC Debug: tribe-events-photo-view.js successfully loaded' );
 		ts.view && dbug && debug.timeEnd( 'Tribe JS Init Timer' );
+		// @endif
 
 	} );
 

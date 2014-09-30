@@ -545,7 +545,9 @@
 
 			if ( tt.pushstate ) {
 
+				// @ifdef DEBUG
 				dbug && debug.time( 'Week View Ajax Timer' );
+				// @endif
 				$( te ).trigger( 'tribe_ev_ajaxStart' ).trigger( 'tribe_ev_weekView_AjaxStart' );
 
 				$.post(
@@ -603,7 +605,9 @@
 								.trigger( 'tribe_ev_ajaxSuccess' )
 								.trigger( 'tribe_ev_weekView_AjaxSuccess' );
 
+							// @ifdef DEBUG
 							dbug && debug.timeEnd( 'Week View Ajax Timer' );
+							// @endif
 
 						}
 					}
@@ -620,8 +624,10 @@
 			}
 		}
 
+		// @ifdef DEBUG
 		dbug && debug.info( 'TEC Debug: tribe-events-week.js successfully loaded' );
 		ts.view && dbug && debug.timeEnd( 'Tribe JS Init Timer' );
+		// @endif
 	} );
 
 })( window, document, jQuery, tribe_ev.data, tribe_ev.events, tribe_ev.fn, tribe_ev.state, tribe_ev.tests, tribe_debug );
