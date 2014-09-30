@@ -123,7 +123,6 @@ if ( ! class_exists( 'TribeEventsTemplates' ) ) {
 					}
 
 				} else {
-
 					$template = self::getTemplateHierarchy( 'default-template' );
 
 				}

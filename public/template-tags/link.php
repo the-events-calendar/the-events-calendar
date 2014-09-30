@@ -146,7 +146,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 */
 	function tribe_get_listview_link( $term = null ) {
 		$tribe_ecp = TribeEvents::instance();
-		$output    = $tribe_ecp->getLink( 'upcoming', false, $term );
+		$output    = $tribe_ecp->getLink( 'list', false, $term );
 
 		return apply_filters( 'tribe_get_listview_link', $output );
 	}

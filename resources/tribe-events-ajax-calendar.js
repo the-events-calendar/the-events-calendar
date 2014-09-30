@@ -410,7 +410,9 @@
 
 			if ( tt.pushstate && !ts.filter_cats ) {
 
+				// @ifdef DEBUG
 				dbug && debug.time( 'Month View Ajax Timer' );
+				// @endif
 
 				$( te ).trigger( 'tribe_ev_ajaxStart' ).trigger( 'tribe_ev_monthView_AjaxStart' );
 
@@ -434,9 +436,11 @@
 								'timestamp'  : new Date().getTime()
 							};
 
+							// @ifdef DEBUG
 							if ( dbug && response.html === 0 ) {
 								debug.warn( 'Month view ajax had an error in the query and returned 0.' );
 							}
+							// @endif
 
 							var $the_content = '';
 							if ( $.isFunction( $.fn.parseHTML ) ) {
@@ -470,7 +474,9 @@
 
 							$( te ).trigger( 'tribe_ev_ajaxSuccess' ).trigger( 'tribe_ev_monthView_ajaxSuccess' );
 
+							// @ifdef DEBUG
 							dbug && debug.timeEnd( 'Month View Ajax Timer' );
+							// @endif
 						}
 					}
 				);
@@ -486,8 +492,10 @@
 			}
 		}
 
+		// @ifdef DEBUG
 		dbug && debug.info( 'TEC Debug: tribe-events-ajax-calendar.js successfully loaded, Tribe Events Init finished' );
 		dbug && debug.timeEnd( 'Tribe JS Init Timer' );
+		// @endif
 	} );
 
 })( window, document, jQuery, tribe_ev.data, tribe_ev.events, tribe_ev.fn, tribe_ev.state, tribe_ev.tests, tribe_debug );

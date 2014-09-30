@@ -1123,7 +1123,7 @@ table.tribe-events-tickets td.wpec {
 	line-height: 0;
 }
 
-table.tribe-events-tickets td.woocommerce {
+table.tribe-events-tickets td.woocommerce.add-to-cart {
 	border-bottom: 0;
 }
 

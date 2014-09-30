@@ -50,6 +50,30 @@ if ( ! class_exists( 'Tribe_Events_Day_Template' ) ) {
 			return $attrs;
 		}
 
+		/**
+		 * Get the title for day view
+		 * @param      $title
+		 * @param null $sep
+		 *
+		 * @return string
+		 */
+		protected function get_title( $original_title, $sep = null ) {
+			$new_title = parent::get_title( $original_title, $sep );
+			if ( has_filter( 'tribe_events_day_view_title' ) ) {
+				_deprecated_function( "The 'tribe_events_day_view_title' filter", '3.8', " the 'tribe_get_events_title' filter" );
+				$title_date = date_i18n( tribe_get_date_format( true ), strtotime( get_query_var( 'eventDate' ) ) );
+				$new_title  = apply_filters( 'tribe_events_day_view_title', $new_title, $sep, $title_date );
+			}
+			return $new_title;
+		}
+
+
+		/**
+		 * Get the link to download the ical version of day view
+		 * @param $link
+		 *
+		 * @return string
+		 */
 		public function ical_link( $link ) {
 			global $wp_query;
 			$day = $wp_query->get( 'start_date' );

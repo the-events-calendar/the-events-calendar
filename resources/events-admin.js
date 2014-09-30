@@ -193,13 +193,14 @@ jQuery( document ).ready( function( $ ) {
 		savedVenue.change( function() {
 			if ( $( this ).val() == '0' ) {
 				venueFields.fadeIn();
-				$( "#EventCountry" ).val( 0 ).trigger( "liszt:updated" );
-				$( "#StateProvinceSelect" ).val( 0 ).trigger( "liszt:updated" );
+				$( "#EventCountry" ).val( 0 ).trigger( "chosen:updated" );
+				$( "#StateProvinceSelect" ).val( 0 ).trigger( "chosen:updated" );
 				tribeShowHideCorrectStateProvinceInput( '' );
 				//.find("input, select").val('').removeAttr('checked');
 			}
 			else {
 				venueFields.fadeOut();
+
 			}
 		} );
 		// hide unnecessary fields
