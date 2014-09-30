@@ -608,10 +608,14 @@
 					return true;
 				}
 			} );
+			// @ifdef DEBUG
 			ts.view && dbug && debug.timeEnd( 'Tribe JS Init Timer' );
+			// @endif
 		}
 
+		// @ifdef DEBUG
 		dbug && debug.info( 'TEC Debug: tribe-events-ajax-maps.js successfully loaded' );
+		// @endif
 
 	} );
 
