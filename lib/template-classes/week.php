@@ -30,22 +30,18 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 		public static $prior_event_date = null;
 		public static $event_key_track = array();
 		public static $loop_type = 'hourly';
+		const AJAX_HOOK = 'tribe_week';
 
 		public function __construct() {
 
 			parent::__construct();
 
-			self::$prior_event_date = (object) array( 'EventStartDate'=>null, 'EventEndDate'=>null );
-			self::$today = date_i18n( 'Y-m-d', strtotime( 'today' ) );
+			self::$prior_event_date   = (object) array( 'EventStartDate' => null, 'EventEndDate' => null );
+			self::$today              = date_i18n( 'Y-m-d', strtotime( 'today' ) );
 			self::$start_of_week_date = self::get_rounded_beginning_of_day( tribe_get_first_week_day(), 'Y-m-d H:i:s' );
-			self::$end_of_week_date = self::get_rounded_end_of_day( date('Y-m-d', strtotime( self::$start_of_week_date . ' +' . self::$week_length - 1 . ' days' ) ), 'Y-m-d H:i:s' );
-			self::$start_of_week = get_option( 'start_of_week', 0 );
-			self::$day_cutoff_rounded = date('H:00', strtotime(self::$start_of_week_date));
-
-			// let's get this show on the road
-			// self::set_current_day( self::$start_of_week );
-			self::setup_loop();
-			self::set_week_days();
+			self::$end_of_week_date   = self::get_rounded_end_of_day( date( 'Y-m-d', strtotime( self::$start_of_week_date . ' +' . self::$week_length - 1 . ' days' ) ), 'Y-m-d H:i:s' );
+			self::$start_of_week      = get_option( 'start_of_week', 0 );
+			self::$day_cutoff_rounded = date( 'H:00', strtotime( self::$start_of_week_date ) );
 
 			// save tribe bar args
 			if ( empty( self::$tribe_bar_args ) ) {
@@ -110,6 +106,8 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 			parent::hooks();
 			add_filter( 'tribe_events_header_attributes',  array( $this, 'header_attributes' ), 10, 2 );
 			add_action( 'tribe_events_week_pre_setup_event', array( $this, 'manage_sensitive_info' ) );
+			add_filter( 'tribe_pre_get_view', array( $this, 'setup_loop' ) );
+			add_filter( 'tribe_pre_get_view', array( $this, 'set_week_days' ) );
 		}
 
 		/**
@@ -228,7 +226,7 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 							) {
 							$has_events = true;
 							break;
-			}
+						}
 					}
 				}
 				$week_days[$n]['has_events'] = $has_events;
@@ -277,7 +275,9 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 		 * @return void
 		 */
 		function setup_loop() {
+
 			global $wp_query;
+
 			self::$events = (object) array(
 				'all_day_map' => array(),
 				'all_day' => array(),
@@ -380,6 +380,7 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 			}
 
 			self::map_hourlies();
+
 		}
 
 		/**
@@ -608,5 +609,55 @@ if ( !class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 			return date($format, strtotime($date));
 		}
 
+		/**
+		 * AJAX handler for Week view
+		 * This loads up the week view shard with all the appropriate events for the week
+		 *
+		 * @return void
+		 */
+		function ajax_response(){
+			if ( isset( $_POST["eventDate"] ) && $_POST["eventDate"] ) {
+
+				TribeEventsQuery::init();
+
+				$states[] = 'publish';
+				if ( 0 < get_current_user_id() ) $states[] = 'private';
+
+				$args = array(
+					'post_status' => $states,
+					'eventDate' => $_POST["eventDate"],
+					'eventDisplay' => 'week'
+				);
+
+				if ( isset( $_POST['tribe_event_category'] ) ) {
+					$args[TribeEvents::TAXONOMY] = $_POST['tribe_event_category'];
+				}
+
+				global $wp_query;
+				$wp_query = TribeEventsQuery::getEvents( $args, true );
+
+				TribeEvents::instance()->setDisplay();
+
+				$response = array(
+					'html'            => '',
+					'success'         => true,
+					'view'            => 'week',
+				);
+
+				add_filter( 'tribe_is_week', '__return_true' ); // simplest way to declare that this is a week view
+
+				ob_start();
+
+				tribe_get_view( 'pro/week/content' );
+
+				$response['html'] .= ob_get_clean();
+
+				apply_filters( 'tribe_events_ajax_response', $response );
+
+				header( 'Content-type: application/json' );
+				echo json_encode( $response );
+				die();
+			}
+		}
 	}
 }

@@ -1,11 +1,11 @@
 === The Events Calendar PRO ===
 
-Contributors:  ModernTribe, roblagatta, faction23, jazbek, jbrinley, caseypatrickdriscoll, leahkoerper, barry.hughes, ckpicker, neillmcshea, brook-tribe, peterchester, reid.peifer, shane.pearlman
+Contributors:  ModernTribe, roblagatta, faction23, jazbek, jbrinley, leahkoerper, brook-tribe, ckpicker, barry.hughes, joshlimecuda, geoffgraham, brianjessee, mdbitz, neillmcshea, peterchester, ryancurban, reid.peifer, shane.pearlman
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget, pro
 Donate link: http://m.tri.be/29
-Requires at least: 3.7
-Tested up to: 3.9.1
-Stable tag: 3.7
+Requires at least: 3.8
+Tested up to: 4.0
+Stable tag: 3.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -71,9 +71,9 @@ No, this plugin does not use a shortcode nor is one available at the time being.
 
 = Are there any troubleshooting steps you'd suggest I try that might resolve my issue before I post a new thread? =
 
-First, make sure that you're running the latest version of The Events Calendar (3.2 as of this release). If you're running Events Calendar PRO it needs to match the version number of The Events Calendar. And if you've got any other add-ons, make sure those are current / running the latest code as well.
+First, make sure that you're running the latest version of The Events Calendar (3.8 as of this release). If you're running Events Calendar PRO it needs to match the version number of The Events Calendar. And if you've got any other add-ons, make sure those are current / running the latest code as well.
 
-The most common issues we see are either plugin or theme conflicts. You can test if a plugin or theme is conflicting by manually deactivating other plugins until just The Events Calendar 3.2 is running on your site. If the issue persists from there, revert to the default Twenty Twelve theme. If the issue is resolved after deactivating a specific plugin or your theme, you'll know that is the source of the conflict.
+The most common issues we see are either plugin or theme conflicts. You can test if a plugin or theme is conflicting by manually deactivating other plugins until just The Events Calendar 3.8 is running on your site. If the issue persists from there, revert to the default Twenty Twelve theme. If the issue is resolved after deactivating a specific plugin or your theme, you'll know that is the source of the conflict.
 
 Note that we aren't going to say "tough luck" if you identify a plugin/theme conflict. While we can't guarantee 100% integration with any plugin or theme out there, we will do our best (and reach out the plugin/theme author as needed) to figure out a solution that benefits everyone.
 
@@ -126,24 +126,28 @@ The plugin is produced by <a href="http://m.tri.be/45">Modern Tribe Inc</a>.
 * <a href="http://profiles.wordpress.org/users/roblagatta">Rob La Gatta</a>
 * <a href="http://profiles.wordpress.org/users/barryhughes">Barry Hughes</a>
 * <a href="http://profiles.wordpress.org/users/jbrinley">Jonathan Brinley</a>
-* <a href="http://profiles.wordpress.org/users/caseypatrickdriscoll”>Casey Driscoll</a>
 * <a href="http://profiles.wordpress.org/users/faction23">Samuel Estok</a>
+* <a href="http://profiles.wordpress.org/users/brianjessee">Brian Jessee</a>
+* <a href="http://profiles.wordpress.org/users/mdbitz”>Matthew Denton</a>
+* <a href="http://profiles.wordpress.org/users/geoffgraham">Geoff Graham</a>
+* <a href="http://profiles.wordpress.org/users/joshlimecuda”>Josh Mallard</a>
 * <a href="http://profiles.wordpress.org/users/neillmcshea">Neill McShea</a>
+* <a href="http://profiles.wordpress.org/users/brook-tribe”>Brook Harding</a>
 * <a href="http://profiles.wordpress.org/users/ckpicker”>Casey Picker</a>
 * <a href="http://profiles.wordpress.org/users/leahkoerper">Leah Koerper</a>
 * <a href="http://profiles.wordpress.org/users/peterchester">Peter Chester</a>
 * <a href="http://profiles.wordpress.org/users/reid.peifer">Reid Peifer</a>
 * <a href="http://profiles.wordpress.org/users/shane.pearlman">Shane Pearlman</a>
-* <a href="http://profiles.wordpress.org/users/brook-tribe”>Brook Harding</a>
 
 = Past Contributors =
 
 * <a href="http://profiles.wordpress.org/users/paulhughes01">Paul Hughes</a>
-* <a href="http://profiles.wordpress.org/users/codearachnid">Timothy Wood</a>
-* <a href="http://profiles.wordpress.org/users/MZAWeb">Daniel Dvorkin</a>
 * <a href="http://profiles.wordpress.org/users/kyleunzicker">Kyle Unzicker</a>
-* <a href="http://profiles.wordpress.org/users/kellykathryn">Kelly Groves</a>
+* <a href="http://profiles.wordpress.org/users/MZAWeb">Daniel Dvorkin</a>
 * <a href="http://profiles.wordpress.org/users/ryancurban">Ryan Urban</a>
+* <a href="http://profiles.wordpress.org/users/caseypatrickdriscoll">Casey Driscoll</a>
+* <a href="http://profiles.wordpress.org/users/codearachnid">Timothy Wood</a>
+* <a href="http://profiles.wordpress.org/users/kellykathryn">Kelly Groves</a>
 * <a href="http://profiles.wordpress.org/users/jonahcoyote">Jonah West</a>
 * <a href="http://profiles.wordpress.org/users/jkudish">Joachim Kudish</a>
 * <a href="http://profiles.wordpress.org/users/nickciske">Nick Ciske</a>
@@ -164,30 +168,32 @@ The plugin is produced by <a href="http://m.tri.be/45">Modern Tribe Inc</a>.
 * Chinese from Massound Huang
 * Croatian from Marko Manojlovic
 * Czech from Petr Bastan
-* Danish from Anonymous
-* Dutch from J.F.M. Cornelissen and Frans Pronk
+* Danish from Hans Christian Andersen
+* Dutch from Dirk Westenberg
 * Estonian from Andra Saimre
-* Finnish by Ari-Pekka Koponen
+* Finnish by Elias Okkonen
 * French from Laurent Proulx
-* German from Dennis Gruebner
+* German from Stefan Dorscht and Oliver Heinrich
 * Greek from Yannis Troullinos
 * Icelandic by Baldvin √ñrn Berndsen
 * Indonesian by Didik Priyanto
-* Italian from Roberto Scano
+* Italian from Gabriele Taffi
 * Latvian from Raivis Dejus
 * Montenegrin from Sasa Vukovic
 * Norwegian Bokmål by Morten Ruud
 * Norwegian Nynorsk by Torbjørn Lauen
 * Polish from Marek Kosina
-* Portuguese from Antonio Pratas
+* Portuguese from Sérgio Leite
 * Romanian from Cosmin Vaman
+* Russian from Alexander Tinyaev
 * Serbian from Marko Manojlovic
-* Spanish from Juan Jose Reparaz Sarasola
+* Slovenian from Žiga Vajdic
+* Spanish from Juanjo Navarro
 * Swedish from Jonas Reinicke
 * Turkish by Derin Korman
 * Ukranian by Vasily Vishnyakov
 
-* Previous translators include Maria Tsilimidou, Martin Kristan, Ben Andersen, Oliver Heinrich, Mikhail Michouris, Bastien BC, Erik Massop, Ed Boon, Rick van Dalen, Jacob Roel Meijering, hristian Andersen, Michael Sebel, Dionizio Bonfim Bach, Mihai Burcea, Filippo Montanari, David Decker, Kamil Szymanski, "Terje With Lunndal", Sagi Shrieber, Matthew Meyer, Arno Faure, Fanny Heraud, Vincent G from Host1Free, , Petri Kajander, Fran Rosa, Nico (wsMaurik), Panos Efstratiou, Dominique Monhardt, Thomas Butzek, Kjell Vestnes, Luiza Libardi, Diego Meneghetti, Benoit Burgener, Hector Gil Rizo, Burak Pehlevan, and Alexey Fedorov
+* Previous translators include Ari-Pekka Koponen, Antonio Pratas, Dennis Gruebner, J.F.M. Cornelissen, Frans Pronk, Roberto Scano, Maria Tsilimidou, Martin Kristan, Ben Andersen, Oliver Heinrich, Mikhail Michouris, Bastien BC, Erik Massop, Ed Boon, Rick van Dalen, Jacob Roel Meijering, Christian Andersen, Michael Sebel, Dionizio Bonfim Bach, Mihai Burcea, Filippo Montanari, David Decker, Kamil Szymanski, "Terje With Lunndal", Sagi Shrieber, Matthew Meyer, Arno Faure, Fanny Heraud, Vincent G from Host1Free, , Petri Kajander, Fran Rosa, Nico (wsMaurik), Panos Efstratiou, Dominique Monhardt, Thomas Butzek, Kjell Vestnes, Luiza Libardi, Diego Meneghetti, Benoit Burgener, Hector Gil Rizo, Burak Pehlevan, and Alexey Fedorov
 
 == Add-Ons ==
 
@@ -218,6 +224,28 @@ Our Premium Plugins:
 
 3.x is a complete overhaul of the plugin, and as a result we're starting the changelog fresh. For release notes from the 2.x lifecycle, see <a href="http://m.tri.be/k">our 2.x release notes.</a>
 
+= 3.8 =
+
+* Fixed a bug that caused instances of a recurring event to disappear when recurrence was removed and then added back to an event (thanks to drickard on the forums for the original report!)
+* Fixed a bug that caused missing custom meta in events in a recurring series (thanks to Jacob Rylander for the heads up on this!)
+* Fixed bad nesting in advanced list widget breaking the theme customizer
+* Fixed issues with select2 implementation in our widgets breaking the theme customizer (thanks to George on the forums for the first report!)
+* Removed confirmation dialog when bulk deleting events
+* Added code to correctly identify recurring events as recurring even if they only have one instance (thanks to jrtoy4311 on the forums for reporting this!)
+* Removed some unused code
+* Fixed a bug causing mixed content issues when events are viewed over HTTPS (thanks to Nathan on the forums for the original report!)
+* Enhanced embedded maps to position markers via longitude/latitude whenever that information is available (thanks to gatewaydevelopment on the forums for the original heads up!)
+* Incorporated new Russian translation files, courtesy of Alexander Tinyaev
+* Incorporated updated Italian translation files, courtesy of Gabriele Taffi
+* Incorporated updated Spanish translation files, courtesy of Juanjo Navarro
+* Incorporated updated Danish translation files, courtesy of Hans Christian Andersen
+* Incorporated updated Dutch translation files, courtesy of Dirk Westenberg
+* Incorporated updated Portuguese translation files, courtesy of Sérgio Leite
+* Incorporated new Russian translation files, courtesy of Žiga Vajdic
+* Incorporated updated German translation files, courtesy of Stefan Dorscht and Oliver Heinrich
+* Incorporated updated Finnish translation files, courtesy of Elias Okkonen
+* Incorporated updated Estonian translation files, courtesy of Andra Saimre
+
 = 3.7 =
 
 * Fixed some untranslatable text strings
@@ -242,7 +270,7 @@ Our Premium Plugins:
 * Incorporated new Bulgarian translation files, courtesy of Nedko Ivanov
 * Incorporated new Chinese translation files, courtesy of Massound Huang
 * Incorporated new Indonesian translation files, courtesy of Didik Priyanto
-
+* Fixed re-registering of Venue Post Type so user customizations made from tribe_events_register_venue_type_args are maintained with PRO enabled.
 
 = 3.6.1 =
 
@@ -449,6 +477,14 @@ Still not happy? Shoot us an email to pro@tri.be or tweet to @moderntribeinc and
 == Upgrade Notice ==
 
 IMPORTANT NOTICE: 3.x upgrade is a HUGE upgrade from 2.x versions. If you are upgrading from an older version, please test thoroughly before updating on your live website.
+
+= 3.8 =
+
+Please see the changelog for the complete list of changes in this release. Remember to always make a backup of your database and files before updating!
+
+= 3.7 =
+
+Please see the changelog for the complete list of changes in this release. Remember to always make a backup of your database and files before updating!
 
 = 3.6 =
 

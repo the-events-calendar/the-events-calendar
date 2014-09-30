@@ -60,22 +60,33 @@ if ( empty( $instance['filters'] ) ) {
 	<input type="hidden" name="<?php echo $this->get_field_name( 'filters' ); ?>"
 	       id="<?php echo $this->get_field_id( 'filters' ); ?>" class="calendar-widget-added-filters"
 	       value='<?php echo maybe_serialize( $instance['filters'] ); ?>'/>
-
+	<style>
+		.customizer-select2 {
+			z-index:500001
+		}
+	</style>
 	<div class="calendar-widget-filter-list">
-
 		<?php
 		if ( ! empty( $instance['filters'] ) ) {
+
+			echo '<ul>';
 
 			foreach ( json_decode( $instance['filters'] ) as $tax => $terms ) {
 				$tax_obj = get_taxonomy( $tax );
 
 				foreach ( $terms as $term ) {
-					if ( empty( $term ) )
+					if ( empty( $term ) ) {
 						continue;
+					}
 					$term_obj = get_term( $term, $tax );
+					if ( empty( $term_obj ) || is_wp_error( $term_obj ) ) {
+						continue;
+					}
 					echo sprintf( "<li><p>%s: %s&nbsp;&nbsp;<span><a href='#' class='calendar-widget-remove-filter' data-tax='%s' data-term='%s'>(".__('remove', 'tribe-events-calendar-pro').")</a></span></p></li>", $tax_obj->labels->name, $term_obj->name, $tax, $term_obj->term_id );
 				}
 			}
+
+			echo '</ul>';
 		}
 		?>
 
@@ -111,10 +122,11 @@ if ( empty( $instance['filters'] ) ) {
 <script type="text/javascript">
 
 	jQuery( document ).ready( function ( $ ) {
-		if ( jQuery( 'div.widgets-sortables' ).find( 'select.calendar-widget-add-filter:not(#widget-tribe-mini-calendar-__i__-selector)' ).length ) {
-			jQuery( ".select2-container.calendar-widget-add-filter" ).remove();
+		if ( $( 'div.widgets-sortables' ).find( 'select.calendar-widget-add-filter:not(#widget-tribe-mini-calendar-__i__-selector)' ).length  && !$('#customize-controls' ).length) {
+
+			$( ".select2-container.calendar-widget-add-filter" ).remove();
 			setTimeout( function () {
-				jQuery( "select.calendar-widget-add-filter:not(#widget-tribe-mini-calendar-__i__-selector)" ).select2();
+				$( "select.calendar-widget-add-filter:not(#widget-tribe-mini-calendar-__i__-selector)" ).select2();
 				calendar_toggle_all();
 			}, 600 );
 		}

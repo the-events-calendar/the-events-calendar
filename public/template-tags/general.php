@@ -30,8 +30,18 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	 */
 	if (!function_exists( 'tribe_is_recurring_event' )) {
 		function tribe_is_recurring_event( $postId = null )  {
+			if ( is_object($postId) ) {
+				$postId = $postId->ID;
+			}
+			$postId = $postId ? $postId : get_the_ID();
+			if ( get_post_type($postId) != TribeEvents::POSTTYPE ) {
+				return FALSE;
+			}
 			$instances = tribe_get_recurrence_start_dates($postId);
 			$recurring = count($instances) > 1;
+			if ( !$recurring && get_post_meta( $postId, '_EventNextPendingRecurrence', TRUE ) ) {
+				$recurring = TRUE;
+			}
 			return apply_filters( 'tribe_is_recurring_event', $recurring, $postId );
 		}
 	}
@@ -389,7 +399,11 @@ if( class_exists( 'TribeEventsPro' ) ) {
 		global $wp_query;
 		$offset = 7 - get_option( 'start_of_week', 0 );
 
-		$date = is_null( $date ) ? $wp_query->get('start_date') : $date;
+		if ( tribe_is_ajax_view_request() ) {
+			$date = is_null( $date ) ? $_REQUEST['eventDate'] : $date;
+		} else {
+			$date = is_null( $date ) ? $wp_query->get('start_date') : $date;
+		}
 
 		try {
 			$date = new DateTime( $date );
@@ -397,7 +411,6 @@ if( class_exists( 'TribeEventsPro' ) ) {
 			$date = new DateTime();
 		}
 
-		// $date = is_null($date) ? new DateTime( $wp_query->get( 'start_date' ) ) : new DateTime( $date );
 		// Clone to avoid altering the original date
 		$r = clone $date;
 		$r->modify(-(($date->format('w') + $offset) % 7) . 'days');
@@ -441,10 +454,11 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	 *
 	 * @return bool
 	 */
-	function tribe_is_map()  {
+	function tribe_is_map() {
 		$tribe_ecp = TribeEvents::instance();
-		$is_map = ($tribe_ecp->displaying == 'map') ? true : false;
-		return apply_filters('tribe_is_map', $is_map);
+		$is_map    = ( $tribe_ecp->displaying == 'map' ) ? true : false;
+
+		return apply_filters( 'tribe_is_map', $is_map );
 	}
 
 	/**

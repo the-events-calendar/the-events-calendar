@@ -11,7 +11,7 @@ if( !class_exists('Tribe_PRO_Template_Factory') ) {
 		 */
 		public function __construct() {
 			parent::__construct();
-			add_action('tribe_events_asset_package', array(__CLASS__, 'asset_package'), 10, 2);
+			add_action( 'tribe_events_asset_package', array( __CLASS__, 'asset_package' ), 10, 2 );
 		}
 
 		/**
@@ -52,8 +52,8 @@ if( !class_exists('Tribe_PRO_Template_Factory') ) {
 					break;
 				case 'ajax-maps':
 					$http = is_ssl() ? 'https' : 'http';
-
-					wp_register_script( 'tribe-gmaps', $http . '://maps.google.com/maps/api/js?sensor=false', array( 'tribe-events-pro' ) );
+					$url = apply_filters( 'tribe_events_pro_google_maps_api', $http . '://maps.google.com/maps/api/js?sensor=false' );
+					wp_register_script( 'tribe-gmaps', $url, array( 'tribe-events-pro' ) );
 					$path = Tribe_Template_Factory::getMinFile( $resources_url . 'tribe-events-ajax-maps.js', true );
 					wp_register_script( 'tribe-events-pro-geoloc', $path, array( 'tribe-gmaps', parent::get_placeholder_handle() ), apply_filters( 'tribe_events_pro_js_version', TribeEventsPro::VERSION ) );
 					wp_enqueue_script( 'tribe-events-pro-geoloc' );
@@ -118,7 +118,7 @@ if( !class_exists('Tribe_PRO_Template_Factory') ) {
 
 							// set the $media attribute
 							if ( $name == 'tribe-events-calendar-pro-mobile-style' || $name == 'tribe-events-calendar-full-pro-mobile-style' ) {
-								$media = "(max-width: {$mobile_break}px)";
+								$media = "only screen and (max-width: {$mobile_break}px)";
 								wp_enqueue_style( $name, $url, array('tribe-events-calendar-pro-style'), TribeEventsPro::VERSION, $media );
 							} else {
 								wp_register_style( $name, $url, array(), TribeEventsPro::VERSION );

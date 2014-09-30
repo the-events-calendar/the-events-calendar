@@ -234,6 +234,7 @@ class TribeEventsMiniCalendar {
 				// set end date if initial load, or ajax month switch
 				if ( ! defined( 'DOING_AJAX' ) || ( defined( 'DOING_AJAX' ) && $_POST['action'] == 'tribe-mini-cal' ) ) {
 					$query_args['end_date']	= substr_replace($this->get_month( TribeDateUtils::DBDATEFORMAT ), TribeDateUtils::getLastDayOfMonth( strtotime( $this->get_month() ) ), -2 );
+					// @todo use tribe_events_end_of_day() ?
 					$query_args['end_date'] = TribeDateUtils::endOfDay($query_args['end_date']);
 				}
 
@@ -275,8 +276,6 @@ class TribeEventsMiniCalendar {
 	public function ajax_change_month_set_date( $query ) {
 
 		if ( isset( $_POST["eventDate"] ) && $_POST["eventDate"] ) {
-			// $query->set( 'eventDate', $_POST["eventDate"] . '-01' );
-			// $query->set( 'start_date', $_POST["eventDate"] . '-01' );
 			$query->set( 'end_date', date( 'Y-m-d', strtotime( TribeEvents::instance()->nextMonth( $_POST["eventDate"] . '-01' ) ) - ( 24 * 3600 ) ) );
 			$query->set( 'eventDisplay', 'month' );
 		}

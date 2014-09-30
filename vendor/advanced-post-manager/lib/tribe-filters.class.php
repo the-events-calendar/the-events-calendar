@@ -194,7 +194,6 @@ class Tribe_Filters {
 		add_action( 'load-edit.php', array($this, 'add_query_filters'), 30 );
 		add_action( 'init', array($this, 'register_post_type') );
 		add_filter( 'admin_body_class', array($this, 'add_body_class') );
-#		add_action( 'shutdown', array($this, 'debug') );
 		add_action( 'tribe_after_parse_query', array($this, 'maybe_cast_for_ordering'), 10, 2 );
 		add_action( 'tribe_after_parse_query', array($this, 'add_cast_helpers') );
 		add_filter( 'tribe_filter_input_class', array($this, 'input_date_class'), 10, 2 );
@@ -281,9 +280,6 @@ class Tribe_Filters {
 			else if ( isset($filter['meta'] ) ) {
 				$meta_query[] = $this->meta_query($k, $v);
 			}
-			else if ( isset($filter['custom'] ) ) {
-#				do_action();
-			}
 		}
 		$old_tax_query = $wp_query->get('tax_query');
 		$old_tax_query =  ( empty($old_tax_query) ) ? array() : $old_tax_query;
@@ -297,13 +293,11 @@ class Tribe_Filters {
 
 		$this->maybe_set_ordering($wp_query);
 
-	#	$this->log($wp_query->query_vars);
 		do_action_ref_array('tribe_after_parse_query', array($wp_query, $this->active) );
 	}
 
 	public function debug() {
 		$this->log($GLOBALS['wp_query']);
-		#$this->log($this->filters);
 	}
 
 	public function add_body_class($classes) {

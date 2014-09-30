@@ -109,6 +109,9 @@ class TribeEventsCustomMeta {
 	 * @return array
 	 */
 	public static function save_meta_options($ecp_options) {
+		// The custom-fields key may not exist if not fields have been defined
+		$ecp_options['custom-fields'] = isset( $ecp_options['custom-fields'] ) ? $ecp_options['custom-fields'] : array();
+
 		// Maintain a record of the highest assigned custom field index
 		$max_index = isset( $ecp_options['custom-fields-max-index'] )
 			? $ecp_options['custom-fields-max-index']

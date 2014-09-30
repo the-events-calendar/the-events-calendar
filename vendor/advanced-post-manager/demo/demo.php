@@ -55,7 +55,6 @@ class Tribe_Demo_APM {
 					'4' => '4'
 				),
 				'cast' => 'DECIMAL',
-#				'metabox_order' => 0
 			),
 			'director' => array(
 				'name' => 'Director',
@@ -100,7 +99,6 @@ class Tribe_Demo_APM {
 		));
 		global $cpt_filters;
 		$cpt_filters = tribe_setup_apm($this->post_type, $filter_args, $boxes );
-		#$cpt_filters->add_taxonomies = false;
 	}
 
 	public function log($data = array() ) {

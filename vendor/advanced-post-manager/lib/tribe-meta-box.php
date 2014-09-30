@@ -84,7 +84,6 @@ class Tribe_Meta_Box {
 		add_filter('media_upload_library', array($this, 'insert_images'));
 		add_filter('media_upload_image', array($this, 'insert_images'));
 
-		// add_action('delete_post', array($this, 'delete_attachments'));			// delete all attachments when delete post
 		add_action('wp_ajax_tribe_delete_file', array($this, 'delete_file'));			// ajax delete files
 		add_action('wp_ajax_tribe_reorder_images', array($this, 'reorder_images'));	// ajax reorder images
 	}
@@ -143,7 +142,6 @@ class Tribe_Meta_Box {
 
 		if (!wp_verify_nonce($nonce, 'tribe_ajax_delete')) die('1');
 
-		// wp_delete_attachment($attach_id);
 		delete_post_meta($post_id, $key, $attach_id);
 
 		die('0');
@@ -339,7 +337,6 @@ class Tribe_Meta_Box {
 			echo '<div style="margin-bottom: 10px"><strong>' . __('Uploaded files', 'tribe-apm') . '</strong></div>';
 			echo '<ol class="tribe-upload">';
 			foreach ($meta as $att) {
-				// if (wp_attachment_is_image($att)) continue; // what's image uploader for?
 				echo "<li>" . wp_get_attachment_link($att, '' , false, false, ' ') . " (<a class='tribe-delete-file' href='#' rel='$nonce|{$post->ID}|{$field['meta']}|$att'>" . __('Delete', 'tribe-apm') . "</a>)</li>";
 			}
 			echo '</ol>';

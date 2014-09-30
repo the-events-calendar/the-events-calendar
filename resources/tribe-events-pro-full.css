@@ -860,6 +860,14 @@ h3.tribe-events-related-events-title {
 	display: inline;
 	font-weight: bold;
 }
+
+.tribe-events-adv-list-widget .event-is-recurring .tribe-events-divider {
+	display:none;
+}
+
+.tribe-events-adv-list-widget .event-is-recurring {
+	color:inherit;
+}
  
 /* = Events Countdown Widget
    @ Template: widgets/countdown-widget.php

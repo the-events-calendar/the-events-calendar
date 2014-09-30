@@ -21,8 +21,8 @@ function calendar_toggle( wrapper ) {
 }
 
 function calendar_toggle_all() {
-	jQuery( '.calendar-widget-filters-container' ).each( function ( i, v ) {
-		calendar_toggle(  jQuery(v)  );
+	jQuery( '.calendar-widget-filters-container' ).each( function( i, v ) {
+		calendar_toggle( jQuery( v ) );
 	} );
 }
 
@@ -34,19 +34,30 @@ function get_term_count( calendar_filters ) {
 	return sum;
 }
 
-jQuery( document ).ready( function ( $ ) {
+jQuery( document ).ready( function( $ ) {
 
-	$( 'div.widgets-sortables' ).on( 'sortstop', function () {
-		setTimeout( function () {
-			$( "#widgets-right select.calendar-widget-add-filter" ).select2();
+	var $body = $('body' ),
+		select2Opts = {};
+
+	if( $body.is('.wp-customizer') ){
+		select2Opts = {
+			dropdownCssClass: 'customizer-select2'
+		};
+	}
+
+	$( 'div.widgets-sortables' ).on( 'sortstop', function() {
+		setTimeout( function() {
+			$( "#widgets-right select.calendar-widget-add-filter" ).select2(select2Opts);
 			calendar_toggle_all();
 		}, 600 );
 	} );
 
-	$( "#widgets-right select.calendar-widget-add-filter" ).select2();
 
 
-	$( "body" ).on( 'change', 'select.calendar-widget-add-filter', function ( e ) {
+	$( "#widgets-right select.calendar-widget-add-filter" ).select2(select2Opts);
+
+
+	$body.on( 'change', 'select.calendar-widget-add-filter', function( e ) {
 
 		$( '.calendar-widget-filters-container' ).show();
 
@@ -60,13 +71,15 @@ jQuery( document ).ready( function ( $ ) {
 		var tax_id = tax.attr( 'id' );
 		var tax_name = tax.attr( 'label' );
 
-		if ( parseInt( term ) === 0 )
+		if ( parseInt( term ) === 0 ) {
 			return;
+		}
 
 		var calendar_filters = hidden.val() ? $.parseJSON( hidden.val() ) : new Object();
 
-		if ( !calendar_filters[tax_id] )
+		if ( !calendar_filters[tax_id] ) {
 			calendar_filters[tax_id] = new Array();
+		}
 
 		if ( jQuery.inArray( term, calendar_filters[tax_id] ) == -1 ) {
 			calendar_filters[tax_id].push( term );
@@ -83,7 +96,7 @@ jQuery( document ).ready( function ( $ ) {
 
 	} );
 
-	$( 'body' ).on( 'click', '.calendar-widget-remove-filter', function ( e ) {
+	$body.on( 'click', '.calendar-widget-remove-filter', function( e ) {
 
 		e.preventDefault();
 
@@ -95,18 +108,19 @@ jQuery( document ).ready( function ( $ ) {
 
 		var calendar_filters = hidden.val() ? $.parseJSON( hidden.val() ) : new Object();
 
-		if ( calendar_filters[tax_id] )
+		if ( calendar_filters[tax_id] ) {
 			calendar_filters[tax_id].myremove( term_id );
+		}
 
 		hidden.val( JSON.stringify( calendar_filters ) );
 
-		object.parents( 'li' ).remove();
+		object.closest( 'li' ).remove();
 
 		calendar_toggle( wrapper );
 
 	} );
 
-	Array.prototype.myremove = function () {
+	Array.prototype.myremove = function() {
 		var what, a = arguments, L = a.length, ax;
 		while ( L && this.length ) {
 			what = a[--L];
@@ -115,14 +129,16 @@ jQuery( document ).ready( function ( $ ) {
 			}
 		}
 		return this;
-	}
+	};
 
 	if ( !Array.prototype.indexOf ) {
-		Array.prototype.indexOf = function ( what, i ) {
+		Array.prototype.indexOf = function( what, i ) {
 			i = i || 0;
 			var L = this.length;
 			while ( i < L ) {
-				if ( this[i] === what ) return i;
+				if ( this[i] === what ) {
+					return i;
+				}
 				++i;
 			}
 			return -1;
