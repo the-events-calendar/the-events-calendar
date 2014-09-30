@@ -210,7 +210,9 @@
 
 			if ( tt.pushstate && !ts.filter_cats ) {
 
+				// @ifdef DEBUG
 				dbug && debug.time( 'List View Ajax Timer' );
+				// @endif
 
 				$( te ).trigger( 'tribe_ev_ajaxStart' ).trigger( 'tribe_ev_listView_AjaxStart' );
 
@@ -265,9 +267,9 @@
 							}
 
 							$( te ).trigger( 'tribe_ev_ajaxSuccess' ).trigger( 'tribe_ev_listView_AjaxSuccess' );
-
+							// @ifdef DEBUG
 							dbug && debug.timeEnd( 'List View Ajax Timer' );
-
+							// @endif
 						}
 					}
 				);
@@ -281,9 +283,10 @@
 				}
 			}
 		}
-
+		// @ifdef DEBUG
 		dbug && debug.info( 'TEC Debug: tribe-events-ajax-list.js successfully loaded' );
 		ts.view && dbug && debug.timeEnd( 'Tribe JS Init Timer' );
+		// @endif
 	} );
 
 })( window, document, jQuery, tribe_ev.data, tribe_ev.events, tribe_ev.fn, tribe_ev.state, tribe_ev.tests, tribe_debug );
