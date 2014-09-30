@@ -30,6 +30,25 @@ if ( ! class_exists( 'Tribe_Events_List_Template' ) ) {
 		}
 
 		/**
+		 * Get the title for list view
+		 * @param      $title
+		 * @param null $sep
+		 *
+		 * @return string
+		 */
+		protected function get_title( $original_title, $sep = null ) {
+			$new_title = parent::get_title( $original_title, $sep );
+			if ( tribe_is_upcoming() && has_filter( 'tribe_upcoming_events_title' ) ) {
+				_deprecated_function( "The 'tribe_upcoming_events_title' filter", '3.8', " the 'tribe_get_events_title' filter" );
+				$new_title = apply_filters( 'tribe_upcoming_events_title', $new_title, $sep );
+			} elseif ( has_filter( 'tribe_past_events_title' ) ) {
+				_deprecated_function( "The 'tribe_past_events_title' filter", '3.8', " the 'tribe_get_events_title' filter" );
+				$new_title = apply_filters( 'tribe_past_events_title', $new_title, $sep );
+			}
+			return $new_title;
+		}
+
+		/**
 		 * List view ajax handler
 		 *
 		 * @return void

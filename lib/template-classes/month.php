@@ -121,6 +121,26 @@ if ( ! class_exists( 'Tribe_Events_Month_Template' ) ) {
 			}
 		}
 
+		/**
+		 * Get the title for month view
+		 * @param      $title
+		 * @param null $sep
+		 *
+		 * @return string
+		 */
+		protected function get_title( $original_title, $sep = null ) {
+			$new_title = parent::get_title( $original_title, $sep );
+			if ( get_query_var( 'eventDate' ) && has_filter('tribe_month_grid_view_title') ) {
+				_deprecated_function( "The 'tribe_month_grid_view_title' filter", '3.8', " the 'tribe_get_events_title' filter" );
+				$title_date = date_i18n( tribe_get_option( 'monthAndYearFormat', 'F Y' ), strtotime( get_query_var( 'eventDate' ) ) );
+				$new_title  = apply_filters( 'tribe_month_grid_view_title', $new_title, $sep, $title_date );
+			} else if ( has_filter( 'tribe_events_this_month_title' ) ) {
+				_deprecated_function( "The 'tribe_events_this_month_title' filter", '3.8', " the 'tribe_get_events_title' filter" );
+				$new_title = apply_filters( 'tribe_events_this_month_title', $new_title, $sep );
+			}
+			return $new_title;
+		}
+
 
 		/**
 		 * Get number of events per day

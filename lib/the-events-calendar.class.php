@@ -382,7 +382,6 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 
 
 			add_filter( 'query_vars', array( $this, 'eventQueryVars' ) );
-			add_filter( 'wp_title', array( $this, 'maybeAddEventTitle' ), 10, 2 );
 			add_filter( 'bloginfo_rss', array( $this, 'add_space_to_rss' ) );
 			add_filter( 'post_updated_messages', array( $this, 'updatePostMessage' ) );
 
@@ -1089,23 +1088,6 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 		 */
 		public static function getRealStartDate( $postId ) {
 			return TribeEvents::get_series_start_date( $postId );
-		}
-
-		/**
-		 * Add event title where appropriate
-		 *
-		 * @param string      $title
-		 * @param string|null $sep
-		 *
-		 * @return mixed|void
-		 */
-		public function maybeAddEventTitle( $title, $sep = null ) {
-			global $wp_query;
-			if ( $wp_query->tribe_is_event_query ) {
-				$new_title = tribe_get_events_title( false ) . ' ' . $sep . ' ' . $title;
-				return apply_filters( 'tribe_events_add_title', $new_title, $title, $sep );
-			}
-			return $title;
 		}
 
 		/**
