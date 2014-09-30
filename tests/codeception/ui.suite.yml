@@ -1,0 +1,6 @@
+# Codeception Test Suite Configuration
+
+# suite for acceptance/UI tests.
+class_name: UITester
+modules:
+    enabled: [WPBrowser, WPDb, UIHelper]
