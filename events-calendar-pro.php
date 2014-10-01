@@ -37,10 +37,10 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		public $pluginPath;
 		public $pluginUrl;
 		public $pluginSlug;
-		public $licenseKey;
+
 		public $weekSlug = 'week';
 		public $photoSlug = 'photo';
-		public static $updateUrl = 'http://tri.be/';
+
 		/** @var TribeEventsPro_RecurrencePermalinks */
 		public $permalink_editor = NULL;
 
@@ -95,6 +95,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			require_once( 'public/template-tags/week.php' );
 			require_once( 'public/template-tags/venue.php' );
 			require_once( 'public/template-tags/widgets.php' );
+
 			require_once( 'lib/tribe-geoloc.class.php' );
 	        require_once( 'lib/EmbeddedMaps.php' );
 			require_once( 'lib/SingleEventMeta.php' );
@@ -135,7 +136,6 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			add_filter( 'tribe_get_events_title', array( $this, 'reset_page_title' ), 10, 2 );
 			add_filter( 'tribe_events_title_tag', array($this, 'maybeAddEventTitle' ), 10, 3 );
 
-			add_filter( 'tribe_promo_banner', array( $this, 'tribePromoBannerPro' ) );
 			add_filter( 'tribe_help_tab_forums_url', array( $this, 'helpTabForumsLink' ) );
 			add_action( 'plugin_action_links_' . plugin_basename(__FILE__), array( $this, 'addLinksToPluginActions' ) );
 
@@ -459,26 +459,6 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		}
 
 		/**
-		 * Loop through recurrence posts array and find out the next recurring datetime from right now
-		 *
-		 * @param  array $event_list
-		 * @return string $next_recurrence (Y-m-d format)
-		 *
-		 * @deprecated since 3.6 - Use TribeEventsPro::get_last_recurrence_id()
-		 */
-		public function get_last_recurrence( $event_list = array() ){
-			$id = $this->get_last_recurrence_id( $event_list );
-			if ( empty($id) ) {
-				return '';
-			}
-			$right_now = current_time( 'timestamp' );
-			$next_recurrence = date_i18n( 'Y-m-d', strtotime(get_post_meta($id, '_EventStartDate', true)));
-
-			return apply_filters( 'tribe_events_pro_get_last_recurrence', $next_recurrence, $event_list, $right_now );
-
-		}
-
-		/**
 		 * Loop through recurrence posts array and find out the next recurring instance from right now
 		 * @param WP_Post[] $event_list
 		 *
@@ -516,31 +496,6 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 				TribeRelatedPosts::instance();
 				require_once( 'vendor/tribe-related-posts/template-tags.php' );
 			}
-		}
-
-		/**
-		 * Insert an array after a specified key within another array.
-		 *
-		 * This function is a duplicate of the one used in The Events Calendar.
-		 * It exists only for reverse compatibility during 3.0 upgrades.
-		 *
-		 * @param $key
-		 * @param $source_array
-		 * @param $insert_array
-		 * @return array
-		 *
-		 * @deprecated since 3.2, use TribeEvents::array_insert_after_key()
-		 */
-		public static function array_insert_after_key( $key, $source_array, $insert_array ) {
-			// @TODO return value from core TEC function
-			if ( array_key_exists( $key, $source_array ) ) {
-				$position = array_search( $key, array_keys( $source_array ) ) + 1;
-				$source_array = array_slice($source_array, 0, $position, true) + $insert_array + array_slice($source_array, $position, null, true);
-			} else {
-				// If no key is found, then add it to the end of the array.
-				$source_array += $insert_array;
-			}
-			return $source_array;
 		}
 
 		/**
@@ -879,18 +834,6 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		}
 
 		/**
-		 * Deprecated function for getting the current venue display template.
-		 * Replaced by select_page_template.
-		 *
-		 * @param string $template The template requested.
-		 * @return string The path of the requested template.
-		 */
-		public function select_venue_template( $template ) {
-			_deprecated_function( __FUNCTION__, '3.0', 'select_page_template( $template )' );
-			return $this->select_page_template( $template );
-		}
-
-		/**
 		 * Get the path to the current events template.
 		 *
 		 * @param string $template The current template path.
@@ -1197,16 +1140,6 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		}
 
 		/**
-		* Adds the "PRO" to the promo banner and changes the link to link to the pro website.
-		*
-		* @return string The new banner.
-		*/
-		public function tribePromoBannerPro() {
-			return sprintf( __( 'Calendar powered by %sThe Events Calendar PRO%s', 'tribe-events-calendar-pro' ), '<a href="http://m.tri.be/4y">', '</a>' );
-		}
-
-
-		/**
 		* Add meta links on the plugins page.
 		*
 		* @param array $links The current array of links to display.
@@ -1395,7 +1328,6 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 	// Instantiate class and set up WordPress actions.
 	function Tribe_ECP_Load() {
 		add_filter( 'tribe_tec_addons', 'tribe_init_ecp_addon' );
-		add_filter( 'tribe_tec_addons_comparison_operator', 'tribe_version_compare_operator' );
 		$to_run_or_not_to_run = ( class_exists( 'TribeEvents' ) && defined( 'TribeEvents::VERSION' ) && version_compare( TribeEvents::VERSION, TribeEventsPro::REQUIRED_TEC_VERSION, '>=' ) );
 		if ( apply_filters( 'tribe_ecp_to_run_or_not_to_run', $to_run_or_not_to_run ) ) {
 			TribeEventsPro::instance();
@@ -1438,18 +1370,6 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 	function tribe_init_ecp_addon( $plugins ) {
 		$plugins['TribeEventsPro'] = array( 'plugin_name' => 'Events Calendar PRO', 'required_version' => TribeEventsPro::REQUIRED_TEC_VERSION, 'current_version' => TribeEventsPro::VERSION, 'plugin_dir_file' => basename( dirname( __FILE__ ) ) . '/events-calendar-pro.php' );
 		return $plugins;
-	}
-
-	/**
-	 * What operator should be used to compare PRO's required version with TEC's version.
-	 * Note that a result of TRUE with the version_compare results in the error message.
-	 * As is the case here, if they are NOT equal (!=), an error should result.
-	 *
-	 * @return string $operator the operator to use.
-	 */
-	function tribe_version_compare_operator () {
-		$operator = '!=';
-		return $operator;
 	}
 
 	register_activation_hook( __FILE__, 'tribe_ecp_activate' );
