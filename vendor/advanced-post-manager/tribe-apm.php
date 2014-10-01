@@ -121,7 +121,7 @@ class Tribe_APM {
 
 	public function maybe_show_filters() {
 		if ( $this->is_active() ) {
-			include 'views/edit-filters.php';
+			include( dirname( __FILE__ ) . '/views/edit-filters.php' );
 		}
 	}
 
@@ -201,6 +201,6 @@ class Tribe_APM {
 	}
 }
 
-include 'lib/template-tags.php';
+include( dirname( __FILE__ ) . '/lib/template-tags.php' );
 
 } // end if class_exists()

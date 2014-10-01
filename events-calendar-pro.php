@@ -57,10 +57,10 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		const REQUIRED_TEC_VERSION = '3.8';
 		const VERSION = '3.8';
 
-        /**
-         * Class constructor.
-         */
-        private function __construct() {
+		/**
+		 * Class constructor.
+		 */
+		private function __construct() {
 			$this->pluginDir = trailingslashit( basename( dirname( __FILE__ ) ) );
 			$this->pluginPath = trailingslashit( dirname( __FILE__ ) );
 			$this->pluginUrl = plugins_url( $this->pluginDir );
@@ -71,34 +71,33 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			$this->weekSlug = sanitize_title(__('week', 'tribe-events-calendar-pro'));
 			$this->photoSlug = sanitize_title(__('photo', 'tribe-events-calendar-pro'));
 
-			require_once( 'lib/tribeeventspro-schemaupdater.php' );
-			require_once( 'lib/tribe-pro-template-factory.class.php' );
-			require_once( 'lib/tribe-date-series-rules.class.php' );
-			require_once( 'lib/tribe-ecp-custom-meta.class.php' );
-			require_once( 'lib/tribe-events-recurrence-meta.class.php' );
-			require_once( 'lib/tribeeventspro-recurrenceseriessplitter.php' );
-			require_once( 'lib/tribeeventspro-recurrenceinstance.php');
-			require_once( 'lib/tribe-recurrence.class.php' );
-			require_once( 'lib/tribeeventspro-recurrencepermalinks.php' );
-			require_once( 'lib/widget-venue.class.php' );
-			require_once( 'lib/tribe-mini-calendar.class.php' );
-			require_once( 'lib/widget-countdown.class.php' );
-			require_once( 'lib/widget-calendar.class.php' );
+			require_once( $this->pluginPath . 'lib/tribeeventspro-schemaupdater.php' );
+			require_once( $this->pluginPath . 'lib/tribe-pro-template-factory.class.php' );
+			require_once( $this->pluginPath . 'lib/tribe-date-series-rules.class.php' );
+			require_once( $this->pluginPath . 'lib/tribe-ecp-custom-meta.class.php' );
+			require_once( $this->pluginPath . 'lib/tribe-events-recurrence-meta.class.php' );
+			require_once( $this->pluginPath . 'lib/tribeeventspro-recurrenceseriessplitter.php' );
+			require_once( $this->pluginPath . 'lib/tribeeventspro-recurrenceinstance.php');
+			require_once( $this->pluginPath . 'lib/tribe-recurrence.class.php' );
+			require_once( $this->pluginPath . 'lib/tribeeventspro-recurrencepermalinks.php' );
+			require_once( $this->pluginPath . 'lib/widget-venue.class.php' );
+			require_once( $this->pluginPath . 'lib/tribe-mini-calendar.class.php' );
+			require_once( $this->pluginPath . 'lib/widget-countdown.class.php' );
+			require_once( $this->pluginPath . 'lib/widget-calendar.class.php' );
 
-			require_once( 'lib/template-classes/map.php' );
-			require_once( 'lib/template-classes/photo.php' );
-			require_once( 'lib/template-classes/single-organizer.php' );
-			require_once( 'lib/template-classes/single-venue.php' );
-			require_once( 'lib/template-classes/week.php' );
+			require_once( $this->pluginPath . 'lib/template-classes/map.php' );
+			require_once( $this->pluginPath . 'lib/template-classes/photo.php' );
+			require_once( $this->pluginPath . 'lib/template-classes/single-organizer.php' );
+			require_once( $this->pluginPath . 'lib/template-classes/single-venue.php' );
+			require_once( $this->pluginPath . 'lib/template-classes/week.php' );
 
-			require_once( 'public/template-tags/general.php' );
-			require_once( 'public/template-tags/week.php' );
-			require_once( 'public/template-tags/venue.php' );
-			require_once( 'public/template-tags/widgets.php' );
-
-			require_once( 'lib/tribe-geoloc.class.php' );
-	        require_once( 'lib/EmbeddedMaps.php' );
-			require_once( 'lib/SingleEventMeta.php' );
+			require_once( $this->pluginPath . 'public/template-tags/general.php' );
+			require_once( $this->pluginPath . 'public/template-tags/week.php' );
+			require_once( $this->pluginPath . 'public/template-tags/venue.php' );
+			require_once( $this->pluginPath . 'public/template-tags/widgets.php' );
+			require_once( $this->pluginPath . 'lib/tribe-geoloc.class.php' );
+			require_once( $this->pluginPath . 'lib/EmbeddedMaps.php' );
+			require_once( $this->pluginPath . 'lib/SingleEventMeta.php' );
 
 			if ( TribeEventsPro_SchemaUpdater::update_required() ) {
 				add_action( 'admin_init', array( 'TribeEventsPro_SchemaUpdater', 'init' ), 10, 0 );
@@ -491,10 +490,10 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		 */
 		public function helpersLoaded() {
 			remove_action( 'widgets_init', 'tribe_related_posts_register_widget' );
-			require_once( 'lib/apm_filters.php' );
+			require_once( $this->pluginPath . 'lib/apm_filters.php' );
 			if ( class_exists( 'TribeRelatedPosts' ) ) {
 				TribeRelatedPosts::instance();
-				require_once( 'vendor/tribe-related-posts/template-tags.php' );
+				require_once( $this->pluginPath . 'vendor/tribe-related-posts/template-tags.php' );
 			}
 		}
 
@@ -551,12 +550,12 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 
 	    }
 
-	    /**
-	     * Add the default settings tab
-	     *
-	     * @return void
-	     */
-	  	public function add_settings_tabs() {
+		/**
+		 * Add the default settings tab
+		 *
+		 * @return void
+		 */
+		public function add_settings_tabs() {
 			require_once( $this->pluginPath . 'admin-views/tribe-options-defaults.php' );
 			new TribeSettingsTab( 'defaults', __( 'Default Content', 'tribe-events-calendar-pro' ), $defaultsTab );
 			// The single-entry array at the end allows for the save settings button to be displayed.
@@ -655,7 +654,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		}
 
 		private function get_rewrite_generator( WP_Rewrite $wp_rewrite ) {
-			require_once( 'lib/tribeeventspro-rewriterulegenerator.php' );
+			require_once( $this->pluginPath . 'lib/tribeeventspro-rewriterulegenerator.php' );
 			$generator = new TribeEventsPro_RewriteRuleGenerator( $wp_rewrite );
 			$tec = TribeEvents::instance();
 
@@ -1111,8 +1110,8 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		 * @return void
 		 */
 		public function pro_widgets_init() {
-			require_once 'lib/Widgets.php';
-			require_once 'lib/widget-advanced-list.class.php';
+			require_once( $this->pluginPath . 'lib/Widgets.php' );
+			require_once( $this->pluginPath . 'lib/widget-advanced-list.class.php' );
 			unregister_widget( 'TribeEventsListWidget' );
 			register_widget( 'TribeEventsAdvancedListWidget' );
 			register_widget( 'TribeEventsMiniCalendarWidget' );
@@ -1410,6 +1409,6 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 
 	function tribe_ecp_uninstall() {}
 
-	require_once( 'lib/tribe-events-pro-pue.class.php' );
+	require_once( dirname( __FILE__ ) . '/lib/tribe-events-pro-pue.class.php' );
 	new TribeEventsProPUE( __FILE__ );
 } // end if Class exists
