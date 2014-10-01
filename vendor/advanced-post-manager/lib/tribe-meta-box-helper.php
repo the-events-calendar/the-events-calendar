@@ -31,7 +31,7 @@ class Tribe_Meta_Box_Helper {
 	// HELPERS AND UTITLIES
 
 	protected function create_meta_boxes() {
-		require_once 'tribe-meta-box.php';
+		require_once( dirname( __FILE__ ) . '/tribe-meta-box.php' );
 		$boxes = $this->map_meta_boxes();
 		foreach ( $boxes as $box ) {
 			new Tribe_Meta_Box($box);

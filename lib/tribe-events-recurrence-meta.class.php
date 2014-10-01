@@ -735,7 +735,7 @@ class TribeEventsRecurrenceMeta {
 		/** @var int $recEndCount */
 		extract(TribeEventsRecurrenceMeta::getRecurrenceMeta($event_id));
 		if ( $recType == 'None' ) {
-			require_once('tribe-null-recurrence.php');
+			require_once( dirname( __FILE__ ) . '/tribe-null-recurrence.php');
 			return new TribeNullRecurrence();
 		}
 		$rules = TribeEventsRecurrenceMeta::getSeriesRules($event_id);
@@ -1065,7 +1065,7 @@ class TribeEventsRecurrenceMeta {
 	 * @return void
 	 */
 	public static function reset_scheduler() {
-		require_once('tribe-recurrence-scheduler.php');
+		require_once( dirname( __FILE__ ) . '/tribe-recurrence-scheduler.php');
 		if ( !empty(self::$scheduler) ) {
 			self::$scheduler->remove_hooks();
 		}
