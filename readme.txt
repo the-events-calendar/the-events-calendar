@@ -365,7 +365,7 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Incorporated updated Danish translation files, courtesy of Hans Christian Andersen
 * Incorporated updated Dutch translation files, courtesy of Dirk Westenberg
 * Incorporated updated Portuguese translation files, courtesy of Sérgio Leite
-* Incorporated new Russian translation files, courtesy of Žiga Vajdic
+* Incorporated new Slovenian translation files, courtesy of Žiga Vajdic
 * Incorporated updated German translation files, courtesy of Stefan Dorscht and Oliver Heinrich
 * Incorporated updated Finnish translation files, courtesy of Elias Okkonen
 * Incorporated updated Estonian translation files, courtesy of Andra Saimre
