@@ -1,0 +1,10 @@
+# Codeception Test Suite Configuration
+
+# suite for acceptance tests.
+# perform tests in browser using WPBrowser.
+class_name: UITester
+modules:
+    enabled:
+        - WPBrowser
+        - WPDb
+        - UIHelper
