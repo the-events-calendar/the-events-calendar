@@ -78,7 +78,7 @@ class TribeEventsPro_RecurrenceInstance {
 	}
 
 	private function copy_meta() {
-		require_once('tribeeventspro-postmetacopier.php');
+		require_once( dirname( __FILE__ ) . '/tribeeventspro-postmetacopier.php');
 		$copier = new TribeEventsPro_PostMetaCopier();
 		$copier->copy_meta($this->parent_id, $this->post_id);
 	}

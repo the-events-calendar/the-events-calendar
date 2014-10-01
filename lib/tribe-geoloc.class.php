@@ -95,7 +95,7 @@ class TribeEventsGeoLoc {
 	 */
 	public function setup_geoloc_filter_in_filters() {
 		if ( ! tribe_get_option( 'hideLocationSearch', false ) ) {
-			require_once('TribeEventsFilter_GeoLoc.php');
+			require_once( dirname( __FILE__ ) . '/TribeEventsFilter_GeoLoc.php');
 			new TribeEventsFilter_GeoLoc( __( 'Distance', 'tribe-events-calendar-pro' ), 'geofence' );
 		}
 	}
