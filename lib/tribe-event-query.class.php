@@ -642,7 +642,7 @@ if ( ! class_exists( 'TribeEventsQuery' ) ) {
 				$order   = ( isset( $query->order ) && ! empty( $query->order ) ) ? $query->order : $query->get( 'order' );
 				$orderby = ( isset( $query->orderby ) && ! empty( $query->orderby ) ) ? $query->orderby : $query->get( 'orderby' );
 
-				$order_sql = "DATE(MIN({$postmeta_table}.meta_value)) {$order}, TIME({$postmeta_table}.meta_value) {$order}";
+				$order_sql = "UNIX_TIMESTAMP(MIN({$postmeta_table}.meta_value)) {$order}";
 
 				do_action( 'log', 'orderby', 'default', $orderby );
 
