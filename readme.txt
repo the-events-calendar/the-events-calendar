@@ -327,6 +327,7 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 = 3.8.1 =
 
 * Incorporated updated Icelandic translation files courtesy of Baldvin Örn Berndsen
+* Incorporated updated German translation files courtesy of Oliver Heinrich
 
 = 3.8 =
 
