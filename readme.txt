@@ -227,6 +227,7 @@ Our Premium Plugins:
 = 3.8.1 =
 
 * Incorporated updated Icelandic translation files courtesy of Baldvin Örn Berndsen
+* Incorporated updated German translation files courtesy of Oliver Heinrich
 
 = 3.8 =
 
