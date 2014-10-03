@@ -6,7 +6,7 @@ msgstr ""
 "Project-Id-Version: The Events Calendar\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-07-17 16:44-0800\n"
-"PO-Revision-Date: 2014-08-06 14:31-0800\n"
+"PO-Revision-Date: 2014-10-02 17:56-0800\n"
 "Last-Translator: \n"
 "Language-Team: Modern Tribe, Inc. <pro@tri.be>\n"
 "Language: en_US\n"
@@ -19,7 +19,7 @@ msgstr ""
 "_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2\n"
 "X-Poedit-Basepath: ./\n"
 "X-Textdomain-Support: yes\n"
-"X-Generator: Poedit 1.6.7\n"
+"X-Generator: Poedit 1.6.9\n"
 "X-Poedit-SearchPath-0: ..\n"
 
 # @ tribe-events-calendar
@@ -4353,7 +4353,7 @@ msgstr "Evento"
 #
 #: ../views/single-event.php:21
 msgid "&laquo; All Events"
-msgstr "quo; Tutti gli eventi:"
+msgstr "&laquo; Tutti gli eventi:"
 
 #: ../views/single-event.php:39 ../views/single-event.php:80
 msgid "Event Navigation"
