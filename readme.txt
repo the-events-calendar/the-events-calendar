@@ -255,7 +255,7 @@ The plugin is produced by <a href="http://m.tri.be/2s">Modern Tribe Inc</a>.
 * French from Laurent Proulx
 * German from Stefan Dorscht and Oliver Heinrich
 * Greek from Yannis Troullinos
-* Icelandic by Baldvin Berndsen
+* Icelandic by Baldvin Örn Berndsen
 * Indonesian from Didik Priyanto
 * Italian from Gabriele Taffi
 * Latvian from Raivis Dejus
@@ -323,6 +323,10 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 = IMPORTANT NOTICE =
 
 3.x is a complete overhaul of the plugin, and as a result we're starting the changelog fresh. For release notes from the 2.x lifecycle, see <a href="http://m.tri.be/k">our 2.x release notes.</a>
+
+= 3.8.1 =
+
+* Incorporated updated Icelandic translation files courtesy of Baldvin Örn Berndsen
 
 = 3.8 =
 
