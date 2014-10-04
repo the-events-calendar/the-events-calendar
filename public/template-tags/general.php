@@ -113,6 +113,7 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	 *
 	 * @param int $postId (optional)
 	 * @return array $data of custom fields
+	 * @todo move logic to TribeEventsCustomMeta class
 	 */
 	function tribe_get_custom_fields( $postId = null ) {
 		$postId = TribeEvents::postIdHelper( $postId );
@@ -146,20 +147,26 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	 * Display a definition term list of custom fields
 	 *
 	 * @param int $postId (optional)
+	 * @deprecated
+	 * @todo remove in 3.11
 	 */
 	function tribe_the_custom_fields( $postId = null, $echo = true ) {
-		$fields = tribe_get_custom_fields( $postId );
-		$meta_html = '';
-	  	foreach ($fields as $label => $value) {
-			$meta_html .= apply_filters('tribe_the_custom_field', sprintf('<dt>%s</dt><dd class="tribe-events-meta-custom-data">%s</dd>', $label, $value ),
-				$label,
-				$value);
+		_deprecated_function(__FUNCTION__, '3.9', "tribe_get_template_part( 'pro/modules/meta/additional-fields', null, array(
+			'fields' => tribe_get_custom_fields()
+		) );");
+		ob_start();
+		tribe_get_template_part( 'pro/modules/meta/additional-fields', null, array(
+			'fields' => tribe_get_custom_fields()
+		) );
+		$html = ob_get_clean();
+		if ( has_filter( 'tribe_the_custom_fields' ) ) {
+			_deprecated_function( "The 'tribe_the_custom_fields' filter", '3.9', " the 'tribe_get_template_part_content' filter for pro/modules/meta/additional-fields" );
+			$html = apply_filters( 'tribe_the_custom_fields', $html );
 		}
-		$meta_html = apply_filters('tribe_the_custom_fields', $meta_html);
-		if( $echo ) {
-			echo $meta_html;
+		if ( $echo ) {
+			echo $html;
 		} else {
-			return $meta_html;
+			return $html;
 		}
 	}
 
@@ -172,9 +179,21 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	 * @param (string) $label, the label to search for
 	 * @param (int) $eventID (optional), the event to look for, defaults to global $post
 	 * @return (string) value of the field
+	 * @deprecated
+	 * @todo remove in 3.11
 	 */
 	function tribe_get_custom_field( $label, $eventID = null ) {
-		return apply_filters('tribe_get_custom_field', TribeEventsCustomMeta::get_custom_field_by_label( $label, $eventID ) );
+
+		_deprecated_function(__FUNCTION__, '3.9', 'tribe_get_custom_fields');
+
+		$field = TribeEventsCustomMeta::get_custom_field_by_label( $label, $eventID );
+
+		if ( has_filter( 'tribe_get_custom_field' ) ) {
+			_deprecated_function( "The 'tribe_get_custom_field' filter", '3.9', " the 'tribe_get_custom_fields' filter" );
+			$field = apply_filters( 'tribe_get_custom_field', $field );
+		}
+
+		return $field;
 	}
 
 	/**
@@ -185,35 +204,57 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	 * @param (string) $label, the label to search for
 	 * @param (int) $eventID (optional), the event to look for, defaults to global $post
 	 * @return (string) value of the field
+	 * @deprecated
+	 * @todo remove in 3.11
 	 */
 	function tribe_custom_field( $label, $eventID = null ) {
-		echo tribe_get_custom_field( $label, $eventID = null );
+		_deprecated_function(__FUNCTION__, '3.9', "tribe_get_custom_fields");
+		$field = TribeEventsCustomMeta::get_custom_field_by_label( $label, $eventID );
+		echo $field;
 	}
 
 	/**
-	* Get Related Events
-	*
-	* Get a list of related events to the current post
-	*
-	* @param int $count
-	* @return array Array of events
+	 * Get Related Events
+	 *
+	 * Get a list of related events to the current post
+	 *
+	 * @param int $count
+	 * @return array Array of events
+	 * @deprecated
+	 * @todo remove in 3.11
 	*/
 	function tribe_get_related_events ($count=3) {
-		return apply_filters('tribe_get_related_events', TribeRelatedEvents::getEvents( $count ) );
+		_deprecated_function(__FUNCTION__, '3.9', "tribe_get_related_posts");
+
+		$posts = tribe_get_related_posts( $count );
+
+		if ( has_filter( 'tribe_get_related_events' ) ) {
+			_deprecated_function( "The 'tribe_get_related_events' filter", '3.9', " the 'tribe_get_related_posts' filter" );
+			$posts = apply_filters( 'tribe_get_related_events', $posts );
+		}
+		return $posts;
 	}
 
 	/**
-	* Display Related Events
-	*
-	* Display a list of related events to the current post
-	*
-	* @param string $title
-	* @param int $count
-	* @param bool $thumbnails
-	* @param bool $start_date
-	*/
-	function tribe_related_events ($title, $count=3, $thumbnails=false, $start_date=false, $get_title=true) {
-		return apply_filters('tribe_related_events', TribeRelatedEvents::displayEvents( $title, $count, $thumbnails, $start_date, $get_title ) );
+	 * Display Related Events
+	 *
+	 * Display a list of related events to the current post
+	 *
+	 * @param string $title
+	 * @param int    $count
+	 * @param bool   $thumbnails
+	 * @param bool   $start_date
+	 * @deprecated
+	 * @todo remove in 3.11
+	 */
+	function tribe_related_events( $title, $count = 3, $thumbnails = false, $start_date = false, $get_title = true ) {
+		_deprecated_function(__FUNCTION__, '3.9', 'tribe_single_related_events');
+		if ( has_filter( 'tribe_related_events' ) ) {
+			_deprecated_function( "The 'tribe_related_events' filter", '3.9', " the 'tribe_after_get_template_part' action for pro/related-events" );
+			return apply_filters('tribe_related_events', tribe_single_related_events() );
+		} else {
+			tribe_single_related_events();
+		}
 	}
 
 	/**
@@ -221,8 +262,11 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	 * Used in the settings screen
 	 *
 	 * @return void
+	 * @deprecated
+	 * @todo move this to the settings classes and remove
 	 */
 	function tribe_display_saved_organizer() {
+		_deprecated_function(__FUNCTION__, '3.9');
 		$current_organizer_id = tribe_get_option('eventsDefaultOrganizerID', 'none' );
 		$current_organizer = ($current_organizer_id != 'none' && $current_organizer_id != 0 && $current_organizer_id) ? tribe_get_organizer($current_organizer_id) : __('No default set', 'tribe-events-calendar-pro');
 		$current_organizer = esc_html( $current_organizer );
@@ -234,8 +278,11 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	 * Used in the settings screen
 	 *
 	 * @return void
+	 * @deprecated
+	 * @todo move this to the settings classes and remove
 	 */
 	function tribe_display_saved_venue() {
+		_deprecated_function(__FUNCTION__, '3.9');
 		$current_venue_id = tribe_get_option('eventsDefaultVenueID', 'none' );
 		$current_venue = ($current_venue_id != 'none' && $current_venue_id != 0 && $current_venue_id) ? tribe_get_venue($current_venue_id) : __('No default set', 'tribe-events-calendar-pro');
 		$current_venue = esc_html( $current_venue );
@@ -247,8 +294,11 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	 * Used in the settings screen
 	 *
 	 * @return void
+	 * @deprecated
+	 * @todo move this to the settings classes and remove
 	 */
 	function tribe_display_saved_address() {
+		_deprecated_function(__FUNCTION__, '3.9');
 		$option = tribe_get_option('eventsDefaultAddress', __('No default set', 'tribe-events-calendar-pro'));
 		$option = ( !isset($option) || $option == '' || !$option ) ? __('No default set', 'tribe-events-calendar-pro') : $option;
 		$option = esc_html( $option );
@@ -260,8 +310,11 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	 * Used in the settings screen
 	 *
 	 * @return void
+	 * @deprecated
+	 * @todo move this to the settings classes and remove
 	 */
 	function tribe_display_saved_city() {
+		_deprecated_function(__FUNCTION__, '3.9');
 		$option = tribe_get_option('eventsDefaultCity', __('No default set', 'tribe-events-calendar-pro'));
 		$option = ( !isset($option) || $option == '' || !$option ) ? __('No default set', 'tribe-events-calendar-pro') : $option;
 		$option = esc_html( $option );
@@ -273,8 +326,11 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	 * Used in the settings screen
 	 *
 	 * @return void
+	 * @deprecated
+	 * @todo move this to the settings classes and remove
 	 */
 	function tribe_display_saved_state() {
+		_deprecated_function(__FUNCTION__, '3.9');
 		$option = tribe_get_option('eventsDefaultState', __('No default set', 'tribe-events-calendar-pro'));
 		$option = ( !isset($option) || $option == '' || !$option ) ? __('No default set', 'tribe-events-calendar-pro') : $option;
 		$option = esc_html( $option );
@@ -286,8 +342,11 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	 * Used in the settings screen
 	 *
 	 * @return void
+	 * @deprecated
+	 * @todo move this to the settings classes and remove
 	 */
 	function tribe_display_saved_province() {
+		_deprecated_function(__FUNCTION__, '3.9');
 		$option = tribe_get_option('eventsDefaultProvince', __('No default set', 'tribe-events-calendar-pro'));
 		$option = ( !isset($option) || $option == '' || !$option ) ? __('No default set', 'tribe-events-calendar-pro') : $option;
 		$option = esc_html( $option );
@@ -299,8 +358,11 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	 * Used in the settings screen
 	 *
 	 * @return void
+	 * @deprecated
+	 * @todo move this to the settings classes and remove
 	 */
 	function tribe_display_saved_zip() {
+		_deprecated_function(__FUNCTION__, '3.9');
 		$option = tribe_get_option('eventsDefaultZip', __('No default set', 'tribe-events-calendar-pro'));
 		$option = ( !isset($option) || $option == '' || !$option ) ? __('No default set', 'tribe-events-calendar-pro') : $option;
 		$option = esc_html( $option );
@@ -312,8 +374,11 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	 * Used in the settings screen
 	 *
 	 * @return void
+	 * @deprecated
+	 * @todo move this to the settings classes and remove
 	 */
 	function tribe_display_saved_country() {
+		_deprecated_function(__FUNCTION__, '3.9');
 		$option = tribe_get_option('defaultCountry', __('No default set', 'tribe-events-calendar-pro'));
 		$option = ( !isset($option) || $option == '' || !$option || empty($option) || !is_array($option) || !isset($option[1]) ) ? __('No default set', 'tribe-events-calendar-pro') : $option = $option[1];
 		$option = esc_html( $option );
@@ -325,8 +390,11 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	 * Used in the settings screen
 	 *
 	 * @return void
+	 * @deprecated
+	 * @todo move this to the settings classes and remove
 	 */
 	function tribe_display_saved_phone() {
+		_deprecated_function(__FUNCTION__, '3.9');
 		$option = tribe_get_option('eventsDefaultPhone', __('No default set', 'tribe-events-calendar-pro'));
 		$option = ( !isset($option) || $option == '' || !$option ) ? __('No default set', 'tribe-events-calendar-pro') : $option;
 		$option = esc_html( $option );
@@ -340,7 +408,7 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	 * @param $distance_in_kms
 	 *
 	 * @return mixed
-	 *
+	 * @todo remove tribe_formatted_distance filter in 3.11
 	 */
 	function tribe_get_distance_with_unit( $distance_in_kms ) {
 
@@ -349,13 +417,19 @@ if( class_exists( 'TribeEventsPro' ) ) {
 		$unit     = $tec->getOption( 'geoloc_default_unit', 'miles' );
 		$distance = round( tribe_convert_units( $distance_in_kms, 'kms', $unit ), 2 );
 
-		return apply_filters( 'tribe_formatted_distance', $distance . ' ' .  $unit );
+		if ( has_filter( 'tribe_formatted_distance' ) ) {
+			_deprecated_function( "The 'tribe_formatted_distance' filter", '3.9', " the 'tribe_get_distance_with_unit' filter" );
+			$distance = apply_filters( 'tribe_formatted_distance', $distance . ' ' .  $unit );
+		}
+
+		return apply_filters( 'tribe_get_distance_with_unit', $distance, $distance_in_kms, $unit );
 	}
 
 	/**
 	 * Returns an events distance from location search term
 	 *
 	 * @return string
+	 * @todo move tags to template
 	 *
 	 */
 	function tribe_event_distance() {
@@ -394,6 +468,7 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	 *
 	 * @param null|mixed $date  given date or week # (week # assumes current year)
 	 * @return string
+	 * @todo move logic to TribeDateUtils
 	 */
 	function tribe_get_first_week_day( $date = null ) {
 		global $wp_query;
@@ -468,6 +543,7 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	 * @param string $week
 	 * @param bool $is_current
 	 * @return string $permalink
+	 * @todo move logic to week template class
 	 */
 	function tribe_get_last_week_permalink( $week = null ) {
 		$week = !empty( $week ) ? $week : tribe_get_first_week_day();
@@ -487,6 +563,7 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	 * @uses tribe_get_week_permalink
 	 * @param string $week
 	 * @return string $permalink
+	 * @todo move logic to week template class
 	 */
 	function tribe_get_next_week_permalink( $week = null ) {
 		$week = !empty( $week ) ? $week : tribe_get_first_week_day();
@@ -578,6 +655,7 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	 *
 	 * @param int     $post_id
 	 * @return string
+	 * @todo remove tribe_events_event_recurring_info_tooltip filter in 3.11
 	 */
 	function tribe_events_recurrence_tooltip( $post_id = null ) {
 		if ( empty( $post_id ) ) {
@@ -603,7 +681,10 @@ if( class_exists( 'TribeEventsPro' ) ) {
 			$tooltip .= '</div>';
 		}
 
-		$tooltip = apply_filters( 'tribe_events_event_recurring_info_tooltip', $tooltip ); // for backwards-compat, will be removed
+		if ( has_filter( 'tribe_events_event_recurring_info_tooltip' ) ) {
+			_deprecated_function( "The 'tribe_get_related_events' filter", '3.9', " the 'tribe_get_related_posts' filter" );
+			$tooltip = apply_filters( 'tribe_events_event_recurring_info_tooltip', $tooltip ); // for backwards-compat, will be removed
+		}
 		return apply_filters( 'tribe_events_recurrence_tooltip', $tooltip );
 	}
 
