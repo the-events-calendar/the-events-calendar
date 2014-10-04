@@ -1,6 +1,6 @@
 <?php
 /**
- * Events Calendar Pro Week Template Tags
+ * Events Calendar Pro Venue Template Tags
  *
  * Display functions for use in WordPress templates.
  */

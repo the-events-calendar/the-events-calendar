@@ -73,7 +73,9 @@ $venue_id = get_the_ID();
 	<?php // Use the 'tribe_events_single_venue_posts_per_page' to filter the 
 	 	  // number of events to display beneath the venue info on the venue page.
 	?> 
-	<?php echo tribe_include_view_list( array('venue' => $venue_id, 'eventDisplay' => 'upcoming', 'posts_per_page' => apply_filters( 'tribe_events_single_venue_posts_per_page', 100 ) ) )?>
+	<?php
+	// @todo rewrite + use tribe_venue_upcoming_events()
+	echo tribe_include_view_list( array('venue' => $venue_id, 'eventDisplay' => 'upcoming', 'posts_per_page' => apply_filters( 'tribe_events_single_venue_posts_per_page', 100 ) ) )?>
 	<?php do_action('tribe_events_single_venue_after_upcoming_events') ?>
 	
 </div><!-- .tribe-events-venue -->
