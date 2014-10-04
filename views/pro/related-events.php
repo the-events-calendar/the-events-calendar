@@ -17,10 +17,8 @@
  
 if ( !defined('ABSPATH') ) { die('-1'); }
 
-//Maximum Number of related posts to display
-$num_posts = 3;
+$posts = tribe_get_related_posts();
 
-$posts = tribe_get_related_posts( $num_posts );
 ?>
 
 <?php
