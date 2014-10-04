@@ -104,13 +104,3 @@ function tribe_events_the_mini_calendar_day_link() {
 function tribe_events_get_mini_calendar_args() {
 	return apply_filters( 'tribe_events_get_mini_calendar_args', TribeEventsMiniCalendar::instance()->get_args() );
 }
-
-/**
- * Return arguments passed to advanced list widget
- *
- * @deprecated 3.6
- * @return array
- **/
-function tribe_events_get_adv_list_widget_args() {
-	return apply_filters( 'tribe_events_get_adv_list_widget_args', false );
-}
