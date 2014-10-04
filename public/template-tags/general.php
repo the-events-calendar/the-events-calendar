@@ -3,6 +3,7 @@
  * Events Calendar Pro template Tags
  *
  * Display functions for use in WordPress templates.
+ * @todo move view specific functions to their own file
  */
 
 // Don't load directly

@@ -11,6 +11,14 @@ if ( !defined( 'ABSPATH' ) )
 
 if ( class_exists( 'TribeEventsPro' ) ) {
 
+	/**
+	 * Add attributes to nav elements for week view
+	 * @param string $direction
+	 * @param bool   $echo
+	 *
+	 * @return string
+	 * @todo rename to week-specific function name
+	 */
 	function tribe_events_the_nav_attributes( $direction = 'prev', $echo = true ){
 		global $wp_query;
 		$direction = $direction == 'prev' ? '-' : '+';
