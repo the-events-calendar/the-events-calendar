@@ -4,8 +4,10 @@ class TribeEventsMiniCalendarWidget extends WP_Widget {
 
 	function __construct() {
 
-		$widget_ops = array( 'classname'   => 'tribe_mini_calendar_widget',
-		                     'description' => __( 'The events calendar mini calendar widget', 'tribe-events-calendar-pro' ) );
+		$widget_ops = array(
+			'classname'   => 'tribe_mini_calendar_widget',
+			'description' => __( 'The events calendar mini calendar widget', 'tribe-events-calendar-pro' )
+		);
 
 		parent::__construct( 'tribe-mini-calendar', __( 'Events Calendar', 'tribe-events-calendar-pro' ), $widget_ops );
 
@@ -15,15 +17,16 @@ class TribeEventsMiniCalendarWidget extends WP_Widget {
 
 	public function load_scripts( $hook ) {
 
-		if ( $hook != 'widgets.php' )
+		if ( $hook != 'widgets.php' ) {
 			return;
+		}
 
 		Tribe_Template_Factory::asset_package( 'select2' );
 		wp_enqueue_script( 'calendar-widget-admin', TribeEventsPro::instance()->pluginUrl . 'resources/calendar-widget-admin.js', array(), apply_filters( 'tribe_events_pro_js_version', TribeEventsPro::VERSION ) );
 	}
 
 	function widget( $args, $instance ) {
-		$ecp = TribeEventsPro::instance();
+		$ecp            = TribeEventsPro::instance();
 		$tooltip_status = $ecp->recurring_info_tooltip_status();
 		$ecp->disable_recurring_info_tooltip();
 
@@ -31,7 +34,11 @@ class TribeEventsMiniCalendarWidget extends WP_Widget {
 
 		echo $args['before_widget'];
 
-		$defaults = array( 'title' => __( 'Events Calendar', 'tribe-events-calendar-pro' ), 'count' => 5, 'filters' => null, 'operand' => 'OR' );
+		$defaults = array( 'title'   => __( 'Events Calendar', 'tribe-events-calendar-pro' ),
+		                   'count'   => 5,
+		                   'filters' => null,
+		                   'operand' => 'OR'
+		);
 		$instance = wp_parse_args( (array) $instance, $defaults );
 
 		$tax_query = TribeEventsPro_Widgets::form_tax_query( json_decode( $instance['filters'] ), $instance['operand'] );
@@ -67,7 +74,12 @@ class TribeEventsMiniCalendarWidget extends WP_Widget {
 	}
 
 	function form( $instance ) {
-		$defaults = array( 'title' => __( 'Events Calendar', 'tribe-events-calendar-pro' ), 'layout' => "tall", 'count' => 5, 'operand' => 'OR', 'filters' => null );
+		$defaults = array( 'title'   => __( 'Events Calendar', 'tribe-events-calendar-pro' ),
+		                   'layout'  => "tall",
+		                   'count'   => 5,
+		                   'operand' => 'OR',
+		                   'filters' => null
+		);
 		$instance = wp_parse_args( (array) $instance, $defaults );
 
 		$taxonomies = get_object_taxonomies( TribeEvents::POSTTYPE, 'objects' );
