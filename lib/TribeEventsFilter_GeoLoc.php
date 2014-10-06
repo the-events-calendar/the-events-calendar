@@ -13,30 +13,37 @@ class TribeEventsFilter_GeoLoc extends TribeEventsFilter {
 
 	protected function get_values() {
 		$distances = array();
-		$steps = apply_filters( 'geoloc-values-for-filters', $this->distances );
-		$unit = tribe_get_option( 'geoloc_default_unit', 'miles' );
+		$steps     = apply_filters( 'geoloc-values-for-filters', $this->distances );
+		$unit      = tribe_get_option( 'geoloc_default_unit', 'miles' );
 
 		switch ( $unit ) {
-			case 'miles': $unit = __( 'Miles', 'tribe-events-calendar-pro' ); break;
-			case 'kms':   $unit = __( 'Kilometers', 'tribe-events-calendar-pro' ); break;
+			case 'miles':
+				$unit = __( 'Miles', 'tribe-events-calendar-pro' );
+				break;
+			case 'kms':
+				$unit = __( 'Kilometers', 'tribe-events-calendar-pro' );
+				break;
 		}
 
-		foreach ( $steps as $value ) $distances[] = array(
-			'name'  => sprintf( __( '%d %s', 'tribe-events-calendar-pro' ), $value, $unit ),
-			'value' => $value,
-		);
+		foreach ( $steps as $value ) {
+			$distances[] = array(
+				'name'  => sprintf( __( '%d %s', 'tribe-events-calendar-pro' ), $value, $unit ),
+				'value' => $value,
+			);
+		}
 
 		return $distances;
 	}
 
 	public function get_admin_form() {
 		$title = $this->get_title_field();
-		$type = $this->get_type_field();
-		return $title.$type;
+		$type  = $this->get_type_field();
+
+		return $title . $type;
 	}
 
 	protected function get_type_field() {
-		$name = $this->get_admin_field_name('type');
+		$name  = $this->get_admin_field_name( 'type' );
 		$field = sprintf( __( 'Type: %s %s', 'tribe-events-calendar-pro' ),
 			sprintf( '<label><input type="radio" name="%s" value="select" %s /> %s</label>',
 				$name,
@@ -49,7 +56,8 @@ class TribeEventsFilter_GeoLoc extends TribeEventsFilter {
 				__( 'Radio Buttons', 'tribe-events-calendar-pro' )
 			)
 		);
-		return '<div class="tribe_events_active_filter_type_options">'.$field.'</div>';
+
+		return '<div class="tribe_events_active_filter_type_options">' . $field . '</div>';
 	}
 
 	protected function setup_query_filters() {
@@ -65,6 +73,7 @@ class TribeEventsFilter_GeoLoc extends TribeEventsFilter {
 	 * in TribeEventsGeoLoc::get_geofence_size().
 	 *
 	 * @param $distance
+	 *
 	 * @return mixed
 	 */
 	public function setup_geofence_in_query( $distance ) {
