@@ -14,14 +14,16 @@
  *
  */
 
-if ( !defined('ABSPATH') ) die('-1');
+if ( ! defined( 'ABSPATH' ) ) {
+	die( '-1' );
+}
 
 // Have taxonomy filters been applied?
 $filters = json_decode( $filters, true );
 
 // Is the filter restricted to a single taxonomy?
 $single_taxonomy = ( is_array( $filters ) && 1 === count( $filters ) );
-$single_term = false;
+$single_term     = false;
 
 // Pull the actual taxonomy and list of terms into scope
 if ( $single_taxonomy ) foreach ( $filters as $taxonomy => $terms );
@@ -29,13 +31,11 @@ if ( $single_taxonomy ) foreach ( $filters as $taxonomy => $terms );
 // If we have a single taxonomy and a single term, the View All link should point to the relevant archive page
 if ( $single_taxonomy && 1 === count( $terms ) ) {
 	$link_to_archive = true;
-	$link_to_all = get_term_link( absint( $terms[0] ), $taxonomy );
-}
-
-// Otherwise link to the main events page
+	$link_to_all     = get_term_link( absint( $terms[0] ), $taxonomy );
+} // Otherwise link to the main events page
 else {
 	$link_to_archive = false;
-	$link_to_all = tribe_get_events_link();
+	$link_to_all     = tribe_get_events_link();
 }
 
 // Check if any posts were found
@@ -43,7 +43,7 @@ if ( $posts ):
 	?>
 	<ol class="hfeed vcalendar">
 		<?php
-		foreach( $posts as $post ) :
+		foreach ( $posts as $post ) :
 			setup_postdata( $post );
 			?>
 			<li class="<?php tribe_events_event_classes() ?>">
@@ -69,7 +69,7 @@ if ( $posts ):
 				<?php } ?>
 				<div class="vcard adr location">
 
-					<?php if ( $venue  && tribe_get_venue() != '') { ?>
+					<?php if ( $venue && tribe_get_venue() != '' ) { ?>
 						<span class="fn org tribe-venue"><?php echo tribe_get_venue_link(); ?></span>
 					<?php } ?>
 
@@ -81,15 +81,15 @@ if ( $posts ):
 						<span class="locality"><?php echo tribe_get_city(); ?></span>
 					<?php } ?>
 
-					<?php if ( $region && tribe_get_region() !='' ) { ?>
+					<?php if ( $region && tribe_get_region() != '' ) { ?>
 						<span class="region"><?php echo tribe_get_region(); ?></span>
-					<?php	} ?>
+					<?php } ?>
 
 					<?php if ( $zip && tribe_get_zip() != '' ) { ?>
 						<span class="postal-code"><?php echo tribe_get_zip(); ?></span>
 					<?php } ?>
 
-					<?php if ( $country  && tribe_get_country() != '') { ?>
+					<?php if ( $country && tribe_get_country() != '' ) { ?>
 						<span class="country-name"><?php echo tribe_get_country(); ?></span>
 					<?php } ?>
 

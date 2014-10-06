@@ -10,7 +10,9 @@
  *
  */
 
-if ( !defined('ABSPATH') ) { die('-1'); } ?>
+if ( ! defined( 'ABSPATH' ) ) {
+	die( '-1' );
+} ?>
 
 <div id="tribe-events-content" class="tribe-events-list tribe-events-photo">
 

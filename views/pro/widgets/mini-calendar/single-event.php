@@ -6,7 +6,7 @@ $class = "";
 if ( $wp_query->current_post == 1 ) {
 	$class = ' first ';
 }
-if ( $wp_query->current_post+1 == $wp_query->post_count ) {
+if ( $wp_query->current_post + 1 == $wp_query->post_count ) {
 	$class .= ' last ';
 }
 
@@ -15,16 +15,19 @@ $endDate   = strtotime( $post->EventEndDate );
 $today     = time();
 
 /* If the event starts way in the past or ends way in the future, let's show today's date */
-if ( $today > $startDate && $today < $endDate )
-	$postDate = $today; else
+if ( $today > $startDate && $today < $endDate ) {
+	$postDate = $today;
+} else {
 	$postDate = $startDate;
+}
 
 /* If the user clicked in a particular day, let's show that day as the event date, even if the event spans a few days */
-if ( defined( "DOING_AJAX" ) && DOING_AJAX && isset( $_POST['action'] ) && $_POST['action'] == 'tribe-mini-cal-day' )
+if ( defined( "DOING_AJAX" ) && DOING_AJAX && isset( $_POST['action'] ) && $_POST['action'] == 'tribe-mini-cal-day' ) {
 	$postDate = strtotime( $_POST["eventDate"] );
+}
 ?>
 
-<div class="tribe-mini-calendar-event event-<?php echo $wp_query->current_post;?><?php echo $class;?>">
+<div class="tribe-mini-calendar-event event-<?php echo $wp_query->current_post; ?><?php echo $class; ?>">
 	<div class="list-date">
 		<span
 			class="list-dayname"><?php echo apply_filters( 'tribe-mini_helper_tribe_events_ajax_list_dayname', date_i18n( 'D', $postDate ), $postDate, $class ); ?></span>

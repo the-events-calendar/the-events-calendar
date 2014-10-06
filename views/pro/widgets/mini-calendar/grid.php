@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * Mini Calendar Widget Grid Template
  * This file loads the mini calendar widget grid
@@ -8,54 +8,58 @@
  * @package TribeEventsCalendar
  *
  */
-if ( !defined('ABSPATH') ) { die('-1'); } ?>
+if ( ! defined( 'ABSPATH' ) ) {
+	die( '-1' );
+} ?>
 
-<?php 
-$days_of_week = tribe_events_get_days_of_week('short');
-$week = 0;
+<?php
+$days_of_week = tribe_events_get_days_of_week( 'short' );
+$week         = 0;
 
 ?>
 <div class="tribe-mini-calendar-grid-wrapper">
 	<table class="tribe-mini-calendar" <?php tribe_events_the_mini_calendar_header_attributes() ?>>
 		<?php do_action( 'tribe_events_mini_cal_before_header' ); ?>
 		<thead class="tribe-mini-calendar-nav">
-			<tr>
-				<td colspan="7">
-					<div>
+		<tr>
+			<td colspan="7">
+				<div>
 					<?php tribe_events_the_mini_calendar_prev_link() ?>
 					<span id="tribe-mini-calendar-month"><?php tribe_events_the_mini_calendar_title() ?></span>
 					<?php tribe_events_the_mini_calendar_next_link() ?>
 					<img id="ajax-loading-mini" src="<?php echo tribe_events_resource_url( 'images/tribe-loading.gif' ) ?>" alt="loading..." />
-					</div>
-				</td>
-			</tr>
+				</div>
+			</td>
+		</tr>
 		</thead>
 		<?php do_action( 'tribe_events_mini_cal_after_header' ); ?>
-	<?php do_action( 'tribe_events_mini_cal_before_the_grid' ); ?>	
-	<thead>
+		<?php do_action( 'tribe_events_mini_cal_before_the_grid' ); ?>
+		<thead>
 		<tr>
-		<?php foreach($days_of_week as $day) : ?>
-			<th class="tribe-mini-calendar-dayofweek"><?php echo $day ?></th>
-		<?php endforeach; ?>			
+			<?php foreach ( $days_of_week as $day ) : ?>
+				<th class="tribe-mini-calendar-dayofweek"><?php echo $day ?></th>
+			<?php endforeach; ?>
 
 		</tr>
-	</thead>
-	
+		</thead>
+
 
 		<tbody class="hfeed vcalendar">
 
-			<tr>
-			<?php while (tribe_events_have_month_days()) : tribe_events_the_month_day(); ?>
-				<?php if ($week != tribe_events_get_current_week()) : $week++; ?>
-			</tr>
-			<tr>
-				<?php endif; ?>
-				<td class="<?php tribe_events_the_month_day_classes() ?>">
-						<?php tribe_get_template_part( 'pro/widgets/mini-calendar/single-day' ) ?>
-				</td>
+		<tr>
+			<?php while (tribe_events_have_month_days()) :
+			tribe_events_the_month_day(); ?>
+			<?php if ($week != tribe_events_get_current_week()) :
+			$week ++; ?>
+		</tr>
+		<tr>
+			<?php endif; ?>
+			<td class="<?php tribe_events_the_month_day_classes() ?>">
+				<?php tribe_get_template_part( 'pro/widgets/mini-calendar/single-day' ) ?>
+			</td>
 			<?php endwhile; ?>
-			</tr>
+		</tr>
 		</tbody>
-		<?php do_action( 'tribe_events_mini_cal_after_the_grid' ); ?>	
+		<?php do_action( 'tribe_events_mini_cal_after_the_grid' ); ?>
 	</table>
 </div> <!-- .tribe-mini-calendar-grid-wrapper -->

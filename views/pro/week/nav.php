@@ -9,7 +9,9 @@
  *
  */
 
-if ( !defined('ABSPATH') ) { die('-1'); } ?>
+if ( ! defined( 'ABSPATH' ) ) {
+	die( '-1' );
+} ?>
 
 <h3 class="tribe-events-visuallyhidden"><?php _e( 'Week Navigation', 'tribe-events-calendar-pro' ); ?></h3>
 <ul class="tribe-events-sub-nav">

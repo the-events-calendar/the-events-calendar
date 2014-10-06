@@ -11,6 +11,7 @@
 <script type="text/html" id="tribe_tmpl_tooltip">
 	<div id="tribe-events-tooltip-[[=eventId]]" class="tribe-events-tooltip">
 		<h4 class="entry-title summary">[[=title]]</h4>
+
 		<div class="tribe-events-event-body">
 			<div class="duration">
 				<abbr class="tribe-events-abbr updated published dtstart">[[=startTime]] </abbr>
