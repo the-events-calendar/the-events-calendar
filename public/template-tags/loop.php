@@ -139,7 +139,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 				//otherwise show the start date of the first event in the results
 				$first_event_date =  tribe_event_format_date( $_REQUEST['tribe-bar-date'], false );
 			}
-			
+
 			$last_event_date = tribe_get_end_date( $wp_query->posts[count( $wp_query->posts ) - 1], false );
 			$title = sprintf( __( 'Events for %1$s - %2$s', 'tribe-events-calendar'), $first_event_date, $last_event_date );
 		} elseif ( tribe_is_past() ) {
@@ -188,6 +188,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 * @param string $return what to return, 'bool' or 'event'
 	 *
 	 * @return mixed
+	 * @todo 'tribe_has_past_events' filter is @deprecated as of 3.7
 	 */
 	function tribe_has_previous_event( $return = 'bool' ) {
 		global $wp_query;
@@ -196,12 +197,18 @@ if ( class_exists( 'TribeEvents' ) ) {
 		if ( tribe_is_event_query() ) {
 			// Edit the current event query to look for an upcoming event
 			$args                 = (array) $wp_query->query;
-			$args['eventDisplay'] = 'past';
 
 			if ( tribe_is_past() ) {
-				$args['paged'] = $wp_query->query_vars['paged'] ? $wp_query->query_vars['paged'] + 1 : 2;
+				$args['eventDisplay'] = 'past';
+				$args['paged'] = $wp_query->get('paged') ? $wp_query->get('paged') + 1 : 2;
 			} else {
-				$args['paged'] = $wp_query->query_vars['paged'] ? $wp_query->query_vars['paged'] - 1 : 0;
+				if ( $wp_query->get( 'paged' ) == 1 ) {
+					$args['eventDisplay'] = 'past';
+					$args['paged'] = 1;
+				} else {
+					$args['eventDisplay'] = 'list';
+					$args['paged'] = $wp_query->get('paged') - 1;
+				}
 			}
 
 			$events = tribe_get_events( $args );
@@ -210,7 +217,6 @@ if ( class_exists( 'TribeEvents' ) ) {
 
 		}
 
-		// @todo 'tribe_has_past_events' filter is @deprecated as of 3.7
 		return apply_filters( 'tribe_has_previous_event', apply_filters( 'tribe_has_past_events', $previous_event ) );
 	}
 
@@ -228,13 +234,19 @@ if ( class_exists( 'TribeEvents' ) ) {
 		if ( tribe_is_event_query() && ! empty( $wp_query->posts ) ) {
 
 			// Edit the current event query to look for an upcoming event
-			$args                 = (array) $wp_query->query;
-			$args['eventDisplay'] = 'list';
+			$args = (array) $wp_query->query;
 
 			if ( tribe_is_past() ) {
-				$args['paged'] = $wp_query->query_vars['paged'] ? $wp_query->query_vars['paged'] - 1 : 0;
+				if ( $wp_query->get( 'paged' ) == 1 ) {
+					$args['eventDisplay'] = 'list';
+					$args['paged']        = 1;
+				} else {
+					$args['eventDisplay'] = 'past';
+					$args['paged']        = $wp_query->get( 'paged' ) + 1;
+				}
 			} else {
-				$args['paged'] = $wp_query->query_vars['paged'] ? $wp_query->query_vars['paged'] + 1 : 2;
+				$args['eventDisplay'] = 'list';
+				$args['paged']        = $wp_query->get( 'paged' ) + 1;
 			}
 
 			$events = tribe_get_events( $args );
