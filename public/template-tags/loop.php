@@ -129,17 +129,8 @@ if ( class_exists( 'TribeEvents' ) ) {
 
 		$title = __( 'Upcoming Events', 'tribe-events-calendar' );
 
-		// If there's a date selected in the tribe bar, show the date range of the currently showing events
 		if ( isset( $_REQUEST['tribe-bar-date'] ) && $wp_query->have_posts() ) {
-
-			if ( $wp_query->get( 'paged' ) > 1 ) {
-				// if we're on page 1, show the selected tribe-bar-date as the first date in the range
-				$first_event_date = tribe_get_start_date( $wp_query->posts[0], false );
-			} else {
-				//otherwise show the start date of the first event in the results
-				$first_event_date =  tribe_event_format_date( $_REQUEST['tribe-bar-date'], false );
-			}
-			
+			$first_event_date = tribe_get_end_date( $wp_query->posts[0], false );
 			$last_event_date = tribe_get_end_date( $wp_query->posts[count( $wp_query->posts ) - 1], false );
 			$title = sprintf( __( 'Events for %1$s - %2$s', 'tribe-events-calendar'), $first_event_date, $last_event_date );
 		} elseif ( tribe_is_past() ) {
