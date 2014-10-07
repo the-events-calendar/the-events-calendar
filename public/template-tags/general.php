@@ -549,7 +549,7 @@ if( class_exists( 'TribeEventsPro' ) ) {
 		$args = array(
 			'posts_per_page' => $count,
 			'post__not_in' => array( $post_id ),
-			'eventDisplay' => 'upcoming',
+			'eventDisplay' => 'list',
 			'tax_query' => array('relation' => 'OR'),
 			'orderby' => 'rand',
 		);

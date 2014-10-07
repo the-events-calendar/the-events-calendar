@@ -57,10 +57,10 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		const REQUIRED_TEC_VERSION = '3.8';
 		const VERSION = '3.8';
 
-		/**
-		 * Class constructor.
-		 */
-		private function __construct() {
+        /**
+         * Class constructor.
+         */
+        private function __construct() {
 			$this->pluginDir = trailingslashit( basename( dirname( __FILE__ ) ) );
 			$this->pluginPath = trailingslashit( dirname( __FILE__ ) );
 			$this->pluginUrl = plugins_url( $this->pluginDir );
@@ -323,7 +323,6 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		function reset_page_title( $title, $depth = true ){
 
 			global $wp_query;
-			$tec = TribeEvents::instance();
 			$date_format = apply_filters( 'tribe_events_pro_page_title_date_format', tribe_get_date_format( true ) );
 
 			if( tribe_is_showing_all() ){
@@ -596,12 +595,12 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 
 	    }
 
-		/**
-		 * Add the default settings tab
-		 *
-		 * @return void
-		 */
-		public function add_settings_tabs() {
+	    /**
+	     * Add the default settings tab
+	     *
+	     * @return void
+	     */
+	  	public function add_settings_tabs() {
 			require_once( $this->pluginPath . 'admin-views/tribe-options-defaults.php' );
 			new TribeSettingsTab( 'defaults', __( 'Default Content', 'tribe-events-calendar-pro' ), $defaultsTab );
 			// The single-entry array at the end allows for the save settings button to be displayed.

@@ -54,7 +54,7 @@ if( !class_exists( 'TribeCountdownWidget') ) {
 			$paged = apply_filters( 'tribe_events_pro_countdown_widget_paged', 1 );
 
 			$events = tribe_get_events( array(
-				'eventDisplay' => 'upcoming',
+				'eventDisplay' => 'list',
 				'posts_per_page' => $limit,
 				'paged' => $paged
 			) );

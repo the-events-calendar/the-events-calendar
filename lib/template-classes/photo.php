@@ -93,7 +93,6 @@ if( !class_exists('Tribe_Events_Pro_Photo_Template')){
 				$query         = TribeEventsQuery::getEvents( $args, true );
 			}
 
-
 			$response = array( 'html'            => '',
 							   'success'         => true,
 							   'max_pages'       => $query->max_num_pages,
