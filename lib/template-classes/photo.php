@@ -77,6 +77,7 @@ if( !class_exists('Tribe_Events_Pro_Photo_Template')){
 			/* if past view */
 			if ( ! empty( $_POST['tribe_event_display'] ) && $_POST['tribe_event_display'] == 'past' ){
 				$view_state = 'past';
+				$args['eventDisplay'] = 'past';
 			}
 
 
