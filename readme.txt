@@ -330,6 +330,7 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Fixed a bug where previous and next events links were (or were not) showing up when they're supposed to
 * Fixed a bug where sending our datepicker into no conflict mode could cause javascript errors on events pages were it was not loaded
 * Added mailing list subscription options to the Welcome/Update plugin activation pages
+* Fixed a bug causing issues with the display of maps in single event and venue views
 
 = 3.8 =
 
