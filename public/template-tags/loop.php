@@ -242,7 +242,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 					$args['paged']        = 1;
 				} else {
 					$args['eventDisplay'] = 'past';
-					$args['paged']        = $wp_query->get( 'paged' ) + 1;
+					$args['paged']        = $wp_query->get( 'paged' ) - 1;
 				}
 			} else {
 				$args['eventDisplay'] = 'list';
