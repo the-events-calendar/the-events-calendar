@@ -224,6 +224,10 @@ Our Premium Plugins:
 
 3.x is a complete overhaul of the plugin, and as a result we're starting the changelog fresh. For release notes from the 2.x lifecycle, see <a href="http://m.tri.be/k">our 2.x release notes.</a>
 
+= 3.8.1 =
+
+* Removed some instances where deprecated function notices could show in Events Calendar Pro after updating The Events Calendar to 3.8
+
 = 3.8 =
 
 * Fixed a bug that caused instances of a recurring event to disappear when recurrence was removed and then added back to an event (thanks to drickard on the forums for the original report!)
