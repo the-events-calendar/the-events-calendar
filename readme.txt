@@ -227,6 +227,7 @@ Our Premium Plugins:
 = 3.8.1 =
 
 * Removed some instances where deprecated function notices could show in Events Calendar Pro after updating The Events Calendar to 3.8
+* Switched all includes to use absolute paths to avoid collisions under certain include path settings
 
 = 3.8 =
 
