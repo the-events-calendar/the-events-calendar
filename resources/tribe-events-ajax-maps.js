@@ -331,16 +331,6 @@
 
 					$( '#tribe-events-content' ).replaceWith( $the_content );
 
-					if ( response.view === 'map' ) {
-						if ( response.max_pages == response.tribe_paged || 0 == response.max_pages ) {
-							$( '.tribe-events-nav-next' ).hide();
-						}
-						else {
-
-							$( '.tribe-events-nav-next' ).show();
-						}
-					}
-
 					//If no events are returned, then hide Header 
 					if ( response.total_count == 0 ) {
 						$( '#tribe-events-header' ).hide();
