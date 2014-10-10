@@ -324,6 +324,11 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 
 3.x is a complete overhaul of the plugin, and as a result we're starting the changelog fresh. For release notes from the 2.x lifecycle, see <a href="http://m.tri.be/k">our 2.x release notes.</a>
 
+= 3.8.1 =
+
+* Fixed a bug where the wrong date was showing in the title of the page when a date was selected in the tribe bar
+* Fixed a bug where previous and next events links were (or were not) showing up when they're supposed to
+
 = 3.8 =
 
 * Changed capability for importing events from "administrator" to "import"
