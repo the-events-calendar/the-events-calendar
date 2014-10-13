@@ -4,7 +4,7 @@
  * The template that displays the welcome message when the plugin is first activated.
  */
 
-$video_url = 'https://www.youtube.com/watch?v=HHohYGTk3QQ';
+$video_url = 'http://vimeo.com/108805711';
 
 ?>
 
