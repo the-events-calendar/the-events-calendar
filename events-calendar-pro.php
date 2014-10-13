@@ -321,8 +321,8 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		 * @return string The modified title.
 		 */
 		function reset_page_title( $title, $depth = true ){
-
 			global $wp_query;
+			$tec = TribeEvents::instance();
 			$date_format = apply_filters( 'tribe_events_pro_page_title_date_format', tribe_get_date_format( true ) );
 
 			if( tribe_is_showing_all() ){
