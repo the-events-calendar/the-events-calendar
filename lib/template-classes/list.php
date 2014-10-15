@@ -76,7 +76,7 @@ if ( ! class_exists( 'Tribe_Events_List_Template' ) ) {
 				$args[TribeEvents::TAXONOMY] = $_POST['tribe_event_category'];
 			}
 
-			$query = TribeEventsQuery::getEvents( $args, true );
+			$query = tribe_get_events( $args, true );
 
 			// $hash is used to detect whether the primary arguments in the query have changed (i.e. due to a filter bar request)
 			// if they have, we want to go back to page 1

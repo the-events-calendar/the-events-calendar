@@ -99,8 +99,8 @@ class TribeEvents_EmbeddedMaps {
 
 		tribe_get_template_part( 'modules/map', null, array(
 			'index'  => $index,
-			'width'  => null === $width  ? tribe_get_option( 'embedGoogleMapsWidth', '100%' ) : $width,
-			'height' => null === $height ? tribe_get_option( 'embedGoogleMapsHeight', '350px' ) : $height,
+			'width'  => null === $width  ? apply_filters( 'tribe_events_single_map_default_width', '100%' ) : $width,
+			'height' => null === $height ? apply_filters( 'tribe_events_single_map_default_height', '350px' ) : $height,
 		) );
 
 		$this->setup_scripts();

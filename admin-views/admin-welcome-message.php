@@ -4,7 +4,7 @@
  * The template that displays the welcome message when the plugin is first activated.
  */
 
-$video_url = 'https://www.youtube.com/watch?v=HHohYGTk3QQ';
+$video_url = 'http://vimeo.com/108805711';
 
 ?>
 
@@ -23,9 +23,10 @@ $video_url = 'https://www.youtube.com/watch?v=HHohYGTk3QQ';
 	</div>
 	<div class="tribe-half-column">
 		<h3><?php _e( "Newsletter Signup", 'tribe-events-calendar' ); ?></h3>
-		<p><?php _e( "Stay in touch with The Events Calendar Pro. We send out the occiasional update, key developer notices, and even the occasional discount.", 'tribe-events-calendar' ); ?></p>
+		<p><?php _e( "Stay in touch with The Events Calendar Pro. We send out periodic updates, key developer notices, and even the occasional discount.", 'tribe-events-calendar' ); ?></p>
 		<form action="http://moderntribe.createsend.com/t/r/s/athqh/" method="post">
 			<p><input id="listthkduyk" name="cm-ol-thkduyk" type="checkbox" /> <label for="listthkduyk">Developer News</label></p>
+			<p><input id="listathqh" name="cm-ol-athqh" checked type="checkbox" /> <label for="listathqh">News and Announcements</label></p>
 			<p><input id="fieldEmail" class="regular-text" name="cm-athqh-athqh" type="email" placeholder="Email" required /></p>
 			<button type="submit" class="button-primary"><?php _e( 'Sign Up', 'tribe-events-calendar' ); ?></button>
 		</form>
