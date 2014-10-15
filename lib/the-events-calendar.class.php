@@ -24,7 +24,7 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 		const VENUE_POST_TYPE     = 'tribe_venue';
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
 
-		const VERSION       = '3.8';
+		const VERSION       = '3.8.1';
 		const FEED_URL      = 'http://tri.be/category/products/feed/';
 		const INFO_API_URL  = 'http://wpapi.org/api/plugin/the-events-calendar.php';
 		const WP_PLUGIN_URL = 'http://wordpress.org/extend/plugins/the-events-calendar/';

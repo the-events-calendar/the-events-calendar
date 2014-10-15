@@ -460,7 +460,7 @@ Date.prototype.format = function( mask, utc ) {
 		$( this ).addClass( 'tribe-events-loading' ).css( 'opacity', .25 )
 	};
 
-	if ( "undefined" !== typeof $.fn.datepicker ) {
+	if ( "undefined" !== typeof $.fn.datepicker && "undefined" !== typeof $.fn.datepicker.noConflict ) {
 		var datepicker = $.fn.datepicker.noConflict();
 		$.fn.bootstrapDatepicker = datepicker;
 	}
