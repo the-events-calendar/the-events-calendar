@@ -2431,6 +2431,7 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 			$newRules = array();
 
 			// single event
+			$newRules[$singleBase . '([^/]+)/?$']      = 'index.php?' . self::POSTTYPE . '=' . $wp_rewrite->preg_index( 1 );
 			$newRules[$singleBase . '([^/]+)/(\d{4}-\d{2}-\d{2})/?$']      = 'index.php?' . self::POSTTYPE . '=' . $wp_rewrite->preg_index( 1 ) . "&eventDate=" . $wp_rewrite->preg_index( 2 );
 			$newRules[$singleBase . '([^/]+)/(\d{4}-\d{2}-\d{2})/ical/?$'] = 'index.php?ical=1&' . self::POSTTYPE . '=' . $wp_rewrite->preg_index( 1 ) . "&eventDate=" . $wp_rewrite->preg_index( 2 );
 			$newRules[$singleBase . '([^/]+)/all/?$']                      = 'index.php?post_type=' . self::POSTTYPE . '&' . self::POSTTYPE . '=' . $wp_rewrite->preg_index( 1 ) . "&eventDisplay=all";
