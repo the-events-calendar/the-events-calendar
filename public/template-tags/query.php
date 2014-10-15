@@ -14,7 +14,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 **/
 	function tribe_is_event_category() {
 		global $wp_query;
-		$tribe_is_event_category = ! empty( $wp_query->tribe_is_event );
+		$tribe_is_event_category = ! empty( $wp_query->tribe_is_event_category );
 
 		return apply_filters( 'tribe_query_is_event_category', $tribe_is_event_category );
 	}
