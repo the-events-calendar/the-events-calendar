@@ -5,7 +5,7 @@ Tags: events, calendar, event, venue, organizer, dates, date, google maps, confe
 Donate link: http://m.tri.be/29
 Requires at least: 3.8
 Tested up to: 4.0
-Stable tag: 3.8
+Stable tag: 3.8.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -224,6 +224,11 @@ Our Premium Plugins:
 
 3.x is a complete overhaul of the plugin, and as a result we're starting the changelog fresh. For release notes from the 2.x lifecycle, see <a href="http://m.tri.be/k">our 2.x release notes.</a>
 
+= 3.8.1 =
+
+* Removed some instances where deprecated function notices could show in Events Calendar Pro after updating The Events Calendar to 3.8 (thanks to sfbike on the forums for alerting us of this!)
+* Switched all includes to use absolute paths to avoid collisions under certain include path settings
+
 = 3.8 =
 
 * Fixed a bug that caused instances of a recurring event to disappear when recurrence was removed and then added back to an event (thanks to drickard on the forums for the original report!)
@@ -241,7 +246,7 @@ Our Premium Plugins:
 * Incorporated updated Danish translation files, courtesy of Hans Christian Andersen
 * Incorporated updated Dutch translation files, courtesy of Dirk Westenberg
 * Incorporated updated Portuguese translation files, courtesy of Sérgio Leite
-* Incorporated new Russian translation files, courtesy of Žiga Vajdic
+* Incorporated new Slovenian translation files, courtesy of Žiga Vajdic
 * Incorporated updated German translation files, courtesy of Stefan Dorscht and Oliver Heinrich
 * Incorporated updated Finnish translation files, courtesy of Elias Okkonen
 * Incorporated updated Estonian translation files, courtesy of Andra Saimre

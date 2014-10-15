@@ -33,7 +33,7 @@ $venue_id = get_the_ID();
 		<?php if ( tribe_embed_google_map() && tribe_address_exists() ) : ?>
 			<!-- Venue Map -->
 			<div class="tribe-events-map-wrap">
-				<?php echo tribe_get_embedded_map( $venue_id, '350px', '200px' ); ?>
+				<?php echo tribe_get_embedded_map( $venue_id, '100%', '200px' ); ?>
 			</div><!-- .tribe-events-map-wrap -->
 		<?php endif; ?>
 
@@ -73,7 +73,7 @@ $venue_id = get_the_ID();
 	<?php // Use the 'tribe_events_single_venue_posts_per_page' to filter the 
 	 	  // number of events to display beneath the venue info on the venue page.
 	?> 
-	<?php echo tribe_include_view_list( array('venue' => $venue_id, 'eventDisplay' => 'upcoming', 'posts_per_page' => apply_filters( 'tribe_events_single_venue_posts_per_page', 100 ) ) )?>
+	<?php echo tribe_include_view_list( array('venue' => $venue_id, 'eventDisplay' => 'list', 'posts_per_page' => apply_filters( 'tribe_events_single_venue_posts_per_page', 100 ) ) )?>
 	<?php do_action('tribe_events_single_venue_after_upcoming_events') ?>
 	
 </div><!-- .tribe-events-venue -->

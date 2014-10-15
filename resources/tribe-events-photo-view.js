@@ -342,24 +342,6 @@
 							$( '#tribe-events-content' ).prev( '#tribe-events-list-hash' ).remove();
 							$( '.tribe-events-promo' ).next( '.tribe-events-promo' ).remove();
 
-							if ( response.view === 'photo' ) {
-								if ( response.max_pages == ts.paged ) {
-									$( '.tribe-events-nav-next' ).hide();
-								}
-								else {
-
-									$( '.tribe-events-nav-next' ).show();
-								}
-							}
-							else {
-								if ( response.max_pages == ts.paged ) {
-									$( '.tribe-events-nav-previous' ).hide();
-								}
-								else {
-									$( '.tribe-events-nav-previous' ).show();
-								}
-							}
-
 							//If no events are returned, then hide Header 
 							if ( response.max_pages == 0 ) {
 								$( '#tribe-events-header' ).hide();

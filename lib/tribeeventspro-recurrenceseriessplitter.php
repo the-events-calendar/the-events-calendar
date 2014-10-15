@@ -144,7 +144,7 @@ class TribeEventsPro_RecurrenceSeriesSplitter {
 	}
 
 	private function copy_post_meta( $original_post, $destination_post ) {
-		require_once('tribeeventspro-postmetacopier.php');
+		require_once( dirname( __FILE__ ) . '/tribeeventspro-postmetacopier.php');
 		$copier = new TribeEventsPro_PostMetaCopier();
 		$copier->copy_meta($original_post, $destination_post);
 	}
