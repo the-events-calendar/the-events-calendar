@@ -5,7 +5,7 @@ Tags: events, calendar, event, venue, organizer, dates, date, google maps, confe
 Donate link: http://m.tri.be/29
 Requires at least: 3.8
 Tested up to: 4.0
-Stable tag: 3.8
+Stable tag: 3.8.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -226,8 +226,8 @@ Our Premium Plugins:
 
 = 3.8.1 =
 
-* Incorporated updated Icelandic translation files courtesy of Baldvin Örn Berndsen
-* Incorporated updated German translation files courtesy of Oliver Heinrich
+* Removed some instances where deprecated function notices could show in Events Calendar Pro after updating The Events Calendar to 3.8 (thanks to sfbike on the forums for alerting us of this!)
+* Switched all includes to use absolute paths to avoid collisions under certain include path settings
 
 = 3.8 =
 

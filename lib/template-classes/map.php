@@ -62,6 +62,7 @@ if ( ! class_exists( 'Tribe_Events_Pro_Map_Template' ) ) {
 			/* if past view */
 			if ( ! empty( $_POST['tribe_event_display'] ) && $_POST['tribe_event_display'] == 'past' ) {
 				$view_state = 'past';
+				$defaults['eventDisplay'] = 'past';
 			}
 
 			if ( isset( $_POST['tribe_event_category'] ) ) {

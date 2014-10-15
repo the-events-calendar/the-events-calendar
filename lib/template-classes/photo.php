@@ -1,6 +1,6 @@
 <?php
 /**
- * @for     Photo Template
+ * @for Photo Template
  * This file contains hooks and functions required to set up the photo view.
  *
  * @package TribeEventsCalendarPro
@@ -8,10 +8,10 @@
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
-	die( '-1' );
+	die('-1');
 }
 
-if ( ! class_exists( 'Tribe_Events_Pro_Photo_Template' ) ) {
+if( !class_exists('Tribe_Events_Pro_Photo_Template')){
 	class Tribe_Events_Pro_Photo_Template extends Tribe_PRO_Template_Factory {
 
 		protected $body_class = 'events-photo';
@@ -26,7 +26,7 @@ if ( ! class_exists( 'Tribe_Events_Pro_Photo_Template' ) ) {
 
 		protected function hooks() {
 			parent::hooks();
-			add_filter( 'tribe_events_header_attributes', array( $this, 'header_attributes' ) );
+			add_filter( 'tribe_events_header_attributes',  array( $this, 'header_attributes') );
 		}
 
 		/**
@@ -34,11 +34,11 @@ if ( ! class_exists( 'Tribe_Events_Pro_Photo_Template' ) ) {
 		 *
 		 * @return string
 		 **/
-		public function header_attributes( $attrs ) {
-			$attrs['data-view']    = 'photo';
+		public function header_attributes($attrs) {
+			$attrs['data-view'] = 'photo';
 			$attrs['data-baseurl'] = tribe_get_photo_permalink( false );
 
-			return apply_filters( 'tribe_events_pro_header_attributes', $attrs );
+			return apply_filters('tribe_events_pro_header_attributes', $attrs);
 		}
 
 
@@ -66,24 +66,25 @@ if ( ! class_exists( 'Tribe_Events_Pro_Photo_Template' ) ) {
 
 			TribeEventsQuery::init();
 
-			$tribe_paged = ( ! empty( $_POST['tribe_paged'] ) ) ? intval( $_POST['tribe_paged'] ) : 1;
+			$tribe_paged = ( !empty( $_POST['tribe_paged'] ) ) ? intval( $_POST['tribe_paged'] ) : 1;
 
 			$args = array(
 				'eventDisplay' => 'list',
-				'post_type'    => TribeEvents::POSTTYPE,
-				'post_status'  => 'publish',
+						   'post_type'          => TribeEvents::POSTTYPE,
+						   'post_status'        => 'publish',
 				'paged'        => $tribe_paged
 			);
 
 			$view_state = 'photo';
 
 			if ( isset( $_POST['tribe_event_category'] ) ) {
-				$args[ TribeEvents::TAXONOMY ] = $_POST['tribe_event_category'];
+				$args[TribeEvents::TAXONOMY] = $_POST['tribe_event_category'];
 			}
 
 			/* if past view */
-			if ( ! empty( $_POST['tribe_event_display'] ) && $_POST['tribe_event_display'] == 'past' ) {
+			if ( ! empty( $_POST['tribe_event_display'] ) && $_POST['tribe_event_display'] == 'past' ){
 				$view_state = 'past';
+				$args['eventDisplay'] = 'past';
 			}
 
 
@@ -94,12 +95,11 @@ if ( ! class_exists( 'Tribe_Events_Pro_Photo_Template' ) ) {
 			$hash['start_date'] = null;
 			$hash_str           = md5( maybe_serialize( $hash ) );
 
-			if ( ! empty( $_POST['hash'] ) && $hash_str !== $_POST['hash'] ) {
+			if ( !empty( $_POST['hash'] ) && $hash_str !== $_POST['hash'] ) {
 				$tribe_paged   = 1;
 				$args['paged'] = 1;
 				$query         = TribeEventsQuery::getEvents( $args, true );
 			}
-
 
 			$response = array(
 				'html'        => '',
@@ -112,7 +112,7 @@ if ( ! class_exists( 'Tribe_Events_Pro_Photo_Template' ) ) {
 
 			global $wp_query, $post;
 			$wp_query = $query;
-			if ( ! empty( $query->posts ) ) {
+			if ( !empty( $query->posts ) ) {
 				$post = $query->posts[0];
 			}
 
