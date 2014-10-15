@@ -1688,14 +1688,14 @@ input[name*="tribe-bar-"]:-moz-placeholder {
     		background-size: 15px 16px;
 }
 
-.tribe-select2-results-views span.tribe-icon-upcoming,
-.tribe-bar-views-list span.tribe-icon-upcoming,
-.tribe-bar-view-list a.tribe-icon-upcoming {
+.tribe-select2-results-views span.tribe-icon-list,
+.tribe-bar-views-list span.tribe-icon-list,
+.tribe-bar-view-list a.tribe-icon-list {
 	background-image: url(images/events-bar/icon-list.png);
 	-webkit-background-size: 15px 10px;
     		background-size: 15px 10px;
 }
-.tribe-bar-view-list a.tribe-icon-upcoming,
+.tribe-bar-view-list a.tribe-icon-list,
 .tribe-bar-view-list a.tribe-icon-month {
 	padding-left: 30px;
 	background-position: 10px 50%;
