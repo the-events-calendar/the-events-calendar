@@ -35,6 +35,7 @@ if( !class_exists('Tribe_Events_Pro_Photo_Template')){
 		 * @return string
 		 **/
 		public function header_attributes($attrs) {
+			$attrs['data-startofweek'] = get_option( 'start_of_week' );
 			$attrs['data-view'] = 'photo';
 			$attrs['data-baseurl'] = tribe_get_photo_permalink( false );
 

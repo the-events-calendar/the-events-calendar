@@ -34,6 +34,7 @@ if ( ! class_exists( 'Tribe_Events_Pro_Map_Template' ) ) {
 		 * @return string
 		 **/
 		public function header_attributes( $attrs ) {
+			$attrs['data-startofweek'] = get_option( 'start_of_week' );
 			$attrs['data-view']    = 'map';
 			$attrs['data-baseurl'] = tribe_get_mapview_link();
 
