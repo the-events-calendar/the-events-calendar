@@ -1316,7 +1316,7 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 					),
 					'public'                => true,
 					'show_ui'               => true,
-					'labels'                => $this->taxonomyLabels,
+					'labels'                => apply_filters( 'tribe_events_register_category_taxonomy_labels', $this->taxonomyLabels ),
 					'capabilities'          => array(
 						'manage_terms' => 'publish_tribe_events',
 						'edit_terms'   => 'publish_tribe_events',
