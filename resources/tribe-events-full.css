@@ -1755,6 +1755,11 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 	}
 }
 
+/* Stop themes from hiding elements with the .updated CSS class */
+#tribe-events-content .updated {
+	display: inherit;
+}
+
 /* = Events Retina
 =============================================*/
 @media 
