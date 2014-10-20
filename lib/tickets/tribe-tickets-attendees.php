@@ -209,7 +209,7 @@ class TribeEventsTicketsAttendeesTable extends WP_List_Table {
 
 		if ( 'top' == $which ) {
 			echo '<div class="alignright">';
-			echo sprintf( '%s: <input type="text" name="filter_attendee" id="filter_attendee" value="">', __( "Filter by ticket #, order # or security code", "tribe-events-calendar" ) );
+			echo sprintf( '%s: <input type="text" name="filter_attendee" id="filter_attendee" value="">', __( "Filter by purchaser name, ticket #, order # or security code", "tribe-events-calendar" ) );
 			echo '</div>';
 
 		}
