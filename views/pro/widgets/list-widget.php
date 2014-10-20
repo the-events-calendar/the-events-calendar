@@ -18,6 +18,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
+// We'll need to utilize the post global
+global $post;
+
 // Have taxonomy filters been applied?
 $filters = json_decode( $filters, true );
 
@@ -40,76 +43,17 @@ else {
 
 // Check if any posts were found
 if ( $posts ):
-	?>
-	<ol class="hfeed vcalendar">
-		<?php
-		foreach ( $posts as $post ) :
-			setup_postdata( $post );
-			?>
-			<li class="<?php tribe_events_event_classes() ?>">
+	foreach ( $posts as $post ) :
+		setup_postdata( $post );
+		do_action( 'tribe_events_widget_list_inside_before_loop' ); ?>
 
-				<?php do_action( 'tribe_events_list_widget_before_the_event_title' ); ?>
+		<!-- Event  -->
+		<div class="<?php tribe_events_event_classes() ?>">
+			<?php tribe_get_template_part( 'pro/widgets/modules/single-event' ) ?>
+		</div><!-- .hentry .vevent -->
 
-				<h4 class="entry-title summary">
-					<a href="<?php echo tribe_get_event_link(); ?>" rel="bookmark"><?php the_title(); ?></a>
-				</h4>
-
-				<?php do_action( 'tribe_events_list_widget_after_the_event_title' ); ?>
-
-				<?php do_action( 'tribe_events_list_widget_before_the_meta' ) ?>
-
-				<div class="duration">
-					<?php echo tribe_events_event_schedule_details(); ?>
-				</div>
-				<?php if ( $cost && tribe_get_cost() != '' ) { ?>
-					<span class="tribe-events-divider">|</span>
-					<div class="tribe-events-event-cost">
-						<?php echo tribe_get_cost( null, true ); ?>
-					</div>
-				<?php } ?>
-				<div class="vcard adr location">
-
-					<?php if ( $venue && tribe_get_venue() != '' ) { ?>
-						<span class="fn org tribe-venue"><?php echo tribe_get_venue_link(); ?></span>
-					<?php } ?>
-
-					<?php if ( $address && tribe_get_address() != '' ) { ?>
-						<span class="street-address"><?php echo tribe_get_address(); ?></span>
-					<?php } ?>
-
-					<?php if ( $city && tribe_get_city() != '' ) { ?>
-						<span class="locality"><?php echo tribe_get_city(); ?></span>
-					<?php } ?>
-
-					<?php if ( $region && tribe_get_region() != '' ) { ?>
-						<span class="region"><?php echo tribe_get_region(); ?></span>
-					<?php } ?>
-
-					<?php if ( $zip && tribe_get_zip() != '' ) { ?>
-						<span class="postal-code"><?php echo tribe_get_zip(); ?></span>
-					<?php } ?>
-
-					<?php if ( $country && tribe_get_country() != '' ) { ?>
-						<span class="country-name"><?php echo tribe_get_country(); ?></span>
-					<?php } ?>
-
-					<?php if ( $organizer && tribe_get_organizer() != '' ) { ?>
-						<?php _e( 'Organizer:', 'tribe-events-calendar-pro' ); ?>
-						<span class="tribe-organizer"><?php echo tribe_get_organizer_link(); ?></span>
-					<?php } ?>
-
-					<?php if ( $phone && tribe_get_phone() != '' ) { ?>
-						<span class="tel"><?php echo tribe_get_phone(); ?></span>
-					<?php } ?>
-				</div>
-
-				<?php do_action( 'tribe_events_list_widget_after_the_meta' ) ?>
-
-			</li>
-		<?php
-		endforeach;
-		?>
-	</ol><!-- .hfeed -->
+		<?php do_action( 'tribe_events_widget_list_inside_after_loop' ) ?>
+	<?php endforeach ?>
 
 	<p class="tribe-events-widget-link">
 		<a href="<?php esc_attr_e( esc_url( $link_to_all ) ) ?>" rel="bookmark">
@@ -123,3 +67,6 @@ else:
 	<p><?php _e( 'There are no upcoming events at this time.', 'tribe-events-calendar' ) ?></p>
 <?php
 endif;
+
+// Cleanup
+wp_reset_postdata();
