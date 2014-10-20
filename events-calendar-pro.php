@@ -430,9 +430,9 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 				case 'single-event':
 					// a recurrence event with a bad date will throw 404 because of WP_Query limiting by date range
 					if( is_404() || empty( $wp_query->query['eventDate'] ) ) {
+						$recurrence_check = array_merge( array( 'posts_per_page' => -1 ), $wp_query->query );
 						unset( $recurrence_check['eventDate'] );
 						unset( $recurrence_check['tribe_events'] );
-						$recurrence_check = array_merge( array( 'posts_per_page' => -1 ), $wp_query->query );
 
 						// retrieve event object
 						$get_recurrence_event = new WP_Query( $recurrence_check );
