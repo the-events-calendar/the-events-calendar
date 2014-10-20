@@ -124,8 +124,9 @@ jQuery( document ).ready( function( $ ) {
 			var order = row.children( 'td.order_id' ).children( 'a' ).text();
 			var attendee = row.children( 'td.attendee_id' ).text();
 			var security = row.children( 'td.security' ).text();
+			var name = row.children( 'td.purchaser_name').text().toLowerCase();
 
-			if ( attendee.indexOf( search ) === 0 || order.indexOf( search ) === 0 || security.indexOf( search ) === 0 ) {
+			if ( attendee.indexOf( search ) === 0 || order.indexOf( search ) === 0 || security.indexOf( search ) === 0 || name.indexOf( search ) === 0 ) {
 				row.show();
 			}
 			else {
