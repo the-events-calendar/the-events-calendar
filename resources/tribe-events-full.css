@@ -1740,21 +1740,24 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 
 /* Twenty Fourteen
 ========================================================================== */
-.tribe-events-week.tribe-theme-twentyfourteen #masthead {
+.tribe-events-week.tribe-theme-twentyfourteen #masthead,
+.tribe-events-week.tribe-theme-parent-twentyfourteen #masthead {
 	z-index: 1001;
 }
-.tribe-theme-twentyfourteen #tribe-events-pg-template #tribe-events {
+.tribe-theme-twentyfourteen #tribe-events-pg-template #tribe-events,
+.tribe-theme-parent-twentyfourteen #tribe-events-pg-template #tribe-events {
 	padding: 20px;
 }
-.tribe-theme-twentyfourteen  #tribe-bar-views .tribe-bar-views-list {
+.tribe-theme-twentyfourteen #tribe-bar-views .tribe-bar-views-list,
+.tribe-theme-parent-twentyfourteen #tribe-bar-views .tribe-bar-views-list {
 	z-index: 3;
 }
-@media screen and (min-width: 1080px) {
-	.tribe-theme-twentyfourteen #tribe-events-pg-template {
-		padding-left: 222px;
+@media screen and (min-width: 1000px) {
+	.tribe-theme-twentyfourteen #tribe-events-pg-template,
+	.tribe-theme-parent-twentyfourteen #tribe-events-pg-template {
+		padding-left: 220px;
 	}
 }
-
 /* Stop themes from hiding elements with the .updated CSS class */
 #tribe-events-content .updated {
 	display: inherit;
