@@ -30,10 +30,9 @@ class Tribe__Events__Pro__MiniCalendarShortcode {
 		'categories' => ''
 	);
 
-	/**
-	 * @var array
-	 */
 	protected $arguments = array();
+	protected $filters = array();
+	protected $terms = array();
 
 
 	public function __construct() {
@@ -41,6 +40,7 @@ class Tribe__Events__Pro__MiniCalendarShortcode {
 	}
 
 	public function do_shortcode( $attributes ) {
+		$this->reset();
 		$this->arguments = shortcode_atts( $this->default_args, $attributes );
 		$this->taxonomy_filters();
 
@@ -49,40 +49,54 @@ class Tribe__Events__Pro__MiniCalendarShortcode {
 		return ob_get_clean();
 	}
 
+	protected function reset() {
+		$this->arguments = array();
+		$this->filters = array();
+		$this->terms = array();
+	}
+
 	/**
 	 * Sets up an array of taxonomy filters, if required by the shortcode
 	 * arguments.
 	 */
-	public function taxonomy_filters() {
-		$filters = array();
-		$params  = array();
-
+	protected function taxonomy_filters() {
 		// Consolidate plural/singular forms into one
+		$params  = array();
 		$params['categories'] = $this->arguments['categories'] . ',' . $this->arguments['category'];
 		$params['tags'] = $this->arguments['tags'] . ',' . $this->arguments['tag'];
 
 		// Build our taxonomy filter
 		foreach ( $this->tax_relationships as $param => $tax ) {
 			// Check for taxonomy terms for each supported taxonomy
-			$terms = explode( ',', $params[$param] );
-			foreach ( $terms as $term ) {
-				$term = trim( $term );
-				if ( empty( $term ) ) continue;
-
-				// Accept term IDs...
-				if ( is_numeric( $term ) && $term == absint( $term ) ) {
-					$filters[$tax][] = $term;
-				}
-				// Also accept term slugs...
-				else {
-					$term_obj = get_term_by( 'slug', $term, $tax );
-					if ( false === $term_obj ) continue;
-					$filters[$tax][] = $term_obj->term_id;
-				}
+			$this->terms = explode( ',', $params[$param] );
+			foreach ( $this->terms as $term ) {
+				$this->add_term( $term, $tax );
 			}
 		}
 
 		// Add the filters to the list of widget arguments
-		if ( ! empty( $filters ) ) $this->arguments['raw_filters'] = $filters;
+		if ( ! empty( $this->filters ) ) $this->arguments['raw_filters'] = $this->filters;
+	}
+
+	/**
+	 * Potentially add a taxonomy term to our list of filters.
+	 *
+	 * @param $term
+	 * @param $tax
+	 */
+	protected function add_term( $term, $tax ) {
+		$term = trim( $term );
+		if ( empty( $term ) ) return;
+
+		// Accept term IDs...
+		if ( is_numeric( $term ) && $term == absint( $term ) ) {
+			$this->filters[$tax][] = $term;
+		}
+		// Also accept term slugs...
+		else {
+			$term_obj = get_term_by( 'slug', $term, $tax );
+			if ( false === $term_obj ) return;
+			$this->filters[$tax][] = $term_obj->term_id;
+		}
 	}
 }
