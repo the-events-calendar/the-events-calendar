@@ -54,6 +54,11 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		 */
 		public $embedded_maps;
 
+		/**
+		 * @var Tribe__Events__Pro__MiniCalendarShortcode
+		 */
+		public $mini_calendar_shortcode;
+
 		const REQUIRED_TEC_VERSION = '3.8.1';
 		const VERSION = '3.8.1';
 
@@ -98,6 +103,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			require_once( $this->pluginPath . 'lib/tribe-geoloc.class.php' );
 			require_once( $this->pluginPath . 'lib/EmbeddedMaps.php' );
 			require_once( $this->pluginPath . 'lib/SingleEventMeta.php' );
+			require_once( $this->pluginPath . 'lib/MiniCalendarShortcode.php' );
 
 			if ( TribeEventsPro_SchemaUpdater::update_required() ) {
 				add_action( 'admin_init', array( 'TribeEventsPro_SchemaUpdater', 'init' ), 10, 0 );
@@ -410,6 +416,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			$this->displayMetaboxCustomFields();
 			$this->single_event_meta = new TribeEventsPro_SingleEventMeta;
 			$this->embedded_maps = new TribeEventsPro_EmbeddedMaps;
+			$this->mini_calendar_shortcode = new Tribe__Events__Pro__MiniCalendarShortcode;
 		}
 
 		/**
