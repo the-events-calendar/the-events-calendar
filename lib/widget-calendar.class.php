@@ -3,7 +3,6 @@
 class TribeEventsMiniCalendarWidget extends WP_Widget {
 
 	function __construct() {
-
 		$widget_ops = array(
 			'classname'   => 'tribe_mini_calendar_widget',
 			'description' => __( 'The events calendar mini calendar widget', 'tribe-events-calendar-pro' )
@@ -12,7 +11,6 @@ class TribeEventsMiniCalendarWidget extends WP_Widget {
 		parent::__construct( 'tribe-mini-calendar', __( 'Events Calendar', 'tribe-events-calendar-pro' ), $widget_ops );
 
 		add_action( 'admin_enqueue_scripts', array( $this, 'load_scripts' ) );
-
 	}
 
 	public function load_scripts( $hook ) {
@@ -25,8 +23,8 @@ class TribeEventsMiniCalendarWidget extends WP_Widget {
 		wp_enqueue_script( 'calendar-widget-admin', TribeEventsPro::instance()->pluginUrl . 'resources/calendar-widget-admin.js', array(), apply_filters( 'tribe_events_pro_js_version', TribeEventsPro::VERSION ) );
 	}
 
-	function widget( $args, $instance ) {
-		$ecp            = TribeEventsPro::instance();
+	public function widget( $args, $instance ) {
+		$ecp = TribeEventsPro::instance();
 		$tooltip_status = $ecp->recurring_info_tooltip_status();
 		$ecp->disable_recurring_info_tooltip();
 
@@ -41,7 +39,8 @@ class TribeEventsMiniCalendarWidget extends WP_Widget {
 		);
 		$instance = wp_parse_args( (array) $instance, $defaults );
 
-		$tax_query = TribeEventsPro_Widgets::form_tax_query( json_decode( $instance['filters'] ), $instance['operand'] );
+		$filters   = isset( $instance['raw_filters'] ) ? $instance['raw_filters'] : json_decode( $instance['filters'] );
+		$tax_query = TribeEventsPro_Widgets::form_tax_query( $filters, $instance['operand'] );
 
 		do_action( 'tribe_events_mini_cal_before_the_title' );
 
