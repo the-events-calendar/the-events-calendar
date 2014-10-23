@@ -137,6 +137,8 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 			'_EventCurrencySymbol',
 			'_EventCurrencyPosition',
 			'_EventCost',
+			'_EventCostMin',
+			'_EventCostMax',
 			'_EventURL',
 			'_EventOrganizerID',
 			'_EventPhone',
