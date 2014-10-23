@@ -92,6 +92,7 @@ if ( ! class_exists( 'TribeEventsAPI' ) ) {
 		 * @return void
 		 */
 		public static function saveEventMeta( $event_id, $data, $event = null ) {
+			$tec = TribeEvents::instance();
 
 			if ( isset( $data['EventAllDay'] ) && ( $data['EventAllDay'] == 'yes' || $data['EventAllDay'] == true || ! isset( $data['EventStartDate'] ) ) ) {
 				$data['EventStartDate'] = tribe_event_beginning_of_day( $data['EventStartDate'] );
@@ -148,19 +149,29 @@ if ( ! class_exists( 'TribeEventsAPI' ) ) {
 				$data['EventVenueID'] = TribeEventsAPI::saveEventVenue( $data["Venue"], $event, $venue_post_status );
 			}
 
-			$data['EventCost'] = isset( $data['EventCost'] ) ? $data['EventCost'] : '';
-			list( $data['EventCostMin'], $data['EventCostMax'] ) = self::min_max_cost_range( $event_id, $data['EventCost'] );
+			$data['EventCost'] = isset( $data['EventCost'] ) ? (array) $data['EventCost'] : array();
+			$data['EventCost'] = (array) apply_filters( 'tribe_events_event_pricepoints', $data['EventCost'] );
 
 			do_action( 'tribe_events_event_save', $event_id );
 
 			//update meta fields
-			foreach ( TribeEvents::instance()->metaTags as $tag ) {
+			foreach ( $tec->metaTags as $tag ) {
 				$htmlElement = ltrim( $tag, '_' );
 				if ( isset( $data[$htmlElement] ) && $tag != TribeEvents::EVENTSERROROPT ) {
 					if ( is_string( $data[$htmlElement] ) ) {
 						$data[$htmlElement] = filter_var( $data[$htmlElement], FILTER_SANITIZE_STRING );
 					}
-					update_post_meta( $event_id, $tag, $data[$htmlElement] );
+					// Fields with multiple values per key
+					if ( is_array( $data[$htmlElement] ) ) {
+						delete_post_meta( $event_id, $tag );
+						foreach ( $data[$htmlElement] as $value ) {
+							add_post_meta( $event_id, $tag, $value );
+						}
+					}
+					// Fields with a single value per key
+					else {
+						update_post_meta( $event_id, $tag, $data[$htmlElement] );
+					}
 				}
 			}
 
@@ -180,28 +191,6 @@ if ( ! class_exists( 'TribeEventsAPI' ) ) {
 			}
 
 			do_action( 'tribe_events_update_meta', $event_id, $data );
-		}
-
-		/**
-		 * Returns an array of two elements, the minimum and maximum price of the specified
-		 * event. The array values may be null (no cost explicitly set).
-		 *
-		 * If the optional second parameter is provided this is expected to be the latest
-		 * event cost. If this is not provided, it tries to retrieve this information from
-		 * the existing event record.
-		 *
-		 * Ticketing plugins and other extensions can register any event cost price-points
-		 * via the tribe_events_event_costs filter.
-		 *
-		 * @param  int   $event_id
-		 * @param  mixed $event_cost [optional]
-		 *
-		 * @return array
-		 */
-		public static function min_max_cost_range( $event_id, $event_cost = null ) {
-			$cost  = is_numeric( $event_cost ) ? $event_cost : tribe_get_event_meta( $event_id, '_EventCost', true );
-			$costs = (array) apply_filters( 'tribe_events_event_costs', array( $cost ) );
-			return array( min( $costs ), max( $costs ) );
 		}
 
 		/**
