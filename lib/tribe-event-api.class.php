@@ -153,9 +153,6 @@ if ( ! class_exists( 'TribeEventsAPI' ) ) {
 
 			do_action( 'tribe_events_event_save', $event_id );
 
-			$cost              = ( isset( $data['EventCost'] ) ) ? $data['EventCost'] : '';
-			$data['EventCost'] = $cost;
-
 			//update meta fields
 			foreach ( TribeEvents::instance()->metaTags as $tag ) {
 				$htmlElement = ltrim( $tag, '_' );
