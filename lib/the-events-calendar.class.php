@@ -463,7 +463,6 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 			}
 
 			add_action( 'wp_before_admin_bar_render', array( $this, 'addToolbarItems' ), 10 );
-			add_action( 'admin_notices', array( $this, 'activationMessage' ) );
 			add_action( 'all_admin_notices', array( $this, 'addViewCalendar' ) );
 			add_action( 'admin_head', array( $this, 'setInitialMenuMetaBoxes' ), 500 );
 			add_action( 'plugin_action_links_' . trailingslashit( $this->pluginDir ) . 'the-events-calendar.php', array( $this, 'addLinksToPluginActions' ) );
@@ -4284,38 +4283,6 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 					}
 				}
 			}
-		}
-
-		/**
-		 * Displays activation welcome admin notice.
-		 *
-		 *
-		 * @return void
-		 */
-		public function activationMessage() {
-			$has_been_activated = $this->getOption( 'welcome_notice', false );
-			if ( ! $has_been_activated ) {
-				echo '<div class="updated tribe-notice"><p>' . sprintf(
-						__( 'Welcome to The Events Calendar! Your events calendar can be found at %s. To change the events slug, visit %sEvents -> Settings%s.', 'tribe-events-calendar' ), '<a href="' . $this->getLink() . '">' . $this->getLink() . '</a>', '<i><a href="' . add_query_arg(
-							array(
-								'post_type' => self::POSTTYPE,
-								'page'      => 'tribe-events-calendar'
-							), admin_url( 'edit.php' )
-						) . '">', '</i></a>'
-					) . '</p></div>';
-				$this->setOption( 'welcome_notice', true );
-			}
-		}
-
-		/**
-		 * Resets the option such that the activation message is again displayed on reactivation.
-		 *
-		 *
-		 * @return void
-		 */
-		public static function resetActivationMessage() {
-			$tec = TribeEvents::instance();
-			$tec->setOption( 'welcome_notice', false );
 		}
 
 		/**
