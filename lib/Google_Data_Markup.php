@@ -21,6 +21,7 @@ class Tribe__Events__Google_Data_Markup {
 
 		$events_data[0]               = new stdClass();
 		$events_data[0]->{'@context'} = 'http://schema.org';
+		$events_data[0]->{'@type'} = 'Event';
 		$events_data[0]->name         = get_the_title();
 		if ( has_post_thumbnail() ) {
 			$events_data[0]->image = wp_get_attachment_url( get_post_thumbnail_id( $post->ID ) );
@@ -30,6 +31,7 @@ class Tribe__Events__Google_Data_Markup {
 		$events_data[0]->endDate   = get_gmt_from_date( tribe_get_end_date( $post, true, TribeDateUtils::DBDATETIMEFORMAT ), 'c' );
 		if ( tribe_has_venue( $post->ID ) ) {
 			$events_data[0]->location          = new stdClass();
+			$events_data[0]->location->{'@type'} = 'Place';
 			$events_data[0]->location->name    = tribe_get_venue( $post->ID );
 			$events_data[0]->location->address = strip_tags( str_replace( "\n", '', tribe_get_full_address( $post->ID ) ) );
 		}
