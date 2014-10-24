@@ -123,8 +123,6 @@ class TribeEventsTicketsAttendeesTable extends WP_List_Table {
 	/**
 	 * Handler for the order status column
 	 *
-	 * @todo revise in 3.4.3: we can then simplify this code and remove the checks against order_status string literals
-	 *
 	 * @param $item
 	 *
 	 * @return string
@@ -135,11 +133,6 @@ class TribeEventsTicketsAttendeesTable extends WP_List_Table {
 
 		// Check if the order_warning flag has been set (to indicate the order has been cancelled, refunded etc)
 		if ( isset( $item['order_warning'] ) && $item['order_warning'] ) {
-			$warning = true;
-		}
-
-		// Additional check for backwards compatibility @todo remove this check clause in 3.4.3
-		if ( ! isset( $item['order_warning'] ) && strtolower( $item['order_status'] ) !== 'completed' && strtolower( $item['order_status'] ) !== 'paid' ) {
 			$warning = true;
 		}
 
@@ -216,7 +209,7 @@ class TribeEventsTicketsAttendeesTable extends WP_List_Table {
 
 		if ( 'top' == $which ) {
 			echo '<div class="alignright">';
-			echo sprintf( '%s: <input type="text" name="filter_attendee" id="filter_attendee" value="">', __( "Filter by ticket #, order # or security code", "tribe-events-calendar" ) );
+			echo sprintf( '%s: <input type="text" name="filter_attendee" id="filter_attendee" value="">', __( "Filter by purchaser name, ticket #, order # or security code", "tribe-events-calendar" ) );
 			echo '</div>';
 
 		}

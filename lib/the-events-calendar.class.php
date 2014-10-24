@@ -1528,8 +1528,8 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 		public function addVenueAndOrganizerEditor() {
 			add_submenu_page( 'edit.php?post_type=' . TribeEvents::POSTTYPE, __( $this->plural_venue_label, 'tribe-events-calendar' ), __( $this->plural_venue_label, 'tribe-events-calendar' ), 'edit_tribe_venues', 'edit.php?post_type=' . TribeEvents::VENUE_POST_TYPE );
 			add_submenu_page( 'edit.php?post_type=' . TribeEvents::POSTTYPE, __( $this->plural_organizer_label, 'tribe-events-calendar' ), __( $this->plural_organizer_label, 'tribe-events-calendar' ), 'edit_tribe_organizers', 'edit.php?post_type=' . TribeEvents::ORGANIZER_POST_TYPE );
-			add_submenu_page( 'edit.php?post_type=' . TribeEvents::VENUE_POST_TYPE, __( 'Add New ' . $this->singular_venue_label, 'tribe-events-calendar' ), __( 'Add New ' . $this->singular_venue_label, 'tribe-events-calendar' ), 'edit_tribe_venues', 'post-new.php?post_type=' . TribeEvents::VENUE_POST_TYPE );
-			add_submenu_page( 'edit.php?post_type=' . TribeEvents::ORGANIZER_POST_TYPE, __( 'Add New ' . $this->singular_organizer_label, 'tribe-events-calendar' ), __( 'Add New ' . $this->singular_organizer_label, 'tribe-events-calendar' ), 'edit_tribe_organizers', 'post-new.php?post_type=' . TribeEvents::ORGANIZER_POST_TYPE );
+			add_submenu_page( 'edit.php?post_type=' . TribeEvents::VENUE_POST_TYPE, sprintf( __('Add New %s', 'tribe-events-calendar'), $this->singular_venue_label ), sprintf( __('Add New %s', 'tribe-events-calendar'), $this->singular_venue_label ), 'edit_tribe_venues', 'post-new.php?post_type=' . TribeEvents::VENUE_POST_TYPE );
+			add_submenu_page( 'edit.php?post_type=' . TribeEvents::ORGANIZER_POST_TYPE, sprintf( __('Add New %s', 'tribe-events-calendar'), $this->singular_organizer_label ), sprintf( __('Add New %s', 'tribe-events-calendar'), $this->singular_organizer_label ), 'edit_tribe_organizers', 'post-new.php?post_type=' . TribeEvents::ORGANIZER_POST_TYPE );
 		}
 
 
@@ -1548,7 +1548,7 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 			$VenueID = apply_filters( 'tribe_display_event_venue_dropdown_id', $VenueID );
 			?>
 			<tr class="">
-				<td style="width:170px"><?php _e( 'Use Saved ' . $this->singular_venue_label . ':', 'tribe-events-calendar' ); ?></td>
+				<td style="width:170px"><?php printf( __('Use Saved %s:', 'tribe-events-calendar'), $this->singular_venue_label ); ?></td>
 				<td><?php $this->saved_venues_dropdown( $VenueID ); ?></td>
 			</tr>
 		<?php

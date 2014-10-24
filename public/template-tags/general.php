@@ -584,7 +584,11 @@ if ( class_exists( 'TribeEvents' ) ) {
 				$attrs['data-date']    = date( 'Y-m', strtotime( tribe_get_month_view_date() ) );
 				$attrs['data-baseurl'] = tribe_get_gridview_link( false );
 				break;
+			case 'day.php' :
+				$attrs['data-startofweek'] = get_option( 'start_of_week' );
+				break;
 			case 'list.php' :
+				$attrs['data-startofweek'] = get_option( 'start_of_week' );				
 				$attrs['data-view'] = 'list';
 				if ( tribe_is_upcoming() ) {
 					$attrs['data-baseurl'] = tribe_get_listview_link( false );
