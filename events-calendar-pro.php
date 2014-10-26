@@ -1093,7 +1093,11 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 
 				$geoloc = TribeEventsGeoLoc::instance();
 
-				$data = array( 'geocenter' => $geoloc->estimate_center_point() );
+				$data = array(
+					'geocenter' => $geoloc->estimate_center_point(),
+					'map_tooltip_event' => __( 'Event: ', 'tribe-events-calendar-pro' ),
+					'map_tooltip_address' => __( 'Address: ', 'tribe-events-calendar-pro' )
+				);
 
 				$data = apply_filters( 'tribe_events_pro_localize_script', $data, 'TribeEventsPro', 'tribe-events-pro' );
 

@@ -45,10 +45,10 @@
 				content_title = $( '<div/>' ).append( $( "<a/>" ).attr( 'href', link ).text( title ) ).html();
 			}
 
-			var content = "Event: " + content_title;
+			var content = TribeEventsPro.map_tooltip_event + content_title;
 
 			if ( address ) {
-				content = content + "<br/>" + "Address: " + address;
+				content = content + "<br/>" + TribeEventsPro.map_tooltip_address + address;
 			}
 
 			infoWindow.setContent( content );
