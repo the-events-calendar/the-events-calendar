@@ -201,11 +201,6 @@ if ( ! class_exists( 'Tribe_Events_Day_Template' ) ) {
 				global $wp_query, $post;
 				$wp_query = $query;
 
-				if ( have_posts() ) {
-					the_post(); // TODO: why is this here?
-					rewind_posts(); // so we don't skip the first post when rendering
-				}
-
 				add_filter( 'tribe_is_day', '__return_true' ); // simplest way to declare that this is a day view
 
 				ob_start();
