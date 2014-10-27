@@ -51,7 +51,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 							<input autocomplete="off" tabindex="<?php tribe_events_tab_index(); ?>" type="text" class="tribe-datepicker" name="EventStartDate" id="EventStartDate" value="<?php echo esc_attr( $EventStartDate ) ?>" />
 							<span class="helper-text hide-if-js"><?php _e( 'YYYY-MM-DD', 'tribe-events-calendar' ) ?></span>
 				<span class="timeofdayoptions">
-					<?php echo tribe_get_option('dateTimeSeparator', '@'); ?>
+					<?php echo tribe_get_datetime_separator(); ?>
 					<select tabindex="<?php tribe_events_tab_index(); ?>" name="EventStartHour">
 						<?php echo $startHourOptions; ?>
 					</select>
@@ -72,7 +72,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 							<input autocomplete="off" type="text" class="tribe-datepicker" name="EventEndDate" id="EventEndDate" value="<?php echo esc_attr( $EventEndDate ); ?>" />
 							<span class="helper-text hide-if-js"><?php _e( 'YYYY-MM-DD', 'tribe-events-calendar' ) ?></span>
 				<span class="timeofdayoptions">
-					<?php echo tribe_get_option('dateTimeSeparator', '@'); ?>
+					<?php echo tribe_get_datetime_separator(); ?>
 					<select class="tribeEventsInput" tabindex="<?php tribe_events_tab_index(); ?>" name="EventEndHour">
 						<?php echo $endHourOptions; ?>
 					</select>

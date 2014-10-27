@@ -921,6 +921,15 @@ if ( class_exists( 'TribeEvents' ) ) {
 	}
 
 	/**
+	 * Returns the customized date/time separator, or the default '@' symbol.
+	 *
+	 * @return string
+	 */
+	function tribe_get_datetime_separator() {
+		return tribe_get_option('dateTimeSeparator', '@');
+	}
+
+	/**
 	 *
 	 * @return mixed|void
 	 */
