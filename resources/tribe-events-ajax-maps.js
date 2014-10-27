@@ -4,7 +4,7 @@
  * @version 3.0
  */
 
-(function( window, document, $, td, te, tf, tg, ts, tt, dbug ) {
+(function( window, document, $, td, te, tf, tg, ts, tt, config, dbug ) {
 
 	/*
 	 * $    = jQuery
@@ -255,6 +255,15 @@
 
 			if ( ts.category ) {
 				ts.params.tribe_event_category = ts.category;
+			}
+
+			if ( td.default_permalinks ) {
+				if( !ts.params.hasOwnProperty( 'post_type' ) ){
+					ts.params['post_type'] = config.events_post_type;
+				}
+				if( !ts.params.hasOwnProperty( 'eventDisplay' ) ){
+					ts.params['eventDisplay'] = 'map';
+				}
 			}
 
 			$( te ).trigger( 'tribe_ev_serializeBar' );
@@ -609,4 +618,4 @@
 
 	} );
 
-})( window, document, jQuery, tribe_ev.data, tribe_ev.events, tribe_ev.fn, tribe_ev.geoloc, tribe_ev.state, tribe_ev.tests, tribe_debug );
+})( window, document, jQuery, tribe_ev.data, tribe_ev.events, tribe_ev.fn, tribe_ev.geoloc, tribe_ev.state, tribe_ev.tests, tribe_js_config, tribe_debug );
