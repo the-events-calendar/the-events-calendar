@@ -330,13 +330,7 @@
 
 					ts.initial_load = false;
 
-					var $the_content = '';
-					if ( $.isFunction( $.fn.parseHTML ) ) {
-						$the_content = $.parseHTML( response.html );
-					}
-					else {
-						$the_content = response.html;
-					}
+					var $the_content = $.parseHTML( response.html );
 
 					$( '#tribe-events-content' ).replaceWith( $the_content );
 
