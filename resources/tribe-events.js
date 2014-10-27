@@ -471,7 +471,7 @@ Date.prototype.format = function( mask, utc ) {
 
 })( jQuery );
 
-(function( window, document, $, dbug, undefined ) {
+(function( window, document, $, dbug, config, undefined ) {
 	/**
 	 * @namespace tribe_ev.fn
 	 * @desc tribe_ev.fn namespace stores all the custom functions used throughout the core events plugin.
@@ -1086,6 +1086,7 @@ Date.prototype.format = function( mask, utc ) {
 			'month': ['yyyy-mm', 'm/yyyy', 'mm/yyyy', 'm/yyyy', 'mm/yyyy', 'm-yyyy', 'mm-yyyy', 'm-yyyy', 'mm-yyyy']
 		},
 		datepicker_opts   : {},
+		default_permalinks: (!config.permalink_settings.length),
 		initial_url       : tribe_ev.fn.url_path( document.URL ),
 		mobile_break      : 768,
 		params            : tribe_ev.fn.get_params(),
@@ -1130,7 +1131,7 @@ Date.prototype.format = function( mask, utc ) {
 		view_target      : ''
 	};
 
-})( window, document, jQuery, tribe_debug );
+})( window, document, jQuery, tribe_debug, tribe_js_config );
 
 (function( window, document, $, td, te, tf, ts, tt, dbug ) {
 

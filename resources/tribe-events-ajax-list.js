@@ -4,7 +4,7 @@
  * @version 3.0
  */
 
-(function( window, document, $, td, te, tf, ts, tt, dbug ) {
+(function( window, document, $, td, te, tf, ts, tt, config, dbug ) {
 
 	/*
 	 * $    = jQuery
@@ -185,6 +185,10 @@
 					ts.params['hash'] = tribe_hash_string;
 				}
 
+				if ( td.default_permalinks && !ts.url_params.hasOwnProperty( 'post_type' ) ) {
+					ts.url_params['post_type'] = config.events_post_type;
+				}
+
 				if ( ts.category ) {
 					ts.params['tribe_event_category'] = ts.category;
 				}
@@ -289,4 +293,4 @@
 		// @endif
 	} );
 
-})( window, document, jQuery, tribe_ev.data, tribe_ev.events, tribe_ev.fn, tribe_ev.state, tribe_ev.tests, tribe_debug );
+})( window, document, jQuery, tribe_ev.data, tribe_ev.events, tribe_ev.fn, tribe_ev.state, tribe_ev.tests, tribe_js_config, tribe_debug );

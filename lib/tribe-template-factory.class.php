@@ -543,6 +543,11 @@ if ( ! class_exists( 'Tribe_Template_Factory' ) ) {
 					$deps = array_merge( $deps, array( 'jquery' ), self::$vendor_scripts );
 					$path = self::getMinFile( $resources_url . 'tribe-events.js', true );
 					wp_enqueue_script( $prefix . '-calendar-script', $path, $deps, apply_filters( 'tribe_events_js_version', TribeEvents::VERSION ) );
+					$js_config_array = array(
+						'permalink_settings' => get_option( 'permalink_structure' ),
+						'events_post_type'   => TribeEvents::POSTTYPE
+					);
+					wp_localize_script( $prefix . '-calendar-script', 'tribe_js_config', $js_config_array );
 					break;
 				case 'datepicker' : // Vendor: jQuery Datepicker
 					wp_enqueue_script( 'jquery-ui-datepicker' );
