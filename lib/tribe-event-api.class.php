@@ -149,8 +149,10 @@ if ( ! class_exists( 'TribeEventsAPI' ) ) {
 				$data['EventVenueID'] = TribeEventsAPI::saveEventVenue( $data["Venue"], $event, $venue_post_status );
 			}
 
-			$data['EventCost'] = isset( $data['EventCost'] ) ? (array) $data['EventCost'] : array();
-			$data['EventCost'] = (array) apply_filters( 'tribe_events_event_pricepoints', $data['EventCost'] );
+			// Ordinarily there is a single cost value for each event, but addons (ie, ticketing plugins) may need
+			// to record a number of different pricepoints for the same event
+			$event_cost = isset( $data['EventCost'] ) ? (array) $data['EventCost'] : array();
+			$data['EventCost'] = (array) apply_filters( 'tribe_events_event_costs', $event_cost, $event_id );
 
 			do_action( 'tribe_events_event_save', $event_id );
 
@@ -196,12 +198,29 @@ if ( ! class_exists( 'TribeEventsAPI' ) ) {
 		/**
 		 * Triggers an update of the cost meta data (min <-> max) for an event.
 		 *
+		 * This is primarily for internal use where an addon needs to update the cost meta
+		 * data for an event (but no other meta fields). To actually add to or modify the
+		 * range of cost values the tribe_events_event_costs filter hook should be
+		 * leveraged.
+		 *
 		 * @param $event_id
 		 */
-		public static function update_cost_range( $event_id ) {
-			list( $min, $max ) = self::min_max_cost_range( $event_id );
-			update_post_meta( $event_id, '_EventCostMin', $min );
-			update_post_meta( $event_id, '_EventCostMax', $max );
+		public static function update_event_cost( $event_id ) {
+			// Load the current event costs: assume the first of these is the "base" cost
+			// which can be set per event when only the core plugin is running
+			$event_cost = (array) get_post_meta( $event_id, '_EventCost' );
+			$base_cost  = array_shift( $event_cost );
+
+			// Allow addons (ie, ticketing plugins) to register additional event costs
+			$event_cost = (array) apply_filters( 'tribe_events_event_costs', array( $base_cost ), $event_id );
+
+			// Kill the old cost meta data
+			delete_post_meta( $event_id, '_EventCost' );
+
+			// Add fresh entries for each of the new values
+			foreach ( $event_cost as $cost ) {
+				add_post_meta( $event_id, '_EventCost', $cost );
+			}
 		}
 
 		/**
