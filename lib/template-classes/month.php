@@ -145,21 +145,22 @@ if ( ! class_exists( 'Tribe_Events_Month_Template' ) ) {
 		/**
 		 * Get number of events per day
 		 *
-		 * @param int $date
+		 * @param  string $start_date
+		 * @param  string $end_date
 		 *
 		 * @return array
 		 */
-		private static function get_daily_counts( $date ) {
+		private static function get_daily_counts( $start_date, $end_date ) {
 			global $wp_query;
 
 			$count_args = self::$args;
 
-			do_action( 'log', 'get_daily_counts $date', 'tribe-events-query', $date );
+			do_action( 'log', 'get_daily_counts $date', 'tribe-events-query', $start_date, $end_date );
 
 			$count_args['eventDisplay']        = 'month';
-			$count_args['eventDate']           = date( 'Y-m', strtotime( $date ) );
-			$count_args['start_date']          = tribe_event_beginning_of_day( $date );
-			$count_args['end_date']            = tribe_event_end_of_day( date( 'Y-m-t', strtotime( $date ) + 1 ) );
+			$count_args['eventDate']           = $start_date;
+			$count_args['start_date']          = tribe_event_beginning_of_day( $start_date );
+			$count_args['end_date']            = tribe_event_end_of_day( $end_date );
 			$count_args['hide_upcoming_ids']   = self::$hide_upcoming_ids;
 			$count_args['post_status']         = is_user_logged_in() ? array( 'publish', 'private' ) : 'publish';
 			$count_args['tribeHideRecurrence'] = false;
@@ -235,6 +236,9 @@ if ( ! class_exists( 'Tribe_Events_Month_Template' ) ) {
 			do_action( 'log', 'setup view month view args', 'tribe-month', self::$args );
 			$requested_date = isset( self::$args['eventDate'] ) ? self::$args['eventDate'] : tribe_get_month_view_date();
 
+			$first_grid_date = $this->calculate_first_cell_date( $requested_date );
+			$final_grid_date = $this->calculate_final_cell_date( $requested_date );
+
 			$first_day_of_month = date( 'Y-m-01', strtotime( $requested_date ) );
 
 			do_action( 'log', 'eventDate', 'tribe-events-query', $first_day_of_month );
@@ -247,8 +251,7 @@ if ( ! class_exists( 'Tribe_Events_Month_Template' ) ) {
 
 			$startOfWeek = get_option( 'start_of_week', 0 );
 
-
-			self::get_daily_counts( $first_day_of_month );
+			self::get_daily_counts( $first_grid_date, $final_grid_date );
 
 			if ( empty( self::$tribe_bar_args ) ) {
 				foreach ( $_REQUEST as $key => $value ) {
@@ -277,21 +280,17 @@ if ( ! class_exists( 'Tribe_Events_Month_Template' ) ) {
 
 			$cur_calendar_day = 0;
 
-			// fill month with required days for previous month
-			if ( $prev_month_offset > 0 ) {
-				$days = array_fill( 0, $prev_month_offset, array( 'date' => 'previous' ) );
-			}
-
 			// get $cur_calendar_day up to speed
 			$cur_calendar_day += $prev_month_offset;
 
 			$empty_query = new WP_Query();
 
-			// add days for this month
-			for ( $i = 0; $i < $days_in_month; $i ++ ) {
-				$day  = $i + 1;
-				$date = date( 'Y-m-d', strtotime( "$year-$month-$day" ) );
+			// Date to start with
+			$date = date( TribeDateUtils::DBDATEFORMAT, strtotime( $first_grid_date ) );
 
+			// add days for this month
+			while ( $date <= $final_grid_date ) {
+				$day  = substr( $date, -2 );
 				$total_events = ! empty( self::$event_daily_counts[$date] ) ? self::$event_daily_counts[$date] : 0;
 
 				$days[] = array(
@@ -301,18 +300,83 @@ if ( ! class_exists( 'Tribe_Events_Month_Template' ) ) {
 					'total_events' => $total_events,
 					'view_more'    => self::view_more_link( $date, self::$tribe_bar_args ),
 				);
+
+				// Advance forward one day
+				$date = date( TribeDateUtils::DBDATEFORMAT, strtotime( "$date +1 day" ) );
 			}
 
 			// get $cur_calendar_day up to speed
 			$cur_calendar_day += $days_in_month;
 
-			// check if $cur_calendar_day is less than $days_in_calendar, if so, add days for next month
-			if ( $cur_calendar_day < $days_in_calendar ) {
-				$days = array_merge( $days, array_fill( $cur_calendar_day, $days_in_calendar - $cur_calendar_day, array( 'date' => 'next' ) ) );
-			}
-
 			// store set of found days for use in calendar loop functions
 			self::$calendar_days = $days;
+		}
+
+		/**
+		 * Return the date of the first day in the month view grid.
+		 *
+		 * This is not necessarily the 1st of the specified month, rather it is the date of the
+		 * first grid cell which could be anything upto 6 days earlier than the 1st of the month.
+		 *
+		 * @param  string $month
+		 * @param  int    $start_of_week
+		 *
+		 * @return bool|string (Y-m-d)
+		 */
+		protected function calculate_first_cell_date( $month, $start_of_week = null ) {
+			if ( null === $start_of_week ) {
+				$start_of_week = (int) get_option( 'start_of_week', 0 );
+			}
+
+			$day_1 = TribeDateUtils::first_day_in_month( $month );
+			if ( $day_1 < $start_of_week ) $day_1 += 7;
+
+			$diff = $day_1 - $start_of_week;
+			if ( $diff >= 0 ) $diff = "-$diff";
+
+			try {
+				$date = new DateTime( $month );
+				$date = new DateTime( $date->format( 'Y-m-01' ) );
+				$date->modify( "$diff days" );
+				return $date->format( TribeDateUtils::DBDATEFORMAT );
+			}
+			catch ( Exception $e ) {
+				return false;
+			}
+		}
+
+		/**
+		 * Return the date of the first day in the month view grid.
+		 *
+		 * This is not necessarily the last day of the specified month, rather it is the date of
+		 * the final grid cell which could be anything upto 6 days into the next month.
+		 *
+		 * @param  string $month
+		 * @param  int    $start_of_week
+		 *
+		 * @return bool|string (Y-m-d)
+		 */
+		protected function calculate_final_cell_date( $month, $start_of_week = null ) {
+			if ( null === $start_of_week ) {
+				$start_of_week = (int) get_option( 'start_of_week', 0 );
+			}
+
+			$last_day    = TribeDateUtils::last_day_in_month( $month );
+			$end_of_week = TribeDateUtils::week_ends_on( $start_of_week );
+			if ( $end_of_week < $last_day ) $end_of_week += 7;
+
+			$diff = $end_of_week - $last_day;
+			if ( $diff >= 0 ) $diff = "+$diff";
+
+			try {
+				$date = new DateTime( $month );
+				$date = new DateTime( $date->format( 'Y-m-t' ) );
+				$date->modify( "$diff days" );
+				return $date->format( TribeDateUtils::DBDATEFORMAT );
+			}
+			catch ( Exception $e ) {
+				return false;
+			}
 		}
 
 		/**
