@@ -237,10 +237,6 @@ if ( ! class_exists( 'Tribe_Events_Month_Template' ) ) {
 		 * @return void
 		 **/
 		public function setup_view() {
-			self::$today         = date_i18n( 'd' );
-			self::$current_month = date_i18n( 'm' );
-			self::$current_year  = date_i18n( 'Y' );
-
 			$requested_date     = isset( self::$args['eventDate'] ) ? self::$args['eventDate'] : tribe_get_month_view_date();
 			$first_day_of_month = date( 'Y-m-01', strtotime( $requested_date ) );
 			$first_grid_date    = $this->calculate_first_cell_date( $requested_date );
@@ -248,6 +244,8 @@ if ( ! class_exists( 'Tribe_Events_Month_Template' ) ) {
 			$days               = array();
 
 			$this->setup_tribe_bar_args();
+			$this->current_day_vals();
+
 			do_action( 'log', 'setup view month view args', 'tribe-month', self::$args );
 			do_action( 'log', 'eventDate', 'tribe-events-query', $first_day_of_month );
 
@@ -294,6 +292,12 @@ if ( ! class_exists( 'Tribe_Events_Month_Template' ) ) {
 					}
 				}
 			}
+		}
+
+		protected function current_day_vals() {
+			self::$today         = date_i18n( 'd' );
+			self::$current_month = date_i18n( 'm' );
+			self::$current_year  = date_i18n( 'Y' );
 		}
 
 		/**
