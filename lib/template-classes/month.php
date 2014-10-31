@@ -233,70 +233,35 @@ if ( ! class_exists( 'Tribe_Events_Month_Template' ) ) {
 		 * @return void
 		 **/
 		public function setup_view() {
-			do_action( 'log', 'setup view month view args', 'tribe-month', self::$args );
-			$requested_date = isset( self::$args['eventDate'] ) ? self::$args['eventDate'] : tribe_get_month_view_date();
-
-			$first_grid_date = $this->calculate_first_cell_date( $requested_date );
-			$final_grid_date = $this->calculate_final_cell_date( $requested_date );
-
-			$first_day_of_month = date( 'Y-m-01', strtotime( $requested_date ) );
-
-			do_action( 'log', 'eventDate', 'tribe-events-query', $first_day_of_month );
-
-			// get all upcoming ids to hide so we're not querying 31 times
-			self::$hide_upcoming_ids = TribeEventsQuery::getHideFromUpcomingEvents();
-
-			$year  = date( 'Y', strtotime( $first_day_of_month ) );
-			$month = date( 'm', strtotime( $first_day_of_month ) );
-
-			$startOfWeek = get_option( 'start_of_week', 0 );
-
-			self::get_daily_counts( $first_grid_date, $final_grid_date );
-
-			if ( empty( self::$tribe_bar_args ) ) {
-				foreach ( $_REQUEST as $key => $value ) {
-					if ( $value && strpos( $key, 'tribe' ) === 0 && $key != 'tribe-bar-date' ) {
-						self::$tribe_bar_args[$key] = $value;
-					}
-				}
-			}
-
-			// Var'ng up days, months and years
 			self::$today         = date_i18n( 'd' );
 			self::$current_month = date_i18n( 'm' );
 			self::$current_year  = date_i18n( 'Y' );
 
-			// single dimensional array of days for the month
-			$days = array();
+			$requested_date     = isset( self::$args['eventDate'] ) ? self::$args['eventDate'] : tribe_get_month_view_date();
+			$first_day_of_month = date( 'Y-m-01', strtotime( $requested_date ) );
+			$first_grid_date    = $this->calculate_first_cell_date( $requested_date );
+			$final_grid_date    = $this->calculate_final_cell_date( $requested_date );
+			$days               = array();
 
-			// setup counters
-			$rawOffset         = date( 'w', strtotime( $first_day_of_month ) ) - $startOfWeek;
-			$prev_month_offset = (int) ( ( $rawOffset < 0 ) ? $rawOffset + 7 : $rawOffset ); // month begins on day x
-			$days_in_month     = (int) date( 't', strtotime( $first_day_of_month ) );
-			$days_in_calendar  = $days_in_month + $prev_month_offset;
-			while ( $days_in_calendar % 7 > 0 ) {
-				$days_in_calendar ++;
-			}
+			$this->setup_tribe_bar_args();
+			do_action( 'log', 'setup view month view args', 'tribe-month', self::$args );
+			do_action( 'log', 'eventDate', 'tribe-events-query', $first_day_of_month );
 
-			$cur_calendar_day = 0;
+			self::$hide_upcoming_ids = TribeEventsQuery::getHideFromUpcomingEvents();
+			self::get_daily_counts( $first_grid_date, $final_grid_date );
 
-			// get $cur_calendar_day up to speed
-			$cur_calendar_day += $prev_month_offset;
+			$date  = $first_grid_date; // Start with the first grid date
+			$empty = new WP_Query();   // Use for empty days
 
-			$empty_query = new WP_Query();
-
-			// Date to start with
-			$date = date( TribeDateUtils::DBDATEFORMAT, strtotime( $first_grid_date ) );
-
-			// add days for this month
+			// Populate calendar days for the complete date range, including leading/trailing days from adjacent months
 			while ( $date <= $final_grid_date ) {
-				$day  = substr( $date, -2 );
+				$day  = (int) substr( $date, -2 );
 				$total_events = ! empty( self::$event_daily_counts[$date] ) ? self::$event_daily_counts[$date] : 0;
 
 				$days[] = array(
 					'daynum'       => $day,
 					'date'         => $date,
-					'events'       => $total_events ? self::get_daily_events( $date ) : $empty_query,
+					'events'       => $total_events ? self::get_daily_events( $date ) : $empty,
 					'total_events' => $total_events,
 					'view_more'    => self::view_more_link( $date, self::$tribe_bar_args ),
 				);
@@ -305,11 +270,18 @@ if ( ! class_exists( 'Tribe_Events_Month_Template' ) ) {
 				$date = date( TribeDateUtils::DBDATEFORMAT, strtotime( "$date +1 day" ) );
 			}
 
-			// get $cur_calendar_day up to speed
-			$cur_calendar_day += $days_in_month;
-
 			// store set of found days for use in calendar loop functions
 			self::$calendar_days = $days;
+		}
+
+		protected function setup_tribe_bar_args() {
+			if ( empty( self::$tribe_bar_args ) ) {
+				foreach ( $_REQUEST as $key => $value ) {
+					if ( $value && strpos( $key, 'tribe' ) === 0 && $key != 'tribe-bar-date' ) {
+						self::$tribe_bar_args[$key] = $value;
+					}
+				}
+			}
 		}
 
 		/**
