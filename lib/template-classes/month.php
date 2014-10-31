@@ -34,6 +34,14 @@ if ( ! class_exists( 'Tribe_Events_Month_Template' ) ) {
 		private static $current_day = - 1;
 		private static $current_week = - 1;
 		protected static $args;
+
+		/**
+		 * Indicates the array indicies marking the first and last entries for
+		 * the current month.
+		 */
+		protected $current_month_begins;
+		protected $current_month_ends;
+
 		protected $body_class = 'events-gridview';
 		protected $excerpt_length = 30;
 		protected $asset_packages = array( 'ajax-calendar' );
@@ -109,11 +117,8 @@ if ( ! class_exists( 'Tribe_Events_Month_Template' ) ) {
 				$tax_term = esc_html( $tax_term->name );
 			}
 
-			// If there are no events we should be able to reduce the event_daily_counts array (the number of events in
-			// each day this month) to a single element with a value of 0. Where a keyword search returns no events then
-			// event_daily_counts may simply be empty.
-			$event_counts = array_unique( self::$event_daily_counts );
-			$no_events    = ( 1 === count( $event_counts ) && 0 === current( $event_counts ) ) || empty( self::$event_daily_counts );
+			// Did we find any events this month?
+			$no_events = $this->no_events_found();
 
 			if ( $no_events && ! empty( $search_term ) ) {
 				TribeEvents::setNotice( 'event-search-no-results', sprintf( __( 'There were no results found for <strong>"%s"</strong> this month. Try searching next month.', 'tribe-events-calendar' ), esc_html( $search_term ) ) );
@@ -126,9 +131,27 @@ if ( ! class_exists( 'Tribe_Events_Month_Template' ) ) {
 		}
 
 		/**
+		 * Determine if events were found in the current month (if events were found within any
+		 * days from adjacent months that were included in the view, these will be ignored).
+		 *
+		 * @return bool
+		 */
+		protected function no_events_found() {
+			$slice_length = $this->current_month_ends - $this->current_month_begins + 1;
+			$current_month_counts = array_slice( self::$event_daily_counts, $this->current_month_begins, $slice_length );
+
+			// If there are no events we should be able to reduce the event_daily_counts array (the number of events in
+			// each day this month) to a single element with a value of 0. Where a keyword search returns no events then
+			// event_daily_counts may simply be empty.
+			$event_counts = array_unique( $current_month_counts );
+			return ( 1 === count( $event_counts ) && 0 === current( $event_counts ) ) || empty( self::$event_daily_counts );
+		}
+
+		/**
 		 * Get the title for month view
-		 * @param      $title
-		 * @param null $sep
+		 *
+		 * @param  string $original_title
+		 * @param  null   $sep
 		 *
 		 * @return string
 		 */
@@ -276,8 +299,21 @@ if ( ! class_exists( 'Tribe_Events_Month_Template' ) ) {
 					'month'        => $month_type
 				);
 
+				// Record the indicies marking the portion of the array relating to the current month
+				if ( ! isset( $this->current_month_begins ) && self::CURRENT_MONTH === $month_type ) {
+					$this->current_month_begins = count( $days ) - 1;
+				}
+				if ( isset( $this->current_month_begins ) && ! isset( $this->current_month_ends ) && self::CURRENT_MONTH !== $month_type ) {
+					$this->current_month_ends = count( $days ) - 1;
+				}
+
 				// Advance forward one day
 				$date = date( TribeDateUtils::DBDATEFORMAT, strtotime( "$date +1 day" ) );
+			}
+
+			// If the month ended without bleeding into the next month, our current_month_ends property may not be set
+			if ( ! isset( $this->current_month_ends ) ) {
+				$this->current_month_ends = count( $days ) - 1;
 			}
 
 			// store set of found days for use in calendar loop functions
@@ -429,7 +465,7 @@ if ( ! class_exists( 'Tribe_Events_Month_Template' ) ) {
 		public static function day_classes() {
 			$ppf          = '';
 			$calendar_day = self::$calendar_days[self::$current_day];
-			if ( $calendar_day['date'] == 'previous' || $calendar_day['date'] == 'next' ) {
+			if ( $calendar_day['month'] == self::PREVIOUS_MONTH || $calendar_day['month'] == self::NEXT_MONTH ) {
 				$ppf = 'tribe-events-othermonth';
 			} else {
 				$ppf = 'tribe-events-thismonth';
