@@ -16,6 +16,10 @@ if ( ! class_exists( 'Tribe_Events_Month_Template' ) ) {
 	 * Month view template class
 	 */
 	class Tribe_Events_Month_Template extends Tribe_Template_Factory {
+		const PREVIOUS_MONTH = -1;
+		const CURRENT_MONTH  = 0;
+		const NEXT_MONTH     = 1;
+
 		private static $hide_upcoming_ids;
 		private static $today;
 		private static $current_month;
@@ -253,10 +257,17 @@ if ( ! class_exists( 'Tribe_Events_Month_Template' ) ) {
 			$date  = $first_grid_date; // Start with the first grid date
 			$empty = new WP_Query();   // Use for empty days
 
-			// Populate calendar days for the complete date range, including leading/trailing days from adjacent months
+			// Populate complete date range including leading/trailing days from adjacent months
 			while ( $date <= $final_grid_date ) {
 				$day  = (int) substr( $date, -2 );
 				$total_events = ! empty( self::$event_daily_counts[$date] ) ? self::$event_daily_counts[$date] : 0;
+
+				$prev_month = (int) substr( $date, 5, 2 ) < (int) substr( $requested_date, 5, 2 );
+				$next_month = (int) substr( $date, 5, 2 ) > (int) substr( $requested_date, 5, 2 );
+
+				$month_type = self::CURRENT_MONTH;
+				if ( $prev_month ) $month_type = self::PREVIOUS_MONTH;
+				if ( $next_month ) $month_type = self::NEXT_MONTH;
 
 				$days[] = array(
 					'daynum'       => $day,
@@ -264,6 +275,7 @@ if ( ! class_exists( 'Tribe_Events_Month_Template' ) ) {
 					'events'       => $total_events ? self::get_daily_events( $date ) : $empty,
 					'total_events' => $total_events,
 					'view_more'    => self::view_more_link( $date, self::$tribe_bar_args ),
+					'month'        => $month_type
 				);
 
 				// Advance forward one day
