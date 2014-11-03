@@ -229,7 +229,6 @@ if ( ! class_exists( 'Tribe_Template_Factory' ) ) {
 		 * Set up the notices for this template
 		 *
 		 * @return void
-		 * @todo child classes are overriding this, check if it's necessary on all 6 views
 		 **/
 		public function set_notices() {
 			global $wp_query;
