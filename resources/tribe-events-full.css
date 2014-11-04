@@ -494,6 +494,14 @@ select.tribe-events-dropdown {
 #tribe-events-content.tribe-events-list {
 	padding: 0;
 }
+.tribe-events-othermonth div[id*="tribe-events-daynum-"],
+.tribe-events-othermonth .tribe-events-month-event-title {
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=40)";
+		filter: alpha(opacity=40);
+  -moz-opacity: 0.4;
+-khtml-opacity: 0.4;
+	   opacity: 0.4;
+}
 
 /* = List View Template Styles
    @ Template: list.php
