@@ -93,50 +93,14 @@ if ( ! class_exists( 'Tribe_Events_Month_Template' ) ) {
 			remove_filter( 'post_type_archive_title', '__return_false', 10 );
 		}
 
-
 		/**
 		 * Set the notices used on month view
 		 *
 		 * @return void
 		 **/
 		public function set_notices() {
-			global $wp_query;
-			$tribe       = TribeEvents::instance();
-			$search_term = '';
-			$tax_term    = '';
-
-			// setup a search term for query or via ajax
-			if ( ! empty( $wp_query->query_vars['s'] ) ) {
-				$search_term = $wp_query->query_vars['s'];
-			} elseif ( ! empty( $_REQUEST['tribe-bar-search'] ) ) {
-				$search_term = $_REQUEST['tribe-bar-search'];
-			}
-
-			if ( is_tax( $tribe->get_event_taxonomy() ) ) {
-				$tax_term = get_term_by( 'slug', get_query_var( 'term' ), $tribe->get_event_taxonomy() );
-				$tax_term = esc_html( $tax_term->name );
-			}
-
-			// Did we find any events this month?
-			$no_events = $this->no_events_found();
-
-			if ( $no_events && ! empty( $search_term ) ) {
-				TribeEvents::setNotice( 'event-search-no-results', sprintf( __( 'There were no results found for <strong>"%s"</strong> this month. Try searching next month.', 'tribe-events-calendar' ), esc_html( $search_term ) ) );
-			} // if attempting to view a category archive.
-			elseif ( ! empty( $tax_term ) && $no_events ) {
-				TribeEvents::setNotice( 'events-not-found', sprintf( __( 'No matching events listed under %s. Please try viewing the full calendar for a complete list of events.', 'tribe-events-calendar' ), $tax_term ) );
-			} elseif ( $no_events ) {
-				TribeEvents::setNotice( 'event-search-no-results', __( 'There were no results found.', 'tribe-events-calendar' ) );
-			}
-		}
-
-		/**
-		 * Determine if events were found in the current month (if events were found within any
-		 * days from adjacent months that were included in the view, these will be ignored).
-		 *
-		 * @return bool
-		 */
-		protected function no_events_found() {
+			// Our focus is on the current month, not the complete range of events included in the current month view
+			// (which may include some leading/trailing days of the next and previous months)
 			$slice_length = $this->current_month_ends - $this->current_month_begins + 1;
 			$current_month_counts = array_slice( self::$event_daily_counts, $this->current_month_begins, $slice_length );
 
@@ -144,7 +108,28 @@ if ( ! class_exists( 'Tribe_Events_Month_Template' ) ) {
 			// each day this month) to a single element with a value of 0. Where a keyword search returns no events then
 			// event_daily_counts may simply be empty.
 			$event_counts = array_unique( $current_month_counts );
-			return ( 1 === count( $event_counts ) && 0 === current( $event_counts ) ) || empty( self::$event_daily_counts );
+			$no_events = ( 1 === count( $event_counts ) && 0 === current( $event_counts ) ) || empty( self::$event_daily_counts );
+
+			// Use our parent method to assess if a search term was set, etc
+			if ( $no_events ) {
+				$this->nothing_found_notice();
+			}
+		}
+
+		/**
+		 * Sets an appropriate no results found message.
+		 */
+		protected function nothing_found_notice() {
+			list( $search_term, $tax_term, $geographic_term ) = $this->get_search_terms();
+
+			if ( ! empty( $search_term ) ) {
+				TribeEvents::setNotice( 'event-search-no-results', sprintf( __( 'There were no results found for <strong>"%s"</strong> this month. Try searching next month.', 'tribe-events-calendar' ), esc_html( $search_term ) ) );
+			} // if attempting to view a category archive.
+			elseif ( ! empty( $tax_term ) ) {
+				TribeEvents::setNotice( 'events-not-found', sprintf( __( 'No matching events listed under %s. Please try viewing the full calendar for a complete list of events.', 'tribe-events-calendar' ), $tax_term ) );
+			} else {
+				TribeEvents::setNotice( 'event-search-no-results', __( 'There were no results found.', 'tribe-events-calendar' ) );
+			}
 		}
 
 		/**
