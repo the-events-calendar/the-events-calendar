@@ -463,40 +463,42 @@ if ( ! class_exists( 'Tribe_Events_Month_Template' ) ) {
 		 * @return string Classes
 		 **/
 		public static function day_classes() {
-			$ppf          = '';
 			$calendar_day = self::$calendar_days[self::$current_day];
+
 			if ( $calendar_day['month'] == self::PREVIOUS_MONTH || $calendar_day['month'] == self::NEXT_MONTH ) {
 				$ppf = 'tribe-events-othermonth';
 			} else {
 				$ppf = 'tribe-events-thismonth';
-				list ( $year, $month, $day ) = explode( '-', $calendar_day['date'] );
-				if ( self::$current_month == $month && self::$current_year == $year ) {
-					// Past, Present, Future class
-					if ( self::$today == $day ) {
-						$ppf .= ' tribe-events-present';
-					} else {
-						if ( self::$today > $day ) {
-							$ppf .= ' tribe-events-past';
-						} else {
-							if ( self::$today < $day ) {
-								$ppf .= ' tribe-events-future';
-							}
-						}
-					}
+			}
+
+			list ( $year, $month, $day ) = explode( '-', $calendar_day['date'] );
+			if ( self::$current_month == $month && self::$current_year == $year ) {
+				// Past, Present, Future class
+				if ( self::$today == $day ) {
+					$ppf .= ' tribe-events-present';
 				} else {
-					if ( self::$current_month > $month && self::$current_year == $year || self::$current_year > $year ) {
+					if ( self::$today > $day ) {
 						$ppf .= ' tribe-events-past';
 					} else {
-						if ( self::$current_month < $month && self::$current_year == $year || self::$current_year < $year ) {
+						if ( self::$today < $day ) {
 							$ppf .= ' tribe-events-future';
 						}
 					}
 				}
-				if ( $calendar_day['total_events'] > 0 ) {
-					$ppf .= ' tribe-events-has-events';
+			} else {
+				if ( self::$current_month > $month && self::$current_year == $year || self::$current_year > $year ) {
+					$ppf .= ' tribe-events-past';
+				} else {
+					if ( self::$current_month < $month && self::$current_year == $year || self::$current_year < $year ) {
+						$ppf .= ' tribe-events-future';
+					}
 				}
-				$ppf .= ' mobile-trigger tribe-event-day-' . $day;
 			}
+			if ( $calendar_day['total_events'] > 0 ) {
+				$ppf .= ' tribe-events-has-events';
+			}
+			$ppf .= ' mobile-trigger tribe-event-day-' . $day;
+
 
 			$column = ( self::$current_day ) - ( self::$current_week * 7 );
 
