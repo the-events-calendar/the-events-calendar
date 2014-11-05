@@ -128,43 +128,15 @@ if ( ! class_exists( 'Tribe_Events_Day_Template' ) ) {
 			}
 		}
 
-		/**
-		 * Set up the notices for this template
-		 *
-		 * @return void
-		 **/
-		public function set_notices() {
-			global $wp_query;
-			$tribe           = TribeEvents::instance();
-			$geographic_term = '';
-			$search_term     = '';
-			$tax_term        = '';
+		protected function nothing_found_notice() {
+			list( $search_term, $tax_term, $geographic_term ) = $this->get_search_terms();
 
-			// No need to set notices unless we didn't find anything
-			if ( have_posts() ) {
-				return;
-			}
-
-			// Do we have a keyword or place name search?
-			if ( ! empty( $wp_query->query_vars['s'] ) ) {
-				$search_term = $wp_query->query_vars['s'];
-			} elseif ( ! empty( $_REQUEST['tribe-bar-search'] ) ) {
-				$search_term = $_REQUEST['tribe-bar-search'];
-			} elseif ( ! empty( $_REQUEST['tribe-bar-geoloc'] ) ) {
-				$geographic_term = $_REQUEST['tribe-bar-geoloc'];
-			}
-			if ( is_tax( $tribe->get_event_taxonomy() ) ) {
-				$tax_term = get_term_by( 'slug', get_query_var( 'term' ), $tribe->get_event_taxonomy() );
-				$tax_term = $tax_term->name;
-			}
-
-			// No events found on this day
 			if ( empty( $search_term ) && empty( $geographic_term ) && ! empty( $tax_term ) ) {
 				TribeEvents::setNotice( 'events-not-found', sprintf( __( 'No matching events listed under %s scheduled for <strong>%s</strong>. Please try another day.', 'tribe-events-calendar' ), $tax_term, date_i18n( tribe_get_date_format( true ), strtotime( get_query_var( 'eventDate' ) ) ) ) );
 			} elseif ( empty( $search_term ) && empty( $geographic_term ) ) {
 				TribeEvents::setNotice( 'events-not-found', sprintf( __( 'No events scheduled for <strong>%s</strong>. Please try another day.', 'tribe-events-calendar' ), date_i18n( tribe_get_date_format( true ), strtotime( get_query_var( 'eventDate' ) ) ) ) );
 			} else {
-				parent::set_notices();
+				parent::nothing_found_notice();
 			}
 		}
 

@@ -108,7 +108,6 @@ if ( ! class_exists( 'Tribe_Events_Single_Event_Template' ) ) {
 		 * @return void
 		 **/
 		public function set_notices() {
-
 			parent::set_notices();
 
 			global $post;

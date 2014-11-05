@@ -789,10 +789,17 @@ if ( ! class_exists( 'TribeEventsQuery' ) ) {
 						$end_date   = new DateTime( $post_id_query->query_vars['end_date'] );
 						$days       = TribeDateUtils::dateDiff( $start_date->format( 'Y-m-d' ), $end_date->format( 'Y-m-d' ) );
 						$term_id    = isset( $wp_query->query_vars[ TribeEvents::TAXONOMY ] ) ? $wp_query->query_vars[ TribeEvents::TAXONOMY ] : null;
+						$terms = array();
 						if ( is_int( $term_id ) ) {
-							$term = get_term_by( 'id', $term_id, TribeEvents::TAXONOMY );
+							$terms[0] = $term_id;
 						} elseif ( is_string( $term_id ) ) {
 							$term = get_term_by( 'slug', $term_id, TribeEvents::TAXONOMY );
+							if ( ! is_wp_error( $term ) ) {
+								$terms[0] = $term->term_id;
+							}
+						}
+						if ( ! empty( $terms ) && is_tax( TribeEvents::TAXONOMY ) ) {
+							$terms = array_merge( $terms, get_term_children( $terms[0], TribeEvents::TAXONOMY ) );
 						}
 						for ( $i = 0, $date = $start_date; $i <= $days; $i ++, $date->modify( '+1 day' ) ) {
 							$formatted_date = $date->format( 'Y-m-d' );
@@ -820,8 +827,8 @@ if ( ! class_exists( 'TribeEventsQuery' ) ) {
 								$event_spans_across_today = $record_start < $start_of_day && $record_end > $end_of_day;
 
 								if ( $event_starts_today || $event_ends_today || $event_spans_across_today ) {
-									if ( isset( $term->term_id ) ) {
-										if ( ! has_term( $term, TribeEvents::TAXONOMY, $record->ID ) ) {
+									if ( ! empty ( $terms ) ) {
+										if ( ! has_term( $terms, TribeEvents::TAXONOMY, $record->ID ) ) {
 											continue;
 										}
 									}
