@@ -156,6 +156,7 @@
 				.removeClass( 'mobile-active' );
 
 			$mobile_trigger
+				.filter( '.tribe-events-thismonth' )
 				.filter( '[data-day="' + date + '"]' )
 				.addClass( 'mobile-active' );
 
