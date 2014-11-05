@@ -506,9 +506,11 @@ if ( ! class_exists( 'Tribe_Events_Month_Template' ) ) {
 		/**
 		 * Generates and returns a set of classes for the current day
 		 *
+		 * @param  string $classes = ''
+		 *
 		 * @return string Classes
 		 **/
-		public function event_classes( $classes ) {
+		public function event_classes( $classes = '' ) {
 
 			$day = self::get_current_day();
 
