@@ -61,31 +61,17 @@ if ( ! class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 		 * @return void
 		 * */
 		function set_notices() {
-			global $wp_query;
-			$tribe       = TribeEvents::instance();
-			$search_term = $geographic_term = '';
-			$tax_term    = '';
-
 			// We have events to display, no need for notices!
 			if ( ! empty( self::$events->all_day ) || ! empty( self::$events->hourly ) ) {
 				return;
 			}
 
-			if ( is_tax( $tribe->get_event_taxonomy() ) ) {
-				$tax_term = get_term_by( 'slug', get_query_var( 'term' ), $tribe->get_event_taxonomy() );
-				$tax_term = esc_html( $tax_term->name );
-			}
+			$this->nothing_found_notice();
+		}
 
-			// Was the user searching for a keyword or place?
-			if ( ! empty( $wp_query->query_vars['s'] ) ) {
-				$search_term = $wp_query->query_vars['s'];
-			} elseif ( ! empty( $_REQUEST['tribe-bar-search'] ) ) {
-				$search_term = $_REQUEST['tribe-bar-search'];
-			} elseif ( ! empty( $_REQUEST['tribe-bar-geoloc'] ) ) {
-				$geographic_term = $_REQUEST['tribe-bar-geoloc'];
-			}
+		protected function nothing_found_notice() {
+			list( $search_term, $tax_term, $geographic_term ) = $this->get_search_terms();
 
-			// Set an appropriate notice
 			if ( ! empty( $search_term ) ) {
 				TribeEvents::setNotice( 'event-search-no-results', sprintf( __( 'There were no results found for <strong>"%s"</strong> this week. Try searching another week.', 'tribe-events-calendar-pro' ), esc_html( $search_term ) ) );
 			} elseif ( ! empty( $geographic_term ) ) {

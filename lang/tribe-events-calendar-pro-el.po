@@ -2,15 +2,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Events Calendar Pro 3.6\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-05-26 09:21-0800\n"
-"PO-Revision-Date: 2014-05-29 17:11-0800\n"
+"POT-Creation-Date: 2014-09-26 12:51-0800\n"
+"PO-Revision-Date: 2014-10-17 12:17-0800\n"
 "Last-Translator: \n"
 "Language-Team: Yannis Troullinos <troull88@yahoo.gr>\n"
 "Language: el_GR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.6.5\n"
+"X-Generator: Poedit 1.6.10\n"
 "X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:1,2,4c;_n_noop:1,2;"
 "_nx_noop:1,2,3c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;"
 "esc_html_x:1,2c\n"
@@ -151,7 +151,7 @@ msgstr ""
 msgid "(Replaces the default list.)"
 msgstr "(Αντικαθιστά την προεπιλεγμένη λίστα)"
 
-#: ../admin-views/event-meta-options.php:3 ../events-calendar-pro.php:801
+#: ../admin-views/event-meta-options.php:3 ../events-calendar-pro.php:631
 msgid "Additional Fields"
 msgstr "Προσθετα Πεδία"
 
@@ -213,36 +213,36 @@ msgstr "Τύπος Πεδίου"
 msgid "Options (one per line)"
 msgstr "Επιλογές (μία ανά γραμμή)"
 
-#: ../admin-views/event-meta-options.php:27
+#: ../admin-views/event-meta-options.php:45
 msgid "Text"
 msgstr "Κείμενο"
 
-#: ../admin-views/event-meta-options.php:28
+#: ../admin-views/event-meta-options.php:46
 msgid "URL"
 msgstr "URL"
 
-#: ../admin-views/event-meta-options.php:29
+#: ../admin-views/event-meta-options.php:47
 msgid "Radio"
 msgstr "Ραδιοφωνικού τύπου"
 
-#: ../admin-views/event-meta-options.php:30
+#: ../admin-views/event-meta-options.php:48
 msgid "Checkbox"
 msgstr "Κουτί επιλογής"
 
-#: ../admin-views/event-meta-options.php:31
-#: ../lib/TribeEventsFilter_GeoLoc.php:41
+#: ../admin-views/event-meta-options.php:49
+#: ../lib/TribeEventsFilter_GeoLoc.php:44
 msgid "Dropdown"
 msgstr "Κατακόρυφο"
 
-#: ../admin-views/event-meta-options.php:37
+#: ../admin-views/event-meta-options.php:55
 msgid "Add another"
 msgstr "Προσθήκη και άλλου"
 
-#: ../admin-views/event-meta-options.php:39
+#: ../admin-views/event-meta-options.php:57
 msgid "Remove"
 msgstr "Αφαίρεση"
 
-#: ../admin-views/event-meta-options.php:47
+#: ../admin-views/event-meta-options.php:65
 #, php-format
 msgid ""
 "Enter the field label as you want it to appear (this will be the label in "
@@ -262,23 +262,23 @@ msgstr ""
 "οποία μπορείτε να προσθέσετε - ένα ανά γραμμή - στην δεξιά στήλη. Εάν "
 "αισθάνεστε flummoxed, έχουμε να καλύπτονται με ένα %s."
 
-#: ../admin-views/event-meta-options.php:48
+#: ../admin-views/event-meta-options.php:66
 msgid "video tutorial that will walk you through the process"
 msgstr "επεξηγηματικό βίντεο που θας σας πάει βήμα βήμα στη διαδικασία"
 
-#: ../admin-views/event-meta-options.php:51
+#: ../admin-views/event-meta-options.php:69
 msgid "Editor \"Custom Fields\" meta box"
 msgstr "Επεξεργαστής \"Custom Fields\" μετά κουτιού"
 
-#: ../admin-views/event-meta-options.php:53
+#: ../admin-views/event-meta-options.php:71
 msgid "Show"
 msgstr "Προβολή"
 
-#: ../admin-views/event-meta-options.php:54
+#: ../admin-views/event-meta-options.php:72
 msgid "Hide"
 msgstr "Απόκρυψη"
 
-#: ../admin-views/event-meta-options.php:55
+#: ../admin-views/event-meta-options.php:73
 msgid ""
 "Enabling this option this will not remove custom field data or "
 "functionality, just the default meta box editor."
@@ -287,7 +287,7 @@ msgstr ""
 "πεδίων ή η λειτουργικότητα, αλλά μόνο ο προεπιλεγμένος επεξεργαστής μετα "
 "κουτιού."
 
-#: ../admin-views/event-meta-options.php:64
+#: ../admin-views/event-meta-options.php:82
 msgid ""
 "Are you sure you wish to remove this field and its data from all events? "
 "Once you click OK this cannot be undone."
@@ -309,12 +309,12 @@ msgid "None"
 msgstr "Κανένα"
 
 #: ../admin-views/event-recurrence.php:8
-#: ../lib/tribe-events-recurrence-meta.class.php:848
+#: ../lib/tribe-events-recurrence-meta.class.php:867
 msgid "day"
 msgstr "day"
 
 #: ../admin-views/event-recurrence.php:8
-#: ../views/pro/widgets/countdown-widget.php:20
+#: ../views/pro/widgets/countdown-widget.php:18
 msgid "days"
 msgstr "days"
 
@@ -322,7 +322,7 @@ msgstr "days"
 msgid "Every Day"
 msgstr "Κάθε Ημέρα"
 
-#: ../admin-views/event-recurrence.php:9 ../events-calendar-pro.php:66
+#: ../admin-views/event-recurrence.php:9 ../events-calendar-pro.php:71
 msgid "week"
 msgstr "week"
 
@@ -493,43 +493,43 @@ msgstr "Τελευταίος"
 
 #: ../admin-views/event-recurrence.php:75
 #: ../admin-views/event-recurrence.php:120
-#: ../lib/tribe-events-recurrence-meta.class.php:883
+#: ../lib/tribe-events-recurrence-meta.class.php:902
 msgid "Monday"
 msgstr "Δευτέρα"
 
 #: ../admin-views/event-recurrence.php:76
 #: ../admin-views/event-recurrence.php:121
-#: ../lib/tribe-events-recurrence-meta.class.php:883
+#: ../lib/tribe-events-recurrence-meta.class.php:902
 msgid "Tuesday"
 msgstr "Τρίτη"
 
 #: ../admin-views/event-recurrence.php:77
 #: ../admin-views/event-recurrence.php:122
-#: ../lib/tribe-events-recurrence-meta.class.php:883
+#: ../lib/tribe-events-recurrence-meta.class.php:902
 msgid "Wednesday"
 msgstr "Τετάρτη"
 
 #: ../admin-views/event-recurrence.php:78
 #: ../admin-views/event-recurrence.php:123
-#: ../lib/tribe-events-recurrence-meta.class.php:883
+#: ../lib/tribe-events-recurrence-meta.class.php:902
 msgid "Thursday"
 msgstr "Πέμπτη"
 
 #: ../admin-views/event-recurrence.php:79
 #: ../admin-views/event-recurrence.php:124
-#: ../lib/tribe-events-recurrence-meta.class.php:883
+#: ../lib/tribe-events-recurrence-meta.class.php:902
 msgid "Friday"
 msgstr "Παρασκευή"
 
 #: ../admin-views/event-recurrence.php:80
 #: ../admin-views/event-recurrence.php:125
-#: ../lib/tribe-events-recurrence-meta.class.php:883
+#: ../lib/tribe-events-recurrence-meta.class.php:902
 msgid "Saturday"
 msgstr "Σάββατο"
 
 #: ../admin-views/event-recurrence.php:81
 #: ../admin-views/event-recurrence.php:126
-#: ../lib/tribe-events-recurrence-meta.class.php:883
+#: ../lib/tribe-events-recurrence-meta.class.php:902
 msgid "Sunday"
 msgstr "Κυριακή"
 
@@ -538,61 +538,11 @@ msgstr "Κυριακή"
 msgid "Day"
 msgstr "Ημέρα"
 
-#: ../admin-views/event-recurrence.php:92
-msgid "Jan"
-msgstr "Ιαν"
-
-#: ../admin-views/event-recurrence.php:93
-msgid "Feb"
-msgstr "Φεβ"
-
-#: ../admin-views/event-recurrence.php:94
-msgid "Mar"
-msgstr "Μαρ"
-
-#: ../admin-views/event-recurrence.php:95
-msgid "Apr"
-msgstr "Απρ"
-
-#: ../admin-views/event-recurrence.php:96
-#: ../lib/tribe-events-recurrence-meta.class.php:909
-msgid "May"
-msgstr "Μαι"
-
-#: ../admin-views/event-recurrence.php:97
-msgid "Jun"
-msgstr "Ιουν"
-
-#: ../admin-views/event-recurrence.php:101
-msgid "Jul"
-msgstr "Ιουλ"
-
-#: ../admin-views/event-recurrence.php:102
-msgid "Aug"
-msgstr "Αυγ"
-
-#: ../admin-views/event-recurrence.php:103
-msgid "Sep"
-msgstr "Σεπ"
-
-#: ../admin-views/event-recurrence.php:104
-msgid "Oct"
-msgstr "Οκτ"
-
-#: ../admin-views/event-recurrence.php:105
-msgid "Nov"
-msgstr "Νοε"
-
-#: ../admin-views/event-recurrence.php:106
-msgid "Dec"
-msgstr "Δεκ"
-
 #: ../admin-views/event-recurrence.php:111
 msgid "On the:"
 msgstr "Στις:"
 
 #: ../admin-views/event-recurrence.php:136
-#: ../views/tribe-ECP-views-old/views/single-venue.php:58
 msgid "Description:"
 msgstr "Περιγραφή:"
 
@@ -617,7 +567,7 @@ msgstr "Δεν υπαρχεί προεπιλογή"
 msgid "Select a State"
 msgstr "Επιλέξτε μια Πολιτεία"
 
-#: ../admin-views/tribe-options-defaults.php:35 ../events-calendar-pro.php:799
+#: ../admin-views/tribe-options-defaults.php:35 ../events-calendar-pro.php:629
 msgid "Default Content"
 msgstr "Προεπιλεγμένο Περιεχόμενο"
 
@@ -646,7 +596,7 @@ msgstr ""
 "εκδήλωση που έχει δημιουργηθεί."
 
 #: ../admin-views/tribe-options-defaults.php:65
-#: ../admin-views/widget-admin-advanced-list.php:29 ../lib/apm_filters.php:44
+#: ../admin-views/widget-admin-advanced-list.php:29
 msgid "Organizer"
 msgstr "Διοργανωτής"
 
@@ -659,7 +609,7 @@ msgid "No saved organizers yet."
 msgstr "Δεν υπάρχουν αποθηκευμένοι διοργανωτές ακόμη."
 
 #: ../admin-views/tribe-options-defaults.php:82
-#: ../admin-views/widget-admin-advanced-list.php:28 ../lib/apm_filters.php:39
+#: ../admin-views/widget-admin-advanced-list.php:28
 msgid "Venue"
 msgstr "Χώρος Διεξαγωγής"
 
@@ -723,7 +673,7 @@ msgstr ""
 
 #: ../admin-views/widget-admin-advanced-list.php:11
 #: ../admin-views/widget-admin-calendar.php:10
-#: ../admin-views/widget-admin-countdown.php:10
+#: ../admin-views/widget-admin-countdown.php:11
 #: ../admin-views/widget-admin-venue.php:9
 #: ../admin-views/widget-calendar.php:2
 msgid "Title:"
@@ -768,45 +718,45 @@ msgstr "Τιμή"
 msgid "Filters"
 msgstr "Φίλτρα"
 
-#: ../admin-views/widget-admin-advanced-list.php:76
+#: ../admin-views/widget-admin-advanced-list.php:85
 #: ../admin-views/widget-calendar.php:42
 msgid "remove"
 msgstr "αφαίρεσε"
 
-#: ../admin-views/widget-admin-advanced-list.php:87
+#: ../admin-views/widget-admin-advanced-list.php:98
 #: ../admin-views/widget-calendar.php:53
 msgid "Match all"
 msgstr "Ταίριαξε τα όλα"
 
-#: ../admin-views/widget-admin-advanced-list.php:90
+#: ../admin-views/widget-admin-advanced-list.php:101
 #: ../admin-views/widget-calendar.php:56
 msgid "Match any"
 msgstr "Ταίριαξε κάθε"
 
-#: ../admin-views/widget-admin-advanced-list.php:94
+#: ../admin-views/widget-admin-advanced-list.php:105
 #: ../admin-views/widget-calendar.php:60
 msgid "Add a filter"
 msgstr "Προσθήκη φίλτρου"
 
-#: ../admin-views/widget-admin-advanced-list.php:97
+#: ../admin-views/widget-admin-advanced-list.php:108
 #: ../admin-views/widget-calendar.php:63
 msgid "Select one..."
 msgstr "Επιλέξτε ένα..."
 
-#: ../admin-views/widget-admin-advanced-list.php:124
+#: ../admin-views/widget-admin-advanced-list.php:136
 #: ../admin-views/widget-admin-venue.php:28
 msgid "Hide this widget if there are no upcoming events:"
 msgstr "Απόκρυψη της μονάδας αν δεν υπάρχουν επερχόμενες εκδηλώσεις:"
 
-#: ../admin-views/widget-admin-countdown.php:12
+#: ../admin-views/widget-admin-countdown.php:15
 msgid "Event:"
 msgstr "Εκδήλωση:"
 
-#: ../admin-views/widget-admin-countdown.php:21
+#: ../admin-views/widget-admin-countdown.php:23
 msgid "Show seconds:"
 msgstr "Δείξε δευτερόλεπτα:"
 
-#: ../admin-views/widget-admin-countdown.php:24
+#: ../admin-views/widget-admin-countdown.php:28
 msgid "Countdown Completed Text:"
 msgstr "Κείμενο Ολοκλήρωσης Αντίστροφης Μέτρησης:"
 
@@ -814,54 +764,53 @@ msgstr "Κείμενο Ολοκλήρωσης Αντίστροφης Μέτρη�
 msgid "Venue:"
 msgstr "Χώρος Διεξαγωγής:"
 
-#: ../events-calendar-pro.php:67
+#: ../events-calendar-pro.php:72
 msgid "photo"
 msgstr "φωτογραφία"
 
-#: ../events-calendar-pro.php:313
+#: ../events-calendar-pro.php:299
 msgid "Events for week of"
 msgstr "Εκδηλώσεις της εβδομάδας"
 
-#: ../events-calendar-pro.php:321 ../events-calendar-pro.php:386
+#: ../events-calendar-pro.php:307 ../events-calendar-pro.php:366
 msgid "Past Events"
 msgstr "Προηγούμενες Εκδηλώσεις"
 
-#: ../events-calendar-pro.php:323 ../events-calendar-pro.php:388
+#: ../events-calendar-pro.php:309 ../events-calendar-pro.php:368
 #: ../lib/widget-advanced-list.class.php:88
 msgid "Upcoming Events"
 msgstr "Προσεχείς Εκδηλώσεις"
 
-#: ../events-calendar-pro.php:329 ../events-calendar-pro.php:371
+#: ../events-calendar-pro.php:315 ../events-calendar-pro.php:351
 msgid "All events for"
 msgstr "Όλες οι εκδηλώσεις"
 
-#: ../events-calendar-pro.php:378
+#: ../events-calendar-pro.php:358
 #, php-format
 msgid "Events for week of %s"
 msgstr "Εκδηλώσεις της Εβδομάδας %s"
 
-#: ../events-calendar-pro.php:810
+#: ../events-calendar-pro.php:640
 msgid "Hide related events"
 msgstr "Απόκρυψη σχετικών εκδηλώσεων"
 
-#: ../events-calendar-pro.php:811
+#: ../events-calendar-pro.php:641
 msgid "Remove related events from the single event view"
 msgstr "Αφαίρεση σχετικών εκδηλώσεων από την προβολή μιας εκδήλωσης"
 
-#: ../events-calendar-pro.php:819
+#: ../events-calendar-pro.php:649
 msgid "Week Day Format"
 msgstr "Μορφή Ημέρας Εβδομάδας"
 
-#: ../events-calendar-pro.php:820
+#: ../events-calendar-pro.php:650
 msgid ""
-"Enter the format to use for week days. Used  when showing an days of the "
-"week in Week view."
+"Enter the format to use for week days. Used when showing days of the week in "
+"Week view."
 msgstr ""
 "Καταχωρίστε την μορφή που θα χρησιμοποιείται για τις ημέρες εβδομάδας. "
-"Χρησιμοποιείται κατά την προβολή μιας ημέρας της εβδομάδας στην Προβολή "
-"Εβδομάδας."
+"Χρησιμοποιείται κατά την προβολή ημερών της εβδομάδας στην Προβολή Εβδομάδας."
 
-#: ../events-calendar-pro.php:837
+#: ../events-calendar-pro.php:667
 msgid ""
 "Thanks for buying Events Calendar PRO! From all of us at Modern Tribe, we "
 "sincerely appreciate it. If you're looking for help with Events Calendar "
@@ -875,7 +824,7 @@ msgstr ""
 "βοηθήσουμε να γίνει το ημερολόγιο σας κορυφαίο... και ελπίζουμε οι "
 "δυνατότητες που δίνονται παρακάτω θα σας βοηθήσουν να φτάσετε εκεί."
 
-#: ../events-calendar-pro.php:848
+#: ../events-calendar-pro.php:678
 msgid ""
 "If this is your first time using The Events Calendar Pro, you're in for a "
 "treat and are already well on your way to creating a first event. Here are "
@@ -886,7 +835,7 @@ msgstr ""
 "εκδήλωσης. Εδώ είναι μερικά βασικά στοιχεία που θα σας φανούν χρήσιμα ώστε "
 "να ξεκινήσετε να χρησιμοποιείτε το The Events Calendar PRO:"
 
-#: ../events-calendar-pro.php:851
+#: ../events-calendar-pro.php:681
 #, php-format
 msgid ""
 "%sOur New User Primer%s was designed for folks in your exact position. "
@@ -899,7 +848,7 @@ msgstr ""
 "συνοδευτικά screenshots, ο βοηθός έχει ως στόχο να σας μεταφέρει από το "
 "μηδέν στο εκατό σε χρόνο ντε-τε."
 
-#: ../events-calendar-pro.php:853
+#: ../events-calendar-pro.php:683
 #, php-format
 msgid ""
 "%sInstallation/Setup FAQs%s from our support page can help give an overview "
@@ -913,7 +862,7 @@ msgstr ""
 "είναι χρήσιμη δεδομένου ότι έχει ως στόχο την αντιμετώπιση βασικών ζητημάτων "
 "εγκατάστασης που δεν καλύπτονται από το Αλφαβητάρι Νέου Χρήστη."
 
-#: ../events-calendar-pro.php:855
+#: ../events-calendar-pro.php:685
 #, php-format
 msgid ""
 "Are you developer looking to build your own frontend view? We created an "
@@ -924,7 +873,7 @@ msgstr ""
 "Έχουμε δημιουργήσει ένα πρότυπο πρόσθετο που δείχνει πώς να καταχωρήσετε μία "
 "νέα προβολή. Μπορείτε να %sτο κατεβάσετε από το GitHub%s για να ξεκινήσετε."
 
-#: ../events-calendar-pro.php:857
+#: ../events-calendar-pro.php:687
 #, php-format
 msgid ""
 "Take care of your license key. Though not required to create your first "
@@ -937,7 +886,7 @@ msgstr ""
 "εγγυηθεί η πρόσβασης στην υποστήριξη και τις αναβαθμίσεις. %sΕδώ είναι το "
 "πώς να βρείτε το κλειδί άδειάς σας%s, αν δεν το έχετε πρόχειρο."
 
-#: ../events-calendar-pro.php:859
+#: ../events-calendar-pro.php:689
 msgid ""
 "Otherwise, if you're feeling adventurous, you can get started by heading to "
 "the Events menu and adding your first event."
@@ -945,7 +894,7 @@ msgstr ""
 "Διαφορετικά, αν αισθάνεστε τολμηρός, μπορείτε να ξεκινήσετε αμέσως "
 "πηγαίνοντας στο Μενού Εκδηλώσεων και προσθέτοντας την πρώτη σας εκδήλωση."
 
-#: ../events-calendar-pro.php:871
+#: ../events-calendar-pro.php:701
 #, php-format
 msgid ""
 "Written documentation can only take things so far...sometimes, you need help "
@@ -955,7 +904,7 @@ msgstr ""
 "μερικές φορές να χρειάζεστε τη συνδρομή ενός πραγματικού προσώπου. Αυτό "
 "είναι το σημείο που το %sφόρουμ υποστήριξης%s μπαίνει στο παιχνίδι."
 
-#: ../events-calendar-pro.php:872
+#: ../events-calendar-pro.php:702
 #, php-format
 msgid ""
 "Users who have purchased an Events Calendar PRO license are granted total "
@@ -973,7 +922,7 @@ msgstr ""
 "φόρουμ καθημερινά καθ 'όλη τη διάρκεια της εβδομάδας, και σπάνια νήμα μένει "
 "πάνω από 24 ώρες χωρίς απάντηση."
 
-#: ../events-calendar-pro.php:873
+#: ../events-calendar-pro.php:703
 msgid ""
 "Our number one goal is helping you succeed, and to whatever extent possible, "
 "we'll help troubleshoot and guide your customizations or tweaks. While we "
@@ -991,7 +940,7 @@ msgstr ""
 "ικανοποιήσουμε εσάς - και τον πελάτη σας, καθώς αυτό συχνά είναι το πιο "
 "σημαντικό -."
 
-#: ../events-calendar-pro.php:874
+#: ../events-calendar-pro.php:704
 msgid ""
 "Before posting a new thread, please do a search to make sure your issue "
 "hasn't already been addressed. When posting please make sure to provide as "
@@ -1006,28 +955,28 @@ msgstr ""
 "έχετε εντοπίσει εάν φταίει κάποιο plugin / θέμα αναφέροντας το στο αρχικό "
 "μήνυμα σας."
 
-#: ../events-calendar-pro.php:1304
+#: ../events-calendar-pro.php:1142
 msgid "Settings"
 msgstr "Ρυθμίσεις"
 
-#: ../events-calendar-pro.php:1331
+#: ../events-calendar-pro.php:1167
 #, php-format
 msgid "Venue updated. <a href=\"%s\">View venue</a>"
 msgstr "Ο χώρος διεξαγωγής ανανεώθηκε. <a href=\"%s\">Προβολή χώρου</a>"
 
-#: ../events-calendar-pro.php:1333
+#: ../events-calendar-pro.php:1169
 #, php-format
 msgid "Venue published. <a href=\"%s\">View venue</a>"
 msgstr "Ο χώρος διεξαγωγής δημοσιεύτηκε. <a href=\"%s\">Προβολή χώρου</a>"
 
-#: ../events-calendar-pro.php:1334
+#: ../events-calendar-pro.php:1170
 #, php-format
 msgid "Venue submitted. <a target=\"_blank\" href=\"%s\">Preview venue</a>"
 msgstr ""
 "Ο χώρος διεξαγωγής καταχωρήθηκε. <a target=\"_blank\" href=\"%s"
 "\">Προεπισκόπηση χώρου</a>"
 
-#: ../events-calendar-pro.php:1335
+#: ../events-calendar-pro.php:1171
 #, php-format
 msgid ""
 "Venue scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s"
@@ -1036,28 +985,28 @@ msgstr ""
 "Εκδηλώσεις προγραμματισμένες για: <strong>%1$s</strong>. <a target=\"_blank"
 "\" href=\"%2$s\">Προεπισκόπηση χώρου</a>"
 
-#: ../events-calendar-pro.php:1337 ../events-calendar-pro.php:1345
+#: ../events-calendar-pro.php:1173 ../events-calendar-pro.php:1181
 msgid "M j, Y @ G:i"
 msgstr "M j, Y @ G:i"
 
-#: ../events-calendar-pro.php:1338
+#: ../events-calendar-pro.php:1174
 #, php-format
 msgid "Venue draft updated. <a target=\"_blank\" href=\"%s\">Preview venue</a>"
 msgstr ""
 "Το προσχέδιο του χώρου διεξαγωγής ανανεώθηκε. <a target=\"_blank\" href=\"%s"
 "\">Προεπισκόπηση χώρου</a>"
 
-#: ../events-calendar-pro.php:1340
+#: ../events-calendar-pro.php:1176
 #, php-format
 msgid "Organizer updated. <a href=\"%s\">View organizer</a>"
 msgstr "Ο διοργανωτής ανανεώθηκε. <a href=\"%s\">Προβολή διοργανωτή</a>"
 
-#: ../events-calendar-pro.php:1341
+#: ../events-calendar-pro.php:1177
 #, php-format
 msgid "Organizer published. <a href=\"%s\">View organizer</a>"
 msgstr "Ο διοργανωτής δημοσιεύτηκε. <a href=\"%s\">Προβολή διοργανωτή</a>"
 
-#: ../events-calendar-pro.php:1342
+#: ../events-calendar-pro.php:1178
 #, php-format
 msgid ""
 "Organizer submitted. <a target=\"_blank\" href=\"%s\">Preview organizer</a>"
@@ -1065,7 +1014,7 @@ msgstr ""
 "Ο διοργανωτής καταχωρήθηκε. <a target=\"_blank\" href=\"%s\">Προεπισκόπηση "
 "διοργανωτή</a>"
 
-#: ../events-calendar-pro.php:1343
+#: ../events-calendar-pro.php:1179
 #, php-format
 msgid ""
 "Organizer scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" href="
@@ -1074,7 +1023,7 @@ msgstr ""
 "Ο διοργανωτής προγραμματίστηκε για: <strong>%1$s</strong>. <a target=\"_blank"
 "\" href=\"%2$s\">Προεπισκόπηση διοργανωτή</a>"
 
-#: ../events-calendar-pro.php:1346
+#: ../events-calendar-pro.php:1182
 #, php-format
 msgid ""
 "Organizer draft updated. <a target=\"_blank\" href=\"%s\">Preview organizer</"
@@ -1083,36 +1032,36 @@ msgstr ""
 "Το προσχέδιο του διοργανωτή ανανεώθηκε. <a target=\"_blank\" href=\"%s"
 "\">Προεπισκόπηση διοργανωτή</a>"
 
-#: ../events-calendar-pro.php:1398
+#: ../events-calendar-pro.php:1228
 #, php-format
 msgid "Calendar powered by %sThe Events Calendar PRO%s"
 msgstr "Το Ημερολόγιο προσφέρεται απο το %sThe Events Calendar PRO%s"
 
-#: ../events-calendar-pro.php:1411
+#: ../events-calendar-pro.php:1241
 msgid "Support"
 msgstr "Υποστήριξη"
 
-#: ../events-calendar-pro.php:1413
+#: ../events-calendar-pro.php:1243
 msgid "View All Add-Ons"
 msgstr "Προβολή όλων των Προσθέτων"
 
-#: ../events-calendar-pro.php:1516
+#: ../events-calendar-pro.php:1340
 msgid "Week"
 msgstr "Εβδομάδα"
 
-#: ../events-calendar-pro.php:1532
+#: ../events-calendar-pro.php:1354
 msgid "Photo"
 msgstr "Φωτογραφία"
 
-#: ../events-calendar-pro.php:1548
+#: ../events-calendar-pro.php:1368
 msgid "Week Of"
 msgstr "Εβδομάδα του"
 
-#: ../events-calendar-pro.php:1636
+#: ../events-calendar-pro.php:1451
 msgid "The Events Calendar"
 msgstr "The Events Calendar"
 
-#: ../events-calendar-pro.php:1637
+#: ../events-calendar-pro.php:1452
 #, php-format
 msgid ""
 "To begin using Events Calendar PRO, please install the latest version of <a "
@@ -1122,21 +1071,34 @@ msgstr ""
 "εγκαταστείστε την τελευταία έκδοση του <a href=\"%s\" class=\"thickbox\" "
 "title=\"%s\">The Events Calendar</a>."
 
-#: ../lib/SingleEventMeta.php:147
-#: ../views/pro/modules/meta/additional-fields.php:16
+#: ../lib/SingleEventMeta.php:143
+#: ../views/pro/modules/meta/additional-fields.php:15
 msgid "Other"
 msgstr "Άλλο"
 
-#: ../lib/SingleEventMeta.php:173
+#: ../lib/SingleEventMeta.php:169
 msgid "Recurrence Pattern:"
 msgstr "Μοτίβο Επαναληψιμότητας"
 
-#: ../lib/TribeEventsFilter_GeoLoc.php:37
+#: ../lib/TribeEventsFilter_GeoLoc.php:20 ../lib/tribe-geoloc.class.php:143
+msgid "Miles"
+msgstr "Μίλια"
+
+#: ../lib/TribeEventsFilter_GeoLoc.php:21 ../lib/tribe-geoloc.class.php:144
+msgid "Kilometers"
+msgstr "Χιλιόμετρα"
+
+#: ../lib/TribeEventsFilter_GeoLoc.php:25
+#, php-format
+msgid "%d %s"
+msgstr "%d %s"
+
+#: ../lib/TribeEventsFilter_GeoLoc.php:40
 #, php-format
 msgid "Type: %s %s"
 msgstr "Πληκτρολογήστε %s %s"
 
-#: ../lib/TribeEventsFilter_GeoLoc.php:46
+#: ../lib/TribeEventsFilter_GeoLoc.php:49
 msgid "Radio Buttons"
 msgstr "Κουμπιά ραδιοφωνικού τύπου "
 
@@ -1168,25 +1130,48 @@ msgstr "Επαναλήψιμο"
 msgid "Description"
 msgstr "Περιγραφή"
 
-#: ../lib/template-classes/week.php:95
-#, php-format
-msgid ""
-"There were no results found for <strong>\"%s\"</strong> this week. Try "
-"searching another week."
-msgstr ""
-"Δεν βρέθηκαν αποτελέσματα για <strong>\"%s\"</strong> αυτή την εβδομάδα. "
-"Παρακαλώ αναζητήστε μια άλλη εβδομάδα."
+#: ../lib/apm_filters.php:120 ../lib/apm_filters.php:333
+#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:50
+#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:70
+msgid "Is"
+msgstr "Είναι"
 
-#: ../lib/template-classes/week.php:98
+#: ../lib/apm_filters.php:121 ../lib/apm_filters.php:334
+#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:51
+#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:71
+msgid "Is Not"
+msgstr "Δεν Είναι"
+
+#: ../lib/apm_filters.php:122
+msgid "On and After"
+msgstr "Στις και Μετά"
+
+#: ../lib/apm_filters.php:123
+msgid "On and Before"
+msgstr "Στις και Πριν Από"
+
+#: ../lib/apm_filters.php:219
+#: ../lib/tribe-events-recurrence-meta.class.php:139
+msgid "Yes"
+msgstr "Ναι"
+
+#: ../lib/apm_filters.php:220
+msgid "No"
+msgstr "Όχι"
+
+#: ../lib/apm_filters.php:332
+#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:69
+msgid "Search"
+msgstr "Αναζήτηση"
+
+#: ../lib/template-classes/map.php:77
 #, php-format
-msgid ""
-"No results were found for events in or near <strong>\"%s\"</strong> this "
-"week. Try searching another week."
+msgid "No results were found for events in or near <strong>\"%s\"</strong>."
 msgstr ""
 "Δεν βρέθηκαν αποτελέσματα για εκδηλώσεις στο/ή κοντινά στο <strong>\"%s\"</"
-"strong> αυτή την εβδομάδα. Παρακαλώ αναζητήστε μια άλλη εβδομάδα."
+"strong>."
 
-#: ../lib/template-classes/week.php:102 ../lib/tribe-geoloc.class.php:551
+#: ../lib/template-classes/map.php:80 ../lib/template-classes/week.php:94
 #, php-format
 msgid ""
 "No matching events listed under %s. Please try viewing the full calendar for "
@@ -1195,7 +1180,29 @@ msgstr ""
 "Δεν υπάρχουν εκδηλώσεις που να ταιριάζουν στο %s. Δείτε το πλήρες ημερολόγιο "
 "για την ολοκληρωμένη λίστα εκδηλώσεων."
 
-#: ../lib/template-classes/week.php:105
+#: ../lib/template-classes/map.php:83
+msgid "There were no results found."
+msgstr "Δεν βρέθηκαν αποτελέσματα."
+
+#: ../lib/template-classes/week.php:87
+#, php-format
+msgid ""
+"There were no results found for <strong>\"%s\"</strong> this week. Try "
+"searching another week."
+msgstr ""
+"Δεν βρέθηκαν αποτελέσματα για <strong>\"%s\"</strong> αυτή την εβδομάδα. "
+"Παρακαλώ αναζητήστε μια άλλη εβδομάδα."
+
+#: ../lib/template-classes/week.php:90
+#, php-format
+msgid ""
+"No results were found for events in or near <strong>\"%s\"</strong> this "
+"week. Try searching another week."
+msgstr ""
+"Δεν βρέθηκαν αποτελέσματα για εκδηλώσεις στο/ή κοντινά στο <strong>\"%s\"</"
+"strong> αυτή την εβδομάδα. Παρακαλώ αναζητήστε μια άλλη εβδομάδα."
+
+#: ../lib/template-classes/week.php:97
 msgid "No results were found for this week. Try searching another week."
 msgstr ""
 "Δεν βρέθηκαν αποτελέσματα για αυτή την εβδομάδα. Παρακαλώ αναζητήστε μια "
@@ -1213,24 +1220,20 @@ msgstr "Αφαίρεση από τη Σειρά"
 msgid "Edit Future Events"
 msgstr "Επεξεργασία Μελλοντικών Εκδηλώσεων"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:139
-msgid "Yes"
-msgstr "Ναι"
-
 #: ../lib/tribe-events-recurrence-meta.class.php:141
 msgid "—"
 msgstr "—"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:155
+#: ../lib/tribe-events-recurrence-meta.class.php:169
 msgid "Break this event out of its series and edit it independently"
 msgstr ""
 "Αφαίρεση αυτής της εκδήλωσης απο τη Σειρά και μεμονωμένη επεξεργασία της."
 
-#: ../lib/tribe-events-recurrence-meta.class.php:155
+#: ../lib/tribe-events-recurrence-meta.class.php:169
 msgid "Edit Single"
 msgstr "Μονή Επεξεργασία"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:157
+#: ../lib/tribe-events-recurrence-meta.class.php:171
 msgid ""
 "Split the series in two at this point, creating a new series out of this and "
 "all subsequent events"
@@ -1238,236 +1241,240 @@ msgstr ""
 "Χωρίστε τη σειρά σε δύο σε αυτό το σημείο, δημιουργώντας μια νέα σειρά από "
 "αυτό και όλες τις εκδηλώσεις που ακολούθησαν"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:157
+#: ../lib/tribe-events-recurrence-meta.class.php:171
 msgid "Edit Upcoming"
 msgstr "Επεξεργασία Μελλοντικών"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:163
+#: ../lib/tribe-events-recurrence-meta.class.php:177
 msgid "Edit all events in this series"
 msgstr "Επεξεργασία όλων των εκδηλώσεων σε αυτή τη σειρά"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:163
+#: ../lib/tribe-events-recurrence-meta.class.php:177
 msgid "Edit All"
 msgstr "Επεξεργασία Όλων"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:168
+#: ../lib/tribe-events-recurrence-meta.class.php:182
 msgid "Move all events in this series to the Trash"
 msgstr "Μετακινήστε όλα τα γεγονότα σε αυτή τη σειρά στον Κάδο Αχρήστων"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:168
+#: ../lib/tribe-events-recurrence-meta.class.php:182
 msgid "Trash Series"
 msgstr "Σειρά Αχρήστων"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:171
+#: ../lib/tribe-events-recurrence-meta.class.php:185
 msgid "Delete all events in this series permanently"
 msgstr "Οριστική Διαγραφή όλων των εκδηλώσεων αυτής της σειράς"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:171
+#: ../lib/tribe-events-recurrence-meta.class.php:185
 msgid "Delete Series Permanently"
 msgstr "Οριστική Διαγραφή Σειράς"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:177
+#: ../lib/tribe-events-recurrence-meta.class.php:191
 msgid "Restore all events in this series from the Trash"
 msgstr "Επαναφορά όλων των εκδηλώσεων αυτής της σειράς από τον Κάδο Αχρήστων"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:177
+#: ../lib/tribe-events-recurrence-meta.class.php:191
 msgid "Restore Series"
 msgstr "Επαναφορά Σειράς"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:526
+#: ../lib/tribe-events-recurrence-meta.class.php:540
 msgid ""
 "Monthly custom recurrences cannot have a dash set as the day to occur on."
 msgstr ""
 "Οι προσαρμοσμένες μηνιαίες επαναλήψεις δεν μπορούν να έχουν παύλα στην ημέρα "
 "που πραγματοποιούνται."
 
-#: ../lib/tribe-events-recurrence-meta.class.php:529
+#: ../lib/tribe-events-recurrence-meta.class.php:543
 msgid ""
 "Yearly custom recurrences cannot have a dash set as the day to occur on."
 msgstr ""
 "Οι προσαρμοσμένες ετήσιες επαναλήψεις δεν μπορούν να έχουν παύλα στην ημέρα "
 "που πραγματοποιούνται."
 
-#: ../lib/tribe-events-recurrence-meta.class.php:819
-#: ../lib/tribe-events-recurrence-meta.class.php:834
+#: ../lib/tribe-events-recurrence-meta.class.php:838
+#: ../lib/tribe-events-recurrence-meta.class.php:853
 msgid "Every day"
 msgstr "Κάθε μέρα"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:820
+#: ../lib/tribe-events-recurrence-meta.class.php:839
 #, php-format
 msgid " for %d day"
 msgid_plural " for %d days"
 msgstr[0] "για %d μέρα"
 msgstr[1] "για %d μέρες"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:823
-#: ../lib/tribe-events-recurrence-meta.class.php:839
+#: ../lib/tribe-events-recurrence-meta.class.php:842
+#: ../lib/tribe-events-recurrence-meta.class.php:858
 msgid "Every week"
 msgstr "Κάθε εβδομάδα"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:824
+#: ../lib/tribe-events-recurrence-meta.class.php:843
 #, php-format
 msgid " for %d week"
 msgid_plural " for %d weeks"
 msgstr[0] "για %d εβδομάδα"
 msgstr[1] "για %d εβδομάδες"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:826
 #: ../lib/tribe-events-recurrence-meta.class.php:845
+#: ../lib/tribe-events-recurrence-meta.class.php:864
 msgid "Every month"
 msgstr "Κάθε μήνα"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:827
+#: ../lib/tribe-events-recurrence-meta.class.php:846
 #, php-format
 msgid " for %d month"
 msgid_plural " for %d months"
 msgstr[0] "για %d μήνα"
 msgstr[1] "για %d μήνες"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:829
-#: ../lib/tribe-events-recurrence-meta.class.php:852
+#: ../lib/tribe-events-recurrence-meta.class.php:848
+#: ../lib/tribe-events-recurrence-meta.class.php:871
 msgid "Every year"
 msgstr "Κάθε χρόνο"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:830
+#: ../lib/tribe-events-recurrence-meta.class.php:849
 #, php-format
 msgid " for %d year"
 msgid_plural " for %d years"
 msgstr[0] "για %d χρόνο"
 msgstr[1] "για %d χρόνια"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:835
+#: ../lib/tribe-events-recurrence-meta.class.php:854
 #, php-format
 msgid "Every %d days"
 msgstr "Κάθε %d μέρες"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:836
-#: ../lib/tribe-events-recurrence-meta.class.php:842
-#: ../lib/tribe-events-recurrence-meta.class.php:849
+#: ../lib/tribe-events-recurrence-meta.class.php:855
 #: ../lib/tribe-events-recurrence-meta.class.php:861
+#: ../lib/tribe-events-recurrence-meta.class.php:868
+#: ../lib/tribe-events-recurrence-meta.class.php:880
 #, php-format
 msgid ", recurring %d time"
 msgid_plural ", recurring %d times"
 msgstr[0] ", επαναλήψιμη %d φορά"
 msgstr[1] ", επαναλήψιμη %d φορές"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:840
+#: ../lib/tribe-events-recurrence-meta.class.php:859
 #, php-format
 msgid "Every %d weeks"
 msgstr "Κάθε %d εβδομάδες"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:841
+#: ../lib/tribe-events-recurrence-meta.class.php:860
 #, php-format
 msgid " on %s"
 msgstr " την %s"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:846
+#: ../lib/tribe-events-recurrence-meta.class.php:865
 #, php-format
 msgid "Every %d months"
 msgstr "Κάθε %d μήνες"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:848
+#: ../lib/tribe-events-recurrence-meta.class.php:867
 #, php-format
 msgid " on the %s %s"
 msgstr " την %s %s"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:853
+#: ../lib/tribe-events-recurrence-meta.class.php:872
 #, php-format
 msgid "Every %d years"
 msgstr "Κάθε %d χρόνια"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:855
+#: ../lib/tribe-events-recurrence-meta.class.php:874
 msgid "last"
 msgstr "τελευταίο"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:860
+#: ../lib/tribe-events-recurrence-meta.class.php:879
 #, php-format
 msgid " on the %s %s of %s"
 msgstr " την %s %s του %s"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:867
+#: ../lib/tribe-events-recurrence-meta.class.php:886
 #, php-format
 msgid " until %s"
 msgstr "έως %s"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:874
+#: ../lib/tribe-events-recurrence-meta.class.php:893
 #, php-format
 msgid "%s%s%s"
 msgstr "%s%s%s"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:889
+#: ../lib/tribe-events-recurrence-meta.class.php:908
 msgid ", and"
 msgstr ", και"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:891
+#: ../lib/tribe-events-recurrence-meta.class.php:910
 msgid "and"
 msgstr "και"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:893
+#: ../lib/tribe-events-recurrence-meta.class.php:912
 msgid ","
 msgstr ","
 
-#: ../lib/tribe-events-recurrence-meta.class.php:908
+#: ../lib/tribe-events-recurrence-meta.class.php:927
 msgid "January"
 msgstr "Ιανουαρίου"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:908
+#: ../lib/tribe-events-recurrence-meta.class.php:927
 msgid "February"
 msgstr "Φεβρουαρίου"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:908
+#: ../lib/tribe-events-recurrence-meta.class.php:927
 msgid "March"
 msgstr "Μαρτίου"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:908
+#: ../lib/tribe-events-recurrence-meta.class.php:927
 msgid "April"
 msgstr "Απριλίου"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:909
+#: ../lib/tribe-events-recurrence-meta.class.php:928
+msgid "May"
+msgstr "Μαι"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:928
 msgid "June"
 msgstr "Ιουνίου"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:909
+#: ../lib/tribe-events-recurrence-meta.class.php:928
 msgid "July"
 msgstr "Ιουλίου"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:909
+#: ../lib/tribe-events-recurrence-meta.class.php:928
 msgid "August"
 msgstr "Αυγούστου"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:909
+#: ../lib/tribe-events-recurrence-meta.class.php:928
 msgid "September"
 msgstr "Σεπτεμβρίου"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:909
+#: ../lib/tribe-events-recurrence-meta.class.php:928
 msgid "October"
 msgstr "Οκτωβρίου"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:909
+#: ../lib/tribe-events-recurrence-meta.class.php:928
 msgid "November"
 msgstr "Νοεμβρίου"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:909
+#: ../lib/tribe-events-recurrence-meta.class.php:928
 msgid "December"
 msgstr "Δεκεμβρίου"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:915
+#: ../lib/tribe-events-recurrence-meta.class.php:934
 msgid ", and "
 msgstr ", και"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:917
+#: ../lib/tribe-events-recurrence-meta.class.php:936
 msgid " and "
 msgstr "και"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:919
+#: ../lib/tribe-events-recurrence-meta.class.php:938
 msgid ", "
 msgstr ","
 
-#: ../lib/tribe-events-recurrence-meta.class.php:985
+#: ../lib/tribe-events-recurrence-meta.class.php:1002
 msgid "Recurring event instances"
 msgstr "Περιστάσεις επαναλήψιμης εκδήλωσης"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:986
+#: ../lib/tribe-events-recurrence-meta.class.php:1003
 msgid ""
 "Show only the first instance of each recurring event (only affects list-"
 "style views)."
@@ -1475,46 +1482,55 @@ msgstr ""
 "Προβολή μόνο της πρώτης περίστασης της κάθε επαναλήψιμης εκδήλωσης "
 "(επηρρεάζει μόνο την προβολή σε στυλ λίστας)"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:992
+#: ../lib/tribe-events-recurrence-meta.class.php:1009
 msgid "Front-end recurring event instances toggle"
 msgstr "Εμφάνιση περιστάσεων επαναλήψιμης εκδήλωσης"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:993
+#: ../lib/tribe-events-recurrence-meta.class.php:1010
 msgid ""
 "Allow users to decide whether to show all instances of a recurring event."
 msgstr ""
 "Επίτρεψε στους χρήστες να αποφασίζουν αν θα προβάλουν όλες τις περιστάσεις "
 "μιας επαναλήψιμης εκδήλωσης."
 
-#: ../lib/tribe-events-recurrence-meta.class.php:1000
+#: ../lib/tribe-events-recurrence-meta.class.php:1017
 msgid "Clean up recurring events after"
 msgstr "Καθάρισε τις επαναλήψιμες εκδηλώσεις μετά"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:1001
+#: ../lib/tribe-events-recurrence-meta.class.php:1018
 msgid "Automatically remove recurring event instances older than this"
 msgstr ""
 "Αυτόματη αφαίρεση των περιστάσεων επαναλήψιμης εκδήλωσης που είναι πιο "
 "παλιές απο αυτή"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:1008
+#: ../lib/tribe-events-recurrence-meta.class.php:1025
 msgid "Create recurring events in advance for"
 msgstr "Δημιουργία επαναλήψιμων εκδηλώσεων εκ των προτέρων για"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:1009
+#: ../lib/tribe-events-recurrence-meta.class.php:1026
 msgid "Recurring events will be created this far in advance"
 msgstr ""
 "Οι επαναλήψιμες εκδηλώσεις θα δημιουργηθούν εκ των προτέρων για τόσο καιρό "
 
-#: ../lib/tribe-events-recurrence-meta.class.php:1030
+#: ../lib/tribe-events-recurrence-meta.class.php:1047
 msgid " months"
 msgstr " μήνες"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:1123
+#: ../lib/tribe-events-recurrence-meta.class.php:1138
 msgid "You are currently editing all events in a recurring series."
 msgstr ""
 "Αυτή τη στιγμή επεξεργάζεστε όλες τις εκδηλώσεις σε μια επαναλήψιμη σειρά."
 
-#: ../lib/tribe-events-recurrence-meta.class.php:1132
+#: ../lib/tribe-events-recurrence-meta.class.php:1146
+#, php-format
+msgid ""
+"%d instances of this event have been created through %s. <a href=\"%s"
+"\">Learn more.</a>"
+msgstr ""
+"%d επαναλήψεις αυτής της εκδήλωσης έχουν δημιουργηθεί μέσω %s. <a href=\"%s"
+"\">Μάθετε περισσότερα.</a>"
+
+#: ../lib/tribe-events-recurrence-meta.class.php:1157
 msgid ""
 "You are about to split this series in two.\n"
 "\n"
@@ -1532,7 +1548,7 @@ msgstr ""
 "\n"
 "Η ενέργεια αυτή είναι μη αναστρέψιμη."
 
-#: ../lib/tribe-events-recurrence-meta.class.php:1133
+#: ../lib/tribe-events-recurrence-meta.class.php:1158
 msgid ""
 "You are about to break this event out of its series.\n"
 "\n"
@@ -1546,23 +1562,21 @@ msgstr ""
 "\n"
 "Η ενέργεια αυτή είναι μη αναστρέψιμη."
 
-#: ../lib/tribe-events-recurrence-meta.class.php:1134
-msgid ""
-"Are you sure you want to trash all occurrences of these events? All "
-"recurrence data will be lost."
+#: ../lib/tribe-events-recurrence-meta.class.php:1159
+msgid "Are you sure you want to trash all occurrences of these events?"
 msgstr ""
 "Είστε σίγουροι ότι θέλετε να πετάξετε στα σκουπίδια όλες τις περιστάσεις "
-"αυτών των εκδηλώσεων; Όλα τα στοιχεία επανάληψης θα χαθούν."
+"αυτών των εκδηλώσεων;"
 
-#: ../lib/tribe-geoloc.class.php:101
+#: ../lib/tribe-geoloc.class.php:99
 msgid "Distance"
 msgstr "Απόσταση"
 
-#: ../lib/tribe-geoloc.class.php:133
+#: ../lib/tribe-geoloc.class.php:131
 msgid "Map view search distance limit"
 msgstr "Όριο απόστασης αναζήτησης στην προβολή Χάρτη"
 
-#: ../lib/tribe-geoloc.class.php:135
+#: ../lib/tribe-geoloc.class.php:133
 msgid ""
 "Set the distance that the location search covers (find events within X "
 "distance units of location search input)."
@@ -1570,23 +1584,15 @@ msgstr ""
 "Ρυθμίστε την απόσταση που η αναζήτηση τοποθεσίας καλύπτει (βρείτε τις "
 "εκδηλώσεις εντός Χ μονάδων απόστασης από τη θέση αναζήτησης)."
 
-#: ../lib/tribe-geoloc.class.php:141
+#: ../lib/tribe-geoloc.class.php:139
 msgid "Map view distance unit"
 msgstr "Μονάδα μέτρησης απόστασης στην προβολή Χάρτη"
 
-#: ../lib/tribe-geoloc.class.php:145
-msgid "Miles"
-msgstr "Μίλια"
-
-#: ../lib/tribe-geoloc.class.php:146
-msgid "Kilometers"
-msgstr "Χιλιόμετρα"
-
-#: ../lib/tribe-geoloc.class.php:149
+#: ../lib/tribe-geoloc.class.php:147
 msgid "Fix geolocation data"
 msgstr "Επιδιόρθωση δεδομένων εντοπισμού γεωγραφικής θέσης"
 
-#: ../lib/tribe-geoloc.class.php:149
+#: ../lib/tribe-geoloc.class.php:147
 #, php-format
 msgid ""
 "You have %d venues for which we don't have geolocation data. We need to use "
@@ -1598,11 +1604,11 @@ msgstr ""
 "πάρετε τις πληροφορίες. Με αυτόν τον τρόπο μπορεί να πάρει λίγο χρόνο "
 "(περίπου 1 λεπτό για κάθε 200 χώρους)."
 
-#: ../lib/tribe-geoloc.class.php:158
+#: ../lib/tribe-geoloc.class.php:156
 msgid "Hide location search"
 msgstr "Απόκρυψη αναζήτησης τοποθεσίας"
 
-#: ../lib/tribe-geoloc.class.php:159
+#: ../lib/tribe-geoloc.class.php:157
 msgid ""
 "Removes location search field from the events bar on all views except for "
 "map view."
@@ -1610,36 +1616,25 @@ msgstr ""
 "Κατάργηση πεδίου αναζήτησης τοποθεσίας από μπάρα εκδηλώσεων σε όλες τις "
 "προβολές, εκτός από προβολή χάρτη."
 
-#: ../lib/tribe-geoloc.class.php:211
+#: ../lib/tribe-geoloc.class.php:209
 msgid "Map"
 msgstr "Χάρτης"
 
-#: ../lib/tribe-geoloc.class.php:241
+#: ../lib/tribe-geoloc.class.php:239
 msgid "Near"
 msgstr "Κοντά στο"
 
-#: ../lib/tribe-geoloc.class.php:242
+#: ../lib/tribe-geoloc.class.php:240
 msgid "Location"
 msgstr "Τοποθεσία"
 
-#: ../lib/tribe-geoloc.class.php:548
-#, php-format
-msgid "No results were found for events in or near <strong>\"%s\"</strong>."
-msgstr ""
-"Δεν βρέθηκαν αποτελέσματα για εκδηλώσεις στο/ή κοντινά στο <strong>\"%s\"</"
-"strong>."
-
-#: ../lib/tribe-geoloc.class.php:554
-msgid "There were no results found."
-msgstr "Δεν βρέθηκαν αποτελέσματα."
-
-#: ../lib/tribe-geoloc.class.php:829
+#: ../lib/tribe-geoloc.class.php:676
 msgid "Fix venues data"
 msgstr "Επιδιόρθωση δεδομένων χώρων διεξαγωγής"
 
 # No translation accepted as msgstr missing
 # Έχετε %d χώρους διεξαγωγής για τους οποίους δεν έχουμε πληροφορίες εντοπισμού γεωγραφικής θέσης. <a href='%s'>Κλικ εδώ για δημιουργία</a>.
-#: ../lib/tribe-geoloc.class.php:863
+#: ../lib/tribe-geoloc.class.php:710
 #, php-format
 msgid ""
 "You have venues for which we don't have Geolocation information. <a "
@@ -1648,7 +1643,7 @@ msgstr ""
 "Έχετε χώρους διεξαγωγής για τους οποίους δεν έχουμε πληροφορίες εντοπισμού "
 "γεωγραφικής θέσης (Geolocation). <a href='%s'>Πατήστε εδώ για δημιουργία</a>."
 
-#: ../lib/tribe-geoloc.class.php:889
+#: ../lib/tribe-geoloc.class.php:736
 #, php-format
 msgid "Fixed geolocation data for %d venues"
 msgstr ""
@@ -1688,92 +1683,92 @@ msgstr ""
 msgid "Events Featured Venue"
 msgstr "Προτεινόμενος Χώρος Διεξαγωγής Εκδηλώσεων"
 
-#: ../public/template-tags/general.php:96
+#: ../public/template-tags/general.php:103
 msgid "Show only the first upcoming instance of recurring events"
 msgstr "Προβολή μόνο της πρώτης περίστασης των επαναλήψιμων εκδηλώσεων"
 
-#: ../public/template-tags/general.php:228
-#: ../public/template-tags/general.php:243
-#: ../public/template-tags/general.php:257
-#: ../public/template-tags/general.php:258
-#: ../public/template-tags/general.php:272
-#: ../public/template-tags/general.php:273
-#: ../public/template-tags/general.php:287
-#: ../public/template-tags/general.php:288
-#: ../public/template-tags/general.php:302
-#: ../public/template-tags/general.php:303
+#: ../public/template-tags/general.php:227
+#: ../public/template-tags/general.php:240
+#: ../public/template-tags/general.php:252
+#: ../public/template-tags/general.php:253
+#: ../public/template-tags/general.php:265
+#: ../public/template-tags/general.php:266
+#: ../public/template-tags/general.php:278
+#: ../public/template-tags/general.php:279
+#: ../public/template-tags/general.php:291
+#: ../public/template-tags/general.php:292
+#: ../public/template-tags/general.php:304
+#: ../public/template-tags/general.php:305
 #: ../public/template-tags/general.php:317
 #: ../public/template-tags/general.php:318
-#: ../public/template-tags/general.php:332
-#: ../public/template-tags/general.php:333
-#: ../public/template-tags/general.php:347
-#: ../public/template-tags/general.php:348
+#: ../public/template-tags/general.php:330
+#: ../public/template-tags/general.php:331
 msgid "No default set"
 msgstr "Δεν έχει επιλεχθεί προεπιλογή"
 
-#: ../public/template-tags/general.php:230
+#: ../public/template-tags/general.php:229
 #, php-format
 msgid "The current default organizer is: %s"
 msgstr "Ο τρέχων προεπιλεγμένος οργανωτής είναι: %s"
 
-#: ../public/template-tags/general.php:245
+#: ../public/template-tags/general.php:242
 #, php-format
 msgid "The current default venue is: %s"
 msgstr "Ο τρέχων προεπιλεγμένος χώρος διεξαγωγής είναι: %s"
 
-#: ../public/template-tags/general.php:260
+#: ../public/template-tags/general.php:255
 #, php-format
 msgid "The current default address is: %s"
 msgstr "Η τρέχουσα προεπιλεγμένη διεύθυνση είναι: %s"
 
-#: ../public/template-tags/general.php:275
+#: ../public/template-tags/general.php:268
 #, php-format
 msgid "The current default city is: %s"
 msgstr "Η τρέχουσα προεπιλεγμένη πόλη είναι: %s"
 
-#: ../public/template-tags/general.php:290
+#: ../public/template-tags/general.php:281
 #, php-format
 msgid "The current default state is: %s"
 msgstr "Η τρέχουσα προεπιλεγμένη πολιτεία είναι: %s"
 
-#: ../public/template-tags/general.php:305
+#: ../public/template-tags/general.php:294
 #, php-format
 msgid "The current default province is: %s"
 msgstr "Η τρέχουσα προεπιλεγμένη περιοχή είναι: %s"
 
-#: ../public/template-tags/general.php:320
+#: ../public/template-tags/general.php:307
 #, php-format
 msgid "The current default postal code/zip code is: %s"
 msgstr "Ο τρέχων προεπιλεγμένος ταχυδρομικός κωδικός είναι: %s"
 
-#: ../public/template-tags/general.php:335
+#: ../public/template-tags/general.php:320
 #, php-format
 msgid "The current default country is: %s"
 msgstr "Η τρέχουσα προεπιλεγμένη χώρα είναι: %s"
 
-#: ../public/template-tags/general.php:350
+#: ../public/template-tags/general.php:333
 #, php-format
 msgid "The current default phone is: %s"
 msgstr "Το τρέχον προεπιλεγμένο τηλέφωνο είναι: %s"
 
-#: ../public/template-tags/general.php:494
-#: ../public/template-tags/general.php:513
+#: ../public/template-tags/general.php:476
+#: ../public/template-tags/general.php:495
 msgid "Date out of range."
 msgstr "Ημερομηνία εκτός ορίων."
 
-#: ../public/template-tags/general.php:614
+#: ../public/template-tags/general.php:591
 msgid "Recurring Event"
 msgstr "Επαναλήψιμη Εκδήλωση"
 
-#: ../public/template-tags/general.php:617
+#: ../public/template-tags/general.php:594
 msgid "(See all)"
 msgstr "(Προβολή όλων)"
 
-#: ../public/template-tags/week.php:258
+#: ../public/template-tags/week.php:237
 msgid "<span>&laquo;</span> Previous Week"
 msgstr "<span>&laquo;</span> Προηγούμενη Εβδομάδα"
 
-#: ../public/template-tags/week.php:271
+#: ../public/template-tags/week.php:253
 msgid "Next Week <span>&raquo;</span>"
 msgstr "Επόμενη Εβδομάδα <span>&raquo;</span>"
 
@@ -1787,61 +1782,47 @@ msgstr ""
 "δικά μας δεδομένα</a> και χρησιμοποιείστε τον <a href=\"%s\">Εισαγωγέα "
 "WordPress</a>."
 
-#: ../vendor/advanced-post-manager/lib/tribe-columns.class.php:44
+#: ../vendor/advanced-post-manager/lib/tribe-columns.class.php:43
 msgid "Column Name"
 msgstr "Όνομα Στήλης"
 
-#: ../vendor/advanced-post-manager/lib/tribe-columns.class.php:134
+#: ../vendor/advanced-post-manager/lib/tribe-columns.class.php:133
 msgid "Add a Column"
 msgstr "Προσθέστε μια Στήλη"
 
-#: ../vendor/advanced-post-manager/lib/tribe-columns.class.php:141
+#: ../vendor/advanced-post-manager/lib/tribe-columns.class.php:140
 msgid "Comments"
 msgstr "Σχόλια"
 
-#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:52
-#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:72
-msgid "Is"
-msgstr "Είναι"
-
-#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:53
-#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:73
-msgid "Is Not"
-msgstr "Δεν Είναι"
-
-#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:67
+#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:65
 msgid "LIKE"
 msgstr "ΜΟΥ ΑΡΕΣΕΙ"
 
-#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:71
-msgid "Search"
-msgstr "Αναζήτηση"
-
-#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:82
+#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:80
 msgid "Member Type"
 msgstr "Τύπος Μέλους"
 
-#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:86
+#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:84
 msgid "Cafe"
 msgstr "Καφετέρια"
 
-#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:87
+#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:85
 msgid "Private Desk"
 msgstr "Προσωπικό Γραφέιο"
 
-#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:88
+#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:86
 msgid "Office"
 msgstr "Γραφείο"
 
-#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:95
+#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:93
 msgid "what i’m querying. probably a key in the options array in $filters"
 msgstr "τι επεξεργάζομαι. πιθανώς το κλειδί στην σειρά επιλογών σε $φίλτρα"
 
-#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:519
+#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:511
 msgid "Choose a Saved Filter"
 msgstr "Επιλέξτε ένα αποθηκευμένο Φίλτρο"
 
-#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:635
+#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:627
 msgid "Add a Filter"
 msgstr "Προσθήκη Φίλτρου"
 
@@ -1849,34 +1830,34 @@ msgstr "Προσθήκη Φίλτρου"
 msgid "Extended Information"
 msgstr "Εκτεταμένες πληροφορίες"
 
-#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:124
-#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:397
+#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:114
+#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:385
 msgid "Delete this image"
 msgstr "Διαγράψτε αυτή την εικόνα"
 
-#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:124
-#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:352
-#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:397
+#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:114
+#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:340
+#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:385
 msgid "Delete"
 msgstr "Διαγραφή"
 
-#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:348
+#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:337
 msgid "Uploaded files"
 msgstr "Ανεβασμένα αρχεία"
 
-#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:358
+#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:346
 msgid "Upload new files"
 msgstr "Ανεβάστε νέα αρχεία"
 
-#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:361
+#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:349
 msgid "Add another file"
 msgstr "Προσθέστε κι άλλο αρχείο"
 
-#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:404
+#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:392
 msgid "Add more images"
 msgstr "Προσθέστε περισσότερες εικόνες"
 
-#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:412
+#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:400
 msgid "Select a color"
 msgstr "Επιλέξτε χρώμα"
 
@@ -1914,123 +1895,140 @@ msgstr "Όνομα Φίλτρου"
 msgid "Cancel"
 msgstr "Ακύρωση"
 
-#: ../views/pro/map/nav.php:22 ../views/pro/photo/nav.php:22
+#: ../views/pro/map/nav.php:20 ../views/pro/photo/nav.php:20
 msgid "Events List Navigation"
 msgstr "Πλοήγηση Λίστας Εκδηλώσεων"
 
-#: ../views/pro/map/nav.php:25 ../views/pro/photo/nav.php:25
+#: ../views/pro/map/nav.php:23 ../views/pro/photo/nav.php:23
 msgid "<span>&laquo;</span> Previous Events"
 msgstr "<span>&laquo;</span> Προηγούμενες Εκδηλώσεις"
 
-#: ../views/pro/map/nav.php:32 ../views/pro/photo/nav.php:32
+#: ../views/pro/map/nav.php:30 ../views/pro/photo/nav.php:30
 msgid "Next Events <span>&raquo;</span>"
 msgstr "Επόμενες Εκδηλώσεις <span>&raquo;</span>"
 
-#: ../views/pro/map/single-event.php:80
+#: ../views/pro/map/single-event.php:78
 msgid "Find out more"
 msgstr "Ανακαλύψτε περισσότερα"
 
-#: ../views/pro/related-events.php:30
+#: ../views/pro/related-events.php:28
 msgid "Related Events"
 msgstr "Σχετικές Εκδηλώσεις"
 
-#: ../views/pro/single-organizer.php:31 ../views/pro/single-venue.php:31
+#: ../views/pro/single-organizer.php:29 ../views/pro/single-venue.php:29
 msgid "&larr; Back to Events"
 msgstr "&larr; Πίσω στις Εκδηλώσεις"
 
-#: ../views/pro/week/loop-grid-allday.php:30
-#: ../views/tribe-ECP-views-old/views/featured-widget.php:59
-#: ../views/tribe-ECP-views-old/views/list-widget.php:57
+#: ../views/pro/week/loop-grid-allday.php:28
 msgid "All Day"
 msgstr "Ολοήμερη"
 
-#: ../views/pro/week/loop-grid.php:19
+#: ../views/pro/week/loop-grid.php:17
 msgid "Hours"
 msgstr "Ώρες"
 
-#: ../views/pro/week/nav.php:16
+#: ../views/pro/week/nav.php:14
 msgid "Week Navigation"
 msgstr "Πλοήγηση Εβδομάδας"
 
-#: ../views/pro/widgets/countdown-widget.php:24
+#: ../views/pro/widgets/countdown-widget.php:22
 msgid "hours"
 msgstr "ώρες"
 
-#: ../views/pro/widgets/countdown-widget.php:28
+#: ../views/pro/widgets/countdown-widget.php:26
 msgid "min"
 msgstr "λεπτά"
 
-#: ../views/pro/widgets/countdown-widget.php:33
+#: ../views/pro/widgets/countdown-widget.php:31
 msgid "sec"
 msgstr "δευτερόλεπτα"
 
-#: ../views/pro/widgets/list-widget.php:99
+#: ../views/pro/widgets/list-widget.php:97
 msgid "Organizer:"
 msgstr "Διοργανωτής:"
 
-#: ../views/pro/widgets/list-widget.php:118
+#: ../views/pro/widgets/list-widget.php:116
 msgid "View More&hellip;"
 msgstr "Δείτε Περισσότερα&hellip;"
 
-#: ../views/pro/widgets/list-widget.php:125
+#: ../views/pro/widgets/list-widget.php:123
 msgid "There are no upcoming events at this time."
 msgstr "Δεν υπάρχουν επερχόμενες εκδηλώσεις αυτή τη στιγμή."
 
-#: ../views/pro/widgets/venue-widget.php:33
+#: ../views/pro/widgets/venue-widget.php:31
 msgid "No upcoming events."
 msgstr "Δεν υπάρχουν μελλοντικές εκδηλώσεις."
 
-#: ../views/pro/widgets/venue-widget.php:54
-msgid "View All Events at this Venue"
-msgstr "Προβολή Όλων των Εκδηλώσεων σε αυτό τον Χώρο Διεξαγωγής"
+#: ../views/pro/widgets/venue-widget.php:52
+#, php-format
+msgid "View all Events at this %s"
+msgstr "Προβολή Όλων των Εκδηλώσεων σε αυτό το %s"
 
-#: ../views/tribe-ECP-views-old/views/list-widget.php:110
-msgid "Price:"
-msgstr "Τιμή:"
+#~ msgid "Jan"
+#~ msgstr "Ιαν"
 
-#: ../views/tribe-ECP-views-old/views/single-venue.php:24
-msgid "&laquo; Back to Events"
-msgstr "&laquo; Πίσω στις Εκδηλώσεις"
+#~ msgid "Feb"
+#~ msgstr "Φεβ"
 
-#: ../views/tribe-ECP-views-old/views/single-venue.php:37
-msgid "Name:"
-msgstr "Όνομα:"
+#~ msgid "Mar"
+#~ msgstr "Μαρ"
 
-#: ../views/tribe-ECP-views-old/views/single-venue.php:41
-msgid "Phone:"
-msgstr "Τηλέφωνο:"
+#~ msgid "Apr"
+#~ msgstr "Απρ"
 
-#: ../views/tribe-ECP-views-old/views/single-venue.php:47
-msgid "Address:"
-msgstr "Διεύθυνση:"
+#~ msgid "Jun"
+#~ msgstr "Ιουν"
 
-#: ../views/tribe-ECP-views-old/views/single-venue.php:49
-msgid "Click to view a Google Map"
-msgstr "Πατήστε για να δείτε τον Χάρτη Google"
+#~ msgid "Jul"
+#~ msgstr "Ιουλ"
 
-#: ../views/tribe-ECP-views-old/views/single-venue.php:49
-msgid "Google Map"
-msgstr "Χάρτης Google"
+#~ msgid "Aug"
+#~ msgstr "Αυγ"
 
-#: ../views/tribe-ECP-views-old/views/single-venue.php:76
-msgid "Upcoming Events At This Venue"
-msgstr "Μελλοντικές Εκδηλώσεις σε αυτό τον Χώρο Διεξαγωγής"
+#~ msgid "Sep"
+#~ msgstr "Σεπ"
 
-#: ../views/tribe-ECP-views-old/views/single-venue.php:96
-msgid "Start:"
-msgstr "Έναρξη:"
+#~ msgid "Oct"
+#~ msgstr "Οκτ"
 
-#: ../views/tribe-ECP-views-old/views/single-venue.php:100
-msgid "End:"
-msgstr "Λήξη:"
+#~ msgid "Dec"
+#~ msgstr "Δεκ"
 
-#: ../views/tribe-ECP-views-old/views/single-venue.php:105
-msgid "Date:"
-msgstr "Ημερομηνία:"
+#~ msgid "Price:"
+#~ msgstr "Τιμή:"
 
-#: ../views/tribe-ECP-views-old/views/single-venue.php:114
-msgid "Cost:"
-msgstr "Κόστος:"
+#~ msgid "&laquo; Back to Events"
+#~ msgstr "&laquo; Πίσω στις Εκδηλώσεις"
+
+#~ msgid "Name:"
+#~ msgstr "Όνομα:"
+
+#~ msgid "Phone:"
+#~ msgstr "Τηλέφωνο:"
+
+#~ msgid "Address:"
+#~ msgstr "Διεύθυνση:"
+
+#~ msgid "Click to view a Google Map"
+#~ msgstr "Πατήστε για να δείτε τον Χάρτη Google"
+
+#~ msgid "Google Map"
+#~ msgstr "Χάρτης Google"
+
+#~ msgid "Upcoming Events At This Venue"
+#~ msgstr "Μελλοντικές Εκδηλώσεις σε αυτό τον Χώρο Διεξαγωγής"
+
+#~ msgid "Start:"
+#~ msgstr "Έναρξη:"
+
+#~ msgid "End:"
+#~ msgstr "Λήξη:"
+
+#~ msgid "Date:"
+#~ msgstr "Ημερομηνία:"
+
+#~ msgid "Cost:"
+#~ msgstr "Κόστος:"
 
 #~ msgid "Category:"
 #~ msgstr "Κατηγορία:"

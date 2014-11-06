@@ -54,6 +54,11 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		 */
 		public $embedded_maps;
 
+		/**
+		 * @var Tribe__Events__Pro__MiniCalendarShortcode
+		 */
+		public $mini_calendar_shortcode;
+
 		const REQUIRED_TEC_VERSION = '3.8.1';
 		const VERSION = '3.8.1';
 
@@ -98,6 +103,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			require_once( $this->pluginPath . 'lib/tribe-geoloc.class.php' );
 			require_once( $this->pluginPath . 'lib/EmbeddedMaps.php' );
 			require_once( $this->pluginPath . 'lib/SingleEventMeta.php' );
+			require_once( $this->pluginPath . 'lib/MiniCalendarShortcode.php' );
 
 			if ( TribeEventsPro_SchemaUpdater::update_required() ) {
 				add_action( 'admin_init', array( 'TribeEventsPro_SchemaUpdater', 'init' ), 10, 0 );
@@ -410,6 +416,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			$this->displayMetaboxCustomFields();
 			$this->single_event_meta = new TribeEventsPro_SingleEventMeta;
 			$this->embedded_maps = new TribeEventsPro_EmbeddedMaps;
+			$this->mini_calendar_shortcode = new Tribe__Events__Pro__MiniCalendarShortcode;
 		}
 
 		/**
@@ -430,9 +437,9 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 				case 'single-event':
 					// a recurrence event with a bad date will throw 404 because of WP_Query limiting by date range
 					if( is_404() || empty( $wp_query->query['eventDate'] ) ) {
+						$recurrence_check = array_merge( array( 'posts_per_page' => -1 ), $wp_query->query );
 						unset( $recurrence_check['eventDate'] );
 						unset( $recurrence_check['tribe_events'] );
-						$recurrence_check = array_merge( array( 'posts_per_page' => -1 ), $wp_query->query );
 
 						// retrieve event object
 						$get_recurrence_event = new WP_Query( $recurrence_check );
@@ -1086,7 +1093,11 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 
 				$geoloc = TribeEventsGeoLoc::instance();
 
-				$data = array( 'geocenter' => $geoloc->estimate_center_point() );
+				$data = array(
+					'geocenter' => $geoloc->estimate_center_point(),
+					'map_tooltip_event' => __( 'Event: ', 'tribe-events-calendar-pro' ),
+					'map_tooltip_address' => __( 'Address: ', 'tribe-events-calendar-pro' )
+				);
 
 				$data = apply_filters( 'tribe_events_pro_localize_script', $data, 'TribeEventsPro', 'tribe-events-pro' );
 
