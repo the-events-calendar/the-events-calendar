@@ -37,16 +37,16 @@
  * Right now we use this only in month view in events, and week view in events pro. You can add it to other view files if you want handy event data for use in your own javascript.
  * The stock template tag supplies this json string (remember, the key on the left is what we use in the javascript template file to call the data on the right):
  *
-	{
-		"eventId": POST ID,
-		"title": "POST TITLE",
-		"permalink": "POST PERMALINK",
-		"startTime": "EVENT START TIME",
-		"endTime": "EVENT END TIME (MAY NOT BE SET)",
-		"imageSrc": "IMAGE THUMB FOR MOBILE(MAY NOT BE SET)",
-		"imageTooltipSrc": "IMAGE THUMB FOR TOOLTIP(MAY NOT BE SET)",
-		"excerpt": "POST EXCERPT"
-	}
+ * {
+ * "eventId": POST ID,
+ * "title": "POST TITLE",
+ * "permalink": "POST PERMALINK",
+ * "startTime": "EVENT START TIME",
+ * "endTime": "EVENT END TIME (MAY NOT BE SET)",
+ * "imageSrc": "IMAGE THUMB FOR MOBILE(MAY NOT BE SET)",
+ * "imageTooltipSrc": "IMAGE THUMB FOR TOOLTIP(MAY NOT BE SET)",
+ * "excerpt": "POST EXCERPT"
+ * }
  *
  *
  * _______________ TEMPLATE TAG: tribe_prepare_for_json( $string ); _______________
@@ -56,15 +56,14 @@
  * The following example shows how we would go about adding the custom post meta and appending it to our event json string that is output in the markup.
  *
  *
-
-		$additional_data = array();
-
-		$string = get_post_meta( get_the_ID(), 'hello_meta' ); // this string can be anything
-
-		$additional_data['hello'] = tribe_prepare_for_json( $string );
-
-		echo tribe_events_template_data( $post, $additional_data ); ?>
-
+ *
+ * $additional_data = array();
+ *
+ * $string = get_post_meta( get_the_ID(), 'hello_meta' ); // this string can be anything
+ *
+ * $additional_data['hello'] = tribe_prepare_for_json( $string );
+ *
+ * echo tribe_events_template_data( $post, $additional_data ); ?>
  *
  * Explanation: We create an empty array to cram our data into. We can add as much as we want, there are no limits on data attribute length in the html5 spec.
  * We want to call this data with the word "hello" in the js template, so that is the key name we give it in the php array.
@@ -85,30 +84,29 @@
  * Now lets look at the tooltip template. Compare the keys in it to the json string in section 2 above to map out whats going on.
  *
  *
-
-<script type="text/html" id="tribe_tmpl_tooltip">
-	<div id="tribe-events-tooltip-[[=eventId]]" class="tribe-events-tooltip">
-		<h4 class="entry-title summary">[[=title]]</h4>
-		<div class="tribe-events-event-body">
-			<div class="duration">
-				<abbr class="tribe-events-abbr updated published dtstart">[[=startTime]] </abbr>
-		[[ if(endTime.length) { ]]
-				-<abbr class="tribe-events-abbr dtend"> [[=endTime]]</abbr>
-		[[ } ]]
-			</div>
-		[[ if(imageTooltipSrc.length) { ]]
-			<div class="tribe-events-event-thumb">
-				<img src="[[=imageTooltipSrc]]" alt="[[=title]]" />
-			</div>
-		[[ } ]]
-		[[ if(excerpt.length) { ]]
-			<p class="entry-summary description">[[=raw excerpt]]</p>
-		[[ } ]]
-			<span class="tribe-events-arrow"></span>
-		</div>
-	</div>
-</script>
-
+ *
+ * <script type="text/html" id="tribe_tmpl_tooltip">
+ * <div id="tribe-events-tooltip-[[=eventId]]" class="tribe-events-tooltip">
+ * <h4 class="entry-title summary">[[=title]]</h4>
+ * <div class="tribe-events-event-body">
+ * <div class="duration">
+ * <abbr class="tribe-events-abbr updated published dtstart">[[=startTime]] </abbr>
+ * [[ if(endTime.length) { ]]
+ * -<abbr class="tribe-events-abbr dtend"> [[=endTime]]</abbr>
+ * [[ } ]]
+ * </div>
+ * [[ if(imageTooltipSrc.length) { ]]
+ * <div class="tribe-events-event-thumb">
+ * <img src="[[=imageTooltipSrc]]" alt="[[=title]]" />
+ * </div>
+ * [[ } ]]
+ * [[ if(excerpt.length) { ]]
+ * <p class="entry-summary description">[[=raw excerpt]]</p>
+ * [[ } ]]
+ * <span class="tribe-events-arrow"></span>
+ * </div>
+ * </div>
+ * </script>
  *
  * Please note when creating your own data to feed to this that you must supply the key every time, even if the value is empty.
  * The templating function will error if one of the keys in the template is missing from the json.
@@ -123,48 +121,51 @@
  *
  * Plain javascript to loop over all events in grid view, get the json string, convert to object and log event title:
  *
-	(function (window, document) {
-
-		var events = document.querySelectorAll('.tribe_events');
-
-		for (var i=0; i < events.length; i++) {
-
-			var event = events[i],
-				data = event.getAttribute('data-tribejson'),
-				obj = JSON.parse(data);
-
-			console.log('Event title is: ' + obj.title);
-		}
-
-	})(window, document);
+ * (function (window, document) {
+ *
+ * var events = document.querySelectorAll('.tribe_events');
+ *
+ * for (var i=0; i < events.length; i++) {
+ *
+ * var event = events[i],
+ * data = event.getAttribute('data-tribejson'),
+ * obj = JSON.parse(data);
+ *
+ * console.log('Event title is: ' + obj.title);
+ * }
+ *
+ * })(window, document);
  *
  * Same thing in jQuery:
  *
-	(function (window, document, $) {
-
-		$(document).ready(function () {
-
-			$('.tribe_events')
-				.each(function () {
-
-					var obj = $(this).data('tribejson');
-
-					console.log('Event title is: ' + obj.title);
-
-				});
-
-		});
-
-	})(window, document, jQuery);
+ * (function (window, document, $) {
+ *
+ * $(document).ready(function () {
+ *
+ * $('.tribe_events')
+ * .each(function () {
+ *
+ * var obj = $(this).data('tribejson');
+ *
+ * console.log('Event title is: ' + obj.title);
+ *
+ * });
+ *
+ * });
+ *
+ * })(window, document, jQuery);
  *
  */
 
 
-if ( !defined('ABSPATH') ) { die('-1'); } ?>
+if ( ! defined( 'ABSPATH' ) ) {
+	die( '-1' );
+}?>
 
-<?php $event = tribe_events_week_get_event(); ?>
-<div id='tribe-events-event-<?php echo $event->ID; ?>' <?php tribe_events_the_header_attributes( 'week-hourly' ); ?> class='<?php tribe_events_event_classes($event->ID) ?> tribe-week-event' data-tribejson='<?php echo tribe_events_template_data( $event ); ?>'>
+<div id="tribe-events-event-<?php echo $event->ID; ?>" <?php tribe_events_the_week_event_attributes( $event ); ?> class="<?php tribe_events_event_classes( $event->ID ) ?> tribe-week-event" data-tribejson='<?php echo tribe_events_template_data( $event ); ?>'>
 	<div class="hentry vevent">
-		<h3 class="entry-title summary"><a href="<?php tribe_event_link( $event ); ?>" class="url" rel="bookmark"><?php echo $event->post_title; ?></a></h3>
+		<h3 class="entry-title summary">
+			<a href="<?php tribe_event_link( $event ); ?>" class="url" rel="bookmark"><?php echo $event->post_title; ?></a>
+		</h3>
 	</div>
 </div>

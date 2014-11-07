@@ -65,14 +65,60 @@ if ( class_exists( 'TribeEventsPro' ) ) {
 	}
 
 	/**
+	 * Return current day in the week loop
+	 *
+	 * @return array
+	 */
+	function tribe_events_get_current_week_day() {
+		return apply_filters( 'tribe_events_get_current_week_day', Tribe_Events_Pro_Week_Template::get_current_day() );
+	}
+
+	/**
+	 * Check if there are any all day events this week
+	 */
+	function tribe_events_week_has_all_day_events() {
+		$days               = Tribe_Events_Pro_Week_Template::$week_days;
+		$has_all_day_events = false;
+		foreach ( $days as $day ) {
+			if ( ! empty( $day['all_day_events'] ) ) {
+				$has_all_day_events = true;
+				break;
+			}
+		}
+
+		return apply_filters( 'tribe_events_week_has_all_day_events', $has_all_day_events );
+
+	}
+
+	function tribe_events_get_week_hours() {
+
+		$beginning_of_day = tribe_event_beginning_of_day(null, 'H');
+		$hours = range(0, 23);
+		if ( $beginning_of_day > 0 ) {
+			for ( $i = 0; $i < $beginning_of_day; $i ++ ) {
+				array_push( $hours, array_shift( $hours ) );
+			}
+		}
+
+		$formatted_hours = array();
+		$hour_format = apply_filters( 'tribe_events_pro_week_hour_format', get_option( 'time_format', 'gA' ) );
+		foreach ( $hours as $hour ) {
+			$formatted_hours[] = date_i18n( $hour_format, strtotime( $hour . ':00' ) );
+		}
+
+		return apply_filters( 'tribe_events_get_week_hours', array_combine($hours, $formatted_hours) );
+	}
+
+	/**
 	 * increment the row for the all day map
 	 *
 	 * @return void
+	 * @todo deprecate
 	 */
 	function tribe_events_week_the_day_map() {
 		Tribe_Events_Pro_Week_Template::the_day_map();
 		$all_day_map    = tribe_events_week_get_all_day_map();
-		$all_day_offset = Tribe_Events_Pro_Week_Template::get_current_day() < Tribe_Events_Pro_Week_Template::$start_of_week ? Tribe_Events_Pro_Week_Template::$week_length + Tribe_Events_Pro_Week_Template::get_current_day() : Tribe_Events_Pro_Week_Template::get_current_day();
+		$all_day_offset = Tribe_Events_Pro_Week_Template::get_current_day() < Tribe_Events_Pro_Week_Template::$start_of_week ? 7 + Tribe_Events_Pro_Week_Template::get_current_day() : Tribe_Events_Pro_Week_Template::get_current_day();
 		tribe_events_week_setup_event( $all_day_map[ Tribe_Events_Pro_Week_Template::get_the_day_map() ][ $all_day_offset ] );
 	}
 
@@ -85,6 +131,27 @@ if ( class_exists( 'TribeEventsPro' ) ) {
 		Tribe_Events_Pro_Week_Template::reset_the_day_map();
 	}
 
+	function tribe_events_week_day_header_classes() {
+		echo apply_filters( 'tribe_events_week_day_header_classes', Tribe_Events_Pro_Week_Template::day_header_classes() );
+	}
+
+	/**
+	 * Return the text used in week day headers
+	 *
+	 * @return string
+	 */
+	function tribe_events_week_day_header() {
+		$day  = tribe_events_get_current_week_day();
+		$html = '<span data-full-date="' . $day['formatted_date'] . '">' . $day['formatted_date'] . '</span>';
+
+		// if day view is enabled and there are events on the day, make it a link to the day
+		if ( tribe_events_is_view_enabled( 'day' ) && $day['has_events'] ) {
+			$html = '<a href="' . tribe_get_day_link( tribe_events_week_get_the_date( false ) ) . '" rel="bookmark">' . $html . '</span></a>';
+		}
+
+		return apply_filters( 'tribe_events_week_day_header', $html );
+	}
+
 	/**
 	 * setup css classes for daily columns in week view
 	 *
@@ -95,16 +162,15 @@ if ( class_exists( 'TribeEventsPro' ) ) {
 	}
 
 	/**
-	 * return the current date of the day set by $current_day
+	 * Return the current day in the week grid loop
 	 *
 	 * @param boolean $echo
 	 *
 	 * @return string $html
 	 */
 	function tribe_events_week_get_the_date( $echo = true ) {
-		$week_days = Tribe_Events_Pro_Week_Template::get_week_days();
-		$html      = ! empty( $week_days[ Tribe_Events_Pro_Week_Template::get_current_day() ]->date ) ? $week_days[ Tribe_Events_Pro_Week_Template::get_current_day() ]->date : null;
-		$html      = apply_filters( 'tribe_events_week_get_the_date', $html );
+		$day  = tribe_events_get_current_week_day();
+		$html = apply_filters( 'tribe_events_week_get_the_date', $day['date'] );
 		if ( $echo ) {
 			echo $html;
 		} else {
@@ -162,6 +228,23 @@ if ( class_exists( 'TribeEventsPro' ) ) {
 		$hourly_events = (array) Tribe_Events_Pro_Week_Template::get_events( 'hourly' );
 
 		return apply_filters( 'tribe_events_week_get_hourly', $hourly_events );
+	}
+
+	/**
+	 * Set up html attributes required for proper week view functionality
+	 *
+	 * @return array
+	 */
+	function tribe_events_the_week_event_attributes($event) {
+
+		$attrs = Tribe_Events_Pro_Week_Template::get_event_attributes( $event );
+
+		$attrs = apply_filters( 'tribe_events_week_event_attributes', $attrs );
+
+		foreach ( $attrs as $attr => $value ) {
+			echo " $attr=" . '"' . esc_attr( $value ) . '"';
+		}
+
 	}
 
 	/**
@@ -238,7 +321,6 @@ if ( class_exists( 'TribeEventsPro' ) ) {
 		switch ( Tribe_Events_Pro_Week_Template::$loop_type ) {
 			case 'allday':
 				$event                                             = Tribe_Events_Pro_Week_Template::get_allday_event();
-				Tribe_Events_Pro_Week_Template::$event_key_track[] = Tribe_Events_Pro_Week_Template::get_event_id();
 				break;
 			case 'hourly':
 				$event = Tribe_Events_Pro_Week_Template::get_hourly_event();
@@ -307,3 +389,42 @@ if ( class_exists( 'TribeEventsPro' ) ) {
 	}
 
 }
+/**
+case 'week-all-day':
+					$attrs['data-hour'] = 'all-day';
+					unset( $attrs['data-title'] );
+					break;
+				case 'week-hourly':
+					$event                  = self::get_hourly_event();
+					$start_of_day_timestamp = self::get_rounded_beginning_of_day( self::get_current_date(), 'U' );
+					$end_of_day_timestamp   = self::get_rounded_end_of_day( self::get_current_date(), 'U' );
+					$data_hour              = date( 'G', $start_of_day_timestamp );
+					$data_min               = date( 'i', $start_of_day_timestamp );
+					if ( strtotime( $event->EventStartDate ) < $start_of_day_timestamp ) {
+						if ( strtotime( $event->EventEndDate ) > $end_of_day_timestamp ) {
+							// if there is a day in between start/end we just want to fill the spacer with the total mins in the day.
+							$duration = ( $end_of_day_timestamp - $start_of_day_timestamp ) / 60;
+						} else {
+							$duration = ( strtotime( $event->EventEndDate ) - $start_of_day_timestamp ) / 60;
+						}
+					} elseif ( strtotime( $event->EventEndDate ) > $end_of_day_timestamp ) {
+						// if the event is longer than a day we want to account for that with an offset
+						$duration  = ( $end_of_day_timestamp - strtotime( $event->EventStartDate ) ) / 60;
+						$data_hour = date( 'G', strtotime( $event->EventStartDate ) );
+						$data_min  = date( 'i', strtotime( $event->EventStartDate ) );
+					} else {
+						// for a default event continue as everything is normal
+						$remaining_minutes_in_day = ( $end_of_day_timestamp - strtotime( $event->EventStartDate ) / 60 );
+						$duration                 = get_post_meta( $event->ID, '_EventDuration', true ) / 60;
+						if ( $duration > $remaining_minutes_in_day ) {
+							// this will happen in the case of a multi-day event that extends beyond the end of the week
+							$duration = $remaining_minutes_in_day;
+						}
+						$data_hour = date( 'G', strtotime( $event->EventStartDate ) );
+						$data_min  = date( 'i', strtotime( $event->EventStartDate ) );
+					}
+					$attrs['data-duration'] = abs( $duration );
+					$attrs['data-hour']     = $data_hour;
+					$attrs['data-min']      = $data_min;
+					unset( $attrs['data-title'] );
+					break;
