@@ -1,9 +1,9 @@
 <?php
 /**
- * Week View Grid Hourly Single Event
- * This file sets up the structure for the week view grid hourly single event
+ * Week View Single Event
+ * This file sets up the structure for the week view single event
  *
- * Override this template in your own theme by creating a file at [your-theme]/tribe-events/week/single-event-hourly.php
+ * Override this template in your own theme by creating a file at [your-theme]/tribe-events/week/single-event.php
  *
  * @package TribeEventsCalendar
  *
