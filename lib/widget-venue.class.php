@@ -32,7 +32,7 @@ if ( ! class_exists( 'TribeVenueWidget' ) ) {
 				'post_type'      => TribeEvents::POSTTYPE,
 				'venue'          => $venue_ID,
 				'posts_per_page' => $count,
-				'eventDisplay'   => 'upcoming'
+				'eventDisplay'   => 'list'
 			), true );
 
 			// If there are no events, and the user has set to hide if empty, don't display the widget.
