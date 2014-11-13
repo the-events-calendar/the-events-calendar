@@ -179,7 +179,7 @@ if ( ! class_exists( 'Tribe_Template_Factory' ) ) {
 		 *
 		 * @return void
 		 **/
-		public function tribe_html_credit() {
+		public static function tribe_html_credit() {
 			$html_credit = "<!--\n". __( 'This calendar is powered by The Events Calendar.', 'tribe-events-calendar' ) . "\nhttp://eventscalendarpro.com/\n-->";
 
 			echo apply_filters( 'tribe_html_credit', $html_credit );
