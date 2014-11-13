@@ -149,15 +149,14 @@
 				$day_blocks = $( '.tribe-mobile-day' ),
 				$mobile_trigger = $( '.mobile-trigger' ),
 				$target_day = $( '.tribe-mobile-day[data-day="' + date + '"]' ),
-				full_date_name = typeof(date_name) == 'undefined' ? '' : date_name,
-				day_data = {"date": date, "date_name": full_date_name};
+				full_date_name = 'undefined' === typeof( date_name )  ? '' : date_name,
+				day_data = { "date": date, "date_name": full_date_name };
 
 			$mobile_trigger
 				.removeClass( 'mobile-active' );
 
 			$mobile_trigger
-				.filter( '.tribe-events-thismonth' )
-				.filter( '[data-day="' + date + '"]' )
+				.filter( '[data-date-name="' + date_name + '"]' )
 				.addClass( 'mobile-active' );
 
 			$day_blocks.hide();
