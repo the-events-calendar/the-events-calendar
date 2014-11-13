@@ -62,7 +62,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 	function tribe_get_template_part( $slug, $name = null, array $data = null ) {
 
 		// Execute code for this part
-		do_action( 'tribe_pre_get_template_part_' . $slug, $slug, $name );
+		do_action( 'tribe_pre_get_template_part_' . $slug, $slug, $name, $data );
 		// Setup possible parts
 		$templates = array();
 		if ( isset( $name ) ) {
@@ -92,7 +92,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 				echo apply_filters( 'tribe_get_template_part_content', $html, $template, $file, $slug, $name );
 			}
 		}
-		do_action( 'tribe_post_get_template_part_' . $slug, $slug, $name );
+		do_action( 'tribe_post_get_template_part_' . $slug, $slug, $name, $data );
 	}
 
 	/**
