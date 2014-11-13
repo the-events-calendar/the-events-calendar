@@ -26,7 +26,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 	<!-- Calendar Header -->
 	<?php do_action( 'tribe_events_before_header' ) ?>
-	<div id="tribe-events-header" <?php tribe_events_the_header_attributes( 'week-header' ) ?>>
+	<div id="tribe-events-header" <?php tribe_events_the_header_attributes() ?>>
 
 	<!-- Header Navigation -->
 	<?php tribe_get_template_part( 'pro/week/nav', 'header' ); ?>
