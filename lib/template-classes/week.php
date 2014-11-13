@@ -16,10 +16,40 @@ if ( ! defined( 'ABSPATH' ) ) {
 if ( ! class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 	class Tribe_Events_Pro_Week_Template extends Tribe_PRO_Template_Factory {
 
+
+		/**
+		 * The handle for the css/js package needed for this view
+		 *
+		 * @var array
+		 */
 		protected $asset_packages = array( 'ajax-weekview' );
-		public static $week_days;
-		public static $current_day = -1;
-		public static $previous_event;
+
+		/**
+		 * Array of days currently being displayed in the week
+		 *
+		 * @var array
+		 */
+		private static $week_days = array();
+
+		/**
+		 * Internal counter for keeping track of the week view loop
+		 *
+		 * @var int
+		 */
+		private static $current_day = -1;
+
+		/**
+		 * Keeps track of the last event displayed
+		 *
+		 * @var object
+		 */
+		private static $previous_event;
+
+		/**
+		 * Hook used for wp ajax response on week view content
+		 *
+		 * @const
+		 */
 		const AJAX_HOOK = 'tribe_week';
 
 		/**
@@ -36,6 +66,11 @@ if ( ! class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 			$this->nothing_found_notice();
 		}
 
+		/**
+		 * Display the text that shows when there were no events found on this view
+		 *
+		 * @return void
+		 */
 		protected function nothing_found_notice() {
 			list( $search_term, $tax_term, $geographic_term ) = $this->get_search_terms();
 
@@ -108,12 +143,20 @@ if ( ! class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 		}
 
 		/**
-		 * Sets up the self::week_days array
+		 * Perform any functions that need to happen before the view is rendered
 		 *
 		 * @return  void
 		 */
 		function setup_view() {
+			$this->setup_days();
+		}
 
+		/**
+		 * Set up the self::week_days array
+		 *
+		 * @return void
+		 */
+		function setup_days() {
 			global $wp_query;
 			$week_days = array();
 
@@ -121,7 +164,8 @@ if ( ! class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 
 				$day       = $wp_query->get( 'start_date' );
 
-				// loop through and create an array with 7 "day" elements, each of which is an array
+				// build an array with 7 "day" elements,
+				// each "day" is an array that contains the date and the associated all day / hourly events
 				for ( $i = 0; $i < 7; $i ++ ) {
 
 					$date               = date( 'Y-m-d', strtotime( $day . "+$i days" ) );
@@ -158,8 +202,16 @@ if ( ! class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 					);
 				}
 			}
-
+//			print_r( $week_days );
 			self::$week_days = $week_days;
+
+		}
+
+		/**
+		 * Return the $week_days array
+		 */
+		public function get_week_days() {
+			return self::$week_days;
 		}
 
 		/**
@@ -226,7 +278,7 @@ if ( ! class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 		}
 
 		/**
-		 * increment the current day for tracking the current day of the week within the loop
+		 * Increment the current day for tracking the current day of the week within the loop
 		 *
 		 * @return void
 		 */
@@ -241,7 +293,7 @@ if ( ! class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 		}
 
 		/**
-		 * reset the internal counter for the current day
+		 * Reset the internal counter for the current day
 		 *
 		 * @return void
 		 */
@@ -290,18 +342,20 @@ if ( ! class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 
 			// Present
 			if ( $day['is_today'] ) {
-				echo 'tribe-week-today';
+				$classes .= 'tribe-week-today';
 			} // Past
 			else if ( $day['is_past'] ) {
-				echo 'tribe-events-past';
+				$classes .= 'tribe-events-past';
 			} // Future
 			else if ( $day['is_future'] ) {
-				echo 'tribe-events-future';
+				$classes .= 'tribe-events-future';
 			}
 			// Has Events
 			if ( ! empty ( $day['all_day_events'] ) || ! empty ( $day['hourly_events'] ) ) {
-				echo ' tribe-events-has-events';
+				$classes .= ' tribe-events-has-events';
 			}
+
+			return $classes;
 		}
 
 		/**
