@@ -808,31 +808,20 @@ if ( ! class_exists( 'TribeEventsQuery' ) ) {
 							$count          = 0;
 							$_day_event_ids = array();
 							foreach ( $raw_counts as $record ) {
-								$record_start = strtotime( $record->EventStartDate );
-								$record_end   = strtotime( $record->EventEndDate );
 
-								/**
-								 * conditions:
-								 * event starts on this day (event start time is between start and end of day)
-								 * event ends on this day (event end time is between start and end of day)
-								 * event starts before start of day and ends after end of day (spans across this day)
-								 * note:
-								 * events that start exactly on the EOD cutoff will count on the following day
-								 * events that end exactly on the EOD cutoff will count on the previous day
+								$event = new stdClass;
+								$event->EventStartDate = $record->EventStartDate;
+								$event->EventEndDate = $record->EventEndDate;
 
-								 */
+								$per_day_limit = apply_filters( 'tribe_events_month_day_limit', tribe_get_option( 'monthEventAmount', '3' ) );
 
-								$event_starts_today       = $record_start >= $start_of_day && $record_start < $end_of_day;
-								$event_ends_today         = $record_end > $start_of_day && $record_end <= $end_of_day;
-								$event_spans_across_today = $record_start < $start_of_day && $record_end > $end_of_day;
-
-								if ( $event_starts_today || $event_ends_today || $event_spans_across_today ) {
+								if ( tribe_event_is_on_date( $formatted_date, $event ) ) {
 									if ( ! empty ( $terms ) ) {
 										if ( ! has_term( $terms, TribeEvents::TAXONOMY, $record->ID ) ) {
 											continue;
 										}
 									}
-									if ( count( $_day_event_ids ) < apply_filters( 'tribe_events_month_day_limit', tribe_get_option( 'monthEventAmount', '3' ) ) ) {
+									if ( count( $_day_event_ids ) < $per_day_limit ) {
 										$_day_event_ids[] = $record->ID;
 									}
 									$count ++;
