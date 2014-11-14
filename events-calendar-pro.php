@@ -948,6 +948,8 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			// recurring "all" view
 			if ( tribe_is_showing_all() ) {
 				$template = TribeEventsTemplates::getTemplateHierarchy( 'list' );
+				// don't show pagination on the "all" view
+				add_filter( 'tribe_get_template_part_path_list/nav.php', '__return_empty_string' );
 			}
 
 			return $template;
