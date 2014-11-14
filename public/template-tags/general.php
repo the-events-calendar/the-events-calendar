@@ -1222,9 +1222,9 @@ if ( class_exists( 'TribeEvents' ) ) {
 
 			// Re-enable recurring event info
 			$ecp->enable_recurring_info_tooltip();
-			} else {
+		} else {
 			$date_display = strip_tags( tribe_events_event_schedule_details( $event ) );
-				}
+		}
 
 		if ( function_exists( 'has_post_thumbnail' ) && has_post_thumbnail( $event->ID ) ) {
 			$has_image = true;
@@ -1468,6 +1468,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 *
 	 * @param $value
 	 * @param $key
+	 * @todo - remove, only used in the meta walker
 	 */
 	function tribe_count_hierarchical_keys( $value, $key ) {
 		global $tribe_count_hierarchical_increment;
@@ -1480,6 +1481,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 * @param array $walk
 	 *
 	 * @return int
+	 * @todo - remove, only used in the meta walker
 	 */
 	function tribe_count_hierarchical( array $walk ) {
 		global $tribe_count_hierarchical_increment;
@@ -1517,15 +1519,8 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 * @return bool
 	 **/
 	function tribe_events_is_view_enabled( $view ) {
-		$enabled       = false;
-		$enabled_views = apply_filters( 'tribe-events-bar-views', array() );
-		foreach ( $enabled_views as $enabled_view ) {
-			if ( $enabled_view['displaying'] == $view ) {
-				$enabled = true;
-				break;
-			}
-		}
-
+		$enabled_views = tribe_events_enabled_views();
+		$enabled = in_array( $view, $enabled_views );
 		return apply_filters( 'tribe_events_is_view_enabled', $enabled, $view, $enabled_views );
 	}
 
