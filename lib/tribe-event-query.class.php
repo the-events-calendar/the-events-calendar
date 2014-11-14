@@ -642,7 +642,8 @@ if ( ! class_exists( 'TribeEventsQuery' ) ) {
 				$order   = ( isset( $query->order ) && ! empty( $query->order ) ) ? $query->order : $query->get( 'order' );
 				$orderby = ( isset( $query->orderby ) && ! empty( $query->orderby ) ) ? $query->orderby : $query->get( 'orderby' );
 
-				$order_sql = "DATE(MIN({$postmeta_table}.meta_value)) {$order}, TIME({$postmeta_table}.meta_value) {$order}";
+//				$order_sql = "DATE(MIN({$postmeta_table}.meta_value)) {$order}, TIME({$postmeta_table}.meta_value) {$order}";
+				$order_sql = "EventStartDate {$order}";
 
 				do_action( 'log', 'orderby', 'default', $orderby );
 
@@ -803,8 +804,8 @@ if ( ! class_exists( 'TribeEventsQuery' ) ) {
 						}
 						for ( $i = 0, $date = $start_date; $i <= $days; $i ++, $date->modify( '+1 day' ) ) {
 							$formatted_date = $date->format( 'Y-m-d' );
-							$start_of_day   = strtotime( tribe_event_beginning_of_day( $formatted_date ) );
-							$end_of_day     = strtotime( tribe_event_end_of_day( $formatted_date ) ) + 1;
+							$start_of_day   = strtotime( $formatted_date );
+							$end_of_day     = strtotime( $formatted_date ) + 1;
 							$count          = 0;
 							$_day_event_ids = array();
 							foreach ( $raw_counts as $record ) {
