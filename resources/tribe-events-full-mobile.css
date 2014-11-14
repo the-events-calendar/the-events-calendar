@@ -251,6 +251,13 @@ a.tribe-events-gmap {
 	background-color: #333;
 	margin: 5px auto;
 }
+.tribe-events-calendar .tribe-events-has-events.tribe-events-othermonth:after {
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=40)";
+		filter: alpha(opacity=40);
+  -moz-opacity: 0.4;
+-khtml-opacity: 0.4;
+	   opacity: 0.4;
+}
 /* Actual Event Styles */
 #tribe-mobile-container .hentry.vevent {
 	padding: 20px 0 16px;
