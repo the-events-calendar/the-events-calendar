@@ -275,7 +275,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 			}
 		}
 
-		$is_event_on_date = false;
+		$event_is_on_date = false;
 		$start_of_day     = tribe_event_beginning_of_day( $date, 'U' );
 		$end_of_day       = tribe_event_end_of_day( $date, 'U' );
 		$event_start      = tribe_get_start_date( $event, null, 'U' );
