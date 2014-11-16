@@ -4,7 +4,7 @@
  * @version 3.0
  */
 
-(function( window, document, $, td, te, tf, ts, tt, dbug ) {
+(function( window, document, $, td, te, tf, ts, tt, config, dbug ) {
 
 	/*
 	 * $    = jQuery
@@ -27,6 +27,10 @@
 
 		if ( $nav_link.length ) {
 			base_url = $nav_link.first().attr( 'href' ).slice( 0, -8 );
+		}
+
+		if ( td.default_permalinks ) {
+			base_url = base_url.split("?")[0];
 		}
 
 		if ( $( '.tribe-events-calendar' ).length && $( '#tribe-events-bar' ).length ) {
@@ -90,7 +94,11 @@
 						td.cur_url = $( '#tribe-events-header' ).data( 'baseurl' ) + ts.date + '/';
 					}
 					else {
-						td.cur_url = base_url + ts.date + '/';
+						if ( td.default_permalinks ) {
+							td.cur_url = base_url;
+						} else {
+							td.cur_url = base_url + ts.date + '/';
+						}
 					}
 					ts.popping = false;
 					tf.pre_ajax( function() {
@@ -275,6 +283,9 @@
 				else {
 					td.cur_url = $this.attr( "href" );
 				}
+				if ( td.default_permalinks ) {
+					td.cur_url = td.cur_url.split("?")[0];
+				}
 				ts.popping = false;
 				tf.pre_ajax( function() {
 					tribe_events_calendar_ajax_post();
@@ -391,6 +402,15 @@
 
 				ts.url_params = {};
 
+				if ( td.default_permalinks ) {
+					if( !ts.url_params.hasOwnProperty( 'post_type' ) ){
+						ts.url_params['post_type'] = config.events_post_type;
+					}
+					if( !ts.url_params.hasOwnProperty( 'eventDisplay' ) ){
+						ts.url_params['eventDisplay'] = ts.view;
+					}
+				}
+
 				$( te ).trigger( 'tribe_ev_serializeBar' );
 
 				ts.params = $.param( ts.params );
@@ -398,7 +418,7 @@
 
 				$( te ).trigger( 'tribe_ev_collectParams' );
 
-				if ( ts.pushcount > 0 || ts.filters ) {
+				if ( ts.pushcount > 0 || ts.filters || td.default_permalinks ) {
 					ts.do_string = true;
 					ts.pushstate = false;
 				}
@@ -498,4 +518,4 @@
 		// @endif
 	} );
 
-})( window, document, jQuery, tribe_ev.data, tribe_ev.events, tribe_ev.fn, tribe_ev.state, tribe_ev.tests, tribe_debug );
+})( window, document, jQuery, tribe_ev.data, tribe_ev.events, tribe_ev.fn, tribe_ev.state, tribe_ev.tests, tribe_js_config, tribe_debug );

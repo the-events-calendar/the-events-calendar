@@ -56,7 +56,7 @@
 =============================================*/
 
 /* Actual Event Styles */	
-#tribe-mobile-container .hentry.vevent ~ .hentry.vevent {
+#tribe-mobile-container .type-tribe_events ~ .type-tribe_events {
 	border-top: 1px dotted #2f2f2f;
 }
 

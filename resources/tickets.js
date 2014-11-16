@@ -314,7 +314,7 @@ var ticketHeaderImage = window.ticketHeaderImage || {};
 			$remove.show();
 		}
 
-		$remove.live( 'click', function( e ) {
+		$('body').on( 'click', '#tribe_ticket_header_remove', function( e ) {
 
 			e.preventDefault();
 			$preview.html( '' );

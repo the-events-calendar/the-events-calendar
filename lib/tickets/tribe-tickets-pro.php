@@ -1,8 +1,4 @@
 <?php
-
-/**
- *
- */
 class TribeEventsTicketsPro {
 	/**
 	 * Singleton instance of this class
@@ -42,6 +38,12 @@ class TribeEventsTicketsPro {
 	private $attendees_table;
 
 	/**
+	 * @var Tribe__Events__Tickets__Google_Event_Data
+	 */
+	protected $google_event_data;
+
+
+	/**
 	 *    Class constructor.
 	 */
 	public function __construct() {
@@ -52,6 +54,7 @@ class TribeEventsTicketsPro {
 		add_filter( 'post_row_actions',                         array( $this, 'attendees_row_action'            )        );
 
 		$this->path = trailingslashit( dirname( dirname( dirname( __FILE__ ) ) ) );
+		$this->google_event_data = new Tribe__Events__Tickets__Google_Event_Data;
 	}
 
 	/**

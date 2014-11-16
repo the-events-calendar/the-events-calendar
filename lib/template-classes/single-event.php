@@ -19,6 +19,20 @@ if ( ! class_exists( 'Tribe_Events_Single_Event_Template' ) ) {
 
 		protected $body_class = 'events-single';
 
+		public function hooks() {
+			parent::hooks();
+
+			// google data markup
+			add_action( 'wp_head', array( $this, 'google_data_markup' ) );
+
+		}
+
+		public function google_data_markup() {
+			require_once TribeEvents::instance()->pluginPath.'lib/Google_Data_Markup.php';
+			$html = apply_filters( 'tribe_google_data_markup_json', Tribe__Events__Google_Data_Markup::instance()->script_block() );
+			echo $html;
+		}
+
 		/**
 		 * Setup meta display in this template
 		 *
@@ -94,7 +108,6 @@ if ( ! class_exists( 'Tribe_Events_Single_Event_Template' ) ) {
 		 * @return void
 		 **/
 		public function set_notices() {
-
 			parent::set_notices();
 
 			global $post;

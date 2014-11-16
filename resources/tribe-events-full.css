@@ -139,13 +139,6 @@ ul.tribe-events-sub-nav a:hover,
 	text-decoration: none;
 }
 
-/* View Extra Padding */
-.tribe-events-day.page .hentry,
-.tribe-events-week.page .hentry {
-	margin: 0;
-	padding: 0 0 15px 0;
-}
-
 /* Global Main Button Style */
 .tribe-events-button, 
 #tribe-events .tribe-events-button {
@@ -506,13 +499,13 @@ select.tribe-events-dropdown {
 	margin-bottom: 60px;
 }
 
-.tribe-events-list .vevent.hentry {
+.tribe-events-list .type-tribe_events {
 	border-bottom: 1px solid #ddd;
 	padding: 2.25em 0;
 	margin: 0;
 }
 
-.tribe-events-list .vevent.hentry.tribe-events-first {
+.tribe-events-list .type-tribe_events.tribe-events-first {
 	padding-top: 0;
 }
 
@@ -646,11 +639,11 @@ select.tribe-events-dropdown {
 	padding: 6px 10px;
 }
 
-.tribe-events-list-separator-month + .vevent.hentry.tribe-events-first {
+.tribe-events-list-separator-month + .type-tribe_events.tribe-events-first {
 	padding-top: 2.25em;
 }
 
-.tribe-events-list .vevent.hentry.tribe-event-end-month {
+.tribe-events-list .type-tribe_events.tribe-event-end-month {
 	border-bottom: 0;
 	padding-bottom: 0;
 }
@@ -663,7 +656,7 @@ select.tribe-events-dropdown {
 	clear: both;
 }
 
-.tribe-events-loop .vevent.tribe-events-last {
+.tribe-events-loop .type-tribe_events.tribe-events-last {
 	border-bottom: 0;
 }
 .tribe-events-loop .tribe-events-content {
@@ -864,7 +857,7 @@ select.tribe-events-dropdown {
 	background-color: #eee;
 	padding: 6px 10px;
 }
-.tribe-events-day .tribe-events-day-time-slot .vevent {
+.tribe-events-day .tribe-events-day-time-slot .type-tribe_events {
 	margin-left: 5%;
 }
 
@@ -910,9 +903,6 @@ select.tribe-events-dropdown {
 	-webkit-box-sizing: border-box;
 	   -moz-box-sizing: border-box;
 			box-sizing: border-box;
-}
-.vevent.viewmore {
-	font-weight:bold;
 }
 
 /* Global Tooltips */
@@ -980,7 +970,7 @@ select.tribe-events-dropdown {
 }
 
 /* Large Calendar Specifics */
-.events-archive.events-gridview #tribe-events-content table .vevent {
+.events-archive.events-gridview #tribe-events-content table .type-tribe_events {
 	margin: 0 5%;
 	padding: 6px 8px;
 	border-bottom: 1px solid #e7e7e7;

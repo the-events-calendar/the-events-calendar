@@ -171,16 +171,6 @@ jQuery( document ).ready( function( $ ) {
 			$end_month.change();
 		} );
 
-		// Form validation todo: what does this do?
-
-		$( "form[name='post']" ).submit( function() {
-			if ( $( "#isEventNo" ).attr( 'checked' ) === true || $( "#isEventNo" ).attr( 'checked' ) === "checked" ) {
-				// do not validate since this is not an event
-				return true;
-			}
-			return true;
-		} );
-
 		// hide unnecessary fields
 		var venueFields = $( ".venue" ),
 			savedVenue = $( "#saved_venue" );

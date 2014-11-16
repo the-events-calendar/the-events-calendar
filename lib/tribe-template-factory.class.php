@@ -128,7 +128,7 @@ if ( ! class_exists( 'Tribe_Template_Factory' ) ) {
 			add_filter( 'tribe_events_event_classes', array( $this, 'event_classes' ) );
 
 			// add Tribe credit in html comments
-			add_action( 'wp_footer', array( $this, 'tribe_html_credit' ) );
+			add_action( 'wp_footer', array( __CLASS__, 'tribe_html_credit' ) );
 
 		}
 
@@ -179,7 +179,7 @@ if ( ! class_exists( 'Tribe_Template_Factory' ) ) {
 		 *
 		 * @return void
 		 **/
-		public function tribe_html_credit() {
+		public static function tribe_html_credit() {
 			$html_credit = "<!--\n". __( 'This calendar is powered by The Events Calendar.', 'tribe-events-calendar' ) . "\nhttp://eventscalendarpro.com/\n-->";
 
 			echo apply_filters( 'tribe_html_credit', $html_credit );
@@ -229,19 +229,29 @@ if ( ! class_exists( 'Tribe_Template_Factory' ) ) {
 		 * Set up the notices for this template
 		 *
 		 * @return void
-		 * @todo child classes are overriding this, check if it's necessary on all 6 views
 		 **/
 		public function set_notices() {
+			// By default we only display notices if no events could be found
+			if ( have_posts() ) {
+				return;
+			}
+
+			// Set an appropriate no-results-found message
+			$this->nothing_found_notice();
+		}
+
+		/**
+		 * Returns an array containing the search term, tax term and geographic term
+		 * for the current request. Each may be empty.
+		 *
+		 * @return array
+		 **/
+		protected function get_search_terms() {
 			global $wp_query;
 			$tribe           = TribeEvents::instance();
 			$geographic_term = '';
 			$search_term     = '';
 			$tax_term        = '';
-
-			// By default we only display notices if no events could be found
-			if ( have_posts() ) {
-				return;
-			}
 
 			// Do we have a keyword or place name search?
 			if ( ! empty( $wp_query->query_vars['s'] ) ) {
@@ -256,7 +266,20 @@ if ( ! class_exists( 'Tribe_Template_Factory' ) ) {
 				$tax_term = esc_html( $tax_term->name );
 			}
 
-			// Set an appropriate notice
+			// Set an appropriate no-results-found message
+			return array(
+				$search_term,
+				$tax_term,
+				$geographic_term
+			);
+		}
+
+		/**
+		 * Sets an appropriate no results found message. This may be overridden in child classes.
+		 */
+		protected function nothing_found_notice() {
+			list( $search_term, $tax_term, $geographic_term ) = $this->get_search_terms();
+
 			if ( ! empty( $search_term ) ) {
 				TribeEvents::setNotice( 'event-search-no-results', sprintf( __( 'There were no results found for <strong>"%s"</strong>.', 'tribe-events-calendar' ), esc_html( $search_term ) ) );
 			} elseif ( ! empty( $geographic_term ) ) {
@@ -543,6 +566,11 @@ if ( ! class_exists( 'Tribe_Template_Factory' ) ) {
 					$deps = array_merge( $deps, array( 'jquery' ), self::$vendor_scripts );
 					$path = self::getMinFile( $resources_url . 'tribe-events.js', true );
 					wp_enqueue_script( $prefix . '-calendar-script', $path, $deps, apply_filters( 'tribe_events_js_version', TribeEvents::VERSION ) );
+					$js_config_array = array(
+						'permalink_settings' => get_option( 'permalink_structure' ),
+						'events_post_type'   => TribeEvents::POSTTYPE
+					);
+					wp_localize_script( $prefix . '-calendar-script', 'tribe_js_config', $js_config_array );
 					break;
 				case 'datepicker' : // Vendor: jQuery Datepicker
 					wp_enqueue_script( 'jquery-ui-datepicker' );
