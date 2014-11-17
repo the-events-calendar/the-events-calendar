@@ -7,8 +7,20 @@
  *
  * Override this template in your own theme by creating a file at [your-theme]/tribe-events/widgets/list-widget.php
  *
- * When the template is loaded, the following vars are set: $start, $end, $venue,
- * $address, $city, $state, $province'], $zip, $country, $phone, $cost
+ * When the template is loaded, the following vars are set:
+ *
+ * @var string $start
+ * @var string $end
+ * @var string $venue
+ * @var string $address
+ * @var string $city
+ * @var string $state
+ * @var string $province
+ * @var string $zip
+ * @var string $country
+ * @var string $phone
+ * @var string $cost
+ * @var array  $instance
  *
  * @package TribeEventsCalendarPro
  *
@@ -49,7 +61,7 @@ if ( $posts ):
 
 		<!-- Event  -->
 		<div class="<?php tribe_events_event_classes() ?>">
-			<?php tribe_get_template_part( 'pro/widgets/modules/single-event' ) ?>
+			<?php tribe_get_template_part( 'pro/widgets/modules/single-event', null, $instance ) ?>
 		</div><!-- .hentry .vevent -->
 
 		<?php do_action( 'tribe_events_widget_list_inside_after_loop' ) ?>

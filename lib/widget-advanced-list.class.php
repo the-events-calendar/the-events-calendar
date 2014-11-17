@@ -111,7 +111,8 @@ class TribeEventsAdvancedListWidget extends TribeEventsListWidget {
 			'category'           => false, // @todo remove this element after 3.7
 			'organizer'          => false,
 			'operand'            => 'OR',
-			'filters'            => ''
+			'filters'            => '',
+			'instance'           => &$this->instance
 		) );
 	}
 
