@@ -103,7 +103,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			require_once( $this->pluginPath . 'lib/tribe-geoloc.class.php' );
 			require_once( $this->pluginPath . 'lib/EmbeddedMaps.php' );
 			require_once( $this->pluginPath . 'lib/SingleEventMeta.php' );
-			require_once( $this->pluginPath . 'lib/MiniCalendarShortcode.php' );
+			require_once( $this->pluginPath . 'lib/Mini_Calendar_Shortcode.php' );
 
 			if ( TribeEventsPro_SchemaUpdater::update_required() ) {
 				add_action( 'admin_init', array( 'TribeEventsPro_SchemaUpdater', 'init' ), 10, 0 );
