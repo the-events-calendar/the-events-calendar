@@ -55,7 +55,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		public $embedded_maps;
 
 		/**
-		 * @var Tribe__Events__Pro__MiniCalendarShortcode
+		 * @var Tribe__Events__Pro__Mini_Calendar_Shortcode
 		 */
 		public $mini_calendar_shortcode;
 
@@ -416,7 +416,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			$this->displayMetaboxCustomFields();
 			$this->single_event_meta = new TribeEventsPro_SingleEventMeta;
 			$this->embedded_maps = new TribeEventsPro_EmbeddedMaps;
-			$this->mini_calendar_shortcode = new Tribe__Events__Pro__MiniCalendarShortcode;
+			$this->mini_calendar_shortcode = new Tribe__Events__Pro__Mini_Calendar_Shortcode;
 		}
 
 		/**

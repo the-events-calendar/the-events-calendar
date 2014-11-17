@@ -1,5 +1,5 @@
 <?php
-class Tribe__Events__Pro__MiniCalendarShortcode {
+class Tribe__Events__Pro__Mini_Calendar_Shortcode {
 	/**
 	 * The shortcode allows filtering by event categories and by post tags,
 	 * in line with what the calendar widget itself supports.
