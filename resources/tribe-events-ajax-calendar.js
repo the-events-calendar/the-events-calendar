@@ -150,7 +150,7 @@
 				$mobile_trigger = $( '.mobile-trigger' ),
 				$target_day = $( '.tribe-mobile-day[data-day="' + date + '"]' ),
 				full_date_name = 'undefined' === typeof( date_name )  ? '' : date_name,
-				day_data = { "date": date, "date_name": full_date_name};
+				day_data = { "date": date, "date_name": full_date_name };
 
 			$mobile_trigger
 				.removeClass( 'mobile-active' );
