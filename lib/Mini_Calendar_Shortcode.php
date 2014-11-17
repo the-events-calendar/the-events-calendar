@@ -1,4 +1,20 @@
 <?php
+
+/**
+ * Implements a shortcode that wraps the existing calendar widget.
+ *
+ * Basic usage is as follows:
+ *
+ *     [tribe_mini_calendar]
+ *
+ * Slightly more advanced usage, demonstrating tag and category filtering, is as follows:
+ *
+ *     [tribe_mini_calendar] tag="black-swan-event, #20, #60" categories="twist,samba, #491, groove"]
+ *
+ * Note that slugs and numeric IDs are both acceptable within comma separated lists of terms
+ * but IDs must be prefixed with a # symbol (this is because a number-only slug is possible, so
+ * we need to be able to differentiate between them).
+ */
 class Tribe__Events__Pro__Mini_Calendar_Shortcode {
 	/**
 	 * The shortcode allows filtering by event categories and by post tags,
@@ -88,9 +104,9 @@ class Tribe__Events__Pro__Mini_Calendar_Shortcode {
 		$term = trim( $term );
 		if ( empty( $term ) ) return;
 
-		// Accept term IDs...
-		if ( is_numeric( $term ) && $term == absint( $term ) ) {
-			$this->filters[$tax][] = $term;
+		// Accept term IDs - these should be prefixed with a # symbol
+		if ( 0 === strpos( $term, '#' ) && is_numeric( substr( $term, 1 ) ) ) {
+			$this->filters[$tax][] = absint( substr( $term, 1 ) );
 		}
 		// Also accept term slugs...
 		else {
