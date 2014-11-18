@@ -1777,9 +1777,9 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 	.tribe-bar-view-list a[class^="tribe-icon-"] {
 		background-image: url(images/events-bar/icon-month@2x.png);
 	}	
-	.tribe-select2-results-views span.tribe-icon-upcoming,
-	.tribe-bar-views-list span.tribe-icon-upcoming,
-	.tribe-bar-view-list a.tribe-icon-upcoming {
+	.tribe-select2-results-views span.tribe-icon-list,
+	.tribe-bar-views-list span.tribe-icon-list,
+	.tribe-bar-view-list span[class^="tribe-icon-"] {
 		background-image: url(images/events-bar/icon-list@2x.png);
 	}
 	.tribe-select2-results-views span.tribe-icon-month,
