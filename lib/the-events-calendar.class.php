@@ -409,7 +409,7 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 			add_filter( 'admin_footer_text', array( $this, 'tribe_admin_footer_text' ), 1, 2 );
 			add_action( 'admin_menu', array( $this, 'addEventBox' ) );
 			add_action( 'wp_insert_post', array( $this, 'addPostOrigin' ), 10, 2 );
-			add_action( 'save_post_' . self::POSTTYPE, array( $this, 'addEventMeta' ), 15, 2 );
+			add_action( 'save_post', array( $this, 'addEventMeta' ), 15, 2 );
 
 			add_action( 'save_post_' . self::VENUE_POST_TYPE, array( $this, 'save_venue_data' ), 16, 2 );
 			add_action( 'save_post_' . self::ORGANIZER_POST_TYPE, array( $this, 'save_organizer_data' ), 16, 2 );
@@ -2944,10 +2944,10 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 		public function addEventMeta( $postId, $post ) {
 
 			// Remove this hook to avoid an infinite loop, because saveEventMeta calls wp_update_post when the post is set to always show in calendar
-			remove_action( 'save_post_' . self::POSTTYPE, array( $this, 'addEventMeta' ), 15, 2 );
+			remove_action( 'save_post', array( $this, 'addEventMeta' ), 15, 2 );
 
 			// only continue if it's an event post
-			if ( $post->post_type != self::POSTTYPE || defined( 'DOING_AJAX' ) ) {
+			if ( $post->post_type !== self::POSTTYPE || defined( 'DOING_AJAX' ) ) {
 				return;
 			}
 			// don't do anything on autosave or auto-draft either or massupdates

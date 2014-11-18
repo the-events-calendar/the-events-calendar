@@ -128,7 +128,7 @@ if ( ! class_exists( 'Tribe_Template_Factory' ) ) {
 			add_filter( 'tribe_events_event_classes', array( $this, 'event_classes' ) );
 
 			// add Tribe credit in html comments
-			add_action( 'wp_footer', array( $this, 'tribe_html_credit' ) );
+			add_action( 'wp_footer', array( __CLASS__, 'tribe_html_credit' ) );
 
 		}
 
@@ -179,7 +179,7 @@ if ( ! class_exists( 'Tribe_Template_Factory' ) ) {
 		 *
 		 * @return void
 		 **/
-		public function tribe_html_credit() {
+		public static function tribe_html_credit() {
 			$html_credit = "<!--\n". __( 'This calendar is powered by The Events Calendar.', 'tribe-events-calendar' ) . "\nhttp://eventscalendarpro.com/\n-->";
 
 			echo apply_filters( 'tribe_html_credit', $html_credit );
