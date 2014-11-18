@@ -74,11 +74,12 @@ module.exports = function(grunt) {
 
 	grunt.registerTask(
 		'default', [
+			'clean:resourcecss',
 			'jshint',
 			'preprocess',
 			'uglify',
 			'cssmin',
-			'clean'
+			'clean:resourcescripts'
 		]);
 
 	grunt.registerTask(

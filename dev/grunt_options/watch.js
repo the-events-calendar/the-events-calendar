@@ -29,6 +29,7 @@ module.exports = {
 			'<%= pkg._resourcepath %>/!*.min.css'
 		],
 		tasks: [
+			'clean:resourcecss',
 			'cssmin:resourcecss'
 		],
 		options: {

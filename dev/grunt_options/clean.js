@@ -26,6 +26,10 @@ module.exports = {
 		'<%= pkg._resourcepath %>/tribe-events-week.processed.js',
 		'<%= pkg._resourcepath %>/widget-calendar.processed.js',
 		'<%= pkg._resourcepath %>/widget-countdown.processed.js'
+	],
+
+	resourcecss: [
+		'<%= pkg._resourcepath %>/*.min.css'
 	]
 
 };
