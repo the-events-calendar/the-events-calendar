@@ -1671,8 +1671,7 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 
 /* Default icon */
 .tribe-select2-results-views span[class^="tribe-icon-"],
-.tribe-bar-views-list span[class^="tribe-icon-"],
-.tribe-bar-view-list a[class^="tribe-icon-"] {
+.tribe-bar-views-list span[class^="tribe-icon-"] {
 	background-image: url(images/events-bar/icon-month.png);
 	-webkit-background-size: 15px 16px;
     		background-size: 15px 16px;
@@ -1680,7 +1679,7 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 
 .tribe-select2-results-views span.tribe-icon-list,
 .tribe-bar-views-list span.tribe-icon-list,
-.tribe-bar-view-list a.tribe-icon-list {
+.tribe-bar-view-list span[class^="tribe-icon-"] {
 	background-image: url(images/events-bar/icon-list.png);
 	-webkit-background-size: 15px 10px;
     		background-size: 15px 10px;
