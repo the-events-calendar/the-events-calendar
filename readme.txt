@@ -179,6 +179,7 @@ The plugin is produced by <a href="http://m.tri.be/45">Modern Tribe Inc</a>.
 * Indonesian by Didik Priyanto
 * Italian from Gabriele Taffi
 * Latvian from Raivis Dejus
+* Lithuanian from Gediminas Pankevicius
 * Montenegrin from Sasa Vukovic
 * Norwegian Bokmål by Morten Ruud
 * Norwegian Nynorsk by Torbjørn Lauen
@@ -226,9 +227,10 @@ Our Premium Plugins:
 
 = 3.9 =
 
-* Incorporated updated Icelandic translation files courtesy of Baldvin Örn Berndsen
-* Incorporated updated German translation files courtesy of Oliver Heinrich
+* Incorporated updated Icelandic translation files, courtesy of Baldvin Örn Berndsen
+* Incorporated updated German translation files, courtesy of Oliver Heinrich
 * Incorporated updated Greek translation files, courtesy of Yannis Troullinos
+* Incorporated new Lithuanian translation files, courtesy of Gediminas Pankevicius
 
 = 3.8.1 =
 

@@ -73,7 +73,7 @@ jQuery( document ).ready( function( $ ) {
 		}
 	} );
 
-	$( '.ui-dialog-titlebar .ui-dialog-titlebar-close' ).live( 'click', function() {
+	$( 'body' ).live( 'click', '.ui-dialog-titlebar .ui-dialog-titlebar-close', function() {
 		resetSubmitButton();
 	} );
 

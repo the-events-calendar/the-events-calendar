@@ -33,9 +33,9 @@ class TribeEventsMiniCalendarWidget extends WP_Widget {
 		echo $args['before_widget'];
 
 		$defaults = array( 'title'   => __( 'Events Calendar', 'tribe-events-calendar-pro' ),
-		                   'count'   => 5,
-		                   'filters' => null,
-		                   'operand' => 'OR'
+			'count'   => 5,
+			'filters' => null,
+			'operand' => 'OR'
 		);
 		$instance = wp_parse_args( (array) $instance, $defaults );
 
@@ -74,10 +74,10 @@ class TribeEventsMiniCalendarWidget extends WP_Widget {
 
 	function form( $instance ) {
 		$defaults = array( 'title'   => __( 'Events Calendar', 'tribe-events-calendar-pro' ),
-		                   'layout'  => "tall",
-		                   'count'   => 5,
-		                   'operand' => 'OR',
-		                   'filters' => null
+			'layout'  => "tall",
+			'count'   => 5,
+			'operand' => 'OR',
+			'filters' => null
 		);
 		$instance = wp_parse_args( (array) $instance, $defaults );
 
@@ -88,5 +88,4 @@ class TribeEventsMiniCalendarWidget extends WP_Widget {
 
 		include $ts->pluginPath . 'admin-views/widget-calendar.php';
 	}
-
 }

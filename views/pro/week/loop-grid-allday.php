@@ -35,10 +35,10 @@ if ( ! empty( $all_day_array ) ) :
 				<div title="<?php tribe_events_week_get_the_date(); ?>" class="tribe-events-mobile-day column <?php tribe_events_week_column_classes(); ?>">
 					<?php foreach ( tribe_events_week_get_all_day_map() as $all_day_cols ) : tribe_events_week_the_day_map(); ?>
 						<?php tribe_get_template_part( 'pro/week/single-event', 'allday' ); ?>
-	</div><!-- .tribe-grid-content-wrap -->
 					<?php endforeach; ?>
 				</div><!-- allday column -->
 			<?php endwhile; ?>
+		</div><!-- .tribe-grid-content-wrap -->
 	</div><!-- .tribe-grid-allday -->
 <?php
 endif;

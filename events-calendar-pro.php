@@ -54,6 +54,11 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		 */
 		public $embedded_maps;
 
+		/**
+		 * @var Tribe__Events__Pro__Mini_Calendar_Shortcode
+		 */
+		public $mini_calendar_shortcode;
+
 		const REQUIRED_TEC_VERSION = '3.8.1';
 		const VERSION = '3.8.1';
 
@@ -98,6 +103,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			require_once( $this->pluginPath . 'lib/tribe-geoloc.class.php' );
 			require_once( $this->pluginPath . 'lib/EmbeddedMaps.php' );
 			require_once( $this->pluginPath . 'lib/SingleEventMeta.php' );
+			require_once( $this->pluginPath . 'lib/Mini_Calendar_Shortcode.php' );
 
 			if ( TribeEventsPro_SchemaUpdater::update_required() ) {
 				add_action( 'admin_init', array( 'TribeEventsPro_SchemaUpdater', 'init' ), 10, 0 );
@@ -188,7 +194,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			add_action( 'tribe_events_pre_get_posts' , array( $this, 'setup_hide_recurrence_in_query' ) );
 
 			add_filter( 'wp' , array( $this, 'detect_recurrence_redirect' ) );
-			add_filter( 'wp', array( $this, 'filter_canonical_link_on_recurring_events' ), 10, 1 );
+			add_filter( 'template_redirect', array( $this, 'filter_canonical_link_on_recurring_events' ), 10, 1 );
 
 			$this->permalink_editor = apply_filters( 'tribe_events_permalink_editor', new TribeEventsPro_RecurrencePermalinks() );
 			add_filter( 'post_type_link', array(
@@ -410,6 +416,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			$this->displayMetaboxCustomFields();
 			$this->single_event_meta = new TribeEventsPro_SingleEventMeta;
 			$this->embedded_maps = new TribeEventsPro_EmbeddedMaps;
+			$this->mini_calendar_shortcode = new Tribe__Events__Pro__Mini_Calendar_Shortcode;
 		}
 
 		/**
@@ -941,6 +948,8 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			// recurring "all" view
 			if ( tribe_is_showing_all() ) {
 				$template = TribeEventsTemplates::getTemplateHierarchy( 'list' );
+				// don't show pagination on the "all" view
+				add_filter( 'tribe_get_template_part_path_list/nav.php', '__return_empty_string' );
 			}
 
 			return $template;
@@ -1086,7 +1095,11 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 
 				$geoloc = TribeEventsGeoLoc::instance();
 
-				$data = array( 'geocenter' => $geoloc->estimate_center_point() );
+				$data = array(
+					'geocenter' => $geoloc->estimate_center_point(),
+					'map_tooltip_event' => __( 'Event: ', 'tribe-events-calendar-pro' ),
+					'map_tooltip_address' => __( 'Address: ', 'tribe-events-calendar-pro' )
+				);
 
 				$data = apply_filters( 'tribe_events_pro_localize_script', $data, 'TribeEventsPro', 'tribe-events-pro' );
 
