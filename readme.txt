@@ -338,6 +338,7 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Added a Modern Tribe credit in the HTML page source in the footer - this can be removed with the following snippet: http://m.tri.be/p6
 * Added links on the settings page to view Welcome/Updated pages
 * Fixed an issue where the incorrect icon was displaying for the 'List' option in the view switcher
+* Fixed a translation issue with the Organizer & Venue field labels on the Add/Edit Event screen
 
 = 3.8.1 =
 
