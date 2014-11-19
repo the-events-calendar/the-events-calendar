@@ -327,6 +327,7 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 
 = 3.9 =
 
+* Lowered the aggressiveness of the activation/upgrade page to improve compatibility with other plugins
 * Incorporated updated Icelandic translation files, courtesy of Baldvin Örn Berndsen
 * Incorporated updated German translation files, courtesy of Oliver Heinrich
 * Incorporated updated Greek translation files, courtesy of Yannis Troullinos
