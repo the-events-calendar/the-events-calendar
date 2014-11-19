@@ -231,6 +231,8 @@ Our Premium Plugins:
 * Incorporated updated German translation files, courtesy of Oliver Heinrich
 * Incorporated updated Greek translation files, courtesy of Yannis Troullinos
 * Incorporated new Lithuanian translation files, courtesy of Gediminas Pankevicius
+* Fixed an issue where some of the view date pickers did not reflect the 'Week starts on' WordPress setting
+* Updated CSS selectors to no longer be reliant on microformat classes
 
 = 3.8.1 =
 
