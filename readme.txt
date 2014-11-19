@@ -332,6 +332,12 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Incorporated updated German translation files, courtesy of Oliver Heinrich
 * Incorporated updated Greek translation files, courtesy of Yannis Troullinos
 * Incorporated new Lithuanian translation files, courtesy of Gediminas Pankevicius
+* Fixed an issue where the list view date picker did not reflect the 'Week starts on' WordPress setting
+* Updated CSS selectors to no longer be reliant on microformat classes
+* Fixed a layout issue with TwentyFourteen child themes
+* Added a Modern Tribe credit in the HTML page source in the footer - this can be removed with the following snippet: http://m.tri.be/p6
+* Added links on the settings page to view Welcome/Updated pages
+* Fixed an issue where the incorrect icon was displaying for the 'List' option in the view switcher
 
 = 3.8.1 =
 
