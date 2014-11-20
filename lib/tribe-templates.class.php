@@ -50,7 +50,7 @@ if ( ! class_exists( 'TribeEventsTemplates' ) ) {
 			add_action( 'template_redirect', 'tribe_initialize_view' );
 
 			// make sure we enter the loop by always having some posts in $wp_query
-			add_action( 'template_redirect', array( __CLASS__, 'maybeSpoofQuery' ) );
+			add_action( 'wp_head', array( __CLASS__, 'maybeSpoofQuery' ), 100 );
 
 			// maybe modify the global post object to blank out the title
 			add_action( 'tribe_tec_template_chooser', array( __CLASS__, 'maybe_modify_global_post_title' ) );
