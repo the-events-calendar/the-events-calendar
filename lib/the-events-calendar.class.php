@@ -269,6 +269,7 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 			require_once 'tribe-events-update.class.php';
 			require_once 'EmbeddedMaps.php';
 			require_once 'Backcompat.php';
+			require_once $this->pluginPath . 'lib/Credits.php';
 
 			// Load Template Classes
 			require_once 'template-classes/month.php';
@@ -406,7 +407,6 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 			add_filter( 'tribe-events-bar-views', array( $this, 'remove_hidden_views' ), 9999, 2 );
 			/* End Setup Tribe Events Bar */
 
-			add_filter( 'admin_footer_text', array( $this, 'tribe_admin_footer_text' ), 1, 2 );
 			add_action( 'admin_menu', array( $this, 'addEventBox' ) );
 			add_action( 'wp_insert_post', array( $this, 'addPostOrigin' ), 10, 2 );
 			add_action( 'save_post', array( $this, 'addEventMeta' ), 15, 2 );
@@ -486,17 +486,6 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 			add_action( 'plugins_loaded', array( $this, 'init_day_view' ), 2 );
 
 
-		}
-
-		public function tribe_admin_footer_text( $footer_text ) {
-			global $current_screen;
-
-			// only display custom text on Tribe Admin Pages
-			if ( isset( $current_screen->id ) && strpos( $current_screen->id, 'tribe' ) !== false ) {
-				return sprintf( __( 'Rate <strong>The Events Calendar</strong> <a href="%1$s" target="_blank">&#9733;&#9733;&#9733;&#9733;&#9733;</a> on <a href="%1$s" target="_blank">WordPress.org</a> to keep this plugin free.  Thanks from the friendly folks at Modern Tribe.', 'tribe-events-calendar' ), __( 'http://wordpress.org/support/view/plugin-reviews/the-events-calendar?filter=5', 'tribe-events-calendar' ) );
-			} else {
-				return $footer_text;
-			}
 		}
 
 		/**
@@ -611,6 +600,7 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 
 			TribeEventsQuery::init();
 			Tribe__Events__Backcompat::init();
+			Tribe__Events__Credits::init();
 			$this->registerPostType();
 
 			self::debug( sprintf( __( 'Initializing Tribe Events on %s', 'tribe-events-calendar' ), date( 'M, jS \a\t h:m:s a' ) ) );
