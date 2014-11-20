@@ -327,10 +327,18 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 
 = 3.9 =
 
+* Lowered the aggressiveness of the activation/upgrade page to improve compatibility with other plugins
 * Incorporated updated Icelandic translation files, courtesy of Baldvin Örn Berndsen
 * Incorporated updated German translation files, courtesy of Oliver Heinrich
 * Incorporated updated Greek translation files, courtesy of Yannis Troullinos
 * Incorporated new Lithuanian translation files, courtesy of Gediminas Pankevicius
+* Fixed an issue where the list view date picker did not reflect the 'Week starts on' WordPress setting
+* Updated CSS selectors to no longer be reliant on microformat classes
+* Fixed a layout issue with TwentyFourteen child themes
+* Added a Modern Tribe credit in the HTML page source in the footer - this can be removed with the following snippet: http://m.tri.be/p6
+* Added links on the settings page to view Welcome/Updated pages
+* Fixed an issue where the incorrect icon was displaying for the 'List' option in the view switcher
+* Fixed a translation issue with the Organizer & Venue field labels on the Add/Edit Event screen (thanks to oliver for reporting this on the forums!)
 
 = 3.8.1 =
 
