@@ -18,7 +18,7 @@ class Tribe__Events__Credits {
 	 * Hook the functionality of this class into the world
 	 */
 	public function hook() {
-		add_action( 'tribe_events_after_html', array( __CLASS__, 'html_comment_credit' ) );
+		add_action( 'tribe_events_after_html', array( $this, 'html_comment_credit' ) );
 		add_filter( 'admin_footer_text', array( $this, 'rating_nudge' ), 1, 2 );
 	}
 
