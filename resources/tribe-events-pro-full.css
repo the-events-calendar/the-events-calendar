@@ -164,7 +164,7 @@
 	outline: none;
 }
 .tribe-grid-allday .type-tribe_events > div,
-.tribe-grid-body div[id*="tribe-events-event-"] .type-tribe_events { 
+.tribe-grid-body .type-tribe_events .tribe-events-week-hourly-single { 
 	width: 100%;
 	background-color: #e6e6e6;
 	background-color: rgba(221, 221, 221, .75);
@@ -174,7 +174,7 @@
 	cursor: pointer;
 }
 .tribe-grid-allday .type-tribe_events > div:hover,
-.tribe-grid-body div[id*="tribe-events-event-"] .type-tribe_events:hover {
+.tribe-grid-body .type-tribe_events .tribe-events-week-hourly-single:hover {
 	background-color: #e2e2e2;
 	background-color: rgba(221, 221, 221, .85);
 }

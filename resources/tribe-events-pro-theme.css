@@ -24,16 +24,16 @@
 }
 
 .tribe-grid-allday .type-tribe_events > div,
-.tribe-grid-body div[id*="tribe-events-event-"] .type-tribe_events,
+.tribe-grid-body .type-tribe_events .tribe-events-week-hourly-single,
 .tribe-grid-allday .type-tribe_events > div:hover,
-.tribe-grid-body div[id*="tribe-events-event-"] .type-tribe_events:hover {
+.tribe-grid-body .type-tribe_events .tribe-events-week-hourly-single:hover {
 	background-color: #21759b;
 	background-color: rgba(33, 117, 155, .75);
 	border-color: #1b607f;
 }
 
 .tribe-grid-allday .type-tribe_events > div:hover,
-.tribe-grid-body div[id*="tribe-events-event-"] .type-tribe_events:hover {
+.tribe-grid-body .type-tribe_events .tribe-events-week-hourly-single:hover {
 	background-color: rgba(33, 117, 155, .9);
 }
 
