@@ -339,6 +339,10 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Added links on the settings page to view Welcome/Updated pages
 * Fixed an issue where the incorrect icon was displaying for the 'List' option in the view switcher
 * Fixed a translation issue with the Organizer & Venue field labels on the Add/Edit Event screen (thanks to oliver for reporting this on the forums!)
+* Enhanced structured data support in relation to the ticketing framework
+* Revised CSS to help avoid theme compatibility issues causing event dates/times to be hidden
+* Improved integration between the ticketing framework and the Filter Bar plugin
+* Added useful system information to the help screen to assist in support and troubleshooting
 
 = 3.8.1 =
 
