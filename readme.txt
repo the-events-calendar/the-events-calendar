@@ -343,6 +343,7 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Revised CSS to help avoid theme compatibility issues causing event dates/times to be hidden
 * Improved integration between the ticketing framework and the Filter Bar plugin
 * Added useful system information to the help screen to assist in support and troubleshooting
+* Enhanced month view to populate the leading/trailing days of adjacent months included in the current view
 
 = 3.8.1 =
 
