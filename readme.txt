@@ -233,6 +233,8 @@ Our Premium Plugins:
 * Incorporated new Lithuanian translation files, courtesy of Gediminas Pankevicius
 * Fixed an issue where some of the view date pickers did not reflect the 'Week starts on' WordPress setting
 * Updated CSS selectors to no longer be reliant on microformat classes
+* Fixed a plugin compatibility issue preventing the full use of ACF Pro in relation to recurring events
+* Implemented changes in relation to front page pagination to improve compatibility with various themes and plugins
 
 = 3.8.1 =
 
