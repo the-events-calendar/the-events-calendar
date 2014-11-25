@@ -14,7 +14,7 @@ if ( ! isset( $fields ) || empty( $fields ) || ! is_array( $fields ) ) {
 ?>
 
 <div class="tribe-events-meta-group tribe-events-meta-group-other">
-	<h3 class="tribe-events-single-section-title"> <?php _e( 'Other', 'tribe-events-calendar' ) ?> </h3>
+	<h3 class="tribe-events-single-section-title"> <?php _e( 'Other', 'tribe-events-calendar-pro' ) ?> </h3>
 	<dl>
 		<?php foreach ( $fields as $name => $value ): ?>
 			<dt> <?php echo $name ?> </dt>
