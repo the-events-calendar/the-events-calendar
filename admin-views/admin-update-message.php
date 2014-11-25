@@ -30,12 +30,12 @@
 
 	<div class="tribe-half-column">
 		<h3><?php _e( 'Keep the Core Plugin <strong>FREE</strong>!', 'tribe-events-calendar' ); ?></h3>
-		<p><?php _e( 'Every time you rate <strong>5 stars</strong>, a fairy is born. Okay maybe not, but more happy users mean more contributions and help on the forums. The community NEEDS your voice.' ); ?></p>
+		<p><?php _e( 'Every time you rate <strong>5 stars</strong>, a fairy is born. Okay maybe not, but more happy users mean more contributions and help on the forums. The community NEEDS your voice.', 'tribe-events-calendar' ); ?></p>
 		<p><a href="http://wordpress.org/support/view/plugin-reviews/the-events-calendar?filter=5" target="_blank" class="button-primary"><?php _e( 'Rate It', 'tribe-events-calendar' ); ?></a></p>
 
 		<br/>
 		<h3><?php _e( 'PSST... Want a Discount?', 'tribe-events-calendar' ); ?></h3>		
-		<p><?php _e( 'We send out discounts to our core users via our newsletter.' ); ?></p>
+		<p><?php _e( 'We send out discounts to our core users via our newsletter.', 'tribe-events-calendar' ); ?></p>
 		<form action="http://moderntribe.createsend.com/t/r/s/athqh/" method="post">
 			<p><input id="listthkduyk" name="cm-ol-thkduyk" type="checkbox" /> <label for="listthkduyk">Developer News</label></p>
 			<p><input id="listathqh" name="cm-ol-athqh" checked type="checkbox" /> <label for="listathqh">News and Announcements</label></p>

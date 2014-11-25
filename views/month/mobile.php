@@ -10,7 +10,7 @@
 
 <script type="text/html" id="tribe_tmpl_month_mobile_day_header">
 	<div class="tribe-mobile-day" data-day="[[=date]]">[[ if(date_name.length) { ]]
-		<h3 class="tribe-mobile-day-heading">Events for <span>[[=raw date_name]]</span></h3>[[ } ]]
+		<h3 class="tribe-mobile-day-heading"><?php _e( 'Events for', 'tribe-events-calendar' ); ?> <span>[[=raw date_name]]</span></h3>[[ } ]]
 	</div>
 </script>
 
@@ -37,7 +37,7 @@
 			[[ if(excerpt.length) { ]]
 			<p class="entry-summary description">[[=raw excerpt]]</p>
 			[[ } ]]
-			<a href="[[=permalink]]" class="tribe-events-read-more" rel="bookmark">Find out more »</a>
+			<a href="[[=permalink]]" class="tribe-events-read-more" rel="bookmark"><?php _e( 'Find out more »', 'tribe-events-calendar' ); ?></a>
 		</div>
 	</div>
 </script>
