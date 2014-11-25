@@ -235,6 +235,7 @@ Our Premium Plugins:
 * Updated CSS selectors to no longer be reliant on microformat classes
 * Fixed a plugin compatibility issue preventing the full use of ACF Pro in relation to recurring events
 * Implemented changes in relation to front page pagination to improve compatibility with various themes and plugins
+* Added a new `[tribe_mini_calendar]` shortcode to make it easy to embed the calendar widget outside of sidebars
 
 = 3.8.1 =
 
