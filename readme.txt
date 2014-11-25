@@ -345,6 +345,7 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Added useful system information to the help screen to assist in support and troubleshooting
 * Enhanced month view to populate the leading/trailing days of adjacent months included in the current view
 * Fixed a bug in the ticketing framework causing ticket start sale dates to reset to 1st January 1970
+* Extended the attendee list's filtering capabilities to cover purchaser names
 
 = 3.8.1 =
 
