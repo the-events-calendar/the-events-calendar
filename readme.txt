@@ -227,6 +227,9 @@ Our Premium Plugins:
 
 = 3.9 =
 
+* Removed some deprecated and unused code
+* Removed pagination links from the /all/ view
+* Reformatted code to WordPress code style
 * Incorporated updated Icelandic translation files, courtesy of Baldvin Örn Berndsen
 * Incorporated updated German translation files, courtesy of Oliver Heinrich
 * Incorporated updated Greek translation files, courtesy of Yannis Troullinos
