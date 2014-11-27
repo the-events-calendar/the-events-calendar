@@ -327,6 +327,10 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 
 = 3.9 =
 
+* Fixed a bug where events in child categories would not display when viewing the parent category on month view
+* Removed the old activation message, now that we have the new activation screen
+* Fixed bug where the tribe_is_category() function was returning the wrong value
+* Added support for Google's JSON-LD event markup format
 * Lowered the aggressiveness of the activation/upgrade page to improve compatibility with other plugins
 * Incorporated updated Icelandic translation files, courtesy of Baldvin Örn Berndsen
 * Incorporated updated German translation files, courtesy of Oliver Heinrich
