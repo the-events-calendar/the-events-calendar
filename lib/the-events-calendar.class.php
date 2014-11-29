@@ -3790,7 +3790,7 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 			);
 
 			add_meta_box(
-				'tribe_events_venue_details', __( $this->singular_venue_label . ' Information', 'tribe-events-calendar' ), array(
+				'tribe_events_venue_details', sprintf( __( '%s Information', 'tribe-events-calendar' ), $this->singular_venue_label ), array(
 					$this,
 					'VenueMetaBox'
 				), self::VENUE_POST_TYPE, 'normal', 'high'
@@ -3801,7 +3801,7 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 			}
 
 			add_meta_box(
-				'tribe_events_organizer_details', __( $this->singular_organizer_label . ' Information', 'tribe-events-calendar' ), array(
+				'tribe_events_organizer_details', sprintf( __( '%s Information', 'tribe-events-calendar' ), $this->singular_organizer_label ), array(
 					$this,
 					'OrganizerMetaBox'
 				), self::ORGANIZER_POST_TYPE, 'normal', 'high'
