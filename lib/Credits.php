@@ -18,7 +18,7 @@ class Tribe__Events__Credits {
 	 * Hook the functionality of this class into the world
 	 */
 	public function hook() {
-		add_action( 'tribe_events_after_html', array( $this, 'html_comment_credit' ) );
+		add_filter( 'tribe_events_after_html', array( $this, 'html_comment_credit' ) );
 		add_filter( 'admin_footer_text', array( $this, 'rating_nudge' ), 1, 2 );
 	}
 
@@ -27,9 +27,10 @@ class Tribe__Events__Credits {
 	 *
 	 * @return void
 	 **/
-	public function html_comment_credit() {
+	public function html_comment_credit( $after_html ) {
 		$html_credit = "\n<!--\n" . __( 'This calendar is powered by The Events Calendar.', 'tribe-events-calendar' ) . "\nhttp://eventscalendarpro.com/\n-->\n";
-		echo apply_filters( 'tribe_html_credit', $html_credit );
+		$after_html .= apply_filters( 'tribe_html_credit', $html_credit );
+		return $after_html;
 	}
 
 	/**
