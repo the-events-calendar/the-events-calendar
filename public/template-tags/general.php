@@ -287,7 +287,6 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	 * @todo move this to the settings classes and remove
 	 */
 	function tribe_display_saved_organizer() {
-		_deprecated_function( __FUNCTION__, '3.9' );
 		$current_organizer_id = tribe_get_option('eventsDefaultOrganizerID', 'none' );
 		$current_organizer = ($current_organizer_id != 'none' && $current_organizer_id != 0 && $current_organizer_id) ? tribe_get_organizer($current_organizer_id) : __('No default set', 'tribe-events-calendar-pro');
 		$current_organizer = esc_html( $current_organizer );
@@ -303,7 +302,6 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	 * @todo move this to the settings classes and remove
 	 */
 	function tribe_display_saved_venue() {
-		_deprecated_function( __FUNCTION__, '3.9' );
 		$current_venue_id = tribe_get_option('eventsDefaultVenueID', 'none' );
 		$current_venue = ($current_venue_id != 'none' && $current_venue_id != 0 && $current_venue_id) ? tribe_get_venue($current_venue_id) : __('No default set', 'tribe-events-calendar-pro');
 		$current_venue = esc_html( $current_venue );
@@ -319,7 +317,6 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	 * @todo move this to the settings classes and remove
 	 */
 	function tribe_display_saved_address() {
-		_deprecated_function( __FUNCTION__, '3.9' );
 		$option = tribe_get_option('eventsDefaultAddress', __('No default set', 'tribe-events-calendar-pro'));
 		$option = ( !isset($option) || $option == '' || !$option ) ? __('No default set', 'tribe-events-calendar-pro') : $option;
 		$option = esc_html( $option );
@@ -335,7 +332,6 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	 * @todo move this to the settings classes and remove
 	 */
 	function tribe_display_saved_city() {
-		_deprecated_function( __FUNCTION__, '3.9' );
 		$option = tribe_get_option('eventsDefaultCity', __('No default set', 'tribe-events-calendar-pro'));
 		$option = ( !isset($option) || $option == '' || !$option ) ? __('No default set', 'tribe-events-calendar-pro') : $option;
 		$option = esc_html( $option );
@@ -351,7 +347,6 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	 * @todo move this to the settings classes and remove
 	 */
 	function tribe_display_saved_state() {
-		_deprecated_function( __FUNCTION__, '3.9' );
 		$option = tribe_get_option('eventsDefaultState', __('No default set', 'tribe-events-calendar-pro'));
 		$option = ( !isset($option) || $option == '' || !$option ) ? __('No default set', 'tribe-events-calendar-pro') : $option;
 		$option = esc_html( $option );
@@ -367,7 +362,6 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	 * @todo move this to the settings classes and remove
 	 */
 	function tribe_display_saved_province() {
-		_deprecated_function( __FUNCTION__, '3.9' );
 		$option = tribe_get_option('eventsDefaultProvince', __('No default set', 'tribe-events-calendar-pro'));
 		$option = ( !isset($option) || $option == '' || !$option ) ? __('No default set', 'tribe-events-calendar-pro') : $option;
 		$option = esc_html( $option );
@@ -383,7 +377,6 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	 * @todo move this to the settings classes and remove
 	 */
 	function tribe_display_saved_zip() {
-		_deprecated_function( __FUNCTION__, '3.9' );
 		$option = tribe_get_option('eventsDefaultZip', __('No default set', 'tribe-events-calendar-pro'));
 		$option = ( !isset($option) || $option == '' || !$option ) ? __('No default set', 'tribe-events-calendar-pro') : $option;
 		$option = esc_html( $option );
@@ -399,7 +392,6 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	 * @todo move this to the settings classes and remove
 	 */
 	function tribe_display_saved_country() {
-		_deprecated_function( __FUNCTION__, '3.9' );
 		$option = tribe_get_option('defaultCountry', __('No default set', 'tribe-events-calendar-pro'));
 		$option = ( !isset($option) || $option == '' || !$option || empty($option) || !is_array($option) || !isset($option[1]) ) ? __('No default set', 'tribe-events-calendar-pro') : $option = $option[1];
 		$option = esc_html( $option );
@@ -415,7 +407,6 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	 * @todo move this to the settings classes and remove
 	 */
 	function tribe_display_saved_phone() {
-		_deprecated_function( __FUNCTION__, '3.9' );
 		$option = tribe_get_option('eventsDefaultPhone', __('No default set', 'tribe-events-calendar-pro'));
 		$option = ( !isset($option) || $option == '' || !$option ) ? __('No default set', 'tribe-events-calendar-pro') : $option;
 		$option = esc_html( $option );
