@@ -907,6 +907,15 @@ div.tribe-countdown-text {
 	clear: both;
 	margin: 0 0 10px 0;
 }
+
+
+/* Twenty Thirteen compat
+========================================================================== */
+
+.tribe-events-week.tribe-theme-twentythirteen .tribe-grid-content-wrap .hentry {
+	padding: 4px;
+}
+
 /* Twenty Thirteen Footer Widget */
 .tribe-theme-twentythirteen #secondary div.tribe-countdown-number, .tribe-theme-twentyfourteen #primary-sidebar div.tribe-countdown-number, .tribe-theme-twentyfourteen #footer-sidebar div.tribe-countdown-number {
 	color:#fff;
