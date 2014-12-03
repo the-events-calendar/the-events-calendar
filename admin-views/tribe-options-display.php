@@ -33,11 +33,10 @@ $displayTab = array(
 			),
 			'info-box-description'               => array(
 				'type' => 'html',
-				'html' => sprintf(
-					__( '<p>The settings below control the display of your calendar. If things don\'t look right, try switching between the three style sheet options or pick a page template from your theme.</p><p>There are going to be situations where no out-of-the-box template is 100&#37; perfect. Check out our <a href="%s">our themer\'s guide</a> for instructions on custom modifications. Want to create a new view? Grab a copy of the <a href="%s">Sample Agenda View plugin from Github</a></p>', 'tribe-events-calendar' ),
-					TribeEvents::$tribeUrl . 'support/documentation/events-calendar-themers-guide/?utm_medium=plugin-tec&utm_source=generaltab&utm_campaign=in-app',
-					'https://github.com/moderntribe/tribe-events-agenda-view'
-				),
+				'html' => '<p>' . sprintf(
+					__( 'The settings below control the display of your calendar. If things don\'t look right, try switching between the three style sheet options or pick a page template from your theme.</p><p>There are going to be situations where no out-of-the-box template is 100&#37; perfect. Check out our <a href="%s">our themer\'s guide</a> for instructions on custom modifications.', 'tribe-events-calendar' ),
+					TribeEvents::$tribeUrl . 'support/documentation/events-calendar-themers-guide/?utm_medium=plugin-tec&utm_source=generaltab&utm_campaign=in-app'
+				) . '</p>',
 			),
 			'info-end'                           => array(
 				'type' => 'html',
