@@ -235,9 +235,13 @@ Our Premium Plugins:
 * Incorporated updated Greek translation files, courtesy of Yannis Troullinos
 * Incorporated new Lithuanian translation files, courtesy of Gediminas Pankevicius
 * Fixed an issue where some of the view date pickers did not reflect the 'Week starts on' WordPress setting
+* Fixed an issue where all day events had incorrect spacing in the wp 2013 theme on week view
 * Updated CSS selectors to no longer be reliant on microformat classes
 * Fixed a plugin compatibility issue preventing the full use of ACF Pro in relation to recurring events
+* Removed jquery 1.7 specific fallback javascript bloat, now support >= 1.8
 * Implemented changes in relation to front page pagination to improve compatibility with various themes and plugins
+* Implemented default permalink support
+* Implemented internationalization support for map view location tooltips
 * Added a new `[tribe_mini_calendar]` shortcode to make it easy to embed the calendar widget outside of sidebars
 
 = 3.8.1 =
