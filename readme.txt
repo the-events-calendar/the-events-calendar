@@ -327,6 +327,7 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 
 = 3.9 =
 
+* Implemented default permalink support
 * Fixed a bug where events in child categories would not display when viewing the parent category on month view
 * Removed the old activation message, now that we have the new activation screen
 * Fixed bug where the tribe_is_category() function was returning the wrong value
@@ -344,6 +345,7 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Fixed an issue where the incorrect icon was displaying for the 'List' option in the view switcher
 * Fixed a translation issue with the Organizer & Venue field labels on the Add/Edit Event screen (thanks to oliver for reporting this on the forums!)
 * Enhanced structured data support in relation to the ticketing framework
+* Removed jquery 1.7 specific fallback javascript bloat, now support >= 1.8 
 * Revised CSS to help avoid theme compatibility issues causing event dates/times to be hidden
 * Improved integration between the ticketing framework and the Filter Bar plugin
 * Added useful system information to the help screen to assist in support and troubleshooting
