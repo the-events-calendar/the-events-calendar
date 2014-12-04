@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: The Events Calendar v3.8.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-09-19 11:21-0800\n"
-"PO-Revision-Date: 2014-12-04 08:52+0100\n"
+"PO-Revision-Date: 2014-12-04 09:08+0100\n"
 "Last-Translator: \n"
 "Language-Team: DECKERWEB <deckerweb.mobil@googlemail.com>\n"
 "MIME-Version: 1.0\n"
@@ -15,7 +15,7 @@ msgstr ""
 "X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2\n"
 "X-Poedit-Basepath: ../\n"
 "X-Textdomain-Support: yes\n"
-"X-Poedit-SearchPath-0: ..\n"
+"X-Poedit-SearchPath-0: .\n"
 
 #@ tribe-events-calendar
 #: admin-views/admin-update-message.php:9
@@ -2352,12 +2352,12 @@ msgstr "Datum"
 #@ tribe-events-calendar
 #: lib/the-events-calendar.class.php:4549
 msgid "Events In"
-msgstr "Veranstaltungen am"
+msgstr "Veranstaltungen im"
 
 #@ tribe-events-calendar
 #: lib/the-events-calendar.class.php:4551
 msgid "Events From"
-msgstr "Veranstaltungen am"
+msgstr "Veranstaltungen ab"
 
 #@ tribe-events-calendar
 #: lib/the-events-calendar.class.php:4553
