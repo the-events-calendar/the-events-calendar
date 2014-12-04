@@ -17,7 +17,7 @@ msgstr ""
 "_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2\n"
 "X-Poedit-Basepath: ./\n"
 "X-Textdomain-Support: yes\n"
-"X-Poedit-SearchPath-0: ..\n"
+"X-Poedit-SearchPath-0: .\n"
 
 # @ tribe-events-calendar
 #: ../admin-views/admin-update-message.php:9
@@ -2832,12 +2832,12 @@ msgstr "Datum"
 # @ tribe-events-calendar
 #: ../lib/the-events-calendar.class.php:4509
 msgid "Events In"
-msgstr "Veranstaltungen am"
+msgstr "Veranstaltungen im"
 
 # @ tribe-events-calendar
 #: ../lib/the-events-calendar.class.php:4511
 msgid "Events From"
-msgstr "Veranstaltungen am"
+msgstr "Veranstaltungen ab"
 
 # @ tribe-events-calendar
 #: ../lib/the-events-calendar.class.php:4513
