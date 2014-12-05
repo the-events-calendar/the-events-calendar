@@ -94,7 +94,8 @@ module.exports = function(grunt) {
 			'gitpull:dist',
 			'copy:dist',
 			'compress:dist',
-			'clean:dist'
+			'clean:dist',
+			'gitcheckout:dev'
 		]);
 
 };

@@ -16,5 +16,11 @@ module.exports = {
 		options: {
 			branch:'master'
 		}
+	},
+
+	dev: {
+		options: {
+			branch:'develop'
+		}
 	}
 };
