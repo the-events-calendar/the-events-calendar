@@ -26,7 +26,7 @@ module.exports = {
 		options: {
 			mode   : 'zip',
 			level  : 9,
-			archive: '<%= pkg._zipname %>.<%= pkg.version %>.zip'
+			archive: '../<%= pkg._zipname %>.<%= pkg.version %>.zip'
 		},
 		files  : [
 			{
