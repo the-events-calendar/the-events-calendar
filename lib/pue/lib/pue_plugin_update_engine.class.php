@@ -114,6 +114,20 @@ if ( ! class_exists( 'TribePluginUpdateEngineChecker' ) ) {
 		}
 
 		/**
+		 * Determine whether or not to verify the SSL cert for the PUE update API endpoint url
+		 *
+		 * Default is to verify the certificate. This is a good thing.
+		 *
+		 * Reason: development environments where the PUE_UPDATE_URL constant is set often have self-signed certificates. 
+		 * This allows overriding this easily, while defaulting to more secure behavior.
+		 *
+		 * @return bool
+		 */
+		public function get_sslverify() {
+			return apply_filters( 'pue_get_sslverify', ( defined( 'PUE_UPDATE_URL' ) ) ? FALSE : TRUE );
+		}
+
+		/**
 		 * Get the PUE update API endpoint url
 		 *
 		 * @return string
@@ -520,8 +534,9 @@ if ( ! class_exists( 'TribePluginUpdateEngineChecker' ) ) {
 
 			//Various options for the wp_remote_get() call. Plugins can filter these, too.
 			$options = array(
-				'timeout' => 15, //seconds
-				'headers' => array(
+				'timeout'    => 15, //seconds
+				'sslverify'  => (bool) $this->get_sslverify(),
+				'headers'    => array(
 					'Accept' => 'application/json'
 				),
 			);
@@ -845,4 +860,3 @@ if ( ! class_exists( 'TribePluginUpdateEngineChecker' ) ) {
 		}
 	}
 }
-?>
