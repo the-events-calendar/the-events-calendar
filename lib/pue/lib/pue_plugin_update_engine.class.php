@@ -124,7 +124,7 @@ if ( ! class_exists( 'TribePluginUpdateEngineChecker' ) ) {
 		 * @return bool
 		 */
 		public function get_sslverify() {
-			return apply_filters( 'pue_get_sslverify', ( defined( 'PUE_UPDATE_URL' ) ) ? FALSE : TRUE );
+			return apply_filters( 'pue_get_sslverify', ( defined( 'PUE_SSLVERIFY' ) ) ? FALSE : TRUE );
 		}
 
 		/**
