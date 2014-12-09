@@ -292,5 +292,56 @@ if ( ! class_exists( 'TribeDateUtils' ) ) {
 
 			return $modifier;
 		}
+
+		/**
+		 * Returns the weekday of the 1st day of the month in
+		 * "w" format (ie, Sunday is 0 and Saturday is 6) or
+		 * false if this cannot be established.
+		 *
+		 * @param  mixed $month
+		 * @return int|bool
+		 */
+		public static function first_day_in_month( $month ) {
+			try {
+				$date  = new DateTime( $month );
+				$day_1 = new DateTime( $date->format( 'Y-m-01 ' ) );
+				return $day_1->format( 'w' );
+			}
+			catch ( Exception $e ) {
+				return false;
+			}
+		}
+
+		/**
+		 * Returns the weekday of the last day of the month in
+		 * "w" format (ie, Sunday is 0 and Saturday is 6) or
+		 * false if this cannot be established.
+		 *
+		 * @param  mixed $month
+		 * @return int|bool
+		 */
+		public static function last_day_in_month( $month ) {
+			try {
+				$date  = new DateTime( $month );
+				$day_1 = new DateTime( $date->format( 'Y-m-t' ) );
+				return $day_1->format( 'w' );
+			}
+			catch ( Exception $e ) {
+				return false;
+			}
+		}
+
+		/**
+		 * Returns the day of the week the week ends on, expressed as a "w" value
+		 * (ie, Sunday is 0 and Saturday is 6).
+		 *
+		 * @param  int $week_starts_on
+		 *
+		 * @return int
+		 */
+		public static function week_ends_on( $week_starts_on ) {
+			if ( --$week_starts_on < 0 ) $week_starts_on = 6;
+			return $week_starts_on;
+		}
 	}
 }

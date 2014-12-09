@@ -121,11 +121,17 @@ jQuery( document ).ready( function( $ ) {
 
 			var row = $( e );
 
+			// Search by code (order, attendee and security numbers)
 			var order = row.children( 'td.order_id' ).children( 'a' ).text();
 			var attendee = row.children( 'td.attendee_id' ).text();
 			var security = row.children( 'td.security' ).text();
+			var code_found = attendee.indexOf( search ) === 0 || order.indexOf( search ) === 0 || security.indexOf( search ) === 0;
 
-			if ( attendee.indexOf( search ) === 0 || order.indexOf( search ) === 0 || security.indexOf( search ) === 0 ) {
+			// Search by name (we will also look at second/third names etc, not just the first name)
+			var name = row.children( 'td.purchaser_name').text().toLowerCase();
+			var name_found = name.indexOf( search ) === 0 || name.indexOf( " " + search ) > 1;
+
+			if ( code_found || name_found ) {
 				row.show();
 			}
 			else {

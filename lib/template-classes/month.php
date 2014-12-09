@@ -16,6 +16,10 @@ if ( ! class_exists( 'Tribe_Events_Month_Template' ) ) {
 	 * Month view template class
 	 */
 	class Tribe_Events_Month_Template extends Tribe_Template_Factory {
+		const PREVIOUS_MONTH = -1;
+		const CURRENT_MONTH  = 0;
+		const NEXT_MONTH     = 1;
+
 		private static $hide_upcoming_ids;
 		private static $today;
 		private static $current_month;
@@ -30,6 +34,14 @@ if ( ! class_exists( 'Tribe_Events_Month_Template' ) ) {
 		private static $current_day = - 1;
 		private static $current_week = - 1;
 		protected static $args;
+
+		/**
+		 * Indicates the array indicies marking the first and last entries for
+		 * the current month.
+		 */
+		protected $current_month_begins;
+		protected $current_month_ends;
+
 		protected $body_class = 'events-gridview';
 		protected $excerpt_length = 30;
 		protected $asset_packages = array( 'ajax-calendar' );
@@ -81,50 +93,50 @@ if ( ! class_exists( 'Tribe_Events_Month_Template' ) ) {
 			remove_filter( 'post_type_archive_title', '__return_false', 10 );
 		}
 
-
 		/**
 		 * Set the notices used on month view
 		 *
 		 * @return void
 		 **/
 		public function set_notices() {
-			global $wp_query;
-			$tribe       = TribeEvents::instance();
-			$search_term = '';
-			$tax_term    = '';
-
-			// setup a search term for query or via ajax
-			if ( ! empty( $wp_query->query_vars['s'] ) ) {
-				$search_term = $wp_query->query_vars['s'];
-			} elseif ( ! empty( $_REQUEST['tribe-bar-search'] ) ) {
-				$search_term = $_REQUEST['tribe-bar-search'];
-			}
-
-			if ( is_tax( $tribe->get_event_taxonomy() ) ) {
-				$tax_term = get_term_by( 'slug', get_query_var( 'term' ), $tribe->get_event_taxonomy() );
-				$tax_term = esc_html( $tax_term->name );
-			}
+			// Our focus is on the current month, not the complete range of events included in the current month view
+			// (which may include some leading/trailing days of the next and previous months)
+			$slice_length = $this->current_month_ends - $this->current_month_begins + 1;
+			$current_month_counts = array_slice( self::$event_daily_counts, $this->current_month_begins, $slice_length );
 
 			// If there are no events we should be able to reduce the event_daily_counts array (the number of events in
 			// each day this month) to a single element with a value of 0. Where a keyword search returns no events then
 			// event_daily_counts may simply be empty.
-			$event_counts = array_unique( self::$event_daily_counts );
-			$no_events    = ( 1 === count( $event_counts ) && 0 === current( $event_counts ) ) || empty( self::$event_daily_counts );
+			$event_counts = array_unique( $current_month_counts );
+			$no_events = ( 1 === count( $event_counts ) && 0 === current( $event_counts ) ) || empty( self::$event_daily_counts );
 
-			if ( $no_events && ! empty( $search_term ) ) {
+			// Use our parent method to assess if a search term was set, etc
+			if ( $no_events ) {
+				$this->nothing_found_notice();
+			}
+		}
+
+		/**
+		 * Sets an appropriate no results found message.
+		 */
+		protected function nothing_found_notice() {
+			list( $search_term, $tax_term, $geographic_term ) = $this->get_search_terms();
+
+			if ( ! empty( $search_term ) ) {
 				TribeEvents::setNotice( 'event-search-no-results', sprintf( __( 'There were no results found for <strong>"%s"</strong> this month. Try searching next month.', 'tribe-events-calendar' ), esc_html( $search_term ) ) );
 			} // if attempting to view a category archive.
-			elseif ( ! empty( $tax_term ) && $no_events ) {
+			elseif ( ! empty( $tax_term ) ) {
 				TribeEvents::setNotice( 'events-not-found', sprintf( __( 'No matching events listed under %s. Please try viewing the full calendar for a complete list of events.', 'tribe-events-calendar' ), $tax_term ) );
-			} elseif ( $no_events ) {
+			} else {
 				TribeEvents::setNotice( 'event-search-no-results', __( 'There were no results found.', 'tribe-events-calendar' ) );
 			}
 		}
 
 		/**
 		 * Get the title for month view
-		 * @param      $title
-		 * @param null $sep
+		 *
+		 * @param  string $original_title
+		 * @param  null   $sep
 		 *
 		 * @return string
 		 */
@@ -145,21 +157,22 @@ if ( ! class_exists( 'Tribe_Events_Month_Template' ) ) {
 		/**
 		 * Get number of events per day
 		 *
-		 * @param int $date
+		 * @param  string $start_date
+		 * @param  string $end_date
 		 *
 		 * @return array
 		 */
-		private static function get_daily_counts( $date ) {
+		private static function get_daily_counts( $start_date, $end_date ) {
 			global $wp_query;
 
 			$count_args = self::$args;
 
-			do_action( 'log', 'get_daily_counts $date', 'tribe-events-query', $date );
+			do_action( 'log', 'get_daily_counts $date', 'tribe-events-query', $start_date, $end_date );
 
 			$count_args['eventDisplay']        = 'month';
-			$count_args['eventDate']           = date( 'Y-m', strtotime( $date ) );
-			$count_args['start_date']          = tribe_event_beginning_of_day( $date );
-			$count_args['end_date']            = tribe_event_end_of_day( date( 'Y-m-t', strtotime( $date ) + 1 ) );
+			$count_args['eventDate']           = $start_date;
+			$count_args['start_date']          = tribe_event_beginning_of_day( $start_date );
+			$count_args['end_date']            = tribe_event_end_of_day( $end_date );
 			$count_args['hide_upcoming_ids']   = self::$hide_upcoming_ids;
 			$count_args['post_status']         = is_user_logged_in() ? array( 'publish', 'private' ) : 'publish';
 			$count_args['tribeHideRecurrence'] = false;
@@ -232,24 +245,67 @@ if ( ! class_exists( 'Tribe_Events_Month_Template' ) ) {
 		 * @return void
 		 **/
 		public function setup_view() {
-			do_action( 'log', 'setup view month view args', 'tribe-month', self::$args );
-			$requested_date = isset( self::$args['eventDate'] ) ? self::$args['eventDate'] : tribe_get_month_view_date();
-
+			$requested_date     = isset( self::$args['eventDate'] ) ? self::$args['eventDate'] : tribe_get_month_view_date();
 			$first_day_of_month = date( 'Y-m-01', strtotime( $requested_date ) );
+			$first_grid_date    = $this->calculate_first_cell_date( $requested_date );
+			$final_grid_date    = $this->calculate_final_cell_date( $requested_date );
+			$days               = array();
 
+			$this->setup_tribe_bar_args();
+			$this->current_day_vals();
+
+			do_action( 'log', 'setup view month view args', 'tribe-month', self::$args );
 			do_action( 'log', 'eventDate', 'tribe-events-query', $first_day_of_month );
 
-			// get all upcoming ids to hide so we're not querying 31 times
 			self::$hide_upcoming_ids = TribeEventsQuery::getHideFromUpcomingEvents();
+			self::get_daily_counts( $first_grid_date, $final_grid_date );
 
-			$year  = date( 'Y', strtotime( $first_day_of_month ) );
-			$month = date( 'm', strtotime( $first_day_of_month ) );
+			$date  = $first_grid_date; // Start with the first grid date
+			$empty = new WP_Query();   // Use for empty days
 
-			$startOfWeek = get_option( 'start_of_week', 0 );
+			// Populate complete date range including leading/trailing days from adjacent months
+			while ( $date <= $final_grid_date ) {
+				$day  = (int) substr( $date, -2 );
+				$total_events = ! empty( self::$event_daily_counts[$date] ) ? self::$event_daily_counts[$date] : 0;
 
+				$prev_month = (int) substr( $date, 5, 2 ) < (int) substr( $requested_date, 5, 2 );
+				$next_month = (int) substr( $date, 5, 2 ) > (int) substr( $requested_date, 5, 2 );
 
-			self::get_daily_counts( $first_day_of_month );
+				$month_type = self::CURRENT_MONTH;
+				if ( $prev_month ) $month_type = self::PREVIOUS_MONTH;
+				if ( $next_month ) $month_type = self::NEXT_MONTH;
 
+				$days[] = array(
+					'daynum'       => $day,
+					'date'         => $date,
+					'events'       => $total_events ? self::get_daily_events( $date ) : $empty,
+					'total_events' => $total_events,
+					'view_more'    => self::view_more_link( $date, self::$tribe_bar_args ),
+					'month'        => $month_type
+				);
+
+				// Record the indicies marking the portion of the array relating to the current month
+				if ( ! isset( $this->current_month_begins ) && self::CURRENT_MONTH === $month_type ) {
+					$this->current_month_begins = count( $days ) - 1;
+				}
+				if ( isset( $this->current_month_begins ) && ! isset( $this->current_month_ends ) && self::CURRENT_MONTH !== $month_type ) {
+					$this->current_month_ends = count( $days ) - 1;
+				}
+
+				// Advance forward one day
+				$date = date( TribeDateUtils::DBDATEFORMAT, strtotime( "$date +1 day" ) );
+			}
+
+			// If the month ended without bleeding into the next month, our current_month_ends property may not be set
+			if ( ! isset( $this->current_month_ends ) ) {
+				$this->current_month_ends = count( $days ) - 1;
+			}
+
+			// store set of found days for use in calendar loop functions
+			self::$calendar_days = $days;
+		}
+
+		protected function setup_tribe_bar_args() {
 			if ( empty( self::$tribe_bar_args ) ) {
 				foreach ( $_REQUEST as $key => $value ) {
 					if ( $value && strpos( $key, 'tribe' ) === 0 && $key != 'tribe-bar-date' ) {
@@ -257,62 +313,79 @@ if ( ! class_exists( 'Tribe_Events_Month_Template' ) ) {
 					}
 				}
 			}
+		}
 
-			// Var'ng up days, months and years
+		protected function current_day_vals() {
 			self::$today         = date_i18n( 'd' );
 			self::$current_month = date_i18n( 'm' );
 			self::$current_year  = date_i18n( 'Y' );
+		}
 
-			// single dimensional array of days for the month
-			$days = array();
-
-			// setup counters
-			$rawOffset         = date( 'w', strtotime( $first_day_of_month ) ) - $startOfWeek;
-			$prev_month_offset = (int) ( ( $rawOffset < 0 ) ? $rawOffset + 7 : $rawOffset ); // month begins on day x
-			$days_in_month     = (int) date( 't', strtotime( $first_day_of_month ) );
-			$days_in_calendar  = $days_in_month + $prev_month_offset;
-			while ( $days_in_calendar % 7 > 0 ) {
-				$days_in_calendar ++;
+		/**
+		 * Return the date of the first day in the month view grid.
+		 *
+		 * This is not necessarily the 1st of the specified month, rather it is the date of the
+		 * first grid cell which could be anything upto 6 days earlier than the 1st of the month.
+		 *
+		 * @param  string $month
+		 * @param  int    $start_of_week
+		 *
+		 * @return bool|string (Y-m-d)
+		 */
+		protected function calculate_first_cell_date( $month, $start_of_week = null ) {
+			if ( null === $start_of_week ) {
+				$start_of_week = (int) get_option( 'start_of_week', 0 );
 			}
 
-			$cur_calendar_day = 0;
+			$day_1 = TribeDateUtils::first_day_in_month( $month );
+			if ( $day_1 < $start_of_week ) $day_1 += 7;
 
-			// fill month with required days for previous month
-			if ( $prev_month_offset > 0 ) {
-				$days = array_fill( 0, $prev_month_offset, array( 'date' => 'previous' ) );
+			$diff = $day_1 - $start_of_week;
+			if ( $diff >= 0 ) $diff = "-$diff";
+
+			try {
+				$date = new DateTime( $month );
+				$date = new DateTime( $date->format( 'Y-m-01' ) );
+				$date->modify( "$diff days" );
+				return $date->format( TribeDateUtils::DBDATEFORMAT );
+			}
+			catch ( Exception $e ) {
+				return false;
+			}
+		}
+
+		/**
+		 * Return the date of the first day in the month view grid.
+		 *
+		 * This is not necessarily the last day of the specified month, rather it is the date of
+		 * the final grid cell which could be anything upto 6 days into the next month.
+		 *
+		 * @param  string $month
+		 * @param  int    $start_of_week
+		 *
+		 * @return bool|string (Y-m-d)
+		 */
+		protected function calculate_final_cell_date( $month, $start_of_week = null ) {
+			if ( null === $start_of_week ) {
+				$start_of_week = (int) get_option( 'start_of_week', 0 );
 			}
 
-			// get $cur_calendar_day up to speed
-			$cur_calendar_day += $prev_month_offset;
+			$last_day    = TribeDateUtils::last_day_in_month( $month );
+			$end_of_week = TribeDateUtils::week_ends_on( $start_of_week );
+			if ( $end_of_week < $last_day ) $end_of_week += 7;
 
-			$empty_query = new WP_Query();
+			$diff = $end_of_week - $last_day;
+			if ( $diff >= 0 ) $diff = "+$diff";
 
-			// add days for this month
-			for ( $i = 0; $i < $days_in_month; $i ++ ) {
-				$day  = $i + 1;
-				$date = date( 'Y-m-d', strtotime( "$year-$month-$day" ) );
-
-				$total_events = ! empty( self::$event_daily_counts[$date] ) ? self::$event_daily_counts[$date] : 0;
-
-				$days[] = array(
-					'daynum'       => $day,
-					'date'         => $date,
-					'events'       => $total_events ? self::get_daily_events( $date ) : $empty_query,
-					'total_events' => $total_events,
-					'view_more'    => self::view_more_link( $date, self::$tribe_bar_args ),
-				);
+			try {
+				$date = new DateTime( $month );
+				$date = new DateTime( $date->format( 'Y-m-t' ) );
+				$date->modify( "$diff days" );
+				return $date->format( TribeDateUtils::DBDATEFORMAT );
 			}
-
-			// get $cur_calendar_day up to speed
-			$cur_calendar_day += $days_in_month;
-
-			// check if $cur_calendar_day is less than $days_in_calendar, if so, add days for next month
-			if ( $cur_calendar_day < $days_in_calendar ) {
-				$days = array_merge( $days, array_fill( $cur_calendar_day, $days_in_calendar - $cur_calendar_day, array( 'date' => 'next' ) ) );
+			catch ( Exception $e ) {
+				return false;
 			}
-
-			// store set of found days for use in calendar loop functions
-			self::$calendar_days = $days;
 		}
 
 		/**
@@ -375,40 +448,42 @@ if ( ! class_exists( 'Tribe_Events_Month_Template' ) ) {
 		 * @return string Classes
 		 **/
 		public static function day_classes() {
-			$ppf          = '';
 			$calendar_day = self::$calendar_days[self::$current_day];
-			if ( $calendar_day['date'] == 'previous' || $calendar_day['date'] == 'next' ) {
+
+			if ( $calendar_day['month'] == self::PREVIOUS_MONTH || $calendar_day['month'] == self::NEXT_MONTH ) {
 				$ppf = 'tribe-events-othermonth';
 			} else {
 				$ppf = 'tribe-events-thismonth';
-				list ( $year, $month, $day ) = explode( '-', $calendar_day['date'] );
-				if ( self::$current_month == $month && self::$current_year == $year ) {
-					// Past, Present, Future class
-					if ( self::$today == $day ) {
-						$ppf .= ' tribe-events-present';
-					} else {
-						if ( self::$today > $day ) {
-							$ppf .= ' tribe-events-past';
-						} else {
-							if ( self::$today < $day ) {
-								$ppf .= ' tribe-events-future';
-							}
-						}
-					}
+			}
+
+			list ( $year, $month, $day ) = explode( '-', $calendar_day['date'] );
+			if ( self::$current_month == $month && self::$current_year == $year ) {
+				// Past, Present, Future class
+				if ( self::$today == $day ) {
+					$ppf .= ' tribe-events-present';
 				} else {
-					if ( self::$current_month > $month && self::$current_year == $year || self::$current_year > $year ) {
+					if ( self::$today > $day ) {
 						$ppf .= ' tribe-events-past';
 					} else {
-						if ( self::$current_month < $month && self::$current_year == $year || self::$current_year < $year ) {
+						if ( self::$today < $day ) {
 							$ppf .= ' tribe-events-future';
 						}
 					}
 				}
-				if ( $calendar_day['total_events'] > 0 ) {
-					$ppf .= ' tribe-events-has-events';
+			} else {
+				if ( self::$current_month > $month && self::$current_year == $year || self::$current_year > $year ) {
+					$ppf .= ' tribe-events-past';
+				} else {
+					if ( self::$current_month < $month && self::$current_year == $year || self::$current_year < $year ) {
+						$ppf .= ' tribe-events-future';
+					}
 				}
-				$ppf .= ' mobile-trigger tribe-event-day-' . $day;
 			}
+			if ( $calendar_day['total_events'] > 0 ) {
+				$ppf .= ' tribe-events-has-events';
+			}
+			$ppf .= ' mobile-trigger tribe-event-day-' . $day;
+
 
 			$column = ( self::$current_day ) - ( self::$current_week * 7 );
 
@@ -431,9 +506,11 @@ if ( ! class_exists( 'Tribe_Events_Month_Template' ) ) {
 		/**
 		 * Generates and returns a set of classes for the current day
 		 *
+		 * @param  string $classes = ''
+		 *
 		 * @return string Classes
 		 **/
-		public function event_classes( $classes ) {
+		public function event_classes( $classes = '' ) {
 
 			$day = self::get_current_day();
 

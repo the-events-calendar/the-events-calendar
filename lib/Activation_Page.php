@@ -25,6 +25,13 @@ class Tribe__Events__Activation_Page {
 		if ( $this->showed_update_message_for_current_version() ) {
 			return;
 		}
+
+		// the redirect might be intercepted by another plugin, but
+		// we'll go ahead and mark it as viewed right now, just in case
+		// we end up in a redirect loop
+		// see #31088
+		$this->log_display_of_message_page();
+
 		if ( $this->is_new_install() ) {
 			$this->redirect_to_welcome_page();
 		} else {

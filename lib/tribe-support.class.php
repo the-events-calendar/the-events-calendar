@@ -41,12 +41,6 @@ if ( ! class_exists( 'TribeEventsSupport' ) ) {
 				return;
 			}
 
-			// TODO: can we detect if someone has an ACTIVE support license here?
-			$keys = apply_filters( 'tribe-pue-install-keys', array() );
-			if ( empty( $keys ) ) {
-				return;
-			}
-
 			$system_text[] = '<p>' . __( "Sometimes it's hard to tell what's going wrong without knowing more about your system steup. For your convenience, we've put together a little report on what's cooking under the hood.", 'tribe-events-calendar' ) . '</p>';
 			$system_text[] = '<p>' . __( "If you suspect that the problem you're having is related to another plugin, or we're just plain having trouble reproducing your bug report, please copy and send all of this to our support team.", 'tribe-events-calendar' ) . '</p>';
 			$system_text   = implode( $system_text );

@@ -56,7 +56,7 @@
 =============================================*/
 
 /* Actual Event Styles */	
-#tribe-mobile-container .hentry.vevent ~ .hentry.vevent {
+#tribe-mobile-container .type-tribe_events ~ .type-tribe_events {
 	border-top: 1px dotted #2f2f2f;
 }
 
@@ -106,7 +106,10 @@
 .tribe-events-calendar td.mobile-active,
 .tribe-events-calendar .mobile-active div[id*="tribe-events-daynum-"],
 .tribe-events-calendar .mobile-active div[id*="tribe-events-daynum-"] a,
-#tribe-events-content .tribe-events-calendar .mobile-active:hover {
+#tribe-events-content .tribe-events-calendar .mobile-active:hover,
+#tribe-events-content .tribe-events-calendar td.tribe-events-othermonth.mobile-active,
+#tribe-events-content .tribe-events-calendar td.tribe-events-othermonth.mobile-active div[id*="tribe-events-daynum-"],
+#tribe-events-content .tribe-events-calendar td.tribe-events-othermonth.mobile-active div[id*="tribe-events-daynum-"] a {
 	background-color:#21759b;
 	color: #fff;
 }

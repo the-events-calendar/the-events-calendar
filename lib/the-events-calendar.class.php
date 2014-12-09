@@ -24,7 +24,7 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 		const VENUE_POST_TYPE     = 'tribe_venue';
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
 
-		const VERSION       = '3.8.1';
+		const VERSION       = '3.9';
 		const FEED_URL      = 'http://tri.be/category/products/feed/';
 		const INFO_API_URL  = 'http://wpapi.org/api/plugin/the-events-calendar.php';
 		const WP_PLUGIN_URL = 'http://wordpress.org/extend/plugins/the-events-calendar/';
@@ -137,6 +137,8 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 			'_EventCurrencySymbol',
 			'_EventCurrencyPosition',
 			'_EventCost',
+			'_EventCostMin',
+			'_EventCostMax',
 			'_EventURL',
 			'_EventOrganizerID',
 			'_EventPhone',
@@ -267,6 +269,7 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 			require_once 'tribe-events-update.class.php';
 			require_once 'EmbeddedMaps.php';
 			require_once 'Backcompat.php';
+			require_once $this->pluginPath . 'lib/Credits.php';
 
 			// Load Template Classes
 			require_once 'template-classes/month.php';
@@ -287,6 +290,7 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 			require_once 'tickets/tribe-ticket-object.php';
 			require_once 'tickets/tribe-tickets.php';
 			require_once 'tickets/tribe-tickets-metabox.php';
+			require_once 'tickets/google-event-data.php';
 
 			// CSV Importer
 			require_once 'io/csv/ecp-events-importer.php';
@@ -403,10 +407,9 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 			add_filter( 'tribe-events-bar-views', array( $this, 'remove_hidden_views' ), 9999, 2 );
 			/* End Setup Tribe Events Bar */
 
-			add_filter( 'admin_footer_text', array( $this, 'tribe_admin_footer_text' ), 1, 2 );
 			add_action( 'admin_menu', array( $this, 'addEventBox' ) );
 			add_action( 'wp_insert_post', array( $this, 'addPostOrigin' ), 10, 2 );
-			add_action( 'save_post_' . self::POSTTYPE, array( $this, 'addEventMeta' ), 15, 2 );
+			add_action( 'save_post', array( $this, 'addEventMeta' ), 15, 2 );
 
 			add_action( 'save_post_' . self::VENUE_POST_TYPE, array( $this, 'save_venue_data' ), 16, 2 );
 			add_action( 'save_post_' . self::ORGANIZER_POST_TYPE, array( $this, 'save_organizer_data' ), 16, 2 );
@@ -463,7 +466,6 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 			}
 
 			add_action( 'wp_before_admin_bar_render', array( $this, 'addToolbarItems' ), 10 );
-			add_action( 'admin_notices', array( $this, 'activationMessage' ) );
 			add_action( 'all_admin_notices', array( $this, 'addViewCalendar' ) );
 			add_action( 'admin_head', array( $this, 'setInitialMenuMetaBoxes' ), 500 );
 			add_action( 'plugin_action_links_' . trailingslashit( $this->pluginDir ) . 'the-events-calendar.php', array( $this, 'addLinksToPluginActions' ) );
@@ -484,17 +486,6 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 			add_action( 'plugins_loaded', array( $this, 'init_day_view' ), 2 );
 
 
-		}
-
-		public function tribe_admin_footer_text( $footer_text ) {
-			global $current_screen;
-
-			// only display custom text on Tribe Admin Pages
-			if ( isset( $current_screen->id ) && strpos( $current_screen->id, 'tribe' ) !== false ) {
-				return sprintf( __( 'Rate <strong>The Events Calendar</strong> <a href="%1$s" target="_blank">&#9733;&#9733;&#9733;&#9733;&#9733;</a> on <a href="%1$s" target="_blank">WordPress.org</a> to keep this plugin free.  Thanks from the friendly folks at Modern Tribe.', 'tribe-events-calendar' ), __( 'http://wordpress.org/support/view/plugin-reviews/the-events-calendar?filter=5', 'tribe-events-calendar' ) );
-			} else {
-				return $footer_text;
-			}
 		}
 
 		/**
@@ -609,6 +600,7 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 
 			TribeEventsQuery::init();
 			Tribe__Events__Backcompat::init();
+			Tribe__Events__Credits::init();
 			$this->registerPostType();
 
 			self::debug( sprintf( __( 'Initializing Tribe Events on %s', 'tribe-events-calendar' ), date( 'M, jS \a\t h:m:s a' ) ) );
@@ -1528,8 +1520,8 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 		public function addVenueAndOrganizerEditor() {
 			add_submenu_page( 'edit.php?post_type=' . TribeEvents::POSTTYPE, __( $this->plural_venue_label, 'tribe-events-calendar' ), __( $this->plural_venue_label, 'tribe-events-calendar' ), 'edit_tribe_venues', 'edit.php?post_type=' . TribeEvents::VENUE_POST_TYPE );
 			add_submenu_page( 'edit.php?post_type=' . TribeEvents::POSTTYPE, __( $this->plural_organizer_label, 'tribe-events-calendar' ), __( $this->plural_organizer_label, 'tribe-events-calendar' ), 'edit_tribe_organizers', 'edit.php?post_type=' . TribeEvents::ORGANIZER_POST_TYPE );
-			add_submenu_page( 'edit.php?post_type=' . TribeEvents::VENUE_POST_TYPE, __( 'Add New ' . $this->singular_venue_label, 'tribe-events-calendar' ), __( 'Add New ' . $this->singular_venue_label, 'tribe-events-calendar' ), 'edit_tribe_venues', 'post-new.php?post_type=' . TribeEvents::VENUE_POST_TYPE );
-			add_submenu_page( 'edit.php?post_type=' . TribeEvents::ORGANIZER_POST_TYPE, __( 'Add New ' . $this->singular_organizer_label, 'tribe-events-calendar' ), __( 'Add New ' . $this->singular_organizer_label, 'tribe-events-calendar' ), 'edit_tribe_organizers', 'post-new.php?post_type=' . TribeEvents::ORGANIZER_POST_TYPE );
+			add_submenu_page( 'edit.php?post_type=' . TribeEvents::VENUE_POST_TYPE, sprintf( __('Add New %s', 'tribe-events-calendar'), $this->singular_venue_label ), sprintf( __('Add New %s', 'tribe-events-calendar'), $this->singular_venue_label ), 'edit_tribe_venues', 'post-new.php?post_type=' . TribeEvents::VENUE_POST_TYPE );
+			add_submenu_page( 'edit.php?post_type=' . TribeEvents::ORGANIZER_POST_TYPE, sprintf( __('Add New %s', 'tribe-events-calendar'), $this->singular_organizer_label ), sprintf( __('Add New %s', 'tribe-events-calendar'), $this->singular_organizer_label ), 'edit_tribe_organizers', 'post-new.php?post_type=' . TribeEvents::ORGANIZER_POST_TYPE );
 		}
 
 
@@ -1548,7 +1540,7 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 			$VenueID = apply_filters( 'tribe_display_event_venue_dropdown_id', $VenueID );
 			?>
 			<tr class="">
-				<td style="width:170px"><?php _e( 'Use Saved ' . $this->singular_venue_label . ':', 'tribe-events-calendar' ); ?></td>
+				<td style="width:170px"><?php printf( __('Use Saved %s:', 'tribe-events-calendar'), $this->singular_venue_label ); ?></td>
 				<td><?php $this->saved_venues_dropdown( $VenueID ); ?></td>
 			</tr>
 		<?php
@@ -2942,10 +2934,10 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 		public function addEventMeta( $postId, $post ) {
 
 			// Remove this hook to avoid an infinite loop, because saveEventMeta calls wp_update_post when the post is set to always show in calendar
-			remove_action( 'save_post_' . self::POSTTYPE, array( $this, 'addEventMeta' ), 15, 2 );
+			remove_action( 'save_post', array( $this, 'addEventMeta' ), 15, 2 );
 
 			// only continue if it's an event post
-			if ( $post->post_type != self::POSTTYPE || defined( 'DOING_AJAX' ) ) {
+			if ( $post->post_type !== self::POSTTYPE || defined( 'DOING_AJAX' ) ) {
 				return;
 			}
 			// don't do anything on autosave or auto-draft either or massupdates
@@ -3798,7 +3790,7 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 			);
 
 			add_meta_box(
-				'tribe_events_venue_details', __( $this->singular_venue_label . ' Information', 'tribe-events-calendar' ), array(
+				'tribe_events_venue_details', sprintf( __( '%s Information', 'tribe-events-calendar' ), $this->singular_venue_label ), array(
 					$this,
 					'VenueMetaBox'
 				), self::VENUE_POST_TYPE, 'normal', 'high'
@@ -3809,7 +3801,7 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 			}
 
 			add_meta_box(
-				'tribe_events_organizer_details', __( $this->singular_organizer_label . ' Information', 'tribe-events-calendar' ), array(
+				'tribe_events_organizer_details', sprintf( __( '%s Information', 'tribe-events-calendar' ), $this->singular_organizer_label ), array(
 					$this,
 					'OrganizerMetaBox'
 				), self::ORGANIZER_POST_TYPE, 'normal', 'high'
@@ -4284,38 +4276,6 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 					}
 				}
 			}
-		}
-
-		/**
-		 * Displays activation welcome admin notice.
-		 *
-		 *
-		 * @return void
-		 */
-		public function activationMessage() {
-			$has_been_activated = $this->getOption( 'welcome_notice', false );
-			if ( ! $has_been_activated ) {
-				echo '<div class="updated tribe-notice"><p>' . sprintf(
-						__( 'Welcome to The Events Calendar! Your events calendar can be found at %s. To change the events slug, visit %sEvents -> Settings%s.', 'tribe-events-calendar' ), '<a href="' . $this->getLink() . '">' . $this->getLink() . '</a>', '<i><a href="' . add_query_arg(
-							array(
-								'post_type' => self::POSTTYPE,
-								'page'      => 'tribe-events-calendar'
-							), admin_url( 'edit.php' )
-						) . '">', '</i></a>'
-					) . '</p></div>';
-				$this->setOption( 'welcome_notice', true );
-			}
-		}
-
-		/**
-		 * Resets the option such that the activation message is again displayed on reactivation.
-		 *
-		 *
-		 * @return void
-		 */
-		public static function resetActivationMessage() {
-			$tec = TribeEvents::instance();
-			$tec->setOption( 'welcome_notice', false );
 		}
 
 		/**

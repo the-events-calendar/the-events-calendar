@@ -1,8 +1,4 @@
 <?php
-
-/**
- *
- */
 class TribeEventsTicketsPro {
 	/**
 	 * Singleton instance of this class
@@ -42,16 +38,23 @@ class TribeEventsTicketsPro {
 	private $attendees_table;
 
 	/**
+	 * @var Tribe__Events__Tickets__Google_Event_Data
+	 */
+	protected $google_event_data;
+
+
+	/**
 	 *    Class constructor.
 	 */
 	public function __construct() {
 
 		add_action( 'wp_ajax_tribe-ticket-email-attendee-list', array( $this, 'ajax_handler_attendee_mail_list' )        );
-		add_action( 'save_post',                                array( $this, 'save_image_header'               ), 20, 2 );
+		add_action( 'save_post_' . TribeEvents::POSTTYPE,       array( $this, 'save_image_header'               ), 10, 2 );
 		add_action( 'admin_menu',                               array( $this, 'attendees_page_register'         )        );
 		add_filter( 'post_row_actions',                         array( $this, 'attendees_row_action'            )        );
 
 		$this->path = trailingslashit( dirname( dirname( dirname( __FILE__ ) ) ) );
+		$this->google_event_data = new Tribe__Events__Tickets__Google_Event_Data;
 	}
 
 	/**
@@ -410,11 +413,6 @@ class TribeEventsTicketsPro {
 	 * @param $post
 	 */
 	public function save_image_header( $post_id, $post ) {
-
-		// only continue if it's an event post
-		if ( $post->post_type != TribeEvents::POSTTYPE ) {
-			return;
-		}
 		// don't do anything on autosave or auto-draft either or massupdates
 		if ( wp_is_post_autosave( $post_id ) || wp_is_post_revision( $post_id ) ) {
 			return;

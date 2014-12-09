@@ -128,13 +128,13 @@ h2.tribe-events-page-title,
 /* = List View Template Styles
    @ Template: list.php
 =============================================*/
-.tribe-events-list .vevent.hentry {
+.tribe-events-list .type-tribe_events {
 	border-bottom: 0;
 	padding: 1.75em 0;
 	position: relative;
 }
 
-.tribe-events-list .vevent.hentry h2 {
+.tribe-events-list .type-tribe_events h2 {
 	font-size: 1.6em;
 }
 
@@ -175,11 +175,11 @@ h2.tribe-events-page-title,
 	padding: 0 7.5%;
 }
 
-.tribe-events-list-separator-month + .vevent.hentry.tribe-events-first {
+.tribe-events-list-separator-month + .type-tribe_events.tribe-events-first {
 	padding-top: 1.5em;
 }
 
-.tribe-events-list .vevent.hentry.tribe-event-end-month {
+.tribe-events-list .type-tribe_events.tribe-event-end-month {
 	padding-bottom: 1.5em;
 }
 
@@ -309,8 +309,8 @@ h2.tribe-events-page-title,
 			box-shadow: rgba(0,0,0, 0.2) 0px 0px 10px;
 }
 
-.tribe-events-othermonth {
-	background: #f9f9f9;
+#tribe-events-content .tribe-events-calendar td.tribe-events-othermonth {
+	background: #f9f9f9;	    
 }
 
 #tribe-events-content .tribe-events-calendar .tribe-events-othermonth:hover {
@@ -368,7 +368,7 @@ h2.tribe-events-page-title,
 }
 
 /* Large Calendar Specifics */
-.events-archive.events-gridview #tribe-events-content table .vevent {
+.events-archive.events-gridview #tribe-events-content table .type-tribe_events {
 	border-bottom: 1px solid #e0e0e0;
 }
 .events-archive.events-gridview #tribe-events-content table .tribe-events-last {

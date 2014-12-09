@@ -2,10 +2,10 @@
 # This file is distributed under the same license as the The Events Calendar package.
 msgid ""
 msgstr ""
-"Project-Id-Version: The Events Calendar 3.6\n"
+"Project-Id-Version: The Events Calendar 3.8\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-06-17 14:58-0800\n"
-"PO-Revision-Date: 2014-06-17 14:59-0800\n"
+"POT-Creation-Date: 2014-09-26 12:49-0800\n"
+"PO-Revision-Date: 2014-10-17 12:17-0800\n"
 "Last-Translator: \n"
 "Language-Team: Yannis Troullinos <troull88@yahoo.gr>\n"
 "Language: el_GR\n"
@@ -18,48 +18,177 @@ msgstr ""
 "_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2\n"
 "X-Poedit-Basepath: ./\n"
 "X-Textdomain-Support: yes\n"
-"X-Generator: Poedit 1.6.5\n"
+"X-Generator: Poedit 1.6.10\n"
 "X-Poedit-SearchPath-0: ..\n"
+
+#: ../admin-views/admin-update-message.php:9
+#: ../admin-views/admin-welcome-message.php:11
+#, php-format
+msgid "You are running Version %s and deserve a hug :-)"
+msgstr "\"Τρέχετε\" την Έκδοση %s και αξίζετε μια αγκαλιά :-)"
+
+#: ../admin-views/admin-update-message.php:32
+msgid "Keep the Core Plugin <strong>FREE</strong>!"
+msgstr "Διατηρήστε τον Πυρήνα του Πρόσθετου <strong>ΔΩΡΕΑΝ</strong>!"
+
+#: ../admin-views/admin-update-message.php:33
+msgid ""
+"Every time you rate <strong>5 stars</strong>, a fairy is born. Okay maybe "
+"not, but more happy users mean more contributions and help on the forums. "
+"The community NEEDS your voice."
+msgstr ""
+"Κάθε φορά που βαθμολογείτε με <strong>5 αστέρια</strong>, μια νεράιδα "
+"γεννιέται. Εντάξει, ίσως όχι, αλλά περισσότεροι χαρούμενοι χρήστες σημαίνει "
+"πιο πολλή συνεισφορά και βοήθεια στα φόρουμς. Η κοινότητα ΧΡΕΙΑΖΕΤΑΙ την "
+"φωνή σας."
+
+#: ../admin-views/admin-update-message.php:34
+#: ../admin-views/admin-welcome-message.php:22
+msgid "Rate It"
+msgstr "Βαθμολογήστε το"
+
+#: ../admin-views/admin-update-message.php:37
+msgid "PSST... Want a Discount?"
+msgstr "Πσστ... Θέλετε Έκπτωση?"
+
+#: ../admin-views/admin-update-message.php:38
+msgid "We send out discounts to our core users via our newsletter."
+msgstr ""
+"Στέλνουμε τις εκπτώσεις μας στους ενεργούς χρήστες μέσω των newsletter μας."
+
+#: ../admin-views/admin-update-message.php:41
+#: ../admin-views/admin-welcome-message.php:30
+msgid "Sign Up"
+msgstr "Εγγραφείτε"
+
+#: ../admin-views/admin-update-message.php:47
+msgid "Looking for Something Special?"
+msgstr "Ψάχνετε για Κάτι Ειδικό;"
+
+#: ../admin-views/admin-update-message.php:49
+msgid "Pro"
+msgstr "Pro"
+
+#: ../admin-views/admin-update-message.php:50
+#: ../lib/tickets/tribe-tickets-metabox.php:26
+msgid "Tickets"
+msgstr "Εισιτήρια"
+
+#
+#: ../admin-views/admin-update-message.php:51
+msgid "Community Events"
+msgstr "Εκδηλώσεις Κοινότητας"
+
+#: ../admin-views/admin-update-message.php:52
+msgid "Filters"
+msgstr "Φίλτρα"
+
+#: ../admin-views/admin-update-message.php:53
+msgid "Facebook"
+msgstr "Facebook"
+
+#: ../admin-views/admin-update-message.php:56
+#: ../admin-views/admin-welcome-message.php:52
+msgid "News For Events Users"
+msgstr "Νέα για τους Χρήστες Εκδηλώσεων"
+
+#
+#: ../admin-views/admin-welcome-message.php:19
+msgid "Keep The Events Calendar Core FREE"
+msgstr "Διατηρήστε τον πυρήνα του The Events Calendar ΔΩΡΕΑΝ"
+
+#: ../admin-views/admin-welcome-message.php:20
+msgid ""
+"5 star ratings help us bring TEC to more users. More happy users mean more "
+"support, more features, and more of everything you know and love about The "
+"Events Calendar. We couldn't do this without your support."
+msgstr ""
+"Βαθμολογίες με 5 αστέρια μας βοηθάνε να φέρουμε το The Events Calendar σε "
+"περισσότερους χρήστες. Περισσότεροι χαρούμενοι χρήστες σημαίνει περισσότερη "
+"υποστήριξη, περισσότερα χαρακτηριστικά και περισσότερο από καθετί που "
+"γνωρίζετε και αγαπάτε στο The Events Calendar. Δεν θα μπορούσαμε να τα "
+"κάνουμε όλα αυτά χωρίς την υποστήριξη σας."
+
+#: ../admin-views/admin-welcome-message.php:21
+msgid "Rate it five stars today!"
+msgstr "Βαθμολογήστε το με 5 αστέρια σήμερα!"
+
+#: ../admin-views/admin-welcome-message.php:25
+msgid "Newsletter Signup"
+msgstr "Εγγραφή στο Newsletter"
+
+#: ../admin-views/admin-welcome-message.php:26
+msgid ""
+"Stay in touch with The Events Calendar Pro. We send out the occiasional "
+"update, key developer notices, and even the occasional discount."
+msgstr ""
+"Μείνετε σε επαφή με το The Events Calendar Pro. Στέλνουμε περιστασιακά νέα "
+"σχετικά με αναβαθμίσεις, ανακοινώσεις για την ανάπτυξη του plugin και "
+"εκπτώσεις."
+
+#: ../admin-views/admin-welcome-message.php:39
+#: ../admin-views/tribe-options-help.php:149
+msgid "Getting Started"
+msgstr "Ξεκινώντας"
+
+#: ../admin-views/admin-welcome-message.php:40
+msgid "Check out the New User Primer &amp; Tutorials"
+msgstr "Ρίξτε μια ματιά στο Αλφαβητάρι Νέου Χρήστη &amp; Σεμινάρια"
+
+#: ../admin-views/admin-welcome-message.php:42
+msgid "Looking for More Features?"
+msgstr "Ψάχνετε για Περισσότερα Χαρακτηριστικά;"
+
+#: ../admin-views/admin-welcome-message.php:43
+msgid "Addons for Community, Tickets, Filters, Facebook and more."
+msgstr "Πρόσθετα για την Κοινότητα, Εισιτήρια, Φίλτρα, Facebook και άλλα."
+
+#: ../admin-views/admin-welcome-message.php:45
+msgid "Support Resources"
+msgstr "Πόροι Υποστήριξης"
+
+#: ../admin-views/admin-welcome-message.php:46
+msgid "FAQs, Documentation, Tutorials and Forums"
+msgstr "Συχνές Ερωτήσεις, Έγγραφα, Σεμινάρια και Φόρουμς"
+
+#: ../admin-views/admin-welcome-message.php:49
+msgid "Release Notes"
+msgstr "Σημειώσεις Έκδοσης"
+
+#: ../admin-views/admin-welcome-message.php:50
+msgid "Get the Skinny on the Latest Updates"
+msgstr "Μάθετε Πληροφορίες σχετικές με τις Τελευταίες Αναβαθμίσεις  "
+
+#: ../admin-views/admin-welcome-message.php:53
+msgid "Product Releases, Tutorials and Community Activity"
+msgstr "Δελτία Προϊόντων, Σεμινάρια και Κοινοτική Δραστηριότητα"
 
 #
 #: ../admin-views/app-shop.php:4
 msgid "Tribe Event Add-Ons"
 msgstr "Πρόσθετα Εκδηλώσεων της Tribe"
 
-#: ../admin-views/app-shop.php:50
+#: ../admin-views/app-shop.php:54
 msgid "Version"
 msgstr "Έκδοση"
 
-#: ../admin-views/app-shop.php:53
+#: ../admin-views/app-shop.php:57
 msgid "Last Update"
 msgstr "Τελευταία Ενημέρωση"
 
-#: ../admin-views/event-sidebar-options.php:11
+#: ../admin-views/event-sidebar-options.php:13
 msgid "Hide From Event Listings"
 msgstr "Απόκρυψη από τη Λίστα Εκδηλώσεων"
 
-#: ../admin-views/event-sidebar-options.php:12
+#: ../admin-views/event-sidebar-options.php:15
 msgid "Sticky in Calendar View"
 msgstr "Εξέχουσα (sticky) στην Εμφάνιση Ημερολογίου"
 
-#
-#: ../admin-views/events-audit-trail.php:39
-msgid "Auditing Information"
-msgstr "Πληροφορίες Ελέγχου"
-
-#: ../admin-views/events-audit-trail.php:45
-msgid "Created by:"
-msgstr "Δημιουργήθηκε από:"
-
-#: ../admin-views/events-audit-trail.php:49
-msgid "Audit Trail:"
-msgstr "Διαδρομή Ελέγχου:"
-
-#: ../admin-views/events-meta-box.php:26
+#: ../admin-views/events-meta-box.php:33
 msgid "Event Time &amp; Date"
 msgstr "Ώρα &amp; Ημερομηνία Εκδήλωσης"
 
-#: ../admin-views/events-meta-box.php:32
+#: ../admin-views/events-meta-box.php:40
 msgid ""
 "You have changed the recurrence rules of this event.  Saving the event will "
 "update all future events.  If you did not mean to change all events, then "
@@ -70,105 +199,106 @@ msgstr ""
 "να αλλάξετε όλες τις εκδηλώσεις, παρακαλούμε ανανεώστε τη σελίδα."
 
 #
-#: ../admin-views/events-meta-box.php:35
+#: ../admin-views/events-meta-box.php:43
 msgid "All Day Event:"
 msgstr "Ολοήμερη Εκδήλωση:"
 
 #
-#: ../admin-views/events-meta-box.php:39
+#: ../admin-views/events-meta-box.php:49
 msgid "Start Date &amp; Time:"
 msgstr "Ημερομηνία &amp; Ώρα Έναρξης:"
 
-#: ../admin-views/events-meta-box.php:42 ../admin-views/events-meta-box.php:63
+#: ../admin-views/events-meta-box.php:52 ../admin-views/events-meta-box.php:73
 msgid "YYYY-MM-DD"
 msgstr "ΕΕΕΕ-ΜΜ-ΗΗ"
 
 #
-#: ../admin-views/events-meta-box.php:60
+#: ../admin-views/events-meta-box.php:70
 msgid "End Date &amp; Time:"
 msgstr "Ημερομηνία &amp; Ώρα Λήξης:"
 
-#: ../admin-views/events-meta-box.php:87
+#: ../admin-views/events-meta-box.php:98
 msgid "Event Location Details"
 msgstr "Λεπτομέρειες Τοποθεσίας Εκδήλωσης"
 
-#: ../admin-views/events-meta-box.php:95
+#: ../admin-views/events-meta-box.php:107
 msgid "Event Organizer Details"
 msgstr "Λεπτομέρειες Διοργανωτή Εκδήλωσης"
 
 #
-#: ../admin-views/events-meta-box.php:103
+#: ../admin-views/events-meta-box.php:116
+#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:66
 msgid "Event Website"
 msgstr "Site Εκδήλωσης"
 
-#: ../admin-views/events-meta-box.php:106
+#: ../admin-views/events-meta-box.php:119
 msgid "URL:"
 msgstr "URL:"
 
-#: ../admin-views/events-meta-box.php:117
-#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:61
+#: ../admin-views/events-meta-box.php:133
+#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:63
 msgid "Event Cost"
 msgstr "Κόστος Εκδήλωσης"
 
-#: ../admin-views/events-meta-box.php:120
+#: ../admin-views/events-meta-box.php:136
 msgid "Currency Symbol:"
 msgstr "Σύμβολο Νομίσματος:"
 
-#: ../admin-views/events-meta-box.php:130
+#: ../admin-views/events-meta-box.php:151
 msgctxt "Currency symbol position"
 msgid "Before cost"
 msgstr "Πριν την τιμή"
 
-#: ../admin-views/events-meta-box.php:131
+#: ../admin-views/events-meta-box.php:154
 msgctxt "Currency symbol position"
 msgid "After cost"
 msgstr "Μετά την τιμή"
 
-#: ../admin-views/events-meta-box.php:136
-#: ../public/advanced-functions/meta.php:320
-#: ../views/modules/meta/details.php:80
+#: ../admin-views/events-meta-box.php:159
+#: ../public/advanced-functions/meta.php:373
+#: ../views/modules/meta/details.php:96
 msgid "Cost:"
 msgstr "Κόστος:"
 
-#: ../admin-views/events-meta-box.php:141
+#: ../admin-views/events-meta-box.php:167
 msgid "Enter a 0 for events that are free or leave blank to hide the field."
 msgstr ""
 "Εισάγετε 0 για εκδηλώσεις με ελεύθερη είσοδο ή αφήστε το κενό για να "
 "αποκρύψετε το πεδίο."
 
-#: ../admin-views/organizer-meta-box.php:12
-#: ../admin-views/venue-meta-box.php:20
-#, fuzzy, php-format
+#: ../admin-views/organizer-meta-box.php:14
+#: ../admin-views/venue-meta-box.php:22
+#, php-format
 msgid "%s Name:"
-msgstr "Όνομα Χώρου Διεξαγωγής:"
+msgstr "Όνομα %s:"
 
-#: ../admin-views/organizer-meta-box.php:19
-#: ../admin-views/tickets/attendees.php:41
-#: ../admin-views/venue-meta-box.php:93
-#: ../public/advanced-functions/meta.php:408
-#: ../public/advanced-functions/meta.php:470
-#: ../views/modules/meta/organizer.php:24 ../views/modules/meta/venue.php:36
+#: ../admin-views/organizer-meta-box.php:21
+#: ../admin-views/tickets/attendees.php:52
+#: ../admin-views/venue-meta-box.php:109
+#: ../public/advanced-functions/meta.php:476
+#: ../public/advanced-functions/meta.php:549
+#: ../views/modules/meta/organizer.php:24 ../views/modules/meta/venue.php:40
 msgid "Phone:"
 msgstr "Τηλέφωνο:"
 
-#: ../admin-views/organizer-meta-box.php:23
-#: ../admin-views/tickets/attendees.php:47
-#: ../admin-views/venue-meta-box.php:97
-#: ../public/advanced-functions/meta.php:359
-#: ../public/advanced-functions/meta.php:434
-#: ../public/advanced-functions/meta.php:496
-#: ../views/modules/meta/details.php:103
-#: ../views/modules/meta/organizer.php:34 ../views/modules/meta/venue.php:41
+#: ../admin-views/organizer-meta-box.php:27
+#: ../admin-views/tickets/attendees.php:61
+#: ../admin-views/venue-meta-box.php:116
+#: ../public/advanced-functions/meta.php:418
+#: ../public/advanced-functions/meta.php:506
+#: ../public/advanced-functions/meta.php:579
+#: ../views/modules/meta/details.php:121
+#: ../views/modules/meta/organizer.php:34 ../views/modules/meta/venue.php:45
 msgid "Website:"
 msgstr "Ιστοσελίδα:"
 
-#: ../admin-views/organizer-meta-box.php:27
-#: ../public/advanced-functions/meta.php:483
+#: ../admin-views/organizer-meta-box.php:33
+#: ../public/advanced-functions/meta.php:564
 #: ../views/modules/meta/organizer.php:29
 msgid "Email:"
 msgstr "Email:"
 
-#: ../admin-views/organizer-meta-box.php:28
+#: ../admin-views/organizer-meta-box.php:34
 msgid ""
 "You may want to consider <a href=\"http://wordpress.org/plugins/tags/"
 "obfuscate\">obfuscating</a> any e-mail address published on your site to "
@@ -180,69 +310,84 @@ msgstr ""
 "spammers."
 
 #: ../admin-views/tickets/attendees.php:11 ../admin-views/tickets/list.php:41
-#: ../lib/tickets/tribe-tickets-pro.php:73
+#: ../lib/tickets/tribe-tickets-pro.php:74
 msgid "Attendees"
 msgstr "Συμμετέχοντες"
 
 #
-#: ../admin-views/tickets/attendees.php:16
+#: ../admin-views/tickets/attendees.php:17
 msgid "Event Summary"
 msgstr "Περίληψη Εκδήλωσης"
 
 #
-#: ../admin-views/tickets/attendees.php:24
+#: ../admin-views/tickets/attendees.php:23
 msgid "Event Details"
 msgstr "Λεπτομέρειες Εκδήλωσης"
 
-#: ../admin-views/tickets/attendees.php:26
+#: ../admin-views/tickets/attendees.php:25
 msgid "Start Date / Time:"
 msgstr "Ημερομηνία / Ώρα Έναρξης:"
 
-#: ../admin-views/tickets/attendees.php:28
+#: ../admin-views/tickets/attendees.php:29
 msgid "End Date / Time:"
 msgstr "Ημερομηνία / Ώρα Λήξης:"
 
-#: ../admin-views/tickets/attendees.php:54
+#: ../admin-views/tickets/attendees.php:69
 msgid "Ticket Sales"
 msgstr "Πωλήσεις Εισιτηρίων"
 
-#: ../admin-views/tickets/attendees.php:66 ../admin-views/tickets/list.php:67
+#: ../admin-views/tickets/attendees.php:86
 #, php-format
-msgid "Sold %d"
-msgstr "Πωλήθηκαν %d"
+msgid "(%d awaiting review)"
+msgid_plural "(%d awaiting review)"
+msgstr[0] "(%d αναμένει αναθεώρηση)"
+msgstr[1] "(%d αναμένουν αναθεώρηση)"
 
-#: ../admin-views/tickets/attendees.php:68 ../admin-views/tickets/list.php:69
+#: ../admin-views/tickets/attendees.php:90
 #, php-format
-msgid "Sold %d of %d"
-msgstr "Πωλήθηκαν %d από %d"
+msgid "Sold %d %s"
+msgstr "Πωλήθηκαν %d %s"
 
-#: ../admin-views/tickets/attendees.php:83
+#: ../admin-views/tickets/attendees.php:93
+#, php-format
+msgid "Sold %d of %d %s"
+msgstr "Πωλήθηκαν %d από %d %s"
+
+#: ../admin-views/tickets/attendees.php:111
 msgid "Tickets sold:"
 msgstr "Εισιτήρια που πουλήθηκαν:"
 
-#: ../admin-views/tickets/attendees.php:87
+#: ../admin-views/tickets/attendees.php:118
+msgid "Finalized:"
+msgstr "Οριστικοποιήθηκε:"
+
+#: ../admin-views/tickets/attendees.php:121
+msgid "Awaiting review:"
+msgstr "Αναμένει αναθεώρηση:"
+
+#: ../admin-views/tickets/attendees.php:128
 msgid "Checked in:"
 msgstr "Πέρασαν από τον έλεγχο εισιτηρίων:"
 
-#: ../admin-views/tickets/attendees.php:104
+#: ../admin-views/tickets/attendees.php:146
 msgid "Send the attendee list by email"
 msgstr "Στείλτε τη λίστα συμμετεχόντων μέσω email"
 
 #
-#: ../admin-views/tickets/attendees.php:108
+#: ../admin-views/tickets/attendees.php:150
 msgid "Select a User:"
 msgstr "Επιλέξτε ένα Χρήστη:"
 
-#: ../admin-views/tickets/attendees.php:109
+#: ../admin-views/tickets/attendees.php:155
 msgid "Select..."
 msgstr "Επιλέξτε…"
 
-#: ../admin-views/tickets/attendees.php:111
+#: ../admin-views/tickets/attendees.php:160
 msgid "or"
 msgstr "ή"
 
 #
-#: ../admin-views/tickets/attendees.php:113
+#: ../admin-views/tickets/attendees.php:162
 msgid "Email Address:"
 msgstr "Διεύθυνση Email:"
 
@@ -251,7 +396,7 @@ msgid "Edit"
 msgstr "Επεξεργασία"
 
 #: ../admin-views/tickets/list.php:22
-#: ../lib/tickets/tribe-tickets-attendees.php:215
+#: ../lib/tickets/tribe-tickets-attendees.php:235
 msgid "Delete"
 msgstr "Διαγραφή"
 
@@ -264,11 +409,21 @@ msgstr "Επεξεργασία σε %s"
 msgid "View"
 msgstr "Προβολή"
 
-#: ../admin-views/tickets/list.php:41 ../lib/tickets/tribe-tickets-pro.php:73
+#: ../admin-views/tickets/list.php:41 ../lib/tickets/tribe-tickets-pro.php:74
 msgid "See who purchased tickets to this event"
 msgstr "Δείτε ποιος αγόρασε εισιτήρια γι' αυτήν την εκδήλωση"
 
-#: ../admin-views/tickets/meta-box.php:21
+#: ../admin-views/tickets/list.php:67
+#, php-format
+msgid "Sold %d"
+msgstr "Πωλήθηκαν %d"
+
+#: ../admin-views/tickets/list.php:69
+#, php-format
+msgid "Sold %d of %d"
+msgstr "Πωλήθηκαν %d από %d"
+
+#: ../admin-views/tickets/meta-box.php:23
 msgid ""
 "This event was created using Community Events. Are you sure you want to sell "
 "tickets for it?"
@@ -276,11 +431,11 @@ msgstr ""
 "Η εκδήλωση αυτή δημιουργήθηκε χρησιμοποιώντας το Community Events. Είστε "
 "σίγουρος ότι θέλετε να πουλήσετε εισιτήρια γι' αυτήν;"
 
-#: ../admin-views/tickets/meta-box.php:32
+#: ../admin-views/tickets/meta-box.php:34
 msgid "Upload image for the ticket header"
 msgstr "Ανεβάστε εικόνα για την κεφαλίδα του εισιτηρίου"
 
-#: ../admin-views/tickets/meta-box.php:33
+#: ../admin-views/tickets/meta-box.php:35
 msgid ""
 "The maximum image size in the email will be 580px wide by any height, and "
 "then scaled for mobile. If you would like \"retina\" support use an image "
@@ -291,57 +446,57 @@ msgstr ""
 "υποστήριξη  \"retina\" χρησιμοποιήστε μία εικόνα πλάτους 1160px."
 
 #
-#: ../admin-views/tickets/meta-box.php:36
+#: ../admin-views/tickets/meta-box.php:38
 msgid "Select an Image"
 msgstr "Επιλέξτε μία εικόνα"
 
-#: ../admin-views/tickets/meta-box.php:44
+#: ../admin-views/tickets/meta-box.php:46
 msgid "Remove"
 msgstr "Κατάργηση"
 
 #
-#: ../admin-views/tickets/meta-box.php:62
-#: ../admin-views/tickets/meta-box.php:72
+#: ../admin-views/tickets/meta-box.php:64
+#: ../admin-views/tickets/meta-box.php:74
 msgid "Add new ticket"
 msgstr "Προσθήκη νέου εισιτηρίου"
 
 #
-#: ../admin-views/tickets/meta-box.php:73
+#: ../admin-views/tickets/meta-box.php:75
 msgid "Edit ticket"
 msgstr "Επεξεργασία εισιτηρίου"
 
-#: ../admin-views/tickets/meta-box.php:79
+#: ../admin-views/tickets/meta-box.php:81
 msgid "Sell using:"
 msgstr "Πώληση με:"
 
 #
-#: ../admin-views/tickets/meta-box.php:96
+#: ../admin-views/tickets/meta-box.php:98
 msgid "Ticket Name:"
 msgstr "Όνομα Εισιτηρίου:"
 
-#: ../admin-views/tickets/meta-box.php:103
+#: ../admin-views/tickets/meta-box.php:105
 msgid "Ticket Description:"
 msgstr "Περιγραφή Εισιτηρίου:"
 
-#: ../admin-views/tickets/meta-box.php:112
+#: ../admin-views/tickets/meta-box.php:114
 msgid "Price:"
 msgstr "Τιμή:"
 
-#: ../admin-views/tickets/meta-box.php:118
+#: ../admin-views/tickets/meta-box.php:120
 msgid "(0 or empty for free tickets)"
 msgstr "(0 ή κενό για δωρεάν εισητήρια)"
 
 #
-#: ../admin-views/tickets/meta-box.php:124
+#: ../admin-views/tickets/meta-box.php:126
 msgid "Start sale:"
 msgstr "Έναρξη πωλήσεων:"
 
 #
-#: ../admin-views/tickets/meta-box.php:148
+#: ../admin-views/tickets/meta-box.php:150
 msgid "End sale:"
 msgstr "Λήξη πωλήσεων:"
 
-#: ../admin-views/tickets/meta-box.php:170
+#: ../admin-views/tickets/meta-box.php:172
 msgid ""
 "When will ticket sales occur? If you don't set a start/end date for sales, "
 "tickets will be available from now until the event ends."
@@ -350,7 +505,7 @@ msgstr ""
 "ημερομηνία έναρξης / λήξης για τις πωλήσεις, τα εισιτήρια θα είναι διαθέσιμα "
 "από σήμερα μέχρι την ολοκλήρωση της εκδήλωσης."
 
-#: ../admin-views/tickets/meta-box.php:182
+#: ../admin-views/tickets/meta-box.php:184
 msgid "Save this ticket"
 msgstr "Αποθηκεύστε αυτό το εισητήριο"
 
@@ -364,11 +519,11 @@ msgid "Default Page Template"
 msgstr "Προεπιλεγμένο Πρότυπο Σελίδας"
 
 #
-#: ../admin-views/tribe-options-display.php:31
+#: ../admin-views/tribe-options-display.php:32
 msgid "Display Settings"
 msgstr "Προβολή Ρυθμίσεων"
 
-#: ../admin-views/tribe-options-display.php:36
+#: ../admin-views/tribe-options-display.php:37
 #, php-format
 msgid ""
 "<p>The settings below control the display of your calendar. If things don't "
@@ -389,21 +544,21 @@ msgstr ""
 "από το Github</a></p>"
 
 #
-#: ../admin-views/tribe-options-display.php:51
+#: ../admin-views/tribe-options-display.php:52
 msgid "Basic Template Settings"
 msgstr "Βασικές Ρυθμίσεις Προτύπου"
 
-#: ../admin-views/tribe-options-display.php:55
+#: ../admin-views/tribe-options-display.php:56
 msgid "Default stylesheet used for events templates"
 msgstr ""
 "Προεπιλεγμένο φύλλο μορφοποίησης που χρησιμοποιείται για τα πρότυπα "
 "εκδηλώσεων"
 
-#: ../admin-views/tribe-options-display.php:58
+#: ../admin-views/tribe-options-display.php:59
 msgid "Skeleton Styles"
 msgstr "Στυλ σκελετού"
 
-#: ../admin-views/tribe-options-display.php:60
+#: ../admin-views/tribe-options-display.php:61
 msgid ""
 "Only includes enough css to achieve complex layouts like calendar and week "
 "view."
@@ -411,33 +566,33 @@ msgstr ""
 "Περιλαμβάνει μόνο αρκετά CSS για την επίτευξη σύνθετων διατάξεων, όπως τις "
 "προβολές ημερολογίου και εβδομάδας."
 
-#: ../admin-views/tribe-options-display.php:62
+#: ../admin-views/tribe-options-display.php:63
 msgid "Full Styles"
 msgstr "Πλήρη Στυλ"
 
-#: ../admin-views/tribe-options-display.php:64
+#: ../admin-views/tribe-options-display.php:65
 msgid "More detailed styling, tries to grab styles from your theme."
 msgstr ""
 "Πιο σύνθετη μορφοποίηση, επιχειρεί να υιοθετήσει τη μορφοποίηση του θέματός "
 "σας."
 
 #
-#: ../admin-views/tribe-options-display.php:66
+#: ../admin-views/tribe-options-display.php:67
 msgid "Tribe Events Styles"
 msgstr "Στυλ Tribe Events"
 
-#: ../admin-views/tribe-options-display.php:68
+#: ../admin-views/tribe-options-display.php:69
 msgid "A fully designed and styled theme for your events pages."
 msgstr ""
 "Ένα πλήρως σχεδιασμένο και μορφοποιημένο θέμα για τη σελίδα των εκδηλώσεών "
 "σας."
 
 #
-#: ../admin-views/tribe-options-display.php:75
+#: ../admin-views/tribe-options-display.php:76
 msgid "Events template"
 msgstr "Πρότυπο εκδηλώσεων"
 
-#: ../admin-views/tribe-options-display.php:76
+#: ../admin-views/tribe-options-display.php:77
 msgid ""
 "Choose a page template to control the appearance of your calendar and event "
 "content."
@@ -445,42 +600,42 @@ msgstr ""
 "Επιλέξτε ένα πρότυπο σελίδας για τον έλεγχο της εμφάνισης του ημερολογίου "
 "σας και του περιεχομένου εκδηλώσεων."
 
-#: ../admin-views/tribe-options-display.php:84
+#: ../admin-views/tribe-options-display.php:85
 msgid "Enable event views"
 msgstr "Ενεργοποίηση εμφανίσεων εκδήλωσης"
 
-#: ../admin-views/tribe-options-display.php:85
+#: ../admin-views/tribe-options-display.php:86
 msgid "You must select at least one view."
 msgstr "Πρέπει να επιλέξετε τουλάχιστον μία εμφάνιση."
 
-#: ../admin-views/tribe-options-display.php:92
+#: ../admin-views/tribe-options-display.php:93
 msgid "Default view"
 msgstr "Προεπιλεγμένη εμφάνιση"
 
-#: ../admin-views/tribe-options-display.php:100
+#: ../admin-views/tribe-options-display.php:101
 msgid "Disable the Event Search Bar"
 msgstr "Απενεργοποίση της Μπάρας Αναζήτησης Εκδηλώσεων"
 
-#: ../admin-views/tribe-options-display.php:101
+#: ../admin-views/tribe-options-display.php:102
 msgid "Check this to use the classic header."
 msgstr "Επιλέξτε το για να χρησιμοποιήσετε την κλασική κεφαλίδα."
 
-#: ../admin-views/tribe-options-display.php:107
+#: ../admin-views/tribe-options-display.php:108
 msgid "Month view events per day"
 msgstr "Προβολή εκδηλώσεων μήνα ανά ημέρα"
 
-#: ../admin-views/tribe-options-display.php:108
+#: ../admin-views/tribe-options-display.php:109
 msgid "Allow more than the default 3 events per day in month view."
 msgstr ""
 "Επιτρέψτε περισσότερες από τις προεπιλεγμένες 3 εκδηλώσεις ανά ημέρα σε "
 "προβολή μήνα."
 
 #
-#: ../admin-views/tribe-options-display.php:115
+#: ../admin-views/tribe-options-display.php:116
 msgid "Date Format Settings"
 msgstr "Ρυθμίσεις Προβολής Ημερομηνίας"
 
-#: ../admin-views/tribe-options-display.php:119
+#: ../admin-views/tribe-options-display.php:120
 msgid ""
 "<p>The following three fields accept the date format options available to "
 "the php date() function. <a href=\"http://codex.wordpress.org/"
@@ -492,11 +647,11 @@ msgstr ""
 "Formatting_Date_and_Time\" target=\"_blank\">Μάθετε εδώ πως να φτιάχνετε την "
 "δική σας μορφή ημερομηνίας</a>.</p>"
 
-#: ../admin-views/tribe-options-display.php:123
+#: ../admin-views/tribe-options-display.php:124
 msgid "Date with year"
 msgstr "Ημερομηνία με έτος"
 
-#: ../admin-views/tribe-options-display.php:124
+#: ../admin-views/tribe-options-display.php:125
 msgid ""
 "Enter the format to use for displaying dates with the year. Used when "
 "showing an event from a past or future year, also used for dates in view "
@@ -506,11 +661,11 @@ msgstr ""
 "έτος. Χρησιμοποιείται για προβολή εκδήλωσης περασμένου ή επόμενου έτους, "
 "καθώς και για ημερομηνίες στις επικεφαλίδες προβολής."
 
-#: ../admin-views/tribe-options-display.php:131
+#: ../admin-views/tribe-options-display.php:132
 msgid "Date without year"
 msgstr "Ημερομηνία χωρίς έτος"
 
-#: ../admin-views/tribe-options-display.php:132
+#: ../admin-views/tribe-options-display.php:133
 msgid ""
 "Enter the format to use for displaying dates without a year. Used when "
 "showing an event from the current year."
@@ -518,11 +673,11 @@ msgstr ""
 "Καταχωρίστε την μορφή που θα χρησιμοποιείται για προβολή ημερομηνίας χωρίς "
 "έτος. Χρησιμοποιείται για προβολή εκδήλωσης τρέχοντος έτους."
 
-#: ../admin-views/tribe-options-display.php:139
+#: ../admin-views/tribe-options-display.php:140
 msgid "Month and year format"
 msgstr "Μορφή μήνα και έτους"
 
-#: ../admin-views/tribe-options-display.php:140
+#: ../admin-views/tribe-options-display.php:141
 msgid ""
 "Enter the format to use for dates that show a month and year only. Used on "
 "month view."
@@ -530,11 +685,11 @@ msgstr ""
 "Καταχωρίστε την μορφή που θα χρησιμοποιείται για προβολή ημερομηνίας που "
 "δείχνουν μόνο μήνα και έτος. Χρησιμοποιείται στην προβολή μήνα."
 
-#: ../admin-views/tribe-options-display.php:147
+#: ../admin-views/tribe-options-display.php:148
 msgid "Date time separator"
 msgstr "Διαχωριστικό ημερομηνίας και ώρας"
 
-#: ../admin-views/tribe-options-display.php:148
+#: ../admin-views/tribe-options-display.php:149
 msgid ""
 "Enter the separator that will be placed between the date and time, when both "
 "are shown."
@@ -542,11 +697,11 @@ msgstr ""
 "Καταχωρίστε το διαχωριστικό που θα τοποθετηθεί μεταξύ ημερομηνίας και ώρας, "
 "όταν έχει επιλεχθεί η προβολή και των δύο."
 
-#: ../admin-views/tribe-options-display.php:155
+#: ../admin-views/tribe-options-display.php:156
 msgid "Time range separator"
 msgstr "Διαχωριστικό εύρους ώρας"
 
-#: ../admin-views/tribe-options-display.php:156
+#: ../admin-views/tribe-options-display.php:157
 msgid ""
 "Enter the separator that will be used between the start and end time of an "
 "event."
@@ -554,26 +709,26 @@ msgstr ""
 "Καταχωρίστε το διαχωριστικό που θα τοποθετηθεί μεταξύ ώρας έναρξης και λήξης "
 "της εκδήλωσης."
 
-#: ../admin-views/tribe-options-display.php:163
+#: ../admin-views/tribe-options-display.php:164
 msgid "Datepicker Date Format"
 msgstr "Μορφή ημερομηνίας στον επιλογέα ημερομηνίας"
 
-#: ../admin-views/tribe-options-display.php:164
+#: ../admin-views/tribe-options-display.php:165
 msgid "Select the date format to use in datepickers"
 msgstr ""
 "Επιλογή μορφής ημερομηνίας που θα χρησιμοποιείται στους επιλογείς ημερομηνίας"
 
 #
-#: ../admin-views/tribe-options-display.php:181
+#: ../admin-views/tribe-options-display.php:182
 msgid "Advanced Template Settings"
 msgstr "Προηγμένες Ρυθμίσεις Προτύπου"
 
 #
-#: ../admin-views/tribe-options-display.php:185
+#: ../admin-views/tribe-options-display.php:186
 msgid "Add HTML before event content"
 msgstr "Προσθήκη HTML πριν από το περιεχόμενο της εκδήλωσης"
 
-#: ../admin-views/tribe-options-display.php:186
+#: ../admin-views/tribe-options-display.php:187
 msgid ""
 "If you are familiar with HTML, you can add additional code before the event "
 "template. Some themes may require this to help with styling or layout."
@@ -583,11 +738,11 @@ msgstr ""
 "καθώς βοηθάει στη μορφοποίηση ή διάταξη."
 
 #
-#: ../admin-views/tribe-options-display.php:191
+#: ../admin-views/tribe-options-display.php:192
 msgid "Add HTML after event content"
 msgstr "Προσθήκη HTML μετά το περιεχόμενο της εκδήλωσης"
 
-#: ../admin-views/tribe-options-display.php:192
+#: ../admin-views/tribe-options-display.php:193
 msgid ""
 "If you are familiar with HTML, you can add additional code after the event "
 "template. Some themes may require this to help with styling or layout."
@@ -596,24 +751,24 @@ msgstr ""
 "μετά το πρότυπο εκδηλώσεων. Αυτό είναι απαραίτητο για κάποια θέματα, καθώς "
 "βοηθάει στη μορφοποίηση ή διάταξη."
 
-#: ../admin-views/tribe-options-general.php:14
+#: ../admin-views/tribe-options-general.php:15
 msgid "Finding & extending your calendar."
 msgstr "Εύρεση & επέκταση του ημερολογίου σας."
 
-#: ../admin-views/tribe-options-general.php:19
+#: ../admin-views/tribe-options-general.php:20
 msgid "Finding your calendar."
 msgstr "Εύρεση του ημερολογίου σας."
 
 #
-#: ../admin-views/tribe-options-general.php:24
+#: ../admin-views/tribe-options-general.php:25
 msgid "Where's my calendar?"
 msgstr "Πού είναι το ημερολόγιό μου;"
 
-#: ../admin-views/tribe-options-general.php:24
+#: ../admin-views/tribe-options-general.php:25
 msgid "Right here"
 msgstr "Ακριβώς εδώ"
 
-#: ../admin-views/tribe-options-general.php:28
+#: ../admin-views/tribe-options-general.php:29
 msgid ""
 "Looking for additional functionality including recurring events, custom "
 "meta, community events, ticket sales and more?"
@@ -623,15 +778,15 @@ msgstr ""
 "και άλλα;"
 
 #
-#: ../admin-views/tribe-options-general.php:28
+#: ../admin-views/tribe-options-general.php:29
 msgid "Check out the available add-ons"
 msgstr "Ελέγξτε τις διαθέσιμες επεκτάσεις"
 
-#: ../admin-views/tribe-options-general.php:33
+#: ../admin-views/tribe-options-general.php:34
 msgid "We hope our plugin is helping you out."
 msgstr "Ελπίζουμε το πρόσθετό μας να σας βοηθάει."
 
-#: ../admin-views/tribe-options-general.php:37
+#: ../admin-views/tribe-options-general.php:38
 msgid ""
 "Are you thinking \"Wow, this plugin is amazing! I should say thanks to "
 "Modern Tribe for all their hard work.\" The greatest thanks we could ask for "
@@ -644,12 +799,12 @@ msgstr ""
 "μικρό κείμενο με σύνδεσμο στο κάτω μέρος του ημερολογίου σας που να οδηγεί "
 "στο πρότζεκτ The Events Calendar."
 
-#: ../admin-views/tribe-options-general.php:37
-#: ../admin-views/tribe-options-general.php:42
+#: ../admin-views/tribe-options-general.php:38
+#: ../admin-views/tribe-options-general.php:43
 msgid "See an example of the link"
 msgstr "Δείτε ένα παράδειγμα του συνδέσμου"
 
-#: ../admin-views/tribe-options-general.php:42
+#: ../admin-views/tribe-options-general.php:43
 msgid ""
 "Are you thinking \"Wow, this plugin is amazing! I should say thanks to "
 "Modern Tribe for all their hard work.\" The greatest thanks we could ask for "
@@ -663,24 +818,24 @@ msgstr ""
 "στο πρότζεκτ The Events Calendar."
 
 #
-#: ../admin-views/tribe-options-general.php:47
+#: ../admin-views/tribe-options-general.php:48
 msgid "Show The Events Calendar link"
 msgstr "Εμφάνιση του συνέσμου προς The Events Calendar"
 
 #
-#: ../admin-views/tribe-options-general.php:61
+#: ../admin-views/tribe-options-general.php:62
 msgid "General Settings"
 msgstr "Γενικές Ρυθμίσεις"
 
-#: ../admin-views/tribe-options-general.php:65
+#: ../admin-views/tribe-options-general.php:66
 msgid "Number of events to show per page"
 msgstr "Αριθμός εκδηλώσεων ανά σελίδα"
 
-#: ../admin-views/tribe-options-general.php:72
+#: ../admin-views/tribe-options-general.php:73
 msgid "Use Javascript to control date filtering"
 msgstr "Χρησιμοποιήστε Javascript για να ελέγξετε το φιλτράρισμα ημερομηνιών"
 
-#: ../admin-views/tribe-options-general.php:73
+#: ../admin-views/tribe-options-general.php:74
 msgid ""
 "This option is disabled when \"Disable the Event Search Bar\" is checked on "
 "the Display settings tab."
@@ -688,7 +843,7 @@ msgstr ""
 "Αυτή η επιλογή είναι απενεργοποιημένη όταν η \"Απενεργοποίση της Μπάρας "
 "Αναζήτησης Εκδηλώσεων\" είναι επιλεγμένη στην καρτέλα ρυθμίσεις Προβολής."
 
-#: ../admin-views/tribe-options-general.php:73
+#: ../admin-views/tribe-options-general.php:74
 msgid ""
 "Enable live ajax for datepicker on front end (User submit not required)."
 msgstr ""
@@ -696,19 +851,19 @@ msgstr ""
 "απαιτείται υποβολή χρήστη)."
 
 #
-#: ../admin-views/tribe-options-general.php:81
+#: ../admin-views/tribe-options-general.php:82
 msgid "Show comments"
 msgstr "Εμφάνιση σχολίων"
 
-#: ../admin-views/tribe-options-general.php:82
+#: ../admin-views/tribe-options-general.php:83
 msgid "Enable comments on event pages."
 msgstr "Ενεργοποίηση σχολίων στις σελίδες εκδηλώσεων."
 
-#: ../admin-views/tribe-options-general.php:88
+#: ../admin-views/tribe-options-general.php:89
 msgid "Include events in main blog loop"
 msgstr "Συμπερίληψη εκδηλώσεων στον κύριο βρόχο του ιστολογίου (blog)"
 
-#: ../admin-views/tribe-options-general.php:89
+#: ../admin-views/tribe-options-general.php:90
 msgid ""
 "Show events with the site's other posts. When this box is checked, events "
 "will also continue to appear on the default events page."
@@ -717,12 +872,12 @@ msgstr ""
 "επιλεγμένο, οι εκδηλώσεις θα συνεχίσουν επίσης να εμφανίζονται στην "
 "προεπιλεγμένη σελίδα των εκδηλώσεων."
 
-#: ../admin-views/tribe-options-general.php:95
-#: ../admin-views/tribe-options-general.php:101
+#: ../admin-views/tribe-options-general.php:96
+#: ../admin-views/tribe-options-general.php:102
 msgid "Events URL slug"
 msgstr "URL slug Εκδηλώσεων"
 
-#: ../admin-views/tribe-options-general.php:96
+#: ../admin-views/tribe-options-general.php:97
 #, php-format
 msgid ""
 "You cannot edit the slug for your events page as you do not have pretty "
@@ -737,28 +892,28 @@ msgstr ""
 "συνδέσμους</a>."
 
 #
-#: ../admin-views/tribe-options-general.php:108
-#: ../public/template-tags/options.php:18
+#: ../admin-views/tribe-options-general.php:109
+#: ../public/template-tags/options.php:20
 msgid "The slug used for building the events URL."
 msgstr "Το slug χρησιμοποιείται για την κατασκευή των URL των εκδηλώσεων."
 
-#: ../admin-views/tribe-options-general.php:108
+#: ../admin-views/tribe-options-general.php:109
 #, php-format
 msgid "Your current events URL is: %s"
 msgstr "Η τρέχουσα διεύθυνση URL των εκδηλώσεων σας είναι: %s"
 
 #
-#: ../admin-views/tribe-options-general.php:113
-#: ../public/template-tags/options.php:37
+#: ../admin-views/tribe-options-general.php:114
+#: ../public/template-tags/options.php:39
 msgid "Here is the iCal feed URL for your events:"
 msgstr "Εδώ είναι το iCal feed URL για τις εκδηλώσεις σας:"
 
 #
-#: ../admin-views/tribe-options-general.php:118
+#: ../admin-views/tribe-options-general.php:119
 msgid "Single event URL slug"
 msgstr "URL slug μεμονομένης εκδήλωσης"
 
-#: ../admin-views/tribe-options-general.php:125
+#: ../admin-views/tribe-options-general.php:126
 #, php-format
 msgid ""
 "The above should ideally be plural, and this singular.<br />Your single "
@@ -767,11 +922,11 @@ msgstr ""
 "Τo παραπάνω θα πρέπει ιδανικά να είναι στον πληθυντικό, και αυτό στον ενικό. "
 "<br /> Το μοναδικό URL της εκδήλωσής σας είναι: %s."
 
-#: ../admin-views/tribe-options-general.php:130
+#: ../admin-views/tribe-options-general.php:131
 msgid "End of day cutoff"
 msgstr "Ανώτατο όριο τέλους ημέρας"
 
-#: ../admin-views/tribe-options-general.php:138
+#: ../admin-views/tribe-options-general.php:164
 msgid ""
 "Have an event that runs past midnight? Select a time after that event's end "
 "to avoid showing the event on the next day's calendar."
@@ -780,11 +935,11 @@ msgstr ""
 "επισήμως η ημέρα σας για να αποφευχθεί η κατά λάθος προβολή της εκδήλωσής "
 "σας στην επόμενη μέρα."
 
-#: ../admin-views/tribe-options-general.php:143
+#: ../admin-views/tribe-options-general.php:169
 msgid "Default currency symbol"
 msgstr "Προεπιλεγμένο σύμβολο νομίσματος"
 
-#: ../admin-views/tribe-options-general.php:144
+#: ../admin-views/tribe-options-general.php:170
 msgid ""
 "Set the default currency symbol for event costs. Note that this only impacts "
 "future events, and changes made will not apply retroactively."
@@ -793,11 +948,11 @@ msgstr ""
 "Σημειώστε ότι αυτό θα έχει επίπτωση μόνο στα μελλοντικά γεγονότα και οι "
 "αλλαγές που θα γίνουν δεν θα ισχύσουν αναδρομικά."
 
-#: ../admin-views/tribe-options-general.php:151
+#: ../admin-views/tribe-options-general.php:177
 msgid "Currency symbol follows value"
 msgstr "Σύμβολο νομίσματος μετά την τιμή"
 
-#: ../admin-views/tribe-options-general.php:152
+#: ../admin-views/tribe-options-general.php:178
 msgid ""
 "The currency symbol normally precedes the value. Enabling this option "
 "positions the symbol after the value."
@@ -806,43 +961,43 @@ msgstr ""
 "την επιλογή τοποθετεί το σύμβολο μετά την τιμή."
 
 #
-#: ../admin-views/tribe-options-general.php:158
+#: ../admin-views/tribe-options-general.php:184
 msgid "Map Settings"
 msgstr "Ρυθμίσεις Χάρτη"
 
-#: ../admin-views/tribe-options-general.php:162
+#: ../admin-views/tribe-options-general.php:188
 msgid "Enable Google Maps"
 msgstr "Ενεργοποίηση των Χαρτών Google"
 
-#: ../admin-views/tribe-options-general.php:163
+#: ../admin-views/tribe-options-general.php:189
 msgid "Check to enable maps for events and venues."
 msgstr ""
 "Επιλέγξτε για να ενεργοποιήσετε χάρτες για τις εκδηλώσεις και τους χώρους "
 "διεξαγωγής."
 
-#: ../admin-views/tribe-options-general.php:170
+#: ../admin-views/tribe-options-general.php:196
 msgid "Google Maps default zoom level"
 msgstr "Προεπιλεγμένο επίπεδο εστίασης για τους Χάρτες Google"
 
-#: ../admin-views/tribe-options-general.php:171
+#: ../admin-views/tribe-options-general.php:197
 msgid "0 = zoomed out; 21 = zoomed in."
 msgstr "0 = σμίκρυνση, 21 = μεγέθυνση."
 
 #
-#: ../admin-views/tribe-options-general.php:179
+#: ../admin-views/tribe-options-general.php:205
 msgid "Miscellaneous Settings"
 msgstr "Διάφορες Ρυθμίσεις"
 
-#: ../admin-views/tribe-options-general.php:183
+#: ../admin-views/tribe-options-general.php:209
 msgid "Duplicate Venues &amp; Organizers"
 msgstr "Διπλότυποι Χώροι Διεξαγωγής και Διοργανωτές"
 
-#: ../admin-views/tribe-options-general.php:183
-#: ../lib/tribe-amalgamator.php:252
+#: ../admin-views/tribe-options-general.php:209
+#: ../lib/tribe-amalgamator.php:260
 msgid "Merge Duplicates"
 msgstr "Συγχώνευση Διπλότυπων"
 
-#: ../admin-views/tribe-options-general.php:183
+#: ../admin-views/tribe-options-general.php:209
 msgid ""
 "You might find duplicate venues and organizers when updating The Events "
 "Calendar from a pre-3.0 version. Click this button to automatically merge "
@@ -853,11 +1008,11 @@ msgstr ""
 "να συγχωνευθούν αυτόματα οι πανομοιότυποι χώροι και διοργανωτές."
 
 #
-#: ../admin-views/tribe-options-general.php:188
+#: ../admin-views/tribe-options-general.php:214
 msgid "Debug mode"
 msgstr "Λειτουργία αποσφαλμάτωσης"
 
-#: ../admin-views/tribe-options-general.php:194
+#: ../admin-views/tribe-options-general.php:220
 #, php-format
 msgid ""
 "Enable this option to log debug information. By default this will log to "
@@ -871,68 +1026,79 @@ msgstr ""
 "τότε σας συνιστούμε να εγκαταστήσετε το %s και να αναζητήσετε την καρτέλα "
 "\"Tribe\"  στην  έξοδο αποσφαλμάτωσης."
 
-#: ../admin-views/tribe-options-general.php:194
+#: ../admin-views/tribe-options-general.php:220
 msgid "Debug Bar Plugin"
 msgstr "Πρόσθετο Μπάρας Αποσφαλμάτωσης"
 
-#: ../admin-views/tribe-options-help.php:18
+#: ../admin-views/tribe-options-help.php:28
 msgctxt "not available"
 msgid "n/a"
 msgstr "μ/δ (μη διαθέσιμο)"
 
-#: ../admin-views/tribe-options-help.php:19
+#: ../admin-views/tribe-options-help.php:29
 msgid "You need to upgrade!"
 msgstr "Πρέπει να αναβαθμίσετε!"
 
-#: ../admin-views/tribe-options-help.php:19
+#: ../admin-views/tribe-options-help.php:29
 msgid "You are up to date!"
 msgstr "Έχετε τις τελευταίες ενημερώσεις!"
 
 #
-#: ../admin-views/tribe-options-help.php:42
+#: ../admin-views/tribe-options-help.php:52
 msgid "The Events Calendar PRO"
 msgstr "The Events Calendar PRO"
 
 #
-#: ../admin-views/tribe-options-help.php:46
+#: ../admin-views/tribe-options-help.php:56
 msgid "The Events Calendar: Eventbrite Tickets"
 msgstr "The Events Calendar: Εισητήρια Eventbrite "
 
 #
-#: ../admin-views/tribe-options-help.php:50
+#: ../admin-views/tribe-options-help.php:60
 msgid "The Events Calendar: Community Events"
 msgstr "The Events Calendar: Εκδηλώσεις Community"
 
 #
-#: ../admin-views/tribe-options-help.php:54
+#: ../admin-views/tribe-options-help.php:64
 msgid "The Events Calendar: Facebook Events"
 msgstr "The Events Calendar: Εκδηλώσεις Facebook"
 
 #
-#: ../admin-views/tribe-options-help.php:58
+#: ../admin-views/tribe-options-help.php:68
 msgid "The Events Calendar: WooCommerce Tickets"
 msgstr "The Events Calendar: Εισητήρια WooCommerce "
 
 #
-#: ../admin-views/tribe-options-help.php:63
+#: ../admin-views/tribe-options-help.php:73
 msgid "The Events Calendar: EDD Tickets"
 msgstr "The Events Calendar: Εισητήρια EDD "
 
 #
-#: ../admin-views/tribe-options-help.php:68
+#: ../admin-views/tribe-options-help.php:78
 msgid "The Events Calendar: WPEC Tickets"
 msgstr "The Events Calendar: Εισητήρια WPEC "
 
 #
-#: ../admin-views/tribe-options-help.php:73
+#: ../admin-views/tribe-options-help.php:83
 msgid "The Events Calendar: Shopp Tickets"
 msgstr "The Events Calendar: Εισητήρια Shopp "
 
-#: ../admin-views/tribe-options-help.php:78
+#: ../admin-views/tribe-options-help.php:88
 msgid "The Events Calendar: Filter Bar"
 msgstr "The Events Calendar: Filter Bar"
 
-#: ../admin-views/tribe-options-help.php:87
+#: ../admin-views/tribe-options-help.php:94
+msgid ""
+"If you're looking for help with The Events Calendar, you've come to the "
+"right place. We are committed to helping make your calendar kick ass...and "
+"hope the resources provided below will help get you there."
+msgstr ""
+"Αν ψάχνετε για βοήθεια σχετικά με το The Events Calendar, έχετε έρθει στο "
+"σωστό μέρος. Δεσμευόμαστε να σας βοηθήσουμε ώστε να κάνετε το ημερολόγιο σας "
+"πρώτο...και ελπίζουμε οι πόροι που παρέχονται παρακάτω θα σας βοηθήσουν να "
+"φτάσετε εκεί. "
+
+#: ../admin-views/tribe-options-help.php:97
 msgid ""
 "If this is your first time using The Events Calendar, you're in for a treat "
 "and are already well on your way to creating a first event. Here are some "
@@ -943,7 +1109,7 @@ msgstr ""
 "εκδήλωσής. Εδώ θα βρείτε μερικά βασικά στοιχεία που θεωρούμε χρήσιμα για "
 "τους νέους χρήστες."
 
-#: ../admin-views/tribe-options-help.php:90
+#: ../admin-views/tribe-options-help.php:100
 #, php-format
 msgid ""
 "%sOur New User Primer%s was designed for folks in your exact position. "
@@ -956,7 +1122,7 @@ msgstr ""
 "συνοδεύουν τις εικόνες, το αλφαβητάρι επιχειρεί να σας απογειώσει από το "
 "μηδέν στο ζενίθ σε χρόνο μηδέν."
 
-#: ../admin-views/tribe-options-help.php:92
+#: ../admin-views/tribe-options-help.php:102
 #, php-format
 msgid ""
 "%sInstallation/Setup FAQs%s from our support page can help give an overview "
@@ -970,7 +1136,7 @@ msgstr ""
 "είναι χρήσιμη δεδομένου ότι έχει ως στόχο την αντιμετώπιση βασικών ζητημάτων "
 "εγκατάστασης που δεν καλύπτονται από το Αλφαβητάρι Νέου Χρήστη."
 
-#: ../admin-views/tribe-options-help.php:94
+#: ../admin-views/tribe-options-help.php:104
 #, php-format
 msgid ""
 "Are you developer looking to build your own frontend view? We created an "
@@ -981,7 +1147,7 @@ msgstr ""
 "Έχουμε δημιουργήσει ένα πρότυπο πρόσθετο που δείχνει πώς να καταχωρήσετε μία "
 "νέα προβολή. Μπορείτε να %sτο κατεβάσετε από το GitHub%s για να ξεκινήσετε."
 
-#: ../admin-views/tribe-options-help.php:96
+#: ../admin-views/tribe-options-help.php:106
 msgid ""
 "Otherwise, if you're feeling adventurous, you can get started by heading to "
 "the Events menu and adding your first event."
@@ -989,7 +1155,7 @@ msgstr ""
 "Διαφορετικά, αν αισθάνεστε τολμηρός, μπορείτε να ξεκινήσετε αμέσως "
 "πηγαίνοντας στο Μενού Εκδηλώσεων και προσθέτοντας την πρώτη σας εκδήλωση."
 
-#: ../admin-views/tribe-options-help.php:100
+#: ../admin-views/tribe-options-help.php:110
 #, php-format
 msgid ""
 "We've redone our support page from the ground up in an effort to better help "
@@ -1000,7 +1166,7 @@ msgstr ""
 "παρέχουμε καλύτερη βοήθεια στους χρήστες. Πηγαίντε στη %sΣελίδα Υποστήριξης"
 "%s όπου θα βρείτε σημαντικούς πόρους, όπως οι εξής:"
 
-#: ../admin-views/tribe-options-help.php:102
+#: ../admin-views/tribe-options-help.php:112
 #, php-format
 msgid ""
 "%sTemplate tags, functions, and hooks & filters%s for The Events Calendar "
@@ -1009,7 +1175,7 @@ msgstr ""
 "%sΕτικέτες προτύπων, λειτουργίες και άγκιστρα & φίλτρα%s για το The Events "
 "Calendar &amp; Events Calendar PRO"
 
-#: ../admin-views/tribe-options-help.php:104
+#: ../admin-views/tribe-options-help.php:114
 #, php-format
 msgid ""
 "%sFrequently Asked Questions%s ranging from the most basic setup questions "
@@ -1018,7 +1184,7 @@ msgstr ""
 "%sΣυχνές Ερωτήσεις%s που κυμαίνονται από βασικά ερωτήματα εγκατάστασης έως "
 "προηγμένες τροποιποιήσεις θεμάτων."
 
-#: ../admin-views/tribe-options-help.php:106
+#: ../admin-views/tribe-options-help.php:116
 #, php-format
 msgid ""
 "%sTutorials%s written by both members of our team and users from the "
@@ -1029,7 +1195,7 @@ msgstr ""
 "κοινότητας, τα οποία καλύπτουν προσαρμοσμένα ερωτήματα, ζητήματα ενοποίησης "
 "με θέματα και πρόσθετα τρίτων, κ.λπ."
 
-#: ../admin-views/tribe-options-help.php:108
+#: ../admin-views/tribe-options-help.php:118
 msgid ""
 "Release notes for painting an overall picture of the plugin's lifecycle and "
 "when features/bug fixes were introduced."
@@ -1037,7 +1203,7 @@ msgstr ""
 "Σημειώσεις για να πάρετε μία γενική εικόνα για τον κύκλο ζωής του πρόσθετου "
 "και για το πότε εισήχθησαν οι λειτουργίες/διορθώσεις σφαλμάτων."
 
-#: ../admin-views/tribe-options-help.php:110
+#: ../admin-views/tribe-options-help.php:120
 #, php-format
 msgid ""
 "%sAdd-on documentation%s for all of Modern Tribe's official extensions for "
@@ -1048,7 +1214,7 @@ msgstr ""
 "για το The Events Calendar (συμπεριλαμβανονένων των WooTickets, Community "
 "Events, Eventbrite Tickets, Facebook Events, κ.λπ.)"
 
-#: ../admin-views/tribe-options-help.php:112
+#: ../admin-views/tribe-options-help.php:122
 #, php-format
 msgid ""
 "We've also got a %sModern Tribe UserVoice%s page where we're actively "
@@ -1066,7 +1232,7 @@ msgstr ""
 "τρόπο να διαμορφώσουμε το μέλλον των εταιρικών προϊόντων ώστε να "
 "ανταποκρίνονται καλύτερα στις ανάγκες της κοινότητας."
 
-#: ../admin-views/tribe-options-help.php:116
+#: ../admin-views/tribe-options-help.php:126
 #, php-format
 msgid ""
 "Written documentation can only take things so far...sometimes, you need help "
@@ -1076,7 +1242,7 @@ msgstr ""
 "μερικές φορές να χρειάζεστε τη συνδρομή ενός πραγματικού προσώπου. Αυτό "
 "είναι το σημείο που το %sφόρουμ υποστήριξης%s μπαίνει στο παιχνίδι."
 
-#: ../admin-views/tribe-options-help.php:117
+#: ../admin-views/tribe-options-help.php:127
 #, php-format
 msgid ""
 "Users of the free The Events Calendar should post their support concerns to "
@@ -1092,7 +1258,7 @@ msgstr ""
 "%sΥπόμνημα Υποστήριξης%s πριν δημοσιεύσετε ένα αίτημα, ώστε να κατανοήσετε "
 "τους περιορισμούς μας."
 
-#: ../admin-views/tribe-options-help.php:118
+#: ../admin-views/tribe-options-help.php:128
 msgid ""
 "We hit the WordPress.org forum throughout the week, watching for bugs. If "
 "you report a legitimate bug that we're able to reproduce, we will log it and "
@@ -1106,7 +1272,7 @@ msgstr ""
 "Δυστυχώς, δεν μπορούμε να παρέχουμε προσαρμοσμένες συμβουλές ή να σας "
 "βοηθήσουμε στην ενσωμάτωση με πρόσθετα και θέματα τρίτων."
 
-#: ../admin-views/tribe-options-help.php:119
+#: ../admin-views/tribe-options-help.php:129
 #, php-format
 msgid ""
 "If you're a user of The Events Calendar and would like more support, please "
@@ -1120,7 +1286,7 @@ msgstr ""
 "υποστήριξης στους PRO χρήστες σε σχέση με εκείνη που μπορούμε να προσφέρουμε "
 "στο WordPress.org."
 
-#: ../admin-views/tribe-options-help.php:123
+#: ../admin-views/tribe-options-help.php:133
 #, php-format
 msgid ""
 "If you find that you aren't getting the level of service you've come to "
@@ -1131,11 +1297,11 @@ msgstr ""
 "Modern Tribe, στείλτε μας ένα e-mail στο %s ή ένα tweet στο %s και πείτε μας "
 "γιατί. Θα κάνουμε ό,τι μπορούμε για να γίνει το σωστό."
 
-#: ../admin-views/tribe-options-help.php:124
+#: ../admin-views/tribe-options-help.php:134
 msgid "More..."
 msgstr "Περισσότερα…"
 
-#: ../admin-views/tribe-options-help.php:132
+#: ../admin-views/tribe-options-help.php:143
 msgid ""
 "Hi! We are Modern Tribe and we are here to help you kick ass. Thanks so much "
 "for installing our labor of love!"
@@ -1144,85 +1310,81 @@ msgstr ""
 "να σκίσετε. Ευχαριστούμε πολύ που εγκαταστήσατε το αποτέλεσμα των κόπων και "
 "της αγάπης μας!"
 
-#: ../admin-views/tribe-options-help.php:138
-msgid "Getting Started"
-msgstr "Ξεκινώντας"
-
-#: ../admin-views/tribe-options-help.php:141
+#: ../admin-views/tribe-options-help.php:152
 msgid "Support Resources To Help You Kick Ass"
 msgstr "Πόροι Υποστήριξης που θα σας βοηθήσουν να σκίσετε!"
 
-#: ../admin-views/tribe-options-help.php:144
+#: ../admin-views/tribe-options-help.php:155
 msgid "Forums: Because Everyone Needs A Buddy"
 msgstr "Φόρουμ: Γιατί όλοι χρειάζονται ένα φιλαράκι"
 
-#: ../admin-views/tribe-options-help.php:147
+#: ../admin-views/tribe-options-help.php:158
 msgid "Not getting help?"
 msgstr "Χρειάζεστε περισσότερη βοήθεια;"
 
-#: ../admin-views/tribe-options-help.php:159
-#: ../lib/the-events-calendar.class.php:567
-#: ../lib/tribe-settings.class.php:129
+#: ../admin-views/tribe-options-help.php:170
+#: ../lib/the-events-calendar.class.php:586
+#: ../lib/tribe-settings.class.php:132
 msgid "The Events Calendar"
 msgstr "The Events Calendar"
 
-#: ../admin-views/tribe-options-help.php:163
+#: ../admin-views/tribe-options-help.php:175
 msgid "Latest Version:"
 msgstr "Τελευταία Έκδοση:"
 
-#: ../admin-views/tribe-options-help.php:164
+#: ../admin-views/tribe-options-help.php:176
 msgid "Author:"
 msgstr "Συντάκτης:"
 
-#: ../admin-views/tribe-options-help.php:164
+#: ../admin-views/tribe-options-help.php:176
 msgid "Modern Tribe Inc"
 msgstr "Modern Tribe Inc"
 
-#: ../admin-views/tribe-options-help.php:165
+#: ../admin-views/tribe-options-help.php:179
 msgid "Requires:"
 msgstr "Απαιτείται:"
 
-#: ../admin-views/tribe-options-help.php:165
+#: ../admin-views/tribe-options-help.php:179
 msgid "WordPress "
 msgstr "WordPress "
 
-#: ../admin-views/tribe-options-help.php:166
+#: ../admin-views/tribe-options-help.php:181
 msgid "Wordpress.org Plugin Page"
 msgstr "Σελίδα Προσθέτων του Wordpress.org"
 
-#: ../admin-views/tribe-options-help.php:171
+#: ../admin-views/tribe-options-help.php:187
 msgid "Average Rating"
 msgstr "Μέσος όρος βαθμολογίας"
 
-#: ../admin-views/tribe-options-help.php:175
+#: ../admin-views/tribe-options-help.php:191
 #, php-format
 msgid "Based on %d rating"
 msgid_plural "Based on %d ratings"
 msgstr[0] "Βασισμένο σε %d βαθμολογία"
 msgstr[1] "Βασισμένο σε %d βαθμολογίες"
 
-#: ../admin-views/tribe-options-help.php:176
+#: ../admin-views/tribe-options-help.php:193
 msgid "Give us 5 stars!"
 msgstr "Δώστε μας 5 αστέρια!"
 
-#: ../admin-views/tribe-options-help.php:179
+#: ../admin-views/tribe-options-help.php:197
 msgid "Premium Add-Ons"
 msgstr "Πρόσθετα Ανώτερης Ποιότητας"
 
-#: ../admin-views/tribe-options-help.php:185
+#: ../admin-views/tribe-options-help.php:206
 msgid "(Coming Soon!)"
 msgstr "(Προσεχώς!)"
 
-#: ../admin-views/tribe-options-help.php:192
+#: ../admin-views/tribe-options-help.php:216
 msgid "News and Tutorials"
 msgstr "Νέα και Οδηγοί Εκμάθησης"
 
 #
-#: ../admin-views/tribe-options-network.php:14
+#: ../admin-views/tribe-options-network.php:15
 msgid "Network Settings"
 msgstr "Ρυθμίσεις Δικτύου"
 
-#: ../admin-views/tribe-options-network.php:18
+#: ../admin-views/tribe-options-network.php:19
 msgid ""
 "This is where all of the global network settings for Modern Tribe's The "
 "Events Calendar can be modified."
@@ -1230,54 +1392,62 @@ msgstr ""
 "Εδώ μπορείτε να τροποποιήσετε όλες τις γενικές ρυθμίσεις δικτύου για το The "
 "Events Calendar της Modern Tribe."
 
-#: ../admin-views/tribe-options-network.php:26
+#: ../admin-views/tribe-options-network.php:27
 msgid "Hide the following settings tabs on every site:"
 msgstr "Απόκρυψη των παρακάτω καρτέλων ρυθμίσεων σε όλα τα site:"
 
-#: ../admin-views/venue-meta-box.php:27
-#: ../public/advanced-functions/meta.php:422
+#: ../admin-views/venue-meta-box.php:31
+#: ../public/advanced-functions/meta.php:492
 msgid "Address:"
 msgstr "Διεύθυνση:"
 
-#: ../admin-views/venue-meta-box.php:31
+#: ../admin-views/venue-meta-box.php:38
 msgid "City:"
 msgstr "Πόλη:"
 
-#: ../admin-views/venue-meta-box.php:35
+#: ../admin-views/venue-meta-box.php:45
 msgid "Country:"
 msgstr "Χώρα:"
 
-#: ../admin-views/venue-meta-box.php:73
+#: ../admin-views/venue-meta-box.php:85
 msgid "State or Province:"
 msgstr "Νομός ή Προάστιο:"
 
-#: ../admin-views/venue-meta-box.php:76
+#: ../admin-views/venue-meta-box.php:89
 msgid "Select a State:"
 msgstr "Επιλέξτε Νομό:"
 
-#: ../admin-views/venue-meta-box.php:89
+#: ../admin-views/venue-meta-box.php:102
 msgid "Postal Code:"
 msgstr "Ταχυδρομικός Κώδικας:"
 
-#: ../admin-views/venue-meta-box.php:112 ../admin-views/venue-meta-box.php:134
+#: ../admin-views/venue-meta-box.php:134 ../admin-views/venue-meta-box.php:156
 msgid "Show Google Map:"
 msgstr "Εμφάνιση Χάρτη Google:"
 
-#: ../admin-views/venue-meta-box.php:122 ../admin-views/venue-meta-box.php:144
+#: ../admin-views/venue-meta-box.php:144 ../admin-views/venue-meta-box.php:166
 msgid "Show Google Maps Link:"
 msgstr "Εμφάνιση Συνδέσμου Χαρτών Google:"
 
-#: ../admin-views/widget-admin-list.php:11
+#: ../admin-views/widget-admin-list.php:13
 msgid "Title:"
 msgstr "Τίτλος:"
 
-#: ../admin-views/widget-admin-list.php:16
+#: ../admin-views/widget-admin-list.php:18
 msgid "Show:"
 msgstr "Εμφάνιση:"
 
-#: ../admin-views/widget-admin-list.php:24
+#: ../admin-views/widget-admin-list.php:28
 msgid "Show widget only if there are upcoming events:"
 msgstr "Εμφάνιση του widget μόνο όταν υπάρχουν προσεχείς εκδηλώσεις:"
+
+#: ../lib/Activation_Page.php:125
+msgid "Welcome to The Events Calendar"
+msgstr "Καλωσήρθατε στο The Events Calendar"
+
+#: ../lib/Activation_Page.php:145
+msgid "Thanks for Updating The Events Calendar"
+msgstr "Ευχαριστούμε που αναβαθμίσατε το The Events Calendar"
 
 #: ../lib/io/csv/admin-views/columns.php:22
 #, php-format
@@ -1304,7 +1474,7 @@ msgid "Perform Import"
 msgstr "Δοκιμάστε Εισαγωγή"
 
 #
-#: ../lib/io/csv/admin-views/header.php:11
+#: ../lib/io/csv/admin-views/header.php:13
 msgid "Events Import (CSV)"
 msgstr "Εισαγωγή Εκδηλώσεων (CSV)"
 
@@ -1376,16 +1546,20 @@ msgid "Import Type:"
 msgstr "Τρόπος Εισαγωγής:"
 
 #: ../lib/io/csv/admin-views/import.php:45
+#: ../lib/the-events-calendar.class.php:520
+#: ../public/template-tags/venue.php:52
 msgid "Venues"
 msgstr "Χώροι Διεξαγωγής"
 
 #: ../lib/io/csv/admin-views/import.php:46
+#: ../lib/the-events-calendar.class.php:536
+#: ../public/template-tags/organizer.php:59
 msgid "Organizers"
 msgstr "Διοργανωτές"
 
 #: ../lib/io/csv/admin-views/import.php:47
-#: ../lib/the-events-calendar.class.php:1353
-#: ../lib/the-events-calendar.class.php:3884
+#: ../lib/the-events-calendar.class.php:1416
+#: ../lib/the-events-calendar.class.php:4186
 msgid "Events"
 msgstr "Εκδηλώσεις"
 
@@ -1393,7 +1567,7 @@ msgstr "Εκδηλώσεις"
 msgid "CSV File:"
 msgstr "Αρχείο CSV:"
 
-#: ../lib/io/csv/admin-views/import.php:58
+#: ../lib/io/csv/admin-views/import.php:59
 msgid ""
 "Upload a properly formatted, UTF-8 encoded CSV file. Not sure if your file "
 "is UTF-8 encoded? Make sure to specify the character encoding when you save "
@@ -1406,43 +1580,43 @@ msgstr ""
 "χρησιμοποιείστε το <a href='http://i-tools.org/charset/exec?"
 "dest=utf-8&src=auto&download=1'>εργαλείο μετατροπής</a>."
 
-#: ../lib/io/csv/admin-views/import.php:66
+#: ../lib/io/csv/admin-views/import.php:67
 msgid "This file has column names in the first row"
 msgstr "Αυτό το αρχείο έχει τα ονόματα στήλης στην πρώτη γραμμή."
 
-#: ../lib/io/csv/admin-views/import.php:77
+#: ../lib/io/csv/admin-views/import.php:78
 msgid "Import CSV File"
 msgstr "Εισάγετε αρχείο CSV:"
 
-#: ../lib/io/csv/admin-views/result.php:13
+#: ../lib/io/csv/admin-views/result.php:15
 msgid "Import Result"
 msgstr "Αποτέλεσμα Εισαγωγής"
 
-#: ../lib/io/csv/admin-views/result.php:15
+#: ../lib/io/csv/admin-views/result.php:17
 msgid "Import complete!"
 msgstr "Εισαγωγή ολοκληρώθηκε!"
 
-#: ../lib/io/csv/admin-views/result.php:17
+#: ../lib/io/csv/admin-views/result.php:19
 #, php-format
 msgid "Inserted: %d"
 msgstr "Καταχωρήθηκε: %d"
 
-#: ../lib/io/csv/admin-views/result.php:18
+#: ../lib/io/csv/admin-views/result.php:20
 #, php-format
 msgid "Updated: %d"
 msgstr "Ενημερώθηκε: %d"
 
-#: ../lib/io/csv/admin-views/result.php:19
+#: ../lib/io/csv/admin-views/result.php:21
 #, php-format
 msgid "Skipped: %d"
 msgstr "Παραλείφθηκε: %d"
 
-#: ../lib/io/csv/admin-views/result.php:23
+#: ../lib/io/csv/admin-views/result.php:25
 msgid "The import statistics above have the following meaning:"
 msgstr ""
 "Τα στατιστικά στοιχεία των εισαγωγών παραπάνω έχουν την ακόλουθη έννοια:"
 
-#: ../lib/io/csv/admin-views/result.php:24
+#: ../lib/io/csv/admin-views/result.php:26
 msgid ""
 "<ol><li><strong>Inserted:</strong> A new item was inserted successfully.</"
 "li><li><strong>Updated:</strong> An item was found with the same name and/or "
@@ -1457,7 +1631,7 @@ msgstr ""
 "Μια σειρά βρέθηκε στο αρχείο CSV που δεν ήταν δυνατόν να εισαχθεί. Παρακαλώ "
 "διαβάστε παρακάτω για τις μη έγκυρες γραμμές. </li></ol>"
 
-#: ../lib/io/csv/admin-views/result.php:27
+#: ../lib/io/csv/admin-views/result.php:29
 #, php-format
 msgid "Skipped row numbers: %s"
 msgstr "Οι αριθμοί γραμμών παραλείφθηκαν: %s"
@@ -1485,109 +1659,109 @@ msgstr "<p>Τα ακόλουθα πεδία απαιτούνται για μια
 msgid "Do Not Import"
 msgstr "Μην Εισάγετε"
 
-#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:50
+#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:52
 msgid "Event Name"
 msgstr "Όνομα Εκδήλωσης"
 
-#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:51
+#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:53
 msgid "Event Description"
 msgstr "Περιγραφή Εκδήλωσης"
 
-#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:52
+#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:54
 msgid "Event Start Date"
 msgstr "Ημερομηνία Έναρξης Εκδήλωσης"
 
-#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:53
+#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:55
 msgid "Event Start Time"
 msgstr "Ώρα Έναρξης Εκδήλωσης"
 
-#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:54
+#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:56
 msgid "Event End Date"
 msgstr "Ημερομηνία Λήξης Εκδήλωσης"
 
 #
-#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:55
+#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:57
 msgid "Event End Time"
 msgstr "Ώρα Λήξης Εκδήλωσης"
 
 #
-#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:56
+#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:58
 msgid "All Day Event"
 msgstr "Ολοήμερη Εκδήλωση"
 
-#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:57
+#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:59
 msgid "Event Venue Name"
 msgstr "Όνομα Χώρου Διεξαγωγής Εκδήλωσης"
 
-#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:58
+#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:60
 msgid "Event Organizer Name"
 msgstr "Όνομα Διοργανωτή Εκδήλωσης"
 
-#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:59
+#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:61
 msgid "Event Show Map Link"
 msgstr "Εμφάνιση Συνδέσμου Χάρτη Εκδήλωσης"
 
 #
-#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:60
+#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:62
 msgid "Event Show Map"
 msgstr "Εμφάνιση Χάρτη Εκδήλωσης"
 
 #
-#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:62
+#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:64
 msgid "Event Phone"
 msgstr "Τηλέφωνο Εκδήλωσης"
 
-#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:63
-#: ../lib/the-events-calendar.class.php:1393
-#: ../public/template-tags/general.php:268
+#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:65
+#: ../lib/the-events-calendar.class.php:1456
+#: ../public/template-tags/general.php:353
 msgid "Event Category"
 msgstr "Κατηγορία Εκδήλωσης"
 
-#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:69
+#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:72
 msgid "Venue Name"
 msgstr "Όνομα Χώρου Διεξαγωγής:"
 
-#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:70
+#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:73
 msgid "Venue Country"
 msgstr "Χώρα χώρου διεξαγωγής"
 
-#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:71
+#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:74
 msgid "Venue Address"
 msgstr "Διεύθυνση Χώρου Διεξαγωγής:"
 
-#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:72
-msgid "Venue Addres 2"
-msgstr "Διεύθυνση Χώρου Διεξαγωγής 2:"
+#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:75
+msgid "Venue Address 2"
+msgstr "Διεύθυνση 2 Χώρου Διεξαγωγής:"
 
-#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:73
+#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:76
 msgid "Venue City"
 msgstr "Πόλη Χώρου Διεξαγωγής"
 
-#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:74
+#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:77
 msgid "Venue State/Province"
 msgstr "Νομός ή Προάστιο Χώρου Διεξαγωγής:"
 
-#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:75
+#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:78
 msgid "Venue Zip"
 msgstr "Ταχυδρομικός κώδικας Χώρου Διεξαγωγής"
 
-#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:76
+#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:79
 msgid "Venue Phone"
 msgstr "Τηλέφωνο Χώρου Διεξαγωγής:"
 
-#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:82
+#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:85
 msgid "Organizer Name"
 msgstr "Όνομα Διοργανωτή:"
 
-#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:83
+#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:86
 msgid "Organizer Email"
 msgstr "Email Διοργανωτή"
 
-#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:84
+#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:87
 msgid "Organizer Website"
 msgstr "Ιστοσελίδα Διοργανωτή"
 
-#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:85
+#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:88
 msgid "Organizer Phone"
 msgstr "Τηλέφωνο Διοργανωτή"
 
@@ -1601,17 +1775,17 @@ msgstr "Δεν ορίστηκε εισαγωγέας για %s"
 msgid "Missing required fields in row %d."
 msgstr "Λείπουν απαιτούμενα πεδία στη γραμμή %d."
 
-#: ../lib/io/csv/classes/TribeEventsImporter_FileImporter.php:117
+#: ../lib/io/csv/classes/TribeEventsImporter_FileImporter.php:118
 #, php-format
 msgid "Failed to import record in row %d."
 msgstr "Απέτυχε η εισαγωγή εγγραφής στη γραμμή %d."
 
-#: ../lib/io/csv/classes/TribeEventsImporter_FileImporter.php:126
+#: ../lib/io/csv/classes/TribeEventsImporter_FileImporter.php:127
 #, php-format
 msgid "%s (post ID %d) updated."
 msgstr "%s (post ID %d) ενημερώθηκε."
 
-#: ../lib/io/csv/classes/TribeEventsImporter_FileImporter.php:130
+#: ../lib/io/csv/classes/TribeEventsImporter_FileImporter.php:131
 #, php-format
 msgid "%s (post ID %d) created."
 msgstr "%s (post ID %d) δημιουργήθηκε."
@@ -1626,51 +1800,55 @@ msgstr "Το προσωρινό αρχείο δεν βρέθηκε. Δεν απ�
 msgid "Could not save %s."
 msgstr "Δεν αποθηκεύτηκε το %s."
 
-#: ../lib/pue/admin-views/license-key.view.php:9
-#: ../lib/pue/admin-views/license-key.view.php:13
-#: ../lib/pue/lib/pue_plugin_update_engine.class.php:288
+#: ../lib/pue/admin-views/license-key.view.php:12
+#: ../lib/pue/admin-views/license-key.view.php:16
+#: ../lib/pue/lib/pue_plugin_update_engine.class.php:305
 msgid "License Key"
 msgstr "Κλειδί Άδειας"
 
-#: ../lib/pue/admin-views/license-key.view.php:10
+#: ../lib/pue/admin-views/license-key.view.php:13
 msgid "A valid license key is required for support and updates."
 msgstr "Ένα έγκυρο κλειδί άδειας απαιτείται για υποστήριξη και ενημερώσεις."
 
-#: ../lib/pue/admin-views/license-key.view.php:16
+#: ../lib/pue/admin-views/license-key.view.php:19
 msgid "Replace empty fields"
 msgstr "Αντικαταστείστε τα κενά πεδία"
 
-#: ../lib/pue/admin-views/license-key.view.php:25
-#: ../lib/pue/lib/pue_plugin_update_engine.class.php:289
+#: ../lib/pue/admin-views/license-key.view.php:29
+#: ../lib/pue/lib/pue_plugin_update_engine.class.php:306
 msgid "A valid license key is required for support and updates"
 msgstr "Ένα έγκυρο κλειδι άδειας απαιτείται για υποστήριξη και ενημερώσεις"
 
-#: ../lib/pue/lib/pue_plugin_update_engine.class.php:353
+#: ../lib/pue/lib/pue_plugin_update_engine.class.php:375
 msgid "License key(s) updated."
 msgstr "Κλειδί(-ά) άδειας ενημερώθηκε(-αν)."
 
-#: ../lib/pue/lib/pue_plugin_update_engine.class.php:393
+#: ../lib/pue/lib/pue_plugin_update_engine.class.php:415
 msgid "Sorry, key validation server is not available."
 msgstr "Λυπούμαστε, ο σέρβερ επιβεβαίωσης κλειδιών δεν είναι διαθέσιμος."
 
-#: ../lib/pue/lib/pue_plugin_update_engine.class.php:395
+#: ../lib/pue/lib/pue_plugin_update_engine.class.php:417
 msgid "Sorry, this key is expired."
 msgstr "Λυπούμαστε, το κλειδί έχει λήξει."
 
-#: ../lib/pue/lib/pue_plugin_update_engine.class.php:397
+#: ../lib/pue/lib/pue_plugin_update_engine.class.php:420
 msgid "Sorry, this key is out of installs."
 msgstr "Λυπούμαστε, το κλειδί είναι εκτός εγκατάστασεων."
 
-#: ../lib/pue/lib/pue_plugin_update_engine.class.php:399
+#: ../lib/pue/lib/pue_plugin_update_engine.class.php:421
+msgid "Why am I seeing this message?"
+msgstr "Γιατί βλέπω αυτό το μήνυμα;"
+
+#: ../lib/pue/lib/pue_plugin_update_engine.class.php:424
 msgid "Sorry, this key is not valid."
 msgstr "Λυπούμαστε, το κλειδί δεν είναι έγκυρο."
 
-#: ../lib/pue/lib/pue_plugin_update_engine.class.php:402
+#: ../lib/pue/lib/pue_plugin_update_engine.class.php:427
 #, php-format
 msgid "Valid Key! Expires on %s"
 msgstr "Έγκυρο κλειδί! Λήγει στις %s"
 
-#: ../lib/pue/lib/pue_plugin_update_engine.class.php:406
+#: ../lib/pue/lib/pue_plugin_update_engine.class.php:431
 #, php-format
 msgid ""
 "Hmmm... something's wrong with this validator. Please contact <a href=\"%s"
@@ -1680,11 +1858,15 @@ msgstr ""
 "επικοινωνήστε με την <a href=\"%s\">υποστήριξη.</a>"
 
 #
-#: ../lib/template-classes/day.php:70 ../lib/template-classes/day.php:79
+#: ../lib/template-classes/day.php:75 ../lib/template-classes/day.php:91
 msgid "All Day"
 msgstr "Ολοήμερη Εκδήλωση"
 
-#: ../lib/template-classes/day.php:122
+#: ../lib/template-classes/day.php:78 ../lib/template-classes/day.php:94
+msgid "Ongoing"
+msgstr "Συνεχίζεται"
+
+#: ../lib/template-classes/day.php:139
 #, php-format
 msgid ""
 "No matching events listed under %s scheduled for <strong>%s</strong>. Please "
@@ -1693,14 +1875,14 @@ msgstr ""
 "Δεν υπάρχουν εκδηλώσεις που να ταιριάζουν στο %s και να έχουν "
 "προγραμματιστεί για <strong>%s</strong>. Δοκιμάστε άλλη ημέρα."
 
-#: ../lib/template-classes/day.php:125
+#: ../lib/template-classes/day.php:141
 #, php-format
 msgid "No events scheduled for <strong>%s</strong>. Please try another day."
 msgstr ""
 "Δεν έχουν προγραμματιστεί εκδηλώσεις για <strong>%s</strong>. Δοκιμάστε άλλη "
 "ημέρα."
 
-#: ../lib/template-classes/month.php:112
+#: ../lib/template-classes/month.php:115
 #, php-format
 msgid ""
 "There were no results found for <strong>\"%s\"</strong> this month. Try "
@@ -1709,9 +1891,9 @@ msgstr ""
 "Δεν βρέθηκαν αποτελέσματα για <strong>\"%s\"</strong>αυτόν το μήνα. "
 "Δοκιμάστε να ψάξετε στον επόμενο μήνα."
 
-#: ../lib/template-classes/month.php:116
-#: ../lib/tribe-template-factory.class.php:230
-#: ../lib/tribe-template-factory.class.php:237
+#: ../lib/template-classes/month.php:118
+#: ../lib/tribe-template-factory.class.php:250
+#: ../lib/tribe-template-factory.class.php:255
 #, php-format
 msgid ""
 "No matching events listed under %s. Please try viewing the full calendar for "
@@ -1719,41 +1901,76 @@ msgid ""
 msgstr ""
 "Δεν υπάρχουν εκδηλώσεις που να ταιριάζουν στο %s. Δείτε το πλήρες ημερολόγιο."
 
-#: ../lib/template-classes/month.php:119
-#: ../lib/tribe-template-factory.class.php:240
+#: ../lib/template-classes/month.php:120
+#: ../lib/tribe-template-factory.class.php:257
 msgid "There were no results found."
 msgstr "Δεν βρέθηκαν αποτελέσματα."
 
-#: ../lib/template-classes/single-event.php:97
+#: ../lib/template-classes/single-event.php:107
 msgid "This event has passed."
 msgstr "Η εκδήλωση αυτή έχει παρέλθει."
 
-#: ../lib/the-events-calendar.class.php:572
+#: ../lib/the-events-calendar.class.php:495
+#, php-format
+msgid ""
+"Rate <strong>The Events Calendar</strong> <a href=\"%1$s\" target=\"_blank"
+"\">&#9733;&#9733;&#9733;&#9733;&#9733;</a> on <a href=\"%1$s\" target="
+"\"_blank\">WordPress.org</a> to keep this plugin free.  Thanks from the "
+"friendly folks at Modern Tribe."
+msgstr ""
+"Βαθμολογήστε <strong>The Events Calendar</strong> <a href=\"%1$s\" target="
+"\"_blank\">&#9733;&#9733;&#9733;&#9733;&#9733;</a> στο <a href=\"%1$s\" "
+"target=\"_blank\">WordPress.org</a>για να διατηρηθεί αυτό το plugin δωρεάν. "
+"Ευχαριστίες από τους φιλικούς συντρόφους στην Modern Tribe."
+
+#: ../lib/the-events-calendar.class.php:495
+msgid ""
+"http://wordpress.org/support/view/plugin-reviews/the-events-calendar?filter=5"
+msgstr ""
+"http://wordpress.org/support/view/plugin-reviews/the-events-calendar?filter=5"
+
+#: ../lib/the-events-calendar.class.php:528
+#: ../public/advanced-functions/meta.php:445
+#: ../public/template-tags/venue.php:41
+msgid "Venue"
+msgstr "Venue"
+
+#: ../lib/the-events-calendar.class.php:544
+#: ../public/advanced-functions/meta.php:518
+#: ../public/template-tags/organizer.php:48
+msgid "Organizer"
+msgstr "Διοργανωτής"
+
+#: ../lib/the-events-calendar.class.php:591
 msgid "month"
 msgstr "month"
 
-#: ../lib/the-events-calendar.class.php:573
+#: ../lib/the-events-calendar.class.php:592
+msgid "list"
+msgstr "list"
+
+#: ../lib/the-events-calendar.class.php:593
 msgid "upcoming"
 msgstr "upcoming"
 
-#: ../lib/the-events-calendar.class.php:574
+#: ../lib/the-events-calendar.class.php:594
 msgid "past"
 msgstr "past"
 
-#: ../lib/the-events-calendar.class.php:575
+#: ../lib/the-events-calendar.class.php:595
 msgid "day"
 msgstr "day"
 
-#: ../lib/the-events-calendar.class.php:576
+#: ../lib/the-events-calendar.class.php:596
 msgid "today"
 msgstr "today"
 
-#: ../lib/the-events-calendar.class.php:594
+#: ../lib/the-events-calendar.class.php:615
 #, php-format
 msgid "Initializing Tribe Events on %s"
 msgstr "Αρχικοποίηση των Tribe Events στο %s"
 
-#: ../lib/the-events-calendar.class.php:702
+#: ../lib/the-events-calendar.class.php:732
 #, php-format
 msgid ""
 "Your version of The Events Calendar is not up-to-date with one of your The "
@@ -1763,7 +1980,7 @@ msgstr ""
 "μία από τις επεκτάσεις του The Events Calendar. Παρακαλούμε %sαναβαθμίστε "
 "τώρα.%s"
 
-#: ../lib/the-events-calendar.class.php:719
+#: ../lib/the-events-calendar.class.php:752
 #, php-format
 msgid ""
 "The following plugins are out of date: <b>%s</b>. All add-ons contain "
@@ -1775,13 +1992,13 @@ msgstr ""
 "συνδυαστούν με τη σωστή έκδοση. %s Θέλετε να συνδυάσετε μία παλαιότερη "
 "έκδοση %s;"
 
-#: ../lib/the-events-calendar.class.php:779
-#: ../lib/the-events-calendar.class.php:814
 #: ../lib/the-events-calendar.class.php:816
+#: ../lib/the-events-calendar.class.php:852
+#: ../lib/the-events-calendar.class.php:858
 msgid "Licenses"
 msgstr "Άδειες"
 
-#: ../lib/the-events-calendar.class.php:783
+#: ../lib/the-events-calendar.class.php:821
 #, php-format
 msgid ""
 "<p>The license key you received when completing your purchase from %s will "
@@ -1814,21 +2031,21 @@ msgstr ""
 "μεταβείτε στον <a href=\"%s\">Πίνακα Ελέγχου > Ενημερώσεις</a> και κάντε "
 "κλικ στο \"Ελέγξτε Ξανά\".</p>"
 
-#: ../lib/the-events-calendar.class.php:806
+#: ../lib/the-events-calendar.class.php:844
 msgid "General"
 msgstr "Γενικά"
 
-#: ../lib/the-events-calendar.class.php:807
+#: ../lib/the-events-calendar.class.php:845
 msgid "Display"
 msgstr "Εμφάνιση"
 
-#: ../lib/the-events-calendar.class.php:819
-#: ../lib/the-events-calendar.class.php:3968
-#: ../lib/the-events-calendar.class.php:4068
+#: ../lib/the-events-calendar.class.php:864
+#: ../lib/the-events-calendar.class.php:4297
+#: ../lib/the-events-calendar.class.php:4421
 msgid "Help"
 msgstr "Βοήθεια"
 
-#: ../lib/the-events-calendar.class.php:858
+#: ../lib/the-events-calendar.class.php:908
 #, php-format
 msgid ""
 "Sorry, The Events Calendar requires WordPress %s or higher. Please upgrade "
@@ -1837,7 +2054,7 @@ msgstr ""
 "Μας συγχωρείτε, το The Events Calendar απαιτεί WordPress έκδοσης %s ή "
 "νεότερο. Παρακαλούμε αναβαθμίστε την εγκαταστασή σας."
 
-#: ../lib/the-events-calendar.class.php:861
+#: ../lib/the-events-calendar.class.php:911
 #, php-format
 msgid ""
 "Sorry, The Events Calendar requires PHP %s or higher. Talk to your Web host "
@@ -1847,196 +2064,175 @@ msgstr ""
 "Επικοινωνήστε με τον Web hosting πάροχό σας για να μεταβείτε σε νεότερη "
 "έκδοση της PHP."
 
-#: ../lib/the-events-calendar.class.php:1038 ../lib/widget-list.class.php:148
-#: ../public/template-tags/loop.php:117
-msgid "Upcoming Events"
-msgstr "Προσεχείς Εκδηλώσεις"
-
-#: ../lib/the-events-calendar.class.php:1041
-#: ../public/template-tags/loop.php:121
-msgid "Past Events"
-msgstr "Προηγούμενες Εκδηλώσεις"
-
-#: ../lib/the-events-calendar.class.php:1046
-#: ../lib/the-events-calendar.class.php:1053
-#: ../public/template-tags/loop.php:126
-#, php-format
-msgid "Events for %s"
-msgstr "Εκδηλώσεις %s"
-
-#: ../lib/the-events-calendar.class.php:1048
-msgid "Events this month"
-msgstr "Εκδηλώσεις αυτόν τον μήνα"
-
-#: ../lib/the-events-calendar.class.php:1316
+#: ../lib/the-events-calendar.class.php:1377
 msgid "category"
 msgstr "category"
 
-#: ../lib/the-events-calendar.class.php:1326
+#: ../lib/the-events-calendar.class.php:1388
 msgid "tag"
 msgstr "tag"
 
-#: ../lib/the-events-calendar.class.php:1354
+#: ../lib/the-events-calendar.class.php:1417
 msgid "Event"
 msgstr "Εκδήλωση"
 
-#: ../lib/the-events-calendar.class.php:1355
-#: ../lib/the-events-calendar.class.php:1368
-#: ../lib/the-events-calendar.class.php:1381
+#: ../lib/the-events-calendar.class.php:1418
+#: ../lib/the-events-calendar.class.php:1431
+#: ../lib/the-events-calendar.class.php:1444
 msgid "Add New"
 msgstr "Προσθήκη Νέου"
 
-#: ../lib/the-events-calendar.class.php:1356
+#: ../lib/the-events-calendar.class.php:1419
 msgid "Add New Event"
 msgstr "Προσθήκη Νέας Εκδήλωσης"
 
-#: ../lib/the-events-calendar.class.php:1357
+#: ../lib/the-events-calendar.class.php:1420
 msgid "Edit Event"
 msgstr "Επεξεργασία Εκδήλωσης"
 
-#: ../lib/the-events-calendar.class.php:1358
+#: ../lib/the-events-calendar.class.php:1421
 msgid "New Event"
 msgstr "Νέα Εκδήλωση"
 
-#: ../lib/the-events-calendar.class.php:1359
+#: ../lib/the-events-calendar.class.php:1422
 msgid "View Event"
 msgstr "Προβολή Εκδήλωσης"
 
-#: ../lib/the-events-calendar.class.php:1360
+#: ../lib/the-events-calendar.class.php:1423
 msgid "Search Events"
 msgstr "Αναζήτηση Εκδηλώσεων"
 
-#: ../lib/the-events-calendar.class.php:1361
+#: ../lib/the-events-calendar.class.php:1424
 msgid "No events found"
 msgstr "Δεν βρέθηκε καμία εκδήλωση"
 
-#: ../lib/the-events-calendar.class.php:1362
+#: ../lib/the-events-calendar.class.php:1425
 msgid "No events found in Trash"
 msgstr "Δεν βρέθηκε καμία εκδήλωση στον Κάδο Ανακύκλωσης"
 
-#: ../lib/the-events-calendar.class.php:1369
-#: ../lib/the-events-calendar.class.php:1382
-#, fuzzy, php-format
+#: ../lib/the-events-calendar.class.php:1432
+#: ../lib/the-events-calendar.class.php:1445
+#, php-format
 msgid "Add New %s"
-msgstr "Προσθήκη Νέου"
+msgstr "Προσθήκη Νέου %s"
 
-#: ../lib/the-events-calendar.class.php:1370
-#: ../lib/the-events-calendar.class.php:1383
-#, fuzzy, php-format
+#: ../lib/the-events-calendar.class.php:1433
+#: ../lib/the-events-calendar.class.php:1446
+#, php-format
 msgid "Edit %s"
-msgstr "Επεξεργασία σε %s"
+msgstr "Επεξεργασία %s"
 
-#: ../lib/the-events-calendar.class.php:1371
-#: ../lib/the-events-calendar.class.php:1384
-#, fuzzy, php-format
+#: ../lib/the-events-calendar.class.php:1434
+#: ../lib/the-events-calendar.class.php:1447
+#, php-format
 msgid "New %s"
-msgstr "Νιου Τζέρσεϊ"
+msgstr "Νέος/α/ο %s"
 
 #
-#: ../lib/the-events-calendar.class.php:1372
-#: ../lib/the-events-calendar.class.php:1385
-#, fuzzy, php-format
+#: ../lib/the-events-calendar.class.php:1435
+#: ../lib/the-events-calendar.class.php:1448
+#, php-format
 msgid "View %s"
-msgstr "Προβολή ως"
+msgstr "Προβολή %s"
 
-#: ../lib/the-events-calendar.class.php:1373
-#: ../lib/the-events-calendar.class.php:1386
-#, fuzzy, php-format
+#: ../lib/the-events-calendar.class.php:1436
+#: ../lib/the-events-calendar.class.php:1449
+#, php-format
 msgid "Search %s"
-msgstr "Αναζήτηση"
+msgstr "Αναζήτηση %s"
 
-#: ../lib/the-events-calendar.class.php:1374
-#: ../lib/the-events-calendar.class.php:1387
-#, fuzzy, php-format
+#: ../lib/the-events-calendar.class.php:1437
+#: ../lib/the-events-calendar.class.php:1450
+#, php-format
 msgid "No %s found"
-msgstr "Δεν βρέθηκε καμία εκδήλωση"
+msgstr "Δεν βρέθηκε %s"
 
-#: ../lib/the-events-calendar.class.php:1375
-#: ../lib/the-events-calendar.class.php:1388
-#, fuzzy, php-format
+#: ../lib/the-events-calendar.class.php:1438
+#: ../lib/the-events-calendar.class.php:1451
+#, php-format
 msgid "No %s found in Trash"
-msgstr "Δεν βρέθηκε καμία εκδήλωση στον Κάδο Ανακύκλωσης"
+msgstr "Δεν βρέθηκε %s στον Κάδο Ανακύκλωσης"
 
-#: ../lib/the-events-calendar.class.php:1392
-#: ../lib/tribe-admin-events-list.class.php:174
+#: ../lib/the-events-calendar.class.php:1455
+#: ../lib/tribe-admin-events-list.class.php:167
 msgid "Event Categories"
 msgstr "Κατηγορίες Εκδηλώσεων"
 
-#: ../lib/the-events-calendar.class.php:1394
+#: ../lib/the-events-calendar.class.php:1457
 msgid "Search Event Categories"
 msgstr "Αναζήτηση Κατηγορίας Εκδήλωσης"
 
-#: ../lib/the-events-calendar.class.php:1395
+#: ../lib/the-events-calendar.class.php:1458
 msgid "All Event Categories"
 msgstr "Όλες οι Κατηγορίες Εκδηλώσεων"
 
-#: ../lib/the-events-calendar.class.php:1396
+#: ../lib/the-events-calendar.class.php:1459
 msgid "Parent Event Category"
 msgstr "Μητρική Κατηγορία Εκδήλωσης"
 
-#: ../lib/the-events-calendar.class.php:1397
+#: ../lib/the-events-calendar.class.php:1460
 msgid "Parent Event Category:"
 msgstr "Μητρική Κατηγορία Εκδήλωσης:"
 
-#: ../lib/the-events-calendar.class.php:1398
+#: ../lib/the-events-calendar.class.php:1461
 msgid "Edit Event Category"
 msgstr "Επεξεργασία Κατηγορίας Εκδήλωσης"
 
-#: ../lib/the-events-calendar.class.php:1399
+#: ../lib/the-events-calendar.class.php:1462
 msgid "Update Event Category"
 msgstr "Ενημέρωση Κατηγορίας Εκδήλωσης"
 
-#: ../lib/the-events-calendar.class.php:1400
+#: ../lib/the-events-calendar.class.php:1463
 msgid "Add New Event Category"
 msgstr "Προσθήκη Νέας Κατηγορίας Εκδήλωσης"
 
-#: ../lib/the-events-calendar.class.php:1401
+#: ../lib/the-events-calendar.class.php:1464
 msgid "New Event Category Name"
 msgstr "Όνομα Νέας Κατηγορίας Εκδήλωσης"
 
-#: ../lib/the-events-calendar.class.php:1417
+#: ../lib/the-events-calendar.class.php:1481
 #, php-format
 msgid "Event updated. <a href=\"%s\">View event</a>"
 msgstr "Η εκδήλωση ενημερώθηκε. <a href=\"%s\">Προβολή εκδήλωσης</a>"
 
-#: ../lib/the-events-calendar.class.php:1418
-#: ../lib/the-events-calendar.class.php:1435
-#: ../lib/the-events-calendar.class.php:1452
+#: ../lib/the-events-calendar.class.php:1482
+#: ../lib/the-events-calendar.class.php:1501
+#: ../lib/the-events-calendar.class.php:1520
 msgid "Custom field updated."
 msgstr "Το προσαρμοσμένο πεδίο ενημερώθηκε."
 
-#: ../lib/the-events-calendar.class.php:1419
-#: ../lib/the-events-calendar.class.php:1436
-#: ../lib/the-events-calendar.class.php:1453
+#: ../lib/the-events-calendar.class.php:1483
+#: ../lib/the-events-calendar.class.php:1502
+#: ../lib/the-events-calendar.class.php:1521
 msgid "Custom field deleted."
 msgstr "Το προσαρμοσμένο πεδίο διαγράφηκε."
 
-#: ../lib/the-events-calendar.class.php:1420
+#: ../lib/the-events-calendar.class.php:1484
 msgid "Event updated."
 msgstr "Η εκδήλωση ενημερώθηκε."
 
-#: ../lib/the-events-calendar.class.php:1422
+#: ../lib/the-events-calendar.class.php:1486
 #, php-format
 msgid "Event restored to revision from %s"
 msgstr "Η εκδήλωση αποκαταστάθηκε στην αναθεώρηση από %s"
 
-#: ../lib/the-events-calendar.class.php:1423
+#: ../lib/the-events-calendar.class.php:1487
 #, php-format
 msgid "Event published. <a href=\"%s\">View event</a>"
 msgstr "Η εκδήλωση δημοσιεύθηκε. <a href=\"%s\">Προβολή εκδήλωσης</a>"
 
-#: ../lib/the-events-calendar.class.php:1424
+#: ../lib/the-events-calendar.class.php:1488
 msgid "Event saved."
 msgstr "Η εκδήλωση αποθηκεύθηκε."
 
-#: ../lib/the-events-calendar.class.php:1425
+#: ../lib/the-events-calendar.class.php:1489
 #, php-format
 msgid "Event submitted. <a target=\"_blank\" href=\"%s\">Preview event</a>"
 msgstr ""
 "Η εκδήλωση υποβλήθηκε. <a target=\"_blank\" href=\"%s\">Προεπισκόπηση "
 "εκδήλωσης</a>"
 
-#: ../lib/the-events-calendar.class.php:1426
+#: ../lib/the-events-calendar.class.php:1491
 #, php-format
 msgid ""
 "Event scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s"
@@ -2045,165 +2241,158 @@ msgstr ""
 "Η εκδήλωση έχει προγραμματιστεί για: <strong>%1$s</strong>. <a target="
 "\"_blank\" href=\"%2$s\">Προεπισκόπηση εκδήλωσης</a>"
 
-#: ../lib/the-events-calendar.class.php:1428
-#: ../lib/the-events-calendar.class.php:1445
-#: ../lib/the-events-calendar.class.php:1462
+#: ../lib/the-events-calendar.class.php:1493
+#: ../lib/the-events-calendar.class.php:1512
+#: ../lib/the-events-calendar.class.php:1531
 msgid "M j, Y @ G:i"
 msgstr "M j, Y @ G:i"
 
-#: ../lib/the-events-calendar.class.php:1429
+#: ../lib/the-events-calendar.class.php:1495
 #, php-format
 msgid "Event draft updated. <a target=\"_blank\" href=\"%s\">Preview event</a>"
 msgstr ""
 "Το προσχέδιο της εκδήλωσης τροποποιήθηκε. <a target=\"_blank\" href=\"%s"
 "\">Προεπισκόπηση εκδήλωσης</a>"
 
-#: ../lib/the-events-calendar.class.php:1434
-#: ../lib/the-events-calendar.class.php:1437
-#: ../lib/the-events-calendar.class.php:1451
-#: ../lib/the-events-calendar.class.php:1454
-#, fuzzy, php-format
+#: ../lib/the-events-calendar.class.php:1500
+#: ../lib/the-events-calendar.class.php:1503
+#: ../lib/the-events-calendar.class.php:1519
+#: ../lib/the-events-calendar.class.php:1522
+#, php-format
 msgid "%s updated."
-msgstr "Η εκδήλωση ενημερώθηκε."
+msgstr "Το %s ενημερώθηκε."
 
-#: ../lib/the-events-calendar.class.php:1439
-#: ../lib/the-events-calendar.class.php:1456
-#, fuzzy, php-format
+#: ../lib/the-events-calendar.class.php:1505
+#: ../lib/the-events-calendar.class.php:1524
+#, php-format
 msgid "%s restored to revision from %s"
-msgstr "Η εκδήλωση αποκαταστάθηκε στην αναθεώρηση από %s"
+msgstr "Το %s αποκαταστάθηκε στην αναθεώρηση από %s"
 
-#: ../lib/the-events-calendar.class.php:1440
-#: ../lib/the-events-calendar.class.php:1457
-#, fuzzy, php-format
+#: ../lib/the-events-calendar.class.php:1506
+#: ../lib/the-events-calendar.class.php:1525
+#, php-format
 msgid "%s published."
-msgstr "Ο χώρος διεξαγωγής δημοσιεύτηκε."
+msgstr "Το %s δημοσιεύτηκε."
 
 #
-#: ../lib/the-events-calendar.class.php:1441
-#: ../lib/the-events-calendar.class.php:1458
-#, fuzzy, php-format
+#: ../lib/the-events-calendar.class.php:1507
+#: ../lib/the-events-calendar.class.php:1526
+#, php-format
 msgid "%s saved."
-msgstr "Οι ρυθμίσεις αποθηκεύθηκαν."
+msgstr "Το %s αποθηκεύθηκε."
 
-#: ../lib/the-events-calendar.class.php:1442
-#: ../lib/the-events-calendar.class.php:1459
-#, fuzzy, php-format
+#: ../lib/the-events-calendar.class.php:1508
+#: ../lib/the-events-calendar.class.php:1527
+#, php-format
 msgid "%s submitted."
-msgstr "Ο χώρος διεξαγωγής καταχωρήθηκε."
+msgstr "Το %s καταχωρήθηκε."
 
-#: ../lib/the-events-calendar.class.php:1443
-#: ../lib/the-events-calendar.class.php:1460
-#, fuzzy, php-format
+#: ../lib/the-events-calendar.class.php:1510
+#: ../lib/the-events-calendar.class.php:1529
+#, php-format
 msgid "%s scheduled for: <strong>%2$s</strong>."
-msgstr "Ο χώρος διεξαγωγής προγραμματίστηκε για: <strong>%1$s</strong>."
+msgstr "Το %s προγραμματίστηκε για: <strong>%2$s</strong>."
 
-#: ../lib/the-events-calendar.class.php:1446
-#: ../lib/the-events-calendar.class.php:1463
-#, fuzzy, php-format
+#: ../lib/the-events-calendar.class.php:1514
+#: ../lib/the-events-calendar.class.php:1533
+#, php-format
 msgid "%s draft updated."
-msgstr "Το προσχέδιο του χώρου διεξαγωγής ανανεώθηκε."
+msgstr "Το προσχέδιο του/της %s ανανεώθηκε."
 
-#: ../lib/the-events-calendar.class.php:1479
-#: ../lib/the-events-calendar.class.php:1480
-#, fuzzy
+#: ../lib/the-events-calendar.class.php:1549
+#: ../lib/the-events-calendar.class.php:1550
 msgid "Add New "
 msgstr "Προσθήκη Νέου"
 
-#: ../lib/the-events-calendar.class.php:1499
-#, fuzzy
+#: ../lib/the-events-calendar.class.php:1569
 msgid "Use Saved "
-msgstr "Χρήση Αποθηκευμένου Χώρου Διεξαγωγής:"
+msgstr "Χρήση Αποθηκευμένου"
 
-#: ../lib/the-events-calendar.class.php:1522
-#, fuzzy, php-format
+#: ../lib/the-events-calendar.class.php:1594
+#, php-format
 msgid "Use Saved %s:"
-msgstr "Χρήση Αποθηκευμένου Χώρου Διεξαγωγής:"
+msgstr "Χρήση Αποθηκευμένου %s:"
 
-#: ../lib/the-events-calendar.class.php:1561
-#, fuzzy
-msgid "Use New "
-msgstr "Χρήση Νέου Χώρου Διεξαγωγής"
+#: ../lib/the-events-calendar.class.php:1659
+#: ../lib/the-events-calendar.class.php:1740
+#, php-format
+msgid "Use New %s"
+msgstr "Χρήση Νέου %s"
 
-#: ../lib/the-events-calendar.class.php:1563
-#: ../lib/the-events-calendar.class.php:1619
+#: ../lib/the-events-calendar.class.php:1661
+#: ../lib/the-events-calendar.class.php:1742
 #, php-format
 msgid "My %s"
-msgstr ""
+msgstr "Οι %s μου"
 
 #
-#: ../lib/the-events-calendar.class.php:1568
-#: ../lib/the-events-calendar.class.php:1624
-#, fuzzy, php-format
+#: ../lib/the-events-calendar.class.php:1666
+#: ../lib/the-events-calendar.class.php:1747
+#, php-format
 msgid "Available %s"
-msgstr "Διαθέσιμοι Χώροι Διεξαγωγής"
+msgstr "Διαθέσιμοι %s"
 
 #
-#: ../lib/the-events-calendar.class.php:1579
-#: ../lib/the-events-calendar.class.php:1635
-#, fuzzy, php-format
+#: ../lib/the-events-calendar.class.php:1677
+#: ../lib/the-events-calendar.class.php:1758
+#, php-format
 msgid "No saved %s exists."
-msgstr "Δεν υπάρχουν αποθηκευμένοι χώροι διεξαγωγής."
+msgstr "Δεν υπάρχουν αποθηκευμένοι %s."
 
-#: ../lib/the-events-calendar.class.php:1617
-#, fuzzy, php-format
-msgid "Use New %s"
-msgstr "Χρήση Νέου Χώρου Διεξαγωγής"
-
-#: ../lib/the-events-calendar.class.php:1776
+#: ../lib/the-events-calendar.class.php:1905
 msgid "Next"
 msgstr "Επόμενο"
 
-#: ../lib/the-events-calendar.class.php:1777
+#: ../lib/the-events-calendar.class.php:1906
 msgid "Prev"
 msgstr "Προηγούμενο"
 
-#: ../lib/the-events-calendar.class.php:1778
-#: ../public/template-tags/day.php:92
+#: ../lib/the-events-calendar.class.php:1907
+#: ../public/template-tags/day.php:101
 msgid "Today"
 msgstr "Σήμερα"
 
-#: ../lib/the-events-calendar.class.php:1779
+#: ../lib/the-events-calendar.class.php:1908
 msgid "Done"
 msgstr "Τέλος"
 
-#: ../lib/the-events-calendar.class.php:1990
+#: ../lib/the-events-calendar.class.php:2117
 msgid "Network"
 msgstr "Δίκτυο"
 
-#: ../lib/the-events-calendar.class.php:3511
-#: ../lib/the-events-calendar.class.php:3539
-#: ../public/template-tags/day.php:140 ../public/template-tags/day.php:159
+#: ../lib/the-events-calendar.class.php:3753
+#: ../lib/the-events-calendar.class.php:3782
+#: ../public/template-tags/day.php:152 ../public/template-tags/day.php:173
 msgid "Date out of range."
 msgstr "Ημερομήνια εκτός ορίων."
 
-#: ../lib/the-events-calendar.class.php:3563
+#: ../lib/the-events-calendar.class.php:3812
 msgid "Event Options"
 msgstr "Επιλογές Εκδήλωσης"
 
-#: ../lib/the-events-calendar.class.php:3565
-#: ../lib/the-events-calendar.class.php:3570
-#, fuzzy
+#: ../lib/the-events-calendar.class.php:3819
+#: ../lib/the-events-calendar.class.php:3830
 msgid " Information"
-msgstr "Πληροφορίες Χώρου Διεξαγωγής"
+msgstr "Πληροφορίες"
 
-#: ../lib/the-events-calendar.class.php:3734
+#: ../lib/the-events-calendar.class.php:4016
 msgid "Support"
 msgstr "Υποστήριξη"
 
-#: ../lib/the-events-calendar.class.php:3737
+#: ../lib/the-events-calendar.class.php:4019
 msgid "View All Add-Ons"
 msgstr "Προβολή όλων των Επεκτάσεων"
 
 #
-#: ../lib/the-events-calendar.class.php:3754
+#: ../lib/the-events-calendar.class.php:4040
 msgid "News from Modern Tribe"
 msgstr "Νέα από την Modern Tribe"
 
-#: ../lib/the-events-calendar.class.php:3835
+#: ../lib/the-events-calendar.class.php:4132
 msgid "Additional Functionality"
 msgstr "Πρόσθετη Λειτουργικότητα"
 
-#: ../lib/the-events-calendar.class.php:3840
+#: ../lib/the-events-calendar.class.php:4137
 msgid ""
 "Looking for additional functionality including recurring events, ticket "
 "sales, publicly submitted events, new views and more?"
@@ -2212,42 +2401,42 @@ msgstr ""
 "πωλήσεις εισιτηρίων, δημοσίως καταχωρημένες εκδηλώσεις, νέες εμφανίσεις και "
 "άλλα;"
 
-#: ../lib/the-events-calendar.class.php:3840
+#: ../lib/the-events-calendar.class.php:4138
 #, php-format
 msgid "Check out the <a href=\"%s\">available add-ons</a>."
 msgstr "Ελέγξτε τις <a href=\"%s\">διαθέσιμες επεκτάσεις</a>."
 
 #
-#: ../lib/the-events-calendar.class.php:3911
-#: ../lib/the-events-calendar.class.php:4012
+#: ../lib/the-events-calendar.class.php:4223
+#: ../lib/the-events-calendar.class.php:4349
 msgid "View Calendar"
 msgstr "Προβολή Ημερολογίου"
 
 #
-#: ../lib/the-events-calendar.class.php:3919
+#: ../lib/the-events-calendar.class.php:4233
 msgid "Add Event"
 msgstr "Προσθήκη Εκδήλωσης"
 
 #
-#: ../lib/the-events-calendar.class.php:3928
+#: ../lib/the-events-calendar.class.php:4244
 msgid "Edit Events"
 msgstr "Επεξεργασία Εκδήλωσης"
 
-#: ../lib/the-events-calendar.class.php:3939
+#: ../lib/the-events-calendar.class.php:4257
 msgid "Import"
 msgstr "Εισαγωγή"
 
-#: ../lib/the-events-calendar.class.php:3945
+#: ../lib/the-events-calendar.class.php:4265
 msgid "CSV"
 msgstr "CSV"
 
-#: ../lib/the-events-calendar.class.php:3957
-#: ../lib/the-events-calendar.class.php:4053
-#: ../lib/tribe-settings.class.php:155
+#: ../lib/the-events-calendar.class.php:4284
+#: ../lib/the-events-calendar.class.php:4403
+#: ../lib/tribe-settings.class.php:159
 msgid "Settings"
 msgstr "Ρυθμίσεις"
 
-#: ../lib/the-events-calendar.class.php:3986
+#: ../lib/the-events-calendar.class.php:4317
 #, php-format
 msgid ""
 "Welcome to The Events Calendar! Your events calendar can be found at %s. To "
@@ -2257,134 +2446,130 @@ msgstr ""
 "στο %s. Για να αλλάξετε το slug των εκδηλώσεων, επισκεφθείτε τις "
 "%sΕκδηλώσεις -> Ρυθμίσεις%s."
 
-#: ../lib/the-events-calendar.class.php:4054
+#: ../lib/the-events-calendar.class.php:4404
 msgid "Calendar"
 msgstr "Ημερολόγιο"
 
-#: ../lib/the-events-calendar.class.php:4129
+#: ../lib/the-events-calendar.class.php:4478
 msgid "List"
 msgstr "Λίστα"
 
 #
-#: ../lib/the-events-calendar.class.php:4140
+#: ../lib/the-events-calendar.class.php:4496
 msgid "Month"
 msgstr "Μήνας"
 
-#: ../lib/the-events-calendar.class.php:4152
+#: ../lib/the-events-calendar.class.php:4513
 msgid "Day"
 msgstr "Ημέρα"
 
-#: ../lib/the-events-calendar.class.php:4173
-#: ../lib/the-events-calendar.class.php:4175
+#: ../lib/the-events-calendar.class.php:4538
+#: ../lib/the-events-calendar.class.php:4539
 msgid "Search"
 msgstr "Αναζήτηση"
 
 #
-#: ../lib/the-events-calendar.class.php:4197
-#: ../lib/the-events-calendar.class.php:4212
+#: ../lib/the-events-calendar.class.php:4564
+#: ../lib/the-events-calendar.class.php:4580
 msgid "Date"
 msgstr "Ημερομηνία"
 
 #
-#: ../lib/the-events-calendar.class.php:4200
+#: ../lib/the-events-calendar.class.php:4567
 msgid "Events In"
 msgstr "Εκδηλώσεις Στις "
 
 #
-#: ../lib/the-events-calendar.class.php:4202
+#: ../lib/the-events-calendar.class.php:4569
 msgid "Events From"
 msgstr "Εκδηλώσεις Από"
 
-#: ../lib/the-events-calendar.class.php:4204
+#: ../lib/the-events-calendar.class.php:4571
 msgid "Day Of"
 msgstr "Ημέρα Της"
 
-#: ../lib/tickets/tribe-tickets-attendees.php:64
+#: ../lib/tickets/tribe-tickets-attendees.php:65
 msgid "Order #"
 msgstr "Παραγγελία #"
 
-#: ../lib/tickets/tribe-tickets-attendees.php:65
+#: ../lib/tickets/tribe-tickets-attendees.php:66
 msgid "Order Status"
 msgstr "Κατάσταση Παραγγελίας"
 
-#: ../lib/tickets/tribe-tickets-attendees.php:66
+#: ../lib/tickets/tribe-tickets-attendees.php:67
 msgid "Purchaser name"
 msgstr "Όνομα αγοραστή"
 
-#: ../lib/tickets/tribe-tickets-attendees.php:67
+#: ../lib/tickets/tribe-tickets-attendees.php:68
 msgid "Purchaser email"
 msgstr "Εmail αγοραστή"
 
-#: ../lib/tickets/tribe-tickets-attendees.php:68
+#: ../lib/tickets/tribe-tickets-attendees.php:69
 msgid "Ticket type"
 msgstr "Τύπος εισιτηρίου"
 
-#: ../lib/tickets/tribe-tickets-attendees.php:69
-#: ../views/tickets/email.php:314
+#: ../lib/tickets/tribe-tickets-attendees.php:70
+#: ../views/tickets/email.php:317
 msgid "Ticket #"
 msgstr "Εισιτήριο #"
 
-#: ../lib/tickets/tribe-tickets-attendees.php:70
-#: ../views/tickets/email.php:326
+#: ../lib/tickets/tribe-tickets-attendees.php:71
+#: ../views/tickets/email.php:329
 msgid "Security Code"
 msgstr "Κωδικός Ασφαλείας"
 
-#: ../lib/tickets/tribe-tickets-attendees.php:71
-#: ../lib/tickets/tribe-tickets-attendees.php:156
-#: ../lib/tickets/tribe-tickets-attendees.php:213
+#: ../lib/tickets/tribe-tickets-attendees.php:72
+#: ../lib/tickets/tribe-tickets-attendees.php:166
+#: ../lib/tickets/tribe-tickets-attendees.php:233
 msgid "Check in"
 msgstr "Άφιξη"
 
-#: ../lib/tickets/tribe-tickets-attendees.php:157
-#: ../lib/tickets/tribe-tickets-attendees.php:214
+#: ../lib/tickets/tribe-tickets-attendees.php:167
+#: ../lib/tickets/tribe-tickets-attendees.php:234
 msgid "Undo Check in"
 msgstr "Αναίρεση Άφιξης"
 
-#: ../lib/tickets/tribe-tickets-attendees.php:191
+#: ../lib/tickets/tribe-tickets-attendees.php:202
 msgid "Print"
 msgstr "Εκτύπωση"
 
 #
-#: ../lib/tickets/tribe-tickets-attendees.php:192
+#: ../lib/tickets/tribe-tickets-attendees.php:203
 msgid "Email"
 msgstr "Email"
 
-#: ../lib/tickets/tribe-tickets-attendees.php:193
-#: ../lib/tribe-ical.class.php:111
+#: ../lib/tickets/tribe-tickets-attendees.php:212
+#: ../lib/tribe-ical.class.php:121
 msgid "Export"
 msgstr "Εξαγωγή"
 
-#: ../lib/tickets/tribe-tickets-attendees.php:199
+#: ../lib/tickets/tribe-tickets-attendees.php:219
 msgid "Filter by ticket #, order # or security code"
 msgstr "Φιλτράρισμα κατά αρ. εισιτηρίου, αρ. παραγγελίας ή κωδικό ασφαλείας"
 
-#: ../lib/tickets/tribe-tickets-metabox.php:24
-msgid "Tickets"
-msgstr "Εισιτήρια"
-
-#: ../lib/tickets/tribe-tickets-metabox.php:62
+#: ../lib/tickets/tribe-tickets-metabox.php:71
 msgid "Ticket header image"
 msgstr "Εικόνα κεφαλίδας εισιτηρίου"
 
-#: ../lib/tickets/tribe-tickets-metabox.php:62
+#: ../lib/tickets/tribe-tickets-metabox.php:72
 msgid "Set as ticket header"
 msgstr "Ορισμός ως κεφαλίδα εισιτηρίου"
 
-#: ../lib/tickets/tribe-tickets-pro.php:107
+#: ../lib/tickets/tribe-tickets-pro.php:116
 msgid "You need to select a user or type a valid email address"
 msgstr ""
 "Πρέπει να επιλέξετε ένα χρήστη ή να πληκτρολογήσετε μία έγκυρη διεύθυνση "
 "email"
 
-#: ../lib/tickets/tribe-tickets-pro.php:108
+#: ../lib/tickets/tribe-tickets-pro.php:117
 msgid "Sending..."
 msgstr "Αποστέλλεται…"
 
-#: ../lib/tickets/tribe-tickets-pro.php:136
+#: ../lib/tickets/tribe-tickets-pro.php:147
 msgid "Columns"
 msgstr "Στήλες"
 
-#: ../lib/tickets/tribe-tickets-pro.php:137
+#: ../lib/tickets/tribe-tickets-pro.php:148
 msgid ""
 "You can use Screen Options to select which columns you want to see. The "
 "selection works in the table below, in the email, for print and for the CSV "
@@ -2394,184 +2579,182 @@ msgstr ""
 "που θέλετε να δείτε. Η επιλογή λειτουργεί στον παρακάτω πίνακα, στο email, "
 "για εκτύπωση και για την εξαγωγή CSV."
 
-#: ../lib/tickets/tribe-tickets-pro.php:229
+#: ../lib/tickets/tribe-tickets-pro.php:242
 msgid "Yes"
 msgstr "Ναι"
 
-#: ../lib/tickets/tribe-tickets-pro.php:258
+# Don't change this or URL appears wrong!
+#: ../lib/tickets/tribe-tickets-pro.php:274
 msgid "attendees"
-msgstr "συμμετέχοντες"
+msgstr "attendees"
 
-#: ../lib/tickets/tribe-tickets-pro.php:309
+#: ../lib/tickets/tribe-tickets-pro.php:328
 #, php-format
 msgid "Attendee List for: %s"
 msgstr "Λίστα Συμμετεχόντων για: %s"
 
-#: ../lib/tickets/tribe-tickets.php:298
+#: ../lib/tickets/tribe-tickets.php:325
 msgid "Your ticket has been saved."
 msgstr "Το εισιτήριό σας έχει αποθηκευθεί."
 
-#: ../lib/tickets/tribe-tickets.php:375
+#: ../lib/tickets/tribe-tickets.php:402
 msgid "Your ticket has been deleted."
 msgstr "Το εισιτήριό σας έχει διαγραφεί."
 
-#: ../lib/tribe-admin-events-list.class.php:179
+#: ../lib/tribe-admin-events-list.class.php:173
 msgid "Start Date"
 msgstr "Ημερομηνία Έναρξης"
 
-#: ../lib/tribe-admin-events-list.class.php:180
+#: ../lib/tribe-admin-events-list.class.php:174
 msgid "End Date"
 msgstr "Ημερομηνία Λήξης"
 
-#: ../lib/tribe-admin-events-list.class.php:250
+#: ../lib/tribe-admin-events-list.class.php:247
 #, php-format
 msgid "All %s"
 msgstr "Όλα %s"
 
 #
-#: ../lib/tribe-app-shop.class.php:62 ../lib/tribe-app-shop.class.php:63
-#: ../lib/tribe-app-shop.class.php:87
+#: ../lib/tribe-app-shop.class.php:64 ../lib/tribe-app-shop.class.php:65
+#: ../lib/tribe-app-shop.class.php:96
 msgid "Event Add-Ons"
 msgstr "Πρόσθετα Εκδηλώσεων"
 
-#: ../lib/tribe-debug-bar.class.php:28
-msgid "Tribe"
-msgstr "Tribe"
-
 #
-#: ../lib/tribe-event-api.class.php:306
+#: ../lib/tribe-event-api.class.php:339
 msgid "Unnamed Venue"
 msgstr "Ανώνυμος Χώρος Διεξαγωγής"
 
-#: ../lib/tribe-event-api.class.php:375 ../lib/tribe-view-helpers.class.php:44
-#: ../public/template-tags/venue.php:249
+#: ../lib/tribe-event-api.class.php:415 ../lib/tribe-view-helpers.class.php:46
+#: ../public/template-tags/venue.php:275
 msgid "United States"
 msgstr "Ηνωμένες Πολιτείες"
 
-#: ../lib/tribe-event-exception.class.php:17
-#: ../lib/tribe-event-exception.class.php:34
+#: ../lib/tribe-event-exception.class.php:22
+#: ../lib/tribe-event-exception.class.php:41
 msgid "Error"
 msgstr "Σφάλμα"
 
-#: ../lib/tribe-field.class.php:176
+#: ../lib/tribe-field.class.php:211
 msgid "Invalid field type specified"
 msgstr "Ορίστηκε μη έγκυρος τύπος πεδίου"
 
-#: ../lib/tribe-field.class.php:414
+#: ../lib/tribe-field.class.php:470
 msgid "No radio options specified"
 msgstr "Δεν ορίστηκαν επιλογές κουμπιών"
 
-#: ../lib/tribe-field.class.php:449
+#: ../lib/tribe-field.class.php:506
 msgid "No checkbox options specified"
 msgstr "Δεν ορίστηκαν επιλογές κουτιών"
 
-#: ../lib/tribe-field.class.php:500
+#: ../lib/tribe-field.class.php:562
 msgid "No select options specified"
 msgstr "Δεν ορίστηκαν επιλογές του select"
 
-#: ../lib/tribe-ical.class.php:27
+#: ../lib/tribe-ical.class.php:28
 msgctxt "feed link"
 msgid "&raquo;"
 msgstr "&raquo;"
 
-#: ../lib/tribe-ical.class.php:28
+#: ../lib/tribe-ical.class.php:29
 #, php-format
 msgid "%1$s %2$s iCal Feed"
 msgstr "%1$s %2$s iCal Τροφοδοσία"
 
-#: ../lib/tribe-ical.class.php:74
+#: ../lib/tribe-ical.class.php:77
 msgid "Add to Google Calendar"
 msgstr "Προσθήκη στο Ημερολόγιο Google"
 
 #
-#: ../lib/tribe-ical.class.php:74
+#: ../lib/tribe-ical.class.php:77
 msgid "Google Calendar"
 msgstr "Ημερολόγιο Google "
 
-#: ../lib/tribe-ical.class.php:75
+#: ../lib/tribe-ical.class.php:78
 msgid "Download .ics file"
-msgstr ""
+msgstr "Κατέβασμα αρχείου .ics"
 
-#: ../lib/tribe-ical.class.php:75
-#, fuzzy
+#: ../lib/tribe-ical.class.php:78
 msgid "iCal Export"
 msgstr "Εισαγωγή iCal"
 
 #
-#: ../lib/tribe-ical.class.php:98
+#: ../lib/tribe-ical.class.php:108
 msgid "Month's Events"
 msgstr "Εκδηλώσεις μήνα"
 
-#: ../lib/tribe-ical.class.php:101
+#: ../lib/tribe-ical.class.php:111
 msgid "Week's Events"
 msgstr "Εκδηλώσεις εβδομάδας"
 
-#: ../lib/tribe-ical.class.php:104
+#: ../lib/tribe-ical.class.php:114
 msgid "Day's Events"
 msgstr "Εκδηλώσεις ημέρας"
 
 #
-#: ../lib/tribe-ical.class.php:107
+#: ../lib/tribe-ical.class.php:117
 msgid "Listed Events"
 msgstr "Καταχωρημένες Εκδηλώσεις"
 
-#: ../lib/tribe-ical.class.php:112
+#: ../lib/tribe-ical.class.php:122
 msgid ""
 "Use this to share calendar data with Google Calendar, Apple iCal and other "
 "compatible apps"
 msgstr ""
+"Χρησιμοποιείστε αυτό για να μοιράσετε τα δεδομένα ημερολόγιου στο Ημερολόγιο "
+"Google, Apple iCal ή άλλες συμβατές εφαρμογές."
 
 #
-#: ../lib/tribe-settings-tab.class.php:204
+#: ../lib/tribe-settings-tab.class.php:221
 msgid "There are no fields setup for this tab yet."
 msgstr "Δεν έχουν ρυθμιστεί ακόμα πεδία γι' αυτήν την καρτέλα."
 
 #
-#: ../lib/tribe-settings.class.php:155 ../lib/tribe-settings.class.php:165
+#: ../lib/tribe-settings.class.php:159 ../lib/tribe-settings.class.php:174
 msgid "The Events Calendar Settings"
 msgstr "Ρυθμίσεις του The Events Calendar"
 
 #
-#: ../lib/tribe-settings.class.php:165
+#: ../lib/tribe-settings.class.php:174
 msgid "Events Settings"
 msgstr "Ρυθμίσεις Εκδηλώσεων"
 
-#: ../lib/tribe-settings.class.php:210
+#: ../lib/tribe-settings.class.php:237
 #, php-format
 msgid "%s Settings"
 msgstr "%s Ρυθμίσεις"
 
-#: ../lib/tribe-settings.class.php:224
+#: ../lib/tribe-settings.class.php:251
 msgid "You've requested a non-existent tab."
 msgstr "Έχετε ζητήσει μία ανύπαρκτη καρτέλα."
 
 #
-#: ../lib/tribe-settings.class.php:232
+#: ../lib/tribe-settings.class.php:259
 msgid " Save Changes"
 msgstr " Αποθήκευση Αλλαγών"
 
-#: ../lib/tribe-settings.class.php:280
+#: ../lib/tribe-settings.class.php:309
 msgid "You don't have permission to do that."
 msgstr "Δεν έχετε άδεια να το κάνετε αυτό."
 
-#: ../lib/tribe-settings.class.php:286
+#: ../lib/tribe-settings.class.php:315
 msgid "The request was sent insecurely."
 msgstr "Το αίτημα στάλθηκε με μη ασφαλή τρόπο."
 
-#: ../lib/tribe-settings.class.php:292
+#: ../lib/tribe-settings.class.php:321
 msgid "The request wasn't sent from this tab."
 msgstr "Η αίτηση δεν στάλθηκε από αυτήν την καρτέλα."
 
-#: ../lib/tribe-settings.class.php:453
+#: ../lib/tribe-settings.class.php:489
 msgid "Your form had the following errors:"
 msgstr "Η φόρμα σας είχε τα ακόλουθα σφάλματα:"
 
-#: ../lib/tribe-settings.class.php:462
+#: ../lib/tribe-settings.class.php:498
 msgid "None of your settings were saved. Please try again."
 msgstr ""
 "Καμία από τις ρυθμίσεις σας δεν αποθηκεύτηκε. Παρακαλούμε δοκιμάστε ξανά."
 
-#: ../lib/tribe-settings.class.php:462
+#: ../lib/tribe-settings.class.php:498
 msgid ""
 "The above setting was not saved. Other settings were successfully saved."
 msgid_plural ""
@@ -2584,11 +2767,11 @@ msgstr[1] ""
 "επιτυχία."
 
 #
-#: ../lib/tribe-settings.class.php:484
+#: ../lib/tribe-settings.class.php:520
 msgid "Settings saved."
 msgstr "Οι ρυθμίσεις αποθηκεύθηκαν."
 
-#: ../lib/tribe-support.class.php:34
+#: ../lib/tribe-support.class.php:50
 msgid ""
 "Sometimes it's hard to tell what's going wrong without knowing more about "
 "your system steup. For your convenience, we've put together a little report "
@@ -2599,7 +2782,7 @@ msgstr ""
 "καλύτερη εξυπηρέτησή σας, έχουμε βάλει μαζί μια μικρή αναφορά για το τι "
 "ακρίβως συμβαίνει."
 
-#: ../lib/tribe-support.class.php:35
+#: ../lib/tribe-support.class.php:51
 msgid ""
 "If you suspect that the problem you're having is related to another plugin, "
 "or we're just plain having trouble reproducing your bug report, please copy "
@@ -2609,23 +2792,27 @@ msgstr ""
 "πρόσθετο, ή απλά δυσκολευόμαστε να αναπαράγουμε την αναφορά σφάλματος σας, "
 "παρακαλούμε αντιγράψτε και στείλτε όλα αυτά στην ομάδα υποστήριξής μας."
 
-#: ../lib/tribe-support.class.php:39
+#: ../lib/tribe-support.class.php:55
 msgid "System Information"
 msgstr "Πληροφορίες Συστήματος"
 
-#: ../lib/tribe-template-factory.class.php:221
+#: ../lib/tribe-support.class.php:141
+msgid "Unknown or not set"
+msgstr "Άγνωστο ή μη ρυθμισμένο"
+
+#: ../lib/tribe-template-factory.class.php:244
 #, php-format
 msgid "There were no results found for <strong>\"%s\"</strong>."
 msgstr "Δεν βρέθηκαν αποτελέσματα για <strong>\"%s\"</strong>."
 
-#: ../lib/tribe-template-factory.class.php:224
+#: ../lib/tribe-template-factory.class.php:246
 #, php-format
 msgid "No results were found for events in or near <strong>\"%s\"</strong>."
 msgstr ""
 "Δεν βρέθηκαν αποτελέσματα για εκδηλώσεις στο ή κοντά στο <strong>\"%s\"</"
 "strong>."
 
-#: ../lib/tribe-template-factory.class.php:227
+#: ../lib/tribe-template-factory.class.php:248
 #, php-format
 msgid ""
 "No upcoming events listed under %s. Check out upcoming events for this "
@@ -2635,18 +2822,18 @@ msgstr ""
 "αυτή την κατηγορία ή δείτε το πλήρες ημερολόγιο."
 
 #
-#: ../lib/tribe-template-factory.class.php:233
+#: ../lib/tribe-template-factory.class.php:252
 msgid "No previous events "
 msgstr "Δεν υπάρχουν προηγούμενες εκδηλώσεις "
 
-#: ../lib/tribe-templates.class.php:568
+#: ../lib/tribe-templates.class.php:592
 #, php-format
 msgid "Template overrides should be moved to the correct subdirectory: %s"
 msgstr ""
 "Οι παρακάμψεις λόγω template θα πρέπει να μετακινηθούν στον σωστό "
 "υποκατάλογο: %s"
 
-#: ../lib/tribe-templates.class.php:609
+#: ../lib/tribe-templates.class.php:634
 #, php-format
 msgid ""
 "Template overrides should be moved to the correct subdirectory: "
@@ -2655,117 +2842,58 @@ msgstr ""
 "Οι παρακάμψεις λόγω template θα πρέπει να μετακινηθούν στον σωστό "
 "υποκατάλογο:  tribe_get_template_part('%s')"
 
-#: ../lib/tribe-the-events-calendar-import.class.php:64
-#, php-format
-msgid ""
-"Welcome to Events 2.0! This is a HUGE upgrade from 1.6.5. Please make sure "
-"you have backed up before proceeding any further. You can easily <a href=\"%s"
-"\">revert to an old version</a> if you want to backup first. This upgrade "
-"includes two major steps, <a href=\"%s\">migrating data</a> &amp; updating "
-"your templates as necessary. There have been significant changes to the "
-"template tags and functions. Check out our <a href=\"%s\">walk-through on "
-"the upgrade</a> before proceeding and check out the FAQ &amp; Knowledge base "
-"from the <a href=\"%s\">support page</a>. If you're new to The Events "
-"Calendar, you may want to review our <a href=\"%s\">new user primer</a>.<br/"
-"><br/> You have events that need to be migrated.  Please visit the bottom of "
-"the <a href=\"%s\">settings page</a> to perform the migration."
-msgstr ""
-"Καλωσήρθατε στο Events 2.0! Πρόκειται για μία ΤΕΡΑΣΤΙΑ αναβάθμιση από το "
-"1.6.5. Παρακαλούμε βεβαιωθείτε ότι έχετε δημιουργήσει αντίγραφα ασφαλείας "
-"πριν προχωρήσετε περαιτέρω. Μπορείτε εύκολα <a href=\"%s\">να επιστρέψετε σε "
-"μία παλαιότερη έκδοση</a> αν θέλετε να δημιουργήσετε αντίγραφα ασφαλείας "
-"πρώτα. Η αναβάθμιση περιλαμβάνει δύο βασικά βήματα, <a href=\"%s\">μετατροπή "
-"&amp; μετεγκατάσταση δεδομένων</a> &amp; ενημέρωση των προτύπων σας ανάλογα "
-"με τις ανάγκες σας. Υπήρξαν σημαντικές αλλαγές στις ετικέτες προτύπων και "
-"τις λειτουργίες. Δείτε την <a href=\"%s\">παρουσίαση της αναβάθμισης</a> "
-"πριν συνεχίσετε, καθώς και τις Συχνές Ερωτήσεις &amp; Βάση Γνώσεων στη <a "
-"href=\"%s\">σελίδα υποστήριξης</a>. Αν είστε νέος χρήστης του The Events "
-"Calendar, ενδεχομένως να θέλετε να μελετήσετε το <a href=\"%s\">Αλφαβητάρι "
-"Νέου Χρήστη</a>.<br/><br/> Έχετε εκδηλώσεις που χρειάζονται μετατροπή &amp; "
-"μετεγκατάσταση.  Παρακαλούμε, πηγαίντε στο κάτω μέρος της  <a href=\"%s"
-"\">σελίδας ρυθμίσεων</a> για να πραγματοποιήσετε τη μετατροπή &amp; "
-"μετεγκατάσταση."
-
-#: ../lib/tribe-the-events-calendar-import.class.php:86
-msgid "Upgrade from The Events Calendar"
-msgstr "Αναβάθμιση από το Ημερολόγιο Εκδηλώσεων"
-
-#: ../lib/tribe-the-events-calendar-import.class.php:87
-msgid ""
-"It appears that you have some old events calendar data that needs to be "
-"upgraded. Please be sure to back up your database before initiating the "
-"upgrade. This process can not be undone."
-msgstr ""
-"Φαίνεται ότι υπάρχουν κάποια παλαιότερα δεδομένα του ημερολογίου εκδηλώσεων "
-"που πρέπει να αναβαθμιστούν. Παρακαλούμε βεβαιωθείτε ότι έχετε δημιουργήσει "
-"αντίγραφο της βάσης δεδομένων πριν ξεκινήσετε τη διαδικασία αναβάθμισης. "
-"Αυτή η διαδικασία δεν μπορεί να αναιρεθεί."
-
-#: ../lib/tribe-the-events-calendar-import.class.php:88
-msgid "Migrate Data!"
-msgstr "Μετατροπή &amp; Μετεγκατάσταση Δεδομένων!"
-
-#: ../lib/tribe-the-events-calendar-import.class.php:166
-#, php-format
-msgid "You successfully migrated (%d) entries."
-msgstr "Μετατρέψατε και μετεγκαταστήσατε επιτυχώς (%d) καταχωρήσεις."
-
-#: ../lib/tribe-the-events-calendar-import.class.php:242
-msgid "Install has 1 or more legacy event!"
-msgstr "Η εγκατάσταση έχει 1 ή περισσότερες παλαιού τύπου εκδηλώσεις!"
-
-#: ../lib/tribe-validate.class.php:73 ../lib/tribe-validate.class.php:111
+#: ../lib/tribe-validate.class.php:76 ../lib/tribe-validate.class.php:117
 msgid "Invalid or incomplete field passed"
 msgstr "Άκυρο ή ελλιπές πεδίο"
 
-#: ../lib/tribe-validate.class.php:74 ../lib/tribe-validate.class.php:106
-#: ../lib/tribe-validate.class.php:112
+#: ../lib/tribe-validate.class.php:77 ../lib/tribe-validate.class.php:112
+#: ../lib/tribe-validate.class.php:118
 msgid "Field ID:"
 msgstr "Κωδ. Πεδίου:"
 
-#: ../lib/tribe-validate.class.php:105
+#: ../lib/tribe-validate.class.php:111
 msgid "Non-existant field validation function passed"
 msgstr "Ανύπαρκτο πεδίο λειτουργίας επικύρωσης"
 
-#: ../lib/tribe-validate.class.php:106
+#: ../lib/tribe-validate.class.php:112
 msgctxt "non-existant function name passed for field validation"
 msgid "with function name:"
 msgstr "με όνομα συνάρτησης:"
 
-#: ../lib/tribe-validate.class.php:129 ../lib/tribe-validate.class.php:145
+#: ../lib/tribe-validate.class.php:135 ../lib/tribe-validate.class.php:151
 #, php-format
 msgid "%s must contain numbers and letters only"
 msgstr "%s πρέπει να περιέχει μόνο αριθμούς και γράμματα"
 
-#: ../lib/tribe-validate.class.php:161
+#: ../lib/tribe-validate.class.php:167
 #, php-format
 msgid "%s must contain numbers, letters and dots only"
 msgstr "%s πρέπει να περιέχει μόνο αριθμούς, γράμματα και τελείες"
 
-#: ../lib/tribe-validate.class.php:175
+#: ../lib/tribe-validate.class.php:181
 #, php-format
 msgid "%s must be a positive number."
 msgstr "%s πρέπει να είναι ένας θετικός αριθμός."
 
-#: ../lib/tribe-validate.class.php:190
+#: ../lib/tribe-validate.class.php:196
 #, php-format
 msgid "%s must be a valid slug (numbers, letters, dashes, and underscores)."
 msgstr ""
 "%s πρέπει να είναι ένα έγκυρο slug (αριθμοί, γράμματα, παύλες, και κάτω "
 "παύλες)."
 
-#: ../lib/tribe-validate.class.php:205
+#: ../lib/tribe-validate.class.php:211
 #, php-format
 msgid "%s must be a valid absolute URL."
 msgstr "%s πρέπει να είναι έγκυρη απόλυτη διεύθυνση URL."
 
-#: ../lib/tribe-validate.class.php:221 ../lib/tribe-validate.class.php:238
-#: ../lib/tribe-validate.class.php:257
+#: ../lib/tribe-validate.class.php:227 ../lib/tribe-validate.class.php:244
+#: ../lib/tribe-validate.class.php:266
 #, php-format
 msgid "%s must have a value that's part of its options."
 msgstr "%s πρέπει να έχει μια τιμή που να είναι μέρος των επιλογών του."
 
-#: ../lib/tribe-validate.class.php:271
+#: ../lib/tribe-validate.class.php:280
 #, php-format
 msgid ""
 "Comparison validation failed because no comparison value was provided, for "
@@ -2774,27 +2902,27 @@ msgstr ""
 "Η σύγκριση επικύρωσης απέτυχε διότι δεν παρασχέθηκε αξία σύγκρισης για το "
 "πεδίο %s"
 
-#: ../lib/tribe-validate.class.php:278
+#: ../lib/tribe-validate.class.php:287
 #, php-format
 msgid "%s cannot be the same as %s."
 msgstr "%s δεν μπορεί να είναι το ίδιο με %s."
 
-#: ../lib/tribe-validate.class.php:280
+#: ../lib/tribe-validate.class.php:289
 #, php-format
 msgid "%s cannot be a duplicate"
 msgstr "%s δεν μπορεί να είναι ένα διπλότυπο"
 
-#: ../lib/tribe-validate.class.php:296
+#: ../lib/tribe-validate.class.php:305
 #, php-format
 msgid "%s must be a number or percentage."
 msgstr "%s πρέπει να είναι αριθμός ή ποσοστό."
 
-#: ../lib/tribe-validate.class.php:350
+#: ../lib/tribe-validate.class.php:359
 #, php-format
 msgid "%s must be a number between 0 and 21."
 msgstr "%s πρέπει να είναι ένας αριθμός μεταξύ 0 και 21."
 
-#: ../lib/tribe-validate.class.php:366
+#: ../lib/tribe-validate.class.php:375
 #, php-format
 msgid ""
 "%s must consist of letters, numbers, dashes, apostrophes, and spaces only."
@@ -2802,24 +2930,24 @@ msgstr ""
 "% s πρέπει να αποτελείται μόνο από γράμματα, αριθμούς, παύλες, αποστρόφους "
 "και κενά διαστήματα."
 
-#: ../lib/tribe-validate.class.php:382
+#: ../lib/tribe-validate.class.php:391
 #, php-format
 msgid "%s must consist of letters, spaces, apostrophes, and dashes."
 msgstr ""
 "%s πρέπει να αποτελείται από γράμματα, κενά διαστήματα, αποστρόφους και "
 "παύλες."
 
-#: ../lib/tribe-validate.class.php:396
+#: ../lib/tribe-validate.class.php:405
 #, php-format
 msgid "%s must consist of 5 numbers."
 msgstr "%s πρέπει να αποτελείται από 5 αριθμούς."
 
-#: ../lib/tribe-validate.class.php:410
+#: ../lib/tribe-validate.class.php:419
 #, php-format
 msgid "%s must be a phone number."
 msgstr "%s πρέπει να είναι ένας αριθμός τηλεφώνου."
 
-#: ../lib/tribe-validate.class.php:426
+#: ../lib/tribe-validate.class.php:435
 msgid ""
 "Country List must be formatted as one country per line in the following "
 "format: <br>US, United States <br> UK, United Kingdom."
@@ -2827,1291 +2955,1301 @@ msgstr ""
 "Η λίστα χωρών πρέπει να διαμορφωθεί ως μία χώρα ανά γραμμή με την ακόλουθη "
 "μορφή: <br> ΗΠΑ, Ηνωμένες Πολιτείες <br> ΗΒ, Ηνωμένο Βασίλειο."
 
-#: ../lib/tribe-view-helpers.class.php:24
-#: ../lib/tribe-view-helpers.class.php:43
+#: ../lib/tribe-view-helpers.class.php:26
+#: ../lib/tribe-view-helpers.class.php:45
 msgid "Select a Country:"
 msgstr "Επιλογή Χώρας:"
 
-#: ../lib/tribe-view-helpers.class.php:45
+#: ../lib/tribe-view-helpers.class.php:47
 msgid "Afghanistan"
 msgstr "Αφγανιστάν"
 
-#: ../lib/tribe-view-helpers.class.php:46
+#: ../lib/tribe-view-helpers.class.php:48
 msgid "Albania"
 msgstr "Αλβανία"
 
-#: ../lib/tribe-view-helpers.class.php:47
+#: ../lib/tribe-view-helpers.class.php:49
 msgid "Algeria"
 msgstr "Αλγερία"
 
-#: ../lib/tribe-view-helpers.class.php:48
+#: ../lib/tribe-view-helpers.class.php:50
 msgid "American Samoa"
 msgstr "Αμερικάνικη Σαμόα"
 
-#: ../lib/tribe-view-helpers.class.php:49
+#: ../lib/tribe-view-helpers.class.php:51
 msgid "Andorra"
 msgstr "Ανδόρα"
 
-#: ../lib/tribe-view-helpers.class.php:50
+#: ../lib/tribe-view-helpers.class.php:52
 msgid "Angola"
 msgstr "Ανγκόλα"
 
-#: ../lib/tribe-view-helpers.class.php:51
+#: ../lib/tribe-view-helpers.class.php:53
 msgid "Anguilla"
 msgstr "Ανγκουίλλα"
 
-#: ../lib/tribe-view-helpers.class.php:52
+#: ../lib/tribe-view-helpers.class.php:54
 msgid "Antarctica"
 msgstr "Ανταρκτική"
 
-#: ../lib/tribe-view-helpers.class.php:53
+#: ../lib/tribe-view-helpers.class.php:55
 msgid "Antigua And Barbuda"
 msgstr "Αντίγκουα και Μπαρμπούντα"
 
-#: ../lib/tribe-view-helpers.class.php:54
+#: ../lib/tribe-view-helpers.class.php:56
 msgid "Argentina"
 msgstr "Αργεντινή"
 
-#: ../lib/tribe-view-helpers.class.php:55
+#: ../lib/tribe-view-helpers.class.php:57
 msgid "Armenia"
 msgstr "Αρμενία"
 
-#: ../lib/tribe-view-helpers.class.php:56
+#: ../lib/tribe-view-helpers.class.php:58
 msgid "Aruba"
 msgstr "Αρούμπα"
 
-#: ../lib/tribe-view-helpers.class.php:57
+#: ../lib/tribe-view-helpers.class.php:59
 msgid "Australia"
 msgstr "Αυστραλία"
 
-#: ../lib/tribe-view-helpers.class.php:58
+#: ../lib/tribe-view-helpers.class.php:60
 msgid "Austria"
 msgstr "Αυστρία"
 
-#: ../lib/tribe-view-helpers.class.php:59
+#: ../lib/tribe-view-helpers.class.php:61
 msgid "Azerbaijan"
 msgstr "Αζερμπαϊτζάν"
 
-#: ../lib/tribe-view-helpers.class.php:60
+#: ../lib/tribe-view-helpers.class.php:62
 msgid "Bahamas"
 msgstr "Μπαχάμες"
 
-#: ../lib/tribe-view-helpers.class.php:61
+#: ../lib/tribe-view-helpers.class.php:63
 msgid "Bahrain"
 msgstr "Μπαχρέιν"
 
-#: ../lib/tribe-view-helpers.class.php:62
+#: ../lib/tribe-view-helpers.class.php:64
 msgid "Bangladesh"
 msgstr "Μπανγκλαντές"
 
-#: ../lib/tribe-view-helpers.class.php:63
+#: ../lib/tribe-view-helpers.class.php:65
 msgid "Barbados"
 msgstr "Μπαρμπάντος"
 
-#: ../lib/tribe-view-helpers.class.php:64
+#: ../lib/tribe-view-helpers.class.php:66
 msgid "Belarus"
 msgstr "Λευκορωσία"
 
-#: ../lib/tribe-view-helpers.class.php:65
+#: ../lib/tribe-view-helpers.class.php:67
 msgid "Belgium"
 msgstr "Βέλγιο"
 
-#: ../lib/tribe-view-helpers.class.php:66
+#: ../lib/tribe-view-helpers.class.php:68
 msgid "Belize"
 msgstr "Μπελίζ"
 
-#: ../lib/tribe-view-helpers.class.php:67
+#: ../lib/tribe-view-helpers.class.php:69
 msgid "Benin"
 msgstr "Μπενίν"
 
-#: ../lib/tribe-view-helpers.class.php:68
+#: ../lib/tribe-view-helpers.class.php:70
 msgid "Bermuda"
 msgstr "Βερμούδες"
 
-#: ../lib/tribe-view-helpers.class.php:69
+#: ../lib/tribe-view-helpers.class.php:71
 msgid "Bhutan"
 msgstr "Μπουτάν"
 
-#: ../lib/tribe-view-helpers.class.php:70
+#: ../lib/tribe-view-helpers.class.php:72
 msgid "Bolivia"
 msgstr "Βολιβία"
 
-#: ../lib/tribe-view-helpers.class.php:71
+#: ../lib/tribe-view-helpers.class.php:73
 msgid "Bosnia And Herzegowina"
 msgstr "Βοσνία-Ερζεγοβίνη"
 
-#: ../lib/tribe-view-helpers.class.php:72
+#: ../lib/tribe-view-helpers.class.php:74
 msgid "Botswana"
 msgstr "Μποτσουάνα"
 
-#: ../lib/tribe-view-helpers.class.php:73
+#: ../lib/tribe-view-helpers.class.php:75
 msgid "Bouvet Island"
 msgstr "Νήσος Μπουβέ"
 
-#: ../lib/tribe-view-helpers.class.php:74
+#: ../lib/tribe-view-helpers.class.php:76
 msgid "Brazil"
 msgstr "Βραζιλία"
 
-#: ../lib/tribe-view-helpers.class.php:75
+#: ../lib/tribe-view-helpers.class.php:77
 msgid "British Indian Ocean Territory"
 msgstr "Βρετανικά εδάφη του Ινδικού Ωκεανού"
 
-#: ../lib/tribe-view-helpers.class.php:76
+#: ../lib/tribe-view-helpers.class.php:78
 msgid "Brunei Darussalam"
 msgstr "Μπρουνέι Νταρουσαλάμ"
 
-#: ../lib/tribe-view-helpers.class.php:77
+#: ../lib/tribe-view-helpers.class.php:79
 msgid "Bulgaria"
 msgstr "Βουλγαρία"
 
-#: ../lib/tribe-view-helpers.class.php:78
+#: ../lib/tribe-view-helpers.class.php:80
 msgid "Burkina Faso"
 msgstr "Μπουρκίνα Φάσο"
 
-#: ../lib/tribe-view-helpers.class.php:79
+#: ../lib/tribe-view-helpers.class.php:81
 msgid "Burundi"
 msgstr "Μπουρούντι"
 
-#: ../lib/tribe-view-helpers.class.php:80
+#: ../lib/tribe-view-helpers.class.php:82
 msgid "Cambodia"
 msgstr "Καμπότζη"
 
-#: ../lib/tribe-view-helpers.class.php:81
+#: ../lib/tribe-view-helpers.class.php:83
 msgid "Cameroon"
 msgstr "Καμερούν"
 
-#: ../lib/tribe-view-helpers.class.php:82
+#: ../lib/tribe-view-helpers.class.php:84
 msgid "Canada"
 msgstr "Καναδάς"
 
-#: ../lib/tribe-view-helpers.class.php:83
+#: ../lib/tribe-view-helpers.class.php:85
 msgid "Cape Verde"
 msgstr "Πράσινο Ακρωτήριο"
 
-#: ../lib/tribe-view-helpers.class.php:84
+#: ../lib/tribe-view-helpers.class.php:86
 msgid "Cayman Islands"
 msgstr "Νησιά Κέιμαν"
 
-#: ../lib/tribe-view-helpers.class.php:85
+#: ../lib/tribe-view-helpers.class.php:87
 msgid "Central African Republic"
 msgstr "Κεντροαφρικανική Δημοκρατία"
 
-#: ../lib/tribe-view-helpers.class.php:86
+#: ../lib/tribe-view-helpers.class.php:88
 msgid "Chad"
 msgstr "Τσαντ"
 
-#: ../lib/tribe-view-helpers.class.php:87
+#: ../lib/tribe-view-helpers.class.php:89
 msgid "Chile"
 msgstr "Χιλή"
 
-#: ../lib/tribe-view-helpers.class.php:88
+#: ../lib/tribe-view-helpers.class.php:90
 msgid "China"
 msgstr "Κίνα"
 
-#: ../lib/tribe-view-helpers.class.php:89
+#: ../lib/tribe-view-helpers.class.php:91
 msgid "Christmas Island"
 msgstr "Νήσος των Χριστουγέννων"
 
-#: ../lib/tribe-view-helpers.class.php:90
+#: ../lib/tribe-view-helpers.class.php:92
 msgid "Cocos (Keeling) Islands"
 msgstr "Νησιά Κόκος (Κίλινγκ)"
 
-#: ../lib/tribe-view-helpers.class.php:91
+#: ../lib/tribe-view-helpers.class.php:93
 msgid "Colombia"
 msgstr "Κολομβία"
 
-#: ../lib/tribe-view-helpers.class.php:92
+#: ../lib/tribe-view-helpers.class.php:94
 msgid "Comoros"
 msgstr "Κομόρες"
 
-#: ../lib/tribe-view-helpers.class.php:93
+#: ../lib/tribe-view-helpers.class.php:95
 msgid "Congo"
 msgstr "Κονγκό"
 
-#: ../lib/tribe-view-helpers.class.php:94
+#: ../lib/tribe-view-helpers.class.php:96
 msgid "Congo, The Democratic Republic Of The"
 msgstr "Λαϊκή Δημοκρατία του Κονγκό"
 
-#: ../lib/tribe-view-helpers.class.php:95
+#: ../lib/tribe-view-helpers.class.php:97
 msgid "Cook Islands"
 msgstr "Νήσοι Κουκ"
 
-#: ../lib/tribe-view-helpers.class.php:96
+#: ../lib/tribe-view-helpers.class.php:98
 msgid "Costa Rica"
 msgstr "Κόστα Ρίκα"
 
-#: ../lib/tribe-view-helpers.class.php:97
+#: ../lib/tribe-view-helpers.class.php:99
 msgid "Cote D'Ivoire"
 msgstr "Ακτή Ελεφαντοστού"
 
-#: ../lib/tribe-view-helpers.class.php:98
+#: ../lib/tribe-view-helpers.class.php:100
 msgid "Croatia (Local Name: Hrvatska)"
 msgstr "Κροατία (τοπική ονομασία: Hrvatska)"
 
-#: ../lib/tribe-view-helpers.class.php:99
+#: ../lib/tribe-view-helpers.class.php:101
 msgid "Cuba"
 msgstr "Κούβα"
 
-#: ../lib/tribe-view-helpers.class.php:100
+#: ../lib/tribe-view-helpers.class.php:102
 msgid "Cyprus"
 msgstr "Κύπρος"
 
-#: ../lib/tribe-view-helpers.class.php:101
+#: ../lib/tribe-view-helpers.class.php:103
 msgid "Czech Republic"
 msgstr "Τσεχία"
 
-#: ../lib/tribe-view-helpers.class.php:102
+#: ../lib/tribe-view-helpers.class.php:104
 msgid "Denmark"
 msgstr "Δανία"
 
-#: ../lib/tribe-view-helpers.class.php:103
+#: ../lib/tribe-view-helpers.class.php:105
 msgid "Djibouti"
 msgstr "Τζιμπουτί"
 
-#: ../lib/tribe-view-helpers.class.php:104
+#: ../lib/tribe-view-helpers.class.php:106
 msgid "Dominica"
 msgstr "Ντομίνικα"
 
-#: ../lib/tribe-view-helpers.class.php:105
+#: ../lib/tribe-view-helpers.class.php:107
 msgid "Dominican Republic"
 msgstr "Δομινικανή Δημοκρατία"
 
-#: ../lib/tribe-view-helpers.class.php:106
+#: ../lib/tribe-view-helpers.class.php:108
 msgid "East Timor"
 msgstr "Ανατολικό Τιμόρ"
 
-#: ../lib/tribe-view-helpers.class.php:107
+#: ../lib/tribe-view-helpers.class.php:109
 msgid "Ecuador"
 msgstr "Εκουαδόρ"
 
-#: ../lib/tribe-view-helpers.class.php:108
+#: ../lib/tribe-view-helpers.class.php:110
 msgid "Egypt"
 msgstr "Αίγυπτος"
 
-#: ../lib/tribe-view-helpers.class.php:109
+#: ../lib/tribe-view-helpers.class.php:111
 msgid "El Salvador"
 msgstr "Ελ Σαλβαδόρ"
 
-#: ../lib/tribe-view-helpers.class.php:110
+#: ../lib/tribe-view-helpers.class.php:112
 msgid "Equatorial Guinea"
 msgstr "Ισημερινή Γουινέα"
 
-#: ../lib/tribe-view-helpers.class.php:111
+#: ../lib/tribe-view-helpers.class.php:113
 msgid "Eritrea"
 msgstr "Ερυθραία"
 
-#: ../lib/tribe-view-helpers.class.php:112
+#: ../lib/tribe-view-helpers.class.php:114
 msgid "Estonia"
 msgstr "Εσθονία"
 
-#: ../lib/tribe-view-helpers.class.php:113
+#: ../lib/tribe-view-helpers.class.php:115
 msgid "Ethiopia"
 msgstr "Αιθιοπία"
 
-#: ../lib/tribe-view-helpers.class.php:114
+#: ../lib/tribe-view-helpers.class.php:116
 msgid "Falkland Islands (Malvinas)"
 msgstr "Νησιά Φώκλαντ (Μαλβίνες)"
 
-#: ../lib/tribe-view-helpers.class.php:115
+#: ../lib/tribe-view-helpers.class.php:117
 msgid "Faroe Islands"
 msgstr "Νήσοι Φερόε"
 
-#: ../lib/tribe-view-helpers.class.php:116
+#: ../lib/tribe-view-helpers.class.php:118
 msgid "Fiji"
 msgstr "Φίτζι"
 
-#: ../lib/tribe-view-helpers.class.php:117
+#: ../lib/tribe-view-helpers.class.php:119
 msgid "Finland"
 msgstr "Φιλανδία"
 
-#: ../lib/tribe-view-helpers.class.php:118
+#: ../lib/tribe-view-helpers.class.php:120
 msgid "France"
 msgstr "Γαλλία"
 
-#: ../lib/tribe-view-helpers.class.php:119
+#: ../lib/tribe-view-helpers.class.php:121
 msgid "France, Metropolitan"
 msgstr "Γαλλία, Μητροπολιτική"
 
-#: ../lib/tribe-view-helpers.class.php:120
+#: ../lib/tribe-view-helpers.class.php:122
 msgid "French Guiana"
 msgstr "Γαλλική Γουιάνα"
 
-#: ../lib/tribe-view-helpers.class.php:121
+#: ../lib/tribe-view-helpers.class.php:123
 msgid "French Polynesia"
 msgstr "Γαλλική Πολυνησία"
 
-#: ../lib/tribe-view-helpers.class.php:122
+#: ../lib/tribe-view-helpers.class.php:124
 msgid "French Southern Territories"
 msgstr "Γαλλικά Νότια Εδάφη"
 
-#: ../lib/tribe-view-helpers.class.php:123
+#: ../lib/tribe-view-helpers.class.php:125
 msgid "Gabon"
 msgstr "Γκαμπόν"
 
-#: ../lib/tribe-view-helpers.class.php:124
+#: ../lib/tribe-view-helpers.class.php:126
 msgid "Gambia"
 msgstr "Γκάμπια"
 
-#: ../lib/tribe-view-helpers.class.php:125
-#: ../lib/tribe-view-helpers.class.php:318
+#: ../lib/tribe-view-helpers.class.php:127
+#: ../lib/tribe-view-helpers.class.php:326
 msgid "Georgia"
 msgstr "Γεωργία"
 
-#: ../lib/tribe-view-helpers.class.php:126
+#: ../lib/tribe-view-helpers.class.php:128
 msgid "Germany"
 msgstr "Γερμανία"
 
-#: ../lib/tribe-view-helpers.class.php:127
+#: ../lib/tribe-view-helpers.class.php:129
 msgid "Ghana"
 msgstr "Γκάνα"
 
-#: ../lib/tribe-view-helpers.class.php:128
+#: ../lib/tribe-view-helpers.class.php:130
 msgid "Gibraltar"
 msgstr "Γιβλαρτάρ"
 
-#: ../lib/tribe-view-helpers.class.php:129
+#: ../lib/tribe-view-helpers.class.php:131
 msgid "Greece"
 msgstr "Ελλάδα"
 
-#: ../lib/tribe-view-helpers.class.php:130
+#: ../lib/tribe-view-helpers.class.php:132
 msgid "Greenland"
 msgstr "Γροιλανδία"
 
-#: ../lib/tribe-view-helpers.class.php:131
+#: ../lib/tribe-view-helpers.class.php:133
 msgid "Grenada"
 msgstr "Γρενάδα"
 
-#: ../lib/tribe-view-helpers.class.php:132
+#: ../lib/tribe-view-helpers.class.php:134
 msgid "Guadeloupe"
 msgstr "Γουαδελούπη"
 
-#: ../lib/tribe-view-helpers.class.php:133
+#: ../lib/tribe-view-helpers.class.php:135
 msgid "Guam"
 msgstr "Γκουάμ"
 
-#: ../lib/tribe-view-helpers.class.php:134
+#: ../lib/tribe-view-helpers.class.php:136
 msgid "Guatemala"
 msgstr "Γουατεμάλα"
 
-#: ../lib/tribe-view-helpers.class.php:135
+#: ../lib/tribe-view-helpers.class.php:137
 msgid "Guinea"
 msgstr "Γουινέα"
 
-#: ../lib/tribe-view-helpers.class.php:136
+#: ../lib/tribe-view-helpers.class.php:138
 msgid "Guinea-Bissau"
 msgstr "Γουινέα-Μπισάου"
 
-#: ../lib/tribe-view-helpers.class.php:137
+#: ../lib/tribe-view-helpers.class.php:139
 msgid "Guyana"
 msgstr "Γουιάνα"
 
-#: ../lib/tribe-view-helpers.class.php:138
+#: ../lib/tribe-view-helpers.class.php:140
 msgid "Haiti"
 msgstr "Αϊτή"
 
-#: ../lib/tribe-view-helpers.class.php:139
+#: ../lib/tribe-view-helpers.class.php:141
 msgid "Heard And Mc Donald Islands"
 msgstr "Νήσοι Χερντ και Mc Donald"
 
-#: ../lib/tribe-view-helpers.class.php:140
+#: ../lib/tribe-view-helpers.class.php:142
 msgid "Holy See (Vatican City State)"
 msgstr "Αγία Έδρα (Πόλη του Βατικανού)"
 
-#: ../lib/tribe-view-helpers.class.php:141
+#: ../lib/tribe-view-helpers.class.php:143
 msgid "Honduras"
 msgstr "Ονδούρα"
 
-#: ../lib/tribe-view-helpers.class.php:142
+#: ../lib/tribe-view-helpers.class.php:144
 msgid "Hong Kong"
 msgstr "Χόνγκ Κόνγκ"
 
-#: ../lib/tribe-view-helpers.class.php:143
+#: ../lib/tribe-view-helpers.class.php:145
 msgid "Hungary"
 msgstr "Ουγγαρία"
 
-#: ../lib/tribe-view-helpers.class.php:144
+#: ../lib/tribe-view-helpers.class.php:146
 msgid "Iceland"
 msgstr "Ισλανδία"
 
-#: ../lib/tribe-view-helpers.class.php:145
+#: ../lib/tribe-view-helpers.class.php:147
 msgid "India"
 msgstr "Ινδία"
 
-#: ../lib/tribe-view-helpers.class.php:146
+#: ../lib/tribe-view-helpers.class.php:148
 msgid "Indonesia"
 msgstr "Ινδονησία"
 
-#: ../lib/tribe-view-helpers.class.php:147
+#: ../lib/tribe-view-helpers.class.php:149
 msgid "Iran (Islamic Republic Of)"
 msgstr "Ιράν (Ισλαμική Δημοκρατία του)"
 
-#: ../lib/tribe-view-helpers.class.php:148
+#: ../lib/tribe-view-helpers.class.php:150
 msgid "Iraq"
 msgstr "Ιράκ"
 
-#: ../lib/tribe-view-helpers.class.php:149
+#: ../lib/tribe-view-helpers.class.php:151
 msgid "Ireland"
 msgstr "Ιρλανδία"
 
-#: ../lib/tribe-view-helpers.class.php:150
+#: ../lib/tribe-view-helpers.class.php:152
 msgid "Israel"
 msgstr "Ισραήλ"
 
-#: ../lib/tribe-view-helpers.class.php:151
+#: ../lib/tribe-view-helpers.class.php:153
 msgid "Italy"
 msgstr "Ιταλία"
 
-#: ../lib/tribe-view-helpers.class.php:152
+#: ../lib/tribe-view-helpers.class.php:154
 msgid "Jamaica"
 msgstr "Τζαμάικα"
 
-#: ../lib/tribe-view-helpers.class.php:153
+#: ../lib/tribe-view-helpers.class.php:155
 msgid "Japan"
 msgstr "Ιαπωνία"
 
-#: ../lib/tribe-view-helpers.class.php:154
+#: ../lib/tribe-view-helpers.class.php:156
 msgid "Jordan"
 msgstr "Ιορδανία"
 
-#: ../lib/tribe-view-helpers.class.php:155
+#: ../lib/tribe-view-helpers.class.php:157
 msgid "Kazakhstan"
 msgstr "Καζακστάν"
 
-#: ../lib/tribe-view-helpers.class.php:156
+#: ../lib/tribe-view-helpers.class.php:158
 msgid "Kenya"
 msgstr "Κένυα"
 
-#: ../lib/tribe-view-helpers.class.php:157
+#: ../lib/tribe-view-helpers.class.php:159
 msgid "Kiribati"
 msgstr "Κιριμπάτι"
 
-#: ../lib/tribe-view-helpers.class.php:158
+#: ../lib/tribe-view-helpers.class.php:160
 msgid "Korea, Democratic People's Republic Of"
 msgstr "Κορέα, Λαϊκή Δημοκρατία της Κίνας"
 
-#: ../lib/tribe-view-helpers.class.php:159
+#: ../lib/tribe-view-helpers.class.php:161
 msgid "Korea, Republic Of"
 msgstr "Κορέα, Δημοκρατία της"
 
-#: ../lib/tribe-view-helpers.class.php:160
+#: ../lib/tribe-view-helpers.class.php:162
 msgid "Kuwait"
 msgstr "Κουβέιτ"
 
-#: ../lib/tribe-view-helpers.class.php:161
+#: ../lib/tribe-view-helpers.class.php:163
 msgid "Kyrgyzstan"
 msgstr "Κιργιστάν"
 
-#: ../lib/tribe-view-helpers.class.php:162
+#: ../lib/tribe-view-helpers.class.php:164
 msgid "Lao People's Democratic Republic"
 msgstr "Δημοκρατική Δημοκρατία του Λάος"
 
-#: ../lib/tribe-view-helpers.class.php:163
+#: ../lib/tribe-view-helpers.class.php:165
 msgid "Latvia"
 msgstr "Λετονία"
 
-#: ../lib/tribe-view-helpers.class.php:164
+#: ../lib/tribe-view-helpers.class.php:166
 msgid "Lebanon"
 msgstr "Λίβανος"
 
-#: ../lib/tribe-view-helpers.class.php:165
+#: ../lib/tribe-view-helpers.class.php:167
 msgid "Lesotho"
 msgstr "Λεσόθο"
 
-#: ../lib/tribe-view-helpers.class.php:166
+#: ../lib/tribe-view-helpers.class.php:168
 msgid "Liberia"
 msgstr "Λιβερία"
 
-#: ../lib/tribe-view-helpers.class.php:167
+#: ../lib/tribe-view-helpers.class.php:169
 msgid "Libya"
 msgstr "Λιβύη"
 
-#: ../lib/tribe-view-helpers.class.php:168
+#: ../lib/tribe-view-helpers.class.php:170
 msgid "Liechtenstein"
 msgstr "Λιχτενστάιν"
 
-#: ../lib/tribe-view-helpers.class.php:169
+#: ../lib/tribe-view-helpers.class.php:171
 msgid "Lithuania"
 msgstr "Λιθουανία"
 
-#: ../lib/tribe-view-helpers.class.php:170
+#: ../lib/tribe-view-helpers.class.php:172
 msgid "Luxembourg"
 msgstr "Λουξεμβούργο"
 
-#: ../lib/tribe-view-helpers.class.php:171
+#: ../lib/tribe-view-helpers.class.php:173
 msgid "Macau"
 msgstr "Μακάου"
 
 #
-#: ../lib/tribe-view-helpers.class.php:172
+#: ../lib/tribe-view-helpers.class.php:174
 msgid "Macedonia"
 msgstr "Π.Γ.Δ.Μ."
 
-#: ../lib/tribe-view-helpers.class.php:173
+#: ../lib/tribe-view-helpers.class.php:175
 msgid "Madagascar"
 msgstr "Μαδαγασκάρη"
 
-#: ../lib/tribe-view-helpers.class.php:174
+#: ../lib/tribe-view-helpers.class.php:176
 msgid "Malawi"
 msgstr "Μαλάουι"
 
-#: ../lib/tribe-view-helpers.class.php:175
+#: ../lib/tribe-view-helpers.class.php:177
 msgid "Malaysia"
 msgstr "Μαλαισία"
 
-#: ../lib/tribe-view-helpers.class.php:176
+#: ../lib/tribe-view-helpers.class.php:178
 msgid "Maldives"
 msgstr "Μαλδίβες"
 
-#: ../lib/tribe-view-helpers.class.php:177
+#: ../lib/tribe-view-helpers.class.php:179
 msgid "Mali"
 msgstr "Μάλι"
 
-#: ../lib/tribe-view-helpers.class.php:178
+#: ../lib/tribe-view-helpers.class.php:180
 msgid "Malta"
 msgstr "Μάλτα"
 
-#: ../lib/tribe-view-helpers.class.php:179
+#: ../lib/tribe-view-helpers.class.php:181
 msgid "Marshall Islands"
 msgstr "Νήσοι Μάρσαλ"
 
-#: ../lib/tribe-view-helpers.class.php:180
+#: ../lib/tribe-view-helpers.class.php:182
 msgid "Martinique"
 msgstr "Μαρτινίκα"
 
-#: ../lib/tribe-view-helpers.class.php:181
+#: ../lib/tribe-view-helpers.class.php:183
 msgid "Mauritania"
 msgstr "Μαυριτανία"
 
-#: ../lib/tribe-view-helpers.class.php:182
+#: ../lib/tribe-view-helpers.class.php:184
 msgid "Mauritius"
 msgstr "Μαυρίκιος"
 
-#: ../lib/tribe-view-helpers.class.php:183
+#: ../lib/tribe-view-helpers.class.php:185
 msgid "Mayotte"
 msgstr "Μαγιότ"
 
-#: ../lib/tribe-view-helpers.class.php:184
+#: ../lib/tribe-view-helpers.class.php:186
 msgid "Mexico"
 msgstr "Μεξικό"
 
-#: ../lib/tribe-view-helpers.class.php:185
+#: ../lib/tribe-view-helpers.class.php:187
 msgid "Micronesia, Federated States Of"
 msgstr "Μικρονησία, Ομόσπονδα Κράτη της"
 
-#: ../lib/tribe-view-helpers.class.php:186
+#: ../lib/tribe-view-helpers.class.php:188
 msgid "Moldova, Republic Of"
 msgstr "Μολδαβία, Δημοκρατία της"
 
-#: ../lib/tribe-view-helpers.class.php:187
+#: ../lib/tribe-view-helpers.class.php:189
 msgid "Monaco"
 msgstr "Μονακό"
 
-#: ../lib/tribe-view-helpers.class.php:188
+#: ../lib/tribe-view-helpers.class.php:190
 msgid "Mongolia"
 msgstr "Μονγκολία"
 
-#: ../lib/tribe-view-helpers.class.php:189
+#: ../lib/tribe-view-helpers.class.php:191
 msgid "Montenegro"
 msgstr "Μαυροβούνιο"
 
-#: ../lib/tribe-view-helpers.class.php:190
+#: ../lib/tribe-view-helpers.class.php:192
 msgid "Montserrat"
 msgstr "Μοντσεράτ"
 
-#: ../lib/tribe-view-helpers.class.php:191
+#: ../lib/tribe-view-helpers.class.php:193
 msgid "Morocco"
 msgstr "Μαρόκο"
 
-#: ../lib/tribe-view-helpers.class.php:192
+#: ../lib/tribe-view-helpers.class.php:194
 msgid "Mozambique"
 msgstr "Μοζαμβίκη"
 
-#: ../lib/tribe-view-helpers.class.php:193
+#: ../lib/tribe-view-helpers.class.php:195
 msgid "Myanmar"
 msgstr "Μιανμάρ"
 
-#: ../lib/tribe-view-helpers.class.php:194
+#: ../lib/tribe-view-helpers.class.php:196
 msgid "Namibia"
 msgstr "Ναμίμπια"
 
-#: ../lib/tribe-view-helpers.class.php:195
+#: ../lib/tribe-view-helpers.class.php:197
 msgid "Nauru"
 msgstr "Ναούρου"
 
-#: ../lib/tribe-view-helpers.class.php:196
+#: ../lib/tribe-view-helpers.class.php:198
 msgid "Nepal"
 msgstr "Νεπάλ"
 
-#: ../lib/tribe-view-helpers.class.php:197
+#: ../lib/tribe-view-helpers.class.php:199
 msgid "Netherlands"
 msgstr "Ολλανδία"
 
-#: ../lib/tribe-view-helpers.class.php:198
+#: ../lib/tribe-view-helpers.class.php:200
 msgid "Netherlands Antilles"
 msgstr "Ολλανδικές Αντίλλες"
 
-#: ../lib/tribe-view-helpers.class.php:199
+#: ../lib/tribe-view-helpers.class.php:201
 msgid "New Caledonia"
 msgstr "Νέα Καληδονία"
 
-#: ../lib/tribe-view-helpers.class.php:200
+#: ../lib/tribe-view-helpers.class.php:202
 msgid "New Zealand"
 msgstr "Νέα Ζηλανδία"
 
-#: ../lib/tribe-view-helpers.class.php:201
+#: ../lib/tribe-view-helpers.class.php:203
 msgid "Nicaragua"
 msgstr "Νικαράγουα"
 
-#: ../lib/tribe-view-helpers.class.php:202
+#: ../lib/tribe-view-helpers.class.php:204
 msgid "Niger"
 msgstr "Νίγηρας"
 
-#: ../lib/tribe-view-helpers.class.php:203
+#: ../lib/tribe-view-helpers.class.php:205
 msgid "Nigeria"
 msgstr "Νιγηρία"
 
-#: ../lib/tribe-view-helpers.class.php:204
+#: ../lib/tribe-view-helpers.class.php:206
 msgid "Niue"
 msgstr "Νιούε"
 
-#: ../lib/tribe-view-helpers.class.php:205
+#: ../lib/tribe-view-helpers.class.php:207
 msgid "Norfolk Island"
 msgstr "Νήσος Νόρφολκ"
 
-#: ../lib/tribe-view-helpers.class.php:206
+#: ../lib/tribe-view-helpers.class.php:208
 msgid "Northern Mariana Islands"
 msgstr "Βόρειες Μαριάνες Νήσοι"
 
-#: ../lib/tribe-view-helpers.class.php:207
+#: ../lib/tribe-view-helpers.class.php:209
 msgid "Norway"
 msgstr "Νορβηγία"
 
-#: ../lib/tribe-view-helpers.class.php:208
+#: ../lib/tribe-view-helpers.class.php:210
 msgid "Oman"
 msgstr "Ομάν"
 
-#: ../lib/tribe-view-helpers.class.php:209
+#: ../lib/tribe-view-helpers.class.php:211
 msgid "Pakistan"
 msgstr "Πακιστάν"
 
-#: ../lib/tribe-view-helpers.class.php:210
+#: ../lib/tribe-view-helpers.class.php:212
 msgid "Palau"
 msgstr "Παλάου"
 
-#: ../lib/tribe-view-helpers.class.php:211
+#: ../lib/tribe-view-helpers.class.php:213
 msgid "Panama"
 msgstr "Παναμάς"
 
-#: ../lib/tribe-view-helpers.class.php:212
+#: ../lib/tribe-view-helpers.class.php:214
 msgid "Papua New Guinea"
 msgstr "Παπούα Νέα Γουινέα"
 
-#: ../lib/tribe-view-helpers.class.php:213
+#: ../lib/tribe-view-helpers.class.php:215
 msgid "Paraguay"
 msgstr "Παραγουάη"
 
-#: ../lib/tribe-view-helpers.class.php:214
+#: ../lib/tribe-view-helpers.class.php:216
 msgid "Peru"
 msgstr "Περού"
 
-#: ../lib/tribe-view-helpers.class.php:215
+#: ../lib/tribe-view-helpers.class.php:217
 msgid "Philippines"
 msgstr "Φιλιππίνες"
 
-#: ../lib/tribe-view-helpers.class.php:216
+#: ../lib/tribe-view-helpers.class.php:218
 msgid "Pitcairn"
 msgstr "Πίτκερν"
 
-#: ../lib/tribe-view-helpers.class.php:217
+#: ../lib/tribe-view-helpers.class.php:219
 msgid "Poland"
 msgstr "Πολωνία"
 
-#: ../lib/tribe-view-helpers.class.php:218
+#: ../lib/tribe-view-helpers.class.php:220
 msgid "Portugal"
 msgstr "Πορτογαλία"
 
-#: ../lib/tribe-view-helpers.class.php:219
+#: ../lib/tribe-view-helpers.class.php:221
 msgid "Puerto Rico"
 msgstr "Πουέρτο Ρίκο"
 
-#: ../lib/tribe-view-helpers.class.php:220
+#: ../lib/tribe-view-helpers.class.php:222
 msgid "Qatar"
 msgstr "Κατάρ"
 
-#: ../lib/tribe-view-helpers.class.php:221
+#: ../lib/tribe-view-helpers.class.php:223
 msgid "Reunion"
 msgstr "Ρεουνιόν"
 
-#: ../lib/tribe-view-helpers.class.php:222
+#: ../lib/tribe-view-helpers.class.php:224
 msgid "Romania"
 msgstr "Ρουμανία"
 
-#: ../lib/tribe-view-helpers.class.php:223
+#: ../lib/tribe-view-helpers.class.php:225
 msgid "Russian Federation"
 msgstr "Ρωσική Ομοσπονδία"
 
-#: ../lib/tribe-view-helpers.class.php:224
+#: ../lib/tribe-view-helpers.class.php:226
 msgid "Rwanda"
 msgstr "Ρουάντα"
 
-#: ../lib/tribe-view-helpers.class.php:225
+#: ../lib/tribe-view-helpers.class.php:227
 msgid "Saint Kitts And Nevis"
 msgstr "Άγιος Χριστόφορος και Νέβις"
 
-#: ../lib/tribe-view-helpers.class.php:226
+#: ../lib/tribe-view-helpers.class.php:228
 msgid "Saint Lucia"
 msgstr "Αγία Λουκία"
 
-#: ../lib/tribe-view-helpers.class.php:227
+#: ../lib/tribe-view-helpers.class.php:229
 msgid "Saint Vincent And The Grenadines"
 msgstr "Άγιος Βικέντιος και Γρεναδίνες"
 
-#: ../lib/tribe-view-helpers.class.php:228
+#: ../lib/tribe-view-helpers.class.php:230
 msgid "Samoa"
 msgstr "Σαμόα"
 
-#: ../lib/tribe-view-helpers.class.php:229
+#: ../lib/tribe-view-helpers.class.php:231
 msgid "San Marino"
 msgstr "Σαν Μαρίνο"
 
-#: ../lib/tribe-view-helpers.class.php:230
+#: ../lib/tribe-view-helpers.class.php:232
 msgid "Sao Tome And Principe"
 msgstr "Σάο Τομέ και Πρίνσιπε"
 
-#: ../lib/tribe-view-helpers.class.php:231
+#: ../lib/tribe-view-helpers.class.php:233
 msgid "Saudi Arabia"
 msgstr "Σαουδική Αραβία"
 
-#: ../lib/tribe-view-helpers.class.php:232
+#: ../lib/tribe-view-helpers.class.php:234
 msgid "Senegal"
 msgstr "Σενεγάλη"
 
-#: ../lib/tribe-view-helpers.class.php:233
+#: ../lib/tribe-view-helpers.class.php:235
 msgid "Serbia"
 msgstr "Σερβία"
 
-#: ../lib/tribe-view-helpers.class.php:234
+#: ../lib/tribe-view-helpers.class.php:236
 msgid "Seychelles"
 msgstr "Σεϋχέλλες"
 
-#: ../lib/tribe-view-helpers.class.php:235
+#: ../lib/tribe-view-helpers.class.php:237
 msgid "Sierra Leone"
 msgstr "Σιέρα Λεόνε"
 
-#: ../lib/tribe-view-helpers.class.php:236
+#: ../lib/tribe-view-helpers.class.php:238
 msgid "Singapore"
 msgstr "Σιγκαπούρη"
 
-#: ../lib/tribe-view-helpers.class.php:237
+#: ../lib/tribe-view-helpers.class.php:239
 msgid "Slovakia (Slovak Republic)"
 msgstr "Σλοβακία (Δημοκρατία της Σλοβακίας)"
 
-#: ../lib/tribe-view-helpers.class.php:238
+#: ../lib/tribe-view-helpers.class.php:240
 msgid "Slovenia"
 msgstr "Σλοβενία"
 
-#: ../lib/tribe-view-helpers.class.php:239
+#: ../lib/tribe-view-helpers.class.php:241
 msgid "Solomon Islands"
 msgstr "Νησιά Σολομώντα"
 
-#: ../lib/tribe-view-helpers.class.php:240
+#: ../lib/tribe-view-helpers.class.php:242
 msgid "Somalia"
 msgstr "Σομαλία"
 
-#: ../lib/tribe-view-helpers.class.php:241
+#: ../lib/tribe-view-helpers.class.php:243
 msgid "South Africa"
 msgstr "Νότια Αφρική"
 
-#: ../lib/tribe-view-helpers.class.php:242
+#: ../lib/tribe-view-helpers.class.php:244
 msgid "South Georgia, South Sandwich Islands"
 msgstr "Νότια Γεωργία, Νότια Νησιά Σάντουιτς"
 
-#: ../lib/tribe-view-helpers.class.php:243
+#: ../lib/tribe-view-helpers.class.php:245
 msgid "Spain"
 msgstr "Ισπανία"
 
-#: ../lib/tribe-view-helpers.class.php:244
+#: ../lib/tribe-view-helpers.class.php:246
 msgid "Sri Lanka"
 msgstr "Σρι Λάνκα"
 
-#: ../lib/tribe-view-helpers.class.php:245
+#: ../lib/tribe-view-helpers.class.php:247
 msgid "St. Helena"
 msgstr "Αγία Ελένη"
 
-#: ../lib/tribe-view-helpers.class.php:246
+#: ../lib/tribe-view-helpers.class.php:248
 msgid "St. Pierre And Miquelon"
 msgstr "Άγιος Πέτρος και Μικελόν"
 
-#: ../lib/tribe-view-helpers.class.php:247
+#: ../lib/tribe-view-helpers.class.php:249
 msgid "Sudan"
 msgstr "Σουδάν"
 
-#: ../lib/tribe-view-helpers.class.php:248
+#: ../lib/tribe-view-helpers.class.php:250
 msgid "Suriname"
 msgstr "Σουρινάμ"
 
-#: ../lib/tribe-view-helpers.class.php:249
+#: ../lib/tribe-view-helpers.class.php:251
 msgid "Svalbard And Jan Mayen Islands"
 msgstr "Νήσοι Σβάλμπαρντ και Γιαν Μαγιέν"
 
-#: ../lib/tribe-view-helpers.class.php:250
+#: ../lib/tribe-view-helpers.class.php:252
 msgid "Swaziland"
 msgstr "Ζουαζιλάνδη"
 
-#: ../lib/tribe-view-helpers.class.php:251
+#: ../lib/tribe-view-helpers.class.php:253
 msgid "Sweden"
 msgstr "Σουηδία"
 
-#: ../lib/tribe-view-helpers.class.php:252
+#: ../lib/tribe-view-helpers.class.php:254
 msgid "Switzerland"
 msgstr "Ελβετία"
 
-#: ../lib/tribe-view-helpers.class.php:253
+#: ../lib/tribe-view-helpers.class.php:255
 msgid "Syrian Arab Republic"
 msgstr "Αραβική Δημοκρατία της Συρίας"
 
-#: ../lib/tribe-view-helpers.class.php:254
+#: ../lib/tribe-view-helpers.class.php:256
 msgid "Taiwan"
 msgstr "Ταϊβάν"
 
-#: ../lib/tribe-view-helpers.class.php:255
+#: ../lib/tribe-view-helpers.class.php:257
 msgid "Tajikistan"
 msgstr "Τατζικιστάν"
 
-#: ../lib/tribe-view-helpers.class.php:256
+#: ../lib/tribe-view-helpers.class.php:258
 msgid "Tanzania, United Republic Of"
 msgstr "Τανζανία, Ενωμένη Δημοκρατία της"
 
-#: ../lib/tribe-view-helpers.class.php:257
+#: ../lib/tribe-view-helpers.class.php:259
 msgid "Thailand"
 msgstr "Ταϊλάνδη"
 
-#: ../lib/tribe-view-helpers.class.php:258
+#: ../lib/tribe-view-helpers.class.php:260
 msgid "Togo"
 msgstr "Τόγκο"
 
-#: ../lib/tribe-view-helpers.class.php:259
+#: ../lib/tribe-view-helpers.class.php:261
 msgid "Tokelau"
 msgstr "Τοκελάου"
 
-#: ../lib/tribe-view-helpers.class.php:260
+#: ../lib/tribe-view-helpers.class.php:262
 msgid "Tonga"
 msgstr "Τοκελάου"
 
-#: ../lib/tribe-view-helpers.class.php:261
+#: ../lib/tribe-view-helpers.class.php:263
 msgid "Trinidad And Tobago"
 msgstr "Τρινιντάντ και Τομπάγκο"
 
-#: ../lib/tribe-view-helpers.class.php:262
+#: ../lib/tribe-view-helpers.class.php:264
 msgid "Tunisia"
 msgstr "Τυνησία"
 
-#: ../lib/tribe-view-helpers.class.php:263
+#: ../lib/tribe-view-helpers.class.php:265
 msgid "Turkey"
 msgstr "Τουρκία"
 
-#: ../lib/tribe-view-helpers.class.php:264
+#: ../lib/tribe-view-helpers.class.php:266
 msgid "Turkmenistan"
 msgstr "Τουρκμενιστάν"
 
-#: ../lib/tribe-view-helpers.class.php:265
+#: ../lib/tribe-view-helpers.class.php:267
 msgid "Turks And Caicos Islands"
 msgstr "Νήσοι Τερκς και Κάικος"
 
-#: ../lib/tribe-view-helpers.class.php:266
+#: ../lib/tribe-view-helpers.class.php:268
 msgid "Tuvalu"
 msgstr "Τουβαλού"
 
-#: ../lib/tribe-view-helpers.class.php:267
+#: ../lib/tribe-view-helpers.class.php:269
 msgid "Uganda"
 msgstr "Ουγκάντα"
 
-#: ../lib/tribe-view-helpers.class.php:268
+#: ../lib/tribe-view-helpers.class.php:270
 msgid "Ukraine"
 msgstr "Ουκρανία"
 
-#: ../lib/tribe-view-helpers.class.php:269
+#: ../lib/tribe-view-helpers.class.php:271
 msgid "United Arab Emirates"
 msgstr "Ηνωμένα Αραβικά Εμιράτα"
 
-#: ../lib/tribe-view-helpers.class.php:270
+#: ../lib/tribe-view-helpers.class.php:272
 msgid "United Kingdom"
 msgstr "Ηνωμένο Βασίλειο"
 
-#: ../lib/tribe-view-helpers.class.php:271
+#: ../lib/tribe-view-helpers.class.php:273
 msgid "United States Minor Outlying Islands"
 msgstr "Ηνωμένες Πολιτείες Μικρά Απομονωμένα Νησιά"
 
-#: ../lib/tribe-view-helpers.class.php:272
+#: ../lib/tribe-view-helpers.class.php:274
 msgid "Uruguay"
 msgstr "Ουρουγουάη"
 
-#: ../lib/tribe-view-helpers.class.php:273
+#: ../lib/tribe-view-helpers.class.php:275
 msgid "Uzbekistan"
 msgstr "Ουζμπεκιστάν"
 
-#: ../lib/tribe-view-helpers.class.php:274
+#: ../lib/tribe-view-helpers.class.php:276
 msgid "Vanuatu"
 msgstr "Βανουάτου"
 
-#: ../lib/tribe-view-helpers.class.php:275
+#: ../lib/tribe-view-helpers.class.php:277
 msgid "Venezuela"
 msgstr "Βενεζουέλα"
 
-#: ../lib/tribe-view-helpers.class.php:276
+#: ../lib/tribe-view-helpers.class.php:278
 msgid "Viet Nam"
 msgstr "Βιετνάμ"
 
-#: ../lib/tribe-view-helpers.class.php:277
+#: ../lib/tribe-view-helpers.class.php:279
 msgid "Virgin Islands (British)"
 msgstr "Παρθένοι Νήσοι (Βρετανικοί)"
 
-#: ../lib/tribe-view-helpers.class.php:278
+#: ../lib/tribe-view-helpers.class.php:280
 msgid "Virgin Islands (U.S.)"
 msgstr "Παρθένες Νήσοι (ΗΠΑ)"
 
-#: ../lib/tribe-view-helpers.class.php:279
+#: ../lib/tribe-view-helpers.class.php:281
 msgid "Wallis And Futuna Islands"
 msgstr "Νήσοι Ουαλίς και Φουτουνά"
 
-#: ../lib/tribe-view-helpers.class.php:280
+#: ../lib/tribe-view-helpers.class.php:282
 msgid "Western Sahara"
 msgstr "Δυτική Σαχάρα"
 
-#: ../lib/tribe-view-helpers.class.php:281
+#: ../lib/tribe-view-helpers.class.php:283
 msgid "Yemen"
 msgstr "Υεμένη"
 
-#: ../lib/tribe-view-helpers.class.php:282
+#: ../lib/tribe-view-helpers.class.php:284
 msgid "Zambia"
 msgstr "Ζάμπια"
 
-#: ../lib/tribe-view-helpers.class.php:283
+#: ../lib/tribe-view-helpers.class.php:285
 msgid "Zimbabwe"
 msgstr "Ζιμπάμπουε"
 
-#: ../lib/tribe-view-helpers.class.php:308
+#: ../lib/tribe-view-helpers.class.php:316
 msgid "Alabama"
 msgstr "Αλαμπάμα"
 
-#: ../lib/tribe-view-helpers.class.php:309
+#: ../lib/tribe-view-helpers.class.php:317
 msgid "Alaska"
 msgstr "Αλάσκα"
 
-#: ../lib/tribe-view-helpers.class.php:310
+#: ../lib/tribe-view-helpers.class.php:318
 msgid "Arizona"
 msgstr "Αριζόνα"
 
-#: ../lib/tribe-view-helpers.class.php:311
+#: ../lib/tribe-view-helpers.class.php:319
 msgid "Arkansas"
 msgstr "Αρκάνσας"
 
-#: ../lib/tribe-view-helpers.class.php:312
+#: ../lib/tribe-view-helpers.class.php:320
 msgid "California"
 msgstr "Καλιφόρνια"
 
-#: ../lib/tribe-view-helpers.class.php:313
+#: ../lib/tribe-view-helpers.class.php:321
 msgid "Colorado"
 msgstr "Κολοράντο"
 
-#: ../lib/tribe-view-helpers.class.php:314
+#: ../lib/tribe-view-helpers.class.php:322
 msgid "Connecticut"
 msgstr "Κονέκτικατ"
 
-#: ../lib/tribe-view-helpers.class.php:315
+#: ../lib/tribe-view-helpers.class.php:323
 msgid "Delaware"
 msgstr "Ντέλαγουερ"
 
-#: ../lib/tribe-view-helpers.class.php:316
+#: ../lib/tribe-view-helpers.class.php:324
 msgid "District of Columbia"
 msgstr "Περιφέρεια της Κολούμπια"
 
-#: ../lib/tribe-view-helpers.class.php:317
+#: ../lib/tribe-view-helpers.class.php:325
 msgid "Florida"
 msgstr "Φλόριντα"
 
-#: ../lib/tribe-view-helpers.class.php:319
+#: ../lib/tribe-view-helpers.class.php:327
 msgid "Hawaii"
 msgstr "Χαβάη"
 
-#: ../lib/tribe-view-helpers.class.php:320
+#: ../lib/tribe-view-helpers.class.php:328
 msgid "Idaho"
 msgstr "Αϊντάχο"
 
-#: ../lib/tribe-view-helpers.class.php:321
+#: ../lib/tribe-view-helpers.class.php:329
 msgid "Illinois"
 msgstr "Ιλλινόις"
 
-#: ../lib/tribe-view-helpers.class.php:322
+#: ../lib/tribe-view-helpers.class.php:330
 msgid "Indiana"
 msgstr "Ιντιάνα"
 
-#: ../lib/tribe-view-helpers.class.php:323
+#: ../lib/tribe-view-helpers.class.php:331
 msgid "Iowa"
 msgstr "Αϊόβα"
 
-#: ../lib/tribe-view-helpers.class.php:324
+#: ../lib/tribe-view-helpers.class.php:332
 msgid "Kansas"
 msgstr "Κάνσας"
 
-#: ../lib/tribe-view-helpers.class.php:325
+#: ../lib/tribe-view-helpers.class.php:333
 msgid "Kentucky"
 msgstr "Κεντάκι"
 
-#: ../lib/tribe-view-helpers.class.php:326
+#: ../lib/tribe-view-helpers.class.php:334
 msgid "Louisiana"
 msgstr "Λουιζιάνα"
 
-#: ../lib/tribe-view-helpers.class.php:327
+#: ../lib/tribe-view-helpers.class.php:335
 msgid "Maine"
 msgstr "Μέιν"
 
-#: ../lib/tribe-view-helpers.class.php:328
+#: ../lib/tribe-view-helpers.class.php:336
 msgid "Maryland"
 msgstr "Μέριλαντ"
 
-#: ../lib/tribe-view-helpers.class.php:329
+#: ../lib/tribe-view-helpers.class.php:337
 msgid "Massachusetts"
 msgstr "Μασαχουσέτη"
 
-#: ../lib/tribe-view-helpers.class.php:330
+#: ../lib/tribe-view-helpers.class.php:338
 msgid "Michigan"
 msgstr "Μίτσιγκαν"
 
-#: ../lib/tribe-view-helpers.class.php:331
+#: ../lib/tribe-view-helpers.class.php:339
 msgid "Minnesota"
 msgstr "Μινεσότα"
 
-#: ../lib/tribe-view-helpers.class.php:332
+#: ../lib/tribe-view-helpers.class.php:340
 msgid "Mississippi"
 msgstr "Μισισίπι"
 
-#: ../lib/tribe-view-helpers.class.php:333
+#: ../lib/tribe-view-helpers.class.php:341
 msgid "Missouri"
 msgstr "Μιζούρι"
 
-#: ../lib/tribe-view-helpers.class.php:334
+#: ../lib/tribe-view-helpers.class.php:342
 msgid "Montana"
 msgstr "Μοντάνα"
 
-#: ../lib/tribe-view-helpers.class.php:335
+#: ../lib/tribe-view-helpers.class.php:343
 msgid "Nebraska"
 msgstr "Νεμπράσκα"
 
-#: ../lib/tribe-view-helpers.class.php:336
+#: ../lib/tribe-view-helpers.class.php:344
 msgid "Nevada"
 msgstr "Νεβάδα"
 
-#: ../lib/tribe-view-helpers.class.php:337
+#: ../lib/tribe-view-helpers.class.php:345
 msgid "New Hampshire"
 msgstr "Νιου Χάμσαϊρ"
 
-#: ../lib/tribe-view-helpers.class.php:338
+#: ../lib/tribe-view-helpers.class.php:346
 msgid "New Jersey"
 msgstr "Νιου Τζέρσεϊ"
 
-#: ../lib/tribe-view-helpers.class.php:339
+#: ../lib/tribe-view-helpers.class.php:347
 msgid "New Mexico"
 msgstr "Νέο Μεξικό"
 
-#: ../lib/tribe-view-helpers.class.php:340
+#: ../lib/tribe-view-helpers.class.php:348
 msgid "New York"
 msgstr "Νέα Υόρκη"
 
-#: ../lib/tribe-view-helpers.class.php:341
+#: ../lib/tribe-view-helpers.class.php:349
 msgid "North Carolina"
 msgstr "Βόρεια Καρολίνα"
 
-#: ../lib/tribe-view-helpers.class.php:342
+#: ../lib/tribe-view-helpers.class.php:350
 msgid "North Dakota"
 msgstr "Βόρεια Ντακότα"
 
-#: ../lib/tribe-view-helpers.class.php:343
+#: ../lib/tribe-view-helpers.class.php:351
 msgid "Ohio"
 msgstr "Οχάιο"
 
-#: ../lib/tribe-view-helpers.class.php:344
+#: ../lib/tribe-view-helpers.class.php:352
 msgid "Oklahoma"
 msgstr "Οκλαχόμα"
 
-#: ../lib/tribe-view-helpers.class.php:345
+#: ../lib/tribe-view-helpers.class.php:353
 msgid "Oregon"
 msgstr "Όρεγκον"
 
-#: ../lib/tribe-view-helpers.class.php:346
+#: ../lib/tribe-view-helpers.class.php:354
 msgid "Pennsylvania"
 msgstr "Πενσυλβάνια"
 
-#: ../lib/tribe-view-helpers.class.php:347
+#: ../lib/tribe-view-helpers.class.php:355
 msgid "Rhode Island"
 msgstr "Ρόουντ Άιλαντ"
 
-#: ../lib/tribe-view-helpers.class.php:348
+#: ../lib/tribe-view-helpers.class.php:356
 msgid "South Carolina"
 msgstr "Νότια Καρολίνα"
 
-#: ../lib/tribe-view-helpers.class.php:349
+#: ../lib/tribe-view-helpers.class.php:357
 msgid "South Dakota"
 msgstr "Νότια Ντακότα"
 
-#: ../lib/tribe-view-helpers.class.php:350
+#: ../lib/tribe-view-helpers.class.php:358
 msgid "Tennessee"
 msgstr "Τενεσί"
 
-#: ../lib/tribe-view-helpers.class.php:351
+#: ../lib/tribe-view-helpers.class.php:359
 msgid "Texas"
 msgstr "Τέξας"
 
-#: ../lib/tribe-view-helpers.class.php:352
+#: ../lib/tribe-view-helpers.class.php:360
 msgid "Utah"
 msgstr "Γιούτα"
 
-#: ../lib/tribe-view-helpers.class.php:353
+#: ../lib/tribe-view-helpers.class.php:361
 msgid "Vermont"
 msgstr "Βερμόντ"
 
-#: ../lib/tribe-view-helpers.class.php:354
+#: ../lib/tribe-view-helpers.class.php:362
 msgid "Virginia"
 msgstr "Βιρτζίνια"
 
-#: ../lib/tribe-view-helpers.class.php:355
+#: ../lib/tribe-view-helpers.class.php:363
 msgid "Washington"
 msgstr "Ουάσιγκτον"
 
-#: ../lib/tribe-view-helpers.class.php:356
+#: ../lib/tribe-view-helpers.class.php:364
 msgid "West Virginia"
 msgstr "Δυτική Βιρτζίνια"
 
-#: ../lib/tribe-view-helpers.class.php:357
+#: ../lib/tribe-view-helpers.class.php:365
 msgid "Wisconsin"
 msgstr "Ουισκόνσιν"
 
-#: ../lib/tribe-view-helpers.class.php:358
+#: ../lib/tribe-view-helpers.class.php:366
 msgid "Wyoming"
 msgstr "Ουαϊόμινγκ"
 
 #
-#: ../lib/widget-list.class.php:25
+#: ../lib/widget-list.class.php:26
 msgid "A widget that displays upcoming events."
 msgstr "Ένα widget που εμφανίζει προσεχείς εκδηλώσεις."
 
-#: ../lib/widget-list.class.php:32
+#: ../lib/widget-list.class.php:34
 msgid "Events List"
 msgstr "Λίστα Εκδηλώσεων"
 
-#: ../public/advanced-functions/meta.php:39
-#: ../public/advanced-functions/meta.php:65
-#: ../views/modules/meta/details.php:36 ../views/modules/meta/details.php:55
+#: ../lib/widget-list.class.php:162 ../public/template-tags/loop.php:129
+msgid "Upcoming Events"
+msgstr "Προσεχείς Εκδηλώσεις"
+
+#: ../public/advanced-functions/meta.php:42
+#: ../public/advanced-functions/meta.php:74
+#: ../views/modules/meta/details.php:36 ../views/modules/meta/details.php:61
 msgid "Start:"
 msgstr "Αρχή:"
 
-#: ../public/advanced-functions/meta.php:46
-#: ../public/advanced-functions/meta.php:72
-#: ../views/modules/meta/details.php:39 ../views/modules/meta/details.php:58
+#: ../public/advanced-functions/meta.php:51
+#: ../public/advanced-functions/meta.php:83
+#: ../views/modules/meta/details.php:41 ../views/modules/meta/details.php:66
 msgid "End:"
 msgstr "Τέλος:"
 
 #
-#: ../public/advanced-functions/meta.php:55
-#: ../public/advanced-functions/meta.php:81
-#: ../views/modules/meta/details.php:47 ../views/modules/meta/details.php:66
+#: ../public/advanced-functions/meta.php:62
+#: ../public/advanced-functions/meta.php:94
+#: ../views/modules/meta/details.php:51 ../views/modules/meta/details.php:76
 msgid "Date:"
 msgstr "Ημερομηνία:"
 
-#: ../public/advanced-functions/meta.php:90
-#: ../public/advanced-functions/meta.php:99
-#: ../views/modules/meta/details.php:69
+#: ../public/advanced-functions/meta.php:105
+#: ../public/advanced-functions/meta.php:116
+#: ../views/modules/meta/details.php:81
 msgid "Time:"
 msgstr "Ώρα:"
 
-#: ../public/advanced-functions/meta.php:283
-#: ../public/template-tags/google-map.php:38
+#: ../public/advanced-functions/meta.php:329
+#: ../public/template-tags/google-map.php:44
 msgid "Click to view a Google Map"
 msgstr "Κάντε κλικ για να δείτε ένα χάρτη Google"
 
 #
-#: ../public/advanced-functions/meta.php:284
-#: ../public/template-tags/google-map.php:39
+#: ../public/advanced-functions/meta.php:330
+#: ../public/template-tags/google-map.php:45
 msgid "+ Google Map"
 msgstr "+ Χάρτης Google "
 
-#: ../public/advanced-functions/meta.php:295
+#: ../public/advanced-functions/meta.php:343
 #: ../views/modules/meta/details.php:13
 msgid "Details"
 msgstr "Λεπτομέρειες"
 
 #
-#: ../public/advanced-functions/meta.php:346
-#: ../views/modules/meta/details.php:97
+#: ../public/advanced-functions/meta.php:403
+#: ../views/modules/meta/details.php:115
 msgid "Event Tags:"
 msgstr "Ετικέτες Εκδήλωσης:"
 
-#: ../public/advanced-functions/meta.php:372
+#: ../public/advanced-functions/meta.php:433
 msgid "Origin:"
 msgstr "Προέλευση:"
 
-#: ../public/advanced-functions/meta.php:382
-msgid "Venue"
-msgstr "Χώρος Διεξαγωγής"
-
-#: ../public/advanced-functions/meta.php:444
-msgid "Organizer"
-msgstr "Διοργανωτής"
-
 #
-#: ../public/advanced-functions/meta.php:509
+#: ../public/advanced-functions/meta.php:594
 msgid "Event:"
 msgstr "Εκδήλωση:"
 
-#: ../public/template-tags/day.php:94
+#: ../public/template-tags/day.php:103
 msgid "<span>&laquo;</span> Previous Day"
 msgstr "<span>&laquo;</span> Προηγούμενη Ημέρα"
 
-#: ../public/template-tags/day.php:96
+#: ../public/template-tags/day.php:105
 msgid "Next Day <span>&raquo;</span>"
 msgstr "Επόμενη Ημέρα <span>&raquo;</span>"
 
-#: ../public/template-tags/day.php:98
+#: ../public/template-tags/day.php:107
 msgid "Yesterday"
 msgstr "Εχτές"
 
-#: ../public/template-tags/day.php:100
+#: ../public/template-tags/day.php:109
 msgid "Tomorrow"
 msgstr "Αύριο"
 
 #
-#: ../public/template-tags/deprecated.php:1156
+#: ../public/template-tags/deprecated.php:1283
 msgid "Category"
 msgstr "Κατηγορία"
 
-#: ../public/template-tags/general.php:297
+#: ../public/template-tags/general.php:385
 msgid "Tags:"
 msgstr "Ετικέτες:"
 
 #
-#: ../public/template-tags/general.php:393
+#: ../public/template-tags/general.php:489
 msgid "Loading Events"
 msgstr "Φόρτωση Εκδηλώσεων"
 
-#: ../public/template-tags/general.php:573
+#: ../public/template-tags/general.php:679
 msgid "Free"
 msgstr "Δωρεάν"
 
-#: ../public/template-tags/general.php:1161
+#: ../public/template-tags/general.php:1336
 #, php-format
 msgid "Calendar powered by %sThe Events Calendar%s"
 msgstr "Το ημερολόγιο λειτουργεί με %sThe Events Calendar%s"
 
-#: ../public/template-tags/loop.php:133
+#: ../public/template-tags/loop.php:134
+#, php-format
+msgid "Events for %1$s - %2$s"
+msgstr "Εκδηλώσεις για %1$s - %2$s"
+
+#: ../public/template-tags/loop.php:136
+msgid "Past Events"
+msgstr "Προηγούμενες Εκδηλώσεις"
+
+#: ../public/template-tags/loop.php:141
+#, php-format
+msgid "Events for %s"
+msgstr "Εκδηλώσεις %s"
+
+#: ../public/template-tags/loop.php:148
 msgid "Events for"
 msgstr "Εκδηλώσεις"
 
-#: ../public/template-tags/options.php:18
+#: ../public/template-tags/options.php:20
 #, php-format
 msgid "Your current Events URL is %s"
 msgstr "Η τρέχουσα διεύθυνση URL των εκδηλώσεών σας είναι %s"
 
-#: ../public/template-tags/options.php:27
+#: ../public/template-tags/options.php:29
 #, php-format
 msgid ""
 "You <strong>cannot</strong> use the same slug as above. The above should "
@@ -4122,29 +4260,29 @@ msgstr ""
 "στον ενικό.<br />Το URL μεμονομένης εκδήλωσης είναι σαν: %s"
 
 #
-#: ../views/day/nav.php:14
+#: ../views/day/nav.php:16
 msgid "Day Navigation"
 msgstr "Πλοήγηση Ημέρας"
 
-#: ../views/day/single-event.php:72 ../views/list/single-event.php:76
+#: ../views/day/single-event.php:74 ../views/list/single-event.php:80
 msgid "Find out more"
 msgstr "Μάθετε περισσότερα"
 
 #
-#: ../views/list/nav.php:15
+#: ../views/list/nav.php:17
 msgid "Events List Navigation"
 msgstr "Πλοήγηση Λίστας Εκδηλώσεων"
 
-#: ../views/list/nav.php:21 ../views/list/nav.php:27 ../views/list/nav.php:30
+#: ../views/list/nav.php:23
 msgid "<span>&laquo;</span> Previous Events"
 msgstr "<span>&laquo;</span> Προηγούμενες Εκδηλώσεις"
 
-#: ../views/list/nav.php:39 ../views/list/nav.php:42 ../views/list/nav.php:48
+#: ../views/list/nav.php:30
 msgid "Next Events <span>&raquo;</span>"
 msgstr "Επόμενες Εκδηλώσεις <span>&raquo;</span>"
 
 #
-#: ../views/modules/bar.php:32 ../views/modules/bar.php:62
+#: ../views/modules/bar.php:32 ../views/modules/bar.php:63
 msgid "Find Events"
 msgstr "Βρείτε Εκδηλώσεις"
 
@@ -4158,30 +4296,29 @@ msgid "View As"
 msgstr "Προβολή ως"
 
 #
-#: ../views/month/nav.php:16
+#: ../views/month/nav.php:18
 msgid "Calendar Month Navigation"
 msgstr "Πλοηγός Μήνα Ημερολογίου"
 
-#: ../views/month/single-day.php:41
-msgid "Events "
-msgstr "Εκδηλώσεις"
-
 #: ../views/month/single-day.php:43
-msgid "Event "
-msgstr "Εκδήλωση"
+#, php-format
+msgid "View 1 Event"
+msgid_plural "View All %s Events"
+msgstr[0] "Προβολή Μιας Εκδήλωσης"
+msgstr[1] "Προβολή Όλων των Εκδηλώσεων %s"
 
 #
-#: ../views/single-event.php:21
+#: ../views/single-event.php:24
 msgid "&laquo; All Events"
 msgstr "&laquo; Όλες οι Εκδηλώσεις"
 
 #
-#: ../views/single-event.php:39 ../views/single-event.php:80
+#: ../views/single-event.php:43 ../views/single-event.php:89
 msgid "Event Navigation"
 msgstr "Πλοήγηση Εκδήλωσης"
 
 #
-#: ../views/tickets/attendees-email.php:23
+#: ../views/tickets/attendees-email.php:24
 msgid "Attendee List"
 msgstr "Λίστα Συμμετεχόντων"
 
@@ -4189,21 +4326,95 @@ msgstr "Λίστα Συμμετεχόντων"
 msgid "Your tickets"
 msgstr "Τα εισιτήριά σας"
 
-#: ../views/tickets/email.php:318
+#: ../views/tickets/email.php:321
 msgid "Ticket Type"
 msgstr "Τύπος Εισιτηρίου"
 
-#: ../views/tickets/email.php:322
+#: ../views/tickets/email.php:325
 msgid "Purchaser"
 msgstr "Αγοραστής"
 
-#: ../views/widgets/list-widget.php:60
+#: ../views/widgets/list-widget.php:63
 msgid "View All Events"
 msgstr "Προβολή Όλων των Εκδηλώσεων"
 
-#: ../views/widgets/list-widget.php:66
+#: ../views/widgets/list-widget.php:70
 msgid "There are no upcoming events at this time."
 msgstr "Δεν υπάρχουν προσεχείς εκδηλώσεις αυτήν τη στιγμή"
+
+#
+#~ msgid "Auditing Information"
+#~ msgstr "Πληροφορίες Ελέγχου"
+
+#~ msgid "Created by:"
+#~ msgstr "Δημιουργήθηκε από:"
+
+#~ msgid "Audit Trail:"
+#~ msgstr "Διαδρομή Ελέγχου:"
+
+#~ msgid "Events this month"
+#~ msgstr "Εκδηλώσεις αυτόν τον μήνα"
+
+#~ msgid "Use New "
+#~ msgstr "Χρήση Νέου"
+
+#~ msgid "Tribe"
+#~ msgstr "Tribe"
+
+#~ msgid ""
+#~ "Welcome to Events 2.0! This is a HUGE upgrade from 1.6.5. Please make "
+#~ "sure you have backed up before proceeding any further. You can easily <a "
+#~ "href=\"%s\">revert to an old version</a> if you want to backup first. "
+#~ "This upgrade includes two major steps, <a href=\"%s\">migrating data</a> "
+#~ "&amp; updating your templates as necessary. There have been significant "
+#~ "changes to the template tags and functions. Check out our <a href=\"%s"
+#~ "\">walk-through on the upgrade</a> before proceeding and check out the "
+#~ "FAQ &amp; Knowledge base from the <a href=\"%s\">support page</a>. If "
+#~ "you're new to The Events Calendar, you may want to review our <a href=\"%s"
+#~ "\">new user primer</a>.<br/><br/> You have events that need to be "
+#~ "migrated.  Please visit the bottom of the <a href=\"%s\">settings page</"
+#~ "a> to perform the migration."
+#~ msgstr ""
+#~ "Καλωσήρθατε στο Events 2.0! Πρόκειται για μία ΤΕΡΑΣΤΙΑ αναβάθμιση από το "
+#~ "1.6.5. Παρακαλούμε βεβαιωθείτε ότι έχετε δημιουργήσει αντίγραφα ασφαλείας "
+#~ "πριν προχωρήσετε περαιτέρω. Μπορείτε εύκολα <a href=\"%s\">να επιστρέψετε "
+#~ "σε μία παλαιότερη έκδοση</a> αν θέλετε να δημιουργήσετε αντίγραφα "
+#~ "ασφαλείας πρώτα. Η αναβάθμιση περιλαμβάνει δύο βασικά βήματα, <a href=\"%s"
+#~ "\">μετατροπή &amp; μετεγκατάσταση δεδομένων</a> &amp; ενημέρωση των "
+#~ "προτύπων σας ανάλογα με τις ανάγκες σας. Υπήρξαν σημαντικές αλλαγές στις "
+#~ "ετικέτες προτύπων και τις λειτουργίες. Δείτε την <a href=\"%s"
+#~ "\">παρουσίαση της αναβάθμισης</a> πριν συνεχίσετε, καθώς και τις Συχνές "
+#~ "Ερωτήσεις &amp; Βάση Γνώσεων στη <a href=\"%s\">σελίδα υποστήριξης</a>. "
+#~ "Αν είστε νέος χρήστης του The Events Calendar, ενδεχομένως να θέλετε να "
+#~ "μελετήσετε το <a href=\"%s\">Αλφαβητάρι Νέου Χρήστη</a>.<br/><br/> Έχετε "
+#~ "εκδηλώσεις που χρειάζονται μετατροπή &amp; μετεγκατάσταση.  Παρακαλούμε, "
+#~ "πηγαίντε στο κάτω μέρος της  <a href=\"%s\">σελίδας ρυθμίσεων</a> για να "
+#~ "πραγματοποιήσετε τη μετατροπή &amp; μετεγκατάσταση."
+
+#~ msgid ""
+#~ "It appears that you have some old events calendar data that needs to be "
+#~ "upgraded. Please be sure to back up your database before initiating the "
+#~ "upgrade. This process can not be undone."
+#~ msgstr ""
+#~ "Φαίνεται ότι υπάρχουν κάποια παλαιότερα δεδομένα του ημερολογίου "
+#~ "εκδηλώσεων που πρέπει να αναβαθμιστούν. Παρακαλούμε βεβαιωθείτε ότι έχετε "
+#~ "δημιουργήσει αντίγραφο της βάσης δεδομένων πριν ξεκινήσετε τη διαδικασία "
+#~ "αναβάθμισης. Αυτή η διαδικασία δεν μπορεί να αναιρεθεί."
+
+#~ msgid "Migrate Data!"
+#~ msgstr "Μετατροπή &amp; Μετεγκατάσταση Δεδομένων!"
+
+#~ msgid "You successfully migrated (%d) entries."
+#~ msgstr "Μετατρέψατε και μετεγκαταστήσατε επιτυχώς (%d) καταχωρήσεις."
+
+#~ msgid "Install has 1 or more legacy event!"
+#~ msgstr "Η εγκατάσταση έχει 1 ή περισσότερες παλαιού τύπου εκδηλώσεις!"
+
+#~ msgid "Events "
+#~ msgstr "Εκδηλώσεις"
+
+#~ msgid "Event "
+#~ msgstr "Εκδήλωση"
 
 #~ msgid "Organizer Name:"
 #~ msgstr "Όνομα Διοργανωτή:"

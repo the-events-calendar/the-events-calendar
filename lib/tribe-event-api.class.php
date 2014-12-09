@@ -92,6 +92,7 @@ if ( ! class_exists( 'TribeEventsAPI' ) ) {
 		 * @return void
 		 */
 		public static function saveEventMeta( $event_id, $data, $event = null ) {
+			$tec = TribeEvents::instance();
 
 			if ( isset( $data['EventAllDay'] ) && ( $data['EventAllDay'] == 'yes' || $data['EventAllDay'] == true || ! isset( $data['EventStartDate'] ) ) ) {
 				$data['EventStartDate'] = tribe_event_beginning_of_day( $data['EventStartDate'] );
@@ -148,22 +149,31 @@ if ( ! class_exists( 'TribeEventsAPI' ) ) {
 				$data['EventVenueID'] = TribeEventsAPI::saveEventVenue( $data["Venue"], $event, $venue_post_status );
 			}
 
-			$cost              = ( isset( $data['EventCost'] ) ) ? $data['EventCost'] : '';
-			$data['EventCost'] = $cost;
+			// Ordinarily there is a single cost value for each event, but addons (ie, ticketing plugins) may need
+			// to record a number of different pricepoints for the same event
+			$event_cost = isset( $data['EventCost'] ) ? (array) $data['EventCost'] : array();
+			$data['EventCost'] = (array) apply_filters( 'tribe_events_event_costs', $event_cost, $event_id );
 
 			do_action( 'tribe_events_event_save', $event_id );
 
-			$cost              = ( isset( $data['EventCost'] ) ) ? $data['EventCost'] : '';
-			$data['EventCost'] = $cost;
-
 			//update meta fields
-			foreach ( TribeEvents::instance()->metaTags as $tag ) {
+			foreach ( $tec->metaTags as $tag ) {
 				$htmlElement = ltrim( $tag, '_' );
 				if ( isset( $data[$htmlElement] ) && $tag != TribeEvents::EVENTSERROROPT ) {
 					if ( is_string( $data[$htmlElement] ) ) {
 						$data[$htmlElement] = filter_var( $data[$htmlElement], FILTER_SANITIZE_STRING );
 					}
-					update_post_meta( $event_id, $tag, $data[$htmlElement] );
+					// Fields with multiple values per key
+					if ( is_array( $data[$htmlElement] ) ) {
+						delete_post_meta( $event_id, $tag );
+						foreach ( $data[$htmlElement] as $value ) {
+							add_post_meta( $event_id, $tag, $value );
+						}
+					}
+					// Fields with a single value per key
+					else {
+						update_post_meta( $event_id, $tag, $data[$htmlElement] );
+					}
 				}
 			}
 
@@ -183,6 +193,34 @@ if ( ! class_exists( 'TribeEventsAPI' ) ) {
 			}
 
 			do_action( 'tribe_events_update_meta', $event_id, $data );
+		}
+
+		/**
+		 * Triggers an update of the cost meta data (min <-> max) for an event.
+		 *
+		 * This is primarily for internal use where an addon needs to update the cost meta
+		 * data for an event (but no other meta fields). To actually add to or modify the
+		 * range of cost values the tribe_events_event_costs filter hook should be
+		 * leveraged.
+		 *
+		 * @param $event_id
+		 */
+		public static function update_event_cost( $event_id ) {
+			// Load the current event costs: assume the first of these is the "base" cost
+			// which can be set per event when only the core plugin is running
+			$event_cost = (array) get_post_meta( $event_id, '_EventCost' );
+			$base_cost  = array_shift( $event_cost );
+
+			// Allow addons (ie, ticketing plugins) to register additional event costs
+			$event_cost = (array) apply_filters( 'tribe_events_event_costs', array( $base_cost ), $event_id );
+
+			// Kill the old cost meta data
+			delete_post_meta( $event_id, '_EventCost' );
+
+			// Add fresh entries for each of the new values
+			foreach ( $event_cost as $cost ) {
+				add_post_meta( $event_id, '_EventCost', $cost );
+			}
 		}
 
 		/**

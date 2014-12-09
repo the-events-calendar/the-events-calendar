@@ -140,3 +140,29 @@ function tribe_events_product_is_ticket( $product ) {
 function tribe_events_get_ticket_event( $possible_ticket ) {
 	return TribeEventsTickets::find_matching_event( $possible_ticket );
 }
+
+/**
+ * Checks if the ticket is on sale (in relation to it's start/end sale dates).
+ *
+ * @param TribeEventsTicketObject $ticket
+ *
+ * @return bool
+ */
+function tribe_events_ticket_is_on_sale( TribeEventsTicketObject $ticket ) {
+	// No dates set? Then it's on sale!
+	if ( empty( $ticket->start_date ) && empty( $ticket->end_date ) ) {
+		return true;
+	}
+
+	// Timestamps for comparison purposes
+	$now    = time();
+	$start  = strtotime( $ticket->start_date );
+	$finish = strtotime( $ticket->end_date );
+
+	// Are we within the applicable date range?
+	$has_started = ( empty( $ticket->start_date ) || ( $start && $now > $start ) );
+	$not_ended   = ( empty( $ticket->end_date ) || ( $finish && $now < $finish ) );
+
+	// Result
+	return ( $has_started && $not_ended );
+}

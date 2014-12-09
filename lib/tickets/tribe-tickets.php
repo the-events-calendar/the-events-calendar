@@ -258,6 +258,8 @@ if ( ! class_exists( 'TribeEventsTickets' ) ) {
 			// Front end
 			add_action( 'tribe_events_single_event_after_the_meta', array( $this, 'front_end_tickets_form' ), 5 );
 
+			// Ensure ticket prices and event costs are linked
+			add_filter( 'tribe_events_event_costs', array( $this, 'get_ticket_prices' ), 10, 2 );
 		}
 
 
@@ -317,12 +319,16 @@ if ( ! class_exists( 'TribeEventsTickets' ) ) {
 			// Pass the control to the child object
 			$return = $this->save_ticket( $post_id, $ticket, $data );
 
-			// If saved OK, let's create a tickets list markup to return
+			// Successful?
 			if ( $return ) {
+				// Let's create a tickets list markup to return
 				$tickets = $this->get_event_tickets( $post_id );
 				$return  = TribeEventsTicketsPro::instance()->get_ticket_list_markup( $tickets );
 
 				$return = $this->notice( __( 'Your ticket has been saved.', 'tribe-events-calendar' ) ) . $return;
+
+				// Additionally ensure the event costs meta data is updated accordingly
+				TribeEventsAPI::update_event_cost( $post_id );
 			}
 
 			$this->ajax_ok( $return );
@@ -394,12 +400,16 @@ if ( ! class_exists( 'TribeEventsTickets' ) ) {
 			// Pass the control to the child object
 			$return = $this->delete_ticket( $post_id, $ticket_id );
 
-			// If deleted OK, let's create a tickets list markup to return
+			// Successfully deleted?
 			if ( $return ) {
+				// Let's create a tickets list markup to return
 				$tickets = $this->get_event_tickets( $post_id );
 				$return  = TribeEventsTicketsPro::instance()->get_ticket_list_markup( $tickets );
 
 				$return = $this->notice( __( 'Your ticket has been deleted.', 'tribe-events-calendar' ) ) . $return;
+
+				// Additionally ensure the event costs meta data is updated accordingly
+				TribeEventsAPI::update_event_cost( $post_id );
 			}
 
 			$this->ajax_ok( $return );
@@ -673,6 +683,33 @@ if ( ! class_exists( 'TribeEventsTickets' ) ) {
 
 			return apply_filters( 'tribe_events_tickets_template_' . $template, $file );
 		}
+
+		/**
+		 * Queries ticketing providers to establish the range of tickets/pricepoints for the specified
+		 * event and ensures those costs are included in the $costs array.
+		 *
+		 * @param  array $prices
+		 * @param  int   $event_id
+		 *
+		 * @return array
+		 */
+		public function get_ticket_prices( array $prices, $event_id ) {
+			// Iterate through all tickets from all providers
+			foreach ( self::get_all_event_tickets( $event_id ) as $ticket ) {
+				// No need to add the pricepoint if it is already in the array
+				if ( in_array( $ticket->price, $prices ) ) {
+					continue;
+				}
+
+				// An empty price property can be ignored (but do add if the price is explicitly set to zero)
+				elseif ( ! empty( $ticket->price ) && is_numeric( $ticket->price ) ) {
+					$prices[] = $ticket->price;
+				}
+			}
+
+			return $prices;
+		}
+
 		// end Helpers
 	}
 }

@@ -39,7 +39,13 @@ var tribe_events_bar_action;
 		var $tribebar = $( '#tribe-bar-form' ),
 			$tribedate = $( '#tribe-bar-date' ),
 			$tribe_events = $( '#tribe-events' ),
+			$tribe_header = $( '#tribe-events-header' ),
+			start_day = 0,
 			$tribebarselect = $( 'select[name=tribe-bar-view]' );
+
+		if ( $tribe_header.length ) {
+			start_day = $tribe_header.data( 'startofweek' );
+		}
 
 		/**
 		 * @function eventsBarWidth
@@ -105,6 +111,7 @@ var tribe_events_bar_action;
 				// @endif
 
 				td.datepicker_opts = {
+					weekStart         : start_day,
 					format   : date_format,
 					autoclose: true
 				};

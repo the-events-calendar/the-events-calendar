@@ -220,6 +220,15 @@ $generalTab = array(
 				'html'        => '<p class="tribe-field-indent tribe-field-description description" style="max-width:400px;">' . sprintf( __( 'Enable this option to log debug information. By default this will log to your server PHP error log. If you\'d like to see the log messages in your browser, then we recommend that you install the %s and look for the "Tribe" tab in the debug output.', 'tribe-events-calendar' ), '<a href="http://wordpress.org/extend/plugins/debug-bar/" target="_blank">' . __( 'Debug Bar Plugin', 'tribe-events-calendar' ) . '</a>' ) . '</p>',
 				'conditional' => ( '' != get_option( 'permalink_structure' ) ),
 			),
+			'viewWelcomePage'          => array(
+				'type'        => 'html',
+				'html'        => '<fieldset class="tribe-field tribe-field-html"><legend>' . __( 'View Welcome Page', 'tribe-events-calendar' ) . '</legend><div class="tribe-field-wrap"><a href="' . get_site_url() . '/wp-admin/edit.php?post_type=tribe_events&page=tribe-events-calendar&tec-welcome-message" class="button">' . __( 'View Welcome Page', 'tribe-events-calendar' ) . '</a><p class="tribe-field-indent description">' . __( 'View the page that displayed when you initially installed the plugin.', 'tribe-events-calendar' ) . '</p></div></fieldset><div class="clear"></div>',
+
+			),
+			'viewUpdatePage'          => array(
+				'type'        => 'html',
+				'html'        => '<fieldset class="tribe-field tribe-field-html"><legend>' . __( 'View Update Page', 'tribe-events-calendar' ) . '</legend><div class="tribe-field-wrap"><a href="' . get_site_url() . '/wp-admin/edit.php?post_type=tribe_events&page=tribe-events-calendar&tec-update-message" class="button">' . __( 'View Update Page', 'tribe-events-calendar' ) . '</a><p class="tribe-field-indent description">' . __( 'View the page that displayed when you updated the plugin.', 'tribe-events-calendar' ) . '</p></div></fieldset><div class="clear"></div>'
+			),
 			'tribe-form-content-end'        => array(
 				'type' => 'html',
 				'html' => '</div>',

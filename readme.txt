@@ -4,8 +4,8 @@ Contributors:  ModernTribe, roblagatta, faction23, jazbek, jbrinley, leahkoerper
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
 Donate link: http://m.tri.be/29
 Requires at least: 3.8
-Tested up to: 4.0
-Stable tag: 3.8.1
+Tested up to: 4.0.1
+Stable tag: 3.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -136,9 +136,9 @@ No, this plugin does not use a shortcode nor is one available at the time being.
 
 = Are there any troubleshooting steps you'd suggest I try that might resolve my issue before I post a new thread? =
 
-First, make sure that you're running the latest version of The Events Calendar (3.8 as of this release). If you're running Events Calendar PRO it needs to match the version number of The Events Calendar. And if you've got any other add-ons, make sure those are current / running the latest code as well.
+First, make sure that you're running the latest version of The Events Calendar (3.9 as of this release). If you're running Events Calendar PRO it needs to match the version number of The Events Calendar. And if you've got any other add-ons, make sure those are current / running the latest code as well.
 
-The most common issues we see are either plugin or theme conflicts. You can test if a plugin or theme is conflicting by manually deactivating other plugins until just The Events Calendar 3.8 is running on your site. If the issue persists from there, revert to the default Twenty Fourteen theme. If the issue is resolved after deactivating a specific plugin or your theme, you'll know that is the source of the conflict.
+The most common issues we see are either plugin or theme conflicts. You can test if a plugin or theme is conflicting by manually deactivating other plugins until just The Events Calendar 3.9 is running on your site. If the issue persists from there, revert to the default Twenty Fourteen theme. If the issue is resolved after deactivating a specific plugin or your theme, you'll know that is the source of the conflict.
 
 Note that we aren't going to say "tough luck" if you identify a plugin/theme conflict. While we can't guarantee 100% integration with any plugin or theme out there, we will do our best (and reach out the plugin/theme author as needed) to figure out a solution that benefits everyone.
 
@@ -255,10 +255,11 @@ The plugin is produced by <a href="http://m.tri.be/2s">Modern Tribe Inc</a>.
 * French from Laurent Proulx
 * German from Stefan Dorscht and Oliver Heinrich
 * Greek from Yannis Troullinos
-* Icelandic by Baldvin Berndsen
+* Icelandic by Baldvin Örn Berndsen
 * Indonesian from Didik Priyanto
 * Italian from Gabriele Taffi
 * Latvian from Raivis Dejus
+* Lithuanian from Gediminas Pankevicius
 * Montenegrin from Sasa Vukovic
 * Norwegian Bokmål by Morten Ruud
 * Norwegian Nynorsk by Torbjørn Lauen
@@ -324,6 +325,35 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 
 3.x is a complete overhaul of the plugin, and as a result we're starting the changelog fresh. For release notes from the 2.x lifecycle, see <a href="http://m.tri.be/k">our 2.x release notes.</a>
 
+= 3.9 =
+
+* Implemented default permalink support for add-ons that weren’t in compliance, specifically Filter Bar
+* Fixed a bug where events in child categories would not display when viewing the parent category on month view (thanks to Bryce on the forums for the original report!)
+* Fixed bug where the tribe_is_category() function was returning the wrong value
+* Added support for Google's JSON-LD event markup format (thanks to Thomas on the forums for the first request!)
+* Lowered the aggressiveness of the activation/upgrade page to improve compatibility with other plugins
+* Removed the old activation message, now that we have the new activation screen
+* Fixed an issue where the list view date picker did not reflect the 'Week starts on' WordPress setting
+* Updated CSS selectors to no longer be reliant on microformat classes
+* Fixed a couple of layout issues with TwentyFourteen child themes
+* Added a Modern Tribe credit in the HTML page source in the footer - this can be removed with the following snippet: http://m.tri.be/p6
+* Added links on the settings page to view Welcome/Updated pages
+* Fixed an issue where the incorrect icon was displaying for the 'List' option in the view switcher
+* Fixed a translation issue with the Organizer & Venue field labels on the Add/Edit Event screen (thanks to Oliver for reporting this on the forums!)
+* Enhanced structured data support in relation to the ticketing framework
+* Removed jquery 1.7 specific fallback javascript bloat, now support >= 1.8 
+* Revised CSS to help avoid theme compatibility issues causing event dates/times to be hidden (thanks to thepresenters on the forum for the first report!)
+* Improved integration between the ticketing framework and the Filter Bar plugin (thanks to brandonpence on the forums for the heads up here!)
+* Added useful system information to the help screen to assist in support and troubleshooting for the core plugin
+* Enhanced month view to populate the leading/trailing days of adjacent months included in the current view
+* Fixed a bug in the ticketing framework causing ticket start sale dates to reset to 1st January 1970 (thanks to loveyourlocalgroup on the forums for the first report!)
+* Extended the attendee list's filtering capabilities to cover purchaser names (big thanks to Adam on the forums for the first report of this!)
+* Added support for WP-eCommerce, Easy Digital Downloads and Shopp plugins to show sold and pending tickets count in the attendee list.
+* Incorporated updated Icelandic translation files, courtesy of Baldvin Örn Berndsen
+* Incorporated updated German translation files, courtesy of Oliver Heinrich
+* Incorporated updated Greek translation files, courtesy of Yannis Troullinos
+* Incorporated new Lithuanian translation files, courtesy of Gediminas Pankevicius
+
 = 3.8.1 =
 
 * Fixed a bug where the wrong date was showing in the title of the page when a date was selected in the tribe bar
@@ -373,7 +403,7 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Incorporated updated Danish translation files, courtesy of Hans Christian Andersen
 * Incorporated updated Dutch translation files, courtesy of Dirk Westenberg
 * Incorporated updated Portuguese translation files, courtesy of Sérgio Leite
-* Incorporated new Russian translation files, courtesy of Žiga Vajdic
+* Incorporated new Slovenian translation files, courtesy of Žiga Vajdic
 * Incorporated updated German translation files, courtesy of Stefan Dorscht and Oliver Heinrich
 * Incorporated updated Finnish translation files, courtesy of Elias Okkonen
 * Incorporated updated Estonian translation files, courtesy of Andra Saimre

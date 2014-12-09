@@ -226,18 +226,25 @@ var ticketHeaderImage = window.ticketHeaderImage || {};
 						$( '#ticket_start_date' ).val( start_date );
 						$( '#ticket_end_date' ).val( end_date );
 
-
 						if ( response.data.start_date ) {
-							var start_hour = response.data.start_date.substring( 11, 13 );
+							var start_hour = parseInt( response.data.start_date.substring( 11, 13 ) );
 							var start_meridian = 'am';
-							if ( parseInt( start_hour ) > 12 ) {
+
+							if ( start_hour > 12 ) {
 								start_meridian = 'pm';
 								start_hour = parseInt( start_hour ) - 12;
 								start_hour = ("0" + start_hour).slice( - 2 );
 							}
-							if ( parseInt( start_hour ) === 12 ) {
+							if ( 12 === start_hour ) {
 								start_meridian = 'pm';
 							}
+							if ( 0 === start_hour && "am" === start_meridian ) {
+								start_hour = 12;
+							}
+
+							// Return the start hour to a 0-padded string
+							start_hour = start_hour.toString();
+							if ( 1 == start_hour.length ) start_hour = "0" + start_hour;
 
 							$( '#ticket_start_hour' ).val( start_hour );
 							$( '#ticket_start_meridian' ).val( start_meridian );
@@ -247,16 +254,24 @@ var ticketHeaderImage = window.ticketHeaderImage || {};
 
 						if ( response.data.end_date ) {
 
-							var end_hour = response.data.end_date.substring( 11, 13 );
+							var end_hour = parseInt( response.data.end_date.substring( 11, 13 ) );
 							var end_meridian = 'am';
-							if ( parseInt( end_hour ) > 12 ) {
+
+							if ( end_hour > 12 ) {
 								end_meridian = 'pm';
 								end_hour = parseInt( end_hour ) - 12;
 								end_hour = ("0" + end_hour).slice( - 2 );
 							}
-							if ( parseInt( end_hour ) === 12 ) {
+							if ( end_hour === 12 ) {
 								end_meridian = 'pm';
 							}
+							if ( 0 === end_hour && "am" === start_meridian ) {
+								end_hour = 12;
+							}
+
+							// Return the end hour to a 0-padded string
+							end_hour = end_hour.toString();
+							if ( 1 == end_hour.length ) end_hour = "0" + end_hour;
 
 							$( '#ticket_end_hour' ).val( end_hour );
 							$( '#ticket_end_meridian' ).val( end_meridian );
@@ -299,7 +314,7 @@ var ticketHeaderImage = window.ticketHeaderImage || {};
 			$remove.show();
 		}
 
-		$remove.live( 'click', function( e ) {
+		$('body').on( 'click', '#tribe_ticket_header_remove', function( e ) {
 
 			e.preventDefault();
 			$preview.html( '' );

@@ -1,0 +1,14 @@
+{
+	"name": "moderntribe/the-events-calendar",
+	"description": "The Events Calendar WordPress plugin by Modern Tribe",
+	"type": "project",
+	"keywords": ["wordpress", "events"],
+	"homepage": "http://tri.be/shop/wordpress-events-calendar/",
+	"license": "GPL-2.0",
+	"require-dev": {
+		"codeception/codeception": "2.*",
+		"lucatume/wp-browser": "master@dev"
+	},
+	"minimum-stability": "dev",
+	"prefer-stable": true
+}
