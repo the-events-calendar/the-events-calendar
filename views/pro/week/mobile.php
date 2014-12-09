@@ -13,6 +13,7 @@
 		<h4 class="summary">
 			<a class="url" href="[[=permalink]]" title="[[=title]]" rel="bookmark">[[=title]]</a>
 		</h4>
+
 		<div class="tribe-events-event-body">
 			<div class="updated published time-details">
 				<span class="date-start dtstart">[[=startTime]] </span>

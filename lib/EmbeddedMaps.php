@@ -50,14 +50,18 @@ class TribeEventsPro_EmbeddedMaps {
 	 */
 	public function use_venue_coords( $map_index, $venue_id ) {
 		// If we don't have a venue to work with, bail
-		if ( ! tribe_is_venue( $venue_id ) ) return;
+		if ( ! tribe_is_venue( $venue_id ) ) {
+			return;
+		}
 
 		// Try to load the coordinates - it's possible none will be set
 		$this->lat = get_post_meta( $venue_id, TribeEventsGeoLoc::LAT, true );
 		$this->lng = get_post_meta( $venue_id, TribeEventsGeoLoc::LNG, true );
 
 		// If we have valid coordinates let's put them to work
-		if ( ! $this->are_coords_valid() ) return;
+		if ( ! $this->are_coords_valid() ) {
+			return;
+		}
 		$this->setup_coords( $map_index );
 	}
 
@@ -69,8 +73,7 @@ class TribeEventsPro_EmbeddedMaps {
 	protected function are_coords_valid() {
 		if ( ! is_numeric( $this->lat ) || $this->lat < -90 || $this->lat > 90 ) {
 			return false;
-		}
-		elseif ( ! is_numeric( $this->lng ) || $this->lng < -180 || $this->lng > 180 ) {
+		} elseif ( ! is_numeric( $this->lng ) || $this->lng < -180 || $this->lng > 180 ) {
 			return false;
 		}
 
@@ -78,8 +81,8 @@ class TribeEventsPro_EmbeddedMaps {
 	}
 
 	protected function setup_coords( $map_index ) {
-		$embedded_maps = TribeEvents_EmbeddedMaps::instance();
-		$venue_data = $embedded_maps->get_map_data( $map_index );
+		$embedded_maps        = TribeEvents_EmbeddedMaps::instance();
+		$venue_data           = $embedded_maps->get_map_data( $map_index );
 		$venue_data['coords'] = array( $this->lat, $this->lng );
 		$embedded_maps->update_map_data( $map_index, $venue_data );
 	}

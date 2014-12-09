@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Given a start date, series end (end date or number of occurrences), and rules engine; find me all the dates in a recurrence
  */
@@ -12,40 +13,41 @@ class TribeRecurrence {
 	private $event;
 	private $minDate = 0;
 	private $maxDate = 2147483647; // Y2K38, an arbitrary limit. TODO: revisit this in twenty years
-	private $last_request_constrained = FALSE;
+	private $last_request_constrained = false;
 
-	public function  __construct($start_date, $end, $series_rules, $by_occurrence_count = false, $event = null) {
-		$this->start_date = $start_date;
-		$this->end = $end;
-		$this->series_rules = $series_rules;
+	public function  __construct( $start_date, $end, $series_rules, $by_occurrence_count = false, $event = null ) {
+		$this->start_date          = $start_date;
+		$this->end                 = $end;
+		$this->series_rules        = $series_rules;
 		$this->by_occurrence_count = $by_occurrence_count;
-		$this->event = $event;
+		$this->event               = $event;
 	}
 
 	public function setMinDate( $timestamp ) {
-		$this->minDate = (int)$timestamp;
+		$this->minDate = (int) $timestamp;
 	}
 
 	public function setMaxDate( $timestamp ) {
-		$this->maxDate = (int)$timestamp;
+		$this->maxDate = (int) $timestamp;
 	}
 
 	/**
-	 * Using the rules engine, find all dates in the series 
+	 * Using the rules engine, find all dates in the series
 	 *
-	 * @param bool $all_events Return ALL instances?
+	 * @param bool  $all_events      Return ALL instances?
 	 * @param array $old_start_dates The old start dates for an event.
+	 *
 	 * @return array An array of all dates in the series
 	 */
 	public function getDates() {
-		$this->last_request_constrained = FALSE;
-		if( $this->series_rules ) {
-			$dates = array();
+		$this->last_request_constrained = false;
+		if ( $this->series_rules ) {
+			$dates    = array();
 			$cur_date = $this->start_date;
 
 			$i = 0;
-			while ( $cur_date = $this->getNextDate($cur_date) ) {
-				$i++;
+			while ( $cur_date = $this->getNextDate( $cur_date ) ) {
+				$i ++;
 				if ( $cur_date > $this->maxDate ) {
 					$this->last_request_constrained = $cur_date;
 					break; // no more dates will be in range. stop here
@@ -62,6 +64,7 @@ class TribeRecurrence {
 
 			return $dates;
 		}
+
 		return array();
 	}
 
@@ -78,22 +81,25 @@ class TribeRecurrence {
 	 * Get the next date in the series
 	 *
 	 * @param int $current_date
+	 *
 	 * @return bool|int The date, as a timestamp, or FALSE if it exceeds the system's max int
 	 */
 	private function getNextDate( $current_date ) {
-		$next_date = $this->series_rules->getNextDate($current_date);
-		if ( intval($next_date) < $current_date ) { // bit overflow
-			return FALSE;
+		$next_date = $this->series_rules->getNextDate( $current_date );
+		if ( intval( $next_date ) < $current_date ) { // bit overflow
+			return false;
 		}
 		// Makes sure to assign the proper hours to the date.
-		$next_date = mktime (date("H", $this->start_date), date("i", $this->start_date), date("s", $this->start_date), date('n', $next_date),  date('j', $next_date), date('Y', $next_date));
+		$next_date = mktime( date( "H", $this->start_date ), date( "i", $this->start_date ), date( "s", $this->start_date ), date( 'n', $next_date ), date( 'j', $next_date ), date( 'Y', $next_date ) );
+
 		return $next_date;
 	}
 
 	private function afterSeries( $instance ) {
 		if ( $this->end == self::NO_END ) {
-			return FALSE;
+			return false;
 		}
+
 		return $instance > $this->end;
 	}
 }

@@ -4,8 +4,8 @@ Contributors:  ModernTribe, roblagatta, faction23, jazbek, jbrinley, leahkoerper
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget, pro
 Donate link: http://m.tri.be/29
 Requires at least: 3.8
-Tested up to: 4.0
-Stable tag: 3.8.1
+Tested up to: 4.0.1
+Stable tag: 3.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -71,9 +71,9 @@ No, this plugin does not use a shortcode nor is one available at the time being.
 
 = Are there any troubleshooting steps you'd suggest I try that might resolve my issue before I post a new thread? =
 
-First, make sure that you're running the latest version of The Events Calendar (3.8 as of this release). If you're running Events Calendar PRO it needs to match the version number of The Events Calendar. And if you've got any other add-ons, make sure those are current / running the latest code as well.
+First, make sure that you're running the latest version of The Events Calendar (3.9 as of this release). If you're running Events Calendar PRO it needs to match the version number of The Events Calendar. And if you've got any other add-ons, make sure those are current / running the latest code as well.
 
-The most common issues we see are either plugin or theme conflicts. You can test if a plugin or theme is conflicting by manually deactivating other plugins until just The Events Calendar 3.8 is running on your site. If the issue persists from there, revert to the default Twenty Twelve theme. If the issue is resolved after deactivating a specific plugin or your theme, you'll know that is the source of the conflict.
+The most common issues we see are either plugin or theme conflicts. You can test if a plugin or theme is conflicting by manually deactivating other plugins until just The Events Calendar 3.9 is running on your site. If the issue persists from there, revert to the default Twenty Twelve theme. If the issue is resolved after deactivating a specific plugin or your theme, you'll know that is the source of the conflict.
 
 Note that we aren't going to say "tough luck" if you identify a plugin/theme conflict. While we can't guarantee 100% integration with any plugin or theme out there, we will do our best (and reach out the plugin/theme author as needed) to figure out a solution that benefits everyone.
 
@@ -175,10 +175,11 @@ The plugin is produced by <a href="http://m.tri.be/45">Modern Tribe Inc</a>.
 * French from Laurent Proulx
 * German from Stefan Dorscht and Oliver Heinrich
 * Greek from Yannis Troullinos
-* Icelandic by Baldvin √ñrn Berndsen
+* Icelandic by Baldvin Örn Berndsen
 * Indonesian by Didik Priyanto
 * Italian from Gabriele Taffi
 * Latvian from Raivis Dejus
+* Lithuanian from Gediminas Pankevicius
 * Montenegrin from Sasa Vukovic
 * Norwegian Bokmål by Morten Ruud
 * Norwegian Nynorsk by Torbjørn Lauen
@@ -223,6 +224,26 @@ Our Premium Plugins:
 = IMPORTANT NOTICE =
 
 3.x is a complete overhaul of the plugin, and as a result we're starting the changelog fresh. For release notes from the 2.x lifecycle, see <a href="http://m.tri.be/k">our 2.x release notes.</a>
+
+= 3.9 =
+
+* Added a new `[tribe_mini_calendar]` shortcode to make it easy to embed the calendar widget outside of sidebars
+* Fixed an issue where some of the view date pickers did not reflect the 'Week starts on' WordPress setting
+* Updated CSS selectors to no longer be reliant on microformat classes
+* Fixed a plugin compatibility issue preventing the full use of ACF Pro in relation to recurring events
+* Removed jquery 1.7 specific fallback javascript bloat, now support >= 1.8
+* Implemented changes in relation to front page pagination to improve compatibility with various themes and plugins (thanks to brightspark on the forums for the initial report!)
+* Implemented default permalink support to integrate better with certain add-ons, most notably Filter Bar
+* Removed some deprecated and unused code
+* Implemented internationalization support for map view location tooltips (thanks to csikimacko on the forums for the first report!)
+* Removed pagination links from the /all/ view
+* Reformatted code to better conform with WordPress code style
+* Fixed an issue where all day events had incorrect spacing in the Twenty Thirteen theme on week view
+* Incorporated updated Icelandic translation files, courtesy of Baldvin Örn Berndsen
+* Incorporated updated German translation files, courtesy of Oliver Heinrich
+* Incorporated updated Greek translation files, courtesy of Yannis Troullinos
+* Incorporated new Lithuanian translation files, courtesy of Gediminas Pankevicius
+
 
 = 3.8.1 =
 

@@ -18,7 +18,9 @@
  *
  */
  
-if ( !defined('ABSPATH') ) { die('-1'); }
+if ( ! defined( 'ABSPATH' ) ) {
+	die( '-1' );
+}
 
 $organizer_id = get_the_ID();
 
@@ -26,7 +28,9 @@ $organizer_id = get_the_ID();
 
 <?php while( have_posts() ) : the_post(); ?>
 <div class="tribe-events-organizer">
-	<p class="tribe-events-back"><a href="<?php echo tribe_get_events_link() ?>" rel="bookmark"><?php _e( '&larr; Back to Events', 'tribe-events-calendar-pro' ) ?></a></p>
+		<p class="tribe-events-back">
+			<a href="<?php echo tribe_get_events_link() ?>" rel="bookmark"><?php _e( '&larr; Back to Events', 'tribe-events-calendar-pro' ) ?></a>
+		</p>
 
 	<?php do_action( 'tribe_events_single_organizer_before_organizer' ) ?>
 	<div class="tribe-events-organizer-meta vcard tribe-clearfix">
@@ -51,7 +55,8 @@ $organizer_id = get_the_ID();
 			</div>
 			<?php } ?>
 
-	</div><!-- .tribe-events-organizer-meta -->
+		</div>
+		<!-- .tribe-events-organizer-meta -->
 	<?php do_action( 'tribe_events_single_organizer_after_organizer' ) ?>
 
 	<!-- Upcoming event list -->
@@ -59,7 +64,10 @@ $organizer_id = get_the_ID();
 	<?php // Use the 'tribe_events_single_organizer_posts_per_page' to filter the 
 	 	  // number of events to display beneath the venue info on the venue page.
 	?> 
-	<?php echo tribe_include_view_list( array('organizer' => get_the_ID(), 'eventDisplay' => 'list', apply_filters( 'tribe_events_single_organizer_posts_per_page', 100 ) ) )?>
+		<?php echo tribe_include_view_list( array( 'organizer'    => get_the_ID(),
+		                                           'eventDisplay' => 'list',
+				apply_filters( 'tribe_events_single_organizer_posts_per_page', 100 )
+			) ) ?>
 	<?php do_action('tribe_events_single_organizer_after_upcoming_events') ?>
 	
 </div><!-- .tribe-events-organizer -->

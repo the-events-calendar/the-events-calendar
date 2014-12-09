@@ -35,12 +35,12 @@
 .tribe-events-week #tribe-mobile-container {
 	margin-top: 26px;
 }
-.tribe-events-week #tribe-mobile-container .hentry.vevent,
-.tribe-events-week #tribe-mobile-container .hentry.vevent ~ .hentry.vevent {
+.tribe-events-week #tribe-mobile-container .type-tribe_events,
+.tribe-events-week #tribe-mobile-container .type-tribe_events ~ .type-tribe_events {
 	padding-left: 8px;
 	padding-right: 8px;
 }
-.tribe-events-week #tribe-mobile-container .hentry.vevent .tribe-events-read-more {
+.tribe-events-week #tribe-mobile-container .type-tribe_events .tribe-events-read-more {
 	margin-top: 0;
 }
 
@@ -50,21 +50,21 @@
 #tribe-events-content {
 	overflow: hidden;
 }
-#tribe-events-photo-events .vevent.tribe-events-photo-event {
+#tribe-events-photo-events .type-tribe_events.tribe-events-photo-event {
 	width: 45.9%;
 }
-.vevent.tribe-events-photo-event .tribe-events-photo-event-wrap:hover {
+.type-tribe_events.tribe-events-photo-event .tribe-events-photo-event-wrap:hover {
 	background: #FAFAFA;
 	-webkit-box-shadow: none;
 			box-shadow: none;
 }
-.tribe-events-photo .tribe-events-loop .vevent.hentry .tribe-events-event-meta {
+.tribe-events-photo .tribe-events-loop .type-tribe_events .tribe-events-event-meta {
 	margin: 6px 0;
 	border: 0;
 	background-color: transparent;
 	padding: 0;
 }
-.tribe-events-photo .tribe-events-loop .vevent.hentry .time-details {
+.tribe-events-photo .tribe-events-loop .type-tribe_events .time-details {
 	padding: 0;
 }
 .tribe-events-list .tribe-events-loop .tribe-events-photo-event .tribe-events-event-meta .recurringinfo {
@@ -207,8 +207,8 @@ h3.tribe-events-related-events-title {
 		height: auto !important;
 		width: 100%;
 	}
-	#tribe-events-photo-events .vevent.tribe-events-photo-event,
-	#tribe-events-photo-events.photo-two-col .vevent.tribe-events-photo-event {
+	#tribe-events-photo-events .type-tribe_events.tribe-events-photo-event,
+	#tribe-events-photo-events.photo-two-col .type-tribe_events.tribe-events-photo-event {
 		width: auto;
 		max-width: 400px;
 		float: none;

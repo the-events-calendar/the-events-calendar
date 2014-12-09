@@ -5,9 +5,11 @@
  */
 
 // Don't load directly
-if( !defined( 'ABSPATH' ) ) die( '-1' );
+if ( ! defined( 'ABSPATH' ) ) {
+	die( '-1' );
+}
 
-if( !class_exists( 'TribeEventsProPUE' ) ) {
+if ( ! class_exists( 'TribeEventsProPUE' ) ) {
 	class TribeEventsProPUE {
 
 		/**
@@ -40,7 +42,7 @@ if( !class_exists( 'TribeEventsProPUE' ) ) {
 		 * Load the Plugin Update Engine
 		 */
 		public function load_plugin_update_engine() {
-			if( apply_filters( 'tribe_enable_pue', TRUE, self::$pue_slug ) && class_exists( 'TribePluginUpdateEngineChecker' ) ) {
+			if ( apply_filters( 'tribe_enable_pue', true, self::$pue_slug ) && class_exists( 'TribePluginUpdateEngineChecker' ) ) {
 				$this->pue_instance = new TribePluginUpdateEngineChecker( self::$update_url, self::$pue_slug, array(), plugin_basename( self::$plugin_file ) );
 			}
 		}
@@ -49,7 +51,7 @@ if( !class_exists( 'TribeEventsProPUE' ) ) {
 		 * Register the uninstall hook on activation
 		 */
 		public function register_uninstall_hook() {
-			register_uninstall_hook( self::$plugin_file , array( get_class($this), 'uninstall' ) );
+			register_uninstall_hook( self::$plugin_file, array( get_class( $this ), 'uninstall' ) );
 		}
 
 		/**

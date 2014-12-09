@@ -7,8 +7,9 @@
  *
  */
 
-if ( !defined('ABSPATH') )
+if ( ! defined( 'ABSPATH' ) ) {
 	die('-1');
+}
 
 if( !class_exists('Tribe_Events_Pro_Photo_Template')){
 	class Tribe_Events_Pro_Photo_Template extends Tribe_PRO_Template_Factory {
@@ -34,8 +35,10 @@ if( !class_exists('Tribe_Events_Pro_Photo_Template')){
 		 * @return string
 		 **/
 		public function header_attributes($attrs) {
+			$attrs['data-startofweek'] = get_option( 'start_of_week' );
 			$attrs['data-view'] = 'photo';
 			$attrs['data-baseurl'] = tribe_get_photo_permalink( false );
+
 			return apply_filters('tribe_events_pro_header_attributes', $attrs);
 		}
 
@@ -44,12 +47,15 @@ if( !class_exists('Tribe_Events_Pro_Photo_Template')){
 		 * Add event classes specific to photo view
 		 *
 		 * @param $classes
+		 *
 		 * @return array
 		 **/
 		public function event_classes( $classes ) {
 			$classes[] = 'tribe-events-photo-event';
+
 			return $classes;
 		}
+
 		/**
 		 * AJAX handler for Photo view
 		 *
@@ -63,10 +69,12 @@ if( !class_exists('Tribe_Events_Pro_Photo_Template')){
 
 			$tribe_paged = ( !empty( $_POST['tribe_paged'] ) ) ? intval( $_POST['tribe_paged'] ) : 1;
 
-			$args = array( 'eventDisplay'       => 'list',
+			$args = array(
+				'eventDisplay' => 'list',
 						   'post_type'          => TribeEvents::POSTTYPE,
 						   'post_status'        => 'publish',
-						   'paged'              => $tribe_paged );
+				'paged'        => $tribe_paged
+			);
 
 			$view_state = 'photo';
 
@@ -94,12 +102,13 @@ if( !class_exists('Tribe_Events_Pro_Photo_Template')){
 				$query         = TribeEventsQuery::getEvents( $args, true );
 			}
 
-			$response = array( 'html'            => '',
-							   'success'         => true,
-							   'max_pages'       => $query->max_num_pages,
-							   'hash'            => $hash_str,
-							   'tribe_paged'     => $tribe_paged,
-							   'view'            => $view_state,
+			$response = array(
+				'html'        => '',
+				'success'     => true,
+				'max_pages'   => $query->max_num_pages,
+				'hash'        => $hash_str,
+				'tribe_paged' => $tribe_paged,
+				'view'        => $view_state,
 			);
 
 			global $wp_query, $post;

@@ -1,0 +1,7 @@
+# Codeception Test Suite Configuration
+
+# suite for service (integration) tests.
+# Emulate web requests and make application process them.
+class_name: ServiceTester
+modules:
+    enabled: [Filesystem, WPDb, WPLoader, ServiceHelper]

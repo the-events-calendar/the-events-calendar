@@ -5,7 +5,9 @@
  * Creates a widget that displays the next upcoming x events
  */
 
-if ( ! defined( 'ABSPATH' ) ) die('-1');
+if ( ! defined( 'ABSPATH' ) ) {
+	die( '-1' );
+}
 
 class TribeEventsAdvancedListWidget extends TribeEventsListWidget {
 	/**
@@ -16,8 +18,9 @@ class TribeEventsAdvancedListWidget extends TribeEventsListWidget {
 
 	public function __construct() {
 		$widget_ops = array(
-			'classname' => 'tribe-events-adv-list-widget',
-			'description' => __( 'A widget that displays the next upcoming x events.', 'tribe-events-calendar-pro' ) );
+			'classname'   => 'tribe-events-adv-list-widget',
+			'description' => __( 'A widget that displays the next upcoming x events.', 'tribe-events-calendar-pro' )
+		);
 
 		$control_ops = array( 'id_base' => 'tribe-events-adv-list-widget' );
 
@@ -26,25 +29,34 @@ class TribeEventsAdvancedListWidget extends TribeEventsListWidget {
 	}
 
 	public function taxonomy_filters( $query ) {
-		if ( empty( $this->instance ) ) return $query;
+		if ( empty( $this->instance ) ) {
+			return $query;
+		}
 		$tax_query = TribeEventsPro_Widgets::form_tax_query( json_decode( $this->instance['filters'] ), $this->instance['operand'] );
 
-		if ( isset( $query['tax_query'] ) ) $query['tax_query'] = array_merge( $query['tax_query'], $tax_query );
-		else $query['tax_query'] = $tax_query;
+		if ( isset( $query['tax_query'] ) ) {
+			$query['tax_query'] = array_merge( $query['tax_query'], $tax_query );
+		} else {
+			$query['tax_query'] = $tax_query;
+		}
 
 		return $query;
 	}
 
 	public function widget( $args, $instance ) {
-		$ecp = TribeEventsPro::instance();
+		$ecp            = TribeEventsPro::instance();
 		$tooltip_status = $ecp->recurring_info_tooltip_status();
 		$ecp->disable_recurring_info_tooltip();
 		$this->instance_defaults( $instance );
 
 		// @todo remove after 3.7 (continuity helper for upgrading users)
-		if ( isset( $this->instance['category'] ) ) $this->include_cat_id( $this->instance['filters'], $this->instance['category'] );
+		if ( isset( $this->instance['category'] ) ) {
+			$this->include_cat_id( $this->instance['filters'], $this->instance['category'] );
+		}
 
-		if ( $tooltip_status ) $ecp->enable_recurring_info_tooltip();
+		if ( $tooltip_status ) {
+			$ecp->enable_recurring_info_tooltip();
+		}
 		parent::widget_output( $args, $this->instance, 'pro/widgets/list-widget' );
 	}
 
@@ -65,7 +77,7 @@ class TribeEventsAdvancedListWidget extends TribeEventsListWidget {
 
 		// @todo remove after 3.7 (added for continuity when users transition from 3.5.x or earlier to this release)
 		if ( isset( $old_instance['category'] ) ) {
-			$this->include_cat_id($instance['filters'], $old_instance['category']);
+			$this->include_cat_id( $instance['filters'], $old_instance['category'] );
 			unset( $instance['category'] );
 		}
 
@@ -85,21 +97,22 @@ class TribeEventsAdvancedListWidget extends TribeEventsListWidget {
 
 	protected function instance_defaults( $instance ) {
 		$this->instance = wp_parse_args( (array) $instance, array(
-			'title' => __( 'Upcoming Events', 'tribe-events-calendar-pro' ),
-			'limit' => '5',
+			'title'              => __( 'Upcoming Events', 'tribe-events-calendar-pro' ),
+			'limit'              => '5',
 			'no_upcoming_events' => false,
-			'venue' => false,
-			'country' => true,
-			'address' => false,
-			'city' => true,
-			'region' => true,
-			'zip' => false,
-			'phone' => false,
-			'cost' => false,
-			'category' => false, // @todo remove this element after 3.7
-			'organizer' => false,
-			'operand' => 'OR',
-			'filters' => ''
+			'venue'              => false,
+			'country'            => true,
+			'address'            => false,
+			'city'               => true,
+			'region'             => true,
+			'zip'                => false,
+			'phone'              => false,
+			'cost'               => false,
+			'category'           => false, // @todo remove this element after 3.7
+			'organizer'          => false,
+			'operand'            => 'OR',
+			'filters'            => '',
+			'instance'           => &$this->instance
 		) );
 	}
 
@@ -112,18 +125,24 @@ class TribeEventsAdvancedListWidget extends TribeEventsListWidget {
 	 * list.
 	 *
 	 * @todo remove after 3.7
+	 *
 	 * @param mixed &$filters
-	 * @param int $id
+	 * @param int   $id
 	 */
 	protected function include_cat_id( &$filters, $id ) {
-		$id = (string) absint( $id ); // An absint for sanity but a string for comparison purposes
+		$id  = (string) absint( $id ); // An absint for sanity but a string for comparison purposes
 		$tax = TribeEvents::TAXONOMY;
-		if ( '0' === $id || ! is_string( $filters ) ) return;
+		if ( '0' === $id || ! is_string( $filters ) ) {
+			return;
+		}
 
 		$filters = (array) json_decode( $filters, true );
 
-		if ( isset( $filters[$tax] ) && ! in_array( $id, $filters[$tax] ) ) $filters[$tax][] = $id;
-		elseif ( ! isset( $filters[$tax] ) ) $filters[$tax] = array( $id );
+		if ( isset( $filters[ $tax ] ) && ! in_array( $id, $filters[ $tax ] ) ) {
+			$filters[ $tax ][] = $id;
+		} elseif ( ! isset( $filters[ $tax ] ) ) {
+			$filters[ $tax ] = array( $id );
+		}
 
 		$filters = json_encode( $filters );
 	}

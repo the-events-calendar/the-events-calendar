@@ -18,11 +18,11 @@ class TribeEventsRecurrenceScheduler {
 
 	public function __construct( $range_before, $range_after ) {
 		$this->range_before = $range_before;
-		$this->range_after = $range_after;
+		$this->range_after  = $range_after;
 
-		$today = date('Y-m-d', current_time('timestamp'));
-		$this->earliest_date = date('Y-m-d', strtotime( $today.' -'.$this->range_before.'months' ));
-		$this->latest_date = date('Y-m-d', strtotime( $today.' +'.$this->range_after.'months' ));
+		$today               = date( 'Y-m-d', current_time( 'timestamp' ) );
+		$this->earliest_date = date( 'Y-m-d', strtotime( $today . ' -' . $this->range_before . 'months' ) );
+		$this->latest_date   = date( 'Y-m-d', strtotime( $today . ' +' . $this->range_after . 'months' ) );
 	}
 
 	public function get_latest_date() {
@@ -34,7 +34,7 @@ class TribeEventsRecurrenceScheduler {
 	}
 
 	public function add_hooks() {
-		if ( !wp_next_scheduled(self::CRON_HOOK) ) {
+		if ( ! wp_next_scheduled( self::CRON_HOOK ) ) {
 			wp_schedule_event( time(), 'daily', self::CRON_HOOK );
 		}
 		add_action( self::CRON_HOOK, array( $this, 'schedule_future_recurring_events' ), 20, 0 );
@@ -47,18 +47,18 @@ class TribeEventsRecurrenceScheduler {
 	public function clean_up_old_recurring_events() {
 		/** @var wpdb $wpdb */
 		global $wpdb;
-		$post_ids = $wpdb->get_col($wpdb->prepare("SELECT DISTINCT post_id FROM {$wpdb->postmeta} m LEFT JOIN {$wpdb->posts} p ON p.ID=m.post_id WHERE p.post_parent <> 0 AND m.meta_key='_EventStartDate' AND m.meta_value < %s", $this->earliest_date));
+		$post_ids = $wpdb->get_col( $wpdb->prepare( "SELECT DISTINCT post_id FROM {$wpdb->postmeta} m LEFT JOIN {$wpdb->posts} p ON p.ID=m.post_id WHERE p.post_parent <> 0 AND m.meta_key='_EventStartDate' AND m.meta_value < %s", $this->earliest_date ) );
 		foreach ( $post_ids as $post_id ) {
-			wp_delete_post($post_id, TRUE);
+			wp_delete_post( $post_id, true );
 		}
 	}
 
 	public function schedule_future_recurring_events() {
 		/** @var wpdb $wpdb */
 		global $wpdb;
-		$post_ids = $wpdb->get_col($wpdb->prepare("SELECT DISTINCT m.post_id FROM {$wpdb->postmeta} m INNER JOIN {$wpdb->posts} p ON m.post_id=p.ID WHERE m.meta_key='_EventNextPendingRecurrence' AND m.meta_value < %s AND p.post_parent = 0", $this->latest_date));
+		$post_ids = $wpdb->get_col( $wpdb->prepare( "SELECT DISTINCT m.post_id FROM {$wpdb->postmeta} m INNER JOIN {$wpdb->posts} p ON m.post_id=p.ID WHERE m.meta_key='_EventNextPendingRecurrence' AND m.meta_value < %s AND p.post_parent = 0", $this->latest_date ) );
 		foreach ( $post_ids as $post_id ) {
-			TribeEventsRecurrenceMeta::save_pending_events($post_id);
+			TribeEventsRecurrenceMeta::save_pending_events( $post_id );
 		}
 	}
 }

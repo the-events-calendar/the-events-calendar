@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * Mini Calendar List Loop
  * This file sets up the structure for the list loop
@@ -9,7 +9,9 @@
  *
  */
 
-if ( !defined('ABSPATH') ) { die('-1'); } ?>
+if ( ! defined( 'ABSPATH' ) ) {
+	die( '-1' );
+} ?>
 
 <div class="tribe-mini-calendar-list-wrapper">
 	<div class="tribe-events-loop hfeed vcalendar">
@@ -19,9 +21,8 @@ if ( !defined('ABSPATH') ) { die('-1'); } ?>
 
 			<!-- Event  -->
 			<div class="<?php tribe_events_event_classes() ?>">
-				<?php tribe_get_template_part( 'pro/widgets/mini-calendar/single-event' ) ?>
+				<?php tribe_get_template_part( 'pro/widgets/modules/single-event' ) ?>
 			</div><!-- .hentry .vevent -->
-
 
 			<?php do_action( 'tribe_events_mini_cal_list_inside_after_loop' ); ?>
 		<?php endwhile; ?>

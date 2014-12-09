@@ -99,7 +99,8 @@ class Tribe_APM {
 	public function maybe_add_taxonomies($tribe_cpt_filters) {
 		if ( ! $tribe_cpt_filters->add_taxonomies ) return;
 		$args = array();
-		foreach ( get_taxonomies( array(), 'objects' ) as $tax ) {
+		$taxonomies = apply_filters( 'tribe_apm_taxonomies', get_taxonomies( array(), 'objects' ), $this->post_type );
+		foreach ( $taxonomies as $tax ) {
 			if ( $tax->show_ui && in_array($tribe_cpt_filters->post_type, (array) $tax->object_type, true) ) {
 				$args['tax-'.$tax->name] = array(
 					'name' => $tax->labels->name,

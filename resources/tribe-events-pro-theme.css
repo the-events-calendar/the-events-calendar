@@ -15,7 +15,7 @@
 =============================================*/
 
 /* Tribe Theme Color */
-.tribe-events-grid .hentry.vevent a {
+.tribe-events-grid .type-tribe_events a {
 	color: #21759b;	
 }
 
@@ -23,25 +23,25 @@
  	background-color: #21759b;
 }
 
-.tribe-grid-allday .hentry.vevent > div,
-.tribe-grid-body div[id*="tribe-events-event-"] .hentry.vevent,
-.tribe-grid-allday .hentry.vevent > div:hover,
-.tribe-grid-body div[id*="tribe-events-event-"] .hentry.vevent:hover {
+.tribe-grid-allday .type-tribe_events > div,
+.tribe-grid-body .type-tribe_events .tribe-events-week-hourly-single,
+.tribe-grid-allday .type-tribe_events > div:hover,
+.tribe-grid-body .type-tribe_events .tribe-events-week-hourly-single:hover {
 	background-color: #21759b;
 	background-color: rgba(33, 117, 155, .75);
 	border-color: #1b607f;
 }
 
-.tribe-grid-allday .hentry.vevent > div:hover,
-.tribe-grid-body div[id*="tribe-events-event-"] .hentry.vevent:hover {
+.tribe-grid-allday .type-tribe_events > div:hover,
+.tribe-grid-body .type-tribe_events .tribe-events-week-hourly-single:hover {
 	background-color: rgba(33, 117, 155, .9);
 }
 
-.tribe-events-grid .hentry.vevent a {
+.tribe-events-grid .type-tribe_events a {
  	color: #fff;	
 }
 
-.tribe-events-day .tribe-events-day-time-slot .vevent {
+.tribe-events-day .tribe-events-day-time-slot .type-tribe_events {
 	margin-left: 0;
 }
 
@@ -69,7 +69,7 @@
 	font-weight: bold;
 }
 
-.tribe-events-grid .hentry.vevent {
+.tribe-events-grid .type-tribe_events {
 	padding:4px;
 }
 
@@ -185,13 +185,13 @@
 	margin-top: 23px;
 }
 
-.vevent.tribe-events-photo-event .tribe-events-photo-event-wrap {
+.type-tribe_events.tribe-events-photo-event .tribe-events-photo-event-wrap {
 	border: 0;
 	background: #f6f6f6;
 }
 
 /* Tile Styling */
-.vevent.tribe-events-photo-event .tribe-events-photo-event-wrap:hover {
+.type-tribe_events.tribe-events-photo-event .tribe-events-photo-event-wrap:hover {
 	background: #fff;
 }
 
@@ -203,7 +203,7 @@
 	line-height: 1.45;
 }
 
-.tribe-events-photo .tribe-events-loop .vevent.hentry .tribe-events-event-meta {
+.tribe-events-photo .tribe-events-loop .type-tribe_events .tribe-events-event-meta {
 	margin: 0;
 	padding-right: 0;
 }

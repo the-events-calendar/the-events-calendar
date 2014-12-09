@@ -377,62 +377,62 @@
     <td><code>			if ( tribe_display == 'past' ) {</code></td>
     <td>Expected '===' and instead saw '=='.</td>
 </tr><tr class="warning">
-    <td class="text-center">W116</td>
-    <td class="text-center">335</td>
-    <td class="test-center">51</td>
-    <td><code>						if ( response.max_pages == response.tribe_paged || 0 == response.max_pages ) {</code></td>
-    <td>Expected '===' and instead saw '=='.</td>
+    <td class="text-center">W069</td>
+    <td class="text-center">262</td>
+    <td class="test-center">30</td>
+    <td><code>					ts.params['post_type'] = config.events_post_type;</code></td>
+    <td>['post_type'] is better written in dot notation.</td>
+</tr><tr class="warning">
+    <td class="text-center">W069</td>
+    <td class="text-center">265</td>
+    <td class="test-center">30</td>
+    <td><code>					ts.params['eventDisplay'] = 'map';</code></td>
+    <td>['eventDisplay'] is better written in dot notation.</td>
 </tr><tr class="warning">
     <td class="text-center">W116</td>
-    <td class="text-center">335</td>
-    <td class="test-center">80</td>
-    <td><code>						if ( response.max_pages == response.tribe_paged || 0 == response.max_pages ) {</code></td>
-    <td>Expected '===' and instead saw '=='.</td>
-</tr><tr class="warning">
-    <td class="text-center">W116</td>
-    <td class="text-center">345</td>
+    <td class="text-center">338</td>
     <td class="test-center">49</td>
     <td><code>					if ( response.total_count == 0 ) {</code></td>
     <td>Expected '===' and instead saw '=='.</td>
 </tr><tr class="warning">
     <td class="text-center">W116</td>
-    <td class="text-center">400</td>
+    <td class="text-center">393</td>
     <td class="test-center">37</td>
     <td><code>					if ( ts.paged == '1' ) {</code></td>
     <td>Expected '===' and instead saw '=='.</td>
 </tr><tr class="warning">
     <td class="text-center">W116</td>
-    <td class="text-center">427</td>
+    <td class="text-center">420</td>
     <td class="test-center">37</td>
     <td><code>					if ( ts.paged == '1' ) {</code></td>
     <td>Expected '===' and instead saw '=='.</td>
 </tr><tr class="warning">
     <td class="text-center">W116</td>
-    <td class="text-center">459</td>
+    <td class="text-center">452</td>
     <td class="test-center">44</td>
     <td><code>			if ( tribe_events_bar_action != 'change_view' ) {</code></td>
     <td>Expected '!==' and instead saw '!='.</td>
 </tr><tr class="warning">
     <td class="text-center">W088</td>
-    <td class="text-center">500</td>
+    <td class="text-center">493</td>
     <td class="test-center">23</td>
     <td><code>				for ( i in tg.markers ) {</code></td>
     <td>Creating global 'for' variable. Should be 'for (var i ...'.</td>
 </tr><tr class="warning">
     <td class="text-center">W116</td>
-    <td class="text-center">531</td>
+    <td class="text-center">524</td>
     <td class="test-center">48</td>
     <td><code>				if ( tribe_events_bar_action != 'change_view' ) {</code></td>
     <td>Expected '!==' and instead saw '!='.</td>
 </tr><tr class="warning">
     <td class="text-center">W030</td>
-    <td class="text-center">612</td>
+    <td class="text-center">605</td>
     <td class="test-center">69</td>
     <td><code>			ts.view && dbug && debug.timeEnd( 'Tribe JS Init Timer' );</code></td>
     <td>Expected an assignment or function call and instead saw an expression.</td>
 </tr><tr class="warning">
     <td class="text-center">W030</td>
-    <td class="text-center">617</td>
+    <td class="text-center">610</td>
     <td class="test-center">88</td>
     <td><code>		dbug && debug.info( 'TEC Debug: tribe-events-ajax-maps.js successfully loaded' );</code></td>
     <td>Expected an assignment or function call and instead saw an expression.</td>
@@ -504,55 +504,55 @@
     <td>Missing semicolon.</td>
 </tr><tr class="warning">
     <td class="text-center">W069</td>
-    <td class="text-center">277</td>
+    <td class="text-center">278</td>
+    <td class="test-center">38</td>
+    <td><code>						ts.url_params['post_type'] = config.events_post_type;</code></td>
+    <td>['post_type'] is better written in dot notation.</td>
+</tr><tr class="warning">
+    <td class="text-center">W069</td>
+    <td class="text-center">281</td>
+    <td class="test-center">38</td>
+    <td><code>						ts.url_params['eventDisplay'] = ts.view;</code></td>
+    <td>['eventDisplay'] is better written in dot notation.</td>
+</tr><tr class="warning">
+    <td class="text-center">W069</td>
+    <td class="text-center">286</td>
     <td class="test-center">30</td>
     <td><code>					ts.params['hash'] = tribe_hash_string;</code></td>
     <td>['hash'] is better written in dot notation.</td>
 </tr><tr class="warning">
     <td class="text-center">W069</td>
-    <td class="text-center">281</td>
+    <td class="text-center">290</td>
     <td class="test-center">30</td>
     <td><code>					ts.params['tribe_event_category'] = ts.category;</code></td>
     <td>['tribe_event_category'] is better written in dot notation.</td>
 </tr><tr class="warning">
     <td class="text-center">W030</td>
-    <td class="text-center">307</td>
+    <td class="text-center">316</td>
     <td class="test-center">61</td>
     <td><code>				dbug && debug.time( 'Photo View Ajax Timer' );</code></td>
     <td>Expected an assignment or function call and instead saw an expression.</td>
 </tr><tr class="warning">
     <td class="text-center">W116</td>
-    <td class="text-center">346</td>
-    <td class="test-center">59</td>
-    <td><code>								if ( response.max_pages == ts.paged ) {</code></td>
-    <td>Expected '===' and instead saw '=='.</td>
-</tr><tr class="warning">
-    <td class="text-center">W116</td>
-    <td class="text-center">355</td>
-    <td class="test-center">59</td>
-    <td><code>								if ( response.max_pages == ts.paged ) {</code></td>
-    <td>Expected '===' and instead saw '=='.</td>
-</tr><tr class="warning">
-    <td class="text-center">W116</td>
-    <td class="text-center">364</td>
+    <td class="text-center">349</td>
     <td class="test-center">55</td>
     <td><code>							if ( response.max_pages == 0 ) {</code></td>
     <td>Expected '===' and instead saw '=='.</td>
 </tr><tr class="warning">
     <td class="text-center">W030</td>
-    <td class="text-center">390</td>
+    <td class="text-center">375</td>
     <td class="test-center">76</td>
     <td><code>							dbug && debug.timeEnd( 'Photo View Ajax Timer' );</code></td>
     <td>Expected an assignment or function call and instead saw an expression.</td>
 </tr><tr class="warning">
     <td class="text-center">W030</td>
-    <td class="text-center">409</td>
+    <td class="text-center">394</td>
     <td class="test-center">89</td>
     <td><code>		dbug && debug.info( 'TEC Debug: tribe-events-photo-view.js successfully loaded' );</code></td>
     <td>Expected an assignment or function call and instead saw an expression.</td>
 </tr><tr class="warning">
     <td class="text-center">W030</td>
-    <td class="text-center">410</td>
+    <td class="text-center">395</td>
     <td class="test-center">65</td>
     <td><code>		ts.view && dbug && debug.timeEnd( 'Tribe JS Init Timer' );</code></td>
     <td>Expected an assignment or function call and instead saw an expression.</td>
@@ -624,31 +624,49 @@
     <td>Expected '!==' and instead saw '!='.</td>
 </tr><tr class="warning">
     <td class="text-center">W069</td>
-    <td class="text-center">526</td>
+    <td class="text-center">527</td>
+    <td class="test-center">38</td>
+    <td><code>						ts.url_params['eventDate'] = ts.date;</code></td>
+    <td>['eventDate'] is better written in dot notation.</td>
+</tr><tr class="warning">
+    <td class="text-center">W069</td>
+    <td class="text-center">530</td>
+    <td class="test-center">38</td>
+    <td><code>						ts.url_params['post_type'] = config.events_post_type;</code></td>
+    <td>['post_type'] is better written in dot notation.</td>
+</tr><tr class="warning">
+    <td class="text-center">W069</td>
+    <td class="text-center">533</td>
+    <td class="test-center">38</td>
+    <td><code>						ts.url_params['eventDisplay'] = ts.view;</code></td>
+    <td>['eventDisplay'] is better written in dot notation.</td>
+</tr><tr class="warning">
+    <td class="text-center">W069</td>
+    <td class="text-center">538</td>
     <td class="test-center">30</td>
     <td><code>					ts.params['tribe_event_category'] = ts.category;</code></td>
     <td>['tribe_event_category'] is better written in dot notation.</td>
 </tr><tr class="warning">
     <td class="text-center">W030</td>
-    <td class="text-center">549</td>
+    <td class="text-center">561</td>
     <td class="test-center">60</td>
     <td><code>				dbug && debug.time( 'Week View Ajax Timer' );</code></td>
     <td>Expected an assignment or function call and instead saw an expression.</td>
 </tr><tr class="warning">
     <td class="text-center">W030</td>
-    <td class="text-center">609</td>
+    <td class="text-center">618</td>
     <td class="test-center">75</td>
     <td><code>							dbug && debug.timeEnd( 'Week View Ajax Timer' );</code></td>
     <td>Expected an assignment or function call and instead saw an expression.</td>
 </tr><tr class="warning">
     <td class="text-center">W030</td>
-    <td class="text-center">628</td>
+    <td class="text-center">637</td>
     <td class="test-center">83</td>
     <td><code>		dbug && debug.info( 'TEC Debug: tribe-events-week.js successfully loaded' );</code></td>
     <td>Expected an assignment or function call and instead saw an expression.</td>
 </tr><tr class="warning">
     <td class="text-center">W030</td>
-    <td class="text-center">629</td>
+    <td class="text-center">638</td>
     <td class="test-center">65</td>
     <td><code>		ts.view && dbug && debug.timeEnd( 'Tribe JS Init Timer' );</code></td>
     <td>Expected an assignment or function call and instead saw an expression.</td>

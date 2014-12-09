@@ -4,7 +4,7 @@
  * @version 3.0
  */
 
-(function( window, document, $, td, te, tf, tg, ts, tt, dbug ) {
+(function( window, document, $, td, te, tf, tg, ts, tt, config, dbug ) {
 
 	/*
 	 * $    = jQuery
@@ -45,10 +45,10 @@
 				content_title = $( '<div/>' ).append( $( "<a/>" ).attr( 'href', link ).text( title ) ).html();
 			}
 
-			var content = "Event: " + content_title;
+			var content = TribeEventsPro.map_tooltip_event + content_title;
 
 			if ( address ) {
-				content = content + "<br/>" + "Address: " + address;
+				content = content + "<br/>" + TribeEventsPro.map_tooltip_address + address;
 			}
 
 			infoWindow.setContent( content );
@@ -257,6 +257,15 @@
 				ts.params.tribe_event_category = ts.category;
 			}
 
+			if ( td.default_permalinks ) {
+				if( !ts.params.hasOwnProperty( 'post_type' ) ){
+					ts.params['post_type'] = config.events_post_type;
+				}
+				if( !ts.params.hasOwnProperty( 'eventDisplay' ) ){
+					ts.params['eventDisplay'] = 'map';
+				}
+			}
+
 			$( te ).trigger( 'tribe_ev_serializeBar' );
 
 			if ( tf.invalid_date_in_params( ts.params ) ) {
@@ -321,13 +330,7 @@
 
 					ts.initial_load = false;
 
-					var $the_content = '';
-					if ( $.isFunction( $.fn.parseHTML ) ) {
-						$the_content = $.parseHTML( response.html );
-					}
-					else {
-						$the_content = response.html;
-					}
+					var $the_content = $.parseHTML( response.html );
 
 					$( '#tribe-events-content' ).replaceWith( $the_content );
 
@@ -609,4 +612,4 @@
 
 	} );
 
-})( window, document, jQuery, tribe_ev.data, tribe_ev.events, tribe_ev.fn, tribe_ev.geoloc, tribe_ev.state, tribe_ev.tests, tribe_debug );
+})( window, document, jQuery, tribe_ev.data, tribe_ev.events, tribe_ev.fn, tribe_ev.geoloc, tribe_ev.state, tribe_ev.tests, tribe_js_config, tribe_debug );

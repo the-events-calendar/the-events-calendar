@@ -13,7 +13,7 @@
  */
  
 /* Events Loop */
-.tribe-events-loop .tribe-events-loop .vevent {
+.tribe-events-loop .tribe-events-loop .type-tribe_events {
 	margin: 0;
 }
 .tribe-events-loop h2.tribe-events-page-title {
@@ -126,7 +126,7 @@
 .tribe-events-grid div[id*='tribe-events-event-'] {
 	visibility: hidden;
 }
-.tribe-events-grid .hentry.vevent h3.entry-title {
+.tribe-events-grid .type-tribe_events h3.entry-title {
 	padding: 4px 6px;
 	margin: 0;
 	text-transform: none;
@@ -135,15 +135,15 @@
 	overflow: hidden;
 	height: 100%;
 }
-.tribe-events-grid .hentry.vevent a {
+.tribe-events-grid .type-tribe_events a {
  	padding: 0;
  	display: block;
 	width: 100%;
 	height: 100%;
 	outline: none;
 }
-.tribe-grid-allday .hentry.vevent > div,
-.tribe-grid-body div[id*="tribe-events-event-"] .hentry.vevent { 
+.tribe-grid-allday .type-tribe_events > div,
+.tribe-grid-body .type-tribe_events .tribe-events-week-hourly-single { 
 	width: 100%;
 	-webkit-border-radius: 3px;
 			border-radius: 3px;
@@ -168,20 +168,20 @@
 	left: 50%;
 	margin-left: -15px;
 }
-.tribe-grid-allday .hentry.vevent {
+.tribe-grid-allday .type-tribe_events {
 	margin:0;
 	position: relative;
 	padding: 4px;
 }
-.tribe-grid-allday .hentry.vevent ~ .hentry.vevent,
-.tribe-grid-allday .tribe-event-placeholder ~ .hentry.vevent { 	
+.tribe-grid-allday .type-tribe_events ~ .type-tribe_events,
+.tribe-grid-allday .tribe-event-placeholder ~ .type-tribe_events { 	
 	padding: 0 4px 4px;
 }
-.tribe-grid-allday .hentry.vevent h3.entry-title {
+.tribe-grid-allday .type-tribe_events h3.entry-title {
 	padding: 0;
 }
 /* Truncated all day titles */
-.tribe-grid-allday .hentry.vevent h3.entry-title a.url {
+.tribe-grid-allday .type-tribe_events h3.entry-title a.url {
 	padding: 8px 6px;
 	display: inline-block;
 	zoom: 1;
@@ -192,27 +192,27 @@
 	position: relative;
 	z-index: 1;
 }
-.tribe-grid-allday .hentry.vevent.tribe-dayspan2 > div {
+.tribe-grid-allday .type-tribe_events.tribe-dayspan2 > div {
 	width:200%;	
 }
-.tribe-grid-allday .hentry.vevent.tribe-dayspan3 > div {
+.tribe-grid-allday .type-tribe_events.tribe-dayspan3 > div {
 	width:300%;
 }
-.tribe-grid-allday .hentry.vevent.tribe-dayspan4 > div {
+.tribe-grid-allday .type-tribe_events.tribe-dayspan4 > div {
 	width:400%;
 }
-.tribe-grid-allday .hentry.vevent.tribe-dayspan5 > div {
+.tribe-grid-allday .type-tribe_events.tribe-dayspan5 > div {
 	width:500%;
 }
-.tribe-grid-allday .hentry.vevent.tribe-dayspan6 > div {
+.tribe-grid-allday .type-tribe_events.tribe-dayspan6 > div {
 	width:600%;
 }
-.tribe-grid-allday .hentry.vevent.tribe-dayspan7 > div {
+.tribe-grid-allday .type-tribe_events.tribe-dayspan7 > div {
 	width:700%;
 }
 
 /* Actual Event Styles */
-.tribe-grid-body .hentry.vevent {
+.tribe-grid-body .type-tribe_events {
  	width: 100%;
  	height: 100%;
 	padding:4px;
@@ -309,7 +309,7 @@
           	transition-property:         transform, opacity;
 }
 
-#tribe-events-photo-events .vevent.tribe-events-photo-event {
+#tribe-events-photo-events .type-tribe_events.tribe-events-photo-event {
 	float: left; 
 	width: 29.2%;
 	margin: 0 4% 30px 0;
@@ -317,7 +317,7 @@
 	border: 0;
 }
 
-#tribe-events-photo-events.photo-two-col .vevent.tribe-events-photo-event {
+#tribe-events-photo-events.photo-two-col .type-tribe_events.tribe-events-photo-event {
 	width: 46%;
 }
 
@@ -356,7 +356,7 @@
 	float: none;
 	margin-top: 10px;
 }
-.tribe-events-photo .tribe-events-loop .vevent.hentry .tribe-events-event-meta {
+.tribe-events-photo .tribe-events-loop .type-tribe_events .tribe-events-event-meta {
 	margin: 0;
 	padding-right: 0;
 }

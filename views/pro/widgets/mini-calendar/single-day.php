@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * Mini Calendar Single Day
  * This file contains one day in the mini calendar grid
@@ -9,18 +9,20 @@
  *
  */
 
-if ( !defined('ABSPATH') ) { die('-1'); } ?>
+if ( ! defined( 'ABSPATH' ) ) {
+	die( '-1' );
+} ?>
 
-<?php 
+<?php
 
 $day = tribe_events_get_current_month_day();
 
 ?>
 
-<?php if ($day['date'] != 'previous' && $day['date'] != 'next') : ?>
+<?php if ( $day['date'] != 'previous' && $day['date'] != 'next' ) : ?>
 
 	<div id="daynum-<?php echo $day['daynum'] ?>">
 		<?php tribe_events_the_mini_calendar_day_link(); ?>
 	</div>
-	
+
 <?php endif; ?>

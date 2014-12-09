@@ -33,10 +33,10 @@
 /* = Photo View Template Styles 
    @ Template: photo.php
 =============================================*/
-.vevent.tribe-events-photo-event .tribe-events-photo-event-wrap:hover {
+.type-tribe_events.tribe-events-photo-event .tribe-events-photo-event-wrap:hover {
 	background: #FAFAFA;
 }
-.tribe-events-photo .tribe-events-loop .vevent.hentry .tribe-events-event-meta {
+.tribe-events-photo .tribe-events-loop .type-tribe_events .tribe-events-event-meta {
 	margin: 6px 0;
 }
 
