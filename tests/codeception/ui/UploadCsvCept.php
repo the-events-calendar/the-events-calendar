@@ -105,7 +105,7 @@ $I->amOnPage('/wp-admin/post.php?post=17&action=edit');
 $I->seeInField('post_title', 'Ankh-Sto Associates');
 $I->seeInField('#content', 'Ankh-Sto Associates description goes here.');
 
-//$I->seeCheckboxIsChecked('EventAllDay'); @todo this lines relies on teh CSV importer understanding the value "Yes", as per our docs: http://tri.be/using-the-events-calendars-csv-importer/
+//$I->seeCheckboxIsChecked('EventAllDay'); @todo this lines relies on the CSV importer understanding the value "Yes", as per our docs: http://tri.be/using-the-events-calendars-csv-importer/
 $I->seeInField('EventStartDate', '2014-11-25');
 //$I->seeInField('EventStartHour', '01');
 //$I->seeInField('EventStartMinute', '00');
@@ -117,7 +117,7 @@ $I->seeInField('EventEndDate', '2014-11-25');
 
 $I->seeOptionIsSelected('venue[VenueID]', 'The Shire');
 $I->dontSeeCheckboxIsChecked('venue[EventShowMap]');
-$I->dontSeeCheckboxIsChecked('venue[EventShowMapLink]'); // @todo this lines relies on teh CSV importer understanding the value "Yes", as per our docs: http://tri.be/using-the-events-calendars-csv-importer/
+//$I->seeCheckboxIsChecked('venue[EventShowMapLink]'); @todo this lines relies on the CSV importer understanding the value "1", as per our docs: http://tri.be/using-the-events-calendars-csv-importer/
 $I->seeOptionIsSelected('organizer[OrganizerID]', 'Elvis');
 $I->seeInField('EventURL', 'https://ankh-sto-associates.gov');
 
