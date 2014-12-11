@@ -129,7 +129,7 @@ $modules = TribeEventsTickets::modules();
 						<input autocomplete="off" type="text" class="ticket_field" size='7' name="ticket_start_date"
 							   id="ticket_start_date" value="">
 						<span class="ticket_start_time ticket_time">
-							@
+							<?php echo tribe_get_datetime_separator(); ?>
 							<select name="ticket_start_hour" id="ticket_start_hour" class="ticket_field">
 								<?php echo $startHourOptions; ?>
 							</select>
@@ -154,7 +154,7 @@ $modules = TribeEventsTickets::modules();
 							   id="ticket_end_date" value="">
 
 						<span class="ticket_end_time ticket_time">
-							@
+							<?php echo tribe_get_datetime_separator(); ?>
 							<select name="ticket_end_hour" id="ticket_end_hour" class="ticket_field">
 								<?php echo $endHourOptions; ?>
 							</select>
