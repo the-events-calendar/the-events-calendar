@@ -12,7 +12,7 @@ $I->amOnPluginsPage();
 $I->activatePlugin('the-events-calendar');
 $I->see('Thanks for Updating');
 
-// Set Permalink to "pretty"
+// Set Permalink to "pretty"  //redo database dump
 $I->amOnPage('wp-admin/options-permalink.php');
 $I->see('Permalink Settings');
 $I->selectOption('form input[name=selection]', '/%postname%/');

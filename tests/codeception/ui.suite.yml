@@ -11,7 +11,6 @@ env:
             config:
                 WPWebDriverHelper:
                     browser: 'phantomjs'
-
     chrome:
          modules:
             enabled: [WPWebDriverHelper, WPDb, UIHelper]

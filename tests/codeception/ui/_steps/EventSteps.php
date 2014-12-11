@@ -30,13 +30,14 @@ class EventSteps extends \Tribe\Events\Codeception\UITester
         $I = $this;
 		$I->amOnPage('wp-admin/post-new.php?post_type=tribe_events');
 		$I->fillField('post_title', $event['title'] );
-		//$I->fillField('content', $event['content'] );
+		//$I->fillField('content', $event['content'] ); // need to target WYSIWYG instance
 		if( $event['allDay'] ) {
 			$I->checkOption('#allDayCheckbox');
 		}
-		//$I->fillField('#hidden_post_status', "publish" );
 		$I->click('#publish');
 		$I->see('Event published');
+		
+		// TODO Full Valdation of Event Properties based of passed flag
     }    
 	
 	/**
