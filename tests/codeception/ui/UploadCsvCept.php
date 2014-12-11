@@ -1,6 +1,8 @@
 <?php
 use Tribe\Events\Codeception\UITester;
 
+$scenario->group('upload');
+
 /**
  * Tests event creation functionality
  *
@@ -21,7 +23,7 @@ class UploadCsvCept extends Tribe\Events\Codeception\UITester {
 
 		$this->selectOption('import_type', $type);
 		$this->attachFile('import_file', $file);
-		$this->checkOption('import_header');
+		//$this->checkOption('import_header');
 		// @todo Wish there was something more specific to click on, patch core give element a name
 		$this->click('.tribe_settings input[type=submit]');
 
@@ -48,7 +50,7 @@ class UploadCsvCept extends Tribe\Events\Codeception\UITester {
 
 
 		// Check that it imported
-		$this->see('Importing Data', 'h3');
+		$this->see('Import Result');
 	}
 
 }
@@ -65,6 +67,7 @@ $I->am('administrator');
 $I->loginAsAdmin();
 $I->amOnPluginsPage();
 $I->activatePlugin('the-events-calendar');
+$I->see('Thanks for Updating');
 $I->lookForwardTo('Seeing them events, organizers, and venues in the database');
 
 
@@ -72,7 +75,7 @@ $I->lookForwardTo('Seeing them events, organizers, and venues in the database');
 // Upload Organizer
 $I->tribe_upload_csv('organizers', 'csv-test-organizers.csv');
 // I pity the fool who maintains this
-$I->amOnPage('/wp-admin/post.php?post=4&action=edit');
+$I->amOnPage('/wp-admin/post.php?post=4&action=edit');  //TODO Helper
 $I->seeInField('post_title', 'George-Michael Bluth');
 $I->seeInField('#OrganizerPhone', '+1-987-555-1238');
 $I->seeInField('#OrganizerWebsite', 'http://fakeblock.com');
@@ -82,13 +85,13 @@ $I->seeInField('#OrganizerEmail', 'boygeorge@halliburtonteen.com');
 
 // Upload Venues
 $I->tribe_upload_csv('venues', 'csv-test-venues.csv');
-$I->amOnPage('/wp-admin/post.php?post=12&action=edit');
+$I->amOnPage('/wp-admin/post.php?post=12&action=edit'); //TODO Helper
 
 $I->seeInField('post_title', 'Soup Kitchen International');
 $I->seeInField('venue[Address]', '259-A West 55th Street');
 $I->seeInField('venue[City]', 'New York');
-$I->seeOptionIsSelected('venue[Country]', 'United States');
-$I->seeOptionIsSelected('venue[State]', 'New York');
+$I->seeOptionIsSelected('venue[Country]', 'United States'); 	//hidden using Chosen
+$I->seeOptionIsSelected('venue[State]', 'New York'); 			//hidden using Chosen
 $I->seeInField('venue[Zip]', '10019');
 $I->seeInField('venue[Phone]', '+1 (800) 555-8234');
 //@todo Test the following once it's importable
@@ -100,7 +103,7 @@ $I->seeInField('venue[Phone]', '+1 (800) 555-8234');
 
 // Upload Events
 $I->tribe_upload_csv('events', 'csv-test-events.csv');
-$I->amOnPage('/wp-admin/post.php?post=17&action=edit');
+$I->amOnPage('/wp-admin/post.php?post=17&action=edit'); //TODO Helper
 
 $I->seeInField('post_title', 'Ankh-Sto Associates');
 $I->seeInField('#content', 'Ankh-Sto Associates description goes here.');
