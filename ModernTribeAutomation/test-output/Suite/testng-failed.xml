@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Failed suite [Suite]" parallel="none">
+  <test name="MWB(failed)" parallel="none">
+    <classes>
+      <class name="testautomationsg.MWB">
+        <methods>
+          <include name="afterTest"/>
+          <include name="beforeClass"/>
+          <include name="mwbsanitytest"/>
+          <include name="beforeSuite"/>
+          <include name="afterSuite"/>
+          <include name="afterClass"/>
+          <include name="beforeTest"/>
+        </methods>
+      </class> <!-- testautomationsg.MWB -->
+    </classes>
+  </test> <!-- MWB(failed) -->
+</suite> <!-- Failed suite [Suite] -->
