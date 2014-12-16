@@ -220,6 +220,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 * @param string $format Allows date and time formating using standard php syntax (http://php.net/manual/en/function.date.php)
 	 *
 	 * @return string
+	 * @todo this can be simplified to a single return statement that is a shorter line of code, right?
 	 */
 	function tribe_event_beginning_of_day( $date = null, $format = 'Y-m-d H:i:s' ) {
 		$multiday_cutoff = explode( ':', tribe_get_option( 'multiDayCutoff', '00:00' ) );
@@ -239,6 +240,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 * @param string $format Allows date and time formating using standard php syntax (http://php.net/manual/en/function.date.php)
 	 *
 	 * @return string
+	 * @todo this can be simplified to a single return statement that is a shorter line of code, right?
 	 */
 	function tribe_event_end_of_day( $date = null, $format = 'Y-m-d H:i:s' ) {
 		$multiday_cutoff = explode( ':', tribe_get_option( 'multiDayCutoff', '00:00' ) );
