@@ -3006,7 +3006,7 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 				return;
 			}
 
-			add_action( 'update_post_meta', array( $this, 'update_known_range' ), 10, 3 );
+			add_action( 'updated_post_meta', array( $this, 'update_known_range' ), 10, 3 );
 			add_action( 'added_post_meta', array( $this, 'update_known_range' ), 10, 3 );
 		}
 
