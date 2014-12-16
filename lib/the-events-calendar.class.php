@@ -3006,8 +3006,7 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 				return;
 			}
 
-			add_action( 'updated_post_meta', array( $this, 'update_known_range' ), 10, 3 );
-			add_action( 'added_post_meta', array( $this, 'update_known_range' ), 10, 3 );
+			add_action( 'tribe_events_update_meta', array( $this, 'update_known_range' ), 10, 3 );
 		}
 
 		/**
@@ -3019,9 +3018,7 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 		 * where the removal/restoration of hooks within addEventMeta() etc might stop this method from
 		 * actually being called (relates to a core WP bug).
 		 */
-		public function update_known_range( $meta_id, $object_id, $meta_key  ) {
-			if ( TribeEvents::POSTTYPE !== get_post_type( $object_id ) ) return;
-			if ( '_EventDuration' !== $meta_key ) return;
+		public function update_known_range( $object_id ) {
 
 			$current_min = tribe_events_earliest_date();
 			$current_max = tribe_events_latest_date();
