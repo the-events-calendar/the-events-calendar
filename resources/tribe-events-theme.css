@@ -135,7 +135,21 @@ h2.tribe-events-page-title,
 }
 .tribe-theme-twentyfifteen .type-tribe_events a.more-link {
 	display: none; /* Hides the occasionally-appearing duplicate More link from 2015 theme. */
-} 
+}
+.tribe-theme-twentyfifteen .datepicker.dropdown-menu {
+	max-width: 340px;
+}
+.tribe-theme-twentyfifteen .datepicker.dropdown-menu table,
+.tribe-theme-twentyfifteen .datepicker.dropdown-menu table.table-condensed {
+	border-top-width: 0;
+	border-left-width: 0;
+}
+.tribe-theme-twentyfifteen.events-single #tribe-events-pg-template {
+	padding-top: 8.3333%;
+}
+.tribe-theme-twentyfifteen.events-single #tribe-events-content {
+	padding: 8.3333% 10%;
+}
 
 
 /* = Day Grid Template Styles
