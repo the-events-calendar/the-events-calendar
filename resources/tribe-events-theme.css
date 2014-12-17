@@ -111,6 +111,20 @@ h2.tribe-events-page-title,
  	display: none;
 }
 
+/* Twenty Fifteen Comaptibility */
+.tribe-theme-twentyfifteen .tribe-events-list-widget .hentry {
+	margin-left: 0;
+	margin-right: 0;
+	box-shadow: none;
+	border-top: 1px solid rgba(51, 51, 51, 0.1);
+}
+
+.tribe-theme-twentyfifteen .tribe-events-list-widget .entry-title {
+	font-size: 22px;
+	font-size: 2.2rem;
+	line-height: 1.4545;
+}
+
 /* = Day Grid Template Styles
    @ Template: day.php
 =============================================*/
