@@ -125,6 +125,10 @@ h2.tribe-events-page-title,
 	line-height: 1.4545;
 }
 
+.tribe-theme-twentyfifteen.tribe-events-page-template #tribe-events-content-wrapper {
+	padding: 3.3%;/* This selector isn't great but keeps these changes very specific. */
+}
+
 /* = Day Grid Template Styles
    @ Template: day.php
 =============================================*/
