@@ -118,16 +118,25 @@ h2.tribe-events-page-title,
 	box-shadow: none;
 	border-top: 1px solid rgba(51, 51, 51, 0.1);
 }
-
 .tribe-theme-twentyfifteen .tribe-events-list-widget .entry-title {
 	font-size: 22px;
 	font-size: 2.2rem;
 	line-height: 1.4545;
 }
-
 .tribe-theme-twentyfifteen.tribe-events-page-template #tribe-events-content-wrapper {
-	padding: 3.3%;/* This selector isn't great but keeps these changes very specific. */
+	padding: 3.333%;/* This selector isn't good but keeps these changes very specific. */
 }
+.tribe-theme-twentyfifteen .tribe-events-list .type-tribe_events,
+.tribe-theme-twentyfifteen .tribe-events-list .type-tribe_events.tribe-events-first {
+	padding: 8.333% 10%;
+}
+.tribe-theme-twentyfifteen .tribe-events-day-time-slot .type-tribe_events {
+	margin-left: 0; /* Corrects some extra margin in the day view. */
+}
+.tribe-theme-twentyfifteen .type-tribe_events a.more-link {
+	display: none; /* Hides the occasionally-appearing duplicate More link from 2015 theme. */
+} 
+
 
 /* = Day Grid Template Styles
    @ Template: day.php
