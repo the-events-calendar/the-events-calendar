@@ -6,6 +6,7 @@ if ( ! function_exists( 'tribe_is_day' ) ) {
 	 *
 	 * Returns true if the query is set for single day, false otherwise
 	 *
+	 * @category Events
 	 * @return bool
 	 */
 	function tribe_is_day() {
@@ -21,6 +22,7 @@ if ( ! function_exists( 'tribe_get_day_link' ) ) {
 	/**
 	 * Link Event Day
 	 *
+	 * @category Events
 	 * @param string $date
 	 *
 	 * @return string URL
@@ -38,6 +40,7 @@ if ( ! function_exists( 'tribe_get_linked_day' ) ) {
 	 *
 	 * Get a link to day view
 	 *
+	 * @category Events
 	 * @param string $date
 	 * @param string $day
 	 *
@@ -57,6 +60,7 @@ if ( ! function_exists( 'tribe_the_day_link' ) ) {
 	/**
 	 * Output an html link to a day
 	 *
+	 * @category Events
 	 * @param string $date 'previous day', 'next day', 'yesterday', 'tomorrow', or any date string that strtotime() can parse
 	 * @param string $text text for the link
 	 *
@@ -91,6 +95,7 @@ if ( ! function_exists( 'tribe_get_the_day_link_label' ) ) {
 	/**
 	 * Get the label for the day navigation link
 	 *
+	 * @category Events
 	 * @param string $date_description
 	 *
 	 * @return string
@@ -117,6 +122,7 @@ if ( ! function_exists( 'tribe_get_the_day_link_date' ) ) {
 	/**
 	 * Get the date for the day navigation link.
 	 *
+	 * @category Events
 	 * @param string $date_description
 	 *
 	 * @return string
@@ -141,6 +147,7 @@ if ( ! function_exists( 'tribe_get_next_day_date' ) ) {
 	/**
 	 * Get the next day's date
 	 *
+	 * @category Events
 	 * @param string $start_date
 	 *
 	 * @return string
@@ -162,6 +169,7 @@ if ( ! function_exists( 'tribe_get_previous_day_date' ) ) {
 	/**
 	 * Get the previous day's date
 	 *
+	 * @category Events
 	 * @param string $start_date
 	 *
 	 * @return string

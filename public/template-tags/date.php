@@ -17,6 +17,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 *
 	 * Returns the event start time
 	 *
+	 * @category Events
 	 * @param int    $event       (optional)
 	 * @param string $dateFormat  Allows date and time formating using standard php syntax (http://php.net/manual/en/function.date.php)
 	 *
@@ -48,7 +49,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 		if ( '' == $dateFormat ) {
 			$dateFormat = tribe_get_time_format();
 		}
-		
+
 		return tribe_event_format_date( $date, false, $dateFormat );
 	}
 
@@ -57,6 +58,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 *
 	 * Returns the event end time
 	 *
+	 * @category Events
 	 * @param int    $event       (optional)
 	 * @param string $dateFormat  Allows date and time formating using standard php syntax (http://php.net/manual/en/function.date.php)
 	 *
@@ -84,19 +86,20 @@ if ( class_exists( 'TribeEvents' ) ) {
 		} else {
 			return;
 		}
-		
+
 		if ( '' == $dateFormat ) {
 			$dateFormat = tribe_get_time_format();
 		}
 
 		return tribe_event_format_date( $date, false, $dateFormat );
 	}
-	
+
 	/**
 	 * Start Date
 	 *
 	 * Returns the event start date and time
 	 *
+	 * @category Events
 	 * @param int    $event       (optional)
 	 * @param bool   $displayTime If true shows date and time, if false only shows date
 	 * @param string $dateFormat  Allows date and time formating using standard php syntax (http://php.net/manual/en/function.date.php)
@@ -134,6 +137,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 *
 	 * Returns the event end date
 	 *
+	 * @category Events
 	 * @param int    $event       (optional)
 	 * @param bool   $displayTime If true shows date and time, if false only shows date
 	 * @param string $dateFormat  Allows date and time formating using standard php syntax (http://php.net/manual/en/function.date.php)
@@ -179,6 +183,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 *
 	 * Returns formatted date
 	 *
+	 * @category Events
 	 * @param string $date
 	 * @param bool   $displayTime If true shows date and time, if false only shows date
 	 * @param string $dateFormat  Allows date and time formating using standard php syntax (http://php.net/manual/en/function.date.php)
@@ -216,11 +221,11 @@ if ( class_exists( 'TribeEvents' ) ) {
 	/**
 	 * Returns formatted date for the official beginning of the day according to the Multi-day cutoff time option
 	 *
+	 * @category Events
 	 * @param string $date   The date to find the beginning of the day, defaults to today
 	 * @param string $format Allows date and time formating using standard php syntax (http://php.net/manual/en/function.date.php)
 	 *
 	 * @return string
-	 * @todo this can be simplified to a single return statement that is a shorter line of code, right?
 	 */
 	function tribe_event_beginning_of_day( $date = null, $format = 'Y-m-d H:i:s' ) {
 		$multiday_cutoff = explode( ':', tribe_get_option( 'multiDayCutoff', '00:00' ) );
@@ -236,11 +241,11 @@ if ( class_exists( 'TribeEvents' ) ) {
 	/**
 	 * Returns formatted date for the official end of the day according to the Multi-day cutoff time option
 	 *
+	 * @category Events
 	 * @param string $date   The date to find the end of the day, defaults to today
 	 * @param string $format Allows date and time formating using standard php syntax (http://php.net/manual/en/function.date.php)
 	 *
 	 * @return string
-	 * @todo this can be simplified to a single return statement that is a shorter line of code, right?
 	 */
 	function tribe_event_end_of_day( $date = null, $format = 'Y-m-d H:i:s' ) {
 		$multiday_cutoff = explode( ':', tribe_get_option( 'multiDayCutoff', '00:00' ) );
