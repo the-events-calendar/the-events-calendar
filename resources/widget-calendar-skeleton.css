@@ -134,3 +134,14 @@
 	display: inline-block;
 }
 
+/* = Twenty Fifteen theme compatibility.
+=============================================*/
+.tribe-theme-twentyfifteen .tribe-mini-calendar-event {
+	margin-left: 0;
+	margin-right: 0;
+}
+.tribe-theme-twentyfifteen .tribe-mini-calendar-list-wrapper .type-tribe_events {
+	margin-left: 0;
+	margin-right: 0;
+	box-shadow: none;
+}
