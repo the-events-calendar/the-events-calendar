@@ -24,8 +24,6 @@ global $post;
  */
 $day      = tribe_events_get_current_month_day();
 $event_id = "{$post->ID}-{$day['daynum']}";
-$start    = tribe_get_start_date( $post, false, 'U' );
-$end      = tribe_get_end_date( $post, false, 'U' );
 $link     = tribe_get_event_link( $post );
 $title    = get_the_title( $post );
 
