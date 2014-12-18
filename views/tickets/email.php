@@ -259,7 +259,7 @@
 					$venue = get_post( $venue_id );
 				}
 
-				$venue_name = $venue_phone = $venue_address = $venue_city = $venue_email = $venue_web = '';
+				$venue_name = $venue_phone = $venue_address = $venue_city = $venue_web = '';
 				if ( ! empty( $venue ) ) {
 					$venue_name    = $venue->post_title;
 					$venue_phone   = get_post_meta( $venue_id, '_VenuePhone', true );
