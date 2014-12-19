@@ -2603,6 +2603,7 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 						$eventUrl = add_query_arg( $secondary, $eventUrl );
 					}
 					break;
+				case 'list':
 				case 'past':
 				case 'upcoming':
 					$eventUrl = add_query_arg( array( 'eventDisplay' => $type ), $eventUrl );
