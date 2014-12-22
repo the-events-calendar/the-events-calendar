@@ -3420,44 +3420,8 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 				}
 
 			} else {
-
-				$defaults   = $this->venueTags;
-				$defaults[] = '_VenueState';
-				$defaults[] = '_VenueProvince';
-
-				foreach ( $defaults as $tag ) {
-
-					$cleaned_tag = str_replace( '_Venue', '', $tag );
-
-					$var_name = '_Venue' . $cleaned_tag;
-
-					if ( $cleaned_tag != 'Cost' ) {
-
-						$$var_name = ( class_exists( 'TribeEventsPro' ) && $this->defaultValueReplaceEnabled() ) ? tribe_get_option( 'eventsDefault' . $cleaned_tag ) : "";
-					}
-
-					if ( isset( $_POST['venue'][$cleaned_tag] ) ) {
-						$$var_name = stripslashes_deep( $_POST['venue'][$cleaned_tag] );
-					}
-
-				}
-
-				if ( isset( $_VenueState ) && ! empty( $_VenueState ) ) {
-					$_VenueStateProvince = $_VenueState;
-				} elseif ( isset( $_VenueProvince ) ) {
-					$_VenueStateProvince = $_VenueProvince;
-				} else {
-					$_VenueStateProvince = null;
-				}
-
-				if ( isset( $_POST['venue']['Country'] ) ) {
-					if ( $_POST['venue']['Country'] == 'United States' ) {
-						$_VenueStateProvince = stripslashes_deep( $_POST['venue']['State'] );
-					} else {
-						$_VenueStateProvince = stripslashes_deep( $_POST['venue']['Province'] );
-					}
-				}
-
+				$_VenueVenue = tribe_get_option( 'eventsDefaultVenueID' );
+				$_VenueVenue = ( '0' !== $_VenueVenue ) ? $_VenueVenue : null;
 			}
 
 			$_EventAllDay    = isset( $_EventAllDay ) ? $_EventAllDay : false;
