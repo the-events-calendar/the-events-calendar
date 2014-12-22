@@ -252,8 +252,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 
 		}
 
-		// @todo 'tribe_has_past_events' filter is @deprecated as of 3.7
-		return apply_filters( 'tribe_has_next_event', apply_filters( 'tribe_has_next_events', $next_event ) );
+		return apply_filters( 'tribe_has_next_event', $next_event );
 	}
 
 
