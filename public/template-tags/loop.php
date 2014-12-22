@@ -186,7 +186,6 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 * Are there any events previous to the current events in $wp_query
 	 *
 	 * @return mixed
-	 * @todo 'tribe_has_past_events' filter is @deprecated as of 3.7
 	 */
 	function tribe_has_previous_event() {
 		global $wp_query;
@@ -216,7 +215,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 
 		}
 
-		return apply_filters( 'tribe_has_previous_event', apply_filters( 'tribe_has_past_events', $previous_event ) );
+		return apply_filters( 'tribe_has_previous_event', $previous_event );
 	}
 
 	/**
