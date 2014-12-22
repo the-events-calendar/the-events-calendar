@@ -1,21 +1,23 @@
 <?php
 /**
  * Venue metabox
+ *
+ * @var $_VenueAddress
+ * @var $_VenueCity
+ * @var $_VenueState
+ * @var $_VenueProvince
+ * @var $_VenueCountry
+ * @var $_VenueZip
+ * @var $_VenuePhone
  */
+
+global $post;
 
 // Don't load directly
 if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
-if ( tribe_get_option( 'defaultValueReplace' ) && $post->post_type != TribeEvents::VENUE_POST_TYPE ) {
-	$_VenueAddress  = tribe_get_option( 'eventsDefaultAddress' );
-	$_VenueCity     = tribe_get_option( 'eventsDefaultCity' );
-	$_VenueState    = tribe_get_option( 'eventsDefaultState' );
-	$_VenueProvince = tribe_get_option( 'eventsDefaultProvince' );
-	$_VenueCountry  = tribe_get_option( 'eventsDefaultCountry' );
-	$_VenueZip      = tribe_get_option( 'eventsDefaultZip' );
-	$_VenuePhone    = tribe_get_option( 'eventsDefaultPhone' );
-}
+
 ?>
 <?php if ( $post->post_type != TribeEvents::VENUE_POST_TYPE ): ?>
 	<tr class="venue">
