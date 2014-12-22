@@ -219,11 +219,9 @@ if ( class_exists( 'TribeEvents' ) ) {
 	/**
 	 * Are there any events next (in the future) to the current events in $wp_query
 	 *
-	 * @param string $return what to return, 'bool' or 'event'
-	 *
-	 * @return mixed
+	 * @return bool
 	 */
-	function tribe_has_next_event( $return = 'bool' ) {
+	function tribe_has_next_event() {
 		global $wp_query;
 		$next_event = false;
 
