@@ -185,12 +185,10 @@ if ( class_exists( 'TribeEvents' ) ) {
 	/**
 	 * Are there any events previous to the current events in $wp_query
 	 *
-	 * @param string $return what to return, 'bool' or 'event'
-	 *
 	 * @return mixed
 	 * @todo 'tribe_has_past_events' filter is @deprecated as of 3.7
 	 */
-	function tribe_has_previous_event( $return = 'bool' ) {
+	function tribe_has_previous_event() {
 		global $wp_query;
 		$previous_event = false;
 
