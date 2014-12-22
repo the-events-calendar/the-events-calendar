@@ -251,7 +251,6 @@ if ( class_exists( 'TribeEvents' ) ) {
 		return apply_filters( 'tribe_has_next_event', $has_next );
 	}
 
-
 	/**
 	 * Link to Past Events
 	 *
