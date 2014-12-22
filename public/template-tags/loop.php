@@ -223,34 +223,32 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 */
 	function tribe_has_next_event() {
 		global $wp_query;
-		$next_event = false;
 
-		if ( tribe_is_event_query() && ! empty( $wp_query->posts ) ) {
+		$has_next  = false;
+		$upcoming  = tribe_is_upcoming();
+		$past      = ! $upcoming;
+		$cur_page  = (int) $wp_query->get( 'paged' );
+		$max_pages = (int) $wp_query->max_num_pages;
+		$page_1    = 0 === $cur_page || 1 === $cur_page;
 
-			// Edit the current event query to look for an upcoming event
+		// Simple tests based on pagination properties
+		if ( $upcoming && $cur_page < $max_pages ) $has_next = true;
+		if ( $past && $cur_page > 1 ) $has_next = true;
+
+		// Test for future events (on first page of the past events list only)
+		if ( $past && $page_1 && ! $has_next ) {
 			$args = (array) $wp_query->query;
 
-			if ( tribe_is_past() ) {
-				if ( $wp_query->get( 'paged' ) > 1 ) {
-					$args['eventDisplay'] = 'past';
-					$args['paged']        = $wp_query->get( 'paged' ) - 1;
-				} else {
-					// if we're on page one of the past, next events will be on page 1 of regular list view
-					$args['eventDisplay'] = 'list';
-					$args['paged']        = 1;
-				}
-			} else {
-				$args['eventDisplay'] = 'list';
-				$args['paged']        = $wp_query->get( 'paged' ) ? $wp_query->get( 'paged' ) + 1 : 2;
-			}
+			$args['eventDisplay'] = 'list';
+			$args['no_paging'] = true;
+			$args['no_found_rows'] = true;
+			$args['posts_per_page'] = 1;
 
-			$events = tribe_get_events( $args );
-
-			$next_event = count( $events ) > 0;
-
+			$upcoming_events = tribe_get_events( $args );
+			$has_next = ( count( $upcoming_events ) >= 1 );
 		}
 
-		return apply_filters( 'tribe_has_next_event', $next_event );
+		return apply_filters( 'tribe_has_next_event', $has_next );
 	}
 
 
