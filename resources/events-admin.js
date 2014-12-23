@@ -181,16 +181,21 @@ jQuery( document ).ready( function( $ ) {
 		}
 
 		savedVenue.change( function() {
-			if ( $( this ).val() == '0' ) {
+			var selected_venue_id = $(this).val();
+
+			if ( selected_venue_id == '0' ) {
 				venueFields.fadeIn();
 				$( "#EventCountry" ).val( 0 ).trigger( "chosen:updated" );
 				$( "#StateProvinceSelect" ).val( 0 ).trigger( "chosen:updated" );
 				tribeShowHideCorrectStateProvinceInput( '' );
-				//.find("input, select").val('').removeAttr('checked');
+				$('.edit-venue-link').hide();			
 			}
 			else {
 				venueFields.fadeOut();
+				$('.edit-venue-link').show();
 
+				// Change edit link
+				$('.edit-venue-link a').attr( 'href', '/wp-admin/post.php?post='+ selected_venue_id +'&action=edit' );
 			}
 		} );
 		// hide unnecessary fields
@@ -203,11 +208,18 @@ jQuery( document ).ready( function( $ ) {
 		}
 
 		savedorganizer.change( function() {
-			if ( $( this ).val() == '0' ) {
+			var selected_organizer_id = $(this).val();
+
+			if ( selected_organizer_id == '0' ) {
 				organizerFields.fadeIn();
+				$('.edit-organizer-link').hide();	
 			}
 			else {
 				organizerFields.fadeOut();
+				$('.edit-organizer-link').show();
+
+				// Change edit link
+				$('.edit-organizer-link a').attr( 'href', '/wp-admin/post.php?post='+ selected_organizer_id +'&action=edit' );
 			}
 		} );
 	}

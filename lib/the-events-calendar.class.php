@@ -1541,7 +1541,7 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 			?>
 			<tr class="">
 				<td style="width:170px"><?php printf( __('Use Saved %s:', 'tribe-events-calendar'), $this->singular_venue_label ); ?></td>
-				<td><?php $this->saved_venues_dropdown( $VenueID ); ?></td>
+				<td><?php $this->saved_venues_dropdown( $VenueID ); ?> <div class="edit-venue-link" <?php if( empty( $VenueID ) ) { ?>style="display:none;"<?php } ?>><a href="/wp-admin/post.php?post=<?php echo $VenueID; ?>&action=edit" target="_blank"><?php _e( 'Edit Venue', 'tribe-events-calendar' ); ?></a></div></td>
 			</tr>
 		<?php
 		}
@@ -1567,7 +1567,7 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 				<td style="width:170px">
 					<label for="saved_organizer"><?php printf( __( 'Use Saved %s:', 'tribe-events-calendar' ), $this->singular_organizer_label ); ?></label>
 				</td>
-				<td><?php $this->saved_organizers_dropdown( $curOrg ); ?></td>
+				<td><?php $this->saved_organizers_dropdown( $curOrg ); ?> <div class="edit-organizer-link"<?php if( empty( $curOrg ) ) { ?> style="display:none;"<?php } ?>><a href="/wp-admin/post.php?post=<?php echo $curOrg; ?>&action=edit" target="_blank"><?php _e( 'Edit Organizer', 'tribe-events-calendar' ); ?></a></div></td>
 			</tr>
 		<?php
 		}

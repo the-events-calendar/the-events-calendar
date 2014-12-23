@@ -52,6 +52,13 @@ td.tribe_message {padding-bottom: 10px !important;}
 .events-cal .ui-widget-overlay.ui-front {z-index: 90;
 }
 
+.edit-venue-link, .edit-organizer-link { display:inline-block; margin-left:10px;}
+}
+
+.tribe_community_edit .edit-venue-link, .tribe_community_edit .edit-organizer-link {
+	display:none !important;
+}
+
 
 
 /* = Eventbrite
