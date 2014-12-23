@@ -4122,7 +4122,7 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 				$wp_admin_bar->add_menu(
 							 array(
 								 'id'    => 'tribe-events',
-								 'title' => __( 'Events', 'tribe-events-calendar' ),
+								 'title' => '<span class="ab-icon dashicons-before dashicons-calendar"></span>' . __( 'Events', 'tribe-events-calendar' ),
 								 'href'  => $this->getLink( 'home' )
 							 )
 				);
