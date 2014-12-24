@@ -24,7 +24,7 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 		const VENUE_POST_TYPE     = 'tribe_venue';
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
 
-		const VERSION       = '3.9';
+		const VERSION       = '3.10a1';
 		const FEED_URL      = 'http://tri.be/category/products/feed/';
 		const INFO_API_URL  = 'http://wpapi.org/api/plugin/the-events-calendar.php';
 		const WP_PLUGIN_URL = 'http://wordpress.org/extend/plugins/the-events-calendar/';
@@ -266,7 +266,6 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 			require_once 'tribe-events-bar.class.php';
 			require_once 'tribe-support.class.php';
 			require_once 'tribe-amalgamator.php';
-			require_once 'tribe-events-update.class.php';
 			require_once 'EmbeddedMaps.php';
 			require_once 'Backcompat.php';
 			require_once $this->pluginPath . 'lib/Credits.php';
@@ -474,7 +473,7 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 			add_action( 'tribe_events_pre_get_posts', array( $this, 'set_tribe_paged' ) );
 
 			// Upgrade material.
-			add_action( 'admin_init', array( $this, 'checkSuiteIfJustUpdated' ) );
+			add_action( 'init', array( $this, 'run_updates' ), 0, 0 );
 
 			if ( defined( 'WP_LOAD_IMPORTERS' ) && WP_LOAD_IMPORTERS ) {
 				add_filter( 'wp_import_post_data_raw', array( $this, 'filter_wp_import_data_before' ), 10, 1 );
@@ -1125,163 +1124,6 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 		}
 
 		/**
-		 * Add capabilities to Events
-		 *
-		 * @return void
-		 */
-		private function addCapabilities() {
-			$role = get_role( 'administrator' );
-			if ( $role ) {
-				$role->add_cap( 'edit_tribe_event' );
-				$role->add_cap( 'read_tribe_event' );
-				$role->add_cap( 'delete_tribe_event' );
-				$role->add_cap( 'delete_tribe_events' );
-				$role->add_cap( 'edit_tribe_events' );
-				$role->add_cap( 'edit_others_tribe_events' );
-				$role->add_cap( 'delete_others_tribe_events' );
-				$role->add_cap( 'publish_tribe_events' );
-				$role->add_cap( 'edit_published_tribe_events' );
-				$role->add_cap( 'delete_published_tribe_events' );
-				$role->add_cap( 'delete_private_tribe_events' );
-				$role->add_cap( 'edit_private_tribe_events' );
-				$role->add_cap( 'read_private_tribe_events' );
-
-				$role->add_cap( 'edit_tribe_venue' );
-				$role->add_cap( 'read_tribe_venue' );
-				$role->add_cap( 'delete_tribe_venue' );
-				$role->add_cap( 'delete_tribe_venues' );
-				$role->add_cap( 'edit_tribe_venues' );
-				$role->add_cap( 'edit_others_tribe_venues' );
-				$role->add_cap( 'delete_others_tribe_venues' );
-				$role->add_cap( 'publish_tribe_venues' );
-				$role->add_cap( 'edit_published_tribe_venues' );
-				$role->add_cap( 'delete_published_tribe_venues' );
-				$role->add_cap( 'delete_private_tribe_venues' );
-				$role->add_cap( 'edit_private_tribe_venues' );
-				$role->add_cap( 'read_private_tribe_venues' );
-
-				$role->add_cap( 'edit_tribe_organizer' );
-				$role->add_cap( 'read_tribe_organizer' );
-				$role->add_cap( 'delete_tribe_organizer' );
-				$role->add_cap( 'delete_tribe_organizers' );
-				$role->add_cap( 'edit_tribe_organizers' );
-				$role->add_cap( 'edit_others_tribe_organizers' );
-				$role->add_cap( 'delete_others_tribe_organizers' );
-				$role->add_cap( 'publish_tribe_organizers' );
-				$role->add_cap( 'edit_published_tribe_organizers' );
-				$role->add_cap( 'delete_published_tribe_organizers' );
-				$role->add_cap( 'delete_private_tribe_organizers' );
-				$role->add_cap( 'edit_private_tribe_organizers' );
-				$role->add_cap( 'read_private_tribe_organizers' );
-			}
-
-			$editor = get_role( 'editor' );
-			if ( $editor ) {
-				$editor->add_cap( 'edit_tribe_event' );
-				$editor->add_cap( 'read_tribe_event' );
-				$editor->add_cap( 'delete_tribe_event' );
-				$editor->add_cap( 'delete_tribe_events' );
-				$editor->add_cap( 'edit_tribe_events' );
-				$editor->add_cap( 'edit_others_tribe_events' );
-				$editor->add_cap( 'delete_others_tribe_events' );
-				$editor->add_cap( 'publish_tribe_events' );
-				$editor->add_cap( 'edit_published_tribe_events' );
-				$editor->add_cap( 'delete_published_tribe_events' );
-				$editor->add_cap( 'delete_private_tribe_events' );
-				$editor->add_cap( 'edit_private_tribe_events' );
-				$editor->add_cap( 'read_private_tribe_events' );
-
-				$editor->add_cap( 'edit_tribe_venue' );
-				$editor->add_cap( 'read_tribe_venue' );
-				$editor->add_cap( 'delete_tribe_venue' );
-				$editor->add_cap( 'delete_tribe_venues' );
-				$editor->add_cap( 'edit_tribe_venues' );
-				$editor->add_cap( 'edit_others_tribe_venues' );
-				$editor->add_cap( 'delete_others_tribe_venues' );
-				$editor->add_cap( 'publish_tribe_venues' );
-				$editor->add_cap( 'edit_published_tribe_venues' );
-				$editor->add_cap( 'delete_published_tribe_venues' );
-				$editor->add_cap( 'delete_private_tribe_venues' );
-				$editor->add_cap( 'edit_private_tribe_venues' );
-				$editor->add_cap( 'read_private_tribe_venues' );
-
-				$editor->add_cap( 'edit_tribe_organizer' );
-				$editor->add_cap( 'read_tribe_organizer' );
-				$editor->add_cap( 'delete_tribe_organizer' );
-				$editor->add_cap( 'delete_tribe_organizers' );
-				$editor->add_cap( 'edit_tribe_organizers' );
-				$editor->add_cap( 'edit_others_tribe_organizers' );
-				$editor->add_cap( 'delete_others_tribe_organizers' );
-				$editor->add_cap( 'publish_tribe_organizers' );
-				$editor->add_cap( 'edit_published_tribe_organizers' );
-				$editor->add_cap( 'delete_published_tribe_organizers' );
-				$editor->add_cap( 'delete_private_tribe_organizers' );
-				$editor->add_cap( 'edit_private_tribe_organizers' );
-				$editor->add_cap( 'read_private_tribe_organizers' );
-			}
-
-			$author = get_role( 'author' );
-			if ( $author ) {
-				$author->add_cap( 'edit_tribe_event' );
-				$author->add_cap( 'read_tribe_event' );
-				$author->add_cap( 'delete_tribe_event' );
-				$author->add_cap( 'delete_tribe_events' );
-				$author->add_cap( 'edit_tribe_events' );
-				$author->add_cap( 'publish_tribe_events' );
-				$author->add_cap( 'edit_published_tribe_events' );
-				$author->add_cap( 'delete_published_tribe_events' );
-
-				$author->add_cap( 'edit_tribe_venue' );
-				$author->add_cap( 'read_tribe_venue' );
-				$author->add_cap( 'delete_tribe_venue' );
-				$author->add_cap( 'delete_tribe_venues' );
-				$author->add_cap( 'edit_tribe_venues' );
-				$author->add_cap( 'publish_tribe_venues' );
-				$author->add_cap( 'edit_published_tribe_venues' );
-				$author->add_cap( 'delete_published_tribe_venues' );
-
-				$author->add_cap( 'edit_tribe_organizer' );
-				$author->add_cap( 'read_tribe_organizer' );
-				$author->add_cap( 'delete_tribe_organizer' );
-				$author->add_cap( 'delete_tribe_organizers' );
-				$author->add_cap( 'edit_tribe_organizers' );
-				$author->add_cap( 'publish_tribe_organizers' );
-				$author->add_cap( 'edit_published_tribe_organizers' );
-				$author->add_cap( 'delete_published_tribe_organizers' );
-			}
-
-			$contributor = get_role( 'contributor' );
-			if ( $contributor ) {
-				$contributor->add_cap( 'edit_tribe_event' );
-				$contributor->add_cap( 'read_tribe_event' );
-				$contributor->add_cap( 'delete_tribe_event' );
-				$contributor->add_cap( 'delete_tribe_events' );
-				$contributor->add_cap( 'edit_tribe_events' );
-
-				$contributor->add_cap( 'edit_tribe_venue' );
-				$contributor->add_cap( 'read_tribe_venue' );
-				$contributor->add_cap( 'delete_tribe_venue' );
-				$contributor->add_cap( 'delete_tribe_venues' );
-				$contributor->add_cap( 'edit_tribe_venues' );
-
-				$contributor->add_cap( 'edit_tribe_organizer' );
-				$contributor->add_cap( 'read_tribe_organizer' );
-				$contributor->add_cap( 'delete_tribe_organizer' );
-				$contributor->add_cap( 'delete_tribe_organizers' );
-				$contributor->add_cap( 'edit_tribe_organizers' );
-			}
-
-			$subscriber = get_role( 'subscriber' );
-			if ( $subscriber ) {
-				$subscriber->add_cap( 'read_tribe_event' );
-
-				$subscriber->add_cap( 'read_tribe_organizer' );
-
-				$subscriber->add_cap( 'read_tribe_venue' );
-			}
-		}
-
-		/**
 		 * Register the post types.
 		 *
 		 * @return void
@@ -1291,11 +1133,6 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 			register_post_type( self::POSTTYPE, apply_filters( 'tribe_events_register_event_type_args', $this->postTypeArgs ) );
 			register_post_type( self::VENUE_POST_TYPE, apply_filters( 'tribe_events_register_venue_type_args', $this->postVenueTypeArgs ) );
 			register_post_type( self::ORGANIZER_POST_TYPE, apply_filters( 'tribe_events_register_organizer_type_args', $this->postOrganizerTypeArgs ) );
-
-
-			if ( is_admin() && ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) ) {
-				$this->addCapabilities();
-			}
 
 			register_taxonomy(
 				self::TAXONOMY, self::POSTTYPE, array(
@@ -4601,40 +4438,11 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 			return $source_array;
 		}
 
-		/**
-		 * Checks to see if any registered TEC-related plugins have been updated just now
-		 * and runs an action if so, so that any upgrade-specific functionality can
-		 * be run.
-		 *
-		 * @return void
-		 */
-		public function checkSuiteIfJustUpdated() {
-			$plugins             = apply_filters(
-				'tribe_tec_addons', array(
-					'TribeEventsCalendar' => array(
-						'plugin_name'      => 'The Events Calendar',
-						'required_version' => self::VERSION,
-						'current_version'  => self::VERSION,
-						'plugin_dir_file'  => basename( dirname( __FILE__ ) ) . '/the-events-calendar.php'
-					)
-				)
-			);
-			$plugin_versions     = get_option( 'tribe_events_suite_versions', array() );
-			$new_plugin_versions = $plugin_versions;
-
-			foreach ( $plugins as $slug => $plugin ) {
-				if ( ! isset( $plugin_versions[$slug] ) || version_compare( $plugin_versions[$slug], $plugin['current_version'], '!=' ) ) {
-					$old_version = isset( $plugin_versions[$slug] ) ? $plugin_versions[$slug] : null;
-
-					// Hook into this filter to execute upgrade items.
-					if ( apply_filters( 'tribe_events_suite_upgrade', true, $slug, $plugin['plugin_name'], $plugin['current_version'], $old_version ) ) {
-						$new_plugin_versions[$slug] = $plugin['current_version'];
-					}
-				}
-			}
-
-			if ( $new_plugin_versions != $plugin_versions ) {
-				update_option( 'tribe_events_suite_versions', $new_plugin_versions );
+		public function run_updates() {
+			require_once( dirname(__FILE__).'/Updater.php' );
+			$updater = new Tribe__Events__Updater( self::VERSION );
+			if ( $updater->update_required() ) {
+				$updater->do_updates();
 			}
 		}
 
