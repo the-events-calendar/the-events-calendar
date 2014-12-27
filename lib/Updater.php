@@ -56,8 +56,8 @@ class Tribe__Events__Updater {
 	 */
 	protected function get_updates() {
 		return array(
-			'3.8' => array( $this, 'flush_rewrites' ),
-			'3.9' => array( $this, 'set_capabilities' ),
+			'3.10a0' => array( $this, 'flush_rewrites' ),
+			'3.10a1' => array( $this, 'set_capabilities' ),
 		);
 	}
 
@@ -84,5 +84,30 @@ class Tribe__Events__Updater {
 		require_once( dirname( __FILE__ ) . '/Capabilities.php' );
 		$capabilities = new Tribe__Events__Capabilities();
 		add_action( 'wp_loaded', array( $capabilities, 'set_initial_caps' ) );
+		add_action( 'wp_loaded', array( $this, 'reload_current_user' ), 11, 0 );
+	}
+
+	/**
+	 * Reset the $current_user global after capabilities have been changed
+	 *
+	 * @return void
+	 */
+	public function reload_current_user() {
+		global $current_user;
+		if ( isset( $current_user ) && ( $current_user instanceof WP_User ) ) {
+			$id = $current_user->ID;
+			$current_user = NULL;
+			wp_set_current_user( $id );
+		}
+	}
+
+	/**
+	 * Reset update flags. All updates will run again on the
+	 * next page load
+	 *
+	 * @return void
+	 */
+	public function reset() {
+		$this->update_version_option( 0 );
 	}
 }

@@ -127,4 +127,23 @@ class Tribe__Events__Capabilities_Test extends Tribe__Events__WP_UnitTestCase {
 		));
 		$this->assertEquals( $can, $user->has_cap( 'edit_tribe_event', $event_id ) );
 	}
+
+	public function test_remove_caps() {
+		/** @var WP_User $user */
+		$user = $this->factory->user->create_and_get( array(
+			'role' => 'editor',
+		));
+		$caps = new Tribe__Events__Capabilities();
+
+		$this->assertTrue( $user->has_cap( 'edit_tribe_events' ) ); // baseline
+
+		$caps->remove_post_type_caps( TribeEvents::POSTTYPE, 'editor' );
+		$user = new WP_User( $user ); // to reinit caps
+		$this->assertFalse( $user->has_cap( 'edit_tribe_events' ) );
+
+		// now put everything back where we found it
+		$caps->register_post_type_caps( TribeEvents::POSTTYPE, 'editor' );
+		$user = new WP_User( $user ); // to reinit caps
+		$this->assertTrue( $user->has_cap( 'edit_tribe_events' ) );
+	}
 }

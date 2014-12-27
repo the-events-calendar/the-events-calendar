@@ -206,10 +206,6 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 
 			if ( self::supportedVersion( 'wordpress' ) && self::supportedVersion( 'php' ) ) {
 
-				if ( is_admin() && ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) ) {
-					register_deactivation_hook( __FILE__, array( $this, 'on_deactivate' ) );
-				}
-
 				$this->addHooks();
 				$this->loadLibraries();
 			} else {
@@ -2176,6 +2172,8 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 		/**
 		 * Flush rewrite rules to support custom links
 		 *
+		 * @todo This is only registering the events post type, not the meta types
+		 *
 		 * @link http://codex.wordpress.org/Custom_Queries#Permalinks_for_Custom_Archives
 		 */
 		public static function flushRewriteRules() {
@@ -2601,13 +2599,15 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 		}
 
 		/**
-		 * This plugin does not have any deactivation functionality. Any events, categories, options and metadata are
-		 * left behind.
+		 * plugin deactivation callback
+		 * @see register_deactivation_hook()
 		 *
-		 * @return void
+		 * @param bool $network_deactivating
 		 */
-		public function on_deactivate() {
-			TribeEvents::flushRewriteRules();
+		public static function deactivate( $network_deactivating ) {
+			require_once( dirname( __FILE__ ) . '/Deactivation.php' );
+			$deactivation = new Tribe__Events__Deactivation( $network_deactivating );
+			add_action( 'shutdown', array( $deactivation, 'deactivate' ) );
 		}
 
 		/**
