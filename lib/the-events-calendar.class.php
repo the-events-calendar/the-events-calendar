@@ -598,59 +598,7 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 			$this->registerPostType();
 
 			self::debug( sprintf( __( 'Initializing Tribe Events on %s', 'tribe-events-calendar' ), date( 'M, jS \a\t h:m:s a' ) ) );
-			$this->maybeMigrateDatabase();
 			$this->maybeSetTECVersion();
-		}
-
-		/**
-		 * Upgrade the database if an older version of events was installed.
-		 *
-		 */
-		public function maybeMigrateDatabase() {
-			// TODO: Move this to Tribe__Events__Updater
-			// future migrations should actually check the db_version
-
-			$installed_version = get_option( 'tribe_events_db_version' );
-			if ( ! $installed_version ) {
-				global $wpdb;
-				// rename option
-				update_option( self::OPTIONNAME, get_option( 'sp_events_calendar_options' ) );
-				delete_option( 'sp_events_calendar_options' );
-
-				// update post type names
-				$wpdb->update( $wpdb->posts, array( 'post_type' => self::POSTTYPE ), array( 'post_type' => 'sp_events' ) );
-				$wpdb->update( $wpdb->posts, array( 'post_type' => self::VENUE_POST_TYPE ), array( 'post_type' => 'sp_venue' ) );
-				$wpdb->update( $wpdb->posts, array( 'post_type' => self::ORGANIZER_POST_TYPE ), array( 'post_type' => 'sp_organizer' ) );
-
-				// update taxonomy names
-				$wpdb->update( $wpdb->term_taxonomy, array( 'taxonomy' => self::TAXONOMY ), array( 'taxonomy' => 'sp_events_cat' ) );
-				$installed_version = '2.0.1';
-				update_option( 'tribe_events_db_version', $installed_version );
-			}
-
-			if ( version_compare( $installed_version, '2.0.6', '<' ) ) {
-				$option_names     = array(
-					'spEventsTemplate'   => 'tribeEventsTemplate',
-					'spEventsBeforeHTML' => 'tribeEventsBeforeHTML',
-					'spEventsAfterHTML'  => 'tribeEventsAfterHTML',
-				);
-				$old_option_names = array_keys( $option_names );
-				$new_option_names = array_values( $option_names );
-				$new_options      = array();
-				$current_options  = self::getOptions();
-				for ( $i = 0; $i < count( $old_option_names ); $i ++ ) {
-					$new_options[$new_option_names[$i]] = $this->getOption( $old_option_names[$i] );
-					unset( $current_options[$old_option_names[$i]] );
-				}
-				$this->setOptions( wp_parse_args( $new_options, $current_options ) );
-				$installed_version = '2.0.6';
-				update_option( 'tribe_events_db_version', $installed_version );
-			}
-
-			if ( version_compare( get_option( 'tribe_events_db_version' ), '3', '<' ) ) {
-				$installed_version = '3.0.0';
-				update_option( 'tribe_events_db_version', $installed_version );
-			}
 		}
 
 		/**

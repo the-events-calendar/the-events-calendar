@@ -56,6 +56,8 @@ class Tribe__Events__Updater {
 	 */
 	protected function get_updates() {
 		return array(
+			'2.0.1' => array( $this, 'migrate_from_sp_events' ),
+			'2.0.6' => array( $this, 'migrate_from_sp_options' ),
 			'3.10a0' => array( $this, 'flush_rewrites' ),
 			'3.10a1' => array( $this, 'set_capabilities' ),
 		);
@@ -73,6 +75,52 @@ class Tribe__Events__Updater {
 
 	public function update_required() {
 		return $this->is_version_in_db_less_than( $this->current_version );
+	}
+
+	protected function migrate_from_sp_events() {
+		$legacy_option = get_option( 'sp_events_calendar_options' );
+		if ( empty( $legacy_option ) ) {
+			return;
+		}
+
+		$new_option = get_option( TribeEvents::OPTIONNAME );
+		if ( !$new_option ) {
+			update_option( TribeEvents::OPTIONNAME, $legacy_option );
+		}
+		delete_option( 'sp_events_calendar_options' );
+
+		/** @var wpdb $wpdb */
+		global $wpdb;
+		$count = $wpdb->get_var( "SELECT COUNT(*) FROM {$wpdb->posts} WHERE post_type IN ( 'sp_events', 'sp_venue', 'sp_organizer' )" );
+		if ( !$count ) {
+			return;
+		}
+
+		// update post type names
+		$wpdb->update( $wpdb->posts, array( 'post_type' => TribeEvents::POSTTYPE ), array( 'post_type' => 'sp_events' ) );
+		$wpdb->update( $wpdb->posts, array( 'post_type' => TribeEvents::VENUE_POST_TYPE ), array( 'post_type' => 'sp_venue' ) );
+		$wpdb->update( $wpdb->posts, array( 'post_type' => TribeEvents::ORGANIZER_POST_TYPE ), array( 'post_type' => 'sp_organizer' ) );
+
+		// update taxonomy names
+		$wpdb->update( $wpdb->term_taxonomy, array( 'taxonomy' => TribeEvents::TAXONOMY ), array( 'taxonomy' => 'sp_events_cat' ) );
+		wp_cache_flush();
+	}
+
+	protected function migrate_from_sp_options() {
+		$tec = TribeEvents::instance();
+		$tec_options = TribeEvents::getOptions();
+		$option_names     = array(
+			'spEventsTemplate'   => 'tribeEventsTemplate',
+			'spEventsBeforeHTML' => 'tribeEventsBeforeHTML',
+			'spEventsAfterHTML'  => 'tribeEventsAfterHTML',
+		);
+		foreach ( $option_names as $old_name => $new_name ) {
+			if ( isset( $tec_options[$old_name] ) && empty( $tec_options[$new_name] ) ) {
+				$tec_options[$new_name] = $tec_options[$old_name];
+				unset( $tec_options[$old_name] );
+			}
+		}
+		$tec->setOptions( $tec_options );
 	}
 
 	public function flush_rewrites() {
@@ -102,12 +150,12 @@ class Tribe__Events__Updater {
 	}
 
 	/**
-	 * Reset update flags. All updates will run again on the
+	 * Reset update flags. All updates (3.0+) will run again on the
 	 * next page load
 	 *
 	 * @return void
 	 */
 	public function reset() {
-		$this->update_version_option( 0 );
+		$this->update_version_option( '3.0.0' );
 	}
 }
