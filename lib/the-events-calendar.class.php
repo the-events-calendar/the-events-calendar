@@ -116,7 +116,6 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 		public $todaySlug = 'today';
 		protected $postExceptionThrown = false;
 
-		protected static $options;
 		protected static $networkOptions;
 		public $displaying;
 		public $pluginDir;
@@ -612,6 +611,7 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 		 *
 		 */
 		public function maybeMigrateDatabase() {
+			// TODO: Move this to Tribe__Events__Updater
 			// future migrations should actually check the db_version
 
 			$installed_version = get_option( 'tribe_events_db_version' );
@@ -1759,13 +1759,8 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 		 *
 		 * @return array of options
 		 */
-		public static function getOptions( $force = false ) {
-			if ( ! isset( self::$options ) || $force ) {
-				$options       = get_option( TribeEvents::OPTIONNAME, array() );
-				self::$options = apply_filters( 'tribe_get_options', $options );
-			}
-
-			return self::$options;
+		public static function getOptions() {
+			return get_option( TribeEvents::OPTIONNAME, array() );
 		}
 
 		/**
@@ -1780,14 +1775,11 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 			if ( ! $optionName ) {
 				return null;
 			}
-
-			if ( ! isset( self::$options ) ) {
-				self::getOptions();
-			}
+			$options = self::getOptions();
 
 			$option = $default;
-			if ( isset( self::$options[$optionName] ) ) {
-				$option = self::$options[$optionName];
+			if ( isset( $options[$optionName] ) ) {
+				$option = $options[$optionName];
 			} elseif ( is_multisite() && isset( self::$tribeEventsMuDefaults ) && is_array( self::$tribeEventsMuDefaults ) && in_array( $optionName, array_keys( self::$tribeEventsMuDefaults ) ) ) {
 				$option = self::$tribeEventsMuDefaults[$optionName];
 			}
@@ -1810,16 +1802,7 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 			if ( $apply_filters == true ) {
 				$options = apply_filters( 'tribe-events-save-options', $options );
 			}
-			// @TODO use TribeEvents::getOptions
-			if ( update_option( TribeEvents::OPTIONNAME, $options ) ) {
-				self::$options = apply_filters( 'tribe_get_options', $options );
-
-				return true;
-			} else {
-				TribeEvents::$options = TribeEvents::getOptions();
-
-				return false;
-			}
+			update_option( TribeEvents::OPTIONNAME, $options );
 		}
 
 		/**
