@@ -1,39 +1,14 @@
 <?php
 
-/**
- * Class TribeEventsPro_SchemaUpdater
- */
-class TribeEventsPro_SchemaUpdater {
-	const SCHEMA_VERSION = '3.5';
 
-	private function do_updates() {
-		set_time_limit( 0 );
-		if ( $this->is_version_in_db_less_than( '3.5' ) ) {
-			$this->update_3_5();
-		}
-		tribe_update_option( 'pro-schema-version', self::SCHEMA_VERSION );
-	}
-
-	private function is_version_in_db_less_than( $version ) {
-		$version_in_db = tribe_get_option( 'pro-schema-version', 0 );
-		if ( version_compare( $version, $version_in_db ) > 0 ) {
-			return true;
-		}
-
-		return false;
-	}
-
-	private function update_3_5() {
-		$this->recurring_events_from_meta_to_child_posts();
-	}
-
+class Tribe__Events__Pro__Updates__Recurrence_Meta_To_Child_Post_Converter {
 	/**
 	 * Update recurring events to use multiple posts for events
 	 * in a series
 	 *
 	 * @return void
 	 */
-	private function recurring_events_from_meta_to_child_posts() {
+	public function do_conversion() {
 		$post_ids = $this->get_recurring_events_still_using_meta_storage();
 		foreach ( $post_ids as $p ) {
 			$this->convert_recurring_event_to_child_posts( $p );
@@ -59,6 +34,7 @@ class TribeEventsPro_SchemaUpdater {
 		$start_dates = array_map( 'strtotime', $start_dates );
 		foreach ( $start_dates as $date ) {
 			if ( ! empty( $date ) ) {
+				set_time_limit( 30 );
 				$instance = new TribeEventsPro_RecurrenceInstance( $event_id, $date );
 				$instance->save();
 				delete_post_meta( $event_id, '_EventStartDate', date( 'Y-m-d H:i:s', $date ) );
@@ -67,16 +43,4 @@ class TribeEventsPro_SchemaUpdater {
 		delete_post_meta( $event_id, '_EventStartDate' );
 		update_post_meta( $event_id, '_EventStartDate', $original );
 	}
-
-	public static function update_required() {
-		$updater = new self();
-
-		return $updater->is_version_in_db_less_than( self::SCHEMA_VERSION );
-	}
-
-	public static function init() {
-		$updater = new self();
-		$updater->do_updates();
-	}
 }
- 

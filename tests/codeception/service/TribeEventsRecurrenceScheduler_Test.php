@@ -10,7 +10,6 @@ class TribeEventsRecurrenceScheduler_Test extends WP_UnitTestCase {
 
 	public function setUp() {
 		parent::setUp();
-		TribeEvents::getOptions(TRUE); // clear the cache
 		TribeEventsRecurrenceMeta::reset_scheduler();
 	}
 

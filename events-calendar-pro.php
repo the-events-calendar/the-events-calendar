@@ -60,12 +60,9 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		public $mini_calendar_shortcode;
 
 		const REQUIRED_TEC_VERSION = '3.9';
-		const VERSION = '3.9';
+		const VERSION = '3.10a0';
 
-        /**
-         * Class constructor.
-         */
-        private function __construct() {
+		private function __construct() {
 			$this->pluginDir = trailingslashit( basename( dirname( __FILE__ ) ) );
 			$this->pluginPath = trailingslashit( dirname( __FILE__ ) );
 			$this->pluginUrl = plugins_url( $this->pluginDir );
@@ -76,7 +73,6 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			$this->weekSlug = sanitize_title(__('week', 'tribe-events-calendar-pro'));
 			$this->photoSlug = sanitize_title(__('photo', 'tribe-events-calendar-pro'));
 
-			require_once( $this->pluginPath . 'lib/tribeeventspro-schemaupdater.php' );
 			require_once( $this->pluginPath . 'lib/tribe-pro-template-factory.class.php' );
 			require_once( $this->pluginPath . 'lib/tribe-date-series-rules.class.php' );
 			require_once( $this->pluginPath . 'lib/tribe-ecp-custom-meta.class.php' );
@@ -105,9 +101,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			require_once( $this->pluginPath . 'lib/SingleEventMeta.php' );
 			require_once( $this->pluginPath . 'lib/Mini_Calendar_Shortcode.php' );
 
-			if ( TribeEventsPro_SchemaUpdater::update_required() ) {
-				add_action( 'admin_init', array( 'TribeEventsPro_SchemaUpdater', 'init' ), 10, 0 );
-			}
+			add_action( 'admin_init', array( $this, 'run_updates' ), 10, 0 );
 
 			// Tribe common resources
 			TribeCommonLibraries::register( 'advanced-post-manager', '1.0.5', $this->pluginPath . 'vendor/advanced-post-manager/tribe-apm.php' );
@@ -209,6 +203,22 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			add_filter( 'tribe_events_query_posts_joins', array($this, 'posts_join'));
 			add_filter( 'tribe_events_query_posts_fields', array($this, 'posts_fields'));
 
+		}
+
+		/**
+		 * Make necessary database updates on admin_init
+		 *
+		 * @return void
+		 */
+		public function run_updates() {
+			if ( !class_exists( 'Tribe__Events__Updater' ) ) {
+				return; // core needs to be updated for compatibility
+			}
+			require_once( $this->pluginPath . '/lib/Updater.php' );
+			$updater = new Tribe__Events__Pro__Updater( self::VERSION );
+			if ( $updater->update_required() ) {
+				$updater->do_updates();
+			}
 		}
 
 		/**
@@ -1457,6 +1467,23 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			return 1.60934;
 		}
 
+
+		/**
+		 * plugin deactivation callback
+		 * @see register_deactivation_hook()
+		 *
+		 * @param bool $network_deactivating
+		 */
+		public static function deactivate( $network_deactivating ) {
+			if ( !class_exists( 'TribeEvents' ) ) {
+				return; // can't do anything since core isn't around
+			}
+			require_once( TribeEvents::instance()->pluginPath . '/lib/Abstract_Deactivation.php' );
+			require_once( dirname( __FILE__ ) . '/lib/Deactivation.php' );
+			$deactivation = new Tribe__Events__Pro__Deactivation( $network_deactivating );
+			add_action( 'shutdown', array( $deactivation, 'deactivate' ) );
+		}
+
 		/**
 		 * The singleton function.
 		 *
@@ -1529,9 +1556,10 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 
 	register_activation_hook( __FILE__, 'tribe_ecp_activate' );
 	register_deactivation_hook( __FILE__, 'tribe_ecp_deactivate' );
-	register_uninstall_hook( __FILE__, 'tribe_ecp_uninstall' );
+	register_deactivation_hook( __FILE__, array( 'TribeEventsPro', 'deactivate' ) );
 
 	function tribe_ecp_activate() {
+		// TODO: move this to Tribe__Events__Pro__Updater
 		flush_rewrite_rules();
 		if ( function_exists( 'tribe_update_option' ) ) {
 			tribe_update_option( 'defaultValueReplace', get_option('ecp_defaultValueReplace_prev') );
@@ -1548,6 +1576,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 
 	// when we deactivate pro, we should reset some options
 	function tribe_ecp_deactivate() {
+		// TODO: move this to Tribe__Events__Pro__Deactivation
 		if ( function_exists( 'tribe_update_option' ) ) {
 			update_option('ecp_defaultValueReplace_prev', tribe_get_option('defaultValueReplace'));
 			tribe_update_option( 'defaultValueReplace', false );
@@ -1563,6 +1592,11 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		}
 	}
 
+	/**
+	 * The uninstall hook is no longer registered, but leaving the function
+	 * here to prevent a fatal error if uninstalled on a site that had
+	 * it registered previously.
+	 */
 	function tribe_ecp_uninstall() {
 	}
 
