@@ -6,6 +6,7 @@
  */
 class Tribe__Events__Updater {
 	protected $version_option = 'schema-version';
+	protected $reset_version = '3.9'; // when a reset() is called, go to this version
 	protected $current_version = 0;
 
 	public function __construct( $current_version ) {
@@ -32,8 +33,11 @@ class Tribe__Events__Updater {
 		try {
 			foreach ( $updates as $version => $callback ) {
 				if ( version_compare( $version, $this->current_version, '<=' ) && $this->is_version_in_db_less_than($version) ) {
-					call_user_func($callback);
+					call_user_func( $callback );
 				}
+			}
+			foreach ( $this->constant_updates() as $callback )  {
+				call_user_func( $callback );
 			}
 			$this->update_version_option( $this->current_version );
 		} catch ( \Exception $e ) {
@@ -58,8 +62,19 @@ class Tribe__Events__Updater {
 		return array(
 			'2.0.1' => array( $this, 'migrate_from_sp_events' ),
 			'2.0.6' => array( $this, 'migrate_from_sp_options' ),
-			'3.10a0' => array( $this, 'flush_rewrites' ),
-			'3.10a1' => array( $this, 'set_capabilities' ),
+		);
+	}
+
+	/**
+	 * Returns an array of callbacks that should be called
+	 * every time the version is updated
+	 *
+	 * @return array
+	 */
+	protected function constant_updates() {
+		return array(
+			array( $this, 'flush_rewrites' ),
+			array( $this, 'set_capabilities' ),
 		);
 	}
 
@@ -150,12 +165,12 @@ class Tribe__Events__Updater {
 	}
 
 	/**
-	 * Reset update flags. All updates (3.0+) will run again on the
-	 * next page load
+	 * Reset update flags. All updates past $this->reset_version will
+	 * run again on the next page load
 	 *
 	 * @return void
 	 */
 	public function reset() {
-		$this->update_version_option( '3.0.0' );
+		$this->update_version_option( $this->reset_version );
 	}
 }
