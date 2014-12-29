@@ -59,7 +59,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		 */
 		public $mini_calendar_shortcode;
 
-		const REQUIRED_TEC_VERSION = '3.9';
+		const REQUIRED_TEC_VERSION = '3.10a2';
 		const VERSION = '3.10a0';
 
 		private function __construct() {
@@ -202,6 +202,8 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			// filter the query sql to get the recurrence end date
 			add_filter( 'tribe_events_query_posts_joins', array($this, 'posts_join'));
 			add_filter( 'tribe_events_query_posts_fields', array($this, 'posts_fields'));
+
+			add_filter( 'tribe_events_default_value_strategy', array( $this, 'set_default_value_strategy' ) );
 
 		}
 
@@ -717,6 +719,21 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			$forum_text = implode($forum_text );
 
 			return $forum_text;
+		}
+
+		/**
+		 * If the user has chosen to replace default values, set up
+		 * the Pro class to read those defaults from options
+		 *
+		 * @param Tribe__Events__Default_Values $strategy
+		 * @return Tribe__Events__Default_Values
+		 */
+		public function set_default_value_strategy( $strategy ) {
+			if ( tribe_get_option( 'defaultValueReplace' ) ) {
+				require_once( dirname( __FILE__ ) . '/lib/Default_Values.php' );
+				$strategy = new Tribe__Events__Pro__Default_Values();
+			}
+			return $strategy;
 		}
 
 		/**
@@ -1554,43 +1571,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		return $plugins;
 	}
 
-	register_activation_hook( __FILE__, 'tribe_ecp_activate' );
-	register_deactivation_hook( __FILE__, 'tribe_ecp_deactivate' );
 	register_deactivation_hook( __FILE__, array( 'TribeEventsPro', 'deactivate' ) );
-
-	function tribe_ecp_activate() {
-		// TODO: move this to Tribe__Events__Pro__Updater
-		flush_rewrite_rules();
-		if ( function_exists( 'tribe_update_option' ) ) {
-			tribe_update_option( 'defaultValueReplace', get_option('ecp_defaultValueReplace_prev') );
-			delete_option('ecp_defaultValueReplace_prev');
-		} else {
-			if (is_array(get_option('tribe_events_calendar_options'))) {
-				$tec_options = get_option('tribe_events_calendar_options');
-				$tec_options['defaultValueReplace'] = get_option('ecp_defaultValueReplace_prev');
-				update_option('tribe_events_calendar_options', $tec_options);
-				delete_option('ecp_defaultValueReplace_prev');
-			}
-		}
-	}
-
-	// when we deactivate pro, we should reset some options
-	function tribe_ecp_deactivate() {
-		// TODO: move this to Tribe__Events__Pro__Deactivation
-		if ( function_exists( 'tribe_update_option' ) ) {
-			update_option('ecp_defaultValueReplace_prev', tribe_get_option('defaultValueReplace'));
-			tribe_update_option( 'defaultValueReplace', false );
-		} else {
-			if (is_array(get_option('tribe_events_calendar_options'))) {
-				$tec_options = get_option('tribe_events_calendar_options');
-				if ( array_key_exists('defaultValueReplace', $tec_options) ) {
-					update_option('ecp_defaultValueReplace_prev', $tec_options['defaultValueReplace']);
-					$tec_options['defaultValueReplace'] = false;
-					update_option('tribe_events_calendar_options', $tec_options);
-		}
-	}
-		}
-	}
 
 	/**
 	 * The uninstall hook is no longer registered, but leaving the function
