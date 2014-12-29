@@ -198,6 +198,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 
 			add_filter( 'tribe_events_register_venue_type_args', array( $this, 'addSupportsThumbnail' ), 10, 1 );
 			add_filter( 'tribe_events_register_organizer_type_args', array( $this, 'addSupportsThumbnail' ), 10, 1 );
+			add_action( 'post_updated_messages', array( $this, 'updatePostMessages' ), 20 );
 
 			// filter the query sql to get the recurrence end date
 			add_filter( 'tribe_events_query_posts_joins', array($this, 'posts_join'));
