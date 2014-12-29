@@ -1614,4 +1614,17 @@ if ( class_exists( 'TribeEvents' ) ) {
 
 		return false;
 	}
+
+	/**
+	 * Get the default value for a field
+	 *
+	 * @param string $field
+	 * @return mixed
+	 */
+	function tribe_get_default_value( $field ) {
+		$field = strtolower( $field );
+		$defaults = TribeEvents::instance()->defaults();
+		$value = call_user_func( array( $defaults, $field ) );
+		return $value;
+	}
 }

@@ -24,7 +24,7 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 		const VENUE_POST_TYPE     = 'tribe_venue';
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
 
-		const VERSION       = '3.10a1';
+		const VERSION       = '3.10a2';
 		const FEED_URL      = 'http://tri.be/category/products/feed/';
 		const INFO_API_URL  = 'http://wpapi.org/api/plugin/the-events-calendar.php';
 		const WP_PLUGIN_URL = 'http://wordpress.org/extend/plugins/the-events-calendar/';
@@ -178,6 +178,9 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 
 		public $singular_organizer_label;
 		public $plural_organizer_label;
+
+		/** @var Tribe__Events__Default_Values */
+		private $default_values = NULL;
 
 		public static $tribeEventsMuDefaults;
 
@@ -591,6 +594,9 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 			$this->postOrganizerTypeArgs['public']            = class_exists( 'TribeEventsPro' ) ? true : false;
 			$this->currentDay                                 = '';
 			$this->errors                                     = '';
+
+			require_once( dirname( __FILE__ ) . '/Default_Values.php' );
+			$this->default_values                             = apply_filters( 'tribe_events_default_value_strategy', new Tribe__Events__Default_Values() );
 
 			TribeEventsQuery::init();
 			Tribe__Events__Backcompat::init();
@@ -1314,9 +1320,8 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 		 */
 		public function displayEventVenueDropdown( $postId ) {
 			$VenueID         = get_post_meta( $postId, '_EventVenueID', true );
-			$defaultsEnabled = class_exists( 'TribeEventsPro' ) ? tribe_get_option( 'defaultValueReplace' ) : false;
-			if ( ( ! $postId || get_post_status( $postId ) == 'auto-draft' ) && ! $VenueID && $defaultsEnabled && ( ( is_admin() && get_current_screen()->action == 'add' ) || ! is_admin() ) ) {
-				$VenueID = tribe_get_option( 'eventsDefaultVenueID' );
+			if ( ( ! $postId || get_post_status( $postId ) == 'auto-draft' ) && ! $VenueID && ( ( is_admin() && get_current_screen()->action == 'add' ) || ! is_admin() ) ) {
+				$VenueID = $this->defaults()->venue_id();
 			}
 			$VenueID = apply_filters( 'tribe_display_event_venue_dropdown_id', $VenueID );
 			?>
@@ -1337,9 +1342,8 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 		 */
 		public function displayEventOrganizerDropdown( $postId ) {
 			$curOrg          = get_post_meta( $postId, '_EventOrganizerID', true );
-			$defaultsEnabled = class_exists( 'TribeEventsPro' ) ? tribe_get_option( 'defaultValueReplace' ) : false;
-			if ( ( ! $postId || get_post_status( $postId ) == 'auto-draft' ) && ! $curOrg && $defaultsEnabled && ( ( is_admin() && get_current_screen()->action == 'add' ) || ! is_admin() ) ) {
-				$curOrg = tribe_get_option( 'eventsDefaultOrganizerID' );
+			if ( ( ! $postId || get_post_status( $postId ) == 'auto-draft' ) && ! $curOrg && ( ( is_admin() && get_current_screen()->action == 'add' ) || ! is_admin() ) ) {
+				$curOrg = $this->defaults()->organizer_id();
 			}
 			$curOrg = apply_filters( 'tribe_display_event_organizer_dropdown_id', $curOrg );
 
@@ -2611,7 +2615,7 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 		}
 
 		/**
-		 * Adds an alias for get_post_meta so we can do extra stuff to the plugin values.
+		 * Adds an alias for get_post_meta so we can override empty values with defaults.
 		 * If you need the raw unfiltered data, use get_post_meta directly.
 		 * This is mainly for templates.
 		 *
@@ -2622,17 +2626,13 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 		 * @return mixed The meta.
 		 */
 		public function getEventMeta( $id, $meta, $single = true ) {
-			$use_def_if_empty = class_exists( 'TribeEventsPro' ) ? tribe_get_option( 'defaultValueReplace' ) : false;
-			if ( $use_def_if_empty ) {
-				$cleaned_tag = str_replace( '_Event', '', $meta );
-				$default     = tribe_get_option( 'eventsDefault' . $cleaned_tag );
-				$default     = apply_filters( 'filter_eventsDefault' . $cleaned_tag, $default );
-
-				return ( get_post_meta( $id, $meta, $single ) !== false ) ? get_post_meta( $id, $meta, $single ) : $default;
-			} else {
-				return get_post_meta( $id, $meta, $single );
+			$value = get_post_meta( $id, $meta, $single );
+			if ( $value === FALSE ) {
+				$method = str_replace( '_Event', '', $meta );
+				$default = call_user_func( array( $this->defaults(), strtolower($method) ) );
+				$value = apply_filters( 'filter_eventsDefault' . $method, $default );
 			}
-
+			return $value;
 		}
 
 		/**
@@ -3163,7 +3163,7 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 					if ( isset( $_POST['Event' . $cleaned_tag] ) ) {
 						$$tag = stripslashes_deep( $_POST['Event' . $cleaned_tag] );
 					} else {
-						$$tag = ( class_exists( 'TribeEventsPro' ) && $this->defaultValueReplaceEnabled() ) ? tribe_get_option( 'eventsDefault' . $cleaned_tag ) : "";
+						$$tag = call_user_func( array( $this->defaults(), $cleaned_tag ) );
 					}
 				}
 			}
@@ -3188,8 +3188,10 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 				}
 
 			} else {
-				$_VenueVenue = tribe_get_option( 'eventsDefaultVenueID' );
-				$_VenueVenue = ( '0' !== $_VenueVenue ) ? $_VenueVenue : null;
+				$_VenueVenue = $this->defaults()->venue_id();
+				if ( !$_VenueVenue ) {
+					$_VenueVenue = NULL;
+				}
 			}
 
 			$_EventAllDay    = isset( $_EventAllDay ) ? $_EventAllDay : false;
@@ -3270,9 +3272,9 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 				foreach ( $this->venueTags as $tag ) {
 					if ( $postId && isset( $saved ) && $saved ) { //if there is a post AND the post has been saved at least once.
 						$$tag = esc_html( get_post_meta( $postId, $tag, true ) );
-					} elseif ( $this->defaultValueReplaceEnabled() ) {
+					} else {
 						$cleaned_tag = str_replace( '_Venue', '', $tag );
-						$$tag        = tribe_get_option( 'eventsDefault' . $cleaned_tag );
+						$$tag = call_user_func( array( $this->defaults(), $cleaned_tag ) );
 					}
 				}
 			}
@@ -3370,6 +3372,14 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 
 			return tribe_get_option( 'defaultValueReplace' );
 
+		}
+
+		/**
+		 * Get the current default value strategy
+		 * @return Tribe__Events__Default_Values
+		 */
+		public function defaults() {
+			return $this->default_values;
 		}
 
 		/**

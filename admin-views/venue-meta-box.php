@@ -48,13 +48,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<td>
 		<?php
 		$countries = TribeEventsViewHelpers::constructCountries( $postId );
-		$defaultCountry = tribe_get_option( 'defaultCountry' );
+		$defaultCountry = tribe_get_default_value( 'country' );
 		if ( isset( $_VenueCountry ) && $_VenueCountry ) {
 			$current = $_VenueCountry;
-		} elseif ( isset( $defaultCountry[1] ) && class_exists( 'TribeEventsPro' ) && tribe_get_option( 'defaultValueReplace' ) ) {
+		} elseif ( isset( $defaultCountry[1] ) ) {
 			$current = $defaultCountry[1];
 		} else {
 			$current = null;
+		}
+		if ( is_array( $current ) && isset( $current[1] ) ) {
+			$current = $current[1];
 		}
 		?>
 		<select class="chosen" tabindex="<?php tribe_events_tab_index(); ?>" name='venue[Country]' id="EventCountry">
@@ -77,16 +80,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 <tr class="venue">
 	<?php if ( ! isset( $_VenueStateProvince ) || $_VenueStateProvince == "" ) {
 		$_VenueStateProvince = - 1;
-	}
-	$defaultState = tribe_get_option( 'eventsDefaultState' );
-	$defaultProvince = tribe_get_option( 'eventsDefaultProvince' );
-	$_VenueProvince = isset( $_VenueProvince ) ? $_VenueProvince : '';
-	$currentState = ( $_VenueStateProvince == - 1 && tribe_get_option( 'defaultValueReplace' ) ) ? $defaultState : $_VenueStateProvince;
-	$currentProvince = ( ! isset( $_VenueProvince ) && tribe_get_option( 'defaultValueReplace' ) ) ? $defaultProvince : $_VenueProvince;
+	};
+	$currentState = ( $_VenueStateProvince == - 1 ) ? tribe_get_default_value( 'state' ) : $_VenueStateProvince;
+	$currentProvince = empty( $_VenueProvince ) ? tribe_get_default_value( 'province' ) : $_VenueProvince;
 	?>
 	<td><?php _e( 'State or Province:', 'tribe-events-calendar' ); ?></td>
 	<td>
-		<input tabindex="<?php tribe_events_tab_index(); ?>" id="StateProvinceText" name="venue[Province]" type='text' name='' size='25' value='<?php echo ( isset( $_VenueProvince ) && $_VenueProvince != '' ) ? esc_attr( $currentProvince ) : esc_attr( '' ); ?>' />
+		<input tabindex="<?php tribe_events_tab_index(); ?>" id="StateProvinceText" name="venue[Province]" type='text' name='' size='25' value='<?php echo esc_attr( $currentProvince ); ?>' />
 		<select class="chosen" tabindex="<?php tribe_events_tab_index(); ?>" id="StateProvinceSelect" name="venue[State]">
 			<option value=""><?php _e( 'Select a State:', 'tribe-events-calendar' ); ?></option>
 			<?php

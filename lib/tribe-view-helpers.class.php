@@ -290,7 +290,7 @@ if ( ! class_exists( 'TribeEventsViewHelpers' ) ) {
 				if ( $countryValue ) {
 					$defaultCountry = array( array_search( $countryValue, $countries ), $countryValue );
 				} else {
-					$defaultCountry = tribe_get_option( 'defaultCountry' );
+					$defaultCountry = tribe_get_default_value( 'country' );
 				}
 				if ( $defaultCountry && $defaultCountry[0] != "" ) {
 					$selectCountry = array_shift( $countries );
