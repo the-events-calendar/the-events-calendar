@@ -24,7 +24,8 @@ input::-webkit-input-placeholder, textarea::-webkit-input-placeholder { color: #
 .eventForm #event-meta td { vertical-align: top; }
 .eventForm #event-meta td div { margin-bottom: 10px; }
 .eventForm #event-meta td div:last-child {margin-bottom: 20px;}
-.eventForm select, .eventForm input {font-size:11px;}
+.eventForm select, .eventForm input, .eventForm textarea { font-size:11px; }
+.eventForm textarea { width: 100% }
 .eventForm h4 {font-size:1.2em; margin:1em 0 1em;}
 .eventForm h4.event-time {margin-top: 0;}
 .tribe-community-event-info {margin: 10px; width:100%;}
