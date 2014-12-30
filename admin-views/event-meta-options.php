@@ -9,6 +9,7 @@
 		<li style="list-style:inside;"><?php _e( 'Field type. These are:', 'tribe-events-calendar-pro' ); ?></li>
 		<ul class="admin-list" style="margin-left:20px;">
 			<li style="list-style:inside circle;"><?php _e( 'Text - for the user to input text', 'tribe-events-calendar-pro' ); ?></li>
+			<li style="list-style:inside circle;"><?php _e( 'Text Area - identical to a text field but providing a larger area for the user to input text', 'tribe-events-calendar-pro' ); ?></li>
 			<li style="list-style:inside circle;"><?php _e( 'URL - for the user to input a URL', 'tribe-events-calendar-pro' ); ?></li>
 			<li style="list-style:inside circle;"><?php _e( 'Checkbox - for multiple choice', 'tribe-events-calendar-pro' ); ?></li>
 			<li style="list-style:inside circle;"><?php _e( 'Radio Button - to select only one', 'tribe-events-calendar-pro' ); ?></li>
@@ -52,7 +53,8 @@
 			</td>
 			<td>
 				<select name="custom-field-type[<?php echo $index ?>]" data-name-template='custom-field-type' data-count='<?php echo $count ?>'>
-					<option value="text" <?php selected( isset( $field['type'] ) && $field['type'] == 'textarea' ) ?>><?php _e( 'Text', 'tribe-events-calendar-pro' ) ?></option>
+					<option value="text" <?php selected( isset( $field['type'] ) && $field['type'] == 'text' ) ?>><?php _e( 'Text', 'tribe-events-calendar-pro' ) ?></option>
+					<option value="textarea" <?php selected( isset( $field['type'] ) && $field['type'] == 'textarea' ) ?>><?php _e( 'Text Area', 'tribe-events-calendar-pro' ) ?></option>
 					<option value="url" <?php selected( isset( $field['type'] ) && $field['type'] == 'url' ) ?>><?php _e( 'URL', 'tribe-events-calendar-pro' ) ?></option>
 					<option value="radio" <?php selected( isset( $field['type'] ) && $field['type'] == 'radio' ) ?>><?php _e( 'Radio', 'tribe-events-calendar-pro' ) ?></option>
 					<option value="checkbox" <?php selected( isset( $field['type'] ) && $field['type'] == 'checkbox' ) ?>><?php _e( 'Checkbox', 'tribe-events-calendar-pro' ) ?></option>
