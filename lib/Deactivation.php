@@ -25,6 +25,7 @@ class Tribe__Events__Pro__Deactivation extends Tribe__Events__Abstract_Deactivat
 	protected function blog_deactivate() {
 		$this->set_flags();
 		$this->flush_rewrite_rules();
+		do_action( 'tribe_events_pro_blog_deactivate' );
 	}
 
 	/**
