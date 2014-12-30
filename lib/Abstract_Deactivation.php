@@ -41,7 +41,7 @@ abstract class Tribe__Events__Abstract_Deactivation {
 		/** @var wpdb $wpdb */
 		global $wpdb;
 		$site = get_current_site();
-		$blog_ids = $wpdb->get_col( $wpdb->prepare( 'SELECT blog_id FROM {$wpdb->blogs} WHERE site_id=%d', $site->id ) );
+		$blog_ids = $wpdb->get_col( $wpdb->prepare( "SELECT blog_id FROM {$wpdb->blogs} WHERE site_id=%d", $site->id ) );
 		$large = wp_is_large_network();
 		foreach ( $blog_ids as $blog ) {
 			set_time_limit( 30 );
