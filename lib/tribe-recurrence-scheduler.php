@@ -39,7 +39,6 @@ class TribeEventsRecurrenceScheduler {
 		}
 		add_action( self::CRON_HOOK, array( $this, 'schedule_future_recurring_events' ), 20, 0 );
 		add_action( 'tribe_events_pro_blog_deactivate', array( $this, 'clear_scheduled_task' ) );
-		add_action( 'tribe_events_pro_multisite_deactivate', array( $this, 'clear_scheduled_task' ) );
 	}
 
 	public function remove_hooks() {
