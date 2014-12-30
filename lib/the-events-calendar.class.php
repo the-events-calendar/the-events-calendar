@@ -3471,8 +3471,14 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 				}
 			}
 
-			// create a new date object
-			$date = new DateTime( $date );
+			// Create a new date object: a badly formed date can trigger an exception - in such
+			// a scenario try again and default to the current time instead
+			try {
+				$date = new DateTime( $date );
+			}
+			catch ( Exception $e ) {
+				$date = new DateTime;
+			}
 
 			// set date object to be the first of the month -- all months have this day!
 			$date->setDate( $date->format( 'Y' ), $date->format( 'm' ), 1 );
@@ -3500,8 +3506,14 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 				}
 			}
 
-			// create a new date object
-			$date = new DateTime( $date );
+			// Create a new date object: a badly formed date can trigger an exception - in such
+			// a scenario try again and default to the current time instead
+			try {
+				$date = new DateTime( $date );
+			}
+			catch ( Exception $e ) {
+				$date = new DateTime;
+			}
 
 			// set date object to be the first of the month -- all months have this day!
 			$date->setDate( $date->format( 'Y' ), $date->format( 'm' ), 1 );
