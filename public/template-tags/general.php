@@ -1209,39 +1209,18 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 */
 	function tribe_events_template_data( $event, array $additional = null ) {
 		$has_image      = false;
-		$start_time     = '';
-		$end_time       = '';
 		$image_src      = '';
 		$image_tool_src = '';
+		$date_display   = '';
 
-		// @TODO use tribe_events_event_schedule_details()
-		$date_format = tribe_get_date_format( true );
-		$time_format = get_option( 'time_format', TribeDateUtils::TIMEFORMAT );
+		//Disable recurring event info in tooltip
+		$ecp = TribeEventsPro::instance();
+		$ecp->disable_recurring_info_tooltip();
+		
+		$date_display = strip_tags( tribe_events_event_schedule_details( $event ) );
 
-		$date_time_separator = tribe_get_option( 'dateTimeSeparator', ' @ ' );
-
-		if ( ! empty( $event->EventStartDate ) ) {
-			$start_time .= date_i18n( $date_format, strtotime( $event->EventStartDate ) );
-		}
-
-		if ( ! tribe_get_event_meta( $event->ID, '_EventAllDay', true ) ) {
-			$start_time .= $date_time_separator . date_i18n( $time_format, strtotime( $event->EventStartDate ) );
-		}
-
-		if ( ! empty( $event->EventEndDate ) && $event->EventStartDate !== $event->EventEndDate ) {
-			if ( date( 'Y-m-d', strtotime( $event->EventStartDate ) ) == date( 'Y-m-d', strtotime( $event->EventEndDate ) ) ) {
-
-				if ( ! tribe_get_event_meta( $event->ID, '_EventAllDay', true ) ) {
-					$end_time .= date_i18n( $time_format, strtotime( $event->EventEndDate ) );
-				}
-			} else {
-				$end_time .= date_i18n( $date_format, strtotime( $event->EventEndDate ) );
-
-				if ( ! tribe_get_event_meta( $event->ID, '_EventAllDay', true ) ) {
-					$end_time .= $date_time_separator . date_i18n( $time_format, strtotime( $event->EventEndDate ) );
-				}
-			}
-		}
+		// Re-enable recurring event info
+		$ecp->enable_recurring_info_tooltip();
 
 		if ( function_exists( 'has_post_thumbnail' ) && has_post_thumbnail( $event->ID ) ) {
 			$has_image = true;
@@ -1268,8 +1247,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 			'title'           => $event->post_title,
 			'permalink'       => tribe_get_event_link( $event->ID ),
 			'imageSrc'        => $image_src,
-			'startTime'       => $start_time,
-			'endTime'         => $end_time,
+			'dateDisplay'	  => $date_display,
 			'imageTooltipSrc' => $image_tool_src,
 			'excerpt'         => $excerpt,
 			'categoryClasses' => $category_classes,
