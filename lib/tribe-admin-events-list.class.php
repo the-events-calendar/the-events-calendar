@@ -160,11 +160,12 @@ if ( ! class_exists( 'TribeEventsAdminList' ) ) {
 		 * @return array The modified column headers.
 		 */
 		public static function column_headers( $columns ) {
+			$events_label_singular = tribe_get_event_label_singular();
 
 			foreach ( (array) $columns as $key => $value ) {
 				$mycolumns[$key] = $value;
 				if ( $key == 'author' ) {
-					$mycolumns['events-cats'] = __( 'Event Categories', 'tribe-events-calendar' );
+					$mycolumns['events-cats'] = sprintf( __( '%s Categories', 'tribe-events-calendar' ), $events_label_singular );
 				}
 			}
 			$columns = $mycolumns;

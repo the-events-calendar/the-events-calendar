@@ -129,12 +129,13 @@ if ( ! class_exists( 'Tribe_Events_Day_Template' ) ) {
 		}
 
 		protected function nothing_found_notice() {
+			$events_label_plural = tribe_get_event_label_plural();
 			list( $search_term, $tax_term, $geographic_term ) = $this->get_search_terms();
 
 			if ( empty( $search_term ) && empty( $geographic_term ) && ! empty( $tax_term ) ) {
-				TribeEvents::setNotice( 'events-not-found', sprintf( __( 'No matching events listed under %s scheduled for <strong>%s</strong>. Please try another day.', 'tribe-events-calendar' ), $tax_term, date_i18n( tribe_get_date_format( true ), strtotime( get_query_var( 'eventDate' ) ) ) ) );
+				TribeEvents::setNotice( 'events-not-found', sprintf( __( 'No matching %s listed under %s scheduled for <strong>%s</strong>. Please try another day.', 'tribe-events-calendar' ), strtolower( $events_label_plural ), $tax_term, date_i18n( tribe_get_date_format( true ), strtotime( get_query_var( 'eventDate' ) ) ) ) );
 			} elseif ( empty( $search_term ) && empty( $geographic_term ) ) {
-				TribeEvents::setNotice( 'events-not-found', sprintf( __( 'No events scheduled for <strong>%s</strong>. Please try another day.', 'tribe-events-calendar' ), date_i18n( tribe_get_date_format( true ), strtotime( get_query_var( 'eventDate' ) ) ) ) );
+				TribeEvents::setNotice( 'events-not-found', sprintf( __( 'No %s scheduled for <strong>%s</strong>. Please try another day.', 'tribe-events-calendar' ), strtolower( $events_label_plural ), date_i18n( tribe_get_date_format( true ), strtotime( get_query_var( 'eventDate' ) ) ) ) );
 			} else {
 				parent::nothing_found_notice();
 			}

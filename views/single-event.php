@@ -14,6 +14,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
+$events_label_singular = tribe_get_event_label_singular();
+$events_label_plural = tribe_get_event_label_plural();
+
 $event_id = get_the_ID();
 
 ?>
@@ -21,7 +24,7 @@ $event_id = get_the_ID();
 <div id="tribe-events-content" class="tribe-events-single vevent hentry">
 
 	<p class="tribe-events-back">
-		<a href="<?php echo tribe_get_events_link() ?>"> <?php _e( '&laquo; All Events', 'tribe-events-calendar' ) ?></a>
+		<a href="<?php echo tribe_get_events_link() ?>"> <?php printf( __( '&laquo; All %s', 'tribe-events-calendar' ), $events_label_plural ); ?></a>
 	</p>
 
 	<!-- Notices -->
@@ -40,7 +43,7 @@ $event_id = get_the_ID();
 	<!-- Event header -->
 	<div id="tribe-events-header" <?php tribe_events_the_header_attributes() ?>>
 		<!-- Navigation -->
-		<h3 class="tribe-events-visuallyhidden"><?php _e( 'Event Navigation', 'tribe-events-calendar' ) ?></h3>
+		<h3 class="tribe-events-visuallyhidden"><?php printf( __( '%s Navigation', 'tribe-events-calendar' ), $events_label_singular ); ?></h3>
 		<ul class="tribe-events-sub-nav">
 			<li class="tribe-events-nav-previous"><?php tribe_the_prev_event_link( '<span>&laquo;</span> %title%' ) ?></li>
 			<li class="tribe-events-nav-next"><?php tribe_the_next_event_link( '%title% <span>&raquo;</span>' ) ?></li>
@@ -86,7 +89,7 @@ $event_id = get_the_ID();
 	<div id="tribe-events-footer">
 		<!-- Navigation -->
 		<!-- Navigation -->
-		<h3 class="tribe-events-visuallyhidden"><?php _e( 'Event Navigation', 'tribe-events-calendar' ) ?></h3>
+		<h3 class="tribe-events-visuallyhidden"><?php printf( __( '%s Navigation', 'tribe-events-calendar' ), $events_label_singular ); ?></h3>
 		<ul class="tribe-events-sub-nav">
 			<li class="tribe-events-nav-previous"><?php tribe_the_prev_event_link( '<span>&laquo;</span> %title%' ) ?></li>
 			<li class="tribe-events-nav-next"><?php tribe_the_next_event_link( '%title% <span>&raquo;</span>' ) ?></li>

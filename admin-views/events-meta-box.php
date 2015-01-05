@@ -8,6 +8,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
+$events_label_singular = tribe_get_event_label_singular();
+$events_label_plural = tribe_get_event_label_plural();
+
 ?>
 <style type="text/css">
 	<?php if( class_exists( 'Eventbrite_for_TribeEvents' ) ) : ?>
@@ -30,17 +33,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<tr>
 			<td colspan="2" class="tribe_sectionheader">
 				<div class="tribe_sectionheader" style="">
-					<h4><?php _e( 'Event Time &amp; Date', 'tribe-events-calendar' ); ?></h4></div>
+					<h4><?php printf( __( '%s Time &amp; Date', 'tribe-events-calendar' ), $events_label_singular ); ?></h4></div>
 			</td>
 		</tr>
 		<tr>
 			<td colspan="2">
 				<table class="eventtable">
 					<tr id="recurrence-changed-row">
-						<td colspan='2'><?php _e( "You have changed the recurrence rules of this event.  Saving the event will update all future events.  If you did not mean to change all events, then please refresh the page.", 'tribe-events-calendar' ) ?></td>
+						<td colspan='2'><?php printf( __( 'You have changed the recurrence rules of this %1$s.  Saving the %1$s will update all future %2$s.  If you did not mean to change all %2$s, then please refresh the page.', 'tribe-events-calendar' ), strtolower( $events_label_singular ), strtolower( $events_label_plural ) ); ?></td>
 					</tr>
 					<tr>
-						<td><?php _e( 'All Day Event:', 'tribe-events-calendar' ); ?></td>
+						<td><?php printf( __( 'All Day %s:', 'tribe-events-calendar' ), $events_label_singular ); ?></td>
 						<td>
 							<input tabindex="<?php tribe_events_tab_index(); ?>" type="checkbox" id="allDayCheckbox" name="EventAllDay" value="yes" <?php echo $isEventAllDay; ?> />
 						</td>
@@ -95,7 +98,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<table id="event_venue" class="eventtable">
 		<tr>
 			<td colspan="2" class="tribe_sectionheader">
-				<h4><?php _e( 'Event Location Details', 'tribe-events-calendar' ); ?></h4></td>
+				<h4><?php printf( __( '%s Location Details', 'tribe-events-calendar' ), $events_label_singular ); ?></h4></td>
 		</tr>
 		<?php do_action( 'tribe_venue_table_top', $postId ) ?>
 		<?php include( $this->pluginPath . 'admin-views/venue-meta-box.php' ); ?>
@@ -104,7 +107,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<table id="event_organizer" class="eventtable">
 		<tr>
 			<td colspan="2" class="tribe_sectionheader">
-				<h4><?php _e( 'Event Organizer Details', 'tribe-events-calendar' ); ?></h4></td>
+				<h4><?php printf( __( '%1$s %2$s Details', 'tribe-events-calendar' ), $events_label_singular, tribe_get_organizer_label_singular() ); ?></h4></td>
 		</tr>
 		<?php do_action( 'tribe_organizer_table_top', $postId ) ?>
 		<?php include( $this->pluginPath . 'admin-views/organizer-meta-box.php' ); ?>
@@ -113,7 +116,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<table id="event_url" class="eventtable">
 		<tr>
 			<td colspan="2" class="tribe_sectionheader">
-				<h4><?php _e( 'Event Website', 'tribe-events-calendar' ); ?></h4></td>
+				<h4><?php printf( __( '%s Website', 'tribe-events-calendar' ), $events_label_singular ); ?></h4></td>
 		</tr>
 		<tr>
 			<td style="width:172px;"><?php _e( 'URL:', 'tribe-events-calendar' ); ?></td>
@@ -130,7 +133,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<?php if ( tribe_events_admin_show_cost_field() ) : ?>
 			<tr>
 				<td colspan="2" class="tribe_sectionheader">
-					<h4><?php _e( 'Event Cost', 'tribe-events-calendar' ); ?></h4></td>
+					<h4><?php printf( __( '%s Cost', 'tribe-events-calendar' ), $events_label_singular ); ?></h4></td>
 			</tr>
 			<tr>
 				<td><?php _e( 'Currency Symbol:', 'tribe-events-calendar' ); ?></td>
@@ -164,7 +167,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<tr>
 				<td></td>
 				<td>
-					<small><?php _e( 'Enter a 0 for events that are free or leave blank to hide the field.', 'tribe-events-calendar' ); ?></small>
+					<small><?php printf( __( 'Enter a 0 for %s that are free or leave blank to hide the field.', 'tribe-events-calendar' ), strtolower( $events_label_plural ) ); ?></small>
 				</td>
 			</tr>
 		<?php endif; ?>

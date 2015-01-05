@@ -50,6 +50,28 @@ if ( class_exists( 'TribeEvents' ) ) {
 	}
 
 	/**
+	 * Get Event Label Singular
+	 *
+	 * Returns the singular version of the Event Label
+	 *
+	 * @return string
+	 */
+	function tribe_get_event_label_singular() {
+		return apply_filters( 'tribe_event_label_singular', __( 'Event', 'tribe-events-calendar' ) );
+	}
+
+	/**
+	 * Get Event Label Plural
+	 *
+	 * Returns the plural version of the Event Label
+	 *
+	 * @return string
+	 */
+	function tribe_get_event_label_plural() {
+		return apply_filters( 'tribe_event_label_plural', __( 'Events', 'tribe-events-calendar' ) );
+	}
+
+	/**
 	 * Includes a template part, similar to the WP get template part, but looks
 	 * in the correct directories for Tribe Events templates
 	 *
@@ -354,6 +376,8 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 * @return string $html (echo if provided in $args)
 	 */
 	function tribe_get_event_categories( $post_id = null, $args = array() ) {
+		$events_label_singular = tribe_get_event_label_singular();
+
 		$post_id    = is_null( $post_id ) ? get_the_ID() : $post_id;
 		$defaults   = array(
 			'echo'         => false,
@@ -367,7 +391,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 		$categories = tribe_get_event_taxonomy( $post_id, $args );
 
 		// check for the occurances of links in the returned string
-		$label = is_null( $args['label'] ) ? _n( 'Event Category', 'Event Categories', substr_count( $categories, "<a href" ), 'tribe-events-calendar' ) : $args['label'];
+		$label = is_null( $args['label'] ) ? sprintf( _n( '%s Category', '%s Categories', substr_count( $categories, "<a href" ), 'tribe-events-calendar' ), $events_label_singular ) : $args['label'];
 
 		$html = ! empty( $categories ) ? sprintf(
 			'%s%s:%s %s%s%s',
@@ -504,13 +528,15 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 * @category Events
 	 */
 	function tribe_events_before_html() {
+		$events_label_plural = tribe_get_event_label_plural();
+
 		$before = stripslashes( tribe_get_option( 'tribeEventsBeforeHTML', '' ) );
 		$before = wptexturize( $before );
 		$before = convert_chars( $before );
 		$before = wpautop( $before );
 		$before = do_shortcode( stripslashes( shortcode_unautop( $before ) ) );
 		$before = '<div class="tribe-events-before-html">' . $before . '</div>';
-		$before = $before . '<span class="tribe-events-ajax-loading"><img class="tribe-events-spinner-medium" src="' . tribe_events_resource_url( 'images/tribe-loading.gif' ) . '" alt="' . __( 'Loading Events', 'tribe-events-calendar' ) . '" /></span>';
+		$before = $before . '<span class="tribe-events-ajax-loading"><img class="tribe-events-spinner-medium" src="' . tribe_events_resource_url( 'images/tribe-loading.gif' ) . '" alt="' . sprintf( __( 'Loading %s', 'tribe-events-calendar' ), $events_label_plural ) . '" /></span>';
 
 		echo apply_filters( 'tribe_events_before_html', $before );
 	}

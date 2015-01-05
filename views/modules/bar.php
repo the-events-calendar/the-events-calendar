@@ -60,7 +60,7 @@ $current_url = esc_url( add_query_arg( $wp->query_string, '', home_url( $wp->req
 						</div>
 					<?php endforeach; ?>
 					<div class="tribe-bar-submit">
-						<input class="tribe-events-button tribe-no-param" type="submit" name="submit-bar" value="<?php _e( 'Find Events', 'tribe-events-calendar' ) ?>" />
+						<input class="tribe-events-button tribe-no-param" type="submit" name="submit-bar" value="<?php printf( __( 'Find %s', 'tribe-events-calendar' ), tribe_get_event_label_plural() ); ?>" />
 					</div>
 					<!-- .tribe-bar-submit -->
 				</div>

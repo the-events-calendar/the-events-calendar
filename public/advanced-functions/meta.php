@@ -612,7 +612,7 @@ if ( class_exists( 'Tribe_Meta_Factory' ) ) {
 	tribe_register_meta(
 		'tribe_event_title', array(
 			'classes'  => array( 'meta_before' => array( 'tribe-events-meta-event-title', 'summary' ) ),
-			'label'    => __( 'Event:', 'tribe-events-calendar' ),
+			'label'    => sprintf( __( '%s:', 'tribe-events-calendar' ), tribe_get_event_label_singular() ),
 			'callback' => array( 'Tribe_Register_Meta', 'the_title' )
 		)
 	);
