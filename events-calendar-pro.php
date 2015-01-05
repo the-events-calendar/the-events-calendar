@@ -652,8 +652,8 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 						'tribeDisableTribeBar', $fields, array(
 							'hideRelatedEvents' => array(
 								'type'            => 'checkbox_bool',
-								'label'           => sprintf( __( 'Hide related %s', 'tribe-events-calendar-pro' ), strtolower( $this->plural_event_label ) ),
-								'tooltip'         => sprintf( __( 'Remove related %s from the single %s view', 'tribe-events-calendar-pro' ), strtolower( $this->plural_event_label ), strtolower( $this->singular_event_label ) ),
+								'label'           => __( 'Hide related events', 'tribe-events-calendar-pro' ),
+								'tooltip'         => __( 'Remove related events from the single event view', 'tribe-events-calendar-pro' ),
 								'default'         => false,
 								'validation_type' => 'boolean',
 							),
