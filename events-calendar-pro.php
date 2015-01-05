@@ -41,6 +41,9 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		public $weekSlug = 'week';
 		public $photoSlug = 'photo';
 
+		public $singular_event_label;
+		public $plural_event_label;
+
 		/** @var TribeEventsPro_RecurrencePermalinks */
 		public $permalink_editor = null;
 
@@ -66,7 +69,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			$this->pluginDir = trailingslashit( basename( dirname( __FILE__ ) ) );
 			$this->pluginPath = trailingslashit( dirname( __FILE__ ) );
 			$this->pluginUrl = plugins_url( $this->pluginDir );
-			$this->pluginSlug = 'events-calendar-pro';
+			$this->pluginSlug = 'events-calendar-pro';			
 
 			$this->loadTextDomain();
 
@@ -392,17 +395,14 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			$date_format = apply_filters( 'tribe_events_pro_page_title_date_format', tribe_get_date_format( true ) );
 
 			if( tribe_is_showing_all() ){
-				$reset_title = sprintf(
-					'%s %s',
-					__( 'All events for', 'tribe-events-calendar-pro' ),
-					get_the_title()
-				);
+				$reset_title = sprintf( __( 'All %s for %s', 'tribe-events-calendar-pro' ),	strtolower( $this->$plural_event_label ), get_the_title() );
 			}
 
 			// week view title
 			if( tribe_is_week() ) {
 				$reset_title = sprintf(
-					__( 'Events for week of %s', 'tribe-events-calendar-pro' ),
+					__( '%s for week of %s', 'tribe-events-calendar-pro' ),
+					$this->$plural_event_label,
 					date_i18n( $date_format, strtotime( tribe_get_first_week_day($wp_query->get('start_date') ) ) )
 					);
 			}
@@ -430,6 +430,8 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			$this->single_event_meta = new TribeEventsPro_SingleEventMeta;
 			$this->embedded_maps = new TribeEventsPro_EmbeddedMaps;
 			$this->mini_calendar_shortcode = new Tribe__Events__Pro__Mini_Calendar_Shortcode;
+			$this->singular_event_label = tribe_get_event_label_singular(); 
+			$this->plural_event_label = tribe_get_event_label_plural();
 		}
 
 		/**
@@ -642,14 +644,16 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 	  	}
 
 		public function filter_settings_tab_fields( $fields, $tab ) {
+			$this->singular_event_label = tribe_get_event_label_singular(); 
+			$this->plural_event_label = tribe_get_event_label_plural();
 			switch ( $tab ) {
 				case 'display':
 					$fields = TribeEvents::array_insert_after_key(
 						'tribeDisableTribeBar', $fields, array(
 							'hideRelatedEvents' => array(
 								'type'            => 'checkbox_bool',
-								'label'           => __( 'Hide related events', 'tribe-events-calendar-pro' ),
-								'tooltip'         => __( 'Remove related events from the single event view', 'tribe-events-calendar-pro' ),
+								'label'           => sprintf( __( 'Hide related %s', 'tribe-events-calendar-pro' ), strtolower( $this->plural_event_label ) ),
+								'tooltip'         => sprintf( __( 'Remove related %s from the single %s view', 'tribe-events-calendar-pro' ), strtolower( $this->plural_event_label ), strtolower( $this->singular_event_label ) ),
 								'default'         => false,
 								'validation_type' => 'boolean',
 							),
