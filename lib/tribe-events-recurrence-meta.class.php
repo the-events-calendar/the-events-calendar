@@ -673,14 +673,14 @@ class TribeEventsRecurrenceMeta {
 	/**
 	 * Do the actual work of saving a recurring series of events
 	 *
-	 * @param int $postId The event that is being saved
+	 * @param int $event_id The event that is being saved
 	 *
 	 * @return void
 	 */
-	public static function saveEvents( $postId ) {
+	public static function saveEvents( $event_id ) {
 		// don't use self::get_child_event_ids() due to caching that hasn't yet flushed
 		$existing_instances = get_posts( array(
-			'post_parent'    => $postId,
+			'post_parent'    => $event_id,
 			'post_type'      => TribeEvents::POSTTYPE,
 			'posts_per_page' => - 1,
 			'fields'         => 'ids',
@@ -690,47 +690,58 @@ class TribeEventsRecurrenceMeta {
 			'order'          => 'ASC',
 		) );
 
-		$recurrence = self::getRecurrenceForEvent( $postId );
+		$recurrence = self::getRecurrenceForEvent( $event_id );
 
 		if ( $recurrence ) {
 			$recurrence->setMinDate( strtotime( self::$scheduler->get_earliest_date() ) );
 			$recurrence->setMaxDate( strtotime( self::$scheduler->get_latest_date() ) );
-			$dates     = (array) $recurrence->getDates();
-			$to_update = array();
+			$to_create  = (array) $recurrence->getDates();
+			$to_update  = array();
+			$to_delete  = array();
 
 			if ( $recurrence->constrainedByMaxDate() !== false ) {
-				update_post_meta( $postId, '_EventNextPendingRecurrence', date( DateSeriesRules::DATE_FORMAT, $recurrence->constrainedByMaxDate() ) );
+				update_post_meta( $event_id, '_EventNextPendingRecurrence', date( DateSeriesRules::DATE_FORMAT, $recurrence->constrainedByMaxDate() ) );
 			}
 
 			foreach ( $existing_instances as $instance ) {
 				$start_date = strtotime( get_post_meta( $instance, '_EventStartDate', true ) );
-				$found      = array_search( $start_date, $dates );
+				$found      = array_search( $start_date, $to_create );
 				if ( $found === false ) {
-					do_action( 'tribe_events_deleting_child_post', $instance, $start_date );
-					// deleting a post would normally add it to the excluded dates array
-					// we don't want that if a child is deleted due to a recurrence change
-					remove_action( 'before_delete_post', array( __CLASS__, 'handle_delete_request' ) );
-					wp_delete_post( $instance, true );
-					add_action( 'before_delete_post', array( __CLASS__, 'handle_delete_request' ) );
+					$to_delete[$instance] = $start_date;
 				} else {
-					$to_update[ $instance ] = $dates[ $found ];
-					unset( $dates[ $found ] ); // so we don't re-add it
+					$to_update[ $instance ] = $to_create[ $found ];
+					unset( $to_create[ $found ] ); // so we don't re-add it
 				}
 			}
 
-			$excluded = array_map( 'strtotime', self::get_excluded_dates( $postId ) );
+			$exclusions = array_map( 'strtotime', self::get_excluded_dates( $event_id ) );
 
-			foreach ( $dates as $date ) {
-				if ( ! in_array( $date, $excluded ) ) {
-					$instance = new TribeEventsPro_RecurrenceInstance( $postId, $date );
-					$instance->save();
-				}
-			}
-			foreach ( $to_update as $instance_id => $date ) {
-				$instance = new TribeEventsPro_RecurrenceInstance( $postId, $date, $instance_id );
-				$instance->save();
-			}
+			// Store the list of instances to create/update/delete etc for future processing
+			$queue = new Tribe__Events__Pro__Recurrence__Queue( $event_id );
+			$queue->update( $to_create, $to_update, $to_delete, $exclusions );
+
+			// ...but don't wait around, process a small initial batch right away
+			TribeEventsPro::instance()->queue_processor->process_batch( $event_id );
 		}
+	}
+
+	/**
+	 * Deletes events when a change in recurrence pattern renders them obsolete.
+	 *
+	 * This should not be used when removing individual instances from an otherwise unchanged
+	 * pattern - wp_delete_post() can be used directly to facilitate that.
+	 *
+	 * This method takes care of temporarily unhooking our 'before_delete_post' callback
+	 * to avoid the deleted instance being added to the exclusion list.
+	 *
+	 * @param $instance_id
+	 * @param $start_date
+	 */
+	public static function delete_unexcluded_event( $instance_id, $start_date ) {
+		do_action( 'tribe_events_deleting_child_post', $instance_id, $start_date );
+		remove_action( 'before_delete_post', array( __CLASS__, 'handle_delete_request' ) );
+		wp_delete_post( $instance_id, true );
+		add_action( 'before_delete_post', array( __CLASS__, 'handle_delete_request' ) );
 	}
 
 	public static function save_pending_events( $event_id ) {
