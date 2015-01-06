@@ -15,7 +15,7 @@
  * but IDs must be prefixed with a # symbol (this is because a number-only slug is possible, so
  * we need to be able to differentiate between them).
  */
-class Tribe__Events__Pro__Mini_Calendar_Shortcode {
+class Tribe__Events__Pro__Shortcodes__Mini_Calendar {
 	/**
 	 * The shortcode allows filtering by event categories and by post tags,
 	 * in line with what the calendar widget itself supports.
