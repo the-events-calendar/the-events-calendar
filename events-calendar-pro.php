@@ -44,19 +44,19 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		/** @var TribeEventsPro_RecurrencePermalinks */
 		public $permalink_editor = null;
 
-		/**
-		 * @var TribeEventsPro_SingleEventMeta
-		 */
+		/** @var TribeEventsPro_SingleEventMeta */
 		public $single_event_meta;
 
-		/**
-		 * @var TribeEventsPro_EmbeddedMaps
-		 */
+		/** @var Tribe__Events__Pro__Recurrence__Queue_Processor */
+		public $queue_processor;
+
+		/** @var Tribe__Events__Pro__Recurrence__Queue_Realtime */
+		public $queue_realtime;
+
+		/** @var TribeEventsPro_EmbeddedMaps */
 		public $embedded_maps;
 
-		/**
-		 * @var Tribe__Events__Pro__Mini_Calendar_Shortcode
-		 */
+		/** @var Tribe__Events__Pro__Mini_Calendar_Shortcode */
 		public $mini_calendar_shortcode;
 
 		const REQUIRED_TEC_VERSION = '3.10a2';
@@ -81,6 +81,9 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			require_once( $this->pluginPath . 'lib/tribeeventspro-recurrenceinstance.php');
 			require_once( $this->pluginPath . 'lib/tribe-recurrence.class.php' );
 			require_once( $this->pluginPath . 'lib/tribeeventspro-recurrencepermalinks.php' );
+			require_once( $this->pluginPath . 'lib/Recurrence/Queue.php' );
+			require_once( $this->pluginPath . 'lib/Recurrence/Queue_Processor.php' );
+			require_once( $this->pluginPath . 'lib/Recurrence/Queue_Realtime.php' );
 			require_once( $this->pluginPath . 'lib/widget-venue.class.php' );
 			require_once( $this->pluginPath . 'lib/tribe-mini-calendar.class.php' );
 			require_once( $this->pluginPath . 'lib/widget-countdown.class.php' );
@@ -108,6 +111,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			add_action( 'tribe_helper_activation_complete', array( $this, 'helpersLoaded' ) );
 
 			add_action( 'init', array( $this, 'init' ), 10 );
+			add_action( 'admin_print_styles', array( $this, 'admin_enqueue_styles' ) );
 			add_action( 'tribe_events_enqueue', array( $this, 'admin_enqueue_scripts' ) );
 			add_action( 'tribe_venues_enqueue', array( $this, 'admin_enqueue_scripts' ) );
 			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_pro_scripts' ), 8);
@@ -205,7 +209,6 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			add_filter( 'tribe_events_query_posts_fields', array($this, 'posts_fields'));
 
 			add_filter( 'tribe_events_default_value_strategy', array( $this, 'set_default_value_strategy' ) );
-
 		}
 
 		/**
@@ -427,8 +430,11 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			TribeEventsRecurrenceMeta::init();
 			TribeEventsGeoLoc::instance();
 			$this->displayMetaboxCustomFields();
-			$this->single_event_meta = new TribeEventsPro_SingleEventMeta;
-			$this->embedded_maps = new TribeEventsPro_EmbeddedMaps;
+
+			$this->queue_processor         = new Tribe__Events__Pro__Recurrence__Queue_Processor;
+			$this->queue_realtime          = new Tribe__Events__Pro__Recurrence__Queue_Realtime;
+			$this->single_event_meta       = new TribeEventsPro_SingleEventMeta;
+			$this->embedded_maps           = new TribeEventsPro_EmbeddedMaps;
 			$this->mini_calendar_shortcode = new Tribe__Events__Pro__Mini_Calendar_Shortcode;
 		}
 
@@ -1073,14 +1079,16 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 
 		/**
 		 * Enqueues the necessary JS for the admin side of things.
-		 *
-		 * @return void
 		 */
 	    public function admin_enqueue_scripts() {
 	    	wp_enqueue_script( TribeEvents::POSTTYPE.'-premium-admin', $this->pluginUrl . 'resources/events-admin.js', array( 'jquery-ui-datepicker' ), apply_filters( 'tribe_events_pro_js_version', TribeEventsPro::VERSION ), true );
 		    $data = apply_filters( 'tribe_events_pro_localize_script', array(), 'TribeEventsProAdmin', TribeEvents::POSTTYPE.'-premium-admin' );
 		    wp_localize_script( TribeEvents::POSTTYPE.'-premium-admin', 'TribeEventsProAdmin', $data);
 	    }
+
+		public function admin_enqueue_styles() {
+			wp_enqueue_style( TribeEvents::POSTTYPE.'-premium-admin', $this->pluginUrl . 'resources/events-admin.css', array(), apply_filters( 'tribe_events_pro_css_version', TribeEventsPro::VERSION ) );
+		}
 
 		/**
 		 * Enqueue the proper styles depending on what is requred by a given page load.
@@ -1485,7 +1493,6 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			return 1.60934;
 		}
 
-
 		/**
 		 * plugin deactivation callback
 		 * @see register_deactivation_hook()
@@ -1493,7 +1500,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		 * @param bool $network_deactivating
 		 */
 		public static function deactivate( $network_deactivating ) {
-			if ( !class_exists( 'TribeEvents' ) ) {
+			if ( ! class_exists( 'TribeEvents' ) ) {
 				return; // can't do anything since core isn't around
 			}
 			require_once( TribeEvents::instance()->pluginPath . '/lib/Abstract_Deactivation.php' );
