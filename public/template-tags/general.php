@@ -111,7 +111,7 @@ if( class_exists( 'TribeEventsPro' ) ) {
 		if( !tribe_is_week() && !tribe_is_month() ){
 			echo '<span class="tribe-events-user-recurrence-toggle">';
 				echo '<label for="tribeHideRecurrence">';
-					echo '<input type="checkbox" name="tribeHideRecurrence" value="1" id="tribeHideRecurrence" ' . checked( $hide_recurrence, 1, false ) . '>' . __( 'Show only the first upcoming instance of recurring events', 'tribe-events-calendar-pro' );
+					echo '<input type="checkbox" name="tribeHideRecurrence" value="1" id="tribeHideRecurrence" ' . checked( $hide_recurrence, 1, false ) . '>' . sprintf( __( 'Show only the first upcoming instance of recurring %s', 'tribe-events-calendar-pro' ), strtolower( tribe_get_event_label_plural() ) );
 				echo '</label>';
 			echo '</span>';
 		}
@@ -703,7 +703,7 @@ if( class_exists( 'TribeEventsPro' ) ) {
 			$tooltip .= '<div class="recurringinfo">';
 			$tooltip .= '<div class="event-is-recurring">';
 			$tooltip .= '<span class="tribe-events-divider">|</span>';
-			$tooltip .= __( 'Recurring Event', 'tribe-events-calendar-pro' );
+			$tooltip .= sprintf( __( 'Recurring %s', 'tribe-events-calendar-pro' ), tribe_get_event_label_singular() );
 			$tooltip .= sprintf(' <a href="%s">%s</a>',
 				tribe_all_occurences_link( $post_id, false ),
 				__( '(See all)', 'tribe-events-calendar-pro' )

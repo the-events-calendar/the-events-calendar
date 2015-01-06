@@ -12,6 +12,9 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
+
+$events_label_plural = tribe_get_event_label_plural();
+
 ?>
 
 <div class="tribe-venue-widget-wrapper">
@@ -30,7 +33,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	</div>
 
 	<?php if ( 0 === $events->post_count ): ?>
-		<?php _e( 'No upcoming events.', 'tribe-events-calendar-pro' ); ?>
+		<?php printf( __( 'No upcoming %s.', 'tribe-events-calendar-pro' ),  strtolower( $events_label_plural ) ); ?>
 	<?php else: ?>
 		<?php do_action( 'tribe_events_venue_widget_before_the_list' ); ?>
 		<ul class="tribe-venue-widget-list hfeed vcalendar">
@@ -53,5 +56,5 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<?php do_action( 'tribe_events_venue_widget_after_the_list' ); ?>
 	<?php endif; ?>
 
-	<a href="<?php echo tribe_get_venue_link( $venue_ID, false ); ?>"><?php printf( __( 'View all Events at this %s', 'tribe-events-calendar' ), tribe_get_venue_label_singular() ); ?></a>
+	<a href="<?php echo tribe_get_venue_link( $venue_ID, false ); ?>"><?php printf( __( 'View all %s at this %s', 'tribe-events-calendar' ), $events_label_plural, tribe_get_venue_label_singular() ); ?></a>
 </div>

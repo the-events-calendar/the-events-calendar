@@ -1,12 +1,16 @@
 <?php
 if ( empty( $customFields ) || ! is_array( $customFields ) ) {
 	return;
-} ?>
+}
+
+$events_label_singular = tribe_get_event_label_singular();
+
+ ?>
 <table id="event-meta" class="eventtable">
 	<tbody>
 	<tr>
 		<td colspan="2" class="tribe_sectionheader">
-			<h4><?php _e( 'Additional Event Fields', 'tribe-events-calendar-pro' ); ?></h4></td>
+			<h4><?php printf( __( 'Additional %s Fields', 'tribe-events-calendar-pro' ), $events_label_singular ); ?></h4></td>
 	</tr>
 	<?php foreach ( $customFields as $customField ): ?>
 		<?php $val = get_post_meta( get_the_ID(), $customField['name'], true ) ?>
