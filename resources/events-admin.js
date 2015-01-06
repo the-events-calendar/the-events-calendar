@@ -396,8 +396,12 @@ jQuery( document ).ready( function( $ ) {
 		var spinner  = notice.find( "img" );
 		var progress = notice.find( "div.progress" );
 		var bar      = notice.find( "div.bar" );
+		var time     = Date.now();
 
 		function handleResponse( data ) {
+			var now     = Date.now();
+			var elapsed = now - time;
+
 			if ( data.html ) {
 				notice.html( html );
 			}
@@ -405,7 +409,13 @@ jQuery( document ).ready( function( $ ) {
 				updateProgress( data.progress, data.progressText );
 			}
 			if ( data.continue ) {
-				setTimeout( sendRequest, 200 );
+				// If multiple editors are open for the same event we don't want to hammer the server
+				// and so a min delay of 1/2 sec is introduced between update requests
+				if ( elapsed < 500 ) {
+					setTimeout( sendRequest, 500 - elapsed  );
+				} else {
+					sendRequest();
+				}
 			}
 			if ( data.complete ) {
 				spinner.replaceWith( TribeEventsProRecurrenceUpdate.completeMsg );
@@ -451,6 +461,6 @@ jQuery( document ).ready( function( $ ) {
 			updateProgress( TribeEventsProRecurrenceUpdate.progress, TribeEventsProRecurrenceUpdate.progressText );
 		}
 
-		setTimeout( start, 800 );
+		setTimeout( start );
 	}
 } );
