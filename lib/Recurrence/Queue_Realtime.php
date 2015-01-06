@@ -67,7 +67,7 @@ class Tribe__Events__Pro__Recurrence__Queue_Realtime {
 		$notice    = __( 'Recurring event data is still being generated for this event. Don&#146;t worry, you can safely navigate away &ndash; the update process will continue in the background and/or will resume when you return to edit the event.', 'tribe-events-pro' );
 		$percent   = (int) $this->queue->progress_percentage();
 		$spinner   = '<img src="' . get_admin_url( null, '/images/spinner.gif' ) . '">';
-		$indicator = '<div> <div class="progress" data-progress="' . $percent . '" title="' . sprintf( __( '%d%% complete', 'tribe-events-pro' ), $percent ) . '"> <div class="bar"></div> </div>' . $spinner . '</div>';
+		$indicator = '<div> <div class="progress" title="' . sprintf( __( '%d%% complete', 'tribe-events-pro' ), $percent ) . '"> <div class="bar"></div> </div>' . $spinner . '</div>';
 
 		return "<p> $notice </p> $indicator";
 	}

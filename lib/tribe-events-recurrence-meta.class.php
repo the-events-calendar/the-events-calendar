@@ -692,37 +692,39 @@ class TribeEventsRecurrenceMeta {
 
 		$recurrence = self::getRecurrenceForEvent( $event_id );
 
-		if ( $recurrence ) {
-			$recurrence->setMinDate( strtotime( self::$scheduler->get_earliest_date() ) );
-			$recurrence->setMaxDate( strtotime( self::$scheduler->get_latest_date() ) );
-			$to_create  = (array) $recurrence->getDates();
-			$to_update  = array();
-			$to_delete  = array();
-
-			if ( $recurrence->constrainedByMaxDate() !== false ) {
-				update_post_meta( $event_id, '_EventNextPendingRecurrence', date( DateSeriesRules::DATE_FORMAT, $recurrence->constrainedByMaxDate() ) );
-			}
-
-			foreach ( $existing_instances as $instance ) {
-				$start_date = strtotime( get_post_meta( $instance, '_EventStartDate', true ) );
-				$found      = array_search( $start_date, $to_create );
-				if ( $found === false ) {
-					$to_delete[$instance] = $start_date;
-				} else {
-					$to_update[ $instance ] = $to_create[ $found ];
-					unset( $to_create[ $found ] ); // so we don't re-add it
-				}
-			}
-
-			$exclusions = array_map( 'strtotime', self::get_excluded_dates( $event_id ) );
-
-			// Store the list of instances to create/update/delete etc for future processing
-			$queue = new Tribe__Events__Pro__Recurrence__Queue( $event_id );
-			$queue->update( $to_create, $to_update, $to_delete, $exclusions );
-
-			// ...but don't wait around, process a small initial batch right away
-			TribeEventsPro::instance()->queue_processor->process_batch( $event_id );
+		if ( ! $recurrence ) {
+			return;
 		}
+
+		$recurrence->setMinDate( strtotime( self::$scheduler->get_earliest_date() ) );
+		$recurrence->setMaxDate( strtotime( self::$scheduler->get_latest_date() ) );
+		$to_create  = (array) $recurrence->getDates();
+		$to_update  = array();
+		$to_delete  = array();
+
+		if ( $recurrence->constrainedByMaxDate() !== false ) {
+			update_post_meta( $event_id, '_EventNextPendingRecurrence', date( DateSeriesRules::DATE_FORMAT, $recurrence->constrainedByMaxDate() ) );
+		}
+
+		foreach ( $existing_instances as $instance ) {
+			$start_date = strtotime( get_post_meta( $instance, '_EventStartDate', true ) );
+			$found      = array_search( $start_date, $to_create );
+			if ( $found === false ) {
+				$to_delete[$instance] = $start_date;
+			} else {
+				$to_update[ $instance ] = $to_create[ $found ];
+				unset( $to_create[ $found ] ); // so we don't re-add it
+			}
+		}
+
+		$exclusions = array_map( 'strtotime', self::get_excluded_dates( $event_id ) );
+
+		// Store the list of instances to create/update/delete etc for future processing
+		$queue = new Tribe__Events__Pro__Recurrence__Queue( $event_id );
+		$queue->update( $to_create, $to_update, $to_delete, $exclusions );
+
+		// ...but don't wait around, process a small initial batch right away
+		TribeEventsPro::instance()->queue_processor->process_batch( $event_id );
 	}
 
 	/**
@@ -1245,7 +1247,10 @@ class TribeEventsRecurrenceMeta {
 		printf( '<div class="updated"><p>%s</p></div>', $message );
 
 		$pending = get_post_meta( get_the_ID(), '_EventNextPendingRecurrence', true );
-		if ( $pending ) {
+		$queue   = new Tribe__Events__Pro__Recurrence__Queue( get_the_ID() );
+
+		// Only display the following message if all recurrence update work has completed
+		if ( $pending && $queue->is_empty() ) {
 			$start_dates     = tribe_get_recurrence_start_dates( get_the_ID() );
 			$count           = count( $start_dates );
 			$last            = end( $start_dates );
