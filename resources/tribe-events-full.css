@@ -1083,69 +1083,6 @@ select.tribe-events-dropdown {
 	font-weight: bold;
 }
 
-/* = WooTickets
-=============================================*/
-table.tribe-events-tickets .tickets_price {
-	font-style: italic;
-	color: #000;
-	font-weight: bold;
-}
-
-td.tickets_name {
-	color: #777;
-	font-size: 13px;
-}
-
-.single-tribe_events #tribe-events-content form.cart,
-.single-tribe_events #tribe-events-content div.cart {
-	background: #fafafa;
-	border: 1px solid #eee;
-	margin: 30px 0;
-	padding: 0 4% 3%;
-}
-
-table.tribe-events-tickets {
-	margin: 0;
-	width: 100%;
-	border-bottom: 0;
-}
-
-table.tribe-events-tickets td {
-	border-top: 1px solid #ddd;
-	border-bottom: 1px solid #ddd;
-	padding: 8px 10px 8px 0;
-	vertical-align: middle;
-}
-
-table.tribe-events-tickets td.wpec {
-	line-height: 0;
-}
-
-table.tribe-events-tickets td.woocommerce.add-to-cart {
-	border-bottom: 0;
-}
-
-table.tribe-events-tickets td.wpec img {
-	display: none;
-}
-
-table.tribe-events-tickets td fieldset {
-	padding: 14px 0.625em 4px;
-	border: 0;
-	margin-top: 8px;
-}
-
-table.tribe-events-tickets .tickets_nostock {
-	display: inline-block;
-	text-align: center;
-}
-
-h2.tribe-events-tickets-title {
-	margin: 20px 0 25px;
-	font-size: 1.4em;
-	font-weight: bold;
-}
-
 /* = Events Navigation Bar
    @ Template: modules/bar.php
 =============================================*/

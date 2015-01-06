@@ -59,6 +59,9 @@ td.tribe_message {padding-bottom: 10px !important;}
 .tribe_community_edit .edit-venue-link, .tribe_community_edit .edit-organizer-link {
 	display:none !important;
 }
+.tribe-sticky-tooltip {
+	color:#bbb;
+}
 
 
 
