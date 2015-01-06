@@ -33,7 +33,7 @@ $events_label_plural = tribe_get_event_label_plural();
 		<tr>
 			<td colspan="2" class="tribe_sectionheader">
 				<div class="tribe_sectionheader" style="">
-					<h4><?php printf( __( '%s Time &amp; Date', 'tribe-events-calendar' ), $events_label_singular ); ?></h4></div>
+					<h4><?php _e( 'Time &amp; Date', 'tribe-events-calendar' ); ?></h4></div>
 			</td>
 		</tr>
 		<tr>
@@ -98,7 +98,7 @@ $events_label_plural = tribe_get_event_label_plural();
 	<table id="event_venue" class="eventtable">
 		<tr>
 			<td colspan="2" class="tribe_sectionheader">
-				<h4><?php printf( __( '%s Location Details', 'tribe-events-calendar' ), $events_label_singular ); ?></h4></td>
+				<h4><?php _e( 'Location', 'tribe-events-calendar' ); ?></h4></td>
 		</tr>
 		<?php do_action( 'tribe_venue_table_top', $postId ) ?>
 		<?php include( $this->pluginPath . 'admin-views/venue-meta-box.php' ); ?>
@@ -107,7 +107,7 @@ $events_label_plural = tribe_get_event_label_plural();
 	<table id="event_organizer" class="eventtable">
 		<tr>
 			<td colspan="2" class="tribe_sectionheader">
-				<h4><?php printf( __( '%1$s %2$s Details', 'tribe-events-calendar' ), $events_label_singular, tribe_get_organizer_label_singular() ); ?></h4></td>
+				<h4><?php echo tribe_get_organizer_label_singular(); ?></h4></td>
 		</tr>
 		<?php do_action( 'tribe_organizer_table_top', $postId ) ?>
 		<?php include( $this->pluginPath . 'admin-views/organizer-meta-box.php' ); ?>
