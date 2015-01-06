@@ -226,7 +226,7 @@ jQuery( document ).ready( function( $ ) {
 
 	//show state/province input based on first option in countries list, or based on user input of country
 
-	var $state_prov_chzn = $( "#StateProvinceSelect_chzn" ),
+	var $state_prov_chzn = $( "#StateProvinceSelect_chosen" ),
 		$state_prov_text = $( "#StateProvinceText" );
 
 
