@@ -62,6 +62,7 @@ td.tribe_message {padding-bottom: 10px !important;}
 .tribe-sticky-tooltip {
 	color:#bbb;
 }
+div.tribe-venue-error.error, div.tribe-organizer-error.error { margin-left:5px; padding: 5px 10px; display:inline; }
 
 
 
