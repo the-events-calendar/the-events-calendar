@@ -800,7 +800,7 @@ class TribeEventsRecurrenceMeta {
 				break;
 			case 'After':
 			default:
-				$recEnd = $recEndCount - 1; // subtract one because event is first occurrence
+				$recEnd = $recEndCount;
 				break;
 		}
 
