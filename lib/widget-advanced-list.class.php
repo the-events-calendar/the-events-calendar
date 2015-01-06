@@ -54,10 +54,11 @@ class TribeEventsAdvancedListWidget extends TribeEventsListWidget {
 			$this->include_cat_id( $this->instance['filters'], $this->instance['category'] );
 		}
 
+		parent::widget_output( $args, $this->instance, 'pro/widgets/list-widget' );
+
 		if ( $tooltip_status ) {
 			$ecp->enable_recurring_info_tooltip();
 		}
-		parent::widget_output( $args, $this->instance, 'pro/widgets/list-widget' );
 	}
 
 	public function update( $new_instance, $old_instance ) {
