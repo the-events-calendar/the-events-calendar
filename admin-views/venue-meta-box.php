@@ -187,7 +187,7 @@ if ( $post->post_type != TribeEvents::VENUE_POST_TYPE ) {
 				if (result == 1) {
 					jQuery('.tribe-venue-error').remove();
 				} else {
-					jQuery( '[name=venue\\[Venue\\]]' ).after('<div class="tribe-venue-error error form-invalid"><?php _e( 'Venue Name Already Exists', 'tribe-events-calendar' ); ?></div>');
+					jQuery( '[name=venue\\[Venue\\]]' ).after('<div class="tribe-venue-error error form-invalid"><?php printf( __( '%s Name Already Exists', 'tribe-events-calendar' ), tribe_get_venue_label_singular() ); ?></div>');
 				}
 			}
 		);
