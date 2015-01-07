@@ -117,13 +117,25 @@ $modules = TribeEventsTickets::modules();
 						<input type='text' id='ticket_price' name='ticket_price' class="ticket_field" size='7'
 							   value='' />
 
-						<p class="description"><?php echo __( "(0 or empty for free tickets)", "tribe-events-calendar" ); ?></p>
+						<p class="description"><?php _e( '(0 or empty for free tickets)', 'tribe-events-calendar' ) ?></p>
+					</td>
+				</tr>
+
+				<tr class="ticket sale_price">
+					<td><label
+							for="ticket_sale_price"><?php _e( 'Sale Price:', 'tribe-events-calendar' ) ?></label>
+					</td>
+					<td>
+						<input type='text' id='ticket_sale_price' name='ticket_sale_price' class="ticket_field" size='7'
+							value='' readonly />
+
+						<p class="description"><?php _e( '(Current sale price - this can be managed via the product editor)', 'tribe-events-calendar' ) ?></p>
 					</td>
 				</tr>
 
 				<tr class="ticket">
 					<td><label
-							for="ticket_price"><?php _e( 'Start sale:', 'tribe-events-calendar' ); ?></label>
+							for="ticket_start_date"><?php _e( 'Start sale:', 'tribe-events-calendar' ); ?></label>
 					</td>
 					<td>
 						<input autocomplete="off" type="text" class="ticket_field" size='7' name="ticket_start_date"
