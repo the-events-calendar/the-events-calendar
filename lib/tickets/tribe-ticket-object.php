@@ -29,10 +29,27 @@ if ( ! class_exists( 'TribeEventsTicketObject' ) ) {
 		public $description;
 
 		/**
-		 * Price, without any sign. Just a float.
+		 * Current sale price, without any sign. Just a float.
+		 *
 		 * @var float
 		 */
 		public $price;
+
+		/**
+		 * Regular price (if the ticket is not on a special sale this will be identical to
+		 * $price).
+		 *
+		 * @var float
+		 */
+		public $regular_price;
+
+		/**
+		 * Indicates if the ticket is currently being offered at a reduced price as part
+		 * of a special sale.
+		 *
+		 * @var bool
+		 */
+		public $on_sale;
 
 		/**
 		 * Link to the admin edit screen for this ticket in the provider system,
