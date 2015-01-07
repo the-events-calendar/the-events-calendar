@@ -105,16 +105,16 @@ class TribeiCal {
 
 		switch ( strtolower( $view ) ) {
 			case 'month':
-				$modifier = __( "Month's Events", "tribe-events-calendar" );
+				$modifier = sprintf( __( "Month's %s", "tribe-events-calendar" ), tribe_get_event_label_plural() );
 				break;
 			case 'week':
-				$modifier = __( "Week's Events", "tribe-events-calendar" );
+				$modifier = sprintf( __( "Week's %s", "tribe-events-calendar" ), tribe_get_event_label_plural() );
 				break;
 			case 'day':
-				$modifier = __( "Day's Events", "tribe-events-calendar" );
+				$modifier = sprintf( __( "Day's %s", "tribe-events-calendar" ), tribe_get_event_label_plural() );
 				break;
 			default:
-				$modifier = __( "Listed Events", "tribe-events-calendar" );
+				$modifier = sprintf( __( "Listed %s", "tribe-events-calendar" ), tribe_get_event_label_plural() );
 				break;
 		}
 
