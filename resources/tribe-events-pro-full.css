@@ -933,6 +933,17 @@ div.tribe-countdown-text {
 	font-size:24px;
 }
 
+/* Twenty Fifteen Compat
+========================================================================== */
+.tribe-theme-twentyfifteen .tribe-events-adv-list-widget .type-tribe_events.hentry {
+    box-shadow: none;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.tribe-theme-twentyfifteen .tribe-events-adv-list-widget .tribe-mini-calendar-event {
+	border-bottom: 0;
+}
 
 /* = Events Venue Widget
    @ Template: widgets/venue-widget.php
