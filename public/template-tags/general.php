@@ -1214,13 +1214,17 @@ if ( class_exists( 'TribeEvents' ) ) {
 		$date_display   = '';
 
 		//Disable recurring event info in tooltip
-		$ecp = TribeEventsPro::instance();
-		$ecp->disable_recurring_info_tooltip();
-		
-		$date_display = strip_tags( tribe_events_event_schedule_details( $event ) );
+		if( class_exists( 'TribeEventsPro' ) ) {
+			$ecp = TribeEventsPro::instance();
+			$ecp->disable_recurring_info_tooltip();
 
-		// Re-enable recurring event info
-		$ecp->enable_recurring_info_tooltip();
+			$date_display = strip_tags( tribe_events_event_schedule_details( $event ) );
+
+			// Re-enable recurring event info
+			$ecp->enable_recurring_info_tooltip();
+		} else {
+			$date_display = strip_tags( tribe_events_event_schedule_details( $event ) );
+		}
 
 		if ( function_exists( 'has_post_thumbnail' ) && has_post_thumbnail( $event->ID ) ) {
 			$has_image = true;
