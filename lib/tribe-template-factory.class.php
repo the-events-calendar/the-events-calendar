@@ -168,6 +168,22 @@ if ( ! class_exists( 'Tribe_Template_Factory' ) ) {
 				$classes[] = 'events-archive';
 			}
 
+			// add selected style to body class for add-on styling
+			$style_option = tribe_get_option( 'stylesheetOption', 'tribe' );
+
+			switch ( $style_option ) {
+				case 'skeleton':
+					$classes[] = 'tribe-events-style-skeleton'; // Skeleton styles
+					break;
+				case 'full':
+					$classes[] = 'tribe-events-style-full'; // Full styles
+					break;
+				default: // tribe styles is the default so add full and theme (tribe)
+					$classes[] = 'tribe-events-style-full';
+					$classes[] = 'tribe-events-style-theme';
+					break;
+			}
+
 			return $classes;
 		}
 
