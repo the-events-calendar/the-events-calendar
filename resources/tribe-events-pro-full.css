@@ -137,6 +137,10 @@
 	padding:4px;
 }
 
+.tribe-events-grid .type-tribe_events.hentry {
+	background: none;
+}
+
 .tribe-events-grid div[id*='tribe-events-event-'] {
 	visibility: hidden;
 }
