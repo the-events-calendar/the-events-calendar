@@ -1810,6 +1810,18 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 .tribe-theme-twentyfifteen .tribe-events-nav-next a {
 	border-bottom: none;
 }
+.tribe-theme-twentyfifteen.single-tribe_events .tribe-events-single {
+	box-shadow: none;
+	margin-left: 0;
+	margin-right: 0;
+	margin-bottom: 0 !important;
+}
+
+.tribe-theme-twentyfifteen.events-list #tribe-events-footer,
+.tribe-theme-twentyfifteen.tribe-events-day #tribe-events-footer {
+	border-top: none;
+}
+
 
 /* = Events Retina
 =============================================*/
