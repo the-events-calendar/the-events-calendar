@@ -1822,6 +1822,11 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 	border-top: none;
 }
 
+.tribe-theme-twentyfifteen .tribe-events-list .time-details,
+.tribe-theme-twentyfifteen .tribe-events-list .tribe-events-venue-details {
+	line-height: 1.6;
+}
+
 
 /* = Events Retina
 =============================================*/
