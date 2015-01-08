@@ -184,18 +184,29 @@
 				$mobile_trigger = $( '.mobile-trigger' ),
 				$tribe_grid = $( '#tribe-events-content > .tribe-events-calendar' );
 
-			if ( !$( '#tribe-mobile-container' ).length ) {
+			if ( ! $( '#tribe-mobile-container' ).length ) {
 				$( '<div id="tribe-mobile-container" />' ).insertAfter( $tribe_grid );
 			}
 
-			if ( $today.length ) {
-				tribe_mobile_setup_day( $today.attr( 'data-day' ), $today.attr( 'data-date-name' ) );
-			}
-			else {
-				var $first_current_day = $mobile_trigger.filter( ".tribe-events-thismonth" ).first();
-				tribe_mobile_setup_day( $first_current_day.attr( 'data-day' ), $first_current_day.attr( 'data-date-name' ) );
+			// Multiple $todays may exist if a calendar widget is present.
+			if ( 1 < $today.length ) {
+				$.each( $today, tribe_mobile_setup_day( $today.attr( 'data-day' ), $today.attr( 'data-date-name' ) ) );
 			}
 
+			if ( 1 == $today.length ) {
+				tribe_mobile_setup_day( $today.attr( 'data-day' ), $today.attr( 'data-date-name' ) );
+
+				// Preserves first-of-month styles on main cal if $today is coming from a calendar widget.
+				if ( $today.parents( '.tribe-mini-calendar-wrapper' ).length ) {
+					var $first_current_day = $mobile_trigger.filter( '.tribe-events-thismonth' ).first();
+					tribe_mobile_setup_day( $first_current_day.attr( 'data-day' ), $first_current_day.attr( 'data-date-name' ) );
+				}
+			}
+
+			if ( ! $today.length ) {
+				var $first_current_day = $mobile_trigger.filter( '.tribe-events-thismonth' ).first();
+				tribe_mobile_setup_day( $first_current_day.attr( 'data-day' ), $first_current_day.attr( 'data-date-name' ) );
+			}
 		}
 
 		function tribe_mobile_day_abbr() {
