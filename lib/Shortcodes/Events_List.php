@@ -39,7 +39,7 @@ class Tribe__Events__Pro__Shortcodes__Events_List extends Tribe__Events__Pro__Sh
 	);
 
 	/**
-	 * Default arguments expected by the calendar widget.
+	 * Default arguments expected by the advanced list widget.
 	 *
 	 * @var array
 	 */
