@@ -32,7 +32,9 @@ class TribeEventsAdvancedListWidget extends TribeEventsListWidget {
 		if ( empty( $this->instance ) ) {
 			return $query;
 		}
-		$tax_query = TribeEventsPro_Widgets::form_tax_query( json_decode( $this->instance['filters'] ), $this->instance['operand'] );
+		
+		$filters   = isset( $this->instance['raw_filters'] ) ? $this->instance['raw_filters'] : json_decode( $this->instance['filters'] );
+		$tax_query = TribeEventsPro_Widgets::form_tax_query( $filters, $this->instance['operand'] );
 
 		if ( isset( $query['tax_query'] ) ) {
 			$query['tax_query'] = array_merge( $query['tax_query'], $tax_query );
