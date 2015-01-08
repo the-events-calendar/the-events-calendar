@@ -77,17 +77,11 @@ class Tribe__Events__Pro__Shortcodes__Events_List extends Tribe__Events__Pro__Sh
 
 
 	public function __construct( $attributes ) {
-		$this->reset();
 		$this->arguments = shortcode_atts( $this->default_args, $attributes );
 		$this->taxonomy_filters();
 
 		ob_start();
 		the_widget( 'TribeEventsAdvancedListWidget', $this->arguments, $this->arguments );
 		return ob_get_clean();
-	}
-
-	protected function reset() {
-		$this->filters = array();
-		$this->terms = array();
 	}
 }

@@ -49,18 +49,11 @@ class Tribe__Events__Pro__Shortcodes__Mini_Calendar extends Tribe__Events__Pro__
 
 
 	public function __construct( $attributes ) {
-		$this->reset();
 		$this->arguments = shortcode_atts( $this->default_args, $attributes );
 		$this->taxonomy_filters();
 
 		ob_start();
 		the_widget( 'TribeEventsMiniCalendarWidget', $this->arguments, $this->arguments );
 		return ob_get_clean();
-	}
-
-	protected function reset() {
-		$this->arguments = array();
-		$this->filters = array();
-		$this->terms = array();
 	}
 }
