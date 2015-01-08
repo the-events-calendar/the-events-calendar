@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Implements a shortcode that wraps the existing calendar widget.
  *
@@ -9,7 +8,7 @@
  *
  * Slightly more advanced usage, demonstrating tag and category filtering, is as follows:
  *
- *     [tribe_mini_calendar] tag="black-swan-event, #20, #60" categories="twist,samba, #491, groove"]
+ *     [tribe_mini_calendar tag="black-swan-event, #20, #60" categories="twist,samba, #491, groove"]
  *
  * Note that slugs and numeric IDs are both acceptable within comma separated lists of terms
  * but IDs must be prefixed with a # symbol (this is because a number-only slug is possible, so

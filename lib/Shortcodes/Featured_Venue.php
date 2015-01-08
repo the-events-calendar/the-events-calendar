@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Implements a shortcode that wraps the existing featured venue widget. Basic usage
  * is as follows (using a venue's post ID):
