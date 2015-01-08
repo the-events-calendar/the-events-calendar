@@ -48,11 +48,7 @@ class Tribe__Events__Pro__Shortcodes__Mini_Calendar extends Tribe__Events__Pro__
 	protected $arguments = array();
 
 
-	public function __construct() {
-		add_shortcode( 'tribe_mini_calendar', array( $this, 'do_shortcode' ) );
-	}
-
-	public function do_shortcode( $attributes ) {
+	public function __construct( $attributes ) {
 		$this->reset();
 		$this->arguments = shortcode_atts( $this->default_args, $attributes );
 		$this->taxonomy_filters();

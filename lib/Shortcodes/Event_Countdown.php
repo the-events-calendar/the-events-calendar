@@ -39,11 +39,7 @@ class Tribe__Events__Pro__Shortcodes__Event_Countdown {
 	protected $arguments = array();
 
 
-	public function __construct() {
-		add_shortcode( 'tribe_event_countdown', array( $this, 'do_shortcode' ) );
-	}
-
-	public function do_shortcode( $attributes ) {
+	public function __construct( $attributes ) {
 		$this->arguments = shortcode_atts( $this->default_args, $attributes );
 		$this->parse_args();
 		$this->set_date();
