@@ -8,7 +8,7 @@
  * Besides supplying the venue ID, a slug can be used. It is also possible to limit
  * the number of upcoming events:
  *
- *     [tribe_featured_venue slug="the-club" count="5"]
+ *     [tribe_featured_venue slug="the-club" limit="5"]
  *
  * A title can also be added if desired:
  *
@@ -30,7 +30,7 @@ class Tribe__Events__Pro__Shortcodes__Featured_Venue {
 		'slug'           => '',
 		'venue'          => '',
 		'id'             => '',
-		'count'          => '',
+		'limit'          => '',
 	);
 
 	protected $arguments = array();
@@ -67,8 +67,8 @@ class Tribe__Events__Pro__Shortcodes__Featured_Venue {
 			$this->set_by_slug();
 		}
 
-		if ( ! empty( $this->arguments['count'] ) ) {
-			$this->arguments['posts_per_page'] = (int) $this->arguments['count'];
+		if ( ! empty( $this->arguments['limit'] ) ) {
+			$this->arguments['posts_per_page'] = (int) $this->arguments['limit'];
 		} else {
 			$this->arguments['posts_per_page'] = (int) tribe_get_option( 'postsPerPage', 10 );
 		}
