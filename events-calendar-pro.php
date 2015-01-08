@@ -112,6 +112,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			require_once( $this->pluginPath . 'lib/tribe-geoloc.class.php' );
 			require_once( $this->pluginPath . 'lib/EmbeddedMaps.php' );
 			require_once( $this->pluginPath . 'lib/SingleEventMeta.php' );
+			require_once( $this->pluginPath . 'lib/Shortcodes/Filtered_Shortcode.php' );
 			require_once( $this->pluginPath . 'lib/Shortcodes/Events_List.php' );
 			require_once( $this->pluginPath . 'lib/Shortcodes/Featured_Venue.php' );
 			require_once( $this->pluginPath . 'lib/Shortcodes/Mini_Calendar.php' );
