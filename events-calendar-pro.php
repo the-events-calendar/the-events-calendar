@@ -58,6 +58,11 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		public $embedded_maps;
 
 		/**
+		 * @var Tribe__Events__Pro__Shortcodes__Event_Countdown
+		 */
+		public $event_countdown_shortcode;
+
+		/**
 		 * @var Tribe__Events__Pro__Shortcodes__Events_List
 		 */
 		public $events_list_shortcode;
@@ -113,6 +118,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			require_once( $this->pluginPath . 'lib/EmbeddedMaps.php' );
 			require_once( $this->pluginPath . 'lib/SingleEventMeta.php' );
 			require_once( $this->pluginPath . 'lib/Shortcodes/Filtered_Shortcode.php' );
+			require_once( $this->pluginPath . 'lib/Shortcodes/Event_Countdown.php' );
 			require_once( $this->pluginPath . 'lib/Shortcodes/Events_List.php' );
 			require_once( $this->pluginPath . 'lib/Shortcodes/Featured_Venue.php' );
 			require_once( $this->pluginPath . 'lib/Shortcodes/Mini_Calendar.php' );
@@ -442,9 +448,10 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			$this->displayMetaboxCustomFields();
 			$this->single_event_meta = new TribeEventsPro_SingleEventMeta;
 			$this->embedded_maps = new TribeEventsPro_EmbeddedMaps;
-			$this->mini_calendar_shortcode = new Tribe__Events__Pro__Shortcodes__Mini_Calendar;
-			$this->featured_venue_shortcode = new Tribe__Events__Pro__Shortcodes__Featured_Venue;
+			$this->event_countdown_shortcode = new Tribe__Events__Pro__Shortcodes__Event_Countdown;
 			$this->events_list_shortcode = new Tribe__Events__Pro__Shortcodes__Events_List;
+			$this->featured_venue_shortcode = new Tribe__Events__Pro__Shortcodes__Featured_Venue;
+			$this->mini_calendar_shortcode = new Tribe__Events__Pro__Shortcodes__Mini_Calendar;
 			$this->singular_event_label = tribe_get_event_label_singular();
 			$this->plural_event_label = tribe_get_event_label_plural();
 		}
