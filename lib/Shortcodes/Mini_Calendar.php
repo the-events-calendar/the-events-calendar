@@ -15,6 +15,8 @@
  * we need to be able to differentiate between them).
  */
 class Tribe__Events__Pro__Shortcodes__Mini_Calendar extends Tribe__Events__Pro__Shortcodes__Filtered_Shortcode {
+	public $output = '';
+
 	/**
 	 * The shortcode allows filtering by event categories and by post tags,
 	 * in line with what the calendar widget itself supports.
@@ -54,6 +56,6 @@ class Tribe__Events__Pro__Shortcodes__Mini_Calendar extends Tribe__Events__Pro__
 
 		ob_start();
 		the_widget( 'TribeEventsMiniCalendarWidget', $this->arguments, $this->arguments );
-		return ob_get_clean();
+		$this->output = ob_get_clean();
 	}
 }

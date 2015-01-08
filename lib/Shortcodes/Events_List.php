@@ -27,6 +27,8 @@
  *
  */
 class Tribe__Events__Pro__Shortcodes__Events_List extends Tribe__Events__Pro__Shortcodes__Filtered_Shortcode {
+	public $output = '';
+
 	/**
 	 * The shortcode allows filtering by event categories and by post tags,
 	 * in line with what the calendar widget itself supports.
@@ -82,6 +84,6 @@ class Tribe__Events__Pro__Shortcodes__Events_List extends Tribe__Events__Pro__Sh
 
 		ob_start();
 		the_widget( 'TribeEventsAdvancedListWidget', $this->arguments, $this->arguments );
-		return ob_get_clean();
+		$this->output = ob_get_clean();
 	}
 }

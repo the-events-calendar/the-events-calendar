@@ -16,6 +16,8 @@
  *     [tribe_event_countdown slug="party-time" show_seconds="1" complete="The party is on!"]
  */
 class Tribe__Events__Pro__Shortcodes__Event_Countdown {
+	public $output = '';
+
 	/**
 	 * Default arguments expected by the countdown widget.
 	 *
@@ -46,12 +48,12 @@ class Tribe__Events__Pro__Shortcodes__Event_Countdown {
 
 		// If we don't have an event date we cannot display the timer
 		if ( ! isset( $this->arguments['event_date'] ) ) {
-			return '';
+			return;
 		}
 
 		ob_start();
 		the_widget( 'TribeCountdownWidget', $this->arguments, $this->arguments );
-		return ob_get_clean();
+		$this->output = ob_get_clean();
 	}
 
 	protected function parse_args() {

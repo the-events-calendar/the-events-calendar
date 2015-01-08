@@ -15,6 +15,8 @@
  *     [tribe_featured_venue slug="busy-location" title="Check out these events!"]
  */
 class Tribe__Events__Pro__Shortcodes__Featured_Venue {
+	public $output = '';
+
 	/**
 	 * Default arguments expected by the featured venue widget.
 	 *
@@ -42,13 +44,13 @@ class Tribe__Events__Pro__Shortcodes__Featured_Venue {
 
 		// If no venue has been set simply bail with an empty string
 		if ( ! isset( $this->arguments['venue_ID'] ) ) {
-			return '';
+			return;
 		}
 
 		ob_start();
 		// We use $this->arguments for both the args and the instance vars here
 		the_widget( 'TribeVenueWidget', $this->arguments, $this->arguments );
-		return ob_get_clean();
+		$this->output = ob_get_clean();
 	}
 
 	/**
