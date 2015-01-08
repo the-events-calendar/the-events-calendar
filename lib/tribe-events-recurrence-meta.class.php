@@ -914,13 +914,13 @@ class TribeEventsRecurrenceMeta {
 					sprintf( __( "Every %d weeks", 'tribe-events-calendar-pro' ), $recCustomInterval );
 				$custom_text     = sprintf( __( " on %s", 'tribe-events-calendar-pro' ), self::daysToText( $recCustomWeekDay ) );
 				$occurrence_text = sprintf( _n( ", recurring %d time", ", recurring %d times", $recEndCount, 'tribe-events-calendar-pro' ), $recEndCount );
-			} else if ( $recCustomType == "Monthly" ) {
-				$text            = $recCustomInterval == 1 ?
-					__( "Every month", 'tribe-events-calendar-pro' ) :
-					sprintf( __( "Every %d months", 'tribe-events-calendar-pro' ), $recCustomInterval );
-				$number_display  = is_numeric( $recCustomMonthNumber ) ? TribeDateUtils::numberToOrdinal( $recCustomMonthNumber ) : strtolower( $recCustomMonthNumber );
-				$custom_text     = sprintf( __( " on the %s %s", 'tribe-events-calendar-pro' ), $number_display, is_numeric( $recCustomMonthNumber ) ? __( "day", 'tribe-events-calendar-pro' ) : self::daysToText( $recCustomMonthDay ) );
-				$occurrence_text = sprintf( _n( ", recurring %d time", ", recurring %d times", $recEndCount, 'tribe-events-calendar-pro' ), $recEndCount );
+			} else if ( 'Monthly' == $recCustomType ) {
+				$text = $recCustomInterval == 1 ?
+					__( 'Every month', 'tribe-events-calendar-pro' ) :
+					sprintf( __( 'Every %d months', 'tribe-events-calendar-pro' ), $recCustomInterval );
+				$number_display = is_numeric( $recCustomMonthNumber ) ? TribeDateUtils::numberToOrdinal( $recCustomMonthNumber ) : strtolower( esc_attr__( $recCustomMonthNumber, 'tribe-events-calendar-pro' ) );
+				$custom_text = sprintf( __( ' on the %s %s', 'tribe-events-calendar-pro' ), $number_display, is_numeric( $recCustomMonthNumber ) ? __( 'day', 'tribe-events-calendar-pro' ) : self::daysToText( $recCustomMonthDay ) );
+				$occurrence_text = sprintf( _n( ', recurring %d time', ', recurring %d times', $recEndCount, 'tribe-events-calendar-pro' ), $recEndCount );
 			} else if ( $recCustomType == "Yearly" ) {
 				$text = $recCustomInterval == 1 ?
 					__( "Every year", 'tribe-events-calendar-pro' ) :
