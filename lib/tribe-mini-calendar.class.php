@@ -47,6 +47,9 @@ class TribeEventsMiniCalendar {
 	}
 
 	public function  ajax_select_day() {
+		$ecp            = TribeEventsPro::instance();
+		$tooltip_status = $ecp->recurring_info_tooltip_status();
+		$ecp->disable_recurring_info_tooltip();
 
 		$response = array( 'success' => false, 'html' => '', 'view' => 'mini-day' );
 
@@ -78,6 +81,10 @@ class TribeEventsMiniCalendar {
 
 			if ( ! empty( $_POST['return_objects'] ) && $_POST['return_objects'] === '1' ) {
 				$response['objects'] = $events;
+			}
+
+			if ( $tooltip_status ) {
+				$ecp->enable_recurring_info_tooltip();
 			}
 
 		}
