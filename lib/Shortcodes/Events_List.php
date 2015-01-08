@@ -81,6 +81,7 @@ class Tribe__Events__Pro__Shortcodes__Events_List extends Tribe__Events__Pro__Sh
 	public function __construct( $attributes ) {
 		$this->arguments = shortcode_atts( $this->default_args, $attributes );
 		$this->taxonomy_filters();
+		TribeEventsPro_Widgets::enqueue_calendar_widget_styles();
 
 		ob_start();
 		the_widget( 'TribeEventsAdvancedListWidget', $this->arguments, $this->arguments );
