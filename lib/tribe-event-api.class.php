@@ -271,6 +271,10 @@ if ( ! class_exists( 'TribeEventsAPI' ) ) {
 					return $data['VenueID'];
 				}
 			} else {
+				// Remove a zero-value venue ID, if set, before creating the new venue
+				if ( isset( $data['VenueID'] ) && 0 == $data['VenueID'] ) {
+					unset( $data['VenueID'] );
+				}
 				return TribeEventsAPI::createVenue( $data, $post_status );
 			}
 		}
