@@ -1820,14 +1820,6 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 .tribe-theme-twentyfifteen.events-archive .entry-footer {
 	display: none;
 }
-/*
-@todo – confirm if, in fact, this bottom grey border should also be removed
-
-.tribe-theme-twentyfifteen.events-list #tribe-events-footer,
-.tribe-theme-twentyfifteen.tribe-events-day #tribe-events-footer {
-	border-top: none;
-}*/
-
 .tribe-theme-twentyfifteen .tribe-events-list .time-details,
 .tribe-theme-twentyfifteen .tribe-events-list .tribe-events-venue-details {
 	line-height: 1.6;
