@@ -124,10 +124,10 @@ $events_label_plural = tribe_get_event_label_plural();
 				<input tabindex="<?php tribe_events_tab_index(); ?>" type='text' id='EventURL' name='EventURL' size='25' value='<?php echo ( isset( $_EventURL ) ) ? esc_attr( $_EventURL ) : ''; ?>' placeholder='example.com' />
 			</td>
 		</tr>
-		<?php $tribe->do_action( 'tribe_events_url_table', $event->ID, true ) ?>
+		<?php do_action( 'tribe_events_url_table', $event->ID, true ) ?>
 	</table>
 
-	<?php $tribe->do_action( 'tribe_events_details_table_bottom', $event->ID, true ) ?>
+	<?php do_action( 'tribe_events_details_table_bottom', $event->ID, true ) ?>
 
 	<table id="event_cost" class="eventtable">
 		<?php if ( tribe_events_admin_show_cost_field() ) : ?>
@@ -171,9 +171,9 @@ $events_label_plural = tribe_get_event_label_plural();
 				</td>
 			</tr>
 		<?php endif; ?>
-		<?php $tribe->do_action( 'tribe_events_cost_table', $event->ID, true ) ?>
+		<?php do_action( 'tribe_events_cost_table', $event->ID, true ) ?>
 	</table>
 
 </div>
-<?php $tribe->do_action( 'tribe_events_above_donate', $event->ID, true ) ?>
-<?php $tribe->do_action( 'tribe_events_details_bottom', $event->ID, true ) ?>
+<?php do_action( 'tribe_events_above_donate', $event->ID, true ) ?>
+<?php do_action( 'tribe_events_details_bottom', $event->ID, true ) ?>
