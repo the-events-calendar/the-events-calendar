@@ -82,13 +82,17 @@ if ( ! class_exists( 'TribeDateUtils' ) ) {
 		/**
 		 * Returns the end of a given day.
 		 *
+		 * @deprecated since 3.10 - use tribe_event_end_of_day()
+		 * @todo       remove in 4.1
+		 *
 		 * @param int|string $date        The date (timestamp or string).
 		 * @param bool       $isTimestamp Is $date in timestamp format?
 		 *
-		 * @return string The date and time of the end of a given day.
-		 * @todo - do we need this, since we have tribe_event_end_of_day()?
+		 * @return string The date and time of the end of a given day
 		 */
 		public static function endOfDay( $date, $isTimestamp = false ) {
+			_deprecated_function( __FILE__, '3.10', 'tribe_event_end_of_day' );
+
 			$date = $isTimestamp ? $date : strtotime( $date );
 			$date = date( TribeDateUtils::DBDATEFORMAT, $date );
 			$date = strtotime( $date . ' 23:59:59' );
@@ -99,13 +103,17 @@ if ( ! class_exists( 'TribeDateUtils' ) ) {
 		/**
 		 * Returns the beginning of a given day.
 		 *
+		 * @depreacted since 3.10
+		 * @todo       remove in 4.1
+		 *
 		 * @param int|string $date        The date (timestamp or string).
 		 * @param bool       $isTimestamp Is $date in timestamp format?
 		 *
 		 * @return string The date and time of the beginning of a given day.
-		 * @todo - do we need this, since we have tribe_event_beginning_of_day()?
 		 */
 		public static function beginningOfDay( $date, $isTimestamp = false ) {
+			_deprecated_function( __FILE__, '3.10', 'tribe_event_beginning_of_day' );
+
 			$date = $isTimestamp ? $date : strtotime( $date );
 			$date = date( TribeDateUtils::DBDATEFORMAT, $date );
 			$date = strtotime( $date . ' 00:00:00' );
