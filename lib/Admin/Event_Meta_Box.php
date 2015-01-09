@@ -65,9 +65,6 @@ class Tribe__Events__Admin__Event_Meta_Box {
 		$this->set_all_day();
 		$this->set_end_date_time();
 		$this->set_start_date_time();
-
-		$this->vars['recStart']     = isset( $_REQUEST['event_start'] ) ? esc_attr( $_REQUEST['event_start'] ) : null;
-		$this->vars['recPost']      = isset( $_REQUEST['post'] ) ? absint( $_REQUEST['post'] ) : null;
 	}
 
 	/**
