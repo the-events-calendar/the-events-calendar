@@ -740,7 +740,7 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 							'utm_source'   => 'notice'
 						), self::$tribeUrl . 'version-relationships-in-modern-tribe-pluginsadd-ons/'
 					);
-					$output .= '<p>' . sprintf( __( 'The following plugins are out of date: <b>%s</b>. All add-ons contain dependencies on The Events Calendar and will not function properly unless paired with the right version. %sWant to pair an older version%s?', 'tribe-events-calendar' ), join( $out_of_date_addons, ', ' ), "<a href='$link' target='_blank'>", '</a>' ) . '</p>';
+					$output .= '<p>' . sprintf( __( 'The following plugins are out of date: <b>%s</b>. All add-ons contain dependencies on The Events Calendar and will not function properly unless paired with the right version. %sLearn More%s.', 'tribe-events-calendar' ), join( $out_of_date_addons, ', ' ), "<a href='$link' target='_blank'>", '</a>' ) . '</p>';
 					$output .= '</div>';
 				}
 			}
