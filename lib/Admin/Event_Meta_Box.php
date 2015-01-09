@@ -11,11 +11,15 @@ class Tribe__Events__Admin__Event_Meta_Box {
 	protected $tribe;
 
 	/**
-	 * Container for variables used within the meta box template itself.
+	 * Variables (with some defaults) for use within the meta box template itself.
 	 *
 	 * @var array
 	 */
-	protected $vars = array();
+	protected $vars = array(
+		'_EventAllDay' => false,
+		'_EventEndDate' => null,
+		'_EventStartDate' => null,
+	);
 
 
 	/**
@@ -25,8 +29,8 @@ class Tribe__Events__Admin__Event_Meta_Box {
 	 * @param null $event
 	 */
 	public function __construct( $event = null ) {
-		$this->load_event( $event );
 		$this->tribe = TribeEvents::instance();
+		$this->work_with( $event );
 		$this->setup();
 		$this->do_meta_box();
 	}
@@ -37,7 +41,7 @@ class Tribe__Events__Admin__Event_Meta_Box {
 	 *
 	 * @param null $event
 	 */
-	protected function load_event( $event = null ) {
+	protected function work_with( $event = null ) {
 		global $post;
 
 		if ( $event === null ) {
@@ -54,25 +58,8 @@ class Tribe__Events__Admin__Event_Meta_Box {
 		$this->get_existing_organizer_vars();
 		$this->get_existing_venue_vars();
 
-		$_EventAllDay    = isset( $_EventAllDay ) ? $_EventAllDay : false;
-		$_EventStartDate = ( isset( $_EventStartDate ) ) ? $_EventStartDate : null;
+		$this->eod_correction();
 
-		if ( isset( $_EventEndDate ) ) {
-			if ( $_EventAllDay && TribeDateUtils::timeOnly( $_EventEndDate ) != '23:59:59' && TribeDateUtils::timeOnly( tribe_event_end_of_day() ) != '23:59:59' ) {
-
-				// If it's an all day event and the EOD cutoff is later than midnight
-				// set the end date to be the previous day so it displays correctly in the datepicker
-				// so the datepickers will match. we'll set the correct end time upon saving
-				// @todo: remove this once we're allowed to have all day events without a start/end time
-
-				$_EventEndDate = date_create( $_EventEndDate );
-				$_EventEndDate->modify( '-1 day' );
-				$_EventEndDate = $_EventEndDate->format( TribeDateUtils::DBDATETIMEFORMAT );
-
-			}
-		} else {
-			$_EventEndDate = null;
-		}
 		$isEventAllDay        = ( $_EventAllDay == 'yes' || ! TribeDateUtils::dateOnly( $_EventStartDate ) ) ? 'checked="checked"' : ''; // default is all day for new posts
 		$startMinuteOptions   = TribeEventsViewHelpers::getMinuteOptions( $_EventStartDate, true );
 		$endMinuteOptions     = TribeEventsViewHelpers::getMinuteOptions( $_EventEndDate );
@@ -148,6 +135,29 @@ class Tribe__Events__Admin__Event_Meta_Box {
 				$_VenueVenue = NULL;
 			}
 		}
+	}
+
+	/**
+	 * If it's an all day event and the EOD cutoff is later than midnight
+	 * set the end date to be the previous day so it displays correctly in the datepicker
+	 * so the datepickers will match. we'll set the correct end time upon saving
+	 *
+	 * @todo remove this once we're allowed to have all day events without a start/end time
+	 */
+	protected function eod_correction() {
+		$all_day  = $this->vars['_EventAllDay'];
+		$end_date = $this->vars['_EventEndDate'];
+
+		$ends_at_midnight = '23:59:59' === TribeDateUtils::timeOnly( $end_date );
+		$midnight_cutoff  = '23:59:59' === TribeDateUtils::timeOnly( tribe_event_end_of_day() );
+
+		if ( ! $all_day || $ends_at_midnight || $midnight_cutoff ) {
+			return;
+		}
+
+		$end_date = date_create( $this->vars['_EventEndDate'] );
+		$end_date->modify( '-1 day' );
+		$this->vars['_EventEndDate'] = $end_date->format( TribeDateUtils::DBDATETIMEFORMAT );
 	}
 
 	protected function do_meta_box() {
