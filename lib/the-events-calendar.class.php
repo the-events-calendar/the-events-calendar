@@ -3711,34 +3711,6 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 		}
 
 		/**
-		 * A TEC wrapper of do_action(), basically.
-		 *
-		 * @param string $name        The action hook name.
-		 * @param int    $event_id    The event this is tied to.
-		 * @param bool   $showMessage The message to show.
-		 * @param mixed  $extra_args  The extra args you want.
-		 *
-		 * @return void
-		 */
-		public function do_action( $name, $event_id = null, $showMessage = false, $extra_args = null ) {
-			try {
-				do_action( $name, $event_id, $extra_args );
-				if ( ! $this->getPostExceptionThrown() && $event_id ) {
-					delete_post_meta( $event_id, TribeEvents::EVENTSERROROPT );
-				}
-			} catch ( TribeEventsPostException $e ) {
-				$this->setPostExceptionThrown( true );
-				if ( $event_id ) {
-					update_post_meta( $event_id, self::EVENTSERROROPT, trim( $e->getMessage() ) );
-				}
-
-				if ( $showMessage ) {
-					$e->displayMessage( $showMessage );
-				}
-			}
-		}
-
-		/**
 		 * Echoes upsell stuff, if it should.
 		 *
 		 * @param int $postId
