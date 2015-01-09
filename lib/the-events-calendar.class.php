@@ -3150,19 +3150,19 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 		 */
 		public function VenueMetaBox() {
 			global $post;
-			$options = '';
-			$style   = '';
-			$postId  = $post->ID;
+			$options  = '';
+			$style    = '';
+			$event    = $post;
 
 			if ( $post->post_type == self::VENUE_POST_TYPE ) {
 
-				if ( ( is_admin() && isset( $_GET['post'] ) && $_GET['post'] ) || ( ! is_admin() && isset( $postId ) ) ) {
+				if ( ( is_admin() && isset( $_GET['post'] ) && $_GET['post'] ) || ( ! is_admin() && isset( $event->ID ) ) ) {
 					$saved = true;
 				}
 
 				foreach ( $this->venueTags as $tag ) {
-					if ( $postId && isset( $saved ) && $saved ) { //if there is a post AND the post has been saved at least once.
-						$$tag = esc_html( get_post_meta( $postId, $tag, true ) );
+					if ( $event->ID && isset( $saved ) && $saved ) { //if there is a post AND the post has been saved at least once.
+						$$tag = esc_html( get_post_meta( $event->ID, $tag, true ) );
 					} else {
 						$cleaned_tag = str_replace( '_Venue', '', $tag );
 						$$tag = call_user_func( array( $this->defaults(), $cleaned_tag ) );
