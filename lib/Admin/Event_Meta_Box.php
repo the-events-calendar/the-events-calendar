@@ -73,10 +73,11 @@ class Tribe__Events__Admin__Event_Meta_Box {
 	 * Checks for existing event post meta data and populates the list of vars accordingly.
 	 */
 	protected function get_existing_event_vars() {
+		if ( ! $this->event->ID ) {
+			return;
+		}
 		foreach ( $this->tribe->metaTags as $tag ) {
-			if ( $this->event->ID ) {
-				$this->vars[$tag] = get_post_meta( $this->event->ID, $tag, true );
-			}
+			$this->vars[$tag] = get_post_meta( $this->event->ID, $tag, true );
 		}
 	}
 
@@ -84,10 +85,11 @@ class Tribe__Events__Admin__Event_Meta_Box {
 	 * Checks for existing organizer post meta data and populates the list of vars accordingly.
 	 */
 	protected function get_existing_organizer_vars() {
+		if ( ! $this->vars['_EventOrganizerID'] ) {
+			return;
+		}
 		foreach ( $this->tribe->organizerTags as $tag ) {
-			if ( $this->vars['_EventOrganizerID'] ) {
-				$this->vars[$tag] = get_post_meta( $this->vars['_EventOrganizerID'], $tag, true );
-			}
+			$this->vars[$tag] = get_post_meta( $this->vars['_EventOrganizerID'], $tag, true );
 		}
 	}
 
@@ -95,10 +97,11 @@ class Tribe__Events__Admin__Event_Meta_Box {
 	 * Checks for existing venue post meta data and populates the list of vars accordingly.
 	 */
 	protected function get_existing_venue_vars() {
-		if ( $this->vars['_EventVenueID'] ) {
-			foreach ( $this->tribe->venueTags as $tag ) {
-				$this->vars[$tag] = get_post_meta( $this->vars['_EventVenueID'], $tag, true );
-			}
+		if ( ! $this->vars['_EventVenueID'] ) {
+			return;
+		}
+		foreach ( $this->tribe->venueTags as $tag ) {
+			$this->vars[$tag] = get_post_meta( $this->vars['_EventVenueID'], $tag, true );
 		}
 	}
 
