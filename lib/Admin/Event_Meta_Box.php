@@ -22,6 +22,8 @@ class Tribe__Events__Admin__Event_Meta_Box {
 		'_EventAllDay' => false,
 		'_EventEndDate' => null,
 		'_EventStartDate' => null,
+		'_EventOrganizerID' => null,
+		'_EventVenueID' => null
 	);
 
 
@@ -33,8 +35,8 @@ class Tribe__Events__Admin__Event_Meta_Box {
 	 */
 	public function __construct( $event = null ) {
 		$this->tribe = TribeEvents::instance();
-		$this->work_with( $event );
-		$this->setup();
+		$this->get_event( $event );
+		$this->setup_data();
 		$this->do_meta_box();
 	}
 
@@ -44,7 +46,7 @@ class Tribe__Events__Admin__Event_Meta_Box {
 	 *
 	 * @param null $event
 	 */
-	protected function work_with( $event = null ) {
+	protected function get_event( $event = null ) {
 		global $post;
 
 		if ( $event === null ) {
@@ -56,7 +58,7 @@ class Tribe__Events__Admin__Event_Meta_Box {
 		}
 	}
 
-	protected function setup() {
+	protected function setup_data() {
 		$this->get_existing_event_vars();
 		$this->get_existing_organizer_vars();
 		$this->get_existing_venue_vars();
@@ -89,7 +91,7 @@ class Tribe__Events__Admin__Event_Meta_Box {
 	 * Checks for existing organizer post meta data and populates the list of vars accordingly.
 	 */
 	protected function get_existing_organizer_vars() {
-		if ( isset( $this->vars['_EventOrganizerID'] ) && $this->vars['_EventOrganizerID'] ) {
+		if ( $this->vars['_EventOrganizerID'] ) {
 			foreach ( $this->tribe->organizerTags as $tag ) {
 				$this->vars[$tag] = get_post_meta( $this->vars['_EventOrganizerID'], $tag, true );
 			}
@@ -107,14 +109,9 @@ class Tribe__Events__Admin__Event_Meta_Box {
 	 * Checks for existing venue post meta data and populates the list of vars accordingly.
 	 */
 	protected function get_existing_venue_vars() {
-		if ( isset( $this->vars['_EventVenueID'] ) && $this->vars['_EventVenueID'] ) {
+		if ( $this->vars['_EventVenueID'] ) {
 			foreach ( $this->tribe->venueTags as $tag ) {
 				$this->vars[$tag] = get_post_meta( $this->vars['_EventVenueID'], $tag, true );
-			}
-		} else {
-			$_VenueVenue = $this->tribe->defaults()->venue_id();
-			if ( !$_VenueVenue ) {
-				$_VenueVenue = NULL;
 			}
 		}
 	}
