@@ -76,13 +76,6 @@ class Tribe__Events__Admin__Event_Meta_Box {
 		foreach ( $this->tribe->metaTags as $tag ) {
 			if ( $this->event->ID ) {
 				$this->vars[$tag] = get_post_meta( $this->event->ID, $tag, true );
-			} else {
-				$cleaned_tag = str_replace( '_Event', '', $tag );
-				if ( isset( $_POST['Event' . $cleaned_tag] ) ) {
-					$this->vars[$tag] = stripslashes_deep( $_POST['Event' . $cleaned_tag] );
-				} else {
-					$this->vars[$tag] = call_user_func( array( $this->tribe->defaults(), $cleaned_tag ) );
-				}
 			}
 		}
 	}
@@ -91,16 +84,9 @@ class Tribe__Events__Admin__Event_Meta_Box {
 	 * Checks for existing organizer post meta data and populates the list of vars accordingly.
 	 */
 	protected function get_existing_organizer_vars() {
-		if ( $this->vars['_EventOrganizerID'] ) {
-			foreach ( $this->tribe->organizerTags as $tag ) {
+		foreach ( $this->tribe->organizerTags as $tag ) {
+			if ( $this->vars['_EventOrganizerID'] ) {
 				$this->vars[$tag] = get_post_meta( $this->vars['_EventOrganizerID'], $tag, true );
-			}
-		} else {
-			foreach ( $this->tribe->organizerTags as $tag ) {
-				$cleaned_tag = str_replace( '_Organizer', '', $tag );
-				if ( isset( $_POST['organizer'][$cleaned_tag] ) ) {
-					$this->vars[$tag] = stripslashes_deep( $_POST['organizer'][$cleaned_tag] );
-				}
 			}
 		}
 	}
