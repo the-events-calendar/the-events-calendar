@@ -3,7 +3,8 @@ jQuery( document ).ready( function( $ ) {
 	var $view_select = $( '.tribe-field-dropdown_select2 select' ),
 		viewCalLinkHTML = $( '#view-calendar-link-div' ).html(),
 		$template_select = $( 'select[name="tribeEventsTemplate"]' ),
-		$event_pickers = $( '#tribe-event-datepickers' );
+		$event_pickers = $( '#tribe-event-datepickers' ),
+		isCommunityEventsEdit = $('body').is( '.tribe_community_edit' );
 
 	// initialize  chosen and select2
 
@@ -27,6 +28,10 @@ jQuery( document ).ready( function( $ ) {
 	}
 
 	//not done by default on front end
+
+	function getDatepickerNumMonths() {
+		return ( isCommunityEventsEdit && $(window).width() < 768 ) ? 1 : 3;
+	}
 
 	$( '.hide-if-js' )
 		.hide();
@@ -57,10 +62,11 @@ jQuery( document ).ready( function( $ ) {
 			showAnim       : 'fadeIn',
 			changeMonth    : true,
 			changeYear     : true,
-			numberOfMonths : 3,
+			numberOfMonths : getDatepickerNumMonths(),
 			firstDay       : startofweek,
 			showButtonPanel: true,
 			beforeShow     : function( element, object ) {
+				object.input.datepicker( 'option', 'numberOfMonths', getDatepickerNumMonths() );
 				object.input.data( 'prevDate', object.input.datepicker( "getDate" ) );
 			},
 			onSelect       : function( selectedDate ) {
