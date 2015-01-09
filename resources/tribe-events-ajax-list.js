@@ -181,6 +181,11 @@
 					tribe_event_display: ts.view
 				};
 
+				if ( tribe_js_config.permalink_settings === '' ){
+					ts.url_params.eventDisplay = 'list';
+
+				}
+
 				if ( tribe_hash_string.length ) {
 					ts.params['hash'] = tribe_hash_string;
 				}
@@ -251,6 +256,10 @@
 
 							ts.page_title = $( '#tribe-events-header' ).data( 'title' );
 							document.title = ts.page_title;
+
+							console.log( ts.params );
+							console.log( ts.url_params );
+
 
 							if ( ts.do_string ) {
 								history.pushState( {
