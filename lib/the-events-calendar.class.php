@@ -3140,8 +3140,7 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 		 * @param WP_Post $event
 		 */
 		public function EventsChooserBox( $event = null ) {
-			$meta_box = new Tribe__Events__Admin__Event_Meta_Box;
-			$meta_box->do_meta_box( $event );
+			new Tribe__Events__Admin__Event_Meta_Box( $event );
 		}
 
 		/**
