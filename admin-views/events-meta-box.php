@@ -22,11 +22,11 @@ $events_label_plural = tribe_get_event_label_plural();
 </style>
 <div id="eventIntro">
 	<div id="tribe-events-post-error" class="tribe-events-error error"></div>
-	<?php $tribe->do_action( 'tribe_events_post_errors', $event->ID, true ) ?>
+	<?php do_action( 'tribe_events_post_errors', $event->ID, true ) ?>
 
 </div>
 <div id='eventDetails' class="inside eventForm">
-	<?php $tribe->do_action( 'tribe_events_detail_top', $event->ID, true ) ?>
+	<?php do_action( 'tribe_events_detail_top', $event->ID, true ) ?>
 	<?php wp_nonce_field( TribeEvents::POSTTYPE, 'ecp_nonce' ); ?>
 	<?php do_action( 'tribe_events_eventform_top', $event->ID ); ?>
 	<table cellspacing="0" cellpadding="0" id="EventInfo">
@@ -90,7 +90,7 @@ $events_label_plural = tribe_get_event_label_plural();
 				</span>
 						</td>
 					</tr>
-					<?php $tribe->do_action( 'tribe_events_date_display', $event->ID, true ) ?>
+					<?php do_action( 'tribe_events_date_display', $event->ID, true ) ?>
 				</table>
 			</td>
 		</tr>
