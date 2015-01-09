@@ -211,7 +211,7 @@ class TribeiCal {
 			} else {
 				$type = 'DATE-TIME';
 			}
-			$description = preg_replace( "/[\n\t\r]/", ' ', strip_tags( $event_post->post_content ) );
+			$description = str_replace( array( ',', "\n", "\r", "\t" ), array( '\,', '\n', '', '\t' ), strip_tags( $event_post->post_content ) );
 
 			// add fields to iCal output
 			$item   = array();
@@ -223,11 +223,11 @@ class TribeiCal {
 					array(
 						'-',
 						' ',
-						':'
+						':',
 					), array(
 						'',
 						'T',
-						''
+						'',
 					), $event_post->post_modified
 				);
 			$item[] = 'UID:' . $event_post->ID . '-' . strtotime( $startDate ) . '-' . strtotime( $endDate ) . '@' . $blogHome;
@@ -238,7 +238,9 @@ class TribeiCal {
 			// add location if available
 			$location = $tec->fullAddressString( $event_post->ID );
 			if ( ! empty( $location ) ) {
-				$item[] = 'LOCATION:' . html_entity_decode( $location, ENT_QUOTES );
+				$str_location = str_replace( array( ',', "\n" ), array( '\,', '\n' ), html_entity_decode( $location, ENT_QUOTES ) );
+
+				$item[] = 'LOCATION:' .  $str_location;
 			}
 
 			// add geo coordinates if available
@@ -247,6 +249,15 @@ class TribeiCal {
 				$lat  = TribeEventsGeoLoc::instance()->get_lat_for_event( $event_post->ID );
 				if ( ! empty( $long ) && ! empty( $lat ) ) {
 					$item[] = sprintf( 'GEO:%s;%s', $long, $lat );
+
+					$str_title = str_replace( array( ',', "\n" ), array( '\,', '\n' ), html_entity_decode( tribe_get_address( $event_post->ID ), ENT_QUOTES ) );
+
+					if ( ! empty( $str_title ) && ! empty( $str_location ) ) {
+						$item[] =
+							'X-APPLE-STRUCTURED-LOCATION;VALUE=URI;X-ADDRESS=' . str_replace( '\,', '', trim( $str_location ) ) . ';' .
+							'X-APPLE-RADIUS=500;' .
+							'X-TITLE=' . trim( $str_title ) . ':geo:' . $long . ',' . $lat;
+					}
 				}
 			}
 
