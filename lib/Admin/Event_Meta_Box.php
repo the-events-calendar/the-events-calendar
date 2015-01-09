@@ -65,8 +65,8 @@ class Tribe__Events__Admin__Event_Meta_Box {
 
 		$this->eod_correction();
 		$this->set_all_day();
-		$this->set_end_date_time();
 		$this->set_start_date_time();
+		$this->set_end_date_time();
 	}
 
 	/**
@@ -135,6 +135,21 @@ class Tribe__Events__Admin__Event_Meta_Box {
 		$this->vars['isEventAllDay'] = ( $this->vars['_EventAllDay'] == 'yes' || ! TribeDateUtils::dateOnly( $this->vars['_EventStartDate'] ) ) ? 'checked="checked"' : '';
 	}
 
+	protected function set_start_date_time() {
+		$this->vars['startMinuteOptions']   = TribeEventsViewHelpers::getMinuteOptions( $this->vars['_EventStartDate'], true );
+		$this->vars['startHourOptions']     = TribeEventsViewHelpers::getHourOptions( $this->vars['_EventAllDay'] == 'yes' ? null : $this->vars['_EventStartDate'], true );
+		$this->vars['startMeridianOptions'] = TribeEventsViewHelpers::getMeridianOptions( $this->vars['_EventStartDate'], true );
+
+		if ( ! empty( $_REQUEST['eventDate'] ) ) {
+			$this->vars['EventStartDate'] = esc_attr( $_REQUEST['eventDate'] );
+		}
+
+		if ( $this->vars['_EventStartDate'] ) {
+			$start = TribeDateUtils::dateOnly( $this->vars['_EventStartDate'] );
+		}
+
+		$this->vars['EventStartDate'] = ( isset( $start ) && $start ) ? $start : date( 'Y-m-d' );
+	}
 
 	protected function set_end_date_time() {
 		$this->vars['endMinuteOptions']   = TribeEventsViewHelpers::getMinuteOptions( $this->vars['_EventEndDate'] );
@@ -142,7 +157,9 @@ class Tribe__Events__Admin__Event_Meta_Box {
 		$this->vars['endMeridianOptions'] = TribeEventsViewHelpers::getMeridianOptions( $this->vars['_EventEndDate'] );
 
 		if ( ! empty( $_REQUEST['eventDate'] ) ) {
-			$this->vars['EventStartDate'] = esc_attr( $_REQUEST['eventDate'] );
+			$duration     = get_post_meta( $this->event->ID, '_EventDuration', true );
+			$start_time   = isset( $this->vars['_EventStartDate'] ) ? TribeDateUtils::timeOnly( $this->vars['_EventStartDate'] ) : TribeDateUtils::timeOnly( tribe_get_start_date( $this->event->ID ) );
+			$this->vars['EventEndDate'] = TribeDateUtils::dateOnly( strtotime( $_REQUEST['eventDate'] . ' ' . $start_time ) + $duration, true );
 		}
 
 		if ( $this->vars['_EventEndDate'] ) {
@@ -150,24 +167,6 @@ class Tribe__Events__Admin__Event_Meta_Box {
 		}
 
 		$this->vars['EventEndDate'] = ( isset( $end ) && $end ) ? $end : date( 'Y-m-d' );
-
-		if ( ! empty( $_REQUEST['eventDate'] ) ) {
-			$duration     = get_post_meta( $this->event->ID, '_EventDuration', true );
-			$start_time   = isset( $this->vars['_EventStartDate'] ) ? TribeDateUtils::timeOnly( $this->vars['_EventStartDate'] ) : TribeDateUtils::timeOnly( tribe_get_start_date( $this->event->ID ) );
-			$this->vars['EventEndDate'] = TribeDateUtils::dateOnly( strtotime( $_REQUEST['eventDate'] . ' ' . $start_time ) + $duration, true );
-		}
-	}
-
-	protected function set_start_date_time() {
-		$this->vars['startMinuteOptions']   = TribeEventsViewHelpers::getMinuteOptions( $this->vars['_EventStartDate'], true );
-		$this->vars['startHourOptions']     = TribeEventsViewHelpers::getHourOptions( $this->vars['_EventAllDay'] == 'yes' ? null : $this->vars['_EventStartDate'], true );
-		$this->vars['startMeridianOptions'] = TribeEventsViewHelpers::getMeridianOptions( $this->vars['_EventStartDate'], true );
-
-		if ( $this->vars['_EventStartDate'] ) {
-			$start = TribeDateUtils::dateOnly( $this->vars['_EventStartDate'] );
-		}
-
-		$this->vars['EventStartDate'] = ( isset( $start ) && $start ) ? $start : date( 'Y-m-d' );
 	}
 
 	/**
