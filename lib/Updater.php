@@ -40,7 +40,7 @@ class Tribe__Events__Updater {
 				call_user_func( $callback );
 			}
 			$this->update_version_option( $this->current_version );
-		} catch ( \Exception $e ) {
+		} catch ( Exception $e ) {
 			// fail silently, but it should try again next time
 		}
 	}
