@@ -250,7 +250,7 @@ class TribeEventsMiniCalendar {
 				if ( ! defined( 'DOING_AJAX' ) || ( defined( 'DOING_AJAX' ) && $_POST['action'] == 'tribe-mini-cal' ) ) {
 					$query_args['end_date'] = substr_replace( $this->get_month( TribeDateUtils::DBDATEFORMAT ), TribeDateUtils::getLastDayOfMonth( strtotime( $this->get_month() ) ), - 2 );
 					// @todo use tribe_events_end_of_day() ?
-					$query_args['end_date'] = TribeDateUtils::endOfDay( $query_args['end_date'] );
+					$query_args['end_date'] = tribe_event_end_of_day( $query_args['end_date'] );
 				}
 
 				$wp_query = TribeEventsQuery::getEvents( $query_args, true );
