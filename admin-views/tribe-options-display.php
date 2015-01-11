@@ -105,7 +105,7 @@ $displayTab = array(
 			'monthEventAmount'                   => array(
 				'type'            => 'text',
 				'label'           => __( 'Month view events per day', 'tribe-events-calendar' ),
-				'tooltip'         => __( 'Allow more than the default 3 events per day in month view.', 'tribe-events-calendar' ),
+				'tooltip'         => sprintf( __( 'Change the default 3 events per day in month view. Please note there may be performance issues if you set this too high. <a href="%s">Read more</a>.', 'tribe-events-calendar' ), 'http://m.tri.be/rh' ),
 				'validation_type' => 'positive_int',
 				'size'            => 'small',
 				'default'         => '3'
