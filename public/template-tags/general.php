@@ -641,7 +641,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 				$attrs['data-startofweek'] = get_option( 'start_of_week' );
 				break;
 			case 'list.php' :
-				$attrs['data-startofweek'] = get_option( 'start_of_week' );
+				$attrs['data-startofweek'] = get_option( 'start_of_week' );				
 				$attrs['data-view'] = 'list';
 				if ( tribe_is_upcoming() ) {
 					$attrs['data-baseurl'] = tribe_get_listview_link( false );
@@ -1035,7 +1035,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 * @category Events
 	 * @TODO use tribe_get_datetime_format() and related functions if possible
 	 *
-	 * @param int|null   $event
+	 * @param int|null $event
 	 * @param string $before
 	 * @param string $after
 	 *
@@ -1222,9 +1222,9 @@ if ( class_exists( 'TribeEvents' ) ) {
 
 			// Re-enable recurring event info
 			$ecp->enable_recurring_info_tooltip();
-		} else {
+			} else {
 			$date_display = strip_tags( tribe_events_event_schedule_details( $event ) );
-		}
+				}
 
 		if ( function_exists( 'has_post_thumbnail' ) && has_post_thumbnail( $event->ID ) ) {
 			$has_image = true;
@@ -1343,18 +1343,17 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 *
 	 * @category Events
 	 *
-	 * @param array $views Default list of views
+	 * @param $deprecated deprecated
 	 *
 	 * @return array
 	 * @see tribeEnableViews option
+	 * @todo remove deprecated param in 4.0
 	 **/
-	function tribe_events_enabled_views( $views ) {
-		$enabled_views_defaults = array();
-		foreach ( $views as $view ) {
-			$enabled_views_defaults[] = $view['displaying'];
+	function tribe_events_enabled_views( $deprecated = null ) {
+		if ( isset( $deprecated ) ) {
+			_deprecated_argument( __FUNCTION__, '3.10' );
 		}
-
-		return tribe_get_option( 'tribeEnableViews', $enabled_views_defaults );
+		return tribe_get_option( 'tribeEnableViews', array() );
 	}
 
 	/**
@@ -1363,8 +1362,11 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 * @category Events
 	 *
 	 * @return array
+	 * @deprecated
+	 * @todo remove in 4.0
 	 **/
 	function tribe_events_disabled_views() {
+		_deprecated_function( __FUNCTION__, '3.10', 'tribe_events_is_view_enabled( $view )' );
 		static $disabled;
 		if ( isset( $disabled ) ) {
 			return $disabled;
@@ -1634,5 +1636,5 @@ if ( class_exists( 'TribeEvents' ) ) {
 		$defaults = TribeEvents::instance()->defaults();
 		$value = call_user_func( array( $defaults, $field ) );
 		return $value;
-	}
+}
 }
