@@ -37,6 +37,7 @@ class TribeEventsImporter_FileImporter_Venues extends TribeEventsImporter_FileIm
 			'State'    => $this->get_value_by_key( $record, 'venue_state' ),
 			'Zip'      => $this->get_value_by_key( $record, 'venue_zip' ),
 			'Phone'    => $this->get_value_by_key( $record, 'venue_phone' ),
+			'URL'      => $this->get_value_by_key( $record, 'venue_url' ),
 		);
 		if ( empty( $venue['Country'] ) ) {
 			$venue['Country'] = 'United States';
