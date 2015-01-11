@@ -552,7 +552,7 @@ if ( ! class_exists( 'TribeEventsTemplates' ) ) {
 			$file = false;
 
 			// return 404 if curent view is disabled
-			if ( ! $disable_view_check && in_array( $tec->displaying, tribe_events_disabled_views() ) ) {
+			if ( ! $disable_view_check && ! in_array( $tec->displaying, tribe_events_enabled_views() ) ) {
 				$file = get_404_template();
 			}
 
