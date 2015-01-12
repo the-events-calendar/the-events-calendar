@@ -105,6 +105,9 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			require_once( $this->pluginPath . 'lib/SingleEventMeta.php' );
 			require_once( $this->pluginPath . 'lib/Shortcodes/Widget_Wrappers.php' );
 
+			// community mods
+			require_once( $this->pluginPath . 'lib/Community_Modifications.php' );
+
 			add_action( 'admin_init', array( $this, 'run_updates' ), 10, 0 );
 
 			// Tribe common resources
@@ -427,6 +430,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			TribeEventsCustomMeta::init();
 			TribeEventsRecurrenceMeta::init();
 			TribeEventsGeoLoc::instance();
+			Tribe__Events__Pro__Community_Modifications::init();
 			$this->displayMetaboxCustomFields();
 			$this->single_event_meta = new TribeEventsPro_SingleEventMeta;
 			$this->embedded_maps = new TribeEventsPro_EmbeddedMaps;
