@@ -685,7 +685,8 @@ if ( ! class_exists( 'TribeEventsTemplates' ) ) {
 		 */
 		public static function event_date_to_pubDate( $time, $d, $gmt ) {
 			global $post;
-			if ( $post->post_type == TribeEvents::POSTTYPE && is_feed() && $gmt ) {
+
+			if ( isset($post) && $post->post_type == TribeEvents::POSTTYPE && is_feed() && $gmt ) {
 				$time = tribe_get_start_date( $post->ID, false, $d );
 				$time = mysql2date( $d, $time );
 			}
