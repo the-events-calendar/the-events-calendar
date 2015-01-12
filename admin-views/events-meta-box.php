@@ -11,15 +11,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 $events_label_singular = tribe_get_event_label_singular();
 $events_label_plural = tribe_get_event_label_plural();
 
-?>
-<style type="text/css">
-	<?php if( class_exists( 'Eventbrite_for_TribeEvents' ) ) : ?>
-	.eventBritePluginPlug {
-		display: none;
+if ( class_exists( 'Eventbrite_for_TribeEvents' ) ) {
+	?>
+	<style type="text/css">
+		.eventBritePluginPlug {
+			display: none;
+		}
+	</style>
+	<?php
 	}
-
-	<?php endif; ?>
-</style>
+?>
 <div id="eventIntro">
 	<div id="tribe-events-post-error" class="tribe-events-error error"></div>
 	<?php $this->do_action( 'tribe_events_post_errors', $postId, true ) ?>

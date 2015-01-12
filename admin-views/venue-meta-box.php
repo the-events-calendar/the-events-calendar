@@ -148,7 +148,7 @@ if ( $post->post_type != TribeEvents::VENUE_POST_TYPE ) {
 			<input tabindex="<?php tribe_events_tab_index(); ?>" type="checkbox" id="EventShowMapLink" name="venue[EventShowMapLink]" value="1" <?php checked( $google_map_link_toggle ); ?> />
 		</td>
 	</tr>
-<?php
+	<?php
 } else {
 	if ( tribe_get_option( 'embedGoogleMaps', true ) ) { // Only show if embed option selected
 
@@ -170,9 +170,21 @@ if ( $post->post_type != TribeEvents::VENUE_POST_TYPE ) {
 			<input tabindex="<?php tribe_events_tab_index(); ?>" type="checkbox" id="VenueShowMapLink" name="venue[ShowMapLink]" value="true" <?php checked( $google_map_link_toggle ); ?> />
 		</td>
 	</tr>
-<?php
+	<?php
 }
+
+$overwrite_coords = false;
 ?>
+
+<tr id="overwrite_coordinates">
+	<td><?php esc_attr_e( 'Coodinates Overwrite', 'tribe-events-calendar' ); ?>:</td>
+	<td>
+		<input tabindex="<?php tribe_events_tab_index(); ?>" type="checkbox" id="VenueOverwriteCoords" name="venue[OverwriteCoords]" value="true" <?php checked( $overwrite_coords ); ?> />
+
+		<input class=" " disabled title='<?php esc_attr_e( 'Latitude', 'tribe-events-calendar' ) ?>' placeholder='<?php esc_attr_e( 'Latitude', 'tribe-events-calendar' ) ?>' tabindex="<?php tribe_events_tab_index(); ?>" type="text" id="VenueLatitude" name="venue[Lat]" value="" />
+		<input class=" " disabled title='<?php esc_attr_e( 'Longitude', 'tribe-events-calendar' ) ?>' placeholder='<?php esc_attr_e( 'Longitude', 'tribe-events-calendar' ) ?>' tabindex="<?php tribe_events_tab_index(); ?>" type="text" id="VenueLongitude" name="venue[Lng]" value="" />
+	</td>
+</tr>
 
 <script type="text/javascript">
 	jQuery('[name=venue\\[Venue\\]]').blur(function () {

@@ -188,7 +188,7 @@ jQuery( document ).ready( function( $ ) {
 				$( "#EventCountry" ).val( 0 ).trigger( "chosen:updated" );
 				$( "#StateProvinceSelect" ).val( 0 ).trigger( "chosen:updated" );
 				tribeShowHideCorrectStateProvinceInput( '' );
-				$('.edit-venue-link').hide();			
+				$('.edit-venue-link').hide();
 			}
 			else {
 				venueFields.fadeOut();
@@ -212,7 +212,7 @@ jQuery( document ).ready( function( $ ) {
 
 			if ( selected_organizer_id == '0' ) {
 				organizerFields.fadeIn();
-				$('.edit-organizer-link').hide();	
+				$('.edit-organizer-link').hide();
 			}
 			else {
 				organizerFields.fadeOut();
@@ -302,6 +302,24 @@ jQuery( document ).ready( function( $ ) {
 	function isExistingRecurringEvent() {
 		return $is_recurring.val() == "true";
 	}
+
+	// EventCoordinates
+	var overwriteCoordinates = {
+		$container: $( '#overwrite_coordinates' )
+	};
+
+	overwriteCoordinates.$lat = overwriteCoordinates.$container.find( '#VenueLatitude' );
+	overwriteCoordinates.$lng = overwriteCoordinates.$container.find( '#VenueLongitude' );
+
+	overwriteCoordinates.$fields = $('').add( overwriteCoordinates.$lat ).add( overwriteCoordinates.$lng );
+	overwriteCoordinates.$toggle = overwriteCoordinates.$container.find( '#VenueOverwriteCoords' ).on( 'change', function( event ){
+		if ( overwriteCoordinates.$toggle.is(':checked') ) {
+			overwriteCoordinates.$fields.prop( 'disabled', false ).removeClass( 'hidden' );
+		} else {
+			overwriteCoordinates.$fields.prop( 'disabled', true ).addClass( 'hidden' );
+		}
+	} );
+	overwriteCoordinates.$toggle.trigger( 'change' );
 
 	$( '#EventInfo input, #EventInfo select' ).change( function() {
 		$( '.rec-error' ).hide();
