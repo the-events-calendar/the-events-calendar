@@ -191,6 +191,11 @@ div.tribe-venue-error.error, div.tribe-organizer-error.error { margin-left:5px; 
 	vertical-align: top;
 }
 
+.tribe-table-field-label {
+	width: 200px;
+	max-width: 100%
+}
+
 /* = Help Screen
 =============================================*/
 .tribe-settings-form-wrap p,

@@ -19,9 +19,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 ?>
+<?php do_action( 'tribe_events_venue_before_metabox', $post ); ?>
 <?php if ( $post->post_type != TribeEvents::VENUE_POST_TYPE ): ?>
 	<tr class="venue">
-		<td><?php printf( __( '%s Name:', 'tribe-events-calendar' ), tribe_get_venue_label_singular() ); ?></td>
+		<td class='tribe-table-field-label'><?php printf( __( '%s Name:', 'tribe-events-calendar' ), tribe_get_venue_label_singular() ); ?></td>
 		<td>
 			<input tabindex="<?php tribe_events_tab_index(); ?>" type='text' name='venue[Venue]' size='25' value='<?php if ( isset( $_VenueVenue ) ) {
 				echo esc_attr( $_VenueVenue );
@@ -30,21 +31,21 @@ if ( ! defined( 'ABSPATH' ) ) {
 	</tr>
 <?php endif; ?>
 <tr class="venue">
-	<td><?php _e( 'Address:', 'tribe-events-calendar' ); ?></td>
+	<td class='tribe-table-field-label'><?php _e( 'Address:', 'tribe-events-calendar' ); ?></td>
 	<td>
 		<input tabindex="<?php tribe_events_tab_index(); ?>" type='text' name='venue[Address]' size='25' value='<?php if ( isset( $_VenueAddress ) ) {
 			echo esc_attr( $_VenueAddress );
 		} ?>' /></td>
 </tr>
 <tr class="venue">
-	<td><?php _e( 'City:', 'tribe-events-calendar' ); ?></td>
+	<td class='tribe-table-field-label'><?php _e( 'City:', 'tribe-events-calendar' ); ?></td>
 	<td>
 		<input tabindex="<?php tribe_events_tab_index(); ?>" type='text' name='venue[City]' size='25' value='<?php if ( isset( $_VenueCity ) ) {
 			echo esc_attr( $_VenueCity );
 		} ?>' /></td>
 </tr>
 <tr class="venue">
-	<td><?php _e( 'Country:', 'tribe-events-calendar' ); ?></td>
+	<td class='tribe-table-field-label'><?php _e( 'Country:', 'tribe-events-calendar' ); ?></td>
 	<td>
 		<?php
 		$countries = TribeEventsViewHelpers::constructCountries( $postId );
@@ -84,7 +85,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	$currentState = ( $_VenueStateProvince == - 1 ) ? tribe_get_default_value( 'state' ) : $_VenueStateProvince;
 	$currentProvince = empty( $_VenueProvince ) ? tribe_get_default_value( 'province' ) : $_VenueProvince;
 	?>
-	<td><?php _e( 'State or Province:', 'tribe-events-calendar' ); ?></td>
+	<td class='tribe-table-field-label'><?php _e( 'State or Province:', 'tribe-events-calendar' ); ?></td>
 	<td>
 		<input tabindex="<?php tribe_events_tab_index(); ?>" id="StateProvinceText" name="venue[Province]" type='text' name='' size='25' value='<?php echo esc_attr( $currentProvince ); ?>' />
 		<select class="chosen" tabindex="<?php tribe_events_tab_index(); ?>" id="StateProvinceSelect" name="venue[State]">
@@ -101,21 +102,21 @@ if ( ! defined( 'ABSPATH' ) ) {
 	</td>
 </tr>
 <tr class="venue">
-	<td><?php _e( 'Postal Code:', 'tribe-events-calendar' ); ?></td>
+	<td class='tribe-table-field-label'><?php _e( 'Postal Code:', 'tribe-events-calendar' ); ?></td>
 	<td>
 		<input tabindex="<?php tribe_events_tab_index(); ?>" type='text' id='EventZip' name='venue[Zip]' size='6' value='<?php if ( isset( $_VenueZip ) ) {
 			echo esc_attr( $_VenueZip );
 		} ?>' /></td>
 </tr>
 <tr class="venue">
-	<td><?php _e( 'Phone:', 'tribe-events-calendar' ); ?></td>
+	<td class='tribe-table-field-label'><?php _e( 'Phone:', 'tribe-events-calendar' ); ?></td>
 	<td>
 		<input tabindex="<?php tribe_events_tab_index(); ?>" type='text' id='EventPhone' name='venue[Phone]' size='14' value='<?php if ( isset( $_VenuePhone ) ) {
 			echo esc_attr( $_VenuePhone );
 		} ?>' /></td>
 </tr>
 <tr class="venue">
-	<td><?php _e( 'Website:', 'tribe-events-calendar' ); ?></td>
+	<td class='tribe-table-field-label'><?php _e( 'Website:', 'tribe-events-calendar' ); ?></td>
 	<td>
 		<input tabindex="<?php tribe_events_tab_index(); ?>" type='text' id='EventWebsite' name='venue[URL]' size='14' value='<?php if ( isset( $_VenueURL ) ) {
 			echo esc_attr( $_VenueURL );
@@ -133,7 +134,7 @@ if ( $post->post_type != TribeEvents::VENUE_POST_TYPE ) {
 		$google_map_toggle = ( tribe_embed_google_map( $postId ) || get_post_status( $postId ) == 'auto-draft' ) ? true : false;
 		?>
 		<tr id="google_map_toggle">
-			<td><?php _e( 'Show Google Map:', 'tribe-events-calendar' ); ?></td>
+			<td class='tribe-table-field-label'><?php _e( 'Show Google Map:', 'tribe-events-calendar' ); ?></td>
 			<td>
 				<input tabindex="<?php tribe_events_tab_index(); ?>" type="checkbox" id="EventShowMap" name="venue[EventShowMap]" value="1" <?php checked( $google_map_toggle ); ?> />
 			</td>
@@ -143,7 +144,7 @@ if ( $post->post_type != TribeEvents::VENUE_POST_TYPE ) {
 	$google_map_link_toggle = ( get_post_status( $postId ) == 'auto-draft' && $google_map_toggle ) ? true : get_post_meta( $postId, '_EventShowMapLink', true );
 	?>
 	<tr id="google_map_link_toggle">
-		<td><?php _e( 'Show Google Maps Link:', 'tribe-events-calendar' ); ?></td>
+		<td class='tribe-table-field-label'><?php _e( 'Show Google Maps Link:', 'tribe-events-calendar' ); ?></td>
 		<td>
 			<input tabindex="<?php tribe_events_tab_index(); ?>" type="checkbox" id="EventShowMapLink" name="venue[EventShowMapLink]" value="1" <?php checked( $google_map_link_toggle ); ?> />
 		</td>
@@ -155,7 +156,7 @@ if ( $post->post_type != TribeEvents::VENUE_POST_TYPE ) {
 		$google_map_toggle = ( tribe_embed_google_map( $postId ) || get_post_status( $postId ) == 'auto-draft' ) ? true : false;
 		?>
 		<tr id="google_map_toggle">
-			<td><?php _e( 'Show Google Map:', 'tribe-events-calendar' ); ?></td>
+			<td class='tribe-table-field-label'><?php _e( 'Show Google Map:', 'tribe-events-calendar' ); ?></td>
 			<td>
 				<input tabindex="<?php tribe_events_tab_index(); ?>" type="checkbox" id="VenueShowMap" name="venue[ShowMap]" value="true" <?php checked( $google_map_toggle ); ?> />
 			</td>
@@ -165,26 +166,15 @@ if ( $post->post_type != TribeEvents::VENUE_POST_TYPE ) {
 	$google_map_link_toggle = ( get_post_status( $postId ) != 'auto-draft' || get_post_meta( $postId, '_VenueShowMapLink', true ) !== 'false' ) ? true : false;
 	?>
 	<tr id="google_map_link_toggle">
-		<td><?php _e( 'Show Google Maps Link:', 'tribe-events-calendar' ); ?></td>
+		<td class='tribe-table-field-label'><?php _e( 'Show Google Maps Link:', 'tribe-events-calendar' ); ?></td>
 		<td>
 			<input tabindex="<?php tribe_events_tab_index(); ?>" type="checkbox" id="VenueShowMapLink" name="venue[ShowMapLink]" value="true" <?php checked( $google_map_link_toggle ); ?> />
 		</td>
 	</tr>
 	<?php
 }
-
-$overwrite_coords = false;
 ?>
-
-<tr id="overwrite_coordinates">
-	<td><?php esc_attr_e( 'Coodinates Overwrite', 'tribe-events-calendar' ); ?>:</td>
-	<td>
-		<input tabindex="<?php tribe_events_tab_index(); ?>" type="checkbox" id="VenueOverwriteCoords" name="venue[OverwriteCoords]" value="true" <?php checked( $overwrite_coords ); ?> />
-
-		<input class=" " disabled title='<?php esc_attr_e( 'Latitude', 'tribe-events-calendar' ) ?>' placeholder='<?php esc_attr_e( 'Latitude', 'tribe-events-calendar' ) ?>' tabindex="<?php tribe_events_tab_index(); ?>" type="text" id="VenueLatitude" name="venue[Lat]" value="" />
-		<input class=" " disabled title='<?php esc_attr_e( 'Longitude', 'tribe-events-calendar' ) ?>' placeholder='<?php esc_attr_e( 'Longitude', 'tribe-events-calendar' ) ?>' tabindex="<?php tribe_events_tab_index(); ?>" type="text" id="VenueLongitude" name="venue[Lng]" value="" />
-	</td>
-</tr>
+<?php do_action( 'tribe_events_after_venue_metabox', $post ); ?>
 
 <script type="text/javascript">
 	jQuery('[name=venue\\[Venue\\]]').blur(function () {
