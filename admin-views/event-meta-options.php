@@ -29,7 +29,7 @@
 	<tbody>
 	<?php
 	$total = count( $customFields );
-	$count = 1;
+	$count = 0;
 
 	// Append an extra (blank) entry at the end of the list as a convenience for admins
 	$customFields[] = array();
