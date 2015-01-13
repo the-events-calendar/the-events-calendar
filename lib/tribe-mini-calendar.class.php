@@ -64,11 +64,17 @@ class TribeEventsMiniCalendar {
 
 			$tax_query = isset( $_POST['tax_query'] ) ? $_POST['tax_query'] : null;
 
+			$post_status = array( 'publish' );
+			if ( is_user_logged_in() ) {
+				$post_status[] = 'private';
+			}
+
 			$this->args = array(
 				'eventDate'    => $_POST["eventDate"],
 				'count'        => $_POST["count"],
 				'tax_query'    => $tax_query,
-				'eventDisplay' => 'day'
+				'eventDisplay' => 'day',
+				'post_status'  => $post_status,
 			);
 
 			ob_start();
@@ -234,6 +240,11 @@ class TribeEventsMiniCalendar {
 
 			global $wp_query;
 
+			$post_status = array( 'publish' );
+			if ( is_user_logged_in() ) {
+				$post_status[] = 'private';
+			}
+
 			// hijack the main query to load the events via provided $args
 			if ( ! is_null( $this->args ) ) {
 				$query_args = array(
@@ -241,7 +252,7 @@ class TribeEventsMiniCalendar {
 					'tax_query'              => $this->args['tax_query'],
 					'eventDisplay'           => 'custom',
 					'start_date'             => $this->get_month(),
-					'post_status'            => array( 'publish' ),
+					'post_status'            => $post_status,
 					'is_tribe_mini_calendar' => true,
 					'tribeHideRecurrence'    => false,
 				);
