@@ -433,6 +433,7 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 			// Load organizer and venue editors
 			add_action( 'admin_menu', array( $this, 'addVenueAndOrganizerEditor' ) );
 			add_action( 'tribe_venue_table_top', array( $this, 'displayEventVenueDropdown' ) );
+			add_action( 'tribe_venue_table_top', array( $this, 'display_rich_snippets_helper' ), 5 );
 			add_action( 'tribe_organizer_table_top', array( $this, 'displayEventOrganizerDropdown' ) );
 
 			add_action( 'template_redirect', array( $this, 'template_redirect' ) );
@@ -1352,6 +1353,26 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 				<td><?php $this->saved_venues_dropdown( $VenueID ); ?> <div class="edit-venue-link" <?php if( empty( $VenueID ) ) { ?>style="display:none;"<?php } ?>><a href="/wp-admin/post.php?post=<?php echo $VenueID; ?>&action=edit" target="_blank"><?php printf( __( 'Edit %s', 'tribe-events-calendar' ), $this->singular_venue_label ); ?></a></div></td>
 			</tr>
 		<?php
+		}
+
+		/**
+		 * Display a helper for the user, about the location and microdata for rich snippets
+		 * @param int $postId the event ID to see if the helper is needed
+		 */
+		public function display_rich_snippets_helper( $post_id ) {
+			$VenueID         = get_post_meta( $post_id, '_EventVenueID', true );
+			if ( ( ! $post_id || get_post_status( $post_id ) == 'auto-draft' ) && ! $VenueID && ( ( is_admin() && get_current_screen()->action == 'add' ) || ! is_admin() ) ) {
+				$VenueID = $this->defaults()->venue_id();
+			}
+			$VenueID = apply_filters( 'tribe_display_event_venue_dropdown_id', $VenueID );
+
+			if ( ! $VenueID ) {
+				?>
+				<tr class="">
+					<td colspan="2"><?php esc_attr_e( 'When you don\'t use a location for your event, you might not see the Google Rich Snippet, for more information ', 'tribe-events-calendar' ) ?><a href="https://support.google.com/webmasters/answer/164506" target="_blank"><?php esc_attr_e( 'click here', 'tribe-events-calendar' ); ?></a></td>
+				</tr>
+				<?php
+			}
 		}
 
 		/**
