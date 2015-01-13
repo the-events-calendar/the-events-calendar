@@ -417,7 +417,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 				$reset_title .= ' &#8250; ' . $cat->name;
 			}
 
-			return isset($reset_title) ? apply_filters( 'tribe_template_factory_debug', $reset_title, 'tribe_get_events_title' ) : $title;
+			return isset( $reset_title ) ? $reset_title : $title;
 		}
 
 		/**
