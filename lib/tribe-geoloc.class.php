@@ -21,6 +21,10 @@ class TribeEventsGeoLoc {
 	 */
 	const LNG = '_VenueLng';
 	/**
+	 * Meta key for if the venue ha overwriten Coordinates
+	 */
+	const OVERWRITE = '_VenueOverwriteCoords';
+	/**
 	 * Meta key for the full address we used to get the geo points from Google Maps
 	 * It's used as a cache, so we only ping Google when the user changed something in the address.
 	 */
@@ -71,12 +75,11 @@ class TribeEventsGeoLoc {
 	 * Class constructor
 	 */
 	function __construct() {
-
 		$this->rewrite_slug = $this->getOption( 'geoloc_rewrite_slug', 'map' );
-
 
 		add_action( 'tribe_events_venue_updated',           array( $this, 'save_venue_geodata'                      ), 10, 2 );
 		add_action( 'tribe_events_venue_created',           array( $this, 'save_venue_geodata'                      ), 10, 2 );
+		add_action( 'tribe_events_after_venue_metabox',     array( $this, 'setup_overwrite_geoloc'                  ), 10    );
 		add_action( 'tribe_events_filters_create_filters',  array( $this, 'setup_geoloc_filter_in_filters'          ),  1    );
 		add_action( 'wp_enqueue_scripts',                   array( $this, 'scripts'                                 )        );
 		add_action( 'admin_init',                           array( $this, 'maybe_generate_geopoints_for_all_venues' )        );
@@ -266,6 +269,24 @@ class TribeEventsGeoLoc {
 		return ( ! empty( $_REQUEST['tribe-bar-geoloc-lat'] ) && ! empty( $_REQUEST['tribe-bar-geoloc-lng'] ) );
 	}
 
+	public function setup_overwrite_geoloc( $post ) {
+		if ( $post->post_type != TribeEvents::VENUE_POST_TYPE ) {
+			return;
+		}
+		$overwrite_coords = (bool) get_post_meta( $post->ID, self::OVERWRITE, true );
+		?>
+		<tr id="overwrite_coordinates">
+			<td class='tribe-table-field-label'><?php esc_attr_e( 'Coodinates Overwrite', 'tribe-events-calendar' ); ?>:</td>
+			<td>
+				<input tabindex="<?php tribe_events_tab_index(); ?>" type="checkbox" id="VenueOverwriteCoords" name="venue[OverwriteCoords]" value="true" <?php checked( $overwrite_coords ); ?> />
+
+				<input class=" " disabled title='<?php esc_attr_e( 'Latitude', 'tribe-events-calendar' ) ?>' placeholder='<?php esc_attr_e( 'Latitude', 'tribe-events-calendar' ) ?>' tabindex="<?php tribe_events_tab_index(); ?>" type="text" id="VenueLatitude" name="venue[Lat]" value="<?php echo (float) get_post_meta( $post->ID, self::LAT, true ); ?>" />
+				<input class=" " disabled title='<?php esc_attr_e( 'Longitude', 'tribe-events-calendar' ) ?>' placeholder='<?php esc_attr_e( 'Longitude', 'tribe-events-calendar' ) ?>' tabindex="<?php tribe_events_tab_index(); ?>" type="text" id="VenueLongitude" name="venue[Lng]" value="<?php echo (float) get_post_meta( $post->ID, self::LNG, true ); ?>" />
+			</td>
+		</tr>
+		<?php
+	}
+
 	/**
 	 * Filter the main query and:
 	 *  1) If the user made a Location search, get the events close to that location (inside the geo fence)
@@ -364,13 +385,30 @@ class TribeEventsGeoLoc {
 	 */
 	function save_venue_geodata( $venueId, $data ) {
 
+		$_address  = ( ! empty( $data['Address'] ) ) ? $data['Address'] : '';
+		$_city     = ( ! empty( $data['City'] ) ) ? $data['City'] : '';
+		$_province = ( ! empty( $data['Province'] ) ) ? $data['Province'] : '';
+		$_state    = ( ! empty( $data['State'] ) ) ? $data['State'] : '';
+		$_zip      = ( ! empty( $data['Zip'] ) ) ? $data['Zip'] : '';
+		$_country  = ( ! empty( $data['Country'] ) ) ? $data['Country'] : '';
 
-		$_address  = ( ! empty( $data["Address"] ) ) ? $data["Address"] : '';
-		$_city     = ( ! empty( $data["City"] ) ) ? $data["City"] : '';
-		$_province = ( ! empty( $data["Province"] ) ) ? $data["Province"] : '';
-		$_state    = ( ! empty( $data["State"] ) ) ? $data["State"] : '';
-		$_zip      = ( ! empty( $data["Zip"] ) ) ? $data["Zip"] : '';
-		$_country  = ( ! empty( $data["Country"] ) ) ? $data["Country"] : '';
+		$overwrite = ( ! empty( $data['OverwriteCoords'] ) ) ? 1 : 0;
+		$_lat = ( ! empty( $data['Lat'] ) && is_numeric( $data['Lat'] ) ) ? (float) $data['Lat'] : false;
+		$_lng = ( ! empty( $data['Lng'] ) && is_numeric( $data['Lng'] ) ) ? (float) $data['Lng'] : false;
+
+		// Check the Overwrite data, otherwise just reset it
+		if ( $overwrite && $_lat && $_lng ){
+			update_post_meta( $venueId, self::OVERWRITE, 1 );
+			update_post_meta( $venueId, self::LAT, (string) $_lat );
+			update_post_meta( $venueId, self::LNG, (string) $_lng );
+
+			delete_transient( self::ESTIMATION_CACHE_KEY );
+			return true;
+		} else {
+			update_post_meta( $venueId, self::LAT, '' );
+			update_post_meta( $venueId, self::LNG, '' );
+			update_post_meta( $venueId, self::OVERWRITE, 0 );
+		}
 
 		$address = trim( $_address . ' ' . $_city . ' ' . $_province . ' ' . $_state . ' ' . $_zip . ' ' . $_country );
 
@@ -383,14 +421,14 @@ class TribeEventsGeoLoc {
 			return false;
 		}
 
-		$url  = "http://maps.googleapis.com/maps/api/geocode/json?address=" . urlencode( $address ) . "&sensor=false";
+		$url  = 'http://maps.googleapis.com/maps/api/geocode/json?address=' . urlencode( $address ) . '&sensor=false';
 		$data = wp_remote_get( apply_filters( 'tribe_events_pro_geocode_request_url', $url ) );
 
-		if ( is_wp_error( $data ) || ! isset( $data["body"] ) ) {
+		if ( is_wp_error( $data ) || ! isset( $data['body'] ) ) {
 			return false;
 		}
 
-		$data_arr = json_decode( $data["body"] );
+		$data_arr = json_decode( $data['body'] );
 
 		if ( ! empty( $data_arr->results[0]->geometry->location->lat ) ) {
 			update_post_meta( $venueId, self::LAT, (string) $data_arr->results[0]->geometry->location->lat );
