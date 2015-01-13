@@ -225,6 +225,10 @@ Our Premium Plugins:
 
 3.x is a complete overhaul of the plugin, and as a result we're starting the changelog fresh. For release notes from the 2.x lifecycle, see <a href="http://m.tri.be/k">our 2.x release notes.</a>
 
+= 3.9.1 =
+
+* Fixed the styling issues in relation to the calendar and advanced list widgets
+
 = 3.9 =
 
 * Added a new `[tribe_mini_calendar]` shortcode to make it easy to embed the calendar widget outside of sidebars
