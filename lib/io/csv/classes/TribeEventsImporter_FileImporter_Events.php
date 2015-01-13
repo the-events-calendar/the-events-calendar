@@ -82,20 +82,18 @@ class TribeEventsImporter_FileImporter_Events extends TribeEventsImporter_FileIm
 		return $end_date;
 	}
 
-	private function is_all_day( array $record ) {
-		$all_day       = false;
-		$event_all_day = strtolower( $this->get_value_by_key( $record, 'event_all_day' ) );
-		if ( in_array( $event_all_day, array( 'yes', 'true', '1' ) ) ) {
-			$all_day = true;
+	private function get_boolean_value_by_key( $record, $key, $return_true_value = '1', $accepted_true_values = array( 'yes', 'true', '1' ) ) {
+		$value = strtolower( $this->get_value_by_key( $record, $key ) );
+		if ( in_array( $value, $accepted_true_values ) ) {
+			$value = $return_true_value;
 		}
 
-		return $all_day;
+		return $value;
 	}
 
 	private function build_event_array( array $record ) {
 		$start_date = strtotime( $this->get_event_start_date( $record ) );
 		$end_date   = strtotime( $this->get_event_end_date( $record ) );
-		$all_day    = $this->is_all_day( $record ) ? 'yes' : null;
 
 		$event = array(
 			'post_type'             => TribeEvents::POSTTYPE,
@@ -110,10 +108,10 @@ class TribeEventsImporter_FileImporter_Events extends TribeEventsImporter_FileIm
 			'EventEndHour'          => date( 'h', $end_date ),
 			'EventEndMinute'        => date( 'i', $end_date ),
 			'EventEndMeridian'      => date( 'a', $end_date ),
-			'EventShowMapLink'      => $this->get_value_by_key( $record, 'event_show_map_link' ),
-			'EventShowMap'          => $this->get_value_by_key( $record, 'event_show_map' ),
+			'EventShowMapLink'      => $this->get_boolean_value_by_key( $record, 'event_show_map_link' ),
+			'EventShowMap'          => $this->get_boolean_value_by_key( $record, 'event_show_map' ),
 			'EventCost'             => $this->get_value_by_key( $record, 'event_cost' ),
-			'EventAllDay'           => $all_day,
+			'EventAllDay'           => $this->get_boolean_value_by_key( $record, 'event_all_day', 'yes' ),
 			'EventHideFromUpcoming' => $this->get_value_by_key( $record, 'event_hide' ),
 			'EventURL'              => $this->get_value_by_key( $record, 'event_website' )
 		);
