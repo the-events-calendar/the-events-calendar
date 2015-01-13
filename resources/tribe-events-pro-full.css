@@ -930,8 +930,14 @@ div.tribe-countdown-text {
 	color:#fff;
 }
 
+/* Twenty Fourteen Compat
+========================================================================== */
 .tribe-theme-twentyfourteen #primary-sidebar div.tribe-countdown-number {
 	font-size:24px;
+}
+
+.widget .tribe-mini-calendar-event .list-info h2 {
+	font-size: 14px;
 }
 
 /* Twenty Fifteen Compat
