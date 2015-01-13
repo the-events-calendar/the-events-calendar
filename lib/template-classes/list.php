@@ -58,11 +58,15 @@ if ( ! class_exists( 'Tribe_Events_List_Template' ) ) {
 			TribeEventsQuery::init();
 
 			$tribe_paged = ( ! empty( $_POST['tribe_paged'] ) ) ? intval( $_POST['tribe_paged'] ) : 1;
+			$post_status = array( 'publish' );
+			if ( is_user_logged_in() ) {
+				$post_status[] = 'private';
+			}
 
 			$args = array(
 				'eventDisplay' => 'list',
 				'post_type'    => TribeEvents::POSTTYPE,
-				'post_status'  => 'publish',
+				'post_status'  => $post_status,
 				'paged'        => $tribe_paged
 			);
 

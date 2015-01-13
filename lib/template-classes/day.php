@@ -152,13 +152,13 @@ if ( ! class_exists( 'Tribe_Events_Day_Template' ) ) {
 
 				TribeEventsQuery::init();
 
-				$states[] = 'publish';
-				if ( 0 < get_current_user_id() ) {
-					$states[] = 'private';
+				$post_status = array( 'publish' );
+				if ( is_user_logged_in() ) {
+					$post_status[] = 'private';
 				}
 
 				$args = array(
-					'post_status'  => $states,
+					'post_status'  => $post_status,
 					'eventDate'    => $_POST["eventDate"],
 					'eventDisplay' => 'day'
 				);

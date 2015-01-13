@@ -553,11 +553,16 @@ if ( ! class_exists( 'Tribe_Events_Month_Template' ) ) {
 
 				TribeEventsQuery::init();
 
+				$post_status = array( 'publish' );
+				if ( is_user_logged_in() ) {
+					$post_status[] = 'private';
+				}
 				// set the global query var for eventDisplay
 				$query_args = array(
 					'post_type'    => TribeEvents::POSTTYPE,
 					'eventDisplay' => 'month',
 					'eventDate'    => $_POST['eventDate'],
+					'post_status'  => $post_status,
 				);
 
 				TribeEvents::instance()->displaying = 'month';
