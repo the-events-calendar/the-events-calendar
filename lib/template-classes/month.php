@@ -46,6 +46,8 @@ if ( ! class_exists( 'Tribe_Events_Month_Template' ) ) {
 		protected $excerpt_length = 30;
 		protected $asset_packages = array( 'ajax-calendar' );
 
+		private $html_cache;
+
 		const AJAX_HOOK = 'tribe_calendar';
 
 		/**
@@ -57,6 +59,15 @@ if ( ! class_exists( 'Tribe_Events_Month_Template' ) ) {
 			if ( $args === null ) {
 				global $wp_query;
 				$args = $wp_query->query;
+			}
+
+			$this->use_cache = tribe_get_option( 'enable_month_view_cache', true );
+
+			// Cache the result of month/content.php
+			if ( $this->use_cache ) {
+				require_once( TribeEvents::instance()->pluginPath . 'lib/Html_Cache.php' );
+				$cache_expiration = apply_filters( 'tribe_events_month_view_transient_expiration', WEEK_IN_SECONDS );
+				$this->html_cache = new Tribe__Events__Template_Part_Cache( 'month/content.php', serialize($args), $cache_expiration, 'save_post' );
 			}
 
 			self::$args                 = $args;
@@ -78,6 +89,11 @@ if ( ! class_exists( 'Tribe_Events_Month_Template' ) ) {
 		 **/
 		protected function hooks() {
 			parent::hooks();
+
+			// implement caching of month view html
+			if ( $this->use_cache && $this->html_cache ) {
+				$this->html_cache->add_hooks();
+			}
 
 			// Since we set is_post_type_archive to true on month view, this prevents 'Events' from being added to the page title
 			add_filter( 'post_type_archive_title', '__return_false', 10 );
@@ -240,12 +256,21 @@ if ( ! class_exists( 'Tribe_Events_Month_Template' ) ) {
 			return $result;
 		}
 
+		public function get_cache() {
+			$this->cached_html = $this->cache->get_html();
+		}
+
 		/**
 		 * Sets up an array of $days based on the current query, that can be used in the calendar loop
 		 *
 		 * @return void
 		 **/
 		public function setup_view() {
+
+			if ( $this->use_cache && $this->html_cache->get() !== false ) {
+				return;
+			}
+
 			$requested_date     = isset( self::$args['eventDate'] ) ? self::$args['eventDate'] : tribe_get_month_view_date();
 			$first_day_of_month = date( 'Y-m-01', strtotime( $requested_date ) );
 			$first_grid_date    = $this->calculate_first_cell_date( $requested_date );
