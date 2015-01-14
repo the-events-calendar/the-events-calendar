@@ -61,7 +61,7 @@ if ( ! class_exists( 'Tribe_Events_Month_Template' ) ) {
 				$args = $wp_query->query;
 			}
 
-			$this->use_cache = tribe_get_option( 'enable_month_view_cache', true );
+			$this->use_cache = tribe_get_option( 'enable_month_view_cache', false );
 
 			// Cache the result of month/content.php
 			if ( $this->use_cache ) {
