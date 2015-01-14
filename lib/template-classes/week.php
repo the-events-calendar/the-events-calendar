@@ -199,6 +199,7 @@ if ( ! class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 						'is_future'          => ( $timestamp_date > $timestamp_today ) ? true : false,
 						'hourly_events'      => $hourly_events,
 						'all_day_events'     => $all_day_events,
+						'has_events' => $hourly_events || $all_day_events,
 					);
 				}
 			}
@@ -339,6 +340,7 @@ if ( ! class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 		public static function column_classes() {
 
 			$day = self::$week_days[ self::$current_day ];
+			$classes = '';
 
 			// Present
 			if ( $day['is_today'] ) {
@@ -376,7 +378,7 @@ if ( ! class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 				$classes[] = 'tribe-dayspan' . $day_span_length . ' ';
 			}
 
-			if ( ! tribe_event_is_all_day( $event ) && strtotime( self::$previous_event->EventStartDate ) < strtotime( $event->EventStartDate ) ) {
+			if ( isset( self::$previous_event ) && ! tribe_event_is_all_day( $event ) && strtotime( self::$previous_event->EventStartDate ) < strtotime( $event->EventStartDate ) ) {
 				$classes[] = 'tribe-event-overlap ';
 			}
 
