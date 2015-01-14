@@ -280,9 +280,6 @@ if ( ! class_exists( 'Tribe_Events_Month_Template' ) ) {
 			$this->setup_tribe_bar_args();
 			$this->current_day_vals();
 
-			do_action( 'log', 'setup view month view args', 'tribe-month', self::$args );
-			do_action( 'log', 'eventDate', 'tribe-events-query', $first_day_of_month );
-
 			self::$hide_upcoming_ids = TribeEventsQuery::getHideFromUpcomingEvents();
 			self::get_daily_counts( $first_grid_date, $final_grid_date );
 
