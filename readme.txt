@@ -326,7 +326,7 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 3.x is a complete overhaul of the plugin, and as a result we're starting the changelog fresh. For release notes from the 2.x lifecycle, see <a href="http://m.tri.be/k">our 2.x release notes.</a>
 
 = 3.9.1 =
-
+* Implemented some styling to ensure compatibility and cohesive design with the new Twenty Fifteen theme
 * Fixed a bug where occasionally it wasn't possible to page through to an event that had been recently edited
 * Clarified the wording of a warning that shows when an Event Addon should be updated
 
