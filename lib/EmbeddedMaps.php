@@ -71,9 +71,9 @@ class TribeEventsPro_EmbeddedMaps {
 	 * @return bool
 	 */
 	protected function are_coords_valid() {
-		if ( ! is_numeric( $this->lat ) || $this->lat < -90 || $this->lat > 90 ) {
+		if ( ! is_numeric( $this->lat ) || ! $this->lat || empty( $this->lat ) || $this->lat < -90 || $this->lat > 90 ) {
 			return false;
-		} elseif ( ! is_numeric( $this->lng ) || $this->lng < -180 || $this->lng > 180 ) {
+		} elseif ( ! is_numeric( $this->lng ) || ! $this->lng  || empty( $this->lng )|| $this->lng < -180 || $this->lng > 180 ) {
 			return false;
 		}
 
