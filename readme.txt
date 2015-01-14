@@ -328,6 +328,7 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 = 3.9.1 =
 
 * Fixed a bug where occasionally it wasn't possible to page through to an event that had been recently edited
+* Clarified the wording of a warning that shows when an Event Addon should be updated
 
 = 3.9 =
 
