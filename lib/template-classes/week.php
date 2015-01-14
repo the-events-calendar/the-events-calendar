@@ -328,7 +328,7 @@ if ( ! class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 			if ( $day['is_today'] ) {
 				$classes .= ' tribe-week-today';
 			}
-			return classes;
+			return $classes;
 		}
 
 		/**
