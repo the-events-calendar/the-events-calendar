@@ -65,7 +65,7 @@ if ( ! class_exists( 'Tribe_Events_Month_Template' ) ) {
 
 			// Cache the result of month/content.php
 			if ( $this->use_cache ) {
-				require_once( TribeEvents::instance()->pluginPath . 'lib/Html_Cache.php' );
+				require_once( TribeEvents::instance()->pluginPath . 'lib/Template_Part_Cache.php' );
 				$cache_expiration = apply_filters( 'tribe_events_month_view_transient_expiration', WEEK_IN_SECONDS );
 				$this->html_cache = new Tribe__Events__Template_Part_Cache( 'month/content.php', serialize($args), $cache_expiration, 'save_post' );
 			}
