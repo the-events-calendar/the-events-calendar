@@ -5,7 +5,7 @@ Tags: events, calendar, event, venue, organizer, dates, date, google maps, confe
 Donate link: http://m.tri.be/29
 Requires at least: 3.8
 Tested up to: 4.0.1
-Stable tag: 3.9
+Stable tag: 3.9.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -227,7 +227,7 @@ Our Premium Plugins:
 
 = 3.9.1 =
 
-* Fixed the styling issues in relation to the calendar and advanced list widgets
+* Fixed the styling issues in relation to the calendar and advanced list widgets (big thanks to rantfarmentertainment for the first report on our PRO forums about this!)
 * Incorporated updated German translation files, courtesy of Oliver Heinrich
 
 = 3.9 =
