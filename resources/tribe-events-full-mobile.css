@@ -130,13 +130,14 @@ a.tribe-events-gmap {
    @ Template: list.php
 =============================================*/	
 .tribe-events-list .tribe-events-event-image {
-	float: none;
-	width: 100%;
-	margin: 0 0 8px 0;
+	float: left;
+    margin: 0 3% 0 0;
+    width: 30%;
 }
 .tribe-events-list .tribe-events-event-image + div.tribe-events-content {
-	float: none;
-	width: 100%;
+	float: left;
+    position: relative;
+    width: 67%;
 }	
 .tribe-events-list .tribe-events-loop .tribe-events-event-meta .recurringinfo {
 	display: block;
@@ -410,4 +411,22 @@ a.tribe-events-gmap {
 
 .tribe-theme-twentyfourteen.events-archive .entry-content {
 	width:90%;
+}
+
+
+/* = List View Template Styles for Very Small Widths
+   @ Template: list.php
+=============================================*/	
+@media only screen and ( max-width: 480px ) {
+	
+	.tribe-events-list .tribe-events-event-image {
+		float: none;
+		width: 100%;
+		margin: 0 0 8px 0;
+	}
+
+	.tribe-events-list .tribe-events-event-image + div.tribe-events-content {
+		float: none;
+		width: 100%;
+	}	
 }
