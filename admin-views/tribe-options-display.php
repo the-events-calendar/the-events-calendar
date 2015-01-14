@@ -192,6 +192,13 @@ $displayTab = array(
 				'tooltip'         => __( 'If you are familiar with HTML, you can add additional code after the event template. Some themes may require this to help with styling or layout.', 'tribe-events-calendar' ),
 				'validation_type' => 'html',
 			),
+			'enable_month_view_cache' => array(
+				'type'            => 'checkbox_bool',
+				'label'           => __( 'Enable the Month View Cache', 'tribe-events-calendar' ),
+				'tooltip'         => sprintf( __( 'Check this to cache your month view html in transients. <a href="%s">Read more</a>.', 'tribe-events-calendar' ), 'LINK NEEDED' ),
+				'default'         => true,
+				'validation_type' => 'boolean',
+			),
 			'tribe-form-content-end'             => array(
 				'type' => 'html',
 				'html' => '</div>',
