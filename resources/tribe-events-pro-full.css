@@ -137,6 +137,11 @@
 	padding:4px;
 }
 
+.tribe-events-grid .type-tribe_events.hentry {
+	background: none;
+	box-shadow: none;
+}
+
 .tribe-events-grid div[id*='tribe-events-event-'] {
 	visibility: hidden;
 }
@@ -925,10 +930,27 @@ div.tribe-countdown-text {
 	color:#fff;
 }
 
+/* Twenty Fourteen Compat
+========================================================================== */
 .tribe-theme-twentyfourteen #primary-sidebar div.tribe-countdown-number {
 	font-size:24px;
 }
 
+.tribe-theme-twentyfourteen .widget .tribe-mini-calendar-event .list-info h2 {
+	font-size: 14px;
+}
+
+/* Twenty Fifteen Compat
+========================================================================== */
+.tribe-theme-twentyfifteen .tribe-events-adv-list-widget .type-tribe_events.hentry {
+    box-shadow: none;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.tribe-theme-twentyfifteen .tribe-events-adv-list-widget .tribe-mini-calendar-event {
+	border-bottom: 0;
+}
 
 /* = Events Venue Widget
    @ Template: widgets/venue-widget.php

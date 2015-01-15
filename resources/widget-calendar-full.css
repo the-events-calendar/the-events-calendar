@@ -310,3 +310,21 @@
 	text-decoration: none;
 }
 
+/* = Twenty Fifteen theme compatibility.
+=============================================*/
+.tribe-theme-twentyfifteen .tribe-mini-calendar-event {
+	margin-left: 0;
+	margin-right: 0;
+}
+.tribe-theme-twentyfifteen .tribe-mini-calendar-list-wrapper .type-tribe_events {
+	margin-left: 0;
+	margin-right: 0;
+	box-shadow: none;
+}
+.tribe-theme-twentyfifteen .tribe-mini-calendar-event .list-date {
+	width: 18%;
+	margin-right: 7%;
+}
+.tribe-theme-twentyfifteen .tribe-mini-calendar-event .list-info {
+	width: 75%;
+}
