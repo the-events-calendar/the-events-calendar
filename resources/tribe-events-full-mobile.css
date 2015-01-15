@@ -131,13 +131,13 @@ a.tribe-events-gmap {
 =============================================*/	
 .tribe-events-list .tribe-events-event-image {
 	float: left;
-    margin: 0 3% 0 0;
-    width: 30%;
+	margin: 0 3% 0 0;
+	width: 30%;
 }
 .tribe-events-list .tribe-events-event-image + div.tribe-events-content {
 	float: left;
-    position: relative;
-    width: 67%;
+	position: relative;
+	width: 67%;
 }	
 .tribe-events-list .tribe-events-loop .tribe-events-event-meta .recurringinfo {
 	display: block;
