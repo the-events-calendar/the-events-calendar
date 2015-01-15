@@ -38,10 +38,15 @@ class TribeEventsRecurrenceScheduler {
 			wp_schedule_event( time(), 'daily', self::CRON_HOOK );
 		}
 		add_action( self::CRON_HOOK, array( $this, 'schedule_future_recurring_events' ), 20, 0 );
+		add_action( 'tribe_events_pro_blog_deactivate', array( $this, 'clear_scheduled_task' ) );
 	}
 
 	public function remove_hooks() {
 		remove_action( self::CRON_HOOK, array( $this, 'schedule_future_recurring_events' ), 20, 0 );
+	}
+
+	public function clear_scheduled_task() {
+		wp_clear_scheduled_hook( self::CRON_HOOK );
 	}
 
 	public function clean_up_old_recurring_events() {

@@ -1,9 +1,9 @@
 {
-  "name": "tribe-events-calendar-pro",
-  "version": "3.7.0",
+  "name": "events-calendar-pro",
+  "version": "3.9.0",
   "repository": "git@github.com:moderntribe/events-pro.git",
-  "_zipname": "the-events-calendar-pro",
-  "_zipfoldername": "the-events-calendar-pro",
+  "_zipname": "events-calendar-pro",
+  "_zipfoldername": "events-calendar-pro",
   "_resourcepath": "resources",
   "engines": {
     "node": "0.10.30",

@@ -50,11 +50,16 @@ if ( ! class_exists( 'Tribe_Events_Pro_Map_Template' ) ) {
 
 			TribeEventsQuery::init();
 
+			$post_status = array( 'publish' );
+			if ( is_user_logged_in() ) {
+				$post_status[] = 'private';
+			}
+
 			$defaults = array(
 				'post_type'      => TribeEvents::POSTTYPE,
 				'posts_per_page' => tribe_get_option( 'postsPerPage', 10 ),
 				'paged'          => $tribe_paged,
-				'post_status'    => array( 'publish' ),
+				'post_status'    => $post_status,
 				'eventDisplay'   => 'map',
 			);
 

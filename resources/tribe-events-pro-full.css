@@ -164,7 +164,7 @@
 	outline: none;
 }
 .tribe-grid-allday .type-tribe_events > div,
-.tribe-grid-body div[id*="tribe-events-event-"] .type-tribe_events { 
+.tribe-grid-body .type-tribe_events .tribe-events-week-hourly-single { 
 	width: 100%;
 	background-color: #e6e6e6;
 	background-color: rgba(221, 221, 221, .75);
@@ -174,7 +174,7 @@
 	cursor: pointer;
 }
 .tribe-grid-allday .type-tribe_events > div:hover,
-.tribe-grid-body div[id*="tribe-events-event-"] .type-tribe_events:hover {
+.tribe-grid-body .type-tribe_events .tribe-events-week-hourly-single:hover {
 	background-color: #e2e2e2;
 	background-color: rgba(221, 221, 221, .85);
 }
@@ -846,9 +846,10 @@ h3.tribe-events-related-events-title {
 
 .tribe-events-adv-list-widget .tribe-venue {
 	display: block;
+	margin-top: 10px;
 }
 
-.tribe-events-adv-list-widget .country-name {
+.tribe-events-adv-list-widget .tribe-organizer {
 	display: block;
 }
 
@@ -858,7 +859,6 @@ h3.tribe-events-related-events-title {
 
 .tribe-events-adv-list-widget  .duration {
 	display: inline;
-	font-weight: bold;
 }
 
 .tribe-events-adv-list-widget .event-is-recurring .tribe-events-divider {
@@ -867,6 +867,12 @@ h3.tribe-events-related-events-title {
 
 .tribe-events-adv-list-widget .event-is-recurring {
 	color:inherit;
+}
+
+.tribe-events-adv-list-widget .type-tribe_events,
+.tribe-mini-calendar-list-wrapper .type-tribe_events {
+	padding:0;
+	margin:0;
 }
  
 /* = Events Countdown Widget
@@ -907,6 +913,15 @@ div.tribe-countdown-text {
 	clear: both;
 	margin: 0 0 10px 0;
 }
+
+
+/* Twenty Thirteen compat
+========================================================================== */
+
+.tribe-events-week.tribe-theme-twentythirteen .tribe-grid-content-wrap .hentry {
+	padding: 4px;
+}
+
 /* Twenty Thirteen Footer Widget */
 .tribe-theme-twentythirteen #secondary div.tribe-countdown-number, .tribe-theme-twentyfourteen #primary-sidebar div.tribe-countdown-number, .tribe-theme-twentyfourteen #footer-sidebar div.tribe-countdown-number {
 	color:#fff;

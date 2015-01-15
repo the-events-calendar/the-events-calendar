@@ -26,13 +26,27 @@ class TribeEventsAdvancedListWidget extends TribeEventsListWidget {
 
 		parent::__construct( 'tribe-events-adv-list-widget', __( 'Events List', 'tribe-events-calendar-pro' ), $widget_ops, $control_ops );
 		add_filter( 'tribe_events_list_widget_query_args', array( $this, 'taxonomy_filters' ) );
+		add_action( 'init', array( $this, 'enqueue_stylesheet' ), 100 );
+	}
+
+	/**
+	 * If the widget is active then enqueue our stylesheet.
+	 */
+	public function enqueue_stylesheet() {
+		// Do not enqueue if the widget is inactive
+		if ( ! is_active_widget( false, false, $this->id_base, true ) ) return;
+
+		// Load the calendar widget CSS (the list widget inherits much of the same)
+		TribeEventsPro_Widgets::enqueue_calendar_widget_styles();
 	}
 
 	public function taxonomy_filters( $query ) {
 		if ( empty( $this->instance ) ) {
 			return $query;
 		}
-		$tax_query = TribeEventsPro_Widgets::form_tax_query( json_decode( $this->instance['filters'] ), $this->instance['operand'] );
+		
+		$filters   = isset( $this->instance['raw_filters'] ) ? $this->instance['raw_filters'] : json_decode( $this->instance['filters'] );
+		$tax_query = TribeEventsPro_Widgets::form_tax_query( $filters, $this->instance['operand'] );
 
 		if ( isset( $query['tax_query'] ) ) {
 			$query['tax_query'] = array_merge( $query['tax_query'], $tax_query );
@@ -54,10 +68,11 @@ class TribeEventsAdvancedListWidget extends TribeEventsListWidget {
 			$this->include_cat_id( $this->instance['filters'], $this->instance['category'] );
 		}
 
+		parent::widget_output( $args, $this->instance, 'pro/widgets/list-widget' );
+
 		if ( $tooltip_status ) {
 			$ecp->enable_recurring_info_tooltip();
 		}
-		parent::widget_output( $args, $this->instance, 'pro/widgets/list-widget' );
 	}
 
 	public function update( $new_instance, $old_instance ) {
@@ -111,7 +126,8 @@ class TribeEventsAdvancedListWidget extends TribeEventsListWidget {
 			'category'           => false, // @todo remove this element after 3.7
 			'organizer'          => false,
 			'operand'            => 'OR',
-			'filters'            => ''
+			'filters'            => '',
+			'instance'           => &$this->instance
 		) );
 	}
 

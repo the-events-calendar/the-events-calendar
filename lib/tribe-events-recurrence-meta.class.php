@@ -792,15 +792,14 @@ class TribeEventsRecurrenceMeta {
 
 		switch ( $recEndType ) {
 			case 'On':
-				// @todo use tribe_events_end_of_day() ?
-				$recEnd = strtotime( TribeDateUtils::endOfDay( $recEnd ) );
+				$recEnd = strtotime( tribe_event_end_of_day( $recEnd ) );
 				break;
 			case 'Never':
 				$recEnd = TribeRecurrence::NO_END;
 				break;
 			case 'After':
 			default:
-				$recEnd = $recEndCount - 1; // subtract one because event is first occurrence
+				$recEnd = $recEndCount;
 				break;
 		}
 

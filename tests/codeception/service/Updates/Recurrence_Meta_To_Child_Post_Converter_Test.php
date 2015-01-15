@@ -1,11 +1,14 @@
 <?php
 
 /**
- * Class TribeEventsPro_SchemaUpdater_Test
+ * Class Tribe__Events__Pro__Updates__Recurrence_Meta_To_Child_Post_Converter_Test
+ *
+ * @group recurrence
+ * @group updates
  */
-class TribeEventsPro_SchemaUpdater_Test extends WP_UnitTestCase {
-	public function test_update_3_4() {
-		tribe_update_option( 'pro-schema-version', '3.3' );
+class Tribe__Events__Pro__Updates__Recurrence_Meta_To_Child_Post_Converter_Test extends Tribe__Events__WP_UnitTestCase {
+	public function test_update_3_5() {
+		tribe_update_option( 'pro-schema-version', '3.4' );
 		$event_id = wp_insert_post(array(
 			'post_title' => __CLASS__,
 			'post_content' => __FUNCTION__,
@@ -37,7 +40,9 @@ class TribeEventsPro_SchemaUpdater_Test extends WP_UnitTestCase {
 			'EventEndDate' => '2014-05-01 17:00:00',
 		));
 
-		TribeEventsPro_SchemaUpdater::init();
+		require_once( TribeEventsPro::instance()->pluginPath . '/lib/Updater.php' );
+		$updater = new Tribe__Events__Pro__UPdater( '3.5' );
+		$updater->do_updates();
 
 		$this->assertCount( 1, get_post_meta($event_id, '_EventStartDate', false) );
 		$this->assertEquals( '2014-05-01 16:00:00', get_post_meta( $event_id, '_EventStartDate', true) );

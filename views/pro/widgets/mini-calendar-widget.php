@@ -28,6 +28,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 	), 'pro/widgets/mini-calendar/grid' ); ?>
 
 	<!-- List -->
-	<?php if ( 0 < $args['count'] ) tribe_get_template_part( 'pro/widgets/mini-calendar/list' ) ?>
+	<?php
+	if ( 0 < $args['count'] ) {
+		tribe_get_template_part( 'pro/widgets/mini-calendar/list', null, array( 'venue' => true ) );
+	}
+	?>
 
 </div>
