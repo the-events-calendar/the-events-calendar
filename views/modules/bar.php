@@ -16,9 +16,7 @@
 $filters = tribe_events_get_filters();
 $views   = tribe_events_get_views();
 
-global $wp;
-$current_url = esc_url( add_query_arg( $wp->query_string, '', home_url( $wp->request ) ) );
-
+$current_url = tribe_events_get_current_filter_url();
 ?>
 
 <?php do_action( 'tribe_events_bar_before_template' ) ?>
