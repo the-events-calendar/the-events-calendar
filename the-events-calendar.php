@@ -39,6 +39,7 @@
 		'Tribe__Events__PUE__' => dirname( __FILE__ ) . '/lib/pue/lib',
 		'Tribe__Events__Template__' => dirname( __FILE__ ) . '/lib/template-classes',
 		'Tribe__Events__Tickets__' => dirname( __FILE__ ) . '/lib/tickets',
+		'Tribe__Events__Advanced_Functions__' => dirname( __FILE__ ) . '/public/advanced-functions',
 	);
 	$autoloader->register_prefixes( $prefixes );
 	$autoloader->add_fallback_dir( dirname( __FILE__ ) . '/lib/deprecated-classes' );
