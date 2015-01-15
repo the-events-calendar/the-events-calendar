@@ -252,7 +252,7 @@ The plugin is produced by <a href="http://m.tri.be/2s">Modern Tribe Inc</a>.
 * Dutch from Dirk Westenberg
 * Estonian from Andra Saimre
 * Finnish by Elias Okkonen
-* French from Laurent Proulx
+* French from Sylvain Delisle
 * German from Oliver Heinrich
 * Greek from Yannis Troullinos
 * Icelandic by Baldvin Örn Berndsen
@@ -274,7 +274,7 @@ The plugin is produced by <a href="http://m.tri.be/2s">Modern Tribe Inc</a>.
 * Turkish by Derin Korman
 * Ukranian by Vasily Vishnyakov
 
-* Previous translators include Ari-Pekka Koponen, Stefan Dorscht, Antonio Pratas, Dennis Gruebner , J.F.M. Cornelissen, Frans Pronk, Hector Gil Rizo, Roberto Scano, Maria Tsilimidou, Martin Kristan, Oliver Heinrich, Ben Andersen, Mikhail Michouris, Bastien BC, Dionizio Bonfim Bach, Mihai Burcea, Ed Boon, Rick van Dalen, Jacob Roel Meijering, hristian Andersen, Michael Sebel, Filippo Montanari, David Decker, Kamil Szymanski, Erik Massop, “Terje With Lunndal", Andreas Lorentsen, Sagi Shrieber, Matthew Meyer, Arno Faure, Fanny Heraud, Vincent G from Host1Free, , Petri Kajander, Fran Rosa, Nico (wsMaurik), Panos Efstratiou, Dominique Monhardt, Thomas Butzek, Kjell Vestnes, Luiza Libardi, Diego Meneghetti, Beno Burgener, Burak Pehlevan, and Alexey Fedorov
+* Previous translators include Ari-Pekka Koponen, Laurent Proulx, Stefan Dorscht, Antonio Pratas, Dennis Gruebner , J.F.M. Cornelissen, Frans Pronk, Hector Gil Rizo, Roberto Scano, Maria Tsilimidou, Martin Kristan, Oliver Heinrich, Ben Andersen, Mikhail Michouris, Bastien BC, Dionizio Bonfim Bach, Mihai Burcea, Ed Boon, Rick van Dalen, Jacob Roel Meijering, hristian Andersen, Michael Sebel, Filippo Montanari, David Decker, Kamil Szymanski, Erik Massop, “Terje With Lunndal", Andreas Lorentsen, Sagi Shrieber, Matthew Meyer, Arno Faure, Fanny Heraud, Vincent G from Host1Free, , Petri Kajander, Fran Rosa, Nico (wsMaurik), Panos Efstratiou, Dominique Monhardt, Thomas Butzek, Kjell Vestnes, Luiza Libardi, Diego Meneghetti, Beno Burgener, Burak Pehlevan, and Alexey Fedorov
 
 == Add-Ons ==
 
@@ -331,6 +331,7 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Fixed a bug where occasionally it wasn't possible to page through to an event that had been recently edited (thanks to kevinbergin on the forums for the report!)
 * Clarified the wording of a warning that shows when an add-on should be updated
 * Incorporated updated German translation files, courtesy of Oliver Heinrich
+* Incorporated updated French translation files, courtesy of Sylvain Delisle
 
 = 3.9 =
 
