@@ -64,6 +64,11 @@
 			protected $fallback_dirs = array();
 
 			/**
+			 * @var array
+			 */
+			protected $class_paths = array();
+
+			/**
 			 * Returns the singleton instance of the class.
 			 *
 			 * @return Tribe__Events__Autoloader
@@ -175,6 +180,12 @@
 				if ( $prefixed_path ) {
 					return $prefixed_path;
 				}
+
+				$class_path = $this->class_paths[$class] ? $this->class_paths[$class] :false;
+				if ($class_path) {
+					return $class_path;
+				}
+
 				$fallback_path = $this->get_fallback_path( $class );
 
 				return $fallback_path ? $fallback_path : '';
@@ -208,6 +219,10 @@
 			 */
 			public function set_dir_separator( $dir_separator ) {
 				$this->dir_separator = $dir_separator;
+			}
+
+			public function register_class($class, $path){
+				$this->class_paths[$class] = $path;
 			}
 		}
 	}
