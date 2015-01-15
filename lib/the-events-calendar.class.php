@@ -740,7 +740,7 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 							'utm_source'   => 'notice'
 						), self::$tribeUrl . 'version-relationships-in-modern-tribe-pluginsadd-ons/'
 					);
-					$output .= '<p>' . sprintf( __( 'The following plugins are out of date: <b>%s</b>. All add-ons contain dependencies on The Events Calendar and will not function properly unless paired with the right version. %sWant to pair an older version%s?', 'tribe-events-calendar' ), join( $out_of_date_addons, ', ' ), "<a href='$link' target='_blank'>", '</a>' ) . '</p>';
+					$output .= '<p>' . sprintf( __( 'The following plugins are out of date: <b>%s</b>. All add-ons contain dependencies on The Events Calendar and will not function properly unless paired with the right version. %sLearn More%s.', 'tribe-events-calendar' ), join( $out_of_date_addons, ', ' ), "<a href='$link' target='_blank'>", '</a>' ) . '</p>';
 					$output .= '</div>';
 				}
 			}
@@ -3006,7 +3006,7 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 				return;
 			}
 
-			add_action( 'added_post_meta', array( $this, 'update_known_range' ), 10, 3 );
+			add_action( 'tribe_events_update_meta', array( $this, 'update_known_range' ), 10, 3 );
 		}
 
 		/**
@@ -3018,9 +3018,7 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 		 * where the removal/restoration of hooks within addEventMeta() etc might stop this method from
 		 * actually being called (relates to a core WP bug).
 		 */
-		public function update_known_range( $meta_id, $object_id, $meta_key  ) {
-			if ( TribeEvents::POSTTYPE !== get_post_type( $object_id ) ) return;
-			if ( '_EventDuration' !== $meta_key ) return;
+		public function update_known_range( $object_id ) {
 
 			$current_min = tribe_events_earliest_date();
 			$current_max = tribe_events_latest_date();

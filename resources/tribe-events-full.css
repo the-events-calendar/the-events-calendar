@@ -1760,6 +1760,72 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 	display: inherit;
 }
 
+/* Twenty Fifteen
+========================================================================== */
+.tribe-theme-twentyfifteen .tribe-events-list-widget .type-tribe_events {
+	margin-left: 0;
+	margin-right: 0;
+	box-shadow: none;
+	border-top: 1px solid rgba( 51, 51, 51, 0.1 );
+}
+.tribe-theme-twentyfifteen .tribe-events-list-widget .entry-title {
+	font-size: 22px;
+	font-size: 2.2rem;
+	line-height: 1.4545;
+}
+.tribe-theme-twentyfifteen.tribe-events-page-template #tribe-events-content-wrapper {
+	padding: 3.333%;/* This selector isn't good but keeps these changes very specific. */
+}
+.tribe-theme-twentyfifteen .tribe-events-list .type-tribe_events,
+.tribe-theme-twentyfifteen .tribe-events-list .type-tribe_events.tribe-events-first {
+	padding: 8.333% 10%;
+}
+.tribe-theme-twentyfifteen .tribe-events-day-time-slot .type-tribe_events {
+	margin-left: 0; /* Corrects some extra margin in the day view. */
+}
+.tribe-theme-twentyfifteen .type-tribe_events a.more-link {
+	display: none; /* Hides the occasionally-appearing duplicate More link from 2015 theme. */
+}
+.tribe-theme-twentyfifteen .datepicker.dropdown-menu {
+	max-width: 340px;
+}
+.tribe-theme-twentyfifteen .datepicker.dropdown-menu table,
+.tribe-theme-twentyfifteen .datepicker.dropdown-menu table.table-condensed {
+	border-top-width: 0;
+	border-left-width: 0;
+}
+.tribe-theme-twentyfifteen.events-single #tribe-events-pg-template {
+	padding-top: 8.3333%;
+}
+.tribe-theme-twentyfifteen.events-single #tribe-events-content {
+	padding: 8.3333% 10%;
+}
+.tribe-theme-twentyfifteen ul.tribe-bar-views-list li a {
+	border-bottom: none;
+}
+.tribe-theme-twentyfifteen .tribe-events-calendar td a {
+	border-bottom: none;
+}
+.tribe-theme-twentyfifteen .tribe-events-nav-previous a,
+.tribe-theme-twentyfifteen .tribe-events-nav-next a {
+	border-bottom: none;
+}
+.tribe-theme-twentyfifteen.single-tribe_events .tribe-events-single {
+	box-shadow: none;
+	margin-left: 0;
+	margin-right: 0;
+	margin-bottom: 0 !important;
+}
+.tribe-theme-twentyfifteen.single-tribe_events .entry-footer,
+.tribe-theme-twentyfifteen.events-archive .entry-footer {
+	display: none;
+}
+.tribe-theme-twentyfifteen .tribe-events-list .time-details,
+.tribe-theme-twentyfifteen .tribe-events-list .tribe-events-venue-details {
+	line-height: 1.6;
+}
+
+
 /* = Events Retina
 =============================================*/
 @media 
