@@ -26,6 +26,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 $events_label_plural = tribe_get_event_label_plural();
 
+$posts = tribe_get_list_widget_events();
+
 //Check if any posts were found
 if ( $posts ) {
 	?>
