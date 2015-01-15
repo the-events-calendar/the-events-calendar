@@ -11,8 +11,14 @@
 if ( ! tribe_get_venue_id() ) {
 	return;
 }
-$phone = tribe_get_phone();
+
+$phone   = tribe_get_phone();
 $website = tribe_get_venue_website_link();
+
+$address = tribe_address_exists() ? '<address class="tribe-events-address">' . tribe_get_full_address() . '</address>' : '';
+
+$gmap_link = tribe_get_venue_address_gmap_link();
+
 ?>
 
 <div class="tribe-events-meta-group tribe-events-meta-group-venue">
@@ -23,14 +29,7 @@ $website = tribe_get_venue_website_link();
 		<dd class="author fn org"> <?php echo tribe_get_venue() ?> </dd>
 
 		<?php
-		// Do we have an address?
-		$address = tribe_address_exists() ? '<address class="tribe-events-address">' . tribe_get_full_address() . '</address>' : '';
-
-		// Do we have a Google Map link to display?
-		$gmap_link = tribe_show_google_map_link() ? tribe_get_map_link_html() : '';
-		$gmap_link = apply_filters( 'tribe_event_meta_venue_address_gmap', $gmap_link );
-
-		// Display if appropriate
+		// Display the address if it exists and a google maps link if it exists.
 		if ( ! empty( $address ) ) {
 			echo '<dd class="location">' . "$address $gmap_link </dd>";
 		}
