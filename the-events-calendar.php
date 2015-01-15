@@ -35,7 +35,7 @@
 		'Tribe__Events__Utils__' => dirname( __FILE__ ) . '/lib/utils',
 		'Tribe__Events__Admin__' => dirname( __FILE__ ) . '/lib/Admin',
 		'Tribe__Events__Importer__' => dirname( __FILE__ ) . '/lib/io/csv/classes',
-		'Tribe__Events__PU__' => dirname( __FILE__ ) . '/lib/pue/lib',
+		'Tribe__Events__PUE__' => dirname( __FILE__ ) . '/lib/pue/lib',
 		'Tribe__Events__Template__' => dirname( __FILE__ ) . '/lib/template-classes',
 		'Tribe__Events__Tickets__' => dirname( __FILE__ ) . '/lib/tickets',
 	);
