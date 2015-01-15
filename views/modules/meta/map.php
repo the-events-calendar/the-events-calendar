@@ -9,6 +9,7 @@
  */
 
 $map = apply_filters( 'tribe_event_meta_venue_map', tribe_get_embedded_map() );
+
 if ( empty( $map ) ) {
 	return;
 }
