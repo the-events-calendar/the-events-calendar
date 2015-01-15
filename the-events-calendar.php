@@ -32,6 +32,7 @@
 	require_once( dirname( __FILE__ ) . '/lib/utils/Autoloader.php' );
 	$autoloader = Tribe__Events__Autoloader::instance();
 	$prefixes = array(
+		'Tribe__Events__' => dirname( __FILE__ ) . '/lib',
 		'Tribe__Events__Utils__' => dirname( __FILE__ ) . '/lib/utils',
 		'Tribe__Events__Admin__' => dirname( __FILE__ ) . '/lib/Admin',
 		'Tribe__Events__Importer__' => dirname( __FILE__ ) . '/lib/io/csv/classes',
