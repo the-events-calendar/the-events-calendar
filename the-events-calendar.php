@@ -27,8 +27,6 @@
 	Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 	*/
 
-	require_once( dirname( __FILE__ ) . '/lib/the-events-calendar.class.php' );
-
 	require_once( dirname( __FILE__ ) . '/lib/utils/Autoloader.php' );
 	$autoloader = Tribe__Events__Autoloader::instance();
 	$prefixes = array(
