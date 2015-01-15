@@ -23,17 +23,17 @@
  	background-color: #21759b;
 }
 
-.tribe-grid-allday .type-tribe_events > div,
-.tribe-grid-body .type-tribe_events .tribe-events-week-hourly-single,
-.tribe-grid-allday .type-tribe_events > div:hover,
-.tribe-grid-body .type-tribe_events .tribe-events-week-hourly-single:hover {
+.tribe-grid-allday .tribe-events-week-allday-single,
+.tribe-grid-body .tribe-events-week-hourly-single,
+.tribe-grid-allday .tribe-events-week-allday-single:hover,
+.tribe-grid-body .tribe-events-week-hourly-single:hover {
 	background-color: #21759b;
 	background-color: rgba(33, 117, 155, .75);
 	border-color: #1b607f;
 }
 
-.tribe-grid-allday .type-tribe_events > div:hover,
-.tribe-grid-body .type-tribe_events .tribe-events-week-hourly-single:hover {
+.tribe-grid-allday .tribe-events-week-allday-single:hover,
+.tribe-grid-body .tribe-events-week-hourly-single:hover {
 	background-color: rgba(33, 117, 155, .9);
 }
 

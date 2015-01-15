@@ -238,7 +238,6 @@ if ( Object.prototype.hasOwnProperty.call( window, 'tribe_ev' ) ) {
 								var data = $this.data( 'tribejson' );
 
 								$this
-									.find( 'div' )
 									.append( tribe_tmpl( 'tribe_tmpl_tooltip', data ) );
 
 								$tip = $this.find( '.tribe-events-tooltip' );

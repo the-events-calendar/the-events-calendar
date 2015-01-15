@@ -133,13 +133,10 @@
 
 /* Global Week Event Styles */
 
-.tribe-events-grid .type-tribe_events {
-	padding:4px;
-}
-
 .tribe-events-grid div[id*='tribe-events-event-'] {
 	visibility: hidden;
 }
+
 .tribe-events-grid .type-tribe_events h3.entry-title {
 	color: #333;
 	font-size: 12px;
@@ -163,8 +160,8 @@
 	overflow: hidden;
 	outline: none;
 }
-.tribe-grid-allday .type-tribe_events > div,
-.tribe-grid-body .type-tribe_events .tribe-events-week-hourly-single { 
+.tribe-grid-allday .tribe-events-week-allday-single,
+.tribe-grid-body .tribe-events-week-hourly-single {
 	width: 100%;
 	background-color: #e6e6e6;
 	background-color: rgba(221, 221, 221, .75);
@@ -173,7 +170,16 @@
 			border-radius: 3px;
 	cursor: pointer;
 }
-.tribe-grid-allday .type-tribe_events > div:hover,
+
+.tribe-grid-allday .column {
+	padding: 4px;
+}
+
+.tribe-grid-body .tribe-events-week-hourly-single {
+	margin: 4px;
+}
+
+.tribe-grid-allday .tribe-events-week-allday-single:hover,
 .tribe-grid-body .type-tribe_events .tribe-events-week-hourly-single:hover {
 	background-color: #e2e2e2;
 	background-color: rgba(221, 221, 221, .85);
@@ -186,7 +192,7 @@
 	border-bottom: 1px solid #bbb;
 }
 .tribe-grid-allday .column {
-	min-height: 60px;	
+	min-height: 60px;
 }
 .tribe-grid-allday .column.first {
 	top: 0;
@@ -202,11 +208,6 @@
 .tribe-grid-allday .type-tribe_events {
 	margin: 0;
 	position: relative;
-	padding: 4px;
-}
-.tribe-grid-allday .type-tribe_events ~ .type-tribe_events,
-.tribe-grid-allday .tribe-event-placeholder ~ .type-tribe_events { 	
-	padding: 0 4px 4px;
 }
 .tribe-grid-allday .type-tribe_events h3.entry-title {
 	padding: 0;
@@ -254,7 +255,6 @@
  	position: absolute;
  	z-index: 500;
  	width: 100%;
- 	padding: 4px;
 }
 .tribe-grid-body div[id*="tribe-events-event-"]:hover {
  	z-index: 800;
