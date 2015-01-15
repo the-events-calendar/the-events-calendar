@@ -149,14 +149,19 @@
 				$day_blocks = $( '.tribe-mobile-day' ),
 				$mobile_trigger = $( '.mobile-trigger' ),
 				$target_day = $( '.tribe-mobile-day[data-day="' + date + '"]' ),
-				full_date_name = typeof(date_name) == 'undefined' ? '' : date_name,
-				day_data = {"date": date, "date_name": full_date_name};
+				full_date_name = 'undefined' === typeof( date_name )  ? '' : date_name,
+				day_data = { "date": date, "date_name": full_date_name };
 
 			$mobile_trigger
 				.removeClass( 'mobile-active' );
 
+			// If full_date_name is empty then default to highlighting the first day of the current month
+			var filter = full_date_name.length
+				? '[data-date-name="' + full_date_name + '"]'
+				: '.tribe-events-thismonth[data-day="' + date + '"]';
+
 			$mobile_trigger
-				.filter( '[data-day="' + date + '"]' )
+				.filter( filter )
 				.addClass( 'mobile-active' );
 
 			$day_blocks.hide();
@@ -179,17 +184,29 @@
 				$mobile_trigger = $( '.mobile-trigger' ),
 				$tribe_grid = $( '#tribe-events-content > .tribe-events-calendar' );
 
-			if ( !$( '#tribe-mobile-container' ).length ) {
+			if ( ! $( '#tribe-mobile-container' ).length ) {
 				$( '<div id="tribe-mobile-container" />' ).insertAfter( $tribe_grid );
 			}
 
-			if ( $today.length ) {
-				tribe_mobile_setup_day( $today.attr( 'data-day' ), $today.attr( 'data-date-name' ) );
-			}
-			else {
-				tribe_mobile_setup_day( $mobile_trigger.first().attr( 'data-day' ), $mobile_trigger.first().attr( 'data-date-name' ) );
+			// Multiple $todays may exist if a calendar widget is present.
+			if ( 1 < $today.length ) {
+				$.each( $today, tribe_mobile_setup_day( $today.attr( 'data-day' ), $today.attr( 'data-date-name' ) ) );
 			}
 
+			if ( 1 == $today.length ) {
+				tribe_mobile_setup_day( $today.attr( 'data-day' ), $today.attr( 'data-date-name' ) );
+
+				// Preserves first-of-month styles on main cal if $today is coming from a calendar widget.
+				if ( $today.parents( '.tribe-mini-calendar-wrapper' ).length ) {
+					var $first_current_day = $mobile_trigger.filter( '.tribe-events-thismonth' ).first();
+					tribe_mobile_setup_day( $first_current_day.attr( 'data-day' ), $first_current_day.attr( 'data-date-name' ) );
+				}
+			}
+
+			if ( ! $today.length ) {
+				var $first_current_day = $mobile_trigger.filter( '.tribe-events-thismonth' ).first();
+				tribe_mobile_setup_day( $first_current_day.attr( 'data-day' ), $first_current_day.attr( 'data-date-name' ) );
+			}
 		}
 
 		function tribe_mobile_day_abbr() {

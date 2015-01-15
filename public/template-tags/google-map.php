@@ -17,6 +17,8 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 *
 	 * Returns a url to google maps for the given event
 	 *
+	 * @category Events
+	 *
 	 * @param string $postId
 	 *
 	 * @return string A fully qualified link to http://maps.google.com/ for this event
@@ -31,7 +33,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 	/**
 	 * Returns a formed HTML link to Google Maps for the given event.
 	 *
-	 *
+	 * @category Events
 	 *
 	 * @param string $postId
 	 *
@@ -54,6 +56,8 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 *
 	 * Returns an embedded google maps for an event
 	 *
+	 * @category Events
+	 *
 	 * @param string $post_id
 	 * @param int    $width
 	 * @param int    $height
@@ -69,6 +73,8 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 * Google Map Embed Test
 	 *
 	 * Check if embed google map is enabled for this event (or venue ).
+	 *
+	 * @category Events
 	 *
 	 * @param int $postId Id of the post, if none specified, current post is used
 	 *
@@ -95,6 +101,8 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 * Google Map Link Test
 	 *
 	 * Check if google map link is enabled for this event
+	 *
+	 * @category Events
 	 *
 	 * @param int $postId Id of the post, if none specified, current post is used
 	 *

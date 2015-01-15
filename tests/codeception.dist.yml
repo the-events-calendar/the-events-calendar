@@ -52,4 +52,10 @@ modules:
             adminUsername: 'admin'
             adminPassword: 'password'
             adminUrl: '/wp-admin'
+        WPWebDriverHelper:
+            url: 'http://tests.events.tribe'
+            adminUsername: 'admin'
+            adminPassword: 'password'
+            adminUrl: '/wp-admin'
+            broswer: firefox
 

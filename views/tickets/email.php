@@ -259,14 +259,13 @@
 					$venue = get_post( $venue_id );
 				}
 
-				$venue_name = $venue_phone = $venue_address = $venue_city = $venue_email = $venue_web = '';
+				$venue_name = $venue_phone = $venue_address = $venue_city = $venue_web = '';
 				if ( ! empty( $venue ) ) {
 					$venue_name    = $venue->post_title;
 					$venue_phone   = get_post_meta( $venue_id, '_VenuePhone', true );
 					$venue_address = get_post_meta( $venue_id, '_VenueAddress', true );
 					$venue_city    = get_post_meta( $venue_id, '_VenueCity', true );
 					$venue_web     = get_post_meta( $venue_id, '_VenueURL', true );
-					$venue_email   = get_post_meta( $venue_id, '_VenueEmail', true );
 				}
 
 			?>
@@ -353,8 +352,9 @@
 														</td>
 														<td class="ticket-venue-child" valign="top" align="left" width="100" style="padding: 0 !important; width:140px; margin:0 !important;">
 															<span style="color:#0a0a0e !important; font-family: 'Helvetica Neue', Helvetica, sans-serif; font-size:13px; display:block; margin-bottom:5px;"><?php echo $venue_phone; ?></span>
-															<a href="#" style="color:#006caa !important; display:block; margin:0; font-family: 'Helvetica Neue', Helvetica, sans-serif; font-size:13px; text-decoration:underline;"><?php echo $venue_email; ?></a><br />
-															<a href="#" style="color:#006caa !important; display:block; margin:0; font-family: 'Helvetica Neue', Helvetica, sans-serif; font-size:13px; text-decoration:underline;"><?php echo $venue_web; ?></a>
+															<?php if ( ! empty( $venue_web ) ): ?>
+																<a href="<?php echo esc_url( $venue_web ) ?>" style="color:#006caa !important; display:block; margin:0; font-family: 'Helvetica Neue', Helvetica, sans-serif; font-size:13px; text-decoration:underline;"><?php echo $venue_web; ?></a>
+															<?php endif ?>
 														</td>
 													</tr>
 												</table>

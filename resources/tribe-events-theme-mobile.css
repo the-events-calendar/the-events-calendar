@@ -106,7 +106,10 @@
 .tribe-events-calendar td.mobile-active,
 .tribe-events-calendar .mobile-active div[id*="tribe-events-daynum-"],
 .tribe-events-calendar .mobile-active div[id*="tribe-events-daynum-"] a,
-#tribe-events-content .tribe-events-calendar .mobile-active:hover {
+#tribe-events-content .tribe-events-calendar .mobile-active:hover,
+#tribe-events-content .tribe-events-calendar td.tribe-events-othermonth.mobile-active,
+#tribe-events-content .tribe-events-calendar td.tribe-events-othermonth.mobile-active div[id*="tribe-events-daynum-"],
+#tribe-events-content .tribe-events-calendar td.tribe-events-othermonth.mobile-active div[id*="tribe-events-daynum-"] a {
 	background-color:#21759b;
 	color: #fff;
 }

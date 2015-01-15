@@ -14,10 +14,7 @@
 
 		<div class="tribe-events-event-body">
 			<div class="duration">
-				<abbr class="tribe-events-abbr updated published dtstart">[[=startTime]] </abbr>
-				[[ if(endTime.length) { ]]
-				-<abbr class="tribe-events-abbr dtend"> [[=endTime]]</abbr>
-				[[ } ]]
+				<abbr class="tribe-events-abbr updated published dtstart">[[=dateDisplay]] </abbr>
 			</div>
 			[[ if(imageTooltipSrc.length) { ]]
 			<div class="tribe-events-event-thumb">

@@ -77,6 +77,7 @@ class TribeEventsImporter_ColumnMapper {
 			'venue_state'    => __( 'Venue State/Province', 'tribe-events-calendar' ),
 			'venue_zip'      => __( 'Venue Zip', 'tribe-events-calendar' ),
 			'venue_phone'    => __( 'Venue Phone', 'tribe-events-calendar' ),
+			'venue_url'      => __( 'Venue Website', 'tribe-events-calendar' ),
 		);
 	}
 

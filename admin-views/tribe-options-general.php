@@ -222,11 +222,12 @@ $generalTab = array(
 			),
 			'viewWelcomePage'          => array(
 				'type'        => 'html',
-				'html'        => '<fieldset class="tribe-field tribe-field-html"><legend>' . __( 'View Welcome Page', 'tribe-events-calendar' ) . '</legend><div class="tribe-field-wrap"><a href="'. get_site_url() .'/wp-admin/edit.php?post_type=tribe_events&page=tribe-events-calendar&tec-welcome-message" class="button">View Welcome Page</a><p class="tribe-field-indent description">' . __( 'View the page that displayed when you initially installed the plugin.', 'tribe-events-calendar' ) . '</p></div></fieldset><div class="clear"></div>'
+				'html'        => '<fieldset class="tribe-field tribe-field-html"><legend>' . __( 'View Welcome Page', 'tribe-events-calendar' ) . '</legend><div class="tribe-field-wrap"><a href="' . get_site_url() . '/wp-admin/edit.php?post_type=tribe_events&page=tribe-events-calendar&tec-welcome-message" class="button">' . __( 'View Welcome Page', 'tribe-events-calendar' ) . '</a><p class="tribe-field-indent description">' . __( 'View the page that displayed when you initially installed the plugin.', 'tribe-events-calendar' ) . '</p></div></fieldset><div class="clear"></div>',
+
 			),
 			'viewUpdatePage'          => array(
 				'type'        => 'html',
-				'html'        => '<fieldset class="tribe-field tribe-field-html"><legend>' . __( 'View Update Page', 'tribe-events-calendar' ) . '</legend><div class="tribe-field-wrap"><a href="'. get_site_url() .'/wp-admin/edit.php?post_type=tribe_events&page=tribe-events-calendar&tec-update-message" class="button">View Update Page</a><p class="tribe-field-indent description">' . __( 'View the page that displayed when you updated the plugin.', 'tribe-events-calendar' ) . '</p></div></fieldset><div class="clear"></div>'
+				'html'        => '<fieldset class="tribe-field tribe-field-html"><legend>' . __( 'View Update Page', 'tribe-events-calendar' ) . '</legend><div class="tribe-field-wrap"><a href="' . get_site_url() . '/wp-admin/edit.php?post_type=tribe_events&page=tribe-events-calendar&tec-update-message" class="button">' . __( 'View Update Page', 'tribe-events-calendar' ) . '</a><p class="tribe-field-indent description">' . __( 'View the page that displayed when you updated the plugin.', 'tribe-events-calendar' ) . '</p></div></fieldset><div class="clear"></div>'
 			),
 			'tribe-form-content-end'        => array(
 				'type' => 'html',

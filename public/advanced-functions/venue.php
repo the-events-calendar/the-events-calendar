@@ -33,7 +33,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 * @return int ID of the Venue that was created. False if insert failed.
 	 * @link     http://codex.wordpress.org/Function_Reference/wp_insert_post
 	 * @see      wp_insert_post()
-	 * @category Venue Functions
+	 * @category Venues
 	 */
 	function tribe_create_venue( $args ) {
 		$postId = TribeEventsAPI::createVenue( $args );
@@ -51,7 +51,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 * @link     http://codex.wordpress.org/Function_Reference/wp_update_post
 	 * @see      wp_update_post()
 	 * @see      tribe_create_venue()
-	 * @category Venue Functions
+	 * @category Venues
 	 */
 	function tribe_update_venue( $postId, $args ) {
 		$postId = TribeEventsAPI::updateVenue( $postId, $args );
@@ -68,7 +68,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 * @return bool false if delete failed.
 	 * @link     http://codex.wordpress.org/Function_Reference/wp_delete_post
 	 * @see      wp_delete_post()
-	 * @category Venue Functions
+	 * @category Venues
 	 */
 	function tribe_delete_venue( $postId, $force_delete = false ) {
 		$success = TribeEventsAPI::deleteVenue( $postId, $args );

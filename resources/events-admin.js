@@ -3,7 +3,8 @@ jQuery( document ).ready( function( $ ) {
 	var $view_select = $( '.tribe-field-dropdown_select2 select' ),
 		viewCalLinkHTML = $( '#view-calendar-link-div' ).html(),
 		$template_select = $( 'select[name="tribeEventsTemplate"]' ),
-		$event_pickers = $( '#tribe-event-datepickers' );
+		$event_pickers = $( '#tribe-event-datepickers' ),
+		isCommunityEventsEdit = $('body').is( '.tribe_community_edit' );
 
 	// initialize  chosen and select2
 
@@ -27,6 +28,10 @@ jQuery( document ).ready( function( $ ) {
 	}
 
 	//not done by default on front end
+
+	function getDatepickerNumMonths() {
+		return ( isCommunityEventsEdit && $(window).width() < 768 ) ? 1 : 3;
+	}
 
 	$( '.hide-if-js' )
 		.hide();
@@ -57,10 +62,11 @@ jQuery( document ).ready( function( $ ) {
 			showAnim       : 'fadeIn',
 			changeMonth    : true,
 			changeYear     : true,
-			numberOfMonths : 3,
+			numberOfMonths : getDatepickerNumMonths(),
 			firstDay       : startofweek,
 			showButtonPanel: true,
 			beforeShow     : function( element, object ) {
+				object.input.datepicker( 'option', 'numberOfMonths', getDatepickerNumMonths() );
 				object.input.data( 'prevDate', object.input.datepicker( "getDate" ) );
 			},
 			onSelect       : function( selectedDate ) {
@@ -181,16 +187,21 @@ jQuery( document ).ready( function( $ ) {
 		}
 
 		savedVenue.change( function() {
-			if ( $( this ).val() == '0' ) {
+			var selected_venue_id = $(this).val();
+
+			if ( selected_venue_id == '0' ) {
 				venueFields.fadeIn();
 				$( "#EventCountry" ).val( 0 ).trigger( "chosen:updated" );
 				$( "#StateProvinceSelect" ).val( 0 ).trigger( "chosen:updated" );
 				tribeShowHideCorrectStateProvinceInput( '' );
-				//.find("input, select").val('').removeAttr('checked');
+				$('.edit-venue-link').hide();			
 			}
 			else {
 				venueFields.fadeOut();
+				$('.edit-venue-link').show();
 
+				// Change edit link
+				$('.edit-venue-link a').attr( 'href', '/wp-admin/post.php?post='+ selected_venue_id +'&action=edit' );
 			}
 		} );
 		// hide unnecessary fields
@@ -203,18 +214,25 @@ jQuery( document ).ready( function( $ ) {
 		}
 
 		savedorganizer.change( function() {
-			if ( $( this ).val() == '0' ) {
+			var selected_organizer_id = $(this).val();
+
+			if ( selected_organizer_id == '0' ) {
 				organizerFields.fadeIn();
+				$('.edit-organizer-link').hide();	
 			}
 			else {
 				organizerFields.fadeOut();
+				$('.edit-organizer-link').show();
+
+				// Change edit link
+				$('.edit-organizer-link a').attr( 'href', '/wp-admin/post.php?post='+ selected_organizer_id +'&action=edit' );
 			}
 		} );
 	}
 
 	//show state/province input based on first option in countries list, or based on user input of country
 
-	var $state_prov_chzn = $( "#StateProvinceSelect_chzn" ),
+	var $state_prov_chzn = $( "#StateProvinceSelect_chosen" ),
 		$state_prov_text = $( "#StateProvinceText" );
 
 

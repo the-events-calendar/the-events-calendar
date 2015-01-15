@@ -309,8 +309,8 @@ h2.tribe-events-page-title,
 			box-shadow: rgba(0,0,0, 0.2) 0px 0px 10px;
 }
 
-.tribe-events-othermonth {
-	background: #f9f9f9;
+#tribe-events-content .tribe-events-calendar td.tribe-events-othermonth {
+	background: #f9f9f9;	    
 }
 
 #tribe-events-content .tribe-events-calendar .tribe-events-othermonth:hover {
@@ -421,12 +421,6 @@ h2.tribe-events-page-title,
 
 .tribe-events-map.tribe-bar-is-disabled #tribe-events-content-wrapper {
 	max-width: none;
-}
-
-/* = WooTickets
-=============================================*/
-h2.tribe-events-tickets-title {
-	font-size: 17px;
 }
 
 /* = Events Retina

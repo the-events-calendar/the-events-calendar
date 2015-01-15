@@ -215,10 +215,24 @@ var ticketHeaderImage = window.ticketHeaderImage || {};
 					function( response ) {
 						ticket_clear_form();
 
+						var regularPrice = response.data.price;
+						var salePrice    = regularPrice;
+						var onSale       = false;
+
+						if ( "undefined" !== typeof response.data.on_sale && response.data.on_sale ) {
+							onSale       = true;
+							regularPrice = response.data.regular_price;
+						}
+
 						$( '#ticket_id' ).val( response.data.ID );
 						$( '#ticket_name' ).val( response.data.name );
 						$( '#ticket_description' ).val( response.data.description );
-						$( '#ticket_price' ).val( response.data.price );
+						$( '#ticket_price' ).val( regularPrice );
+						$( '#ticket_sale_price' ).val( salePrice );
+
+						if ( onSale ) {
+							$( '.ticket.sale_price' ).show();
+						}
 
 						var start_date = response.data.start_date.substring( 0, 10 );
 						var end_date = response.data.end_date.substring( 0, 10 );
@@ -333,6 +347,7 @@ var ticketHeaderImage = window.ticketHeaderImage || {};
 
 			$( '.ticket_start_time' ).hide();
 			$( '.ticket_end_time' ).hide();
+			$( '.ticket.sale_price' ).hide();
 
 			$( '#ticket_form textarea' ).val( '' );
 

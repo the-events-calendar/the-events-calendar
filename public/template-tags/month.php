@@ -213,7 +213,9 @@ if ( class_exists( 'TribeEvents' ) ) {
 	function tribe_get_month_view_date() {
 		global $wp_query;
 
-		$date = date_i18n( TribeDateUtils::DBDATEFORMAT, strtotime( date( 'Y-m-01', current_time( 'timestamp' ) ) ) );
+		$today = date_i18n( TribeDateUtils::DBDATEFORMAT, strtotime( date( 'Y-m-01', current_time( 'timestamp' ) ) ) );
+		$date  = $today;
+
 		if ( ! empty( $_REQUEST['tribe-bar-date'] ) ) {
 			$date = $_REQUEST["tribe-bar-date"] . '-01';
 		} else {
@@ -224,6 +226,14 @@ if ( class_exists( 'TribeEvents' ) ) {
 					$date = $wp_query->query_vars['eventDate'] . '-01';
 				}
 			}
+		}
+
+		// Confirm the date is valid (who knows what was passed in through $_REQUEST) and revert to today if necessary
+		try {
+			new DateTime( $date );
+		}
+		catch ( Exception $e ) {
+			$date = $today;
 		}
 
 		return apply_filters( 'tribe_get_month_view_date', $date );

@@ -112,7 +112,7 @@
 		);
 		?>
 
-		<?php echo tribe_meta_event_tags( __( 'Event Tags:', 'tribe-events-calendar' ), ', ', false ) ?>
+		<?php echo tribe_meta_event_tags( sprintf( __( '%s Tags:', 'tribe-events-calendar' ), tribe_get_event_label_singular() ), ', ', false ) ?>
 
 		<?php
 		$website = tribe_get_event_website_link();

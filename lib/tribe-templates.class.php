@@ -50,7 +50,7 @@ if ( ! class_exists( 'TribeEventsTemplates' ) ) {
 			add_action( 'template_redirect', 'tribe_initialize_view' );
 
 			// make sure we enter the loop by always having some posts in $wp_query
-			add_action( 'template_redirect', array( __CLASS__, 'maybeSpoofQuery' ) );
+			add_action( 'wp_head', array( __CLASS__, 'maybeSpoofQuery' ), 100 );
 
 			// maybe modify the global post object to blank out the title
 			add_action( 'tribe_tec_template_chooser', array( __CLASS__, 'maybe_modify_global_post_title' ) );
@@ -67,7 +67,6 @@ if ( ! class_exists( 'TribeEventsTemplates' ) ) {
 			add_action( 'wp_head', array( __CLASS__, 'wpHeadFinished' ), 999 );
 
 			add_filter( 'get_post_time', array( __CLASS__, 'event_date_to_pubDate' ), 10, 3 );
-
 		}
 
 		/**
@@ -81,8 +80,17 @@ if ( ! class_exists( 'TribeEventsTemplates' ) ) {
 			$events = TribeEvents::instance();
 			do_action( 'tribe_tec_template_chooser', $template );
 
-			// hijack this method right up front if it's a 404
-			if ( is_404() && $events->displaying == 'single-event' ) {
+			// no non-events need apply
+			if ( ! tribe_is_event_query() ) {
+				return $template;
+			}
+
+			// if it's a single 404 event
+			if ( is_single() &&  is_404() ) {
+				return get_404_template();
+			}
+
+			if ( ! is_single() && ! tribe_events_is_view_enabled( $events->displaying ) ) {
 				return get_404_template();
 			}
 
@@ -92,40 +100,29 @@ if ( ! class_exists( 'TribeEventsTemplates' ) ) {
 			// add the template name to the body class
 			add_filter( 'body_class', array( __CLASS__, 'template_body_class' ) );
 
-			// no non-events need apply
-			// @todo check $wp_query->tribe_is_event_query instead?
-			if ( in_array(
-					 get_query_var( 'post_type' ), array(
-						 TribeEvents::POSTTYPE,
-						 TribeEvents::VENUE_POST_TYPE,
-						 TribeEvents::ORGANIZER_POST_TYPE
-					 )
-				 ) || is_tax( TribeEvents::TAXONOMY )
-			) {
 
-				// user has selected a page/custom page template
-				if ( tribe_get_option( 'tribeEventsTemplate', 'default' ) != '' ) {
-					if ( ! is_single() || ! post_password_required() ) {
-						add_action( 'loop_start', array( __CLASS__, 'setup_ecp_template' ) );
-					}
-
-					$template = locate_template( tribe_get_option( 'tribeEventsTemplate', 'default' ) == 'default' ? 'page.php' : tribe_get_option( 'tribeEventsTemplate', 'default' ) );
-
-					if ( $template == '' ) {
-						$template = get_index_template();
-					}
-
-					// remove singular body class if sidebar-page.php
-					if ( $template == get_stylesheet_directory() . '/sidebar-page.php' ) {
-						add_filter( 'body_class', array( __CLASS__, 'remove_singular_body_class' ) );
-					} else {
-						add_filter( 'body_class', array( __CLASS__, 'add_singular_body_class' ) );
-					}
-
-				} else {
-					$template = self::getTemplateHierarchy( 'default-template' );
-
+			// user has selected a page/custom page template
+			if ( tribe_get_option( 'tribeEventsTemplate', 'default' ) != '' ) {
+				if ( ! is_single() || ! post_password_required() ) {
+					add_action( 'loop_start', array( __CLASS__, 'setup_ecp_template' ) );
 				}
+
+				$template = locate_template( tribe_get_option( 'tribeEventsTemplate', 'default' ) == 'default' ? 'page.php' : tribe_get_option( 'tribeEventsTemplate', 'default' ) );
+
+				if ( $template == '' ) {
+					$template = get_index_template();
+				}
+
+				// remove singular body class if sidebar-page.php
+				if ( $template == get_stylesheet_directory() . '/sidebar-page.php' ) {
+					add_filter( 'body_class', array( __CLASS__, 'remove_singular_body_class' ) );
+				} else {
+					add_filter( 'body_class', array( __CLASS__, 'add_singular_body_class' ) );
+				}
+
+			} else {
+				$template = self::getTemplateHierarchy( 'default-template' );
+
 			}
 
 			self::$template = $template;
@@ -551,11 +548,6 @@ if ( ! class_exists( 'TribeEventsTemplates' ) ) {
 
 			$file = false;
 
-			// return 404 if curent view is disabled
-			if ( ! $disable_view_check && in_array( $tec->displaying, tribe_events_disabled_views() ) ) {
-				$file = get_404_template();
-			}
-
 			/* potential scenarios:
 
 			- the user has no template overrides
@@ -685,7 +677,8 @@ if ( ! class_exists( 'TribeEventsTemplates' ) ) {
 		 */
 		public static function event_date_to_pubDate( $time, $d, $gmt ) {
 			global $post;
-			if ( $post->post_type == TribeEvents::POSTTYPE && is_feed() && $gmt ) {
+
+			if ( isset($post) && $post->post_type == TribeEvents::POSTTYPE && is_feed() && $gmt ) {
 				$time = tribe_get_start_date( $post->ID, false, $d );
 				$time = mysql2date( $d, $time );
 			}

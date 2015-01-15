@@ -26,6 +26,11 @@ module.exports = {
 		'<%= pkg._resourcepath %>/tribe-events-ajax-list.processed.js',
 		'<%= pkg._resourcepath %>/tribe-events-bar.processed.js',
 		'<%= pkg._resourcepath %>/tribe-settings.processed.js'
+	],
+
+	resourcecss: [
+		'<%= pkg._resourcepath %>/*.min.css'
 	]
+
 
 };

@@ -337,6 +337,8 @@ if ( class_exists( 'Tribe_Meta_Factory' ) ) {
 
 	/**
 	 * Register Meta Group: Event Details
+	 *
+	 * @category Events
 	 */
 	tribe_register_meta_group(
 		'tribe_event_details', array(
@@ -351,6 +353,7 @@ if ( class_exists( 'Tribe_Meta_Factory' ) ) {
 	/**
 	 * Register Meta: Event Date (Start/End or Date)
 	 *
+	 * @category Events
 	 * @group tribe_event_details
 	 */
 	tribe_register_meta(
@@ -365,6 +368,7 @@ if ( class_exists( 'Tribe_Meta_Factory' ) ) {
 	/**
 	 * Register Meta: Event Cost
 	 *
+	 * @category Cost
 	 * @group tribe_event_details
 	 */
 	tribe_register_meta(
@@ -381,6 +385,7 @@ if ( class_exists( 'Tribe_Meta_Factory' ) ) {
 	/**
 	 * Register Meta: Event Categories
 	 *
+	 * @category Events
 	 * @group tribe_event_details
 	 */
 	tribe_register_meta(
@@ -396,6 +401,7 @@ if ( class_exists( 'Tribe_Meta_Factory' ) ) {
 	/**
 	 * Register Meta: Event Tags
 	 *
+	 * @category Events
 	 * @group tribe_event_details
 	 */
 	tribe_register_meta(
@@ -410,6 +416,7 @@ if ( class_exists( 'Tribe_Meta_Factory' ) ) {
 	/**
 	 * Register Meta: Event Website
 	 *
+	 * @category Events
 	 * @group tribe_event_details
 	 */
 	tribe_register_meta(
@@ -425,6 +432,7 @@ if ( class_exists( 'Tribe_Meta_Factory' ) ) {
 	/**
 	 * Register Meta: Event Origin
 	 *
+	 * @category Events
 	 * @group tribe_event_details
 	 */
 	tribe_register_meta(
@@ -439,6 +447,8 @@ if ( class_exists( 'Tribe_Meta_Factory' ) ) {
 
 	/**
 	 * Register Meta Group: Event Venue
+	 *
+	 * @category Venues
 	 */
 	tribe_register_meta_group(
 		'tribe_event_venue', array(
@@ -453,6 +463,7 @@ if ( class_exists( 'Tribe_Meta_Factory' ) ) {
 	/**
 	 * Register Meta: Venue Name
 	 *
+	 * @category Venues
 	 * @group tribe_event_venue
 	 */
 	tribe_register_meta(
@@ -468,6 +479,7 @@ if ( class_exists( 'Tribe_Meta_Factory' ) ) {
 	/**
 	 * Register Meta: Venue Phone
 	 *
+	 * @category Venues
 	 * @group tribe_event_venue
 	 */
 	tribe_register_meta(
@@ -483,6 +495,7 @@ if ( class_exists( 'Tribe_Meta_Factory' ) ) {
 	/**
 	 * Register Meta: Venue Address
 	 *
+	 * @category Venues
 	 * @group tribe_event_venue
 	 */
 	tribe_register_meta(
@@ -498,6 +511,7 @@ if ( class_exists( 'Tribe_Meta_Factory' ) ) {
 	/**
 	 * Register Meta: Venue Website
 	 *
+	 * @category Venues
 	 * @group tribe_event_venue
 	 */
 	tribe_register_meta(
@@ -512,6 +526,8 @@ if ( class_exists( 'Tribe_Meta_Factory' ) ) {
 
 	/**
 	 * Register Meta Group: Event Organizer
+	 *
+	 * @category Organizers
 	 */
 	tribe_register_meta_group(
 		'tribe_event_organizer', array(
@@ -526,6 +542,7 @@ if ( class_exists( 'Tribe_Meta_Factory' ) ) {
 	/**
 	 * Register Meta: Organizer Name (author)
 	 *
+	 * @category Organizers
 	 * @group tribe_event_organizer
 	 */
 	tribe_register_meta(
@@ -541,6 +558,7 @@ if ( class_exists( 'Tribe_Meta_Factory' ) ) {
 	/**
 	 * Register Meta: Organizer Phone
 	 *
+	 * @category Organizers
 	 * @group tribe_event_organizer
 	 */
 	tribe_register_meta(
@@ -556,6 +574,7 @@ if ( class_exists( 'Tribe_Meta_Factory' ) ) {
 	/**
 	 * Register Meta: Organizer Email
 	 *
+	 * @category Organizers
 	 * @group tribe_event_organizer
 	 */
 	tribe_register_meta(
@@ -571,6 +590,7 @@ if ( class_exists( 'Tribe_Meta_Factory' ) ) {
 	/**
 	 * Register Meta: Organizer Website
 	 *
+	 * @category Organizers
 	 * @group tribe_event_organizer
 	 */
 	tribe_register_meta(
@@ -586,12 +606,13 @@ if ( class_exists( 'Tribe_Meta_Factory' ) ) {
 	/**
 	 * Register Meta: Event Title
 	 *
+	 * @category Events
 	 * @group none specified
 	 */
 	tribe_register_meta(
 		'tribe_event_title', array(
 			'classes'  => array( 'meta_before' => array( 'tribe-events-meta-event-title', 'summary' ) ),
-			'label'    => __( 'Event:', 'tribe-events-calendar' ),
+			'label'    => sprintf( __( '%s:', 'tribe-events-calendar' ), tribe_get_event_label_singular() ),
 			'callback' => array( 'Tribe_Register_Meta', 'the_title' )
 		)
 	);
@@ -599,6 +620,7 @@ if ( class_exists( 'Tribe_Meta_Factory' ) ) {
 	/**
 	 * Register Meta: Venue Map
 	 *
+	 * @category Venues
 	 * @group tribe_event_venue
 	 */
 	tribe_register_meta(
@@ -621,6 +643,7 @@ if ( class_exists( 'Tribe_Meta_Factory' ) ) {
 	/**
 	 * Register Meta: Venue Map Link
 	 *
+	 * @category Venues
 	 * @group tribe_event_venue
 	 */
 	tribe_register_meta(
