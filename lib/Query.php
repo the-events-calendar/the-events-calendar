@@ -23,8 +23,7 @@ if ( ! class_exists( 'TribeEventsQuery' ) ) {
 			add_action( 'pre_get_posts', array( __CLASS__, 'pre_get_posts' ), 50 );
 
 			if ( is_admin() ) {
-				require_once 'tribe-recurring-event-cleanup.php';
-				$cleanup = new TribeRecurringEventCleanup();
+				$cleanup = new Tribe__Events__Recurring_Event_Cleanup();
 				$cleanup->toggle_recurring_events();
 				unset( $cleanup );
 			}

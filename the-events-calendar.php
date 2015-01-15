@@ -40,7 +40,12 @@
 		'Tribe__Events__Advanced_Functions__' => dirname( __FILE__ ) . '/public/advanced-functions',
 	);
 	$autoloader->register_prefixes( $prefixes );
-	$autoloader->add_fallback_dir( dirname( __FILE__ ) . '/lib/deprecated-classes' );
+
+	// deprecated classes are registered in a class to path fashion
+	foreach ( glob( dirname( __FILE__ ) . '/lib/deprecated-classes/*.php' ) as $file ) {
+		$class_name = basename($file);
+		$autoloader->register_class($class_name, $file);
+	}
 	$autoloader->register_autoloader();
 
 	Tribe__Events__Events::instance();

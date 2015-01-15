@@ -5,14 +5,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
-if ( ! class_exists( 'TribeSettings' ) ) {
+if ( ! class_exists( 'Tribe__Events__Settings' ) ) {
 	/**
 	 * helper class that allows registration of settings
 	 * this is a static class & uses the singleton design method
 	 * instantiation takes place in Tribe__Events__Events
 	 *
 	 */
-	class TribeSettings {
+	class Tribe__Events__Settings {
 
 		/**
 		 * singleton instance var
@@ -110,7 +110,7 @@ if ( ! class_exists( 'TribeSettings' ) ) {
 		/**
 		 * Static Singleton Factory Method
 		 *
-		 * @return TribeSettings
+		 * @return Tribe__Events__Settings
 		 */
 		public static function instance() {
 			if ( ! isset( self::$instance ) ) {

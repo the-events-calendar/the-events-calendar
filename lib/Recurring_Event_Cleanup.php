@@ -5,7 +5,7 @@
  * and back when pro plugin is activated or
  * deactivated
  */
-class TribeRecurringEventCleanup {
+class Tribe__Events__Recurring_Event_Cleanup {
 	private $recurring = false;
 
 	public function __construct() {
