@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
-if ( ! class_exists( 'Tribe_Template_Factory' ) ) {
+if ( ! class_exists( 'Tribe__Events__Template_Factory' ) ) {
 	class Tribe__Events__Template_Factory {
 
 		/**
