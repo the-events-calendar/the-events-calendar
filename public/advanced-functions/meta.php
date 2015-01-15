@@ -5,7 +5,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
-if ( class_exists( 'Tribe_Meta_Factory' ) ) {
+if ( class_exists( 'Tribe__Events__Meta_Factory' ) ) {
 
 	/**
 	 * Event Meta Register
@@ -38,7 +38,7 @@ if ( class_exists( 'Tribe_Meta_Factory' ) ) {
 
 			if ( tribe_event_is_all_day() ) {
 				if ( tribe_event_is_multiday() ) {
-					$html = Tribe_Meta_Factory::template(
+					$html = Tribe__Events__Meta_Factory::template(
 											  __( 'Start:', 'tribe-events-calendar' ),
 												  sprintf(
 													  '<abbr class="tribe-events-abbr updated published dtstart" title="%s">%s</abbr>',
@@ -47,7 +47,7 @@ if ( class_exists( 'Tribe_Meta_Factory' ) ) {
 												  ),
 												  $meta_id
 					);
-					$html .= Tribe_Meta_Factory::template(
+					$html .= Tribe__Events__Meta_Factory::template(
 											   __( 'End:', 'tribe-events-calendar' ),
 												   sprintf(
 													   '<abbr class="tribe-events-abbr dtend" title="%s">%s</abbr>',
@@ -58,7 +58,7 @@ if ( class_exists( 'Tribe_Meta_Factory' ) ) {
 					);
 				} else {
 					// If all day event, show only start date
-					$html = Tribe_Meta_Factory::template(
+					$html = Tribe__Events__Meta_Factory::template(
 											  __( 'Date:', 'tribe-events-calendar' ),
 												  sprintf(
 													  '<abbr class="tribe-events-abbr updated published dtstart" title="%s">%s</abbr>',
@@ -70,7 +70,7 @@ if ( class_exists( 'Tribe_Meta_Factory' ) ) {
 				}
 			} elseif ( tribe_event_is_multiday() ) {
 				// If multiday, show start date+time and end date+time
-				$html = Tribe_Meta_Factory::template(
+				$html = Tribe__Events__Meta_Factory::template(
 										  __( 'Start:', 'tribe-events-calendar' ),
 											  sprintf(
 												  '<abbr class="tribe-events-abbr updated published dtstart" title="%s">%s</abbr>',
@@ -79,7 +79,7 @@ if ( class_exists( 'Tribe_Meta_Factory' ) ) {
 											  ),
 											  $meta_id
 				);
-				$html .= Tribe_Meta_Factory::template(
+				$html .= Tribe__Events__Meta_Factory::template(
 										   __( 'End:', 'tribe-events-calendar' ),
 											   sprintf(
 												   '<abbr class="tribe-events-abbr dtend" title="%s">%s</abbr>',
@@ -90,7 +90,7 @@ if ( class_exists( 'Tribe_Meta_Factory' ) ) {
 				);
 			} else {
 				// show start date
-				$html = Tribe_Meta_Factory::template(
+				$html = Tribe__Events__Meta_Factory::template(
 										  __( 'Date:', 'tribe-events-calendar' ),
 											  sprintf(
 												  '<abbr class="tribe-events-abbr updated published dtstart" title="%s">%s</abbr>',
@@ -101,7 +101,7 @@ if ( class_exists( 'Tribe_Meta_Factory' ) ) {
 				);
 				if ( $start_time == $end_time ) {
 					// if start and end time are the same, just show the start time
-					$html .= Tribe_Meta_Factory::template(
+					$html .= Tribe__Events__Meta_Factory::template(
 											   __( 'Time:', 'tribe-events-calendar' ),
 												   sprintf(
 													   '<abbr class="tribe-events-abbr dtend" title="%s">%s</abbr>',
@@ -112,7 +112,7 @@ if ( class_exists( 'Tribe_Meta_Factory' ) ) {
 					);
 				} else {
 					// show start and end time
-					$html .= Tribe_Meta_Factory::template(
+					$html .= Tribe__Events__Meta_Factory::template(
 											   __( 'Time:', 'tribe-events-calendar' ),
 												   sprintf(
 													   '<abbr class="tribe-events-abbr dtend" title="%s">%s</abbr>',
@@ -140,7 +140,7 @@ if ( class_exists( 'Tribe_Meta_Factory' ) ) {
 			$post_id = get_the_ID();
 
 			// setup classes in the template
-			$template = Tribe_Meta_Factory::embed_classes( $_tribe_meta_factory->meta[$meta_id]['wrap'], $_tribe_meta_factory->meta[$meta_id]['classes'] );
+			$template = Tribe__Events__Meta_Factory::embed_classes( $_tribe_meta_factory->meta[$meta_id]['wrap'], $_tribe_meta_factory->meta[$meta_id]['classes'] );
 
 			$args = array(
 				'before'       => '',
@@ -182,7 +182,7 @@ if ( class_exists( 'Tribe_Meta_Factory' ) ) {
 		public static function event_website( $meta_id ) {
 			global $_tribe_meta_factory;
 			$link         = tribe_get_event_website_link();
-			$website_link = empty( $link ) ? '' : Tribe_Meta_Factory::template(
+			$website_link = empty( $link ) ? '' : Tribe__Events__Meta_Factory::template(
 																	$_tribe_meta_factory->meta[$meta_id]['label'],
 																		$link,
 																		$meta_id
@@ -201,7 +201,7 @@ if ( class_exists( 'Tribe_Meta_Factory' ) ) {
 		public static function event_origin( $meta_id ) {
 			global $_tribe_meta_factory;
 			$origin_to_display = apply_filters( 'tribe_events_display_event_origin', '', get_the_ID() );
-			$origin            = empty( $link ) ? '' : Tribe_Meta_Factory::template(
+			$origin            = empty( $link ) ? '' : Tribe__Events__Meta_Factory::template(
 																		 $_tribe_meta_factory->meta[$meta_id]['label'],
 																			 $origin_to_display,
 																			 $meta_id
@@ -222,7 +222,7 @@ if ( class_exists( 'Tribe_Meta_Factory' ) ) {
 			global $_tribe_meta_factory;
 			$post_id        = get_the_ID();
 			$name           = tribe_get_organizer( $post_id );
-			$organizer_name = empty( $name ) ? '' : Tribe_Meta_Factory::template(
+			$organizer_name = empty( $name ) ? '' : Tribe__Events__Meta_Factory::template(
 																	  $_tribe_meta_factory->meta[$meta_id]['label'],
 																		  $name,
 																		  $meta_id
@@ -242,7 +242,7 @@ if ( class_exists( 'Tribe_Meta_Factory' ) ) {
 		public static function organizer_email( $meta_id ) {
 			global $_tribe_meta_factory;
 			$email           = tribe_get_organizer_email();
-			$organizer_email = empty( $email ) ? '' : Tribe_Meta_Factory::template(
+			$organizer_email = empty( $email ) ? '' : Tribe__Events__Meta_Factory::template(
 																		$_tribe_meta_factory->meta[$meta_id]['label'],
 																			'<a href="mailto:' . $email . '">' . $email . '</a>',
 																			$meta_id
@@ -262,7 +262,7 @@ if ( class_exists( 'Tribe_Meta_Factory' ) ) {
 			global $_tribe_meta_factory;
 			$post_id    = get_the_ID();
 			$name       = tribe_get_venue( $post_id );
-			$venue_name = empty( $name ) ? '' : Tribe_Meta_Factory::template(
+			$venue_name = empty( $name ) ? '' : Tribe__Events__Meta_Factory::template(
 																  $_tribe_meta_factory->meta[$meta_id]['label'],
 																	  $name,
 																	  $meta_id
@@ -287,7 +287,7 @@ if ( class_exists( 'Tribe_Meta_Factory' ) ) {
 			$gmap_link = tribe_show_google_map_link( get_the_ID() ) ? self::gmap_link() : '';
 			$gmap_link = apply_filters( 'tribe_event_meta_venue_address_gmap', $gmap_link );
 
-			$venue_address = empty( $address ) ? '' : Tribe_Meta_Factory::template(
+			$venue_address = empty( $address ) ? '' : Tribe__Events__Meta_Factory::template(
 																		$_tribe_meta_factory->meta[$meta_id]['label'],
 																			$address . $gmap_link,
 																			$meta_id
@@ -307,7 +307,7 @@ if ( class_exists( 'Tribe_Meta_Factory' ) ) {
 			global $_tribe_meta_factory;
 			$post_id   = get_the_ID();
 			$map       = tribe_get_embedded_map( $post_id );
-			$venue_map = empty( $map ) ? '' : Tribe_Meta_Factory::template(
+			$venue_map = empty( $map ) ? '' : Tribe__Events__Meta_Factory::template(
 																$_tribe_meta_factory->meta[$meta_id]['label'],
 																	$map,
 																	$meta_id

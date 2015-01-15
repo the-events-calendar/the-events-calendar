@@ -13,8 +13,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
-if ( ! class_exists( 'Tribe_Meta_Factory' ) ) {
-	class Tribe_Meta_Factory {
+if ( ! class_exists( 'Tribe__Events__Meta_Factory' ) ) {
+	class Tribe__Events__Meta_Factory {
 
 		var $meta = array();
 		var $meta_group = array();
@@ -239,5 +239,5 @@ if ( ! class_exists( 'Tribe_Meta_Factory' ) ) {
 	}
 
 	global $_tribe_meta_factory;
-	$_tribe_meta_factory = new Tribe_Meta_Factory();
+	$_tribe_meta_factory = new Tribe__Events__Meta_Factory();
 }
