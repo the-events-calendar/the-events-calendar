@@ -1697,6 +1697,21 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 	display: inherit;
 }
 
+/* Twenty Fifteen
+========================================================================== */
+.tribe-theme-twentyfifteen.events-single.tribe-events-page-template #tribe-events-pg-template {
+	padding-top: 8.3333%;
+}
+.tribe-theme-twentyfifteen.events-single.tribe-events-page-template #tribe-events-content {
+	padding: 8.3333% 10%;
+}
+.tribe-theme-twentyfifteen.single-tribe_events.page-template-page-php .tribe-events-single {
+	box-shadow: none;
+	margin-left: 0;
+	margin-right: 0;
+	margin-bottom: 0 !important;
+}
+
 /* = Events Retina
 =============================================*/
 @media 
