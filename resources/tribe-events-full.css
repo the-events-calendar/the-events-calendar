@@ -1711,6 +1711,10 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 	margin-right: 0;
 	margin-bottom: 0 !important;
 }
+.tribe-theme-twentyfifteen.tribe-events-week .tribe-events-grid .hentry {
+	margin-left: 0;
+	margin-right: 0;
+}
 
 /* = Events Retina
 =============================================*/
