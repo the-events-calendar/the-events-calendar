@@ -283,6 +283,22 @@ if ( class_exists( 'TribeEvents' ) ) {
 	}
 
 	/**
+	 * Gets the full region name of a given event's Venue address.
+	 *
+	 * @param int $event_id
+	 *
+	 * @return string The full region for this event's address.
+	 */
+	function tribe_get_full_region( $event_id ) {
+		$our_province = tribe_get_event_meta( $event_id, '_VenueStateProvince', true );
+		$our_states   = TribeEventsViewHelpers::loadStates();
+
+		$full_region = isset( $our_states[ $our_province ] ) ? $our_states[ $our_province ] : $our_province;
+
+		return apply_filters( 'tribe_get_full_region', $full_region );
+	}
+
+	/**
 	 * Zip Code
 	 *
 	 * Returns the event zip code
