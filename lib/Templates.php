@@ -13,7 +13,7 @@ if ( ! class_exists( 'TribeEventsTemplates' ) ) {
 	/**
 	 * Handle views and template files.
 	 */
-	class TribeEventsTemplates {
+	class Tribe__Events__Templates {
 
 		/**
 		 * @var bool Is wp_head complete?
@@ -797,5 +797,5 @@ if ( ! class_exists( 'TribeEventsTemplates' ) ) {
 		}
 	}
 
-	TribeEventsTemplates::init();
+	Tribe__Events__Templates::init();
 }

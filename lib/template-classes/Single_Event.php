@@ -15,7 +15,7 @@ if ( ! class_exists( 'Tribe__Events__Template__Single_Event' ) ) {
 	/**
 	 * Single event template class
 	 */
-	class Tribe__Events__Template__Single_Event extends Tribe_Template_Factory {
+	class Tribe__Events__Template__Single_Event extends Tribe__Events__Template_Factory {
 
 		protected $body_class = 'events-single';
 

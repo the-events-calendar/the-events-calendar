@@ -61,7 +61,7 @@ $events_label_plural = tribe_get_event_label_plural();
 					<select tabindex="<?php tribe_events_tab_index(); ?>" name="EventStartMinute">
 						<?php echo $startMinuteOptions; ?>
 					</select>
-					<?php if ( ! TribeEventsViewHelpers::is_24hr_format() ) : ?>
+					<?php if ( ! Tribe__Events__View_Helpers::is_24hr_format() ) : ?>
 						<select tabindex="<?php tribe_events_tab_index(); ?>" name="EventStartMeridian">
 							<?php echo $startMeridianOptions; ?>
 						</select>
@@ -82,7 +82,7 @@ $events_label_plural = tribe_get_event_label_plural();
 					<select tabindex="<?php tribe_events_tab_index(); ?>" name="EventEndMinute">
 						<?php echo $endMinuteOptions; ?>
 					</select>
-					<?php if ( ! TribeEventsViewHelpers::is_24hr_format() ) : ?>
+					<?php if ( ! Tribe__Events__View_Helpers::is_24hr_format() ) : ?>
 						<select tabindex="<?php tribe_events_tab_index(); ?>" name="EventEndMeridian">
 							<?php echo $endMeridianOptions; ?>
 						</select>

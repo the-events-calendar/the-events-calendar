@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 if ( ! class_exists( 'TribeEventsViewHelpers' ) ) {
-	class TribeEventsViewHelpers {
+	class Tribe__Events__View_Helpers {
 
 		/**
 		 * Get the countries being used and available for the plugin.
@@ -376,7 +376,7 @@ if ( ! class_exists( 'TribeEventsViewHelpers' ) ) {
 		 * @return string a set of HTML options with hours (current hour selected)
 		 */
 		public static function getHourOptions( $date = "", $isStart = false ) {
-			$hours = TribeEventsViewHelpers::hours();
+			$hours = Tribe__Events__View_Helpers::hours();
 
 			if ( count( $hours ) == 12 ) {
 				$h = 'h';
@@ -422,7 +422,7 @@ if ( ! class_exists( 'TribeEventsViewHelpers' ) ) {
 		 * @return string a set of HTML options with minutes (current minute selected)
 		 */
 		public static function getMinuteOptions( $date = "", $isStart = false ) {
-			$minutes = TribeEventsViewHelpers::minutes();
+			$minutes = Tribe__Events__View_Helpers::minutes();
 			$options = '';
 
 			if ( empty( $date ) ) {
@@ -598,7 +598,7 @@ if ( ! class_exists( 'TribeEventsViewHelpers' ) ) {
 		 */
 		public static function getDayOptions( $date = "", $totalDays = 31 ) {
 			_deprecated_function( __CLASS__ . '::' . __FUNCTION__ . '()', '3.8' );
-			$days    = TribeEventsViewHelpers::days( $totalDays );
+			$days    = Tribe__Events__View_Helpers::days( $totalDays );
 			$options = '';
 			if ( empty( $date ) ) {
 				$day = date_i18n( 'j' );
@@ -638,7 +638,7 @@ if ( ! class_exists( 'TribeEventsViewHelpers' ) ) {
 		 */
 		public static function getYearOptions( $date = "" ) {
 			_deprecated_function( __CLASS__ . '::' . __FUNCTION__ . '()', '3.8' );
-			$years   = TribeEventsViewHelpers::years();
+			$years   = Tribe__Events__View_Helpers::years();
 			$options = '';
 			if ( empty( $date ) ) {
 				$year = date_i18n( 'Y' );

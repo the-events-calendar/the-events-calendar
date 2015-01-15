@@ -276,7 +276,7 @@ if ( class_exists( 'Tribe__Events__Events' ) ) {
 	 * @return bool
 	 */
 	function tribe_is_in_main_loop() {
-		return apply_filters( 'tribe_is_main_loop', TribeEventsTemplates::$isMainLoop );
+		return apply_filters( 'tribe_is_main_loop', Tribe__Events__Templates::$isMainLoop );
 	}
 
 	/**

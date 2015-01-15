@@ -22,7 +22,7 @@ if ( class_exists( 'Tribe__Events__Events' ) ) {
 	 **/
 	function tribe_initialize_view( $class = false ) {
 		do_action( 'tribe_pre_initialize_view' );
-		TribeEventsTemplates::instantiate_template_class( $class );
+		Tribe__Events__Templates::instantiate_template_class( $class );
 	}
 
 	/**
@@ -39,7 +39,7 @@ if ( class_exists( 'Tribe__Events__Events' ) ) {
 		if ( ! $view ) {
 			$template_file = tribe_get_current_template();
 		} else {
-			$template_file = TribeEventsTemplates::getTemplateHierarchy( $view, array( 'disable_view_check' => true ) );
+			$template_file = Tribe__Events__Templates::getTemplateHierarchy( $view, array( 'disable_view_check' => true ) );
 		}
 
 		if ( file_exists( $template_file ) ) {
@@ -102,7 +102,7 @@ if ( class_exists( 'Tribe__Events__Events' ) ) {
 
 		// loop through templates, return first one found.
 		foreach ( $templates as $template ) {
-			$file = TribeEventsTemplates::getTemplateHierarchy( $template, array( 'disable_view_check' => true ) );
+			$file = Tribe__Events__Templates::getTemplateHierarchy( $template, array( 'disable_view_check' => true ) );
 			$file = apply_filters( 'tribe_get_template_part_path', $file, $template, $slug, $name );
 			$file = apply_filters( 'tribe_get_template_part_path_' . $template, $file, $slug, $name );
 			if ( file_exists( $file ) ) {
@@ -485,7 +485,7 @@ if ( class_exists( 'Tribe__Events__Events' ) ) {
 	 * @return string Page template
 	 */
 	function tribe_get_current_template() {
-		return apply_filters( 'tribe_get_current_template', TribeEventsTemplates::get_current_page_template() );
+		return apply_filters( 'tribe_get_current_template', Tribe__Events__Templates::get_current_page_template() );
 	}
 
 	/**

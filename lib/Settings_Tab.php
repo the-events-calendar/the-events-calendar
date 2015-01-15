@@ -5,14 +5,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
-if ( ! class_exists( 'TribeSettingsTab' ) ) {
+if ( ! class_exists( 'Tribe__Events__Settings_Tab' ) ) {
 	/**
 	 * helper class that creates a settings tab
 	 * this is a public API, use it to create tabs
 	 * simply by instantiating this class
 	 *
 	 */
-	class TribeSettingsTab {
+	class Tribe__Events__Settings_Tab {
 
 		/**
 		 * Tab ID, used in query string and elsewhere

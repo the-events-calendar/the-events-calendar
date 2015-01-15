@@ -11,7 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 if ( ! class_exists( 'Tribe_Template_Factory' ) ) {
-	class Tribe_Template_Factory {
+	class Tribe__Events__Template_Factory {
 
 		/**
 		 * Array of asset packages needed for this template
@@ -714,7 +714,7 @@ if ( ! class_exists( 'Tribe_Template_Factory' ) ) {
 					// do the enqueues
 					foreach ( $stylesheets as $name => $css_file ) {
 						if ( $name == 'tribe-events-calendar-override-style' ) {
-							$user_stylesheet_url = TribeEventsTemplates::locate_stylesheet( 'tribe-events/tribe-events.css' );
+							$user_stylesheet_url = Tribe__Events__Templates::locate_stylesheet( 'tribe-events/tribe-events.css' );
 							if ( $user_stylesheet_url ) {
 								wp_enqueue_style( $name, $user_stylesheet_url );
 							}

@@ -804,27 +804,27 @@ if ( ! class_exists( 'Tribe__Events__Events' ) ) {
 					'html' => '</div>'
 				)
 			);
-			new TribeSettingsTab( 'general', __( 'General', 'tribe-events-calendar' ), $generalTab );
-			new TribeSettingsTab( 'display', __( 'Display', 'tribe-events-calendar' ), $displayTab );
+			new Tribe__Events__Settings_Tab( 'general', __( 'General', 'tribe-events-calendar' ), $generalTab );
+			new Tribe__Events__Settings_Tab( 'display', __( 'Display', 'tribe-events-calendar' ), $displayTab );
 			// If none of the addons are activated, do not show the licenses tab.
 
 			$addons = apply_filters( 'tribe_licensable_addons', array() );
 			if ( ! empty( $addons ) ) {
 				$license_fields = apply_filters( 'tribe_license_fields', $tribe_licences_tab_fields );
 				if ( is_multisite() ) {
-					new TribeSettingsTab( 'licenses', __( 'Licenses', 'tribe-events-calendar' ), array(
+					new Tribe__Events__Settings_Tab( 'licenses', __( 'Licenses', 'tribe-events-calendar' ), array(
 						'priority'      => '40',
 						'network_admin' => true,
 						'fields'        => $license_fields
 					) );
 				} else {
-					new TribeSettingsTab( 'licenses', __( 'Licenses', 'tribe-events-calendar' ), array(
+					new Tribe__Events__Settings_Tab( 'licenses', __( 'Licenses', 'tribe-events-calendar' ), array(
 						'priority' => '40',
 						'fields'   => $license_fields
 					) );
 				}
 			}
-			new TribeSettingsTab( 'help', __( 'Help', 'tribe-events-calendar' ), array(
+			new Tribe__Events__Settings_Tab( 'help', __( 'Help', 'tribe-events-calendar' ), array(
 				'priority'  => 60,
 				'show_save' => false
 			) );
@@ -1582,13 +1582,13 @@ if ( ! class_exists( 'Tribe__Events__Events' ) ) {
 			if ( isset( $current_screen->id ) && $current_screen->id == 'settings_page_tribe-settings' ) {
 
 				// chosen
-				Tribe_Template_Factory::asset_package( 'chosen' );
+				Tribe__Events__Template_Factory::asset_package( 'chosen' );
 
 				// JS admin
-				Tribe_Template_Factory::asset_package( 'admin' );
+				Tribe__Events__Template_Factory::asset_package( 'admin' );
 
 				// JS settings
-				Tribe_Template_Factory::asset_package( 'settings' );
+				Tribe__Events__Template_Factory::asset_package( 'settings' );
 
 				wp_enqueue_script( 'thickbox' );
 				wp_enqueue_style( 'thickbox' );
@@ -1598,7 +1598,7 @@ if ( ! class_exists( 'Tribe__Events__Events' ) ) {
 			}
 
 			if ( $current_screen->id == 'widgets' ) {
-				Tribe_Template_Factory::asset_package( 'chosen' );
+				Tribe__Events__Template_Factory::asset_package( 'chosen' );
 			}
 
 			// events, organizer, or venue editing
@@ -1612,28 +1612,28 @@ if ( ! class_exists( 'Tribe__Events__Events' ) ) {
 			) {
 
 				// chosen
-				Tribe_Template_Factory::asset_package( 'chosen' );
+				Tribe__Events__Template_Factory::asset_package( 'chosen' );
 
 				// select 2
-				Tribe_Template_Factory::asset_package( 'select2' );
+				Tribe__Events__Template_Factory::asset_package( 'select2' );
 
 				// smoothness
-				Tribe_Template_Factory::asset_package( 'smoothness' );
+				Tribe__Events__Template_Factory::asset_package( 'smoothness' );
 
 				// date picker
-				Tribe_Template_Factory::asset_package( 'datepicker' );
+				Tribe__Events__Template_Factory::asset_package( 'datepicker' );
 
 				// dialog
-				Tribe_Template_Factory::asset_package( 'dialog' );
+				Tribe__Events__Template_Factory::asset_package( 'dialog' );
 
 				// UI admin
-				Tribe_Template_Factory::asset_package( 'admin-ui' );
+				Tribe__Events__Template_Factory::asset_package( 'admin-ui' );
 
 				// JS admin
-				Tribe_Template_Factory::asset_package( 'admin' );
+				Tribe__Events__Template_Factory::asset_package( 'admin' );
 
 				// ecp placeholders
-				Tribe_Template_Factory::asset_package( 'ecp-plugins' );
+				Tribe__Events__Template_Factory::asset_package( 'ecp-plugins' );
 
 				switch ( $current_screen->post_type ) {
 					case self::POSTTYPE :
@@ -1880,7 +1880,7 @@ if ( ! class_exists( 'Tribe__Events__Events' ) ) {
 		public function doNetworkSettingTab() {
 			include_once( $this->pluginPath . 'admin-views/tribe-options-network.php' );
 
-			new TribeSettingsTab( 'network', __( 'Network', 'tribe-events-calendar' ), $networkTab );
+			new Tribe__Events__Settings_Tab( 'network', __( 'Network', 'tribe-events-calendar' ), $networkTab );
 		}
 
 		/**
@@ -2025,19 +2025,19 @@ if ( ! class_exists( 'Tribe__Events__Events' ) ) {
 			if ( tribe_is_event_query() || tribe_is_event_organizer() || tribe_is_event_venue() ) {
 
 				// jquery-resize
-				Tribe_Template_Factory::asset_package( 'jquery-resize' );
+				Tribe__Events__Template_Factory::asset_package( 'jquery-resize' );
 
 				// smoothness
-				Tribe_Template_Factory::asset_package( 'smoothness' );
+				Tribe__Events__Template_Factory::asset_package( 'smoothness' );
 
 				// Tribe Calendar JS
-				Tribe_Template_Factory::asset_package( 'calendar-script' );
+				Tribe__Events__Template_Factory::asset_package( 'calendar-script' );
 
-				Tribe_Template_Factory::asset_package( 'events-css' );
+				Tribe__Events__Template_Factory::asset_package( 'events-css' );
 			} else {
 				if ( is_active_widget( false, false, 'tribe-events-list-widget' ) ) {
 
-					Tribe_Template_Factory::asset_package( 'events-css' );
+					Tribe__Events__Template_Factory::asset_package( 'events-css' );
 
 				}
 			}

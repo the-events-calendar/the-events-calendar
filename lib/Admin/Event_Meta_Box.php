@@ -136,9 +136,9 @@ class Tribe__Events__Admin__Event_Meta_Box {
 	}
 
 	protected function set_start_date_time() {
-		$this->vars['startMinuteOptions']   = TribeEventsViewHelpers::getMinuteOptions( $this->vars['_EventStartDate'], true );
-		$this->vars['startHourOptions']     = TribeEventsViewHelpers::getHourOptions( $this->vars['_EventAllDay'] == 'yes' ? null : $this->vars['_EventStartDate'], true );
-		$this->vars['startMeridianOptions'] = TribeEventsViewHelpers::getMeridianOptions( $this->vars['_EventStartDate'], true );
+		$this->vars['startMinuteOptions']   = Tribe__Events__View_Helpers::getMinuteOptions( $this->vars['_EventStartDate'], true );
+		$this->vars['startHourOptions']     = Tribe__Events__View_Helpers::getHourOptions( $this->vars['_EventAllDay'] == 'yes' ? null : $this->vars['_EventStartDate'], true );
+		$this->vars['startMeridianOptions'] = Tribe__Events__View_Helpers::getMeridianOptions( $this->vars['_EventStartDate'], true );
 
 		if ( $this->vars['_EventStartDate'] ) {
 			$start = Tribe__Events__Date_Utils::dateOnly( $this->vars['_EventStartDate'] );
@@ -149,9 +149,9 @@ class Tribe__Events__Admin__Event_Meta_Box {
 	}
 
 	protected function set_end_date_time() {
-		$this->vars['endMinuteOptions']   = TribeEventsViewHelpers::getMinuteOptions( $this->vars['_EventEndDate'] );
-		$this->vars['endHourOptions']     = TribeEventsViewHelpers::getHourOptions( $this->vars['_EventAllDay'] == 'yes' ? null : $this->vars['_EventEndDate'] );
-		$this->vars['endMeridianOptions'] = TribeEventsViewHelpers::getMeridianOptions( $this->vars['_EventEndDate'] );
+		$this->vars['endMinuteOptions']   = Tribe__Events__View_Helpers::getMinuteOptions( $this->vars['_EventEndDate'] );
+		$this->vars['endHourOptions']     = Tribe__Events__View_Helpers::getHourOptions( $this->vars['_EventAllDay'] == 'yes' ? null : $this->vars['_EventEndDate'] );
+		$this->vars['endMeridianOptions'] = Tribe__Events__View_Helpers::getMeridianOptions( $this->vars['_EventEndDate'] );
 
 		if ( $this->vars['_EventEndDate'] ) {
 			$end = Tribe__Events__Date_Utils::dateOnly( $this->vars['_EventEndDate'] );

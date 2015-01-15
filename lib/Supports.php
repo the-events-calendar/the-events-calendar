@@ -10,9 +10,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
-if ( ! class_exists( 'TribeEventsSupport' ) ) {
+if ( ! class_exists( 'Tribe__Events__Support' ) ) {
 
-	class TribeEventsSupport {
+	class Tribe__Events__Support {
 
 		public static $support;
 
@@ -246,6 +246,6 @@ if ( ! class_exists( 'TribeEventsSupport' ) ) {
 
 	}
 
-	TribeEventsSupport::getInstance();
+	Tribe__Events__Support::getInstance();
 }
 ?>

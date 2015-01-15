@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 if ( ! class_exists( 'Tribe_Events_Day_Template' ) ) {
-	class Tribe__Events__Template__Day extends Tribe_Template_Factory {
+	class Tribe__Events__Template__Day extends Tribe__Events__Template_Factory {
 
 		protected $body_class = 'tribe-events-day';
 		protected $asset_packages = array( 'ajax-dayview' );

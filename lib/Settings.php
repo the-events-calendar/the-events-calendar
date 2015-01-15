@@ -353,7 +353,7 @@ if ( ! class_exists( 'TribeSettings' ) ) {
 							do_action( 'tribe_settings_validate_field_' . $field_id, $value, $field );
 
 							// validate this sucka
-							$validate = new TribeValidate( $field_id, $field, $value );
+							$validate = new Tribe__Events__Validate( $field_id, $field, $value );
 
 							if ( isset( $validate->result->error ) ) {
 								// uh oh; validation failed

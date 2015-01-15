@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
-class TribeEventsListWidget extends WP_Widget {
+class Tribe__Events__List_Widget extends WP_Widget {
 	/**
 	 * Allows widgets extending this one to pass through their own unique name, ID base etc.
 	 *
@@ -116,7 +116,7 @@ class TribeEventsListWidget extends WP_Widget {
 		do_action( 'tribe_events_list_widget_after_the_title' );
 
 		// Include template file
-		include TribeEventsTemplates::getTemplateHierarchy( $template_name );
+		include Tribe__Events__Templates::getTemplateHierarchy( $template_name );
 		do_action( 'tribe_events_after_list_widget' );
 
 		echo $after_widget;
@@ -178,5 +178,5 @@ add_action( 'widgets_init', 'events_list_load_widgets', 90 );
  * @return void
  */
 function events_list_load_widgets() {
-	register_widget( 'TribeEventsListWidget' );
+	register_widget( 'Tribe__Events__List_Widget' );
 }

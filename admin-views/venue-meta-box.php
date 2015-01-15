@@ -47,7 +47,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<td><?php _e( 'Country:', 'tribe-events-calendar' ); ?></td>
 	<td>
 		<?php
-		$countries = TribeEventsViewHelpers::constructCountries( $event->ID );
+		$countries = Tribe__Events__View_Helpers::constructCountries( $event->ID );
 		$defaultCountry = tribe_get_default_value( 'country' );
 		if ( isset( $_VenueCountry ) && $_VenueCountry ) {
 			$current = $_VenueCountry;
@@ -90,7 +90,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<select class="chosen" tabindex="<?php tribe_events_tab_index(); ?>" id="StateProvinceSelect" name="venue[State]">
 			<option value=""><?php _e( 'Select a State:', 'tribe-events-calendar' ); ?></option>
 			<?php
-			foreach ( TribeEventsViewHelpers::loadStates() as $abbr => $fullname ) {
+			foreach ( Tribe__Events__View_Helpers::loadStates() as $abbr => $fullname ) {
 				echo '<option value="' . $abbr . '"';
 				selected( ( ( $_VenueStateProvince != - 1 ? $_VenueStateProvince : $currentState ) == $abbr ) );
 				echo '>' . esc_html( $fullname ) . '</option>';

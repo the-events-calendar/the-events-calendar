@@ -11,7 +11,7 @@ if ( ! class_exists( 'TribeValidate' ) ) {
 	 * Instantiate whenever you want to validate a field
 	 *
 	 */
-	class TribeValidate {
+	class Tribe__Events__Validate {
 
 		/**
 		 * the field object to validate

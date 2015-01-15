@@ -324,7 +324,7 @@ class Tribe__Events__Tickets__Tickets_Pro {
 		$event = get_post( $_POST["event_id"] );
 
 		ob_start();
-		$attendee_tpl = TribeEventsTemplates::getTemplateHierarchy( 'tickets/attendees-email.php', array( 'disable_view_check' => true ) );
+		$attendee_tpl = Tribe__Events__Templates::getTemplateHierarchy( 'tickets/attendees-email.php', array( 'disable_view_check' => true ) );
 		include $attendee_tpl;
 		$content = ob_get_clean();
 
@@ -357,12 +357,12 @@ class Tribe__Events__Tickets__Tickets_Pro {
 	 */
 	public function do_meta_box( $post_id ) {
 
-		$startMinuteOptions   = TribeEventsViewHelpers::getMinuteOptions( null );
-		$endMinuteOptions     = TribeEventsViewHelpers::getMinuteOptions( null );
-		$startHourOptions     = TribeEventsViewHelpers::getHourOptions( null, true );
-		$endHourOptions       = TribeEventsViewHelpers::getHourOptions( null, false );
-		$startMeridianOptions = TribeEventsViewHelpers::getMeridianOptions( null, true );
-		$endMeridianOptions   = TribeEventsViewHelpers::getMeridianOptions( null );
+		$startMinuteOptions   = Tribe__Events__View_Helpers::getMinuteOptions( null );
+		$endMinuteOptions     = Tribe__Events__View_Helpers::getMinuteOptions( null );
+		$startHourOptions     = Tribe__Events__View_Helpers::getHourOptions( null, true );
+		$endHourOptions       = Tribe__Events__View_Helpers::getHourOptions( null, false );
+		$startMeridianOptions = Tribe__Events__View_Helpers::getMeridianOptions( null, true );
+		$endMeridianOptions   = Tribe__Events__View_Helpers::getMeridianOptions( null );
 
 		$tickets = Tribe__Events__Tickets__Tickets::get_event_tickets( $post_id );
 		include $this->path . 'admin-views/tickets/meta-box.php';
