@@ -1,13 +1,20 @@
 jQuery( document ).ready( function( $ ) {
 
-	var $view_select = $( '.tribe-field-dropdown_select2 select' ),
-		viewCalLinkHTML = $( '#view-calendar-link-div' ).html(),
-		$template_select = $( 'select[name="tribeEventsTemplate"]' ),
-		$event_pickers = $( '#tribe-event-datepickers' ),
-		isCommunityEventsEdit = $('body').is( '.tribe_community_edit' );
+	var $tribe_events     = $( '#tribe-events' ),
+		$view_select      = $( '.tribe-field-dropdown_select2 select' ),
+		viewCalLinkHTML   = $( '#view-calendar-link-div' ).html(),
+		$template_select  = $( 'select[name="tribeEventsTemplate"]' ),
+		$event_pickers    = $( '#tribe-event-datepickers' ),
+		isCommunityEdit   = $( 'body' ).is( '.tribe_community_edit' ),
+		datepicker_format = 0;
 
-	// initialize  chosen and select2
+	// Modified from tribe_ev.data to match jQuery UI formatting.
+	var datepicker_formats = {
+		'main' : ['yy-mm-dd', 'm/d/yy', 'mm/dd/yy', 'd/m/yy', 'dd/mm/yy', 'm-d-yy', 'mm-dd-yy', 'd-m-yy', 'dd-mm-yy'],
+		'month': ['yy-mm', 'm/yy', 'mm/yy', 'm/yy', 'mm/yy', 'm-yy', 'mm-yy', 'm-yy', 'mm-yy']
+	};
 
+	// Initialize Chosen and Select2.
 	$( '.chosen, .tribe-field-dropdown_chosen select' ).chosen();
 	$( '.select2' ).select2( {width: '250px'} );
 	$view_select.select2( {width: '250px'} );
@@ -30,7 +37,7 @@ jQuery( document ).ready( function( $ ) {
 	//not done by default on front end
 
 	function getDatepickerNumMonths() {
-		return ( isCommunityEventsEdit && $(window).width() < 768 ) ? 1 : 3;
+		return ( isCommunityEdit && $(window).width() < 768 ) ? 1 : 3;
 	}
 
 	$( '.hide-if-js' )
@@ -39,6 +46,13 @@ jQuery( document ).ready( function( $ ) {
 	if ( typeof(TEC) !== 'undefined' ) {
 
 		var _MS_PER_DAY = 1000 * 60 * 60 * 24;
+		
+		var date_format = 'yy-mm-dd';
+
+		if ( $tribe_events.length && $tribe_events.attr( 'data-datepicker_format' ) && $tribe_events.attr( 'data-datepicker_format' ).length === 1 ) {
+			datepicker_format = $tribe_events.attr( 'data-datepicker_format' );
+			date_format = datepicker_formats.main[ datepicker_format ];
+		}
 
 		function date_diff_in_days( a, b ) {
 
@@ -58,7 +72,7 @@ jQuery( document ).ready( function( $ ) {
 			$end_date = $( '#EventEndDate' );
 
 		var datepickerOpts = {
-			dateFormat     : 'yy-mm-dd',
+			dateFormat     : date_format,
 			showAnim       : 'fadeIn',
 			changeMonth    : true,
 			changeYear     : true,
