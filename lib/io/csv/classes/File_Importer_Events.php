@@ -11,7 +11,7 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 		$start_date = $this->get_event_start_date( $record );
 		$end_date   = $this->get_event_end_date( $record );
 		$query_args = array(
-			'post_type'      => TribeEvents::POSTTYPE,
+			'post_type'      => Tribe__Events__Events::POSTTYPE,
 			'post_title'     => $this->get_value_by_key( $record, 'event_name' ),
 			'meta_query'     => array(
 				array(
@@ -40,13 +40,13 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 
 	protected function update_post( $post_id, array $record ) {
 		$event = $this->build_event_array( $record );
-		TribeEventsAPI::updateEvent( $post_id, $event );
+		Tribe__Events__API::updateEvent( $post_id, $event );
 	}
 
 
 	protected function create_post( array $record ) {
 		$event = $this->build_event_array( $record );
-		$id    = TribeEventsAPI::createEvent( $event );
+		$id    = Tribe__Events__API::createEvent( $event );
 
 		return $id;
 	}
@@ -96,7 +96,7 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 		$end_date   = strtotime( $this->get_event_end_date( $record ) );
 
 		$event = array(
-			'post_type'             => TribeEvents::POSTTYPE,
+			'post_type'             => Tribe__Events__Events::POSTTYPE,
 			'post_title'            => $this->get_value_by_key( $record, 'event_name' ),
 			'post_status'           => 'publish',
 			'post_content'          => $this->get_value_by_key( $record, 'event_description' ),
@@ -125,7 +125,7 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 		}
 
 		if ( $cats = $this->get_value_by_key( $record, 'event_category' ) ) {
-			$event['tax_input'][TribeEvents::TAXONOMY] = $this->translate_terms_to_ids( explode( ',', $cats ) );
+			$event['tax_input'][Tribe__Events__Events::TAXONOMY] = $this->translate_terms_to_ids( explode( ',', $cats ) );
 		}
 
 		return $event;
@@ -135,13 +135,13 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 	private function find_matching_organizer_id( $record ) {
 		$name = $this->get_value_by_key( $record, 'event_organizer_name' );
 
-		return $this->find_matching_post_id( $name, TribeEvents::ORGANIZER_POST_TYPE );
+		return $this->find_matching_post_id( $name, Tribe__Events__Events::ORGANIZER_POST_TYPE );
 	}
 
 	private function find_matching_venue_id( $record ) {
 		$name = $this->get_value_by_key( $record, 'event_venue_name' );
 
-		return $this->find_matching_post_id( $name, TribeEvents::VENUE_POST_TYPE );
+		return $this->find_matching_post_id( $name, Tribe__Events__Events::VENUE_POST_TYPE );
 	}
 
 	/**
@@ -160,12 +160,12 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 				continue;
 			}
 
-			if ( ! $term_info = term_exists( $term, TribeEvents::TAXONOMY ) ) {
+			if ( ! $term_info = term_exists( $term, Tribe__Events__Events::TAXONOMY ) ) {
 				// Skip if a non-existent term ID is passed.
 				if ( is_int( $term ) ) {
 					continue;
 				}
-				$term_info = wp_insert_term( $term, TribeEvents::TAXONOMY );
+				$term_info = wp_insert_term( $term, Tribe__Events__Events::TAXONOMY );
 			}
 			if ( is_wp_error( $term_info ) ) {
 				continue;

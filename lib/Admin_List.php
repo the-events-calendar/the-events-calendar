@@ -8,8 +8,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
-if ( ! class_exists( 'TribeEventsAdminList' ) ) {
-	class TribeEventsAdminList {
+if ( ! class_exists( 'Tribe__Events__Admin_List' ) ) {
+	class Tribe__Events__Admin_List {
 		protected static $start_col_active = true;
 		protected static $end_col_active = true;
 		protected static $start_col_first = true;
@@ -26,13 +26,13 @@ if ( ! class_exists( 'TribeEventsAdminList' ) ) {
 				add_filter( 'posts_fields', array( __CLASS__, 'events_search_fields' ), 10, 2 );
 				add_filter( 'post_limits', array( __CLASS__, 'events_search_limits' ), 10, 2 );
 				add_filter(
-					'manage_' . TribeEvents::POSTTYPE . '_posts_columns', array(
+					'manage_' . Tribe__Events__Events::POSTTYPE . '_posts_columns', array(
 						__CLASS__,
 						'column_headers'
 					)
 				);
 				add_filter(
-					'tribe_apm_headers_' . TribeEvents::POSTTYPE, array(
+					'tribe_apm_headers_' . Tribe__Events__Events::POSTTYPE, array(
 						__CLASS__,
 						'column_headers_check'
 					), 10, 1
@@ -40,7 +40,7 @@ if ( ! class_exists( 'TribeEventsAdminList' ) ) {
 				add_filter( 'views_edit-tribe_events', array( __CLASS__, 'update_event_counts' ) );
 				add_action( 'manage_posts_custom_column', array( __CLASS__, 'custom_columns' ), 10, 2 );
 				add_action(
-					'manage_edit-' . TribeEvents::POSTTYPE . '_sortable_columns', array(
+					'manage_edit-' . Tribe__Events__Events::POSTTYPE . '_sortable_columns', array(
 						__CLASS__,
 						'register_date_sortables'
 					), 10, 2
@@ -59,7 +59,7 @@ if ( ! class_exists( 'TribeEventsAdminList' ) ) {
 		 * @return string The modified form.
 		 */
 		public static function events_search_fields( $fields, $query ) {
-			if ( ! $query->is_main_query() || $query->get( 'post_type' ) != TribeEvents::POSTTYPE ) {
+			if ( ! $query->is_main_query() || $query->get( 'post_type' ) != Tribe__Events__Events::POSTTYPE ) {
 				return $fields;
 			}
 			global $wpdb;
@@ -78,7 +78,7 @@ if ( ! class_exists( 'TribeEventsAdminList' ) ) {
 		 */
 		public static function events_search_join( $join, $query ) {
 			global $wpdb;
-			if ( ! $query->is_main_query() || $query->get( 'post_type' ) != TribeEvents::POSTTYPE ) {
+			if ( ! $query->is_main_query() || $query->get( 'post_type' ) != Tribe__Events__Events::POSTTYPE ) {
 				return $join;
 			}
 
@@ -98,7 +98,7 @@ if ( ! class_exists( 'TribeEventsAdminList' ) ) {
 		 */
 		public static function events_search_orderby( $orderby_sql, $query ) {
 			global $wpdb;
-			if ( ! $query->is_main_query() || $query->get( 'post_type' ) != TribeEvents::POSTTYPE ) {
+			if ( ! $query->is_main_query() || $query->get( 'post_type' ) != Tribe__Events__Events::POSTTYPE ) {
 				return $orderby_sql;
 			}
 
@@ -130,7 +130,7 @@ if ( ! class_exists( 'TribeEventsAdminList' ) ) {
 		 * @return string modified limits clause
 		 */
 		public static function events_search_limits( $limits, $query ) {
-			if ( ! $query->is_main_query() || $query->get( 'post_type' ) != TribeEvents::POSTTYPE || ( defined( 'DOING_AJAX' ) && DOING_AJAX ) ) {
+			if ( ! $query->is_main_query() || $query->get( 'post_type' ) != Tribe__Events__Events::POSTTYPE || ( defined( 'DOING_AJAX' ) && DOING_AJAX ) ) {
 				return $limits;
 			}
 			global $current_screen;
@@ -216,7 +216,7 @@ if ( ! class_exists( 'TribeEventsAdminList' ) ) {
 		 */
 		public static function custom_columns( $column_id, $post_id ) {
 			if ( $column_id == 'events-cats' ) {
-				$event_cats = get_the_term_list( $post_id, TribeEvents::TAXONOMY, '', ', ', '' );
+				$event_cats = get_the_term_list( $post_id, Tribe__Events__Events::TAXONOMY, '', ', ', '' );
 				echo ( $event_cats ) ? strip_tags( $event_cats ) : '—';
 			}
 			if ( $column_id == 'start-date' ) {
@@ -276,7 +276,7 @@ if ( ! class_exists( 'TribeEventsAdminList' ) ) {
 		 * @return mixed The results.
 		 */
 		private static function count_events() {
-			$type = TribeEvents::POSTTYPE;
+			$type = Tribe__Events__Events::POSTTYPE;
 			$perm = 'readable';
 
 			global $wpdb;
@@ -321,5 +321,5 @@ if ( ! class_exists( 'TribeEventsAdminList' ) ) {
 		}
 	}
 
-	TribeEventsAdminList::init();
+	Tribe__Events__Admin_List::init();
 }

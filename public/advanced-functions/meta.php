@@ -32,7 +32,7 @@ if ( class_exists( 'Tribe_Meta_Factory' ) ) {
 		 * @return string
 		 */
 		public static function event_date( $meta_id ) {
-			$time_format = get_option( 'time_format', TribeDateUtils::TIMEFORMAT );
+			$time_format = get_option( 'time_format', Tribe__Events__Date_Utils::TIMEFORMAT );
 			$start_time  = tribe_get_start_date( null, false, $time_format );
 			$end_time    = tribe_get_end_date( null, false, $time_format );
 
@@ -42,7 +42,7 @@ if ( class_exists( 'Tribe_Meta_Factory' ) ) {
 											  __( 'Start:', 'tribe-events-calendar' ),
 												  sprintf(
 													  '<abbr class="tribe-events-abbr updated published dtstart" title="%s">%s</abbr>',
-													  tribe_get_start_date( null, false, TribeDateUtils::DBDATEFORMAT ),
+													  tribe_get_start_date( null, false, Tribe__Events__Date_Utils::DBDATEFORMAT ),
 													  tribe_get_start_date()
 												  ),
 												  $meta_id
@@ -51,7 +51,7 @@ if ( class_exists( 'Tribe_Meta_Factory' ) ) {
 											   __( 'End:', 'tribe-events-calendar' ),
 												   sprintf(
 													   '<abbr class="tribe-events-abbr dtend" title="%s">%s</abbr>',
-													   tribe_get_end_date( null, false, TribeDateUtils::DBDATEFORMAT ),
+													   tribe_get_end_date( null, false, Tribe__Events__Date_Utils::DBDATEFORMAT ),
 													   tribe_get_end_date()
 												   ),
 												   $meta_id
@@ -62,7 +62,7 @@ if ( class_exists( 'Tribe_Meta_Factory' ) ) {
 											  __( 'Date:', 'tribe-events-calendar' ),
 												  sprintf(
 													  '<abbr class="tribe-events-abbr updated published dtstart" title="%s">%s</abbr>',
-													  tribe_get_start_date( null, false, TribeDateUtils::DBDATEFORMAT ),
+													  tribe_get_start_date( null, false, Tribe__Events__Date_Utils::DBDATEFORMAT ),
 													  tribe_get_start_date()
 												  ),
 												  $meta_id
@@ -74,7 +74,7 @@ if ( class_exists( 'Tribe_Meta_Factory' ) ) {
 										  __( 'Start:', 'tribe-events-calendar' ),
 											  sprintf(
 												  '<abbr class="tribe-events-abbr updated published dtstart" title="%s">%s</abbr>',
-												  tribe_get_start_date( null, false, TribeDateUtils::DBDATEFORMAT ),
+												  tribe_get_start_date( null, false, Tribe__Events__Date_Utils::DBDATEFORMAT ),
 												  tribe_get_start_date()
 											  ),
 											  $meta_id
@@ -83,7 +83,7 @@ if ( class_exists( 'Tribe_Meta_Factory' ) ) {
 										   __( 'End:', 'tribe-events-calendar' ),
 											   sprintf(
 												   '<abbr class="tribe-events-abbr dtend" title="%s">%s</abbr>',
-												   tribe_get_end_date( null, false, TribeDateUtils::DBDATEFORMAT ),
+												   tribe_get_end_date( null, false, Tribe__Events__Date_Utils::DBDATEFORMAT ),
 												   tribe_get_end_date()
 											   ),
 											   $meta_id
@@ -94,7 +94,7 @@ if ( class_exists( 'Tribe_Meta_Factory' ) ) {
 										  __( 'Date:', 'tribe-events-calendar' ),
 											  sprintf(
 												  '<abbr class="tribe-events-abbr updated published dtstart" title="%s">%s</abbr>',
-												  tribe_get_start_date( null, false, TribeDateUtils::DBDATEFORMAT ),
+												  tribe_get_start_date( null, false, Tribe__Events__Date_Utils::DBDATEFORMAT ),
 												  tribe_get_start_date( null, false )
 											  ),
 											  $meta_id
@@ -105,7 +105,7 @@ if ( class_exists( 'Tribe_Meta_Factory' ) ) {
 											   __( 'Time:', 'tribe-events-calendar' ),
 												   sprintf(
 													   '<abbr class="tribe-events-abbr dtend" title="%s">%s</abbr>',
-													   tribe_get_end_date( null, false, TribeDateUtils::DBDATEFORMAT ),
+													   tribe_get_end_date( null, false, Tribe__Events__Date_Utils::DBDATEFORMAT ),
 													   $start_time
 												   ),
 												   $meta_id
@@ -116,7 +116,7 @@ if ( class_exists( 'Tribe_Meta_Factory' ) ) {
 											   __( 'Time:', 'tribe-events-calendar' ),
 												   sprintf(
 													   '<abbr class="tribe-events-abbr dtend" title="%s">%s</abbr>',
-													   tribe_get_end_date( null, false, TribeDateUtils::DBDATEFORMAT ),
+													   tribe_get_end_date( null, false, Tribe__Events__Date_Utils::DBDATEFORMAT ),
 													   $start_time . ' - ' . $end_time
 												   ),
 												   $meta_id

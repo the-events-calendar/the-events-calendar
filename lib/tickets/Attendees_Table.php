@@ -138,7 +138,7 @@ class Tribe__Events__Tickets__Attendees_Table extends WP_List_Table {
 
 		// If the warning flag is set, add the appropriate icon
 		if ( $warning ) {
-			$tec  = TribeEvents::instance();
+			$tec  = Tribe__Events__Events::instance();
 			$icon = sprintf( "<span class='warning'><img src='%s'/></span> ", trailingslashit( $tec->pluginUrl ) . 'resources/warning.png' );
 		}
 

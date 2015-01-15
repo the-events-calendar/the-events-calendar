@@ -3,7 +3,7 @@
 /**
  * Merge pre-3.0 duplicate venues and organizers
  */
-class Tribe_Amalgamator {
+class Tribe__Events__Amalgamator {
 	private $default_venue = 0;
 	private $default_community_venue = 0;
 	private $default_organizer = 0;
@@ -32,7 +32,7 @@ class Tribe_Amalgamator {
 		$this->merge_identical_organizers();
 		$this->merge_identical_venues();
 
-		$events = TribeEvents::instance();
+		$events = Tribe__Events__Events::instance();
 		$events->setOption( 'organizer_venue_amalgamation', 1 );
 		wp_cache_flush();
 	}
@@ -43,10 +43,10 @@ class Tribe_Amalgamator {
 	 * @return void
 	 */
 	public function merge_identical_organizers() {
-		$titles  = $this->get_redundant_titles( TribeEvents::ORGANIZER_POST_TYPE );
+		$titles  = $this->get_redundant_titles( Tribe__Events__Events::ORGANIZER_POST_TYPE );
 		$buckets = array();
 		foreach ( $titles as $t ) {
-			$organizer_ids = $this->get_posts_with_title( $t, TribeEvents::ORGANIZER_POST_TYPE );
+			$organizer_ids = $this->get_posts_with_title( $t, Tribe__Events__Events::ORGANIZER_POST_TYPE );
 			foreach ( $organizer_ids as $id ) {
 				$post = get_post( $id );
 				$data = array(
@@ -81,10 +81,10 @@ class Tribe_Amalgamator {
 	 * @return void
 	 */
 	public function merge_identical_venues() {
-		$titles  = $this->get_redundant_titles( TribeEvents::VENUE_POST_TYPE );
+		$titles  = $this->get_redundant_titles( Tribe__Events__Events::VENUE_POST_TYPE );
 		$buckets = array();
 		foreach ( $titles as $t ) {
-			$venue_ids = $this->get_posts_with_title( $t, TribeEvents::VENUE_POST_TYPE );
+			$venue_ids = $this->get_posts_with_title( $t, Tribe__Events__Events::VENUE_POST_TYPE );
 			foreach ( $venue_ids as $id ) {
 				$post = get_post( $id );
 				$data = array(
@@ -207,7 +207,7 @@ class Tribe_Amalgamator {
 	 */
 	private function update_default_venues( $keep, array $replace ) {
 		if ( $this->default_venue && in_array( $this->default_venue, $replace ) ) {
-			$events = TribeEvents::instance();
+			$events = Tribe__Events__Events::instance();
 			$events->setOption( 'eventsDefaultVenueID', $keep );
 		}
 		if ( $this->default_community_venue && in_array( $this->default_community_venue, $replace ) ) {
@@ -228,7 +228,7 @@ class Tribe_Amalgamator {
 	 */
 	private function update_default_organizers( $keep, array $replace ) {
 		if ( $this->default_organizer && in_array( $this->default_organizer, $replace ) ) {
-			$events = TribeEvents::instance();
+			$events = Tribe__Events__Events::instance();
 			$events->setOption( 'eventsDefaultOrganizerID', $keep );
 		}
 		if ( $this->default_community_organizer && in_array( $this->default_community_organizer, $replace ) ) {
@@ -264,7 +264,7 @@ class Tribe_Amalgamator {
 		$url  = apply_filters(
 			'tribe_settings_url', add_query_arg(
 				array(
-					'post_type' => TribeEvents::POSTTYPE,
+					'post_type' => Tribe__Events__Events::POSTTYPE,
 					'page'      => $settings->adminSlug
 				), admin_url( 'edit.php' )
 			)
@@ -294,7 +294,7 @@ class Tribe_Amalgamator {
 		$url      = apply_filters(
 			'tribe_settings_url', add_query_arg(
 				array(
-					'post_type' => TribeEvents::POSTTYPE,
+					'post_type' => Tribe__Events__Events::POSTTYPE,
 					'page'      => $settings->adminSlug
 				), admin_url( 'edit.php' )
 			)

@@ -2,14 +2,14 @@
 /**
  * Facilitates embedding one or more maps utilizing the Google Maps API.
  */
-class TribeEvents_EmbeddedMaps {
+class Tribe__Events__Embedded_Maps {
 	/**
 	 * Script handle for the embedded maps script.
 	 */
 	const MAP_HANDLE = 'tribe_events_embedded_map';
 
 	/**
-	 * @var TribeEvents_EmbeddedMaps
+	 * @var Tribe__Events__Embedded_Maps
 	 */
 	protected static $instance;
 
@@ -51,7 +51,7 @@ class TribeEvents_EmbeddedMaps {
 
 
 	/**
-	 * @return TribeEvents_EmbeddedMaps
+	 * @return Tribe__Events__Embedded_Maps
 	 */
 	public static function instance() {
 		if ( ! isset( self::$instance ) ) {
@@ -109,7 +109,7 @@ class TribeEvents_EmbeddedMaps {
 	}
 
 	protected function get_ids( $post_id ) {
-		$post_id = $post_id = TribeEvents::postIdHelper( $post_id );
+		$post_id = $post_id = Tribe__Events__Events::postIdHelper( $post_id );
 		$this->event_id = tribe_is_event( $post_id ) ? $post_id : 0;
 		$this->venue_id  = tribe_is_venue( $post_id ) ? $post_id : tribe_get_venue_id( $post_id );
 	}
@@ -154,7 +154,7 @@ class TribeEvents_EmbeddedMaps {
 		wp_enqueue_script( 'tribe_events_google_maps_api', $url, array(), false, true );
 
 		// Setup our own script used to initialize each map
-		$resources_url = trailingslashit( TribeEvents::instance()->pluginUrl ) . 'resources/';
+		$resources_url = trailingslashit( Tribe__Events__Events::instance()->pluginUrl ) . 'resources/';
 		$url = Tribe_Template_Factory::getMinFile( $resources_url . 'embedded-map.js', true );
 		wp_enqueue_script( self::MAP_HANDLE, $url, array( 'tribe_events_google_maps_api' ), false, true );
 

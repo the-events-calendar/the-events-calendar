@@ -27,7 +27,7 @@ $events_label_plural = tribe_get_event_label_plural();
 </div>
 <div id='eventDetails' class="inside eventForm">
 	<?php do_action( 'tribe_events_detail_top', $event->ID, true ) ?>
-	<?php wp_nonce_field( TribeEvents::POSTTYPE, 'ecp_nonce' ); ?>
+	<?php wp_nonce_field( Tribe__Events__Events::POSTTYPE, 'ecp_nonce' ); ?>
 	<?php do_action( 'tribe_events_eventform_top', $event->ID ); ?>
 	<table cellspacing="0" cellpadding="0" id="EventInfo">
 		<tr>

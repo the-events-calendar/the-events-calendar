@@ -124,12 +124,12 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 			list( $search_term, $tax_term, $geographic_term ) = $this->get_search_terms();
 
 			if ( ! empty( $search_term ) ) {
-				TribeEvents::setNotice( 'event-search-no-results', sprintf( __( 'There were no results found for <strong>"%s"</strong> this month. Try searching next month.', 'tribe-events-calendar' ), esc_html( $search_term ) ) );
+				Tribe__Events__Events::setNotice( 'event-search-no-results', sprintf( __( 'There were no results found for <strong>"%s"</strong> this month. Try searching next month.', 'tribe-events-calendar' ), esc_html( $search_term ) ) );
 			} // if attempting to view a category archive.
 			elseif ( ! empty( $tax_term ) ) {
-				TribeEvents::setNotice( 'events-not-found', sprintf( __( 'No matching %s listed under %s. Please try viewing the full calendar for a complete list of events.', 'tribe-events-calendar' ), strtolower( $events_label_plural ),  $tax_term ) );
+				Tribe__Events__Events::setNotice( 'events-not-found', sprintf( __( 'No matching %s listed under %s. Please try viewing the full calendar for a complete list of events.', 'tribe-events-calendar' ), strtolower( $events_label_plural ),  $tax_term ) );
 			} else {
-				TribeEvents::setNotice( 'event-search-no-results', __( 'There were no results found.', 'tribe-events-calendar' ) );
+				Tribe__Events__Events::setNotice( 'event-search-no-results', __( 'There were no results found.', 'tribe-events-calendar' ) );
 			}
 		}
 
@@ -178,7 +178,7 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 			$count_args['post_status']         = is_user_logged_in() ? array( 'publish', 'private' ) : 'publish';
 			$count_args['tribeHideRecurrence'] = false;
 
-			$result = TribeEventsQuery::getEventCounts( $count_args );
+			$result = Tribe__Events__Query::getEventCounts( $count_args );
 
 			self::$event_daily_counts = $result['counts'];
 			self::$event_daily_ids    = $result['event_ids'];
@@ -220,14 +220,14 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 		 */
 		private function get_daily_events( $date ) {
 			global $wp_query;
-			$tribe_ecp = TribeEvents::instance();
+			$tribe_ecp = Tribe__Events__Events::instance();
 
 			$post_status = is_user_logged_in() ? array( 'publish', 'private' ) : 'publish';
 
 			$args   = wp_parse_args(
 				array(
 					'post__in'       => self::$event_daily_ids[$date],
-					'post_type'      => TribeEvents::POSTTYPE,
+					'post_type'      => Tribe__Events__Events::POSTTYPE,
 					'start_date'     => tribe_event_beginning_of_day( $date ),
 					'end_date'       => tribe_event_end_of_day( $date ),
 					'eventDisplay'   => 'custom',
@@ -235,7 +235,7 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 					'posts_per_page' => self::$posts_per_page_limit,
 				), self::$args
 			);
-			$result = TribeEventsQuery::getEvents( $args, true );
+			$result = Tribe__Events__Query::getEvents( $args, true );
 
 			return $result;
 		}
@@ -258,7 +258,7 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 			do_action( 'log', 'setup view month view args', 'tribe-month', self::$args );
 			do_action( 'log', 'eventDate', 'tribe-events-query', $first_day_of_month );
 
-			self::$hide_upcoming_ids = TribeEventsQuery::getHideFromUpcomingEvents();
+			self::$hide_upcoming_ids = Tribe__Events__Query::getHideFromUpcomingEvents();
 			self::get_daily_counts( $first_grid_date, $final_grid_date );
 
 			$date  = $first_grid_date; // Start with the first grid date
@@ -294,7 +294,7 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 				}
 
 				// Advance forward one day
-				$date = date( TribeDateUtils::DBDATEFORMAT, strtotime( "$date +1 day" ) );
+				$date = date( Tribe__Events__Date_Utils::DBDATEFORMAT, strtotime( "$date +1 day" ) );
 			}
 
 			// If the month ended without bleeding into the next month, our current_month_ends property may not be set
@@ -338,7 +338,7 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 				$start_of_week = (int) get_option( 'start_of_week', 0 );
 			}
 
-			$day_1 = TribeDateUtils::first_day_in_month( $month );
+			$day_1 = Tribe__Events__Date_Utils::first_day_in_month( $month );
 			if ( $day_1 < $start_of_week ) $day_1 += 7;
 
 			$diff = $day_1 - $start_of_week;
@@ -348,7 +348,7 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 				$date = new DateTime( $month );
 				$date = new DateTime( $date->format( 'Y-m-01' ) );
 				$date->modify( "$diff days" );
-				return $date->format( TribeDateUtils::DBDATEFORMAT );
+				return $date->format( Tribe__Events__Date_Utils::DBDATEFORMAT );
 			}
 			catch ( Exception $e ) {
 				return false;
@@ -371,8 +371,8 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 				$start_of_week = (int) get_option( 'start_of_week', 0 );
 			}
 
-			$last_day    = TribeDateUtils::last_day_in_month( $month );
-			$end_of_week = TribeDateUtils::week_ends_on( $start_of_week );
+			$last_day    = Tribe__Events__Date_Utils::last_day_in_month( $month );
+			$end_of_week = Tribe__Events__Date_Utils::week_ends_on( $start_of_week );
 			if ( $end_of_week < $last_day ) $end_of_week += 7;
 
 			$diff = $end_of_week - $last_day;
@@ -382,7 +382,7 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 				$date = new DateTime( $month );
 				$date = new DateTime( $date->format( 'Y-m-t' ) );
 				$date->modify( "$diff days" );
-				return $date->format( TribeDateUtils::DBDATEFORMAT );
+				return $date->format( Tribe__Events__Date_Utils::DBDATEFORMAT );
 			}
 			catch ( Exception $e ) {
 				return false;
@@ -551,7 +551,7 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 
 			if ( isset( $_POST['eventDate'] ) && $_POST['eventDate'] ) {
 
-				TribeEventsQuery::init();
+				Tribe__Events__Query::init();
 
 				$post_status = array( 'publish' );
 				if ( is_user_logged_in() ) {
@@ -559,13 +559,13 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 				}
 				// set the global query var for eventDisplay
 				$query_args = array(
-					'post_type'    => TribeEvents::POSTTYPE,
+					'post_type'    => Tribe__Events__Events::POSTTYPE,
 					'eventDisplay' => 'month',
 					'eventDate'    => $_POST['eventDate'],
 					'post_status'  => $post_status,
 				);
 
-				TribeEvents::instance()->displaying = 'month';
+				Tribe__Events__Events::instance()->displaying = 'month';
 
 				if ( isset( $_POST['tribe_event_category'] ) ) {
 					$query_args['tribe_events_cat'] = $_POST['tribe_event_category'];

@@ -131,7 +131,7 @@ if ( ! class_exists( 'TribeEventsSupport' ) ) {
 				'mu plugins'         => $mu_plugins,
 				'theme'              => wp_get_theme()->get( 'Name' ),
 				'multisite'          => is_multisite(),
-				'settings'           => TribeEvents::getOptions(),
+				'settings'           => Tribe__Events__Events::getOptions(),
 				'WordPress timezone' => get_option( 'timezone_string', __( 'Unknown or not set', 'tribe-events-calendar' ) ),
 				'server timezone'    => date_default_timezone_get()
 			);

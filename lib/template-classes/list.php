@@ -55,7 +55,7 @@ if ( ! class_exists( 'Tribe__Events__Template__List' ) ) {
 		 */
 		function ajax_response() {
 
-			TribeEventsQuery::init();
+			Tribe__Events__Query::init();
 
 			$tribe_paged = ( ! empty( $_POST['tribe_paged'] ) ) ? intval( $_POST['tribe_paged'] ) : 1;
 			$post_status = array( 'publish' );
@@ -65,7 +65,7 @@ if ( ! class_exists( 'Tribe__Events__Template__List' ) ) {
 
 			$args = array(
 				'eventDisplay' => 'list',
-				'post_type'    => TribeEvents::POSTTYPE,
+				'post_type'    => Tribe__Events__Events::POSTTYPE,
 				'post_status'  => $post_status,
 				'paged'        => $tribe_paged
 			);
@@ -77,7 +77,7 @@ if ( ! class_exists( 'Tribe__Events__Template__List' ) ) {
 
 			// check & set event category
 			if ( isset( $_POST['tribe_event_category'] ) ) {
-				$args[TribeEvents::TAXONOMY] = $_POST['tribe_event_category'];
+				$args[Tribe__Events__Events::TAXONOMY] = $_POST['tribe_event_category'];
 			}
 
 			$query = tribe_get_events( $args, true );
@@ -94,7 +94,7 @@ if ( ! class_exists( 'Tribe__Events__Template__List' ) ) {
 			if ( ! empty( $_POST['hash'] ) && $hash_str !== $_POST['hash'] ) {
 				$tribe_paged   = 1;
 				$args['paged'] = 1;
-				$query         = TribeEventsQuery::getEvents( $args, true );
+				$query         = Tribe__Events__Query::getEvents( $args, true );
 			}
 
 
@@ -116,7 +116,7 @@ if ( ! class_exists( 'Tribe__Events__Template__List' ) ) {
 
 			$paged = $tribe_paged;
 
-			TribeEvents::instance()->displaying = 'list';
+			Tribe__Events__Events::instance()->displaying = 'list';
 
 			if ( ! empty( $_POST['tribe_event_display'] ) && $_POST['tribe_event_display'] == 'past' ){
 				$response['view'] = 'past';

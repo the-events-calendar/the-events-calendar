@@ -44,6 +44,6 @@
 	$autoloader->add_fallback_dir( dirname( __FILE__ ) . '/lib/deprecated-classes' );
 	$autoloader->register_autoloader();
 
-	TribeEvents::instance();
+	Tribe__Events__Events::instance();
 
-	register_deactivation_hook( __FILE__, array( 'TribeEvents', 'deactivate' ) );
+	register_deactivation_hook( __FILE__, array( 'Tribe__Events__Events', 'deactivate' ) );

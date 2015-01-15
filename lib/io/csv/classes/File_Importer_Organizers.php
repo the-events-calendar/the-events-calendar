@@ -9,19 +9,19 @@ class Tribe__Events__Importer__File_Importer_Organizers extends Tribe__Events__I
 
 	protected function match_existing_post( array $record ) {
 		$name = $this->get_value_by_key( $record, 'organizer_name' );
-		$id   = $this->find_matching_post_id( $name, TribeEvents::ORGANIZER_POST_TYPE );
+		$id   = $this->find_matching_post_id( $name, Tribe__Events__Events::ORGANIZER_POST_TYPE );
 
 		return $id;
 	}
 
 	protected function update_post( $post_id, array $record ) {
 		$organizer = $this->build_organizer_array( $record );
-		TribeEventsAPI::updateOrganizer( $post_id, $organizer );
+		Tribe__Events__API::updateOrganizer( $post_id, $organizer );
 	}
 
 	protected function create_post( array $record ) {
 		$organizer = $this->build_organizer_array( $record );
-		$id        = TribeEventsAPI::createOrganizer( $organizer );
+		$id        = Tribe__Events__API::createOrganizer( $organizer );
 
 		return $id;
 	}

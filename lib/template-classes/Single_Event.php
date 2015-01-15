@@ -28,7 +28,7 @@ if ( ! class_exists( 'Tribe__Events__Template__Single_Event' ) ) {
 		}
 
 		public function google_data_markup() {
-			require_once TribeEvents::instance()->pluginPath.'lib/Google_Data_Markup.php';
+			require_once Tribe__Events__Events::instance()->pluginPath.'lib/Google_Data_Markup.php';
 			$html = apply_filters( 'tribe_google_data_markup_json', Tribe__Events__Google_Data_Markup::instance()->script_block() );
 			echo $html;
 		}
@@ -118,7 +118,7 @@ if ( ! class_exists( 'Tribe__Events__Template__Single_Event' ) ) {
 			$gmt_offset = str_replace( array( '.25', '.5', '.75' ), array( ':15', ':30', ':45' ), $gmt_offset );
 
 			if ( ! tribe_is_showing_all() && strtotime( tribe_get_end_date( $post, false, 'Y-m-d G:i' ) . $gmt_offset ) <= time() ) {
-				TribeEvents::setNotice( 'event-past', sprintf( __( 'This %s has passed.', 'tribe-events-calendar' ), strtolower( $events_label_singular ) ) );
+				Tribe__Events__Events::setNotice( 'event-past', sprintf( __( 'This %s has passed.', 'tribe-events-calendar' ), strtolower( $events_label_singular ) ) );
 			}
 		}
 	}

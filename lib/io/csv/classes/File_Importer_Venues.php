@@ -9,19 +9,19 @@ class Tribe__Events__Importer__File_Importer_Venues extends Tribe__Events__Impor
 
 	protected function match_existing_post( array $record ) {
 		$name = $this->get_value_by_key( $record, 'venue_name' );
-		$id   = $this->find_matching_post_id( $name, TribeEvents::VENUE_POST_TYPE );
+		$id   = $this->find_matching_post_id( $name, Tribe__Events__Events::VENUE_POST_TYPE );
 
 		return $id;
 	}
 
 	protected function update_post( $post_id, array $record ) {
 		$venue = $this->build_venue_array( $record );
-		TribeEventsAPI::updateVenue( $post_id, $venue );
+		Tribe__Events__API::updateVenue( $post_id, $venue );
 	}
 
 	protected function create_post( array $record ) {
 		$venue = $this->build_venue_array( $record );
-		$id    = TribeEventsAPI::createVenue( $venue );
+		$id    = Tribe__Events__API::createVenue( $venue );
 
 		return $id;
 	}

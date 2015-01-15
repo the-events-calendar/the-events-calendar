@@ -153,9 +153,9 @@ if ( ! class_exists( 'Tribe_Template_Factory' ) ) {
 			$classes[] = $this->body_class;
 
 			// category class
-			if ( is_tax( TribeEvents::TAXONOMY ) ) {
+			if ( is_tax( Tribe__Events__Events::TAXONOMY ) ) {
 				$classes[] = 'events-category';
-				$category  = get_term_by( 'name', single_cat_title( '', false ), TribeEvents::TAXONOMY );
+				$category  = get_term_by( 'name', single_cat_title( '', false ), Tribe__Events__Events::TAXONOMY );
 				$classes[] = 'events-category-' . $category->slug;
 			}
 
@@ -250,7 +250,7 @@ if ( ! class_exists( 'Tribe_Template_Factory' ) ) {
 		 **/
 		protected function get_search_terms() {
 			global $wp_query;
-			$tribe           = TribeEvents::instance();
+			$tribe           = Tribe__Events__Events::instance();
 			$geographic_term = '';
 			$search_term     = '';
 			$tax_term        = '';
@@ -285,20 +285,20 @@ if ( ! class_exists( 'Tribe_Template_Factory' ) ) {
 			list( $search_term, $tax_term, $geographic_term ) = $this->get_search_terms();
 
 			if ( ! empty( $search_term ) ) {
-				TribeEvents::setNotice( 'event-search-no-results', sprintf( __( 'There were no results found for <strong>"%s"</strong>.', 'tribe-events-calendar' ), esc_html( $search_term ) ) );
+				Tribe__Events__Events::setNotice( 'event-search-no-results', sprintf( __( 'There were no results found for <strong>"%s"</strong>.', 'tribe-events-calendar' ), esc_html( $search_term ) ) );
 			} elseif ( ! empty( $geographic_term ) ) {
-				TribeEvents::setNotice( 'event-search-no-results', sprintf( __( 'No results were found for %s in or near <strong>"%s"</strong>.', 'tribe-events-calendar' ), $events_label_plural, esc_html( $geographic_term ) ) );
+				Tribe__Events__Events::setNotice( 'event-search-no-results', sprintf( __( 'No results were found for %s in or near <strong>"%s"</strong>.', 'tribe-events-calendar' ), $events_label_plural, esc_html( $geographic_term ) ) );
 			} elseif ( ! empty( $tax_term ) && tribe_is_upcoming() && ( date( 'Y-m-d' ) === date( 'Y-m-d', strtotime( $tribe->date ) ) ) ) {
-				TribeEvents::setNotice( 'events-not-found', sprintf( __( 'No upcoming %s listed under %s. Check out upcoming %s for this category or view the full calendar.', 'tribe-events-calendar' ), $events_label_plural, $tax_term, $events_label_plural ) );
+				Tribe__Events__Events::setNotice( 'events-not-found', sprintf( __( 'No upcoming %s listed under %s. Check out upcoming %s for this category or view the full calendar.', 'tribe-events-calendar' ), $events_label_plural, $tax_term, $events_label_plural ) );
 			} elseif ( ! empty( $tax_term ) && tribe_is_upcoming() ) {
-				TribeEvents::setNotice( 'events-not-found', sprintf( __( 'No matching %s listed under %s. Please try viewing the full calendar for a complete list of %s.', 'tribe-events-calendar' ), $events_label_plural, $tax_term, $events_label_plural ) );
+				Tribe__Events__Events::setNotice( 'events-not-found', sprintf( __( 'No matching %s listed under %s. Please try viewing the full calendar for a complete list of %s.', 'tribe-events-calendar' ), $events_label_plural, $tax_term, $events_label_plural ) );
 			} elseif ( ! empty( $tax_term ) && tribe_is_past() ) {
-				TribeEvents::setNotice( 'events-past-not-found', sprintf( __( 'No previous %s ', 'tribe-events-calendar' ), $events_label_plural ) );
+				Tribe__Events__Events::setNotice( 'events-past-not-found', sprintf( __( 'No previous %s ', 'tribe-events-calendar' ), $events_label_plural ) );
 			} // if on any other view and attempting to view a category archive.
 			elseif ( ! empty( $tax_term ) ) {
-				TribeEvents::setNotice( 'events-not-found', sprintf( __( 'No matching %s listed under %s. Please try viewing the full calendar for a complete list of %s.', 'tribe-events-calendar' ), $events_label_plural, $tax_term, $events_label_plural ) );
+				Tribe__Events__Events::setNotice( 'events-not-found', sprintf( __( 'No matching %s listed under %s. Please try viewing the full calendar for a complete list of %s.', 'tribe-events-calendar' ), $events_label_plural, $tax_term, $events_label_plural ) );
 			} else {
-				TribeEvents::setNotice( 'event-search-no-results', __( 'There were no results found.', 'tribe-events-calendar' ) );
+				Tribe__Events__Events::setNotice( 'event-search-no-results', __( 'There were no results found.', 'tribe-events-calendar' ) );
 			}
 		}
 
@@ -479,7 +479,7 @@ if ( ! class_exists( 'Tribe_Template_Factory' ) ) {
 		 * @return string
 		 **/
 		public function remove_comments_template( $template ) {
-			return TribeEvents::instance()->pluginPath . 'admin-views/no-comments.php';
+			return Tribe__Events__Events::instance()->pluginPath . 'admin-views/no-comments.php';
 		}
 
 		/**
@@ -532,8 +532,8 @@ if ( ! class_exists( 'Tribe_Template_Factory' ) ) {
 		 */
 		public static function asset_package( $name, $deps = array() ) {
 
-			$tec    = TribeEvents::instance();
-			$prefix = 'tribe-events'; // TribeEvents::POSTTYPE;
+			$tec    = Tribe__Events__Events::instance();
+			$prefix = 'tribe-events'; // Tribe__Events__Events::POSTTYPE;
 
 			// setup plugin resources & 3rd party vendor urls
 			$resources_url = trailingslashit( $tec->pluginUrl ) . 'resources/';
@@ -569,10 +569,10 @@ if ( ! class_exists( 'Tribe_Template_Factory' ) ) {
 				case 'calendar-script' : // Tribe Events JS
 					$deps = array_merge( $deps, array( 'jquery' ), self::$vendor_scripts );
 					$path = self::getMinFile( $resources_url . 'tribe-events.js', true );
-					wp_enqueue_script( $prefix . '-calendar-script', $path, $deps, apply_filters( 'tribe_events_js_version', TribeEvents::VERSION ) );
+					wp_enqueue_script( $prefix . '-calendar-script', $path, $deps, apply_filters( 'tribe_events_js_version', Tribe__Events__Events::VERSION ) );
 					$js_config_array = array(
 						'permalink_settings' => get_option( 'permalink_structure' ),
-						'events_post_type'   => TribeEvents::POSTTYPE
+						'events_post_type'   => Tribe__Events__Events::POSTTYPE
 					);
 					wp_localize_script( $prefix . '-calendar-script', 'tribe_js_config', $js_config_array );
 					break;
@@ -604,22 +604,22 @@ if ( ! class_exists( 'Tribe_Template_Factory' ) ) {
 					break;
 				case 'admin-ui' : // Tribe Events
 					$path = self::getMinFile( $resources_url . 'events-admin.css', true );
-					wp_enqueue_style( $prefix . '-admin-ui', $path, array(), TribeEvents::VERSION );
+					wp_enqueue_style( $prefix . '-admin-ui', $path, array(), Tribe__Events__Events::VERSION );
 					break;
 				case 'admin' :
 					$deps = array_merge( $deps, array( 'jquery', 'jquery-ui-datepicker' ) );
 					$path = self::getMinFile( $resources_url . 'events-admin.js', true );
-					wp_enqueue_script( $prefix . '-admin', $path, $deps, apply_filters( 'tribe_events_js_version', TribeEvents::VERSION ), true );
+					wp_enqueue_script( $prefix . '-admin', $path, $deps, apply_filters( 'tribe_events_js_version', Tribe__Events__Events::VERSION ), true );
 					break;
 				case 'settings' :
 					$deps = array_merge( $deps, array( 'jquery' ) );
 					$path = self::getMinFile( $resources_url . 'tribe-settings.js', true );
-					wp_enqueue_script( $prefix . '-settings', $path, $deps, apply_filters( 'tribe_events_js_version', TribeEvents::VERSION ), true );
+					wp_enqueue_script( $prefix . '-settings', $path, $deps, apply_filters( 'tribe_events_js_version', Tribe__Events__Events::VERSION ), true );
 					break;
 				case 'ecp-plugins' :
 					$deps = array_merge( $deps, array( 'jquery' ) );
 					$path = self::getMinFile( $resources_url . 'jquery-ecp-plugins.js', true );
-					wp_enqueue_script( $prefix . '-ecp-plugins', $path, $deps, apply_filters( 'tribe_events_js_version', TribeEvents::VERSION ) );
+					wp_enqueue_script( $prefix . '-ecp-plugins', $path, $deps, apply_filters( 'tribe_events_js_version', Tribe__Events__Events::VERSION ) );
 					break;
 				case 'tribe-events-bar' :
 					$deps = array_merge(
@@ -632,7 +632,7 @@ if ( ! class_exists( 'Tribe_Template_Factory' ) ) {
 						)
 					);
 					$path = self::getMinFile( $resources_url . 'tribe-events-bar.js', true );
-					wp_enqueue_script( $prefix . '-bar', $path, $deps, apply_filters( 'tribe_events_js_version', TribeEvents::VERSION ) );
+					wp_enqueue_script( $prefix . '-bar', $path, $deps, apply_filters( 'tribe_events_js_version', Tribe__Events__Events::VERSION ) );
 					break;
 				case 'jquery-placeholder' : // Vendor: jQuery Placeholder
 					$deps               = array_merge( $deps, array( 'jquery' ) );
@@ -651,7 +651,7 @@ if ( ! class_exists( 'Tribe_Template_Factory' ) ) {
 					);
 					$ajax_data = array( "ajaxurl" => admin_url( 'admin-ajax.php', ( is_ssl() ? 'https' : 'http' ) ) );
 					$path      = self::getMinFile( $resources_url . 'tribe-events-ajax-calendar.js', true );
-					wp_enqueue_script( 'tribe-events-calendar', $path, $deps, apply_filters( 'tribe_events_js_version', TribeEvents::VERSION ), true );
+					wp_enqueue_script( 'tribe-events-calendar', $path, $deps, apply_filters( 'tribe_events_js_version', Tribe__Events__Events::VERSION ), true );
 					wp_localize_script( 'tribe-events-calendar', 'TribeCalendar', $ajax_data );
 					break;
 				case 'ajax-list':
@@ -662,16 +662,16 @@ if ( ! class_exists( 'Tribe_Template_Factory' ) ) {
 						'tribe_paged' => $tribe_paged
 					);
 					$path        = self::getMinFile( $resources_url . 'tribe-events-ajax-list.js', true );
-					wp_enqueue_script( 'tribe-events-list', $path, $deps, apply_filters( 'tribe_events_js_version', TribeEvents::VERSION ), true );
+					wp_enqueue_script( 'tribe-events-list', $path, $deps, apply_filters( 'tribe_events_js_version', Tribe__Events__Events::VERSION ), true );
 					wp_localize_script( 'tribe-events-list', 'TribeList', $ajax_data );
 					break;
 				case 'ajax-dayview':
 					$ajax_data = array(
 						"ajaxurl"   => admin_url( 'admin-ajax.php', ( is_ssl() ? 'https' : 'http' ) ),
-						'post_type' => TribeEvents::POSTTYPE
+						'post_type' => Tribe__Events__Events::POSTTYPE
 					);
 					$path      = self::getMinFile( $resources_url . 'tribe-events-ajax-day.js', true );
-					wp_enqueue_script( 'tribe-events-ajax-day', $path, array( 'tribe-events-bar' ), apply_filters( 'tribe_events_js_version', TribeEvents::VERSION ), true );
+					wp_enqueue_script( 'tribe-events-ajax-day', $path, array( 'tribe-events-bar' ), apply_filters( 'tribe_events_js_version', Tribe__Events__Events::VERSION ), true );
 					wp_localize_script( 'tribe-events-ajax-day', 'TribeCalendar', $ajax_data );
 					break;
 				case 'events-css':
@@ -732,9 +732,9 @@ if ( ! class_exists( 'Tribe_Template_Factory' ) ) {
 							// set the $media attribute
 							if ( $name == 'tribe-events-calendar-mobile-style' || $name == 'tribe-events-calendar-full-mobile-style' ) {
 								$media = "only screen and (max-width: {$mobile_break}px)";
-								wp_enqueue_style( $name, $url, array( 'tribe-events-calendar-style' ), TribeEvents::VERSION, $media );
+								wp_enqueue_style( $name, $url, array( 'tribe-events-calendar-style' ), Tribe__Events__Events::VERSION, $media );
 							} else {
-								wp_register_style( $name, $url, array(), TribeEvents::VERSION );
+								wp_register_style( $name, $url, array(), Tribe__Events__Events::VERSION );
 								wp_enqueue_style( $name );
 							}
 						}

@@ -12,7 +12,7 @@ if ( ! class_exists( 'TribeField' ) ) {
 	 * Instantiate it whenever you need a field
 	 *
 	 */
-	class TribeField {
+	class Tribe__Events__Field {
 
 		/**
 		 * the field's id
@@ -208,7 +208,7 @@ if ( ! class_exists( 'TribeField' ) ) {
 				} else {
 
 					// fail, log the error
-					TribeEvents::debug( __( 'Invalid field type specified', 'tribe-events-calendar' ), $this->type, 'notice' );
+					Tribe__Events__Events::debug( __( 'Invalid field type specified', 'tribe-events-calendar' ), $this->type, 'notice' );
 
 				}
 

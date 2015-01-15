@@ -8,7 +8,7 @@
  *  - save_post
  *
  */
-class TribeEventsCache {
+class Tribe__Events__Cache {
 	const NO_EXPIRATION  = 0;
 	const NON_PERSISTENT = - 1;
 
@@ -105,7 +105,7 @@ class TribeEventsCacheListener {
 	 * @return void
 	 */
 	public function __construct() {
-		$this->cache = new TribeEventsCache();
+		$this->cache = new Tribe__Events__Cache();
 	}
 
 	/**
@@ -133,7 +133,7 @@ class TribeEventsCacheListener {
 	 * @param WP_Post $post    The current post object being saved.
 	 */
 	public function save_post( $post_id, $post ) {
-		if ( in_array( $post->post_type, TribeEvents::getPostTypes() ) ) {
+		if ( in_array( $post->post_type, Tribe__Events__Events::getPostTypes() ) ) {
 			$this->cache->set_last_occurrence( 'save_post' );
 		}
 	}

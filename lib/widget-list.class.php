@@ -164,7 +164,7 @@ class TribeEventsListWidget extends WP_Widget {
 			'no_upcoming_events' => false
 		);
 		$instance  = wp_parse_args( (array) $instance, $defaults );
-		$tribe_ecp = TribeEvents::instance();
+		$tribe_ecp = Tribe__Events__Events::instance();
 		include( $tribe_ecp->pluginPath . 'admin-views/widget-admin-List.php' );
 	}
 }

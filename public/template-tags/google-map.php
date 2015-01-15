@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
-if ( class_exists( 'TribeEvents' ) ) {
+if ( class_exists( 'Tribe__Events__Events' ) ) {
 
 	/**
 	 * Google Map Link
@@ -24,7 +24,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 * @return string A fully qualified link to http://maps.google.com/ for this event
 	 */
 	function tribe_get_map_link( $postId = null ) {
-		$tribe_ecp = TribeEvents::instance();
+		$tribe_ecp = Tribe__Events__Events::instance();
 		$output    = esc_url( $tribe_ecp->googleMapLink( $postId ) );
 
 		return apply_filters( 'tribe_get_map_link', $output );
@@ -66,7 +66,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 * @return string An iframe pulling http://maps.google.com/ for this event
 	 */
 	function tribe_get_embedded_map( $post_id = null, $width = null, $height = null, $force_load = false ) {
-		return TribeEvents_EmbeddedMaps::instance()->get_map( $post_id, $width, $height, $force_load );
+		return Tribe__Events__Embedded_Maps::instance()->get_map( $post_id, $width, $height, $force_load );
 	}
 
 	/**
@@ -83,13 +83,13 @@ if ( class_exists( 'TribeEvents' ) ) {
 	function tribe_embed_google_map( $postId = null ) {
 
 		$output    = false;
-		$postId    = TribeEvents::postIdHelper( $postId );
+		$postId    = Tribe__Events__Events::postIdHelper( $postId );
 		$post_type = get_post_type( $postId );
 
 		if ( tribe_get_option( 'embedGoogleMaps', true ) ) {
-			if ( $post_type == TribeEvents::POSTTYPE ) {
+			if ( $post_type == Tribe__Events__Events::POSTTYPE ) {
 				$output = get_post_meta( $postId, '_EventShowMap', 1 ) == 1;
-			} elseif ( $post_type == TribeEvents::VENUE_POST_TYPE ) {
+			} elseif ( $post_type == Tribe__Events__Events::VENUE_POST_TYPE ) {
 				$output = get_post_meta( $postId, '_VenueShowMap', 1 ) !== 'false' ? 1 : 0;
 			}
 		}
@@ -111,12 +111,12 @@ if ( class_exists( 'TribeEvents' ) ) {
 	function tribe_show_google_map_link( $postId = null ) {
 
 		$output    = false;
-		$postId    = TribeEvents::postIdHelper( $postId );
+		$postId    = Tribe__Events__Events::postIdHelper( $postId );
 		$post_type = get_post_type( $postId );
 
-		if ( $post_type == TribeEvents::POSTTYPE ) {
+		if ( $post_type == Tribe__Events__Events::POSTTYPE ) {
 			$output = get_post_meta( $postId, '_EventShowMapLink', 1 ) == 1;
-		} elseif ( $post_type == TribeEvents::VENUE_POST_TYPE ) {
+		} elseif ( $post_type == Tribe__Events__Events::VENUE_POST_TYPE ) {
 			$output = get_post_meta( $postId, '_VenueShowMapLink', 1 ) !== 'false' ? 1 : 0;
 		}
 

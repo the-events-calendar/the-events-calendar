@@ -481,7 +481,7 @@ if ( ! class_exists( 'TribeEventsViewHelpers' ) ) {
 		 */
 		public static function is_24hr_format( $format = null ) {
 			// Use the provided format or else use the value of the current time_format setting
-			$format = ( null === $format ) ? get_option( 'time_format', TribeDateUtils::TIMEFORMAT ) : $format;
+			$format = ( null === $format ) ? get_option( 'time_format', Tribe__Events__Date_Utils::TIMEFORMAT ) : $format;
 
 			// Count instances of the H and G symbols
 			$h_symbols = substr_count( $format, 'H' );
@@ -524,7 +524,7 @@ if ( ! class_exists( 'TribeEventsViewHelpers' ) ) {
 		 * @return string a set of HTML options with all meridians
 		 */
 		public static function getMeridianOptions( $date = "", $isStart = false ) {
-			if ( strstr( get_option( 'time_format', TribeDateUtils::TIMEFORMAT ), 'A' ) ) {
+			if ( strstr( get_option( 'time_format', Tribe__Events__Date_Utils::TIMEFORMAT ), 'A' ) ) {
 				$a         = 'A';
 				$meridians = array( "AM", "PM" );
 			} else {
@@ -562,7 +562,7 @@ if ( ! class_exists( 'TribeEventsViewHelpers' ) ) {
 		 */
 		public static function getMonthOptions( $date = "" ) {
 			_deprecated_function( __CLASS__ . '::' . __FUNCTION__ . '()', '3.8' );
-			$months    = TribeEvents::instance()->monthNames( true );
+			$months    = Tribe__Events__Events::instance()->monthNames( true );
 			$options   = '';
 			if ( empty( $date ) ) {
 				$month = ( date_i18n( 'j' ) == date_i18n( 't' ) ) ? date( 'F', time() + 86400 ) : date_i18n( 'F' );

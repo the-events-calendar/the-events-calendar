@@ -77,7 +77,7 @@ if ( ! class_exists( 'TribeEventsTemplates' ) ) {
 		 * @return string Path to template
 		 */
 		public static function templateChooser( $template ) {
-			$events = TribeEvents::instance();
+			$events = Tribe__Events__Events::instance();
 			do_action( 'tribe_tec_template_chooser', $template );
 
 			// no non-events need apply
@@ -376,7 +376,7 @@ if ( ! class_exists( 'TribeEventsTemplates' ) ) {
 			}
 
 			// single event view
-			if ( is_singular( TribeEvents::POSTTYPE ) && ! tribe_is_showing_all() ) {
+			if ( is_singular( Tribe__Events__Events::POSTTYPE ) && ! tribe_is_showing_all() ) {
 				$template = self::getTemplateHierarchy( 'single-event', array( 'disable_view_check' => true ) );
 			}
 
@@ -409,7 +409,7 @@ if ( ! class_exists( 'TribeEventsTemplates' ) ) {
 				$class = 'Tribe__Events__Template__Day';
 			}
 			// single event view
-			elseif ( is_singular( TribeEvents::POSTTYPE ) ) {
+			elseif ( is_singular( Tribe__Events__Events::POSTTYPE ) ) {
 				$class = 'Tribe__Events__Template__Single_Event';
 			}
 
@@ -456,7 +456,7 @@ if ( ! class_exists( 'TribeEventsTemplates' ) ) {
 
 			remove_filter( 'comments_template', array( __CLASS__, 'load_ecp_comments_page_template' ) );
 			if ( ! is_single() || tribe_is_showing_all() || ( tribe_get_option( 'showComments', false ) === false ) ) {
-				return TribeEvents::instance()->pluginPath . 'admin-views/no-comments.php';
+				return Tribe__Events__Events::instance()->pluginPath . 'admin-views/no-comments.php';
 			}
 
 			return $template;
@@ -477,7 +477,7 @@ if ( ! class_exists( 'TribeEventsTemplates' ) ) {
 				// 3.3 know-how for main query check
 				if ( self::is_main_loop( $query ) ) {
 					self::$isMainLoop = true;
-					$post_types       = array( 'post', TribeEvents::POSTTYPE );
+					$post_types       = array( 'post', Tribe__Events__Events::POSTTYPE );
 					$query->set( 'post_type', $post_types );
 				}
 
@@ -525,7 +525,7 @@ if ( ! class_exists( 'TribeEventsTemplates' ) ) {
 			 */
 			extract( $args );
 
-			$tec = TribeEvents::instance();
+			$tec = Tribe__Events__Events::instance();
 
 			// append .php to file name
 			if ( substr( $template, - 4 ) != '.php' ) {
@@ -536,7 +536,7 @@ if ( ! class_exists( 'TribeEventsTemplates' ) ) {
 			require_once( $tec->pluginPath . 'public/advanced-functions/meta.php' );
 
 			// Allow base path for templates to be filtered
-			$template_base_paths = apply_filters( 'tribe_events_template_paths', ( array ) TribeEvents::instance()->pluginPath );
+			$template_base_paths = apply_filters( 'tribe_events_template_paths', ( array ) Tribe__Events__Events::instance()->pluginPath );
 
 			// backwards compatibility if $plugin_path arg is used
 			if ( $plugin_path && ! in_array( $plugin_path, $template_base_paths ) ) {
@@ -678,7 +678,7 @@ if ( ! class_exists( 'TribeEventsTemplates' ) ) {
 		public static function event_date_to_pubDate( $time, $d, $gmt ) {
 			global $post;
 
-			if ( isset($post) && $post->post_type == TribeEvents::POSTTYPE && is_feed() && $gmt ) {
+			if ( isset($post) && $post->post_type == Tribe__Events__Events::POSTTYPE && is_feed() && $gmt ) {
 				$time = tribe_get_start_date( $post->ID, false, $d );
 				$time = mysql2date( $d, $time );
 			}

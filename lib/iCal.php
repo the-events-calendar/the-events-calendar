@@ -4,7 +4,7 @@
  *    Class that implements the export to iCal functionality
  *  both for list and single events
  */
-class TribeiCal {
+class Tribe__Events__iCal {
 
 	/**
 	 * Set all the filters and actions necessary for the operation of the iCal generator.
@@ -38,7 +38,7 @@ class TribeiCal {
 	 * @return string
 	 */
 	public static function get_ical_link() {
-		$tec = TribeEvents::instance();
+		$tec = Tribe__Events__Events::instance();
 
 		return trailingslashit( $tec->getLink( 'home' ) ) . '?ical=1';
 	}
@@ -96,7 +96,7 @@ class TribeiCal {
 			return;
 		}
 
-		$tec = TribeEvents::instance();
+		$tec = Tribe__Events__Events::instance();
 
 		$view = $tec->displaying;
 		if ( defined( 'DOING_AJAX' ) && DOING_AJAX && isset( $wp_query->query_vars['eventDisplay'] ) ) {
@@ -175,7 +175,7 @@ class TribeiCal {
 	 */
 	public static function generate_ical_feed( $post = null ) {
 
-		$tec         = TribeEvents::instance();
+		$tec         = Tribe__Events__Events::instance();
 		$wp_timezone = get_option( 'timezone_string' );
 		$events      = '';
 		$blogHome    = get_bloginfo( 'url' );
@@ -251,7 +251,7 @@ class TribeiCal {
 			}
 
 			// add categories if available
-			$event_cats = (array) wp_get_object_terms( $event_post->ID, TribeEvents::TAXONOMY, array( 'fields' => 'names' ) );
+			$event_cats = (array) wp_get_object_terms( $event_post->ID, Tribe__Events__Events::TAXONOMY, array( 'fields' => 'names' ) );
 			if ( ! empty( $event_cats ) ) {
 				$item[] = 'CATEGORIES:' . html_entity_decode( join( ',', $event_cats ), ENT_QUOTES );
 			}
@@ -281,10 +281,10 @@ class TribeiCal {
 		}
 
 		header( 'Content-type: text/calendar; charset=UTF-8' );
-		header( 'Content-Disposition: attachment; filename="iCal-TribeEvents.ics"' );
+		header( 'Content-Disposition: attachment; filename="iCal-Tribe__Events__Events.ics"' );
 		$content = "BEGIN:VCALENDAR\r\n";
 		$content .= "VERSION:2.0\r\n";
-		$content .= 'PRODID:-//' . $blogName . ' - ECPv' . TribeEvents::VERSION . "//NONSGML v1.0//EN\r\n";
+		$content .= 'PRODID:-//' . $blogName . ' - ECPv' . Tribe__Events__Events::VERSION . "//NONSGML v1.0//EN\r\n";
 		$content .= "CALSCALE:GREGORIAN\r\n";
 		$content .= "METHOD:PUBLISH\r\n";
 		$content .= 'X-WR-CALNAME:' . apply_filters( 'tribe_ical_feed_calname', $blogName ) . "\r\n";

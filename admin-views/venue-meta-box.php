@@ -19,7 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 ?>
-<?php if ( $post->post_type != TribeEvents::VENUE_POST_TYPE ): ?>
+<?php if ( $post->post_type != Tribe__Events__Events::VENUE_POST_TYPE ): ?>
 	<tr class="venue">
 		<td><?php printf( __( '%s Name:', 'tribe-events-calendar' ), tribe_get_venue_label_singular() ); ?></td>
 		<td>
@@ -126,7 +126,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 $google_map_toggle = false;
 $google_map_link_toggle = false;
 
-if ( $post->post_type != TribeEvents::VENUE_POST_TYPE ) {
+if ( $post->post_type != Tribe__Events__Events::VENUE_POST_TYPE ) {
 
 	if ( tribe_get_option( 'embedGoogleMaps', true ) ) { // Only show if embed option selected
 

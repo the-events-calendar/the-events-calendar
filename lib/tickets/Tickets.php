@@ -306,12 +306,12 @@ if ( ! class_exists( 'Tribe__Events__Tickets__Tickets' ) ) {
 
 			if ( ! empty( $data['ticket_start_date'] ) ) {
 				$meridian           = ! empty( $data['ticket_start_meridian'] ) ? " " . $data['ticket_start_meridian'] : "";
-				$ticket->start_date = date( TribeDateUtils::DBDATETIMEFORMAT, strtotime( $data['ticket_start_date'] . " " . $data['ticket_start_hour'] . ":" . $data['ticket_start_minute'] . ":00" . $meridian ) );
+				$ticket->start_date = date( Tribe__Events__Date_Utils::DBDATETIMEFORMAT, strtotime( $data['ticket_start_date'] . " " . $data['ticket_start_hour'] . ":" . $data['ticket_start_minute'] . ":00" . $meridian ) );
 			}
 
 			if ( ! empty( $data['ticket_end_date'] ) ) {
 				$meridian         = ! empty( $data['ticket_end_meridian'] ) ? " " . $data['ticket_end_meridian'] : "";
-				$ticket->end_date = date( TribeDateUtils::DBDATETIMEFORMAT, strtotime( $data['ticket_end_date'] . " " . $data['ticket_end_hour'] . ":" . $data['ticket_end_minute'] . ":00" . $meridian ) );
+				$ticket->end_date = date( Tribe__Events__Date_Utils::DBDATETIMEFORMAT, strtotime( $data['ticket_end_date'] . " " . $data['ticket_end_hour'] . ":" . $data['ticket_end_minute'] . ":00" . $meridian ) );
 			}
 
 			$ticket->provider_class = $this->className;
@@ -328,7 +328,7 @@ if ( ! class_exists( 'Tribe__Events__Tickets__Tickets' ) ) {
 				$return = $this->notice( __( 'Your ticket has been saved.', 'tribe-events-calendar' ) ) . $return;
 
 				// Additionally ensure the event costs meta data is updated accordingly
-				TribeEventsAPI::update_event_cost( $post_id );
+				Tribe__Events__API::update_event_cost( $post_id );
 			}
 
 			$this->ajax_ok( $return );
@@ -409,7 +409,7 @@ if ( ! class_exists( 'Tribe__Events__Tickets__Tickets' ) ) {
 				$return = $this->notice( __( 'Your ticket has been deleted.', 'tribe-events-calendar' ) ) . $return;
 
 				// Additionally ensure the event costs meta data is updated accordingly
-				TribeEventsAPI::update_event_cost( $post_id );
+				Tribe__Events__API::update_event_cost( $post_id );
 			}
 
 			$this->ajax_ok( $return );

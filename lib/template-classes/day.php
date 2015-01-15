@@ -90,7 +90,7 @@ if ( ! class_exists( 'Tribe_Events_Day_Template' ) ) {
 
 			global $wp_query;
 
-			$time_format = apply_filters( 'tribe_events_day_timeslot_format', get_option( 'time_format', TribeDateUtils::TIMEFORMAT ) );
+			$time_format = apply_filters( 'tribe_events_day_timeslot_format', get_option( 'time_format', Tribe__Events__Date_Utils::TIMEFORMAT ) );
 
 			if ( $wp_query->have_posts() ) {
 				$unsorted_posts = $wp_query->posts;
@@ -98,7 +98,7 @@ if ( ! class_exists( 'Tribe_Events_Day_Template' ) ) {
 					if ( tribe_event_is_all_day( $post->ID ) ) {
 						$post->timeslot = __( 'All Day', 'tribe-events-calendar' );
 					} else {
-						if ( strtotime( tribe_get_start_date( $post->ID, true, TribeDateUtils::DBDATETIMEFORMAT ) ) < strtotime( $wp_query->get( 'start_date' ) ) ) {
+						if ( strtotime( tribe_get_start_date( $post->ID, true, Tribe__Events__Date_Utils::DBDATETIMEFORMAT ) ) < strtotime( $wp_query->get( 'start_date' ) ) ) {
 							$post->timeslot = __( 'Ongoing', 'tribe-events-calendar' );
 						} else {
 							$post->timeslot = tribe_get_start_date( $post, false, $time_format );
@@ -133,9 +133,9 @@ if ( ! class_exists( 'Tribe_Events_Day_Template' ) ) {
 			list( $search_term, $tax_term, $geographic_term ) = $this->get_search_terms();
 
 			if ( empty( $search_term ) && empty( $geographic_term ) && ! empty( $tax_term ) ) {
-				TribeEvents::setNotice( 'events-not-found', sprintf( __( 'No matching %s listed under %s scheduled for <strong>%s</strong>. Please try another day.', 'tribe-events-calendar' ), strtolower( $events_label_plural ), $tax_term, date_i18n( tribe_get_date_format( true ), strtotime( get_query_var( 'eventDate' ) ) ) ) );
+				Tribe__Events__Events::setNotice( 'events-not-found', sprintf( __( 'No matching %s listed under %s scheduled for <strong>%s</strong>. Please try another day.', 'tribe-events-calendar' ), strtolower( $events_label_plural ), $tax_term, date_i18n( tribe_get_date_format( true ), strtotime( get_query_var( 'eventDate' ) ) ) ) );
 			} elseif ( empty( $search_term ) && empty( $geographic_term ) ) {
-				TribeEvents::setNotice( 'events-not-found', sprintf( __( 'No %s scheduled for <strong>%s</strong>. Please try another day.', 'tribe-events-calendar' ), strtolower( $events_label_plural ), date_i18n( tribe_get_date_format( true ), strtotime( get_query_var( 'eventDate' ) ) ) ) );
+				Tribe__Events__Events::setNotice( 'events-not-found', sprintf( __( 'No %s scheduled for <strong>%s</strong>. Please try another day.', 'tribe-events-calendar' ), strtolower( $events_label_plural ), date_i18n( tribe_get_date_format( true ), strtotime( get_query_var( 'eventDate' ) ) ) ) );
 			} else {
 				parent::nothing_found_notice();
 			}
@@ -150,7 +150,7 @@ if ( ! class_exists( 'Tribe_Events_Day_Template' ) ) {
 		function ajax_response() {
 			if ( isset( $_POST['eventDate'] ) && $_POST['eventDate'] ) {
 
-				TribeEventsQuery::init();
+				Tribe__Events__Query::init();
 
 				$post_status = array( 'publish' );
 				if ( is_user_logged_in() ) {
@@ -163,13 +163,13 @@ if ( ! class_exists( 'Tribe_Events_Day_Template' ) ) {
 					'eventDisplay' => 'day'
 				);
 
-				TribeEvents::instance()->displaying = 'day';
+				Tribe__Events__Events::instance()->displaying = 'day';
 
 				if ( isset( $_POST['tribe_event_category'] ) ) {
-					$args[TribeEvents::TAXONOMY] = $_POST['tribe_event_category'];
+					$args[Tribe__Events__Events::TAXONOMY] = $_POST['tribe_event_category'];
 				}
 
-				$query = TribeEventsQuery::getEvents( $args, true );
+				$query = Tribe__Events__Query::getEvents( $args, true );
 
 				global $wp_query, $post;
 				$wp_query = $query;

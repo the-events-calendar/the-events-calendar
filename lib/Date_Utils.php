@@ -8,8 +8,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
-if ( ! class_exists( 'TribeDateUtils' ) ) {
-	class TribeDateUtils {
+if ( ! class_exists( 'Tribe__Events__Date_Utils' ) ) {
+	class Tribe__Events__Date_Utils {
 		// default formats, they are overridden by WP options or by arguments to date methods
 		const DATEONLYFORMAT        = 'F j, Y';
 		const TIMEFORMAT            = 'g:i A';
@@ -32,7 +32,7 @@ if ( ! class_exists( 'TribeDateUtils' ) ) {
 		public static function dateOnly( $date, $isTimestamp = false ) {
 			$date = $isTimestamp ? $date : strtotime( $date );
 
-			return date( TribeDateUtils::DBDATEFORMAT, $date );
+			return date( Tribe__Events__Date_Utils::DBDATEFORMAT, $date );
 		}
 
 		/**
@@ -43,7 +43,7 @@ if ( ! class_exists( 'TribeDateUtils' ) ) {
 		 * @return string The time only in DB format.
 		 */
 		public static function timeOnly( $date ) {
-			return date( TribeDateUtils::DBTIMEFORMAT, strtotime( $date ) );
+			return date( Tribe__Events__Date_Utils::DBTIMEFORMAT, strtotime( $date ) );
 		}
 
 		/**
@@ -54,7 +54,7 @@ if ( ! class_exists( 'TribeDateUtils' ) ) {
 		 * @return string The hour only.
 		 */
 		public static function hourOnly( $date ) {
-			return date( TribeDateUtils::HOURFORMAT, strtotime( $date ) );
+			return date( Tribe__Events__Date_Utils::HOURFORMAT, strtotime( $date ) );
 		}
 
 		/**
@@ -65,7 +65,7 @@ if ( ! class_exists( 'TribeDateUtils' ) ) {
 		 * @return string The minute only.
 		 */
 		public static function minutesOnly( $date ) {
-			return date( TribeDateUtils::MINUTEFORMAT, strtotime( $date ) );
+			return date( Tribe__Events__Date_Utils::MINUTEFORMAT, strtotime( $date ) );
 		}
 
 		/**
@@ -76,7 +76,7 @@ if ( ! class_exists( 'TribeDateUtils' ) ) {
 		 * @return string The meridian only in DB format.
 		 */
 		public static function meridianOnly( $date ) {
-			return date( TribeDateUtils::MERIDIANFORMAT, strtotime( $date ) );
+			return date( Tribe__Events__Date_Utils::MERIDIANFORMAT, strtotime( $date ) );
 		}
 
 		/**
@@ -94,10 +94,10 @@ if ( ! class_exists( 'TribeDateUtils' ) ) {
 			_deprecated_function( __FILE__, '3.10', 'tribe_event_end_of_day' );
 
 			$date = $isTimestamp ? $date : strtotime( $date );
-			$date = date( TribeDateUtils::DBDATEFORMAT, $date );
+			$date = date( Tribe__Events__Date_Utils::DBDATEFORMAT, $date );
 			$date = strtotime( $date . ' 23:59:59' );
 
-			return date( TribeDateUtils::DBDATETIMEFORMAT, $date );
+			return date( Tribe__Events__Date_Utils::DBDATETIMEFORMAT, $date );
 		}
 
 		/**
@@ -115,10 +115,10 @@ if ( ! class_exists( 'TribeDateUtils' ) ) {
 			_deprecated_function( __FILE__, '3.10', 'tribe_event_beginning_of_day' );
 
 			$date = $isTimestamp ? $date : strtotime( $date );
-			$date = date( TribeDateUtils::DBDATEFORMAT, $date );
+			$date = date( Tribe__Events__Date_Utils::DBDATEFORMAT, $date );
 			$date = strtotime( $date . ' 00:00:00' );
 
-			return date( TribeDateUtils::DBDATETIMEFORMAT, $date );
+			return date( Tribe__Events__Date_Utils::DBDATETIMEFORMAT, $date );
 		}
 
 		/**
@@ -197,7 +197,7 @@ if ( ! class_exists( 'TribeDateUtils' ) ) {
 		 * @return int The timestamp of the date that fits the qualifications.
 		 */
 		public static function getLastDayOfWeekInMonth( $curdate, $day_of_week ) {
-			$nextdate = mktime( date( "H", $curdate ), date( "i", $curdate ), date( "s", $curdate ), date( 'n', $curdate ), TribeDateUtils::getLastDayOfMonth( $curdate ), date( 'Y', $curdate ) );;
+			$nextdate = mktime( date( "H", $curdate ), date( "i", $curdate ), date( "s", $curdate ), date( 'n', $curdate ), Tribe__Events__Date_Utils::getLastDayOfMonth( $curdate ), date( 'Y', $curdate ) );;
 
 			while ( date( 'N', $nextdate ) != $day_of_week && $day_of_week != - 1 ) {
 				$nextdate = strtotime( date( DateSeriesRules::DATE_FORMAT, $nextdate ) . " - 1 day" );
@@ -219,8 +219,8 @@ if ( ! class_exists( 'TribeDateUtils' ) ) {
 			$nextdate = mktime( 0, 0, 0, date( 'n', $curdate ), 1, date( 'Y', $curdate ) );
 
 			while ( ! ( $day_of_week > 0 && date( 'N', $nextdate ) == $day_of_week ) &&
-					! ( $day_of_week == - 1 && TribeDateUtils::isWeekday( $nextdate ) ) &&
-					! ( $day_of_week == - 2 && TribeDateUtils::isWeekend( $nextdate ) ) ) {
+					! ( $day_of_week == - 1 && Tribe__Events__Date_Utils::isWeekday( $nextdate ) ) &&
+					! ( $day_of_week == - 2 && Tribe__Events__Date_Utils::isWeekend( $nextdate ) ) ) {
 				$nextdate = strtotime( date( DateSeriesRules::DATE_FORMAT, $nextdate ) . " + 1 day" );
 			}
 
