@@ -1,9 +1,9 @@
 <?php
 
 /**
- * Class TribeEventsImporter_FileUploader
+ * Class Tribe__Events__Importer__File_Uploader
  */
-class TribeEventsImporter_FileUploader {
+class Tribe__Events__Importer__File_Uploader {
 	private $name = '';
 	private $type = '';
 	private $tmp_name = '';

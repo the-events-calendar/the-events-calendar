@@ -1,9 +1,9 @@
 <?php
 
 /**
- * Class TribeEventsImporter_AdminPage
+ * Class Tribe__Events__Importer__Admin_Page
  */
-class TribeEventsImporter_AdminPage {
+class Tribe__Events__Importer__Admin_Page {
 	private $state = '';
 	private $output = '';
 	private $messages = array();
@@ -24,7 +24,7 @@ class TribeEventsImporter_AdminPage {
 		switch ( $this->state ) {
 			case 'map':
 				try {
-					$file = new TribeEventsImporter_FileReader(TribeEventsImporter_FileUploader::get_file_path());
+					$file = new Tribe__Events__Importer__File_Reader(Tribe__Events__Importer__File_Uploader::get_file_path());
 				} catch ( RuntimeException $e ) {
 					$this->errors[] = __('The file went away. Please try again.', 'tribe-events-calendar');
 					$this->state = '';
@@ -41,20 +41,20 @@ class TribeEventsImporter_AdminPage {
 				}
 				$import_type = get_option( 'tribe_events_import_type' );
 				$messages = $this->errors;
-				include( TribeEventsImporter_Plugin::path('admin-views/columns.php') );
+				include( Tribe__Events__Importer__Plugin::path('admin-views/columns.php') );
 				break;
 			case 'importing':
 				$messages = $this->messages;
-				include( TribeEventsImporter_Plugin::path('admin-views/in-progress.php') );
+				include( Tribe__Events__Importer__Plugin::path('admin-views/in-progress.php') );
 				break;
 			case 'complete':
 				$log = get_option( 'tribe_events_import_log' );
 				$skipped = get_option( 'tribe_events_import_failed_rows', array() );
-				include( TribeEventsImporter_Plugin::path('admin-views/result.php') );
+				include( Tribe__Events__Importer__Plugin::path('admin-views/result.php') );
 				break;
 			default:
 				$messages = $this->errors;
-				include( TribeEventsImporter_Plugin::path('admin-views/import.php') );
+				include( Tribe__Events__Importer__Plugin::path('admin-views/import.php') );
 				break;
 		}
 	}
@@ -119,7 +119,7 @@ class TribeEventsImporter_AdminPage {
 		update_option( 'tribe_events_import_type', $import_type );
 
 		try {
-			$file_handler = new TribeEventsImporter_FileUploader($_FILES['import_file']);
+			$file_handler = new Tribe__Events__Importer__File_Uploader($_FILES['import_file']);
 			$file_handler->save_file();
 		} catch ( RuntimeException $e ) {
 			$this->errors[] = $e->getMessage();
@@ -150,7 +150,7 @@ class TribeEventsImporter_AdminPage {
 		$required_fields = $importer->get_required_fields();
 		$missing = array_diff($required_fields, $column_mapping);
 		if ( !empty($missing) ) {
-			$mapper = new TribeEventsImporter_ColumnMapper(get_option( 'tribe_events_import_type' ));
+			$mapper = new Tribe__Events__Importer__Column_Mapper(get_option( 'tribe_events_import_type' ));
 			$message = __('<p>The following fields are required for a successful import:</p>', 'tribe-events-calendar');
 			$message .= '<ul style="list-style-type: disc; margin-left: 1.5em;">';
 			foreach ( $missing as $key ) {
@@ -190,7 +190,7 @@ class TribeEventsImporter_AdminPage {
 		}
 	}
 
-	private function do_import( TribeEventsImporter_FileImporter $importer ) {
+	private function do_import( Tribe__Events__Importer__File_Importer $importer ) {
 		$importer->do_import();
 
 		$this->messages = $importer->get_log_messages();
@@ -203,8 +203,8 @@ class TribeEventsImporter_AdminPage {
 
 	private function get_importer() {
 		$type = get_option('tribe_events_import_type');
-		$file_reader = new TribeEventsImporter_FileReader(TribeEventsImporter_FileUploader::get_file_path());
-		$importer = TribeEventsImporter_FileImporter::get_importer($type, $file_reader);
+		$file_reader = new Tribe__Events__Importer__File_Reader(Tribe__Events__Importer__File_Uploader::get_file_path());
+		$importer = Tribe__Events__Importer__File_Importer::get_importer($type, $file_reader);
 		$importer->set_map(get_option('tribe_events_import_column_mapping', array()));
 		$importer->set_type(get_option('tribe_events_import_type'));
 		$importer->set_limit( absint( apply_filters( 'tribe_events_csv_batch_size', 100 ) ) );
@@ -212,7 +212,7 @@ class TribeEventsImporter_AdminPage {
 		return $importer;
 	}
 
-	private function log_import_results( TribeEventsImporter_FileImporter $importer ) {
+	private function log_import_results( Tribe__Events__Importer__File_Importer $importer ) {
 		$log = get_option( 'tribe_events_import_log' );
 		$log['updated'] += $importer->get_updated_post_count();
 		$log['created'] += $importer->get_new_post_count();
@@ -226,6 +226,6 @@ class TribeEventsImporter_AdminPage {
 	}
 
 	private function clean_up_after_import() {
-		TribeEventsImporter_FileUploader::clear_old_files();
+		Tribe__Events__Importer__File_Uploader::clear_old_files();
 	}
 }

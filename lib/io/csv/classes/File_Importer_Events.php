@@ -1,9 +1,9 @@
 <?php
 
 /**
- * Class TribeEventsImporter_FileImporter_Events
+ * Class Tribe__Events__Importer__File_Importer_Events
  */
-class TribeEventsImporter_FileImporter_Events extends TribeEventsImporter_FileImporter {
+class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Importer__File_Importer {
 
 	protected $required_fields = array( 'event_name', 'event_start_date' );
 

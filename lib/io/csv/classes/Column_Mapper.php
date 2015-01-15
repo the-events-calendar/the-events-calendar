@@ -1,9 +1,9 @@
 <?php
 
 /**
- * Class TribeEventsImporter_ColumnMapper
+ * Class Tribe__Events__Importer__Column_Mapper
  */
-class TribeEventsImporter_ColumnMapper {
+class Tribe__Events__Importer__Column_Mapper {
 	private $column_names = array();
 	private $import_type = '';
 	private $defaults = array();

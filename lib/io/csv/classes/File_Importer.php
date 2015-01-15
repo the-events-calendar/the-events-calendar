@@ -1,9 +1,9 @@
 <?php
 
 /**
- * Class TribeEventsImporter_FileImporter
+ * Class Tribe__Events__Importer__File_Importer
  */
-abstract class TribeEventsImporter_FileImporter {
+abstract class Tribe__Events__Importer__File_Importer {
 	protected $required_fields = array();
 
 	/** @var TribeEventsImporter_FileReader */
@@ -23,17 +23,17 @@ abstract class TribeEventsImporter_FileImporter {
 	 * @param string                         $type
 	 * @param TribeEventsImporter_FileReader $file_reader
 	 *
-	 * @return TribeEventsImporter_FileImporter
+	 * @return Tribe__Events__Importer__File_Importer
 	 * @throws InvalidArgumentException
 	 */
-	public static function get_importer( $type, TribeEventsImporter_FileReader $file_reader ) {
+	public static function get_importer( $type, Tribe__Events__Importer__File_Reader $file_reader ) {
 		switch ( $type ) {
 			case 'events':
-				return new TribeEventsImporter_FileImporter_Events( $file_reader );
+				return new Tribe__Events__Importer__File_Importer_Events( $file_reader );
 			case 'venues':
-				return new TribeEventsImporter_FileImporter_Venues( $file_reader );
+				return new Tribe__Events__Importer__File_Importer_Venues( $file_reader );
 			case 'organizers':
-				return new TribeEventsImporter_FileImporter_Organizers( $file_reader );
+				return new Tribe__Events__Importer__File_Importer_Organizers( $file_reader );
 			default:
 				throw new InvalidArgumentException( sprintf( __( 'No importer defined for %s', 'tribe-events-calendar' ), $type ) );
 		}
@@ -42,7 +42,7 @@ abstract class TribeEventsImporter_FileImporter {
 	/**
 	 * @param TribeEventsImporter_FileReader $file_reader
 	 */
-	public function __construct( TribeEventsImporter_FileReader $file_reader ) {
+	public function __construct( Tribe__Events__Importer__File_Reader $file_reader ) {
 		$this->reader = $file_reader;
 	}
 

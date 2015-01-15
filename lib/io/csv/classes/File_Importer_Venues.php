@@ -1,9 +1,9 @@
 <?php
 
 /**
- * Class TribeEventsImporter_FileImporter_Venues
+ * Class Tribe__Events__Importer__File_Importer_Venues
  */
-class TribeEventsImporter_FileImporter_Venues extends TribeEventsImporter_FileImporter {
+class Tribe__Events__Importer__File_Importer_Venues extends Tribe__Events__Importer__File_Importer {
 
 	protected $required_fields = array( 'venue_name' );
 

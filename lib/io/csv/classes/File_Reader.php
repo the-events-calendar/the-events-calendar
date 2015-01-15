@@ -1,9 +1,9 @@
 <?php
 
 /**
- * Class TribeEventsImporter_FileReader
+ * Class Tribe__Events__Importer__File_Reader
  */
-class TribeEventsImporter_FileReader {
+class Tribe__Events__Importer__File_Reader {
 	private $path = '';
 	private $file = null;
 	private $last_line_read = 0;
