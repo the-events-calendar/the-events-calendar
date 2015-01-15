@@ -1,9 +1,9 @@
 <?php
-if ( ! class_exists( 'TribeEventsTicketObject' ) ) {
+if ( ! class_exists( 'Tribe__Events__Tickets__TicketObject' ) ) {
 	/**
 	 *    Generic object to hold information about a single ticket
 	 */
-	class TribeEventsTicketObject {
+	class Tribe__Events__Tickets__TicketObject {
 		/**
 		 * This value - an empty string - should be used to populate the stock
 		 * property in situations where no limit has been placed on stock

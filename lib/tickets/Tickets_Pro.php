@@ -1,8 +1,9 @@
 <?php
-class TribeEventsTicketsPro {
+class Tribe__Events__Tickets__Tickets_Pro {
 	/**
 	 * Singleton instance of this class
-	 * @var TribeEventsTicketsPro
+	 *
+*@var Tribe__Events__Tickets__Tickets_Pro
 	 * @static
 	 */
 	protected static $instance;
@@ -71,7 +72,7 @@ class TribeEventsTicketsPro {
 
 
 			$url = add_query_arg( array( 'post_type' => TribeEvents::POSTTYPE,
-										 'page'      => TribeEventsTicketsPro::$attendees_slug,
+										 'page'      => Tribe__Events__Tickets__Tickets_Pro::$attendees_slug,
 										 'event_id'  => $post->ID ), admin_url( 'edit.php' ) );
 
 			$actions['tickets_attendees'] = sprintf( '<a title="%s" href="%s">%s</a>', __( 'See who purchased tickets to this event', 'tribe-events-calendar' ), esc_url( $url ), __( 'Attendees', 'tribe-events-calendar' ) );
@@ -86,7 +87,7 @@ class TribeEventsTicketsPro {
 	public function attendees_page_register() {
 
 		$this->attendees_page = add_submenu_page(
-			null, 'Attendee list', 'Attendee list', 'edit_posts', TribeEventsTicketsPro::$attendees_slug, array(
+			null, 'Attendee list', 'Attendee list', 'edit_posts', Tribe__Events__Tickets__Tickets_Pro::$attendees_slug, array(
 				$this,
 				'attendees_page_inside'
 			)
@@ -110,9 +111,9 @@ class TribeEventsTicketsPro {
 
 		$ecp = TribeEvents::instance();
 
-		wp_enqueue_style( TribeEventsTicketsPro::$attendees_slug, trailingslashit( $ecp->pluginUrl ) . 'resources/tickets-attendees.css', array(), apply_filters( 'tribe_events_css_version', TribeEvents::VERSION ) );
-		wp_enqueue_style( TribeEventsTicketsPro::$attendees_slug . '-print', trailingslashit( $ecp->pluginUrl ) . 'resources/tickets-attendees-print.css', array(), apply_filters( 'tribe_events_css_version', TribeEvents::VERSION ), 'print' );
-		wp_enqueue_script( TribeEventsTicketsPro::$attendees_slug, trailingslashit( $ecp->pluginUrl ) . 'resources/tickets-attendees.js', array( 'jquery' ), apply_filters( 'tribe_events_js_version', TribeEvents::VERSION ) );
+		wp_enqueue_style( Tribe__Events__Tickets__Tickets_Pro::$attendees_slug, trailingslashit( $ecp->pluginUrl ) . 'resources/tickets-attendees.css', array(), apply_filters( 'tribe_events_css_version', TribeEvents::VERSION ) );
+		wp_enqueue_style( Tribe__Events__Tickets__Tickets_Pro::$attendees_slug . '-print', trailingslashit( $ecp->pluginUrl ) . 'resources/tickets-attendees-print.css', array(), apply_filters( 'tribe_events_css_version', TribeEvents::VERSION ), 'print' );
+		wp_enqueue_script( Tribe__Events__Tickets__Tickets_Pro::$attendees_slug, trailingslashit( $ecp->pluginUrl ) . 'resources/tickets-attendees.js', array( 'jquery' ), apply_filters( 'tribe_events_js_version', TribeEvents::VERSION ) );
 
 		$mail_data = array(
 			'nonce'           => wp_create_nonce( 'email-attendee-list' ),
@@ -122,7 +123,7 @@ class TribeEventsTicketsPro {
 			'uncheckin_nonce' => wp_create_nonce( 'uncheckin' )
 		);
 
-		wp_localize_script( TribeEventsTicketsPro::$attendees_slug, 'Attendees', $mail_data );
+		wp_localize_script( Tribe__Events__Tickets__Tickets_Pro::$attendees_slug, 'Attendees', $mail_data );
 	}
 
 	/**
@@ -157,7 +158,7 @@ class TribeEventsTicketsPro {
 			wp_enqueue_style( 'wp-pointer' );
 		}
 
-		wp_localize_script( TribeEventsTicketsPro::$attendees_slug, 'AttendeesPointer', $pointer );
+		wp_localize_script( Tribe__Events__Tickets__Tickets_Pro::$attendees_slug, 'AttendeesPointer', $pointer );
 
 	}
 
@@ -167,7 +168,7 @@ class TribeEventsTicketsPro {
 	public function attendees_page_screen_setup() {
 
 		require_once 'tribe-tickets-attendees.php';
-		$this->attendees_table = new TribeEventsTicketsAttendeesTable();
+		$this->attendees_table = new Tribe__Events__Tickets__Attendees_Table();
 
 		$this->maybe_generate_attendees_csv();
 
@@ -233,7 +234,7 @@ class TribeEventsTicketsPro {
 		$export_columns = array_filter( array_keys( $export_columns ) );
 
 		// Get the data
-		$items = TribeEventsTickets::get_event_attendees( $event_id );
+		$items = Tribe__Events__Tickets__Tickets::get_event_attendees( $event_id );
 
 		$rows = array( $columns_names );
 		//And echo the data
@@ -363,7 +364,7 @@ class TribeEventsTicketsPro {
 		$startMeridianOptions = TribeEventsViewHelpers::getMeridianOptions( null, true );
 		$endMeridianOptions   = TribeEventsViewHelpers::getMeridianOptions( null );
 
-		$tickets = TribeEventsTickets::get_event_tickets( $post_id );
+		$tickets = Tribe__Events__Tickets__Tickets::get_event_tickets( $post_id );
 		include $this->path . 'admin-views/tickets/meta-box.php';
 	}
 
@@ -374,7 +375,7 @@ class TribeEventsTicketsPro {
 	 */
 	public function ticket_list_markup( $tickets = array() ) {
 		if ( ! empty( $tickets ) ) {
-			include $this->path . 'admin-views/tickets/list.php';
+			include $this->path . 'admin-views/tickets/List.php';
 		}
 	}
 
@@ -469,7 +470,8 @@ class TribeEventsTicketsPro {
 
 	/**
 	 * Static Singleton Factory Method
-	 * @return TribeEventsTicketsPro
+	 *
+*@return Tribe__Events__Tickets__Tickets_Pro
 	 */
 	public static function instance() {
 		if ( ! isset( self::$instance ) ) {

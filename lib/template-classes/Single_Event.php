@@ -11,11 +11,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
-if ( ! class_exists( 'Tribe_Events_Single_Event_Template' ) ) {
+if ( ! class_exists( 'Tribe__Events__Template__Single_Event' ) ) {
 	/**
 	 * Single event template class
 	 */
-	class Tribe_Events_Single_Event_Template extends Tribe_Template_Factory {
+	class Tribe__Events__Template__Single_Event extends Tribe_Template_Factory {
 
 		protected $body_class = 'events-single';
 

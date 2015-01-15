@@ -233,7 +233,7 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 			// Load Template Tags
 			require_once $this->pluginPath . 'public/template-tags/query.php';
 			require_once $this->pluginPath . 'public/template-tags/general.php';
-			require_once $this->pluginPath . 'public/template-tags/month.php';
+			require_once $this->pluginPath . 'public/template-tags/Month.php';
 			require_once $this->pluginPath . 'public/template-tags/loop.php';
 			require_once $this->pluginPath . 'public/template-tags/google-map.php';
 			require_once $this->pluginPath . 'public/template-tags/organizer.php';
@@ -558,7 +558,7 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 		 */
 		public function init_day_view() {
 			// load day view functions
-			require_once $this->pluginPath . 'public/template-tags/day.php';
+			require_once $this->pluginPath . 'public/template-tags/Day.php';
 		}
 
 

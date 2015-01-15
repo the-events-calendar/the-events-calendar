@@ -11,11 +11,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
-if ( ! class_exists( 'Tribe_Events_List_Template' ) ) {
+if ( ! class_exists( 'Tribe__Events__Template__List' ) ) {
 	/**
 	 * List view template class
 	 */
-	class Tribe_Events_List_Template extends Tribe_Template_Factory {
+	class Tribe__Events__Template__List extends Tribe_Template_Factory {
 
 		protected $body_class = 'events-list';
 		protected $asset_packages = array( 'ajax-list' );

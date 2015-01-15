@@ -7,7 +7,7 @@
  *     Tickets Pro provider (child of TribeTickets)
  *     available.
  */
-class TribeEventsTicketsMetabox {
+class Tribe__Events__Tickets__Metabox {
 
 	/**
 	 * Registers the tickets metabox if there's at least
@@ -24,7 +24,7 @@ class TribeEventsTicketsMetabox {
 
 		add_meta_box(
 			'tribetickets', __( 'Tickets', 'tribe-events-calendar' ), array(
-				'TribeEventsTicketsMetabox',
+			'Tribe__Events__Tickets__Metabox',
 				'do_modules_metaboxes'
 			), TribeEvents::POSTTYPE, 'normal', 'high'
 		);
@@ -44,7 +44,7 @@ class TribeEventsTicketsMetabox {
 			return;
 		}
 
-		TribeEventsTicketsPro::instance()->do_meta_box( $post_id );
+		Tribe__Events__Tickets__Tickets_Pro::instance()->do_meta_box( $post_id );
 	}
 
 	/**

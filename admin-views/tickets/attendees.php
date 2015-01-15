@@ -3,7 +3,7 @@ $this->attendees_table->prepare_items();
 
 $event_id = isset( $_GET['event_id'] ) ? intval( $_GET['event_id'] ) : 0;
 $event = get_post( $event_id );
-$tickets = TribeEventsTickets::get_event_tickets( $event_id );
+$tickets = Tribe__Events__Tickets__Tickets::get_event_tickets( $event_id );
 ?>
 
 <div class="wrap">
@@ -105,7 +105,7 @@ $tickets = TribeEventsTickets::get_event_tickets( $event_id );
 						<div class="totals">
 							<?php
 
-							$checkedin = TribeEventsTickets::get_event_checkedin_attendees_count( $event_id ); ?>
+							$checkedin = Tribe__Events__Tickets__Tickets::get_event_checkedin_attendees_count( $event_id ); ?>
 
 							<span id="total_tickets_sold_wrapper">
 								<?php _e( 'Tickets sold:', 'tribe-events-calendar' ) ?>

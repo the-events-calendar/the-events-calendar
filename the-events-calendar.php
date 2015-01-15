@@ -35,6 +35,9 @@
 		'Tribe__Events__Utils__' => dirname( __FILE__ ) . '/lib/utils',
 		'Tribe__Events__Admin__' => dirname( __FILE__ ) . '/lib/Admin',
 		'Tribe__Events__Importer__' => dirname( __FILE__ ) . '/lib/io/csv/classes',
+		'Tribe__Events__PU__' => dirname( __FILE__ ) . '/lib/pue/lib',
+		'Tribe__Events__Template__' => dirname( __FILE__ ) . '/lib/template-classes',
+		'Tribe__Events__Tickets__' => dirname( __FILE__ ) . '/lib/tickets',
 	);
 	$autoloader->register_prefixes( $prefixes );
 	$autoloader->add_fallback_dir( dirname( __FILE__ ) . '/lib/deprecated-classes' );

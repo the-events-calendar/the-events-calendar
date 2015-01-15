@@ -11,7 +11,7 @@ if ( ! empty( $header_id ) ) {
 	$header_img = wp_get_attachment_image( $header_id, 'full' );
 }
 
-$modules = TribeEventsTickets::modules();
+$modules = Tribe__Events__Tickets__Tickets::modules();
 ?>
 
 <table id="event_tickets" class="eventtable">

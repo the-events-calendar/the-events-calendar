@@ -11,11 +11,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
-if ( ! class_exists( 'Tribe_Events_Month_Template' ) ) {
+if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 	/**
 	 * Month view template class
 	 */
-	class Tribe_Events_Month_Template extends Tribe_Template_Factory {
+	class Tribe__Events__Template__Month extends Tribe_Template_Factory {
 		const PREVIOUS_MONTH = -1;
 		const CURRENT_MONTH  = 0;
 		const NEXT_MONTH     = 1;
@@ -589,5 +589,5 @@ if ( ! class_exists( 'Tribe_Events_Month_Template' ) ) {
 			}
 		}
 
-	} // class Tribe_Events_Month_Template
+	} // class Tribe__Events__Template__Month
 }

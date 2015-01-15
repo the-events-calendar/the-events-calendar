@@ -60,7 +60,7 @@ class Tribe__Events__Tickets__Google_Event_Data {
 	 * Adds ticket data to the offers property of the event object.
 	 */
 	protected function add_ticket_offers() {
-		foreach ( TribeEventsTickets::get_all_event_tickets( $this->event_id ) as $this->ticket ) {
+		foreach ( Tribe__Events__Tickets__Tickets::get_all_event_tickets( $this->event_id ) as $this->ticket ) {
 			$this->add_individual_offer();
 		}
 	}

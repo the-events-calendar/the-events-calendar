@@ -150,13 +150,13 @@ if ( class_exists( 'TribeEvents' ) ) {
 					$is_ajax_view_request = ( ! empty( $_REQUEST['tribe_event_display'] ) || ! empty( $_REQUEST['eventDate'] ) || ! empty( $_REQUEST['tribe-bar-date'] ) || ! empty( $_REQUEST['tribe_paged'] ) );
 					break;
 				case 'month' :
-					$is_ajax_view_request = ( $_REQUEST['action'] == Tribe_Events_Month_Template::AJAX_HOOK );
+					$is_ajax_view_request = ( $_REQUEST['action'] == Tribe__Events__Template__Month::AJAX_HOOK );
 					break;
 				case 'list' :
-					$is_ajax_view_request = ( $_REQUEST['action'] == Tribe_Events_List_Template::AJAX_HOOK);
+					$is_ajax_view_request = ( $_REQUEST['action'] == Tribe__Events__Template__List::AJAX_HOOK);
 					break;
 				case 'day' :
-					$is_ajax_view_request = ( $_REQUEST['action'] == Tribe_Events_Day_Template::AJAX_HOOK );
+					$is_ajax_view_request = ( $_REQUEST['action'] == Tribe__Events__Template__Day::AJAX_HOOK );
 					break;
 			}
 		}
@@ -632,15 +632,15 @@ if ( class_exists( 'TribeEvents' ) ) {
 		$current_view        = ! empty( $current_view ) ? $current_view : basename( tribe_get_current_template() );
 		$attrs['data-title'] = wp_title( '|', false, 'right' );
 		switch ( $current_view ) {
-			case 'month.php' :
+			case 'Month.php' :
 				$attrs['data-view']    = 'month';
 				$attrs['data-date']    = date( 'Y-m', strtotime( tribe_get_month_view_date() ) );
 				$attrs['data-baseurl'] = tribe_get_gridview_link( false );
 				break;
-			case 'day.php' :
+			case 'Day.php' :
 				$attrs['data-startofweek'] = get_option( 'start_of_week' );
 				break;
-			case 'list.php' :
+			case 'List.php' :
 				$attrs['data-startofweek'] = get_option( 'start_of_week' );				
 				$attrs['data-view'] = 'list';
 				if ( tribe_is_upcoming() ) {
@@ -1302,7 +1302,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 		// get the list view template
 		ob_start();
 		if ( $initialize ) {
-			tribe_initialize_view( 'Tribe_Events_List_Template' );
+			tribe_initialize_view( 'Tribe__Events__Template__List' );
 		}
 		tribe_get_view( 'list/content' );
 		$list_view_html = ob_get_clean();

@@ -39,7 +39,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 			}
 		}
 
-		$month_class = new Tribe_Events_Month_Template( $args );
+		$month_class = new Tribe__Events__Template__Month( $args );
 		$month_class->setup_view();
 
 		do_action( 'tribe_events_before_show_month' );
@@ -90,7 +90,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 * @see Tribe_Events_Month_Template::have_days()
 	 **/
 	function tribe_events_have_month_days() {
-		return Tribe_Events_Month_Template::have_days();
+		return Tribe__Events__Template__Month::have_days();
 	}
 
 	/**
@@ -111,7 +111,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 * @see Tribe_Events_Month_Template::the_day()
 	 **/
 	function tribe_events_the_month_day() {
-		Tribe_Events_Month_Template::the_day();
+		Tribe__Events__Template__Month::the_day();
 	}
 
 	/**
@@ -132,7 +132,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 * @see Tribe_Events_Month_Template::get_current_week()
 	 **/
 	function tribe_events_get_current_week() {
-		return Tribe_Events_Month_Template::get_current_week();
+		return Tribe__Events__Template__Month::get_current_week();
 	}
 
 	/**
@@ -153,7 +153,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 * @see Tribe_Events_Month_Template::get_current_day()
 	 **/
 	function tribe_events_get_current_month_day() {
-		return apply_filters( 'tribe_events_get_current_month_day', Tribe_Events_Month_Template::get_current_day() );
+		return apply_filters( 'tribe_events_get_current_month_day', Tribe__Events__Template__Month::get_current_day() );
 	}
 
 	/**
@@ -164,7 +164,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 * @see Tribe_Events_Month_Template::day_classes()
 	 **/
 	function tribe_events_the_month_day_classes() {
-		echo apply_filters( 'tribe_events_the_month_day_class', Tribe_Events_Month_Template::day_classes() );
+		echo apply_filters( 'tribe_events_the_month_day_class', Tribe__Events__Template__Month::day_classes() );
 	}
 
 	/**
@@ -175,7 +175,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 * @see Tribe_Events_Month_Template::event_classes()
 	 **/
 	function tribe_events_the_month_single_event_classes() {
-		echo apply_filters( 'tribe_events_the_month_single_event_classes', Tribe_Events_Month_Template::event_classes() );
+		echo apply_filters( 'tribe_events_the_month_single_event_classes', Tribe__Events__Template__Month::event_classes() );
 	}
 
 	/**

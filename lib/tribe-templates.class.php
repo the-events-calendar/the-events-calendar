@@ -398,19 +398,19 @@ if ( ! class_exists( 'TribeEventsTemplates' ) ) {
 
 			// list view
 			if ( tribe_is_list_view() || tribe_is_showing_all() || tribe_is_ajax_view_request( 'list' ) ) {
-				$class = 'Tribe_Events_List_Template';
+				$class = 'Tribe__Events__Template__List';
 			}
 			// month view
 			elseif ( tribe_is_month() || tribe_is_ajax_view_request( 'month' ) ) {
-				$class = 'Tribe_Events_Month_Template';
+				$class = 'Tribe__Events__Template__Month';
 			}
 			// day view
 			elseif ( tribe_is_day() || tribe_is_ajax_view_request( 'day' ) ) {
-				$class = 'Tribe_Events_Day_Template';
+				$class = 'Tribe__Events__Template__Day';
 			}
 			// single event view
 			elseif ( is_singular( TribeEvents::POSTTYPE ) ) {
-				$class = 'Tribe_Events_Single_Event_Template';
+				$class = 'Tribe__Events__Template__Single_Event';
 			}
 
 			// apply filters
