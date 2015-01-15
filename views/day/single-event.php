@@ -11,9 +11,7 @@
 
 if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
-} ?>
-
-<?php
+}
 
 $venue_details = array();
 

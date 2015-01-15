@@ -393,4 +393,25 @@ if ( class_exists( 'TribeEvents' ) ) {
 		return apply_filters( 'tribe_get_venue_address_gmap_link', $gmap_link );
 	}
 
+	/**
+	 * Gets venue details for use in some single-event templates.
+	 *
+	 * @param null $post_id
+	 *
+	 * @return array The venue name and venue address.
+	 */
+	function tribe_get_venue_details() {
+		
+		$venue_details = array();
+
+		if ( $venue_name = tribe_get_meta( 'tribe_event_venue_name' ) ) {
+			$venue_details['name'] = $venue_name;
+		}
+
+		if ( $venue_address = tribe_get_meta( 'tribe_event_venue_address' ) ) {
+			$venue_details['address'] = $venue_address;
+		}
+
+		return apply_filters( 'tribe_get_venue_details', $venue_details );
+	}
 }
