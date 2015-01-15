@@ -360,7 +360,11 @@
 					td.cur_url = $( '#tribe-events-header' ).data( 'baseurl' ) + ts.date + '/';
 				}
 				else {
-					td.cur_url = base_url + ts.date + '/';
+					if ( td.default_permalinks ) {
+						td.cur_url = base_url;
+					} else {
+						td.cur_url = base_url + ts.date + '/';
+					}
 				}
 				ts.popping = false;
 				tf.pre_ajax( function() {
@@ -383,7 +387,11 @@
 				td.cur_url = $( '#tribe-events-header' ).data( 'baseurl' ) + ts.date + '/';
 			}
 			else {
-				td.cur_url = base_url + ts.date + '/';
+				if ( td.default_permalinks ) {
+					td.cur_url = base_url;
+				} else {
+					td.cur_url = base_url + ts.date + '/';
+				}
 			}
 			ts.popping = false;
 		} );
