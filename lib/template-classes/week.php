@@ -97,7 +97,20 @@ if ( ! class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 			add_action( 'tribe_events_week_pre_setup_event', array( $this, 'manage_sensitive_info' ) );
 			add_action( 'tribe_pre_get_template_part_pro/week/loop', array( $this, 'rewind_days' ) );
 			add_action( 'tribe_post_get_template_part_pro/week/single-event', array( $this, 'set_previous_event' ), 10, 3 );
+			add_action( 'tribe_pre_get_template_part_pro/week/single-event', array( $this, 'set_global_post' ), 10, 3 );
 		}
+
+		/**
+		 * Set the global post on the hourly loop.
+		 *
+		 * @param $slug
+		 * @param $name
+		 * @param $data
+		 */
+		public function set_global_post($slug, $name, $data) {
+			$GLOBALS['post'] = $data['event'];
+		}
+
 
 		/**
 		 * Keep track of the last event that was outputted, used when determining if we need the overlap class
@@ -178,6 +191,7 @@ if ( ! class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 
 					// loop through all the wordpress posts and sort them into all day vs hourly
 					foreach ( $wp_query->posts as $j => $event ) {
+						$wp_query->posts[$j]->days_between = tribe_get_days_between( $event->_EventStartDate, $event->_EventEndDate, true );
 						if ( tribe_event_is_on_date( $date, $event ) ) {
 							if ( tribe_event_is_all_day( $event ) ) {
 								$all_day_events[]   = $event;
@@ -191,19 +205,18 @@ if ( ! class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 					$formatted_date = date_i18n( $display_format, strtotime( $date ) );
 
 					// create the "day" element
-					$week_days[]    = array(
-						'date'               => $date,
-						'formatted_date'     => $formatted_date,
-						'is_today'           => ( $timestamp_date == $timestamp_today ) ? true : false,
-						'is_past'            => ( $timestamp_date < $timestamp_today ) ? true : false,
-						'is_future'          => ( $timestamp_date > $timestamp_today ) ? true : false,
-						'hourly_events'      => $hourly_events,
-						'all_day_events'     => $all_day_events,
-						'has_events' => $hourly_events || $all_day_events,
+					$week_days[] = array(
+						'date'           => $date,
+						'formatted_date' => $formatted_date,
+						'is_today'       => ( $timestamp_date == $timestamp_today ) ? true : false,
+						'is_past'        => ( $timestamp_date < $timestamp_today ) ? true : false,
+						'is_future'      => ( $timestamp_date > $timestamp_today ) ? true : false,
+						'hourly_events'  => $hourly_events,
+						'all_day_events' => $all_day_events,
+						'has_events'     => $hourly_events || $all_day_events,
 					);
 				}
 			}
-//			print_r( $week_days );
 			self::$week_days = $week_days;
 
 		}
@@ -380,6 +393,12 @@ if ( ! class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 
 			if ( isset( self::$previous_event ) && ! tribe_event_is_all_day( $event ) && strtotime( self::$previous_event->EventStartDate ) < strtotime( $event->EventStartDate ) ) {
 				$classes[] = 'tribe-event-overlap ';
+			}
+
+			if ( ! tribe_event_is_all_day( $event ) ) {
+				$classes[] = 'tribe-events-week-hourly-single';
+			} else {
+				$classes[] = 'tribe-events-week-allday-single';
 			}
 
 			return $classes;
