@@ -377,6 +377,19 @@
 			tribe_events_bar_calendar_ajax_actions( e );
 		} );
 
+		// If there is anything on the filters we need to run the ajax call on load
+		var filters_empty = true;
+		$( '.tribe-bar-filters' ).find( 'input' ).not( '[type="hidden"]' ).each(function(){
+			var $this = $(this);
+			if ( $this.val() != '' ) {
+				filters_empty = false;
+			}
+		});
+
+		if ( true !== filters_empty ){
+			$( 'form#tribe-bar-form' ).trigger( 'submit' );
+		}
+
 		$( te ).on( "tribe_ev_runAjax", function() {
 			tribe_events_calendar_ajax_post();
 		} );
