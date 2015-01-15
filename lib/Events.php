@@ -239,7 +239,7 @@ if ( ! class_exists( 'Tribe__Events__Events' ) ) {
 			require_once $this->pluginPath . 'public/template-tags/date.php';
 			require_once $this->pluginPath . 'public/template-tags/link.php';
 			require_once $this->pluginPath . 'public/template-tags/widgets.php';
-			require_once $this->pluginPath . 'public/template-tags/meta.php';
+			require_once $this->pluginPath . 'public/template-tags/Register_Meta.php';
 			require_once $this->pluginPath . 'public/template-tags/tickets.php';
 
 			// Load Advanced Functions

@@ -533,7 +533,7 @@ if ( ! class_exists( 'TribeEventsTemplates' ) ) {
 			}
 
 			// setup the meta definitions
-			require_once( $tec->pluginPath . 'public/advanced-functions/meta.php' );
+			require_once( $tec->pluginPath . 'public/advanced-functions/Register_Meta.php' );
 
 			// Allow base path for templates to be filtered
 			$template_base_paths = apply_filters( 'tribe_events_template_paths', ( array ) Tribe__Events__Events::instance()->pluginPath );
