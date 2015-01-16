@@ -11,9 +11,11 @@
 
 if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
-} ?>
+}
 
-<?php $args = tribe_events_get_mini_calendar_args(); ?>
+$args = tribe_events_get_mini_calendar_args();
+
+?>
 
 <!-- Removing this wrapper class will break the claendar javascript, please avoid and extend as needed -->
 

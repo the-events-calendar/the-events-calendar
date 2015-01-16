@@ -11,6 +11,7 @@
 if ( ! isset( $fields ) || empty( $fields ) || ! is_array( $fields ) ) {
 	return;
 }
+
 ?>
 
 <div class="tribe-events-meta-group tribe-events-meta-group-other">

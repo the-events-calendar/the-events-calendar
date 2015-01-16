@@ -306,4 +306,15 @@ if ( class_exists( 'TribeEventsPro' ) ) {
 		return empty( $hourly[ $day_counter ] ) ? false : true;
 	}
 
+	/**
+	 * For use within the week view to see if current week has All Day events.
+	 *
+	 * @return bool True if there are All Day events in current week, false if not.
+	 */
+	function tribe_week_has_all_day_events() {
+		$all_day_map   = tribe_events_week_get_all_day_map();
+		$all_day_array = array_filter( $all_day_map[0], "is_numeric" );
+
+		return ! empty( $all_day_array );
+	}
 }
