@@ -317,4 +317,56 @@ if ( class_exists( 'TribeEventsPro' ) ) {
 
 		return ! empty( $all_day_array );
 	}
+
+	/**
+	 * Echoes HTML that forms the vertical hours grid in the Week View.
+	 *
+	 * @return array
+	 */
+	function tribe_events_pro_get_multiday_cutoff() {
+		return explode( ':', tribe_get_option( 'multiDayCutoff', '00:00' ) );
+	}
+
+	/**
+	 * Echoes HTML for the vertical hours grids within the Week View inner grid.
+	 *
+	 * @param array $multiday_cutoff
+	 *
+	 * @return array
+	 */
+	function tribe_events_pro_setup_week_grid_blocks( $multiday_cutoff ) {
+
+		$multiday_cutoff[0] = (int) ltrim( $multiday_cutoff[0], '0' );
+
+		// If hour is greater than 24, then wrap back around to 0
+		for ( $hour = $multiday_cutoff[0]; $hour <= $multiday_cutoff[0] + 23; $hour ++ ) :
+
+			if ( $hour >= 24 ) {
+				$display_hour = $hour % 24;
+			} else {
+				$display_hour = $hour;
+			}
+		?>
+		<div class="tribe-week-grid-block" data-hour="<?php echo $display_hour; ?>">
+			<div></div>
+		</div>
+		<?php endfor;
+	}
+
+	/**
+	 * Echoes HTML for the vertical hours grid alongside the Week View inner grid.
+	 *
+	 * @param array $multiday_cutoff
+	 *
+	 * @return void
+	 */
+	function tribe_events_pro_setup_week_grid_hours( $multiday_cutoff ) {
+
+		$hour_format = apply_filters( 'tribe_events_pro_week_hour_format', get_option( 'time_format', 'gA' ) );
+
+		for ( $hour = $multiday_cutoff[0]; $hour <= $multiday_cutoff[0] + 23; $hour ++ ) : ?>
+			<div class="time-row-<?php echo date_i18n( 'gA', mktime( $hour ) ); ?>"><?php echo date_i18n( $hour_format, strtotime( ( $hour % 24 ) . ':00' ) ); ?></div>
+		<?php endfor;
+	}
+
 }
