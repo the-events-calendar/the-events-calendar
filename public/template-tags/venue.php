@@ -26,8 +26,9 @@ if( class_exists('TribeEventsPro')) {
 			tribe_set_the_meta_visibility( 'tribe_event_venue', false, 'meta_group');
 
 			$args = array(
-				'venue' => $post_id,
-				'eventDisplay' => 'list'
+				'venue'          => $post_id,
+				'eventDisplay'   => 'list',
+				'posts_per_page' => apply_filters( 'tribe_events_single_venue_posts_per_page', 100 )
 			);
 
 			$html = tribe_include_view_list( $args );
