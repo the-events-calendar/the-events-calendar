@@ -711,7 +711,7 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 							'utm_source'   => 'notice'
 						), self::$tribeUrl . 'version-relationships-in-modern-tribe-pluginsadd-ons/'
 					);
-					$output .= '<p>' . sprintf( __( 'The following plugins are out of date: <b>%s</b>. All add-ons contain dependencies on The Events Calendar and will not function properly unless paired with the right version. %sWant to pair an older version%s?', 'tribe-events-calendar' ), join( $out_of_date_addons, ', ' ), "<a href='$link' target='_blank'>", '</a>' ) . '</p>';
+					$output .= '<p>' . sprintf( __( 'The following plugins are out of date: <b>%s</b>. All add-ons contain dependencies on The Events Calendar and will not function properly unless paired with the right version. %sLearn More%s.', 'tribe-events-calendar' ), join( $out_of_date_addons, ', ' ), "<a href='$link' target='_blank'>", '</a>' ) . '</p>';
 					$output .= '</div>';
 				}
 			}
@@ -1732,7 +1732,7 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 		 */
 		public static function getOptions() {
 			return get_option( TribeEvents::OPTIONNAME, array() );
-		}
+			}
 
 		/**
 		 * Get value for a specific option
@@ -1774,7 +1774,7 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 				$options = apply_filters( 'tribe-events-save-options', $options );
 			}
 			update_option( TribeEvents::OPTIONNAME, $options );
-		}
+			}
 
 		/**
 		 * Set an option
@@ -2798,7 +2798,7 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 				return;
 			}
 
-			add_action( 'added_post_meta', array( $this, 'update_known_range' ), 10, 3 );
+			add_action( 'tribe_events_update_meta', array( $this, 'update_known_range' ), 10, 3 );
 		}
 
 		/**
@@ -2810,9 +2810,7 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 		 * where the removal/restoration of hooks within addEventMeta() etc might stop this method from
 		 * actually being called (relates to a core WP bug).
 		 */
-		public function update_known_range( $meta_id, $object_id, $meta_key  ) {
-			if ( TribeEvents::POSTTYPE !== get_post_type( $object_id ) ) return;
-			if ( '_EventDuration' !== $meta_key ) return;
+		public function update_known_range( $object_id ) {
 
 			$current_min = tribe_events_earliest_date();
 			$current_max = tribe_events_latest_date();
@@ -3141,7 +3139,7 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 		 */
 		public function EventsChooserBox( $event = null ) {
 			new Tribe__Events__Admin__Event_Meta_Box( $event );
-		}
+				}
 
 		/**
 		 * Adds a style chooser to the write post page
@@ -3150,8 +3148,8 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 		 */
 		public function VenueMetaBox() {
 			global $post;
-			$options  = '';
-			$style    = '';
+			$options = '';
+			$style   = '';
 			$event    = $post;
 
 			if ( $post->post_type == self::VENUE_POST_TYPE ) {
@@ -3365,7 +3363,7 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 			// Create a new date object: a badly formed date can trigger an exception - in such
 			// a scenario try again and default to the current time instead
 			try {
-				$date = new DateTime( $date );
+			$date = new DateTime( $date );
 			}
 			catch ( Exception $e ) {
 				$date = new DateTime;
@@ -3400,7 +3398,7 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 			// Create a new date object: a badly formed date can trigger an exception - in such
 			// a scenario try again and default to the current time instead
 			try {
-				$date = new DateTime( $date );
+			$date = new DateTime( $date );
 			}
 			catch ( Exception $e ) {
 				$date = new DateTime;
@@ -4259,8 +4257,8 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 			$updater = new Tribe__Events__Updater( self::VERSION );
 			if ( $updater->update_required() ) {
 				$updater->do_updates();
-			}
-		}
+					}
+				}
 
 		/**
 		 * Helper used to test if PRO is present and activated.
