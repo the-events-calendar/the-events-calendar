@@ -104,3 +104,59 @@ function tribe_events_the_mini_calendar_day_link() {
 function tribe_events_get_mini_calendar_args() {
 	return apply_filters( 'tribe_events_get_mini_calendar_args', TribeEventsMiniCalendar::instance()->get_args() );
 }
+
+/**
+ * Returns 'current_post', the location in the loop, and 'class', which is empty unless it's the
+ * first post in loop ("first") or the last ("last").
+ *
+ * @return array
+ **/
+function tribe_get_mini_calendar_event_atts() {
+	
+	global $post, $wp_query;
+
+	$class = '';
+
+	if ( $wp_query->current_post == 1 ) {
+		$class = ' first ';
+	}
+
+	if ( $wp_query->current_post + 1 == $wp_query->post_count ) {
+		$class .= ' last ';
+	}
+
+	$atts = array(
+		'current_post' => $wp_query->current_post,
+		'class'        => $class
+	);
+
+	return apply_filters( 'tribe_get_mini_calendar_event_atts', $atts );
+}
+
+/**
+ * Returns the event date, or today's date if the event has started and is not over yet.
+ *
+ * @return int
+ **/
+function tribe_get_mini_calendar_event_post_date() {
+	
+	global $post, $wp_query;
+
+	$startDate = strtotime( $post->EventStartDate );
+	$endDate   = strtotime( $post->EventEndDate );
+	$today     = time();
+
+	/* If the event starts way in the past or ends way in the future, let's show today's date */
+	if ( $today > $startDate && $today < $endDate ) {
+		$postDate = $today;
+	} else {
+		$postDate = $startDate;
+	}
+
+	/* If the user clicked in a particular day, let's show that day as the event date, even if the event spans a few days */
+	if ( defined( "DOING_AJAX" ) && DOING_AJAX && isset( $_POST['action'] ) && $_POST['action'] == 'tribe-mini-cal-day' ) {
+		$postDate = strtotime( $_POST["eventDate"] );
+	}
+
+	return apply_filters( 'tribe_get_mini_calendar_event_post_date', $postDate );
+}
