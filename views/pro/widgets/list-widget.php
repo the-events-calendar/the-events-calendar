@@ -30,31 +30,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
-// We'll need to utilize the post global
-global $post;
+// The URL for this widget's "View More" link.
+$link_to_all = tribe_events_get_list_widget_view_all_link( $instance );
 
-// Have taxonomy filters been applied?
-$filters = json_decode( $filters, true );
+// Check if any posts were found.
+if ( $posts ) :
 
-// Is the filter restricted to a single taxonomy?
-$single_taxonomy = ( is_array( $filters ) && 1 === count( $filters ) );
-$single_term     = false;
-
-// Pull the actual taxonomy and list of terms into scope
-if ( $single_taxonomy ) foreach ( $filters as $taxonomy => $terms );
-
-// If we have a single taxonomy and a single term, the View All link should point to the relevant archive page
-if ( $single_taxonomy && 1 === count( $terms ) ) {
-	$link_to_archive = true;
-	$link_to_all     = get_term_link( absint( $terms[0] ), $taxonomy );
-} // Otherwise link to the main events page
-else {
-	$link_to_archive = false;
-	$link_to_all     = tribe_get_events_link();
-}
-
-// Check if any posts were found
-if ( $posts ):
 	foreach ( $posts as $post ) :
 		setup_postdata( $post );
 		do_action( 'tribe_events_widget_list_inside_before_loop' ); ?>
@@ -65,6 +46,7 @@ if ( $posts ):
 		</div><!-- .hentry .vevent -->
 
 		<?php do_action( 'tribe_events_widget_list_inside_after_loop' ) ?>
+
 	<?php endforeach ?>
 
 	<p class="tribe-events-widget-link">
@@ -72,13 +54,14 @@ if ( $posts ):
 			<?php _e( 'View More&hellip;', 'tribe-events-calendar-pro' ) ?>
 		</a>
 	</p>
+
 <?php
-// No Events were Found
+// No Events were found.
 else:
-	?>
+?>
 	<p><?php printf( __( 'There are no upcoming %s at this time.', 'tribe-events-calendar' ), strtolower( tribe_get_event_label_plural() ) ); ?></p>
 <?php
 endif;
 
-// Cleanup
+// Cleanup. Do not remove this.
 wp_reset_postdata();
