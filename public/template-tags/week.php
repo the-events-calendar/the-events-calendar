@@ -321,7 +321,7 @@ if ( class_exists( 'TribeEventsPro' ) ) {
 	/**
 	 * Echoes HTML that forms the vertical hours grid in the Week View.
 	 *
-	 * @return array
+	 * @return array The time set as the "End of day cutoff" in Events Settings
 	 */
 	function tribe_events_pro_get_multiday_cutoff() {
 		return explode( ':', tribe_get_option( 'multiDayCutoff', '00:00' ) );
