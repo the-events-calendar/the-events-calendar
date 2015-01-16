@@ -11,12 +11,21 @@
 		 *      // will be `/var/www/site/wp-content/plugins/the-events-calendar'
 		 *      $this_dir = dirname(__FILE__);
 		 *
+		 *      // gets hold of the singleton instance of the class
 		 *      $autoloader = Tribe__Events__Autoloader::instance();
+		 *
 		 *      // register one by one or use `register_prefixes` method
 		 *      $autoloader->register_prefix( 'Tribe__Events__Admin__', $this_dir . '/lib/admin' );
 		 *      $autoloader->register_prefix( 'Tribe__Events__Admin__', $this_dir . '/lib/another-dir' );
 		 *      $autoloader->register_prefix( 'Tribe__Events__Utils__', $this_dir . '/lib/another-dir' );
-		 *      $autoloader->add_fallback_dir( $this_dir . '/deprecated' );
+		 *
+		 *      // register a direct class to path
+		 *      $autoloader->register_class( 'Tribe__Events__Some_Class', $this_dir . '/some/path/to/Some_Class.php' );
+		 *
+		 *      // register a fallback dir to be searched for the class before giving up
+		 *      $autoloader->add_fallback_dir( $this_dir . '/all-the-classes' );
+		 *
+		 *      // calls `spl_autoload_register`
 		 *      $autoloader->register_autoloader();
 		 *
 		 *      // class will be searched in the path
