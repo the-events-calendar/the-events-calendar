@@ -405,8 +405,6 @@ class TribeEventsGeoLoc {
 			delete_transient( self::ESTIMATION_CACHE_KEY );
 			return true;
 		} else {
-			update_post_meta( $venueId, self::LAT, '' );
-			update_post_meta( $venueId, self::LNG, '' );
 			update_post_meta( $venueId, self::OVERWRITE, 0 );
 		}
 
