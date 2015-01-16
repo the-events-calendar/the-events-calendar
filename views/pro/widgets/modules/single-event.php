@@ -12,9 +12,9 @@
  *
  */
 
-$mini_cal_event_atts = tribe_get_mini_calendar_event_atts();
+$mini_cal_event_atts = tribe_events_get_widget_event_atts();
 
-$postDate = tribe_get_mini_calendar_event_post_date();
+$postDate = tribe_events_get_widget_event_post_date();
 
 ?>
 

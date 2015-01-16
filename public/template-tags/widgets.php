@@ -111,13 +111,13 @@ function tribe_events_get_mini_calendar_args() {
  *
  * @return array
  **/
-function tribe_get_mini_calendar_event_atts() {
+function tribe_events_get_widget_event_atts() {
 	
 	global $post, $wp_query;
 
 	$class = '';
 
-	if ( $wp_query->current_post == 1 ) {
+	if ( 0 == $wp_query->current_post ) {
 		$class = ' first ';
 	}
 
@@ -130,7 +130,7 @@ function tribe_get_mini_calendar_event_atts() {
 		'class'        => $class
 	);
 
-	return apply_filters( 'tribe_get_mini_calendar_event_atts', $atts );
+	return apply_filters( 'tribe_events_get_widget_event_atts', $atts );
 }
 
 /**
@@ -138,7 +138,7 @@ function tribe_get_mini_calendar_event_atts() {
  *
  * @return int
  **/
-function tribe_get_mini_calendar_event_post_date() {
+function tribe_events_get_widget_event_post_date() {
 	
 	global $post, $wp_query;
 
@@ -158,5 +158,5 @@ function tribe_get_mini_calendar_event_post_date() {
 		$postDate = strtotime( $_POST["eventDate"] );
 	}
 
-	return apply_filters( 'tribe_get_mini_calendar_event_post_date', $postDate );
+	return apply_filters( 'tribe_events_get_widget_event_post_date', $postDate );
 }
