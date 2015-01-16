@@ -742,5 +742,27 @@ if( class_exists( 'TribeEventsPro' ) ) {
 		return $url;
 	}
 
+	/**
+	 * Output the upcoming events associated with a venue
+	 *
+	 * @return void
+	 */
+	function tribe_organizer_upcoming_events( $post_id = false ) {
+
+		$post_id = TribeEvents::postIdHelper( $post_id );
+
+		if ( $post_id ) {
+
+			$args = array(
+				'organizer'      => $post_id,
+				'eventDisplay'   => 'list',
+				'posts_per_page' => apply_filters( 'tribe_events_single_organizer_posts_per_page', 100 )
+			);
+
+			$html = tribe_include_view_list( $args );
+
+			return apply_filters( 'tribe_organizer_upcoming_events', $html );
+		}
+	}
 
 }

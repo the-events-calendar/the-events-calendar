@@ -61,13 +61,11 @@ $organizer_id = get_the_ID();
 
 	<!-- Upcoming event list -->
 	<?php do_action('tribe_events_single_organizer_before_upcoming_events') ?>
-	<?php // Use the 'tribe_events_single_organizer_posts_per_page' to filter the 
-	 	  // number of events to display beneath the venue info on the venue page.
-	?> 
-		<?php echo tribe_include_view_list( array( 'organizer'    => get_the_ID(),
-		                                           'eventDisplay' => 'list',
-				apply_filters( 'tribe_events_single_organizer_posts_per_page', 100 )
-			) ) ?>
+
+	<?php
+	// Use the tribe_events_single_organizer_posts_per_page to filter the number of events to get here.
+	echo tribe_organizer_upcoming_events( $organizer_id ); ?>
+
 	<?php do_action('tribe_events_single_organizer_after_upcoming_events') ?>
 	
 </div><!-- .tribe-events-organizer -->

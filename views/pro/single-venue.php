@@ -74,7 +74,11 @@ $venue_id = get_the_ID();
 
 	<!-- Upcoming event list -->
 	<?php do_action( 'tribe_events_single_venue_before_upcoming_events' ) ?>
-	<?php echo tribe_venue_upcoming_events( $venue_id ); ?>
+
+	<?php
+	// Use the tribe_events_single_venuer_posts_per_page to filter the number of events to get here.
+	echo tribe_venue_upcoming_events( $venue_id ); ?>
+
 	<?php do_action( 'tribe_events_single_venue_after_upcoming_events' ) ?>
 	
 </div><!-- .tribe-events-venue -->
