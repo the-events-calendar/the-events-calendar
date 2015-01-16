@@ -108,7 +108,7 @@ function tribe_events_has_unlimited_stock_tickets( $event = null ) {
 	}
 
 	foreach ( Tribe__Events__Tickets__Tickets::get_all_event_tickets( $event->ID ) as $ticket ) {
-		if ( Tribe__Events__Tickets__TicketObject::UNLIMITED_STOCK === $ticket->stock ) return true;
+		if ( Tribe__Events__Tickets__Ticket_Object::UNLIMITED_STOCK === $ticket->stock ) return true;
 	}
 
 	return false;
@@ -148,7 +148,7 @@ function tribe_events_get_ticket_event( $possible_ticket ) {
  *
  * @return bool
  */
-function tribe_events_ticket_is_on_sale( Tribe__Events__Tickets__TicketObject $ticket ) {
+function tribe_events_ticket_is_on_sale( Tribe__Events__Tickets__Ticket_Object $ticket ) {
 	// No dates set? Then it's on sale!
 	if ( empty( $ticket->start_date ) && empty( $ticket->end_date ) ) {
 		return true;

@@ -292,7 +292,7 @@ if ( ! class_exists( 'Tribe__Events__Tickets__Tickets' ) ) {
 			if ( ! isset( $data["ticket_provider"] ) || ! $this->module_is_valid( $data["ticket_provider"] ) )
 				$this->ajax_error( 'Bad module' );
 
-			$ticket = new Tribe__Events__Tickets__TicketObject();
+			$ticket = new Tribe__Events__Tickets__Ticket_Object();
 
 			$ticket->ID          = isset( $data["ticket_id"] ) ? absint( $data["ticket_id"] ) : null;
 			$ticket->name        = isset( $data["ticket_name"] ) ? esc_html( $data["ticket_name"] ) : null;
