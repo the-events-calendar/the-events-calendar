@@ -1235,7 +1235,7 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 			);
 
 			$this->taxonomyLabels = array(
-				'name'              => sprintf( __( '%s Categories', 'tribe-events-calendar' ), $this->singular_event_label ),				
+				'name'              => sprintf( __( '%s Categories', 'tribe-events-calendar' ), $this->singular_event_label ),
 				'singular_name'     => sprintf( __( '%s Category', 'tribe-events-calendar' ), $this->singular_event_label ),
 				'search_items'      => sprintf( __( 'Search %s Categories', 'tribe-events-calendar' ), $this->singular_event_label ),
 				'all_items'         => sprintf( __( 'All %s Categories', 'tribe-events-calendar' ), $this->singular_event_label ),
@@ -1274,7 +1274,7 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 					__( '%1$s scheduled for: <strong>%2$s</strong>. <a target="_blank" href="%3$s">Preview %4$s</a>', 'tribe-events-calendar' ),
 					$this->singular_event_label,
 					// translators: Publish box date format, see http://php.net/date
-					date_i18n( __( 'M j, Y @ G:i', 'tribe-events-calendar' ), strtotime( $post->post_date ) ), esc_url( get_permalink( $post_ID ) ), strtolower( $this->singular_event_label )				
+					date_i18n( __( 'M j, Y @ G:i', 'tribe-events-calendar' ), strtotime( $post->post_date ) ), esc_url( get_permalink( $post_ID ) ), strtolower( $this->singular_event_label )
 				),
 				10 => sprintf( __( '%1$s draft updated. <a target="_blank" href="%2$s">Preview %3$s</a>', 'tribe-events-calendar' ), $this->singular_event_label, esc_url( add_query_arg( 'preview', 'true', get_permalink( $post_ID ) ) ), strtolower( $this->singular_event_label ) ),
 			);
@@ -1394,7 +1394,7 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 			$my_venue_options = '';
 			if ( 0 != $current_user->ID ) {
 				$my_venues = $this->get_venue_info(
-								  null, null, array(
+								  null, array(
 										  'post_status' => array(
 											  'publish',
 											  'draft',
@@ -1418,7 +1418,7 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 
 			if ( current_user_can( 'edit_others_tribe_venues' ) ) {
 				$venues = $this->get_venue_info(
-							   null, null, array(
+							   null, array(
 									   'post_status'  => array(
 										   'publish',
 										   'draft',
@@ -1430,7 +1430,7 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 				);
 			} else {
 				$venues = $this->get_venue_info(
-							   null, null, array(
+							   null, array(
 									   'post_status'  => 'publish',
 									   'post__not_in' => $my_venue_ids
 								   )
@@ -2456,7 +2456,7 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 
 				//Only add the permalink if it's shorter than 900 characters, so we don't exceed the browser's URL limits
 				if ( strlen( $event_url ) < 900 ) {
-					$event_details .= sprintf( ' (View Full %1$s Description Here: %2$s)', $this->singular_event_label, $event_url );					
+					$event_details .= sprintf( ' (View Full %1$s Description Here: %2$s)', $this->singular_event_label, $event_url );
 				}
 			}
 
@@ -2477,7 +2477,7 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 		}
 
 		/**
-		 * Returns a link to google maps for the given event. This link can be filtered 
+		 * Returns a link to google maps for the given event. This link can be filtered
 		 * using the tribe_events_google_map_link hook.
 		 *
 		 * @param int|null $post_id
@@ -3004,7 +3004,7 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 		 *
 		 * @return WP_Query->posts || false
 		 */
-		function get_venue_info( $p = null, $deprecated = null, $args = array() ) {
+		function get_venue_info( $p = null, $args = array() ) {
 			$defaults = array(
 				'post_type'            => self::VENUE_POST_TYPE,
 				'nopaging'             => 1,
@@ -3014,14 +3014,6 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 				'order'                => 'ASC',
 				'p'                    => $p
 			);
-
-			// allow deprecated param to pass through by default
-			// NOTE: setting post_status in $args will override $post_status
-			if ( $deprecated != null ) {
-				_deprecated_argument( __FUNCTION__, 'The Event Calendar v2.0.9', 'To use the latest code, please supply post_status in the argument array params.' );
-				$defaults['post_status'] = $deprecated;
-			}
-
 
 			$args = wp_parse_args( $args, $defaults );
 			$r    = new WP_Query( $args );
