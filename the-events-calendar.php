@@ -27,26 +27,8 @@
 	Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 	*/
 
-	require_once( dirname( __FILE__ ) . '/lib/utils/Autoloader.php' );
-	$autoloader = Tribe__Events__Autoloader::instance();
-	$prefixes = array(
-		'Tribe__Events__' => dirname( __FILE__ ) . '/lib',
-		'Tribe__Events__Utils__' => dirname( __FILE__ ) . '/lib/utils',
-		'Tribe__Events__Admin__' => dirname( __FILE__ ) . '/lib/Admin',
-		'Tribe__Events__Importer__' => dirname( __FILE__ ) . '/lib/io/csv/classes',
-		'Tribe__Events__PUE__' => dirname( __FILE__ ) . '/lib/pue/lib',
-		'Tribe__Events__Template__' => dirname( __FILE__ ) . '/lib/template-classes',
-		'Tribe__Events__Tickets__' => dirname( __FILE__ ) . '/lib/tickets',
-		'Tribe__Events__Advanced_Functions__' => dirname( __FILE__ ) . '/public/advanced-functions',
-	);
-	$autoloader->register_prefixes( $prefixes );
-
-	// deprecated classes are registered in a class to path fashion
-	foreach ( glob( dirname( __FILE__ ) . '/lib/deprecated-classes/*.php' ) as $file ) {
-		$class_name = basename($file);
-		$autoloader->register_class($class_name, $file);
-	}
-	$autoloader->register_autoloader();
+	// the main plugin class
+	require_once dirname(__FILE__)	 . '/lib/Events.php';
 
 	Tribe__Events__Events::instance();
 

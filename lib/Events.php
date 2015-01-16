@@ -209,6 +209,10 @@ if ( ! class_exists( 'Tribe__Events__Events' ) ) {
 			$this->pluginDir  = trailingslashit( basename( $this->pluginPath ) );
 			$this->pluginUrl  = plugins_url( $this->pluginDir );
 
+			// include the autolader class
+			require_once( $this->pluginPath . '/lib/utils/Autoloader.php' );
+			$this->init_autoloading();
+
 			add_action( 'init', array( $this, 'loadTextDomain' ), 1 );
 
 			if ( self::supportedVersion( 'wordpress' ) && self::supportedVersion( 'php' ) ) {
@@ -239,7 +243,7 @@ if ( ! class_exists( 'Tribe__Events__Events' ) ) {
 			require_once $this->pluginPath . 'public/template-tags/date.php';
 			require_once $this->pluginPath . 'public/template-tags/link.php';
 			require_once $this->pluginPath . 'public/template-tags/widgets.php';
-			require_once $this->pluginPath . 'public/template-tags/Register_Meta.php';
+			require_once $this->pluginPath . 'public/template-tags/meta.php';
 			require_once $this->pluginPath . 'public/template-tags/tickets.php';
 
 			// Load Advanced Functions
@@ -494,11 +498,8 @@ if ( ! class_exists( 'Tribe__Events__Events' ) ) {
 		 */
 		public function init_ical() {
 			//iCal
-			if ( ! class_exists( 'TribeiCal' ) ) {
-//				require_once 'tribe-ical.class.php';
-				Tribe__Events__iCal::init();
-				require_once $this->pluginPath . 'public/template-tags/ical.php';
-			}
+			Tribe__Events__iCal::init();
+			require_once $this->pluginPath . 'public/template-tags/ical.php';
 		}
 
 		/**
@@ -1228,7 +1229,7 @@ if ( ! class_exists( 'Tribe__Events__Events' ) ) {
 			);
 
 			$this->taxonomyLabels = array(
-				'name'              => sprintf( __( '%s Categories', 'tribe-events-calendar' ), $this->singular_event_label ),				
+				'name'              => sprintf( __( '%s Categories', 'tribe-events-calendar' ), $this->singular_event_label ),
 				'singular_name'     => sprintf( __( '%s Category', 'tribe-events-calendar' ), $this->singular_event_label ),
 				'search_items'      => sprintf( __( 'Search %s Categories', 'tribe-events-calendar' ), $this->singular_event_label ),
 				'all_items'         => sprintf( __( 'All %s Categories', 'tribe-events-calendar' ), $this->singular_event_label ),
@@ -1267,7 +1268,7 @@ if ( ! class_exists( 'Tribe__Events__Events' ) ) {
 					__( '%1$s scheduled for: <strong>%2$s</strong>. <a target="_blank" href="%3$s">Preview %4$s</a>', 'tribe-events-calendar' ),
 					$this->singular_event_label,
 					// translators: Publish box date format, see http://php.net/date
-					date_i18n( __( 'M j, Y @ G:i', 'tribe-events-calendar' ), strtotime( $post->post_date ) ), esc_url( get_permalink( $post_ID ) ), strtolower( $this->singular_event_label )				
+					date_i18n( __( 'M j, Y @ G:i', 'tribe-events-calendar' ), strtotime( $post->post_date ) ), esc_url( get_permalink( $post_ID ) ), strtolower( $this->singular_event_label )
 				),
 				10 => sprintf( __( '%1$s draft updated. <a target="_blank" href="%2$s">Preview %3$s</a>', 'tribe-events-calendar' ), $this->singular_event_label, esc_url( add_query_arg( 'preview', 'true', get_permalink( $post_ID ) ) ), strtolower( $this->singular_event_label ) ),
 			);
@@ -2449,7 +2450,7 @@ if ( ! class_exists( 'Tribe__Events__Events' ) ) {
 
 				//Only add the permalink if it's shorter than 900 characters, so we don't exceed the browser's URL limits
 				if ( strlen( $event_url ) < 900 ) {
-					$event_details .= sprintf( ' (View Full %1$s Description Here: %2$s)', $this->singular_event_label, $event_url );					
+					$event_details .= sprintf( ' (View Full %1$s Description Here: %2$s)', $this->singular_event_label, $event_url );
 				}
 			}
 
@@ -2470,7 +2471,7 @@ if ( ! class_exists( 'Tribe__Events__Events' ) ) {
 		}
 
 		/**
-		 * Returns a link to google maps for the given event. This link can be filtered 
+		 * Returns a link to google maps for the given event. This link can be filtered
 		 * using the tribe_events_google_map_link hook.
 		 *
 		 * @param int|null $post_id
@@ -4270,6 +4271,29 @@ if ( ! class_exists( 'Tribe__Events__Events' ) ) {
 		 */
 		public static function ecpActive( $version = '2.0.7' ) {
 			return class_exists( 'TribeEventsPro' ) && defined( 'TribeEventsPro::VERSION' ) && version_compare( TribeEventsPro::VERSION, $version, '>=' );
+		}
+
+		protected function init_autoloading() {
+			$autoloader = Tribe__Events__Autoloader::instance();
+
+			$prefixes = array(
+				'Tribe__Events__' => $this->pluginPath . 'lib',
+				'Tribe__Events__Utils__' => $this->pluginPath . 'lib/utils',
+				'Tribe__Events__Admin__' => $this->pluginPath . 'lib/Admin',
+				'Tribe__Events__Importer__' => $this->pluginPath . 'lib/io/csv/classes',
+				'Tribe__Events__PUE__' => $this->pluginPath . 'lib/pue/lib',
+				'Tribe__Events__Template__' => $this->pluginPath . 'lib/template-classes',
+				'Tribe__Events__Tickets__' => $this->pluginPath . 'lib/tickets',
+				'Tribe__Events__Advanced_Functions__' => $this->pluginPath . 'public/advanced-functions',
+			);
+			$autoloader->register_prefixes( $prefixes );
+
+			// deprecated classes are registered in a class to path fashion
+			foreach ( glob( $this->pluginPath . 'lib/deprecated-classes/*.php' ) as $file ) {
+				$class_name = basename( $file );
+				$autoloader->register_class( $class_name, $file );
+			}
+			$autoloader->register_autoloader();
 		}
 
 	} // end TribeEvents class
