@@ -2798,7 +2798,7 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 				return;
 			}
 
-			add_action( 'tribe_events_update_meta', array( $this, 'update_known_range' ), 10, 3 );
+			add_action( 'tribe_events_update_meta', array( $this, 'update_known_range' ) );
 		}
 
 		/**
