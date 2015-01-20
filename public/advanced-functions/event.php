@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
-if ( class_exists( 'TribeEvents' ) ) {
+if ( class_exists( 'Tribe__Events__Events' ) ) {
 
 	/**
 	 * Create an Event
@@ -54,8 +54,8 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 * @category Events
 	 */
 	function tribe_create_event( $args ) {
-		$args['post_type'] = TribeEvents::POSTTYPE;
-		$postId = TribeEventsAPI::createEvent( $args );
+		$args['post_type'] = Tribe__Events__Events::POSTTYPE;
+		$postId = Tribe__Events__API::createEvent( $args );
 
 		return $postId;
 	}
@@ -73,7 +73,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 * @category Events
 	 */
 	function tribe_update_event( $postId, $args ) {
-		$postId = TribeEventsAPI::updateEvent( $postId, $args );
+		$postId = Tribe__Events__API::updateEvent( $postId, $args );
 
 		return $postId;
 	}
@@ -90,7 +90,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 * @category Events
 	 */
 	function tribe_delete_event( $postId, $force_delete = false ) {
-		$success = TribeEventsAPI::deleteEvent( $postId, $force_delete );
+		$success = Tribe__Events__API::deleteEvent( $postId, $force_delete );
 
 		return $success;
 	}

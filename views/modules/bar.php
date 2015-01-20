@@ -4,7 +4,7 @@
  * Renders our events navigation bar used across our views
  *
  * $filters and $views variables are loaded in and coming from
- * the show funcion in: lib/tribe-events-bar.class.php
+ * the show funcion in: lib/Bar.php
  *
  * @package TribeEventsCalendar
  *
