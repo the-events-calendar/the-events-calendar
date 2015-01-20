@@ -641,7 +641,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 				$attrs['data-startofweek'] = get_option( 'start_of_week' );
 				break;
 			case 'list.php' :
-				$attrs['data-startofweek'] = get_option( 'start_of_week' );				
+				$attrs['data-startofweek'] = get_option( 'start_of_week' );
 				$attrs['data-view'] = 'list';
 				if ( tribe_is_upcoming() ) {
 					$attrs['data-baseurl'] = tribe_get_listview_link( false );
@@ -1119,7 +1119,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 
 		$schedule = $before . $schedule . $after;
 
-		return apply_filters( 'tribe_events_event_schedule_details', $schedule );
+		return apply_filters( 'tribe_events_event_schedule_details', $schedule, $event->ID );
 	}
 
 	/**
