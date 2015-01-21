@@ -1058,11 +1058,13 @@ class TribeEventsRecurrenceMeta {
 	 * @return string The new group by clause.
 	 */
 	public static function addGroupBy( $group_by, $query ) {
-		if ( tribe_is_month() || tribe_is_week() || tribe_is_day() ) {
-			return $group_by;
+		if ( ! isset( $query->query_vars['tribe_widget_flag'] ) || ! $query->query_vars['tribe_widget_flag'] ){
+			if ( tribe_is_month() || tribe_is_week() || tribe_is_day() ) {
+				return $group_by;
+			}
 		}
 		if ( ! empty( $query->tribe_is_event_query ) || ! empty( $query->tribe_is_multi_posttype ) ) {
-			if ( isset( $query->query_vars['tribeHideRecurrence'] ) && $query->query_vars['tribeHideRecurrence'] == 1 ) {
+			if ( isset( $query->query_vars['tribeHideRecurrence'] ) && $query->query_vars['tribeHideRecurrence'] ) {
 				global $wpdb;
 				$group_by = " IF( {$wpdb->posts}.post_parent = 0, {$wpdb->posts}.ID, {$wpdb->posts}.post_parent )";
 			}

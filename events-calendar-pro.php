@@ -70,7 +70,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			$this->pluginDir = trailingslashit( basename( dirname( __FILE__ ) ) );
 			$this->pluginPath = trailingslashit( dirname( __FILE__ ) );
 			$this->pluginUrl = plugins_url( $this->pluginDir );
-			$this->pluginSlug = 'events-calendar-pro';			
+			$this->pluginSlug = 'events-calendar-pro';
 
 			$this->loadTextDomain();
 
@@ -649,7 +649,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 	  	}
 
 		public function filter_settings_tab_fields( $fields, $tab ) {
-			$this->singular_event_label = tribe_get_event_label_singular(); 
+			$this->singular_event_label = tribe_get_event_label_singular();
 			$this->plural_event_label = tribe_get_event_label_plural();
 			switch ( $tab ) {
 				case 'display':
@@ -1152,13 +1152,15 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		 */
 		public function setup_hide_recurrence_in_query( $query ) {
 
-			// don't hide any recurrences on the all recurrences view
-			if ( tribe_is_showing_all() || tribe_is_week() || tribe_is_month() || tribe_is_day() ) {
-				return $query;
+			if ( ! isset( $query->query_vars['tribe_widget_flag'] ) || ! $query->query_vars['tribe_widget_flag'] ){
+				// don't hide any recurrences on the all recurrences view
+				if ( tribe_is_showing_all() || tribe_is_week() || tribe_is_month() || tribe_is_day() ) {
+					return $query;
+				}
 			}
 
 			// don't hide any recurrences in the admin
-			if ( is_admin() && !( defined('DOING_AJAX') && DOING_AJAX ) ) {
+			if ( is_admin() && ! ( defined('DOING_AJAX') && DOING_AJAX ) ) {
 				return $query;
 			}
 
