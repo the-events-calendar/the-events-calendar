@@ -105,7 +105,7 @@ class TribeEvents_EmbeddedMaps {
 
 		$this->setup_scripts();
 		do_action( 'tribe_events_map_embedded', $index, $this->venue_id );
-		return apply_filters( 'tribe_get_embedded_map', ob_get_clean() );
+		return ob_get_clean();
 	}
 
 	protected function get_ids( $post_id ) {

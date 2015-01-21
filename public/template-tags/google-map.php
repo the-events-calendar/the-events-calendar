@@ -66,7 +66,14 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 * @return string An iframe pulling http://maps.google.com/ for this event
 	 */
 	function tribe_get_embedded_map( $post_id = null, $width = null, $height = null, $force_load = false ) {
-		return TribeEvents_EmbeddedMaps::instance()->get_map( $post_id, $width, $height, $force_load );
+		$map = TribeEvents_EmbeddedMaps::instance()->get_map( $post_id, $width, $height, $force_load );
+
+		if ( has_filter( 'tribe_event_meta_venue_map' ) ) {
+			_deprecated_function( "The 'tribe_event_meta_venue_map' filter", '3.10', " the 'tribe_get_embedded_map' filter" );
+			return apply_filters( 'tribe_event_meta_venue_map', $map );
+		}
+
+		return apply_filters( 'tribe_get_embedded_map', $map );
 	}
 
 	/**
