@@ -4288,7 +4288,7 @@ if ( ! class_exists( 'Tribe__Events__Events' ) ) {
 
 			// deprecated classes are registered in a class to path fashion
 			foreach ( glob( $this->pluginPath . 'lib/deprecated-classes/*.php' ) as $file ) {
-				$class_name = basename( $file );
+				$class_name = str_replace( '.php', '', basename( $file ) );
 				$autoloader->register_class( $class_name, $file );
 			}
 			$autoloader->register_autoloader();
