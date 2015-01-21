@@ -24,8 +24,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 $postId = get_the_ID();
 $address_out = array();
 
-$our_full_region = tribe_get_full_region( $postId );
-
 ?>
 <span class="adr">
 
@@ -39,6 +37,11 @@ if ( tribe_get_address( $postId ) ) {
 	}
 }
 
+// Get our full region
+$our_province = tribe_get_event_meta( $postId, '_VenueStateProvince', true );
+$our_states = Tribe__Events__View_Helpers::loadStates();
+$our_full_region = isset( $our_states[$our_province] ) ? $our_states[$our_province] : $our_province;
+
 // Get our city
 if ( tribe_get_city( $postId ) ) {
 	if ( tribe_get_address( $postId ) ) {
@@ -51,7 +54,7 @@ if ( tribe_get_city( $postId ) ) {
 // Get our region
 if ( tribe_get_region( $postId ) ) {
 	if ( count( $address_out ) ) {
-		$address_out[] = ' <abbr class="region tribe-events-abbr" title="' . esc_attr( $our_full_region ) . '">' . tribe_get_region( $postId ) . '</abbr>';
+		$address_out[] = ' <abbr class="region tribe-events-abbr" title="' . $our_full_region . '">' . tribe_get_region( $postId ) . '</abbr>';
 	}
 }
 
