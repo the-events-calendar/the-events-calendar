@@ -69,7 +69,7 @@
 			 */
 			protected $dir_separator = '__';
 
-			/** @var string */
+			/** @var string[] */
 			protected $fallback_dirs = array();
 
 			/**
@@ -190,7 +190,7 @@
 					return $prefixed_path;
 				}
 
-				$class_path = $this->class_paths[$class] ? $this->class_paths[$class] :false;
+				$class_path = !empty( $this->class_paths[$class] ) ? $this->class_paths[$class] :false;
 				if ($class_path) {
 					return $class_path;
 				}
@@ -207,7 +207,7 @@
 			 * This is the method to use to register a directory of deprecated
 			 * classes.
 			 *
-			 * @param $dir An absolute path dto a dir.
+			 * @param string $dir An absolute path dto a dir.
 			 */
 			public function add_fallback_dir( $dir ) {
 				if ( in_array( $dir, $this->fallback_dirs ) ) {
