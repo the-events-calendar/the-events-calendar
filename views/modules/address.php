@@ -24,7 +24,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 $postId = get_the_ID();
 $address_out = array();
 
-$our_full_region = tribe_get_full_region( $postId );
+$full_region = tribe_get_full_region( $postId );
 
 ?>
 <span class="adr">
@@ -51,7 +51,7 @@ if ( tribe_get_city( $postId ) ) {
 // Get our region
 if ( tribe_get_region( $postId ) ) {
 	if ( count( $address_out ) ) {
-		$address_out[] = ' <abbr class="region tribe-events-abbr" title="' . esc_attr( $our_full_region ) . '">' . tribe_get_region( $postId ) . '</abbr>';
+		$address_out[] = ' <abbr class="region tribe-events-abbr" title="' . esc_attr( $full_region ) . '">' . tribe_get_region( $postId ) . '</abbr>';
 	}
 }
 

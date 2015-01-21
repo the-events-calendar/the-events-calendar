@@ -290,10 +290,10 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 * @return string The full region for this event's address.
 	 */
 	function tribe_get_full_region( $event_id ) {
-		$our_province = tribe_get_event_meta( $event_id, '_VenueStateProvince', true );
-		$our_states   = TribeEventsViewHelpers::loadStates();
+		$province = tribe_get_event_meta( $event_id, '_VenueStateProvince', true );
+		$states   = TribeEventsViewHelpers::loadStates();
 
-		$full_region = isset( $our_states[ $our_province ] ) ? $our_states[ $our_province ] : $our_province;
+		$full_region = isset( $states[ $province ] ) ? $states[ $province ] : $province;
 
 		return apply_filters( 'tribe_get_full_region', $full_region );
 	}
