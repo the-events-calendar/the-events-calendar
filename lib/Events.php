@@ -235,7 +235,7 @@ if ( ! class_exists( 'Tribe__Events__Events' ) ) {
 			// Load Template Tags
 			require_once $this->pluginPath . 'public/template-tags/query.php';
 			require_once $this->pluginPath . 'public/template-tags/general.php';
-			require_once $this->pluginPath . 'public/template-tags/Month.php';
+			require_once $this->pluginPath . 'public/template-tags/month.php';
 			require_once $this->pluginPath . 'public/template-tags/loop.php';
 			require_once $this->pluginPath . 'public/template-tags/google-map.php';
 			require_once $this->pluginPath . 'public/template-tags/organizer.php';
