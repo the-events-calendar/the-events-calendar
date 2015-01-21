@@ -63,7 +63,7 @@ if ( ! class_exists( 'Tribe__Events__App_Shop' ) ) {
 		public function add_menu_page() {
 			$page_title = __( 'Event Add-Ons', 'tribe-events-calendar' );
 			$menu_title = __( 'Event Add-Ons', 'tribe-events-calendar' );
-			$capability = "edit_posts";
+			$capability = "edit_tribe_events";
 
 
 			$where = 'edit.php?post_type=' . Tribe__Events__Events::POSTTYPE;
