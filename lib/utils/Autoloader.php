@@ -161,8 +161,8 @@
 						return $path;
 					}
 
-					return false;
 				}
+				return false;
 			}
 
 			protected function get_fallback_path( $class ) {

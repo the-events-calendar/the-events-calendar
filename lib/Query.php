@@ -8,7 +8,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
-if ( ! class_exists( 'TribeEventsQuery' ) ) {
+if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 	class Tribe__Events__Query {
 
 		/**
