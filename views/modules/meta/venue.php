@@ -30,7 +30,7 @@ $website = tribe_get_venue_website_link();
 					<?php echo tribe_get_full_address(); ?>
 
 					<?php if ( tribe_show_google_map_link() ) : ?>
-						<?php tribe_get_map_link_html(); ?>
+						<?php echo tribe_get_map_link_html(); ?>
 					<?php endif; ?>
 				</address>
 			</dd>
