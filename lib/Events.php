@@ -557,7 +557,7 @@ if ( ! class_exists( 'Tribe__Events__Events' ) ) {
 		 */
 		public function init_day_view() {
 			// load day view functions
-			require_once $this->pluginPath . 'public/template-tags/Day.php';
+			require_once $this->pluginPath . 'public/template-tags/day.php';
 		}
 
 
