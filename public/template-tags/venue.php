@@ -382,18 +382,6 @@ if ( class_exists( 'TribeEvents' ) ) {
 	}
 
 	/**
-	 * Get the Google Maps link for a venue if appropriate and if it exists.
-	 *
-	 * @param null $post_id
-	 *
-	 * @return string The Google Maps link for the venue or an empty string.
-	 */
-	function tribe_get_venue_address_gmap_link( $post_id = null ) {
-		$gmap_link = tribe_show_google_map_link() ? tribe_get_map_link_html() : '';
-		return apply_filters( 'tribe_get_venue_address_gmap_link', $gmap_link );
-	}
-
-	/**
 	 * Gets venue details for use in some single-event templates.
 	 *
 	 * @param null $post_id
