@@ -10,7 +10,7 @@ if ( ! function_exists( 'tribe_is_day' ) ) {
 	 * @return bool
 	 */
 	function tribe_is_day() {
-		$tribe_ecp = Tribe__Events__Events::instance();
+		$tribe_ecp = TribeEvents::instance();
 		$is_day    = ( $tribe_ecp->displaying == 'day' ) ? true : false;
 
 		return apply_filters( 'tribe_is_day', $is_day );
@@ -28,7 +28,7 @@ if ( ! function_exists( 'tribe_get_day_link' ) ) {
 	 * @return string URL
 	 */
 	function tribe_get_day_link( $date = null ) {
-		$tribe_ecp = Tribe__Events__Events::instance();
+		$tribe_ecp = TribeEvents::instance();
 
 		return apply_filters( 'tribe_get_day_link', $tribe_ecp->getLink( 'day', $date ), $date );
 	}
@@ -77,8 +77,8 @@ if ( ! function_exists( 'tribe_the_day_link' ) ) {
 			$date = tribe_get_the_day_link_date( $date );
 			$link = tribe_get_day_link( $date );
 
-			$earliest = tribe_events_earliest_date( Tribe__Events__Date_Utils::DBDATEFORMAT );
-			$latest   = tribe_events_latest_date( Tribe__Events__Date_Utils::DBDATEFORMAT );
+			$earliest = tribe_events_earliest_date( TribeDateUtils::DBDATEFORMAT );
+			$latest   = tribe_events_latest_date( TribeDateUtils::DBDATEFORMAT );
 
 			if ( $date >= $earliest && $date <= $latest ) {
 				$html = '<a href="' . $link . '" data-day="' . $date . '" rel="prev">' . $text . '</a>';

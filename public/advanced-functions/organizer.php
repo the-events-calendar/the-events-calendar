@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
-if ( class_exists( 'Tribe__Events__Events' ) ) {
+if ( class_exists( 'TribeEvents' ) ) {
 
 	/**
 	 * Create an Organizer
@@ -32,7 +32,7 @@ if ( class_exists( 'Tribe__Events__Events' ) ) {
 	 * @category Organizers
 	 */
 	function tribe_create_organizer( $args ) {
-		$postId = Tribe__Events__API::createOrganizer( $args );
+		$postId = TribeEventsAPI::createOrganizer( $args );
 
 		return $postId;
 	}
@@ -50,7 +50,7 @@ if ( class_exists( 'Tribe__Events__Events' ) ) {
 	 * @category Organizers
 	 */
 	function tribe_update_organizer( $postId, $args ) {
-		$postId = Tribe__Events__API::updateOrganizer( $postId, $args );
+		$postId = TribeEventsAPI::updateOrganizer( $postId, $args );
 
 		return $postId;
 	}
@@ -67,7 +67,7 @@ if ( class_exists( 'Tribe__Events__Events' ) ) {
 	 * @category Organizers
 	 */
 	function tribe_delete_organizer( $postId, $force_delete = false ) {
-		$success = Tribe__Events__API::deleteOrganizer( $postId, $args );
+		$success = TribeEventsAPI::deleteOrganizer( $postId, $args );
 
 		return $success;
 	}

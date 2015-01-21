@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
-if ( class_exists( 'Tribe__Events__Events' ) ) {
+if ( class_exists( 'TribeEvents' ) ) {
 
 	/**
 	 * New Day Test
@@ -22,12 +22,12 @@ if ( class_exists( 'Tribe__Events__Events' ) ) {
 	 */
 	function tribe_is_new_event_day() {
 		global $post;
-		$tribe_ecp = Tribe__Events__Events::instance();
+		$tribe_ecp = TribeEvents::instance();
 		$retval    = false;
 		$now       = time();
 		if ( isset( $post->EventStartDate ) ) {
 			$postTimestamp = strtotime( $post->EventStartDate, $now );
-			$postTimestamp = strtotime( date( Tribe__Events__Date_Utils::DBDATEFORMAT, $postTimestamp ), $now ); // strip the time
+			$postTimestamp = strtotime( date( TribeDateUtils::DBDATEFORMAT, $postTimestamp ), $now ); // strip the time
 			if ( $postTimestamp != $tribe_ecp->currentPostTimestamp ) {
 				$retval = true;
 			}
@@ -77,7 +77,7 @@ if ( class_exists( 'Tribe__Events__Events' ) ) {
 	 * @todo move to ECP
 	 */
 	function tribe_is_showing_all() {
-		$tribe_ecp            = Tribe__Events__Events::instance();
+		$tribe_ecp            = TribeEvents::instance();
 		$tribe_is_showing_all = ( $tribe_ecp->displaying == 'all' ) ? true : false;
 		if ( $tribe_is_showing_all ) {
 			add_filter( 'tribe_events_recurrence_tooltip', '__return_false' );
@@ -94,7 +94,7 @@ if ( class_exists( 'Tribe__Events__Events' ) ) {
 	 * @return bool
 	 */
 	function tribe_is_by_date() {
-		$tribe_ecp        = Tribe__Events__Events::instance();
+		$tribe_ecp        = TribeEvents::instance();
 		$tribe_is_by_date = ( $tribe_ecp->displaying == 'bydate' ) ? true : false;
 
 		return apply_filters( 'tribe_is_by_date', $tribe_is_by_date );
@@ -126,7 +126,7 @@ if ( class_exists( 'Tribe__Events__Events' ) ) {
 
 		global $wp_query;
 
-		$tribe_ecp = Tribe__Events__Events::instance();
+		$tribe_ecp = TribeEvents::instance();
 
 		$title = sprintf( __( 'Upcoming %s', 'tribe-events-calendar' ), $events_label_plural );
 
@@ -181,7 +181,7 @@ if ( class_exists( 'Tribe__Events__Events' ) ) {
 	 * @return string URL
 	 */
 	function tribe_get_upcoming_link() {
-		$tribe_ecp = Tribe__Events__Events::instance();
+		$tribe_ecp = TribeEvents::instance();
 		$output    = $tribe_ecp->getLink( 'upcoming' );
 
 		return apply_filters( 'tribe_get_upcoming_link', $output );
@@ -264,7 +264,7 @@ if ( class_exists( 'Tribe__Events__Events' ) ) {
 	 * @return string URL
 	 */
 	function tribe_get_past_link() {
-		$tribe_ecp = Tribe__Events__Events::instance();
+		$tribe_ecp = TribeEvents::instance();
 		$output    = $tribe_ecp->getLink( 'past' );
 
 		return apply_filters( 'tribe_get_past_link', $output );
@@ -276,7 +276,7 @@ if ( class_exists( 'Tribe__Events__Events' ) ) {
 	 * @return bool
 	 */
 	function tribe_is_in_main_loop() {
-		return apply_filters( 'tribe_is_main_loop', Tribe__Events__Templates::$isMainLoop );
+		return apply_filters( 'tribe_is_main_loop', TribeEventsTemplates::$isMainLoop );
 	}
 
 	/**
@@ -285,7 +285,7 @@ if ( class_exists( 'Tribe__Events__Events' ) ) {
 	 * @return bool
 	 */
 	function tribe_is_list_view() {
-		$is_list_view = (Tribe__Events__Events::instance()->displaying == 'list') ? true : false;
+		$is_list_view = (TribeEvents::instance()->displaying == 'list') ? true : false;
 		return apply_filters( 'tribe_is_list_view', $is_list_view );
 	}
 
@@ -379,7 +379,7 @@ if ( class_exists( 'Tribe__Events__Events' ) ) {
 	 * @return bool
 	 **/
 	function tribe_is_view( $view = false ) {
-		return $view === Tribe__Events__Events::instance()->displaying;
+		return $view === TribeEvents::instance()->displaying;
 	}
 }
 ?>

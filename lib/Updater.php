@@ -46,7 +46,7 @@ class Tribe__Events__Updater {
 	}
 
 	protected function update_version_option( $new_version ) {
-		$tec = Tribe__Events__Events::instance();
+		$tec = TribeEvents::instance();
 		$tec->setOption( $this->version_option, $new_version );
 	}
 
@@ -79,7 +79,7 @@ class Tribe__Events__Updater {
 	}
 
 	protected function is_version_in_db_less_than( $version ) {
-		$tec = Tribe__Events__Events::instance();
+		$tec = TribeEvents::instance();
 		$version_in_db = $tec->getOption( $this->version_option );
 
 		if ( version_compare( $version, $version_in_db ) > 0 ) {
@@ -98,9 +98,9 @@ class Tribe__Events__Updater {
 			return;
 		}
 
-		$new_option = get_option( Tribe__Events__Events::OPTIONNAME );
+		$new_option = get_option( TribeEvents::OPTIONNAME );
 		if ( !$new_option ) {
-			update_option( Tribe__Events__Events::OPTIONNAME, $legacy_option );
+			update_option( TribeEvents::OPTIONNAME, $legacy_option );
 		}
 		delete_option( 'sp_events_calendar_options' );
 
@@ -112,18 +112,18 @@ class Tribe__Events__Updater {
 		}
 
 		// update post type names
-		$wpdb->update( $wpdb->posts, array( 'post_type' => Tribe__Events__Events::POSTTYPE ), array( 'post_type' => 'sp_events' ) );
-		$wpdb->update( $wpdb->posts, array( 'post_type' => Tribe__Events__Events::VENUE_POST_TYPE ), array( 'post_type' => 'sp_venue' ) );
-		$wpdb->update( $wpdb->posts, array( 'post_type' => Tribe__Events__Events::ORGANIZER_POST_TYPE ), array( 'post_type' => 'sp_organizer' ) );
+		$wpdb->update( $wpdb->posts, array( 'post_type' => TribeEvents::POSTTYPE ), array( 'post_type' => 'sp_events' ) );
+		$wpdb->update( $wpdb->posts, array( 'post_type' => TribeEvents::VENUE_POST_TYPE ), array( 'post_type' => 'sp_venue' ) );
+		$wpdb->update( $wpdb->posts, array( 'post_type' => TribeEvents::ORGANIZER_POST_TYPE ), array( 'post_type' => 'sp_organizer' ) );
 
 		// update taxonomy names
-		$wpdb->update( $wpdb->term_taxonomy, array( 'taxonomy' => Tribe__Events__Events::TAXONOMY ), array( 'taxonomy' => 'sp_events_cat' ) );
+		$wpdb->update( $wpdb->term_taxonomy, array( 'taxonomy' => TribeEvents::TAXONOMY ), array( 'taxonomy' => 'sp_events_cat' ) );
 		wp_cache_flush();
 	}
 
 	protected function migrate_from_sp_options() {
-		$tec = Tribe__Events__Events::instance();
-		$tec_options = Tribe__Events__Events::getOptions();
+		$tec = TribeEvents::instance();
+		$tec_options = TribeEvents::getOptions();
 		$option_names     = array(
 			'spEventsTemplate'   => 'tribeEventsTemplate',
 			'spEventsBeforeHTML' => 'tribeEventsBeforeHTML',

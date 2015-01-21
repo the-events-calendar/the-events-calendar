@@ -1,6 +1,6 @@
 <?php
 
-$tec = Tribe__Events__Events::instance();
+$tec = TribeEvents::instance();
 
 $generalTab = array(
 	'priority' => 10,
@@ -22,7 +22,7 @@ $generalTab = array(
 			),
 			'view-calendar-link'            => array(
 				'type' => 'html',
-				'html' => '<p>' . __( 'Where\'s my calendar?', 'tribe-events-calendar' ) . ' <a href="' . Tribe__Events__Events::getLink() . '">' . __( 'Right here', 'tribe-events-calendar' ) . '</a>.</p>',
+				'html' => '<p>' . __( 'Where\'s my calendar?', 'tribe-events-calendar' ) . ' <a href="' . TribeEvents::getLink() . '">' . __( 'Right here', 'tribe-events-calendar' ) . '</a>.</p>',
 			),
 			'upsell-info'                   => array(
 				'type'        => 'html',
@@ -206,7 +206,7 @@ $generalTab = array(
 			),
 			'amalgamateDuplicates'          => array(
 				'type'        => 'html',
-				'html'        => '<fieldset class="tribe-field tribe-field-html"><legend>' . __( 'Duplicate Venues &amp; Organizers', 'tribe-events-calendar' ) . '</legend><div class="tribe-field-wrap">' . Tribe__Events__Amalgamator::migration_button( __( 'Merge Duplicates', 'tribe-events-calendar' ) ) . '<p class="tribe-field-indent description">' . __( 'You might find duplicate venues and organizers when updating The Events Calendar from a pre-3.0 version. Click this button to automatically merge identical venues and organizers.', 'tribe-events-calendar' ) . '</p></div></fieldset><div class="clear"></div>',
+				'html'        => '<fieldset class="tribe-field tribe-field-html"><legend>' . __( 'Duplicate Venues &amp; Organizers', 'tribe-events-calendar' ) . '</legend><div class="tribe-field-wrap">' . Tribe_Amalgamator::migration_button( __( 'Merge Duplicates', 'tribe-events-calendar' ) ) . '<p class="tribe-field-indent description">' . __( 'You might find duplicate venues and organizers when updating The Events Calendar from a pre-3.0 version. Click this button to automatically merge identical venues and organizers.', 'tribe-events-calendar' ) . '</p></div></fieldset><div class="clear"></div>',
 				'conditional' => ( $tec->getOption( 'organizer_venue_amalgamation', 0 ) < 1 ),
 			),
 			'debugEvents'                   => array(

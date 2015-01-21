@@ -45,20 +45,20 @@ class Tribe__Events__Activation_Page {
 	 * @return bool
 	 */
 	protected function showed_update_message_for_current_version() {
-		$tec = Tribe__Events__Events::instance();
+		$tec = TribeEvents::instance();
 		$message_version_displayed = $tec->getOption('last-update-message');
 		if ( empty($message_version_displayed) ) {
 			return FALSE;
 		}
-		if ( version_compare( $message_version_displayed, Tribe__Events__Events::VERSION, '<' ) ) {
+		if ( version_compare( $message_version_displayed, TribeEvents::VERSION, '<' ) ) {
 			return FALSE;
 		}
 		return TRUE;
 	}
 
 	protected function log_display_of_message_page() {
-		$tec = Tribe__Events__Events::instance();
-		$tec->setOption('last-update-message', Tribe__Events__Events::VERSION);
+		$tec = TribeEvents::instance();
+		$tec->setOption('last-update-message', TribeEvents::VERSION);
 	}
 
 	/**
@@ -69,7 +69,7 @@ class Tribe__Events__Activation_Page {
 	 * @see TribeEvents::maybeSetTECVersion()
 	 */
 	protected function is_new_install() {
-		$tec = Tribe__Events__Events::instance();
+		$tec = TribeEvents::instance();
 		$previous_versions = $tec->getOption('previous_ecp_versions');
 		return empty($previous_versions) || ( end($previous_versions) == '0' );
 	}
@@ -92,7 +92,7 @@ class Tribe__Events__Activation_Page {
 		$url  = apply_filters(
 			'tribe_settings_url', add_query_arg(
 				array(
-					'post_type' => Tribe__Events__Events::POSTTYPE,
+					'post_type' => TribeEvents::POSTTYPE,
 					'page'      => $settings->adminSlug
 				), admin_url( 'edit.php' )
 			)
@@ -159,7 +159,7 @@ class Tribe__Events__Activation_Page {
 
 	protected function load_template( $name ) {
 		ob_start();
-		include(trailingslashit(Tribe__Events__Events::instance()->pluginPath).'admin-views/'.$name.'.php');
+		include(trailingslashit(TribeEvents::instance()->pluginPath).'admin-views/'.$name.'.php');
 		return ob_get_clean();
 	}
 

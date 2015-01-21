@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
-if ( class_exists( 'Tribe__Events__Events' ) ) {
+if ( class_exists( 'TribeEvents' ) ) {
 
 	/**
 	 * Display a month
@@ -39,7 +39,7 @@ if ( class_exists( 'Tribe__Events__Events' ) ) {
 			}
 		}
 
-		$month_class = new Tribe__Events__Template__Month( $args );
+		$month_class = new Tribe_Events_Month_Template( $args );
 		$month_class->setup_view();
 
 		do_action( 'tribe_events_before_show_month' );
@@ -66,7 +66,7 @@ if ( class_exists( 'Tribe__Events__Events' ) ) {
 	 * @return bool
 	 */
 	function tribe_is_month() {
-		$tribe_ecp = Tribe__Events__Events::instance();
+		$tribe_ecp = TribeEvents::instance();
 		$output    = ( $tribe_ecp->displaying == 'month' ) ? true : false;
 
 		return apply_filters( 'tribe_is_month', $output );
@@ -90,7 +90,7 @@ if ( class_exists( 'Tribe__Events__Events' ) ) {
 	 * @see Tribe_Events_Month_Template::have_days()
 	 **/
 	function tribe_events_have_month_days() {
-		return Tribe__Events__Template__Month::have_days();
+		return Tribe_Events_Month_Template::have_days();
 	}
 
 	/**
@@ -111,7 +111,7 @@ if ( class_exists( 'Tribe__Events__Events' ) ) {
 	 * @see Tribe_Events_Month_Template::the_day()
 	 **/
 	function tribe_events_the_month_day() {
-		Tribe__Events__Template__Month::the_day();
+		Tribe_Events_Month_Template::the_day();
 	}
 
 	/**
@@ -132,7 +132,7 @@ if ( class_exists( 'Tribe__Events__Events' ) ) {
 	 * @see Tribe_Events_Month_Template::get_current_week()
 	 **/
 	function tribe_events_get_current_week() {
-		return Tribe__Events__Template__Month::get_current_week();
+		return Tribe_Events_Month_Template::get_current_week();
 	}
 
 	/**
@@ -153,7 +153,7 @@ if ( class_exists( 'Tribe__Events__Events' ) ) {
 	 * @see Tribe_Events_Month_Template::get_current_day()
 	 **/
 	function tribe_events_get_current_month_day() {
-		return apply_filters( 'tribe_events_get_current_month_day', Tribe__Events__Template__Month::get_current_day() );
+		return apply_filters( 'tribe_events_get_current_month_day', Tribe_Events_Month_Template::get_current_day() );
 	}
 
 	/**
@@ -164,7 +164,7 @@ if ( class_exists( 'Tribe__Events__Events' ) ) {
 	 * @see Tribe_Events_Month_Template::day_classes()
 	 **/
 	function tribe_events_the_month_day_classes() {
-		echo apply_filters( 'tribe_events_the_month_day_class', Tribe__Events__Template__Month::day_classes() );
+		echo apply_filters( 'tribe_events_the_month_day_class', Tribe_Events_Month_Template::day_classes() );
 	}
 
 	/**
@@ -175,7 +175,7 @@ if ( class_exists( 'Tribe__Events__Events' ) ) {
 	 * @see Tribe_Events_Month_Template::event_classes()
 	 **/
 	function tribe_events_the_month_single_event_classes() {
-		echo apply_filters( 'tribe_events_the_month_single_event_classes', Tribe__Events__Template__Month::event_classes() );
+		echo apply_filters( 'tribe_events_the_month_single_event_classes', Tribe_Events_Month_Template::event_classes() );
 	}
 
 	/**
@@ -197,7 +197,7 @@ if ( class_exists( 'Tribe__Events__Events' ) ) {
 	 * @return string URL
 	 */
 	function tribe_get_dropdown_link_prefix() {
-		$tribe_ecp = Tribe__Events__Events::instance();
+		$tribe_ecp = TribeEvents::instance();
 		$output    = $tribe_ecp->getLink( 'dropdown' );
 
 		return apply_filters( 'tribe_get_dropdown_link_prefix', $output );
@@ -213,7 +213,7 @@ if ( class_exists( 'Tribe__Events__Events' ) ) {
 	function tribe_get_month_view_date() {
 		global $wp_query;
 
-		$today = date_i18n( Tribe__Events__Date_Utils::DBDATEFORMAT, strtotime( date( 'Y-m-01', current_time( 'timestamp' ) ) ) );
+		$today = date_i18n( TribeDateUtils::DBDATEFORMAT, strtotime( date( 'Y-m-01', current_time( 'timestamp' ) ) ) );
 		$date  = $today;
 
 		if ( ! empty( $_REQUEST['tribe-bar-date'] ) ) {
@@ -251,9 +251,9 @@ if ( class_exists( 'Tribe__Events__Events' ) ) {
 	function tribe_events_the_previous_month_link() {
 		$html = '';
 		$url  = tribe_get_previous_month_link();
-		$date = Tribe__Events__Events::instance()->previousMonth( tribe_get_month_view_date() );
+		$date = TribeEvents::instance()->previousMonth( tribe_get_month_view_date() );
 
-		if ( $date >= tribe_events_earliest_date( Tribe__Events__Date_Utils::DBYEARMONTHTIMEFORMAT ) ) {
+		if ( $date >= tribe_events_earliest_date( TribeDateUtils::DBYEARMONTHTIMEFORMAT ) ) {
 			$text = tribe_get_previous_month_text();
 			$html = '<a data-month="' . $date . '" href="' . $url . '" rel="prev"><span>&laquo;</span> ' . $text . ' </a>';
 		}
@@ -274,8 +274,8 @@ if ( class_exists( 'Tribe__Events__Events' ) ) {
 
 		// Check if $url is populated (an empty string may indicate the date was out-of-bounds, ie on 32bit servers)
 		if ( ! empty( $url ) ) {
-			$date = Tribe__Events__Events::instance()->nextMonth( tribe_get_month_view_date() );
-			if ( $date <= tribe_events_latest_date( Tribe__Events__Date_Utils::DBYEARMONTHTIMEFORMAT ) ) {
+			$date = TribeEvents::instance()->nextMonth( tribe_get_month_view_date() );
+			if ( $date <= tribe_events_latest_date( TribeDateUtils::DBYEARMONTHTIMEFORMAT ) ) {
 				$html = '<a data-month="' . $date . '" href="' . $url . '" rel="next">' . $text . ' <span>&raquo;</span></a>';
 			}
 		}
@@ -293,9 +293,9 @@ if ( class_exists( 'Tribe__Events__Events' ) ) {
 	function tribe_get_previous_month_link() {
 		global $wp_query;
 		$term      = null;
-		$tribe_ecp = Tribe__Events__Events::instance();
-		if ( isset( $wp_query->query_vars[Tribe__Events__Events::TAXONOMY] ) ) {
-			$term = $wp_query->query_vars[Tribe__Events__Events::TAXONOMY];
+		$tribe_ecp = TribeEvents::instance();
+		if ( isset( $wp_query->query_vars[TribeEvents::TAXONOMY] ) ) {
+			$term = $wp_query->query_vars[TribeEvents::TAXONOMY];
 		}
 		$output = $tribe_ecp->getLink( 'month', $tribe_ecp->previousMonth( tribe_get_month_view_date() ), $term );
 
@@ -310,7 +310,7 @@ if ( class_exists( 'Tribe__Events__Events' ) ) {
 	 * @return string Name of the previous month.
 	 */
 	function tribe_get_previous_month_text() {
-		$tribe_ecp = Tribe__Events__Events::instance();
+		$tribe_ecp = TribeEvents::instance();
 		$output    = $tribe_ecp->getDateStringShortened( $tribe_ecp->previousMonth( tribe_get_month_view_date() ) );
 
 		return apply_filters( 'tribe_get_previous_month_text', $output );
@@ -326,9 +326,9 @@ if ( class_exists( 'Tribe__Events__Events' ) ) {
 	function tribe_get_next_month_link() {
 		global $wp_query;
 		$term      = null;
-		$tribe_ecp = Tribe__Events__Events::instance();
-		if ( isset( $wp_query->query_vars[Tribe__Events__Events::TAXONOMY] ) ) {
-			$term = $wp_query->query_vars[Tribe__Events__Events::TAXONOMY];
+		$tribe_ecp = TribeEvents::instance();
+		if ( isset( $wp_query->query_vars[TribeEvents::TAXONOMY] ) ) {
+			$term = $wp_query->query_vars[TribeEvents::TAXONOMY];
 		}
 		try {
 			$output = $tribe_ecp->getLink( 'month', $tribe_ecp->nextMonth( tribe_get_month_view_date() ), $term );
@@ -360,7 +360,7 @@ if ( class_exists( 'Tribe__Events__Events' ) ) {
 	 * @return string Name of the next month.
 	 */
 	function tribe_get_next_month_text() {
-		$tribe_ecp = Tribe__Events__Events::instance();
+		$tribe_ecp = TribeEvents::instance();
 		try {
 			$output = $tribe_ecp->getDateStringShortened( $tribe_ecp->nextMonth( tribe_get_month_view_date() ) );
 		} catch ( OverflowException $e ) {

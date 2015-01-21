@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
-if ( class_exists( 'Tribe__Events__Events' ) ) {
+if ( class_exists( 'TribeEvents' ) ) {
 
 	/**
 	 * Create a Venue
@@ -36,7 +36,7 @@ if ( class_exists( 'Tribe__Events__Events' ) ) {
 	 * @category Venues
 	 */
 	function tribe_create_venue( $args ) {
-		$postId = Tribe__Events__API::createVenue( $args );
+		$postId = TribeEventsAPI::createVenue( $args );
 
 		return $postId;
 	}
@@ -54,7 +54,7 @@ if ( class_exists( 'Tribe__Events__Events' ) ) {
 	 * @category Venues
 	 */
 	function tribe_update_venue( $postId, $args ) {
-		$postId = Tribe__Events__API::updateVenue( $postId, $args );
+		$postId = TribeEventsAPI::updateVenue( $postId, $args );
 
 		return $postId;
 	}
@@ -71,7 +71,7 @@ if ( class_exists( 'Tribe__Events__Events' ) ) {
 	 * @category Venues
 	 */
 	function tribe_delete_venue( $postId, $force_delete = false ) {
-		$success = Tribe__Events__API::deleteVenue( $postId, $args );
+		$success = TribeEventsAPI::deleteVenue( $postId, $args );
 
 		return $success;
 	}

@@ -11,11 +11,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
-if ( ! class_exists( 'Tribe__Events__Template__List' ) ) {
+if ( ! class_exists( 'Tribe_Events_List_Template' ) ) {
 	/**
 	 * List view template class
 	 */
-	class Tribe__Events__Template__List extends Tribe__Events__Template_Factory {
+	class Tribe_Events_List_Template extends Tribe_Template_Factory {
 
 		protected $body_class = 'events-list';
 		protected $asset_packages = array( 'ajax-list' );
@@ -55,7 +55,7 @@ if ( ! class_exists( 'Tribe__Events__Template__List' ) ) {
 		 */
 		function ajax_response() {
 
-			Tribe__Events__Query::init();
+			TribeEventsQuery::init();
 
 			$tribe_paged = ( ! empty( $_POST['tribe_paged'] ) ) ? intval( $_POST['tribe_paged'] ) : 1;
 			$post_status = array( 'publish' );
@@ -65,7 +65,7 @@ if ( ! class_exists( 'Tribe__Events__Template__List' ) ) {
 
 			$args = array(
 				'eventDisplay' => 'list',
-				'post_type'    => Tribe__Events__Events::POSTTYPE,
+				'post_type'    => TribeEvents::POSTTYPE,
 				'post_status'  => $post_status,
 				'paged'        => $tribe_paged
 			);
@@ -77,7 +77,7 @@ if ( ! class_exists( 'Tribe__Events__Template__List' ) ) {
 
 			// check & set event category
 			if ( isset( $_POST['tribe_event_category'] ) ) {
-				$args[Tribe__Events__Events::TAXONOMY] = $_POST['tribe_event_category'];
+				$args[TribeEvents::TAXONOMY] = $_POST['tribe_event_category'];
 			}
 
 			$query = tribe_get_events( $args, true );
@@ -94,7 +94,7 @@ if ( ! class_exists( 'Tribe__Events__Template__List' ) ) {
 			if ( ! empty( $_POST['hash'] ) && $hash_str !== $_POST['hash'] ) {
 				$tribe_paged   = 1;
 				$args['paged'] = 1;
-				$query         = Tribe__Events__Query::getEvents( $args, true );
+				$query         = TribeEventsQuery::getEvents( $args, true );
 			}
 
 
@@ -116,7 +116,7 @@ if ( ! class_exists( 'Tribe__Events__Template__List' ) ) {
 
 			$paged = $tribe_paged;
 
-			Tribe__Events__Events::instance()->displaying = 'list';
+			TribeEvents::instance()->displaying = 'list';
 
 			if ( ! empty( $_POST['tribe_event_display'] ) && $_POST['tribe_event_display'] == 'past' ){
 				$response['view'] = 'past';

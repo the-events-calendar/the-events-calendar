@@ -30,7 +30,7 @@ a.tribe-events-gmap {
 }
 
 /* = Day Grid Template Styles
-   @ Template: Day.php
+   @ Template: day.php
 =============================================*/
 .tribe-events-day .tribe-events-day-time-slot h5 {
 	margin-top: 2em;
@@ -127,7 +127,7 @@ a.tribe-events-gmap {
 }
 
 /* = List View Template Styles
-   @ Template: List.php
+   @ Template: list.php
 =============================================*/	
 .tribe-events-list .tribe-events-event-image {
 	float: left;
@@ -173,7 +173,7 @@ a.tribe-events-gmap {
 }
 
 /* = Single Event Template Styles
-   @ Template: Single_Event.php
+   @ Template: single-event.php
 =============================================*/
 .single-tribe_events .tribe-events-schedule {		
 	padding: 12px;
@@ -233,7 +233,7 @@ a.tribe-events-gmap {
 }
 
 /* = Global Grid Template Styles (Large Calendar & Week)
-   @ Template: Month.php & week.php
+   @ Template: month.php & week.php
 =============================================*/	
 #tribe-mobile-container {
 	display: block;
@@ -298,7 +298,7 @@ a.tribe-events-gmap {
 }
 
 /* = Calendar (large) Grid Template Styles
-   @ Template: Month.php
+   @ Template: month.php
 =============================================*/	
 .tribe-events-calendar td .tribe-events-viewmore,
 .tribe-events-calendar td .type-tribe_events {
