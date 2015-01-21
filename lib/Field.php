@@ -5,7 +5,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
-if ( ! class_exists( 'TribeField' ) ) {
+if ( ! class_exists( 'Tribe__Events__Field' ) ) {
 
 	/**
 	 * helper class that creates fields for use in Settings, MetaBoxes, Users, anywhere.
