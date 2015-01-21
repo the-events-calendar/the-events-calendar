@@ -14,6 +14,8 @@ class TribeEventsListWidget extends WP_Widget {
 
 	private static $limit = 5;
 
+	public static $posts = array(); 
+
 	/**
 	 * Allows widgets extending this one to pass through their own unique name, ID base etc.
 	 *
@@ -100,10 +102,17 @@ class TribeEventsListWidget extends WP_Widget {
 			return;
 		}
 
-		$posts = $this->get_events();
+		self::$posts = tribe_get_events(
+			apply_filters(
+				'tribe_events_list_widget_query_args', array(
+					'eventDisplay'   => 'list',
+					'posts_per_page' => self::$limit
+				)
+			)
+		);
 
 		// If no posts, and the don't show if no posts checked, let's bail
-		if ( ! $posts && $no_upcoming_events ) {
+		if ( empty( self::$posts ) && $no_upcoming_events ) {
 			return;
 		}
 
@@ -165,25 +174,6 @@ class TribeEventsListWidget extends WP_Widget {
 		$instance  = wp_parse_args( (array) $instance, $defaults );
 		$tribe_ecp = TribeEvents::instance();
 		include( $tribe_ecp->pluginPath . 'admin-views/widget-admin-list.php' );
-	}
-
-	/**
-	 * Get events to display in the widget.
-	 *
-	 * @return array Events for this instance of the list widget.
-	 */
-	public static function get_events() {
-
-		$posts = tribe_get_events(
-			apply_filters(
-				'tribe_events_list_widget_query_args', array(
-					'eventDisplay'   => 'list',
-					'posts_per_page' => self::$limit
-				)
-			)
-		);
-
-		return $posts;
 	}
 }
 

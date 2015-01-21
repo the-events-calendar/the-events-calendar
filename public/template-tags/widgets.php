@@ -18,6 +18,6 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 * @return array WP_Posts of the retrieved events.
 	 **/
 	function tribe_get_list_widget_events() {
-		return apply_filters( 'tribe_get_list_widget_events', TribeEventsListWidget::get_events() );
+		return apply_filters( 'tribe_get_list_widget_events', TribeEventsListWidget::$posts );
 	}
 }
