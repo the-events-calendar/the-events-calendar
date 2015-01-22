@@ -64,7 +64,8 @@ class Tribe__Events__List_Widget extends WP_Widget {
 		$instance = wp_parse_args(
 			$instance, array(
 				'limit' => 5,
-				'title' => ''
+				'title' => '',
+				'hide_title' => false,
 			)
 		);
 
@@ -110,10 +111,12 @@ class Tribe__Events__List_Widget extends WP_Widget {
 
 		echo $before_widget;
 		do_action( 'tribe_events_before_list_widget' );
-		do_action( 'tribe_events_list_widget_before_the_title' );
 
-		echo ( $title ) ? $before_title . $title . $after_title : '';
-		do_action( 'tribe_events_list_widget_after_the_title' );
+		if ( ! isset( $hide_title ) || ! $hide_title ){
+			do_action( 'tribe_events_list_widget_before_the_title' );
+			echo ( $title ) ? $before_title . $title . $after_title : '';
+			do_action( 'tribe_events_list_widget_after_the_title' );
+		}
 
 		// Include template file
 		include Tribe__Events__Templates::getTemplateHierarchy( $template_name );
@@ -143,6 +146,7 @@ class Tribe__Events__List_Widget extends WP_Widget {
 
 		/* Strip tags (if needed) and update the widget settings. */
 		$instance['title']              = strip_tags( $new_instance['title'] );
+		$instance['hide_title']         = (bool) ( isset( $new_instance['hide_title'] ) ? $new_instance['hide_title'] : 0 );
 		$instance['limit']              = $new_instance['limit'];
 		$instance['no_upcoming_events'] = $new_instance['no_upcoming_events'];
 
@@ -161,7 +165,8 @@ class Tribe__Events__List_Widget extends WP_Widget {
 		$defaults  = array(
 			'title'              => __( 'Upcoming Events', 'tribe-events-calendar' ),
 			'limit'              => '5',
-			'no_upcoming_events' => false
+			'no_upcoming_events' => false,
+			'hide_title'         => false,
 		);
 		$instance  = wp_parse_args( (array) $instance, $defaults );
 		$tribe_ecp = Tribe__Events__Events::instance();
