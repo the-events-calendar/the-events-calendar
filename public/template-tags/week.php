@@ -79,27 +79,27 @@ if ( class_exists( 'TribeEventsPro' ) ) {
 	}
 
 	/**
-	 * Return an array of the hours to display on week view
+	 * Return the hours to display on week view. Optionally return formatted, first, or last hour.
 	 *
-	 * @return array
+	 * @param null $format - can be 'raw', 'formatted', 'first-hour', or 'last-hour'
+	 *
+	 * @return array|mixed|string|void
 	 */
-	function tribe_events_get_week_hours() {
+	function tribe_events_get_week_hours( $format = null ) {
+		$range = Tribe_Events_Pro_Week_Template::get_hour_range();
+		switch ( $format ) {
+			case 'raw':
+				return array_keys( $range );
+			case 'formatted':
+				return $array_values( $range );
+			case 'first-hour':
+				return str_pad( reset( array_keys( $range ) ), 2, '0', STR_PAD_LEFT ) . ':00:00';
+			case 'last-hour':
+				return str_pad( end( array_keys( $range ) ), 2, '0', STR_PAD_LEFT ) . ':00:00';
 
-		$beginning_of_day = tribe_event_beginning_of_day(null, 'H');
-		$hours = range(0, 23);
-		if ( $beginning_of_day > 0 ) {
-			for ( $i = 0; $i < $beginning_of_day; $i ++ ) {
-				array_push( $hours, array_shift( $hours ) );
-			}
 		}
 
-		$formatted_hours = array();
-		$hour_format = apply_filters( 'tribe_events_pro_week_hour_format', get_option( 'time_format', 'gA' ) );
-		foreach ( $hours as $hour ) {
-			$formatted_hours[] = date_i18n( $hour_format, strtotime( $hour . ':00' ) );
-		}
-
-		return apply_filters( 'tribe_events_get_week_hours', array_combine($hours, $formatted_hours) );
+		return apply_filters( 'tribe_events_get_week_hours', $range, $format );
 	}
 
 	/**

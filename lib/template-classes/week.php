@@ -46,11 +46,54 @@ if ( ! class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 		private static $previous_event;
 
 		/**
+		 * Range of hours to be shown on the week view
+		 *
+		 * @var array
+		 * @see hook tribe_events_get_week_hours
+		 */
+		private static $hour_range;
+
+		/**
 		 * Hook used for wp ajax response on week view content
 		 *
 		 * @const
 		 */
 		const AJAX_HOOK = 'tribe_week';
+
+
+		/**
+		 * __construct()
+		 */
+		function __construct() {
+			parent::__construct();
+			self::$hour_range = tribe_events_get_week_hours();
+		}
+
+		/**
+		 * @return array
+		 */
+		public static function get_hour_range() {
+			if ( isset( self::$hour_range ) ) {
+				return self::$hour_range;
+			}
+
+			$beginning_of_day = tribe_event_beginning_of_day( null, 'H' );
+
+			$hours = range( 0, 23 );
+			if ( $beginning_of_day > 0 ) {
+				for ( $i = 0; $i < $beginning_of_day; $i ++ ) {
+					array_push( $hours, array_shift( $hours ) );
+				}
+			}
+
+			$formatted_hours = array();
+			$hour_format     = apply_filters( 'tribe_events_pro_week_hour_format', get_option( 'time_format', 'gA' ) );
+			foreach ( $hours as $hour ) {
+				$formatted_hours[] = date_i18n( $hour_format, strtotime( $hour . ':00' ) );
+			}
+
+			return array_combine( $hours, $formatted_hours );
+		}
 
 		/**
 		 * Set the notices used on week view
@@ -186,16 +229,25 @@ if ( ! class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 					$timestamp_today    = strtotime( 'today' );
 
 
-					$hourly_events      = array();
+					$hourly_events      = array(); // start with any events that were left from the last iteration
 					$all_day_events     = array();
+					$add_to_tomorrow    = array();
 
 					// loop through all the wordpress posts and sort them into all day vs hourly
 					foreach ( $wp_query->posts as $j => $event ) {
-						$wp_query->posts[$j]->days_between = tribe_get_days_between( $event->_EventStartDate, $event->_EventEndDate, true );
 						if ( tribe_event_is_on_date( $date, $event ) ) {
+
+							$event->days_between = tribe_get_days_between( $event->_EventStartDate, $event->_EventEndDate, true );
+
 							if ( tribe_event_is_all_day( $event ) ) {
-								$all_day_events[]   = $event;
+								$all_day_events[] = $event;
 							} else {
+								// if the event starts after the end of the hour range we're displaying, or ends before the start, skip it
+								$end_hour_today   = $date . ' ' . tribe_events_get_week_hours( 'last-hour' );
+								$start_hour_today = $date . ' ' . tribe_events_get_week_hours( 'first-hour' );
+								if ( tribe_get_start_time( $event, 'U' ) > strtotime( $end_hour_today ) || tribe_get_end_time( $event, 'U' ) < strtotime( $start_hour_today ) ) {
+									continue;
+								}
 								$hourly_events[] = $event;
 							}
 						}
@@ -246,7 +298,7 @@ if ( ! class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 				$attrs['data-hour'] = 'all-day';
 			} else {
 				$start_of_day_timestamp = self::get_rounded_beginning_of_day( self::get_current_date() );
-				$end_of_day_timestamp = self::get_rounded_end_of_day( self::get_current_date() );
+				$end_of_day_timestamp = self::get_rounded_end_of_day( self::get_current_date() ) + HOUR_IN_SECONDS;
 				$data_hour = date( 'G', $event_start_timestamp );
 				$data_min  = date( 'i', $event_start_timestamp );
 				if ( $event_start_timestamp < $start_of_day_timestamp ) {
@@ -413,9 +465,12 @@ if ( ! class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 		 * @return bool|string
 		 */
 		protected static function get_rounded_beginning_of_day( $date, $format = 'U' ) {
-			$date = tribe_event_beginning_of_day( $date, 'Y-m-d H:00:00' );
-
-			return date( $format, strtotime( $date ) );
+			$beginning_of_day = tribe_event_beginning_of_day( $date, 'U' );
+			reset( self::$hour_range );
+			$date = max( $beginning_of_day, strtotime( $date . ' ' . tribe_events_get_week_hours( 'first-hour' ) ) );
+			$date             = date( 'Y-m-d H:00:00', $date );
+			$date = date( $format, strtotime( $date ) );
+			return $date;
 		}
 
 		/**
@@ -427,10 +482,13 @@ if ( ! class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 		 * @return bool|string
 		 */
 		protected static function get_rounded_end_of_day( $date, $format = 'U' ) {
-			$date = ( (int) tribe_event_end_of_day( $date, 'U' ) ) + 1;
+			$end_of_day = ( (int) tribe_event_end_of_day( $date, 'U' ) ) + 1;
+			end( self::$hour_range );
+			$date = min( $end_of_day, strtotime( $date . ' ' . tribe_events_get_week_hours( 'last-hour' ) ) );
 			$date = date( 'Y-m-d H:00:00', $date );
+			$date = date( $format, strtotime( $date ) );
 
-			return date( $format, strtotime( $date ) );
+			return $date;
 		}
 
 		/**

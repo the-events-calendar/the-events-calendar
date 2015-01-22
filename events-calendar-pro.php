@@ -865,10 +865,20 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			if( !empty($query->tribe_is_event_pro_query) ) {
 				switch( $query->query_vars['eventDisplay'] ) {
 					case 'week':
-						$week = tribe_get_first_week_day( $query->get('eventDate') );
-						$query->set( 'eventDate', $week );
-						$query->set( 'start_date', $week );
-						$query->set( 'end_date', tribe_get_last_week_day( $week ) );
+
+						$start_date = tribe_get_first_week_day( $query->get( 'eventDate' ) );
+						$end_date   = tribe_get_last_week_day( $start_date );
+
+						// if we're using an non-default hour range on week view
+						$week_hour_range = tribe_events_get_week_hours('raw');
+						if ( $week_hour_range !== range( 0, 23 ) ) {
+							$start_date .= ' ' . tribe_events_get_week_hours( 'first-hour' );
+							$end_date .= ' ' . tribe_events_get_week_hours( 'last-hour' );
+						}
+
+						$query->set( 'eventDate', $start_date  );
+						$query->set( 'start_date', $start_date );
+						$query->set( 'end_date', $end_date );
 						$query->set( 'posts_per_page', -1 ); // show ALL week posts
 						$query->set( 'hide_upcoming', false );
 						break;
