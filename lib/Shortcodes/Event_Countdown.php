@@ -52,10 +52,10 @@ class Tribe__Events__Pro__Shortcodes__Event_Countdown {
 		}
 
 		// If the ECP CSS has not already been added lets lazily add it now
-		Tribe_PRO_Template_Factory::asset_package( 'events-pro-css' );
+		Tribe_Events__Pro__Template_Factory::asset_package( 'events-pro-css' );
 
 		ob_start();
-		the_widget( 'TribeCountdownWidget', $this->arguments, $this->arguments );
+		the_widget( 'Tribe__Events__Pro__Countdown_Widget', $this->arguments, $this->arguments );
 		$this->output = ob_get_clean();
 	}
 
@@ -72,7 +72,7 @@ class Tribe__Events__Pro__Shortcodes__Event_Countdown {
 	 */
 	protected function set_by_slug() {
 		$events = get_posts( array(
-			'post_type' => TribeEvents::POSTTYPE,
+			'post_type' => Tribe__Events__Events::POSTTYPE,
 			'name' => $this->arguments['slug'],
 			'posts_per_page' => 1
 		) );
@@ -94,6 +94,6 @@ class Tribe__Events__Pro__Shortcodes__Event_Countdown {
 			return;
 		}
 
-		$this->arguments['event_date'] = tribe_get_start_date( $this->arguments['event_ID'], false, TribeDateUtils::DBDATEFORMAT );
+		$this->arguments['event_date'] = tribe_get_start_date( $this->arguments['event_ID'], false, Tribe__Events__Date_Utils::DBDATEFORMAT );
 	}
 }

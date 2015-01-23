@@ -7,7 +7,7 @@ class TribeEventsPro_RecurrenceSeriesSplitter_Test extends WP_UnitTestCase {
 	public function test_break_single_event_from_series() {
 		$start_date = date('Y-m-d', strtotime('2014-05-01'));
 		$event_args = array(
-			'post_type' => TribeEvents::POSTTYPE,
+			'post_type' => Tribe__Events__Events::POSTTYPE,
 			'post_title' => __CLASS__,
 			'post_content' => __FUNCTION__,
 			'post_status' => 'publish',
@@ -23,9 +23,9 @@ class TribeEventsPro_RecurrenceSeriesSplitter_Test extends WP_UnitTestCase {
 				'type' => 'Every Week',
 			)
 		);
-		$post_id = TribeEventsAPI::createEvent($event_args);
+		$post_id = Tribe__Events__API::createEvent($event_args);
 		$original_children = get_posts(array(
-			'post_type' => TribeEvents::POSTTYPE,
+			'post_type' => Tribe__Events__Events::POSTTYPE,
 			'post_parent' => $post_id,
 			'post_status' => 'publish',
 			'fields' => 'ids',
@@ -33,12 +33,12 @@ class TribeEventsPro_RecurrenceSeriesSplitter_Test extends WP_UnitTestCase {
 
 		$child_to_break = $original_children[2];
 
-		$breaker = new TribeEventsPro_RecurrenceSeriesSplitter();
+		$breaker = new Tribe__Events__Pro__Recurrence_Series_Splitter();
 
 		$breaker->break_single_event_from_series($child_to_break);
 
 		$updated_children = get_posts(array(
-			'post_type' => TribeEvents::POSTTYPE,
+			'post_type' => Tribe__Events__Events::POSTTYPE,
 			'post_parent' => $post_id,
 			'post_status' => 'publish',
 			'fields' => 'ids',
@@ -54,7 +54,7 @@ class TribeEventsPro_RecurrenceSeriesSplitter_Test extends WP_UnitTestCase {
 		$broken_child = get_post($child_to_break);
 		$this->assertEmpty($broken_child->post_parent);
 		$this->assertEmpty( get_posts( array(
-			'post_type' => TribeEvents::POSTTYPE,
+			'post_type' => Tribe__Events__Events::POSTTYPE,
 			'post_parent' => $child_to_break,
 			'post_status' => 'publish',
 			'fields' => 'ids',
@@ -71,7 +71,7 @@ class TribeEventsPro_RecurrenceSeriesSplitter_Test extends WP_UnitTestCase {
 	public function test_break_first_event_from_series() {
 		$start_date = date('Y-m-d', strtotime('2014-05-01'));
 		$event_args = array(
-			'post_type' => TribeEvents::POSTTYPE,
+			'post_type' => Tribe__Events__Events::POSTTYPE,
 			'post_title' => __CLASS__,
 			'post_content' => __FUNCTION__,
 			'post_status' => 'publish',
@@ -87,9 +87,9 @@ class TribeEventsPro_RecurrenceSeriesSplitter_Test extends WP_UnitTestCase {
 				'type' => 'Every Week',
 			)
 		);
-		$post_id = TribeEventsAPI::createEvent($event_args);
+		$post_id = Tribe__Events__API::createEvent($event_args);
 		$original_children = get_posts(array(
-			'post_type' => TribeEvents::POSTTYPE,
+			'post_type' => Tribe__Events__Events::POSTTYPE,
 			'post_parent' => $post_id,
 			'post_status' => 'publish',
 			'fields' => 'ids',
@@ -97,13 +97,13 @@ class TribeEventsPro_RecurrenceSeriesSplitter_Test extends WP_UnitTestCase {
 			'posts_per_page' => -1,
 		));
 
-		$breaker = new TribeEventsPro_RecurrenceSeriesSplitter();
+		$breaker = new Tribe__Events__Pro__Recurrence_Series_Splitter();
 
 		$breaker->break_first_event_from_series($post_id);
 		$this->assertEmpty(get_post_meta($post_id, '_EventRecurrence', TRUE));
 
 		$updated_children = get_posts(array(
-			'post_type' => TribeEvents::POSTTYPE,
+			'post_type' => Tribe__Events__Events::POSTTYPE,
 			'post_parent' => $post_id,
 			'post_status' => 'publish',
 			'fields' => 'ids',
@@ -116,7 +116,7 @@ class TribeEventsPro_RecurrenceSeriesSplitter_Test extends WP_UnitTestCase {
 
 		$this->assertEmpty($new_parent->post_parent);
 		$this->assertCount( 48, get_posts( array(
-			'post_type' => TribeEvents::POSTTYPE,
+			'post_type' => Tribe__Events__Events::POSTTYPE,
 			'post_parent' => $new_parent->ID,
 			'post_status' => 'publish',
 			'fields' => 'ids',
@@ -132,7 +132,7 @@ class TribeEventsPro_RecurrenceSeriesSplitter_Test extends WP_UnitTestCase {
 	public function test_break_remaining_events_from_series() {
 		$start_date = date('Y-m-d', strtotime('2014-05-01'));
 		$event_args = array(
-			'post_type' => TribeEvents::POSTTYPE,
+			'post_type' => Tribe__Events__Events::POSTTYPE,
 			'post_title' => __CLASS__,
 			'post_content' => __FUNCTION__,
 			'post_status' => 'publish',
@@ -148,9 +148,9 @@ class TribeEventsPro_RecurrenceSeriesSplitter_Test extends WP_UnitTestCase {
 				'type' => 'Every Week',
 			)
 		);
-		$post_id = TribeEventsAPI::createEvent($event_args);
+		$post_id = Tribe__Events__API::createEvent($event_args);
 		$original_children = get_posts(array(
-			'post_type' => TribeEvents::POSTTYPE,
+			'post_type' => Tribe__Events__Events::POSTTYPE,
 			'post_parent' => $post_id,
 			'post_status' => 'publish',
 			'fields' => 'ids',
@@ -158,12 +158,12 @@ class TribeEventsPro_RecurrenceSeriesSplitter_Test extends WP_UnitTestCase {
 
 		$child_to_break = $original_children[2];
 
-		$breaker = new TribeEventsPro_RecurrenceSeriesSplitter();
+		$breaker = new Tribe__Events__Pro__Recurrence_Series_Splitter();
 
 		$breaker->break_remaining_events_from_series($child_to_break);
 
 		$updated_children = get_posts(array(
-			'post_type' => TribeEvents::POSTTYPE,
+			'post_type' => Tribe__Events__Events::POSTTYPE,
 			'post_parent' => $post_id,
 			'post_status' => 'publish',
 			'fields' => 'ids',
@@ -180,7 +180,7 @@ class TribeEventsPro_RecurrenceSeriesSplitter_Test extends WP_UnitTestCase {
 		$broken_child = get_post($child_to_break);
 		$this->assertEmpty($broken_child->post_parent);
 		$this->assertCount( 1, get_posts( array(
-			'post_type' => TribeEvents::POSTTYPE,
+			'post_type' => Tribe__Events__Events::POSTTYPE,
 			'post_parent' => $child_to_break,
 			'post_status' => 'publish',
 			'fields' => 'ids',

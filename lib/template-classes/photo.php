@@ -11,8 +11,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die('-1');
 }
 
-if( !class_exists('Tribe_Events_Pro_Photo_Template')){
-	class Tribe_Events_Pro_Photo_Template extends Tribe_PRO_Template_Factory {
+if( !class_exists( 'Tribe__Events__Pro__Templates__Photo' )){
+	class Tribe__Events__Pro__Templates__Photo extends Tribe_Events__Pro__Template_Factory {
 
 		protected $body_class = 'events-photo';
 		const AJAX_HOOK = 'tribe_photo';
@@ -63,9 +63,9 @@ if( !class_exists('Tribe_Events_Pro_Photo_Template')){
 		 */
 		function ajax_response() {
 
-			$tec = TribeEvents::instance();
+			$tec = Tribe__Events__Events::instance();
 
-			TribeEventsQuery::init();
+			Tribe__Events__Query::init();
 
 			$tribe_paged = ( !empty( $_POST['tribe_paged'] ) ) ? intval( $_POST['tribe_paged'] ) : 1;
 
@@ -76,7 +76,7 @@ if( !class_exists('Tribe_Events_Pro_Photo_Template')){
 
 			$args = array(
 				'eventDisplay' => 'list',
-				'post_type'    => TribeEvents::POSTTYPE,
+				'post_type'    => Tribe__Events__Events::POSTTYPE,
 				'post_status'  => $post_status,
 				'paged'        => $tribe_paged
 			);
@@ -84,7 +84,7 @@ if( !class_exists('Tribe_Events_Pro_Photo_Template')){
 			$view_state = 'photo';
 
 			if ( isset( $_POST['tribe_event_category'] ) ) {
-				$args[TribeEvents::TAXONOMY] = $_POST['tribe_event_category'];
+				$args[Tribe__Events__Events::TAXONOMY] = $_POST['tribe_event_category'];
 			}
 
 			/* if past view */
@@ -94,7 +94,7 @@ if( !class_exists('Tribe_Events_Pro_Photo_Template')){
 			}
 
 
-			$query = TribeEventsQuery::getEvents( $args, true );
+			$query = Tribe__Events__Query::getEvents( $args, true );
 			$hash  = $query->query_vars;
 
 			$hash['paged']      = null;
@@ -104,7 +104,7 @@ if( !class_exists('Tribe_Events_Pro_Photo_Template')){
 			if ( !empty( $_POST['hash'] ) && $hash_str !== $_POST['hash'] ) {
 				$tribe_paged   = 1;
 				$args['paged'] = 1;
-				$query         = TribeEventsQuery::getEvents( $args, true );
+				$query         = Tribe__Events__Query::getEvents( $args, true );
 			}
 
 			$response = array(

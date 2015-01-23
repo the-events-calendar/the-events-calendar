@@ -13,12 +13,12 @@ class TribeRecurrence_Test extends WP_UnitTestCase {
 		$end_date = strtotime("2011-12-06");
 		$series_rules = new WeekSeriesRules(1, array(2));
 
-		$rec = new TribeRecurrence($start_date, $end_date, $series_rules);
+		$rec = new Tribe__Events__Pro__Recurrence($start_date, $end_date, $series_rules);
 		$this->assertTrue(in_array($end_date, $rec->getDates()));
 	}
 
 	public function test_max_date() {
-		$recurrence = new TribeRecurrence( strtotime('2013-09-21'), 8, new YearSeriesRules(1), TRUE, NULL );
+		$recurrence = new Tribe__Events__Pro__Recurrence( strtotime('2013-09-21'), 8, new YearSeriesRules(1), TRUE, NULL );
 		$this->assertCount(8, $recurrence->getDates());
 
 		$recurrence->setMaxDate(strtotime('2016-09-21'));
@@ -27,7 +27,7 @@ class TribeRecurrence_Test extends WP_UnitTestCase {
 		$recurrence->setMaxDate(strtotime('2016-09-20'));
 		$this->assertCount( 2, $recurrence->getDates() );
 
-		$recurrence = new TribeRecurrence( strtotime('2013-09-21'), strtotime('2017-09-21'), new YearSeriesRules(1), FALSE, NULL );
+		$recurrence = new Tribe__Events__Pro__Recurrence( strtotime('2013-09-21'), strtotime('2017-09-21'), new YearSeriesRules(1), FALSE, NULL );
 		$this->assertCount(4, $recurrence->getDates());
 
 		$recurrence->setMaxDate(strtotime('2016-09-21'));
@@ -38,7 +38,7 @@ class TribeRecurrence_Test extends WP_UnitTestCase {
 	}
 
 	public function test_min_date() {
-		$recurrence = new TribeRecurrence( strtotime('2013-09-21'), 8, new YearSeriesRules(1), TRUE, NULL );
+		$recurrence = new Tribe__Events__Pro__Recurrence( strtotime('2013-09-21'), 8, new YearSeriesRules(1), TRUE, NULL );
 		$this->assertCount(8, $recurrence->getDates());
 
 		$recurrence->setMinDate(strtotime('2015-09-20'));
@@ -52,7 +52,7 @@ class TribeRecurrence_Test extends WP_UnitTestCase {
 	}
 
 	public function test_constraint_flag() {
-		$recurrence = new TribeRecurrence( strtotime('2013-09-21'), 8, new YearSeriesRules(1), TRUE, NULL );
+		$recurrence = new Tribe__Events__Pro__Recurrence( strtotime('2013-09-21'), 8, new YearSeriesRules(1), TRUE, NULL );
 		$recurrence->getDates();
 		$this->assertFalse($recurrence->constrainedByMaxDate());
 
@@ -66,7 +66,7 @@ class TribeRecurrence_Test extends WP_UnitTestCase {
 	}
 
 	public function test_infinite_recurrence() {
-		$recurrence = new TribeRecurrence( strtotime('2013-09-21'), TribeRecurrence::NO_END, new YearSeriesRules(1), TRUE, NULL );
+		$recurrence = new Tribe__Events__Pro__Recurrence( strtotime('2013-09-21'), Tribe__Events__Pro__Recurrence::NO_END, new YearSeriesRules(1), TRUE, NULL );
 		$dates = $recurrence->getDates();
 		$this->assertEquals('2037-09-21', date('Y-m-d', end($dates))); // OK, so that's not really infinite, is it?
 		if ( PHP_INT_SIZE > 4 ) {

@@ -13,7 +13,7 @@ class Tribe__Events__Pro__Deactivation extends Tribe__Events__Abstract_Deactivat
 	 */
 	private function set_flags() {
 		require_once( dirname( __FILE__ ) . '/Updater.php' );
-		$updater = new Tribe__Events__Pro__Updater( TribeEventsPro::VERSION );
+		$updater = new Tribe__Events__Pro__Updater( Tribe__Events__Pro__Events_Pro::VERSION );
 		$updater->reset();
 	}
 

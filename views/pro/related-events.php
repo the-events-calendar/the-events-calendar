@@ -30,14 +30,14 @@ if ( is_array( $posts ) && ! empty( $posts ) ) {
 	foreach ( $posts as $post ) {
 		echo '<li>';
 
-		$thumb = ( has_post_thumbnail( $post->ID ) ) ? get_the_post_thumbnail( $post->ID, 'large' ) : '<img src="' . trailingslashit( TribeEventsPro::instance()->pluginUrl ) . 'resources/images/tribe-related-events-placeholder.png" alt="' . get_the_title( $post->ID ) . '" />';
+		$thumb = ( has_post_thumbnail( $post->ID ) ) ? get_the_post_thumbnail( $post->ID, 'large' ) : '<img src="' . trailingslashit( Tribe__Events__Pro__Events_Pro::instance()->pluginUrl ) . 'resources/images/tribe-related-events-placeholder.png" alt="' . get_the_title( $post->ID ) . '" />';
 		echo '<div class="tribe-related-events-thumbnail">';
 		echo '<a href="' . tribe_get_event_link( $post ) . '" class="url" rel="bookmark">' . $thumb . '</a>';
 		echo '</div>';
 		echo '<div class="tribe-related-event-info">';
 		echo '<h3 class="tribe-related-events-title summary"><a href="' . tribe_get_event_link( $post ) . '" class="url" rel="bookmark">' . get_the_title( $post->ID ) . '</a></h3>';
 
-		if ( $post->post_type == TribeEvents::POSTTYPE ) {
+		if ( $post->post_type == Tribe__Events__Events::POSTTYPE ) {
 			echo tribe_events_event_schedule_details( $post );
 		}
 		echo '</div>';

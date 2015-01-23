@@ -13,8 +13,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
-if ( ! class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
-	class Tribe_Events_Pro_Week_Template extends Tribe_PRO_Template_Factory {
+if ( ! class_exists( 'Tribe__Events__Pro__Templates__Week' ) ) {
+	class Tribe__Events__Pro__Templates__Week extends Tribe_Events__Pro__Template_Factory {
 
 		protected $asset_packages = array( 'ajax-weekview' );
 		public static $tribe_bar_args = array();
@@ -73,14 +73,14 @@ if ( ! class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 			list( $search_term, $tax_term, $geographic_term ) = $this->get_search_terms();
 
 			if ( ! empty( $search_term ) ) {
-				TribeEvents::setNotice( 'event-search-no-results', sprintf( __( 'There were no results found for <strong>"%s"</strong> this week. Try searching another week.', 'tribe-events-calendar-pro' ), esc_html( $search_term ) ) );
+				Tribe__Events__Events::setNotice( 'event-search-no-results', sprintf( __( 'There were no results found for <strong>"%s"</strong> this week. Try searching another week.', 'tribe-events-calendar-pro' ), esc_html( $search_term ) ) );
 			} elseif ( ! empty( $geographic_term ) ) {
-				TribeEvents::setNotice( 'event-search-no-results', sprintf( __( 'No results were found for events in or near <strong>"%s"</strong> this week. Try searching another week.', 'tribe-events-calendar-pro' ), esc_html( $geographic_term ) ) );
+				Tribe__Events__Events::setNotice( 'event-search-no-results', sprintf( __( 'No results were found for events in or near <strong>"%s"</strong> this week. Try searching another week.', 'tribe-events-calendar-pro' ), esc_html( $geographic_term ) ) );
 			} // if attempting to view a category archive.
 			elseif ( ! empty( $tax_term ) ) {
-				TribeEvents::setNotice( 'events-not-found', sprintf( __( 'No matching events listed under %s. Please try viewing the full calendar for a complete list of events.', 'tribe-events-calendar' ), $tax_term ) );
+				Tribe__Events__Events::setNotice( 'events-not-found', sprintf( __( 'No matching events listed under %s. Please try viewing the full calendar for a complete list of events.', 'tribe-events-calendar' ), $tax_term ) );
 			} else {
-				TribeEvents::setNotice( 'event-search-no-results', __( 'No results were found for this week. Try searching another week.', 'tribe-events-calendar-pro' ) );
+				Tribe__Events__Events::setNotice( 'event-search-no-results', __( 'No results were found for this week. Try searching another week.', 'tribe-events-calendar-pro' ) );
 			}
 		}
 
@@ -400,8 +400,8 @@ if ( ! class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 				}
 
 				// Push our start/end datetimes forward one day
-				$day_starts = date( TribeDateUtils::DBDATETIMEFORMAT, strtotime( "$day_starts +1 day" ) );
-				$day_ends   = date( TribeDateUtils::DBDATETIMEFORMAT, strtotime( "$day_ends +1 day" ) );
+				$day_starts = date( Tribe__Events__Date_Utils::DBDATETIMEFORMAT, strtotime( "$day_starts +1 day" ) );
+				$day_ends   = date( Tribe__Events__Date_Utils::DBDATETIMEFORMAT, strtotime( "$day_ends +1 day" ) );
 			}
 
 			self::$events->hourly_map = $day_map;
@@ -621,7 +621,7 @@ if ( ! class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 		function ajax_response() {
 			if ( isset( $_POST["eventDate"] ) && $_POST["eventDate"] ) {
 
-				TribeEventsQuery::init();
+				Tribe__Events__Query::init();
 
 				$post_status = array( 'publish' );
 				if ( is_user_logged_in() ) {
@@ -635,13 +635,13 @@ if ( ! class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 				);
 
 				if ( isset( $_POST['tribe_event_category'] ) ) {
-					$args[ TribeEvents::TAXONOMY ] = $_POST['tribe_event_category'];
+					$args[ Tribe__Events__Events::TAXONOMY ] = $_POST['tribe_event_category'];
 				}
 
 				global $wp_query;
-				$wp_query = TribeEventsQuery::getEvents( $args, true );
+				$wp_query = Tribe__Events__Query::getEvents( $args, true );
 
-				TribeEvents::instance()->setDisplay();
+				Tribe__Events__Events::instance()->setDisplay();
 
 				$response = array(
 					'html'    => '',

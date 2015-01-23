@@ -11,15 +11,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
-if( class_exists( 'TribeEventsPro' ) ) {
+if( class_exists( 'Tribe__Events__Pro__Events_Pro' ) ) {
 
 	if ( !function_exists( 'tribe_get_mapview_link' ) ) {
 		function tribe_get_mapview_link( $term = null ) {
 			global $wp_query;
-			if ( isset( $wp_query->query_vars[ TribeEvents::TAXONOMY ] ) ) {
-				$term = $wp_query->query_vars[TribeEvents::TAXONOMY];
+			if ( isset( $wp_query->query_vars[ Tribe__Events__Events::TAXONOMY ] ) ) {
+				$term = $wp_query->query_vars[Tribe__Events__Events::TAXONOMY];
 			}
-			$output = TribeEvents::instance()->getLink( 'map', null, $term );
+			$output = Tribe__Events__Events::instance()->getLink( 'map', null, $term );
 
 			return apply_filters( 'tribe_get_map_view_permalink', $output );
 		}
@@ -40,7 +40,7 @@ if( class_exists( 'TribeEventsPro' ) ) {
 				$postId = $postId->ID;
 			}
 			$postId = $postId ? $postId : get_the_ID();
-			if ( get_post_type($postId) != TribeEvents::POSTTYPE ) {
+			if ( get_post_type($postId) != Tribe__Events__Events::POSTTYPE ) {
 				return false;
 			}
 			$instances = tribe_get_recurrence_start_dates($postId);
@@ -62,9 +62,9 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	 * @return array Start times, as Y-m-d H:i:s
 	 */
 	function tribe_get_recurrence_start_dates( $post_id = null ) {
-		$post_id = TribeEvents::postIdHelper($post_id);
+		$post_id = Tribe__Events__Events::postIdHelper($post_id);
 
-		return TribeEventsRecurrenceMeta::get_start_dates( $post_id );
+		return Tribe__Events__Pro__Recurrence_Meta::get_start_dates( $post_id );
 	}
 
 	/**
@@ -79,9 +79,9 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	 */
 	if (!function_exists( 'tribe_get_recurrence_text' )) {
 		function tribe_get_recurrence_text( $postId = null )  {
-			$postId = TribeEvents::postIdHelper( $postId );
+			$postId = Tribe__Events__Events::postIdHelper( $postId );
 
-			return apply_filters( 'tribe_get_recurrence_text', TribeEventsRecurrenceMeta::recurrenceToTextByPost( $postId ) );
+			return apply_filters( 'tribe_get_recurrence_text', Tribe__Events__Pro__Recurrence_Meta::recurrenceToTextByPost( $postId ) );
 		}
 	}
 
@@ -94,8 +94,8 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	 */
 	if (!function_exists( 'tribe_all_occurences_link' )) {
 		function tribe_all_occurences_link( $postId = null, $echo = true )  {
-			$postId = TribeEvents::postIdHelper( $postId );
-			$tribe_ecp = TribeEvents::instance();
+			$postId = Tribe__Events__Events::postIdHelper( $postId );
+			$tribe_ecp = Tribe__Events__Events::instance();
 			$link = apply_filters('tribe_all_occurences_link', $tribe_ecp->getLink('all', $postId));
 			if( $echo ) {
 				echo $link;
@@ -125,10 +125,10 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	 * @param int $postId (optional)
 	 *
 	 * @return array $data of custom fields
-	 * @todo move logic to TribeEventsCustomMeta class
+	 * @todo move logic to Tribe__Events__Pro__Custom_Meta class
 	 */
 	function tribe_get_custom_fields( $postId = null ) {
-		$postId = TribeEvents::postIdHelper( $postId );
+		$postId = Tribe__Events__Events::postIdHelper( $postId );
 		$data = array();
 		$customFields = tribe_get_option('custom-fields', false);
 		if (is_array($customFields)) {
@@ -202,7 +202,7 @@ if( class_exists( 'TribeEventsPro' ) ) {
 
 		_deprecated_function( __FUNCTION__, '3.9', 'tribe_get_custom_fields' );
 
-		$field = TribeEventsCustomMeta::get_custom_field_by_label( $label, $eventID );
+		$field = Tribe__Events__Pro__Custom_Meta::get_custom_field_by_label( $label, $eventID );
 
 		if ( has_filter( 'tribe_get_custom_field' ) ) {
 			_deprecated_function( "The 'tribe_get_custom_field' filter", '3.9', " the 'tribe_get_custom_fields' filter" );
@@ -226,7 +226,7 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	 */
 	function tribe_custom_field( $label, $eventID = null ) {
 		_deprecated_function( __FUNCTION__, '3.9', "tribe_get_custom_fields" );
-		$field = TribeEventsCustomMeta::get_custom_field_by_label( $label, $eventID );
+		$field = Tribe__Events__Pro__Custom_Meta::get_custom_field_by_label( $label, $eventID );
 		echo $field;
 	}
 
@@ -287,7 +287,7 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	 * @todo move this to the settings classes and remove
 	 */
 	function tribe_display_saved_organizer() {
-		$current_organizer_id = TribeEvents::instance()->defaults()->organizer_id();
+		$current_organizer_id = Tribe__Events__Events::instance()->defaults()->organizer_id();
 		$current_organizer = ($current_organizer_id != 'none' && $current_organizer_id != 0 && $current_organizer_id) ? tribe_get_organizer($current_organizer_id) : __('No default set', 'tribe-events-calendar-pro');
 		$current_organizer = esc_html( $current_organizer );
 		echo '<p class="tribe-field-indent description">'.sprintf( __('The current default organizer is: %s', 'tribe-events-calendar-pro' ), '<strong>'.$current_organizer.'</strong>').'</p>';
@@ -302,7 +302,7 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	 * @todo move this to the settings classes and remove
 	 */
 	function tribe_display_saved_venue() {
-		$current_venue_id = TribeEvents::instance()->defaults()->venue_id();
+		$current_venue_id = Tribe__Events__Events::instance()->defaults()->venue_id();
 		$current_venue = ($current_venue_id != 'none' && $current_venue_id != 0 && $current_venue_id) ? tribe_get_venue($current_venue_id) : __('No default set', 'tribe-events-calendar-pro');
 		$current_venue = esc_html( $current_venue );
 		echo '<p class="tribe-field-indent tribe-field-description description">'.sprintf( __('The current default venue is: %s', 'tribe-events-calendar-pro' ), '<strong>'.$current_venue.'</strong>').'</p>';
@@ -317,7 +317,7 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	 * @todo move this to the settings classes and remove
 	 */
 	function tribe_display_saved_address() {
-		$option = TribeEvents::instance()->defaults()->address();
+		$option = Tribe__Events__Events::instance()->defaults()->address();
 		$option = empty( $option ) ? __('No default set', 'tribe-events-calendar-pro') : $option;
 		$option = esc_html( $option );
 		echo '<p class="tribe-field-indent tribe-field-description venue-default-info description">'.sprintf( __('The current default address is: %s', 'tribe-events-calendar-pro' ), '<strong>'.$option.'</strong>').'</p>';
@@ -332,7 +332,7 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	 * @todo move this to the settings classes and remove
 	 */
 	function tribe_display_saved_city() {
-		$option = TribeEvents::instance()->defaults()->city();
+		$option = Tribe__Events__Events::instance()->defaults()->city();
 		$option = empty( $option ) ? __('No default set', 'tribe-events-calendar-pro') : $option;
 		$option = esc_html( $option );
 		echo '<p class="tribe-field-indent tribe-field-description venue-default-info description">'.sprintf( __('The current default city is: %s', 'tribe-events-calendar-pro' ), '<strong>'.$option.'</strong>').'</p>';
@@ -347,7 +347,7 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	 * @todo move this to the settings classes and remove
 	 */
 	function tribe_display_saved_state() {
-		$option = TribeEvents::instance()->defaults()->state();
+		$option = Tribe__Events__Events::instance()->defaults()->state();
 		$option = empty( $option ) ? __('No default set', 'tribe-events-calendar-pro') : $option;
 		$option = esc_html( $option );
 		echo '<p class="tribe-field-indent tribe-field-description venue-default-info description">'.sprintf( __('The current default state is: %s', 'tribe-events-calendar-pro' ), '<strong>'.$option.'</strong>').'</p>';
@@ -362,7 +362,7 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	 * @todo move this to the settings classes and remove
 	 */
 	function tribe_display_saved_province() {
-		$option = TribeEvents::instance()->defaults()->province();
+		$option = Tribe__Events__Events::instance()->defaults()->province();
 		$option = empty( $option ) ? __('No default set', 'tribe-events-calendar-pro') : $option;
 		$option = esc_html( $option );
 		echo '<p class="tribe-field-indent tribe-field-description venue-default-info description">'.sprintf( __('The current default province is: %s', 'tribe-events-calendar-pro' ), '<strong>'.$option.'</strong>').'</p>';
@@ -377,7 +377,7 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	 * @todo move this to the settings classes and remove
 	 */
 	function tribe_display_saved_zip() {
-		$option = TribeEvents::instance()->defaults()->zip();
+		$option = Tribe__Events__Events::instance()->defaults()->zip();
 		$option = empty( $option ) ? __('No default set', 'tribe-events-calendar-pro') : $option;
 		$option = esc_html( $option );
 		echo '<p class="tribe-field-indent tribe-field-description venue-default-info description">'.sprintf( __('The current default postal code/zip code is: %s', 'tribe-events-calendar-pro' ), '<strong>'.$option.'</strong>').'</p>';
@@ -392,7 +392,7 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	 * @todo move this to the settings classes and remove
 	 */
 	function tribe_display_saved_country() {
-		$option = TribeEvents::instance()->defaults()->country();
+		$option = Tribe__Events__Events::instance()->defaults()->country();
 		$option = empty( $option[1] ) ? __('No default set', 'tribe-events-calendar-pro') : $option[1];
 		$option = esc_html( $option );
 		echo '<p class="tribe-field-indent tribe-field-description venue-default-info description">'.sprintf( __('The current default country is: %s', 'tribe-events-calendar-pro' ), '<strong>'.$option.'</strong>').'</p>';
@@ -407,7 +407,7 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	 * @todo move this to the settings classes and remove
 	 */
 	function tribe_display_saved_phone() {
-		$option = TribeEvents::instance()->defaults()->phone();
+		$option = Tribe__Events__Events::instance()->defaults()->phone();
 		$option = empty( $option ) ? __('No default set', 'tribe-events-calendar-pro') : $option;
 		$option = esc_html( $option );
 		echo '<p class="tribe-field-indent tribe-field-description venue-default-info description">'.sprintf( __('The current default phone is: %s', 'tribe-events-calendar-pro' ), '<strong>'.$option.'</strong>').'</p>';
@@ -424,7 +424,7 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	 */
 	function tribe_get_distance_with_unit( $distance_in_kms ) {
 
-		$tec = TribeEvents::instance();
+		$tec = Tribe__Events__Events::instance();
 
 		$unit     = $tec->getOption( 'geoloc_default_unit', 'miles' );
 		$distance = round( tribe_convert_units( $distance_in_kms, 'kms', $unit ), 2 );
@@ -483,7 +483,7 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	 * @param null|mixed $date  given date or week # (week # assumes current year)
 	 *
 	 * @return string
-	 * @todo move logic to TribeDateUtils
+	 * @todo move logic to Tribe__Events__Date_Utils
 	 */
 	function tribe_get_first_week_day( $date = null ) {
 		global $wp_query;
@@ -527,7 +527,7 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	 * @return bool
 	 */
 	function tribe_is_week()  {
-		$is_week = (TribeEvents::instance()->displaying == 'week') ? true : false;
+		$is_week = (Tribe__Events__Events::instance()->displaying == 'week') ? true : false;
 
 		return apply_filters('tribe_is_week', $is_week);
 	}
@@ -538,7 +538,7 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	 * @return bool
 	 */
 	function tribe_is_photo()  {
-		$is_photo = (TribeEvents::instance()->displaying == 'photo') ? true : false;
+		$is_photo = (Tribe__Events__Events::instance()->displaying == 'photo') ? true : false;
 
 		return apply_filters('tribe_is_photo', $is_photo);
 	}
@@ -549,7 +549,7 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	 * @return bool
 	 */
 	function tribe_is_map() {
-		$tribe_ecp = TribeEvents::instance();
+		$tribe_ecp = Tribe__Events__Events::instance();
 		$is_map    = ( $tribe_ecp->displaying == 'map' ) ? true : false;
 
 		return apply_filters( 'tribe_is_map', $is_map );
@@ -610,10 +610,10 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	 */
 	function tribe_get_week_permalink( $week = null, $term = true ){
 		$week = is_null($week) ? false : date('Y-m-d', strtotime( $week ) );
-		if ( isset( $wp_query->query_vars[ TribeEvents::TAXONOMY ] ) ) {
-			$term = $wp_query->query_vars[TribeEvents::TAXONOMY];
+		if ( isset( $wp_query->query_vars[ Tribe__Events__Events::TAXONOMY ] ) ) {
+			$term = $wp_query->query_vars[Tribe__Events__Events::TAXONOMY];
 		}
-		$output = TribeEvents::instance()->getLink( 'week', $week, $term );
+		$output = Tribe__Events__Events::instance()->getLink( 'week', $week, $term );
 
 		return apply_filters('tribe_get_week_permalink', $output);
 	}
@@ -624,10 +624,10 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	 * @return string $permalink
 	 */
 	function tribe_get_photo_permalink( $term = true ) {
-		if ( isset( $wp_query->query_vars[ TribeEvents::TAXONOMY ] ) ) {
-			$term = $wp_query->query_vars[TribeEvents::TAXONOMY];
+		if ( isset( $wp_query->query_vars[ Tribe__Events__Events::TAXONOMY ] ) ) {
+			$term = $wp_query->query_vars[Tribe__Events__Events::TAXONOMY];
 		}
-		$output = TribeEvents::instance()->getLink( 'photo', null, $term );
+		$output = Tribe__Events__Events::instance()->getLink( 'photo', null, $term );
 
 		return apply_filters( 'tribe_get_photo_view_permalink', $output );
 	}
@@ -649,9 +649,9 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	 * @return array the related posts.
 	 */
 	function tribe_get_related_posts( $count = 3, $post = false ) {
-		$post_id = TribeEvents::postIdHelper( $post );
+		$post_id = Tribe__Events__Events::postIdHelper( $post );
 		$tags = wp_get_post_tags( $post_id, array( 'fields' => 'ids' ) );
-		$categories = wp_get_object_terms( $post_id, TribeEvents::TAXONOMY, array( 'fields' => 'ids' ) );
+		$categories = wp_get_object_terms( $post_id, Tribe__Events__Events::TAXONOMY, array( 'fields' => 'ids' ) );
 		if ( ! $tags && ! $categories ) {
 			return;
 		}
@@ -667,7 +667,7 @@ if( class_exists( 'TribeEventsPro' ) ) {
 		}
 		if ( $categories ) {
 			$args['tax_query'][] = array(
-				'taxonomy' => TribeEvents::TAXONOMY,
+				'taxonomy' => Tribe__Events__Events::TAXONOMY,
 				'field'    => 'id',
 				'terms'    => $categories
 			);
@@ -676,7 +676,7 @@ if( class_exists( 'TribeEventsPro' ) ) {
 		$args = apply_filters( 'tribe_related_posts_args', $args );
 
 		if ( $args ) {
-			$posts = TribeEventsQuery::getEvents( $args );
+			$posts = Tribe__Events__Query::getEvents( $args );
 		} else {
 			$posts = array();
 		}
@@ -734,7 +734,7 @@ if( class_exists( 'TribeEventsPro' ) ) {
 	 * @return string
 	 **/
 	function tribe_events_pro_resource_url($resource, $echo = false) {
-		$url = apply_filters('tribe_events_pro_resource_url', trailingslashit( TribeEventsPro::instance()->pluginUrl ).'resources/'.$resource, $resource);
+		$url = apply_filters('tribe_events_pro_resource_url', trailingslashit( Tribe__Events__Pro__Events_Pro::instance()->pluginUrl ).'resources/'.$resource, $resource);
 		if ($echo) {
 			echo $url;
 		}

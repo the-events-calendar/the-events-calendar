@@ -1,6 +1,6 @@
 <?php
 
-class ECP_APM_Filters {
+class Tribe__Events__Pro__APM_Filters {
 	
 	/**
 	 * Class constructor, adds the actions and filters.
@@ -62,7 +62,7 @@ class ECP_APM_Filters {
 			),
 			'ecp_cat' => array(
 				'name' => __('Event Cats', 'tribe-events-calendar-pro'),
-				'taxonomy' => TribeEvents::TAXONOMY,
+				'taxonomy' => Tribe__Events__Events::TAXONOMY,
 				'disable' => 'columns'
 			),
 			'ecp_title' => array(
@@ -83,7 +83,7 @@ class ECP_APM_Filters {
 		);
 		
 		global $ecp_apm;
-		$ecp_apm = tribe_setup_apm( TribeEvents::POSTTYPE, $filter_args );
+		$ecp_apm = tribe_setup_apm( Tribe__Events__Events::POSTTYPE, $filter_args );
 		$ecp_apm->do_metaboxes = false;
 		$ecp_apm->add_taxonomies = false;
 	}
@@ -105,7 +105,7 @@ class ECP_APM_Filters {
 	}
 	
 }
-new ECP_APM_Filters;
+new Tribe__Events__Pro__APM_Filters;
 
 
 class TribeDateFilter {
@@ -437,7 +437,7 @@ class Tribe_Venue_Filter {
 	}
 
 	public function form_row($return, $key, $value, $filter) {
-		$venues = get_posts( array( 'post_type' => TribeEvents::VENUE_POST_TYPE, 'nopaging' => true ) );
+		$venues = get_posts( array( 'post_type' => Tribe__Events__Events::VENUE_POST_TYPE, 'nopaging' => true ) );
 
 		$args = array();
 
@@ -516,7 +516,7 @@ class Tribe_Organizer_Filter {
 	}
 
 	public function form_row($return, $key, $value, $filter) {
-		$organizers = get_posts( array( 'post_type' => TribeEvents::ORGANIZER_POST_TYPE, 'nopaging' => true ) );
+		$organizers = get_posts( array( 'post_type' => Tribe__Events__Events::ORGANIZER_POST_TYPE, 'nopaging' => true ) );
 
 		$args = array();
 

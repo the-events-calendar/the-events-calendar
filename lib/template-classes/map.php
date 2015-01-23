@@ -11,8 +11,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
-if ( ! class_exists( 'Tribe_Events_Pro_Map_Template' ) ) {
-	class Tribe_Events_Pro_Map_Template extends Tribe_PRO_Template_Factory {
+if ( ! class_exists( 'Tribe__Events__Pro__Templates__Map' ) ) {
+	class Tribe__Events__Pro__Templates__Map extends Tribe_Events__Pro__Template_Factory {
 
 		protected $body_class = 'events-list';
 		const AJAX_HOOK = 'tribe_geosearch';
@@ -48,7 +48,7 @@ if ( ! class_exists( 'Tribe_Events_Pro_Map_Template' ) ) {
 
 			$tribe_paged = ! empty( $_POST['tribe_paged'] ) ? $_POST['tribe_paged'] : 1;
 
-			TribeEventsQuery::init();
+			Tribe__Events__Query::init();
 
 			$post_status = array( 'publish' );
 			if ( is_user_logged_in() ) {
@@ -56,7 +56,7 @@ if ( ! class_exists( 'Tribe_Events_Pro_Map_Template' ) ) {
 			}
 
 			$defaults = array(
-				'post_type'      => TribeEvents::POSTTYPE,
+				'post_type'      => Tribe__Events__Events::POSTTYPE,
 				'posts_per_page' => tribe_get_option( 'postsPerPage', 10 ),
 				'paged'          => $tribe_paged,
 				'post_status'    => $post_status,
@@ -72,22 +72,22 @@ if ( ! class_exists( 'Tribe_Events_Pro_Map_Template' ) ) {
 			}
 
 			if ( isset( $_POST['tribe_event_category'] ) ) {
-				$defaults[ TribeEvents::TAXONOMY ] = $_POST['tribe_event_category'];
+				$defaults[ Tribe__Events__Events::TAXONOMY ] = $_POST['tribe_event_category'];
 			}
-			$query       = TribeEventsQuery::getEvents( $defaults, true );
+			$query       = Tribe__Events__Query::getEvents( $defaults, true );
 			$have_events = ( 0 < $query->found_posts );
 
-			if ( $have_events && TribeEventsGeoLoc::instance()->is_geoloc_query() ) {
+			if ( $have_events && Tribe__Events__Pro__Geo_Loc::instance()->is_geoloc_query() ) {
 				$lat = isset( $_POST['tribe-bar-geoloc-lat'] ) ? $_POST['tribe-bar-geoloc-lat'] : 0;
 				$lng = isset( $_POST['tribe-bar-geoloc-lng'] ) ? $_POST['tribe-bar-geoloc-lng'] : 0;
 
-				TribeEventsGeoLoc::instance()->assign_distance_to_posts( $query->posts, $lat, $lng );
+				Tribe__Events__Pro__Geo_Loc::instance()->assign_distance_to_posts( $query->posts, $lat, $lng );
 			} elseif ( ! $have_events && isset( $_POST['tribe-bar-geoloc'] ) ) {
-				TribeEvents::setNotice( 'event-search-no-results', sprintf( __( 'No results were found for events in or near <strong>"%s"</strong>.', 'tribe-events-calendar-pro' ), esc_html( $_POST['tribe-bar-geoloc'] ) ) );
+				Tribe__Events__Events::setNotice( 'event-search-no-results', sprintf( __( 'No results were found for events in or near <strong>"%s"</strong>.', 'tribe-events-calendar-pro' ), esc_html( $_POST['tribe-bar-geoloc'] ) ) );
 			} elseif ( ! $have_events && isset( $_POST['tribe_event_category'] ) ) {
-				TribeEvents::setNotice( 'events-not-found', sprintf( __( 'No matching events listed under %s. Please try viewing the full calendar for a complete list of events.', 'tribe-events-calendar' ), esc_html( $_POST['tribe_event_category'] ) ) );
+				Tribe__Events__Events::setNotice( 'events-not-found', sprintf( __( 'No matching events listed under %s. Please try viewing the full calendar for a complete list of events.', 'tribe-events-calendar' ), esc_html( $_POST['tribe_event_category'] ) ) );
 			} elseif ( ! $have_events ) {
-				TribeEvents::setNotice( 'event-search-no-results', __( 'There were no results found.', 'tribe-events-calendar-pro' ) );
+				Tribe__Events__Events::setNotice( 'event-search-no-results', __( 'There were no results found.', 'tribe-events-calendar-pro' ) );
 			}
 
 			$response = array(
@@ -106,17 +106,17 @@ if ( ! class_exists( 'Tribe_Events_Pro_Map_Template' ) ) {
 				$data                               = $query->posts;
 				$post                               = $query->posts[0];
 				$wp_query                           = $query;
-				TribeEvents::instance()->displaying = 'map';
+				Tribe__Events__Events::instance()->displaying = 'map';
 
 				ob_start();
 
 				tribe_get_view( 'pro/map/content' );
 				$response['html'] .= ob_get_clean();
-				$response['markers'] = TribeEventsGeoLoc::instance()->generate_markers( $data );
+				$response['markers'] = Tribe__Events__Pro__Geo_Loc::instance()->generate_markers( $data );
 			} else {
 				global $wp_query;
 				$wp_query = $query;
-				TribeEvents::instance()->setDisplay();
+				Tribe__Events__Events::instance()->setDisplay();
 
 				ob_start();
 
