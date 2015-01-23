@@ -53,7 +53,7 @@
 			$this->resources_url = $resources_url;
 		}
 
-		public function set_tec( TribeEvents $tec ) {
+		public function set_tec( Tribe__Events__Events  $tec ) {
 			$this->tec = $tec;
 		}
 
