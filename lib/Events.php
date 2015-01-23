@@ -237,7 +237,7 @@ if ( ! class_exists( 'Tribe__Events__Events' ) ) {
 			require_once $this->pluginPath . 'public/template-tags/general.php';
 			require_once $this->pluginPath . 'public/template-tags/month.php';
 			require_once $this->pluginPath . 'public/template-tags/loop.php';
-			require_once $this->pluginPath . 'public/template-tags/google-Map.php';
+			require_once $this->pluginPath . 'public/template-tags/google-map.php';
 			require_once $this->pluginPath . 'public/template-tags/organizer.php';
 			require_once $this->pluginPath . 'public/template-tags/venue.php';
 			require_once $this->pluginPath . 'public/template-tags/date.php';
