@@ -257,10 +257,6 @@
 							ts.page_title = $( '#tribe-events-header' ).data( 'title' );
 							document.title = ts.page_title;
 
-							console.log( ts.params );
-							console.log( ts.url_params );
-
-
 							if ( ts.do_string ) {
 								history.pushState( {
 									"tribe_params"    : ts.params,
