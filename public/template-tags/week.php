@@ -103,6 +103,18 @@ if ( class_exists( 'TribeEventsPro' ) ) {
 	}
 
 	/**
+	 * Return the hours to display on week view. Optionally return formatted, first, or last hour.
+	 *
+	 * @param null $format - can be 'raw', 'formatted', 'first-hour', or 'last-hour'
+	 *
+	 * @return array|mixed|string|void
+	 */
+	function tribe_events_get_displayed_days( $format = null ) {
+		$days = Tribe_Events_Pro_Week_Template::get_day_range();
+		return apply_filters( 'tribe_events_get_displayed_days', $days, $format );
+	}
+
+	/**
 	 * Return the classes used on each week day
 	 *
 	 * @return string

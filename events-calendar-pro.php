@@ -676,6 +676,17 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 							),
 						)
 					);
+					$fields = TribeEvents::array_insert_after_key(
+						'monthEventAmount', $fields, array(
+							'week_view_hide_weekends' => array(
+								'type'            => 'checkbox_bool',
+								'label'           => __( 'Hide weekends on Week View', 'tribe-events-calendar-pro' ),
+								'tooltip'         => __( 'Check this to only show weekdays on Week View', 'tribe-events-calendar-pro' ),
+								'default'         => false,
+								'validation_type' => 'boolean',
+							),
+						)
+					);
 					break;
 			}
 
@@ -869,9 +880,29 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 						$start_date = tribe_get_first_week_day( $query->get( 'eventDate' ) );
 						$end_date   = tribe_get_last_week_day( $start_date );
 
+						// if the setting to hide weekends is true
+						if ( tribe_get_option( 'week_view_hide_weekends', false ) == true ) {
+							$start_of_week = get_option('start_of_week');
+							// check if the week is set to start on a weekend day
+							// If so, start on the next weekday.
+							// 0 = Sunday, 6 = Saturday
+							if ( $start_of_week == 0 || $start_of_week == 6 ) {
+								$start_date = date( TribeDateUtils::DBDATEFORMAT, strtotime( $start_date . ' ' . '+1 Weekday' ) );
+							}
+							// If the week starts on saturday or friday
+							// sunday and/or saturday would be on the other end, so we need to end the previous weekday
+							// 5 = Friday, 6 = Saturday
+							if ( $start_of_week ==  5 || $start_of_week == 6 ) {
+								$end_date = date( TribeDateUtils::DBDATEFORMAT, strtotime( $end_date . ' ' . '-1 Weekday' ) );
+							}
+						}
+
+						// if the setting to hide weekends is on
+						// need to filter the query
+						// need to only show 5 days on the week view
+
 						// if we're using an non-default hour range on week view
-						$week_hour_range = tribe_events_get_week_hours('raw');
-						if ( $week_hour_range !== range( 0, 23 ) ) {
+						if ( has_filter('tribe_events_get_week_hours' ) ) {
 							$start_date .= ' ' . tribe_events_get_week_hours( 'first-hour' );
 							$end_date .= ' ' . tribe_events_get_week_hours( 'last-hour' );
 						}

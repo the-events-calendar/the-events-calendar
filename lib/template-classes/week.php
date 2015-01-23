@@ -51,7 +51,15 @@ if ( ! class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 		 * @var array
 		 * @see hook tribe_events_get_week_hours
 		 */
+
 		private static $hour_range;
+		/**
+		 * Range of days to be shown on the week view
+		 *
+		 * @var array
+		 * @see hook
+		 */
+		private static $day_range;
 
 		/**
 		 * Hook used for wp ajax response on week view content
@@ -67,6 +75,7 @@ if ( ! class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 		function __construct() {
 			parent::__construct();
 			self::$hour_range = tribe_events_get_week_hours();
+			self::$day_range = tribe_events_get_displayed_days();
 		}
 
 		/**
@@ -93,6 +102,34 @@ if ( ! class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 			}
 
 			return array_combine( $hours, $formatted_hours );
+		}
+
+		/**
+		 *
+		 */
+		public static function get_day_range() {
+			if ( isset( self::$day_range ) ) {
+				return self::$day_range;
+			}
+
+			$start_of_week = get_option('start_of_week');
+			$days = range( $start_of_week, $start_of_week + 6 );
+			foreach ( $days as $i => $day ) {
+				if ( $day > 6 ) {
+					$days[$i] -= 7;
+				}
+			}
+
+			if ( tribe_get_option( 'week_view_hide_weekends', false ) == true ) {
+				foreach ( $days as $i => $day ) {
+					if ( $day == 6 || $day == 0 ) {
+						unset ( $days[ $i ] );
+					}
+				}
+			}
+			$days = array_values( $days );
+			self::$day_range = $days;
+			return $days;
 		}
 
 		/**
@@ -218,22 +255,36 @@ if ( ! class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 
 			if ( $wp_query->have_posts() ) {
 
-				$day       = $wp_query->get( 'start_date' );
+				$day      = $wp_query->get( 'start_date' );
+				$weekday_array = array(
+					0 => 'Sunday',
+					1 => 'Monday',
+					2 => 'Tuesday',
+					3 => 'Wednesday',
+					4 => 'Thursday',
+					5 => 'Friday',
+					6 => 'Saturday',
+				);
 
-				// build an array with 7 "day" elements,
+				// build an array with the "day" elements,
 				// each "day" is an array that contains the date and the associated all day / hourly events
-				for ( $i = 0; $i < 7; $i ++ ) {
+				foreach ( self::$day_range as $i => $day_number ) {
 
-					$date               = date( 'Y-m-d', strtotime( $day . "+$i days" ) );
-					$timestamp_date     = strtotime( $date );
-					$timestamp_today    = strtotime( 'today' );
+					// figure out the $date that we're currently looking at
+					if ( $day_number >= self::$day_range[0] ) {
+						// usually we can just get the date for the next day
+						$date = date( 'Y-m-d', strtotime( $day . "+$i days" ) );
+					} else {
+						// fringe case - someone starts their week in the middle of the week, and is hiding weekends
+						// in this case, the "day number" will be less than the first day of the week,
+						// so we use a relative strtotime() calc
+						$date = date( 'Y-m-d', strtotime( "Next {$weekday_array[$day_number]}", strtotime( $day ) ) );
+					}
 
-
-					$hourly_events      = array(); // start with any events that were left from the last iteration
+					$hourly_events      = array();
 					$all_day_events     = array();
-					$add_to_tomorrow    = array();
 
-					// loop through all the wordpress posts and sort them into all day vs hourly
+					// loop through all the wordpress posts and sort them into all day vs hourly for the current $date
 					foreach ( $wp_query->posts as $j => $event ) {
 						if ( tribe_event_is_on_date( $date, $event ) ) {
 
@@ -255,10 +306,13 @@ if ( ! class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 
 					$display_format = apply_filters( 'tribe_events_pro_week_header_date_format', tribe_get_option( 'weekDayFormat', 'D jS' ) );
 					$formatted_date = date_i18n( $display_format, strtotime( $date ) );
+					$timestamp_date  = strtotime( $date );
+					$timestamp_today = strtotime( 'today' );
 
 					// create the "day" element
 					$week_days[] = array(
 						'date'           => $date,
+						'day_number'     => $day_number,
 						'formatted_date' => $formatted_date,
 						'is_today'       => ( $timestamp_date == $timestamp_today ) ? true : false,
 						'is_past'        => ( $timestamp_date < $timestamp_today ) ? true : false,
@@ -336,7 +390,7 @@ if ( ! class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 		 * @return bool True if calendar days are available, false if not.
 		 * */
 		public static function have_days() {
-			if ( self::$current_day < 6 ) {
+			if ( self::$current_day < count( self::$day_range ) - 1 ) {
 				return true;
 			}
 
@@ -349,7 +403,7 @@ if ( ! class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 		 * @return void
 		 */
 		public static function the_day() {
-			if ( self::$current_day == 7 ) {
+			if ( self::$current_day == ( count( self::$day_range ) - 1 ) ) {
 				self::rewind_days();
 			}
 
