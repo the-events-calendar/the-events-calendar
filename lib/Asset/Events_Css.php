@@ -18,14 +18,6 @@
 			// from `some-style-option`
 			// to `Tribe__Events__Asset__Events_Css_Some_Style_Option`
 			$child_class_name = $this->get_child_class_name( $style_option );
-			$child_class_path = $this->get_child_class_path( $child_class_name );
-
-			$child_class_path = file_exists( $child_class_path ) ? $child_class_path : $this->get_default_child_class_path();
-
-			// @todo remove when autoloading in place
-			require_once( $this->get_abstract_child_class_path() );
-			// @todo remove when autoloading in place
-			require_once( $child_class_path );
 
 			/**
 			 * @var Tribe__Events__Asset__Abstract_Events_Css
