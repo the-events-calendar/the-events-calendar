@@ -445,6 +445,7 @@ if ( ! class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 		function day_header_classes() {
 			$day = self::get_current_day();
 			$classes = 'column';
+			$classes .= ' tribe-week-day-header-' . $day['day_number'] . ' ';
 			if ( $day['is_today'] ) {
 				$classes .= ' tribe-week-today';
 			}
@@ -458,8 +459,8 @@ if ( ! class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 		 */
 		public static function column_classes() {
 
-			$day = self::$week_days[ self::$current_day ];
-			$classes = '';
+			$day     = self::$week_days[ self::$current_day ];
+			$classes = 'tribe-events-mobile-day column tribe-events-day-column-' . $day['day_number']. ' ';
 
 			// Present
 			if ( $day['is_today'] ) {

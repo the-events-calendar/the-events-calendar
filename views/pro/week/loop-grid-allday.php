@@ -19,7 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	</div>
 	<div class="tribe-grid-content-wrap">
 		<?php while ( tribe_events_week_have_days() ) : tribe_events_week_the_day(); ?>
-		<div title="<?php tribe_events_week_get_the_date(); ?>" class="tribe-events-mobile-day column <?php tribe_events_week_column_classes(); ?>">
+		<div title="<?php tribe_events_week_get_the_date(); ?>" class="<?php tribe_events_week_column_classes(); ?>">
 			<?php
 
 			$day = tribe_events_get_current_week_day();
