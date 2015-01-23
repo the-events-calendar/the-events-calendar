@@ -271,7 +271,9 @@ if ( ! class_exists( 'Tribe__Events__Events' ) ) {
 //			require_once 'tribe-amalgamator.php';
 //			require_once 'EmbeddedMaps.php';
 //			require_once 'Backcompat.php';
+			require_once $this->pluginPath . 'lib/Credits.php';
 //			require_once $this->pluginPath . 'lib/Credits.php';
+			// @todo remove when autoloading in place
 //			require_once $this->pluginPath . 'lib/Admin/Event_Meta_Box.php';
 
 			// Load Template Classes
