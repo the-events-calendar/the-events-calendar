@@ -254,7 +254,7 @@
 	line-height: 1.25; 
  	position: absolute;
  	z-index: 500;
- 	width: 100%;
+ 	width: 94%;
 }
 .tribe-grid-body div[id*="tribe-events-event-"]:hover {
  	z-index: 800;
