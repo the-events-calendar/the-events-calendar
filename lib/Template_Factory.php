@@ -155,6 +155,7 @@ if ( ! class_exists( 'Tribe__Events__Template_Factory' ) ) {
 			$asset = Tribe__Events__Asset__Factory::instance()->make_for_name($name);
 			if (!$asset) {
 				do_action( $prefix . '-' . $name );
+				return;
 			}
 
 			$asset->set_name($name);
