@@ -716,7 +716,7 @@ if ( class_exists( 'Tribe__Events__Events' ) ) {
 		$modules      = apply_filters( 'tribe_events_tickets_modules', null );
 		$event_origin = get_post_meta( get_the_ID(), '_EventOrigin', true );
 		$show_cost    = empty( $modules ) ||
-						class_exists( 'Event_Tickets_PRO' ) ||
+						class_exists( 'Tribe__Events__Eventbrite__Eventbrite' ) ||
 						in_array( $event_origin, apply_filters( 'tribe_events_admin_show_cost_field_origin', array( 'community-events' ) ) );
 
 		return apply_filters( 'tribe_events_admin_show_cost_field', $show_cost, $modules );

@@ -8,7 +8,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
-if ( ! class_exists( 'TribeEventsTemplates' ) ) {
+if ( ! class_exists( 'Tribe__Events__Templates' ) ) {
 
 	/**
 	 * Handle views and template files.

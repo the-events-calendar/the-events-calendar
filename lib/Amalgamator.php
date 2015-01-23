@@ -16,8 +16,8 @@ class Tribe__Events__Amalgamator {
 		$this->default_venue     = (int) tribe_get_option( 'eventsDefaultVenueID', 0 );
 		$this->default_organizer = (int) tribe_get_option( 'eventsDefaultOrganizerID', 0 );
 
-		if ( class_exists( 'TribeCommunityEvents' ) ) {
-			$community                         = TribeCommunityEvents::instance();
+		if ( class_exists( 'Tribe__Events__Community__Community_Events' ) ) {
+			$community                         = Tribe__Events__Community__Community_Events::instance();
 			$this->default_community_venue     = (int) $community->getOption( 'defaultCommunityVenueID', 0 );
 			$this->default_community_organizer = (int) $community->getOption( 'defaultCommunityOrganizerID', 0 );
 		}
@@ -211,7 +211,7 @@ class Tribe__Events__Amalgamator {
 			$events->setOption( 'eventsDefaultVenueID', $keep );
 		}
 		if ( $this->default_community_venue && in_array( $this->default_community_venue, $replace ) ) {
-			$community = TribeCommunityEvents::instance();
+			$community = Tribe__Events__Community__Community_Events::instance();
 			$community->setOption( 'defaultCommunityVenueID', $keep );
 		}
 	}
@@ -232,7 +232,7 @@ class Tribe__Events__Amalgamator {
 			$events->setOption( 'eventsDefaultOrganizerID', $keep );
 		}
 		if ( $this->default_community_organizer && in_array( $this->default_community_organizer, $replace ) ) {
-			$community = TribeCommunityEvents::instance();
+			$community = Tribe__Events__Community__Community_Events::instance();
 			$community->setOption( 'defaultCommunityOrganizerID', $keep );
 		}
 	}
