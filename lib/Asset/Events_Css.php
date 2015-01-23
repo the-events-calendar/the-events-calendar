@@ -64,6 +64,9 @@
 			$base_class_name = __CLASS__ . '_';
 			// from `some-style-option` to `Some_Style_Option`
 			$child_class_frag = str_replace( ' ', '_', ucwords( str_replace( '-', ' ', $style_option ) ) );
+			if ( $child_class_frag == 'Tribe' ) {
+				$child_class_frag = 'Default';
+			}
 
 			return $base_class_name . $child_class_frag;
 		}
