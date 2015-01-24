@@ -29,7 +29,7 @@
 		protected $resources_url;
 
 		/**
-		 * @var TribeEvents
+		 * @var Tribe__Events__Events
 		 */
 		protected $tec;
 

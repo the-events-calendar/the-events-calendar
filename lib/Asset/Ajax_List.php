@@ -10,8 +10,8 @@
 				"ajaxurl" => admin_url( 'admin-ajax.php', ( is_ssl() ? 'https' : 'http' ) ),
 				'tribe_paged' => $tribe_paged
 			);
-			$path = Tribe_Template_Factory::getMinFile( $this->resources_url . 'tribe-events-ajax-list.js', true );
-			wp_enqueue_script( 'tribe-events-list', $path, $deps, apply_filters( 'tribe_events_js_version', TribeEvents::VERSION ), true );
+			$path = Tribe__Events__Template_Factory::getMinFile( $this->resources_url . 'tribe-events-ajax-list.js', true );
+			wp_enqueue_script( 'tribe-events-list', $path, $deps, apply_filters( 'tribe_events_js_version', Tribe__Events__Events::VERSION ), true );
 			wp_localize_script( 'tribe-events-list', 'TribeList', $ajax_data );
 		}
 	}

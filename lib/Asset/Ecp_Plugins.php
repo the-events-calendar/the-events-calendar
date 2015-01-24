@@ -5,7 +5,7 @@
 
 		public function handle() {
 			$deps = array_merge( $this->deps, array( 'jquery' ) );
-			$path = Tribe_Template_Factory::getMinFile( $this->resources_url . 'jquery-ecp-plugins.js', true );
-			wp_enqueue_script( $this->prefix . '-ecp-plugins', $path, $deps, apply_filters( 'tribe_events_js_version', TribeEvents::VERSION ) );
+			$path = Tribe__Events__Template_Factory::getMinFile( $this->resources_url . 'jquery-ecp-plugins.js', true );
+			wp_enqueue_script( $this->prefix . '-ecp-plugins', $path, $deps, apply_filters( 'tribe_events_js_version', Tribe__Events__Events::VERSION ) );
 		}
 	}

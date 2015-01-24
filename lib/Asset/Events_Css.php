@@ -33,7 +33,7 @@
 			// do the enqueues
 			foreach ( $stylesheets as $name => $css_file ) {
 				if ( $name == 'tribe-events-calendar-override-style' ) {
-					$user_stylesheet_url = TribeEventsTemplates::locate_stylesheet( 'tribe-events/tribe-events.css' );
+					$user_stylesheet_url = Tribe__Events__Templates::locate_stylesheet( 'tribe-events/tribe-events.css' );
 					if ( $user_stylesheet_url ) {
 						wp_enqueue_style( $name, $user_stylesheet_url );
 					}
@@ -43,7 +43,7 @@
 					$url = tribe_events_resource_url( $css_file );
 
 					// get the minified file
-					$url = Tribe_Template_Factory::getMinFile( $url, true );
+					$url = Tribe__Events__Template_Factory::getMinFile( $url, true );
 
 					// apply filters
 					$url = apply_filters( 'tribe_events_stylesheet_url', $url, $name );
@@ -51,9 +51,9 @@
 					// set the $media attribute
 					if ( $name == 'tribe-events-calendar-mobile-style' || $name == 'tribe-events-calendar-full-mobile-style' ) {
 						$media = "only screen and (max-width: {$mobile_break}px)";
-						wp_enqueue_style( $name, $url, array( 'tribe-events-calendar-style' ), TribeEvents::VERSION, $media );
+						wp_enqueue_style( $name, $url, array( 'tribe-events-calendar-style' ), Tribe__Events__Events::VERSION, $media );
 					} else {
-						wp_register_style( $name, $url, array(), TribeEvents::VERSION );
+						wp_register_style( $name, $url, array(), Tribe__Events__Events::VERSION );
 						wp_enqueue_style( $name );
 					}
 				}

@@ -6,6 +6,6 @@
 		public function handle() {
 			wp_enqueue_script( 'jquery-ui-datepicker' );
 			wp_enqueue_style( 'jquery-ui-datepicker' );
-			Tribe_Template_Factory::add_vendor_script( 'jquery-ui-datepicker' );
+			Tribe__Events__Template_Factory::add_vendor_script( 'jquery-ui-datepicker' );
 		}
 	}

@@ -6,10 +6,10 @@
 		public function handle() {
 			$ajax_data = array(
 				"ajaxurl" => admin_url( 'admin-ajax.php', ( is_ssl() ? 'https' : 'http' ) ),
-				'post_type' => TribeEvents::POSTTYPE
+				'post_type' => Tribe__Events__Events::POSTTYPE
 			);
-			$path = Tribe_Template_Factory::getMinFile( $this->resources_url . 'tribe-events-ajax-day.js', true );
-			wp_enqueue_script( 'tribe-events-ajax-day', $path, array( 'tribe-events-bar' ), apply_filters( 'tribe_events_js_version', TribeEvents::VERSION ), true );
+			$path = Tribe__Events__Template_Factory::getMinFile( $this->resources_url . 'tribe-events-ajax-day.js', true );
+			wp_enqueue_script( 'tribe-events-ajax-day', $path, array( 'tribe-events-bar' ), apply_filters( 'tribe_events_js_version', Tribe__Events__Events::VERSION ), true );
 			wp_localize_script( 'tribe-events-ajax-day', 'TribeCalendar', $ajax_data );
 		}
 	}
