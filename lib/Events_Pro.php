@@ -39,8 +39,8 @@
 			const VERSION = '3.10a0';
 
 			private function __construct() {
-				$this->pluginDir = trailingslashit( basename( dirname( __FILE__ ) ) );
-				$this->pluginPath = trailingslashit( dirname( __FILE__ ) );
+				$this->pluginDir = trailingslashit( basename( dirname( dirname( __FILE__ ) ) ) );
+				$this->pluginPath = trailingslashit( dirname( dirname( __FILE__ ) ) );
 				$this->pluginUrl = plugins_url( $this->pluginDir );
 				$this->pluginSlug = 'events-calendar-pro';
 
@@ -1272,8 +1272,6 @@
 			 * @return void
 			 */
 			public function pro_widgets_init() {
-				require_once( $this->pluginPath . 'lib/Widgets.php' );
-				require_once( $this->pluginPath . 'lib/widget-advanced-list.class.php' );
 				unregister_widget( 'TribeEventsListWidget' );
 				register_widget( 'TribeEventsAdvancedListWidget' );
 				register_widget( 'TribeEventsMiniCalendarWidget' );
