@@ -167,7 +167,6 @@ class Tribe__Events__Tickets__Tickets_Pro {
 	 */
 	public function attendees_page_screen_setup() {
 
-		require_once 'tribe-tickets-attendees.php';
 		$this->attendees_table = new Tribe__Events__Tickets__Attendees_Table();
 
 		$this->maybe_generate_attendees_csv();

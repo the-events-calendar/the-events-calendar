@@ -572,7 +572,6 @@ if ( ! class_exists( 'Tribe__Events__Events' ) ) {
 			$this->currentDay                                 = '';
 			$this->errors                                     = '';
 
-			require_once( dirname( __FILE__ ) . '/Default_Values.php' );
 			$this->default_values                             = apply_filters( 'tribe_events_default_value_strategy', new Tribe__Events__Default_Values() );
 
 			Tribe__Events__Query::init();
@@ -4203,7 +4202,6 @@ if ( ! class_exists( 'Tribe__Events__Events' ) ) {
 		}
 
 		public function run_updates() {
-			require_once( dirname(__FILE__).'/Updater.php' );
 			$updater = new Tribe__Events__Updater( self::VERSION );
 			if ( $updater->update_required() ) {
 				$updater->do_updates();
