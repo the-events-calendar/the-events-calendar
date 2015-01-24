@@ -716,7 +716,7 @@ if ( class_exists( 'Tribe__Events__Events' ) ) {
 		$modules      = apply_filters( 'tribe_events_tickets_modules', null );
 		$event_origin = get_post_meta( get_the_ID(), '_EventOrigin', true );
 		$show_cost    = empty( $modules ) ||
-						class_exists( 'Tribe__Events__Eventbrite__Eventbrite' ) ||
+						class_exists( 'Tribe__Events__Tickets__Eventbrite__Eventbrite_Tickets' ) ||
 						in_array( $event_origin, apply_filters( 'tribe_events_admin_show_cost_field_origin', array( 'community-events' ) ) );
 
 		return apply_filters( 'tribe_events_admin_show_cost_field', $show_cost, $modules );
@@ -1214,8 +1214,8 @@ if ( class_exists( 'Tribe__Events__Events' ) ) {
 		$date_display   = '';
 
 		//Disable recurring event info in tooltip
-		if( class_exists( 'TribeEventsPro' ) ) {
-			$ecp = TribeEventsPro::instance();
+		if( class_exists( 'Tribe__Events__Pro__Events_Pro' ) ) {
+			$ecp = Tribe__Events__Pro__Events_Pro::instance();
 			$ecp->disable_recurring_info_tooltip();
 
 			$date_display = strip_tags( tribe_events_event_schedule_details( $event ) );

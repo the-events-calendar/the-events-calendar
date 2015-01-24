@@ -36,12 +36,12 @@ $generalTab = array(
 			'donate-link-info'              => array(
 				'type'        => 'html',
 				'html'        => '<p>' . __( 'Are you thinking "Wow, this plugin is amazing! I should say thanks to Modern Tribe for all their hard work." The greatest thanks we could ask for is recognition. Add a small text-only link at the bottom of your calendar pointing to The Events Calendar project.', 'tribe-events-calendar' ) . '<br><a href="' . plugins_url( 'resources/images/donate-link-screenshot.jpg', dirname( __FILE__ ) ) . '" class="thickbox">' . __( 'See an example of the link', 'tribe-events-calendar' ) . '</a>.</p>',
-				'conditional' => ! class_exists( 'TribeEventsPro' ),
+				'conditional' => ! class_exists( 'Tribe__Events__Pro__Events_Pro' ),
 			),
 			'donate-link-pro-info'          => array(
 				'type'        => 'html',
 				'html'        => '<p>' . __( 'Are you thinking "Wow, this plugin is amazing! I should say thanks to Modern Tribe for all their hard work." The greatest thanks we could ask for is recognition. Add a small text only link at the bottom of your calendar pointing to The Events Calendar project.', 'tribe-events-calendar' ) . '<br><a href="' . plugins_url( 'resources/images/donate-link-pro-screenshot.jpg', dirname( __FILE__ ) ) . '" class="thickbox">' . __( 'See an example of the link', 'tribe-events-calendar' ) . '</a>.</p>',
-				'conditional' => class_exists( 'TribeEventsPro' ),
+				'conditional' => class_exists( 'Tribe__Events__Pro__Events_Pro' ),
 			),
 			'donate-link'                   => array(
 				'type'            => 'checkbox_bool',

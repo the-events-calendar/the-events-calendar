@@ -559,7 +559,7 @@ if ( ! class_exists( 'Tribe__Events__PUE__Checker' ) ) {
 		/**
 		 * Retrieve the latest update (if any) from the configured API endpoint.
 		 *
-		 * @uses TribePluginUpdateEngineChecker::request_info()
+		 * @uses Tribe__Events__PUE__Checker::request_info()
 		 *
 		 * @return TribePluginUpdateUtility An instance of Tribe__Events__PUE__Utility, or NULL when no updates are available.
 		 */

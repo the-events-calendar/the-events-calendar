@@ -564,11 +564,11 @@ if ( ! class_exists( 'Tribe__Events__Events' ) ) {
 			$this->plural_event_label                         = $this->get_event_label_plural();
 			$this->postTypeArgs['rewrite']['slug']            = sanitize_title( $this->rewriteSlugSingular );
 			$this->postVenueTypeArgs['rewrite']['slug']       = sanitize_title( $this->singular_venue_label );
-			$this->postVenueTypeArgs['show_in_nav_menus']     = class_exists( 'TribeEventsPro' ) ? true : false;
+			$this->postVenueTypeArgs['show_in_nav_menus']     = class_exists( 'Tribe__Events__Pro__Events_Pro' ) ? true : false;
 			$this->postOrganizerTypeArgs['rewrite']['slug']   = sanitize_title( $this->singular_organizer_label );
-			$this->postOrganizerTypeArgs['show_in_nav_menus'] = class_exists( 'TribeEventsPro' ) ? true : false;
-			$this->postVenueTypeArgs['public']                = class_exists( 'TribeEventsPro' ) ? true : false;
-			$this->postOrganizerTypeArgs['public']            = class_exists( 'TribeEventsPro' ) ? true : false;
+			$this->postOrganizerTypeArgs['show_in_nav_menus'] = class_exists( 'Tribe__Events__Pro__Events_Pro' ) ? true : false;
+			$this->postVenueTypeArgs['public']                = class_exists( 'Tribe__Events__Pro__Events_Pro' ) ? true : false;
+			$this->postOrganizerTypeArgs['public']            = class_exists( 'Tribe__Events__Pro__Events_Pro' ) ? true : false;
 			$this->currentDay                                 = '';
 			$this->errors                                     = '';
 
@@ -3390,7 +3390,7 @@ if ( ! class_exists( 'Tribe__Events__Events' ) ) {
 				), self::VENUE_POST_TYPE, 'normal', 'high'
 			);
 
-			if ( ! class_exists( 'TribeEventsPro' ) ) {
+			if ( ! class_exists( 'Tribe__Events__Pro__Events_Pro' ) ) {
 				remove_meta_box( 'slugdiv', self::VENUE_POST_TYPE, 'normal' );
 			}
 
@@ -4224,7 +4224,7 @@ if ( ! class_exists( 'Tribe__Events__Events' ) ) {
 		 * @return bool
 		 */
 		public static function ecpActive( $version = '2.0.7' ) {
-			return class_exists( 'TribeEventsPro' ) && defined( 'TribeEventsPro::VERSION' ) && version_compare( TribeEventsPro::VERSION, $version, '>=' );
+			return class_exists( 'Tribe__Events__Pro__Events_Pro' ) && defined( 'Tribe__Events__Pro__Events_Pro::VERSION' ) && version_compare( Tribe__Events__Pro__Events_Pro::VERSION, $version, '>=' );
 		}
 
 		protected function init_autoloading() {
