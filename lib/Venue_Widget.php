@@ -7,7 +7,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
-if ( ! class_exists( 'TribeVenueWidget' ) ) {
+if ( ! class_exists( 'Tribe__Events__Pro__Venue_Widget' ) ) {
 	class Tribe__Events__Pro__Venue_Widget extends WP_Widget {
 		function Tribe__Events__Pro__Venue_Widget() {
 			// Widget settings.
