@@ -1155,7 +1155,6 @@ class Tribe__Events__Pro__Recurrence_Meta {
 	 * @return void
 	 */
 	public static function reset_scheduler() {
-		require_once( dirname( __FILE__ ) . '/tribe-recurrence-scheduler.php' );
 		if ( ! empty( self::$scheduler ) ) {
 			self::$scheduler->remove_hooks();
 		}
