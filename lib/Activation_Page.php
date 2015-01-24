@@ -19,6 +19,9 @@ class Tribe__Events__Activation_Page {
 		if ( !is_admin() || defined('DOING_AJAX') ) {
 			return;
 		}
+		if ( defined('IFRAME_REQUEST') && IFRAME_REQUEST ) {
+			return; // probably the plugin update/install iframe
+		}
 		if ( isset($_GET['tec-welcome-message']) || isset($_GET['tec-update-message']) ) {
 			return; // no infinite redirects
 		}
