@@ -106,7 +106,7 @@ class Tribe__Events__Pro__Geo_Loc {
 	 */
 	public function scripts() {
 		if ( tribe_is_event_query() && ! is_single() ) {
-			Tribe_Events__Pro__Template_Factory::asset_package( 'ajax-maps' );
+			Tribe__Events__Template_Factory::asset_package( 'ajax-maps' );
 		}
 	}
 

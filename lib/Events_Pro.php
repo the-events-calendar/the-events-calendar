@@ -1118,7 +1118,7 @@
 				     || is_active_widget( false, false, 'tribe-events-venue-widget')
 				) {
 
-					Tribe_PRO_Template_Factory::asset_package( 'events-pro-css' );
+					Tribe__Events__Template_Factory::asset_package( 'events-pro-css' );
 
 				}
 			}
