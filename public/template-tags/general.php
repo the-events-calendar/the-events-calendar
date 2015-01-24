@@ -18,7 +18,7 @@ if ( class_exists( 'Tribe__Events__Events' ) ) {
 	 * @param bool|string $class Classname you want to instantiate
 	 *
 	 * @return void
-	 * @uses TribeEventsTemplates::instantiate_template_class()
+	 * @uses Tribe__Events__Templates::instantiate_template_class()
 	 **/
 	function tribe_initialize_view( $class = false ) {
 		do_action( 'tribe_pre_initialize_view' );
@@ -79,7 +79,7 @@ if ( class_exists( 'Tribe__Events__Events' ) ) {
 	 * @param null|string $name
 	 * @param array       $data optional array of vars to inject into the template part
 	 *
-	 * @uses TribeEventsTemplates::getTemplateHierarchy
+	 * @uses Tribe__Events__Templates::getTemplateHierarchy
 	 **/
 	function tribe_get_template_part( $slug, $name = null, array $data = null ) {
 
@@ -1324,7 +1324,7 @@ if ( class_exists( 'Tribe__Events__Events' ) ) {
 	 * @param bool $echo Whether or not to echo the notices html
 	 *
 	 * @return void | string
-	 * @see TribeEvents::getNotices()
+	 * @see Tribe__Events__Events::getNotices()
 	 **/
 	function tribe_events_the_notices( $echo = true ) {
 		$notices = Tribe__Events__Events::getNotices();

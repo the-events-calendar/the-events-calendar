@@ -307,7 +307,7 @@ if ( ! class_exists( 'Tribe__Events__Templates' ) ) {
 		 * This is expected to be called late on during the wp_title action, but does not in fact alter the string
 		 * it is passed.
 		 *
-		 * @see TribeEventsTemplates::maybe_modify_global_post_title()
+		 * @see Tribe__Events__Templates::maybe_modify_global_post_title()
 		 *
 		 * @param string $title
 		 *
@@ -331,7 +331,7 @@ if ( ! class_exists( 'Tribe__Events__Templates' ) ) {
 		/**
 		 * Restores the global $post title if it has previously been modified.
 		 *
-		 * @see TribeEventsTemplates::modify_global_post_title().
+		 * @see Tribe__Events__Templates::modify_global_post_title().
 		 */
 		public static function restore_global_post_title() {
 			global $post;

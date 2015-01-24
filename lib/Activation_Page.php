@@ -66,7 +66,7 @@ class Tribe__Events__Activation_Page {
 	 * if the current version is the first version to be installed.
 	 *
 	 * @return bool
-	 * @see TribeEvents::maybeSetTECVersion()
+	 * @see Tribe__Events__Events::maybeSetTECVersion()
 	 */
 	protected function is_new_install() {
 		$tec = Tribe__Events__Events::instance();

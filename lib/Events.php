@@ -376,8 +376,8 @@ if ( ! class_exists( 'Tribe__Events__Events' ) ) {
 			add_action( 'publish_' . self::POSTTYPE, array( $this, 'publishAssociatedTypes' ), 25, 2 );
 			add_action( 'delete_post', array( $this, 'maybe_rebuild_known_range' ) );
 			add_action( 'parse_query', array( $this, 'setDisplay' ), 51, 0 );
-			add_action( 'tribe_events_post_errors', array( 'TribeEventsPostException', 'displayMessage' ) );
-			add_action( 'tribe_settings_top', array( 'TribeEventsOptionsException', 'displayMessage' ) );
+			add_action( 'tribe_events_post_errors', array( 'Tribe__Events__Post_Exception', 'displayMessage' ) );
+			add_action( 'tribe_settings_top', array( 'Tribe__Events__Options_Exception', 'displayMessage' ) );
 			add_action( 'admin_enqueue_scripts', array( $this, 'addAdminScriptsAndStyles' ) );
 			add_filter( 'tribe_events_register_event_type_args', array( $this, 'setDashicon' ) );
 			add_action( "trash_" . Tribe__Events__Events::VENUE_POST_TYPE, array( $this, 'cleanupPostVenues' ) );
@@ -883,7 +883,7 @@ if ( ! class_exists( 'Tribe__Events__Events' ) ) {
 		}
 
 		/**
-		 * Tribe debug function. usage: TribeEvents::debug( 'Message', $data, 'log' );
+		 * Tribe debug function. usage: Tribe__Events__Events::debug( 'Message', $data, 'log' );
 		 *
 		 * @param string      $title  Message to display in log
 		 * @param string|bool $data   Optional data to display
@@ -4141,7 +4141,7 @@ if ( ! class_exists( 'Tribe__Events__Events' ) ) {
 		 * @param array $post
 		 *
 		 * @return array
-		 * @see TribeEvents::filter_wp_import_data_after()
+		 * @see Tribe__Events__Events::filter_wp_import_data_after()
 		 */
 		public function filter_wp_import_data_before( $post ) {
 			if ( $post['post_type'] == Tribe__Events__Events::POSTTYPE && ! empty( $post['post_parent'] ) ) {
@@ -4170,7 +4170,7 @@ if ( ! class_exists( 'Tribe__Events__Events' ) ) {
 		 * @param array $post
 		 *
 		 * @return array
-		 * @see TribeEvents::filter_wp_import_data_before()
+		 * @see Tribe__Events__Events::filter_wp_import_data_before()
 		 */
 		public function filter_wp_import_data_after( $post ) {
 			if ( $post['post_type'] == Tribe__Events__Events::POSTTYPE ) {

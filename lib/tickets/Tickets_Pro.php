@@ -34,7 +34,7 @@ class Tribe__Events__Tickets__Tickets_Pro {
 
 	/**
 	 * WP_Post_List children for Attendees
-	 * @var TribeEventsTicketsAttendeesTable
+	 * @var Tribe__Events__Tickets__Attendees_Table
 	 */
 	private $attendees_table;
 

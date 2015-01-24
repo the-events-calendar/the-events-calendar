@@ -17,7 +17,7 @@ class Tribe__Events__Tickets__Google_Event_Data {
 	protected $event_id;
 
 	/**
-	 * @var TribeEventsTicketObject
+	 * @var Tribe__Events__Tickets__Ticket_Object
 	 */
 	protected $ticket;
 
@@ -97,7 +97,7 @@ class Tribe__Events__Tickets__Google_Event_Data {
 		 * event ticket.
 		 *
 		 * @param object                  $offer
-		 * @param TribeEventsTicketObject $ticket
+		 * @param Tribe__Events__Tickets__Ticket_Object $ticket
 		 * @param object                  $event
 		 */
 		return (object) apply_filters( 'tribe_events_tickets_google_event_data_offer', (object) $offer, $this->ticket, $this->event );

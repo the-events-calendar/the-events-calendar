@@ -6,7 +6,7 @@
 abstract class Tribe__Events__Importer__File_Importer {
 	protected $required_fields = array();
 
-	/** @var TribeEventsImporter_FileReader */
+	/** @var Tribe__Events__Importer__File_Reader */
 	private $reader = null;
 	private $map = array();
 	private $inverted_map = array();
@@ -21,7 +21,7 @@ abstract class Tribe__Events__Importer__File_Importer {
 
 	/**
 	 * @param string                         $type
-	 * @param TribeEventsImporter_FileReader $file_reader
+	 * @param Tribe__Events__Importer__File_Reader $file_reader
 	 *
 	 * @return Tribe__Events__Importer__File_Importer
 	 * @throws InvalidArgumentException
@@ -40,7 +40,7 @@ abstract class Tribe__Events__Importer__File_Importer {
 	}
 
 	/**
-	 * @param TribeEventsImporter_FileReader $file_reader
+	 * @param Tribe__Events__Importer__File_Reader $file_reader
 	 */
 	public function __construct( Tribe__Events__Importer__File_Reader $file_reader ) {
 		$this->reader = $file_reader;

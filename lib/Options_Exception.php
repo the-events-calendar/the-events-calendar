@@ -19,5 +19,5 @@ if ( ! class_exists( 'Tribe__Events__Options_Exception' ) ) {
 				<script type="text/javascript">jQuery('#tribe-events-options-error').append('<h3><?php _e( 'Error', 'tribe-events-calendar' ); ?></h3><p>' + '<?php echo $eventsOptions['error']; ?>' + '</p>').show();</script>
 			<?php endif;
 		}
-	} // end TribeEventsOptionsException
-} // end if !class_exists TribeEventsOptionsException
+	} // end Tribe__Events__Options_Exception
+} // end if !class_exists Tribe__Events__Options_Exception

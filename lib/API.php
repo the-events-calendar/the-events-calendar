@@ -8,7 +8,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
-if ( ! class_exists( 'TribeEventsAPI' ) ) {
+if ( ! class_exists( 'Tribe__Events__API' ) ) {
 	class Tribe__Events__API {
 		public static $valid_venue_keys = array(
 			'Venue',

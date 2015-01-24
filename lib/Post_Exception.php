@@ -8,7 +8,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
-if ( ! class_exists( 'TribeEventsPostException' ) ) {
+if ( ! class_exists( 'Tribe__Events__Post_Exception' ) ) {
 	class Tribe__Events__Post_Exception extends Exception {
 		/**
 		 * Display the exception message in the div #tribe-events-post-error
