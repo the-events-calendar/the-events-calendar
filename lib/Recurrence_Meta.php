@@ -527,7 +527,7 @@ class Tribe__Events__Pro__Recurrence_Meta {
 
 		$recurrence_meta = wp_parse_args( $recurrence_meta, self::$recurrence_default_meta );
 
-		return apply_filters( 'TribeEventsRecurrenceMeta_getRecurrenceMeta', $recurrence_meta );
+		return apply_filters( 'Tribe__Events__Pro__Recurrence_Meta_getRecurrenceMeta', $recurrence_meta );
 	}
 
 	/**

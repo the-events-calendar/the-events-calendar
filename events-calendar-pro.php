@@ -30,9 +30,9 @@
 	// Instantiate class and set up WordPress actions.
 	function Tribe_ECP_Load() {
 		add_filter( 'tribe_tec_addons', 'tribe_init_ecp_addon' );
-		$to_run_or_not_to_run = ( class_exists( 'TribeEvents' ) && defined( 'TribeEvents::VERSION' ) && version_compare( TribeEvents::VERSION, TribeEventsPro::REQUIRED_TEC_VERSION, '>=' ) );
+		$to_run_or_not_to_run = ( class_exists( Tribe__Events__Events ) && defined( 'TribeEvents::VERSION' ) && version_compare( TribeEvents::VERSION, Tribe__Events__Pro__Events_Pro::REQUIRED_TEC_VERSION, '>=' ) );
 		if ( apply_filters( 'tribe_ecp_to_run_or_not_to_run', $to_run_or_not_to_run ) ) {
-			TribeEventsPro::instance();
+			Tribe__Events__Pro__Events_Pro::instance();
 		} else {
 			/**
 			 * Dummy function to avoid fatal error in edge upgrade case
@@ -70,17 +70,17 @@
 	 * @return array $plugins the required info
 	 */
 	function tribe_init_ecp_addon( $plugins ) {
-		$plugins['TribeEventsPro'] = array(
+		$plugins['Tribe__Events__Pro__Events_Pro'] = array(
 			'plugin_name' => 'Events Calendar PRO',
-			'required_version' => TribeEventsPro::REQUIRED_TEC_VERSION,
-			'current_version' => TribeEventsPro::VERSION,
+			'required_version' => Tribe__Events__Pro__Events_Pro::REQUIRED_TEC_VERSION,
+			'current_version' => Tribe__Events__Pro__Events_Pro::VERSION,
 			'plugin_dir_file' => basename( dirname( __FILE__ ) ) . '/events-calendar-pro.php'
 		);
 
 		return $plugins;
 	}
 
-	register_deactivation_hook( __FILE__, array( 'TribeEventsPro', 'deactivate' ) );
+	register_deactivation_hook( __FILE__, array( 'Tribe__Events__Pro__Events_Pro', 'deactivate' ) );
 
 	/**
 	 * The uninstall hook is no longer registered, but leaving the function

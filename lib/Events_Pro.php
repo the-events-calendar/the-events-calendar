@@ -16,16 +16,16 @@
 			public $singular_event_label;
 			public $plural_event_label;
 
-			/** @var TribeEventsPro_RecurrencePermalinks */
+			/** @var Tribe__Events__Pro__Recurrence_Permalinks */
 			public $permalink_editor = null;
 
 			/**
-			 * @var TribeEventsPro_SingleEventMeta
+			 * @var Tribe__Events__Pro__Single_Event_Meta
 			 */
 			public $single_event_meta;
 
 			/**
-			 * @var TribeEventsPro_EmbeddedMaps
+			 * @var Tribe__Events__Pro__Embedded_Maps
 			 */
 			public $embedded_maps;
 
@@ -135,9 +135,9 @@
 					$this,
 					'single_event_meta_template_keys'
 				), 10 );
-				add_filter( 'tribe_event_meta_venue_name', array('TribeEventsPro_SingleEventMeta', 'venue_name'), 10, 2);
+				add_filter( 'tribe_event_meta_venue_name', array('Tribe__Events__Pro__Single_Event_Meta', 'venue_name'), 10, 2);
 				add_filter( 'tribe_event_meta_organizer_name', array(
-					'TribeEventsPro_SingleEventMeta',
+					'Tribe__Events__Pro__Single_Event_Meta',
 					'organizer_name'
 				), 10, 2 );
 				add_filter( 'tribe_events_single_event_the_meta_group_venue', array(
@@ -169,7 +169,7 @@
 				add_filter( 'wp' , array( $this, 'detect_recurrence_redirect' ) );
 				add_filter( 'template_redirect', array( $this, 'filter_canonical_link_on_recurring_events' ), 10, 1 );
 
-				$this->permalink_editor = apply_filters( 'tribe_events_permalink_editor', new TribeEventsPro_RecurrencePermalinks() );
+				$this->permalink_editor = apply_filters( 'tribe_events_permalink_editor', new Tribe__Events__Pro__Recurrence_Permalinks() );
 				add_filter( 'post_type_link', array(
 					$this->permalink_editor,
 					'filter_recurring_event_permalinks'
@@ -398,14 +398,14 @@
 			 * @return void
 			 */
 			public function init() {
-				TribeEventsMiniCalendar::instance();
-				TribeEventsCustomMeta::init();
-				TribeEventsRecurrenceMeta::init();
-				TribeEventsGeoLoc::instance();
+				Tribe__Events__Pro__Mini_Calendar::instance();
+				Tribe__Events__Pro__Custom_Meta::init();
+				Tribe__Events__Pro__Recurrence_Meta::init();
+				Tribe__Events__Pro__Geo_Loc::instance();
 				Tribe__Events__Pro__Community_Modifications::init();
 				$this->displayMetaboxCustomFields();
-				$this->single_event_meta = new TribeEventsPro_SingleEventMeta;
-				$this->embedded_maps = new TribeEventsPro_EmbeddedMaps;
+				$this->single_event_meta = new Tribe__Events__Pro__Single_Event_Meta;
+				$this->embedded_maps = new Tribe__Events__Pro__Embedded_Maps;
 				$this->widget_wrappers = new Tribe__Events__Pro__Shortcodes__Widget_Wrappers;
 				$this->singular_event_label = tribe_get_event_label_singular();
 				$this->plural_event_label = tribe_get_event_label_plural();
@@ -747,7 +747,6 @@
 			}
 
 			private function get_rewrite_generator( WP_Rewrite $wp_rewrite ) {
-				require_once( $this->pluginPath . 'lib/tribeeventspro-rewriterulegenerator.php' );
 				$generator = new TribeEventsPro_RewriteRuleGenerator( $wp_rewrite );
 				$tec = TribeEvents::instance();
 
@@ -826,7 +825,7 @@
 						case 'map':
 							/*
 							* Query setup for the map view is located in
-							* TribeEventsGeoLoc->setup_geoloc_in_query()
+							* Tribe__Events__Pro__Geo_Loc->setup_geoloc_in_query()
 							*/
 							$query->tribe_is_map = true;
 							break;
@@ -896,7 +895,7 @@
 							unset( $query->query_vars['name'] );
 							unset( $query->query_vars['tribe_events']);
 
-							$all_ids = TribeEventsRecurrenceMeta::get_events_by_slug( $slug );
+							$all_ids = Tribe__Events__Pro__Recurrence_Meta::get_events_by_slug( $slug );
 							if ( empty($all_ids) ) {
 								$query->set('p', -1);
 							} else {
@@ -1099,7 +1098,7 @@
 			 * @return void
 			 */
 			public function admin_enqueue_scripts() {
-				wp_enqueue_script( TribeEvents::POSTTYPE.'-premium-admin', $this->pluginUrl . 'resources/events-admin.js', array( 'jquery-ui-datepicker' ), apply_filters( 'tribe_events_pro_js_version', TribeEventsPro::VERSION ), true );
+				wp_enqueue_script( TribeEvents::POSTTYPE.'-premium-admin', $this->pluginUrl . 'resources/events-admin.js', array( 'jquery-ui-datepicker' ), apply_filters( 'tribe_events_pro_js_version', Tribe__Events__Pro__Events_Pro::VERSION ), true );
 				$data = apply_filters( 'tribe_events_pro_localize_script', array(), 'TribeEventsProAdmin', TribeEvents::POSTTYPE.'-premium-admin' );
 				wp_localize_script( TribeEvents::POSTTYPE.'-premium-admin', 'TribeEventsProAdmin', $data);
 			}
@@ -1138,10 +1137,10 @@
 						'tribe-events-pro', $path, array(
 						'jquery',
 						'tribe-events-calendar-script'
-					), apply_filters( 'tribe_events_pro_js_version', TribeEventsPro::VERSION ), false
+					), apply_filters( 'tribe_events_pro_js_version', Tribe__Events__Pro__Events_Pro::VERSION ), false
 					);
 
-					$geoloc = TribeEventsGeoLoc::instance();
+					$geoloc = Tribe__Events__Pro__Geo_Loc::instance();
 
 					$data = array(
 						'geocenter' => $geoloc->estimate_center_point(),
@@ -1149,9 +1148,9 @@
 						'map_tooltip_address' => __( 'Address: ', 'tribe-events-calendar-pro' )
 					);
 
-					$data = apply_filters( 'tribe_events_pro_localize_script', $data, 'TribeEventsPro', 'tribe-events-pro' );
+					$data = apply_filters( 'tribe_events_pro_localize_script', $data, 'Tribe__Events__Pro__Events_Pro', 'tribe-events-pro' );
 
-					wp_localize_script( 'tribe-events-pro', 'TribeEventsPro', $data );
+					wp_localize_script( 'tribe-events-pro', 'Tribe__Events__Pro__Events_Pro', $data );
 
 				}
 			}
@@ -1273,8 +1272,8 @@
 			 */
 			public function pro_widgets_init() {
 				unregister_widget( 'TribeEventsListWidget' );
-				register_widget( 'TribeEventsAdvancedListWidget' );
-				register_widget( 'TribeEventsMiniCalendarWidget' );
+				register_widget( 'Tribe__Events__Pro__Advanced_List_Widget' );
+				register_widget( 'Tribe__Events__Pro__Mini_Calendar_Widget' );
 			}
 
 			/**
@@ -1395,7 +1394,7 @@
 						}
 						break;
 					case 'map':
-						$eventUrl = trailingslashit( esc_url_raw( $eventUrl . TribeEventsGeoLoc::instance()->rewrite_slug ) );
+						$eventUrl = trailingslashit( esc_url_raw( $eventUrl . Tribe__Events__Pro__Geo_Loc::instance()->rewrite_slug ) );
 						if ( !empty( $secondary ) ) {
 							$eventUrl = esc_url_raw( trailingslashit( $eventUrl ) . $secondary );
 						}
@@ -1525,7 +1524,7 @@
 			/**
 			 * The singleton function.
 			 *
-			 * @return TribeEventsPro The instance.
+			 * @return Tribe__Events__Pro__Events_Pro The instance.
 			 */
 			public static function instance() {
 				if ( !isset( self::$instance ) ) {
