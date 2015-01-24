@@ -4250,6 +4250,6 @@ if ( ! class_exists( 'Tribe__Events__Events' ) ) {
 			$autoloader->register_autoloader();
 		}
 
-	} // end TribeEvents class
+	} // end Tribe__Events__Events class
 
 } // end if !class_exists Tribe__Events__Events
