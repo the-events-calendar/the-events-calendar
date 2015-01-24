@@ -782,7 +782,6 @@ class Tribe__Events__Pro__Recurrence_Meta {
 		/** @var int $recEndCount */
 		extract( Tribe__Events__Pro__Recurrence_Meta::getRecurrenceMeta( $event_id ) );
 		if ( $recType == 'None' ) {
-			require_once( dirname( __FILE__ ) . '/tribe-null-recurrence.php' );
 
 			return new Tribe__Events__Pro__Null_Recurrence();
 		}

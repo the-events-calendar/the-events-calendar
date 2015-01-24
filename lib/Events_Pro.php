@@ -542,7 +542,6 @@
 			 */
 			public function helpersLoaded() {
 				remove_action( 'widgets_init', 'tribe_related_posts_register_widget' );
-				require_once( $this->pluginPath . 'lib/apm_filters.php' );
 				if ( class_exists( 'TribeRelatedPosts' ) ) {
 					TribeRelatedPosts::instance();
 					require_once( $this->pluginPath . 'vendor/tribe-related-posts/template-tags.php' );
@@ -723,7 +722,6 @@
 			 */
 			public function set_default_value_strategy( $strategy ) {
 				if ( tribe_get_option( 'defaultValueReplace' ) ) {
-					require_once( dirname( __FILE__ ) . '/lib/Default_Values.php' );
 					$strategy = new Tribe__Events__Pro__Default_Values();
 				}
 				return $strategy;
@@ -1516,7 +1514,6 @@
 					return; // can't do anything since core isn't around
 				}
 				require_once( Tribe__Events__Events::instance()->pluginPath . '/lib/Abstract_Deactivation.php' );
-				require_once( dirname( __FILE__ ) . '/lib/Deactivation.php' );
 				$deactivation = new Tribe__Events__Pro__Deactivation( $network_deactivating );
 				add_action( 'shutdown', array( $deactivation, 'deactivate' ) );
 			}

@@ -149,7 +149,6 @@ class Tribe__Events__Pro__Recurrence_Series_Splitter {
 	}
 
 	private function copy_post_meta( $original_post, $destination_post ) {
-		require_once( dirname( __FILE__ ) . '/tribeeventspro-postmetacopier.php' );
 		$copier = new Tribe__Events__Pro__Post_Meta_Copier();
 		$copier->copy_meta( $original_post, $destination_post );
 	}
