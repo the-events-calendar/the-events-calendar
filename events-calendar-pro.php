@@ -98,8 +98,8 @@
 		require_once dirname( dirname( __FILE__ ) ) . '/the-events-calendar/lib/utils/Autoloader.php';
 		$autoloader = Tribe__Events__Autoloader::instance();
 
-		$autoloader->register_prefix( 'Tribe__Events__Filterbar__', dirname( __FILE__ ) . '/lib' );
-		$autoloader->register_prefix( 'Tribe__Events__Filterbar__Filters__', dirname( __FILE__ ) . '/lib/filters' );
+		$autoloader->register_prefix( 'Tribe__Events__Pro__', dirname( __FILE__ ) . '/lib' );
+		$autoloader->register_prefix( 'Tribe__Events__Pro__Templates__', dirname( __FILE__ ) . '/lib/template-classes' );
 
 		// deprecated classes are registered in a class to path fashion
 		foreach ( glob( dirname( __FILE__ ) . '/lib/deprecated-classes/*.php' ) as $file ) {
