@@ -252,7 +252,7 @@ if ( ! class_exists( 'TribeEventsQuery' ) ) {
 								? $query->get( 'eventDate' )
 								: date_i18n( TribeDateUtils::DBDATETIMEFORMAT );
 							if ( ! $query->tribe_is_past ) {
-								$query->set( 'start_date', tribe_event_format_date( time(), true, 'Y-m-d H:i:s' ) );
+								$query->set( 'start_date', ( '' != $query->get( 'eventDate' ) ? tribe_event_beginning_of_day( $event_date ) : tribe_event_format_date( time(), true, 'Y-m-d H:i:s' ) ) );
 								$query->set( 'end_date', '' );
 								$query->set( 'order', self::set_order( 'ASC', $query ) );
 							} else {
