@@ -1235,7 +1235,7 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 			);
 
 			$this->taxonomyLabels = array(
-				'name'              => sprintf( __( '%s Categories', 'tribe-events-calendar' ), $this->singular_event_label ),				
+				'name'              => sprintf( __( '%s Categories', 'tribe-events-calendar' ), $this->singular_event_label ),
 				'singular_name'     => sprintf( __( '%s Category', 'tribe-events-calendar' ), $this->singular_event_label ),
 				'search_items'      => sprintf( __( 'Search %s Categories', 'tribe-events-calendar' ), $this->singular_event_label ),
 				'all_items'         => sprintf( __( 'All %s Categories', 'tribe-events-calendar' ), $this->singular_event_label ),
@@ -1274,7 +1274,7 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 					__( '%1$s scheduled for: <strong>%2$s</strong>. <a target="_blank" href="%3$s">Preview %4$s</a>', 'tribe-events-calendar' ),
 					$this->singular_event_label,
 					// translators: Publish box date format, see http://php.net/date
-					date_i18n( __( 'M j, Y @ G:i', 'tribe-events-calendar' ), strtotime( $post->post_date ) ), esc_url( get_permalink( $post_ID ) ), strtolower( $this->singular_event_label )				
+					date_i18n( __( 'M j, Y @ G:i', 'tribe-events-calendar' ), strtotime( $post->post_date ) ), esc_url( get_permalink( $post_ID ) ), strtolower( $this->singular_event_label )
 				),
 				10 => sprintf( __( '%1$s draft updated. <a target="_blank" href="%2$s">Preview %3$s</a>', 'tribe-events-calendar' ), $this->singular_event_label, esc_url( add_query_arg( 'preview', 'true', get_permalink( $post_ID ) ) ), strtolower( $this->singular_event_label ) ),
 			);
@@ -1360,19 +1360,26 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 		 * @param int $postId the event ID to see if the helper is needed
 		 */
 		public function display_rich_snippets_helper( $post_id ) {
-			$VenueID         = get_post_meta( $post_id, '_EventVenueID', true );
+			// Avoid showing this message if we are on the Front End
+			if ( ! is_admin() ) {
+				return;
+			}
+
+			$VenueID = get_post_meta( $post_id, '_EventVenueID', true );
 			if ( ( ! $post_id || get_post_status( $post_id ) == 'auto-draft' ) && ! $VenueID && ( ( is_admin() && get_current_screen()->action == 'add' ) || ! is_admin() ) ) {
 				$VenueID = $this->defaults()->venue_id();
 			}
 			$VenueID = apply_filters( 'tribe_display_event_venue_dropdown_id', $VenueID );
 
-			if ( ! $VenueID ) {
-				?>
-				<tr class="">
-					<td colspan="2"><?php esc_attr_e( 'When you don\'t use a location for your event, you might not see the Google Rich Snippet, for more information ', 'tribe-events-calendar' ) ?><a href="https://support.google.com/webmasters/answer/164506" target="_blank"><?php esc_attr_e( 'click here', 'tribe-events-calendar' ); ?></a></td>
-				</tr>
-				<?php
+			// If there is a Venue of some sorts, don't display this message
+			if ( $VenueID ) {
+				return;
 			}
+			?>
+			<tr class="">
+				<td colspan="2"><?php _e( 'Without a defined location your event will not display a <a href="https://support.google.com/webmasters/answer/164506" target="_blank">Google Rich Snippets</a> on the search results.', 'tribe-events-calendar' ) ?></td>
+			</tr>
+			<?php
 		}
 
 		/**
@@ -2476,7 +2483,7 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 
 				//Only add the permalink if it's shorter than 900 characters, so we don't exceed the browser's URL limits
 				if ( strlen( $event_url ) < 900 ) {
-					$event_details .= sprintf( ' (View Full %1$s Description Here: %2$s)', $this->singular_event_label, $event_url );					
+					$event_details .= sprintf( ' (View Full %1$s Description Here: %2$s)', $this->singular_event_label, $event_url );
 				}
 			}
 
@@ -2497,7 +2504,7 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 		}
 
 		/**
-		 * Returns a link to google maps for the given event. This link can be filtered 
+		 * Returns a link to google maps for the given event. This link can be filtered
 		 * using the tribe_events_google_map_link hook.
 		 *
 		 * @param int|null $post_id
