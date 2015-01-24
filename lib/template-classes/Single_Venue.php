@@ -11,8 +11,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
-if ( ! class_exists( 'Tribe_Events_Pro_Single_Venue_Template' ) ) {
-	class Tribe_Events_Pro_Single_Venue_Template extends Tribe_Events__Pro__Template_Factory {
+if ( ! class_exists( 'Tribe__Events__Pro__Templates__Single_Venue' ) ) {
+	class Tribe__Events__Pro__Templates__Single_Venue extends Tribe_Events__Pro__Template_Factory {
 
 		protected $asset_packages = array( 'jquery-placeholder' );
 
