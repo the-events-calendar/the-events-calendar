@@ -190,7 +190,7 @@ class Tribe__Events__Pro__Mini_Calendar {
 	 */
 	private function styles_and_scripts() {
 		wp_enqueue_script( 'tribe-mini-calendar', Tribe__Events__Pro__Events_Pro::instance()->pluginUrl . 'resources/widget-calendar.js', array( 'jquery' ), apply_filters( 'tribe_events_pro_js_version', Tribe__Events__Pro__Events_Pro::VERSION ) );
-		TribeEventsPro_Widgets::enqueue_calendar_widget_styles();
+		Tribe__Events__Pro__Widgets::enqueue_calendar_widget_styles();
 
 		// What Option was selected
 		switch ( $stylesheet_option ) {

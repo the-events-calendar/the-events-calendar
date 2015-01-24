@@ -28,7 +28,7 @@ class Tribe__Events__Pro__Recurrence_Meta {
 		'recCustomYearMonth'             => array()
 	);
 
-	/** @var TribeEventsRecurrenceScheduler */
+	/** @var Tribe__Events__Pro__Recurrence_Scheduler */
 	private static $scheduler = null;
 
 
@@ -1163,7 +1163,7 @@ class Tribe__Events__Pro__Recurrence_Meta {
 	}
 
 	/**
-	 * @return TribeEventsRecurrenceScheduler
+	 * @return Tribe__Events__Pro__Recurrence_Scheduler
 	 */
 	public static function get_scheduler() {
 		if ( empty( self::$scheduler ) ) {
@@ -1182,7 +1182,7 @@ class Tribe__Events__Pro__Recurrence_Meta {
 	 * @param int $post_id
 	 *
 	 * @return string
-	 * @see  TribeEvents::get_series_start_date()
+	 * @see  Tribe__Events__Events::get_series_start_date()
 	 */
 	private static function get_series_start_date( $post_id ) {
 		if ( method_exists( 'Tribe__Events__Events', 'get_series_start_date' ) ) {

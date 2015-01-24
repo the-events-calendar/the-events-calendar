@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Class TribeEventsRecurrenceScheduler_Test
+ * Class Tribe__Events__Pro__Recurrence_Scheduler_Test
  *
  * @group pro
  * @group recurrence
