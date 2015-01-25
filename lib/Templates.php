@@ -796,6 +796,4 @@ if ( ! class_exists( 'Tribe__Events__Templates' ) ) {
 			}
 		}
 	}
-
-	Tribe__Events__Templates::init();
 }

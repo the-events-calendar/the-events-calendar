@@ -444,6 +444,7 @@ if ( ! class_exists( 'Tribe__Events__Events' ) ) {
 			add_action( 'plugins_loaded', array( $this, 'init_day_view' ), 2 );
 
 			add_action( 'plugins_loaded', array( 'Tribe__Events__Bar', 'instance' ) );
+			add_action( 'plugins_loaded', array( 'Tribe__Events__Templates', 'init' ) );
 
 		}
 
