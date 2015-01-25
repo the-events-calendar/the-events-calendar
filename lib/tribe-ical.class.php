@@ -219,15 +219,14 @@ class TribeiCal {
 				if ( ! empty( $wp_timezone ) ){
 					$item[] = "DTSTART;TZID=\"{$wp_timezone}\":{$tz_startDate}";
 				}
-				$item[] = 'DTSTART:' . $startDate;
 				$item[] = 'DTSTART:' . $tz_startDate;
+				$item[] = 'DTSTART:' . $startDate;
 
 				if ( ! empty( $wp_timezone ) ){
 					$item[] = "DTEND;TZID=\"{$wp_timezone}\":{$tz_endDate}";
 				}
-				$item[] = 'DTEND:' . $endDate;
 				$item[] = 'DTEND:' . $tz_endDate;
-
+				$item[] = 'DTEND:' . $endDate;
 			}
 
 			$description = str_replace( array( ',', "\n", "\r", "\t" ), array( '\,', '\n', '', '\t' ), strip_tags( $event_post->post_content ) );
