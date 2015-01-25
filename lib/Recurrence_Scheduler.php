@@ -37,11 +37,13 @@ class Tribe__Events__Pro__Recurrence_Scheduler {
 		if ( ! wp_next_scheduled( self::CRON_HOOK ) ) {
 			wp_schedule_event( time(), 'daily', self::CRON_HOOK );
 		}
+		add_action( self::CRON_HOOK, array( $this, 'clean_up_old_recurring_events' ), 10, 0 );
 		add_action( self::CRON_HOOK, array( $this, 'schedule_future_recurring_events' ), 20, 0 );
 		add_action( 'tribe_events_pro_blog_deactivate', array( $this, 'clear_scheduled_task' ) );
 	}
 
 	public function remove_hooks() {
+		remove_action( self::CRON_HOOK, array( $this, 'clean_up_old_recurring_events' ), 10, 0 );
 		remove_action( self::CRON_HOOK, array( $this, 'schedule_future_recurring_events' ), 20, 0 );
 	}
 
