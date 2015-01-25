@@ -259,7 +259,7 @@ class Tribe__Events__Amalgamator {
 	public static function migration_button( $text = '' ) {
 		$text     = $text ? $text : __( 'Merge Duplicates', 'tribe-events-calendar' );
 		$html     = '<a href="%s" class="button">%s</a>';
-		$settings = TribeSettings::instance();
+		$settings = Tribe__Events__Settings::instance();
 		// get the base settings page url
 		$url  = apply_filters(
 			'tribe_settings_url', add_query_arg(
@@ -290,7 +290,7 @@ class Tribe__Events__Amalgamator {
 		$amalgamator->merge_duplicates();
 
 		// redirect to base settings page
-		$settings = TribeSettings::instance();
+		$settings = Tribe__Events__Settings::instance();
 		$url      = apply_filters(
 			'tribe_settings_url', add_query_arg(
 				array(

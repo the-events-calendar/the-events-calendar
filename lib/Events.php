@@ -412,7 +412,7 @@ if ( ! class_exists( 'Tribe__Events__Events' ) ) {
 			add_action( 'tribe_settings_content_tab_help', array( $this, 'doHelpTab' ) );
 			add_action( 'tribe_settings_validate_tab_network', array( $this, 'saveAllTabsHidden' ) );
 
-			add_action( 'load-tribe_events_page_tribe-events-calendar', array( 'Tribe_Amalgamator', 'listen_for_migration_button' ), 10, 0 );
+			add_action( 'load-tribe_events_page_tribe-events-calendar', array( 'Tribe__Events__Amalgamator', 'listen_for_migration_button' ), 10, 0 );
 			add_action( 'tribe_settings_after_save', array( $this, 'flushRewriteRules' ) );
 			add_action( 'load-edit-tags.php', array( $this, 'prepare_to_fix_tagcloud_links' ), 10, 0 );
 
@@ -1811,7 +1811,7 @@ if ( ! class_exists( 'Tribe__Events__Events' ) ) {
 		 * @return void
 		 */
 		public function addNetworkOptionsPage() {
-			$tribe_settings = TribeSettings::instance();
+			$tribe_settings = Tribe__Events__Settings::instance();
 			add_submenu_page(
 				'settings.php', $this->pluginName, $this->pluginName, 'manage_network_options', 'tribe-events-calendar', array(
 					$tribe_settings,

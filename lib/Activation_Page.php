@@ -90,7 +90,7 @@ class Tribe__Events__Activation_Page {
 	}
 
 	protected function get_message_page_url( $slug ) {
-		$settings = TribeSettings::instance();
+		$settings = Tribe__Events__Settings::instance();
 		// get the base settings page url
 		$url  = apply_filters(
 			'tribe_settings_url', add_query_arg(
@@ -116,7 +116,7 @@ class Tribe__Events__Activation_Page {
 	}
 
 	protected function disable_default_settings_page() {
-		remove_action( 'tribe_events_page_tribe-events-calendar', array( TribeSettings::instance(), 'generatePage' ) );
+		remove_action( 'tribe_events_page_tribe-events-calendar', array( Tribe__Events__Settings::instance(), 'generatePage' ) );
 	}
 
 	public function display_welcome_page() {

@@ -76,11 +76,11 @@ if ( ! class_exists( 'Tribe__Events__Settings_Tab' ) ) {
 		}
 
 		/**
-		 * filters the tabs array from TribeSettings
+		 * filters the tabs array from Tribe__Events__Settings
 		 * and adds the current tab to it
 		 * does not add a tab if it's empty
 		 *
-		 * @param array $tabs the $tabs from TribeSettings
+		 * @param array $tabs the $tabs from Tribe__Events__Settings
 		 *
 		 * @return array $tabs the filtered tabs
 		 */
@@ -101,7 +101,7 @@ if ( ! class_exists( 'Tribe__Events__Settings_Tab' ) ) {
 		/**
 		 * Adds this tab to the list of total tabs, even if it is not displayed.
 		 *
-		 * @param array $allTabs All the tabs from TribeSettings.
+		 * @param array $allTabs All the tabs from Tribe__Events__Settings.
 		 *
 		 * @return array $allTabs All the tabs.
 		 */
@@ -113,10 +113,10 @@ if ( ! class_exists( 'Tribe__Events__Settings_Tab' ) ) {
 
 
 		/**
-		 * filters the fields array from TribeSettings
+		 * filters the fields array from Tribe__Events__Settings
 		 * and adds the current tab's fields to it
 		 *
-		 * @param array $field the $fields from TribeSettings
+		 * @param array $field the $fields from Tribe__Events__Settings
 		 *
 		 * @return array $fields the filtered fields
 		 */
@@ -134,7 +134,7 @@ if ( ! class_exists( 'Tribe__Events__Settings_Tab' ) ) {
 		 * sets whether the current tab should show the save
 		 * button or not
 		 *
-		 * @param array $noSaveTabs the $noSaveTabs from TribeSettings
+		 * @param array $noSaveTabs the $noSaveTabs from Tribe__Events__Settings
 		 *
 		 * @return array $noSaveTabs the filtered non saving tabs
 		 */
