@@ -692,7 +692,7 @@ class Tribe__Events__Pro__Geo_Loc {
 	 * @return string
 	 */
 	private function fix_geoloc_data_button() {
-		$settings = TribeSettings::instance();
+		$settings = Tribe__Events__Settings::instance();
 		$url      = apply_filters( 'tribe_settings_url', add_query_arg( array(
 					'post_type' => Tribe__Events__Events::POSTTYPE,
 					'page'      => $settings->adminSlug
@@ -732,7 +732,7 @@ class Tribe__Events__Pro__Geo_Loc {
 	 */
 	public function show_offer_to_fix_notice() {
 
-		$settings = TribeSettings::instance();
+		$settings = Tribe__Events__Settings::instance();
 		$url      = apply_filters( 'tribe_settings_url', add_query_arg( array(
 					'post_type' => Tribe__Events__Events::POSTTYPE,
 					'page'      => $settings->adminSlug
