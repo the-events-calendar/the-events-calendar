@@ -90,11 +90,6 @@ if ( ! class_exists( 'Tribe_Events_Month_Template' ) ) {
 		protected function hooks() {
 			parent::hooks();
 
-			// implement caching of month view html
-			if ( $this->use_cache && $this->html_cache ) {
-				$this->html_cache->add_hooks();
-			}
-
 			// Since we set is_post_type_archive to true on month view, this prevents 'Events' from being added to the page title
 			add_filter( 'post_type_archive_title', '__return_false', 10 );
 		}
