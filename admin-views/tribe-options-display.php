@@ -110,6 +110,13 @@ $displayTab = array(
 				'size'            => 'small',
 				'default'         => '3'
 			),
+			'enable_month_view_cache' => array(
+				'type'            => 'checkbox_bool',
+				'label'           => __( 'Enable the Month View Cache', 'tribe-events-calendar' ),
+				'tooltip'         => sprintf( __( 'Check this to cache your month view HTML in transients, which can help improve calendar speed on sites with many events. <a href="%s">Read more</a>.', 'tribe-events-calendar' ), 'LINK NEEDED' ),
+				'default'         => true,
+				'validation_type' => 'boolean',
+			),
 			'tribeEventsDateFormatSettingsTitle' => array(
 				'type' => 'html',
 				'html' => '<h3>' . __( 'Date Format Settings', 'tribe-events-calendar' ) . '</h3>',
@@ -191,13 +198,6 @@ $displayTab = array(
 				'label'           => __( 'Add HTML after event content', 'tribe-events-calendar' ),
 				'tooltip'         => __( 'If you are familiar with HTML, you can add additional code after the event template. Some themes may require this to help with styling or layout.', 'tribe-events-calendar' ),
 				'validation_type' => 'html',
-			),
-			'enable_month_view_cache' => array(
-				'type'            => 'checkbox_bool',
-				'label'           => __( 'Enable the Month View Cache', 'tribe-events-calendar' ),
-				'tooltip'         => sprintf( __( 'Check this to cache your month view html in transients. <a href="%s">Read more</a>.', 'tribe-events-calendar' ), 'LINK NEEDED' ),
-				'default'         => true,
-				'validation_type' => 'boolean',
 			),
 			'tribe-form-content-end'             => array(
 				'type' => 'html',
