@@ -30,8 +30,11 @@
 	// Instantiate class and set up WordPress actions.
 	function Tribe_ECP_Load() {
 		add_filter( 'tribe_tec_addons', 'tribe_init_ecp_addon' );
-		$to_run_or_not_to_run = ( class_exists( 'Tribe__Events__Events' ) && defined( 'Tribe__Events__Events::VERSION' ) && version_compare( Tribe__Events__Events::VERSION, Tribe__Events__Pro__Events_Pro::REQUIRED_TEC_VERSION, '>=' ) );
+		tribe_init_events_pro_autoloading();
+
+		$to_run_or_not_to_run = ( class_exists( 'Tribe__Events__Events' ) && class_exists( 'Tribe__Events__Pro__Events_Pro' ) && version_compare( Tribe__Events__Events::VERSION, Tribe__Events__Pro__Events_Pro::REQUIRED_TEC_VERSION, '>=' ) );
 		if ( apply_filters( 'tribe_ecp_to_run_or_not_to_run', $to_run_or_not_to_run ) ) {
+			new Tribe__Events__Pro__PUE( __FILE__ );
 			Tribe__Events__Pro__Events_Pro::instance();
 		} else {
 			/**
@@ -95,7 +98,9 @@
 	 * autoloading.
 	 */
 	function tribe_init_events_pro_autoloading() {
-		require_once dirname( dirname( __FILE__ ) ) . '/the-events-calendar/lib/utils/Autoloader.php';
+		if ( !class_exists('Tribe__Events__Autoloader') ) {
+			return;
+		}
 		$autoloader = Tribe__Events__Autoloader::instance();
 
 		$autoloader->register_prefix( 'Tribe__Events__Pro__', dirname( __FILE__ ) . '/lib' );
@@ -109,6 +114,3 @@
 		$autoloader->register_autoloader();
 	}
 
-	tribe_init_events_pro_autoloading();
-
-	new Tribe__Events__Pro__PUE( __FILE__ );
