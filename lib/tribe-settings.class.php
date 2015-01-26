@@ -131,7 +131,6 @@ if ( ! class_exists( 'TribeSettings' ) ) {
 			// set instance variables
 			$this->menuName    = apply_filters( 'tribe_settings_menu_name', __( 'The Events Calendar', 'tribe-events-calendar' ) );
 			$this->requiredCap = apply_filters( 'tribe_settings_req_cap', 'manage_options' );
-			$this->required_cap_upwel = apply_filters( 'tribe_update_page_req_cap', 'edit_published_posts' );
 			$this->adminSlug   = apply_filters( 'tribe_settings_admin_slug', 'tribe-events-calendar' );
 			$this->errors      = get_option( 'tribe_settings_errors', array() );
 			$this->major_error = get_option( 'tribe_settings_major_error', false );
@@ -160,31 +159,11 @@ if ( ! class_exists( 'TribeSettings' ) ) {
 					'edit.php?post_type=' . TribeEvents::POSTTYPE,
 					__( 'The Events Calendar Settings', 'tribe-events-calendar' ),
 					__( 'Settings', 'tribe-events-calendar' ),
-					self::is_page_welcome_update() ? $this->required_cap_upwel : $this->requiredCap,
+					$this->requiredCap,
 					$this->adminSlug,
 					array( $this, 'generatePage' )
 				);
 			}
-		}
-
-		public static function is_page_welcome_update(){
-			if ( isset( $_GET['tec-update-message'] ) ){
-				if ( ! $_GET['tec-update-message'] ){
-					return false;
-				} else {
-					return true;
-				}
-			}
-
-			if ( isset( $_GET['tec-welcome-message'] ) ){
-				if ( ! $_GET['tec-welcome-message'] ){
-					return false;
-				} else {
-					return true;
-				}
-			}
-
-			return false;
 		}
 
 		/**
