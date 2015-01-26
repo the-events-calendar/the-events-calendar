@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 if ( ! class_exists( 'Tribe__Events__Pro__Templates__Week' ) ) {
-	class Tribe__Events__Pro__Templates__Week extends Tribe_Events__Pro__Template_Factory {
+	class Tribe__Events__Pro__Templates__Week extends Tribe__Events__Pro__Template_Factory {
 
 		protected $asset_packages = array( 'ajax-weekview' );
 		public static $tribe_bar_args = array();

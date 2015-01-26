@@ -52,7 +52,7 @@ class Tribe__Events__Pro__Shortcodes__Event_Countdown {
 		}
 
 		// If the ECP CSS has not already been added lets lazily add it now
-		Tribe_Events__Pro__Template_Factory::asset_package( 'events-pro-css' );
+		Tribe__Events__Pro__Template_Factory::asset_package( 'events-pro-css' );
 
 		ob_start();
 		the_widget( 'Tribe__Events__Pro__Countdown_Widget', $this->arguments, $this->arguments );

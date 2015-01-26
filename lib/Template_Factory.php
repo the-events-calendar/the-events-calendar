@@ -4,8 +4,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
-if ( ! class_exists( 'Tribe_Events__Pro__Template_Factory' ) ) {
-	class Tribe_Events__Pro__Template_Factory extends Tribe__Events__Template_Factory {
+if ( ! class_exists( 'Tribe__Events__Pro__Template_Factory' ) ) {
+	class Tribe__Events__Pro__Template_Factory extends Tribe__Events__Template_Factory {
 
 		/**
 		 * The class constructor.

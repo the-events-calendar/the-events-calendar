@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 if( !class_exists( 'Tribe__Events__Pro__Templates__Photo' )){
-	class Tribe__Events__Pro__Templates__Photo extends Tribe_Events__Pro__Template_Factory {
+	class Tribe__Events__Pro__Templates__Photo extends Tribe__Events__Pro__Template_Factory {
 
 		protected $body_class = 'events-photo';
 		const AJAX_HOOK = 'tribe_photo';

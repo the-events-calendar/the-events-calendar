@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 if ( ! class_exists( 'Tribe__Events__Pro__Templates__Map' ) ) {
-	class Tribe__Events__Pro__Templates__Map extends Tribe_Events__Pro__Template_Factory {
+	class Tribe__Events__Pro__Templates__Map extends Tribe__Events__Pro__Template_Factory {
 
 		protected $body_class = 'events-list';
 		const AJAX_HOOK = 'tribe_geosearch';

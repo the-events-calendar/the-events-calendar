@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 if ( ! class_exists( 'Tribe__Events__Pro__Templates__Single_Organizer' ) ) {
-	class Tribe__Events__Pro__Templates__Single_Organizer extends Tribe_Events__Pro__Template_Factory {
+	class Tribe__Events__Pro__Templates__Single_Organizer extends Tribe__Events__Pro__Template_Factory {
 
 
 		protected $comments_off = true;
