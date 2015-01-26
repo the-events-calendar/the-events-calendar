@@ -9,7 +9,9 @@
 				'post_type' => Tribe__Events__Events::POSTTYPE
 			);
 			$path = Tribe__Events__Template_Factory::getMinFile( $this->resources_url . 'tribe-events-ajax-day.js', true );
-			wp_enqueue_script( 'tribe-events-ajax-day', $path, array( 'tribe-events-bar' ), $this->filter_js_version(), true );
-			wp_localize_script( 'tribe-events-ajax-day', 'TribeCalendar', $ajax_data );
+
+			$handle = 'tribe-events-ajax-day';
+			wp_enqueue_script( $handle, $path, array( 'tribe-events-bar' ), $this->filter_js_version(), true );
+			wp_localize_script( $handle, 'TribeCalendar', $ajax_data );
 		}
 	}

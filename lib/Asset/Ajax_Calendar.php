@@ -11,7 +11,9 @@
 			) );
 			$ajax_data = array( "ajaxurl" => admin_url( 'admin-ajax.php', ( is_ssl() ? 'https' : 'http' ) ) );
 			$path = Tribe__Events__Template_Factory::getMinFile( $this->resources_url . 'tribe-events-ajax-calendar.js', true );
-			wp_enqueue_script( 'tribe-events-calendar', $path, $deps, $this->filter_js_version(), true );
-			wp_localize_script( 'tribe-events-calendar', 'TribeCalendar', $ajax_data );
+
+			$handle = 'tribe-events-calendar';
+			wp_enqueue_script( $handle, $path, $deps, $this->filter_js_version(), true );
+			wp_localize_script( $handle, 'TribeCalendar', $ajax_data );
 		}
 	}
