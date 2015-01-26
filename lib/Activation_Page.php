@@ -16,12 +16,19 @@ class Tribe__Events__Activation_Page {
 		if ( !empty($_POST) ) {
 			return; // don't interrupt anything the user's trying to do
 		}
+
 		if ( !is_admin() || defined('DOING_AJAX') ) {
 			return;
 		}
+
 		if ( isset($_GET['tec-welcome-message']) || isset($_GET['tec-update-message']) ) {
 			return; // no infinite redirects
 		}
+
+		if ( ! current_user_can( TribeSettings::instance()->requiredCap ) ){
+			return;
+		}
+
 		if ( $this->showed_update_message_for_current_version() ) {
 			return;
 		}
@@ -181,4 +188,4 @@ class Tribe__Events__Activation_Page {
 	}
 
 
-} 
+}
