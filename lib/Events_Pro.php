@@ -1014,15 +1014,15 @@
 
 				switch ( $view ) {
 					case 'map' :
-						$is_ajax_view_request = ( $_REQUEST['action'] == Tribe_Events_Pro_Map_Template::AJAX_HOOK );
+						$is_ajax_view_request = ( $_REQUEST['action'] == Tribe__Events__Pro__Templates__Map::AJAX_HOOK );
 						break;
 
 					case 'photo' :
-						$is_ajax_view_request = ( $_REQUEST['action'] == Tribe_Events_Pro_Photo_Template::AJAX_HOOK );
+						$is_ajax_view_request = ( $_REQUEST['action'] == Tribe__Events__Pro__Templates__Photo::AJAX_HOOK );
 						break;
 
 					case 'week' :
-						$is_ajax_view_request = ( $_REQUEST['action'] == Tribe_Events_Pro_Week_Template::AJAX_HOOK );
+						$is_ajax_view_request = ( $_REQUEST['action'] == Tribe__Events__Pro__Templates__Week::AJAX_HOOK );
 						break;
 				}
 
@@ -1041,19 +1041,19 @@
 
 				// venue view
 				if ( is_singular( Tribe__Events__Events::VENUE_POST_TYPE ) ) {
-					$class = 'Tribe_Events_Pro_Single_Venue_Template';
+					$class = 'Tribe__Events__Pro__Templates__Single_Venue';
 				} // organizer view
 				elseif ( is_singular( Tribe__Events__Events::ORGANIZER_POST_TYPE ) ) {
-					$class = 'Tribe_Events_Pro_Single_Organizer_Template';
+					$class = 'Tribe__Events__Pro__Templates__Single_Organizer';
 				} // week view
 				elseif ( tribe_is_week() || tribe_is_ajax_view_request( 'week' ) ) {
-					$class = 'Tribe_Events_Pro_Week_Template';
+					$class = 'Tribe__Events__Pro__Templates__Week';
 				} // photo view
 				elseif ( tribe_is_photo() || tribe_is_ajax_view_request( 'photo' ) ) {
-					$class = 'Tribe_Events_Pro_Photo_Template';
+					$class = 'Tribe__Events__Pro__Templates__Photo';
 				} // map view
 				elseif ( tribe_is_map() || tribe_is_ajax_view_request( 'map' ) ) {
-					$class = 'Tribe_Events_Pro_Map_Template';
+					$class = 'Tribe__Events__Pro__Templates__Map';
 				}
 
 				return $class;
