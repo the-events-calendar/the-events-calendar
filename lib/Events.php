@@ -619,7 +619,7 @@ if ( ! class_exists( 'Tribe__Events__Events' ) ) {
 			$tec_addons_required_versions = (array) apply_filters( 'tribe_tec_addons', $tec_addons_required_versions );
 			// Foreach addon, make sure that it is compatible with current version of core.
 			foreach ( $tec_addons_required_versions as $plugin ) {
-				if ( ! strstr( self::VERSION, $plugin['required_version'] ) ) {
+				if ( ! version_compare( self::VERSION, $plugin['required_version'], '>=' ) ) {
 					if ( isset( $plugin['current_version'] ) ) {
 						$bad_versions[] = $plugin;
 					}
