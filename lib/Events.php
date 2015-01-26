@@ -232,6 +232,9 @@ if ( ! class_exists( 'Tribe__Events__Events' ) ) {
 			// Tribe common resources
 			require_once $this->pluginPath . 'vendor/tribe-common-libraries/tribe-common-libraries.class.php';
 
+			// Load CSV importer
+			require_once $this->pluginPath . 'lib/io/csv/ecp-events-importer.php';
+
 			// Load Template Tags
 			require_once $this->pluginPath . 'public/template-tags/query.php';
 			require_once $this->pluginPath . 'public/template-tags/general.php';
