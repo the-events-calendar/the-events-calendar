@@ -1148,7 +1148,7 @@
 
 					$data = apply_filters( 'tribe_events_pro_localize_script', $data, 'Tribe__Events__Pro__Events_Pro', 'tribe-events-pro' );
 
-					wp_localize_script( 'tribe-events-pro', 'Tribe__Events__Pro__Events_Pro', $data );
+					wp_localize_script( 'tribe-events-pro', 'TribeEventsPro', $data );
 
 				}
 			}
