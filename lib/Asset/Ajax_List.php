@@ -11,7 +11,7 @@
 				'tribe_paged' => $tribe_paged
 			);
 			$path = Tribe__Events__Template_Factory::getMinFile( $this->resources_url . 'tribe-events-ajax-list.js', true );
-			wp_enqueue_script( 'tribe-events-list', $path, $deps, apply_filters( 'tribe_events_js_version', Tribe__Events__Events::VERSION ), true );
+			wp_enqueue_script( 'tribe-events-list', $path, $deps, $this->filter_js_version(), true );
 			wp_localize_script( 'tribe-events-list', 'TribeList', $ajax_data );
 		}
 	}

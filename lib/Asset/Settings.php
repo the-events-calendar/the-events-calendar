@@ -6,6 +6,6 @@
 		public function handle() {
 			$deps = array_merge( $this->deps, array( 'jquery' ) );
 			$path = Tribe__Events__Template_Factory::getMinFile( $this->resources_url . 'tribe-settings.js', true );
-			wp_enqueue_script( $this->prefix . '-settings', $path, $deps, apply_filters( 'tribe_events_js_version', Tribe__Events__Events::VERSION ), true );
+			wp_enqueue_script( $this->prefix . '-settings', $path, $deps, $this->filter_js_version(), true );
 		}
 	}

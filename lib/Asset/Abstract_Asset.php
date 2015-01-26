@@ -53,7 +53,7 @@
 			$this->resources_url = $resources_url;
 		}
 
-		public function set_tec( Tribe__Events__Events  $tec ) {
+		public function set_tec( Tribe__Events__Events $tec ) {
 			$this->tec = $tec;
 		}
 
@@ -61,5 +61,21 @@
 		 * Handles the asset request
 		 */
 		abstract public function handle();
+
+		/**
+		 * Filters the script version.
+		 *
+		 * Uses `Tribe__Events__Events::VERSION` by default.
+		 *
+		 * @param string $filter The filter name, `tribe_events_js_version` by
+		 *                       default.
+		 *
+		 * @return mixed|void
+		 */
+		protected function filter_js_version( $filter = null ) {
+			$filter = is_string( $filter ) ? $filter : 'tribe_events_js_version';
+
+			return apply_filters( $filter, Tribe__Events__Events::VERSION );
+		}
 
 	}

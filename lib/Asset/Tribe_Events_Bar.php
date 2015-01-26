@@ -5,10 +5,13 @@
 
 		public function handle() {
 			$deps = array_merge( $this->deps, array(
-				'jquery', $this->prefix . '-calendar-script', $this->prefix . '-bootstrap-datepicker',
-				$this->prefix . '-jquery-resize', Tribe__Events__Template_Factory::get_placeholder_handle()
+				'jquery',
+				$this->prefix . '-calendar-script',
+				$this->prefix . '-bootstrap-datepicker',
+				$this->prefix . '-jquery-resize',
+				Tribe__Events__Template_Factory::get_placeholder_handle()
 			) );
 			$path = Tribe__Events__Template_Factory::getMinFile( $this->resources_url . 'tribe-events-bar.js', true );
-			wp_enqueue_script( $this->prefix . '-bar', $path, $deps, apply_filters( 'tribe_events_js_version', Tribe__Events__Events::VERSION ) );
+			wp_enqueue_script( $this->prefix . '-bar', $path, $deps, $this->filter_js_version() );
 		}
 	}
