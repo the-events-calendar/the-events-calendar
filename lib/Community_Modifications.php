@@ -14,13 +14,26 @@ class Tribe__Events__Pro__Community_Modifications {
 	}
 
 	public function add_recurrence_required_fields( $required_fields ) {
-		if ( ! empty( $_POST ) && ! empty( $_POST['recurrence'] ) && ! empty( $_POST['recurrence']['end-type'] ) ) {
+
+		if ( empty( $_POST ) ) {
+			return $required_fields;
+		}
+
+		if ( empty( $_POST['recurrence'] ) || empty( $_POST['recurrence']['type'] ) || $_POST['recurrence'] == 'None' ) {
+
+		}
+
+		if ( ! empty( $_POST ) && ! empty( $_POST['recurrence'] ) && $_POST['recurrence']['type'] != 'None' && ! empty( $_POST['recurrence']['type'] ) ) {
 			switch ( $_POST['recurrence']['end-type'] ) {
-				case 'On':
+				case 'On' :
 					$required_fields[] = 'recurrence[end]';
 					break;
-				case 'After':
+				case 'After' :
 					$required_fields[] = 'recurrence[end-count]';
+					break;
+				case '' :
+					$required_fields[] = 'recurrence[type]';
+					$required_fields[] = 'recurrence[end]';
 					break;
 			}
 		}
