@@ -184,6 +184,7 @@
 				add_filter( 'tribe_events_query_posts_fields', array($this, 'posts_fields'));
 
 				add_filter( 'tribe_events_default_value_strategy', array( $this, 'set_default_value_strategy' ) );
+				add_action( 'plugins_loaded', array( $this, 'init_apm_filters' ) );
 
 			}
 
@@ -1500,6 +1501,16 @@
 			 */
 			function miles_to_kms_ratio() {
 				return 1.60934;
+			}
+
+			function init_apm_filters() {
+				new Tribe__Events__Pro__APM_Filters__APM_Filters();
+				new Tribe__Events__Pro__APM_Filters__Date_Filter();
+				new Tribe__Events__Pro__APM_Filters__Recur_Filter();
+				new Tribe__Events__Pro__APM_Filters__Content_Filter();
+				new Tribe__Events__Pro__APM_Filters__Title_Filter();
+				new Tribe__Events__Pro__APM_Filters__Venue_Filter();
+				new Tribe__Events__Pro__APM_Filters__Organizer_Filter();
 			}
 
 
