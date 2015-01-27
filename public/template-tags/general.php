@@ -632,15 +632,15 @@ if ( class_exists( 'Tribe__Events__Events' ) ) {
 		$current_view        = ! empty( $current_view ) ? $current_view : basename( tribe_get_current_template() );
 		$attrs['data-title'] = wp_title( '|', false, 'right' );
 		switch ( $current_view ) {
-			case 'Month.php' :
+			case 'month.php' :
 				$attrs['data-view']    = 'month';
 				$attrs['data-date']    = date( 'Y-m', strtotime( tribe_get_month_view_date() ) );
 				$attrs['data-baseurl'] = tribe_get_gridview_link( false );
 				break;
-			case 'Day.php' :
+			case 'day.php' :
 				$attrs['data-startofweek'] = get_option( 'start_of_week' );
 				break;
-			case 'List.php' :
+			case 'list.php' :
 				$attrs['data-startofweek'] = get_option( 'start_of_week' );				
 				$attrs['data-view'] = 'list';
 				if ( tribe_is_upcoming() ) {
