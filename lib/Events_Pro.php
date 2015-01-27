@@ -857,13 +857,13 @@
 								// If so, start on the next weekday.
 								// 0 = Sunday, 6 = Saturday
 								if ( $start_of_week == 0 || $start_of_week == 6 ) {
-									$start_date = date( TribeDateUtils::DBDATEFORMAT, strtotime( $start_date . ' ' . '+1 Weekday' ) );
+									$start_date = date( Tribe__Events__Date_Utils::DBDATEFORMAT, strtotime( $start_date . ' ' . '+1 Weekday' ) );
 								}
 								// If the week starts on saturday or friday
 								// sunday and/or saturday would be on the other end, so we need to end the previous weekday
 								// 5 = Friday, 6 = Saturday
 								if ( $start_of_week ==  5 || $start_of_week == 6 ) {
-									$end_date = date( TribeDateUtils::DBDATEFORMAT, strtotime( $end_date . ' ' . '-1 Weekday' ) );
+									$end_date = date( Tribe__Events__Date_Utils::DBDATEFORMAT, strtotime( $end_date . ' ' . '-1 Weekday' ) );
 								}
 							}
 
