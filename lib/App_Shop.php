@@ -199,6 +199,4 @@ if ( ! class_exists( 'Tribe__Events__App_Shop' ) ) {
 		}
 
 	}
-
-	Tribe__Events__App_Shop::instance();
 }

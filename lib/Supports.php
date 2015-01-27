@@ -246,6 +246,5 @@ if ( ! class_exists( 'Tribe__Events__Support' ) ) {
 
 	}
 
-	Tribe__Events__Support::getInstance();
 }
 ?>

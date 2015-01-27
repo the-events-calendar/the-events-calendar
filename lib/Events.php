@@ -372,6 +372,9 @@ if ( ! class_exists( 'Tribe__Events__Events' ) ) {
 			add_action( 'wp_insert_post', array( $this, 'addPostOrigin' ), 10, 2 );
 			add_action( 'save_post', array( $this, 'addEventMeta' ), 15, 2 );
 
+			/* Registers the list widget */
+			add_action( 'widgets_init', array( $this, 'register_list_widget' ), 90 );
+
 			add_action( 'save_post_' . self::VENUE_POST_TYPE, array( $this, 'save_venue_data' ), 16, 2 );
 			add_action( 'save_post_' . self::ORGANIZER_POST_TYPE, array( $this, 'save_organizer_data' ), 16, 2 );
 			add_action( 'save_post_' . self::POSTTYPE, array( $this, 'maybe_update_known_range' ) );
@@ -390,6 +393,10 @@ if ( ! class_exists( 'Tribe__Events__Events' ) ) {
 			add_action( 'tribe_debug', array( $this, 'renderDebug' ), 10, 2 );
 			add_action( 'plugins_loaded', array( 'Tribe__Events__Cache_Listener', 'instance' ) );
 			add_action( 'plugins_loaded', array( 'Tribe__Events__Cache', 'setup' ) );
+			add_action( 'plugins_loaded', array( 'Tribe__Events__Support', 'getInstance' ) );
+			add_action( 'plugins_loaded', array( $this, 'set_meta_factory_global' ) );
+			add_action( 'plugins_loaded', array( 'Tribe__Events__App_Shop', 'instance' ) );
+			add_action( 'plugins_loaded', array( 'Tribe__Events__Admin_List', 'init' ) );
 
 			// Load organizer and venue editors
 			add_action( 'admin_menu', array( $this, 'addVenueAndOrganizerEditor' ) );
@@ -4250,6 +4257,23 @@ if ( ! class_exists( 'Tribe__Events__Events' ) ) {
 				$autoloader->register_class( $class_name, $file );
 			}
 			$autoloader->register_autoloader();
+		}
+
+		/**
+		 * Registers the list widget
+		 *
+		 * @return void
+		 */
+		function register_list_widget() {
+			register_widget( 'Tribe__Events__List_Widget' );
+		}
+
+		/**
+		 * Sets the globally shared `$_tribe_meta_factory` object
+		 */
+		public function set_meta_factory_global() {
+			global $_tribe_meta_factory;
+			$_tribe_meta_factory = new Tribe__Events__Meta_Factory();
 		}
 
 	} // end Tribe__Events__Events class
