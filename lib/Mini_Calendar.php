@@ -233,7 +233,7 @@ class Tribe__Events__Pro__Mini_Calendar {
 
 	public function setup_list( $template_file ) {
 
-		if ( basename( dirname( $template_file ) ) . '/' . basename( $template_file ) == 'mini-calendar/List.php' ) {
+		if ( basename( dirname( $template_file ) ) . '/' . basename( $template_file ) == 'mini-calendar/list.php' ) {
 
 			if ( $this->args['count'] == 0 ) {
 				return;
