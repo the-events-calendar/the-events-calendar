@@ -396,6 +396,7 @@ if ( ! class_exists( 'Tribe__Events__Events' ) ) {
 			add_action( 'plugins_loaded', array( 'Tribe__Events__Support', 'getInstance' ) );
 			add_action( 'plugins_loaded', array( $this, 'set_meta_factory_global' ) );
 			add_action( 'plugins_loaded', array( 'Tribe__Events__App_Shop', 'instance' ) );
+			add_action( 'plugins_loaded', array( 'Tribe__Events__Admin_List', 'init' ) );
 
 			// Load organizer and venue editors
 			add_action( 'admin_menu', array( $this, 'addVenueAndOrganizerEditor' ) );
