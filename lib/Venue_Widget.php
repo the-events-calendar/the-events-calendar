@@ -91,11 +91,4 @@ if ( ! class_exists( 'Tribe__Events__Pro__Venue_Widget' ) ) {
 			return $instance;
 		}
 	}
-
-	// Load the widget with the 'widgets_init' action.
-	add_action( 'widgets_init', 'tribe_venue_register_widget', 100 );
-
-	function tribe_venue_register_widget() {
-		register_widget( 'Tribe__Events__Pro__Venue_Widget' );
-	}
 }

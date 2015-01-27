@@ -111,9 +111,4 @@ if( !class_exists( 'Tribe__Events__Pro__Countdown_Widget' ) ) {
  
 	}
  
-	add_action('widgets_init', 'tribe_countdown_register_widget');
-
-	function tribe_countdown_register_widget() {
-		register_widget('Tribe__Events__Pro__Countdown_Widget');
-	}
 }

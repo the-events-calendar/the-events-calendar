@@ -1272,7 +1272,9 @@
 			public function pro_widgets_init() {
 				unregister_widget( 'TribeEventsListWidget' );
 				register_widget( 'Tribe__Events__Pro__Advanced_List_Widget' );
+				register_widget( 'Tribe__Events__Pro__Countdown_Widget' );
 				register_widget( 'Tribe__Events__Pro__Mini_Calendar_Widget' );
+				register_widget( 'Tribe__Events__Pro__Venue_Widget' );
 			}
 
 			/**
