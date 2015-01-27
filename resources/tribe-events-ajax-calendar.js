@@ -189,7 +189,7 @@
 				$( '<div id="tribe-mobile-container" />' ).insertAfter( $tribe_grid );
 			}
 
-			if ( $today.length ) {
+			if ( $today.length && $today.is( '.tribe-events-thismonth' ) ) {
 				tribe_mobile_setup_day( $today.attr( 'data-day' ), $today.attr( 'data-date-name' ) );
 			}
 			else {
