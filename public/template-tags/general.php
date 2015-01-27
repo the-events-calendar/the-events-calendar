@@ -1132,7 +1132,7 @@ if ( class_exists( 'Tribe__Events__Events' ) ) {
 	 * @param string|bool $day_cutoff
 	 *
 	 * @return int
-	 * @see TribeDateUtils::dateDiff()
+	 * @see Tribe__Events__Date_Utils::dateDiff()
 	 **/
 	function tribe_get_days_between( $start_date, $end_date, $day_cutoff = '00:00' ) {
 		if ( $day_cutoff === false ) {
