@@ -394,6 +394,7 @@ if ( ! class_exists( 'Tribe__Events__Events' ) ) {
 			add_action( 'plugins_loaded', array( 'Tribe__Events__Cache_Listener', 'instance' ) );
 			add_action( 'plugins_loaded', array( 'Tribe__Events__Cache', 'setup' ) );
 			add_action( 'plugins_loaded', array( 'Tribe__Events__Support', 'getInstance' ) );
+			add_action( 'plugins_loaded', array( $this, 'set_meta_factory_global' ) );
 
 			// Load organizer and venue editors
 			add_action( 'admin_menu', array( $this, 'addVenueAndOrganizerEditor' ) );
@@ -4263,6 +4264,14 @@ if ( ! class_exists( 'Tribe__Events__Events' ) ) {
 		 */
 		function register_list_widget() {
 			register_widget( 'Tribe__Events__List_Widget' );
+		}
+
+		/**
+		 * Sets the globally shared `$_tribe_meta_factory` object
+		 */
+		public function set_meta_factory_global() {
+			global $_tribe_meta_factory;
+			$_tribe_meta_factory = new Tribe__Events__Meta_Factory();
 		}
 
 	} // end Tribe__Events__Events class
