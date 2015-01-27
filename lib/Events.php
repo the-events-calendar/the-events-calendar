@@ -372,6 +372,9 @@ if ( ! class_exists( 'Tribe__Events__Events' ) ) {
 			add_action( 'wp_insert_post', array( $this, 'addPostOrigin' ), 10, 2 );
 			add_action( 'save_post', array( $this, 'addEventMeta' ), 15, 2 );
 
+			/* Registers the list widget */
+			add_action( 'widgets_init', array( $this, 'register_list_widget' ), 90 );
+
 			add_action( 'save_post_' . self::VENUE_POST_TYPE, array( $this, 'save_venue_data' ), 16, 2 );
 			add_action( 'save_post_' . self::ORGANIZER_POST_TYPE, array( $this, 'save_organizer_data' ), 16, 2 );
 			add_action( 'save_post_' . self::POSTTYPE, array( $this, 'maybe_update_known_range' ) );
@@ -4250,6 +4253,15 @@ if ( ! class_exists( 'Tribe__Events__Events' ) ) {
 				$autoloader->register_class( $class_name, $file );
 			}
 			$autoloader->register_autoloader();
+		}
+
+		/**
+		 * Registers the list widget
+		 *
+		 * @return void
+		 */
+		function register_list_widget() {
+			register_widget( 'Tribe__Events__List_Widget' );
 		}
 
 	} // end Tribe__Events__Events class
