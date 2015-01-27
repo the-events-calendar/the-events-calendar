@@ -3,7 +3,7 @@
  * Template used for maps embedded within single events and venues.
  * Override this template in your own theme by creating a file at:
  *
- *     [your-theme]/tribe-events/modules/Map.php
+ *     [your-theme]/tribe-events/modules/map.php
  *
  * @var $index
  * @var $width
