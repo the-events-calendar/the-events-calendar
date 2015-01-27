@@ -393,6 +393,7 @@ if ( ! class_exists( 'Tribe__Events__Events' ) ) {
 			add_action( 'tribe_debug', array( $this, 'renderDebug' ), 10, 2 );
 			add_action( 'plugins_loaded', array( 'Tribe__Events__Cache_Listener', 'instance' ) );
 			add_action( 'plugins_loaded', array( 'Tribe__Events__Cache', 'setup' ) );
+			add_action( 'plugins_loaded', array( 'Tribe__Events__Support', 'getInstance' ) );
 
 			// Load organizer and venue editors
 			add_action( 'admin_menu', array( $this, 'addVenueAndOrganizerEditor' ) );
