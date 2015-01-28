@@ -198,6 +198,7 @@
 
 			$columns.css( 'width', width + '%' );
 			$( '.tribe-grid-header .tribe-grid-content-wrap .column').css( 'width', width + '%' );
+			$( '.tribe-grid-allday .tribe-grid-content-wrap .column').css( 'width', width + '%' );
 
 		}
 
