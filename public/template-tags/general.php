@@ -53,8 +53,11 @@ if( class_exists( 'Tribe__Events__Pro__Events_Pro' ) ) {
 
 			if ( $post->post_parent > 0 ) {
 				$recurring = true;
-			} else if ( get_post_meta( $post_id, '_EventNextPendingRecurrence', true ) ) {
-				$recurring = true;
+			} else {
+				$recurrence_meta = get_post_meta( $post_id, '_EventRecurrence', true );
+				if ( ! empty( $recurrence_meta ) && $recurrence_meta['type'] != 'None' ) {
+					$recurring = true;
+				}
 			}
 
 			return apply_filters( 'tribe_is_recurring_event', $recurring, $post_id );
