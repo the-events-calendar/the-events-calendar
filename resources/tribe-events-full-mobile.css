@@ -138,9 +138,9 @@ a.tribe-events-gmap {
 	max-height: 400px;
 }
 .tribe-events-list .tribe-events-event-image + div.tribe-events-content {
-	float: left;
+	float: none;
 	position: relative;
-	width: 67%;
+	width: 100%;
 }	
 .tribe-events-list .tribe-events-loop .tribe-events-event-meta .recurringinfo {
 	display: block;
