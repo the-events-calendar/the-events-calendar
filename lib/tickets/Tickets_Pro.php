@@ -374,7 +374,7 @@ class Tribe__Events__Tickets__Tickets_Pro {
 	 */
 	public function ticket_list_markup( $tickets = array() ) {
 		if ( ! empty( $tickets ) ) {
-			include $this->path . 'admin-views/tickets/List.php';
+			include $this->path . 'admin-views/tickets/list.php';
 		}
 	}
 
