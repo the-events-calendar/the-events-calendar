@@ -174,7 +174,7 @@ if ( class_exists( 'TribeEventsPro' ) ) {
 	 * @return bool
 	 */
 	function tribe_events_week_is_current_today() {
-		_deprecated_function( __FUNCTION__, 3.9 );
+		_deprecated_function( __FUNCTION__, 3.10 );
 		$week_days = Tribe_Events_Pro_Week_Template::get_week_days();
 		$status    = ! empty( $week_days[ Tribe_Events_Pro_Week_Template::get_current_day() ]->today ) ? $week_days[ Tribe_Events_Pro_Week_Template::get_current_day() ]->today : false;
 
@@ -260,7 +260,7 @@ if ( class_exists( 'TribeEventsPro' ) ) {
 	 * @todo remove in 4.0
 	 */
 	function tribe_events_week_set_loop_type( $loop_type = 'hourly' ) {
-		_deprecated_function( __FUNCTION__, 3.9 );
+		_deprecated_function( __FUNCTION__, 3.10 );
 		Tribe_Events_Pro_Week_Template::reset_the_day();
 		Tribe_Events_Pro_Week_Template::$loop_type = $loop_type;
 	}
@@ -273,7 +273,7 @@ if ( class_exists( 'TribeEventsPro' ) ) {
 	 * @todo remove in 4.0
 	 */
 	function tribe_events_week_the_day_map() {
-		_deprecated_function( __FUNCTION__, 3.9 );
+		_deprecated_function( __FUNCTION__, 3.10 );
 		Tribe_Events_Pro_Week_Template::the_day_map();
 		$all_day_map    = tribe_events_week_get_all_day_map();
 		$all_day_offset = Tribe_Events_Pro_Week_Template::get_current_day() < Tribe_Events_Pro_Week_Template::$start_of_week ? 7 + Tribe_Events_Pro_Week_Template::get_current_day() : Tribe_Events_Pro_Week_Template::get_current_day();
@@ -288,7 +288,7 @@ if ( class_exists( 'TribeEventsPro' ) ) {
 	 * @todo remove in 4.0
 	 */
 	function tribe_events_week_reset_the_day_map() {
-		_deprecated_function( __FUNCTION__, 3.9 );
+		_deprecated_function( __FUNCTION__, 3.10 );
 		Tribe_Events_Pro_Week_Template::reset_the_day_map();
 	}
 	/**
@@ -301,7 +301,7 @@ if ( class_exists( 'TribeEventsPro' ) ) {
 	 * @todo remove in 4.0
 	 */
 	function tribe_events_week_get_the_day_display( $echo = true ) {
-		_deprecated_function( __FUNCTION__, 3.9 );
+		_deprecated_function( __FUNCTION__, 3.10 );
 		$week_days = Tribe_Events_Pro_Week_Template::get_week_days();
 		$html      = ! empty( $week_days[ Tribe_Events_Pro_Week_Template::get_current_day() ]->display ) ? $week_days[ Tribe_Events_Pro_Week_Template::get_current_day() ]->display : null;
 		if ( has_filter( 'tribe_events_week_get_the_day_display' ) ) {
@@ -323,7 +323,7 @@ if ( class_exists( 'TribeEventsPro' ) ) {
 	 * @todo remove in 4.0
 	 */
 	function tribe_events_week_get_all_day_map() {
-		_deprecated_function( __FUNCTION__, 3.9 );
+		_deprecated_function( __FUNCTION__, 3.10 );
 		$all_day_map = (array) Tribe_Events_Pro_Week_Template::get_events( 'all_day_map' );
 		if ( has_filter( 'tribe_events_week_get_all_day_map' ) ) {
 			_deprecated_function( "The 'tribe_events_week_get_all_day_map' filter", '3.9' );
@@ -339,7 +339,7 @@ if ( class_exists( 'TribeEventsPro' ) ) {
 	 * @todo remove in 4.0
 	 */
 	function tribe_events_week_get_hourly() {
-		_deprecated_function( __FUNCTION__, 3.9 );
+		_deprecated_function( __FUNCTION__, 3.10 );
 		$hourly_events = (array) Tribe_Events_Pro_Week_Template::get_events( 'hourly' );
 
 		if ( has_filter( 'tribe_events_week_get_hourly' ) ) {
@@ -358,7 +358,7 @@ if ( class_exists( 'TribeEventsPro' ) ) {
 	 * @todo remove in 4.0
 	 */
 	function tribe_events_week_setup_event( $event_id = null ) {
-		_deprecated_function( __FUNCTION__, 3.9 );
+		_deprecated_function( __FUNCTION__, 3.10 );
 		if ( has_action( 'tribe_events_week_pre_setup_event' ) ) {
 			_deprecated_function( "The 'tribe_events_week_pre_setup_event' filter", '3.9' );
 			do_action( 'tribe_events_week_pre_setup_event', $event_id );
@@ -399,7 +399,7 @@ if ( class_exists( 'TribeEventsPro' ) ) {
 	 * @todo remove in 4.0
 	 */
 	function tribe_events_week_get_event_id( $echo = true ) {
-		_deprecated_function( __FUNCTION__, 3.9 );
+		_deprecated_function( __FUNCTION__, 3.10 );
 		$event_id = Tribe_Events_Pro_Week_Template::get_event_id();
 		if ( has_filter( 'tribe_events_week_get_event_id' ) ) {
 			_deprecated_function( "The 'tribe_events_week_get_event_id' filter", '3.9' );
@@ -420,7 +420,7 @@ if ( class_exists( 'TribeEventsPro' ) ) {
 	 * @todo remove in 4.0
 	 */
 	function tribe_events_week_is_all_day_placeholder() {
-		_deprecated_function( __FUNCTION__, 3.9 );
+		_deprecated_function( __FUNCTION__, 3.10 );
 		$event_key_id = tribe_events_week_get_event_id( false );
 		if ( is_null( $event_key_id ) || in_array( $event_key_id, Tribe_Events_Pro_Week_Template::$event_key_track ) ) {
 			return true;
@@ -437,7 +437,7 @@ if ( class_exists( 'TribeEventsPro' ) ) {
 	 * @todo remove in 4.0
 	 */
 	function tribe_events_week_get_event() {
-		_deprecated_function( __FUNCTION__, 3.9 );
+		_deprecated_function( __FUNCTION__, 3.10 );
 		switch ( Tribe_Events_Pro_Week_Template::$loop_type ) {
 			case 'allday':
 				$event                                             = Tribe_Events_Pro_Week_Template::get_allday_event();
@@ -462,7 +462,7 @@ if ( class_exists( 'TribeEventsPro' ) ) {
 	 * @todo remove in 4.0
 	 */
 	function tribe_events_current_week_day_has_events() {
-		_deprecated_function( __FUNCTION__, 3.9 );
+		_deprecated_function( __FUNCTION__, 3.10 );
 		// Do we have any all day events taking place today?
 		$day_counter = Tribe_Events_Pro_Week_Template::get_current_day();
 		$map         = tribe_events_week_get_all_day_map();
