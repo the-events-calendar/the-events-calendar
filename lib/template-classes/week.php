@@ -330,7 +330,7 @@ if ( ! class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 		/**
 		 * Return the $week_days array
 		 */
-		public function get_week_days() {
+		public static function get_week_days() {
 			return self::$week_days;
 		}
 

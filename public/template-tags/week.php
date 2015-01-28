@@ -93,9 +93,13 @@ if ( class_exists( 'TribeEventsPro' ) ) {
 			case 'formatted':
 				return $array_values( $range );
 			case 'first-hour':
-				return str_pad( reset( array_keys( $range ) ), 2, '0', STR_PAD_LEFT ) . ':00:00';
+				$hours = array_keys( $range );
+				reset( $hours );
+				return str_pad( $hours , 2, '0', STR_PAD_LEFT ) . ':00:00';
 			case 'last-hour':
-				return str_pad( end( array_keys( $range ) ), 2, '0', STR_PAD_LEFT ) . ':00:00';
+				$hours = array_keys( $range );
+				end( $hours );
+				return str_pad( ( $hours ), 2, '0', STR_PAD_LEFT ) . ':00:00';
 
 		}
 
