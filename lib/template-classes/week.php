@@ -435,7 +435,7 @@ if ( ! class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 		 *
 		 * @return date( 'Y-m-d' )
 		 */
-		function get_current_date() {
+		public static function get_current_date() {
 			return date_i18n( 'Y-m-d', strtotime( self::$week_days[self::$current_day]['date'] ) );
 		}
 
