@@ -823,21 +823,21 @@ class Tribe__Events__Pro__Recurrence_Meta {
 		}
 
 		if ( $recType == "Every Day" || ( $recType == "Custom" && $recCustomType == "Daily" ) ) {
-			$rules = new DaySeriesRules( $recType == "Every Day" ? 1 : $recCustomInterval );
+			$rules = new Tribe__Events__Pro__Date_Series_Rules__Day( $recType == "Every Day" ? 1 : $recCustomInterval );
 		} else if ( $recType == "Every Week" ) {
-			$rules = new WeekSeriesRules( 1 );
+			$rules = new Tribe__Events__Pro__Date_Series_Rules__Week( 1 );
 		} else if ( $recType == "Custom" && $recCustomType == "Weekly" ) {
-			$rules = new WeekSeriesRules( $recCustomInterval ? $recCustomInterval : 1, $recCustomWeekDay );
+			$rules = new Tribe__Events__Pro__Date_Series_Rules__Week( $recCustomInterval ? $recCustomInterval : 1, $recCustomWeekDay );
 		} else if ( $recType == "Every Month" ) {
-			$rules = new MonthSeriesRules( 1 );
+			$rules = new Tribe__Events__Pro__Date_Series_Rules__Month( 1 );
 		} else if ( $recType == "Custom" && $recCustomType == "Monthly" ) {
 			$recCustomMonthDayOfMonth = is_numeric( $recCustomMonthNumber ) ? array( $recCustomMonthNumber ) : null;
 			$recCustomMonthNumber     = self::ordinalToInt( $recCustomMonthNumber );
-			$rules                    = new MonthSeriesRules( $recCustomInterval ? $recCustomInterval : 1, $recCustomMonthDayOfMonth, $recCustomMonthNumber, $recCustomMonthDay );
+			$rules                    = new Tribe__Events__Pro__Date_Series_Rules__Month( $recCustomInterval ? $recCustomInterval : 1, $recCustomMonthDayOfMonth, $recCustomMonthNumber, $recCustomMonthDay );
 		} else if ( $recType == "Every Year" ) {
-			$rules = new YearSeriesRules( 1 );
+			$rules = new Tribe__Events__Pro__Date_Series_Rules__Year( 1 );
 		} else if ( $recType == "Custom" && $recCustomType == "Yearly" ) {
-			$rules = new YearSeriesRules( $recCustomInterval ? $recCustomInterval : 1, $recCustomYearMonth, $recCustomYearFilter ? $recCustomYearMonthNumber : null, $recCustomYearFilter ? $recCustomYearMonthDay : null );
+			$rules = new Tribe__Events__Pro__Date_Series_Rules__Year( $recCustomInterval ? $recCustomInterval : 1, $recCustomYearMonth, $recCustomYearFilter ? $recCustomYearMonthNumber : null, $recCustomYearFilter ? $recCustomYearMonthDay : null );
 		}
 
 		return $rules;

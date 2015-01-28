@@ -18,7 +18,7 @@ class MonthSeriesRules_Test extends WP_UnitTestCase
 
 	public function testNextMonth()
 	{
-		$rules = new MonthSeriesRules();
+		$rules = new Tribe__Events__Pro__Date_Series_Rules__Month();
 		$nextDate = $rules->getNextDate($this->date);
 		$this->assertEquals(date(self::DATE_FORMAT, $nextDate), "2011-05-23");
 		$nextDate = $rules->getNextDate($nextDate);
@@ -29,27 +29,27 @@ class MonthSeriesRules_Test extends WP_UnitTestCase
 
    public function testStartsOnNextMonth() {
 		$this->date = strtotime("2011-10-27");
-		$rules = new MonthSeriesRules(1, array(), 3, 4);
+		$rules = new Tribe__Events__Pro__Date_Series_Rules__Month(1, array(), 3, 4);
 		$nextDate = $rules->getNextDate($this->date);
 		$this->assertEquals(date(self::DATE_FORMAT, $nextDate), "2011-11-17");
    }
 
 	public function testEvery3Months()
 	{
-		$rules = new MonthSeriesRules(3);
+		$rules = new Tribe__Events__Pro__Date_Series_Rules__Month(3);
 		$nextDate = $rules->getNextDate($this->date);
 		$this->assertEquals(date(self::DATE_FORMAT, $nextDate), "2011-07-23");
 	}
 
 	public function testNextMonthEndOfMonth() {
 		$this->date = strtotime("2011-01-31");
-		$rules = new MonthSeriesRules();
+		$rules = new Tribe__Events__Pro__Date_Series_Rules__Month();
 		$nextDate = $rules->getNextDate($this->date);
 		$this->assertEquals(date(self::DATE_FORMAT, $nextDate), "2011-03-31");
 	}
 
 	public function testDaysOfMonth() {
-		$rules = new MonthSeriesRules(1, array(1,3,29));
+		$rules = new Tribe__Events__Pro__Date_Series_Rules__Month(1, array(1,3,29));
 		$nextDate = $rules->getNextDate($this->date);
 		$this->assertEquals(date(self::DATE_FORMAT, $nextDate), "2011-04-29");
 		$nextDate = $rules->getNextDate($nextDate);
@@ -58,7 +58,7 @@ class MonthSeriesRules_Test extends WP_UnitTestCase
 
 	public function testDaysOfMonthWithSkip() {
 		$this->date = strtotime("2011-01-31");
-		$rules = new MonthSeriesRules(1, array(27, 31));
+		$rules = new Tribe__Events__Pro__Date_Series_Rules__Month(1, array(27, 31));
 		$nextDate = $rules->getNextDate($this->date);
 		$this->assertEquals(date(self::DATE_FORMAT, $nextDate), "2011-02-27");
 		$nextDate = $rules->getNextDate($nextDate);
@@ -67,7 +67,7 @@ class MonthSeriesRules_Test extends WP_UnitTestCase
 
 	public function testDaysOfMultiMonthWithSkip() {
 		$this->date = strtotime("2010-12-31");
-		$rules = new MonthSeriesRules(2, array(27, 31));
+		$rules = new Tribe__Events__Pro__Date_Series_Rules__Month(2, array(27, 31));
 		$nextDate = $rules->getNextDate($this->date);
 		$this->assertEquals(date(self::DATE_FORMAT, $nextDate), "2011-02-27");
 		$nextDate = $rules->getNextDate($nextDate);
@@ -76,7 +76,7 @@ class MonthSeriesRules_Test extends WP_UnitTestCase
 
 	public function testDaysOfMultiMonthWithSkip2() {
 		$this->date = strtotime("2010-12-31");
-		$rules = new MonthSeriesRules(2, array(29, 31));
+		$rules = new Tribe__Events__Pro__Date_Series_Rules__Month(2, array(29, 31));
 		$nextDate = $rules->getNextDate($this->date);
 		$this->assertEquals(date(self::DATE_FORMAT, $nextDate), "2011-04-29");
 		$nextDate = $rules->getNextDate($nextDate);
@@ -85,7 +85,7 @@ class MonthSeriesRules_Test extends WP_UnitTestCase
 
 	public function testDayOfWeek() {
 		// 4th wednesday
-		$rules = new MonthSeriesRules(1, array(), 4, 3);
+		$rules = new Tribe__Events__Pro__Date_Series_Rules__Month(1, array(), 4, 3);
 		$nextDate = $rules->getNextDate($this->date);
 		$this->assertEquals(date(self::DATE_FORMAT, $nextDate), "2011-04-27");
 		$nextDate = $rules->getNextDate($nextDate);
@@ -94,7 +94,7 @@ class MonthSeriesRules_Test extends WP_UnitTestCase
 
 	public function testLastDayOfWeek() {
 		// 4th wednesday
-		$rules = new MonthSeriesRules(1, array(), -1, 3);
+		$rules = new Tribe__Events__Pro__Date_Series_Rules__Month(1, array(), -1, 3);
 		$nextDate = $rules->getNextDate($this->date);
 		$this->assertEquals(date(self::DATE_FORMAT, $nextDate), "2011-04-27");
 		$nextDate = $rules->getNextDate($nextDate);
