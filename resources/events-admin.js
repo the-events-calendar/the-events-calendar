@@ -1,6 +1,6 @@
 jQuery( document ).ready( function( $ ) {
 
-	var $tribe_events     = $( '#tribe-events' ),
+	var $date_format      = $( '[data-datepicker_format]' ),
 		$view_select      = $( '.tribe-field-dropdown_select2 select' ),
 		viewCalLinkHTML   = $( '#view-calendar-link-div' ).html(),
 		$template_select  = $( 'select[name="tribeEventsTemplate"]' ),
@@ -49,8 +49,8 @@ jQuery( document ).ready( function( $ ) {
 		
 		var date_format = 'yy-mm-dd';
 
-		if ( $tribe_events.length && $tribe_events.attr( 'data-datepicker_format' ) && $tribe_events.attr( 'data-datepicker_format' ).length === 1 ) {
-			datepicker_format = $tribe_events.attr( 'data-datepicker_format' );
+		if ( $date_format.length && $date_format.attr( 'data-datepicker_format' ).length === 1 ) {
+			datepicker_format = $date_format.attr( 'data-datepicker_format' );
 			date_format = datepicker_formats.main[ datepicker_format ];
 		}
 
