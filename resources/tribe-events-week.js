@@ -192,7 +192,7 @@
 
 		function tribe_set_column_widths(){
 
-			var $columns = $( '.tribe-events-mobile-day.column' ),
+			var $columns = $( '.tribe-grid-body .tribe-events-mobile-day.column' ),
 				count = $columns.length,
 				width = 100 / count;
 
