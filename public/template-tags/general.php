@@ -35,21 +35,29 @@ if( class_exists( 'Tribe__Events__Pro__Events_Pro' ) ) {
 	 * @return bool true if event is a recurring event.
 	 */
 	if (!function_exists( 'tribe_is_recurring_event' )) {
-		function tribe_is_recurring_event( $postId = null )  {
-			if ( is_object($postId) ) {
-				$postId = $postId->ID;
-			}
-			$postId = $postId ? $postId : get_the_ID();
-			if ( get_post_type($postId) != Tribe__Events__Events::POSTTYPE ) {
+		function tribe_is_recurring_event( $post_id = null )  {
+
+			$post_id = Tribe__Events__Events::postIdHelper( $post_id );
+
+			if ( ! $post_id ) {
+				_doing_it_wrong( __FUNCTION__, 'You need to pass a post ID or use it in the loop.', '3.10' );
 				return false;
 			}
-			$instances = tribe_get_recurrence_start_dates($postId);
-			$recurring = count($instances) > 1;
-			if ( ! $recurring && get_post_meta( $postId, '_EventNextPendingRecurrence', true ) ) {
+
+			$post = get_post( $post_id );
+			if ( $post->post_type != Tribe__Events__Events::POSTTYPE ) {
+				return false;
+			}
+
+			$recurring = false;
+
+			if ( $post->post_parent > 0 ) {
+				$recurring = true;
+			} else if ( get_post_meta( $post_id, '_EventNextPendingRecurrence', true ) ) {
 				$recurring = true;
 			}
 
-			return apply_filters( 'tribe_is_recurring_event', $recurring, $postId );
+			return apply_filters( 'tribe_is_recurring_event', $recurring, $post_id );
 		}
 	}
 
