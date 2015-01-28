@@ -699,7 +699,7 @@ class Tribe__Events__Pro__Recurrence_Meta {
 			$to_update = array();
 
 			if ( $recurrence->constrainedByMaxDate() !== false ) {
-				update_post_meta( $postId, '_EventNextPendingRecurrence', date( DateSeriesRules::DATE_FORMAT, $recurrence->constrainedByMaxDate() ) );
+				update_post_meta( $postId, '_EventNextPendingRecurrence', date( Tribe__Events__Pro__Date_Series_Rules__Rules_Interface::DATE_FORMAT, $recurrence->constrainedByMaxDate() ) );
 			}
 
 			foreach ( $existing_instances as $instance ) {
@@ -753,7 +753,7 @@ class Tribe__Events__Pro__Recurrence_Meta {
 
 		delete_post_meta( $event_id, '_EventNextPendingRecurrence' );
 		if ( $recurrence->constrainedByMaxDate() !== false ) {
-			update_post_meta( $event_id, '_EventNextPendingRecurrence', date( DateSeriesRules::DATE_FORMAT, $recurrence->constrainedByMaxDate() ) );
+			update_post_meta( $event_id, '_EventNextPendingRecurrence', date( Tribe__Events__Pro__Date_Series_Rules__Rules_Interface::DATE_FORMAT, $recurrence->constrainedByMaxDate() ) );
 		}
 
 		$excluded = array_map( 'strtotime', self::get_excluded_dates( $event_id ) );
@@ -812,7 +812,7 @@ class Tribe__Events__Pro__Recurrence_Meta {
 	 *
 	 * @param array $postId The event to find the series for
 	 *
-	 * @return DateSeriesRules
+	 * @return Tribe__Events__Pro__Date_Series_Rules__Rules_Interface
 	 */
 	public static function getSeriesRules( $postId ) {
 		extract( Tribe__Events__Pro__Recurrence_Meta::getRecurrenceMeta( $postId ) );

@@ -91,11 +91,11 @@
 				$first_occurring_day_of_week = Tribe__Events__Date_Utils::getFirstDayOfWeekInMonth( $curdate, $day_of_week );
 
 				// get that day of the week in the requested nth week
-				$maybe_date = strtotime( date( DateSeriesRules::DATE_FORMAT, $first_occurring_day_of_week ) . " + " . ( $week_of_month - 1 ) . " weeks" );
+				$maybe_date = strtotime( date( Tribe__Events__Pro__Date_Series_Rules__Rules_Interface::DATE_FORMAT, $first_occurring_day_of_week ) . " + " . ( $week_of_month - 1 ) . " weeks" );
 
 				// if $maybe_date equals or is before the $curdate, then try next month
 				// (this should only be true if $week_of_month is 1)
-				if ( date( DateSeriesRules::DATE_ONLY_FORMAT, $maybe_date ) <= date( DateSeriesRules::DATE_ONLY_FORMAT, $curdate ) ) {
+				if ( date( Tribe__Events__Pro__Date_Series_Rules__Rules_Interface::DATE_ONLY_FORMAT, $maybe_date ) <= date( Tribe__Events__Pro__Date_Series_Rules__Rules_Interface::DATE_ONLY_FORMAT, $curdate ) ) {
 
 					// get the first day of the next month according to $this->months_between
 					$next_month = mktime( 0, 0, 0, date( 'n', $curdate ) + $this->months_between, 1, date( 'Y', $curdate ) );
@@ -104,7 +104,7 @@
 					$first_occurring_day_of_week = Tribe__Events__Date_Utils::getFirstDayOfWeekInMonth( $next_month, $day_of_week );
 
 					// Get that day of the week in the requested nth week
-					$maybe_date = strtotime( date( DateSeriesRules::DATE_FORMAT, $first_occurring_day_of_week ) . " + " . ( $week_of_month - 1 ) . " weeks" );
+					$maybe_date = strtotime( date( Tribe__Events__Pro__Date_Series_Rules__Rules_Interface::DATE_FORMAT, $first_occurring_day_of_week ) . " + " . ( $week_of_month - 1 ) . " weeks" );
 				}
 
 				// if $maybe_date doesn't have the same month as $first_occurring_day_of_week, keep incrementing by $this->months_between
@@ -113,7 +113,7 @@
 				while ( date( 'n', $maybe_date ) != date( 'n', $first_occurring_day_of_week ) && $i <= tribe_get_option( 'recurrenceMaxMonthsAfter', 24 ) ) {
 					$next_month                  = mktime( 0, 0, 0, date( 'n', $first_occurring_day_of_week ) + $this->months_between, 1, date( 'Y', $first_occurring_day_of_week ) );
 					$first_occurring_day_of_week = Tribe__Events__Date_Utils::getFirstDayOfWeekInMonth( $next_month, $day_of_week );
-					$maybe_date                  = strtotime( date( DateSeriesRules::DATE_FORMAT, $first_occurring_day_of_week ) . " + " . ( $week_of_month - 1 ) . " weeks" );
+					$maybe_date                  = strtotime( date( Tribe__Events__Pro__Date_Series_Rules__Rules_Interface::DATE_FORMAT, $first_occurring_day_of_week ) . " + " . ( $week_of_month - 1 ) . " weeks" );
 					$i += $this->months_between;
 				}
 

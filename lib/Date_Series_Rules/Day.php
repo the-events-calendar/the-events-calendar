@@ -25,6 +25,6 @@
 		 * @return int The next date's timestamp.
 		 */
 		public function getNextDate( $curdate ) {
-			return strtotime( date( DateSeriesRules::DATE_FORMAT, $curdate ) . " + " . $this->days_between . " days" );
+			return strtotime( date( Tribe__Events__Pro__Date_Series_Rules__Rules_Interface::DATE_FORMAT, $curdate ) . " + " . $this->days_between . " days" );
 		}
 	}

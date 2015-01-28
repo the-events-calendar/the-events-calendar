@@ -31,15 +31,15 @@ class Tribe__Events__Pro__Recurrence_Instance {
 				$post_to_save['post_status'] = get_post_status( $this->post_id );
 			}
 			$this->post_id = wp_update_post( $post_to_save );
-			update_post_meta( $this->post_id, '_EventStartDate', $this->start_date->format( DateSeriesRules::DATE_FORMAT ) );
-			update_post_meta( $this->post_id, '_EventEndDate', $end_date->format( DateSeriesRules::DATE_FORMAT ) );
+			update_post_meta( $this->post_id, '_EventStartDate', $this->start_date->format( Tribe__Events__Pro__Date_Series_Rules__Rules_Interface::DATE_FORMAT ) );
+			update_post_meta( $this->post_id, '_EventEndDate', $end_date->format( Tribe__Events__Pro__Date_Series_Rules__Rules_Interface::DATE_FORMAT ) );
 			update_post_meta( $this->post_id, '_EventDuration', $duration );
 		} else { // add a new post
 			$post_to_save['guid'] = esc_url( add_query_arg( array( 'eventDate' => $this->start_date->format( 'Y-m-d' ) ), $parent->guid ) );
 			$this->post_id        = wp_insert_post( $post_to_save );
 			// save several queries by calling add_post_meta when we have a new post
-			add_post_meta( $this->post_id, '_EventStartDate', $this->start_date->format( DateSeriesRules::DATE_FORMAT ) );
-			add_post_meta( $this->post_id, '_EventEndDate', $end_date->format( DateSeriesRules::DATE_FORMAT ) );
+			add_post_meta( $this->post_id, '_EventStartDate', $this->start_date->format( Tribe__Events__Pro__Date_Series_Rules__Rules_Interface::DATE_FORMAT ) );
+			add_post_meta( $this->post_id, '_EventEndDate', $end_date->format( Tribe__Events__Pro__Date_Series_Rules__Rules_Interface::DATE_FORMAT ) );
 			add_post_meta( $this->post_id, '_EventDuration', $duration );
 		}
 

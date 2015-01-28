@@ -52,7 +52,7 @@
 
 				// TODO: TEST AHEAD FOR INVALID RECURSIONS (ie every February 29 or September 31 which will result in an infinite loop)
 				while ( date( 'j', $curdate ) != date( 'j', $nextdate ) ) { // date wrapped
-					$nextdate = strtotime( date( DateSeriesRules::DATE_FORMAT, $nextdate ) . " - 1 months" ); // back it up a month to get to the correct one
+					$nextdate = strtotime( date( Tribe__Events__Pro__Date_Series_Rules__Rules_Interface::DATE_FORMAT, $nextdate ) . " - 1 months" ); // back it up a month to get to the correct one
 					$next_month_of_year = $this->getNextMonthOfYear( date( 'n', $nextdate ) ); // get the next month in the series
 					$nextdate = $this->advanceDate( $curdate, $next_month_of_year );
 				}
@@ -99,7 +99,7 @@
 
 				return $nextdate;
 			} else {
-				$maybe_date = strtotime( date( DateSeriesRules::DATE_FORMAT, $nextdate ) . " + " . ( $week_of_month - 1 ) . " weeks" );
+				$maybe_date = strtotime( date( Tribe__Events__Pro__Date_Series_Rules__Rules_Interface::DATE_FORMAT, $nextdate ) . " + " . ( $week_of_month - 1 ) . " weeks" );
 
 				// if this doesn't exist, then try next month
 				while ( date( 'n', $maybe_date ) != date( 'n', $nextdate ) ) {
@@ -107,7 +107,7 @@
 					$next_month_of_year = $this->getNextMonthOfYear( date( 'n', $nextdate ) );
 					$nextdate = $this->advanceDate( $nextdate, $next_month_of_year );
 					$nextdate = Tribe__Events__Date_Utils::getFirstDayOfWeekInMonth( $curdate, $day_of_week );
-					$maybe_date = strtotime( date( DateSeriesRules::DATE_FORMAT, $nextdate ) . " + " . ( $week_of_month - 1 ) . " weeks" );
+					$maybe_date = strtotime( date( Tribe__Events__Pro__Date_Series_Rules__Rules_Interface::DATE_FORMAT, $nextdate ) . " + " . ( $week_of_month - 1 ) . " weeks" );
 				}
 
 				return $maybe_date;

@@ -39,17 +39,17 @@
 				$nextDayOfWeek = $this->getNextDayOfWeek( $curDayOfWeek );
 
 				while ( date( "N", $nextdate ) != $nextDayOfWeek ) {
-					$nextdate = strtotime( date( DateSeriesRules::DATE_FORMAT, $nextdate ) . " + 1 day" );
+					$nextdate = strtotime( date( Tribe__Events__Pro__Date_Series_Rules__Rules_Interface::DATE_FORMAT, $nextdate ) . " + 1 day" );
 				}
 
 				if ( $nextDayOfWeek > $curDayOfWeek ) {
-					return strtotime( date( DateSeriesRules::DATE_FORMAT, $nextdate ) );
+					return strtotime( date( Tribe__Events__Pro__Date_Series_Rules__Rules_Interface::DATE_FORMAT, $nextdate ) );
 				} else if ( $nextDayOfWeek < $curDayOfWeek ) {
-					return strtotime( date( DateSeriesRules::DATE_FORMAT, $nextdate ) . " + " . ( $this->weeks_between - 1 ) . " weeks" );
+					return strtotime( date( Tribe__Events__Pro__Date_Series_Rules__Rules_Interface::DATE_FORMAT, $nextdate ) . " + " . ( $this->weeks_between - 1 ) . " weeks" );
 				}
 			}
 
-			return strtotime( date( DateSeriesRules::DATE_FORMAT, $nextdate ) . " + " . $this->weeks_between . " weeks" );
+			return strtotime( date( Tribe__Events__Pro__Date_Series_Rules__Rules_Interface::DATE_FORMAT, $nextdate ) . " + " . $this->weeks_between . " weeks" );
 		}
 
 		/**

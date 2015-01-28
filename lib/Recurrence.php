@@ -7,7 +7,7 @@ class Tribe__Events__Pro__Recurrence {
 	const NO_END = -1;
 	private $start_date;
 	private $end;
-	/** @var DateSeriesRules */
+	/** @var Tribe__Events__Pro__Date_Series_Rules__Rules_Interface */
 	private $series_rules;
 	private $by_occurrence_count;
 	private $event;
