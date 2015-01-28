@@ -25,7 +25,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			$day = tribe_events_get_current_week_day();
 
 			if ( empty( $day['all_day_events'] ) ) : ?>
-				<div class="tribe-event-placeholder hentry vevent " data-event-id="">&nbsp;</div>
+				<div class="tribe-event-placeholder " data-event-id="">&nbsp;</div>
 			<?php else : ?>
 				<?php foreach ( $day['all_day_events'] as $event ) : ?>
 					<?php tribe_get_template_part( 'pro/week/single-event', 'allday', array('event' => $event) ); ?>
