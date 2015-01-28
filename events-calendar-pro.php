@@ -32,7 +32,10 @@
 		add_filter( 'tribe_tec_addons', 'tribe_init_ecp_addon' );
 		tribe_init_events_pro_autoloading();
 
-		$to_run_or_not_to_run = ( class_exists( 'Tribe__Events__Events' ) && class_exists( 'Tribe__Events__Pro__Events_Pro' ) && version_compare( Tribe__Events__Events::VERSION, Tribe__Events__Pro__Events_Pro::REQUIRED_TEC_VERSION, '>=' ) );
+		$classes_exist = class_exists( 'Tribe__Events__Events' ) && class_exists( 'Tribe__Events__Pro__Events_Pro' );
+		$version_ok = defined('Tribe__Events__Events::VERSION') && version_compare( Tribe__Events__Events::VERSION, Tribe__Events__Pro__Events_Pro::REQUIRED_TEC_VERSION, '>=' );
+
+		$to_run_or_not_to_run = ( $classes_exist && $version_ok );
 		if ( apply_filters( 'tribe_ecp_to_run_or_not_to_run', $to_run_or_not_to_run ) ) {
 			new Tribe__Events__Pro__PUE( __FILE__ );
 			Tribe__Events__Pro__Events_Pro::instance();
