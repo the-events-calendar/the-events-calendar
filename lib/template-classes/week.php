@@ -442,7 +442,7 @@ if ( ! class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 		/**
 		 *
 		 */
-		function day_header_classes() {
+		public static function day_header_classes() {
 			$day = self::get_current_day();
 			$classes = 'column';
 			$classes .= ' tribe-week-day-header-' . $day['day_number'] . ' ';
