@@ -178,7 +178,7 @@ class Tribe__Events__Pro__Mini_Calendar {
 
 		// widget setting for count is not 0
 		if ( ! $this->show_list ) {
-			add_filter( 'tribe_events_template_widgets/mini-calendar/List.php', '__return_false' );
+			add_filter( 'tribe_events_template_widgets/mini-calendar/list.php', '__return_false' );
 		}
 
 		tribe_get_template_part( 'pro/widgets/mini-calendar-widget' );
@@ -275,7 +275,7 @@ class Tribe__Events__Pro__Mini_Calendar {
 	}
 
 	public function shutdown_list( $template_file ) {
-		if ( basename( dirname( $template_file ) ) . '/' . basename( $template_file ) == 'mini-calendar/List.php' ) {
+		if ( basename( dirname( $template_file ) ) . '/' . basename( $template_file ) == 'mini-calendar/list.php' ) {
 			// reset the global $wp_query
 			wp_reset_query();
 

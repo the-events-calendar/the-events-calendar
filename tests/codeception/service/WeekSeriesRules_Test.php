@@ -18,14 +18,14 @@ class WeekSeriesRules_Test extends WP_UnitTestCase
 
 	public function testNextWeek()
 	{
-		$rules = new WeekSeriesRules();
+		$rules = new Tribe__Events__Pro__Date_Series_Rules__Week();
 		$nextDate = $rules->getNextDate($this->date);
 		$this->assertEquals(date(self::DATE_FORMAT, $nextDate), "2011-04-30");
 	}
 
 	public function testEveryTwoWeeks()
 	{
-		$rules = new WeekSeriesRules(2);
+		$rules = new Tribe__Events__Pro__Date_Series_Rules__Week(2);
 		$nextDate = $rules->getNextDate($this->date);
 		$this->assertEquals(date(self::DATE_FORMAT, $nextDate), "2011-05-07");
 	}
@@ -33,7 +33,7 @@ class WeekSeriesRules_Test extends WP_UnitTestCase
 	public function testEveryTwoMondays()
 	{
 		// find next monday
-		$rules = new WeekSeriesRules(2, array(1));
+		$rules = new Tribe__Events__Pro__Date_Series_Rules__Week(2, array(1));
 		$nextDate = $rules->getNextDate($this->date);
 		$this->assertEquals(date(self::DATE_FORMAT, $nextDate), "2011-05-02");
 		$nextDate = $rules->getNextDate($nextDate);
@@ -41,7 +41,7 @@ class WeekSeriesRules_Test extends WP_UnitTestCase
 	}
 
 	public function testEveryTwoThursdaysAndTuesdays() {
-		$rules = new WeekSeriesRules(2, array(4,2));
+		$rules = new Tribe__Events__Pro__Date_Series_Rules__Week(2, array(4,2));
 		$nextDate = $rules->getNextDate($this->date);
 		$this->assertEquals(date(self::DATE_FORMAT, $nextDate), "2011-05-03");
 		$nextDate = $rules->getNextDate($nextDate);
