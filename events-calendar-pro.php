@@ -86,7 +86,11 @@
 		return $plugins;
 	}
 
-	register_deactivation_hook( __FILE__, array( 'Tribe__Events__Pro__Events_Pro', 'deactivate' ) );
+	register_deactivation_hook( __FILE__, 'tribe_events_pro_deactivation' );
+	function tribe_events_pro_deactivation( $network_deactivating ) {
+		require_once dirname( __FILE__ ) . '/lib/Events_Pro.php';
+		Tribe__Events__Pro__Events_Pro::deactivate( $network_deactivating );
+	}
 
 	/**
 	 * The uninstall hook is no longer registered, but leaving the function
