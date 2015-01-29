@@ -11,8 +11,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
-if ( ! class_exists( 'Tribe_Events_Day_Template' ) ) {
-	class Tribe_Events_Day_Template extends Tribe_Template_Factory {
+if ( ! class_exists( 'Tribe__Events__Template__Day' ) ) {
+	class Tribe__Events__Template__Day extends Tribe__Events__Template_Factory {
 
 		protected $body_class = 'tribe-events-day';
 		protected $asset_packages = array( 'ajax-dayview' );

@@ -172,6 +172,7 @@ class TribeEventsListWidget extends WP_Widget {
 			'no_upcoming_events' => false
 		);
 		$instance  = wp_parse_args( (array) $instance, $defaults );
+<<<<<<< HEAD:lib/widget-list.class.php
 		$tribe_ecp = TribeEvents::instance();
 		include( $tribe_ecp->pluginPath . 'admin-views/widget-admin-list.php' );
 	}
@@ -188,3 +189,9 @@ add_action( 'widgets_init', 'events_list_load_widgets', 90 );
 function events_list_load_widgets() {
 	register_widget( 'TribeEventsListWidget' );
 }
+=======
+		$tribe_ecp = Tribe__Events__Events::instance();
+		include( $tribe_ecp->pluginPath . 'admin-views/widget-admin-list.php' );
+	}
+}
+>>>>>>> develop:lib/List_Widget.php

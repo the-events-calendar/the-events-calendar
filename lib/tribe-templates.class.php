@@ -8,7 +8,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
-if ( ! class_exists( 'TribeEventsTemplates' ) ) {
+if ( ! class_exists( 'Tribe__Events__Templates' ) ) {
 
 	/**
 	 * Handle views and template files.
@@ -307,7 +307,7 @@ if ( ! class_exists( 'TribeEventsTemplates' ) ) {
 		 * This is expected to be called late on during the wp_title action, but does not in fact alter the string
 		 * it is passed.
 		 *
-		 * @see TribeEventsTemplates::maybe_modify_global_post_title()
+		 * @see Tribe__Events__Templates::maybe_modify_global_post_title()
 		 *
 		 * @param string $title
 		 *
@@ -331,7 +331,7 @@ if ( ! class_exists( 'TribeEventsTemplates' ) ) {
 		/**
 		 * Restores the global $post title if it has previously been modified.
 		 *
-		 * @see TribeEventsTemplates::modify_global_post_title().
+		 * @see Tribe__Events__Templates::modify_global_post_title().
 		 */
 		public static function restore_global_post_title() {
 			global $post;
@@ -678,7 +678,11 @@ if ( ! class_exists( 'TribeEventsTemplates' ) ) {
 		public static function event_date_to_pubDate( $time, $d, $gmt ) {
 			global $post;
 
+<<<<<<< HEAD:lib/tribe-templates.class.php
 			if ( isset($post) && $post->post_type == TribeEvents::POSTTYPE && is_feed() && $gmt ) {
+=======
+			if ( is_object( $post ) && $post->post_type == Tribe__Events__Events::POSTTYPE && is_feed() && $gmt ) {
+>>>>>>> develop:lib/Templates.php
 				$time = tribe_get_start_date( $post->ID, false, $d );
 				$time = mysql2date( $d, $time );
 			}
@@ -796,6 +800,9 @@ if ( ! class_exists( 'TribeEventsTemplates' ) ) {
 			}
 		}
 	}
+<<<<<<< HEAD:lib/tribe-templates.class.php
 
 	TribeEventsTemplates::init();
+=======
+>>>>>>> develop:lib/Templates.php
 }

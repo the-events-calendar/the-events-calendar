@@ -199,6 +199,10 @@ if ( ! class_exists( 'TribeAppShop' ) ) {
 		}
 
 	}
+<<<<<<< HEAD:lib/tribe-app-shop.class.php
 
 	TribeAppShop::instance();
 }
+=======
+}
+>>>>>>> develop:lib/App_Shop.php

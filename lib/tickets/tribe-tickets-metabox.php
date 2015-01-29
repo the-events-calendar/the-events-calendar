@@ -86,5 +86,3 @@ class TribeEventsTicketsMetabox {
 	}
 }
 
-add_action( 'add_meta_boxes', 		 array( 'TribeEventsTicketsMetabox', 'maybe_add_meta_box' ) );
-add_action( 'admin_enqueue_scripts', array( 'TribeEventsTicketsMetabox', 'add_admin_scripts'  ) );

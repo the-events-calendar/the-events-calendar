@@ -8,8 +8,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
+<<<<<<< HEAD:lib/tribe-event-api.class.php
 if ( ! class_exists( 'TribeEventsAPI' ) ) {
 	class TribeEventsAPI {
+=======
+if ( ! class_exists( 'Tribe__Events__API' ) ) {
+	class Tribe__Events__API {
+>>>>>>> develop:lib/API.php
 		public static $valid_venue_keys = array(
 			'Venue',
 			'Address',

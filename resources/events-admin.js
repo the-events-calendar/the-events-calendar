@@ -1,11 +1,11 @@
 jQuery( document ).ready( function( $ ) {
 
-	var $tribe_events     = $( '#tribe-events' ),
+	var $date_format      = $( '[data-datepicker_format]' ),
 		$view_select      = $( '.tribe-field-dropdown_select2 select' ),
 		viewCalLinkHTML   = $( '#view-calendar-link-div' ).html(),
 		$template_select  = $( 'select[name="tribeEventsTemplate"]' ),
 		$event_pickers    = $( '#tribe-event-datepickers' ),
-		isCommunityEdit   = $( 'body' ).is( '.tribe_community_edit' ),
+		is_community_edit   = $( 'body' ).is( '.tribe_community_edit' ),
 		datepicker_format = 0;
 
 	// Modified from tribe_ev.data to match jQuery UI formatting.
@@ -36,8 +36,8 @@ jQuery( document ).ready( function( $ ) {
 
 	//not done by default on front end
 
-	function getDatepickerNumMonths() {
-		return ( isCommunityEdit && $(window).width() < 768 ) ? 1 : 3;
+	function get_datepicker_num_months() {
+		return ( is_community_edit && $(window).width() < 768 ) ? 1 : 3;
 	}
 
 	$( '.hide-if-js' )
@@ -49,8 +49,8 @@ jQuery( document ).ready( function( $ ) {
 		
 		var date_format = 'yy-mm-dd';
 
-		if ( $tribe_events.length && $tribe_events.attr( 'data-datepicker_format' ) && $tribe_events.attr( 'data-datepicker_format' ).length === 1 ) {
-			datepicker_format = $tribe_events.attr( 'data-datepicker_format' );
+		if ( $date_format.length && $date_format.attr( 'data-datepicker_format' ).length === 1 ) {
+			datepicker_format = $date_format.attr( 'data-datepicker_format' );
 			date_format = datepicker_formats.main[ datepicker_format ];
 		}
 
@@ -76,11 +76,11 @@ jQuery( document ).ready( function( $ ) {
 			showAnim       : 'fadeIn',
 			changeMonth    : true,
 			changeYear     : true,
-			numberOfMonths : getDatepickerNumMonths(),
+			numberOfMonths : get_datepicker_num_months(),
 			firstDay       : startofweek,
 			showButtonPanel: true,
 			beforeShow     : function( element, object ) {
-				object.input.datepicker( 'option', 'numberOfMonths', getDatepickerNumMonths() );
+				object.input.datepicker( 'option', 'numberOfMonths', get_datepicker_num_months() );
 				object.input.data( 'prevDate', object.input.datepicker( "getDate" ) );
 			},
 			onSelect       : function( selectedDate ) {

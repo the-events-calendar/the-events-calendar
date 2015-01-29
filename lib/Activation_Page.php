@@ -19,6 +19,9 @@ class Tribe__Events__Activation_Page {
 		if ( !is_admin() || defined('DOING_AJAX') ) {
 			return;
 		}
+		if ( defined('IFRAME_REQUEST') && IFRAME_REQUEST ) {
+			return; // probably the plugin update/install iframe
+		}
 		if ( isset($_GET['tec-welcome-message']) || isset($_GET['tec-update-message']) ) {
 			return; // no infinite redirects
 		}
@@ -66,7 +69,7 @@ class Tribe__Events__Activation_Page {
 	 * if the current version is the first version to be installed.
 	 *
 	 * @return bool
-	 * @see TribeEvents::maybeSetTECVersion()
+	 * @see Tribe__Events__Events::maybeSetTECVersion()
 	 */
 	protected function is_new_install() {
 		$tec = TribeEvents::instance();
@@ -87,7 +90,7 @@ class Tribe__Events__Activation_Page {
 	}
 
 	protected function get_message_page_url( $slug ) {
-		$settings = TribeSettings::instance();
+		$settings = Tribe__Events__Settings::instance();
 		// get the base settings page url
 		$url  = apply_filters(
 			'tribe_settings_url', add_query_arg(
@@ -113,7 +116,7 @@ class Tribe__Events__Activation_Page {
 	}
 
 	protected function disable_default_settings_page() {
-		remove_action( 'tribe_events_page_tribe-events-calendar', array( TribeSettings::instance(), 'generatePage' ) );
+		remove_action( 'tribe_events_page_tribe-events-calendar', array( Tribe__Events__Settings::instance(), 'generatePage' ) );
 	}
 
 	public function display_welcome_page() {
@@ -153,7 +156,6 @@ class Tribe__Events__Activation_Page {
 	}
 
 	protected function update_page_content() {
-		require_once("Changelog_Reader.php");
 		return $this->load_template('admin-update-message');
 	}
 

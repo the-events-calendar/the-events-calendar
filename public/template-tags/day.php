@@ -130,7 +130,7 @@ if ( ! function_exists( 'tribe_get_the_day_link_date' ) ) {
 	 */
 	function tribe_get_the_day_link_date( $date_description ) {
 		if ( is_null( $date_description ) ) {
-			return TribeEventsPro::instance()->todaySlug;
+			return Tribe__Events__Pro__Events_Pro::instance()->todaySlug;
 		}
 		if ( $date_description == 'previous day' ) {
 			return tribe_get_previous_day_date( get_query_var( 'start_date' ) );

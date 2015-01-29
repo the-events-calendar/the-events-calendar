@@ -144,7 +144,7 @@ function tribe_events_get_ticket_event( $possible_ticket ) {
 /**
  * Checks if the ticket is on sale (in relation to it's start/end sale dates).
  *
- * @param TribeEventsTicketObject $ticket
+ * @param Tribe__Events__Tickets__Ticket_Object $ticket
  *
  * @return bool
  */

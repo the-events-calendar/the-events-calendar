@@ -116,5 +116,8 @@ class TribeEventsBar {
 	}
 
 }
+<<<<<<< HEAD:lib/tribe-events-bar.class.php
 
 TribeEventsBar::instance();
+=======
+>>>>>>> develop:lib/Bar.php

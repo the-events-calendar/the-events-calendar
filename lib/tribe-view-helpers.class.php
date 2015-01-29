@@ -8,8 +8,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
+<<<<<<< HEAD:lib/tribe-view-helpers.class.php
 if ( ! class_exists( 'TribeEventsViewHelpers' ) ) {
 	class TribeEventsViewHelpers {
+=======
+if ( ! class_exists( 'Tribe__Events__View_Helpers' ) ) {
+	class Tribe__Events__View_Helpers {
+>>>>>>> develop:lib/View_Helpers.php
 
 		/**
 		 * Get the countries being used and available for the plugin.

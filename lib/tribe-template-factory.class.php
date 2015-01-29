@@ -55,7 +55,7 @@ if ( ! class_exists( 'Tribe_Template_Factory' ) ) {
 		 * @static
 		 * @var array
 		 */
-		protected static $vendor_scripts = array();
+		private static $vendor_scripts = array();
 
 		/**
 		 * Constant that holds the ajax hook suffix for the view
@@ -92,10 +92,10 @@ if ( ! class_exists( 'Tribe_Template_Factory' ) ) {
 			add_action( 'wp_ajax_' . $ajax_hook, array( $this, 'ajax_response' ) );
 			add_action( 'wp_ajax_nopriv_' . $ajax_hook, array( $this, 'ajax_response' ) );
 
-			// set notices 
+			// set notices
 			add_action( 'tribe_events_before_view', array( $this, 'set_notices' ) );
 
-			// Don't show the comments form inside the view (if comments are enabled, 
+			// Don't show the comments form inside the view (if comments are enabled,
 			// they'll show on their own after the loop)
 			if ( ! ( tribe_get_option( 'tribeEventsTemplate', 'default' ) == '' ) ) {
 				add_filter( 'comments_template', array( $this, 'remove_comments_template' ) );
@@ -124,7 +124,7 @@ if ( ! class_exists( 'Tribe_Template_Factory' ) ) {
 			// add body class
 			add_filter( 'body_class', array( $this, 'body_class' ) );
 
-			// event classes 
+			// event classes
 			add_filter( 'tribe_events_event_classes', array( $this, 'event_classes' ) );
 
 		}
@@ -138,6 +138,51 @@ if ( ! class_exists( 'Tribe_Template_Factory' ) ) {
 			foreach ( $this->asset_packages as $asset_package ) {
 				$this->asset_package( $asset_package );
 			}
+		}
+
+		/**
+		 * Handles an asset package request.
+		 *
+		 * @param string $name The asset name in the `hyphen-separated-format`
+		 * @param array $deps An array of dependency handles
+		 * @param string $vendor_url URL to vendor scripts and styles dir
+		 * @param string $prefix MT script and style prefix
+		 * @param string $resources_url URL to resources scripts and styles dir
+		 * @param Tribe__Events__Events $tec An instance of the main plugin class
+		 */
+		protected static function handle_asset_package_request( $name, $deps, $vendor_url, $prefix, $resources_url, $tec ) {
+
+			$asset = Tribe__Events__Asset__Factory::instance()->make_for_name($name);
+			if (!$asset) {
+				do_action( $prefix . '-' . $name );
+				return;
+			}
+
+			$asset->set_name($name);
+			$asset->set_deps($deps);
+			$asset->set_vendor_url($vendor_url);
+			$asset->set_prefix($prefix);
+			$asset->set_resources_url($resources_url);
+			$asset->set_tec($tec);
+
+			$asset->handle();
+		}
+
+		/**
+		 * @param string $script_handle A registered script handle.
+		 */
+		public static function add_vendor_script( $script_handle ) {
+			if ( in_array( $script_handle, self::$vendor_scripts ) ) {
+				return;
+			}
+			self::$vendor_scripts[] = $script_handle;
+		}
+
+		/**
+		 * @return string[] An array of registered vendor script handles.
+		 */
+		public static function get_vendor_scripts() {
+			return self::$vendor_scripts;
 		}
 
 		/**
@@ -439,7 +484,7 @@ if ( ! class_exists( 'Tribe_Template_Factory' ) ) {
 			// add body class
 			remove_filter( 'body_class', array( $this, 'body_class' ) );
 
-			// event classes 
+			// event classes
 			remove_filter( 'tribe_events_event_classes', array( $this, 'event_classes' ) );
 
 		}
@@ -539,6 +584,7 @@ if ( ! class_exists( 'Tribe_Template_Factory' ) ) {
 			$resources_url = trailingslashit( $tec->pluginUrl ) . 'resources/';
 			$vendor_url    = trailingslashit( $tec->pluginUrl ) . 'vendor/';
 
+<<<<<<< HEAD:lib/tribe-template-factory.class.php
 			// @TODO make this more DRY
 			switch ( $name ) {
 				case 'jquery-resize':
@@ -745,6 +791,9 @@ if ( ! class_exists( 'Tribe_Template_Factory' ) ) {
 					do_action( $prefix . '-' . $name );
 					break;
 			}
+=======
+			self::handle_asset_package_request( $name, $deps, $vendor_url, $prefix, $resources_url, $tec );
+>>>>>>> develop:lib/Template_Factory.php
 		}
 
 		/**
@@ -779,7 +828,7 @@ if ( ! class_exists( 'Tribe_Template_Factory' ) ) {
 		 * Playing ping-pong with WooCommerce. They keep changing their script.
 		 * See https://github.com/woothemes/woocommerce/issues/3623
 		 */
-		protected static function get_placeholder_handle() {
+		public static function get_placeholder_handle() {
 			$placeholder_handle = 'jquery-placeholder';
 			global $woocommerce;
 			if (

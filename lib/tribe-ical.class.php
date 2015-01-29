@@ -242,9 +242,9 @@ class TribeiCal {
 			}
 
 			// add geo coordinates if available
-			if ( class_exists( 'TribeEventsGeoLoc' ) ) {
-				$long = TribeEventsGeoLoc::instance()->get_lng_for_event( $event_post->ID );
-				$lat  = TribeEventsGeoLoc::instance()->get_lat_for_event( $event_post->ID );
+			if ( class_exists( 'Tribe__Events__Pro__Geo_Loc' ) ) {
+				$long = Tribe__Events__Pro__Geo_Loc::instance()->get_lng_for_event( $event_post->ID );
+				$lat  = Tribe__Events__Pro__Geo_Loc::instance()->get_lat_for_event( $event_post->ID );
 				if ( ! empty( $long ) && ! empty( $lat ) ) {
 					$item[] = sprintf( 'GEO:%s;%s', $long, $lat );
 				}

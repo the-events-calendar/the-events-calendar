@@ -8,7 +8,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
-if ( ! class_exists( 'TribePluginUpdateEngineChecker' ) ) {
+if ( ! class_exists( 'Tribe__Events__PUE__Checker' ) ) {
 	/**
 	 * A custom plugin update checker.
 	 *
@@ -21,7 +21,7 @@ if ( ! class_exists( 'TribePluginUpdateEngineChecker' ) ) {
 	 * @version  1.7
 	 * @access   public
 	 */
-	class TribePluginUpdateEngineChecker {
+	class Tribe__Events__PUE__Checker {
 
 		private $pue_update_url = ''; //The URL of the plugin's metadata file.
 		private $plugin_file = ''; //Plugin filename relative to the plugins directory.
@@ -547,7 +547,7 @@ if ( ! class_exists( 'TribePluginUpdateEngineChecker' ) ) {
 			//Try to parse the response
 			$pluginInfo = null;
 			if ( ! is_wp_error( $result ) && isset( $result['response']['code'] ) && ( $result['response']['code'] == 200 ) && ! empty( $result['body'] ) ) {
-				$pluginInfo = Tribe_PU_PluginInfo::from_json( $result['body'] );
+				$pluginInfo = Tribe__Events__PUE__Plugin_Info::from_json( $result['body'] );
 			}
 			$pluginInfo = apply_filters( 'tribe_puc_request_info_result-' . $this->get_slug(), $pluginInfo, $result );
 
@@ -559,9 +559,9 @@ if ( ! class_exists( 'TribePluginUpdateEngineChecker' ) ) {
 		/**
 		 * Retrieve the latest update (if any) from the configured API endpoint.
 		 *
-		 * @uses TribePluginUpdateEngineChecker::request_info()
+		 * @uses Tribe__Events__PUE__Checker::request_info()
 		 *
-		 * @return TribePluginUpdateUtility An instance of TribePluginUpdateUtility, or NULL when no updates are available.
+		 * @return TribePluginUpdateUtility An instance of Tribe__Events__PUE__Utility, or NULL when no updates are available.
 		 */
 		function request_update() {
 			//For the sake of simplicity, this function just calls request_info()
@@ -589,7 +589,7 @@ if ( ! class_exists( 'TribePluginUpdateEngineChecker' ) ) {
 				$pluginInfo->download_url = add_query_arg( $download_query, $pluginInfo->download_url );
 			}
 
-			return TribePluginUpdateUtility::from_plugin_info( $pluginInfo );
+			return Tribe__Events__PUE__Utility::from_plugin_info( $pluginInfo );
 		}
 
 
@@ -790,11 +790,11 @@ if ( ! class_exists( 'TribePluginUpdateEngineChecker' ) ) {
 		 * Register a callback for filtering the plugin info retrieved from the external API.
 		 *
 		 * The callback function should take two arguments. If the plugin info was retrieved
-		 * successfully, the first argument passed will be an instance of  Tribe_PU_PluginInfo. Otherwise,
+		 * successfully, the first argument passed will be an instance of  Tribe__Events__PUE__Plugin_Info. Otherwise,
 		 * it will be NULL. The second argument will be the corresponding return value of
 		 * wp_remote_get (see WP docs for details).
 		 *
-		 * The callback function should return a new or modified instance of Tribe_PU_PluginInfo or NULL.
+		 * The callback function should return a new or modified instance of Tribe__Events__PUE__Plugin_Info or NULL.
 		 *
 		 * @uses add_filter() This method is a convenience wrapper for add_filter().
 		 *

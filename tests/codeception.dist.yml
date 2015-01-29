@@ -14,7 +14,7 @@ php:
             active_plugins:
                 - the-events-calendar/the-events-calendar.php
                 - events-pro/events-calendar-pro.php
-                - events-community/tribe-community-events.php
+                - events-community/Community_Events.php
 settings:
     bootstrap: _bootstrap.php
     colors: false

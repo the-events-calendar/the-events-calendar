@@ -5,7 +5,7 @@
  */
 class TribeEventsImporter_Plugin {
 	private static $plugin_basename = '';
-	/** @var TribeEventsImporter_AdminPage */
+	/** @var Tribe__Events__Importer__Admin_Page */
 	private static $admin = null;
 
 	public static function path( $path ) {

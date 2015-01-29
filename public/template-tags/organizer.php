@@ -123,8 +123,10 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 * @return string Organizer Name and Url
 	 */
 	function tribe_get_organizer_link( $postId = null, $full_link = true, $echo = true ) {
-		$postId = TribeEvents::postIdHelper( $postId );
-		if ( class_exists( 'TribeEventsPro' ) ) {
+
+		$postId = Tribe__Events__Events::postIdHelper( $postId );
+		if ( class_exists( 'Tribe__Events__Pro__Events_Pro' ) ) {
+
 			$url = esc_url( get_permalink( tribe_get_organizer_id( $postId ) ) );
 			if ( $full_link ) {
 				$name = tribe_get_organizer( $postId );

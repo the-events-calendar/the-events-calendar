@@ -33,7 +33,7 @@ class TribeEventsTicketsPro {
 
 	/**
 	 * WP_Post_List children for Attendees
-	 * @var TribeEventsTicketsAttendeesTable
+	 * @var Tribe__Events__Tickets__Attendees_Table
 	 */
 	private $attendees_table;
 
@@ -166,8 +166,12 @@ class TribeEventsTicketsPro {
 	 */
 	public function attendees_page_screen_setup() {
 
+<<<<<<< HEAD:lib/tickets/tribe-tickets-pro.php
 		require_once 'tribe-tickets-attendees.php';
 		$this->attendees_table = new TribeEventsTicketsAttendeesTable();
+=======
+		$this->attendees_table = new Tribe__Events__Tickets__Attendees_Table();
+>>>>>>> develop:lib/tickets/Tickets_Pro.php
 
 		$this->maybe_generate_attendees_csv();
 

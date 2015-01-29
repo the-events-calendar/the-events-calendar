@@ -320,6 +320,9 @@ if ( ! class_exists( 'TribeEventsAdminList' ) ) {
 			return $stats;
 		}
 	}
+<<<<<<< HEAD:lib/tribe-admin-events-list.class.php
 
 	TribeEventsAdminList::init();
+=======
+>>>>>>> develop:lib/Admin_List.php
 }

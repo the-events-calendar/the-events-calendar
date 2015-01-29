@@ -237,7 +237,11 @@ if ( ! class_exists( 'Tribe_Meta_Factory' ) ) {
 			return apply_filters( 'tribe_meta_factory_template', $html, $label, $meta, $template );
 		}
 	}
+<<<<<<< HEAD:lib/tribe-meta-factory.class.php
 
 	global $_tribe_meta_factory;
 	$_tribe_meta_factory = new Tribe_Meta_Factory();
 }
+=======
+}
+>>>>>>> develop:lib/Meta_Factory.php

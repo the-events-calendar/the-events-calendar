@@ -9,7 +9,7 @@ class Tribe__Events__Admin__Event_Meta_Box {
 	protected $event;
 
 	/**
-	 * @var TribeEvents
+	 * @var Tribe__Events__Events
 	 */
 	protected $tribe;
 
