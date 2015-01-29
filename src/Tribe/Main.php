@@ -2277,7 +2277,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			$newRules[$base . $today]                        = 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=day';
 			$newRules[$base . '(\d{4}-\d{2})$']              = 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=month' . '&eventDate=' . $wp_rewrite->preg_index( 1 );
 			$newRules[$base . '(\d{4}-\d{2}-\d{2})/?$']      = 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=day&eventDate=' . $wp_rewrite->preg_index( 1 );
-			$newRules[$base . 'feed/?$']                     = 'index.php?post_type=' . self::POSTTYPE . 'eventDisplay=list&&feed=rss2';
+			$newRules[$base . 'feed/?$']                     = 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=list&feed=rss2';
 			$newRules[$base . '?$']                          = 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=default';
 
 			// ical
