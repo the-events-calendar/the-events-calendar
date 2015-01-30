@@ -1,7 +1,8 @@
 <?php
 
 	/**
-	 *  The interface for all DateSeriesRules.  They all implement a function called getNextDate
+	 *  The interface for all Tribe__Events__Pro__Date_Series_Rules__Rules_Interface.
+	 *  They all implement a function called getNextDate
 	 *  that returns the next date in a series based on it's particular set of rules.
 	 */
 	interface Tribe__Events__Pro__Date_Series_Rules__Rules_Interface {
