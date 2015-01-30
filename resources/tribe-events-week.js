@@ -117,17 +117,24 @@
 
 		function tribe_go_to_earliest_event() {
 
-			$( '.tribe-week-grid-wrapper' ).slimScroll( {
-				height       : '500px',
-				railVisible  : true,
-				alwaysVisible: true,
-				start        : $first_event
+			$( '.tribe-week-grid-wrapper.tribe-scroller' ).nanoScroller( {
+				paneClass         : 'scroller-pane',
+				sliderClass       : 'scroller-slider',
+				contentClass      : 'scroller-content',
+				iOSNativeScrolling: true,
+				alwaysVisible     : true,
+				scrollTo          : $first_event
 			} );
 
 		}
 
 		function tribe_add_right_class() {
-			$( '.tribe-grid-body .column:eq(5), .tribe-grid-body .column:eq(6), .tribe-grid-body .column:eq(7)' ).addClass( 'tribe-events-right' );
+
+			var $cols = ( $( '.tribe-week-grid-wrapper .tribe-grid-body .column' ).length > 6 ) ?
+				$( '.tribe-grid-body .column:eq(5), .tribe-grid-body .column:eq(6), .tribe-grid-body .column:eq(7)' ) :
+				$( '.tribe-grid-body .column:eq(4), .tribe-grid-body .column:eq(5)' );
+
+			$cols.addClass( 'tribe-events-right' );
 		}
 
 		function tribe_set_allday_placeholder_height() {
