@@ -122,7 +122,7 @@
 				sliderClass       : 'scroller-slider',
 				contentClass      : 'scroller-content',
 				iOSNativeScrolling: true,
-				alwaysVisible     : true,
+				alwaysVisible     : false,
 				scrollTo          : $first_event
 			} );
 
