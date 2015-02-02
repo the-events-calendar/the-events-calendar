@@ -1126,7 +1126,7 @@ class Tribe__Events__Pro__Recurrence_Meta {
 
 	/**
 	 * @param string     $html
-	 * @param TribeField $field
+	 * @param Tribe__Events__Field $field
 	 *
 	 * @return string
 	 */
