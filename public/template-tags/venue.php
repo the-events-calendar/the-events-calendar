@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
-if ( class_exists( 'TribeEvents' ) ) {
+if ( class_exists( 'Tribe__Events__Events' ) ) {
 
 	/**
 	 * Venue ID
@@ -22,7 +22,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 * @return int Venue ID
 	 */
 	function tribe_get_venue_id( $postId = null ) {
-		$postId = TribeEvents::postIdHelper( $postId );
+		$postId = Tribe__Events__Events::postIdHelper( $postId );
 		if ( tribe_is_venue( $postId ) ) {
 			return $postId;
 		} else {
@@ -148,7 +148,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 */
 	function tribe_get_full_address( $postId = null, $includeVenueName = false ) {
 		$postId    = tribe_get_venue_id( $postId );
-		$tribe_ecp = TribeEvents::instance();
+		$tribe_ecp = Tribe__Events__Events::instance();
 
 		return apply_filters( 'tribe_get_full_address', $tribe_ecp->fullAddress( $postId, $includeVenueName ) );
 	}
@@ -324,7 +324,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 * @return array An array of venue post objects.
 	 */
 	function tribe_get_venues( $only_with_upcoming = false, $posts_per_page = -1, $suppress_filters = true ) {
-		$venues = get_posts( array( 'post_type'        => TribeEvents::VENUE_POST_TYPE,
+		$venues = get_posts( array( 'post_type'        => Tribe__Events__Events::VENUE_POST_TYPE,
 									'posts_per_page'   => $posts_per_page,
 									'suppress_filters' => $suppress_filters
 			)

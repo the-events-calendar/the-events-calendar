@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
-if ( class_exists( 'TribeEvents' ) ) {
+if ( class_exists( 'Tribe__Events__Events' ) ) {
 
 	/**
 	 * Instantiate the template class, preparing a view file for use. If no name is passed, defaults to the class for the current view
@@ -18,11 +18,11 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 * @param bool|string $class Classname you want to instantiate
 	 *
 	 * @return void
-	 * @uses TribeEventsTemplates::instantiate_template_class()
+	 * @uses Tribe__Events__Templates::instantiate_template_class()
 	 **/
 	function tribe_initialize_view( $class = false ) {
 		do_action( 'tribe_pre_initialize_view' );
-		TribeEventsTemplates::instantiate_template_class( $class );
+		Tribe__Events__Templates::instantiate_template_class( $class );
 	}
 
 	/**
@@ -39,7 +39,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 		if ( ! $view ) {
 			$template_file = tribe_get_current_template();
 		} else {
-			$template_file = TribeEventsTemplates::getTemplateHierarchy( $view, array( 'disable_view_check' => true ) );
+			$template_file = Tribe__Events__Templates::getTemplateHierarchy( $view, array( 'disable_view_check' => true ) );
 		}
 
 		if ( file_exists( $template_file ) ) {
@@ -79,7 +79,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 * @param null|string $name
 	 * @param array       $data optional array of vars to inject into the template part
 	 *
-	 * @uses TribeEventsTemplates::getTemplateHierarchy
+	 * @uses Tribe__Events__Templates::getTemplateHierarchy
 	 **/
 	function tribe_get_template_part( $slug, $name = null, array $data = null ) {
 
@@ -102,7 +102,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 
 		// loop through templates, return first one found.
 		foreach ( $templates as $template ) {
-			$file = TribeEventsTemplates::getTemplateHierarchy( $template, array( 'disable_view_check' => true ) );
+			$file = Tribe__Events__Templates::getTemplateHierarchy( $template, array( 'disable_view_check' => true ) );
 			$file = apply_filters( 'tribe_get_template_part_path', $file, $template, $slug, $name );
 			$file = apply_filters( 'tribe_get_template_part_path_' . $template, $file, $slug, $name );
 			if ( file_exists( $file ) ) {
@@ -130,7 +130,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 * @todo Abstract this function out of template tags or otherwise secure it from other namespace conflicts.
 	 */
 	function tribe_get_option( $optionName, $default = '' ) {
-		$tribe_ecp = TribeEvents::instance();
+		$tribe_ecp = Tribe__Events__Events::instance();
 
 		return apply_filters( 'tribe_get_option', $tribe_ecp->getOption( $optionName, $default ), $optionName, $default );
 	}
@@ -150,13 +150,13 @@ if ( class_exists( 'TribeEvents' ) ) {
 					$is_ajax_view_request = ( ! empty( $_REQUEST['tribe_event_display'] ) || ! empty( $_REQUEST['eventDate'] ) || ! empty( $_REQUEST['tribe-bar-date'] ) || ! empty( $_REQUEST['tribe_paged'] ) );
 					break;
 				case 'month' :
-					$is_ajax_view_request = ( $_REQUEST['action'] == Tribe_Events_Month_Template::AJAX_HOOK );
+					$is_ajax_view_request = ( $_REQUEST['action'] == Tribe__Events__Template__Month::AJAX_HOOK );
 					break;
 				case 'list' :
-					$is_ajax_view_request = ( $_REQUEST['action'] == Tribe_Events_List_Template::AJAX_HOOK);
+					$is_ajax_view_request = ( $_REQUEST['action'] == Tribe__Events__Template__List::AJAX_HOOK);
 					break;
 				case 'day' :
-					$is_ajax_view_request = ( $_REQUEST['action'] == Tribe_Events_Day_Template::AJAX_HOOK );
+					$is_ajax_view_request = ( $_REQUEST['action'] == Tribe__Events__Template__Day::AJAX_HOOK );
 					break;
 			}
 		}
@@ -176,7 +176,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 * @return void
 	 */
 	function tribe_update_option( $optionName, $value ) {
-		$tribe_ecp = TribeEvents::instance();
+		$tribe_ecp = Tribe__Events__Events::instance();
 		$tribe_ecp->setOption( $optionName, $value );
 	}
 
@@ -193,7 +193,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 * @todo Abstract this function out of template tags or otherwise secure it from other namespace conflicts.
 	 */
 	function tribe_get_network_option( $optionName, $default = '' ) {
-		$tribe_ecp = TribeEvents::instance();
+		$tribe_ecp = Tribe__Events__Events::instance();
 
 		return $tribe_ecp->getNetworkOption( $optionName, $default );
 	}
@@ -209,7 +209,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 * @return bool true if this post is an Event post type
 	 */
 	function tribe_is_event( $postId = null ) {
-		return apply_filters( 'tribe_is_event', TribeEvents::instance()->isEvent( $postId ), $postId );
+		return apply_filters( 'tribe_is_event', Tribe__Events__Events::instance()->isEvent( $postId ), $postId );
 	}
 
 	/**
@@ -232,7 +232,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 			$args['eventDisplay'] = 'custom';
 		}
 
-		return apply_filters( 'tribe_get_events', TribeEventsQuery::getEvents( $args, $full ), $args, $full );
+		return apply_filters( 'tribe_get_events', Tribe__Events__Query::getEvents( $args, $full ), $args, $full );
 	}
 
 	/**
@@ -252,14 +252,14 @@ if ( class_exists( 'TribeEvents' ) ) {
 			return $post;
 		}
 
-		if ( is_a( $event, 'WP_Post' ) && TribeEvents::POSTTYPE === get_post_type( $event ) ) {
+		if ( is_a( $event, 'WP_Post' ) && Tribe__Events__Events::POSTTYPE === get_post_type( $event ) ) {
 			return $post;
 		}
 
 		if ( is_numeric( $event ) && $event == intval( $event ) ) {
 			$event = get_post( $event );
 
-			if ( null !== $event && TribeEvents::POSTTYPE === get_post_type( $event ) ) {
+			if ( null !== $event && Tribe__Events__Events::POSTTYPE === get_post_type( $event ) ) {
 				return $event;
 			}
 		}
@@ -278,7 +278,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 * @return bool
 	 */
 	function tribe_event_is_all_day( $postId = null ) {
-		//		$postId = TribeEvents::postIdHelper( $postId );
+		//		$postId = Tribe__Events__Events::postIdHelper( $postId );
 		$output = ! ! tribe_get_event_meta( $postId, '_EventAllDay', true );
 
 		return apply_filters( 'tribe_event_is_all_day', $output, $postId );
@@ -295,7 +295,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 * @return bool true if event spans multiple days
 	 */
 	function tribe_event_is_multiday( $postId = null ) {
-		$postId = TribeEvents::postIdHelper( $postId );
+		$postId = Tribe__Events__Events::postIdHelper( $postId );
 		$start  = (array) tribe_get_event_meta( $postId, '_EventStartDate', false );
 		sort( $start );
 		$start  = $start[0];
@@ -314,9 +314,9 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 * @uses wp_get_object_terms()
 	 */
 	function tribe_get_event_cat_ids( $post_id = 0 ) {
-		$post_id = TribeEvents::postIdHelper( $post_id );
+		$post_id = Tribe__Events__Events::postIdHelper( $post_id );
 
-		return wp_list_pluck( (array) get_the_terms( $post_id, TribeEvents::TAXONOMY ), 'term_id' );
+		return wp_list_pluck( (array) get_the_terms( $post_id, Tribe__Events__Events::TAXONOMY ), 'term_id' );
 	}
 
 	/**
@@ -328,8 +328,8 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 * @uses wp_get_object_terms()
 	 */
 	function tribe_get_event_cat_slugs( $post_id = 0 ) {
-		$post_id = TribeEvents::postIdHelper( $post_id );
-		$slugs   = wp_list_pluck( (array) get_the_terms( $post_id, TribeEvents::TAXONOMY ), 'slug' );
+		$post_id = Tribe__Events__Events::postIdHelper( $post_id );
+		$slugs   = wp_list_pluck( (array) get_the_terms( $post_id, Tribe__Events__Events::TAXONOMY ), 'slug' );
 
 		return apply_filters( 'tribe_get_event_cat_slugs', $slugs, $post_id );
 	}
@@ -346,8 +346,8 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 * @return string HTML string of taxonomy terms
 	 */
 	function tribe_get_event_taxonomy( $post_id = null, $args = array() ) {
-		$post_id   = TribeEvents::postIdHelper( $post_id );
-		$tribe_ecp = TribeEvents::instance();
+		$post_id   = Tribe__Events__Events::postIdHelper( $post_id );
+		$tribe_ecp = Tribe__Events__Events::instance();
 		$defaults  = array(
 			'taxonomy' => $tribe_ecp->get_event_taxonomy(),
 			'before'   => '<li>',
@@ -427,7 +427,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 			$label = __( 'Tags:', 'tribe-events-calendar' );
 		}
 
-		$tribe_ecp = TribeEvents::instance();
+		$tribe_ecp = Tribe__Events__Events::instance();
 		$list      = get_the_term_list( get_the_ID(), 'post_tag', '<dt>' . $label . '</dt><dd class="tribe-event-tags">', $separator, '</dd>' );
 		$list      = apply_filters( 'tribe_meta_event_tags', $list, $label, $separator, $echo );
 		if ( $echo ) {
@@ -450,8 +450,8 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 * @return mixed meta value(s)
 	 */
 	function tribe_get_event_meta( $postId = null, $meta = false, $single = true ) {
-		$postId    = TribeEvents::postIdHelper( $postId );
-		$tribe_ecp = TribeEvents::instance();
+		$postId    = Tribe__Events__Events::postIdHelper( $postId );
+		$tribe_ecp = Tribe__Events__Events::instance();
 		$output    = $tribe_ecp->getEventMeta( $postId, $meta, $single );
 
 		return apply_filters( 'tribe_get_event_meta', $output, $postId, $meta, $single );
@@ -466,7 +466,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 * @return string Name of the Event Category
 	 */
 	function tribe_meta_event_category_name() {
-		$tribe_ecp   = TribeEvents::instance();
+		$tribe_ecp   = Tribe__Events__Events::instance();
 		$current_cat = get_query_var( 'tribe_events_cat' );
 		if ( $current_cat ) {
 			$term_info = get_term_by( 'slug', $current_cat, $tribe_ecp->get_event_taxonomy() );
@@ -485,7 +485,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 * @return string Page template
 	 */
 	function tribe_get_current_template() {
-		return apply_filters( 'tribe_get_current_template', TribeEventsTemplates::get_current_page_template() );
+		return apply_filters( 'tribe_get_current_template', Tribe__Events__Templates::get_current_page_template() );
 	}
 
 	/**
@@ -499,7 +499,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 * @return bool True if post type id Venue
 	 */
 	function tribe_is_venue( $postId = null ) {
-		$tribe_ecp = TribeEvents::instance();
+		$tribe_ecp = Tribe__Events__Events::instance();
 
 		return apply_filters( 'tribe_is_venue', $tribe_ecp->isVenue( $postId ), $postId );
 	}
@@ -515,7 +515,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 * @return bool True if post type id Venue
 	 */
 	function tribe_is_organizer( $postId = null ) {
-		$tribe_ecp = TribeEvents::instance();
+		$tribe_ecp = Tribe__Events__Events::instance();
 
 		return apply_filters( 'tribe_is_organizer', $tribe_ecp->isOrganizer( $postId ), $postId );
 	}
@@ -641,7 +641,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 				$attrs['data-startofweek'] = get_option( 'start_of_week' );
 				break;
 			case 'list.php' :
-				$attrs['data-startofweek'] = get_option( 'start_of_week' );
+				$attrs['data-startofweek'] = get_option( 'start_of_week' );				
 				$attrs['data-view'] = 'list';
 				if ( tribe_is_upcoming() ) {
 					$attrs['data-baseurl'] = tribe_get_listview_link( false );
@@ -672,7 +672,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 * @return string
 	 **/
 	function tribe_events_resource_url( $resource, $echo = false ) {
-		$url = apply_filters( 'tribe_events_resource_url', trailingslashit( TribeEvents::instance()->pluginUrl ) . 'resources/' . $resource, $resource );
+		$url = apply_filters( 'tribe_events_resource_url', trailingslashit( Tribe__Events__Events::instance()->pluginUrl ) . 'resources/' . $resource, $resource );
 		if ( $echo ) {
 			echo $url;
 		}
@@ -690,9 +690,9 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 **/
 	function tribe_events_get_days_of_week( $format = null ) {
 		if ( $format == 'short' ) {
-			$days_of_week = TribeEvents::instance()->daysOfWeekShort;
+			$days_of_week = Tribe__Events__Events::instance()->daysOfWeekShort;
 		} else {
-			$days_of_week = TribeEvents::instance()->daysOfWeek;
+			$days_of_week = Tribe__Events__Events::instance()->daysOfWeek;
 		}
 		$start_of_week = get_option( 'start_of_week', 0 );
 		for ( $i = 0; $i < $start_of_week; $i ++ ) {
@@ -716,7 +716,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 		$modules      = apply_filters( 'tribe_events_tickets_modules', null );
 		$event_origin = get_post_meta( get_the_ID(), '_EventOrigin', true );
 		$show_cost    = empty( $modules ) ||
-						class_exists( 'Event_Tickets_PRO' ) ||
+						class_exists( 'Tribe__Events__Tickets__Eventbrite__Eventbrite_Tickets' ) ||
 						in_array( $event_origin, apply_filters( 'tribe_events_admin_show_cost_field_origin', array( 'community-events' ) ) );
 
 		return apply_filters( 'tribe_events_admin_show_cost_field', $show_cost, $modules );
@@ -732,8 +732,8 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 * @return string Cost of the event.
 	 */
 	function tribe_get_cost( $postId = null, $withCurrencySymbol = false ) {
-		$tribe_ecp = TribeEvents::instance();
-		$postId    = TribeEvents::postIdHelper( $postId );
+		$tribe_ecp = Tribe__Events__Events::instance();
+		$postId    = Tribe__Events__Events::postIdHelper( $postId );
 
 		$cost = tribe_get_event_meta( $postId, '_EventCost', true );
 
@@ -782,7 +782,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 */
 	function tribe_format_currency( $cost, $postId = null, $currency_symbol = null, $reverse_position = null ) {
 
-		$postId = TribeEvents::postIdHelper( $postId );
+		$postId = Tribe__Events__Events::postIdHelper( $postId );
 
 		// if no currency symbol was passed, and we're looking at a particular event,
 		// let's check if there was a currency symbol set on that event
@@ -895,9 +895,9 @@ if ( class_exists( 'TribeEvents' ) ) {
 			$event_id = get_the_ID();
 		}
 
-		$term = term_exists( $event_cat_slug, TribeEvents::TAXONOMY );
+		$term = term_exists( $event_cat_slug, Tribe__Events__Events::TAXONOMY );
 
-		if ( tribe_is_event( $event_id ) && is_object_in_term( $event_id, TribeEvents::TAXONOMY, array( $term['term_id'] ) ) ) {
+		if ( tribe_is_event( $event_id ) && is_object_in_term( $event_id, Tribe__Events__Events::TAXONOMY, array( $term['term_id'] ) ) ) {
 			$return = true;
 		} else {
 			$return = false;
@@ -1035,7 +1035,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 * @category Events
 	 * @TODO use tribe_get_datetime_format() and related functions if possible
 	 *
-	 * @param int|null   $event
+	 * @param int|null $event
 	 * @param string $before
 	 * @param string $after
 	 *
@@ -1132,7 +1132,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 * @param string|bool $day_cutoff
 	 *
 	 * @return int
-	 * @see TribeDateUtils::dateDiff()
+	 * @see Tribe__Events__Date_Utils::dateDiff()
 	 **/
 	function tribe_get_days_between( $start_date, $end_date, $day_cutoff = '00:00' ) {
 		if ( $day_cutoff === false ) {
@@ -1150,7 +1150,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 			$end_date->modify( '-1 day' );
 		}
 
-		return TribeDateUtils::dateDiff( $start_date->format( 'Y-m-d ' . $day_cutoff ), $end_date->format( 'Y-m-d ' . $day_cutoff ) );
+		return Tribe__Events__Date_Utils::dateDiff( $start_date->format( 'Y-m-d ' . $day_cutoff ), $end_date->format( 'Y-m-d ' . $day_cutoff ) );
 	}
 
 	/**
@@ -1214,13 +1214,17 @@ if ( class_exists( 'TribeEvents' ) ) {
 		$date_display   = '';
 
 		//Disable recurring event info in tooltip
-		$ecp = TribeEventsPro::instance();
-		$ecp->disable_recurring_info_tooltip();
-		
-		$date_display = strip_tags( tribe_events_event_schedule_details( $event ) );
+		if( class_exists( 'Tribe__Events__Pro__Events_Pro' ) ) {
+			$ecp = Tribe__Events__Pro__Events_Pro::instance();
+			$ecp->disable_recurring_info_tooltip();
 
-		// Re-enable recurring event info
-		$ecp->enable_recurring_info_tooltip();
+			$date_display = strip_tags( tribe_events_event_schedule_details( $event ) );
+
+			// Re-enable recurring event info
+			$ecp->enable_recurring_info_tooltip();
+		} else {
+			$date_display = strip_tags( tribe_events_event_schedule_details( $event ) );
+		}
 
 		if ( function_exists( 'has_post_thumbnail' ) && has_post_thumbnail( $event->ID ) ) {
 			$has_image = true;
@@ -1238,7 +1242,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 		} else {
 			$excerpt = $event->post_content;
 		}
-		$excerpt = TribeEvents::instance()->truncate( $excerpt, 30 );
+		$excerpt = Tribe__Events__Events::instance()->truncate( $excerpt, 30 );
 
 		$category_classes = tribe_events_event_classes( $event->ID, false );
 
@@ -1278,7 +1282,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 *
 	 * @category Events
 	 *
-	 * @param array $args       Args to be passed to TribeEventsQuery::getEvents()
+	 * @param array $args       Args to be passed to Tribe__Events__Query::getEvents()
 	 * @param bool  $initialize Whether the list view template class needs to be included and initialized
 	 *
 	 * @return string
@@ -1289,16 +1293,16 @@ if ( class_exists( 'TribeEvents' ) ) {
 		// hijack the main query to load the events via provided $args
 		if ( ! is_null( $args ) || ! ( $wp_query->tribe_is_event || $wp_query->tribe_is_event_category ) ) {
 			$reset_q  = $wp_query;
-			$wp_query = TribeEventsQuery::getEvents( $args, true );
+			$wp_query = Tribe__Events__Query::getEvents( $args, true );
 		}
 
 		// single-event notices are jumping in on this init when loading as a module
-		TribeEvents::removeNotice( 'event-past' );
+		Tribe__Events__Events::removeNotice( 'event-past' );
 
 		// get the list view template
 		ob_start();
 		if ( $initialize ) {
-			tribe_initialize_view( 'Tribe_Events_List_Template' );
+			tribe_initialize_view( 'Tribe__Events__Template__List' );
 		}
 		tribe_get_view( 'list/content' );
 		$list_view_html = ob_get_clean();
@@ -1320,10 +1324,10 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 * @param bool $echo Whether or not to echo the notices html
 	 *
 	 * @return void | string
-	 * @see TribeEvents::getNotices()
+	 * @see Tribe__Events__Events::getNotices()
 	 **/
 	function tribe_events_the_notices( $echo = true ) {
-		$notices = TribeEvents::getNotices();
+		$notices = Tribe__Events__Events::getNotices();
 
 		$html        = ! empty( $notices ) ? '<div class="tribe-events-notices"><ul><li>' . implode( '</li><li>', $notices ) . '</li></ul></div>' : '';
 		$the_notices = apply_filters( 'tribe_events_the_notices', $html, $notices );
@@ -1339,18 +1343,17 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 *
 	 * @category Events
 	 *
-	 * @param array $views Default list of views
+	 * @param $deprecated deprecated
 	 *
 	 * @return array
 	 * @see tribeEnableViews option
+	 * @todo remove deprecated param in 4.0
 	 **/
-	function tribe_events_enabled_views( $views ) {
-		$enabled_views_defaults = array();
-		foreach ( $views as $view ) {
-			$enabled_views_defaults[] = $view['displaying'];
+	function tribe_events_enabled_views( $deprecated = null ) {
+		if ( isset( $deprecated ) ) {
+			_deprecated_argument( __FUNCTION__, '3.10' );
 		}
-
-		return tribe_get_option( 'tribeEnableViews', $enabled_views_defaults );
+		return tribe_get_option( 'tribeEnableViews', array() );
 	}
 
 	/**
@@ -1359,8 +1362,11 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 * @category Events
 	 *
 	 * @return array
+	 * @deprecated
+	 * @todo remove in 4.0
 	 **/
 	function tribe_events_disabled_views() {
+		_deprecated_function( __FUNCTION__, '3.10', 'tribe_events_is_view_enabled( $view )' );
 		static $disabled;
 		if ( isset( $disabled ) ) {
 			return $disabled;
@@ -1425,7 +1431,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 **/
 	function tribe_events_promo_banner( $echo = true ) {
 		if ( tribe_get_option( 'donate-link', false ) == true && ! tribe_is_bot() ) {
-			$promo = apply_filters( 'tribe_events_promo_banner_message', sprintf( __( 'Calendar powered by %sThe Events Calendar%s', 'tribe-events-calendar' ), '<a class="vcard url org fn" href="' . TribeEvents::$tribeUrl . 'wordpress-events-calendar/?utm_medium=plugin-tec&utm_source=banner&utm_campaign=in-app">', '</a>' ) );
+			$promo = apply_filters( 'tribe_events_promo_banner_message', sprintf( __( 'Calendar powered by %sThe Events Calendar%s', 'tribe-events-calendar' ), '<a class="vcard url org fn" href="' . Tribe__Events__Events::$tribeUrl . 'wordpress-events-calendar/?utm_medium=plugin-tec&utm_source=banner&utm_campaign=in-app">', '</a>' ) );
 			$html  = apply_filters( 'tribe_events_promo_banner', sprintf( '<p class="tribe-events-promo">%s</p>', $promo ), $promo );
 			if ( $echo ) {
 				echo $html;
@@ -1462,6 +1468,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 *
 	 * @param $value
 	 * @param $key
+	 * @todo - remove, only used in the meta walker
 	 */
 	function tribe_count_hierarchical_keys( $value, $key ) {
 		global $tribe_count_hierarchical_increment;
@@ -1474,6 +1481,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 * @param array $walk
 	 *
 	 * @return int
+	 * @todo - remove, only used in the meta walker
 	 */
 	function tribe_count_hierarchical( array $walk ) {
 		global $tribe_count_hierarchical_increment;
@@ -1488,7 +1496,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 *
 	 */
 	function tribe_events_get_tab_index() {
-		$tribe_events = TribeEvents::instance();
+		$tribe_events = Tribe__Events__Events::instance();
 
 		return apply_filters( 'tribe_events_tab_index', $tribe_events->tabIndex() );
 	}
@@ -1506,20 +1514,13 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 *
 	 * @category Events
 	 *
-	 * @param string $view Name of view to check, should match what's in TribeEvents->displaying when on that view
+	 * @param string $view Name of view to check, should match what's in Tribe__Events__Events->displaying when on that view
 	 *
 	 * @return bool
 	 **/
 	function tribe_events_is_view_enabled( $view ) {
-		$enabled       = false;
-		$enabled_views = apply_filters( 'tribe-events-bar-views', array() );
-		foreach ( $enabled_views as $enabled_view ) {
-			if ( $enabled_view['displaying'] == $view ) {
-				$enabled = true;
-				break;
-			}
-		}
-
+		$enabled_views = tribe_events_enabled_views();
+		$enabled = in_array( $view, $enabled_views );
 		return apply_filters( 'tribe_events_is_view_enabled', $enabled, $view, $enabled_views );
 	}
 
@@ -1573,18 +1574,18 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 *
 	 * @return mixed bool|string
 	 */
-	function tribe_events_latest_date( $format = TribeDateUtils::DBDATETIMEFORMAT ) {
+	function tribe_events_latest_date( $format = Tribe__Events__Date_Utils::DBDATETIMEFORMAT ) {
 		// Check if the latest end date is already known
 		$latest = tribe_get_option( 'latest_date', false );
 		if ( false !== $latest ) {
-			return TribeDateUtils::reformat( $latest, $format );
+			return Tribe__Events__Date_Utils::reformat( $latest, $format );
 		}
 
 		// If not, try to determine now
-		TribeEvents::instance()->rebuild_known_range();
+		Tribe__Events__Events::instance()->rebuild_known_range();
 		$latest = tribe_get_option( 'latest_date', false );
 		if ( false !== $latest ) {
-			return TribeDateUtils::reformat( $latest, $format );
+			return Tribe__Events__Date_Utils::reformat( $latest, $format );
 		}
 
 		return false;
@@ -1602,18 +1603,18 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 *
 	 * @return mixed bool|string
 	 */
-	function tribe_events_earliest_date( $format = TribeDateUtils::DBDATETIMEFORMAT ) {
+	function tribe_events_earliest_date( $format = Tribe__Events__Date_Utils::DBDATETIMEFORMAT ) {
 		// Check if the earliest start date is already known
 		$earliest = tribe_get_option( 'earliest_date', false );
 		if ( false !== $earliest ) {
-			return TribeDateUtils::reformat( $earliest, $format );
+			return Tribe__Events__Date_Utils::reformat( $earliest, $format );
 		}
 
 		// If not, try to determine now
-		TribeEvents::instance()->rebuild_known_range();
+		Tribe__Events__Events::instance()->rebuild_known_range();
 		$earliest = tribe_get_option( 'earliest_date', false );
 		if ( false !== $earliest ) {
-			return TribeDateUtils::reformat( $earliest, $format );
+			return Tribe__Events__Date_Utils::reformat( $earliest, $format );
 		}
 
 		return false;
@@ -1627,8 +1628,8 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 */
 	function tribe_get_default_value( $field ) {
 		$field = strtolower( $field );
-		$defaults = TribeEvents::instance()->defaults();
+		$defaults = Tribe__Events__Events::instance()->defaults();
 		$value = call_user_func( array( $defaults, $field ) );
 		return $value;
-	}
+}
 }
