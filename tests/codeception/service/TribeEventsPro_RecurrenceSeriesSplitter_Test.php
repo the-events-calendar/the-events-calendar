@@ -2,8 +2,9 @@
 
 /**
  * Class TribeEventsPro_RecurrenceSeriesSplitter_Test
+ * @group recurrence
  */
-class TribeEventsPro_RecurrenceSeriesSplitter_Test extends WP_UnitTestCase {
+class TribeEventsPro_RecurrenceSeriesSplitter_Test extends Tribe__Events__WP_UnitTestCase {
 	public function test_break_single_event_from_series() {
 		$start_date = date('Y-m-d', strtotime('2014-05-01'));
 		$event_args = array(

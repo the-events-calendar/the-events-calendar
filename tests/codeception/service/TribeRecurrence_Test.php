@@ -6,7 +6,7 @@
  * @group pro
  * @group recurrence
  */
-class TribeRecurrence_Test extends WP_UnitTestCase {
+class TribeRecurrence_Test extends Tribe__Events__WP_UnitTestCase {
 
 	public function testEndsOnNotBeforeLastDate()	{
 		$start_date = strtotime("2011-09-06");

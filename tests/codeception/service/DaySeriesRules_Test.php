@@ -6,7 +6,7 @@
  * @group pro
  * @group recurrence
  */
-class DaySeriesRules_Test extends WP_UnitTestCase
+class DaySeriesRules_Test extends Tribe__Events__WP_UnitTestCase
 {
 	const DATE_FORMAT = "Y-m-d";
 	protected $date;

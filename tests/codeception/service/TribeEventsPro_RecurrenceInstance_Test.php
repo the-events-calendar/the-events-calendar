@@ -6,7 +6,7 @@
  * @group pro
  * @group recurrence
  */
-class TribeEventsPro_RecurrenceInstance_Test extends WP_UnitTestCase {
+class TribeEventsPro_RecurrenceInstance_Test extends Tribe__Events__WP_UnitTestCase {
 	public function test_duration() {
 		$start_date = date('Y-m-d', strtotime('2014-01-01'));
 		$parent_id = Tribe__Events__API::createEvent(array(

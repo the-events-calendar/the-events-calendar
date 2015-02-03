@@ -2,8 +2,9 @@
 
 /**
  * Class Tribe_Recurring_Event_Test
+ * @group recurrence
  */
-class Tribe_Recurring_Event_Test extends WP_UnitTestCase {
+class Tribe_Recurring_Event_Test extends Tribe__Events__WP_UnitTestCase {
 	public function test_is_recurring() {
 		$start_date = date('Y-m-d', time());
 		$post_id = Tribe__Events__API::createEvent(array(

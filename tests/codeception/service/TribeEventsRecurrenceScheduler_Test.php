@@ -6,7 +6,7 @@
  * @group pro
  * @group recurrence
  */
-class TribeEventsRecurrenceScheduler_Test extends WP_UnitTestCase {
+class TribeEventsRecurrenceScheduler_Test extends Tribe__Events__WP_UnitTestCase {
 
 	public function setUp() {
 		parent::setUp();
