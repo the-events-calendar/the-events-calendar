@@ -189,6 +189,8 @@ class Tribe_Recurring_Event_Test extends Tribe__Events__WP_UnitTestCase {
 			'post_status' => 'publish',
 			'fields' => 'ids',
 			'posts_per_page' => 25,
+			'orderby' => 'ID',
+			'order' => 'ASC',
 		));
 
 		wp_delete_post( $original_children[2], TRUE );
@@ -482,6 +484,8 @@ class Tribe_Recurring_Event_Test extends Tribe__Events__WP_UnitTestCase {
 			'post_parent' => $post_id,
 			'fields' => 'ids',
 			'posts_per_page' => 10,
+			'orderby' => 'ID',
+			'order' => 'ASC',
 		));
 
 		$query = new WP_Query();
@@ -501,6 +505,8 @@ class Tribe_Recurring_Event_Test extends Tribe__Events__WP_UnitTestCase {
 			'tribeHideRecurrence' => 1,
 			'start_date' => '2014-06-01',
 			'eventDisplay' => 'custom',
+			'orderby' => 'ID',
+			'order' => 'ASC',
 		));
 		$this->assertCount(1, $results);
 		$this->assertEquals($children[4], reset($results));
