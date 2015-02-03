@@ -73,16 +73,11 @@ class Tribe__Events__Pro__Recurrence_Series_Splitter {
 	 * @return void
 	 */
 	public function break_first_event_from_series( $first_event_id ) {
-		$children = get_posts( array(
-			'post_type'      => Tribe__Events__Events::POSTTYPE,
-			'post_parent'    => $first_event_id,
-			'post_status'    => 'any',
-			'meta_key'       => '_EventStartDate',
-			'orderby'        => 'meta_key',
-			'order'          => 'ASC',
-			'fields'         => 'ids',
-			'posts_per_page' => - 1,
-		) );
+		/** @var wpdb $wpdb */
+		global $wpdb;
+		$query = "SELECT p.ID FROM {$wpdb->posts} p INNER JOIN {$wpdb->postmeta} startDate ON p.ID = startDate.post_id AND startDate.meta_key=%s WHERE p.post_parent=%d AND p.post_type=%s ORDER BY startDate.meta_value";
+		$query = $wpdb->prepare( $query, '_EventStartDate', $first_event_id, Tribe__Events__Events::POSTTYPE );
+		$children = $wpdb->get_col( $query );
 
 		if ( empty( $children ) ) {
 			delete_post_meta( $first_event_id, '_EventRecurrence' );

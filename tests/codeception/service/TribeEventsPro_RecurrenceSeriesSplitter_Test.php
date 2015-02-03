@@ -30,6 +30,8 @@ class TribeEventsPro_RecurrenceSeriesSplitter_Test extends Tribe__Events__WP_Uni
 			'post_parent' => $post_id,
 			'post_status' => 'publish',
 			'fields' => 'ids',
+			'orderby' => 'ID',
+			'order' => 'ASC',
 		));
 
 		$child_to_break = $original_children[2];
@@ -59,6 +61,8 @@ class TribeEventsPro_RecurrenceSeriesSplitter_Test extends Tribe__Events__WP_Uni
 			'post_parent' => $child_to_break,
 			'post_status' => 'publish',
 			'fields' => 'ids',
+			'orderby' => 'ID',
+			'order' => 'ASC',
 		)));
 		$this->assertEquals( '2014-05-22 16:00:00', get_post_meta($child_to_break, '_EventStartDate', TRUE));
 
@@ -96,6 +100,8 @@ class TribeEventsPro_RecurrenceSeriesSplitter_Test extends Tribe__Events__WP_Uni
 			'fields' => 'ids',
 			'eventDisplay' => 'custom',
 			'posts_per_page' => -1,
+			'orderby' => 'ID',
+			'order' => 'ASC',
 		));
 
 		$breaker = new Tribe__Events__Pro__Recurrence_Series_Splitter();
@@ -110,6 +116,8 @@ class TribeEventsPro_RecurrenceSeriesSplitter_Test extends Tribe__Events__WP_Uni
 			'fields' => 'ids',
 			'eventDisplay' => 'custom',
 			'posts_per_page' => -1,
+			'orderby' => 'ID',
+			'order' => 'ASC',
 		));
 		$this->assertEmpty($updated_children);
 
@@ -123,6 +131,8 @@ class TribeEventsPro_RecurrenceSeriesSplitter_Test extends Tribe__Events__WP_Uni
 			'fields' => 'ids',
 			'eventDisplay' => 'custom',
 			'posts_per_page' => -1,
+			'orderby' => 'ID',
+			'order' => 'ASC',
 		)));
 		$this->assertEquals( '2014-05-08 16:00:00', get_post_meta($new_parent->ID, '_EventStartDate', TRUE));
 
@@ -155,6 +165,8 @@ class TribeEventsPro_RecurrenceSeriesSplitter_Test extends Tribe__Events__WP_Uni
 			'post_parent' => $post_id,
 			'post_status' => 'publish',
 			'fields' => 'ids',
+			'orderby' => 'ID',
+			'order' => 'ASC',
 		));
 
 		$child_to_break = $original_children[2];
@@ -168,6 +180,8 @@ class TribeEventsPro_RecurrenceSeriesSplitter_Test extends Tribe__Events__WP_Uni
 			'post_parent' => $post_id,
 			'post_status' => 'publish',
 			'fields' => 'ids',
+			'orderby' => 'ID',
+			'order' => 'ASC',
 		));
 		foreach ( $original_children as $child_id ) {
 			$date = strtotime(get_post_meta($child_id, '_EventStartDate', TRUE));
