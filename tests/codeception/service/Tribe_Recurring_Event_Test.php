@@ -23,22 +23,6 @@ class Tribe_Recurring_Event_Test extends Tribe__Events__WP_UnitTestCase {
 			)
 		));
 		$this->assertTrue( tribe_is_recurring_event( $post_id ) );
-	}
-
-	public function test_is_not_recurring() {
-		$start_date = date('Y-m-d', time());
-		// no recurrence
-		$post_id = Tribe__Events__API::createEvent(array(
-			'post_title' => __CLASS__,
-			'post_content' => __FUNCTION__,
-			'EventStartDate' => $start_date,
-			'EventEndDate' => $start_date,
-			'EventStartHour' => 16,
-			'EventEndHour' => 17,
-			'EventStartMinute' => 0,
-			'EventEndMinute' => 0,
-		));
-		$this->assertFalse( tribe_is_recurring_event( $post_id ) );
 
 		// recur one time
 		$post_id = Tribe__Events__API::createEvent(array(
@@ -55,6 +39,22 @@ class Tribe_Recurring_Event_Test extends Tribe__Events__WP_UnitTestCase {
 				'end-count' => 1,
 				'type' => 'Every Week',
 			)
+		));
+		$this->assertTrue( tribe_is_recurring_event( $post_id ) );
+	}
+
+	public function test_is_not_recurring() {
+		$start_date = date('Y-m-d', time());
+		// no recurrence
+		$post_id = Tribe__Events__API::createEvent(array(
+			'post_title' => __CLASS__,
+			'post_content' => __FUNCTION__,
+			'EventStartDate' => $start_date,
+			'EventEndDate' => $start_date,
+			'EventStartHour' => 16,
+			'EventEndHour' => 17,
+			'EventStartMinute' => 0,
+			'EventEndMinute' => 0,
 		));
 		$this->assertFalse( tribe_is_recurring_event( $post_id ) );
 	}
