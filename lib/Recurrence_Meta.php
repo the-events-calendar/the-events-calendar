@@ -688,6 +688,7 @@ class Tribe__Events__Pro__Recurrence_Meta {
 			'meta_key'       => '_EventStartDate',
 			'orderby'        => 'meta_value',
 			'order'          => 'ASC',
+			'hide_upcoming'  => false,
 		) );
 
 		$recurrence = self::getRecurrenceForEvent( $postId );
