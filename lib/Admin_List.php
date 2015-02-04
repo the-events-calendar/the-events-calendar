@@ -217,7 +217,7 @@ if ( ! class_exists( 'Tribe__Events__Admin_List' ) ) {
 		public static function custom_columns( $column_id, $post_id ) {
 			switch( $column_id ) {
 				case 'events-cats':
-					$event_cats = get_the_term_list( $post_id, TribeEvents::TAXONOMY, '', ', ', '' );
+					$event_cats = get_the_term_list( $post_id, Tribe__Events__Events::TAXONOMY, '', ', ', '' );
 					echo ( $event_cats ) ? strip_tags( $event_cats ) : '—';
 				break;
 				
