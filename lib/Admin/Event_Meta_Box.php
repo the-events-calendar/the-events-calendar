@@ -9,7 +9,7 @@ class Tribe__Events__Admin__Event_Meta_Box {
 	protected $event;
 
 	/**
-	 * @var TribeEvents
+	 * @var Tribe__Events__Events
 	 */
 	protected $tribe;
 
@@ -34,7 +34,7 @@ class Tribe__Events__Admin__Event_Meta_Box {
 	 * @param null $event
 	 */
 	public function __construct( $event = null ) {
-		$this->tribe = TribeEvents::instance();
+		$this->tribe = Tribe__Events__Events::instance();
 		$this->get_event( $event );
 		$this->setup_data();
 		$this->do_meta_box();
@@ -116,8 +116,8 @@ class Tribe__Events__Admin__Event_Meta_Box {
 		$all_day  = $this->vars['_EventAllDay'];
 		$end_date = $this->vars['_EventEndDate'];
 
-		$ends_at_midnight = '23:59:59' === TribeDateUtils::timeOnly( $end_date );
-		$midnight_cutoff  = '23:59:59' === TribeDateUtils::timeOnly( tribe_event_end_of_day() );
+		$ends_at_midnight = '23:59:59' === Tribe__Events__Date_Utils::timeOnly( $end_date );
+		$midnight_cutoff  = '23:59:59' === Tribe__Events__Date_Utils::timeOnly( tribe_event_end_of_day() );
 
 		if ( ! $all_day || $ends_at_midnight || $midnight_cutoff ) {
 			return;
@@ -125,23 +125,23 @@ class Tribe__Events__Admin__Event_Meta_Box {
 
 		$end_date = date_create( $this->vars['_EventEndDate'] );
 		$end_date->modify( '-1 day' );
-		$this->vars['_EventEndDate'] = $end_date->format( TribeDateUtils::DBDATETIMEFORMAT );
+		$this->vars['_EventEndDate'] = $end_date->format( Tribe__Events__Date_Utils::DBDATETIMEFORMAT );
 	}
 
 	/**
 	 * Assess if this is an all day event.
 	 */
 	protected function set_all_day() {
-		$this->vars['isEventAllDay'] = ( $this->vars['_EventAllDay'] == 'yes' || ! TribeDateUtils::dateOnly( $this->vars['_EventStartDate'] ) ) ? 'checked="checked"' : '';
+		$this->vars['isEventAllDay'] = ( $this->vars['_EventAllDay'] == 'yes' || ! Tribe__Events__Date_Utils::dateOnly( $this->vars['_EventStartDate'] ) ) ? 'checked="checked"' : '';
 	}
 
 	protected function set_start_date_time() {
-		$this->vars['startMinuteOptions']   = TribeEventsViewHelpers::getMinuteOptions( $this->vars['_EventStartDate'], true );
-		$this->vars['startHourOptions']     = TribeEventsViewHelpers::getHourOptions( $this->vars['_EventAllDay'] == 'yes' ? null : $this->vars['_EventStartDate'], true );
-		$this->vars['startMeridianOptions'] = TribeEventsViewHelpers::getMeridianOptions( $this->vars['_EventStartDate'], true );
+		$this->vars['startMinuteOptions']   = Tribe__Events__View_Helpers::getMinuteOptions( $this->vars['_EventStartDate'], true );
+		$this->vars['startHourOptions']     = Tribe__Events__View_Helpers::getHourOptions( $this->vars['_EventAllDay'] == 'yes' ? null : $this->vars['_EventStartDate'], true );
+		$this->vars['startMeridianOptions'] = Tribe__Events__View_Helpers::getMeridianOptions( $this->vars['_EventStartDate'], true );
 
 		if ( $this->vars['_EventStartDate'] ) {
-			$start = TribeDateUtils::dateOnly( $this->vars['_EventStartDate'] );
+			$start = Tribe__Events__Date_Utils::dateOnly( $this->vars['_EventStartDate'] );
 		}
 
 		// If we don't have a valid start date, assume today's date
@@ -149,12 +149,12 @@ class Tribe__Events__Admin__Event_Meta_Box {
 	}
 
 	protected function set_end_date_time() {
-		$this->vars['endMinuteOptions']   = TribeEventsViewHelpers::getMinuteOptions( $this->vars['_EventEndDate'] );
-		$this->vars['endHourOptions']     = TribeEventsViewHelpers::getHourOptions( $this->vars['_EventAllDay'] == 'yes' ? null : $this->vars['_EventEndDate'] );
-		$this->vars['endMeridianOptions'] = TribeEventsViewHelpers::getMeridianOptions( $this->vars['_EventEndDate'] );
+		$this->vars['endMinuteOptions']   = Tribe__Events__View_Helpers::getMinuteOptions( $this->vars['_EventEndDate'] );
+		$this->vars['endHourOptions']     = Tribe__Events__View_Helpers::getHourOptions( $this->vars['_EventAllDay'] == 'yes' ? null : $this->vars['_EventEndDate'] );
+		$this->vars['endMeridianOptions'] = Tribe__Events__View_Helpers::getMeridianOptions( $this->vars['_EventEndDate'] );
 
 		if ( $this->vars['_EventEndDate'] ) {
-			$end = TribeDateUtils::dateOnly( $this->vars['_EventEndDate'] );
+			$end = Tribe__Events__Date_Utils::dateOnly( $this->vars['_EventEndDate'] );
 		}
 
 		// If we don't have a valid end date, assume today's date

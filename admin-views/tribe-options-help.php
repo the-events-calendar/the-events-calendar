@@ -5,7 +5,7 @@
  */
 
 $tec_info = wp_remote_get(
-	apply_filters( 'tribe_help_tab_api_info_url', TribeEvents::INFO_API_URL ), array(
+	apply_filters( 'tribe_help_tab_api_info_url', Tribe__Events__Events::INFO_API_URL ), array(
 		'timeout' => 15, //seconds
 		'headers' => array( 'Accept' => 'application/json' ),
 	)
@@ -26,10 +26,10 @@ if ( ! is_wp_error( $tec_info ) ) {
 		$version = $tec_info['version'];
 	}
 	$total_downloads = ( isset( $tec_info['total_downloads'] ) ) ? number_format( $tec_info['total_downloads'] ) : _x( 'n/a', 'not available', 'tribe-events-calendar' );
-	$up_to_date      = ( isset( $tec_info['version'] ) && version_compare( TribeEvents::VERSION, $tec_info['version'], '<' ) ) ? __( 'You need to upgrade!', 'tribe-events-calendar' ) : __( 'You are up to date!', 'tribe-events-calendar' );
+	$up_to_date      = ( isset( $tec_info['version'] ) && version_compare( Tribe__Events__Events::VERSION, $tec_info['version'], '<' ) ) ? __( 'You need to upgrade!', 'tribe-events-calendar' ) : __( 'You are up to date!', 'tribe-events-calendar' );
 }
 
-$news_rss = fetch_feed( TribeEvents::FEED_URL );
+$news_rss = fetch_feed( Tribe__Events__Events::FEED_URL );
 if ( ! is_wp_error( $news_rss ) ) {
 	$maxitems  = $news_rss->get_item_quantity( apply_filters( 'tribe_help_tab_rss_max_items', 5 ) );
 	$rss_items = $news_rss->get_items( 0, $maxitems );
@@ -97,21 +97,21 @@ $getting_started_text = apply_filters( 'tribe_help_tab_getting_started_text', $g
 $intro_text[] = '<p>' . __( "If this is your first time using The Events Calendar, you're in for a treat and are already well on your way to creating a first event. Here are some basics we've found helpful for users jumping into it for the first time:", 'tribe-events-calendar' ) . '</p>';
 $intro_text[] = '<ul>';
 $intro_text[] = '<li>';
-$intro_text[] = sprintf( __( "%sOur New User Primer%s was designed for folks in your exact position. Featuring both step-by-step videos and written walkthroughs that feature accompanying screenshots, the primer aims to take you from zero to hero in no time.", "tribe-events-calendar" ), '<a href="' . TribeEvents::$tribeUrl . 'support/documentation/events-calendar-pro-new-user-primer/' . $ga_query_string . '" target="blank">', '</a>' );
+$intro_text[] = sprintf( __( "%sOur New User Primer%s was designed for folks in your exact position. Featuring both step-by-step videos and written walkthroughs that feature accompanying screenshots, the primer aims to take you from zero to hero in no time.", "tribe-events-calendar" ), '<a href="' . Tribe__Events__Events::$tribeUrl . 'support/documentation/events-calendar-pro-new-user-primer/' . $ga_query_string . '" target="blank">', '</a>' );
 $intro_text[] = '</li><li>';
-$intro_text[] = sprintf( __( "%sInstallation/Setup FAQs%s from our support page can help give an overview of what the plugin can and cannot do. This section of the FAQs may be helpful as it aims to address any basic install questions not addressed by the new user primer.", "tribe-events-calendar" ), '<a href="' . TribeEvents::$tribeUrl . 'support/faqs/' . $ga_query_string . '" target="blank">', '</a>' );
+$intro_text[] = sprintf( __( "%sInstallation/Setup FAQs%s from our support page can help give an overview of what the plugin can and cannot do. This section of the FAQs may be helpful as it aims to address any basic install questions not addressed by the new user primer.", "tribe-events-calendar" ), '<a href="' . Tribe__Events__Events::$tribeUrl . 'support/faqs/' . $ga_query_string . '" target="blank">', '</a>' );
 $intro_text[] = '</li></ul><p>';
 $intro_text[] = __( "Otherwise, if you're feeling adventurous, you can get started by heading to the Events menu and adding your first event.", "tribe-events-calendar" );
 $intro_text[] = '</p>';
 $intro_text = implode( $intro_text );
 
-$support_text[] = '<p>' . sprintf( __( "We've redone our support page from the ground up in an effort to better help our users. Head over to our %sSupport Page%s and you'll find lots of great resources, including:", "tribe-events-calendar" ), '<a href="' . TribeEvents::$tribeUrl . 'support/' . $ga_query_string . '" target="blank">', '</a>' ) . '</p>';
+$support_text[] = '<p>' . sprintf( __( "We've redone our support page from the ground up in an effort to better help our users. Head over to our %sSupport Page%s and you'll find lots of great resources, including:", "tribe-events-calendar" ), '<a href="' . Tribe__Events__Events::$tribeUrl . 'support/' . $ga_query_string . '" target="blank">', '</a>' ) . '</p>';
 $support_text[] = '<ul><li>';
 $support_text[] = sprintf( __( "%sTemplate tags, functions, and hooks & filters%s for The Events Calendar &amp; Events Calendar PRO", "tribe-events-calendar" ), '<a href="http://m.tri.be/fk" target="blank">', '</a>' );
 $support_text[] = '</li><li>';
-$support_text[] = sprintf( __( "%sFrequently Asked Questions%s ranging from the most basic setup questions to advanced themer tweaks", "tribe-events-calendar" ), '<a href="' . TribeEvents::$tribeUrl . 'support/faqs/' . $ga_query_string . '" target="blank">', '</a>' );
+$support_text[] = sprintf( __( "%sFrequently Asked Questions%s ranging from the most basic setup questions to advanced themer tweaks", "tribe-events-calendar" ), '<a href="' . Tribe__Events__Events::$tribeUrl . 'support/faqs/' . $ga_query_string . '" target="blank">', '</a>' );
 $support_text[] = '</li><li>';
-$support_text[] = sprintf( __( "%sTutorials%s written by both members of our team and users from the community, covering custom queries, integration with third-party themes and plugins, etc.", "tribe-events-calendar" ), '<a href="' . TribeEvents::$tribeUrl . 'the-events-calendar-for-wordpress-tutorials/' . $ga_query_string . '" target="blank">', '</a>' );
+$support_text[] = sprintf( __( "%sTutorials%s written by both members of our team and users from the community, covering custom queries, integration with third-party themes and plugins, etc.", "tribe-events-calendar" ), '<a href="' . Tribe__Events__Events::$tribeUrl . 'the-events-calendar-for-wordpress-tutorials/' . $ga_query_string . '" target="blank">', '</a>' );
 $support_text[] = '</li><li>';
 $support_text[] = __( "Release notes for painting an overall picture of the plugin's lifecycle and when features/bug fixes were introduced.", "tribe-events-calendar" );
 $support_text[] = '</li><li>';
@@ -124,7 +124,7 @@ $support_text = implode( $support_text );
 $forum_text[] = '<p>' . sprintf( __( "Written documentation can only take things so far...sometimes, you need help from a real person. This is where our %ssupport forums%s come into play.", "tribe-events-calendar" ), '<a href="http://wordpress.org/support/plugin/the-events-calendar" target="blank">', '</a>' ) . '</p>';
 $forum_text[] = '<p>' . sprintf( __( "Users of the free The Events Calendar should post their support concerns to the plugin's %sWordPress.org support forum%s. While we are happy to help identify and fix bugs that are reported at WordPress.org, please make sure to read our %ssupport expectations sticky thread%s before posting so you understand our limitations.", "tribe-events-calendar" ), '<a href="http://wordpress.org/support/plugin/the-events-calendar" target="blank">', '</a>', '<a href="http://wordpress.org/support/topic/welcome-the-events-calendar-users-read-this-first?replies=1" target="blank">', '</a>' ) . '</p>';
 $forum_text[] = '<p>' . __( "We hit the WordPress.org forum throughout the week, watching for bugs. If you report a legitimate bug that we're able to reproduce, we will log it and patch for an upcoming release. However we are unfortunately unable to provide customization tips or assist in integrating with 3rd party plugins or themes.", "tribe-events-calendar" ) . "</p>";
-$forum_text[] = '<p>' . sprintf( __( "If you're a user of The Events Calendar and would like more support, please %spurchase a PRO license%s. We hit the PRO forums daily, and can provide a deeper level of customization/integration support for paying users than we can on WordPress.org.", "tribe-events-calendar" ), '<a href="' . TribeEvents::$tribeUrl . 'shop/wordpress-events-calendar-pro/' . $ga_query_string . '" target="blank">', '</a>' ) . '</p>';
+$forum_text[] = '<p>' . sprintf( __( "If you're a user of The Events Calendar and would like more support, please %spurchase a PRO license%s. We hit the PRO forums daily, and can provide a deeper level of customization/integration support for paying users than we can on WordPress.org.", "tribe-events-calendar" ), '<a href="' . Tribe__Events__Events::$tribeUrl . 'shop/wordpress-events-calendar-pro/' . $ga_query_string . '" target="blank">', '</a>' ) . '</p>';
 $forum_text = implode( $forum_text );
 
 
@@ -176,7 +176,7 @@ $more_text = __( 'More...', 'tribe-events-calendar' );
 			<?php if ( isset( $requires ) ) { ?>
 				<b><?php _e( 'Requires:', 'tribe-events-calendar' ); ?></b> <?php _e( 'WordPress ', 'tribe-events-calendar' );
 				echo $requires; ?>+<br /><?php } ?>
-			<a href="<?php echo apply_filters( 'tribe_help_tab_wp_plugin_url', TribeEvents::WP_PLUGIN_URL ); ?>"><?php _e( 'Wordpress.org Plugin Page', 'tribe-events-calendar' ); ?></a>
+			<a href="<?php echo apply_filters( 'tribe_help_tab_wp_plugin_url', Tribe__Events__Events::WP_PLUGIN_URL ); ?>"><?php _e( 'Wordpress.org Plugin Page', 'tribe-events-calendar' ); ?></a>
 		</p>
 	</div>
 
@@ -217,7 +217,7 @@ $more_text = __( 'More...', 'tribe-events-calendar' );
 		foreach ( $news_feed as $item ) {
 			echo( '<li><a href="' . $item['link'] . $ga_query_string . '">' . $item['title'] . '</a></li>' );
 		}
-		echo '<li><a href="' . TribeEvents::$tribeUrl . 'category/products/' . $ga_query_string . '">' . $more_text . '</a></li>';
+		echo '<li><a href="' . Tribe__Events__Events::$tribeUrl . 'category/products/' . $ga_query_string . '">' . $more_text . '</a></li>';
 		?>
 	</ul>
 

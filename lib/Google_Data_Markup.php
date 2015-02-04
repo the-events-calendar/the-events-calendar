@@ -30,8 +30,8 @@ class Tribe__Events__Google_Data_Markup {
 			$events_data[$id]->image = wp_get_attachment_url( get_post_thumbnail_id( $post->ID ) );
 		}
 		$events_data[$id]->url       = get_the_permalink( $post->ID );
-		$events_data[$id]->startDate = get_gmt_from_date( tribe_get_start_date( $post, true, TribeDateUtils::DBDATETIMEFORMAT ), 'c' );
-		$events_data[$id]->endDate   = get_gmt_from_date( tribe_get_end_date( $post, true, TribeDateUtils::DBDATETIMEFORMAT ), 'c' );
+		$events_data[$id]->startDate = get_gmt_from_date( tribe_get_start_date( $post, true, Tribe__Events__Date_Utils::DBDATETIMEFORMAT ), 'c' );
+		$events_data[$id]->endDate   = get_gmt_from_date( tribe_get_end_date( $post, true, Tribe__Events__Date_Utils::DBDATETIMEFORMAT ), 'c' );
 		if ( tribe_has_venue( $id ) ) {
 			$events_data[$id]->location          = new stdClass();
 			$events_data[$id]->location->{'@type'} = 'Place';
