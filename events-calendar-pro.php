@@ -29,7 +29,6 @@
 
 	// Instantiate class and set up WordPress actions.
 	function Tribe_ECP_Load() {
-		add_filter( 'tribe_tec_addons', 'tribe_init_ecp_addon' );
 		tribe_init_events_pro_autoloading();
 
 		$classes_exist = class_exists( 'Tribe__Events__Events' ) && class_exists( 'Tribe__Events__Pro__Events_Pro' );
@@ -37,6 +36,7 @@
 
 		$to_run_or_not_to_run = ( $classes_exist && $version_ok );
 		if ( apply_filters( 'tribe_ecp_to_run_or_not_to_run', $to_run_or_not_to_run ) ) {
+			add_filter( 'tribe_tec_addons', 'tribe_init_ecp_addon' );
 			new Tribe__Events__Pro__PUE( __FILE__ );
 			Tribe__Events__Pro__Events_Pro::instance();
 		} else {
