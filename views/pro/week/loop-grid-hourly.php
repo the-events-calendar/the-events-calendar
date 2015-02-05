@@ -43,7 +43,7 @@ $hours = tribe_events_week_get_hours();
 					<div title="<?php tribe_events_week_get_the_date(); ?>" class="tribe-events-mobile-day column <?php tribe_events_week_column_classes(); ?>">
 						<?php
 
-						$day = tribe_events_get_current_week_day();
+						$day = tribe_events_week_get_current_day();
 
 						foreach ( $day['hourly_events'] as $event ) : ?>
 							<?php tribe_get_template_part( 'pro/week/single-event', 'hourly', array( 'event' => $event ) ); ?>

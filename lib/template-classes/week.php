@@ -79,6 +79,8 @@ if ( ! class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 		}
 
 		/**
+		 * Get the range of hours showing on week view.
+		 *
 		 * @return array
 		 *
 		 * @see tribe_events_week_get_hours()
@@ -107,6 +109,10 @@ if ( ! class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 		}
 
 		/**
+		 * Get the array of days we're showing on week view.
+		 * Takes into account the first day of the week in WP general settings
+		 * Doesn't include weekends if "Hide weekends on Week View" is checked on Events > Settings > Display
+		 *
 		 * @return array
 		 *
 		 * @see tribe_events_week_get_days()
@@ -118,6 +124,7 @@ if ( ! class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 
 			$start_of_week = get_option( 'start_of_week' );
 			$days          = range( $start_of_week, $start_of_week + 6 );
+
 			foreach ( $days as $i => $day ) {
 				if ( $day > 6 ) {
 					$days[ $i ] -= 7;
@@ -213,11 +220,13 @@ if ( ! class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 		}
 
 		/**
-		 * Set the global post on the hourly loop.
+		 * Set the global post to the one that was passed to the template part
 		 *
 		 * @param $slug
 		 * @param $name
 		 * @param $data
+		 *
+		 * @see 'tribe_pre_get_template_part_pro/week/single-event'
 		 */
 		public function set_global_post( $slug, $name, $data ) {
 			$GLOBALS['post'] = $data['event'];
@@ -230,6 +239,8 @@ if ( ! class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 		 * @param $slug
 		 * @param $name
 		 * @param $data
+		 *
+		 * @see 'tribe_post_get_template_part_pro/week/single-event'
 		 */
 		public function set_previous_event( $slug, $name, $data ) {
 			self::$previous_event = $data['event'];
@@ -241,6 +252,7 @@ if ( ! class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 		 * @param $post
 		 *
 		 * @return void
+		 * @see 'the_post'
 		 **/
 		public function manage_sensitive_info( $post ) {
 
@@ -257,6 +269,7 @@ if ( ! class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 		 * Add header attributes for week view
 		 *
 		 * @return string
+		 * @see 'tribe_events_header_attributes'
 		 * */
 		function header_attributes( $attrs, $current_view ) {
 			global $wp_query;
@@ -272,8 +285,9 @@ if ( ! class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 		 * Perform any functions that need to happen before the view is rendered
 		 *
 		 * @return  void
+		 * @see 'tribe_events_before_view'
 		 */
-		function setup_view() {
+		public function setup_view() {
 			$this->setup_days();
 		}
 
@@ -281,8 +295,9 @@ if ( ! class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 		 * Set up the self::week_days array
 		 *
 		 * @return void
+		 * @see $this->setup_view()
 		 */
-		function setup_days() {
+		private function setup_days() {
 			global $wp_query;
 			$week_days = array();
 
@@ -368,8 +383,27 @@ if ( ! class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 			return self::$week_days;
 		}
 
+
 		/**
-		 * Build data attributes for an event, needed for week view js
+		 * Check if there are any all day events this week
+		 *
+		 * @return bool
+		 * @see tribe_events_week_has_all_day_events()
+		 */
+		public static function has_all_day_events() {
+
+			foreach ( self::$week_days as $week_day ) {
+				if ( ! empty( $week_day['all_day_events'] ) ) {
+					return true;
+
+				}
+			}
+
+			return false;
+		}
+
+		/**
+		 * Build data attributes for an event; needed for week view js
 		 *
 		 * @param $event
 		 *
@@ -423,7 +457,8 @@ if ( ! class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 		 * Checks whether there are more calendar days to display
 		 *
 		 * @return bool True if calendar days are available, false if not.
-		 * */
+		 * @see tribe_events_week_have_days()
+		 */
 		public static function have_days() {
 			if ( empty ( self::$week_days ) ) {
 				return false;
@@ -436,9 +471,10 @@ if ( ! class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 		}
 
 		/**
-		 * Increment the current day for tracking the current day of the week within the loop
+		 * Increment the current day for tracking the current day of the week within the week view loop
 		 *
 		 * @return void
+		 * @see tribe_events_week_the_day()
 		 */
 		public static function the_day() {
 			if ( self::$current_day == ( count( self::$day_range ) - 1 ) ) {
@@ -454,6 +490,7 @@ if ( ! class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 		 * Reset the internal counter for the current day
 		 *
 		 * @return void
+		 * @see 'tribe_pre_get_template_part_pro/week/loop'
 		 */
 		public static function rewind_days() {
 			self::$current_day = - 1;
@@ -463,6 +500,7 @@ if ( ! class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 		 * get current day array
 		 *
 		 * @return int
+		 * @see tribe_events_week_get_current_day()
 		 */
 		public static function get_current_day() {
 			return self::$week_days[ self::$current_day ];
@@ -472,13 +510,18 @@ if ( ! class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 		 * get the current date based on the current day of week
 		 *
 		 * @return date( 'Y-m-d' )
+		 * @see self::get_rounded_beginning_of_day()
+		 * @see self::get_rounded_end_of_day()
 		 */
-		public static function get_current_date() {
+		private static function get_current_date() {
 			return date_i18n( 'Y-m-d', strtotime( self::$week_days[ self::$current_day ]['date'] ) );
 		}
 
 		/**
+		 * Determine and return the CSS classes needed for the day of week headers
 		 *
+		 * @return string
+		 * @see tribe_events_week_day_header_classes()
 		 */
 		public static function day_header_classes() {
 			$day     = self::get_current_day();
@@ -492,9 +535,10 @@ if ( ! class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 		}
 
 		/**
-		 * css column classes used during loop
+		 * Determine and return the CSS classes needed for each column on week view
 		 *
-		 * @return void
+		 * @return string
+		 * @see tribe_events_week_column_classes()
 		 */
 		public static function column_classes() {
 
@@ -520,11 +564,12 @@ if ( ! class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 		}
 
 		/**
-		 * css event wrapper classes used during loop
+		 * Determine and return the CSS classes needed for each event on week view
 		 *
-		 * @param $classes
+		 * @param $classes array
 		 *
-		 * @return void
+		 * @return string
+		 * @see 'tribe_events_event_classes'
 		 */
 		function event_classes( $classes ) {
 

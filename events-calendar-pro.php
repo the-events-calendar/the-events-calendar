@@ -96,6 +96,11 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			require_once( $this->pluginPath . 'lib/template-classes/single-venue.php' );
 			require_once( $this->pluginPath . 'lib/template-classes/week.php' );
 
+			// Load Deprecated Template Tags
+			if ( ! defined( 'TRIBE_DISABLE_DEPRECATED_TAGS' ) ) {
+				require_once $this->pluginPath . 'public/template-tags/deprecated.php';
+			}
+			
 			require_once( $this->pluginPath . 'public/template-tags/general.php' );
 			require_once( $this->pluginPath . 'public/template-tags/week.php' );
 			require_once( $this->pluginPath . 'public/template-tags/venue.php' );

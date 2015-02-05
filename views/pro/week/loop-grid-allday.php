@@ -22,7 +22,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<div title="<?php tribe_events_week_get_the_date(); ?>" class="<?php tribe_events_week_column_classes(); ?>">
 			<?php
 
-			$day = tribe_events_get_current_week_day();
+			$day = tribe_events_week_get_current_day();
 
 			if ( empty( $day['all_day_events'] ) ) : ?>
 				<div class="tribe-event-placeholder " data-event-id="">&nbsp;</div>
