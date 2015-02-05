@@ -235,7 +235,7 @@ jQuery( document ).ready( function( $ ) {
 
 			if ( selected_organizer_id == '0' ) {
 				organizerFields.fadeIn();
-				$('.edit-organizer-link').hide();	
+				$('.edit-organizer-link').hide();
 			}
 			else {
 				organizerFields.fadeOut();
