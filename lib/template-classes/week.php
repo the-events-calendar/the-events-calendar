@@ -253,37 +253,39 @@ if ( ! class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 			global $wp_query;
 			$week_days = array();
 
-			if ( $wp_query->have_posts() ) {
+			$day      = $wp_query->get( 'start_date' );
 
-				$day      = $wp_query->get( 'start_date' );
-				$weekday_array = array(
-					0 => 'Sunday',
-					1 => 'Monday',
-					2 => 'Tuesday',
-					3 => 'Wednesday',
-					4 => 'Thursday',
-					5 => 'Friday',
-					6 => 'Saturday',
-				);
+			// Array used for calculation of php strtotime relative dates
+			$weekday_array = array(
+				0 => 'Sunday',
+				1 => 'Monday',
+				2 => 'Tuesday',
+				3 => 'Wednesday',
+				4 => 'Thursday',
+				5 => 'Friday',
+				6 => 'Saturday',
+			);
 
-				// build an array with the "day" elements,
-				// each "day" is an array that contains the date and the associated all day / hourly events
-				foreach ( self::$day_range as $i => $day_number ) {
+			// build an array with the "day" elements,
+			// each "day" is an array that contains the date and the associated all day / hourly events
+			// $day_number corresponds to the day of the week in $weekday_array
+			foreach ( self::$day_range as $i => $day_number ) {
 
-					// figure out the $date that we're currently looking at
-					if ( $day_number >= self::$day_range[0] ) {
-						// usually we can just get the date for the next day
-						$date = date( 'Y-m-d', strtotime( $day . "+$i days" ) );
-					} else {
-						// fringe case - someone starts their week in the middle of the week, and is hiding weekends
-						// in this case, the "day number" will be less than the first day of the week,
-						// so we use a relative strtotime() calc
-						$date = date( 'Y-m-d', strtotime( "Next {$weekday_array[$day_number]}", strtotime( $day ) ) );
-					}
+				// figure out the $date that we're currently looking at
+				if ( $day_number >= self::$day_range[0] ) {
+					// usually we can just get the date for the next day
+					$date = date( 'Y-m-d', strtotime( $day . "+$i days" ) );
+				} else {
+					// fringe case - someone starts their week in the middle of the week
+					// in this case, the "day number" will be less than the first day of the week once the week has looped around
+					// so we use a relative strtotime() calc
+					$date = date( 'Y-m-d', strtotime( "Next {$weekday_array[$day_number]}", strtotime( $day ) ) );
+				}
 
-					$hourly_events      = array();
-					$all_day_events     = array();
+				$hourly_events  = array();
+				$all_day_events = array();
 
+				if ( $wp_query->have_posts() ) {
 					// loop through all the wordpress posts and sort them into all day vs hourly for the current $date
 					foreach ( $wp_query->posts as $j => $event ) {
 						if ( tribe_event_is_on_date( $date, $event ) ) {
@@ -303,25 +305,24 @@ if ( ! class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 							}
 						}
 					}
-
-					$display_format = apply_filters( 'tribe_events_pro_week_header_date_format', tribe_get_option( 'weekDayFormat', 'D jS' ) );
-					$formatted_date = date_i18n( $display_format, strtotime( $date ) );
-					$timestamp_date  = strtotime( $date );
-					$timestamp_today = strtotime( 'today' );
-
-					// create the "day" element
-					$week_days[] = array(
-						'date'           => $date,
-						'day_number'     => $day_number,
-						'formatted_date' => $formatted_date,
-						'is_today'       => ( $timestamp_date == $timestamp_today ) ? true : false,
-						'is_past'        => ( $timestamp_date < $timestamp_today ) ? true : false,
-						'is_future'      => ( $timestamp_date > $timestamp_today ) ? true : false,
-						'hourly_events'  => $hourly_events,
-						'all_day_events' => $all_day_events,
-						'has_events'     => $hourly_events || $all_day_events,
-					);
 				}
+				$display_format  = apply_filters( 'tribe_events_pro_week_header_date_format', tribe_get_option( 'weekDayFormat', 'D jS' ) );
+				$formatted_date  = date_i18n( $display_format, strtotime( $date ) );
+				$timestamp_date  = strtotime( $date );
+				$timestamp_today = strtotime( 'today' );
+
+				// create the "day" element
+				$week_days[] = array(
+					'date'           => $date,
+					'day_number'     => $day_number,
+					'formatted_date' => $formatted_date,
+					'is_today'       => ( $timestamp_date == $timestamp_today ) ? true : false,
+					'is_past'        => ( $timestamp_date < $timestamp_today ) ? true : false,
+					'is_future'      => ( $timestamp_date > $timestamp_today ) ? true : false,
+					'hourly_events'  => $hourly_events,
+					'all_day_events' => $all_day_events,
+					'has_events'     => $hourly_events || $all_day_events,
+				);
 			}
 			self::$week_days = $week_days;
 
