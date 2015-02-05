@@ -11,7 +11,7 @@
  * @todo remove in 4.0
  */
 function tribe_events_the_nav_attributes( $direction = 'prev', $deprecated = true ) {
-	_deprecated_function( __FUNCTION__, 3.10, );
+	_deprecated_function( __FUNCTION__, 3.10 );
 
 	if ( $deprecated ) {
 		echo tribe_events_week_the_nav_attributes( $direction );
