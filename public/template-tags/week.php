@@ -85,7 +85,7 @@ if ( class_exists( 'TribeEventsPro' ) ) {
 	 *
 	 * @return array|mixed|string|void
 	 */
-	function tribe_events_get_week_hours( $format = null ) {
+	function tribe_events_week_get_hours( $format = null ) {
 		$range = Tribe_Events_Pro_Week_Template::get_hour_range();
 		switch ( $format ) {
 			case 'raw':
@@ -101,7 +101,7 @@ if ( class_exists( 'TribeEventsPro' ) ) {
 
 		}
 
-		return apply_filters( 'tribe_events_get_week_hours', $range, $format );
+		return apply_filters( 'tribe_events_week_get_hours', $range, $format );
 	}
 
 	/**
@@ -111,9 +111,9 @@ if ( class_exists( 'TribeEventsPro' ) ) {
 	 *
 	 * @return array|mixed|string|void
 	 */
-	function tribe_events_get_displayed_days( $format = null ) {
+	function tribe_events_week_get_days( $format = null ) {
 		$days = Tribe_Events_Pro_Week_Template::get_day_range();
-		return apply_filters( 'tribe_events_get_displayed_days', $days, $format );
+		return apply_filters( 'tribe_events_week_get_days', $days, $format );
 	}
 
 	/**

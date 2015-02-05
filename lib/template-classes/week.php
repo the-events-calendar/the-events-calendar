@@ -36,7 +36,7 @@ if ( ! class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 		 *
 		 * @var int
 		 */
-		private static $current_day = -1;
+		private static $current_day = - 1;
 
 		/**
 		 * Keeps track of the last event displayed
@@ -49,7 +49,7 @@ if ( ! class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 		 * Range of hours to be shown on the week view
 		 *
 		 * @var array
-		 * @see hook tribe_events_get_week_hours
+		 * @see hook tribe_events_week_get_hours
 		 */
 
 		private static $hour_range;
@@ -74,12 +74,14 @@ if ( ! class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 		 */
 		function __construct() {
 			parent::__construct();
-			self::$hour_range = tribe_events_get_week_hours();
-			self::$day_range = tribe_events_get_displayed_days();
+			self::$hour_range = tribe_events_week_get_hours();
+			self::$day_range  = tribe_events_week_get_days();
 		}
 
 		/**
 		 * @return array
+		 *
+		 * @see tribe_events_week_get_hours()
 		 */
 		public static function get_hour_range() {
 			if ( isset( self::$hour_range ) ) {
@@ -105,18 +107,20 @@ if ( ! class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 		}
 
 		/**
+		 * @return array
 		 *
+		 * @see tribe_events_week_get_days()
 		 */
 		public static function get_day_range() {
 			if ( isset( self::$day_range ) ) {
 				return self::$day_range;
 			}
 
-			$start_of_week = get_option('start_of_week');
-			$days = range( $start_of_week, $start_of_week + 6 );
+			$start_of_week = get_option( 'start_of_week' );
+			$days          = range( $start_of_week, $start_of_week + 6 );
 			foreach ( $days as $i => $day ) {
 				if ( $day > 6 ) {
-					$days[$i] -= 7;
+					$days[ $i ] -= 7;
 				}
 			}
 
@@ -127,8 +131,9 @@ if ( ! class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 					}
 				}
 			}
-			$days = array_values( $days );
+			$days            = array_values( $days );
 			self::$day_range = $days;
+
 			return $days;
 		}
 
@@ -138,12 +143,36 @@ if ( ! class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 		 * @return void
 		 * */
 		function set_notices() {
-			// We have events to display, no need for notices!
-			if ( have_posts() ) {
-				return;
+
+			// no events this week
+			if ( ! $this->any_events() ) {
+				$this->nothing_found_notice();
 			}
 
-			$this->nothing_found_notice();
+		}
+
+		/**
+		 * Check if there are any events showing on the current week
+		 *
+		 * @return bool
+		 */
+		private function any_events() {
+
+			// there were no events returned from the query
+			if ( ! have_posts() ) {
+				return false;
+			}
+
+			// there were events returned from the query
+			// but don't return true unless they actually fit into the day/hour range we're showing
+			foreach ( self::$week_days as $day ) {
+				if ( $day['has_events'] ) {
+					return true;
+				}
+			}
+
+			return false;
+
 		}
 
 		/**
@@ -176,7 +205,10 @@ if ( ! class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 			add_filter( 'tribe_events_header_attributes', array( $this, 'header_attributes' ), 10, 2 );
 			add_action( 'tribe_events_week_pre_setup_event', array( $this, 'manage_sensitive_info' ) );
 			add_action( 'tribe_pre_get_template_part_pro/week/loop', array( $this, 'rewind_days' ) );
-			add_action( 'tribe_post_get_template_part_pro/week/single-event', array( $this, 'set_previous_event' ), 10, 3 );
+			add_action( 'tribe_post_get_template_part_pro/week/single-event', array(
+				$this,
+				'set_previous_event'
+			), 10, 3 );
 			add_action( 'tribe_pre_get_template_part_pro/week/single-event', array( $this, 'set_global_post' ), 10, 3 );
 		}
 
@@ -187,7 +219,7 @@ if ( ! class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 		 * @param $name
 		 * @param $data
 		 */
-		public function set_global_post($slug, $name, $data) {
+		public function set_global_post( $slug, $name, $data ) {
 			$GLOBALS['post'] = $data['event'];
 		}
 
@@ -199,7 +231,7 @@ if ( ! class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 		 * @param $name
 		 * @param $data
 		 */
-		public function set_previous_event($slug, $name, $data) {
+		public function set_previous_event( $slug, $name, $data ) {
 			self::$previous_event = $data['event'];
 		}
 
@@ -232,6 +264,7 @@ if ( ! class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 			$attrs['data-startofweek'] = get_option( 'start_of_week' );
 			$attrs['data-baseurl']     = tribe_get_week_permalink( null, false );
 			$attrs['data-date']        = Date( 'Y-m-d', strtotime( $wp_query->get( 'start_date' ) ) );
+
 			return apply_filters( 'tribe_events_pro_header_attributes', $attrs, $current_view );
 		}
 
@@ -253,7 +286,7 @@ if ( ! class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 			global $wp_query;
 			$week_days = array();
 
-			$day      = $wp_query->get( 'start_date' );
+			$day = $wp_query->get( 'start_date' );
 
 			// Array used for calculation of php strtotime relative dates
 			$weekday_array = array(
@@ -296,8 +329,8 @@ if ( ! class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 								$all_day_events[] = $event;
 							} else {
 								// if the event starts after the end of the hour range we're displaying, or ends before the start, skip it
-								$end_hour_today   = $date . ' ' . tribe_events_get_week_hours( 'last-hour' );
-								$start_hour_today = $date . ' ' . tribe_events_get_week_hours( 'first-hour' );
+								$end_hour_today   = $date . ' ' . tribe_events_week_get_hours( 'last-hour' );
+								$start_hour_today = $date . ' ' . tribe_events_week_get_hours( 'first-hour' );
 								if ( tribe_get_start_time( $event, 'U' ) > strtotime( $end_hour_today ) || tribe_get_end_time( $event, 'U' ) < strtotime( $start_hour_today ) ) {
 									continue;
 								}
@@ -342,7 +375,7 @@ if ( ! class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 		 *
 		 * @return array
 		 */
-		public static function get_event_attributes($event) {
+		public static function get_event_attributes( $event ) {
 
 			$attrs = array();
 
@@ -353,9 +386,9 @@ if ( ! class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 				$attrs['data-hour'] = 'all-day';
 			} else {
 				$start_of_day_timestamp = self::get_rounded_beginning_of_day( self::get_current_date() );
-				$end_of_day_timestamp = self::get_rounded_end_of_day( self::get_current_date() ) + HOUR_IN_SECONDS;
-				$data_hour = date( 'G', $event_start_timestamp );
-				$data_min  = date( 'i', $event_start_timestamp );
+				$end_of_day_timestamp   = self::get_rounded_end_of_day( self::get_current_date() ) + HOUR_IN_SECONDS;
+				$data_hour              = date( 'G', $event_start_timestamp );
+				$data_min               = date( 'i', $event_start_timestamp );
 				if ( $event_start_timestamp < $start_of_day_timestamp ) {
 					if ( $event_end_timestamp > $end_of_day_timestamp ) {
 						// if there is a day in between start/end we just want to fill the spacer with the total mins in the day.
@@ -363,11 +396,11 @@ if ( ! class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 					} else {
 						$duration = ( $event_end_timestamp - $start_of_day_timestamp ) / 60;
 					}
-					$data_hour              = date( 'G', $start_of_day_timestamp );
-					$data_min               = date( 'i', $start_of_day_timestamp );
+					$data_hour = date( 'G', $start_of_day_timestamp );
+					$data_min  = date( 'i', $start_of_day_timestamp );
 				} elseif ( $event_end_timestamp > $end_of_day_timestamp ) {
 					// if the event is longer than a day we want to account for that with an offset
-					$duration  = ( $end_of_day_timestamp - $event_start_timestamp ) / 60;
+					$duration = ( $end_of_day_timestamp - $event_start_timestamp ) / 60;
 				} else {
 					// for a default event continue as everything is normal
 					$remaining_minutes_in_day = ( $end_of_day_timestamp - $event_start_timestamp / 60 );
@@ -381,6 +414,7 @@ if ( ! class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 				$attrs['data-hour']     = $data_hour;
 				$attrs['data-min']      = $data_min;
 			}
+
 			return $attrs;
 
 		}
@@ -440,19 +474,20 @@ if ( ! class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 		 * @return date( 'Y-m-d' )
 		 */
 		public static function get_current_date() {
-			return date_i18n( 'Y-m-d', strtotime( self::$week_days[self::$current_day]['date'] ) );
+			return date_i18n( 'Y-m-d', strtotime( self::$week_days[ self::$current_day ]['date'] ) );
 		}
 
 		/**
 		 *
 		 */
 		public static function day_header_classes() {
-			$day = self::get_current_day();
+			$day     = self::get_current_day();
 			$classes = 'column';
 			$classes .= ' tribe-week-day-header-' . $day['day_number'] . ' ';
 			if ( $day['is_today'] ) {
 				$classes .= ' tribe-week-today';
 			}
+
 			return $classes;
 		}
 
@@ -464,7 +499,7 @@ if ( ! class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 		public static function column_classes() {
 
 			$day     = self::$week_days[ self::$current_day ];
-			$classes = 'tribe-events-mobile-day column tribe-events-day-column-' . $day['day_number']. ' ';
+			$classes = 'tribe-events-mobile-day column tribe-events-day-column-' . $day['day_number'] . ' ';
 
 			// Present
 			if ( $day['is_today'] ) {
@@ -526,9 +561,10 @@ if ( ! class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 		protected static function get_rounded_beginning_of_day( $date, $format = 'U' ) {
 			$beginning_of_day = tribe_event_beginning_of_day( $date, 'U' );
 			reset( self::$hour_range );
-			$date = max( $beginning_of_day, strtotime( $date . ' ' . tribe_events_get_week_hours( 'first-hour' ) ) );
-			$date             = date( 'Y-m-d H:00:00', $date );
+			$date = max( $beginning_of_day, strtotime( $date . ' ' . tribe_events_week_get_hours( 'first-hour' ) ) );
+			$date = date( 'Y-m-d H:00:00', $date );
 			$date = date( $format, strtotime( $date ) );
+
 			return $date;
 		}
 
@@ -543,7 +579,7 @@ if ( ! class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 		protected static function get_rounded_end_of_day( $date, $format = 'U' ) {
 			$end_of_day = ( (int) tribe_event_end_of_day( $date, 'U' ) ) + 1;
 			end( self::$hour_range );
-			$date = min( $end_of_day, strtotime( $date . ' ' . tribe_events_get_week_hours( 'last-hour' ) ) );
+			$date = min( $end_of_day, strtotime( $date . ' ' . tribe_events_week_get_hours( 'last-hour' ) ) );
 			$date = date( 'Y-m-d H:00:00', $date );
 			$date = date( $format, strtotime( $date ) );
 

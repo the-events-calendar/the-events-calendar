@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
-$hours = tribe_events_get_week_hours();
+$hours = tribe_events_week_get_hours();
 
 ?>
 <div class="tribe-week-grid-wrapper tribe-scroller">
