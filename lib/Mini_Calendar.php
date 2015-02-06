@@ -164,6 +164,11 @@ class Tribe__Events__Pro__Mini_Calendar {
 
 		$this->args = $args;
 
+		// Disable tooltips
+		$ecp            = Tribe__Events__Pro__Events_Pro::instance();
+		$tooltip_status = $ecp->recurring_info_tooltip_status();
+		$ecp->disable_recurring_info_tooltip();
+
 		if ( ! isset( $this->args['eventDate'] ) ) {
 			$this->args['eventDate'] = $this->get_month();
 		}
@@ -182,6 +187,10 @@ class Tribe__Events__Pro__Mini_Calendar {
 		}
 
 		tribe_get_template_part( 'pro/widgets/mini-calendar-widget' );
+
+		if ( $tooltip_status ) {
+			$ecp->enable_recurring_info_tooltip();
+		}
 
 	}
 
