@@ -6,10 +6,11 @@ if ( ! function_exists( 'tribe_is_day' ) ) {
 	 *
 	 * Returns true if the query is set for single day, false otherwise
 	 *
+	 * @category Events
 	 * @return bool
 	 */
 	function tribe_is_day() {
-		$tribe_ecp = TribeEvents::instance();
+		$tribe_ecp = Tribe__Events__Events::instance();
 		$is_day    = ( $tribe_ecp->displaying == 'day' ) ? true : false;
 
 		return apply_filters( 'tribe_is_day', $is_day );
@@ -21,12 +22,13 @@ if ( ! function_exists( 'tribe_get_day_link' ) ) {
 	/**
 	 * Link Event Day
 	 *
+	 * @category Events
 	 * @param string $date
 	 *
 	 * @return string URL
 	 */
 	function tribe_get_day_link( $date = null ) {
-		$tribe_ecp = TribeEvents::instance();
+		$tribe_ecp = Tribe__Events__Events::instance();
 
 		return apply_filters( 'tribe_get_day_link', $tribe_ecp->getLink( 'day', $date ), $date );
 	}
@@ -38,6 +40,7 @@ if ( ! function_exists( 'tribe_get_linked_day' ) ) {
 	 *
 	 * Get a link to day view
 	 *
+	 * @category Events
 	 * @param string $date
 	 * @param string $day
 	 *
@@ -57,6 +60,7 @@ if ( ! function_exists( 'tribe_the_day_link' ) ) {
 	/**
 	 * Output an html link to a day
 	 *
+	 * @category Events
 	 * @param string $date 'previous day', 'next day', 'yesterday', 'tomorrow', or any date string that strtotime() can parse
 	 * @param string $text text for the link
 	 *
@@ -73,8 +77,8 @@ if ( ! function_exists( 'tribe_the_day_link' ) ) {
 			$date = tribe_get_the_day_link_date( $date );
 			$link = tribe_get_day_link( $date );
 
-			$earliest = tribe_events_earliest_date( TribeDateUtils::DBDATEFORMAT );
-			$latest   = tribe_events_latest_date( TribeDateUtils::DBDATEFORMAT );
+			$earliest = tribe_events_earliest_date( Tribe__Events__Date_Utils::DBDATEFORMAT );
+			$latest   = tribe_events_latest_date( Tribe__Events__Date_Utils::DBDATEFORMAT );
 
 			if ( $date >= $earliest && $date <= $latest ) {
 				$html = '<a href="' . $link . '" data-day="' . $date . '" rel="prev">' . $text . '</a>';
@@ -91,6 +95,7 @@ if ( ! function_exists( 'tribe_get_the_day_link_label' ) ) {
 	/**
 	 * Get the label for the day navigation link
 	 *
+	 * @category Events
 	 * @param string $date_description
 	 *
 	 * @return string
@@ -117,6 +122,7 @@ if ( ! function_exists( 'tribe_get_the_day_link_date' ) ) {
 	/**
 	 * Get the date for the day navigation link.
 	 *
+	 * @category Events
 	 * @param string $date_description
 	 *
 	 * @return string
@@ -124,7 +130,7 @@ if ( ! function_exists( 'tribe_get_the_day_link_date' ) ) {
 	 */
 	function tribe_get_the_day_link_date( $date_description ) {
 		if ( is_null( $date_description ) ) {
-			return TribeEventsPro::instance()->todaySlug;
+			return Tribe__Events__Pro__Events_Pro::instance()->todaySlug;
 		}
 		if ( $date_description == 'previous day' ) {
 			return tribe_get_previous_day_date( get_query_var( 'start_date' ) );
@@ -141,6 +147,7 @@ if ( ! function_exists( 'tribe_get_next_day_date' ) ) {
 	/**
 	 * Get the next day's date
 	 *
+	 * @category Events
 	 * @param string $start_date
 	 *
 	 * @return string
@@ -162,6 +169,7 @@ if ( ! function_exists( 'tribe_get_previous_day_date' ) ) {
 	/**
 	 * Get the previous day's date
 	 *
+	 * @category Events
 	 * @param string $start_date
 	 *
 	 * @return string

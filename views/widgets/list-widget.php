@@ -24,6 +24,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
+$events_label_plural = tribe_get_event_label_plural();
+
 //Check if any posts were found
 if ( $posts ) {
 	?>
@@ -60,14 +62,14 @@ if ( $posts ) {
 	</ol><!-- .hfeed -->
 
 	<p class="tribe-events-widget-link">
-		<a href="<?php echo tribe_get_events_link(); ?>" rel="bookmark"><?php _e( 'View All Events', 'tribe-events-calendar' ); ?></a>
+		<a href="<?php echo tribe_get_events_link(); ?>" rel="bookmark"><?php printf( __( 'View All %s', 'tribe-events-calendar' ), $events_label_plural ); ?></a>
 	</p>
 
 	<?php
 	//No Events were Found
 } else {
 	?>
-	<p><?php _e( 'There are no upcoming events at this time.', 'tribe-events-calendar' ); ?></p>
+	<p><?php printf( __( 'There are no upcoming %s at this time.', 'tribe-events-calendar' ), strtolower( $events_label_plural ) ); ?></p>
 <?php
 }
 ?>

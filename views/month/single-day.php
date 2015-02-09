@@ -3,7 +3,7 @@
  * Month View Single Day
  * This file contains one day in the month grid
  *
- * Override this template in your own theme by creating a file at [your-theme]/tribe-events/month/single-day.php
+ * Override this template in your own theme by creating a file at [your-theme]/tribe-events/month/single-Day.php
  *
  * @package TribeEventsCalendar
  *
@@ -11,9 +11,11 @@
 
 if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
-} ?>
+} 
 
-<?php
+$events_label_singular = tribe_get_event_label_singular();
+$events_label_plural = tribe_get_event_label_plural();
+
 $day = tribe_events_get_current_month_day();
 ?>
 
@@ -38,7 +40,7 @@ $day = tribe_events_get_current_month_day();
 	<div class="tribe-events-viewmore">
 		<?php
 
-		$view_all_label = sprintf( _n( 'View 1 Event', 'View All %s Events', $day['total_events'], 'tribe-events-calendar' ), $day['total_events'] );
+			$view_all_label = sprintf( _n( 'View 1 %1$s', 'View All %2$s %3$s', $day['total_events'], 'tribe-events-calendar' ), $events_label_singular, $day['total_events'], $events_label_plural );
 
 		?>
 		<a href="<?php echo $day['view_more'] ?>"><?php echo $view_all_label ?> &raquo;</a>

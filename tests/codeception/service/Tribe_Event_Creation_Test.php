@@ -7,7 +7,7 @@
  *
  * @package TribeEvents
  */
-class Tribe_Event_Creation_Test extends WP_UnitTestCase {
+class Tribe_Event_Creation_Test extends Tribe__Events__WP_UnitTestCase {
 
 	/**
 	 * @var holds example data for the post
@@ -77,7 +77,7 @@ class Tribe_Event_Creation_Test extends WP_UnitTestCase {
 	 * @uses $postExampleSettings
 	 */
 	function test_tribe_create_event_API_post_object_created() {
-		$post = get_post( TribeEventsAPI::createEvent( $this->postExampleSettings ) );
+		$post = get_post( Tribe__Events__API::createEvent( $this->postExampleSettings ) );
 
 		$this->assertInternalType( 'object', $post );
 	}
@@ -87,7 +87,7 @@ class Tribe_Event_Creation_Test extends WP_UnitTestCase {
 	 *
 	 */
 	function test_tribe_create_event_API_meta_information() {
-		$post = get_post( TribeEventsAPI::createEvent( $this->postExampleSettings ) );
+		$post = get_post( Tribe__Events__API::createEvent( $this->postExampleSettings ) );
 
 		$this->assertEquals( 3, $post->post_author );
 		$this->assertEquals( 'This is event content!', $post->post_content );
