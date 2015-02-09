@@ -75,8 +75,8 @@ if ( ! class_exists( 'Tribe__Events__Pro__Templates__Map' ) ) {
 				$defaults[ Tribe__Events__Events::TAXONOMY ] = $_POST['tribe_event_category'];
 			}
 
-			if ( isset( $_POST[ Tribe__Events__Query::TAXONOMY ] ) ) {
-				$defaults[ Tribe__Events__Query::TAXONOMY ] = $_POST[ Tribe__Events__Query::TAXONOMY ];
+			if ( isset( $_POST[ Tribe__Events__Events::TAXONOMY ] ) ) {
+				$defaults[ Tribe__Events__Events::TAXONOMY ] = $_POST[ Tribe__Events__Events::TAXONOMY ];
 			}
 
 			$query       = Tribe__Events__Query::getEvents( $defaults, true );
