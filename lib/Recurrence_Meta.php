@@ -200,7 +200,7 @@ class Tribe__Events__Pro__Recurrence_Meta {
 			}
 			if ( ! empty( $actions['untrash'] ) ) { // if the whole series is in the trash, restore the whole series together
 				$first_event = get_post( $first_id_in_series );
-				if ( $first_event->post_status == 'trash' ) {
+				if ( isset($first_event->post_status) && $first_event->post_status == 'trash' ) {
 					$actions['untrash'] = "<a title='" . esc_attr( __( 'Restore all events in this series from the Trash', 'tribe-events-calendar-pro' ) ) . "' href='" . wp_nonce_url( admin_url( sprintf( $post_type_object->_edit_link . '&amp;action=untrash', $first_id_in_series ) ), 'untrash-post_' . $first_id_in_series ) . "'>" . __( 'Restore Series', 'tribe-events-calendar-pro' ) . "</a>";
 				}
 			}
