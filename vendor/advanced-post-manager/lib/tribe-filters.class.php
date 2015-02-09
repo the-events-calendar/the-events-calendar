@@ -415,7 +415,7 @@ class Tribe_Filters {
 		if ( $current_screen->id == 'edit-' . $this->filtered_post_type ) {
 			wp_enqueue_style('tribe-jquery-ui', 'https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.10/themes/base/jquery-ui.css', array(), '1.8.10' );
 			wp_enqueue_script('tribe-jquery-ui-datepicker', $resources_url . 'jquery-ui-datepicker.js', array('jquery-ui-core'), null, true );
-			wp_enqueue_script('tribe-filters', $resources_url . 'tribe-filters.js', array('jquery-ui-sortable', 'tribe-jquery-ui-datepicker'), apply_filters( 'tribe_events_pro_js_version', TribeEventsPro::VERSION ), true );
+			wp_enqueue_script('tribe-filters', $resources_url . 'tribe-filters.js', array('jquery-ui-sortable', 'tribe-jquery-ui-datepicker'), apply_filters( 'tribe_events_pro_js_version', Tribe__Events__Pro__Events_Pro::VERSION ), true );
 		}
 	}
 

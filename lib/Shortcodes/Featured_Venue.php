@@ -49,7 +49,7 @@ class Tribe__Events__Pro__Shortcodes__Featured_Venue {
 
 		ob_start();
 		// We use $this->arguments for both the args and the instance vars here
-		the_widget( 'TribeVenueWidget', $this->arguments, $this->arguments );
+		the_widget( 'Tribe__Events__Pro__Venue_Widget', $this->arguments, $this->arguments );
 		$this->output = ob_get_clean();
 	}
 
@@ -78,7 +78,7 @@ class Tribe__Events__Pro__Shortcodes__Featured_Venue {
 	 */
 	protected function set_by_slug() {
 		$venues = get_posts( array(
-			'post_type' => TribeEvents::VENUE_POST_TYPE,
+			'post_type' => Tribe__Events__Events::VENUE_POST_TYPE,
 			'name' => $this->arguments['slug'],
 			'posts_per_page' => 1
 		) );
