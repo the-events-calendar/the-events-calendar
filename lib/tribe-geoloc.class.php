@@ -276,7 +276,7 @@ class TribeEventsGeoLoc {
 		$overwrite_coords = (bool) get_post_meta( $post->ID, self::OVERWRITE, true );
 		?>
 		<tr id="overwrite_coordinates">
-			<td class='tribe-table-field-label'><?php esc_attr_e( 'Coodinates Overwrite', 'tribe-events-calendar' ); ?>:</td>
+			<td class='tribe-table-field-label'><?php esc_attr_e( 'Use latitude + longitude', 'tribe-events-calendar' ); ?>:</td>
 			<td>
 				<input tabindex="<?php tribe_events_tab_index(); ?>" type="checkbox" id="VenueOverwriteCoords" name="venue[OverwriteCoords]" value="true" <?php checked( $overwrite_coords ); ?> />
 
