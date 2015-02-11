@@ -255,7 +255,7 @@
 				var link_height,
 					title_height = ( $event_link.css('height', 'auto').height() ) + 5;
 
-				link_height = ( title_height > ( event_length - 16 ) ) ? ( title_height - 16 ) : ( event_length - 16 );
+				link_height = ( title_height > event_length ) ? ( title_height ) : ( event_length - 16 );
 
 				var	event_height = link_height + 16,
 					link_setup = {"height": link_height + "px"};

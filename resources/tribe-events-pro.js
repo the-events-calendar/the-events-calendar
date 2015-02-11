@@ -162,7 +162,7 @@ if ( Object.prototype.hasOwnProperty.call( window, 'tribe_ev' ) ) {
 								$tip = $this.find( '.tribe-events-tooltip' );
 							}
 
-							var $wrapper = $( '.tribe-week-grid-wrapper' );
+							var $wrapper = $( '.tribe-week-grid-wrapper .scroller-content' );
 							var $parent = $this.parent();
 							var $container = $parent.parent();
 
