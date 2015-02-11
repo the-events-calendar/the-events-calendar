@@ -201,21 +201,23 @@ jQuery( document ).ready( function( $ ) {
 		}
 
 		savedVenue.change( function() {
-			var selected_venue_id = $(this).val();
+			var selected_venue_id = $(this).val(),
+				current_edit_link = $('.edit-venue-link a').attr( 'data-admin-url' );
 
 			if ( selected_venue_id == '0' ) {
 				venueFields.fadeIn();
 				$( "#EventCountry" ).val( 0 ).trigger( "chosen:updated" );
 				$( "#StateProvinceSelect" ).val( 0 ).trigger( "chosen:updated" );
 				tribeShowHideCorrectStateProvinceInput( '' );
-				$('.edit-venue-link').hide();			
+				$('.edit-venue-link').hide();
 			}
 			else {
 				venueFields.fadeOut();
 				$('.edit-venue-link').show();
 
 				// Change edit link
-				$('.edit-venue-link a').attr( 'href', '/wp-admin/post.php?post='+ selected_venue_id +'&action=edit' );
+				
+				$('.edit-venue-link a').attr( 'href', current_edit_link + selected_venue_id );
 			}
 		} );
 		// hide unnecessary fields
@@ -228,18 +230,19 @@ jQuery( document ).ready( function( $ ) {
 		}
 
 		savedorganizer.change( function() {
-			var selected_organizer_id = $(this).val();
+			var selected_organizer_id = $(this).val(),
+				current_edit_link = $('.edit-organizer-link a').attr( 'data-admin-url' );
 
 			if ( selected_organizer_id == '0' ) {
 				organizerFields.fadeIn();
-				$('.edit-organizer-link').hide();	
+				$('.edit-organizer-link').hide();
 			}
 			else {
 				organizerFields.fadeOut();
 				$('.edit-organizer-link').show();
 
 				// Change edit link
-				$('.edit-organizer-link a').attr( 'href', '/wp-admin/post.php?post='+ selected_organizer_id +'&action=edit' );
+				$('.edit-organizer-link a').attr( 'href', current_edit_link + selected_organizer_id );
 			}
 		} );
 	}

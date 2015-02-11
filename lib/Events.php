@@ -1310,10 +1310,11 @@ if ( ! class_exists( 'Tribe__Events__Events' ) ) {
 				$VenueID = $this->defaults()->venue_id();
 			}
 			$VenueID = apply_filters( 'tribe_display_event_venue_dropdown_id', $VenueID );
+
 			?>
 			<tr class="">
 				<td style="width:170px"><?php printf( __('Use Saved %s:', 'tribe-events-calendar'), $this->singular_venue_label ); ?></td>
-				<td><?php $this->saved_venues_dropdown( $VenueID ); ?> <div class="edit-venue-link" <?php if( empty( $VenueID ) ) { ?>style="display:none;"<?php } ?>><a href="/wp-admin/post.php?post=<?php echo $VenueID; ?>&action=edit" target="_blank"><?php printf( __( 'Edit %s', 'tribe-events-calendar' ), $this->singular_venue_label ); ?></a></div></td>
+				<td><?php $this->saved_venues_dropdown( $VenueID ); ?> <div class="edit-venue-link" <?php if( empty( $VenueID ) ) { ?>style="display:none;"<?php } ?>><a data-admin-url="<?php echo admin_url('post.php?action=edit&post=' ); ?>" href="<?php echo admin_url( sprintf( 'post.php?action=edit&post=%s', $VenueID ) ); ?>" target="_blank"><?php printf( __( 'Edit %s', 'tribe-events-calendar' ), $this->singular_venue_label ); ?></a></div></td>
 			</tr>
 		<?php
 		}
@@ -1338,7 +1339,7 @@ if ( ! class_exists( 'Tribe__Events__Events' ) ) {
 				<td style="width:170px">
 					<label for="saved_organizer"><?php printf( __( 'Use Saved %s:', 'tribe-events-calendar' ), $this->singular_organizer_label ); ?></label>
 				</td>
-				<td><?php $this->saved_organizers_dropdown( $curOrg ); ?> <div class="edit-organizer-link"<?php if( empty( $curOrg ) ) { ?> style="display:none;"<?php } ?>><a href="/wp-admin/post.php?post=<?php echo $curOrg; ?>&action=edit" target="_blank"><?php printf( __( 'Edit %s', 'tribe-events-calendar' ), $this->singular_organizer_label ); ?></a></div></td>
+				<td><?php $this->saved_organizers_dropdown( $curOrg ); ?> <div class="edit-organizer-link"<?php if( empty( $curOrg ) ) { ?> style="display:none;"<?php } ?>><a data-admin-url="<?php echo admin_url('post.php?action=edit&post=' ); ?>" href="<?php echo admin_url( sprintf( 'post.php?action=edit&post=%s', $curOrg ) ); ?>" target="_blank"><?php printf( __( 'Edit %s', 'tribe-events-calendar' ), $this->singular_organizer_label ); ?></a></div></td>
 			</tr>
 		<?php
 		}

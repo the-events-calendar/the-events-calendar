@@ -317,7 +317,7 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 			}
 
 			// hide upcoming events from query (only not in admin)
-			if ( $query->tribe_is_event_query && $query->get( 'hide_upcoming' ) ) {
+			if ( $query->tribe_is_event_query && $query->get( 'hide_upcoming' ) && !$query->get( 'suppress_filters' ) ) {
 				$hide_upcoming_ids = self::getHideFromUpcomingEvents();
 				if ( ! empty( $hide_upcoming_ids ) ) {
 					$query->set( 'post__not_in', $hide_upcoming_ids );
