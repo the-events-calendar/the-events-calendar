@@ -5,7 +5,7 @@
  *
  * Override this template in your own theme by creating a file at [your-theme]/tribe-events/tickets/email.php
  *
- * This file is being included in events/lib/tickets/tribe-tickets.php
+ * This file is being included in events/lib/tickets/tribe-TicketsTickets.php
  *  in the function generate_tickets_email_content. That function has a $tickets
  *  array with elements that have this fields:
  *        $tickets[] = array( 'event_id',
@@ -20,7 +20,7 @@
  */
 ?>
 <?php
-// This file is being included in events/lib/tickets/tribe-tickets.php
+// This file is being included in events/lib/tickets/tribe-TicketsTickets.php
 // in the function generate_tickets_email_content. That function has a $tickets
 // array with elements that have this fields:
 //		$tickets[] =   array( 'event_id',
@@ -248,7 +248,7 @@
 				}
 
 				$event      = get_post( $ticket["event_id"] );
-				$header_id  = TribeEventsTicketsPro::instance()->get_header_image_id( $ticket['event_id'] );
+				$header_id  = Tribe__Events__Tickets__Tickets_Pro::instance()->get_header_image_id( $ticket['event_id'] );
 				$header_img = false;
 				if ( ! empty( $header_id ) ) {
 					$header_img = wp_get_attachment_image_src( $header_id, 'full' );

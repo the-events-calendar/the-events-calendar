@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
-if ( class_exists( 'TribeEvents' ) ) {
+if ( class_exists( 'Tribe__Events__Events' ) ) {
 
 	/**
 	 * Organizer ID
@@ -22,10 +22,10 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 * @return int Organizer
 	 */
 	function tribe_get_organizer_id( $postId = null ) {
-		$postId       = TribeEvents::postIdHelper( $postId );
+		$postId       = Tribe__Events__Events::postIdHelper( $postId );
 		$organizer_id = null;
 		if ( is_numeric( $postId ) && $postId > 0 ) {
-			$tribe_ecp = TribeEvents::instance();
+			$tribe_ecp = Tribe__Events__Events::instance();
 			// check if $postId is an organizer id
 			if ( $tribe_ecp->isOrganizer( $postId ) ) {
 				$organizer_id = $postId;
@@ -69,7 +69,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 * @return string Organizer's Name
 	 */
 	function tribe_get_organizer( $postId = null ) {
-		$postId       = TribeEvents::postIdHelper( $postId );
+		$postId       = Tribe__Events__Events::postIdHelper( $postId );
 		$organizer_id = (int) tribe_get_organizer_id( $postId );
 		$output       = '';
 		if ( $organizer_id > 0 ) {
@@ -89,7 +89,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 * @return bool
 	 */
 	function tribe_has_organizer( $postId = null ) {
-		$postId        = TribeEvents::postIdHelper( $postId );
+		$postId        = Tribe__Events__Events::postIdHelper( $postId );
 		$has_organizer = ( tribe_get_organizer_id( $postId ) > 0 ) ? true : false;
 
 		return apply_filters( 'tribe_has_organizer', $has_organizer );
@@ -105,7 +105,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 * @return string Organizer's Email
 	 */
 	function tribe_get_organizer_email( $postId = null ) {
-		$postId = TribeEvents::postIdHelper( $postId );
+		$postId = Tribe__Events__Events::postIdHelper( $postId );
 		$output = esc_html( tribe_get_event_meta( tribe_get_organizer_id( $postId ), '_OrganizerEmail', true ) );
 
 		return apply_filters( 'tribe_get_organizer_email', $output );
@@ -123,8 +123,8 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 * @return string Organizer Name and Url
 	 */
 	function tribe_get_organizer_link( $postId = null, $full_link = true, $echo = true ) {
-		$postId = TribeEvents::postIdHelper( $postId );
-		if ( class_exists( 'TribeEventsPro' ) ) {
+		$postId = Tribe__Events__Events::postIdHelper( $postId );
+		if ( class_exists( 'Tribe__Events__Pro__Events_Pro' ) ) {
 			$url = esc_url( get_permalink( tribe_get_organizer_id( $postId ) ) );
 			if ( $full_link ) {
 				$name = tribe_get_organizer( $postId );
@@ -151,7 +151,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 * @return string Organizer's Phone Number
 	 */
 	function tribe_get_organizer_phone( $postId = null ) {
-		$postId = TribeEvents::postIdHelper( $postId );
+		$postId = Tribe__Events__Events::postIdHelper( $postId );
 		$output = esc_html( tribe_get_event_meta( tribe_get_organizer_id( $postId ), '_OrganizerPhone', true ) );
 
 		return apply_filters( 'tribe_get_organizer_phone', $output );
@@ -168,7 +168,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 **/
 	if ( ! function_exists( 'tribe_get_organizer_website_url' ) ) { // wrapped in if function exists to maintain compatibility with community events 3.0.x. wrapper not needed after 3.1.x.
 		function tribe_get_organizer_website_url( $postId = null ) {
-			$postId = TribeEvents::postIdHelper( $postId );
+			$postId = Tribe__Events__Events::postIdHelper( $postId );
 			$output = esc_url( tribe_get_event_meta( tribe_get_organizer_id( $postId ), '_OrganizerWebsite', true ) );
 
 			return apply_filters( 'tribe_get_organizer_website_url', $output );
@@ -222,7 +222,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 			_deprecated_argument( __FUNCTION__, '3.0', 'This parameter is no longer supported.' );
 		}
 
-		$organizers = get_posts( array( 'post_type'      => TribeEvents::ORGANIZER_POST_TYPE,
+		$organizers = get_posts( array( 'post_type'      => Tribe__Events__Events::ORGANIZER_POST_TYPE,
 										'posts_per_page' => $posts_per_page
 			)
 		);

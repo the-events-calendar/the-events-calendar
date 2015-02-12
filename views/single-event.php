@@ -4,7 +4,7 @@
  * A single event. This displays the event title, description, meta, and
  * optionally, the Google map for the event.
  *
- * Override this template in your own theme by creating a file at [your-theme]/tribe-events/single-event.php
+ * Override this template in your own theme by creating a file at [your-theme]/tribe-events/Single_Event.php
  *
  * @package TribeEventsCalendar
  *
@@ -82,7 +82,7 @@ $event_id = get_the_ID();
 			?>
 			<?php do_action( 'tribe_events_single_event_after_the_meta' ) ?>
 		</div> <!-- #post-x -->
-		<?php if ( get_post_type() == TribeEvents::POSTTYPE && tribe_get_option( 'showComments', false ) ) comments_template() ?>
+		<?php if ( get_post_type() == Tribe__Events__Events::POSTTYPE && tribe_get_option( 'showComments', false ) ) comments_template() ?>
 	<?php endwhile; ?>
 
 	<!-- Event footer -->

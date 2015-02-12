@@ -20,7 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 ?>
 <?php do_action( 'tribe_events_venue_before_metabox', $post ); ?>
-<?php if ( $post->post_type != TribeEvents::VENUE_POST_TYPE ): ?>
+<?php if ( $post->post_type != Tribe__Events__Events::VENUE_POST_TYPE ): ?>
 	<tr class="venue">
 		<td class='tribe-table-field-label'><?php printf( __( '%s Name:', 'tribe-events-calendar' ), tribe_get_venue_label_singular() ); ?></td>
 		<td>
@@ -48,7 +48,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<td class='tribe-table-field-label'><?php _e( 'Country:', 'tribe-events-calendar' ); ?></td>
 	<td>
 		<?php
-		$countries = TribeEventsViewHelpers::constructCountries( $postId );
+		$countries = Tribe__Events__View_Helpers::constructCountries( $event->ID );
 		$defaultCountry = tribe_get_default_value( 'country' );
 		if ( isset( $_VenueCountry ) && $_VenueCountry ) {
 			$current = $_VenueCountry;
@@ -91,7 +91,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<select class="chosen" tabindex="<?php tribe_events_tab_index(); ?>" id="StateProvinceSelect" name="venue[State]">
 			<option value=""><?php _e( 'Select a State:', 'tribe-events-calendar' ); ?></option>
 			<?php
-			foreach ( TribeEventsViewHelpers::loadStates() as $abbr => $fullname ) {
+			foreach ( Tribe__Events__View_Helpers::loadStates() as $abbr => $fullname ) {
 				echo '<option value="' . $abbr . '"';
 				selected( ( ( $_VenueStateProvince != - 1 ? $_VenueStateProvince : $currentState ) == $abbr ) );
 				echo '>' . esc_html( $fullname ) . '</option>';
@@ -127,11 +127,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 $google_map_toggle = false;
 $google_map_link_toggle = false;
 
-if ( $post->post_type != TribeEvents::VENUE_POST_TYPE ) {
+if ( $post->post_type != Tribe__Events__Events::VENUE_POST_TYPE ) {
 
 	if ( tribe_get_option( 'embedGoogleMaps', true ) ) { // Only show if embed option selected
 
-		$google_map_toggle = ( tribe_embed_google_map( $postId ) || get_post_status( $postId ) == 'auto-draft' ) ? true : false;
+		$google_map_toggle = ( tribe_embed_google_map( $event->ID ) || get_post_status( $event->ID ) == 'auto-draft' ) ? true : false;
 		?>
 		<tr id="google_map_toggle">
 			<td class='tribe-table-field-label'><?php _e( 'Show Google Map:', 'tribe-events-calendar' ); ?></td>
@@ -141,7 +141,7 @@ if ( $post->post_type != TribeEvents::VENUE_POST_TYPE ) {
 		</tr>
 	<?php
 	}
-	$google_map_link_toggle = ( get_post_status( $postId ) == 'auto-draft' && $google_map_toggle ) ? true : get_post_meta( $postId, '_EventShowMapLink', true );
+	$google_map_link_toggle = ( get_post_status( $event->ID ) == 'auto-draft' && $google_map_toggle ) ? true : get_post_meta( $event->ID, '_EventShowMapLink', true );
 	?>
 	<tr id="google_map_link_toggle">
 		<td class='tribe-table-field-label'><?php _e( 'Show Google Maps Link:', 'tribe-events-calendar' ); ?></td>
@@ -153,7 +153,7 @@ if ( $post->post_type != TribeEvents::VENUE_POST_TYPE ) {
 } else {
 	if ( tribe_get_option( 'embedGoogleMaps', true ) ) { // Only show if embed option selected
 
-		$google_map_toggle = ( tribe_embed_google_map( $postId ) || get_post_status( $postId ) == 'auto-draft' ) ? true : false;
+		$google_map_toggle = ( tribe_embed_google_map( $event->ID ) || get_post_status( $event->ID ) == 'auto-draft' ) ? true : false;
 		?>
 		<tr id="google_map_toggle">
 			<td class='tribe-table-field-label'><?php _e( 'Show Google Map:', 'tribe-events-calendar' ); ?></td>
@@ -163,7 +163,7 @@ if ( $post->post_type != TribeEvents::VENUE_POST_TYPE ) {
 		</tr>
 	<?php
 	}
-	$google_map_link_toggle = ( get_post_status( $postId ) != 'auto-draft' || get_post_meta( $postId, '_VenueShowMapLink', true ) !== 'false' ) ? true : false;
+	$google_map_link_toggle = ( get_post_status( $event->ID ) != 'auto-draft' || get_post_meta( $event->ID, '_VenueShowMapLink', true ) !== 'false' ) ? true : false;
 	?>
 	<tr id="google_map_link_toggle">
 		<td class='tribe-table-field-label'><?php _e( 'Show Google Maps Link:', 'tribe-events-calendar' ); ?></td>
@@ -189,6 +189,7 @@ if ( $post->post_type != TribeEvents::VENUE_POST_TYPE ) {
 				if (result == 1) {
 					jQuery('.tribe-venue-error').remove();
 				} else {
+					jQuery('.tribe-venue-error').remove();
 					jQuery( '[name=venue\\[Venue\\]]' ).after('<div class="tribe-venue-error error form-invalid"><?php printf( __( '%s Name Already Exists', 'tribe-events-calendar' ), tribe_get_venue_label_singular() ); ?></div>');
 				}
 			}

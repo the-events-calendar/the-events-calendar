@@ -35,7 +35,7 @@ $displayTab = array(
 				'type' => 'html',
 				'html' => '<p>' . sprintf(
 					__( 'The settings below control the display of your calendar. If things don\'t look right, try switching between the three style sheet options or pick a page template from your theme.</p><p>There are going to be situations where no out-of-the-box template is 100&#37; perfect. Check out our <a href="%s">our themer\'s guide</a> for instructions on custom modifications.', 'tribe-events-calendar' ),
-					TribeEvents::$tribeUrl . 'support/documentation/events-calendar-themers-guide/?utm_medium=plugin-tec&utm_source=generaltab&utm_campaign=in-app'
+					Tribe__Events__Events::$tribeUrl . 'support/documentation/events-calendar-themers-guide/?utm_medium=plugin-tec&utm_source=generaltab&utm_campaign=in-app'
 				) . '</p>',
 			),
 			'info-end'                           => array(
@@ -105,7 +105,7 @@ $displayTab = array(
 			'monthEventAmount'                   => array(
 				'type'            => 'text',
 				'label'           => __( 'Month view events per day', 'tribe-events-calendar' ),
-				'tooltip'         => __( 'Allow more than the default 3 events per day in month view.', 'tribe-events-calendar' ),
+				'tooltip'         => sprintf( __( 'Change the default 3 events per day in month view. Please note there may be performance issues if you set this too high. <a href="%s">Read more</a>.', 'tribe-events-calendar' ), 'http://m.tri.be/rh' ),
 				'validation_type' => 'positive_int',
 				'size'            => 'small',
 				'default'         => '3'
