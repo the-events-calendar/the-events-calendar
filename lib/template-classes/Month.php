@@ -319,7 +319,7 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 			$date = isset( self::$args['eventDate'] ) ? self::$args['eventDate'] : tribe_get_month_view_date();
 
 			// Test and return unmodified if valid
-			if ( false !== strtotime( $date . '01' ) ) {
+			if ( false !== strtotime( $date . '-01' ) ) {
 				return $date;
 			} else {
 				Tribe__Events__Events::setNotice( 'requested-date-invalid',
