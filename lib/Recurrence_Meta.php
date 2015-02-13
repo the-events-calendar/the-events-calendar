@@ -799,7 +799,7 @@ class Tribe__Events__Pro__Recurrence_Meta {
 				break;
 			case 'After':
 			default:
-				$recEnd = $recEndCount;
+				$recEnd = $recEndCount - 1; // subtract one because event is first occurrence
 				break;
 		}
 
