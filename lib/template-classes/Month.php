@@ -246,7 +246,7 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 		 * @return void
 		 **/
 		public function setup_view() {
-			$requested_date     = isset( self::$args['eventDate'] ) ? self::$args['eventDate'] : tribe_get_month_view_date();
+			$requested_date     = $this->requested_date();
 			$first_day_of_month = date( 'Y-m-01', strtotime( $requested_date ) );
 			$first_grid_date    = $this->calculate_first_cell_date( $requested_date );
 			$final_grid_date    = $this->calculate_final_cell_date( $requested_date );
@@ -304,6 +304,28 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 
 			// store set of found days for use in calendar loop functions
 			self::$calendar_days = $days;
+		}
+
+		/**
+		 * Returns the requested date as a Y-m (yyyy-mm) formatted string.
+		 *
+		 * If the requested date is invalid (such as 1984-25) the current month is returned instead and
+		 * an appropriate notice presented to the user.
+		 *
+		 * @return string
+		 */
+		protected function requested_date() {
+			// We expect the date to be Y-m (yyyy-mm) format, ie year and date only
+			$date = isset( self::$args['eventDate'] ) ? self::$args['eventDate'] : tribe_get_month_view_date();
+
+			// Test and return unmodified if valid
+			if ( false !== strtotime( $date . '01' ) ) {
+				return $date;
+			} else {
+				Tribe__Events__Events::setNotice( 'requested-date-invalid',
+					sprintf( __( 'The requested date "%s" was not valid &ndash; showing the current month instead', 'tribe-events-calendar' ), esc_html( $date ) ) );
+				return date_i18n( 'Y-m' );
+			}
 		}
 
 		protected function setup_tribe_bar_args() {
