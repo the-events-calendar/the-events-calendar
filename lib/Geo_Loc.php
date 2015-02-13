@@ -393,8 +393,8 @@ class Tribe__Events__Pro__Geo_Loc {
 		$_country  = ( ! empty( $data['Country'] ) ) ? $data['Country'] : '';
 
 		$overwrite = ( ! empty( $data['OverwriteCoords'] ) ) ? 1 : 0;
-		$_lat = ( is_numeric( $data['Lat'] ) ) ? (float) $data['Lat'] : false;
-		$_lng = ( is_numeric( $data['Lng'] ) ) ? (float) $data['Lng'] : false;
+		$_lat = ( ! empty( $data['Lat'] ) && is_numeric( $data['Lat'] ) ) ? (float) $data['Lat'] : false;
+		$_lng = ( ! empty( $data['Lng'] ) && is_numeric( $data['Lng'] ) ) ? (float) $data['Lng'] : false;
 
 		// Check the Overwrite data, otherwise just reset it
 		if ( $overwrite && false !== $_lat && false !== $_lng ){
