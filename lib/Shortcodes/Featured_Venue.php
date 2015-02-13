@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Implements a shortcode that wraps the existing featured venue widget. Basic usage
  * is as follows (using a venue's post ID):
@@ -9,13 +8,15 @@
  * Besides supplying the venue ID, a slug can be used. It is also possible to limit
  * the number of upcoming events:
  *
- *     [tribe_featured_venue slug="the-club" count="5"]
+ *     [tribe_featured_venue slug="the-club" limit="5"]
  *
  * A title can also be added if desired:
  *
  *     [tribe_featured_venue slug="busy-location" title="Check out these events!"]
  */
 class Tribe__Events__Pro__Shortcodes__Featured_Venue {
+	public $output = '';
+
 	/**
 	 * Default arguments expected by the featured venue widget.
 	 *
@@ -31,28 +32,25 @@ class Tribe__Events__Pro__Shortcodes__Featured_Venue {
 		'slug'           => '',
 		'venue'          => '',
 		'id'             => '',
-		'count'          => '',
+		'limit'          => '',
 	);
 
 	protected $arguments = array();
 
-	public function __construct() {
-		add_shortcode( 'tribe_featured_venue', array( $this, 'do_shortcode' ) );
-	}
 
-	public function do_shortcode( $attributes ) {
+	public function __construct( $attributes ) {
 		$this->arguments = shortcode_atts( $this->default_args, $attributes );
 		$this->parse_args();
 
 		// If no venue has been set simply bail with an empty string
 		if ( ! isset( $this->arguments['venue_ID'] ) ) {
-			return '';
+			return;
 		}
 
 		ob_start();
 		// We use $this->arguments for both the args and the instance vars here
-		the_widget( 'TribeVenueWidget', $this->arguments, $this->arguments );
-		return ob_get_clean();
+		the_widget( 'Tribe__Events__Pro__Venue_Widget', $this->arguments, $this->arguments );
+		$this->output = ob_get_clean();
 	}
 
 	/**
@@ -68,8 +66,8 @@ class Tribe__Events__Pro__Shortcodes__Featured_Venue {
 			$this->set_by_slug();
 		}
 
-		if ( ! empty( $this->arguments['count'] ) ) {
-			$this->arguments['posts_per_page'] = (int) $this->arguments['count'];
+		if ( ! empty( $this->arguments['limit'] ) ) {
+			$this->arguments['posts_per_page'] = (int) $this->arguments['limit'];
 		} else {
 			$this->arguments['posts_per_page'] = (int) tribe_get_option( 'postsPerPage', 10 );
 		}
@@ -80,7 +78,7 @@ class Tribe__Events__Pro__Shortcodes__Featured_Venue {
 	 */
 	protected function set_by_slug() {
 		$venues = get_posts( array(
-			'post_type' => TribeEvents::VENUE_POST_TYPE,
+			'post_type' => Tribe__Events__Events::VENUE_POST_TYPE,
 			'name' => $this->arguments['slug'],
 			'posts_per_page' => 1
 		) );
