@@ -553,7 +553,7 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 			if ( $venue_id = tribe_get_venue_id( $post->ID ) ) {
 				$classes[] = 'tribe-events-venue-' . $venue_id;
 			}
-			if ( $organizer_id = tribe_get_organizer_id( $post->ID ) ) {
+			foreach ( tribe_get_organizer_ids( $post->ID ) as $organizer_id ) {
 				$classes[] = 'tribe-events-organizer-' . $organizer_id;
 			}
 

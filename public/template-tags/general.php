@@ -598,7 +598,7 @@ if ( class_exists( 'Tribe__Events__Events' ) ) {
 		if ( $venue_id = tribe_get_venue_id( $event_id ) ) {
 			$classes[] = 'tribe-events-venue-' . $venue_id;
 		}
-		if ( $organizer_id = tribe_get_organizer_id( $event_id ) ) {
+		foreach ( tribe_get_organizer_ids( $event_id ) as $organizer_id ) {
 			$classes[] = 'tribe-events-organizer-' . $organizer_id;
 		}
 		// added first class for css
