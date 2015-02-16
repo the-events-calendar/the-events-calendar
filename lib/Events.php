@@ -2703,22 +2703,50 @@ if ( ! class_exists( 'Tribe__Events__Events' ) ) {
 			$this->manage_preview_metapost( 'organizer', $postId );
 
 			/**
-			 * When using pro and we have a VenueID/OrganizerID, we just save the ID, because we're not
+			 * When we have a VenueID/OrganizerID, we just save the ID, because we're not
 			 * editing the venue/organizer from within the event.
 			 */
 			if ( isset( $_POST['Venue']['VenueID'] ) && ! empty( $_POST['Venue']['VenueID'] ) ) {
 				$_POST['Venue'] = array( 'VenueID' => intval( $_POST['Venue']['VenueID'] ) );
 			}
 
-			if ( isset( $_POST['Organizer']['OrganizerID'] ) && ! empty( $_POST['Organizer']['OrganizerID'] ) ) {
-				$_POST['Organizer'] = array( 'OrganizerID' => intval( $_POST['Organizer']['OrganizerID'] ) );
-			}
+			$_POST['Organizer'] = $this->normalize_organizer_submission( $_POST['Organizer'] );
 
 
 			Tribe__Events__API::saveEventMeta( $postId, $_POST, $post );
 
 			// Add this hook back in
-			add_action( 'save_post_' . self::POSTTYPE, array( $this, 'addEventMeta' ), 15, 2 );
+			add_action( 'save_post', array( $this, 'addEventMeta' ), 15, 2 );
+		}
+
+		private function normalize_organizer_submission( $submission ) {
+			$organizers = array();
+			if ( !isset( $submission['OrganizerID'] ) ) {
+				return $organizers; // not a valid submission
+			}
+
+			if ( is_array( $submission['OrganizerID'] ) ) {
+				foreach ( $submission['OrganizerID'] as $key => $organizer_id ) {
+					if ( !empty( $organizer_id ) ) {
+						$organizers[] = array( 'OrganizerID' => intval( $organizer_id ) );
+					} else {
+						$o = array();
+						foreach ( array( 'Organizer', 'Phone', 'Website', 'Email' ) as $field_name ) {
+							$o[$field_name] = isset( $submission[$field_name][$key] ) ? $submission[$field_name][$key] : '';
+						}
+						$organizers[] = $o;
+					}
+				}
+				return $organizers;
+			}
+
+			// old style with single organizer fields
+			$o = array();
+			foreach ( array( 'Organizer', 'Phone', 'Website', 'Email' ) as $field_name ) {
+				$o[$field_name] = isset( $submission[$field_name] ) ? $submission[$field_name] : '';
+			}
+			$organizers[] = $o;
+			return $organizers;
 		}
 
 		/**

@@ -133,12 +133,18 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 			}
 
 			if ( isset( $data["Organizer"] ) ) {
-				if ( ! empty( $data["Organizer"]["OrganizerID"] ) ) {
-					$organizer_post_status = get_post( $data["Organizer"]['OrganizerID'] )->post_status;
-				} else {
-					$organizer_post_status = $post_status;
+				if ( !isset( $data['Organizer'][0] ) || !is_array( $data['Organizer'][0] ) ) {
+					// convert old-style single organizer into an array of organizers
+					$data['Organizer'] = array( $data['Organizer'] );
 				}
-				$data['EventOrganizerID'] = Tribe__Events__API::saveEventOrganizer( $data["Organizer"], $event, $organizer_post_status );
+				foreach ( $data['Organizer'] as $organizer ) {
+					if ( !empty( $organizer['OrganizerID'] ) ) {
+						$organizer_post_status = get_post_status( $organizer['OrganizerID'] );
+					} else {
+						$organizer_post_status = $post_status;
+					}
+					$data['EventOrganizerID'][] = self::saveEventOrganizer( $organizer, $event, $organizer_post_status );
+				}
 			}
 			if ( isset( $data["Venue"] ) ) {
 				if ( ! empty( $data['Venue']["VenueID"] ) ) {
