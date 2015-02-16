@@ -1,6 +1,6 @@
 <?php
 /**
- * Maintainsa queue of recurring event instances still to be processed.
+ * Maintains a queue of recurring event instances still to be processed.
  *
  * Each queue is made up of two lists - event instances to be created and event
  * instances to be deleted.
@@ -29,8 +29,9 @@ class Tribe__Events__Pro__Recurrence__Queue {
 	 * @throws Exception
 	 */
 	public function __construct( $event_id ) {
-		$this->get_event( $event_id );
-		$this->load_queue();
+		if ( $this->get_event( $event_id ) ) {
+			$this->load_queue();
+		}
 	}
 
 	/**
@@ -43,19 +44,21 @@ class Tribe__Events__Pro__Recurrence__Queue {
 	}
 
 	/**
-	 * @param  int $event_id
-	 * @throws Exception
+	 * @param  int  $event_id
+	 * @return bool true on successful load
 	 */
 	protected function get_event( $event_id ) {
-		$this->event = get_post( $event_id );
-
-		if ( TribeEvents::POSTTYPE !== get_post_type( $event_id ) ) {
-			throw new Exception( __( 'Recurrence queue cannot be loaded: illegal post type.', 'tribe-events-pro' ) );
+		$this->event = get_post($event_id );
+		
+		if ( null === $this->event ) {
+			return false;
+		}
+		
+		if ( $this->event->post_parent > 0 ) {
+			$this->event = get_post( $this->event->post_parent );
 		}
 
-		if ( ! tribe_is_recurring_event( $event_id ) || 0 !== $this->event->post_parent ) {
-			throw new Exception( __( 'Recurrence queue can only be loaded for the parent event in a sequence.', 'tribe-events-pro' ) );
-		}
+		return ( null !== $this->event );
 	}
 
 	/**
