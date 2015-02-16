@@ -105,12 +105,15 @@ $events_label_plural = tribe_get_event_label_plural();
 	</table>
 	<?php do_action( 'tribe_after_location_details', $event->ID ); ?>
 	<table id="event_organizer" class="eventtable">
+		<thead>
 		<tr>
 			<td colspan="2" class="tribe_sectionheader">
-				<h4><?php echo tribe_get_organizer_label_singular(); ?></h4></td>
+				<h4><?php echo tribe_get_organizer_label_plural(); ?></h4></td>
 		</tr>
 		<?php do_action( 'tribe_organizer_table_top', $event->ID ) ?>
-		<?php include( $tribe->pluginPath . 'admin-views/organizer-meta-box.php' ); ?>
+		</thead>
+		<?php $organizer_meta_box = new Tribe__Events__Admin__Organizer_Chooser_Meta_Box( $event ); ?>
+		<?php $organizer_meta_box->render(); ?>
 	</table>
 
 	<table id="event_url" class="eventtable">

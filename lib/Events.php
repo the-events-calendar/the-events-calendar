@@ -401,7 +401,6 @@ if ( ! class_exists( 'Tribe__Events__Events' ) ) {
 			// Load organizer and venue editors
 			add_action( 'admin_menu', array( $this, 'addVenueAndOrganizerEditor' ) );
 			add_action( 'tribe_venue_table_top', array( $this, 'displayEventVenueDropdown' ) );
-			add_action( 'tribe_organizer_table_top', array( $this, 'displayEventOrganizerDropdown' ) );
 
 			add_action( 'template_redirect', array( $this, 'template_redirect' ) );
 
@@ -1315,31 +1314,6 @@ if ( ! class_exists( 'Tribe__Events__Events' ) ) {
 			<tr class="">
 				<td style="width:170px"><?php printf( __('Use Saved %s:', 'tribe-events-calendar'), $this->singular_venue_label ); ?></td>
 				<td><?php $this->saved_venues_dropdown( $VenueID ); ?> <div class="edit-venue-link" <?php if( empty( $VenueID ) ) { ?>style="display:none;"<?php } ?>><a data-admin-url="<?php echo admin_url('post.php?action=edit&post=' ); ?>" href="<?php echo admin_url( sprintf( 'post.php?action=edit&post=%s', $VenueID ) ); ?>" target="_blank"><?php printf( __( 'Edit %s', 'tribe-events-calendar' ), $this->singular_venue_label ); ?></a></div></td>
-			</tr>
-		<?php
-		}
-
-		/**
-		 * displays the saved organizer dropdown in the event metabox
-		 * Used to be a PRO only feature, but as of 3.0, it is part of Core.
-		 *
-		 * @param int $postId the event ID for which to create the dropdown
-		 *
-		 * @return void
-		 */
-		public function displayEventOrganizerDropdown( $postId ) {
-			$curOrg          = get_post_meta( $postId, '_EventOrganizerID', true );
-			if ( ( ! $postId || get_post_status( $postId ) == 'auto-draft' ) && ! $curOrg && ( ( is_admin() && get_current_screen()->action == 'add' ) || ! is_admin() ) ) {
-				$curOrg = $this->defaults()->organizer_id();
-			}
-			$curOrg = apply_filters( 'tribe_display_event_organizer_dropdown_id', $curOrg );
-
-			?>
-			<tr class="">
-				<td style="width:170px">
-					<label for="saved_organizer"><?php printf( __( 'Use Saved %s:', 'tribe-events-calendar' ), $this->singular_organizer_label ); ?></label>
-				</td>
-				<td><?php $this->saved_organizers_dropdown( $curOrg ); ?> <div class="edit-organizer-link"<?php if( empty( $curOrg ) ) { ?> style="display:none;"<?php } ?>><a data-admin-url="<?php echo admin_url('post.php?action=edit&post=' ); ?>" href="<?php echo admin_url( sprintf( 'post.php?action=edit&post=%s', $curOrg ) ); ?>" target="_blank"><?php printf( __( 'Edit %s', 'tribe-events-calendar' ), $this->singular_organizer_label ); ?></a></div></td>
 			</tr>
 		<?php
 		}
