@@ -395,6 +395,7 @@ class Tribe__Events__Pro__Geo_Loc {
 		$overwrite = ( ! empty( $data['OverwriteCoords'] ) ) ? 1 : 0;
 		$_lat = ( ! empty( $data['Lat'] ) && is_numeric( $data['Lat'] ) ) ? (float) $data['Lat'] : false;
 		$_lng = ( ! empty( $data['Lng'] ) && is_numeric( $data['Lng'] ) ) ? (float) $data['Lng'] : false;
+		$reset = false;
 
 		// Check the Overwrite data, otherwise just reset it
 		if ( $overwrite && false !== $_lat && false !== $_lng ){
@@ -405,6 +406,9 @@ class Tribe__Events__Pro__Geo_Loc {
 			delete_transient( self::ESTIMATION_CACHE_KEY );
 			return true;
 		} else {
+			if ( 1 === (int) get_post_meta( $venueId, self::OVERWRITE, true ) ){
+				$reset = true;
+			}
 			update_post_meta( $venueId, self::OVERWRITE, 0 );
 		}
 
@@ -415,7 +419,7 @@ class Tribe__Events__Pro__Geo_Loc {
 		}
 
 		// If the address didn't change, doesn't make sense to query google again for the geo data
-		if ( $address === get_post_meta( $venueId, self::ADDRESS, true ) ) {
+		if ( $address === get_post_meta( $venueId, self::ADDRESS, true ) && true !== $reset ) {
 			return false;
 		}
 
