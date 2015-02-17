@@ -34,7 +34,7 @@ class Tribe__Events__Tickets__Tickets_Pro {
 
 	/**
 	 * WP_Post_List children for Attendees
-	 * @var TribeEventsTicketsAttendeesTable
+	 * @var Tribe__Events__Tickets__Attendees_Table
 	 */
 	private $attendees_table;
 
@@ -167,7 +167,6 @@ class Tribe__Events__Tickets__Tickets_Pro {
 	 */
 	public function attendees_page_screen_setup() {
 
-		require_once 'tribe-tickets-attendees.php';
 		$this->attendees_table = new Tribe__Events__Tickets__Attendees_Table();
 
 		$this->maybe_generate_attendees_csv();
@@ -375,7 +374,7 @@ class Tribe__Events__Tickets__Tickets_Pro {
 	 */
 	public function ticket_list_markup( $tickets = array() ) {
 		if ( ! empty( $tickets ) ) {
-			include $this->path . 'admin-views/tickets/List.php';
+			include $this->path . 'admin-views/tickets/list.php';
 		}
 	}
 

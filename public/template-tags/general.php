@@ -18,7 +18,7 @@ if ( class_exists( 'Tribe__Events__Events' ) ) {
 	 * @param bool|string $class Classname you want to instantiate
 	 *
 	 * @return void
-	 * @uses TribeEventsTemplates::instantiate_template_class()
+	 * @uses Tribe__Events__Templates::instantiate_template_class()
 	 **/
 	function tribe_initialize_view( $class = false ) {
 		do_action( 'tribe_pre_initialize_view' );
@@ -79,7 +79,7 @@ if ( class_exists( 'Tribe__Events__Events' ) ) {
 	 * @param null|string $name
 	 * @param array       $data optional array of vars to inject into the template part
 	 *
-	 * @uses TribeEventsTemplates::getTemplateHierarchy
+	 * @uses Tribe__Events__Templates::getTemplateHierarchy
 	 **/
 	function tribe_get_template_part( $slug, $name = null, array $data = null ) {
 
@@ -632,15 +632,15 @@ if ( class_exists( 'Tribe__Events__Events' ) ) {
 		$current_view        = ! empty( $current_view ) ? $current_view : basename( tribe_get_current_template() );
 		$attrs['data-title'] = wp_title( '|', false, 'right' );
 		switch ( $current_view ) {
-			case 'Month.php' :
+			case 'month.php' :
 				$attrs['data-view']    = 'month';
 				$attrs['data-date']    = date( 'Y-m', strtotime( tribe_get_month_view_date() ) );
 				$attrs['data-baseurl'] = tribe_get_gridview_link( false );
 				break;
-			case 'Day.php' :
+			case 'day.php' :
 				$attrs['data-startofweek'] = get_option( 'start_of_week' );
 				break;
-			case 'List.php' :
+			case 'list.php' :
 				$attrs['data-startofweek'] = get_option( 'start_of_week' );				
 				$attrs['data-view'] = 'list';
 				if ( tribe_is_upcoming() ) {
@@ -716,7 +716,7 @@ if ( class_exists( 'Tribe__Events__Events' ) ) {
 		$modules      = apply_filters( 'tribe_events_tickets_modules', null );
 		$event_origin = get_post_meta( get_the_ID(), '_EventOrigin', true );
 		$show_cost    = empty( $modules ) ||
-						class_exists( 'Event_Tickets_PRO' ) ||
+						class_exists( 'Tribe__Events__Tickets__Eventbrite__Eventbrite_Tickets' ) ||
 						in_array( $event_origin, apply_filters( 'tribe_events_admin_show_cost_field_origin', array( 'community-events' ) ) );
 
 		return apply_filters( 'tribe_events_admin_show_cost_field', $show_cost, $modules );
@@ -1132,7 +1132,7 @@ if ( class_exists( 'Tribe__Events__Events' ) ) {
 	 * @param string|bool $day_cutoff
 	 *
 	 * @return int
-	 * @see TribeDateUtils::dateDiff()
+	 * @see Tribe__Events__Date_Utils::dateDiff()
 	 **/
 	function tribe_get_days_between( $start_date, $end_date, $day_cutoff = '00:00' ) {
 		if ( $day_cutoff === false ) {
@@ -1214,8 +1214,8 @@ if ( class_exists( 'Tribe__Events__Events' ) ) {
 		$date_display   = '';
 
 		//Disable recurring event info in tooltip
-		if( class_exists( 'TribeEventsPro' ) ) {
-			$ecp = TribeEventsPro::instance();
+		if( class_exists( 'Tribe__Events__Pro__Events_Pro' ) ) {
+			$ecp = Tribe__Events__Pro__Events_Pro::instance();
 			$ecp->disable_recurring_info_tooltip();
 
 			$date_display = strip_tags( tribe_events_event_schedule_details( $event ) );
@@ -1324,7 +1324,7 @@ if ( class_exists( 'Tribe__Events__Events' ) ) {
 	 * @param bool $echo Whether or not to echo the notices html
 	 *
 	 * @return void | string
-	 * @see TribeEvents::getNotices()
+	 * @see Tribe__Events__Events::getNotices()
 	 **/
 	function tribe_events_the_notices( $echo = true ) {
 		$notices = Tribe__Events__Events::getNotices();

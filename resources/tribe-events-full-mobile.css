@@ -132,12 +132,15 @@ a.tribe-events-gmap {
 .tribe-events-list .tribe-events-event-image {
 	float: left;
 	margin: 0 3% 0 0;
-	width: 30%;
+}
+.tribe-events-list .tribe-events-event-image img {
+	width: auto;
+	max-height: 400px;
 }
 .tribe-events-list .tribe-events-event-image + div.tribe-events-content {
-	float: left;
+	float: none;
 	position: relative;
-	width: 67%;
+	width: 100%;
 }	
 .tribe-events-list .tribe-events-loop .tribe-events-event-meta .recurringinfo {
 	display: block;
@@ -233,7 +236,7 @@ a.tribe-events-gmap {
 }
 
 /* = Global Grid Template Styles (Large Calendar & Week)
-   @ Template: Month.php & week.php
+   @ Template: Month.php & Week.php
 =============================================*/	
 #tribe-mobile-container {
 	display: block;
@@ -411,22 +414,4 @@ a.tribe-events-gmap {
 
 .tribe-theme-twentyfourteen.events-archive .entry-content {
 	width:90%;
-}
-
-
-/* = List View Template Styles for Very Small Widths
-   @ Template: list.php
-=============================================*/	
-@media only screen and ( max-width: 480px ) {
-	
-	.tribe-events-list .tribe-events-event-image {
-		float: none;
-		width: 100%;
-		margin: 0 0 8px 0;
-	}
-
-	.tribe-events-list .tribe-events-event-image + div.tribe-events-content {
-		float: none;
-		width: 100%;
-	}	
 }

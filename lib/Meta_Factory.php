@@ -237,7 +237,4 @@ if ( ! class_exists( 'Tribe__Events__Meta_Factory' ) ) {
 			return apply_filters( 'tribe_meta_factory_template', $html, $label, $meta, $template );
 		}
 	}
-
-	global $_tribe_meta_factory;
-	$_tribe_meta_factory = new Tribe__Events__Meta_Factory();
 }

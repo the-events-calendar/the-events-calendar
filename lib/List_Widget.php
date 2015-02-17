@@ -167,18 +167,6 @@ class Tribe__Events__List_Widget extends WP_Widget {
 		);
 		$instance  = wp_parse_args( (array) $instance, $defaults );
 		$tribe_ecp = Tribe__Events__Events::instance();
-		include( $tribe_ecp->pluginPath . 'admin-views/widget-admin-List.php' );
+		include( $tribe_ecp->pluginPath . 'admin-views/widget-admin-list.php' );
 	}
-}
-
-/* Add function to the widgets_ hook. */
-add_action( 'widgets_init', 'events_list_load_widgets', 90 );
-
-/**
- * Function that registers widget.
- *
- * @return void
- */
-function events_list_load_widgets() {
-	register_widget( 'Tribe__Events__List_Widget' );
 }

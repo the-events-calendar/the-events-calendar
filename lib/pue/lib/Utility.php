@@ -48,7 +48,7 @@ if ( ! class_exists( 'Tribe__Events__PUE__Utility' ) ) {
 		 * Create a new instance of Tribe__Events__PUE__Utility based on an instance of Tribe__Events__PUE__Plugin_Info.
 		 * Basically, this just copies a subset of fields from one object to another.
 		 *
-		 * @param Tribe_PU_PluginInfo $info
+		 * @param Tribe__Events__PUE__Plugin_Info $info
 		 *
 		 * @return Tribe__Events__PUE__Utility
 		 */

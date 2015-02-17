@@ -116,5 +116,3 @@ class Tribe__Events__Bar {
 	}
 
 }
-
-Tribe__Events__Bar::instance();
