@@ -156,7 +156,7 @@ class TribeEventsCacheListener {
 	 */
 	private function add_hooks() {
 		add_action( 'save_post', array( $this, 'save_post' ), 0, 2 );
-		add_action( 'update_option', array( $this, 'update_last_save_post' ) );
+		add_action( 'updated_option', array( $this, 'update_last_save_post' ) );
 	}
 
 	/**
@@ -174,8 +174,10 @@ class TribeEventsCacheListener {
 	/**
 	 * Run the caching functionality that is executed on saving tribe calendar options.
 	 */
-	public function update_last_save_post() {
-		$this->cache->set_last_occurrence( 'save_post' );
+	public function update_last_save_post( $option ) {
+		if ( $option != 'tribe_last_save_post' ) {
+			$this->cache->set_last_occurrence( 'save_post' );
+		}
 	}
 
 	/**
