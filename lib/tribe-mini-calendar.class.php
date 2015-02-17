@@ -114,7 +114,6 @@ class TribeEventsMiniCalendar {
 				'count'               => $_POST["count"],
 				'tax_query'           => $tax_query,
 				'filter_date'         => true,
-				'tribeHideRecurrence' => false,
 			);
 
 			ob_start();
@@ -254,7 +253,6 @@ class TribeEventsMiniCalendar {
 					'start_date'             => $this->get_month(),
 					'post_status'            => $post_status,
 					'is_tribe_mini_calendar' => true,
-					'tribeHideRecurrence'    => false,
 				);
 
 				// set end date if initial load, or ajax month switch
