@@ -168,7 +168,8 @@ if ( class_exists( 'Tribe__Events__Events' ) ) {
 			tribe_get_city( $postId ) ||
 			tribe_get_region( $postId ) ||
 			tribe_get_country( $postId ) ||
-			tribe_get_zip( $postId )
+			tribe_get_zip( $postId ) ||
+			( tribe_is_venue_overwrite( $postId ) && tribe_get_coordinates( $postId ) )
 		) {
 			return true;
 		} else {
@@ -297,6 +298,42 @@ if ( class_exists( 'Tribe__Events__Events' ) ) {
 
 		return apply_filters( 'tribe_get_zip', $output );
 	}
+
+
+	/**
+	 * Coordinates
+	 *
+	 * Returns the coordinates of the venue
+	 *
+	 * @param int $postId Can supply either event id or venue id, if none specified, current post is used
+	 *
+	 * @return array An Array with the Latitute and Longitude of the venue
+	 */
+	function tribe_get_coordinates( $postId = null ) {
+		$postId = tribe_get_venue_id( $postId );
+		$output['lat'] = (float) get_post_meta( $postId, Tribe__Events__Pro__Geo_Loc::LAT, true );
+		$output['lng'] = (float) get_post_meta( $postId, Tribe__Events__Pro__Geo_Loc::LNG, true );
+
+		return apply_filters( 'tribe_get_coordinates', $output );
+	}
+
+
+	/**
+	 * Coordinates Overwrite
+	 *
+	 * Conditional if the venue has it's coordinates overwritten
+	 *
+	 * @param int $postId Can supply either event id or venue id, if none specified, current post is used
+	 *
+	 * @return bool Depending on the venue checkbox of overwrite coordinates
+	 */
+	function tribe_is_venue_overwrite( $postId = null ) {
+		$postId = tribe_get_venue_id( $postId );
+		$output = (int) get_post_meta( $postId, Tribe__Events__Pro__Geo_Loc::OVERWRITE, true );
+
+		return apply_filters( 'tribe_is_venue_overwrite', (bool) $output );
+	}
+
 
 	/**
 	 * Venue Phone Number

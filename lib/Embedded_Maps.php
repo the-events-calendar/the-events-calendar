@@ -125,6 +125,15 @@ class Tribe__Events__Embedded_Maps {
 				$this->address .= $address_part . ' ';
 			}
 		}
+
+		if ( empty( $this->address ) ){
+			$overwrite = (int) get_post_meta( $this->venue_id, Tribe__Events__Pro__Geo_Loc::OVERWRITE, true );
+			if ( $overwrite ){
+				$lat = get_post_meta( $this->venue_id, Tribe__Events__Pro__Geo_Loc::LAT, true );
+				$lng = get_post_meta( $this->venue_id, Tribe__Events__Pro__Geo_Loc::LNG, true );
+				$this->address = $lat . ',' . $lng;
+			}
+		}
 	}
 
 	public function get_map_data( $map_index ) {

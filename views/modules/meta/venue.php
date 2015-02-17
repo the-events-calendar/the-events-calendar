@@ -29,6 +29,7 @@ $website = tribe_get_venue_website_link();
 		// Do we have a Google Map link to display?
 		$gmap_link = tribe_show_google_map_link() ? tribe_get_map_link_html() : '';
 		$gmap_link = apply_filters( 'tribe_event_meta_venue_address_gmap', $gmap_link );
+		var_dump( $gmap_link );
 
 		// Display if appropriate
 		if ( ! empty( $address ) ) {
