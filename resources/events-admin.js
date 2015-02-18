@@ -386,7 +386,7 @@ jQuery( document ).ready( function( $ ) {
 
 	$( '[name="recurrence[type]"]' ).change( function() {
 		var option = $( this ).find( 'option:selected' ), numOccurrences = $( '#recurrence_end_count' ).val();
-		$( '#occurence-count-text' ).text( numOccurrences == 1 ? option.data( 'single' ) : option.data( 'plural' ) );
+		$( '#occurence-count-text' ).text( 1 == numOccurrences ? $( this ).data( 'single' ) : $( this ).data( 'plural' ) );
 		$( '[name="recurrence[occurrence-count-text]"]' ).val( $( '#occurence-count-text' ).text() );
 	} );
 
