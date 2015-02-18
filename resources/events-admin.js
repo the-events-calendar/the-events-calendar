@@ -129,15 +129,15 @@ jQuery( document ).ready( function( $ ) {
 		var final_date_start = event_start_date;
 		var final_date_end = event_end_date;
 
-		if ( rec_custom_type == 'Daily' ) {
+		if ( [ "Daily", "Weekly", "Monthly", "Yearly" ].indexOf( rec_custom_type ) >= 0 ) {
 			if ( rec_custom_interval > 1 ) {
-				rec_custom_interval_text = 'days'
+				rec_custom_interval_text = 'events'
 			}
 			else {
-				rec_custom_interval_text = 'day'
+				rec_custom_interval_text = 'event'
 			}
 		}
-		if ( rec_custom_type == 'Weekly' ) {
+		/*if ( rec_custom_type == 'Weekly' ) {
 			if ( rec_custom_interval > 1 ) {
 				rec_custom_interval_text = 'weeks'
 			}
@@ -160,7 +160,7 @@ jQuery( document ).ready( function( $ ) {
 			else {
 				rec_custom_interval_text = 'year'
 			}
-		}
+		}*/
 
 		if ( rec_end_type == 'After' ) {
 			if ( rec_type == 'Every Day' ) {

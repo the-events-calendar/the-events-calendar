@@ -18,7 +18,6 @@ class Tribe__Events__Pro__Recurrence_Meta {
 		'recCustomInterval'              => null,
 		'recCustomTypeText'              => null,
 		'recCustomRecurrenceDescription' => null,
-		'recOccurrenceCountText'         => null,
 		'recCustomWeekDay'               => null,
 		'recCustomMonthNumber'           => null,
 		'recCustomMonthDay'              => null,
@@ -518,7 +517,6 @@ class Tribe__Events__Pro__Recurrence_Meta {
 			$recurrence_meta['recCustomType']                  = $recurrenceData['custom-type'];
 			$recurrence_meta['recCustomInterval']              = $recurrenceData['custom-interval'];
 			$recurrence_meta['recCustomTypeText']              = $recurrenceData['custom-type-text'];
-			$recurrence_meta['recOccurrenceCountText']         = $recurrenceData['occurrence-count-text'];
 			$recurrence_meta['recCustomRecurrenceDescription'] = $recurrenceData['recurrence-description'];
 			$recurrence_meta['recCustomWeekDay']               = $recurrenceData['custom-week-day'];
 			$recurrence_meta['recCustomMonthNumber']           = $recurrenceData['custom-month-number'];
@@ -551,7 +549,6 @@ class Tribe__Events__Pro__Recurrence_Meta {
 			'custom-type'              => null, // string - Daily, Weekly, Monthly, Yearly - only used if type is Custom
 			'custom-interval'          => null, // int - If type is Custom, the interval between custom-type units
 			'custom-type-text'         => null, // string - Display value for admin
-			'occurrence-count-text'    => null, // string - Display value for admin
 			'recurrence-description'   => null, // string - Custom description for the recurrence pattern
 			'custom-week-day'          => null, // int[] - 1 = Monday, 7 = Sunday, days when type is Custom
 			'custom-month-number'      => null, // string|int - 1-31, First-Fifth, or Last
