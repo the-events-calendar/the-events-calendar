@@ -99,6 +99,11 @@ class Tribe__Events__Pro__Recurrence_Meta {
 	public static function admin_bar_render() {
 		/** @var WP_Admin_Bar $wp_admin_bar */
 		global $post, $wp_admin_bar;
+
+		if ( ! is_a( 'WP_Post', $post ) ) {
+			return;
+		}
+
 		if ( is_admin() || ! tribe_is_recurring_event( $post ) ) {
 			return;
 		}
