@@ -225,6 +225,10 @@ Our Premium Plugins:
 
 3.x is a complete overhaul of the plugin, and as a result we're starting the changelog fresh. For release notes from the 2.x lifecycle, see <a href="http://m.tri.be/k">our 2.x release notes.</a>
 
+= 4.0 =
+
+* Incorporated updated Bulgarian translation files, courtesy of Nedko Ivanov
+
 = 3.9.1 =
 
 * Fixed the styling issues in relation to the calendar and advanced list widgets (big thanks to rantfarmentertainment for the first report on our PRO forums about this!)
