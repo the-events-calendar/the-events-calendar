@@ -1,3 +1,6 @@
+/**
+ * @todo contains a number of recurrence-related functions which should be moved to PRO
+ */
 jQuery( document ).ready( function( $ ) {
 
 	var $date_format      = $( '[data-datepicker_format]' ),
