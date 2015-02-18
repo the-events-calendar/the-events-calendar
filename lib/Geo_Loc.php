@@ -270,18 +270,20 @@ class Tribe__Events__Pro__Geo_Loc {
 	}
 
 	public function setup_overwrite_geoloc( $post ) {
-		if ( $post->post_type != TribeEvents::VENUE_POST_TYPE ) {
+		if ( $post->post_type != Tribe__Events__Events::VENUE_POST_TYPE ) {
 			return;
 		}
 		$overwrite_coords = (bool) get_post_meta( $post->ID, self::OVERWRITE, true );
+		$_lat = get_post_meta( $post->ID, self::LAT, true );
+		$_lng = get_post_meta( $post->ID, self::LNG, true );
 		?>
 		<tr id="overwrite_coordinates">
 			<td class='tribe-table-field-label'><?php esc_attr_e( 'Use latitude + longitude', 'tribe-events-calendar' ); ?>:</td>
 			<td>
 				<input tabindex="<?php tribe_events_tab_index(); ?>" type="checkbox" id="VenueOverwriteCoords" name="venue[OverwriteCoords]" value="true" <?php checked( $overwrite_coords ); ?> />
 
-				<input class=" " disabled title='<?php esc_attr_e( 'Latitude', 'tribe-events-calendar' ) ?>' placeholder='<?php esc_attr_e( 'Latitude', 'tribe-events-calendar' ) ?>' tabindex="<?php tribe_events_tab_index(); ?>" type="text" id="VenueLatitude" name="venue[Lat]" value="<?php echo (float) get_post_meta( $post->ID, self::LAT, true ); ?>" />
-				<input class=" " disabled title='<?php esc_attr_e( 'Longitude', 'tribe-events-calendar' ) ?>' placeholder='<?php esc_attr_e( 'Longitude', 'tribe-events-calendar' ) ?>' tabindex="<?php tribe_events_tab_index(); ?>" type="text" id="VenueLongitude" name="venue[Lng]" value="<?php echo (float) get_post_meta( $post->ID, self::LNG, true ); ?>" />
+				<input class=" " disabled title='<?php esc_attr_e( 'Latitude', 'tribe-events-calendar' ) ?>' placeholder='<?php esc_attr_e( 'Latitude', 'tribe-events-calendar' ) ?>' tabindex="<?php tribe_events_tab_index(); ?>" type="text" id="VenueLatitude" name="venue[Lat]" value="<?php echo ( is_numeric( $_lat ) ? (float) $_lat : '' ); ?>" />
+				<input class=" " disabled title='<?php esc_attr_e( 'Longitude', 'tribe-events-calendar' ) ?>' placeholder='<?php esc_attr_e( 'Longitude', 'tribe-events-calendar' ) ?>' tabindex="<?php tribe_events_tab_index(); ?>" type="text" id="VenueLongitude" name="venue[Lng]" value="<?php echo ( is_numeric( $_lng ) ? (float) $_lng : '' ); ?>" />
 			</td>
 		</tr>
 		<?php
