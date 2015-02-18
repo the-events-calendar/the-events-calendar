@@ -137,30 +137,6 @@ jQuery( document ).ready( function( $ ) {
 				rec_custom_interval_text = 'event'
 			}
 		}
-		/*if ( rec_custom_type == 'Weekly' ) {
-			if ( rec_custom_interval > 1 ) {
-				rec_custom_interval_text = 'weeks'
-			}
-			else {
-				rec_custom_interval_text = 'week'
-			}
-		}
-		if ( rec_custom_type == 'Monthly' ) {
-			if ( rec_custom_interval > 1 ) {
-				rec_custom_interval_text = 'months'
-			}
-			else {
-				rec_custom_interval_text = 'month'
-			}
-		}
-		if ( rec_custom_type == 'Yearly' ) {
-			if ( rec_custom_interval > 1 ) {
-				rec_custom_interval_text = 'years'
-			}
-			else {
-				rec_custom_interval_text = 'year'
-			}
-		}*/
 
 		if ( rec_end_type == 'After' ) {
 			if ( rec_type == 'Every Day' ) {
