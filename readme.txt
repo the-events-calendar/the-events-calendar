@@ -326,8 +326,11 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 
 3.x is a complete overhaul of the plugin, and as a result we're starting the changelog fresh. For release notes from the 2.x lifecycle, see <a href="http://m.tri.be/k">our 2.x release notes.</a>
 
-= 4.0 =
+= [Unreleased] unreleased =
 
+= [3.10] 2015-04-30 =
+
+* Added some changelog formatting enhancements after seeing keepachangelog.com :)
 * Incorporated updated Bulgarian translation files, courtesy of Nedko Ivanov
 * Incorporated new Hungarian translation files, courtesy of Balazs Dobos
 
