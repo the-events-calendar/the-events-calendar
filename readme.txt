@@ -255,6 +255,7 @@ The plugin is produced by <a href="http://m.tri.be/2s">Modern Tribe Inc</a>.
 * French from Sylvain Delisle
 * German from Oliver Heinrich
 * Greek from Yannis Troullinos
+* Hungarian from Balazs Dobos
 * Icelandic by Baldvin Örn Berndsen
 * Indonesian from Didik Priyanto
 * Italian from Gabriele Taffi
@@ -328,6 +329,7 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 = 4.0 =
 
 * Incorporated updated Bulgarian translation files, courtesy of Nedko Ivanov
+* Incorporated new Hungarian translation files, courtesy of Balazs Dobos
 
 = 3.9.1 =
 
