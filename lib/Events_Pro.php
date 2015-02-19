@@ -24,6 +24,12 @@
 			 */
 			public $single_event_meta;
 
+			/** @var Tribe__Events__Pro__Recurrence__Queue_Processor */
+			public $queue_processor;
+
+			/** @var Tribe__Events__Pro__Recurrence__Queue_Realtime */
+			public $queue_realtime;
+
 			/**
 			 * @var Tribe__Events__Pro__Embedded_Maps
 			 */
@@ -406,6 +412,8 @@
 				Tribe__Events__Pro__Community_Modifications::init();
 				$this->displayMetaboxCustomFields();
 				$this->single_event_meta = new Tribe__Events__Pro__Single_Event_Meta;
+				$this->queue_processor = new Tribe__Events__Pro__Recurrence__Queue_Processor;
+				$this->queue_realtime = new Tribe__Events__Pro__Recurrence__Queue_Realtime;
 				$this->embedded_maps = new Tribe__Events__Pro__Embedded_Maps;
 				$this->widget_wrappers = new Tribe__Events__Pro__Shortcodes__Widget_Wrappers;
 				$this->singular_event_label = tribe_get_event_label_singular();

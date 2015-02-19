@@ -210,7 +210,7 @@ class Tribe__Events__Pro__Recurrence__Queue_Processor {
 				break;
 			}
 
-			TribeEventsRecurrenceMeta::delete_unexcluded_event( $instance_id, $start_date );
+			Tribe__Events__Pro__Recurrence_Meta::delete_unexcluded_event( $instance_id, $start_date );
 
 			unset( $instances_to_delete[$instance_id] );
 			$this->processed++;
