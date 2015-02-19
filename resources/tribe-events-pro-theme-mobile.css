@@ -17,7 +17,7 @@
  */
 
 /* = Week Grid Template Styles
-   @ Template: week.php
+   @ Template: Week.php
 =============================================*/
 .tribe-mobile-day-date {
 	text-transform: uppercase;
@@ -31,7 +31,7 @@
 }
 
 /* = Photo View Template Styles 
-   @ Template: photo.php
+   @ Template: Photo.php
 =============================================*/
 .type-tribe_events.tribe-events-photo-event .tribe-events-photo-event-wrap:hover {
 	background: #FAFAFA;
@@ -56,7 +56,7 @@
 }
 
 /* = Related Events
-   @ Template: single-event.php
+   @ Template: Single_Event.php
 =============================================*/	
 .tribe-events-single ul.tribe-related-events li {
 	margin-bottom: 12px;

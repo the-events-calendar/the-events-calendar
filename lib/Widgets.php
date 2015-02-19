@@ -3,7 +3,7 @@
 /**
  * Common helper methods for PRO widgets.
  */
-class TribeEventsPro_Widgets {
+class Tribe__Events__Pro__Widgets {
 	/**
 	 * @param $filters
 	 * @param $operand
@@ -35,5 +35,41 @@ class TribeEventsPro_Widgets {
 		}
 
 		return $tax_query;
+	}
+
+	/**
+	 * Enqueue the appropriate CSS for the calendar/advanced list widgets, which share
+	 * the same basic appearance.
+	 */
+	public static function enqueue_calendar_widget_styles() {
+		// CSS file
+		$event_file        = 'widget-calendar.css';
+		$event_file_option = 'widget-calendar-theme.css';
+		$stylesheet_option = tribe_get_option( 'stylesheetOption', 'tribe' );
+
+		// Choose the appropriate stylesheet in light of the current styling options
+		switch ( $stylesheet_option ) {
+			case 'skeleton':
+			case 'full':
+				$event_file_option = "widget-calendar-$stylesheet_option.css";
+				break;
+		}
+
+		$style_url = Tribe__Events__Pro__Events_Pro::instance()->pluginUrl . 'resources/' . $event_file_option;
+		$style_url = apply_filters( 'tribe_events_pro_widget_calendar_stylesheet_url', $style_url );
+
+		$style_override_url = Tribe__Events__Templates::locate_stylesheet( 'tribe-events/pro/' . $event_file, $style_url );
+
+		// Load up stylesheet from theme or plugin
+		if ( $style_url && 'tribe' === $stylesheet_option ) {
+			wp_enqueue_style( 'widget-calendar-pro-style', Tribe__Events__Pro__Events_Pro::instance()->pluginUrl . 'resources/widget-calendar-full.css', array(), apply_filters( 'tribe_events_pro_css_version', Tribe__Events__Pro__Events_Pro::VERSION ) );
+			wp_enqueue_style( Tribe__Events__Events::POSTTYPE . '-widget-calendar-pro-style', $style_url, array(), apply_filters( 'tribe_events_pro_css_version', Tribe__Events__Pro__Events_Pro::VERSION ) );
+		} else {
+			wp_enqueue_style( Tribe__Events__Events::POSTTYPE . '-widget-calendar-pro-style', $style_url, array(), apply_filters( 'tribe_events_pro_css_version', Tribe__Events__Pro__Events_Pro::VERSION ) );
+		}
+
+		if ( $style_override_url ) {
+			wp_enqueue_style( Tribe__Events__Events::POSTTYPE . '--widget-calendar-pro-override-style', $style_override_url, array(), apply_filters( 'tribe_events_pro_css_version', Tribe__Events__Pro__Events_Pro::VERSION ) );
+		}
 	}
 }

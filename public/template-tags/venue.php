@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die('-1');
 }
 
-if( class_exists('TribeEventsPro')) {
+if( class_exists('Tribe__Events__Pro__Events_Pro')) {
 
 	/**
 	 * Output the upcoming events associated with a venue
@@ -19,7 +19,7 @@ if( class_exists('TribeEventsPro')) {
 	 */
 	function tribe_venue_upcoming_events( $post_id = false ) {
 
-		$post_id = TribeEvents::postIdHelper( $post_id );
+		$post_id = Tribe__Events__Events::postIdHelper( $post_id );
 
 		if ($post_id) {
 			// turn off the venue group
