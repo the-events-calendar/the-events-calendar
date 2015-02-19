@@ -1060,7 +1060,7 @@ class Tribe__Events__Pro__Recurrence_Meta {
 	 * @return string The new group by clause.
 	 */
 	public static function addGroupBy( $group_by, $query ) {
-		if ( ! isset( $query->query_vars['tribe_widget_flag'] ) || ! $query->query_vars['tribe_widget_flag'] ){
+		if ( ! isset( $query->query_vars['is_tribe_widget'] ) || ! $query->query_vars['is_tribe_widget'] ){
 			if ( tribe_is_month() || tribe_is_week() || tribe_is_day() ) {
 				return $group_by;
 			}

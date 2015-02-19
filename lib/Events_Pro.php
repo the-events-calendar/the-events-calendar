@@ -1163,7 +1163,7 @@
 			 */
 			public function setup_hide_recurrence_in_query( $query ) {
 
-				if ( ! isset( $query->query_vars['tribe_widget_flag'] ) || ! $query->query_vars['tribe_widget_flag'] ){
+				if ( ! isset( $query->query_vars['is_tribe_widget'] ) || ! $query->query_vars['is_tribe_widget'] ){
 					// don't hide any recurrences on the all recurrences view
 					if ( tribe_is_showing_all() || tribe_is_week() || tribe_is_month() || tribe_is_day() ) {
 						return $query;
@@ -1171,7 +1171,7 @@
 				}
 
 				// don't hide any recurrences in the admin
-				if ( is_admin() && !( defined('DOING_AJAX') && DOING_AJAX ) ) {
+				if ( is_admin() && ! ( defined('DOING_AJAX') && DOING_AJAX ) ) {
 					return $query;
 				}
 

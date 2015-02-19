@@ -265,7 +265,7 @@ class Tribe__Events__Pro__Mini_Calendar {
 					'eventDisplay'           => 'custom',
 					'start_date'             => $this->get_month(),
 					'post_status'            => $post_status,
-					'is_tribe_mini_calendar' => true,
+					'is_tribe_widget'        => true,
 				);
 
 				// set end date if initial load, or ajax month switch
