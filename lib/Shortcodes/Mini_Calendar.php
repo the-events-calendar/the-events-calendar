@@ -24,7 +24,7 @@ class Tribe__Events__Pro__Shortcodes__Mini_Calendar extends Tribe__Events__Pro__
 	 * @var array
 	 */
 	protected $tax_relationships = array(
-		'categories' => TribeEvents::TAXONOMY,
+		'categories' => Tribe__Events__Events::TAXONOMY,
 		'tags' => 'post_tag'
 	);
 
@@ -55,7 +55,7 @@ class Tribe__Events__Pro__Shortcodes__Mini_Calendar extends Tribe__Events__Pro__
 		$this->taxonomy_filters();
 
 		ob_start();
-		the_widget( 'TribeEventsMiniCalendarWidget', $this->arguments, $this->arguments );
+		the_widget( 'Tribe__Events__Pro__Mini_Calendar_Widget', $this->arguments, $this->arguments );
 		$this->output = ob_get_clean();
 	}
 }

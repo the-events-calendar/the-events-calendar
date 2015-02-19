@@ -6,15 +6,15 @@
  * @group pro
  * @group related
  */
-class Tribe_Related_Events_Test extends WP_UnitTestCase {
+class Tribe_Related_Events_Test extends Tribe__Events__WP_UnitTestCase {
 	public function test_enabled_by_default() {
-		$ecp = TribeEventsPro::instance();
+		$ecp = Tribe__Events__Pro__Events_Pro::instance();
 		$this->assertTrue($ecp->show_related_events());
 	}
 
 	public function test_disable_related_events() {
-		$core = TribeEvents::instance();
-		$ecp = TribeEventsPro::instance();
+		$core = Tribe__Events__Events::instance();
+		$ecp = Tribe__Events__Pro__Events_Pro::instance();
 		$core->setOption('hideRelatedEvents', TRUE);
 
 		$this->assertFalse($ecp->show_related_events());
