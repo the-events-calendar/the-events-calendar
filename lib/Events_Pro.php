@@ -93,6 +93,7 @@
 				add_action( 'tribe_helper_activation_complete', array( $this, 'helpersLoaded' ) );
 
 				add_action( 'init', array( $this, 'init' ), 10 );
+				add_action( 'admin_print_styles', array( $this, 'admin_enqueue_styles' ) );
 				add_action( 'tribe_events_enqueue', array( $this, 'admin_enqueue_scripts' ) );
 				add_action( 'tribe_venues_enqueue', array( $this, 'admin_enqueue_scripts' ) );
 				add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_pro_scripts' ), 8);
@@ -1108,6 +1109,10 @@
 				wp_enqueue_script( Tribe__Events__Events::POSTTYPE.'-premium-admin', $this->pluginUrl . 'resources/events-admin.js', array( 'jquery-ui-datepicker' ), apply_filters( 'tribe_events_pro_js_version', Tribe__Events__Pro__Events_Pro::VERSION ), true );
 				$data = apply_filters( 'tribe_events_pro_localize_script', array(), 'TribeEventsProAdmin', Tribe__Events__Events::POSTTYPE.'-premium-admin' );
 				wp_localize_script( Tribe__Events__Events::POSTTYPE.'-premium-admin', 'TribeEventsProAdmin', $data);
+			}
+
+			public function admin_enqueue_styles() {
+				wp_enqueue_style( Tribe__Events__Events::POSTTYPE.'-premium-admin', $this->pluginUrl . 'resources/events-admin.css', array(), apply_filters( 'tribe_events_pro_css_version', Tribe__Events__Pro__Events_Pro::VERSION ) );
 			}
 
 			/**

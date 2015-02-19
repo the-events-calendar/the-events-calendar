@@ -89,7 +89,7 @@ class Tribe__Events__Pro__Recurrence__Queue_Realtime {
 		$queue = new Tribe__Events__Pro__Recurrence__Queue( $event_id );
 
 		if ( ! $queue->is_empty() ) {
-			TribeEventsPro::instance()->queue_processor->process_batch( $event_id );
+			Tribe__Events__Pro__Events_Pro::instance()->queue_processor->process_batch( $event_id );
 		}
 
 		$done       = $queue->is_empty();

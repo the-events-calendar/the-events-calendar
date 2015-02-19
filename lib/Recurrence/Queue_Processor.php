@@ -229,7 +229,7 @@ class Tribe__Events__Pro__Recurrence__Queue_Processor {
 				break;
 			}
 
-			$instance = new TribeEventsPro_RecurrenceInstance( $this->current_event_id, $start_date, $instance_id );
+			$instance = new Tribe__Events__Pro__Recurrence_Instance( $this->current_event_id, $start_date, $instance_id );
 			$instance->save();
 
 			unset( $instances_to_update[$instance_id] );
@@ -253,7 +253,7 @@ class Tribe__Events__Pro__Recurrence__Queue_Processor {
 				continue;
 			}
 
-			$instance = new TribeEventsPro_RecurrenceInstance( $this->current_event_id, $start_date );
+			$instance = new Tribe__Events__Pro__Recurrence_Instance( $this->current_event_id, $start_date );
 			$instance->save();
 
 			unset( $instances_to_create[$key] );
