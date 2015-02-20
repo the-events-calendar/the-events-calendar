@@ -73,14 +73,10 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 * Returns the event venue name
 	 *
 	 * @param int  $postId    Can supply either event id or venue id, if none specified, current post is used
-	 * @param bool $with_link (deprecated in 2.0.1)
 	 *
 	 * @return string Venue Name
 	 */
-	function tribe_get_venue( $postId = null, $with_link = false ) {
-		if ( $with_link ) {
-			_deprecated_argument( __FUNCTION__, '2.0.1' );
-		}
+	function tribe_get_venue( $postId = null ) {
 		$postId = tribe_get_venue_id( $postId );
 		$venue  = ( $postId > 0 ) ? esc_html( get_the_title( $postId ) ) : null;
 
