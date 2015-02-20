@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
-if ( class_exists( 'TribeEvents' ) ) {
+if ( class_exists( 'Tribe__Events__Events' ) ) {
 
 	/**
 	 * Link to Previous Event (Display)
@@ -36,7 +36,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 	function tribe_get_prev_event_link( $anchor = false ) {
 		global $post;
 
-		return apply_filters( 'tribe_get_next_event_link', TribeEvents::instance()->get_event_link( $post, 'previous', $anchor ) );
+		return apply_filters( 'tribe_get_next_event_link', Tribe__Events__Events::instance()->get_event_link( $post, 'previous', $anchor ) );
 	}
 
 	/**
@@ -63,7 +63,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 	function tribe_get_next_event_link( $anchor = false ) {
 		global $post;
 
-		return apply_filters( 'tribe_get_next_event_link', TribeEvents::instance()->get_event_link( $post, 'next', $anchor ) );
+		return apply_filters( 'tribe_get_next_event_link', Tribe__Events__Events::instance()->get_event_link( $post, 'next', $anchor ) );
 	}
 
 	/**
@@ -112,7 +112,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 * @return string URL
 	 */
 	function tribe_get_events_link() {
-		$tribe_ecp = TribeEvents::instance();
+		$tribe_ecp = Tribe__Events__Events::instance();
 		$output    = $tribe_ecp->getLink( 'home' );
 
 		return apply_filters( 'tribe_get_events_link', $output );
@@ -129,7 +129,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 * @todo rename
 	 */
 	function tribe_get_gridview_link( $term = null ) {
-		$tribe_ecp = TribeEvents::instance();
+		$tribe_ecp = Tribe__Events__Events::instance();
 		$output    = $tribe_ecp->getLink( 'month', false, $term );
 
 		return apply_filters( 'tribe_get_gridview_link', $output );
@@ -145,7 +145,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 * @return string URL
 	 */
 	function tribe_get_listview_link( $term = null ) {
-		$tribe_ecp = TribeEvents::instance();
+		$tribe_ecp = Tribe__Events__Events::instance();
 		$output    = $tribe_ecp->getLink( 'list', false, $term );
 
 		return apply_filters( 'tribe_get_listview_link', $output );
@@ -161,7 +161,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 * @return string URL
 	 */
 	function tribe_get_listview_past_link( $term = null ) {
-		$tribe_ecp = TribeEvents::instance();
+		$tribe_ecp = Tribe__Events__Events::instance();
 		$output    = $tribe_ecp->getLink( 'past', false, $term );
 
 		return apply_filters( 'tribe_get_listview_past_link', $output );
@@ -192,9 +192,9 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 */
 	function tribe_get_event_link( $event = null ) {
 		if ( '' == get_option( 'permalink_structure' ) ) {
-			return apply_filters( 'tribe_get_event_link', TribeEvents::instance()->getLink( 'single', $event ), $event );
+			return apply_filters( 'tribe_get_event_link', Tribe__Events__Events::instance()->getLink( 'single', $event ), $event );
 		} else {
-			return trailingslashit( apply_filters( 'tribe_get_event_link', TribeEvents::instance()->getLink( 'single', $event ), $event ) );
+			return trailingslashit( apply_filters( 'tribe_get_event_link', Tribe__Events__Events::instance()->getLink( 'single', $event ), $event ) );
 		}
 	}
 

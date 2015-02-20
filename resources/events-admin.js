@@ -1,13 +1,23 @@
+/**
+ * @todo contains a number of recurrence-related functions which should be moved to PRO
+ */
 jQuery( document ).ready( function( $ ) {
 
-	var $view_select = $( '.tribe-field-dropdown_select2 select' ),
-		viewCalLinkHTML = $( '#view-calendar-link-div' ).html(),
-		$template_select = $( 'select[name="tribeEventsTemplate"]' ),
-		$event_pickers = $( '#tribe-event-datepickers' ),
-		isCommunityEventsEdit = $('body').is( '.tribe_community_edit' );
+	var $date_format      = $( '[data-datepicker_format]' ),
+		$view_select      = $( '.tribe-field-dropdown_select2 select' ),
+		viewCalLinkHTML   = $( '#view-calendar-link-div' ).html(),
+		$template_select  = $( 'select[name="tribeEventsTemplate"]' ),
+		$event_pickers    = $( '#tribe-event-datepickers' ),
+		is_community_edit   = $( 'body' ).is( '.tribe_community_edit' ),
+		datepicker_format = 0;
 
-	// initialize  chosen and select2
+	// Modified from tribe_ev.data to match jQuery UI formatting.
+	var datepicker_formats = {
+		'main' : ['yy-mm-dd', 'm/d/yy', 'mm/dd/yy', 'd/m/yy', 'dd/mm/yy', 'm-d-yy', 'mm-dd-yy', 'd-m-yy', 'dd-mm-yy'],
+		'month': ['yy-mm', 'm/yy', 'mm/yy', 'm/yy', 'mm/yy', 'm-yy', 'mm-yy', 'm-yy', 'mm-yy']
+	};
 
+	// Initialize Chosen and Select2.
 	$( '.chosen, .tribe-field-dropdown_chosen select' ).chosen();
 	$( '.select2' ).select2( {width: '250px'} );
 	$view_select.select2( {width: '250px'} );
@@ -29,8 +39,8 @@ jQuery( document ).ready( function( $ ) {
 
 	//not done by default on front end
 
-	function getDatepickerNumMonths() {
-		return ( isCommunityEventsEdit && $(window).width() < 768 ) ? 1 : 3;
+	function get_datepicker_num_months() {
+		return ( is_community_edit && $(window).width() < 768 ) ? 1 : 3;
 	}
 
 	$( '.hide-if-js' )
@@ -39,6 +49,13 @@ jQuery( document ).ready( function( $ ) {
 	if ( typeof(TEC) !== 'undefined' ) {
 
 		var _MS_PER_DAY = 1000 * 60 * 60 * 24;
+		
+		var date_format = 'yy-mm-dd';
+
+		if ( $date_format.length && $date_format.attr( 'data-datepicker_format' ).length === 1 ) {
+			datepicker_format = $date_format.attr( 'data-datepicker_format' );
+			date_format = datepicker_formats.main[ datepicker_format ];
+		}
 
 		function date_diff_in_days( a, b ) {
 
@@ -58,15 +75,15 @@ jQuery( document ).ready( function( $ ) {
 			$end_date = $( '#EventEndDate' );
 
 		var datepickerOpts = {
-			dateFormat     : 'yy-mm-dd',
+			dateFormat     : date_format,
 			showAnim       : 'fadeIn',
 			changeMonth    : true,
 			changeYear     : true,
-			numberOfMonths : getDatepickerNumMonths(),
+			numberOfMonths : get_datepicker_num_months(),
 			firstDay       : startofweek,
 			showButtonPanel: true,
 			beforeShow     : function( element, object ) {
-				object.input.datepicker( 'option', 'numberOfMonths', getDatepickerNumMonths() );
+				object.input.datepicker( 'option', 'numberOfMonths', get_datepicker_num_months() );
 				object.input.data( 'prevDate', object.input.datepicker( "getDate" ) );
 			},
 			onSelect       : function( selectedDate ) {
@@ -74,7 +91,7 @@ jQuery( document ).ready( function( $ ) {
 					instance = $( this ).data( "datepicker" ),
 					date = $.datepicker.parseDate( instance.settings.dateFormat || $.datepicker._defaults.dateFormat, selectedDate, instance.settings );
 
-				if ( this.id === "EventStartDate" && $recurrence_type.val() !== 'None' ) {
+				if ( this.id === "EventStartDate" && ( $recurrence_type.length && $recurrence_type.val() !== 'None' ) ) {
 
 					var startDate = $( '#EventStartDate' ).data( 'prevDate' ),
 						dateDif = date_diff_in_days( startDate, $end_date.datepicker( 'getDate' ) ),
@@ -96,7 +113,7 @@ jQuery( document ).ready( function( $ ) {
 
 		$.extend( datepickerOpts, TEC );
 
-		var dates = $( "#EventStartDate, #EventEndDate, .tribe-datepicker" ).datepicker( datepickerOpts ),
+		var dates = $( "#EventStartDate, #EventEndDate, .tribe-datepicker" ).datepicker( datepickerOpts ).datepicker( 'setDate', new Date( date_format ) ),
 			$all_day_check = $( '#allDayCheckbox' ),
 			$tod_options = $( ".timeofdayoptions" ),
 			$time_format = $( "#EventTimeFormatDiv" ),
@@ -187,21 +204,23 @@ jQuery( document ).ready( function( $ ) {
 		}
 
 		savedVenue.change( function() {
-			var selected_venue_id = $(this).val();
+			var selected_venue_id = $(this).val(),
+				current_edit_link = $('.edit-venue-link a').attr( 'data-admin-url' );
 
 			if ( selected_venue_id == '0' ) {
 				venueFields.fadeIn();
 				$( "#EventCountry" ).val( 0 ).trigger( "chosen:updated" );
 				$( "#StateProvinceSelect" ).val( 0 ).trigger( "chosen:updated" );
 				tribeShowHideCorrectStateProvinceInput( '' );
-				$('.edit-venue-link').hide();			
+				$('.edit-venue-link').hide();
 			}
 			else {
 				venueFields.fadeOut();
 				$('.edit-venue-link').show();
 
 				// Change edit link
-				$('.edit-venue-link a').attr( 'href', '/wp-admin/post.php?post='+ selected_venue_id +'&action=edit' );
+				
+				$('.edit-venue-link a').attr( 'href', current_edit_link + selected_venue_id );
 			}
 		} );
 		// hide unnecessary fields
@@ -214,18 +233,19 @@ jQuery( document ).ready( function( $ ) {
 		}
 
 		savedorganizer.change( function() {
-			var selected_organizer_id = $(this).val();
+			var selected_organizer_id = $(this).val(),
+				current_edit_link = $('.edit-organizer-link a').attr( 'data-admin-url' );
 
 			if ( selected_organizer_id == '0' ) {
 				organizerFields.fadeIn();
-				$('.edit-organizer-link').hide();	
+				$('.edit-organizer-link').hide();
 			}
 			else {
 				organizerFields.fadeOut();
 				$('.edit-organizer-link').show();
 
 				// Change edit link
-				$('.edit-organizer-link a').attr( 'href', '/wp-admin/post.php?post='+ selected_organizer_id +'&action=edit' );
+				$('.edit-organizer-link a').attr( 'href', current_edit_link + selected_organizer_id );
 			}
 		} );
 	}
@@ -369,7 +389,7 @@ jQuery( document ).ready( function( $ ) {
 
 	$( '[name="recurrence[type]"]' ).change( function() {
 		var option = $( this ).find( 'option:selected' ), numOccurrences = $( '#recurrence_end_count' ).val();
-		$( '#occurence-count-text' ).text( numOccurrences == 1 ? option.data( 'single' ) : option.data( 'plural' ) );
+		$( '#occurence-count-text' ).text( 1 == numOccurrences ? $( this ).data( 'single' ) : $( this ).data( 'plural' ) );
 		$( '[name="recurrence[occurrence-count-text]"]' ).val( $( '#occurence-count-text' ).text() );
 	} );
 
