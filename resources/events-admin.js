@@ -91,7 +91,7 @@ jQuery( document ).ready( function( $ ) {
 					instance = $( this ).data( "datepicker" ),
 					date = $.datepicker.parseDate( instance.settings.dateFormat || $.datepicker._defaults.dateFormat, selectedDate, instance.settings );
 
-				if ( this.id === "EventStartDate" && recurrence_type.val() !== 'None' ) {
+				if ( this.id === "EventStartDate" && $recurrence_type.val() !== 'None' ) {
 
 					var startDate = $( '#EventStartDate' ).data( 'prevDate' ),
 						dateDif = null == startDate ? 0 : date_diff_in_days( startDate, $end_date.datepicker( 'getDate' ) ),
