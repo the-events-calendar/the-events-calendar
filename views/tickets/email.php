@@ -352,6 +352,16 @@
 												<h6 style="color:#909090 !important; margin:0 0 4px 0; font-family: 'Helvetica Neue', Helvetica, sans-serif; text-transform:uppercase; font-size:13px; font-weight:700 !important;"><?php _e( tribe_get_organizer_label_singular(), "tribe-events-calendar" ); ?></h6>
 												<span style="color:#0a0a0e !important; font-family: 'Helvetica Neue', Helvetica, sans-serif; font-size:15px;"><?php echo tribe_get_organizer( $event->ID ); ?></span>
 											</td>
+
+											<?php $qr_code_url = apply_filters( 'tribe_tickets_ticket_qr_code', '' , $ticket ); ?>
+											<?php if ( ! empty( $qr_code_url ) ): ?>
+												<td class="ticket-qr" valign="top" align="right" width="160"
+												    style="padding: 0 !important; width:160px; margin:0 !important;">
+													<img src="<?php echo esc_url( $qr_code_url ); ?>" width="140"
+													     height="140" alt="Image Alt"
+													     style="border:0; outline:none; height:auto; max-width:100%; display:block; float:right"/>
+												</td>
+											<?php endif; ?>
 										</tr>
 									</table>
 									<table border="0" cellpadding="0" cellspacing="0" width="100%" align="center">
