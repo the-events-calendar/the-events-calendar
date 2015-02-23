@@ -1,3 +1,6 @@
+/**
+ * @todo contains a number of recurrence-related functions which should be moved to PRO
+ */
 jQuery( document ).ready( function( $ ) {
 
 	var $date_format      = $( '[data-datepicker_format]' ),
@@ -91,7 +94,7 @@ jQuery( document ).ready( function( $ ) {
 				if ( this.id === "EventStartDate" && $recurrence_type.val() !== 'None' ) {
 
 					var startDate = $( '#EventStartDate' ).data( 'prevDate' ),
-						dateDif = date_diff_in_days( startDate, $end_date.datepicker( 'getDate' ) ),
+						dateDif = null == startDate ? 0 : date_diff_in_days( startDate, $end_date.datepicker( 'getDate' ) ),
 						endDate = new Date( date.setDate( date.getDate() + dateDif ) );
 
 					$end_date
@@ -110,7 +113,7 @@ jQuery( document ).ready( function( $ ) {
 
 		$.extend( datepickerOpts, TEC );
 
-		var dates = $( "#EventStartDate, #EventEndDate, .tribe-datepicker" ).datepicker( datepickerOpts ),
+		var dates = $( "#EventStartDate, #EventEndDate, .tribe-datepicker" ).datepicker( datepickerOpts ).datepicker( 'setDate', new Date( date_format ) ),
 			$all_day_check = $( '#allDayCheckbox' ),
 			$tod_options = $( ".timeofdayoptions" ),
 			$time_format = $( "#EventTimeFormatDiv" ),
@@ -386,7 +389,7 @@ jQuery( document ).ready( function( $ ) {
 
 	$( '[name="recurrence[type]"]' ).change( function() {
 		var option = $( this ).find( 'option:selected' ), numOccurrences = $( '#recurrence_end_count' ).val();
-		$( '#occurence-count-text' ).text( numOccurrences == 1 ? option.data( 'single' ) : option.data( 'plural' ) );
+		$( '#occurence-count-text' ).text( 1 == numOccurrences ? $( this ).data( 'single' ) : $( this ).data( 'plural' ) );
 		$( '[name="recurrence[occurrence-count-text]"]' ).val( $( '#occurence-count-text' ).text() );
 	} );
 
