@@ -19,17 +19,6 @@
  *
  */
 ?>
-<?php
-// This file is being included in events/lib/tickets/tribe-TicketsTickets.php
-// in the function generate_tickets_email_content. That function has a $tickets
-// array with elements that have this fields:
-//		$tickets[] =   array( 'event_id',
-//							  'ticket_name'
-//							  'holder_name'
-//							  'order_id'
-//							  'ticket_id'
-//							  'security_code')
-?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
