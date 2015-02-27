@@ -233,6 +233,7 @@ Our Premium Plugins:
 * Added some changelog formatting enhancements after seeing keepachangelog.com :)
 * Incorporated updated Bulgarian translation files, courtesy of Nedko Ivanov
 * Incorporated new Hungarian translation files, courtesy of Balazs Dobos
+* Updated the mini-calendar widget to match the list widget styling
 
 = 3.9.1 =
 
