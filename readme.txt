@@ -333,6 +333,12 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Added some changelog formatting enhancements after seeing keepachangelog.com :)
 * Incorporated updated Bulgarian translation files, courtesy of Nedko Ivanov
 * Incorporated new Hungarian translation files, courtesy of Balazs Dobos
+* Updated the Organizer/Venue metabox UI to be more helpful when adding/editing events
+* Added calendar icon to the Admin Bar (Fancy!)
+* Fixed an issue where the Venue state field was displaying for countries other than US
+* Fixed an issue where tooltips were not respecting the Time Range Separator
+* Added the ability to customize the 'Event' label using the new 'tribe_event_label_singular' and 'tribe_event_label_plural' filters (Usage example: http://m.tri.be/tj)
+* Removed all WooTickets CSS from Core
 
 = 3.9.1 =
 
