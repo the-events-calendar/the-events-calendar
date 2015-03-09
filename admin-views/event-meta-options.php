@@ -29,8 +29,6 @@
 	<tbody>
 	<?php
 	foreach ( $customFields as $field ) : // Track our progress through the list of custom fields
-		$last_row = ( ++$count === $total );
-
 		// Reuse the existing index (and maintain an underscore prefix - to differentiate
 		// between existing fields and newly created ones (so we can maintain the relationship
 		// between keys and values)
