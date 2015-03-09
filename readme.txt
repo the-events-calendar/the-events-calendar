@@ -243,6 +243,7 @@ The plugin is produced by <a href="http://m.tri.be/2s">Modern Tribe Inc</a>.
 * Arabic from Mamdouh Samy
 * Bosnian from Marko Manojlovic
 * Brazilian Portuguese by Emerson Marques
+* British English from John Browning
 * Bulgarian from Nedko Ivanov
 * Catalan from Barbara Partegos Rof
 * Chinese from Massound Huang
@@ -269,6 +270,7 @@ The plugin is produced by <a href="http://m.tri.be/2s">Modern Tribe Inc</a>.
 * Romanian from Cosmin Vaman
 * Russian from Alexander Tinyaev
 * Serbian from Marko Manojlovic
+* Slovak from Emilia Valova
 * Slovenian from Žiga Vajdic
 * Spanish from Juanjo Navarro
 * Swedish from Jonas Reinicke
@@ -331,14 +333,16 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 = [3.10] 2015-04-30 =
 
 * Added some changelog formatting enhancements after seeing keepachangelog.com :)
-* Incorporated updated Bulgarian translation files, courtesy of Nedko Ivanov
-* Incorporated new Hungarian translation files, courtesy of Balazs Dobos
 * Updated the Organizer/Venue metabox UI to be more helpful when adding/editing events
 * Added calendar icon to the Admin Bar (Fancy!)
 * Fixed an issue where the Venue state field was displaying for countries other than US
 * Fixed an issue where tooltips were not respecting the Time Range Separator
 * Added the ability to customize the 'Event' label using the new 'tribe_event_label_singular' and 'tribe_event_label_plural' filters (Usage example: http://m.tri.be/tj)
 * Removed all WooTickets CSS from Core
+* Incorporated updated Bulgarian translation files, courtesy of Nedko Ivanov
+* Incorporated new Hungarian translation files, courtesy of Balazs Dobos
+* Incorporated new British English translation files, courtesy of John Browning
+* Incorporated new Slovak translation files, courtesy of Emilia Valova
 
 = 3.9.1 =
 
