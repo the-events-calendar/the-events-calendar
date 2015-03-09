@@ -28,14 +28,8 @@
 	</thead>
 	<tbody>
 	<?php
-	$total = count( $customFields );
-	$count = 0;
-
-	// Append an extra (blank) entry at the end of the list as a convenience for admins
-	$customFields[] = array();
-
 	foreach ( $customFields as $field ) : // Track our progress through the list of custom fields
-		$last_row = ( $count ++ === $total );
+		$last_row = ( ++$count === $total );
 
 		// Reuse the existing index (and maintain an underscore prefix - to differentiate
 		// between existing fields and newly created ones (so we can maintain the relationship
@@ -64,13 +58,7 @@
 			<td>
 				<textarea name="custom-field-options[<?php echo $index ?>]" style='display: <?php echo ( isset( $field['type'] ) && ( $field['type'] == 'radio' || $field['type'] == 'checkbox' || $field['type'] == 'dropdown' ) ) ? "inline" : "none" ?>;' data-name-template='custom-field-options' data-count='<?php echo esc_attr( $count ) ?>' rows="3"><?php echo stripslashes( esc_textarea( isset( $field['values'] ) ? $field['values'] : '' ) ) ?></textarea>
 			</td>
-			<td>
-				<?php if ( $last_row ): ?>
-					<a name="add-field" href='#add-field' class='add-another-field'><?php _e( 'Add another', 'tribe-events-calendar-pro' ) ?></a>
-				<?php else: ?>
-					<a name="remove-field" href='#remove-field' class='remove-another-field'><?php _e( 'Remove', 'tribe-events-calendar-pro' ) ?></a>
-				<?php endif ?>
-			</td>
+			<td class="add-remove-actions"></td>
 		</tr>
 	<?php endforeach; ?>
 	</tbody>
@@ -93,8 +81,31 @@
 
 <script>
 	jQuery(document).ready(function ($) {
-		if ($('#additional-field-table').size() > 0) {
-			$('#additional-field-table').delegate('.remove-another-field', 'click', function () {
+		var fields_tbl  = $( "#additional-field-table" );
+		var tbl_body    = fields_tbl.find( "tbody" );
+		var add_new_tpl = "<a name='add-field' href='#add-field' class='add-another-field'><?php echo esc_js( $add_another ) ?></a>";
+		var remove_tpl  = "<a name='remove-field' href='#remove-field' class='remove-another-field'><?php echo esc_js( $remove_field ) ?></a>";
+
+		/**
+		 * Ensures the correct action link is present for each row in the table.
+		 */
+		function refresh_add_remove_links() {
+			var rows     = tbl_body.find("tr");
+			var num_rows = rows.length;
+			var count    = 0;
+
+			// Insert the remove link for every row but the final one (which should contain the add new link)
+			$.each( rows, function( index, object ) {
+				if ( ++count == num_rows ) $( object ).find( ".add-remove-actions" ).html( add_new_tpl );
+				else $( object ).find( ".add-remove-actions" ).html( remove_tpl );
+			} );
+		}
+
+		// Set up the add/remove links as soon as the page is ready
+		refresh_add_remove_links();
+
+		if (fields_tbl.size() > 0) {
+			fields_tbl.delegate('.remove-another-field', 'click', function () {
 				var row = $(this).closest('tr'), firstInput = row.find('td:first input'), data = {
 					action: 'remove_option',
 					field : firstInput.data('count')
@@ -115,7 +126,7 @@
 			});
 
 			$('#additional-field-table').delegate('.add-another-field', 'click', function () {
-				var table = $(this).closest('table tbody'), lastRow = table.find('tr:last'), newRow = lastRow.clone();
+				var lastRow = tbl_body.find('tr:last'), newRow = lastRow.clone();
 
 				lastRow.find('td:last').html(lastRow.prev().find('td:last').html());
 				newRow.find('input, select, textarea').each(function () {
@@ -125,7 +136,8 @@
 					input.attr('data-count', number);
 				});
 
-				table.append(newRow);
+				tbl_body.append(newRow);
+				refresh_add_remove_links()
 			});
 
 			$('#additional-field-table').delegate('select', 'change', function () {
