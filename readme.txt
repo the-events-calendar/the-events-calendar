@@ -163,6 +163,7 @@ The plugin is produced by <a href="http://m.tri.be/45">Modern Tribe Inc</a>.
 * Arabic from Mamdouh Samy
 * Bosnian from Marko Manojlovic
 * Brazilian Portuguese from Emerson Marques
+* British English from John Browning
 * Bulgarian from Nedko Ivanov
 * Catalan from Barbara Partegos Rof
 * Chinese from Massound Huang
@@ -189,6 +190,7 @@ The plugin is produced by <a href="http://m.tri.be/45">Modern Tribe Inc</a>.
 * Romanian from Cosmin Vaman
 * Russian from Alexander Tinyaev
 * Serbian from Marko Manojlovic
+* Slovak from Emilia Valova
 * Slovenian from Žiga Vajdic
 * Spanish from Juanjo Navarro
 * Swedish from Jonas Reinicke
@@ -231,9 +233,11 @@ Our Premium Plugins:
 = [3.10] 2015-04-30 =
 
 * Added some changelog formatting enhancements after seeing keepachangelog.com :)
+* Updated the mini-calendar widget to match the list widget styling
 * Incorporated updated Bulgarian translation files, courtesy of Nedko Ivanov
 * Incorporated new Hungarian translation files, courtesy of Balazs Dobos
-* Updated the mini-calendar widget to match the list widget styling
+* Incorporated new Slovak translation files, courtesy of Emilia Valova
+* Incorporated new British English translation files, courtesy of John Browning
 
 = 3.9.1 =
 
