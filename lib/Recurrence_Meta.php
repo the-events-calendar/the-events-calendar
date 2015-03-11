@@ -84,7 +84,7 @@ class Tribe__Events__Pro__Recurrence_Meta {
 	}
 
 	public static function filter_edit_post_link( $url, $post_id, $context ) {
-		if ( tribe_is_recurring_event( $post_id ) && $parent = wp_get_post_parent_id( $post_id ) ) {
+		if ( ! empty( $post_id ) && tribe_is_recurring_event( $post_id ) && $parent = wp_get_post_parent_id( $post_id ) ) {
 			return get_edit_post_link( $parent, $context );
 		}
 
