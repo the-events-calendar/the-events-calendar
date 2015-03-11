@@ -232,7 +232,14 @@ Our Premium Plugins:
 
 = [3.10] 2015-04-30 =
 
+* Fixed a minor issue with recurring event tooltips within the advanced list widget
+* Fixed an issue which caused the default venue fields to be automatically inserted within the event editor
+* Fixed a bug preventing the view link from appearing for updated venues and organizers
+* Introduced batch processing of recurring events to further improve performance and scalability
+* Scheduled task responsible for generating recurring events is now removed when the plugin is deactivated
+* Added a new additional field type (textareas) to compliment the existing text field
 * Added some changelog formatting enhancements after seeing keepachangelog.com :)
+* Improved the recurring event user interface in relation to events ending after "x" cycles
 * Updated the mini-calendar widget to match the list widget styling
 * Incorporated updated Bulgarian translation files, courtesy of Nedko Ivanov
 * Incorporated new Hungarian translation files, courtesy of Balazs Dobos
