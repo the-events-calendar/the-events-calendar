@@ -335,10 +335,18 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Added some changelog formatting enhancements after seeing keepachangelog.com :)
 * Updated the Organizer/Venue metabox UI to be more helpful when adding/editing events
 * Added calendar icon to the Admin Bar (Fancy!)
+* Implemented performance enhancements in relation to list view pagination
+* Resolved a compatibility issue where WooCommerce shortcodes could trigger unusual side effects in month view
+* Fixed an issue where malformed URLs could trigger fatal exceptions
 * Fixed an issue where the Venue state field was displaying for countries other than US
 * Fixed an issue where tooltips were not respecting the Time Range Separator
+* Fixed an issue preventing list view from being accessed when default permalinks are in use
+* Fixed an issue causing unnecessary post meta data to be generated for new venues
+* Fixed a bug where ticket emails did not include the expected venue links
+* Added new shortcodes letting the featured venue, advanced list and event countdown widgets be embedded easily in posts and pages
 * Added the ability to customize the 'Event' label using the new 'tribe_event_label_singular' and 'tribe_event_label_plural' filters (Usage example: http://m.tri.be/tj)
 * Removed all WooTickets CSS from Core
+* Implemented under-the-hood enhancements to the main event editor meta box
 * Incorporated updated Bulgarian translation files, courtesy of Nedko Ivanov
 * Incorporated new Hungarian translation files, courtesy of Balazs Dobos
 * Incorporated new British English translation files, courtesy of John Browning
