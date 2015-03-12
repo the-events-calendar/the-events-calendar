@@ -30,7 +30,11 @@ module.exports = {
 				src: ['**',
 				      '!**/dev/**',
 				      '!**/tests/**',
-				      '!**/.git/**'
+				      '!**/vendor/jquery-placeholder/demo.html',
+				      '!**/vendor/jquery-resize/docs/**',
+				      '!**/vendor/jquery-resize/examples/**',
+				      '!**/vendor/jquery-resize/shared/**',
+				      '!**/vendor/jquery-resize/unit/**'
 				],
 				dest: '<%= pkg._zipfoldername %>/'
 			}]
