@@ -11,6 +11,7 @@
  * Returns a formatted version of the given date.
  * The date defaults to the current date/time.
  * The mask defaults to dateFormat.masks.default.
+ * todo: now used in multiple places, lets consolidate. Also, should events-admin really be powering community fe form?
  */
 
 var tribeDateFormat = function() {
@@ -646,15 +647,16 @@ jQuery( document ).ready( function( $ ) {
 	/**
 	 * Capture the community "Add" form on submit to ensure safe date format.
 	 */
-	$( '#tribe-community-events.form form' ).on( 'submit', function(e) {
-		var $els = {
-			start : $event_pickers.find( '#EventStartDate' ),
-			end   : $event_pickers.next( 'tr' ).find( '#EventEndDate' )
-		}
+	$( '#tribe-community-events.form form' ).on( 'submit', function( e ) {
 
-		$els.start.val( tribeDateFormat( $els.start.val(), 'tribeQuery' ) )
-		$els.end.val( tribeDateFormat( $els.end.val(), 'tribeQuery' ) )
-	})
+		var $els = {
+			start: $event_pickers.find( '#EventStartDate' ),
+			end  : $event_pickers.next( 'tr' ).find( '#EventEndDate' )
+		};
+
+		$els.start.val( tribeDateFormat( $els.start.val(), 'tribeQuery' ) );
+		$els.end.val( tribeDateFormat( $els.end.val(), 'tribeQuery' ) );
+	} );
 
 });
 
