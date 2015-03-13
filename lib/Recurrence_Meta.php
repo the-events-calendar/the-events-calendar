@@ -99,7 +99,7 @@ class Tribe__Events__Pro__Recurrence_Meta {
 		/** @var WP_Admin_Bar $wp_admin_bar */
 		global $post, $wp_admin_bar;
 
-		if ( ! is_a( $post, 'WP_Post' ) ) {
+		if ( ! $post instanceof WP_Post ) {
 			return;
 		}
 
