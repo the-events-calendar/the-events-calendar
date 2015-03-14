@@ -651,12 +651,14 @@ jQuery( document ).ready( function( $ ) {
 
 		var $els = {
 			start: $event_pickers.find( '#EventStartDate' ),
-			end  : $event_pickers.next( 'tr' ).find( '#EventEndDate' )
+			end  : $event_pickers.next( 'tr' ).find( '#EventEndDate' ),
+			recur: $event_pickers.parent().find( '#recurrence_end' )
 		};
 
 		$els.start.val( tribeDateFormat( $els.start.datepicker( 'getDate' ), 'tribeQuery' ) );
 		$els.end.val( tribeDateFormat( $els.end.datepicker( 'getDate' ), 'tribeQuery' ) );
-
+		
+		$els.recur.is( ':visible' ) && $els.recur.val( tribeDateFormat( $els.recur.datepicker( 'getDate' ), 'tribeQuery' ) );
 	} );
 
 });
