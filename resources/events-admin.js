@@ -648,18 +648,39 @@ jQuery( document ).ready( function( $ ) {
 	 * Capture the community "Add" form on submit to ensure safe date format.
 	 */
 	$( '#tribe-community-events.form form' ).on( 'submit', function( e ) {
+		
+		switch ( datepicker_format ) {
+			case '3':
+			case '4':
+				tribe_date_slash_to_dash( $event_pickers.find( '#EventStartDate' ) );
+				tribe_date_slash_to_dash( $event_pickers.next( 'tr' ).find( '#EventEndDate' ) );
 
-		var $els = {
-			start: $event_pickers.find( '#EventStartDate' ),
-			end  : $event_pickers.next( 'tr' ).find( '#EventEndDate' )
-		};
+				if ( $( '.tribe-community-event-info' ).find( '#recurrence_end' ).is( ':visible' ) ) {
+					tribe_date_slash_to_dash( $( '.tribe-community-event-info' ).find( '#recurrence_end' ) );
+				}
+				break;
 
-		$els.start.val( tribeDateFormat( $els.start.val(), 'tribeQuery' ) );
-		$els.end.val( tribeDateFormat( $els.end.val(), 'tribeQuery' ) );
-	} );
+			case '5':
+			case '6':
+				tribe_date_raw_to_query( $event_pickers.find( '#EventStartDate' ) );
+				tribe_date_raw_to_query( $event_pickers.next( 'tr' ).find( '#EventEndDate' ) );
+
+				if ( $( '.tribe-community-event-info' ).find( '#recurrence_end' ).is( ':visible' ) ) {
+					tribe_date_raw_to_query( $( '.tribe-community-event-info' ).find( '#recurrence_end' ) );
+				}
+				break;
+		}
+	});
+
+	function tribe_date_slash_to_dash( $el ) {
+		$el.val( $el.val().split( '/' ).join( '-' ) );
+	}
+
+	function tribe_date_raw_to_query( $el ) {
+		$el.val( tribeDateFormat( $el.val(), 'tribeQuery' ) );
+	}
 
 });
-
 
 /**
  * Re-initialize chosen on widgets when moved
