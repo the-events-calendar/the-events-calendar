@@ -255,7 +255,7 @@ jQuery( document ).ready( function( $ ) {
 
 		$.extend( datepickerOpts, TEC );
 
-		var dates = $( "#EventStartDate, #EventEndDate, .tribe-datepicker" ).datepicker( datepickerOpts ).datepicker( 'setDate', new Date( date_format ) ),
+		var dates = $( "#EventStartDate, #EventEndDate, .tribe-datepicker" ).datepicker( datepickerOpts ),
 			$all_day_check = $( '#allDayCheckbox' ),
 			$tod_options = $( ".timeofdayoptions" ),
 			$time_format = $( "#EventTimeFormatDiv" ),
