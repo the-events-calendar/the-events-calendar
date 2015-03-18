@@ -50,7 +50,7 @@ class Tribe__Events__Pro__Recurrence__Queue_Processor {
 	public function register_30min_interval( $schedules ) {
 		$schedules['every_30mins'] = array(
 			'interval' => 30 * MINUTE_IN_SECONDS,
-			'display'  => __('Once every 30 mins', 'tribe-events-pro')
+			'display'  => __('Once Every 30 Mins', 'tribe-events-pro')
 		);
 
 		return $schedules;
