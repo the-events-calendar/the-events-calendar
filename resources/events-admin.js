@@ -272,7 +272,7 @@ jQuery( document ).ready( function( $ ) {
 
 			$.each( $els, function( i, el ) {
 				var $el = $(el);
-				( '' != $el.val() ) && $el.val( tribeDateFormat( $el.val(), datepicker_format ) );
+				( '' !== $el.val() ) && $el.val( tribeDateFormat( $el.val(), datepicker_format ) );
 			})
 		}
 

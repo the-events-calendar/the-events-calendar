@@ -59,16 +59,10 @@
     <td><code>				var option = this.id == "EventStartDate" ? "minDate" : "maxDate",</code></td>
     <td>Expected '===' and instead saw '=='.</td>
 </tr><tr class="warning">
-    <td class="text-center">W116</td>
-    <td class="text-center">275</td>
-    <td class="test-center">24</td>
-    <td><code>				( '' != $el.val() ) && $el.val( tribeDateFormat( $el.val(), datepicker_format ) );</code></td>
-    <td>Expected '!==' and instead saw '!='.</td>
-</tr><tr class="warning">
     <td class="text-center">W030</td>
     <td class="text-center">275</td>
-    <td class="test-center">97</td>
-    <td><code>				( '' != $el.val() ) && $el.val( tribeDateFormat( $el.val(), datepicker_format ) );</code></td>
+    <td class="test-center">98</td>
+    <td><code>				( '' !== $el.val() ) && $el.val( tribeDateFormat( $el.val(), datepicker_format ) );</code></td>
     <td>Expected an assignment or function call and instead saw an expression.</td>
 </tr><tr class="warning">
     <td class="text-center">W033</td>
