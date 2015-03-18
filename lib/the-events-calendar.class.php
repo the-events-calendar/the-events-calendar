@@ -3970,7 +3970,7 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 				if ( ! $anchor ) {
 					$anchor = apply_filters( 'the_title', $results->post_title );
 				} elseif ( strpos( $anchor, '%title%' ) !== false ) {
-					$anchor = preg_replace( '|%title%|', apply_filters( 'the_title', $results->post_title ), $anchor );
+					$anchor = preg_replace( '|%title%|', apply_filters( 'the_title', $results->post_title, $results->ID ), $anchor );
 				}
 
 				return apply_filters( 'tribe_events_get_event_link', '<a href="' . tribe_get_event_link( $results ) . '">' . $anchor . '</a>' );
