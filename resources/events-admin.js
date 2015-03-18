@@ -264,6 +264,18 @@ jQuery( document ).ready( function( $ ) {
 			$end_month = $( 'select[name="EventEndMonth"]' ),
 			selectObject;
 
+		if ( is_community_edit ) {
+			var $els = {
+				start : $event_pickers.find( '#EventStartDate' ),
+				end   : $event_pickers.next( 'tr' ).find( '#EventEndDate' ),
+			};
+
+			$.each( $els, function( i, el ) {
+				var $el = $(el);
+				( '' != $el.val() ) && $el.val( tribeDateFormat( $el.val(), datepicker_format ) );
+			})
+		}
+
 		// toggle time input
 
 		function toggleDayTimeDisplay() {
