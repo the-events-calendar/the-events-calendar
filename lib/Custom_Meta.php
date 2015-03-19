@@ -54,7 +54,7 @@ class Tribe__Events__Pro__Custom_Meta {
 		$remove_field = esc_html( __( 'Remove', 'tribe-events-calendar-pro' ) );
 
 		// Settings for regular WordPress custom fields
-		$disable_metabox_custom_fields = $pro->displayMetaboxCustomFields() ? "hide" : "show";
+		$disable_metabox_custom_fields = $pro->displayMetaboxCustomFields() ? "show" : "hide";
 
 		include $pro->pluginPath . 'admin-views/event-meta-options.php';
 	}
