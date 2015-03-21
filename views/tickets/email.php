@@ -358,7 +358,7 @@
 												<td class="ticket-qr" valign="top" align="right" width="160"
 												    style="padding: 0 !important; width:160px; margin:0 !important;">
 													<img src="<?php echo esc_url( $qr_code_url ); ?>" width="140"
-													     height="140" alt="Image Alt"
+													     height="140" alt="QR Code Image"
 													     style="border:0; outline:none; height:auto; max-width:100%; display:block; float:right"/>
 												</td>
 											<?php endif; ?>
