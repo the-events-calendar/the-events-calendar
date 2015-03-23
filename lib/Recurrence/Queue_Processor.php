@@ -35,26 +35,11 @@ class Tribe__Events__Pro__Recurrence__Queue_Processor {
 	 * Configures a scheduled task to handle "background processing" of recurring events.
 	 */
 	public function manage_scheduled_task() {
-		add_filter( 'cron_schedules', array( $this, 'register_30min_interval' ) );
 		add_action( 'tribe_events_pro_blog_deactivate', array( $this, 'clear_scheduled_task' ) );
 		add_action( self::SCHEDULED_TASK, array( $this, 'process_queue' ), 20, 0 );
 		$this->register_scheduled_task();
 	}
 
-	/**
-	 * Add a new scheduled task interval (of 30mins).
-	 *
-	 * @param  array $schedules
-	 * @return array
-	 */
-	public function register_30min_interval( $schedules ) {
-		$schedules['every_30mins'] = array(
-			'interval' => 30 * MINUTE_IN_SECONDS,
-			'display'  => __('Once Every 30 Mins', 'tribe-events-pro')
-		);
-
-		return $schedules;
-	}
 
 	/**
 	 * Runs upon plugin activation, registering our scheduled task used to process
