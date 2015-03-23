@@ -459,7 +459,10 @@ if ( ! class_exists( 'Tribe__Events__Events' ) ) {
 			add_action( 'plugins_loaded', array( 'Tribe__Events__Bar', 'instance' ) );
 			add_action( 'plugins_loaded', array( 'Tribe__Events__Templates', 'init' ) );
 
+			add_action( 'init', array( $this, 'filter_cron_schedules' ) );
+
 		}
+
 
 		/**
 		 * Load the ical template tags
@@ -4146,6 +4149,34 @@ if ( ! class_exists( 'Tribe__Events__Events' ) ) {
 
 			return $query;
 		}
+
+
+		/**
+		 * Add filters to register custom cron schedules
+		 *
+		 *
+		 * @return void
+		 */
+		public function filter_cron_schedules(){
+			add_filter( 'cron_schedules', array( $this, 'register_30min_interval' ) );
+		}
+
+
+		/**
+		 * Add a new scheduled task interval (of 30mins).
+		 *
+		 * @param  array $schedules
+		 * @return array
+		 */
+		public function register_30min_interval( $schedules ) {
+			$schedules['every_30mins'] = array(
+				'interval' => 30 * MINUTE_IN_SECONDS,
+				'display'  => __('Once Every 30 Mins', 'tribe-events-pro')
+			);
+
+			return $schedules;
+		}
+
 
 		/**
 		 * If recurring events are imported using the WP importer, WP will flag
