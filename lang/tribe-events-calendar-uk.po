@@ -3,14 +3,14 @@ msgstr ""
 "Project-Id-Version: The Events Calendar 3.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-03-25 10:52-0800\n"
-"PO-Revision-Date: 2014-03-25 11:02-0800\n"
-"Last-Translator: \n"
+"PO-Revision-Date: 2015-02-03 23:47+0200\n"
+"Last-Translator: Andrii Ryzhkov <andrii.ryzhkov@gmail.com>\n"
 "Language-Team: Modern Tribe, Inc. <support@tri.be>\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.6.4\n"
+"X-Generator: Poedit 1.7.4\n"
 "X-Poedit-KeywordsList: __;_e\n"
 "X-Poedit-Basepath: .\n"
 "X-Poedit-SourceCharset: UTF-8\n"
@@ -18,7 +18,7 @@ msgstr ""
 
 #: ../admin-views/app-shop.php:4
 msgid "Tribe Event Add-Ons"
-msgstr "Tribe Event доповнення"
+msgstr "Доповнення Tribe Event"
 
 #: ../admin-views/app-shop.php:50
 msgid "Version"
@@ -34,7 +34,7 @@ msgstr "Сховати зі списку подій"
 
 #: ../admin-views/event-sidebar-options.php:12
 msgid "Sticky in Calendar View"
-msgstr "Від календаря стікерами"
+msgstr "Прикріпити у перегляді календаря"
 
 #: ../admin-views/events-audit-trail.php:41
 msgid "Auditing Information"
@@ -42,7 +42,7 @@ msgstr "Перевірочна інформація"
 
 #: ../admin-views/events-audit-trail.php:47
 msgid "Created by:"
-msgstr "Зроблено:"
+msgstr "Створено:"
 
 #: ../admin-views/events-audit-trail.php:51
 msgid "Audit Trail:"
@@ -59,7 +59,7 @@ msgid ""
 "please refresh the page."
 msgstr ""
 "Ви змінили правила повторення цієї події. Збереження подія оновить всі "
-"майбутні події. Якщо ти не хотів, щоб змінилися всі події, то, будь ласка, "
+"майбутні події. Якщо ви не хотли, щоб змінилися всі події, то, будь ласка, "
 "оновіть сторінку."
 
 #: ../admin-views/events-meta-box.php:35
@@ -316,9 +316,8 @@ msgstr ""
 "події."
 
 #: ../admin-views/tickets/meta-box.php:182
-#, fuzzy
 msgid "Save this ticket"
-msgstr "Встановити як заголовок квитка"
+msgstr "Зберегти це звернення"
 
 #: ../admin-views/tribe-options-display.php:4
 msgid "Default Events Template"
@@ -470,7 +469,7 @@ msgstr "Де мій календар?"
 
 #: ../admin-views/tribe-options-general.php:24
 msgid "Right here"
-msgstr " Прямо тут"
+msgstr "Прямо тут"
 
 #: ../admin-views/tribe-options-general.php:28
 msgid ""
@@ -483,7 +482,7 @@ msgstr ""
 
 #: ../admin-views/tribe-options-general.php:28
 msgid "Check out the available add-ons"
-msgstr "Check out the available add-ons"
+msgstr "Перевірити наявні доповнення"
 
 #: ../admin-views/tribe-options-general.php:33
 msgid "We hope our plugin is helping you out."
@@ -565,8 +564,8 @@ msgid ""
 "Show events with the site's other posts. When this box is checked, events "
 "will also continue to appear on the default events page."
 msgstr ""
-"Show events with the site's other posts. When this box is checked, events "
-"will also continue to appear on the default events page."
+"Показувати події з іншими публікаціями сайту. Коли позначено, події також "
+"продовжать з'являтись на головній сторінці подій."
 
 #: ../admin-views/tribe-options-general.php:95
 #: ../admin-views/tribe-options-general.php:101
@@ -713,7 +712,7 @@ msgstr ""
 
 #: ../admin-views/tribe-options-general.php:194
 msgid "Debug Bar Plugin"
-msgstr "Плагін Бар Відладки"
+msgstr "Плаґін Бар Відладки"
 
 #: ../admin-views/tribe-options-help.php:19
 msgid "You need to upgrade!"
@@ -756,9 +755,8 @@ msgid "The Events Calendar: Shopp Tickets"
 msgstr "Events Calendar: Магазин Квитків"
 
 #: ../admin-views/tribe-options-help.php:78
-#, fuzzy
 msgid "The Events Calendar: Filter Bar"
-msgstr "Не отримуючи допомогу?"
+msgstr "The Events Calendar: Фільтр-бар"
 
 #: ../admin-views/tribe-options-help.php:87
 msgid ""
@@ -981,13 +979,13 @@ msgstr "Форум: Тому що кожен повинен приятелем"
 
 #: ../admin-views/tribe-options-help.php:147
 msgid "Not getting help?"
-msgstr "Не отримуючи допомогу?"
+msgstr "Не отримуєте допомогу?"
 
 #: ../admin-views/tribe-options-help.php:159
 #: ../lib/the-events-calendar.class.php:497
 #: ../lib/tribe-settings.class.php:135
 msgid "The Events Calendar"
-msgstr "Не отримуючи допомогу?"
+msgstr "The Events Calendar"
 
 #: ../admin-views/tribe-options-help.php:163
 msgid "Latest Version:"
@@ -1126,7 +1124,7 @@ msgstr "Імпорт подій у (CSV)"
 
 #: ../lib/io/csv/admin-views/import.php:17
 msgid "Import Instructions"
-msgstr "Ымпортувати інструкції"
+msgstr "Імпортувати інструкції"
 
 #: ../lib/io/csv/admin-views/import.php:20
 msgid "If your events have Organizers or Venues, please import those first."
@@ -1136,7 +1134,7 @@ msgstr ""
 
 #: ../lib/io/csv/admin-views/import.php:21
 msgid "To import organizers or venues:"
-msgstr "К імпорту організаторів або місць проведення:"
+msgstr "До імпорту організаторів або місць проведення:"
 
 #: ../lib/io/csv/admin-views/import.php:23
 msgid "Select the appropriate import type."
@@ -1440,48 +1438,46 @@ msgstr "Не вдалося зберегти %s ."
 #: ../lib/pue/admin-views/license-key.view.php:9
 #: ../lib/pue/admin-views/license-key.view.php:13
 #: ../lib/pue/lib/pue_plugin_update_engine.class.php:292
-#, fuzzy
 msgid "License Key"
-msgstr "Ліцензія"
+msgstr "Ліцензійний ключ"
 
 #: ../lib/pue/admin-views/license-key.view.php:10
 msgid "A valid license key is required for support and updates."
-msgstr ""
+msgstr "Необхідний дійсний ліцензійний ключ для підтримки та оновлень."
 
 #: ../lib/pue/admin-views/license-key.view.php:16
 msgid "Replace empty fields"
-msgstr ""
+msgstr "Замінити пусті поля"
 
 #: ../lib/pue/admin-views/license-key.view.php:25
 #: ../lib/pue/lib/pue_plugin_update_engine.class.php:293
 msgid "A valid license key is required for support and updates"
-msgstr ""
+msgstr "Необхідний дійсний ліцензійний ключ для підтримки та оновлень"
 
 #: ../lib/pue/lib/pue_plugin_update_engine.class.php:361
-#, fuzzy
 msgid "License key(s) updated."
-msgstr "Місце проведення оновлено."
+msgstr "Ліцензійний ключ(і) оновлено."
 
 #: ../lib/pue/lib/pue_plugin_update_engine.class.php:401
 msgid "Sorry, key validation server is not available."
-msgstr ""
+msgstr "На жаль, сервер перевірки ключів недоступний."
 
 #: ../lib/pue/lib/pue_plugin_update_engine.class.php:403
 msgid "Sorry, this key is expired."
-msgstr ""
+msgstr "На жаль, термін дії цього ключа пройшов."
 
 #: ../lib/pue/lib/pue_plugin_update_engine.class.php:405
 msgid "Sorry, this key is out of installs."
-msgstr ""
+msgstr "На жаль, цей ключ знаходиться поза установками."
 
 #: ../lib/pue/lib/pue_plugin_update_engine.class.php:407
 msgid "Sorry, this key is not valid."
-msgstr ""
+msgstr "На жаль, цей ключ недійсний"
 
 #: ../lib/pue/lib/pue_plugin_update_engine.class.php:410
 #, php-format
 msgid "Valid Key! Expires on %s"
-msgstr ""
+msgstr "Дійсний ключ! Термін дії до %s"
 
 #: ../lib/pue/lib/pue_plugin_update_engine.class.php:414
 #, php-format
@@ -1489,6 +1485,8 @@ msgid ""
 "Hmmm... something's wrong with this validator. Please contact <a href=\"%s"
 "\">support.</a>"
 msgstr ""
+"Хммм... щось не так з перевіркою. Будь ласка, зв'яжіться з <a href=\"%s"
+"\">підтримкою.</a>"
 
 #: ../lib/template-classes/month.php:112
 #, php-format
@@ -1616,7 +1614,7 @@ msgid ""
 "Sorry, The Events Calendar requires PHP %s or higher. Talk to your Web host "
 "about moving you to a newer version of PHP."
 msgstr ""
-"На жаль для , , The Events Calendar, потрібно PHP %s або вище. Поговоріть зі "
+"На жаль, для The Events Calendar, потрібно PHP %s або вище. Поговоріть зі "
 "своїм веб-хостером про переїзд вас до нової версії PHP."
 
 #: ../lib/the-events-calendar.class.php:971 ../lib/widget-list.class.php:180
@@ -2307,7 +2305,7 @@ msgstr "Налаштування події"
 #: ../lib/tribe-settings.class.php:225
 #, php-format
 msgid "%s Settings"
-msgstr "%s Налаштування"
+msgstr "Налаштування %s"
 
 #: ../lib/tribe-settings.class.php:239
 msgid "You've requested a non-existent tab."
@@ -2348,6 +2346,9 @@ msgid ""
 "your system steup. For your convenience, we've put together a little report "
 "on what's cooking under the hood."
 msgstr ""
+"Іноді важко сказати, що відбувається не так, не знаючи більше про "
+"налаштування вашої системи. Для вашої зручності, ми зібрали невеликий звіт "
+"про те, що відбуваться під капотом."
 
 #: ../lib/tribe-support.class.php:35
 msgid ""
@@ -2355,11 +2356,13 @@ msgid ""
 "or we're just plain having trouble reproducing your bug report, please copy "
 "and send all of this to our support team."
 msgstr ""
+"Якщо ви підозрюєте, що проблема яка виникла у вас пов'язана з іншим "
+"плаґіном, або ми просто маємо проблеми з відтворенням вашого повідомлення "
+"про помилку, скопіюйте і відправте все це в нашу службу підтримки."
 
 #: ../lib/tribe-support.class.php:39
-#, fuzzy
 msgid "System Information"
-msgstr "Інформація про місце проведення"
+msgstr "Інформація про систему"
 
 #: ../lib/tribe-template-factory.class.php:232
 #, php-format
@@ -2517,7 +2520,7 @@ msgid ""
 "Comparison validation failed because no comparison value was provided, for "
 "field %s"
 msgstr ""
-"Перевірка Порівняння не вдалася, оскільки не було представлено жодного "
+"Перевірка порівняння не вдалася, оскільки не було представлено жодного "
 "значення в порівнянні, для області %s"
 
 #: ../lib/tribe-validate.class.php:302
@@ -2576,1444 +2579,1159 @@ msgid "Select a Country:"
 msgstr "Виберіть країну:"
 
 #: ../lib/tribe-view-helpers.class.php:45
-#, fuzzy
 msgid "Afghanistan"
 msgstr "Афганістан"
 
 #: ../lib/tribe-view-helpers.class.php:46
-#, fuzzy
 msgid "Albania"
 msgstr "Албанія"
 
 #: ../lib/tribe-view-helpers.class.php:47
-#, fuzzy
 msgid "Algeria"
 msgstr "Алжир"
 
 #: ../lib/tribe-view-helpers.class.php:48
-#, fuzzy
 msgid "American Samoa"
 msgstr "Американське Самоа"
 
 #: ../lib/tribe-view-helpers.class.php:49
-#, fuzzy
 msgid "Andorra"
 msgstr "Андорра"
 
 #: ../lib/tribe-view-helpers.class.php:50
-#, fuzzy
 msgid "Angola"
 msgstr "Ангола"
 
 #: ../lib/tribe-view-helpers.class.php:51
-#, fuzzy
 msgid "Anguilla"
 msgstr "Ангілья"
 
 #: ../lib/tribe-view-helpers.class.php:52
-#, fuzzy
 msgid "Antarctica"
 msgstr "Антарктида"
 
 #: ../lib/tribe-view-helpers.class.php:53
-#, fuzzy
 msgid "Antigua And Barbuda"
 msgstr "Антигуа і Барбуда"
 
 #: ../lib/tribe-view-helpers.class.php:54
-#, fuzzy
 msgid "Argentina"
 msgstr "Аргентина"
 
 #: ../lib/tribe-view-helpers.class.php:55
-#, fuzzy
 msgid "Armenia"
 msgstr "Вірменія"
 
 #: ../lib/tribe-view-helpers.class.php:56
-#, fuzzy
 msgid "Aruba"
 msgstr "Аруба"
 
 #: ../lib/tribe-view-helpers.class.php:57
-#, fuzzy
 msgid "Australia"
 msgstr "Австралія"
 
 #: ../lib/tribe-view-helpers.class.php:58
-#, fuzzy
 msgid "Austria"
 msgstr "Австрія"
 
 #: ../lib/tribe-view-helpers.class.php:59
 msgid "Azerbaijan"
-msgstr ""
+msgstr "Азербайджан"
 
 #: ../lib/tribe-view-helpers.class.php:60
-#, fuzzy
 msgid "Bahamas"
 msgstr "Багами"
 
 #: ../lib/tribe-view-helpers.class.php:61
-#, fuzzy
 msgid "Bahrain"
 msgstr "Бахрейн"
 
 #: ../lib/tribe-view-helpers.class.php:62
-#, fuzzy
 msgid "Bangladesh"
 msgstr "Бангладеш"
 
 #: ../lib/tribe-view-helpers.class.php:63
-#, fuzzy
 msgid "Barbados"
 msgstr "Барбадос"
 
 #: ../lib/tribe-view-helpers.class.php:64
-#, fuzzy
 msgid "Belarus"
 msgstr "Білорусь"
 
 #: ../lib/tribe-view-helpers.class.php:65
-#, fuzzy
 msgid "Belgium"
 msgstr "Бельгія"
 
 #: ../lib/tribe-view-helpers.class.php:66
-#, fuzzy
 msgid "Belize"
 msgstr "Беліз"
 
 #: ../lib/tribe-view-helpers.class.php:67
-#, fuzzy
 msgid "Benin"
 msgstr "Бенін"
 
 #: ../lib/tribe-view-helpers.class.php:68
-#, fuzzy
 msgid "Bermuda"
 msgstr "Бермуди"
 
 #: ../lib/tribe-view-helpers.class.php:69
-#, fuzzy
 msgid "Bhutan"
 msgstr "Бутан"
 
 #: ../lib/tribe-view-helpers.class.php:70
-#, fuzzy
 msgid "Bolivia"
 msgstr "Болівія"
 
 #: ../lib/tribe-view-helpers.class.php:71
-#, fuzzy
 msgid "Bosnia And Herzegowina"
 msgstr "Боснія і Герцеговина"
 
 #: ../lib/tribe-view-helpers.class.php:72
-#, fuzzy
 msgid "Botswana"
 msgstr "Ботсвана"
 
 #: ../lib/tribe-view-helpers.class.php:73
-#, fuzzy
 msgid "Bouvet Island"
 msgstr "Острів Буве"
 
 #: ../lib/tribe-view-helpers.class.php:74
-#, fuzzy
 msgid "Brazil"
 msgstr "Бразилія"
 
 #: ../lib/tribe-view-helpers.class.php:75
-#, fuzzy
 msgid "British Indian Ocean Territory"
 msgstr "Британська територія Індійського океану"
 
 #: ../lib/tribe-view-helpers.class.php:76
-#, fuzzy
 msgid "Brunei Darussalam"
 msgstr "Бруней- Даруссалам"
 
 #: ../lib/tribe-view-helpers.class.php:77
-#, fuzzy
 msgid "Bulgaria"
 msgstr "Болгарія"
 
 #: ../lib/tribe-view-helpers.class.php:78
-#, fuzzy
 msgid "Burkina Faso"
-msgstr "Буркіна- Фасо"
+msgstr "Буркіна-Фасо"
 
 #: ../lib/tribe-view-helpers.class.php:79
-#, fuzzy
 msgid "Burundi"
 msgstr "Бурунді"
 
 #: ../lib/tribe-view-helpers.class.php:80
-#, fuzzy
 msgid "Cambodia"
 msgstr "Камбоджа"
 
 #: ../lib/tribe-view-helpers.class.php:81
 msgid "Cameroon"
-msgstr ""
+msgstr "Камерун"
 
 #: ../lib/tribe-view-helpers.class.php:82
-#, fuzzy
 msgid "Canada"
 msgstr "Канада"
 
 #: ../lib/tribe-view-helpers.class.php:83
-#, fuzzy
 msgid "Cape Verde"
 msgstr "Кабо- Верде"
 
 #: ../lib/tribe-view-helpers.class.php:84
-#, fuzzy
 msgid "Cayman Islands"
 msgstr "Кайманові острови"
 
 #: ../lib/tribe-view-helpers.class.php:85
-#, fuzzy
 msgid "Central African Republic"
-msgstr "Центрально -Африканська Республіка"
+msgstr "Центрально-Африканська Республіка"
 
 #: ../lib/tribe-view-helpers.class.php:86
-#, fuzzy
 msgid "Chad"
 msgstr "Чад"
 
 #: ../lib/tribe-view-helpers.class.php:87
-#, fuzzy
 msgid "Chile"
 msgstr "Чилі"
 
 #: ../lib/tribe-view-helpers.class.php:88
-#, fuzzy
 msgid "China"
 msgstr "Китай"
 
 #: ../lib/tribe-view-helpers.class.php:89
-#, fuzzy
 msgid "Christmas Island"
 msgstr "Острів Різдва"
 
 #: ../lib/tribe-view-helpers.class.php:90
-#, fuzzy
 msgid "Cocos (Keeling) Islands"
 msgstr "Кокосові ( Кілінг ) острови"
 
 #: ../lib/tribe-view-helpers.class.php:91
-#, fuzzy
 msgid "Colombia"
 msgstr "Колумбія"
 
 #: ../lib/tribe-view-helpers.class.php:92
-#, fuzzy
 msgid "Comoros"
 msgstr "Комори"
 
 #: ../lib/tribe-view-helpers.class.php:93
-#, fuzzy
 msgid "Congo"
 msgstr "Конго"
 
 #: ../lib/tribe-view-helpers.class.php:94
-#, fuzzy
 msgid "Congo, The Democratic Republic Of The"
 msgstr "Конго , Демократична Республіка"
 
 #: ../lib/tribe-view-helpers.class.php:95
-#, fuzzy
 msgid "Cook Islands"
 msgstr "Острови Кука"
 
 #: ../lib/tribe-view-helpers.class.php:96
-#, fuzzy
 msgid "Costa Rica"
 msgstr "Коста -Ріка"
 
 #: ../lib/tribe-view-helpers.class.php:97
-#, fuzzy
 msgid "Cote D'Ivoire"
-msgstr "Кот- д'Івуар"
+msgstr "Кот-д'Івуар"
 
 #: ../lib/tribe-view-helpers.class.php:98
-#, fuzzy
 msgid "Croatia (Local Name: Hrvatska)"
 msgstr "Хорватія (місцева назва : Hrvatska )"
 
 #: ../lib/tribe-view-helpers.class.php:99
-#, fuzzy
 msgid "Cuba"
 msgstr "Куба"
 
 #: ../lib/tribe-view-helpers.class.php:100
-#, fuzzy
 msgid "Cyprus"
 msgstr "Кіпр"
 
 #: ../lib/tribe-view-helpers.class.php:101
-#, fuzzy
 msgid "Czech Republic"
 msgstr "Чехія"
 
 #: ../lib/tribe-view-helpers.class.php:102
-#, fuzzy
 msgid "Denmark"
 msgstr "Данія"
 
 #: ../lib/tribe-view-helpers.class.php:103
-#, fuzzy
 msgid "Djibouti"
 msgstr "Джибуті"
 
 #: ../lib/tribe-view-helpers.class.php:104
-#, fuzzy
 msgid "Dominica"
 msgstr "Домініка"
 
 #: ../lib/tribe-view-helpers.class.php:105
-#, fuzzy
 msgid "Dominican Republic"
 msgstr "Домініканська Республіка"
 
 #: ../lib/tribe-view-helpers.class.php:106
-#, fuzzy
 msgid "East Timor"
 msgstr "Східний Тимор"
 
 #: ../lib/tribe-view-helpers.class.php:107
-#, fuzzy
 msgid "Ecuador"
 msgstr "Еквадор"
 
 #: ../lib/tribe-view-helpers.class.php:108
-#, fuzzy
 msgid "Egypt"
 msgstr "Єгипет"
 
 #: ../lib/tribe-view-helpers.class.php:109
-#, fuzzy
 msgid "El Salvador"
 msgstr "Сальвадор"
 
 #: ../lib/tribe-view-helpers.class.php:110
-#, fuzzy
 msgid "Equatorial Guinea"
 msgstr "Екваторіальна Гвінея"
 
 #: ../lib/tribe-view-helpers.class.php:111
-#, fuzzy
 msgid "Eritrea"
 msgstr "Еритрея"
 
 #: ../lib/tribe-view-helpers.class.php:112
-#, fuzzy
 msgid "Estonia"
 msgstr "Естонія"
 
 #: ../lib/tribe-view-helpers.class.php:113
-#, fuzzy
 msgid "Ethiopia"
 msgstr "Ефіопія"
 
 #: ../lib/tribe-view-helpers.class.php:114
-#, fuzzy
 msgid "Falkland Islands (Malvinas)"
 msgstr "Фолклендські ( Мальвінські ) острови"
 
 #: ../lib/tribe-view-helpers.class.php:115
-#, fuzzy
 msgid "Faroe Islands"
 msgstr "Фарерські острови"
 
 #: ../lib/tribe-view-helpers.class.php:116
-#, fuzzy
 msgid "Fiji"
 msgstr "Фіджі"
 
 #: ../lib/tribe-view-helpers.class.php:117
-#, fuzzy
 msgid "Finland"
 msgstr "Фінляндія"
 
 #: ../lib/tribe-view-helpers.class.php:118
-#, fuzzy
 msgid "France"
 msgstr "Франція"
 
 #: ../lib/tribe-view-helpers.class.php:119
-#, fuzzy
 msgid "France, Metropolitan"
 msgstr "Франція , митрополит"
 
 #: ../lib/tribe-view-helpers.class.php:120
-#, fuzzy
 msgid "French Guiana"
 msgstr "Французька Гвіана"
 
 #: ../lib/tribe-view-helpers.class.php:121
-#, fuzzy
 msgid "French Polynesia"
 msgstr "Французька Полінезія"
 
 #: ../lib/tribe-view-helpers.class.php:122
-#, fuzzy
 msgid "French Southern Territories"
 msgstr "Французькі південні території"
 
 #: ../lib/tribe-view-helpers.class.php:123
-#, fuzzy
 msgid "Gabon"
 msgstr "Габон"
 
 #: ../lib/tribe-view-helpers.class.php:124
-#, fuzzy
 msgid "Gambia"
 msgstr "Гамбія"
 
 #: ../lib/tribe-view-helpers.class.php:125
 #: ../lib/tribe-view-helpers.class.php:318
 msgid "Georgia"
-msgstr ""
+msgstr "Грузія"
 
 #: ../lib/tribe-view-helpers.class.php:126
-#, fuzzy
 msgid "Germany"
 msgstr "Німеччина"
 
 #: ../lib/tribe-view-helpers.class.php:127
-#, fuzzy
 msgid "Ghana"
 msgstr "Гана"
 
 #: ../lib/tribe-view-helpers.class.php:128
-#, fuzzy
 msgid "Gibraltar"
 msgstr "Гібралтар"
 
 #: ../lib/tribe-view-helpers.class.php:129
-#, fuzzy
 msgid "Greece"
 msgstr "Греція"
 
 #: ../lib/tribe-view-helpers.class.php:130
-#, fuzzy
 msgid "Greenland"
 msgstr "Гренландія"
 
 #: ../lib/tribe-view-helpers.class.php:131
-#, fuzzy
 msgid "Grenada"
 msgstr "Гренада"
 
 #: ../lib/tribe-view-helpers.class.php:132
-#, fuzzy
 msgid "Guadeloupe"
 msgstr "Гваделупа"
 
 #: ../lib/tribe-view-helpers.class.php:133
-#, fuzzy
 msgid "Guam"
 msgstr "Гуам"
 
 #: ../lib/tribe-view-helpers.class.php:134
-#, fuzzy
 msgid "Guatemala"
 msgstr "Гватемала"
 
 #: ../lib/tribe-view-helpers.class.php:135
-#, fuzzy
 msgid "Guinea"
 msgstr "Гвінея"
 
 #: ../lib/tribe-view-helpers.class.php:136
-#, fuzzy
 msgid "Guinea-Bissau"
 msgstr "Гвінея -Бісау"
 
 #: ../lib/tribe-view-helpers.class.php:137
-#, fuzzy
 msgid "Guyana"
 msgstr "Гайана"
 
 #: ../lib/tribe-view-helpers.class.php:138
-#, fuzzy
 msgid "Haiti"
 msgstr "Гаїті"
 
 #: ../lib/tribe-view-helpers.class.php:139
-#, fuzzy
 msgid "Heard And Mc Donald Islands"
 msgstr "Херд і Мак Дональд острови"
 
 #: ../lib/tribe-view-helpers.class.php:140
-#, fuzzy
 msgid "Holy See (Vatican City State)"
 msgstr "Святий Престол ( Ватикан )"
 
 #: ../lib/tribe-view-helpers.class.php:141
-#, fuzzy
 msgid "Honduras"
 msgstr "Гондурас"
 
 #: ../lib/tribe-view-helpers.class.php:142
-#, fuzzy
 msgid "Hong Kong"
 msgstr "Гонконг"
 
 #: ../lib/tribe-view-helpers.class.php:143
-#, fuzzy
 msgid "Hungary"
 msgstr "Угорщина"
 
 #: ../lib/tribe-view-helpers.class.php:144
-#, fuzzy
 msgid "Iceland"
 msgstr "Ісландія"
 
 #: ../lib/tribe-view-helpers.class.php:145
-#, fuzzy
 msgid "India"
 msgstr "Індія"
 
 #: ../lib/tribe-view-helpers.class.php:146
-#, fuzzy
 msgid "Indonesia"
 msgstr "Індонезія"
 
 #: ../lib/tribe-view-helpers.class.php:147
-#, fuzzy
 msgid "Iran (Islamic Republic Of)"
-msgstr "Іран ( Ісламська Республіка)"
+msgstr "Іран (Ісламська Республіка)"
 
 #: ../lib/tribe-view-helpers.class.php:148
-#, fuzzy
 msgid "Iraq"
 msgstr "Ірак"
 
 #: ../lib/tribe-view-helpers.class.php:149
-#, fuzzy
 msgid "Ireland"
 msgstr "Ірландія"
 
 #: ../lib/tribe-view-helpers.class.php:150
-#, fuzzy
 msgid "Israel"
 msgstr "Ізраїль"
 
 #: ../lib/tribe-view-helpers.class.php:151
-#, fuzzy
 msgid "Italy"
 msgstr "Італія"
 
 #: ../lib/tribe-view-helpers.class.php:152
-#, fuzzy
 msgid "Jamaica"
 msgstr "Ямайка"
 
 #: ../lib/tribe-view-helpers.class.php:153
-#, fuzzy
 msgid "Japan"
 msgstr "Японія"
 
 #: ../lib/tribe-view-helpers.class.php:154
-#, fuzzy
 msgid "Jordan"
 msgstr "Джордан"
 
 #: ../lib/tribe-view-helpers.class.php:155
-#, fuzzy
 msgid "Kazakhstan"
 msgstr "Казахстан"
 
 #: ../lib/tribe-view-helpers.class.php:156
-#, fuzzy
 msgid "Kenya"
 msgstr "Кенія"
 
 #: ../lib/tribe-view-helpers.class.php:157
-#, fuzzy
 msgid "Kiribati"
 msgstr "Кірібаті"
 
 #: ../lib/tribe-view-helpers.class.php:158
-#, fuzzy
 msgid "Korea, Democratic People's Republic Of"
-msgstr "Корея , Корейська Народно- Демократична Республіка"
+msgstr "Корея , Корейська Народно-Демократична Республіка"
 
 #: ../lib/tribe-view-helpers.class.php:159
-#, fuzzy
 msgid "Korea, Republic Of"
 msgstr "Республіка Корея"
 
 #: ../lib/tribe-view-helpers.class.php:160
-#, fuzzy
 msgid "Kuwait"
 msgstr "Кувейт"
 
 #: ../lib/tribe-view-helpers.class.php:161
 msgid "Kyrgyzstan"
-msgstr ""
+msgstr "Киргизстан"
 
 #: ../lib/tribe-view-helpers.class.php:162
-#, fuzzy
 msgid "Lao People's Democratic Republic"
-msgstr "Лаоська Народно- Демократична Республіка"
+msgstr "Лаоська Народно-Демократична Республіка"
 
 #: ../lib/tribe-view-helpers.class.php:163
-#, fuzzy
 msgid "Latvia"
 msgstr "Латвія"
 
 #: ../lib/tribe-view-helpers.class.php:164
-#, fuzzy
 msgid "Lebanon"
 msgstr "Ліван"
 
 #: ../lib/tribe-view-helpers.class.php:165
-#, fuzzy
 msgid "Lesotho"
 msgstr "Лесото"
 
 #: ../lib/tribe-view-helpers.class.php:166
-#, fuzzy
 msgid "Liberia"
 msgstr "Ліберія"
 
 #: ../lib/tribe-view-helpers.class.php:167
-#, fuzzy
 msgid "Libya"
 msgstr "Лівія"
 
 #: ../lib/tribe-view-helpers.class.php:168
-#, fuzzy
 msgid "Liechtenstein"
 msgstr "Ліхтенштейн"
 
 #: ../lib/tribe-view-helpers.class.php:169
-#, fuzzy
 msgid "Lithuania"
 msgstr "Литва"
 
 #: ../lib/tribe-view-helpers.class.php:170
-#, fuzzy
 msgid "Luxembourg"
 msgstr "Люксембург"
 
 #: ../lib/tribe-view-helpers.class.php:171
-#, fuzzy
 msgid "Macau"
 msgstr "Макао"
 
 #: ../lib/tribe-view-helpers.class.php:172
-#, fuzzy
 msgid "Macedonia"
 msgstr "Македонія"
 
 #: ../lib/tribe-view-helpers.class.php:173
-#, fuzzy
 msgid "Madagascar"
 msgstr "Мадагаскар"
 
 #: ../lib/tribe-view-helpers.class.php:174
-#, fuzzy
 msgid "Malawi"
 msgstr "Малаві"
 
 #: ../lib/tribe-view-helpers.class.php:175
-#, fuzzy
 msgid "Malaysia"
 msgstr "Малайзія"
 
 #: ../lib/tribe-view-helpers.class.php:176
-#, fuzzy
 msgid "Maldives"
 msgstr "Мальдіви"
 
 #: ../lib/tribe-view-helpers.class.php:177
-#, fuzzy
 msgid "Mali"
 msgstr "Малі"
 
 #: ../lib/tribe-view-helpers.class.php:178
-#, fuzzy
 msgid "Malta"
 msgstr "Мальта"
 
 #: ../lib/tribe-view-helpers.class.php:179
-#, fuzzy
 msgid "Marshall Islands"
 msgstr "Маршаллові Острови"
 
 #: ../lib/tribe-view-helpers.class.php:180
-#, fuzzy
 msgid "Martinique"
 msgstr "Мартиніка"
 
 #: ../lib/tribe-view-helpers.class.php:181
-#, fuzzy
 msgid "Mauritania"
 msgstr "Мавританія"
 
 #: ../lib/tribe-view-helpers.class.php:182
-#, fuzzy
 msgid "Mauritius"
 msgstr "Маврикій"
 
 #: ../lib/tribe-view-helpers.class.php:183
-#, fuzzy
 msgid "Mayotte"
 msgstr "Майотта"
 
 #: ../lib/tribe-view-helpers.class.php:184
-#, fuzzy
 msgid "Mexico"
 msgstr "Мексика"
 
 #: ../lib/tribe-view-helpers.class.php:185
-#, fuzzy
 msgid "Micronesia, Federated States Of"
 msgstr "Мікронезія , Федеративні Штати"
 
 #: ../lib/tribe-view-helpers.class.php:186
-#, fuzzy
 msgid "Moldova, Republic Of"
 msgstr "Молдова"
 
 #: ../lib/tribe-view-helpers.class.php:187
-#, fuzzy
 msgid "Monaco"
 msgstr "Монако"
 
 #: ../lib/tribe-view-helpers.class.php:188
-#, fuzzy
 msgid "Mongolia"
 msgstr "Монголія"
 
 #: ../lib/tribe-view-helpers.class.php:189
-#, fuzzy
 msgid "Montenegro"
 msgstr "Чорногорія"
 
 #: ../lib/tribe-view-helpers.class.php:190
-#, fuzzy
 msgid "Montserrat"
 msgstr "Монтсеррат"
 
 #: ../lib/tribe-view-helpers.class.php:191
-#, fuzzy
 msgid "Morocco"
 msgstr "Марокко"
 
 #: ../lib/tribe-view-helpers.class.php:192
-#, fuzzy
 msgid "Mozambique"
 msgstr "Мозамбік"
 
 #: ../lib/tribe-view-helpers.class.php:193
-#, fuzzy
 msgid "Myanmar"
 msgstr "М'янма"
 
 #: ../lib/tribe-view-helpers.class.php:194
-#, fuzzy
 msgid "Namibia"
 msgstr "Намібія"
 
 #: ../lib/tribe-view-helpers.class.php:195
-#, fuzzy
 msgid "Nauru"
 msgstr "Науру"
 
 #: ../lib/tribe-view-helpers.class.php:196
-#, fuzzy
 msgid "Nepal"
 msgstr "Непал"
 
 #: ../lib/tribe-view-helpers.class.php:197
-#, fuzzy
 msgid "Netherlands"
 msgstr "Нідерланди"
 
 #: ../lib/tribe-view-helpers.class.php:198
-#, fuzzy
 msgid "Netherlands Antilles"
 msgstr "Нідерландські Антильські острови"
 
 #: ../lib/tribe-view-helpers.class.php:199
-#, fuzzy
 msgid "New Caledonia"
 msgstr "Нова Каледонія"
 
 #: ../lib/tribe-view-helpers.class.php:200
-#, fuzzy
 msgid "New Zealand"
 msgstr "Нова Зеландія"
 
 #: ../lib/tribe-view-helpers.class.php:201
-#, fuzzy
 msgid "Nicaragua"
 msgstr "Нікарагуа"
 
 #: ../lib/tribe-view-helpers.class.php:202
-#, fuzzy
 msgid "Niger"
 msgstr "Нігер"
 
 #: ../lib/tribe-view-helpers.class.php:203
-#, fuzzy
 msgid "Nigeria"
 msgstr "Нігерія"
 
 #: ../lib/tribe-view-helpers.class.php:204
-#, fuzzy
 msgid "Niue"
 msgstr "Ніуе"
 
 #: ../lib/tribe-view-helpers.class.php:205
-#, fuzzy
 msgid "Norfolk Island"
 msgstr "Острів Норфолк"
 
 #: ../lib/tribe-view-helpers.class.php:206
-#, fuzzy
 msgid "Northern Mariana Islands"
 msgstr "Північні Маріанські острови"
 
 #: ../lib/tribe-view-helpers.class.php:207
-#, fuzzy
 msgid "Norway"
 msgstr "Норвегія"
 
 #: ../lib/tribe-view-helpers.class.php:208
-#, fuzzy
 msgid "Oman"
 msgstr "Оман"
 
 #: ../lib/tribe-view-helpers.class.php:209
-#, fuzzy
 msgid "Pakistan"
 msgstr "Пакистан"
 
 #: ../lib/tribe-view-helpers.class.php:210
-#, fuzzy
 msgid "Palau"
 msgstr "Палау"
 
 #: ../lib/tribe-view-helpers.class.php:211
-#, fuzzy
 msgid "Panama"
 msgstr "Панама"
 
 #: ../lib/tribe-view-helpers.class.php:212
-#, fuzzy
 msgid "Papua New Guinea"
 msgstr "Папуа - Нова Гвінея"
 
 #: ../lib/tribe-view-helpers.class.php:213
-#, fuzzy
 msgid "Paraguay"
 msgstr "Парагвай"
 
 #: ../lib/tribe-view-helpers.class.php:214
-#, fuzzy
 msgid "Peru"
 msgstr "Перу"
 
 #: ../lib/tribe-view-helpers.class.php:215
-#, fuzzy
 msgid "Philippines"
 msgstr "Філіппіни"
 
 #: ../lib/tribe-view-helpers.class.php:216
-#, fuzzy
 msgid "Pitcairn"
 msgstr "Піткерн"
 
 #: ../lib/tribe-view-helpers.class.php:217
-#, fuzzy
 msgid "Poland"
 msgstr "Польща"
 
 #: ../lib/tribe-view-helpers.class.php:218
-#, fuzzy
 msgid "Portugal"
 msgstr "Португалія"
 
 #: ../lib/tribe-view-helpers.class.php:219
-#, fuzzy
 msgid "Puerto Rico"
 msgstr "Пуерто-Ріко"
 
 #: ../lib/tribe-view-helpers.class.php:220
-#, fuzzy
 msgid "Qatar"
 msgstr "Катар"
 
 #: ../lib/tribe-view-helpers.class.php:221
-#, fuzzy
 msgid "Reunion"
 msgstr "Возз'єднання"
 
 #: ../lib/tribe-view-helpers.class.php:222
-#, fuzzy
 msgid "Romania"
 msgstr "Румунія"
 
 #: ../lib/tribe-view-helpers.class.php:223
-#, fuzzy
 msgid "Russian Federation"
-msgstr "Російський Федерація"
+msgstr "Російська Федерація"
 
 #: ../lib/tribe-view-helpers.class.php:224
-#, fuzzy
 msgid "Rwanda"
 msgstr "Руанда"
 
 #: ../lib/tribe-view-helpers.class.php:225
-#, fuzzy
 msgid "Saint Kitts And Nevis"
-msgstr "Сент -Кітс і Невіс"
+msgstr "Сент-Кітс і Невіс"
 
 #: ../lib/tribe-view-helpers.class.php:226
-#, fuzzy
 msgid "Saint Lucia"
-msgstr "Сент -Люсія"
+msgstr "Сент-Люсія"
 
 #: ../lib/tribe-view-helpers.class.php:227
-#, fuzzy
 msgid "Saint Vincent And The Grenadines"
 msgstr "Сент-Вінсент і Гренадіни"
 
 #: ../lib/tribe-view-helpers.class.php:228
-#, fuzzy
 msgid "Samoa"
 msgstr "Самоа"
 
 #: ../lib/tribe-view-helpers.class.php:229
-#, fuzzy
 msgid "San Marino"
 msgstr "Сан-Марино"
 
 #: ../lib/tribe-view-helpers.class.php:230
-#, fuzzy
 msgid "Sao Tome And Principe"
 msgstr "Сан-Томе і Прінсіпі"
 
 #: ../lib/tribe-view-helpers.class.php:231
-#, fuzzy
 msgid "Saudi Arabia"
 msgstr "Саудівська Аравія"
 
 #: ../lib/tribe-view-helpers.class.php:232
-#, fuzzy
 msgid "Senegal"
 msgstr "Сенегал"
 
 #: ../lib/tribe-view-helpers.class.php:233
-#, fuzzy
 msgid "Serbia"
 msgstr "Сербія"
 
 #: ../lib/tribe-view-helpers.class.php:234
-#, fuzzy
 msgid "Seychelles"
 msgstr "Сейшели"
 
 #: ../lib/tribe-view-helpers.class.php:235
-#, fuzzy
 msgid "Sierra Leone"
 msgstr "Сьєрра-Леоне"
 
 #: ../lib/tribe-view-helpers.class.php:236
-#, fuzzy
 msgid "Singapore"
 msgstr "Сінгапур"
 
 #: ../lib/tribe-view-helpers.class.php:237
-#, fuzzy
 msgid "Slovakia (Slovak Republic)"
 msgstr "Словаччина (Словацька Республіка)"
 
 #: ../lib/tribe-view-helpers.class.php:238
-#, fuzzy
 msgid "Slovenia"
 msgstr "Словенія"
 
 #: ../lib/tribe-view-helpers.class.php:239
-#, fuzzy
 msgid "Solomon Islands"
 msgstr "Соломонові острови"
 
 #: ../lib/tribe-view-helpers.class.php:240
-#, fuzzy
 msgid "Somalia"
 msgstr "Сомалі"
 
 #: ../lib/tribe-view-helpers.class.php:241
-#, fuzzy
 msgid "South Africa"
 msgstr "Південна Африка"
 
 #: ../lib/tribe-view-helpers.class.php:242
-#, fuzzy
 msgid "South Georgia, South Sandwich Islands"
 msgstr "Південна Джорджія , Південні Сандвічеві острови"
 
 #: ../lib/tribe-view-helpers.class.php:243
-#, fuzzy
 msgid "Spain"
 msgstr "Іспанія"
 
 #: ../lib/tribe-view-helpers.class.php:244
-#, fuzzy
 msgid "Sri Lanka"
 msgstr "Шрі -Ланка"
 
 #: ../lib/tribe-view-helpers.class.php:245
-#, fuzzy
 msgid "St. Helena"
 msgstr "Святої Єлени"
 
 #: ../lib/tribe-view-helpers.class.php:246
-#, fuzzy
 msgid "St. Pierre And Miquelon"
 msgstr "Сен-П'єр і Мікелон"
 
 #: ../lib/tribe-view-helpers.class.php:247
-#, fuzzy
 msgid "Sudan"
 msgstr "Судан"
 
 #: ../lib/tribe-view-helpers.class.php:248
-#, fuzzy
 msgid "Suriname"
 msgstr "Сурінам"
 
 #: ../lib/tribe-view-helpers.class.php:249
-#, fuzzy
 msgid "Svalbard And Jan Mayen Islands"
-msgstr "Шпіцберген і Ян -Майєн"
+msgstr "Шпіцберген і Ян-Майєн"
 
 #: ../lib/tribe-view-helpers.class.php:250
-#, fuzzy
 msgid "Swaziland"
 msgstr "Свазіленд"
 
 #: ../lib/tribe-view-helpers.class.php:251
-#, fuzzy
 msgid "Sweden"
 msgstr "Швеція"
 
 #: ../lib/tribe-view-helpers.class.php:252
-#, fuzzy
 msgid "Switzerland"
 msgstr "Швейцарія"
 
 #: ../lib/tribe-view-helpers.class.php:253
-#, fuzzy
 msgid "Syrian Arab Republic"
 msgstr "Сирійська Арабська Республіка"
 
 #: ../lib/tribe-view-helpers.class.php:254
-#, fuzzy
 msgid "Taiwan"
 msgstr "Тайвань"
 
 #: ../lib/tribe-view-helpers.class.php:255
-#, fuzzy
 msgid "Tajikistan"
 msgstr "Таджикистан"
 
 #: ../lib/tribe-view-helpers.class.php:256
-#, fuzzy
 msgid "Tanzania, United Republic Of"
-msgstr "Танзанія , Об'єднана Республіка"
+msgstr "Танзанія, Об'єднана Республіка"
 
 #: ../lib/tribe-view-helpers.class.php:257
-#, fuzzy
 msgid "Thailand"
 msgstr "Таїланд"
 
 #: ../lib/tribe-view-helpers.class.php:258
-#, fuzzy
 msgid "Togo"
 msgstr "Того"
 
 #: ../lib/tribe-view-helpers.class.php:259
-#, fuzzy
 msgid "Tokelau"
 msgstr "Токелау"
 
 #: ../lib/tribe-view-helpers.class.php:260
-#, fuzzy
 msgid "Tonga"
 msgstr "Тонга"
 
 #: ../lib/tribe-view-helpers.class.php:261
-#, fuzzy
 msgid "Trinidad And Tobago"
 msgstr "Тринідад і Тобаго"
 
 #: ../lib/tribe-view-helpers.class.php:262
-#, fuzzy
 msgid "Tunisia"
 msgstr "Туніс"
 
 #: ../lib/tribe-view-helpers.class.php:263
-#, fuzzy
 msgid "Turkey"
 msgstr "Туреччина"
 
 #: ../lib/tribe-view-helpers.class.php:264
-#, fuzzy
 msgid "Turkmenistan"
 msgstr "Туркменістан"
 
 #: ../lib/tribe-view-helpers.class.php:265
-#, fuzzy
 msgid "Turks And Caicos Islands"
 msgstr "Острови Теркс і Кайкос"
 
 #: ../lib/tribe-view-helpers.class.php:266
-#, fuzzy
 msgid "Tuvalu"
 msgstr "Тувалу"
 
 #: ../lib/tribe-view-helpers.class.php:267
-#, fuzzy
 msgid "Uganda"
 msgstr "Руанда"
 
 #: ../lib/tribe-view-helpers.class.php:268
-#, fuzzy
 msgid "Ukraine"
 msgstr "Україна"
 
 #: ../lib/tribe-view-helpers.class.php:269
-#, fuzzy
 msgid "United Arab Emirates"
 msgstr "Об'єднані Арабські Емірати"
 
 #: ../lib/tribe-view-helpers.class.php:270
-#, fuzzy
 msgid "United Kingdom"
 msgstr "Великобританія"
 
 #: ../lib/tribe-view-helpers.class.php:271
-#, fuzzy
 msgid "United States Minor Outlying Islands"
 msgstr "Сполучені Штати Америки Зовнішні малі острови"
 
 #: ../lib/tribe-view-helpers.class.php:272
-#, fuzzy
 msgid "Uruguay"
 msgstr "Уругвай"
 
 #: ../lib/tribe-view-helpers.class.php:273
-#, fuzzy
 msgid "Uzbekistan"
 msgstr "Узбекистан"
 
 #: ../lib/tribe-view-helpers.class.php:274
-#, fuzzy
 msgid "Vanuatu"
 msgstr "Вануату"
 
 #: ../lib/tribe-view-helpers.class.php:275
-#, fuzzy
 msgid "Venezuela"
 msgstr "Венесуела"
 
 #: ../lib/tribe-view-helpers.class.php:276
-#, fuzzy
 msgid "Viet Nam"
 msgstr "В'єтнам"
 
 #: ../lib/tribe-view-helpers.class.php:277
-#, fuzzy
 msgid "Virgin Islands (British)"
 msgstr "Віргінські острови (Британські)"
 
 #: ../lib/tribe-view-helpers.class.php:278
-#, fuzzy
 msgid "Virgin Islands (U.S.)"
 msgstr "Віргінські острови ( США)"
 
 #: ../lib/tribe-view-helpers.class.php:279
-#, fuzzy
 msgid "Wallis And Futuna Islands"
 msgstr "Уолліс Футуна"
 
 #: ../lib/tribe-view-helpers.class.php:280
-#, fuzzy
 msgid "Western Sahara"
 msgstr "Західна Сахара"
 
 #: ../lib/tribe-view-helpers.class.php:281
-#, fuzzy
 msgid "Yemen"
 msgstr "Ємен"
 
 #: ../lib/tribe-view-helpers.class.php:282
-#, fuzzy
 msgid "Zambia"
 msgstr "Замбія"
 
 #: ../lib/tribe-view-helpers.class.php:283
-#, fuzzy
 msgid "Zimbabwe"
 msgstr "Зімбабве"
 
 #: ../lib/tribe-view-helpers.class.php:308
-#, fuzzy
 msgid "Alabama"
 msgstr "Алабама"
 
 #: ../lib/tribe-view-helpers.class.php:309
-#, fuzzy
 msgid "Alaska"
 msgstr "Аляска"
 
 #: ../lib/tribe-view-helpers.class.php:310
-#, fuzzy
 msgid "Arizona"
 msgstr "Арізона"
 
 #: ../lib/tribe-view-helpers.class.php:311
-#, fuzzy
 msgid "Arkansas"
 msgstr "Арканзас"
 
 #: ../lib/tribe-view-helpers.class.php:312
-#, fuzzy
 msgid "California"
 msgstr "Каліфорнія"
 
 #: ../lib/tribe-view-helpers.class.php:313
-#, fuzzy
 msgid "Colorado"
 msgstr "Колорадо"
 
 #: ../lib/tribe-view-helpers.class.php:314
-#, fuzzy
 msgid "Connecticut"
 msgstr "Коннектикут"
 
 #: ../lib/tribe-view-helpers.class.php:315
-#, fuzzy
 msgid "Delaware"
 msgstr "Делавер"
 
 #: ../lib/tribe-view-helpers.class.php:316
-#, fuzzy
 msgid "District of Columbia"
 msgstr "Округ Колумбія"
 
 #: ../lib/tribe-view-helpers.class.php:317
-#, fuzzy
 msgid "Florida"
 msgstr "Флорида"
 
 #: ../lib/tribe-view-helpers.class.php:319
-#, fuzzy
 msgid "Hawaii"
 msgstr "Гаваї"
 
 #: ../lib/tribe-view-helpers.class.php:320
-#, fuzzy
 msgid "Idaho"
 msgstr "Айдахо"
 
 #: ../lib/tribe-view-helpers.class.php:321
-#, fuzzy
 msgid "Illinois"
 msgstr "Іллінойс"
 
 #: ../lib/tribe-view-helpers.class.php:322
-#, fuzzy
 msgid "Indiana"
 msgstr "Індіана"
 
 #: ../lib/tribe-view-helpers.class.php:323
-#, fuzzy
 msgid "Iowa"
 msgstr "Айова"
 
 #: ../lib/tribe-view-helpers.class.php:324
-#, fuzzy
 msgid "Kansas"
 msgstr "Канзас"
 
 #: ../lib/tribe-view-helpers.class.php:325
-#, fuzzy
 msgid "Kentucky"
 msgstr "Кентуккі"
 
 #: ../lib/tribe-view-helpers.class.php:326
-#, fuzzy
 msgid "Louisiana"
 msgstr "Луїзіана"
 
 #: ../lib/tribe-view-helpers.class.php:327
-#, fuzzy
 msgid "Maine"
 msgstr "Мен"
 
 #: ../lib/tribe-view-helpers.class.php:328
-#, fuzzy
 msgid "Maryland"
 msgstr "Меріленд"
 
 #: ../lib/tribe-view-helpers.class.php:329
-#, fuzzy
 msgid "Massachusetts"
 msgstr "Массачусетс"
 
 #: ../lib/tribe-view-helpers.class.php:330
-#, fuzzy
 msgid "Michigan"
 msgstr "Мічиган"
 
 #: ../lib/tribe-view-helpers.class.php:331
-#, fuzzy
 msgid "Minnesota"
 msgstr "Міннесота"
 
 #: ../lib/tribe-view-helpers.class.php:332
-#, fuzzy
 msgid "Mississippi"
 msgstr "Міссісіпі"
 
 #: ../lib/tribe-view-helpers.class.php:333
-#, fuzzy
 msgid "Missouri"
 msgstr "Міссурі"
 
 #: ../lib/tribe-view-helpers.class.php:334
-#, fuzzy
 msgid "Montana"
 msgstr "Монтана"
 
 #: ../lib/tribe-view-helpers.class.php:335
-#, fuzzy
 msgid "Nebraska"
 msgstr "Небраска"
 
 #: ../lib/tribe-view-helpers.class.php:336
-#, fuzzy
 msgid "Nevada"
 msgstr "Невада"
 
 #: ../lib/tribe-view-helpers.class.php:337
-#, fuzzy
 msgid "New Hampshire"
-msgstr "Нью -Гемпшир"
+msgstr "Нью-Гемпшир"
 
 #: ../lib/tribe-view-helpers.class.php:338
-#, fuzzy
 msgid "New Jersey"
-msgstr "Нью- Джерсі"
+msgstr "Нью-Джерсі"
 
 #: ../lib/tribe-view-helpers.class.php:339
-#, fuzzy
 msgid "New Mexico"
-msgstr "Нью -Мексико"
+msgstr "Нью-Мексико"
 
 #: ../lib/tribe-view-helpers.class.php:340
-#, fuzzy
 msgid "New York"
-msgstr "Нью -Йорк"
+msgstr "Нью-Йорк"
 
 #: ../lib/tribe-view-helpers.class.php:341
-#, fuzzy
 msgid "North Carolina"
 msgstr "Північна Кароліна"
 
 #: ../lib/tribe-view-helpers.class.php:342
-#, fuzzy
 msgid "North Dakota"
 msgstr "Північна Дакота"
 
 #: ../lib/tribe-view-helpers.class.php:343
-#, fuzzy
 msgid "Ohio"
 msgstr "Огайо"
 
 #: ../lib/tribe-view-helpers.class.php:344
-#, fuzzy
 msgid "Oklahoma"
 msgstr "Оклахома"
 
 #: ../lib/tribe-view-helpers.class.php:345
-#, fuzzy
 msgid "Oregon"
 msgstr "Орегон"
 
 #: ../lib/tribe-view-helpers.class.php:346
-#, fuzzy
 msgid "Pennsylvania"
 msgstr "Пенсільванія"
 
 #: ../lib/tribe-view-helpers.class.php:347
-#, fuzzy
 msgid "Rhode Island"
 msgstr "Род-Айленд"
 
 #: ../lib/tribe-view-helpers.class.php:348
-#, fuzzy
 msgid "South Carolina"
 msgstr "Південна Кароліна"
 
 #: ../lib/tribe-view-helpers.class.php:349
-#, fuzzy
 msgid "South Dakota"
 msgstr "Південна Дакота"
 
 #: ../lib/tribe-view-helpers.class.php:350
-#, fuzzy
 msgid "Tennessee"
 msgstr "Теннессі"
 
 #: ../lib/tribe-view-helpers.class.php:351
-#, fuzzy
 msgid "Texas"
 msgstr "Техас"
 
 #: ../lib/tribe-view-helpers.class.php:352
-#, fuzzy
 msgid "Utah"
 msgstr "Юта"
 
 #: ../lib/tribe-view-helpers.class.php:353
-#, fuzzy
 msgid "Vermont"
 msgstr "Вермонт"
 
 #: ../lib/tribe-view-helpers.class.php:354
-#, fuzzy
 msgid "Virginia"
 msgstr "Вірджинія"
 
 #: ../lib/tribe-view-helpers.class.php:355
-#, fuzzy
 msgid "Washington"
 msgstr "Вашингтон"
 
 #: ../lib/tribe-view-helpers.class.php:356
-#, fuzzy
 msgid "West Virginia"
 msgstr "Західна Вірджинія"
 
 #: ../lib/tribe-view-helpers.class.php:357
-#, fuzzy
 msgid "Wisconsin"
 msgstr "Вісконсін"
 
 #: ../lib/tribe-view-helpers.class.php:358
-#, fuzzy
 msgid "Wyoming"
 msgstr "Вайомінг"
 
@@ -4035,7 +3753,7 @@ msgstr "Переглянути всі події у категорії"
 
 #: ../lib/widget-list.class.php:136
 msgid "There are no upcoming events at this time."
-msgstr "Там немає майбутніх подій в цей час."
+msgstr "Наразі немає майбутніх подій."
 
 #: ../public/advanced-functions/meta.php:39
 #: ../public/advanced-functions/meta.php:65
@@ -4113,21 +3831,19 @@ msgid ""
 "You <strong>cannot</strong> use the same slug as above. The above should "
 "ideally be plural, and this singular.<br />Your single Event URL is like: %s"
 msgstr ""
-"Ви <strong> не може </ STRONG> використовувати той же короткий URL, що й "
-"вище. Вище в ідеалі має бути узагальнюючий, а цей індивідуальний <br /> Ваш "
-"URL події:  %s"
+"Ви <strong>не може</ STRONG> використовувати той же короткий URL, що й вище. "
+"Вище в ідеалі має бути узагальнюючий, а цей індивідуальний <br />Ваш URL "
+"події: %s"
 
 #: ../views/list/nav.php:17
 msgid "Events List Navigation"
 msgstr "Перегляд переліком"
 
 #: ../views/list/nav.php:23 ../views/list/nav.php:29 ../views/list/nav.php:32
-#, fuzzy
 msgid "<span>&laquo;</span> Previous Events"
 msgstr "&laquo; Попередня подія"
 
 #: ../views/list/nav.php:41 ../views/list/nav.php:44 ../views/list/nav.php:50
-#, fuzzy
 msgid "Next Events <span>&raquo;</span>"
 msgstr "Наступна подія &raquo;"
 
@@ -4152,12 +3868,10 @@ msgid "Calendar Month Navigation"
 msgstr "Календар навігація по місяцях"
 
 #: ../views/month/single-day.php:43
-#, fuzzy
 msgid "Events "
 msgstr "Події"
 
 #: ../views/month/single-day.php:45
-#, fuzzy
 msgid "Event "
 msgstr "Подія"
 
