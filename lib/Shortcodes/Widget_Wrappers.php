@@ -12,27 +12,27 @@ class Tribe__Events__Pro__Shortcodes__Widget_Wrappers {
 	}
 
 	public function mini_calendar( $atts ) {
-		require_once( TribeEventsPro::instance()->pluginPath . 'lib/Shortcodes/Filtered_Shortcode.php' );
-		require_once( TribeEventsPro::instance()->pluginPath . 'lib/Shortcodes/Mini_Calendar.php' );
+		require_once( Tribe__Events__Pro__Events_Pro::instance()->pluginPath . 'lib/Shortcodes/Filtered_Shortcode.php' );
+		require_once( Tribe__Events__Pro__Events_Pro::instance()->pluginPath . 'lib/Shortcodes/Mini_Calendar.php' );
 		$wrapper = new Tribe__Events__Pro__Shortcodes__Mini_Calendar( $atts );
 		return $wrapper->output;
 	}
 
 	public function events_list( $atts ) {
-		require_once( TribeEventsPro::instance()->pluginPath . 'lib/Shortcodes/Filtered_Shortcode.php' );
-		require_once( TribeEventsPro::instance()->pluginPath . 'lib/Shortcodes/Events_List.php' );
+		require_once( Tribe__Events__Pro__Events_Pro::instance()->pluginPath . 'lib/Shortcodes/Filtered_Shortcode.php' );
+		require_once( Tribe__Events__Pro__Events_Pro::instance()->pluginPath . 'lib/Shortcodes/Events_List.php' );
 		$wrapper = new Tribe__Events__Pro__Shortcodes__Events_List( $atts );
 		return $wrapper->output;
 	}
 
 	public function featured_venue( $atts ) {
-		require_once( TribeEventsPro::instance()->pluginPath . 'lib/Shortcodes/Featured_Venue.php' );
+		require_once( Tribe__Events__Pro__Events_Pro::instance()->pluginPath . 'lib/Shortcodes/Featured_Venue.php' );
 		$wrapper = new Tribe__Events__Pro__Shortcodes__Featured_Venue( $atts );
 		return $wrapper->output;
 	}
 
 	public function event_countdown( $atts ) {
-		require_once( TribeEventsPro::instance()->pluginPath . 'lib/Shortcodes/Event_Countdown.php' );
+		require_once( Tribe__Events__Pro__Events_Pro::instance()->pluginPath . 'lib/Shortcodes/Event_Countdown.php' );
 		$wrapper = new Tribe__Events__Pro__Shortcodes__Event_Countdown( $atts );
 		return $wrapper->output;
 	}

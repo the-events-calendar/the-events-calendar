@@ -18,7 +18,7 @@
  */
 
 /* = Week Grid Template Styles
-   @ Template: week.php
+   @ Template: Week.php
 =============================================*/
 .tribe-events-week .tribe-events-grid {
 	display: none;
@@ -45,7 +45,7 @@
 }
 
 /* = Photo View Template Styles 
-   @ Template: photo.php
+   @ Template: Photo.php
 =============================================*/
 #tribe-events-content {
 	overflow: hidden;
@@ -75,7 +75,7 @@
 }
 
 /* = Single Venue & Organizer Template Styles (Pro Version)
-   @ Template: single-venue.php & single-organizer.php
+   @ Template: single-venue.php & Single_Organizer.php
 =============================================*/
 .tribe-events-venue .tribe-events-venue-meta,
 .tribe-events-organizer .tribe-events-organizer-meta {
@@ -119,7 +119,7 @@
 }
 
 /* = Single Organizer Template Styles (Pro Version)
-   @ Template: single-organizer.php
+   @ Template: Single_Organizer.php
 =============================================*/
 .tribe-events-organizer .tribe-events-organizer-meta h2.entry-title {
 	margin-bottom: 15px;
@@ -142,7 +142,7 @@
 }
 
 /* = Map View Template Styles 
-   @ Template: map.php
+   @ Template: Map.php
 =============================================*/
 #tribe-geo-map {
 	height: 250px;
@@ -152,7 +152,7 @@
 }
 
 /* = Related Events
-   @ Template: single-event.php
+   @ Template: Single_Event.php
 =============================================*/
 h3.tribe-events-related-events-title {
 	margin-bottom: 12px;
@@ -201,7 +201,7 @@ h3.tribe-events-related-events-title {
 @media (max-width: 600px) {
 	
 	/* = Photo View Template Styles 
-   	   @ Template: photo.php
+   	   @ Template: Photo.php
 	=============================================*/
 	div#tribe-events-photo-events {
 		height: auto !important;

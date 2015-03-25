@@ -36,7 +36,7 @@ class Tribe__Events__Pro__Shortcodes__Events_List extends Tribe__Events__Pro__Sh
 	 * @var array
 	 */
 	protected $tax_relationships = array(
-		'categories' => TribeEvents::TAXONOMY,
+		'categories' => Tribe__Events__Events::TAXONOMY,
 		'tags' => 'post_tag'
 	);
 
@@ -81,10 +81,10 @@ class Tribe__Events__Pro__Shortcodes__Events_List extends Tribe__Events__Pro__Sh
 	public function __construct( $attributes ) {
 		$this->arguments = shortcode_atts( $this->default_args, $attributes );
 		$this->taxonomy_filters();
-		TribeEventsPro_Widgets::enqueue_calendar_widget_styles();
+		Tribe__Events__Pro__Widgets::enqueue_calendar_widget_styles();
 
 		ob_start();
-		the_widget( 'TribeEventsAdvancedListWidget', $this->arguments, $this->arguments );
+		the_widget( 'Tribe__Events__Pro__Advanced_List_Widget', $this->arguments, $this->arguments );
 		$this->output = ob_get_clean();
 	}
 }
