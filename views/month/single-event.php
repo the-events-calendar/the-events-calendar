@@ -3,7 +3,7 @@
  * Month Single Event
  * This file contains one event in the month view
  *
- * Override this template in your own theme by creating a file at [your-theme]/tribe-events/month/single-event.php
+ * Override this template in your own theme by creating a file at [your-theme]/tribe-events/month/Single_Event.php
  *
  * @package TribeEventsCalendar
  *

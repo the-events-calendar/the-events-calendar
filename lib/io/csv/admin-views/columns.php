@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
-$mapper = new TribeEventsImporter_ColumnMapper( $import_type );
+$mapper = new Tribe__Events__Importer__Column_Mapper( $import_type );
 if ( isset( $_POST['column_map'] ) ) {
 	$mapper->set_defaults( $_POST['column_map'] );
 } else {
