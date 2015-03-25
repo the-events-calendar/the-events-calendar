@@ -242,7 +242,7 @@ select.tribe-events-dropdown {
 }
 
 /* = Day Grid Template Styles
-   @ Template: day.php
+   @ Template: Day.php
 =============================================*/
 .tribe-events-day .tribe-events-day-time-slot h5 {
 	text-transform: uppercase;
@@ -255,7 +255,7 @@ select.tribe-events-dropdown {
 }
 
 /* = Grid View & List View Template Styles
-   @ Template: month.php & list.php
+   @ Template: Month.php & List.php
 =============================================*/
 #tribe-events-content {
 	position: relative;
@@ -267,7 +267,7 @@ select.tribe-events-dropdown {
 }
 
 /* = List View Template Styles
-   @ Template: list.php
+   @ Template: List.php
 =============================================*/
 .tribe-events-list h2.tribe-events-page-title {
 	margin-bottom: 15px;
@@ -325,7 +325,7 @@ select.tribe-events-dropdown {
 }
 
 /* = List View & Single Venue (Pro Version) Template Styles
-   @ Template: list.php & single-venue.php
+   @ Template: List.php & single-venue.php
 =============================================*/
 /* Loop */
 .tribe-events-loop {
@@ -362,7 +362,7 @@ select.tribe-events-dropdown {
 }
 
 /* = Single Event Template Styles
-   @ Template: single-event.php
+   @ Template: Single_Event.php
 =============================================*/
 .single-tribe_events #tribe-events-content {
 	padding: 0;
@@ -485,7 +485,7 @@ select.tribe-events-dropdown {
 }
 
 /* = Calendar Styles (includes styles for both large & small calendars)
-   @ Template: month.php & widgets/calendar-widget.php
+   @ Template: Month.php & widgets/calendar-widget.php
 =============================================*/
 /* Global Calendar Styles */
 #tribe-events-content table.tribe-events-calendar {
