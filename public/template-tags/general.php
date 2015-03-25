@@ -641,7 +641,7 @@ if ( class_exists( 'Tribe__Events__Events' ) ) {
 				$attrs['data-startofweek'] = get_option( 'start_of_week' );
 				break;
 			case 'list.php' :
-				$attrs['data-startofweek'] = get_option( 'start_of_week' );				
+				$attrs['data-startofweek'] = get_option( 'start_of_week' );
 				$attrs['data-view'] = 'list';
 				if ( tribe_is_upcoming() ) {
 					$attrs['data-baseurl'] = tribe_get_listview_link( false );
@@ -950,17 +950,18 @@ if ( class_exists( 'Tribe__Events__Events' ) ) {
 		if ( is_null( $post_id ) ) {
 			$post_id = get_the_ID();
 		}
-		$image_src      = wp_get_attachment_image_src( get_post_thumbnail_id( $post_id ), $size );
+
+		$image_html     = get_the_post_thumbnail( $post_id, $size );
 		$featured_image = '';
 
 		//if link is not specifically excluded, then include <a>
-		if ( ! empty( $image_src ) && $link ) {
-			$featured_image .= '<div class="tribe-events-event-image"><a href="' . tribe_get_event_link() . '" title="' . get_the_title( $post_id ) . '"><img src="' . $image_src[0] . '" title="' . get_the_title( $post_id ) . '" alt="' . get_the_title( $post_id ) . '" /></a></div>';
-		} elseif ( ! empty( $image_src ) ) {
-			$featured_image .= '<div class="tribe-events-event-image"><img src="' . $image_src[0] . '" title="' . get_the_title( $post_id ) . '" alt="' . get_the_title( $post_id ) . '" /></div>';
+		if ( ! empty( $image_html ) && $link ) {
+			$featured_image .= '<div class="tribe-events-event-image"><a href="' . tribe_get_event_link() . '">' . $image_html . '</a></div>';
+		} elseif ( ! empty( $image_html ) ) {
+			$featured_image .= '<div class="tribe-events-event-image">' . $image_html . '</div>';
 		}
 
-		return apply_filters( 'tribe_event_featured_image', $featured_image, $post_id, $size, $image_src );
+		return apply_filters( 'tribe_event_featured_image', $featured_image, $post_id, $size );
 	}
 
 	/**
@@ -993,7 +994,7 @@ if ( class_exists( 'Tribe__Events__Events' ) ) {
 	 */
 	function tribe_get_datetime_format( $with_year = false ) {
 		$format = tribe_get_date_format( $with_year );
-		$format .= tribe_get_option( 'dateTimeSeparator', ' @ ' );
+		$format .= implode( "\\", str_split( tribe_get_option( 'dateTimeSeparator', ' @ ' ) ) );
 		$format .= get_option( 'time_format' );
 
 		return apply_filters( 'tribe_datetime_format', $format );
@@ -1431,7 +1432,7 @@ if ( class_exists( 'Tribe__Events__Events' ) ) {
 	 **/
 	function tribe_events_promo_banner( $echo = true ) {
 		if ( tribe_get_option( 'donate-link', false ) == true && ! tribe_is_bot() ) {
-			$promo = apply_filters( 'tribe_events_promo_banner_message', sprintf( __( 'Calendar powered by %sThe Events Calendar%s', 'tribe-events-calendar' ), '<a class="vcard url org fn" href="' . Tribe__Events__Events::$tribeUrl . 'wordpress-events-calendar/?utm_medium=plugin-tec&utm_source=banner&utm_campaign=in-app">', '</a>' ) );
+			$promo = apply_filters( 'tribe_events_promo_banner_message', sprintf( __( 'Calendar powered by %sThe Events Calendar%s', 'tribe-events-calendar' ), '<a class="vcard url org fn" href="' . Tribe__Events__Events::$tecUrl . 'product/wordpress-events-calendar/?utm_medium=plugin-tec&utm_source=banner&utm_campaign=in-app">', '</a>' ) );
 			$html  = apply_filters( 'tribe_events_promo_banner', sprintf( '<p class="tribe-events-promo">%s</p>', $promo ), $promo );
 			if ( $echo ) {
 				echo $html;
