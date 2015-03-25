@@ -3591,7 +3591,7 @@ if ( ! class_exists( 'Tribe__Events__Events' ) ) {
 			$results = $wpdb->get_row( $eventsQuery, OBJECT );
 			if ( is_object( $results ) ) {
 				if ( ! $anchor ) {
-					$anchor = $results->post_title;
+					$anchor = apply_filters( 'the_title', $results->post_title );
 				} elseif ( strpos( $anchor, '%title%' ) !== false ) {
 					$anchor = preg_replace( '|%title%|', apply_filters( 'the_title', $results->post_title, $results->ID ), $anchor );
 				}
