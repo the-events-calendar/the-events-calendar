@@ -29,7 +29,7 @@ class Tribe__Events__Activation_Page {
 			return; // no infinite redirects
 		}
 
-		if ( ! current_user_can( TribeSettings::instance()->requiredCap ) ){
+		if ( ! current_user_can( Tribe__Events__Settings::instance()->requiredCap ) ){
 			return;
 		}
 
