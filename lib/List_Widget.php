@@ -64,7 +64,7 @@ class Tribe__Events__List_Widget extends WP_Widget {
 		$instance = wp_parse_args(
 			$instance, array(
 				'limit' => 5,
-				'title' => ''
+				'title' => '',
 			)
 		);
 
@@ -110,10 +110,12 @@ class Tribe__Events__List_Widget extends WP_Widget {
 
 		echo $before_widget;
 		do_action( 'tribe_events_before_list_widget' );
-		do_action( 'tribe_events_list_widget_before_the_title' );
 
-		echo ( $title ) ? $before_title . $title . $after_title : '';
-		do_action( 'tribe_events_list_widget_after_the_title' );
+		if ( $title ){
+			do_action( 'tribe_events_list_widget_before_the_title' );
+			echo $before_title . $title . $after_title;
+			do_action( 'tribe_events_list_widget_after_the_title' );
+		}
 
 		// Include template file
 		include Tribe__Events__Templates::getTemplateHierarchy( $template_name );
@@ -161,7 +163,7 @@ class Tribe__Events__List_Widget extends WP_Widget {
 		$defaults  = array(
 			'title'              => __( 'Upcoming Events', 'tribe-events-calendar' ),
 			'limit'              => '5',
-			'no_upcoming_events' => false
+			'no_upcoming_events' => false,
 		);
 		$instance  = wp_parse_args( (array) $instance, $defaults );
 		$tribe_ecp = Tribe__Events__Events::instance();

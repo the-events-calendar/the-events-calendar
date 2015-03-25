@@ -36,7 +36,7 @@ if ( class_exists( 'Tribe__Events__Events' ) ) {
 	function tribe_get_prev_event_link( $anchor = false ) {
 		global $post;
 
-		return apply_filters( 'tribe_get_next_event_link', Tribe__Events__Events::instance()->get_event_link( $post, 'previous', $anchor ) );
+		return apply_filters( 'tribe_get_prev_event_link', Tribe__Events__Events::instance()->get_event_link( $post, 'previous', $anchor ) );
 	}
 
 	/**

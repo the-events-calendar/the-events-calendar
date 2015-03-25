@@ -57,12 +57,16 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 			if ( $args === null ) {
 				global $wp_query;
 				$args = $wp_query->query;
+
+				if ( ! empty( $wp_query->query_vars['meta_query'] ) ){
+					$args['meta_query'] = $wp_query->query_vars['meta_query'];
+				}
 			}
 
 			self::$args                 = $args;
 			self::$posts_per_page_limit = apply_filters( 'tribe_events_month_day_limit', tribe_get_option( 'monthEventAmount', '3' ) );
 
-			// don't enqueue scripts and js when we're not constructing month view, 
+			// don't enqueue scripts and js when we're not constructing month view,
 			// they'll have to be enqueued separately
 			if ( ! tribe_is_month() ) {
 				$this->asset_packages = array();
