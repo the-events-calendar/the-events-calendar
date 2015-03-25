@@ -110,15 +110,10 @@
 			} );
 
 		function tribe_mobile_load_events( date ) {
-
-			var date_adj = date;
-			if ( date < 10 ) {
-				date_adj = '0' + date;
-			}
-
-			var $target = $wrapper.find( '.tribe-mobile-day[data-day="' + date + '"]' ),
-				$more = $wrapper.find( '.tribe-event-day-' + date_adj + ' .tribe-events-viewmore' ),
-				$events = $wrapper.find( '.tribe-event-day-' + date_adj + ' .hentry' );
+			var $target = $( '.tribe-mobile-day[data-day="' + date + '"]' ),
+				$cell = $( '.tribe-events-calendar td[data-day="' + date + '"]' ),
+				$more = $cell.find( '.tribe-events-viewmore' ),
+				$events = $cell.find( '.hentry' );
 
 			if ( $events.length ) {
 				$events

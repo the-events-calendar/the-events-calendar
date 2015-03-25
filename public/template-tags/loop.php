@@ -196,8 +196,8 @@ if ( class_exists( 'Tribe__Events__Events' ) ) {
 		global $wp_query;
 
 		$has_previous = false;
-		$upcoming     = tribe_is_upcoming();
-		$past         = ! $upcoming;
+		$past         = tribe_is_past();
+		$upcoming     = ! $past;
 		$cur_page     = (int) $wp_query->get( 'paged' );
 		$max_pages    = (int) $wp_query->max_num_pages;
 		$page_1       = 0 === $cur_page || 1 === $cur_page;
@@ -208,14 +208,19 @@ if ( class_exists( 'Tribe__Events__Events' ) ) {
 
 		// Test for past events (on first page of upcoming list only)
 		if ( $upcoming && $page_1 && ! $has_previous ) {
+			// Inherit args from the main query so that taxonomy conditions etc are respected
 			$args = (array) $wp_query->query;
-			$args['eventDisplay']   = 'past';
+
+			// Indicate we're interested in past events
+			$args['tribe_is_past'] = true;
+
+			// Make some efficiency savings
 			$args['no_paging']      = true;
 			$args['no_found_rows']  = true;
 			$args['posts_per_page'] = 1;
 
-			$past_events  = tribe_get_events( $args );
-			$has_previous = ( count( $past_events ) >= 1 );
+			$past_event   = tribe_get_events( $args );
+			$has_previous = ( count( $past_event ) >= 1 );
 		}
 
 		return apply_filters( 'tribe_has_previous_event', $has_previous );
@@ -230,8 +235,8 @@ if ( class_exists( 'Tribe__Events__Events' ) ) {
 		global $wp_query;
 
 		$has_next  = false;
-		$upcoming  = tribe_is_upcoming();
-		$past      = ! $upcoming;
+		$past      = tribe_is_past();
+		$upcoming  = ! $past;
 		$cur_page  = (int) $wp_query->get( 'paged' );
 		$max_pages = (int) $wp_query->max_num_pages;
 		$page_1    = 0 === $cur_page || 1 === $cur_page;
@@ -242,15 +247,16 @@ if ( class_exists( 'Tribe__Events__Events' ) ) {
 
 		// Test for future events (on first page of the past events list only)
 		if ( $past && $page_1 && ! $has_next ) {
+			// Inherit args from the main query so that taxonomy conditions etc are respected
 			$args = (array) $wp_query->query;
 
-			$args['eventDisplay'] = 'list';
+			// Make some efficiency savings
 			$args['no_paging'] = true;
 			$args['no_found_rows'] = true;
 			$args['posts_per_page'] = 1;
 
-			$upcoming_events = tribe_get_events( $args );
-			$has_next = ( count( $upcoming_events ) >= 1 );
+			$next_event = tribe_get_events( $args );
+			$has_next   = ( count( $next_event ) >= 1 );
 		}
 
 		return apply_filters( 'tribe_has_next_event', $has_next );
