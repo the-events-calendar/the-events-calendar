@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
-$mapper = new TribeEventsImporter_ColumnMapper( $import_type );
+$mapper = new Tribe__Events__Importer__Column_Mapper( $import_type );
 if ( isset( $_POST['column_map'] ) ) {
 	$mapper->set_defaults( $_POST['column_map'] );
 } else {
@@ -25,7 +25,7 @@ require_once 'header.php';
 	<div class="error"><?php echo implode( '', $messages ); ?></div>
 <?php endif; ?>
 	<div class="form">
-		<p><?php _e( 'Please choose the fields that best match the columns in your CSV file.', 'tribe-events-calendar' ) ?></p>
+		<p><?php _e( 'Columns have been mapped based on your last import. Please ensure the selected fields match the columns in your CSV file.', 'tribe-events-calendar' ) ?></p>
 
 		<form method="POST">
 			<table class="">

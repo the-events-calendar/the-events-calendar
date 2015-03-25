@@ -1,0 +1,4326 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: The Events Calendar 3.5\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-12-05 15:37-0800\n"
+"PO-Revision-Date: 2015-03-09 14:57-0800\n"
+"Last-Translator: Emilia Valova <nankye@gmail.com>\n"
+"Language-Team: Modern Tribe, Inc. <pro@tri.be>\n"
+"Language: en_US\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.7.4\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:1,2,4c;_n_noop:1,2;"
+"_nx_noop:1,2,3c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;"
+"esc_html_x:1,2c\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-SearchPath-0: ..\n"
+
+#: ../admin-views/admin-update-message.php:9
+#: ../admin-views/admin-welcome-message.php:11
+#, php-format
+msgid "You are running Version %s and deserve a hug :-)"
+msgstr "Používate verziu %s  a zaslúžite si objatie :-)"
+
+#: ../admin-views/admin-update-message.php:32
+msgid "Keep the Core Plugin <strong>FREE</strong>!"
+msgstr "Udržujte základný plugin <strong>ZADARMO</strong>!"
+
+#: ../admin-views/admin-update-message.php:33
+msgid ""
+"Every time you rate <strong>5 stars</strong>, a fairy is born. Okay maybe "
+"not, but more happy users mean more contributions and help on the forums. "
+"The community NEEDS your voice."
+msgstr ""
+"Zakaždým, keď nás ohodnotíte <strong>5 hviezdičkami</ strong>, víla je na "
+"svete. Dobre, možno nie, ale šťastní užívatelia znamenajú viac príspevkov a "
+"viac pomoci na fóre. Naša komunita potrebuje váš hlas."
+
+#: ../admin-views/admin-update-message.php:34
+#: ../admin-views/admin-welcome-message.php:22
+msgid "Rate It"
+msgstr "Ohodnotiť"
+
+#: ../admin-views/admin-update-message.php:37
+msgid "PSST... Want a Discount?"
+msgstr "PSST... Chcete zľavu?"
+
+#: ../admin-views/admin-update-message.php:38
+msgid "We send out discounts to our core users via our newsletter."
+msgstr "Naše zľavy posielame našim hlavným užívateľom cez odber noviniek."
+
+#: ../admin-views/admin-update-message.php:43
+#: ../admin-views/admin-welcome-message.php:31
+msgid "Sign Up"
+msgstr "Zaregistrovať sa"
+
+#: ../admin-views/admin-update-message.php:49
+msgid "Looking for Something Special?"
+msgstr "Hľadáte niečo špeciálne?"
+
+#: ../admin-views/admin-update-message.php:51
+msgid "Pro"
+msgstr "Pro"
+
+#: ../admin-views/admin-update-message.php:52
+#: ../lib/tickets/tribe-tickets-metabox.php:26
+msgid "Tickets"
+msgstr "Vstupenky"
+
+#: ../admin-views/admin-update-message.php:53
+msgid "Community Events"
+msgstr "Verejné udalosti"
+
+#: ../admin-views/admin-update-message.php:54
+msgid "Filters"
+msgstr "Filtre"
+
+#: ../admin-views/admin-update-message.php:55
+msgid "Facebook"
+msgstr "Facebook"
+
+#: ../admin-views/admin-update-message.php:58
+#: ../admin-views/admin-welcome-message.php:53
+msgid "News For Events Users"
+msgstr "Novinky pre užívateľov kalendára udalostí"
+
+#: ../admin-views/admin-welcome-message.php:19
+msgid "Keep The Events Calendar Core FREE"
+msgstr "Udržujte The Events Calendar PRO zadarmo"
+
+#: ../admin-views/admin-welcome-message.php:20
+msgid ""
+"5 star ratings help us bring TEC to more users. More happy users mean more "
+"support, more features, and more of everything you know and love about The "
+"Events Calendar. We couldn't do this without your support."
+msgstr ""
+"Ohodnotenie 5 hviezdičkami nám pomáha prinášať TEC (The Events Calendar - "
+"Kalendár podujatí) pre viac užívateľov. Ďalší šťastní užívatelia znamenajú "
+"viac podpory, viac funkcií a viac všetkého, čo už poznáte a máte radi z "
+"Kalendára udalostí. Neurobili by sme to bez vašej pomoci."
+
+#: ../admin-views/admin-welcome-message.php:21
+msgid "Rate it five stars today!"
+msgstr "Ohodnoťte dnes piatimi hviezdičkami!"
+
+#: ../admin-views/admin-welcome-message.php:25
+msgid "Newsletter Signup"
+msgstr "Prihlásiť sa na odber noviniek"
+
+#: ../admin-views/admin-welcome-message.php:26
+msgid ""
+"Stay in touch with The Events Calendar Pro. We send out periodic updates, "
+"key developer notices, and even the occasional discount."
+msgstr ""
+"Zostaňte v kontakte s Kalendárom udalostí Pro. Pravidelne zasielame "
+"aktualizácie, kľúčové vývojarské oznámenia a dokonca občas aj zľavu."
+
+#: ../admin-views/admin-welcome-message.php:40
+#: ../admin-views/tribe-options-help.php:147
+msgid "Getting Started"
+msgstr "Začíname"
+
+#: ../admin-views/admin-welcome-message.php:41
+msgid "Check out the New User Primer &amp; Tutorials"
+msgstr "Skontrolujte príručky pre nových užívateľov &amp; tutoriály"
+
+#: ../admin-views/admin-welcome-message.php:43
+msgid "Looking for More Features?"
+msgstr "Hľadáte viac funkcií?"
+
+#: ../admin-views/admin-welcome-message.php:44
+msgid "Addons for Community, Tickets, Filters, Facebook and more."
+msgstr "Doplnky pre verejnosť, vstupenky, filtre, Facebook a viac."
+
+#: ../admin-views/admin-welcome-message.php:46
+msgid "Support Resources"
+msgstr "Možnosti podpory"
+
+#: ../admin-views/admin-welcome-message.php:47
+msgid "FAQs, Documentation, Tutorials and Forums"
+msgstr "Najčastejšie otázky, dokumentácia, tutoriály a fóra"
+
+#: ../admin-views/admin-welcome-message.php:50
+msgid "Release Notes"
+msgstr "Poznámky k vydaniu"
+
+#: ../admin-views/admin-welcome-message.php:51
+msgid "Get the Skinny on the Latest Updates"
+msgstr "Získajte vzhľad pre najnovšie aktualizácie"
+
+#: ../admin-views/admin-welcome-message.php:54
+msgid "Product Releases, Tutorials and Community Activity"
+msgstr "Správa produktov, tutoriály a verejné aktivity"
+
+#: ../admin-views/app-shop.php:4
+msgid "Tribe Event Add-Ons"
+msgstr "Skupina doplnkov pre udalosti"
+
+#: ../admin-views/app-shop.php:54
+msgid "Version"
+msgstr "Verzia"
+
+#: ../admin-views/app-shop.php:57
+msgid "Last Update"
+msgstr "Posledná aktualizácia"
+
+#: ../admin-views/event-sidebar-options.php:13
+msgid "Hide From Event Listings"
+msgstr "Skryť zo zoznamu udalostí"
+
+#: ../admin-views/event-sidebar-options.php:15
+msgid "Sticky in Calendar View"
+msgstr "Prilepiť do kalendára"
+
+#: ../admin-views/events-meta-box.php:33
+msgid "Event Time &amp; Date"
+msgstr "Čas a dátum udalosti"
+
+#: ../admin-views/events-meta-box.php:40
+msgid ""
+"You have changed the recurrence rules of this event.  Saving the event will "
+"update all future events.  If you did not mean to change all events, then "
+"please refresh the page."
+msgstr ""
+"Práve ste zmenili pravidlá pre opakovanie tejto udalosti. Uložením udalosti "
+"aktualizujete všetky najbližšie udalosti. Ak nechcete zmeniť všetky "
+"udalosti, prosím obnovte túto stránku."
+
+#: ../admin-views/events-meta-box.php:43
+msgid "All Day Event:"
+msgstr "Celodenná udalosť:"
+
+#: ../admin-views/events-meta-box.php:49
+msgid "Start Date &amp; Time:"
+msgstr "Čas a dátum začiatku:"
+
+#: ../admin-views/events-meta-box.php:52 ../admin-views/events-meta-box.php:73
+msgid "YYYY-MM-DD"
+msgstr "YYYY-MM-DD"
+
+#: ../admin-views/events-meta-box.php:70
+msgid "End Date &amp; Time:"
+msgstr "Čas a dátum ukončenia:"
+
+#: ../admin-views/events-meta-box.php:98
+msgid "Event Location Details"
+msgstr "Podrobnosti udalosti o mieste konania "
+
+#: ../admin-views/events-meta-box.php:107
+msgid "Event Organizer Details"
+msgstr "Podrobnosti o organizátorovi udalosti"
+
+#: ../admin-views/events-meta-box.php:116
+#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:66
+msgid "Event Website"
+msgstr "Stránka udalosti"
+
+#: ../admin-views/events-meta-box.php:119
+msgid "URL:"
+msgstr "URL:"
+
+#: ../admin-views/events-meta-box.php:133
+#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:63
+msgid "Event Cost"
+msgstr "Vstupné na udalosť"
+
+#: ../admin-views/events-meta-box.php:136
+msgid "Currency Symbol:"
+msgstr "Symbol meny:"
+
+#: ../admin-views/events-meta-box.php:151
+msgctxt "Currency symbol position"
+msgid "Before cost"
+msgstr "Pred cenou"
+
+#: ../admin-views/events-meta-box.php:154
+msgctxt "Currency symbol position"
+msgid "After cost"
+msgstr "Za cenou"
+
+#: ../admin-views/events-meta-box.php:159
+#: ../public/advanced-functions/meta.php:373
+#: ../views/modules/meta/details.php:96
+msgid "Cost:"
+msgstr "Cena:"
+
+#: ../admin-views/events-meta-box.php:167
+msgid "Enter a 0 for events that are free or leave blank to hide the field."
+msgstr ""
+"Vložte  0 pre udalosti, na ktoré je vstupné zdarma alebo pre ukrytie položky "
+"nechajte položku nevyplnenú."
+
+#: ../admin-views/organizer-meta-box.php:14
+#: ../admin-views/venue-meta-box.php:22
+#, php-format
+msgid "%s Name:"
+msgstr "%s Názov:"
+
+#: ../admin-views/organizer-meta-box.php:21
+#: ../admin-views/tickets/attendees.php:52
+#: ../admin-views/venue-meta-box.php:109
+#: ../public/advanced-functions/meta.php:476
+#: ../public/advanced-functions/meta.php:549
+#: ../views/modules/meta/organizer.php:24 ../views/modules/meta/venue.php:40
+msgid "Phone:"
+msgstr "Telefón:"
+
+#: ../admin-views/organizer-meta-box.php:27
+#: ../admin-views/tickets/attendees.php:61
+#: ../admin-views/venue-meta-box.php:116
+#: ../public/advanced-functions/meta.php:418
+#: ../public/advanced-functions/meta.php:506
+#: ../public/advanced-functions/meta.php:579
+#: ../views/modules/meta/details.php:121
+#: ../views/modules/meta/organizer.php:34 ../views/modules/meta/venue.php:45
+msgid "Website:"
+msgstr "Webstránka:"
+
+#: ../admin-views/organizer-meta-box.php:33
+#: ../public/advanced-functions/meta.php:564
+#: ../views/modules/meta/organizer.php:29
+msgid "Email:"
+msgstr "Email:"
+
+#: ../admin-views/organizer-meta-box.php:34
+msgid ""
+"You may want to consider <a href=\"http://wordpress.org/plugins/tags/"
+"obfuscate\">obfuscating</a> any e-mail address published on your site to "
+"best avoid it getting harvested by spammers."
+msgstr ""
+"Zvážte <a href=\"http://wordpress.org/plugins/tags/obfuscate\">maskovanie</"
+"a> mailových adries publikovaných na vašej stránke,  je to najlepší spôsob "
+"ako sa vyhnúť spammerom."
+
+#: ../admin-views/tickets/attendees.php:11 ../admin-views/tickets/list.php:41
+#: ../lib/tickets/tribe-tickets-pro.php:77
+msgid "Attendees"
+msgstr "Účastníci"
+
+#: ../admin-views/tickets/attendees.php:17
+msgid "Event Summary"
+msgstr "Prehľad udalosti"
+
+#: ../admin-views/tickets/attendees.php:23
+msgid "Event Details"
+msgstr "Podrobnosti udalosti"
+
+#: ../admin-views/tickets/attendees.php:25
+msgid "Start Date / Time:"
+msgstr "Dátum začiatku / Čas:"
+
+#: ../admin-views/tickets/attendees.php:29
+msgid "End Date / Time:"
+msgstr "Dátum ukončenia / Čas:"
+
+#: ../admin-views/tickets/attendees.php:69
+msgid "Ticket Sales"
+msgstr "Cena lístka"
+
+#: ../admin-views/tickets/attendees.php:86
+#, php-format
+msgid "(%d awaiting review)"
+msgid_plural "(%d awaiting review)"
+msgstr[0] "(%d čaká na recenziu)"
+msgstr[1] "(%d čakajú na recenziu)"
+
+#: ../admin-views/tickets/attendees.php:90
+#, php-format
+msgid "Sold %d %s"
+msgstr "Predané %d %s"
+
+#: ../admin-views/tickets/attendees.php:93
+#, php-format
+msgid "Sold %d of %d %s"
+msgstr "Predané %d  z %d %s"
+
+#: ../admin-views/tickets/attendees.php:111
+msgid "Tickets sold:"
+msgstr "Vstupenky predavané:"
+
+#: ../admin-views/tickets/attendees.php:118
+msgid "Finalized:"
+msgstr "Dokončené:"
+
+#: ../admin-views/tickets/attendees.php:121
+msgid "Awaiting review:"
+msgstr "Čaká na recenziu:"
+
+#: ../admin-views/tickets/attendees.php:128
+msgid "Checked in:"
+msgstr "Zaškrtnuté:"
+
+#: ../admin-views/tickets/attendees.php:146
+msgid "Send the attendee list by email"
+msgstr "Poslať zoznam účastníkov cez email"
+
+#: ../admin-views/tickets/attendees.php:150
+msgid "Select a User:"
+msgstr "Vybrať používateľa:"
+
+#: ../admin-views/tickets/attendees.php:155
+msgid "Select..."
+msgstr "Vybrať..."
+
+#: ../admin-views/tickets/attendees.php:160
+msgid "or"
+msgstr "alebo"
+
+#: ../admin-views/tickets/attendees.php:162
+msgid "Email Address:"
+msgstr "Emailová adresa:"
+
+#: ../admin-views/tickets/list.php:21
+msgid "Edit"
+msgstr "Upravirť"
+
+#: ../admin-views/tickets/list.php:22
+#: ../lib/tickets/tribe-tickets-attendees.php:228
+msgid "Delete"
+msgstr "Vymazať"
+
+#: ../admin-views/tickets/list.php:24
+#, php-format
+msgid "Edit in %s"
+msgstr "Upraviť v %s"
+
+#: ../admin-views/tickets/list.php:27
+msgid "View"
+msgstr "Zobraziť"
+
+#: ../admin-views/tickets/list.php:41 ../lib/tickets/tribe-tickets-pro.php:77
+msgid "See who purchased tickets to this event"
+msgstr "Prezrieť, kto kúpil vstupenky na danú udalosť"
+
+#: ../admin-views/tickets/list.php:67
+#, php-format
+msgid "Sold %d"
+msgstr "Predané %d"
+
+#: ../admin-views/tickets/list.php:69
+#, php-format
+msgid "Sold %d of %d"
+msgstr "Predané %d  z %d"
+
+#: ../admin-views/tickets/meta-box.php:23
+msgid ""
+"This event was created using Community Events. Are you sure you want to sell "
+"tickets for it?"
+msgstr ""
+"Táto udalosť bola vytvorená cez Verejné udalosti. Ste si istý, že chcete "
+"predávať vstupenky na danú udalosť?"
+
+#: ../admin-views/tickets/meta-box.php:34
+msgid "Upload image for the ticket header"
+msgstr "Nahrať obrázok pre hlavičku vstupenky"
+
+#: ../admin-views/tickets/meta-box.php:35
+msgid ""
+"The maximum image size in the email will be 580px wide by any height, and "
+"then scaled for mobile. If you would like \"retina\" support use an image "
+"sized to 1160px wide."
+msgstr ""
+"Maximálna veľkosť obrázka v email-i je 580px na šírku v ľubovoľnej výške a "
+"škálovateľné pre mobil. Ak potrebujete \"retina\" pomôcť, použite obrázok "
+"veľkosti 1160px na šírku."
+
+#: ../admin-views/tickets/meta-box.php:38
+msgid "Select an Image"
+msgstr "Vybrať obrázok"
+
+#: ../admin-views/tickets/meta-box.php:46
+msgid "Remove"
+msgstr "Odstrániť"
+
+#: ../admin-views/tickets/meta-box.php:64
+#: ../admin-views/tickets/meta-box.php:74
+msgid "Add new ticket"
+msgstr "Pridať novú vstupenku"
+
+#: ../admin-views/tickets/meta-box.php:75
+msgid "Edit ticket"
+msgstr "Upraviť vstupenku"
+
+#: ../admin-views/tickets/meta-box.php:81
+msgid "Sell using:"
+msgstr "Predaj pomocou:"
+
+#: ../admin-views/tickets/meta-box.php:98
+msgid "Ticket Name:"
+msgstr "Názov vstupenky:"
+
+#: ../admin-views/tickets/meta-box.php:105
+msgid "Ticket Description:"
+msgstr "Popis vstupenky:"
+
+#: ../admin-views/tickets/meta-box.php:114
+msgid "Price:"
+msgstr "Cena:"
+
+#: ../admin-views/tickets/meta-box.php:120
+msgid "(0 or empty for free tickets)"
+msgstr "(0 alebo prázdny znak voľný vstup)"
+
+#: ../admin-views/tickets/meta-box.php:126
+msgid "Start sale:"
+msgstr "Začiatok predaja:"
+
+#: ../admin-views/tickets/meta-box.php:150
+msgid "End sale:"
+msgstr "Koniec predaja:"
+
+#: ../admin-views/tickets/meta-box.php:172
+msgid ""
+"When will ticket sales occur? If you don't set a start/end date for sales, "
+"tickets will be available from now until the event ends."
+msgstr ""
+"Dokedy je vstupenka v predaji? Ak nenastavíte začiatok/koniec predaja, "
+"vstupenky budú dostupné odteraz až do ukončenia udalosti."
+
+#: ../admin-views/tickets/meta-box.php:184
+msgid "Save this ticket"
+msgstr "Uložiť túto vstupenku"
+
+#: ../admin-views/tribe-options-display.php:4
+msgid "Default Events Template"
+msgstr "Predvolená šablóna udalosti"
+
+#: ../admin-views/tribe-options-display.php:5
+msgid "Default Page Template"
+msgstr "Predvolená šablóna stránky"
+
+#: ../admin-views/tribe-options-display.php:32
+msgid "Display Settings"
+msgstr "Nastavenia zobrazenia"
+
+#: ../admin-views/tribe-options-display.php:37
+#, php-format
+msgid ""
+"The settings below control the display of your calendar. If things don't "
+"look right, try switching between the three style sheet options or pick a "
+"page template from your theme.</p><p>There are going to be situations where "
+"no out-of-the-box template is 100&#37; perfect. Check out our <a href=\"%s"
+"\">our themer's guide</a> for instructions on custom modifications."
+msgstr ""
+"<p>Nižšie uvedené nastavenia sú pre zobrazenie kalendára. Ak je zobrazenie "
+"nesprávne, skúste prepnúť medzi tromi voľbami štýlu alebo vyberte šablónu "
+"stránky z vašej témy.</p><p>Nastanú situácie, keď žiadna zo šablón nie je  "
+"100&#37;  ideálna. Preverte nášho <a href=\"%s\"> sprievodcu tém </a> s "
+"inštrukciami pre vlastné modifikácie."
+
+#: ../admin-views/tribe-options-display.php:51
+msgid "Basic Template Settings"
+msgstr "Základné nastavenia šablóny"
+
+#: ../admin-views/tribe-options-display.php:55
+msgid "Default stylesheet used for events templates"
+msgstr "Predvolený štýl použitý pre šablónu udalosti"
+
+#: ../admin-views/tribe-options-display.php:58
+msgid "Skeleton Styles"
+msgstr "Základné štýly"
+
+#: ../admin-views/tribe-options-display.php:60
+msgid ""
+"Only includes enough css to achieve complex layouts like calendar and week "
+"view."
+msgstr ""
+"Zahrňuje css pre dosiahnutie komplexného rozloženia ako kalendár a týždenný "
+"náhľad."
+
+#: ../admin-views/tribe-options-display.php:62
+msgid "Full Styles"
+msgstr "Úplné štýly"
+
+#: ../admin-views/tribe-options-display.php:64
+msgid "More detailed styling, tries to grab styles from your theme."
+msgstr "Detailnejšie štýlovanie sa pokúsi natiahnuť štýly z vašej témy."
+
+#: ../admin-views/tribe-options-display.php:66
+msgid "Tribe Events Styles"
+msgstr "Tribe Events Štýly"
+
+#: ../admin-views/tribe-options-display.php:68
+msgid "A fully designed and styled theme for your events pages."
+msgstr "Plne navrhnutá a nadizajnovaná téma pre vašu stránku udalosti."
+
+#: ../admin-views/tribe-options-display.php:75
+msgid "Events template"
+msgstr "Šablóna udalostí"
+
+#: ../admin-views/tribe-options-display.php:76
+msgid ""
+"Choose a page template to control the appearance of your calendar and event "
+"content."
+msgstr ""
+"Vyberte šablónu stránky, ktorá ovplyvní vhľad vášho kalendára a obsahu "
+"udalosti."
+
+#: ../admin-views/tribe-options-display.php:84
+msgid "Enable event views"
+msgstr "Povoliť zobrazenie udalosti"
+
+#: ../admin-views/tribe-options-display.php:85
+msgid "You must select at least one view."
+msgstr "Musíte vybrať aspoň jedno zobrazenie."
+
+#: ../admin-views/tribe-options-display.php:92
+msgid "Default view"
+msgstr "Predvolené zobrazenie"
+
+#: ../admin-views/tribe-options-display.php:100
+msgid "Disable the Event Search Bar"
+msgstr "Deaktivovať panel na vyhľadávanie udalosti"
+
+#: ../admin-views/tribe-options-display.php:101
+msgid "Check this to use the classic header."
+msgstr "Zaškrtnie, ak chcete použiť klasickú hlavičku."
+
+#: ../admin-views/tribe-options-display.php:107
+msgid "Month view events per day"
+msgstr "Mesačné prehľad udalosti za deň"
+
+#: ../admin-views/tribe-options-display.php:108
+msgid "Allow more than the default 3 events per day in month view."
+msgstr "Povoliť viac ako 3 predvolené udalosti za deň v mesačnom zobrazení."
+
+#: ../admin-views/tribe-options-display.php:115
+msgid "Date Format Settings"
+msgstr "Nastavenia formátu dátumu"
+
+#: ../admin-views/tribe-options-display.php:119
+msgid ""
+"<p>The following three fields accept the date format options available to "
+"the php date() function. <a href=\"http://codex.wordpress.org/"
+"Formatting_Date_and_Time\" target=\"_blank\">Learn how to make your own date "
+"format here</a>.</p>"
+msgstr ""
+"<p>Tieto tri polia akceptujú nastavenia formátu dátumu dostupné pre php "
+"date() funkciu. <a href=\"http://codex.wordpress.org/Formatting_Date_and_Time"
+"\" target=\"_blank\">Naučte sa, ako nastaviť váš vlastný formát dátumu tu</"
+"a>.</p>"
+
+#: ../admin-views/tribe-options-display.php:123
+msgid "Date with year"
+msgstr "Dátum s rokom"
+
+#: ../admin-views/tribe-options-display.php:124
+msgid ""
+"Enter the format to use for displaying dates with the year. Used when "
+"showing an event from a past or future year, also used for dates in view "
+"headers."
+msgstr ""
+"Vložte formát pre zobrazenia dátumu s rokom. Používa sa pri zobrazení "
+"udalosti v minulom alebo budúcom roku, taktiež pre dátumy v zobrazení "
+"hlavičky."
+
+#: ../admin-views/tribe-options-display.php:131
+msgid "Date without year"
+msgstr "Dátum bez roku"
+
+#: ../admin-views/tribe-options-display.php:132
+msgid ""
+"Enter the format to use for displaying dates without a year. Used when "
+"showing an event from the current year."
+msgstr ""
+"Vložte formát pre zobrazenie dátumu bez roku. Používa sa pre zobrazenie "
+"udalosti v aktuálnom roku."
+
+#: ../admin-views/tribe-options-display.php:139
+msgid "Month and year format"
+msgstr "Formát mesiaca a roka"
+
+#: ../admin-views/tribe-options-display.php:140
+msgid ""
+"Enter the format to use for dates that show a month and year only. Used on "
+"month view."
+msgstr ""
+"Vložte formát pre zobrazenie dátumu len v mesiaci a roku. Používa sa v "
+"mesačnom zobrazení."
+
+#: ../admin-views/tribe-options-display.php:147
+msgid "Date time separator"
+msgstr "Oddeľovač času"
+
+#: ../admin-views/tribe-options-display.php:148
+msgid ""
+"Enter the separator that will be placed between the date and time, when both "
+"are shown."
+msgstr ""
+"Vložte oddeľovač, ktorý bude medzi dátumom a časom, keď sa zobrazujú súčasne."
+
+#: ../admin-views/tribe-options-display.php:155
+msgid "Time range separator"
+msgstr "Oddeľovač časového rozsahu"
+
+#: ../admin-views/tribe-options-display.php:156
+msgid ""
+"Enter the separator that will be used between the start and end time of an "
+"event."
+msgstr ""
+"Vložte oddeľovač, ktorý bude medzi časom začiatku a ukončenia udalosti."
+
+#: ../admin-views/tribe-options-display.php:163
+msgid "Datepicker Date Format"
+msgstr "Formát dátumu pre Datepicker"
+
+#: ../admin-views/tribe-options-display.php:164
+msgid "Select the date format to use in datepickers"
+msgstr "Vyberte formát dátumu pre používanie datepickera"
+
+#: ../admin-views/tribe-options-display.php:181
+msgid "Advanced Template Settings"
+msgstr "Pokročilé nastavenia šablóny"
+
+#: ../admin-views/tribe-options-display.php:185
+msgid "Add HTML before event content"
+msgstr "Pridať HTML pred obsah udalosti"
+
+#: ../admin-views/tribe-options-display.php:186
+msgid ""
+"If you are familiar with HTML, you can add additional code before the event "
+"template. Some themes may require this to help with styling or layout."
+msgstr ""
+"Ak poznáte HTML, potom môžete pridať ďalší kód pred šablónu udalosti. "
+"Niektoré témy môžu vyžadovať pre pomoc s naštýlovaním alebo rozložením "
+"(layout)."
+
+#: ../admin-views/tribe-options-display.php:191
+msgid "Add HTML after event content"
+msgstr "Pridať HTML za obsah udalosti"
+
+#: ../admin-views/tribe-options-display.php:192
+msgid ""
+"If you are familiar with HTML, you can add additional code after the event "
+"template. Some themes may require this to help with styling or layout."
+msgstr ""
+"Ak poznáte HTML, potom môžete pridať ďalší kód za šablónou udalosti. "
+"Niektoré témy môžu vyžadovať pre pomoc so štýlovaním alebo rozložením "
+"(layoutom)."
+
+#: ../admin-views/tribe-options-general.php:15
+msgid "Finding & extending your calendar."
+msgstr "Vyhľadávanie & pridanie ďalších funkcií pre váš kalendár."
+
+#: ../admin-views/tribe-options-general.php:20
+msgid "Finding your calendar."
+msgstr "Vyhľadanie vášho kalendára."
+
+#: ../admin-views/tribe-options-general.php:25
+msgid "Where's my calendar?"
+msgstr "Kde je môj kalendár?"
+
+#: ../admin-views/tribe-options-general.php:25
+msgid "Right here"
+msgstr "Presne tu"
+
+#: ../admin-views/tribe-options-general.php:29
+msgid ""
+"Looking for additional functionality including recurring events, custom "
+"meta, community events, ticket sales and more?"
+msgstr ""
+"Hľadáte doplnkové funkcionality vrátane pravidelne sa opakujúcich udalosti, "
+"vlastné meta data, verejné udalosti, predaj lístkov a iné?"
+
+#: ../admin-views/tribe-options-general.php:29
+msgid "Check out the available add-ons"
+msgstr "Prezrieť si dostupné doplnky"
+
+#: ../admin-views/tribe-options-general.php:34
+msgid "We hope our plugin is helping you out."
+msgstr "Dúfame, že vám doplnok pomohol."
+
+#: ../admin-views/tribe-options-general.php:38
+msgid ""
+"Are you thinking \"Wow, this plugin is amazing! I should say thanks to "
+"Modern Tribe for all their hard work.\" The greatest thanks we could ask for "
+"is recognition. Add a small text-only link at the bottom of your calendar "
+"pointing to The Events Calendar project."
+msgstr ""
+"Myslíte si, že \"Wow, tento doplnok je úžasný. Mali by ste sa poďakovať "
+"Modern Tribe za ich tvrdú prácu.\" Najväčšie ďakujem bude, že dáte o nás "
+"vedieť. Stačí pridať malý textový odkaz do spodnej časti vášho kalendára na "
+"projekt Kalendár udalosti."
+
+#: ../admin-views/tribe-options-general.php:38
+#: ../admin-views/tribe-options-general.php:43
+msgid "See an example of the link"
+msgstr "Pozrite si príklad linku"
+
+#: ../admin-views/tribe-options-general.php:43
+msgid ""
+"Are you thinking \"Wow, this plugin is amazing! I should say thanks to "
+"Modern Tribe for all their hard work.\" The greatest thanks we could ask for "
+"is recognition. Add a small text only link at the bottom of your calendar "
+"pointing to The Events Calendar project."
+msgstr ""
+"Myslíte si, že \"Wow, tento plugin je úžasný. Mali by ste sa poďakovať "
+"Modern Tribe za ich tvrdú prácu.\" Najväčšie ďakujem bude,  ak dáte o nás "
+"vedieť. Stačí pridať malý textový odkaz do spodnej časti vášho kalendára na "
+"projekt Kalendár udalosti."
+
+#: ../admin-views/tribe-options-general.php:48
+msgid "Show The Events Calendar link"
+msgstr "Ukázať link na Kalendár udalostí"
+
+#: ../admin-views/tribe-options-general.php:62
+msgid "General Settings"
+msgstr "Všeobecné nastavenia"
+
+#: ../admin-views/tribe-options-general.php:66
+msgid "Number of events to show per page"
+msgstr "Počet udalosti zobrazených na stránke"
+
+#: ../admin-views/tribe-options-general.php:73
+msgid "Use Javascript to control date filtering"
+msgstr "Povoliť Javscript pre filtrovanie podľa dátumu"
+
+#: ../admin-views/tribe-options-general.php:74
+msgid ""
+"This option is disabled when \"Disable the Event Search Bar\" is checked on "
+"the Display settings tab."
+msgstr ""
+"Táto voľba nie je aktívna, ak \"Deaktivovať panel na hľadania udalosti\" je "
+"zaškrtnutá v záložke Nastavenia zobrazenia."
+
+#: ../admin-views/tribe-options-general.php:74
+msgid ""
+"Enable live ajax for datepicker on front end (User submit not required)."
+msgstr ""
+"Povoliť ajax pre datapicker na obrazovke (Nevyžaduje si potvrdenie od "
+"užívateľa)."
+
+#: ../admin-views/tribe-options-general.php:82
+msgid "Show comments"
+msgstr "Ukázať komentáre"
+
+#: ../admin-views/tribe-options-general.php:83
+msgid "Enable comments on event pages."
+msgstr "Povoliť komentáre na stránkach udalosti."
+
+#: ../admin-views/tribe-options-general.php:89
+msgid "Include events in main blog loop"
+msgstr "Zahrnúť udalosti na hlavnej stránke článkov"
+
+#: ../admin-views/tribe-options-general.php:90
+msgid ""
+"Show events with the site's other posts. When this box is checked, events "
+"will also continue to appear on the default events page."
+msgstr ""
+"Ukázať udalosti so stránkami ostatných článkov. Zaškrtnutím voľby, udalosť "
+"sa bude zobrazovať na predvolenej stránke udalosti."
+
+#: ../admin-views/tribe-options-general.php:96
+#: ../admin-views/tribe-options-general.php:102
+msgid "Events URL slug"
+msgstr "URL značka udalosti"
+
+#: ../admin-views/tribe-options-general.php:97
+#, php-format
+msgid ""
+"You cannot edit the slug for your events page as you do not have pretty "
+"permalinks enabled. The current URL for your events page is <a href=\"%s\">"
+"%s</a>. In order to edit the slug here, <a href=\"%soptions-permalink.php"
+"\">enable pretty permalinks</a>."
+msgstr ""
+"Nemôžete editovať značku pre stránku udalostí, ak nemáte povolené trvalé "
+"odkazy. Súčasná URL pre stránku udalostí je  <a href=\"%s\">%s</a>. Pre "
+"úpravu značky tu<a href=\"%soptions-permalink.php\"> povoľte trvalé odkazy</"
+"a>. "
+
+#: ../admin-views/tribe-options-general.php:109
+#: ../public/template-tags/options.php:20
+msgid "The slug used for building the events URL."
+msgstr "Značka použitá pre tvorbu URL udalosti ."
+
+#: ../admin-views/tribe-options-general.php:109
+#, php-format
+msgid "Your current events URL is: %s"
+msgstr "Vaše súčasné URL udalosti je: %s"
+
+#: ../admin-views/tribe-options-general.php:114
+#: ../public/template-tags/options.php:39
+msgid "Here is the iCal feed URL for your events:"
+msgstr "Tu je iCal feed URL pre vaše udalosti:"
+
+#: ../admin-views/tribe-options-general.php:119
+msgid "Single event URL slug"
+msgstr "URL značka samotnej udalosti"
+
+#: ../admin-views/tribe-options-general.php:126
+#, php-format
+msgid ""
+"The above should ideally be plural, and this singular.<br />Your single "
+"event URL is: %s"
+msgstr ""
+"Ideálne je uviesť množné číslo, vyššie uvedené je jednotné.<br />URL vašej "
+"samotnej udalosti je : %s"
+
+#: ../admin-views/tribe-options-general.php:131
+msgid "End of day cutoff"
+msgstr "Hranica konca dňa"
+
+#: ../admin-views/tribe-options-general.php:164
+msgid ""
+"Have an event that runs past midnight? Select a time after that event's end "
+"to avoid showing the event on the next day's calendar."
+msgstr ""
+"Máte udalosť, ktorá prekračuje polnoc? Vyberte čas pre ukončenie udalosti, "
+"aby ste sa vyhli zobrazovaniu udalosti v iný ďalší deň v kalendári."
+
+#: ../admin-views/tribe-options-general.php:169
+msgid "Default currency symbol"
+msgstr "Predvolený symbol meny"
+
+#: ../admin-views/tribe-options-general.php:170
+msgid ""
+"Set the default currency symbol for event costs. Note that this only impacts "
+"future events, and changes made will not apply retroactively."
+msgstr ""
+"Nastaviť predvolený symbol meny pre cenu udalosti. Nezabudnite, že túto menu "
+"budú mať nastavené budúce udalosti a nie udalosti, ktoré sa už konali"
+
+#: ../admin-views/tribe-options-general.php:177
+msgid "Currency symbol follows value"
+msgstr "Symbol meny uvádzať za hodnotou"
+
+#: ../admin-views/tribe-options-general.php:178
+msgid ""
+"The currency symbol normally precedes the value. Enabling this option "
+"positions the symbol after the value."
+msgstr ""
+"Symbol meny zvyčajne predchádza hodnotu. Povoľte nastavenie pozície symbolu "
+"po hodnote."
+
+#: ../admin-views/tribe-options-general.php:184
+msgid "Map Settings"
+msgstr "Nastavenia mapy"
+
+#: ../admin-views/tribe-options-general.php:188
+msgid "Enable Google Maps"
+msgstr "Povoliť Google Maps"
+
+#: ../admin-views/tribe-options-general.php:189
+msgid "Check to enable maps for events and venues."
+msgstr "Zaškrtnutím povolíte mapy pre udalosti a miesta konania."
+
+#: ../admin-views/tribe-options-general.php:196
+msgid "Google Maps default zoom level"
+msgstr "Google Maps predvolená úroveň zoom"
+
+#: ../admin-views/tribe-options-general.php:197
+msgid "0 = zoomed out; 21 = zoomed in."
+msgstr "0= vzdialiť, 21 = priblížiť."
+
+#: ../admin-views/tribe-options-general.php:205
+msgid "Miscellaneous Settings"
+msgstr "Rôzne nastavenia"
+
+#: ../admin-views/tribe-options-general.php:209
+msgid "Duplicate Venues &amp; Organizers"
+msgstr "Duplicitné miesta konania &amp; Organizátori"
+
+#: ../admin-views/tribe-options-general.php:209
+#: ../lib/tribe-amalgamator.php:260
+msgid "Merge Duplicates"
+msgstr "Zlúčenie duplicít"
+
+#: ../admin-views/tribe-options-general.php:209
+msgid ""
+"You might find duplicate venues and organizers when updating The Events "
+"Calendar from a pre-3.0 version. Click this button to automatically merge "
+"identical venues and organizers."
+msgstr ""
+"Môžete nájsť duplicitné miesta konania a organizátorov, keď aktualizujete "
+"Kalendár udalosti na verziu 3.0. Kliknite na tlačidlo pre automatické "
+"zlúčenie identických miest konania a organizátorov."
+
+#: ../admin-views/tribe-options-general.php:214
+msgid "Debug mode"
+msgstr "Debugovací mód"
+
+#: ../admin-views/tribe-options-general.php:220
+#, php-format
+msgid ""
+"Enable this option to log debug information. By default this will log to "
+"your server PHP error log. If you'd like to see the log messages in your "
+"browser, then we recommend that you install the %s and look for the \"Tribe"
+"\" tab in the debug output."
+msgstr ""
+"Povoľte tieto nastavenia pre logovanie debugovacích informácií. "
+"Prednastavením bude váš server logovať do PHP chybových logov. Ak by ste "
+"chceli vidieť logové hlásenia v prehliadači, potom vám odporúčame "
+"nainštalovať  %s a pozrieť  \"Tribe\" záložky na výstup debugovania."
+
+#: ../admin-views/tribe-options-general.php:220
+msgid "Debug Bar Plugin"
+msgstr "Debug Bar Doplnok"
+
+#: ../admin-views/tribe-options-general.php:225
+msgid "View Welcome Page"
+msgstr "Zobraziť uvítaciu stránku"
+
+#: ../admin-views/tribe-options-general.php:225
+msgid "View the page that displayed when you initially installed the plugin."
+msgstr "Zobraziť stránku, ktorá sa zobrazuje po inštálacii doplnku."
+
+#: ../admin-views/tribe-options-general.php:230
+msgid "View Update Page"
+msgstr "Zobraziť aktualizovanú stránku"
+
+#: ../admin-views/tribe-options-general.php:230
+msgid "View the page that displayed when you updated the plugin."
+msgstr "Zobraziť stránku, ktorá sa zobrazuje po aktualizovaní doplnku."
+
+#: ../admin-views/tribe-options-help.php:28
+msgctxt "not available"
+msgid "n/a"
+msgstr "nedostupný"
+
+#: ../admin-views/tribe-options-help.php:29
+msgid "You need to upgrade!"
+msgstr "Potrebujete upgrade!"
+
+#: ../admin-views/tribe-options-help.php:29
+msgid "You are up to date!"
+msgstr "Aktualizovaný!"
+
+#: ../admin-views/tribe-options-help.php:52
+msgid "The Events Calendar PRO"
+msgstr "The Events Calendar PRO"
+
+#: ../admin-views/tribe-options-help.php:56
+msgid "The Events Calendar: Eventbrite Tickets"
+msgstr "The Events Calendar: Eventbrite Tickets"
+
+#: ../admin-views/tribe-options-help.php:60
+msgid "The Events Calendar: Community Events"
+msgstr "The Events Calendar: Community Events"
+
+#: ../admin-views/tribe-options-help.php:64
+msgid "The Events Calendar: Facebook Events"
+msgstr "The Events Calendar: Facebook Events"
+
+#: ../admin-views/tribe-options-help.php:68
+msgid "The Events Calendar: WooCommerce Tickets"
+msgstr "The Events Calendar: WooCommerce Tickets"
+
+#: ../admin-views/tribe-options-help.php:73
+msgid "The Events Calendar: EDD Tickets"
+msgstr "The Events Calendar: EDD Tickets"
+
+#: ../admin-views/tribe-options-help.php:78
+msgid "The Events Calendar: WPEC Tickets"
+msgstr "The Events Calendar: WPEC Tickets"
+
+#: ../admin-views/tribe-options-help.php:83
+msgid "The Events Calendar: Shopp Tickets"
+msgstr "The Events Calendar: Shopp Tickets"
+
+#: ../admin-views/tribe-options-help.php:88
+msgid "The Events Calendar: Filter Bar"
+msgstr "The Events Calendar: Filter Bar"
+
+#: ../admin-views/tribe-options-help.php:94
+msgid ""
+"If you're looking for help with The Events Calendar, you've come to the "
+"right place. We are committed to helping make your calendar kick ass...and "
+"hope the resources provided below will help get you there."
+msgstr ""
+"Ak hľadáte pomoc s Kalendárom udalostí, ste na správnom mieste. Zaviazali "
+"sme, že vám pomôžeme spustiť kalandár... a dúfame, že nižšie uvedené zdroje "
+"vám k tomu pomôžu."
+
+#: ../admin-views/tribe-options-help.php:97
+msgid ""
+"If this is your first time using The Events Calendar, you're in for a treat "
+"and are already well on your way to creating a first event. Here are some "
+"basics we've found helpful for users jumping into it for the first time:"
+msgstr ""
+"Ak používate Kalendár udalostí prvýkrát a snažíte sa vytvoriť svoju prvú "
+"udalosť. Tu nájdete nejaké základy, ktoré môžu byť užitočné pre "
+"začiatočníkovv."
+
+#: ../admin-views/tribe-options-help.php:100
+#, php-format
+msgid ""
+"%sOur New User Primer%s was designed for folks in your exact position. "
+"Featuring both step-by-step videos and written walkthroughs that feature "
+"accompanying screenshots, the primer aims to take you from zero to hero in "
+"no time."
+msgstr ""
+"%sNaša nová používateľská príručka%s bola navrhnutá pre vás. Vďaka videám "
+"krok za krokom a sprievodným obrázkom sa zameriava na používateľov, aby z "
+"ničoho nič sa stali pokročilými v jednomm okamžiku."
+
+#: ../admin-views/tribe-options-help.php:102
+#, php-format
+msgid ""
+"%sInstallation/Setup FAQs%s from our support page can help give an overview "
+"of what the plugin can and cannot do. This section of the FAQs may be "
+"helpful as it aims to address any basic install questions not addressed by "
+"the new user primer."
+msgstr ""
+"%sInštalácia/FAQ%s z našej podpornej stránky pomôže poskytnúť prehľad, čo "
+"doplnok dokáže a čo nie. Táto sekcia FAQ môže byť užitočná, zameriava sa na "
+"riešenie základných otázok inštalácie, ktoré nie sú spomenuté v príručke "
+"nového užívateľa."
+
+#: ../admin-views/tribe-options-help.php:104
+msgid ""
+"Otherwise, if you're feeling adventurous, you can get started by heading to "
+"the Events menu and adding your first event."
+msgstr ""
+"Ak ste dobrodruhom, môžete začať hlavičkou pre menu Udalostí a pridať vašu "
+"prvú udalosť."
+
+#: ../admin-views/tribe-options-help.php:108
+#, php-format
+msgid ""
+"We've redone our support page from the ground up in an effort to better help "
+"our users. Head over to our %sSupport Page%s and you'll find lots of great "
+"resources, including:"
+msgstr ""
+"Máme prepracovanú našu podpornú stránku od základov v snahe pomôcť našim "
+"používateľom. Prezrite si našu %sPodporná stránka%s a nájdete veľa skvelých "
+"zdrojov, vrátane:"
+
+#: ../admin-views/tribe-options-help.php:110
+#, php-format
+msgid ""
+"%sTemplate tags, functions, and hooks & filters%s for The Events Calendar "
+"&amp; Events Calendar PRO"
+msgstr ""
+"%sTagy šablóny, funkcie a filtre%s pre Kalendár udalostí &amp; The Events "
+"Calndare PRO"
+
+#: ../admin-views/tribe-options-help.php:112
+#, php-format
+msgid ""
+"%sFrequently Asked Questions%s ranging from the most basic setup questions "
+"to advanced themer tweaks"
+msgstr ""
+"%s Často kladené otázky%s v rozsahu od najbežnejších otázok až po pokročilé "
+"vychytávky"
+
+#: ../admin-views/tribe-options-help.php:114
+#, php-format
+msgid ""
+"%sTutorials%s written by both members of our team and users from the "
+"community, covering custom queries, integration with third-party themes and "
+"plugins, etc."
+msgstr ""
+"%sTutoriály%s napísané členmi nášho tímu a používateľmi našej komunity, "
+"ktoré zahŕňajú zákaznícke otázky, integráciu tém a modulov tretích strán, "
+"atď."
+
+#: ../admin-views/tribe-options-help.php:116
+msgid ""
+"Release notes for painting an overall picture of the plugin's lifecycle and "
+"when features/bug fixes were introduced."
+msgstr ""
+"Poznámky k verzii pre zobrazenie životného cyklu modulu a čas, kedy boli "
+"funkcie/opravy chýb vykonané."
+
+#: ../admin-views/tribe-options-help.php:118
+#, php-format
+msgid ""
+"%sAdd-on documentation%s for all of Modern Tribe's official extensions for "
+"The Events Calendar (including WooTickets, Community Events, Eventbrite "
+"Tickets, Facebook Events, etc)"
+msgstr ""
+"%sDokumentácia doplnkov%s pre všetky Modern Tribe oficiálne rozšírenia pre "
+"Kalendár udalostí (vrátane WooTickets, Community Events, Eventbrite Tickets, "
+"Facebook Events, etc)"
+
+#: ../admin-views/tribe-options-help.php:120
+#, php-format
+msgid ""
+"We've also got a %sModern Tribe UserVoice%s page where we're actively "
+"watching for feature ideas from the community. If after playing with the "
+"plugin and reviewing the resources above, you're finding a feature isn't "
+"present that should be, let us know. Vote up existing feature requests or "
+"add your own, and help us shape the future of the products business in a way "
+"that best meets the community's needs."
+msgstr ""
+"Máme tiež %sModern Tribe UserVoice%s stránku, kde stále sledujeme nápady "
+"našej komunity v budúcnosti Ak sa hráte s doplnkami a viete o možných "
+"rozšíreniach, tak nám dajte vedieť. Hlasujte za existujúce rozširenia alebo "
+"pridajte vlastné a pomôžte nám formovať budúcnosť produktu najlepším možným "
+"spôsobom ako je vyhovenie požiadavkám používateľov."
+
+#: ../admin-views/tribe-options-help.php:124
+#, php-format
+msgid ""
+"Written documentation can only take things so far...sometimes, you need help "
+"from a real person. This is where our %ssupport forums%s come into play."
+msgstr ""
+"Napísaná dokumentácia nemusí vždy pomôcť a niekedy potrebujete pomoc od "
+"skutočnej osoby. Toto je %spodporné fórum%s, kde môžete napísať."
+
+#: ../admin-views/tribe-options-help.php:125
+#, php-format
+msgid ""
+"Users of the free The Events Calendar should post their support concerns to "
+"the plugin's %sWordPress.org support forum%s. While we are happy to help "
+"identify and fix bugs that are reported at WordPress.org, please make sure "
+"to read our %ssupport expectations sticky thread%s before posting so you "
+"understand our limitations."
+msgstr ""
+"Používatelia bezplatnej verzie Kalendára udalosti by mali písať svoje otázky "
+"a pochybonosti na fórum podpory modulu %sWordPress.org podporné fórum%s. "
+"Pokiaľ úspešne pomôžu identifikovať a fixovať chyby, potom to reportujeme na "
+"WordPress.org, prosíme uistite sa a prečítajte si naše %sočakávania "
+"príspevkov%s, dodržujte naše pravidlá pred napísaním príspevkov."
+
+#: ../admin-views/tribe-options-help.php:126
+msgid ""
+"We hit the WordPress.org forum throughout the week, watching for bugs. If "
+"you report a legitimate bug that we're able to reproduce, we will log it and "
+"patch for an upcoming release. However we are unfortunately unable to "
+"provide customization tips or assist in integrating with 3rd party plugins "
+"or themes."
+msgstr ""
+"Cez týždeň na fóre WordPress.org sledujeme hlásenie chýb. Ak reportujete "
+"oprávnenú chybu, ktorú sme schopní reprodukovať, zalogujeme ju a opravíme ju "
+"do novej verzie . Bohužiaľ, nie sme schopní poskytnúť tipy pre vlastné "
+"úpravy a pomoc pre integráciu doplnkov alebo tém tretích strán."
+
+#: ../admin-views/tribe-options-help.php:127
+#, php-format
+msgid ""
+"If you're a user of The Events Calendar and would like more support, please "
+"%spurchase a PRO license%s. We hit the PRO forums daily, and can provide a "
+"deeper level of customization/integration support for paying users than we "
+"can on WordPress.org."
+msgstr ""
+"Ak ste používateľmi Kalendára udalosti a želáte si väčšiu podporu, prosím "
+"%szakúpte si PRO licenciu%s. Denne porezeráme PRO fórum a môžeme poskytovať "
+"používateľskú a integračnú podporu platiacich užívateľov na WordPress.org."
+
+#: ../admin-views/tribe-options-help.php:131
+#, php-format
+msgid ""
+"If you find that you aren't getting the level of service you've come to "
+"expect from Modern Tribe, shoot us an email at %s or tweet %s and tell us "
+"why. We'll do what we can to make it right."
+msgstr ""
+"Ak si myslíte, že vám od Modern Tribe nie je poskytovaná dostatočná úroveň "
+"služieb,  pošlite nám email %salebo tweet %s a povedzte prečo. Budeme robiť "
+"všetko preto, aby sme to dali do poriadku."
+
+#: ../admin-views/tribe-options-help.php:132
+msgid "More..."
+msgstr "Viac..."
+
+#: ../admin-views/tribe-options-help.php:141
+msgid ""
+"Hi! We are Modern Tribe and we are here to help you kick ass. Thanks so much "
+"for installing our labor of love!"
+msgstr ""
+"Ahoj. Sme Modern Tribe a sme tu, aby sme ti pomohli nakopnúť ťa. Ďakujeme za "
+"inštaláciu nášho diela z lásky!"
+
+#: ../admin-views/tribe-options-help.php:150
+msgid "Support Resources To Help You Kick Ass"
+msgstr "Možnosti podpory pre vaše nakopnutie"
+
+#: ../admin-views/tribe-options-help.php:153
+msgid "Forums: Because Everyone Needs A Buddy"
+msgstr "Fórum: Pretože každý potrebuje kamoša"
+
+#: ../admin-views/tribe-options-help.php:156
+msgid "Not getting help?"
+msgstr "Nepotrebujete pomoc?"
+
+#: ../admin-views/tribe-options-help.php:168
+#: ../lib/the-events-calendar.class.php:576
+#: ../lib/tribe-settings.class.php:132
+msgid "The Events Calendar"
+msgstr "Kalendár udalostí"
+
+#: ../admin-views/tribe-options-help.php:173
+msgid "Latest Version:"
+msgstr "Najnovšia verzia:"
+
+#: ../admin-views/tribe-options-help.php:174
+msgid "Author:"
+msgstr "Autor:"
+
+#: ../admin-views/tribe-options-help.php:174
+msgid "Modern Tribe Inc"
+msgstr "Modern Tribe Inc"
+
+#: ../admin-views/tribe-options-help.php:177
+msgid "Requires:"
+msgstr "Požiadavky:"
+
+#: ../admin-views/tribe-options-help.php:177
+msgid "WordPress "
+msgstr "WordPress "
+
+#: ../admin-views/tribe-options-help.php:179
+msgid "Wordpress.org Plugin Page"
+msgstr "Wordpress.org stránka doplnku"
+
+#: ../admin-views/tribe-options-help.php:185
+msgid "Average Rating"
+msgstr "Priemerné hodnotenie"
+
+#: ../admin-views/tribe-options-help.php:189
+#, php-format
+msgid "Based on %d rating"
+msgid_plural "Based on %d ratings"
+msgstr[0] "Založené na %d hodnotení"
+msgstr[1] "Založené na %d hodnoteniach"
+
+#: ../admin-views/tribe-options-help.php:191
+msgid "Give us 5 stars!"
+msgstr "Daj nám 5 hviezdičiek!"
+
+#: ../admin-views/tribe-options-help.php:195
+msgid "Premium Add-Ons"
+msgstr "Prémiové doplnky"
+
+#: ../admin-views/tribe-options-help.php:204
+msgid "(Coming Soon!)"
+msgstr "(Už čoskoro!)"
+
+#: ../admin-views/tribe-options-help.php:214
+msgid "News and Tutorials"
+msgstr "Novinky a tutoriály"
+
+#: ../admin-views/tribe-options-network.php:15
+msgid "Network Settings"
+msgstr "Nastavenia siete"
+
+#: ../admin-views/tribe-options-network.php:19
+msgid ""
+"This is where all of the global network settings for Modern Tribe's The "
+"Events Calendar can be modified."
+msgstr ""
+"Toto je miesto, kde všetky globálne nastavenia siete Modern Tribe Kalendára "
+"udalostí možete modifikovať."
+
+#: ../admin-views/tribe-options-network.php:27
+msgid "Hide the following settings tabs on every site:"
+msgstr "Schovať nasledujúce nastavenia záložky na každej stránke:"
+
+#: ../admin-views/venue-meta-box.php:31
+#: ../public/advanced-functions/meta.php:492
+msgid "Address:"
+msgstr "Adresa:"
+
+#: ../admin-views/venue-meta-box.php:38
+msgid "City:"
+msgstr "Mesto:"
+
+#: ../admin-views/venue-meta-box.php:45
+msgid "Country:"
+msgstr "Krajina:"
+
+#: ../admin-views/venue-meta-box.php:85
+msgid "State or Province:"
+msgstr "Štát alebo región:"
+
+#: ../admin-views/venue-meta-box.php:89
+msgid "Select a State:"
+msgstr "Vyberte štát:"
+
+#: ../admin-views/venue-meta-box.php:102
+msgid "Postal Code:"
+msgstr "PSČ:"
+
+#: ../admin-views/venue-meta-box.php:134 ../admin-views/venue-meta-box.php:156
+msgid "Show Google Map:"
+msgstr "Ukázať Google Maps:"
+
+#: ../admin-views/venue-meta-box.php:144 ../admin-views/venue-meta-box.php:166
+msgid "Show Google Maps Link:"
+msgstr "Ukázať Google Maps Link:"
+
+#: ../admin-views/widget-admin-list.php:13
+msgid "Title:"
+msgstr "Titulok:"
+
+#: ../admin-views/widget-admin-list.php:18
+msgid "Show:"
+msgstr "Ukázať:"
+
+#: ../admin-views/widget-admin-list.php:28
+msgid "Show widget only if there are upcoming events:"
+msgstr "Ukázať widget len ak existujú budúce udalosti:"
+
+#: ../lib/Activation_Page.php:132
+msgid "Welcome to The Events Calendar"
+msgstr "Vitajte v Kalendári udalostí"
+
+#: ../lib/Activation_Page.php:152
+msgid "Thanks for Updating The Events Calendar"
+msgstr "Ďakujeme za aktualizáciu Kalendára udalosti"
+
+#: ../lib/Credits.php:31
+msgid "This calendar is powered by The Events Calendar."
+msgstr "Kalendár je vytvorený pomocou Kalendára udalosti."
+
+#: ../lib/Credits.php:48
+#, php-format
+msgid ""
+"Rate <strong>The Events Calendar</strong> <a href=\"%1$s\" target=\"_blank"
+"\">&#9733;&#9733;&#9733;&#9733;&#9733;</a> on <a href=\"%1$s\" target="
+"\"_blank\">WordPress.org</a> to keep this plugin free.  Thanks from the "
+"friendly folks at Modern Tribe."
+msgstr ""
+"Ohodnoťte <strong>Kalendár udalosti</strong> <a href=\"%1$s\" target=\"_blank"
+"\">&#9733;&#9733;&#9733;&#9733;&#9733;</a> na <a href=\"%1$s\" target="
+"\"_blank\">WordPress.org</a>, aby tento plugin bol zadarmo.  Vďaka patrí "
+"priateľským ľudom od Modern Tribe."
+
+#: ../lib/Credits.php:48
+msgid ""
+"http://wordpress.org/support/view/plugin-reviews/the-events-calendar?filter=5"
+msgstr ""
+"http://wordpress.org/support/view/plugin-reviews/the-events-calendar?filter=5"
+
+#: ../lib/io/csv/admin-views/columns.php:22
+#, php-format
+msgid "Column Mapping: %s"
+msgstr "Mapovanie stĺpcov: %s"
+
+#: ../lib/io/csv/admin-views/columns.php:28
+msgid "Please choose the fields that best match the columns in your CSV file."
+msgstr ""
+"Prosím vyberte polia, ktoré sa najviac zhodujú so stĺpcami vášho CSV súboru."
+
+#: ../lib/io/csv/admin-views/columns.php:33
+msgid "Column Headings"
+msgstr "Názvy stĺpcov"
+
+#: ../lib/io/csv/admin-views/columns.php:34
+msgid "Event Fields"
+msgstr "Polia pre udalosť"
+
+#: ../lib/io/csv/admin-views/columns.php:45
+msgid "Perform Import"
+msgstr "Vykonať Import"
+
+#: ../lib/io/csv/admin-views/header.php:13
+msgid "Events Import (CSV)"
+msgstr "Import udalosti (CSV)"
+
+#: ../lib/io/csv/admin-views/import.php:17
+msgid "Import Instructions"
+msgstr "Inšetrukcie pre import"
+
+#: ../lib/io/csv/admin-views/import.php:20
+msgid "If your events have Organizers or Venues, please import those first."
+msgstr ""
+"Ak vaše udalosti majú Organizátora alebo Miesto konania, prosím importujte "
+"ich ako prvé."
+
+#: ../lib/io/csv/admin-views/import.php:21
+msgid "To import organizers or venues:"
+msgstr "Importovať organizátorov a miesta konania:"
+
+#: ../lib/io/csv/admin-views/import.php:23
+msgid "Select the appropriate import type."
+msgstr "Vyberte vhodný typ importu."
+
+#: ../lib/io/csv/admin-views/import.php:24
+#: ../lib/io/csv/admin-views/import.php:30
+msgid ""
+"Upload a CSV file with one record on each line. The first line may contain "
+"column names (check the box below)."
+msgstr ""
+"Uploadnite CSV súbor s jedným záznamom na riadok. Prvý riadok by mal "
+"obsahovať názvy stĺpcov (zaškrtnite box nižšie)."
+
+#: ../lib/io/csv/admin-views/import.php:25
+msgid ""
+"One column in your CSV should have the Organizer/Venue name. All other "
+"fields are optional."
+msgstr ""
+"Jeden stĺpec vo vašom CSV súbore by mal mať názov Organizátora/Miesta "
+"konania. Ostatné polia sú voliteľné."
+
+#: ../lib/io/csv/admin-views/import.php:26
+#: ../lib/io/csv/admin-views/import.php:32
+msgid ""
+"After you upload your file, you'll have the opportunity to indicate how the "
+"columns in your CSV map to fields in The Events Calendar."
+msgstr ""
+"Po nahratí súboru na server, môžete nadefinovať stĺpce v CSV súbore a "
+"namapovať na polia Kalendára udalostí."
+
+#: ../lib/io/csv/admin-views/import.php:28
+msgid "After importing your Organizers and Venues, import your Events:"
+msgstr "Po importe Organizátorov a Miest konaní importujte vaše Udalosti:"
+
+#: ../lib/io/csv/admin-views/import.php:31
+msgid ""
+"One column in your CSV should have the Event title. Another should have the "
+"Event start date. All other fields are optional."
+msgstr ""
+"Jeden stĺpec v CSV súbor by mal obsahovat titulok Udalosti. Ostatné by mali "
+"obsahovat dátum začiatku udalosti. Všetky ostatné políčka sú voliteľné."
+
+#: ../lib/io/csv/admin-views/import.php:36
+#, php-format
+msgid "Questions? <a href=\"%s\">Watch the video</a>."
+msgstr "Máte otázky? <a href=\"%s\">Pozrite video</a>."
+
+#: ../lib/io/csv/admin-views/import.php:43
+msgid "Import Type:"
+msgstr "Typ importu:"
+
+#: ../lib/io/csv/admin-views/import.php:45
+#: ../lib/the-events-calendar.class.php:510
+#: ../public/template-tags/venue.php:52
+msgid "Venues"
+msgstr "Miesto konania"
+
+#: ../lib/io/csv/admin-views/import.php:46
+#: ../lib/the-events-calendar.class.php:526
+#: ../public/template-tags/organizer.php:59
+msgid "Organizers"
+msgstr "Organizátori"
+
+#: ../lib/io/csv/admin-views/import.php:47
+#: ../lib/the-events-calendar.class.php:1390
+#: ../lib/the-events-calendar.class.php:4160
+msgid "Events"
+msgstr "Udalosti"
+
+#: ../lib/io/csv/admin-views/import.php:55
+msgid "CSV File:"
+msgstr "CSV súbor:"
+
+#: ../lib/io/csv/admin-views/import.php:59
+msgid ""
+"Upload a properly formatted, UTF-8 encoded CSV file. Not sure if your file "
+"is UTF-8 encoded? Make sure to specify the character encoding when you save "
+"the file, or pass it through a <a href='http://i-tools.org/charset/exec?"
+"dest=utf-8&src=auto&download=1'>conversion tool</a>."
+msgstr ""
+"Nahrajte správny formát, CSV súbor v kódovaní UTF-8. Nie ste si istí, že "
+"súbor je v kódovaní UTF-8? Uistite sa, že ste uviedli kódovanie symbolov pri "
+"uložení súboru alebo použite nástroj na konverziu <a href='http://i-tools."
+"org/charset/exec?dest=utf-8&src=auto&download=1'> ."
+
+#: ../lib/io/csv/admin-views/import.php:67
+msgid "This file has column names in the first row"
+msgstr "Tento súbor má názvy stĺpcov v prvom riadku"
+
+#: ../lib/io/csv/admin-views/import.php:78
+msgid "Import CSV File"
+msgstr "Importovať CSV súbor"
+
+#: ../lib/io/csv/admin-views/result.php:15
+msgid "Import Result"
+msgstr "Výsledok importu"
+
+#: ../lib/io/csv/admin-views/result.php:17
+msgid "Import complete!"
+msgstr "Import úspešné dokončený!"
+
+#: ../lib/io/csv/admin-views/result.php:19
+#, php-format
+msgid "Inserted: %d"
+msgstr "Vložené: %d"
+
+#: ../lib/io/csv/admin-views/result.php:20
+#, php-format
+msgid "Updated: %d"
+msgstr "Aktualizované: %d"
+
+#: ../lib/io/csv/admin-views/result.php:21
+#, php-format
+msgid "Skipped: %d"
+msgstr "Preskočené: %d"
+
+#: ../lib/io/csv/admin-views/result.php:25
+msgid "The import statistics above have the following meaning:"
+msgstr "Vyššie uvedená štatistika importu má nasledujúci význam:"
+
+#: ../lib/io/csv/admin-views/result.php:26
+msgid ""
+"<ol><li><strong>Inserted:</strong> A new item was inserted successfully.</"
+"li><li><strong>Updated:</strong> An item was found with the same name and/or "
+"start date. The existing item was updated with the new value from the file.</"
+"li><li><strong>Skipped:</strong> A row was found in the CSV file that could "
+"not be imported. Please see below for the invalid rows.</li></ol>"
+msgstr ""
+"<ol><li><strong>Vložené:</strong> Nové záznamy boli úspešne vložené.</"
+"li><li><strong>Aktualizované:</strong> Bola nájdená položka s rovnakým meno "
+"a/alebo dátumom začiatku. Existujúca položka bola aktualizovaná novou "
+"hodnotou zo súboru.</li><li><strong>Preskočené:</strong> Riadok nájdený v "
+"CSV súbore nemôže byť importovaný. Prosím nižšie skontrolujte neplatné "
+"riadky.</li></ol>"
+
+#: ../lib/io/csv/admin-views/result.php:29
+#, php-format
+msgid "Skipped row numbers: %s"
+msgstr "Preskočiť riadky číslo: %s"
+
+#: ../lib/io/csv/classes/TribeEventsImporter_AdminPage.php:15
+#: ../lib/io/csv/classes/TribeEventsImporter_AdminPage.php:16
+msgid "Import: CSV"
+msgstr "Importovať: CSV"
+
+#: ../lib/io/csv/classes/TribeEventsImporter_AdminPage.php:29
+#: ../lib/io/csv/classes/TribeEventsImporter_AdminPage.php:147
+msgid "The file went away. Please try again."
+msgstr "Súbor nie je k  dispozícii. Pokúste sa znovu."
+
+#: ../lib/io/csv/classes/TribeEventsImporter_AdminPage.php:113
+msgid "We were unable to process your request. Please try again."
+msgstr "Nie je možné spracovať vašu požiadavku. Pokúste sa znovu."
+
+#: ../lib/io/csv/classes/TribeEventsImporter_AdminPage.php:154
+msgid "<p>The following fields are required for a successful import:</p>"
+msgstr "<p>Nasledovné polia sú povinné pre úspešný import:</p>"
+
+#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:33
+msgid "Do Not Import"
+msgstr "Neimportovať"
+
+#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:52
+msgid "Event Name"
+msgstr "Názov udalosti"
+
+#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:53
+msgid "Event Description"
+msgstr "Popis udalosti"
+
+#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:54
+msgid "Event Start Date"
+msgstr "Dátum začiatku udalosti"
+
+#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:55
+msgid "Event Start Time"
+msgstr "Čas začiatku udalosti"
+
+#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:56
+msgid "Event End Date"
+msgstr "Dátum ukončenia udalosti"
+
+#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:57
+msgid "Event End Time"
+msgstr "Čas ukončenia udalosti"
+
+#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:58
+msgid "All Day Event"
+msgstr "Celodenná udalosť"
+
+#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:59
+msgid "Event Venue Name"
+msgstr "Názov miesta udalosti"
+
+#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:60
+msgid "Event Organizer Name"
+msgstr "Meno organizátora udalosti"
+
+#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:61
+msgid "Event Show Map Link"
+msgstr "Ukázať odkaz udalosti na mape "
+
+#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:62
+msgid "Event Show Map"
+msgstr "Ukázať mapu udalosti"
+
+#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:64
+msgid "Event Phone"
+msgstr "Telefón udalosti"
+
+#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:65
+#: ../lib/the-events-calendar.class.php:1430
+#: ../public/template-tags/general.php:353
+msgid "Event Category"
+msgstr "Kategória udalosti"
+
+#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:72
+msgid "Venue Name"
+msgstr "Názov miesta udalosti"
+
+#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:73
+msgid "Venue Country"
+msgstr "Krajina miesta udalosti"
+
+#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:74
+msgid "Venue Address"
+msgstr "Adresa miesta udalosti"
+
+#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:75
+msgid "Venue Address 2"
+msgstr "Adresa miesta udalosti 2"
+
+#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:76
+msgid "Venue City"
+msgstr "Mesto miesta konania"
+
+#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:77
+msgid "Venue State/Province"
+msgstr "Štát/Región miesta udalosti"
+
+#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:78
+msgid "Venue Zip"
+msgstr "PSČ miesta udalosti"
+
+#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:79
+msgid "Venue Phone"
+msgstr "Telefón miesta udalosti"
+
+#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:85
+msgid "Organizer Name"
+msgstr "Názov organizátora"
+
+#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:86
+msgid "Organizer Email"
+msgstr "Email organizátora"
+
+#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:87
+msgid "Organizer Website"
+msgstr "WWW stránka organizátora"
+
+#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:88
+msgid "Organizer Phone"
+msgstr "Telefón organizátora"
+
+#: ../lib/io/csv/classes/TribeEventsImporter_FileImporter.php:38
+#, php-format
+msgid "No importer defined for %s"
+msgstr "Import nie je definovaný pre %s"
+
+#: ../lib/io/csv/classes/TribeEventsImporter_FileImporter.php:110
+#, php-format
+msgid "Missing required fields in row %d."
+msgstr "Chýbajú povinné polia v riadku %d."
+
+#: ../lib/io/csv/classes/TribeEventsImporter_FileImporter.php:118
+#, php-format
+msgid "Failed to import record in row %d."
+msgstr "Zlyhal import záznamov v riadku %d."
+
+#: ../lib/io/csv/classes/TribeEventsImporter_FileImporter.php:127
+#, php-format
+msgid "%s (post ID %d) updated."
+msgstr "%s (post ID %d) aktualizovaný."
+
+#: ../lib/io/csv/classes/TribeEventsImporter_FileImporter.php:131
+#, php-format
+msgid "%s (post ID %d) created."
+msgstr "%s (post ID %d) vytvorený."
+
+#: ../lib/io/csv/classes/TribeEventsImporter_FileUploader.php:28
+#, php-format
+msgid "Temporary file not found. Could not save %s."
+msgstr "Dočasný súbor nenájdený. Nie je možné uložiť %s."
+
+#: ../lib/io/csv/classes/TribeEventsImporter_FileUploader.php:36
+#, php-format
+msgid "Could not save %s."
+msgstr "Nie je možné uložiť %s."
+
+#: ../lib/pue/admin-views/license-key.view.php:12
+#: ../lib/pue/admin-views/license-key.view.php:16
+#: ../lib/pue/lib/pue_plugin_update_engine.class.php:305
+msgid "License Key"
+msgstr "Licenčný kľúč"
+
+#: ../lib/pue/admin-views/license-key.view.php:13
+msgid "A valid license key is required for support and updates."
+msgstr "Pre podporu a aktualizácie je požadovaný platný licenčný kľúč."
+
+#: ../lib/pue/admin-views/license-key.view.php:19
+msgid "Replace empty fields"
+msgstr "Nahraďiť prázdne polia"
+
+#: ../lib/pue/admin-views/license-key.view.php:29
+#: ../lib/pue/lib/pue_plugin_update_engine.class.php:306
+msgid "A valid license key is required for support and updates"
+msgstr "Pre podporu a aktualizácie je požadovaný platný licenčný kľúč."
+
+#: ../lib/pue/lib/pue_plugin_update_engine.class.php:375
+msgid "License key(s) updated."
+msgstr "Licenčný kľúč(e) aktualizovaný."
+
+#: ../lib/pue/lib/pue_plugin_update_engine.class.php:415
+msgid "Sorry, key validation server is not available."
+msgstr "Ľutujeme, server pre validáciu kľúča je nedostupný."
+
+#: ../lib/pue/lib/pue_plugin_update_engine.class.php:417
+msgid "Sorry, this key is expired."
+msgstr "Ľutujeme, platnosť kľúča vypršala."
+
+#: ../lib/pue/lib/pue_plugin_update_engine.class.php:420
+msgid "Sorry, this key is out of installs."
+msgstr "Ľutujeme, tento kľúč mimo inštalácie."
+
+#: ../lib/pue/lib/pue_plugin_update_engine.class.php:421
+msgid "Why am I seeing this message?"
+msgstr "Prečo sa mi zobrazila táto správa?"
+
+#: ../lib/pue/lib/pue_plugin_update_engine.class.php:424
+msgid "Sorry, this key is not valid."
+msgstr "Ľutujeme, tento kľúč nie je platný."
+
+#: ../lib/pue/lib/pue_plugin_update_engine.class.php:427
+#, php-format
+msgid "Valid Key! Expires on %s"
+msgstr "Platný kľúč! Platnosť končí %s"
+
+#: ../lib/pue/lib/pue_plugin_update_engine.class.php:431
+#, php-format
+msgid ""
+"Hmmm... something's wrong with this validator. Please contact <a href=\"%s"
+"\">support.</a>"
+msgstr ""
+"Hmmm... niečo nie je v poriadku s validátorom. Prosím kontaktujte <a href="
+"\"%s\">technickú podporu.</a>"
+
+#: ../lib/template-classes/day.php:99 ../lib/template-classes/day.php:115
+msgid "All Day"
+msgstr "Celý deň"
+
+#: ../lib/template-classes/day.php:102 ../lib/template-classes/day.php:118
+msgid "Ongoing"
+msgstr "Pokračujúce"
+
+#: ../lib/template-classes/day.php:135
+#, php-format
+msgid ""
+"No matching events listed under %s scheduled for <strong>%s</strong>. Please "
+"try another day."
+msgstr ""
+"Žiadne udalosti  %s plánované na  <strong>%s</strong>. Prosím vyberte iný "
+"deň."
+
+#: ../lib/template-classes/day.php:137
+#, php-format
+msgid "No events scheduled for <strong>%s</strong>. Please try another day."
+msgstr ""
+"Žiadne udalosti plánované na <strong>%s</strong>. Prosím vyberte iný deň."
+
+#: ../lib/template-classes/month.php:126
+#, php-format
+msgid ""
+"There were no results found for <strong>\"%s\"</strong> this month. Try "
+"searching next month."
+msgstr ""
+"Neboli nájdené výsledky pre <strong>\"%s\"</strong> tento mesiac. Skúste "
+"hľadať v ďalšom mesiaci."
+
+#: ../lib/template-classes/month.php:129
+#: ../lib/tribe-template-factory.class.php:276
+#: ../lib/tribe-template-factory.class.php:281
+#, php-format
+msgid ""
+"No matching events listed under %s. Please try viewing the full calendar for "
+"a complete list of events."
+msgstr ""
+"Žiadne udalosti uvedené v %s. Prosím skúste prezrieť celý kalendár pre "
+"kompletný zoznam udalostí."
+
+#: ../lib/template-classes/month.php:131
+#: ../lib/tribe-template-factory.class.php:283
+msgid "There were no results found."
+msgstr "Nenašli sa žiadne výsledky."
+
+#: ../lib/template-classes/single-event.php:120
+msgid "This event has passed."
+msgstr "Táto udalosť sa už konala."
+
+#: ../lib/the-events-calendar.class.php:518
+#: ../public/advanced-functions/meta.php:445
+#: ../public/template-tags/venue.php:41
+msgid "Venue"
+msgstr "Miesto udalosti"
+
+#: ../lib/the-events-calendar.class.php:534
+#: ../public/advanced-functions/meta.php:518
+#: ../public/template-tags/organizer.php:48
+msgid "Organizer"
+msgstr "Organizátor"
+
+#: ../lib/the-events-calendar.class.php:581
+msgid "month"
+msgstr "mesiac"
+
+#: ../lib/the-events-calendar.class.php:582
+msgid "list"
+msgstr "zoznam"
+
+#: ../lib/the-events-calendar.class.php:583
+msgid "upcoming"
+msgstr "čoskoro"
+
+#: ../lib/the-events-calendar.class.php:584
+msgid "past"
+msgstr "uplynulo"
+
+#: ../lib/the-events-calendar.class.php:585
+msgid "day"
+msgstr "deň"
+
+#: ../lib/the-events-calendar.class.php:586
+msgid "today"
+msgstr "dnes"
+
+#: ../lib/the-events-calendar.class.php:606
+#, php-format
+msgid "Initializing Tribe Events on %s"
+msgstr "Inicializácia Tribe udalosti na %s"
+
+#: ../lib/the-events-calendar.class.php:723
+#, php-format
+msgid ""
+"Your version of The Events Calendar is not up-to-date with one of your The "
+"Events Calendar add-ons. Please %supdate now.%s"
+msgstr ""
+"Vaša aktuálna verzia Kalendára udalostí nemá aktualizovaný jeden z doplnkov "
+"pre Kalendár udalostí. Prosím %s aktualizujte teraz.%s"
+
+#: ../lib/the-events-calendar.class.php:743
+#, php-format
+msgid ""
+"The following plugins are out of date: <b>%s</b>. All add-ons contain "
+"dependencies on The Events Calendar and will not function properly unless "
+"paired with the right version. %sWant to pair an older version%s?"
+msgstr ""
+"Nasledujúce doplnky sú zastarané: <b>%s</b>. Všetky doplnky obsahujú "
+"závislosť na Kalendári udalostí nebudú správne fungovať, kým nespárujete "
+"Kalendár udalostí  na správnu verziu. %sChcete spárovať so staršou verziou%s?"
+
+#: ../lib/the-events-calendar.class.php:807
+#: ../lib/the-events-calendar.class.php:843
+#: ../lib/the-events-calendar.class.php:849
+msgid "Licenses"
+msgstr "Licencie"
+
+#: ../lib/the-events-calendar.class.php:812
+#, php-format
+msgid ""
+"<p>The license key you received when completing your purchase from %s will "
+"grant you access to support and updates until it expires. You do not need to "
+"enter the key below for the plugins to work, but you will need to enter it "
+"to get automatic updates. <strong>Find your license keys at <a href=\"%s\" "
+"target=\"_blank\">%s</a></strong>.</p> <p>Each paid add-on has its own "
+"unique license key. Simply paste the key into its appropriate field on "
+"below, and give it a moment to validate. You know you're set when a green "
+"expiration date appears alongside a \"valid\" message.</p> <p>If you're "
+"seeing a red message telling you that your key isn't valid or is out of "
+"installs, visit <a href=\"%s\" target=\"_blank\">%s</a> to manage your "
+"installs or renew / upgrade your license.</p><p>Not seeing an update but "
+"expecting one? In WordPress, go to <a href=\"%s\">Dashboard > Updates</a> "
+"and click \"Check Again\".</p>"
+msgstr ""
+"<p> Licenčný kľúč, ktorý ste obdržali po zaplatení %s vám umožní prístup k "
+"podpore a aktualizáciám až do vypršania platnosti. Licenčný kľúč nie je "
+"potrebný pre správanu funkčnosť doplnku, ale pre automatické aktualizácie."
+"<strong> Licečný kľúč nájdete na <a href=\"%s\" target=\"_blank\">%s</a></"
+"strong>.</p> <p>Každý platený doplnok má svoj vlastný jedinečný licenčný "
+"kľúč. Kľúč jednoducho vložte do určeného poľa a počkajte chvíľu na overenie. "
+"Správne nastavenie kľúča je, ak sa vám objaví vedľa \"valid\" správy dátum "
+"expirácie zelenej farby.</p> <p> Ak sa zobrazí červená správa,  kľúč nie je "
+"platný alebo je mimo inštalácie, navštívte stránku <a href=\"%s\" target="
+"\"_blank\">%s</a> pre spravovanie vašej inštalácie alebo obnovenie vašej "
+"licencie.</p><p>Nezobrazila sa vám aktualizácia, ktorú ste očakávali? Choďte "
+"vo Wordpress na <a href=\"%s\">Nástenka > Aktualizácie</a>a kliknite "
+"\"Skontrolovať znovu\".</p>"
+
+#: ../lib/the-events-calendar.class.php:835
+msgid "General"
+msgstr "Všeobecne"
+
+#: ../lib/the-events-calendar.class.php:836
+msgid "Display"
+msgstr "Zobraziť"
+
+#: ../lib/the-events-calendar.class.php:855
+#: ../lib/the-events-calendar.class.php:4271
+#: ../lib/the-events-calendar.class.php:4363
+msgid "Help"
+msgstr "Pomocník"
+
+#: ../lib/the-events-calendar.class.php:899
+#, php-format
+msgid ""
+"Sorry, The Events Calendar requires WordPress %s or higher. Please upgrade "
+"your WordPress install."
+msgstr ""
+"Ľutujeme, Kalendár udalostí požaduje Wordpress %s alebo vyššiu verziu. "
+"Prosím aktualizujte váš Wordpress."
+
+#: ../lib/the-events-calendar.class.php:902
+#, php-format
+msgid ""
+"Sorry, The Events Calendar requires PHP %s or higher. Talk to your Web host "
+"about moving you to a newer version of PHP."
+msgstr ""
+"Ľutujeme, Kalendár udalostí požadupe PHP %s alebo vyššiu verziu. Kontaktujte "
+"poskytovateľa webhostingu kvôli migrácii na vyššiu verziu PHP."
+
+#: ../lib/the-events-calendar.class.php:1351
+msgid "category"
+msgstr "katogória"
+
+#: ../lib/the-events-calendar.class.php:1362
+msgid "tag"
+msgstr "tag"
+
+#: ../lib/the-events-calendar.class.php:1391
+msgid "Event"
+msgstr "Udalosť"
+
+#: ../lib/the-events-calendar.class.php:1392
+#: ../lib/the-events-calendar.class.php:1405
+#: ../lib/the-events-calendar.class.php:1418
+msgid "Add New"
+msgstr "Pridať nový"
+
+#: ../lib/the-events-calendar.class.php:1393
+msgid "Add New Event"
+msgstr "Pridať novú udalosť"
+
+#: ../lib/the-events-calendar.class.php:1394
+msgid "Edit Event"
+msgstr "Upraviť udalosť"
+
+#: ../lib/the-events-calendar.class.php:1395
+msgid "New Event"
+msgstr "Nová udalosť"
+
+#: ../lib/the-events-calendar.class.php:1396
+msgid "View Event"
+msgstr "Zobraziť udalosť"
+
+#: ../lib/the-events-calendar.class.php:1397
+msgid "Search Events"
+msgstr "Vyhľadať udalosti"
+
+#: ../lib/the-events-calendar.class.php:1398
+msgid "No events found"
+msgstr "Nenašli sa žiadne udalosti"
+
+#: ../lib/the-events-calendar.class.php:1399
+msgid "No events found in Trash"
+msgstr "V koši sa nenašli žiadne udalosti"
+
+#: ../lib/the-events-calendar.class.php:1406
+#: ../lib/the-events-calendar.class.php:1419
+#: ../lib/the-events-calendar.class.php:1523
+#: ../lib/the-events-calendar.class.php:1524
+#, php-format
+msgid "Add New %s"
+msgstr "Pridať nový %s"
+
+#: ../lib/the-events-calendar.class.php:1407
+#: ../lib/the-events-calendar.class.php:1420
+#, php-format
+msgid "Edit %s"
+msgstr "Upraviť %s"
+
+#: ../lib/the-events-calendar.class.php:1408
+#: ../lib/the-events-calendar.class.php:1421
+#, php-format
+msgid "New %s"
+msgstr "Nový %s"
+
+#: ../lib/the-events-calendar.class.php:1409
+#: ../lib/the-events-calendar.class.php:1422
+#, php-format
+msgid "View %s"
+msgstr "Zobraziť %s"
+
+#: ../lib/the-events-calendar.class.php:1410
+#: ../lib/the-events-calendar.class.php:1423
+#, php-format
+msgid "Search %s"
+msgstr "Vyhľadať %s "
+
+#: ../lib/the-events-calendar.class.php:1411
+#: ../lib/the-events-calendar.class.php:1424
+#, php-format
+msgid "No %s found"
+msgstr "Nenašli sa žiadne %s"
+
+#: ../lib/the-events-calendar.class.php:1412
+#: ../lib/the-events-calendar.class.php:1425
+#, php-format
+msgid "No %s found in Trash"
+msgstr "V koši sa nenašli žiadne %s "
+
+#: ../lib/the-events-calendar.class.php:1429
+#: ../lib/tribe-admin-events-list.class.php:167
+msgid "Event Categories"
+msgstr "Kategórie udalosti"
+
+#: ../lib/the-events-calendar.class.php:1431
+msgid "Search Event Categories"
+msgstr "Hľadanie kategórií udalosti"
+
+#: ../lib/the-events-calendar.class.php:1432
+msgid "All Event Categories"
+msgstr "Všetky kategórie udalostí"
+
+#: ../lib/the-events-calendar.class.php:1433
+msgid "Parent Event Category"
+msgstr "Rodič kategórie udalosti"
+
+#: ../lib/the-events-calendar.class.php:1434
+msgid "Parent Event Category:"
+msgstr "Rodič kategórie udalosti:"
+
+#: ../lib/the-events-calendar.class.php:1435
+msgid "Edit Event Category"
+msgstr "Editovať kategóriu udalosti"
+
+#: ../lib/the-events-calendar.class.php:1436
+msgid "Update Event Category"
+msgstr "Aktualizovať kategóriu udalosti"
+
+#: ../lib/the-events-calendar.class.php:1437
+msgid "Add New Event Category"
+msgstr "Pridať novú  kategóriu udalosti"
+
+#: ../lib/the-events-calendar.class.php:1438
+msgid "New Event Category Name"
+msgstr "Nový názov kategórie udalosti"
+
+#: ../lib/the-events-calendar.class.php:1455
+#, php-format
+msgid "Event updated. <a href=\"%s\">View event</a>"
+msgstr "Udalosť aktualizovaná. <a href=\"%s\">Pozrieť udalosť</a>"
+
+#: ../lib/the-events-calendar.class.php:1456
+#: ../lib/the-events-calendar.class.php:1475
+#: ../lib/the-events-calendar.class.php:1494
+msgid "Custom field updated."
+msgstr "Vlastné pole aktualizované."
+
+#: ../lib/the-events-calendar.class.php:1457
+#: ../lib/the-events-calendar.class.php:1476
+#: ../lib/the-events-calendar.class.php:1495
+msgid "Custom field deleted."
+msgstr "Vlastné pole vymazané."
+
+#: ../lib/the-events-calendar.class.php:1458
+msgid "Event updated."
+msgstr "Udalosť aktualizovaná."
+
+#: ../lib/the-events-calendar.class.php:1460
+#, php-format
+msgid "Event restored to revision from %s"
+msgstr "Udalosť je obnovená na verziu  z  %s"
+
+#: ../lib/the-events-calendar.class.php:1461
+#, php-format
+msgid "Event published. <a href=\"%s\">View event</a>"
+msgstr "Udalosť publikovaná. <a href=\"%s\">Zobraziť udalosť</a>"
+
+#: ../lib/the-events-calendar.class.php:1462
+msgid "Event saved."
+msgstr "Udalosť uložená."
+
+#: ../lib/the-events-calendar.class.php:1463
+#, php-format
+msgid "Event submitted. <a target=\"_blank\" href=\"%s\">Preview event</a>"
+msgstr "Udalosť odoslaná.<a target=\"_blank\" href=\"%s\">Náhľad udalosti</a>"
+
+#: ../lib/the-events-calendar.class.php:1465
+#, php-format
+msgid ""
+"Event scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s"
+"\">Preview event</a>"
+msgstr ""
+"Udalosť naplánovaná na: <strong>%1$s</strong>. <a target=\"_blank\" href="
+"\"%2$s\">Náhľad udalosti</a>"
+
+#: ../lib/the-events-calendar.class.php:1467
+#: ../lib/the-events-calendar.class.php:1486
+#: ../lib/the-events-calendar.class.php:1505
+msgid "M j, Y @ G:i"
+msgstr "M j, Y @ G:i"
+
+#: ../lib/the-events-calendar.class.php:1469
+#, php-format
+msgid "Event draft updated. <a target=\"_blank\" href=\"%s\">Preview event</a>"
+msgstr ""
+"Koncept udalosti aktualizovaný. <a target=\"_blank\" href=\"%s\">Náhľad "
+"udalosti</a>"
+
+#: ../lib/the-events-calendar.class.php:1474
+#: ../lib/the-events-calendar.class.php:1477
+#: ../lib/the-events-calendar.class.php:1493
+#: ../lib/the-events-calendar.class.php:1496
+#, php-format
+msgid "%s updated."
+msgstr "%s aktualizovaná."
+
+#: ../lib/the-events-calendar.class.php:1479
+#: ../lib/the-events-calendar.class.php:1498
+#, php-format
+msgid "%s restored to revision from %s"
+msgstr "%s je obnovené na verziu  z  %s"
+
+#: ../lib/the-events-calendar.class.php:1480
+#: ../lib/the-events-calendar.class.php:1499
+#, php-format
+msgid "%s published."
+msgstr "%s publikované."
+
+#: ../lib/the-events-calendar.class.php:1481
+#: ../lib/the-events-calendar.class.php:1500
+#, php-format
+msgid "%s saved."
+msgstr "%s uložené."
+
+#: ../lib/the-events-calendar.class.php:1482
+#: ../lib/the-events-calendar.class.php:1501
+#, php-format
+msgid "%s submitted."
+msgstr "%s odoslané."
+
+#: ../lib/the-events-calendar.class.php:1484
+#: ../lib/the-events-calendar.class.php:1503
+#, php-format
+msgid "%s scheduled for: <strong>%2$s</strong>."
+msgstr "%s naplánované na:<strong>%2$s</strong>."
+
+#: ../lib/the-events-calendar.class.php:1488
+#: ../lib/the-events-calendar.class.php:1507
+#, php-format
+msgid "%s draft updated."
+msgstr "Koncept %s  aktualizovaný."
+
+#: ../lib/the-events-calendar.class.php:1543
+#: ../lib/the-events-calendar.class.php:1568
+#, php-format
+msgid "Use Saved %s:"
+msgstr "Použiť uložené %s:"
+
+#: ../lib/the-events-calendar.class.php:1633
+#: ../lib/the-events-calendar.class.php:1714
+#, php-format
+msgid "Use New %s"
+msgstr "Použiť nové %s"
+
+#: ../lib/the-events-calendar.class.php:1635
+#: ../lib/the-events-calendar.class.php:1716
+#, php-format
+msgid "My %s"
+msgstr "Moje %s"
+
+#: ../lib/the-events-calendar.class.php:1640
+#: ../lib/the-events-calendar.class.php:1721
+#, php-format
+msgid "Available %s"
+msgstr "Dostupné %s"
+
+#: ../lib/the-events-calendar.class.php:1651
+#: ../lib/the-events-calendar.class.php:1732
+#, php-format
+msgid "No saved %s exists."
+msgstr "Neexistujú uložené %s."
+
+#: ../lib/the-events-calendar.class.php:1879
+msgid "Next"
+msgstr "Ďalší"
+
+#: ../lib/the-events-calendar.class.php:1880
+msgid "Prev"
+msgstr "Predchádzajúci"
+
+#: ../lib/the-events-calendar.class.php:1881
+#: ../public/template-tags/day.php:101
+msgid "Today"
+msgstr "Dnes"
+
+#: ../lib/the-events-calendar.class.php:1882
+msgid "Done"
+msgstr "Dokončené"
+
+#: ../lib/the-events-calendar.class.php:2091
+msgid "Network"
+msgstr "Sieť"
+
+#: ../lib/the-events-calendar.class.php:3727
+#: ../lib/the-events-calendar.class.php:3756
+#: ../public/template-tags/day.php:152 ../public/template-tags/day.php:173
+msgid "Date out of range."
+msgstr "Dátum mimo rozsah."
+
+#: ../lib/the-events-calendar.class.php:3786
+msgid "Event Options"
+msgstr "Nastavenia udalosti"
+
+#: ../lib/the-events-calendar.class.php:3793
+#: ../lib/the-events-calendar.class.php:3804
+#, php-format
+msgid "%s Information"
+msgstr "%s informácie"
+
+#: ../lib/the-events-calendar.class.php:3990
+msgid "Support"
+msgstr "Podpora"
+
+#: ../lib/the-events-calendar.class.php:3993
+msgid "View All Add-Ons"
+msgstr "Zobraziť všetky doplnky"
+
+#: ../lib/the-events-calendar.class.php:4014
+msgid "News from Modern Tribe"
+msgstr "Novinky z Modern Tribe"
+
+#: ../lib/the-events-calendar.class.php:4106
+msgid "Additional Functionality"
+msgstr "Prídavné funkcionality"
+
+#: ../lib/the-events-calendar.class.php:4111
+msgid ""
+"Looking for additional functionality including recurring events, ticket "
+"sales, publicly submitted events, new views and more?"
+msgstr ""
+"Hľadáte doplnkové funkcionality vrátane opakujúcich udalosti, vlastné meta "
+"data, verejné udalosti, predaj lístkov a iné?"
+
+#: ../lib/the-events-calendar.class.php:4112
+#, php-format
+msgid "Check out the <a href=\"%s\">available add-ons</a>."
+msgstr "Skontrolujte <a href=\"%s\">dostupné doplnky</a>."
+
+#: ../lib/the-events-calendar.class.php:4197
+#: ../lib/the-events-calendar.class.php:4291
+msgid "View Calendar"
+msgstr "Zobraziť kalendár"
+
+#: ../lib/the-events-calendar.class.php:4207
+msgid "Add Event"
+msgstr "Pridať udalosť"
+
+#: ../lib/the-events-calendar.class.php:4218
+msgid "Edit Events"
+msgstr "Upraviť udalosť"
+
+#: ../lib/the-events-calendar.class.php:4231
+msgid "Import"
+msgstr "Import"
+
+#: ../lib/the-events-calendar.class.php:4239
+msgid "CSV"
+msgstr "CSV"
+
+#: ../lib/the-events-calendar.class.php:4258
+#: ../lib/the-events-calendar.class.php:4345
+#: ../lib/tribe-settings.class.php:159
+msgid "Settings"
+msgstr "Nastavenia"
+
+#: ../lib/the-events-calendar.class.php:4346
+msgid "Calendar"
+msgstr "Kalendár"
+
+#: ../lib/the-events-calendar.class.php:4420
+msgid "List"
+msgstr "Zoznam"
+
+#: ../lib/the-events-calendar.class.php:4438
+msgid "Month"
+msgstr "Mesiac"
+
+#: ../lib/the-events-calendar.class.php:4455
+msgid "Day"
+msgstr "Deň"
+
+#: ../lib/the-events-calendar.class.php:4480
+#: ../lib/the-events-calendar.class.php:4481
+msgid "Search"
+msgstr "Vyhľadať"
+
+#: ../lib/the-events-calendar.class.php:4506
+#: ../lib/the-events-calendar.class.php:4522
+msgid "Date"
+msgstr "Dátum"
+
+#: ../lib/the-events-calendar.class.php:4509
+msgid "Events In"
+msgstr "Udalosti v"
+
+#: ../lib/the-events-calendar.class.php:4511
+msgid "Events From"
+msgstr "Udalosti od"
+
+#: ../lib/the-events-calendar.class.php:4513
+msgid "Day Of"
+msgstr "Deň"
+
+#: ../lib/tickets/tribe-tickets-attendees.php:65
+msgid "Order #"
+msgstr "Objednávka #"
+
+#: ../lib/tickets/tribe-tickets-attendees.php:66
+msgid "Order Status"
+msgstr "Stav objednávky"
+
+#: ../lib/tickets/tribe-tickets-attendees.php:67
+msgid "Purchaser name"
+msgstr "Meno kupujúceho"
+
+#: ../lib/tickets/tribe-tickets-attendees.php:68
+msgid "Purchaser email"
+msgstr "Email kupujúceho"
+
+#: ../lib/tickets/tribe-tickets-attendees.php:69
+msgid "Ticket type"
+msgstr "Typ vstupenky"
+
+#: ../lib/tickets/tribe-tickets-attendees.php:70
+#: ../views/tickets/email.php:317
+msgid "Ticket #"
+msgstr "Vstupenka #"
+
+#: ../lib/tickets/tribe-tickets-attendees.php:71
+#: ../views/tickets/email.php:329
+msgid "Security Code"
+msgstr "Bezpečnostný kód"
+
+#: ../lib/tickets/tribe-tickets-attendees.php:72
+#: ../lib/tickets/tribe-tickets-attendees.php:159
+#: ../lib/tickets/tribe-tickets-attendees.php:226
+msgid "Check in"
+msgstr "Zaškrtnúť"
+
+#: ../lib/tickets/tribe-tickets-attendees.php:160
+#: ../lib/tickets/tribe-tickets-attendees.php:227
+msgid "Undo Check in"
+msgstr "Zrušiť zaškrtnutie"
+
+#: ../lib/tickets/tribe-tickets-attendees.php:195
+msgid "Print"
+msgstr "Tlačiť"
+
+#: ../lib/tickets/tribe-tickets-attendees.php:196
+msgid "Email"
+msgstr "Email"
+
+#: ../lib/tickets/tribe-tickets-attendees.php:205
+#: ../lib/tribe-ical.class.php:121
+msgid "Export"
+msgstr "Export"
+
+#: ../lib/tickets/tribe-tickets-attendees.php:212
+msgid "Filter by purchaser name, ticket #, order # or security code"
+msgstr ""
+"Filtrovanie podľa názvu, vstupeniek #,  objednávok # alebo bezpečnostného "
+"kódu"
+
+#: ../lib/tickets/tribe-tickets-metabox.php:71
+msgid "Ticket header image"
+msgstr "Obrázok na hlavičke vstupenky"
+
+#: ../lib/tickets/tribe-tickets-metabox.php:72
+msgid "Set as ticket header"
+msgstr "Nastaviť hlavičku vstupenky"
+
+#: ../lib/tickets/tribe-tickets-pro.php:119
+msgid "You need to select a user or type a valid email address"
+msgstr "Je potrebné vybrať užívateľa alebo napísať platnú emailovú adresu"
+
+#: ../lib/tickets/tribe-tickets-pro.php:120
+msgid "Sending..."
+msgstr "Odosielanie ..."
+
+#: ../lib/tickets/tribe-tickets-pro.php:150
+msgid "Columns"
+msgstr "Stĺpce"
+
+#: ../lib/tickets/tribe-tickets-pro.php:151
+msgid ""
+"You can use Screen Options to select which columns you want to see. The "
+"selection works in the table below, in the email, for print and for the CSV "
+"export."
+msgstr ""
+"Môžete použiť nastavenia obrazovky na výber stĺpcov, ktoré chcete vidieť. "
+"Výber stĺpcov funguje pre nižšie uvedenú tabuľku, v e-maili, pre tlač a pre "
+"export vo formáte CSV."
+
+#: ../lib/tickets/tribe-tickets-pro.php:245
+msgid "Yes"
+msgstr "Áno"
+
+#: ../lib/tickets/tribe-tickets-pro.php:277
+msgid "attendees"
+msgstr "účastníci"
+
+#: ../lib/tickets/tribe-tickets-pro.php:331
+#, php-format
+msgid "Attendee List for: %s"
+msgstr "Zoznam účastníkov pre: %s"
+
+#: ../lib/tickets/tribe-tickets.php:328
+msgid "Your ticket has been saved."
+msgstr "Vaša vstupenka bola uložená."
+
+#: ../lib/tickets/tribe-tickets.php:409
+msgid "Your ticket has been deleted."
+msgstr "Vaša vstupenka bola vymazaná."
+
+#: ../lib/tribe-admin-events-list.class.php:173
+msgid "Start Date"
+msgstr "Dátum začiatku"
+
+#: ../lib/tribe-admin-events-list.class.php:174
+msgid "End Date"
+msgstr "Dátum ukončenia"
+
+#: ../lib/tribe-admin-events-list.class.php:247
+#, php-format
+msgid "All %s"
+msgstr "Všetky %s"
+
+#: ../lib/tribe-app-shop.class.php:64 ../lib/tribe-app-shop.class.php:65
+#: ../lib/tribe-app-shop.class.php:96
+msgid "Event Add-Ons"
+msgstr "Doplnky udalosti"
+
+#: ../lib/tribe-event-api.class.php:377
+msgid "Unnamed Venue"
+msgstr "Nepomenované miesto udalosti"
+
+#: ../lib/tribe-event-api.class.php:453 ../lib/tribe-view-helpers.class.php:46
+#: ../public/template-tags/venue.php:275
+msgid "United States"
+msgstr "Spojené štáty americké"
+
+#: ../lib/tribe-event-exception.class.php:22
+#: ../lib/tribe-event-exception.class.php:41
+msgid "Error"
+msgstr "Chyba"
+
+#: ../lib/tribe-field.class.php:211
+msgid "Invalid field type specified"
+msgstr "Uvedený typ poľa je neplatný"
+
+#: ../lib/tribe-field.class.php:470
+msgid "No radio options specified"
+msgstr "Nebola zvolená žiadna možnosť"
+
+#: ../lib/tribe-field.class.php:506
+msgid "No checkbox options specified"
+msgstr "Nebola zvolená žiadna možnosť"
+
+#: ../lib/tribe-field.class.php:562
+msgid "No select options specified"
+msgstr "Nebola zvolená žiadna možnosť"
+
+#: ../lib/tribe-ical.class.php:28
+msgctxt "feed link"
+msgid "&raquo;"
+msgstr "&raquo;"
+
+#: ../lib/tribe-ical.class.php:29
+#, php-format
+msgid "%1$s %2$s iCal Feed"
+msgstr "%1$s %2$s iCal Feed"
+
+#: ../lib/tribe-ical.class.php:77
+msgid "Add to Google Calendar"
+msgstr "Pridať do Google Kalendára"
+
+#: ../lib/tribe-ical.class.php:77
+msgid "Google Calendar"
+msgstr "Google Kalendár"
+
+#: ../lib/tribe-ical.class.php:78
+msgid "Download .ics file"
+msgstr "Stiahnuť .ics súbor"
+
+#: ../lib/tribe-ical.class.php:78
+msgid "iCal Export"
+msgstr "iCal Export"
+
+#: ../lib/tribe-ical.class.php:108
+msgid "Month's Events"
+msgstr "Mesačné udalosti"
+
+#: ../lib/tribe-ical.class.php:111
+msgid "Week's Events"
+msgstr "Týždenné udalosti"
+
+#: ../lib/tribe-ical.class.php:114
+msgid "Day's Events"
+msgstr "Denné udalosti"
+
+#: ../lib/tribe-ical.class.php:117
+msgid "Listed Events"
+msgstr "Zoznam udalostí"
+
+#: ../lib/tribe-ical.class.php:122
+msgid ""
+"Use this to share calendar data with Google Calendar, Apple iCal and other "
+"compatible apps"
+msgstr ""
+"Zdieľať dáta kalendára cez Google Calendár, Apple iCal alebo inú "
+"kompatibilnú aplikáciu"
+
+#: ../lib/tribe-settings-tab.class.php:221
+msgid "There are no fields setup for this tab yet."
+msgstr "Zatiaľ neexistujú polia pre túto záložku."
+
+#: ../lib/tribe-settings.class.php:159 ../lib/tribe-settings.class.php:174
+msgid "The Events Calendar Settings"
+msgstr "Nastavenia pre kalendár udalostí"
+
+#: ../lib/tribe-settings.class.php:174
+msgid "Events Settings"
+msgstr "Nastavenia udalostí"
+
+#: ../lib/tribe-settings.class.php:237
+#, php-format
+msgid "%s Settings"
+msgstr "%s Nastavenia"
+
+#: ../lib/tribe-settings.class.php:251
+msgid "You've requested a non-existent tab."
+msgstr "Požadujete neexistujúcu záložku."
+
+#: ../lib/tribe-settings.class.php:259
+msgid " Save Changes"
+msgstr "Uložiť zmeny"
+
+#: ../lib/tribe-settings.class.php:309
+msgid "You don't have permission to do that."
+msgstr "Nemáte práva pre vykonanie."
+
+#: ../lib/tribe-settings.class.php:315
+msgid "The request was sent insecurely."
+msgstr "Požiadavka bola odoslaná nezabezpečene."
+
+#: ../lib/tribe-settings.class.php:321
+msgid "The request wasn't sent from this tab."
+msgstr "Požiadavka nebola odoslaná z tejto záložky."
+
+#: ../lib/tribe-settings.class.php:489
+msgid "Your form had the following errors:"
+msgstr "Váš formulár obsahuje nasledovné chyby:"
+
+#: ../lib/tribe-settings.class.php:498
+msgid "None of your settings were saved. Please try again."
+msgstr "Nastavenia neboli uložené. Skúste to znovu."
+
+#: ../lib/tribe-settings.class.php:498
+msgid ""
+"The above setting was not saved. Other settings were successfully saved."
+msgid_plural ""
+"The above settings were not saved. Other settings were successfully saved."
+msgstr[0] ""
+"Vyššie uvedené nastavenie nebolo uložené. Ostatné nastavenia boli úspešne "
+"uložené."
+msgstr[1] ""
+"Vyššie uvedené nastavenia neboli uložené. Ostatné nastavenia boli úspešne "
+"uložené."
+
+#: ../lib/tribe-settings.class.php:520
+msgid "Settings saved."
+msgstr "Nastavenia boli uložené."
+
+#: ../lib/tribe-support.class.php:44
+msgid ""
+"Sometimes it's hard to tell what's going wrong without knowing more about "
+"your system steup. For your convenience, we've put together a little report "
+"on what's cooking under the hood."
+msgstr ""
+"Niekedy je ťažké rozhodnúť čo je zlé so systémom bez podrobnejších "
+"systémových nastavení. Pripravili sme pre vás krátku správu, čo sa deje v "
+"systéme (pod kapotou)."
+
+#: ../lib/tribe-support.class.php:45
+msgid ""
+"If you suspect that the problem you're having is related to another plugin, "
+"or we're just plain having trouble reproducing your bug report, please copy "
+"and send all of this to our support team."
+msgstr ""
+"Ak máte podozrenie, že problém súvisí s iným doplnkom alebo máte ťažkosti s "
+"opakovanými hláseniami chýb, prosím skopírujte ich  a pošlite všetko nášmu "
+"tímu technickej podpory."
+
+#: ../lib/tribe-support.class.php:49
+msgid "System Information"
+msgstr "Systémové informácie"
+
+#: ../lib/tribe-support.class.php:135
+msgid "Unknown or not set"
+msgstr "Neznáme alebo nenastavené"
+
+#: ../lib/tribe-template-factory.class.php:270
+#, php-format
+msgid "There were no results found for <strong>\"%s\"</strong>."
+msgstr "Neboli nájdené žiadne výsledky pre <strong>\"%s\"</strong>."
+
+#: ../lib/tribe-template-factory.class.php:272
+#, php-format
+msgid "No results were found for events in or near <strong>\"%s\"</strong>."
+msgstr ""
+"Neboli nájdené žiadne výsledky pre udalosti v alebo blízko <strong>\"%s\"</"
+"strong>."
+
+#: ../lib/tribe-template-factory.class.php:274
+#, php-format
+msgid ""
+"No upcoming events listed under %s. Check out upcoming events for this "
+"category or view the full calendar."
+msgstr ""
+"Neexistujú žiadne blížiace udalosti uvedené v %s.  Prezrite blížiace "
+"udalosti pre túto kategóriu alebo prezrite celý kalendár."
+
+#: ../lib/tribe-template-factory.class.php:278
+msgid "No previous events "
+msgstr "Neexistujú predchádzajúce udalosti"
+
+#: ../lib/tribe-templates.class.php:592
+#, php-format
+msgid "Template overrides should be moved to the correct subdirectory: %s"
+msgstr "Prepísaná šablóna by mala byť presunutá do správneho podadresára: : %s"
+
+#: ../lib/tribe-templates.class.php:634
+#, php-format
+msgid ""
+"Template overrides should be moved to the correct subdirectory: "
+"tribe_get_template_part('%s')"
+msgstr ""
+"Prepísaná šablóna by mala byť presunutá do správneho podadresára: "
+"tribe_get_template_part('%s')"
+
+#: ../lib/tribe-validate.class.php:76 ../lib/tribe-validate.class.php:117
+msgid "Invalid or incomplete field passed"
+msgstr "Zadané neplatné alebo neúplné polia"
+
+#: ../lib/tribe-validate.class.php:77 ../lib/tribe-validate.class.php:112
+#: ../lib/tribe-validate.class.php:118
+msgid "Field ID:"
+msgstr "ID poľa:"
+
+#: ../lib/tribe-validate.class.php:111
+msgid "Non-existant field validation function passed"
+msgstr "Zadaná neexistujúca validačná funkcia poľa"
+
+#: ../lib/tribe-validate.class.php:112
+msgctxt "non-existant function name passed for field validation"
+msgid "with function name:"
+msgstr "s menom funkcie:"
+
+#: ../lib/tribe-validate.class.php:135 ../lib/tribe-validate.class.php:151
+#, php-format
+msgid "%s must contain numbers and letters only"
+msgstr "%s musí obsahovať len číslice a písmena"
+
+#: ../lib/tribe-validate.class.php:167
+#, php-format
+msgid "%s must contain numbers, letters and dots only"
+msgstr "%s musí obsahovať číslice, písmená a bodky."
+
+#: ../lib/tribe-validate.class.php:181
+#, php-format
+msgid "%s must be a positive number."
+msgstr "%s musí byť kladné číslo."
+
+#: ../lib/tribe-validate.class.php:196
+#, php-format
+msgid "%s must be a valid slug (numbers, letters, dashes, and underscores)."
+msgstr ""
+"%s musí byť platnou URL značkou (číslice, písmená, pomĺčky a podčiarkovníky)."
+
+#: ../lib/tribe-validate.class.php:211
+#, php-format
+msgid "%s must be a valid absolute URL."
+msgstr "%s musí byť platná absolútna adresa URL."
+
+#: ../lib/tribe-validate.class.php:227 ../lib/tribe-validate.class.php:244
+#: ../lib/tribe-validate.class.php:266
+#, php-format
+msgid "%s must have a value that's part of its options."
+msgstr "%s musí mať hodnotu, ktorá je súčasťou výberu."
+
+#: ../lib/tribe-validate.class.php:280
+#, php-format
+msgid ""
+"Comparison validation failed because no comparison value was provided, for "
+"field %s"
+msgstr ""
+"Validácia zlyhala, pretože nebola vložená žiadna porovnávaná hodnota do poľa "
+"%s"
+
+#: ../lib/tribe-validate.class.php:287
+#, php-format
+msgid "%s cannot be the same as %s."
+msgstr "%s nemôže byť také isté ako %s"
+
+#: ../lib/tribe-validate.class.php:289
+#, php-format
+msgid "%s cannot be a duplicate"
+msgstr "%s nemôže byť duplicitné"
+
+#: ../lib/tribe-validate.class.php:305
+#, php-format
+msgid "%s must be a number or percentage."
+msgstr "%s musí byť číslo alebo percento."
+
+#: ../lib/tribe-validate.class.php:359
+#, php-format
+msgid "%s must be a number between 0 and 21."
+msgstr "%s musí byť číslo medzi 0 a 21."
+
+#: ../lib/tribe-validate.class.php:375
+#, php-format
+msgid ""
+"%s must consist of letters, numbers, dashes, apostrophes, and spaces only."
+msgstr "%s musí obsahovať len písmená, číslice, pomĺčky, apostrofy a medzery."
+
+#: ../lib/tribe-validate.class.php:391
+#, php-format
+msgid "%s must consist of letters, spaces, apostrophes, and dashes."
+msgstr "%s musí obsahovať len písmená, medzery, apostrofy a pomĺčky."
+
+#: ../lib/tribe-validate.class.php:405
+#, php-format
+msgid "%s must consist of 5 numbers."
+msgstr "%s musí obsahovať 5 číslic."
+
+#: ../lib/tribe-validate.class.php:419
+#, php-format
+msgid "%s must be a phone number."
+msgstr "%s musí byť telefónne číslo."
+
+#: ../lib/tribe-validate.class.php:435
+msgid ""
+"Country List must be formatted as one country per line in the following "
+"format: <br>US, United States <br> UK, United Kingdom."
+msgstr ""
+"Zoznam krajín musí byť formátovaný ako jedna krajina na riadok vo formáte: "
+"<br>US, Spojené štáty americke <br> UK, Spojené kráľovstvo."
+
+#: ../lib/tribe-view-helpers.class.php:26
+#: ../lib/tribe-view-helpers.class.php:45
+msgid "Select a Country:"
+msgstr "Vybrať krajinu:"
+
+#: ../lib/tribe-view-helpers.class.php:47
+msgid "Afghanistan"
+msgstr "Afganistan"
+
+#: ../lib/tribe-view-helpers.class.php:48
+msgid "Albania"
+msgstr "Albánsko"
+
+#: ../lib/tribe-view-helpers.class.php:49
+msgid "Algeria"
+msgstr "Alžírsko"
+
+#: ../lib/tribe-view-helpers.class.php:50
+msgid "American Samoa"
+msgstr "Americká Samoa"
+
+#: ../lib/tribe-view-helpers.class.php:51
+msgid "Andorra"
+msgstr "Andora"
+
+#: ../lib/tribe-view-helpers.class.php:52
+msgid "Angola"
+msgstr "Angola"
+
+#: ../lib/tribe-view-helpers.class.php:53
+msgid "Anguilla"
+msgstr "Anguilla"
+
+#: ../lib/tribe-view-helpers.class.php:54
+msgid "Antarctica"
+msgstr "Antarktída"
+
+#: ../lib/tribe-view-helpers.class.php:55
+msgid "Antigua And Barbuda"
+msgstr "Antigua a Barbuda"
+
+#: ../lib/tribe-view-helpers.class.php:56
+msgid "Argentina"
+msgstr "Argentína"
+
+#: ../lib/tribe-view-helpers.class.php:57
+msgid "Armenia"
+msgstr "Arménsko"
+
+#: ../lib/tribe-view-helpers.class.php:58
+msgid "Aruba"
+msgstr "Aruba"
+
+#: ../lib/tribe-view-helpers.class.php:59
+msgid "Australia"
+msgstr "Austrália"
+
+#: ../lib/tribe-view-helpers.class.php:60
+msgid "Austria"
+msgstr "Rakúsko"
+
+#: ../lib/tribe-view-helpers.class.php:61
+msgid "Azerbaijan"
+msgstr "Azerbajdžan"
+
+#: ../lib/tribe-view-helpers.class.php:62
+msgid "Bahamas"
+msgstr "Bahamy"
+
+#: ../lib/tribe-view-helpers.class.php:63
+msgid "Bahrain"
+msgstr "Bahrajn"
+
+#: ../lib/tribe-view-helpers.class.php:64
+msgid "Bangladesh"
+msgstr "Bangladéš"
+
+#: ../lib/tribe-view-helpers.class.php:65
+msgid "Barbados"
+msgstr "Barbados"
+
+#: ../lib/tribe-view-helpers.class.php:66
+msgid "Belarus"
+msgstr "Bielorusko"
+
+#: ../lib/tribe-view-helpers.class.php:67
+msgid "Belgium"
+msgstr "Belgicko"
+
+#: ../lib/tribe-view-helpers.class.php:68
+msgid "Belize"
+msgstr "Belize"
+
+#: ../lib/tribe-view-helpers.class.php:69
+msgid "Benin"
+msgstr "Benin"
+
+#: ../lib/tribe-view-helpers.class.php:70
+msgid "Bermuda"
+msgstr "Bermuda"
+
+#: ../lib/tribe-view-helpers.class.php:71
+msgid "Bhutan"
+msgstr "Bhután"
+
+#: ../lib/tribe-view-helpers.class.php:72
+msgid "Bolivia"
+msgstr "Bolívia"
+
+#: ../lib/tribe-view-helpers.class.php:73
+msgid "Bosnia And Herzegowina"
+msgstr "Bosna a Hercegovina"
+
+#: ../lib/tribe-view-helpers.class.php:74
+msgid "Botswana"
+msgstr "Botswana"
+
+#: ../lib/tribe-view-helpers.class.php:75
+msgid "Bouvet Island"
+msgstr "Bouvet Island"
+
+#: ../lib/tribe-view-helpers.class.php:76
+msgid "Brazil"
+msgstr "Brazília"
+
+#: ../lib/tribe-view-helpers.class.php:77
+msgid "British Indian Ocean Territory"
+msgstr "Britské indickooceánske územie"
+
+#: ../lib/tribe-view-helpers.class.php:78
+msgid "Brunei Darussalam"
+msgstr "Brunej"
+
+#: ../lib/tribe-view-helpers.class.php:79
+msgid "Bulgaria"
+msgstr "Bulharsko"
+
+#: ../lib/tribe-view-helpers.class.php:80
+msgid "Burkina Faso"
+msgstr "Burkina Faso"
+
+#: ../lib/tribe-view-helpers.class.php:81
+msgid "Burundi"
+msgstr "Burundi"
+
+#: ../lib/tribe-view-helpers.class.php:82
+msgid "Cambodia"
+msgstr "Kambodža"
+
+#: ../lib/tribe-view-helpers.class.php:83
+msgid "Cameroon"
+msgstr "Kamerun"
+
+#: ../lib/tribe-view-helpers.class.php:84
+msgid "Canada"
+msgstr "Kanada"
+
+#: ../lib/tribe-view-helpers.class.php:85
+msgid "Cape Verde"
+msgstr "Cape Verde"
+
+#: ../lib/tribe-view-helpers.class.php:86
+msgid "Cayman Islands"
+msgstr "Kajmanské ostrovy"
+
+#: ../lib/tribe-view-helpers.class.php:87
+msgid "Central African Republic"
+msgstr "Stredoafrická republika"
+
+#: ../lib/tribe-view-helpers.class.php:88
+msgid "Chad"
+msgstr "Čad"
+
+#: ../lib/tribe-view-helpers.class.php:89
+msgid "Chile"
+msgstr "Čile"
+
+#: ../lib/tribe-view-helpers.class.php:90
+msgid "China"
+msgstr "Čína"
+
+#: ../lib/tribe-view-helpers.class.php:91
+msgid "Christmas Island"
+msgstr "Vianočné ostrovy"
+
+#: ../lib/tribe-view-helpers.class.php:92
+msgid "Cocos (Keeling) Islands"
+msgstr "Kokosové ostrovy (Keeling)"
+
+#: ../lib/tribe-view-helpers.class.php:93
+msgid "Colombia"
+msgstr "Kolumbia"
+
+#: ../lib/tribe-view-helpers.class.php:94
+msgid "Comoros"
+msgstr "Komory"
+
+#: ../lib/tribe-view-helpers.class.php:95
+msgid "Congo"
+msgstr "Kongo"
+
+#: ../lib/tribe-view-helpers.class.php:96
+msgid "Congo, The Democratic Republic Of The"
+msgstr "Kongo, demokratická republika"
+
+#: ../lib/tribe-view-helpers.class.php:97
+msgid "Cook Islands"
+msgstr "Cookove ostrovy"
+
+#: ../lib/tribe-view-helpers.class.php:98
+msgid "Costa Rica"
+msgstr "Costa Rica"
+
+#: ../lib/tribe-view-helpers.class.php:99
+msgid "Cote D'Ivoire"
+msgstr "Cote D'Ivoire"
+
+#: ../lib/tribe-view-helpers.class.php:100
+msgid "Croatia (Local Name: Hrvatska)"
+msgstr "Chorvátsko (Miestny názov: Hrvatska)"
+
+#: ../lib/tribe-view-helpers.class.php:101
+msgid "Cuba"
+msgstr "Kuba"
+
+#: ../lib/tribe-view-helpers.class.php:102
+msgid "Cyprus"
+msgstr "Cyprus"
+
+#: ../lib/tribe-view-helpers.class.php:103
+msgid "Czech Republic"
+msgstr "Česká republika"
+
+#: ../lib/tribe-view-helpers.class.php:104
+msgid "Denmark"
+msgstr "Dánsko"
+
+#: ../lib/tribe-view-helpers.class.php:105
+msgid "Djibouti"
+msgstr "Džibutsko"
+
+#: ../lib/tribe-view-helpers.class.php:106
+msgid "Dominica"
+msgstr "Dominika"
+
+#: ../lib/tribe-view-helpers.class.php:107
+msgid "Dominican Republic"
+msgstr "Dominikánska republika"
+
+#: ../lib/tribe-view-helpers.class.php:108
+msgid "East Timor"
+msgstr "Južný Timor"
+
+#: ../lib/tribe-view-helpers.class.php:109
+msgid "Ecuador"
+msgstr "Ekvádor"
+
+#: ../lib/tribe-view-helpers.class.php:110
+msgid "Egypt"
+msgstr "Egypt"
+
+#: ../lib/tribe-view-helpers.class.php:111
+msgid "El Salvador"
+msgstr "Salvádor"
+
+#: ../lib/tribe-view-helpers.class.php:112
+msgid "Equatorial Guinea"
+msgstr "Rovníková Guinea"
+
+#: ../lib/tribe-view-helpers.class.php:113
+msgid "Eritrea"
+msgstr "Eritrea"
+
+#: ../lib/tribe-view-helpers.class.php:114
+msgid "Estonia"
+msgstr "Estónsko"
+
+#: ../lib/tribe-view-helpers.class.php:115
+msgid "Ethiopia"
+msgstr "Etiópia"
+
+#: ../lib/tribe-view-helpers.class.php:116
+msgid "Falkland Islands (Malvinas)"
+msgstr "Falklandy"
+
+#: ../lib/tribe-view-helpers.class.php:117
+msgid "Faroe Islands"
+msgstr "Faerské ostrovy"
+
+#: ../lib/tribe-view-helpers.class.php:118
+msgid "Fiji"
+msgstr "Fidži"
+
+#: ../lib/tribe-view-helpers.class.php:119
+msgid "Finland"
+msgstr "Fínsko"
+
+#: ../lib/tribe-view-helpers.class.php:120
+msgid "France"
+msgstr "Francúzsko"
+
+#: ../lib/tribe-view-helpers.class.php:121
+msgid "France, Metropolitan"
+msgstr "Metropolitné Francúzsko"
+
+#: ../lib/tribe-view-helpers.class.php:122
+msgid "French Guiana"
+msgstr "Francúzska Guyana"
+
+#: ../lib/tribe-view-helpers.class.php:123
+msgid "French Polynesia"
+msgstr "Francúzska Polynézia"
+
+#: ../lib/tribe-view-helpers.class.php:124
+msgid "French Southern Territories"
+msgstr "Francúzske južné a antarktické územia"
+
+#: ../lib/tribe-view-helpers.class.php:125
+msgid "Gabon"
+msgstr "Gabon"
+
+#: ../lib/tribe-view-helpers.class.php:126
+msgid "Gambia"
+msgstr "Gambia"
+
+#: ../lib/tribe-view-helpers.class.php:127
+#: ../lib/tribe-view-helpers.class.php:326
+msgid "Georgia"
+msgstr "Gruzínsko"
+
+#: ../lib/tribe-view-helpers.class.php:128
+msgid "Germany"
+msgstr "Nemecko"
+
+#: ../lib/tribe-view-helpers.class.php:129
+msgid "Ghana"
+msgstr "Ghana"
+
+#: ../lib/tribe-view-helpers.class.php:130
+msgid "Gibraltar"
+msgstr "Gibraltár"
+
+#: ../lib/tribe-view-helpers.class.php:131
+msgid "Greece"
+msgstr "Grécko"
+
+#: ../lib/tribe-view-helpers.class.php:132
+msgid "Greenland"
+msgstr "Grónsko"
+
+#: ../lib/tribe-view-helpers.class.php:133
+msgid "Grenada"
+msgstr "Grenada"
+
+#: ../lib/tribe-view-helpers.class.php:134
+msgid "Guadeloupe"
+msgstr "Guadeloupe"
+
+#: ../lib/tribe-view-helpers.class.php:135
+msgid "Guam"
+msgstr "Guam"
+
+#: ../lib/tribe-view-helpers.class.php:136
+msgid "Guatemala"
+msgstr "Guatemala"
+
+#: ../lib/tribe-view-helpers.class.php:137
+msgid "Guinea"
+msgstr "Guinea"
+
+#: ../lib/tribe-view-helpers.class.php:138
+msgid "Guinea-Bissau"
+msgstr "Guinea-Bissau"
+
+#: ../lib/tribe-view-helpers.class.php:139
+msgid "Guyana"
+msgstr "Guyana"
+
+#: ../lib/tribe-view-helpers.class.php:140
+msgid "Haiti"
+msgstr "Haiti"
+
+#: ../lib/tribe-view-helpers.class.php:141
+msgid "Heard And Mc Donald Islands"
+msgstr "Heardov ostrov"
+
+#: ../lib/tribe-view-helpers.class.php:142
+msgid "Holy See (Vatican City State)"
+msgstr "Svätá stolica (Vatikán)"
+
+#: ../lib/tribe-view-helpers.class.php:143
+msgid "Honduras"
+msgstr "Honduras"
+
+#: ../lib/tribe-view-helpers.class.php:144
+msgid "Hong Kong"
+msgstr "Hong Kong"
+
+#: ../lib/tribe-view-helpers.class.php:145
+msgid "Hungary"
+msgstr "Maďarsko"
+
+#: ../lib/tribe-view-helpers.class.php:146
+msgid "Iceland"
+msgstr "Island"
+
+#: ../lib/tribe-view-helpers.class.php:147
+msgid "India"
+msgstr "India"
+
+#: ../lib/tribe-view-helpers.class.php:148
+msgid "Indonesia"
+msgstr "Indonésia"
+
+#: ../lib/tribe-view-helpers.class.php:149
+msgid "Iran (Islamic Republic Of)"
+msgstr "Irán"
+
+#: ../lib/tribe-view-helpers.class.php:150
+msgid "Iraq"
+msgstr "Irak"
+
+#: ../lib/tribe-view-helpers.class.php:151
+msgid "Ireland"
+msgstr "Írsko"
+
+#: ../lib/tribe-view-helpers.class.php:152
+msgid "Israel"
+msgstr "Izrael"
+
+#: ../lib/tribe-view-helpers.class.php:153
+msgid "Italy"
+msgstr "Taliansko"
+
+#: ../lib/tribe-view-helpers.class.php:154
+msgid "Jamaica"
+msgstr "Jamajka"
+
+#: ../lib/tribe-view-helpers.class.php:155
+msgid "Japan"
+msgstr "Japonsko"
+
+#: ../lib/tribe-view-helpers.class.php:156
+msgid "Jordan"
+msgstr "Jordánsko"
+
+#: ../lib/tribe-view-helpers.class.php:157
+msgid "Kazakhstan"
+msgstr "Kazachstan"
+
+#: ../lib/tribe-view-helpers.class.php:158
+msgid "Kenya"
+msgstr "Keňa"
+
+#: ../lib/tribe-view-helpers.class.php:159
+msgid "Kiribati"
+msgstr "Kiribati"
+
+#: ../lib/tribe-view-helpers.class.php:160
+msgid "Korea, Democratic People's Republic Of"
+msgstr "Kórejská ľudovodemokratická republika"
+
+#: ../lib/tribe-view-helpers.class.php:161
+msgid "Korea, Republic Of"
+msgstr "Kórejská republika"
+
+#: ../lib/tribe-view-helpers.class.php:162
+msgid "Kuwait"
+msgstr "Kuwajt"
+
+#: ../lib/tribe-view-helpers.class.php:163
+msgid "Kyrgyzstan"
+msgstr "Kirgizsko"
+
+#: ../lib/tribe-view-helpers.class.php:164
+msgid "Lao People's Democratic Republic"
+msgstr "Laos"
+
+#: ../lib/tribe-view-helpers.class.php:165
+msgid "Latvia"
+msgstr "Lotyšsko"
+
+#: ../lib/tribe-view-helpers.class.php:166
+msgid "Lebanon"
+msgstr "Libanon"
+
+#: ../lib/tribe-view-helpers.class.php:167
+msgid "Lesotho"
+msgstr "Lesotho"
+
+#: ../lib/tribe-view-helpers.class.php:168
+msgid "Liberia"
+msgstr "Libéria"
+
+#: ../lib/tribe-view-helpers.class.php:169
+msgid "Libya"
+msgstr "Líbya"
+
+#: ../lib/tribe-view-helpers.class.php:170
+msgid "Liechtenstein"
+msgstr "Lichtenštajnsko"
+
+#: ../lib/tribe-view-helpers.class.php:171
+msgid "Lithuania"
+msgstr "Litva"
+
+#: ../lib/tribe-view-helpers.class.php:172
+msgid "Luxembourg"
+msgstr "Luxembursko"
+
+#: ../lib/tribe-view-helpers.class.php:173
+msgid "Macau"
+msgstr "Macau"
+
+#: ../lib/tribe-view-helpers.class.php:174
+msgid "Macedonia"
+msgstr "Macedónsko"
+
+#: ../lib/tribe-view-helpers.class.php:175
+msgid "Madagascar"
+msgstr "Madagaskar"
+
+#: ../lib/tribe-view-helpers.class.php:176
+msgid "Malawi"
+msgstr "Malawi"
+
+#: ../lib/tribe-view-helpers.class.php:177
+msgid "Malaysia"
+msgstr "Malajsia"
+
+#: ../lib/tribe-view-helpers.class.php:178
+msgid "Maldives"
+msgstr "Maldivy"
+
+#: ../lib/tribe-view-helpers.class.php:179
+msgid "Mali"
+msgstr "Mali"
+
+#: ../lib/tribe-view-helpers.class.php:180
+msgid "Malta"
+msgstr "Malta"
+
+#: ../lib/tribe-view-helpers.class.php:181
+msgid "Marshall Islands"
+msgstr "Marshallove ostrovy"
+
+#: ../lib/tribe-view-helpers.class.php:182
+msgid "Martinique"
+msgstr "Martinik"
+
+#: ../lib/tribe-view-helpers.class.php:183
+msgid "Mauritania"
+msgstr "Mauritánia"
+
+#: ../lib/tribe-view-helpers.class.php:184
+msgid "Mauritius"
+msgstr "Maurícius"
+
+#: ../lib/tribe-view-helpers.class.php:185
+msgid "Mayotte"
+msgstr "Mayotte"
+
+#: ../lib/tribe-view-helpers.class.php:186
+msgid "Mexico"
+msgstr "Mexico"
+
+#: ../lib/tribe-view-helpers.class.php:187
+msgid "Micronesia, Federated States Of"
+msgstr "Mikronézia"
+
+#: ../lib/tribe-view-helpers.class.php:188
+msgid "Moldova, Republic Of"
+msgstr "Moldavsko"
+
+#: ../lib/tribe-view-helpers.class.php:189
+msgid "Monaco"
+msgstr "Monako"
+
+#: ../lib/tribe-view-helpers.class.php:190
+msgid "Mongolia"
+msgstr "Mongolsko"
+
+#: ../lib/tribe-view-helpers.class.php:191
+msgid "Montenegro"
+msgstr "Čierna Hora"
+
+#: ../lib/tribe-view-helpers.class.php:192
+msgid "Montserrat"
+msgstr "Montserrat"
+
+#: ../lib/tribe-view-helpers.class.php:193
+msgid "Morocco"
+msgstr "Maroko"
+
+#: ../lib/tribe-view-helpers.class.php:194
+msgid "Mozambique"
+msgstr "Mozambik"
+
+#: ../lib/tribe-view-helpers.class.php:195
+msgid "Myanmar"
+msgstr "Mjanmarsko"
+
+#: ../lib/tribe-view-helpers.class.php:196
+msgid "Namibia"
+msgstr "Namíbia"
+
+#: ../lib/tribe-view-helpers.class.php:197
+msgid "Nauru"
+msgstr "Nauru"
+
+#: ../lib/tribe-view-helpers.class.php:198
+msgid "Nepal"
+msgstr "Nepál"
+
+#: ../lib/tribe-view-helpers.class.php:199
+msgid "Netherlands"
+msgstr "Holandsko"
+
+#: ../lib/tribe-view-helpers.class.php:200
+msgid "Netherlands Antilles"
+msgstr "Holandské Antily"
+
+#: ../lib/tribe-view-helpers.class.php:201
+msgid "New Caledonia"
+msgstr "Nová Kaledónia"
+
+#: ../lib/tribe-view-helpers.class.php:202
+msgid "New Zealand"
+msgstr "Nový Zéland"
+
+#: ../lib/tribe-view-helpers.class.php:203
+msgid "Nicaragua"
+msgstr "Nikaragua"
+
+#: ../lib/tribe-view-helpers.class.php:204
+msgid "Niger"
+msgstr "Niger"
+
+#: ../lib/tribe-view-helpers.class.php:205
+msgid "Nigeria"
+msgstr "Nigéria"
+
+#: ../lib/tribe-view-helpers.class.php:206
+msgid "Niue"
+msgstr "Niue"
+
+#: ../lib/tribe-view-helpers.class.php:207
+msgid "Norfolk Island"
+msgstr "Norfolk"
+
+#: ../lib/tribe-view-helpers.class.php:208
+msgid "Northern Mariana Islands"
+msgstr "Severné Mariány"
+
+#: ../lib/tribe-view-helpers.class.php:209
+msgid "Norway"
+msgstr "Nórsko"
+
+#: ../lib/tribe-view-helpers.class.php:210
+msgid "Oman"
+msgstr "Omán"
+
+#: ../lib/tribe-view-helpers.class.php:211
+msgid "Pakistan"
+msgstr "Pakistan"
+
+#: ../lib/tribe-view-helpers.class.php:212
+msgid "Palau"
+msgstr "Palau"
+
+#: ../lib/tribe-view-helpers.class.php:213
+msgid "Panama"
+msgstr "Panama"
+
+#: ../lib/tribe-view-helpers.class.php:214
+msgid "Papua New Guinea"
+msgstr "Papua-Nová Guinea"
+
+#: ../lib/tribe-view-helpers.class.php:215
+msgid "Paraguay"
+msgstr "Paraguaj"
+
+#: ../lib/tribe-view-helpers.class.php:216
+msgid "Peru"
+msgstr "Peru"
+
+#: ../lib/tribe-view-helpers.class.php:217
+msgid "Philippines"
+msgstr "Filipíny"
+
+#: ../lib/tribe-view-helpers.class.php:218
+msgid "Pitcairn"
+msgstr "Pitcairnove ostrovy"
+
+#: ../lib/tribe-view-helpers.class.php:219
+msgid "Poland"
+msgstr "Poľsko"
+
+#: ../lib/tribe-view-helpers.class.php:220
+msgid "Portugal"
+msgstr "Portugalsko"
+
+#: ../lib/tribe-view-helpers.class.php:221
+msgid "Puerto Rico"
+msgstr "Puerto Rico"
+
+#: ../lib/tribe-view-helpers.class.php:222
+msgid "Qatar"
+msgstr "Katar"
+
+#: ../lib/tribe-view-helpers.class.php:223
+msgid "Reunion"
+msgstr "Réunion"
+
+#: ../lib/tribe-view-helpers.class.php:224
+msgid "Romania"
+msgstr "Rumunsko"
+
+#: ../lib/tribe-view-helpers.class.php:225
+msgid "Russian Federation"
+msgstr "Rusko"
+
+#: ../lib/tribe-view-helpers.class.php:226
+msgid "Rwanda"
+msgstr "Rwanda"
+
+#: ../lib/tribe-view-helpers.class.php:227
+msgid "Saint Kitts And Nevis"
+msgstr "Svätý Krištof a Nevis"
+
+#: ../lib/tribe-view-helpers.class.php:228
+msgid "Saint Lucia"
+msgstr "Svätá Lucia"
+
+#: ../lib/tribe-view-helpers.class.php:229
+msgid "Saint Vincent And The Grenadines"
+msgstr "Svätý Vincent a Grenadíny"
+
+#: ../lib/tribe-view-helpers.class.php:230
+msgid "Samoa"
+msgstr "Samoa"
+
+#: ../lib/tribe-view-helpers.class.php:231
+msgid "San Marino"
+msgstr "San Maríno"
+
+#: ../lib/tribe-view-helpers.class.php:232
+msgid "Sao Tome And Principe"
+msgstr "Svätý Tomáš a Princov ostrov"
+
+#: ../lib/tribe-view-helpers.class.php:233
+msgid "Saudi Arabia"
+msgstr "Saudská Arábia"
+
+#: ../lib/tribe-view-helpers.class.php:234
+msgid "Senegal"
+msgstr "Senegal"
+
+#: ../lib/tribe-view-helpers.class.php:235
+msgid "Serbia"
+msgstr "Srbsko"
+
+#: ../lib/tribe-view-helpers.class.php:236
+msgid "Seychelles"
+msgstr "Seychely"
+
+#: ../lib/tribe-view-helpers.class.php:237
+msgid "Sierra Leone"
+msgstr "Sierra Leone"
+
+#: ../lib/tribe-view-helpers.class.php:238
+msgid "Singapore"
+msgstr "Singapur"
+
+#: ../lib/tribe-view-helpers.class.php:239
+msgid "Slovakia (Slovak Republic)"
+msgstr "Slovenská republika"
+
+#: ../lib/tribe-view-helpers.class.php:240
+msgid "Slovenia"
+msgstr "Slovinsko"
+
+#: ../lib/tribe-view-helpers.class.php:241
+msgid "Solomon Islands"
+msgstr "Šalamúnove ostrovy"
+
+#: ../lib/tribe-view-helpers.class.php:242
+msgid "Somalia"
+msgstr "Somálsko"
+
+#: ../lib/tribe-view-helpers.class.php:243
+msgid "South Africa"
+msgstr "Južná Afrika"
+
+#: ../lib/tribe-view-helpers.class.php:244
+msgid "South Georgia, South Sandwich Islands"
+msgstr "Južná Georgia a Južné Sandwichove ostrovy"
+
+#: ../lib/tribe-view-helpers.class.php:245
+msgid "Spain"
+msgstr "Španielsko"
+
+#: ../lib/tribe-view-helpers.class.php:246
+msgid "Sri Lanka"
+msgstr "Srí Lanka"
+
+#: ../lib/tribe-view-helpers.class.php:247
+msgid "St. Helena"
+msgstr "Svätá Helena"
+
+#: ../lib/tribe-view-helpers.class.php:248
+msgid "St. Pierre And Miquelon"
+msgstr "Saint Pierre a Miquelon"
+
+#: ../lib/tribe-view-helpers.class.php:249
+msgid "Sudan"
+msgstr "Sudán"
+
+#: ../lib/tribe-view-helpers.class.php:250
+msgid "Suriname"
+msgstr "Surinam"
+
+#: ../lib/tribe-view-helpers.class.php:251
+msgid "Svalbard And Jan Mayen Islands"
+msgstr "Svalbard"
+
+#: ../lib/tribe-view-helpers.class.php:252
+msgid "Swaziland"
+msgstr "Svazijsko"
+
+#: ../lib/tribe-view-helpers.class.php:253
+msgid "Sweden"
+msgstr "Švedsko"
+
+#: ../lib/tribe-view-helpers.class.php:254
+msgid "Switzerland"
+msgstr "Švajčiarsko"
+
+#: ../lib/tribe-view-helpers.class.php:255
+msgid "Syrian Arab Republic"
+msgstr "Sýria"
+
+#: ../lib/tribe-view-helpers.class.php:256
+msgid "Taiwan"
+msgstr "Taiwan"
+
+#: ../lib/tribe-view-helpers.class.php:257
+msgid "Tajikistan"
+msgstr "Tadžikistan"
+
+#: ../lib/tribe-view-helpers.class.php:258
+msgid "Tanzania, United Republic Of"
+msgstr "Tanzánia"
+
+#: ../lib/tribe-view-helpers.class.php:259
+msgid "Thailand"
+msgstr "Thajsko"
+
+#: ../lib/tribe-view-helpers.class.php:260
+msgid "Togo"
+msgstr "Togo"
+
+#: ../lib/tribe-view-helpers.class.php:261
+msgid "Tokelau"
+msgstr "Tokelau"
+
+#: ../lib/tribe-view-helpers.class.php:262
+msgid "Tonga"
+msgstr "Tonga"
+
+#: ../lib/tribe-view-helpers.class.php:263
+msgid "Trinidad And Tobago"
+msgstr "Trinidad a Tobago"
+
+#: ../lib/tribe-view-helpers.class.php:264
+msgid "Tunisia"
+msgstr "Tunisko"
+
+#: ../lib/tribe-view-helpers.class.php:265
+msgid "Turkey"
+msgstr "Turecko"
+
+#: ../lib/tribe-view-helpers.class.php:266
+msgid "Turkmenistan"
+msgstr "Turkmenistan"
+
+#: ../lib/tribe-view-helpers.class.php:267
+msgid "Turks And Caicos Islands"
+msgstr "Turks a Caicos"
+
+#: ../lib/tribe-view-helpers.class.php:268
+msgid "Tuvalu"
+msgstr "Tuvalu"
+
+#: ../lib/tribe-view-helpers.class.php:269
+msgid "Uganda"
+msgstr "Uganda"
+
+#: ../lib/tribe-view-helpers.class.php:270
+msgid "Ukraine"
+msgstr "Ukrajina"
+
+#: ../lib/tribe-view-helpers.class.php:271
+msgid "United Arab Emirates"
+msgstr "Spojené arabské emiráty"
+
+#: ../lib/tribe-view-helpers.class.php:272
+msgid "United Kingdom"
+msgstr "Spojené kráľovstvo"
+
+#: ../lib/tribe-view-helpers.class.php:273
+msgid "United States Minor Outlying Islands"
+msgstr "Menšie odľahlé ostrovy USA"
+
+#: ../lib/tribe-view-helpers.class.php:274
+msgid "Uruguay"
+msgstr "Uruguaj"
+
+#: ../lib/tribe-view-helpers.class.php:275
+msgid "Uzbekistan"
+msgstr "Uzbekistan"
+
+#: ../lib/tribe-view-helpers.class.php:276
+msgid "Vanuatu"
+msgstr "Vanuatu"
+
+#: ../lib/tribe-view-helpers.class.php:277
+msgid "Venezuela"
+msgstr "Venezuela"
+
+#: ../lib/tribe-view-helpers.class.php:278
+msgid "Viet Nam"
+msgstr "Vietnam"
+
+#: ../lib/tribe-view-helpers.class.php:279
+msgid "Virgin Islands (British)"
+msgstr "Britské Panenské ostrovy"
+
+#: ../lib/tribe-view-helpers.class.php:280
+msgid "Virgin Islands (U.S.)"
+msgstr "Americké Panenské ostrovy"
+
+#: ../lib/tribe-view-helpers.class.php:281
+msgid "Wallis And Futuna Islands"
+msgstr "Wallis a Futuna"
+
+#: ../lib/tribe-view-helpers.class.php:282
+msgid "Western Sahara"
+msgstr "Západná Sahara"
+
+#: ../lib/tribe-view-helpers.class.php:283
+msgid "Yemen"
+msgstr "Jemen"
+
+#: ../lib/tribe-view-helpers.class.php:284
+msgid "Zambia"
+msgstr "Zambia"
+
+#: ../lib/tribe-view-helpers.class.php:285
+msgid "Zimbabwe"
+msgstr "Zimbabwe"
+
+#: ../lib/tribe-view-helpers.class.php:316
+msgid "Alabama"
+msgstr "Alabama"
+
+#: ../lib/tribe-view-helpers.class.php:317
+msgid "Alaska"
+msgstr "Aljaška"
+
+#: ../lib/tribe-view-helpers.class.php:318
+msgid "Arizona"
+msgstr "Arizona"
+
+#: ../lib/tribe-view-helpers.class.php:319
+msgid "Arkansas"
+msgstr "Arkansas"
+
+#: ../lib/tribe-view-helpers.class.php:320
+msgid "California"
+msgstr "Kalifornia"
+
+#: ../lib/tribe-view-helpers.class.php:321
+msgid "Colorado"
+msgstr "Colorado"
+
+#: ../lib/tribe-view-helpers.class.php:322
+msgid "Connecticut"
+msgstr "Connecticut"
+
+#: ../lib/tribe-view-helpers.class.php:323
+msgid "Delaware"
+msgstr "Delaware"
+
+#: ../lib/tribe-view-helpers.class.php:324
+msgid "District of Columbia"
+msgstr "Washington D.C."
+
+#: ../lib/tribe-view-helpers.class.php:325
+msgid "Florida"
+msgstr "Florida"
+
+#: ../lib/tribe-view-helpers.class.php:327
+msgid "Hawaii"
+msgstr "Havaj"
+
+#: ../lib/tribe-view-helpers.class.php:328
+msgid "Idaho"
+msgstr "Idaho"
+
+#: ../lib/tribe-view-helpers.class.php:329
+msgid "Illinois"
+msgstr "Illinois"
+
+#: ../lib/tribe-view-helpers.class.php:330
+msgid "Indiana"
+msgstr "Indiana"
+
+#: ../lib/tribe-view-helpers.class.php:331
+msgid "Iowa"
+msgstr "Iowa"
+
+#: ../lib/tribe-view-helpers.class.php:332
+msgid "Kansas"
+msgstr "Kansas"
+
+#: ../lib/tribe-view-helpers.class.php:333
+msgid "Kentucky"
+msgstr "Kentucky"
+
+#: ../lib/tribe-view-helpers.class.php:334
+msgid "Louisiana"
+msgstr "Louisiana"
+
+#: ../lib/tribe-view-helpers.class.php:335
+msgid "Maine"
+msgstr "Maine"
+
+#: ../lib/tribe-view-helpers.class.php:336
+msgid "Maryland"
+msgstr "Maryland"
+
+#: ../lib/tribe-view-helpers.class.php:337
+msgid "Massachusetts"
+msgstr "Massachusetts"
+
+#: ../lib/tribe-view-helpers.class.php:338
+msgid "Michigan"
+msgstr "Michigan"
+
+#: ../lib/tribe-view-helpers.class.php:339
+msgid "Minnesota"
+msgstr "Minnesota"
+
+#: ../lib/tribe-view-helpers.class.php:340
+msgid "Mississippi"
+msgstr "Mississippi"
+
+#: ../lib/tribe-view-helpers.class.php:341
+msgid "Missouri"
+msgstr "Missouri"
+
+#: ../lib/tribe-view-helpers.class.php:342
+msgid "Montana"
+msgstr "Montana"
+
+#: ../lib/tribe-view-helpers.class.php:343
+msgid "Nebraska"
+msgstr "Nebraska"
+
+#: ../lib/tribe-view-helpers.class.php:344
+msgid "Nevada"
+msgstr "Nevada"
+
+#: ../lib/tribe-view-helpers.class.php:345
+msgid "New Hampshire"
+msgstr "New Hampshire"
+
+#: ../lib/tribe-view-helpers.class.php:346
+msgid "New Jersey"
+msgstr "New Jersey"
+
+#: ../lib/tribe-view-helpers.class.php:347
+msgid "New Mexico"
+msgstr "New Mexico"
+
+#: ../lib/tribe-view-helpers.class.php:348
+msgid "New York"
+msgstr "New York"
+
+#: ../lib/tribe-view-helpers.class.php:349
+msgid "North Carolina"
+msgstr "Severná Karolína"
+
+#: ../lib/tribe-view-helpers.class.php:350
+msgid "North Dakota"
+msgstr "Severná Dakota"
+
+#: ../lib/tribe-view-helpers.class.php:351
+msgid "Ohio"
+msgstr "Ohio"
+
+#: ../lib/tribe-view-helpers.class.php:352
+msgid "Oklahoma"
+msgstr "Oklahoma"
+
+#: ../lib/tribe-view-helpers.class.php:353
+msgid "Oregon"
+msgstr "Oregon"
+
+#: ../lib/tribe-view-helpers.class.php:354
+msgid "Pennsylvania"
+msgstr "Pensylvánia"
+
+#: ../lib/tribe-view-helpers.class.php:355
+msgid "Rhode Island"
+msgstr "Rhode Island"
+
+#: ../lib/tribe-view-helpers.class.php:356
+msgid "South Carolina"
+msgstr "Južná Karolína"
+
+#: ../lib/tribe-view-helpers.class.php:357
+msgid "South Dakota"
+msgstr "Južná Dakota"
+
+#: ../lib/tribe-view-helpers.class.php:358
+msgid "Tennessee"
+msgstr "Tennessee"
+
+#: ../lib/tribe-view-helpers.class.php:359
+msgid "Texas"
+msgstr "Texas"
+
+#: ../lib/tribe-view-helpers.class.php:360
+msgid "Utah"
+msgstr "Utah"
+
+#: ../lib/tribe-view-helpers.class.php:361
+msgid "Vermont"
+msgstr "Vermont"
+
+#: ../lib/tribe-view-helpers.class.php:362
+msgid "Virginia"
+msgstr "Virgínia"
+
+#: ../lib/tribe-view-helpers.class.php:363
+msgid "Washington"
+msgstr "Washington"
+
+#: ../lib/tribe-view-helpers.class.php:364
+msgid "West Virginia"
+msgstr "Západná Virginia"
+
+#: ../lib/tribe-view-helpers.class.php:365
+msgid "Wisconsin"
+msgstr "Wisconsin"
+
+#: ../lib/tribe-view-helpers.class.php:366
+msgid "Wyoming"
+msgstr "Wyoming"
+
+#: ../lib/widget-list.class.php:26
+msgid "A widget that displays upcoming events."
+msgstr "Widget zobrazuje blížiace sa udalosti."
+
+#: ../lib/widget-list.class.php:34
+msgid "Events List"
+msgstr "Zoznam udalosti"
+
+#: ../lib/widget-list.class.php:162 ../public/template-tags/loop.php:130
+msgid "Upcoming Events"
+msgstr "Najbližšie udalosti"
+
+#: ../public/advanced-functions/meta.php:42
+#: ../public/advanced-functions/meta.php:74
+#: ../views/modules/meta/details.php:36 ../views/modules/meta/details.php:61
+msgid "Start:"
+msgstr "Začiatok:"
+
+#: ../public/advanced-functions/meta.php:51
+#: ../public/advanced-functions/meta.php:83
+#: ../views/modules/meta/details.php:41 ../views/modules/meta/details.php:66
+msgid "End:"
+msgstr "Koniec:"
+
+#: ../public/advanced-functions/meta.php:62
+#: ../public/advanced-functions/meta.php:94
+#: ../views/modules/meta/details.php:51 ../views/modules/meta/details.php:76
+msgid "Date:"
+msgstr "Dátum:"
+
+#: ../public/advanced-functions/meta.php:105
+#: ../public/advanced-functions/meta.php:116
+#: ../views/modules/meta/details.php:81
+msgid "Time:"
+msgstr "Čas:"
+
+#: ../public/advanced-functions/meta.php:329
+#: ../public/template-tags/google-map.php:44
+msgid "Click to view a Google Map"
+msgstr "Klikni na zobrazenie Google Map"
+
+#: ../public/advanced-functions/meta.php:330
+#: ../public/template-tags/google-map.php:45
+msgid "+ Google Map"
+msgstr "+ Google Map"
+
+#: ../public/advanced-functions/meta.php:343
+#: ../views/modules/meta/details.php:13
+msgid "Details"
+msgstr "Podrobnosti"
+
+#: ../public/advanced-functions/meta.php:403
+#: ../views/modules/meta/details.php:115
+msgid "Event Tags:"
+msgstr "Tagy udalosti:"
+
+#: ../public/advanced-functions/meta.php:433
+msgid "Origin:"
+msgstr "Pôvod:"
+
+#: ../public/advanced-functions/meta.php:594
+msgid "Event:"
+msgstr "Udalosť:"
+
+#: ../public/template-tags/day.php:103
+msgid "<span>&laquo;</span> Previous Day"
+msgstr "<span>&laquo;</span> Predchádzajúci deň"
+
+#: ../public/template-tags/day.php:105
+msgid "Next Day <span>&raquo;</span>"
+msgstr "Nasledujúci deň <span>&raquo;</span>"
+
+#: ../public/template-tags/day.php:107
+msgid "Yesterday"
+msgstr "Včera"
+
+#: ../public/template-tags/day.php:109
+msgid "Tomorrow"
+msgstr "Zajtra"
+
+#: ../public/template-tags/deprecated.php:1283
+msgid "Category"
+msgstr "Kategória"
+
+#: ../public/template-tags/general.php:385
+msgid "Tags:"
+msgstr "Tagy:"
+
+#: ../public/template-tags/general.php:489
+msgid "Loading Events"
+msgstr "Načítavanie udalostí"
+
+#: ../public/template-tags/general.php:683
+msgid "Free"
+msgstr "Zadarmo"
+
+#: ../public/template-tags/general.php:1340
+#, php-format
+msgid "Calendar powered by %sThe Events Calendar%s"
+msgstr "Kalendár funguje ako%sKalendár udalostí%s"
+
+#: ../public/template-tags/loop.php:144
+#, php-format
+msgid "Events for %1$s - %2$s"
+msgstr "Udalosti pre %1$s - %2$s"
+
+#: ../public/template-tags/loop.php:146
+msgid "Past Events"
+msgstr "Predchádzajúce udalosti"
+
+#: ../public/template-tags/loop.php:151
+#, php-format
+msgid "Events for %s"
+msgstr "Udalosti pre %s"
+
+#: ../public/template-tags/loop.php:158 ../views/month/mobile.php:13
+msgid "Events for"
+msgstr "Udalosti na"
+
+#: ../public/template-tags/options.php:20
+#, php-format
+msgid "Your current Events URL is %s"
+msgstr "Vaša súčasná URL udalosti je %s"
+
+#: ../public/template-tags/options.php:29
+#, php-format
+msgid ""
+"You <strong>cannot</strong> use the same slug as above. The above should "
+"ideally be plural, and this singular.<br />Your single Event URL is like: %s"
+msgstr ""
+" <strong>Nemôžete</strong> používať rovnaký názov v URL ako je vyššie "
+"uvedená. Ideálne je uviesť v množnom čísle, uviedli ste singulár.<br />Vaše "
+"URL samotnej udalosti je: %s"
+
+#: ../views/day/nav.php:16
+msgid "Day Navigation"
+msgstr "Navigácia podľa dní"
+
+#: ../views/day/single-event.php:74 ../views/list/single-event.php:80
+msgid "Find out more"
+msgstr "Vyhľadať viac"
+
+#: ../views/list/nav.php:17
+msgid "Events List Navigation"
+msgstr "Navigácia pre zoznam udalostí"
+
+#: ../views/list/nav.php:23
+msgid "<span>&laquo;</span> Previous Events"
+msgstr "<span>&laquo;</span> Predchádzajúce udalosti"
+
+#: ../views/list/nav.php:30
+msgid "Next Events <span>&raquo;</span>"
+msgstr "Nasledujúce udalosti <span>&raquo;</span>"
+
+#: ../views/modules/bar.php:32 ../views/modules/bar.php:63
+msgid "Find Events"
+msgstr "Vyhľadať udalosti"
+
+#: ../views/modules/bar.php:39
+msgid "Event Views Navigation"
+msgstr "Navigácia pre zobrazenia udalosti"
+
+#: ../views/modules/bar.php:40
+msgid "View As"
+msgstr "Zobraziť ako"
+
+#: ../views/month/mobile.php:40
+msgid "Find out more »"
+msgstr "Vyhľadať viac »"
+
+#: ../views/month/nav.php:18
+msgid "Calendar Month Navigation"
+msgstr "Navigácia pre mesiace v kalendári"
+
+#: ../views/month/single-day.php:41
+#, php-format
+msgid "View 1 Event"
+msgid_plural "View All %s Events"
+msgstr[0] "Zobraziť udalosť"
+msgstr[1] "Zobraziť všetky %s udalosti"
+
+#: ../views/single-event.php:24
+msgid "&laquo; All Events"
+msgstr "&laquo; Všetky udalosti"
+
+#: ../views/single-event.php:43 ../views/single-event.php:89
+msgid "Event Navigation"
+msgstr "Navigácia udalosti"
+
+#: ../views/tickets/attendees-email.php:24
+msgid "Attendee List"
+msgstr "Zoznam účastníkov"
+
+#: ../views/tickets/email.php:37
+msgid "Your tickets"
+msgstr "Vaše vstupenky"
+
+#: ../views/tickets/email.php:321
+msgid "Ticket Type"
+msgstr "Typ vstupenky"
+
+#: ../views/tickets/email.php:325
+msgid "Purchaser"
+msgstr "Kupujúci"
+
+#: ../views/widgets/list-widget.php:63
+msgid "View All Events"
+msgstr "Zobraziť všetky udalosti"
+
+#: ../views/widgets/list-widget.php:70
+msgid "There are no upcoming events at this time."
+msgstr "V danom čase neexistujú žiadne blížiace sa udalosti."
+
+#~ msgid "Auditing Information"
+#~ msgstr "Účtovná informácia"
+
+#~ msgid "Created by:"
+#~ msgstr "Vytvorené:"
+
+#~ msgid "Audit Trail:"
+#~ msgstr "Kontrolný systém:"
+
+#~ msgid "Organizer Name:"
+#~ msgstr "Meno organizátora:"
+
+#~ msgid "Venue:"
+#~ msgstr "Miesto konania:"
+
+#~ msgid ""
+#~ "Are you developer looking to build your own frontend view? We created an "
+#~ "example plugin that demonstrates how to register a new view. You can "
+#~ "%sdownload the plugin at GitHub%s to get started."
+#~ msgstr ""
+#~ "Ste vývojár vytvárajúci si svoj vlastný vzhľad? Vytvorili sme ukážkový "
+#~ "doplnok, ako registrovať nový vzhľad. Na začiatok si môžete %s si "
+#~ "stiahnuť plugin z GitHub%s ."
+
+#~ msgid "venue"
+#~ msgstr "miesto konania udalosti"
+
+#~ msgid "Events this month"
+#~ msgstr "Udalosti na tento mesiac"
+
+#~ msgid "No description has been entered for this event."
+#~ msgstr "Pre túto udalosť neexistuje žiaden popis."
+
+#~ msgid "Add New Venue"
+#~ msgstr "Pridať nové miesto udalosti"
+
+#~ msgid "Edit Venue"
+#~ msgstr "Editovať miesto udalosti"
+
+#~ msgid "New Venue"
+#~ msgstr "Nové miesto udalosti"
+
+#~ msgid "View Venue"
+#~ msgstr "Zobraziť miesto udalosti"
+
+#~ msgid "Search Venues"
+#~ msgstr "Vyhľadať miesto udalosti"
+
+#~ msgid "No venue found"
+#~ msgstr "Miesto udalosti nenájdené"
+
+#~ msgid "No venues found in Trash"
+#~ msgstr "V koši neboli nájdené žiadne miesta udalosti"
+
+#~ msgid "Add New Organizer"
+#~ msgstr "Pridať nového organizátora"
+
+#~ msgid "Edit Organizer"
+#~ msgstr "Editovať organizátora"
+
+#~ msgid "New Organizer"
+#~ msgstr "Nový organizátor"
+
+#~ msgid "View Organizer"
+#~ msgstr "Zobraziť organizátora"
+
+#~ msgid "Search Organizers"
+#~ msgstr "Vyhľadať organizátora"
+
+#~ msgid "No organizer found"
+#~ msgstr "Organizátor nenájdený"
+
+#~ msgid "No organizers found in Trash"
+#~ msgstr "Žiadni organizátori sa nenašli v koši"
+
+#~ msgid "Venue updated."
+#~ msgstr "Miesto konania aktualizované."
+
+#~ msgid "Venue restored to revision from %s"
+#~ msgstr "Miesto konania je obnovené na verziu z  %s"
+
+#~ msgid "Venue saved."
+#~ msgstr "Miesto konania uložené."
+
+#~ msgid "Organizer updated."
+#~ msgstr "Organizátor aktualizovaný."
+
+#~ msgid "Organizer restored to revision from %s"
+#~ msgstr "Organizátor je obnovený na verziu z  %s"
+
+#~ msgid "Organizer published."
+#~ msgstr "Orgaizátor publikovaný."
+
+#~ msgid "Organizer saved."
+#~ msgstr "Organizátor uložený."
+
+#~ msgid "Organizer submitted."
+#~ msgstr "Organizátor odoslaný."
+
+#~ msgid "Organizer scheduled for: <strong>%1$s</strong>."
+#~ msgstr "Organizátor bude automaticky publikovaný:<strong>%1$s</strong>."
+
+#~ msgid "Organizer draft updated."
+#~ msgstr "Koncept organizátora aktualizovaný."
+
+#~ msgid "Use Saved Organizer:"
+#~ msgstr "Použiť uloženého organizátora:"
+
+#~ msgid "My Venues"
+#~ msgstr "Moje miesta konania udalosti"
+
+#~ msgid "Use New Organizer"
+#~ msgstr "Použiť nového organizátora"
+
+#~ msgid "My Organizers"
+#~ msgstr "Moji organizátori"
+
+#~ msgid "Available Organizers"
+#~ msgstr "Dostupní organizátori"
+
+#~ msgid "No saved organizer exists."
+#~ msgstr "Zatiaľ neexistujú uložení organizátori."
+
+#~ msgid "Venue Information"
+#~ msgstr "Informácie o mieste udalosti"
+
+#~ msgid "Organizer Information"
+#~ msgstr "Informácie o organizátorovi"
+
+#~ msgid ""
+#~ "Welcome to The Events Calendar! Your events calendar can be found at %s. "
+#~ "To change the events slug, visit %sEvents -> Settings%s."
+#~ msgstr ""
+#~ "Vitajte v Kalendári udalostí. Váš Kalendár udalosti môžete nájsť na %s. "
+#~ "URL značku udalosti môžete zmeniť na stránke %s Udalosti -> Nastavenia%s."
+
+#~ msgid "&laquo; Previous Events"
+#~ msgstr "&laquo; Predchádzajúce udalosti"
+
+#~ msgid "Next Events &raquo;"
+#~ msgstr "Nasledujúce udalosti &raquo;"
+
+#~ msgid "Tribe"
+#~ msgstr "Tribe"
+
+#~ msgid "Import is filter/view sensitive"
+#~ msgstr "Import je háklivý na filter/náhľad."
