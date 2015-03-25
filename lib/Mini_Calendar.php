@@ -114,7 +114,6 @@ class Tribe__Events__Pro__Mini_Calendar {
 				'count'               => $_POST["count"],
 				'tax_query'           => $tax_query,
 				'filter_date'         => true,
-				'tribeHideRecurrence' => false,
 			);
 
 			ob_start();
@@ -266,8 +265,7 @@ class Tribe__Events__Pro__Mini_Calendar {
 					'eventDisplay'           => 'custom',
 					'start_date'             => $this->get_month(),
 					'post_status'            => $post_status,
-					'is_tribe_mini_calendar' => true,
-					'tribeHideRecurrence'    => false,
+					'is_tribe_widget'        => true,
 				);
 
 				// set end date if initial load, or ajax month switch

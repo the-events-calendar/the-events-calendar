@@ -77,6 +77,10 @@ class Tribe__Events__Pro__Embedded_Maps {
 			return false;
 		}
 
+		if ( 0 == $this->lat && 0 == $this->lng ){
+			return false;
+		}
+
 		return true;
 	}
 

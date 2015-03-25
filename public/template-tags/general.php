@@ -730,8 +730,8 @@ if( class_exists( 'Tribe__Events__Pro__Events_Pro' ) ) {
 		}
 
 		if ( has_filter( 'tribe_events_event_recurring_info_tooltip' ) ) {
-			_deprecated_function( "The 'tribe_get_related_events' filter", '3.9', " the 'tribe_get_related_posts' filter" );
-		$tooltip = apply_filters( 'tribe_events_event_recurring_info_tooltip', $tooltip ); // for backwards-compat, will be removed
+			_deprecated_function( "The 'tribe_get_related_events' filter", '3.9', " the 'tribe_events_recurrence_tooltip' filter" );
+			$tooltip = apply_filters( 'tribe_events_event_recurring_info_tooltip', $tooltip ); // for backwards-compat, will be removed
 		}
 
 		return apply_filters( 'tribe_events_recurrence_tooltip', $tooltip );
