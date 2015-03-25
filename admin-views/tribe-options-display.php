@@ -110,6 +110,13 @@ $displayTab = array(
 				'size'            => 'small',
 				'default'         => '3'
 			),
+			'enable_month_view_cache' => array(
+				'type'            => 'checkbox_bool',
+				'label'           => __( 'Enable the Month View Cache', 'tribe-events-calendar' ),
+				'tooltip'         => sprintf( __( 'Check this to cache your month view HTML in transients, which can help improve calendar speed on sites with many events. <a href="%s">Read more</a>.', 'tribe-events-calendar' ), 'LINK NEEDED' ),
+				'default'         => false,
+				'validation_type' => 'boolean',
+			),
 			'tribeEventsDateFormatSettingsTitle' => array(
 				'type' => 'html',
 				'html' => '<h3>' . __( 'Date Format Settings', 'tribe-events-calendar' ) . '</h3>',

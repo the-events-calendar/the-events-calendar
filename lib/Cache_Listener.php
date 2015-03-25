@@ -34,6 +34,7 @@
 		 */
 		private function add_hooks() {
 			add_action( 'save_post', array( $this, 'save_post' ), 0, 2 );
+			add_action( 'updated_option', array( $this, 'update_last_save_post' ) );
 		}
 
 		/**

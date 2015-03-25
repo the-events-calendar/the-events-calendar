@@ -26,10 +26,8 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 		private static $current_year;
 		private static $event_daily_counts = array();
 		private static $event_daily_ids = array();
-		private static $first_day_of_month = null;
 		private static $posts_per_page_limit = 3;
 		private static $tribe_bar_args = array();
-		private static $cache_expiration = 3600;
 		private static $calendar_days = array();
 		private static $current_day = - 1;
 		private static $current_week = - 1;
@@ -46,6 +44,8 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 		protected $excerpt_length = 30;
 		protected $asset_packages = array( 'ajax-calendar' );
 
+		private $html_cache;
+
 		const AJAX_HOOK = 'tribe_calendar';
 
 		/**
@@ -60,13 +60,21 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 
 				if ( ! empty( $wp_query->query_vars['meta_query'] ) ){
 					$args['meta_query'] = $wp_query->query_vars['meta_query'];
-				}
+			}
+			}
+
+			$this->use_cache = tribe_get_option( 'enable_month_view_cache', false );
+
+			// Cache the result of month/content.php
+			if ( $this->use_cache ) {
+				$cache_expiration = apply_filters( 'tribe_events_month_view_transient_expiration', HOUR_IN_SECONDS );
+				$this->html_cache = new Tribe__Events__Template_Part_Cache( 'month/content.php', serialize( $args ), $cache_expiration, 'save_post' );
 			}
 
 			self::$args                 = $args;
 			self::$posts_per_page_limit = apply_filters( 'tribe_events_month_day_limit', tribe_get_option( 'monthEventAmount', '3' ) );
 
-			// don't enqueue scripts and js when we're not constructing month view,
+			// don't enqueue scripts and js when we're not constructing month view, 
 			// they'll have to be enqueued separately
 			if ( ! tribe_is_month() ) {
 				$this->asset_packages = array();
@@ -168,11 +176,8 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 		 * @return array
 		 */
 		private static function get_daily_counts( $start_date, $end_date ) {
-			global $wp_query;
 
 			$count_args = self::$args;
-
-			do_action( 'log', 'get_daily_counts $date', 'tribe-events-query', $start_date, $end_date );
 
 			$count_args['eventDisplay']        = 'month';
 			$count_args['eventDate']           = $start_date;
@@ -223,10 +228,6 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 		 * @return WP_Query
 		 */
 		private function get_daily_events( $date ) {
-			global $wp_query;
-			$tribe_ecp = Tribe__Events__Events::instance();
-
-			$post_status = is_user_logged_in() ? array( 'publish', 'private' ) : 'publish';
 
 			$args   = wp_parse_args(
 				array(
@@ -250,17 +251,18 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 		 * @return void
 		 **/
 		public function setup_view() {
+
+			if ( $this->use_cache && $this->html_cache->get() !== false ) {
+				return;
+			}
+
 			$requested_date     = $this->requested_date();
-			$first_day_of_month = date( 'Y-m-01', strtotime( $requested_date ) );
 			$first_grid_date    = $this->calculate_first_cell_date( $requested_date );
 			$final_grid_date    = $this->calculate_final_cell_date( $requested_date );
 			$days               = array();
 
 			$this->setup_tribe_bar_args();
 			$this->current_day_vals();
-
-			do_action( 'log', 'setup view month view args', 'tribe-month', self::$args );
-			do_action( 'log', 'eventDate', 'tribe-events-query', $first_day_of_month );
 
 			self::$hide_upcoming_ids = Tribe__Events__Query::getHideFromUpcomingEvents();
 			self::get_daily_counts( $first_grid_date, $final_grid_date );
