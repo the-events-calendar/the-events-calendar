@@ -11,7 +11,7 @@ if ( ! empty( $header_id ) ) {
 	$header_img = wp_get_attachment_image( $header_id, 'full' );
 }
 
-$modules = TribeEventsTickets::modules();
+$modules = Tribe__Events__Tickets__Tickets::modules();
 ?>
 
 <table id="event_tickets" class="eventtable">
@@ -117,13 +117,25 @@ $modules = TribeEventsTickets::modules();
 						<input type='text' id='ticket_price' name='ticket_price' class="ticket_field" size='7'
 							   value='' />
 
-						<p class="description"><?php echo __( "(0 or empty for free tickets)", "tribe-events-calendar" ); ?></p>
+						<p class="description"><?php _e( '(0 or empty for free tickets)', 'tribe-events-calendar' ) ?></p>
+					</td>
+				</tr>
+
+				<tr class="ticket sale_price">
+					<td><label
+							for="ticket_sale_price"><?php _e( 'Sale Price:', 'tribe-events-calendar' ) ?></label>
+					</td>
+					<td>
+						<input type='text' id='ticket_sale_price' name='ticket_sale_price' class="ticket_field" size='7'
+							value='' readonly />
+
+						<p class="description"><?php _e( '(Current sale price - this can be managed via the product editor)', 'tribe-events-calendar' ) ?></p>
 					</td>
 				</tr>
 
 				<tr class="ticket">
 					<td><label
-							for="ticket_price"><?php _e( 'Start sale:', 'tribe-events-calendar' ); ?></label>
+							for="ticket_start_date"><?php _e( 'Start sale:', 'tribe-events-calendar' ); ?></label>
 					</td>
 					<td>
 						<input autocomplete="off" type="text" class="ticket_field" size='7' name="ticket_start_date"
@@ -136,7 +148,7 @@ $modules = TribeEventsTickets::modules();
 							<select name="ticket_start_minute" id="ticket_start_minute" class="ticket_field">
 								<?php echo $startMinuteOptions; ?>
 							</select>
-							<?php if ( ! strstr( get_option( 'time_format', TribeDateUtils::TIMEFORMAT ), 'H' ) ) : ?>
+							<?php if ( ! strstr( get_option( 'time_format', Tribe__Events__Date_Utils::TIMEFORMAT ), 'H' ) ) : ?>
 								<select name="ticket_start_meridian" id="ticket_start_meridian" class="ticket_field">
 									<?php echo $startMeridianOptions; ?>
 								</select>
@@ -161,7 +173,7 @@ $modules = TribeEventsTickets::modules();
 							<select name="ticket_end_minute" id="ticket_end_minute" class="ticket_field">
 								<?php echo $endMinuteOptions; ?>
 							</select>
-							<?php if ( ! strstr( get_option( 'time_format', TribeDateUtils::TIMEFORMAT ), 'H' ) ) : ?>
+							<?php if ( ! strstr( get_option( 'time_format', Tribe__Events__Date_Utils::TIMEFORMAT ), 'H' ) ) : ?>
 								<select name="ticket_end_meridian" id="ticket_end_meridian" class="ticket_field">
 									<?php echo $endMeridianOptions; ?>
 								</select>

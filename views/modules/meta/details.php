@@ -16,18 +16,18 @@
 		<?php
 		do_action( 'tribe_events_single_meta_details_section_start' );
 
-		$time_format = get_option( 'time_format', TribeDateUtils::TIMEFORMAT );
+		$time_format = get_option( 'time_format', Tribe__Events__Date_Utils::TIMEFORMAT );
 		$time_range_separator = tribe_get_option( 'timeRangeSeparator', ' - ' );
 
 		$start_datetime = tribe_get_start_date();
 		$start_date = tribe_get_start_date( null, false );
 		$start_time = tribe_get_start_date( null, false, $time_format );
-		$start_ts = tribe_get_start_date( null, false, TribeDateUtils::DBDATEFORMAT );
+		$start_ts = tribe_get_start_date( null, false, Tribe__Events__Date_Utils::DBDATEFORMAT );
 
 		$end_datetime = tribe_get_end_date();
 		$end_date = tribe_get_end_date( null, false );
 		$end_time = tribe_get_end_date( null, false, $time_format );
-		$end_ts = tribe_get_end_date( null, false, TribeDateUtils::DBDATEFORMAT );
+		$end_ts = tribe_get_end_date( null, false, Tribe__Events__Date_Utils::DBDATEFORMAT );
 
 		// All day (multiday) events
 		if ( tribe_event_is_all_day() && tribe_event_is_multiday() ) :
@@ -112,7 +112,7 @@
 		);
 		?>
 
-		<?php echo tribe_meta_event_tags( __( 'Event Tags:', 'tribe-events-calendar' ), ', ', false ) ?>
+		<?php echo tribe_meta_event_tags( sprintf( __( '%s Tags:', 'tribe-events-calendar' ), tribe_get_event_label_singular() ), ', ', false ) ?>
 
 		<?php
 		$website = tribe_get_event_website_link();

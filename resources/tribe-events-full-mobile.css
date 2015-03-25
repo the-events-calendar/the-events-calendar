@@ -30,7 +30,7 @@ a.tribe-events-gmap {
 }
 
 /* = Day Grid Template Styles
-   @ Template: day.php
+   @ Template: Day.php
 =============================================*/
 .tribe-events-day .tribe-events-day-time-slot h5 {
 	margin-top: 2em;
@@ -127,15 +127,19 @@ a.tribe-events-gmap {
 }
 
 /* = List View Template Styles
-   @ Template: list.php
+   @ Template: List.php
 =============================================*/	
 .tribe-events-list .tribe-events-event-image {
-	float: none;
-	width: 100%;
-	margin: 0 0 8px 0;
+	float: left;
+	margin: 0 3% 0 0;
+}
+.tribe-events-list .tribe-events-event-image img {
+	width: auto;
+	max-height: 400px;
 }
 .tribe-events-list .tribe-events-event-image + div.tribe-events-content {
 	float: none;
+	position: relative;
 	width: 100%;
 }	
 .tribe-events-list .tribe-events-loop .tribe-events-event-meta .recurringinfo {
@@ -172,7 +176,7 @@ a.tribe-events-gmap {
 }
 
 /* = Single Event Template Styles
-   @ Template: single-event.php
+   @ Template: Single_Event.php
 =============================================*/
 .single-tribe_events .tribe-events-schedule {		
 	padding: 12px;
@@ -232,7 +236,7 @@ a.tribe-events-gmap {
 }
 
 /* = Global Grid Template Styles (Large Calendar & Week)
-   @ Template: month.php & week.php
+   @ Template: Month.php & Week.php
 =============================================*/	
 #tribe-mobile-container {
 	display: block;
@@ -247,6 +251,13 @@ a.tribe-events-gmap {
 	border-radius: 50%;
 	background-color: #333;
 	margin: 5px auto;
+}
+.tribe-events-calendar .tribe-events-has-events.tribe-events-othermonth:after {
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=40)";
+		filter: alpha(opacity=40);
+  -moz-opacity: 0.4;
+-khtml-opacity: 0.4;
+	   opacity: 0.4;
 }
 /* Actual Event Styles */
 #tribe-mobile-container .type-tribe_events {
@@ -290,7 +301,7 @@ a.tribe-events-gmap {
 }
 
 /* = Calendar (large) Grid Template Styles
-   @ Template: month.php
+   @ Template: Month.php
 =============================================*/	
 .tribe-events-calendar td .tribe-events-viewmore,
 .tribe-events-calendar td .type-tribe_events {
@@ -403,52 +414,4 @@ a.tribe-events-gmap {
 
 .tribe-theme-twentyfourteen.events-archive .entry-content {
 	width:90%;
-}
-
-/* = Mobile Styles: Tickets (max-width: 600px)
-=============================================*/
-@media (max-width: 600px) {
-
-	/* = WooTickets
-	=============================================*/
-	table.tribe-events-tickets .tickets_price {
-		display: block;
-		padding-top: 0;
-		padding-bottom: 6px;
-		padding-left: 0;
-	}
-
-	td.wpec {
-		width: 84px;
-	}
-
-	td.tickets_name {
-		font-size: 18px;
-	}
-	
-	table.tribe-events-tickets td.tickets_description {
-		padding-top: 0;
-		padding-left: 0;
-	}
-
-	table.tribe-events-tickets,
-	table.tribe-events-tickets tbody {
-		display: block
-	}
-	
-	table.tribe-events-tickets tr {
-		display: block;
-		border-top: 1px solid #ddd;
-		padding-top: 10px;
-		padding-bottom: 8px;
-	}
-	
-	table.tribe-events-tickets td {
-		display: inline-block;
-		border: 0;
-	}
-
-	table.tribe-events-tickets td.woocommerce {
-		border-bottom: 0;
-	}
 }

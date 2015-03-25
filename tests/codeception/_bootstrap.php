@@ -25,4 +25,6 @@ function tribe_events_codeception_bootstrap( $config ) {
 	}
 }
 
+Codeception\Util\Autoload::registerSuffix( 'Tribe__Events__WP_UnitTestCase', __DIR__ . '/helpers' );
+
 tribe_events_codeception_bootstrap( \Codeception\Configuration::config() );

@@ -24,7 +24,8 @@ input::-webkit-input-placeholder, textarea::-webkit-input-placeholder { color: #
 .eventForm #event-meta td { vertical-align: top; }
 .eventForm #event-meta td div { margin-bottom: 10px; }
 .eventForm #event-meta td div:last-child {margin-bottom: 20px;}
-.eventForm select, .eventForm input {font-size:11px;}
+.eventForm select, .eventForm input, .eventForm textarea { font-size:11px; }
+.eventForm textarea { width: 100% }
 .eventForm h4 {font-size:1.2em; margin:1em 0 1em;}
 .eventForm h4.event-time {margin-top: 0;}
 .tribe-community-event-info {margin: 10px; width:100%;}
@@ -51,6 +52,17 @@ td.tribe_message {padding-bottom: 10px !important;}
 .ui-front {z-index: 1000000;}
 .events-cal .ui-widget-overlay.ui-front {z-index: 90;
 }
+
+.edit-venue-link, .edit-organizer-link { display:inline-block; margin-left:10px;}
+}
+
+.tribe_community_edit .edit-venue-link, .tribe_community_edit .edit-organizer-link {
+	display:none !important;
+}
+.tribe-sticky-tooltip {
+	color:#bbb;
+}
+div.tribe-venue-error.error, div.tribe-organizer-error.error { margin-left:5px; padding: 5px 10px; display:inline; }
 
 
 
@@ -177,6 +189,11 @@ td.tribe_message {padding-bottom: 10px !important;}
 }
 .OrganizerInfo .organizer-email {
 	vertical-align: top;
+}
+
+.tribe-table-field-label {
+	width: 200px;
+	max-width: 100%
 }
 
 /* = Help Screen
@@ -382,5 +399,24 @@ a.tribe-rating-link {
 
 	input[type='email'] {
 		width:100%;
+	}
+}
+
+
+@media screen and ( max-width: 782px ) {
+	.events-cal .subsubsub {
+		float: none;
+	}
+
+	.events-cal .search-box {
+		width: 98%;
+	}
+
+	.events-cal #search-submit {
+		width: 100%;
+	}
+
+	.events-cal .tablenav.top {
+		display: none;
 	}
 }

@@ -1,12 +1,166 @@
+
+/*
+ * Date Format 1.2.3
+ * (c) 2007-2009 Steven Levithan <stevenlevithan.com>
+ * MIT license
+ *
+ * Includes enhancements by Scott Trenda <scott.trenda.net>
+ * and Kris Kowal <cixar.com/~kris.kowal/>
+ *
+ * Accepts a date, a mask, or a date and a mask.
+ * Returns a formatted version of the given date.
+ * The date defaults to the current date/time.
+ * The mask defaults to dateFormat.masks.default.
+ * todo: now used in multiple places, lets consolidate. Also, should events-admin really be powering community fe form?
+ */
+
+var tribeDateFormat = function() {
+	var token = /d{1,4}|m{1,4}|yy(?:yy)?|([HhMsTt])\1?|[LloSZ]|"[^"]*"|'[^']*'/g,
+		timezone = /\b(?:[PMCEA][SDP]T|(?:Pacific|Mountain|Central|Eastern|Atlantic) (?:Standard|Daylight|Prevailing) Time|(?:GMT|UTC)(?:[-+]\d{4})?)\b/g,
+		timezoneClip = /[^-+\dA-Z]/g,
+		pad = function( val, len ) {
+			val = String( val );
+			len = len || 2;
+			while ( val.length < len ) {
+				val = "0" + val;
+			}
+			return val;
+		};
+
+	// Regexes and supporting functions are cached through closure
+	return function( date, mask, utc ) {
+		var dF = tribeDateFormat;
+
+		// You can't provide utc if you skip other args (use the "UTC:" mask prefix)
+		if ( arguments.length == 1 && Object.prototype.toString.call( date ) == "[object String]" && !/\d/.test( date ) ) {
+			mask = date;
+			date = undefined;
+		}
+
+		if ( typeof date === 'string' ) {
+			date = date.replace( /-/g, "/" );
+		}
+
+		// Passing date through Date applies Date.parse, if necessary
+		date = date ? new Date( date ) : new Date;
+		if ( isNaN( date ) ) {
+			return;
+		}
+
+		mask = String( dF.masks[mask] || mask || dF.masks["default"] );
+
+		// Allow setting the utc argument via the mask
+		if ( mask.slice( 0, 4 ) == "UTC:" ) {
+			mask = mask.slice( 4 );
+			utc = true;
+		}
+
+		var _ = utc ? "getUTC" : "get",
+			d = date[_ + "Date"](),
+			D = date[_ + "Day"](),
+			m = date[_ + "Month"](),
+			y = date[_ + "FullYear"](),
+			H = date[_ + "Hours"](),
+			M = date[_ + "Minutes"](),
+			s = date[_ + "Seconds"](),
+			L = date[_ + "Milliseconds"](),
+			o = utc ? 0 : date.getTimezoneOffset(),
+			flags = {
+				d   : d,
+				dd  : pad( d ),
+				ddd : dF.i18n.dayNames[D],
+				dddd: dF.i18n.dayNames[D + 7],
+				m   : m + 1,
+				mm  : pad( m + 1 ),
+				mmm : dF.i18n.monthNames[m],
+				mmmm: dF.i18n.monthNames[m + 12],
+				yy  : String( y ).slice( 2 ),
+				yyyy: y,
+				h   : H % 12 || 12,
+				hh  : pad( H % 12 || 12 ),
+				H   : H,
+				HH  : pad( H ),
+				M   : M,
+				MM  : pad( M ),
+				s   : s,
+				ss  : pad( s ),
+				l   : pad( L, 3 ),
+				L   : pad( L > 99 ? Math.round( L / 10 ) : L ),
+				t   : H < 12 ? "a" : "p",
+				tt  : H < 12 ? "am" : "pm",
+				T   : H < 12 ? "A" : "P",
+				TT  : H < 12 ? "AM" : "PM",
+				Z   : utc ? "UTC" : (String( date ).match( timezone ) || [""]).pop().replace( timezoneClip, "" ),
+				o   : (o > 0 ? "-" : "+") + pad( Math.floor( Math.abs( o ) / 60 ) * 100 + Math.abs( o ) % 60, 4 ),
+				S   : ["th", "st", "nd", "rd"][d % 10 > 3 ? 0 : (d % 100 - d % 10 != 10) * d % 10]
+			};
+
+		return mask.replace( token, function( $0 ) {
+			return $0 in flags ? flags[$0] : $0.slice( 1, $0.length - 1 );
+		} );
+	};
+}();
+
+tribeDateFormat.masks = {
+	"default"        : "ddd mmm dd yyyy HH:MM:ss",
+	"tribeQuery"     : "yyyy-mm-dd",
+	"tribeMonthQuery": "yyyy-mm",
+	"0"              : 'yyyy-mm-dd',
+	"1"              : 'm/d/yyyy',
+	"2"              : 'mm/dd/yyyy',
+	"3"              : 'd/m/yyyy',
+	"4"              : 'dd/mm/yyyy',
+	"5"              : 'm-d-yyyy',
+	"6"              : 'mm-dd-yyyy',
+	"7"              : 'd-m-yyyy',
+	"8"              : 'dd-mm-yyyy',
+	"m0"             : 'yyyy-mm',
+	"m1"             : 'm/yyyy',
+	"m2"             : 'mm/yyyy',
+	"m3"             : 'm/yyyy',
+	"m4"             : 'mm/yyyy',
+	"m5"             : 'm-yyyy',
+	"m6"             : 'mm-yyyy',
+	"m7"             : 'm-yyyy',
+	"m8"             : 'mm-yyyy'
+
+};
+
+tribeDateFormat.i18n = {
+	dayNames  : [
+		"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat",
+		"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"
+	],
+	monthNames: [
+		"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec",
+		"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"
+	]
+};
+
+Date.prototype.format = function( mask, utc ) {
+	return tribeDateFormat( this, mask, utc );
+};
+
+/**
+ * @todo contains a number of recurrence-related functions which should be moved to PRO
+ */
 jQuery( document ).ready( function( $ ) {
 
-	var $view_select = $( '.tribe-field-dropdown_select2 select' ),
-		viewCalLinkHTML = $( '#view-calendar-link-div' ).html(),
-		$template_select = $( 'select[name="tribeEventsTemplate"]' ),
-		$event_pickers = $( '#tribe-event-datepickers' );
+	var $date_format      = $( '[data-datepicker_format]' ),
+		$view_select      = $( '.tribe-field-dropdown_select2 select' ),
+		viewCalLinkHTML   = $( '#view-calendar-link-div' ).html(),
+		$template_select  = $( 'select[name="tribeEventsTemplate"]' ),
+		$event_pickers    = $( '#tribe-event-datepickers' ),
+		is_community_edit   = $( 'body' ).is( '.tribe_community_edit' ),
+		datepicker_format = 0;
 
-	// initialize  chosen and select2
+	// Modified from tribe_ev.data to match jQuery UI formatting.
+	var datepicker_formats = {
+		'main' : ['yy-mm-dd', 'm/d/yy', 'mm/dd/yy', 'd/m/yy', 'dd/mm/yy', 'm-d-yy', 'mm-dd-yy', 'd-m-yy', 'dd-mm-yy'],
+		'month': ['yy-mm', 'm/yy', 'mm/yy', 'm/yy', 'mm/yy', 'm-yy', 'mm-yy', 'm-yy', 'mm-yy']
+	};
 
+	// Initialize Chosen and Select2.
 	$( '.chosen, .tribe-field-dropdown_chosen select' ).chosen();
 	$( '.select2' ).select2( {width: '250px'} );
 	$view_select.select2( {width: '250px'} );
@@ -27,6 +181,9 @@ jQuery( document ).ready( function( $ ) {
 	}
 
 	//not done by default on front end
+	function get_datepicker_num_months() {
+		return ( is_community_edit && $(window).width() < 768 ) ? 1 : 3;
+	}
 
 	$( '.hide-if-js' )
 		.hide();
@@ -34,6 +191,13 @@ jQuery( document ).ready( function( $ ) {
 	if ( typeof(TEC) !== 'undefined' ) {
 
 		var _MS_PER_DAY = 1000 * 60 * 60 * 24;
+		
+		var date_format = 'yy-mm-dd';
+
+		if ( $date_format.length && $date_format.attr( 'data-datepicker_format' ).length === 1 ) {
+			datepicker_format = $date_format.attr( 'data-datepicker_format' );
+			date_format = datepicker_formats.main[ datepicker_format ];
+		}
 
 		function date_diff_in_days( a, b ) {
 
@@ -53,14 +217,15 @@ jQuery( document ).ready( function( $ ) {
 			$end_date = $( '#EventEndDate' );
 
 		var datepickerOpts = {
-			dateFormat     : 'yy-mm-dd',
+			dateFormat     : date_format,
 			showAnim       : 'fadeIn',
 			changeMonth    : true,
 			changeYear     : true,
-			numberOfMonths : 3,
+			numberOfMonths : get_datepicker_num_months(),
 			firstDay       : startofweek,
 			showButtonPanel: true,
 			beforeShow     : function( element, object ) {
+				object.input.datepicker( 'option', 'numberOfMonths', get_datepicker_num_months() );
 				object.input.data( 'prevDate', object.input.datepicker( "getDate" ) );
 			},
 			onSelect       : function( selectedDate ) {
@@ -71,7 +236,7 @@ jQuery( document ).ready( function( $ ) {
 				if ( this.id === "EventStartDate" && $recurrence_type.val() !== 'None' ) {
 
 					var startDate = $( '#EventStartDate' ).data( 'prevDate' ),
-						dateDif = date_diff_in_days( startDate, $end_date.datepicker( 'getDate' ) ),
+						dateDif = null == startDate ? 0 : date_diff_in_days( startDate, $end_date.datepicker( 'getDate' ) ),
 						endDate = new Date( date.setDate( date.getDate() + dateDif ) );
 
 					$end_date
@@ -98,6 +263,18 @@ jQuery( document ).ready( function( $ ) {
 			$start_month = $( "select[name='EventStartMonth']" ),
 			$end_month = $( 'select[name="EventEndMonth"]' ),
 			selectObject;
+
+		if ( is_community_edit ) {
+			var $els = {
+				start : $event_pickers.find( '#EventStartDate' ),
+				end   : $event_pickers.next( 'tr' ).find( '#EventEndDate' ),
+			};
+
+			$.each( $els, function( i, el ) {
+				var $el = $(el);
+				( '' !== $el.val() ) && $el.val( tribeDateFormat( $el.val(), datepicker_format ) );
+			})
+		}
 
 		// toggle time input
 
@@ -181,16 +358,23 @@ jQuery( document ).ready( function( $ ) {
 		}
 
 		savedVenue.change( function() {
-			if ( $( this ).val() == '0' ) {
+			var selected_venue_id = $(this).val(),
+				current_edit_link = $('.edit-venue-link a').attr( 'data-admin-url' );
+
+			if ( selected_venue_id == '0' ) {
 				venueFields.fadeIn();
 				$( "#EventCountry" ).val( 0 ).trigger( "chosen:updated" );
 				$( "#StateProvinceSelect" ).val( 0 ).trigger( "chosen:updated" );
 				tribeShowHideCorrectStateProvinceInput( '' );
-				//.find("input, select").val('').removeAttr('checked');
+				$('.edit-venue-link').hide();
 			}
 			else {
 				venueFields.fadeOut();
+				$('.edit-venue-link').show();
 
+				// Change edit link
+				
+				$('.edit-venue-link a').attr( 'href', current_edit_link + selected_venue_id );
 			}
 		} );
 		// hide unnecessary fields
@@ -203,18 +387,26 @@ jQuery( document ).ready( function( $ ) {
 		}
 
 		savedorganizer.change( function() {
-			if ( $( this ).val() == '0' ) {
+			var selected_organizer_id = $(this).val(),
+				current_edit_link = $('.edit-organizer-link a').attr( 'data-admin-url' );
+
+			if ( selected_organizer_id == '0' ) {
 				organizerFields.fadeIn();
+				$('.edit-organizer-link').hide();
 			}
 			else {
 				organizerFields.fadeOut();
+				$('.edit-organizer-link').show();
+
+				// Change edit link
+				$('.edit-organizer-link a').attr( 'href', current_edit_link + selected_organizer_id );
 			}
 		} );
 	}
 
 	//show state/province input based on first option in countries list, or based on user input of country
 
-	var $state_prov_chzn = $( "#StateProvinceSelect_chzn" ),
+	var $state_prov_chzn = $( "#StateProvinceSelect_chosen" ),
 		$state_prov_text = $( "#StateProvinceText" );
 
 
@@ -291,6 +483,24 @@ jQuery( document ).ready( function( $ ) {
 		return $is_recurring.val() == "true";
 	}
 
+	// EventCoordinates
+	var overwriteCoordinates = {
+		$container: $( '#overwrite_coordinates' )
+	};
+
+	overwriteCoordinates.$lat = overwriteCoordinates.$container.find( '#VenueLatitude' );
+	overwriteCoordinates.$lng = overwriteCoordinates.$container.find( '#VenueLongitude' );
+
+	overwriteCoordinates.$fields = $('').add( overwriteCoordinates.$lat ).add( overwriteCoordinates.$lng );
+	overwriteCoordinates.$toggle = overwriteCoordinates.$container.find( '#VenueOverwriteCoords' ).on( 'change', function( event ){
+		if ( overwriteCoordinates.$toggle.is(':checked') ) {
+			overwriteCoordinates.$fields.prop( 'disabled', false ).removeClass( 'hidden' );
+		} else {
+			overwriteCoordinates.$fields.prop( 'disabled', true ).addClass( 'hidden' );
+		}
+	} );
+	overwriteCoordinates.$toggle.trigger( 'change' );
+
 	$( '#EventInfo input, #EventInfo select' ).change( function() {
 		$( '.rec-error' ).hide();
 	} );
@@ -351,7 +561,7 @@ jQuery( document ).ready( function( $ ) {
 
 	$( '[name="recurrence[type]"]' ).change( function() {
 		var option = $( this ).find( 'option:selected' ), numOccurrences = $( '#recurrence_end_count' ).val();
-		$( '#occurence-count-text' ).text( numOccurrences == 1 ? option.data( 'single' ) : option.data( 'plural' ) );
+		$( '#occurence-count-text' ).text( 1 == numOccurrences ? $( this ).data( 'single' ) : $( this ).data( 'plural' ) );
 		$( '[name="recurrence[occurrence-count-text]"]' ).val( $( '#occurence-count-text' ).text() );
 	} );
 
@@ -464,7 +674,25 @@ jQuery( document ).ready( function( $ ) {
 			} );
 	}
 
-} );
+	/**
+	 * Capture the community "Add" form on submit to ensure safe date format.
+	 */
+	$( '#tribe-community-events.form form' ).on( 'submit', function() {
+
+		var $els = {
+			start: $event_pickers.find( '#EventStartDate' ),
+			end  : $event_pickers.next( 'tr' ).find( '#EventEndDate' ),
+			recur: $event_pickers.parent().find( '#recurrence_end' )
+		};
+
+		$els.start.val( tribeDateFormat( $els.start.datepicker( 'getDate' ), 'tribeQuery' ) );
+		$els.end.val( tribeDateFormat( $els.end.datepicker( 'getDate' ), 'tribeQuery' ) );
+		
+		$els.recur.is( ':visible' ) && $els.recur.val( tribeDateFormat( $els.recur.datepicker( 'getDate' ), 'tribeQuery' ) );
+	} );
+
+});
+
 
 /**
  * Re-initialize chosen on widgets when moved

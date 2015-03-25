@@ -2,7 +2,7 @@
 
 /**
  *
- * Please see single-event.php in this directory for detailed instructions on how to use and modify these templates.
+ * Please see Single_Event.php in this directory for detailed instructions on how to use and modify these templates.
  *
  */
 
@@ -14,10 +14,7 @@
 
 		<div class="tribe-events-event-body">
 			<div class="duration">
-				<abbr class="tribe-events-abbr updated published dtstart">[[=startTime]] </abbr>
-				[[ if(endTime.length) { ]]
-				-<abbr class="tribe-events-abbr dtend"> [[=endTime]]</abbr>
-				[[ } ]]
+				<abbr class="tribe-events-abbr updated published dtstart">[[=dateDisplay]] </abbr>
 			</div>
 			[[ if(imageTooltipSrc.length) { ]]
 			<div class="tribe-events-event-thumb">

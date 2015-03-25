@@ -29,10 +29,10 @@ class Tribe__Events__Google_Data_Markup {
 		if ( has_post_thumbnail() ) {
 			$events_data[$id]->image = wp_get_attachment_url( get_post_thumbnail_id( $post->ID ) );
 		}
-		$events_data[$id]->url       = get_the_permalink( $post->ID );
-		$events_data[$id]->startDate = get_gmt_from_date( tribe_get_start_date( $post, true, TribeDateUtils::DBDATETIMEFORMAT ), 'c' );
-		$events_data[$id]->endDate   = get_gmt_from_date( tribe_get_end_date( $post, true, TribeDateUtils::DBDATETIMEFORMAT ), 'c' );
-		if ( tribe_has_venue( $post->ID ) ) {
+		$events_data[$id]->url       = get_permalink( $post->ID );
+		$events_data[$id]->startDate = get_gmt_from_date( tribe_get_start_date( $post, true, Tribe__Events__Date_Utils::DBDATETIMEFORMAT ), 'c' );
+		$events_data[$id]->endDate   = get_gmt_from_date( tribe_get_end_date( $post, true, Tribe__Events__Date_Utils::DBDATETIMEFORMAT ), 'c' );
+		if ( tribe_has_venue( $id ) ) {
 			$events_data[$id]->location          = new stdClass();
 			$events_data[$id]->location->{'@type'} = 'Place';
 			$events_data[$id]->location->name    = tribe_get_venue( $post->ID );
@@ -60,7 +60,7 @@ class Tribe__Events__Google_Data_Markup {
 		$html        = '';
 		if ( ! empty( $events_data ) ) {
 			$html .= '<script type="application/ld+json">';
-			$html .= stripslashes( json_encode( $events_data ) );
+			$html .= str_replace( '\/', '/', json_encode( $events_data ) );
 			$html .= '</script>';
 		}
 

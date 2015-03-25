@@ -3,7 +3,7 @@
 /**
  * Meta Factory Classes
  *
- * @uses  Tribe_Meta_Factory
+ * @uses  Tribe__Events__Meta_Factory
  */
 
 // Don't load directly
@@ -11,12 +11,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
-if ( class_exists( 'TribeEvents' ) ) {
+if ( class_exists( 'Tribe__Events__Events' ) ) {
 
 	/**
 	 * register a meta group
 	 *
-	 * @uses Tribe_Meta_Factory::register()
+	 * @uses Tribe__Events__Meta_Factory::register()
 	 *
 	 * @param string $meta_group_id
 	 * @param array  $args
@@ -28,13 +28,13 @@ if ( class_exists( 'TribeEvents' ) ) {
 		$defaults = array( 'register_type' => 'meta_group', 'register_overwrite' => true );
 
 		// parse the $default and $args into the second param for registering a meta item
-		return Tribe_Meta_Factory::register( $meta_group_id, wp_parse_args( $args, $defaults ) );
+		return Tribe__Events__Meta_Factory::register( $meta_group_id, wp_parse_args( $args, $defaults ) );
 	}
 
 	/**
 	 * register a meta item
 	 *
-	 * @uses Tribe_Meta_Factory::register()
+	 * @uses Tribe__Events__Meta_Factory::register()
 	 *
 	 * @param int   $meta_id
 	 * @param array $args
@@ -42,7 +42,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 * @return bool $success
 	 */
 	function tribe_register_meta( $meta_id, $args = array() ) {
-		return Tribe_Meta_Factory::register( $meta_id, $args );
+		return Tribe__Events__Meta_Factory::register( $meta_id, $args );
 	}
 
 	/**
@@ -60,12 +60,12 @@ if ( class_exists( 'TribeEvents' ) ) {
 		$type = 'meta_group';
 
 		// die silently if the requested meta group is not registered
-		if ( ! Tribe_Meta_Factory::check_exists( $meta_group_id, $type ) ) {
+		if ( ! Tribe__Events__Meta_Factory::check_exists( $meta_group_id, $type ) ) {
 			return false;
 		}
 
-		$meta_group = Tribe_Meta_Factory::get_args( $meta_group_id, $type );
-		$meta_ids   = Tribe_Meta_Factory::get_order( $meta_group_id );
+		$meta_group = Tribe__Events__Meta_Factory::get_args( $meta_group_id, $type );
+		$meta_ids   = Tribe__Events__Meta_Factory::get_order( $meta_group_id );
 		$group_html = '';
 
 		// internal check for hiding items in the meta
@@ -100,7 +100,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 
 		$value = empty( $value ) ? $group_html : $value;
 
-		$html = ! empty( $group_html ) ? Tribe_Meta_Factory::template( $meta_group['label'], $value, $meta_group_id, 'meta_group' ) : '';
+		$html = ! empty( $group_html ) ? Tribe__Events__Meta_Factory::template( $meta_group['label'], $value, $meta_group_id, 'meta_group' ) : '';
 
 		return apply_filters( 'tribe_get_meta_group', $html, $meta_group_id );
 	}
@@ -118,11 +118,11 @@ if ( class_exists( 'TribeEvents' ) ) {
 		do_action( 'tribe_get_meta', $meta_id, $is_the_meta );
 
 		// die silently if the requested meta item is not registered
-		if ( ! Tribe_Meta_Factory::check_exists( $meta_id ) ) {
+		if ( ! Tribe__Events__Meta_Factory::check_exists( $meta_id ) ) {
 			return false;
 		}
 
-		$meta = Tribe_Meta_Factory::get_args( $meta_id );
+		$meta = Tribe__Events__Meta_Factory::get_args( $meta_id );
 
 		// internal check for hiding items in the meta
 		if ( ! $meta['show_on_meta'] ) {
@@ -142,7 +142,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 		$value = empty( $value ) ? $meta['meta_value'] : $value;
 
 		// if we have a value let's build the html template
-		$html = ! empty( $value ) ? Tribe_Meta_Factory::template( $meta['label'], $value, $meta_id ) : '';
+		$html = ! empty( $value ) ? Tribe__Events__Meta_Factory::template( $meta['label'], $value, $meta_id ) : '';
 
 		return apply_filters( 'tribe_get_meta', $html, $meta_id );
 	}
@@ -159,11 +159,11 @@ if ( class_exists( 'TribeEvents' ) ) {
 	function tribe_get_meta_arg( $meta_id, $arg_key, $type = 'meta' ) {
 
 		// die silently if the requested meta group is not registered
-		if ( ! Tribe_Meta_Factory::check_exists( $meta_id, $type ) ) {
+		if ( ! Tribe__Events__Meta_Factory::check_exists( $meta_id, $type ) ) {
 			return false;
 		}
 
-		$args = Tribe_Meta_Factory::get_args( $meta_id, $type );
+		$args = Tribe__Events__Meta_Factory::get_args( $meta_id, $type );
 
 		// check if the arg exists
 		if ( isset( $args[$arg_key] ) ) {
@@ -185,7 +185,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 	function tribe_get_meta_template_part( $meta_id, $template_key, $type = 'meta' ) {
 
 		// die silently if the requested meta group is not registered
-		if ( ! Tribe_Meta_Factory::check_exists( $meta_id, $type ) ) {
+		if ( ! Tribe__Events__Meta_Factory::check_exists( $meta_id, $type ) ) {
 			return false;
 		}
 
@@ -206,7 +206,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 * @param string $type
 	 */
 	function tribe_set_the_meta_visibility( $meta_id, $status = true, $type = 'meta' ) {
-		Tribe_Meta_Factory::set_visibility( $meta_id, $type, $status );
+		Tribe__Events__Meta_Factory::set_visibility( $meta_id, $type, $status );
 	}
 
 	/**
@@ -227,7 +227,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 			global $_tribe_meta_factory;
 
 			// die silently if the requested meta group is not registered
-			if ( ! Tribe_Meta_Factory::check_exists( $meta_id, $type ) ) {
+			if ( ! Tribe__Events__Meta_Factory::check_exists( $meta_id, $type ) ) {
 				return false;
 			}
 
@@ -256,7 +256,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 			global $_tribe_meta_factory;
 
 			// die silently if the requested meta group is not registered
-			if ( ! Tribe_Meta_Factory::check_exists( $meta_id, $type ) ) {
+			if ( ! Tribe__Events__Meta_Factory::check_exists( $meta_id, $type ) ) {
 				return false;
 			}
 
@@ -285,7 +285,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 			global $_tribe_meta_factory;
 
 			// die silently if the requested meta group is not registered
-			if ( ! Tribe_Meta_Factory::check_exists( $meta_id, $type ) ) {
+			if ( ! Tribe__Events__Meta_Factory::check_exists( $meta_id, $type ) ) {
 				return false;
 			}
 
@@ -311,7 +311,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 			global $_tribe_meta_factory;
 
 			// die silently if the requested meta group is not registered
-			if ( ! Tribe_Meta_Factory::check_exists( $meta_id, $type ) ) {
+			if ( ! Tribe__Events__Meta_Factory::check_exists( $meta_id, $type ) ) {
 				return false;
 			}
 
@@ -326,7 +326,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 */
 	function tribe_get_the_event_meta() {
 		$html = '';
-		foreach ( Tribe_Meta_Factory::get_order() as $meta_groups ) {
+		foreach ( Tribe__Events__Meta_Factory::get_order() as $meta_groups ) {
 			foreach ( $meta_groups as $meta_group_id ) {
 				$html .= tribe_get_meta_group( $meta_group_id, true );
 			}

@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
-if ( class_exists( 'TribeEvents' ) ) {
+if ( class_exists( 'Tribe__Events__Events' ) ) {
 
 	/**
 	 * Create an Organizer
@@ -29,10 +29,10 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 * @return int ID of the Organizer that was created. False if insert failed.
 	 * @link     http://codex.wordpress.org/Function_Reference/wp_insert_post
 	 * @see      wp_insert_post()
-	 * @category Organizer Functions
+	 * @category Organizers
 	 */
 	function tribe_create_organizer( $args ) {
-		$postId = TribeEventsAPI::createOrganizer( $args );
+		$postId = Tribe__Events__API::createOrganizer( $args );
 
 		return $postId;
 	}
@@ -47,10 +47,10 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 * @link     http://codex.wordpress.org/Function_Reference/wp_update_post
 	 * @see      wp_update_post()
 	 * @see      tribe_create_organizer()
-	 * @category Organizer Functions
+	 * @category Organizers
 	 */
 	function tribe_update_organizer( $postId, $args ) {
-		$postId = TribeEventsAPI::updateOrganizer( $postId, $args );
+		$postId = Tribe__Events__API::updateOrganizer( $postId, $args );
 
 		return $postId;
 	}
@@ -64,10 +64,10 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 * @return bool false if delete failed.
 	 * @link     http://codex.wordpress.org/Function_Reference/wp_delete_post
 	 * @see      wp_delete_post()
-	 * @category Organizer Functions
+	 * @category Organizers
 	 */
 	function tribe_delete_organizer( $postId, $force_delete = false ) {
-		$success = TribeEventsAPI::deleteOrganizer( $postId, $args );
+		$success = Tribe__Events__API::deleteOrganizer( $postId, $args );
 
 		return $success;
 	}

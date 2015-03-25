@@ -3,9 +3,9 @@
 Contributors:  ModernTribe, roblagatta, faction23, jazbek, jbrinley, leahkoerper, brook-tribe, ckpicker, barry.hughes, joshlimecuda, geoffgraham, brianjessee, mdbitz, neillmcshea, peterchester, ryancurban, reid.peifer, shane.pearlman
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
 Donate link: http://m.tri.be/29
-Requires at least: 3.8
-Tested up to: 4.0
-Stable tag: 3.8.1
+Requires at least: 3.9
+Tested up to: 4.0.1
+Stable tag: 3.9.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -136,9 +136,9 @@ No, this plugin does not use a shortcode nor is one available at the time being.
 
 = Are there any troubleshooting steps you'd suggest I try that might resolve my issue before I post a new thread? =
 
-First, make sure that you're running the latest version of The Events Calendar (3.8 as of this release). If you're running Events Calendar PRO it needs to match the version number of The Events Calendar. And if you've got any other add-ons, make sure those are current / running the latest code as well.
+First, make sure that you're running the latest version of The Events Calendar (3.9 as of this release). If you're running Events Calendar PRO it needs to match the version number of The Events Calendar. And if you've got any other add-ons, make sure those are current / running the latest code as well.
 
-The most common issues we see are either plugin or theme conflicts. You can test if a plugin or theme is conflicting by manually deactivating other plugins until just The Events Calendar 3.8 is running on your site. If the issue persists from there, revert to the default Twenty Fourteen theme. If the issue is resolved after deactivating a specific plugin or your theme, you'll know that is the source of the conflict.
+The most common issues we see are either plugin or theme conflicts. You can test if a plugin or theme is conflicting by manually deactivating other plugins until just The Events Calendar 3.9 is running on your site. If the issue persists from there, revert to the default Twenty Fourteen theme. If the issue is resolved after deactivating a specific plugin or your theme, you'll know that is the source of the conflict.
 
 Note that we aren't going to say "tough luck" if you identify a plugin/theme conflict. While we can't guarantee 100% integration with any plugin or theme out there, we will do our best (and reach out the plugin/theme author as needed) to figure out a solution that benefits everyone.
 
@@ -243,6 +243,7 @@ The plugin is produced by <a href="http://m.tri.be/2s">Modern Tribe Inc</a>.
 * Arabic from Mamdouh Samy
 * Bosnian from Marko Manojlovic
 * Brazilian Portuguese by Emerson Marques
+* British English from John Browning
 * Bulgarian from Nedko Ivanov
 * Catalan from Barbara Partegos Rof
 * Chinese from Massound Huang
@@ -252,9 +253,10 @@ The plugin is produced by <a href="http://m.tri.be/2s">Modern Tribe Inc</a>.
 * Dutch from Dirk Westenberg
 * Estonian from Andra Saimre
 * Finnish by Elias Okkonen
-* French from Laurent Proulx
-* German from Stefan Dorscht and Oliver Heinrich
+* French from Sylvain Delisle
+* German from Oliver Heinrich
 * Greek from Yannis Troullinos
+* Hungarian from Balazs Dobos
 * Icelandic by Baldvin Örn Berndsen
 * Indonesian from Didik Priyanto
 * Italian from Gabriele Taffi
@@ -268,13 +270,14 @@ The plugin is produced by <a href="http://m.tri.be/2s">Modern Tribe Inc</a>.
 * Romanian from Cosmin Vaman
 * Russian from Alexander Tinyaev
 * Serbian from Marko Manojlovic
+* Slovak from Emilia Valova
 * Slovenian from Žiga Vajdic
 * Spanish from Juanjo Navarro
 * Swedish from Jonas Reinicke
 * Turkish by Derin Korman
 * Ukranian by Vasily Vishnyakov
 
-* Previous translators include Ari-Pekka Koponen, Antonio Pratas, Dennis Gruebner , J.F.M. Cornelissen, Frans Pronk, Hector Gil Rizo, Roberto Scano, Maria Tsilimidou, Martin Kristan, Oliver Heinrich, Ben Andersen, Mikhail Michouris, Bastien BC, Dionizio Bonfim Bach, Mihai Burcea, Ed Boon, Rick van Dalen, Jacob Roel Meijering, hristian Andersen, Michael Sebel, Filippo Montanari, David Decker, Kamil Szymanski, Erik Massop, “Terje With Lunndal", Andreas Lorentsen, Sagi Shrieber, Matthew Meyer, Arno Faure, Fanny Heraud, Vincent G from Host1Free, , Petri Kajander, Fran Rosa, Nico (wsMaurik), Panos Efstratiou, Dominique Monhardt, Thomas Butzek, Kjell Vestnes, Luiza Libardi, Diego Meneghetti, Beno Burgener, Burak Pehlevan, and Alexey Fedorov
+* Previous translators include Ari-Pekka Koponen, Laurent Proulx, Stefan Dorscht, Antonio Pratas, Dennis Gruebner , J.F.M. Cornelissen, Frans Pronk, Hector Gil Rizo, Roberto Scano, Maria Tsilimidou, Martin Kristan, Oliver Heinrich, Ben Andersen, Mikhail Michouris, Bastien BC, Dionizio Bonfim Bach, Mihai Burcea, Ed Boon, Rick van Dalen, Jacob Roel Meijering, hristian Andersen, Michael Sebel, Filippo Montanari, David Decker, Kamil Szymanski, Erik Massop, “Terje With Lunndal", Andreas Lorentsen, Sagi Shrieber, Matthew Meyer, Arno Faure, Fanny Heraud, Vincent G from Host1Free, , Petri Kajander, Fran Rosa, Nico (wsMaurik), Panos Efstratiou, Dominique Monhardt, Thomas Butzek, Kjell Vestnes, Luiza Libardi, Diego Meneghetti, Beno Burgener, Burak Pehlevan, and Alexey Fedorov
 
 == Add-Ons ==
 
@@ -325,8 +328,62 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 
 3.x is a complete overhaul of the plugin, and as a result we're starting the changelog fresh. For release notes from the 2.x lifecycle, see <a href="http://m.tri.be/k">our 2.x release notes.</a>
 
+= [Unreleased] unreleased =
+
+= [3.10] 2015-04-30 =
+
+* Added some changelog formatting enhancements after seeing keepachangelog.com :)
+* Updated the Organizer/Venue metabox UI to be more helpful when adding/editing events
+* Added calendar icon to the Admin Bar (Fancy!)
+* Implemented performance enhancements in relation to list view pagination
+* Resolved a compatibility issue where WooCommerce shortcodes could trigger unusual side effects in month view
+* Fixed an issue where malformed URLs could trigger fatal exceptions
+* Fixed an issue where the Venue state field was displaying for countries other than US
+* Fixed an issue where tooltips were not respecting the Time Range Separator
+* Fixed an issue preventing list view from being accessed when default permalinks are in use
+* Fixed an issue causing unnecessary post meta data to be generated for new venues
+* Fixed a bug where ticket emails did not include the expected venue links
+* Added new shortcodes letting the featured venue, advanced list and event countdown widgets be embedded easily in posts and pages
+* Added the ability to customize the 'Event' label using the new 'tribe_event_label_singular' and 'tribe_event_label_plural' filters (Usage example: http://m.tri.be/tj)
+* Removed all WooTickets CSS from Core
+* Implemented under-the-hood enhancements to the main event editor meta box
+* Incorporated updated Bulgarian translation files, courtesy of Nedko Ivanov
+* Incorporated new Hungarian translation files, courtesy of Balazs Dobos
+* Incorporated new British English translation files, courtesy of John Browning
+* Incorporated new Slovak translation files, courtesy of Emilia Valova
+
+= 3.9.1 =
+
+* Implemented some styling to ensure compatibility and cohesive design with the new Twenty Fifteen theme (more to come in 3.10)
+* Fixed a bug where occasionally it wasn't possible to page through to an event that had been recently edited (thanks to kevinbergin on the forums for the report!)
+* Clarified the wording of a warning that shows when an add-on should be updated
+* Incorporated updated German translation files, courtesy of Oliver Heinrich
+* Incorporated updated French translation files, courtesy of Sylvain Delisle
+
 = 3.9 =
 
+* Implemented default permalink support for add-ons that weren’t in compliance, specifically Filter Bar
+* Fixed a bug where events in child categories would not display when viewing the parent category on month view (thanks to Bryce on the forums for the original report!)
+* Fixed bug where the tribe_is_category() function was returning the wrong value
+* Added support for Google's JSON-LD event markup format (thanks to Thomas on the forums for the first request!)
+* Lowered the aggressiveness of the activation/upgrade page to improve compatibility with other plugins
+* Removed the old activation message, now that we have the new activation screen
+* Fixed an issue where the list view date picker did not reflect the 'Week starts on' WordPress setting
+* Updated CSS selectors to no longer be reliant on microformat classes
+* Fixed a couple of layout issues with TwentyFourteen child themes
+* Added a Modern Tribe credit in the HTML page source in the footer - this can be removed with the following snippet: http://m.tri.be/p6
+* Added links on the settings page to view Welcome/Updated pages
+* Fixed an issue where the incorrect icon was displaying for the 'List' option in the view switcher
+* Fixed a translation issue with the Organizer & Venue field labels on the Add/Edit Event screen (thanks to Oliver for reporting this on the forums!)
+* Enhanced structured data support in relation to the ticketing framework
+* Removed jquery 1.7 specific fallback javascript bloat, now support >= 1.8 
+* Revised CSS to help avoid theme compatibility issues causing event dates/times to be hidden (thanks to thepresenters on the forum for the first report!)
+* Improved integration between the ticketing framework and the Filter Bar plugin (thanks to brandonpence on the forums for the heads up here!)
+* Added useful system information to the help screen to assist in support and troubleshooting for the core plugin
+* Enhanced month view to populate the leading/trailing days of adjacent months included in the current view
+* Fixed a bug in the ticketing framework causing ticket start sale dates to reset to 1st January 1970 (thanks to loveyourlocalgroup on the forums for the first report!)
+* Extended the attendee list's filtering capabilities to cover purchaser names (big thanks to Adam on the forums for the first report of this!)
+* Added support for WP-eCommerce, Easy Digital Downloads and Shopp plugins to show sold and pending tickets count in the attendee list.
 * Incorporated updated Icelandic translation files, courtesy of Baldvin Örn Berndsen
 * Incorporated updated German translation files, courtesy of Oliver Heinrich
 * Incorporated updated Greek translation files, courtesy of Yannis Troullinos
