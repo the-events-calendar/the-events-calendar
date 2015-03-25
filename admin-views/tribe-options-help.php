@@ -218,11 +218,7 @@ $more_text = __( 'More...', 'tribe-events-calendar' );
 		foreach ( $news_feed as $item ) {
 			echo( '<li><a href="' . $item['link'] . $ga_query_string . '">' . $item['title'] . '</a></li>' );
 		}
-<<<<<<< HEAD
-		echo '<li><a href="' . TribeEvents::$tecUrl . 'category/products/' . $ga_query_string . '">' . $more_text . '</a></li>';
-=======
-		echo '<li><a href="' . Tribe__Events__Events::$tribeUrl . 'category/products/' . $ga_query_string . '">' . $more_text . '</a></li>';
->>>>>>> develop
+		echo '<li><a href="' . Tribe__Events__Events::$tecUrl . 'category/products/' . $ga_query_string . '">' . $more_text . '</a></li>';
 		?>
 	</ul>
 
