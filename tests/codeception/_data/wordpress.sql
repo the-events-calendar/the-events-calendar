@@ -5,9 +5,9 @@
 # http://www.sequelpro.com/
 # http://code.google.com/p/sequel-pro/
 #
-# Host: 127.0.0.1 (MySQL 5.5.20)
+# Host: docker (MySQL 5.5.41)
 # Database: tribe_events_tests
-# Generation Time: 2014-09-30 16:16:13 +0000
+# Generation Time: 2015-02-03 15:23:55 +0000
 # ************************************************************
 
 
@@ -160,7 +160,7 @@ VALUES
 	(49,'html_type','text/html','yes'),
 	(50,'use_trackback','0','yes'),
 	(51,'default_role','subscriber','yes'),
-	(52,'db_version','29630','yes'),
+	(52,'db_version','30133','yes'),
 	(53,'uploads_use_yearmonth_folders','1','yes'),
 	(54,'upload_path','','yes'),
 	(55,'blog_public','1','yes'),
@@ -326,8 +326,8 @@ CREATE TABLE `wptests_terms` (
   `slug` varchar(200) NOT NULL DEFAULT '',
   `term_group` bigint(10) NOT NULL DEFAULT '0',
   PRIMARY KEY (`term_id`),
-  UNIQUE KEY `slug` (`slug`),
-  KEY `name` (`name`)
+  KEY `name` (`name`),
+  KEY `slug` (`slug`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 LOCK TABLES `wptests_terms` WRITE;

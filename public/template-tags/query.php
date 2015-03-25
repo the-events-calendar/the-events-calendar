@@ -5,7 +5,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
-if ( class_exists( 'TribeEvents' ) ) {
+if ( class_exists( 'Tribe__Events__Events' ) ) {
 
 	/**
 	 * Conditional tag to check if current page is an event category page

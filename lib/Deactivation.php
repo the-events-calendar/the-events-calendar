@@ -1,7 +1,5 @@
 <?php
 
-require_once( dirname( __FILE__ ) . '/Abstract_Deactivation.php' );
-
 class Tribe__Events__Deactivation extends Tribe__Events__Abstract_Deactivation {
 
 	/**
@@ -12,7 +10,7 @@ class Tribe__Events__Deactivation extends Tribe__Events__Abstract_Deactivation {
 	 */
 	private function set_flags() {
 		require_once( dirname( __FILE__ ) . '/Updater.php' );
-		$updater = new Tribe__Events__Updater( TribeEvents::VERSION );
+		$updater = new Tribe__Events__Updater( Tribe__Events__Events::VERSION );
 		$updater->reset();
 	}
 
@@ -22,7 +20,6 @@ class Tribe__Events__Deactivation extends Tribe__Events__Abstract_Deactivation {
 	 * @return void
 	 */
 	private function clear_capabilities() {
-		require_once( dirname( __FILE__ ) . '/Capabilities.php' );
 		$capabilities = new Tribe__Events__Capabilities();
 		$capabilities->remove_all_caps();
 	}

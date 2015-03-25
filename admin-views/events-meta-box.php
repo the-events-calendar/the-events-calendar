@@ -22,13 +22,13 @@ $events_label_plural = tribe_get_event_label_plural();
 </style>
 <div id="eventIntro">
 	<div id="tribe-events-post-error" class="tribe-events-error error"></div>
-	<?php $this->do_action( 'tribe_events_post_errors', $postId, true ) ?>
+	<?php do_action( 'tribe_events_post_errors', $event->ID, true ) ?>
 
 </div>
 <div id='eventDetails' class="inside eventForm">
-	<?php $this->do_action( 'tribe_events_detail_top', $postId, true ) ?>
-	<?php wp_nonce_field( TribeEvents::POSTTYPE, 'ecp_nonce' ); ?>
-	<?php do_action( 'tribe_events_eventform_top', $postId ); ?>
+	<?php do_action( 'tribe_events_detail_top', $event->ID, true ) ?>
+	<?php wp_nonce_field( Tribe__Events__Events::POSTTYPE, 'ecp_nonce' ); ?>
+	<?php do_action( 'tribe_events_eventform_top', $event->ID ); ?>
 	<table cellspacing="0" cellpadding="0" id="EventInfo">
 		<tr>
 			<td colspan="2" class="tribe_sectionheader">
@@ -61,7 +61,7 @@ $events_label_plural = tribe_get_event_label_plural();
 					<select tabindex="<?php tribe_events_tab_index(); ?>" name="EventStartMinute">
 						<?php echo $startMinuteOptions; ?>
 					</select>
-					<?php if ( ! TribeEventsViewHelpers::is_24hr_format() ) : ?>
+					<?php if ( ! Tribe__Events__View_Helpers::is_24hr_format() ) : ?>
 						<select tabindex="<?php tribe_events_tab_index(); ?>" name="EventStartMeridian">
 							<?php echo $startMeridianOptions; ?>
 						</select>
@@ -82,7 +82,7 @@ $events_label_plural = tribe_get_event_label_plural();
 					<select tabindex="<?php tribe_events_tab_index(); ?>" name="EventEndMinute">
 						<?php echo $endMinuteOptions; ?>
 					</select>
-					<?php if ( ! TribeEventsViewHelpers::is_24hr_format() ) : ?>
+					<?php if ( ! Tribe__Events__View_Helpers::is_24hr_format() ) : ?>
 						<select tabindex="<?php tribe_events_tab_index(); ?>" name="EventEndMeridian">
 							<?php echo $endMeridianOptions; ?>
 						</select>
@@ -90,7 +90,7 @@ $events_label_plural = tribe_get_event_label_plural();
 				</span>
 						</td>
 					</tr>
-					<?php $this->do_action( 'tribe_events_date_display', $postId, true ) ?>
+					<?php do_action( 'tribe_events_date_display', $event->ID, true ) ?>
 				</table>
 			</td>
 		</tr>
@@ -100,17 +100,17 @@ $events_label_plural = tribe_get_event_label_plural();
 			<td colspan="2" class="tribe_sectionheader">
 				<h4><?php _e( 'Location', 'tribe-events-calendar' ); ?></h4></td>
 		</tr>
-		<?php do_action( 'tribe_venue_table_top', $postId ) ?>
-		<?php include( $this->pluginPath . 'admin-views/venue-meta-box.php' ); ?>
+		<?php do_action( 'tribe_venue_table_top', $event->ID ) ?>
+		<?php include( $tribe->pluginPath . 'admin-views/venue-meta-box.php' ); ?>
 	</table>
-	<?php do_action( 'tribe_after_location_details', $postId ); ?>
+	<?php do_action( 'tribe_after_location_details', $event->ID ); ?>
 	<table id="event_organizer" class="eventtable">
 		<tr>
 			<td colspan="2" class="tribe_sectionheader">
 				<h4><?php echo tribe_get_organizer_label_singular(); ?></h4></td>
 		</tr>
-		<?php do_action( 'tribe_organizer_table_top', $postId ) ?>
-		<?php include( $this->pluginPath . 'admin-views/organizer-meta-box.php' ); ?>
+		<?php do_action( 'tribe_organizer_table_top', $event->ID ) ?>
+		<?php include( $tribe->pluginPath . 'admin-views/organizer-meta-box.php' ); ?>
 	</table>
 
 	<table id="event_url" class="eventtable">
@@ -124,10 +124,10 @@ $events_label_plural = tribe_get_event_label_plural();
 				<input tabindex="<?php tribe_events_tab_index(); ?>" type='text' id='EventURL' name='EventURL' size='25' value='<?php echo ( isset( $_EventURL ) ) ? esc_attr( $_EventURL ) : ''; ?>' placeholder='example.com' />
 			</td>
 		</tr>
-		<?php $this->do_action( 'tribe_events_url_table', $postId, true ) ?>
+		<?php do_action( 'tribe_events_url_table', $event->ID, true ) ?>
 	</table>
 
-	<?php $this->do_action( 'tribe_events_details_table_bottom', $postId, true ) ?>
+	<?php do_action( 'tribe_events_details_table_bottom', $event->ID, true ) ?>
 
 	<table id="event_cost" class="eventtable">
 		<?php if ( tribe_events_admin_show_cost_field() ) : ?>
@@ -171,9 +171,9 @@ $events_label_plural = tribe_get_event_label_plural();
 				</td>
 			</tr>
 		<?php endif; ?>
-		<?php $this->do_action( 'tribe_events_cost_table', $postId, true ) ?>
+		<?php do_action( 'tribe_events_cost_table', $event->ID, true ) ?>
 	</table>
 
 </div>
-<?php $this->do_action( 'tribe_events_above_donate', $postId, true ) ?>
-<?php $this->do_action( 'tribe_events_details_bottom', $postId, true ) ?>
+<?php do_action( 'tribe_events_above_donate', $event->ID, true ) ?>
+<?php do_action( 'tribe_events_details_bottom', $event->ID, true ) ?>
