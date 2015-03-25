@@ -20,7 +20,13 @@ class Tribe__Events__Activation_Page {
 		if ( !is_admin() || defined('DOING_AJAX') ) {
 			return;
 		}
+<<<<<<< HEAD
 
+=======
+		if ( defined('IFRAME_REQUEST') && IFRAME_REQUEST ) {
+			return; // probably the plugin update/install iframe
+		}
+>>>>>>> develop
 		if ( isset($_GET['tec-welcome-message']) || isset($_GET['tec-update-message']) ) {
 			return; // no infinite redirects
 		}
@@ -52,20 +58,20 @@ class Tribe__Events__Activation_Page {
 	 * @return bool
 	 */
 	protected function showed_update_message_for_current_version() {
-		$tec = TribeEvents::instance();
+		$tec = Tribe__Events__Events::instance();
 		$message_version_displayed = $tec->getOption('last-update-message');
 		if ( empty($message_version_displayed) ) {
 			return FALSE;
 		}
-		if ( version_compare( $message_version_displayed, TribeEvents::VERSION, '<' ) ) {
+		if ( version_compare( $message_version_displayed, Tribe__Events__Events::VERSION, '<' ) ) {
 			return FALSE;
 		}
 		return TRUE;
 	}
 
 	protected function log_display_of_message_page() {
-		$tec = TribeEvents::instance();
-		$tec->setOption('last-update-message', TribeEvents::VERSION);
+		$tec = Tribe__Events__Events::instance();
+		$tec->setOption('last-update-message', Tribe__Events__Events::VERSION);
 	}
 
 	/**
@@ -73,10 +79,10 @@ class Tribe__Events__Activation_Page {
 	 * if the current version is the first version to be installed.
 	 *
 	 * @return bool
-	 * @see TribeEvents::maybeSetTECVersion()
+	 * @see Tribe__Events__Events::maybeSetTECVersion()
 	 */
 	protected function is_new_install() {
-		$tec = TribeEvents::instance();
+		$tec = Tribe__Events__Events::instance();
 		$previous_versions = $tec->getOption('previous_ecp_versions');
 		return empty($previous_versions) || ( end($previous_versions) == '0' );
 	}
@@ -94,12 +100,12 @@ class Tribe__Events__Activation_Page {
 	}
 
 	protected function get_message_page_url( $slug ) {
-		$settings = TribeSettings::instance();
+		$settings = Tribe__Events__Settings::instance();
 		// get the base settings page url
 		$url  = apply_filters(
 			'tribe_settings_url', add_query_arg(
 				array(
-					'post_type' => TribeEvents::POSTTYPE,
+					'post_type' => Tribe__Events__Events::POSTTYPE,
 					'page'      => $settings->adminSlug
 				), admin_url( 'edit.php' )
 			)
@@ -120,7 +126,7 @@ class Tribe__Events__Activation_Page {
 	}
 
 	protected function disable_default_settings_page() {
-		remove_action( 'tribe_events_page_tribe-events-calendar', array( TribeSettings::instance(), 'generatePage' ) );
+		remove_action( 'tribe_events_page_tribe-events-calendar', array( Tribe__Events__Settings::instance(), 'generatePage' ) );
 	}
 
 	public function display_welcome_page() {
@@ -160,13 +166,12 @@ class Tribe__Events__Activation_Page {
 	}
 
 	protected function update_page_content() {
-		require_once("Changelog_Reader.php");
 		return $this->load_template('admin-update-message');
 	}
 
 	protected function load_template( $name ) {
 		ob_start();
-		include(trailingslashit(TribeEvents::instance()->pluginPath).'admin-views/'.$name.'.php');
+		include(trailingslashit(Tribe__Events__Events::instance()->pluginPath).'admin-views/'.$name.'.php');
 		return ob_get_clean();
 	}
 
