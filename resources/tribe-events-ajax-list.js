@@ -181,6 +181,11 @@
 					tribe_event_display: ts.view
 				};
 
+				if ( tribe_js_config.permalink_settings === '' ){
+					ts.url_params.eventDisplay = 'list';
+
+				}
+
 				if ( tribe_hash_string.length ) {
 					ts.params['hash'] = tribe_hash_string;
 				}

@@ -1,0 +1,4194 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Events Calendar\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-12-05 15:37-0800\n"
+"PO-Revision-Date: 2015-02-18 16:27-0800\n"
+"Last-Translator: zoldcivilhu\n"
+"Language-Team: ZöldCivil.hu\n"
+"Language: hu_HU\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Generator: Poedit 1.7.4\n"
+"X-Loco-Source-Locale: en_US\n"
+"X-Loco-Target-Locale: hu_HU\n"
+"X-Loco-Project-Id: 5247\n"
+"X-Loco-Api-Version: 1.0.8\n"
+
+#: ../admin-views/admin-update-message.php:9
+#: ../admin-views/admin-welcome-message.php:11
+#, php-format
+msgid "You are running Version %s and deserve a hug :-)"
+msgstr "Futtatott verzió száma %s, így tovább :)"
+
+#: ../admin-views/admin-update-message.php:32
+msgid "Keep the Core Plugin <strong>FREE</strong>!"
+msgstr "Legyen továbbra is <strong>INGYENES</strong>!"
+
+#: ../admin-views/admin-update-message.php:33
+msgid ""
+"Every time you rate <strong>5 stars</strong>, a fairy is born. Okay maybe "
+"not, but more happy users mean more contributions and help on the forums. "
+"The community NEEDS your voice."
+msgstr ""
+"Mindig, amikor <strong>5 csillagot</strong> adsz, egy tündérke születik. Oké "
+"talán nem, de több elégedett felhasználó több együttműködőt és segítséget "
+"jelent. A közösségnek szüksége van a TE hangodra is."
+
+#: ../admin-views/admin-update-message.php:34
+#: ../admin-views/admin-welcome-message.php:22
+msgid "Rate It"
+msgstr "Értékeld"
+
+#: ../admin-views/admin-update-message.php:37
+msgid "PSST... Want a Discount?"
+msgstr "PSSZT... Kezdezményt szeretnél?"
+
+#: ../admin-views/admin-update-message.php:38
+msgid "We send out discounts to our core users via our newsletter."
+msgstr "Hírlevelünk olvasói számára kedvezményre jogosító kuponokat küldünk."
+
+#: ../admin-views/admin-update-message.php:43
+#: ../admin-views/admin-welcome-message.php:31
+msgid "Sign Up"
+msgstr "Iratkozz fel"
+
+#: ../admin-views/admin-update-message.php:49
+msgid "Looking for Something Special?"
+msgstr "Valami különlegeset szeretnél?"
+
+#: ../admin-views/admin-update-message.php:51
+msgid "Pro"
+msgstr "Pro"
+
+#: ../admin-views/admin-update-message.php:52
+#: ../lib/tickets/tribe-tickets-metabox.php:26
+msgid "Tickets"
+msgstr "Jegyek"
+
+#: ../admin-views/admin-update-message.php:53
+msgid "Community Events"
+msgstr "Közösségi események"
+
+#: ../admin-views/admin-update-message.php:54
+msgid "Filters"
+msgstr "Szűrők"
+
+#: ../admin-views/admin-update-message.php:55
+msgid "Facebook"
+msgstr "Facebook"
+
+#: ../admin-views/admin-update-message.php:58
+#: ../admin-views/admin-welcome-message.php:53
+msgid "News For Events Users"
+msgstr "Hírek "
+
+#: ../admin-views/admin-welcome-message.php:19
+msgid "Keep The Events Calendar Core FREE"
+msgstr ""
+"Segít a The Event Calendar Core bővítményt továbbra is INGYENESen tartani"
+
+#: ../admin-views/admin-welcome-message.php:20
+msgid ""
+"5 star ratings help us bring TEC to more users. More happy users mean more "
+"support, more features, and more of everything you know and love about The "
+"Events Calendar. We couldn't do this without your support."
+msgstr ""
+"Az 5 csillagos értékelések segítenek eljuttatni a bővítményt még több "
+"felhasználóhoz. Több elégedett felhasználó több támogatást, több funkciót és "
+"alapvetően mindenből többet jelent, amit csak szeretsz az Events "
+"Calendarban. Nélküled nem sikerülne!"
+
+#: ../admin-views/admin-welcome-message.php:21
+msgid "Rate it five stars today!"
+msgstr "Adj öt csillagot ma!"
+
+#: ../admin-views/admin-welcome-message.php:25
+msgid "Newsletter Signup"
+msgstr "Feliratkozás a hírlevélre"
+
+#: ../admin-views/admin-welcome-message.php:26
+msgid ""
+"Stay in touch with The Events Calendar Pro. We send out periodic updates, "
+"key developer notices, and even the occasional discount."
+msgstr ""
+"Maradj kapcsolatban a fejlesztőkkel. Így értesülhetsz a rendszeres "
+"frissítésekről, fontos fejlesztői megjegyzésekről, valamint akár alkalmi "
+"kedvezményekről is."
+
+#: ../admin-views/admin-welcome-message.php:40
+#: ../admin-views/tribe-options-help.php:147
+msgid "Getting Started"
+msgstr "Kezdjünk bele"
+
+#: ../admin-views/admin-welcome-message.php:41
+msgid "Check out the New User Primer &amp; Tutorials"
+msgstr "Olvasd el az új felhasználóknak szóló &amp; segédleteket"
+
+#: ../admin-views/admin-welcome-message.php:43
+msgid "Looking for More Features?"
+msgstr "Több funkciót szeretnél?"
+
+#: ../admin-views/admin-welcome-message.php:44
+msgid "Addons for Community, Tickets, Filters, Facebook and more."
+msgstr "Bővítmények: Közösség, Jegyek, Szűrők, Facebook és több..."
+
+#: ../admin-views/admin-welcome-message.php:46
+msgid "Support Resources"
+msgstr "Segítségnyújtási felületek"
+
+#: ../admin-views/admin-welcome-message.php:47
+msgid "FAQs, Documentation, Tutorials and Forums"
+msgstr "GYIK, Dokumentáció, Segédletek és Fórum"
+
+#: ../admin-views/admin-welcome-message.php:50
+msgid "Release Notes"
+msgstr "Kiadási megjegyzések"
+
+#: ../admin-views/admin-welcome-message.php:51
+msgid "Get the Skinny on the Latest Updates"
+msgstr "Legfrissebb hírek/frissítések"
+
+#: ../admin-views/admin-welcome-message.php:54
+msgid "Product Releases, Tutorials and Community Activity"
+msgstr "Új kiadások, segédletek és közösségi aktivitás"
+
+#: ../admin-views/app-shop.php:4
+msgid "Tribe Event Add-Ons"
+msgstr "Tribe Event kiegészítők"
+
+#: ../admin-views/app-shop.php:54
+msgid "Version"
+msgstr "Verzió"
+
+#: ../admin-views/app-shop.php:57
+msgid "Last Update"
+msgstr "Utolsó frissítés"
+
+#: ../admin-views/event-sidebar-options.php:13
+msgid "Hide From Event Listings"
+msgstr "Elrejtés az eseménylistáról"
+
+#: ../admin-views/event-sidebar-options.php:15
+msgid "Sticky in Calendar View"
+msgstr "Rögzítés a naptár nézetben"
+
+#: ../admin-views/events-meta-box.php:33
+msgid "Event Time &amp; Date"
+msgstr "Esemény időpontja &amp; dátuma"
+
+#: ../admin-views/events-meta-box.php:40
+msgid ""
+"You have changed the recurrence rules of this event.  Saving the event will "
+"update all future events.  If you did not mean to change all events, then "
+"please refresh the page."
+msgstr ""
+"Megváltoztattad az esemény ismétlődési szabályait. A mentéssel frissíted az "
+"összes jövőbeli eseményt is. Ha nem akarod megváltoztatni az összes esemény, "
+"kérjük töltsd újra az oldalt."
+
+#: ../admin-views/events-meta-box.php:43
+msgid "All Day Event:"
+msgstr "Egész napos esemény:"
+
+#: ../admin-views/events-meta-box.php:49
+msgid "Start Date &amp; Time:"
+msgstr "Kézdési dátum &amp; időpont:"
+
+#: ../admin-views/events-meta-box.php:52 ../admin-views/events-meta-box.php:73
+msgid "YYYY-MM-DD"
+msgstr "ÉÉÉÉ-HH-NN"
+
+#: ../admin-views/events-meta-box.php:70
+msgid "End Date &amp; Time:"
+msgstr "Befejezés dátuma &amp; időpontja:"
+
+#: ../admin-views/events-meta-box.php:98
+msgid "Event Location Details"
+msgstr "Esemény helyszínének adatai"
+
+#: ../admin-views/events-meta-box.php:107
+msgid "Event Organizer Details"
+msgstr "Esemény szervezőjének adatai"
+
+#: ../admin-views/events-meta-box.php:116
+#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:66
+msgid "Event Website"
+msgstr "Esemény honlapja"
+
+#: ../admin-views/events-meta-box.php:119
+msgid "URL:"
+msgstr "URL:"
+
+#: ../admin-views/events-meta-box.php:133
+#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:63
+msgid "Event Cost"
+msgstr "Részvétel költségei"
+
+#: ../admin-views/events-meta-box.php:136
+msgid "Currency Symbol:"
+msgstr "Pénznem szimbóluma:"
+
+#: ../admin-views/events-meta-box.php:151
+msgctxt "Currency symbol position"
+msgid "Before cost"
+msgstr "Összeg előtt"
+
+#: ../admin-views/events-meta-box.php:154
+msgctxt "Currency symbol position"
+msgid "After cost"
+msgstr "Összeg mögött"
+
+#: ../admin-views/events-meta-box.php:159
+#: ../public/advanced-functions/meta.php:373
+#: ../views/modules/meta/details.php:96
+msgid "Cost:"
+msgstr "Összeg:"
+
+#: ../admin-views/events-meta-box.php:167
+msgid "Enter a 0 for events that are free or leave blank to hide the field."
+msgstr ""
+"Írj be nullát ha ingyenes, vagy hagyd üresen ha el szeretnéd rejteni a mezőt."
+
+#: ../admin-views/organizer-meta-box.php:14
+#: ../admin-views/venue-meta-box.php:22
+#, php-format
+msgid "%s Name:"
+msgstr "%s Név:"
+
+#: ../admin-views/organizer-meta-box.php:21
+#: ../admin-views/tickets/attendees.php:52
+#: ../admin-views/venue-meta-box.php:109
+#: ../public/advanced-functions/meta.php:476
+#: ../public/advanced-functions/meta.php:549
+#: ../views/modules/meta/organizer.php:24 ../views/modules/meta/venue.php:40
+msgid "Phone:"
+msgstr "Telefon:"
+
+#: ../admin-views/organizer-meta-box.php:27
+#: ../admin-views/tickets/attendees.php:61
+#: ../admin-views/venue-meta-box.php:116
+#: ../public/advanced-functions/meta.php:418
+#: ../public/advanced-functions/meta.php:506
+#: ../public/advanced-functions/meta.php:579
+#: ../views/modules/meta/details.php:121
+#: ../views/modules/meta/organizer.php:34 ../views/modules/meta/venue.php:45
+msgid "Website:"
+msgstr "Honlap:"
+
+#: ../admin-views/organizer-meta-box.php:33
+#: ../public/advanced-functions/meta.php:564
+#: ../views/modules/meta/organizer.php:29
+msgid "Email:"
+msgstr "E-mail:"
+
+#: ../admin-views/organizer-meta-box.php:34
+msgid ""
+"You may want to consider <a href=\"http://wordpress.org/plugins/tags/"
+"obfuscate\">obfuscating</a> any e-mail address published on your site to "
+"best avoid it getting harvested by spammers."
+msgstr ""
+"Érdemes lenne megfontolnod az oldalon közzétett e-mail címek <a href="
+"\"http://wordpress.org/plugins/tags/obfuscate\">elfedését</a>, hogy távol "
+"tartsd a spammereket."
+
+#: ../admin-views/tickets/attendees.php:11 ../admin-views/tickets/list.php:41
+#: ../lib/tickets/tribe-tickets-pro.php:77
+msgid "Attendees"
+msgstr "Résztvevők"
+
+#: ../admin-views/tickets/attendees.php:17
+msgid "Event Summary"
+msgstr "Esemény összefoglalója"
+
+#: ../admin-views/tickets/attendees.php:23
+msgid "Event Details"
+msgstr "Esemény adatai"
+
+#: ../admin-views/tickets/attendees.php:25
+msgid "Start Date / Time:"
+msgstr "Kezdés dátuma / ideje:"
+
+#: ../admin-views/tickets/attendees.php:29
+msgid "End Date / Time:"
+msgstr "Befejezés dátuma / ideje:"
+
+#: ../admin-views/tickets/attendees.php:69
+msgid "Ticket Sales"
+msgstr "Jegyeladás"
+
+#: ../admin-views/tickets/attendees.php:86
+#, php-format
+msgid "(%d awaiting review)"
+msgid_plural "(%d awaiting review)"
+msgstr[0] "(%d vár ellenőrzésre)"
+msgstr[1] "(%d vár ellenőrzésre)"
+
+#: ../admin-views/tickets/attendees.php:90
+#, php-format
+msgid "Sold %d %s"
+msgstr "Eladva %d %s"
+
+#: ../admin-views/tickets/attendees.php:93
+#, php-format
+msgid "Sold %d of %d %s"
+msgstr "Eladva %d / %d %s"
+
+#: ../admin-views/tickets/attendees.php:111
+msgid "Tickets sold:"
+msgstr "Eladott jegyek:"
+
+#: ../admin-views/tickets/attendees.php:118
+msgid "Finalized:"
+msgstr "Véglegesített:"
+
+#: ../admin-views/tickets/attendees.php:121
+msgid "Awaiting review:"
+msgstr "Ellenőrzésre vár:"
+
+#: ../admin-views/tickets/attendees.php:128
+msgid "Checked in:"
+msgstr "Bejelentkezve:"
+
+#: ../admin-views/tickets/attendees.php:146
+msgid "Send the attendee list by email"
+msgstr "Résztvevők listájának küldése e-mailben"
+
+#: ../admin-views/tickets/attendees.php:150
+msgid "Select a User:"
+msgstr "Válassz felhasználót:"
+
+#: ../admin-views/tickets/attendees.php:155
+msgid "Select..."
+msgstr "Válassz egyet..."
+
+#: ../admin-views/tickets/attendees.php:160
+msgid "or"
+msgstr "vagy"
+
+#: ../admin-views/tickets/attendees.php:162
+msgid "Email Address:"
+msgstr "E-mail cím:"
+
+#: ../admin-views/tickets/list.php:21
+msgid "Edit"
+msgstr "Szerkeszt"
+
+#: ../admin-views/tickets/list.php:22
+#: ../lib/tickets/tribe-tickets-attendees.php:228
+msgid "Delete"
+msgstr "Törlés"
+
+#: ../admin-views/tickets/list.php:24
+#, php-format
+msgid "Edit in %s"
+msgstr "Szerkesztés %s"
+
+#: ../admin-views/tickets/list.php:27
+msgid "View"
+msgstr "Megtekintés"
+
+#: ../admin-views/tickets/list.php:41 ../lib/tickets/tribe-tickets-pro.php:77
+msgid "See who purchased tickets to this event"
+msgstr "Nézd meg, hogy kik vásároltak már jegyet ehhez az eseményhez"
+
+#: ../admin-views/tickets/list.php:67
+#, php-format
+msgid "Sold %d"
+msgstr "Eladva %d"
+
+#: ../admin-views/tickets/list.php:69
+#, php-format
+msgid "Sold %d of %d"
+msgstr "Eladva %d / %d"
+
+#: ../admin-views/tickets/meta-box.php:23
+msgid ""
+"This event was created using Community Events. Are you sure you want to sell "
+"tickets for it?"
+msgstr ""
+"Az esemény a Community Events használatával készült. Biztos elkezded a "
+"jegyek árusítását az eseményre?"
+
+#: ../admin-views/tickets/meta-box.php:34
+msgid "Upload image for the ticket header"
+msgstr "Tölts fel képet a jegy fejlécéhez"
+
+#: ../admin-views/tickets/meta-box.php:35
+msgid ""
+"The maximum image size in the email will be 580px wide by any height, and "
+"then scaled for mobile. If you would like \"retina\" support use an image "
+"sized to 1160px wide."
+msgstr ""
+"Az e-mailben használható maximális képszélesség 580 pixel lesz bármely "
+"magasság mellett, majd át lesz méretezve mobiltelefon kijelzőkre. Ha \"retina"
+"\" támogatású megjelenést szeretnél használj 160 pixel széles képet."
+
+#: ../admin-views/tickets/meta-box.php:38
+msgid "Select an Image"
+msgstr "Válassz ki egy képet"
+
+#: ../admin-views/tickets/meta-box.php:46
+msgid "Remove"
+msgstr "Törlés"
+
+#: ../admin-views/tickets/meta-box.php:64
+#: ../admin-views/tickets/meta-box.php:74
+msgid "Add new ticket"
+msgstr "Új jegy hozzáadása"
+
+#: ../admin-views/tickets/meta-box.php:75
+msgid "Edit ticket"
+msgstr "Jegy szerkesztése"
+
+#: ../admin-views/tickets/meta-box.php:81
+msgid "Sell using:"
+msgstr "Eladás a következő használatával:"
+
+#: ../admin-views/tickets/meta-box.php:98
+msgid "Ticket Name:"
+msgstr "Jegy neve:"
+
+#: ../admin-views/tickets/meta-box.php:105
+msgid "Ticket Description:"
+msgstr "Jegy leírása:"
+
+#: ../admin-views/tickets/meta-box.php:114
+msgid "Price:"
+msgstr "Ár:"
+
+#: ../admin-views/tickets/meta-box.php:120
+msgid "(0 or empty for free tickets)"
+msgstr "(írj be 0-át vagy hagyd üresen ingyenes eseményekhez)"
+
+#: ../admin-views/tickets/meta-box.php:126
+msgid "Start sale:"
+msgstr "Eladás kezdete:"
+
+#: ../admin-views/tickets/meta-box.php:150
+msgid "End sale:"
+msgstr "Eladás vége:"
+
+#: ../admin-views/tickets/meta-box.php:172
+msgid ""
+"When will ticket sales occur? If you don't set a start/end date for sales, "
+"tickets will be available from now until the event ends."
+msgstr ""
+"Mikor lesz jegyértékesítés? Ha nem állítasz be kezdési és befejező időpontot "
+"az árusításhoz, a jegyek mostantól az esemény végéig lesznek elérhetők."
+
+#: ../admin-views/tickets/meta-box.php:184
+msgid "Save this ticket"
+msgstr "Jegy mentése"
+
+#: ../admin-views/tribe-options-display.php:4
+msgid "Default Events Template"
+msgstr "Alapértelmezett esemény sablon"
+
+#: ../admin-views/tribe-options-display.php:5
+msgid "Default Page Template"
+msgstr "Alapértelmezett oldal sablon"
+
+#: ../admin-views/tribe-options-display.php:32
+msgid "Display Settings"
+msgstr "Megjelenítési beállítások"
+
+#: ../admin-views/tribe-options-display.php:37
+#, php-format
+msgid ""
+"The settings below control the display of your calendar. If things don't "
+"look right, try switching between the three style sheet options or pick a "
+"page template from your theme.</p><p>There are going to be situations where "
+"no out-of-the-box template is 100&#37; perfect. Check out our <a href=\"%s"
+"\">our themer's guide</a> for instructions on custom modifications."
+msgstr ""
+"Az alábbi beállításokkal meghatározhatod a naptár megjelenését. Ha nem "
+"minden néz ki jól, próbálj váltogatni az alábbi három lehetőség között vagy "
+"válassz egy oldalstílust a sablonodból.</p><p>Lehetnek olyan helyzetek, "
+"amikor a rendelkezésre álló stílusok nem 100&#37;-osan tökéletesek. Nézd meg "
+"a <a href=\"%s\">megjelenési útmutatónkat</a> az egyéni módosításokhoz "
+"szükséges tudnivalókért."
+
+#: ../admin-views/tribe-options-display.php:51
+msgid "Basic Template Settings"
+msgstr "Általános sablonbeállítások"
+
+#: ../admin-views/tribe-options-display.php:55
+msgid "Default stylesheet used for events templates"
+msgstr "Esemény sabookhoz használt alapértelmezett stíluslap"
+
+#: ../admin-views/tribe-options-display.php:58
+msgid "Skeleton Styles"
+msgstr "Csontváz stílus"
+
+#: ../admin-views/tribe-options-display.php:60
+msgid ""
+"Only includes enough css to achieve complex layouts like calendar and week "
+"view."
+msgstr ""
+"Csak annyi CSS-t tartalmaz, ami szükséges a naptár és a heti nézet "
+"elrendezésének megjelenítéséhez."
+
+#: ../admin-views/tribe-options-display.php:62
+msgid "Full Styles"
+msgstr "Teljes stílusok"
+
+#: ../admin-views/tribe-options-display.php:64
+msgid "More detailed styling, tries to grab styles from your theme."
+msgstr "Részletesebb stílus, megpróbálja a téma stílusait is használni."
+
+#: ../admin-views/tribe-options-display.php:66
+msgid "Tribe Events Styles"
+msgstr "Tribe Event stílusok"
+
+#: ../admin-views/tribe-options-display.php:68
+msgid "A fully designed and styled theme for your events pages."
+msgstr ""
+"Minden szükséges dizájnelemet és stílust tartalamzó sablon az eseményeidnek."
+
+#: ../admin-views/tribe-options-display.php:75
+msgid "Events template"
+msgstr "Események sablonja"
+
+#: ../admin-views/tribe-options-display.php:76
+msgid ""
+"Choose a page template to control the appearance of your calendar and event "
+"content."
+msgstr ""
+"Válaszd ki az oldal-sablont, hogy meghatározd a naptár és az esemény "
+"tartalmának megjelenését."
+
+#: ../admin-views/tribe-options-display.php:84
+msgid "Enable event views"
+msgstr "Esemény nézetek engedélyezése"
+
+#: ../admin-views/tribe-options-display.php:85
+msgid "You must select at least one view."
+msgstr "Legalább egy nézetet ki kell választani."
+
+#: ../admin-views/tribe-options-display.php:92
+msgid "Default view"
+msgstr "Alapértelmezett nézet"
+
+#: ../admin-views/tribe-options-display.php:100
+msgid "Disable the Event Search Bar"
+msgstr "Eseménykeresési sáv kikapcsolása"
+
+#: ../admin-views/tribe-options-display.php:101
+msgid "Check this to use the classic header."
+msgstr "Jelöld be ezt, a klasszikus fejléc használatához."
+
+#: ../admin-views/tribe-options-display.php:107
+msgid "Month view events per day"
+msgstr "Események száma naponta havi nézetben"
+
+#: ../admin-views/tribe-options-display.php:108
+msgid "Allow more than the default 3 events per day in month view."
+msgstr "Több mint 3 esemény megjelenítésének engedélyezése havi nézetben."
+
+#: ../admin-views/tribe-options-display.php:115
+msgid "Date Format Settings"
+msgstr "Dátum formátum beállítások"
+
+#: ../admin-views/tribe-options-display.php:119
+msgid ""
+"<p>The following three fields accept the date format options available to "
+"the php date() function. <a href=\"http://codex.wordpress.org/"
+"Formatting_Date_and_Time\" target=\"_blank\">Learn how to make your own date "
+"format here</a>.</p>"
+msgstr ""
+"<p>A következő három mezőben a php date()funkcióval elérhető dátum "
+"formátumokat adhatsz meg. <a href=\"http://codex.wordpress.org/"
+"Formatting_Date_and_Time\" target=\"_blank\">Nézd meg, hogyan hozhatsz létre "
+"egyéni dátum formátumot</a>.</p>"
+
+#: ../admin-views/tribe-options-display.php:123
+msgid "Date with year"
+msgstr "Dátum évvel"
+
+#: ../admin-views/tribe-options-display.php:124
+msgid ""
+"Enter the format to use for displaying dates with the year. Used when "
+"showing an event from a past or future year, also used for dates in view "
+"headers."
+msgstr ""
+"Add meg a használni kívánt dátumformátumot, amikor látszanak az évek. Múlt "
+"vagy következő évi eseményeknél, valamint a nézetek fejléceiben jelenik meg."
+
+#: ../admin-views/tribe-options-display.php:131
+msgid "Date without year"
+msgstr "Dátum év nélkül"
+
+#: ../admin-views/tribe-options-display.php:132
+msgid ""
+"Enter the format to use for displaying dates without a year. Used when "
+"showing an event from the current year."
+msgstr ""
+"Add meg a használni kívánt dátumformátumot, amikor nem látszanak az évek. Az "
+"aktuális évi eseményeknél jelenik meg."
+
+#: ../admin-views/tribe-options-display.php:139
+msgid "Month and year format"
+msgstr "Hónap és év formátum"
+
+#: ../admin-views/tribe-options-display.php:140
+msgid ""
+"Enter the format to use for dates that show a month and year only. Used on "
+"month view."
+msgstr ""
+"Add meg a használni kívánt dátumformátumot, amikor csak a hónapok és az évek "
+"látszanak. A havi nézet használatakor jelenik meg."
+
+#: ../admin-views/tribe-options-display.php:147
+msgid "Date time separator"
+msgstr "Dátum idő elválasztó"
+
+#: ../admin-views/tribe-options-display.php:148
+msgid ""
+"Enter the separator that will be placed between the date and time, when both "
+"are shown."
+msgstr ""
+"Add meg az elválasztót, amely a dátum és az időpont között kerül "
+"elhelyezésre."
+
+#: ../admin-views/tribe-options-display.php:155
+msgid "Time range separator"
+msgstr "Időintervallum elválasztó"
+
+#: ../admin-views/tribe-options-display.php:156
+msgid ""
+"Enter the separator that will be used between the start and end time of an "
+"event."
+msgstr ""
+"Add meg az elválasztót, amely az esemény kezdetének és végének időpontja "
+"között jelenik meg."
+
+#: ../admin-views/tribe-options-display.php:163
+msgid "Datepicker Date Format"
+msgstr "Dátumválasztó formátuma"
+
+#: ../admin-views/tribe-options-display.php:164
+msgid "Select the date format to use in datepickers"
+msgstr "A dátumválasztóknál használt dátum formátum kiválasztása."
+
+#: ../admin-views/tribe-options-display.php:181
+msgid "Advanced Template Settings"
+msgstr "Összetett sablonbeállítások"
+
+#: ../admin-views/tribe-options-display.php:185
+msgid "Add HTML before event content"
+msgstr "HTML hozzáadása az esemény tartalma előtt"
+
+#: ../admin-views/tribe-options-display.php:186
+msgid ""
+"If you are familiar with HTML, you can add additional code before the event "
+"template. Some themes may require this to help with styling or layout."
+msgstr ""
+"Ha ismered a HTML-t, további kódot adhatsz hozzá az esemény sablonja előtt. "
+"Néhány stílushoz ez szükséges lehet a megfelelő formázás és elrendezés "
+"érdekében."
+
+#: ../admin-views/tribe-options-display.php:191
+msgid "Add HTML after event content"
+msgstr "HTML hozzáadása az esemény tartalma után"
+
+#: ../admin-views/tribe-options-display.php:192
+msgid ""
+"If you are familiar with HTML, you can add additional code after the event "
+"template. Some themes may require this to help with styling or layout."
+msgstr ""
+"Ha ismered a HTML-t, további kódot adhatsz hozzá az esemény sablonja után. "
+"Néhány stílushoz ez szükséges lehet a megfelelő formázás és elrendezés "
+"érdekében."
+
+#: ../admin-views/tribe-options-general.php:15
+msgid "Finding & extending your calendar."
+msgstr "Naptár megtalálása és kiegészítése."
+
+#: ../admin-views/tribe-options-general.php:20
+msgid "Finding your calendar."
+msgstr "Naptár megtalálása."
+
+#: ../admin-views/tribe-options-general.php:25
+msgid "Where's my calendar?"
+msgstr "Hol van a naptáram?"
+
+#: ../admin-views/tribe-options-general.php:25
+msgid "Right here"
+msgstr "Pont itt"
+
+#: ../admin-views/tribe-options-general.php:29
+msgid ""
+"Looking for additional functionality including recurring events, custom "
+"meta, community events, ticket sales and more?"
+msgstr ""
+"További funkciókat, például ismétlődő eseményeket, egyéni mezőket, közösségi "
+"eseményeket, jegyeladási lehetőséget keresel?"
+
+#: ../admin-views/tribe-options-general.php:29
+msgid "Check out the available add-ons"
+msgstr "Nézd meg a rendelkezésre álló kiegészítőket"
+
+#: ../admin-views/tribe-options-general.php:34
+msgid "We hope our plugin is helping you out."
+msgstr "Reméljük, hogy a bővítmény segítségedre lesz."
+
+#: ../admin-views/tribe-options-general.php:38
+msgid ""
+"Are you thinking \"Wow, this plugin is amazing! I should say thanks to "
+"Modern Tribe for all their hard work.\" The greatest thanks we could ask for "
+"is recognition. Add a small text-only link at the bottom of your calendar "
+"pointing to The Events Calendar project."
+msgstr ""
+"Arra, gondolsz, hogy \"Hú, ez a bővítmény csodálatos! Köszönetet kéne "
+"mondanom Modern Tribe-nak a kemény munkáért.\" A legnagyobb köszönet, amit "
+"kérhetünk, az az elismerés és feltüntetés. Adj hozzá egy kis szöveges linket "
+"a naptárad aljához, mely a The Events Calendar projekt honlapjára mutat."
+
+#: ../admin-views/tribe-options-general.php:38
+#: ../admin-views/tribe-options-general.php:43
+msgid "See an example of the link"
+msgstr "Nézz meg egy példát a linkre"
+
+#: ../admin-views/tribe-options-general.php:43
+msgid ""
+"Are you thinking \"Wow, this plugin is amazing! I should say thanks to "
+"Modern Tribe for all their hard work.\" The greatest thanks we could ask for "
+"is recognition. Add a small text only link at the bottom of your calendar "
+"pointing to The Events Calendar project."
+msgstr ""
+"Arra, gondolsz, hogy \"Hú, ez a bővítmény csodálatos! Köszönetet kéne "
+"mondanom Modern Tribe-nak a kemény munkáért.\" A legnagyobb köszönet, amit "
+"kérhetünk, az az elismerés és feltüntetés. Adj hozzá egy kis szöveges linket "
+"a naptárad aljához, mely a The Events Calendar projekt honlapjára mutat."
+
+#: ../admin-views/tribe-options-general.php:48
+msgid "Show The Events Calendar link"
+msgstr "A The Events Calendar link megjelenítése"
+
+#: ../admin-views/tribe-options-general.php:62
+msgid "General Settings"
+msgstr "Általános beállítások"
+
+#: ../admin-views/tribe-options-general.php:66
+msgid "Number of events to show per page"
+msgstr "Mutatott események száma oldalanként"
+
+#: ../admin-views/tribe-options-general.php:73
+msgid "Use Javascript to control date filtering"
+msgstr "Javascript használata a dátumszűrés irányításához"
+
+#: ../admin-views/tribe-options-general.php:74
+msgid ""
+"This option is disabled when \"Disable the Event Search Bar\" is checked on "
+"the Display settings tab."
+msgstr ""
+"Ez a lehetőség kikapcsolásra kerül, mikor az \"Eseménykeresési sáv "
+"kikapcsolása\" bejelölésre kerül a Megjelenési beállítások lapon."
+
+#: ../admin-views/tribe-options-general.php:74
+msgid ""
+"Enable live ajax for datepicker on front end (User submit not required)."
+msgstr "Ajax dátumválasztó engedélyezése a felhasználói felületen."
+
+#: ../admin-views/tribe-options-general.php:82
+msgid "Show comments"
+msgstr "Hozzászólások mutatása"
+
+#: ../admin-views/tribe-options-general.php:83
+msgid "Enable comments on event pages."
+msgstr "Hozzászólások engedélyezése az eseményeknél."
+
+#: ../admin-views/tribe-options-general.php:89
+msgid "Include events in main blog loop"
+msgstr "Események megjelentetése a fő blog hurokban"
+
+#: ../admin-views/tribe-options-general.php:90
+msgid ""
+"Show events with the site's other posts. When this box is checked, events "
+"will also continue to appear on the default events page."
+msgstr ""
+"Események mutatása a többi bejegyzés között. Attól, hogy be van jelölve, az "
+"események továbbra is megjelennek az események alapértelmezett oldalán is."
+
+#: ../admin-views/tribe-options-general.php:96
+#: ../admin-views/tribe-options-general.php:102
+msgid "Events URL slug"
+msgstr "Események hivatkozás előtagja"
+
+#: ../admin-views/tribe-options-general.php:97
+#, php-format
+msgid ""
+"You cannot edit the slug for your events page as you do not have pretty "
+"permalinks enabled. The current URL for your events page is <a href=\"%s\">"
+"%s</a>. In order to edit the slug here, <a href=\"%soptions-permalink.php"
+"\">enable pretty permalinks</a>."
+msgstr ""
+"Nem szerkesztheted a link előtagokat addig, amíg a sezmrevaló közvetlen "
+"hivatkozások nincsenek engedélyezve. Az események oldalának jelenlegi "
+"hivatkozása: <a href=\"%s\">%s</a>. Annak érdekében, hogy szerkeszteni tudd "
+"az előtagot, <a href=\"%soptions-permalink.php\">engedélyezd a szemrevaló "
+"közvetlen hivatkozásokat</a>."
+
+#: ../admin-views/tribe-options-general.php:109
+#: ../public/template-tags/options.php:20
+msgid "The slug used for building the events URL."
+msgstr "Az események hivatkozásának felépítéséhez használt előtag."
+
+#: ../admin-views/tribe-options-general.php:109
+#, php-format
+msgid "Your current events URL is: %s"
+msgstr "Események jelenlegi linkje: %s"
+
+#: ../admin-views/tribe-options-general.php:114
+#: ../public/template-tags/options.php:39
+msgid "Here is the iCal feed URL for your events:"
+msgstr "Itt találod az eseményeid iCal hírfolyamát:"
+
+#: ../admin-views/tribe-options-general.php:119
+msgid "Single event URL slug"
+msgstr "Egyes esemény hivatkozás előtag"
+
+#: ../admin-views/tribe-options-general.php:126
+#, php-format
+msgid ""
+"The above should ideally be plural, and this singular.<br />Your single "
+"event URL is: %s"
+msgstr ""
+"A fenti ideális esetben többes számban van, ez pedig egyes számban.<br />Az "
+"egyedi esemény hivatkozás: %s"
+
+#: ../admin-views/tribe-options-general.php:131
+msgid "End of day cutoff"
+msgstr "Napvégi zárás"
+
+#: ../admin-views/tribe-options-general.php:164
+msgid ""
+"Have an event that runs past midnight? Select a time after that event's end "
+"to avoid showing the event on the next day's calendar."
+msgstr ""
+"Éjfél utánig tartó eseményed van? Válassz egy időpontot az eseményed vége "
+"után, hogy megelőzd az esemény megjelenítését a következő napon."
+
+#: ../admin-views/tribe-options-general.php:169
+msgid "Default currency symbol"
+msgstr "Alapértelmezett pénznem szimbólum"
+
+#: ../admin-views/tribe-options-general.php:170
+msgid ""
+"Set the default currency symbol for event costs. Note that this only impacts "
+"future events, and changes made will not apply retroactively."
+msgstr ""
+"Állítsd be az alapértelmezett pénznem szimbólumot az események költségeihez. "
+"Vedd figyelembe, hogy ez csak a jövőbeli eseményekre lesz hatással, a "
+"korábbiakra nem."
+
+#: ../admin-views/tribe-options-general.php:177
+msgid "Currency symbol follows value"
+msgstr "Pénznem szimbóluma az összeg után"
+
+#: ../admin-views/tribe-options-general.php:178
+msgid ""
+"The currency symbol normally precedes the value. Enabling this option "
+"positions the symbol after the value."
+msgstr ""
+"A pénznem szimbóluma rendszeri megelőzi az értéket. A lehetőség "
+"engedélyezésével a szimbólum az érték mögé kerül."
+
+#: ../admin-views/tribe-options-general.php:184
+msgid "Map Settings"
+msgstr "Térkép beállításai"
+
+#: ../admin-views/tribe-options-general.php:188
+msgid "Enable Google Maps"
+msgstr "Google Térkép engedélyezése"
+
+#: ../admin-views/tribe-options-general.php:189
+msgid "Check to enable maps for events and venues."
+msgstr "Jelöld be a térképek engedélyezéséhez."
+
+#: ../admin-views/tribe-options-general.php:196
+msgid "Google Maps default zoom level"
+msgstr "Google Térkép alapértelmezett nagyítási szint"
+
+#: ../admin-views/tribe-options-general.php:197
+msgid "0 = zoomed out; 21 = zoomed in."
+msgstr "0 = kicsinyítve; 21 = nagyítva."
+
+#: ../admin-views/tribe-options-general.php:205
+msgid "Miscellaneous Settings"
+msgstr "Egyéb beállítások"
+
+#: ../admin-views/tribe-options-general.php:209
+msgid "Duplicate Venues &amp; Organizers"
+msgstr "Duplikált Helyszínek &amp; Szervezők"
+
+#: ../admin-views/tribe-options-general.php:209
+#: ../lib/tribe-amalgamator.php:260
+msgid "Merge Duplicates"
+msgstr "Duplikációk egyesítése"
+
+#: ../admin-views/tribe-options-general.php:209
+msgid ""
+"You might find duplicate venues and organizers when updating The Events "
+"Calendar from a pre-3.0 version. Click this button to automatically merge "
+"identical venues and organizers."
+msgstr ""
+"Duplikált helyszíneket és szervezőket találhatsz, ha a The Events Calendar "
+"3.0 előtti verziójáról frissítettél. Kattints ide az azonos helyszínek és "
+"szervezők egyesítéséhez."
+
+#: ../admin-views/tribe-options-general.php:214
+msgid "Debug mode"
+msgstr "Debug mód"
+
+#: ../admin-views/tribe-options-general.php:220
+#, php-format
+msgid ""
+"Enable this option to log debug information. By default this will log to "
+"your server PHP error log. If you'd like to see the log messages in your "
+"browser, then we recommend that you install the %s and look for the \"Tribe"
+"\" tab in the debug output."
+msgstr ""
+"Engedélyezd ezt a beállítást, hogy a hibakeresési információk naplózásra "
+"kerüljenek. Alapértelmezés szerint ez a szerver PHP hibanaplójába kerül. Ha "
+"a naplóüzeneteket a böngészőben szeretnéd megtekinteni, javasoljuk, hogy "
+"telepítsd a %s-t, és tekintsd meg a \"Tribe\" fület a hibakeresési kimeneten."
+
+#: ../admin-views/tribe-options-general.php:220
+msgid "Debug Bar Plugin"
+msgstr "Debug Bar bővítmény"
+
+#: ../admin-views/tribe-options-general.php:225
+msgid "View Welcome Page"
+msgstr "Üdvözlő oldal megtekintése"
+
+#: ../admin-views/tribe-options-general.php:225
+msgid "View the page that displayed when you initially installed the plugin."
+msgstr ""
+"A bővítmény telepítése után közvetlenül megjelenített oldal megtekintése."
+
+#: ../admin-views/tribe-options-general.php:230
+msgid "View Update Page"
+msgstr "Frissítési oldal megtekintése"
+
+#: ../admin-views/tribe-options-general.php:230
+msgid "View the page that displayed when you updated the plugin."
+msgstr "A bővítmény frissítésekor megjelenített oldal megtekintése."
+
+#: ../admin-views/tribe-options-help.php:28
+msgctxt "not available"
+msgid "n/a"
+msgstr "n/a"
+
+#: ../admin-views/tribe-options-help.php:29
+msgid "You need to upgrade!"
+msgstr "Frissítés szükséges!"
+
+#: ../admin-views/tribe-options-help.php:29
+msgid "You are up to date!"
+msgstr "Naprakész vagy!"
+
+#: ../admin-views/tribe-options-help.php:52
+msgid "The Events Calendar PRO"
+msgstr "The Events Calendar PRO"
+
+#: ../admin-views/tribe-options-help.php:56
+msgid "The Events Calendar: Eventbrite Tickets"
+msgstr "The Events Calendar: Eventbrite Tickets"
+
+#: ../admin-views/tribe-options-help.php:60
+msgid "The Events Calendar: Community Events"
+msgstr "The Events Calendar: Community Events"
+
+#: ../admin-views/tribe-options-help.php:64
+msgid "The Events Calendar: Facebook Events"
+msgstr "The Events Calendar: Facebook Events"
+
+#: ../admin-views/tribe-options-help.php:68
+msgid "The Events Calendar: WooCommerce Tickets"
+msgstr "The Events Calendar: WooCommerce Tickets"
+
+#: ../admin-views/tribe-options-help.php:73
+msgid "The Events Calendar: EDD Tickets"
+msgstr "The Events Calendar: EDD Tickets"
+
+#: ../admin-views/tribe-options-help.php:78
+msgid "The Events Calendar: WPEC Tickets"
+msgstr "The Events Calendar: WPEC Tickets"
+
+#: ../admin-views/tribe-options-help.php:83
+msgid "The Events Calendar: Shopp Tickets"
+msgstr "The Events Calendar: Shopp Tickets"
+
+#: ../admin-views/tribe-options-help.php:88
+msgid "The Events Calendar: Filter Bar"
+msgstr "The Events Calendar: Filter Bar"
+
+#: ../admin-views/tribe-options-help.php:94
+msgid ""
+"If you're looking for help with The Events Calendar, you've come to the "
+"right place. We are committed to helping make your calendar kick ass...and "
+"hope the resources provided below will help get you there."
+msgstr ""
+"Ha segítséget keresel a The Events Calendar használatához, akkor jó helyen "
+"jársz. Elkötelezettek vagyunk, hogy segítsünk a naptárad igazán szuperré "
+"tenni... és reméljük, az alább felsorolt források segítségedre lesznek ebben."
+
+#: ../admin-views/tribe-options-help.php:97
+msgid ""
+"If this is your first time using The Events Calendar, you're in for a treat "
+"and are already well on your way to creating a first event. Here are some "
+"basics we've found helpful for users jumping into it for the first time:"
+msgstr ""
+"Ha első alkalommal használod a Events Calendart, jó uton jársz az első "
+"eseményed létrehozásához vezető úton. Íme néhány alapvető dolog, ami a kezdő "
+"felhasználóknak hasznos lehet:"
+
+#: ../admin-views/tribe-options-help.php:100
+#, php-format
+msgid ""
+"%sOur New User Primer%s was designed for folks in your exact position. "
+"Featuring both step-by-step videos and written walkthroughs that feature "
+"accompanying screenshots, the primer aims to take you from zero to hero in "
+"no time."
+msgstr ""
+"A %sBevezető új felhasználóknak%s anyagot pont neked készítettük. Lépésről-"
+"lépésre videósegédeket és képernyőképekkel illusztrált írásos útmutatókat is "
+"tartalmaz, így a bevezető gyorsan a nulláról a tapasztalt felhasználók közé "
+"röpíthet."
+
+#: ../admin-views/tribe-options-help.php:102
+#, php-format
+msgid ""
+"%sInstallation/Setup FAQs%s from our support page can help give an overview "
+"of what the plugin can and cannot do. This section of the FAQs may be "
+"helpful as it aims to address any basic install questions not addressed by "
+"the new user primer."
+msgstr ""
+"A %sTelepítési és beállítási GYIK%s a támogatási oldalunkon segítséget "
+"nyújthat abban, hogy mit tud és mit nem tud a bővítmény. A GYIK ezen része "
+"is hasznos lehet, mivel célja, hogy a telepítés olyan általános kérdéseire "
+"is választ adjon, amelyet a \"Bevezető új felhasználóknak\" anyag nem "
+"tartalmaz."
+
+#: ../admin-views/tribe-options-help.php:104
+msgid ""
+"Otherwise, if you're feeling adventurous, you can get started by heading to "
+"the Events menu and adding your first event."
+msgstr ""
+"Ha azonban kalandvágyónak érzed magad, akkor rögtön az Események menüpont "
+"felé veheted az irányt és létrehozhatod az első eseményed."
+
+#: ../admin-views/tribe-options-help.php:108
+#, php-format
+msgid ""
+"We've redone our support page from the ground up in an effort to better help "
+"our users. Head over to our %sSupport Page%s and you'll find lots of great "
+"resources, including:"
+msgstr ""
+"Teljesen átalakítottuk a támogatási oldalainkat annak érdekében, hogy még "
+"jobban segíthessük a felhasználókat. Látogasd meg %stámogatási oldalunkat%s, "
+"ahol számtalan nagyszerű anyagot találhatsz, például:"
+
+#: ../admin-views/tribe-options-help.php:110
+#, php-format
+msgid ""
+"%sTemplate tags, functions, and hooks & filters%s for The Events Calendar "
+"&amp; Events Calendar PRO"
+msgstr ""
+"%sSablon címkék, funkciók és horgok & szűrők (hooks&filters)%s a The Event "
+"Calendar &amp; Events Calendar PRO bővítményekhez"
+
+#: ../admin-views/tribe-options-help.php:112
+#, php-format
+msgid ""
+"%sFrequently Asked Questions%s ranging from the most basic setup questions "
+"to advanced themer tweaks"
+msgstr ""
+"%sGyakran Ismételt Kérdések%s a legalapvetőbb telepítési kérdésektől kezdve "
+"egészen az összetett témázási trükkökig"
+
+#: ../admin-views/tribe-options-help.php:114
+#, php-format
+msgid ""
+"%sTutorials%s written by both members of our team and users from the "
+"community, covering custom queries, integration with third-party themes and "
+"plugins, etc."
+msgstr ""
+"%sSegédletek%s csapatunk tagjai vagy épp a közösség által, lefedve például "
+"az egyéni lekérdezéseket, integrációt külső témákkal és bővítményekkel, stb."
+
+#: ../admin-views/tribe-options-help.php:116
+msgid ""
+"Release notes for painting an overall picture of the plugin's lifecycle and "
+"when features/bug fixes were introduced."
+msgstr ""
+"A kiadási megjegyzések átfogó képet adnak a bővítmény helyzetéről és az új "
+"funkciók vagy hibajavítások megjelenéséről."
+
+#: ../admin-views/tribe-options-help.php:118
+#, php-format
+msgid ""
+"%sAdd-on documentation%s for all of Modern Tribe's official extensions for "
+"The Events Calendar (including WooTickets, Community Events, Eventbrite "
+"Tickets, Facebook Events, etc)"
+msgstr ""
+"%sKiegészítők dokumentációja%s a Modern Tribe által készített valamennyi The "
+"Events Calendar kiegészítőhöz (például WooTickets, Community Events, "
+"Eventbrite Tickets, Facebook Events, stb)"
+
+#: ../admin-views/tribe-options-help.php:120
+#, php-format
+msgid ""
+"We've also got a %sModern Tribe UserVoice%s page where we're actively "
+"watching for feature ideas from the community. If after playing with the "
+"plugin and reviewing the resources above, you're finding a feature isn't "
+"present that should be, let us know. Vote up existing feature requests or "
+"add your own, and help us shape the future of the products business in a way "
+"that best meets the community's needs."
+msgstr ""
+"Ezen kívül van egy %sModern Tribe UserVoice%s oldalunk, amelyen rendszeresen "
+"figyelemmel kísérjük a közösségtől érkező ötleteket és igényeket. "
+"Amennyieben használtad már a bővítményt egy ideig és a fenti forrásokat is "
+"áttanulmányoztad és még mindig hiányolsz egy funkciót, szólj nekünk. Szavazz "
+"meglévő bővítési lehetőségekre vagy add hozzá a saját ötletedet, és ezzel "
+"segítsd bennünket abban, hogy a közösségi igényeivel leginkább egyező "
+"terméket fejlesszünk."
+
+#: ../admin-views/tribe-options-help.php:124
+#, php-format
+msgid ""
+"Written documentation can only take things so far...sometimes, you need help "
+"from a real person. This is where our %ssupport forums%s come into play."
+msgstr ""
+"Az írásos dokumentáció csak eddig tart... De néha több kell, és egy valódi "
+"személy segítségére van szükség. Ez az, ahol a %stámogatói forumok%s "
+"jöhetnek számításba."
+
+#: ../admin-views/tribe-options-help.php:125
+#, php-format
+msgid ""
+"Users of the free The Events Calendar should post their support concerns to "
+"the plugin's %sWordPress.org support forum%s. While we are happy to help "
+"identify and fix bugs that are reported at WordPress.org, please make sure "
+"to read our %ssupport expectations sticky thread%s before posting so you "
+"understand our limitations."
+msgstr ""
+"Az ingyenes The Events Calendar bővítmény felhasználói a %sWordPress.org "
+"támogatói fórumában%s kérhetnek segítséget. Természetesen örömmel segítünk a "
+"Wordpress.org oldalon közzétett hibák okának feltárásában és kijavításában, "
+"azonban kérjük, mindenképp olvasd el a %stámogatási kivételek fórumtémát%s a "
+"segítségkérés előtt, hogy tisztában légy a korlátokkal."
+
+#: ../admin-views/tribe-options-help.php:126
+msgid ""
+"We hit the WordPress.org forum throughout the week, watching for bugs. If "
+"you report a legitimate bug that we're able to reproduce, we will log it and "
+"patch for an upcoming release. However we are unfortunately unable to "
+"provide customization tips or assist in integrating with 3rd party plugins "
+"or themes."
+msgstr ""
+"Hetente felkeressük a Wordpress.org fórumot, hogy ellenőrizzük az esetleges "
+"feltárt hibákat. Ha olyan hibát jelentesz be, amely valóban létezik és "
+"reprodukálni is tudjuk, feljegyezzük és egy következő verzióban javításra "
+"kerül. Azonban sajnos egyedi testreszabási tippekkel és külső témákkal / "
+"bővítményekkel kapcsolatban nem tudunk segíteni."
+
+#: ../admin-views/tribe-options-help.php:127
+#, php-format
+msgid ""
+"If you're a user of The Events Calendar and would like more support, please "
+"%spurchase a PRO license%s. We hit the PRO forums daily, and can provide a "
+"deeper level of customization/integration support for paying users than we "
+"can on WordPress.org."
+msgstr ""
+"Ha a The Events Calendar felhasznákójaként még több támogatást és segítséget "
+"szeretnél, kérjük, %svásárolj PRO licenszet%s. Minden nap fent vagyunk a PRO "
+"fórumokon, és ott mélyebb szintű testreszabási/integráció támogatást tudunk "
+"nyújtani, mint a WordPress.org oldalon."
+
+#: ../admin-views/tribe-options-help.php:131
+#, fuzzy, php-format
+msgid ""
+"If you find that you aren't getting the level of service you've come to "
+"expect from Modern Tribe, shoot us an email at %s or tweet %s and tell us "
+"why. We'll do what we can to make it right."
+msgstr ""
+"Ha úgy érzed, hogy nem az elvárt szolgáltatást kaptad a Modern Tribe-tól, "
+"küljd egy emailt a %s címre vagy twittelj a % címen és mondd el, miért. "
+"Mindent meg fogunk tenni, hogy helyrehozzuk a problémákat."
+
+#: ../admin-views/tribe-options-help.php:132
+msgid "More..."
+msgstr "Tovább..."
+
+#: ../admin-views/tribe-options-help.php:141
+msgid ""
+"Hi! We are Modern Tribe and we are here to help you kick ass. Thanks so much "
+"for installing our labor of love!"
+msgstr ""
+"Szia! Mi vagyunk a Modern Tribe és segíteni szeretnénk neked. Köszönjük, "
+"hogy telepítetted munkánk gyümölcsét!"
+
+#: ../admin-views/tribe-options-help.php:150
+msgid "Support Resources To Help You Kick Ass"
+msgstr "Támogatási és segítségnyújtási források"
+
+#: ../admin-views/tribe-options-help.php:153
+msgid "Forums: Because Everyone Needs A Buddy"
+msgstr "Fórum: Mert mindenkinek szüksége van egy cimborára"
+
+#: ../admin-views/tribe-options-help.php:156
+msgid "Not getting help?"
+msgstr "Nem kapsz segítséget?"
+
+#: ../admin-views/tribe-options-help.php:168
+#: ../lib/the-events-calendar.class.php:576
+#: ../lib/tribe-settings.class.php:132
+msgid "The Events Calendar"
+msgstr "The Events Calendar"
+
+#: ../admin-views/tribe-options-help.php:173
+msgid "Latest Version:"
+msgstr "Legújabb verzió:"
+
+#: ../admin-views/tribe-options-help.php:174
+msgid "Author:"
+msgstr "Szerző:"
+
+#: ../admin-views/tribe-options-help.php:174
+msgid "Modern Tribe Inc"
+msgstr "Modern Tribe Inc"
+
+#: ../admin-views/tribe-options-help.php:177
+msgid "Requires:"
+msgstr "Szükséges:"
+
+#: ../admin-views/tribe-options-help.php:177
+msgid "WordPress "
+msgstr "WordPress"
+
+#: ../admin-views/tribe-options-help.php:179
+msgid "Wordpress.org Plugin Page"
+msgstr "Bővítmény oldala a Wordpress.org oldalon"
+
+#: ../admin-views/tribe-options-help.php:185
+msgid "Average Rating"
+msgstr "Átlagos értékelés"
+
+#: ../admin-views/tribe-options-help.php:189
+#, php-format
+msgid "Based on %d rating"
+msgid_plural "Based on %d ratings"
+msgstr[0] "%d értékelés alapján"
+msgstr[1] "%d értékelés alapján"
+
+#: ../admin-views/tribe-options-help.php:191
+msgid "Give us 5 stars!"
+msgstr "Adj nekünk 5 csillagot!"
+
+#: ../admin-views/tribe-options-help.php:195
+msgid "Premium Add-Ons"
+msgstr "Prémium kiegészítők"
+
+#: ../admin-views/tribe-options-help.php:204
+msgid "(Coming Soon!)"
+msgstr "(Hamarosan!)"
+
+#: ../admin-views/tribe-options-help.php:214
+msgid "News and Tutorials"
+msgstr "Hírek és segédletek"
+
+#: ../admin-views/tribe-options-network.php:15
+msgid "Network Settings"
+msgstr "Hálózati beállítások"
+
+#: ../admin-views/tribe-options-network.php:19
+msgid ""
+"This is where all of the global network settings for Modern Tribe's The "
+"Events Calendar can be modified."
+msgstr ""
+"Itt a Modern Tribe The Events Calendar bővítmény összes hálózati beállítása "
+"módosítható."
+
+#: ../admin-views/tribe-options-network.php:27
+msgid "Hide the following settings tabs on every site:"
+msgstr "A következő beállítások elrejtése minden oldalon:"
+
+#: ../admin-views/venue-meta-box.php:31
+#: ../public/advanced-functions/meta.php:492
+msgid "Address:"
+msgstr "Cím:"
+
+#: ../admin-views/venue-meta-box.php:38
+msgid "City:"
+msgstr "Település:"
+
+#: ../admin-views/venue-meta-box.php:45
+msgid "Country:"
+msgstr "Ország:"
+
+#: ../admin-views/venue-meta-box.php:85
+msgid "State or Province:"
+msgstr "Állam / megye:"
+
+#: ../admin-views/venue-meta-box.php:89
+msgid "Select a State:"
+msgstr "Válassz államot:"
+
+#: ../admin-views/venue-meta-box.php:102
+msgid "Postal Code:"
+msgstr "Irányítószám:"
+
+#: ../admin-views/venue-meta-box.php:134 ../admin-views/venue-meta-box.php:156
+msgid "Show Google Map:"
+msgstr "Google Térkép mutatása:"
+
+#: ../admin-views/venue-meta-box.php:144 ../admin-views/venue-meta-box.php:166
+msgid "Show Google Maps Link:"
+msgstr "Google Térkép link megjelenítése:"
+
+#: ../admin-views/widget-admin-list.php:13
+msgid "Title:"
+msgstr "Cím:"
+
+#: ../admin-views/widget-admin-list.php:18
+msgid "Show:"
+msgstr "Mutat:"
+
+#: ../admin-views/widget-admin-list.php:28
+msgid "Show widget only if there are upcoming events:"
+msgstr "Csak akkor jelenítse meg a widgetet, ha van közelgő esemény:"
+
+#: ../lib/Activation_Page.php:132
+msgid "Welcome to The Events Calendar"
+msgstr "Üdvözöl a The Events Calendar"
+
+#: ../lib/Activation_Page.php:152
+msgid "Thanks for Updating The Events Calendar"
+msgstr "Köszönjük, hogy frissítetted a The Events Calendar bővítményt"
+
+#: ../lib/Credits.php:31
+msgid "This calendar is powered by The Events Calendar."
+msgstr "Ez a naptár a The Events Calendar bővítménnyel készült."
+
+#: ../lib/Credits.php:48
+#, php-format
+msgid ""
+"Rate <strong>The Events Calendar</strong> <a href=\"%1$s\" target=\"_blank"
+"\">&#9733;&#9733;&#9733;&#9733;&#9733;</a> on <a href=\"%1$s\" target="
+"\"_blank\">WordPress.org</a> to keep this plugin free.  Thanks from the "
+"friendly folks at Modern Tribe."
+msgstr ""
+"Értékeld a <strong>The Events Calendar-t</strong> <a href=\"%1$s\" target="
+"\"_blank\">&#9733;&#9733;&#9733;&#9733;&#9733;</a> a <a href=\"%1$s\" target="
+"\"_blank\">WordPress.org</a> oldalon, hogy segítsd ingyenesen tartani a "
+"bővítményt. Előre is köszönjük a Modern Tribe nevében."
+
+#: ../lib/Credits.php:48
+msgid ""
+"http://wordpress.org/support/view/plugin-reviews/the-events-calendar?filter=5"
+msgstr ""
+"http://wordpress.org/support/view/plugin-reviews/the-events-calendar?filter=5"
+
+#: ../lib/io/csv/admin-views/columns.php:22
+#, php-format
+msgid "Column Mapping: %s"
+msgstr "Oszlop leképezés: %s"
+
+#: ../lib/io/csv/admin-views/columns.php:28
+msgid "Please choose the fields that best match the columns in your CSV file."
+msgstr ""
+"Kérjük, válaszd ki azokat a mezőket, amelyek legjobban illenek a CSV fájl "
+"oszlopaihoz."
+
+#: ../lib/io/csv/admin-views/columns.php:33
+msgid "Column Headings"
+msgstr "Oszlop fejlécek"
+
+#: ../lib/io/csv/admin-views/columns.php:34
+msgid "Event Fields"
+msgstr "Esemény mezők"
+
+#: ../lib/io/csv/admin-views/columns.php:45
+msgid "Perform Import"
+msgstr "Importálás elvégzése"
+
+#: ../lib/io/csv/admin-views/header.php:13
+msgid "Events Import (CSV)"
+msgstr "Események importálása (CSV)"
+
+#: ../lib/io/csv/admin-views/import.php:17
+msgid "Import Instructions"
+msgstr "Importálási tudnivalók"
+
+#: ../lib/io/csv/admin-views/import.php:20
+msgid "If your events have Organizers or Venues, please import those first."
+msgstr ""
+"Ha van szervezője vagy helyszíne az eseményeidnek, kérjük, először azokat "
+"importáld."
+
+#: ../lib/io/csv/admin-views/import.php:21
+msgid "To import organizers or venues:"
+msgstr "Szervezők vagy helyszínek importálásához:"
+
+#: ../lib/io/csv/admin-views/import.php:23
+msgid "Select the appropriate import type."
+msgstr "Megfelelő importálás-típus kiválasztása."
+
+#: ../lib/io/csv/admin-views/import.php:24
+#: ../lib/io/csv/admin-views/import.php:30
+msgid ""
+"Upload a CSV file with one record on each line. The first line may contain "
+"column names (check the box below)."
+msgstr ""
+"Tölts fel egy olyan CSV fájlt, amely soronként egy rekordot tartalmaz. Az "
+"első sor oszlopfejléceket is tartalmazhat (jelöld be az alábbi dobozt)."
+
+#: ../lib/io/csv/admin-views/import.php:25
+msgid ""
+"One column in your CSV should have the Organizer/Venue name. All other "
+"fields are optional."
+msgstr ""
+"A CSV fájl egyik oszlopa legyen a szervező/helyszín neve. Minden más mező "
+"választható."
+
+#: ../lib/io/csv/admin-views/import.php:26
+#: ../lib/io/csv/admin-views/import.php:32
+msgid ""
+"After you upload your file, you'll have the opportunity to indicate how the "
+"columns in your CSV map to fields in The Events Calendar."
+msgstr ""
+"A feltöltés után lehetséged lesz a CSV fájl oszlopait a The Events Calendar "
+"mezőkhöz rendelni."
+
+#: ../lib/io/csv/admin-views/import.php:28
+msgid "After importing your Organizers and Venues, import your Events:"
+msgstr "A Szervezők és Helyszínek importálása után, importálja az Eseményeket:"
+
+#: ../lib/io/csv/admin-views/import.php:31
+msgid ""
+"One column in your CSV should have the Event title. Another should have the "
+"Event start date. All other fields are optional."
+msgstr ""
+"A CSV fájl egyik oszlopa legyen az esemény neve, egy másik pedig a kezdési "
+"időpontja. Minden más mező választható."
+
+#: ../lib/io/csv/admin-views/import.php:36
+#, php-format
+msgid "Questions? <a href=\"%s\">Watch the video</a>."
+msgstr "Kérdésed van? <a href=\"%s\">Nézd meg a videót</a>."
+
+#: ../lib/io/csv/admin-views/import.php:43
+msgid "Import Type:"
+msgstr "Importálás típusa:"
+
+#: ../lib/io/csv/admin-views/import.php:45
+#: ../lib/the-events-calendar.class.php:510
+#: ../public/template-tags/venue.php:52
+msgid "Venues"
+msgstr "Helyszínek"
+
+#: ../lib/io/csv/admin-views/import.php:46
+#: ../lib/the-events-calendar.class.php:526
+#: ../public/template-tags/organizer.php:59
+msgid "Organizers"
+msgstr "Szervezők"
+
+#: ../lib/io/csv/admin-views/import.php:47
+#: ../lib/the-events-calendar.class.php:1390
+#: ../lib/the-events-calendar.class.php:4160
+msgid "Events"
+msgstr "Események"
+
+#: ../lib/io/csv/admin-views/import.php:55
+msgid "CSV File:"
+msgstr "CSV-fájl:"
+
+#: ../lib/io/csv/admin-views/import.php:59
+msgid ""
+"Upload a properly formatted, UTF-8 encoded CSV file. Not sure if your file "
+"is UTF-8 encoded? Make sure to specify the character encoding when you save "
+"the file, or pass it through a <a href='http://i-tools.org/charset/exec?"
+"dest=utf-8&src=auto&download=1'>conversion tool</a>."
+msgstr ""
+"Tölts fel egy megfelelően formázott, UTF-8 kódolású CSV fájlt. Nem vagy "
+"biztos benne, hogy a fájl UTF-8 kódolású? Győződj meg róla, hogy "
+"beállítottad a karakterkódolást a fájl mentésekor, vagy küldd át ezen az <a "
+"href='http://i-tools.org/charset/exec?"
+"dest=utf-8&src=auto&download=1'>átalakítón</a>. "
+
+#: ../lib/io/csv/admin-views/import.php:67
+msgid "This file has column names in the first row"
+msgstr "A fájl első sora oszlopfejléceket tartalmaz"
+
+#: ../lib/io/csv/admin-views/import.php:78
+msgid "Import CSV File"
+msgstr "Importálás CSV-fájlból"
+
+#: ../lib/io/csv/admin-views/result.php:15
+msgid "Import Result"
+msgstr "Importálás eredménye"
+
+#: ../lib/io/csv/admin-views/result.php:17
+msgid "Import complete!"
+msgstr "Importálás befejezve!"
+
+#: ../lib/io/csv/admin-views/result.php:19
+#, php-format
+msgid "Inserted: %d"
+msgstr "Beszúrva: %d"
+
+#: ../lib/io/csv/admin-views/result.php:20
+#, php-format
+msgid "Updated: %d"
+msgstr "Frissítve: %d"
+
+#: ../lib/io/csv/admin-views/result.php:21
+#, php-format
+msgid "Skipped: %d"
+msgstr "Kihagyva: %d"
+
+#: ../lib/io/csv/admin-views/result.php:25
+msgid "The import statistics above have the following meaning:"
+msgstr "A fenti importálási statisztika a következőket jelenti:"
+
+#: ../lib/io/csv/admin-views/result.php:26
+msgid ""
+"<ol><li><strong>Inserted:</strong> A new item was inserted successfully.</"
+"li><li><strong>Updated:</strong> An item was found with the same name and/or "
+"start date. The existing item was updated with the new value from the file.</"
+"li><li><strong>Skipped:</strong> A row was found in the CSV file that could "
+"not be imported. Please see below for the invalid rows.</li></ol>"
+msgstr ""
+"<ol><li><strong>Hozzáadva:</strong> Új elem sikeresen hozzáadva.</"
+"li><li><strong>Frissítve:</strong> Egyező nevű és/vagy kezdési idejű elemet "
+"találtunk. A létező elem frissítésre került a fájlban talált értékkel. </"
+"li><li><strong>Kihagyva:</strong> Olyan sort találtunk a CSV fájlban, amely "
+"nem importálható. Kérjük, nézd meg az érvénytelen sorokat az alábbiakban.</"
+"li></ol>"
+
+#: ../lib/io/csv/admin-views/result.php:29
+#, php-format
+msgid "Skipped row numbers: %s"
+msgstr "Kihagyott sor számok: %s"
+
+#: ../lib/io/csv/classes/TribeEventsImporter_AdminPage.php:15
+#: ../lib/io/csv/classes/TribeEventsImporter_AdminPage.php:16
+msgid "Import: CSV"
+msgstr "Importálás: CSV"
+
+#: ../lib/io/csv/classes/TribeEventsImporter_AdminPage.php:29
+#: ../lib/io/csv/classes/TribeEventsImporter_AdminPage.php:147
+msgid "The file went away. Please try again."
+msgstr "A fájl eltűnt. Kérjük, próbáld újra."
+
+#: ../lib/io/csv/classes/TribeEventsImporter_AdminPage.php:113
+msgid "We were unable to process your request. Please try again."
+msgstr "Nem tudtuk feldolgozni a kérést. Kérjük, próbáld meg újra."
+
+#: ../lib/io/csv/classes/TribeEventsImporter_AdminPage.php:154
+msgid "<p>The following fields are required for a successful import:</p>"
+msgstr "<p>A következő mezők szükségesek a sikeres importáláshoz:</p>"
+
+#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:33
+msgid "Do Not Import"
+msgstr "Ne importálja"
+
+#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:52
+msgid "Event Name"
+msgstr "Esemény neve"
+
+#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:53
+msgid "Event Description"
+msgstr "Esemény leírása"
+
+#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:54
+msgid "Event Start Date"
+msgstr "Esemény kezdésének dátuma"
+
+#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:55
+msgid "Event Start Time"
+msgstr "Esemény kezdésének időpontja"
+
+#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:56
+msgid "Event End Date"
+msgstr "Esemény befejező dátuma"
+
+#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:57
+msgid "Event End Time"
+msgstr "Esemény befejező időpontja"
+
+#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:58
+msgid "All Day Event"
+msgstr "Egész napos esemény"
+
+#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:59
+msgid "Event Venue Name"
+msgstr "Esemény helyszínének neve"
+
+#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:60
+msgid "Event Organizer Name"
+msgstr "Esemény szervezőjének neve"
+
+#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:61
+msgid "Event Show Map Link"
+msgstr "Mutassa a térkép linkjét"
+
+#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:62
+msgid "Event Show Map"
+msgstr "Mutassa a térképet"
+
+#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:64
+msgid "Event Phone"
+msgstr "Esemény telefonszáma"
+
+#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:65
+#: ../lib/the-events-calendar.class.php:1430
+#: ../public/template-tags/general.php:353
+msgid "Event Category"
+msgstr "Esemény kategória"
+
+#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:72
+msgid "Venue Name"
+msgstr "Helyszín neve"
+
+#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:73
+msgid "Venue Country"
+msgstr "Helyszín országa"
+
+#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:74
+msgid "Venue Address"
+msgstr "Helyszín címe"
+
+#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:75
+msgid "Venue Address 2"
+msgstr "Helyszín címe 2"
+
+#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:76
+msgid "Venue City"
+msgstr "Helyszín települése"
+
+#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:77
+msgid "Venue State/Province"
+msgstr "Helyszín állama/megyéje"
+
+#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:78
+msgid "Venue Zip"
+msgstr "Helyszín irányítószáma"
+
+#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:79
+msgid "Venue Phone"
+msgstr "Helyszín telefonszáma"
+
+#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:85
+msgid "Organizer Name"
+msgstr "Szervező neve"
+
+#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:86
+msgid "Organizer Email"
+msgstr "Szervező e-mail címe"
+
+#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:87
+msgid "Organizer Website"
+msgstr "Szervező honlapja"
+
+#: ../lib/io/csv/classes/TribeEventsImporter_ColumnMapper.php:88
+msgid "Organizer Phone"
+msgstr "Szervező telefonszáma"
+
+#: ../lib/io/csv/classes/TribeEventsImporter_FileImporter.php:38
+#, php-format
+msgid "No importer defined for %s"
+msgstr "Nincs importáló meghatározva ehhez: %s"
+
+#: ../lib/io/csv/classes/TribeEventsImporter_FileImporter.php:110
+#, php-format
+msgid "Missing required fields in row %d."
+msgstr "Kötelező mező hiányzik a %d sorban."
+
+#: ../lib/io/csv/classes/TribeEventsImporter_FileImporter.php:118
+#, php-format
+msgid "Failed to import record in row %d."
+msgstr "Nem sikerült importálni a rekordot a %d sorban."
+
+#: ../lib/io/csv/classes/TribeEventsImporter_FileImporter.php:127
+#, php-format
+msgid "%s (post ID %d) updated."
+msgstr "%s (post ID %d) frissítve."
+
+#: ../lib/io/csv/classes/TribeEventsImporter_FileImporter.php:131
+#, php-format
+msgid "%s (post ID %d) created."
+msgstr "%s (post ID %d) létrehozva."
+
+#: ../lib/io/csv/classes/TribeEventsImporter_FileUploader.php:28
+#, php-format
+msgid "Temporary file not found. Could not save %s."
+msgstr "Ideiglenes fájl nem található. %s mentése nem sikerült."
+
+#: ../lib/io/csv/classes/TribeEventsImporter_FileUploader.php:36
+#, php-format
+msgid "Could not save %s."
+msgstr "%s mentése nem sikerült."
+
+#: ../lib/pue/admin-views/license-key.view.php:12
+#: ../lib/pue/admin-views/license-key.view.php:16
+#: ../lib/pue/lib/pue_plugin_update_engine.class.php:305
+msgid "License Key"
+msgstr "Licensz kulcs"
+
+#: ../lib/pue/admin-views/license-key.view.php:13
+msgid "A valid license key is required for support and updates."
+msgstr "Egy érvényes licenc szükséges a támogatáshoz és frissítésekhez."
+
+#: ../lib/pue/admin-views/license-key.view.php:19
+msgid "Replace empty fields"
+msgstr "Üres mezők lecserélése"
+
+#: ../lib/pue/admin-views/license-key.view.php:29
+#: ../lib/pue/lib/pue_plugin_update_engine.class.php:306
+msgid "A valid license key is required for support and updates"
+msgstr "Egy érvényes licenc szükséges a támogatáshoz és frissítésekhez"
+
+#: ../lib/pue/lib/pue_plugin_update_engine.class.php:375
+msgid "License key(s) updated."
+msgstr "Licenc kulcs(ok) frissítve."
+
+#: ../lib/pue/lib/pue_plugin_update_engine.class.php:415
+msgid "Sorry, key validation server is not available."
+msgstr "Sajnáljuk, de a kulcs érvényességét ellenőrző kiszolgáló nem elérhető."
+
+#: ../lib/pue/lib/pue_plugin_update_engine.class.php:417
+msgid "Sorry, this key is expired."
+msgstr "Sajnáljuk, de ez a kulcs lejárt."
+
+#: ../lib/pue/lib/pue_plugin_update_engine.class.php:420
+msgid "Sorry, this key is out of installs."
+msgstr "Sajnáljuk, de ez a kulcs elérte a telepítések maximális számát."
+
+#: ../lib/pue/lib/pue_plugin_update_engine.class.php:421
+msgid "Why am I seeing this message?"
+msgstr "Miért jelent meg ez az üzenet"
+
+#: ../lib/pue/lib/pue_plugin_update_engine.class.php:424
+msgid "Sorry, this key is not valid."
+msgstr "Sajnáljuk, de ez kulcs nem érvényes."
+
+#: ../lib/pue/lib/pue_plugin_update_engine.class.php:427
+#, php-format
+msgid "Valid Key! Expires on %s"
+msgstr "Érvényes kulcs! Lejár ekkor: %s"
+
+#: ../lib/pue/lib/pue_plugin_update_engine.class.php:431
+#, php-format
+msgid ""
+"Hmmm... something's wrong with this validator. Please contact <a href=\"%s"
+"\">support.</a>"
+msgstr ""
+"Hmmm... Valami nem stimmel az érvényesítővel. Kérjük, fordulj <a href=\"%s"
+"\">a támogatói csapathoz.</a>"
+
+#: ../lib/template-classes/day.php:99 ../lib/template-classes/day.php:115
+msgid "All Day"
+msgstr "Egész nap"
+
+#: ../lib/template-classes/day.php:102 ../lib/template-classes/day.php:118
+msgid "Ongoing"
+msgstr "Folyamatban"
+
+#: ../lib/template-classes/day.php:135
+#, php-format
+msgid ""
+"No matching events listed under %s scheduled for <strong>%s</strong>. Please "
+"try another day."
+msgstr ""
+"Nincs \"%s\" esemény ekkorra: <strong>%s</strong>. Kérjük, próbálj egy másik "
+"napot."
+
+#: ../lib/template-classes/day.php:137
+#, php-format
+msgid "No events scheduled for <strong>%s</strong>. Please try another day."
+msgstr ""
+"Nincs tervezett esemény ekkorra: <strong>%s</strong>. Kérjük, próbálj egy "
+"másik napot."
+
+#: ../lib/template-classes/month.php:126
+#, php-format
+msgid ""
+"There were no results found for <strong>\"%s\"</strong> this month. Try "
+"searching next month."
+msgstr ""
+"Nincs találat a következőre: <strong>\"%s\"</strong> ebben a hónapban. "
+"Próbálj másik hónapra keresni."
+
+#: ../lib/template-classes/month.php:129
+#: ../lib/tribe-template-factory.class.php:276
+#: ../lib/tribe-template-factory.class.php:281
+#, php-format
+msgid ""
+"No matching events listed under %s. Please try viewing the full calendar for "
+"a complete list of events."
+msgstr ""
+"Nem találtunk a következőbe illő eseményt: %s. Kérjük, próbáld megtekinti a "
+"teljes naptárt az összes esemény listájához."
+
+#: ../lib/template-classes/month.php:131
+#: ../lib/tribe-template-factory.class.php:283
+msgid "There were no results found."
+msgstr "Sajnos nincs találat."
+
+#: ../lib/template-classes/single-event.php:120
+msgid "This event has passed."
+msgstr "Ez az esemény elmúlt."
+
+#: ../lib/the-events-calendar.class.php:518
+#: ../public/advanced-functions/meta.php:445
+#: ../public/template-tags/venue.php:41
+msgid "Venue"
+msgstr "Helyszín"
+
+#: ../lib/the-events-calendar.class.php:534
+#: ../public/advanced-functions/meta.php:518
+#: ../public/template-tags/organizer.php:48
+msgid "Organizer"
+msgstr "Szervező"
+
+#: ../lib/the-events-calendar.class.php:581
+msgid "month"
+msgstr "hónap"
+
+#: ../lib/the-events-calendar.class.php:582
+msgid "list"
+msgstr "lista"
+
+#: ../lib/the-events-calendar.class.php:583
+msgid "upcoming"
+msgstr "közelgő"
+
+#: ../lib/the-events-calendar.class.php:584
+msgid "past"
+msgstr "elmúlt"
+
+#: ../lib/the-events-calendar.class.php:585
+msgid "day"
+msgstr "nap"
+
+#: ../lib/the-events-calendar.class.php:586
+msgid "today"
+msgstr "ma"
+
+#: ../lib/the-events-calendar.class.php:606
+#, php-format
+msgid "Initializing Tribe Events on %s"
+msgstr "Tribe Events betöltése itt: %s"
+
+#: ../lib/the-events-calendar.class.php:723
+#, php-format
+msgid ""
+"Your version of The Events Calendar is not up-to-date with one of your The "
+"Events Calendar add-ons. Please %supdate now.%s"
+msgstr ""
+"Az általad használt The Events Calendar bővítmény nem naprakész az egyik The "
+"Events Calendar kiegészítővel. Kérjük, %sfrissíts most.%s"
+
+#: ../lib/the-events-calendar.class.php:743
+#, php-format
+msgid ""
+"The following plugins are out of date: <b>%s</b>. All add-ons contain "
+"dependencies on The Events Calendar and will not function properly unless "
+"paired with the right version. %sWant to pair an older version%s?"
+msgstr ""
+"A következő bővítmények elavultak: <b>%s</b>. Minden kiegészítő függ a The "
+"Events Calendar-tól, és a kellő verziók használata nélkül nem fognak "
+"megfelelően működni . %sRégebbi verziókat szeretnél használni%s?"
+
+#: ../lib/the-events-calendar.class.php:807
+#: ../lib/the-events-calendar.class.php:843
+#: ../lib/the-events-calendar.class.php:849
+msgid "Licenses"
+msgstr "Licenszek"
+
+#: ../lib/the-events-calendar.class.php:812
+#, php-format
+msgid ""
+"<p>The license key you received when completing your purchase from %s will "
+"grant you access to support and updates until it expires. You do not need to "
+"enter the key below for the plugins to work, but you will need to enter it "
+"to get automatic updates. <strong>Find your license keys at <a href=\"%s\" "
+"target=\"_blank\">%s</a></strong>.</p> <p>Each paid add-on has its own "
+"unique license key. Simply paste the key into its appropriate field on "
+"below, and give it a moment to validate. You know you're set when a green "
+"expiration date appears alongside a \"valid\" message.</p> <p>If you're "
+"seeing a red message telling you that your key isn't valid or is out of "
+"installs, visit <a href=\"%s\" target=\"_blank\">%s</a> to manage your "
+"installs or renew / upgrade your license.</p><p>Not seeing an update but "
+"expecting one? In WordPress, go to <a href=\"%s\">Dashboard > Updates</a> "
+"and click \"Check Again\".</p>"
+msgstr ""
+"<p>A licensz kulcs, amit a vásárláskor a %s-tól kaptál, hozzáférést nyújt a "
+"támogatáshoz és a frissítésekhez egészen a lejáratának dátumáig. A "
+"bővítmények működéséhez nem kell beírnod az alábbi kulcsot, azonban az "
+"automatikus frissítésekhez szükséges. <strong>A licensz kulcsodat itt "
+"találod: <a href=\"%s\" target=\"_blank\">%s</a></strong>.</p> <p>Minden "
+"fizetős kiegészítőnek saját egyedi licensz kulcsa van. Egyszerűen illeszd be "
+"a kulcsot a lenti megfelelő mezőbe, majd adj egy kis időt az ellenőrzésre. "
+"Ha kész van, egy zöld lejárati dátum, valamint egy \"érvényes\" üzenet "
+"jelenik meg.</p> <p>Ha egy piros üzenet jelenne meg, amely szerint a kulcs "
+"érvénytelen vagy meghaladta a lehetséges telepítések számát, látogass el a "
+"<a href=\"%s\" target=\"_blank\">%s</a> oldalra, ahol kezelheted a "
+"telepítéseket és megújíthatod / frissítheted a licenszt.</p><p>Nem látsz egy "
+"várt frissítést? A WordPress <a href=\"%s\">Vezérlőpult > Frissítések </a> "
+"oldalon kattints az \"Ismételt ellenőrzés\" gombra.</p>"
+
+#: ../lib/the-events-calendar.class.php:835
+msgid "General"
+msgstr "Általános"
+
+#: ../lib/the-events-calendar.class.php:836
+msgid "Display"
+msgstr "Megjelenít"
+
+#: ../lib/the-events-calendar.class.php:855
+#: ../lib/the-events-calendar.class.php:4271
+#: ../lib/the-events-calendar.class.php:4363
+msgid "Help"
+msgstr "Súgó"
+
+#: ../lib/the-events-calendar.class.php:899
+#, php-format
+msgid ""
+"Sorry, The Events Calendar requires WordPress %s or higher. Please upgrade "
+"your WordPress install."
+msgstr ""
+"Sajnáljuk, a The Events Calendar futtatásához Wordpress %s vagy újabb "
+"szükséges. Kérjük, frissítsd a WordPress-t!"
+
+#: ../lib/the-events-calendar.class.php:902
+#, php-format
+msgid ""
+"Sorry, The Events Calendar requires PHP %s or higher. Talk to your Web host "
+"about moving you to a newer version of PHP."
+msgstr ""
+"Sajnáljuk, a The Events Calendar futtatásához PHP %s vagy újabb szükséges. "
+"Egyeztess a webhoszting szolgáltatóddal a PHP frissítéséről."
+
+#: ../lib/the-events-calendar.class.php:1351
+msgid "category"
+msgstr "kategória"
+
+#: ../lib/the-events-calendar.class.php:1362
+msgid "tag"
+msgstr "címke"
+
+#: ../lib/the-events-calendar.class.php:1391
+msgid "Event"
+msgstr "Esemény"
+
+#: ../lib/the-events-calendar.class.php:1392
+#: ../lib/the-events-calendar.class.php:1405
+#: ../lib/the-events-calendar.class.php:1418
+msgid "Add New"
+msgstr "Új hozzáadása"
+
+#: ../lib/the-events-calendar.class.php:1393
+msgid "Add New Event"
+msgstr "Új esemény"
+
+#: ../lib/the-events-calendar.class.php:1394
+msgid "Edit Event"
+msgstr "Esemény szerkesztése"
+
+#: ../lib/the-events-calendar.class.php:1395
+msgid "New Event"
+msgstr "Új esemény"
+
+#: ../lib/the-events-calendar.class.php:1396
+msgid "View Event"
+msgstr "Esemény megtekintése"
+
+#: ../lib/the-events-calendar.class.php:1397
+msgid "Search Events"
+msgstr "Események keresése"
+
+#: ../lib/the-events-calendar.class.php:1398
+msgid "No events found"
+msgstr "Nem találtunk eseményt."
+
+#: ../lib/the-events-calendar.class.php:1399
+msgid "No events found in Trash"
+msgstr "Nem találtunk eseményt a lomtárban."
+
+#: ../lib/the-events-calendar.class.php:1406
+#: ../lib/the-events-calendar.class.php:1419
+#: ../lib/the-events-calendar.class.php:1523
+#: ../lib/the-events-calendar.class.php:1524
+#, php-format
+msgid "Add New %s"
+msgstr "Új %s"
+
+#: ../lib/the-events-calendar.class.php:1407
+#: ../lib/the-events-calendar.class.php:1420
+#, php-format
+msgid "Edit %s"
+msgstr "Szerkesztés %s"
+
+#: ../lib/the-events-calendar.class.php:1408
+#: ../lib/the-events-calendar.class.php:1421
+#, php-format
+msgid "New %s"
+msgstr "Új %s"
+
+#: ../lib/the-events-calendar.class.php:1409
+#: ../lib/the-events-calendar.class.php:1422
+#, php-format
+msgid "View %s"
+msgstr "Nézet %s"
+
+#: ../lib/the-events-calendar.class.php:1410
+#: ../lib/the-events-calendar.class.php:1423
+#, php-format
+msgid "Search %s"
+msgstr "%s keresése"
+
+#: ../lib/the-events-calendar.class.php:1411
+#: ../lib/the-events-calendar.class.php:1424
+#, php-format
+msgid "No %s found"
+msgstr "%s nem található"
+
+#: ../lib/the-events-calendar.class.php:1412
+#: ../lib/the-events-calendar.class.php:1425
+#, php-format
+msgid "No %s found in Trash"
+msgstr "%s nem található a lomtárban"
+
+#: ../lib/the-events-calendar.class.php:1429
+#: ../lib/tribe-admin-events-list.class.php:167
+msgid "Event Categories"
+msgstr "Esemény kategóriák"
+
+#: ../lib/the-events-calendar.class.php:1431
+msgid "Search Event Categories"
+msgstr "Esemény kategóriák keresése"
+
+#: ../lib/the-events-calendar.class.php:1432
+msgid "All Event Categories"
+msgstr "Összes esemény kategória"
+
+#: ../lib/the-events-calendar.class.php:1433
+msgid "Parent Event Category"
+msgstr "Szülő esemény kategória"
+
+#: ../lib/the-events-calendar.class.php:1434
+msgid "Parent Event Category:"
+msgstr "Szülő esemény kategória:"
+
+#: ../lib/the-events-calendar.class.php:1435
+msgid "Edit Event Category"
+msgstr "Esemény kategória szerkesztése"
+
+#: ../lib/the-events-calendar.class.php:1436
+msgid "Update Event Category"
+msgstr "Esemény kategória frissítése"
+
+#: ../lib/the-events-calendar.class.php:1437
+msgid "Add New Event Category"
+msgstr "Új esemény kategória"
+
+#: ../lib/the-events-calendar.class.php:1438
+msgid "New Event Category Name"
+msgstr "Új esemény kategória neve"
+
+#: ../lib/the-events-calendar.class.php:1455
+#, php-format
+msgid "Event updated. <a href=\"%s\">View event</a>"
+msgstr "Esemény frissítve. <a href=\"%s\">Esemény megtekintése</a>"
+
+#: ../lib/the-events-calendar.class.php:1456
+#: ../lib/the-events-calendar.class.php:1475
+#: ../lib/the-events-calendar.class.php:1494
+msgid "Custom field updated."
+msgstr "Egyéni mező frissítve."
+
+#: ../lib/the-events-calendar.class.php:1457
+#: ../lib/the-events-calendar.class.php:1476
+#: ../lib/the-events-calendar.class.php:1495
+msgid "Custom field deleted."
+msgstr "Egyéni mező törölve."
+
+#: ../lib/the-events-calendar.class.php:1458
+msgid "Event updated."
+msgstr "Esemény frissítve."
+
+#: ../lib/the-events-calendar.class.php:1460
+#, php-format
+msgid "Event restored to revision from %s"
+msgstr "Esemény visszaállítva innen: %s"
+
+#: ../lib/the-events-calendar.class.php:1461
+#, php-format
+msgid "Event published. <a href=\"%s\">View event</a>"
+msgstr "Esemény közzétéve. <a href=\"%s\">Esemény megtekintése</a>"
+
+#: ../lib/the-events-calendar.class.php:1462
+msgid "Event saved."
+msgstr "Esemény elmentve."
+
+#: ../lib/the-events-calendar.class.php:1463
+#, php-format
+msgid "Event submitted. <a target=\"_blank\" href=\"%s\">Preview event</a>"
+msgstr ""
+"Esemény beküldve. <a target=\"_blank\" href=\"%s\">Esemény előnézete</a>"
+
+#: ../lib/the-events-calendar.class.php:1465
+#, php-format
+msgid ""
+"Event scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s"
+"\">Preview event</a>"
+msgstr ""
+"Esemény időzítve ekkorra: <strong>%1$s</strong>. <a target=\"_blank\" href="
+"\"%2$s\">Esemény előnézete</a>"
+
+#: ../lib/the-events-calendar.class.php:1467
+#: ../lib/the-events-calendar.class.php:1486
+#: ../lib/the-events-calendar.class.php:1505
+msgid "M j, Y @ G:i"
+msgstr "Y. M j. @  G:i"
+
+#: ../lib/the-events-calendar.class.php:1469
+#, php-format
+msgid "Event draft updated. <a target=\"_blank\" href=\"%s\">Preview event</a>"
+msgstr ""
+"Esemény vázlat frissítve. <a target=\"_blank\" href=\"%s\">Esemény "
+"előnézete</a>"
+
+#: ../lib/the-events-calendar.class.php:1474
+#: ../lib/the-events-calendar.class.php:1477
+#: ../lib/the-events-calendar.class.php:1493
+#: ../lib/the-events-calendar.class.php:1496
+#, php-format
+msgid "%s updated."
+msgstr "%s frissítve."
+
+#: ../lib/the-events-calendar.class.php:1479
+#: ../lib/the-events-calendar.class.php:1498
+#, php-format
+msgid "%s restored to revision from %s"
+msgstr "%s helyreállítva innen: %s"
+
+#: ../lib/the-events-calendar.class.php:1480
+#: ../lib/the-events-calendar.class.php:1499
+#, php-format
+msgid "%s published."
+msgstr "%s közzétéve."
+
+#: ../lib/the-events-calendar.class.php:1481
+#: ../lib/the-events-calendar.class.php:1500
+#, php-format
+msgid "%s saved."
+msgstr "%s elmentve."
+
+#: ../lib/the-events-calendar.class.php:1482
+#: ../lib/the-events-calendar.class.php:1501
+#, php-format
+msgid "%s submitted."
+msgstr "%s beküldve."
+
+#: ../lib/the-events-calendar.class.php:1484
+#: ../lib/the-events-calendar.class.php:1503
+#, php-format
+msgid "%s scheduled for: <strong>%2$s</strong>."
+msgstr "%s időzítve ekkorra: <strong>%2$s</strong>."
+
+#: ../lib/the-events-calendar.class.php:1488
+#: ../lib/the-events-calendar.class.php:1507
+#, php-format
+msgid "%s draft updated."
+msgstr "%s vázlat frissítve."
+
+#: ../lib/the-events-calendar.class.php:1543
+#: ../lib/the-events-calendar.class.php:1568
+#, php-format
+msgid "Use Saved %s:"
+msgstr "Elmentett %s használata:"
+
+#: ../lib/the-events-calendar.class.php:1633
+#: ../lib/the-events-calendar.class.php:1714
+#, php-format
+msgid "Use New %s"
+msgstr "Új %s használata"
+
+#: ../lib/the-events-calendar.class.php:1635
+#: ../lib/the-events-calendar.class.php:1716
+#, php-format
+msgid "My %s"
+msgstr "Saját %s"
+
+#: ../lib/the-events-calendar.class.php:1640
+#: ../lib/the-events-calendar.class.php:1721
+#, php-format
+msgid "Available %s"
+msgstr "Elérhető %s"
+
+#: ../lib/the-events-calendar.class.php:1651
+#: ../lib/the-events-calendar.class.php:1732
+#, php-format
+msgid "No saved %s exists."
+msgstr "Nem létezik mentett %s."
+
+#: ../lib/the-events-calendar.class.php:1879
+msgid "Next"
+msgstr "Következő"
+
+#: ../lib/the-events-calendar.class.php:1880
+msgid "Prev"
+msgstr "Előző"
+
+#: ../lib/the-events-calendar.class.php:1881
+#: ../public/template-tags/day.php:101
+msgid "Today"
+msgstr "Ma"
+
+#: ../lib/the-events-calendar.class.php:1882
+msgid "Done"
+msgstr "Kész"
+
+#: ../lib/the-events-calendar.class.php:2091
+msgid "Network"
+msgstr "Hálózat"
+
+#: ../lib/the-events-calendar.class.php:3727
+#: ../lib/the-events-calendar.class.php:3756
+#: ../public/template-tags/day.php:152 ../public/template-tags/day.php:173
+msgid "Date out of range."
+msgstr "Dátum tartományon kívül."
+
+#: ../lib/the-events-calendar.class.php:3786
+msgid "Event Options"
+msgstr "Esemény opciók"
+
+#: ../lib/the-events-calendar.class.php:3793
+#: ../lib/the-events-calendar.class.php:3804
+#, php-format
+msgid "%s Information"
+msgstr "%s információ"
+
+#: ../lib/the-events-calendar.class.php:3990
+msgid "Support"
+msgstr "Támogatás"
+
+#: ../lib/the-events-calendar.class.php:3993
+msgid "View All Add-Ons"
+msgstr "Összes kiegészítő megtekintése"
+
+#: ../lib/the-events-calendar.class.php:4014
+msgid "News from Modern Tribe"
+msgstr "Hírek a Modern Tribe-tól"
+
+#: ../lib/the-events-calendar.class.php:4106
+msgid "Additional Functionality"
+msgstr "További funkciók"
+
+#: ../lib/the-events-calendar.class.php:4111
+msgid ""
+"Looking for additional functionality including recurring events, ticket "
+"sales, publicly submitted events, new views and more?"
+msgstr ""
+"További funkciókat, például ismétlődő eseményeket, jegyeladást, nyilvánosan "
+"beküldhető eseményeket, új nézeteket keresel?"
+
+#: ../lib/the-events-calendar.class.php:4112
+#, php-format
+msgid "Check out the <a href=\"%s\">available add-ons</a>."
+msgstr "Nézd meg a rendelkezésre álló <a href=\"%s\">kiegészítőket</a>."
+
+#: ../lib/the-events-calendar.class.php:4197
+#: ../lib/the-events-calendar.class.php:4291
+msgid "View Calendar"
+msgstr "Naptár megtekintése"
+
+#: ../lib/the-events-calendar.class.php:4207
+msgid "Add Event"
+msgstr "Esemény hozzáadása"
+
+#: ../lib/the-events-calendar.class.php:4218
+msgid "Edit Events"
+msgstr "Események szerkesztése"
+
+#: ../lib/the-events-calendar.class.php:4231
+msgid "Import"
+msgstr "Importálás"
+
+#: ../lib/the-events-calendar.class.php:4239
+msgid "CSV"
+msgstr "CSV"
+
+#: ../lib/the-events-calendar.class.php:4258
+#: ../lib/the-events-calendar.class.php:4345
+#: ../lib/tribe-settings.class.php:159
+msgid "Settings"
+msgstr "Beállítások"
+
+#: ../lib/the-events-calendar.class.php:4346
+msgid "Calendar"
+msgstr "Naptár"
+
+#: ../lib/the-events-calendar.class.php:4420
+msgid "List"
+msgstr "Lista"
+
+#: ../lib/the-events-calendar.class.php:4438
+msgid "Month"
+msgstr "Hónap"
+
+#: ../lib/the-events-calendar.class.php:4455
+msgid "Day"
+msgstr "Nap"
+
+#: ../lib/the-events-calendar.class.php:4480
+#: ../lib/the-events-calendar.class.php:4481
+msgid "Search"
+msgstr "Keresés"
+
+#: ../lib/the-events-calendar.class.php:4506
+#: ../lib/the-events-calendar.class.php:4522
+msgid "Date"
+msgstr "Dátum"
+
+#: ../lib/the-events-calendar.class.php:4509
+msgid "Events In"
+msgstr "Események itt:"
+
+#: ../lib/the-events-calendar.class.php:4511
+msgid "Events From"
+msgstr "Események ettől:"
+
+#: ../lib/the-events-calendar.class.php:4513
+msgid "Day Of"
+msgstr "Nap /"
+
+#: ../lib/tickets/tribe-tickets-attendees.php:65
+msgid "Order #"
+msgstr "Rendelés #"
+
+#: ../lib/tickets/tribe-tickets-attendees.php:66
+msgid "Order Status"
+msgstr "Rendelés állapota"
+
+#: ../lib/tickets/tribe-tickets-attendees.php:67
+msgid "Purchaser name"
+msgstr "Vevő neve"
+
+#: ../lib/tickets/tribe-tickets-attendees.php:68
+msgid "Purchaser email"
+msgstr "Vevő e-mail címe"
+
+#: ../lib/tickets/tribe-tickets-attendees.php:69
+msgid "Ticket type"
+msgstr "Jegy típusa"
+
+#: ../lib/tickets/tribe-tickets-attendees.php:70
+#: ../views/tickets/email.php:317
+msgid "Ticket #"
+msgstr "Jegy #"
+
+#: ../lib/tickets/tribe-tickets-attendees.php:71
+#: ../views/tickets/email.php:329
+msgid "Security Code"
+msgstr "Biztonsági kód"
+
+#: ../lib/tickets/tribe-tickets-attendees.php:72
+#: ../lib/tickets/tribe-tickets-attendees.php:159
+#: ../lib/tickets/tribe-tickets-attendees.php:226
+msgid "Check in"
+msgstr "Bejelentkezés"
+
+#: ../lib/tickets/tribe-tickets-attendees.php:160
+#: ../lib/tickets/tribe-tickets-attendees.php:227
+msgid "Undo Check in"
+msgstr "Bejelentkezés visszavonása"
+
+#: ../lib/tickets/tribe-tickets-attendees.php:195
+msgid "Print"
+msgstr "Nyomtatás"
+
+#: ../lib/tickets/tribe-tickets-attendees.php:196
+msgid "Email"
+msgstr "E-mail"
+
+#: ../lib/tickets/tribe-tickets-attendees.php:205
+#: ../lib/tribe-ical.class.php:121
+msgid "Export"
+msgstr "Exportálás"
+
+#: ../lib/tickets/tribe-tickets-attendees.php:212
+msgid "Filter by purchaser name, ticket #, order # or security code"
+msgstr "Szűrés vásárló neve, jegy #, rendelés # vagy biztonsági kód alapján"
+
+#: ../lib/tickets/tribe-tickets-metabox.php:71
+msgid "Ticket header image"
+msgstr "Jegy fejlécének képe"
+
+#: ../lib/tickets/tribe-tickets-metabox.php:72
+msgid "Set as ticket header"
+msgstr "Beállítás jegy fejléceként"
+
+#: ../lib/tickets/tribe-tickets-pro.php:119
+msgid "You need to select a user or type a valid email address"
+msgstr ""
+"Ki kell választanod egy felhasználót vagy érvényes e-mail címet kell beírnod"
+
+#: ../lib/tickets/tribe-tickets-pro.php:120
+msgid "Sending..."
+msgstr "Küldés ..."
+
+#: ../lib/tickets/tribe-tickets-pro.php:150
+msgid "Columns"
+msgstr "Oszlopok"
+
+#: ../lib/tickets/tribe-tickets-pro.php:151
+msgid ""
+"You can use Screen Options to select which columns you want to see. The "
+"selection works in the table below, in the email, for print and for the CSV "
+"export."
+msgstr ""
+"Használhatod a képernyő beállításait a megtekinteni kívánt oszlopok "
+"kiválasztáshoz. A kiválasztás az alábbi táblában működik, az e-mailben, a "
+"nyomtatáshoz és a CSV exportáláshoz."
+
+#: ../lib/tickets/tribe-tickets-pro.php:245
+msgid "Yes"
+msgstr "Igen"
+
+#: ../lib/tickets/tribe-tickets-pro.php:277
+msgid "attendees"
+msgstr "résztvevők"
+
+#: ../lib/tickets/tribe-tickets-pro.php:331
+#, php-format
+msgid "Attendee List for: %s"
+msgstr "Résztvevők listája ehhez: %s"
+
+#: ../lib/tickets/tribe-tickets.php:328
+msgid "Your ticket has been saved."
+msgstr "A jegyed elmentve."
+
+#: ../lib/tickets/tribe-tickets.php:409
+msgid "Your ticket has been deleted."
+msgstr "A jegyed törölve."
+
+#: ../lib/tribe-admin-events-list.class.php:173
+msgid "Start Date"
+msgstr "Kezdés dátuma"
+
+#: ../lib/tribe-admin-events-list.class.php:174
+msgid "End Date"
+msgstr "Befejezés dátuma"
+
+#: ../lib/tribe-admin-events-list.class.php:247
+#, php-format
+msgid "All %s"
+msgstr "Összes %s"
+
+#: ../lib/tribe-app-shop.class.php:64 ../lib/tribe-app-shop.class.php:65
+#: ../lib/tribe-app-shop.class.php:96
+msgid "Event Add-Ons"
+msgstr "Esemény kiegészítők"
+
+#: ../lib/tribe-event-api.class.php:377
+msgid "Unnamed Venue"
+msgstr "Névtelen helyszín"
+
+#: ../lib/tribe-event-api.class.php:453 ../lib/tribe-view-helpers.class.php:46
+#: ../public/template-tags/venue.php:275
+msgid "United States"
+msgstr "Egyesült Államok"
+
+#: ../lib/tribe-event-exception.class.php:22
+#: ../lib/tribe-event-exception.class.php:41
+msgid "Error"
+msgstr "Hiba"
+
+#: ../lib/tribe-field.class.php:211
+msgid "Invalid field type specified"
+msgstr "Érvénytelen mező típus lett megadva"
+
+#: ../lib/tribe-field.class.php:470
+msgid "No radio options specified"
+msgstr "Nincs megadva rádió gomb lehetőség"
+
+#: ../lib/tribe-field.class.php:506
+msgid "No checkbox options specified"
+msgstr "Nincs megadva jelölőnégyzet lehetőség"
+
+#: ../lib/tribe-field.class.php:562
+msgid "No select options specified"
+msgstr "Nincs megadva választási lehetőség"
+
+#: ../lib/tribe-ical.class.php:28
+msgctxt "feed link"
+msgid "&raquo;"
+msgstr "&raquo;"
+
+#: ../lib/tribe-ical.class.php:29
+#, php-format
+msgid "%1$s %2$s iCal Feed"
+msgstr "%1$s %2$s iCal hírfolyam"
+
+#: ../lib/tribe-ical.class.php:77
+msgid "Add to Google Calendar"
+msgstr "Hozzáadás a Google Naptárhoz"
+
+#: ../lib/tribe-ical.class.php:77
+msgid "Google Calendar"
+msgstr "Google Naptár"
+
+#: ../lib/tribe-ical.class.php:78
+msgid "Download .ics file"
+msgstr ".ics fájl letöltése"
+
+#: ../lib/tribe-ical.class.php:78
+msgid "iCal Export"
+msgstr "iCal Exportálás"
+
+#: ../lib/tribe-ical.class.php:108
+msgid "Month's Events"
+msgstr "Havi események"
+
+#: ../lib/tribe-ical.class.php:111
+msgid "Week's Events"
+msgstr "Heti események"
+
+#: ../lib/tribe-ical.class.php:114
+msgid "Day's Events"
+msgstr "Nap eseményei"
+
+#: ../lib/tribe-ical.class.php:117
+msgid "Listed Events"
+msgstr "Felsorolt ​​események"
+
+#: ../lib/tribe-ical.class.php:122
+msgid ""
+"Use this to share calendar data with Google Calendar, Apple iCal and other "
+"compatible apps"
+msgstr ""
+"Használd ezt a naptár adatainak megosztásához az Apple iCal, Google Naptár "
+"vagy egyéb kampatibilis alkalmazásokkal"
+
+#: ../lib/tribe-settings-tab.class.php:221
+msgid "There are no fields setup for this tab yet."
+msgstr "Erre a lapra még nincsenek mezők beállítva."
+
+#: ../lib/tribe-settings.class.php:159 ../lib/tribe-settings.class.php:174
+msgid "The Events Calendar Settings"
+msgstr "The Events Calendar beállítások"
+
+#: ../lib/tribe-settings.class.php:174
+msgid "Events Settings"
+msgstr "Események beállításai"
+
+#: ../lib/tribe-settings.class.php:237
+#, php-format
+msgid "%s Settings"
+msgstr "%s Beállítások"
+
+#: ../lib/tribe-settings.class.php:251
+msgid "You've requested a non-existent tab."
+msgstr "Az általad kért lap nem létezik."
+
+#: ../lib/tribe-settings.class.php:259
+msgid " Save Changes"
+msgstr " Változások mentése"
+
+#: ../lib/tribe-settings.class.php:309
+msgid "You don't have permission to do that."
+msgstr "Ehhez nincs jogosultságod."
+
+#: ../lib/tribe-settings.class.php:315
+msgid "The request was sent insecurely."
+msgstr "A kérés nem biztonságosan lett elküldve."
+
+#: ../lib/tribe-settings.class.php:321
+msgid "The request wasn't sent from this tab."
+msgstr "A kérés nem lett elküldve erről a lapról."
+
+#: ../lib/tribe-settings.class.php:489
+msgid "Your form had the following errors:"
+msgstr "Az űrlap a következő hibákat tartalmazza:"
+
+#: ../lib/tribe-settings.class.php:498
+msgid "None of your settings were saved. Please try again."
+msgstr "A beállítások mentése nem sikerült. Kérjük, próbáld újra."
+
+#: ../lib/tribe-settings.class.php:498
+msgid ""
+"The above setting was not saved. Other settings were successfully saved."
+msgid_plural ""
+"The above settings were not saved. Other settings were successfully saved."
+msgstr[0] ""
+"A fenti beállítást nem sikerült menteni. A többi beállítás mentése sikeresen "
+"megtörtént."
+msgstr[1] ""
+"A fenti beállításokat nem sikerült menteni. A többi beállítás mentése "
+"sikeresen megtörtént."
+
+#: ../lib/tribe-settings.class.php:520
+msgid "Settings saved."
+msgstr "Beállítások elmentve."
+
+#: ../lib/tribe-support.class.php:44
+msgid ""
+"Sometimes it's hard to tell what's going wrong without knowing more about "
+"your system steup. For your convenience, we've put together a little report "
+"on what's cooking under the hood."
+msgstr ""
+"Néha nehéz megmondani, hogy mi a gond, anélkül, hogy többet tudnánk a "
+"rendszerbeállításaidről. A kényelmed érdekében összeállítottunk egy kis "
+"jelentést arról, hogy mi történik a színfalak mögött."
+
+#: ../lib/tribe-support.class.php:45
+msgid ""
+"If you suspect that the problem you're having is related to another plugin, "
+"or we're just plain having trouble reproducing your bug report, please copy "
+"and send all of this to our support team."
+msgstr ""
+"Ha azt gyanítod, hogy a tapasztalt probléma kapcsolatban állhat valamely "
+"másik bővítménnyel vagy problémába ütköztünk a hibajelentésed "
+"reprodulásával, kérjük, másold ki és küldd el nekünk az alábbiakat."
+
+#: ../lib/tribe-support.class.php:49
+msgid "System Information"
+msgstr "Rendszerinformáció"
+
+#: ../lib/tribe-support.class.php:135
+msgid "Unknown or not set"
+msgstr "Ismeretlen vagy nincs beállítva"
+
+#: ../lib/tribe-template-factory.class.php:270
+#, php-format
+msgid "There were no results found for <strong>\"%s\"</strong>."
+msgstr "Nincs találat a következőhöz <strong>\"% s\"</strong>."
+
+#: ../lib/tribe-template-factory.class.php:272
+#, php-format
+msgid "No results were found for events in or near <strong>\"%s\"</strong>."
+msgstr ""
+"Nem találtunk eseményt itt vagy ennek környékén: <strong>\"%s\"</strong>."
+
+#: ../lib/tribe-template-factory.class.php:274
+#, php-format
+msgid ""
+"No upcoming events listed under %s. Check out upcoming events for this "
+"category or view the full calendar."
+msgstr ""
+"Nem találtunk a következőbe illő eseményt: %s. Kérjük, nézd meg a kategória "
+"közelgő eseményeit vagy tekintsd meg a teljes naptárat."
+
+#: ../lib/tribe-template-factory.class.php:278
+msgid "No previous events "
+msgstr "Nincsenek korábbi események"
+
+#: ../lib/tribe-templates.class.php:592
+#, php-format
+msgid "Template overrides should be moved to the correct subdirectory: %s"
+msgstr ""
+"A sablon felülírások a következő alkönyvtárba kell, hogy kerüljenek: %s"
+
+#: ../lib/tribe-templates.class.php:634
+#, php-format
+msgid ""
+"Template overrides should be moved to the correct subdirectory: "
+"tribe_get_template_part('%s')"
+msgstr ""
+"A sablon felülírások a következő alkönyvtárba kell, hogy kerüljenek: "
+"tribe_get_template_part('%s')"
+
+#: ../lib/tribe-validate.class.php:76 ../lib/tribe-validate.class.php:117
+msgid "Invalid or incomplete field passed"
+msgstr "Érvénytelen vagy hiányos mező lett átadva"
+
+#: ../lib/tribe-validate.class.php:77 ../lib/tribe-validate.class.php:112
+#: ../lib/tribe-validate.class.php:118
+msgid "Field ID:"
+msgstr "Mező ID:"
+
+#: ../lib/tribe-validate.class.php:111
+msgid "Non-existant field validation function passed"
+msgstr "Nemlétező mező érvényesítés"
+
+#: ../lib/tribe-validate.class.php:112
+msgctxt "non-existant function name passed for field validation"
+msgid "with function name:"
+msgstr "ezzel:"
+
+#: ../lib/tribe-validate.class.php:135 ../lib/tribe-validate.class.php:151
+#, php-format
+msgid "%s must contain numbers and letters only"
+msgstr "%s csak számokat és betűket tartalmazhat."
+
+#: ../lib/tribe-validate.class.php:167
+#, php-format
+msgid "%s must contain numbers, letters and dots only"
+msgstr "%s csak számokat, betűket és pontokat tartalmazhat"
+
+#: ../lib/tribe-validate.class.php:181
+#, php-format
+msgid "%s must be a positive number."
+msgstr "%s csak pozitív szám lehet."
+
+#: ../lib/tribe-validate.class.php:196
+#, php-format
+msgid "%s must be a valid slug (numbers, letters, dashes, and underscores)."
+msgstr "%s csak érvényes előtag lehet: szám, betű, kötőjel, alávonás."
+
+#: ../lib/tribe-validate.class.php:211
+#, php-format
+msgid "%s must be a valid absolute URL."
+msgstr "%s csak érvényes URL lehet."
+
+#: ../lib/tribe-validate.class.php:227 ../lib/tribe-validate.class.php:244
+#: ../lib/tribe-validate.class.php:266
+#, php-format
+msgid "%s must have a value that's part of its options."
+msgstr "%s csak olyan értéket vehet fel, amit a lehetőségei tartamaznak."
+
+#: ../lib/tribe-validate.class.php:280
+#, php-format
+msgid ""
+"Comparison validation failed because no comparison value was provided, for "
+"field %s"
+msgstr ""
+"Az összehasonlítás érvényesítése sikertelen volt, mert nem lett megadva "
+"összehasonlítási érték erre a mezőre: %s"
+
+#: ../lib/tribe-validate.class.php:287
+#, php-format
+msgid "%s cannot be the same as %s."
+msgstr "%s nem lehet ugyan az, mint %s"
+
+#: ../lib/tribe-validate.class.php:289
+#, php-format
+msgid "%s cannot be a duplicate"
+msgstr "%s nem lehet duplikált"
+
+#: ../lib/tribe-validate.class.php:305
+#, php-format
+msgid "%s must be a number or percentage."
+msgstr "%s csak szám vagy százalék lehet."
+
+#: ../lib/tribe-validate.class.php:359
+#, php-format
+msgid "%s must be a number between 0 and 21."
+msgstr "%s értéke csak 0 és 21 közötti szám lehet."
+
+#: ../lib/tribe-validate.class.php:375
+#, php-format
+msgid ""
+"%s must consist of letters, numbers, dashes, apostrophes, and spaces only."
+msgstr ""
+"%s csak betűket, számokat, kötőjeleket, aposztrofokat és szóközöket "
+"tartalmazhat."
+
+#: ../lib/tribe-validate.class.php:391
+#, php-format
+msgid "%s must consist of letters, spaces, apostrophes, and dashes."
+msgstr ""
+"%s csak betűket, szóközöket, aposztrofokat és kötőjeleket tartalmazhat."
+
+#: ../lib/tribe-validate.class.php:405
+#, php-format
+msgid "%s must consist of 5 numbers."
+msgstr "%s 5 számot kell, hogy tartalmazzon."
+
+#: ../lib/tribe-validate.class.php:419
+#, php-format
+msgid "%s must be a phone number."
+msgstr "%s csak telefonszám lehet."
+
+#: ../lib/tribe-validate.class.php:435
+msgid ""
+"Country List must be formatted as one country per line in the following "
+"format: <br>US, United States <br> UK, United Kingdom."
+msgstr ""
+"Egy ország soronként a következő formában: <br> US, Egyesült Államok <br> "
+"UK, Egyesült Királyság."
+
+#: ../lib/tribe-view-helpers.class.php:26
+#: ../lib/tribe-view-helpers.class.php:45
+msgid "Select a Country:"
+msgstr "Válassz országot:"
+
+#: ../lib/tribe-view-helpers.class.php:47
+msgid "Afghanistan"
+msgstr "Afganisztán"
+
+#: ../lib/tribe-view-helpers.class.php:48
+msgid "Albania"
+msgstr "Albánia"
+
+#: ../lib/tribe-view-helpers.class.php:49
+msgid "Algeria"
+msgstr "Algéria"
+
+#: ../lib/tribe-view-helpers.class.php:50
+msgid "American Samoa"
+msgstr "Amerikai Szamoa"
+
+#: ../lib/tribe-view-helpers.class.php:51
+msgid "Andorra"
+msgstr "Andorra"
+
+#: ../lib/tribe-view-helpers.class.php:52
+msgid "Angola"
+msgstr "Angola"
+
+#: ../lib/tribe-view-helpers.class.php:53
+msgid "Anguilla"
+msgstr "Anguilla"
+
+#: ../lib/tribe-view-helpers.class.php:54
+msgid "Antarctica"
+msgstr "Antarktika"
+
+#: ../lib/tribe-view-helpers.class.php:55
+msgid "Antigua And Barbuda"
+msgstr "Antigua és Barbuda"
+
+#: ../lib/tribe-view-helpers.class.php:56
+msgid "Argentina"
+msgstr "Argentína"
+
+#: ../lib/tribe-view-helpers.class.php:57
+msgid "Armenia"
+msgstr "Örményország"
+
+#: ../lib/tribe-view-helpers.class.php:58
+msgid "Aruba"
+msgstr "Aruba"
+
+#: ../lib/tribe-view-helpers.class.php:59
+msgid "Australia"
+msgstr "Ausztrália"
+
+#: ../lib/tribe-view-helpers.class.php:60
+msgid "Austria"
+msgstr "Ausztria"
+
+#: ../lib/tribe-view-helpers.class.php:61
+msgid "Azerbaijan"
+msgstr "Azerbajdzsán"
+
+#: ../lib/tribe-view-helpers.class.php:62
+msgid "Bahamas"
+msgstr "Bahama-szigetek"
+
+#: ../lib/tribe-view-helpers.class.php:63
+msgid "Bahrain"
+msgstr "Bahrein"
+
+#: ../lib/tribe-view-helpers.class.php:64
+msgid "Bangladesh"
+msgstr "Banglades"
+
+#: ../lib/tribe-view-helpers.class.php:65
+msgid "Barbados"
+msgstr "Barbados"
+
+#: ../lib/tribe-view-helpers.class.php:66
+msgid "Belarus"
+msgstr "Fehéroroszország"
+
+#: ../lib/tribe-view-helpers.class.php:67
+msgid "Belgium"
+msgstr "Belgium"
+
+#: ../lib/tribe-view-helpers.class.php:68
+msgid "Belize"
+msgstr "Belize"
+
+#: ../lib/tribe-view-helpers.class.php:69
+msgid "Benin"
+msgstr "Benin"
+
+#: ../lib/tribe-view-helpers.class.php:70
+msgid "Bermuda"
+msgstr "Bermuda"
+
+#: ../lib/tribe-view-helpers.class.php:71
+msgid "Bhutan"
+msgstr "Bhután"
+
+#: ../lib/tribe-view-helpers.class.php:72
+msgid "Bolivia"
+msgstr "Bolívia"
+
+#: ../lib/tribe-view-helpers.class.php:73
+msgid "Bosnia And Herzegowina"
+msgstr "Bosznia-Hercegovina"
+
+#: ../lib/tribe-view-helpers.class.php:74
+msgid "Botswana"
+msgstr "Botswana"
+
+#: ../lib/tribe-view-helpers.class.php:75
+msgid "Bouvet Island"
+msgstr "Bouvet-sziget"
+
+#: ../lib/tribe-view-helpers.class.php:76
+msgid "Brazil"
+msgstr "Brazília"
+
+#: ../lib/tribe-view-helpers.class.php:77
+msgid "British Indian Ocean Territory"
+msgstr "Brit Indiai-óceáni Terület"
+
+#: ../lib/tribe-view-helpers.class.php:78
+msgid "Brunei Darussalam"
+msgstr "Brunei"
+
+#: ../lib/tribe-view-helpers.class.php:79
+msgid "Bulgaria"
+msgstr "Bulgária"
+
+#: ../lib/tribe-view-helpers.class.php:80
+msgid "Burkina Faso"
+msgstr "Burkina Faso"
+
+#: ../lib/tribe-view-helpers.class.php:81
+msgid "Burundi"
+msgstr "Burundi"
+
+#: ../lib/tribe-view-helpers.class.php:82
+msgid "Cambodia"
+msgstr "Kambodzsa"
+
+#: ../lib/tribe-view-helpers.class.php:83
+msgid "Cameroon"
+msgstr "Kamerun"
+
+#: ../lib/tribe-view-helpers.class.php:84
+msgid "Canada"
+msgstr "Kanada"
+
+#: ../lib/tribe-view-helpers.class.php:85
+msgid "Cape Verde"
+msgstr "Zöld-foki-szigetek"
+
+#: ../lib/tribe-view-helpers.class.php:86
+msgid "Cayman Islands"
+msgstr "Kajmán-szigetek"
+
+#: ../lib/tribe-view-helpers.class.php:87
+msgid "Central African Republic"
+msgstr "Közép-afrikai Köztársaság"
+
+#: ../lib/tribe-view-helpers.class.php:88
+msgid "Chad"
+msgstr "Csád"
+
+#: ../lib/tribe-view-helpers.class.php:89
+msgid "Chile"
+msgstr "Chile"
+
+#: ../lib/tribe-view-helpers.class.php:90
+msgid "China"
+msgstr "Kína"
+
+#: ../lib/tribe-view-helpers.class.php:91
+msgid "Christmas Island"
+msgstr "Karácsony-sziget"
+
+#: ../lib/tribe-view-helpers.class.php:92
+msgid "Cocos (Keeling) Islands"
+msgstr "Kókusz- (Keeling-)szigetek"
+
+#: ../lib/tribe-view-helpers.class.php:93
+msgid "Colombia"
+msgstr "Kolumbia"
+
+#: ../lib/tribe-view-helpers.class.php:94
+msgid "Comoros"
+msgstr "Comore-szigetek"
+
+#: ../lib/tribe-view-helpers.class.php:95
+msgid "Congo"
+msgstr "Kongó"
+
+#: ../lib/tribe-view-helpers.class.php:96
+msgid "Congo, The Democratic Republic Of The"
+msgstr "Kongói Demokratikus Köztársaság"
+
+#: ../lib/tribe-view-helpers.class.php:97
+msgid "Cook Islands"
+msgstr "Cook-szigetek"
+
+#: ../lib/tribe-view-helpers.class.php:98
+msgid "Costa Rica"
+msgstr "Costa Rica"
+
+#: ../lib/tribe-view-helpers.class.php:99
+msgid "Cote D'Ivoire"
+msgstr "Elefántcsontpart"
+
+#: ../lib/tribe-view-helpers.class.php:100
+msgid "Croatia (Local Name: Hrvatska)"
+msgstr "Horvátország:"
+
+#: ../lib/tribe-view-helpers.class.php:101
+msgid "Cuba"
+msgstr "Kuba"
+
+#: ../lib/tribe-view-helpers.class.php:102
+msgid "Cyprus"
+msgstr "Ciprus"
+
+#: ../lib/tribe-view-helpers.class.php:103
+msgid "Czech Republic"
+msgstr "Cseh Köztársaság"
+
+#: ../lib/tribe-view-helpers.class.php:104
+msgid "Denmark"
+msgstr "Dánia"
+
+#: ../lib/tribe-view-helpers.class.php:105
+msgid "Djibouti"
+msgstr "Dzsibuti"
+
+#: ../lib/tribe-view-helpers.class.php:106
+msgid "Dominica"
+msgstr "Dominika"
+
+#: ../lib/tribe-view-helpers.class.php:107
+msgid "Dominican Republic"
+msgstr "Dominikai Köztársaság"
+
+#: ../lib/tribe-view-helpers.class.php:108
+msgid "East Timor"
+msgstr "Kelet-Timor"
+
+#: ../lib/tribe-view-helpers.class.php:109
+msgid "Ecuador"
+msgstr "Ecuador"
+
+#: ../lib/tribe-view-helpers.class.php:110
+msgid "Egypt"
+msgstr "Egyiptom"
+
+#: ../lib/tribe-view-helpers.class.php:111
+msgid "El Salvador"
+msgstr "Salvador"
+
+#: ../lib/tribe-view-helpers.class.php:112
+msgid "Equatorial Guinea"
+msgstr "Egyenlítői-Guinea"
+
+#: ../lib/tribe-view-helpers.class.php:113
+msgid "Eritrea"
+msgstr "Eritrea"
+
+#: ../lib/tribe-view-helpers.class.php:114
+msgid "Estonia"
+msgstr "Észtország"
+
+#: ../lib/tribe-view-helpers.class.php:115
+msgid "Ethiopia"
+msgstr "Etiópia"
+
+#: ../lib/tribe-view-helpers.class.php:116
+msgid "Falkland Islands (Malvinas)"
+msgstr "Falkland-szigetek"
+
+#: ../lib/tribe-view-helpers.class.php:117
+msgid "Faroe Islands"
+msgstr "Feröer szigetek"
+
+#: ../lib/tribe-view-helpers.class.php:118
+msgid "Fiji"
+msgstr "Fidzsi-szigetek"
+
+#: ../lib/tribe-view-helpers.class.php:119
+msgid "Finland"
+msgstr "Finnország"
+
+#: ../lib/tribe-view-helpers.class.php:120
+msgid "France"
+msgstr "Franciaország"
+
+#: ../lib/tribe-view-helpers.class.php:121
+msgid "France, Metropolitan"
+msgstr "Franciaország"
+
+#: ../lib/tribe-view-helpers.class.php:122
+msgid "French Guiana"
+msgstr "Francia Guyana"
+
+#: ../lib/tribe-view-helpers.class.php:123
+msgid "French Polynesia"
+msgstr "Francia Polinézia"
+
+#: ../lib/tribe-view-helpers.class.php:124
+msgid "French Southern Territories"
+msgstr "Francia Déli Területek"
+
+#: ../lib/tribe-view-helpers.class.php:125
+msgid "Gabon"
+msgstr "Gabon"
+
+#: ../lib/tribe-view-helpers.class.php:126
+msgid "Gambia"
+msgstr "Gambia"
+
+#: ../lib/tribe-view-helpers.class.php:127
+#: ../lib/tribe-view-helpers.class.php:326
+msgid "Georgia"
+msgstr "Grúzia"
+
+#: ../lib/tribe-view-helpers.class.php:128
+msgid "Germany"
+msgstr "Németország"
+
+#: ../lib/tribe-view-helpers.class.php:129
+msgid "Ghana"
+msgstr "Ghána"
+
+#: ../lib/tribe-view-helpers.class.php:130
+msgid "Gibraltar"
+msgstr "Gibraltár"
+
+#: ../lib/tribe-view-helpers.class.php:131
+msgid "Greece"
+msgstr "Görögország"
+
+#: ../lib/tribe-view-helpers.class.php:132
+msgid "Greenland"
+msgstr "Grönland"
+
+#: ../lib/tribe-view-helpers.class.php:133
+msgid "Grenada"
+msgstr "Grenada"
+
+#: ../lib/tribe-view-helpers.class.php:134
+msgid "Guadeloupe"
+msgstr "Guadeloupe"
+
+#: ../lib/tribe-view-helpers.class.php:135
+msgid "Guam"
+msgstr "Guam"
+
+#: ../lib/tribe-view-helpers.class.php:136
+msgid "Guatemala"
+msgstr "Guatemala"
+
+#: ../lib/tribe-view-helpers.class.php:137
+msgid "Guinea"
+msgstr "Guinea"
+
+#: ../lib/tribe-view-helpers.class.php:138
+msgid "Guinea-Bissau"
+msgstr "Bissau-Guinea"
+
+#: ../lib/tribe-view-helpers.class.php:139
+msgid "Guyana"
+msgstr "Guyana"
+
+#: ../lib/tribe-view-helpers.class.php:140
+msgid "Haiti"
+msgstr "Haiti"
+
+#: ../lib/tribe-view-helpers.class.php:141
+msgid "Heard And Mc Donald Islands"
+msgstr "Heard és McDonald-szigetek"
+
+#: ../lib/tribe-view-helpers.class.php:142
+msgid "Holy See (Vatican City State)"
+msgstr "Apostoli Szentszék (Vatikáni Városállam)"
+
+#: ../lib/tribe-view-helpers.class.php:143
+msgid "Honduras"
+msgstr "Hondurasz"
+
+#: ../lib/tribe-view-helpers.class.php:144
+msgid "Hong Kong"
+msgstr "Hongkong"
+
+#: ../lib/tribe-view-helpers.class.php:145
+msgid "Hungary"
+msgstr "Magyarország"
+
+#: ../lib/tribe-view-helpers.class.php:146
+msgid "Iceland"
+msgstr "Izland"
+
+#: ../lib/tribe-view-helpers.class.php:147
+msgid "India"
+msgstr "India"
+
+#: ../lib/tribe-view-helpers.class.php:148
+msgid "Indonesia"
+msgstr "Indonézia"
+
+#: ../lib/tribe-view-helpers.class.php:149
+msgid "Iran (Islamic Republic Of)"
+msgstr "Iráni Iszlám Köztársaság"
+
+#: ../lib/tribe-view-helpers.class.php:150
+msgid "Iraq"
+msgstr "Irak"
+
+#: ../lib/tribe-view-helpers.class.php:151
+msgid "Ireland"
+msgstr "Írország"
+
+#: ../lib/tribe-view-helpers.class.php:152
+msgid "Israel"
+msgstr "Izrael"
+
+#: ../lib/tribe-view-helpers.class.php:153
+msgid "Italy"
+msgstr "Olaszország"
+
+#: ../lib/tribe-view-helpers.class.php:154
+msgid "Jamaica"
+msgstr "Jamaica"
+
+#: ../lib/tribe-view-helpers.class.php:155
+msgid "Japan"
+msgstr "Japán"
+
+#: ../lib/tribe-view-helpers.class.php:156
+msgid "Jordan"
+msgstr "Jordánia"
+
+#: ../lib/tribe-view-helpers.class.php:157
+msgid "Kazakhstan"
+msgstr "Kazahsztán"
+
+#: ../lib/tribe-view-helpers.class.php:158
+msgid "Kenya"
+msgstr "Kenya"
+
+#: ../lib/tribe-view-helpers.class.php:159
+msgid "Kiribati"
+msgstr "Kiribati"
+
+#: ../lib/tribe-view-helpers.class.php:160
+msgid "Korea, Democratic People's Republic Of"
+msgstr "Koreai Demokratikus Népköztársaság"
+
+#: ../lib/tribe-view-helpers.class.php:161
+msgid "Korea, Republic Of"
+msgstr "Koreai Köztársaság"
+
+#: ../lib/tribe-view-helpers.class.php:162
+msgid "Kuwait"
+msgstr "Kuvait"
+
+#: ../lib/tribe-view-helpers.class.php:163
+msgid "Kyrgyzstan"
+msgstr "Kirgizisztán"
+
+#: ../lib/tribe-view-helpers.class.php:164
+msgid "Lao People's Democratic Republic"
+msgstr "Laosz"
+
+#: ../lib/tribe-view-helpers.class.php:165
+msgid "Latvia"
+msgstr "Lettország"
+
+#: ../lib/tribe-view-helpers.class.php:166
+msgid "Lebanon"
+msgstr "Libanon"
+
+#: ../lib/tribe-view-helpers.class.php:167
+msgid "Lesotho"
+msgstr "Lesotho"
+
+#: ../lib/tribe-view-helpers.class.php:168
+msgid "Liberia"
+msgstr "Libéria"
+
+#: ../lib/tribe-view-helpers.class.php:169
+msgid "Libya"
+msgstr "Líbia"
+
+#: ../lib/tribe-view-helpers.class.php:170
+msgid "Liechtenstein"
+msgstr "Liechtenstein"
+
+#: ../lib/tribe-view-helpers.class.php:171
+msgid "Lithuania"
+msgstr "Litvánia"
+
+#: ../lib/tribe-view-helpers.class.php:172
+msgid "Luxembourg"
+msgstr "Luxemburg"
+
+#: ../lib/tribe-view-helpers.class.php:173
+msgid "Macau"
+msgstr "Makaó"
+
+#: ../lib/tribe-view-helpers.class.php:174
+msgid "Macedonia"
+msgstr "Macedónia"
+
+#: ../lib/tribe-view-helpers.class.php:175
+msgid "Madagascar"
+msgstr "Madagaszkár"
+
+#: ../lib/tribe-view-helpers.class.php:176
+msgid "Malawi"
+msgstr "Malawi"
+
+#: ../lib/tribe-view-helpers.class.php:177
+msgid "Malaysia"
+msgstr "Malajzia"
+
+#: ../lib/tribe-view-helpers.class.php:178
+msgid "Maldives"
+msgstr "Maldív-szigetek"
+
+#: ../lib/tribe-view-helpers.class.php:179
+msgid "Mali"
+msgstr "Mali"
+
+#: ../lib/tribe-view-helpers.class.php:180
+msgid "Malta"
+msgstr "Málta"
+
+#: ../lib/tribe-view-helpers.class.php:181
+msgid "Marshall Islands"
+msgstr "Marshall-szigetek"
+
+#: ../lib/tribe-view-helpers.class.php:182
+msgid "Martinique"
+msgstr "Martinique"
+
+#: ../lib/tribe-view-helpers.class.php:183
+msgid "Mauritania"
+msgstr "Mauritánia"
+
+#: ../lib/tribe-view-helpers.class.php:184
+msgid "Mauritius"
+msgstr "Mauríciusz"
+
+#: ../lib/tribe-view-helpers.class.php:185
+msgid "Mayotte"
+msgstr "Mayotte"
+
+#: ../lib/tribe-view-helpers.class.php:186
+msgid "Mexico"
+msgstr "Mexikó"
+
+#: ../lib/tribe-view-helpers.class.php:187
+msgid "Micronesia, Federated States Of"
+msgstr "Mikronéziai Szövetségi Államok"
+
+#: ../lib/tribe-view-helpers.class.php:188
+msgid "Moldova, Republic Of"
+msgstr "Moldáviai Köztársaság"
+
+#: ../lib/tribe-view-helpers.class.php:189
+msgid "Monaco"
+msgstr "Monakó"
+
+#: ../lib/tribe-view-helpers.class.php:190
+msgid "Mongolia"
+msgstr "Mongólia"
+
+#: ../lib/tribe-view-helpers.class.php:191
+msgid "Montenegro"
+msgstr "Montenegró"
+
+#: ../lib/tribe-view-helpers.class.php:192
+msgid "Montserrat"
+msgstr "Montserrat"
+
+#: ../lib/tribe-view-helpers.class.php:193
+msgid "Morocco"
+msgstr "Marokkó"
+
+#: ../lib/tribe-view-helpers.class.php:194
+msgid "Mozambique"
+msgstr "Mozambik"
+
+#: ../lib/tribe-view-helpers.class.php:195
+msgid "Myanmar"
+msgstr "Mianmar"
+
+#: ../lib/tribe-view-helpers.class.php:196
+msgid "Namibia"
+msgstr "Namíbia"
+
+#: ../lib/tribe-view-helpers.class.php:197
+msgid "Nauru"
+msgstr "Nauru"
+
+#: ../lib/tribe-view-helpers.class.php:198
+msgid "Nepal"
+msgstr "Nepál"
+
+#: ../lib/tribe-view-helpers.class.php:199
+msgid "Netherlands"
+msgstr "Hollandia"
+
+#: ../lib/tribe-view-helpers.class.php:200
+msgid "Netherlands Antilles"
+msgstr "Holland Antillák"
+
+#: ../lib/tribe-view-helpers.class.php:201
+msgid "New Caledonia"
+msgstr "Új-Kaledónia"
+
+#: ../lib/tribe-view-helpers.class.php:202
+msgid "New Zealand"
+msgstr "Új-Zéland"
+
+#: ../lib/tribe-view-helpers.class.php:203
+msgid "Nicaragua"
+msgstr "Nicaragua"
+
+#: ../lib/tribe-view-helpers.class.php:204
+msgid "Niger"
+msgstr "Niger"
+
+#: ../lib/tribe-view-helpers.class.php:205
+msgid "Nigeria"
+msgstr "Nigéria"
+
+#: ../lib/tribe-view-helpers.class.php:206
+msgid "Niue"
+msgstr "Niue"
+
+#: ../lib/tribe-view-helpers.class.php:207
+msgid "Norfolk Island"
+msgstr "Norfolk-sziget"
+
+#: ../lib/tribe-view-helpers.class.php:208
+msgid "Northern Mariana Islands"
+msgstr "Északi-Mariana-szigetek"
+
+#: ../lib/tribe-view-helpers.class.php:209
+msgid "Norway"
+msgstr "Norvégia"
+
+#: ../lib/tribe-view-helpers.class.php:210
+msgid "Oman"
+msgstr "Omán"
+
+#: ../lib/tribe-view-helpers.class.php:211
+msgid "Pakistan"
+msgstr "Pakisztán"
+
+#: ../lib/tribe-view-helpers.class.php:212
+msgid "Palau"
+msgstr "Palau"
+
+#: ../lib/tribe-view-helpers.class.php:213
+msgid "Panama"
+msgstr "Panama"
+
+#: ../lib/tribe-view-helpers.class.php:214
+msgid "Papua New Guinea"
+msgstr "Pápua Új-Guinea"
+
+#: ../lib/tribe-view-helpers.class.php:215
+msgid "Paraguay"
+msgstr "Paraguay"
+
+#: ../lib/tribe-view-helpers.class.php:216
+msgid "Peru"
+msgstr "Peru"
+
+#: ../lib/tribe-view-helpers.class.php:217
+msgid "Philippines"
+msgstr "Fülöp-szigetek"
+
+#: ../lib/tribe-view-helpers.class.php:218
+msgid "Pitcairn"
+msgstr "Pitcairn-szigetek"
+
+#: ../lib/tribe-view-helpers.class.php:219
+msgid "Poland"
+msgstr "Lengyelország"
+
+#: ../lib/tribe-view-helpers.class.php:220
+msgid "Portugal"
+msgstr "Portugália"
+
+#: ../lib/tribe-view-helpers.class.php:221
+msgid "Puerto Rico"
+msgstr "Puerto Rico"
+
+#: ../lib/tribe-view-helpers.class.php:222
+msgid "Qatar"
+msgstr "Katar"
+
+#: ../lib/tribe-view-helpers.class.php:223
+msgid "Reunion"
+msgstr "Réunion"
+
+#: ../lib/tribe-view-helpers.class.php:224
+msgid "Romania"
+msgstr "Románia"
+
+#: ../lib/tribe-view-helpers.class.php:225
+msgid "Russian Federation"
+msgstr "Orosz Föderáció"
+
+#: ../lib/tribe-view-helpers.class.php:226
+msgid "Rwanda"
+msgstr "Ruanda"
+
+#: ../lib/tribe-view-helpers.class.php:227
+msgid "Saint Kitts And Nevis"
+msgstr "Saint Kitts és Nevis"
+
+#: ../lib/tribe-view-helpers.class.php:228
+msgid "Saint Lucia"
+msgstr "Saint Lucia"
+
+#: ../lib/tribe-view-helpers.class.php:229
+msgid "Saint Vincent And The Grenadines"
+msgstr "Saint Vincent és a Grenadine-szigetek"
+
+#: ../lib/tribe-view-helpers.class.php:230
+msgid "Samoa"
+msgstr "Szamoa"
+
+#: ../lib/tribe-view-helpers.class.php:231
+msgid "San Marino"
+msgstr "San Marino Köztársaság"
+
+#: ../lib/tribe-view-helpers.class.php:232
+msgid "Sao Tome And Principe"
+msgstr "Sao Tome és Principe"
+
+#: ../lib/tribe-view-helpers.class.php:233
+msgid "Saudi Arabia"
+msgstr "Szaúd-Arábia"
+
+#: ../lib/tribe-view-helpers.class.php:234
+msgid "Senegal"
+msgstr "Szenegál"
+
+#: ../lib/tribe-view-helpers.class.php:235
+msgid "Serbia"
+msgstr "Szerbia"
+
+#: ../lib/tribe-view-helpers.class.php:236
+msgid "Seychelles"
+msgstr "Seychelle-szigetek"
+
+#: ../lib/tribe-view-helpers.class.php:237
+msgid "Sierra Leone"
+msgstr "Sierra Leone"
+
+#: ../lib/tribe-view-helpers.class.php:238
+msgid "Singapore"
+msgstr "Szingapúr"
+
+#: ../lib/tribe-view-helpers.class.php:239
+msgid "Slovakia (Slovak Republic)"
+msgstr "Szlovákia"
+
+#: ../lib/tribe-view-helpers.class.php:240
+msgid "Slovenia"
+msgstr "Szlovénia"
+
+#: ../lib/tribe-view-helpers.class.php:241
+msgid "Solomon Islands"
+msgstr "Salamon-szigetek"
+
+#: ../lib/tribe-view-helpers.class.php:242
+msgid "Somalia"
+msgstr "Szomália"
+
+#: ../lib/tribe-view-helpers.class.php:243
+msgid "South Africa"
+msgstr "Dél-Afrika"
+
+#: ../lib/tribe-view-helpers.class.php:244
+msgid "South Georgia, South Sandwich Islands"
+msgstr "Dél-Georgia és Déli-Sandwich-szigetek"
+
+#: ../lib/tribe-view-helpers.class.php:245
+msgid "Spain"
+msgstr "Spanyolország"
+
+#: ../lib/tribe-view-helpers.class.php:246
+msgid "Sri Lanka"
+msgstr "Srí Lanka"
+
+#: ../lib/tribe-view-helpers.class.php:247
+msgid "St. Helena"
+msgstr "Szent Ilona"
+
+#: ../lib/tribe-view-helpers.class.php:248
+msgid "St. Pierre And Miquelon"
+msgstr "Saint-Pierre és Miquelon"
+
+#: ../lib/tribe-view-helpers.class.php:249
+msgid "Sudan"
+msgstr "Szudán"
+
+#: ../lib/tribe-view-helpers.class.php:250
+msgid "Suriname"
+msgstr "Suriname Köztársaság"
+
+#: ../lib/tribe-view-helpers.class.php:251
+msgid "Svalbard And Jan Mayen Islands"
+msgstr "Svalbard- és Jan Mayen-szigetek"
+
+#: ../lib/tribe-view-helpers.class.php:252
+msgid "Swaziland"
+msgstr "Szváziföld"
+
+#: ../lib/tribe-view-helpers.class.php:253
+msgid "Sweden"
+msgstr "Svédország"
+
+#: ../lib/tribe-view-helpers.class.php:254
+msgid "Switzerland"
+msgstr "Svájc"
+
+#: ../lib/tribe-view-helpers.class.php:255
+msgid "Syrian Arab Republic"
+msgstr "Szíriai Arab Köztársaság"
+
+#: ../lib/tribe-view-helpers.class.php:256
+msgid "Taiwan"
+msgstr "Tajvan"
+
+#: ../lib/tribe-view-helpers.class.php:257
+msgid "Tajikistan"
+msgstr "Tádzsikisztán"
+
+#: ../lib/tribe-view-helpers.class.php:258
+msgid "Tanzania, United Republic Of"
+msgstr "Tanzániai Egyesült Köztársaság"
+
+#: ../lib/tribe-view-helpers.class.php:259
+msgid "Thailand"
+msgstr "Thaiföld"
+
+#: ../lib/tribe-view-helpers.class.php:260
+msgid "Togo"
+msgstr "Togo"
+
+#: ../lib/tribe-view-helpers.class.php:261
+msgid "Tokelau"
+msgstr "Tokelau-szigetek"
+
+#: ../lib/tribe-view-helpers.class.php:262
+msgid "Tonga"
+msgstr "Tongai Királyság"
+
+#: ../lib/tribe-view-helpers.class.php:263
+msgid "Trinidad And Tobago"
+msgstr "Trinidad és Tobago"
+
+#: ../lib/tribe-view-helpers.class.php:264
+msgid "Tunisia"
+msgstr "Tunézia"
+
+#: ../lib/tribe-view-helpers.class.php:265
+msgid "Turkey"
+msgstr "Törökország"
+
+#: ../lib/tribe-view-helpers.class.php:266
+msgid "Turkmenistan"
+msgstr "Türkmenisztán"
+
+#: ../lib/tribe-view-helpers.class.php:267
+msgid "Turks And Caicos Islands"
+msgstr "Turks- és Caicos-szigetek"
+
+#: ../lib/tribe-view-helpers.class.php:268
+msgid "Tuvalu"
+msgstr "Tuvalu"
+
+#: ../lib/tribe-view-helpers.class.php:269
+msgid "Uganda"
+msgstr "Uganda"
+
+#: ../lib/tribe-view-helpers.class.php:270
+msgid "Ukraine"
+msgstr "Ukrajna"
+
+#: ../lib/tribe-view-helpers.class.php:271
+msgid "United Arab Emirates"
+msgstr "Egyesült Arab Emírségek"
+
+#: ../lib/tribe-view-helpers.class.php:272
+msgid "United Kingdom"
+msgstr "Egyesült Királyság"
+
+#: ../lib/tribe-view-helpers.class.php:273
+msgid "United States Minor Outlying Islands"
+msgstr "Az Egyesült Államok külbirtokai"
+
+#: ../lib/tribe-view-helpers.class.php:274
+msgid "Uruguay"
+msgstr "Uruguay"
+
+#: ../lib/tribe-view-helpers.class.php:275
+msgid "Uzbekistan"
+msgstr "Üzbegisztán"
+
+#: ../lib/tribe-view-helpers.class.php:276
+msgid "Vanuatu"
+msgstr "Vanuatu"
+
+#: ../lib/tribe-view-helpers.class.php:277
+msgid "Venezuela"
+msgstr "Venezuela"
+
+#: ../lib/tribe-view-helpers.class.php:278
+msgid "Viet Nam"
+msgstr "Vietnam"
+
+#: ../lib/tribe-view-helpers.class.php:279
+msgid "Virgin Islands (British)"
+msgstr "Virgin-szigetek (Brit)"
+
+#: ../lib/tribe-view-helpers.class.php:280
+msgid "Virgin Islands (U.S.)"
+msgstr "Virgin-szigetek (USA)"
+
+#: ../lib/tribe-view-helpers.class.php:281
+msgid "Wallis And Futuna Islands"
+msgstr "Wallis- és Futuna-szigetek"
+
+#: ../lib/tribe-view-helpers.class.php:282
+msgid "Western Sahara"
+msgstr "Nyugat-Szahara"
+
+#: ../lib/tribe-view-helpers.class.php:283
+msgid "Yemen"
+msgstr "Jemen"
+
+#: ../lib/tribe-view-helpers.class.php:284
+msgid "Zambia"
+msgstr "Zambia"
+
+#: ../lib/tribe-view-helpers.class.php:285
+msgid "Zimbabwe"
+msgstr "Zimbabwe"
+
+#: ../lib/tribe-view-helpers.class.php:316
+msgid "Alabama"
+msgstr "Alabama"
+
+#: ../lib/tribe-view-helpers.class.php:317
+msgid "Alaska"
+msgstr "Alaszka"
+
+#: ../lib/tribe-view-helpers.class.php:318
+msgid "Arizona"
+msgstr "Arizona"
+
+#: ../lib/tribe-view-helpers.class.php:319
+msgid "Arkansas"
+msgstr "Arkansas"
+
+#: ../lib/tribe-view-helpers.class.php:320
+msgid "California"
+msgstr "Kalifornia"
+
+#: ../lib/tribe-view-helpers.class.php:321
+msgid "Colorado"
+msgstr "Colorado"
+
+#: ../lib/tribe-view-helpers.class.php:322
+msgid "Connecticut"
+msgstr "Connecticut"
+
+#: ../lib/tribe-view-helpers.class.php:323
+msgid "Delaware"
+msgstr "Delaware"
+
+#: ../lib/tribe-view-helpers.class.php:324
+msgid "District of Columbia"
+msgstr "Columbia kerület"
+
+#: ../lib/tribe-view-helpers.class.php:325
+msgid "Florida"
+msgstr "Florida"
+
+#: ../lib/tribe-view-helpers.class.php:327
+msgid "Hawaii"
+msgstr "Havaii"
+
+#: ../lib/tribe-view-helpers.class.php:328
+msgid "Idaho"
+msgstr "Idaho"
+
+#: ../lib/tribe-view-helpers.class.php:329
+msgid "Illinois"
+msgstr "Illinois"
+
+#: ../lib/tribe-view-helpers.class.php:330
+msgid "Indiana"
+msgstr "Indiana"
+
+#: ../lib/tribe-view-helpers.class.php:331
+msgid "Iowa"
+msgstr "Iowa"
+
+#: ../lib/tribe-view-helpers.class.php:332
+msgid "Kansas"
+msgstr "Kansas"
+
+#: ../lib/tribe-view-helpers.class.php:333
+msgid "Kentucky"
+msgstr "Kentucky"
+
+#: ../lib/tribe-view-helpers.class.php:334
+msgid "Louisiana"
+msgstr "Louisiana"
+
+#: ../lib/tribe-view-helpers.class.php:335
+msgid "Maine"
+msgstr "Maine"
+
+#: ../lib/tribe-view-helpers.class.php:336
+msgid "Maryland"
+msgstr "Maryland"
+
+#: ../lib/tribe-view-helpers.class.php:337
+msgid "Massachusetts"
+msgstr "Massachusetts"
+
+#: ../lib/tribe-view-helpers.class.php:338
+msgid "Michigan"
+msgstr "Michigan"
+
+#: ../lib/tribe-view-helpers.class.php:339
+msgid "Minnesota"
+msgstr "Minnesota"
+
+#: ../lib/tribe-view-helpers.class.php:340
+msgid "Mississippi"
+msgstr "Mississippi"
+
+#: ../lib/tribe-view-helpers.class.php:341
+msgid "Missouri"
+msgstr "Missouri"
+
+#: ../lib/tribe-view-helpers.class.php:342
+msgid "Montana"
+msgstr "Montana"
+
+#: ../lib/tribe-view-helpers.class.php:343
+msgid "Nebraska"
+msgstr "Nebraska"
+
+#: ../lib/tribe-view-helpers.class.php:344
+msgid "Nevada"
+msgstr "Nevada"
+
+#: ../lib/tribe-view-helpers.class.php:345
+msgid "New Hampshire"
+msgstr "New Hampshire"
+
+#: ../lib/tribe-view-helpers.class.php:346
+msgid "New Jersey"
+msgstr "New Jersey"
+
+#: ../lib/tribe-view-helpers.class.php:347
+msgid "New Mexico"
+msgstr "Új-Mexikó"
+
+#: ../lib/tribe-view-helpers.class.php:348
+msgid "New York"
+msgstr "New York"
+
+#: ../lib/tribe-view-helpers.class.php:349
+msgid "North Carolina"
+msgstr "Észak-Karolina"
+
+#: ../lib/tribe-view-helpers.class.php:350
+msgid "North Dakota"
+msgstr "Észak-Dakota"
+
+#: ../lib/tribe-view-helpers.class.php:351
+msgid "Ohio"
+msgstr "Ohio"
+
+#: ../lib/tribe-view-helpers.class.php:352
+msgid "Oklahoma"
+msgstr "Oklahoma"
+
+#: ../lib/tribe-view-helpers.class.php:353
+msgid "Oregon"
+msgstr "Oregon"
+
+#: ../lib/tribe-view-helpers.class.php:354
+msgid "Pennsylvania"
+msgstr "Pennsylvania"
+
+#: ../lib/tribe-view-helpers.class.php:355
+msgid "Rhode Island"
+msgstr "Rhode Island"
+
+#: ../lib/tribe-view-helpers.class.php:356
+msgid "South Carolina"
+msgstr "Dél-Karolina"
+
+#: ../lib/tribe-view-helpers.class.php:357
+msgid "South Dakota"
+msgstr "Dél-Dakota"
+
+#: ../lib/tribe-view-helpers.class.php:358
+msgid "Tennessee"
+msgstr "Tennessee"
+
+#: ../lib/tribe-view-helpers.class.php:359
+msgid "Texas"
+msgstr "Texas"
+
+#: ../lib/tribe-view-helpers.class.php:360
+msgid "Utah"
+msgstr "Utah"
+
+#: ../lib/tribe-view-helpers.class.php:361
+msgid "Vermont"
+msgstr "Vermont"
+
+#: ../lib/tribe-view-helpers.class.php:362
+msgid "Virginia"
+msgstr "Virginia"
+
+#: ../lib/tribe-view-helpers.class.php:363
+msgid "Washington"
+msgstr "Washington"
+
+#: ../lib/tribe-view-helpers.class.php:364
+msgid "West Virginia"
+msgstr "Nyugat-Virginia"
+
+#: ../lib/tribe-view-helpers.class.php:365
+msgid "Wisconsin"
+msgstr "Wisconsin"
+
+#: ../lib/tribe-view-helpers.class.php:366
+msgid "Wyoming"
+msgstr "Wyoming"
+
+#: ../lib/widget-list.class.php:26
+msgid "A widget that displays upcoming events."
+msgstr "Egy widget, mely a következő eseményeket jeleníti meg."
+
+#: ../lib/widget-list.class.php:34
+msgid "Events List"
+msgstr "Eseménylista"
+
+#: ../lib/widget-list.class.php:162 ../public/template-tags/loop.php:130
+msgid "Upcoming Events"
+msgstr "Közelgő események"
+
+#: ../public/advanced-functions/meta.php:42
+#: ../public/advanced-functions/meta.php:74
+#: ../views/modules/meta/details.php:36 ../views/modules/meta/details.php:61
+msgid "Start:"
+msgstr "Kezdés:"
+
+#: ../public/advanced-functions/meta.php:51
+#: ../public/advanced-functions/meta.php:83
+#: ../views/modules/meta/details.php:41 ../views/modules/meta/details.php:66
+msgid "End:"
+msgstr "Vége:"
+
+#: ../public/advanced-functions/meta.php:62
+#: ../public/advanced-functions/meta.php:94
+#: ../views/modules/meta/details.php:51 ../views/modules/meta/details.php:76
+msgid "Date:"
+msgstr "Dátum:"
+
+#: ../public/advanced-functions/meta.php:105
+#: ../public/advanced-functions/meta.php:116
+#: ../views/modules/meta/details.php:81
+msgid "Time:"
+msgstr "Időpont:"
+
+#: ../public/advanced-functions/meta.php:329
+#: ../public/template-tags/google-map.php:44
+msgid "Click to view a Google Map"
+msgstr "Kattints ide a Google Térkép megjelenítéséhez"
+
+#: ../public/advanced-functions/meta.php:330
+#: ../public/template-tags/google-map.php:45
+msgid "+ Google Map"
+msgstr "+ Google Térkép"
+
+#: ../public/advanced-functions/meta.php:343
+#: ../views/modules/meta/details.php:13
+msgid "Details"
+msgstr "Részletek"
+
+#: ../public/advanced-functions/meta.php:403
+#: ../views/modules/meta/details.php:115
+msgid "Event Tags:"
+msgstr "Esemény címkék:"
+
+#: ../public/advanced-functions/meta.php:433
+msgid "Origin:"
+msgstr "Származás:"
+
+#: ../public/advanced-functions/meta.php:594
+msgid "Event:"
+msgstr "Esemény:"
+
+#: ../public/template-tags/day.php:103
+msgid "<span>&laquo;</span> Previous Day"
+msgstr "<span>&laquo;</span> Előző nap"
+
+#: ../public/template-tags/day.php:105
+msgid "Next Day <span>&raquo;</span>"
+msgstr "Következő nap <span>&raquo;</span>"
+
+#: ../public/template-tags/day.php:107
+msgid "Yesterday"
+msgstr "Tegnap"
+
+#: ../public/template-tags/day.php:109
+msgid "Tomorrow"
+msgstr "Holnap"
+
+#: ../public/template-tags/deprecated.php:1283
+msgid "Category"
+msgstr "Kategória"
+
+#: ../public/template-tags/general.php:385
+msgid "Tags:"
+msgstr "Címkék:"
+
+#: ../public/template-tags/general.php:489
+msgid "Loading Events"
+msgstr "Események betöltése"
+
+#: ../public/template-tags/general.php:683
+msgid "Free"
+msgstr "Ingyenes"
+
+#: ../public/template-tags/general.php:1340
+#, php-format
+msgid "Calendar powered by %sThe Events Calendar%s"
+msgstr "A naptárat a %sThe Events Calendar%s működteti"
+
+#: ../public/template-tags/loop.php:144
+#, php-format
+msgid "Events for %1$s - %2$s"
+msgstr "Események: %1$s - %2$s"
+
+#: ../public/template-tags/loop.php:146
+msgid "Past Events"
+msgstr "Elmúlt események"
+
+#: ../public/template-tags/loop.php:151
+#, php-format
+msgid "Events for %s"
+msgstr "Események: %s"
+
+#: ../public/template-tags/loop.php:158 ../views/month/mobile.php:13
+msgid "Events for"
+msgstr "Események:"
+
+#: ../public/template-tags/options.php:20
+#, php-format
+msgid "Your current Events URL is %s"
+msgstr "Események jelenlegi linkje: %s"
+
+#: ../public/template-tags/options.php:29
+#, php-format
+msgid ""
+"You <strong>cannot</strong> use the same slug as above. The above should "
+"ideally be plural, and this singular.<br />Your single Event URL is like: %s"
+msgstr ""
+"<strong>Nem</strong> használhatod ugyan azt az előtagot, mint fent. A fenti "
+"ideális esetben többes számú, ez pedig egyes számú.<br />Az egyedi esemény "
+"hivatkozása így néz ki: %s"
+
+#: ../views/day/nav.php:16
+msgid "Day Navigation"
+msgstr "Nap navigáció"
+
+#: ../views/day/single-event.php:74 ../views/list/single-event.php:80
+msgid "Find out more"
+msgstr "Tudj meg többet"
+
+#: ../views/list/nav.php:17
+msgid "Events List Navigation"
+msgstr "Eseménylista navigáció"
+
+#: ../views/list/nav.php:23
+msgid "<span>&laquo;</span> Previous Events"
+msgstr "<span>&laquo;</span> Előző események"
+
+#: ../views/list/nav.php:30
+msgid "Next Events <span>&raquo;</span>"
+msgstr "Következő események <span>&raquo;</span>"
+
+#: ../views/modules/bar.php:32 ../views/modules/bar.php:63
+msgid "Find Events"
+msgstr "Események keresése"
+
+#: ../views/modules/bar.php:39
+msgid "Event Views Navigation"
+msgstr "Esemény nézetének navigációja"
+
+#: ../views/modules/bar.php:40
+msgid "View As"
+msgstr "Megjelenítés mint:"
+
+#: ../views/month/mobile.php:40
+msgid "Find out more »"
+msgstr "Tudj meg többet »"
+
+#: ../views/month/nav.php:18
+msgid "Calendar Month Navigation"
+msgstr "Hónap navigáció a naptárban"
+
+#: ../views/month/single-day.php:41
+#, php-format
+msgid "View 1 Event"
+msgid_plural "View All %s Events"
+msgstr[0] "1 esemény megtekintése"
+msgstr[1] "%s (összes) esemény megtekintése"
+
+#: ../views/single-event.php:24
+msgid "&laquo; All Events"
+msgstr "&laquo; Összes esemény"
+
+#: ../views/single-event.php:43 ../views/single-event.php:89
+msgid "Event Navigation"
+msgstr "Esemény navigáció"
+
+#: ../views/tickets/attendees-email.php:24
+msgid "Attendee List"
+msgstr "Résztvevők listájára"
+
+#: ../views/tickets/email.php:37
+msgid "Your tickets"
+msgstr "Jegyeid"
+
+#: ../views/tickets/email.php:321
+msgid "Ticket Type"
+msgstr "Jegy típusa"
+
+#: ../views/tickets/email.php:325
+msgid "Purchaser"
+msgstr "Vásárló"
+
+#: ../views/widgets/list-widget.php:63
+msgid "View All Events"
+msgstr "Összes esemény megtekintése"
+
+#: ../views/widgets/list-widget.php:70
+msgid "There are no upcoming events at this time."
+msgstr "Jelenleg nincs közelgő esemény."

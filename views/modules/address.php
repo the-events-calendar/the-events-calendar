@@ -39,7 +39,7 @@ if ( tribe_get_address( $postId ) ) {
 
 // Get our full region
 $our_province = tribe_get_event_meta( $postId, '_VenueStateProvince', true );
-$our_states = TribeEventsViewHelpers::loadStates();
+$our_states = Tribe__Events__View_Helpers::loadStates();
 $our_full_region = isset( $our_states[$our_province] ) ? $our_states[$our_province] : $our_province;
 
 // Get our city
