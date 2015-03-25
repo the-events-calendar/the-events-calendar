@@ -30,7 +30,13 @@ module.exports = {
 				src: ['**',
 				      '!**/dev/**',
 				      '!**/tests/**',
-				      '!**/.git/**'
+				      '!**/.git/**',
+				      '!**/vendor/isotope/index.html',
+				      '!**/vendor/isotope/_includes/**',
+				      '!**/vendor/isotope/_layouts/**',
+				      '!**/vendor/isotope/_posts/**',
+				      '!**/vendor/isotope/js/**',
+				      '!**/vendor/jquery-slimscroll/examples/**'
 				],
 				dest: '<%= pkg._zipfoldername %>/'
 			}]
