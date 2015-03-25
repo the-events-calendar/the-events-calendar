@@ -103,6 +103,8 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 				$query->tribe_is_past = true;
 			} elseif ( tribe_is_ajax_view_request() && $query->get( 'eventDisplay' ) == 'past' ) {
 				$query->tribe_is_past = true;
+			} elseif ( $query->get( 'tribe_is_past' ) ) {
+				$query->tribe_is_past = true;
 			} else {
 				$query->tribe_is_past = isset( $query->tribe_is_past ) ? $query->tribe_is_past : false;
 			}
@@ -251,7 +253,7 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 								? $query->get( 'eventDate' )
 								: date_i18n( Tribe__Events__Date_Utils::DBDATETIMEFORMAT );
 							if ( ! $query->tribe_is_past ) {
-								$query->set( 'start_date', tribe_event_beginning_of_day( $event_date ) );
+								$query->set( 'start_date', ( '' != $query->get( 'eventDate' ) ? tribe_event_beginning_of_day( $event_date ) : tribe_event_format_date( time(), true, 'Y-m-d H:i:s' ) ) );
 								$query->set( 'end_date', '' );
 								$query->set( 'order', self::set_order( 'ASC', $query ) );
 							} else {
@@ -762,8 +764,8 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 						$raw_counts = $wpdb->get_results(
 							$wpdb->prepare(
 								"
-							SELECT 	tribe_event_start.post_id as ID, 
-									tribe_event_start.meta_value as EventStartDate, 
+							SELECT 	tribe_event_start.post_id as ID,
+									tribe_event_start.meta_value as EventStartDate,
 									DATE_FORMAT( tribe_event_end_date.meta_value, '%1\$s') as EventEndDate,
 									{$wpdb->posts}.menu_order as menu_order
 							FROM $wpdb->postmeta AS tribe_event_start

@@ -17,179 +17,233 @@
             <th>Reason</th>
         </tr>
         <tr><td colspan="5"><b>../resources/events-admin.js</b></td></tr><tr class="warning">
+    <td class="text-center">W116</td>
+    <td class="text-center">35</td>
+    <td class="test-center">33</td>
+    <td><code>		if ( arguments.length == 1 && Object.prototype.toString.call( date ) == "[object String]" && !/\d/.test( date ) ) {</code></td>
+    <td>Expected '===' and instead saw '=='.</td>
+</tr><tr class="warning">
+    <td class="text-center">W116</td>
+    <td class="text-center">35</td>
+    <td class="test-center">80</td>
+    <td><code>		if ( arguments.length == 1 && Object.prototype.toString.call( date ) == "[object String]" && !/\d/.test( date ) ) {</code></td>
+    <td>Expected '===' and instead saw '=='.</td>
+</tr><tr class="warning">
+    <td class="text-center">W058</td>
+    <td class="text-center">45</td>
+    <td class="test-center">46</td>
+    <td><code>		date = date ? new Date( date ) : new Date;</code></td>
+    <td>Missing '()' invoking a constructor.</td>
+</tr><tr class="warning">
+    <td class="text-center">W116</td>
+    <td class="text-center">53</td>
+    <td class="test-center">35</td>
+    <td><code>		if ( mask.slice( 0, 4 ) == "UTC:" ) {</code></td>
+    <td>Expected '===' and instead saw '=='.</td>
+</tr><tr class="warning">
+    <td class="text-center">W116</td>
+    <td class="text-center">95</td>
+    <td class="test-center">85</td>
+    <td><code>				S   : ["th", "st", "nd", "rd"][d % 10 > 3 ? 0 : (d % 100 - d % 10 != 10) * d % 10]</code></td>
+    <td>Expected '!==' and instead saw '!='.</td>
+</tr><tr class="warning">
     <td class="text-center">W082</td>
-    <td class="text-center">57</td>
+    <td class="text-center">202</td>
     <td class="test-center">9</td>
     <td><code>		function date_diff_in_days( a, b ) {</code></td>
     <td>Function declarations should not be placed in blocks. Use a function expression or move the statement to the top of the outer function.</td>
 </tr><tr class="warning">
     <td class="text-center">W116</td>
-    <td class="text-center">87</td>
+    <td class="text-center">232</td>
     <td class="test-center">40</td>
     <td><code>				var option = this.id == "EventStartDate" ? "minDate" : "maxDate",</code></td>
     <td>Expected '===' and instead saw '=='.</td>
 </tr><tr class="warning">
+    <td class="text-center">W030</td>
+    <td class="text-center">275</td>
+    <td class="test-center">98</td>
+    <td><code>				( '' !== $el.val() ) && $el.val( tribeDateFormat( $el.val(), datepicker_format ) );</code></td>
+    <td>Expected an assignment or function call and instead saw an expression.</td>
+</tr><tr class="warning">
+    <td class="text-center">W033</td>
+    <td class="text-center">276</td>
+    <td class="test-center">15</td>
+    <td><code>			})</code></td>
+    <td>Missing semicolon.</td>
+</tr><tr class="warning">
     <td class="text-center">W082</td>
-    <td class="text-center">124</td>
+    <td class="text-center">281</td>
     <td class="test-center">9</td>
     <td><code>		function toggleDayTimeDisplay() {</code></td>
     <td>Function declarations should not be placed in blocks. Use a function expression or move the statement to the top of the outer function.</td>
 </tr><tr class="warning">
     <td class="text-center">W116</td>
-    <td class="text-center">152</td>
+    <td class="text-center">309</td>
     <td class="test-center">29</td>
     <td><code>			if ( startEnd == 'EventStartMonth' ) {</code></td>
     <td>Expected '===' and instead saw '=='.</td>
 </tr><tr class="warning">
     <td class="text-center">W116</td>
-    <td class="text-center">160</td>
+    <td class="text-center">317</td>
     <td class="test-center">44</td>
     <td><code>			if ( chosenMonth.charAt( 0 ) == '0' ) {</code></td>
     <td>Expected '===' and instead saw '=='.</td>
 </tr><tr class="warning">
     <td class="text-center">W116</td>
-    <td class="text-center">165</td>
+    <td class="text-center">322</td>
     <td class="test-center">32</td>
     <td><code>			if ( chosenMonth == 2 && remainder == 0 ) {</code></td>
     <td>Expected '===' and instead saw '=='.</td>
 </tr><tr class="warning">
     <td class="text-center">W116</td>
-    <td class="text-center">165</td>
+    <td class="text-center">322</td>
     <td class="test-center">50</td>
     <td><code>			if ( chosenMonth == 2 && remainder == 0 ) {</code></td>
     <td>Expected '===' and instead saw '=='.</td>
 </tr><tr class="warning">
     <td class="text-center">W116</td>
-    <td class="text-center">172</td>
+    <td class="text-center">329</td>
     <td class="test-center">29</td>
     <td><code>			if ( startEnd == "Start" ) {</code></td>
     <td>Expected '===' and instead saw '=='.</td>
 </tr><tr class="warning">
     <td class="text-center">W116</td>
-    <td class="text-center">198</td>
+    <td class="text-center">355</td>
     <td class="test-center">58</td>
     <td><code>		if ( savedVenue.length > 0 && savedVenue.val() != '0' ) {</code></td>
     <td>Expected '!==' and instead saw '!='.</td>
 </tr><tr class="warning">
     <td class="text-center">W116</td>
-    <td class="text-center">207</td>
+    <td class="text-center">364</td>
     <td class="test-center">38</td>
     <td><code>			if ( selected_venue_id == '0' ) {</code></td>
     <td>Expected '===' and instead saw '=='.</td>
 </tr><tr class="warning">
     <td class="text-center">W116</td>
-    <td class="text-center">227</td>
+    <td class="text-center">384</td>
     <td class="test-center">66</td>
     <td><code>		if ( savedorganizer.length > 0 && savedorganizer.val() != '0' ) {</code></td>
     <td>Expected '!==' and instead saw '!='.</td>
 </tr><tr class="warning">
     <td class="text-center">W116</td>
-    <td class="text-center">236</td>
+    <td class="text-center">393</td>
     <td class="test-center">42</td>
     <td><code>			if ( selected_organizer_id == '0' ) {</code></td>
     <td>Expected '===' and instead saw '=='.</td>
 </tr><tr class="warning">
     <td class="text-center">W116</td>
-    <td class="text-center">257</td>
+    <td class="text-center">414</td>
     <td class="test-center">24</td>
     <td><code>		if ( country == 'US' || country == 'United States' ) {</code></td>
     <td>Expected '===' and instead saw '=='.</td>
 </tr><tr class="warning">
     <td class="text-center">W116</td>
-    <td class="text-center">257</td>
+    <td class="text-center">414</td>
     <td class="test-center">43</td>
     <td><code>		if ( country == 'US' || country == 'United States' ) {</code></td>
     <td>Expected '===' and instead saw '=='.</td>
 </tr><tr class="warning">
     <td class="text-center">W116</td>
-    <td class="text-center">261</td>
+    <td class="text-center">418</td>
     <td class="test-center">29</td>
     <td><code>		else if ( country != '' ) {</code></td>
     <td>Expected '!==' and instead saw '!='.</td>
 </tr><tr class="warning">
     <td class="text-center">W116</td>
-    <td class="text-center">311</td>
+    <td class="text-center">468</td>
     <td class="test-center">32</td>
     <td><code>	if ( $is_recurring.val() == "true" ) {</code></td>
     <td>Expected '===' and instead saw '=='.</td>
 </tr><tr class="warning">
     <td class="text-center">W082</td>
-    <td class="text-center">312</td>
+    <td class="text-center">469</td>
     <td class="test-center">9</td>
     <td><code>		function recurrenceChanged() {</code></td>
     <td>Function declarations should not be placed in blocks. Use a function expression or move the statement to the top of the outer function.</td>
 </tr><tr class="warning">
     <td class="text-center">W116</td>
-    <td class="text-center">326</td>
+    <td class="text-center">483</td>
     <td class="test-center">38</td>
     <td><code>		return $is_recurring.val() == "true";</code></td>
     <td>Expected '===' and instead saw '=='.</td>
 </tr><tr class="warning">
     <td class="text-center">W116</td>
-    <td class="text-center">362</td>
+    <td class="text-center">519</td>
     <td class="test-center">26</td>
     <td><code>		if ( curOption == "Custom" ) {</code></td>
     <td>Expected '===' and instead saw '=='.</td>
 </tr><tr class="warning">
     <td class="text-center">W116</td>
-    <td class="text-center">367</td>
+    <td class="text-center">524</td>
     <td class="test-center">31</td>
     <td><code>		else if ( curOption == "None" ) {</code></td>
     <td>Expected '===' and instead saw '=='.</td>
 </tr><tr class="warning">
     <td class="text-center">W116</td>
-    <td class="text-center">380</td>
+    <td class="text-center">537</td>
     <td class="test-center">20</td>
     <td><code>		if ( val == "On" ) {</code></td>
     <td>Expected '===' and instead saw '=='.</td>
 </tr><tr class="warning">
     <td class="text-center">W116</td>
-    <td class="text-center">384</td>
+    <td class="text-center">541</td>
     <td class="test-center">25</td>
     <td><code>		else if ( val == "Never" ) {</code></td>
     <td>Expected '===' and instead saw '=='.</td>
 </tr><tr class="warning">
     <td class="text-center">W033</td>
-    <td class="text-center">396</td>
+    <td class="text-center">553</td>
     <td class="test-center">35</td>
     <td><code>		$( customSelector ).show()</code></td>
     <td>Missing semicolon.</td>
 </tr><tr class="warning">
     <td class="text-center">W116</td>
-    <td class="text-center">407</td>
-    <td class="test-center">61</td>
-    <td><code>		$( '#occurence-count-text' ).text( numOccurrences == 1 ? option.data( 'single' ) : option.data( 'plural' ) );</code></td>
+    <td class="text-center">564</td>
+    <td class="test-center">48</td>
+    <td><code>		$( '#occurence-count-text' ).text( 1 == numOccurrences ? $( this ).data( 'single' ) : $( this ).data( 'plural' ) );</code></td>
     <td>Expected '===' and instead saw '=='.</td>
 </tr><tr class="warning">
     <td class="text-center">W082</td>
-    <td class="text-center">453</td>
+    <td class="text-center">610</td>
     <td class="test-center">9</td>
     <td><code>		function create_view_array() {</code></td>
     <td>Function declarations should not be placed in blocks. Use a function expression or move the statement to the top of the outer function.</td>
 </tr><tr class="warning">
     <td class="text-center">W082</td>
-    <td class="text-center">467</td>
+    <td class="text-center">624</td>
     <td class="test-center">9</td>
     <td><code>		function set_selected_views() {</code></td>
     <td>Function declarations should not be placed in blocks. Use a function expression or move the statement to the top of the outer function.</td>
 </tr><tr class="warning">
+    <td class="text-center">W030</td>
+    <td class="text-center">691</td>
+    <td class="test-center">124</td>
+    <td><code>		$els.recur.is( ':visible' ) && $els.recur.val( tribeDateFormat( $els.recur.datepicker( 'getDate' ), 'tribeQuery' ) );</code></td>
+    <td>Expected an assignment or function call and instead saw an expression.</td>
+</tr><tr class="warning">
     <td class="text-center">W116</td>
-    <td class="text-center">527</td>
+    <td class="text-center">702</td>
     <td class="test-center">132</td>
     <td><code>	if ( typeof settings !== 'undefined' && typeof settings.data !== 'undefined' && settings.data.search( 'action=save-widget' ) != - 1 ) {</code></td>
     <td>Expected '!==' and instead saw '!='.</td>
 </tr><tr class="warning">
     <td class="text-center">W098</td>
-    <td class="text-center">325</td>
+    <td class="text-center">482</td>
     <td class="test-center">14</td>
     <td><code>	function isExistingRecurringEvent() {</code></td>
     <td>'isExistingRecurringEvent' is defined but never used.</td>
 </tr><tr class="warning">
     <td class="text-center">W098</td>
-    <td class="text-center">338</td>
+    <td class="text-center">495</td>
     <td class="test-center">124</td>
     <td><code>	overwriteCoordinates.$toggle = overwriteCoordinates.$container.find( '#VenueOverwriteCoords' ).on( 'change', function( event ){</code></td>
     <td>'event' is defined but never used.</td>
+</tr><tr class="warning">
+    <td class="text-center">W098</td>
+    <td class="text-center">563</td>
+    <td class="test-center">13</td>
+    <td><code>		var option = $( this ).find( 'option:selected' ), numOccurrences = $( '#recurrence_end_count' ).val();</code></td>
+    <td>'option' is defined but never used.</td>
 </tr><tr><td colspan="5"><b>../resources/tickets.js</b></td></tr><tr class="warning">
     <td class="text-center">W116</td>
     <td class="text-center">261</td>
@@ -528,55 +582,55 @@
     <td>'$tribe_content' is defined but never used.</td>
 </tr><tr><td colspan="5"><b>../resources/tribe-events-ajax-calendar.js</b></td></tr><tr class="warning">
     <td class="text-center">W014</td>
-    <td class="text-center">161</td>
+    <td class="text-center">156</td>
     <td class="test-center">17</td>
     <td><code>				? '[data-date-name="' + full_date_name + '"]'</code></td>
     <td>Bad line breaking before '?'.</td>
 </tr><tr class="warning">
     <td class="text-center">W116</td>
-    <td class="text-center">330</td>
+    <td class="text-center">325</td>
     <td class="test-center">44</td>
     <td><code>			if ( tribe_events_bar_action != 'change_view' ) {</code></td>
     <td>Expected '!==' and instead saw '!='.</td>
 </tr><tr class="warning">
     <td class="text-center">W069</td>
-    <td class="text-center">407</td>
+    <td class="text-center">410</td>
     <td class="test-center">30</td>
     <td><code>					ts.params['tribe_event_category'] = ts.category;</code></td>
     <td>['tribe_event_category'] is better written in dot notation.</td>
 </tr><tr class="warning">
     <td class="text-center">W069</td>
-    <td class="text-center">414</td>
+    <td class="text-center">417</td>
     <td class="test-center">38</td>
     <td><code>						ts.url_params['post_type'] = config.events_post_type;</code></td>
     <td>['post_type'] is better written in dot notation.</td>
 </tr><tr class="warning">
     <td class="text-center">W069</td>
-    <td class="text-center">417</td>
+    <td class="text-center">420</td>
     <td class="test-center">38</td>
     <td><code>						ts.url_params['eventDisplay'] = ts.view;</code></td>
     <td>['eventDisplay'] is better written in dot notation.</td>
 </tr><tr class="warning">
     <td class="text-center">W030</td>
-    <td class="text-center">441</td>
+    <td class="text-center">444</td>
     <td class="test-center">61</td>
     <td><code>				dbug && debug.time( 'Month View Ajax Timer' );</code></td>
     <td>Expected an assignment or function call and instead saw an expression.</td>
 </tr><tr class="warning">
     <td class="text-center">W030</td>
-    <td class="text-center">505</td>
+    <td class="text-center">508</td>
     <td class="test-center">76</td>
     <td><code>							dbug && debug.timeEnd( 'Month View Ajax Timer' );</code></td>
     <td>Expected an assignment or function call and instead saw an expression.</td>
 </tr><tr class="warning">
     <td class="text-center">W030</td>
-    <td class="text-center">523</td>
+    <td class="text-center">526</td>
     <td class="test-center">120</td>
     <td><code>		dbug && debug.info( 'TEC Debug: tribe-events-ajax-calendar.js successfully loaded, Tribe Events Init finished' );</code></td>
     <td>Expected an assignment or function call and instead saw an expression.</td>
 </tr><tr class="warning">
     <td class="text-center">W030</td>
-    <td class="text-center">524</td>
+    <td class="text-center">527</td>
     <td class="test-center">54</td>
     <td><code>		dbug && debug.timeEnd( 'Tribe JS Init Timer' );</code></td>
     <td>Expected an assignment or function call and instead saw an expression.</td>
@@ -648,43 +702,43 @@
     <td>Expected '!==' and instead saw '!='.</td>
 </tr><tr class="warning">
     <td class="text-center">W069</td>
-    <td class="text-center">185</td>
+    <td class="text-center">190</td>
     <td class="test-center">30</td>
     <td><code>					ts.params['hash'] = tribe_hash_string;</code></td>
     <td>['hash'] is better written in dot notation.</td>
 </tr><tr class="warning">
     <td class="text-center">W069</td>
-    <td class="text-center">189</td>
+    <td class="text-center">194</td>
     <td class="test-center">34</td>
     <td><code>					ts.url_params['post_type'] = config.events_post_type;</code></td>
     <td>['post_type'] is better written in dot notation.</td>
 </tr><tr class="warning">
     <td class="text-center">W069</td>
-    <td class="text-center">193</td>
+    <td class="text-center">198</td>
     <td class="test-center">30</td>
     <td><code>					ts.params['tribe_event_category'] = ts.category;</code></td>
     <td>['tribe_event_category'] is better written in dot notation.</td>
 </tr><tr class="warning">
     <td class="text-center">W030</td>
-    <td class="text-center">218</td>
+    <td class="text-center">223</td>
     <td class="test-center">60</td>
     <td><code>				dbug && debug.time( 'List View Ajax Timer' );</code></td>
     <td>Expected an assignment or function call and instead saw an expression.</td>
 </tr><tr class="warning">
     <td class="text-center">W030</td>
-    <td class="text-center">271</td>
+    <td class="text-center">276</td>
     <td class="test-center">75</td>
     <td><code>							dbug && debug.timeEnd( 'List View Ajax Timer' );</code></td>
     <td>Expected an assignment or function call and instead saw an expression.</td>
 </tr><tr class="warning">
     <td class="text-center">W030</td>
-    <td class="text-center">287</td>
+    <td class="text-center">292</td>
     <td class="test-center">88</td>
     <td><code>		dbug && debug.info( 'TEC Debug: tribe-events-ajax-list.js successfully loaded' );</code></td>
     <td>Expected an assignment or function call and instead saw an expression.</td>
 </tr><tr class="warning">
     <td class="text-center">W030</td>
-    <td class="text-center">288</td>
+    <td class="text-center">293</td>
     <td class="test-center">65</td>
     <td><code>		ts.view && dbug && debug.timeEnd( 'Tribe JS Init Timer' );</code></td>
     <td>Expected an assignment or function call and instead saw an expression.</td>

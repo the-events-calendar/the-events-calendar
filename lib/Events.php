@@ -96,6 +96,8 @@ if ( ! class_exists( 'Tribe__Events__Events' ) ) {
 		);
 
 		public static $tribeUrl = 'http://tri.be/';
+		public static $tecUrl = 'http://theeventscalendar.com/';
+
 		public static $addOnPath = 'products/';
 
 		public static $dotOrgSupportUrl = 'http://wordpress.org/tags/the-events-calendar';
@@ -401,6 +403,7 @@ if ( ! class_exists( 'Tribe__Events__Events' ) ) {
 			// Load organizer and venue editors
 			add_action( 'admin_menu', array( $this, 'addVenueAndOrganizerEditor' ) );
 			add_action( 'tribe_venue_table_top', array( $this, 'displayEventVenueDropdown' ) );
+			add_action( 'tribe_venue_table_top', array( $this, 'display_rich_snippets_helper' ), 5 );
 			add_action( 'tribe_organizer_table_top', array( $this, 'displayEventOrganizerDropdown' ) );
 
 			add_action( 'template_redirect', array( $this, 'template_redirect' ) );
@@ -459,7 +462,10 @@ if ( ! class_exists( 'Tribe__Events__Events' ) ) {
 			add_action( 'plugins_loaded', array( 'Tribe__Events__Bar', 'instance' ) );
 			add_action( 'plugins_loaded', array( 'Tribe__Events__Templates', 'init' ) );
 
+			add_action( 'init', array( $this, 'filter_cron_schedules' ) );
+
 		}
+
 
 		/**
 		 * Load the ical template tags
@@ -677,7 +683,7 @@ if ( ! class_exists( 'Tribe__Events__Events' ) ) {
 							'utm_campaign' => 'in-app',
 							'utm_medium'   => 'plugin-tec',
 							'utm_source'   => 'notice'
-						), self::$tribeUrl . 'version-relationships-in-modern-tribe-pluginsadd-ons/'
+						), self::$tecUrl . 'knowledgebase/version-compatibility/'
 					);
 					$output .= '<p>' . sprintf( __( 'The following plugins are out of date: <b>%s</b>. All add-ons contain dependencies on The Events Calendar and will not function properly unless paired with the right version. %sLearn More%s.', 'tribe-events-calendar' ), join( $out_of_date_addons, ', ' ), "<a href='$link' target='_blank'>", '</a>' ) . '</p>';
 					$output .= '</div>';
@@ -728,7 +734,7 @@ if ( ! class_exists( 'Tribe__Events__Events' ) ) {
 					'utm_campaign' => 'in-app',
 					'utm_medium'   => 'plugin-tec',
 					'utm_source'   => 'notice'
-				), self::$tribeUrl . 'license-keys/'
+				), self::$tecUrl . 'license-keys/'
 			);
 
 			$tribe_licences_tab_fields = array(
@@ -744,11 +750,11 @@ if ( ! class_exists( 'Tribe__Events__Events' ) ) {
 					'type' => 'html',
 					'html' => sprintf(
 						__( '<p>The license key you received when completing your purchase from %s will grant you access to support and updates until it expires. You do not need to enter the key below for the plugins to work, but you will need to enter it to get automatic updates. <strong>Find your license keys at <a href="%s" target="_blank">%s</a></strong>.</p> <p>Each paid add-on has its own unique license key. Simply paste the key into its appropriate field on below, and give it a moment to validate. You know you\'re set when a green expiration date appears alongside a "valid" message.</p> <p>If you\'re seeing a red message telling you that your key isn\'t valid or is out of installs, visit <a href="%s" target="_blank">%s</a> to manage your installs or renew / upgrade your license.</p><p>Not seeing an update but expecting one? In WordPress, go to <a href="%s">Dashboard > Updates</a> and click "Check Again".</p>', 'tribe-events-calendar' ),
-						self::$tribeUrl,
+						self::$tecUrl,
 						$link,
-						self::$tribeUrl . 'license-keys/',
+						self::$tecUrl . 'license-keys/',
 						$link,
-						self::$tribeUrl . 'license-keys/',
+						self::$tecUrl . 'license-keys/',
 						admin_url( '/update-core.php' )
 					),
 				),
@@ -1320,6 +1326,33 @@ if ( ! class_exists( 'Tribe__Events__Events' ) ) {
 		}
 
 		/**
+		 * Display a helper for the user, about the location and microdata for rich snippets
+		 * @param int $postId the event ID to see if the helper is needed
+		 */
+		public function display_rich_snippets_helper( $post_id ) {
+			// Avoid showing this message if we are on the Front End
+			if ( ! is_admin() ) {
+				return;
+			}
+
+			$VenueID = get_post_meta( $post_id, '_EventVenueID', true );
+			if ( ( ! $post_id || get_post_status( $post_id ) == 'auto-draft' ) && ! $VenueID && ( ( is_admin() && get_current_screen()->action == 'add' ) || ! is_admin() ) ) {
+				$VenueID = $this->defaults()->venue_id();
+			}
+			$VenueID = apply_filters( 'tribe_display_event_venue_dropdown_id', $VenueID );
+
+			// If there is a Venue of some sorts, don't display this message
+			if ( $VenueID ) {
+				return;
+			}
+			?>
+			<tr class="">
+				<td colspan="2"><?php _e( 'Without a defined location your event will not display a <a href="https://support.google.com/webmasters/answer/164506" target="_blank">Google Rich Snippets</a> on the search results.', 'tribe-events-calendar' ) ?></td>
+			</tr>
+			<?php
+		}
+
+		/**
 		 * displays the saved organizer dropdown in the event metabox
 		 * Used to be a PRO only feature, but as of 3.0, it is part of Core.
 		 *
@@ -1358,7 +1391,7 @@ if ( ! class_exists( 'Tribe__Events__Events' ) ) {
 			$my_venue_options = '';
 			if ( 0 != $current_user->ID ) {
 				$my_venues = $this->get_venue_info(
-								  null, null, array(
+								  null, array(
 										  'post_status' => array(
 											  'publish',
 											  'draft',
@@ -1382,7 +1415,7 @@ if ( ! class_exists( 'Tribe__Events__Events' ) ) {
 
 			if ( current_user_can( 'edit_others_tribe_venues' ) ) {
 				$venues = $this->get_venue_info(
-							   null, null, array(
+							   null, array(
 									   'post_status'  => array(
 										   'publish',
 										   'draft',
@@ -1394,7 +1427,7 @@ if ( ! class_exists( 'Tribe__Events__Events' ) ) {
 				);
 			} else {
 				$venues = $this->get_venue_info(
-							   null, null, array(
+							   null, array(
 									   'post_status'  => 'publish',
 									   'post__not_in' => $my_venue_ids
 								   )
@@ -1438,7 +1471,7 @@ if ( ! class_exists( 'Tribe__Events__Events' ) ) {
 			$my_organizers_options = '';
 			if ( 0 != $current_user->ID ) {
 				$my_organizers = $this->get_organizer_info(
-									  null, null, array(
+									  null, array(
 											  'post_status' => array(
 												  'publish',
 												  'draft',
@@ -1463,7 +1496,7 @@ if ( ! class_exists( 'Tribe__Events__Events' ) ) {
 
 			if ( current_user_can( 'edit_others_tribe_organizers' ) ) {
 				$organizers = $this->get_organizer_info(
-								   null, null, array(
+								   null, array(
 										   'post_status'  => array(
 											   'publish',
 											   'draft',
@@ -1475,7 +1508,7 @@ if ( ! class_exists( 'Tribe__Events__Events' ) ) {
 				);
 			} else {
 				$organizers = $this->get_organizer_info(
-								   null, null, array(
+								   null, array(
 										   'post_status'  => 'publish',
 										   'post__not_in' => $my_organizer_ids
 									   )
@@ -2300,7 +2333,7 @@ if ( ! class_exists( 'Tribe__Events__Events' ) ) {
 					$eventUrl = trailingslashit( esc_url_raw( $eventUrl . $this->listSlug ) );
 					break;
 				case 'past':
-					$eventUrl = esc_url_raw( add_query_arg( 'tribe_event_display', 'past', $eventUrl . $this->listSlug ) );
+					$eventUrl = esc_url_raw( add_query_arg( 'tribe_event_display', 'past', trailingslashit( $eventUrl . $this->listSlug ) ) );
 					break;
 				case 'dropdown':
 					$eventUrl = esc_url_raw( $eventUrl );
@@ -2408,7 +2441,7 @@ if ( ! class_exists( 'Tribe__Events__Events' ) ) {
 			$location = trim( $tribeEvents->fullAddressString( $postId ) );
 			$base_url = 'http://www.google.com/calendar/event';
 
-			$event_details = get_the_content();
+			$event_details = apply_filters( 'the_content', get_the_content() );
 
 			//Truncate Event Description and add permalink if greater than 996 characters
 			if ( strlen( $event_details ) > 996 ) {
@@ -2428,7 +2461,7 @@ if ( ! class_exists( 'Tribe__Events__Events' ) ) {
 				'action'   => 'TEMPLATE',
 				'text'     => urlencode( strip_tags( $post->post_title ) ),
 				'dates'    => $dates,
-				'details'  => urlencode( apply_filters( 'the_content', $event_details ) ),
+				'details'  => urlencode( $event_details ),
 				'location' => urlencode( $location ),
 				'sprop'    => get_option( 'blogname' ),
 				'trp'      => 'false',
@@ -2961,12 +2994,11 @@ if ( ! class_exists( 'Tribe__Events__Events' ) ) {
 		 * Get venue info.
 		 *
 		 * @param int $p          post id
-		 * @param     $deprecated (deprecated)
 		 * @param     $args
 		 *
 		 * @return WP_Query->posts || false
 		 */
-		function get_venue_info( $p = null, $deprecated = null, $args = array() ) {
+		function get_venue_info( $p = null, $args = array() ) {
 			$defaults = array(
 				'post_type'            => self::VENUE_POST_TYPE,
 				'nopaging'             => 1,
@@ -2976,14 +3008,6 @@ if ( ! class_exists( 'Tribe__Events__Events' ) ) {
 				'order'                => 'ASC',
 				'p'                    => $p
 			);
-
-			// allow deprecated param to pass through by default
-			// NOTE: setting post_status in $args will override $post_status
-			if ( $deprecated != null ) {
-				_deprecated_argument( __FUNCTION__, 'The Event Calendar v2.0.9', 'To use the latest code, please supply post_status in the argument array params.' );
-				$defaults['post_status'] = $deprecated;
-			}
-
 
 			$args = wp_parse_args( $args, $defaults );
 			$r    = new WP_Query( $args );
@@ -3062,12 +3086,11 @@ if ( ! class_exists( 'Tribe__Events__Events' ) ) {
 		 * Get Organizer info.
 		 *
 		 * @param int $p          post id
-		 * @param     $deprecated (deprecated)
 		 * @param     $args
 		 *
 		 * @return WP_Query->posts || false
 		 */
-		function get_organizer_info( $p = null, $deprecated = null, $args = array() ) {
+		function get_organizer_info( $p = null, $args = array() ) {
 			$defaults = array(
 				'post_type'            => self::ORGANIZER_POST_TYPE,
 				'nopaging'             => 1,
@@ -3077,14 +3100,6 @@ if ( ! class_exists( 'Tribe__Events__Events' ) ) {
 				'order'                => 'ASC',
 				'p'                    => $p
 			);
-
-			// allow deprecated param to pass through by default
-			// NOTE: setting post_status in $args will override $post_status
-			if ( $deprecated != null ) {
-				_deprecated_argument( __FUNCTION__, 'The Event Calendar v2.0.9', 'To use the latest code, please supply post_status in the argument array params.' );
-				$defaults['post_status'] = $deprecated;
-			}
-
 
 			$args = wp_parse_args( $args, $defaults );
 			$r    = new WP_Query( $args );
@@ -3578,7 +3593,7 @@ if ( ! class_exists( 'Tribe__Events__Events' ) ) {
 				if ( ! $anchor ) {
 					$anchor = $results->post_title;
 				} elseif ( strpos( $anchor, '%title%' ) !== false ) {
-					$anchor = preg_replace( '|%title%|', $results->post_title, $anchor );
+					$anchor = preg_replace( '|%title%|', apply_filters( 'the_title', $results->post_title, $results->ID ), $anchor );
 				}
 
 				return apply_filters( 'tribe_events_get_event_link', '<a href="' . tribe_get_event_link( $results ) . '">' . $anchor . '</a>' );
@@ -4146,6 +4161,34 @@ if ( ! class_exists( 'Tribe__Events__Events' ) ) {
 
 			return $query;
 		}
+
+
+		/**
+		 * Add filters to register custom cron schedules
+		 *
+		 *
+		 * @return void
+		 */
+		public function filter_cron_schedules(){
+			add_filter( 'cron_schedules', array( $this, 'register_30min_interval' ) );
+		}
+
+
+		/**
+		 * Add a new scheduled task interval (of 30mins).
+		 *
+		 * @param  array $schedules
+		 * @return array
+		 */
+		public function register_30min_interval( $schedules ) {
+			$schedules['every_30mins'] = array(
+				'interval' => 30 * MINUTE_IN_SECONDS,
+				'display'  => __('Once Every 30 Mins', 'tribe-events-pro')
+			);
+
+			return $schedules;
+		}
+
 
 		/**
 		 * If recurring events are imported using the WP importer, WP will flag

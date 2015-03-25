@@ -401,3 +401,22 @@ a.tribe-rating-link {
 		width:100%;
 	}
 }
+
+
+@media screen and ( max-width: 782px ) {
+	.events-cal .subsubsub {
+		float: none;
+	}
+
+	.events-cal .search-box {
+		width: 98%;
+	}
+
+	.events-cal #search-submit {
+		width: 100%;
+	}
+
+	.events-cal .tablenav.top {
+		display: none;
+	}
+}
