@@ -39,7 +39,7 @@ global $wp_locale;
 			$daydata = tribe_events_get_current_month_day(); ?>
 			<td class="<?php tribe_events_the_month_day_classes() ?>"
 				<?php if ( isset( $daydata['daynum'] ) ) { ?>
-					data-day="<?php echo $daydata['daynum'] ?>"
+					data-day="<?php echo $daydata['date'] ?>"
 					<?php
 					//Add Day Name Option for Responsive Header
 					if ( $daydata['total_events'] > 0 ) {

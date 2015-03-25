@@ -477,7 +477,7 @@ select.tribe-events-dropdown {
 }
 
 /* = Calendar View & List View Template Styles
-   @ Template: month.php & list.php
+   @ Template: Month.php & List.php
 =============================================*/
 #tribe-events-content {
 	position: relative;
@@ -497,7 +497,7 @@ select.tribe-events-dropdown {
 }
 
 /* = List View Template Styles
-   @ Template: list.php
+   @ Template: List.php
 =============================================*/
 .tribe-events-list h2.tribe-events-page-title {
 	margin-bottom: 15px;
@@ -657,7 +657,7 @@ select.tribe-events-dropdown {
 }
 
 /* = List View & Single Venue (Pro Version) Template Styles
-   @ Template: list.php & single-venue.php
+   @ Template: List.php & single-venue.php
 =============================================*/
 /* Loop */
 .tribe-events-loop {
@@ -689,7 +689,7 @@ select.tribe-events-dropdown {
 }
 
 /* = Single Event Template Styles
-   @ Template: single-event.php
+   @ Template: Single_Event.php
 =============================================*/
 .single-tribe_events h2.tribe-events-single-event-title {
 	font-size: 1.7em;
@@ -855,7 +855,7 @@ select.tribe-events-dropdown {
 }
 
 /* = Day Grid Template Styles
-   @ Template: day.php
+   @ Template: Day.php
 =============================================*/
 .tribe-events-day .tribe-events-day-time-slot h5 {
 	text-transform: uppercase;
@@ -870,7 +870,7 @@ select.tribe-events-dropdown {
 }
 
 /* = Calendar Styles (includes styles for both large & small calendars)
-   @ Template: month.php & widgets/calendar-widget.php
+   @ Template: Month.php & widgets/calendar-widget.php
 =============================================*/
 /* Global Calendar Styles */
 #tribe-events-content table.tribe-events-calendar {
@@ -1695,6 +1695,75 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 /* Stop themes from hiding elements with the .updated CSS class */
 #tribe-events-content .updated {
 	display: inherit;
+}
+
+/* Twenty Fifteen
+========================================================================== */
+.tribe-theme-twentyfifteen.events-single.tribe-events-page-template #tribe-events-pg-template {
+	padding-top: 8.3333%;
+}
+.tribe-theme-twentyfifteen.events-single.tribe-events-page-template #tribe-events-content {
+	padding: 8.3333% 10%;
+}
+.tribe-theme-twentyfifteen.single-tribe_events.page-template-page-php .tribe-events-single {
+	box-shadow: none;
+	margin-left: 0;
+	margin-right: 0;
+	margin-bottom: 0 !important;
+}
+.tribe-theme-twentyfifteen.tribe-events-week .tribe-events-grid .hentry {
+	margin-left: 0;
+	margin-right: 0;
+}
+.tribe-theme-twentyfifteen .tribe-events-list-widget .type-tribe_events {
+	margin-left: 0;
+	margin-right: 0;
+	box-shadow: none;
+	border-top: 1px solid rgba( 51, 51, 51, 0.1 );
+}
+.tribe-theme-twentyfifteen .tribe-events-list-widget .entry-title {
+	font-size: 22px;
+	font-size: 2.2rem;
+	line-height: 1.4545;
+}
+.tribe-theme-twentyfifteen.tribe-events-page-template #tribe-events-content-wrapper {
+	padding: 3.333%;
+}
+.tribe-theme-twentyfifteen .tribe-events-list .type-tribe_events,
+.tribe-theme-twentyfifteen .tribe-events-list .type-tribe_events.tribe-events-first {
+	padding: 8.333% 10%;
+}
+.tribe-theme-twentyfifteen .tribe-events-day-time-slot .type-tribe_events {
+	margin-left: 0; /* Corrects some extra margin in the day view. */
+}
+.tribe-theme-twentyfifteen .type-tribe_events a.more-link {
+	display: none; /* Hides the occasionally-appearing duplicate More link from 2015 theme. */
+}
+.tribe-theme-twentyfifteen .datepicker.dropdown-menu {
+	max-width: 340px;
+}
+.tribe-theme-twentyfifteen .datepicker.dropdown-menu table,
+.tribe-theme-twentyfifteen .datepicker.dropdown-menu table.table-condensed {
+	border-top-width: 0;
+	border-left-width: 0;
+}
+.tribe-theme-twentyfifteen ul.tribe-bar-views-list li a {
+	border-bottom: none;
+}
+.tribe-theme-twentyfifteen .tribe-events-calendar td a {
+	border-bottom: none;
+}
+.tribe-theme-twentyfifteen .tribe-events-nav-previous a,
+.tribe-theme-twentyfifteen .tribe-events-nav-next a {
+	border-bottom: none;
+}
+.tribe-theme-twentyfifteen.single-tribe_events .entry-footer,
+.tribe-theme-twentyfifteen.events-archive .entry-footer {
+	display: none;
+}
+.tribe-theme-twentyfifteen .tribe-events-list .time-details,
+.tribe-theme-twentyfifteen .tribe-events-list .tribe-events-venue-details {
+	line-height: 1.6;
 }
 
 /* = Events Retina

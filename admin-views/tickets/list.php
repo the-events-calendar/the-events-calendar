@@ -9,7 +9,7 @@
 		$post_id = $_POST["post_ID"];
 	}
 
-	$modules = TribeEventsTickets::modules();
+	$modules = Tribe__Events__Tickets__Tickets::modules();
 
 	foreach ( $tickets as $ticket ) {
 
@@ -38,7 +38,7 @@
 				<h4 class="tribe_sectionheader"><?php echo esc_html( $modules[$ticket->provider_class] ); ?>
 					<?php echo $provider_obj->get_event_reports_link( $post_id ); ?>
 					<small>&nbsp;|&nbsp;</small>
-					<?php echo sprintf( "<small><a title='" . __( 'See who purchased tickets to this event', "tribe-events-calendar" ) . "' href='%s'>%s</a></small>", admin_url( sprintf( 'edit.php?post_type=%s&page=%s&event_id=%d', TribeEvents::POSTTYPE, TribeEventsTicketsPro::$attendees_slug, $post_id ) ), __( "Attendees", 'tribe-events-calendar' ) ); ?>
+					<?php echo sprintf( "<small><a title='" . __( 'See who purchased tickets to this event', "tribe-events-calendar" ) . "' href='%s'>%s</a></small>", admin_url( sprintf( 'edit.php?post_type=%s&page=%s&event_id=%d', Tribe__Events__Events::POSTTYPE, Tribe__Events__Tickets__Tickets_Pro::$attendees_slug, $post_id ) ), __( "Attendees", 'tribe-events-calendar' ) ); ?>
 				</h4>
 			</td>
 		<?php endif; ?>
