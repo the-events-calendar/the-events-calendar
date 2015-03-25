@@ -3,7 +3,7 @@
 /**
  * Meta Factory Classes
  *
- * @uses  Tribe_Meta_Factory
+ * @uses  Tribe__Events__Meta_Factory
  */
 
 // Don't load directly
@@ -16,7 +16,7 @@ if ( class_exists( 'Tribe__Events__Events' ) ) {
 	/**
 	 * register a meta group
 	 *
-	 * @uses Tribe_Meta_Factory::register()
+	 * @uses Tribe__Events__Meta_Factory::register()
 	 *
 	 * @param string $meta_group_id
 	 * @param array  $args
@@ -34,7 +34,7 @@ if ( class_exists( 'Tribe__Events__Events' ) ) {
 	/**
 	 * register a meta item
 	 *
-	 * @uses Tribe_Meta_Factory::register()
+	 * @uses Tribe__Events__Meta_Factory::register()
 	 *
 	 * @param int   $meta_id
 	 * @param array $args

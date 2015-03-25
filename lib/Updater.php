@@ -32,7 +32,7 @@ class Tribe__Events__Updater {
 		uksort($updates, 'version_compare');
 		try {
 			foreach ( $updates as $version => $callback ) {
-				if ( version_compare( $version, $this->current_version, '<=' ) && $this->is_version_in_db_less_than($version) ) {
+				if ( version_compare( $version, $this->current_version, '<=' ) && $this->is_version_in_db_less_than( $version ) ) {
 					call_user_func( $callback );
 				}
 			}
@@ -40,7 +40,7 @@ class Tribe__Events__Updater {
 				call_user_func( $callback );
 			}
 			$this->update_version_option( $this->current_version );
-		} catch ( \Exception $e ) {
+		} catch ( Exception $e ) {
 			// fail silently, but it should try again next time
 		}
 	}
@@ -62,6 +62,7 @@ class Tribe__Events__Updater {
 		return array(
 			'2.0.1' => array( $this, 'migrate_from_sp_events' ),
 			'2.0.6' => array( $this, 'migrate_from_sp_options' ),
+			'3.10a4'  => array( $this, 'set_enabled_views' ),
 		);
 	}
 
@@ -172,5 +173,13 @@ class Tribe__Events__Updater {
 	 */
 	public function reset() {
 		$this->update_version_option( $this->reset_version );
+	}
+
+	public function set_enabled_views() {
+		$enabled_views = tribe_get_option( 'tribeEnableViews', null );
+		if ( $enabled_views == null ) {
+			$views = wp_list_pluck( apply_filters( 'tribe-events-bar-views', array() ), 'displaying' );
+			tribe_update_option( 'tribeEnableViews', $views );
+		}
 	}
 }

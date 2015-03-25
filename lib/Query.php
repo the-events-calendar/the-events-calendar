@@ -103,6 +103,8 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 				$query->tribe_is_past = true;
 			} elseif ( tribe_is_ajax_view_request() && $query->get( 'eventDisplay' ) == 'past' ) {
 				$query->tribe_is_past = true;
+			} elseif ( $query->get( 'tribe_is_past' ) ) {
+				$query->tribe_is_past = true;
 			} else {
 				$query->tribe_is_past = isset( $query->tribe_is_past ) ? $query->tribe_is_past : false;
 			}
@@ -317,7 +319,7 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 			}
 
 			// hide upcoming events from query (only not in admin)
-			if ( $query->tribe_is_event_query && $query->get( 'hide_upcoming' ) ) {
+			if ( $query->tribe_is_event_query && $query->get( 'hide_upcoming' ) && !$query->get( 'suppress_filters' ) ) {
 				$hide_upcoming_ids = self::getHideFromUpcomingEvents();
 				if ( ! empty( $hide_upcoming_ids ) ) {
 					$query->set( 'post__not_in', $hide_upcoming_ids );

@@ -7,7 +7,7 @@
  *
  * @package TribeEvents
  */
-class Tribe_Event_Creation_Test extends WP_UnitTestCase {
+class Tribe_Event_Creation_Test extends Tribe__Events__WP_UnitTestCase {
 
 	/**
 	 * @var holds example data for the post

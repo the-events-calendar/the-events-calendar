@@ -8,7 +8,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
-if ( ! class_exists( 'TribeEventsAPI' ) ) {
+if ( ! class_exists( 'Tribe__Events__API' ) ) {
 	class Tribe__Events__API {
 		public static $valid_venue_keys = array(
 			'Venue',
@@ -58,10 +58,7 @@ if ( ! class_exists( 'TribeEventsAPI' ) ) {
 		 */
 		public static function updateEvent( $eventId, $args ) {
 			$args['ID'] = $eventId;
-
-			if ( ! in_array( Tribe__Events__Events::POSTTYPE, (array) $args['post_type'] ) ) {
-				return false;
-			}
+			$args['post_type'] = Tribe__Events__Events::POSTTYPE;
 
 			if ( wp_update_post( $args ) ) {
 				Tribe__Events__API::saveEventMeta( $eventId, $args, get_post( $eventId ) );

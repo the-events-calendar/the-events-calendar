@@ -320,6 +320,4 @@ if ( ! class_exists( 'Tribe__Events__Admin_List' ) ) {
 			return $stats;
 		}
 	}
-
-	Tribe__Events__Admin_List::init();
 }

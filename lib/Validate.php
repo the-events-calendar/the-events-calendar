@@ -5,7 +5,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
-if ( ! class_exists( 'TribeValidate' ) ) {
+if ( ! class_exists( 'Tribe__Events__Validate' ) ) {
 	/**
 	 * helper class that validates fields for use in Settings, MetaBoxes, Users, anywhere.
 	 * Instantiate whenever you want to validate a field

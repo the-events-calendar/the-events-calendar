@@ -11,7 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
-if ( ! class_exists( 'Tribe_Events_Day_Template' ) ) {
+if ( ! class_exists( 'Tribe__Events__Template__Day' ) ) {
 	class Tribe__Events__Template__Day extends Tribe__Events__Template_Factory {
 
 		protected $body_class = 'tribe-events-day';
