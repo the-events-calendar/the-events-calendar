@@ -241,6 +241,10 @@ Our Premium Plugins:
 * Added some changelog formatting enhancements after seeing keepachangelog.com :)
 * Improved the recurring event user interface in relation to events ending after "x" cycles
 * Updated the mini-calendar widget to match the list widget styling
+* More robust activation and deactivation methods
+* More flexible handling of default values to work with The Events Calendar 3.10
+* Ensured that old recurring events are cleaned up on schedule
+* Fixed handling of recurrence splitting when hiding events from the front-end
 * Incorporated updated Bulgarian translation files, courtesy of Nedko Ivanov
 * Incorporated new Hungarian translation files, courtesy of Balazs Dobos
 * Incorporated new Slovak translation files, courtesy of Emilia Valova
