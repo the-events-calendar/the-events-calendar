@@ -347,6 +347,10 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Added the ability to customize the 'Event' label using the new 'tribe_event_label_singular' and 'tribe_event_label_plural' filters (Usage example: http://m.tri.be/tj)
 * Removed all WooTickets CSS from Core
 * Implemented under-the-hood enhancements to the main event editor meta box
+* More robust plugin activation and deactivation
+* Optimized registration of capabilities during install/activation
+* Removed dependencies on ECP for handling default values
+* Avoided showing the admin welcome/activation message within iframes
 * Incorporated updated Bulgarian translation files, courtesy of Nedko Ivanov
 * Incorporated new Hungarian translation files, courtesy of Balazs Dobos
 * Incorporated new British English translation files, courtesy of John Browning
