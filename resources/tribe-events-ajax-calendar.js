@@ -22,6 +22,7 @@
 			$nav_link = $( '[class^="tribe-events-nav-"] a' ),
 			base_url = '/',
 			initial_date = tf.get_url_param( 'tribe-bar-date' ),
+			$wrapper = $( '#tribe-events' ),
 			$tribedate = $( '#tribe-bar-date' ),
 			date_mod = false;
 
@@ -115,9 +116,9 @@
 				date_adj = '0' + date;
 			}
 
-			var $target = $( '.tribe-mobile-day[data-day="' + date + '"]' ),
-				$more = $( '.tribe-event-day-' + date_adj + ' .tribe-events-viewmore' ),
-				$events = $( '.tribe-event-day-' + date_adj + ' .hentry' );
+			var $target = $wrapper.find( '.tribe-mobile-day[data-day="' + date + '"]' ),
+				$more = $wrapper.find( '.tribe-event-day-' + date_adj + ' .tribe-events-viewmore' ),
+				$events = $wrapper.find( '.tribe-event-day-' + date_adj + ' .hentry' );
 
 			if ( $events.length ) {
 				$events
@@ -145,10 +146,10 @@
 
 		function tribe_mobile_setup_day( date, date_name ) {
 
-			var $container = $( '#tribe-mobile-container' ),
-				$day_blocks = $( '.tribe-mobile-day' ),
-				$mobile_trigger = $( '.mobile-trigger' ),
-				$target_day = $( '.tribe-mobile-day[data-day="' + date + '"]' ),
+			var $container = $wrapper.find( '#tribe-mobile-container' ),
+				$day_blocks = $wrapper.find( '.tribe-mobile-day' ),
+				$mobile_trigger = $wrapper.find( '.mobile-trigger' ),
+				$target_day = $wrapper.find( '.tribe-mobile-day[data-day="' + date + '"]' ),
 				full_date_name = 'undefined' === typeof( date_name )  ? '' : date_name,
 				day_data = { "date": date, "date_name": full_date_name };
 
@@ -180,15 +181,15 @@
 
 		function tribe_mobile_month_setup() {
 
-			var $today = $( '.tribe-events-present' ),
-				$mobile_trigger = $( '.mobile-trigger' ),
-				$tribe_grid = $( '#tribe-events-content > .tribe-events-calendar' );
+			var $today = $wrapper.find( '.tribe-events-present' ),
+				$mobile_trigger = $wrapper.find( '.mobile-trigger' ),
+				$tribe_grid = $wrapper.find( '#tribe-events-content > .tribe-events-calendar' );
 
 			if ( !$( '#tribe-mobile-container' ).length ) {
 				$( '<div id="tribe-mobile-container" />' ).insertAfter( $tribe_grid );
 			}
 
-			if ( $today.length ) {
+			if ( $today.length && $today.is( '.tribe-events-thismonth' ) ) {
 				tribe_mobile_setup_day( $today.attr( 'data-day' ), $today.attr( 'data-date-name' ) );
 			}
 			else {
@@ -200,7 +201,7 @@
 
 		function tribe_mobile_day_abbr() {
 
-			$( '.tribe-events-calendar th' ).each( function() {
+			$wrapper.find( '.tribe-events-calendar th' ).each( function() {
 				var $this = $( this ),
 					day_abbr = $this.attr( 'data-day-abbr' ),
 					day_full = $this.attr( 'title' );

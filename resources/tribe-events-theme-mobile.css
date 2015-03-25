@@ -23,7 +23,7 @@
 }
 
 /* = List View Template Styles
-   @ Template: list.php
+   @ Template: List.php
 =============================================*/
 .tribe-events-list .tribe-events-loop .tribe-events-event-meta .recurringinfo {
 	display: block;
@@ -31,7 +31,7 @@
 }
 
 /* = Single Event Template Styles
-   @ Template: single-event.php
+   @ Template: Single_Event.php
 =============================================*/
 .single-tribe_events .tribe-events-schedule .recurringinfo {
 	display: block;
@@ -52,7 +52,7 @@
 }
 
 /* = Global Grid Template Styles (Large Calendar & Week)
-   @ Template: month.php & week.php
+   @ Template: Month.php & week.php
 =============================================*/
 
 /* Actual Event Styles */	
@@ -61,7 +61,7 @@
 }
 
 /* = Calendar (large) Grid Template Styles
-   @ Template: month.php
+   @ Template: Month.php
 =============================================*/
 .tribe-events-calendar thead th {
 	padding: 7px 1em;

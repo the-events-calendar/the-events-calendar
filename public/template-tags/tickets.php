@@ -22,7 +22,7 @@ function tribe_events_has_tickets( $event = null ) {
 		return false;
 	}
 
-	$tickets = TribeEventsTickets::get_all_event_tickets( $event->ID );
+	$tickets = Tribe__Events__Tickets__Tickets::get_all_event_tickets( $event->ID );
 	return ! empty( $tickets );
 }
 
@@ -64,7 +64,7 @@ function tribe_events_partially_soldout( $event = null ) {
 	$stock_is_available = false;
 	$some_have_soldout = false;
 
-	foreach ( TribeEventsTickets::get_all_event_tickets( $event->ID ) as $ticket ) {
+	foreach ( Tribe__Events__Tickets__Tickets::get_all_event_tickets( $event->ID ) as $ticket ) {
 		if ( ! $stock_is_available && 0 < $ticket->stock ) $stock_is_available = true;
 		if ( ! $some_have_soldout && 0 == $ticket->stock) $some_have_soldout = true;
 	}
@@ -87,7 +87,7 @@ function tribe_events_count_available_tickets( $event = null ) {
 		return 0;
 	}
 
-	foreach ( TribeEventsTickets::get_all_event_tickets( $event->ID ) as $ticket ) {
+	foreach ( Tribe__Events__Tickets__Tickets::get_all_event_tickets( $event->ID ) as $ticket ) {
 		$count += $ticket->stock;
 	}
 
@@ -107,8 +107,8 @@ function tribe_events_has_unlimited_stock_tickets( $event = null ) {
 		return 0;
 	}
 
-	foreach ( TribeEventsTickets::get_all_event_tickets( $event->ID ) as $ticket ) {
-		if ( TribeEventsTicketObject::UNLIMITED_STOCK === $ticket->stock ) return true;
+	foreach ( Tribe__Events__Tickets__Tickets::get_all_event_tickets( $event->ID ) as $ticket ) {
+		if ( Tribe__Events__Tickets__Ticket_Object::UNLIMITED_STOCK === $ticket->stock ) return true;
 	}
 
 	return false;
@@ -138,17 +138,17 @@ function tribe_events_product_is_ticket( $product ) {
  * @return bool|WP_Post
  */
 function tribe_events_get_ticket_event( $possible_ticket ) {
-	return TribeEventsTickets::find_matching_event( $possible_ticket );
+	return Tribe__Events__Tickets__Tickets::find_matching_event( $possible_ticket );
 }
 
 /**
  * Checks if the ticket is on sale (in relation to it's start/end sale dates).
  *
- * @param TribeEventsTicketObject $ticket
+ * @param Tribe__Events__Tickets__Ticket_Object $ticket
  *
  * @return bool
  */
-function tribe_events_ticket_is_on_sale( TribeEventsTicketObject $ticket ) {
+function tribe_events_ticket_is_on_sale( Tribe__Events__Tickets__Ticket_Object $ticket ) {
 	// No dates set? Then it's on sale!
 	if ( empty( $ticket->start_date ) && empty( $ticket->end_date ) ) {
 		return true;
