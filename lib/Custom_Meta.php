@@ -41,16 +41,22 @@ class Tribe__Events__Pro__Custom_Meta {
 	 * @return void
 	 */
 	public static function event_meta_options() {
-		$tribe_ecp                     = Tribe__Events__Events::instance();
-		$customFields                  = tribe_get_option( 'custom-fields' );
-		$disable_metabox_custom_fields = tribe_get_option( 'disable_metabox_custom_fields' );
-		// if we don't know the value lets setup a default
-		if ( empty( $disable_metabox_custom_fields ) ) {
-			$disable_metabox_custom_fields = Tribe__Events__Pro__Events_Pro::displayMetaboxCustomFields() ? "hide" : "show";
-		}
+		$pro = Tribe__Events__Pro__Events_Pro::instance();
 
-		$count = 1;
-		include( Tribe__Events__Pro__Events_Pro::instance()->pluginPath . 'admin-views/event-meta-options.php' );
+		// Grab the custom fields and append an extra blank row at the end
+		$customFields   = tribe_get_option( 'custom-fields' );
+		$customFields[] = array();
+
+		// Counts used to decide whether the "remove field" or "add another" should appear
+		$total = count( $customFields );
+		$count = 0;
+		$add_another  = esc_html( __( 'Add another', 'tribe-events-calendar-pro' ) );
+		$remove_field = esc_html( __( 'Remove', 'tribe-events-calendar-pro' ) );
+
+		// Settings for regular WordPress custom fields
+		$disable_metabox_custom_fields = $pro->displayMetaboxCustomFields() ? "show" : "hide";
+
+		include $pro->pluginPath . 'admin-views/event-meta-options.php';
 	}
 
 	/**
