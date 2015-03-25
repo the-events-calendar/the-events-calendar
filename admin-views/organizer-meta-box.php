@@ -51,6 +51,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				if (result == 1) {
 					jQuery('.tribe-organizer-error').remove();
 				} else {
+					jQuery('.tribe-organizer-error').remove();
 					jQuery( '[name=organizer\\[Organizer\\]]' ).after('<div class="tribe-organizer-error error form-invalid"><?php printf( __( '%s Name Already Exists', 'tribe-events-calendar' ), tribe_get_organizer_label_singular() ); ?></div>');
 				}
 			}

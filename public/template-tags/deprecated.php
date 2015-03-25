@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
-if ( class_exists( 'TribeEvents' ) ) {
+if ( class_exists( 'Tribe__Events__Events' ) ) {
 	if ( ! function_exists( 'event_grid_view' ) ) {
 		/**
 		 * @deprecated
@@ -837,7 +837,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 		function sp_post_id_helper( $postId ) {
 			_deprecated_function( __FUNCTION__, '2.0' );
 
-			return TribeEvents::postIdHelper( $postId );
+			return Tribe__Events__Events::postIdHelper( $postId );
 		}
 	}
 	if ( ! function_exists( 'sp_is_new_event_day' ) ) {

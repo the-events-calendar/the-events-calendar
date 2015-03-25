@@ -1,6 +1,6 @@
 <?php
 
-$tec = TribeEvents::instance();
+$tec = Tribe__Events__Events::instance();
 
 $generalTab = array(
 	'priority' => 10,
@@ -22,7 +22,7 @@ $generalTab = array(
 			),
 			'view-calendar-link'            => array(
 				'type' => 'html',
-				'html' => '<p>' . __( 'Where\'s my calendar?', 'tribe-events-calendar' ) . ' <a href="' . TribeEvents::getLink() . '">' . __( 'Right here', 'tribe-events-calendar' ) . '</a>.</p>',
+				'html' => '<p>' . __( 'Where\'s my calendar?', 'tribe-events-calendar' ) . ' <a href="' . Tribe__Events__Events::getLink() . '">' . __( 'Right here', 'tribe-events-calendar' ) . '</a>.</p>',
 			),
 			'upsell-info'                   => array(
 				'type'        => 'html',
@@ -36,12 +36,12 @@ $generalTab = array(
 			'donate-link-info'              => array(
 				'type'        => 'html',
 				'html'        => '<p>' . __( 'Are you thinking "Wow, this plugin is amazing! I should say thanks to Modern Tribe for all their hard work." The greatest thanks we could ask for is recognition. Add a small text-only link at the bottom of your calendar pointing to The Events Calendar project.', 'tribe-events-calendar' ) . '<br><a href="' . plugins_url( 'resources/images/donate-link-screenshot.jpg', dirname( __FILE__ ) ) . '" class="thickbox">' . __( 'See an example of the link', 'tribe-events-calendar' ) . '</a>.</p>',
-				'conditional' => ! class_exists( 'TribeEventsPro' ),
+				'conditional' => ! class_exists( 'Tribe__Events__Pro__Events_Pro' ),
 			),
 			'donate-link-pro-info'          => array(
 				'type'        => 'html',
 				'html'        => '<p>' . __( 'Are you thinking "Wow, this plugin is amazing! I should say thanks to Modern Tribe for all their hard work." The greatest thanks we could ask for is recognition. Add a small text only link at the bottom of your calendar pointing to The Events Calendar project.', 'tribe-events-calendar' ) . '<br><a href="' . plugins_url( 'resources/images/donate-link-pro-screenshot.jpg', dirname( __FILE__ ) ) . '" class="thickbox">' . __( 'See an example of the link', 'tribe-events-calendar' ) . '</a>.</p>',
-				'conditional' => class_exists( 'TribeEventsPro' ),
+				'conditional' => class_exists( 'Tribe__Events__Pro__Events_Pro' ),
 			),
 			'donate-link'                   => array(
 				'type'            => 'checkbox_bool',
@@ -206,7 +206,7 @@ $generalTab = array(
 			),
 			'amalgamateDuplicates'          => array(
 				'type'        => 'html',
-				'html'        => '<fieldset class="tribe-field tribe-field-html"><legend>' . __( 'Duplicate Venues &amp; Organizers', 'tribe-events-calendar' ) . '</legend><div class="tribe-field-wrap">' . Tribe_Amalgamator::migration_button( __( 'Merge Duplicates', 'tribe-events-calendar' ) ) . '<p class="tribe-field-indent description">' . __( 'You might find duplicate venues and organizers when updating The Events Calendar from a pre-3.0 version. Click this button to automatically merge identical venues and organizers.', 'tribe-events-calendar' ) . '</p></div></fieldset><div class="clear"></div>',
+				'html'        => '<fieldset class="tribe-field tribe-field-html"><legend>' . __( 'Duplicate Venues &amp; Organizers', 'tribe-events-calendar' ) . '</legend><div class="tribe-field-wrap">' . Tribe__Events__Amalgamator::migration_button( __( 'Merge Duplicates', 'tribe-events-calendar' ) ) . '<p class="tribe-field-indent description">' . __( 'You might find duplicate venues and organizers when updating The Events Calendar from a pre-3.0 version. Click this button to automatically merge identical venues and organizers.', 'tribe-events-calendar' ) . '</p></div></fieldset><div class="clear"></div>',
 				'conditional' => ( $tec->getOption( 'organizer_venue_amalgamation', 0 ) < 1 ),
 			),
 			'debugEvents'                   => array(

@@ -6,7 +6,7 @@
 
 ?>
 
-<p class="tribe-welcome-message"><?php printf( __( 'You are running Version %s and deserve a hug :-)', 'tribe-events-calendar' ), TribeEvents::VERSION ); ?></p>
+<p class="tribe-welcome-message"><?php printf( __( 'You are running Version %s and deserve a hug :-)', 'tribe-events-calendar' ), Tribe__Events__Events::VERSION ); ?></p>
 
 <div class="tribe-row">
 	<div class="tribe-half-column">
@@ -57,7 +57,7 @@
 
 			<h4><?php _e( 'News For Events Users', 'tribe-events-calendar' ); ?></h4>
 
-			<?php TribeEvents::instance()->outputDashboardWidget(3); ?>
+			<?php Tribe__Events__Events::instance()->outputDashboardWidget(3); ?>
 
 		</div>
 	</div>
