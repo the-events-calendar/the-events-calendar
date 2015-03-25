@@ -522,6 +522,10 @@ if ( ! class_exists( 'Tribe__Events__Pro__Templates__Week' ) ) {
 				$event = self::get_hourly_event();
 			}
 
+			if (empty($event)) {
+				return $classes;
+			}
+
 			global $post;
 			$post_switch = $post;
 
