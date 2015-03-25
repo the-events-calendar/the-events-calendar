@@ -459,7 +459,10 @@ if ( ! class_exists( 'Tribe__Events__Events' ) ) {
 			add_action( 'plugins_loaded', array( 'Tribe__Events__Bar', 'instance' ) );
 			add_action( 'plugins_loaded', array( 'Tribe__Events__Templates', 'init' ) );
 
+			add_action( 'init', array( $this, 'filter_cron_schedules' ) );
+
 		}
+
 
 		/**
 		 * Load the ical template tags
@@ -2300,7 +2303,7 @@ if ( ! class_exists( 'Tribe__Events__Events' ) ) {
 					$eventUrl = trailingslashit( esc_url_raw( $eventUrl . $this->listSlug ) );
 					break;
 				case 'past':
-					$eventUrl = esc_url_raw( add_query_arg( 'tribe_event_display', 'past', $eventUrl . $this->listSlug ) );
+					$eventUrl = esc_url_raw( add_query_arg( 'tribe_event_display', 'past', trailingslashit( $eventUrl . $this->listSlug ) ) );
 					break;
 				case 'dropdown':
 					$eventUrl = esc_url_raw( $eventUrl );
@@ -2408,7 +2411,7 @@ if ( ! class_exists( 'Tribe__Events__Events' ) ) {
 			$location = trim( $tribeEvents->fullAddressString( $postId ) );
 			$base_url = 'http://www.google.com/calendar/event';
 
-			$event_details = get_the_content();
+			$event_details = apply_filters( 'the_content', get_the_content() );
 
 			//Truncate Event Description and add permalink if greater than 996 characters
 			if ( strlen( $event_details ) > 996 ) {
@@ -2428,7 +2431,7 @@ if ( ! class_exists( 'Tribe__Events__Events' ) ) {
 				'action'   => 'TEMPLATE',
 				'text'     => urlencode( strip_tags( $post->post_title ) ),
 				'dates'    => $dates,
-				'details'  => urlencode( apply_filters( 'the_content', $event_details ) ),
+				'details'  => urlencode( $event_details ),
 				'location' => urlencode( $location ),
 				'sprop'    => get_option( 'blogname' ),
 				'trp'      => 'false',
@@ -3578,7 +3581,7 @@ if ( ! class_exists( 'Tribe__Events__Events' ) ) {
 				if ( ! $anchor ) {
 					$anchor = $results->post_title;
 				} elseif ( strpos( $anchor, '%title%' ) !== false ) {
-					$anchor = preg_replace( '|%title%|', $results->post_title, $anchor );
+					$anchor = preg_replace( '|%title%|', apply_filters( 'the_title', $results->post_title, $results->ID ), $anchor );
 				}
 
 				return apply_filters( 'tribe_events_get_event_link', '<a href="' . tribe_get_event_link( $results ) . '">' . $anchor . '</a>' );
@@ -4146,6 +4149,34 @@ if ( ! class_exists( 'Tribe__Events__Events' ) ) {
 
 			return $query;
 		}
+
+
+		/**
+		 * Add filters to register custom cron schedules
+		 *
+		 *
+		 * @return void
+		 */
+		public function filter_cron_schedules(){
+			add_filter( 'cron_schedules', array( $this, 'register_30min_interval' ) );
+		}
+
+
+		/**
+		 * Add a new scheduled task interval (of 30mins).
+		 *
+		 * @param  array $schedules
+		 * @return array
+		 */
+		public function register_30min_interval( $schedules ) {
+			$schedules['every_30mins'] = array(
+				'interval' => 30 * MINUTE_IN_SECONDS,
+				'display'  => __('Once Every 30 Mins', 'tribe-events-pro')
+			);
+
+			return $schedules;
+		}
+
 
 		/**
 		 * If recurring events are imported using the WP importer, WP will flag

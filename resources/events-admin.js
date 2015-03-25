@@ -1,3 +1,149 @@
+
+/*
+ * Date Format 1.2.3
+ * (c) 2007-2009 Steven Levithan <stevenlevithan.com>
+ * MIT license
+ *
+ * Includes enhancements by Scott Trenda <scott.trenda.net>
+ * and Kris Kowal <cixar.com/~kris.kowal/>
+ *
+ * Accepts a date, a mask, or a date and a mask.
+ * Returns a formatted version of the given date.
+ * The date defaults to the current date/time.
+ * The mask defaults to dateFormat.masks.default.
+ * todo: now used in multiple places, lets consolidate. Also, should events-admin really be powering community fe form?
+ */
+
+var tribeDateFormat = function() {
+	var token = /d{1,4}|m{1,4}|yy(?:yy)?|([HhMsTt])\1?|[LloSZ]|"[^"]*"|'[^']*'/g,
+		timezone = /\b(?:[PMCEA][SDP]T|(?:Pacific|Mountain|Central|Eastern|Atlantic) (?:Standard|Daylight|Prevailing) Time|(?:GMT|UTC)(?:[-+]\d{4})?)\b/g,
+		timezoneClip = /[^-+\dA-Z]/g,
+		pad = function( val, len ) {
+			val = String( val );
+			len = len || 2;
+			while ( val.length < len ) {
+				val = "0" + val;
+			}
+			return val;
+		};
+
+	// Regexes and supporting functions are cached through closure
+	return function( date, mask, utc ) {
+		var dF = tribeDateFormat;
+
+		// You can't provide utc if you skip other args (use the "UTC:" mask prefix)
+		if ( arguments.length == 1 && Object.prototype.toString.call( date ) == "[object String]" && !/\d/.test( date ) ) {
+			mask = date;
+			date = undefined;
+		}
+
+		if ( typeof date === 'string' ) {
+			date = date.replace( /-/g, "/" );
+		}
+
+		// Passing date through Date applies Date.parse, if necessary
+		date = date ? new Date( date ) : new Date;
+		if ( isNaN( date ) ) {
+			return;
+		}
+
+		mask = String( dF.masks[mask] || mask || dF.masks["default"] );
+
+		// Allow setting the utc argument via the mask
+		if ( mask.slice( 0, 4 ) == "UTC:" ) {
+			mask = mask.slice( 4 );
+			utc = true;
+		}
+
+		var _ = utc ? "getUTC" : "get",
+			d = date[_ + "Date"](),
+			D = date[_ + "Day"](),
+			m = date[_ + "Month"](),
+			y = date[_ + "FullYear"](),
+			H = date[_ + "Hours"](),
+			M = date[_ + "Minutes"](),
+			s = date[_ + "Seconds"](),
+			L = date[_ + "Milliseconds"](),
+			o = utc ? 0 : date.getTimezoneOffset(),
+			flags = {
+				d   : d,
+				dd  : pad( d ),
+				ddd : dF.i18n.dayNames[D],
+				dddd: dF.i18n.dayNames[D + 7],
+				m   : m + 1,
+				mm  : pad( m + 1 ),
+				mmm : dF.i18n.monthNames[m],
+				mmmm: dF.i18n.monthNames[m + 12],
+				yy  : String( y ).slice( 2 ),
+				yyyy: y,
+				h   : H % 12 || 12,
+				hh  : pad( H % 12 || 12 ),
+				H   : H,
+				HH  : pad( H ),
+				M   : M,
+				MM  : pad( M ),
+				s   : s,
+				ss  : pad( s ),
+				l   : pad( L, 3 ),
+				L   : pad( L > 99 ? Math.round( L / 10 ) : L ),
+				t   : H < 12 ? "a" : "p",
+				tt  : H < 12 ? "am" : "pm",
+				T   : H < 12 ? "A" : "P",
+				TT  : H < 12 ? "AM" : "PM",
+				Z   : utc ? "UTC" : (String( date ).match( timezone ) || [""]).pop().replace( timezoneClip, "" ),
+				o   : (o > 0 ? "-" : "+") + pad( Math.floor( Math.abs( o ) / 60 ) * 100 + Math.abs( o ) % 60, 4 ),
+				S   : ["th", "st", "nd", "rd"][d % 10 > 3 ? 0 : (d % 100 - d % 10 != 10) * d % 10]
+			};
+
+		return mask.replace( token, function( $0 ) {
+			return $0 in flags ? flags[$0] : $0.slice( 1, $0.length - 1 );
+		} );
+	};
+}();
+
+tribeDateFormat.masks = {
+	"default"        : "ddd mmm dd yyyy HH:MM:ss",
+	"tribeQuery"     : "yyyy-mm-dd",
+	"tribeMonthQuery": "yyyy-mm",
+	"0"              : 'yyyy-mm-dd',
+	"1"              : 'm/d/yyyy',
+	"2"              : 'mm/dd/yyyy',
+	"3"              : 'd/m/yyyy',
+	"4"              : 'dd/mm/yyyy',
+	"5"              : 'm-d-yyyy',
+	"6"              : 'mm-dd-yyyy',
+	"7"              : 'd-m-yyyy',
+	"8"              : 'dd-mm-yyyy',
+	"m0"             : 'yyyy-mm',
+	"m1"             : 'm/yyyy',
+	"m2"             : 'mm/yyyy',
+	"m3"             : 'm/yyyy',
+	"m4"             : 'mm/yyyy',
+	"m5"             : 'm-yyyy',
+	"m6"             : 'mm-yyyy',
+	"m7"             : 'm-yyyy',
+	"m8"             : 'mm-yyyy'
+
+};
+
+tribeDateFormat.i18n = {
+	dayNames  : [
+		"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat",
+		"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"
+	],
+	monthNames: [
+		"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec",
+		"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"
+	]
+};
+
+Date.prototype.format = function( mask, utc ) {
+	return tribeDateFormat( this, mask, utc );
+};
+
+/**
+ * @todo contains a number of recurrence-related functions which should be moved to PRO
+ */
 jQuery( document ).ready( function( $ ) {
 
 	var $date_format      = $( '[data-datepicker_format]' ),
@@ -35,7 +181,6 @@ jQuery( document ).ready( function( $ ) {
 	}
 
 	//not done by default on front end
-
 	function get_datepicker_num_months() {
 		return ( is_community_edit && $(window).width() < 768 ) ? 1 : 3;
 	}
@@ -91,7 +236,7 @@ jQuery( document ).ready( function( $ ) {
 				if ( this.id === "EventStartDate" && $recurrence_type.val() !== 'None' ) {
 
 					var startDate = $( '#EventStartDate' ).data( 'prevDate' ),
-						dateDif = date_diff_in_days( startDate, $end_date.datepicker( 'getDate' ) ),
+						dateDif = null == startDate ? 0 : date_diff_in_days( startDate, $end_date.datepicker( 'getDate' ) ),
 						endDate = new Date( date.setDate( date.getDate() + dateDif ) );
 
 					$end_date
@@ -118,6 +263,18 @@ jQuery( document ).ready( function( $ ) {
 			$start_month = $( "select[name='EventStartMonth']" ),
 			$end_month = $( 'select[name="EventEndMonth"]' ),
 			selectObject;
+
+		if ( is_community_edit ) {
+			var $els = {
+				start : $event_pickers.find( '#EventStartDate' ),
+				end   : $event_pickers.next( 'tr' ).find( '#EventEndDate' ),
+			};
+
+			$.each( $els, function( i, el ) {
+				var $el = $(el);
+				( '' !== $el.val() ) && $el.val( tribeDateFormat( $el.val(), datepicker_format ) );
+			})
+		}
 
 		// toggle time input
 
@@ -386,7 +543,7 @@ jQuery( document ).ready( function( $ ) {
 
 	$( '[name="recurrence[type]"]' ).change( function() {
 		var option = $( this ).find( 'option:selected' ), numOccurrences = $( '#recurrence_end_count' ).val();
-		$( '#occurence-count-text' ).text( numOccurrences == 1 ? option.data( 'single' ) : option.data( 'plural' ) );
+		$( '#occurence-count-text' ).text( 1 == numOccurrences ? $( this ).data( 'single' ) : $( this ).data( 'plural' ) );
 		$( '[name="recurrence[occurrence-count-text]"]' ).val( $( '#occurence-count-text' ).text() );
 	} );
 
@@ -499,7 +656,25 @@ jQuery( document ).ready( function( $ ) {
 			} );
 	}
 
-} );
+	/**
+	 * Capture the community "Add" form on submit to ensure safe date format.
+	 */
+	$( '#tribe-community-events.form form' ).on( 'submit', function() {
+
+		var $els = {
+			start: $event_pickers.find( '#EventStartDate' ),
+			end  : $event_pickers.next( 'tr' ).find( '#EventEndDate' ),
+			recur: $event_pickers.parent().find( '#recurrence_end' )
+		};
+
+		$els.start.val( tribeDateFormat( $els.start.datepicker( 'getDate' ), 'tribeQuery' ) );
+		$els.end.val( tribeDateFormat( $els.end.datepicker( 'getDate' ), 'tribeQuery' ) );
+		
+		$els.recur.is( ':visible' ) && $els.recur.val( tribeDateFormat( $els.recur.datepicker( 'getDate' ), 'tribeQuery' ) );
+	} );
+
+});
+
 
 /**
  * Re-initialize chosen on widgets when moved

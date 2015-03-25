@@ -103,6 +103,8 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 				$query->tribe_is_past = true;
 			} elseif ( tribe_is_ajax_view_request() && $query->get( 'eventDisplay' ) == 'past' ) {
 				$query->tribe_is_past = true;
+			} elseif ( $query->get( 'tribe_is_past' ) ) {
+				$query->tribe_is_past = true;
 			} else {
 				$query->tribe_is_past = isset( $query->tribe_is_past ) ? $query->tribe_is_past : false;
 			}
