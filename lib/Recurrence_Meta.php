@@ -33,9 +33,9 @@ class Tribe__Events__Pro__Recurrence_Meta {
 
 	public static function init() {
 		add_action( 'tribe_events_update_meta', array(
-				__CLASS__,
-				'updateRecurrenceMeta'
-			), 20, 2 ); // give other meta a chance to save, first
+			__CLASS__,
+			'updateRecurrenceMeta'
+		), 20, 2 ); // give other meta a chance to save, first
 		add_action( 'tribe_events_date_display', array( __CLASS__, 'loadRecurrenceData' ) );
 		add_action( 'wp_trash_post', array( __CLASS__, 'handle_trash_request' ) );
 		add_action( 'before_delete_post', array( __CLASS__, 'handle_delete_request' ) );
@@ -52,13 +52,13 @@ class Tribe__Events__Pro__Recurrence_Meta {
 		add_action( 'tribe_recurring_event_error', array( __CLASS__, 'setupRecurrenceErrorMsg' ), 10, 2 );
 
 		add_filter( 'manage_' . Tribe__Events__Events::POSTTYPE . '_posts_columns', array(
-				__CLASS__,
-				'list_table_column_headers'
-			) );
+			__CLASS__,
+			'list_table_column_headers'
+		) );
 		add_action( 'manage_' . Tribe__Events__Events::POSTTYPE . '_posts_custom_column', array(
-				__CLASS__,
-				'populate_custom_list_table_columns'
-			), 10, 2 );
+			__CLASS__,
+			'populate_custom_list_table_columns'
+		), 10, 2 );
 		add_filter( 'post_class', array( __CLASS__, 'add_recurring_event_post_classes' ), 10, 3 );
 
 
@@ -84,7 +84,7 @@ class Tribe__Events__Pro__Recurrence_Meta {
 	}
 
 	public static function filter_edit_post_link( $url, $post_id, $context ) {
-		if ( tribe_is_recurring_event( $post_id ) && $parent = wp_get_post_parent_id( $post_id ) ) {
+		if ( ! empty( $post_id ) && tribe_is_recurring_event( $post_id ) && $parent = wp_get_post_parent_id( $post_id ) ) {
 			return get_edit_post_link( $parent, $context );
 		}
 
@@ -99,7 +99,7 @@ class Tribe__Events__Pro__Recurrence_Meta {
 		/** @var WP_Admin_Bar $wp_admin_bar */
 		global $post, $wp_admin_bar;
 
-		if ( ! is_a( $post, 'WP_Post' ) ) {
+		if ( ! $post instanceof WP_Post ) {
 			return;
 		}
 
@@ -370,9 +370,9 @@ class Tribe__Events__Pro__Recurrence_Meta {
 			/** @var wpdb $wpdb */
 			global $wpdb;
 			$wpdb->update( $wpdb->posts, array( 'comment_count' => $new_count ), array(
-					'post_parent' => $parent_id,
-					'post_type'   => Tribe__Events__Events::POSTTYPE
-				) );
+				'post_parent' => $parent_id,
+				'post_type'   => Tribe__Events__Events::POSTTYPE
+			) );
 
 			$child_ids = self::get_child_event_ids( $parent_id );
 			foreach ( $child_ids as $child ) {
@@ -394,10 +394,10 @@ class Tribe__Events__Pro__Recurrence_Meta {
 					$comments = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM $wpdb->comments WHERE comment_post_ID = %d AND (comment_approved = '1' OR ( user_id = %d AND comment_approved = '0' ) )  ORDER BY comment_date_gmt", $event->post_parent, $user_ID ) );
 				} else if ( empty( $comment_author ) ) {
 					$comments = get_comments( array(
-							'post_id' => $event->post_parent,
-							'status'  => 'approve',
-							'order'   => 'ASC'
-						) );
+						'post_id' => $event->post_parent,
+						'status'  => 'approve',
+						'order'   => 'ASC'
+					) );
 				} else {
 					$comments = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM $wpdb->comments WHERE comment_post_ID = %d AND ( comment_approved = '1' OR ( comment_author = %s AND comment_author_email = %s AND comment_approved = '0' ) ) ORDER BY comment_date_gmt", $event->post_parent, wp_specialchars_decode( $comment_author, ENT_QUOTES ), $comment_author_email ) );
 				}
@@ -675,14 +675,14 @@ class Tribe__Events__Pro__Recurrence_Meta {
 	/**
 	 * Do the actual work of saving a recurring series of events
 	 *
-	 * @param int $postId The event that is being saved
+	 * @param int $event_id The event that is being saved
 	 *
 	 * @return void
 	 */
-	public static function saveEvents( $postId ) {
+	public static function saveEvents( $event_id ) {
 		// don't use self::get_child_event_ids() due to caching that hasn't yet flushed
 		$existing_instances = get_posts( array(
-			'post_parent'    => $postId,
+			'post_parent'    => $event_id,
 			'post_type'      => Tribe__Events__Events::POSTTYPE,
 			'posts_per_page' => - 1,
 			'fields'         => 'ids',
@@ -690,51 +690,62 @@ class Tribe__Events__Pro__Recurrence_Meta {
 			'meta_key'       => '_EventStartDate',
 			'orderby'        => 'meta_value',
 			'order'          => 'ASC',
-			'hide_upcoming'  => false,
 		) );
 
-		$recurrence = self::getRecurrenceForEvent( $postId );
+		$recurrence = self::getRecurrenceForEvent( $event_id );
 
 		if ( $recurrence ) {
 			$recurrence->setMinDate( strtotime( self::$scheduler->get_earliest_date() ) );
 			$recurrence->setMaxDate( strtotime( self::$scheduler->get_latest_date() ) );
-			$dates     = (array) $recurrence->getDates();
-			$to_update = array();
+			$to_create  = (array) $recurrence->getDates();
+			$to_update  = array();
+			$to_delete  = array();
 
 			if ( $recurrence->constrainedByMaxDate() !== false ) {
-				update_post_meta( $postId, '_EventNextPendingRecurrence', date( Tribe__Events__Pro__Date_Series_Rules__Rules_Interface::DATE_FORMAT, $recurrence->constrainedByMaxDate() ) );
+				update_post_meta( $event_id, '_EventNextPendingRecurrence', date( Tribe__Events__Pro__Date_Series_Rules__Rules_Interface::DATE_FORMAT, $recurrence->constrainedByMaxDate() ) );
 			}
 
 			foreach ( $existing_instances as $instance ) {
 				$start_date = strtotime( get_post_meta( $instance, '_EventStartDate', true ) );
-				$found      = array_search( $start_date, $dates );
+				$found      = array_search( $start_date, $to_create );
 				if ( $found === false ) {
-					do_action( 'tribe_events_deleting_child_post', $instance, $start_date );
-					// deleting a post would normally add it to the excluded dates array
-					// we don't want that if a child is deleted due to a recurrence change
-					remove_action( 'before_delete_post', array( __CLASS__, 'handle_delete_request' ) );
-					wp_delete_post( $instance, true );
-					add_action( 'before_delete_post', array( __CLASS__, 'handle_delete_request' ) );
+					$to_delete[$instance] = $start_date;
 				} else {
-					$to_update[ $instance ] = $dates[ $found ];
-					unset( $dates[ $found ] ); // so we don't re-add it
+					$to_update[ $instance ] = $to_create[ $found ];
+					unset( $to_create[ $found ] ); // so we don't re-add it
 				}
 			}
 
-			$excluded = array_map( 'strtotime', self::get_excluded_dates( $postId ) );
+			$exclusions = array_map( 'strtotime', self::get_excluded_dates( $event_id ) );
 
-			foreach ( $dates as $date ) {
-				if ( ! in_array( $date, $excluded ) ) {
-					$instance = new Tribe__Events__Pro__Recurrence_Instance( $postId, $date );
-					$instance->save();
-				}
-			}
-			foreach ( $to_update as $instance_id => $date ) {
-				$instance = new Tribe__Events__Pro__Recurrence_Instance( $postId, $date, $instance_id );
-				$instance->save();
-			}
+			// Store the list of instances to create/update/delete etc for future processing
+			$queue = new Tribe__Events__Pro__Recurrence__Queue( $event_id );
+			$queue->update( $to_create, $to_update, $to_delete, $exclusions );
+
+			// ...but don't wait around, process a small initial batch right away
+			Tribe__Events__Pro__Events_Pro::instance()->queue_processor->process_batch( $event_id );
 		}
 	}
+
+	/**
+	 * Deletes events when a change in recurrence pattern renders them obsolete.
+	 *
+	 * This should not be used when removing individual instances from an otherwise unchanged
+	 * pattern - wp_delete_post() can be used directly to facilitate that.
+	 *
+	 * This method takes care of temporarily unhooking our 'before_delete_post' callback
+	 * to avoid the deleted instance being added to the exclusion list.
+	 *
+	 * @param $instance_id
+	 * @param $start_date
+	 */
+	public static function delete_unexcluded_event( $instance_id, $start_date ) {
+		do_action( 'tribe_events_deleting_child_post', $instance_id, $start_date );
+		remove_action( 'before_delete_post', array( __CLASS__, 'handle_delete_request' ) );
+		wp_delete_post( $instance_id, true );
+		add_action( 'before_delete_post', array( __CLASS__, 'handle_delete_request' ) );
+	}
+
 
 	public static function save_pending_events( $event_id ) {
 		if ( wp_get_post_parent_id( $event_id ) != 0 ) {

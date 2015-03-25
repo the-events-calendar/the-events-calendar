@@ -363,4 +363,80 @@ jQuery( document ).ready( function( $ ) {
 		}
 	} );
 
+	/**
+	 * Test to see if we are in the editor and have a recurring event in need of
+	 * realtime updates.
+	 */
+	if ( "object" === typeof TribeEventsProRecurrenceUpdate ) {
+		var notice   = $( "div.tribe-events-recurring-update-msg" );
+		var spinner  = notice.find( "img" );
+		var progress = notice.find( "div.progress" );
+		var bar      = notice.find( "div.bar" );
+		var time     = Date.now();
+
+		function handleResponse( data ) {
+			var now     = Date.now();
+			var elapsed = now - time;
+
+			if ( data.html ) {
+				notice.html( html );
+			}
+			if ( data.progress ) {
+				updateProgress( data.progress, data.progressText );
+			}
+			if ( data.continue ) {
+				// If multiple editors are open for the same event we don't want to hammer the server
+				// and so a min delay of 1/2 sec is introduced between update requests
+				if ( elapsed < 500 ) {
+					setTimeout( sendRequest, 500 - elapsed  );
+				} else {
+					sendRequest();
+				}
+			}
+			if ( data.complete ) {
+				spinner.replaceWith( TribeEventsProRecurrenceUpdate.completeMsg );
+				notice.removeClass( "updating").addClass( "completed" );
+				setTimeout( removeNotice, 1000 );
+			}
+		}
+
+		function sendRequest() {
+			var payload = {
+				event:  TribeEventsProRecurrenceUpdate.eventID,
+				check:  TribeEventsProRecurrenceUpdate.check,
+				action: "tribe_events_pro_recurrence_realtime_update"
+			};
+			$.post( ajaxurl, payload, handleResponse, 'json' );
+		}
+
+		function updateProgress( percentage, text ) {
+			percentage = parseInt( percentage );
+
+			// The percentage should never be out of bounds, but let's handle such a thing gracefully if it arises
+			if ( percentage < 0 || percentage > 100 ) {
+				return;
+			}
+
+			bar.css( "width", percentage + "%" );
+			progress.attr( "title", text );
+		}
+
+		function removeNotice() {
+			var effect = {
+				opacity: 0,
+				height:  "toggle"
+			};
+
+			notice.animate( effect, 1000, function() {
+				notice.remove();
+			} );
+		}
+
+		function start() {
+			sendRequest();
+			updateProgress( TribeEventsProRecurrenceUpdate.progress, TribeEventsProRecurrenceUpdate.progressText );
+		}
+
+		setTimeout( start );
+	}
 } );

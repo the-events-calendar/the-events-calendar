@@ -163,6 +163,7 @@ The plugin is produced by <a href="http://m.tri.be/45">Modern Tribe Inc</a>.
 * Arabic from Mamdouh Samy
 * Bosnian from Marko Manojlovic
 * Brazilian Portuguese from Emerson Marques
+* British English from John Browning
 * Bulgarian from Nedko Ivanov
 * Catalan from Barbara Partegos Rof
 * Chinese from Massound Huang
@@ -189,6 +190,7 @@ The plugin is produced by <a href="http://m.tri.be/45">Modern Tribe Inc</a>.
 * Romanian from Cosmin Vaman
 * Russian from Alexander Tinyaev
 * Serbian from Marko Manojlovic
+* Slovak from Emilia Valova
 * Slovenian from Žiga Vajdic
 * Spanish from Juanjo Navarro
 * Swedish from Jonas Reinicke
@@ -226,10 +228,23 @@ Our Premium Plugins:
 
 3.x is a complete overhaul of the plugin, and as a result we're starting the changelog fresh. For release notes from the 2.x lifecycle, see <a href="http://m.tri.be/k">our 2.x release notes.</a>
 
-= 4.0 =
+= [Unreleased] unreleased =
 
+= [3.10] 2015-04-30 =
+
+* Fixed a minor issue with recurring event tooltips within the advanced list widget
+* Fixed an issue which caused the default venue fields to be automatically inserted within the event editor
+* Fixed a bug preventing the view link from appearing for updated venues and organizers
+* Introduced batch processing of recurring events to further improve performance and scalability
+* Scheduled task responsible for generating recurring events is now removed when the plugin is deactivated
+* Added a new additional field type (textareas) to compliment the existing text field
+* Added some changelog formatting enhancements after seeing keepachangelog.com :)
+* Improved the recurring event user interface in relation to events ending after "x" cycles
+* Updated the mini-calendar widget to match the list widget styling
 * Incorporated updated Bulgarian translation files, courtesy of Nedko Ivanov
 * Incorporated new Hungarian translation files, courtesy of Balazs Dobos
+* Incorporated new Slovak translation files, courtesy of Emilia Valova
+* Incorporated new British English translation files, courtesy of John Browning
 
 = 3.9.1 =
 
