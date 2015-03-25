@@ -289,7 +289,7 @@ if ( class_exists( 'Tribe__Events__Events' ) ) {
 		$event_end        = tribe_get_end_date( $event, null, 'U' );
 
 		// kludge
-		if ( $event->_end_date_fixed == true ) {
+		if ( ! empty( $event->_end_date_fixed ) ) {
 			// @todo remove this once we can have all day events without a start / end time
 			$event_end = date_create( date( TribeDateUtils::DBDATETIMEFORMAT, $event_end ) );
 			$event_end->modify( '+1 day' );
