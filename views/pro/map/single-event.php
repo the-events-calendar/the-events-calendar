@@ -3,7 +3,7 @@
  * Map View Single Event
  * This file contains one event in the map
  *
- * Override this template in your own theme by creating a file at [your-theme]/tribe-events/map/single-event.php
+ * Override this template in your own theme by creating a file at [your-theme]/tribe-events/map/Single_Event.php
  *
  * @package TribeEventsCalendar
  *

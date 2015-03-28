@@ -5,7 +5,7 @@ Tags: events, calendar, event, venue, organizer, dates, date, google maps, confe
 Donate link: http://m.tri.be/29
 Requires at least: 3.8
 Tested up to: 4.0.1
-Stable tag: 3.9
+Stable tag: 3.9.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -163,6 +163,7 @@ The plugin is produced by <a href="http://m.tri.be/45">Modern Tribe Inc</a>.
 * Arabic from Mamdouh Samy
 * Bosnian from Marko Manojlovic
 * Brazilian Portuguese from Emerson Marques
+* British English from John Browning
 * Bulgarian from Nedko Ivanov
 * Catalan from Barbara Partegos Rof
 * Chinese from Massound Huang
@@ -172,9 +173,10 @@ The plugin is produced by <a href="http://m.tri.be/45">Modern Tribe Inc</a>.
 * Dutch from Dirk Westenberg
 * Estonian from Andra Saimre
 * Finnish by Elias Okkonen
-* French from Laurent Proulx
-* German from Stefan Dorscht and Oliver Heinrich
+* French from Sylvain Delisle
+* German from Oliver Heinrich
 * Greek from Yannis Troullinos
+* Hungarian from Balazs Dobos
 * Icelandic by Baldvin Örn Berndsen
 * Indonesian by Didik Priyanto
 * Italian from Gabriele Taffi
@@ -188,13 +190,14 @@ The plugin is produced by <a href="http://m.tri.be/45">Modern Tribe Inc</a>.
 * Romanian from Cosmin Vaman
 * Russian from Alexander Tinyaev
 * Serbian from Marko Manojlovic
+* Slovak from Emilia Valova
 * Slovenian from Žiga Vajdic
 * Spanish from Juanjo Navarro
 * Swedish from Jonas Reinicke
 * Turkish by Derin Korman
 * Ukranian by Vasily Vishnyakov
 
-* Previous translators include Ari-Pekka Koponen, Antonio Pratas, Dennis Gruebner, J.F.M. Cornelissen, Frans Pronk, Roberto Scano, Maria Tsilimidou, Martin Kristan, Ben Andersen, Oliver Heinrich, Mikhail Michouris, Bastien BC, Erik Massop, Ed Boon, Rick van Dalen, Jacob Roel Meijering, Christian Andersen, Michael Sebel, Dionizio Bonfim Bach, Mihai Burcea, Filippo Montanari, David Decker, Kamil Szymanski, "Terje With Lunndal", Sagi Shrieber, Matthew Meyer, Arno Faure, Fanny Heraud, Vincent G from Host1Free, , Petri Kajander, Fran Rosa, Nico (wsMaurik), Panos Efstratiou, Dominique Monhardt, Thomas Butzek, Kjell Vestnes, Luiza Libardi, Diego Meneghetti, Benoit Burgener, Hector Gil Rizo, Burak Pehlevan, and Alexey Fedorov
+* Previous translators include Stefan Dorscht, Laurent Proulx, Ari-Pekka Koponen, Antonio Pratas, Dennis Gruebner, J.F.M. Cornelissen, Frans Pronk, Roberto Scano, Maria Tsilimidou, Martin Kristan, Ben Andersen, Oliver Heinrich, Mikhail Michouris, Bastien BC, Erik Massop, Ed Boon, Rick van Dalen, Jacob Roel Meijering, Christian Andersen, Michael Sebel, Dionizio Bonfim Bach, Mihai Burcea, Filippo Montanari, David Decker, Kamil Szymanski, "Terje With Lunndal", Sagi Shrieber, Matthew Meyer, Arno Faure, Fanny Heraud, Vincent G from Host1Free, , Petri Kajander, Fran Rosa, Nico (wsMaurik), Panos Efstratiou, Dominique Monhardt, Thomas Butzek, Kjell Vestnes, Luiza Libardi, Diego Meneghetti, Benoit Burgener, Hector Gil Rizo, Burak Pehlevan, and Alexey Fedorov
 
 == Add-Ons ==
 
@@ -224,6 +227,34 @@ Our Premium Plugins:
 = IMPORTANT NOTICE =
 
 3.x is a complete overhaul of the plugin, and as a result we're starting the changelog fresh. For release notes from the 2.x lifecycle, see <a href="http://m.tri.be/k">our 2.x release notes.</a>
+
+= [Unreleased] unreleased =
+
+= [3.10] 2015-04-30 =
+
+* Fixed a minor issue with recurring event tooltips within the advanced list widget
+* Fixed an issue which caused the default venue fields to be automatically inserted within the event editor
+* Fixed a bug preventing the view link from appearing for updated venues and organizers
+* Introduced batch processing of recurring events to further improve performance and scalability
+* Scheduled task responsible for generating recurring events is now removed when the plugin is deactivated
+* Added a new additional field type (textareas) to compliment the existing text field
+* Added some changelog formatting enhancements after seeing keepachangelog.com :)
+* Improved the recurring event user interface in relation to events ending after "x" cycles
+* Updated the mini-calendar widget to match the list widget styling
+* More robust activation and deactivation methods
+* More flexible handling of default values to work with The Events Calendar 3.10
+* Ensured that old recurring events are cleaned up on schedule
+* Fixed handling of recurrence splitting when hiding events from the front-end
+* Incorporated updated Bulgarian translation files, courtesy of Nedko Ivanov
+* Incorporated new Hungarian translation files, courtesy of Balazs Dobos
+* Incorporated new Slovak translation files, courtesy of Emilia Valova
+* Incorporated new British English translation files, courtesy of John Browning
+
+= 3.9.1 =
+
+* Fixed the styling issues in relation to the calendar and advanced list widgets (big thanks to rantfarmentertainment for the first report on our PRO forums about this!)
+* Incorporated updated German translation files, courtesy of Oliver Heinrich
+* Incorporated updated French translation files, courtesy of Sylvain Delisle
 
 = 3.9 =
 
