@@ -561,7 +561,7 @@ if ( ! class_exists( 'Tribe__Events__PUE__Checker' ) ) {
 		 *
 		 * @uses Tribe__Events__PUE__Checker::request_info()
 		 *
-		 * @return TribePluginUpdateUtility An instance of Tribe__Events__PUE__Utility, or NULL when no updates are available.
+		 * @return Tribe__Events__PUE__Utility An instance of Tribe__Events__PUE__Utility, or NULL when no updates are available.
 		 */
 		function request_update() {
 			//For the sake of simplicity, this function just calls request_info()

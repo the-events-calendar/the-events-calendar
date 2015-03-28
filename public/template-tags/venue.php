@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
-if ( class_exists( 'TribeEvents' ) ) {
+if ( class_exists( 'Tribe__Events__Events' ) ) {
 
 	/**
 	 * Venue ID
@@ -22,7 +22,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 * @return int Venue ID
 	 */
 	function tribe_get_venue_id( $postId = null ) {
-		$postId = TribeEvents::postIdHelper( $postId );
+		$postId = Tribe__Events__Events::postIdHelper( $postId );
 		if ( tribe_is_venue( $postId ) ) {
 			return $postId;
 		} else {
@@ -73,14 +73,10 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 * Returns the event venue name
 	 *
 	 * @param int  $postId    Can supply either event id or venue id, if none specified, current post is used
-	 * @param bool $with_link (deprecated in 2.0.1)
 	 *
 	 * @return string Venue Name
 	 */
-	function tribe_get_venue( $postId = null, $with_link = false ) {
-		if ( $with_link ) {
-			_deprecated_argument( __FUNCTION__, '2.0.1' );
-		}
+	function tribe_get_venue( $postId = null ) {
 		$postId = tribe_get_venue_id( $postId );
 		$venue  = ( $postId > 0 ) ? esc_html( get_the_title( $postId ) ) : null;
 
@@ -148,7 +144,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 */
 	function tribe_get_full_address( $postId = null, $includeVenueName = false ) {
 		$postId    = tribe_get_venue_id( $postId );
-		$tribe_ecp = TribeEvents::instance();
+		$tribe_ecp = Tribe__Events__Events::instance();
 
 		return apply_filters( 'tribe_get_full_address', $tribe_ecp->fullAddress( $postId, $includeVenueName ) );
 	}
@@ -168,7 +164,8 @@ if ( class_exists( 'TribeEvents' ) ) {
 			tribe_get_city( $postId ) ||
 			tribe_get_region( $postId ) ||
 			tribe_get_country( $postId ) ||
-			tribe_get_zip( $postId )
+			tribe_get_zip( $postId ) ||
+			( tribe_is_venue_overwrite( $postId ) && tribe_get_coordinates( $postId ) )
 		) {
 			return true;
 		} else {
@@ -283,22 +280,6 @@ if ( class_exists( 'TribeEvents' ) ) {
 	}
 
 	/**
-	 * Gets the full region name of a given event's Venue address.
-	 *
-	 * @param int $event_id
-	 *
-	 * @return string The full region for this event's address.
-	 */
-	function tribe_get_full_region( $event_id ) {
-		$province = tribe_get_event_meta( $event_id, '_VenueStateProvince', true );
-		$states   = TribeEventsViewHelpers::loadStates();
-
-		$full_region = isset( $states[ $province ] ) ? $states[ $province ] : $province;
-
-		return apply_filters( 'tribe_get_full_region', $full_region );
-	}
-
-	/**
 	 * Zip Code
 	 *
 	 * Returns the event zip code
@@ -313,6 +294,42 @@ if ( class_exists( 'TribeEvents' ) ) {
 
 		return apply_filters( 'tribe_get_zip', $output );
 	}
+
+
+	/**
+	 * Coordinates
+	 *
+	 * Returns the coordinates of the venue
+	 *
+	 * @param int $postId Can supply either event id or venue id, if none specified, current post is used
+	 *
+	 * @return array An Array with the Latitute and Longitude of the venue
+	 */
+	function tribe_get_coordinates( $postId = null ) {
+		$postId = tribe_get_venue_id( $postId );
+		$output['lat'] = (float) get_post_meta( $postId, Tribe__Events__Pro__Geo_Loc::LAT, true );
+		$output['lng'] = (float) get_post_meta( $postId, Tribe__Events__Pro__Geo_Loc::LNG, true );
+
+		return apply_filters( 'tribe_get_coordinates', $output );
+	}
+
+
+	/**
+	 * Coordinates Overwrite
+	 *
+	 * Conditional if the venue has it's coordinates overwritten
+	 *
+	 * @param int $postId Can supply either event id or venue id, if none specified, current post is used
+	 *
+	 * @return bool Depending on the venue checkbox of overwrite coordinates
+	 */
+	function tribe_is_venue_overwrite( $postId = null ) {
+		$postId = tribe_get_venue_id( $postId );
+		$output = (int) get_post_meta( $postId, Tribe__Events__Pro__Geo_Loc::OVERWRITE, true );
+
+		return apply_filters( 'tribe_is_venue_overwrite', (bool) $output );
+	}
+
 
 	/**
 	 * Venue Phone Number
@@ -340,7 +357,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 	 * @return array An array of venue post objects.
 	 */
 	function tribe_get_venues( $only_with_upcoming = false, $posts_per_page = -1, $suppress_filters = true ) {
-		$venues = get_posts( array( 'post_type'        => TribeEvents::VENUE_POST_TYPE,
+		$venues = get_posts( array( 'post_type'        => Tribe__Events__Events::VENUE_POST_TYPE,
 									'posts_per_page'   => $posts_per_page,
 									'suppress_filters' => $suppress_filters
 			)
@@ -382,24 +399,25 @@ if ( class_exists( 'TribeEvents' ) ) {
 	}
 
 	/**
-	 * Gets venue details for use in some single-event templates.
-	 *
-	 * @param null $post_id
-	 *
-	 * @return array The venue name and venue address.
-	 */
+	* Gets venue details for use in some single-event templates.
+	*
+	* @param null $post_id
+	*
+	* @return array The venue name and venue address.
+	*/
 	function tribe_get_venue_details() {
-		
+	
 		$venue_details = array();
-
+		
 		if ( $venue_name = tribe_get_meta( 'tribe_event_venue_name' ) ) {
 			$venue_details['name'] = $venue_name;
 		}
-
+		
 		if ( $venue_address = tribe_get_meta( 'tribe_event_venue_address' ) ) {
 			$venue_details['address'] = $venue_address;
 		}
-
+		
 		return apply_filters( 'tribe_get_venue_details', $venue_details );
 	}
+
 }

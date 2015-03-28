@@ -27,7 +27,7 @@ $current_url = tribe_events_get_current_filter_url();
 		<!-- Mobile Filters Toggle -->
 
 		<div id="tribe-bar-collapse-toggle" <?php if ( count( $views ) == 1 ) { ?> class="tribe-bar-collapse-toggle-full-width"<?php } ?>>
-			<?php _e( 'Find Events', 'tribe-events-calendar' ) ?><span class="tribe-bar-toggle-arrow"></span>
+			<?php printf( __( 'Find %s', 'tribe-events-calendar' ), tribe_get_event_label_plural() ); ?><span class="tribe-bar-toggle-arrow"></span>
 		</div>
 
 		<!-- Views -->

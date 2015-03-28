@@ -7,7 +7,7 @@
  *
  * @package TribeEvents
  */
-class TribeEvents_Test extends WP_UnitTestCase {
+class TribeEvents_Test extends Tribe__Events__WP_UnitTestCase {
 
 	/**
 	 * Test if the TribeEvents class exists.
