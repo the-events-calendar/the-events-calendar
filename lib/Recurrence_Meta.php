@@ -706,7 +706,7 @@ class Tribe__Events__Pro__Recurrence_Meta {
 			}
 
 			foreach ( $existing_instances as $instance ) {
-				$start_date = strtotime( get_post_meta( $instance, '_EventStartDate', true ) );
+				$start_date = strtotime( get_post_meta( $instance, '_EventStartDate', true ) . '+00:00' );
 				$found      = array_search( $start_date, $to_create );
 				if ( $found === false ) {
 					$to_delete[$instance] = $start_date;
