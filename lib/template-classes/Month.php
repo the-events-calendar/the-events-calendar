@@ -163,6 +163,7 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 				_deprecated_function( "The 'tribe_events_this_month_title' filter", '3.8', " the 'tribe_get_events_title' filter" );
 				$new_title = apply_filters( 'tribe_events_this_month_title', $new_title, $sep );
 			}
+
 			return $new_title;
 		}
 

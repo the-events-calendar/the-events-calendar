@@ -258,5 +258,66 @@ if ( class_exists( 'Tribe__Events__Events' ) ) {
 		}
 	}
 
+	/**
+	 * Given a date and an event, returns true or false if the event is happening on that date
+	 * This function properly adjusts for the EOD cutoff and multi-day events
+	 *
+	 * @param null $date
+	 * @param null $event
+	 *
+	 * @return mixed|void
+	 */
+	function tribe_event_is_on_date( $date = null, $event = null ) {
+
+		if ($date == null) {
+			$date = current_time( 'mysql' );
+		}
+
+		if ($event == null) {
+			global $post;
+			$event = $post;
+			if ( empty( $event ) ) {
+				_doing_it_wrong( __FUNCTION__, __( 'The function needs to be passed an $event or used in the loop.', 'tribe-events-calendar' ) );
+				return false;
+			}
+		}
+
+		$event_is_on_date = false;
+		$start_of_day     = tribe_event_beginning_of_day( $date, 'U' );
+		$end_of_day       = tribe_event_end_of_day( $date, 'U' );
+		$event_start      = tribe_get_start_date( $event, null, 'U' );
+		$event_end        = tribe_get_end_date( $event, null, 'U' );
+
+		// kludge
+		if ( ! empty( $event->_end_date_fixed ) ) {
+			// @todo remove this once we can have all day events without a start / end time
+			$event_end = date_create( date( TribeDateUtils::DBDATETIMEFORMAT, $event_end ) );
+			$event_end->modify( '+1 day' );
+			$event_end    = $event_end->format( 'U' );
+		}
+
+		/**
+		 * conditions:
+		 * event starts on this day (event start time is between start and end of day)
+		 * event ends on this day (event end time is between start and end of day)
+		 * event starts before start of day and ends after end of day (spans across this day)
+		 * note:
+		 * events that start exactly on the EOD cutoff will count on the following day
+		 * events that end exactly on the EOD cutoff will count on the previous day
+
+		 */
+
+		$event_starts_today       = $event_start >= $start_of_day && $event_start < $end_of_day;
+		$event_ends_today         = $event_end > $start_of_day && $event_end <= $end_of_day;
+		$event_spans_across_today = $event_start < $start_of_day && $event_end > $end_of_day;
+
+		if ( $event_starts_today || $event_ends_today || $event_spans_across_today ) {
+			$event_is_on_date = true;
+		}
+
+		return apply_filters( 'tribe_event_is_on_date', $event_is_on_date, $date, $event );
+
+	}
+
 }
 ?>
