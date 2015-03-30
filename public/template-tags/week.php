@@ -13,17 +13,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 if ( class_exists( 'TribeEventsPro' ) ) {
 
 	/**
-	 * Whether there are more calendar days available in the loop.
+	 * Whether there are more calendar days available in the week loop.
 	 *
-	 * @return bool True if calendar days are available, false if end of loop.
-	 * @return  void
-	 * */
+	 * @return boolean
+	 */
 	function tribe_events_week_have_days() {
 		return Tribe_Events_Pro_Week_Template::have_days();
 	}
 
 	/**
-	 * increment the current day loop
+	 * Increment the current day loop.
 	 *
 	 * @return void
 	 */
@@ -32,7 +31,17 @@ if ( class_exists( 'TribeEventsPro' ) ) {
 	}
 
 	/**
-	 * Return current day in the week loop
+	 * Return current day in the week loop. The array will contain the following elements:
+	 *
+	 * 'date'           => date formatted Y-m-d
+	 * 'day_number'     => 0 - 6; 0 = Sunday, 6 = Saturday
+	 * 'formatted_date' => date formatted for display (the format can be changed in events settings)
+	 * 'is_today'       => whether the day is today
+	 * 'is_past'        => whether the day has passed
+	 * 'is_future'      => whether the day is in the future
+	 * 'hourly_events'  => an array of the hourly events on this day
+	 * 'all_day_events' => an array of the all day events on this day
+	 * 'has_events'     => boolean whether there are any events on this day
 	 *
 	 * @return array
 	 */
@@ -41,7 +50,9 @@ if ( class_exists( 'TribeEventsPro' ) ) {
 	}
 
 	/**
-	 * Check if there are any all day events this week
+	 * Check if there are any all day events this week.
+	 *
+	 * @return boolean
 	 */
 	function tribe_events_week_has_all_day_events() {
 
@@ -55,17 +66,17 @@ if ( class_exists( 'TribeEventsPro' ) ) {
 	/**
 	 * Return the hours to display on week view. Optionally return formatted, first, or last hour.
 	 *
-	 * @param null $format - can be 'raw', 'formatted', 'first-hour', or 'last-hour'
+	 * @param string $return Can be 'raw', 'formatted', 'first-hour', or 'last-hour'.
 	 *
-	 * @return array|mixed|string|void
+	 * @return array
 	 */
-	function tribe_events_week_get_hours( $format = null ) {
+	function tribe_events_week_get_hours( $return = null ) {
 		$range = Tribe_Events_Pro_Week_Template::get_hour_range();
-		switch ( $format ) {
+		switch ( $return ) {
 			case 'raw':
 				return array_keys( $range );
 			case 'formatted':
-				return $array_values( $range );
+				return array_values( $range );
 			case 'first-hour':
 				$hours = array_keys( $range );
 				return str_pad( reset( $hours ) , 2, '0', STR_PAD_LEFT ) . ':00:00';
@@ -75,33 +86,30 @@ if ( class_exists( 'TribeEventsPro' ) ) {
 
 		}
 
-		return apply_filters( 'tribe_events_week_get_hours', $range, $format );
+		return apply_filters( 'tribe_events_week_get_hours', $range, $return );
 	}
 
 	/**
-	 * Return the hours to display on week view. Optionally return formatted, first, or last hour.
+	 * Return the range of days to display on week view.
 	 *
-	 * @param null $format - can be 'raw', 'formatted', 'first-hour', or 'last-hour'
-	 *
-	 * @return array|mixed|string|void
+	 * @return array
 	 */
-	function tribe_events_week_get_days( $format = null ) {
+	function tribe_events_week_get_days() {
 		$days = Tribe_Events_Pro_Week_Template::get_day_range();
-		return apply_filters( 'tribe_events_week_get_days', $days, $format );
+		return apply_filters( 'tribe_events_week_get_days', $days );
 	}
 
 	/**
-	 * Return the classes used on each week day
+	 * Echo the classes used on each week day header.
 	 *
-	 * @return string
+	 * @return void
 	 */
 	function tribe_events_week_day_header_classes() {
 		echo apply_filters( 'tribe_events_week_day_header_classes', Tribe_Events_Pro_Week_Template::day_header_classes() );
 	}
 
 	/**
-	 * Return the text used in week day headers
-	 * Wrapped in a <span> tag and data attribute needed for mobile js
+	 * Return the text used in week day headers wrapped in a <span> tag and data attribute needed for mobile js.
 	 *
 	 * @return string
 	 */
@@ -118,7 +126,7 @@ if ( class_exists( 'TribeEventsPro' ) ) {
 	}
 
 	/**
-	 * Setup css classes for daily columns in week view
+	 * Setup css classes for daily columns in week view.
 	 *
 	 * @return void
 	 */
@@ -127,11 +135,11 @@ if ( class_exists( 'TribeEventsPro' ) ) {
 	}
 
 	/**
-	 * Return the current day in the week grid loop
+	 * Retrieve the current date in Y-m-d format.
 	 *
-	 * @param boolean $echo
+	 * @param boolean $echo Set to false to return the value rather than echo.
 	 *
-	 * @return string $html
+	 * @return string|void
 	 */
 	function tribe_events_week_get_the_date( $echo = true ) {
 		$day  = tribe_events_week_get_current_day();
@@ -144,30 +152,39 @@ if ( class_exists( 'TribeEventsPro' ) ) {
 	}
 
 	/**
-	 * Echo up html attributes required for proper week view js functionality
+	 * Return html attributes required for proper week view js functionality.
 	 *
-	 * @return array
+	 * @param int|object $event The event post, defaults to the global post.
+	 * @param string $format The format of the returned value. Can be either 'array' or 'string'
+	 * @return array|string
 	 */
-	function tribe_events_the_week_event_attributes($event) {
+	function tribe_events_week_event_attributes( $event = null, $format = 'string' ) {
 
 		$attrs = Tribe_Events_Pro_Week_Template::get_event_attributes( $event );
 
 		$attrs = apply_filters( 'tribe_events_week_event_attributes', $attrs );
 
-		foreach ( $attrs as $attr => $value ) {
-			echo " $attr=" . '"' . esc_attr( $value ) . '"';
+		if ( $format == 'array' ) {
+			$return = $attrs;
+		} elseif ( $format == 'string' ) {
+			$return = '';
+			foreach ( $attrs as $attr => $value ) {
+				$return .= " $attr=" . '"' . esc_attr( $value ) . '"';
+			}
 		}
+
+		return $return;
 
 	}
 
 	/**
-	 * Build the previous week link
+	 * Build the previous week link.
 	 *
-	 * @param string $text the text to be linked
+	 * @param string $text The text to be linked.
 	 *
 	 * @return string
 	 */
-	function tribe_previous_week_link( $text = '' ) {
+	function tribe_events_week_previous_link( $text = '' ) {
 		try {
 			$date = tribe_get_first_week_day();
 			if ( $date <= tribe_events_earliest_date( TribeDateUtils::DBDATEFORMAT ) ) {
@@ -197,7 +214,7 @@ if ( class_exists( 'TribeEventsPro' ) ) {
 	 *
 	 * @return string
 	 */
-	function tribe_next_week_link( $text = '' ) {
+	function tribe_events_week_next_link( $text = '' ) {
 		try {
 			$date = date( TribeDateUtils::DBDATEFORMAT, strtotime( tribe_get_first_week_day() . ' +1 week' ) );
 			if ( $date >= tribe_events_latest_date( TribeDateUtils::DBDATEFORMAT ) ) {
@@ -219,7 +236,4 @@ if ( class_exists( 'TribeEventsPro' ) ) {
 			return '';
 		}
 	}
-
-
-
 }

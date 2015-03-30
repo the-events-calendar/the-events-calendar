@@ -411,6 +411,10 @@ if ( ! class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 		 */
 		public static function get_event_attributes( $event ) {
 
+			$event = TribeEvents::postIdHelper( $event );
+
+			$event = get_post( $event );
+
 			$attrs = array();
 
 			$event_start_timestamp = tribe_get_start_date( $event, null, 'U' );

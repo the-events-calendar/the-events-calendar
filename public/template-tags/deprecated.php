@@ -259,3 +259,42 @@ function tribe_events_current_week_day_has_events() {
 
 	return empty( $hourly[ $day_counter ] ) ? false : true;
 }
+
+/**
+ * Echo html attributes required for proper week view js functionality
+ *
+ * @return void
+ * @deprecated
+ * @todo remove in 4.0
+ */
+function tribe_events_the_week_event_attributes( $event = null ) {
+	_deprecated_function( __FUNCTION__, 3.10, 'tribe_events_week_event_attributes' );
+	echo tribe_events_week_event_attributes( $event );
+}
+
+
+/**
+ * Return the previous week link
+ *
+ * @return string
+ * @deprecated
+ * @todo remove in 4.0
+ */
+function tribe_previous_week_link() {
+	_deprecated_function( __FUNCTION__, 3.10, 'tribe_events_week_previous_link' );
+
+	return tribe_events_week_previous_link();
+}
+
+/**
+ * Return the next week link
+ *
+ * @return string
+ * @deprecated
+ * @todo remove in 4.0
+ */
+function tribe_next_week_link() {
+	_deprecated_function( __FUNCTION__, 3.10, 'tribe_events_week_next_link' );
+
+	return tribe_events_week_next_link();
+}
