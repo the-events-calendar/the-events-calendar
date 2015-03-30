@@ -278,7 +278,6 @@ if ( class_exists( 'Tribe__Events__Events' ) ) {
 	 * @return bool
 	 */
 	function tribe_event_is_all_day( $postId = null ) {
-		//		$postId = Tribe__Events__Events::postIdHelper( $postId );
 		$output = ! ! tribe_get_event_meta( $postId, '_EventAllDay', true );
 
 		return apply_filters( 'tribe_event_is_all_day', $output, $postId );
