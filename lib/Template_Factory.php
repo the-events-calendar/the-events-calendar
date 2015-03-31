@@ -329,7 +329,7 @@ if ( ! class_exists( 'Tribe__Events__Template_Factory' ) ) {
 
 			list( $search_term, $tax_term, $geographic_term ) = $this->get_search_terms();
 
-			$tribe = TribeEvents::instance();
+			$tribe = Tribe__Events__Events::instance();
 
 			if ( ! empty( $search_term ) ) {
 				Tribe__Events__Events::setNotice( 'event-search-no-results', sprintf( __( 'There were no results found for <strong>"%s"</strong>.', 'tribe-events-calendar' ), esc_html( $search_term ) ) );

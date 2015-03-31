@@ -295,6 +295,22 @@ if ( class_exists( 'Tribe__Events__Events' ) ) {
 		return apply_filters( 'tribe_get_zip', $output );
 	}
 
+	/**
+	 * Gets the full region name of a given event's Venue address.
+	 *
+	 * @param int $event_id
+	 *
+	 * @return string The full region for this event's address.
+	 */
+	function tribe_get_full_region( $event_id ) {
+		$province = tribe_get_event_meta( $event_id, '_VenueStateProvince', true );
+		$states = Tribe__Events__View_Helpers::loadStates();
+		
+		$full_region = isset( $states[ $province ] ) ? $states[ $province ] : $province;
+		
+		return apply_filters( 'tribe_get_full_region', $full_region );
+	}
+
 
 	/**
 	 * Coordinates
@@ -396,6 +412,28 @@ if ( class_exists( 'Tribe__Events__Events' ) ) {
 		}
 
 		return apply_filters( 'tribe_get_venue_website_link', $html );
+	}
+
+	/**
+	* Gets venue details for use in some single-event templates.
+	*
+	* @param null $post_id
+	*
+	* @return array The venue name and venue address.
+	*/
+	function tribe_get_venue_details() {
+	
+		$venue_details = array();
+		
+		if ( $venue_name = tribe_get_meta( 'tribe_event_venue_name' ) ) {
+			$venue_details['name'] = $venue_name;
+		}
+		
+		if ( $venue_address = tribe_get_meta( 'tribe_event_venue_address' ) ) {
+			$venue_details['address'] = $venue_address;
+		}
+		
+		return apply_filters( 'tribe_get_venue_details', $venue_details );
 	}
 
 }

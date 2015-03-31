@@ -1464,6 +1464,18 @@ if ( class_exists( 'Tribe__Events__Events' ) ) {
 	}
 
 	/**
+	 * Returns the URL for use in the tribe bar form's action attribute.
+	 *
+	 * @return string URL for current tribe bar form action.
+	 */
+	function tribe_events_get_current_filter_url() {
+		global $wp;
+
+		$url = esc_url( add_query_arg( $wp->query_string, '', home_url( $wp->request ) ) );
+		return apply_filters( 'tribe_events_get_current_filter_url', $url );
+	}
+
+	/**
 	 * Count keys in a hierarchical array
 	 *
 	 * @param $value

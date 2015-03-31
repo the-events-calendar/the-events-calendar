@@ -11,6 +11,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 class Tribe__Events__List_Widget extends WP_Widget {
+
+	private static $limit = 5;
+	public static $posts = array();
+
 	/**
 	 * Allows widgets extending this one to pass through their own unique name, ID base etc.
 	 *
@@ -63,7 +67,7 @@ class Tribe__Events__List_Widget extends WP_Widget {
 
 		$instance = wp_parse_args(
 			$instance, array(
-				'limit' => 5,
+				'limit' => self::$limit,
 				'title' => '',
 			)
 		);
@@ -90,21 +94,24 @@ class Tribe__Events__List_Widget extends WP_Widget {
 		}
 
 		$title = apply_filters( 'widget_title', $title );
+
+		self::$limit = absint( $limit );
+
 		if ( ! function_exists( 'tribe_get_events' ) ) {
 			return;
 		}
 
-		$posts = tribe_get_events(
+		self::$posts = tribe_get_events(
 			apply_filters(
 				'tribe_events_list_widget_query_args', array(
 					'eventDisplay'   => 'list',
-					'posts_per_page' => $limit
+					'posts_per_page' => self::$limit
 				)
 			)
 		);
 
 		// If no posts, and the don't show if no posts checked, let's bail
-		if ( ! $posts && $no_upcoming_events ) {
+		if ( empty( self::$posts ) && $no_upcoming_events ) {
 			return;
 		}
 

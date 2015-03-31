@@ -5,7 +5,7 @@
  *
  * Override this template in your own theme by creating a file at [your-theme]/tribe-events/tickets/email.php
  *
- * This file is being included in events/lib/tickets/tribe-TicketsTickets.php
+ * This file is being included in events/lib/tickets/Tickets.php
  *  in the function generate_tickets_email_content. That function has a $tickets
  *  array with elements that have this fields:
  *        $tickets[] = array( 'event_id',
