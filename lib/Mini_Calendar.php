@@ -105,13 +105,23 @@ class Tribe__Events__Pro__Mini_Calendar {
 
 		$response = array( 'success' => false, 'html' => '', 'view' => 'mini-month' );
 
-		if ( isset( $_POST["eventDate"] ) && isset( $_POST["count"] ) ) {
+		if ( isset( $_POST['eventDate'] ) && isset( $_POST['count'] ) ) {
 
 			$tax_query = isset( $_POST['tax_query'] ) ? $_POST['tax_query'] : null;
+			
+			$_POST['eventDate'] = trim( $_POST['eventDate'] );
+
+			if ( ! strtotime( $_POST['eventDate'] ) ) {
+				die( -1 );
+			}
+
+			if ( false == strtotime( $_POST['eventDate'] ) ) {
+				die( -1 );
+			}
 
 			$args = array(
-				'eventDate'           => $_POST["eventDate"],
-				'count'               => $_POST["count"],
+				'eventDate'           => $_POST['eventDate'],
+				'count'               => absint( $_POST['count'] ),
 				'tax_query'           => $tax_query,
 				'filter_date'         => true,
 			);
