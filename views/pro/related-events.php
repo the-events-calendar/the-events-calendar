@@ -21,28 +21,26 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 $posts = tribe_get_related_posts();
 
-?>
+if ( is_array( $posts ) && ! empty( $posts ) ) : ?>
 
-<?php
-if ( is_array( $posts ) && ! empty( $posts ) ) {
-	echo '<h3 class="tribe-events-related-events-title">' . sprintf( __( 'Related %s', 'tribe-events-calendar-pro' ), tribe_get_event_label_plural() ) . '</h3>';
-	echo '<ul class="tribe-related-events tribe-clearfix hfeed vcalendar">';
-	foreach ( $posts as $post ) {
-		echo '<li>';
+<h3 class="tribe-events-related-events-title"><?php printf( __( 'Related %s', 'tribe-events-calendar-pro' ), tribe_get_event_label_plural() ); ?></h3>
 
-		$thumb = ( has_post_thumbnail( $post->ID ) ) ? get_the_post_thumbnail( $post->ID, 'large' ) : '<img src="' . trailingslashit( Tribe__Events__Pro__Events_Pro::instance()->pluginUrl ) . 'resources/images/tribe-related-events-placeholder.png" alt="' . get_the_title( $post->ID ) . '" />';
-		echo '<div class="tribe-related-events-thumbnail">';
-		echo '<a href="' . tribe_get_event_link( $post ) . '" class="url" rel="bookmark">' . $thumb . '</a>';
-		echo '</div>';
-		echo '<div class="tribe-related-event-info">';
-		echo '<h3 class="tribe-related-events-title summary"><a href="' . tribe_get_event_link( $post ) . '" class="url" rel="bookmark">' . get_the_title( $post->ID ) . '</a></h3>';
-
-		if ( $post->post_type == Tribe__Events__Events::POSTTYPE ) {
-			echo tribe_events_event_schedule_details( $post );
-		}
-		echo '</div>';
-		echo '</li>';
-	}
-	echo '</ul>';
-}
-?>
+<ul class="tribe-related-events tribe-clearfix hfeed vcalendar">
+	<?php foreach ( $posts as $post ) : ?>
+	<li>
+		<?php $thumb = ( has_post_thumbnail( $post->ID ) ) ? get_the_post_thumbnail( $post->ID, 'large' ) : '<img src="' . trailingslashit( Tribe__Events__Pro__Events_Pro::instance()->pluginUrl ) . 'resources/images/tribe-related-events-placeholder.png" alt="' . esc_attr( get_the_title( $post->ID ) ) . '" />'; ?>
+		<div class="tribe-related-events-thumbnail">
+			<a href="<?php echo tribe_get_event_link( $post ); ?>" class="url" rel="bookmark"><?php echo $thumb ?></a>
+		</div>
+		<div class="tribe-related-event-info">
+			<h3 class="tribe-related-events-title summary"><a href="<?php echo tribe_get_event_link( $post ); ?>" class="url" rel="bookmark"><?php echo get_the_title( $post->ID ); ?></a></h3>
+			<?php
+				if ( $post->post_type == Tribe__Events__Events::POSTTYPE ) {
+					echo tribe_events_event_schedule_details( $post );
+				}
+			?>
+		</div>
+	</li>
+	<?php endforeach; ?>
+</ul>
+<?php endif; ?>

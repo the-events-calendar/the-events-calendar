@@ -130,7 +130,7 @@ class Tribe__Events__Pro__Recurrence__Queue_Processor {
 	 */
 	protected function next_waiting_event() {
 		$waiting_events = get_posts( array(
-			'post_type'      => TribeEvents::POSTTYPE,
+			'post_type'      => Tribe__Events__Events::POSTTYPE,
 			'post_parent'    => 0,
 			'meta_key'       => Tribe__Events__Pro__Recurrence__Queue::EVENT_QUEUE,
 			'posts_per_page' => 1
