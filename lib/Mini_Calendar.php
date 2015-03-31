@@ -108,6 +108,12 @@ class Tribe__Events__Pro__Mini_Calendar {
 		if ( isset( $_POST['eventDate'] ) && isset( $_POST['count'] ) ) {
 
 			$tax_query = isset( $_POST['tax_query'] ) ? $_POST['tax_query'] : null;
+			
+			$_POST['eventDate'] = trim( $_POST['eventDate'] );
+
+			if ( ! strtotime( $_POST['eventDate'] ) ) {
+				die( -1 );
+			}
 
 			if ( false == strtotime( $_POST['eventDate'] ) ) {
 				die( -1 );
