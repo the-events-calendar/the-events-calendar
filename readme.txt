@@ -244,6 +244,7 @@ Our Premium Plugins:
 * Updated the mini-calendar widget to match the list widget styling
 * More robust activation and deactivation methods
 * More flexible handling of default values to work with The Events Calendar 3.10
+* Fixed a bug that allowed invalid dates to be used in the Mini Cal widget
 * Ensured that old recurring events are cleaned up on schedule
 * Fixed handling of recurrence splitting when hiding events from the front-end
 * Incorporated updated Bulgarian translation files, courtesy of Nedko Ivanov
