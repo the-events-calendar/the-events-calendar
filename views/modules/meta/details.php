@@ -98,7 +98,7 @@ $website = tribe_get_event_website_link();
 		if ( ! empty( $cost ) ) : ?>
 
 			<dt> <?php _e( 'Cost:', 'tribe-events-calendar' ) ?> </dt>
-			<dd class="tribe-events-event-cost"> <?php esc_html_e( tribe_get_formatted_cost() ) ?> </dd>
+			<dd class="tribe-events-event-cost"> <?php esc_html_e( $cost ); ?> </dd>
 		<?php endif ?>
 
 		<?php
@@ -123,7 +123,7 @@ $website = tribe_get_event_website_link();
 		if ( ! empty( $website ) ) : ?>
 
 			<dt> <?php _e( 'Website:', 'tribe-events-calendar' ) ?> </dt>
-			<dd class="tribe-events-event-url"> <?php echo $website ?> </dd>
+			<dd class="tribe-events-event-url"> <?php echo $website; ?> </dd>
 		<?php endif ?>
 
 		<?php do_action( 'tribe_events_single_meta_details_section_end' ) ?>
