@@ -98,7 +98,7 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 		$event = array(
 			'post_type'             => Tribe__Events__Events::POSTTYPE,
 			'post_title'            => $this->get_value_by_key( $record, 'event_name' ),
-			'post_status'           => 'publish',
+			'post_status'           => Tribe__Events__Events::getOption( 'imported_post_status', 'publish' ),
 			'post_content'          => $this->get_value_by_key( $record, 'event_description' ),
 			'EventStartDate'        => date( 'Y-m-d', $start_date ),
 			'EventStartHour'        => date( 'h', $start_date ),

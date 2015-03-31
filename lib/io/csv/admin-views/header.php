@@ -16,6 +16,8 @@ $active = $this->get_active_tab();
 <div class="tribe_settings wrap">
 	<?php screen_icon(); ?><h2><?php _e( 'Events Import', 'tribe-events-calendar' ) ?></h2>
 
+	<?php do_action( 'tribe-import-under-heading' ); ?>
+
 	<h2 class="nav-tab-wrapper">
 		<?php
 		foreach( $this->get_available_tabs() as $_label => $_tab ){
