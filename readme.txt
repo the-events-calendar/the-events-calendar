@@ -239,6 +239,7 @@ Our Premium Plugins:
 * Scheduled task responsible for generating recurring events is now removed when the plugin is deactivated
 * Added a new additional field type (textareas) to compliment the existing text field
 * Added some changelog formatting enhancements after seeing keepachangelog.com :)
+* Removed some unnecessary variable logic from some templates 
 * Improved the recurring event user interface in relation to events ending after "x" cycles
 * Updated the mini-calendar widget to match the list widget styling
 * More robust activation and deactivation methods
