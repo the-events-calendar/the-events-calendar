@@ -84,7 +84,7 @@ if ( class_exists( 'Tribe__Events__Events' ) ) {
 	function tribe_get_template_part( $slug, $name = null, array $data = null ) {
 
 		// Execute code for this part
-		do_action( 'tribe_pre_get_template_part_' . $slug, $slug, $name );
+		do_action( 'tribe_pre_get_template_part_' . $slug, $slug, $name, $data );
 		// Setup possible parts
 		$templates = array();
 		if ( isset( $name ) ) {
@@ -114,7 +114,7 @@ if ( class_exists( 'Tribe__Events__Events' ) ) {
 				echo apply_filters( 'tribe_get_template_part_content', $html, $template, $file, $slug, $name );
 			}
 		}
-		do_action( 'tribe_post_get_template_part_' . $slug, $slug, $name );
+		do_action( 'tribe_post_get_template_part_' . $slug, $slug, $name, $data );
 	}
 
 	/**
@@ -278,7 +278,6 @@ if ( class_exists( 'Tribe__Events__Events' ) ) {
 	 * @return bool
 	 */
 	function tribe_event_is_all_day( $postId = null ) {
-		//		$postId = Tribe__Events__Events::postIdHelper( $postId );
 		$output = ! ! tribe_get_event_meta( $postId, '_EventAllDay', true );
 
 		return apply_filters( 'tribe_event_is_all_day', $output, $postId );

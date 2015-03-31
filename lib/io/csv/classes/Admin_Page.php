@@ -12,8 +12,8 @@ class Tribe__Events__Importer__Admin_Page {
 	public function register_admin_page() {
 		add_submenu_page(
 			'edit.php?post_type='.Tribe__Events__Events::POSTTYPE,
-			__('Import: CSV','tribe-events-calendar'),
-			__('Import: CSV','tribe-events-calendar'),
+			__('Import','tribe-events-calendar'),
+			__('Import','tribe-events-calendar'),
 			'import',
 			'events-importer',
 			array( $this, 'render_admin_page_contents' )
@@ -21,6 +21,31 @@ class Tribe__Events__Importer__Admin_Page {
 	}
 
 	public function render_admin_page_contents() {
+		$tab = $this->get_active_tab();
+
+		switch( $tab ){
+			case 'general' :
+				$this->render_general_tab();
+				break;
+
+			case 'csv-importer':
+				$this->render_csv_tab();
+				break;
+
+			default:
+				include( Tribe__Events__Importer__Plugin::path('admin-views/header.php')  );
+					do_action( 'tribe-import-render-tab-' . $tab );
+				include( Tribe__Events__Importer__Plugin::path('admin-views/footer.php')  );
+				break;
+		}
+
+	}
+
+	public function render_general_tab(){
+		include( Tribe__Events__Importer__Plugin::path('admin-views/general.php') );
+	}
+
+	public function render_csv_tab(){
 		switch ( $this->state ) {
 			case 'map':
 				try {
@@ -57,6 +82,21 @@ class Tribe__Events__Importer__Admin_Page {
 				include( Tribe__Events__Importer__Plugin::path('admin-views/import.php') );
 				break;
 		}
+	}
+
+	public function get_active_tab(){
+		$tabs = (array)$this->get_available_tabs();
+		$default = array_shift( $tabs );
+		return empty( $_REQUEST[ 'tab' ] ) ? $default : $_REQUEST[ 'tab' ];
+	}
+
+	public function get_available_tabs(){
+		$tabs = array(
+			__( 'General', 'tribe-events-calendar' ) => "general",
+			__( 'Import: CSV', 'tribe-events-calendar' ) => "csv-importer"
+		);
+
+		return apply_filters( 'tribe-import-tabs', $tabs );
 	}
 
 	public function handle_submission() {
@@ -228,4 +268,5 @@ class Tribe__Events__Importer__Admin_Page {
 	private function clean_up_after_import() {
 		Tribe__Events__Importer__File_Uploader::clear_old_files();
 	}
+
 }

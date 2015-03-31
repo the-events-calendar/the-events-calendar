@@ -643,7 +643,8 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 				$order   = ( isset( $query->order ) && ! empty( $query->order ) ) ? $query->order : $query->get( 'order' );
 				$orderby = ( isset( $query->orderby ) && ! empty( $query->orderby ) ) ? $query->orderby : $query->get( 'orderby' );
 
-				$order_sql = "DATE(MIN({$postmeta_table}.meta_value)) {$order}, TIME({$postmeta_table}.meta_value) {$order}";
+//				$order_sql = "DATE(MIN({$postmeta_table}.meta_value)) {$order}, TIME({$postmeta_table}.meta_value) {$order}";
+				$order_sql = "EventStartDate {$order}";
 
 				do_action( 'log', 'orderby', 'default', $orderby );
 
@@ -804,36 +805,25 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 						}
 						for ( $i = 0, $date = $start_date; $i <= $days; $i ++, $date->modify( '+1 day' ) ) {
 							$formatted_date = $date->format( 'Y-m-d' );
-							$start_of_day   = strtotime( tribe_event_beginning_of_day( $formatted_date ) );
-							$end_of_day     = strtotime( tribe_event_end_of_day( $formatted_date ) ) + 1;
+							$start_of_day   = strtotime( $formatted_date );
+							$end_of_day     = strtotime( $formatted_date ) + 1;
 							$count          = 0;
 							$_day_event_ids = array();
 							foreach ( $raw_counts as $record ) {
-								$record_start = strtotime( $record->EventStartDate );
-								$record_end   = strtotime( $record->EventEndDate );
 
-								/**
-								 * conditions:
-								 * event starts on this day (event start time is between start and end of day)
-								 * event ends on this day (event end time is between start and end of day)
-								 * event starts before start of day and ends after end of day (spans across this day)
-								 * note:
-								 * events that start exactly on the EOD cutoff will count on the following day
-								 * events that end exactly on the EOD cutoff will count on the previous day
+								$event = new stdClass;
+								$event->EventStartDate = $record->EventStartDate;
+								$event->EventEndDate = $record->EventEndDate;
 
-								 */
+								$per_day_limit = apply_filters( 'tribe_events_month_day_limit', tribe_get_option( 'monthEventAmount', '3' ) );
 
-								$event_starts_today       = $record_start >= $start_of_day && $record_start < $end_of_day;
-								$event_ends_today         = $record_end > $start_of_day && $record_end <= $end_of_day;
-								$event_spans_across_today = $record_start < $start_of_day && $record_end > $end_of_day;
-
-								if ( $event_starts_today || $event_ends_today || $event_spans_across_today ) {
+								if ( tribe_event_is_on_date( $formatted_date, $event ) ) {
 									if ( ! empty ( $terms ) ) {
 										if ( ! has_term( $terms, Tribe__Events__Events::TAXONOMY, $record->ID ) ) {
 											continue;
 										}
 									}
-									if ( count( $_day_event_ids ) < apply_filters( 'tribe_events_month_day_limit', tribe_get_option( 'monthEventAmount', '3' ) ) ) {
+									if ( count( $_day_event_ids ) < $per_day_limit ) {
 										$_day_event_ids[] = $record->ID;
 									}
 									$count ++;
