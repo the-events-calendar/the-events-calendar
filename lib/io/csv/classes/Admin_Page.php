@@ -12,8 +12,8 @@ class Tribe__Events__Importer__Admin_Page {
 	public function register_admin_page() {
 		add_submenu_page(
 			'edit.php?post_type='.Tribe__Events__Events::POSTTYPE,
-			__('Import: CSV','tribe-events-calendar'),
-			__('Import: CSV','tribe-events-calendar'),
+			__('Import','tribe-events-calendar'),
+			__('Import','tribe-events-calendar'),
 			'import',
 			'events-importer',
 			array( $this, 'render_admin_page_contents' )
@@ -33,7 +33,9 @@ class Tribe__Events__Importer__Admin_Page {
 				break;
 
 			default:
-				do_action( 'tribe-import-render-tab-' . $tab );
+				include( Tribe__Events__Importer__Plugin::path('admin-views/header.php')  );
+					do_action( 'tribe-import-render-tab-' . $tab );
+				include( Tribe__Events__Importer__Plugin::path('admin-views/footer.php')  );
 				break;
 		}
 
