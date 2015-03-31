@@ -41,7 +41,7 @@ if ( class_exists( 'TribeEventsPro' ) ) {
 	 * 'is_future'      => whether the day is in the future
 	 * 'hourly_events'  => an array of the hourly events on this day
 	 * 'all_day_events' => an array of the all day events on this day
-	 * 'has_events'     => boolean whether there are any events on this day
+	 * 'has_events'     => boolean whether there are any events on this day, either all day or hourly
 	 *
 	 * @return array
 	 */
