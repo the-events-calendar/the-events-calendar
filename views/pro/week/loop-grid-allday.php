@@ -11,13 +11,20 @@
 
 if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
-}
+} ?>
+
+<?php
 
 tribe_events_week_set_loop_type( 'allday' );
 
-// Hide All Day row if there are no All Day events.
-if ( tribe_week_has_all_day_events() ) :
-?>
+$all_day_map = tribe_events_week_get_all_day_map();
+
+//Filter out empty all day array items
+$all_day_array = array_filter( $all_day_map[0], "is_numeric" );
+
+//Hide All Day row if there are no All Day events
+if ( ! empty( $all_day_array ) ) :
+	?>
 	<div class="tribe-grid-allday clearfix">
 		<div class="column first">
 			<span><?php _e( 'All Day', 'tribe-events-calendar-pro' ); ?></span>
