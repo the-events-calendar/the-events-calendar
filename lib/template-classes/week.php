@@ -338,14 +338,14 @@ if ( ! class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 					foreach ( $wp_query->posts as $j => $event ) {
 						if ( tribe_event_is_on_date( $date, $event ) ) {
 
-							$event->days_between = tribe_get_days_between( $event->_EventStartDate, $event->_EventEndDate, true );
+							$event->days_between = tribe_get_days_between( $event->EventStartDate, $event->EventEndDate, true );
 
 							if ( tribe_event_is_all_day( $event ) ) {
 								$all_day_events[] = $event;
 							} else {
 								// if the event starts after the end of the hour range we're displaying, or ends before the start, skip it
-								$end_hour_today   = $date . ' ' . tribe_events_week_get_hours( 'last-hour' );
 								$start_hour_today = $date . ' ' . tribe_events_week_get_hours( 'first-hour' );
+								$end_hour_today   = tribe_event_end_of_day($date, 'Y-m-d ') . tribe_events_week_get_hours( 'last-hour' );
 								if ( tribe_get_start_time( $event, 'U' ) > strtotime( $end_hour_today ) || tribe_get_end_time( $event, 'U' ) < strtotime( $start_hour_today ) ) {
 									continue;
 								}
@@ -424,7 +424,7 @@ if ( ! class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 				$attrs['data-hour'] = 'all-day';
 			} else {
 				$start_of_day_timestamp = self::get_rounded_beginning_of_day( self::get_current_date() );
-				$end_of_day_timestamp   = self::get_rounded_end_of_day( self::get_current_date() ) + HOUR_IN_SECONDS;
+				$end_of_day_timestamp = strtotime( tribe_event_end_of_day(self::get_current_date(), 'Y-m-d ' . tribe_events_week_get_hours( 'last-hour' ) ) );
 				$data_hour              = date( 'G', $event_start_timestamp );
 				$data_min               = date( 'i', $event_start_timestamp );
 				if ( $event_start_timestamp < $start_of_day_timestamp ) {
