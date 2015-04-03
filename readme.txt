@@ -235,6 +235,10 @@ Our Premium Plugins:
 * Fixed a minor issue with recurring event tooltips within the advanced list widget
 * Fixed an issue which caused the default venue fields to be automatically inserted within the event editor
 * Fixed a bug preventing the view link from appearing for updated venues and organizers
+* Replaced scrolling library on week view for better performance and extensibility
+* Updated tooltip positioning logic for week view to account for more edge cases
+* Updated week view to better handle very short events and long titles.
+* Ensured all non critical vendor files will not end up bundled in the final plugin zip
 * Introduced batch processing of recurring events to further improve performance and scalability
 * Scheduled task responsible for generating recurring events is now removed when the plugin is deactivated
 * Added a new additional field type (textareas) to compliment the existing text field
