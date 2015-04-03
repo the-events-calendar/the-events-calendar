@@ -332,6 +332,7 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 
 = [3.10] 2015-04-30 =
 
+* Ensured all non critical vendor files will not end up bundled in the final plugin zip
 * Added some changelog formatting enhancements after seeing keepachangelog.com :)
 * Updated the Organizer/Venue metabox UI to be more helpful when adding/editing events
 * Added calendar icon to the Admin Bar (Fancy!)
