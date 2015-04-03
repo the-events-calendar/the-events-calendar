@@ -111,14 +111,10 @@ class Tribe__Events__Pro__Mini_Calendar {
 			
 			$_POST['eventDate'] = trim( $_POST['eventDate'] );
 
-			if ( ! strtotime( $_POST['eventDate'] ) ) {
-				die( -1 );
-			}
-
 			if ( false == strtotime( $_POST['eventDate'] ) ) {
 				die( -1 );
 			}
-
+			
 			$args = array(
 				'eventDate'           => $_POST['eventDate'],
 				'count'               => absint( $_POST['count'] ),
