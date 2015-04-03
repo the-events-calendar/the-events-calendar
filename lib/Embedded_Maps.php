@@ -126,7 +126,7 @@ class Tribe__Events__Embedded_Maps {
 			}
 		}
 
-		if ( empty( $this->address ) ){
+		if ( class_exists( 'Tribe__Events__Pro__Geo_Loc' ) && empty( $this->address ) ){
 			$overwrite = (int) get_post_meta( $this->venue_id, Tribe__Events__Pro__Geo_Loc::OVERWRITE, true );
 			if ( $overwrite ){
 				$lat = get_post_meta( $this->venue_id, Tribe__Events__Pro__Geo_Loc::LAT, true );

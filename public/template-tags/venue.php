@@ -323,8 +323,15 @@ if ( class_exists( 'Tribe__Events__Events' ) ) {
 	 */
 	function tribe_get_coordinates( $postId = null ) {
 		$postId = tribe_get_venue_id( $postId );
-		$output['lat'] = (float) get_post_meta( $postId, Tribe__Events__Pro__Geo_Loc::LAT, true );
-		$output['lng'] = (float) get_post_meta( $postId, Tribe__Events__Pro__Geo_Loc::LNG, true );
+		if( class_exists( 'Tribe__Events__Pro__Geo_Loc' ) ){
+			$output[ 'lat' ] = (float) get_post_meta( $postId, Tribe__Events__Pro__Geo_Loc::LAT, true );
+			$output[ 'lng' ] = (float) get_post_meta( $postId, Tribe__Events__Pro__Geo_Loc::LNG, true );
+		} else {
+			$output = array(
+				'lat' => (float)'',
+				'lng' => (float)''
+			);
+		}
 
 		return apply_filters( 'tribe_get_coordinates', $output );
 	}
@@ -341,7 +348,12 @@ if ( class_exists( 'Tribe__Events__Events' ) ) {
 	 */
 	function tribe_is_venue_overwrite( $postId = null ) {
 		$postId = tribe_get_venue_id( $postId );
-		$output = (int) get_post_meta( $postId, Tribe__Events__Pro__Geo_Loc::OVERWRITE, true );
+
+		if( class_exists( 'Tribe__Events__Pro__Geo_Loc' ) ){
+			$output = (int) get_post_meta( $postId, Tribe__Events__Pro__Geo_Loc::OVERWRITE, true );
+		} else{
+			$output = (int)'';
+		}
 
 		return apply_filters( 'tribe_is_venue_overwrite', (bool) $output );
 	}
