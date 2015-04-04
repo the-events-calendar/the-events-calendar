@@ -30,6 +30,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
+global $posts;
+
 // The URL for this widget's "View More" link.
 $link_to_all = tribe_events_get_list_widget_view_all_link( $instance );
 
