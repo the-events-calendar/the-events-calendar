@@ -105,6 +105,10 @@ class Tribe__Events__Pro__Mini_Calendar {
 
 		$response = array( 'success' => false, 'html' => '', 'view' => 'mini-month' );
 
+		if ( ! isset( $_POST['nonce'] ) || ! wp_verify_nonce( $_POST['nonce'], 'calendar-ajax' ) ) {
+			die( -1 );
+		}
+
 		if ( isset( $_POST['eventDate'] ) && isset( $_POST['count'] ) ) {
 
 			$tax_query = isset( $_POST['tax_query'] ) ? $_POST['tax_query'] : null;
