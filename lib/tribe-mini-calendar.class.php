@@ -92,13 +92,22 @@ class TribeEventsMiniCalendar {
 
 		$response = array( 'success' => false, 'html' => '', 'view' => 'mini-month' );
 
-		if ( isset( $_POST["eventDate"] ) && isset( $_POST["count"] ) ) {
+		if ( ! isset( $_POST['nonce'] ) || ! wp_verify_nonce( $_POST['nonce'], 'calendar-ajax' ) ) {
+			die( -1 );
+		}
 
+		if ( isset( $_POST['eventDate'] ) && isset( $_POST['count'] ) ) {
 			$tax_query = isset( $_POST['tax_query'] ) ? $_POST['tax_query'] : null;
 
+			$_POST['eventDate'] = trim( $_POST['eventDate'] );
+
+			if ( false == strtotime( $_POST['eventDate'] ) ) {
+				die( -1 );
+			}
+
 			$args = array(
-				'eventDate'           => $_POST["eventDate"],
-				'count'               => $_POST["count"],
+				'eventDate'           => $_POST['eventDate'],
+				'count'               => $_POST['count'],
 				'tax_query'           => $tax_query,
 				'filter_date'         => true,
 				'tribeHideRecurrence' => false,
