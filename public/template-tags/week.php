@@ -82,7 +82,7 @@ if ( class_exists( 'TribeEventsPro' ) ) {
 				return str_pad( reset( $hours ) , 2, '0', STR_PAD_LEFT ) . ':00:00';
 			case 'last-hour':
 				$hours = array_keys( $range );
-				return str_pad( end( $hours ), 2, '0', STR_PAD_LEFT ) . ':00:00';
+				return str_pad( end( $hours ), 2, '0', STR_PAD_LEFT ) . ':59:00';
 
 		}
 

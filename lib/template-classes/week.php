@@ -424,9 +424,14 @@ if ( ! class_exists( 'Tribe_Events_Pro_Week_Template' ) ) {
 				$attrs['data-hour'] = 'all-day';
 			} else {
 				$start_of_day_timestamp = self::get_rounded_beginning_of_day( self::get_current_date() );
-				$end_of_day_timestamp = strtotime( tribe_event_end_of_day(self::get_current_date(), 'Y-m-d ' . tribe_events_week_get_hours( 'last-hour' ) ) );
-				$data_hour              = date( 'G', $event_start_timestamp );
-				$data_min               = date( 'i', $event_start_timestamp );
+				$end_of_day_timestamp   = tribe_event_end_of_day( self::get_current_date(), 'U' );
+				if ( has_filter( 'tribe_events_week_get_hours' ) ) {
+					// if we're filtering the hour range on week view, stop the events at that hour
+					$last_hour_timestamp =  strtotime( self::get_current_date() . tribe_events_week_get_hours( 'last-hour' ) );
+					$end_of_day_timestamp = min( $end_of_day_timestamp, $last_hour_timestamp );
+				}
+				$data_hour = date( 'G', $event_start_timestamp );
+				$data_min  = date( 'i', $event_start_timestamp );
 				if ( $event_start_timestamp < $start_of_day_timestamp ) {
 					if ( $event_end_timestamp > $end_of_day_timestamp ) {
 						// if there is a day in between start/end we just want to fill the spacer with the total mins in the day.
