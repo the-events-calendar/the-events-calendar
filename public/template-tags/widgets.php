@@ -15,7 +15,7 @@ function tribe_events_the_mini_calendar_header_attributes() {
 
 	$html = '';
 	$html .= ' data-count="' . esc_attr( $args['count'] ) . '"';
-	$html .= ' data-eventDate="' . tribe_get_month_view_date() . '"';
+	$html .= ' data-eventDate="' . esc_attr( tribe_get_month_view_date() ) . '"';
 	$html .= ' data-tax-query="' . esc_attr( $args['tax_query'] ) . '"';
 	$html .= ' data-nonce="' . wp_create_nonce( 'calendar-ajax' ) . '"';
 
@@ -28,7 +28,7 @@ function tribe_events_the_mini_calendar_header_attributes() {
  * @return void
  **/
 function tribe_events_the_mini_calendar_prev_link() {
-	$tribe_ecp = TribeEvents::instance();
+	$tribe_ecp = Tribe__Events__Events::instance();
 	$args      = tribe_events_get_mini_calendar_args();
 	$html      = '<a class="tribe-mini-calendar-nav-link prev-month" href="#" data-month="' . $tribe_ecp->previousMonth( $args['eventDate'] ) . '-01" title="' . tribe_get_previous_month_text() . '"><span>&laquo;</span></a>';
 	echo apply_filters( 'tribe_events_the_mini_calendar_prev_link', $html );
@@ -53,7 +53,7 @@ function tribe_events_the_mini_calendar_title() {
  * @return void
  **/
 function tribe_events_the_mini_calendar_next_link() {
-	$tribe_ecp = TribeEvents::instance();
+	$tribe_ecp = Tribe__Events__Events::instance();
 	$args      = tribe_events_get_mini_calendar_args();
 	try {
 		$html = '<a class="tribe-mini-calendar-nav-link next-month" href="#" data-month="' . $tribe_ecp->nextMonth( $args['eventDate'] ) . '-01" title="' . tribe_get_next_month_text() . '"><span>&raquo;</span></a>';
@@ -102,5 +102,102 @@ function tribe_events_the_mini_calendar_day_link() {
  * @return array
  **/
 function tribe_events_get_mini_calendar_args() {
-	return apply_filters( 'tribe_events_get_mini_calendar_args', TribeEventsMiniCalendar::instance()->get_args() );
+	return apply_filters( 'tribe_events_get_mini_calendar_args', Tribe__Events__Pro__Mini_Calendar::instance()->get_args() );
+}
+
+/**
+ * Returns 'current_post', the location in the loop, and 'class', which is empty unless it's the
+ * first post in loop ("first") or the last ("last").
+ *
+ * @return array
+ **/
+function tribe_events_get_widget_event_atts() {
+	
+	global $post, $wp_query;
+
+	$class = '';
+
+	if ( 0 == $wp_query->current_post ) {
+		$class = ' first ';
+	}
+
+	if ( $wp_query->current_post + 1 == $wp_query->post_count ) {
+		$class .= ' last ';
+	}
+
+	$atts = array(
+		'current_post' => $wp_query->current_post,
+		'class'        => $class
+	);
+
+	return apply_filters( 'tribe_events_get_widget_event_atts', $atts );
+}
+
+/**
+ * Returns the event date, or today's date if the event has started and is not over yet.
+ *
+ * @return int
+ **/
+function tribe_events_get_widget_event_post_date() {
+	
+	global $post, $wp_query;
+
+	$startDate = strtotime( $post->EventStartDate );
+	$endDate   = strtotime( $post->EventEndDate );
+	$today     = time();
+
+	/* If the event starts way in the past or ends way in the future, let's show today's date */
+	if ( $today > $startDate && $today < $endDate ) {
+		$postDate = $today;
+	} else {
+		$postDate = $startDate;
+	}
+
+	/* If the user clicked in a particular day, let's show that day as the event date, even if the event spans a few days */
+	if ( defined( "DOING_AJAX" ) && DOING_AJAX && isset( $_POST['action'] ) && $_POST['action'] == 'tribe-mini-cal-day' ) {
+		$postDate = strtotime( $_POST["eventDate"] );
+	}
+
+	return apply_filters( 'tribe_events_get_widget_event_post_date', $postDate );
+}
+
+/**
+ * Returns the URL for the list widget's "View All" link.
+ *
+ * @param array $instance
+ *
+ * @return string
+ **/
+function tribe_events_get_list_widget_view_all_link( $instance ) {
+
+	$link_to_all = '';
+
+	if ( empty( $instance['filters'] ) ) {
+		$link_to_archive = false;
+		$link_to_all     = tribe_get_events_link();
+
+		return apply_filters( 'tribe_events_get_list_widget_view_all_link', $link_to_all );
+	}
+
+	// Have taxonomy filters been applied?
+	$filters = json_decode( $instance['filters'], true );
+
+	// Is the filter restricted to a single taxonomy?
+	$single_taxonomy = ( is_array( $filters ) && 1 === count( $filters ) );
+	$single_term     = false;
+
+	// Pull the actual taxonomy and list of terms into scope
+	if ( $single_taxonomy ) foreach ( $filters as $taxonomy => $terms );
+
+	// If we have a single taxonomy and a single term, the View All link should point to the relevant archive page
+	if ( $single_taxonomy && 1 === count( $terms ) ) {
+		$link_to_archive = true;
+		$link_to_all     = get_term_link( absint( $terms[0] ), $taxonomy );
+	}// Otherwise link to the main events page
+	else {
+		$link_to_archive = false;
+		$link_to_all     = tribe_get_events_link();
+	}
+
+	return apply_filters( 'tribe_events_get_list_widget_view_all_link', $link_to_all );
 }

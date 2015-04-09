@@ -32,7 +32,7 @@
 
 
 /* = Week Grid Template Styles
-   @ Template: week.php
+   @ Template: Week.php
 =============================================*/
 /* grid structure */
 .tribe-events-grid {
@@ -185,6 +185,15 @@
 
 /* Global Week Event Styles */
 
+.tribe-events-grid .type-tribe_events {
+	padding:4px;
+}
+
+.tribe-events-grid .type-tribe_events.hentry {
+	background: none;
+	box-shadow: none;
+}
+
 .tribe-events-grid div[id*='tribe-events-event-'] {
 	visibility: hidden;
 }
@@ -244,7 +253,7 @@
 	border-bottom: 1px solid #bbb;
 }
 .tribe-grid-allday .column {
-	min-height: 60px;
+	min-height: 60px;	
 }
 .tribe-grid-allday .column.first {
 	top: 0;
@@ -360,7 +369,7 @@
 }
 
 /* = Photo View Template Styles 
-   @ Template: photo.php
+   @ Template: Photo.php
 =============================================*/
 
 /* CSS3 Transitions */
@@ -519,7 +528,7 @@
 }
 
 /* = Map View Template Styles 
-   @ Template: map.php
+   @ Template: Map.php
 =============================================*/
 #tribe-geo-map-wrapper {
 	position: relative;
@@ -660,7 +669,7 @@
 }
 
 /* = View Loading / Pagination Styles 
-   @ Template: map.php & photo.php
+   @ Template: Map.php & Photo.php
 =============================================*/
 #tribe-geo-loading {
 	display: none;
@@ -756,7 +765,7 @@
 }
 
 /* = Single Organizer Template Styles (Pro Version)
-   @ Template: single-organizer.php
+   @ Template: Single_Organizer.php
 =============================================*/
 #tribe-events-content.tribe-events-organizer {
 	padding: 0;
@@ -803,7 +812,7 @@
 }
 
 /* = Related Events
-   @ Template: single-event.php
+   @ Template: Single_Event.php
 =============================================*/
 .related-events-title {
 	font-size: 18px;
@@ -983,10 +992,27 @@ div.tribe-countdown-text {
 	color:#fff;
 }
 
+/* Twenty Fourteen Compat
+========================================================================== */
 .tribe-theme-twentyfourteen #primary-sidebar div.tribe-countdown-number {
 	font-size:24px;
 }
 
+.tribe-theme-twentyfourteen .widget .tribe-mini-calendar-event .list-info h2 {
+	font-size: 14px;
+}
+
+/* Twenty Fifteen Compat
+========================================================================== */
+.tribe-theme-twentyfifteen .tribe-events-adv-list-widget .type-tribe_events.hentry {
+    box-shadow: none;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.tribe-theme-twentyfifteen .tribe-events-adv-list-widget .tribe-mini-calendar-event {
+	border-bottom: 0;
+}
 
 /* = Events Venue Widget
    @ Template: widgets/venue-widget.php

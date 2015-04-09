@@ -7,8 +7,8 @@
  * This view contains the filters required to create an effective single organizer view.
  *
  * You can recreate an ENTIRELY new single organizer view by doing a template override, and placing
- * a single-organizer.php file in a tribe-events/pro/ directory within your theme directory, which
- * will override the /views/single-organizer.php. 
+ * a Single_Organizer.php file in a tribe-events/pro/ directory within your theme directory, which
+ * will override the /views/Single_Organizer.php.
  *
  * You can use any or all filters included in this file or create your own filters in 
  * your functions.php. In order to modify or extend a single filter, please see our
@@ -61,13 +61,11 @@ $organizer_id = get_the_ID();
 
 	<!-- Upcoming event list -->
 	<?php do_action('tribe_events_single_organizer_before_upcoming_events') ?>
-	<?php // Use the 'tribe_events_single_organizer_posts_per_page' to filter the 
-	 	  // number of events to display beneath the venue info on the venue page.
-	?> 
-		<?php echo tribe_include_view_list( array( 'organizer'    => get_the_ID(),
-		                                           'eventDisplay' => 'list',
-				apply_filters( 'tribe_events_single_organizer_posts_per_page', 100 )
-			) ) ?>
+
+	<?php
+	// Use the tribe_events_single_organizer_posts_per_page to filter the number of events to get here.
+	echo tribe_organizer_upcoming_events( $organizer_id ); ?>
+
 	<?php do_action('tribe_events_single_organizer_after_upcoming_events') ?>
 	
 </div><!-- .tribe-events-organizer -->

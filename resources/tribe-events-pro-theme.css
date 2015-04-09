@@ -50,7 +50,7 @@
 }
 
 /* = Week Grid Template Styles
-   @ Template: week.php
+   @ Template: Week.php
 =============================================*/
 /* grid structure */
 .tribe-events-grid {
@@ -114,7 +114,7 @@
 }
 
 /* = Map View Template Styles 
-   @ Template: map.php
+   @ Template: Map.php
 =============================================*/
 /* tribe geolocation map area */
 .tribe-bar-is-disabled.events-list .tribe-events-loop {
@@ -169,7 +169,7 @@
 }
 
 /* = Single Organizer Template Styles (Pro Version)
-   @ Template: single-organizer.php
+   @ Template: Single_Organizer.php
 =============================================*/
 .tribe-events-organizer .tribe-events-organizer-meta {
 	max-width: 700px;
@@ -183,7 +183,7 @@
 }
 
 /* = Photo View Template Styles 
-   @ Template: photo.php
+   @ Template: Photo.php
 =============================================*/
 #tribe-events-photo-events {
 	margin-top: 23px;
@@ -227,7 +227,7 @@
 }
 
 /* = Related Events
-   @ Template: single-event.php
+   @ Template: Single_Event.php
 =============================================*/
 .tribe-events-single ul.tribe-related-events {
 	margin-bottom: 6%;

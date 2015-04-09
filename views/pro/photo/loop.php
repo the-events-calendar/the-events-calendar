@@ -11,11 +11,11 @@
 
 if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
-} ?>
+}
 
-<?php
 global $more;
 $more = false;
+
 ?>
 
 <div class="tribe-events-loop hfeed vcalendar tribe-clearfix" id="tribe-events-photo-events">

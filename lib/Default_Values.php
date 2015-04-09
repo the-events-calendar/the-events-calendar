@@ -5,35 +5,35 @@ class Tribe__Events__Pro__Default_Values extends Tribe__Events__Default_Values {
 
 
 	public function venue_id() {
-		return TribeEvents::instance()->getOption( 'eventsDefaultVenueID', 0 );
+		return Tribe__Events__Events::instance()->getOption( 'eventsDefaultVenueID', 0 );
 	}
 
 	public function organizer_id() {
-		return TribeEvents::instance()->getOption( 'eventsDefaultOrganizerID', 0 );
+		return Tribe__Events__Events::instance()->getOption( 'eventsDefaultOrganizerID', 0 );
 	}
 
 	public function address() {
-		return TribeEvents::instance()->getOption( 'eventsDefaultAddress', '' );
+		return Tribe__Events__Events::instance()->getOption( 'eventsDefaultAddress', '' );
 	}
 
 	public function city() {
-		return TribeEvents::instance()->getOption( 'eventsDefaultCity', '' );
+		return Tribe__Events__Events::instance()->getOption( 'eventsDefaultCity', '' );
 	}
 
 	public function state() {
-		return TribeEvents::instance()->getOption( 'eventsDefaultState', '' );
+		return Tribe__Events__Events::instance()->getOption( 'eventsDefaultState', '' );
 	}
 
 	public function province() {
-		return TribeEvents::instance()->getOption( 'eventsDefaultProvince', '' );
+		return Tribe__Events__Events::instance()->getOption( 'eventsDefaultProvince', '' );
 	}
 
 	public function zip() {
-		return TribeEvents::instance()->getOption( 'eventsDefaultZip', '' );
+		return Tribe__Events__Events::instance()->getOption( 'eventsDefaultZip', '' );
 	}
 
 	public function country() {
-		$country = TribeEvents::instance()->getOption( 'defaultCountry', NULL );
+		$country = Tribe__Events__Events::instance()->getOption( 'defaultCountry', NULL );
 		if ( !$country || !is_array( $country ) ) {
 			$country = array( '', '' );
 		}
@@ -46,7 +46,7 @@ class Tribe__Events__Pro__Default_Values extends Tribe__Events__Default_Values {
 	}
 
 	public function phone() {
-		return TribeEvents::instance()->getOption( 'eventsDefaultPhone', '' );
+		return Tribe__Events__Events::instance()->getOption( 'eventsDefaultPhone', '' );
 	}
 
 
