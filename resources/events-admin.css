@@ -191,6 +191,11 @@ div.tribe-venue-error.error, div.tribe-organizer-error.error { margin-left:5px; 
 	vertical-align: top;
 }
 
+.tribe-table-field-label {
+	width: 200px;
+	max-width: 100%
+}
+
 /* = Help Screen
 =============================================*/
 .tribe-settings-form-wrap p,
@@ -394,5 +399,24 @@ a.tribe-rating-link {
 
 	input[type='email'] {
 		width:100%;
+	}
+}
+
+
+@media screen and ( max-width: 782px ) {
+	.events-cal .subsubsub {
+		float: none;
+	}
+
+	.events-cal .search-box {
+		width: 98%;
+	}
+
+	.events-cal #search-submit {
+		width: 100%;
+	}
+
+	.events-cal .tablenav.top {
+		display: none;
 	}
 }

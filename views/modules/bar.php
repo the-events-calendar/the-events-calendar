@@ -4,7 +4,7 @@
  * Renders our events navigation bar used across our views
  *
  * $filters and $views variables are loaded in and coming from
- * the show funcion in: lib/tribe-events-bar.class.php
+ * the show funcion in: lib/Bar.php
  *
  * @package TribeEventsCalendar
  *
@@ -16,9 +16,7 @@
 $filters = tribe_events_get_filters();
 $views   = tribe_events_get_views();
 
-global $wp;
-$current_url = esc_url( add_query_arg( $wp->query_string, '', home_url( $wp->request ) ) );
-
+$current_url = tribe_events_get_current_filter_url();
 ?>
 
 <?php do_action( 'tribe_events_bar_before_template' ) ?>
@@ -29,7 +27,7 @@ $current_url = esc_url( add_query_arg( $wp->query_string, '', home_url( $wp->req
 		<!-- Mobile Filters Toggle -->
 
 		<div id="tribe-bar-collapse-toggle" <?php if ( count( $views ) == 1 ) { ?> class="tribe-bar-collapse-toggle-full-width"<?php } ?>>
-			<?php _e( 'Find Events', 'tribe-events-calendar' ) ?><span class="tribe-bar-toggle-arrow"></span>
+			<?php printf( __( 'Find %s', 'tribe-events-calendar' ), tribe_get_event_label_plural() ); ?><span class="tribe-bar-toggle-arrow"></span>
 		</div>
 
 		<!-- Views -->

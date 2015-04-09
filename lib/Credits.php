@@ -44,7 +44,7 @@ class Tribe__Events__Credits {
 		global $current_screen;
 
 		// only display custom text on Tribe Admin Pages
-		if ( isset( $current_screen->id ) && ( $current_screen->post_type == TribeEvents::POSTTYPE || strpos( $current_screen->id, 'tribe' ) !== false ) ) {
+		if ( isset( $current_screen->id ) && ( $current_screen->post_type == Tribe__Events__Events::POSTTYPE || strpos( $current_screen->id, 'tribe' ) !== false ) ) {
 			$footer_text = sprintf( __( 'Rate <strong>The Events Calendar</strong> <a href="%1$s" target="_blank">&#9733;&#9733;&#9733;&#9733;&#9733;</a> on <a href="%1$s" target="_blank">WordPress.org</a> to keep this plugin free.  Thanks from the friendly folks at Modern Tribe.', 'tribe-events-calendar' ), __( 'http://wordpress.org/support/view/plugin-reviews/the-events-calendar?filter=5', 'tribe-events-calendar' ) );
 		}
 

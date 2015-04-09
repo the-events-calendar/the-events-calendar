@@ -8,7 +8,7 @@ $video_url = 'http://vimeo.com/108805711';
 
 ?>
 
-<p class="tribe-welcome-message"><?php printf( __( 'You are running Version %s and deserve a hug :-)', 'tribe-events-calendar' ), TribeEvents::VERSION ); ?></p>
+<p class="tribe-welcome-message"><?php printf( __( 'You are running Version %s and deserve a hug :-)', 'tribe-events-calendar' ), Tribe__Events__Events::VERSION ); ?></p>
 
 <div class="tribe-welcome-video-wrapper">
 	<?php echo wp_oembed_get( $video_url ); ?>

@@ -26,12 +26,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 $events_label_plural = tribe_get_event_label_plural();
 
-//Check if any posts were found
-if ( $posts ) {
-	?>
+$posts = tribe_get_list_widget_events();
+
+// Check if any event posts are found.
+if ( $posts ) : ?>
 
 	<ol class="hfeed vcalendar">
 		<?php
+		// Setup the post data for each event.
 		foreach ( $posts as $post ) :
 			setup_postdata( $post );
 			?>
@@ -53,8 +55,6 @@ if ( $posts ) {
 				</div>
 
 				<?php do_action( 'tribe_events_list_widget_after_the_meta' ) ?>
-
-
 			</li>
 		<?php
 		endforeach;
@@ -65,11 +65,9 @@ if ( $posts ) {
 		<a href="<?php echo tribe_get_events_link(); ?>" rel="bookmark"><?php printf( __( 'View All %s', 'tribe-events-calendar' ), $events_label_plural ); ?></a>
 	</p>
 
-	<?php
-	//No Events were Found
-} else {
-	?>
+<?php
+// No events were found.
+else : ?>
 	<p><?php printf( __( 'There are no upcoming %s at this time.', 'tribe-events-calendar' ), strtolower( $events_label_plural ) ); ?></p>
 <?php
-}
-?>
+endif;
