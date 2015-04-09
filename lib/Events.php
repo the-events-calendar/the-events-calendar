@@ -192,7 +192,7 @@ if ( ! class_exists( 'Tribe__Events__Events' ) ) {
 		/**
 		 * Static Singleton Factory Method
 		 *
-*@return Tribe__Events__Events
+		 *@return Tribe__Events__Events
 		 */
 		public static function instance() {
 			if ( ! isset( self::$instance ) ) {
@@ -431,6 +431,7 @@ if ( ! class_exists( 'Tribe__Events__Events' ) ) {
 			add_action( 'load-tribe_events_page_tribe-events-calendar', array( 'Tribe__Events__Amalgamator', 'listen_for_migration_button' ), 10, 0 );
 			add_action( 'tribe_settings_after_save', array( $this, 'flushRewriteRules' ) );
 			add_action( 'load-edit-tags.php', array( $this, 'prepare_to_fix_tagcloud_links' ), 10, 0 );
+			add_action( 'update_option_'.Tribe__Events__Events::OPTIONNAME, array( $this, 'fix_all_day_events' ), 10, 2 );
 
 			// add-on compatibility
 			if ( is_multisite() ) {
@@ -803,6 +804,43 @@ if ( ! class_exists( 'Tribe__Events__Events' ) ) {
 		 */
 		public function doHelpTab() {
 			include_once( $this->pluginPath . 'admin-views/tribe-options-help.php' );
+		}
+
+		/**
+		 * Updates the start/end time on all day events to match the EOD cutoff
+		 *
+		 * @see 'update_option_'.self::OPTIONNAME
+		 */
+		public function fix_all_day_events( $old_value, $new_value ) {
+			if ( $old_value['multiDayCutoff'] == $new_value['multiDayCutoff'] ) {
+				// we only want to continue if the EOD cutoff was changed
+				return;
+			}
+			global $wpdb;
+			$event_start_time = $new_value['multiDayCutoff'] . ':00';
+
+			// mysql query to set the start times on all day events to the EOD cutoff
+			// this will fix all day events with any start time
+			$fix_start_dates = $wpdb->prepare( "UPDATE $wpdb->postmeta AS pm1
+				INNER JOIN $wpdb->postmeta pm2
+					ON (pm1.post_id = pm2.post_id AND pm2.meta_key = '_EventAllDay' AND pm2.`meta_value` = 'yes')
+				SET pm1.meta_value = CONCAT(DATE(pm1.meta_value), ' ', %s)
+				WHERE pm1.meta_key = '_EventStartDate'
+					AND DATE_FORMAT(pm1.meta_value, '%%H:%%i') <> %s", $event_start_time, $event_start_time );
+
+			// mysql query to set the end time to the start time plus the duration on every all day event
+			$fix_end_dates      =
+				"UPDATE wp_postmeta AS pm1
+				INNER JOIN wp_postmeta pm2
+					ON (pm1.post_id = pm2.post_id AND pm2.meta_key = '_EventAllDay' AND pm2.`meta_value` = 'yes')
+				INNER JOIN wp_postmeta pm3
+					ON (pm1.post_id = pm3.post_id AND pm3.meta_key = '_EventStartDate')
+				INNER JOIN wp_postmeta pm4
+					ON (pm1.post_id = pm4.post_id AND pm4.meta_key = '_EventDuration')
+				SET pm1.meta_value = DATE_ADD(pm3.meta_value, INTERVAL pm4.meta_value SECOND )
+				WHERE pm1.meta_key = '_EventEndDate'";
+			$wpdb->query( $fix_start_dates );
+			$wpdb->query( $fix_end_dates );
 		}
 
 		/**
