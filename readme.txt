@@ -4,8 +4,8 @@ Contributors:  ModernTribe, roblagatta, faction23, jazbek, jbrinley, leahkoerper
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget, pro
 Donate link: http://m.tri.be/29
 Requires at least: 3.8
-Tested up to: 4.0.1
-Stable tag: 3.9.1
+Tested up to: 4.1.1
+Stable tag: 3.9.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -255,6 +255,10 @@ Our Premium Plugins:
 * Incorporated new Hungarian translation files, courtesy of Balazs Dobos
 * Incorporated new Slovak translation files, courtesy of Emilia Valova
 * Incorporated new British English translation files, courtesy of John Browning
+=======
+= 3.9.2 =
+
+* Addressed a potential security vulnerability related to the ajax_change_month function; we now ensure only valid dates get $_POSTed (thanks to Mikko Verenius for reporting this to us!)
 
 = 3.9.1 =
 
