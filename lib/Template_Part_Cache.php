@@ -45,7 +45,7 @@ class Tribe__Events__Template_Part_Cache {
 		$this->key                = $template . '_' . $id;
 		$this->expiration         = $expiration;
 		$this->expiration_trigger = $expiration_trigger;
-		$this->cache              = new TribeEventsCache();
+		$this->cache              = new Tribe__Events__Cache();
 
 		$this->add_hooks();
 	}
