@@ -411,7 +411,7 @@ if ( ! class_exists( 'Tribe__Events__Pro__Templates__Week' ) ) {
 		 */
 		public static function get_event_attributes( $event ) {
 
-			$event = TribeEvents::postIdHelper( $event );
+			$event = Tribe__Events__Events::postIdHelper( $event );
 
 			$event = get_post( $event );
 
