@@ -63,6 +63,7 @@ class Tribe__Events__Updater {
 			'2.0.1' => array( $this, 'migrate_from_sp_events' ),
 			'2.0.6' => array( $this, 'migrate_from_sp_options' ),
 			'3.10a4'  => array( $this, 'set_enabled_views' ),
+			'3.10a5'  => array( $this, 'remove_30_min_eod_cutoffs' ),
 		);
 	}
 
@@ -175,11 +176,30 @@ class Tribe__Events__Updater {
 		$this->update_version_option( $this->reset_version );
 	}
 
+	/**
+	 * Make sure the tribeEnableViews option is always set
+	 *
+	 * @return void
+	 */
 	public function set_enabled_views() {
 		$enabled_views = tribe_get_option( 'tribeEnableViews', null );
 		if ( $enabled_views == null ) {
 			$views = wp_list_pluck( apply_filters( 'tribe-events-bar-views', array() ), 'displaying' );
 			tribe_update_option( 'tribeEnableViews', $views );
+		}
+	}
+
+	/**
+	 * Bump the :30 min EOD cutoff option to the next full hour
+	 *
+	 * @return void
+	 */
+	public function remove_30_min_eod_cutoffs() {
+		$eod_cutoff = tribe_event_end_of_day();
+		if ( Tribe__Events__Date_Utils::minutesOnly( $eod_cutoff ) == '29' ) {
+			$eod_cutoff = date_create( '@' . ( strtotime( $eod_cutoff ) + 1 ) );
+			$eod_cutoff->modify( '+30 minutes' );
+			tribe_update_option( 'multiDayCutoff', $eod_cutoff->format( 'h:i' ) );
 		}
 	}
 }
