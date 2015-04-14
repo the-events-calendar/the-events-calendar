@@ -2505,7 +2505,7 @@ if ( ! class_exists( 'Tribe__Events__Events' ) ) {
 				'trp'      => 'false',
 				'sprop'    => 'website:' . home_url(),
 			);
-			$params = apply_filters( 'tribe_google_calendar_parameters', $params );
+			$params = apply_filters( 'tribe_google_calendar_parameters', $params, $postId );
 			$url    = add_query_arg( $params, $base_url );
 
 			return esc_url( $url );
