@@ -38,7 +38,7 @@ if ( ! class_exists( 'Tribe__Events__Pro__Template_Factory' ) ) {
 						"ajaxurl"   => admin_url( 'admin-ajax.php', ( is_ssl() ? 'https' : 'http' ) ),
 						'post_type' => Tribe__Events__Events::POSTTYPE
 					);
-					$path1     = Tribe__Events__Template_Factory::getMinFile( $vendor_url . 'jquery-slimscroll/jquery.slimscroll.js', true );
+					$path1     = Tribe__Events__Template_Factory::getMinFile( $vendor_url . 'nanoscroller/jquery.nanoscroller.js', true );
 					$path2     = Tribe__Events__Template_Factory::getMinFile( $resources_url . 'tribe-events-week.js', true );
 					wp_enqueue_script( 'tribe-events-pro-slimscroll', $path1, array(
 							'tribe-events-pro',

@@ -76,8 +76,60 @@
 	position: relative;
 }
 
-.tribe-events-grid .slimScrollBar {
+.tribe-events-grid .tribe-scroller {
+	position : relative;
+	width : 100%;
+	height: 500px;
+	overflow : hidden;
+}
+.tribe-events-grid .tribe-scroller > .scroller-content {
+	position : absolute;
+	overflow : scroll;
+	overflow-x : hidden;
+	top : 0;
+	right : 0;
+	bottom : 0;
+	left : 0;
+}
+.tribe-events-grid .tribe-scroller > .scroller-content:focus {
+	outline: thin dotted;
+}
+.tribe-events-grid .tribe-scroller > .scroller-content::-webkit-scrollbar {
+	display: none;
+}
+.tribe-events-grid .has-scrollbar > .scroller-content::-webkit-scrollbar {
+	display: block;
+}
+.tribe-events-grid .tribe-scroller > .scroller-pane {
+	background : rgba(0,0,0,.25);
+	position : absolute;
+	width : 10px;
+	right : 0;
+	top : 0;
+	bottom : 0;
+	visibility : hidden\9; /* Target only IE7 and IE8 with this hack */
+	opacity : .01;
+	-webkit-transition : .2s;
+	-moz-transition : .2s;
+	-o-transition : .2s;
+	transition : .2s;
+	-moz-border-radius : 5px;
+	-webkit-border-radius : 5px;
+	border-radius : 5px;
 	z-index: 1000 !important
+}
+.tribe-events-grid .tribe-scroller > .scroller-pane > .scroller-slider {
+	background: #444;
+	background: rgba(0,0,0,.5);
+	position : relative;
+	margin : 0 1px;
+	-moz-border-radius : 3px;
+	-webkit-border-radius : 3px;
+	border-radius : 3px;
+}
+.tribe-events-grid .tribe-scroller:hover > .scroller-pane, .tribe-events-grid .scroller-pane.active, .scroller-pane.flashed {
+	visibility : visible\9; /* Target only IE7 and IE8 with this hack */
+	opacity : 0.99;
 }
 
 .tribe-grid-body {
@@ -138,13 +190,13 @@
 }
 
 .tribe-events-grid .type-tribe_events.hentry {
-	background: none;
 	box-shadow: none;
 }
 
 .tribe-events-grid div[id*='tribe-events-event-'] {
 	visibility: hidden;
 }
+
 .tribe-events-grid .type-tribe_events h3.entry-title {
 	color: #333;
 	font-size: 12px;
@@ -168,8 +220,8 @@
 	overflow: hidden;
 	outline: none;
 }
-.tribe-grid-allday .type-tribe_events > div,
-.tribe-grid-body .type-tribe_events .tribe-events-week-hourly-single { 
+.tribe-grid-allday .tribe-events-week-allday-single,
+.tribe-grid-body .tribe-events-week-hourly-single {
 	width: 100%;
 	background-color: #e6e6e6;
 	background-color: rgba(221, 221, 221, .75);
@@ -178,7 +230,16 @@
 			border-radius: 3px;
 	cursor: pointer;
 }
-.tribe-grid-allday .type-tribe_events > div:hover,
+
+.tribe-grid-allday .column {
+	padding: 4px;
+}
+
+.tribe-grid-body .tribe-events-week-hourly-single {
+	margin: 4px;
+}
+
+.tribe-grid-allday .tribe-events-week-allday-single:hover,
 .tribe-grid-body .type-tribe_events .tribe-events-week-hourly-single:hover {
 	background-color: #e2e2e2;
 	background-color: rgba(221, 221, 221, .85);
@@ -207,11 +268,6 @@
 .tribe-grid-allday .type-tribe_events {
 	margin: 0;
 	position: relative;
-	padding: 4px;
-}
-.tribe-grid-allday .type-tribe_events ~ .type-tribe_events,
-.tribe-grid-allday .tribe-event-placeholder ~ .type-tribe_events { 	
-	padding: 0 4px 4px;
 }
 .tribe-grid-allday .type-tribe_events h3.entry-title {
 	padding: 0;
@@ -258,8 +314,7 @@
 	line-height: 1.25; 
  	position: absolute;
  	z-index: 500;
- 	width: 100%;
- 	padding: 4px;
+ 	width: 94%;
 }
 .tribe-grid-body div[id*="tribe-events-event-"]:hover {
  	z-index: 800;

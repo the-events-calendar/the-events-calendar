@@ -16,10 +16,7 @@
 
 		<div class="tribe-events-event-body">
 			<div class="updated published time-details">
-				<span class="date-start dtstart">[[=startTime]] </span>
-				[[ if(endTime.length) { ]]
-				-<span class="date-end dtend"> [[=endTime]]</span>
-				[[ } ]]
+				<span class="date-start dtstart">[[=dateDisplay]] </span>
 			</div>
 			<a href="[[=permalink]]" class="tribe-events-read-more" rel="bookmark">Find out more »</a>
 		</div>

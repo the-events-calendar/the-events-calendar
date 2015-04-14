@@ -117,17 +117,24 @@
 
 		function tribe_go_to_earliest_event() {
 
-			$( '.tribe-week-grid-wrapper' ).slimScroll( {
-				height       : '500px',
-				railVisible  : true,
-				alwaysVisible: true,
-				start        : $first_event
+			$( '.tribe-week-grid-wrapper.tribe-scroller' ).nanoScroller( {
+				paneClass         : 'scroller-pane',
+				sliderClass       : 'scroller-slider',
+				contentClass      : 'scroller-content',
+				iOSNativeScrolling: true,
+				alwaysVisible     : false,
+				scrollTo          : $first_event
 			} );
 
 		}
 
 		function tribe_add_right_class() {
-			$( '.tribe-grid-body .column:eq(5), .tribe-grid-body .column:eq(6), .tribe-grid-body .column:eq(7)' ).addClass( 'tribe-events-right' );
+
+			var $cols = ( $( '.tribe-week-grid-wrapper .tribe-grid-body .column' ).length > 6 ) ?
+				$( '.tribe-grid-body .column:eq(5), .tribe-grid-body .column:eq(6), .tribe-grid-body .column:eq(7)' ) :
+				$( '.tribe-grid-body .column:eq(4), .tribe-grid-body .column:eq(5)' );
+
+			$cols.addClass( 'tribe-events-right' );
 		}
 
 		function tribe_set_allday_placeholder_height() {
@@ -188,6 +195,20 @@
 			} );
 		}
 
+		// count the columns and set their percentage width to fill the container before display
+
+		function tribe_set_column_widths(){
+
+			var $columns = $( '.tribe-grid-body .tribe-events-mobile-day.column' ),
+				count = $columns.length,
+				width = 100 / count;
+
+			$columns.css( 'width', width + '%' );
+			$( '.tribe-grid-header .tribe-grid-content-wrap .column').css( 'width', width + '%' );
+			$( '.tribe-grid-allday .tribe-grid-content-wrap .column').css( 'width', width + '%' );
+
+		}
+
 		function tribe_display_week_view() {
 
 			var $week_events = $( ".tribe-grid-body .tribe-grid-content-wrap .column > div[id*='tribe-events-event-']" ),
@@ -199,6 +220,7 @@
 				// iterate through each event in the main grid and set their length plus position in time.
 
 				var $this = $( this ),
+					$event_link = $this.find( 'a' ),
 					event_hour = $this.attr( "data-hour" ),
 					event_length = $this.attr( "data-duration" ),
 					event_min = $this.attr( "data-min" );
@@ -226,9 +248,17 @@
 					event_length = event_length + free_space - 14;
 				}
 
-				// set length and position from top for our event and show it. Also set length for the event anchor so the entire event is clickable.
+				// set length and position from top for our event and show it.
+				// Also set length for the event anchor so the entire event is clickable.
+				// Also ensure event title are always visible
 
-				var link_setup = {"height": event_length - 16 + "px"};
+				var link_height,
+					title_height = ( $event_link.css('height', 'auto').height() ) + 5;
+
+				link_height = ( title_height > event_length ) ? ( title_height ) : ( event_length - 16 );
+
+				var	event_height = link_height + 16,
+					link_setup = {"height": link_height + "px"};
 
 				if ( event_position_top < offset_top ) {
 					offset_top = event_position_top;
@@ -237,10 +267,11 @@
 
 				$this
 					.css( {
-						"height": event_length + "px",
+						"height": event_height + "px",
 						"top"   : event_position_top + "px"
-					} )
-					.find( 'a' )
+					} );
+
+				$event_link
 					.css( link_setup )
 					.parent()
 					.css( link_setup );
@@ -251,6 +282,8 @@
 			}
 
 			tribe_go_to_earliest_event();
+
+			tribe_set_column_widths();
 
 			// Fade our events in upon js load
 

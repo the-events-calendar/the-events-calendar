@@ -881,15 +881,14 @@
 							// need to only show 5 days on the week view
 
 							// if we're using an non-default hour range on week view
-							if ( has_filter('tribe_events_get_week_hours' ) ) {
-								$start_date .= ' ' . tribe_events_get_week_hours( 'first-hour' );
-								$end_date .= ' ' . tribe_events_get_week_hours( 'last-hour' );
+							if ( has_filter('tribe_events_week_get_hours' ) ) {
+								$start_date .= ' ' . tribe_events_week_get_hours( 'first-hour' );
+								$end_date .= ' ' . tribe_events_week_get_hours( 'last-hour' );
 							}
 
 							$query->set( 'eventDate', $start_date  );
 							$query->set( 'start_date', $start_date );
-							$query->set( 'end_date', $end_date );
-							$query->set( 'posts_per_page', -1 ); // show ALL week posts
+							$query->set( 'end_date', $end_date );							$query->set( 'posts_per_page', -1 ); // show ALL week posts
 							$query->set( 'hide_upcoming', false );
 							break;
 						case 'photo':

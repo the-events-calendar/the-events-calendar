@@ -13,50 +13,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 if ( class_exists( 'Tribe__Events__Pro__Events_Pro' ) ) {
 
 	/**
-	 * Add attributes to nav elements for week view
+	 * Whether there are more calendar days available in the week loop.
 	 *
-	 * @param string $direction
-	 * @param bool   $echo
-	 *
-	 * @return string
-	 * @todo rename to week-specific function name
+	 * @return boolean
 	 */
-	function tribe_events_the_nav_attributes( $direction = 'prev', $echo = true ) {
-		global $wp_query;
-		$direction    = $direction == 'prev' ? '-' : '+';
-		$current_week = tribe_get_first_week_day( $wp_query->get( 'start_date' ) );
-		$attributes   = sprintf( ' data-week="%s" ', date( 'Y-m-d', strtotime( $current_week . ' ' . $direction . '7 days' ) ) );
-		if ( $echo ) {
-			echo $attributes;
-		} else {
-			return $attributes;
-		}
-	}
-
-	/**
-	 * set the loop type for week view between all day and hourly events
-	 *
-	 * @param string $loop_type
-	 *
-	 * @return void
-	 */
-	function tribe_events_week_set_loop_type( $loop_type = 'hourly' ) {
-		Tribe__Events__Pro__Templates__Week::reset_the_day();
-		Tribe__Events__Pro__Templates__Week::$loop_type = $loop_type;
-	}
-
-	/**
-	 * Whether there are more calendar days available in the loop.
-	 *
-	 * @return bool True if calendar days are available, false if end of loop.
-	 * @return  void
-	 * */
 	function tribe_events_week_have_days() {
 		return Tribe__Events__Pro__Templates__Week::have_days();
 	}
 
 	/**
-	 * increment the current day loop
+	 * Increment the current day loop.
 	 *
 	 * @return void
 	 */
@@ -65,46 +31,119 @@ if ( class_exists( 'Tribe__Events__Pro__Events_Pro' ) ) {
 	}
 
 	/**
-	 * increment the row for the all day map
+	 * Return current day in the week loop. The array will contain the following elements:
 	 *
-	 * @return void
+	 * 'date'           => date formatted Y-m-d
+	 * 'day_number'     => 0 - 6; 0 = Sunday, 6 = Saturday
+	 * 'formatted_date' => date formatted for display (the format can be changed in events settings)
+	 * 'is_today'       => whether the day is today
+	 * 'is_past'        => whether the day has passed
+	 * 'is_future'      => whether the day is in the future
+	 * 'hourly_events'  => an array of the hourly events on this day
+	 * 'all_day_events' => an array of the all day events on this day
+	 * 'has_events'     => boolean whether there are any events on this day, either all day or hourly
+	 *
+	 * @return array
 	 */
-	function tribe_events_week_the_day_map() {
-		Tribe__Events__Pro__Templates__Week::the_day_map();
-		$all_day_map    = tribe_events_week_get_all_day_map();
-		$all_day_offset = Tribe__Events__Pro__Templates__Week::get_current_day() < Tribe__Events__Pro__Templates__Week::$start_of_week ? Tribe__Events__Pro__Templates__Week::$week_length + Tribe__Events__Pro__Templates__Week::get_current_day() : Tribe__Events__Pro__Templates__Week::get_current_day();
-		tribe_events_week_setup_event( $all_day_map[ Tribe__Events__Pro__Templates__Week::get_the_day_map() ][ $all_day_offset ] );
+	function tribe_events_week_get_current_day() {
+		return apply_filters( 'tribe_events_week_get_current_day', Tribe__Events__Pro__Templates__Week::get_current_day() );
 	}
 
 	/**
-	 * provide a clean way to reset the counter for the all day map row iterator
+	 * Check if there are any all day events this week.
 	 *
-	 * @return void
+	 * @return boolean
 	 */
-	function tribe_events_week_reset_the_day_map() {
-		Tribe__Events__Pro__Templates__Week::reset_the_day_map();
+	function tribe_events_week_has_all_day_events() {
+
+		return apply_filters( 'tribe_events_week_has_all_day_events', array(
+			'Tribe__Events__Pro__Templates__Week',
+			'has_all_day_events'
+		) );
+
 	}
 
 	/**
-	 * setup css classes for daily columns in week view
+	 * Return the hours to display on week view. Optionally return formatted, first, or last hour.
+	 *
+	 * @param string $return Can be 'raw', 'formatted', 'first-hour', or 'last-hour'.
+	 *
+	 * @return array
+	 */
+	function tribe_events_week_get_hours( $return = null ) {
+		$range = Tribe__Events__Pro__Templates__Week::get_hour_range();
+		switch ( $return ) {
+			case 'raw':
+				return array_keys( $range );
+			case 'formatted':
+				return array_values( $range );
+			case 'first-hour':
+				$hours = array_keys( $range );
+				return str_pad( reset( $hours ) , 2, '0', STR_PAD_LEFT ) . ':00:00';
+			case 'last-hour':
+				$hours = array_keys( $range );
+				return str_pad( end( $hours ), 2, '0', STR_PAD_LEFT ) . ':59:00';
+
+		}
+
+		return apply_filters( 'tribe_events_week_get_hours', $range, $return );
+	}
+
+	/**
+	 * Return the range of days to display on week view.
+	 *
+	 * @return array
+	 */
+	function tribe_events_week_get_days() {
+		$days = Tribe__Events__Pro__Templates__Week::get_day_range();
+		return apply_filters( 'tribe_events_week_get_days', $days );
+		}
+
+	/**
+	 * Echo the classes used on each week day header.
+	 *
+	 * @return void
+	 */
+	function tribe_events_week_day_header_classes() {
+		echo apply_filters( 'tribe_events_week_day_header_classes', Tribe__Events__Pro__Templates__Week::day_header_classes() );
+	}
+
+	/**
+	 * Return the text used in week day headers wrapped in a <span> tag and data attribute needed for mobile js.
+	 *
+	 * @return string
+	 */
+	function tribe_events_week_day_header() {
+		$day  = tribe_events_week_get_current_day();
+		$html = '<span data-full-date="' . $day['formatted_date'] . '">' . $day['formatted_date'] . '</span>';
+
+		// if day view is enabled and there are events on the day, make it a link to the day
+		if ( tribe_events_is_view_enabled( 'day' ) && $day['has_events'] ) {
+			$html = '<a href="' . tribe_get_day_link( tribe_events_week_get_the_date( false ) ) . '" rel="bookmark">' . $html . '</span></a>';
+	}
+
+		return apply_filters( 'tribe_events_week_day_header', $html );
+	}
+
+	/**
+	 * Setup css classes for daily columns in week view.
 	 *
 	 * @return void
 	 */
 	function tribe_events_week_column_classes() {
 		echo apply_filters( 'tribe_events_week_column_classes', Tribe__Events__Pro__Templates__Week::column_classes() );
-	}
+				}
 
 	/**
-	 * return the current date of the day set by $current_day
+	 * Retrieve the current date in Y-m-d format.
 	 *
-	 * @param boolean $echo
+	 * @param boolean $echo Set to false to return the value rather than echo.
 	 *
-	 * @return string $html
+	 * @return string|void
 	 */
 	function tribe_events_week_get_the_date( $echo = true ) {
-		$week_days = Tribe__Events__Pro__Templates__Week::get_week_days();
-		$html      = ! empty( $week_days[ Tribe__Events__Pro__Templates__Week::get_current_day() ]->date ) ? $week_days[ Tribe__Events__Pro__Templates__Week::get_current_day() ]->date : null;
-		$html      = apply_filters( 'tribe_events_week_get_the_date', $html );
+		$day  = tribe_events_week_get_current_day();
+		$html = apply_filters( 'tribe_events_week_get_the_date', $day['date'] );
 		if ( $echo ) {
 			echo $html;
 		} else {
@@ -113,142 +152,39 @@ if ( class_exists( 'Tribe__Events__Pro__Events_Pro' ) ) {
 	}
 
 	/**
-	 * display the date in a nice formated view for headers
+	 * Return html attributes required for proper week view js functionality.
 	 *
-	 * @param boolean $echo
-	 *
-	 * @return string $html
+	 * @param int|object $event The event post, defaults to the global post.
+	 * @param string $format The format of the returned value. Can be either 'array' or 'string'
+	 * @return array|string
 	 */
-	function tribe_events_week_get_the_day_display( $echo = true ) {
-		$week_days = Tribe__Events__Pro__Templates__Week::get_week_days();
-		$html      = ! empty( $week_days[ Tribe__Events__Pro__Templates__Week::get_current_day() ]->display ) ? $week_days[ Tribe__Events__Pro__Templates__Week::get_current_day() ]->display : null;
-		$html      = apply_filters( 'tribe_events_week_get_the_day_display', $html );
-		if ( $echo ) {
-			echo $html;
-		} else {
-			return $html;
+	function tribe_events_week_event_attributes( $event = null, $format = 'string' ) {
+
+		$attrs = Tribe__Events__Pro__Templates__Week::get_event_attributes( $event );
+
+		$attrs = apply_filters( 'tribe_events_week_event_attributes', $attrs );
+
+		if ( $format == 'array' ) {
+			$return = $attrs;
+		} elseif ( $format == 'string' ) {
+			$return = '';
+			foreach ( $attrs as $attr => $value ) {
+				$return .= " $attr=" . '"' . esc_attr( $value ) . '"';
 		}
 	}
 
-	/**
-	 * return if the current day is today
-	 *
-	 * @return bool
-	 */
-	function tribe_events_week_is_current_today() {
-		$week_days = Tribe__Events__Pro__Templates__Week::get_week_days();
-		$status    = ! empty( $week_days[ Tribe__Events__Pro__Templates__Week::get_current_day() ]->today ) ? $week_days[ Tribe__Events__Pro__Templates__Week::get_current_day() ]->today : false;
+		return $return;
 
-		return apply_filters( 'tribe_events_week_is_current_today', $status );
 	}
 
 	/**
-	 * get map of all day events for week view
+	 * Build the previous week link.
 	 *
-	 * @return array of event ids
+	 * @param string $text The text to be linked.
+	 *
+	 * @return string
 	 */
-	function tribe_events_week_get_all_day_map() {
-		$all_day_map = (array) Tribe__Events__Pro__Templates__Week::get_events( 'all_day_map' );
-
-		return apply_filters( 'tribe_events_week_get_all_day_map', $all_day_map );
-	}
-
-	/**
-	 * get array of hourly event objects
-	 *
-	 * @return array of hourly event objects
-	 */
-	function tribe_events_week_get_hourly() {
-		$hourly_events = (array) Tribe__Events__Pro__Templates__Week::get_events( 'hourly' );
-
-		return apply_filters( 'tribe_events_week_get_hourly', $hourly_events );
-	}
-
-	/**
-	 * set internal mechanism for setting event id for retrieval with other tags
-	 *
-	 * @param int $event_id
-	 *
-	 * @return boolean
-	 */
-	function tribe_events_week_setup_event( $event_id = null ) {
-		do_action( 'tribe_events_week_pre_setup_event', $event_id );
-		switch ( Tribe__Events__Pro__Templates__Week::$loop_type ) {
-			case 'allday':
-				Tribe__Events__Pro__Templates__Week::set_event_id( $event_id );
-
-				return true;
-			case 'hourly':
-				$event = Tribe__Events__Pro__Templates__Week::get_hourly_event( $event_id );
-				if ( empty( $event->EventStartDate ) ) {
-					return false;
-				}
-				$calendar_date = tribe_events_week_get_the_date( false );
-				// use rounded beginning/end of day because calendar grid only starts on the hour
-				$beginning_of_day = tribe_event_beginning_of_day( $calendar_date, 'Y-m-d H:00:00' );
-				$end_of_day       = tribe_event_end_of_day( $calendar_date, 'Y-m-d H:00:00' );
-				if ( $event->EventStartDate > $end_of_day ) {
-					return false;
-				}
-				if ( $event->EventEndDate <= $beginning_of_day ) {
-					return false;
-				}
-				Tribe__Events__Pro__Templates__Week::set_event_id( $event_id );
-
-				return true;
-		}
-
-		return false;
-	}
-
-	/**
-	 * get internal event id pointer
-	 *
-	 * @return int $event_id
-	 */
-	function tribe_events_week_get_event_id( $echo = true ) {
-		$event_id = apply_filters( 'tribe_events_week_get_event_id', Tribe__Events__Pro__Templates__Week::get_event_id() );
-		if ( $echo ) {
-			echo $event_id;
-		} else {
-			return $event_id;
-		}
-	}
-
-	/**
-	 * check to see if placeholder should be used in template in place of event block
-	 *
-	 * @return boolean
-	 */
-	function tribe_events_week_is_all_day_placeholder() {
-		$event_key_id = tribe_events_week_get_event_id( false );
-		if ( is_null( $event_key_id ) || in_array( $event_key_id, Tribe__Events__Pro__Templates__Week::$event_key_track ) ) {
-			return true;
-		} else {
-			return false;
-		}
-	}
-
-	/**
-	 * get event object
-	 *
-	 * @return object
-	 */
-	function tribe_events_week_get_event() {
-		switch ( Tribe__Events__Pro__Templates__Week::$loop_type ) {
-			case 'allday':
-				$event                                             = Tribe__Events__Pro__Templates__Week::get_allday_event();
-				Tribe__Events__Pro__Templates__Week::$event_key_track[] = Tribe__Events__Pro__Templates__Week::get_event_id();
-				break;
-			case 'hourly':
-				$event = Tribe__Events__Pro__Templates__Week::get_hourly_event();
-				break;
-		}
-
-		return apply_filters( 'tribe_events_week_get_event', $event );
-	}
-
-	function tribe_previous_week_link( $text = '' ) {
+	function tribe_events_week_previous_link( $text = '' ) {
 		try {
 			$date = tribe_get_first_week_day();
 			if ( $date <= tribe_events_earliest_date( Tribe__Events__Date_Utils::DBDATEFORMAT ) ) {
@@ -260,15 +196,25 @@ if ( class_exists( 'Tribe__Events__Pro__Events_Pro' ) ) {
 				$text = __( '<span>&laquo;</span> Previous Week', 'tribe-events-calendar-pro' );
 			}
 
+			global $wp_query;
+			$current_week = tribe_get_first_week_day( $wp_query->get( 'start_date' ) );
+			$attributes   = sprintf( ' data-week="%s" ', date( 'Y-m-d', strtotime( $current_week . ' -7 days' ) ) );
 			if ( ! empty( $url ) ) {
-				return sprintf( '<a %s href="%s" rel="prev">%s</a>', tribe_events_the_nav_attributes( 'prev', false ), $url, $text );
+				return sprintf( '<a %s href="%s" rel="prev">%s</a>', $attributes, $url, $text );
 			}
 		} catch ( OverflowException $e ) {
 			return '';
 		}
 	}
 
-	function tribe_next_week_link( $text = '' ) {
+	/**
+	 * Build the next week link
+	 *
+	 * @param string $text the text to be linked
+	 *
+	 * @return string
+	 */
+	function tribe_events_week_next_link( $text = '' ) {
 		try {
 			$date = date( Tribe__Events__Date_Utils::DBDATEFORMAT, strtotime( tribe_get_first_week_day() . ' +1 week' ) );
 			if ( $date >= tribe_events_latest_date( Tribe__Events__Date_Utils::DBDATEFORMAT ) ) {
@@ -280,30 +226,14 @@ if ( class_exists( 'Tribe__Events__Pro__Events_Pro' ) ) {
 				$text = __( 'Next Week <span>&raquo;</span>', 'tribe-events-calendar-pro' );
 			}
 
-			return sprintf( '<a %s href="%s" rel="next">%s</a>', tribe_events_the_nav_attributes( 'next', false ), $url, $text );
+			global $wp_query;
+			$current_week = tribe_get_first_week_day( $wp_query->get( 'start_date' ) );
+			$attributes   = sprintf( ' data-week="%s" ', date( 'Y-m-d', strtotime( $current_week . ' +7 days' ) ) );
+
+
+			return sprintf( '<a %s href="%s" rel="next">%s</a>', $attributes, $url, $text );
 		} catch ( OverflowException $e ) {
 			return '';
 		}
 	}
-
-	/**
-	 * For use within the week view template to determine if the current day in the
-	 * loop contains events.
-	 *
-	 * @return bool
-	 */
-	function tribe_events_current_week_day_has_events() {
-		// Do we have any all day events taking place today?
-		$day_counter = Tribe__Events__Pro__Templates__Week::get_current_day();
-		$map         = tribe_events_week_get_all_day_map();
-		if ( null !== $map[0][ $day_counter ] ) {
-			return true;
 		}
-
-		// Do we have any hourly events taking place today?
-		$hourly = Tribe__Events__Pro__Templates__Week::get_events( 'hourly_map' );
-
-		return empty( $hourly[ $day_counter ] ) ? false : true;
-	}
-
-}
