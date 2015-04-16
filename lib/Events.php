@@ -1766,7 +1766,12 @@ if ( ! class_exists( 'Tribe__Events__Events' ) ) {
 		 * @return array of options
 		 */
 		public static function getOptions() {
-			return get_option( Tribe__Events__Events::OPTIONNAME, array() );
+			$options = get_option( Tribe__Events__Events::OPTIONNAME, array() );
+			if ( has_filter( 'tribe_get_options' ) ) {
+				_deprecated_function( 'tribe_get_options', '3.10', 'option_' . Tribe__Events__Events::OPTIONNAME );
+				$options = apply_filters( 'tribe_get_options', $options );
+			}
+			return $options;
 		}
 
 		/**
