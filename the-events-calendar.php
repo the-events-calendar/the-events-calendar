@@ -28,7 +28,7 @@ Version: 3.9.1
 	*/
 
 	// the main plugin class
-	require_once dirname(__FILE__)	 . '/lib/Events.php';
+	require_once dirname(__FILE__)	 . '/lib/Main.php';
 
 	Tribe__Events__Main::instance();
 
