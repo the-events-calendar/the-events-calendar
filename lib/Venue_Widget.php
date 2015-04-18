@@ -40,7 +40,7 @@ if ( ! class_exists( 'Tribe__Events__Pro__Venue_Widget' ) ) {
 				return;
 			}
 
-			$ecp            = Tribe__Events__Pro__Events_Pro::instance();
+			$ecp            = Tribe__Events__Pro__Main::instance();
 			$tooltip_status = $ecp->recurring_info_tooltip_status();
 			$ecp->disable_recurring_info_tooltip();
 
@@ -76,7 +76,7 @@ if ( ! class_exists( 'Tribe__Events__Pro__Venue_Widget' ) ) {
 					'nopaging'  => true
 				) );
 			$instance = wp_parse_args( (array) $instance, $defaults );
-			include( Tribe__Events__Pro__Events_Pro::instance()->pluginPath . 'admin-views/widget-admin-venue.php' );
+			include( Tribe__Events__Pro__Main::instance()->pluginPath . 'admin-views/widget-admin-venue.php' );
 		}
 
 		// Function allowing updating of widget information.

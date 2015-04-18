@@ -448,8 +448,8 @@ class Tribe__Events__Pro__Recurrence_Meta {
 		// convert array to variables that can be used in the view
 		extract( Tribe__Events__Pro__Recurrence_Meta::getRecurrenceMeta( $postId ) );
 
-		$premium = Tribe__Events__Pro__Events_Pro::instance();
-		include( Tribe__Events__Pro__Events_Pro::instance()->pluginPath . 'admin-views/event-recurrence.php' );
+		$premium = Tribe__Events__Pro__Main::instance();
+		include( Tribe__Events__Pro__Main::instance()->pluginPath . 'admin-views/event-recurrence.php' );
 	}
 
 	public static function filter_passthrough( $data ) {
@@ -723,7 +723,7 @@ class Tribe__Events__Pro__Recurrence_Meta {
 			$queue->update( $to_create, $to_update, $to_delete, $exclusions );
 
 			// ...but don't wait around, process a small initial batch right away
-			Tribe__Events__Pro__Events_Pro::instance()->queue_processor->process_batch( $event_id );
+			Tribe__Events__Pro__Main::instance()->queue_processor->process_batch( $event_id );
 		}
 	}
 

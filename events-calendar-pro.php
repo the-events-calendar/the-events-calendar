@@ -31,14 +31,14 @@
 	function Tribe_ECP_Load() {
 		tribe_init_events_pro_autoloading();
 
-		$classes_exist = class_exists( 'Tribe__Events__Events' ) && class_exists( 'Tribe__Events__Pro__Events_Pro' );
-		$version_ok = defined('Tribe__Events__Events::VERSION') && version_compare( Tribe__Events__Events::VERSION, Tribe__Events__Pro__Events_Pro::REQUIRED_TEC_VERSION, '>=' );
+		$classes_exist = class_exists( 'Tribe__Events__Events' ) && class_exists( 'Tribe__Events__Pro__Main' );
+		$version_ok = defined('Tribe__Events__Events::VERSION') && version_compare( Tribe__Events__Events::VERSION, Tribe__Events__Pro__Main::REQUIRED_TEC_VERSION, '>=' );
 
 		$to_run_or_not_to_run = ( $classes_exist && $version_ok );
 		if ( apply_filters( 'tribe_ecp_to_run_or_not_to_run', $to_run_or_not_to_run ) ) {
 			add_filter( 'tribe_tec_addons', 'tribe_init_ecp_addon' );
 			new Tribe__Events__Pro__PUE( __FILE__ );
-			Tribe__Events__Pro__Events_Pro::instance();
+			Tribe__Events__Pro__Main::instance();
 		} else {
 			/**
 			 * Dummy function to avoid fatal error in edge upgrade case
@@ -76,10 +76,10 @@
 	 * @return array $plugins the required info
 	 */
 	function tribe_init_ecp_addon( $plugins ) {
-		$plugins['Tribe__Events__Pro__Events_Pro'] = array(
+		$plugins['Tribe__Events__Pro__Main'] = array(
 			'plugin_name' => 'Events Calendar PRO',
-			'required_version' => Tribe__Events__Pro__Events_Pro::REQUIRED_TEC_VERSION,
-			'current_version' => Tribe__Events__Pro__Events_Pro::VERSION,
+			'required_version' => Tribe__Events__Pro__Main::REQUIRED_TEC_VERSION,
+			'current_version' => Tribe__Events__Pro__Main::VERSION,
 			'plugin_dir_file' => basename( dirname( __FILE__ ) ) . '/events-calendar-pro.php'
 		);
 
@@ -89,7 +89,7 @@
 	register_deactivation_hook( __FILE__, 'tribe_events_pro_deactivation' );
 	function tribe_events_pro_deactivation( $network_deactivating ) {
 		require_once dirname( __FILE__ ) . '/lib/Events_Pro.php';
-		Tribe__Events__Pro__Events_Pro::deactivate( $network_deactivating );
+		Tribe__Events__Pro__Main::deactivate( $network_deactivating );
 	}
 
 	/**

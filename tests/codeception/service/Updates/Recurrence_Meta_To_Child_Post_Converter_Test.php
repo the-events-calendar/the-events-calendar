@@ -40,7 +40,7 @@ class Tribe__Events__Pro__Updates__Recurrence_Meta_To_Child_Post_Converter_Test 
 			'EventEndDate' => '2014-05-01 17:00:00',
 		));
 
-		require_once( Tribe__Events__Pro__Events_Pro::instance()->pluginPath . '/lib/Updater.php' );
+		require_once( Tribe__Events__Pro__Main::instance()->pluginPath . '/lib/Updater.php' );
 		$updater = new Tribe__Events__Pro__UPdater( '3.5' );
 		$updater->do_updates();
 

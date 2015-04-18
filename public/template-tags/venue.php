@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die('-1');
 }
 
-if( class_exists('Tribe__Events__Pro__Events_Pro')) {
+if( class_exists( 'Tribe__Events__Pro__Main' )) {
 
 	/**
 	 * Output the upcoming events associated with a venue

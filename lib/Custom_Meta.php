@@ -41,7 +41,7 @@ class Tribe__Events__Pro__Custom_Meta {
 	 * @return void
 	 */
 	public static function event_meta_options() {
-		$pro = Tribe__Events__Pro__Events_Pro::instance();
+		$pro = Tribe__Events__Pro__Main::instance();
 
 		// Grab the custom fields and append an extra blank row at the end
 		$customFields   = tribe_get_option( 'custom-fields' );
@@ -70,7 +70,7 @@ class Tribe__Events__Pro__Custom_Meta {
 		$tribe_ecp    = Tribe__Events__Events::instance();
 		$customFields = tribe_get_option( 'custom-fields' );
 
-		$events_event_meta_template = Tribe__Events__Pro__Events_Pro::instance()->pluginPath . 'admin-views/event-meta.php';
+		$events_event_meta_template = Tribe__Events__Pro__Main::instance()->pluginPath . 'admin-views/event-meta.php';
 		$events_event_meta_template = apply_filters( 'tribe_events_event_meta_template', $events_event_meta_template );
 		if ( ! empty( $events_event_meta_template ) ) {
 			include( $events_event_meta_template );

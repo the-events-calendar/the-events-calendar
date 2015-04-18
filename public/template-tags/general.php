@@ -11,7 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
-if( class_exists( 'Tribe__Events__Pro__Events_Pro' ) ) {
+if( class_exists( 'Tribe__Events__Pro__Main' ) ) {
 
 	if ( !function_exists( 'tribe_get_mapview_link' ) ) {
 		function tribe_get_mapview_link( $term = null ) {
@@ -745,7 +745,7 @@ if( class_exists( 'Tribe__Events__Pro__Events_Pro' ) ) {
 	 * @return string
 	 **/
 	function tribe_events_pro_resource_url($resource, $echo = false) {
-		$url = apply_filters('tribe_events_pro_resource_url', trailingslashit( Tribe__Events__Pro__Events_Pro::instance()->pluginUrl ).'resources/'.$resource, $resource);
+		$url = apply_filters('tribe_events_pro_resource_url', trailingslashit( Tribe__Events__Pro__Main::instance()->pluginUrl ).'resources/'.$resource, $resource);
 		if ($echo) {
 			echo $url;
 		}

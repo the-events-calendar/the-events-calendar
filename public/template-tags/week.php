@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
-if ( class_exists( 'Tribe__Events__Pro__Events_Pro' ) ) {
+if ( class_exists( 'Tribe__Events__Pro__Main' ) ) {
 
 	/**
 	 * Whether there are more calendar days available in the week loop.

@@ -1,7 +1,7 @@
 <?php
 
-	if ( ! class_exists( 'Tribe__Events__Pro__Events_Pro' ) ) {
-		class Tribe__Events__Pro__Events_Pro {
+	if ( ! class_exists( 'Tribe__Events__Pro__Main' ) ) {
+		class Tribe__Events__Pro__Main {
 
 			private static $instance;
 
@@ -1105,13 +1105,13 @@
 			 * @return void
 			 */
 			public function admin_enqueue_scripts() {
-				wp_enqueue_script( Tribe__Events__Events::POSTTYPE.'-premium-admin', $this->pluginUrl . 'resources/events-admin.js', array( 'jquery-ui-datepicker' ), apply_filters( 'tribe_events_pro_js_version', Tribe__Events__Pro__Events_Pro::VERSION ), true );
+				wp_enqueue_script( Tribe__Events__Events::POSTTYPE.'-premium-admin', $this->pluginUrl . 'resources/events-admin.js', array( 'jquery-ui-datepicker' ), apply_filters( 'tribe_events_pro_js_version', Tribe__Events__Pro__Main::VERSION ), true );
 				$data = apply_filters( 'tribe_events_pro_localize_script', array(), 'TribeEventsProAdmin', Tribe__Events__Events::POSTTYPE.'-premium-admin' );
 				wp_localize_script( Tribe__Events__Events::POSTTYPE.'-premium-admin', 'TribeEventsProAdmin', $data);
 			}
 
 			public function admin_enqueue_styles() {
-				wp_enqueue_style( Tribe__Events__Events::POSTTYPE.'-premium-admin', $this->pluginUrl . 'resources/events-admin.css', array(), apply_filters( 'tribe_events_pro_css_version', Tribe__Events__Pro__Events_Pro::VERSION ) );
+				wp_enqueue_style( Tribe__Events__Events::POSTTYPE.'-premium-admin', $this->pluginUrl . 'resources/events-admin.css', array(), apply_filters( 'tribe_events_pro_css_version', Tribe__Events__Pro__Main::VERSION ) );
 			}
 
 			/**
@@ -1148,7 +1148,7 @@
 						'tribe-events-pro', $path, array(
 						'jquery',
 						'tribe-events-calendar-script'
-					), apply_filters( 'tribe_events_pro_js_version', Tribe__Events__Pro__Events_Pro::VERSION ), false
+					), apply_filters( 'tribe_events_pro_js_version', Tribe__Events__Pro__Main::VERSION ), false
 					);
 
 					$geoloc = Tribe__Events__Pro__Geo_Loc::instance();
@@ -1159,7 +1159,7 @@
 						'map_tooltip_address' => __( 'Address: ', 'tribe-events-calendar-pro' )
 					);
 
-					$data = apply_filters( 'tribe_events_pro_localize_script', $data, 'Tribe__Events__Pro__Events_Pro', 'tribe-events-pro' );
+					$data = apply_filters( 'tribe_events_pro_localize_script', $data, 'Tribe__Events__Pro__Main', 'tribe-events-pro' );
 
 					wp_localize_script( 'tribe-events-pro', 'TribeEventsPro', $data );
 
@@ -1548,7 +1548,7 @@
 			/**
 			 * The singleton function.
 			 *
-			 * @return Tribe__Events__Pro__Events_Pro The instance.
+			 * @return Tribe__Events__Pro__Main The instance.
 			 */
 			public static function instance() {
 				if ( !isset( self::$instance ) ) {

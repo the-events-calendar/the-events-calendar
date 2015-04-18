@@ -24,7 +24,7 @@ if( !class_exists( 'Tribe__Events__Pro__Countdown_Widget' ) ) {
 			extract( $args );
 			extract( $instance );
 			$title = apply_filters( 'widget_title', $title );
-			wp_enqueue_script( 'tribe-events-countdown-widget', Tribe__Events__Pro__Events_Pro::instance()->pluginUrl .'resources/widget-countdown.js', array( 'jquery' ), apply_filters( 'tribe_events_pro_js_version', Tribe__Events__Pro__Events_Pro::VERSION ), true );
+			wp_enqueue_script( 'tribe-events-countdown-widget', Tribe__Events__Pro__Main::instance()->pluginUrl .'resources/widget-countdown.js', array( 'jquery' ), apply_filters( 'tribe_events_pro_js_version', Tribe__Events__Pro__Main::VERSION ), true );
 			// Get the timer data.
 			$complete = '<h3 class="tribe-countdown-complete">' . $complete . '</h3>';
 			$event_countdown_date = $this->get_output($event_ID, $complete, $show_seconds, $event_date);
@@ -69,7 +69,7 @@ if( !class_exists( 'Tribe__Events__Pro__Countdown_Widget' ) ) {
 				'paged' => $paged
 			) );
 
-			include( Tribe__Events__Pro__Events_Pro::instance()->pluginPath . 'admin-views/widget-admin-countdown.php' );
+			include( Tribe__Events__Pro__Main::instance()->pluginPath . 'admin-views/widget-admin-countdown.php' );
 		}
 
 		public function get_output($event_ID, $complete, $show_seconds, $event_date = null ) {

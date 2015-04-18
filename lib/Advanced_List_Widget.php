@@ -59,7 +59,7 @@ class Tribe__Events__Pro__Advanced_List_Widget extends Tribe__Events__List_Widge
 	}
 
 	public function widget( $args, $instance ) {
-		$ecp            = Tribe__Events__Pro__Events_Pro::instance();
+		$ecp            = Tribe__Events__Pro__Main::instance();
 		$tooltip_status = $ecp->recurring_info_tooltip_status();
 		$ecp->disable_recurring_info_tooltip();
 		$this->instance_defaults( $instance );
@@ -108,7 +108,7 @@ class Tribe__Events__Pro__Advanced_List_Widget extends Tribe__Events__List_Widge
 		$taxonomies = array_reverse( $taxonomies );
 
 		$instance = $this->instance;
-		include( Tribe__Events__Pro__Events_Pro::instance()->pluginPath . 'admin-views/widget-admin-advanced-list.php' );
+		include( Tribe__Events__Pro__Main::instance()->pluginPath . 'admin-views/widget-admin-advanced-list.php' );
 	}
 
 	protected function instance_defaults( $instance ) {
