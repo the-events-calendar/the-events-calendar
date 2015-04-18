@@ -30,6 +30,6 @@ Version: 3.9.1
 	// the main plugin class
 	require_once dirname(__FILE__)	 . '/lib/Events.php';
 
-	Tribe__Events__Events::instance();
+	Tribe__Events__Main::instance();
 
-	register_deactivation_hook( __FILE__, array( 'Tribe__Events__Events', 'deactivate' ) );
+	register_deactivation_hook( __FILE__, array( 'Tribe__Events__Main', 'deactivate' ) );

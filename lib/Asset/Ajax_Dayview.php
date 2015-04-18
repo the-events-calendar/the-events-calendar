@@ -6,7 +6,7 @@
 		public function handle() {
 			$ajax_data = array(
 				"ajaxurl" => admin_url( 'admin-ajax.php', ( is_ssl() ? 'https' : 'http' ) ),
-				'post_type' => Tribe__Events__Events::POSTTYPE
+				'post_type' => Tribe__Events__Main::POSTTYPE
 			);
 			$path = Tribe__Events__Template_Factory::getMinFile( $this->resources_url . 'tribe-events-ajax-day.js', true );
 

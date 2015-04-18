@@ -16,7 +16,7 @@ if ( ! class_exists( 'Tribe__Events__Post_Exception' ) ) {
 		 * @param int $post ->ID
 		 */
 		public static function displayMessage( $postId ) {
-			if ( $error = get_post_meta( $postId, Tribe__Events__Events::EVENTSERROROPT, true ) ) : ?>
+			if ( $error = get_post_meta( $postId, Tribe__Events__Main::EVENTSERROROPT, true ) ) : ?>
 				<script type="text/javascript">
 					jQuery('#tribe-events-post-error')
 						.append('<h3><?php _e( 'Error', 'tribe-events-calendar' ); ?></h3><p>' + '<?php echo $error; ?>' + '</p>')

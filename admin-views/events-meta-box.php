@@ -28,7 +28,7 @@ if ( class_exists( 'Eventbrite_for_TribeEvents' ) ) {
 </div>
 <div id='eventDetails' class="inside eventForm">
 	<?php do_action( 'tribe_events_detail_top', $event->ID, true ) ?>
-	<?php wp_nonce_field( Tribe__Events__Events::POSTTYPE, 'ecp_nonce' ); ?>
+	<?php wp_nonce_field( Tribe__Events__Main::POSTTYPE, 'ecp_nonce' ); ?>
 	<?php do_action( 'tribe_events_eventform_top', $event->ID ); ?>
 	<table cellspacing="0" cellpadding="0" id="EventInfo">
 		<tr>

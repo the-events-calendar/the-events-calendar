@@ -99,9 +99,9 @@ class Tribe__Events__Capabilities {
 	 */
 	public function set_initial_caps() {
 		foreach( array( 'administrator', 'editor', 'author', 'contributor', 'subscriber' ) as $role ) {
-			$this->register_post_type_caps( Tribe__Events__Events::POSTTYPE, $role );
-			$this->register_post_type_caps( Tribe__Events__Events::ORGANIZER_POST_TYPE, $role );
-			$this->register_post_type_caps( Tribe__Events__Events::VENUE_POST_TYPE, $role );
+			$this->register_post_type_caps( Tribe__Events__Main::POSTTYPE, $role );
+			$this->register_post_type_caps( Tribe__Events__Main::ORGANIZER_POST_TYPE, $role );
+			$this->register_post_type_caps( Tribe__Events__Main::VENUE_POST_TYPE, $role );
 		}
 	}
 
@@ -112,9 +112,9 @@ class Tribe__Events__Capabilities {
 	 */
 	public function remove_all_caps() {
 		foreach( array( 'administrator', 'editor', 'author', 'contributor', 'subscriber' ) as $role ) {
-			$this->remove_post_type_caps( Tribe__Events__Events::POSTTYPE, $role );
-			$this->remove_post_type_caps( Tribe__Events__Events::ORGANIZER_POST_TYPE, $role );
-			$this->remove_post_type_caps( Tribe__Events__Events::VENUE_POST_TYPE, $role );
+			$this->remove_post_type_caps( Tribe__Events__Main::POSTTYPE, $role );
+			$this->remove_post_type_caps( Tribe__Events__Main::ORGANIZER_POST_TYPE, $role );
+			$this->remove_post_type_caps( Tribe__Events__Main::VENUE_POST_TYPE, $role );
 		}
 	}
 }

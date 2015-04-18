@@ -9,7 +9,7 @@ if ( ! class_exists( 'Tribe__Events__Settings' ) ) {
 	/**
 	 * helper class that allows registration of settings
 	 * this is a static class & uses the singleton design method
-	 * instantiation takes place in Tribe__Events__Events
+	 * instantiation takes place in Tribe__Events__Main
 	 *
 	 */
 	class Tribe__Events__Settings {
@@ -154,9 +154,9 @@ if ( ! class_exists( 'Tribe__Events__Settings' ) ) {
 		 * @return void
 		 */
 		public function addPage() {
-			if ( ! is_multisite() || ( is_multisite() && '0' == Tribe__Events__Events::instance()->getNetworkOption( 'allSettingsTabsHidden', '0' ) ) ) {
+			if ( ! is_multisite() || ( is_multisite() && '0' == Tribe__Events__Main::instance()->getNetworkOption( 'allSettingsTabsHidden', '0' ) ) ) {
 				$this->admin_page = add_submenu_page(
-					'edit.php?post_type=' . Tribe__Events__Events::POSTTYPE,
+					'edit.php?post_type=' . Tribe__Events__Main::POSTTYPE,
 					__( 'The Events Calendar Settings', 'tribe-events-calendar' ),
 					__( 'Settings', 'tribe-events-calendar' ),
 					$this->requiredCap,
@@ -212,7 +212,7 @@ if ( ! class_exists( 'Tribe__Events__Settings' ) ) {
 							array(
 								'page' => $this->adminSlug,
 								'tab'  => $this->currentTab
-							), add_query_arg( array( 'post_type' => Tribe__Events__Events::POSTTYPE ), admin_url( 'edit.php' ) )
+							), add_query_arg( array( 'post_type' => Tribe__Events__Main::POSTTYPE ), admin_url( 'edit.php' ) )
 						)
 					);
 				}
@@ -231,7 +231,7 @@ if ( ! class_exists( 'Tribe__Events__Settings' ) ) {
 		 * @return void
 		 */
 		public function generatePage() {
-			$tec = Tribe__Events__Events::instance();
+			$tec = Tribe__Events__Main::instance();
 			do_action( 'tribe_settings_top' );
 			echo '<div class="tribe_settings wrap">';
 			screen_icon();
@@ -279,7 +279,7 @@ if ( ! class_exists( 'Tribe__Events__Settings' ) ) {
 				echo '<h2 id="tribe-settings-tabs" class="nav-tab-wrapper">';
 				foreach ( $this->tabs as $tab => $name ) {
 					if ( ! is_network_admin() ) {
-						$url = '?post_type=' . Tribe__Events__Events::POSTTYPE . '&page=' . $this->adminSlug . '&tab=' . urlencode( $tab );
+						$url = '?post_type=' . Tribe__Events__Main::POSTTYPE . '&page=' . $this->adminSlug . '&tab=' . urlencode( $tab );
 					}
 					if ( is_network_admin() ) {
 						$url = '?page=' . $this->adminSlug . '&tab=' . urlencode( $tab );
@@ -404,10 +404,10 @@ if ( ! class_exists( 'Tribe__Events__Settings' ) ) {
 
 					// figure out the parent option [could be set to false] and filter it
 					if ( is_network_admin() ) {
-						$parent_option = ( isset( $validated_field->field['parent_option'] ) ) ? $validated_field->field['parent_option'] : Tribe__Events__Events::OPTIONNAMENETWORK;
+						$parent_option = ( isset( $validated_field->field['parent_option'] ) ) ? $validated_field->field['parent_option'] : Tribe__Events__Main::OPTIONNAMENETWORK;
 					}
 					if ( ! is_network_admin() ) {
-						$parent_option = ( isset( $validated_field->field['parent_option'] ) ) ? $validated_field->field['parent_option'] : Tribe__Events__Events::OPTIONNAME;
+						$parent_option = ( isset( $validated_field->field['parent_option'] ) ) ? $validated_field->field['parent_option'] : Tribe__Events__Main::OPTIONNAME;
 					}
 
 					$parent_option = apply_filters( 'tribe_settings_save_field_parent_option', $parent_option, $field_id );
@@ -433,11 +433,11 @@ if ( ! class_exists( 'Tribe__Events__Settings' ) ) {
 			 * loop through parent option arrays
 			 * and save them
 			 * NOTE: in the case of the main option Tribe Options,
-			 * this will save using the Tribe__Events__Events:setOptions method.
+			 * this will save using the Tribe__Events__Main:setOptions method.
 			 */
 			foreach ( $parent_options as $option_id => $new_options ) {
 				// get the old options
-				if ( $option_id == Tribe__Events__Events::OPTIONNAME ) {
+				if ( $option_id == Tribe__Events__Main::OPTIONNAME ) {
 					$old_options = (array) get_option( $option_id );
 				} else {
 					$old_options = (array) get_site_option( $option_id );
@@ -446,11 +446,11 @@ if ( ! class_exists( 'Tribe__Events__Settings' ) ) {
 				// set the options by parsing old + new and filter that
 				$options = apply_filters( 'tribe_settings_save_option_array', wp_parse_args( $new_options, $old_options ), $option_id );
 
-				if ( $option_id == Tribe__Events__Events::OPTIONNAME ) {
-					// save using the Tribe__Events__Events method
-					Tribe__Events__Events::instance()->setOptions( $options );
-				} elseif ( $option_id == Tribe__Events__Events::OPTIONNAMENETWORK ) {
-					Tribe__Events__Events::instance()->setNetworkOptions( $options );
+				if ( $option_id == Tribe__Events__Main::OPTIONNAME ) {
+					// save using the Tribe__Events__Main method
+					Tribe__Events__Main::instance()->setOptions( $options );
+				} elseif ( $option_id == Tribe__Events__Main::OPTIONNAMENETWORK ) {
+					Tribe__Events__Main::instance()->setNetworkOptions( $options );
 				} else {
 					// save using regular WP method
 					if ( is_network_admin() ) {

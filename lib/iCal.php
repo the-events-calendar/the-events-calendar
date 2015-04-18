@@ -38,7 +38,7 @@ class Tribe__Events__iCal {
 	 * @return string
 	 */
 	public static function get_ical_link() {
-		$tec = Tribe__Events__Events::instance();
+		$tec = Tribe__Events__Main::instance();
 
 		return trailingslashit( $tec->getLink( 'home' ) ) . '?ical=1';
 	}
@@ -96,7 +96,7 @@ class Tribe__Events__iCal {
 			return;
 		}
 
-		$tec = Tribe__Events__Events::instance();
+		$tec = Tribe__Events__Main::instance();
 
 		$view = $tec->displaying;
 		if ( defined( 'DOING_AJAX' ) && DOING_AJAX && isset( $wp_query->query_vars['eventDisplay'] ) ) {
@@ -175,7 +175,7 @@ class Tribe__Events__iCal {
 	 */
 	public static function generate_ical_feed( $post = null ) {
 
-		$tec         = Tribe__Events__Events::instance();
+		$tec         = Tribe__Events__Main::instance();
 		$wp_timezone = get_option( 'timezone_string' );
 		$events      = '';
 		$blogHome    = get_bloginfo( 'url' );
@@ -276,7 +276,7 @@ class Tribe__Events__iCal {
 			}
 
 			// add categories if available
-			$event_cats = (array) wp_get_object_terms( $event_post->ID, Tribe__Events__Events::TAXONOMY, array( 'fields' => 'names' ) );
+			$event_cats = (array) wp_get_object_terms( $event_post->ID, Tribe__Events__Main::TAXONOMY, array( 'fields' => 'names' ) );
 			if ( ! empty( $event_cats ) ) {
 				$item[] = 'CATEGORIES:' . html_entity_decode( join( ',', $event_cats ), ENT_QUOTES );
 			}
@@ -306,10 +306,10 @@ class Tribe__Events__iCal {
 		}
 
 		header( 'Content-type: text/calendar; charset=UTF-8' );
-		header( 'Content-Disposition: attachment; filename="iCal-Tribe__Events__Events.ics"' );
+		header( 'Content-Disposition: attachment; filename="iCal-Tribe__Events__Main.ics"' );
 		$content = "BEGIN:VCALENDAR\r\n";
 		$content .= "VERSION:2.0\r\n";
-		$content .= 'PRODID:-//' . $blogName . ' - ECPv' . Tribe__Events__Events::VERSION . "//NONSGML v1.0//EN\r\n";
+		$content .= 'PRODID:-//' . $blogName . ' - ECPv' . Tribe__Events__Main::VERSION . "//NONSGML v1.0//EN\r\n";
 		$content .= "CALSCALE:GREGORIAN\r\n";
 		$content .= "METHOD:PUBLISH\r\n";
 		$content .= 'X-WR-CALNAME:' . apply_filters( 'tribe_ical_feed_calname', $blogName ) . "\r\n";

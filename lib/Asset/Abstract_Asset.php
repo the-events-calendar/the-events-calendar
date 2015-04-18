@@ -29,7 +29,7 @@
 		protected $resources_url;
 
 		/**
-		 * @var Tribe__Events__Events
+		 * @var Tribe__Events__Main
 		 */
 		protected $tec;
 
@@ -53,7 +53,7 @@
 			$this->resources_url = $resources_url;
 		}
 
-		public function set_tec( Tribe__Events__Events $tec ) {
+		public function set_tec( Tribe__Events__Main $tec ) {
 			$this->tec = $tec;
 		}
 
@@ -65,7 +65,7 @@
 		/**
 		 * Filters the script version.
 		 *
-		 * Uses `Tribe__Events__Events::VERSION` by default.
+		 * Uses `Tribe__Events__Main::VERSION` by default.
 		 *
 		 * @param string $filter The filter name, `tribe_events_js_version` by
 		 *                       default.
@@ -75,7 +75,7 @@
 		protected function filter_js_version( $filter = null ) {
 			$filter = is_string( $filter ) ? $filter : 'tribe_events_js_version';
 
-			return apply_filters( $filter, Tribe__Events__Events::VERSION );
+			return apply_filters( $filter, Tribe__Events__Main::VERSION );
 		}
 
 	}

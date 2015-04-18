@@ -12,7 +12,7 @@ class Tribe__Events__Importer__Options {
 		if( !empty( $_POST[ 'tribe-import-general-settings' ] ) && wp_verify_nonce( $_POST[ 'tribe-import-general-settings' ], 'tribe-import-general-settings' ) ){
 
 			$options = apply_filters( 'tribe-import-available-options', self::$options );
-			$core = Tribe__Events__Events::instance();
+			$core = Tribe__Events__Main::instance();
 
 			foreach( $options as $_option ){
 				$core->setOption( $_option, $_POST[ $_option ] );
@@ -46,7 +46,7 @@ class Tribe__Events__Importer__Options {
 			return null;
 		}
 
-		$value = Tribe__Events__Events::getOption( $optionName, $default );
+		$value = Tribe__Events__Main::getOption( $optionName, $default );
 
 		return apply_filters( 'tribe-import-setting-' . $optionName, $value, $default );
 	}

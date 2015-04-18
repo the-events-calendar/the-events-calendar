@@ -10,7 +10,7 @@
 			wp_enqueue_script( $handle, $path, $deps, $this->filter_js_version() );
 			$js_config_array = array(
 				'permalink_settings' => get_option( 'permalink_structure' ),
-				'events_post_type' => Tribe__Events__Events::POSTTYPE
+				'events_post_type' => Tribe__Events__Main::POSTTYPE
 			);
 			wp_localize_script( $handle, 'tribe_js_config', $js_config_array );
 		}

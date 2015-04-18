@@ -85,7 +85,7 @@ if ( ! class_exists( 'Tribe__Events__Settings_Tab' ) ) {
 		 * @return array $tabs the filtered tabs
 		 */
 		public function addTab( $tabs ) {
-			$hideSettingsTabs = Tribe__Events__Events::instance()->getNetworkOption( 'hideSettingsTabs', array() );
+			$hideSettingsTabs = Tribe__Events__Main::instance()->getNetworkOption( 'hideSettingsTabs', array() );
 			if ( ( isset( $this->fields ) || has_action( 'tribe_settings_content_tab_' . $this->id ) ) && ( empty( $hideSettingsTabs ) || ! in_array( $this->id, $hideSettingsTabs ) ) ) {
 				if ( ( is_network_admin() && $this->args['network_admin'] ) || ( ! is_network_admin() && ! $this->args['network_admin'] ) ) {
 					$tabs[$this->id] = $this->name;
@@ -167,10 +167,10 @@ if ( ! class_exists( 'Tribe__Events__Settings_Tab' ) ) {
 						$value = $sent_data[$key];
 					} else {
 						if ( is_network_admin() ) {
-							$parent_option = ( isset( $field['parent_option'] ) ) ? $field['parent_option'] : Tribe__Events__Events::OPTIONNAMENETWORK;
+							$parent_option = ( isset( $field['parent_option'] ) ) ? $field['parent_option'] : Tribe__Events__Main::OPTIONNAMENETWORK;
 						}
 						if ( ! is_network_admin() ) {
-							$parent_option = ( isset( $field['parent_option'] ) ) ? $field['parent_option'] : Tribe__Events__Events::OPTIONNAME;
+							$parent_option = ( isset( $field['parent_option'] ) ) ? $field['parent_option'] : Tribe__Events__Main::OPTIONNAME;
 						}
 						// get the field's parent_option in order to later get the field's value
 						$parent_option = apply_filters( 'tribe_settings_do_content_parent_option', $parent_option, $key );
@@ -186,11 +186,11 @@ if ( ! class_exists( 'Tribe__Events__Settings_Tab' ) ) {
 							}
 						} else {
 							// there's a parent option
-							if ( $parent_option == Tribe__Events__Events::OPTIONNAME ) {
-								// get the options from Tribe__Events__Events if we're getting the main array
-								$value = Tribe__Events__Events::getOption( $key, $default );
-							} elseif ( $parent_option == Tribe__Events__Events::OPTIONNAMENETWORK ) {
-								$value = Tribe__Events__Events::instance()->getNetworkOption( $key, $default );
+							if ( $parent_option == Tribe__Events__Main::OPTIONNAME ) {
+								// get the options from Tribe__Events__Main if we're getting the main array
+								$value = Tribe__Events__Main::getOption( $key, $default );
+							} elseif ( $parent_option == Tribe__Events__Main::OPTIONNAMENETWORK ) {
+								$value = Tribe__Events__Main::instance()->getNetworkOption( $key, $default );
 							} else {
 								// else, get the parent option normally
 								if ( is_network_admin() ) {
