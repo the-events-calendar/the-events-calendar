@@ -236,13 +236,13 @@ class Tribe__Events__Pro__Mini_Calendar {
 		// Load up stylesheet from theme or plugin
 		if ( $styleUrl && $stylesheet_option == 'tribe' ) {
 			wp_enqueue_style( 'widget-calendar-pro-style', Tribe__Events__Pro__Main::instance()->pluginUrl . 'resources/widget-calendar-full.css', array(), apply_filters( 'tribe_events_pro_css_version', Tribe__Events__Pro__Main::VERSION ) );
-			wp_enqueue_style( Tribe__Events__Events::POSTTYPE . '-widget-calendar-pro-style', $styleUrl, array(), apply_filters( 'tribe_events_pro_css_version', Tribe__Events__Pro__Main::VERSION ) );
+			wp_enqueue_style( Tribe__Events__Main::POSTTYPE . '-widget-calendar-pro-style', $styleUrl, array(), apply_filters( 'tribe_events_pro_css_version', Tribe__Events__Pro__Main::VERSION ) );
 		} else {
-			wp_enqueue_style( Tribe__Events__Events::POSTTYPE . '-widget-calendar-pro-style', $styleUrl, array(), apply_filters( 'tribe_events_pro_css_version', Tribe__Events__Pro__Main::VERSION ) );
+			wp_enqueue_style( Tribe__Events__Main::POSTTYPE . '-widget-calendar-pro-style', $styleUrl, array(), apply_filters( 'tribe_events_pro_css_version', Tribe__Events__Pro__Main::VERSION ) );
 		}
 
 		if ( $styleOverrideUrl ) {
-			wp_enqueue_style( Tribe__Events__Events::POSTTYPE . '--widget-calendar-pro-override-style', $styleOverrideUrl, array(), apply_filters( 'tribe_events_pro_css_version', Tribe__Events__Pro__Main::VERSION ) );
+			wp_enqueue_style( Tribe__Events__Main::POSTTYPE . '--widget-calendar-pro-override-style', $styleOverrideUrl, array(), apply_filters( 'tribe_events_pro_css_version', Tribe__Events__Pro__Main::VERSION ) );
 		}
 
 		$widget_data = array( "ajaxurl" => admin_url( 'admin-ajax.php', ( is_ssl() ? 'https' : 'http' ) ) );
@@ -323,7 +323,7 @@ class Tribe__Events__Pro__Mini_Calendar {
 	public function ajax_change_month_set_date( $query ) {
 
 		if ( isset( $_POST["eventDate"] ) && $_POST["eventDate"] ) {
-			$query->set( 'end_date', date( 'Y-m-d', strtotime( Tribe__Events__Events::instance()->nextMonth( $_POST["eventDate"] . '-01' ) ) - ( 24 * 3600 ) ) );
+			$query->set( 'end_date', date( 'Y-m-d', strtotime( Tribe__Events__Main::instance()->nextMonth( $_POST["eventDate"] . '-01' ) ) - ( 24 * 3600 ) ) );
 			$query->set( 'eventDisplay', 'month' );
 		}
 

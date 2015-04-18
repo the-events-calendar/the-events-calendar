@@ -62,7 +62,7 @@ class Tribe__Events__Pro__APM_Filters__APM_Filters {
 			),
 			'ecp_cat' => array(
 				'name' => __('Event Cats', 'tribe-events-calendar-pro'),
-				'taxonomy' => Tribe__Events__Events::TAXONOMY,
+				'taxonomy' => Tribe__Events__Main::TAXONOMY,
 				'disable' => 'columns'
 			),
 			'ecp_title' => array(
@@ -83,7 +83,7 @@ class Tribe__Events__Pro__APM_Filters__APM_Filters {
 		);
 		
 		global $ecp_apm;
-		$ecp_apm = tribe_setup_apm( Tribe__Events__Events::POSTTYPE, $filter_args );
+		$ecp_apm = tribe_setup_apm( Tribe__Events__Main::POSTTYPE, $filter_args );
 		$ecp_apm->do_metaboxes = false;
 		$ecp_apm->add_taxonomies = false;
 	}

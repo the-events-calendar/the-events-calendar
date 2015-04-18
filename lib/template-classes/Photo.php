@@ -63,7 +63,7 @@ if( !class_exists( 'Tribe__Events__Pro__Templates__Photo' )){
 		 */
 		function ajax_response() {
 
-			$tec = Tribe__Events__Events::instance();
+			$tec = Tribe__Events__Main::instance();
 
 			Tribe__Events__Query::init();
 
@@ -76,7 +76,7 @@ if( !class_exists( 'Tribe__Events__Pro__Templates__Photo' )){
 
 			$args = array(
 				'eventDisplay' => 'list',
-				'post_type'    => Tribe__Events__Events::POSTTYPE,
+				'post_type'    => Tribe__Events__Main::POSTTYPE,
 				'post_status'  => $post_status,
 				'paged'        => $tribe_paged
 			);
@@ -84,7 +84,7 @@ if( !class_exists( 'Tribe__Events__Pro__Templates__Photo' )){
 			$view_state = 'photo';
 
 			if ( isset( $_POST['tribe_event_category'] ) ) {
-				$args[Tribe__Events__Events::TAXONOMY] = $_POST['tribe_event_category'];
+				$args[Tribe__Events__Main::TAXONOMY] = $_POST['tribe_event_category'];
 			}
 
 			/* if past view */

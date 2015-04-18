@@ -36,7 +36,7 @@ if ( ! class_exists( 'Tribe__Events__Pro__Template_Factory' ) ) {
 				case 'ajax-weekview' :
 					$ajax_data = array(
 						"ajaxurl"   => admin_url( 'admin-ajax.php', ( is_ssl() ? 'https' : 'http' ) ),
-						'post_type' => Tribe__Events__Events::POSTTYPE
+						'post_type' => Tribe__Events__Main::POSTTYPE
 					);
 					$path1     = Tribe__Events__Template_Factory::getMinFile( $vendor_url . 'nanoscroller/jquery.nanoscroller.js', true );
 					$path2     = Tribe__Events__Template_Factory::getMinFile( $resources_url . 'tribe-events-week.js', true );
@@ -74,7 +74,7 @@ if ( ! class_exists( 'Tribe__Events__Pro__Template_Factory' ) ) {
 					$data   = array(
 						'ajaxurl'  => admin_url( 'admin-ajax.php', $http ),
 						'nonce'    => wp_create_nonce( 'tribe_geosearch' ),
-						'map_view' => ( Tribe__Events__Events::instance()->displaying == 'map' ) ? true : false
+						'map_view' => ( Tribe__Events__Main::instance()->displaying == 'map' ) ? true : false
 					);
 
 					wp_localize_script( 'tribe-events-pro-geoloc', 'GeoLoc', $data );

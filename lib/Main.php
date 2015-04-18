@@ -375,7 +375,7 @@
 			 */
 			function reset_page_title( $title, $depth = true ){
 				global $wp_query;
-				$tec = Tribe__Events__Events::instance();
+				$tec = Tribe__Events__Main::instance();
 				$date_format = apply_filters( 'tribe_events_pro_page_title_date_format', tribe_get_date_format( true ) );
 
 				if( tribe_is_showing_all() ){
@@ -447,7 +447,7 @@
 							$get_recurrence_event = new WP_Query( $recurrence_check );
 							// if a reccurence event actually exists then proceed with redirection
 							if( !empty($get_recurrence_event->posts) && tribe_is_recurring_event($get_recurrence_event->posts[0]->ID) && get_post_status($get_recurrence_event->posts[0]) == 'publish' ){
-								$current_url = Tribe__Events__Events::instance()->getLink('all', $get_recurrence_event->posts[0]->ID);
+								$current_url = Tribe__Events__Main::instance()->getLink('all', $get_recurrence_event->posts[0]->ID);
 							}
 							break;
 						}
@@ -477,14 +477,14 @@
 			}
 
 			public function filter_canonical_link_on_recurring_events() {
-				if ( is_singular(Tribe__Events__Events::POSTTYPE) && get_query_var('eventDate') && has_action('wp_head', 'rel_canonical') ) {
+				if ( is_singular(Tribe__Events__Main::POSTTYPE) && get_query_var('eventDate') && has_action('wp_head', 'rel_canonical') ) {
 					remove_action( 'wp_head', 'rel_canonical' );
 					add_action( 'wp_head', array( $this, 'output_recurring_event_canonical_link' ) );
 				}
 			}
 
 			public function output_recurring_event_canonical_link() {
-				// set the EventStartDate so Tribe__Events__Events can filter the permalink appropriately
+				// set the EventStartDate so Tribe__Events__Main can filter the permalink appropriately
 				$post = get_post(get_queried_object_id());
 				$post->EventStartDate = get_query_var('eventDate');
 
@@ -569,7 +569,7 @@
 					return true;
 				}
 				if($show_box == 'hide') {
-					remove_post_type_support( Tribe__Events__Events::POSTTYPE, 'custom-fields' );
+					remove_post_type_support( Tribe__Events__Main::POSTTYPE, 'custom-fields' );
 					return false;
 				}
 				if(empty($show_box)){
@@ -577,7 +577,7 @@
 					$meta_keys = $wpdb->get_results(
 						"SELECT DISTINCT pm.meta_key FROM $wpdb->postmeta pm
 										LEFT JOIN $wpdb->posts p ON p.ID = pm.post_id
-										WHERE p.post_type = '" . Tribe__Events__Events::POSTTYPE . "'
+										WHERE p.post_type = '" . Tribe__Events__Main::POSTTYPE . "'
 										AND pm.meta_key NOT LIKE '_wp_%'
 										AND pm.meta_key NOT IN (
 											'_edit_last',
@@ -599,7 +599,7 @@
 											'_FacebookID')"
 					);
 					if( empty($meta_keys) ) {
-						remove_post_type_support( Tribe__Events__Events::POSTTYPE, 'custom-fields' );
+						remove_post_type_support( Tribe__Events__Main::POSTTYPE, 'custom-fields' );
 						$show_box = 'hide';
 						$r = false;
 					} else {
@@ -634,7 +634,7 @@
 				$this->plural_event_label = tribe_get_event_label_plural();
 				switch ( $tab ) {
 					case 'display':
-						$fields = Tribe__Events__Events::array_insert_after_key(
+						$fields = Tribe__Events__Main::array_insert_after_key(
 							'tribeDisableTribeBar', $fields, array(
 								'hideRelatedEvents' => array(
 									'type'            => 'checkbox_bool',
@@ -645,7 +645,7 @@
 								),
 							)
 						);
-						$fields = Tribe__Events__Events::array_insert_after_key(
+						$fields = Tribe__Events__Main::array_insert_after_key(
 							'monthAndYearFormat', $fields, array(
 								'weekDayFormat' => array(
 									'type' => 'text',
@@ -657,7 +657,7 @@
 								),
 							)
 						);
-						$fields = Tribe__Events__Events::array_insert_after_key(
+						$fields = Tribe__Events__Main::array_insert_after_key(
 							'monthEventAmount', $fields, array(
 								'week_view_hide_weekends' => array(
 									'type'            => 'checkbox_bool',
@@ -756,7 +756,7 @@
 
 			private function get_rewrite_generator( WP_Rewrite $wp_rewrite ) {
 				$generator = new Tribe__Events__Pro__Rewrite_Rule_Generator( $wp_rewrite );
-				$tec = Tribe__Events__Events::instance();
+				$tec = Tribe__Events__Main::instance();
 
 				$base = trailingslashit( $tec->rewriteSlug );
 				$generator->set_base( $base );
@@ -941,7 +941,7 @@
 				}
 				global $wpdb;
 				$parent_sql = "SELECT ID FROM {$wpdb->posts} WHERE post_name=%s AND post_type=%s";
-				$parent_sql = $wpdb->prepare( $parent_sql, $slug, Tribe__Events__Events::POSTTYPE );
+				$parent_sql = $wpdb->prepare( $parent_sql, $slug, Tribe__Events__Main::POSTTYPE );
 				$parent_id = $wpdb->get_var($parent_sql);
 
 				$parent_start = get_post_meta($parent_id, '_EventStartDate', true);
@@ -956,7 +956,7 @@
 					$post_id = $parent_id;
 				} else {
 					$child_sql = "SELECT ID FROM {$wpdb->posts} p INNER JOIN {$wpdb->postmeta} m ON m.post_id=p.ID AND m.meta_key='_EventStartDate' WHERE p.post_parent=%d AND p.post_type=%s AND m.meta_value=%s";
-					$child_sql = $wpdb->prepare( $child_sql, $parent_id, Tribe__Events__Events::POSTTYPE, $date.' '.$parent_start_time );
+					$child_sql = $wpdb->prepare( $child_sql, $parent_id, Tribe__Events__Main::POSTTYPE, $date.' '.$parent_start_time );
 					$post_id = $wpdb->get_var($child_sql);
 				}
 
@@ -977,11 +977,11 @@
 			 */
 			public function select_page_template( $template ) {
 				// venue view
-				if( is_singular( Tribe__Events__Events::VENUE_POST_TYPE ) ) {
+				if( is_singular( Tribe__Events__Main::VENUE_POST_TYPE ) ) {
 					$template = Tribe__Events__Templates::getTemplateHierarchy( 'pro/single-venue' );
 				}
 				// organizer view
-				if( is_singular( Tribe__Events__Events::ORGANIZER_POST_TYPE ) ) {
+				if( is_singular( Tribe__Events__Main::ORGANIZER_POST_TYPE ) ) {
 					$template = Tribe__Events__Templates::getTemplateHierarchy( 'pro/single-organizer' );
 				}
 				// week view
@@ -1049,10 +1049,10 @@
 			public function get_current_template_class( $class ) {
 
 				// venue view
-				if ( is_singular( Tribe__Events__Events::VENUE_POST_TYPE ) ) {
+				if ( is_singular( Tribe__Events__Main::VENUE_POST_TYPE ) ) {
 					$class = 'Tribe__Events__Pro__Templates__Single_Venue';
 				} // organizer view
-				elseif ( is_singular( Tribe__Events__Events::ORGANIZER_POST_TYPE ) ) {
+				elseif ( is_singular( Tribe__Events__Main::ORGANIZER_POST_TYPE ) ) {
 					$class = 'Tribe__Events__Pro__Templates__Single_Organizer';
 				} // week view
 				elseif ( tribe_is_week() || tribe_is_ajax_view_request( 'week' ) ) {
@@ -1105,13 +1105,13 @@
 			 * @return void
 			 */
 			public function admin_enqueue_scripts() {
-				wp_enqueue_script( Tribe__Events__Events::POSTTYPE.'-premium-admin', $this->pluginUrl . 'resources/events-admin.js', array( 'jquery-ui-datepicker' ), apply_filters( 'tribe_events_pro_js_version', Tribe__Events__Pro__Main::VERSION ), true );
-				$data = apply_filters( 'tribe_events_pro_localize_script', array(), 'TribeEventsProAdmin', Tribe__Events__Events::POSTTYPE.'-premium-admin' );
-				wp_localize_script( Tribe__Events__Events::POSTTYPE.'-premium-admin', 'TribeEventsProAdmin', $data);
+				wp_enqueue_script( Tribe__Events__Main::POSTTYPE.'-premium-admin', $this->pluginUrl . 'resources/events-admin.js', array( 'jquery-ui-datepicker' ), apply_filters( 'tribe_events_pro_js_version', Tribe__Events__Pro__Main::VERSION ), true );
+				$data = apply_filters( 'tribe_events_pro_localize_script', array(), 'TribeEventsProAdmin', Tribe__Events__Main::POSTTYPE.'-premium-admin' );
+				wp_localize_script( Tribe__Events__Main::POSTTYPE.'-premium-admin', 'TribeEventsProAdmin', $data);
 			}
 
 			public function admin_enqueue_styles() {
-				wp_enqueue_style( Tribe__Events__Events::POSTTYPE.'-premium-admin', $this->pluginUrl . 'resources/events-admin.css', array(), apply_filters( 'tribe_events_pro_css_version', Tribe__Events__Pro__Main::VERSION ) );
+				wp_enqueue_style( Tribe__Events__Main::POSTTYPE.'-premium-admin', $this->pluginUrl . 'resources/events-admin.css', array(), apply_filters( 'tribe_events_pro_css_version', Tribe__Events__Pro__Main::VERSION ) );
 			}
 
 			/**
@@ -1222,7 +1222,7 @@
 				if( class_exists( 'TribeEvents' ) ) {
 					$actions['settings'] = '<a href="' . add_query_arg(
 							array(
-								'post_type' => Tribe__Events__Events::POSTTYPE,
+								'post_type' => Tribe__Events__Main::POSTTYPE,
 								'page'      => 'tribe-events-calendar'
 							), admin_url( 'edit.php' )
 						) . '">' . __( 'Settings', 'tribe-events-calendar-pro' ) . '</a>';
@@ -1253,26 +1253,26 @@
 			public function updatePostMessages ($messages) {
 				global $post, $post_ID;
 
-				$messages[Tribe__Events__Events::VENUE_POST_TYPE][1] = sprintf( __('Venue updated. <a href="%s">View venue</a>', 'tribe-events-calendar-pro'), esc_url( get_permalink($post_ID) ) );
+				$messages[Tribe__Events__Main::VENUE_POST_TYPE][1] = sprintf( __('Venue updated. <a href="%s">View venue</a>', 'tribe-events-calendar-pro'), esc_url( get_permalink($post_ID) ) );
 				/* translators: %s: date and time of the revision */
-				$messages[Tribe__Events__Events::VENUE_POST_TYPE][6] = sprintf( __('Venue published. <a href="%s">View venue</a>', 'tribe-events-calendar-pro'), esc_url( get_permalink($post_ID) ) );
-				$messages[Tribe__Events__Events::VENUE_POST_TYPE][8] = sprintf( __('Venue submitted. <a target="_blank" href="%s">Preview venue</a>', 'tribe-events-calendar-pro'), esc_url( add_query_arg( 'preview', 'true', get_permalink($post_ID) ) ) );
-				$messages[ Tribe__Events__Events::VENUE_POST_TYPE ][9]  = sprintf(
+				$messages[Tribe__Events__Main::VENUE_POST_TYPE][6] = sprintf( __('Venue published. <a href="%s">View venue</a>', 'tribe-events-calendar-pro'), esc_url( get_permalink($post_ID) ) );
+				$messages[Tribe__Events__Main::VENUE_POST_TYPE][8] = sprintf( __('Venue submitted. <a target="_blank" href="%s">Preview venue</a>', 'tribe-events-calendar-pro'), esc_url( add_query_arg( 'preview', 'true', get_permalink($post_ID) ) ) );
+				$messages[ Tribe__Events__Main::VENUE_POST_TYPE ][9]  = sprintf(
 					__( 'Venue scheduled for: <strong>%1$s</strong>. <a target="_blank" href="%2$s">Preview venue</a>', 'tribe-events-calendar-pro' ),
 					// translators: Publish box date format, see http://php.net/date
 					date_i18n( __( 'M j, Y @ G:i', 'tribe-events-calendar-pro' ), strtotime( $post->post_date ) ), esc_url( get_permalink( $post_ID ) )
 				);
-				$messages[Tribe__Events__Events::VENUE_POST_TYPE][10] = sprintf( __('Venue draft updated. <a target="_blank" href="%s">Preview venue</a>', 'tribe-events-calendar-pro'), esc_url( add_query_arg( 'preview', 'true', get_permalink($post_ID) ) ) );
+				$messages[Tribe__Events__Main::VENUE_POST_TYPE][10] = sprintf( __('Venue draft updated. <a target="_blank" href="%s">Preview venue</a>', 'tribe-events-calendar-pro'), esc_url( add_query_arg( 'preview', 'true', get_permalink($post_ID) ) ) );
 
-				$messages[Tribe__Events__Events::ORGANIZER_POST_TYPE][1] = sprintf( __('Organizer updated. <a href="%s">View organizer</a>', 'tribe-events-calendar'), esc_url( get_permalink($post_ID) ) );
-				$messages[Tribe__Events__Events::ORGANIZER_POST_TYPE][6] = sprintf( __('Organizer published. <a href="%s">View organizer</a>', 'tribe-events-calendar'), esc_url( get_permalink($post_ID) ) );
-				$messages[Tribe__Events__Events::ORGANIZER_POST_TYPE][8] = sprintf( __('Organizer submitted. <a target="_blank" href="%s">Preview organizer</a>', 'tribe-events-calendar'), esc_url( add_query_arg( 'preview', 'true', get_permalink($post_ID) ) ) );
-				$messages[ Tribe__Events__Events::ORGANIZER_POST_TYPE ][9]  = sprintf(
+				$messages[Tribe__Events__Main::ORGANIZER_POST_TYPE][1] = sprintf( __('Organizer updated. <a href="%s">View organizer</a>', 'tribe-events-calendar'), esc_url( get_permalink($post_ID) ) );
+				$messages[Tribe__Events__Main::ORGANIZER_POST_TYPE][6] = sprintf( __('Organizer published. <a href="%s">View organizer</a>', 'tribe-events-calendar'), esc_url( get_permalink($post_ID) ) );
+				$messages[Tribe__Events__Main::ORGANIZER_POST_TYPE][8] = sprintf( __('Organizer submitted. <a target="_blank" href="%s">Preview organizer</a>', 'tribe-events-calendar'), esc_url( add_query_arg( 'preview', 'true', get_permalink($post_ID) ) ) );
+				$messages[ Tribe__Events__Main::ORGANIZER_POST_TYPE ][9]  = sprintf(
 					__( 'Organizer scheduled for: <strong>%1$s</strong>. <a target="_blank" href="%2$s">Preview organizer</a>', 'tribe-events-calendar' ),
 					// translators: Publish box date format, see http://php.net/date
 					date_i18n( __( 'M j, Y @ G:i', 'tribe-events-calendar' ), strtotime( $post->post_date ) ), esc_url( get_permalink( $post_ID ) )
 				);
-				$messages[Tribe__Events__Events::ORGANIZER_POST_TYPE][10] = sprintf( __('Organizer draft updated. <a target="_blank" href="%s">Preview organizer</a>', 'tribe-events-calendar'), esc_url( add_query_arg( 'preview', 'true', get_permalink($post_ID) ) ) );
+				$messages[Tribe__Events__Main::ORGANIZER_POST_TYPE][10] = sprintf( __('Organizer draft updated. <a target="_blank" href="%s">Preview organizer</a>', 'tribe-events-calendar'), esc_url( add_query_arg( 'preview', 'true', get_permalink($post_ID) ) ) );
 
 				return $messages;
 
@@ -1306,10 +1306,10 @@
 			 * @return void
 			 */
 			public function allow_cpt_search() {
-				$tec = Tribe__Events__Events::instance();
+				$tec = Tribe__Events__Main::instance();
 				$venue_args = $tec->getVenuePostTypeArgs();
 				$venue_args['exclude_from_search'] = false;
-				register_post_type( Tribe__Events__Events::VENUE_POST_TYPE, apply_filters( 'tribe_events_register_venue_type_args', $venue_args ) );
+				register_post_type( Tribe__Events__Main::VENUE_POST_TYPE, apply_filters( 'tribe_events_register_venue_type_args', $venue_args ) );
 			}
 
 			/**
@@ -1343,10 +1343,10 @@
 			public function ugly_link( $eventUrl, $type, $secondary ){
 				switch( $type ) {
 					case 'week':
-						$eventUrl = add_query_arg('post_type', Tribe__Events__Events::POSTTYPE, home_url() );
+						$eventUrl = add_query_arg('post_type', Tribe__Events__Main::POSTTYPE, home_url() );
 						// if we're on an Event Cat, show the cat link, except for home.
-						if ( $type !== 'home' && is_tax( Tribe__Events__Events::TAXONOMY ) ) {
-							$eventUrl = add_query_arg( Tribe__Events__Events::TAXONOMY, get_query_var('term'), $eventUrl );
+						if ( $type !== 'home' && is_tax( Tribe__Events__Main::TAXONOMY ) ) {
+							$eventUrl = add_query_arg( Tribe__Events__Main::TAXONOMY, get_query_var('term'), $eventUrl );
 						}
 						$eventUrl = add_query_arg( array( 'eventDisplay' => $type ), $eventUrl );
 						if ( $secondary ) {
@@ -1385,7 +1385,7 @@
 			}
 
 			/**
-			 * filter Tribe__Events__Events::getLink for pro views
+			 * filter Tribe__Events__Main::getLink for pro views
 			 *
 			 * @param  string $eventUrl
 			 * @param  string $type
@@ -1537,10 +1537,10 @@
 			 * @param bool $network_deactivating
 			 */
 			public static function deactivate( $network_deactivating ) {
-				if ( !class_exists( 'Tribe__Events__Events' ) ) {
+				if ( !class_exists( 'Tribe__Events__Main' ) ) {
 					return; // can't do anything since core isn't around
 				}
-				require_once( Tribe__Events__Events::instance()->pluginPath . '/lib/Abstract_Deactivation.php' );
+				require_once( Tribe__Events__Main::instance()->pluginPath . '/lib/Abstract_Deactivation.php' );
 				$deactivation = new Tribe__Events__Pro__Deactivation( $network_deactivating );
 				add_action( 'shutdown', array( $deactivation, 'deactivate' ) );
 			}

@@ -56,7 +56,7 @@ if ( ! class_exists( 'Tribe__Events__Pro__Templates__Map' ) ) {
 			}
 
 			$defaults = array(
-				'post_type'      => Tribe__Events__Events::POSTTYPE,
+				'post_type'      => Tribe__Events__Main::POSTTYPE,
 				'posts_per_page' => tribe_get_option( 'postsPerPage', 10 ),
 				'paged'          => $tribe_paged,
 				'post_status'    => $post_status,
@@ -72,11 +72,11 @@ if ( ! class_exists( 'Tribe__Events__Pro__Templates__Map' ) ) {
 			}
 
 			if ( isset( $_POST['tribe_event_category'] ) ) {
-				$defaults[ Tribe__Events__Events::TAXONOMY ] = $_POST['tribe_event_category'];
+				$defaults[ Tribe__Events__Main::TAXONOMY ] = $_POST['tribe_event_category'];
 			}
 
-			if ( isset( $_POST[ Tribe__Events__Events::TAXONOMY ] ) ) {
-				$defaults[ Tribe__Events__Events::TAXONOMY ] = $_POST[ Tribe__Events__Events::TAXONOMY ];
+			if ( isset( $_POST[ Tribe__Events__Main::TAXONOMY ] ) ) {
+				$defaults[ Tribe__Events__Main::TAXONOMY ] = $_POST[ Tribe__Events__Main::TAXONOMY ];
 			}
 
 			$query       = Tribe__Events__Query::getEvents( $defaults, true );
@@ -88,11 +88,11 @@ if ( ! class_exists( 'Tribe__Events__Pro__Templates__Map' ) ) {
 
 				Tribe__Events__Pro__Geo_Loc::instance()->assign_distance_to_posts( $query->posts, $lat, $lng );
 			} elseif ( ! $have_events && isset( $_POST['tribe-bar-geoloc'] ) ) {
-				Tribe__Events__Events::setNotice( 'event-search-no-results', sprintf( __( 'No results were found for events in or near <strong>"%s"</strong>.', 'tribe-events-calendar-pro' ), esc_html( $_POST['tribe-bar-geoloc'] ) ) );
+				Tribe__Events__Main::setNotice( 'event-search-no-results', sprintf( __( 'No results were found for events in or near <strong>"%s"</strong>.', 'tribe-events-calendar-pro' ), esc_html( $_POST['tribe-bar-geoloc'] ) ) );
 			} elseif ( ! $have_events && isset( $_POST['tribe_event_category'] ) ) {
-				Tribe__Events__Events::setNotice( 'events-not-found', sprintf( __( 'No matching events listed under %s. Please try viewing the full calendar for a complete list of events.', 'tribe-events-calendar' ), esc_html( $_POST['tribe_event_category'] ) ) );
+				Tribe__Events__Main::setNotice( 'events-not-found', sprintf( __( 'No matching events listed under %s. Please try viewing the full calendar for a complete list of events.', 'tribe-events-calendar' ), esc_html( $_POST['tribe_event_category'] ) ) );
 			} elseif ( ! $have_events ) {
-				Tribe__Events__Events::setNotice( 'event-search-no-results', __( 'There were no results found.', 'tribe-events-calendar-pro' ) );
+				Tribe__Events__Main::setNotice( 'event-search-no-results', __( 'There were no results found.', 'tribe-events-calendar-pro' ) );
 			}
 
 			$response = array(
@@ -111,7 +111,7 @@ if ( ! class_exists( 'Tribe__Events__Pro__Templates__Map' ) ) {
 				$data                               = $query->posts;
 				$post                               = $query->posts[0];
 				$wp_query                           = $query;
-				Tribe__Events__Events::instance()->displaying = 'map';
+				Tribe__Events__Main::instance()->displaying = 'map';
 
 				ob_start();
 
@@ -121,7 +121,7 @@ if ( ! class_exists( 'Tribe__Events__Pro__Templates__Map' ) ) {
 			} else {
 				global $wp_query;
 				$wp_query = $query;
-				Tribe__Events__Events::instance()->setDisplay();
+				Tribe__Events__Main::instance()->setDisplay();
 
 				ob_start();
 

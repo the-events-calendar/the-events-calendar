@@ -13,7 +13,7 @@ class Tribe__Events__Pro__Updates__Recurrence_Meta_To_Child_Post_Converter_Test 
 			'post_title' => __CLASS__,
 			'post_content' => __FUNCTION__,
 			'post_status' => 'publish',
-			'post_type' => Tribe__Events__Events::POSTTYPE,
+			'post_type' => Tribe__Events__Main::POSTTYPE,
 		));
 		add_post_meta($event_id, '_EventStartDate', '2014-05-01 16:00:00');
 		add_post_meta($event_id, '_EventStartDate', '2014-05-08 16:00:00');
@@ -49,7 +49,7 @@ class Tribe__Events__Pro__Updates__Recurrence_Meta_To_Child_Post_Converter_Test 
 		$this->assertEquals( '2014-05-01 17:00:00', get_post_meta( $event_id, '_EventEndDate', true) );
 
 		$children = get_posts(array(
-			'post_type' => Tribe__Events__Events::POSTTYPE,
+			'post_type' => Tribe__Events__Main::POSTTYPE,
 			'post_parent' => $event_id,
 			'post_status' => 'publish',
 			'meta_key' => '_EventStartDate',

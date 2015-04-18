@@ -51,11 +51,11 @@ class Tribe__Events__Pro__Recurrence_Meta {
 		add_action( 'admin_notices', array( __CLASS__, 'showRecurrenceErrorFlash' ) );
 		add_action( 'tribe_recurring_event_error', array( __CLASS__, 'setupRecurrenceErrorMsg' ), 10, 2 );
 
-		add_filter( 'manage_' . Tribe__Events__Events::POSTTYPE . '_posts_columns', array(
+		add_filter( 'manage_' . Tribe__Events__Main::POSTTYPE . '_posts_columns', array(
 			__CLASS__,
 			'list_table_column_headers'
 		) );
-		add_action( 'manage_' . Tribe__Events__Events::POSTTYPE . '_posts_custom_column', array(
+		add_action( 'manage_' . Tribe__Events__Main::POSTTYPE . '_posts_custom_column', array(
 			__CLASS__,
 			'populate_custom_list_table_columns'
 		), 10, 2 );
@@ -160,7 +160,7 @@ class Tribe__Events__Pro__Recurrence_Meta {
 	}
 
 	public static function add_recurring_event_post_classes( $classes, $class, $post_id ) {
-		if ( get_post_type( $post_id ) == Tribe__Events__Events::POSTTYPE && tribe_is_recurring_event( $post_id ) ) {
+		if ( get_post_type( $post_id ) == Tribe__Events__Main::POSTTYPE && tribe_is_recurring_event( $post_id ) ) {
 			$classes[] = 'tribe-recurring-event';
 
 			$post = get_post( $post_id );
@@ -177,7 +177,7 @@ class Tribe__Events__Pro__Recurrence_Meta {
 	public static function edit_post_row_actions( $actions, $post ) {
 		if ( tribe_is_recurring_event( $post ) ) {
 			unset( $actions['inline hide-if-no-js'] );
-			$post_type_object   = get_post_type_object( Tribe__Events__Events::POSTTYPE );
+			$post_type_object   = get_post_type_object( Tribe__Events__Main::POSTTYPE );
 			$is_first_in_series = empty( $post->post_parent );
 			$first_id_in_series = $post->post_parent ? $post->post_parent : $post->ID;
 			if ( isset( $actions['edit'] ) && 'trash' != $post->post_status ) {
@@ -187,7 +187,7 @@ class Tribe__Events__Pro__Recurrence_Meta {
 					if ( ! $is_first_in_series ) {
 						$split_actions['split_all'] = sprintf( '<a href="%s" class="tribe-split tribe-split-all" title="%s">%s</a>', esc_url( wp_nonce_url( self::get_split_series_url( $post->ID, false, true ), 'tribe_split_' . $post->ID ) ), esc_attr( __( 'Split the series in two at this point, creating a new series out of this and all subsequent events', 'tribe-events-calendar-pro' ) ), __( 'Edit Upcoming', 'tribe-events-calendar-pro' ) );
 					}
-					$actions = Tribe__Events__Events::array_insert_after_key( 'edit', $actions, $split_actions );
+					$actions = Tribe__Events__Main::array_insert_after_key( 'edit', $actions, $split_actions );
 				}
 				if ( current_user_can( 'edit_post', $first_id_in_series ) ) {
 					$edit_series_url = get_edit_post_link( $first_id_in_series, 'display' );
@@ -371,7 +371,7 @@ class Tribe__Events__Pro__Recurrence_Meta {
 			global $wpdb;
 			$wpdb->update( $wpdb->posts, array( 'comment_count' => $new_count ), array(
 				'post_parent' => $parent_id,
-				'post_type'   => Tribe__Events__Events::POSTTYPE
+				'post_type'   => Tribe__Events__Main::POSTTYPE
 			) );
 
 			$child_ids = self::get_child_event_ids( $parent_id );
@@ -469,7 +469,7 @@ class Tribe__Events__Pro__Recurrence_Meta {
 		global $current_screen;
 
 		// only do this when editing events
-		if ( is_admin() && $current_screen->id == Tribe__Events__Events::POSTTYPE ) {
+		if ( is_admin() && $current_screen->id == Tribe__Events__Main::POSTTYPE ) {
 			update_post_meta( $event_id, 'tribe_flash_message', $msg );
 		}
 	}
@@ -482,7 +482,7 @@ class Tribe__Events__Pro__Recurrence_Meta {
 	public static function showRecurrenceErrorFlash() {
 		global $post, $current_screen;
 
-		if ( $current_screen->base == 'post' && $current_screen->post_type == Tribe__Events__Events::POSTTYPE ) {
+		if ( $current_screen->base == 'post' && $current_screen->post_type == Tribe__Events__Main::POSTTYPE ) {
 			$msg = get_post_meta( $post->ID, 'tribe_flash_message', true );
 
 			if ( $msg ) {
@@ -601,7 +601,7 @@ class Tribe__Events__Pro__Recurrence_Meta {
 
 		$args     = wp_parse_args( $args, array(
 			'post_parent'    => $post_id,
-			'post_type'      => Tribe__Events__Events::POSTTYPE,
+			'post_type'      => Tribe__Events__Main::POSTTYPE,
 			'posts_per_page' => -1,
 			'fields'         => 'ids',
 			'post_status'    => 'any',
@@ -624,13 +624,13 @@ class Tribe__Events__Pro__Recurrence_Meta {
 		/** @var wpdb $wpdb */
 		global $wpdb;
 		$parent_sql = "SELECT ID FROM {$wpdb->posts} WHERE post_name=%s AND post_type=%s";
-		$parent_sql = $wpdb->prepare( $parent_sql, $slug, Tribe__Events__Events::POSTTYPE );
+		$parent_sql = $wpdb->prepare( $parent_sql, $slug, Tribe__Events__Main::POSTTYPE );
 		$parent_id  = $wpdb->get_var( $parent_sql );
 		if ( empty( $parent_id ) ) {
 			return array();
 		}
 		$children_sql = "SELECT ID FROM {$wpdb->posts} WHERE ID=%d OR post_parent=%d AND post_type=%s";
-		$children_sql = $wpdb->prepare( $children_sql, $parent_id, $parent_id, Tribe__Events__Events::POSTTYPE );
+		$children_sql = $wpdb->prepare( $children_sql, $parent_id, $parent_id, Tribe__Events__Main::POSTTYPE );
 		$all_ids      = $wpdb->get_col( $children_sql );
 
 		if ( empty( $all_ids ) ) {
@@ -683,7 +683,7 @@ class Tribe__Events__Pro__Recurrence_Meta {
 		// don't use self::get_child_event_ids() due to caching that hasn't yet flushed
 		$existing_instances = get_posts( array(
 			'post_parent'    => $event_id,
-			'post_type'      => Tribe__Events__Events::POSTTYPE,
+			'post_type'      => Tribe__Events__Main::POSTTYPE,
 			'posts_per_page' => - 1,
 			'fields'         => 'ids',
 			'post_status'    => get_post_stati(),
@@ -871,7 +871,7 @@ class Tribe__Events__Pro__Recurrence_Meta {
 		}
 
 		$recurrence_rules = Tribe__Events__Pro__Recurrence_Meta::getRecurrenceMeta( $postId );
-		$start_date       = Tribe__Events__Events::get_series_start_date( $postId );
+		$start_date       = Tribe__Events__Main::get_series_start_date( $postId );
 
 		$output_text = empty( $recurrence_rules['recCustomRecurrenceDescription'] ) ? self::recurrenceToText( $recurrence_rules, $start_date ) : $recurrence_rules['recCustomRecurrenceDescription'];
 
@@ -1100,7 +1100,7 @@ class Tribe__Events__Pro__Recurrence_Meta {
 		if ( $id == 'general' ) {
 
 			// we want to inject the hiding subsequent occurrences into the general section directly after "Live update AJAX"
-			$args = Tribe__Events__Events::array_insert_after_key( 'liveFiltersUpdate', $args, array(
+			$args = Tribe__Events__Main::array_insert_after_key( 'liveFiltersUpdate', $args, array(
 				'hideSubsequentRecurrencesDefault' => array(
 					'type'            => 'checkbox_bool',
 					'label'           => __( 'Recurring event instances', 'tribe-events-calendar-pro' ),
@@ -1161,7 +1161,7 @@ class Tribe__Events__Pro__Recurrence_Meta {
 	 * @return void
 	 */
 	public static function combineRecurringRequestIds() {
-		if ( isset( $_REQUEST['post_type'] ) && $_REQUEST['post_type'] == Tribe__Events__Events::POSTTYPE && ! empty( $_REQUEST['post'] ) && is_array( $_REQUEST['post'] ) ) {
+		if ( isset( $_REQUEST['post_type'] ) && $_REQUEST['post_type'] == Tribe__Events__Main::POSTTYPE && ! empty( $_REQUEST['post'] ) && is_array( $_REQUEST['post'] ) ) {
 			$_REQUEST['post'] = array_unique( $_REQUEST['post'] );
 		}
 	}
@@ -1200,8 +1200,8 @@ class Tribe__Events__Pro__Recurrence_Meta {
 	 * @see  Tribe__Events__Events::get_series_start_date()
 	 */
 	private static function get_series_start_date( $post_id ) {
-		if ( method_exists( 'Tribe__Events__Events', 'get_series_start_date' ) ) {
-			return Tribe__Events__Events::get_series_start_date( $post_id );
+		if ( method_exists( 'Tribe__Events__Main', 'get_series_start_date' ) ) {
+			return Tribe__Events__Main::get_series_start_date( $post_id );
 		}
 		$start_dates = tribe_get_recurrence_start_dates( $post_id );
 

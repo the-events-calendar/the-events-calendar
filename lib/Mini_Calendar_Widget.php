@@ -81,7 +81,7 @@ class Tribe__Events__Pro__Mini_Calendar_Widget extends WP_Widget {
 		);
 		$instance = wp_parse_args( (array) $instance, $defaults );
 
-		$taxonomies = get_object_taxonomies( Tribe__Events__Events::POSTTYPE, 'objects' );
+		$taxonomies = get_object_taxonomies( Tribe__Events__Main::POSTTYPE, 'objects' );
 		$taxonomies = array_reverse( $taxonomies );
 
 		$ts = Tribe__Events__Pro__Main::instance();

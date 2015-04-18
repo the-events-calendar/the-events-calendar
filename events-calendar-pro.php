@@ -31,8 +31,8 @@
 	function Tribe_ECP_Load() {
 		tribe_init_events_pro_autoloading();
 
-		$classes_exist = class_exists( 'Tribe__Events__Events' ) && class_exists( 'Tribe__Events__Pro__Main' );
-		$version_ok = defined('Tribe__Events__Events::VERSION') && version_compare( Tribe__Events__Events::VERSION, Tribe__Events__Pro__Main::REQUIRED_TEC_VERSION, '>=' );
+		$classes_exist = class_exists( 'Tribe__Events__Main' ) && class_exists( 'Tribe__Events__Pro__Main' );
+		$version_ok = defined('Tribe__Events__Main::VERSION') && version_compare( Tribe__Events__Main::VERSION, Tribe__Events__Pro__Main::REQUIRED_TEC_VERSION, '>=' );
 
 		$to_run_or_not_to_run = ( $classes_exist && $version_ok );
 		if ( apply_filters( 'tribe_ecp_to_run_or_not_to_run', $to_run_or_not_to_run ) ) {
@@ -50,7 +50,7 @@
 				return false;
 			}
 		}
-		if ( ! class_exists( 'Tribe__Events__Events' ) ) {
+		if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			add_action( 'admin_notices', 'tribe_show_fail_message' );
 		}
 	}

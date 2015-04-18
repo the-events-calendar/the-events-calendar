@@ -90,7 +90,7 @@ class Tribe_Recurring_Event_Test extends Tribe__Events__WP_UnitTestCase {
 	public function test_update_event() {
 		$start_date = date('Y-m-d', strtotime('2014-05-01'));
 		$event_args = array(
-			'post_type' => Tribe__Events__Events::POSTTYPE,
+			'post_type' => Tribe__Events__Main::POSTTYPE,
 			'post_title' => __CLASS__,
 			'post_content' => __FUNCTION__,
 			'EventStartDate' => $start_date,
@@ -124,7 +124,7 @@ class Tribe_Recurring_Event_Test extends Tribe__Events__WP_UnitTestCase {
 	public function test_nondestructive_update_event() {
 		$start_date = date('Y-m-d', strtotime('2014-05-01'));
 		$event_args = array(
-			'post_type' => Tribe__Events__Events::POSTTYPE,
+			'post_type' => Tribe__Events__Main::POSTTYPE,
 			'post_title' => __CLASS__,
 			'post_content' => __FUNCTION__,
 			'post_status' => 'publish',
@@ -142,7 +142,7 @@ class Tribe_Recurring_Event_Test extends Tribe__Events__WP_UnitTestCase {
 		);
 		$post_id = Tribe__Events__API::createEvent($event_args);
 		$original_children = get_posts(array(
-			'post_type' => Tribe__Events__Events::POSTTYPE,
+			'post_type' => Tribe__Events__Main::POSTTYPE,
 			'post_parent' => $post_id,
 			'post_status' => 'publish',
 			'fields' => 'ids',
@@ -152,7 +152,7 @@ class Tribe_Recurring_Event_Test extends Tribe__Events__WP_UnitTestCase {
 		Tribe__Events__API::updateEvent($post_id, $event_args);
 
 		$updated_children = get_posts(array(
-			'post_type' => Tribe__Events__Events::POSTTYPE,
+			'post_type' => Tribe__Events__Main::POSTTYPE,
 			'post_parent' => $post_id,
 			'post_status' => 'publish',
 			'fields' => 'ids',
@@ -166,7 +166,7 @@ class Tribe_Recurring_Event_Test extends Tribe__Events__WP_UnitTestCase {
 	public function test_update_event_with_deleted_instances() {
 		$start_date = date('Y-m-d', strtotime('2014-05-01'));
 		$event_args = array(
-			'post_type' => Tribe__Events__Events::POSTTYPE,
+			'post_type' => Tribe__Events__Main::POSTTYPE,
 			'post_title' => __CLASS__,
 			'post_content' => __FUNCTION__,
 			'post_status' => 'publish',
@@ -184,7 +184,7 @@ class Tribe_Recurring_Event_Test extends Tribe__Events__WP_UnitTestCase {
 		);
 		$post_id = Tribe__Events__API::createEvent($event_args);
 		$original_children = get_posts(array(
-			'post_type' => Tribe__Events__Events::POSTTYPE,
+			'post_type' => Tribe__Events__Main::POSTTYPE,
 			'post_parent' => $post_id,
 			'post_status' => 'publish',
 			'fields' => 'ids',
@@ -202,7 +202,7 @@ class Tribe_Recurring_Event_Test extends Tribe__Events__WP_UnitTestCase {
 
 
 		$updated_children = get_posts(array(
-			'post_type' => Tribe__Events__Events::POSTTYPE,
+			'post_type' => Tribe__Events__Main::POSTTYPE,
 			'post_parent' => $post_id,
 			'post_status' => 'publish',
 			'fields' => 'ids',
@@ -219,7 +219,7 @@ class Tribe_Recurring_Event_Test extends Tribe__Events__WP_UnitTestCase {
 	public function test_changing_start_date() {
 		$start_date = date('Y-m-d', strtotime('2014-05-01'));
 		$event_args = array(
-			'post_type' => Tribe__Events__Events::POSTTYPE,
+			'post_type' => Tribe__Events__Main::POSTTYPE,
 			'post_title' => __CLASS__,
 			'post_content' => __FUNCTION__,
 			'post_status' => 'publish',
@@ -273,7 +273,7 @@ class Tribe_Recurring_Event_Test extends Tribe__Events__WP_UnitTestCase {
 		);
 		$start_date = date('Y-m-d', strtotime('2014-05-01'));
 		$event_args = array(
-			'post_type' => Tribe__Events__Events::POSTTYPE,
+			'post_type' => Tribe__Events__Main::POSTTYPE,
 			'post_title' => __CLASS__,
 			'post_content' => __FUNCTION__,
 			'post_status' => 'publish',
@@ -297,7 +297,7 @@ class Tribe_Recurring_Event_Test extends Tribe__Events__WP_UnitTestCase {
 		Tribe__Events__API::updateEvent($post_id, $event_args);
 
 		$children = get_posts(array(
-			'post_type' => Tribe__Events__Events::POSTTYPE,
+			'post_type' => Tribe__Events__Main::POSTTYPE,
 			'post_parent' => $post_id,
 			'post_status' => 'publish',
 			'fields' => 'ids',
@@ -328,7 +328,7 @@ class Tribe_Recurring_Event_Test extends Tribe__Events__WP_UnitTestCase {
 		);
 		$start_date = date('Y-m-d', strtotime('2014-05-01'));
 		$event_args = array(
-			'post_type' => Tribe__Events__Events::POSTTYPE,
+			'post_type' => Tribe__Events__Main::POSTTYPE,
 			'post_title' => __CLASS__,
 			'post_content' => __FUNCTION__,
 			'post_status' => 'publish',
@@ -354,7 +354,7 @@ class Tribe_Recurring_Event_Test extends Tribe__Events__WP_UnitTestCase {
 		Tribe__Events__API::updateEvent($post_id, $event_args);
 
 		$children = get_posts(array(
-			'post_type' => Tribe__Events__Events::POSTTYPE,
+			'post_type' => Tribe__Events__Main::POSTTYPE,
 			'post_parent' => $post_id,
 			'post_status' => 'publish',
 			'fields' => 'ids',
@@ -372,7 +372,7 @@ class Tribe_Recurring_Event_Test extends Tribe__Events__WP_UnitTestCase {
 		}
 		$start_date = date('Y-m-d', strtotime('2014-05-01'));
 		$event_args = array(
-			'post_type' => Tribe__Events__Events::POSTTYPE,
+			'post_type' => Tribe__Events__Main::POSTTYPE,
 			'post_title' => __CLASS__,
 			'post_name' => 'test-permalinks',
 			'post_content' => __FUNCTION__,
@@ -394,7 +394,7 @@ class Tribe_Recurring_Event_Test extends Tribe__Events__WP_UnitTestCase {
 		$this->assertEquals($base_url.user_trailingslashit('2014-05-01'), get_post_permalink($post_id));
 
 		$children = get_posts(array(
-			'post_type' => Tribe__Events__Events::POSTTYPE,
+			'post_type' => Tribe__Events__Main::POSTTYPE,
 			'post_parent' => $post_id,
 			'fields' => 'ids',
 		));
@@ -408,7 +408,7 @@ class Tribe_Recurring_Event_Test extends Tribe__Events__WP_UnitTestCase {
 		}
 		$start_date = date('Y-m-d', strtotime('2014-05-01'));
 		$event_args = array(
-			'post_type' => Tribe__Events__Events::POSTTYPE,
+			'post_type' => Tribe__Events__Main::POSTTYPE,
 			'post_title' => __CLASS__,
 			'post_name' => 'test-permalinks',
 			'post_content' => __FUNCTION__,
@@ -428,7 +428,7 @@ class Tribe_Recurring_Event_Test extends Tribe__Events__WP_UnitTestCase {
 		$post_id = Tribe__Events__API::createEvent($event_args);
 
 		$children = get_posts(array(
-			'post_type' => Tribe__Events__Events::POSTTYPE,
+			'post_type' => Tribe__Events__Main::POSTTYPE,
 			'post_parent' => $post_id,
 			'fields' => 'ids',
 		));
@@ -436,7 +436,7 @@ class Tribe_Recurring_Event_Test extends Tribe__Events__WP_UnitTestCase {
 
 		$query = new WP_Query();
 		$results = $query->query(array(
-			'post_type' => Tribe__Events__Events::POSTTYPE,
+			'post_type' => Tribe__Events__Main::POSTTYPE,
 			'fields' => 'ids',
 			'tribe_events' => 'test-permalinks', // this will be present for a normal request
 			'name' => 'test-permalinks',
@@ -447,7 +447,7 @@ class Tribe_Recurring_Event_Test extends Tribe__Events__WP_UnitTestCase {
 
 		$query = new WP_Query();
 		$results = $query->query(array(
-			'post_type' => Tribe__Events__Events::POSTTYPE,
+			'post_type' => Tribe__Events__Main::POSTTYPE,
 			'fields' => 'ids',
 			'tribe_events' => 'test-permalinks', // this will be present for a normal request
 			'name' => 'test-permalinks',
@@ -460,7 +460,7 @@ class Tribe_Recurring_Event_Test extends Tribe__Events__WP_UnitTestCase {
 	public function test_tribeHideRecurrence_queries() {
 		$start_date = date('Y-m-d', strtotime('2014-05-01'));
 		$event_args = array(
-			'post_type' => Tribe__Events__Events::POSTTYPE,
+			'post_type' => Tribe__Events__Main::POSTTYPE,
 			'post_title' => __CLASS__,
 			'post_name' => 'test-tribeHideRecurrence',
 			'post_content' => __FUNCTION__,
@@ -480,7 +480,7 @@ class Tribe_Recurring_Event_Test extends Tribe__Events__WP_UnitTestCase {
 		$post_id = Tribe__Events__API::createEvent($event_args);
 
 		$children = get_posts(array(
-			'post_type' => Tribe__Events__Events::POSTTYPE,
+			'post_type' => Tribe__Events__Main::POSTTYPE,
 			'post_parent' => $post_id,
 			'fields' => 'ids',
 			'posts_per_page' => 10,
@@ -490,7 +490,7 @@ class Tribe_Recurring_Event_Test extends Tribe__Events__WP_UnitTestCase {
 
 		$query = new WP_Query();
 		$results = $query->query(array(
-			'post_type' => Tribe__Events__Events::POSTTYPE,
+			'post_type' => Tribe__Events__Main::POSTTYPE,
 			'fields' => 'ids',
 			'tribeHideRecurrence' => 1,
 			'start_date' => '2014-05-01',
@@ -500,7 +500,7 @@ class Tribe_Recurring_Event_Test extends Tribe__Events__WP_UnitTestCase {
 		$this->assertEquals($post_id, reset($results));
 
 		$results = $query->query(array(
-			'post_type' => Tribe__Events__Events::POSTTYPE,
+			'post_type' => Tribe__Events__Main::POSTTYPE,
 			'fields' => 'ids',
 			'tribeHideRecurrence' => 1,
 			'start_date' => '2014-06-01',
@@ -513,7 +513,7 @@ class Tribe_Recurring_Event_Test extends Tribe__Events__WP_UnitTestCase {
 
 		$query = new WP_Query();
 		$results = $query->query(array(
-			'post_type' => Tribe__Events__Events::POSTTYPE,
+			'post_type' => Tribe__Events__Main::POSTTYPE,
 			'fields' => 'ids',
 			'tribeHideRecurrence' => 0,
 			'start_date' => '2014-05-01',
@@ -526,7 +526,7 @@ class Tribe_Recurring_Event_Test extends Tribe__Events__WP_UnitTestCase {
 
 		$query = new WP_Query();
 		$results = $query->query(array(
-			'post_type' => Tribe__Events__Events::POSTTYPE,
+			'post_type' => Tribe__Events__Main::POSTTYPE,
 			'fields' => 'ids',
 			'tribeHideRecurrence' => 0,
 			'start_date' => '2014-05-01',
@@ -547,7 +547,7 @@ class Tribe_Recurring_Event_Test extends Tribe__Events__WP_UnitTestCase {
 
 		$start_date = date('Y-m-d', strtotime('2014-05-01'));
 		$event_args = array(
-			'post_type' => Tribe__Events__Events::POSTTYPE,
+			'post_type' => Tribe__Events__Main::POSTTYPE,
 			'post_title' => __CLASS__,
 			'post_name' => 'test-tribeHideRecurrence',
 			'post_content' => __FUNCTION__,
@@ -567,7 +567,7 @@ class Tribe_Recurring_Event_Test extends Tribe__Events__WP_UnitTestCase {
 		$post_id = Tribe__Events__API::createEvent($event_args);
 
 		$children = get_posts(array(
-			'post_type' => Tribe__Events__Events::POSTTYPE,
+			'post_type' => Tribe__Events__Main::POSTTYPE,
 			'post_parent' => $post_id,
 			'fields' => 'ids',
 			'posts_per_page' => 10,
@@ -613,7 +613,7 @@ class Tribe_Recurring_Event_Test extends Tribe__Events__WP_UnitTestCase {
 	public function test_remove_recurrence() {
 		$start_date = date('Y-m-d', strtotime('2014-05-01'));
 		$event_args = array(
-			'post_type' => Tribe__Events__Events::POSTTYPE,
+			'post_type' => Tribe__Events__Main::POSTTYPE,
 			'post_title' => __CLASS__,
 			'post_content' => __FUNCTION__,
 			'post_status' => 'publish',

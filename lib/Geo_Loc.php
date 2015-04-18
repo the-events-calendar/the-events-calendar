@@ -129,7 +129,7 @@ class Tribe__Events__Pro__Geo_Loc {
 			$venues = $this->get_venues_without_geoloc_info();
 
 			// we want to inject the map default distance and unit into the map section directly after "enable Google Maps"
-			$args = Tribe__Events__Events::array_insert_after_key( 'embedGoogleMaps', $args, array(
+			$args = Tribe__Events__Main::array_insert_after_key( 'embedGoogleMaps', $args, array(
 					'geoloc_default_geofence' => array(
 						'type'            => 'text',
 						'label'           => __( 'Map view search distance limit', 'tribe-events-calendar-pro' ),
@@ -158,7 +158,7 @@ class Tribe__Events__Pro__Geo_Loc {
 				)
 			);
 		} elseif ( $id == 'display' ) {
-			$args = Tribe__Events__Events::array_insert_after_key( 'tribeDisableTribeBar', $args, array(
+			$args = Tribe__Events__Main::array_insert_after_key( 'tribeDisableTribeBar', $args, array(
 				'hideLocationSearch' => array(
 					'type'            => 'checkbox_bool',
 					'label'           => __( 'Hide location search', 'tribe-events-calendar-pro' ),
@@ -180,7 +180,7 @@ class Tribe__Events__Pro__Geo_Loc {
 	 */
 	protected function get_venues_without_geoloc_info( $full_data = false ) {
 		$query_args = array(
-			'post_type'      => Tribe__Events__Events::VENUE_POST_TYPE,
+			'post_type'      => Tribe__Events__Main::VENUE_POST_TYPE,
 			'post_status'    => 'publish',
 			'posts_per_page' => 250,
 			'meta_query'     => array(
@@ -270,7 +270,7 @@ class Tribe__Events__Pro__Geo_Loc {
 	}
 
 	public function setup_overwrite_geoloc( $post ) {
-		if ( $post->post_type != Tribe__Events__Events::VENUE_POST_TYPE ) {
+		if ( $post->post_type != Tribe__Events__Main::VENUE_POST_TYPE ) {
 			return;
 		}
 		$overwrite_coords = (bool) get_post_meta( $post->ID, self::OVERWRITE, true );
@@ -301,7 +301,7 @@ class Tribe__Events__Pro__Geo_Loc {
 	 * @return void
 	 */
 	public function setup_geoloc_in_query( $query ) {
-		if ( ( ! $query->is_main_query() && ! defined( 'DOING_AJAX' ) ) || ! $query->get( 'post_type' ) == Tribe__Events__Events::POSTTYPE ) {
+		if ( ( ! $query->is_main_query() && ! defined( 'DOING_AJAX' ) ) || ! $query->get( 'post_type' ) == Tribe__Events__Main::POSTTYPE ) {
 			return;
 		}
 
@@ -309,7 +309,7 @@ class Tribe__Events__Pro__Geo_Loc {
 		if ( ! empty( $_REQUEST['tribe-bar-geoloc-lat'] ) && ! empty( $_REQUEST['tribe-bar-geoloc-lng'] ) ) {
 			$force  = true;
 			$venues = $this->get_venues_in_geofence( $_REQUEST['tribe-bar-geoloc-lat'], $_REQUEST['tribe-bar-geoloc-lng'] );
-		} else if ( Tribe__Events__Events::instance()->displaying == 'map' || ( ! empty( $query->query_vars['eventDisplay'] ) && $query->query_vars['eventDisplay'] == 'map' ) ) {
+		} else if ( Tribe__Events__Main::instance()->displaying == 'map' || ( ! empty( $query->query_vars['eventDisplay'] ) && $query->query_vars['eventDisplay'] == 'map' ) ) {
 			// Show only venues that have geoloc info
 			$force = true;
 			//Get all geoloc'ed venues (set a geofence the size of the planet)
@@ -343,7 +343,7 @@ class Tribe__Events__Pro__Geo_Loc {
 	 * @param $wp_rewrite
 	 */
 	public function add_routes( $wp_rewrite ) {
-		$tec = Tribe__Events__Events::instance();
+		$tec = Tribe__Events__Main::instance();
 
 		$base    = trailingslashit( $tec->getOption( 'eventsSlug', 'events' ) );
 		$baseTax = trailingslashit( $tec->taxRewriteSlug );
@@ -353,9 +353,9 @@ class Tribe__Events__Pro__Geo_Loc {
 
 		$newRules = array();
 
-		$newRules[ $base . $this->rewrite_slug ]                         = 'index.php?post_type=' . Tribe__Events__Events::POSTTYPE . '&eventDisplay=map';
-		$newRules[ $baseTax . '([^/]+)/' . $this->rewrite_slug . '/?$' ] = 'index.php?tribe_events_cat=' . $wp_rewrite->preg_index( 2 ) . '&post_type=' . Tribe__Events__Events::POSTTYPE . '&eventDisplay=map';
-		$newRules[ $baseTag . '([^/]+)/' . $this->rewrite_slug . '/?$' ] = 'index.php?tag=' . $wp_rewrite->preg_index( 2 ) . '&post_type=' . Tribe__Events__Events::POSTTYPE . '&eventDisplay=map';
+		$newRules[ $base . $this->rewrite_slug ]                         = 'index.php?post_type=' . Tribe__Events__Main::POSTTYPE . '&eventDisplay=map';
+		$newRules[ $baseTax . '([^/]+)/' . $this->rewrite_slug . '/?$' ] = 'index.php?tribe_events_cat=' . $wp_rewrite->preg_index( 2 ) . '&post_type=' . Tribe__Events__Main::POSTTYPE . '&eventDisplay=map';
+		$newRules[ $baseTag . '([^/]+)/' . $this->rewrite_slug . '/?$' ] = 'index.php?tag=' . $wp_rewrite->preg_index( 2 ) . '&post_type=' . Tribe__Events__Main::POSTTYPE . '&eventDisplay=map';
 
 		$wp_rewrite->rules = $newRules + $wp_rewrite->rules;
 	}
@@ -736,7 +736,7 @@ class Tribe__Events__Pro__Geo_Loc {
 	private function fix_geoloc_data_button() {
 		$settings = Tribe__Events__Settings::instance();
 		$url      = apply_filters( 'tribe_settings_url', add_query_arg( array(
-					'post_type' => Tribe__Events__Events::POSTTYPE,
+					'post_type' => Tribe__Events__Main::POSTTYPE,
 					'page'      => $settings->adminSlug
 				), admin_url( 'edit.php' ) ) );
 		$url      = add_query_arg( array( 'geoloc_fix_venues' => '1' ), $url );
@@ -776,7 +776,7 @@ class Tribe__Events__Pro__Geo_Loc {
 
 		$settings = Tribe__Events__Settings::instance();
 		$url      = apply_filters( 'tribe_settings_url', add_query_arg( array(
-					'post_type' => Tribe__Events__Events::POSTTYPE,
+					'post_type' => Tribe__Events__Main::POSTTYPE,
 					'page'      => $settings->adminSlug
 				), admin_url( 'edit.php' ) ) );
 

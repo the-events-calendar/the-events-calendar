@@ -72,7 +72,7 @@ class Tribe__Events__Pro__Shortcodes__Event_Countdown {
 	 */
 	protected function set_by_slug() {
 		$events = get_posts( array(
-			'post_type' => Tribe__Events__Events::POSTTYPE,
+			'post_type' => Tribe__Events__Main::POSTTYPE,
 			'name' => $this->arguments['slug'],
 			'posts_per_page' => 1
 		) );

@@ -104,7 +104,7 @@ class Tribe__Events__Pro__Advanced_List_Widget extends Tribe__Events__List_Widge
 		$this->instance_defaults( $instance );
 		$this->include_cat_id( $this->instance['filters'], $this->instance['category'] ); // @todo remove after 3.7
 
-		$taxonomies = get_object_taxonomies( Tribe__Events__Events::POSTTYPE, 'objects' );
+		$taxonomies = get_object_taxonomies( Tribe__Events__Main::POSTTYPE, 'objects' );
 		$taxonomies = array_reverse( $taxonomies );
 
 		$instance = $this->instance;
@@ -147,7 +147,7 @@ class Tribe__Events__Pro__Advanced_List_Widget extends Tribe__Events__List_Widge
 	 */
 	protected function include_cat_id( &$filters, $id ) {
 		$id  = (string) absint( $id ); // An absint for sanity but a string for comparison purposes
-		$tax = Tribe__Events__Events::TAXONOMY;
+		$tax = Tribe__Events__Main::TAXONOMY;
 		if ( '0' === $id || ! is_string( $filters ) ) {
 			return;
 		}

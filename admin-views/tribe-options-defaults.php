@@ -1,6 +1,6 @@
 <?php
 
-$organizers        = Tribe__Events__Events::instance()->get_organizer_info();
+$organizers        = Tribe__Events__Main::instance()->get_organizer_info();
 $organizer_options = array();
 if ( is_array( $organizers ) && ! empty( $organizers ) ) {
 	$organizer_options[0] = __( 'No Default', 'tribe-events-calendar-pro' );
@@ -9,7 +9,7 @@ if ( is_array( $organizers ) && ! empty( $organizers ) ) {
 	}
 }
 
-$venues        = Tribe__Events__Events::instance()->get_venue_info();
+$venues        = Tribe__Events__Main::instance()->get_venue_info();
 $venue_options = array();
 if ( is_array( $venues ) && ! empty( $venues ) ) {
 	$venue_options[0] = __( 'No Default', 'tribe-events-calendar-pro' );

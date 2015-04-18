@@ -29,7 +29,7 @@ if ( ! class_exists( 'Tribe__Events__Pro__Venue_Widget' ) ) {
 
 			// Get all the upcoming events for this venue.
 			$events = tribe_get_events( array(
-				'post_type'      => Tribe__Events__Events::POSTTYPE,
+				'post_type'      => Tribe__Events__Main::POSTTYPE,
 				'venue'          => $venue_ID,
 				'posts_per_page' => $count,
 				'eventDisplay'   => 'list'
@@ -71,7 +71,7 @@ if ( ! class_exists( 'Tribe__Events__Pro__Venue_Widget' ) ) {
 				'hide_if_empty' => true,
 			);
 			$venues   = get_posts( array(
-					'post_type' => Tribe__Events__Events::VENUE_POST_TYPE,
+					'post_type' => Tribe__Events__Main::VENUE_POST_TYPE,
 					'orderby'   => 'title',
 					'nopaging'  => true
 				) );

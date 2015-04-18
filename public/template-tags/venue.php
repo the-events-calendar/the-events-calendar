@@ -19,7 +19,7 @@ if( class_exists( 'Tribe__Events__Pro__Main' )) {
 	 */
 	function tribe_venue_upcoming_events( $post_id = false ) {
 
-		$post_id = Tribe__Events__Events::postIdHelper( $post_id );
+		$post_id = Tribe__Events__Main::postIdHelper( $post_id );
 
 		if ($post_id) {
 			// turn off the venue group

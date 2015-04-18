@@ -16,7 +16,7 @@ class Tribe__Events__Pro__Recurrence_Series_Splitter {
 			return;
 		}
 		$children = get_posts( array(
-			'post_type'      => Tribe__Events__Events::POSTTYPE,
+			'post_type'      => Tribe__Events__Main::POSTTYPE,
 			'post_parent'    => $parent_id,
 			'post_status'    => get_post_stati(),
 			'meta_key'       => '_EventStartDate',
@@ -76,7 +76,7 @@ class Tribe__Events__Pro__Recurrence_Series_Splitter {
 		/** @var wpdb $wpdb */
 		global $wpdb;
 		$query = "SELECT p.ID FROM {$wpdb->posts} p INNER JOIN {$wpdb->postmeta} startDate ON p.ID = startDate.post_id AND startDate.meta_key=%s WHERE p.post_parent=%d AND p.post_type=%s ORDER BY startDate.meta_value";
-		$query = $wpdb->prepare( $query, '_EventStartDate', $first_event_id, Tribe__Events__Events::POSTTYPE );
+		$query = $wpdb->prepare( $query, '_EventStartDate', $first_event_id, Tribe__Events__Main::POSTTYPE );
 		$children = $wpdb->get_col( $query );
 
 		if ( empty( $children ) ) {

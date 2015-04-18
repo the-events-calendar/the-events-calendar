@@ -24,7 +24,7 @@ class Tribe__Events__Pro__Shortcodes__Mini_Calendar extends Tribe__Events__Pro__
 	 * @var array
 	 */
 	protected $tax_relationships = array(
-		'categories' => Tribe__Events__Events::TAXONOMY,
+		'categories' => Tribe__Events__Main::TAXONOMY,
 		'tags' => 'post_tag'
 	);
 

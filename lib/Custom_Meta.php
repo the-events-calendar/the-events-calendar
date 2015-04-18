@@ -24,7 +24,7 @@ class Tribe__Events__Pro__Custom_Meta {
 	public static function remove_meta_field() {
 		global $wpdb, $tribe_ecp;
 		if ( ! isset( $tribe_ecp ) ) {
-			$tribe_ecp = Tribe__Events__Events::instance();
+			$tribe_ecp = Tribe__Events__Main::instance();
 		}
 		$options = $tribe_ecp->getOptions();
 		array_splice( $options['custom-fields'], $_POST['field'] - 1, 1 );
@@ -67,7 +67,7 @@ class Tribe__Events__Pro__Custom_Meta {
 	 * @return void
 	 */
 	public static function single_event_meta() {
-		$tribe_ecp    = Tribe__Events__Events::instance();
+		$tribe_ecp    = Tribe__Events__Main::instance();
 		$customFields = tribe_get_option( 'custom-fields' );
 
 		$events_event_meta_template = Tribe__Events__Pro__Main::instance()->pluginPath . 'admin-views/event-meta.php';
@@ -115,9 +115,9 @@ class Tribe__Events__Pro__Custom_Meta {
 	 * @return void
 	 */
 	public static function force_save_meta() {
-		$options = Tribe__Events__Events::getOptions();
+		$options = Tribe__Events__Main::getOptions();
 		$options = self::save_meta_options( $options );
-		Tribe__Events__Events::instance()->setOptions( $options );
+		Tribe__Events__Main::instance()->setOptions( $options );
 	}
 
 	/**
@@ -193,7 +193,7 @@ class Tribe__Events__Pro__Custom_Meta {
 	 * @return (string) value of the field
 	 */
 	public static function get_custom_field_by_label( $label, $eventID = null ) {
-		$eventID      = Tribe__Events__Events::postIdHelper( $eventID );
+		$eventID      = Tribe__Events__Main::postIdHelper( $eventID );
 		$customFields = tribe_get_option( 'custom-fields', false );
 		if ( is_array( $customFields ) ) {
 			foreach ( $customFields as $field ) {
