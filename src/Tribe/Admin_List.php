@@ -141,7 +141,7 @@ if ( ! class_exists( 'Tribe__Events__Admin_List' ) ) {
 		 * @return string modified limits clause
 		 */
 		public static function events_search_limits( $limits, $query ) {
-			if ( ! $query->is_main_query() || $query->get( 'post_type' ) != Tribe__Events__Main::POSTTYPE || ( defined( 'DOING_AJAX' ) && DOING_AJAX ) ) {
+			if ( ! $query->is_main_query() || $query->get( 'post_type' ) != Tribe__Events__Main::POSTTYPE ) {
 				return $limits;
 			}
 			global $current_screen;
