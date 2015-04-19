@@ -9,7 +9,7 @@ class Tribe__Events__Admin__Event_Meta_Box {
 	protected $event;
 
 	/**
-	 * @var Tribe__Events__Events
+	 * @var Tribe__Events__Main
 	 */
 	protected $tribe;
 
@@ -34,7 +34,7 @@ class Tribe__Events__Admin__Event_Meta_Box {
 	 * @param null $event
 	 */
 	public function __construct( $event = null ) {
-		$this->tribe = Tribe__Events__Events::instance();
+		$this->tribe = Tribe__Events__Main::instance();
 		$this->get_event( $event );
 		$this->setup_data();
 		$this->do_meta_box();

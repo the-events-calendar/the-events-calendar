@@ -1,6 +1,6 @@
 <?php
 
-$tec = Tribe__Events__Events::instance();
+$tec = Tribe__Events__Main::instance();
 
 $generalTab = array(
 	'priority' => 10,
@@ -22,11 +22,11 @@ $generalTab = array(
 			),
 			'view-calendar-link'            => array(
 				'type' => 'html',
-				'html' => '<p>' . __( 'Where\'s my calendar?', 'tribe-events-calendar' ) . ' <a href="' . Tribe__Events__Events::getLink() . '">' . __( 'Right here', 'tribe-events-calendar' ) . '</a>.</p>',
+				'html' => '<p>' . __( 'Where\'s my calendar?', 'tribe-events-calendar' ) . ' <a href="' . Tribe__Events__Main::getLink() . '">' . __( 'Right here', 'tribe-events-calendar' ) . '</a>.</p>',
 			),
 			'upsell-info'                   => array(
 				'type'        => 'html',
-				'html'        => '<p>' . __( 'Looking for additional functionality including recurring events, custom meta, community events, ticket sales and more?', 'tribe-events-calendar' ) . ' <a href="' . self::$tribeUrl . 'products/?utm_source=generaltab&utm_medium=plugin-tec&utm_campaign=in-app' . '">' . __( 'Check out the available add-ons', 'tribe-events-calendar' ) . '</a>.</p>',
+				'html'        => '<p>' . __( 'Looking for additional functionality including recurring events, custom meta, community events, ticket sales and more?', 'tribe-events-calendar' ) . ' <a href="' . self::$tecUrl . 'products/?utm_source=generaltab&utm_medium=plugin-tec&utm_campaign=in-app' . '">' . __( 'Check out the available add-ons', 'tribe-events-calendar' ) . '</a>.</p>',
 				'conditional' => ( ! defined( 'TRIBE_HIDE_UPSELL' ) || ! TRIBE_HIDE_UPSELL ),
 			),
 			'donate-link-heading'           => array(
@@ -36,12 +36,12 @@ $generalTab = array(
 			'donate-link-info'              => array(
 				'type'        => 'html',
 				'html'        => '<p>' . __( 'Are you thinking "Wow, this plugin is amazing! I should say thanks to Modern Tribe for all their hard work." The greatest thanks we could ask for is recognition. Add a small text-only link at the bottom of your calendar pointing to The Events Calendar project.', 'tribe-events-calendar' ) . '<br><a href="' . plugins_url( 'resources/images/donate-link-screenshot.jpg', dirname( __FILE__ ) ) . '" class="thickbox">' . __( 'See an example of the link', 'tribe-events-calendar' ) . '</a>.</p>',
-				'conditional' => ! class_exists( 'Tribe__Events__Pro__Events_Pro' ),
+				'conditional' => ! class_exists( 'Tribe__Events__Pro__Main' ),
 			),
 			'donate-link-pro-info'          => array(
 				'type'        => 'html',
 				'html'        => '<p>' . __( 'Are you thinking "Wow, this plugin is amazing! I should say thanks to Modern Tribe for all their hard work." The greatest thanks we could ask for is recognition. Add a small text only link at the bottom of your calendar pointing to The Events Calendar project.', 'tribe-events-calendar' ) . '<br><a href="' . plugins_url( 'resources/images/donate-link-pro-screenshot.jpg', dirname( __FILE__ ) ) . '" class="thickbox">' . __( 'See an example of the link', 'tribe-events-calendar' ) . '</a>.</p>',
-				'conditional' => class_exists( 'Tribe__Events__Pro__Events_Pro' ),
+				'conditional' => class_exists( 'Tribe__Events__Pro__Main' ),
 			),
 			'donate-link'                   => array(
 				'type'            => 'checkbox_bool',
@@ -134,29 +134,17 @@ $generalTab = array(
 				'default'         => '12:00',
 				'options'         => array(
 					'00:00' => '12:00 am',
-					'00:30' => '12:30 am',
 					'01:00' => '01:00 am',
-					'01:30' => '01:30 am',
 					'02:00' => '02:00 am',
-					'02:30' => '02:30 am',
 					'03:00' => '03:00 am',
-					'03:30' => '03:30 am',
 					'04:00' => '04:00 am',
-					'04:30' => '04:30 am',
 					'05:00' => '05:00 am',
-					'05:30' => '05:30 am',
 					'06:00' => '06:00 am',
-					'06:30' => '06:30 am',
 					'07:00' => '07:00 am',
-					'07:30' => '07:30 am',
 					'08:00' => '08:00 am',
-					'08:30' => '08:30 am',
 					'09:00' => '09:00 am',
-					'09:30' => '09:30 am',
 					'10:00' => '10:00 am',
-					'10:30' => '10:30 am',
 					'11:00' => '11:00 am',
-					'11:30' => '11:30 am'
 				),
 			),
 			'multiDayCutoffHelper'          => array(

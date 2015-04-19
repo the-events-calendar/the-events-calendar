@@ -26,7 +26,7 @@ class Tribe__Events__Tickets__Metabox {
 			'tribetickets', __( 'Tickets', 'tribe-events-calendar' ), array(
 			'Tribe__Events__Tickets__Metabox',
 				'do_modules_metaboxes'
-			), Tribe__Events__Events::POSTTYPE, 'normal', 'high'
+			), Tribe__Events__Main::POSTTYPE, 'normal', 'high'
 		);
 	}
 
@@ -59,13 +59,13 @@ class Tribe__Events__Tickets__Metabox {
 		$modules = apply_filters( 'tribe_events_tickets_modules', null );
 
 		/* Only load the resources in the event edit screen, and if there's a provider available */
-		if ( ( $hook != 'post-new.php' && $hook != 'post.php' ) || Tribe__Events__Events::POSTTYPE != $post->post_type || empty( $modules ) ) {
+		if ( ( $hook != 'post-new.php' && $hook != 'post.php' ) || Tribe__Events__Main::POSTTYPE != $post->post_type || empty( $modules ) ) {
 			return;
 		}
 
 
-		wp_enqueue_style  ( 'events-tickets', plugins_url( 'resources/tickets.css', dirname( dirname( __FILE__ ) ) ), array(), apply_filters( 'tribe_events_css_version', Tribe__Events__Events::VERSION ) );
-		wp_enqueue_script ( 'events-tickets', plugins_url( 'resources/tickets.js',  dirname( dirname( __FILE__ ) ) ), array(), apply_filters( 'tribe_events_js_version', Tribe__Events__Events::VERSION ) );
+		wp_enqueue_style  ( 'events-tickets', plugins_url( 'resources/tickets.css', dirname( dirname( __FILE__ ) ) ), array(), apply_filters( 'tribe_events_css_version', Tribe__Events__Main::VERSION ) );
+		wp_enqueue_script ( 'events-tickets', plugins_url( 'resources/tickets.js',  dirname( dirname( __FILE__ ) ) ), array(), apply_filters( 'tribe_events_js_version', Tribe__Events__Main::VERSION ) );
 
 		$upload_header_data = array(
 			'title'  => __( 'Ticket header image', 'tribe-events-calendar' ),

@@ -5,7 +5,7 @@
  *
  * Override this template in your own theme by creating a file at [your-theme]/tribe-events/tickets/email.php
  *
- * This file is being included in events/lib/tickets/tribe-TicketsTickets.php
+ * This file is being included in events/lib/tickets/Tickets.php
  *  in the function generate_tickets_email_content. That function has a $tickets
  *  array with elements that have this fields:
  *        $tickets[] = array( 'event_id',
@@ -18,17 +18,6 @@
  * @package TribeEventsCalendar
  *
  */
-?>
-<?php
-// This file is being included in events/lib/tickets/tribe-TicketsTickets.php
-// in the function generate_tickets_email_content. That function has a $tickets
-// array with elements that have this fields:
-//		$tickets[] =   array( 'event_id',
-//							  'ticket_name'
-//							  'holder_name'
-//							  'order_id'
-//							  'ticket_id'
-//							  'security_code')
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -366,6 +355,16 @@
 													<span style="color:#0a0a0e !important; font-family: 'Helvetica Neue', Helvetica, sans-serif; font-size:15px;"><?php echo tribe_get_organizer( $organizer_id ); ?></span>
 												<?php } ?>
 											</td>
+
+											<?php $qr_code_url = apply_filters( 'tribe_tickets_ticket_qr_code', '' , $ticket ); ?>
+											<?php if ( ! empty( $qr_code_url ) ): ?>
+												<td class="ticket-qr" valign="top" align="right" width="160"
+												    style="padding: 0 !important; width:160px; margin:0 !important;">
+													<img src="<?php echo esc_url( $qr_code_url ); ?>" width="140"
+													     height="140" alt="QR Code Image"
+													     style="border:0; outline:none; height:auto; max-width:100%; display:block; float:right"/>
+												</td>
+											<?php endif; ?>
 										</tr>
 									</table>
 									<table border="0" cellpadding="0" cellspacing="0" width="100%" align="center">

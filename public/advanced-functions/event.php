@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
-if ( class_exists( 'Tribe__Events__Events' ) ) {
+if ( class_exists( 'Tribe__Events__Main' ) ) {
 
 	/**
 	 * Create an Event
@@ -54,7 +54,7 @@ if ( class_exists( 'Tribe__Events__Events' ) ) {
 	 * @category Events
 	 */
 	function tribe_create_event( $args ) {
-		$args['post_type'] = Tribe__Events__Events::POSTTYPE;
+		$args['post_type'] = Tribe__Events__Main::POSTTYPE;
 		$postId = Tribe__Events__API::createEvent( $args );
 
 		return $postId;

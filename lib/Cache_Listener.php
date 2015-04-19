@@ -34,6 +34,7 @@
 		 */
 		private function add_hooks() {
 			add_action( 'save_post', array( $this, 'save_post' ), 0, 2 );
+			add_action( 'updated_option', array( $this, 'update_last_save_post' ) );
 		}
 
 		/**
@@ -43,7 +44,7 @@
 		 * @param WP_Post $post    The current post object being saved.
 		 */
 		public function save_post( $post_id, $post ) {
-			if ( in_array( $post->post_type, Tribe__Events__Events::getPostTypes() ) ) {
+			if ( in_array( $post->post_type, Tribe__Events__Main::getPostTypes() ) ) {
 				$this->cache->set_last_occurrence( 'save_post' );
 			}
 		}

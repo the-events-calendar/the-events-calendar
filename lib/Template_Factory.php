@@ -86,14 +86,14 @@ if ( ! class_exists( 'Tribe__Events__Template_Factory' ) ) {
 			$ajax_hook = constant( $current_class . '::AJAX_HOOK' );
 
 			// set up queries, vars, etc that needs to be used in this view
-			add_action( 'tribe_events_before_view', array( $this, 'setup_view' ) );
+			add_action( 'tribe_events_before_view', array( $this, 'setup_view' ), 10 );
 
 			// ajax requests
 			add_action( 'wp_ajax_' . $ajax_hook, array( $this, 'ajax_response' ) );
 			add_action( 'wp_ajax_nopriv_' . $ajax_hook, array( $this, 'ajax_response' ) );
 
 			// set notices
-			add_action( 'tribe_events_before_view', array( $this, 'set_notices' ) );
+			add_action( 'tribe_events_before_view', array( $this, 'set_notices' ), 15 );
 
 			// Don't show the comments form inside the view (if comments are enabled,
 			// they'll show on their own after the loop)
@@ -148,7 +148,7 @@ if ( ! class_exists( 'Tribe__Events__Template_Factory' ) ) {
 		 * @param string $vendor_url URL to vendor scripts and styles dir
 		 * @param string $prefix MT script and style prefix
 		 * @param string $resources_url URL to resources scripts and styles dir
-		 * @param Tribe__Events__Events $tec An instance of the main plugin class
+		 * @param Tribe__Events__Main $tec An instance of the main plugin class
 		 */
 		protected static function handle_asset_package_request( $name, $deps, $vendor_url, $prefix, $resources_url, $tec ) {
 
@@ -198,9 +198,9 @@ if ( ! class_exists( 'Tribe__Events__Template_Factory' ) ) {
 			$classes[] = $this->body_class;
 
 			// category class
-			if ( is_tax( Tribe__Events__Events::TAXONOMY ) ) {
+			if ( is_tax( Tribe__Events__Main::TAXONOMY ) ) {
 				$classes[] = 'events-category';
-				$category  = get_term_by( 'name', single_cat_title( '', false ), Tribe__Events__Events::TAXONOMY );
+				$category  = get_term_by( 'name', single_cat_title( '', false ), Tribe__Events__Main::TAXONOMY );
 				$classes[] = 'events-category-' . $category->slug;
 			}
 
@@ -295,7 +295,7 @@ if ( ! class_exists( 'Tribe__Events__Template_Factory' ) ) {
 		 **/
 		protected function get_search_terms() {
 			global $wp_query;
-			$tribe           = Tribe__Events__Events::instance();
+			$tribe           = Tribe__Events__Main::instance();
 			$geographic_term = '';
 			$search_term     = '';
 			$tax_term        = '';
@@ -329,21 +329,23 @@ if ( ! class_exists( 'Tribe__Events__Template_Factory' ) ) {
 
 			list( $search_term, $tax_term, $geographic_term ) = $this->get_search_terms();
 
+			$tribe = Tribe__Events__Main::instance();
+
 			if ( ! empty( $search_term ) ) {
-				Tribe__Events__Events::setNotice( 'event-search-no-results', sprintf( __( 'There were no results found for <strong>"%s"</strong>.', 'tribe-events-calendar' ), esc_html( $search_term ) ) );
+				Tribe__Events__Main::setNotice( 'event-search-no-results', sprintf( __( 'There were no results found for <strong>"%s"</strong>.', 'tribe-events-calendar' ), esc_html( $search_term ) ) );
 			} elseif ( ! empty( $geographic_term ) ) {
-				Tribe__Events__Events::setNotice( 'event-search-no-results', sprintf( __( 'No results were found for %s in or near <strong>"%s"</strong>.', 'tribe-events-calendar' ), $events_label_plural, esc_html( $geographic_term ) ) );
+				Tribe__Events__Main::setNotice( 'event-search-no-results', sprintf( __( 'No results were found for %s in or near <strong>"%s"</strong>.', 'tribe-events-calendar' ), $events_label_plural, esc_html( $geographic_term ) ) );
 			} elseif ( ! empty( $tax_term ) && tribe_is_upcoming() && ( date( 'Y-m-d' ) === date( 'Y-m-d', strtotime( $tribe->date ) ) ) ) {
-				Tribe__Events__Events::setNotice( 'events-not-found', sprintf( __( 'No upcoming %s listed under %s. Check out upcoming %s for this category or view the full calendar.', 'tribe-events-calendar' ), $events_label_plural, $tax_term, $events_label_plural ) );
+				Tribe__Events__Main::setNotice( 'events-not-found', sprintf( __( 'No upcoming %s listed under %s. Check out upcoming %s for this category or view the full calendar.', 'tribe-events-calendar' ), $events_label_plural, $tax_term, $events_label_plural ) );
 			} elseif ( ! empty( $tax_term ) && tribe_is_upcoming() ) {
-				Tribe__Events__Events::setNotice( 'events-not-found', sprintf( __( 'No matching %s listed under %s. Please try viewing the full calendar for a complete list of %s.', 'tribe-events-calendar' ), $events_label_plural, $tax_term, $events_label_plural ) );
+				Tribe__Events__Main::setNotice( 'events-not-found', sprintf( __( 'No matching %s listed under %s. Please try viewing the full calendar for a complete list of %s.', 'tribe-events-calendar' ), $events_label_plural, $tax_term, $events_label_plural ) );
 			} elseif ( ! empty( $tax_term ) && tribe_is_past() ) {
-				Tribe__Events__Events::setNotice( 'events-past-not-found', sprintf( __( 'No previous %s ', 'tribe-events-calendar' ), $events_label_plural ) );
+				Tribe__Events__Main::setNotice( 'events-past-not-found', sprintf( __( 'No previous %s ', 'tribe-events-calendar' ), $events_label_plural ) );
 			} // if on any other view and attempting to view a category archive.
 			elseif ( ! empty( $tax_term ) ) {
-				Tribe__Events__Events::setNotice( 'events-not-found', sprintf( __( 'No matching %s listed under %s. Please try viewing the full calendar for a complete list of %s.', 'tribe-events-calendar' ), $events_label_plural, $tax_term, $events_label_plural ) );
+				Tribe__Events__Main::setNotice( 'events-not-found', sprintf( __( 'No matching %s listed under %s. Please try viewing the full calendar for a complete list of %s.', 'tribe-events-calendar' ), $events_label_plural, $tax_term, $events_label_plural ) );
 			} else {
-				Tribe__Events__Events::setNotice( 'event-search-no-results', __( 'There were no results found.', 'tribe-events-calendar' ) );
+				Tribe__Events__Main::setNotice( 'event-search-no-results', __( 'There were no results found.', 'tribe-events-calendar' ) );
 			}
 		}
 
@@ -524,7 +526,7 @@ if ( ! class_exists( 'Tribe__Events__Template_Factory' ) ) {
 		 * @return string
 		 **/
 		public function remove_comments_template( $template ) {
-			return Tribe__Events__Events::instance()->pluginPath . 'admin-views/no-comments.php';
+			return Tribe__Events__Main::instance()->pluginPath . 'admin-views/no-comments.php';
 		}
 
 		/**
@@ -577,8 +579,8 @@ if ( ! class_exists( 'Tribe__Events__Template_Factory' ) ) {
 		 */
 		public static function asset_package( $name, $deps = array() ) {
 
-			$tec    = Tribe__Events__Events::instance();
-			$prefix = 'tribe-events'; // Tribe__Events__Events::POSTTYPE;
+			$tec    = Tribe__Events__Main::instance();
+			$prefix = 'tribe-events'; // Tribe__Events__Main::POSTTYPE;
 
 			// setup plugin resources & 3rd party vendor urls
 			$resources_url = trailingslashit( $tec->pluginUrl ) . 'resources/';

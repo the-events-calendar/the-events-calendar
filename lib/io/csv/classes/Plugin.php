@@ -6,7 +6,7 @@
 class Tribe__Events__Importer__Plugin {
 	private static $plugin_basename = '';
 	/** @var Tribe__Events__Importer__Admin_Page */
-	private static $admin = null;
+	public static $admin = null;
 
 	public static function path( $path ) {
 		$base = dirname( dirname( __FILE__ ) );

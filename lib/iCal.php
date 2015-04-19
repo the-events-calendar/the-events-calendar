@@ -38,7 +38,7 @@ class Tribe__Events__iCal {
 	 * @return string
 	 */
 	public static function get_ical_link() {
-		$tec = Tribe__Events__Events::instance();
+		$tec = Tribe__Events__Main::instance();
 
 		return trailingslashit( $tec->getLink( 'home' ) ) . '?ical=1';
 	}
@@ -96,7 +96,7 @@ class Tribe__Events__iCal {
 			return;
 		}
 
-		$tec = Tribe__Events__Events::instance();
+		$tec = Tribe__Events__Main::instance();
 
 		$view = $tec->displaying;
 		if ( defined( 'DOING_AJAX' ) && DOING_AJAX && isset( $wp_query->query_vars['eventDisplay'] ) ) {
@@ -175,7 +175,7 @@ class Tribe__Events__iCal {
 	 */
 	public static function generate_ical_feed( $post = null ) {
 
-		$tec         = Tribe__Events__Events::instance();
+		$tec         = Tribe__Events__Main::instance();
 		$wp_timezone = get_option( 'timezone_string' );
 		$events      = '';
 		$blogHome    = get_bloginfo( 'url' );
@@ -194,13 +194,15 @@ class Tribe__Events__iCal {
 		}
 
 		foreach ( $events_posts as $event_post ) {
+			// add fields to iCal output
+			$item   = array();
 
-			$startDate = $event_post->EventStartDate;
-			$endDate   = $event_post->EventEndDate;
+			$startDate = date( 'Ymd\THis', strtotime( $event_post->EventStartDate ) );
+			$endDate   = date( 'Ymd\THis', strtotime( $event_post->EventEndDate ) );
 
-			// convert 2010-04-08 00:00:00 to 20100408T000000 or YYYYMMDDTHHMMSS
-			$startDate = str_replace( array( '-', ' ', ':' ), array( '', 'T', '' ), $startDate );
-			$endDate   = str_replace( array( '-', ' ', ':' ), array( '', 'T', '' ), $endDate );
+			$tz_startDate = self::wp_date( 'Ymd\THis\Z', strtotime( $event_post->EventStartDate ) );
+			$tz_endDate = self::wp_date( 'Ymd\THis\Z', strtotime( $event_post->EventEndDate ) );
+
 			if ( get_post_meta( $event_post->ID, '_EventAllDay', true ) == 'yes' ) {
 				$startDate = substr( $startDate, 0, 8 );
 				$endDate   = substr( $endDate, 0, 8 );
@@ -208,26 +210,38 @@ class Tribe__Events__iCal {
 				$endDateStamp = strtotime( $endDate );
 				$endDate      = date( 'Ymd', $endDateStamp + 86400 );
 				$type         = 'DATE';
+				$item[] = "DTSTART;VALUE=$type:" . $startDate;
+				$item[] = "DTEND;VALUE=$type:" . $endDate;
+
 			} else {
 				$type = 'DATE-TIME';
-			}
-			$description = preg_replace( "/[\n\t\r]/", ' ', strip_tags( $event_post->post_content ) );
 
-			// add fields to iCal output
-			$item   = array();
-			$item[] = "DTSTART;VALUE=$type:" . $startDate;
-			$item[] = "DTEND;VALUE=$type:" . $endDate;
+				if ( ! empty( $wp_timezone ) ){
+					$item[] = "DTSTART;TZID=\"{$wp_timezone}\":{$tz_startDate}";
+				}
+				$item[] = 'DTSTART:' . $tz_startDate;
+				$item[] = 'DTSTART:' . $startDate;
+
+				if ( ! empty( $wp_timezone ) ){
+					$item[] = "DTEND;TZID=\"{$wp_timezone}\":{$tz_endDate}";
+				}
+				$item[] = 'DTEND:' . $tz_endDate;
+				$item[] = 'DTEND:' . $endDate;
+			}
+
+			$description = str_replace( array( ',', "\n", "\r", "\t" ), array( '\,', '\n', '', '\t' ), strip_tags( $event_post->post_content ) );
+
 			$item[] = 'DTSTAMP:' . date( 'Ymd\THis', time() );
 			$item[] = 'CREATED:' . str_replace( array( '-', ' ', ':' ), array( '', 'T', '' ), $event_post->post_date );
 			$item[] = 'LAST-MODIFIED:' . str_replace(
 					array(
 						'-',
 						' ',
-						':'
+						':',
 					), array(
 						'',
 						'T',
-						''
+						'',
 					), $event_post->post_modified
 				);
 			$item[] = 'UID:' . $event_post->ID . '-' . strtotime( $startDate ) . '-' . strtotime( $endDate ) . '@' . $blogHome;
@@ -238,7 +252,9 @@ class Tribe__Events__iCal {
 			// add location if available
 			$location = $tec->fullAddressString( $event_post->ID );
 			if ( ! empty( $location ) ) {
-				$item[] = 'LOCATION:' . html_entity_decode( $location, ENT_QUOTES );
+				$str_location = str_replace( array( ',', "\n" ), array( '\,', '\n' ), html_entity_decode( $location, ENT_QUOTES ) );
+
+				$item[] = 'LOCATION:' .  $str_location;
 			}
 
 			// add geo coordinates if available
@@ -247,11 +263,20 @@ class Tribe__Events__iCal {
 				$lat  = Tribe__Events__Pro__Geo_Loc::instance()->get_lat_for_event( $event_post->ID );
 				if ( ! empty( $long ) && ! empty( $lat ) ) {
 					$item[] = sprintf( 'GEO:%s;%s', $long, $lat );
+
+					$str_title = str_replace( array( ',', "\n" ), array( '\,', '\n' ), html_entity_decode( tribe_get_address( $event_post->ID ), ENT_QUOTES ) );
+
+					if ( ! empty( $str_title ) && ! empty( $str_location ) ) {
+						$item[] =
+							'X-APPLE-STRUCTURED-LOCATION;VALUE=URI;X-ADDRESS=' . str_replace( '\,', '', trim( $str_location ) ) . ';' .
+							'X-APPLE-RADIUS=500;' .
+							'X-TITLE=' . trim( $str_title ) . ':geo:' . $long . ',' . $lat;
+					}
 				}
 			}
 
 			// add categories if available
-			$event_cats = (array) wp_get_object_terms( $event_post->ID, Tribe__Events__Events::TAXONOMY, array( 'fields' => 'names' ) );
+			$event_cats = (array) wp_get_object_terms( $event_post->ID, Tribe__Events__Main::TAXONOMY, array( 'fields' => 'names' ) );
 			if ( ! empty( $event_cats ) ) {
 				$item[] = 'CATEGORIES:' . html_entity_decode( join( ',', $event_cats ), ENT_QUOTES );
 			}
@@ -281,10 +306,10 @@ class Tribe__Events__iCal {
 		}
 
 		header( 'Content-type: text/calendar; charset=UTF-8' );
-		header( 'Content-Disposition: attachment; filename="iCal-Tribe__Events__Events.ics"' );
+		header( 'Content-Disposition: attachment; filename="iCal-Tribe__Events__Main.ics"' );
 		$content = "BEGIN:VCALENDAR\r\n";
 		$content .= "VERSION:2.0\r\n";
-		$content .= 'PRODID:-//' . $blogName . ' - ECPv' . Tribe__Events__Events::VERSION . "//NONSGML v1.0//EN\r\n";
+		$content .= 'PRODID:-//' . $blogName . ' - ECPv' . Tribe__Events__Main::VERSION . "//NONSGML v1.0//EN\r\n";
 		$content .= "CALSCALE:GREGORIAN\r\n";
 		$content .= "METHOD:PUBLISH\r\n";
 		$content .= 'X-WR-CALNAME:' . apply_filters( 'tribe_ical_feed_calname', $blogName ) . "\r\n";
@@ -301,4 +326,77 @@ class Tribe__Events__iCal {
 		exit;
 
 	}
+
+
+	/**
+	 * Returns a formatted date in the local timezone. This is a drop-in
+	 * replacement for `date()`, except that the returned string will be formatted
+	 * for the local timezone.
+	 *
+	 * If there is a timezone_string available, the date is assumed to be in that
+	 * timezone, otherwise it simply subtracts the value of the 'gmt_offset'
+	 * option.
+	 *
+	 * @uses get_option() to retrieve the value of 'gmt_offset'.
+	 * @param string $format The format of the outputted date string.
+	 * @param string $timestamp Optional. If absent, defaults to `time()`.
+	 * @return string GMT version of the date provided.
+	 */
+	private static function wp_date( $format, $timestamp = false ) {
+		$tz = get_option( 'timezone_string' );
+		if ( ! $timestamp ) {
+			$timestamp = time();
+		}
+		if ( $tz ) {
+			$date = date_create( '@' . $timestamp );
+			if ( ! $date ) {
+				return gmdate( $format, 0 );
+			}
+			$date->setTimezone( new DateTimeZone( $tz ) );
+			return $date->format( $format );
+		} else {
+			return date( $format, $timestamp + ( get_option( 'gmt_offset' ) * HOUR_IN_SECONDS ) );
+		}
+	}
+
+	/**
+	 * Converts a locally-formatted date to a unix timestamp. This is a drop-in
+	 * replacement for `strtotime()`, except that where strtotime assumes GMT, this
+	 * assumes local time (as described below). If a timezone is specified, this
+	 * function defers to strtotime().
+	 *
+	 * If there is a timezone_string available, the date is assumed to be in that
+	 * timezone, otherwise it simply subtracts the value of the 'gmt_offset'
+	 * option.
+	 *
+	 * @see strtotime()
+	 * @uses get_option() to retrieve the value of 'gmt_offset'.
+	 * @param string $string A date/time string. See `strtotime` for valid formats.
+	 * @return int UNIX timestamp.
+	 */
+	private static function wp_strtotime( $string ) {
+		// If there's a timezone specified, we shouldn't convert it
+		try {
+			$test_date = new DateTime( $string );
+			if ( 'UTC' != $test_date->getTimezone()->getName() ) {
+				return strtotime( $string );
+			}
+		} catch ( Exception $e ) {
+			return strtotime( $string );
+		}
+
+		$tz = get_option( 'timezone_string' );
+		if ( $tz ) {
+			$date = date_create( $string, new DateTimeZone( $tz ) );
+			if ( ! $date ) {
+				return strtotime( $string );
+			}
+			$date->setTimezone( new DateTimeZone( 'UTC' ) );
+			return $date->getTimestamp();
+		} else {
+			return strtotime( $string ) - ( get_option( 'gmt_offset' ) * HOUR_IN_SECONDS );
+		}
+	}
+
+
 }

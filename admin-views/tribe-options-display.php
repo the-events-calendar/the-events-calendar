@@ -35,7 +35,7 @@ $displayTab = array(
 				'type' => 'html',
 				'html' => '<p>' . sprintf(
 					__( 'The settings below control the display of your calendar. If things don\'t look right, try switching between the three style sheet options or pick a page template from your theme.</p><p>There are going to be situations where no out-of-the-box template is 100&#37; perfect. Check out our <a href="%s">our themer\'s guide</a> for instructions on custom modifications.', 'tribe-events-calendar' ),
-					Tribe__Events__Events::$tribeUrl . 'support/documentation/events-calendar-themers-guide/?utm_medium=plugin-tec&utm_source=generaltab&utm_campaign=in-app'
+					Tribe__Events__Main::$tecUrl . 'knowledgebase/themers-guide/?utm_medium=plugin-tec&utm_source=generaltab&utm_campaign=in-app'
 				) . '</p>',
 			),
 			'info-end'                           => array(
@@ -109,6 +109,13 @@ $displayTab = array(
 				'validation_type' => 'positive_int',
 				'size'            => 'small',
 				'default'         => '3'
+			),
+			'enable_month_view_cache' => array(
+				'type'            => 'checkbox_bool',
+				'label'           => __( 'Enable the Month View Cache', 'tribe-events-calendar' ),
+				'tooltip'         => sprintf( __( 'Check this to cache your month view HTML in transients, which can help improve calendar speed on sites with many events. <a href="%s">Read more</a>.', 'tribe-events-calendar' ), 'LINK NEEDED' ),
+				'default'         => false,
+				'validation_type' => 'boolean',
 			),
 			'tribeEventsDateFormatSettingsTitle' => array(
 				'type' => 'html',

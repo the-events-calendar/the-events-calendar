@@ -208,7 +208,7 @@ if ( ! class_exists( 'Tribe__Events__Field' ) ) {
 				} else {
 
 					// fail, log the error
-					Tribe__Events__Events::debug( __( 'Invalid field type specified', 'tribe-events-calendar' ), $this->type, 'notice' );
+					Tribe__Events__Main::debug( __( 'Invalid field type specified', 'tribe-events-calendar' ), $this->type, 'notice' );
 
 				}
 

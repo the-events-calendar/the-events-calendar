@@ -11,15 +11,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 $events_label_singular = tribe_get_event_label_singular();
 $events_label_plural = tribe_get_event_label_plural();
 
-?>
-<style type="text/css">
-	<?php if( class_exists( 'Eventbrite_for_TribeEvents' ) ) : ?>
-	.eventBritePluginPlug {
-		display: none;
+if ( class_exists( 'Eventbrite_for_TribeEvents' ) ) {
+	?>
+	<style type="text/css">
+		.eventBritePluginPlug {
+			display: none;
+		}
+	</style>
+	<?php
 	}
-
-	<?php endif; ?>
-</style>
+?>
 <div id="eventIntro">
 	<div id="tribe-events-post-error" class="tribe-events-error error"></div>
 	<?php do_action( 'tribe_events_post_errors', $event->ID, true ) ?>
@@ -27,7 +28,7 @@ $events_label_plural = tribe_get_event_label_plural();
 </div>
 <div id='eventDetails' class="inside eventForm">
 	<?php do_action( 'tribe_events_detail_top', $event->ID, true ) ?>
-	<?php wp_nonce_field( Tribe__Events__Events::POSTTYPE, 'ecp_nonce' ); ?>
+	<?php wp_nonce_field( Tribe__Events__Main::POSTTYPE, 'ecp_nonce' ); ?>
 	<?php do_action( 'tribe_events_eventform_top', $event->ID ); ?>
 	<table cellspacing="0" cellpadding="0" id="EventInfo">
 		<tr>

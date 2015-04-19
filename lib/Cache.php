@@ -36,6 +36,18 @@ class Tribe__Events__Cache {
 	}
 
 	/**
+	 * @param        $id
+	 * @param        $value
+	 * @param int    $expiration
+	 * @param string $expiration_trigger
+	 *
+	 * @return bool
+	 */
+	public function set_transient($id, $value, $expiration = 0, $expiration_trigger = '') {
+		return set_transient( $this->get_id( $id, $expiration_trigger ), $value, $expiration );
+	}
+
+	/**
 	 * @param string $id
 	 * @param string $expiration_trigger
 	 *
@@ -49,10 +61,30 @@ class Tribe__Events__Cache {
 	 * @param string $id
 	 * @param string $expiration_trigger
 	 *
+	 * @return mixed
+	 */
+	public function get_transient( $id, $expiration_trigger = '' ) {
+		return get_transient( $this->get_id( $id, $expiration_trigger ) );
+	}
+
+	/**
+	 * @param string $id
+	 * @param string $expiration_trigger
+	 *
 	 * @return bool
 	 */
 	public function delete( $id, $expiration_trigger = '' ) {
 		return wp_cache_delete( $this->get_id( $id, $expiration_trigger ), 'tribe-events' );
+	}
+
+	/**
+	 * @param string $id
+	 * @param string $expiration_trigger
+	 *
+	 * @return bool
+	 */
+	public function delete_transient( $id, $expiration_trigger = '' ) {
+		return delete_transient( $this->get_id( $id, $expiration_trigger ) );
 	}
 
 	/**

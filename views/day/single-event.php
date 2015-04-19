@@ -3,7 +3,7 @@
  * Day View Single Event
  * This file contains one event in the day view
  *
- * Override this template in your own theme by creating a file at [your-theme]/tribe-events/day/Single_Event.php
+ * Override this template in your own theme by creating a file at [your-theme]/tribe-events/day/single-event.php
  *
  * @package TribeEventsCalendar
  *
@@ -11,22 +11,14 @@
 
 if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
-} ?>
-
-<?php
-
-$venue_details = array();
-
-if ( $venue_name = tribe_get_meta( 'tribe_event_venue_name' ) ) {
-	$venue_details[] = $venue_name;
 }
 
-if ( $venue_address = tribe_get_meta( 'tribe_event_venue_address' ) ) {
-	$venue_details[] = $venue_address;
-}
+$venue_details = tribe_get_venue_details();
+
 // Venue microformats
 $has_venue = ( $venue_details ) ? ' vcard' : '';
-$has_venue_address = ( $venue_address ) ? ' location' : '';
+$has_venue_address = ( ! empty( $venue_details['address'] ) ) ? ' location' : '';
+
 ?>
 
 <!-- Event Cost -->

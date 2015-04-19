@@ -21,56 +21,47 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
-$postId = get_the_ID();
-$address_out = array();
+$venue_id = get_the_ID();
+
+$full_region = tribe_get_full_region( $venue_id );
 
 ?>
 <span class="adr">
 
 <?php
+// This location's street address.
+if ( tribe_get_address( $venue_id ) ) : ?>
+<span class="street-address"><?php echo tribe_get_address( $venue_id ); ?></span>
+	<?php if ( ! tribe_is_venue() ) : ?>
+		<br>
+	<?php endif; ?>
+<?php endif; ?>
 
-// Get our street address
-if ( tribe_get_address( $postId ) ) {
-	$address_out[] = '<span class="street-address">' . tribe_get_address( $postId ) . '</span>';
-	if ( ! tribe_is_venue() ) {
-		$address_out[] = '<span class="delimiter">,</span> ';
-	}
-}
+<?php
+// This locations's city.
+if ( tribe_get_city( $venue_id ) ) :
+	if ( tribe_get_address( $venue_id ) ) : ?>
+		<br>
+	<?php endif; ?>
+	<span class="locality"><?php echo tribe_get_city( $venue_id ); ?></span><span class="delimiter">,</span>
+<?php endif; ?>
 
-// Get our full region
-$our_province = tribe_get_event_meta( $postId, '_VenueStateProvince', true );
-$our_states = Tribe__Events__View_Helpers::loadStates();
-$our_full_region = isset( $our_states[$our_province] ) ? $our_states[$our_province] : $our_province;
+<?php
+// This location's abbreviated region. Full region name in the element title.
+if ( tribe_get_region( $venue_id ) ) : ?>
+	<abbr class="region tribe-events-abbr" title="<?php esc_attr_e( $full_region ); ?>"><?php echo tribe_get_region( $venue_id ); ?></abbr>
+<?php endif; ?>
 
-// Get our city
-if ( tribe_get_city( $postId ) ) {
-	if ( tribe_get_address( $postId ) ) {
-		$address_out[] = '<span class="delimiter">,</span> ';
-	}
-	$address_out[] = ' <span class="locality">' . tribe_get_city( $postId ) . '</span>';
-	$address_out[] = '<span class="delimiter">,</span> ';
-}
+<?php
+// This location's postal code.
+if ( tribe_get_zip( $venue_id ) ) : ?>
+	<span class="postal-code"><?php echo tribe_get_zip( $venue_id ); ?></span>
+<?php endif; ?>
 
-// Get our region
-if ( tribe_get_region( $postId ) ) {
-	if ( count( $address_out ) ) {
-		$address_out[] = ' <abbr class="region tribe-events-abbr" title="' . $our_full_region . '">' . tribe_get_region( $postId ) . '</abbr>';
-	}
-}
+<?php
+// This location's country.
+if ( tribe_get_country( $venue_id ) ) : ?>
+	<span class="country-name"><?php echo tribe_get_country( $venue_id ); ?></span>
+<?php endif; ?>
 
-// Get our postal code
-if ( tribe_get_zip( $postId ) ) {
-	$address_out[] = ' <span class="postal-code">' . tribe_get_zip( $postId ) . '</span>';
-}
-
-// Get our country
-if ( tribe_get_country( $postId ) ) {
-	if ( count( $address_out ) ) {
-		$address_out[] = ' <span class="country-name">' . tribe_get_country( $postId ) . '</span>';
-	}
-}
-
-echo implode( '', $address_out );
-
-?>
 </span>

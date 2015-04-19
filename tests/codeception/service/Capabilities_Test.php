@@ -62,7 +62,7 @@ class Tribe__Events__Capabilities_Test extends Tribe__Events__WP_UnitTestCase {
 			'role' => $role,
 		));
 		$event_id = $this->factory->post->create(array(
-			'post_type' => Tribe__Events__Events::POSTTYPE,
+			'post_type' => Tribe__Events__Main::POSTTYPE,
 			'post_status' => 'draft',
 			'post_author' => $user->ID,
 		));
@@ -81,7 +81,7 @@ class Tribe__Events__Capabilities_Test extends Tribe__Events__WP_UnitTestCase {
 			'role' => $role,
 		));
 		$event_id = $this->factory->post->create(array(
-			'post_type' => Tribe__Events__Events::POSTTYPE,
+			'post_type' => Tribe__Events__Main::POSTTYPE,
 			'post_status' => 'publish',
 			'post_author' => $user->ID,
 		));
@@ -101,7 +101,7 @@ class Tribe__Events__Capabilities_Test extends Tribe__Events__WP_UnitTestCase {
 		));
 		$another_user_id = $this->factory->user->create();
 		$event_id = $this->factory->post->create(array(
-			'post_type' => Tribe__Events__Events::POSTTYPE,
+			'post_type' => Tribe__Events__Main::POSTTYPE,
 			'post_status' => 'draft',
 			'post_author' => $another_user_id,
 		));
@@ -121,7 +121,7 @@ class Tribe__Events__Capabilities_Test extends Tribe__Events__WP_UnitTestCase {
 		));
 		$another_user_id = $this->factory->user->create();
 		$event_id = $this->factory->post->create(array(
-			'post_type' => Tribe__Events__Events::POSTTYPE,
+			'post_type' => Tribe__Events__Main::POSTTYPE,
 			'post_status' => 'publish',
 			'post_author' => $another_user_id,
 		));
@@ -137,12 +137,12 @@ class Tribe__Events__Capabilities_Test extends Tribe__Events__WP_UnitTestCase {
 
 		$this->assertTrue( $user->has_cap( 'edit_tribe_events' ) ); // baseline
 
-		$caps->remove_post_type_caps( Tribe__Events__Events::POSTTYPE, 'editor' );
+		$caps->remove_post_type_caps( Tribe__Events__Main::POSTTYPE, 'editor' );
 		$user = new WP_User( $user ); // to reinit caps
 		$this->assertFalse( $user->has_cap( 'edit_tribe_events' ) );
 
 		// now put everything back where we found it
-		$caps->register_post_type_caps( Tribe__Events__Events::POSTTYPE, 'editor' );
+		$caps->register_post_type_caps( Tribe__Events__Main::POSTTYPE, 'editor' );
 		$user = new WP_User( $user ); // to reinit caps
 		$this->assertTrue( $user->has_cap( 'edit_tribe_events' ) );
 	}

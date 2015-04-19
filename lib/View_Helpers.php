@@ -562,7 +562,7 @@ if ( ! class_exists( 'Tribe__Events__View_Helpers' ) ) {
 		 */
 		public static function getMonthOptions( $date = "" ) {
 			_deprecated_function( __CLASS__ . '::' . __FUNCTION__ . '()', '3.8' );
-			$months    = Tribe__Events__Events::instance()->monthNames( true );
+			$months    = Tribe__Events__Main::instance()->monthNames( true );
 			$options   = '';
 			if ( empty( $date ) ) {
 				$month = ( date_i18n( 'j' ) == date_i18n( 't' ) ) ? date( 'F', time() + 86400 ) : date_i18n( 'F' );

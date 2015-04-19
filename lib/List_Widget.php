@@ -11,6 +11,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 class Tribe__Events__List_Widget extends WP_Widget {
+
+	private static $limit = 5;
+	public static $posts = array();
+
 	/**
 	 * Allows widgets extending this one to pass through their own unique name, ID base etc.
 	 *
@@ -63,8 +67,8 @@ class Tribe__Events__List_Widget extends WP_Widget {
 
 		$instance = wp_parse_args(
 			$instance, array(
-				'limit' => 5,
-				'title' => ''
+				'limit' => self::$limit,
+				'title' => '',
 			)
 		);
 
@@ -90,30 +94,35 @@ class Tribe__Events__List_Widget extends WP_Widget {
 		}
 
 		$title = apply_filters( 'widget_title', $title );
+
+		self::$limit = absint( $limit );
+
 		if ( ! function_exists( 'tribe_get_events' ) ) {
 			return;
 		}
 
-		$posts = tribe_get_events(
+		self::$posts = tribe_get_events(
 			apply_filters(
 				'tribe_events_list_widget_query_args', array(
 					'eventDisplay'   => 'list',
-					'posts_per_page' => $limit
+					'posts_per_page' => self::$limit
 				)
 			)
 		);
 
 		// If no posts, and the don't show if no posts checked, let's bail
-		if ( ! $posts && $no_upcoming_events ) {
+		if ( empty( self::$posts ) && $no_upcoming_events ) {
 			return;
 		}
 
 		echo $before_widget;
 		do_action( 'tribe_events_before_list_widget' );
-		do_action( 'tribe_events_list_widget_before_the_title' );
 
-		echo ( $title ) ? $before_title . $title . $after_title : '';
-		do_action( 'tribe_events_list_widget_after_the_title' );
+		if ( $title ){
+			do_action( 'tribe_events_list_widget_before_the_title' );
+			echo $before_title . $title . $after_title;
+			do_action( 'tribe_events_list_widget_after_the_title' );
+		}
 
 		// Include template file
 		include Tribe__Events__Templates::getTemplateHierarchy( $template_name );
@@ -161,10 +170,10 @@ class Tribe__Events__List_Widget extends WP_Widget {
 		$defaults  = array(
 			'title'              => __( 'Upcoming Events', 'tribe-events-calendar' ),
 			'limit'              => '5',
-			'no_upcoming_events' => false
+			'no_upcoming_events' => false,
 		);
 		$instance  = wp_parse_args( (array) $instance, $defaults );
-		$tribe_ecp = Tribe__Events__Events::instance();
+		$tribe_ecp = Tribe__Events__Main::instance();
 		include( $tribe_ecp->pluginPath . 'admin-views/widget-admin-list.php' );
 	}
 }
