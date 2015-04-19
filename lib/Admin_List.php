@@ -71,6 +71,10 @@ if ( ! class_exists( 'Tribe__Events__Admin_List' ) ) {
 				case 'end-date':
 					$meta_key = '_EventEndDate';
 				break;
+				
+				default:
+					return $clauses;
+				break;
 			}
 			
 			global $wpdb;
