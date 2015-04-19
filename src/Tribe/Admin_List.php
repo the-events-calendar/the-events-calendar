@@ -24,6 +24,9 @@ if ( ! class_exists( 'Tribe__Events__Admin_List' ) ) {
 				// Logic for sorting events by start or end date
 				add_filter( 'posts_clauses', array( __CLASS__, 'sort_by_event_date' ), 10, 2 );
 
+				// Logic for sorting events by event category or tags
+				add_filter( 'posts_clauses', array( __CLASS__, 'sort_by_tax' ), 10, 2 );
+
 				// Pagination
 				add_filter( 'post_limits', array( __CLASS__, 'events_search_limits' ), 10, 2 );
 
@@ -71,7 +74,7 @@ if ( ! class_exists( 'Tribe__Events__Admin_List' ) ) {
 				case 'end-date':
 					$meta_key = '_EventEndDate';
 				break;
-				
+
 				default:
 					return $clauses;
 				break;
@@ -83,6 +86,48 @@ if ( ! class_exists( 'Tribe__Events__Admin_List' ) ) {
 			$clauses['join'] .= "LEFT OUTER JOIN {$wpdb->postmeta} ON {$wpdb->posts}.ID = {$wpdb->postmeta}.post_id AND {$wpdb->postmeta}.meta_key = '{$meta_key}'";
 
 			$clauses['orderby'] = "{$wpdb->postmeta}.meta_value" . self::get_sort_direction( $wp_query );
+
+			return $clauses;
+		}
+
+		/**
+		 * Defines custom logic for sorting events table by category or tags
+		 *
+		 * @param   Array       $clauses    SQL clauses for fetching posts
+		 * @param   WP_Query    $wp_query   A paginated query for items
+		 *
+		 * @return  Array                   Modified SQL clauses
+		 */
+		public static function sort_by_tax( Array $clauses, WP_Query $wp_query ) {
+			if ( ! isset( $wp_query->query['orderby'] ) )
+				return $clauses;
+
+			switch ( $wp_query->query['orderby'] ) {
+				case 'events-cats':
+					$taxonomy = Tribe__Events__Main::TAXONOMY;
+				break;
+
+				case 'tags':
+					$taxonomy = 'post_tag';
+				break;
+
+				default:
+					return $clauses;
+				break;
+			}
+
+			global $wpdb;
+
+			$clauses['join'] .= "
+				LEFT OUTER JOIN {$wpdb->term_relationships} ON {$wpdb->posts}.ID={$wpdb->term_relationships}.object_id
+				LEFT OUTER JOIN {$wpdb->term_taxonomy} USING (term_taxonomy_id)
+				LEFT OUTER JOIN {$wpdb->terms} USING (term_id)
+			";
+
+			$clauses['where'] .= " AND (taxonomy = '".$taxonomy."' OR taxonomy IS NULL)";
+			$clauses['groupby'] = 'object_id';
+			$clauses['orderby'] = "GROUP_CONCAT({$wpdb->terms}.name ORDER BY name ASC)";
+			$clauses['orderby'] .= self::get_sort_direction( $wp_query );
 
 			return $clauses;
 		}
@@ -159,15 +204,16 @@ if ( ! class_exists( 'Tribe__Events__Admin_List' ) ) {
 		}
 
 		/**
-		 * Make it so events can be sorted by start and end dates.
+		 * Allows events to be sorted by start date/end date/category/tags
 		 *
 		 * @param array $columns The columns array.
 		 *
 		 * @return array The modified columns array.
 		 */
-		public static function register_date_sortables( $columns ) {
-			$columns['start-date'] = 'start-date';
-			$columns['end-date']   = 'end-date';
+		public static function register_sortable_columns( $columns ) {
+			foreach ( array( 'events-cats', 'tags', 'start-date', 'end-date' ) as $sortable ) {
+				$columns[ $sortable ] = $sortable;
+			}
 
 			return $columns;
 		}
