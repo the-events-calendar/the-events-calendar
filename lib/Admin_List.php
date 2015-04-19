@@ -227,15 +227,19 @@ SQL;
 		 * @return void
 		 */
 		public static function custom_columns( $column_id, $post_id ) {
-			if ( $column_id == 'events-cats' ) {
-				$event_cats = get_the_term_list( $post_id, Tribe__Events__Main::TAXONOMY, '', ', ', '' );
-				echo ( $event_cats ) ? strip_tags( $event_cats ) : '—';
-			}
-			if ( $column_id == 'start-date' ) {
-				echo tribe_get_start_date( $post_id, false );
-			}
-			if ( $column_id == 'end-date' ) {
-				echo tribe_get_end_date( $post_id, false );
+			switch ( $column_id ) {
+				case 'events-cats':
+					$event_cats = get_the_term_list( $post_id, Tribe__Events__Main::TAXONOMY, '', ', ', '' );
+					echo ( $event_cats ) ? strip_tags( $event_cats ) : '—';
+				break;
+				
+				case 'start-date':
+					echo tribe_get_start_date( $post_id, false );
+				break;
+				
+				case 'end-date':
+					echo tribe_get_end_date( $post_id, false );
+				break;
 			}
 		}
 
