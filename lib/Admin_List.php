@@ -48,7 +48,7 @@ if ( ! class_exists( 'Tribe__Events__Admin_List' ) ) {
 		 * @return  string                  ASC/DESC prefixed with a single space
 		 */
 		public static function get_sort_direction( WP_Query $wp_query ) {
-			return ' ' . (('ASC' == strtoupper($wp_query->get('order'))) ? 'ASC' : 'DESC');
+			return ' ' . ( ( 'ASC' == strtoupper( $wp_query->get( 'order' ) ) ) ? 'ASC' : 'DESC' );
 		}
 		
 		/**
