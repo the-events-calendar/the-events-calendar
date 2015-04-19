@@ -1476,6 +1476,7 @@ if ( ! class_exists( 'Tribe__Events__Events' ) ) {
 				echo '</select>';
 			} else {
 				echo '<p class="nosaved">' . sprintf( __( 'No saved %s exists.', 'tribe-events-calendar' ), strtolower( $this->singular_organizer_label ) ) . '</p>';
+				printf( '<input type="hidden" name="%s" value="%d"/>', esc_attr( $name ), 0 );
 			}
 		}
 

@@ -62,5 +62,5 @@ if ( ! defined( 'ABSPATH' ) ) {
 				}
 			);
 		})
-	})();
+	})(jQuery);
 </script>

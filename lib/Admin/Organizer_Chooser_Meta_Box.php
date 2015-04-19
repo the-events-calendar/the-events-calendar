@@ -73,7 +73,7 @@ class Tribe__Events__Admin__Organizer_Chooser_Meta_Box {
 		<tr class="saved_organizer">
 			<td style="width:170px"><?php
 				$this->move_handle();
-				?><label><?php printf( __( 'Use Saved %s:', 'tribe-events-calendar' ), $this->tribe->singular_organizer_label ); ?></label>
+				?><label data-l10n-create-organizer="<?php esc_attr_e( sprintf( __( 'Create New %s', 'tribe-events-calendar' ), $this->tribe->singular_organizer_label ) ); ?>"><?php printf( __( 'Use Saved %s:', 'tribe-events-calendar' ), $this->tribe->singular_organizer_label ); ?></label>
 			</td>
 			<td><?php
 				$this->tribe->saved_organizers_dropdown( $organizer_id, 'organizer[OrganizerID][]' );
