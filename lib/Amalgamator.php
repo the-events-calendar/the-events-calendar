@@ -299,7 +299,7 @@ class Tribe__Events__Amalgamator {
 				), admin_url( 'edit.php' )
 			)
 		);
-		wp_redirect( esc_url( $url ) );
+		wp_redirect( esc_url_raw( $url ) );
 		exit();
 	}
 }
