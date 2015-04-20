@@ -48,10 +48,10 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @return array
 	 */
 	function tribe_get_organizer_ids( $event_id = null ) {
-		$event_id = Tribe__Events__Events::postIdHelper( $event_id );
+		$event_id = Tribe__Events__Main::postIdHelper( $event_id );
 		$organizer_ids = array();
 		if ( is_numeric( $event_id ) && $event_id > 0 ) {
-			if ( Tribe__Events__Events::instance()->isOrganizer( $event_id ) ) {
+			if ( Tribe__Events__Main::instance()->isOrganizer( $event_id ) ) {
 				$organizer_ids[] = $event_id;
 			} else {
 				$organizer_ids = tribe_get_event_meta( $event_id, '_EventOrganizerID', false );

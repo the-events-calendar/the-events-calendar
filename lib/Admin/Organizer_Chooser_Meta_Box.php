@@ -12,12 +12,12 @@ class Tribe__Events__Admin__Organizer_Chooser_Meta_Box {
 	protected $event;
 
 	/**
-	 * @var Tribe__Events__Events
+	 * @var Tribe__Events__Main
 	 */
 	protected $tribe;
 
 	public function __construct( $event = null ) {
-		$this->tribe = Tribe__Events__Events::instance();
+		$this->tribe = Tribe__Events__Main::instance();
 		$this->get_event( $event );
 	}
 
