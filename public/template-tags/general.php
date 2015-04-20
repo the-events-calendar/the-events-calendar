@@ -1324,7 +1324,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @param bool $echo Whether or not to echo the notices html
 	 *
 	 * @return void | string
-	 * @see Tribe__Events__Events::getNotices()
+	 * @see Tribe__Events__Main::getNotices()
 	 **/
 	function tribe_events_the_notices( $echo = true ) {
 		$notices = Tribe__Events__Main::getNotices();
