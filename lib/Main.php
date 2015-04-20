@@ -812,6 +812,15 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @see 'update_option_'.self::OPTIONNAME
 		 */
 		public function fix_all_day_events( $old_value, $new_value ) {
+			// avoid notices for missing indices
+			$default_value = '00:00';
+			if ( empty( $old_value['multiDayCutoff'] ) ) {
+				$old_value['multiDayCutoff'] = $default_value;
+			}
+			if ( empty( $new_value['multiDayCutoff'] ) ) {
+				$new_value['multiDayCutoff'] = $default_value;
+			}
+
 			if ( $old_value['multiDayCutoff'] == $new_value['multiDayCutoff'] ) {
 				// we only want to continue if the EOD cutoff was changed
 				return;
