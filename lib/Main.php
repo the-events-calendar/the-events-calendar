@@ -2466,7 +2466,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 					break;
 			}
 
-			return apply_filters( 'tribe_events_ugly_link', esc_url( $eventUrl ), $type, $secondary );
+			return apply_filters( 'tribe_events_ugly_link', $eventUrl, $type, $secondary );
 		}
 
 		/**
