@@ -38,7 +38,7 @@ if ( $posts ) {
 				<?php do_action( 'tribe_events_list_widget_before_the_event_title' ); ?>
 				<!-- Event Title -->
 				<h4 class="entry-title summary">
-					<a href="<?php echo tribe_get_event_link(); ?>" rel="bookmark"><?php the_title(); ?></a>
+					<a href="<?php echo esc_url( tribe_get_event_link() ); ?>" rel="bookmark"><?php the_title(); ?></a>
 				</h4>
 
 				<?php do_action( 'tribe_events_list_widget_after_the_event_title' ); ?>
@@ -60,7 +60,7 @@ if ( $posts ) {
 	</ol><!-- .hfeed -->
 
 	<p class="tribe-events-widget-link">
-		<a href="<?php echo tribe_get_events_link(); ?>" rel="bookmark"><?php _e( 'View All Events', 'tribe-events-calendar' ); ?></a>
+		<a href="<?php echo esc_url( tribe_get_events_link() ); ?>" rel="bookmark"><?php _e( 'View All Events', 'tribe-events-calendar' ); ?></a>
 	</p>
 
 	<?php

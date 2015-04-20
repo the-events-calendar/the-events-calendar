@@ -125,10 +125,10 @@ if ( class_exists( 'TribeEvents' ) ) {
 	function tribe_get_organizer_link( $postId = null, $full_link = true, $echo = true ) {
 		$postId = TribeEvents::postIdHelper( $postId );
 		if ( class_exists( 'TribeEventsPro' ) ) {
-			$url = esc_url( get_permalink( tribe_get_organizer_id( $postId ) ) );
+			$url = esc_url_raw( get_permalink( tribe_get_organizer_id( $postId ) ) );
 			if ( $full_link ) {
 				$name = tribe_get_organizer( $postId );
-				$link = ! empty( $url ) && ! empty( $name ) ? '<a href="' . $url . '">' . $name . '</a>' : false;
+				$link = ! empty( $url ) && ! empty( $name ) ? '<a href="' . esc_url( $url ) . '">' . $name . '</a>' : false;
 				$link = apply_filters( 'tribe_get_organizer_link', $link, $postId, $echo, $url, $name );
 			} else {
 				$link = $url;
@@ -198,7 +198,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 			}
 			$html = sprintf(
 				'<a href="%s" target="%s">%s</a>',
-				$url,
+				esc_url( $url ),
 				apply_filters( 'tribe_get_organizer_website_link_target', 'self' ),
 				apply_filters( 'tribe_get_organizer_website_link_label', $label )
 			);
