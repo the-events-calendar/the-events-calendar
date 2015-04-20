@@ -1197,7 +1197,7 @@ class Tribe__Events__Pro__Recurrence_Meta {
 	 * @param int $post_id
 	 *
 	 * @return string
-	 * @see  Tribe__Events__Events::get_series_start_date()
+	 * @see  Tribe__Events__Main::get_series_start_date()
 	 */
 	private static function get_series_start_date( $post_id ) {
 		if ( method_exists( 'Tribe__Events__Main', 'get_series_start_date' ) ) {
