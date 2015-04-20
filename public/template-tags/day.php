@@ -48,7 +48,7 @@ if ( ! function_exists( 'tribe_get_linked_day' ) ) {
 	 */
 	function tribe_get_linked_day( $date, $day ) {
 		$return = '';
-		$return .= "<a href='" . tribe_get_day_link( $date ) . "'>";
+		$return .= "<a href='" . esc_url( tribe_get_day_link( $date ) ) . "'>";
 		$return .= $day;
 		$return .= "</a>";
 
@@ -81,7 +81,7 @@ if ( ! function_exists( 'tribe_the_day_link' ) ) {
 			$latest   = tribe_events_latest_date( Tribe__Events__Date_Utils::DBDATEFORMAT );
 
 			if ( $date >= $earliest && $date <= $latest ) {
-				$html = '<a href="' . $link . '" data-day="' . $date . '" rel="prev">' . $text . '</a>';
+				$html = '<a href="' . esc_url( $link ) . '" data-day="' . $date . '" rel="prev">' . $text . '</a>';
 			}
 
 		} catch ( OverflowException $e ) {
