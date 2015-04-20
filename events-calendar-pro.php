@@ -396,7 +396,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 
 			if ( ! empty($reset_title) && is_tax( $tec->get_event_taxonomy() ) && $depth ) {
 				$cat = get_queried_object();
-				$reset_title = '<a href="' . tribe_get_events_link() . '">' . $reset_title . '</a>';
+				$reset_title = '<a href="' . esc_url( tribe_get_events_link() ) . '">' . $reset_title . '</a>';
 				$reset_title .= ' &#8250; ' . $cat->name;
 			}
 
@@ -490,7 +490,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			// back to an ID, then to a post again (without the EventStartDate)
 			$link = get_post_permalink( $post );
 
-			echo "<link rel='canonical' href='$link' />\n";
+			echo "<link rel='canonical' href='" . esc_url( $link ) . "' />\n";
 		}
 
 		/**
@@ -1158,11 +1158,14 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 		 */
 		public function addLinksToPluginActions( $actions ) {
 			if( class_exists( 'TribeEvents' ) ) {
-				$actions['settings'] = '<a href="' . add_query_arg(
-						array(
-							'post_type' => TribeEvents::POSTTYPE,
-							'page'      => 'tribe-events-calendar'
-						), admin_url( 'edit.php' )
+				$actions['settings'] = '<a href="' . esc_url(
+						add_query_arg(
+							array(
+								'post_type' => TribeEvents::POSTTYPE,
+								'page'      => 'tribe-events-calendar'
+							),
+							admin_url( 'edit.php' )
+						)
 					) . '">' . __( 'Settings', 'tribe-events-calendar-pro' ) . '</a>';
 			}
 
@@ -1507,7 +1510,7 @@ if ( !class_exists( 'TribeEventsPro' ) ) {
 			load_plugin_textdomain( 'tribe-events-calendar-pro', false, $langpath );
 			$url = 'plugin-install.php?tab=plugin-information&plugin=the-events-calendar&TB_iframe=true';
 			$title = __( 'The Events Calendar', 'tribe-events-calendar-pro' );
-			echo '<div class="error"><p>'.sprintf( __( 'To begin using Events Calendar PRO, please install the latest version of <a href="%s" class="thickbox" title="%s">The Events Calendar</a>.', 'tribe-events-calendar-pro' ),$url, $title ).'</p></div>';
+			echo '<div class="error"><p>'.sprintf( __( 'To begin using Events Calendar PRO, please install the latest version of <a href="%s" class="thickbox" title="%s">The Events Calendar</a>.', 'tribe-events-calendar-pro' ), esc_url( $url ), $title ).'</p></div>';
 		}
 	}
 
