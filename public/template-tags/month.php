@@ -255,7 +255,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 
 		if ( $date >= tribe_events_earliest_date( Tribe__Events__Date_Utils::DBYEARMONTHTIMEFORMAT ) ) {
 			$text = tribe_get_previous_month_text();
-			$html = '<a data-month="' . $date . '" href="' . $url . '" rel="prev"><span>&laquo;</span> ' . $text . ' </a>';
+			$html = '<a data-month="' . $date . '" href="' . esc_url( $url ) . '" rel="prev"><span>&laquo;</span> ' . $text . ' </a>';
 		}
 
 		echo apply_filters( 'tribe_events_the_previous_month_link', $html );
@@ -276,7 +276,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		if ( ! empty( $url ) ) {
 			$date = Tribe__Events__Main::instance()->nextMonth( tribe_get_month_view_date() );
 			if ( $date <= tribe_events_latest_date( Tribe__Events__Date_Utils::DBYEARMONTHTIMEFORMAT ) ) {
-				$html = '<a data-month="' . $date . '" href="' . $url . '" rel="next">' . $text . ' <span>&raquo;</span></a>';
+				$html = '<a data-month="' . $date . '" href="' . esc_url( $url ) . '" rel="next">' . $text . ' <span>&raquo;</span></a>';
 			}
 		}
 
