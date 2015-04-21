@@ -29,7 +29,7 @@ $venue_id = get_the_ID();
 <div class="tribe-events-venue">
 
 		<p class="tribe-events-back">
-			<a href="<?php echo tribe_get_events_link() ?>" rel="bookmark"><?php _e( '&larr; Back to Events', 'tribe-events-calendar-pro' ) ?></a>
+			<a href="<?php echo esc_url( tribe_get_events_link() ); ?>" rel="bookmark"><?php _e( '&larr; Back to Events', 'tribe-events-calendar-pro' ) ?></a>
 		</p>
 
 	<div class="tribe-events-venue-meta vcard tribe-clearfix">

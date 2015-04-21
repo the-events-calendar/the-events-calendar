@@ -192,16 +192,16 @@ class TribeEventsRecurrenceMeta {
 			}
 			if ( $is_first_in_series ) {
 				if ( ! empty( $actions['trash'] ) ) {
-					$actions['trash'] = "<a class='submitdelete' title='" . esc_attr( __( 'Move all events in this series to the Trash', 'tribe-events-calendar-pro' ) ) . "' href='" . get_delete_post_link( $post->ID ) . "'>" . __( 'Trash Series', 'tribe-events-calendar-pro' ) . "</a>";
+					$actions['trash'] = "<a class='submitdelete' title='" . esc_attr( __( 'Move all events in this series to the Trash', 'tribe-events-calendar-pro' ) ) . "' href='" . esc_url( get_delete_post_link( $post->ID ) ) . "'>" . __( 'Trash Series', 'tribe-events-calendar-pro' ) . "</a>";
 				}
 				if ( ! empty( $actions['delete'] ) ) {
-					$actions['delete'] = "<a class='submitdelete' title='" . esc_attr( __( 'Delete all events in this series permanently', 'tribe-events-calendar-pro' ) ) . "' href='" . get_delete_post_link( $post->ID, '', true ) . "'>" . __( 'Delete Series Permanently', 'tribe-events-calendar-pro' ) . "</a>";
+					$actions['delete'] = "<a class='submitdelete' title='" . esc_attr( __( 'Delete all events in this series permanently', 'tribe-events-calendar-pro' ) ) . "' href='" . esc_url( get_delete_post_link( $post->ID, '', true ) ) . "'>" . __( 'Delete Series Permanently', 'tribe-events-calendar-pro' ) . "</a>";
 				}
 			}
 			if ( ! empty( $actions['untrash'] ) ) { // if the whole series is in the trash, restore the whole series together
 				$first_event = get_post( $first_id_in_series );
 				if ( $first_event->post_status == 'trash' ) {
-					$actions['untrash'] = "<a title='" . esc_attr( __( 'Restore all events in this series from the Trash', 'tribe-events-calendar-pro' ) ) . "' href='" . wp_nonce_url( admin_url( sprintf( $post_type_object->_edit_link . '&amp;action=untrash', $first_id_in_series ) ), 'untrash-post_' . $first_id_in_series ) . "'>" . __( 'Restore Series', 'tribe-events-calendar-pro' ) . "</a>";
+					$actions['untrash'] = "<a title='" . esc_attr( __( 'Restore all events in this series from the Trash', 'tribe-events-calendar-pro' ) ) . "' href='" . esc_url( wp_nonce_url( admin_url( sprintf( $post_type_object->_edit_link . '&amp;action=untrash', $first_id_in_series ) ), 'untrash-post_' . $first_id_in_series ) ) . "'>" . __( 'Restore Series', 'tribe-events-calendar-pro' ) . "</a>";
 				}
 			}
 		}
