@@ -167,7 +167,7 @@ class Tribe__Events__Activation_Page {
 	 * Initialize the global instance of the class.
 	 */
 	public static function init() {
-		self::instance()->add_hooks();
+//		self::instance()->add_hooks();
 	}
 
 	/**
