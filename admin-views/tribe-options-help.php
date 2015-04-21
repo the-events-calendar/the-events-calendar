@@ -176,7 +176,7 @@ $more_text = __( 'More...', 'tribe-events-calendar' );
 			<?php if ( isset( $requires ) ) { ?>
 				<b><?php _e( 'Requires:', 'tribe-events-calendar' ); ?></b> <?php _e( 'WordPress ', 'tribe-events-calendar' );
 				echo $requires; ?>+<br /><?php } ?>
-			<a href="<?php echo apply_filters( 'tribe_help_tab_wp_plugin_url', TribeEvents::WP_PLUGIN_URL ); ?>"><?php _e( 'Wordpress.org Plugin Page', 'tribe-events-calendar' ); ?></a>
+			<a href="<?php echo esc_url( apply_filters( 'tribe_help_tab_wp_plugin_url', TribeEvents::WP_PLUGIN_URL ) ); ?>"><?php _e( 'Wordpress.org Plugin Page', 'tribe-events-calendar' ); ?></a>
 		</p>
 	</div>
 
@@ -188,7 +188,7 @@ $more_text = __( 'More...', 'tribe-events-calendar' );
 		</div>
 		<?php printf( _n( 'Based on %d rating', 'Based on %d ratings', $num_rating, 'tribe-events-calendar' ), $num_rating ); ?>
 		<p>
-			<a href="<?php echo apply_filters( 'tribe_help_tab_wp_plugin_url', 'http://wordpress.org/support/view/plugin-reviews/the-events-calendar?filter=5' ); ?>"><?php _e( 'Give us 5 stars!', 'tribe-events-calendar' ); ?></a>
+			<a href="<?php echo esc_url( apply_filters( 'tribe_help_tab_wp_plugin_url', 'http://wordpress.org/support/view/plugin-reviews/the-events-calendar?filter=5' ) ); ?>"><?php _e( 'Give us 5 stars!', 'tribe-events-calendar' ); ?></a>
 		</p>
 	<?php } ?>
 
@@ -197,7 +197,7 @@ $more_text = __( 'More...', 'tribe-events-calendar' );
 		<?php foreach ( $premium_add_ons as $addon ) :
 			echo '<li>';
 			if ( isset( $addon['link'] ) ) {
-				echo '<a href="' . $addon['link'] . '" target="_blank">';
+				echo '<a href="' . esc_url( $addon['link'] ) . '" target="_blank">';
 			}
 			echo $addon['title'];
 			if ( isset( $addon['coming_soon'] ) ) {
@@ -215,7 +215,7 @@ $more_text = __( 'More...', 'tribe-events-calendar' );
 	<ul>
 		<?php
 		foreach ( $news_feed as $item ) {
-			echo( '<li><a href="' . $item['link'] . $ga_query_string . '">' . $item['title'] . '</a></li>' );
+			echo( '<li><a href="' . esc_url( $item['link'] . $ga_query_string ) . '">' . $item['title'] . '</a></li>' );
 		}
 		echo '<li><a href="' . TribeEvents::$tribeUrl . 'category/products/' . $ga_query_string . '">' . $more_text . '</a></li>';
 		?>

@@ -22,7 +22,7 @@ $generalTab = array(
 			),
 			'view-calendar-link'            => array(
 				'type' => 'html',
-				'html' => '<p>' . __( 'Where\'s my calendar?', 'tribe-events-calendar' ) . ' <a href="' . TribeEvents::getLink() . '">' . __( 'Right here', 'tribe-events-calendar' ) . '</a>.</p>',
+				'html' => '<p>' . __( 'Where\'s my calendar?', 'tribe-events-calendar' ) . ' <a href="' . esc_url( TribeEvents::getLink() ) . '">' . __( 'Right here', 'tribe-events-calendar' ) . '</a>.</p>',
 			),
 			'upsell-info'                   => array(
 				'type'        => 'html',
@@ -35,12 +35,12 @@ $generalTab = array(
 			),
 			'donate-link-info'              => array(
 				'type'        => 'html',
-				'html'        => '<p>' . __( 'Are you thinking "Wow, this plugin is amazing! I should say thanks to Modern Tribe for all their hard work." The greatest thanks we could ask for is recognition. Add a small text-only link at the bottom of your calendar pointing to The Events Calendar project.', 'tribe-events-calendar' ) . '<br><a href="' . plugins_url( 'resources/images/donate-link-screenshot.jpg', dirname( __FILE__ ) ) . '" class="thickbox">' . __( 'See an example of the link', 'tribe-events-calendar' ) . '</a>.</p>',
+				'html'        => '<p>' . __( 'Are you thinking "Wow, this plugin is amazing! I should say thanks to Modern Tribe for all their hard work." The greatest thanks we could ask for is recognition. Add a small text-only link at the bottom of your calendar pointing to The Events Calendar project.', 'tribe-events-calendar' ) . '<br><a href="' . esc_url( plugins_url( 'resources/images/donate-link-screenshot.jpg', dirname( __FILE__ ) ) ) . '" class="thickbox">' . __( 'See an example of the link', 'tribe-events-calendar' ) . '</a>.</p>',
 				'conditional' => ! class_exists( 'TribeEventsPro' ),
 			),
 			'donate-link-pro-info'          => array(
 				'type'        => 'html',
-				'html'        => '<p>' . __( 'Are you thinking "Wow, this plugin is amazing! I should say thanks to Modern Tribe for all their hard work." The greatest thanks we could ask for is recognition. Add a small text only link at the bottom of your calendar pointing to The Events Calendar project.', 'tribe-events-calendar' ) . '<br><a href="' . plugins_url( 'resources/images/donate-link-pro-screenshot.jpg', dirname( __FILE__ ) ) . '" class="thickbox">' . __( 'See an example of the link', 'tribe-events-calendar' ) . '</a>.</p>',
+				'html'        => '<p>' . __( 'Are you thinking "Wow, this plugin is amazing! I should say thanks to Modern Tribe for all their hard work." The greatest thanks we could ask for is recognition. Add a small text only link at the bottom of your calendar pointing to The Events Calendar project.', 'tribe-events-calendar' ) . '<br><a href="' . esc_url( plugins_url( 'resources/images/donate-link-pro-screenshot.jpg', dirname( __FILE__ ) ) ) . '" class="thickbox">' . __( 'See an example of the link', 'tribe-events-calendar' ) . '</a>.</p>',
 				'conditional' => class_exists( 'TribeEventsPro' ),
 			),
 			'donate-link'                   => array(
@@ -94,7 +94,7 @@ $generalTab = array(
 			'unprettyPermalinksUrl'         => array(
 				'type'        => 'html',
 				'label'       => __( 'Events URL slug', 'tribe-events-calendar' ),
-				'html'        => '<p>' . sprintf( __( 'You cannot edit the slug for your events page as you do not have pretty permalinks enabled. The current URL for your events page is <a href="%s">%s</a>. In order to edit the slug here, <a href="%soptions-permalink.php">enable pretty permalinks</a>.', 'tribe-events-calendar' ), $tec->getLink( 'home' ), $tec->getLink( 'home ' ), trailingslashit( get_admin_url() ) ) . '</p>',
+				'html'        => '<p>' . sprintf( __( 'You cannot edit the slug for your events page as you do not have pretty permalinks enabled. The current URL for your events page is <a href="%s">%s</a>. In order to edit the slug here, <a href="%soptions-permalink.php">enable pretty permalinks</a>.', 'tribe-events-calendar' ), esc_url( $tec->getLink( 'home' ) ), $tec->getLink( 'home ' ), esc_url( trailingslashit( get_admin_url() ) ) ) . '</p>',
 				'conditional' => ( '' == get_option( 'permalink_structure' ) ),
 			),
 			'eventsSlug'                    => array(
@@ -106,7 +106,7 @@ $generalTab = array(
 			),
 			'current-events-slug'           => array(
 				'type'        => 'html',
-				'html'        => '<p class="tribe-field-indent tribe-field-description description">' . __( 'The slug used for building the events URL.', 'tribe-events-calendar' ) . sprintf( __( 'Your current events URL is: %s', 'tribe-events-calendar' ), '<code><a href="' . tribe_get_events_link() . '">' . tribe_get_events_link() . '</a></code>' ) . '</p>',
+				'html'        => '<p class="tribe-field-indent tribe-field-description description">' . __( 'The slug used for building the events URL.', 'tribe-events-calendar' ) . sprintf( __( 'Your current events URL is: %s', 'tribe-events-calendar' ), '<code><a href="' . esc_url( tribe_get_events_link() ) . '">' . tribe_get_events_link() . '</a></code>' ) . '</p>',
 				'conditional' => ( '' != get_option( 'permalink_structure' ) ),
 			),
 			'ical-info'                     => array(
@@ -222,12 +222,12 @@ $generalTab = array(
 			),
 			'viewWelcomePage'          => array(
 				'type'        => 'html',
-				'html'        => '<fieldset class="tribe-field tribe-field-html"><legend>' . __( 'View Welcome Page', 'tribe-events-calendar' ) . '</legend><div class="tribe-field-wrap"><a href="' . get_site_url() . '/wp-admin/edit.php?post_type=tribe_events&page=tribe-events-calendar&tec-welcome-message" class="button">' . __( 'View Welcome Page', 'tribe-events-calendar' ) . '</a><p class="tribe-field-indent description">' . __( 'View the page that displayed when you initially installed the plugin.', 'tribe-events-calendar' ) . '</p></div></fieldset><div class="clear"></div>',
+				'html'        => '<fieldset class="tribe-field tribe-field-html"><legend>' . __( 'View Welcome Page', 'tribe-events-calendar' ) . '</legend><div class="tribe-field-wrap"><a href="' . esc_url( get_site_url() . '/wp-admin/edit.php?post_type=tribe_events&page=tribe-events-calendar&tec-welcome-message' ) . '" class="button">' . __( 'View Welcome Page', 'tribe-events-calendar' ) . '</a><p class="tribe-field-indent description">' . __( 'View the page that displayed when you initially installed the plugin.', 'tribe-events-calendar' ) . '</p></div></fieldset><div class="clear"></div>',
 
 			),
 			'viewUpdatePage'          => array(
 				'type'        => 'html',
-				'html'        => '<fieldset class="tribe-field tribe-field-html"><legend>' . __( 'View Update Page', 'tribe-events-calendar' ) . '</legend><div class="tribe-field-wrap"><a href="' . get_site_url() . '/wp-admin/edit.php?post_type=tribe_events&page=tribe-events-calendar&tec-update-message" class="button">' . __( 'View Update Page', 'tribe-events-calendar' ) . '</a><p class="tribe-field-indent description">' . __( 'View the page that displayed when you updated the plugin.', 'tribe-events-calendar' ) . '</p></div></fieldset><div class="clear"></div>'
+				'html'        => '<fieldset class="tribe-field tribe-field-html"><legend>' . __( 'View Update Page', 'tribe-events-calendar' ) . '</legend><div class="tribe-field-wrap"><a href="' . esc_url( get_site_url() . '/wp-admin/edit.php?post_type=tribe_events&page=tribe-events-calendar&tec-update-message' ) . '" class="button">' . __( 'View Update Page', 'tribe-events-calendar' ) . '</a><p class="tribe-field-indent description">' . __( 'View the page that displayed when you updated the plugin.', 'tribe-events-calendar' ) . '</p></div></fieldset><div class="clear"></div>'
 			),
 			'tribe-form-content-end'        => array(
 				'type' => 'html',

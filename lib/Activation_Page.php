@@ -97,7 +97,7 @@ class Tribe__Events__Activation_Page {
 				), admin_url( 'edit.php' )
 			)
 		);
-		$url = add_query_arg( $slug, 1, $url );
+		$url = esc_url( add_query_arg( $slug, 1, $url ) );
 		return $url;
 	}
 

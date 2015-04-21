@@ -212,7 +212,7 @@ if ( class_exists( 'TribeEvents' ) ) {
 			$label = is_null( $label ) ? $url : $label;
 			$html  = sprintf(
 				'<a href="%s" target="%s">%s</a>',
-				$url,
+				esc_url( $url ),
 				apply_filters( 'tribe_get_event_website_link_target', 'self' ),
 				apply_filters( 'tribe_get_event_website_link_label', $label )
 			);
