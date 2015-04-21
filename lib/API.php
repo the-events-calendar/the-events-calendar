@@ -38,7 +38,7 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 		 */
 		public static function createEvent( $args ) {
 
-			$args['post_type'] = Tribe__Events__Events::POSTTYPE;
+			$args['post_type'] = Tribe__Events__Main::POSTTYPE;
 			$eventId           = wp_insert_post( $args, true );
 
 			if ( ! is_wp_error( $eventId ) ) {
@@ -58,7 +58,7 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 		 */
 		public static function updateEvent( $eventId, $args ) {
 			$args['ID'] = $eventId;
-			$args['post_type'] = Tribe__Events__Events::POSTTYPE;
+			$args['post_type'] = Tribe__Events__Main::POSTTYPE;
 
 			if ( wp_update_post( $args ) ) {
 				Tribe__Events__API::saveEventMeta( $eventId, $args, get_post( $eventId ) );
@@ -89,7 +89,7 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 		 * @return void
 		 */
 		public static function saveEventMeta( $event_id, $data, $event = null ) {
-			$tec = Tribe__Events__Events::instance();
+			$tec = Tribe__Events__Main::instance();
 
 			if ( isset( $data['EventAllDay'] ) && ( $data['EventAllDay'] == 'yes' || $data['EventAllDay'] == true || ! isset( $data['EventStartDate'] ) ) ) {
 				$data['EventStartDate'] = tribe_event_beginning_of_day( $data['EventStartDate'] );
@@ -156,7 +156,7 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 			//update meta fields
 			foreach ( $tec->metaTags as $tag ) {
 				$htmlElement = ltrim( $tag, '_' );
-				if ( isset( $data[$htmlElement] ) && $tag != Tribe__Events__Events::EVENTSERROROPT ) {
+				if ( isset( $data[$htmlElement] ) && $tag != Tribe__Events__Main::EVENTSERROROPT ) {
 					if ( is_string( $data[$htmlElement] ) ) {
 						$data[$htmlElement] = filter_var( $data[$htmlElement], FILTER_SANITIZE_STRING );
 					}
@@ -289,7 +289,7 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 
 				$postdata = array(
 					'post_title'  => $data['Organizer'] ? $data['Organizer'] : "Unnamed Organizer",
-					'post_type'   => Tribe__Events__Events::ORGANIZER_POST_TYPE,
+					'post_type'   => Tribe__Events__Main::ORGANIZER_POST_TYPE,
 					'post_status' => $post_status,
 				);
 
@@ -376,7 +376,7 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 			if ( ( isset( $data['Venue'] ) && $data['Venue'] ) || self::someVenueDataSet( $data ) ) {
 				$postdata = array(
 					'post_title'  => $data['Venue'] ? $data['Venue'] : __( "Unnamed Venue", 'tribe-events-calendar' ),
-					'post_type'   => Tribe__Events__Events::VENUE_POST_TYPE,
+					'post_type'   => Tribe__Events__Main::VENUE_POST_TYPE,
 					'post_status' => $post_status,
 				);
 

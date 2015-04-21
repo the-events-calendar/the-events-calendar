@@ -14,7 +14,7 @@ if ( ! class_exists( 'Tribe__Events__Options_Exception' ) ) {
 		 * Display the exception message in the div #tribe-events-options-error
 		 */
 		public static function displayMessage() {
-			$eventsOptions = get_option( Tribe__Events__Events::OPTIONNAME, array() );
+			$eventsOptions = get_option( Tribe__Events__Main::OPTIONNAME, array() );
 			if ( isset( $eventsOptions['error'] ) && $eventsOptions['error'] ) : ?>
 				<script type="text/javascript">jQuery('#tribe-events-options-error').append('<h3><?php _e( 'Error', 'tribe-events-calendar' ); ?></h3><p>' + '<?php echo $eventsOptions['error']; ?>' + '</p>').show();</script>
 			<?php endif;

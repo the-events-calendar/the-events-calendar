@@ -4,7 +4,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
-$post_type = Tribe__Events__Events::POSTTYPE;
+$post_type = Tribe__Events__Main::POSTTYPE;
 $active = $this->get_active_tab();
 
 ?>

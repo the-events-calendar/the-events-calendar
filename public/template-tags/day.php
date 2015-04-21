@@ -10,7 +10,7 @@ if ( ! function_exists( 'tribe_is_day' ) ) {
 	 * @return bool
 	 */
 	function tribe_is_day() {
-		$tribe_ecp = Tribe__Events__Events::instance();
+		$tribe_ecp = Tribe__Events__Main::instance();
 		$is_day    = ( $tribe_ecp->displaying == 'day' ) ? true : false;
 
 		return apply_filters( 'tribe_is_day', $is_day );
@@ -28,7 +28,7 @@ if ( ! function_exists( 'tribe_get_day_link' ) ) {
 	 * @return string URL
 	 */
 	function tribe_get_day_link( $date = null ) {
-		$tribe_ecp = Tribe__Events__Events::instance();
+		$tribe_ecp = Tribe__Events__Main::instance();
 
 		return apply_filters( 'tribe_get_day_link', $tribe_ecp->getLink( 'day', $date ), $date );
 	}
@@ -130,7 +130,7 @@ if ( ! function_exists( 'tribe_get_the_day_link_date' ) ) {
 	 */
 	function tribe_get_the_day_link_date( $date_description ) {
 		if ( is_null( $date_description ) ) {
-			return Tribe__Events__Pro__Events_Pro::instance()->todaySlug;
+			return Tribe__Events__Pro__Main::instance()->todaySlug;
 		}
 		if ( $date_description == 'previous day' ) {
 			return tribe_get_previous_day_date( get_query_var( 'start_date' ) );

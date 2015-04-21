@@ -35,7 +35,7 @@ require( 'header.php' );
 					<select name="imported_post_status">
 						<?php
 						foreach( $import_statuses as $key => $value ){
-							echo '<option value="' . $key . '" ' . selected( $key, Tribe__Events__Events::getOption( 'imported_post_status', 'publish' ) ) . '>
+							echo '<option value="' . $key . '" ' . selected( $key, Tribe__Events__Main::getOption( 'imported_post_status', 'publish' ) ) . '>
 							' . $value . '
 						</option>';
 						}

@@ -5,6 +5,6 @@
 
 		public function handle() {
 			$path = Tribe__Events__Template_Factory::getMinFile( $this->resources_url . 'events-admin.css', true );
-			wp_enqueue_style( $this->prefix . '-admin-ui', $path, array(), Tribe__Events__Events::VERSION );
+			wp_enqueue_style( $this->prefix . '-admin-ui', $path, array(), Tribe__Events__Main::VERSION );
 		}
 	}

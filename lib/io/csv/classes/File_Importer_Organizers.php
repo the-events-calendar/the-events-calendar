@@ -9,7 +9,7 @@ class Tribe__Events__Importer__File_Importer_Organizers extends Tribe__Events__I
 
 	protected function match_existing_post( array $record ) {
 		$name = $this->get_value_by_key( $record, 'organizer_name' );
-		$id   = $this->find_matching_post_id( $name, Tribe__Events__Events::ORGANIZER_POST_TYPE );
+		$id   = $this->find_matching_post_id( $name, Tribe__Events__Main::ORGANIZER_POST_TYPE );
 
 		return $id;
 	}
