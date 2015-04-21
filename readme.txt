@@ -225,6 +225,10 @@ Our Premium Plugins:
 
 3.x is a complete overhaul of the plugin, and as a result we're starting the changelog fresh. For release notes from the 2.x lifecycle, see <a href="http://m.tri.be/k">our 2.x release notes.</a>
 
+= 3.9.3 =
+
+* Hardened URL output to protect against XSS attacks.
+
 = 3.9.2 =
 
 * Addressed a potential security vulnerability related to the ajax_change_month function; we now ensure only valid dates get $_POSTed (thanks to Mikko Verenius for reporting this to us!)
