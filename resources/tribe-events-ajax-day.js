@@ -18,10 +18,12 @@
 
 	$( document ).ready( function() {
 
-		var $nav_link = $( '[class^="tribe-events-nav-"] a' ),
-			base_url = '/';
+		var $nav_link = $( '[class^="tribe-events-nav-"] a' );
+		var base_url = '/';
 
-		if ( $nav_link.length ) {
+		if ( 'undefined' !== typeof TribeCalendar.events_base ) {
+			base_url = TribeCalendar.events_base;
+		} else if ( $nav_link.length ) {
 			base_url = $nav_link.first().attr( 'href' ).slice( 0, -11 );
 		}
 
