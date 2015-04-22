@@ -368,7 +368,7 @@
 									<table border="0" cellpadding="0" cellspacing="0" width="100%" align="center">
 										<tr>
 											<td class="ticket-footer" valign="top" align="left" width="100%" style="padding: 0 !important; width:100%; margin:0 !important;">
-												<a href="<?php echo home_url(); ?>" style="color:#006caa !important; display:block; margin-top:20px; font-family: 'Helvetica Neue', Helvetica, sans-serif; font-size:13px; text-decoration:underline;"><?php echo home_url(); ?></a>
+												<a href="<?php echo esc_url( home_url() ); ?>" style="color:#006caa !important; display:block; margin-top:20px; font-family: 'Helvetica Neue', Helvetica, sans-serif; font-size:13px; text-decoration:underline;"><?php echo home_url(); ?></a>
 											</td>
 										</tr>
 									</table>

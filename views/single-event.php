@@ -21,7 +21,7 @@ $event_id = get_the_ID();
 <div id="tribe-events-content" class="tribe-events-single vevent hentry">
 
 	<p class="tribe-events-back">
-		<a href="<?php echo tribe_get_events_link() ?>"> <?php _e( '&laquo; All Events', 'tribe-events-calendar' ) ?></a>
+		<a href="<?php echo esc_url( tribe_get_events_link() ); ?>"> <?php _e( '&laquo; All Events', 'tribe-events-calendar' ) ?></a>
 	</p>
 
 	<!-- Notices -->

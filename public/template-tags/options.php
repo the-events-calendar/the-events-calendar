@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @return string, the string to display
  */
 function tribe_display_current_events_slug() {
-	echo '<p class="tribe-field-indent tribe-field-description description">' . __( 'The slug used for building the events URL.', 'tribe-events-calendar' ) . sprintf( __( 'Your current Events URL is %s', 'tribe-events-calendar' ), '<code><a href="' . tribe_get_events_link() . '">' . tribe_get_events_link() . '</a></code>' ) . '</p>';
+	echo '<p class="tribe-field-indent tribe-field-description description">' . __( 'The slug used for building the events URL.', 'tribe-events-calendar' ) . sprintf( __( 'Your current Events URL is %s', 'tribe-events-calendar' ), '<code><a href="' . esc_url( tribe_get_events_link() ) . '">' . tribe_get_events_link() . '</a></code>' ) . '</p>';
 }
 
 /**

@@ -40,10 +40,10 @@
 			echo ' first tribe-clearfix';
 		} ?>">
 			<div class="thumb">
-				<a href="<?php echo $product->permalink; ?>"><img src="<?php echo $product->featured_image_url; ?>" /></a>
+				<a href="<?php echo esc_url( $product->permalink ); ?>"><img src="<?php echo $product->featured_image_url; ?>" /></a>
 			</div>
 			<div class="caption">
-				<h4><a href="<?php echo $product->permalink; ?>"><?php echo $product->title; ?></a></h4>
+				<h4><a href="<?php echo esc_url( $product->permalink ); ?>"><?php echo $product->title; ?></a></h4>
 
 				<div class="description">
 					<p><?php echo $product->description; ?></p>
@@ -58,7 +58,7 @@
 					}
 					?>
 				</div>
-				<a class="button button-primary" href="<?php echo $product->permalink; ?>">Get This Add-on</a>
+				<a class="button button-primary" href="<?php echo esc_url( $product->permalink ); ?>">Get This Add-on</a>
 			</div>
 		</div>
 
