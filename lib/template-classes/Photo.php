@@ -122,7 +122,7 @@ if( !class_exists( 'Tribe__Events__Pro__Templates__Photo' )){
 				$post = $query->posts[0];
 			}
 
-			add_filter( 'tribe_events_list_pagination', array( 'Tribe__Events__Events', 'clear_module_pagination' ), 10 );
+			add_filter( 'tribe_events_list_pagination', array( 'Tribe__Events__Main', 'clear_module_pagination' ), 10 );
 
 			$tec->displaying = 'photo';
 
