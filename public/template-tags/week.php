@@ -261,7 +261,7 @@ if ( class_exists( 'TribeEventsPro' ) ) {
 			}
 
 			if ( ! empty( $url ) ) {
-				return sprintf( '<a %s href="%s" rel="prev">%s</a>', tribe_events_the_nav_attributes( 'prev', false ), $url, $text );
+				return sprintf( '<a %s href="%s" rel="prev">%s</a>', tribe_events_the_nav_attributes( 'prev', false ), esc_url( $url ), $text );
 			}
 		} catch ( OverflowException $e ) {
 			return '';
@@ -280,7 +280,7 @@ if ( class_exists( 'TribeEventsPro' ) ) {
 				$text = __( 'Next Week <span>&raquo;</span>', 'tribe-events-calendar-pro' );
 			}
 
-			return sprintf( '<a %s href="%s" rel="next">%s</a>', tribe_events_the_nav_attributes( 'next', false ), $url, $text );
+			return sprintf( '<a %s href="%s" rel="next">%s</a>', tribe_events_the_nav_attributes( 'next', false ), esc_url( $url ), $text );
 		} catch ( OverflowException $e ) {
 			return '';
 		}

@@ -51,7 +51,7 @@ if ( defined( "DOING_AJAX" ) && DOING_AJAX && isset( $_POST['action'] ) && $_POS
 		<?php do_action( 'tribe_events_list_widget_before_the_event_title' ); ?>
 
 		<h2 class="entry-title summary">
-			<a href="<?php echo tribe_get_event_link(); ?>" rel="bookmark"><?php the_title(); ?></a>
+			<a href="<?php echo esc_url( tribe_get_event_link() ); ?>" rel="bookmark"><?php the_title(); ?></a>
 		</h2>
 
 		<?php do_action( 'tribe_events_list_widget_after_the_event_title' ); ?>
