@@ -812,6 +812,15 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @see 'update_option_'.self::OPTIONNAME
 		 */
 		public function fix_all_day_events( $old_value, $new_value ) {
+			// avoid notices for missing indices
+			$default_value = '00:00';
+			if ( empty( $old_value['multiDayCutoff'] ) ) {
+				$old_value['multiDayCutoff'] = $default_value;
+			}
+			if ( empty( $new_value['multiDayCutoff'] ) ) {
+				$new_value['multiDayCutoff'] = $default_value;
+			}
+
 			if ( $old_value['multiDayCutoff'] == $new_value['multiDayCutoff'] ) {
 				// we only want to continue if the EOD cutoff was changed
 				return;
@@ -830,12 +839,12 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			// mysql query to set the end time to the start time plus the duration on every all day event
 			$fix_end_dates      =
-				"UPDATE wp_postmeta AS pm1
-				INNER JOIN wp_postmeta pm2
-					ON (pm1.post_id = pm2.post_id AND pm2.meta_key = '_EventAllDay' AND pm2.`meta_value` = 'yes')
-				INNER JOIN wp_postmeta pm3
+				"UPDATE $wpdb->postmeta AS pm1
+				INNER JOIN $wpdb->postmeta pm2
+					ON (pm1.post_id = pm2.post_id AND pm2.meta_key = '_EventAllDay' AND pm2.meta_value = 'yes')
+				INNER JOIN $wpdb->postmeta pm3
 					ON (pm1.post_id = pm3.post_id AND pm3.meta_key = '_EventStartDate')
-				INNER JOIN wp_postmeta pm4
+				INNER JOIN $wpdb->postmeta pm4
 					ON (pm1.post_id = pm4.post_id AND pm4.meta_key = '_EventDuration')
 				SET pm1.meta_value = DATE_ADD(pm3.meta_value, INTERVAL pm4.meta_value SECOND )
 				WHERE pm1.meta_key = '_EventEndDate'";
