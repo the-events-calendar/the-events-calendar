@@ -206,7 +206,7 @@ class Tribe__Events__Pro__Mini_Calendar {
 	/**
 	 * @todo revise so that our stylesheet is enqueued in time for the link to be included within the head element
 	 */
-	private function styles_and_scripts() {
+	protected function styles_and_scripts() {
 		wp_enqueue_script( 'tribe-mini-calendar', Tribe__Events__Pro__Main::instance()->pluginUrl . 'resources/widget-calendar.js', array( 'jquery' ), apply_filters( 'tribe_events_pro_js_version', Tribe__Events__Pro__Main::VERSION ) );
 		Tribe__Events__Pro__Widgets::enqueue_calendar_widget_styles();
 
