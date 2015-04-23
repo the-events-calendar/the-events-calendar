@@ -554,7 +554,8 @@ if ( ! class_exists( 'Tribe_Template_Factory' ) ) {
 					wp_enqueue_script( $prefix . '-calendar-script', $path, $deps, apply_filters( 'tribe_events_js_version', TribeEvents::VERSION ) );
 					$js_config_array = array(
 						'permalink_settings' => get_option( 'permalink_structure' ),
-						'events_post_type'   => TribeEvents::POSTTYPE
+						'events_post_type'   => TribeEvents::POSTTYPE,
+						'events_base' => tribe_get_events_link(),
 					);
 					wp_localize_script( $prefix . '-calendar-script', 'tribe_js_config', $js_config_array );
 					break;
@@ -631,7 +632,9 @@ if ( ! class_exists( 'Tribe_Template_Factory' ) ) {
 							$prefix . '-calendar-script'
 						)
 					);
-					$ajax_data = array( "ajaxurl" => admin_url( 'admin-ajax.php', ( is_ssl() ? 'https' : 'http' ) ) );
+					$ajax_data = array(
+						"ajaxurl" => admin_url( 'admin-ajax.php', ( is_ssl() ? 'https' : 'http' ) ),
+					);
 					$path      = self::getMinFile( $resources_url . 'tribe-events-ajax-calendar.js', true );
 					wp_enqueue_script( 'tribe-events-calendar', $path, $deps, apply_filters( 'tribe_events_js_version', TribeEvents::VERSION ), true );
 					wp_localize_script( 'tribe-events-calendar', 'TribeCalendar', $ajax_data );
@@ -641,7 +644,7 @@ if ( ! class_exists( 'Tribe_Template_Factory' ) ) {
 					$tribe_paged = ( ! empty( $_REQUEST['tribe_paged'] ) ) ? $_REQUEST['tribe_paged'] : 0;
 					$ajax_data   = array(
 						"ajaxurl"     => admin_url( 'admin-ajax.php', ( is_ssl() ? 'https' : 'http' ) ),
-						'tribe_paged' => $tribe_paged
+						'tribe_paged' => $tribe_paged,
 					);
 					$path        = self::getMinFile( $resources_url . 'tribe-events-ajax-list.js', true );
 					wp_enqueue_script( 'tribe-events-list', $path, $deps, apply_filters( 'tribe_events_js_version', TribeEvents::VERSION ), true );
@@ -650,7 +653,7 @@ if ( ! class_exists( 'Tribe_Template_Factory' ) ) {
 				case 'ajax-dayview':
 					$ajax_data = array(
 						"ajaxurl"   => admin_url( 'admin-ajax.php', ( is_ssl() ? 'https' : 'http' ) ),
-						'post_type' => TribeEvents::POSTTYPE
+						'post_type' => TribeEvents::POSTTYPE,
 					);
 					$path      = self::getMinFile( $resources_url . 'tribe-events-ajax-day.js', true );
 					wp_enqueue_script( 'tribe-events-ajax-day', $path, array( 'tribe-events-bar' ), apply_filters( 'tribe_events_js_version', TribeEvents::VERSION ), true );

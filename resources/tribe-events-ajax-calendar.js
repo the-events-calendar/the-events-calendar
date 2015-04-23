@@ -20,12 +20,15 @@
 
 		var $body = $( 'body' ),
 			$nav_link = $( '[class^="tribe-events-nav-"] a' ),
-			base_url = '/',
 			initial_date = tf.get_url_param( 'tribe-bar-date' ),
 			$tribedate = $( '#tribe-bar-date' ),
 			date_mod = false;
 
-		if ( $nav_link.length ) {
+		var base_url = '/';
+
+		if ( 'undefined' !== typeof config.events_base ) {
+			base_url = config.events_base;
+		} else if ( $nav_link.length ) {
 			base_url = $nav_link.first().attr( 'href' ).slice( 0, -8 );
 		}
 
