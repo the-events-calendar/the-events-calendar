@@ -681,7 +681,7 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 			// Variable for storing output to admin notices.
 			$output = '';
 			// Array to store any plugins that are out of date.
-			$bad_versions = array();
+			$bad_addons = array();
 			// Array to store all addons and their required CORE versions.
 			$tec_addons_required_versions = array();
 			// Array to store NAMES ONLY of any plugins that are out of date.
@@ -691,22 +691,27 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 
 			// Get the addon information.
 			$tec_addons_required_versions = (array) apply_filters( 'tribe_tec_addons', $tec_addons_required_versions );
+
 			// Foreach addon, make sure that it is compatible with current version of core.
 			foreach ( $tec_addons_required_versions as $plugin ) {
-				if ( ! strstr( self::VERSION, $plugin['required_version'] ) ) {
-					if ( isset( $plugin['current_version'] ) ) {
-						$bad_versions[] = $plugin;
-					}
-					if ( ( isset( $plugin['plugin_dir_file'] ) ) ) {
-						$addon_short_path = $plugin['plugin_dir_file'];
-					} else {
-						$addon_short_path = null;
-					}
+				// we're not going to check addons that we can't
+				if ( empty( $plugin['required_version'] ) || empty( $plugin['current_version'] ) ) {
+					continue;
 				}
-				// Check to make sure Core isn't the thing that is out of date.
+
+				// check if TEC is out of date
 				if ( version_compare( $plugin['required_version'], self::VERSION, '>' ) ) {
 					$tec_out_of_date = true;
+					break;
 				}
+
+				// check if addons are at an older minor version
+				$addon_minor_version = (float) $plugin['current_version'];
+				$tec_minor_version   = (float) self::VERSION;
+				if ( version_compare( $addon_minor_version, $tec_minor_version, '<' ) ) {
+					$bad_addons[] = $plugin;
+				}
+
 			}
 			// If Core is out of date, generate the proper message.
 			if ( $tec_out_of_date == true ) {
@@ -724,13 +729,9 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 				$output .= '</div>';
 			} else {
 				// Otherwise, if the addons are out of date, generate the proper messaging.
-				if ( ! empty( $bad_versions ) ) {
-					foreach ( $bad_versions as $plugin ) {
-						if ( $plugin['current_version'] ) {
-							$out_of_date_addons[] = $plugin['plugin_name'] . ' ' . $plugin['current_version'];
-						} else {
-							$out_of_date_addons[] = $plugin['plugin_name'];
-						}
+				if ( ! empty( $bad_addons ) ) {
+					foreach ( $bad_addons as $plugin ) {
+						$out_of_date_addons[] = $plugin['plugin_name'] . ' ' . $plugin['current_version'];
 					}
 					$output .= '<div class="error">';
 					$link = add_query_arg(
