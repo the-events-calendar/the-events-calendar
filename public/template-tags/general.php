@@ -992,8 +992,10 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @return mixed|void
 	 */
 	function tribe_get_datetime_format( $with_year = false ) {
+		$separator = (array) str_split( tribe_get_option( 'dateTimeSeparator', ' @ ' ) );
+
 		$format = tribe_get_date_format( $with_year );
-		$format .= implode( "\\", str_split( tribe_get_option( 'dateTimeSeparator', ' @ ' ) ) );
+		$format .= ( ! empty( $separator ) ? '\\' : '' ) . implode( '\\', $separator );
 		$format .= get_option( 'time_format' );
 
 		return apply_filters( 'tribe_datetime_format', $format );
