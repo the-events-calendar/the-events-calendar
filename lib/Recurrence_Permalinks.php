@@ -20,9 +20,9 @@ class Tribe__Events__Pro__Recurrence_Permalinks {
 		$slug   = $parent->post_name;
 
 		if ( get_option( 'permalink_structure' ) == '' ) {
-			$post_link = remove_query_arg( Tribe__Events__Events::POSTTYPE, $post_link );
+			$post_link = remove_query_arg( Tribe__Events__Main::POSTTYPE, $post_link );
 			$post_link = add_query_arg( array(
-				Tribe__Events__Events::POSTTYPE => $slug,
+				Tribe__Events__Main::POSTTYPE => $slug,
 				'eventDate'           => $date,
 			), $post_link );
 		} elseif ( ! empty( $permastruct ) ) {
@@ -38,7 +38,7 @@ class Tribe__Events__Pro__Recurrence_Permalinks {
 	}
 
 	protected function should_filter_permalink( $post, $sample ) {
-		if ( $post->post_type != Tribe__Events__Events::POSTTYPE ) {
+		if ( $post->post_type != Tribe__Events__Main::POSTTYPE ) {
 			return false;
 		}
 		if ( ! tribe_is_recurring_event( $post->ID ) ) {

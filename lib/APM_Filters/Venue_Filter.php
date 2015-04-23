@@ -56,7 +56,7 @@
 		}
 
 		public function form_row( $return, $key, $value, $filter ) {
-			$venues = get_posts( array( 'post_type' => Tribe__Events__Events::VENUE_POST_TYPE, 'nopaging' => true ) );
+			$venues = get_posts( array( 'post_type' => Tribe__Events__Main::VENUE_POST_TYPE, 'nopaging' => true ) );
 
 			$args = array();
 

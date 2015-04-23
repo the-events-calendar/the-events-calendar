@@ -121,7 +121,7 @@ class TribeEventsRecurrenceScheduler_Test extends Tribe__Events__WP_UnitTestCase
 		$post_id = Tribe__Events__API::createEvent(array(
 			'post_title' => __CLASS__,
 			'post_content' => __FUNCTION__,
-			'post_type' => Tribe__Events__Events::POSTTYPE,
+			'post_type' => Tribe__Events__Main::POSTTYPE,
 			'EventStartDate' => $start_date,
 			'EventEndDate' => $start_date,
 			'EventStartHour' => 16,
@@ -152,7 +152,7 @@ class TribeEventsRecurrenceScheduler_Test extends Tribe__Events__WP_UnitTestCase
 		Tribe__Events__API::updateEvent($post_id, array(
 			'post_title' => __CLASS__,
 			'post_content' => __FUNCTION__.' (updating)',
-			'post_type' => Tribe__Events__Events::POSTTYPE,
+			'post_type' => Tribe__Events__Main::POSTTYPE,
 			'EventStartDate' => $start_date,
 			'EventEndDate' => $start_date,
 			'EventStartHour' => 16,

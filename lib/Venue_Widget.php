@@ -29,7 +29,7 @@ if ( ! class_exists( 'Tribe__Events__Pro__Venue_Widget' ) ) {
 
 			// Get all the upcoming events for this venue.
 			$events = tribe_get_events( array(
-				'post_type'      => Tribe__Events__Events::POSTTYPE,
+				'post_type'      => Tribe__Events__Main::POSTTYPE,
 				'venue'          => $venue_ID,
 				'posts_per_page' => $count,
 				'eventDisplay'   => 'list'
@@ -40,7 +40,7 @@ if ( ! class_exists( 'Tribe__Events__Pro__Venue_Widget' ) ) {
 				return;
 			}
 
-			$ecp            = Tribe__Events__Pro__Events_Pro::instance();
+			$ecp            = Tribe__Events__Pro__Main::instance();
 			$tooltip_status = $ecp->recurring_info_tooltip_status();
 			$ecp->disable_recurring_info_tooltip();
 
@@ -71,12 +71,12 @@ if ( ! class_exists( 'Tribe__Events__Pro__Venue_Widget' ) ) {
 				'hide_if_empty' => true,
 			);
 			$venues   = get_posts( array(
-					'post_type' => Tribe__Events__Events::VENUE_POST_TYPE,
+					'post_type' => Tribe__Events__Main::VENUE_POST_TYPE,
 					'orderby'   => 'title',
 					'nopaging'  => true
 				) );
 			$instance = wp_parse_args( (array) $instance, $defaults );
-			include( Tribe__Events__Pro__Events_Pro::instance()->pluginPath . 'admin-views/widget-admin-venue.php' );
+			include( Tribe__Events__Pro__Main::instance()->pluginPath . 'admin-views/widget-admin-venue.php' );
 		}
 
 		// Function allowing updating of widget information.

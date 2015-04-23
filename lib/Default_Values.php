@@ -5,35 +5,35 @@ class Tribe__Events__Pro__Default_Values extends Tribe__Events__Default_Values {
 
 
 	public function venue_id() {
-		return Tribe__Events__Events::instance()->getOption( 'eventsDefaultVenueID', 0 );
+		return Tribe__Events__Main::instance()->getOption( 'eventsDefaultVenueID', 0 );
 	}
 
 	public function organizer_id() {
-		return Tribe__Events__Events::instance()->getOption( 'eventsDefaultOrganizerID', 0 );
+		return Tribe__Events__Main::instance()->getOption( 'eventsDefaultOrganizerID', 0 );
 	}
 
 	public function address() {
-		return Tribe__Events__Events::instance()->getOption( 'eventsDefaultAddress', '' );
+		return Tribe__Events__Main::instance()->getOption( 'eventsDefaultAddress', '' );
 	}
 
 	public function city() {
-		return Tribe__Events__Events::instance()->getOption( 'eventsDefaultCity', '' );
+		return Tribe__Events__Main::instance()->getOption( 'eventsDefaultCity', '' );
 	}
 
 	public function state() {
-		return Tribe__Events__Events::instance()->getOption( 'eventsDefaultState', '' );
+		return Tribe__Events__Main::instance()->getOption( 'eventsDefaultState', '' );
 	}
 
 	public function province() {
-		return Tribe__Events__Events::instance()->getOption( 'eventsDefaultProvince', '' );
+		return Tribe__Events__Main::instance()->getOption( 'eventsDefaultProvince', '' );
 	}
 
 	public function zip() {
-		return Tribe__Events__Events::instance()->getOption( 'eventsDefaultZip', '' );
+		return Tribe__Events__Main::instance()->getOption( 'eventsDefaultZip', '' );
 	}
 
 	public function country() {
-		$country = Tribe__Events__Events::instance()->getOption( 'defaultCountry', NULL );
+		$country = Tribe__Events__Main::instance()->getOption( 'defaultCountry', NULL );
 		if ( !$country || !is_array( $country ) ) {
 			$country = array( '', '' );
 		}
@@ -46,7 +46,7 @@ class Tribe__Events__Pro__Default_Values extends Tribe__Events__Default_Values {
 	}
 
 	public function phone() {
-		return Tribe__Events__Events::instance()->getOption( 'eventsDefaultPhone', '' );
+		return Tribe__Events__Main::instance()->getOption( 'eventsDefaultPhone', '' );
 	}
 
 

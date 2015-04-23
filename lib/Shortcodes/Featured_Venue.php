@@ -67,9 +67,9 @@ class Tribe__Events__Pro__Shortcodes__Featured_Venue {
 		}
 
 		if ( ! empty( $this->arguments['limit'] ) ) {
-			$this->arguments['posts_per_page'] = (int) $this->arguments['limit'];
+			$this->arguments['count'] = (int) $this->arguments['limit'];
 		} else {
-			$this->arguments['posts_per_page'] = (int) tribe_get_option( 'postsPerPage', 10 );
+			$this->arguments['count'] = (int) tribe_get_option( 'postsPerPage', 10 );
 		}
 	}
 
@@ -78,7 +78,7 @@ class Tribe__Events__Pro__Shortcodes__Featured_Venue {
 	 */
 	protected function set_by_slug() {
 		$venues = get_posts( array(
-			'post_type' => Tribe__Events__Events::VENUE_POST_TYPE,
+			'post_type' => Tribe__Events__Main::VENUE_POST_TYPE,
 			'name' => $this->arguments['slug'],
 			'posts_per_page' => 1
 		) );

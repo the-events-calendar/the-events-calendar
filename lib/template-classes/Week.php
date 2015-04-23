@@ -191,14 +191,14 @@ if ( ! class_exists( 'Tribe__Events__Pro__Templates__Week' ) ) {
 			list( $search_term, $tax_term, $geographic_term ) = $this->get_search_terms();
 
 			if ( ! empty( $search_term ) ) {
-				Tribe__Events__Events::setNotice( 'event-search-no-results', sprintf( __( 'There were no results found for <strong>"%s"</strong> this week. Try searching another week.', 'tribe-events-calendar-pro' ), esc_html( $search_term ) ) );
+				Tribe__Events__Main::setNotice( 'event-search-no-results', sprintf( __( 'There were no results found for <strong>"%s"</strong> this week. Try searching another week.', 'tribe-events-calendar-pro' ), esc_html( $search_term ) ) );
 			} elseif ( ! empty( $geographic_term ) ) {
-				Tribe__Events__Events::setNotice( 'event-search-no-results', sprintf( __( 'No results were found for events in or near <strong>"%s"</strong> this week. Try searching another week.', 'tribe-events-calendar-pro' ), esc_html( $geographic_term ) ) );
+				Tribe__Events__Main::setNotice( 'event-search-no-results', sprintf( __( 'No results were found for events in or near <strong>"%s"</strong> this week. Try searching another week.', 'tribe-events-calendar-pro' ), esc_html( $geographic_term ) ) );
 			} // if attempting to view a category archive.
 			elseif ( ! empty( $tax_term ) ) {
-				Tribe__Events__Events::setNotice( 'events-not-found', sprintf( __( 'No matching events listed under %s. Please try viewing the full calendar for a complete list of events.', 'tribe-events-calendar' ), $tax_term ) );
+				Tribe__Events__Main::setNotice( 'events-not-found', sprintf( __( 'No matching events listed under %s. Please try viewing the full calendar for a complete list of events.', 'tribe-events-calendar' ), $tax_term ) );
 			} else {
-				Tribe__Events__Events::setNotice( 'event-search-no-results', __( 'No results were found for this week. Try searching another week.', 'tribe-events-calendar-pro' ) );
+				Tribe__Events__Main::setNotice( 'event-search-no-results', __( 'No results were found for this week. Try searching another week.', 'tribe-events-calendar-pro' ) );
 			}
 		}
 
@@ -411,7 +411,7 @@ if ( ! class_exists( 'Tribe__Events__Pro__Templates__Week' ) ) {
 		 */
 		public static function get_event_attributes( $event ) {
 
-			$event = Tribe__Events__Events::postIdHelper( $event );
+			$event = Tribe__Events__Main::postIdHelper( $event );
 
 			$event = get_post( $event );
 
@@ -663,13 +663,13 @@ if ( ! class_exists( 'Tribe__Events__Pro__Templates__Week' ) ) {
 				);
 
 				if ( isset( $_POST['tribe_event_category'] ) ) {
-					$args[ Tribe__Events__Events::TAXONOMY ] = $_POST['tribe_event_category'];
+					$args[ Tribe__Events__Main::TAXONOMY ] = $_POST['tribe_event_category'];
 				}
 
 				global $wp_query;
 				$wp_query = Tribe__Events__Query::getEvents( $args, true );
 
-				Tribe__Events__Events::instance()->setDisplay();
+				Tribe__Events__Main::instance()->setDisplay();
 
 				$response = array(
 					'html'    => '',

@@ -20,11 +20,11 @@ class Tribe__Events__Pro__Mini_Calendar_Widget extends WP_Widget {
 		}
 
 		Tribe__Events__Template_Factory::asset_package( 'select2' );
-		wp_enqueue_script( 'calendar-widget-admin', Tribe__Events__Pro__Events_Pro::instance()->pluginUrl . 'resources/calendar-widget-admin.js', array(), apply_filters( 'tribe_events_pro_js_version', Tribe__Events__Pro__Events_Pro::VERSION ) );
+		wp_enqueue_script( 'calendar-widget-admin', Tribe__Events__Pro__Main::instance()->pluginUrl . 'resources/calendar-widget-admin.js', array(), apply_filters( 'tribe_events_pro_js_version', Tribe__Events__Pro__Main::VERSION ) );
 	}
 
 	public function widget( $args, $instance ) {
-		$ecp = Tribe__Events__Pro__Events_Pro::instance();
+		$ecp = Tribe__Events__Pro__Main::instance();
 		$tooltip_status = $ecp->recurring_info_tooltip_status();
 		$ecp->disable_recurring_info_tooltip();
 
@@ -81,10 +81,10 @@ class Tribe__Events__Pro__Mini_Calendar_Widget extends WP_Widget {
 		);
 		$instance = wp_parse_args( (array) $instance, $defaults );
 
-		$taxonomies = get_object_taxonomies( Tribe__Events__Events::POSTTYPE, 'objects' );
+		$taxonomies = get_object_taxonomies( Tribe__Events__Main::POSTTYPE, 'objects' );
 		$taxonomies = array_reverse( $taxonomies );
 
-		$ts = Tribe__Events__Pro__Events_Pro::instance();
+		$ts = Tribe__Events__Pro__Main::instance();
 
 		include $ts->pluginPath . 'admin-views/widget-calendar.php';
 	}

@@ -28,14 +28,14 @@ if ( is_array( $posts ) && ! empty( $posts ) ) : ?>
 <ul class="tribe-related-events tribe-clearfix hfeed vcalendar">
 	<?php foreach ( $posts as $post ) : ?>
 	<li>
-		<?php $thumb = ( has_post_thumbnail( $post->ID ) ) ? get_the_post_thumbnail( $post->ID, 'large' ) : '<img src="' . trailingslashit( Tribe__Events__Pro__Events_Pro::instance()->pluginUrl ) . 'resources/images/tribe-related-events-placeholder.png" alt="' . esc_attr( get_the_title( $post->ID ) ) . '" />'; ?>
+		<?php $thumb = ( has_post_thumbnail( $post->ID ) ) ? get_the_post_thumbnail( $post->ID, 'large' ) : '<img src="' . trailingslashit( Tribe__Events__Pro__Main::instance()->pluginUrl ) . 'resources/images/tribe-related-events-placeholder.png" alt="' . esc_attr( get_the_title( $post->ID ) ) . '" />'; ?>
 		<div class="tribe-related-events-thumbnail">
 			<a href="<?php echo tribe_get_event_link( $post ); ?>" class="url" rel="bookmark"><?php echo $thumb ?></a>
 		</div>
 		<div class="tribe-related-event-info">
 			<h3 class="tribe-related-events-title summary"><a href="<?php echo tribe_get_event_link( $post ); ?>" class="url" rel="bookmark"><?php echo get_the_title( $post->ID ); ?></a></h3>
 			<?php
-				if ( $post->post_type == Tribe__Events__Events::POSTTYPE ) {
+				if ( $post->post_type == Tribe__Events__Main::POSTTYPE ) {
 					echo tribe_events_event_schedule_details( $post );
 				}
 			?>

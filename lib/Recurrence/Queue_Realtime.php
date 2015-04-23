@@ -19,7 +19,7 @@ class Tribe__Events__Pro__Recurrence__Queue_Realtime {
 	public function post_editor() {
 		global $post;
 
-		$is_an_event = class_exists( 'Tribe__Events__Events' ) && Tribe__Events__Events::POSTTYPE === $post->post_type;
+		$is_an_event = class_exists( 'Tribe__Events__Main' ) && Tribe__Events__Main::POSTTYPE === $post->post_type;
 		$is_a_parent = 0 == $post->post_parent;
 
 		if ( ! $is_an_event || ! $is_a_parent ) {
@@ -55,7 +55,7 @@ class Tribe__Events__Pro__Recurrence__Queue_Realtime {
 			'progressText' =>sprintf( __( '%d%% complete', 'tribe-events-pro' ), $percentage )
 		);
 
-		wp_localize_script( Tribe__Events__Events::POSTTYPE.'-premium-admin', 'TribeEventsProRecurrenceUpdate', $data );
+		wp_localize_script( Tribe__Events__Main::POSTTYPE.'-premium-admin', 'TribeEventsProRecurrenceUpdate', $data );
 	}
 
 	public function add_notice() {
@@ -89,7 +89,7 @@ class Tribe__Events__Pro__Recurrence__Queue_Realtime {
 		$queue = new Tribe__Events__Pro__Recurrence__Queue( $event_id );
 
 		if ( ! $queue->is_empty() ) {
-			Tribe__Events__Pro__Events_Pro::instance()->queue_processor->process_batch( $event_id );
+			Tribe__Events__Pro__Main::instance()->queue_processor->process_batch( $event_id );
 		}
 
 		$done       = $queue->is_empty();

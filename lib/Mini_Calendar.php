@@ -47,7 +47,7 @@ class Tribe__Events__Pro__Mini_Calendar {
 	}
 
 	public function  ajax_select_day() {
-		$ecp            = Tribe__Events__Pro__Events_Pro::instance();
+		$ecp            = Tribe__Events__Pro__Main::instance();
 		$tooltip_status = $ecp->recurring_info_tooltip_status();
 		$ecp->disable_recurring_info_tooltip();
 
@@ -174,7 +174,7 @@ class Tribe__Events__Pro__Mini_Calendar {
 		$this->args = $args;
 
 		// Disable tooltips
-		$ecp            = Tribe__Events__Pro__Events_Pro::instance();
+		$ecp            = Tribe__Events__Pro__Main::instance();
 		$tooltip_status = $ecp->recurring_info_tooltip_status();
 		$ecp->disable_recurring_info_tooltip();
 
@@ -206,8 +206,8 @@ class Tribe__Events__Pro__Mini_Calendar {
 	/**
 	 * @todo revise so that our stylesheet is enqueued in time for the link to be included within the head element
 	 */
-	private function styles_and_scripts() {
-		wp_enqueue_script( 'tribe-mini-calendar', Tribe__Events__Pro__Events_Pro::instance()->pluginUrl . 'resources/widget-calendar.js', array( 'jquery' ), apply_filters( 'tribe_events_pro_js_version', Tribe__Events__Pro__Events_Pro::VERSION ) );
+	protected function styles_and_scripts() {
+		wp_enqueue_script( 'tribe-mini-calendar', Tribe__Events__Pro__Main::instance()->pluginUrl . 'resources/widget-calendar.js', array( 'jquery' ), apply_filters( 'tribe_events_pro_js_version', Tribe__Events__Pro__Main::VERSION ) );
 		Tribe__Events__Pro__Widgets::enqueue_calendar_widget_styles();
 
 		// Tribe Events CSS filename
@@ -227,7 +227,7 @@ class Tribe__Events__Pro__Mini_Calendar {
 				break;
 		}
 
-		$styleUrl = Tribe__Events__Pro__Events_Pro::instance()->pluginUrl . 'resources/' . $event_file_option;
+		$styleUrl = Tribe__Events__Pro__Main::instance()->pluginUrl . 'resources/' . $event_file_option;
 		$styleUrl = apply_filters( 'tribe_events_pro_widget_calendar_stylesheet_url', $styleUrl );
 
 		$styleOverrideUrl = Tribe__Events__Templates::locate_stylesheet( 'tribe-events/pro/' . $event_file, $styleUrl );
@@ -235,14 +235,14 @@ class Tribe__Events__Pro__Mini_Calendar {
 
 		// Load up stylesheet from theme or plugin
 		if ( $styleUrl && $stylesheet_option == 'tribe' ) {
-			wp_enqueue_style( 'widget-calendar-pro-style', Tribe__Events__Pro__Events_Pro::instance()->pluginUrl . 'resources/widget-calendar-full.css', array(), apply_filters( 'tribe_events_pro_css_version', Tribe__Events__Pro__Events_Pro::VERSION ) );
-			wp_enqueue_style( Tribe__Events__Events::POSTTYPE . '-widget-calendar-pro-style', $styleUrl, array(), apply_filters( 'tribe_events_pro_css_version', Tribe__Events__Pro__Events_Pro::VERSION ) );
+			wp_enqueue_style( 'widget-calendar-pro-style', Tribe__Events__Pro__Main::instance()->pluginUrl . 'resources/widget-calendar-full.css', array(), apply_filters( 'tribe_events_pro_css_version', Tribe__Events__Pro__Main::VERSION ) );
+			wp_enqueue_style( Tribe__Events__Main::POSTTYPE . '-widget-calendar-pro-style', $styleUrl, array(), apply_filters( 'tribe_events_pro_css_version', Tribe__Events__Pro__Main::VERSION ) );
 		} else {
-			wp_enqueue_style( Tribe__Events__Events::POSTTYPE . '-widget-calendar-pro-style', $styleUrl, array(), apply_filters( 'tribe_events_pro_css_version', Tribe__Events__Pro__Events_Pro::VERSION ) );
+			wp_enqueue_style( Tribe__Events__Main::POSTTYPE . '-widget-calendar-pro-style', $styleUrl, array(), apply_filters( 'tribe_events_pro_css_version', Tribe__Events__Pro__Main::VERSION ) );
 		}
 
 		if ( $styleOverrideUrl ) {
-			wp_enqueue_style( Tribe__Events__Events::POSTTYPE . '--widget-calendar-pro-override-style', $styleOverrideUrl, array(), apply_filters( 'tribe_events_pro_css_version', Tribe__Events__Pro__Events_Pro::VERSION ) );
+			wp_enqueue_style( Tribe__Events__Main::POSTTYPE . '--widget-calendar-pro-override-style', $styleOverrideUrl, array(), apply_filters( 'tribe_events_pro_css_version', Tribe__Events__Pro__Main::VERSION ) );
 		}
 
 		$widget_data = array( "ajaxurl" => admin_url( 'admin-ajax.php', ( is_ssl() ? 'https' : 'http' ) ) );
@@ -323,7 +323,7 @@ class Tribe__Events__Pro__Mini_Calendar {
 	public function ajax_change_month_set_date( $query ) {
 
 		if ( isset( $_POST["eventDate"] ) && $_POST["eventDate"] ) {
-			$query->set( 'end_date', date( 'Y-m-d', strtotime( Tribe__Events__Events::instance()->nextMonth( $_POST["eventDate"] . '-01' ) ) - ( 24 * 3600 ) ) );
+			$query->set( 'end_date', date( 'Y-m-d', strtotime( Tribe__Events__Main::instance()->nextMonth( $_POST["eventDate"] . '-01' ) ) - ( 24 * 3600 ) ) );
 			$query->set( 'eventDisplay', 'month' );
 		}
 

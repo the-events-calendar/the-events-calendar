@@ -28,7 +28,7 @@ function tribe_events_the_mini_calendar_header_attributes() {
  * @return void
  **/
 function tribe_events_the_mini_calendar_prev_link() {
-	$tribe_ecp = Tribe__Events__Events::instance();
+	$tribe_ecp = Tribe__Events__Main::instance();
 	$args      = tribe_events_get_mini_calendar_args();
 	$html      = '<a class="tribe-mini-calendar-nav-link prev-month" href="#" data-month="' . $tribe_ecp->previousMonth( $args['eventDate'] ) . '-01" title="' . tribe_get_previous_month_text() . '"><span>&laquo;</span></a>';
 	echo apply_filters( 'tribe_events_the_mini_calendar_prev_link', $html );
@@ -53,7 +53,7 @@ function tribe_events_the_mini_calendar_title() {
  * @return void
  **/
 function tribe_events_the_mini_calendar_next_link() {
-	$tribe_ecp = Tribe__Events__Events::instance();
+	$tribe_ecp = Tribe__Events__Main::instance();
 	$args      = tribe_events_get_mini_calendar_args();
 	try {
 		$html = '<a class="tribe-mini-calendar-nav-link next-month" href="#" data-month="' . $tribe_ecp->nextMonth( $args['eventDate'] ) . '-01" title="' . tribe_get_next_month_text() . '"><span>&raquo;</span></a>';

@@ -28,13 +28,13 @@ class Tribe__Events__Pro__Rewrite_Rule_Generator {
 
 	public function get_week_rules( $week_base ) {
 		$rules = array(
-			$this->base . $week_base . '/?$'                                    => 'index.php?post_type=' . Tribe__Events__Events::POSTTYPE . '&eventDisplay=week',
-			$this->base . $week_base . '/(\d{2})/?$'                            => 'index.php?post_type=' . Tribe__Events__Events::POSTTYPE . '&eventDisplay=week' . '&eventDate=' . $this->rewrite->preg_index( 1 ),
-			$this->base . $week_base . '/(\d{4}-\d{2}-\d{2})/?$'                => 'index.php?post_type=' . Tribe__Events__Events::POSTTYPE . '&eventDisplay=week' . '&eventDate=' . $this->rewrite->preg_index( 1 ),
-			$this->cat_base . '([^/]+)/' . $week_base . '/?$'                   => 'index.php?tribe_events_cat=' . $this->rewrite->preg_index( 2 ) . '&post_type=' . Tribe__Events__Events::POSTTYPE . '&eventDisplay=week',
-			$this->cat_base . '([^/]+)/' . $week_base . '/(\d{4}-\d{2}-\d{2})$' => 'index.php?tribe_events_cat=' . $this->rewrite->preg_index( 2 ) . '&post_type=' . Tribe__Events__Events::POSTTYPE . '&eventDisplay=week' . '&eventDate=' . $this->rewrite->preg_index( 3 ),
-			$this->tag_base . '([^/]+)/' . $week_base . '/?$'                   => 'index.php?tag=' . $this->rewrite->preg_index( 2 ) . '&post_type=' . Tribe__Events__Events::POSTTYPE . '&eventDisplay=week',
-			$this->tag_base . '([^/]+)/' . $week_base . '/(\d{4}-\d{2}-\d{2})$' => 'index.php?tag=' . $this->rewrite->preg_index( 2 ) . '&post_type=' . Tribe__Events__Events::POSTTYPE . '&eventDisplay=week' . '&eventDate=' . $this->rewrite->preg_index( 3 )
+			$this->base . $week_base . '/?$'                                    => 'index.php?post_type=' . Tribe__Events__Main::POSTTYPE . '&eventDisplay=week',
+			$this->base . $week_base . '/(\d{2})/?$'                            => 'index.php?post_type=' . Tribe__Events__Main::POSTTYPE . '&eventDisplay=week' . '&eventDate=' . $this->rewrite->preg_index( 1 ),
+			$this->base . $week_base . '/(\d{4}-\d{2}-\d{2})/?$'                => 'index.php?post_type=' . Tribe__Events__Main::POSTTYPE . '&eventDisplay=week' . '&eventDate=' . $this->rewrite->preg_index( 1 ),
+			$this->cat_base . '([^/]+)/' . $week_base . '/?$'                   => 'index.php?tribe_events_cat=' . $this->rewrite->preg_index( 2 ) . '&post_type=' . Tribe__Events__Main::POSTTYPE . '&eventDisplay=week',
+			$this->cat_base . '([^/]+)/' . $week_base . '/(\d{4}-\d{2}-\d{2})$' => 'index.php?tribe_events_cat=' . $this->rewrite->preg_index( 2 ) . '&post_type=' . Tribe__Events__Main::POSTTYPE . '&eventDisplay=week' . '&eventDate=' . $this->rewrite->preg_index( 3 ),
+			$this->tag_base . '([^/]+)/' . $week_base . '/?$'                   => 'index.php?tag=' . $this->rewrite->preg_index( 2 ) . '&post_type=' . Tribe__Events__Main::POSTTYPE . '&eventDisplay=week',
+			$this->tag_base . '([^/]+)/' . $week_base . '/(\d{4}-\d{2}-\d{2})$' => 'index.php?tag=' . $this->rewrite->preg_index( 2 ) . '&post_type=' . Tribe__Events__Main::POSTTYPE . '&eventDisplay=week' . '&eventDate=' . $this->rewrite->preg_index( 3 )
 		);
 
 		return $rules;
@@ -42,10 +42,10 @@ class Tribe__Events__Pro__Rewrite_Rule_Generator {
 
 	public function get_photo_rules( $photo_base ) {
 		$rules = array(
-			$this->base . $photo_base . '/?$'                     => 'index.php?post_type=' . Tribe__Events__Events::POSTTYPE . '&eventDisplay=photo',
-			$this->base . $photo_base . '/(\d{4}-\d{2}-\d{2})/?$' => 'index.php?post_type=' . Tribe__Events__Events::POSTTYPE . '&eventDisplay=photo' . '&eventDate=' . $this->rewrite->preg_index( 1 ),
-			$this->cat_base . '([^/]+)/' . $photo_base . '/?$'    => 'index.php?tribe_events_cat=' . $this->rewrite->preg_index( 2 ) . '&post_type=' . Tribe__Events__Events::POSTTYPE . '&eventDisplay=photo',
-			$this->tag_base . '([^/]+)/' . $photo_base . '/?$'    => 'index.php?tag=' . $this->rewrite->preg_index( 2 ) . '&post_type=' . Tribe__Events__Events::POSTTYPE . '&eventDisplay=photo',
+			$this->base . $photo_base . '/?$'                     => 'index.php?post_type=' . Tribe__Events__Main::POSTTYPE . '&eventDisplay=photo',
+			$this->base . $photo_base . '/(\d{4}-\d{2}-\d{2})/?$' => 'index.php?post_type=' . Tribe__Events__Main::POSTTYPE . '&eventDisplay=photo' . '&eventDate=' . $this->rewrite->preg_index( 1 ),
+			$this->cat_base . '([^/]+)/' . $photo_base . '/?$'    => 'index.php?tribe_events_cat=' . $this->rewrite->preg_index( 2 ) . '&post_type=' . Tribe__Events__Main::POSTTYPE . '&eventDisplay=photo',
+			$this->tag_base . '([^/]+)/' . $photo_base . '/?$'    => 'index.php?tag=' . $this->rewrite->preg_index( 2 ) . '&post_type=' . Tribe__Events__Main::POSTTYPE . '&eventDisplay=photo',
 		);
 
 		return $rules;
@@ -53,8 +53,8 @@ class Tribe__Events__Pro__Rewrite_Rule_Generator {
 
 	public function get_taxonomy_rules() {
 		$rules = array(
-			$this->cat_base . '([^/]+)/(\d{4}-\d{2}-\d{2})/?$' => 'index.php?tribe_events_cat=' . $this->rewrite->preg_index( 2 ) . '&post_type=' . Tribe__Events__Events::POSTTYPE . '&eventDisplay=day' . '&eventDate=' . $this->rewrite->preg_index( 3 ),
-			$this->tag_base . '([^/]+)/(\d{4}-\d{2}-\d{2})/?$' => 'index.php?tag=' . $this->rewrite->preg_index( 2 ) . '&post_type=' . Tribe__Events__Events::POSTTYPE . '&eventDisplay=day' . '&eventDate=' . $this->rewrite->preg_index( 3 ),
+			$this->cat_base . '([^/]+)/(\d{4}-\d{2}-\d{2})/?$' => 'index.php?tribe_events_cat=' . $this->rewrite->preg_index( 2 ) . '&post_type=' . Tribe__Events__Main::POSTTYPE . '&eventDisplay=day' . '&eventDate=' . $this->rewrite->preg_index( 3 ),
+			$this->tag_base . '([^/]+)/(\d{4}-\d{2}-\d{2})/?$' => 'index.php?tag=' . $this->rewrite->preg_index( 2 ) . '&post_type=' . Tribe__Events__Main::POSTTYPE . '&eventDisplay=day' . '&eventDate=' . $this->rewrite->preg_index( 3 ),
 		);
 
 		return $rules;
