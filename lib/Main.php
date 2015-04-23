@@ -1394,7 +1394,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			}
 			?>
 			<tr class="">
-				<td colspan="2"><?php _e( 'Without a defined location your event will not display a <a href="https://support.google.com/webmasters/answer/164506" target="_blank">Google Rich Snippets</a> on the search results.', 'tribe-events-calendar' ) ?></td>
+				<td colspan="2"><?php _e( 'Without a defined location your event will not display a <a href="https://support.google.com/webmasters/answer/164506" target="_blank">Google Rich Snippet</a> on the search results.', 'tribe-events-calendar' ) ?></td>
 			</tr>
 			<?php
 		}
