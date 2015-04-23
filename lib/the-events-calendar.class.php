@@ -24,7 +24,7 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 		const VENUE_POST_TYPE     = 'tribe_venue';
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
 
-		const VERSION       = '3.9.2';
+		const VERSION       = '3.9.3';
 		const FEED_URL      = 'http://tri.be/category/products/feed/';
 		const INFO_API_URL  = 'http://wpapi.org/api/plugin/the-events-calendar.php';
 		const WP_PLUGIN_URL = 'http://wordpress.org/extend/plugins/the-events-calendar/';
@@ -678,35 +678,42 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 		 * @return void
 		 */
 		public function checkAddOnCompatibility() {
+
 			// Variable for storing output to admin notices.
 			$output = '';
+
 			// Array to store any plugins that are out of date.
-			$bad_versions = array();
+			$out_of_date_addons = array();
+
 			// Array to store all addons and their required CORE versions.
 			$tec_addons_required_versions = array();
-			// Array to store NAMES ONLY of any plugins that are out of date.
-			$out_of_date_addons = array();
+
 			// Is Core the thing that is out of date?
 			$tec_out_of_date = false;
 
 			// Get the addon information.
 			$tec_addons_required_versions = (array) apply_filters( 'tribe_tec_addons', $tec_addons_required_versions );
+
 			// Foreach addon, make sure that it is compatible with current version of core.
 			foreach ( $tec_addons_required_versions as $plugin ) {
-				if ( ! strstr( self::VERSION, $plugin['required_version'] ) ) {
-					if ( isset( $plugin['current_version'] ) ) {
-						$bad_versions[] = $plugin;
-					}
-					if ( ( isset( $plugin['plugin_dir_file'] ) ) ) {
-						$addon_short_path = $plugin['plugin_dir_file'];
-					} else {
-						$addon_short_path = null;
-					}
+				// we're not going to check addons that we can't
+				if ( empty( $plugin['required_version'] ) || empty( $plugin['current_version'] ) ) {
+					continue;
 				}
-				// Check to make sure Core isn't the thing that is out of date.
+
+				// check if TEC is out of date
 				if ( version_compare( $plugin['required_version'], self::VERSION, '>' ) ) {
 					$tec_out_of_date = true;
+					break;
 				}
+
+				// check if addons are at an older minor version
+				$addon_minor_version = (float) $plugin['current_version'];
+				$tec_minor_version   = (float) self::VERSION;
+				if ( version_compare( $addon_minor_version, $tec_minor_version, '<' ) ) {
+					$out_of_date_addons[] = $plugin['plugin_name'] . ' ' . $plugin['current_version'];
+				}
+
 			}
 			// If Core is out of date, generate the proper message.
 			if ( $tec_out_of_date == true ) {
@@ -722,27 +729,18 @@ if ( ! class_exists( 'TribeEvents' ) ) {
 				$output .= '<div class="error">';
 				$output .= '<p>' . sprintf( __( 'Your version of The Events Calendar is not up-to-date with one of your The Events Calendar add-ons. Please %supdate now.%s', 'tribe-events-calendar' ), '<a href="' . esc_url( $upgrade_path ) . '">', '</a>' ) . '</p>';
 				$output .= '</div>';
-			} else {
+			} elseif ( ! empty( $out_of_date_addons ) ) {
 				// Otherwise, if the addons are out of date, generate the proper messaging.
-				if ( ! empty( $bad_versions ) ) {
-					foreach ( $bad_versions as $plugin ) {
-						if ( $plugin['current_version'] ) {
-							$out_of_date_addons[] = $plugin['plugin_name'] . ' ' . $plugin['current_version'];
-						} else {
-							$out_of_date_addons[] = $plugin['plugin_name'];
-						}
-					}
-					$output .= '<div class="error">';
-					$link = add_query_arg(
-						array(
-							'utm_campaign' => 'in-app',
-							'utm_medium'   => 'plugin-tec',
-							'utm_source'   => 'notice'
-						), self::$tribeUrl . 'version-relationships-in-modern-tribe-pluginsadd-ons/'
-					);
-					$output .= '<p>' . sprintf( __( 'The following plugins are out of date: <b>%s</b>. All add-ons contain dependencies on The Events Calendar and will not function properly unless paired with the right version. %sLearn More%s.', 'tribe-events-calendar' ), join( $out_of_date_addons, ', ' ), "<a href='" . esc_url( $link ) . "' target='_blank'>", '</a>' ) . '</p>';
-					$output .= '</div>';
-				}
+				$output .= '<div class="error">';
+				$link = add_query_arg(
+					array(
+						'utm_campaign' => 'in-app',
+						'utm_medium'   => 'plugin-tec',
+						'utm_source'   => 'notice'
+					), self::$tribeUrl . 'version-relationships-in-modern-tribe-pluginsadd-ons/'
+				);
+				$output .= '<p>' . sprintf( __( 'The following plugins are out of date: <b>%s</b>. All add-ons contain dependencies on The Events Calendar and will not function properly unless paired with the right version. %sLearn More%s.', 'tribe-events-calendar' ), join( $out_of_date_addons, ', ' ), "<a href='" . esc_url( $link ) . "' target='_blank'>", '</a>' ) . '</p>';
+				$output .= '</div>';
 			}
 			// Make sure only to show the message if the user has the permissions necessary.
 			if ( current_user_can( 'edit_plugins' ) ) {

@@ -4,8 +4,8 @@ Contributors:  ModernTribe, roblagatta, faction23, jazbek, jbrinley, leahkoerper
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
 Donate link: http://m.tri.be/29
 Requires at least: 3.9
-Tested up to: 4.1.2
-Stable tag: 3.9.2
+Tested up to: 4.2
+Stable tag: 3.9.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -218,6 +218,7 @@ The plugin is produced by <a href="http://m.tri.be/2s">Modern Tribe Inc</a>.
 * <a href="http://profiles.wordpress.org/users/peterchester">Peter Chester</a>
 * <a href="http://profiles.wordpress.org/users/reid.peifer">Reid Peifer</a>
 * <a href="http://profiles.wordpress.org/users/shane.pearlman">Shane Pearlman</a>
+* <a href="http://profiles.wordpress.org/users/borkweb">Matthew Batchelder</a>
 
 = Past Contributors =
 
@@ -324,6 +325,12 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 = IMPORTANT NOTICE =
 
 3.x is a complete overhaul of the plugin, and as a result we're starting the changelog fresh. For release notes from the 2.x lifecycle, see <a href="http://m.tri.be/k">our 2.x release notes.</a>
+
+= 3.9.3 =
+
+* Ensured that rewrite rules are flushed upon plugin activation so event pages do not 404
+* Fixed a bug that caused JavaScript-generated event pagination URLs to be malformed during day/month browsing when pagination anchor tags are absent from the page
+* Fixed a style bug where save/update notices for events in the dashboard had a colored border
 
 = 3.9.2 =
 

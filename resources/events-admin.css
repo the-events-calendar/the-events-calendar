@@ -16,7 +16,6 @@ input::-webkit-input-placeholder, textarea::-webkit-input-placeholder { color: #
 
 /* = Post Type Editing
 =============================================*/
-.notice {background-color: rgb(255, 255, 224); border: 1px solid rgb(230, 219, 85); margin: 5px 0 15px;}
 .bubble {border-color:#dfdfdf; border-width:1px; border-style:solid; -moz-border-radius:3px; -khtml-border-radius:3px; -webkit-border-radius:3px; border-radius:3px; padding: 10px; border-style:solid; border-spacing:0; background-color:#F9F9F9;}
 
 .eventForm {margin-top: -20px;}
