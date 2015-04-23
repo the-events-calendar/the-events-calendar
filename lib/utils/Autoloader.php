@@ -155,6 +155,11 @@
 					foreach ( $dirs as $dir ) {
 						$path = $dir . '/' . $class_path_frag;
 						if ( ! file_exists( $path ) ) {
+							// check if the file exists in lowercase
+							$class_path_frag = strtolower( $class_path_frag );
+							$path = $dir . '/' . $class_path_frag;
+						}
+						if ( ! file_exists( $path ) ) {
 							continue;
 						}
 
@@ -168,6 +173,11 @@
 			protected function get_fallback_path( $class ) {
 				foreach ( $this->fallback_dirs as $fallback_dir ) {
 					$include_path = $fallback_dir . '/' . $class . '.php';
+					if ( ! file_exists( $include_path ) ) {
+						// check if the file exists in lowercase
+						$class = strtolower( $class );
+						$include_path = $fallback_dir . '/' . $class . '.php';
+					}
 					if ( ! file_exists( $include_path ) ) {
 						continue;
 					}
