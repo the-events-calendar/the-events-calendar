@@ -13,9 +13,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:', 'tribe-events-calendar-pro' ); ?></label>
 	<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo esc_attr( $instance['title'] ); ?>" />
 </p>
-<label for="<?php echo $this->get_field_id( 'hide_title' ); ?>"><?php _e( 'Hide this widget title container:', 'tribe-events-calendar' ); ?></label>
-<input id="<?php echo $this->get_field_id( 'hide_title' ); ?>" name="<?php echo $this->get_field_name( 'hide_title' ); ?>" type="checkbox" <?php checked( $instance['hide_title'], 1 ); ?> value="1" />
-
 <p>
 	<label for="<?php echo $this->get_field_id( 'limit' ); ?>"><?php _e( 'Number of events to show:', 'tribe-events-calendar-pro' ); ?></label>
 	<select id="<?php echo $this->get_field_id( 'limit' ); ?>" name="<?php echo $this->get_field_name( 'limit' ); ?>" class="widefat">

@@ -37,7 +37,7 @@ $posts = tribe_get_list_widget_events();
 $link_to_all = tribe_events_get_list_widget_view_all_link( $instance );
 
 // Check if any posts were found.
-if ( $posts ) :
+if ( isset( $posts ) && $posts ) :
 
 	foreach ( $posts as $post ) :
 		setup_postdata( $post );
