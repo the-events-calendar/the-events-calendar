@@ -93,7 +93,7 @@ if ( !class_exists( 'Tribe__Events__PUE__Plugin_Info' ) ) {
 			$info->download_link = $this->download_url;
 
 			if ( !empty($this->author_homepage) ){
-				$info->author = sprintf('<a href="%s">%s</a>', $this->author_homepage, $this->author);
+				$info->author = sprintf('<a href="%s">%s</a>', esc_url( $this->author_homepage ), $this->author);
 			} else {
 				$info->author = $this->author;
 			}

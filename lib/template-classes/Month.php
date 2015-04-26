@@ -217,7 +217,7 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 					$day_link = add_query_arg( $args, $day_link );
 				}
 
-				return $day_link;
+				return esc_url_raw( $day_link );
 			}
 
 			return '';

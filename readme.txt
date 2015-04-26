@@ -4,8 +4,8 @@ Contributors:  ModernTribe, roblagatta, faction23, jazbek, jbrinley, leahkoerper
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
 Donate link: http://m.tri.be/29
 Requires at least: 3.9
-Tested up to: 4.0.1
-Stable tag: 3.9.1
+Tested up to: 4.1.2
+Stable tag: 3.9.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -357,6 +357,11 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Incorporated new Hungarian translation files, courtesy of Balazs Dobos
 * Incorporated new British English translation files, courtesy of John Browning
 * Incorporated new Slovak translation files, courtesy of Emilia Valova
+
+
+= 3.9.2 =
+
+* Hardened URL output to protect against XSS attacks.
 
 = 3.9.1 =
 
@@ -719,6 +724,10 @@ Still not happy? Shoot us an email to pro@tri.be or tweet to @moderntribeinc and
 == Upgrade Notice ==
 
 IMPORTANT NOTICE: 3.x upgrade is a HUGE upgrade from 2.x versions. If you are upgrading from an older version, please test thoroughly before updating on your live website.
+
+= 3.9 =
+
+Please see the changelog for the complete list of changes in this release. Remember to always make a backup of your database and files before updating!
 
 = 3.8 =
 

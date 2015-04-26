@@ -42,7 +42,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	function tribe_get_map_link_html( $postId = null ) {
 		$link = sprintf(
 			'<a class="tribe-events-gmap" href="%s" title="%s" target="_blank">%s</a>',
-			tribe_get_map_link( $postId ),
+			esc_url( tribe_get_map_link( $postId ) ),
 			__( 'Click to view a Google Map', 'tribe-events-calendar' ),
 			__( '+ Google Map', 'tribe-events-calendar' )
 		);
