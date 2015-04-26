@@ -200,7 +200,7 @@ if ( class_exists( 'Tribe__Events__Pro__Main' ) ) {
 			$current_week = tribe_get_first_week_day( $wp_query->get( 'start_date' ) );
 			$attributes   = sprintf( ' data-week="%s" ', date( 'Y-m-d', strtotime( $current_week . ' -7 days' ) ) );
 			if ( ! empty( $url ) ) {
-				return sprintf( '<a %s href="%s" rel="prev">%s</a>', $attributes, $url, $text );
+				return sprintf( '<a %s href="%s" rel="prev">%s</a>', $attributes, esc_url( $url ), $text );
 			}
 		} catch ( OverflowException $e ) {
 			return '';
@@ -231,7 +231,7 @@ if ( class_exists( 'Tribe__Events__Pro__Main' ) ) {
 			$attributes   = sprintf( ' data-week="%s" ', date( 'Y-m-d', strtotime( $current_week . ' +7 days' ) ) );
 
 
-			return sprintf( '<a %s href="%s" rel="next">%s</a>', $attributes, $url, $text );
+			return sprintf( '<a %s href="%s" rel="next">%s</a>', $attributes, esc_url( $url ), $text );
 		} catch ( OverflowException $e ) {
 			return '';
 		}

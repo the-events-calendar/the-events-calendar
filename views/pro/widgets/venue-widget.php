@@ -41,7 +41,7 @@ $events_label_plural = tribe_get_event_label_plural();
 				<?php $events->the_post(); ?>
 				<li class="<?php tribe_events_event_classes() ?>">
 					<h4 class="entry-title summary">
-						<a href="<?php echo tribe_get_event_link() ?>"><?php echo get_the_title( get_the_ID() ) ?></a>
+						<a href="<?php echo esc_url( tribe_get_event_link() ); ?>"><?php echo get_the_title( get_the_ID() ) ?></a>
 					</h4>
 					<?php echo tribe_events_event_schedule_details() ?>
 					<?php if ( tribe_get_cost( get_the_ID() ) != '' ): ?>
@@ -56,5 +56,5 @@ $events_label_plural = tribe_get_event_label_plural();
 		<?php do_action( 'tribe_events_venue_widget_after_the_list' ); ?>
 	<?php endif; ?>
 
-	<a href="<?php echo tribe_get_venue_link( $venue_ID, false ); ?>"><?php printf( __( 'View all %s at this %s', 'tribe-events-calendar' ), $events_label_plural, tribe_get_venue_label_singular() ); ?></a>
+	<a href="<?php echo esc_url( tribe_get_venue_link( $venue_ID, false ) ); ?>"><?php printf( __( 'View all %s at this %s', 'tribe-events-calendar' ), $events_label_plural, tribe_get_venue_label_singular() ); ?></a>
 </div>

@@ -742,7 +742,7 @@ class Tribe__Events__Pro__Geo_Loc {
 		$url      = add_query_arg( array( 'geoloc_fix_venues' => '1' ), $url );
 		$url      = wp_nonce_url( $url, 'geoloc_fix_venues' );
 
-		return sprintf( '<a href="%s" class="button">%s</a>', $url, __( "Fix venues data", "tribe-events-calendar-pro" ) );
+		return sprintf( '<a href="%s" class="button">%s</a>', esc_url( $url ), __( "Fix venues data", "tribe-events-calendar-pro" ) );
 	}
 
 	/**
@@ -782,7 +782,7 @@ class Tribe__Events__Pro__Geo_Loc {
 
 		?>
 		<div class="updated">
-			<p><?php echo sprintf( __( "You have venues for which we don't have Geolocation information. <a href='%s'>Click here to generate it</a>.", 'tribe-events-calendar-pro' ), $url . '#geoloc_fix' ); ?></p>
+			<p><?php echo sprintf( __( "You have venues for which we don't have Geolocation information. <a href='%s'>Click here to generate it</a>.", 'tribe-events-calendar-pro' ), esc_url( $url ) . '#geoloc_fix' ); ?></p>
 		</div>
 	<?php
 	}
