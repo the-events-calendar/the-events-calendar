@@ -5,7 +5,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
-if ( class_exists( 'Tribe__Events__Advanced_Functions_Register_Meta' ) ) {
+if ( ! class_exists( 'Tribe__Events__Advanced_Functions__Register_Meta' ) ) {
 
 	/**
 	 * Event Meta Register
