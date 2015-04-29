@@ -8,8 +8,8 @@ class Tribe__Events__Pro__APM_Filters__APM_Filters {
 	 * @return void
 	 */
 	public function __construct() {
-		add_action( 'init', array($this, 'ecp_filters') );
-		add_action( 'tribe_cpt_filters_after_init', array($this, 'default_columns') );
+		add_action( 'init', array( $this, 'ecp_filters' ) );
+		add_action( 'tribe_cpt_filters_after_init', array( $this, 'default_columns' ) );
 		add_filter( 'tribe_query_options', array( $this, 'query_options_for_date' ), 10, 3 );
 	}
 	
@@ -34,6 +34,12 @@ class Tribe__Events__Pro__APM_Filters__APM_Filters {
 	 * @return void
 	 */
 	public function ecp_filters() {
+
+		if ( ! class_exists( 'Tribe_APM' ) ) {
+			add_action( 'admin_notices', array( $this, 'maybe_notify_about_new_plugin' ) );
+			return;
+		}
+
 		$filter_args = array(
 			'ecp_venue_filter_key'=>array(
 				'name' => tribe_get_venue_label_singular(),
@@ -83,7 +89,13 @@ class Tribe__Events__Pro__APM_Filters__APM_Filters {
 		);
 		
 		global $ecp_apm;
+<<<<<<< HEAD
 		$ecp_apm = tribe_setup_apm( Tribe__Events__Main::POSTTYPE, $filter_args );
+=======
+
+
+		$ecp_apm = new Tribe_APM( Tribe__Events__Events::POSTTYPE, $filter_args );
+>>>>>>> feature/apm-extraction
 		$ecp_apm->do_metaboxes = false;
 		$ecp_apm->add_taxonomies = false;
 	}
@@ -102,5 +114,28 @@ class Tribe__Events__Pro__APM_Filters__APM_Filters {
 		}
 		
 		return $options;
+	}
+
+	public function maybe_notify_about_new_plugin() {
+
+		if ( isset( $_GET['dismiss_apm_nag'] ) ) {
+			add_user_meta( get_current_user_id(), '_tribe_apm_plugin_nag', true );
+		}
+
+		$screen = get_current_screen();
+
+		if ( $screen->id !== 'edit-tribe_events' ) {
+			return;
+		}
+
+		if ( get_user_meta( get_current_user_id(), '_tribe_apm_plugin_nag', true ) ) {
+			return;
+		}
+
+
+		echo '<div class="updated"><p>';
+		printf( __( 'Pssst! Looking for the filters? They live in a separate plugin now | <a href="%s">Download for free</a>| <a href="%s">Dismiss</a>', 'tribe-events-calendar-pro' ), 'https://wordpress.org/plugins/advanced-post-manager/', add_query_arg( 'dismiss_apm_nag', 1 ) );
+		echo "</p></div>";
+
 	}
 }
