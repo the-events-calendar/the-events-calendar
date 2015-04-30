@@ -126,7 +126,7 @@ if ( ! class_exists( 'TribeField' ) ) {
 			);
 			$tooltip    = wp_kses(
 				$args['tooltip'], array(
-					'a'      => array( 'href' => array(), 'title' => array() ),
+					'a'      => array( 'href' => array(), 'title' => array(), 'target' => array() ),
 					'br'     => array(),
 					'em'     => array(),
 					'strong' => array(),
