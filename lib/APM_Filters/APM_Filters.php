@@ -89,7 +89,7 @@ class Tribe__Events__Pro__APM_Filters__APM_Filters {
 		);
 		
 		global $ecp_apm;
-		$ecp_apm = new Tribe_APM( Tribe__Events__Events::POSTTYPE, $filter_args );
+		$ecp_apm = new Tribe_APM( Tribe__Events__Main::POSTTYPE, $filter_args );
 		$ecp_apm->do_metaboxes = false;
 		$ecp_apm->add_taxonomies = false;
 	}
