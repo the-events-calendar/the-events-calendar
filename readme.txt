@@ -255,6 +255,7 @@ Our Premium Plugins:
 * Incorporated new Hungarian translation files, courtesy of Balazs Dobos
 * Incorporated new Slovak translation files, courtesy of Emilia Valova
 * Incorporated new British English translation files, courtesy of John Browning
+* Incorporated updated Icelandic translation files, courtesy of Baldvin Örn Berndsen
 
 
 = 3.9.3 =
