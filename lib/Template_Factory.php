@@ -92,10 +92,10 @@ if ( ! class_exists( 'Tribe__Events__Template_Factory' ) ) {
 			add_action( 'wp_ajax_' . $ajax_hook, array( $this, 'ajax_response' ) );
 			add_action( 'wp_ajax_nopriv_' . $ajax_hook, array( $this, 'ajax_response' ) );
 
-			// set notices
+			// set notices 
 			add_action( 'tribe_events_before_view', array( $this, 'set_notices' ), 15 );
 
-			// Don't show the comments form inside the view (if comments are enabled,
+			// Don't show the comments form inside the view (if comments are enabled, 
 			// they'll show on their own after the loop)
 			if ( ! ( tribe_get_option( 'tribeEventsTemplate', 'default' ) == '' ) ) {
 				add_filter( 'comments_template', array( $this, 'remove_comments_template' ) );
@@ -124,7 +124,7 @@ if ( ! class_exists( 'Tribe__Events__Template_Factory' ) ) {
 			// add body class
 			add_filter( 'body_class', array( $this, 'body_class' ) );
 
-			// event classes
+			// event classes 
 			add_filter( 'tribe_events_event_classes', array( $this, 'event_classes' ) );
 
 		}
@@ -486,7 +486,7 @@ if ( ! class_exists( 'Tribe__Events__Template_Factory' ) ) {
 			// add body class
 			remove_filter( 'body_class', array( $this, 'body_class' ) );
 
-			// event classes
+			// event classes 
 			remove_filter( 'tribe_events_event_classes', array( $this, 'event_classes' ) );
 
 		}
@@ -587,7 +587,7 @@ if ( ! class_exists( 'Tribe__Events__Template_Factory' ) ) {
 			$vendor_url    = trailingslashit( $tec->pluginUrl ) . 'vendor/';
 
 			self::handle_asset_package_request( $name, $deps, $vendor_url, $prefix, $resources_url, $tec );
-		}
+					}
 
 		/**
 		 * Returns the path to a minified version of a js or css file, if it exists.
