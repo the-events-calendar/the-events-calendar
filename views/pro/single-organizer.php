@@ -29,7 +29,7 @@ $organizer_id = get_the_ID();
 <?php while( have_posts() ) : the_post(); ?>
 <div class="tribe-events-organizer">
 		<p class="tribe-events-back">
-			<a href="<?php echo tribe_get_events_link() ?>" rel="bookmark"><?php printf( __( '&larr; Back to %s', 'tribe-events-calendar-pro' ), tribe_get_event_label_plural() ); ?></a>
+			<a href="<?php echo esc_url( tribe_get_events_link() ); ?>" rel="bookmark"><?php printf( __( '&larr; Back to %s', 'tribe-events-calendar-pro' ), tribe_get_event_label_plural() ); ?></a>
 		</p>
 
 	<?php do_action( 'tribe_events_single_organizer_before_organizer' ) ?>

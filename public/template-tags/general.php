@@ -152,7 +152,7 @@ if( class_exists( 'Tribe__Events__Pro__Main' ) ) {
 						$meta = "http://$meta";
 					}
 					$meta = sprintf('<a href="%s" target="%s">%s</a>',
-						$meta,
+						esc_url( $meta ),
 						apply_filters('tribe_get_event_website_link_target', 'self'),
 						apply_filters('tribe_get_event_website_link_label', $url_label)
 						);
@@ -716,7 +716,7 @@ if( class_exists( 'Tribe__Events__Pro__Main' ) ) {
 			$tooltip .= '<span class="tribe-events-divider">|</span>';
 			$tooltip .= sprintf( __( 'Recurring %s', 'tribe-events-calendar-pro' ), tribe_get_event_label_singular() );
 			$tooltip .= sprintf(' <a href="%s">%s</a>',
-				tribe_all_occurences_link( $post_id, false ),
+				esc_url( tribe_all_occurences_link( $post_id, false ) ),
 				__( '(See all)', 'tribe-events-calendar-pro' )
 			);
 			$tooltip .= '<div id="tribe-events-tooltip-'. $post_id .'" class="tribe-events-tooltip recurring-info-tooltip">';

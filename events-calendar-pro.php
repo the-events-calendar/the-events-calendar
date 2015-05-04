@@ -1,31 +1,31 @@
 <?php
-	/*
-	Plugin Name: The Events Calendar PRO
-	Description: The Events Calendar PRO, a premium add-on to the open source The Events Calendar plugin (required), enables recurring events, custom attributes, venue pages, new widgets and a host of other premium features.
-	Version: 3.9.2
-	Author: Modern Tribe, Inc.
-	Author URI: http://m.tri.be/20
-	Text Domain: tribe-events-calendar-pro
-	License: GPLv2 or later
-	*/
+/*
+Plugin Name: The Events Calendar PRO
+Description: The Events Calendar PRO, a premium add-on to the open source The Events Calendar plugin (required), enables recurring events, custom attributes, venue pages, new widgets and a host of other premium features.
+Version: 3.9.3
+Author: Modern Tribe, Inc.
+Author URI: http://m.tri.be/20
+Text Domain: tribe-events-calendar-pro
+License: GPLv2 or later
+*/
 
-	/*
-	Copyright 2010-2012 by Modern Tribe Inc and the contributors
+/*
+Copyright 2010-2012 by Modern Tribe Inc and the contributors
 
-	This program is free software; you can redistribute it and/or
-	modify it under the terms of the GNU General Public License
-	as published by the Free Software Foundation; either version 2
-	of the License, or (at your option) any later version.
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU General Public License
+as published by the Free Software Foundation; either version 2
+of the License, or (at your option) any later version.
 
-	This program is distributed in the hope that it will be useful,
-	but WITHOUT ANY WARRANTY; without even the implied warranty of
-	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-	GNU General Public License for more details.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
 
-	You should have received a copy of the GNU General Public License
-	along with this program; if not, write to the Free Software
-	Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
-	*/
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+*/
 
 	// Instantiate class and set up WordPress actions.
 	function Tribe_ECP_Load() {
@@ -66,7 +66,7 @@
 			load_plugin_textdomain( 'tribe-events-calendar-pro', false, $langpath );
 			$url = 'plugin-install.php?tab=plugin-information&plugin=the-events-calendar&TB_iframe=true';
 			$title = __( 'The Events Calendar', 'tribe-events-calendar-pro' );
-			echo '<div class="error"><p>' . sprintf( __( 'To begin using Events Calendar PRO, please install the latest version of <a href="%s" class="thickbox" title="%s">The Events Calendar</a>.', 'tribe-events-calendar-pro' ), $url, $title ) . '</p></div>';
+			echo '<div class="error"><p>' . sprintf( __( 'To begin using Events Calendar PRO, please install the latest version of <a href="%s" class="thickbox" title="%s">The Events Calendar</a>.', 'tribe-events-calendar-pro' ), esc_url( $url ), $title ) . '</p></div>';
 		}
 	}
 

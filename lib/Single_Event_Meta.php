@@ -31,7 +31,7 @@ class Tribe__Events__Pro__Single_Event_Meta {
 	public function link_organizer( $name ) {
 		$contains_link = ( false !== strpos( $name, 'href="' ) );
 
-		return $contains_link ? '' : '<a href="' . tribe_get_organizer_link( null, false, false ) . '">' . $name . '</a>';
+		return $contains_link ? '' : '<a href="' . esc_url( tribe_get_organizer_link( null, false, false ) ) . '">' . $name . '</a>';
 	}
 
 	/**
@@ -49,7 +49,7 @@ class Tribe__Events__Pro__Single_Event_Meta {
 		// If this already contains a link do not double wrap it!
 		$contains_link = ( false !== strpos( $name, 'href="' ) );
 
-		return $contains_link ? '' : '<a href="' . tribe_get_venue_link( null, false ) . '">' . $name . '</a>';
+		return $contains_link ? '' : '<a href="' . esc_url( tribe_get_venue_link( null, false ) ) . '">' . $name . '</a>';
 	}
 
 	/**
@@ -97,7 +97,7 @@ class Tribe__Events__Pro__Single_Event_Meta {
 		global $_tribe_meta_factory;
 		$post_id = get_the_ID();
 		$name    = tribe_get_venue( $post_id );
-		$link    = ! empty( $name ) ? '<a href="' . tribe_get_venue_link( $post_id, false ) . '">' . $name . '</a>' : '';
+		$link    = ! empty( $name ) ? '<a href="' . esc_url( tribe_get_venue_link( $post_id, false ) ) . '">' . $name . '</a>' : '';
 		$html    = empty( $link ) ? $html : Tribe__Events__Meta_Factory::template(
 			$_tribe_meta_factory->meta[ $meta_id ]['label'],
 			$link,
