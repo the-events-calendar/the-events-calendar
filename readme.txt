@@ -357,6 +357,7 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Incorporated new Hungarian translation files, courtesy of Balazs Dobos
 * Incorporated new British English translation files, courtesy of John Browning
 * Incorporated new Slovak translation files, courtesy of Emilia Valova
+* Incorporated updated Icelandic translation files, courtesy of Baldvin Örn Berndsen
 
 
 = 3.9.2 =
