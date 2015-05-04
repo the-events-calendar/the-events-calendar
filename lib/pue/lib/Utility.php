@@ -18,6 +18,7 @@ if ( ! class_exists( 'Tribe__Events__PUE__Utility' ) ) {
 	 */
 	class Tribe__Events__PUE__Utility {
 		public $id = 0;
+		public $plugin;
 		public $slug;
 		public $version;
 		public $homepage;
@@ -54,7 +55,7 @@ if ( ! class_exists( 'Tribe__Events__PUE__Utility' ) ) {
 		 */
 		public static function from_plugin_info( $info ) {
 			$update     = new Tribe__Events__PUE__Utility();
-			$copyFields = array( 'id', 'slug', 'version', 'homepage', 'download_url', 'upgrade_notice', 'sections' );
+			$copyFields = array( 'id', 'slug', 'version', 'homepage', 'download_url', 'upgrade_notice', 'sections', 'plugin' );
 			foreach ( $copyFields as $field ) {
 				$update->$field = $info->$field;
 			}
@@ -71,6 +72,7 @@ if ( ! class_exists( 'Tribe__Events__PUE__Utility' ) ) {
 			$update = new StdClass;
 
 			$update->id          = $this->id;
+			$update->plugin      = $this->plugin;
 			$update->slug        = $this->slug;
 			$update->new_version = $this->version;
 			$update->url         = $this->homepage;

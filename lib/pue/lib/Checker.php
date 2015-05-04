@@ -589,6 +589,9 @@ if ( ! class_exists( 'Tribe__Events__PUE__Checker' ) ) {
 				$pluginInfo->download_url = esc_url_raw( add_query_arg( $download_query, $pluginInfo->download_url ) );
 			}
 
+			// Add plugin dirname/file (this will be expected by WordPress when it builds the plugin list table)
+			$pluginInfo->plugin = $this->get_plugin_file();
+
 			return Tribe__Events__PUE__Utility::from_plugin_info( $pluginInfo );
 		}
 
