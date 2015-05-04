@@ -245,7 +245,7 @@ if ( ! class_exists( 'Tribe__Events__Tickets__Tickets' ) ) {
 			// Register all Tribe__Events__Tickets__Tickets api consumers
 			self::$active_modules[$this->className] = $this->pluginName;
 
-			add_filter( 'tribe_events_tickets_modules', 		 array( $this, 'modules' 					 )		  );
+			add_filter( 'tribe_events_tickets_modules', array( $this, 'modules' ) );
 			add_action( 'tribe_events_tickets_metabox_advanced', array( $this, 'do_metabox_advanced_options' ), 10, 2 );
 
 			// Admin AJAX actions for each provider
