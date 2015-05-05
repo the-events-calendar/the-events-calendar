@@ -360,7 +360,6 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Incorporated new Slovak translation files, courtesy of Emilia Valova
 * Incorporated updated Icelandic translation files, courtesy of Baldvin Örn Berndsen
 
-
 = 3.9.3 =
 
 * Ensured that rewrite rules are flushed upon plugin activation so event pages do not 404
@@ -731,7 +730,11 @@ Still not happy? Shoot us an email to pro@tri.be or tweet to @moderntribeinc and
 
 == Upgrade Notice ==
 
-IMPORTANT NOTICE: 3.x upgrade is a HUGE upgrade from 2.x versions. If you are upgrading from an older version, please test thoroughly before updating on your live website.
+IMPORTANT NOTICE: 3.10 is a massive update from the 3.9 build, which contains a number of changes under-the-hood. All users are encouraged to backup their site before updating, and to apply the updates on a staging/test site where they can check on + fix customizations as needed before deploying to production. 
+
+= 3.10 =
+
+This is a major update; make sure you’ve backed up your site before applying it + are prepared to redo certain customizations on a staging site before deploying to production. You can see the changelog for the complete list of changes in this release.
 
 = 3.9 =
 
