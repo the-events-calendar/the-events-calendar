@@ -549,7 +549,11 @@ Still not happy? Shoot us an email to pro@tri.be or tweet to @moderntribeinc and
 
 == Upgrade Notice ==
 
-IMPORTANT NOTICE: 3.x upgrade is a HUGE upgrade from 2.x versions. If you are upgrading from an older version, please test thoroughly before updating on your live website.
+IMPORTANT NOTICE: 3.10 is a massive update from the 3.9 build, which contains a number of changes under-the-hood (including a total rebuild of the week view functionality). All users are encouraged to backup their site before updating, and to apply the updates on a staging/test site where they can check on + fix customizations as needed before deploying to production. Existing pre-3.10 week view customizations WILL break if you neglect to take this precaution.
+
+= 3.10 =
+
+This is a major update; make sure you’ve backed up your site before applying it + are prepared to redo certain customizations (especially anything related to WEEK VIEW) on a staging site before deploying to production. You can see the changelog for the complete list of changes in this release.
 
 = 3.9 =
 
