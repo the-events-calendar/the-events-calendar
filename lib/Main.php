@@ -78,6 +78,12 @@
 				require_once( $this->pluginPath . 'public/template-tags/week.php' );
 				require_once( $this->pluginPath . 'public/template-tags/venue.php' );
 				require_once( $this->pluginPath . 'public/template-tags/widgets.php' );
+
+				// Load Deprecated Template Tags
+				if ( ! defined( 'TRIBE_DISABLE_DEPRECATED_TAGS' ) ) {
+					require_once $this->pluginPath . 'public/template-tags/deprecated.php';
+				}
+
 //			require_once( $this->pluginPath . 'lib/tribe-geoloc.class.php' );
 //			require_once( $this->pluginPath . 'lib/EmbeddedMaps.php' );
 //			require_once( $this->pluginPath . 'lib/SingleEventMeta.php' );
