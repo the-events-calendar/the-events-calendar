@@ -1,5 +1,7 @@
 <?php
 
+if ( class_exists( 'Tribe__Events__Filterbar__Filter' ) ) { // avoid a fatal error with older versions of filterbar
+
 class Tribe__Events__Pro__Geo_Loc_Filter extends Tribe__Events__Filterbar__Filter {
 	public $type = 'select';
 
@@ -79,4 +81,6 @@ class Tribe__Events__Pro__Geo_Loc_Filter extends Tribe__Events__Filterbar__Filte
 	public function setup_geofence_in_query( $distance ) {
 		return ! empty( $this->currentValue ) ? $this->currentValue : $distance;
 	}
+}
+
 }
