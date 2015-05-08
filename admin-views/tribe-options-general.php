@@ -4,7 +4,14 @@ $tec = Tribe__Events__Main::instance();
 
 $generalTab = array(
 	'priority' => 10,
-	'fields'   => apply_filters(
+	'fields'   =>
+	/**
+	 * Filter the fields available on the general settings tab
+	 *
+	 * @param array $fields a nested associative array of fields & field info passed to Tribe__Events__Field
+	 * @see Tribe__Events__Field
+	 */
+		apply_filters(
 		'tribe_general_settings_tab_fields', array(
 			'info-start'                    => array(
 				'type' => 'html',
