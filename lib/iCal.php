@@ -176,7 +176,6 @@ class Tribe__Events__iCal {
 	public static function generate_ical_feed( $post = null ) {
 
 		$tec         = Tribe__Events__Main::instance();
-		$timezone = get_option( 'timezone_string' );
 		$events      = '';
 		$blogHome    = get_bloginfo( 'url' );
 		$blogName    = get_bloginfo( 'name' );
@@ -374,63 +373,4 @@ class Tribe__Events__iCal {
 			return strtotime( $string ) - ( get_option( 'gmt_offset' ) * HOUR_IN_SECONDS );
 		}
 	}
-
-	/**
-	 * Tries to return the local timezone as a timezone string format, even if it is
-	 * configured as an offset.
-	 *
-	 * @return mixed|string|void
-	 */
-	private static function get_timezone() {
-		if ( '' != get_option( 'timezone_string', '' ) ) {
-			$timezone = get_option( 'timezone_string' );
-		} elseif ( false !== get_option( 'gmt_offset' ) ) {
-			$current_offset = get_option( 'gmt_offset' );
-
-			// try to get timezone from gmt_offset, respecting daylight savings
-			$timezone = timezone_name_from_abbr( null, $current_offset * HOUR_IN_SECONDS, true );
-
-			// if that didn't work, maybe they don't have daylight savings
-			if ( false === $timezone ) {
-				$timezone = timezone_name_from_abbr( null, $current_offset * HOUR_IN_SECONDS, false );
-			}
-
-			// and if THAT didn't work, round the gmt_offset down and then try to get the timezone respecting daylight savings
-			if ( false === $timezone ) {
-				$timezone = timezone_name_from_abbr( null, (int) $current_offset * HOUR_IN_SECONDS, true );
-			}
-
-			// lastly if that didn't work, round the gmt_offset down and maybe that TZ doesn't do daylight savings
-			if ( false === $timezone ) {
-				$timezone = timezone_name_from_abbr( null, (int) $current_offset * HOUR_IN_SECONDS, false );
-			}
-
-			// if all else fails, use UTC
-			if ( false === $timezone ) {
-				$timezone = 'UTC';
-			}
-		} else {
-			$timezone = 'UTC';
-		}
-
-		return $timezone;
-	}
-
-	/**
-	 * Tries to return the local timezone as a timezone string format, even if it is
-	 * configured as an offset.
-	 *
-	 * @return mixed|string|void
-	 */
-	private static function get_offset() {
-		$offset = get_option( 'gmt_offset' );
-		if ( $offset < 0 ) {
-			$offset = '-' . str_pad( $offset * -1 * 100, 4, '0', STR_PAD_LEFT );
-		} else {
-			$offset = '+' . str_pad( $offset * 100, 4, '0', STR_PAD_LEFT );
-		}
-
-		return $offset;
-	}
-
 }
