@@ -303,38 +303,6 @@ class Tribe__Events__iCal {
 
 	}
 
-
-	/**
-	 * Returns a formatted date in the local timezone. This is a drop-in
-	 * replacement for `date()`, except that the returned string will be formatted
-	 * for the local timezone.
-	 *
-	 * If there is a timezone_string available, the date is assumed to be in that
-	 * timezone, otherwise it simply subtracts the value of the 'gmt_offset'
-	 * option.
-	 *
-	 * @uses get_option() to retrieve the value of 'gmt_offset'.
-	 * @param string $format The format of the outputted date string.
-	 * @param string $timestamp Optional. If absent, defaults to `time()`.
-	 * @return string GMT version of the date provided.
-	 */
-	private static function wp_date( $format, $timestamp = false ) {
-		$tz = get_option( 'timezone_string' );
-		if ( ! $timestamp ) {
-			$timestamp = time();
-		}
-		if ( $tz ) {
-			$date = date_create( '@' . $timestamp );
-			if ( ! $date ) {
-				return gmdate( $format, 0 );
-			}
-			$date->setTimezone( new DateTimeZone( $tz ) );
-			return $date->format( $format );
-		} else {
-			return date( $format, $timestamp + ( get_option( 'gmt_offset' ) * HOUR_IN_SECONDS ) );
-		}
-	}
-
 	/**
 	 * Converts a locally-formatted date to a unix timestamp. This is a drop-in
 	 * replacement for `strtotime()`, except that where strtotime assumes GMT, this
