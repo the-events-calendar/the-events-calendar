@@ -196,7 +196,7 @@ class Tribe__Events__iCal {
 			// add fields to iCal output
 			$item = array();
 
-			$full_format = 'Ymd\THis';
+			$full_format = 'Ymd\THis\Z';
 			$time = (object) array(
 				'start' => self::wp_strtotime( $event_post->EventStartDate ),
 				'end' => self::wp_strtotime( $event_post->EventEndDate ),
@@ -209,20 +209,27 @@ class Tribe__Events__iCal {
 				$format = 'Ymd';
 			} else {
 				$type = 'DATE-TIME';
-				$format = 'Ymd\THis\Z';
+				$format = $full_format;
 			}
 
 			$tzoned = (object) array(
 				'start' => date( $format, $time->start ),
 				'end' => date( $format, $time->end ),
+				'modified' => date( $full_format, $time->modified ),
+				'created' => date( $full_format, $time->created ),
 			);
 
-			$item[] = "DTSTART;VALUE=$type:" . $tzoned->start;
-			$item[] = "DTEND;VALUE=$type:" . $tzoned->end;
+			if ( 'DATE' === $type ){
+				$item[] = "DTSTART;VALUE=$type:" . $tzoned->start;
+				$item[] = "DTEND;VALUE=$type:" . $tzoned->end;
+			} else {
+				$item[] = 'DTSTART:' . $tzoned->start;
+				$item[] = 'DTEND:' . $tzoned->end;
+			}
 
 			$item[] = 'DTSTAMP:' . date( $full_format, time() );
-			$item[] = 'CREATED:' . date( $full_format, $time->modified );
-			$item[] = 'LAST-MODIFIED:' . date( $full_format, $time->modified );
+			$item[] = 'CREATED:' . date( $full_format, $tzoned->created );
+			$item[] = 'LAST-MODIFIED:' . date( $full_format, $tzoned->modified );
 			$item[] = 'UID:' . $event_post->ID . '-' . $time->start . '-' . $time->end . '@' . parse_url( home_url( '/' ), PHP_URL_HOST );
 			$item[] = 'SUMMARY:' . str_replace( array( ',', "\n", "\r", "\t" ), array( '\,', '\n', '', '\t' ), html_entity_decode( strip_tags( $event_post->post_title ), ENT_QUOTES ) );
 			$item[] = 'DESCRIPTION:' . str_replace( array( ',', "\n", "\r", "\t" ), array( '\,', '\n', '', '\t' ), html_entity_decode( strip_tags( $event_post->post_content ), ENT_QUOTES ) );
@@ -330,7 +337,7 @@ class Tribe__Events__iCal {
 		}
 
 		$tz = get_option( 'timezone_string' );
-		if ( $tz ) {
+		if ( ! empty( $tz ) ) {
 			$date = date_create( $string, new DateTimeZone( $tz ) );
 			if ( ! $date ) {
 				return strtotime( $string );
@@ -338,7 +345,10 @@ class Tribe__Events__iCal {
 			$date->setTimezone( new DateTimeZone( 'UTC' ) );
 			return $date->getTimestamp();
 		} else {
-			return strtotime( $string ) - ( get_option( 'gmt_offset' ) * HOUR_IN_SECONDS );
+			$offset = (float) get_option( 'gmt_offset' );
+			$seconds = intval( $offset * HOUR_IN_SECONDS );
+			$timestamp = strtotime( $string ) - $seconds;
+			return $timestamp;
 		}
 	}
 }
