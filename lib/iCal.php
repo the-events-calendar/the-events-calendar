@@ -176,7 +176,7 @@ class Tribe__Events__iCal {
 	public static function generate_ical_feed( $post = null ) {
 
 		$tec         = Tribe__Events__Main::instance();
-		$wp_timezone = get_option( 'timezone_string' );
+		$timezone = get_option( 'timezone_string' );
 		$events      = '';
 		$blogHome    = get_bloginfo( 'url' );
 		$blogName    = get_bloginfo( 'name' );
@@ -195,55 +195,37 @@ class Tribe__Events__iCal {
 
 		foreach ( $events_posts as $event_post ) {
 			// add fields to iCal output
-			$item   = array();
+			$item = array();
 
-			$startDate = date( 'Ymd\THis', strtotime( $event_post->EventStartDate ) );
-			$endDate   = date( 'Ymd\THis', strtotime( $event_post->EventEndDate ) );
-
-			$tz_startDate = self::wp_date( 'Ymd\THis\Z', strtotime( $event_post->EventStartDate ) );
-			$tz_endDate = self::wp_date( 'Ymd\THis\Z', strtotime( $event_post->EventEndDate ) );
+			$full_format = 'Ymd\THis';
+			$time = (object) array(
+				'start' => self::wp_strtotime( $event_post->EventStartDate ),
+				'end' => self::wp_strtotime( $event_post->EventEndDate ),
+				'modified' => self::wp_strtotime( $event_post->post_modified ),
+				'created' => self::wp_strtotime( $event_post->post_date ),
+			);
 
 			if ( 'yes' == get_post_meta( $event_post->ID, '_EventAllDay', true ) ) {
-				$startDate = substr( $startDate, 0, 8 );
-				$endDate   = substr( $endDate, 0, 8 );
-				// endDate bumped ahead one day to counter iCal's off-by-one error
-				$endDateStamp = strtotime( $endDate );
-				$endDate      = date( 'Ymd', $endDateStamp + 86400 );
-				$type         = 'DATE';
-				$item[] = "DTSTART;VALUE=$type:" . $startDate;
-				$item[] = "DTEND;VALUE=$type:" . $endDate;
-
+				$type = 'DATE';
+				$format = 'Ymd';
 			} else {
 				$type = 'DATE-TIME';
-
-				if ( ! empty( $wp_timezone ) ){
-					$item[] = "DTSTART;TZID=\"{$wp_timezone}\":{$tz_startDate}";
-				}
-				$item[] = 'DTSTART:' . $tz_startDate;
-				$item[] = 'DTSTART:' . $startDate;
-
-				if ( ! empty( $wp_timezone ) ){
-					$item[] = "DTEND;TZID=\"{$wp_timezone}\":{$tz_endDate}";
-				}
-				$item[] = 'DTEND:' . $tz_endDate;
-				$item[] = 'DTEND:' . $endDate;
+				$format = 'Ymd\THis\Z';
 			}
 
-			$item[] = 'DTSTAMP:' . date( 'Ymd\THis', time() );
-			$item[] = 'CREATED:' . str_replace( array( '-', ' ', ':' ), array( '', 'T', '' ), $event_post->post_date );
-			$item[] = 'LAST-MODIFIED:' . str_replace(
-					array(
-						'-',
-						' ',
-						':',
-					), array(
-						'',
-						'T',
-						'',
-					), $event_post->post_modified
-				);
-			$item[] = 'UID:' . $event_post->ID . '-' . strtotime( $startDate ) . '-' . strtotime( $endDate ) . '@' . $blogHome;
-			$item[] = 'SUMMARY:' . $event_post->post_title;
+			$tzoned = (object) array(
+				'start' => date( $format, $time->start ),
+				'end' => date( $format, $time->end ),
+			);
+
+			$item[] = "DTSTART;VALUE=$type:" . $tzoned->start;
+			$item[] = "DTEND;VALUE=$type:" . $tzoned->end;
+
+			$item[] = 'DTSTAMP:' . date( $full_format, time() );
+			$item[] = 'CREATED:' . date( $full_format, $time->modified );
+			$item[] = 'LAST-MODIFIED:' . date( $full_format, $time->modified );
+			$item[] = 'UID:' . $event_post->ID . '-' . $time->start . '-' . $time->end . '@' . parse_url( home_url( '/' ), PHP_URL_HOST );
+			$item[] = 'SUMMARY:' . str_replace( array( ',', "\n", "\r", "\t" ), array( '\,', '\n', '', '\t' ), strip_tags( $event_post->post_title ) );
 			$item[] = 'DESCRIPTION:' . str_replace( array( ',', "\n", "\r", "\t" ), array( '\,', '\n', '', '\t' ), strip_tags( $event_post->post_content ) );
 			$item[] = 'URL:' . get_permalink( $event_post->ID );
 
@@ -313,9 +295,6 @@ class Tribe__Events__iCal {
 		$content .= 'X-WR-CALNAME:' . apply_filters( 'tribe_ical_feed_calname', $blogName ) . "\r\n";
 		$content .= 'X-ORIGINAL-URL:' . $blogHome . "\r\n";
 		$content .= 'X-WR-CALDESC:Events for ' . $blogName . "\r\n";
-		if ( $wp_timezone ) {
-			$content .= 'X-WR-TIMEZONE:' . $wp_timezone . "\r\n";
-		}
 		$content = apply_filters( 'tribe_ical_properties', $content );
 		$content .= $events;
 		$content .= 'END:VCALENDAR';
