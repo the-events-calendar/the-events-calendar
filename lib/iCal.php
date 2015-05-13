@@ -230,8 +230,8 @@ class Tribe__Events__iCal {
 			}
 
 			$item[] = 'DTSTAMP:' . date( $full_format, time() );
-			$item[] = 'CREATED:' . date( $full_format, $tzoned->created );
-			$item[] = 'LAST-MODIFIED:' . date( $full_format, $tzoned->modified );
+			$item[] = 'CREATED:' . $tzoned->created;
+			$item[] = 'LAST-MODIFIED:' . $tzoned->modified;
 			$item[] = 'UID:' . $event_post->ID . '-' . $time->start . '-' . $time->end . '@' . parse_url( home_url( '/' ), PHP_URL_HOST );
 			$item[] = 'SUMMARY:' . str_replace( array( ',', "\n", "\r", "\t" ), array( '\,', '\n', '', '\t' ), html_entity_decode( strip_tags( $event_post->post_title ), ENT_QUOTES ) );
 			$item[] = 'DESCRIPTION:' . str_replace( array( ',', "\n", "\r", "\t" ), array( '\,', '\n', '', '\t' ), html_entity_decode( strip_tags( $event_post->post_content ), ENT_QUOTES ) );
