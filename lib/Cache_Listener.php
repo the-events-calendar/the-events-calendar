@@ -50,6 +50,18 @@
 		}
 
 		/**
+		 * Run the caching functionality that is executed on saving tribe calendar options.
+		 *
+		 * @param string    $option
+		 * @see 'updated_option'
+		 */
+		public function update_last_save_post( $option ) {
+			if ( $option != 'tribe_last_save_post' ) {
+				$this->cache->set_last_occurrence( 'save_post' );
+			}
+		}
+
+		/**
 		 * For any hook that doesn't need any additional filtering
 		 *
 		 * @param $method
