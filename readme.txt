@@ -327,34 +327,40 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 
 = [Unreleased] unreleased =
 
+* Tweak - Enhancements/updates to iCal subscribe button
+* Tweak - Formatting consistency on filler text within calendar inputs
+* Feature - Exploration + initial work on updated timepicker in events admin
+* Feature - Enhancements to month view class + queries
+* Feature - Allowing yes/true boolean imports for “Show Google Maps (link)” field in CSV import
+
 = [3.10] 2015-04-30 =
 
-* Ensured all non critical vendor files will not end up bundled in the final plugin zip
-* Added some changelog formatting enhancements after seeing keepachangelog.com :)
-* Updated the Organizer/Venue metabox UI to be more helpful when adding/editing events
-* Added calendar icon to the Admin Bar (Fancy!)
-* Implemented performance enhancements in relation to list view pagination
-* Resolved a compatibility issue where WooCommerce shortcodes could trigger unusual side effects in month view
-* Fixed an issue where malformed URLs could trigger fatal exceptions
-* Fixed an issue where the Venue state field was displaying for countries other than US
-* Fixed an issue where tooltips were not respecting the Time Range Separator
-* Fixed an issue preventing list view from being accessed when default permalinks are in use
-* Fixed an issue causing unnecessary post meta data to be generated for new venues
-* Removed unnecessary logic for variables in some front-end templates
-* Fixed a bug where ticket emails did not include the expected venue links
-* Added new shortcodes letting the featured venue, advanced list and event countdown widgets be embedded easily in posts and pages
-* Added the ability to customize the 'Event' label using the new 'tribe_event_label_singular' and 'tribe_event_label_plural' filters (Usage example: http://m.tri.be/tj)
-* Removed all WooTickets CSS from Core
-* Implemented under-the-hood enhancements to the main event editor meta box
-* More robust plugin activation and deactivation
-* Optimized registration of capabilities during install/activation
-* Removed dependencies on ECP for handling default values
-* Avoided showing the admin welcome/activation message within iframes
-* Incorporated updated Bulgarian translation files, courtesy of Nedko Ivanov
-* Incorporated new Hungarian translation files, courtesy of Balazs Dobos
-* Incorporated new British English translation files, courtesy of John Browning
-* Incorporated new Slovak translation files, courtesy of Emilia Valova
-* Incorporated updated Icelandic translation files, courtesy of Baldvin Örn Berndsen
+* Bug - Resolved a compatibility issue where WooCommerce shortcodes could trigger unusual side effects in month view
+* Bug - Fixed an issue where malformed URLs could trigger fatal exceptions
+* Bug - Fixed an issue where the Venue state field was displaying for countries other than US
+* Bug - Fixed an issue where tooltips were not respecting the Time Range Separator
+* Bug - Fixed an issue preventing list view from being accessed when default permalinks are in use
+* Bug - Fixed an issue causing unnecessary post meta data to be generated for new venues
+* Tweak - Removed unnecessary logic for variables in some front-end templates
+* Bug - Fixed a bug where ticket emails did not include the expected venue links
+* Tweak - Removed all WooTickets CSS from Core
+* Tweak - Implemented under-the-hood enhancements to the main event editor meta box
+* Tweak - More robust plugin activation and deactivation
+* Tweak - Optimized registration of capabilities during install/activation
+* Tweak - Removed dependencies on ECP for handling default values
+* Tweak - Avoided showing the admin welcome/activation message within iframes
+* Tweak - Ensured all non critical vendor files will not end up bundled in the final plugin zip
+* Tweak - Added some changelog formatting enhancements after seeing keepachangelog.com :)
+* Tweak - Implemented performance enhancements in relation to list view pagination
+* Feature - Updated the Organizer/Venue metabox UI to be more helpful when adding/editing events
+* Feature - Added calendar icon to the Admin Bar (Fancy!)
+* Feature - Added new shortcodes letting the featured venue, advanced list and event countdown widgets be embedded easily in posts and pages
+* Feature - Added the ability to customize the 'Event' label using the new 'tribe_event_label_singular' and 'tribe_event_label_plural' filters (Usage example: http://m.tri.be/tj)
+* Feature - Incorporated updated Bulgarian translation files, courtesy of Nedko Ivanov
+* Feature - Incorporated new Hungarian translation files, courtesy of Balazs Dobos
+* Feature - Incorporated new British English translation files, courtesy of John Browning
+* Feature - Incorporated new Slovak translation files, courtesy of Emilia Valova
+* Feature - Incorporated updated Icelandic translation files, courtesy of Baldvin Örn Berndsen
 
 = 3.9.3 =
 
