@@ -203,7 +203,7 @@ class Tribe__Events__iCal {
 			$tz_startDate = self::wp_date( 'Ymd\THis\Z', strtotime( $event_post->EventStartDate ) );
 			$tz_endDate = self::wp_date( 'Ymd\THis\Z', strtotime( $event_post->EventEndDate ) );
 
-			if ( get_post_meta( $event_post->ID, '_EventAllDay', true ) == 'yes' ) {
+			if ( 'yes' == get_post_meta( $event_post->ID, '_EventAllDay', true ) ) {
 				$startDate = substr( $startDate, 0, 8 );
 				$endDate   = substr( $endDate, 0, 8 );
 				// endDate bumped ahead one day to counter iCal's off-by-one error
@@ -229,8 +229,6 @@ class Tribe__Events__iCal {
 				$item[] = 'DTEND:' . $endDate;
 			}
 
-			$description = str_replace( array( ',', "\n", "\r", "\t" ), array( '\,', '\n', '', '\t' ), strip_tags( $event_post->post_content ) );
-
 			$item[] = 'DTSTAMP:' . date( 'Ymd\THis', time() );
 			$item[] = 'CREATED:' . str_replace( array( '-', ' ', ':' ), array( '', 'T', '' ), $event_post->post_date );
 			$item[] = 'LAST-MODIFIED:' . str_replace(
@@ -246,7 +244,7 @@ class Tribe__Events__iCal {
 				);
 			$item[] = 'UID:' . $event_post->ID . '-' . strtotime( $startDate ) . '-' . strtotime( $endDate ) . '@' . $blogHome;
 			$item[] = 'SUMMARY:' . $event_post->post_title;
-			$item[] = 'DESCRIPTION:' . str_replace( ',', '\,', $description );
+			$item[] = 'DESCRIPTION:' . str_replace( array( ',', "\n", "\r", "\t" ), array( '\,', '\n', '', '\t' ), strip_tags( $event_post->post_content ) );
 			$item[] = 'URL:' . get_permalink( $event_post->ID );
 
 			// add location if available
