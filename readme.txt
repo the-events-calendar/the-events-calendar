@@ -230,33 +230,37 @@ Our Premium Plugins:
 
 = [Unreleased] unreleased =
 
+* Tweak - Removed TribeEventsPro.recurrence JS from the front-end
+* Bug - Addressed numerous minor styling issues with the Twenty Fifteen theme
+* Tweak - Made some changes to the EOD cutoff functionality behavior
+
 = [3.10] 2015-04-30 =
 
-* Fixed a minor issue with recurring event tooltips within the advanced list widget
-* Fixed an issue which caused the default venue fields to be automatically inserted within the event editor
-* Fixed a bug preventing the view link from appearing for updated venues and organizers
-* Replaced scrolling library on week view for better performance and extensibility
-* Updated tooltip positioning logic for week view to account for more edge cases
-* Updated week view to better handle very short events and long titles.
-* Ensured all non critical vendor files will not end up bundled in the final plugin zip
-* Introduced batch processing of recurring events to further improve performance and scalability
-* Scheduled task responsible for generating recurring events is now removed when the plugin is deactivated
-* Added a new additional field type (textareas) to compliment the existing text field
-* Added some changelog formatting enhancements after seeing keepachangelog.com :)
-* Removed some unnecessary variable logic from some templates 
-* Improved the recurring event user interface in relation to events ending after "x" cycles
-* Updated the mini-calendar widget to match the list widget styling
-* More robust activation and deactivation methods
-* More flexible handling of default values to work with The Events Calendar 3.10
-* Fixed a bug that allowed invalid dates to be used in the Mini Cal widget
-* Ensured that old recurring events are cleaned up on schedule
-* Fixed handling of recurrence splitting when hiding events from the front-end
-* Incorporated updated Bulgarian translation files, courtesy of Nedko Ivanov
-* Incorporated new Hungarian translation files, courtesy of Balazs Dobos
-* Incorporated new Slovak translation files, courtesy of Emilia Valova
-* Incorporated new British English translation files, courtesy of John Browning
-* Incorporated updated Icelandic translation files, courtesy of Baldvin Örn Berndsen
-
+* Bug - Fixed a minor issue with recurring event tooltips within the advanced list widget
+* Bug - Fixed an issue which caused the default venue fields to be automatically inserted within the event editor
+* Bug - Fixed a bug preventing the view link from appearing for updated venues and organizers
+* Bug - Fixed handling of recurrence splitting when hiding events from the front-end
+* Bug - Fixed a bug that allowed invalid dates to be used in the Mini Cal widget
+* Tweak - Updated tooltip positioning logic for week view to account for more edge cases
+* Tweak - Updated week view to better handle very short events and long titles
+* Tweak - Ensured all non critical vendor files will not end up bundled in the final plugin zip
+* Tweak - Scheduled task responsible for generating recurring events is now removed when the plugin is deactivated
+* Tweak - Added some changelog formatting enhancements after seeing keepachangelog.com :)
+* Tweak - Removed some unnecessary variable logic from some templates 
+* Tweak - Improved the recurring event user interface in relation to events ending after "x" cycles
+* Tweak - Updated the mini-calendar widget to match the list widget styling
+* Tweak - More robust activation and deactivation methods
+* Tweak - More flexible handling of default values to work with The Events Calendar 3.10
+* Tweak - Ensured that old recurring events are cleaned up on schedule
+* Feature - Totally rebuilt WEEK VIEW!
+* Feature - Added a new additional field type (textareas) to compliment the existing text field
+* Feature - Replaced scrolling library on week view for better performance and extensibility
+* Feature - Introduced batch processing of recurring events to further improve performance and scalability
+* Feature - Incorporated updated Bulgarian translation files, courtesy of Nedko Ivanov
+* Feature - Incorporated new Hungarian translation files, courtesy of Balazs Dobos
+* Feature - Incorporated new Slovak translation files, courtesy of Emilia Valova
+* Feature - Incorporated new British English translation files, courtesy of John Browning
+* Feature - Incorporated updated Icelandic translation files, courtesy of Baldvin Örn Berndsen
 
 = 3.9.3 =
 
