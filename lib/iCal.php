@@ -345,7 +345,7 @@ class Tribe__Events__iCal {
 				return strtotime( $string );
 			}
 			$date->setTimezone( new DateTimeZone( 'UTC' ) );
-			return $date->getTimestamp();
+			return $date->format( 'U' );
 		} else {
 			$offset = (float) get_option( 'gmt_offset' );
 			$seconds = intval( $offset * HOUR_IN_SECONDS );
