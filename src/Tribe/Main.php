@@ -45,8 +45,8 @@
 			const VERSION = '3.10a0';
 
 			private function __construct() {
-				$this->pluginDir = trailingslashit( basename( dirname( dirname( __FILE__ ) ) ) );
-				$this->pluginPath = trailingslashit( dirname( dirname( __FILE__ ) ) );
+				$this->pluginDir = trailingslashit( basename( dirname( dirname( dirname( __FILE__ ) ) ) ) );
+				$this->pluginPath = trailingslashit( dirname( dirname( dirname( __FILE__ ) ) ) );
 				$this->pluginUrl = plugins_url( $this->pluginDir );
 				$this->pluginSlug = 'events-calendar-pro';
 
@@ -55,24 +55,10 @@
 				$this->weekSlug = sanitize_title(__('week', 'tribe-events-calendar-pro'));
 				$this->photoSlug = sanitize_title(__('photo', 'tribe-events-calendar-pro'));
 
-//			require_once( $this->pluginPath . 'lib/tribe-pro-template-factory.class.php' );
-//			require_once( $this->pluginPath . 'lib/tribe-date-series-rules.class.php' );
-//			require_once( $this->pluginPath . 'lib/tribe-ecp-custom-meta.class.php' );
-//			require_once( $this->pluginPath . 'lib/tribe-events-recurrence-meta.class.php' );
-//			require_once( $this->pluginPath . 'lib/tribeeventspro-recurrenceseriessplitter.php' );
-//			require_once( $this->pluginPath . 'lib/tribeeventspro-recurrenceinstance.php');
-//			require_once( $this->pluginPath . 'lib/tribe-recurrence.class.php' );
-//			require_once( $this->pluginPath . 'lib/tribeeventspro-recurrencepermalinks.php' );
-//			require_once( $this->pluginPath . 'lib/widget-venue.class.php' );
-//			require_once( $this->pluginPath . 'lib/tribe-mini-calendar.class.php' );
-//			require_once( $this->pluginPath . 'lib/widget-countdown.class.php' );
-//			require_once( $this->pluginPath . 'lib/widget-calendar.class.php' );
-
-//			require_once( $this->pluginPath . 'lib/template-classes/map.php' );
-//			require_once( $this->pluginPath . 'lib/template-classes/photo.php' );
-//			require_once( $this->pluginPath . 'lib/template-classes/single-organizer.php' );
-//			require_once( $this->pluginPath . 'lib/template-classes/single-venue.php' );
-//			require_once( $this->pluginPath . 'lib/template-classes/week.php' );
+				require_once( $this->pluginPath . 'src/functions/template-tags/general.php' );
+				require_once( $this->pluginPath . 'src/functions/template-tags/week.php' );
+				require_once( $this->pluginPath . 'src/functions/template-tags/venue.php' );
+				require_once( $this->pluginPath . 'src/functions/template-tags/widgets.php' );
 
 				require_once( $this->pluginPath . 'public/template-tags/general.php' );
 				require_once( $this->pluginPath . 'public/template-tags/week.php' );
@@ -209,7 +195,6 @@
 				if ( !class_exists( 'Tribe__Events__Updater' ) ) {
 					return; // core needs to be updated for compatibility
 				}
-				require_once( $this->pluginPath . '/lib/Updater.php' );
 				$updater = new Tribe__Events__Pro__Updater( self::VERSION );
 				if ( $updater->update_required() ) {
 					$updater->do_updates();
@@ -1147,8 +1132,7 @@
 			public function enqueue_pro_scripts() {
 				if ( tribe_is_event_query() ) {
 					// @TODO filter the tribe_events_resource_url() function
-					$resources_url = trailingslashit( $this->pluginUrl ) . 'resources/';
-					$path = Tribe__Events__Pro__Template_Factory::getMinFile( $resources_url . 'tribe-events-pro.js', true );
+					$path = Tribe__Events__Pro__Template_Factory::getMinFile( tribe_events_pro_resource_url('tribe-events-pro.js'), true );
 					wp_enqueue_script(
 						'tribe-events-pro', $path, array(
 						'jquery',
@@ -1545,7 +1529,6 @@
 				if ( !class_exists( 'Tribe__Events__Main' ) ) {
 					return; // can't do anything since core isn't around
 				}
-				require_once( Tribe__Events__Main::instance()->pluginPath . '/lib/Abstract_Deactivation.php' );
 				$deactivation = new Tribe__Events__Pro__Deactivation( $network_deactivating );
 				add_action( 'shutdown', array( $deactivation, 'deactivate' ) );
 			}
