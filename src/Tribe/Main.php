@@ -178,7 +178,6 @@
 				if ( !class_exists( 'Tribe__Events__Updater' ) ) {
 					return; // core needs to be updated for compatibility
 				}
-				require_once( $this->pluginPath . '/lib/Updater.php' );
 				$updater = new Tribe__Events__Pro__Updater( self::VERSION );
 				if ( $updater->update_required() ) {
 					$updater->do_updates();
