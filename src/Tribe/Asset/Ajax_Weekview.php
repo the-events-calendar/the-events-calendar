@@ -8,14 +8,14 @@ class Tribe__Events__Pro__Asset__Ajax_Weekview extends Tribe__Events__Asset__Abs
 			"ajaxurl"   => admin_url( 'admin-ajax.php', ( is_ssl() ? 'https' : 'http' ) ),
 			'post_type' => Tribe__Events__Main::POSTTYPE
 		);
-		$path      = Tribe__Events__Template_Factory::getMinFile( tribe_events_resource_url( 'tribe-events-ajax-day.js' ), true );
+		$path      = Tribe__Events__Template_Factory::getMinFile( tribe_events_pro_resource_url( 'tribe-events-ajax-day.js' ), true );
 
 		$handle = 'tribe-events-ajax-day';
 		wp_enqueue_script( $handle, $path, array( 'tribe-events-bar' ), $this->filter_js_version(), true );
 		wp_localize_script( $handle, 'TribeCalendar', $ajax_data );
 
 		$path1 = Tribe__Events__Template_Factory::getMinFile( $this->vendor_url . 'nanoscroller/jquery.nanoscroller.js', true );
-		$path2 = Tribe__Events__Template_Factory::getMinFile( tribe_events_resource_url( 'tribe-events-week.js' ), true );
+		$path2 = Tribe__Events__Template_Factory::getMinFile( tribe_events_pro_resource_url( 'tribe-events-week.js' ), true );
 		wp_enqueue_script( 'tribe-events-pro-slimscroll', $path1, array(
 			'tribe-events-pro',
 			'jquery-ui-draggable'

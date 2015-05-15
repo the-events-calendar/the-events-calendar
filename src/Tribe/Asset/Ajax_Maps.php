@@ -7,7 +7,7 @@ class Tribe__Events__Pro__Asset__Ajax_Maps extends Tribe__Events__Asset__Abstrac
 		$http = is_ssl() ? 'https' : 'http';
 		$url  = apply_filters( 'tribe_events_pro_google_maps_api', $http . '://maps.google.com/maps/api/js?sensor=false' );
 		wp_register_script( 'tribe-gmaps', $url, array( 'tribe-events-pro' ) );
-		$path = Tribe__Events__Template_Factory::getMinFile( tribe_events_resource_url( 'tribe-events-ajax-maps.js' ), true );
+		$path = Tribe__Events__Template_Factory::getMinFile( tribe_events_pro_resource_url( 'tribe-events-ajax-maps.js' ), true );
 		wp_register_script( 'tribe-events-pro-geoloc', $path, array(
 			'tribe-gmaps',
 			Tribe__Events__Template_Factory::get_placeholder_handle()
