@@ -56,7 +56,7 @@ class Tribe__Events__Pro__Custom_Meta {
 		// Settings for regular WordPress custom fields
 		$disable_metabox_custom_fields = $pro->displayMetaboxCustomFields() ? "show" : "hide";
 
-		include $pro->pluginPath . 'admin-views/event-meta-options.php';
+		include $pro->pluginPath . 'src/admin-views/event-meta-options.php';
 	}
 
 	/**

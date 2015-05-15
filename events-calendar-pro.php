@@ -88,7 +88,7 @@
 
 	register_deactivation_hook( __FILE__, 'tribe_events_pro_deactivation' );
 	function tribe_events_pro_deactivation( $network_deactivating ) {
-		require_once dirname( __FILE__ ) . '/lib/Main.php';
+		require_once dirname( __FILE__ ) . '/src/Tribe/Main.php';
 		Tribe__Events__Pro__Main::deactivate( $network_deactivating );
 	}
 

@@ -86,6 +86,6 @@ class Tribe__Events__Pro__Mini_Calendar_Widget extends WP_Widget {
 
 		$ts = Tribe__Events__Pro__Main::instance();
 
-		include $ts->pluginPath . 'admin-views/widget-calendar.php';
+		include $ts->pluginPath . 'src/admin-views/widget-calendar.php';
 	}
 }
