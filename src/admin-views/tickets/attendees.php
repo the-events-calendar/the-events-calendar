@@ -10,7 +10,7 @@ $tickets = Tribe__Events__Tickets__Tickets::get_event_tickets( $event_id );
 	<div id="icon-edit" class="icon32 icon32-tickets-attendees"><br></div>
 	<h2><?php esc_html_e( 'Attendees', 'tribe-events-calendar' ); ?></h2>
 
-	<h2><?php echo $event->post_title; ?></h2>
+	<h2><?php echo apply_filters( 'tribe_events_tickets_attendees_event_title', $event->post_title, $event->ID ); ?></h2>
 
 	<div id="tribe-filters" class="metabox-holder">
 		<div id="filters-wrap" class="postbox">
