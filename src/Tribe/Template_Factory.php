@@ -583,7 +583,7 @@ if ( ! class_exists( 'Tribe__Events__Template_Factory' ) ) {
 			$prefix = 'tribe-events'; // Tribe__Events__Main::POSTTYPE;
 
 			// setup plugin resources & 3rd party vendor urls
-			$resources_url = trailingslashit( $tec->pluginUrl ) . 'resources/';
+			$resources_url = trailingslashit( $tec->pluginUrl ) . 'src/resources/';
 			$vendor_url    = trailingslashit( $tec->pluginUrl ) . 'vendor/';
 
 			self::handle_asset_package_request( $name, $deps, $vendor_url, $prefix, $resources_url, $tec );

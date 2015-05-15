@@ -671,7 +671,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @return string
 	 **/
 	function tribe_events_resource_url( $resource, $echo = false ) {
-		$url = apply_filters( 'tribe_events_resource_url', trailingslashit( Tribe__Events__Main::instance()->pluginUrl ) . 'resources/' . $resource, $resource );
+		$url = apply_filters( 'tribe_events_resource_url', trailingslashit( Tribe__Events__Main::instance()->pluginUrl ) . 'src/resources/' . $resource, $resource );
 		if ( $echo ) {
 			echo $url;
 		}
