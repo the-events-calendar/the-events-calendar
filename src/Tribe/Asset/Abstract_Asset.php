@@ -24,11 +24,6 @@
 		protected $prefix;
 
 		/**
-		 * @var string
-		 */
-		protected $resources_url;
-
-		/**
 		 * @var Tribe__Events__Main
 		 */
 		protected $tec;
@@ -47,10 +42,6 @@
 
 		public function set_prefix( $prefix ) {
 			$this->prefix = $prefix;
-		}
-
-		public function set_resources_url( $resources_url ) {
-			$this->resources_url = $resources_url;
 		}
 
 		public function set_tec( Tribe__Events__Main $tec ) {

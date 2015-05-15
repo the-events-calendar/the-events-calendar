@@ -150,7 +150,7 @@ if ( ! class_exists( 'Tribe__Events__Template_Factory' ) ) {
 		 * @param string $resources_url URL to resources scripts and styles dir
 		 * @param Tribe__Events__Main $tec An instance of the main plugin class
 		 */
-		protected static function handle_asset_package_request( $name, $deps, $vendor_url, $prefix, $resources_url, $tec ) {
+		protected static function handle_asset_package_request( $name, $deps, $vendor_url, $prefix, $tec ) {
 
 			$asset = Tribe__Events__Asset__Factory::instance()->make_for_name($name);
 			if (!$asset) {
@@ -162,7 +162,6 @@ if ( ! class_exists( 'Tribe__Events__Template_Factory' ) ) {
 			$asset->set_deps($deps);
 			$asset->set_vendor_url($vendor_url);
 			$asset->set_prefix($prefix);
-			$asset->set_resources_url($resources_url);
 			$asset->set_tec($tec);
 
 			$asset->handle();
@@ -583,10 +582,9 @@ if ( ! class_exists( 'Tribe__Events__Template_Factory' ) ) {
 			$prefix = 'tribe-events'; // Tribe__Events__Main::POSTTYPE;
 
 			// setup plugin resources & 3rd party vendor urls
-			$resources_url = trailingslashit( $tec->pluginUrl ) . 'src/resources/';
 			$vendor_url    = trailingslashit( $tec->pluginUrl ) . 'vendor/';
 
-			self::handle_asset_package_request( $name, $deps, $vendor_url, $prefix, $resources_url, $tec );
+			self::handle_asset_package_request( $name, $deps, $vendor_url, $prefix, $tec );
 					}
 
 		/**
