@@ -594,7 +594,7 @@ if ( ! class_exists( 'Tribe__Events__Templates' ) ) {
 					// make sure directories are trailingslashed
 					$template_base_path = ! empty( $template_base_path ) ? trailingslashit( $template_base_path ) : $template_base_path;
 
-					$file = $template_base_path . 'views/' . $template;
+					$file = $template_base_path . 'src/views/' . $template;
 
 					$file = apply_filters( 'tribe_events_template', $file, $template );
 
@@ -617,7 +617,7 @@ if ( ! class_exists( 'Tribe__Events__Templates' ) ) {
 					$template_base_path = ! empty( $template_base_path ) ? trailingslashit( $template_base_path ) : $template_base_path;
 					$_namespace         = ! empty( $_namespace ) ? trailingslashit( $_namespace ) : $_namespace;
 
-					$file = $template_base_path . 'views/' . $_namespace . $template;
+					$file = $template_base_path . 'src/views/' . $_namespace . $template;
 
 					$file = apply_filters( 'tribe_events_template', $file, $template );
 
