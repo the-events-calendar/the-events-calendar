@@ -98,12 +98,12 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		$url = '';
 
 		if ( $venue_id = tribe_get_venue_id( $postId ) ) {
-			$url = esc_url( get_permalink( $venue_id ) );
+			$url = esc_url_raw( get_permalink( $venue_id ) );
 		}
 
 		if ( $display && $url != '' ) {
 			$venue_name = tribe_get_venue( $postId );
-			$link       = '<a href="' . $url . '">' . $venue_name . '</a>';
+			$link       = '<a href="' . esc_url( $url ) . '">' . $venue_name . '</a>';
 		} else {
 			$link = $url;
 		}
@@ -415,7 +415,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 			}
 			$html = sprintf(
 				'<a href="%s" target="%s">%s</a>',
-				$url,
+				esc_url( $url ),
 				apply_filters( 'tribe_get_venue_website_link_target', 'self' ),
 				apply_filters( 'tribe_get_venue_website_link_label', $label )
 			);

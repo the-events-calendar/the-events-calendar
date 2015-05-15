@@ -4,8 +4,8 @@ Contributors:  ModernTribe, roblagatta, faction23, jazbek, jbrinley, leahkoerper
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
 Donate link: http://m.tri.be/29
 Requires at least: 3.9
-Tested up to: 4.0.1
-Stable tag: 3.9.1
+Tested up to: 4.2
+Stable tag: 3.9.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -218,6 +218,7 @@ The plugin is produced by <a href="http://m.tri.be/2s">Modern Tribe Inc</a>.
 * <a href="http://profiles.wordpress.org/users/peterchester">Peter Chester</a>
 * <a href="http://profiles.wordpress.org/users/reid.peifer">Reid Peifer</a>
 * <a href="http://profiles.wordpress.org/users/shane.pearlman">Shane Pearlman</a>
+* <a href="http://profiles.wordpress.org/users/borkweb">Matthew Batchelder</a>
 
 = Past Contributors =
 
@@ -324,39 +325,52 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 
 == Changelog ==
 
-= IMPORTANT NOTICE =
-
-3.x is a complete overhaul of the plugin, and as a result we're starting the changelog fresh. For release notes from the 2.x lifecycle, see <a href="http://m.tri.be/k">our 2.x release notes.</a>
-
 = [Unreleased] unreleased =
+
+* Tweak - Enhancements/updates to iCal subscribe button
+* Tweak - Formatting consistency on filler text within calendar inputs
+* Feature - Exploration + initial work on updated timepicker in events admin
+* Feature - Enhancements to month view class + queries
+* Feature - Allowing yes/true boolean imports for “Show Google Maps (link)” field in CSV import
 
 = [3.10] 2015-04-30 =
 
-* Ensured all non critical vendor files will not end up bundled in the final plugin zip
-* Added some changelog formatting enhancements after seeing keepachangelog.com :)
-* Updated the Organizer/Venue metabox UI to be more helpful when adding/editing events
-* Added calendar icon to the Admin Bar (Fancy!)
-* Implemented performance enhancements in relation to list view pagination
-* Resolved a compatibility issue where WooCommerce shortcodes could trigger unusual side effects in month view
-* Fixed an issue where malformed URLs could trigger fatal exceptions
-* Fixed an issue where the Venue state field was displaying for countries other than US
-* Fixed an issue where tooltips were not respecting the Time Range Separator
-* Fixed an issue preventing list view from being accessed when default permalinks are in use
-* Fixed an issue causing unnecessary post meta data to be generated for new venues
-* Removed unnecessary logic for variables in some front-end templates
-* Fixed a bug where ticket emails did not include the expected venue links
-* Added new shortcodes letting the featured venue, advanced list and event countdown widgets be embedded easily in posts and pages
-* Added the ability to customize the 'Event' label using the new 'tribe_event_label_singular' and 'tribe_event_label_plural' filters (Usage example: http://m.tri.be/tj)
-* Removed all WooTickets CSS from Core
-* Implemented under-the-hood enhancements to the main event editor meta box
-* More robust plugin activation and deactivation
-* Optimized registration of capabilities during install/activation
-* Removed dependencies on ECP for handling default values
-* Avoided showing the admin welcome/activation message within iframes
-* Incorporated updated Bulgarian translation files, courtesy of Nedko Ivanov
-* Incorporated new Hungarian translation files, courtesy of Balazs Dobos
-* Incorporated new British English translation files, courtesy of John Browning
-* Incorporated new Slovak translation files, courtesy of Emilia Valova
+* Bug - Resolved a compatibility issue where WooCommerce shortcodes could trigger unusual side effects in month view
+* Bug - Fixed an issue where malformed URLs could trigger fatal exceptions
+* Bug - Fixed an issue where the Venue state field was displaying for countries other than US
+* Bug - Fixed an issue where tooltips were not respecting the Time Range Separator
+* Bug - Fixed an issue preventing list view from being accessed when default permalinks are in use
+* Bug - Fixed an issue causing unnecessary post meta data to be generated for new venues
+* Tweak - Removed unnecessary logic for variables in some front-end templates
+* Bug - Fixed a bug where ticket emails did not include the expected venue links
+* Tweak - Removed all WooTickets CSS from Core
+* Tweak - Implemented under-the-hood enhancements to the main event editor meta box
+* Tweak - More robust plugin activation and deactivation
+* Tweak - Optimized registration of capabilities during install/activation
+* Tweak - Removed dependencies on ECP for handling default values
+* Tweak - Avoided showing the admin welcome/activation message within iframes
+* Tweak - Ensured all non critical vendor files will not end up bundled in the final plugin zip
+* Tweak - Added some changelog formatting enhancements after seeing keepachangelog.com :)
+* Tweak - Implemented performance enhancements in relation to list view pagination
+* Feature - Updated the Organizer/Venue metabox UI to be more helpful when adding/editing events
+* Feature - Added calendar icon to the Admin Bar (Fancy!)
+* Feature - Added new shortcodes letting the featured venue, advanced list and event countdown widgets be embedded easily in posts and pages
+* Feature - Added the ability to customize the 'Event' label using the new 'tribe_event_label_singular' and 'tribe_event_label_plural' filters (Usage example: http://m.tri.be/tj)
+* Feature - Incorporated updated Bulgarian translation files, courtesy of Nedko Ivanov
+* Feature - Incorporated new Hungarian translation files, courtesy of Balazs Dobos
+* Feature - Incorporated new British English translation files, courtesy of John Browning
+* Feature - Incorporated new Slovak translation files, courtesy of Emilia Valova
+* Feature - Incorporated updated Icelandic translation files, courtesy of Baldvin Örn Berndsen
+
+= 3.9.3 =
+
+* Ensured that rewrite rules are flushed upon plugin activation so event pages do not 404
+* Fixed a bug that caused JavaScript-generated event pagination URLs to be malformed during day/month browsing when pagination anchor tags are absent from the page
+* Fixed a style bug where save/update notices for events in the dashboard had a colored border
+
+= 3.9.2 =
+
+* Hardened URL output to protect against XSS attacks.
 
 = 3.9.1 =
 
@@ -718,7 +732,15 @@ Still not happy? Shoot us an email to pro@tri.be or tweet to @moderntribeinc and
 
 == Upgrade Notice ==
 
-IMPORTANT NOTICE: 3.x upgrade is a HUGE upgrade from 2.x versions. If you are upgrading from an older version, please test thoroughly before updating on your live website.
+IMPORTANT NOTICE: 3.10 is a massive update from the 3.9 build, which contains a number of changes under-the-hood. All users are encouraged to backup their site before updating, and to apply the updates on a staging/test site where they can check on + fix customizations as needed before deploying to production. 
+
+= 3.10 =
+
+This is a major update; make sure you’ve backed up your site before applying it + are prepared to redo certain customizations on a staging site before deploying to production. You can see the changelog for the complete list of changes in this release.
+
+= 3.9 =
+
+Please see the changelog for the complete list of changes in this release. Remember to always make a backup of your database and files before updating!
 
 = 3.8 =
 

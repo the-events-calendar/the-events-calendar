@@ -955,7 +955,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 
 		//if link is not specifically excluded, then include <a>
 		if ( ! empty( $image_html ) && $link ) {
-			$featured_image .= '<div class="tribe-events-event-image"><a href="' . tribe_get_event_link() . '">' . $image_html . '</a></div>';
+			$featured_image .= '<div class="tribe-events-event-image"><a href="' . esc_url( tribe_get_event_link() ) . '">' . $image_html . '</a></div>';
 		} elseif ( ! empty( $image_html ) ) {
 			$featured_image .= '<div class="tribe-events-event-image">' . $image_html . '</div>';
 		}
@@ -992,8 +992,10 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @return mixed|void
 	 */
 	function tribe_get_datetime_format( $with_year = false ) {
+		$separator = (array) str_split( tribe_get_option( 'dateTimeSeparator', ' @ ' ) );
+
 		$format = tribe_get_date_format( $with_year );
-		$format .= implode( "\\", str_split( tribe_get_option( 'dateTimeSeparator', ' @ ' ) ) );
+		$format .= ( ! empty( $separator ) ? '\\' : '' ) . implode( '\\', $separator );
 		$format .= get_option( 'time_format' );
 
 		return apply_filters( 'tribe_datetime_format', $format );

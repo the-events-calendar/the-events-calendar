@@ -468,7 +468,7 @@ if ( ! class_exists( 'Tribe__Events__Settings' ) ) {
 			add_option( 'tribe_settings_sent_data', $_POST );
 			add_option( 'tribe_settings_errors', $this->errors );
 			add_option( 'tribe_settings_major_error', $this->major_error );
-			wp_redirect( add_query_arg( array( 'saved' => true ), $this->url ) );
+			wp_redirect( esc_url_raw( add_query_arg( array( 'saved' => true ), $this->url ) ) );
 			exit;
 
 		}

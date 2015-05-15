@@ -529,7 +529,7 @@ if ( ! class_exists( 'Tribe__Events__PUE__Checker' ) ) {
 
 			$url = $this->get_pue_update_url();
 			if ( ! empty( $queryArgs ) ) {
-				$url = add_query_arg( $queryArgs, $url );
+				$url = esc_url_raw( add_query_arg( $queryArgs, $url ) );
 			}
 
 			// Cache the API call so it only needs to be made once per plugin per page load.
@@ -586,8 +586,11 @@ if ( ! class_exists( 'Tribe__Events__PUE__Checker' ) ) {
 
 			$download_query = $this->get_download_query();
 			if ( ! empty( $download_query ) ) {
-				$pluginInfo->download_url = add_query_arg( $download_query, $pluginInfo->download_url );
+				$pluginInfo->download_url = esc_url_raw( add_query_arg( $download_query, $pluginInfo->download_url ) );
 			}
+
+			// Add plugin dirname/file (this will be expected by WordPress when it builds the plugin list table)
+			$pluginInfo->plugin = $this->get_plugin_file();
 
 			return Tribe__Events__PUE__Utility::from_plugin_info( $pluginInfo );
 		}

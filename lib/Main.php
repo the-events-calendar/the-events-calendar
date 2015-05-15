@@ -476,8 +476,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		public function init_ical() {
 			//iCal
 			Tribe__Events__iCal::init();
-			require_once $this->pluginPath . 'public/template-tags/ical.php';
-		}
+				require_once $this->pluginPath . 'public/template-tags/ical.php';
+			}
 
 		/**
 		 * Allow users to specify their own plural label for Venues
@@ -624,35 +624,42 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @return void
 		 */
 		public function checkAddOnCompatibility() {
+
 			// Variable for storing output to admin notices.
 			$output = '';
+
 			// Array to store any plugins that are out of date.
-			$bad_versions = array();
+			$out_of_date_addons = array();
+
 			// Array to store all addons and their required CORE versions.
 			$tec_addons_required_versions = array();
-			// Array to store NAMES ONLY of any plugins that are out of date.
-			$out_of_date_addons = array();
+
 			// Is Core the thing that is out of date?
 			$tec_out_of_date = false;
 
 			// Get the addon information.
 			$tec_addons_required_versions = (array) apply_filters( 'tribe_tec_addons', $tec_addons_required_versions );
+
 			// Foreach addon, make sure that it is compatible with current version of core.
 			foreach ( $tec_addons_required_versions as $plugin ) {
-				if ( ! version_compare( self::VERSION, $plugin['required_version'], '>=' ) ) {
-					if ( isset( $plugin['current_version'] ) ) {
-						$bad_versions[] = $plugin;
-					}
-					if ( ( isset( $plugin['plugin_dir_file'] ) ) ) {
-						$addon_short_path = $plugin['plugin_dir_file'];
-					} else {
-						$addon_short_path = null;
-					}
+				// we're not going to check addons that we can't
+				if ( empty( $plugin['required_version'] ) || empty( $plugin['current_version'] ) ) {
+					continue;
 				}
-				// Check to make sure Core isn't the thing that is out of date.
+
+				// check if TEC is out of date
 				if ( version_compare( $plugin['required_version'], self::VERSION, '>' ) ) {
 					$tec_out_of_date = true;
+					break;
 				}
+
+				// check if addons are at an older minor version
+				$addon_minor_version = (float) $plugin['current_version'];
+				$tec_minor_version   = (float) self::VERSION;
+				if ( version_compare( $addon_minor_version, $tec_minor_version, '<' ) ) {
+					$out_of_date_addons[] = $plugin['plugin_name'] . ' ' . $plugin['current_version'];
+				}
+
 			}
 			// If Core is out of date, generate the proper message.
 			if ( $tec_out_of_date == true ) {
@@ -666,29 +673,20 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 					), 'upgrade-plugin_' . $plugin_short_path
 				);
 				$output .= '<div class="error">';
-				$output .= '<p>' . sprintf( __( 'Your version of The Events Calendar is not up-to-date with one of your The Events Calendar add-ons. Please %supdate now.%s', 'tribe-events-calendar' ), '<a href="' . $upgrade_path . '">', '</a>' ) . '</p>';
+				$output .= '<p>' . sprintf( __( 'Your version of The Events Calendar is not up-to-date with one of your The Events Calendar add-ons. Please %supdate now.%s', 'tribe-events-calendar' ), '<a href="' . esc_url( $upgrade_path ) . '">', '</a>' ) . '</p>';
 				$output .= '</div>';
-			} else {
+			} elseif ( ! empty( $out_of_date_addons ) ) {
 				// Otherwise, if the addons are out of date, generate the proper messaging.
-				if ( ! empty( $bad_versions ) ) {
-					foreach ( $bad_versions as $plugin ) {
-						if ( $plugin['current_version'] ) {
-							$out_of_date_addons[] = $plugin['plugin_name'] . ' ' . $plugin['current_version'];
-						} else {
-							$out_of_date_addons[] = $plugin['plugin_name'];
-						}
-					}
-					$output .= '<div class="error">';
-					$link = add_query_arg(
-						array(
-							'utm_campaign' => 'in-app',
-							'utm_medium'   => 'plugin-tec',
-							'utm_source'   => 'notice'
+				$output .= '<div class="error">';
+				$link = add_query_arg(
+					array(
+						'utm_campaign' => 'in-app',
+						'utm_medium'   => 'plugin-tec',
+						'utm_source'   => 'notice'
 						), self::$tecUrl . 'knowledgebase/version-compatibility/'
-					);
-					$output .= '<p>' . sprintf( __( 'The following plugins are out of date: <b>%s</b>. All add-ons contain dependencies on The Events Calendar and will not function properly unless paired with the right version. %sLearn More%s.', 'tribe-events-calendar' ), join( $out_of_date_addons, ', ' ), "<a href='$link' target='_blank'>", '</a>' ) . '</p>';
-					$output .= '</div>';
-				}
+				);
+				$output .= '<p>' . sprintf( __( 'The following plugins are out of date: <b>%s</b>. All add-ons contain dependencies on The Events Calendar and will not function properly unless paired with the right version. %sLearn More%s.', 'tribe-events-calendar' ), join( $out_of_date_addons, ', ' ), "<a href='" . esc_url( $link ) . "' target='_blank'>", '</a>' ) . '</p>';
+				$output .= '</div>';
 			}
 			// Make sure only to show the message if the user has the permissions necessary.
 			if ( current_user_can( 'edit_plugins' ) ) {
@@ -737,6 +735,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 					'utm_source'   => 'notice'
 				), self::$tecUrl . 'license-keys/'
 			);
+
+			$link = esc_url( $link );
 
 			$tribe_licences_tab_fields = array(
 				'info-start'               => array(
@@ -1394,7 +1394,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			}
 			?>
 			<tr class="">
-				<td colspan="2"><?php _e( 'Without a defined location your event will not display a <a href="https://support.google.com/webmasters/answer/164506" target="_blank">Google Rich Snippets</a> on the search results.', 'tribe-events-calendar' ) ?></td>
+				<td colspan="2"><?php _e( 'Without a defined location your event will not display a <a href="https://support.google.com/webmasters/answer/164506" target="_blank">Google Rich Snippet</a> on the search results.', 'tribe-events-calendar' ) ?></td>
 			</tr>
 			<?php
 		}
@@ -1823,7 +1823,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				$options = apply_filters( 'tribe-events-save-options', $options );
 			}
 			update_option( Tribe__Events__Main::OPTIONNAME, $options );
-		}
+			}
 
 		/**
 		 * Set an option
@@ -2322,7 +2322,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		public function redirect_past_upcoming_view_urls() {
 
 			if ( strpos( $_SERVER['REQUEST_URI'], $this->getRewriteSlug() . '/' . $this->pastSlug ) !== false ) {
-				wp_redirect( add_query_arg( array( 'tribe_event_display' => 'past' ), str_replace( '/' . $this->pastSlug . '/', '/' . $this->listSlug . '/', $_SERVER['REQUEST_URI'] ) ) );
+				wp_redirect( esc_url_raw( add_query_arg( array( 'tribe_event_display' => 'past' ), str_replace( '/' . $this->pastSlug . '/', '/' . $this->listSlug . '/', $_SERVER['REQUEST_URI'] ) ) ) );
 			} elseif ( strpos( $_SERVER['REQUEST_URI'], $this->getRewriteSlug() . '/' . $this->upcomingSlug ) !== false ) {
 				wp_redirect( str_replace( '/' . $this->upcomingSlug . '/', '/' . $this->listSlug . '/', $_SERVER['REQUEST_URI'] ) );
 			}
@@ -2526,7 +2526,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		}
 
 		/**
-		 * Returns a link to google maps for the given event. This link can be filtered
+		 * Returns a link to google maps for the given event. This link can be filtered 
 		 * using the tribe_events_google_map_link hook.
 		 *
 		 * @param int|null $post_id
@@ -3170,7 +3170,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 */
 		public function EventsChooserBox( $event = null ) {
 			new Tribe__Events__Admin__Event_Meta_Box( $event );
-		}
+				}
 
 		/**
 		 * Adds a style chooser to the write post page
@@ -3179,8 +3179,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 */
 		public function VenueMetaBox() {
 			global $post;
-			$options  = '';
-			$style    = '';
+			$options = '';
+			$style   = '';
 			$event    = $post;
 
 			if ( $post->post_type == self::VENUE_POST_TYPE ) {
@@ -3394,7 +3394,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			// Create a new date object: a badly formed date can trigger an exception - in such
 			// a scenario try again and default to the current time instead
 			try {
-				$date = new DateTime( $date );
+			$date = new DateTime( $date );
 			}
 			catch ( Exception $e ) {
 				$date = new DateTime;
@@ -3429,7 +3429,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			// Create a new date object: a badly formed date can trigger an exception - in such
 			// a scenario try again and default to the current time instead
 			try {
-				$date = new DateTime( $date );
+			$date = new DateTime( $date );
 			}
 			catch ( Exception $e ) {
 				$date = new DateTime;
@@ -3673,7 +3673,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 						'utm_source'   => 'plugins-manager'
 					), self::$tribeUrl . self::$addOnPath
 				);
-				$links [] = '<a href="' . $link . '" target="_blank">' . $anchor . '</a>';
+				$links [] = '<a href="' . esc_url( $link ) . '" target="_blank">' . $anchor . '</a>';
 			}
 
 			return $links;
@@ -3757,12 +3757,15 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			<td colspan="2">
 				<p><?php _e( 'Looking for additional functionality including recurring events, ticket sales, publicly submitted events, new views and more?', 'tribe-events-calendar' ) ?> <?php printf(
 						__( 'Check out the <a href="%s">available add-ons</a>.', 'tribe-events-calendar' ),
-						add_query_arg(
-							array(
-								'utm_campaign' => 'in-app',
-								'utm_medium'   => 'plugin-tec',
-								'utm_source'   => 'post-editor'
-							), Tribe__Events__Main::$tribeUrl . self::$addOnPath
+						esc_url(
+							add_query_arg(
+								array(
+									'utm_campaign' => 'in-app',
+									'utm_medium'   => 'plugin-tec',
+									'utm_source'   => 'post-editor'
+								),
+								Tribe__Events__Main::$tribeUrl . self::$addOnPath
+							)
 						)
 					); ?></p>
 			</td>
@@ -3884,11 +3887,14 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 								 array(
 									 'id'     => 'tribe-csv-import',
 									 'title'  => __( 'CSV', 'tribe-events-calendar' ),
-									 'href'   => add_query_arg(
-										 array(
-											 'post_type' => Tribe__Events__Main::POSTTYPE,
-											 'page'      => 'events-importer'
-										 ), admin_url( 'edit.php' )
+									 'href'   => esc_url(
+										 add_query_arg(
+												array(
+										'post_type' => Tribe__Events__Main::POSTTYPE,
+													'page'      => 'events-importer'
+												),
+												admin_url( 'edit.php' )
+											)
 									 ),
 									 'parent' => 'tribe-events-import'
 								 )
@@ -3984,11 +3990,14 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @todo move to an admin class
 		 */
 		public function addLinksToPluginActions( $actions ) {
-			$actions['settings']       = '<a href="' . add_query_arg(
-					array(
-						'post_type' => self::POSTTYPE,
-						'page'      => 'tribe-events-calendar'
-					), admin_url( 'edit.php' )
+			$actions['settings']       = '<a href="' . esc_url(
+					add_query_arg(
+						array(
+							'post_type' => self::POSTTYPE,
+							'page'      => 'tribe-events-calendar'
+						),
+						admin_url( 'edit.php' )
+					)
 				) . '">' . __( 'Settings', 'tribe-events-calendar' ) . '</a>';
 			$actions['tribe-calendar'] = '<a href="' . $this->getLink() . '">' . __( 'Calendar', 'tribe-events-calendar' ) . '</a>';
 
@@ -4008,12 +4017,15 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			$parent = 'edit.php?post_type=' . self::POSTTYPE;
 			$title  = __( 'Help', 'tribe-events-calendar' );
-			$slug   = add_query_arg(
-				array(
-					'post_type' => self::POSTTYPE,
-					'page'      => 'tribe-events-calendar',
-					'tab'       => 'help'
-				), 'edit.php'
+			$slug   = esc_url(
+				add_query_arg(
+					array(
+						'post_type' => self::POSTTYPE,
+						'page'      => 'tribe-events-calendar',
+						'tab'       => 'help'
+					),
+					'edit.php'
+				)
 			);
 
 			add_submenu_page( $parent, $title, $title, 'manage_options', $slug, '' );
@@ -4050,7 +4062,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				$link = add_query_arg( array( 'post_type' => self::POSTTYPE ), $link );
 			}
 
-			return $link;
+			return esc_url( $link );
 		}
 
 		/**
@@ -4315,8 +4327,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			$updater = new Tribe__Events__Updater( self::VERSION );
 			if ( $updater->update_required() ) {
 				$updater->do_updates();
-			}
-		}
+					}
+				}
 
 		/**
 		 * Helper used to test if PRO is present and activated.
