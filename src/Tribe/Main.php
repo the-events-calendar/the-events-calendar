@@ -238,27 +238,27 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			require_once $this->pluginPath . 'src/io/csv/ecp-events-importer.php';
 
 			// Load Template Tags
-			require_once $this->pluginPath . 'src/public/template-tags/query.php';
-			require_once $this->pluginPath . 'src/public/template-tags/general.php';
-			require_once $this->pluginPath . 'src/public/template-tags/month.php';
-			require_once $this->pluginPath . 'src/public/template-tags/loop.php';
-			require_once $this->pluginPath . 'src/public/template-tags/google-map.php';
-			require_once $this->pluginPath . 'src/public/template-tags/organizer.php';
-			require_once $this->pluginPath . 'src/public/template-tags/venue.php';
-			require_once $this->pluginPath . 'src/public/template-tags/date.php';
-			require_once $this->pluginPath . 'src/public/template-tags/link.php';
-			require_once $this->pluginPath . 'src/public/template-tags/widgets.php';
-			require_once $this->pluginPath . 'src/public/template-tags/meta.php';
-			require_once $this->pluginPath . 'src/public/template-tags/tickets.php';
+			require_once $this->pluginPath . 'src/functions/template-tags/query.php';
+			require_once $this->pluginPath . 'src/functions/template-tags/general.php';
+			require_once $this->pluginPath . 'src/functions/template-tags/month.php';
+			require_once $this->pluginPath . 'src/functions/template-tags/loop.php';
+			require_once $this->pluginPath . 'src/functions/template-tags/google-map.php';
+			require_once $this->pluginPath . 'src/functions/template-tags/organizer.php';
+			require_once $this->pluginPath . 'src/functions/template-tags/venue.php';
+			require_once $this->pluginPath . 'src/functions/template-tags/date.php';
+			require_once $this->pluginPath . 'src/functions/template-tags/link.php';
+			require_once $this->pluginPath . 'src/functions/template-tags/widgets.php';
+			require_once $this->pluginPath . 'src/functions/template-tags/meta.php';
+			require_once $this->pluginPath . 'src/functions/template-tags/tickets.php';
 
 			// Load Advanced Functions
-			require_once $this->pluginPath . 'src/public/advanced-functions/event.php';
-			require_once $this->pluginPath . 'src/public/advanced-functions/venue.php';
-			require_once $this->pluginPath . 'src/public/advanced-functions/organizer.php';
+			require_once $this->pluginPath . 'src/functions/advanced-functions/event.php';
+			require_once $this->pluginPath . 'src/functions/advanced-functions/venue.php';
+			require_once $this->pluginPath . 'src/functions/advanced-functions/organizer.php';
 
 			// Load Deprecated Template Tags
 			if ( ! defined( 'TRIBE_DISABLE_DEPRECATED_TAGS' ) ) {
-				require_once $this->pluginPath . 'src/public/template-tags/deprecated.php';
+				require_once $this->pluginPath . 'src/functions/template-tags/deprecated.php';
 			}
 
 			// Load multisite defaults
@@ -476,7 +476,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		public function init_ical() {
 			//iCal
 			Tribe__Events__iCal::init();
-				require_once $this->pluginPath . 'public/template-tags/ical.php';
+				require_once $this->pluginPath . 'src/functions/template-tags/ical.php';
 			}
 
 		/**
@@ -534,7 +534,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 */
 		public function init_day_view() {
 			// load day view functions
-			require_once $this->pluginPath . 'public/template-tags/day.php';
+			require_once $this->pluginPath . 'src/functions/template-tags/day.php';
 		}
 
 
