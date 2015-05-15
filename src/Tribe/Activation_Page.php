@@ -169,7 +169,7 @@ class Tribe__Events__Activation_Page {
 
 	protected function load_template( $name ) {
 		ob_start();
-		include(trailingslashit(Tribe__Events__Main::instance()->pluginPath).'admin-views/'.$name.'.php');
+		include(trailingslashit(Tribe__Events__Main::instance()->pluginPath).'src/admin-views/'.$name.'.php');
 		return ob_get_clean();
 	}
 

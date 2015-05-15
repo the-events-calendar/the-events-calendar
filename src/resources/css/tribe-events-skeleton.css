@@ -531,7 +531,7 @@ select.tribe-events-dropdown {
 .tribe-events-tooltip .tribe-events-arrow {
 	width: 18px;
 	height: 11px;
-	background-image: url(images/tribe-tooltips.png);
+	background-image: url(../images/tribe-tooltips.png);
 	background-repeat: no-repeat;
 	background-position: 0 0;
 	-webkit-background-size: 44px 19px;
@@ -731,7 +731,7 @@ select.tribe-events-dropdown {
 	overflow: hidden;
 }
 #tribe-events-bar .tribe-bar-button-settings span {
-	background-image: url(images/events-bar/icon-gear.png);
+	background-image: url(../images/events-bar/icon-gear.png);
 	background-repeat: no-repeat;
 	background-position: 50% 50%;
 	-webkit-background-size: 14px 14px;

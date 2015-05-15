@@ -931,7 +931,7 @@ select.tribe-events-dropdown {
 .tribe-events-tooltip .tribe-events-arrow {
 	width: 18px;
 	height: 11px;
-	background-image: url(images/tribe-tooltips.png);
+	background-image: url(../images/tribe-tooltips.png);
 	background-repeat: no-repeat;
 	background-position: 0 0;
 	-webkit-background-size: 44px 19px;
@@ -1617,7 +1617,7 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 /* Default icon */
 .tribe-select2-results-views span[class^="tribe-icon-"],
 .tribe-bar-views-list span[class^="tribe-icon-"] {
-	background-image: url(images/events-bar/icon-month.png);
+	background-image: url(../images/events-bar/icon-month.png);
 	-webkit-background-size: 15px 16px;
     		background-size: 15px 16px;
 }
@@ -1625,7 +1625,7 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 .tribe-select2-results-views span.tribe-icon-list,
 .tribe-bar-views-list span.tribe-icon-list,
 .tribe-bar-view-list span[class^="tribe-icon-"] {
-	background-image: url(images/events-bar/icon-list.png);
+	background-image: url(../images/events-bar/icon-list.png);
 	-webkit-background-size: 15px 10px;
     		background-size: 15px 10px;
 }
@@ -1638,31 +1638,31 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 .tribe-select2-results-views .tribe-icon-month,
 .tribe-bar-views-list span.tribe-icon-month,
 .tribe-bar-view-list a.tribe-icon-month {
-	background-image: url(images/events-bar/icon-month.png);
+	background-image: url(../images/events-bar/icon-month.png);
 	-webkit-background-size: 15px 16px;
     		background-size: 15px 16px;
 }
 .tribe-select2-results-views span.tribe-icon-week,
 .tribe-bar-views-list span.tribe-icon-week {
-	background-image: url(images/events-bar/icon-week.png);
+	background-image: url(../images/events-bar/icon-week.png);
 	-webkit-background-size: 15px 16px;
     		background-size: 15px 16px;
 }
 .tribe-select2-results-views span.tribe-icon-day,
 .tribe-bar-views-list span.tribe-icon-day {
-	background-image: url(images/events-bar/icon-day.png);
+	background-image: url(../images/events-bar/icon-day.png);
 	-webkit-background-size: 15px 16px;
     		background-size: 15px 16px;
 }
 .tribe-select2-results-views span.tribe-icon-photo,
 .tribe-bar-views-list span.tribe-icon-photo {
-	background-image: url(images/events-bar/icon-photo.png);
+	background-image: url(../images/events-bar/icon-photo.png);
 	-webkit-background-size: 15px 14px;
     		background-size: 15px 14px;
 }
 .tribe-select2-results-views span.tribe-icon-map,
 .tribe-bar-views-list span.tribe-icon-map {
-	background-image: url(images/events-bar/icon-map.png);
+	background-image: url(../images/events-bar/icon-map.png);
 	-webkit-background-size: 12px 16px;
     		background-size: 12px 16px;
 	background-position: 2px 50%;
@@ -1774,13 +1774,13 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 (-webkit-min-device-pixel-ratio: 2),
 (min-device-pixel-ratio: 2) {
 	.tribe-events-tooltip .tribe-events-arrow {
-		background-image: url(images/tribe-tooltips@2x.png);
+		background-image: url(../images/tribe-tooltips@2x.png);
 	}
 	#tribe-bar-filters .tribe-bar-button-search .tribe-bar-btn-small {
-		background-image: url(images/events-bar/icon-search@2x.png);
+		background-image: url(../images/events-bar/icon-search@2x.png);
 	}
 	#tribe-events-bar .tribe-bar-button-settings span {
-		background-image: url(images/events-bar/icon-gear@2x.png);
+		background-image: url(../images/events-bar/icon-gear@2x.png);
 	}
 	#tribe-events-bar [class^="tribe-bar-button-"]:after {
 		background-image: url(../vendor/select2/select2x2.png);
@@ -1789,32 +1789,32 @@ input[name*="tribe-bar-"]:-moz-placeholder {
 	.tribe-select2-results-views span[class^="tribe-icon-"],
 	.tribe-bar-views-list span[class^="tribe-icon-"],
 	.tribe-bar-view-list a[class^="tribe-icon-"] {
-		background-image: url(images/events-bar/icon-month@2x.png);
+		background-image: url(../images/events-bar/icon-month@2x.png);
 	}	
 	.tribe-select2-results-views span.tribe-icon-list,
 	.tribe-bar-views-list span.tribe-icon-list,
 	.tribe-bar-view-list span[class^="tribe-icon-"] {
-		background-image: url(images/events-bar/icon-list@2x.png);
+		background-image: url(../images/events-bar/icon-list@2x.png);
 	}
 	.tribe-select2-results-views span.tribe-icon-month,
 	.tribe-bar-views-list span.tribe-icon-month,
 	.tribe-bar-view-list a.tribe-icon-month {
-		background-image: url(images/events-bar/icon-month@2x.png);
+		background-image: url(../images/events-bar/icon-month@2x.png);
 	}
 	.tribe-select2-results-views span.tribe-icon-week,
 	.tribe-bar-views-list span.tribe-icon-week {
-		background-image: url(images/events-bar/icon-week@2x.png);
+		background-image: url(../images/events-bar/icon-week@2x.png);
 	}
 	.tribe-select2-results-views span.tribe-icon-day,
 	.tribe-bar-views-list span.tribe-icon-day {
-		background-image: url(images/events-bar/icon-day@2x.png);
+		background-image: url(../images/events-bar/icon-day@2x.png);
 	}
 	.tribe-select2-results-views span.tribe-icon-photo,
 	.tribe-bar-views-list span.tribe-icon-photo {
-		background-image: url(images/events-bar/icon-photo@2x.png);
+		background-image: url(../images/events-bar/icon-photo@2x.png);
 	}
 	.tribe-select2-results-views span.tribe-icon-map,
 	.tribe-bar-views-list span.tribe-icon-map {
-		background-image: url(images/events-bar/icon-map@2x.png);
+		background-image: url(../images/events-bar/icon-map@2x.png);
 	}
 }

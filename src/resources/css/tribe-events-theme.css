@@ -361,7 +361,7 @@ h2.tribe-events-page-title,
 .tribe-events-tooltip .tribe-events-arrow {
 	width: 20px;
 	height: 7px;
-	background-image: url(images/tribe-theme/tribe-theme-tooltips.png);
+	background-image: url(../images/tribe-theme/tribe-theme-tooltips.png);
 	-webkit-background-size: 37px 20px;
     		background-size: 37px 20px;
 	bottom: -7px;
@@ -431,6 +431,6 @@ h2.tribe-events-page-title,
 (-webkit-min-device-pixel-ratio: 2),
 (min-device-pixel-ratio: 2) {
 	.tribe-events-tooltip .tribe-events-arrow {
-		background-image: url(images/tribe-theme/tribe-theme-tooltips@2x.png);
+		background-image: url(../images/tribe-theme/tribe-theme-tooltips@2x.png);
 	}
 }

@@ -68,8 +68,8 @@ div.tribe-venue-error.error, div.tribe-organizer-error.error { margin-left:5px; 
 /* = Eventbrite
 =============================================*/
 .tribe-community-event-info small, #EventBriteDetailDiv small {color: #a3a3a3; font-size: 10px;}
-#eventBriteTicketing, #mainDonateRow {background: url(images/bg_fade.png) repeat-x top left; background-color: #fff; padding: 10px 15px; border: 1px solid #e2e2e2; -moz-border-radius: 3px; -khtml-border-radius: 3px; -webkit-border-radius: 3px; -moz-border-radius-topleft: 0; -moz-border-radius-topright: 0; -webkit-border-top-left-radius: 0; -webkit-border-top-right-radius: 0; border-radius: 3px; margin: -11px 6px 0;}
-#eventBriteTicketing h2 {background: url(images/eb_press_little.gif) no-repeat top right; height: 80px; margin: 0;}
+#eventBriteTicketing, #mainDonateRow {background: url(../images/bg_fade.png) repeat-x top left; background-color: #fff; padding: 10px 15px; border: 1px solid #e2e2e2; -moz-border-radius: 3px; -khtml-border-radius: 3px; -webkit-border-radius: 3px; -moz-border-radius-topleft: 0; -moz-border-radius-topright: 0; -webkit-border-top-left-radius: 0; -webkit-border-top-right-radius: 0; border-radius: 3px; margin: -11px 6px 0;}
+#eventBriteTicketing h2 {background: url(../images/eb_press_little.gif) no-repeat top right; height: 80px; margin: 0;}
 .tribe-community-event-info, table.eventForm {width: 100%;}
 
 /* = Recurrence
@@ -257,7 +257,7 @@ div.tribe-venue-error.error, div.tribe-organizer-error.error { margin-left:5px; 
 	left       : 50%;
 	top        : 50%;
 	margin     : -16px 0 0 -16px;
-	background : url(images/tribe-loading.gif) 0 0 no-repeat;
+	background : url(../images/tribe-loading.gif) 0 0 no-repeat;
 	-webkit-background-size: 32px 32px;
 			background-size: 32px 32px;
 }
@@ -270,7 +270,7 @@ only screen and (-o-min-device-pixel-ratio: 2/1),
 only screen and (-webkit-min-device-pixel-ratio: 2),
 only screen and (min-device-pixel-ratio: 2) {
 	.events-cal #icon-edit {
-		background-image: url(images/events-screen-icon@2x.png);
+		background-image: url(../images/events-screen-icon@2x.png);
 	}
 	#tribe-loading span {
 		background-image: url(images/tribe-loading@2x.gif);

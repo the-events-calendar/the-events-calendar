@@ -207,12 +207,12 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * Initializes plugin variables and sets up WordPress hooks/actions.
 		 */
 		protected function __construct() {
-			$this->pluginPath = trailingslashit( dirname( dirname( __FILE__ ) ) );
+			$this->pluginPath = trailingslashit( dirname( dirname( dirname( __FILE__ ) ) ) );
 			$this->pluginDir  = trailingslashit( basename( $this->pluginPath ) );
 			$this->pluginUrl  = plugins_url( $this->pluginDir );
 
 			// include the autolader class
-			require_once( $this->pluginPath . '/lib/utils/Autoloader.php' );
+			require_once( $this->pluginPath . '/src/Tribe/Autoloader.php' );
 			$this->init_autoloading();
 
 			add_action( 'init', array( $this, 'loadTextDomain' ), 1 );
@@ -235,30 +235,30 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			require_once $this->pluginPath . 'vendor/tribe-common-libraries/tribe-common-libraries.class.php';
 
 			// Load CSV importer
-			require_once $this->pluginPath . 'lib/io/csv/ecp-events-importer.php';
+			require_once $this->pluginPath . 'src/io/csv/ecp-events-importer.php';
 
 			// Load Template Tags
-			require_once $this->pluginPath . 'public/template-tags/query.php';
-			require_once $this->pluginPath . 'public/template-tags/general.php';
-			require_once $this->pluginPath . 'public/template-tags/month.php';
-			require_once $this->pluginPath . 'public/template-tags/loop.php';
-			require_once $this->pluginPath . 'public/template-tags/google-map.php';
-			require_once $this->pluginPath . 'public/template-tags/organizer.php';
-			require_once $this->pluginPath . 'public/template-tags/venue.php';
-			require_once $this->pluginPath . 'public/template-tags/date.php';
-			require_once $this->pluginPath . 'public/template-tags/link.php';
-			require_once $this->pluginPath . 'public/template-tags/widgets.php';
-			require_once $this->pluginPath . 'public/template-tags/meta.php';
-			require_once $this->pluginPath . 'public/template-tags/tickets.php';
+			require_once $this->pluginPath . 'src/public/template-tags/query.php';
+			require_once $this->pluginPath . 'src/public/template-tags/general.php';
+			require_once $this->pluginPath . 'src/public/template-tags/month.php';
+			require_once $this->pluginPath . 'src/public/template-tags/loop.php';
+			require_once $this->pluginPath . 'src/public/template-tags/google-map.php';
+			require_once $this->pluginPath . 'src/public/template-tags/organizer.php';
+			require_once $this->pluginPath . 'src/public/template-tags/venue.php';
+			require_once $this->pluginPath . 'src/public/template-tags/date.php';
+			require_once $this->pluginPath . 'src/public/template-tags/link.php';
+			require_once $this->pluginPath . 'src/public/template-tags/widgets.php';
+			require_once $this->pluginPath . 'src/public/template-tags/meta.php';
+			require_once $this->pluginPath . 'src/public/template-tags/tickets.php';
 
 			// Load Advanced Functions
-			require_once $this->pluginPath . 'public/advanced-functions/event.php';
-			require_once $this->pluginPath . 'public/advanced-functions/venue.php';
-			require_once $this->pluginPath . 'public/advanced-functions/organizer.php';
+			require_once $this->pluginPath . 'src/public/advanced-functions/event.php';
+			require_once $this->pluginPath . 'src/public/advanced-functions/venue.php';
+			require_once $this->pluginPath . 'src/public/advanced-functions/organizer.php';
 
 			// Load Deprecated Template Tags
 			if ( ! defined( 'TRIBE_DISABLE_DEPRECATED_TAGS' ) ) {
-				require_once $this->pluginPath . 'public/template-tags/deprecated.php';
+				require_once $this->pluginPath . 'src/public/template-tags/deprecated.php';
 			}
 
 			// Load multisite defaults
@@ -4351,19 +4351,19 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			$autoloader = Tribe__Events__Autoloader::instance();
 
 			$prefixes = array(
-				'Tribe__Events__' => $this->pluginPath . 'lib',
-				'Tribe__Events__Utils__' => $this->pluginPath . 'lib/utils',
-				'Tribe__Events__Admin__' => $this->pluginPath . 'lib/Admin',
-				'Tribe__Events__Importer__' => $this->pluginPath . 'lib/io/csv/classes',
-				'Tribe__Events__PUE__' => $this->pluginPath . 'lib/pue/lib',
-				'Tribe__Events__Template__' => $this->pluginPath . 'lib/template-classes',
-				'Tribe__Events__Tickets__' => $this->pluginPath . 'lib/tickets',
-				'Tribe__Events__Advanced_Functions__' => $this->pluginPath . 'public/advanced-functions',
+				'Tribe__Events__' => $this->pluginPath . 'src/Tribe',
+//				'Tribe__Events__Utils__' => $this->pluginPath . 'lib/utils',
+//				'Tribe__Events__Admin__' => $this->pluginPath . 'lib/Admin',
+//				'Tribe__Events__Importer__' => $this->pluginPath . 'lib/io/csv/classes',
+//				'Tribe__Events__PUE__' => $this->pluginPath . 'lib/pue/lib',
+//				'Tribe__Events__Template__' => $this->pluginPath . 'lib/template-classes',
+//				'Tribe__Events__Tickets__' => $this->pluginPath . 'lib/tickets',
+//				'Tribe__Events__Advanced_Functions__' => $this->pluginPath . 'public/advanced-functions',
 			);
 			$autoloader->register_prefixes( $prefixes );
 
 			// deprecated classes are registered in a class to path fashion
-			foreach ( glob( $this->pluginPath . 'lib/deprecated-classes/*.php' ) as $file ) {
+			foreach ( glob( $this->pluginPath . 'src/deprecated/*.php' ) as $file ) {
 				$class_name = str_replace( '.php', '', basename( $file ) );
 				$autoloader->register_class( $class_name, $file );
 			}
