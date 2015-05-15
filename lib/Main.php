@@ -1540,7 +1540,6 @@
 				if ( !class_exists( 'Tribe__Events__Main' ) ) {
 					return; // can't do anything since core isn't around
 				}
-				require_once( Tribe__Events__Main::instance()->pluginPath . '/lib/Abstract_Deactivation.php' );
 				$deactivation = new Tribe__Events__Pro__Deactivation( $network_deactivating );
 				add_action( 'shutdown', array( $deactivation, 'deactivate' ) );
 			}
