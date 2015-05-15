@@ -147,7 +147,6 @@ if ( ! class_exists( 'Tribe__Events__Template_Factory' ) ) {
 		 * @param array               $deps          An array of dependency handles
 		 * @param string              $vendor_url    URL to vendor scripts and styles dir
 		 * @param string              $prefix        MT script and style prefix
-		 * @param string              $resources_url URL to resources scripts and styles dir
 		 * @param Tribe__Events__Main $tec           An instance of the main plugin class
 		 */
 		protected static function handle_asset_package_request( $name, $deps, $vendor_url, $prefix, $tec ) {

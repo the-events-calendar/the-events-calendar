@@ -163,7 +163,6 @@ class Tribe__Events__Embedded_Maps {
 		wp_enqueue_script( 'tribe_events_google_maps_api', $url, array(), false, true );
 
 		// Setup our own script used to initialize each map
-		$resources_url = trailingslashit( Tribe__Events__Main::instance()->pluginUrl ) . 'resources/';
 		$url = Tribe__Events__Template_Factory::getMinFile( tribe_events_resource_url( 'embedded-map.js' ), true );
 		wp_enqueue_script( self::MAP_HANDLE, $url, array( 'tribe_events_google_maps_api' ), false, true );
 

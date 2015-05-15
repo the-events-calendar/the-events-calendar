@@ -1613,12 +1613,11 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			global $current_screen;
 
 			// setup plugin resources & 3rd party vendor urls
-			$resources_url = trailingslashit( $this->pluginUrl ) . 'resources/';
 			$vendor_url    = trailingslashit( $this->pluginUrl ) . 'vendor/';
 
 			// admin stylesheet - only load admin stylesheet when on Tribe pages
 			if ( isset( $current_screen->id ) && true === strpos( $current_screen->id, 'tribe' ) ) {
-				wp_enqueue_style( self::POSTTYPE . '-admin', $resources_url . 'events-admin.css', array(), apply_filters( 'tribe_events_css_version', self::VERSION ) );
+				wp_enqueue_style( self::POSTTYPE . '-admin', tribe_events_resource_url( 'events-admin.css' ), array(), apply_filters( 'tribe_events_css_version', self::VERSION ) );
 			}
 
 			// settings screen
