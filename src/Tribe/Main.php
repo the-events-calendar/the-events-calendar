@@ -60,23 +60,10 @@
 				require_once( $this->pluginPath . 'src/functions/template-tags/venue.php' );
 				require_once( $this->pluginPath . 'src/functions/template-tags/widgets.php' );
 
-				require_once( $this->pluginPath . 'public/template-tags/general.php' );
-				require_once( $this->pluginPath . 'public/template-tags/week.php' );
-				require_once( $this->pluginPath . 'public/template-tags/venue.php' );
-				require_once( $this->pluginPath . 'public/template-tags/widgets.php' );
-
 				// Load Deprecated Template Tags
 				if ( ! defined( 'TRIBE_DISABLE_DEPRECATED_TAGS' ) ) {
-					require_once $this->pluginPath . 'public/template-tags/deprecated.php';
+					require_once $this->pluginPath . 'src/functions/template-tags/deprecated.php';
 				}
-
-//			require_once( $this->pluginPath . 'lib/tribe-geoloc.class.php' );
-//			require_once( $this->pluginPath . 'lib/EmbeddedMaps.php' );
-//			require_once( $this->pluginPath . 'lib/SingleEventMeta.php' );
-//			require_once( $this->pluginPath . 'lib/Shortcodes/Widget_Wrappers.php' );
-
-				// community mods
-//			require_once( $this->pluginPath . 'lib/Community_Modifications.php' );
 
 				add_action( 'admin_init', array( $this, 'run_updates' ), 10, 0 );
 
