@@ -33,16 +33,16 @@ class Tribe__Events__Importer__Admin_Page {
 				break;
 
 			default:
-				include( Tribe__Events__Importer__Plugin::path('admin-views/header.php')  );
+				include( Tribe__Events__Importer__Plugin::path('src/admin-views/header.php')  );
 					do_action( 'tribe-import-render-tab-' . $tab );
-				include( Tribe__Events__Importer__Plugin::path('admin-views/footer.php')  );
+				include( Tribe__Events__Importer__Plugin::path('src/admin-views/footer.php')  );
 				break;
 		}
 
 	}
 
 	public function render_general_tab(){
-		include( Tribe__Events__Importer__Plugin::path('admin-views/general.php') );
+		include( Tribe__Events__Importer__Plugin::path('src/admin-views/general.php') );
 	}
 
 	public function render_csv_tab(){
@@ -66,20 +66,20 @@ class Tribe__Events__Importer__Admin_Page {
 				}
 				$import_type = get_option( 'tribe_events_import_type' );
 				$messages = $this->errors;
-				include( Tribe__Events__Importer__Plugin::path('admin-views/columns.php') );
+				include( Tribe__Events__Importer__Plugin::path('src/admin-views/columns.php') );
 				break;
 			case 'importing':
 				$messages = $this->messages;
-				include( Tribe__Events__Importer__Plugin::path('admin-views/in-progress.php') );
+				include( Tribe__Events__Importer__Plugin::path('src/admin-views/in-progress.php') );
 				break;
 			case 'complete':
 				$log = get_option( 'tribe_events_import_log' );
 				$skipped = get_option( 'tribe_events_import_failed_rows', array() );
-				include( Tribe__Events__Importer__Plugin::path('admin-views/result.php') );
+				include( Tribe__Events__Importer__Plugin::path('src/admin-views/result.php') );
 				break;
 			default:
 				$messages = $this->errors;
-				include( Tribe__Events__Importer__Plugin::path('admin-views/import.php') );
+				include( Tribe__Events__Importer__Plugin::path('src/admin-views/import.php') );
 				break;
 		}
 	}

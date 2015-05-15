@@ -723,8 +723,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 */
 		public function doSettingTabs() {
 
-			include_once( $this->pluginPath . 'admin-views/tribe-options-general.php' );
-			include_once( $this->pluginPath . 'admin-views/tribe-options-display.php' );
+			include_once( $this->pluginPath . 'src/admin-views/tribe-options-general.php' );
+			include_once( $this->pluginPath . 'src/admin-views/tribe-options-display.php' );
 
 			$showNetworkTabs = $this->getNetworkOption( 'showSettingsTabs', false );
 
@@ -803,7 +803,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * Create the help tab
 		 */
 		public function doHelpTab() {
-			include_once( $this->pluginPath . 'admin-views/tribe-options-help.php' );
+			include_once( $this->pluginPath . 'src/admin-views/tribe-options-help.php' );
 		}
 
 		/**
@@ -1926,7 +1926,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @return void
 		 */
 		public function doNetworkSettingTab() {
-			include_once( $this->pluginPath . 'admin-views/tribe-options-network.php' );
+			include_once( $this->pluginPath . 'src/admin-views/tribe-options-network.php' );
 
 			new Tribe__Events__Settings_Tab( 'network', __( 'Network', 'tribe-events-calendar' ), $networkTab );
 		}
@@ -3208,7 +3208,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			<div id='eventDetails' class="inside eventForm">
 				<table cellspacing="0" cellpadding="0" id="EventInfo" class="VenueInfo">
 					<?php
-					$venue_meta_box_template = apply_filters( 'tribe_events_venue_meta_box_template', $this->pluginPath . 'admin-views/venue-meta-box.php' );
+					$venue_meta_box_template = apply_filters( 'tribe_events_venue_meta_box_template', $this->pluginPath . 'src/admin-views/venue-meta-box.php' );
 					if ( ! empty( $venue_meta_box_template ) ) {
 						include( $venue_meta_box_template );
 					}
@@ -3252,7 +3252,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				<table cellspacing="0" cellpadding="0" id="EventInfo" class="OrganizerInfo">
 					<?php
 					$hide_organizer_title = true;
-					$organizer_meta_box_template = apply_filters( 'tribe_events_organizer_meta_box_template', $this->pluginPath . 'admin-views/organizer-meta-box.php' );
+					$organizer_meta_box_template = apply_filters( 'tribe_events_organizer_meta_box_template', $this->pluginPath . 'src/admin-views/organizer-meta-box.php' );
 					if ( ! empty( $organizer_meta_box_template ) ) {
 						include( $organizer_meta_box_template );
 					}
@@ -3489,7 +3489,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @return void
 		 */
 		public function eventMetaBox() {
-			include( $this->pluginPath . 'admin-views/event-sidebar-options.php' );
+			include( $this->pluginPath . 'src/admin-views/event-sidebar-options.php' );
 		}
 
 		/**
@@ -4358,7 +4358,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 //				'Tribe__Events__PUE__' => $this->pluginPath . 'lib/pue/lib',
 //				'Tribe__Events__Template__' => $this->pluginPath . 'lib/template-classes',
 //				'Tribe__Events__Tickets__' => $this->pluginPath . 'lib/tickets',
-//				'Tribe__Events__Advanced_Functions__' => $this->pluginPath . 'public/advanced-functions',
+//				'Tribe__Events__Advanced_Functions__' => $this->pluginPath . 'src/functions/advanced-functions',
 			);
 			$autoloader->register_prefixes( $prefixes );
 

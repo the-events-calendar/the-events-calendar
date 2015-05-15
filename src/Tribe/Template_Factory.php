@@ -526,7 +526,7 @@ if ( ! class_exists( 'Tribe__Events__Template_Factory' ) ) {
 		 * @return string
 		 **/
 		public function remove_comments_template( $template ) {
-			return Tribe__Events__Main::instance()->pluginPath . 'admin-views/no-comments.php';
+			return Tribe__Events__Main::instance()->pluginPath . 'src/admin-views/no-comments.php';
 		}
 
 		/**

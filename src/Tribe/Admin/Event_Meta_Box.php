@@ -165,7 +165,7 @@ class Tribe__Events__Admin__Event_Meta_Box {
 	 * Pull the expected variables into scope and load the meta box template.
 	 */
 	protected function do_meta_box() {
-		$events_meta_box_template = $this->tribe->pluginPath . 'admin-views/events-meta-box.php';
+		$events_meta_box_template = $this->tribe->pluginPath . 'src/admin-views/events-meta-box.php';
 		$events_meta_box_template = apply_filters( 'tribe_events_meta_box_template', $events_meta_box_template );
 
 		extract( $this->vars );

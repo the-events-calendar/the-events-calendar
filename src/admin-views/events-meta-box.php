@@ -102,7 +102,7 @@ if ( class_exists( 'Eventbrite_for_TribeEvents' ) ) {
 				<h4><?php _e( 'Location', 'tribe-events-calendar' ); ?></h4></td>
 		</tr>
 		<?php do_action( 'tribe_venue_table_top', $event->ID ) ?>
-		<?php include( $tribe->pluginPath . 'admin-views/venue-meta-box.php' ); ?>
+		<?php include( $tribe->pluginPath . 'src/admin-views/venue-meta-box.php' ); ?>
 	</table>
 	<?php do_action( 'tribe_after_location_details', $event->ID ); ?>
 	<table id="event_organizer" class="eventtable">
@@ -111,7 +111,7 @@ if ( class_exists( 'Eventbrite_for_TribeEvents' ) ) {
 				<h4><?php echo tribe_get_organizer_label_singular(); ?></h4></td>
 		</tr>
 		<?php do_action( 'tribe_organizer_table_top', $event->ID ) ?>
-		<?php include( $tribe->pluginPath . 'admin-views/organizer-meta-box.php' ); ?>
+		<?php include( $tribe->pluginPath . 'src/admin-views/organizer-meta-box.php' ); ?>
 	</table>
 
 	<table id="event_url" class="eventtable">

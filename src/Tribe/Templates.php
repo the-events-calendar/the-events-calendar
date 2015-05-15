@@ -456,7 +456,7 @@ if ( ! class_exists( 'Tribe__Events__Templates' ) ) {
 
 			remove_filter( 'comments_template', array( __CLASS__, 'load_ecp_comments_page_template' ) );
 			if ( ! is_single() || tribe_is_showing_all() || ( tribe_get_option( 'showComments', false ) === false ) ) {
-				return Tribe__Events__Main::instance()->pluginPath . 'admin-views/no-comments.php';
+				return Tribe__Events__Main::instance()->pluginPath . 'src/admin-views/no-comments.php';
 			}
 
 			return $template;
