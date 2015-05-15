@@ -15,9 +15,9 @@
 		 *      $autoloader = Tribe__Events__Autoloader::instance();
 		 *
 		 *      // register one by one or use `register_prefixes` method
-		 *      $autoloader->register_prefix( 'Tribe__Events__Admin__', $this_dir . '/lib/admin' );
-		 *      $autoloader->register_prefix( 'Tribe__Events__Admin__', $this_dir . '/lib/another-dir' );
-		 *      $autoloader->register_prefix( 'Tribe__Events__Utils__', $this_dir . '/lib/another-dir' );
+		 *      $autoloader->register_prefix( 'Tribe__Events__Admin__', $this_dir . '/src/Tribe/admin' );
+		 *      $autoloader->register_prefix( 'Tribe__Events__Admin__', $this_dir . '/src/Tribe/another-dir' );
+		 *      $autoloader->register_prefix( 'Tribe__Events__Utils__', $this_dir . '/src/Tribe/another-dir' );
 		 *
 		 *      // register a direct class to path
 		 *      $autoloader->register_class( 'Tribe__Events__Some_Class', $this_dir . '/some/path/to/Some_Class.php' );
@@ -29,9 +29,9 @@
 		 *      $autoloader->register_autoloader();
 		 *
 		 *      // class will be searched in the path
-		 *      // `/var/www/site/wp-content/plugins/the-events-calendar/lib/admin/Some_Class.php'
+		 *      // `/var/www/site/wp-content/plugins/the-events-calendar/src/Tribe/admin/Some_Class.php'
 		 *      // and
-		 *      // `/var/www/site/wp-content/plugins/the-events-calendar/lib/another-dir/Some_Class.php'
+		 *      // `/var/www/site/wp-content/plugins/the-events-calendar/src/Tribe/another-dir/Some_Class.php'
 		 *      $i = new Tribe__Event__Admin__Some_Class();
 		 *
 		 *      // class will be searched in the path
@@ -53,7 +53,7 @@
 			 * An arrays of arrays each containing absolute paths.
 			 *
 			 * Paths are stored trimming any trailing `/`.
-			 * E.g. `/var/www/tribe-pro/wp-content/plugins/the-event-calendar/lib`
+			 * E.g. `/var/www/tribe-pro/wp-content/plugins/the-event-calendar/src/Tribe`
 			 *
 			 * @var string[][]
 			 */
