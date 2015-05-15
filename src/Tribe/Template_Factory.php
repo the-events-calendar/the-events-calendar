@@ -83,7 +83,7 @@ if ( ! class_exists( 'Tribe__Events__Template_Factory' ) ) {
 		protected function hooks() {
 
 			$current_class = get_class( $this );
-			$ajax_hook = constant( $current_class . '::AJAX_HOOK' );
+			$ajax_hook     = constant( $current_class . '::AJAX_HOOK' );
 
 			// set up queries, vars, etc that needs to be used in this view
 			add_action( 'tribe_events_before_view', array( $this, 'setup_view' ), 10 );
@@ -143,26 +143,27 @@ if ( ! class_exists( 'Tribe__Events__Template_Factory' ) ) {
 		/**
 		 * Handles an asset package request.
 		 *
-		 * @param string $name The asset name in the `hyphen-separated-format`
-		 * @param array $deps An array of dependency handles
-		 * @param string $vendor_url URL to vendor scripts and styles dir
-		 * @param string $prefix MT script and style prefix
-		 * @param string $resources_url URL to resources scripts and styles dir
-		 * @param Tribe__Events__Main $tec An instance of the main plugin class
+		 * @param string              $name          The asset name in the `hyphen-separated-format`
+		 * @param array               $deps          An array of dependency handles
+		 * @param string              $vendor_url    URL to vendor scripts and styles dir
+		 * @param string              $prefix        MT script and style prefix
+		 * @param string              $resources_url URL to resources scripts and styles dir
+		 * @param Tribe__Events__Main $tec           An instance of the main plugin class
 		 */
 		protected static function handle_asset_package_request( $name, $deps, $vendor_url, $prefix, $tec ) {
 
-			$asset = Tribe__Events__Asset__Factory::instance()->make_for_name($name);
-			if (!$asset) {
+			$asset = Tribe__Events__Asset__Factory::instance()->make_for_name( $name );
+			if ( ! $asset ) {
 				do_action( $prefix . '-' . $name );
+
 				return;
 			}
 
-			$asset->set_name($name);
-			$asset->set_deps($deps);
-			$asset->set_vendor_url($vendor_url);
-			$asset->set_prefix($prefix);
-			$asset->set_tec($tec);
+			$asset->set_name( $name );
+			$asset->set_deps( $deps );
+			$asset->set_vendor_url( $vendor_url );
+			$asset->set_prefix( $prefix );
+			$asset->set_tec( $tec );
 
 			$asset->handle();
 		}
@@ -207,7 +208,7 @@ if ( ! class_exists( 'Tribe__Events__Template_Factory' ) ) {
 			if ( ! is_single() || tribe_is_showing_all() ) {
 				$single_id = array_search( 'single-tribe_events', $classes );
 				if ( ! empty( $single_id ) ) {
-					$classes[$single_id] = 'events-list';
+					$classes[ $single_id ] = 'events-list';
 				}
 				$classes[] = 'events-archive';
 			}
@@ -248,27 +249,23 @@ if ( ! class_exists( 'Tribe__Events__Template_Factory' ) ) {
 		public function setup_meta() {
 
 			// customize meta items
-			tribe_set_the_meta_template(
-				'tribe_event_venue_name', array(
+			tribe_set_the_meta_template( 'tribe_event_venue_name', array(
 					'before'       => '',
 					'after'        => '',
 					'label_before' => '',
 					'label_after'  => '',
 					'meta_before'  => '<span class="%s">',
 					'meta_after'   => '</span>'
-				)
-			);
+				) );
 			tribe_set_meta_label( 'tribe_event_venue_address', '' );
-			tribe_set_the_meta_template(
-				'tribe_event_venue_address', array(
+			tribe_set_the_meta_template( 'tribe_event_venue_address', array(
 					'before'       => '',
 					'after'        => '',
 					'label_before' => '',
 					'label_after'  => '',
 					'meta_before'  => '',
 					'meta_after'   => ''
-				)
-			);
+				) );
 		}
 
 		/**
@@ -385,11 +382,13 @@ if ( ! class_exists( 'Tribe__Events__Template_Factory' ) ) {
 			if ( has_filter( 'tribe_events_add_title' ) ) {
 				_deprecated_function( "The 'tribe_events_add_title' filter", '3.8', " the 'tribe_events_title_tag' filter" );
 			}
+
 			return apply_filters( 'tribe_events_title_tag', apply_filters( 'tribe_events_add_title', $new_title, $title, $sep ), $title, $sep );
 		}
 
 		/**
 		 * Get the title for the view
+		 *
 		 * @param      $title
 		 * @param null $sep
 		 *
@@ -582,10 +581,10 @@ if ( ! class_exists( 'Tribe__Events__Template_Factory' ) ) {
 			$prefix = 'tribe-events'; // Tribe__Events__Main::POSTTYPE;
 
 			// setup plugin resources & 3rd party vendor urls
-			$vendor_url    = trailingslashit( $tec->pluginUrl ) . 'vendor/';
+			$vendor_url = trailingslashit( $tec->pluginUrl ) . 'vendor/';
 
 			self::handle_asset_package_request( $name, $deps, $vendor_url, $prefix, $tec );
-					}
+		}
 
 		/**
 		 * Returns the path to a minified version of a js or css file, if it exists.
@@ -622,10 +621,7 @@ if ( ! class_exists( 'Tribe__Events__Template_Factory' ) ) {
 		public static function get_placeholder_handle() {
 			$placeholder_handle = 'jquery-placeholder';
 			global $woocommerce;
-			if (
-				class_exists( 'Woocommerce' ) &&
-				version_compare( $woocommerce->version, '2.0.11', '>=' ) &&
-				version_compare( $woocommerce->version, '2.0.13', '<=' )
+			if ( class_exists( 'Woocommerce' ) && version_compare( $woocommerce->version, '2.0.11', '>=' ) && version_compare( $woocommerce->version, '2.0.13', '<=' )
 			) {
 				$placeholder_handle = 'tribe-placeholder';
 			}
