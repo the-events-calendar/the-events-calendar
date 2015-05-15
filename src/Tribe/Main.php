@@ -4352,13 +4352,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			$prefixes = array(
 				'Tribe__Events__' => $this->pluginPath . 'src/Tribe',
-//				'Tribe__Events__Utils__' => $this->pluginPath . 'src/Tribe/utils',
-//				'Tribe__Events__Admin__' => $this->pluginPath . 'src/Tribe/Admin',
-//				'Tribe__Events__Importer__' => $this->pluginPath . 'src/Tribe/io/csv/classes',
-//				'Tribe__Events__PUE__' => $this->pluginPath . 'src/Tribe/pue/lib',
-//				'Tribe__Events__Template__' => $this->pluginPath . 'src/Tribe/template-classes',
-//				'Tribe__Events__Tickets__' => $this->pluginPath . 'src/Tribe/tickets',
-//				'Tribe__Events__Advanced_Functions__' => $this->pluginPath . 'src/functions/advanced-functions',
 			);
 			$autoloader->register_prefixes( $prefixes );
 
