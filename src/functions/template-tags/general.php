@@ -745,8 +745,26 @@ if( class_exists( 'Tribe__Events__Pro__Main' ) ) {
 	 * @return string
 	 **/
 	function tribe_events_pro_resource_url($resource, $echo = false) {
-		$url = apply_filters('tribe_events_pro_resource_url', trailingslashit( Tribe__Events__Pro__Main::instance()->pluginUrl ).'resources/'.$resource, $resource);
-		if ($echo) {
+		$extension = pathinfo($resource, PATHINFO_EXTENSION);
+		$resources_path = 'src/resources/';
+		switch ($extension) {
+			case 'css':
+				$resource_path = $resources_path .'css/';
+				break;
+			case 'js':
+				$resource_path = $resources_path .'js/';
+				break;
+			case 'scss':
+				$resource_path = $resources_path .'scss/';
+				break;
+			default:
+				$resource_path = $resources_path;
+				break;
+		}
+
+		$path = $resource_path . $resource;
+		$url = apply_filters( 'tribe_events_pro_resource_url', trailingslashit( Tribe__Events__Pro__Main::instance()->pluginUrl ) . $path, $resource );
+		if ( $echo ) {
 			echo $url;
 		}
 
