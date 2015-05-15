@@ -1115,8 +1115,7 @@
 			public function enqueue_pro_scripts() {
 				if ( tribe_is_event_query() ) {
 					// @TODO filter the tribe_events_resource_url() function
-					$resources_url = trailingslashit( $this->pluginUrl ) . 'resources/';
-					$path = Tribe__Events__Pro__Template_Factory::getMinFile( $resources_url . 'tribe-events-pro.js', true );
+					$path = Tribe__Events__Pro__Template_Factory::getMinFile( tribe_events_pro_resource_url('tribe-events-pro.js'), true );
 					wp_enqueue_script(
 						'tribe-events-pro', $path, array(
 						'jquery',
