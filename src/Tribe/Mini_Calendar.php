@@ -207,7 +207,7 @@ class Tribe__Events__Pro__Mini_Calendar {
 	 * @todo revise so that our stylesheet is enqueued in time for the link to be included within the head element
 	 */
 	protected function styles_and_scripts() {
-		wp_enqueue_script( 'tribe-mini-calendar', Tribe__Events__Pro__Main::instance()->pluginUrl . 'resources/widget-calendar.js', array( 'jquery' ), apply_filters( 'tribe_events_pro_js_version', Tribe__Events__Pro__Main::VERSION ) );
+		wp_enqueue_script( 'tribe-mini-calendar', tribe_events_pro_resource_url( 'widget-calendar.js' ), array( 'jquery' ), apply_filters( 'tribe_events_pro_js_version', Tribe__Events__Pro__Main::VERSION ) );
 		Tribe__Events__Pro__Widgets::enqueue_calendar_widget_styles();
 
 		// Tribe Events CSS filename
@@ -227,7 +227,7 @@ class Tribe__Events__Pro__Mini_Calendar {
 				break;
 		}
 
-		$styleUrl = Tribe__Events__Pro__Main::instance()->pluginUrl . 'resources/' . $event_file_option;
+		$styleUrl = tribe_events_pro_resource_url( $event_file_option );
 		$styleUrl = apply_filters( 'tribe_events_pro_widget_calendar_stylesheet_url', $styleUrl );
 
 		$styleOverrideUrl = Tribe__Events__Templates::locate_stylesheet( 'tribe-events/pro/' . $event_file, $styleUrl );
@@ -235,7 +235,7 @@ class Tribe__Events__Pro__Mini_Calendar {
 
 		// Load up stylesheet from theme or plugin
 		if ( $styleUrl && $stylesheet_option == 'tribe' ) {
-			wp_enqueue_style( 'widget-calendar-pro-style', Tribe__Events__Pro__Main::instance()->pluginUrl . 'resources/widget-calendar-full.css', array(), apply_filters( 'tribe_events_pro_css_version', Tribe__Events__Pro__Main::VERSION ) );
+			wp_enqueue_style( 'widget-calendar-pro-style', tribe_events_pro_resource_url( 'widget-calendar-full.css' ), array(), apply_filters( 'tribe_events_pro_css_version', Tribe__Events__Pro__Main::VERSION ) );
 			wp_enqueue_style( Tribe__Events__Main::POSTTYPE . '-widget-calendar-pro-style', $styleUrl, array(), apply_filters( 'tribe_events_pro_css_version', Tribe__Events__Pro__Main::VERSION ) );
 		} else {
 			wp_enqueue_style( Tribe__Events__Main::POSTTYPE . '-widget-calendar-pro-style', $styleUrl, array(), apply_filters( 'tribe_events_pro_css_version', Tribe__Events__Pro__Main::VERSION ) );
