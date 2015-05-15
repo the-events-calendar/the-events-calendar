@@ -45,8 +45,8 @@
 			const VERSION = '3.10a0';
 
 			private function __construct() {
-				$this->pluginDir = trailingslashit( basename( dirname( dirname( __FILE__ ) ) ) );
-				$this->pluginPath = trailingslashit( dirname( dirname( __FILE__ ) ) );
+				$this->pluginDir = trailingslashit( basename( dirname( dirname( dirname( __FILE__ ) ) ) ) );
+				$this->pluginPath = trailingslashit( dirname( dirname( dirname( __FILE__ ) ) ) );
 				$this->pluginUrl = plugins_url( $this->pluginDir );
 				$this->pluginSlug = 'events-calendar-pro';
 
@@ -55,36 +55,10 @@
 				$this->weekSlug = sanitize_title(__('week', 'tribe-events-calendar-pro'));
 				$this->photoSlug = sanitize_title(__('photo', 'tribe-events-calendar-pro'));
 
-//			require_once( $this->pluginPath . 'lib/tribe-pro-template-factory.class.php' );
-//			require_once( $this->pluginPath . 'lib/tribe-date-series-rules.class.php' );
-//			require_once( $this->pluginPath . 'lib/tribe-ecp-custom-meta.class.php' );
-//			require_once( $this->pluginPath . 'lib/tribe-events-recurrence-meta.class.php' );
-//			require_once( $this->pluginPath . 'lib/tribeeventspro-recurrenceseriessplitter.php' );
-//			require_once( $this->pluginPath . 'lib/tribeeventspro-recurrenceinstance.php');
-//			require_once( $this->pluginPath . 'lib/tribe-recurrence.class.php' );
-//			require_once( $this->pluginPath . 'lib/tribeeventspro-recurrencepermalinks.php' );
-//			require_once( $this->pluginPath . 'lib/widget-venue.class.php' );
-//			require_once( $this->pluginPath . 'lib/tribe-mini-calendar.class.php' );
-//			require_once( $this->pluginPath . 'lib/widget-countdown.class.php' );
-//			require_once( $this->pluginPath . 'lib/widget-calendar.class.php' );
-
-//			require_once( $this->pluginPath . 'lib/template-classes/map.php' );
-//			require_once( $this->pluginPath . 'lib/template-classes/photo.php' );
-//			require_once( $this->pluginPath . 'lib/template-classes/single-organizer.php' );
-//			require_once( $this->pluginPath . 'lib/template-classes/single-venue.php' );
-//			require_once( $this->pluginPath . 'lib/template-classes/week.php' );
-
-				require_once( $this->pluginPath . 'public/template-tags/general.php' );
-				require_once( $this->pluginPath . 'public/template-tags/week.php' );
-				require_once( $this->pluginPath . 'public/template-tags/venue.php' );
-				require_once( $this->pluginPath . 'public/template-tags/widgets.php' );
-//			require_once( $this->pluginPath . 'lib/tribe-geoloc.class.php' );
-//			require_once( $this->pluginPath . 'lib/EmbeddedMaps.php' );
-//			require_once( $this->pluginPath . 'lib/SingleEventMeta.php' );
-//			require_once( $this->pluginPath . 'lib/Shortcodes/Widget_Wrappers.php' );
-
-				// community mods
-//			require_once( $this->pluginPath . 'lib/Community_Modifications.php' );
+				require_once( $this->pluginPath . 'src/functions/template-tags/general.php' );
+				require_once( $this->pluginPath . 'src/functions/template-tags/week.php' );
+				require_once( $this->pluginPath . 'src/functions/template-tags/venue.php' );
+				require_once( $this->pluginPath . 'src/functions/template-tags/widgets.php' );
 
 				add_action( 'admin_init', array( $this, 'run_updates' ), 10, 0 );
 
