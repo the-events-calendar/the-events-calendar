@@ -152,6 +152,21 @@ if ( ! class_exists( 'Tribe__Events__Template_Factory' ) ) {
 		protected static function handle_asset_package_request( $name, $deps, $vendor_url, $prefix, $tec ) {
 
 			$asset = self::get_asset_factory_instance( $name );
+
+			self::prepare_asset_package_request( $asset, $name, $deps, $vendor_url, $prefix, $tec );
+		}
+
+		/**
+		 * initializes asset package request
+		 *
+		 * @param object              $asset         The Tribe__Events__*Asset object
+		 * @param string              $name          The asset name in the `hyphen-separated-format`
+		 * @param array               $deps          An array of dependency handles
+		 * @param string              $vendor_url    URL to vendor scripts and styles dir
+		 * @param string              $prefix        MT script and style prefix
+		 * @param Tribe__Events__Main $tec           An instance of the main plugin class
+		 */
+		protected static function prepare_asset_package_request( $asset, $name, $deps, $vendor_url, $prefix, $tec ) {
 			if ( ! $asset ) {
 				do_action( $prefix . '-' . $name );
 
