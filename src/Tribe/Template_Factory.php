@@ -31,7 +31,22 @@ if ( ! class_exists( 'Tribe__Events__Pro__Template_Factory' ) ) {
 			// setup plugin resources & 3rd party vendor urls
 			$vendor_url = trailingslashit( $tec_pro->pluginUrl ) . 'vendor/';
 
-			parent::handle_asset_package_request( $name, $deps, $vendor_url, $prefix, $tec_pro );
+			self::handle_asset_package_request( $name, $deps, $vendor_url, $prefix, $tec_pro );
+		}
+
+		/**
+		 * Handles an asset package request.
+		 *
+		 * @param string              $name          The asset name in the `hyphen-separated-format`
+		 * @param array               $deps          An array of dependency handles
+		 * @param string              $vendor_url    URL to vendor scripts and styles dir
+		 * @param string              $prefix        MT script and style prefix
+		 * @param Tribe__Events__Main $tec           An instance of the main plugin class
+		 */
+		protected static function handle_asset_package_request( $name, $deps, $vendor_url, $prefix, $tec ) {
+			$asset = self::get_asset_factory_instance( $name );
+
+			parent::prepare_asset_package_request( $asset, $name, $deps, $vendor_url, $prefix, $tec );
 		}
 
 		/**
