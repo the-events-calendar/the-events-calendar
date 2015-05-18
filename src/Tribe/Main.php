@@ -2628,7 +2628,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @param bool $network_deactivating
 		 */
 		public static function deactivate( $network_deactivating ) {
-			require_once( dirname( __FILE__ ) . 'src/Tribe/Deactivation.php' );
+			require_once( dirname( __FILE__ ) . 'Deactivation.php' );
 			$deactivation = new Tribe__Events__Deactivation( $network_deactivating );
 			add_action( 'shutdown', array( $deactivation, 'deactivate' ) );
 		}
