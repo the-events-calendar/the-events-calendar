@@ -88,7 +88,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 	register_deactivation_hook( __FILE__, 'tribe_events_pro_deactivation' );
 	function tribe_events_pro_deactivation( $network_deactivating ) {
-		require_once dirname( __FILE__ ) . '/lib/Main.php';
+		require_once dirname( __FILE__ ) . '/src/Tribe/Main.php';
 		Tribe__Events__Pro__Main::deactivate( $network_deactivating );
 	}
 
@@ -110,11 +110,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 		}
 		$autoloader = Tribe__Events__Autoloader::instance();
 
-		$autoloader->register_prefix( 'Tribe__Events__Pro__', dirname( __FILE__ ) . '/lib' );
-		$autoloader->register_prefix( 'Tribe__Events__Pro__Templates__', dirname( __FILE__ ) . '/lib/template-classes' );
+		$autoloader->register_prefix( 'Tribe__Events__Pro__', dirname( __FILE__ ) . '/src/Tribe' );
 
 		// deprecated classes are registered in a class to path fashion
-		foreach ( glob( dirname( __FILE__ ) . '/lib/deprecated-classes/*.php' ) as $file ) {
+		foreach ( glob( dirname( __FILE__ ) . '/src/deprecated/*.php' ) as $file ) {
 			$class_name = str_replace( '.php', '', basename( $file ) );
 			$autoloader->register_class( $class_name, $file );
 		}
