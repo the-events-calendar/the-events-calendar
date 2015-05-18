@@ -449,7 +449,7 @@ class Tribe__Events__Pro__Recurrence_Meta {
 		extract( Tribe__Events__Pro__Recurrence_Meta::getRecurrenceMeta( $postId ) );
 
 		$premium = Tribe__Events__Pro__Main::instance();
-		include( Tribe__Events__Pro__Main::instance()->pluginPath . 'admin-views/event-recurrence.php' );
+		include( Tribe__Events__Pro__Main::instance()->pluginPath . 'src/admin-views/event-recurrence.php' );
 	}
 
 	public static function filter_passthrough( $data ) {

@@ -20,7 +20,7 @@ class Tribe__Events__Pro__Mini_Calendar_Widget extends WP_Widget {
 		}
 
 		Tribe__Events__Template_Factory::asset_package( 'select2' );
-		wp_enqueue_script( 'calendar-widget-admin', Tribe__Events__Pro__Main::instance()->pluginUrl . 'resources/calendar-widget-admin.js', array(), apply_filters( 'tribe_events_pro_js_version', Tribe__Events__Pro__Main::VERSION ) );
+		wp_enqueue_script( 'calendar-widget-admin', tribe_events_pro_resource_url('calendar-widget-admin.js'), array(), apply_filters( 'tribe_events_pro_js_version', Tribe__Events__Pro__Main::VERSION ) );
 	}
 
 	public function widget( $args, $instance ) {

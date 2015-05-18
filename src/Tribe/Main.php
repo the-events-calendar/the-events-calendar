@@ -597,7 +597,7 @@
 			 * @return void
 			 */
 			public function add_settings_tabs() {
-				require_once( $this->pluginPath . 'admin-views/tribe-options-defaults.php' );
+				require_once( $this->pluginPath . 'src/admin-views/tribe-options-defaults.php' );
 				new Tribe__Events__Settings_Tab( 'defaults', __( 'Default Content', 'tribe-events-calendar-pro' ), $defaultsTab );
 				// The single-entry array at the end allows for the save settings button to be displayed.
 				new Tribe__Events__Settings_Tab( 'additional-fields', __( 'Additional Fields', 'tribe-events-calendar-pro' ), array(
@@ -1082,13 +1082,13 @@
 			 * @return void
 			 */
 			public function admin_enqueue_scripts() {
-				wp_enqueue_script( Tribe__Events__Main::POSTTYPE.'-premium-admin', $this->pluginUrl . 'resources/events-admin.js', array( 'jquery-ui-datepicker' ), apply_filters( 'tribe_events_pro_js_version', Tribe__Events__Pro__Main::VERSION ), true );
+				wp_enqueue_script( Tribe__Events__Main::POSTTYPE.'-premium-admin', tribe_events_pro_resource_url('events-admin.js'), array( 'jquery-ui-datepicker' ), apply_filters( 'tribe_events_pro_js_version', Tribe__Events__Pro__Main::VERSION ), true );
 				$data = apply_filters( 'tribe_events_pro_localize_script', array(), 'TribeEventsProAdmin', Tribe__Events__Main::POSTTYPE.'-premium-admin' );
 				wp_localize_script( Tribe__Events__Main::POSTTYPE.'-premium-admin', 'TribeEventsProAdmin', $data);
 			}
 
 			public function admin_enqueue_styles() {
-				wp_enqueue_style( Tribe__Events__Main::POSTTYPE.'-premium-admin', $this->pluginUrl . 'resources/events-admin.css', array(), apply_filters( 'tribe_events_pro_css_version', Tribe__Events__Pro__Main::VERSION ) );
+				wp_enqueue_style( Tribe__Events__Main::POSTTYPE.'-premium-admin', tribe_events_pro_resource_url('events-admin.css'), array(), apply_filters( 'tribe_events_pro_css_version', Tribe__Events__Pro__Main::VERSION ) );
 			}
 
 			/**
