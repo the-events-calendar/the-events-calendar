@@ -273,7 +273,7 @@ only screen and (min-device-pixel-ratio: 2) {
 		background-image: url(../images/events-screen-icon@2x.png);
 	}
 	#tribe-loading span {
-		background-image: url(images/tribe-loading@2x.gif);
+		background-image: url(../images/tribe-loading@2x.gif);
 	}
 }
 
