@@ -123,6 +123,8 @@ var ticketHeaderImage = window.ticketHeaderImage || {};
 
 		} );
 
+		var $tribetickets = $('#tribetickets');
+
 		/* "Save Ticket" button action */
 		$( '#ticket_form_save' ).click( function() {
 
@@ -158,7 +160,7 @@ var ticketHeaderImage = window.ticketHeaderImage || {};
 
 		/* "Delete Ticket" link action */
 
-		$( '#tribetickets' ).on( 'click', '.ticket_delete', function( e ) {
+		$tribetickets.on( 'click', '.ticket_delete', function( e ) {
 
 			e.preventDefault();
 
@@ -191,7 +193,7 @@ var ticketHeaderImage = window.ticketHeaderImage || {};
 
 		/* "Edit Ticket" link action */
 
-		$( '#tribetickets' )
+		$tribetickets
 			.on( 'click', '.ticket_edit', function( e ) {
 
 				e.preventDefault();
@@ -365,7 +367,7 @@ var ticketHeaderImage = window.ticketHeaderImage || {};
 		}
 
 		function tribe_fix_image_width() {
-			if ( $( '#tribetickets' ).width() < $tiximg.width() ) {
+			if ( $tribetickets.width() < $tiximg.width() ) {
 				$tiximg.css( "width", '95%' );
 			}
 		}
