@@ -43,7 +43,7 @@ class Tribe__Events__Pro__Asset__Events_Pro_Css extends Tribe__Events__Asset__Ev
 				$url = tribe_events_pro_resource_url( $css_file );
 
 				// get the minified file
-				$url = self::getMinFile( $url, true );
+				$url = Tribe__Events__Template_Factory::getMinFile( $url, true );
 
 				// apply filters
 				$url = apply_filters( 'tribe_events_pro_stylesheet_url', $url, $name );

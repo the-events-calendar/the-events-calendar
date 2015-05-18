@@ -33,5 +33,13 @@ if ( ! class_exists( 'Tribe__Events__Pro__Template_Factory' ) ) {
 
 			parent::handle_asset_package_request( $name, $deps, $vendor_url, $prefix, $tec_pro );
 		}
+
+		/**
+		 * Retrieves the appropriate asset factory instance
+		 */
+		protected static function get_asset_factory_instance( $name ) {
+			$asset = Tribe__Events__Pro__Asset__Factory::instance()->make_for_name( $name );
+			return $asset;
+		}
 	}
 }
