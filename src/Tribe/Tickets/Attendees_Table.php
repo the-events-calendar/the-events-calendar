@@ -14,9 +14,18 @@ class Tribe__Events__Tickets__Attendees_Table extends WP_List_Table {
 
 	/**
 	 * Class constructor
+	 *
+	 * @param array $args  additional arguments/overrides
+	 *
+	 * @see WP_List_Table::__construct()
 	 */
-	function __construct() {
-		parent::__construct( array( 'singular' => 'attendee', 'plural' => 'attendees', 'ajax' => true ) );
+	function __construct( $args = array() ) {
+		$args = wp_parse_args( $args, array(
+			'singular' => 'attendee',
+			'plural'   => 'attendees',
+			'ajax'     => true
+		) );
+		parent::__construct( $args );
 	}
 
 
