@@ -1,0 +1,777 @@
+/**
+ * The Events Calendar Skeleton Stylesheet
+ * (Only includes enough css to achieve complex layouts like calendar and week view.)
+ *
+ * To add your own custom styles, create a stylesheet with the name
+ * tribe-events.css in the tribe-events/ directory of your theme.
+ * Your new stylesheet will be loaded after our own stylesheet.
+ *
+ * To replace our stylsheet altogether, you can use the 'tribe_events_stylesheet_url' filter.
+ *
+ * @package TribeEventsCalendar
+ *
+ */
+
+/* = Global & Miscellaneous Styles
+=============================================*/
+.tribe-events-back {
+	margin: 0 0 20px 0;
+}
+
+/* Links */
+.tribe-events-read-more {
+	display: block;
+}
+
+/* Fixes for rich snippets */
+.event .entry-title {
+	line-height: inherit;
+	padding: inherit;
+}
+
+.updated-info {
+	text-indent: -9999px;
+	height: 0;
+}
+
+/* Event Schedule Detail Styling */
+.tribe-events-event-schedule-details {
+	display: inline;
+}
+/* 2011 Theme Extra Calendar Room */
+.events-archive .entry-content, 
+.events-archive .entry-header { width: 98%; }
+
+/* Remove "Edit" Link from unneeded templates */
+.events-archive span.edit-link {
+	display: none;
+}
+
+/* Event Notices */
+.tribe-events-notices {
+    background: #d9edf7;
+    border: 1px solid #bce8f1;
+    color: #3a87ad;
+    margin: 10px 0 18px;
+    padding: 8px 35px 8px 14px;
+    text-shadow: 0 1px 0 #fff;
+    -webkit-border-radius: 4px;
+    		border-radius: 4px;
+}
+div.tribe-events-notices > ul, div.tribe-events-notices > ul > li {
+	margin:0;
+	padding:0;
+	list-style: none;
+}
+
+/* Miscellaneous Helper Classes */
+.clearfix:before, .tribe-clearfix:before, .clearfix:after, .tribe-clearfix:after {content: ""; display: table;}
+.clearfix:after, .tribe-clearfix:after {clear: both;}
+.clearfix, .tribe-clearfix {zoom: 1;}
+.tribe-clear {clear: both;}
+.tribe-events-visuallyhidden {
+	border: 0;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+}
+.tribe-hide-text {
+	text-indent: 100%;
+	white-space: nowrap;
+	overflow: hidden;
+}
+.tribe-events-error {display:none;}
+.tribe-events-multi-event-day {color: #0f81bb;}
+#tribe-events-content .tribe-events-abbr {border-bottom: 0; cursor: default;}
+
+/* Tribe Spinner */
+.tribe-events-spinner {
+	width: 32px;
+	height: 32px;
+	margin-left: -16px;
+}
+.tribe-events-spinner-medium {
+	width: 24px;
+	height: 24px;
+	margin-left: -12px;
+}
+.tribe-events-spinner-small {
+	width: 16px;
+	height: 16px;
+	margin-left: -8px;
+}
+
+/* IE7 Tweaks */
+*+html .events-archive h2.tribe-events-page-title {
+	padding-bottom: 30px;
+}
+*+html .events-archive .tribe-events-list h2.tribe-events-page-title {
+	padding-bottom: 0;
+}
+*+html #tribe-events-header {
+	margin-bottom: 30px;
+}
+
+/* General Template Headers */
+h2.tribe-events-page-title {
+	position: relative;
+	z-index: 0;
+	text-align: center;
+}
+
+/* don't float on filter view */
+.tribe-events-filter-view  .tribe-events-list h2.tribe-events-page-title {
+	width: 100%;
+	float: none;
+}
+
+h2.tribe-events-page-title a {
+	color: #000;
+}
+h2.tribe-events-page-title a:hover, 
+h2.tribe-events-page-title a:focus {
+	color: #333;
+	text-decoration: underline;
+}
+
+/* General Template Header/Footer Nav */
+#tribe-events-header,
+#tribe-events-footer {
+	margin-bottom: .5em;
+	overflow: hidden;
+}
+#tribe-events-header .tribe-events-sub-nav,
+#tribe-events-footer .tribe-events-sub-nav {
+	list-style-type: none;
+	margin: 0;
+	overflow: hidden;
+	line-height: normal;
+	text-align: center;
+}
+#tribe-events-header .tribe-events-sub-nav li,
+#tribe-events-footer .tribe-events-sub-nav li {
+	display: inline-block;
+	zoom: 1;
+	*display: inline;
+	margin: 0;
+	vertical-align: middle;
+}
+#tribe-events-header .tribe-events-sub-nav .tribe-events-nav-previous,
+#tribe-events-footer .tribe-events-sub-nav .tribe-events-nav-previous {
+	margin-right: 5px;
+}
+#tribe-events-header .tribe-events-sub-nav .tribe-events-nav-next,
+#tribe-events-footer .tribe-events-sub-nav .tribe-events-nav-next {
+	margin-left: 5px;
+}
+#tribe-events-header .tribe-events-sub-nav .tribe-events-nav-left,
+#tribe-events-footer .tribe-events-sub-nav .tribe-events-nav-left {
+	text-align: left;
+}
+#tribe-events-header .tribe-events-sub-nav .tribe-events-nav-right,
+#tribe-events-footer .tribe-events-sub-nav .tribe-events-nav-right {
+	text-align: right;
+}
+.tribe-events-ajax-loading {
+	display: none;
+	position: absolute;
+	left: 50%;
+	-webkit-box-shadow: none;
+			box-shadow: none;
+}
+
+.tribe-events-loading .tribe-events-ajax-loading {
+	display: block;
+}
+
+#tribe-events-footer {
+	margin-bottom: 1em;
+}
+/* List & Map & Day Nav Tweaks */
+.events-list #tribe-events-footer,
+.tribe-events-day #tribe-events-footer,
+.tribe-events-map #tribe-events-footer {
+	margin: 1.25em 0 18px;
+}
+/* Single Event & Map View Nav Tweaks */
+.single-tribe_events #tribe-events-header,
+.tribe-events-map #tribe-events-header {
+	margin: 24px 0 14px;
+}
+.single-tribe_events #tribe-events-header li,
+.single-tribe_events #tribe-events-footer li {
+	width: 48%;
+	padding-bottom: 10px;
+}
+
+/* General Template Header Nav */
+#tribe-events-content ul.tribe-events-sub-nav {
+	list-style-type: none;
+	margin: 0;
+	overflow: hidden;
+	text-align: center;
+}
+#tribe-events-content ul.tribe-events-sub-nav li {
+	display: inline-block;
+	zoom: 1;
+	*display: inline;
+	margin: 0;
+	vertical-align: middle;
+}
+#tribe-events-content ul.tribe-events-sub-nav li.tribe-events-nav-prev {
+	margin-right: 5px;
+}
+#tribe-events-content ul.tribe-events-sub-nav li.tribe-events-nav-next {
+	margin-left: 5px;
+}
+#tribe-events-content li.tribe-events-nav-date {
+	padding-top: 16px;
+}
+select.tribe-events-dropdown {
+	width: auto;
+	font-size: 11px;
+	margin: 33px 9px 0 0;
+}
+#tribe-events-events-picker, 
+#tribe-events-picker {
+	display: inline;
+}
+
+/* = Day Grid Template Styles
+   @ Template: day.php
+=============================================*/
+.tribe-events-day .tribe-events-day-time-slot h5 {
+	text-transform: uppercase;
+	font-weight: bold;
+	font-size: 14px;
+	margin: 2.5em 0 0;
+}
+.tribe-events-day .tribe-events-day-time-slot .type-tribe_events {
+	margin-left: 5%;
+}
+
+/* = Grid View & List View Template Styles
+   @ Template: month.php & list.php
+=============================================*/
+#tribe-events-content {
+	position: relative;
+	margin-bottom: 48px;
+	padding: 2px 0;
+}
+#tribe-events-content.tribe-events-list {
+	padding: 0;
+}
+
+/* = List View Template Styles
+   @ Template: list.php
+=============================================*/
+.tribe-events-list h2.tribe-events-page-title {
+	margin-bottom: 15px;
+}
+
+#tribe-events-content.tribe-events-list {
+	margin-bottom: 60px;
+}
+
+.tribe-events-list .type-tribe_events.tribe-events-first {
+	padding-top: 0;
+}
+
+.tribe-events-list .type-tribe_events h2 {
+	padding: 0;
+	line-height: 1.2;
+}
+
+/* Meta */
+.tribe-events-loop .tribe-events-event-meta {
+	float: none;
+	clear: both;
+	border: 0;
+	margin: 0 0 15px 0;
+	padding: 0;
+	line-height: 1.5;
+	font-weight: normal;
+	font-size: 1.2em;
+	overflow: visible;
+}
+
+.tribe-events-list .tribe-events-loop .tribe-events-event-meta .recurringinfo {
+	display: inline-block;
+	zoom: 1;
+	*display: inline;
+	white-space: pre;
+} 
+
+.tribe-events-event-meta address.tribe-events-address {
+	display: inline;
+}
+.tribe-events-list .tribe-events-loop .tribe-events-event-meta .event-is-recurring {
+	position: relative;
+}
+
+.tribe-events-list .time-details,
+.tribe-events-list .tribe-events-venue-details {
+	line-height: 1.2;
+	margin: 0;
+	display: block
+}
+
+.tribe-events-list .time-details {
+	margin: 0 0 8px 0;
+}
+
+/* = List View & Single Venue (Pro Version) Template Styles
+   @ Template: list.php & single-venue.php
+=============================================*/
+/* Loop */
+.tribe-events-loop {
+	clear: both;
+}
+
+.tribe-events-loop .type-tribe_events.tribe-events-last {
+	border-bottom: 0;
+}
+.tribe-events-list .tribe-events-loop .tribe-events-content {
+	clear: both;
+	width: 100%;
+	padding: 0;
+}
+
+.events-archive h3 .published, 
+.single-tribe_venue  h3 .published {
+	margin-top: 0;
+	font-style: italic;
+	text-transform: none;
+}
+
+.tribe-events-loop .tribe-events-event-meta dl {
+	margin: 0;
+}
+.tribe-events-loop .tribe-events-event-meta dt {
+	font-weight: bold;
+	padding-right: 12px;
+	width: auto;
+}
+.tribe-events-loop .tribe-events-event-meta dd {
+	margin-bottom: .25em;
+	margin-left: 6.5em;
+}
+
+/* = Single Event Template Styles
+   @ Template: single-event.php
+=============================================*/
+.single-tribe_events #tribe-events-content {
+	padding: 0;
+}
+.single-tribe_events .tribe-events-schedule .tribe-events-divider {
+	margin-right: 10px;
+}
+
+.single-tribe_events .tribe-events-schedule .recurringinfo {
+	margin-right: 10px;
+}
+
+.single-tribe_events .tribe-events-schedule .tribe-events-cost {
+	margin-right: 10px;
+}
+
+#tribe-events-content .tribe-events-single-event-description img.attachment-post-thumbnail {
+	margin-left: auto;
+	margin-right: auto;
+	display: block;
+	text-align: center;
+}
+
+.tribe-events-meta-group + .tribe-events-single-section-title {
+	margin-top: 0;
+}
+
+/* Eventbrite */
+#eventbrite-embed {
+	width: 100%;
+	min-height: 225px;
+	margin: 24px 0;
+}
+
+.eventbrite-ticket-embed {
+	margin: 0 0 30px 0;
+}
+
+/* Date Seperators */
+.tribe-events-list .type-tribe_events.tribe-event-end-month {
+	border-bottom: 0;
+	padding-bottom: 0;
+}
+
+/* Date/Time */
+.single-tribe_events .tribe-events-schedule h2 {
+	display: inline-block;
+	zoom: 1;
+	*display: inline;
+	vertical-align: middle;
+}
+
+/* Cal Links */
+.single-tribe_events .tribe-events-cal-links { 
+	display: inline-block;
+	zoom: 1;
+	*display: inline;
+	margin: 0 0 20px 0;
+	vertical-align: middle;
+}
+
+/* Featured Image */
+.single-tribe_events .tribe-events-event-image {
+	clear: both;
+	text-align: center;
+	margin-bottom: 30px;
+}
+/* Meta Sections */
+.single-tribe_events .tribe-events-event-meta {
+	width: 100%;
+	margin: 30px -4% 30px 0;
+}
+
+/* Map */
+.single-tribe_events .tribe-events-venue-map {
+	width: 63%;
+	float: right;
+}
+
+.single-tribe_events #tribe-events-gmap {
+	height: 0 !important;
+	padding-top: 50%;
+	width: 100% !important;
+	margin: 0 !important;
+}
+.single-tribe_events .tribe-events-meta-group .tribe-events-venue-map {
+	float: none;
+	margin: 0;
+	width: 100%;
+}
+.single-tribe_events .tribe-events-meta-group #tribe-events-gmap {
+	height: 0 !important;
+	padding-top: 100%;
+	width: 100% !important;
+	margin-top: 50px;
+}
+
+.tribe-events-event-meta:first-child {
+	border-top: 1px solid #bbb;
+}
+
+.single-tribe_events  .tribe-events-event-meta dl {
+	margin: 0;
+}
+
+.tribe-events-event-meta dt {
+	clear: left;
+	font-weight: bold;
+}
+
+#tribe-events-content .tribe-events-event-meta dd span.adr {
+	display: block;
+}
+
+/* Content */
+.single-tribe_events .tribe-events-single-event-description {
+	width: auto;
+	padding: 0;
+	margin-bottom: 30px;
+}
+
+/* = Calendar Styles (includes styles for both large & small calendars)
+   @ Template: month.php & widgets/calendar-widget.php
+=============================================*/
+/* Global Calendar Styles */
+#tribe-events-content table.tribe-events-calendar {
+	margin: 0 0 .6em;
+	clear: both;
+	font-size: 12px;
+	border-collapse: collapse;
+}
+#tribe-events-content table.tribe-events-calendar, 
+#tribe-events-content .tribe-events-calendar td {
+	border: 1px solid #bbb;
+}
+.tribe-events-calendar div[id*="tribe-events-daynum-"], 
+.tribe-events-calendar div[id*="tribe-events-daynum-"] a {
+	font-size: 11px;
+	font-weight: bold;
+}
+
+#tribe-events-content .tribe-events-calendar td {
+	height: 110px;
+	width: 14.28%;
+	vertical-align: top;
+	padding: 0 0 .5em;
+	font-size: 12px;
+	position: relative;
+}
+
+/* Global Tooltips */
+.tribe-events-calendar .tribe-events-tooltip,
+.tribe-events-week .tribe-events-tooltip,
+.recurring-info-tooltip {
+	border: 1px solid #666;
+	position: absolute;
+	z-index: 1001;
+	bottom: 30px;
+	left: 3px;
+	width: 320px;
+	background-color: #f9f9f9;
+	color: #333;
+	line-height: 1.4;
+	display: none;
+}
+.tribe-events-tooltip .tribe-events-arrow {
+	width: 18px;
+	height: 11px;
+	background-image: url(../images/tribe-tooltips.png);
+	background-repeat: no-repeat;
+	background-position: 0 0;
+	-webkit-background-size: 44px 19px;
+    		background-size: 44px 19px;
+	display: block;
+	position: absolute;
+	bottom: -11px;
+	left: 20px;
+}
+.tribe-events-calendar .tribe-events-right .tribe-events-tooltip,
+.tribe-events-week .tribe-events-right .tribe-events-tooltip, .recurring-info-tooltip {
+	left: auto;
+	right: 3px;
+}
+.tribe-events-right .tribe-events-tooltip .tribe-events-arrow {
+	left: auto;
+	right: 30px;
+}
+
+/* Recurring info tooltip */
+.recurringinfo {
+	display: inline-block;
+	zoom: 1;
+	*display: inline;
+	position: relative;
+} 
+.event-is-recurring {
+	position: relative;
+}
+
+.recurring-info-tooltip.tribe-events-tooltip {
+	left: 10px;
+	width: 200px;
+	max-width: 320px;
+	padding-bottom: .8em;
+}
+
+/* Large Calendar Specifics */
+.events-archive.events-gridview #tribe-events-content table .type-tribe_events {
+	margin: 0 5%;
+	padding: 6px 8px;
+	border-bottom: 1px solid #e7e7e7;
+}
+.events-archive.events-gridview #tribe-events-content table .tribe-events-last {
+	border-bottom: 0;
+}
+.tribe-events-viewmore {
+	margin: 0 5%;
+	padding: 6px 8px;
+	font-weight: bold;
+	line-height: 1;
+}
+.tribe-events-calendar th {
+	width: 250px;
+	height: 10px;
+	padding: 4px 0;
+	text-align: center;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+}
+.tribe-events-calendar td div[id*="tribe-events-daynum-"] {
+	padding: 6px 9px;
+	line-height: 1.2;
+}
+.tribe-events-calendar td a {font-size: 91.7%;}
+.tribe-events-calendar div[id*="tribe-events-event-"],
+.tribe-events-calendar div[id*="tribe-events-daynum-"] {
+	position: relative;
+	margin: 0;
+}
+#tribe-events-content .tribe-events-calendar div[id*="tribe-events-event-"] h3.entry-title {
+	line-height: 1.5;
+	font-size: 91.7%;
+	font-weight: normal;
+	text-transform: none;
+	margin: 0;
+	padding: 0;
+	letter-spacing: 0;
+}
+.tribe-events-calendar div[id*="tribe-events-event-"] h3.entry-title a {
+	font-size: 100%;
+}
+
+/* Large Calendar Tooltip Specifics */
+#tribe-events-content .tribe-events-tooltip h4.entry-title {
+	margin: 0;
+	font-size: 12px;
+	padding: 0 6px;
+	min-height: 24px;
+	line-height: 24px;
+	letter-spacing: 1px;
+	font-weight: normal;
+}
+.tribe-events-tooltip .tribe-events-event-body {
+	font-size: 11px;
+	padding: 3px 6px 6px;
+	font-weight: normal;
+}
+.tribe-events-tooltip .duration {
+	font-style: italic;
+	margin: 3px 0;
+}
+.tribe-events-tooltip .tribe-events-event-thumb {
+	float: left;
+	padding: 5px 5px 5px 0;
+}
+.tribe-events-tooltip p.entry-summary {
+	padding: 0;
+	font-size: 11px;
+	line-height: 1.5;
+}
+
+/* = Events List Widget Styles (Sidebar)
+   @ Template: widgets/list-widget.php
+=============================================*/
+.tribe-events-list-widget ol,
+.tribe-events-adv-list-widget ol {
+	list-style-type: square;
+	margin-left: 0;
+	margin-bottom: 0;
+}
+.tribe-events-list-widget li, 
+.singular.page li.type-tribe_events, 
+.tribe-events-adv-list-widget li, 
+.singular.page li.type-tribe_events {
+	margin: 6px 0;
+	padding: 0 0 10px 0;
+}
+.tribe-events-list-widget li p.entry-title.summary,
+.tribe-events-adv-list-widget li p.entry-title.summary {
+	margin-bottom: 0;
+	padding: 0;
+	font-size: 100%;
+}
+
+/* = Events Navigation Bar
+   @ Template: modules/bar.php
+=============================================*/
+
+/* Views Select */
+#tribe-bar-views .tribe-bar-view-select,
+#tribe-bar-views .tribe-bar-view-select ~ .tribe-select2 {
+	display: none;
+}
+#tribe-bar-views .tribe-select2 {
+	width: 108px !important;
+	float: left;
+}
+.tribe-select2-results .select2-results {
+	margin: 4px 0;
+	padding: 0;
+}
+.tribe-select2-results .select2-results .select2-result-label {
+	padding: 6px 8px;
+	color: #444;
+	line-height: 14px;
+}
+.tribe-select2-results .select2-results .select2-highlighted {
+	background: #ddd;
+	color: #444;
+}
+#tribe-bar-views .select2-container .select2-choice div {
+	width: 18px;
+}
+#tribe-bar-views .select2-container .select2-choice span {
+	margin-right: 18px;
+}
+#tribe-bar-views .select2-container .select2-choice span span {
+	margin-right: 0;
+}
+
+/* Views Select When Have Settings */
+.tribe-has-settings #tribe-bar-dates {
+	margin-left: -331px;
+}
+.tribe-has-settings #tribe-bar-views {
+	width: 142px;
+	margin-left: -142px;
+}
+.tribe-has-settings #tribe-bar-views .select2-container .select2-choice {
+	-webkit-border-bottom-right-radius: 0;
+			border-bottom-right-radius: 0;
+	-webkit-border-top-right-radius: 0;
+			border-top-right-radius: 0;
+}
+.tribe-has-settings #tribe-bar-views .select2-container .select2-choice div {
+	-webkit-border-radius: 0;
+			border-radius: 0;
+	background: transparent;
+	background-image: none;
+	filter: none;
+	border-left: 0;
+}
+
+/* Settings */
+#tribe-events-bar .tribe-bar-settings {
+	overflow: hidden;
+}
+#tribe-events-bar .tribe-bar-button-settings span {
+	background-image: url(../images/events-bar/icon-gear.png);
+	background-repeat: no-repeat;
+	background-position: 50% 50%;
+	-webkit-background-size: 14px 14px;
+    		background-size: 14px 14px;
+	height: 100%;
+	float: left;
+	width: 14px;
+	display: inline-block;
+	position: relative;
+}
+#tribe-bar-views .tribe-bar-drop-content button {
+	width: 100%;
+}
+
+/* Filters Button & Dropdown Content */
+#tribe-events-bar .tribe-bar-button-settings {
+	border-left-color: transparent;
+	-webkit-border-radius: 0 4px 4px 0;
+			border-radius: 0 4px 4px 0;
+	float: left;
+	margin-left: -1px;
+}
+.tribe-bar-settings .tribe-bar-drop-content {
+	width: 285px;
+	right: -5px;
+	padding: 10px 12px 4px;
+}
+
+/* Bar Width Adjustments */
+.tribe-bar-full #tribe-bar-views .tribe-bar-view-select,
+.tribe-bar-full #tribe-bar-views .tribe-bar-view-select ~ .tribe-select2 {
+	display: none;
+}
+.tribe-bar-mini #tribe-bar-views .tribe-bar-view-select,
+.tribe-bar-mini #tribe-bar-views .tribe-bar-view-select ~ .tribe-select2 {
+	display: block;
+}
+.tribe-bar-full #tribe-bar-views ul.tribe-bar-view-list {
+	display: block;
+}
+.tribe-bar-mini #tribe-bar-views ul.tribe-bar-view-list {
+	display: none;
+}
