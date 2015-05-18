@@ -151,7 +151,7 @@ if ( ! class_exists( 'Tribe__Events__Template_Factory' ) ) {
 		 */
 		protected static function handle_asset_package_request( $name, $deps, $vendor_url, $prefix, $tec ) {
 
-			$asset = static::get_asset_factory_instance( $name );
+			$asset = self::get_asset_factory_instance( $name );
 			if ( ! $asset ) {
 				do_action( $prefix . '-' . $name );
 
