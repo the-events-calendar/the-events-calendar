@@ -678,7 +678,7 @@ if ( ! class_exists( 'Tribe__Events__Tickets__Tickets' ) ) {
 			if ( $theme_file = locate_template( array( 'tribe-events/' . $template ) ) ) {
 				$file = $theme_file;
 			} else {
-				$file = $this->pluginPath . 'views/' . $template;
+				$file = $this->pluginPath . 'src/views/' . $template;
 			}
 
 			return apply_filters( 'tribe_events_tickets_template_' . $template, $file );

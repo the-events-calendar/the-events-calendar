@@ -109,11 +109,9 @@ class Tribe__Events__Tickets__Tickets_Pro {
 			return;
 		}
 
-		$ecp = Tribe__Events__Main::instance();
-
-		wp_enqueue_style( Tribe__Events__Tickets__Tickets_Pro::$attendees_slug, trailingslashit( $ecp->pluginUrl ) . 'resources/tickets-attendees.css', array(), apply_filters( 'tribe_events_css_version', Tribe__Events__Main::VERSION ) );
-		wp_enqueue_style( Tribe__Events__Tickets__Tickets_Pro::$attendees_slug . '-print', trailingslashit( $ecp->pluginUrl ) . 'resources/tickets-attendees-print.css', array(), apply_filters( 'tribe_events_css_version', Tribe__Events__Main::VERSION ), 'print' );
-		wp_enqueue_script( Tribe__Events__Tickets__Tickets_Pro::$attendees_slug, trailingslashit( $ecp->pluginUrl ) . 'resources/tickets-attendees.js', array( 'jquery' ), apply_filters( 'tribe_events_js_version', Tribe__Events__Main::VERSION ) );
+		wp_enqueue_style( Tribe__Events__Tickets__Tickets_Pro::$attendees_slug, tribe_events_resource_url('tickets-attendees.css'), array(), apply_filters( 'tribe_events_css_version', Tribe__Events__Main::VERSION ) );
+		wp_enqueue_style( Tribe__Events__Tickets__Tickets_Pro::$attendees_slug . '-print', tribe_events_resource_url('tickets-attendees-print.css'), array(), apply_filters( 'tribe_events_css_version', Tribe__Events__Main::VERSION ), 'print' );
+		wp_enqueue_script( Tribe__Events__Tickets__Tickets_Pro::$attendees_slug, tribe_events_resource_url('tickets-attendees.js'), array( 'jquery' ), apply_filters( 'tribe_events_js_version', Tribe__Events__Main::VERSION ) );
 
 		$mail_data = array(
 			'nonce'           => wp_create_nonce( 'email-attendee-list' ),
