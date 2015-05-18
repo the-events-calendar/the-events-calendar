@@ -355,13 +355,13 @@ var ticketHeaderImage = window.ticketHeaderImage || {};
 		}
 
 		function tickets_start_spin() {
-			jQuery( '#event_tickets' ).css( 'opacity', '0.5' );
-			jQuery( "#tribe-loading" ).show();
+			$( '#event_tickets' ).css( 'opacity', '0.5' );
+			$( "#tribe-loading" ).show();
 		}
 
 		function tickets_stop_spin() {
-			jQuery( '#event_tickets' ).css( 'opacity', '1' );
-			jQuery( "#tribe-loading" ).hide();
+			$( '#event_tickets' ).css( 'opacity', '1' );
+			$( "#tribe-loading" ).hide();
 		}
 
 		function tribe_fix_image_width() {
