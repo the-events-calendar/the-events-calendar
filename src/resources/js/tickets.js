@@ -126,7 +126,9 @@ var ticketHeaderImage = window.ticketHeaderImage || {};
 		var $tribetickets = $('#tribetickets');
 
 		/* "Save Ticket" button action */
-		$( '#ticket_form_save' ).click( function() {
+		$( '#ticket_form_save' ).click( function( e ) {
+
+			$tribetickets.trigger('eventSaveTicket.tribe', e);
 
 			tickets_start_spin();
 
@@ -141,6 +143,8 @@ var ticketHeaderImage = window.ticketHeaderImage || {};
 				ajaxurl,
 				params,
 				function( response ) {
+					$tribetickets.trigger('eventSavedTicket.tribe', response);
+
 					if ( response.success ) {
 						ticket_clear_form();
 						$( 'td.ticket_list_container' ).empty().html( response.data );
@@ -163,6 +167,8 @@ var ticketHeaderImage = window.ticketHeaderImage || {};
 		$tribetickets.on( 'click', '.ticket_delete', function( e ) {
 
 			e.preventDefault();
+			
+			$tribetickets.trigger('eventDeleteTicket.tribe', e);
 
 			tickets_start_spin();
 
@@ -177,6 +183,7 @@ var ticketHeaderImage = window.ticketHeaderImage || {};
 				ajaxurl,
 				params,
 				function( response ) {
+					$tribetickets.trigger('eventDeletedTicket.tribe', response);
 
 					if ( response.success ) {
 						ticket_clear_form();
@@ -216,6 +223,8 @@ var ticketHeaderImage = window.ticketHeaderImage || {};
 					params,
 					function( response ) {
 						ticket_clear_form();
+
+						$tribetickets.trigger('eventEditTicket.tribe', response);
 
 						var regularPrice = response.data.price;
 						var salePrice    = regularPrice;
