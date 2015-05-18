@@ -151,7 +151,7 @@ if ( ! class_exists( 'Tribe__Events__Template_Factory' ) ) {
 		 */
 		protected static function handle_asset_package_request( $name, $deps, $vendor_url, $prefix, $tec ) {
 
-			$asset = Tribe__Events__Asset__Factory::instance()->make_for_name( $name );
+			$asset = static::get_asset_factory_instance( $name );
 			if ( ! $asset ) {
 				do_action( $prefix . '-' . $name );
 
@@ -165,6 +165,14 @@ if ( ! class_exists( 'Tribe__Events__Template_Factory' ) ) {
 			$asset->set_tec( $tec );
 
 			$asset->handle();
+		}
+
+		/**
+		 * Retrieves the appropriate asset factory instance
+		 */
+		protected static function get_asset_factory_instance( $name ) {
+			$asset = Tribe__Events__Asset__Factory::instance()->make_for_name( $name );
+			return $asset;
 		}
 
 		/**
