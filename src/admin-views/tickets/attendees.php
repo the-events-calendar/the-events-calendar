@@ -49,11 +49,15 @@ $tickets = Tribe__Events__Tickets__Tickets::get_event_tickets( $event_id );
 								</div>
 							<?php endif; ?>
 
-							<?php if ( $website = esc_url( get_post_meta( $venue_id, '_VenueURL', true ) ) ) : ?>
+							<?php if ( $url = esc_url( get_post_meta( $venue_id, '_VenueURL', true ) ) ) : ?>
 								<div class="venue-url">
 									<strong><?php echo esc_html( __( 'Website:', 'tribe-events-calendar' ) ); ?> </strong>
-									<a target="_blank" href="<?php echo $website; ?>">
-										<?php echo parse_url( $website, PHP_URL_HOST ) . '/&hellip;'; ?>
+									<a target="_blank" href="<?php echo $url; ?>">
+									<?php
+										$display_url  = parse_url( $url, PHP_URL_HOST );
+										$display_url .= parse_url( $url, PHP_URL_PATH ) ? '/&hellip;' : '';
+										echo apply_filters( 'tribe_venue_display_url', $display_url, $url, $venue_id );
+									?>
 									</a>
 								</div>
 							<?php endif; ?>
