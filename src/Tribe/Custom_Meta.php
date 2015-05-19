@@ -70,7 +70,7 @@ class Tribe__Events__Pro__Custom_Meta {
 		$tribe_ecp    = Tribe__Events__Main::instance();
 		$customFields = tribe_get_option( 'custom-fields' );
 
-		$events_event_meta_template = Tribe__Events__Pro__Main::instance()->pluginPath . 'admin-views/event-meta.php';
+		$events_event_meta_template = Tribe__Events__Pro__Main::instance()->pluginPath . 'src/admin-views/event-meta.php';
 		$events_event_meta_template = apply_filters( 'tribe_events_event_meta_template', $events_event_meta_template );
 		if ( ! empty( $events_event_meta_template ) ) {
 			include( $events_event_meta_template );
