@@ -1,6 +1,6 @@
 # The Events Calendar
 
-Welcome to the official git repository for [The Events Calendar](http://wordpress.org/plugins/the-events-calendar/), a WordPress plugin developed by the team at [Modern Tribe](http://m.tri.be/kh).
+Welcome to the official git repository for [The Events Calendar](http://wordpress.org/plugins/the-events-calendar/), a WordPress plugin developed by the team at [Modern Tribe](https://theeventscalendar.com/the-team/).
 
 Please feel free to fork this repository and submit pull requests! 
 
@@ -28,6 +28,6 @@ That's all! please have fun and code responsibly :)
 
 * **Official Release**: http://wordpress.org/plugins/the-events-calendar/
 * **Readme**: https://github.com/moderntribe/the-events-calendar/blob/develop/readme.txt
-* **Website**: http://tri.be/shop/wordpress-events-calendar/
-* **Support**: https://tri.be/support/
-* **Documentation**: http://docs.tri.be/
+* **Website**: https://theeventscalendar.com/product/wordpress-events-calendar/
+* **Support**: https://theeventscalendar.com/support
+* **Documentation**: https://theeventscalendar.com/functions/
