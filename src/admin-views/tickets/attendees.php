@@ -16,12 +16,12 @@ $tickets = Tribe__Events__Tickets__Tickets::get_event_tickets( $event_id );
 		<div id="filters-wrap" class="postbox">
 			<h3 title="Click to toggle"><?php esc_html_e( 'Event Summary', 'tribe-events-calendar' ); ?></h3>
 
-			<?php do_action( 'tribe_attendees_event_summary_table_before', $event_id ); ?>
+			<?php do_action( 'tribe_events_tickets_attendees_event_summary_table_before', $event_id ); ?>
 
 			<table class="eventtable ticket_list">
 				<tr>
 					<td width="33%" valign="top">
-						<?php do_action( 'tribe_attendees_event_details_top', $event_id ); ?>
+						<?php do_action( 'tribe_events_tickets_attendees_event_details_top', $event_id ); ?>
 
 						<h4><?php esc_html_e( 'Event Details', 'tribe-events-calendar' ); ?></h4>
 
@@ -67,10 +67,10 @@ $tickets = Tribe__Events__Tickets__Tickets::get_event_tickets( $event_id );
 
 						<?php endif; // if ( $venue ) ?>
 
-						<?php do_action( 'tribe_attendees_event_details_bottom', $event_id ); ?>
+						<?php do_action( 'tribe_events_tickets_attendees_event_details_bottom', $event_id ); ?>
 					</td>
 					<td width="33%" valign="top">
-						<?php do_action( 'tribe_attendees_ticket_sales_top', $event_id ); ?>
+						<?php do_action( 'tribe_events_tickets_attendees_ticket_sales_top', $event_id ); ?>
 
 						<h4><?php esc_html_e( 'Ticket Sales', 'tribe-events-calendar' ); ?></h4>
 
@@ -107,11 +107,11 @@ $tickets = Tribe__Events__Tickets__Tickets::get_event_tickets( $event_id );
 
 						endforeach;
 						?>
-						<?php do_action( 'tribe_attendees_ticket_sales_bottom', $event_id ); ?>
+						<?php do_action( 'tribe_events_tickets_attendees_ticket_sales_bottom', $event_id ); ?>
 					</td>
 					<td width="33%" valign="middle">
 						<div class="totals">
-							<?php do_action( 'tribe_attendees_totals_top', $event_id ); ?>
+							<?php do_action( 'tribe_events_tickets_attendees_totals_top', $event_id ); ?>
 							<?php
 
 							$checkedin = Tribe__Events__Tickets__Tickets::get_event_checkedin_attendees_count( $event_id ); ?>
@@ -138,13 +138,13 @@ $tickets = Tribe__Events__Tickets__Tickets::get_event_tickets( $event_id );
 								<span id="total_checkedin"><?php echo $checkedin ?></span>
 							</span>
 
-							<?php do_action( 'tribe_attendees_totals_bottom', $event_id ); ?>
+							<?php do_action( 'tribe_events_tickets_attendees_totals_bottom', $event_id ); ?>
 						</div>
 					</td>
 				</tr>
 			</table>
 
-			<?php do_action( 'tribe_attendees_event_summary_table_after', $event_id ); ?>
+			<?php do_action( 'tribe_events_tickets_attendees_event_summary_table_after', $event_id ); ?>
 
 		</div>
 	</div>
