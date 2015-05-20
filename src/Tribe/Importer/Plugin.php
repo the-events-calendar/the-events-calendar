@@ -9,7 +9,7 @@ class Tribe__Events__Importer__Plugin {
 	public static $admin = null;
 
 	public static function path( $path ) {
-		$base = dirname( dirname( __FILE__ ) );
+		$base = dirname( dirname( dirname( dirname( __FILE__ ) ) ) );
 		$path = $base . DIRECTORY_SEPARATOR . $path;
 
 		return untrailingslashit( $path );
