@@ -45,8 +45,8 @@
 			const VERSION = '3.10a0';
 
 			private function __construct() {
-				$this->pluginDir = trailingslashit( basename( dirname( dirname( dirname( __FILE__ ) ) ) ) );
-				$this->pluginPath = trailingslashit( dirname( dirname( dirname( __FILE__ ) ) ) );
+				$this->pluginDir = trailingslashit( basename( EVENTS_CALENDAR_PRO_DIR ) );
+				$this->pluginPath = trailingslashit( EVENTS_CALENDAR_PRO_DIR );
 				$this->pluginUrl = plugins_url( $this->pluginDir );
 				$this->pluginSlug = 'events-calendar-pro';
 
