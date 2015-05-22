@@ -27,6 +27,8 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
+define( 'EVENTS_CALENDAR_PRO_DIR', dirname( __FILE__ ) );
+
 	// Instantiate class and set up WordPress actions.
 	function Tribe_ECP_Load() {
 		tribe_init_events_pro_autoloading();
