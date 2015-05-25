@@ -1594,9 +1594,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 */
 		public function admin_body_class( $classes ) {
 			global $current_screen;
-			if ( isset( $current_screen->post_type ) &&
-				 ( $current_screen->post_type == self::POSTTYPE || $current_screen->id == 'settings_page_tribe-settings' )
-			) {
+			if ( isset( $current_screen->post_type ) && ( $current_screen->post_type == self::POSTTYPE || $current_screen->id == 'settings_page_tribe-settings' ) ) {
 				$classes .= ' events-cal ';
 			}
 
@@ -2525,7 +2523,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		}
 
 		/**
-		 * Returns a link to google maps for the given event. This link can be filtered 
+		 * Returns a link to google maps for the given event. This link can be filtered
 		 * using the tribe_events_google_map_link hook.
 		 *
 		 * @param int|null $post_id
@@ -3938,7 +3936,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 */
 		public function addViewCalendar() {
 			global $current_screen;
-			if ( $current_screen->id == 'edit-' . self::POSTTYPE ) {
+			if ( ! empty( $current_screen->id ) && 'edit-' . self::POSTTYPE === $current_screen->id ) {
 				//Output hidden DIV with Calendar link to be displayed via javascript
 				echo '<div id="view-calendar-link-div" style="display:none;"><a class="add-new-h2" href="' . $this->getLink() . '">' . __( 'View Calendar', 'tribe-events-calendar' ) . '</a></div>';
 			}
@@ -3952,9 +3950,10 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 */
 		public function setInitialMenuMetaBoxes() {
 			global $current_screen;
-			if ( $current_screen->id != 'nav-menus' ) {
+			if ( empty( $current_screen->id ) || 'nav-menus' !== $current_screen->id ) {
 				return;
 			}
+
 			$user_id = wp_get_current_user()->ID;
 			if ( get_user_option( 'tribe_setDefaultNavMenuBoxes', $user_id ) ) {
 				return;
@@ -4037,8 +4036,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @return void
 		 */
 		public function prepare_to_fix_tagcloud_links() {
-			$screen = get_current_screen();
-			if ( isset( $screen->post_type ) && $screen->post_type == self::POSTTYPE ) {
+			global $current_screen;
+
+			if ( isset( $current_screen->post_type ) && $current_screen->post_type == self::POSTTYPE ) {
 				add_filter( 'get_edit_term_link', array( $this, 'add_post_type_to_edit_term_link' ), 10, 4 );
 			}
 		}
