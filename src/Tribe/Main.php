@@ -1594,7 +1594,13 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 */
 		public function admin_body_class( $classes ) {
 			global $current_screen;
-			if ( isset( $current_screen->post_type ) && ( $current_screen->post_type == self::POSTTYPE || $current_screen->id == 'settings_page_tribe-settings' ) ) {
+			if (
+				isset( $current_screen->post_type )
+				&& (
+					$current_screen->post_type === self::POSTTYPE
+					|| 'settings_page_tribe-settings' === $current_screen->id
+				)
+			) {
 				$classes .= ' events-cal ';
 			}
 
