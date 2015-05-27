@@ -25,8 +25,8 @@ module.exports = {
 
 	resourcecss: {
 		files: [
-			'<%= pkg._resourcepath %>/*.css',
-			'<%= pkg._resourcepath %>/!*.min.css'
+			'<%= pkg._resourcepath %>/css/*.css',
+			'<%= pkg._resourcepath %>/css/!*.min.css'
 		],
 		tasks: [
 			'clean:resourcecss',
@@ -39,15 +39,15 @@ module.exports = {
 	},
 	resourcescripts: {
 		files: [
-			'<%= pkg._resourcepath %>/calendar-widget-admin.js',
-			'<%= pkg._resourcepath %>/events-admin.js',
-			'<%= pkg._resourcepath %>/tribe-events-ajax-maps.js',
-			'<%= pkg._resourcepath %>/tribe-events-mini-ajax.js',
-			'<%= pkg._resourcepath %>/tribe-events-photo-view.js',
-			'<%= pkg._resourcepath %>/tribe-events-pro.js',
-			'<%= pkg._resourcepath %>/tribe-events-week.js',
-			'<%= pkg._resourcepath %>/widget-calendar.js',
-			'<%= pkg._resourcepath %>/widget-countdown.js'
+			'<%= pkg._resourcepath %>/js/calendar-widget-admin.js',
+			'<%= pkg._resourcepath %>/js/events-admin.js',
+			'<%= pkg._resourcepath %>/js/tribe-events-ajax-maps.js',
+			'<%= pkg._resourcepath %>/js/tribe-events-mini-ajax.js',
+			'<%= pkg._resourcepath %>/js/tribe-events-photo-view.js',
+			'<%= pkg._resourcepath %>/js/tribe-events-pro.js',
+			'<%= pkg._resourcepath %>/js/tribe-events-week.js',
+			'<%= pkg._resourcepath %>/js/widget-calendar.js',
+			'<%= pkg._resourcepath %>/js/widget-countdown.js'
 		],
 		tasks: [
 			'jshint:resourcescripts',
