@@ -33,11 +33,11 @@ class Tribe__Events__Admin__Helpers {
 	/**
 	 * Matcher for Admin Pages related to Post Types
 	 *
-	 * @param  boolean|string|array|null $id What will be checked to see if we return true or false
+	 * @param string|array|null $id What will be checked to see if we return true or false
 	 *
 	 * @return boolean
 	 */
-	public function is_post_type_screen( $post_type = true ){
+	public function is_post_type_screen( $post_type = null ){
 		global $current_screen;
 
 		// Not in the admin we don't even care
@@ -45,8 +45,13 @@ class Tribe__Events__Admin__Helpers {
 			return false;
 		}
 
+		// Not doing AJAX
+		if ( defined( 'DOING_AJAX' ) && DOING_AJAX ){
+			return false;
+		}
+
 		// Avoid Notices by checking the object type of WP_Screen
-		if ( ! is_a( $current_screen, 'WP_Screen' ) ){
+		if ( ! ( $current_screen instanceof WP_Screen ) ){
 			return false;
 		}
 
@@ -57,7 +62,7 @@ class Tribe__Events__Admin__Helpers {
 		);
 
 		// Match any Post Type form Tribe
-		if ( true === $post_type && in_array( $current_screen->post_type, $defaults ) ){
+		if ( is_null( $post_type ) && in_array( $current_screen->post_type, $defaults ) ){
 			return true;
 		}
 
@@ -77,11 +82,11 @@ class Tribe__Events__Admin__Helpers {
 	/**
 	 * Matcher for administration pages that are from Tribe the easier way
 	 *
-	 * @param  boolean|string|array|null $id What will be checked to see if we return true or false
+	 * @param  string|array|null $id What will be checked to see if we return true or false
 	 *
 	 * @return boolean
 	 */
-	public function is_screen( $id = true ){
+	public function is_screen( $id = null ){
 		global $current_screen;
 
 		// Not in the admin we don't even care
@@ -89,13 +94,18 @@ class Tribe__Events__Admin__Helpers {
 			return false;
 		}
 
+		// Not doing AJAX
+		if ( defined( 'DOING_AJAX' ) && DOING_AJAX ){
+			return false;
+		}
+
 		// Avoid Notices by checking the object type of WP_Screen
-		if ( ! is_a( $current_screen, 'WP_Screen' ) ){
+		if ( ! ( $current_screen instanceof WP_Screen ) ){
 			return false;
 		}
 
 		// Match any screen from Tribe
-		if ( true === $id && false !== strpos( $current_screen->id, 'tribe' ) ){
+		if ( is_null( $id ) && false !== strpos( $current_screen->id, 'tribe' ) ){
 			return true;
 		}
 
