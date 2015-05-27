@@ -386,7 +386,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			add_action( 'parse_query', array( $this, 'setDisplay' ), 51, 0 );
 			add_action( 'tribe_events_post_errors', array( 'Tribe__Events__Post_Exception', 'displayMessage' ) );
 			add_action( 'tribe_settings_top', array( 'Tribe__Events__Options_Exception', 'displayMessage' ) );
-			add_action( 'admin_enqueue_scripts', array( $this, 'addAdminScriptsAndStyles' ) );
+			add_action( 'admin_enqueue_scripts', array( $this, 'add_admin_assets' ) );
 			add_filter( 'tribe_events_register_event_type_args', array( $this, 'setDashicon' ) );
 			add_action( "trash_" . Tribe__Events__Main::VENUE_POST_TYPE, array( $this, 'cleanupPostVenues' ) );
 			add_action( "trash_" . Tribe__Events__Main::ORGANIZER_POST_TYPE, array( $this, 'cleanupPostOrganizers' ) );
@@ -1593,14 +1593,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @return array
 		 */
 		public function admin_body_class( $classes ) {
-			global $current_screen;
-			if (
-				isset( $current_screen->post_type )
-				&& (
-					$current_screen->post_type === self::POSTTYPE
-					|| 'settings_page_tribe-settings' === $current_screen->id
-				)
-			) {
+			$admin_helpers = Tribe__Events__Admin__Helpers::instance();
+			if ( $admin_helpers->is_screen( 'settings_page_tribe-settings' ) || $admin_helpers->is_post_type_screen( true ) ) {
 				$classes .= ' events-cal ';
 			}
 
@@ -1612,20 +1606,19 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 *
 		 * @return void
 		 */
-		public function addAdminScriptsAndStyles() {
-
-			global $current_screen;
+		public function add_admin_assets() {
+			$admin_helpers = Tribe__Events__Admin__Helpers::instance();
 
 			// setup plugin resources & 3rd party vendor urls
 			$vendor_url    = trailingslashit( $this->pluginUrl ) . 'vendor/';
 
 			// admin stylesheet - only load admin stylesheet when on Tribe pages
-			if ( isset( $current_screen->id ) && true === strpos( $current_screen->id, 'tribe' ) ) {
+			if ( $admin_helpers->is_screen( true ) ) {
 				wp_enqueue_style( self::POSTTYPE . '-admin', tribe_events_resource_url( 'events-admin.css' ), array(), apply_filters( 'tribe_events_css_version', self::VERSION ) );
 			}
 
 			// settings screen
-			if ( isset( $current_screen->id ) && $current_screen->id == 'settings_page_tribe-settings' ) {
+			if ( $admin_helpers->is_screen( 'settings_page_tribe-settings' ) ) {
 
 				// chosen
 				Tribe__Events__Template_Factory::asset_package( 'chosen' );
@@ -1643,19 +1636,12 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				do_action( 'tribe_settings_enqueue' );
 			}
 
-			if ( $current_screen->id == 'widgets' ) {
+			if ( $admin_helpers->is_screen( 'widgets' ) ) {
 				Tribe__Events__Template_Factory::asset_package( 'chosen' );
 			}
 
 			// events, organizer, or venue editing
-			if ( ( isset( $current_screen->post_type ) && in_array(
-					$current_screen->post_type, array(
-						self::POSTTYPE, // events editing
-						self::VENUE_POST_TYPE, // venue editing
-						self::ORGANIZER_POST_TYPE // organizer editing
-					)
-				) )
-			) {
+			if ( $admin_helpers->is_post_type_screen( true ) ) {
 
 				// chosen
 				Tribe__Events__Template_Factory::asset_package( 'chosen' );
@@ -1681,24 +1667,15 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				// ecp placeholders
 				Tribe__Events__Template_Factory::asset_package( 'ecp-plugins' );
 
-				switch ( $current_screen->post_type ) {
-					case self::POSTTYPE :
-
-						add_action( 'admin_footer', array( $this, 'printLocalizedAdmin' ) );
-
-						// hook for other plugins
-						do_action( 'tribe_events_enqueue' );
-						break;
-					case self::VENUE_POST_TYPE :
-
-						// hook for other plugins
-						do_action( 'tribe_venues_enqueue' );
-						break;
-					case self::ORGANIZER_POST_TYPE :
-
-						// hook for other plugins
-						do_action( 'tribe_organizers_enqueue' );
-						break;
+				if ( $admin_helpers->is_post_type_screen( self::POSTTYPE ) ){
+					add_action( 'admin_footer', array( $this, 'printLocalizedAdmin' ) );
+					// hook for other plugins
+					do_action( 'tribe_events_enqueue' );
+				} elseif ( $admin_helpers->is_post_type_screen( self::VENUE_POST_TYPE ) ){
+					// hook for other plugins
+					do_action( 'tribe_venues_enqueue' );
+				} elseif ( $admin_helpers->is_post_type_screen( self::ORGANIZER_POST_TYPE ) ){
+					do_action( 'tribe_organizers_enqueue' );
 				}
 			}
 		}
@@ -3941,8 +3918,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @return void
 		 */
 		public function addViewCalendar() {
-			global $current_screen;
-			if ( ! empty( $current_screen->id ) && 'edit-' . self::POSTTYPE === $current_screen->id ) {
+			if ( Tribe__Events__Admin__Helpers::instance()->is_screen( 'edit-' . self::POSTTYPE ) ) {
 				//Output hidden DIV with Calendar link to be displayed via javascript
 				echo '<div id="view-calendar-link-div" style="display:none;"><a class="add-new-h2" href="' . $this->getLink() . '">' . __( 'View Calendar', 'tribe-events-calendar' ) . '</a></div>';
 			}
@@ -4042,9 +4018,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @return void
 		 */
 		public function prepare_to_fix_tagcloud_links() {
-			global $current_screen;
-
-			if ( isset( $current_screen->post_type ) && $current_screen->post_type == self::POSTTYPE ) {
+			if ( Tribe__Events__Admin__Helpers::instance()->is_post_type_screen( self::POSTTYPE ) ) {
 				add_filter( 'get_edit_term_link', array( $this, 'add_post_type_to_edit_term_link' ), 10, 4 );
 			}
 		}

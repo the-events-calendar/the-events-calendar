@@ -344,8 +344,7 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 			}
 
 			// if is in the admin remove the event date & upcoming filters, unless is an ajax call
-			global $current_screen;
-			if ( is_admin() && $query->tribe_is_event_query && ! empty( $current_screen->id ) && $current_screen->id == 'edit-' . Tribe__Events__Main::POSTTYPE ) {
+			if ( is_admin() && $query->tribe_is_event_query && Tribe__Events__Admin__Helpers::instance()->is_screen( 'edit-' . Tribe__Events__Main::POSTTYPE ) ) {
 				if ( ( ! defined( 'DOING_AJAX' ) ) || ( defined( 'DOING_AJAX' ) && ! ( DOING_AJAX ) ) ) {
 
 					remove_filter( 'posts_where', array( __CLASS__, 'posts_where' ), 10, 2 );
