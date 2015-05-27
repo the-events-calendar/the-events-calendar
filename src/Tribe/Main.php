@@ -2525,7 +2525,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		}
 
 		/**
-		 * Returns a link to google maps for the given event. This link can be filtered 
+		 * Returns a link to google maps for the given event. This link can be filtered
 		 * using the tribe_events_google_map_link hook.
 		 *
 		 * @param int|null $post_id
@@ -3644,7 +3644,23 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				if ( ! $anchor ) {
 					$anchor = apply_filters( 'the_title', $results->post_title );
 				} elseif ( strpos( $anchor, '%title%' ) !== false ) {
-					$anchor = preg_replace( '|%title%|', apply_filters( 'the_title', $results->post_title, $results->ID ), $anchor );
+					// get the nicely filtered post title
+					$title = apply_filters( 'the_title', $results->post_title, $results->ID );
+
+					// escape special characters used in the second parameter of preg_replace
+					$title = str_replace(
+						array(
+							'\\',
+							'$',
+						),
+						array(
+							'\\\\',
+							'\$',
+						),
+						$title
+					);
+
+					$anchor = preg_replace( '|%title%|', $title, $anchor );
 				}
 
 				return apply_filters( 'tribe_events_get_event_link', '<a href="' . tribe_get_event_link( $results ) . '">' . $anchor . '</a>' );
