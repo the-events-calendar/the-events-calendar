@@ -1594,7 +1594,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 */
 		public function admin_body_class( $classes ) {
 			$admin_helpers = Tribe__Events__Admin__Helpers::instance();
-			if ( $admin_helpers->is_screen( 'settings_page_tribe-settings' ) || $admin_helpers->is_post_type_screen( true ) ) {
+			if ( $admin_helpers->is_screen( 'settings_page_tribe-settings' ) || $admin_helpers->is_post_type_screen() ) {
 				$classes .= ' events-cal ';
 			}
 
@@ -1613,7 +1613,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			$vendor_url    = trailingslashit( $this->pluginUrl ) . 'vendor/';
 
 			// admin stylesheet - only load admin stylesheet when on Tribe pages
-			if ( $admin_helpers->is_screen( true ) ) {
+			if ( $admin_helpers->is_screen() ) {
 				wp_enqueue_style( self::POSTTYPE . '-admin', tribe_events_resource_url( 'events-admin.css' ), array(), apply_filters( 'tribe_events_css_version', self::VERSION ) );
 			}
 
@@ -1641,7 +1641,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			}
 
 			// events, organizer, or venue editing
-			if ( $admin_helpers->is_post_type_screen( true ) ) {
+			if ( $admin_helpers->is_post_type_screen() ) {
 
 				// chosen
 				Tribe__Events__Template_Factory::asset_package( 'chosen' );

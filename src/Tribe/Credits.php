@@ -41,9 +41,10 @@ class Tribe__Events__Credits {
 	 * @return string
 	 */
 	public function rating_nudge( $footer_text ) {
-		$admin_helpers = Tribe__Events__Admin__Helpers::instance();
+		global $current_screen;
+
 		// only display custom text on Tribe Admin Pages
-		if ( $admin_helpers->is_screen( true ) || $admin_helpers->is_post_type_screen( true ) ) {
+		if ( Tribe__Events__Admin__Helpers::instance()->is_screen() || Tribe__Events__Admin__Helpers::instance()->is_post_type_screen() {
 			$footer_text = sprintf( __( 'Rate <strong>The Events Calendar</strong> <a href="%1$s" target="_blank">&#9733;&#9733;&#9733;&#9733;&#9733;</a> on <a href="%1$s" target="_blank">WordPress.org</a> to keep this plugin free.  Thanks from the friendly folks at Modern Tribe.', 'tribe-events-calendar' ), __( 'http://wordpress.org/support/view/plugin-reviews/the-events-calendar?filter=5', 'tribe-events-calendar' ) );
 		}
 
