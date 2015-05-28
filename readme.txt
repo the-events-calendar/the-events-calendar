@@ -236,12 +236,14 @@ Our Premium Plugins:
 
 = [3.10] 2015-04-30 =
 
+* Bug - Fixed a bug where private events were being indicated on the Mini Calendar Widget, even though you couldn't see them
 * Bug - Fixed a minor issue with recurring event tooltips within the advanced list widget
 * Bug - Fixed an issue which caused the default venue fields to be automatically inserted within the event editor
 * Bug - Fixed a bug preventing the view link from appearing for updated venues and organizers
 * Bug - Fixed handling of recurrence splitting when hiding events from the front-end
 * Bug - Fixed a bug that allowed invalid dates to be used in the Mini Cal widget
 * Bug - Fixed a bug that caused the JetPack Visibility option to incorrectly hide other widgets when the Event List Widget is active
+* Tweak - Existing all day events will now adjust properly when the EOD cutoff is changed
 * Tweak - Updated tooltip positioning logic for week view to account for more edge cases
 * Tweak - Updated week view to better handle very short events and long titles
 * Tweak - Ensured all non critical vendor files will not end up bundled in the final plugin zip
@@ -253,7 +255,7 @@ Our Premium Plugins:
 * Tweak - More robust activation and deactivation methods
 * Tweak - More flexible handling of default values to work with The Events Calendar 3.10
 * Tweak - Ensured that old recurring events are cleaned up on schedule
-* Feature - Totally rebuilt WEEK VIEW!
+* Feature - Week view engine totally rebuilt -- now we're mobbing!
 * Feature - Added a new additional field type (textareas) to compliment the existing text field
 * Feature - Replaced scrolling library on week view for better performance and extensibility
 * Feature - Introduced batch processing of recurring events to further improve performance and scalability
