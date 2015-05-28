@@ -10,7 +10,7 @@ class Tribe__Events__Pro__Asset__Ajax_Weekview extends Tribe__Events__Asset__Abs
 		);
 		$path = Tribe__Events__Template_Factory::getMinFile( tribe_events_resource_url( 'tribe-events-ajax-week.js' ), true );
 
-		$handle = 'tribe-events-ajax-day';
+		$handle = 'tribe-events-ajax-week';
 		wp_enqueue_script( $handle, $path, array( 'tribe-events-bar' ), $this->filter_js_version(), true );
 		wp_localize_script( $handle, 'TribeCalendar', $ajax_data );
 
