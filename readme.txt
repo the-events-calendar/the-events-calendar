@@ -344,11 +344,19 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Bug - Fixed an issue causing the Date separator to be incorrectly escaped
 * Bug - Fixed an issue causing Permission Denied for the Addons Page
 * Bug - Fixed an issue where WordPress without permalinks was creating non re-usable links
-* Bug - Resolved mobile CSS on the administration for events listing
-* Tweak - Removed unnecessary logic for variables in some front-end templates
 * Bug - Fixed a bug where ticket emails did not include the expected venue links
+* Bug - Fixed a PHP notice in the templates class
+* Bug - Resolved mobile CSS on the administration for events listing
+
 * Tweak - Better description of how to use Google Rich Snippets
 * Tweak - Improved Month day navigation for Mobile Views
+* Tweak - Removed unnecessary logic for variables in some front-end templates
+* Tweak - Ensured enabled views setting is saved in the database when plugin is activated
+* Tweak - Improved compatibility with Ninja Forms
+* Tweak - Reduced the number of queries in tribe_is_view_enabled() for a small performance improvement
+* Tweak - Changed the sort column on event queries for a small performance improvement
+* Tweak - Improved messaging when columns are suggested for a CSV import
+* Tweak - Added messaging to warn users of potential performance issues when their events per day setting on month view is high
 * Tweak - Removed all WooTickets CSS from Core
 * Tweak - Implemented under-the-hood enhancements to the main event editor meta box
 * Tweak - More robust plugin activation and deactivation
@@ -358,6 +366,7 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Tweak - Ensured all non critical vendor files will not end up bundled in the final plugin zip
 * Tweak - Added some changelog formatting enhancements after seeing keepachangelog.com :)
 * Tweak - Implemented performance enhancements in relation to list view pagination
+* Feature - Added a setting to enable HTML caching on Month view, which will provide a huge performance improvement on Month View for sites with many events per day
 * Feature - Updated the Organizer/Venue metabox UI to be more helpful when adding/editing events
 * Feature - Added calendar icon to the Admin Bar (Fancy!)
 * Feature - Added new shortcodes letting the featured venue, advanced list and event countdown widgets be embedded easily in posts and pages
