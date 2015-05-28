@@ -13,7 +13,7 @@ The Events Calendar is a carefully crafted, extensible plugin that lets you easi
 
 == Description ==
 
-><strong>A note about support:</strong> We’re here to help troubleshoot bugs, but should set expectations early that the support forums at WordPress.org are only checked once a week. Please read our <a href=“http://wordpress.org/support/topic/welcome-the-events-calendar-users-read-this-first?replies=3”>sticky post</a> before creating a new thread. 
+><strong>A note about support:</strong> We’re here to help troubleshoot bugs, but should set expectations early that the support forums at WordPress.org are only checked once a week. Please read our <a href=“http://wordpress.org/support/topic/welcome-the-events-calendar-users-read-this-first?replies=3”>sticky post</a> before creating a new thread.
 >
 > Users looking for more timely/in-depth support are encouraged to check out <a href="http://m.tri.be/mj" target="_blank" title="[new window]">Events Calendar PRO</a>.
 
@@ -146,7 +146,7 @@ Note that we aren't going to say "tough luck" if you identify a plugin/theme con
 
 Users of the free The Events Calendar should post their questions in the plugin's <a href="http://wordpress.org/support/plugin/the-events-calendar/">WordPress.org forum</a>, which we hit about once a week (on Wednesdays). Please make sure to read <a href="http://wordpress.org/support/topic/welcome-the-events-calendar-users-read-this-first">our sticky post</a> providing an overview of the support we provide free users BEFORE posting. If you find you're not getting support in as timely a fashion as you wish, you might want to consider purchasing a PRO license.
 
-If you're already a PRO user, you're entitled access to our more actively-monitored <a href="http://m.tri.be/2r">PRO forums</a> at the tri.be website. We can provide a deeper level of support here and hit these forums on a daily basis during the work week. Generally, except in times of increased support loads, we reply to all comments within 24-48 hours during the business week. 
+If you're already a PRO user, you're entitled access to our more actively-monitored <a href="http://m.tri.be/2r">PRO forums</a> at the tri.be website. We can provide a deeper level of support here and hit these forums on a daily basis during the work week. Generally, except in times of increased support loads, we reply to all comments within 24-48 hours during the business week.
 
 = Events Calendar PRO looks awesome! I'm sold! How can I get my hands on it? =
 
@@ -167,8 +167,8 @@ Currently, the following add-ons are available for The Events Calendar/Events Ca
 * <a href="http://m.tri.be/2h">Facebook Events</a>, for importing events directly from an organization or page on Facebook.
 * <a href="http://m.tri.be/2f">WooCommerce Tickets</a>, for harnessing the power of WooCommerce to sell event tickets directly on your site without being subject to fees or relying on a third-party service.
 * <a href="http://m.tri.be/ci">EDD Tickets</a>, for using our ticketing framework to sell tickets on your events through The Events Calendar + Easy Digital Downloads.
-* <a href="http://m.tri.be/cu">WPEC Tickets</a>, for using WP-eCommerce + The Events Calendar to sell event tickets directly from the frontend of your site. 
-* <a href="http://m.tri.be/dp">Shopp Tickets</a>, for harnessing the power of Shopp to sell event tickets on your WordPress site. 
+* <a href="http://m.tri.be/cu">WPEC Tickets</a>, for using WP-eCommerce + The Events Calendar to sell event tickets directly from the frontend of your site.
+* <a href="http://m.tri.be/dp">Shopp Tickets</a>, for harnessing the power of Shopp to sell event tickets on your WordPress site.
 * <a href="http://m.tri.be/fa">Filter Bar</a>, for adding advanced frontend filtering capabilities to your events calendar.
 
 = I have a feature idea. What's the best way to tell you about it? =
@@ -321,7 +321,7 @@ Major version = 3
 Minor version = 1
 Patch = 1
 
-At no point during the 3.0 lifecycle will the major version change. But you can expect that either minor version and/or patch will change with each release. 
+At no point during the 3.0 lifecycle will the major version change. But you can expect that either minor version and/or patch will change with each release.
 
 == Changelog ==
 
@@ -333,7 +333,7 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Feature - Enhancements to month view class + queries
 * Feature - Allowing yes/true boolean imports for “Show Google Maps (link)” field in CSV import
 
-= [3.10] 2015-04-30 =
+= [3.10] 2015-06-09 =
 
 * Bug - Resolved a compatibility issue where WooCommerce shortcodes could trigger unusual side effects in month view
 * Bug - Fixed an issue where malformed URLs could trigger fatal exceptions
@@ -341,9 +341,22 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Bug - Fixed an issue where tooltips were not respecting the Time Range Separator
 * Bug - Fixed an issue preventing list view from being accessed when default permalinks are in use
 * Bug - Fixed an issue causing unnecessary post meta data to be generated for new venues
-* Bug - Fixed a bug where ticket emails did not include the expected venue links
 * Bug - Fixed issued where a URL query string ended with a slash
+* Bug - Fixed an issue causing the Date separator to be incorrectly escaped
+* Bug - Fixed an issue causing Permission Denied for the Addons Page
+* Bug - Fixed an issue where WordPress without permalinks was creating non re-usable links
+* Bug - Fixed a bug where ticket emails did not include the expected venue links
+* Bug - Fixed a PHP notice in the templates class
+* Bug - Resolved mobile CSS on the administration for events listing
+* Tweak - Better description of how to use Google Rich Snippets
+* Tweak - Improved Month day navigation for Mobile Views
 * Tweak - Removed unnecessary logic for variables in some front-end templates
+* Tweak - Ensured enabled views setting is saved in the database when plugin is activated
+* Tweak - Improved compatibility with Ninja Forms
+* Tweak - Reduced the number of queries in tribe_is_view_enabled() for a small performance improvement
+* Tweak - Changed the sort column on event queries for a small performance improvement
+* Tweak - Improved messaging when columns are suggested for a CSV import
+* Tweak - Added messaging to warn users of potential performance issues when their events per day setting on month view is high
 * Tweak - Removed all WooTickets CSS from Core
 * Tweak - Implemented under-the-hood enhancements to the main event editor meta box
 * Tweak - More robust plugin activation and deactivation
@@ -353,6 +366,7 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Tweak - Ensured all non critical vendor files will not end up bundled in the final plugin zip
 * Tweak - Added some changelog formatting enhancements after seeing keepachangelog.com :)
 * Tweak - Implemented performance enhancements in relation to list view pagination
+* Feature - Added a setting to enable HTML caching on Month view, which will provide a huge performance improvement on Month View for sites with many events per day
 * Feature - Updated the Organizer/Venue metabox UI to be more helpful when adding/editing events
 * Feature - Added calendar icon to the Admin Bar (Fancy!)
 * Feature - Added new shortcodes letting the featured venue, advanced list and event countdown widgets be embedded easily in posts and pages
@@ -397,7 +411,7 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Fixed an issue where the incorrect icon was displaying for the 'List' option in the view switcher
 * Fixed a translation issue with the Organizer & Venue field labels on the Add/Edit Event screen (thanks to Oliver for reporting this on the forums!)
 * Enhanced structured data support in relation to the ticketing framework
-* Removed jquery 1.7 specific fallback javascript bloat, now support >= 1.8 
+* Removed jquery 1.7 specific fallback javascript bloat, now support >= 1.8
 * Revised CSS to help avoid theme compatibility issues causing event dates/times to be hidden (thanks to thepresenters on the forum for the first report!)
 * Improved integration between the ticketing framework and the Filter Bar plugin (thanks to brandonpence on the forums for the heads up here!)
 * Added useful system information to the help screen to assist in support and troubleshooting for the core plugin
@@ -431,7 +445,7 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Reformatted the overall codebase to adhere to WordPress coding standards
 * Removed /upcoming and /past from list view URLs, and change to /list (thanks to joco18 on the dot-org forum for the heads up here!)
 * Past view events are no longer reverse ordered (another thanks to joco18 on the dot-org forum for this one too!)
-* Changed page titles to show date range of currently displayed events when a date is selected in the tribe bar 
+* Changed page titles to show date range of currently displayed events when a date is selected in the tribe bar
 * Removed the “audit trail" functionality
 * Fixed bug when using default permalinks, where Day view would link to the home page (thanks to thestudiodoor on the forums for first reporting this!)
 * Moved ajax view handlers to the appropriate template classes
@@ -552,7 +566,7 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Added fully responsive styles and functionality for all Events views! For an overview of the changes, see <a href="http://m.tri.be/hv">this blog post</a>
 * Added javascript templating for use in tooltips and mobile views were needed
 * Updated Countdown widget styling to match TwentyEleven/TwentyTwelve/TwentyThirteen/TwentyFourteen theme styling
-* Fixed a responsive layout issue with the Classic Tribe Bar 
+* Fixed a responsive layout issue with the Classic Tribe Bar
 * Fixed a responsive layout issue with days not lining up properly in the Month view in TwentyFourteen
 * Fixed an issue where the address wasn't displaying properly in the single venue view
 * Fixed an issue where events can overlap the Date Picker in week view
@@ -733,7 +747,7 @@ Still not happy? Shoot us an email to pro@tri.be or tweet to @moderntribeinc and
 
 == Upgrade Notice ==
 
-IMPORTANT NOTICE: 3.10 is a massive update from the 3.9 build, which contains a number of changes under-the-hood. All users are encouraged to backup their site before updating, and to apply the updates on a staging/test site where they can check on + fix customizations as needed before deploying to production. 
+IMPORTANT NOTICE: 3.10 is a massive update from the 3.9 build, which contains a number of changes under-the-hood. All users are encouraged to backup their site before updating, and to apply the updates on a staging/test site where they can check on + fix customizations as needed before deploying to production.
 
 = 3.10 =
 
