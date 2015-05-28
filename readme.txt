@@ -90,8 +90,8 @@ Currently, the following add-ons are available for The Events Calendar/Events Ca
 * <a href="http://m.tri.be/2h">Facebook Events</a>, for importing events directly from an organization or page on Facebook.
 * <a href="http://m.tri.be/2f">WooCommerce Tickets</a>, for harnessing the power of WooCommerce to sell event tickets directly on your site without being subject to fees or relying on a third-party service.
 * <a href="http://m.tri.be/ci">EDD Tickets</a>, for using our ticketing framework to sell tickets on your events through The Events Calendar + Easy Digital Downloads.
-* <a href="http://m.tri.be/cu">WPEC Tickets</a>, for using WP-eCommerce + The Events Calendar to sell event tickets directly from the frontend of your site. 
-* <a href="http://m.tri.be/dp">Shopp Tickets</a>, for harnessing the power of Shopp to sell event tickets on your WordPress site. 
+* <a href="http://m.tri.be/cu">WPEC Tickets</a>, for using WP-eCommerce + The Events Calendar to sell event tickets directly from the frontend of your site.
+* <a href="http://m.tri.be/dp">Shopp Tickets</a>, for harnessing the power of Shopp to sell event tickets on your WordPress site.
 * <a href="http://m.tri.be/fa">Filter Bar</a>, for adding advanced frontend filtering capabilities to your events calendar.
 
 = I have a feature idea. What's the best way to tell you about it? =
@@ -234,7 +234,7 @@ Our Premium Plugins:
 * Bug - Addressed numerous minor styling issues with the Twenty Fifteen theme
 * Tweak - Made some changes to the EOD cutoff functionality behavior
 
-= [3.10] 2015-04-30 =
+= [3.10] 2015-06-09 =
 
 * Bug - Fixed a bug where private events were being indicated on the Mini Calendar Widget, even though you couldn't see them
 * Bug - Fixed a minor issue with recurring event tooltips within the advanced list widget
@@ -246,13 +246,19 @@ Our Premium Plugins:
 * Bug - Fixed a bug where resizing browser window caused Week View header to expand its height
 * Bug - Fixed a bug with the tooltip improperly HTML escaping characters twice
 * Bug - Fixed issues with allday multiday events in Week View when Week Starts On was changed (Thanks to Mark Root-Wiley for reporting this)
+* Bug - Fixed related events tooltip
+* Bug - Fixed Tooltip to allow translations on recurring events
+* Bug - Fixed the recurring query logic, now only applied to the correct places, widgets are safe again!
+* Tweak - Improved the iCal exporting to follow RFC 5545 Standards
+* Tweak - Improved Google Maps to prevent 0,0 coordinates to be saved
+* Tweak - Improved Map View to prevent category search to show event from outside of the current category
 * Tweak - Existing all day events will now adjust properly when the EOD cutoff is changed
 * Tweak - Updated tooltip positioning logic for week view to account for more edge cases
 * Tweak - Updated week view to better handle very short events and long titles
 * Tweak - Ensured all non critical vendor files will not end up bundled in the final plugin zip
 * Tweak - Scheduled task responsible for generating recurring events is now removed when the plugin is deactivated
 * Tweak - Added some changelog formatting enhancements after seeing keepachangelog.com :)
-* Tweak - Removed some unnecessary variable logic from some templates 
+* Tweak - Removed some unnecessary variable logic from some templates
 * Tweak - Improved the recurring event user interface in relation to events ending after "x" cycles
 * Tweak - Updated the mini-calendar widget to match the list widget styling
 * Tweak - More robust activation and deactivation methods
@@ -268,6 +274,7 @@ Our Premium Plugins:
 * Feature - Incorporated new Slovak translation files, courtesy of Emilia Valova
 * Feature - Incorporated new British English translation files, courtesy of John Browning
 * Feature - Incorporated updated Icelandic translation files, courtesy of Baldvin Örn Berndsen
+* Feature - Now you can overwrite the Coordinates of an event manually with a field
 
 = 3.9.3 =
 
