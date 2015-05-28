@@ -348,6 +348,9 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Bug - Fixed a bug where ticket emails did not include the expected venue links
 * Bug - Fixed a PHP notice in the templates class
 * Bug - Resolved mobile CSS on the administration for events listing
+* Bug - Clicking "View all X Events" on a Month View category will now only show you events in the category you were viewing
+* Bug - CSV importer can now accept the Venue Website field
+* Tweak - The CSV importer can now handle multiple formats for true / false values in all fields
 * Tweak - Ensured previous and next event link titles on single events are passed through the_title filter (PR #26 from @Morhaus)
 * Tweak - Better description of how to use Google Rich Snippets
 * Tweak - Improved Month day navigation for Mobile Views
