@@ -341,8 +341,9 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Bug - Fixed an issue where tooltips were not respecting the Time Range Separator
 * Bug - Fixed an issue preventing list view from being accessed when default permalinks are in use
 * Bug - Fixed an issue causing unnecessary post meta data to be generated for new venues
-* Tweak - Removed unnecessary logic for variables in some front-end templates
 * Bug - Fixed a bug where ticket emails did not include the expected venue links
+* Bug - Fixed issued where a URL query string ended with a slash
+* Tweak - Removed unnecessary logic for variables in some front-end templates
 * Tweak - Removed all WooTickets CSS from Core
 * Tweak - Implemented under-the-hood enhancements to the main event editor meta box
 * Tweak - More robust plugin activation and deactivation
