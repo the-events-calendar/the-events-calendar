@@ -341,13 +341,18 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Bug - Fixed an issue where tooltips were not respecting the Time Range Separator
 * Bug - Fixed an issue preventing list view from being accessed when default permalinks are in use
 * Bug - Fixed an issue causing unnecessary post meta data to be generated for new venues
-* Bug - Fixed issued where a URL query string ended with a slash
+* Bug - Fixed issued where a URL query string ended with a slash (Thanks to Mark Root-Wiley for reporting this)
+* Bug - Fixed a PHP notice in the templates class
 * Bug - Fixed an issue causing the Date separator to be incorrectly escaped
 * Bug - Fixed an issue causing Permission Denied for the Addons Page
 * Bug - Fixed an issue where WordPress without permalinks was creating non re-usable links
 * Bug - Fixed a bug where ticket emails did not include the expected venue links
 * Bug - Fixed a PHP notice in the templates class
 * Bug - Resolved mobile CSS on the administration for events listing
+* Bug - Clicking "View all X Events" on a Month View category will now only show you events in the category you were viewing
+* Bug - CSV importer can now accept the Venue Website field
+* Tweak - The CSV importer can now handle multiple formats for true / false values in all fields
+* Tweak - Ensured previous and next event link titles on single events are passed through the_title filter (PR #26 from @Morhaus)
 * Tweak - Amped event featured images by having WordPress' built-in functions output them
 * Tweak - Better description of how to use Google Rich Snippets
 * Tweak - Improved Month day navigation for Mobile Views
@@ -367,6 +372,7 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Tweak - Ensured all non critical vendor files will not end up bundled in the final plugin zip
 * Tweak - Added some changelog formatting enhancements after seeing keepachangelog.com :)
 * Tweak - Implemented performance enhancements in relation to list view pagination
+* Feature - Added new tribe_event_is_on_day() function
 * Feature - Added a setting to enable HTML caching on Month view, which will provide a huge performance improvement on Month View for sites with many events per day
 * Feature - Updated the Organizer/Venue metabox UI to be more helpful when adding/editing events
 * Feature - Added calendar icon to the Admin Bar (Fancy!)
