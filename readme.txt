@@ -348,6 +348,7 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Bug - Fixed a bug where ticket emails did not include the expected venue links
 * Bug - Fixed a PHP notice in the templates class
 * Bug - Resolved mobile CSS on the administration for events listing
+* Tweak - Amped event featured images by having WordPress' built-in functions output them
 * Tweak - Better description of how to use Google Rich Snippets
 * Tweak - Improved Month day navigation for Mobile Views
 * Tweak - Removed unnecessary logic for variables in some front-end templates
