@@ -241,6 +241,7 @@ Our Premium Plugins:
 * Bug - Fixed a bug preventing the view link from appearing for updated venues and organizers
 * Bug - Fixed handling of recurrence splitting when hiding events from the front-end
 * Bug - Fixed a bug that allowed invalid dates to be used in the Mini Cal widget
+* Bug - Fixed a bug that caused the JetPack Visibility option to incorrectly hide other widgets when the Event List Widget is active
 * Tweak - Updated tooltip positioning logic for week view to account for more edge cases
 * Tweak - Updated week view to better handle very short events and long titles
 * Tweak - Ensured all non critical vendor files will not end up bundled in the final plugin zip
