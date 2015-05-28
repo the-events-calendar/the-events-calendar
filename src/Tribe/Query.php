@@ -796,7 +796,7 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 							$terms[0] = $term_id;
 						} elseif ( is_string( $term_id ) ) {
 							$term = get_term_by( 'slug', $term_id, Tribe__Events__Main::TAXONOMY );
-							if ( ! is_wp_error( $term ) ) {
+							if ( $term ) {
 								$terms[0] = $term->term_id;
 							}
 						}
