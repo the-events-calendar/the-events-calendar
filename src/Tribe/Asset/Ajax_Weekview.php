@@ -8,7 +8,7 @@ class Tribe__Events__Pro__Asset__Ajax_Weekview extends Tribe__Events__Asset__Abs
 			'ajaxurl'   => admin_url( 'admin-ajax.php', ( is_ssl() ? 'https' : 'http' ) ),
 			'post_type' => Tribe__Events__Main::POSTTYPE,
 		);
-		$path = Tribe__Events__Template_Factory::getMinFile( tribe_events_resource_url( 'tribe-events-ajax-day.js' ), true );
+		$path = Tribe__Events__Template_Factory::getMinFile( tribe_events_resource_url( 'tribe-events-ajax-week.js' ), true );
 
 		$handle = 'tribe-events-ajax-day';
 		wp_enqueue_script( $handle, $path, array( 'tribe-events-bar' ), $this->filter_js_version(), true );
