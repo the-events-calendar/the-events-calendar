@@ -256,7 +256,6 @@ Our Premium Plugins:
 * Tweak - More flexible handling of default values to work with The Events Calendar 3.10
 * Tweak - Ensured that old recurring events are cleaned up on schedule
 * Tweak - Suped up usability for events with short durations in Week View
-* Tweak - Amped event featured images by having WordPress' built-in functions output them
 * Feature - Totally rebuilt WEEK VIEW!
 * Feature - Added a new additional field type (textareas) to compliment the existing text field
 * Feature - Replaced scrolling library on week view for better performance and extensibility
