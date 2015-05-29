@@ -76,7 +76,7 @@ if ( ! class_exists( 'Tribe__Events__Pro__Venue_Widget' ) ) {
 					'nopaging'  => true
 				) );
 			$instance = wp_parse_args( (array) $instance, $defaults );
-			include( Tribe__Events__Pro__Main::instance()->pluginPath . 'src/cadmin-views/widget-admin-venue.php' );
+			include( Tribe__Events__Pro__Main::instance()->pluginPath . 'src/admin-views/widget-admin-venue.php' );
 		}
 
 		// Function allowing updating of widget information.
