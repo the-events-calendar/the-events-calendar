@@ -925,8 +925,8 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 
 	/**
 	 * Placeholder function that is used for ticketing plugins meant to be filtered by such plugins
-			$featured_image .= '<div class="tribe-events-event-image"><img src="' . $image_src[0] . '" title="' . get_the_title( $post_id ) . '" alt="' . get_the_title( $post_id ) . '" /></div>';
 	 *
+	 * @todo possible candidate for deprecation - confirm if still required by other plugins
 	 * @category Tickets
 	 * @return void
 	 */

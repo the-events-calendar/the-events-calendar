@@ -4,7 +4,7 @@
   "repository": "git@github.com:moderntribe/the-events-calendar.git",
   "_zipname": "the-events-calendar",
   "_zipfoldername": "the-events-calendar",
-  "_resourcepath": "resources",
+  "_resourcepath": "src/resources",
   "engines": {
     "node": "0.10.30",
     "npm": "1.4.23"

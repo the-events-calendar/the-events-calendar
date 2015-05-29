@@ -17,19 +17,19 @@ module.exports = {
 
 	resourcescripts: [
 
-		'<%= pkg._resourcepath %>/events-admin.processed.js',
-		'<%= pkg._resourcepath %>/tickets.processed.js',
-		'<%= pkg._resourcepath %>/tickets-attendees.processed.js',
-		'<%= pkg._resourcepath %>/tribe-events.processed.js',
-		'<%= pkg._resourcepath %>/tribe-events-ajax-calendar.processed.js',
-		'<%= pkg._resourcepath %>/tribe-events-ajax-day.processed.js',
-		'<%= pkg._resourcepath %>/tribe-events-ajax-list.processed.js',
-		'<%= pkg._resourcepath %>/tribe-events-bar.processed.js',
-		'<%= pkg._resourcepath %>/tribe-settings.processed.js'
+		'<%= pkg._resourcepath %>/js/events-admin.processed.js',
+		'<%= pkg._resourcepath %>/js/tickets.processed.js',
+		'<%= pkg._resourcepath %>/js/tickets-attendees.processed.js',
+		'<%= pkg._resourcepath %>/js/tribe-events.processed.js',
+		'<%= pkg._resourcepath %>/js/tribe-events-ajax-calendar.processed.js',
+		'<%= pkg._resourcepath %>/js/tribe-events-ajax-day.processed.js',
+		'<%= pkg._resourcepath %>/js/tribe-events-ajax-list.processed.js',
+		'<%= pkg._resourcepath %>/js/tribe-events-bar.processed.js',
+		'<%= pkg._resourcepath %>/js/tribe-settings.processed.js'
 	],
 
 	resourcecss: [
-		'<%= pkg._resourcepath %>/*.min.css'
+		'<%= pkg._resourcepath %>/css/*.min.css'
 	]
 
 

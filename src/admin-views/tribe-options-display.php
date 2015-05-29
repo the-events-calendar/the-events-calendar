@@ -113,7 +113,7 @@ $displayTab = array(
 			'enable_month_view_cache' => array(
 				'type'            => 'checkbox_bool',
 				'label'           => __( 'Enable the Month View Cache', 'tribe-events-calendar' ),
-				'tooltip'         => sprintf( __( 'Check this to cache your month view HTML in transients, which can help improve calendar speed on sites with many events. <a href="%s">Read more</a>.', 'tribe-events-calendar' ), 'LINK NEEDED' ),
+				'tooltip'         => sprintf( __( 'Check this to cache your month view HTML in transients, which can help improve calendar speed on sites with many events. <a href="%s">Read more</a>.', 'tribe-events-calendar' ), 'http://m.tri.be/18di' ),
 				'default'         => false,
 				'validation_type' => 'boolean',
 			),
