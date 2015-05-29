@@ -37,21 +37,21 @@ class Tribe__Events__Admin__Helpers {
 	 *
 	 * @return boolean
 	 */
-	public function is_post_type_screen( $post_type = null ){
+	public function is_post_type_screen( $post_type = null ) {
 		global $current_screen;
 
 		// Not in the admin we don't even care
-		if ( ! is_admin() ){
+		if ( ! is_admin() ) {
 			return false;
 		}
 
 		// Not doing AJAX
-		if ( defined( 'DOING_AJAX' ) && DOING_AJAX ){
+		if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
 			return false;
 		}
 
 		// Avoid Notices by checking the object type of WP_Screen
-		if ( ! ( $current_screen instanceof WP_Screen ) ){
+		if ( ! ( $current_screen instanceof WP_Screen ) ) {
 			return false;
 		}
 
@@ -62,17 +62,17 @@ class Tribe__Events__Admin__Helpers {
 		);
 
 		// Match any Post Type form Tribe
-		if ( is_null( $post_type ) && in_array( $current_screen->post_type, $defaults ) ){
+		if ( is_null( $post_type ) && in_array( $current_screen->post_type, $defaults ) ) {
 			return true;
 		}
 
 		// Match any of the post_types set
-		if ( ! is_scalar( $post_type ) && in_array( $current_screen->post_type, (array) $post_type ) ){
+		if ( ! is_scalar( $post_type ) && in_array( $current_screen->post_type, (array) $post_type ) ) {
 			return true;
 		}
 
 		// Match a specific Post Type
-		if ( $current_screen->post_type === $post_type ){
+		if ( $current_screen->post_type === $post_type ) {
 			return true;
 		}
 
@@ -86,36 +86,36 @@ class Tribe__Events__Admin__Helpers {
 	 *
 	 * @return boolean
 	 */
-	public function is_screen( $id = null ){
+	public function is_screen( $id = null ) {
 		global $current_screen;
 
 		// Not in the admin we don't even care
-		if ( ! is_admin() ){
+		if ( ! is_admin() ) {
 			return false;
 		}
 
 		// Not doing AJAX
-		if ( defined( 'DOING_AJAX' ) && DOING_AJAX ){
+		if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
 			return false;
 		}
 
 		// Avoid Notices by checking the object type of WP_Screen
-		if ( ! ( $current_screen instanceof WP_Screen ) ){
+		if ( ! ( $current_screen instanceof WP_Screen ) ) {
 			return false;
 		}
 
 		// Match any screen from Tribe
-		if ( is_null( $id ) && false !== strpos( $current_screen->id, 'tribe' ) ){
+		if ( is_null( $id ) && false !== strpos( $current_screen->id, 'tribe' ) ) {
 			return true;
 		}
 
 		// Match any of the pages set
-		if ( ! is_scalar( $id ) && in_array( $current_screen->id, (array) $id ) ){
+		if ( ! is_scalar( $id ) && in_array( $current_screen->id, (array) $id ) ) {
 			return true;
 		}
 
 		// Match a specific page
-		if ( $current_screen->id === $id ){
+		if ( $current_screen->id === $id ) {
 			return true;
 		}
 
