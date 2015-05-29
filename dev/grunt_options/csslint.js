@@ -29,7 +29,7 @@ module.exports = {
 			import: false,
 			force:true
 		},
-		src: ['<%= pkg._resourcepath %>/*.css', '<%= pkg._resourcepath %>/!*.min.css']
+		src: ['<%= pkg._resourcepath %>/css/*.css', '<%= pkg._resourcepath %>/css/!*.min.css']
 	}
 
 };

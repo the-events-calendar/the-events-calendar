@@ -17,19 +17,19 @@ module.exports = {
 
 	resourcescripts: [
 
-		'<%= pkg._resourcepath %>/calendar-widget-admin.processed.js',
-		'<%= pkg._resourcepath %>/events-admin.processed.js',
-		'<%= pkg._resourcepath %>/tribe-events-ajax-maps.processed.js',
-		'<%= pkg._resourcepath %>/tribe-events-mini-ajax.processed.js',
-		'<%= pkg._resourcepath %>/tribe-events-photo-view.processed.js',
-		'<%= pkg._resourcepath %>/tribe-events-pro.processed.js',
-		'<%= pkg._resourcepath %>/tribe-events-week.processed.js',
-		'<%= pkg._resourcepath %>/widget-calendar.processed.js',
-		'<%= pkg._resourcepath %>/widget-countdown.processed.js'
+		'<%= pkg._resourcepath %>/js/calendar-widget-admin.processed.js',
+		'<%= pkg._resourcepath %>/js/events-admin.processed.js',
+		'<%= pkg._resourcepath %>/js/tribe-events-ajax-maps.processed.js',
+		'<%= pkg._resourcepath %>/js/tribe-events-mini-ajax.processed.js',
+		'<%= pkg._resourcepath %>/js/tribe-events-photo-view.processed.js',
+		'<%= pkg._resourcepath %>/js/tribe-events-pro.processed.js',
+		'<%= pkg._resourcepath %>/js/tribe-events-week.processed.js',
+		'<%= pkg._resourcepath %>/js/widget-calendar.processed.js',
+		'<%= pkg._resourcepath %>/js/widget-countdown.processed.js'
 	],
 
 	resourcecss: [
-		'<%= pkg._resourcepath %>/*.min.css'
+		'<%= pkg._resourcepath %>/css/*.min.css'
 	]
 
 };

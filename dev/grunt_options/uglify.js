@@ -17,15 +17,15 @@ module.exports = {
 	resourcescripts: {
 
 		files: {
-			'<%= pkg._resourcepath %>/calendar-widget-admin.min.js' : '<%= pkg._resourcepath %>/calendar-widget-admin.processed.js',
-			'<%= pkg._resourcepath %>/events-admin.min.js' : '<%= pkg._resourcepath %>/events-admin.processed.js',
-			'<%= pkg._resourcepath %>/tribe-events-ajax-maps.min.js' : '<%= pkg._resourcepath %>/tribe-events-ajax-maps.processed.js',
-			'<%= pkg._resourcepath %>/tribe-events-mini-ajax.min.js' : '<%= pkg._resourcepath %>/tribe-events-mini-ajax.processed.js',
-			'<%= pkg._resourcepath %>/tribe-events-photo-view.min.js' : '<%= pkg._resourcepath %>/tribe-events-photo-view.processed.js',
-			'<%= pkg._resourcepath %>/tribe-events-pro.min.js' : '<%= pkg._resourcepath %>/tribe-events-pro.processed.js',
-			'<%= pkg._resourcepath %>/tribe-events-week.min.js' : '<%= pkg._resourcepath %>/tribe-events-week.processed.js',
-			'<%= pkg._resourcepath %>/widget-calendar.min.js' : '<%= pkg._resourcepath %>/widget-calendar.processed.js',
-			'<%= pkg._resourcepath %>/widget-countdown.min.js' : '<%= pkg._resourcepath %>/widget-countdown.processed.js'
+			'<%= pkg._resourcepath %>/js/calendar-widget-admin.min.js' : '<%= pkg._resourcepath %>/js/calendar-widget-admin.processed.js',
+			'<%= pkg._resourcepath %>/js/events-admin.min.js' : '<%= pkg._resourcepath %>/js/events-admin.processed.js',
+			'<%= pkg._resourcepath %>/js/tribe-events-ajax-maps.min.js' : '<%= pkg._resourcepath %>/js/tribe-events-ajax-maps.processed.js',
+			'<%= pkg._resourcepath %>/js/tribe-events-mini-ajax.min.js' : '<%= pkg._resourcepath %>/js/tribe-events-mini-ajax.processed.js',
+			'<%= pkg._resourcepath %>/js/tribe-events-photo-view.min.js' : '<%= pkg._resourcepath %>/js/tribe-events-photo-view.processed.js',
+			'<%= pkg._resourcepath %>/js/tribe-events-pro.min.js' : '<%= pkg._resourcepath %>/js/tribe-events-pro.processed.js',
+			'<%= pkg._resourcepath %>/js/tribe-events-week.min.js' : '<%= pkg._resourcepath %>/js/tribe-events-week.processed.js',
+			'<%= pkg._resourcepath %>/js/widget-calendar.min.js' : '<%= pkg._resourcepath %>/js/widget-calendar.processed.js',
+			'<%= pkg._resourcepath %>/js/widget-countdown.min.js' : '<%= pkg._resourcepath %>/js/widget-countdown.processed.js'
 		}
 	}
 
