@@ -236,45 +236,44 @@ Our Premium Plugins:
 
 = [3.10] 2015-06-09 =
 
-* Bug - Fixed a bug where private events were being indicated on the Mini Calendar Widget, even though you couldn't see them
-* Bug - Fixed a minor issue with recurring event tooltips within the advanced list widget
+* Bug - Fixed a bug where private events were being indicated on the Mini Calendar Widget, even though you couldn't see them (thanks to calach on the forums for the report!)
+* Bug - Fixed a minor issue with recurring event tooltips within the advanced list widget (thanks to Daniella on the forums for the heads up!)
 * Bug - Fixed an issue which caused the default venue fields to be automatically inserted within the event editor
 * Bug - Fixed a bug preventing the view link from appearing for updated venues and organizers
 * Bug - Fixed handling of recurrence splitting when hiding events from the front-end
 * Bug - Fixed a bug that allowed invalid dates to be used in the Mini Cal widget
-* Bug - Fixed a bug that caused the JetPack Visibility option to incorrectly hide other widgets when the Event List Widget is active
+* Bug - Fixed a bug that caused the JetPack Visibility option to incorrectly hide other widgets when the Event List Widget is active (thanks to Daniella on the forums for this report, too!)
 * Bug - Fixed a bug where resizing browser window caused Week View header to expand its height
-* Bug - Fixed a bug with the tooltip improperly HTML escaping characters twice
-* Bug - Fixed issues with allday multiday events in Week View when Week Starts On was changed (Thanks to Mark Root-Wiley for reporting this)
-* Bug - Fixed related events tooltip
-* Bug - Fixed Tooltip to allow translations on recurring events
+* Bug - Fixed a bug with the tooltip improperly HTML escaping characters twice (thanks to evertramos on the dot-org forums for the report!)
+* Bug - Fixed issues with all day multiday events in Week View when Week Starts On was changed (thanks to Mark Root-Wiley for reporting this!)
+* Bug - Fixed Tooltip to allow translations on recurring events (big thanks to quagis on the forums for the first report!)
 * Bug - Fixed the recurring query logic, now only applied to the correct places, widgets are safe again!
-* Tweak - Improved the iCal exporting to follow RFC 5545 Standards
-* Tweak - Improved Google Maps to prevent 0,0 coordinates to be saved
+* Tweak - Improved the iCal exporting to follow RFC 5545 Standards (thanks to heritagechurch for the original idea!)
+* Tweak - Improved Google Maps to prevent 0,0 coordinates to be saved (thanks to csikimacko on the forums for sparking this revolution!)
 * Tweak - Improved Map View to prevent category search to show event from outside of the current category
 * Tweak - Existing all day events will now adjust properly when the EOD cutoff is changed
 * Tweak - Updated tooltip positioning logic for week view to account for more edge cases
-* Tweak - Updated week view to better handle very short events and long titles
+* Tweak - Updated week view to better handle very short events and long titles (thanks to csikimacko for the heads up!)
 * Tweak - Ensured all non critical vendor files will not end up bundled in the final plugin zip
 * Tweak - Scheduled task responsible for generating recurring events is now removed when the plugin is deactivated
 * Tweak - Added some changelog formatting enhancements after seeing keepachangelog.com :)
 * Tweak - Removed some unnecessary variable logic from some templates
 * Tweak - Improved the recurring event user interface in relation to events ending after "x" cycles
 * Tweak - Updated the mini-calendar widget to match the list widget styling
-* Tweak - More robust activation and deactivation methods
-* Tweak - More flexible handling of default values to work with The Events Calendar 3.10
+* Tweak - Implemented robust activation and deactivation methods
+* Tweak - Tweaked flexible handling of default values to work with The Events Calendar 3.10
 * Tweak - Ensured that old recurring events are cleaned up on schedule
 * Tweak - Suped up usability for events with short durations in Week View
-* Feature - Totally rebuilt WEEK VIEW!
+* Feature - Totally rebuilt WEEK VIEW! (thanks to Lars - aka mending - for being the wind beneath our wings here!)
 * Feature - Added a new additional field type (textareas) to compliment the existing text field
 * Feature - Replaced scrolling library on week view for better performance and extensibility
-* Feature - Introduced batch processing of recurring events to further improve performance and scalability
+* Feature - Introduced batch processing of recurring events to further improve performance and scalability (thanks to Jen at Mauitime for starting us down this path!)
+* Feature - Added the ability for mapping via latitude/longitude coordinates (thanks to Andrew W on the dot-org forums for the idea so many moons ago!)
 * Feature - Incorporated updated Bulgarian translation files, courtesy of Nedko Ivanov
 * Feature - Incorporated new Hungarian translation files, courtesy of Balazs Dobos
 * Feature - Incorporated new Slovak translation files, courtesy of Emilia Valova
 * Feature - Incorporated new British English translation files, courtesy of John Browning
 * Feature - Incorporated updated Icelandic translation files, courtesy of Baldvin Örn Berndsen
-* Feature - Now you can overwrite the Coordinates of an event manually with a field
 
 = 3.9.3 =
 
