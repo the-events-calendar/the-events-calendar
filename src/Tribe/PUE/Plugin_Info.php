@@ -4,16 +4,16 @@
  */
 
 // Don't load directly
-if ( !defined('ABSPATH') ) { die('-1'); }
+if ( ! defined( 'ABSPATH' ) ) { die('-1'); }
 
-if ( !class_exists( 'Tribe__Events__PUE__Plugin_Info' ) ) {
+if ( ! class_exists( 'Tribe__Events__PUE__Plugin_Info' ) ) {
 	/**
 	 * A container class for holding and transforming various plugin metadata.
 	 * @version 1.7
 	 * @access public
 	 */
 	class Tribe__Events__PUE__Plugin_Info {
-		//Most fields map directly to the contents of the plugin's info.json file.
+		// Most fields map directly to the contents of the plugin's info.json file.
 
 		public $name;
 		public $slug;
@@ -34,7 +34,7 @@ if ( !class_exists( 'Tribe__Events__PUE__Plugin_Info' ) ) {
 		public $downloaded;
 		public $last_updated;
 
-		public $id = 0; //The native WP.org API returns numeric plugin IDs, but they're not used for anything.
+		public $id = 0; // The native WP.org API returns numeric plugin IDs, but they're not used for anything.
 
 		/**
 		 * Create a new instance of Tribe__Events__PUE__Plugin_Info from JSON-encoded plugin info
