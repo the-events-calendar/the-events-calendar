@@ -335,27 +335,26 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 
 = [3.10] 2015-06-09 =
 
-* Bug - Resolved a compatibility issue where WooCommerce shortcodes could trigger unusual side effects in month view
-* Bug - Fixed an issue where malformed URLs could trigger fatal exceptions
-* Bug - Fixed an issue where the Venue state field was displaying for countries other than US
-* Bug - Fixed an issue where tooltips were not respecting the Time Range Separator
-* Bug - Fixed an issue preventing list view from being accessed when default permalinks are in use
+* Bug - Resolved a compatibility issue where WooCommerce shortcodes could trigger unusual side effects in month view (thanks to tmcquaid on the forums for the first report!)
+* Bug - Fixed an issue where malformed URLs could trigger fatal exceptions (thanks to go3asy on the dot-org forums for the report!)
+* Bug - Fixed an issue where the Venue state field was displaying for countries other than US (props to Oliver on the forums for the heads up!)
+* Bug - Fixed an issue where tooltips were not respecting the time range separator
+* Bug - Fixed an issue preventing list view from being accessed when default permalinks are in use (thanks to Jan on the forums for the original report!)
 * Bug - Fixed an issue causing unnecessary post meta data to be generated for new venues
-* Bug - Fixed issued where a URL query string ended with a slash (Thanks to Mark Root-Wiley for reporting this)
+* Bug - Fixed issued where a URL query string ended with a slash (thanks to Mark Root-Wiley for reporting this!)
 * Bug - Fixed a PHP notice in the templates class
 * Bug - Fixed an issue causing the Date separator to be incorrectly escaped
 * Bug - Fixed an issue causing Permission Denied for the Addons Page
-* Bug - Fixed an issue where WordPress without permalinks was creating non re-usable links
-* Bug - Fixed a bug where ticket emails did not include the expected venue links
-* Bug - Fixed a PHP notice in the templates class
-* Bug - Resolved mobile CSS on the administration for events listing
-* Bug - Clicking "View all X Events" on a Month View category will now only show you events in the category you were viewing
-* Bug - CSV importer can now accept the Venue Website field
-* Tweak - The CSV importer can now handle multiple formats for true / false values in all fields
+* Bug - Fixed an issue where default permalinks was creating non re-usable links
+* Bug - Fixed a bug where ticket emails did not include the expected venue links (thanks to aovivo on the forums for the heads up!)
+* Bug - Resolved mobile CSS issues on the backend events list
+* Bug - Clicking "View all X Events" on a Month View category will now only show you events in the category you were viewing (props to kirstyburgoine for the first report!)
+* Tweak - CSV importer can now accept the Venue Website field
+* Tweak - The CSV importer can now handle multiple formats for true / false values in all fields (thanks to wickedsharp on the forums for reporting this!)
 * Tweak - Ensured previous and next event link titles on single events are passed through the_title filter (PR #26 from @Morhaus)
 * Tweak - Amped event featured images by having WordPress' built-in functions output them
-* Tweak - Better description of how to use Google Rich Snippets
-* Tweak - Improved Month day navigation for Mobile Views
+* Tweak - Better description of how to use Google Rich Snippets (thanks to Trickshot699 at the dot-org forums for letting us know!)
+* Tweak - Improved Month day navigation for Mobile Views (thanks to mswartz for the first report on our forums!)
 * Tweak - Removed unnecessary logic for variables in some front-end templates
 * Tweak - Ensured enabled views setting is saved in the database when plugin is activated
 * Tweak - Improved compatibility with Ninja Forms
@@ -363,11 +362,11 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Tweak - Changed the sort column on event queries for a small performance improvement
 * Tweak - Improved messaging when columns are suggested for a CSV import
 * Tweak - Added messaging to warn users of potential performance issues when their events per day setting on month view is high
-* Tweak - Removed all WooTickets CSS from Core
+* Tweak - Removed all WooTickets CSS from The Events Calendar
 * Tweak - Implemented under-the-hood enhancements to the main event editor meta box
-* Tweak - More robust plugin activation and deactivation
+* Tweak - Added more robust plugin activation and deactivation
 * Tweak - Optimized registration of capabilities during install/activation
-* Tweak - Removed dependencies on ECP for handling default values
+* Tweak - Removed dependencies on Events Calendar PRO for handling default values
 * Tweak - Avoided showing the admin welcome/activation message within iframes
 * Tweak - Ensured all non critical vendor files will not end up bundled in the final plugin zip
 * Tweak - Added some changelog formatting enhancements after seeing keepachangelog.com :)
@@ -375,7 +374,7 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Feature - Added new tribe_event_is_on_day() function
 * Feature - Added a setting to enable HTML caching on Month view, which will provide a huge performance improvement on Month View for sites with many events per day
 * Feature - Updated the Organizer/Venue metabox UI to be more helpful when adding/editing events
-* Feature - Added calendar icon to the Admin Bar (Fancy!)
+* Feature - Added calendar icon to the Admin Bar (fancy!)
 * Feature - Added new shortcodes letting the featured venue, advanced list and event countdown widgets be embedded easily in posts and pages
 * Feature - Added the ability to customize the 'Event' label using the new 'tribe_event_label_singular' and 'tribe_event_label_plural' filters (Usage example: http://m.tri.be/tj)
 * Feature - Incorporated updated Bulgarian translation files, courtesy of Nedko Ivanov
