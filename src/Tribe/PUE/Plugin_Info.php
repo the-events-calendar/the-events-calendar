@@ -42,24 +42,24 @@ if ( !class_exists( 'Tribe__Events__PUE__Plugin_Info' ) ) {
 		 *
 		 * @param string $json Valid JSON string representing plugin info.
 		 *
-*@return Tribe__Events__PUE__Plugin_Info New instance of Tribe__Events__PUE__Plugin_Info, or NULL on error.
+		 *@return Tribe__Events__PUE__Plugin_Info New instance of Tribe__Events__PUE__Plugin_Info, or NULL on error.
 		 */
-		public static function from_json($json){
-			$apiResponse = json_decode($json);
-			if ( empty($apiResponse) || !is_object($apiResponse) ){
+		public static function from_json( $json ) {
+			$apiResponse = json_decode( $json );
+			if ( empty($apiResponse) || !is_object($apiResponse) ) {
 				return null;
 			}
 
-			//Very, very basic validation.
-			$valid = (isset($apiResponse->name) && !empty($apiResponse->name) && isset($apiResponse->version) && !empty($apiResponse->version)) || (isset($apiResponse->api_invalid) || isset($apiResponse->no_api));
-			if ( !$valid ){
+			// Very, very basic validation.
+			$valid = ( isset( $apiResponse->name ) && ! empty( $apiResponse->name ) && isset( $apiResponse->version ) && ! empty( $apiResponse->version ) ) || ( isset( $apiResponse->api_invalid ) || isset( $apiResponse->no_api ) );
+			if ( ! $valid ) {
 				return null;
 			}
 
 			$info = new Tribe__Events__PUE__Plugin_Info();
 
-			foreach(get_object_vars($apiResponse) as $key => $value){
-				$key = str_replace('plugin_', '', $key); //let's strip out the "plugin_" prefix we've added in plugin-updater-classes.
+			foreach ( get_object_vars( $apiResponse ) as $key => $value ) {
+				$key = str_replace( 'plugin_', '', $key ); // let's strip out the "plugin_" prefix we've added in plugin-updater-classes.
 				$info->$key = $value;
 			}
 
@@ -74,15 +74,15 @@ if ( !class_exists( 'Tribe__Events__PUE__Plugin_Info' ) ) {
 		public function to_wp_format(){
 			$info = new StdClass;
 
-			//The custom update API is built so that many fields have the same name and format
-			//as those returned by the native WordPress.org API. These can be assigned directly.
+			// The custom update API is built so that many fields have the same name and format
+			// as those returned by the native WordPress.org API. These can be assigned directly.
 
 			$sameFormat = array(
 				'name', 'slug', 'version', 'requires', 'tested', 'rating', 'upgrade_notice',
 				'num_ratings', 'downloaded', 'homepage', 'last_updated',
 			);
-			foreach($sameFormat as $field){
-				if ( isset($this->$field) ) {
+			foreach ( $sameFormat as $field ) {
+				if ( isset( $this->$field ) ) {
 					$info->$field = $this->$field;
 				} else {
 					$info->$field = NULL;
@@ -92,24 +92,21 @@ if ( !class_exists( 'Tribe__Events__PUE__Plugin_Info' ) ) {
 			//Other fields need to be renamed and/or transformed.
 			$info->download_link = $this->download_url;
 
-			if ( !empty($this->author_homepage) ){
-				$info->author = sprintf('<a href="%s">%s</a>', esc_url( $this->author_homepage ), $this->author);
+			if ( ! empty( $this->author_homepage ) ) {
+				$info->author = sprintf( '<a href="%s">%s</a>', esc_url( $this->author_homepage ), $this->author );
 			} else {
 				$info->author = $this->author;
 			}
 
-			if ( is_object($this->sections) ){
-				$info->sections = get_object_vars($this->sections);
-			} elseif ( is_array($this->sections) ) {
-
+			if ( is_object( $this->sections ) ) {
+				$info->sections = get_object_vars( $this->sections );
+			} elseif ( is_array( $this->sections ) ) {
 				$info->sections = $this->sections;
-
 			} else {
-				$info->sections = array('description' => '');
+				$info->sections = array( 'description' => '' );
 			}
 
 			return $info;
 		}
 	}
 }
-?>
