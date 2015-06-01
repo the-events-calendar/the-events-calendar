@@ -151,8 +151,10 @@ div.tribe-venue-error.error, div.tribe-organizer-error.error { margin-left:5px; 
 /* license keys */
 .ajax-loading-license, .valid-key, .invalid-key {display: none; margin: 0 5px;}
 .ajax-loading-license {position: relative; top: 5px;}
-.valid-key {color: green;}
-.invalid-key {color: red;}
+.key-validity { display: inline-block }
+.invalid-key { color: red }
+.valid-key { color: green }
+.valid-key.service-msg { color: #b72 }
 
 /* additional fields */
 #additional-field-table {margin-bottom: 20px;}

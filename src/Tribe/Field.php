@@ -608,8 +608,7 @@ if ( ! class_exists( 'Tribe__Events__Field' ) ) {
 			$field .= $this->doFieldValue();
 			$field .= '/>';
 			$field .= '<p class="license-test-results"><img src="' . esc_url( admin_url( 'images/wpspin_light.gif' ) ) . '" class="ajax-loading-license" alt="Loading" style="display: none"/>';
-			$field .= '<span class="valid-key"></span>';
-			$field .= '<span class="invalid-key"></span></p>';
+			$field .= '<span class="key-validity"></span>';
 			$field .= $this->doScreenReaderLabel();
 			$field .= $this->doFieldDivEnd();
 			$field .= $this->doFieldEnd();

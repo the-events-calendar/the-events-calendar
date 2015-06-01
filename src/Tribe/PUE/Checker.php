@@ -328,28 +328,30 @@ if ( ! class_exists( 'Tribe__Events__PUE__Checker' ) ) {
 					<?php echo $this->pue_install_key ?>_validateKey();
 				});
 				function <?php echo $this->pue_install_key ?>_validateKey() {
-					var this_id = '#tribe-field-<?php echo $this->pue_install_key ?>';
+					var this_id       = '#tribe-field-<?php echo $this->pue_install_key ?>';
+					var $validity_msg = jQuery(this_id + ' .key-validity');
+
 					if (jQuery(this_id + ' input').val() != '') {
-						jQuery(this_id + ' .invalid-key').hide();
-						jQuery(this_id + ' .valid-key').hide();
 						jQuery(this_id + ' .tooltip').hide();
 						jQuery(this_id + ' .ajax-loading-license').show();
-						//strip whitespace from key
+						$validity_msg.hide();
+
+						// Strip whitespace from key
 						var <?php echo $this->pue_install_key ?>_license_key = jQuery(this_id + ' input').val().replace(/^\s+|\s+$/g, "");
 						jQuery(this_id + ' input').val(<?php echo $this->pue_install_key ?>_license_key);
 
 						var data = { action: 'pue-validate-key_<?php echo $this->get_slug(); ?>', key: <?php echo $this->pue_install_key ?>_license_key };
 						jQuery.post(ajaxurl, data, function (response) {
-							var data = jQuery.parseJSON(response);
+							var data          = jQuery.parseJSON(response);
+
 							jQuery(this_id + ' .ajax-loading-license').hide();
-							if (data.status == '1') {
-								jQuery(this_id + ' .valid-key').show();
-								jQuery(this_id + ' .valid-key').html(data.message);
-								jQuery(this_id + ' .invalid-key').hide();
-							} else {
-								jQuery(this_id + ' .invalid-key').show();
-								jQuery(this_id + ' .invalid-key').html(data.message);
-								jQuery(this_id + ' .valid-key').hide();
+							$validity_msg.show();
+							$validity_msg.html(data.message);
+
+							switch ( data.status ) {
+								case 1: $validity_msg.addClass( 'valid-key' ); break;
+								case 2: $validity_msg.addClass( 'valid-key service-msg' ); break;
+								default: $validity_msg.addClass( 'invalid-key' ); break;
 							}
 						});
 					}
@@ -423,8 +425,9 @@ if ( ! class_exists( 'Tribe__Events__PUE__Checker' ) ) {
 				} elseif ( isset( $pluginInfo->api_invalid ) && $pluginInfo->api_invalid == 1 ) {
 					$response['message'] = __( 'Sorry, this key is not valid.', 'tribe-events-calendar' );
 				} else {
-					$response['status']     = 1;
-					$response['message']    = sprintf( __( 'Valid Key! Expires on %s', 'tribe-events-calendar' ), $pluginInfo->expiration );
+					$default_success_msg    = sprintf( __( 'Valid Key! Expires on %s', 'tribe-events-calendar' ), $pluginInfo->expiration );
+					$response['status']     = isset( $pluginInfo->api_message ) ? 2 : 1;
+					$response['message']    = isset( $pluginInfo->api_message ) ? $pluginInfo->api_message : $default_success_msg;
 					$response['expiration'] = $pluginInfo->expiration;
 				}
 			} else {
