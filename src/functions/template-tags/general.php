@@ -841,6 +841,17 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 
 		$costs = array_map( 'tribe_map_cost_array_callback', $costs );
 		foreach ( $costs as $index => $value ) {
+			// try to find the lowest numerical value in a possible range
+			if ( preg_match( '/^(-?[\d]+)[^\d\.]+([\d\.]+)/', $value, $matches ) ) {
+				$values = array(
+					$matches[1],
+					$matches[2],
+				);
+
+				$costs[ $index ] = min( $values );
+				continue;
+			}
+
 			$costs[$index] = preg_replace( '/^[^\d]+(\d+\.?\d*)?.*$/', '$1', $value );
 		}
 		if ( empty( $costs ) ) {
@@ -868,6 +879,17 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 
 		$costs = array_map( 'tribe_map_cost_array_callback', $costs );
 		foreach ( $costs as $index => $value ) {
+			// try to find the highest numerical value in a possible range
+			if ( preg_match( '/^(-?[\d]+)[^\d\.]+([\d\.]+)/', $value, $matches ) ) {
+				$values = array(
+					$matches[1],
+					$matches[2],
+				);
+
+				$costs[ $index ] = max( $values );
+				continue;
+			}
+
 			$costs[$index] = preg_replace( '/^[^\d]+(\d+\.?\d*)?.*$/', '$1', $value );
 		}
 
