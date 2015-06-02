@@ -240,8 +240,8 @@ var ticketHeaderImage = window.ticketHeaderImage || {};
 						$( '#ticket_start_date' ).val( start_date );
 						$( '#ticket_end_date' ).val( end_date );
 
-						var $start_meridian = $( document.getElementById( 'ticket_start_meridian' ) );
-						var $end_meridian = $( document.getElementById( 'ticket_end_meridian' ) );
+						var $start_meridian = $( document.getElementById( 'ticket_start_meridian' ) ),
+						      $end_meridian = $( document.getElementById( 'ticket_end_meridian' ) );
 
 						if ( response.data.start_date ) {
 							var start_hour = parseInt( response.data.start_date.substring( 11, 13 ) );
