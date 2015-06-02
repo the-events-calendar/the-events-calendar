@@ -835,35 +835,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @return int the minimum cost.
 	 */
 	function tribe_get_minimum_cost() {
-		global $wpdb;
-
-		$costs = $wpdb->get_col( 'SELECT meta_value FROM ' . $wpdb->postmeta . ' WHERE meta_key = \'_EventCost\';' );
-
-		$costs = array_map( 'tribe_map_cost_array_callback', $costs );
-		foreach ( $costs as $index => $value ) {
-			// try to find the lowest numerical value in a possible range
-			if ( preg_match( '/^(-?[\d]+)[^\d\.]+([\d\.]+)/', $value, $matches ) ) {
-				$values = array(
-					$matches[1],
-					$matches[2],
-				);
-
-				$costs[ $index ] = min( $values );
-				continue;
-			}
-
-			$costs[$index] = preg_replace( '/^[^\d]+(\d+\.?\d*)?.*$/', '$1', $value );
-		}
-		if ( empty( $costs ) ) {
-			$costs = array( '0' );
-		}
-
-		$min = min( $costs );
-		if ( $min == '' ) {
-			$min = 0;
-		}
-
-		return $min;
+		return Tribe__Events__Cost_Utils::instance()->get_minimum_cost();
 	}
 
 	/**
@@ -873,36 +845,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @return int the maximum cost.
 	 */
 	function tribe_get_maximum_cost() {
-		global $wpdb;
-
-		$costs = $wpdb->get_col( 'SELECT meta_value FROM ' . $wpdb->postmeta . ' WHERE meta_key = \'_EventCost\';' );
-
-		$costs = array_map( 'tribe_map_cost_array_callback', $costs );
-		foreach ( $costs as $index => $value ) {
-			// try to find the highest numerical value in a possible range
-			if ( preg_match( '/^(-?[\d]+)[^\d\.]+([\d\.]+)/', $value, $matches ) ) {
-				$values = array(
-					$matches[1],
-					$matches[2],
-				);
-
-				$costs[ $index ] = max( $values );
-				continue;
-			}
-
-			$costs[$index] = preg_replace( '/^[^\d]+(\d+\.?\d*)?.*$/', '$1', $value );
-		}
-
-		if ( empty( $costs ) ) {
-			$costs = array( '0' );
-		}
-
-		$max = max( $costs );
-		if ( $max == '' ) {
-			$max = 0;
-		}
-
-		return $max;
+		return Tribe__Events__Cost_Utils::instance()->get_maximum_cost();
 	}
 
 	/**
