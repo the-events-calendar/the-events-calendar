@@ -48,7 +48,7 @@ Outside of that object you will note something like this:
       "version": "3.7",
       "repository": "git@github.com:moderntribe/the-events-calendar.git",
       "_bowerpath": "dev/bower_components",
-      "_resourcepath": "resources",
+      "_resourcepath": "src/resources",
       "_componentpath": "dev/dev_components",
       "engines": {
         "node": "0.10.30",
@@ -61,12 +61,12 @@ For example, we can use them in Grunt tasks like so:
 
 	libs: {
     		src: [
-    			'<%= pkg._resourcepath %>/debug/ba-debug.js',
-    			'<%= pkg._resourcepath %>/jquery-ui/ui/jquery.ui.core.js',
-    			'<%= pkg._resourcepath %>/jquery-ui/ui/jquery.ui.effect.js',
-    			'<%= pkg._resourcepath %>/jquery.fitvids/jquery.fitvids.js'
+    			'<%= pkg._resourcepath %>/js/debug/ba-debug.js',
+    			'<%= pkg._resourcepath %>/js/jquery-ui/ui/jquery.ui.core.js',
+    			'<%= pkg._resourcepath %>/js/jquery-ui/ui/jquery.ui.effect.js',
+    			'<%= pkg._resourcepath %>/js/jquery.fitvids/jquery.fitvids.js'
     		],
-    		dest: '<%= pkg._resourcepath %>/libs.js'
+    		dest: '<%= pkg._resourcepath %>/js/libs.js'
     	},
 
 When installing new packages make sure you add the flag `--save-dev` to add them to the package.json file.
