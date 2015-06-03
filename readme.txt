@@ -4,8 +4,8 @@ Contributors:  ModernTribe, roblagatta, faction23, jazbek, jbrinley, leahkoerper
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
 Donate link: http://m.tri.be/29
 Requires at least: 3.9
-Tested up to: 4.2
-Stable tag: 3.9.3
+Tested up to: 4.2.2
+Stable tag: 3.10
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -107,9 +107,9 @@ If you're unclear about the installation process or get stuck, check out our <a 
 
 = Requirements =
 
-* PHP 5.2 or above
-* WordPress 3.8 or above
-* jQuery 1.8 or above
+* PHP 5.2.4 or greater (recommended: PHP 5.4 or greater)
+* WordPress 3.9 or above
+* jQuery 1.11.x
 
 == Screenshots ==
 
@@ -136,9 +136,9 @@ No, this plugin does not use a shortcode nor is one available at the time being.
 
 = Are there any troubleshooting steps you'd suggest I try that might resolve my issue before I post a new thread? =
 
-First, make sure that you're running the latest version of The Events Calendar (3.9 as of this release). If you're running Events Calendar PRO it needs to match the version number of The Events Calendar. And if you've got any other add-ons, make sure those are current / running the latest code as well.
+First, make sure that you're running the latest version of The Events Calendar (3.10 as of this release). If you're running Events Calendar PRO it needs to match the version number of The Events Calendar. And if you've got any other add-ons, make sure those are current / running the latest code as well.
 
-The most common issues we see are either plugin or theme conflicts. You can test if a plugin or theme is conflicting by manually deactivating other plugins until just The Events Calendar 3.9 is running on your site. If the issue persists from there, revert to the default Twenty Fourteen theme. If the issue is resolved after deactivating a specific plugin or your theme, you'll know that is the source of the conflict.
+The most common issues we see are either plugin or theme conflicts. You can test if a plugin or theme is conflicting by manually deactivating other plugins until just The Events Calendar 3.10 is running on your site. If the issue persists from there, revert to the default Twenty Fourteen theme. If the issue is resolved after deactivating a specific plugin or your theme, you'll know that is the source of the conflict.
 
 Note that we aren't going to say "tough luck" if you identify a plugin/theme conflict. While we can't guarantee 100% integration with any plugin or theme out there, we will do our best (and reach out the plugin/theme author as needed) to figure out a solution that benefits everyone.
 
@@ -334,35 +334,48 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Feature - Enhancements to month view class + queries
 * Feature - Allowing yes/true boolean imports for “Show Google Maps (link)” field in CSV import
 
-= [3.10] 2015-04-30 =
+= [3.10] 2015-06-09 =
 
-* Bug - Resolved a compatibility issue where WooCommerce shortcodes could trigger unusual side effects in month view
-* Bug - Fixed an issue where malformed URLs could trigger fatal exceptions
-* Bug - Fixed an issue where the Venue state field was displaying for countries other than US
-* Bug - Fixed an issue where tooltips were not respecting the Time Range Separator
-* Bug - Fixed an issue preventing list view from being accessed when default permalinks are in use
+* Bug - Resolved a compatibility issue where WooCommerce shortcodes could trigger unusual side effects in month view (thanks to tmcquaid on the forums for the first report!)
+* Bug - Fixed an issue where malformed URLs could trigger fatal exceptions (thanks to go3asy on the dot-org forums for the report!)
+* Bug - Fixed an issue where the Venue state field was displaying for countries other than US (props to Oliver on the forums for the heads up!)
+* Bug - Fixed an issue where tooltips were not respecting the time range separator
+* Bug - Fixed an issue preventing list view from being accessed when default permalinks are in use (thanks to Jan on the forums for the original report!)
 * Bug - Fixed an issue causing unnecessary post meta data to be generated for new venues
+* Bug - Fixed issued where a URL query string ended with a slash (thanks to Mark Root-Wiley for reporting this!)
 * Bug - Fixed a PHP notice in the templates class
+* Bug - Fixed an issue causing the Date separator to be incorrectly escaped
+* Bug - Fixed an issue causing Permission Denied for the Addons Page
+* Bug - Fixed an issue where default permalinks was creating non re-usable links
+* Bug - Fixed a bug where ticket emails did not include the expected venue links (thanks to aovivo on the forums for the heads up!)
+* Bug - Resolved mobile CSS issues on the backend events list
+* Bug - Clicking "View all X Events" on a Month View category will now only show you events in the category you were viewing (props to kirstyburgoine for the first report!)
+* Tweak - CSV importer can now accept the Venue Website field
+* Tweak - The CSV importer can now handle multiple formats for true / false values in all fields (thanks to wickedsharp on the forums for reporting this!)
+* Tweak - Ensured previous and next event link titles on single events are passed through the_title filter (PR #26 from @Morhaus)
+* Tweak - Amped event featured images by having WordPress' built-in functions output them
+* Tweak - Better description of how to use Google Rich Snippets (thanks to Trickshot699 at the dot-org forums for letting us know!)
+* Tweak - Improved Month day navigation for Mobile Views (thanks to mswartz for the first report on our forums!)
 * Tweak - Removed unnecessary logic for variables in some front-end templates
-* Bug - Fixed a bug where ticket emails did not include the expected venue links
 * Tweak - Ensured enabled views setting is saved in the database when plugin is activated
 * Tweak - Improved compatibility with Ninja Forms
 * Tweak - Reduced the number of queries in tribe_is_view_enabled() for a small performance improvement
 * Tweak - Changed the sort column on event queries for a small performance improvement
 * Tweak - Improved messaging when columns are suggested for a CSV import
 * Tweak - Added messaging to warn users of potential performance issues when their events per day setting on month view is high
-* Tweak - Removed all WooTickets CSS from Core
+* Tweak - Removed all WooTickets CSS from The Events Calendar
 * Tweak - Implemented under-the-hood enhancements to the main event editor meta box
-* Tweak - More robust plugin activation and deactivation
+* Tweak - Added more robust plugin activation and deactivation
 * Tweak - Optimized registration of capabilities during install/activation
-* Tweak - Removed dependencies on ECP for handling default values
+* Tweak - Removed dependencies on Events Calendar PRO for handling default values
 * Tweak - Avoided showing the admin welcome/activation message within iframes
 * Tweak - Ensured all non critical vendor files will not end up bundled in the final plugin zip
 * Tweak - Added some changelog formatting enhancements after seeing keepachangelog.com :)
 * Tweak - Implemented performance enhancements in relation to list view pagination
+* Feature - Added new tribe_event_is_on_day() function
 * Feature - Added a setting to enable HTML caching on Month view, which will provide a huge performance improvement on Month View for sites with many events per day
 * Feature - Updated the Organizer/Venue metabox UI to be more helpful when adding/editing events
-* Feature - Added calendar icon to the Admin Bar (Fancy!)
+* Feature - Added calendar icon to the Admin Bar (fancy!)
 * Feature - Added new shortcodes letting the featured venue, advanced list and event countdown widgets be embedded easily in posts and pages
 * Feature - Added the ability to customize the 'Event' label using the new 'tribe_event_label_singular' and 'tribe_event_label_plural' filters (Usage example: http://m.tri.be/tj)
 * Feature - Incorporated updated Bulgarian translation files, courtesy of Nedko Ivanov
