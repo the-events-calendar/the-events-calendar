@@ -1,10 +1,10 @@
 <?php
-namespace Tribe\Events\Codeception\UITester;
+namespace Tribe\Events\Test\UITester;
 
 /**
- * Event Management 
+ * Event Management
  */
-class EventSteps extends \Tribe\Events\Codeception\UITester
+class EventSteps extends \Tribe\Events\Test\UITester
 {
 
 	/**
@@ -26,7 +26,7 @@ class EventSteps extends \Tribe\Events\Codeception\UITester
 		} else {
 			$event = array_merge( self::$defaultEvent, $event);
 		}
-		
+
         $I = $this;
 		$I->amOnPage('wp-admin/post-new.php?post_type=tribe_events');
 		$I->fillField('post_title', $event['title'] );
@@ -36,10 +36,10 @@ class EventSteps extends \Tribe\Events\Codeception\UITester
 		}
 		$I->click('#publish');
 		$I->see('Event published');
-		
+
 		// TODO Full Valdation of Event Properties based of passed flag
-    }    
-	
+    }
+
 	/**
 	 * Delete Event
 	 */
@@ -47,7 +47,7 @@ class EventSteps extends \Tribe\Events\Codeception\UITester
     {
         $I = $this;
     }
-	
+
 	/**
 	 * Generate random event meta
 	 */

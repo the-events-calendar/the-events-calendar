@@ -1,4 +1,4 @@
-<?php use Tribe\Events\Codeception\UITester;
+<?php use Tribe\Events\Test\UITester;
 
 $scenario->group('settings');
 

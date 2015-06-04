@@ -1,4 +1,4 @@
-<?php use Tribe\Events\Codeception\UITester;
+<?php use Tribe\Events\Test\UITester;
 $I = new UITester($scenario);
 $I->am('administrator');
 $I->wantTo('verify that the events calendar plugin is active');

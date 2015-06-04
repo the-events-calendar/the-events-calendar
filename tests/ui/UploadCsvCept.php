@@ -1,5 +1,5 @@
 <?php
-use Tribe\Events\Codeception\UITester;
+use Tribe\Events\Test\UITester;
 
 $scenario->group('upload');
 
@@ -10,7 +10,7 @@ $scenario->group('upload');
  *
  * @package UITester
  */
-class UploadCsvCept extends Tribe\Events\Codeception\UITester {
+class UploadCsvCept extends Tribe\Events\Test\UITester {
 
 	// Acceptable $type: venues, organizers, events
 	public function tribe_upload_csv ($type, $file) {

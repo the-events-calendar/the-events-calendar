@@ -1,4 +1,4 @@
-<?php use Tribe\Events\Codeception\UITester;
+<?php use Tribe\Events\Test\UITester;
 $scenario->group('settings');
 $I = new UITester\EventSteps($scenario);
 
@@ -27,4 +27,4 @@ $I->see('Test Event A');
 $I->click('Edit Page');
 $I->click('Move to Trash');
 $I->amOnPage('event/test-event-a');
-$I->see('Oops! Page Not Found.'); 
+$I->see('Oops! Page Not Found.');
