@@ -1,6 +1,6 @@
 === The Events Calendar ===
 
-Contributors:  ModernTribe, roblagatta, faction23, jazbek, jbrinley, leahkoerper, brook-tribe, ckpicker, barry.hughes, joshlimecuda, geoffgraham, brianjessee, mdbitz, neillmcshea, peterchester, ryancurban, reid.peifer, shane.pearlman, bordoni, lucatume
+Contributors:  ModernTribe, roblagatta, faction23, jazbek, jbrinley, leahkoerper, brook-tribe, ckpicker, barry.hughes, joshlimecuda, geoffgraham, brianjessee, mdbitz, neillmcshea, peterchester, ryancurban, reid.peifer, shane.pearlman, bordoni, lucatume, borkweb, zbtirrell
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
 Donate link: http://m.tri.be/29
 Requires at least: 3.9
@@ -221,6 +221,7 @@ The plugin is produced by <a href="http://m.tri.be/2s">Modern Tribe Inc</a>.
 * <a href="http://profiles.wordpress.org/users/borkweb">Matthew Batchelder</a>
 * <a href="http://profiles.wordpress.org/users/bordoni">Gustavo Bordoni</a>
 * <a href="http://profiles.wordpress.org/users/lucatume">Luca Tumedei</a>
+* <a href="http://profiles.wordpress.org/users/zbtirrell">Zachary Tirrell</a>
 
 = Past Contributors =
 
