@@ -12,7 +12,7 @@
 function tribe_events_codeception_bootstrap( $config ) {
 	if ( isset( $config['php']['constants'] ) && is_array( $config['php']['constants'] ) ) {
 		foreach ( $config['php']['constants'] as $key => $value ) {
-			if ( !defined( $key ) ) {
+			if ( ! defined( $key ) ) {
 				define( $key, $value );
 			}
 		}
@@ -20,7 +20,7 @@ function tribe_events_codeception_bootstrap( $config ) {
 
 	if ( isset( $config['php']['globals'] ) && is_array( $config['php']['globals'] ) ) {
 		foreach ( $config['php']['globals'] as $key => $value ) {
-			$GLOBALS[$key] = $value;
+			$GLOBALS[ $key ] = $value;
 		}
 	}
 }
@@ -28,3 +28,5 @@ function tribe_events_codeception_bootstrap( $config ) {
 Codeception\Util\Autoload::registerSuffix( 'Tribe__Events__WP_UnitTestCase', __DIR__ . '/helpers' );
 
 tribe_events_codeception_bootstrap( \Codeception\Configuration::config() );
+
+include dir( __FILE__ ) . '/_bootstrap.php';
