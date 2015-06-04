@@ -22,3 +22,8 @@ vendor/sebastian
 vendor/symfony
 vendor/autoload.php
 tests/_output/*
+tests/_bootstrap.php
+tests/service/_bootstrap.php
+tests/ui/_bootstrap.php
+tests/unit/_bootstrap.php
+tests/_data/dump.sql
