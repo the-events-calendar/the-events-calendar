@@ -25,7 +25,7 @@ class Tribe__Events__Tickets__Attendees_Table extends WP_List_Table {
 			'plural'   => 'attendees',
 			'ajax'     => true
 		) );
-		parent::__construct( $args );
+		parent::__construct( apply_filters( 'tribe_events_tickets_attendees_table_args', $args ) );
 	}
 
 
