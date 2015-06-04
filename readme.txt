@@ -352,6 +352,7 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Bug - Fixed a bug where ticket emails did not include the expected venue links (thanks to aovivo on the forums for the heads up!)
 * Bug - Resolved mobile CSS issues on the backend events list
 * Bug - Clicking "View all X Events" on a Month View category will now only show you events in the category you were viewing (props to kirstyburgoine for the first report!)
+* Tweak - Plugin code has been refactored to new standards: that did result in a new file structure and many renamed classes. Old class names will be deprecated in future releases and, while still working as expected, you can keep track of any deprecated classes yours or third party plugins are calling using the Log Deprecated Notices plugin (https://word press.org/plugins/log-deprecated-notices/)
 * Tweak - CSV importer can now accept the Venue Website field
 * Tweak - The CSV importer can now handle multiple formats for true / false values in all fields (thanks to wickedsharp on the forums for reporting this!)
 * Tweak - Ensured previous and next event link titles on single events are passed through the_title filter (PR #26 from @Morhaus)
