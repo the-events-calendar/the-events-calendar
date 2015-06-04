@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "a4df372e8bd797d9c1d3b4544ba89e65",
+    "hash": "32d2c937c7e7e847ce69da36f62de517",
     "packages": [],
     "packages-dev": [
         {
@@ -432,16 +432,16 @@
         },
         {
             "name": "lucatume/wp-browser",
-            "version": "1.6.5",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/lucatume/wp-browser.git",
-                "reference": "99fe8c01faa588dd2bd9c17c896942133cf785fd"
+                "reference": "4bead0e74239e721f3f69d957b98645792e31ffa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lucatume/wp-browser/zipball/99fe8c01faa588dd2bd9c17c896942133cf785fd",
-                "reference": "99fe8c01faa588dd2bd9c17c896942133cf785fd",
+                "url": "https://api.github.com/repos/lucatume/wp-browser/zipball/4bead0e74239e721f3f69d957b98645792e31ffa",
+                "reference": "4bead0e74239e721f3f69d957b98645792e31ffa",
                 "shasum": ""
             },
             "require": {
@@ -485,7 +485,7 @@
                 "codeception",
                 "wordpress"
             ],
-            "time": "2015-06-04 09:24:15"
+            "time": "2015-06-04 11:50:47"
         },
         {
             "name": "lucatume/wp-utils",
@@ -1807,7 +1807,9 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {
+        "lucatume/wp-browser": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": [],
