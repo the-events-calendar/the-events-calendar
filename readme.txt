@@ -271,7 +271,7 @@ Our Premium Plugins:
 * Tweak - Tweaked flexible handling of default values to work with The Events Calendar 3.10
 * Tweak - Ensured that old recurring events are cleaned up on schedule
 * Tweak - Suped up usability for events with short durations in Week View
-* Feature - Totally rebuilt WEEK VIEW! (thanks to Lars - aka mending - for being the wind beneath our wings here!)
+* Feature - Totally refactored WEEK VIEW! For more, see http://m.tri.be/18du (thanks to Lars - aka mending - for being the wind beneath our wings here!)
 * Feature - Added a new additional field type (textareas) to compliment the existing text field
 * Feature - Replaced scrolling library on week view for better performance and extensibility
 * Feature - Introduced batch processing of recurring events to further improve performance and scalability (thanks to Jen at Mauitime for starting us down this path!)
