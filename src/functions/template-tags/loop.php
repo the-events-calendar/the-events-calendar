@@ -203,7 +203,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		$page_1       = 0 === $cur_page || 1 === $cur_page;
 
 		// if we are on page "0" or 1, consider it page 1. Otherwise, consider it the current page. This
-		// is used for dertermining which navigation items to show
+		// is used for determining which navigation items to show
 		$effective_page = $page_1 ? 1 : $cur_page;
 
 		// Simple tests based on pagination properties
@@ -246,7 +246,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		$page_1    = 0 === $cur_page || 1 === $cur_page;
 
 		// if we are on page "0" or 1, consider it page 1. Otherwise, consider it the current page. This
-		// is used for dertermining which navigation items to show
+		// is used for determining which navigation items to show
 		$effective_page = $page_1 ? 1 : $cur_page;
 
 		// Simple tests based on pagination properties
