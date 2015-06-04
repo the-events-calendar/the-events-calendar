@@ -412,7 +412,7 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 		 * @return string The modified FIELDS statement.
 		 */
 		public static function posts_fields( $field_sql, $query ) {
-			if ( ! empty( $query->tribe_is_event ) ) {
+			if ( ! empty( $query->tribe_is_event ) || ! empty( $query->tribe_is_event_category ) ) {
 				global $wpdb;
 				$postmeta_table             = self::postmeta_table( $query );
 				$fields                     = array();
