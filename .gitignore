@@ -1,7 +1,3 @@
-
-# /tests/PHPUnit/wordpress-tests/
-/tests/PHPUnit/wordpress-tests/unittests-config.php
-
 # /vendor/
 .DS_Store
 .idea
@@ -13,7 +9,6 @@ compiler.jar
 
 phpunit.xml
 codeception.yml
-tests/codeception/_output
 vendor/badcow
 vendor/bin
 vendor/codeception
