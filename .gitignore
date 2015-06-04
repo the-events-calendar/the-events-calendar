@@ -27,3 +27,11 @@ tests/service/_bootstrap.php
 tests/ui/_bootstrap.php
 tests/unit/_bootstrap.php
 tests/_data/dump.sql
+tests/_support/ServiceHelper.php
+tests/_support/UIHelper.php
+tests/_support/UnitHelper.php
+tests/service.suite.yml
+tests/service/ServiceTester.php
+tests/ui.suite.yml
+tests/ui/UITester.php
+tests/unit/UnitTester.php
