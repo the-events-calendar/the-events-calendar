@@ -710,7 +710,7 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 				}
 
 				// trim trailing characters
-				$order_sql = trim( $order_sql, ', \t\n\r\0\x0B' );
+				$order_sql = trim( $order_sql, ", \t\n\r\0\x0B" );
 			} else {
 				if ( $query->tribe_is_multi_posttype && self::can_inject_date_field( $query ) ) {
 					if ( $query->get( 'orderby' ) == 'date' || $query->get( 'orderby' ) == '' ) {
