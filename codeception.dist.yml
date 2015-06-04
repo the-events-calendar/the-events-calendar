@@ -11,12 +11,9 @@ php:
             active_plugins:
                 - the-events-calendar/the-events-calendar.php
 settings:
-    bootstrap: _tribe_bootstrap.php
+    bootstrap: _bootstrap.php
     colors: true
     memory_limit: 1024M
-extensions:
-    enabled:
-        - Codeception\Extension\RunFailed
 modules:
     config:
         Db:
