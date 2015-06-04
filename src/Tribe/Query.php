@@ -132,6 +132,7 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 		 * @return object $query (modified)
 		 */
 		public static function pre_get_posts( $query ) {
+			$admin_helpers = Tribe__Events__Admin__Helpers::instance();
 
 			if ( $query->is_main_query() && is_home() ) {
 				// check option for including events in the main wordpress loop, if true, add events post type
@@ -157,7 +158,7 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 
 			if ( $query->tribe_is_event || $query->tribe_is_event_category ) {
 
-				if ( ! ( $query->is_main_query() && $query->get( 'eventDisplay' ) == 'month' ) ) {
+				if ( ! ( $query->is_main_query() && 'month' === $query->get( 'eventDisplay' ) ) ) {
 					add_filter( 'posts_fields', array( __CLASS__, 'posts_fields' ), 10, 2 );
 					add_filter( 'posts_join', array( __CLASS__, 'posts_join' ), 10, 2 );
 					add_filter( 'posts_join', array( __CLASS__, 'posts_join_orderby' ), 10, 2 );
@@ -175,8 +176,8 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 						'meta_query', array(
 							array(
 								'key'  => '_EventStartDate',
-								'type' => 'DATETIME'
-							)
+								'type' => 'DATETIME',
+							),
 						)
 					);
 					do_action( 'tribe_events_pre_get_posts', $query );
@@ -289,10 +290,10 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 
 				$screen = ! is_admin() || ( defined( 'DOING_AJAX' ) && DOING_AJAX ) ? null : get_current_screen();
 
-				if ( empty( $screen ) || $screen->id != 'edit-tribe_events' ) {
+				if ( empty( $screen ) || 'edit-tribe_events' !== $screen->id ) {
 					$meta_query[] = array(
 						'key'  => '_EventStartDate',
-						'type' => 'DATETIME'
+						'type' => 'DATETIME',
 					);
 				}
 			}
@@ -319,7 +320,7 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 			}
 
 			// hide upcoming events from query (only not in admin)
-			if ( $query->tribe_is_event_query && $query->get( 'hide_upcoming' ) && !$query->get( 'suppress_filters' ) ) {
+			if ( $query->tribe_is_event_query && $query->get( 'hide_upcoming' ) && ! $query->get( 'suppress_filters' ) ) {
 				$hide_upcoming_ids = self::getHideFromUpcomingEvents();
 				if ( ! empty( $hide_upcoming_ids ) ) {
 					$query->set( 'post__not_in', $hide_upcoming_ids );
@@ -344,8 +345,11 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 			}
 
 			// if is in the admin remove the event date & upcoming filters, unless is an ajax call
-			global $current_screen;
-			if ( is_admin() && $query->tribe_is_event_query && ! empty( $current_screen->id ) && $current_screen->id == 'edit-' . Tribe__Events__Main::POSTTYPE ) {
+			if (
+				is_admin()
+				&& $query->tribe_is_event_query
+				&& $admin_helpers->is_screen( 'edit-' . Tribe__Events__Main::POSTTYPE )
+			) {
 				if ( ( ! defined( 'DOING_AJAX' ) ) || ( defined( 'DOING_AJAX' ) && ! ( DOING_AJAX ) ) ) {
 
 					remove_filter( 'posts_where', array( __CLASS__, 'posts_where' ), 10, 2 );
