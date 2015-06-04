@@ -1,0 +1,63 @@
+namespace: Tribe\Events\Test
+actor: Tester
+paths:
+    tests: tests
+    log: tests/_output
+    data: tests/_data
+    helpers: tests/_support
+php:
+    globals:
+        wp_tests_options:
+            active_plugins:
+                - the-events-calendar/the-events-calendar.php
+settings:
+    bootstrap: _tribe_bootstrap.php
+    colors: true
+    memory_limit: 1024M
+extensions:
+    enabled:
+        - Codeception\Extension\RunFailed
+modules:
+    config:
+        Db:
+            dsn: 'mysql:host=localhost;dbname=tribe_events_tests'
+            user: root
+            password: password
+            dump: tests/_data/wordpress.sql
+        WPBrowser:
+            url: 'http://tests.events.tribe'
+            adminUsername: admin
+            adminPassword: password
+            adminUrl: /wp-admin
+        WPDb:
+            dsn: 'mysql:host=localhost;dbname=tribe_events_tests'
+            user: root
+            password: password
+            dump: tests/_data/wordpress.sql
+            populate: true
+            cleanup: true
+            url: 'http://tests.events.tribe'
+            tablePrefix: wptests_
+            checkExistence: true
+            update: true
+        WPLoader:
+            wpRootFolder: ~/var/www
+            dbName: tribe_events_tests
+            dbHost: localhost
+            dbUser: root
+            dbPassword: password
+            wpDebug: true
+            dbCharset: utf8
+            dbCollate: ''
+            tablePrefix: wptests_
+            domain: tests.events.tribe
+            adminEmail: admin@tests.events.tribe
+            title: 'Tribe Plugins Test'
+            phpBinary: php
+            language: ''
+        WPWebDriver:
+            url: 'http://tests.events.tribe'
+            browser: firefox
+            adminUsername: admin
+            adminPassword: password
+            adminUrl: /wp-admin
