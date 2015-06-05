@@ -1242,6 +1242,16 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 			'categoryClasses' => $category_classes,
 		);
 
+		/**
+		 * Template overrides (of month/tooltip.php) set up in 3.9.3 or earlier may still expect
+		 * these vars and will break without them, so they are being kept temporarily for
+		 * backwards compatibility purposes.
+		 *
+		 * @todo consider removing in 4.0
+		 */
+		$json['startTime'] = tribe_get_start_date( $event );
+		$json['endTime']   = tribe_get_end_date( $event );
+
 		if ( $additional ) {
 			$json = array_merge( (array) $json, (array) $additional );
 		}
