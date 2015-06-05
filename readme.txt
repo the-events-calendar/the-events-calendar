@@ -252,12 +252,14 @@ Our Premium Plugins:
 * Bug - Fixed a bug that caused the JetPack Visibility option to incorrectly hide other widgets when the Event List Widget is active (thanks to Daniella on the forums for this report, too!)
 * Bug - Fixed a bug where resizing browser window caused Week View header to expand its height
 * Bug - Fixed a bug with the tooltip improperly HTML escaping characters twice (thanks to evertramos on the dot-org forums for the report!)
+* Bug - Removed notices that showed on the calendar widget when viewing week view with WP_DEBUG set to true
 * Bug - Fixed issues with all day multiday events in Week View when Week Starts On was changed (thanks to Mark Root-Wiley for reporting this!)
 * Bug - Fixed Tooltip to allow translations on recurring events (big thanks to quagis on the forums for the first report!)
 * Bug - Fixed the recurring query logic, now only applied to the correct places, widgets are safe again!
 * Tweak - Improved the iCal exporting to follow RFC 5545 Standards (thanks to heritagechurch for the original idea!)
 * Tweak - Improved Google Maps to prevent 0,0 coordinates to be saved (thanks to csikimacko on the forums for sparking this revolution!)
 * Tweak - Improved Map View to prevent category search to show event from outside of the current category
+* Tweak - Removed some extra postmeta queries from tribe_is_recurring_event()
 * Tweak - Existing all day events will now adjust properly when the EOD cutoff is changed
 * Tweak - Updated tooltip positioning logic for week view to account for more edge cases
 * Tweak - Updated week view to better handle very short events and long titles (thanks to csikimacko for the heads up!)
