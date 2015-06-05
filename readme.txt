@@ -264,6 +264,7 @@ Our Premium Plugins:
 * Tweak - Updated tooltip positioning logic for week view to account for more edge cases
 * Tweak - Updated week view to better handle very short events and long titles (thanks to csikimacko for the heads up!)
 * Tweak - Ensured all non critical vendor files will not end up bundled in the final plugin zip
+* Tweak - Refactored switch-case based asset handling in core + PRO
 * Tweak - Scheduled task responsible for generating recurring events is now removed when the plugin is deactivated
 * Tweak - Added some changelog formatting enhancements after seeing keepachangelog.com :)
 * Tweak - Removed some unnecessary variable logic from some templates
