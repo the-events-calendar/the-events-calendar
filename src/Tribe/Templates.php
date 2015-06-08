@@ -292,7 +292,7 @@ if ( ! class_exists( 'Tribe__Events__Templates' ) ) {
 			if ( ! tribe_is_event_query() || ! defined( 'TRIBE_MODIFY_GLOBAL_TITLE' ) || ! TRIBE_MODIFY_GLOBAL_TITLE ) {
 				return;
 			}
-			if ( ! isset( $post ) || ! is_a( $post, 'WP_Post' ) ) {
+			if ( ! isset( $post ) || ! $post instanceof WP_Post ) {
 				return;
 			}
 

@@ -51,7 +51,7 @@ class Tribe__Events__Admin__Event_Meta_Box {
 
 		if ( $event === null ) {
 			$this->event = $post;
-		} elseif ( is_a( $event, 'WP_Post' ) ) {
+		} elseif ( $event instanceof WP_Post ) {
 			$this->event = $event;
 		} else {
 			$this->event = new WP_Post( (object) array( 'ID' => 0 ) );

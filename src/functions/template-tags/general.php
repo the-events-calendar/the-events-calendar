@@ -252,7 +252,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 			return $post;
 		}
 
-		if ( is_a( $event, 'WP_Post' ) && Tribe__Events__Main::POSTTYPE === get_post_type( $event ) ) {
+		if ( $event instanceof WP_Post && Tribe__Events__Main::POSTTYPE === get_post_type( $event ) ) {
 			return $post;
 		}
 
@@ -574,7 +574,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		// ... creating a dummy object allows the method to proceed semi-gracefully (interim measure only)
 
 		//If $post object doesn't exist and an $event_id wasn't specified, then use a dummy object
-		if ( is_a( 'WP_Post', $event ) ) {
+		if ( $event instanceof WP_Post ) {
 			$event_id = $event->ID;
 		} elseif ( $event !== 0 ) {
 			$event_id = $event;
