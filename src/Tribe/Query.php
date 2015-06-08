@@ -882,7 +882,7 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 			$cache_key = 'get_events_' . serialize( $args );
 
 			$result = $cache->get( $cache_key, 'save_post' );
-			if ( $result && is_a( $result, 'WP_Query' ) ) {
+			if ( $result && $result instanceof WP_Query ) {
 				do_action( 'log', 'cache hit', 'tribe-events-cache', $args );
 			} else {
 				do_action( 'log', 'no cache hit', 'tribe-events-cache', $args );
@@ -931,7 +931,7 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 				if ( isset( $qv['meta_query'] ) ) {
 					if (
 						( is_array( $qv['meta_query'] ) && ! empty( $qv['meta_query'] ) ) ||
-						( is_a( $qv['meta_query'], 'WP_Meta_Query' ) && ! empty( $qv['meta_query']->queries ) )
+						( $qv['meta_query'] instanceof WP_Meta_Query && ! empty( $qv['meta_query']->queries ) )
 					) {
 						$postmeta_table = 'tribe_event_postmeta';
 					}
