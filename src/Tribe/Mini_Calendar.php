@@ -353,7 +353,7 @@ class Tribe__Events__Pro__Mini_Calendar {
 	 * @return Tribe__Events__Pro__Mini_Calendar
 	 */
 	public static function instance() {
-		if ( ! is_a( self::$instance, __CLASS__ ) ) {
+		if ( ! self::$instance instanceof Tribe__Events__Pro__Mini_Calendar ) {
 			self::$instance = new self();
 		}
 
