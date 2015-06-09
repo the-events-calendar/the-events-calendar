@@ -635,7 +635,7 @@
 							)
 						);
 						$fields = Tribe__Events__Main::array_insert_after_key(
-							'monthEventAmount', $fields, array(
+							'hideRelatedEvents', $fields, array(
 								'week_view_hide_weekends' => array(
 									'type'            => 'checkbox_bool',
 									'label'           => __( 'Hide weekends on Week View', 'tribe-events-calendar-pro' ),
