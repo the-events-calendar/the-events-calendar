@@ -100,13 +100,13 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 					|| 'yes' === $data['EventAllDay']
 					|| true === $data['EventAllDay']
 				) {
-					$data['EventAllDay'] = true;
+					$data['EventAllDay'] = 'yes';
 				} else {
-					$data['EventAllDay'] = false;
+					$data['EventAllDay'] = 'no';
 				}
 			}//end if
 
-			if ( isset( $data['EventAllDay'] ) && ( $data['EventAllDay'] || ! isset( $data['EventStartDate'] ) ) ) {
+			if ( isset( $data['EventAllDay'] ) && ( 'yes' === $data['EventAllDay'] || ! isset( $data['EventStartDate'] ) ) ) {
 				$data['EventStartDate'] = tribe_event_beginning_of_day( $data['EventStartDate'] );
 				$data['EventEndDate']   = tribe_event_end_of_day( $data['EventEndDate'] );
 			} else {
