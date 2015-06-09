@@ -202,9 +202,13 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		$max_pages    = (int) $wp_query->max_num_pages;
 		$page_1       = 0 === $cur_page || 1 === $cur_page;
 
+		// if we are on page "0" or 1, consider it page 1. Otherwise, consider it the current page. This
+		// is used for determining which navigation items to show
+		$effective_page = $page_1 ? 1 : $cur_page;
+
 		// Simple tests based on pagination properties
-		if ( $upcoming && $cur_page > 1 ) $has_previous = true;
-		if ( $past && $cur_page < $max_pages ) $has_previous = true;
+		if ( $upcoming && $effective_page > 1 ) $has_previous = true;
+		if ( $past && $effective_page < $max_pages ) $has_previous = true;
 
 		// Test for past events (on first page of upcoming list only)
 		if ( $upcoming && $page_1 && ! $has_previous ) {
@@ -241,9 +245,13 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		$max_pages = (int) $wp_query->max_num_pages;
 		$page_1    = 0 === $cur_page || 1 === $cur_page;
 
+		// if we are on page "0" or 1, consider it page 1. Otherwise, consider it the current page. This
+		// is used for determining which navigation items to show
+		$effective_page = $page_1 ? 1 : $cur_page;
+
 		// Simple tests based on pagination properties
-		if ( $upcoming && $cur_page < $max_pages ) $has_next = true;
-		if ( $past && $cur_page > 1 ) $has_next = true;
+		if ( $upcoming && $effective_page < $max_pages ) $has_next = true;
+		if ( $past && $effective_page > 1 ) $has_next = true;
 
 		// Test for future events (on first page of the past events list only)
 		if ( $past && $page_1 && ! $has_next ) {
