@@ -258,7 +258,7 @@ The plugin is produced by <a href="http://m.tri.be/2s">Modern Tribe Inc</a>.
 * Estonian from Andra Saimre
 * Finnish by Elias Okkonen
 * French from Sylvain Delisle
-* German from Oliver Heinrich
+* German from Oliver Heinrich and Brian Haas
 * Greek from Yannis Troullinos
 * Hungarian from Balazs Dobos
 * Icelandic by Baldvin Örn Berndsen
