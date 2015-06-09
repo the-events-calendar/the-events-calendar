@@ -256,6 +256,7 @@ Our Premium Plugins:
 * Bug - Fixed issues with all day multiday events in Week View when Week Starts On was changed (thanks to Mark Root-Wiley for reporting this!)
 * Bug - Fixed Tooltip to allow translations on recurring events (big thanks to quagis on the forums for the first report!)
 * Bug - Fixed the recurring query logic, now only applied to the correct places, widgets are safe again!
+* Tweak - Plugin code has been refactored to new standards: that did result in a new file structure and many renamed classes. Old class names will be deprecated in future releases and, while still working as expected, you can keep track of any deprecated classes yours or third party plugins are calling using the Log Deprecated Notices plugin (https://wordpress.org/plugins/log-deprecated-notices/)
 * Tweak - Improved the iCal exporting to follow RFC 5545 Standards (thanks to heritagechurch for the original idea!)
 * Tweak - Improved Google Maps to prevent 0,0 coordinates to be saved (thanks to csikimacko on the forums for sparking this revolution!)
 * Tweak - Improved Map View to prevent category search to show event from outside of the current category
