@@ -93,7 +93,7 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 
 			if ( isset( $data['EventAllDay'] ) )
 			{
-				if ( Tribe__Events__Date_Helpers::is_all_day( $data['EventAllDay'] ) ) {
+				if ( Tribe__Events__Date_Utils::is_all_day( $data['EventAllDay'] ) ) {
 					$data['EventAllDay'] = 'yes';
 				} else {
 					$data['EventAllDay'] = 'no';
