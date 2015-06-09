@@ -1,11 +1,11 @@
 === The Events Calendar PRO ===
 
-Contributors:  ModernTribe, roblagatta, faction23, jazbek, jbrinley, leahkoerper, brook-tribe, ckpicker, barry.hughes, joshlimecuda, geoffgraham, brianjessee, mdbitz, neillmcshea, peterchester, ryancurban, reid.peifer, shane.pearlman
+Contributors:  ModernTribe, roblagatta, faction23, jazbek, jbrinley, leahkoerper, brook-tribe, ckpicker, barry.hughes, joshlimecuda, geoffgraham, brianjessee, mdbitz, neillmcshea, peterchester, ryancurban, reid.peifer, shane.pearlman, borkweb
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget, pro
 Donate link: http://m.tri.be/29
-Requires at least: 3.8
-Tested up to: 4.1.1
-Stable tag: 3.9.3
+Requires at least: 3.9
+Tested up to: 4.2.2
+Stable tag: 3.10
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -50,6 +50,13 @@ Remember, to use Events Calendar PRO you need to also be running The Events Cale
 
 That's it! Just configure your settings as you see fit, and you're on your way to creating events in style.
 
+= Requirements =
+
+* PHP 5.2.4 or greater (recommended: PHP 5.4 or greater)
+* WordPress 3.9 or above
+* jQuery 1.11.x
+* The Events Calendar 3.10 or newer
+
 = Where to Begin =
 
 If this is your first time using The Events Calendar and Events Calendar PRO, you're in for a treat! Here are some basics we've found helpful for users jumping into it for the first time:
@@ -68,12 +75,11 @@ Otherwise, if you're feeling adventurous, you can get started by heading to the 
 
 No, this plugin does not use a shortcode nor is one available at the time being.
 
-
 = Are there any troubleshooting steps you'd suggest I try that might resolve my issue before I post a new thread? =
 
-First, make sure that you're running the latest version of The Events Calendar (3.9 as of this release). If you're running Events Calendar PRO it needs to match the version number of The Events Calendar. And if you've got any other add-ons, make sure those are current / running the latest code as well.
+First, make sure that you're running the latest version of The Events Calendar (3.10 as of this release). If you're running Events Calendar PRO it needs to match the version number of The Events Calendar. And if you've got any other add-ons, make sure those are current / running the latest code as well.
 
-The most common issues we see are either plugin or theme conflicts. You can test if a plugin or theme is conflicting by manually deactivating other plugins until just The Events Calendar 3.9 is running on your site. If the issue persists from there, revert to the default Twenty Twelve theme. If the issue is resolved after deactivating a specific plugin or your theme, you'll know that is the source of the conflict.
+The most common issues we see are either plugin or theme conflicts. You can test if a plugin or theme is conflicting by manually deactivating other plugins until just The Events Calendar 3.10 is running on your site. If the issue persists from there, revert to the default Twenty Twelve theme. If the issue is resolved after deactivating a specific plugin or your theme, you'll know that is the source of the conflict.
 
 Note that we aren't going to say "tough luck" if you identify a plugin/theme conflict. While we can't guarantee 100% integration with any plugin or theme out there, we will do our best (and reach out the plugin/theme author as needed) to figure out a solution that benefits everyone.
 
@@ -138,6 +144,7 @@ The plugin is produced by <a href="http://m.tri.be/45">Modern Tribe Inc</a>.
 * <a href="http://profiles.wordpress.org/users/peterchester">Peter Chester</a>
 * <a href="http://profiles.wordpress.org/users/reid.peifer">Reid Peifer</a>
 * <a href="http://profiles.wordpress.org/users/shane.pearlman">Shane Pearlman</a>
+* <a href="http://profiles.wordpress.org/users/borkweb">Matthew Batchelder</a>
 
 = Past Contributors =
 
@@ -236,45 +243,48 @@ Our Premium Plugins:
 
 = [3.10] 2015-06-09 =
 
-* Bug - Fixed a bug where private events were being indicated on the Mini Calendar Widget, even though you couldn't see them
-* Bug - Fixed a minor issue with recurring event tooltips within the advanced list widget
+* Bug - Fixed a bug where private events were being indicated on the Mini Calendar Widget, even though you couldn't see them (thanks to calach on the forums for the report!)
+* Bug - Fixed a minor issue with recurring event tooltips within the advanced list widget (thanks to Daniella on the forums for the heads up!)
 * Bug - Fixed an issue which caused the default venue fields to be automatically inserted within the event editor
 * Bug - Fixed a bug preventing the view link from appearing for updated venues and organizers
 * Bug - Fixed handling of recurrence splitting when hiding events from the front-end
 * Bug - Fixed a bug that allowed invalid dates to be used in the Mini Cal widget
-* Bug - Fixed a bug that caused the JetPack Visibility option to incorrectly hide other widgets when the Event List Widget is active
+* Bug - Fixed a bug that caused the JetPack Visibility option to incorrectly hide other widgets when the Event List Widget is active (thanks to Daniella on the forums for this report, too!)
 * Bug - Fixed a bug where resizing browser window caused Week View header to expand its height
-* Bug - Fixed a bug with the tooltip improperly HTML escaping characters twice
-* Bug - Fixed issues with allday multiday events in Week View when Week Starts On was changed (Thanks to Mark Root-Wiley for reporting this)
-* Bug - Fixed related events tooltip
-* Bug - Fixed Tooltip to allow translations on recurring events
+* Bug - Fixed a bug with the tooltip improperly HTML escaping characters twice (thanks to evertramos on the dot-org forums for the report!)
+* Bug - Removed notices that showed on the calendar widget when viewing week view with WP_DEBUG set to true
+* Bug - Fixed issues with all day multiday events in Week View when Week Starts On was changed (thanks to Mark Root-Wiley for reporting this!)
+* Bug - Fixed Tooltip to allow translations on recurring events (big thanks to quagis on the forums for the first report!)
 * Bug - Fixed the recurring query logic, now only applied to the correct places, widgets are safe again!
-* Tweak - Improved the iCal exporting to follow RFC 5545 Standards
-* Tweak - Improved Google Maps to prevent 0,0 coordinates to be saved
+* Tweak - Plugin code has been refactored to new standards: that did result in a new file structure and many renamed classes. Old class names will be deprecated in future releases and, while still working as expected, you can keep track of any deprecated classes yours or third party plugins are calling using the Log Deprecated Notices plugin (https://wordpress.org/plugins/log-deprecated-notices/)
+* Tweak - Improved the iCal exporting to follow RFC 5545 Standards (thanks to heritagechurch for the original idea!)
+* Tweak - Improved Google Maps to prevent 0,0 coordinates to be saved (thanks to csikimacko on the forums for sparking this revolution!)
 * Tweak - Improved Map View to prevent category search to show event from outside of the current category
+* Tweak - Removed some extra postmeta queries from tribe_is_recurring_event()
 * Tweak - Existing all day events will now adjust properly when the EOD cutoff is changed
 * Tweak - Updated tooltip positioning logic for week view to account for more edge cases
-* Tweak - Updated week view to better handle very short events and long titles
+* Tweak - Updated week view to better handle very short events and long titles (thanks to csikimacko for the heads up!)
 * Tweak - Ensured all non critical vendor files will not end up bundled in the final plugin zip
+* Tweak - Refactored switch-case based asset handling in core + PRO
 * Tweak - Scheduled task responsible for generating recurring events is now removed when the plugin is deactivated
 * Tweak - Added some changelog formatting enhancements after seeing keepachangelog.com :)
 * Tweak - Removed some unnecessary variable logic from some templates
 * Tweak - Improved the recurring event user interface in relation to events ending after "x" cycles
 * Tweak - Updated the mini-calendar widget to match the list widget styling
-* Tweak - More robust activation and deactivation methods
-* Tweak - More flexible handling of default values to work with The Events Calendar 3.10
+* Tweak - Implemented robust activation and deactivation methods
+* Tweak - Tweaked flexible handling of default values to work with The Events Calendar 3.10
 * Tweak - Ensured that old recurring events are cleaned up on schedule
 * Tweak - Suped up usability for events with short durations in Week View
-* Feature - Totally rebuilt WEEK VIEW!
+* Feature - Totally refactored WEEK VIEW! For more, see http://m.tri.be/18du (thanks to Lars - aka mending - for being the wind beneath our wings here!)
 * Feature - Added a new additional field type (textareas) to compliment the existing text field
 * Feature - Replaced scrolling library on week view for better performance and extensibility
-* Feature - Introduced batch processing of recurring events to further improve performance and scalability
+* Feature - Introduced batch processing of recurring events to further improve performance and scalability (thanks to Jen at Mauitime for starting us down this path!)
+* Feature - Added the ability for mapping via latitude/longitude coordinates (thanks to Andrew W on the dot-org forums for the idea so many moons ago!)
 * Feature - Incorporated updated Bulgarian translation files, courtesy of Nedko Ivanov
 * Feature - Incorporated new Hungarian translation files, courtesy of Balazs Dobos
 * Feature - Incorporated new Slovak translation files, courtesy of Emilia Valova
 * Feature - Incorporated new British English translation files, courtesy of John Browning
 * Feature - Incorporated updated Icelandic translation files, courtesy of Baldvin Örn Berndsen
-* Feature - Now you can overwrite the Coordinates of an event manually with a field
 
 = 3.9.3 =
 
