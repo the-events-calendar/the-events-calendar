@@ -1,6 +1,5 @@
 <?php
 
-
 abstract class Tribe__Events__Abstract_Deactivation {
 	protected $network = FALSE;
 
@@ -69,5 +68,4 @@ abstract class Tribe__Events__Abstract_Deactivation {
 	protected function short_blog_deactivate() {
 		$this->blog_deactivate();
 	}
-
 }

@@ -1,6 +1,5 @@
 <?php
 
-
 class Tribe__Events__Capabilities {
 	private $cap_aliases = array(
 		'editor' => array( // full permissions to a post type
@@ -50,11 +49,11 @@ class Tribe__Events__Capabilities {
 		if ( $level == 'administrator' ) {
 			$level = 'editor';
 		}
-		if ( !isset( $this->cap_aliases[$level] ) ) {
+		if ( ! isset( $this->cap_aliases[ $level ] ) ) {
 			return FALSE;
 		}
 		$role = get_role( $role_id );
-		if ( !$role ) {
+		if ( ! $role ) {
 			return FALSE;
 		}
 		$pto = get_post_type_object( $post_type );
@@ -62,7 +61,7 @@ class Tribe__Events__Capabilities {
 			return FALSE;
 		}
 
-		foreach ( $this->cap_aliases[$level] as $alias ) {
+		foreach ( $this->cap_aliases[ $level ] as $alias ) {
 			if ( isset( $pto->cap->$alias ) ) {
 				$role->add_cap( $pto->cap->$alias );
 			}
@@ -80,7 +79,7 @@ class Tribe__Events__Capabilities {
 	 */
 	public function remove_post_type_caps( $post_type, $role_id ) {
 		$role = get_role( $role_id );
-		if ( !$role ) {
+		if ( ! $role ) {
 			return FALSE;
 		}
 		foreach ( $role->capabilities as $cap => $has ) {
@@ -98,7 +97,7 @@ class Tribe__Events__Capabilities {
 	 * @return void
 	 */
 	public function set_initial_caps() {
-		foreach( array( 'administrator', 'editor', 'author', 'contributor', 'subscriber' ) as $role ) {
+		foreach ( array( 'administrator', 'editor', 'author', 'contributor', 'subscriber' ) as $role ) {
 			$this->register_post_type_caps( Tribe__Events__Main::POSTTYPE, $role );
 			$this->register_post_type_caps( Tribe__Events__Main::ORGANIZER_POST_TYPE, $role );
 			$this->register_post_type_caps( Tribe__Events__Main::VENUE_POST_TYPE, $role );
@@ -111,7 +110,7 @@ class Tribe__Events__Capabilities {
 	 * @return void
 	 */
 	public function remove_all_caps() {
-		foreach( array( 'administrator', 'editor', 'author', 'contributor', 'subscriber' ) as $role ) {
+		foreach ( array( 'administrator', 'editor', 'author', 'contributor', 'subscriber' ) as $role ) {
 			$this->remove_post_type_caps( Tribe__Events__Main::POSTTYPE, $role );
 			$this->remove_post_type_caps( Tribe__Events__Main::ORGANIZER_POST_TYPE, $role );
 			$this->remove_post_type_caps( Tribe__Events__Main::VENUE_POST_TYPE, $role );
