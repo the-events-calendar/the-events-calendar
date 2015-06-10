@@ -334,7 +334,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 *
 	 * @return string
 	 */
-	function tribe_get_datetime_separator( $default = ' @ ', $esc = true ) {
+	function tribe_get_datetime_separator( $default = ' @ ', $esc = false ) {
 		$separator = (string) tribe_get_option( 'dateTimeSeparator', $default );
 		if ( $esc ) {
 			$separator = (array) str_split( $separator );
