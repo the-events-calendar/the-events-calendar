@@ -5,7 +5,7 @@ if ( empty( $customFields ) || ! is_array( $customFields ) ) {
 
 $events_label_singular = tribe_get_event_label_singular();
 
- ?>
+?>
 <table id="event-meta" class="eventtable">
 	<tbody>
 	<tr>
@@ -18,12 +18,9 @@ $events_label_singular = tribe_get_event_label_singular();
 			<td><?php echo esc_html( stripslashes( $customField['label'] ) ) ?></td>
 			<td>
 				<?php $options = explode( "\r\n", $customField['values'] ) ?>
-				<?php if ( $customField['type'] == 'text' ): ?>
+				<?php if ( in_array( $customField['type'], array( 'url', 'text' ) ) ): ?>
 					<input type="text" name="<?php echo esc_attr( $customField['name'] ) ?>" value="<?php echo esc_attr( $val ) ?>" />
-				<?php elseif ( $customField['type'] == 'url' ): ?>
-					<input type="text" name="<?php echo esc_attr( $customField['name'] ) ?>" value="<?php echo esc_attr( $val ) ?>" />
-				<?php
-				elseif ( $customField['type'] == 'radio' ): ?>
+				<?php elseif ( 'radio' === $customField['type'] ): ?>
 					<div>
 						<label><input type="radio" name="<?php echo esc_attr( $customField['name'] ) ?>" value="" <?php checked( trim( $val ), '' ) ?>/> None</label>
 					</div>
@@ -32,25 +29,22 @@ $events_label_singular = tribe_get_event_label_singular();
 							<label><input type="radio" name="<?php echo esc_attr( $customField['name'] ) ?>" value="<?php echo esc_attr( $option ) ?>" <?php checked( trim( $val ), trim( $option ) ) ?>/> <?php echo esc_html( stripslashes( $option ) ) ?>
 							</label></div>
 					<?php endforeach ?>
-				<?php
-				elseif ( $customField['type'] == 'checkbox' ): ?>
+				<?php elseif ( 'checkbox' === $customField['type'] ): ?>
 					<?php foreach ( $options as $option ): ?>
-						<?php $values = explode( "|", $val ); ?>
+						<?php $values = explode( '|', $val ); ?>
 						<div>
-							<label><input type="checkbox" value="<?php echo esc_attr( trim( $option ) ) ?>" <?php checked( in_array( trim( $option ), $values ) ) ?> name="<?php echo esc_attr( $customField['name'] ) ?>[]" /> <?php echo esc_html( stripslashes( $option ) ) ?>
+							<label><input type="checkbox" value="<?php echo esc_attr( trim( $option ) ) ?>" <?php checked( in_array( esc_attr( trim( $option ) ), $values ) ) ?> name="<?php echo esc_attr( $customField['name'] ) ?>[]" /> <?php echo esc_html( stripslashes( $option ) ) ?>
 							</label></div>
 					<?php endforeach ?>
-				<?php
-				elseif ( $customField['type'] == 'dropdown' ): ?>
-					<select name="<?php echo $customField['name'] ?>">
-						<option value="" <?php selected( trim( $val ), "" ) ?>>None</option>
+				<?php elseif ( 'dropdown' === $customField['type'] ): ?>
+					<select name="<?php echo esc_attr( $customField['name'] ) ?>">
+						<option value="" <?php selected( trim( $val ), '' ) ?>>None</option>
 						<?php $options = explode( "\r\n", $customField['values'] ) ?>
 						<?php foreach ( $options as $option ): ?>
 							<option value="<?php echo esc_attr( $option ) ?>" <?php selected( trim( $val ), trim( $option ) ) ?>><?php echo esc_html( stripslashes( $option ) ) ?></option>
 						<?php endforeach ?>
 					</select>
-				<?php
-				elseif ( $customField['type'] == 'textarea' ): ?>
+				<?php elseif ( 'textarea' === $customField['type'] ): ?>
 					<textarea name="<?php echo esc_attr( $customField['name'] ) ?>"><?php echo esc_textarea( $val ) ?></textarea>
 				<?php endif; ?>
 			</td>
