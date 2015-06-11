@@ -56,11 +56,11 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				'author',
 				'thumbnail',
 				'custom-fields',
-				'comments'
+				'comments',
 			),
 			'taxonomies'      => array( 'post_tag' ),
 			'capability_type' => array( 'tribe_event', 'tribe_events' ),
-			'map_meta_cap'    => true
+			'map_meta_cap'    => true,
 		);
 
 		/**
@@ -75,7 +75,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			'supports'            => array( 'title', 'editor' ),
 			'capability_type'     => array( 'tribe_venue', 'tribe_venues' ),
 			'map_meta_cap'        => true,
-			'exclude_from_search' => true
+			'exclude_from_search' => true,
 		);
 
 		protected $taxonomyLabels;
@@ -92,7 +92,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			'supports'            => array( 'title', 'editor' ),
 			'capability_type'     => array( 'tribe_organizer', 'tribe_organizers' ),
 			'map_meta_cap'        => true,
-			'exclude_from_search' => true
+			'exclude_from_search' => true,
 		);
 
 		public static $tribeUrl = 'http://tri.be/';
@@ -144,7 +144,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			'_EventOrganizerID',
 			'_EventPhone',
 			'_EventHideFromUpcoming',
-			self::EVENTSERROROPT
+			self::EVENTSERROROPT,
 		);
 
 		public $venueTags = array(
@@ -157,14 +157,14 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			'_VenueProvince',
 			'_VenueZip',
 			'_VenuePhone',
-			'_VenueURL'
+			'_VenueURL',
 		);
 
 		public $organizerTags = array(
 			'_OrganizerOrganizer',
 			'_OrganizerEmail',
 			'_OrganizerWebsite',
-			'_OrganizerPhone'
+			'_OrganizerPhone',
 		);
 
 		public $currentPostTimestamp;
@@ -280,19 +280,19 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 *
 		 * @return string
 		 */
-		function before_html_data_wrapper( $html ) {
+		public function before_html_data_wrapper( $html ) {
 			global $wp_query;
 
 			if ( ! $this->show_data_wrapper['before'] ) {
 				return $html;
 			}
 
-			$tec = Tribe__Events__Main::instance();
+			$tec = self::instance();
 
 			$data_attributes = array(
 				'live_ajax'         => tribe_get_option( 'liveFiltersUpdate', true ) ? 1 : 0,
 				'datepicker_format' => tribe_get_option( 'datepickerFormat' ),
-				'category'          => is_tax( $tec->get_event_taxonomy() ) ? get_query_var( 'term' ) : ''
+				'category'          => is_tax( $tec->get_event_taxonomy() ) ? get_query_var( 'term' ) : '',
 			);
 			// allow data attributes to be filtered before display
 			$data_attributes = (array) apply_filters( 'tribe_events_view_data_attributes', $data_attributes );
@@ -319,7 +319,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 *
 		 * @return string
 		 */
-		function after_html_data_wrapper( $html ) {
+		public function after_html_data_wrapper( $html ) {
 			if ( ! $this->show_data_wrapper['after'] ) {
 				return $html;
 			}
@@ -353,7 +353,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			add_filter( 'post_updated_messages', array( $this, 'updatePostMessage' ) );
 
 			/* Add nav menu item - thanks to http://wordpress.org/extend/plugins/cpt-archives-in-nav-menus/ */
-			add_filter( 'nav_menu_items_' . Tribe__Events__Main::POSTTYPE, array( $this, 'add_events_checkbox_to_menu' ), null, 3 );
+			add_filter( 'nav_menu_items_' . self::POSTTYPE, array( $this, 'add_events_checkbox_to_menu' ), null, 3 );
 			add_filter( 'wp_nav_menu_objects', array( $this, 'add_current_menu_item_class_to_events' ), null, 2 );
 
 			add_filter( 'generate_rewrite_rules', array( $this, 'filterRewriteRules' ) );
@@ -388,8 +388,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			add_action( 'tribe_settings_top', array( 'Tribe__Events__Options_Exception', 'displayMessage' ) );
 			add_action( 'admin_enqueue_scripts', array( $this, 'add_admin_assets' ) );
 			add_filter( 'tribe_events_register_event_type_args', array( $this, 'setDashicon' ) );
-			add_action( "trash_" . Tribe__Events__Main::VENUE_POST_TYPE, array( $this, 'cleanupPostVenues' ) );
-			add_action( "trash_" . Tribe__Events__Main::ORGANIZER_POST_TYPE, array( $this, 'cleanupPostOrganizers' ) );
+			add_action( 'trash_' . self::VENUE_POST_TYPE, array( $this, 'cleanupPostVenues' ) );
+			add_action( 'trash_' . self::ORGANIZER_POST_TYPE, array( $this, 'cleanupPostOrganizers' ) );
 			add_action( 'wp_ajax_tribe_event_validation', array( $this, 'ajax_form_validate' ) );
 			add_action( 'tribe_debug', array( $this, 'renderDebug' ), 10, 2 );
 			add_action( 'tribe_debug', array( $this, 'renderDebug' ), 10, 2 );
@@ -408,7 +408,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			add_action( 'template_redirect', array( $this, 'template_redirect' ) );
 
-			add_action( 'add_meta_boxes', 		 array( 'Tribe__Events__Tickets__Metabox', 'maybe_add_meta_box' ) );
+			add_action( 'add_meta_boxes', array( 'Tribe__Events__Tickets__Metabox', 'maybe_add_meta_box' ) );
 			add_action( 'admin_enqueue_scripts', array( 'Tribe__Events__Tickets__Metabox', 'add_admin_scripts'  ) );
 
 			// noindex grid view
@@ -431,7 +431,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			add_action( 'load-tribe_events_page_tribe-events-calendar', array( 'Tribe__Events__Amalgamator', 'listen_for_migration_button' ), 10, 0 );
 			add_action( 'tribe_settings_after_save', array( $this, 'flushRewriteRules' ) );
 			add_action( 'load-edit-tags.php', array( $this, 'prepare_to_fix_tagcloud_links' ), 10, 0 );
-			add_action( 'update_option_'.Tribe__Events__Main::OPTIONNAME, array( $this, 'fix_all_day_events' ), 10, 2 );
+			add_action( 'update_option_' . self::OPTIONNAME, array( $this, 'fix_all_day_events' ), 10, 2 );
 
 			// add-on compatibility
 			if ( is_multisite() ) {
@@ -466,7 +466,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			add_action( 'init', array( $this, 'filter_cron_schedules' ) );
 
 		}
-
 
 		/**
 		 * Load the ical template tags
@@ -537,7 +536,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			require_once $this->pluginPath . 'src/functions/template-tags/day.php';
 		}
 
-
 		/**
 		 * Add code to tell search engines not to index the grid view of the
 		 * calendar.  Users were seeing 100s of months being indexed.
@@ -556,7 +554,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				}
 			}
 		}
-
 
 		public function print_noindex_meta() {
 			echo ' <meta name="robots" content="noindex,follow" />' . "\n";
@@ -659,7 +656,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				if ( version_compare( $addon_minor_version, $tec_minor_version, '<' ) ) {
 					$out_of_date_addons[] = $plugin['plugin_name'] . ' ' . $plugin['current_version'];
 				}
-
 			}
 			// If Core is out of date, generate the proper message.
 			if ( $tec_out_of_date == true ) {
@@ -668,7 +664,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 					add_query_arg(
 						array(
 							'action' => 'upgrade-plugin',
-							'plugin' => $plugin_short_path
+							'plugin' => $plugin_short_path,
 						), get_admin_url() . 'update.php'
 					), 'upgrade-plugin_' . $plugin_short_path
 				);
@@ -682,7 +678,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 					array(
 						'utm_campaign' => 'in-app',
 						'utm_medium'   => 'plugin-tec',
-						'utm_source'   => 'notice'
+						'utm_source'   => 'notice',
 						), self::$tecUrl . 'knowledgebase/version-compatibility/'
 				);
 				$output .= '<p>' . sprintf( __( 'The following plugins are out of date: <b>%s</b>. All add-ons contain dependencies on The Events Calendar and will not function properly unless paired with the right version. %sLearn More%s.', 'tribe-events-calendar' ), join( $out_of_date_addons, ', ' ), "<a href='" . esc_url( $link ) . "' target='_blank'>", '</a>' ) . '</p>';
@@ -709,9 +705,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * Trigger is_404 on single event if no events are found
 		 * @return void
 		 */
-		function template_redirect() {
+		public function template_redirect() {
 			global $wp_query;
-			if ( $wp_query->tribe_is_event_query && Tribe__Events__Main::instance()->displaying == 'single-event' && empty( $wp_query->posts ) ) {
+			if ( $wp_query->tribe_is_event_query && self::instance()->displaying == 'single-event' && empty( $wp_query->posts ) ) {
 				$wp_query->is_404 = true;
 			}
 		}
@@ -1349,7 +1345,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			add_submenu_page( 'edit.php?post_type=' . Tribe__Events__Main::VENUE_POST_TYPE, sprintf( __('Add New %s', 'tribe-events-calendar'), $this->singular_venue_label ), sprintf( __('Add New %s', 'tribe-events-calendar'), $this->singular_venue_label ), 'edit_tribe_venues', 'post-new.php?post_type=' . Tribe__Events__Main::VENUE_POST_TYPE );
 			add_submenu_page( 'edit.php?post_type=' . Tribe__Events__Main::ORGANIZER_POST_TYPE, sprintf( __('Add New %s', 'tribe-events-calendar'), $this->singular_organizer_label ), sprintf( __('Add New %s', 'tribe-events-calendar'), $this->singular_organizer_label ), 'edit_tribe_organizers', 'post-new.php?post_type=' . Tribe__Events__Main::ORGANIZER_POST_TYPE );
 		}
-
 
 		/**
 		 * displays the saved venue dropdown in the event metabox
@@ -4221,7 +4216,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			return $query;
 		}
 
-
 		/**
 		 * Add filters to register custom cron schedules
 		 *
@@ -4231,7 +4225,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		public function filter_cron_schedules(){
 			add_filter( 'cron_schedules', array( $this, 'register_30min_interval' ) );
 		}
-
 
 		/**
 		 * Add a new scheduled task interval (of 30mins).
@@ -4247,7 +4240,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			return $schedules;
 		}
-
 
 		/**
 		 * If recurring events are imported using the WP importer, WP will flag
@@ -4277,7 +4269,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			return $post;
 		}
-
 
 		/**
 		 * Event titles have been modified by filter_wp_import_data_before().
@@ -4376,5 +4367,4 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		}
 
 	} // end Tribe__Events__Main class
-
 } // end if !class_exists Tribe__Events__Main

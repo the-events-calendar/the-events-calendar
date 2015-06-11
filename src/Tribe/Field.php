@@ -379,7 +379,6 @@ if ( ! class_exists( 'Tribe__Events__Field' ) ) {
 			return $field;
 		}
 
-
 		/**
 		 * generate a simple text field
 		 *
@@ -616,5 +615,4 @@ if ( ! class_exists( 'Tribe__Events__Field' ) ) {
 		}
 
 	} // end class
-
 } // endif class_exists
