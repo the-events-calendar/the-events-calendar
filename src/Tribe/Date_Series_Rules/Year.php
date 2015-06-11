@@ -92,10 +92,10 @@
 		 */
 		private function getNthDayOfMonth( $curdate, $day_of_week, $week_of_month, $next_month_of_year ) {
 			$nextdate = $this->advanceDate( $curdate, $next_month_of_year, 1 ); // advance to correct month
-			$nextdate = Tribe__Events__Date_Utils::getFirstDayOfWeekInMonth( $nextdate, $day_of_week );
+			$nextdate = Tribe__Events__Date_Utils::get_first_day_of_week_in_month( $nextdate, $day_of_week );
 
 			if ( $week_of_month == - 1 ) { // LAST WEEK
-				$nextdate = Tribe__Events__Date_Utils::getLastDayOfWeekInMonth( $nextdate, $day_of_week );
+				$nextdate = Tribe__Events__Date_Utils::get_last_day_of_week_in_month( $nextdate, $day_of_week );
 
 				return $nextdate;
 			} else {
@@ -106,7 +106,7 @@
 					// advance again
 					$next_month_of_year = $this->getNextMonthOfYear( date( 'n', $nextdate ) );
 					$nextdate = $this->advanceDate( $nextdate, $next_month_of_year );
-					$nextdate = Tribe__Events__Date_Utils::getFirstDayOfWeekInMonth( $curdate, $day_of_week );
+					$nextdate = Tribe__Events__Date_Utils::get_first_day_of_week_in_month( $curdate, $day_of_week );
 					$maybe_date = strtotime( date( Tribe__Events__Pro__Date_Series_Rules__Rules_Interface::DATE_FORMAT, $nextdate ) . " + " . ( $week_of_month - 1 ) . " weeks" );
 				}
 

@@ -43,7 +43,7 @@
 				if ( sizeof( $this->days_of_month ) > 0 ) {
 					$next_day_of_month = $this->getNextDayOfMonth( $next_day_of_month );
 
-					while ( Tribe__Events__Date_Utils::getLastDayOfMonth( $curdate ) < $next_day_of_month ) {
+					while ( Tribe__Events__Date_Utils::get_last_day_of_month( $curdate ) < $next_day_of_month ) {
 						$next_day_of_month = $this->days_of_month[0];
 						$curdate           = mktime( date( "H", $curdate ), date( "i", $curdate ), date( "s", $curdate ), date( 'n', $curdate ) + $this->months_between, 1, date( 'Y', $curdate ) );
 					}
@@ -55,7 +55,7 @@
 				} else {
 					$nextdate = mktime( date( "H", $curdate ), date( "i", $curdate ), date( "s", $curdate ), date( 'n', $curdate ) + $this->months_between, 1, date( 'Y', $curdate ) );
 
-					while ( Tribe__Events__Date_Utils::getLastDayOfMonth( $nextdate ) < $next_day_of_month ) {
+					while ( Tribe__Events__Date_Utils::get_last_day_of_month( $nextdate ) < $next_day_of_month ) {
 						$nextdate = mktime( date( "H", $curdate ), date( "i", $curdate ), date( "s", $curdate ), date( 'n', $nextdate ) + $this->months_between, 1, date( 'Y', $nextdate ) );
 					}
 
@@ -76,19 +76,19 @@
 		private function getNthDayOfWeek( $curdate, $day_of_week, $week_of_month ) {
 
 			if ( $week_of_month == - 1 ) { // LAST WEEK
-				$nextdate = Tribe__Events__Date_Utils::getLastDayOfWeekInMonth( $curdate, $day_of_week );
+				$nextdate = Tribe__Events__Date_Utils::get_last_day_of_week_in_month( $curdate, $day_of_week );
 
 				// If the date returned above is the same as the date we're starting from
 				// move on to the next month by interval to consider.
 				if ( $curdate == $nextdate ) {
 					$curdate  = mktime( 0, 0, 0, date( 'n', $curdate ) + $this->months_between, 1, date( 'Y', $curdate ) );
-					$nextdate = Tribe__Events__Date_Utils::getLastDayOfWeekInMonth( $curdate, $day_of_week );
+					$nextdate = Tribe__Events__Date_Utils::get_last_day_of_week_in_month( $curdate, $day_of_week );
 				}
 
 				return $nextdate;
 			} else {
 				// get the first occurrence of the requested day of the week from the requested $curdate's month
-				$first_occurring_day_of_week = Tribe__Events__Date_Utils::getFirstDayOfWeekInMonth( $curdate, $day_of_week );
+				$first_occurring_day_of_week = Tribe__Events__Date_Utils::get_first_day_of_week_in_month( $curdate, $day_of_week );
 
 				// get that day of the week in the requested nth week
 				$maybe_date = strtotime( date( Tribe__Events__Pro__Date_Series_Rules__Rules_Interface::DATE_FORMAT, $first_occurring_day_of_week ) . " + " . ( $week_of_month - 1 ) . " weeks" );
@@ -101,7 +101,7 @@
 					$next_month = mktime( 0, 0, 0, date( 'n', $curdate ) + $this->months_between, 1, date( 'Y', $curdate ) );
 
 					// Get the first occurrence of the requested day of the week from $next_month's month
-					$first_occurring_day_of_week = Tribe__Events__Date_Utils::getFirstDayOfWeekInMonth( $next_month, $day_of_week );
+					$first_occurring_day_of_week = Tribe__Events__Date_Utils::get_first_day_of_week_in_month( $next_month, $day_of_week );
 
 					// Get that day of the week in the requested nth week
 					$maybe_date = strtotime( date( Tribe__Events__Pro__Date_Series_Rules__Rules_Interface::DATE_FORMAT, $first_occurring_day_of_week ) . " + " . ( $week_of_month - 1 ) . " weeks" );
@@ -112,7 +112,7 @@
 				$i = 0;
 				while ( date( 'n', $maybe_date ) != date( 'n', $first_occurring_day_of_week ) && $i <= tribe_get_option( 'recurrenceMaxMonthsAfter', 24 ) ) {
 					$next_month                  = mktime( 0, 0, 0, date( 'n', $first_occurring_day_of_week ) + $this->months_between, 1, date( 'Y', $first_occurring_day_of_week ) );
-					$first_occurring_day_of_week = Tribe__Events__Date_Utils::getFirstDayOfWeekInMonth( $next_month, $day_of_week );
+					$first_occurring_day_of_week = Tribe__Events__Date_Utils::get_first_day_of_week_in_month( $next_month, $day_of_week );
 					$maybe_date                  = strtotime( date( Tribe__Events__Pro__Date_Series_Rules__Rules_Interface::DATE_FORMAT, $first_occurring_day_of_week ) . " + " . ( $week_of_month - 1 ) . " weeks" );
 					$i += $this->months_between;
 				}

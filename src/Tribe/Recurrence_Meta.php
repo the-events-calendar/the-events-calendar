@@ -930,7 +930,7 @@ class Tribe__Events__Pro__Recurrence_Meta {
 				$text = $recCustomInterval == 1 ?
 					__( 'Every month', 'tribe-events-calendar-pro' ) :
 					sprintf( __( 'Every %d months', 'tribe-events-calendar-pro' ), $recCustomInterval );
-				$number_display = is_numeric( $recCustomMonthNumber ) ? Tribe__Events__Date_Utils::numberToOrdinal( $recCustomMonthNumber ) : strtolower( esc_attr__( $recCustomMonthNumber, 'tribe-events-calendar-pro' ) );
+				$number_display = is_numeric( $recCustomMonthNumber ) ? Tribe__Events__Date_Utils::number_to_ordinal( $recCustomMonthNumber ) : strtolower( esc_attr__( $recCustomMonthNumber, 'tribe-events-calendar-pro' ) );
 				$custom_text = sprintf( __( ' on the %s %s', 'tribe-events-calendar-pro' ), $number_display, is_numeric( $recCustomMonthNumber ) ? __( 'day', 'tribe-events-calendar-pro' ) : self::daysToText( $recCustomMonthDay ) );
 				$occurrence_text = sprintf( _n( ', recurring %d time', ', recurring %d times', $recEndCount, 'tribe-events-calendar-pro' ), $recEndCount );
 			} else if ( $recCustomType == "Yearly" ) {
@@ -938,9 +938,9 @@ class Tribe__Events__Pro__Recurrence_Meta {
 					__( "Every year", 'tribe-events-calendar-pro' ) :
 					sprintf( __( "Every %d years", 'tribe-events-calendar-pro' ), $recCustomInterval );
 
-				$customYearNumber = $recCustomYearMonthNumber != - 1 ? Tribe__Events__Date_Utils::numberToOrdinal( $recCustomYearMonthNumber ) : __( "last", 'tribe-events-calendar-pro' );
+				$customYearNumber = $recCustomYearMonthNumber != - 1 ? Tribe__Events__Date_Utils::number_to_ordinal( $recCustomYearMonthNumber ) : __( "last", 'tribe-events-calendar-pro' );
 
-				$day             = $recCustomYearFilter ? $customYearNumber : Tribe__Events__Date_Utils::numberToOrdinal( date( 'j', strtotime( $start_date ) ) );
+				$day             = $recCustomYearFilter ? $customYearNumber : Tribe__Events__Date_Utils::number_to_ordinal( date( 'j', strtotime( $start_date ) ) );
 				$of_week         = $recCustomYearFilter ? self::daysToText( $recCustomYearMonthDay ) : "";
 				$months          = self::monthsToText( $recCustomYearMonth );
 				$custom_text     = sprintf( __( " on the %s %s of %s", 'tribe-events-calendar-pro' ), $day, $of_week, $months );
