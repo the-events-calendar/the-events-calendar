@@ -280,7 +280,7 @@ class Tribe__Events__Pro__Mini_Calendar {
 
 				// set end date if initial load, or ajax month switch
 				if ( ! defined( 'DOING_AJAX' ) || ( defined( 'DOING_AJAX' ) && $_POST['action'] == 'tribe-mini-cal' ) ) {
-					$query_args['end_date'] = substr_replace( $this->get_month( Tribe__Events__Date_Utils::DBDATEFORMAT ), Tribe__Events__Date_Utils::getLastDayOfMonth( strtotime( $this->get_month() ) ), - 2 );
+					$query_args['end_date'] = substr_replace( $this->get_month( Tribe__Events__Date_Utils::DBDATEFORMAT ), Tribe__Events__Date_Utils::get_last_day_of_month( strtotime( $this->get_month() ) ), - 2 );
 					// @todo use tribe_events_end_of_day() ?
 					$query_args['end_date'] = tribe_event_end_of_day( $query_args['end_date'] );
 				}
