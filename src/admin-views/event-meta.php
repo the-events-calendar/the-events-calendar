@@ -18,8 +18,10 @@ $events_label_singular = tribe_get_event_label_singular();
 			<td><?php echo esc_html( stripslashes( $customField['label'] ) ) ?></td>
 			<td>
 				<?php $options = explode( "\r\n", $customField['values'] ) ?>
-				<?php if ( in_array( $customField['type'], array( 'url', 'text' ) ) ): ?>
+				<?php if ( 'text' === $customField['type'] ): ?>
 					<input type="text" name="<?php echo esc_attr( $customField['name'] ) ?>" value="<?php echo esc_attr( $val ) ?>" />
+				<?php elseif ( 'url' === $customField['type'] ): ?>
+					<input type="url" name="<?php echo esc_attr( $customField['name'] ) ?>" value="<?php echo esc_attr( $val ) ?>" />
 				<?php elseif ( 'radio' === $customField['type'] ): ?>
 					<div>
 						<label><input type="radio" name="<?php echo esc_attr( $customField['name'] ) ?>" value="" <?php checked( trim( $val ), '' ) ?>/> None</label>
