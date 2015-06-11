@@ -132,7 +132,7 @@ class Tribe__Events__Admin__Event_Meta_Box {
 	 * Assess if this is an all day event.
 	 */
 	protected function set_all_day() {
-		$this->vars['isEventAllDay'] = ( $this->vars['_EventAllDay'] == 'yes' || ! Tribe__Events__Date_Utils::date_only( $this->vars['_EventStartDate'] ) ) ? 'checked="checked"' : '';
+		$this->vars['isEventAllDay'] = ( Tribe__Events__Date_Utils::is_all_day( $this->vars['_EventAllDay'] ) || ! Tribe__Events__Date_Utils::date_only( $this->vars['_EventStartDate'] ) ) ? 'checked="checked"' : '';
 	}
 
 	protected function set_start_date_time() {
