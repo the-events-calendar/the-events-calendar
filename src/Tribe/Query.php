@@ -792,7 +792,7 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 						do_action( 'log', 'raw counts query', 'tribe-events-query', $wpdb->last_query );
 						$start_date = new DateTime( $post_id_query->query_vars['start_date'] );
 						$end_date   = new DateTime( $post_id_query->query_vars['end_date'] );
-						$days       = Tribe__Events__Date_Utils::dateDiff( $start_date->format( 'Y-m-d' ), $end_date->format( 'Y-m-d' ) );
+						$days       = Tribe__Events__Date_Utils::date_diff( $start_date->format( 'Y-m-d' ), $end_date->format( 'Y-m-d' ) );
 						$term_id    = isset( $wp_query->query_vars[ Tribe__Events__Main::TAXONOMY ] ) ? $wp_query->query_vars[ Tribe__Events__Main::TAXONOMY ] : null;
 						$terms = array();
 						if ( is_int( $term_id ) ) {
