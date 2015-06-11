@@ -28,13 +28,13 @@ if ( ! class_exists( 'Tribe__Events__Admin_List' ) ) {
 				add_filter(
 					'manage_' . Tribe__Events__Main::POSTTYPE . '_posts_columns', array(
 						__CLASS__,
-						'column_headers'
+						'column_headers',
 					)
 				);
 				add_filter(
 					'tribe_apm_headers_' . Tribe__Events__Main::POSTTYPE, array(
 						__CLASS__,
-						'column_headers_check'
+						'column_headers_check',
 					), 10, 1
 				);
 				add_filter( 'views_edit-tribe_events', array( __CLASS__, 'update_event_counts' ) );
@@ -42,10 +42,9 @@ if ( ! class_exists( 'Tribe__Events__Admin_List' ) ) {
 				add_action(
 					'manage_edit-' . Tribe__Events__Main::POSTTYPE . '_sortable_columns', array(
 						__CLASS__,
-						'register_date_sortables'
+						'register_date_sortables',
 					), 10, 2
 				);
-
 			}
 		}
 
@@ -63,7 +62,7 @@ if ( ! class_exists( 'Tribe__Events__Admin_List' ) ) {
 				return $fields;
 			}
 			global $wpdb;
-			$fields .= ", eventStart.meta_value as EventStartDate, eventEnd.meta_value as EventEndDate ";
+			$fields .= ', eventStart.meta_value as EventStartDate, eventEnd.meta_value as EventEndDate ';
 
 			return $fields;
 		}
@@ -103,7 +102,7 @@ if ( ! class_exists( 'Tribe__Events__Admin_List' ) ) {
 			}
 
 
-			$endDateSQL = " eventEnd.meta_value ";
+			$endDateSQL = ' eventEnd.meta_value ';
 			$order      = $query->get( 'order' ) ? $query->get( 'order' ) : 'asc';
 			$orderby    = $query->get( 'orderby' ) ? $query->get( 'orderby' ) : 'start-date';
 			if ( $orderby == 'event_date' ) {
@@ -111,10 +110,10 @@ if ( ! class_exists( 'Tribe__Events__Admin_List' ) ) {
 			};
 
 			if ( $orderby == 'start-date' ) {
-				$orderby_sql = " eventStart.meta_value " . $order . ', ' . $endDateSQL . $order;
+				$orderby_sql = " eventStart.meta_value {$order}, {$endDateSQL}{$order}";
 			} else {
 				if ( $orderby == 'end-date' ) {
-					$orderby_sql = $endDateSQL . $order . ", eventStart.meta_value " . $order;
+					$orderby_sql = "{$endDateSQL}{$order}, eventStart.meta_value {$order}";
 				}
 			}
 
@@ -163,7 +162,7 @@ if ( ! class_exists( 'Tribe__Events__Admin_List' ) ) {
 			$events_label_singular = tribe_get_event_label_singular();
 
 			foreach ( (array) $columns as $key => $value ) {
-				$mycolumns[$key] = $value;
+				$mycolumns[ $key ] = $value;
 				if ( $key == 'author' ) {
 					$mycolumns['events-cats'] = sprintf( __( '%s Categories', 'tribe-events-calendar' ), $events_label_singular );
 				}
@@ -245,7 +244,7 @@ if ( ! class_exists( 'Tribe__Events__Admin_List' ) ) {
 				$total_posts -= $num_posts->$state;
 			}
 
-			$counts['all'] = "<a href='edit.php?post_type=tribe_events' class='current'>" . sprintf( __( 'All %s', 'tribe-events-calendar' ), "<span class='count'>($total_posts)</span>" ) . "</a>";
+			$counts['all'] = "<a href='edit.php?post_type=tribe_events' class='current'>" . sprintf( __( 'All %s', 'tribe-events-calendar' ), "<span class='count'>({$total_posts})</span>" ) . '</a>';
 
 			foreach ( get_post_stati( array( 'show_in_admin_status_list' => true ), 'objects' ) as $status ) {
 				$class = '';
@@ -264,7 +263,7 @@ if ( ! class_exists( 'Tribe__Events__Admin_List' ) ) {
 					$class = ' class="current"';
 				}
 
-				$counts[$status_name] = "<a href='edit.php?post_status=$status_name&amp;post_type=$post_type'$class>" . sprintf( translate_nooped_plural( $status->label_count, $num_posts->$status_name ), number_format_i18n( $num_posts->$status_name ) ) . '</a>';
+				$counts[ $status_name ] = "<a href='edit.php?post_status=$status_name&amp;post_type=$post_type'$class>" . sprintf( translate_nooped_plural( $status->label_count, $num_posts->$status_name ), number_format_i18n( $num_posts->$status_name ) ) . '</a>';
 			}
 
 			return $counts;
@@ -287,7 +286,7 @@ if ( ! class_exists( 'Tribe__Events__Admin_List' ) ) {
 
 			$query = "SELECT post_status, COUNT( * ) AS num_posts FROM {$wpdb->posts}";
 			$query .= " LEFT JOIN {$wpdb->postmeta} as eventStart ON( {$wpdb->posts}.ID = eventStart.post_id AND eventStart.meta_key = '_EventStartDate') ";
-			$query .= " WHERE post_type = %s";
+			$query .= ' WHERE post_type = %s';
 			if ( 'readable' == $perm && is_user_logged_in() ) {
 				$post_type_object = get_post_type_object( $type );
 				if ( ! current_user_can( $post_type_object->cap->read_private_posts ) ) {
@@ -307,11 +306,11 @@ if ( ! class_exists( 'Tribe__Events__Admin_List' ) ) {
 
 			$stats = array();
 			foreach ( get_post_stati() as $state ) {
-				$stats[$state] = 0;
+				$stats[ $state ] = 0;
 			}
 
 			foreach ( (array) $count as $row ) {
-				$stats[$row['post_status']] = $row['num_posts'];
+				$stats[ $row['post_status'] ] = $row['num_posts'];
 			}
 
 			$stats = (object) $stats;

@@ -13,19 +13,19 @@ class Tribe__Events__Activation_Page {
 	}
 
 	public function maybe_redirect() {
-		if ( !empty($_POST) ) {
+		if ( ! empty( $_POST ) ) {
 			return; // don't interrupt anything the user's trying to do
 		}
 
-		if ( !is_admin() || defined('DOING_AJAX') ) {
+		if ( ! is_admin() || defined( 'DOING_AJAX' ) ) {
 			return;
 		}
 
-		if ( defined('IFRAME_REQUEST') && IFRAME_REQUEST ) {
+		if ( defined( 'IFRAME_REQUEST' ) && IFRAME_REQUEST ) {
 			return; // probably the plugin update/install iframe
 		}
 
-		if ( isset($_GET['tec-welcome-message']) || isset($_GET['tec-update-message']) ) {
+		if ( isset( $_GET['tec-welcome-message'] ) || isset( $_GET['tec-update-message'] ) ) {
 			return; // no infinite redirects
 		}
 
@@ -62,8 +62,8 @@ class Tribe__Events__Activation_Page {
 	 */
 	protected function showed_update_message_for_current_version() {
 		$tec = Tribe__Events__Main::instance();
-		$message_version_displayed = $tec->getOption('last-update-message');
-		if ( empty($message_version_displayed) ) {
+		$message_version_displayed = $tec->getOption( 'last-update-message' );
+		if ( empty( $message_version_displayed ) ) {
 			return FALSE;
 		}
 		if ( version_compare( $message_version_displayed, Tribe__Events__Main::VERSION, '<' ) ) {
@@ -74,7 +74,7 @@ class Tribe__Events__Activation_Page {
 
 	protected function log_display_of_message_page() {
 		$tec = Tribe__Events__Main::instance();
-		$tec->setOption('last-update-message', Tribe__Events__Main::VERSION);
+		$tec->setOption( 'last-update-message', Tribe__Events__Main::VERSION );
 	}
 
 	/**
@@ -86,19 +86,19 @@ class Tribe__Events__Activation_Page {
 	 */
 	protected function is_new_install() {
 		$tec = Tribe__Events__Main::instance();
-		$previous_versions = $tec->getOption('previous_ecp_versions');
-		return empty($previous_versions) || ( end($previous_versions) == '0' );
+		$previous_versions = $tec->getOption( 'previous_ecp_versions' );
+		return empty( $previous_versions ) || ( end( $previous_versions ) == '0' );
 	}
 
 	protected function redirect_to_welcome_page() {
 		$url = $this->get_message_page_url( 'tec-welcome-message' );
-		wp_safe_redirect($url);
+		wp_safe_redirect( $url );
 		exit();
 	}
 
 	protected function redirect_to_update_page() {
 		$url = $this->get_message_page_url( 'tec-update-message' );
-		wp_safe_redirect($url);
+		wp_safe_redirect( $url );
 		exit();
 	}
 
@@ -109,7 +109,7 @@ class Tribe__Events__Activation_Page {
 			'tribe_settings_url', add_query_arg(
 				array(
 					'post_type' => Tribe__Events__Main::POSTTYPE,
-					'page'      => $settings->adminSlug
+					'page'      => $settings->adminSlug,
 				), admin_url( 'edit.php' )
 			)
 		);
@@ -119,7 +119,7 @@ class Tribe__Events__Activation_Page {
 
 	public function register_page() {
 		// tribe_events_page_tribe-events-calendar
-		if ( isset($_GET['tec-welcome-message']) ) {
+		if ( isset( $_GET['tec-welcome-message'] ) ) {
 			$this->disable_default_settings_page();
 			add_action( 'tribe_events_page_tribe-events-calendar', array( $this, 'display_welcome_page' ) );
 		} elseif ( isset( $_GET['tec-update-message'] ) ) {
@@ -145,11 +145,11 @@ class Tribe__Events__Activation_Page {
 	}
 
 	protected function welcome_page_title() {
-		return __('Welcome to The Events Calendar', 'tribe-events-calendar');
+		return __( 'Welcome to The Events Calendar', 'tribe-events-calendar' );
 	}
 
 	protected function welcome_page_content() {
-		return $this->load_template('admin-welcome-message');
+		return $this->load_template( 'admin-welcome-message' );
 	}
 
 	public function display_update_page() {
@@ -165,16 +165,16 @@ class Tribe__Events__Activation_Page {
 	}
 
 	protected function update_page_title() {
-		return __('Thanks for Updating The Events Calendar', 'tribe-events-calendar');
+		return __( 'Thanks for Updating The Events Calendar', 'tribe-events-calendar' );
 	}
 
 	protected function update_page_content() {
-		return $this->load_template('admin-update-message');
+		return $this->load_template( 'admin-update-message' );
 	}
 
 	protected function load_template( $name ) {
 		ob_start();
-		include(trailingslashit(Tribe__Events__Main::instance()->pluginPath).'src/admin-views/'.$name.'.php');
+		include trailingslashit( Tribe__Events__Main::instance()->pluginPath ) . 'src/admin-views/' . $name . '.php';
 		return ob_get_clean();
 	}
 
@@ -189,7 +189,7 @@ class Tribe__Events__Activation_Page {
 	 * @return self
 	 */
 	public static function instance() {
-		if ( empty(self::$instance) ) {
+		if ( empty( self::$instance ) ) {
 			self::$instance = new self();
 		}
 		return self::$instance;

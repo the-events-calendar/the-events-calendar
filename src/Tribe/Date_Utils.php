@@ -29,10 +29,10 @@ if ( ! class_exists( 'Tribe__Events__Date_Utils' ) ) {
 		 *
 		 * @return string The date only in DB format.
 		 */
-		public static function dateOnly( $date, $isTimestamp = false ) {
+		public static function date_only( $date, $isTimestamp = false ) {
 			$date = $isTimestamp ? $date : strtotime( $date );
 
-			return date( Tribe__Events__Date_Utils::DBDATEFORMAT, $date );
+			return date( self::DBDATEFORMAT, $date );
 		}
 
 		/**
@@ -42,8 +42,8 @@ if ( ! class_exists( 'Tribe__Events__Date_Utils' ) ) {
 		 *
 		 * @return string The time only in DB format.
 		 */
-		public static function timeOnly( $date ) {
-			return date( Tribe__Events__Date_Utils::DBTIMEFORMAT, strtotime( $date ) );
+		public static function time_only( $date ) {
+			return date( self::DBTIMEFORMAT, strtotime( $date ) );
 		}
 
 		/**
@@ -53,8 +53,8 @@ if ( ! class_exists( 'Tribe__Events__Date_Utils' ) ) {
 		 *
 		 * @return string The hour only.
 		 */
-		public static function hourOnly( $date ) {
-			return date( Tribe__Events__Date_Utils::HOURFORMAT, strtotime( $date ) );
+		public static function hour_only( $date ) {
+			return date( self::HOURFORMAT, strtotime( $date ) );
 		}
 
 		/**
@@ -64,8 +64,8 @@ if ( ! class_exists( 'Tribe__Events__Date_Utils' ) ) {
 		 *
 		 * @return string The minute only.
 		 */
-		public static function minutesOnly( $date ) {
-			return date( Tribe__Events__Date_Utils::MINUTEFORMAT, strtotime( $date ) );
+		public static function minutes_only( $date ) {
+			return date( self::MINUTEFORMAT, strtotime( $date ) );
 		}
 
 		/**
@@ -75,50 +75,8 @@ if ( ! class_exists( 'Tribe__Events__Date_Utils' ) ) {
 		 *
 		 * @return string The meridian only in DB format.
 		 */
-		public static function meridianOnly( $date ) {
-			return date( Tribe__Events__Date_Utils::MERIDIANFORMAT, strtotime( $date ) );
-		}
-
-		/**
-		 * Returns the end of a given day.
-		 *
-		 * @deprecated since 3.10 - use tribe_event_end_of_day()
-		 * @todo       remove in 4.1
-		 *
-		 * @param int|string $date        The date (timestamp or string).
-		 * @param bool       $isTimestamp Is $date in timestamp format?
-		 *
-		 * @return string The date and time of the end of a given day
-		 */
-		public static function endOfDay( $date, $isTimestamp = false ) {
-			_deprecated_function( __FILE__, '3.10', 'tribe_event_end_of_day' );
-
-			$date = $isTimestamp ? $date : strtotime( $date );
-			$date = date( Tribe__Events__Date_Utils::DBDATEFORMAT, $date );
-			$date = strtotime( $date . ' 23:59:59' );
-
-			return date( Tribe__Events__Date_Utils::DBDATETIMEFORMAT, $date );
-		}
-
-		/**
-		 * Returns the beginning of a given day.
-		 *
-		 * @depreacted since 3.10
-		 * @todo       remove in 4.1
-		 *
-		 * @param int|string $date        The date (timestamp or string).
-		 * @param bool       $isTimestamp Is $date in timestamp format?
-		 *
-		 * @return string The date and time of the beginning of a given day.
-		 */
-		public static function beginningOfDay( $date, $isTimestamp = false ) {
-			_deprecated_function( __FILE__, '3.10', 'tribe_event_beginning_of_day' );
-
-			$date = $isTimestamp ? $date : strtotime( $date );
-			$date = date( Tribe__Events__Date_Utils::DBDATEFORMAT, $date );
-			$date = strtotime( $date . ' 00:00:00' );
-
-			return date( Tribe__Events__Date_Utils::DBDATETIMEFORMAT, $date );
+		public static function meridian_only( $date ) {
+			return date( self::MERIDIANFORMAT, strtotime( $date ) );
 		}
 
 		/**
@@ -129,7 +87,7 @@ if ( ! class_exists( 'Tribe__Events__Date_Utils' ) ) {
 		 *
 		 * @return int The number of seconds between the dates.
 		 */
-		public static function timeBetween( $date1, $date2 ) {
+		public static function time_between( $date1, $date2 ) {
 			return abs( strtotime( $date1 ) - strtotime( $date2 ) );
 		}
 
@@ -141,13 +99,11 @@ if ( ! class_exists( 'Tribe__Events__Date_Utils' ) ) {
 		 *
 		 * @return int The number of days between two dates.
 		 */
-		public static function dateDiff( $date1, $date2 ) {
-
+		public static function date_diff( $date1, $date2 ) {
 			// Get number of days between by finding seconds between and dividing by # of seconds in a day
-			$days = self::timeBetween( $date1, $date2 ) / ( 60 * 60 * 24 );
+			$days = self::time_between( $date1, $date2 ) / ( 60 * 60 * 24 );
 
 			return $days;
-
 		}
 
 		/**
@@ -157,11 +113,11 @@ if ( ! class_exists( 'Tribe__Events__Date_Utils' ) ) {
 		 *
 		 * @return string The last day of the month.
 		 */
-		public static function getLastDayOfMonth( $timestamp ) {
+		public static function get_last_day_of_month( $timestamp ) {
 			$curmonth  = date( 'n', $timestamp );
 			$curYear   = date( 'Y', $timestamp );
 			$nextmonth = mktime( 0, 0, 0, $curmonth + 1, 1, $curYear );
-			$lastDay   = strtotime( date( Tribe__Events__Pro__Date_Series_Rules__Rules_Interface::DATE_FORMAT, $nextmonth ) . " - 1 day" );
+			$lastDay   = strtotime( date( Tribe__Events__Pro__Date_Series_Rules__Rules_Interface::DATE_FORMAT, $nextmonth ) . ' - 1 day' );
 
 			return date( 'j', $lastDay );
 		}
@@ -173,7 +129,7 @@ if ( ! class_exists( 'Tribe__Events__Date_Utils' ) ) {
 		 *
 		 * @return bool If the timestamp is a weekday.
 		 */
-		public static function isWeekday( $curdate ) {
+		public static function is_weekday( $curdate ) {
 			return in_array( date( 'N', $curdate ), array( 1, 2, 3, 4, 5 ) );
 		}
 
@@ -184,7 +140,7 @@ if ( ! class_exists( 'Tribe__Events__Date_Utils' ) ) {
 		 *
 		 * @return bool If the timestamp is a weekend.
 		 */
-		public static function isWeekend( $curdate ) {
+		public static function is_weekend( $curdate ) {
 			return in_array( date( 'N', $curdate ), array( 6, 7 ) );
 		}
 
@@ -196,16 +152,15 @@ if ( ! class_exists( 'Tribe__Events__Date_Utils' ) ) {
 		 *
 		 * @return int The timestamp of the date that fits the qualifications.
 		 */
-		public static function getLastDayOfWeekInMonth( $curdate, $day_of_week ) {
-			$nextdate = mktime( date( "H", $curdate ), date( "i", $curdate ), date( "s", $curdate ), date( 'n', $curdate ), Tribe__Events__Date_Utils::getLastDayOfMonth( $curdate ), date( 'Y', $curdate ) );;
+		public static function get_last_day_of_week_in_month( $curdate, $day_of_week ) {
+			$nextdate = mktime( date( 'H', $curdate ), date( 'i', $curdate ), date( 's', $curdate ), date( 'n', $curdate ), self::get_last_day_of_month( $curdate ), date( 'Y', $curdate ) );;
 
 			while ( date( 'N', $nextdate ) != $day_of_week && $day_of_week != - 1 ) {
-				$nextdate = strtotime( date( Tribe__Events__Pro__Date_Series_Rules__Rules_Interface::DATE_FORMAT, $nextdate ) . " - 1 day" );
+				$nextdate = strtotime( date( Tribe__Events__Pro__Date_Series_Rules__Rules_Interface::DATE_FORMAT, $nextdate ) . ' - 1 day' );
 			}
 
 			return $nextdate;
 		}
-
 
 		/**
 		 * Gets the first day of the week in a month (ie the first Tuesday).
@@ -215,13 +170,13 @@ if ( ! class_exists( 'Tribe__Events__Date_Utils' ) ) {
 		 *
 		 * @return int The timestamp of the date that fits the qualifications.
 		 */
-		public static function getFirstDayOfWeekInMonth( $curdate, $day_of_week ) {
+		public static function get_first_day_of_week_in_month( $curdate, $day_of_week ) {
 			$nextdate = mktime( 0, 0, 0, date( 'n', $curdate ), 1, date( 'Y', $curdate ) );
 
 			while ( ! ( $day_of_week > 0 && date( 'N', $nextdate ) == $day_of_week ) &&
-					! ( $day_of_week == - 1 && Tribe__Events__Date_Utils::isWeekday( $nextdate ) ) &&
-					! ( $day_of_week == - 2 && Tribe__Events__Date_Utils::isWeekend( $nextdate ) ) ) {
-				$nextdate = strtotime( date( Tribe__Events__Pro__Date_Series_Rules__Rules_Interface::DATE_FORMAT, $nextdate ) . " + 1 day" );
+					! ( $day_of_week == - 1 && self::is_weekday( $nextdate ) ) &&
+					! ( $day_of_week == - 2 && self::is_weekend( $nextdate ) ) ) {
+				$nextdate = strtotime( date( Tribe__Events__Pro__Date_Series_Rules__Rules_Interface::DATE_FORMAT, $nextdate ) . ' + 1 day' );
 			}
 
 			return $nextdate;
@@ -234,7 +189,7 @@ if ( ! class_exists( 'Tribe__Events__Date_Utils' ) ) {
 		 *
 		 * @return string The ordinal for that number.
 		 */
-		public static function numberToOrdinal( $number ) {
+		public static function number_to_ordinal( $number ) {
 			$output = $number . ( ( ( strlen( $number ) > 1 ) && ( substr( $number, - 2, 1 ) == '1' ) ) ?
 					'th' : date( 'S', mktime( 0, 0, 0, 0, substr( $number, - 1 ), 0 ) ) );
 
@@ -248,7 +203,7 @@ if ( ! class_exists( 'Tribe__Events__Date_Utils' ) ) {
 		 *
 		 * @return bool
 		 */
-		public static function isTimestamp( $timestamp ) {
+		public static function is_timestamp( $timestamp ) {
 			if ( is_numeric( $timestamp ) && (int) $timestamp == $timestamp && date( 'U', $timestamp ) == $timestamp ) {
 				return true;
 			}
@@ -351,5 +306,223 @@ if ( ! class_exists( 'Tribe__Events__Date_Utils' ) ) {
 			if ( --$week_starts_on < 0 ) $week_starts_on = 6;
 			return $week_starts_on;
 		}
+
+		// DEPRECATED METHODS
+		// @codingStandardsIgnoreStart
+		/**
+		 * Deprecated camelCase version of self::date_only
+		 *
+		 * @param int|string $date        The date (timestamp or string).
+		 * @param bool       $isTimestamp Is $date in timestamp format?
+		 *
+		 * @return string The date only in DB format.
+		 */
+		public static function dateOnly( $date, $isTimestamp = false ) {
+			_deprecated_function( __FILE__, '3.11', __CLASS__ . '::date_only' );
+			return self::date_only( $date, $isTimestamp );
+		}
+
+		/**
+		 * Deprecated camelCase version of self::time_only
+		 *
+		 * @param string $date The date.
+		 *
+		 * @return string The time only in DB format.
+		 */
+		public static function timeOnly( $date ) {
+			_deprecated_function( __FILE__, '3.11', __CLASS__ . '::time_only' );
+			return self::time_only( $date );
+		}
+
+		/**
+		 * Deprecated camelCase version of self::hour_only
+		 *
+		 * @param string $date The date.
+		 *
+		 * @return string The hour only.
+		 */
+		public static function hourOnly( $date ) {
+			_deprecated_function( __FILE__, '3.11', __CLASS__ . '::hour_only' );
+			return self::hour_only( $date );
+		}
+
+		/**
+		 * Deprecated camelCase version of self::minutes_only
+		 *
+		 * @param string $date The date.
+		 *
+		 * @return string The minute only.
+		 */
+		public static function minutesOnly( $date ) {
+			_deprecated_function( __FILE__, '3.11', __CLASS__ . '::minutes_only' );
+			return self::minutes_only( $date );
+		}
+
+		/**
+		 * Deprecated camelCase version of self::meridian_only
+		 *
+		 * @param string $date The date.
+		 *
+		 * @return string The meridian only in DB format.
+		 */
+		public static function meridianOnly( $date ) {
+			_deprecated_function( __FILE__, '3.11', __CLASS__ . '::meridian_only' );
+			return self::meridian_only( $date );
+		}
+
+		/**
+		 * Returns the end of a given day.
+		 *
+		 * @deprecated since 3.10 - use tribe_event_end_of_day()
+		 * @todo       remove in 4.1
+		 *
+		 * @param int|string $date        The date (timestamp or string).
+		 * @param bool       $isTimestamp Is $date in timestamp format?
+		 *
+		 * @return string The date and time of the end of a given day
+		 */
+		public static function endOfDay( $date, $isTimestamp = false ) {
+			_deprecated_function( __FILE__, '3.10', 'tribe_event_end_of_day' );
+
+			if ( $isTimestamp ) {
+				$date = date( self::DBDATEFORMAT, $date );
+			}
+
+			return tribe_event_end_of_day( $date, self::DBDATETIMEFORMAT );
+		}
+
+		/**
+		 * Returns the beginning of a given day.
+		 *
+		 * @deprecated since 3.10
+		 * @todo       remove in 4.1
+		 *
+		 * @param int|string $date        The date (timestamp or string).
+		 * @param bool       $isTimestamp Is $date in timestamp format?
+		 *
+		 * @return string The date and time of the beginning of a given day.
+		 */
+		public static function beginningOfDay( $date, $isTimestamp = false ) {
+			_deprecated_function( __FILE__, '3.10', 'tribe_event_beginning_of_day' );
+
+			if ( $isTimestamp ) {
+				$date = date( self::DBDATEFORMAT, $date );
+			}
+
+			return tribe_event_beginning_of_day( $date, self::DBDATETIMEFORMAT );
+		}
+
+		/**
+		 * Deprecated camelCase version of self::time_between
+		 *
+		 * @param string $date1 The first date.
+		 * @param string $date2 The second date.
+		 *
+		 * @return int The number of seconds between the dates.
+		 */
+		public static function timeBetween( $date1, $date2 ) {
+			_deprecated_function( __FILE__, '3.11', __CLASS__ . '::time_between' );
+			return self::time_between( $date1, $date2 );
+		}
+
+		/**
+		 * Deprecated camelCase version of self::date_diff
+		 *
+		 * @param string $date1 The first date.
+		 * @param string $date2 The second date.
+		 *
+		 * @return int The number of days between two dates.
+		 */
+		public static function dateDiff( $date1, $date2 ) {
+			_deprecated_function( __FILE__, '3.11', __CLASS__ . '::date_diff' );
+			return self::date_diff( $date1, $date2 );
+		}
+
+		/**
+		 * Deprecated camelCase version of self::get_last_day_of_month
+		 *
+		 * @param int $timestamp THe timestamp.
+		 *
+		 * @return string The last day of the month.
+		 */
+		public static function getLastDayOfMonth( $timestamp ) {
+			_deprecated_function( __FILE__, '3.11', __CLASS__ . '::get_last_day_of_month' );
+			return self::get_last_day_of_month( $timestamp );
+		}
+
+		/**
+		 * Deprecated camelCase version of self::is_weekday
+		 *
+		 * @param int $curDate A timestamp.
+		 *
+		 * @return bool If the timestamp is a weekday.
+		 */
+		public static function isWeekday( $curdate ) {
+			_deprecated_function( __FILE__, '3.11', __CLASS__ . '::is_weekday' );
+			return self::is_weekday( $curdate );
+		}
+
+		/**
+		 * Deprecated camelCase version of self::is_weekend
+		 *
+		 * @param int $curDate A timestamp.
+		 *
+		 * @return bool If the timestamp is a weekend.
+		 */
+		public static function isWeekend( $curdate ) {
+			_deprecated_function( __FILE__, '3.11', __CLASS__ . '::is_weekend' );
+			return self::is_weekend( $curdate );
+		}
+
+		/**
+		 * Deprecated camelCase version of self::get_last_day_of_week_in_month
+		 *
+		 * @param int $curdate     A timestamp.
+		 * @param int $day_of_week The index of the day of the week.
+		 *
+		 * @return int The timestamp of the date that fits the qualifications.
+		 */
+		public static function getLastDayOfWeekInMonth( $curdate, $day_of_week ) {
+			_deprecated_function( __FILE__, '3.11', __CLASS__ . '::get_last_day_of_week_in_month' );
+			return self::get_last_day_of_week_in_month( $curdate, $day_of_week );
+		}
+
+		/**
+		 * Deprecated camelCase version of self::get_first_day_of_week_in_month
+		 *
+		 * @param int $curdate     A timestamp.
+		 * @param int $day_of_week The index of the day of the week.
+		 *
+		 * @return int The timestamp of the date that fits the qualifications.
+		 */
+		public static function getFirstDayOfWeekInMonth( $curdate, $day_of_week ) {
+			_deprecated_function( __FILE__, '3.11', __CLASS__ . '::get_fist_day_of_week_in_month' );
+			return self::get_first_day_of_week_in_month( $curdate, $day_of_week );
+		}
+
+		/**
+		 * Deprecated camelCase version of self::number_to_ordinal
+		 *
+		 * @param int $number A number.
+		 *
+		 * @return string The ordinal for that number.
+		 */
+		public static function numberToOrdinal( $number ) {
+			_deprecated_function( __FILE__, '3.11', __CLASS__ . '::number_to_ordinal' );
+			return self::number_to_ordinal( $number );
+		}
+
+		/**
+		 * Deprecated camelCase version of self::is_timestamp
+		 *
+		 * @param $timestamp
+		 *
+		 * @return bool
+		 */
+		public static function isTimestamp( $timestamp ) {
+			_deprecated_function( __FILE__, '3.11', __CLASS__ . '::is_timestamp' );
+			return self::is_timestamp( $timestamp );
+		}
+		// @codingStandardsIgnoreEnd
 	}
 }
