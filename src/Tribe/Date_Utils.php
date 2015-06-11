@@ -384,11 +384,11 @@ if ( ! class_exists( 'Tribe__Events__Date_Utils' ) ) {
 		public static function endOfDay( $date, $isTimestamp = false ) {
 			_deprecated_function( __FILE__, '3.10', 'tribe_event_end_of_day' );
 
-			$date = $isTimestamp ? $date : strtotime( $date );
-			$date = date( self::DBDATEFORMAT, $date );
-			$date = strtotime( $date . ' 23:59:59' );
+			if ( $isTimestamp ) {
+				$date = date( self::DBDATEFORMAT, $date );
+			}
 
-			return date( self::DBDATETIMEFORMAT, $date );
+			return tribe_event_end_of_day( $date, self::DBDATETIMEFORMAT );
 		}
 
 		/**
@@ -405,11 +405,11 @@ if ( ! class_exists( 'Tribe__Events__Date_Utils' ) ) {
 		public static function beginningOfDay( $date, $isTimestamp = false ) {
 			_deprecated_function( __FILE__, '3.10', 'tribe_event_beginning_of_day' );
 
-			$date = $isTimestamp ? $date : strtotime( $date );
-			$date = date( self::DBDATEFORMAT, $date );
-			$date = strtotime( $date . ' 00:00:00' );
+			if ( $isTimestamp ) {
+				$date = date( self::DBDATEFORMAT, $date );
+			}
 
-			return date( self::DBDATETIMEFORMAT, $date );
+			return tribe_event_beginning_of_day( $date, self::DBDATETIMEFORMAT );
 		}
 
 		/**
