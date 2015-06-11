@@ -140,7 +140,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 *
 	 * Returns a link to the general or category upcoming view
 	 *
-	 * @param string $term Optional event category to link to.
+	 * @param int $term Optional event category ID to link to.
 	 *
 	 * @return string URL
 	 */
