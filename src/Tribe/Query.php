@@ -235,7 +235,7 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 							$query->set( 'start_date', date_i18n( Tribe__Events__Date_Utils::DBDATETIMEFORMAT, $beginning_of_day ) );
 							$query->set( 'end_date', tribe_event_end_of_day( $event_date ) );
 							$query->set( 'posts_per_page', - 1 ); // show ALL day posts
-							$query->set( 'hide_upcoming', false );
+							$query->set( 'hide_upcoming', true );
 							$query->set( 'order', self::set_order( 'ASC', $query ) );
 							break;
 						case 'all':
