@@ -133,7 +133,7 @@ class Tribe__Events__Pro__Recurrence__Queue_Processor {
 			'post_type'      => Tribe__Events__Main::POSTTYPE,
 			'post_parent'    => 0,
 			'meta_key'       => Tribe__Events__Pro__Recurrence__Queue::EVENT_QUEUE,
-			'posts_per_page' => 1
+			'posts_per_page' => 1,
 		) );
 
 		if ( empty( $waiting_events ) ) {
@@ -197,7 +197,7 @@ class Tribe__Events__Pro__Recurrence__Queue_Processor {
 
 			Tribe__Events__Pro__Recurrence_Meta::delete_unexcluded_event( $instance_id, $start_date );
 
-			unset( $instances_to_delete[$instance_id] );
+			unset( $instances_to_delete[ $instance_id ] );
 			$this->processed++;
 		}
 
@@ -217,7 +217,7 @@ class Tribe__Events__Pro__Recurrence__Queue_Processor {
 			$instance = new Tribe__Events__Pro__Recurrence_Instance( $this->current_event_id, $start_date, $instance_id );
 			$instance->save();
 
-			unset( $instances_to_update[$instance_id] );
+			unset( $instances_to_update[ $instance_id ] );
 			$this->processed++;
 		}
 
@@ -241,7 +241,7 @@ class Tribe__Events__Pro__Recurrence__Queue_Processor {
 			$instance = new Tribe__Events__Pro__Recurrence_Instance( $this->current_event_id, $start_date );
 			$instance->save();
 
-			unset( $instances_to_create[$key] );
+			unset( $instances_to_create[ $key ] );
 			$this->processed++;
 		}
 

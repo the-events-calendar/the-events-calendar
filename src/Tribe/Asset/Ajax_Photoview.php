@@ -6,8 +6,8 @@ class Tribe__Events__Pro__Asset__Ajax_Photoview extends Tribe__Events__Asset__Ab
 	public function handle() {
 		$tribe_paged = ( ! empty( $_REQUEST['tribe_paged'] ) ) ? $_REQUEST['tribe_paged'] : 0;
 		$ajax_data   = array(
-			"ajaxurl"     => admin_url( 'admin-ajax.php', ( is_ssl() ? 'https' : 'http' ) ),
-			'tribe_paged' => $tribe_paged
+			'ajaxurl'     => admin_url( 'admin-ajax.php', ( is_ssl() ? 'https' : 'http' ) ),
+			'tribe_paged' => $tribe_paged,
 		);
 		$path1       = Tribe__Events__Template_Factory::getMinFile( $this->vendor_url . 'isotope/jquery.isotope.js', true );
 		$path2       = Tribe__Events__Template_Factory::getMinFile( tribe_events_pro_resource_url( 'tribe-events-photo-view.js' ), true );

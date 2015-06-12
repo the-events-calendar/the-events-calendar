@@ -13,7 +13,7 @@
 				'is' => __( 'Is', 'tribe-events-calendar-pro' ),
 				'not' => __( 'Is Not', 'tribe-events-calendar-pro' ),
 				'gte' => __( 'On and After', 'tribe-events-calendar-pro' ),
-				'lte' => __( 'On and Before', 'tribe-events-calendar-pro' )
+				'lte' => __( 'On and Before', 'tribe-events-calendar-pro' ),
 			);
 			$type = $this->type;
 			add_filter( 'tribe_custom_row' . $type, array( $this, 'form_row' ), 10, 4 );
@@ -22,7 +22,7 @@
 
 		}
 
-		public function form_row( $return, $key, $value, $filter ) {
+		public function form_row( $return, $key, $value, $unused_filter ) {
 			$value = (array) $value;
 			$value = wp_parse_args( $value, array( 'is' => '', 'value' => '', 'is_date_field' => true ) );
 			$return = tribe_select_field( 'is_' . $key, $this->query_search_options, $value['is'] );
@@ -50,7 +50,6 @@
 				if ( isset( $field['is_date_field'] ) ) {
 					$this->active[ $key ] = $field;
 				}
-
 			}
 
 			add_filter( 'posts_where', array( $this, 'where' ), 10, 2 );
@@ -67,10 +66,10 @@
 				$field = '';
 
 				if ( $key === 'ecp_start_date' ) {
-					$field = "eventStart.meta_value";
+					$field = 'eventStart.meta_value';
 				}
 				if ( $key === 'ecp_end_date' ) {
-					$field = "eventEnd.meta_value";
+					$field = 'eventEnd.meta_value';
 				}
 
 				if ( empty( $field ) ) {
@@ -80,16 +79,16 @@
 				$value = $active['value'];
 
 				switch ( $active['is'] ) {
-					case "is":
+					case 'is':
 						$where .= $wpdb->prepare( " AND $field BETWEEN %s AND %s ", tribe_event_beginning_of_day( $value ), tribe_event_end_of_day( $value ) );
 						break;
-					case "not":
+					case 'not':
 						$where .= $wpdb->prepare( " AND $field NOT BETWEEN %s AND %s ", tribe_event_beginning_of_day( $value ), tribe_event_end_of_day( $value ) );
 						break;
-					case "gte":
+					case 'gte':
 						$where .= $wpdb->prepare( " AND $field >= %s ", tribe_event_beginning_of_day( $value ) );
 						break;
-					case "lte":
+					case 'lte':
 						$where .= $wpdb->prepare( " AND $field <= %s ", tribe_event_end_of_day( $value ) );
 						break;
 

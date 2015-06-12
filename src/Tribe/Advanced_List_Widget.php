@@ -19,14 +19,14 @@ class Tribe__Events__Pro__Advanced_List_Widget extends Tribe__Events__List_Widge
 	public function __construct() {
 		$widget_ops = array(
 			'classname'   => 'tribe-events-adv-list-widget',
-			'description' => __( 'A widget that displays the next upcoming x events.', 'tribe-events-calendar-pro' )
+			'description' => __( 'A widget that displays the next upcoming x events.', 'tribe-events-calendar-pro' ),
 		);
 
 		$control_ops = array( 'id_base' => 'tribe-events-adv-list-widget' );
 
 		parent::__construct( 'tribe-events-adv-list-widget', __( 'Events List', 'tribe-events-calendar-pro' ), $widget_ops, $control_ops );
 		add_filter( 'tribe_events_list_widget_query_args', array( $this, 'taxonomy_filters' ) );
-		
+
 		// Do not enqueue if the widget is inactive
 		if ( is_active_widget( false, false, $this->id_base, true ) ) {
 			add_action( 'init', array( $this, 'enqueue_stylesheet' ), 100 );
@@ -128,7 +128,7 @@ class Tribe__Events__Pro__Advanced_List_Widget extends Tribe__Events__List_Widge
 			'organizer'          => false,
 			'operand'            => 'OR',
 			'filters'            => '',
-			'instance'           => &$this->instance
+			'instance'           => &$this->instance,
 		) );
 	}
 

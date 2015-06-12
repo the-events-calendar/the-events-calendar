@@ -18,7 +18,7 @@ class Tribe__Events__Pro__Community_Modifications {
 		if ( empty( $_POST ) ) {
 			return $required_fields;
 		}
-		
+
 		if ( ! empty( $_POST ) && ! empty( $_POST['recurrence'] ) && $_POST['recurrence']['type'] != 'None' && ! empty( $_POST['recurrence']['type'] ) ) {
 			switch ( $_POST['recurrence']['end-type'] ) {
 				case 'On' :
@@ -37,7 +37,7 @@ class Tribe__Events__Pro__Community_Modifications {
 		return $required_fields;
 	}
 
-	public function field_labels($label, $field) {
+	public function field_labels( $label, $field ) {
 		switch ( $field ) {
 			case 'recurrence[end]':
 				$label = __( 'Recurrence End Date', 'tribe-events-calendar-pro' );
@@ -54,7 +54,7 @@ class Tribe__Events__Pro__Community_Modifications {
 	 * @return self
 	 */
 	public static function instance() {
-		if ( empty(self::$instance) ) {
+		if ( empty( self::$instance ) ) {
 			self::$instance = new self();
 		}
 		return self::$instance;

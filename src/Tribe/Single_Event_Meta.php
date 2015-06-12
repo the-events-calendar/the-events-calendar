@@ -57,7 +57,7 @@ class Tribe__Events__Pro__Single_Event_Meta {
 	 */
 	public function additional_fields() {
 		tribe_get_template_part( 'pro/modules/meta/additional-fields', null, array(
-			'fields' => tribe_get_custom_fields()
+			'fields' => tribe_get_custom_fields(),
 		) );
 	}
 
@@ -175,7 +175,7 @@ tribe_register_meta( 'tribe_event_custom_meta', array(
 	'label'           => '',
 	'priority'        => 60,
 	'filter_callback' => array( 'Tribe__Events__Pro__Single_Event_Meta', 'custom_meta' ),
-	'group'           => 'tribe_event_group_custom_meta'
+	'group'           => 'tribe_event_group_custom_meta',
 ) );
 
 /**
@@ -193,8 +193,8 @@ tribe_register_meta( 'tribe_event_custom_recurrence_description', array(
 		'label_before' => '<dt>',
 		'label_after'  => '</dt>',
 		'meta_before'  => '<dd class="%s">',
-		'meta_after'   => '</dd>'
+		'meta_after'   => '</dd>',
 	),
 	'filter_callback' => array( 'Tribe__Events__Pro__Single_Event_Meta', 'custom_recurrence_description' ),
-	'group'           => 'tribe_event_details'
+	'group'           => 'tribe_event_details',
 ) );

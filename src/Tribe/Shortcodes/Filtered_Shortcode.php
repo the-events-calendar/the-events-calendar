@@ -17,7 +17,7 @@ class Tribe__Events__Pro__Shortcodes__Filtered_Shortcode {
 		// Build our taxonomy filter
 		foreach ( $this->tax_relationships as $param => $tax ) {
 			// Check for taxonomy terms for each supported taxonomy
-			$this->terms = explode( ',', $params[$param] );
+			$this->terms = explode( ',', $params[ $param ] );
 			foreach ( $this->terms as $term ) {
 				$this->add_term( $term, $tax );
 			}
@@ -39,13 +39,13 @@ class Tribe__Events__Pro__Shortcodes__Filtered_Shortcode {
 
 		// Accept term IDs - these should be prefixed with a # symbol
 		if ( 0 === strpos( $term, '#' ) && is_numeric( substr( $term, 1 ) ) ) {
-			$this->filters[$tax][] = absint( substr( $term, 1 ) );
+			$this->filters[ $tax ][] = absint( substr( $term, 1 ) );
 		}
 		// Also accept term slugs...
 		else {
 			$term_obj = get_term_by( 'slug', $term, $tax );
 			if ( false === $term_obj ) return;
-			$this->filters[$tax][] = $term_obj->term_id;
+			$this->filters[ $tax ][] = $term_obj->term_id;
 		}
 	}
 }

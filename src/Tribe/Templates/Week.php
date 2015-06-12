@@ -72,7 +72,7 @@ if ( ! class_exists( 'Tribe__Events__Pro__Templates__Week' ) ) {
 		/**
 		 * __construct()
 		 */
-		function __construct() {
+		public function __construct() {
 			parent::__construct();
 			self::$hour_range = tribe_events_week_get_hours();
 			self::$day_range  = tribe_events_week_get_days();
@@ -149,7 +149,7 @@ if ( ! class_exists( 'Tribe__Events__Pro__Templates__Week' ) ) {
 		 *
 		 * @return void
 		 * */
-		function set_notices() {
+		public function set_notices() {
 
 			// no events this week
 			if ( ! $this->any_events() ) {
@@ -214,7 +214,7 @@ if ( ! class_exists( 'Tribe__Events__Pro__Templates__Week' ) ) {
 			add_action( 'tribe_pre_get_template_part_pro/week/loop', array( $this, 'rewind_days' ) );
 			add_action( 'tribe_post_get_template_part_pro/week/single-event', array(
 				$this,
-				'set_previous_event'
+				'set_previous_event',
 			), 10, 3 );
 			add_action( 'tribe_pre_get_template_part_pro/week/single-event', array( $this, 'set_global_post' ), 10, 3 );
 		}
@@ -271,12 +271,12 @@ if ( ! class_exists( 'Tribe__Events__Pro__Templates__Week' ) ) {
 		 * @return string
 		 * @see 'tribe_events_header_attributes'
 		 * */
-		function header_attributes( $attrs, $current_view ) {
-					global $wp_query;
-					$attrs['data-view']        = 'week';
-					$attrs['data-startofweek'] = get_option( 'start_of_week' );
-					$attrs['data-baseurl']     = tribe_get_week_permalink( null, false );
-			$attrs['data-date']        = Date( 'Y-m-d', strtotime( $wp_query->get( 'start_date' ) ) );
+		public function header_attributes( $attrs, $current_view ) {
+			global $wp_query;
+			$attrs['data-view']        = 'week';
+			$attrs['data-startofweek'] = get_option( 'start_of_week' );
+			$attrs['data-baseurl']     = tribe_get_week_permalink( null, false );
+			$attrs['data-date']        = date( 'Y-m-d', strtotime( $wp_query->get( 'start_date' ) ) );
 
 			return apply_filters( 'tribe_events_pro_header_attributes', $attrs, $current_view );
 		}
@@ -345,7 +345,7 @@ if ( ! class_exists( 'Tribe__Events__Pro__Templates__Week' ) ) {
 							} else {
 								// if the event starts after the end of the hour range we're displaying, or ends before the start, skip it
 								$start_hour_today = $date . ' ' . tribe_events_week_get_hours( 'first-hour' );
-								$end_hour_today   = tribe_event_end_of_day($date, 'Y-m-d ') . tribe_events_week_get_hours( 'last-hour' );
+								$end_hour_today   = tribe_event_end_of_day( $date, 'Y-m-d ' ) . tribe_events_week_get_hours( 'last-hour' );
 								if ( tribe_get_start_time( $event, 'U' ) > strtotime( $end_hour_today ) || tribe_get_end_time( $event, 'U' ) < strtotime( $start_hour_today ) ) {
 									continue;
 					}
@@ -427,7 +427,7 @@ if ( ! class_exists( 'Tribe__Events__Pro__Templates__Week' ) ) {
 				$end_of_day_timestamp   = tribe_event_end_of_day( self::get_current_date(), 'U' );
 				if ( has_filter( 'tribe_events_week_get_hours' ) ) {
 					// if we're filtering the hour range on week view, stop the events at that hour
-					$last_hour_timestamp =  strtotime( self::get_current_date() . tribe_events_week_get_hours( 'last-hour' ) );
+					$last_hour_timestamp = strtotime( self::get_current_date() . tribe_events_week_get_hours( 'last-hour' ) );
 					$end_of_day_timestamp = min( $end_of_day_timestamp, $last_hour_timestamp );
 							}
 				$data_hour = date( 'G', $event_start_timestamp );
@@ -558,10 +558,10 @@ if ( ! class_exists( 'Tribe__Events__Pro__Templates__Week' ) ) {
 			if ( $day['is_today'] ) {
 				$classes .= 'tribe-week-today';
 			} // Past
-			else if ( $day['is_past'] ) {
+			elseif ( $day['is_past'] ) {
 				$classes .= 'tribe-events-past';
 			} // Future
-			else if ( $day['is_future'] ) {
+			elseif ( $day['is_future'] ) {
 				$classes .= 'tribe-events-future';
 			}
 			// Has Events
@@ -580,7 +580,7 @@ if ( ! class_exists( 'Tribe__Events__Pro__Templates__Week' ) ) {
 		 * @return string
 		 * @see 'tribe_events_event_classes'
 		 */
-		function event_classes( $classes ) {
+		public function event_classes( $classes ) {
 
 			global $post;
 			$event = $post;
@@ -646,8 +646,8 @@ if ( ! class_exists( 'Tribe__Events__Pro__Templates__Week' ) ) {
 		 *
 		 * @return void
 		 */
-		function ajax_response() {
-			if ( isset( $_POST["eventDate"] ) && $_POST["eventDate"] ) {
+		public function ajax_response() {
+			if ( isset( $_POST['eventDate'] ) && $_POST['eventDate'] ) {
 
 				Tribe__Events__Query::init();
 
@@ -658,8 +658,8 @@ if ( ! class_exists( 'Tribe__Events__Pro__Templates__Week' ) ) {
 
 				$args = array(
 					'post_status'  => $post_status,
-					'eventDate'    => $_POST["eventDate"],
-					'eventDisplay' => 'week'
+					'eventDate'    => $_POST['eventDate'],
+					'eventDisplay' => 'week',
 				);
 
 				if ( isset( $_POST['tribe_event_category'] ) ) {

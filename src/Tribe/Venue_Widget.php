@@ -9,17 +9,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 if ( ! class_exists( 'Tribe__Events__Pro__Venue_Widget' ) ) {
 	class Tribe__Events__Pro__Venue_Widget extends WP_Widget {
-		function Tribe__Events__Pro__Venue_Widget() {
+		public function __construct() {
 			// Widget settings.
 			$widget_ops = array(
 				'classname'   => 'tribe-events-venue-widget',
-				'description' => __( 'Displays a list of upcoming events at a specific venue.', 'tribe-events-calendar-pro' )
+				'description' => __( 'Displays a list of upcoming events at a specific venue.', 'tribe-events-calendar-pro' ),
 			);
 			// Create the widget.
 			$this->WP_Widget( 'tribe-events-venue-widget', __( 'Events Featured Venue', 'tribe-events-calendar-pro' ), $widget_ops );
 		}
 
-		function widget( $args, $instance ) {
+		public function widget( $args, $instance ) {
 			extract( $args );
 			extract( $instance );
 
@@ -32,7 +32,7 @@ if ( ! class_exists( 'Tribe__Events__Pro__Venue_Widget' ) ) {
 				'post_type'      => Tribe__Events__Main::POSTTYPE,
 				'venue'          => $venue_ID,
 				'posts_per_page' => $count,
-				'eventDisplay'   => 'list'
+				'eventDisplay'   => 'list',
 			), true );
 
 			// If there are no events, and the user has set to hide if empty, don't display the widget.
@@ -63,7 +63,7 @@ if ( ! class_exists( 'Tribe__Events__Pro__Venue_Widget' ) ) {
 		}
 
 		// Include the file for the administration view of the widget.
-		function form( $instance ) {
+		public function form( $instance ) {
 			$defaults = array(
 				'title'         => '',
 				'venue_ID'      => null,
@@ -73,14 +73,14 @@ if ( ! class_exists( 'Tribe__Events__Pro__Venue_Widget' ) ) {
 			$venues   = get_posts( array(
 					'post_type' => Tribe__Events__Main::VENUE_POST_TYPE,
 					'orderby'   => 'title',
-					'nopaging'  => true
+					'nopaging'  => true,
 				) );
 			$instance = wp_parse_args( (array) $instance, $defaults );
 			include( Tribe__Events__Pro__Main::instance()->pluginPath . 'src/admin-views/widget-admin-venue.php' );
 		}
 
 		// Function allowing updating of widget information.
-		function update( $new_instance, $old_instance ) {
+		public function update( $new_instance, $old_instance ) {
 			$instance = parent::update( $new_instance, $old_instance );
 
 			$instance['title']         = $new_instance['title'];

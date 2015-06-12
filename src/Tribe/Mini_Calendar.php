@@ -8,7 +8,7 @@ class Tribe__Events__Pro__Mini_Calendar {
 	private $args;
 	private $show_list = true;
 
-	function __construct() {
+	public function __construct() {
 		add_action( 'wp_ajax_tribe-mini-cal', array( $this, 'ajax_change_month' ) );
 		add_action( 'wp_ajax_nopriv_tribe-mini-cal', array( $this, 'ajax_change_month' ) );
 
@@ -31,7 +31,7 @@ class Tribe__Events__Pro__Mini_Calendar {
 	 */
 	public function get_month( $format = Tribe__Events__Date_Utils::DBDATETIMEFORMAT ) {
 		if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
-			return isset( $_POST["eventDate"] ) ? $_POST["eventDate"] : date_i18n( $format );
+			return isset( $_POST['eventDate'] ) ? $_POST['eventDate'] : date_i18n( $format );
 		}
 
 		return date_i18n( $format );
@@ -53,8 +53,8 @@ class Tribe__Events__Pro__Mini_Calendar {
 
 		$response = array( 'success' => false, 'html' => '', 'view' => 'mini-day' );
 
-		if ( isset( $_POST["nonce"] ) && isset( $_POST["eventDate"] ) && isset( $_POST["count"] ) ) {
-			if ( ! wp_verify_nonce( $_POST["nonce"], 'calendar-ajax' ) ) {
+		if ( isset( $_POST['nonce'] ) && isset( $_POST['eventDate'] ) && isset( $_POST['count'] ) ) {
+			if ( ! wp_verify_nonce( $_POST['nonce'], 'calendar-ajax' ) ) {
 				die();
 			}
 
@@ -70,8 +70,8 @@ class Tribe__Events__Pro__Mini_Calendar {
 			}
 
 			$this->args = array(
-				'eventDate'    => $_POST["eventDate"],
-				'count'        => $_POST["count"],
+				'eventDate'    => $_POST['eventDate'],
+				'count'        => $_POST['count'],
 				'tax_query'    => $tax_query,
 				'eventDisplay' => 'day',
 				'post_status'  => $post_status,
@@ -92,7 +92,6 @@ class Tribe__Events__Pro__Mini_Calendar {
 			if ( $tooltip_status ) {
 				$ecp->enable_recurring_info_tooltip();
 			}
-
 		}
 		apply_filters( 'tribe_events_ajax_response', $response );
 
@@ -245,7 +244,7 @@ class Tribe__Events__Pro__Mini_Calendar {
 			wp_enqueue_style( Tribe__Events__Main::POSTTYPE . '--widget-calendar-pro-override-style', $styleOverrideUrl, array(), apply_filters( 'tribe_events_pro_css_version', Tribe__Events__Pro__Main::VERSION ) );
 		}
 
-		$widget_data = array( "ajaxurl" => admin_url( 'admin-ajax.php', ( is_ssl() ? 'https' : 'http' ) ) );
+		$widget_data = array( 'ajaxurl' => admin_url( 'admin-ajax.php', ( is_ssl() ? 'https' : 'http' ) ) );
 		wp_localize_script( 'tribe-mini-calendar', 'TribeMiniCalendar', $widget_data );
 	}
 
@@ -322,8 +321,8 @@ class Tribe__Events__Pro__Mini_Calendar {
 
 	public function ajax_change_month_set_date( $query ) {
 
-		if ( isset( $_POST["eventDate"] ) && $_POST["eventDate"] ) {
-			$query->set( 'end_date', date( 'Y-m-d', strtotime( Tribe__Events__Main::instance()->nextMonth( $_POST["eventDate"] . '-01' ) ) - ( 24 * 3600 ) ) );
+		if ( isset( $_POST['eventDate'] ) && $_POST['eventDate'] ) {
+			$query->set( 'end_date', date( 'Y-m-d', strtotime( Tribe__Events__Main::instance()->nextMonth( $_POST['eventDate'] . '-01' ) ) - ( 24 * 3600 ) ) );
 			$query->set( 'eventDisplay', 'month' );
 		}
 
@@ -332,11 +331,11 @@ class Tribe__Events__Pro__Mini_Calendar {
 
 	public function ajax_select_day_set_date( $query ) {
 
-		if ( isset( $_POST["eventDate"] ) && $_POST["eventDate"] ) {
-			$query->set( 'eventDate', $_POST["eventDate"] );
+		if ( isset( $_POST['eventDate'] ) && $_POST['eventDate'] ) {
+			$query->set( 'eventDate', $_POST['eventDate'] );
 			$query->set( 'eventDisplay', 'day' );
-			$query->set( 'start_date', tribe_event_beginning_of_day( $_POST["eventDate"] ) );
-			$query->set( 'end_date', tribe_event_end_of_day( $_POST["eventDate"] ) );
+			$query->set( 'start_date', tribe_event_beginning_of_day( $_POST['eventDate'] ) );
+			$query->set( 'end_date', tribe_event_end_of_day( $_POST['eventDate'] ) );
 			$query->set( 'hide_upcoming', false );
 		}
 

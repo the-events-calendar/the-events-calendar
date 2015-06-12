@@ -49,4 +49,4 @@ class Tribe__Events__Pro__Post_Meta_Copier {
 		return apply_filters( 'tribe_events_meta_copier_blacklist', $list );
 	}
 }
- 
+

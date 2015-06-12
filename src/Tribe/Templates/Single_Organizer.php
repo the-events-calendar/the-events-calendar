@@ -29,7 +29,7 @@ if ( ! class_exists( 'Tribe__Events__Pro__Templates__Single_Organizer' ) ) {
 
 			add_action( 'tribe_events_single_organizer_before_upcoming_events', array(
 					$this,
-					'setup_upcoming_events'
+					'setup_upcoming_events',
 				) );
 
 			add_filter( 'tribe_get_template_part_templates', array( $this, 'remove_list_navigation' ), 10, 3 );
@@ -51,21 +51,21 @@ if ( ! class_exists( 'Tribe__Events__Pro__Templates__Single_Organizer' ) ) {
 				'label_after'    => '',
 				'meta_before'    => '<address class="organizer-address">',
 				'meta_after'     => '</address>',
-				'meta_separator' => '<span class="tribe-events-divider">|</span>'
+				'meta_separator' => '<span class="tribe-events-divider">|</span>',
 			), 'meta_group' );
 
 			// setup the template for the meta items
 			tribe_set_the_meta_template( array(
 				'tribe_event_organizer_phone',
 				'tribe_event_organizer_email',
-				'tribe_event_organizer_website'
+				'tribe_event_organizer_website',
 			), array(
 				'before'       => '',
 				'after'        => '',
 				'label_before' => '',
 				'label_after'  => '',
 				'meta_before'  => '<span class="%s">',
-				'meta_after'   => '</span>'
+				'meta_after'   => '</span>',
 			) );
 
 			// remove the title for the group & meta items
@@ -73,7 +73,7 @@ if ( ! class_exists( 'Tribe__Events__Pro__Templates__Single_Organizer' ) ) {
 			tribe_set_meta_label( array(
 				'tribe_event_organizer_phone'   => '',
 				'tribe_event_organizer_email'   => '',
-				'tribe_event_organizer_website' => ''
+				'tribe_event_organizer_website' => '',
 			) );
 
 			// turn off the organizer name in the group

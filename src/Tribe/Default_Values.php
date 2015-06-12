@@ -34,12 +34,12 @@ class Tribe__Events__Pro__Default_Values extends Tribe__Events__Default_Values {
 
 	public function country() {
 		$country = Tribe__Events__Main::instance()->getOption( 'defaultCountry', NULL );
-		if ( !$country || !is_array( $country ) ) {
+		if ( ! $country || ! is_array( $country ) ) {
 			$country = array( '', '' );
 		}
 		for ( $i = 0 ; $i < 2 ; $i++ ) {
-			if ( !isset( $country[$i] ) ) {
-				$country[$i] = '';
+			if ( ! isset( $country[ $i ] ) ) {
+				$country[ $i ] = '';
 			}
 		}
 		return $country;

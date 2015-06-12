@@ -34,7 +34,7 @@ define( 'EVENTS_CALENDAR_PRO_DIR', dirname( __FILE__ ) );
 		tribe_init_events_pro_autoloading();
 
 		$classes_exist = class_exists( 'Tribe__Events__Main' ) && class_exists( 'Tribe__Events__Pro__Main' );
-		$version_ok = defined('Tribe__Events__Main::VERSION') && version_compare( Tribe__Events__Main::VERSION, Tribe__Events__Pro__Main::REQUIRED_TEC_VERSION, '>=' );
+		$version_ok = defined( 'Tribe__Events__Main::VERSION' ) && version_compare( Tribe__Events__Main::VERSION, Tribe__Events__Pro__Main::REQUIRED_TEC_VERSION, '>=' );
 
 		$to_run_or_not_to_run = ( $classes_exist && $version_ok );
 		if ( apply_filters( 'tribe_ecp_to_run_or_not_to_run', $to_run_or_not_to_run ) ) {
@@ -82,7 +82,7 @@ define( 'EVENTS_CALENDAR_PRO_DIR', dirname( __FILE__ ) );
 			'plugin_name' => 'Events Calendar PRO',
 			'required_version' => Tribe__Events__Pro__Main::REQUIRED_TEC_VERSION,
 			'current_version' => Tribe__Events__Pro__Main::VERSION,
-			'plugin_dir_file' => basename( dirname( __FILE__ ) ) . '/events-calendar-pro.php'
+			'plugin_dir_file' => basename( dirname( __FILE__ ) ) . '/events-calendar-pro.php',
 		);
 
 		return $plugins;
@@ -107,7 +107,7 @@ define( 'EVENTS_CALENDAR_PRO_DIR', dirname( __FILE__ ) );
 	 * autoloading.
 	 */
 	function tribe_init_events_pro_autoloading() {
-		if ( !class_exists('Tribe__Events__Autoloader') ) {
+		if ( ! class_exists( 'Tribe__Events__Autoloader' ) ) {
 			return;
 		}
 		$autoloader = Tribe__Events__Autoloader::instance();

@@ -47,7 +47,7 @@ class Tribe__Events__Pro__Recurrence_Permalinks {
 		$unpublished = isset( $post->post_status ) && in_array( $post->post_status, array(
 					'draft',
 					'pending',
-					'auto-draft'
+					'auto-draft',
 				) );
 		if ( $unpublished && ! $sample ) {
 			return false;
@@ -78,4 +78,4 @@ class Tribe__Events__Pro__Recurrence_Permalinks {
 		return $permastruct;
 	}
 }
- 
+
