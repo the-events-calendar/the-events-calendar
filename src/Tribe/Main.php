@@ -1376,8 +1376,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			$VenueID = apply_filters( 'tribe_display_event_venue_dropdown_id', $VenueID );
 
 			?>
-			<tr class="">
-				<td style="width:170px"><?php echo esc_html( sprintf( __( 'Use Saved %s:', 'tribe-events-calendar' ), $this->singular_venue_label ) ); ?></td>
+			<tr>
+				<td style="width:170px"><?php printf( __( 'Use Saved %s:', 'tribe-events-calendar' ), $this->singular_venue_label ); ?></td>
 				<td><?php $this->saved_venues_dropdown( $VenueID ); ?> <div class="edit-venue-link" <?php if ( empty( $VenueID ) ) { ?>style="display:none;"<?php } ?>><a data-admin-url="<?php echo esc_url( admin_url( 'post.php?action=edit&post=' ) ); ?>" href="<?php echo esc_url( admin_url( sprintf( 'post.php?action=edit&post=%s', $VenueID ) ) ); ?>" target="_blank"><?php echo esc_html( sprintf( __( 'Edit %s', 'tribe-events-calendar' ), $this->singular_venue_label ) ); ?></a></div></td>
 			</tr>
 		<?php
@@ -1428,7 +1428,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			?>
 			<tr class="">
 				<td style="width:170px">
-					<label for="saved_organizer"><?php echo esc_html( sprintf( __( 'Use Saved %s:', 'tribe-events-calendar' ), $this->singular_organizer_label ) ); ?></label>
+					<label for="saved_organizer"><?php printf( __( 'Use Saved %s:', 'tribe-events-calendar' ), $this->singular_organizer_label ); ?></label>
 				</td>
 				<td><?php $this->saved_organizers_dropdown( $curOrg ); ?> <div class="edit-organizer-link"<?php if ( empty( $curOrg ) ) { ?> style="display:none;"<?php } ?>><a data-admin-url="<?php echo esc_url( admin_url( 'post.php?action=edit&post=' ) ); ?>" href="<?php echo esc_url( admin_url( sprintf( 'post.php?action=edit&post=%s', $curOrg ) ) ); ?>" target="_blank"><?php echo esc_html( sprintf( __( 'Edit %s', 'tribe-events-calendar' ), $this->singular_organizer_label ) ); ?></a></div></td>
 			</tr>
@@ -2620,7 +2620,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @todo remove - unused
 		 */
 		public function dateToTimeStamp( $date, $hour, $minute, $meridian ) {
-			_deprecated_function( __FILE__, '3.11', 'strtotime' );
+			_deprecated_function( __METHOD__, '3.11', 'strtotime' );
 			if ( preg_match( '/(PM|pm)/', $meridian ) && $hour < 12 ) {
 				$hour += '12';
 			}
@@ -2642,7 +2642,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @todo remove - unused
 		 */
 		protected function dateHelper( $date ) {
-			_deprecated_function( __FILE__, '3.11', 'date' );
+			_deprecated_function( __METHOD__, '3.11', 'date' );
 
 			if ( $date == '' ) {
 				return date( Tribe__Events__Date_Utils::DBDATEFORMAT );
