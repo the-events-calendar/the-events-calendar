@@ -1,7 +1,7 @@
 <div id="tribe-app-shop" class="wrap">
 
 	<div class="header">
-		<h2><?php _e( 'Tribe Event Add-Ons', 'tribe-events-calendar' ); ?></h2>
+		<h2><?php esc_html_e( 'Tribe Event Add-Ons', 'tribe-events-calendar' ); ?></h2>
 	</div>
 
 
@@ -9,7 +9,7 @@
 		<?php
 
 		if ( ! empty( $banner ) ) {
-			$banner_markup = "";
+			$banner_markup = '';
 			if ( property_exists( $banner, 'top_banner_url' ) && ! empty( $banner->top_banner_url ) ) {
 				$banner_markup = sprintf( "<img src='%s'/>", esc_url( $banner->top_banner_url ) );
 			}
@@ -21,13 +21,13 @@
 
 		$category = null;
 		$i = 1;
-		foreach ((array) $products as $product) {
+		foreach ( (array) $products as $product ) {
 
 		?>
 
-		<?php if ($product->category != $category) { ?>
+		<?php if ( $product->category != $category ) { ?>
 
-			<?php if ($category !== null) : ?>
+			<?php if ( $category !== null ) : ?>
 				</div>
 			<?php endif; ?>
 
@@ -40,7 +40,7 @@
 			echo ' first tribe-clearfix';
 		} ?>">
 			<div class="thumb">
-				<a href="<?php echo esc_url( $product->permalink ); ?>"><img src="<?php echo $product->featured_image_url; ?>" /></a>
+				<a href="<?php echo esc_url( $product->permalink ); ?>"><img src="<?php echo esc_attr( $product->featured_image_url ); ?>" /></a>
 			</div>
 			<div class="caption">
 				<h4><a href="<?php echo esc_url( $product->permalink ); ?>"><?php echo $product->title; ?></a></h4>
@@ -51,10 +51,10 @@
 				<div class="meta">
 					<?php
 					if ( $product->version ) {
-						echo sprintf( "<strong>%s</strong>: %s<br/>", __( 'Version', 'tribe-events-calendar' ), $product->version );
+						echo sprintf( '<strong>%s</strong>: %s<br/>', esc_html__( 'Version', 'tribe-events-calendar' ), esc_html( $product->version ) );
 					}
 					if ( $product->last_update ) {
-						echo sprintf( "<strong>%s</strong>: %s<br/>", __( 'Last Update', 'tribe-events-calendar' ), $product->last_update );
+						echo sprintf( '<strong>%s</strong>: %s<br/>', esc_html__( 'Last Update', 'tribe-events-calendar' ), esc_html( $product->last_update ) );
 					}
 					?>
 				</div>
