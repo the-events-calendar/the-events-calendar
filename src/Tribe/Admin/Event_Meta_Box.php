@@ -140,12 +140,14 @@ class Tribe__Events__Admin__Event_Meta_Box {
 		$this->vars['startHourOptions']     = Tribe__Events__View_Helpers::getHourOptions( $this->vars['_EventAllDay'] == 'yes' ? null : $this->vars['_EventStartDate'], true );
 		$this->vars['startMeridianOptions'] = Tribe__Events__View_Helpers::getMeridianOptions( $this->vars['_EventStartDate'], true );
 
+		$datepicker_format = Tribe__Events__Date_Utils::datepicker_formats( tribe_get_option( 'datepickerFormat' ) );
+
 		if ( $this->vars['_EventStartDate'] ) {
-			$start = Tribe__Events__Date_Utils::date_only( $this->vars['_EventStartDate'] );
+			$start = Tribe__Events__Date_Utils::date_only( $this->vars['_EventStartDate'], false, $datepicker_format );
 		}
 
 		// If we don't have a valid start date, assume today's date
-		$this->vars['EventStartDate'] = ( isset( $start ) && $start ) ? $start : date( 'Y-m-d' );
+		$this->vars['EventStartDate'] = ( isset( $start ) && $start ) ? $start : date( $datepicker_format );
 	}
 
 	protected function set_end_date_time() {
@@ -153,12 +155,14 @@ class Tribe__Events__Admin__Event_Meta_Box {
 		$this->vars['endHourOptions']     = Tribe__Events__View_Helpers::getHourOptions( $this->vars['_EventAllDay'] == 'yes' ? null : $this->vars['_EventEndDate'] );
 		$this->vars['endMeridianOptions'] = Tribe__Events__View_Helpers::getMeridianOptions( $this->vars['_EventEndDate'] );
 
+		$datepicker_format = Tribe__Events__Date_Utils::datepicker_formats( tribe_get_option( 'datepickerFormat' ) );
+
 		if ( $this->vars['_EventEndDate'] ) {
-			$end = Tribe__Events__Date_Utils::date_only( $this->vars['_EventEndDate'] );
+			$end = Tribe__Events__Date_Utils::date_only( $this->vars['_EventEndDate'], false, $datepicker_format );
 		}
 
 		// If we don't have a valid end date, assume today's date
-		$this->vars['EventEndDate'] = ( isset( $end ) && $end ) ? $end : date( 'Y-m-d' );
+		$this->vars['EventEndDate'] = ( isset( $end ) && $end ) ? $end : date( $datepicker_format );
 	}
 
 	/**

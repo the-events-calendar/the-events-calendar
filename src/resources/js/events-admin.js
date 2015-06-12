@@ -146,7 +146,7 @@ Date.prototype.format = function( mask, utc ) {
  */
 jQuery( document ).ready( function( $ ) {
 
-	var $date_format      = $( '[data-datepicker_format]' ),
+	var $date_format      = $( '[data-datepickerFormat]' ),
 		$view_select      = $( '.tribe-field-dropdown_select2 select' ),
 		viewCalLinkHTML   = $( '#view-calendar-link-div' ).html(),
 		$template_select  = $( 'select[name="tribeEventsTemplate"]' ),
@@ -191,11 +191,11 @@ jQuery( document ).ready( function( $ ) {
 	if ( typeof(TEC) !== 'undefined' ) {
 
 		var _MS_PER_DAY = 1000 * 60 * 60 * 24;
-		
+
 		var date_format = 'yy-mm-dd';
 
-		if ( $date_format.length && $date_format.attr( 'data-datepicker_format' ).length === 1 ) {
-			datepicker_format = $date_format.attr( 'data-datepicker_format' );
+		if ( $date_format.length && $date_format.attr( 'data-datepickerFormat' ).length === 1 ) {
+			datepicker_format = $date_format.attr( 'data-datepickerFormat' );
 			date_format = datepicker_formats.main[ datepicker_format ];
 		}
 
@@ -217,41 +217,41 @@ jQuery( document ).ready( function( $ ) {
 			$end_date = $( '#EventEndDate' );
 
 		var datepickerOpts = {
-			dateFormat     : date_format,
-			showAnim       : 'fadeIn',
-			changeMonth    : true,
-			changeYear     : true,
-			numberOfMonths : get_datepicker_num_months(),
-			firstDay       : startofweek,
-			showButtonPanel: true,
-			beforeShow     : function( element, object ) {
-				object.input.datepicker( 'option', 'numberOfMonths', get_datepicker_num_months() );
-				object.input.data( 'prevDate', object.input.datepicker( "getDate" ) );
-			},
-			onSelect       : function( selectedDate ) {
-				var option = this.id == "EventStartDate" ? "minDate" : "maxDate",
-					instance = $( this ).data( "datepicker" ),
-					date = $.datepicker.parseDate( instance.settings.dateFormat || $.datepicker._defaults.dateFormat, selectedDate, instance.settings );
+				dateFormat     : date_format,
+				showAnim       : 'fadeIn',
+				changeMonth    : true,
+				changeYear     : true,
+				numberOfMonths : get_datepicker_num_months(),
+				firstDay       : startofweek,
+				showButtonPanel: true,
+				beforeShow     : function( element, object ) {
+					object.input.datepicker( 'option', 'numberOfMonths', get_datepicker_num_months() );
+					object.input.data( 'prevDate', object.input.datepicker( "getDate" ) );
+				},
+				onSelect       : function( selectedDate ) {
+					var option = this.id == "EventStartDate" ? "minDate" : "maxDate",
+						instance = $( this ).data( "datepicker" ),
+						date = $.datepicker.parseDate( instance.settings.dateFormat || $.datepicker._defaults.dateFormat, selectedDate, instance.settings );
 
-				if ( this.id === "EventStartDate" && $recurrence_type.val() !== 'None' ) {
+					if ( this.id === "EventStartDate" && $recurrence_type.val() !== 'None' ) {
 
-					var startDate = $( '#EventStartDate' ).data( 'prevDate' ),
-						dateDif = null == startDate ? 0 : date_diff_in_days( startDate, $end_date.datepicker( 'getDate' ) ),
-						endDate = new Date( date.setDate( date.getDate() + dateDif ) );
+						var startDate = $( '#EventStartDate' ).data( 'prevDate' ),
+							dateDif = null == startDate ? 0 : date_diff_in_days( startDate, $end_date.datepicker( 'getDate' ) ),
+							endDate = new Date( date.setDate( date.getDate() + dateDif ) );
 
-					$end_date
-						.datepicker( "option", option, endDate )
-						.datepicker( "setDate", endDate );
+						$end_date
+							.datepicker( "option", option, endDate )
+							.datepicker( "setDate", endDate );
 
+					}
+					else {
+						dates
+							.not( this )
+							.not( '#recurrence_end' )
+							.datepicker( "option", option, date );
+					}
 				}
-				else {
-					dates
-						.not( this )
-						.not( '#recurrence_end' )
-						.datepicker( "option", option, date );
-				}
-			}
-		};
+			};
 
 		$.extend( datepickerOpts, TEC );
 
@@ -373,7 +373,7 @@ jQuery( document ).ready( function( $ ) {
 				$('.edit-venue-link').show();
 
 				// Change edit link
-				
+
 				$('.edit-venue-link a').attr( 'href', current_edit_link + selected_venue_id );
 			}
 		} );
@@ -687,7 +687,7 @@ jQuery( document ).ready( function( $ ) {
 
 		$els.start.val( tribeDateFormat( $els.start.datepicker( 'getDate' ), 'tribeQuery' ) );
 		$els.end.val( tribeDateFormat( $els.end.datepicker( 'getDate' ), 'tribeQuery' ) );
-		
+
 		$els.recur.is( ':visible' ) && $els.recur.val( tribeDateFormat( $els.recur.datepicker( 'getDate' ), 'tribeQuery' ) );
 	} );
 
