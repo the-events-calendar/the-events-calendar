@@ -2096,7 +2096,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 */
 		public function default_view() {
 			// Compare the stored default view option to the list of available views
-			$default         = $this->getOption( 'viewOption', '' );
+			$default         = $this->getOption( 'viewOption', 'month' );
 			$available_views = (array) apply_filters( 'tribe-events-bar-views', array(), false );
 
 			foreach ( $available_views as $view ) {
