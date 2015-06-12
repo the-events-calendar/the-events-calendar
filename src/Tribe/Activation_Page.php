@@ -5,11 +5,41 @@
  */
 class Tribe__Events__Activation_Page {
 	/** @var self */
-	private static $instance = NULL;
+	private static $instance = null;
 
 	public function add_hooks() {
 		add_action( 'admin_init', array( $this, 'maybe_redirect' ), 10, 0 );
 		add_action( 'admin_menu', array( $this, 'register_page' ), 100, 0 ); // come in after the default page is registered
+
+		add_action( 'update_plugin_complete_actions', array( $this, 'update_complete_actions' ), 15, 2 );
+		add_action( 'update_bulk_plugins_complete_actions', array( $this, 'update_complete_actions' ), 15, 2 );
+	}
+
+	public function update_complete_actions( $actions, $plugin ) {
+		$plugins = esc_attr( $_GET['plugins'] );
+
+		if ( false !== strpos( $plugins, ',' ) ){
+			$plugins = explode( ',', $plugins );
+		}
+		$plugins = (array) $plugins;
+
+		if ( ! in_array( Tribe__Events__Main::instance()->pluginDir . 'the-events-calendar.php', $plugins ) ){
+			return $actions;
+		}
+
+		if ( isset( $actions['plugins_page'] ) ) {
+			$actions['plugins_page'] = '<a href="' . self_admin_url( 'plugins.php?tec-skip-welcome' ) . '" title="' . esc_attr__( 'Go to plugins page' ) . '" target="_parent">' . __( 'Return to Plugins page' ) . '</a>';
+
+			if ( ! current_user_can( 'activate_plugins' ) ){
+				unset( $actions['plugins_page'] );
+			}
+		}
+
+		if ( isset( $actions['updates_page'] ) ) {
+			$actions['updates_page'] = '<a href="' . self_admin_url( 'update-core.php?tec-skip-welcome' ) . '" title="' . esc_attr__( 'Go to WordPress Updates page' ) . '" target="_parent">' . __( 'Return to WordPress Updates' ) . '</a>';
+		}
+
+		return $actions;
 	}
 
 	public function maybe_redirect() {
@@ -27,6 +57,14 @@ class Tribe__Events__Activation_Page {
 
 		if ( isset( $_GET['tec-welcome-message'] ) || isset( $_GET['tec-update-message'] ) ) {
 			return; // no infinite redirects
+		}
+
+		if ( isset( $_GET['tec-skip-welcome'] ) ) {
+			return; // a way to skip these checks and
+		}
+
+		if ( isset( $_GET['_wpnonce'] ) || isset( $_GET['activate'] ) || isset( $_GET['s'] ) ) {
+			return; // if WP is doing something we skip
 		}
 
 		if ( ! current_user_can( Tribe__Events__Settings::instance()->requiredCap ) ){
@@ -64,12 +102,12 @@ class Tribe__Events__Activation_Page {
 		$tec = Tribe__Events__Main::instance();
 		$message_version_displayed = $tec->getOption( 'last-update-message' );
 		if ( empty( $message_version_displayed ) ) {
-			return FALSE;
+			return false;
 		}
 		if ( version_compare( $message_version_displayed, Tribe__Events__Main::VERSION, '<' ) ) {
-			return FALSE;
+			return false;
 		}
-		return TRUE;
+		return true;
 	}
 
 	protected function log_display_of_message_page() {
