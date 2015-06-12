@@ -21,6 +21,13 @@ if ( ! class_exists( 'Tribe__Events__Date_Utils' ) ) {
 		const DBTIMEFORMAT          = 'H:i:s';
 		const DBYEARMONTHTIMEFORMAT = 'Y-m';
 
+
+		/**
+		 * Get the datepicker format, that is used to translate the option from the DB to a string
+		 *
+		 * @param  int $translate The db Option from datepickerFormat
+		 * @return string|array            If $translate is not set returns the full array, if not returns the `Y-m-d`
+		 */
 		public static function datepicker_formats( $translate = null ) {
 			$formats = array(
 				'Y-m-d',
