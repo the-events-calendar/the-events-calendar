@@ -74,7 +74,7 @@ class Tribe__Events__iCal {
 		}
 
 		echo '<div class="tribe-events-cal-links">';
-		echo '<a class="tribe-events-gcal tribe-events-button" href="' . esc_url( tribe_get_gcal_link() ) . '" title="' . __( 'Add to Google Calendar', 'tribe-events-calendar' ) . '">+ ' . __( 'Google Calendar', 'tribe-events-calendar' ) . '</a>';
+		echo '<a class="tribe-events-gcal tribe-events-button" href="' . tribe_get_gcal_link() . '" title="' . __( 'Add to Google Calendar', 'tribe-events-calendar' ) . '">+ ' . __( 'Google Calendar', 'tribe-events-calendar' ) . '</a>';
 		echo '<a class="tribe-events-ical tribe-events-button" href="' . esc_url( tribe_get_single_ical_link() ) . '" title="' . __( 'Download .ics file', 'tribe-events-calendar' ) . '" >+ ' . __( 'iCal Export', 'tribe-events-calendar' ) . '</a>';
 		echo '</div><!-- .tribe-events-cal-links -->';
 	}
