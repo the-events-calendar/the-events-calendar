@@ -9,7 +9,7 @@
 ?>
 
 <script type="text/html" id="tribe_tmpl_month_mobile_day_header">
-	<div class="tribe-mobile-day" data-day="[[=date]]">[[ if(date_name.length) { ]]
+	<div class="tribe-mobile-day" data-day="[[=date]]">[[ if(has_events) { ]]
 		<h3 class="tribe-mobile-day-heading">[[=i18n.for_date]] <span>[[=raw date_name]]</span></h3>[[ } ]]
 	</div>
 </script>

@@ -144,10 +144,7 @@
 
 		function tribe_mobile_setup_day( $date ) {
 			var data = $date.data( 'tribejson' );
-
-			// Backwards compatibility
 			data.date = $date.attr( 'data-day' );
-			data.date_name = $date.attr( 'data-date-name' ) || '';
 
 			var $calendar = $date.parents( '.tribe-events-calendar' ),
 				$container = $calendar.next( '#tribe-mobile-container' ),
@@ -155,6 +152,14 @@
 				$triggers = $calendar.find( '.mobile-trigger' ),
 				_active = '[data-day="' + data.date + '"]',
 				$day = $days.filter( _active );
+
+			data.has_events = $date.hasClass( 'tribe-events-has-events' );
+
+			// Backwards compatibility
+			// @todo "Check if we can remove this check"
+			if ( data.has_events ){
+				data.date_name = '';
+			}
 
 			$triggers.removeClass( 'mobile-active' )
 				// If full_date_name is empty then default to highlighting the first day of the current month

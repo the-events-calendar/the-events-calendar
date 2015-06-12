@@ -41,17 +41,8 @@ global $wp_locale;
 			$daydata = tribe_events_get_current_month_day(); ?>
 
 			<td class="<?php tribe_events_the_month_day_classes() ?>"
-				<?php if ( isset( $daydata['daynum'] ) ) { ?>
-					data-day="<?php echo $daydata['date'] ?>"
-					<?php
-					//Add Day Name Option for Responsive Header
-					if ( $daydata['total_events'] > 0 ) {
-						$day_name = tribe_event_format_date( $daydata['date'], false );
-						?>
-						data-date-name="<?php echo $day_name ?>"
-					<?php } ?>
-				<?php } ?>
-				data-tribejson='<?php echo tribe_events_template_data(); ?>'
+				data-day="<?php echo esc_attr( isset( $daydata['daynum'] ) ? $daydata['date'] : '' ); ?>"
+				data-tribejson='<?php echo tribe_events_template_data( null, array( 'date_name' => tribe_event_format_date( $daydata['date'], false ) ) ); ?>'
 				>
 				<?php tribe_get_template_part( 'month/single', 'day' ) ?>
 			</td>
