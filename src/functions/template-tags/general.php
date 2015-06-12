@@ -1232,7 +1232,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		} else {
 			$excerpt = $event->post_content;
 		}
-		$excerpt = isset( $do_not_truncate ) ? $excerpt : Tribe__Events__Main::instance()->truncate( $excerpt, 30 );
+		$excerpt = ! empty( $do_not_truncate ) ? $excerpt : Tribe__Events__Main::instance()->truncate( $excerpt, 30 );
 
 		$category_classes = tribe_events_event_classes( $event->ID, false );
 
