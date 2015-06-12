@@ -1222,12 +1222,17 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 			$image_tool_src = $image_tool_arr[0];
 		}
 
-		if ( has_excerpt( $event->ID ) ) {
+		if ( post_password_required( $event->ID ) ) {
+			$password_required_msg = __( 'You must visit this event and enter the password to view the description.', 'tribe-events-calendar' );
+			$excerpt = apply_filters( 'tribe_events_template_data_password_required', $password_required_msg );
+			$do_not_truncate = true;
+		}
+		elseif ( has_excerpt( $event->ID ) ) {
 			$excerpt = $event->post_excerpt;
 		} else {
 			$excerpt = $event->post_content;
 		}
-		$excerpt = Tribe__Events__Main::instance()->truncate( $excerpt, 30 );
+		$excerpt = ! empty( $do_not_truncate ) ? $excerpt : Tribe__Events__Main::instance()->truncate( $excerpt, 30 );
 
 		$category_classes = tribe_events_event_classes( $event->ID, false );
 
