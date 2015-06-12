@@ -4247,7 +4247,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @param array $post
 		 *
 		 * @return array
-		 * @see Tribe__Events__Mainfilter_wp_import_data_after()
+		 * @see Tribe__Events__Main::filter_wp_import_data_after()
 		 */
 		public function filter_wp_import_data_before( $post ) {
 			if ( $post['post_type'] == self::POSTTYPE && ! empty( $post['post_parent'] ) ) {
@@ -4275,7 +4275,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @param array $post
 		 *
 		 * @return array
-		 * @see Tribe__Events__Mainfilter_wp_import_data_before()
+		 * @see Tribe__Events__Main::filter_wp_import_data_before()
 		 */
 		public function filter_wp_import_data_after( $post ) {
 			if ( $post['post_type'] == self::POSTTYPE ) {
