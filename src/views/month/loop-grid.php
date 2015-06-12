@@ -24,19 +24,18 @@ global $wp_locale;
 		<thead>
 		<tr>
 			<?php foreach ( $days_of_week as $day ) : ?>
-
 				<th id="tribe-events-<?php echo strtolower( $day ) ?>" title="<?php echo $day ?>" data-day-abbr="<?php echo $wp_locale->get_weekday_abbrev( $day ); ?>"><?php echo $day ?></th>
 			<?php endforeach; ?>
 		</tr>
 		</thead>
 		<tbody class="vcalendar">
 		<tr>
-			<?php while (tribe_events_have_month_days()) : tribe_events_the_month_day(); ?>
+			<?php while ( tribe_events_have_month_days() ) : tribe_events_the_month_day(); ?>
 			<?php if ( $week != tribe_events_get_current_week() ) : $week ++; ?>
 		</tr>
 		<tr>
 			<?php endif; ?>
-			
+
 			<?php
 			// Get data for this day within the loop.
 			$daydata = tribe_events_get_current_month_day(); ?>
@@ -50,11 +49,9 @@ global $wp_locale;
 						$day_name = tribe_event_format_date( $daydata['date'], false );
 						?>
 						data-date-name="<?php echo $day_name ?>"
-					<?php
-					}
-					?>
-
+					<?php } ?>
 				<?php } ?>
+				data-tribejson='<?php echo tribe_events_template_data(); ?>'
 				>
 				<?php tribe_get_template_part( 'month/single', 'day' ) ?>
 			</td>
