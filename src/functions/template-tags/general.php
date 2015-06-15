@@ -153,7 +153,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 					$is_ajax_view_request = ( $_REQUEST['action'] == Tribe__Events__Template__Month::AJAX_HOOK );
 					break;
 				case 'list' :
-					$is_ajax_view_request = ( $_REQUEST['action'] == Tribe__Events__Template__List::AJAX_HOOK);
+					$is_ajax_view_request = ( $_REQUEST['action'] == Tribe__Events__Template__List::AJAX_HOOK );
 					break;
 				case 'day' :
 					$is_ajax_view_request = ( $_REQUEST['action'] == Tribe__Events__Template__Day::AJAX_HOOK );
@@ -351,7 +351,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 			'taxonomy' => $tribe_ecp->get_event_taxonomy(),
 			'before'   => '<li>',
 			'sep'      => '</li><li>',
-			'after'    => '</li>'
+			'after'    => '</li>',
 		);
 		$args      = wp_parse_args( $args, $defaults );
 		extract( $args, EXTR_SKIP );
@@ -384,13 +384,13 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 			'label_before' => '<div>',
 			'label_after'  => '</div>',
 			'wrap_before'  => '<ul class="tribe-event-categories">',
-			'wrap_after'   => '</ul>'
+			'wrap_after'   => '</ul>',
 		);
 		$args       = wp_parse_args( $args, $defaults );
 		$categories = tribe_get_event_taxonomy( $post_id, $args );
 
 		// check for the occurances of links in the returned string
-		$label = is_null( $args['label'] ) ? sprintf( _n( '%s Category', '%s Categories', substr_count( $categories, "<a href" ), 'tribe-events-calendar' ), $events_label_singular ) : $args['label'];
+		$label = is_null( $args['label'] ) ? sprintf( _n( '%s Category', '%s Categories', substr_count( $categories, '<a href' ), 'tribe-events-calendar' ), $events_label_singular ) : $args['label'];
 
 		$html = ! empty( $categories ) ? sprintf(
 			'%s%s:%s %s%s%s',
@@ -671,9 +671,9 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @return string
 	 **/
 	function tribe_events_resource_url( $resource, $echo = false ) {
-		$extension = pathinfo($resource, PATHINFO_EXTENSION);
+		$extension = pathinfo( $resource, PATHINFO_EXTENSION );
 		$resources_path = 'src/resources/';
-		switch ($extension) {
+		switch ( $extension ) {
 			case 'css':
 				$resource_path = $resources_path .'css/';
 				break;
@@ -713,9 +713,9 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		}
 		$start_of_week = get_option( 'start_of_week', 0 );
 		for ( $i = 0; $i < $start_of_week; $i ++ ) {
-			$day = $days_of_week[$i];
-			unset( $days_of_week[$i] );
-			$days_of_week[$i] = $day;
+			$day = $days_of_week[ $i ];
+			unset( $days_of_week[ $i ] );
+			$days_of_week[ $i ] = $day;
 		}
 
 		return apply_filters( 'tribe_events_get_days_of_week', $days_of_week );
@@ -757,7 +757,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		if ( $cost === '' ) {
 			$cost = '';
 		} elseif ( $cost === '0' ) {
-			$cost = __( "Free", 'tribe-events-calendar' );
+			$cost = __( 'Free', 'tribe-events-calendar' );
 		} else {
 			$cost = esc_html( $cost );
 		}
@@ -993,7 +993,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @return mixed|void
 	 */
 	function tribe_get_time_format( ) {
-		$format = get_option('time_format' );
+		$format = get_option( 'time_format' );
 		return apply_filters( 'tribe_time_format', $format );
 	}
 
@@ -1083,7 +1083,6 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 				$schedule .= tribe_get_end_date( $event, false, $format2ndday ) . ( $time ? $datetime_separator . tribe_get_end_date( $event, false, $time_format ) : '' );
 				$schedule .= '<span class="value-title" title="' . $microformatEndFormat . '"></span>';
 			}
-
 		} elseif ( tribe_event_is_all_day( $event ) ) { // all day event
 			$schedule .= tribe_get_start_date( $event, true, $format );
 			$schedule .= '<span class="value-title" title="' . $microformatStartFormat . '"></span>';
@@ -1170,14 +1169,14 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 */
 	function tribe_prepare_for_json_deep( $value ) {
 		if ( is_array( $value ) ) {
-			$value = array_map('tribe_prepare_for_json_deep', $value);
-		} elseif ( is_object($value) ) {
+			$value = array_map( 'tribe_prepare_for_json_deep', $value );
+		} elseif ( is_object( $value ) ) {
 			$vars = get_object_vars( $value );
-			foreach ($vars as $key=>$data) {
+			foreach ( $vars as $key => $data ) {
 				$value->{$key} = tribe_prepare_for_json_deep( $data );
 			}
 		} elseif ( is_string( $value ) ) {
-			$value = tribe_prepare_for_json($value);
+			$value = tribe_prepare_for_json( $value );
 		}
 		return $value;
 	}
@@ -1199,7 +1198,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		$date_display   = '';
 
 		//Disable recurring event info in tooltip
-		if( class_exists( 'Tribe__Events__Pro__Main' ) ) {
+		if ( class_exists( 'Tribe__Events__Pro__Main' ) ) {
 			$ecp = Tribe__Events__Pro__Main::instance();
 			$ecp->disable_recurring_info_tooltip();
 
@@ -1406,7 +1405,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 				'slurp',
 				'spider',
 				'crawler',
-				'yandex'
+				'yandex',
 			)
 		);
 
@@ -1484,7 +1483,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 */
 	function tribe_count_hierarchical_keys( $value, $key ) {
 		global $tribe_count_hierarchical_increment;
-		$tribe_count_hierarchical_increment ++;
+		$tribe_count_hierarchical_increment++;
 	}
 
 	/**
