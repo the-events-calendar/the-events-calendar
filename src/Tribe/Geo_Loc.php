@@ -653,6 +653,8 @@ class Tribe__Events__Pro__Geo_Loc {
 
 			$data = array();
 
+			// TODO: ask about the necessity of checking the current collection of posts. This seems like
+			// it limits the possible center-point which can screw up search bounding boxes
 			if ( ! empty( $wp_query->posts ) ) {
 
 				$event_ids = wp_list_pluck( $wp_query->posts, 'ID' );
@@ -664,10 +666,10 @@ class Tribe__Events__Pro__Geo_Loc {
 					       Min(lng) min_lng
 					FROM   (SELECT post_id AS venue_id,
 				               CASE
-				                 WHEN meta_key = '" . self::LAT . "' THEN meta_value
+				                 WHEN meta_key = '" . self::LAT . "' THEN CAST( meta_value as DECIMAL( 10, 6 ) )
 				               end     AS LAT,
 				               CASE
-				                 WHEN meta_key = '" . self::LNG . "' THEN meta_value
+				                 WHEN meta_key = '" . self::LNG . "' THEN CAST( meta_value as DECIMAL( 10, 6 ) )
 				               end     AS LNG
 				        FROM   $wpdb->postmeta
 				        WHERE  ( meta_key = '" . self::LAT . "'
