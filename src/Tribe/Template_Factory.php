@@ -92,10 +92,10 @@ if ( ! class_exists( 'Tribe__Events__Template_Factory' ) ) {
 			add_action( 'wp_ajax_' . $ajax_hook, array( $this, 'ajax_response' ) );
 			add_action( 'wp_ajax_nopriv_' . $ajax_hook, array( $this, 'ajax_response' ) );
 
-			// set notices 
+			// set notices
 			add_action( 'tribe_events_before_view', array( $this, 'set_notices' ), 15 );
 
-			// Don't show the comments form inside the view (if comments are enabled, 
+			// Don't show the comments form inside the view (if comments are enabled,
 			// they'll show on their own after the loop)
 			if ( ! ( tribe_get_option( 'tribeEventsTemplate', 'default' ) == '' ) ) {
 				add_filter( 'comments_template', array( $this, 'remove_comments_template' ) );
@@ -124,7 +124,7 @@ if ( ! class_exists( 'Tribe__Events__Template_Factory' ) ) {
 			// add body class
 			add_filter( 'body_class', array( $this, 'body_class' ) );
 
-			// event classes 
+			// event classes
 			add_filter( 'tribe_events_event_classes', array( $this, 'event_classes' ) );
 
 		}
@@ -277,7 +277,7 @@ if ( ! class_exists( 'Tribe__Events__Template_Factory' ) ) {
 					'label_before' => '',
 					'label_after'  => '',
 					'meta_before'  => '<span class="%s">',
-					'meta_after'   => '</span>'
+					'meta_after'   => '</span>',
 				) );
 			tribe_set_meta_label( 'tribe_event_venue_address', '' );
 			tribe_set_the_meta_template( 'tribe_event_venue_address', array(
@@ -286,7 +286,7 @@ if ( ! class_exists( 'Tribe__Events__Template_Factory' ) ) {
 					'label_before' => '',
 					'label_after'  => '',
 					'meta_before'  => '',
-					'meta_after'   => ''
+					'meta_after'   => '',
 				) );
 		}
 
@@ -335,7 +335,7 @@ if ( ! class_exists( 'Tribe__Events__Template_Factory' ) ) {
 			return array(
 				$search_term,
 				$tax_term,
-				$geographic_term
+				$geographic_term,
 			);
 		}
 
@@ -506,7 +506,7 @@ if ( ! class_exists( 'Tribe__Events__Template_Factory' ) ) {
 			// add body class
 			remove_filter( 'body_class', array( $this, 'body_class' ) );
 
-			// event classes 
+			// event classes
 			remove_filter( 'tribe_events_event_classes', array( $this, 'event_classes' ) );
 
 		}

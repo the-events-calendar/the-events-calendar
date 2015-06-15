@@ -113,7 +113,7 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 			'EventCost'             => $this->get_value_by_key( $record, 'event_cost' ),
 			'EventAllDay'           => $this->get_boolean_value_by_key( $record, 'event_all_day', 'yes' ),
 			'EventHideFromUpcoming' => $this->get_value_by_key( $record, 'event_hide' ),
-			'EventURL'              => $this->get_value_by_key( $record, 'event_website' )
+			'EventURL'              => $this->get_value_by_key( $record, 'event_website' ),
 		);
 
 		if ( $organizer_id = $this->find_matching_organizer_id( $record ) ) {
@@ -125,7 +125,7 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 		}
 
 		if ( $cats = $this->get_value_by_key( $record, 'event_category' ) ) {
-			$event['tax_input'][Tribe__Events__Main::TAXONOMY] = $this->translate_terms_to_ids( explode( ',', $cats ) );
+			$event['tax_input'][ Tribe__Events__Main::TAXONOMY ] = $this->translate_terms_to_ids( explode( ',', $cats ) );
 		}
 
 		return $event;
