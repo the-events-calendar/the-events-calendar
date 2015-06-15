@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 <div class="tribe-grid-allday clearfix">
 	<div class="column first">
-		<span><?php _e( 'All Day', 'tribe-events-calendar-pro' ); ?></span>
+		<span><?php esc_html_e( 'All Day', 'tribe-events-calendar-pro' ); ?></span>
 	</div>
 	<div class="tribe-grid-content-wrap">
 		<?php while ( tribe_events_week_have_days() ) : tribe_events_week_the_day(); ?>
@@ -28,7 +28,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<div class="tribe-event-placeholder " data-event-id="">&nbsp;</div>
 			<?php else : ?>
 				<?php foreach ( $day['all_day_events'] as $event ) : ?>
-					<?php tribe_get_template_part( 'pro/week/single-event', 'allday', array('event' => $event) ); ?>
+					<?php tribe_get_template_part( 'pro/week/single-event', 'allday', array( 'event' => $event ) ); ?>
 				<?php endforeach; ?>
 			<?php endif; ?>
 		</div><!-- allday column -->

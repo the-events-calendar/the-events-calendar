@@ -26,4 +26,5 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 <div class="tribe-clear"></div>
 
-<?php do_action( 'tribe_events_after_template' ) ?>
+<?php
+do_action( 'tribe_events_after_template' );

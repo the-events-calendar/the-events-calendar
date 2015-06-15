@@ -35,7 +35,7 @@ $events_label_singular = tribe_get_event_label_singular();
 				<?php
 				elseif ( $customField['type'] == 'checkbox' ): ?>
 					<?php foreach ( $options as $option ): ?>
-						<?php $values = explode( "|", $val ); ?>
+						<?php $values = explode( '|', $val ); ?>
 						<div>
 							<label><input type="checkbox" value="<?php echo esc_attr( trim( $option ) ) ?>" <?php checked( in_array( trim( $option ), $values ) ) ?> name="<?php echo esc_attr( $customField['name'] ) ?>[]" /> <?php echo esc_html( stripslashes( $option ) ) ?>
 							</label></div>
@@ -43,7 +43,7 @@ $events_label_singular = tribe_get_event_label_singular();
 				<?php
 				elseif ( $customField['type'] == 'dropdown' ): ?>
 					<select name="<?php echo $customField['name'] ?>">
-						<option value="" <?php selected( trim( $val ), "" ) ?>>None</option>
+						<option value="" <?php selected( trim( $val ), '' ) ?>>None</option>
 						<?php $options = explode( "\r\n", $customField['values'] ) ?>
 						<?php foreach ( $options as $option ): ?>
 							<option value="<?php echo esc_attr( $option ) ?>" <?php selected( trim( $val ), trim( $option ) ) ?>><?php echo esc_html( stripslashes( $option ) ) ?></option>

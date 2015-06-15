@@ -76,7 +76,7 @@ $postDate = tribe_events_get_widget_event_post_date();
 
 			<?php if ( isset( $organizer ) && $organizer && tribe_get_organizer() != '' ): ?>
 				<span class="tribe-organizer">
-					<?php _e( 'Organizer:', 'tribe-events-calendar-pro' ); ?>
+					<?php esc_html_e( 'Organizer:', 'tribe-events-calendar-pro' ); ?>
 					<?php echo tribe_get_organizer_link(); ?>
 				</span>
 			<?php endif ?>

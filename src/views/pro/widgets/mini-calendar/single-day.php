@@ -21,8 +21,9 @@ $day = tribe_events_get_current_month_day();
 
 <?php if ( $day['date'] != 'previous' && $day['date'] != 'next' ) : ?>
 
-	<div id="daynum-<?php echo $day['daynum'] ?>">
+	<div id="daynum-<?php echo esc_attr( $day['daynum'] ); ?>">
 		<?php tribe_events_the_mini_calendar_day_link(); ?>
 	</div>
 
-<?php endif; ?>
+<?php
+endif;
