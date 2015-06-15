@@ -42,7 +42,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 <script type="text/javascript">
 	jQuery('[name=organizer\\[Organizer\\]]').blur(function () {
-		jQuery.post('<?php echo esc_url_raw( admin_url('admin-ajax.php') ); ?>',
+		jQuery.post('<?php echo esc_url_raw( admin_url( 'admin-ajax.php' ) ); ?>',
 			{
 				action: 'tribe_event_validation',
 				nonce : <?php echo json_encode( wp_create_nonce( 'tribe-validation-nonce' ) ); ?>,
