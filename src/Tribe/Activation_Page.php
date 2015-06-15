@@ -15,6 +15,14 @@ class Tribe__Events__Activation_Page {
 		add_action( 'update_bulk_plugins_complete_actions', array( $this, 'update_complete_actions' ), 15, 2 );
 	}
 
+	/**
+	 * Filter the Default WordPress actions when updating the plugin to prevent users to be redirected if they have an
+	 * specfific intention of going back to the plugins page.
+	 *
+	 * @param  array $actions The Array of links (html)
+	 * @param  string $plugin Which plugins are been updated
+	 * @return array          The filtered Links
+	 */
 	public function update_complete_actions( $actions, $plugin ) {
 		$plugins = esc_attr( $_GET['plugins'] );
 
@@ -28,7 +36,7 @@ class Tribe__Events__Activation_Page {
 		}
 
 		if ( isset( $actions['plugins_page'] ) ) {
-			$actions['plugins_page'] = '<a href="' . self_admin_url( 'plugins.php?tec-skip-welcome' ) . '" title="' . esc_attr__( 'Go to plugins page' ) . '" target="_parent">' . __( 'Return to Plugins page' ) . '</a>';
+			$actions['plugins_page'] = '<a href="' . esc_url( self_admin_url( 'plugins.php?tec-skip-welcome' ) ) . '" title="' . esc_attr__( 'Go to plugins page' ) . '" target="_parent">' . esc_html__( 'Return to Plugins page' ) . '</a>';
 
 			if ( ! current_user_can( 'activate_plugins' ) ){
 				unset( $actions['plugins_page'] );
@@ -36,7 +44,7 @@ class Tribe__Events__Activation_Page {
 		}
 
 		if ( isset( $actions['updates_page'] ) ) {
-			$actions['updates_page'] = '<a href="' . self_admin_url( 'update-core.php?tec-skip-welcome' ) . '" title="' . esc_attr__( 'Go to WordPress Updates page' ) . '" target="_parent">' . __( 'Return to WordPress Updates' ) . '</a>';
+			$actions['updates_page'] = '<a href="' . esc_url( self_admin_url( 'update-core.php?tec-skip-welcome' ) ) . '" title="' . esc_attr__( 'Go to WordPress Updates page' ) . '" target="_parent">' . esc_html__( 'Return to WordPress Updates' ) . '</a>';
 		}
 
 		return $actions;
