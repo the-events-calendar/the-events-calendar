@@ -285,7 +285,7 @@ if ( ! class_exists( 'Tribe__Events__Settings' ) ) {
 						$url = '?page=' . $this->adminSlug . '&tab=' . urlencode( $tab );
 					}
 					$class = ( $tab == $this->currentTab ) ? ' nav-tab-active' : '';
-					echo '<a id="' . esc_attr( $tab ) . '" class="nav-tab' . esc_attr( $class ) . '" href="' . esc_url( $url ) . '">' . esc_attr( $name ) . '</a>';
+					echo '<a id="' . esc_attr( $tab ) . '" class="nav-tab' . esc_attr( $class ) . '" href="' . esc_url( $url ) . '">' . esc_html( $name ) . '</a>';
 				}
 				do_action( 'tribe_settings_after_tabs' );
 				echo '</h2>';
