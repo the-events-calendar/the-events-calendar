@@ -10,7 +10,9 @@
  * @var $height
  */
 
-defined( 'ABSPATH' ) or exit( '-1' );
+if ( ! defined( 'ABSPATH' ) ) {
+	die( '-1' );
+}
 
 $style = apply_filters( 'tribe_events_embedded_map_style', "height: $height; width: $width", $index );
 ?>

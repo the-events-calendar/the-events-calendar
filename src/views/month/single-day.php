@@ -11,7 +11,7 @@
 
 if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
-} 
+}
 
 $events_label_singular = tribe_get_event_label_singular();
 $events_label_plural = tribe_get_event_label_plural();
@@ -45,4 +45,5 @@ $day = tribe_events_get_current_month_day();
 		?>
 		<a href="<?php echo esc_url( $day['view_more'] ); ?>"><?php echo $view_all_label ?> &raquo;</a>
 	</div>
-<?php endif ?>
+<?php
+endif;
