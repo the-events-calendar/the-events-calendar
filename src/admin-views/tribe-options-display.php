@@ -7,14 +7,14 @@ $template_options = array(
 $templates        = get_page_templates();
 ksort( $templates );
 foreach ( array_keys( $templates ) as $template ) {
-	$template_options[$templates[$template]] = $template;
+	$template_options[ $templates[ $template ] ] = $template;
 }
 
 $views = apply_filters( 'tribe-events-bar-views', array(), false );
 
 $views_options = array();
 foreach ( $views as $view ) {
-	$views_options[$view['displaying']] = $view['anchor'];
+	$views_options[ $view['displaying'] ] = $view['anchor'];
 }
 
 $sample_date = strtotime( 'January 15 ' . date( 'Y' ) );
@@ -25,7 +25,7 @@ $displayTab = array(
 		'tribe_display_settings_tab_fields', array(
 			'info-start'                         => array(
 				'type' => 'html',
-				'html' => '<div id="modern-tribe-info">'
+				'html' => '<div id="modern-tribe-info">',
 			),
 			'info-box-title'                     => array(
 				'type' => 'html',
@@ -77,7 +77,7 @@ $displayTab = array(
 				'validation_type' => 'options',
 				'size'            => 'large',
 				'default'         => 'default',
-				'options'         => $template_options
+				'options'         => $template_options,
 			),
 			'tribeEnableViews'                   => array(
 				'type'            => 'checkbox_list',
@@ -85,7 +85,7 @@ $displayTab = array(
 				'tooltip'         => __( 'You must select at least one view.', 'tribe-events-calendar' ),
 				'default'         => array_keys( $views_options ),
 				'options'         => $views_options,
-				'validation_type' => 'options_multi'
+				'validation_type' => 'options_multi',
 			),
 			'viewOption'                         => array(
 				'type'            => 'dropdown_select2',
@@ -93,7 +93,7 @@ $displayTab = array(
 				'validation_type' => 'options',
 				'size'            => 'large',
 				'default'         => 'month',
-				'options'         => $views_options
+				'options'         => $views_options,
 			),
 			'tribeDisableTribeBar'               => array(
 				'type'            => 'checkbox_bool',
@@ -108,7 +108,7 @@ $displayTab = array(
 				'tooltip'         => sprintf( __( 'Change the default 3 events per day in month view. Please note there may be performance issues if you set this too high. <a href="%s">Read more</a>.', 'tribe-events-calendar' ), 'http://m.tri.be/rh' ),
 				'validation_type' => 'positive_int',
 				'size'            => 'small',
-				'default'         => '3'
+				'default'         => '3',
 			),
 			'enable_month_view_cache' => array(
 				'type'            => 'checkbox_bool',
@@ -191,7 +191,7 @@ $displayTab = array(
 				'type'            => 'wysiwyg',
 				'label'           => __( 'Add HTML before event content', 'tribe-events-calendar' ),
 				'tooltip'         => __( 'If you are familiar with HTML, you can add additional code before the event template. Some themes may require this to help with styling or layout.', 'tribe-events-calendar' ),
-				'validation_type' => 'html'
+				'validation_type' => 'html',
 			),
 			'tribeEventsAfterHTML'               => array(
 				'type'            => 'wysiwyg',
@@ -204,5 +204,5 @@ $displayTab = array(
 				'html' => '</div>',
 			),
 		)
-	)
+	),
 );

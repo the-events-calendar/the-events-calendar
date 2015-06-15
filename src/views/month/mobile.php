@@ -34,7 +34,7 @@
 			[[ if(excerpt.length) { ]]
 			<p class="entry-summary description">[[=raw excerpt]]</p>
 			[[ } ]]
-			<a href="[[=permalink]]" class="tribe-events-read-more" rel="bookmark"><?php _e( 'Find out more »', 'tribe-events-calendar' ); ?></a>
+			<a href="[[=permalink]]" class="tribe-events-read-more" rel="bookmark"><?php esc_html_e( 'Find out more »', 'tribe-events-calendar' ); ?></a>
 		</div>
 	</div>
 </script>

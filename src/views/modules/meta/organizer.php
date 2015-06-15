@@ -21,17 +21,17 @@ $website = tribe_get_organizer_website_link();
 		<dd class="fn org"> <?php echo tribe_get_organizer() ?> </dd>
 
 		<?php if ( ! empty( $phone ) ): ?>
-			<dt> <?php _e( 'Phone:', 'tribe-events-calendar' ) ?> </dt>
+			<dt> <?php esc_html_e( 'Phone:', 'tribe-events-calendar' ) ?> </dt>
 			<dd class="tel"> <?php echo $phone ?> </dd>
 		<?php endif ?>
 
 		<?php if ( ! empty( $email ) ): ?>
-			<dt> <?php _e( 'Email:', 'tribe-events-calendar' ) ?> </dt>
+			<dt> <?php esc_html_e( 'Email:', 'tribe-events-calendar' ) ?> </dt>
 			<dd class="email"> <?php echo $email ?> </dd>
 		<?php endif ?>
 
 		<?php if ( ! empty( $website ) ): ?>
-			<dt> <?php _e( 'Website:', 'tribe-events-calendar' ) ?> </dt>
+			<dt> <?php esc_html_e( 'Website:', 'tribe-events-calendar' ) ?> </dt>
 			<dd class="url"> <?php echo $website ?> </dd>
 		<?php endif ?>
 

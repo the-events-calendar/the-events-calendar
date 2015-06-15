@@ -107,7 +107,7 @@ abstract class Tribe__Events__Importer__File_Importer {
 		$record = $this->reader->read_next_row();
 		$row    = $this->reader->get_last_line_number_read() + 1;
 		if ( ! $this->is_valid_record( $record ) ) {
-			$this->log[$row] = sprintf( __( 'Missing required fields in row %d.', 'tribe-events-calendar', $row ) );
+			$this->log[ $row ] = sprintf( __( 'Missing required fields in row %d.', 'tribe-events-calendar', $row ) );
 			$this->skipped[] = $row;
 
 			return;
@@ -115,7 +115,7 @@ abstract class Tribe__Events__Importer__File_Importer {
 		try {
 			$this->update_or_create_post( $record );
 		} catch ( Exception $e ) {
-			$this->log[$row] = sprintf( __( 'Failed to import record in row %d.', 'tribe-events-calendar' ), $row );
+			$this->log[ $row ] = sprintf( __( 'Failed to import record in row %d.', 'tribe-events-calendar' ), $row );
 			$this->skipped[] = $row;
 		}
 	}
@@ -124,11 +124,11 @@ abstract class Tribe__Events__Importer__File_Importer {
 		if ( $id = $this->match_existing_post( $record ) ) {
 			$this->update_post( $id, $record );
 			$this->updated ++;
-			$this->log[$this->reader->get_last_line_number_read() + 1] = sprintf( __( '%s (post ID %d) updated.', 'tribe-events-calendar' ), get_the_title( $id ), $id );
+			$this->log[ $this->reader->get_last_line_number_read() + 1 ] = sprintf( __( '%s (post ID %d) updated.', 'tribe-events-calendar' ), get_the_title( $id ), $id );
 		} else {
 			$id = $this->create_post( $record );
 			$this->created ++;
-			$this->log[$this->reader->get_last_line_number_read() + 1] = sprintf( __( '%s (post ID %d) created.', 'tribe-events-calendar' ), get_the_title( $id ), $id );
+			$this->log[ $this->reader->get_last_line_number_read() + 1 ] = sprintf( __( '%s (post ID %d) created.', 'tribe-events-calendar' ), get_the_title( $id ), $id );
 		}
 	}
 
@@ -149,14 +149,14 @@ abstract class Tribe__Events__Importer__File_Importer {
 	}
 
 	protected function get_value_by_key( array $record, $key ) {
-		if ( ! isset( $this->inverted_map[$key] ) ) {
+		if ( ! isset( $this->inverted_map[ $key ] ) ) {
 			return '';
 		}
-		if ( ! isset( $record[$this->inverted_map[$key]] ) ) {
+		if ( ! isset( $record[ $this->inverted_map[ $key ] ] ) ) {
 			return '';
 		}
 
-		return $record[$this->inverted_map[$key]];
+		return $record[ $this->inverted_map[ $key ] ];
 	}
 
 	protected function find_matching_post_id( $name, $post_type ) {

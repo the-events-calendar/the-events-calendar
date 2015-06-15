@@ -19,19 +19,18 @@ if ( isset( $_POST['column_map'] ) ) {
 require_once 'header.php';
 ?>
 
-	<h3><?php echo sprintf( __( 'Column Mapping: %s', 'tribe-events-calendar' ), ucwords( $import_type ) ) ?></h3>
-
+<h3><?php echo sprintf( esc_html__( 'Column Mapping: %s', 'tribe-events-calendar' ), ucwords( $import_type ) ) ?></h3>
 <?php if ( ! empty( $messages ) ): ?>
 	<div class="error"><?php echo implode( '', $messages ); ?></div>
 <?php endif; ?>
 	<div class="form">
-		<p><?php _e( 'Columns have been mapped based on your last import. Please ensure the selected fields match the columns in your CSV file.', 'tribe-events-calendar' ) ?></p>
+		<p><?php esc_html_e( 'Columns have been mapped based on your last import. Please ensure the selected fields match the columns in your CSV file.', 'tribe-events-calendar' ) ?></p>
 
 		<form method="POST">
 			<table class="">
 				<thead>
-				<th><?php _e( 'Column Headings', 'tribe-events-calendar' ); ?></th>
-				<th><?php _e( 'Event Fields', 'tribe-events-calendar' ); ?></th>
+				<th><?php esc_html_e( 'Column Headings', 'tribe-events-calendar' ); ?></th>
+				<th><?php esc_html_e( 'Event Fields', 'tribe-events-calendar' ); ?></th>
 				</thead>
 				<?php foreach ( $header as $col => $title ): ?>
 					<tr>
@@ -50,29 +49,7 @@ require_once 'header.php';
 
 			<input type="hidden" name="import_type" value="<?php echo $import_type ?>" />
 			<input type="hidden" name="ecp_import_action" value="import" />
-
-
 		</form>
 	</div>
-
-<?php
-/* This doesn't seem to do anything. Hiding it for now
-/*<script>
-	jQuery(document).ready(function() {
-		jQuery('.tribe-events-imnporter-custom-field').css('visibility', 'hidden');
-	});
-	
-	function tribeShowCf(field, col){
-		
-		if( jQuery('select[name="column_map['+col+']"]').val() == 'custom_field' ){
-			jQuery('select[name="txt_'+col+'"]').css('visibility', 'visible');
-		}else{
-			jQuery('select[name="txt_'+col+'"]').css('visibility', 'hidden');
-		}
-	
-	}
-</script>/* */
-?>
 <?php
 require_once 'footer.php';
-?>

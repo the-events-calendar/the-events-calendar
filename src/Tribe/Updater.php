@@ -29,7 +29,7 @@ class Tribe__Events__Updater {
 	public function do_updates() {
 		$this->clear_option_caches();
 		$updates = $this->get_updates();
-		uksort($updates, 'version_compare');
+		uksort( $updates, 'version_compare' );
 		try {
 			foreach ( $updates as $version => $callback ) {
 				if ( version_compare( $version, $this->current_version, '<=' ) && $this->is_version_in_db_less_than( $version ) ) {
@@ -101,7 +101,7 @@ class Tribe__Events__Updater {
 		}
 
 		$new_option = get_option( Tribe__Events__Main::OPTIONNAME );
-		if ( !$new_option ) {
+		if ( ! $new_option ) {
 			update_option( Tribe__Events__Main::OPTIONNAME, $legacy_option );
 		}
 		delete_option( 'sp_events_calendar_options' );
@@ -109,7 +109,7 @@ class Tribe__Events__Updater {
 		/** @var wpdb $wpdb */
 		global $wpdb;
 		$count = $wpdb->get_var( "SELECT COUNT(*) FROM {$wpdb->posts} WHERE post_type IN ( 'sp_events', 'sp_venue', 'sp_organizer' )" );
-		if ( !$count ) {
+		if ( ! $count ) {
 			return;
 		}
 
@@ -132,9 +132,9 @@ class Tribe__Events__Updater {
 			'spEventsAfterHTML'  => 'tribeEventsAfterHTML',
 		);
 		foreach ( $option_names as $old_name => $new_name ) {
-			if ( isset( $tec_options[$old_name] ) && empty( $tec_options[$new_name] ) ) {
-				$tec_options[$new_name] = $tec_options[$old_name];
-				unset( $tec_options[$old_name] );
+			if ( isset( $tec_options[ $old_name ] ) && empty( $tec_options[ $new_name ] ) ) {
+				$tec_options[ $new_name ] = $tec_options[ $old_name ];
+				unset( $tec_options[ $old_name ] );
 			}
 		}
 		$tec->setOptions( $tec_options );

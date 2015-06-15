@@ -7,9 +7,9 @@ class Tribe__Events__Asset__Ajax_Calendar extends Tribe__Events__Asset__Abstract
 		$deps      = array_merge( $this->deps, array(
 			'jquery',
 			$this->prefix . '-bootstrap-datepicker',
-			$this->prefix . '-calendar-script'
+			$this->prefix . '-calendar-script',
 		) );
-		$ajax_data = array( "ajaxurl" => admin_url( 'admin-ajax.php', ( is_ssl() ? 'https' : 'http' ) ) );
+		$ajax_data = array( 'ajaxurl' => admin_url( 'admin-ajax.php', ( is_ssl() ? 'https' : 'http' ) ) );
 		$path      = Tribe__Events__Template_Factory::getMinFile( tribe_events_resource_url( 'tribe-events-ajax-calendar.js' ), true );
 
 		$handle = 'tribe-events-calendar';

@@ -367,7 +367,7 @@ if ( ! class_exists( 'Tribe__Events__Date_Utils' ) ) {
 		 * @return string The date only in DB format.
 		 */
 		public static function dateOnly( $date, $isTimestamp = false ) {
-			_deprecated_function( __FILE__, '3.11', __CLASS__ . '::date_only' );
+			_deprecated_function( __METHOD__, '3.11', __CLASS__ . '::date_only' );
 			return self::date_only( $date, $isTimestamp );
 		}
 
@@ -379,7 +379,7 @@ if ( ! class_exists( 'Tribe__Events__Date_Utils' ) ) {
 		 * @return string The time only in DB format.
 		 */
 		public static function timeOnly( $date ) {
-			_deprecated_function( __FILE__, '3.11', __CLASS__ . '::time_only' );
+			_deprecated_function( __METHOD__, '3.11', __CLASS__ . '::time_only' );
 			return self::time_only( $date );
 		}
 
@@ -391,7 +391,7 @@ if ( ! class_exists( 'Tribe__Events__Date_Utils' ) ) {
 		 * @return string The hour only.
 		 */
 		public static function hourOnly( $date ) {
-			_deprecated_function( __FILE__, '3.11', __CLASS__ . '::hour_only' );
+			_deprecated_function( __METHOD__, '3.11', __CLASS__ . '::hour_only' );
 			return self::hour_only( $date );
 		}
 
@@ -403,7 +403,7 @@ if ( ! class_exists( 'Tribe__Events__Date_Utils' ) ) {
 		 * @return string The minute only.
 		 */
 		public static function minutesOnly( $date ) {
-			_deprecated_function( __FILE__, '3.11', __CLASS__ . '::minutes_only' );
+			_deprecated_function( __METHOD__, '3.11', __CLASS__ . '::minutes_only' );
 			return self::minutes_only( $date );
 		}
 
@@ -415,7 +415,7 @@ if ( ! class_exists( 'Tribe__Events__Date_Utils' ) ) {
 		 * @return string The meridian only in DB format.
 		 */
 		public static function meridianOnly( $date ) {
-			_deprecated_function( __FILE__, '3.11', __CLASS__ . '::meridian_only' );
+			_deprecated_function( __METHOD__, '3.11', __CLASS__ . '::meridian_only' );
 			return self::meridian_only( $date );
 		}
 
@@ -431,7 +431,7 @@ if ( ! class_exists( 'Tribe__Events__Date_Utils' ) ) {
 		 * @return string The date and time of the end of a given day
 		 */
 		public static function endOfDay( $date, $isTimestamp = false ) {
-			_deprecated_function( __FILE__, '3.10', 'tribe_event_end_of_day' );
+			_deprecated_function( __METHOD__, '3.10', 'tribe_event_end_of_day' );
 
 			if ( $isTimestamp ) {
 				$date = date( self::DBDATEFORMAT, $date );
@@ -452,7 +452,7 @@ if ( ! class_exists( 'Tribe__Events__Date_Utils' ) ) {
 		 * @return string The date and time of the beginning of a given day.
 		 */
 		public static function beginningOfDay( $date, $isTimestamp = false ) {
-			_deprecated_function( __FILE__, '3.10', 'tribe_event_beginning_of_day' );
+			_deprecated_function( __METHOD__, '3.10', 'tribe_event_beginning_of_day' );
 
 			if ( $isTimestamp ) {
 				$date = date( self::DBDATEFORMAT, $date );
@@ -470,7 +470,7 @@ if ( ! class_exists( 'Tribe__Events__Date_Utils' ) ) {
 		 * @return int The number of seconds between the dates.
 		 */
 		public static function timeBetween( $date1, $date2 ) {
-			_deprecated_function( __FILE__, '3.11', __CLASS__ . '::time_between' );
+			_deprecated_function( __METHOD__, '3.11', __CLASS__ . '::time_between' );
 			return self::time_between( $date1, $date2 );
 		}
 
@@ -483,7 +483,7 @@ if ( ! class_exists( 'Tribe__Events__Date_Utils' ) ) {
 		 * @return int The number of days between two dates.
 		 */
 		public static function dateDiff( $date1, $date2 ) {
-			_deprecated_function( __FILE__, '3.11', __CLASS__ . '::date_diff' );
+			_deprecated_function( __METHOD__, '3.11', __CLASS__ . '::date_diff' );
 			return self::date_diff( $date1, $date2 );
 		}
 
@@ -495,7 +495,7 @@ if ( ! class_exists( 'Tribe__Events__Date_Utils' ) ) {
 		 * @return string The last day of the month.
 		 */
 		public static function getLastDayOfMonth( $timestamp ) {
-			_deprecated_function( __FILE__, '3.11', __CLASS__ . '::get_last_day_of_month' );
+			_deprecated_function( __METHOD__, '3.11', __CLASS__ . '::get_last_day_of_month' );
 			return self::get_last_day_of_month( $timestamp );
 		}
 
@@ -507,7 +507,7 @@ if ( ! class_exists( 'Tribe__Events__Date_Utils' ) ) {
 		 * @return bool If the timestamp is a weekday.
 		 */
 		public static function isWeekday( $curdate ) {
-			_deprecated_function( __FILE__, '3.11', __CLASS__ . '::is_weekday' );
+			_deprecated_function( __METHOD__, '3.11', __CLASS__ . '::is_weekday' );
 			return self::is_weekday( $curdate );
 		}
 
@@ -519,7 +519,7 @@ if ( ! class_exists( 'Tribe__Events__Date_Utils' ) ) {
 		 * @return bool If the timestamp is a weekend.
 		 */
 		public static function isWeekend( $curdate ) {
-			_deprecated_function( __FILE__, '3.11', __CLASS__ . '::is_weekend' );
+			_deprecated_function( __METHOD__, '3.11', __CLASS__ . '::is_weekend' );
 			return self::is_weekend( $curdate );
 		}
 
@@ -532,7 +532,7 @@ if ( ! class_exists( 'Tribe__Events__Date_Utils' ) ) {
 		 * @return int The timestamp of the date that fits the qualifications.
 		 */
 		public static function getLastDayOfWeekInMonth( $curdate, $day_of_week ) {
-			_deprecated_function( __FILE__, '3.11', __CLASS__ . '::get_last_day_of_week_in_month' );
+			_deprecated_function( __METHOD__, '3.11', __CLASS__ . '::get_last_day_of_week_in_month' );
 			return self::get_last_day_of_week_in_month( $curdate, $day_of_week );
 		}
 
@@ -545,7 +545,7 @@ if ( ! class_exists( 'Tribe__Events__Date_Utils' ) ) {
 		 * @return int The timestamp of the date that fits the qualifications.
 		 */
 		public static function getFirstDayOfWeekInMonth( $curdate, $day_of_week ) {
-			_deprecated_function( __FILE__, '3.11', __CLASS__ . '::get_fist_day_of_week_in_month' );
+			_deprecated_function( __METHOD__, '3.11', __CLASS__ . '::get_fist_day_of_week_in_month' );
 			return self::get_first_day_of_week_in_month( $curdate, $day_of_week );
 		}
 
@@ -557,7 +557,7 @@ if ( ! class_exists( 'Tribe__Events__Date_Utils' ) ) {
 		 * @return string The ordinal for that number.
 		 */
 		public static function numberToOrdinal( $number ) {
-			_deprecated_function( __FILE__, '3.11', __CLASS__ . '::number_to_ordinal' );
+			_deprecated_function( __METHOD__, '3.11', __CLASS__ . '::number_to_ordinal' );
 			return self::number_to_ordinal( $number );
 		}
 
@@ -569,7 +569,7 @@ if ( ! class_exists( 'Tribe__Events__Date_Utils' ) ) {
 		 * @return bool
 		 */
 		public static function isTimestamp( $timestamp ) {
-			_deprecated_function( __FILE__, '3.11', __CLASS__ . '::is_timestamp' );
+			_deprecated_function( __METHOD__, '3.11', __CLASS__ . '::is_timestamp' );
 			return self::is_timestamp( $timestamp );
 		}
 		// @codingStandardsIgnoreEnd
