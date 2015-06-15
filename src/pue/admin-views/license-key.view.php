@@ -9,14 +9,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 ?>
-<h3><?php _e( 'License Key', 'tribe-events-calendar' ); ?></h3>
-<p><?php _e( 'A valid license key is required for support and updates.', 'tribe-events-calendar' ) ?></p>
+<h3><?php esc_html_e( 'License Key', 'tribe-events-calendar' ); ?></h3>
+<p><?php esc_html_e( 'A valid license key is required for support and updates.', 'tribe-events-calendar' ) ?></p>
 <table class="form-table">
 	<tr>
-		<th scope="row"><?php _e( 'License Key', 'tribe-events-calendar' ); ?></th>
+		<th scope="row"><?php esc_html_e( 'License Key', 'tribe-events-calendar' ); ?></th>
 		<td>
 			<fieldset>
-				<label title='<?php _e( 'Replace empty fields', 'tribe-events-calendar' ); ?>'>
+				<label title='<?php esc_html_e( 'Replace empty fields', 'tribe-events-calendar' ); ?>'>
 					<input type="text" name="install_key" id="install_key" value="<?php echo $this->install_key ?>" size="45" />
 				</label>
 				<legend class="screen-reader-text">
@@ -26,7 +26,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 						<span id='invalid-key' style='display:none;color:red'></span>
 					</p>
 
-					<p id="key-description"><?php _e( 'A valid license key is required for support and updates', 'tribe-events-calendar' ); ?></p>
+					<p id="key-description"><?php esc_html_e( 'A valid license key is required for support and updates', 'tribe-events-calendar' ); ?></p>
 				</legend>
 			</fieldset>
 		</td>

@@ -24,7 +24,7 @@ global $wp_locale;
 		<thead>
 		<tr>
 			<?php foreach ( $days_of_week as $day ) : ?>
-				<th id="tribe-events-<?php echo strtolower( $day ) ?>" title="<?php echo $day ?>" data-day-abbr="<?php echo $wp_locale->get_weekday_abbrev( $day ); ?>"><?php echo $day ?></th>
+				<th id="tribe-events-<?php echo esc_attr( strtolower( $day ) ); ?>" title="<?php echo esc_attr( $day ); ?>" data-day-abbr="<?php echo esc_attr( $wp_locale->get_weekday_abbrev( $day ) ); ?>"><?php echo $day ?></th>
 			<?php endforeach; ?>
 		</tr>
 		</thead>
@@ -50,4 +50,5 @@ global $wp_locale;
 		</tr>
 		</tbody>
 	</table><!-- .tribe-events-calendar -->
-<?php do_action( 'tribe_events_after_the_grid' ) ?>
+<?php
+do_action( 'tribe_events_after_the_grid' );
