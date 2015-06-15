@@ -157,7 +157,7 @@
 
 			// Backwards compatibility
 			// @todo "Check if we can remove this check"
-			if ( data.has_events ){
+			if ( data.has_events ) {
 				data.date_name = '';
 			}
 
@@ -174,7 +174,6 @@
 
 				tribe_mobile_load_events( data.date );
 			}
-
 		}
 
 		function tribe_mobile_month_setup() {
