@@ -48,11 +48,11 @@
 		<div class="tribe-update-links">
 			<h4><?php esc_html_e( 'Looking for Something Special?', 'tribe-events-calendar' ); ?></h4>
 			<p>
-				<a href="http://m.tri.be/nt" target="_blank"><?php esc_html_e( 'Pro' ); ?></a><br/>
-				<a href="http://m.tri.be/nu" target="_blank"><?php esc_html_e( 'Tickets' ); ?></a><br/>
-				<a href="http://m.tri.be/nx" target="_blank"><?php esc_html_e( 'Community Events' ); ?></a><br/>
-				<a href="http://m.tri.be/nv" target="_blank"><?php esc_html_e( 'Filters' ); ?></a><br/>
-				<a href="http://m.tri.be/nw" target="_blank"><?php esc_html_e( 'Facebook' ); ?></a><br/><br/>
+				<a href="http://m.tri.be/nt" target="_blank"><?php esc_html_e( 'Pro', 'tribe-events-calendar' ); ?></a><br/>
+				<a href="http://m.tri.be/nu" target="_blank"><?php esc_html_e( 'Tickets', 'tribe-events-calendar' ); ?></a><br/>
+				<a href="http://m.tri.be/nx" target="_blank"><?php esc_html_e( 'Community Events', 'tribe-events-calendar' ); ?></a><br/>
+				<a href="http://m.tri.be/nv" target="_blank"><?php esc_html_e( 'Filters', 'tribe-events-calendar' ); ?></a><br/>
+				<a href="http://m.tri.be/nw" target="_blank"><?php esc_html_e( 'Facebook', 'tribe-events-calendar' ); ?></a><br/><br/>
 			</p>
 
 			<h4><?php esc_html_e( 'News For Events Users', 'tribe-events-calendar' ); ?></h4>
