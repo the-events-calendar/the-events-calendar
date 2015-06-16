@@ -191,7 +191,7 @@ jQuery( document ).ready( function( $ ) {
 	if ( typeof(TEC) !== 'undefined' ) {
 
 		var _MS_PER_DAY = 1000 * 60 * 60 * 24;
-		
+
 		var date_format = 'yy-mm-dd';
 
 		if ( $date_format.length && $date_format.attr( 'data-datepicker_format' ).length === 1 ) {
@@ -373,7 +373,7 @@ jQuery( document ).ready( function( $ ) {
 				$('.edit-venue-link').show();
 
 				// Change edit link
-				
+
 				$('.edit-venue-link a').attr( 'href', current_edit_link + selected_venue_id );
 			}
 		} );
@@ -695,7 +695,7 @@ jQuery( document ).ready( function( $ ) {
 
 		$els.start.val( tribeDateFormat( $els.start.datepicker( 'getDate' ), 'tribeQuery' ) );
 		$els.end.val( tribeDateFormat( $els.end.datepicker( 'getDate' ), 'tribeQuery' ) );
-		
+
 		$els.recur.is( ':visible' ) && $els.recur.val( tribeDateFormat( $els.recur.datepicker( 'getDate' ), 'tribeQuery' ) );
 	} );
 

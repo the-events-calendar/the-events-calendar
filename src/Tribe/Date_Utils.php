@@ -21,18 +21,50 @@ if ( ! class_exists( 'Tribe__Events__Date_Utils' ) ) {
 		const DBTIMEFORMAT          = 'H:i:s';
 		const DBYEARMONTHTIMEFORMAT = 'Y-m';
 
+
+		/**
+		 * Get the datepicker format, that is used to translate the option from the DB to a string
+		 *
+		 * @param  int $translate The db Option from datepickerFormat
+		 * @return string|array            If $translate is not set returns the full array, if not returns the `Y-m-d`
+		 */
+		public static function datepicker_formats( $translate = null ) {
+			$formats = array(
+				'Y-m-d',
+				'n/j/Y',
+				'm/d/Y',
+				'j/n/Y',
+				'd/m/Y',
+				'n-j-Y',
+				'm-d-Y',
+				'j-n-Y',
+				'd-m-Y',
+			);
+
+			if ( is_null( $translate ) ) {
+				return $formats;
+			}
+
+			return isset( $formats[ $translate ] ) ? $formats[ $translate ] : $formats[0];
+		}
+
 		/**
 		 * Returns the date only.
 		 *
 		 * @param int|string $date        The date (timestamp or string).
 		 * @param bool       $isTimestamp Is $date in timestamp format?
+		 * @param string|null $format The format used
 		 *
 		 * @return string The date only in DB format.
 		 */
-		public static function date_only( $date, $isTimestamp = false ) {
+		public static function date_only( $date, $isTimestamp = false, $format = null ) {
 			$date = $isTimestamp ? $date : strtotime( $date );
 
-			return date( self::DBDATEFORMAT, $date );
+			if ( is_null( $format ) ) {
+				$format = self::DBDATEFORMAT;
+			}
+
+			return date( $format, $date );
 		}
 
 		/**
