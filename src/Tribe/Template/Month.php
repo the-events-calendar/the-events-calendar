@@ -16,37 +16,104 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 	 * Month view template class
 	 */
 	class Tribe__Events__Template__Month extends Tribe__Events__Template_Factory {
-		const PREVIOUS_MONTH = -1;
-		const CURRENT_MONTH  = 0;
-		const NEXT_MONTH     = 1;
 
 		private static $hide_upcoming_ids;
 		private static $today;
 		private static $current_month;
 		private static $current_year;
+		/**
+		 * Month Type Masks
+		 */
+		const PREVIOUS_MONTH = - 1;
+		const CURRENT_MONTH = 0;
+		const NEXT_MONTH = 1;
+
+		/**
+		 * Prefix for month view ajax actions
+		 */
+		const AJAX_HOOK = 'tribe_calendar';
+
+		/**
+		 * Number of events per day of the month
+		 * @var array
+		 */
 		private static $event_daily_counts = array();
 		private static $event_daily_ids = array();
 		private static $posts_per_page_limit = 3;
 		private static $tribe_bar_args = array();
+
+		/**
+		 * Number of events per day
+		 * @var int
+		 * @see tribe_events_month_day_limit
+		 */
+		private static $events_per_day;
+
+		/**
+		 * Array of days of the month
+		 * @var array
+		 */
 		private static $calendar_days = array();
+
+		/**
+		 * Internal pointer to current day in the month view loop
+		 * @var int
+		 */
 		private static $current_day = - 1;
+
+		/**
+		 * Internal pointer to current week in the month view loop
+		 * @var int
+		 */
 		private static $current_week = - 1;
+
+		/**
+		 * Query args
+		 * @var array|null
+		 */
 		protected static $args;
 
 		/**
-		 * Indicates the array indicies marking the first and last entries for
-		 * the current month.
+		 * Indicates the array index marking the first entry for the current month.
+		 * @var int
 		 */
 		protected $current_month_begins;
+
+		/**
+		 * Indicates the array index marking the last entry for the current month.
+		 * @var int
+		 */
 		protected $current_month_ends;
 
+		/**
+		 * CSS class for the month view wrapper
+		 * @var string
+		 */
 		protected $body_class = 'events-gridview';
+
+		/**
+		 * Excerpt length on month view tooltips
+		 * @var int
+		 */
 		protected $excerpt_length = 30;
+
+		/**
+		 * Static asset packages required for month view functionality
+		 * @var array
+		 */
 		protected $asset_packages = array( 'ajax-calendar' );
 
+		/**
+		 * HTML cache holder
+		 * @var Tribe__Events__Template_Part_Cache
+		 */
 		private $html_cache;
 
-		const AJAX_HOOK = 'tribe_calendar';
+		/**
+		 * Whether the HTML cache is enabled
+		 * @var boolean
+		 */
+		private $use_cache;
 
 		/**
 		 * Set the notices used on month view
