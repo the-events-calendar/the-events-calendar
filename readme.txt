@@ -336,7 +336,7 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Feature - Enhancements to month view class + queries
 * Feature - Allowing yes/true boolean imports for “Show Google Maps (link)” field in CSV import
 
-= [3.10] 2015-06-09 =
+= [3.10] 2015-06-16 =
 
 * Bug - Resolved a compatibility issue where WooCommerce shortcodes could trigger unusual side effects in month view (thanks to tmcquaid on the forums for the first report!)
 * Bug - Fixed an issue where malformed URLs could trigger fatal exceptions (thanks to go3asy on the dot-org forums for the report!)
