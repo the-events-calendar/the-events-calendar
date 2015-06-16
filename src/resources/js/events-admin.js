@@ -217,41 +217,41 @@ jQuery( document ).ready( function( $ ) {
 			$end_date = $( '#EventEndDate' );
 
 		var datepickerOpts = {
-				dateFormat     : date_format,
-				showAnim       : 'fadeIn',
-				changeMonth    : true,
-				changeYear     : true,
-				numberOfMonths : get_datepicker_num_months(),
-				firstDay       : startofweek,
-				showButtonPanel: true,
-				beforeShow     : function( element, object ) {
-					object.input.datepicker( 'option', 'numberOfMonths', get_datepicker_num_months() );
-					object.input.data( 'prevDate', object.input.datepicker( "getDate" ) );
-				},
-				onSelect       : function( selectedDate ) {
-					var option = this.id == "EventStartDate" ? "minDate" : "maxDate",
-						instance = $( this ).data( "datepicker" ),
-						date = $.datepicker.parseDate( instance.settings.dateFormat || $.datepicker._defaults.dateFormat, selectedDate, instance.settings );
+			dateFormat     : date_format,
+			showAnim       : 'fadeIn',
+			changeMonth    : true,
+			changeYear     : true,
+			numberOfMonths : get_datepicker_num_months(),
+			firstDay       : startofweek,
+			showButtonPanel: true,
+			beforeShow     : function( element, object ) {
+				object.input.datepicker( 'option', 'numberOfMonths', get_datepicker_num_months() );
+				object.input.data( 'prevDate', object.input.datepicker( "getDate" ) );
+			},
+			onSelect       : function( selectedDate ) {
+				var option = this.id == "EventStartDate" ? "minDate" : "maxDate",
+					instance = $( this ).data( "datepicker" ),
+					date = $.datepicker.parseDate( instance.settings.dateFormat || $.datepicker._defaults.dateFormat, selectedDate, instance.settings );
 
-					if ( this.id === "EventStartDate" && $recurrence_type.val() !== 'None' ) {
+				if ( this.id === "EventStartDate" && $recurrence_type.val() !== 'None' ) {
 
-						var startDate = $( '#EventStartDate' ).data( 'prevDate' ),
-							dateDif = null == startDate ? 0 : date_diff_in_days( startDate, $end_date.datepicker( 'getDate' ) ),
-							endDate = new Date( date.setDate( date.getDate() + dateDif ) );
+					var startDate = $( '#EventStartDate' ).data( 'prevDate' ),
+						dateDif = null == startDate ? 0 : date_diff_in_days( startDate, $end_date.datepicker( 'getDate' ) ),
+						endDate = new Date( date.setDate( date.getDate() + dateDif ) );
 
-						$end_date
-							.datepicker( "option", option, endDate )
-							.datepicker( "setDate", endDate );
+					$end_date
+						.datepicker( "option", option, endDate )
+						.datepicker( "setDate", endDate );
 
-					}
-					else {
-						dates
-							.not( this )
-							.not( '#recurrence_end' )
-							.datepicker( "option", option, date );
-					}
 				}
-			};
+				else {
+					dates
+						.not( this )
+						.not( '#recurrence_end' )
+						.datepicker( "option", option, date );
+				}
+			}
+		};
 
 		$.extend( datepickerOpts, TEC );
 
