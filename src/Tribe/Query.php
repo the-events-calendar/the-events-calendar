@@ -166,20 +166,13 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 					add_filter( 'posts_distinct', array( __CLASS__, 'posts_distinct' ) );
 					add_filter( 'posts_groupby', array( __CLASS__, 'posts_groupby' ), 10, 2 );
 				} else {
+
 					// reduce number of queries triggered by main WP_Query on month view
 					$query->set( 'posts_per_page', 1 );
 					$query->set( 'no_found_rows', true );
 					$query->set( 'cache_results', false );
 					$query->set( 'update_post_meta_cache', false );
 					$query->set( 'update_post_term_cache', false );
-					$query->set(
-						'meta_query', array(
-							array(
-								'key'  => '_EventStartDate',
-								'type' => 'DATETIME',
-							),
-						)
-					);
 					do_action( 'tribe_events_pre_get_posts', $query );
 
 					return $query;
@@ -416,7 +409,6 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 		 */
 		public static function posts_fields( $field_sql, $query ) {
 			if ( ! empty( $query->tribe_is_event ) || ! empty( $query->tribe_is_event_category ) ) {
-				global $wpdb;
 				$postmeta_table             = self::postmeta_table( $query );
 				$fields                     = array();
 				$fields['event_start_date'] = "MIN({$postmeta_table}.meta_value) as EventStartDate";
