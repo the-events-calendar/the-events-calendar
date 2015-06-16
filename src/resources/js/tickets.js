@@ -43,6 +43,13 @@ var ticketHeaderImage = window.ticketHeaderImage || {};
 
 
 	$( document ).ready( function() {
+		var $event_pickers = $( '#tribe-event-datepickers' );
+
+		var startofweek = 0;
+
+		if ( $event_pickers.length ) {
+			startofweek = $event_pickers.data( 'startofweek' );
+		}
 
 		var datepickerOpts = {
 			dateFormat     : 'yy-mm-dd',
@@ -50,6 +57,7 @@ var ticketHeaderImage = window.ticketHeaderImage || {};
 			changeMonth    : true,
 			changeYear     : true,
 			numberOfMonths : 3,
+			firstDay       : startofweek,
 			showButtonPanel: true,
 			onChange       : function() {
 			},
