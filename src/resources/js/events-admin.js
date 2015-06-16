@@ -146,7 +146,7 @@ Date.prototype.format = function( mask, utc ) {
  */
 jQuery( document ).ready( function( $ ) {
 
-	var $date_format      = $( '[data-datepickerFormat]' ),
+	var $date_format      = $( '[data-datepicker_format]' ),
 		$view_select      = $( '.tribe-field-dropdown_select2 select' ),
 		viewCalLinkHTML   = $( '#view-calendar-link-div' ).html(),
 		$template_select  = $( 'select[name="tribeEventsTemplate"]' ),
@@ -194,8 +194,8 @@ jQuery( document ).ready( function( $ ) {
 
 		var date_format = 'yy-mm-dd';
 
-		if ( $date_format.length && $date_format.attr( 'data-datepickerFormat' ).length === 1 ) {
-			datepicker_format = $date_format.attr( 'data-datepickerFormat' );
+		if ( $date_format.length && $date_format.attr( 'data-datepicker_format' ).length === 1 ) {
+			datepicker_format = $date_format.attr( 'data-datepicker_format' );
 			date_format = datepicker_formats.main[ datepicker_format ];
 		}
 

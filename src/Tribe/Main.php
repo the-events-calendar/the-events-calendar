@@ -291,7 +291,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			$data_attributes = array(
 				'live_ajax'         => tribe_get_option( 'liveFiltersUpdate', true ) ? 1 : 0,
-				'datepicker_format'  => tribe_get_option( 'datepickerFormat' ),
+				'datepicker_format' => tribe_get_option( 'datepickerFormat' ),
 				'category'          => is_tax( $tec->get_event_taxonomy() ) ? get_query_var( 'term' ) : '',
 			);
 			// allow data attributes to be filtered before display
