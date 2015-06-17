@@ -119,7 +119,6 @@ if ( ! class_exists( 'Tribe__Events__Templates' ) ) {
 				} else {
 					add_filter( 'body_class', array( __CLASS__, 'add_singular_body_class' ) );
 				}
-
 			} else {
 				$template = self::getTemplateHierarchy( 'default-template' );
 
@@ -179,7 +178,7 @@ if ( ! class_exists( 'Tribe__Events__Templates' ) ) {
 		public function remove_singular_body_class( $classes ) {
 			$key = array_search( 'singular', $classes );
 			if ( $key ) {
-				unset( $classes[$key] );
+				unset( $classes[ $key ] );
 			}
 
 			return $classes;
@@ -292,7 +291,7 @@ if ( ! class_exists( 'Tribe__Events__Templates' ) ) {
 			if ( ! tribe_is_event_query() || ! defined( 'TRIBE_MODIFY_GLOBAL_TITLE' ) || ! TRIBE_MODIFY_GLOBAL_TITLE ) {
 				return;
 			}
-			if ( ! isset( $post ) || ! is_a( $post, 'WP_Post' ) ) {
+			if ( ! isset( $post ) || ! $post instanceof WP_Post ) {
 				return;
 			}
 
@@ -480,7 +479,6 @@ if ( ! class_exists( 'Tribe__Events__Templates' ) ) {
 					$post_types       = array( 'post', Tribe__Events__Main::POSTTYPE );
 					$query->set( 'post_type', $post_types );
 				}
-
 			}
 
 			return $query;
@@ -504,9 +502,11 @@ if ( ! class_exists( 'Tribe__Events__Templates' ) ) {
 				$args          = array();
 				$passed        = func_get_args();
 				$backwards_map = array( 'namespace', 'plugin_path' );
-				if ( count( $passed > 1 ) ) {
-					for ( $i = 1; $i < count( $passed ); $i ++ ) {
-						$args[$backwards_map[$i - 1]] = $passed[$i];
+				$count = count( $passed );
+
+				if ( $count > 1 ) {
+					for ( $i = 1; $i < $count; $i ++ ) {
+						$args[ $backwards_map[ $i - 1 ] ] = $passed[ $i ];
 					}
 				}
 			}

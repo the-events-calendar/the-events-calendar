@@ -43,7 +43,7 @@ class Tribe__Events__Bar {
 		$show_bar_filter = in_array(
 			get_post_type(), array(
 				Tribe__Events__Main::VENUE_POST_TYPE,
-				Tribe__Events__Main::ORGANIZER_POST_TYPE
+				Tribe__Events__Main::ORGANIZER_POST_TYPE,
 			)
 		) ? false : true;
 		$is_tribe_view   = ( ! empty( $wp_query->tribe_is_event_query ) && ! is_single() && $show_bar_filter );

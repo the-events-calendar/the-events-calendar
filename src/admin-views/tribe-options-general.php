@@ -8,7 +8,7 @@ $generalTab = array(
 		'tribe_general_settings_tab_fields', array(
 			'info-start'                    => array(
 				'type' => 'html',
-				'html' => '<div id="modern-tribe-info"><img src="' . plugins_url( 'resources/images/modern-tribe@2x.png', dirname( __FILE__ ) ) . '" alt="Modern Tribe Inc." title="Modern Tribe Inc.">'
+				'html' => '<div id="modern-tribe-info"><img src="' . plugins_url( 'resources/images/modern-tribe@2x.png', dirname( __FILE__ ) ) . '" alt="Modern Tribe Inc." title="Modern Tribe Inc.">',
 			),
 			'upsell-heading'                => array(
 				'type'        => 'heading',
@@ -26,7 +26,7 @@ $generalTab = array(
 			),
 			'upsell-info'                   => array(
 				'type'        => 'html',
-				'html'        => '<p>' . __( 'Looking for additional functionality including recurring events, custom meta, community events, ticket sales and more?', 'tribe-events-calendar' ) . ' <a href="' . self::$tecUrl . 'products/?utm_source=generaltab&utm_medium=plugin-tec&utm_campaign=in-app' . '">' . __( 'Check out the available add-ons', 'tribe-events-calendar' ) . '</a>.</p>',
+				'html'        => '<p>' . __( 'Looking for additional functionality including recurring events, custom meta, community events, ticket sales and more?', 'tribe-events-calendar' ) . ' <a href="' . self::$tecUrl . 'products/?utm_source=generaltab&utm_medium=plugin-tec&utm_campaign=in-app">' . __( 'Check out the available add-ons', 'tribe-events-calendar' ) . '</a>.</p>',
 				'conditional' => ( ! defined( 'TRIBE_HIDE_UPSELL' ) || ! TRIBE_HIDE_UPSELL ),
 			),
 			'donate-link-heading'           => array(
@@ -111,7 +111,7 @@ $generalTab = array(
 			),
 			'ical-info'                     => array(
 				'type'             => 'html',
-				'display_callback' => ( function_exists( 'tribe_get_ical_link' ) ) ? '<p id="ical-link" class="tribe-field-indent tribe-field-description description">' . __( 'Here is the iCal feed URL for your events:', 'tribe-events-calendar' ) . ' ' . '<code>' . tribe_get_ical_link() . '</code></p>' : '',
+				'display_callback' => ( function_exists( 'tribe_get_ical_link' ) ) ? '<p id="ical-link" class="tribe-field-indent tribe-field-description description">' . __( 'Here is the iCal feed URL for your events:', 'tribe-events-calendar' ) . ' <code>' . tribe_get_ical_link() . '</code></p>' : '',
 				'conditional'      => function_exists( 'tribe_get_ical_link' ),
 			),
 			'singleEventSlug'               => array(
@@ -123,7 +123,7 @@ $generalTab = array(
 			),
 			'current-single-event-slug'     => array(
 				'type'        => 'html',
-				'html'        => '<p class="tribe-field-indent tribe-field-description description">' . sprintf( __( 'The above should ideally be plural, and this singular.<br />Your single event URL is: %s', 'tribe-events-calendar' ), '<code>' . trailingslashit( home_url() ) . tribe_get_option( 'singleEventSlug', 'event' ) . '/single-post-name/' . '</code>' ) . '</p>',
+				'html'        => '<p class="tribe-field-indent tribe-field-description description">' . sprintf( __( 'The above should ideally be plural, and this singular.<br />Your single event URL is: %s', 'tribe-events-calendar' ), '<code>' . trailingslashit( home_url() ) . tribe_get_option( 'singleEventSlug', 'event' ) . '/single-post-name/</code>' ) . '</p>',
 				'conditional' => ( '' != get_option( 'permalink_structure' ) ),
 			),
 			'multiDayCutoff'                => array(
@@ -215,7 +215,7 @@ $generalTab = array(
 			),
 			'viewUpdatePage'          => array(
 				'type'        => 'html',
-				'html'        => '<fieldset class="tribe-field tribe-field-html"><legend>' . __( 'View Update Page', 'tribe-events-calendar' ) . '</legend><div class="tribe-field-wrap"><a href="' . esc_url( get_site_url() . '/wp-admin/edit.php?post_type=tribe_events&page=tribe-events-calendar&tec-update-message' ) . '" class="button">' . __( 'View Update Page', 'tribe-events-calendar' ) . '</a><p class="tribe-field-indent description">' . __( 'View the page that displayed when you updated the plugin.', 'tribe-events-calendar' ) . '</p></div></fieldset><div class="clear"></div>'
+				'html'        => '<fieldset class="tribe-field tribe-field-html"><legend>' . __( 'View Update Page', 'tribe-events-calendar' ) . '</legend><div class="tribe-field-wrap"><a href="' . esc_url( get_site_url() . '/wp-admin/edit.php?post_type=tribe_events&page=tribe-events-calendar&tec-update-message' ) . '" class="button">' . __( 'View Update Page', 'tribe-events-calendar' ) . '</a><p class="tribe-field-indent description">' . __( 'View the page that displayed when you updated the plugin.', 'tribe-events-calendar' ) . '</p></div></fieldset><div class="clear"></div>',
 			),
 			'tribe-form-content-end'        => array(
 				'type' => 'html',
