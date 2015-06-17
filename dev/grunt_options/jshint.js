@@ -45,15 +45,15 @@ module.exports = {
 		},
 		files  : {
 			src: [
-				'<%= pkg._resourcepath %>/events-admin.js',
-				'<%= pkg._resourcepath %>/tickets.js',
-				'<%= pkg._resourcepath %>/tickets-attendees.js',
-				'<%= pkg._resourcepath %>/tribe-events.js',
-				'<%= pkg._resourcepath %>/tribe-events-ajax-calendar.js',
-				'<%= pkg._resourcepath %>/tribe-events-ajax-day.js',
-				'<%= pkg._resourcepath %>/tribe-events-ajax-list.js',
-				'<%= pkg._resourcepath %>/tribe-events-bar.js',
-				'<%= pkg._resourcepath %>/tribe-settings.js'
+				'<%= pkg._resourcepath %>/js/events-admin.js',
+				'<%= pkg._resourcepath %>/js/tickets.js',
+				'<%= pkg._resourcepath %>/js/tickets-attendees.js',
+				'<%= pkg._resourcepath %>/js/tribe-events.js',
+				'<%= pkg._resourcepath %>/js/tribe-events-ajax-calendar.js',
+				'<%= pkg._resourcepath %>/js/tribe-events-ajax-day.js',
+				'<%= pkg._resourcepath %>/js/tribe-events-ajax-list.js',
+				'<%= pkg._resourcepath %>/js/tribe-events-bar.js',
+				'<%= pkg._resourcepath %>/js/tribe-settings.js'
 			]
 		}
 	}
