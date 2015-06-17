@@ -62,8 +62,7 @@ if ( ! class_exists( 'Tribe__Events__App_Shop' ) ) {
 		public function add_menu_page() {
 			$page_title = __( 'Event Add-Ons', 'tribe-events-calendar' );
 			$menu_title = __( 'Event Add-Ons', 'tribe-events-calendar' );
-			$capability = 'edit_posts';
-
+			$capability = apply_filters( 'tribe_events_addon_page_capability', 'install_plugins' );
 
 			$where = 'edit.php?post_type=' . Tribe__Events__Main::POSTTYPE;
 
@@ -75,7 +74,6 @@ if ( ! class_exists( 'Tribe__Events__App_Shop' ) ) {
 			);
 
 			add_action( 'admin_print_styles-' . $this->admin_page, array( $this, 'enqueue' ) );
-
 		}
 
 		/**
@@ -83,20 +81,20 @@ if ( ! class_exists( 'Tribe__Events__App_Shop' ) ) {
 		 */
 		public function add_toolbar_item() {
 
-			// prevent users who cannot manage the plugin to see addons link
-			if ( current_user_can( 'edit_tribe_events' ) ) {
+			$capability = apply_filters( 'tribe_events_addon_page_capability', 'install_plugins' );
+
+			// prevent users who cannot install plugins from seeing addons link
+			if ( current_user_can( $capability ) ) {
 				global $wp_admin_bar;
 
 				$where = 'edit.php?post_type=' . Tribe__Events__Main::POSTTYPE;
 
-				$wp_admin_bar->add_menu(
-							 array(
-								 'id'     => 'tribe-events-app-shop',
-								 'title'  => __( 'Event Add-Ons', 'tribe-events-calendar' ),
-								 'href'   => admin_url( untrailingslashit( $where ) . '&page=' . self::MENU_SLUG ),
-								 'parent' => 'tribe-events-settings-group',
-							 )
-				);
+				$wp_admin_bar->add_menu( array(
+					'id'     => 'tribe-events-app-shop',
+					'title'  => __( 'Event Add-Ons', 'tribe-events-calendar' ),
+					'href'   => esc_url( admin_url( untrailingslashit( $where ) . '&page=' . esc_attr( self::MENU_SLUG ) ) ),
+					'parent' => 'tribe-events-settings-group',
+				) );
 			}
 		}
 
