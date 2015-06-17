@@ -241,7 +241,7 @@ Our Premium Plugins:
 * Bug - Addressed numerous minor styling issues with the Twenty Fifteen theme
 * Tweak - Made some changes to the EOD cutoff functionality behavior
 
-= [3.10] 2015-06-09 =
+= [3.10] 2015-06-15 =
 
 * Bug - Fixed a bug where private events were being indicated on the Mini Calendar Widget, even though you couldn't see them (thanks to calach on the forums for the report!)
 * Bug - Fixed a minor issue with recurring event tooltips within the advanced list widget (thanks to Daniella on the forums for the heads up!)
