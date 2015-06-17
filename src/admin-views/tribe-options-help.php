@@ -184,9 +184,11 @@ $more_text = __( 'More...', 'tribe-events-calendar' );
 
 	<?php if ( isset( $rating ) && isset( $num_rating ) ) { ?>
 		<h3><?php esc_html_e( 'Average Rating', 'tribe-events-calendar' ); ?></h3>
-		<div class="star-holder">
-			<div class="star star-rating" style="width: <?php echo esc_attr( $rating ); ?>px"></div>
-		</div>
+		<?php wp_star_rating(array(
+			'rating' => $rating,
+			'type' => 'percent',
+			'number' => $num_rating,
+		)); ?>
 		<?php printf( _n( 'Based on %d rating', 'Based on %d ratings', $num_rating, 'tribe-events-calendar' ), $num_rating ); ?>
 		<p>
 			<a href="<?php echo esc_url( apply_filters( 'tribe_help_tab_wp_plugin_url', 'http://wordpress.org/support/view/plugin-reviews/the-events-calendar?filter=5' ) ); ?>"><?php esc_html_e( 'Give us 5 stars!', 'tribe-events-calendar' ); ?></a>
