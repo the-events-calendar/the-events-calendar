@@ -161,7 +161,7 @@ if ( ! class_exists( 'Tribe__Events__Field' ) ) {
 			$value            = is_array( $value ) ? array_map( 'esc_attr', $value ) : esc_attr( $value );
 			$conditional      = $args['conditional'];
 			$display_callback = $args['display_callback'];
-			$if_empty         = ( is_numeric( $args['if_empty'] ) ? (bool) $args['if_empty'] : (string) $args['if_empty'] );
+			$if_empty         = is_string( $args['if_empty'] ) ? trim( $args['if_empty'] ) : $args['if_empty'];
 			$can_be_empty     = (bool) $args['can_be_empty'];
 			$clear_after      = (bool) $args['clear_after'];
 
