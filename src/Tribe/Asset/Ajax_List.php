@@ -7,8 +7,8 @@ class Tribe__Events__Asset__Ajax_List extends Tribe__Events__Asset__Abstract_Ass
 		$deps        = array_merge( $this->deps, array( 'jquery', $this->prefix . '-calendar-script' ) );
 		$tribe_paged = ( ! empty( $_REQUEST['tribe_paged'] ) ) ? $_REQUEST['tribe_paged'] : 0;
 		$ajax_data   = array(
-			"ajaxurl"     => admin_url( 'admin-ajax.php', ( is_ssl() ? 'https' : 'http' ) ),
-			'tribe_paged' => $tribe_paged
+			'ajaxurl'     => admin_url( 'admin-ajax.php', ( is_ssl() ? 'https' : 'http' ) ),
+			'tribe_paged' => $tribe_paged,
 		);
 		$path        = Tribe__Events__Template_Factory::getMinFile( tribe_events_resource_url( 'tribe-events-ajax-list.js' ), true );
 

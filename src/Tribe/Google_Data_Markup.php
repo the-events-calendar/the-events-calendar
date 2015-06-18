@@ -22,21 +22,21 @@ class Tribe__Events__Google_Data_Markup {
 
 		// Index by ID: this will allow filter code to identify the actual event being referred to
 		// without injecting an additional property
-		$events_data[$id]               = new stdClass();
-		$events_data[$id]->{'@context'} = 'http://schema.org';
-		$events_data[$id]->{'@type'} = 'Event';
-		$events_data[$id]->name         = get_the_title();
+		$events_data[ $id ]               = new stdClass();
+		$events_data[ $id ]->{'@context'} = 'http://schema.org';
+		$events_data[ $id ]->{'@type'} = 'Event';
+		$events_data[ $id ]->name         = get_the_title();
 		if ( has_post_thumbnail() ) {
-			$events_data[$id]->image = wp_get_attachment_url( get_post_thumbnail_id( $post->ID ) );
+			$events_data[ $id ]->image = wp_get_attachment_url( get_post_thumbnail_id( $post->ID ) );
 		}
-		$events_data[$id]->url       = get_permalink( $post->ID );
-		$events_data[$id]->startDate = get_gmt_from_date( tribe_get_start_date( $post, true, Tribe__Events__Date_Utils::DBDATETIMEFORMAT ), 'c' );
-		$events_data[$id]->endDate   = get_gmt_from_date( tribe_get_end_date( $post, true, Tribe__Events__Date_Utils::DBDATETIMEFORMAT ), 'c' );
+		$events_data[ $id ]->url       = get_permalink( $post->ID );
+		$events_data[ $id ]->startDate = get_gmt_from_date( tribe_get_start_date( $post, true, Tribe__Events__Date_Utils::DBDATETIMEFORMAT ), 'c' );
+		$events_data[ $id ]->endDate   = get_gmt_from_date( tribe_get_end_date( $post, true, Tribe__Events__Date_Utils::DBDATETIMEFORMAT ), 'c' );
 		if ( tribe_has_venue( $id ) ) {
-			$events_data[$id]->location          = new stdClass();
-			$events_data[$id]->location->{'@type'} = 'Place';
-			$events_data[$id]->location->name    = tribe_get_venue( $post->ID );
-			$events_data[$id]->location->address = strip_tags( str_replace( "\n", '', tribe_get_full_address( $post->ID ) ) );
+			$events_data[ $id ]->location          = new stdClass();
+			$events_data[ $id ]->location->{'@type'} = 'Place';
+			$events_data[ $id ]->location->name    = tribe_get_venue( $post->ID );
+			$events_data[ $id ]->location->address = strip_tags( str_replace( "\n", '', tribe_get_full_address( $post->ID ) ) );
 		}
 
 		/**

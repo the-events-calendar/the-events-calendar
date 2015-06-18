@@ -6,7 +6,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 if ( ! class_exists( 'Tribe__Events__Field' ) ) {
-
 	/**
 	 * helper class that creates fields for use in Settings, MetaBoxes, Users, anywhere.
 	 * Instantiate it whenever you need a field
@@ -151,7 +150,7 @@ if ( ! class_exists( 'Tribe__Events__Field' ) ) {
 			if ( is_array( $args['options'] ) ) {
 				$options = array();
 				foreach ( $args['options'] as $key => $val ) {
-					$options[$key] = $val;
+					$options[ $key ] = $val;
 				}
 			} else {
 				$options = $args['options'];
@@ -211,7 +210,6 @@ if ( ! class_exists( 'Tribe__Events__Field' ) ) {
 					Tribe__Events__Main::debug( __( 'Invalid field type specified', 'tribe-events-calendar' ), $this->type, 'notice' );
 
 				}
-
 			}
 		}
 
@@ -381,7 +379,6 @@ if ( ! class_exists( 'Tribe__Events__Field' ) ) {
 			return $field;
 		}
 
-
 		/**
 		 * generate a simple text field
 		 *
@@ -432,7 +429,7 @@ if ( ! class_exists( 'Tribe__Events__Field' ) ) {
 		public function wysiwyg() {
 			$settings = array(
 				'teeny'   => true,
-				'wpautop' => true
+				'wpautop' => true,
 			);
 			ob_start();
 			wp_editor( html_entity_decode( ( $this->value ) ), $this->name, $settings );
@@ -618,5 +615,4 @@ if ( ! class_exists( 'Tribe__Events__Field' ) ) {
 		}
 
 	} // end class
-
 } // endif class_exists

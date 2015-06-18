@@ -27,7 +27,7 @@ class Tribe__Events__List_Widget extends WP_Widget {
 		$widget_options = array_merge(
 			array(
 				'classname'   => 'tribe-events-list-widget',
-				'description' => __( 'A widget that displays upcoming events.', 'tribe-events-calendar' )
+				'description' => __( 'A widget that displays upcoming events.', 'tribe-events-calendar' ),
 			),
 			$widget_options
 		);
@@ -48,7 +48,7 @@ class Tribe__Events__List_Widget extends WP_Widget {
 	 *
 	 * @return string The widget output (html).
 	 */
-	function widget( $args, $instance ) {
+	public function widget( $args, $instance ) {
 		return $this->widget_output( $args, $instance );
 	}
 
@@ -62,7 +62,7 @@ class Tribe__Events__List_Widget extends WP_Widget {
 	 * @param string $namespace     The namespace for the widget template stuff.
 	 * @param string $pluginPath    The pluginpath so we can locate the template stuff.
 	 */
-	function widget_output( $args, $instance, $template_name = 'widgets/list-widget' ) {
+	public function widget_output( $args, $instance, $template_name = 'widgets/list-widget' ) {
 		global $wp_query, $tribe_ecp, $post;
 
 		$instance = wp_parse_args(
@@ -88,8 +88,8 @@ class Tribe__Events__List_Widget extends WP_Widget {
 		$hold_tribe_bar_args = array();
 		foreach ( $_REQUEST as $key => $value ) {
 			if ( $value && strpos( $key, 'tribe-bar-' ) === 0 ) {
-				$hold_tribe_bar_args[$key] = $value;
-				unset( $_REQUEST[$key] );
+				$hold_tribe_bar_args[ $key ] = $value;
+				unset( $_REQUEST[ $key ] );
 			}
 		}
 
@@ -105,7 +105,7 @@ class Tribe__Events__List_Widget extends WP_Widget {
 			apply_filters(
 				'tribe_events_list_widget_query_args', array(
 					'eventDisplay'   => 'list',
-					'posts_per_page' => self::$limit
+					'posts_per_page' => self::$limit,
 				)
 			)
 		);
@@ -134,7 +134,7 @@ class Tribe__Events__List_Widget extends WP_Widget {
 		// Reinstate the tribe bar params
 		if ( ! empty( $hold_tribe_bar_args ) ) {
 			foreach ( $hold_tribe_bar_args as $key => $value ) {
-				$_REQUEST[$key] = $value;
+				$_REQUEST[ $key ] = $value;
 			}
 		}
 	}
@@ -147,7 +147,7 @@ class Tribe__Events__List_Widget extends WP_Widget {
 	 *
 	 * @return array The new widget settings.
 	 */
-	function update( $new_instance, $old_instance ) {
+	public function update( $new_instance, $old_instance ) {
 		$instance = $old_instance;
 
 		/* Strip tags (if needed) and update the widget settings. */
@@ -165,7 +165,7 @@ class Tribe__Events__List_Widget extends WP_Widget {
 	 *
 	 * @return string The output for the admin widget form.
 	 */
-	function form( $instance ) {
+	public function form( $instance ) {
 		/* Set up default widget settings. */
 		$defaults  = array(
 			'title'              => __( 'Upcoming Events', 'tribe-events-calendar' ),

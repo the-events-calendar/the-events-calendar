@@ -43,6 +43,13 @@ var ticketHeaderImage = window.ticketHeaderImage || {};
 
 
 	$( document ).ready( function() {
+		var $event_pickers = $( '#tribe-event-datepickers' );
+
+		var startofweek = 0;
+
+		if ( $event_pickers.length ) {
+			startofweek = $event_pickers.data( 'startofweek' );
+		}
 
 		var datepickerOpts = {
 			dateFormat     : 'yy-mm-dd',
@@ -50,6 +57,7 @@ var ticketHeaderImage = window.ticketHeaderImage || {};
 			changeMonth    : true,
 			changeYear     : true,
 			numberOfMonths : 3,
+			firstDay       : startofweek,
 			showButtonPanel: true,
 			onChange       : function() {
 			},
@@ -240,11 +248,14 @@ var ticketHeaderImage = window.ticketHeaderImage || {};
 						$( '#ticket_start_date' ).val( start_date );
 						$( '#ticket_end_date' ).val( end_date );
 
+						var $start_meridian = $( document.getElementById( 'ticket_start_meridian' ) ),
+						      $end_meridian = $( document.getElementById( 'ticket_end_meridian' ) );
+
 						if ( response.data.start_date ) {
 							var start_hour = parseInt( response.data.start_date.substring( 11, 13 ) );
 							var start_meridian = 'am';
 
-							if ( start_hour > 12 ) {
+							if ( start_hour > 12 && $start_meridian.length ) {
 								start_meridian = 'pm';
 								start_hour = parseInt( start_hour ) - 12;
 								start_hour = ("0" + start_hour).slice( - 2 );
@@ -271,7 +282,7 @@ var ticketHeaderImage = window.ticketHeaderImage || {};
 							var end_hour = parseInt( response.data.end_date.substring( 11, 13 ) );
 							var end_meridian = 'am';
 
-							if ( end_hour > 12 ) {
+							if ( end_hour > 12 && $end_meridian.length ) {
 								end_meridian = 'pm';
 								end_hour = parseInt( end_hour ) - 12;
 								end_hour = ("0" + end_hour).slice( - 2 );

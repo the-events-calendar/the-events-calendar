@@ -50,7 +50,7 @@ if ( ! function_exists( 'tribe_get_linked_day' ) ) {
 		$return = '';
 		$return .= "<a href='" . esc_url( tribe_get_day_link( $date ) ) . "'>";
 		$return .= $day;
-		$return .= "</a>";
+		$return .= '</a>';
 
 		return apply_filters( 'tribe_get_linked_day', $return );
 	}
@@ -83,7 +83,6 @@ if ( ! function_exists( 'tribe_the_day_link' ) ) {
 			if ( $date >= $earliest && $date <= $latest ) {
 				$html = '<a href="' . esc_url( $link ) . '" data-day="' . $date . '" rel="prev">' . $text . '</a>';
 			}
-
 		} catch ( OverflowException $e ) {
 		}
 
@@ -159,7 +158,7 @@ if ( ! function_exists( 'tribe_get_next_day_date' ) ) {
 				throw new OverflowException( __( 'Date out of range.', 'tribe-events-calendar' ) );
 			}
 		}
-		$date = Date( 'Y-m-d', strtotime( $start_date . " +1 day" ) );
+		$date = date( 'Y-m-d', strtotime( $start_date . ' +1 day' ) );
 
 		return $date;
 	}
@@ -181,7 +180,7 @@ if ( ! function_exists( 'tribe_get_previous_day_date' ) ) {
 				throw new OverflowException( __( 'Date out of range.', 'tribe-events-calendar' ) );
 			}
 		}
-		$date = Date( 'Y-m-d', strtotime( $start_date . " -1 day" ) );
+		$date = date( 'Y-m-d', strtotime( $start_date . ' -1 day' ) );
 
 		return $date;
 	}

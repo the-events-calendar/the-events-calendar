@@ -222,8 +222,10 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 			_deprecated_argument( __FUNCTION__, '3.0', 'This parameter is no longer supported.' );
 		}
 
-		$organizers = get_posts( array( 'post_type'      => Tribe__Events__Main::ORGANIZER_POST_TYPE,
-										'posts_per_page' => $posts_per_page
+		$organizers = get_posts(
+			array(
+				'post_type' => Tribe__Events__Main::ORGANIZER_POST_TYPE,
+				'posts_per_page' => $posts_per_page,
 			)
 		);
 

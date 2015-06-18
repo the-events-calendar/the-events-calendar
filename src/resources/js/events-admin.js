@@ -191,7 +191,7 @@ jQuery( document ).ready( function( $ ) {
 	if ( typeof(TEC) !== 'undefined' ) {
 
 		var _MS_PER_DAY = 1000 * 60 * 60 * 24;
-		
+
 		var date_format = 'yy-mm-dd';
 
 		if ( $date_format.length && $date_format.attr( 'data-datepicker_format' ).length === 1 ) {
@@ -373,7 +373,7 @@ jQuery( document ).ready( function( $ ) {
 				$('.edit-venue-link').show();
 
 				// Change edit link
-				
+
 				$('.edit-venue-link a').attr( 'href', current_edit_link + selected_venue_id );
 			}
 		} );
@@ -622,6 +622,11 @@ jQuery( document ).ready( function( $ ) {
 		}
 
 		function set_selected_views() {
+			// Store the default view chosen prior to this change
+			var prev_default_view = $default_view_select
+				.find( "option:selected" )
+				.first()
+				.val();
 
 			$default_view_select
 				.find( 'option' )
@@ -629,29 +634,32 @@ jQuery( document ).ready( function( $ ) {
 
 			$view_inputs
 				.each( function() {
-
 					var $this = $( this );
 
 					if ( $this.is( ':checked' ) ) {
-
 						var value = $this.val();
-
 						$default_view_select
 							.append( '<option value="' + value + '">' + view_options[value] + '</option>' );
-
 					}
-
 				} );
 
-			$default_view_select
-				.find( 'option' )
-				.first()
-				.attr( 'selected', 'selected' );
+			// Test to see if the previous default view is still available...
+			var $prev_default_option = $default_view_select.find( "option[value='" + prev_default_view + "']" );
+
+			// ...if it is, keep it as the default (else switch to the first available remaining option)
+			if ( 1 === $prev_default_option.length ) {
+				$prev_default_option
+					.attr( 'selected', 'selected' );
+			} else {
+				$default_view_select
+					.find( 'option' )
+					.first()
+					.attr( 'selected', 'selected' );
+			}
 
 			$default_view_select
 				.select2( 'destroy' )
 				.select2( {width: '250px'} );
-
 		}
 
 		create_view_array();
@@ -687,7 +695,7 @@ jQuery( document ).ready( function( $ ) {
 
 		$els.start.val( tribeDateFormat( $els.start.datepicker( 'getDate' ), 'tribeQuery' ) );
 		$els.end.val( tribeDateFormat( $els.end.datepicker( 'getDate' ), 'tribeQuery' ) );
-		
+
 		$els.recur.is( ':visible' ) && $els.recur.val( tribeDateFormat( $els.recur.datepicker( 'getDate' ), 'tribeQuery' ) );
 	} );
 

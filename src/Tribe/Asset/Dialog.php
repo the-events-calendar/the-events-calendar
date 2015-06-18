@@ -5,6 +5,6 @@
 
 		public function handle() {
 			wp_enqueue_script( 'jquery-ui-dialog' );
-			Tribe__Events__Template_Factory::add_vendor_script('jquery-ui-dialog');
+			Tribe__Events__Template_Factory::add_vendor_script( 'jquery-ui-dialog' );
 		}
 	}

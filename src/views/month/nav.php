@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 <?php do_action( 'tribe_events_before_nav' ) ?>
 
-<h3 class="tribe-events-visuallyhidden"><?php _e( 'Calendar Month Navigation', 'tribe-events-calendar' ) ?></h3>
+<h3 class="tribe-events-visuallyhidden"><?php esc_html_e( 'Calendar Month Navigation', 'tribe-events-calendar' ) ?></h3>
 
 <ul class="tribe-events-sub-nav">
 	<li class="tribe-events-nav-previous">
@@ -28,4 +28,5 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<!-- .tribe-events-nav-next -->
 </ul><!-- .tribe-events-sub-nav -->
 
-<?php do_action( 'tribe_events_after_nav' ) ?>
+<?php
+do_action( 'tribe_events_after_nav' );
