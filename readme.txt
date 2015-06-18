@@ -17,7 +17,7 @@ The Events Calendar is a carefully crafted, extensible plugin that lets you easi
 >
 > Users looking for more timely/in-depth support are encouraged to check out <a href="http://m.tri.be/mj" target="_blank" title="[new window]">Events Calendar PRO</a>.
 
-Create and manage events with ease. Get professional-level quality and features backed by a team you can trust. The Events Calendar will help you kick ass.
+Create and manage events with ease. Get professional-level quality and features backed by a team you can trust. The Events Calendar will help take your site to the next level.
 
 The Events Calendar is built and supported by WordPress artisans Modern Tribe. Looking for additional functionality including recurring events, ticket sales, publicly submitted events, new views, Facebook event integration and more? <a href="http://m.tri.be/2a">Check out the available add-ons.</a>
 
