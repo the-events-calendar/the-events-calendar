@@ -71,10 +71,12 @@ class Tribe__Events__Activation_Page {
 			return; // a way to skip these checks and
 		}
 
-		// bail if activating from network or bulk
-		if ( is_network_admin() || isset( $_GET['activate-multi'] ) ) {
+		// bail if we aren't activating a plugin
+		if ( ! get_transient( '_tribe_events_activation_redirect' ) ) {
 			return;
 		}
+
+		delete_transient( '_tribe_events_activation_redirect' );
 
 		if ( ! current_user_can( Tribe__Events__Settings::instance()->requiredCap ) ){
 			return;

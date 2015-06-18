@@ -2597,6 +2597,20 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		}
 
 		/**
+		 * plugin activation callback
+		 * @see register_deactivation_hook()
+		 *
+		 * @param bool $network_deactivating
+		 */
+		public static function activate() {
+			self::flushRewriteRules();
+
+			if ( ! is_network_admin() && ! isset( $_GET['activate-multi'] ) ) {
+				set_transient( '_tribe_events_activation_redirect', 1, 30 );
+			}
+		}
+
+		/**
 		 * plugin deactivation callback
 		 * @see register_deactivation_hook()
 		 *

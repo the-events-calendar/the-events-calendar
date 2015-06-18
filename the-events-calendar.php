@@ -33,6 +33,6 @@ require_once dirname( __FILE__ ) . '/src/Tribe/Main.php';
 
 Tribe__Events__Main::instance();
 
-register_activation_hook( __FILE__, array( 'Tribe__Events__Main', 'flushRewriteRules' ) );
+register_activation_hook( __FILE__, array( 'Tribe__Events__Main', 'activate' ) );
 register_deactivation_hook( __FILE__, array( 'Tribe__Events__Main', 'deactivate' ) );
 
