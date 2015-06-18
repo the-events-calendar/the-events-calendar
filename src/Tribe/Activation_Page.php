@@ -71,8 +71,12 @@ class Tribe__Events__Activation_Page {
 			return; // a way to skip these checks and
 		}
 
-		if ( isset( $_GET['_wpnonce'] ) || isset( $_GET['activate'] ) || isset( $_GET['s'] ) ) {
-			return; // if WP is doing something we skip
+		// bail if activating from network, or bulk
+		if (
+			is_network_admin()
+			|| isset( $_GET['activate-multi'] )
+		) {
+			return;
 		}
 
 		if ( ! current_user_can( Tribe__Events__Settings::instance()->requiredCap ) ){
