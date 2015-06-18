@@ -54,7 +54,27 @@ class Tribe__Events__Pro__Recurrence_Scheduler {
 	public function clean_up_old_recurring_events() {
 		/** @var wpdb $wpdb */
 		global $wpdb;
-		$post_ids = $wpdb->get_col( $wpdb->prepare( "SELECT DISTINCT post_id FROM {$wpdb->postmeta} m LEFT JOIN {$wpdb->posts} p ON p.ID=m.post_id WHERE p.post_parent <> 0 AND m.meta_key='_EventStartDate' AND m.meta_value < %s", $this->earliest_date ) );
+
+		$sql = "
+			SELECT
+				DISTINCT post_id
+			FROM
+				{$wpdb->postmeta} m
+				LEFT JOIN {$wpdb->posts} p ON p.ID = m.post_id
+			WHERE
+				p.post_parent <> 0
+				AND m.meta_key='_EventStartDate'
+				AND m.meta_value < %s
+		";
+
+		$args = array(
+			$this->earliest_date,
+		);
+
+		$sql = apply_filters( 'tribe_events_pro_clean_up_old_recurring_events_sql', $sql );
+		$args = apply_filters( 'tribe_events_pro_clean_up_old_recurring_events_sql_args', $args );
+
+		$post_ids = $wpdb->get_col( $wpdb->prepare( $sql, $args ) );
 		foreach ( $post_ids as $post_id ) {
 			wp_delete_post( $post_id, true );
 		}
