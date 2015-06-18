@@ -71,9 +71,12 @@ class Tribe__Events__Activation_Page {
 			return; // a way to skip these checks and
 		}
 
-		if ( isset( $_GET['_wpnonce'] ) || isset( $_GET['activate'] ) || isset( $_GET['s'] ) ) {
-			return; // if WP is doing something we skip
+		// bail if we aren't activating a plugin
+		if ( ! get_transient( '_tribe_events_activation_redirect' ) ) {
+			return;
 		}
+
+		delete_transient( '_tribe_events_activation_redirect' );
 
 		if ( ! current_user_can( Tribe__Events__Settings::instance()->requiredCap ) ){
 			return;
