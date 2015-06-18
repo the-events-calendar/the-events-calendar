@@ -71,11 +71,8 @@ class Tribe__Events__Activation_Page {
 			return; // a way to skip these checks and
 		}
 
-		// bail if activating from network, or bulk
-		if (
-			is_network_admin()
-			|| isset( $_GET['activate-multi'] )
-		) {
+		// bail if activating from network or bulk
+		if ( is_network_admin() || isset( $_GET['activate-multi'] ) ) {
 			return;
 		}
 
