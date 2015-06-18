@@ -15,6 +15,7 @@ if ( ! class_exists( 'Tribe__Events__Support' ) ) {
 	class Tribe__Events__Support {
 
 		public static $support;
+		public $rewrite_rules_purged = false;
 
 		/**
 		 * Fields listed here contain HTML and should be escaped before being
@@ -30,6 +31,7 @@ if ( ! class_exists( 'Tribe__Events__Support' ) ) {
 		private function __construct() {
 			$this->must_escape = (array) apply_filters( 'tribe_help_must_escape_fields', $this->must_escape );
 			add_action( 'tribe_help_tab_sections', array( $this, 'displayHelpTabInfo' ), 10, 0 );
+			add_action( 'delete_option_rewrite_rules', array( $this, 'log_rewrite_rule_purge' ) );
 		}
 
 		/**
@@ -135,6 +137,11 @@ if ( ! class_exists( 'Tribe__Events__Support' ) ) {
 				'WordPress timezone' => get_option( 'timezone_string', __( 'Unknown or not set', 'tribe-events-calendar' ) ),
 				'server timezone'    => date_default_timezone_get(),
 			);
+
+			if ( $this->rewrite_rules_purged ) {
+				$systeminfo['rewrite rules purged'] = __( 'Rewrite rules were purged on load of this help page. Chances are there is a rewrite rule flush occurring in a plugin or theme!', 'tribe-events-calendar' );
+			}
+
 			$systeminfo = apply_filters( 'tribe-events-pro-support', $systeminfo );
 
 			return $systeminfo;
@@ -226,6 +233,13 @@ if ( ! class_exists( 'Tribe__Events__Support' ) ) {
 			</style>
 		<?php
 		}
+
+		/**
+		 * Logs the occurence of rewrite rule purging
+		 */
+		public function log_rewrite_rule_purge() {
+			$this->rewrite_rules_purged = true;
+		}//end log_rewrite_rule_purge
 
 		/****************** SINGLETON GUTS ******************/
 
