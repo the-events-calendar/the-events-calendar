@@ -54,7 +54,7 @@ if ( isset( $posts ) && $posts ) :
 
 	<p class="tribe-events-widget-link">
 		<a href="<?php esc_attr_e( esc_url( $link_to_all ) ) ?>" rel="bookmark">
-			<?php _e( 'View More&hellip;', 'tribe-events-calendar-pro' ) ?>
+			<?php esc_html_e( 'View More&hellip;', 'tribe-events-calendar-pro' ) ?>
 		</a>
 	</p>
 

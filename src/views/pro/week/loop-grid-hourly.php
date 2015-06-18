@@ -21,7 +21,7 @@ $hours = tribe_events_week_get_hours();
 		<div class="tribe-week-grid-outer-wrap tribe-clearfix">
 			<div class="tribe-week-grid-inner-wrap">
 				<?php foreach ( $hours as $hour => $formatted_hour ) : ?>
-					<div class="tribe-week-grid-block" data-hour="<?php echo $hour; ?>">
+					<div class="tribe-week-grid-block" data-hour="<?php echo esc_attr( $hour ); ?>">
 						<div></div>
 					</div>
 				<?php endforeach; ?>
@@ -34,7 +34,7 @@ $hours = tribe_events_week_get_hours();
 			<?php // Hours ?>
 			<div class="column tribe-week-grid-hours">
 				<?php foreach ( $hours as $hour => $formatted_hour ) : ?>
-					<div class="time-row-<?php echo date_i18n( 'gA', mktime( $hour ) ); ?>"><?php echo $formatted_hour ?></div>
+					<div class="time-row-<?php echo esc_attr( date_i18n( 'gA', mktime( $hour ) ) ); ?>"><?php echo $formatted_hour ?></div>
 				<?php endforeach; ?>
 			</div><!-- tribe-week-grid-hours -->
 

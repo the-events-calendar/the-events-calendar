@@ -1,31 +1,31 @@
 <p>
-	<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:', 'tribe-events-calendar-pro' ); ?>
-		<input type="text" class="widefat" name="<?php echo $this->get_field_name( 'title' ); ?>" id="<?php echo $this->get_field_id( 'title' ); ?>" value="<?php echo esc_attr( strip_tags( $instance['title'] ) ); ?>" />
+	<label for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"><?php esc_html_e( 'Title:', 'tribe-events-calendar-pro' ); ?>
+		<input type="text" class="widefat" name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>" id="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>" value="<?php echo esc_attr( strip_tags( $instance['title'] ) ); ?>" />
 	</label>
 </p>
 
 <p>
-	<label for="<?php echo $this->get_field_id( 'count' ); ?>"><?php _e( 'Number of events to show:', 'tribe-events-calendar-pro' ); ?>
-		<input type="text" class="widefat" name="<?php echo $this->get_field_name( 'count' ); ?>"
-		       id="<?php echo $this->get_field_id( 'count' ); ?>"
+	<label for="<?php echo esc_attr( $this->get_field_id( 'count' ) ); ?>"><?php esc_html_e( 'Number of events to show:', 'tribe-events-calendar-pro' ); ?>
+		<input type="text" class="widefat" name="<?php echo esc_attr( $this->get_field_name( 'count' ) ); ?>"
+		       id="<?php echo esc_attr( $this->get_field_id( 'count' ) ); ?>"
 		       value="<?php echo esc_attr( strip_tags( $instance['count'] ) ); ?>" />
 	</label>
 </p>
 
 <?php
-$class = "";
+$class = '';
 if ( empty( $instance['filters'] ) ) {
-	$class = "display:none;";
+	$class = 'display:none;';
 }
 ?>
 
-<div class="calendar-widget-filters-container" style="<?php echo $class; ?>">
+<div class="calendar-widget-filters-container" style="<?php echo esc_attr( $class ); ?>">
 
 	<h3 class="calendar-widget-filters-title"><?php _e( 'Filters', 'tribe-events-calendar-pro' ); ?>:</h3>
 
-	<input type="hidden" name="<?php echo $this->get_field_name( 'filters' ); ?>"
-	       id="<?php echo $this->get_field_id( 'filters' ); ?>" class="calendar-widget-added-filters"
-	       value='<?php echo maybe_serialize( $instance['filters'] ); ?>' />
+	<input type="hidden" name="<?php echo esc_attr( $this->get_field_name( 'filters' ) ); ?>"
+	       id="<?php echo esc_attr( $this->get_field_id( 'filters' ) ); ?>" class="calendar-widget-added-filters"
+	       value='<?php echo esc_attr( maybe_serialize( $instance['filters'] ) ); ?>' />
 
 	<div class="calendar-widget-filter-list">
 
@@ -40,7 +40,7 @@ if ( empty( $instance['filters'] ) ) {
 						continue;
 					}
 					$term_obj = get_term( $term, $tax );
-					echo sprintf( "<li><p>%s: %s&nbsp;&nbsp;<span><a href='#' class='calendar-widget-remove-filter' data-tax='%s' data-term='%s'>(" . __( 'remove', 'tribe-events-calendar-pro' ) . ")</a></span></p></li>", $tax_obj->labels->name, $term_obj->name, $tax, $term_obj->term_id );
+					echo sprintf( "<li><p>%s: %s&nbsp;&nbsp;<span><a href='#' class='calendar-widget-remove-filter' data-tax='%s' data-term='%s'>(" . __( 'remove', 'tribe-events-calendar-pro' ) . ')</a></span></p></li>', $tax_obj->labels->name, $term_obj->name, $tax, $term_obj->term_id );
 				}
 			}
 		}
@@ -49,26 +49,26 @@ if ( empty( $instance['filters'] ) ) {
 	</div>
 
 	<p class="calendar-widget-filters-operand">
-		<label for="<?php echo $this->get_field_name( 'operand' ); ?>">
-			<input <?php checked( $instance['operand'], 'AND' ); ?> type="radio" name="<?php echo $this->get_field_name( 'operand' ); ?>" value="AND">
-			<?php _e( 'Match all', 'tribe-events-calendar-pro' ); ?></label><br />
-		<label for="<?php echo $this->get_field_name( 'operand' ); ?>">
-			<input <?php checked( $instance['operand'], 'OR' ); ?> type="radio" name="<?php echo $this->get_field_name( 'operand' ); ?>" value="OR">
-			<?php _e( 'Match any', 'tribe-events-calendar-pro' ); ?></label>
+		<label for="<?php echo esc_attr( $this->get_field_name( 'operand' ) ); ?>">
+			<input <?php checked( $instance['operand'], 'AND' ); ?> type="radio" name="<?php echo esc_attr( $this->get_field_name( 'operand' ) ); ?>" value="AND">
+			<?php esc_html_e( 'Match all', 'tribe-events-calendar-pro' ); ?></label><br />
+		<label for="<?php echo esc_attr( $this->get_field_name( 'operand' ) ); ?>">
+			<input <?php checked( $instance['operand'], 'OR' ); ?> type="radio" name="<?php echo esc_attr( $this->get_field_name( 'operand' ) ); ?>" value="OR">
+			<?php esc_html_e( 'Match any', 'tribe-events-calendar-pro' ); ?></label>
 	</p>
 </div>
 <p>
-	<label><?php _e( 'Add a filter', 'tribe-events-calendar-pro' ); ?>:
-		<select class="widefat calendar-widget-add-filter" id="<?php echo $this->get_field_id( 'selector' ); ?>" data-storage="<?php echo $this->get_field_id( 'filters' ); ?>">
+	<label><?php esc_html_e( 'Add a filter', 'tribe-events-calendar-pro' ); ?>:
+		<select class="widefat calendar-widget-add-filter" id="<?php echo esc_attr( $this->get_field_id( 'selector' ) ); ?>" data-storage="<?php echo esc_attr( $this->get_field_id( 'filters' ) ); ?>">
 			<?php
-			echo "<option value='0'>" . __( 'Select one...', 'tribe-events-calendar-pro' ) . "</option>";
+			echo "<option value='0'>" . esc_html__( 'Select one...', 'tribe-events-calendar-pro' ) . "</option>";
 			foreach ( $taxonomies as $tax ) {
-				echo sprintf( "<optgroup id='%s' label='%s'>", $tax->name, $tax->labels->name );
+				echo sprintf( "<optgroup id='%s' label='%s'>", esc_attr( $tax->name ), esc_attr( $tax->labels->name ) );
 				$terms = get_terms( $tax->name, array( 'hide_empty' => false ) );
 				foreach ( $terms as $term ) {
-					echo sprintf( "<option value='%d'>%s</option>", $term->term_id, $term->name );
+					echo sprintf( "<option value='%d'>%s</option>", esc_attr( $term->term_id ), $term->name );
 				}
-				echo "</optgroup>";
+				echo '</optgroup>';
 			}
 			?>
 		</select>

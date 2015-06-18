@@ -42,33 +42,33 @@ $venue_id = get_the_ID();
 		<?php endif; ?>
 
 		<!-- Venue Title -->
-		<?php do_action('tribe_events_single_venue_before_title') ?>
-		<?php the_title('<h2 class="entry-title author fn org">','</h2>'); ?>
-		<?php do_action('tribe_events_single_venue_after_title') ?>
+		<?php do_action( 'tribe_events_single_venue_before_title' ) ?>
+		<?php the_title( '<h2 class="entry-title author fn org">', '</h2>' ); ?>
+		<?php do_action( 'tribe_events_single_venue_after_title' ) ?>
 
 		<div class="tribe-events-event-meta">
 
 			<?php if ( tribe_show_google_map_link() && tribe_address_exists() ) : ?>
 				<!-- Google Map Link -->
-				<?php echo tribe_get_meta('tribe_event_venue_gmap_link'); ?>
+				<?php echo tribe_get_meta( 'tribe_event_venue_gmap_link' ); ?>
 			<?php endif; ?>
 
 			<!-- Venue Meta -->
-			<?php do_action('tribe_events_single_venue_before_the_meta') ?>
+			<?php do_action( 'tribe_events_single_venue_before_the_meta' ) ?>
 			<?php echo tribe_get_meta_group( 'tribe_event_venue' ) ?>
-			<?php do_action('tribe_events_single_venue_after_the_meta') ?>
+			<?php do_action( 'tribe_events_single_venue_after_the_meta' ) ?>
 
 		</div><!-- .tribe-events-event-meta -->
 
 		<!-- Venue Description -->
-		<?php if( get_the_content() ) : ?>
+		<?php if ( get_the_content() ) : ?>
 		<div class="tribe-venue-description tribe-events-content entry-content">
 			<?php the_content(); ?>
 		</div>
 		<?php endif; ?>
 
 		<!-- Venue Featured Image -->
-		<?php echo tribe_event_featured_image(null, 'full') ?>
+		<?php echo tribe_event_featured_image( null, 'full' ) ?>
 
 	</div><!-- .tribe-events-event-meta -->
 
@@ -80,6 +80,7 @@ $venue_id = get_the_ID();
 	echo tribe_venue_upcoming_events( $venue_id ); ?>
 
 	<?php do_action( 'tribe_events_single_venue_after_upcoming_events' ) ?>
-	
+
 </div><!-- .tribe-events-venue -->
-<?php endwhile; ?>
+<?php
+endwhile;
