@@ -185,6 +185,77 @@ jQuery( document ).ready( function( $ ) {
 		return ( is_community_edit && $(window).width() < 768 ) ? 1 : 3;
 	}
 
+
+	var setup_organizer_fields = function() {
+		var saved_organizer_template = wp.template('tribe-select-organizer');
+		var create_organizer_template = wp.template('tribe-create-organizer');
+		var organizer_section = $('#event_organizer');
+		var organizer_rows = organizer_section.find('.saved_organizer');
+
+		organizer_section.on( 'click', '.tribe-add-organizer', function(e) {
+			e.preventDefault();
+			var dropdown = $( saved_organizer_template({}) );
+			if ( dropdown.find( '.nosaved' ).length ) {
+				var label = dropdown.find( 'label' );
+				label.text( label.data( 'l10n-create-organizer' ) );
+				dropdown.find( '.nosaved' ).remove();
+			}
+			var fields = $( create_organizer_template({}) );
+			organizer_section.find('tfoot').before( fields );
+			fields.prepend( dropdown );
+			fields.find('.chosen').chosen();
+		});
+
+		organizer_section.on('change', '.organizer-dropdown', toggle_organizer_fields);
+		organizer_rows.each( function () {
+			var row = $( this );
+			var group = row.closest( 'tbody' );
+			var fields = $( create_organizer_template( {} ) ).find( '.organizer' ); // we already have our tbody
+			var dropdown = row.find( '.organizer-dropdown' );
+			if ( dropdown.length ) {
+				var value = dropdown.val();
+				if ( value != '0' ) {
+					fields.hide();
+				}
+			} else if ( row.find( '.nosaved' ).length ) {
+				var label = row.find( 'label' );
+				label.text( label.data( 'l10n-create-organizer' ) );
+				row.find( '.nosaved' ).remove();
+			}
+			group.append( fields );
+		} );
+
+		organizer_section.on( 'click', '.delete-organizer-group', function(e) {
+			e.preventDefault();
+			var group = $(this).closest( 'tbody' );
+			group.fadeOut( 500, function() { $(this).remove(); } );
+		});
+
+		organizer_section.sortable({
+			items: '> tbody',
+			handle: '.move-organizer-group',
+			axis: 'y',
+			delay: 100,
+		});
+
+	};
+
+	var toggle_organizer_fields = function() {
+		var dropdown = $(this);
+		var selected_organizer_id = dropdown.val();
+		var group = dropdown.closest('tbody');
+		var edit_link = group.find('.edit-organizer-link a');
+		var edit_link_base_url = edit_link.attr( 'data-admin-url' );
+
+		if ( selected_organizer_id != '0' ) {
+			group.find('.organizer').fadeOut().find('input').val('');
+			edit_link.attr( 'href', edit_link_base_url + selected_organizer_id).show();
+		} else {
+			group.find('.organizer').fadeIn();
+			edit_link.hide();
+		}
+	};
+
 	$( '.hide-if-js' )
 		.hide();
 
@@ -377,31 +448,8 @@ jQuery( document ).ready( function( $ ) {
 				$('.edit-venue-link a').attr( 'href', current_edit_link + selected_venue_id );
 			}
 		} );
-		// hide unnecessary fields
-		var organizerFields = $( ".organizer" ),
-			savedorganizer = $( "#saved_organizer" );
 
-		if ( savedorganizer.length > 0 && savedorganizer.val() != '0' ) {
-			organizerFields.hide();
-			$( 'input', organizerFields ).val( '' );
-		}
-
-		savedorganizer.change( function() {
-			var selected_organizer_id = $(this).val(),
-				current_edit_link = $('.edit-organizer-link a').attr( 'data-admin-url' );
-
-			if ( selected_organizer_id == '0' ) {
-				organizerFields.fadeIn();
-				$('.edit-organizer-link').hide();
-			}
-			else {
-				organizerFields.fadeOut();
-				$('.edit-organizer-link').show();
-
-				// Change edit link
-				$('.edit-organizer-link a').attr( 'href', current_edit_link + selected_organizer_id );
-			}
-		} );
+		setup_organizer_fields();
 	}
 
 	//show state/province input based on first option in countries list, or based on user input of country

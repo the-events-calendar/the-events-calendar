@@ -17,7 +17,10 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 *
 	 * Returns the event Organizer ID.
 	 *
-	 * @param int $postId Can supply either event id or organizer id, if none specified, current post is used
+	 * @param int $postId Can supply either event id or organizer id.
+	 *                    If none specified, current post is used.
+	 *                    If given an event with multiple organizers,
+	 *                    the first organizer ID is returned.
 	 *
 	 * @return int Organizer
 	 */
@@ -35,6 +38,26 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		}
 
 		return apply_filters( 'tribe_get_organizer_id', $organizer_id, $postId );
+	}
+
+	/**
+	 * Get the IDs of all organizers associated with an event
+	 *
+	 * @param int $event_id The event post ID. Defaults to the current event.
+	 *
+	 * @return array
+	 */
+	function tribe_get_organizer_ids( $event_id = null ) {
+		$event_id = Tribe__Events__Main::postIdHelper( $event_id );
+		$organizer_ids = array();
+		if ( is_numeric( $event_id ) && $event_id > 0 ) {
+			if ( Tribe__Events__Main::instance()->isOrganizer( $event_id ) ) {
+				$organizer_ids[] = $event_id;
+			} else {
+				$organizer_ids = tribe_get_event_meta( $event_id, '_EventOrganizerID', false );
+			}
+		}
+		return apply_filters( 'tribe_get_organizer_ids', $organizer_ids, $event_id );
 	}
 
 	/**
@@ -57,6 +80,21 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 */
 	function tribe_get_organizer_label_plural() {
 		return apply_filters( 'tribe_organizer_label_plural', __( 'Organizers', 'tribe-events-calendar' ) );
+	}
+
+	/**
+	 * Get the organizer label
+	 *
+	 * @param bool $singular TRUE to return the singular label, FALSE to return plural
+	 *
+	 * @return string
+	 */
+	function tribe_get_organizer_label( $singular = TRUE ) {
+		if ( $singular ) {
+			return tribe_get_organizer_label_singular();
+		} else {
+			return tribe_get_organizer_label_plural();
+		}
 	}
 
 	/**
