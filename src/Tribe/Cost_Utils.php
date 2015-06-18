@@ -41,12 +41,22 @@ class Tribe__Events__Cost_Utils {
 	/**
 	 * fetches an event's cost values
 	 *
-	 * @param int $event_id The ID of the event
+	 * @param int|WP_Post $event The Event post object or event ID
 	 *
 	 * @return array
 	 */
-	public function get_event_costs( $event_id ) {
-		$costs = tribe_get_event_meta( $event_id, '_EventCost', false );
+	public function get_event_costs( $event ) {
+		$event = get_post( $event );
+
+		if ( ! is_object( $event ) || ! $event instanceof WP_Post ) {
+			return array();
+		}
+
+		if ( ! tribe_is_event( $event->ID ) ) {
+			return array();
+		}
+
+		$costs = tribe_get_event_meta( $event->ID, '_EventCost', false );
 
 		$parsed_costs = array();
 
@@ -65,13 +75,17 @@ class Tribe__Events__Cost_Utils {
 	/**
 	 * Returns a formatted event cost
 	 *
-	 * @param int $event_id The ID of the event
+	 * @param int|WP_Post $event The Event post object or event ID
 	 * @param bool $with_currency_symbol Include the currency symbol (optional)
 	 *
 	 * @return string
 	 */
-	public function get_formatted_event_cost( $event_id, $with_currency_symbol = false ) {
-		$costs = $this->get_event_costs( $event_id );
+	public function get_formatted_event_cost( $event, $with_currency_symbol = false ) {
+		$costs = $this->get_event_costs( $event );
+
+		if ( ! $costs ) {
+			return '';
+		}
 
 		$relevant_costs = array(
 			'min' => $this->get_cost_by_func( $costs, 'min' ),
