@@ -52,7 +52,7 @@ class Tribe__Events__Pro__Recurrence__Queue_Realtime {
 			'check'        => wp_create_nonce( 'generate_recurring_instances_' . $this->event_id . get_current_user_id() ),
 			'completeMsg'  => __( 'Completed!', 'tribe-events-pro' ),
 			'progress'     => $percentage,
-			'progressText' =>sprintf( __( '%d%% complete', 'tribe-events-pro' ), $percentage )
+			'progressText' => sprintf( __( '%d%% complete', 'tribe-events-pro' ), $percentage ),
 		);
 
 		wp_localize_script( Tribe__Events__Main::POSTTYPE.'-premium-admin', 'TribeEventsProRecurrenceUpdate', $data );
@@ -81,7 +81,7 @@ class Tribe__Events__Pro__Recurrence__Queue_Realtime {
 				'html'     => __( 'Unable to continue processing recurring event data. Please reload this page to continue/try again.', 'tribe-events-pro' ),
 				'progress' => false,
 				'continue' => false,
-				'complete' => false
+				'complete' => false,
 			) ) );
 		}
 
@@ -100,7 +100,7 @@ class Tribe__Events__Pro__Recurrence__Queue_Realtime {
 			'progress'     => $percentage,
 			'progressText' => sprintf( __( '%d%% complete', 'tribe-events-pro' ), $percentage ),
 			'continue'     => ! $done,
-			'complete'     => $done
+			'complete'     => $done,
 		) ) );
 	}
 }

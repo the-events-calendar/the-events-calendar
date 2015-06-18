@@ -35,7 +35,7 @@ class Tribe__Events__Pro__Shortcodes__Event_Countdown {
 		'id'           => '',
 		'slug'         => '',
 		'show_seconds' => '',
-		'complete'     => ''
+		'complete'     => '',
 	);
 
 	protected $arguments = array();
@@ -74,7 +74,7 @@ class Tribe__Events__Pro__Shortcodes__Event_Countdown {
 		$events = get_posts( array(
 			'post_type' => Tribe__Events__Main::POSTTYPE,
 			'name' => $this->arguments['slug'],
-			'posts_per_page' => 1
+			'posts_per_page' => 1,
 		) );
 
 		if ( empty( $events ) ) {

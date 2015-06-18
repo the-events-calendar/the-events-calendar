@@ -14,7 +14,7 @@
 
 			$this->opts = array(
 				'is' => __( 'Yes', 'tribe-events-calendar-pro' ),
-				'not' => __( 'No', 'tribe-events-calendar-pro' )
+				'not' => __( 'No', 'tribe-events-calendar-pro' ),
 			);
 
 			$type = $this->type;

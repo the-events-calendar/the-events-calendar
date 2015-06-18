@@ -80,7 +80,7 @@ class Tribe__Events__Pro__Shortcodes__Featured_Venue {
 		$venues = get_posts( array(
 			'post_type' => Tribe__Events__Main::VENUE_POST_TYPE,
 			'name' => $this->arguments['slug'],
-			'posts_per_page' => 1
+			'posts_per_page' => 1,
 		) );
 
 		if ( empty( $venues ) ) {

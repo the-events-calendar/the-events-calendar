@@ -95,4 +95,4 @@ class Tribe__Events__Pro__Recurrence_Instance {
 	}
 
 }
- 
+

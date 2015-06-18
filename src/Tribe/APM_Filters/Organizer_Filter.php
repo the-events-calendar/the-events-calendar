@@ -60,7 +60,7 @@
 		public function form_row( $return, $key, $value, $filter ) {
 			$organizers = get_posts( array(
 				'post_type' => Tribe__Events__Main::ORGANIZER_POST_TYPE,
-				'nopaging' => true
+				'nopaging' => true,
 			) );
 
 			$args = array();

@@ -40,26 +40,26 @@
 				return $this->getNthDayOfWeek( $curdate, $this->day_of_week, $this->week_of_month );
 			} else // normal date based recurrence
 			{
-				if ( sizeof( $this->days_of_month ) > 0 ) {
+				if ( count( $this->days_of_month ) > 0 ) {
 					$next_day_of_month = $this->getNextDayOfMonth( $next_day_of_month );
 
 					while ( Tribe__Events__Date_Utils::get_last_day_of_month( $curdate ) < $next_day_of_month ) {
 						$next_day_of_month = $this->days_of_month[0];
-						$curdate           = mktime( date( "H", $curdate ), date( "i", $curdate ), date( "s", $curdate ), date( 'n', $curdate ) + $this->months_between, 1, date( 'Y', $curdate ) );
+						$curdate           = mktime( date( 'H', $curdate ), date( 'i', $curdate ), date( 's', $curdate ), date( 'n', $curdate ) + $this->months_between, 1, date( 'Y', $curdate ) );
 					}
 				}
 
 				if ( $next_day_of_month > date( 'j', $curdate ) ) {
 					// no need to jump ahead stay in current month
-					return mktime( date( "H", $curdate ), date( "i", $curdate ), date( "s", $curdate ), date( 'n', $curdate ), $next_day_of_month, date( 'Y', $curdate ) );
+					return mktime( date( 'H', $curdate ), date( 'i', $curdate ), date( 's', $curdate ), date( 'n', $curdate ), $next_day_of_month, date( 'Y', $curdate ) );
 				} else {
-					$nextdate = mktime( date( "H", $curdate ), date( "i", $curdate ), date( "s", $curdate ), date( 'n', $curdate ) + $this->months_between, 1, date( 'Y', $curdate ) );
+					$nextdate = mktime( date( 'H', $curdate ), date( 'i', $curdate ), date( 's', $curdate ), date( 'n', $curdate ) + $this->months_between, 1, date( 'Y', $curdate ) );
 
 					while ( Tribe__Events__Date_Utils::get_last_day_of_month( $nextdate ) < $next_day_of_month ) {
-						$nextdate = mktime( date( "H", $curdate ), date( "i", $curdate ), date( "s", $curdate ), date( 'n', $nextdate ) + $this->months_between, 1, date( 'Y', $nextdate ) );
+						$nextdate = mktime( date( 'H', $curdate ), date( 'i', $curdate ), date( 's', $curdate ), date( 'n', $nextdate ) + $this->months_between, 1, date( 'Y', $nextdate ) );
 					}
 
-					return mktime( date( "H", $curdate ), date( "i", $curdate ), date( "s", $curdate ), date( 'n', $nextdate ), $next_day_of_month, date( 'Y', $nextdate ) );
+					return mktime( date( 'H', $curdate ), date( 'i', $curdate ), date( 's', $curdate ), date( 'n', $nextdate ), $next_day_of_month, date( 'Y', $nextdate ) );
 				}
 			}
 		}
@@ -91,7 +91,7 @@
 				$first_occurring_day_of_week = Tribe__Events__Date_Utils::get_first_day_of_week_in_month( $curdate, $day_of_week );
 
 				// get that day of the week in the requested nth week
-				$maybe_date = strtotime( date( Tribe__Events__Pro__Date_Series_Rules__Rules_Interface::DATE_FORMAT, $first_occurring_day_of_week ) . " + " . ( $week_of_month - 1 ) . " weeks" );
+				$maybe_date = strtotime( date( Tribe__Events__Pro__Date_Series_Rules__Rules_Interface::DATE_FORMAT, $first_occurring_day_of_week ) . ' + ' . ( $week_of_month - 1 ) . ' weeks' );
 
 				// if $maybe_date equals or is before the $curdate, then try next month
 				// (this should only be true if $week_of_month is 1)
@@ -104,7 +104,7 @@
 					$first_occurring_day_of_week = Tribe__Events__Date_Utils::get_first_day_of_week_in_month( $next_month, $day_of_week );
 
 					// Get that day of the week in the requested nth week
-					$maybe_date = strtotime( date( Tribe__Events__Pro__Date_Series_Rules__Rules_Interface::DATE_FORMAT, $first_occurring_day_of_week ) . " + " . ( $week_of_month - 1 ) . " weeks" );
+					$maybe_date = strtotime( date( Tribe__Events__Pro__Date_Series_Rules__Rules_Interface::DATE_FORMAT, $first_occurring_day_of_week ) . ' + ' . ( $week_of_month - 1 ) . ' weeks' );
 				}
 
 				// if $maybe_date doesn't have the same month as $first_occurring_day_of_week, keep incrementing by $this->months_between
@@ -113,7 +113,7 @@
 				while ( date( 'n', $maybe_date ) != date( 'n', $first_occurring_day_of_week ) && $i <= tribe_get_option( 'recurrenceMaxMonthsAfter', 24 ) ) {
 					$next_month                  = mktime( 0, 0, 0, date( 'n', $first_occurring_day_of_week ) + $this->months_between, 1, date( 'Y', $first_occurring_day_of_week ) );
 					$first_occurring_day_of_week = Tribe__Events__Date_Utils::get_first_day_of_week_in_month( $next_month, $day_of_week );
-					$maybe_date                  = strtotime( date( Tribe__Events__Pro__Date_Series_Rules__Rules_Interface::DATE_FORMAT, $first_occurring_day_of_week ) . " + " . ( $week_of_month - 1 ) . " weeks" );
+					$maybe_date                  = strtotime( date( Tribe__Events__Pro__Date_Series_Rules__Rules_Interface::DATE_FORMAT, $first_occurring_day_of_week ) . ' + ' . ( $week_of_month - 1 ) . ' weeks' );
 					$i += $this->months_between;
 				}
 
@@ -141,17 +141,17 @@
 		private function intToOrdinal( $number ) {
 			switch ( $number ) {
 				case 1:
-					return "First";
+					return 'First';
 				case 2:
-					return "Second";
+					return 'Second';
 				case 3:
-					return "Third";
+					return 'Third';
 				case 4:
-					return "Fourth";
+					return 'Fourth';
 				case 5:
-					return "Fifth";
+					return 'Fifth';
 				case - 1:
-					return "Last";
+					return 'Last';
 				default:
 					return null;
 			}

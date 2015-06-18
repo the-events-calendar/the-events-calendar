@@ -8,10 +8,10 @@
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
-	die('-1');
+	die( '-1' );
 }
 
-if( !class_exists( 'Tribe__Events__Pro__Templates__Photo' )){
+if ( ! class_exists( 'Tribe__Events__Pro__Templates__Photo' ) ) {
 	class Tribe__Events__Pro__Templates__Photo extends Tribe__Events__Pro__Template_Factory {
 
 		protected $body_class = 'events-photo';
@@ -26,7 +26,7 @@ if( !class_exists( 'Tribe__Events__Pro__Templates__Photo' )){
 
 		protected function hooks() {
 			parent::hooks();
-			add_filter( 'tribe_events_header_attributes',  array( $this, 'header_attributes') );
+			add_filter( 'tribe_events_header_attributes', array( $this, 'header_attributes' ) );
 		}
 
 		/**
@@ -34,12 +34,12 @@ if( !class_exists( 'Tribe__Events__Pro__Templates__Photo' )){
 		 *
 		 * @return string
 		 **/
-		public function header_attributes($attrs) {
+		public function header_attributes( $attrs ) {
 			$attrs['data-startofweek'] = get_option( 'start_of_week' );
 			$attrs['data-view'] = 'photo';
 			$attrs['data-baseurl'] = tribe_get_photo_permalink( false );
 
-			return apply_filters('tribe_events_pro_header_attributes', $attrs);
+			return apply_filters( 'tribe_events_pro_header_attributes', $attrs );
 		}
 
 
@@ -61,13 +61,13 @@ if( !class_exists( 'Tribe__Events__Pro__Templates__Photo' )){
 		 *
 		 * @return void
 		 */
-		function ajax_response() {
+		public function ajax_response() {
 
 			$tec = Tribe__Events__Main::instance();
 
 			Tribe__Events__Query::init();
 
-			$tribe_paged = ( !empty( $_POST['tribe_paged'] ) ) ? intval( $_POST['tribe_paged'] ) : 1;
+			$tribe_paged = ! empty( $_POST['tribe_paged'] ) ? intval( $_POST['tribe_paged'] ) : 1;
 
 			$post_status = array( 'publish' );
 			if ( is_user_logged_in() ) {
@@ -78,13 +78,13 @@ if( !class_exists( 'Tribe__Events__Pro__Templates__Photo' )){
 				'eventDisplay' => 'list',
 				'post_type'    => Tribe__Events__Main::POSTTYPE,
 				'post_status'  => $post_status,
-				'paged'        => $tribe_paged
+				'paged'        => $tribe_paged,
 			);
 
 			$view_state = 'photo';
 
 			if ( isset( $_POST['tribe_event_category'] ) ) {
-				$args[Tribe__Events__Main::TAXONOMY] = $_POST['tribe_event_category'];
+				$args[ Tribe__Events__Main::TAXONOMY ] = $_POST['tribe_event_category'];
 			}
 
 			/* if past view */
@@ -101,7 +101,7 @@ if( !class_exists( 'Tribe__Events__Pro__Templates__Photo' )){
 			$hash['start_date'] = null;
 			$hash_str           = md5( maybe_serialize( $hash ) );
 
-			if ( !empty( $_POST['hash'] ) && $hash_str !== $_POST['hash'] ) {
+			if ( ! empty( $_POST['hash'] ) && $hash_str !== $_POST['hash'] ) {
 				$tribe_paged   = 1;
 				$args['paged'] = 1;
 				$query         = Tribe__Events__Query::getEvents( $args, true );
@@ -118,7 +118,7 @@ if( !class_exists( 'Tribe__Events__Pro__Templates__Photo' )){
 
 			global $wp_query, $post;
 			$wp_query = $query;
-			if ( !empty( $query->posts ) ) {
+			if ( ! empty( $query->posts ) ) {
 				$post = $query->posts[0];
 			}
 

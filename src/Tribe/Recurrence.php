@@ -90,7 +90,7 @@ class Tribe__Events__Pro__Recurrence {
 			return false;
 		}
 		// Makes sure to assign the proper hours to the date.
-		$next_date = mktime( date( "H", $this->start_date ), date( "i", $this->start_date ), date( "s", $this->start_date ), date( 'n', $next_date ), date( 'j', $next_date ), date( 'Y', $next_date ) );
+		$next_date = mktime( date( 'H', $this->start_date ), date( 'i', $this->start_date ), date( 's', $this->start_date ), date( 'n', $next_date ), date( 'j', $next_date ), date( 'Y', $next_date ) );
 
 		return $next_date;
 	}

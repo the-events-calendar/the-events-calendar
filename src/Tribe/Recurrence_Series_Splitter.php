@@ -148,4 +148,4 @@ class Tribe__Events__Pro__Recurrence_Series_Splitter {
 		$copier->copy_meta( $original_post, $destination_post );
 	}
 }
- 
+

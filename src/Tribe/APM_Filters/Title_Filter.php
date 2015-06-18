@@ -17,7 +17,7 @@
 				'gt' => '>',
 				'lt' => '<',
 				'gte' => '>=',
-				'lte' => '<='
+				'lte' => '<=',
 			);
 			$type = $this->type;
 			add_filter( 'tribe_custom_row' . $type, array( $this, 'form_row' ), 10, 4 );
