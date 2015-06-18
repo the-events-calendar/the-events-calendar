@@ -72,9 +72,8 @@ class Tribe__Events__iCal {
 		if ( is_single() && post_password_required() ) {
 			return;
 		}
-
 		echo '<div class="tribe-events-cal-links">';
-		echo '<a class="tribe-events-gcal tribe-events-button" href="' . tribe_get_gcal_link() . '" title="' . __( 'Add to Google Calendar', 'tribe-events-calendar' ) . '">+ ' . __( 'Google Calendar', 'tribe-events-calendar' ) . '</a>';
+		echo '<a class="tribe-events-gcal tribe-events-button" href="' . self::esc_gcal_url( tribe_get_gcal_link() ) . '" title="' . __( 'Add to Google Calendar', 'tribe-events-calendar' ) . '">+ ' . __( 'Google Calendar', 'tribe-events-calendar' ) . '</a>';
 		echo '<a class="tribe-events-ical tribe-events-button" href="' . esc_url( tribe_get_single_ical_link() ) . '" title="' . __( 'Download .ics file', 'tribe-events-calendar' ) . '" >+ ' . __( 'iCal Export', 'tribe-events-calendar' ) . '</a>';
 		echo '</div><!-- .tribe-events-cal-links -->';
 	}
@@ -353,4 +352,19 @@ class Tribe__Events__iCal {
 			return $timestamp;
 		}
 	}
+
+	/**
+	 * Custom Escape for gCal Description to keep spacing characters in the url
+	 *
+	 * @static
+	 *
+	 * @return santized url
+	 */
+	public static function esc_gcal_url( $url ) {
+	  $url = str_replace( '%0A', 'TRIBE-GCAL-LINEBREAK', $url );
+	  $url = esc_url( $url );
+	  $url = str_replace( 'TRIBE-GCAL-LINEBREAK', '%0A', $url );
+	  return $url;
+	}
+
 }
