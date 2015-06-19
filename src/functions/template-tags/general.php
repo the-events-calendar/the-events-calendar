@@ -961,8 +961,8 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 			$format = tribe_get_option( 'dateWithoutYearFormat', 'F j' );
 		}
 
-		return apply_filters( 'tribe_date_format', $format );
-
+		// Strip slashes - otherwise the slashes for escaped characters will themselves be escaped
+		return apply_filters( 'tribe_date_format', stripslashes( $format ) );
 	}
 
 	/**
