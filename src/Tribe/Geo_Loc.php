@@ -705,6 +705,9 @@ class Tribe__Events__Pro__Geo_Loc {
 
 		$markers = array();
 
+		// let's track which recurrence venues have already been marked
+		$already_marked = array();
+
 		foreach ( $events as $event ) {
 
 			$venue_id = tribe_get_venue_id( $event->ID );
@@ -713,6 +716,15 @@ class Tribe__Events__Pro__Geo_Loc {
 			$address  = tribe_get_address( $event->ID );
 			$title    = $event->post_title;
 			$link     = get_permalink( $event->ID );
+
+			// let's keep track of the post ID/address combos that we've set markers for. If we get a
+			// duplicate (a recurrence post with the same address), let's skip it.
+			$location_id_hash = md5( $address . ( $event->post_parent ? $event->post_parent : $event->ID ) );
+			if ( ! empty( $already_marked[ $location_id_hash ] ) ) {
+				continue;
+			}
+
+			$already_marked[ $location_id_hash ] = true;
 
 			// replace commas with decimals in case they were saved with the european number format
 			$lat = str_replace( ',', '.', $lat );
