@@ -34,7 +34,7 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 		 * @var int
 		 * @see tribe_events_month_day_limit
 		 */
-		private static $events_per_day;
+		private $events_per_day;
 
 		/**
 		 * Array of days of the month
@@ -128,9 +128,9 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 
 
 		/**
-		 * Set the notices used on month view
+		 * Set the notices used on month view.
 		 *
-		 * @param array $args Set of $wp_query params for the month view, if none passed then will default to $wp_query
+		 * @param array $args Set of $wp_query params for the month view, if none passed then will default to $wp_query.
 		 */
 		public function __construct( $args = null ) {
 			if ( $args === null ) {
@@ -317,6 +317,14 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 
 			// Populate complete date range including leading/trailing days from adjacent months
 			while ( $date <= $this->final_grid_date ) {
+
+				if ( ! empty( $this->events_in_month ) ) {
+					$day_events = self::get_daily_events( $date );
+				} else {
+					$day_events = $empty_query;
+				}
+
+
 				$day = (int) substr( $date, - 2 );
 
 				$prev_month = (int) substr( $date, 5, 2 ) < (int) substr( $this->requested_date, 5, 2 );
@@ -328,12 +336,6 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 				}
 				if ( $next_month ) {
 					$month_type = self::NEXT_MONTH;
-				}
-
-				if ( ! empty( $this->events_in_month ) ) {
-					$day_events = self::get_daily_events( $date );
-				} else {
-					$day_events = $empty_query;
 				}
 
 				$days[] = array(
