@@ -667,7 +667,7 @@ if ( ! class_exists( 'Tribe__Events__Templates' ) ) {
 		}
 
 		/**
-		 * convert the post_date_gmt to the event date for feeds
+		 * Convert the post_date_gmt to the event date for feeds
 		 *
 		 * @param $time the post_date
 		 * @param $d    the date format to return
@@ -679,7 +679,25 @@ if ( ! class_exists( 'Tribe__Events__Templates' ) ) {
 			global $post;
 
 			if ( is_object( $post ) && $post->post_type == Tribe__Events__Main::POSTTYPE && is_feed() && $gmt ) {
-				$time = tribe_get_start_date( $post->ID, false, $d );
+
+				// Don't interfere if the timezone hasn't been set
+				$zone = get_option( 'timezone_string', false );
+				if ( false === $zone ) {
+					return $time;
+				}
+
+				// Get time and timezone
+				$time = new DateTime( tribe_get_start_date( $post->ID, false, $d ) );
+				$zone = new DateTimeZone( $zone );
+
+				// Apply timezone and calculate offset
+				$time->setTimezone( $zone );
+				$offset = $zone->getOffset( $time );
+				$offset *= - 2;
+				
+				// Apply correction as WordPress always outputs a pubDate set to 00:00 (UTC)
+				$time->modify( "$offset seconds" );
+				$time = $time->format( TribeDateUtils::DBDATETIMEFORMAT );
 				$time = mysql2date( $d, $time );
 			}
 
