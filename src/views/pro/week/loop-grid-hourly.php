@@ -34,7 +34,7 @@ $hours = tribe_events_week_get_hours();
 			<?php // Hours ?>
 			<div class="column tribe-week-grid-hours">
 				<?php foreach ( $hours as $hour => $formatted_hour ) : ?>
-					<div class="time-row-<?php echo esc_attr( date_i18n( 'gA', mktime( $hour ) ) ); ?>"><?php echo $formatted_hour ?></div>
+					<div class="time-row-<?php echo esc_attr( date_i18n( 'gA', mktime( intval( $hour ) ) ) ); ?>"><?php echo esc_html_e( $formatted_hour ) ?></div>
 				<?php endforeach; ?>
 			</div><!-- tribe-week-grid-hours -->
 
