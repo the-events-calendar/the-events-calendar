@@ -356,6 +356,10 @@ var ticketHeaderImage = window.ticketHeaderImage || {};
 			$( '#ticket_form input:not(:button):not(:radio):not(:checkbox)' ).val( '' );
 			$( '#ticket_form input:checkbox' ).attr( 'checked', false );
 
+			// Reset the min/max datepicker settings so that they aren't inherited by the next ticket that is edited
+			$( '#ticket_start_date' ).datepicker( 'option', 'maxDate', null );
+			$( '#ticket_end_date' ).datepicker( 'option', 'minDate', null );
+
 			$( '.ticket_start_time' ).hide();
 			$( '.ticket_end_time' ).hide();
 			$( '.ticket.sale_price' ).hide();
