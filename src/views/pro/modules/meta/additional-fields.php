@@ -3,7 +3,7 @@
  * Single Event Meta (Additional Fields) Template
  *
  * Override this template in your own theme by creating a file at:
- * [your-theme]/tribe-events/modules/meta/details.php
+ * [your-theme]/tribe-events/modules/meta/additional-fields.php
  *
  * @package TribeEventsCalendarPro
  */
