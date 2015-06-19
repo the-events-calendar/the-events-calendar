@@ -10,27 +10,55 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 	protected function match_existing_post( array $record ) {
 		$start_date = $this->get_event_start_date( $record );
 		$end_date   = $this->get_event_end_date( $record );
+		$all_day    = $this->get_boolean_value_by_key( $record, 'event_all_day' );
+
+		// Base query - only the meta query will be different
 		$query_args = array(
 			'post_type'      => Tribe__Events__Main::POSTTYPE,
 			'post_title'     => $this->get_value_by_key( $record, 'event_name' ),
-			'meta_query'     => array(
+			'fields'         => 'ids',
+			'posts_per_page' => 1,
+		);
+
+		// When trying to find matches for all day events, the comparison should only be against the date
+		// component only since a) the time is irrelevant and b) the time may have been adjusted to match
+		// the eod cutoff setting
+		if ( in_array( $all_day, array( 'yes', 'true', '1' ) ) ) {
+			$meta_query = array(
+				array(
+					'key'     => '_EventStartDate',
+					'value'   => $this->get_event_start_date( $record, true ),
+					'compare' => 'LIKE'
+				),
+				array(
+					'key'     => '_EventAllDay',
+					'value'   => 'yes'
+				)
+			);
+		// For regular, non-all day events, use the full date *and* time in the start date comparison
+		} else {
+			$meta_query = array(
 				array(
 					'key'   => '_EventStartDate',
 					'value' => $start_date,
 				),
-			),
-			'fields'         => 'ids',
-			'posts_per_page' => 1,
-		);
-		if ( ! empty( $end_date ) ) {
-			$query_args['meta_query'][] = array(
+			);
+		}
+
+		// Optionally use the end date/time for matching, where available
+		if ( ! empty( $end_date ) && ! $all_day ) {
+			$meta_query[] = array(
 				'key'   => '_EventEndDate',
 				'value' => $end_date,
 			);
 		}
+
+		$query_args['meta_query'] = $meta_query;
+
 		add_filter( 'posts_search', array( $this, 'filter_query_for_title_search' ), 10, 2 );
 		$matches = get_posts( $query_args );
 		remove_filter( 'posts_search', array( $this, 'filter_query_for_title_search' ), 10, 2 );
+
 		if ( empty( $matches ) ) {
 			return 0;
 		}
@@ -51,13 +79,17 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 		return $id;
 	}
 
-	private function get_event_start_date( array $record ) {
+	private function get_event_start_date( array $record, $date_only = false ) {
 		$start_date = $this->get_value_by_key( $record, 'event_start_date' );
 		$start_time = $this->get_value_by_key( $record, 'event_start_time' );
-		if ( ! empty( $start_time ) ) {
+
+		if ( ! $date_only && ! empty( $start_time ) ) {
 			$start_date .= ' ' . $start_time;
 		}
-		$start_date = date( 'Y-m-d H:i:s', strtotime( $start_date ) );
+
+		$start_date = $date_only
+			? date( 'Y-m-d', strtotime( $start_date ) )
+			: date( 'Y-m-d H:i:s', strtotime( $start_date ) );
 
 		return $start_date;
 	}
