@@ -90,7 +90,13 @@ if ( ! class_exists( 'Tribe__Events__Templates' ) ) {
 				return get_404_template();
 			}
 
-			if ( ! is_single() && ! tribe_events_is_view_enabled( $events->displaying ) ) {
+			if (
+				! is_single()
+				&& ! tribe_events_is_view_enabled( $events->displaying )
+				// we want the day view to display if visited (this allows it to be largely disabled while
+				// still allowing month overflow links to work correctly)
+				&& 'day' != $events->displaying
+			) {
 				return get_404_template();
 			}
 
