@@ -146,16 +146,26 @@ if ( ! class_exists( 'Tribe__Events__Admin_List' ) ) {
 
 			global $wpdb;
 
-			$clauses['join'] .= "
-				LEFT OUTER JOIN {$wpdb->term_relationships} ON {$wpdb->posts}.ID = {$wpdb->term_relationships}.object_id
-				LEFT OUTER JOIN {$wpdb->term_taxonomy} USING (term_taxonomy_id)
-				LEFT OUTER JOIN {$wpdb->terms} USING (term_id)
+			// collect the terms in the desired taxonomy for the given post into a single string
+			$smashed_terms_sql = "
+				SELECT
+					GROUP_CONCAT( wp_terms.name ORDER BY name ASC ) smashed_terms
+				FROM
+					wp_term_relationships
+					LEFT JOIN wp_term_taxonomy ON (
+						wp_term_relationships.term_taxonomy_id = wp_term_taxonomy.term_taxonomy_id
+						AND taxonomy = '%s'
+					)
+					LEFT JOIN wp_terms ON (
+						wp_term_taxonomy.term_id = wp_terms.term_id
+					)
+				WHERE wp_term_relationships.object_id = wp_posts.ID
 			";
 
-			$clauses['where'] .= " AND ( taxonomy = '{$taxonomy}' OR taxonomy IS NULL )";
-			$clauses['groupby'] = 'object_id';
-			$clauses['orderby'] = "GROUP_CONCAT( {$wpdb->terms}.name ORDER BY name ASC ) ";
-			$clauses['orderby'] .= self::get_sort_direction( $wp_query );
+			$smashed_terms_sql = $wpdb->prepare( $smashed_terms_sql, $taxonomy );
+
+			$clauses['fields'] .= ",( {$smashed_terms_sql} ) as smashed_terms ";
+			$clauses['orderby'] = 'smashed_terms ' . self::get_sort_direction( $wp_query );
 			return $clauses;
 		}
 
