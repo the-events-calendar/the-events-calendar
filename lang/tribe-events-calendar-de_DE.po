@@ -3,15 +3,15 @@ msgstr ""
 "Project-Id-Version: The Events Calendar v3.8.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-05-29 11:58-0800\n"
-"PO-Revision-Date: 2015-06-09 09:01-0700\n"
-"Last-Translator: \n"
+"PO-Revision-Date: 2015-06-18 20:31+0100\n"
+"Last-Translator: Stefan Weil <sw@weilnetz.de>\n"
 "Language-Team: DECKERWEB <deckerweb.mobil@googlemail.com>\n"
 "Language: de_DE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Poedit 1.7.6\n"
+"X-Generator: Poedit 1.6.10\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;"
 "_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2\n"
@@ -43,7 +43,7 @@ msgstr "Upgrade vom Plugin 'The Events Calendar' (freie Version)"
 #: ../src/Tribe/Admin_List.php:168 ../src/Tribe/Main.php:1254
 #, php-format
 msgid "%s Categories"
-msgstr ""
+msgstr "%s Kategorien"
 
 # @ tribe-events-calendar
 #: ../src/Tribe/Admin_List.php:174
@@ -118,7 +118,7 @@ msgstr "Add-Ons"
 
 #: ../src/Tribe/Credits.php:31
 msgid "This calendar is powered by The Events Calendar."
-msgstr ""
+msgstr "Dieser Kalender läuft mit The Events Calendar."
 
 # @ tribe-events-calendar
 #: ../src/Tribe/Credits.php:48
@@ -270,7 +270,6 @@ msgstr "Telefon"
 # @ {bug-detected}
 # @ tribe-events-calendar
 #: ../src/Tribe/Importer/Column_Mapper.php:65
-#, fuzzy
 msgid "Event Category"
 msgstr "Veranstaltungskategorie"
 
@@ -321,7 +320,7 @@ msgstr "Telefon"
 
 #: ../src/Tribe/Importer/Column_Mapper.php:80
 msgid "Venue Website"
-msgstr ""
+msgstr "Website des Veranstaltungsortes"
 
 # @ tribe-events-calendar
 #: ../src/Tribe/Importer/Column_Mapper.php:86
@@ -642,17 +641,17 @@ msgstr "%s im Papierkorb nicht gefunden"
 #: ../src/Tribe/Main.php:1255 ../src/functions/template-tags/general.php:393
 #, php-format
 msgid "%s Category"
-msgstr ""
+msgstr "%s Kategorie"
 
 #: ../src/Tribe/Main.php:1256
 #, php-format
 msgid "Search %s Categories"
-msgstr ""
+msgstr "Suche in %s Kategorien"
 
 #: ../src/Tribe/Main.php:1257
 #, php-format
 msgid "All %s Categories"
-msgstr ""
+msgstr "Alle %s Kategorien"
 
 #: ../src/Tribe/Main.php:1258
 #, php-format
@@ -667,17 +666,17 @@ msgstr ""
 #: ../src/Tribe/Main.php:1260
 #, php-format
 msgid "Edit %s Category"
-msgstr ""
+msgstr "Bearbeite %s Kategorie"
 
 #: ../src/Tribe/Main.php:1261
 #, php-format
 msgid "Update %s Category"
-msgstr ""
+msgstr "Aktualisiere %s Kategorie"
 
 #: ../src/Tribe/Main.php:1262
 #, php-format
 msgid "Add New %s Category"
-msgstr ""
+msgstr "Füge neue %s Kategorie hinzu"
 
 #: ../src/Tribe/Main.php:1263
 #, php-format
@@ -791,6 +790,9 @@ msgid ""
 "support.google.com/webmasters/answer/164506\" target=\"_blank\">Google Rich "
 "Snippet</a> on the search results."
 msgstr ""
+"Ohne Angabe des Ortes wird Ihre Veranstaltung in Suchergebnissen nicht als "
+"<a href=\"https://support.google.com/webmasters/answer/164506\" target="
+"\"_blank\">Google Rich Snippet</a> angezeigt."
 
 # @ tribe-events-calendar
 #: ../src/Tribe/Main.php:1485 ../src/Tribe/Main.php:1566
@@ -851,12 +853,12 @@ msgstr "Datum außerhalb des Bereichs."
 #: ../src/Tribe/Main.php:3460
 #, php-format
 msgid "%s Options"
-msgstr ""
+msgstr "%s Optionen"
 
 #: ../src/Tribe/Main.php:3467 ../src/Tribe/Main.php:3478
 #, php-format
 msgid "%s Information"
-msgstr ""
+msgstr "%s Information"
 
 # @ tribe-events-calendar
 #: ../src/Tribe/Main.php:3664
@@ -896,7 +898,7 @@ msgstr "Nutzen Sie unsere  <a href=\"%s\">Veranstaltungserweiterungen</a>."
 #: ../src/Tribe/Main.php:3809
 #, php-format
 msgid "%s"
-msgstr ""
+msgstr "%s"
 
 # @ tribe-events-calendar
 #: ../src/Tribe/Main.php:3846 ../src/Tribe/Main.php:3943
@@ -1300,7 +1302,7 @@ msgstr "E-Mail"
 # @ tribe-events-calendar
 #: ../src/Tribe/Tickets/Attendees_Table.php:205 ../src/Tribe/iCal.php:121
 msgid "Export"
-msgstr "Export"
+msgstr "Exportiere"
 
 #: ../src/Tribe/Tickets/Attendees_Table.php:212
 msgid "Filter by purchaser name, ticket #, order # or security code"
@@ -3027,7 +3029,7 @@ msgstr ""
 #: ../src/Tribe/iCal.php:117
 #, php-format
 msgid "Listed %s"
-msgstr ""
+msgstr "Angezeigte %s"
 
 # @ tribe-events-calendar
 #: ../src/Tribe/iCal.php:122
@@ -3057,10 +3059,10 @@ msgid ""
 "not, but more happy users mean more contributions and help on the forums. "
 "The community NEEDS your voice."
 msgstr ""
-"Jedes Mal, wenn Sie eine <strong>5 Sterne</strong> Bewertung abgeben wird "
-"eine Fee geboren. Vielleicht auch nicht, aber mehr glückliche Nutzer "
-"bedeuten mehr Unterstützung und Hilfe in den Foren. Die Community benötigt "
-"ihre Stimme."
+"Jedes Mal, wenn Sie eine <strong>5 Sterne</strong> Bewertung abgeben, wird "
+"eine Fee geboren. Also gut, vielleicht auch nicht, aber mehr glückliche "
+"Nutzer bedeuten mehr Unterstützung und Hilfe in den Foren. Die Community "
+"benötigt ihre Stimme."
 
 # @ tribe-events-calendar
 #: ../src/admin-views/admin-update-message.php:34
@@ -3112,7 +3114,6 @@ msgstr "Facebook"
 # @ tribe-events-calendar
 #: ../src/admin-views/admin-update-message.php:58
 #: ../src/admin-views/admin-welcome-message.php:53
-#, fuzzy
 msgid "News For Events Users"
 msgstr "Neues für Veranstaltungsnutzer!"
 
@@ -3264,12 +3265,12 @@ msgstr "Ende"
 
 #: ../src/admin-views/events-meta-box.php:102
 msgid "Location"
-msgstr ""
+msgstr "Ort"
 
 #: ../src/admin-views/events-meta-box.php:120
 #, php-format
 msgid "%s Website"
-msgstr ""
+msgstr "%s Website"
 
 # @ tribe-events-calendar
 #: ../src/admin-views/events-meta-box.php:123
@@ -3489,7 +3490,7 @@ msgid ""
 "tickets for it?"
 msgstr ""
 "Diese Veranstaltung wurde durch Community Events erstellt.  Wollen Sie "
-"wirklich Karten dafür veraufen?"
+"wirklich Karten dafür verkaufen?"
 
 # @ tribe-events-calendar
 #: ../src/admin-views/tickets/meta-box.php:34
@@ -3555,7 +3556,7 @@ msgstr "(0 eingeben oder leer lassen für kostenlosen Eintritt)"
 
 #: ../src/admin-views/tickets/meta-box.php:126
 msgid "Sale Price:"
-msgstr ""
+msgstr "Verkaufspreis:"
 
 #: ../src/admin-views/tickets/meta-box.php:132
 msgid "(Current sale price - this can be managed via the product editor)"
@@ -4635,7 +4636,7 @@ msgstr "Quelle:"
 #: ../src/functions/advanced-functions/meta_registration.php:286
 #, php-format
 msgid "%s:"
-msgstr ""
+msgstr "%s:"
 
 #: ../src/functions/template-tags/date.php:280
 msgid "The function needs to be passed an $event or used in the loop."
@@ -4690,7 +4691,7 @@ msgstr "Kalender powered by %sThe Events Calendar%s"
 #: ../src/functions/template-tags/loop.php:131
 #, php-format
 msgid "Upcoming %s"
-msgstr ""
+msgstr "Anstehende %s"
 
 #: ../src/functions/template-tags/loop.php:145
 #, php-format
@@ -4758,7 +4759,7 @@ msgstr ""
 
 #: ../src/io/csv/admin-views/general.php:13
 msgid "Instructions"
-msgstr ""
+msgstr "Anleitung"
 
 #: ../src/io/csv/admin-views/general.php:15
 #, php-format
@@ -4783,15 +4784,15 @@ msgstr ""
 
 #: ../src/io/csv/admin-views/general.php:31
 msgid "Published"
-msgstr ""
+msgstr "Veröffentlicht"
 
 #: ../src/io/csv/admin-views/general.php:32
 msgid "Pending"
-msgstr ""
+msgstr "Ausstehend"
 
 #: ../src/io/csv/admin-views/general.php:33
 msgid "Draft"
-msgstr ""
+msgstr "Entwurf"
 
 #: ../src/io/csv/admin-views/header.php:17
 msgid "Events Import"
@@ -4988,7 +4989,7 @@ msgstr ""
 #: ../src/views/list/nav.php:25
 #, php-format
 msgid "<span>&laquo;</span> Previous %s"
-msgstr ""
+msgstr "<span>&laquo;</span> Vorherige %s"
 
 #: ../src/views/list/nav.php:32
 #, php-format
@@ -4998,7 +4999,7 @@ msgstr ""
 #: ../src/views/modules/bar.php:30 ../src/views/modules/bar.php:61
 #, php-format
 msgid "Find %s"
-msgstr ""
+msgstr "Suche %s"
 
 # @ tribe-events-calendar
 #: ../src/views/modules/bar.php:37
@@ -5039,7 +5040,7 @@ msgstr[1] ""
 #: ../src/views/single-event.php:27
 #, php-format
 msgid "&laquo; All %s"
-msgstr ""
+msgstr "&laquo; Alle %s"
 
 #: ../src/views/single-event.php:46 ../src/views/single-event.php:92
 #, php-format
@@ -5069,7 +5070,7 @@ msgstr "Käufer"
 #: ../src/views/widgets/list-widget.php:65
 #, php-format
 msgid "View All %s"
-msgstr ""
+msgstr "Zeige alle %s"
 
 #: ../src/views/widgets/list-widget.php:71
 #, php-format
@@ -5412,7 +5413,7 @@ msgstr ""
 
 # @ tribe-events-calendar
 #~ msgid "Find Events"
-#~ msgstr "Finde Events"
+#~ msgstr "Suche Events"
 
 # @ tribe-events-calendar
 #~ msgid "View 1 Event"
