@@ -21,11 +21,15 @@ if ( ! class_exists( 'Tribe__Events__Admin_List' ) ) {
 		 */
 		public static function init() {
 			if ( is_admin() && ! ( defined( 'DOING_AJAX' ) && DOING_AJAX ) ) {
-				// Logic for sorting events by start or end date
-				add_filter( 'posts_clauses', array( __CLASS__, 'sort_by_event_date' ), 10, 2 );
+				add_filter( 'tribe_events_query_posts_orderby', array( __CLASS__, 'override_tribe_events_query_orderby' ) );
 
 				// Logic for sorting events by event category or tags
 				add_filter( 'posts_clauses', array( __CLASS__, 'sort_by_tax' ), 10, 2 );
+
+				// Logic for sorting events by start or end date
+				add_filter( 'posts_clauses', array( __CLASS__, 'sort_by_event_date' ), 11, 2 );
+
+				add_filter( 'posts_fields', array( __CLASS__, 'events_search_fields' ), 10, 2 );
 
 				// Pagination
 				add_filter( 'post_limits', array( __CLASS__, 'events_search_limits' ), 10, 2 );
@@ -39,8 +43,35 @@ if ( ! class_exists( 'Tribe__Events__Admin_List' ) ) {
 				add_action( 'manage_posts_custom_column', array( __CLASS__, 'custom_columns' ), 10, 2 );
 
 				// Registers event start/end date as sortable columns
-				add_action( 'manage_edit-' . Tribe__Events__Main::POSTTYPE . '_sortable_columns', array( __CLASS__, 'register_date_sortables' ), 10, 2 );
+				add_action( 'manage_edit-' . Tribe__Events__Main::POSTTYPE . '_sortable_columns', array( __CLASS__, 'register_sortable_columns' ), 10, 2 );
 			}
+		}
+
+		/**
+		 * Override the orderby that is set up in Tribe__Events__Query. The dashboard event list has its own
+		 * orderby rules
+		 */
+		public static function override_tribe_events_query_orderby( $orderby ) {
+			return '';
+		}
+
+		/**
+		 * Fields filter for standard wordpress templates.  Adds the start and end date to queries in the
+		 * events category
+		 *
+		 * @param string   $fields The current fields query part.
+		 * @param WP_Query $query
+		 *
+		 * @return string The modified form.
+		 */
+		public static function events_search_fields( $fields, $query ) {
+			if ( ! $query->is_main_query() || $query->get( 'post_type' ) != Tribe__Events__Main::POSTTYPE ) {
+				return $fields;
+			}
+
+			$fields .= ', tribe_event_start_date.meta_value as EventStartDate, tribe_event_end_date.meta_value as EventEndDate ';
+
+			return $fields;
 		}
 
 		/**
@@ -51,11 +82,12 @@ if ( ! class_exists( 'Tribe__Events__Admin_List' ) ) {
 		 * @return  string                  ASC/DESC prefixed with a single space
 		 */
 		public static function get_sort_direction( WP_Query $wp_query ) {
-			return ' ' . ( ( 'ASC' == strtoupper( $wp_query->get( 'order' ) ) ) ? 'ASC' : 'DESC' );
+			return 'ASC' == strtoupper( $wp_query->get( 'order' ) ) ? 'ASC' : 'DESC';
 		}
 
 		/**
-		 * Defines custom logic for sorting events table by start/end date
+		 * Defines custom logic for sorting events table by start/end date. No matter how user selects
+		 * what should be is sorted, always include date sorting in some fashion
 		 *
 		 * @param   Array       $clauses    SQL clauses for fetching posts
 		 * @param   WP_Query    $wp_query   A paginated query for items
@@ -63,29 +95,24 @@ if ( ! class_exists( 'Tribe__Events__Admin_List' ) ) {
 		 * @return  Array                   Modified SQL clauses
 		 */
 		public static function sort_by_event_date( Array $clauses, WP_Query $wp_query ) {
-			if ( ! isset( $wp_query->query['orderby'] ) )
-				return $clauses;
-
-			switch ( $wp_query->query['orderby'] ) {
-				case 'start-date':
-					$meta_key = '_EventStartDate';
-				break;
-
-				case 'end-date':
-					$meta_key = '_EventEndDate';
-				break;
-
-				default:
-					return $clauses;
-				break;
-			}
-
 			global $wpdb;
 
-			// Adds event start/end date to events table to allow for sorting
-			$clauses['join'] .= "LEFT OUTER JOIN {$wpdb->postmeta} ON {$wpdb->posts}.ID = {$wpdb->postmeta}.post_id AND {$wpdb->postmeta}.meta_key = '{$meta_key}'";
+			$sort_direction = self::get_sort_direction( $wp_query );
 
-			$clauses['orderby'] = "{$wpdb->postmeta}.meta_value" . self::get_sort_direction( $wp_query );
+			// tribe_event_end_date is already added to the join via Tribe__Events__Query
+			$clauses['join'] .= "LEFT OUTER JOIN {$wpdb->postmeta} AS tribe_event_start_date ON {$wpdb->posts}.ID = tribe_event_start_date.post_id AND tribe_event_start_date.meta_key = '_EventStartDate' ";
+
+			if ( ! empty( $clauses['orderby'] ) ) {
+				$clauses['orderby'] .= ',';
+			}
+
+			$date_orderby = "tribe_event_start_date.meta_value {$sort_direction}, tribe_event_end_date.meta_value {$sort_direction}";
+
+			if ( ! empty( $wp_query->query['orderby'] ) && 'end-date' == $wp_query->query['orderby'] ) {
+				$date_orderby = "tribe_event_end_date.meta_value {$sort_direction}, tribe_event_start_date.meta_value {$sort_direction}";
+			}
+
+			$clauses['orderby'] .= $date_orderby;
 
 			return $clauses;
 		}
@@ -99,8 +126,9 @@ if ( ! class_exists( 'Tribe__Events__Admin_List' ) ) {
 		 * @return  Array                   Modified SQL clauses
 		 */
 		public static function sort_by_tax( Array $clauses, WP_Query $wp_query ) {
-			if ( ! isset( $wp_query->query['orderby'] ) )
+			if ( ! isset( $wp_query->query['orderby'] ) ) {
 				return $clauses;
+			}
 
 			switch ( $wp_query->query['orderby'] ) {
 				case 'events-cats':
@@ -119,16 +147,15 @@ if ( ! class_exists( 'Tribe__Events__Admin_List' ) ) {
 			global $wpdb;
 
 			$clauses['join'] .= "
-				LEFT OUTER JOIN {$wpdb->term_relationships} ON {$wpdb->posts}.ID={$wpdb->term_relationships}.object_id
+				LEFT OUTER JOIN {$wpdb->term_relationships} ON {$wpdb->posts}.ID = {$wpdb->term_relationships}.object_id
 				LEFT OUTER JOIN {$wpdb->term_taxonomy} USING (term_taxonomy_id)
 				LEFT OUTER JOIN {$wpdb->terms} USING (term_id)
 			";
 
-			$clauses['where'] .= " AND (taxonomy = '".$taxonomy."' OR taxonomy IS NULL)";
+			$clauses['where'] .= " AND ( taxonomy = '{$taxonomy}' OR taxonomy IS NULL )";
 			$clauses['groupby'] = 'object_id';
-			$clauses['orderby'] = "GROUP_CONCAT({$wpdb->terms}.name ORDER BY name ASC)";
+			$clauses['orderby'] = "GROUP_CONCAT( {$wpdb->terms}.name ORDER BY name ASC ) ";
 			$clauses['orderby'] .= self::get_sort_direction( $wp_query );
-
 			return $clauses;
 		}
 
@@ -144,11 +171,14 @@ if ( ! class_exists( 'Tribe__Events__Admin_List' ) ) {
 			if ( ! $query->is_main_query() || $query->get( 'post_type' ) != Tribe__Events__Main::POSTTYPE ) {
 				return $limits;
 			}
+
 			global $current_screen;
 			$paged = (int) $query->get( 'paged' );
+
 			if ( empty( $paged ) ) {
 				$paged = 1;
 			}
+
 			if ( is_admin() ) {
 				$option   = str_replace( '-', '_', "{$current_screen->id}_per_page" );
 				$per_page = get_user_option( $option );
@@ -232,11 +262,11 @@ if ( ! class_exists( 'Tribe__Events__Admin_List' ) ) {
 					$event_cats = get_the_term_list( $post_id, Tribe__Events__Main::TAXONOMY, '', ', ', '' );
 					echo ( $event_cats ) ? strip_tags( $event_cats ) : '—';
 				break;
-				
+
 				case 'start-date':
 					echo tribe_get_start_date( $post_id, false );
 				break;
-				
+
 				case 'end-date':
 					echo tribe_get_end_date( $post_id, false );
 				break;
