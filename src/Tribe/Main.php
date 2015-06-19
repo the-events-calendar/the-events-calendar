@@ -707,10 +707,36 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 */
 		public function template_redirect() {
 			global $wp_query;
+
+			// if JS is disabled, then we need to handle tribe bar submissions manually
+			if ( ! empty( $_POST['tribe-bar-view'] ) && ! empty( $_POST['submit-bar'] ) ) {
+				$this->handle_submit_bar_redirect( $_POST );
+			}
+
 			if ( $wp_query->tribe_is_event_query && self::instance()->displaying == 'single-event' && empty( $wp_query->posts ) ) {
 				$wp_query->is_404 = true;
 			}
 		}
+
+		/**
+		 * handles tribe bar post submissions
+		 *
+		 * @param array $postdata Data from $_POST
+		 */
+		public function handle_submit_bar_redirect( $postdata ) {
+			$url = $postdata['tribe-bar-view'];
+
+			foreach ( $postdata as $key => $value ) {
+				if ( 'submit-bar' === $key || 'tribe-bar-view' === $key ) {
+					continue;
+				}
+
+				$url = add_query_arg( $key, $value, $url );
+			}
+
+			wp_redirect( esc_url_raw( $url ) );
+			die;
+		}//end handle_submit_bar_redirect
 
 		/**
 		 * Create setting tabs
