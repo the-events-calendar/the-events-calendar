@@ -32,13 +32,18 @@ class Tribe__Events__Admin__Organizer_Chooser_Meta_Box {
 
 		if ( $event === null ) {
 			$this->event = $post;
-		} elseif ( is_a( $event, 'WP_Post' ) ) {
+		} elseif ( $event instanceof WP_Post ) {
 			$this->event = $event;
 		} else {
 			$this->event = new WP_Post( (object) array( 'ID' => 0 ) );
 		}
 	}
 
+	/**
+	 * Render the organizer chooser section for the events meta box
+	 *
+	 * @return void
+	 */
 	public function render() {
 		$this->render_dropdowns();
 		$this->render_add_organizer_button();
@@ -68,6 +73,13 @@ class Tribe__Events__Admin__Organizer_Chooser_Meta_Box {
 		}
 	}
 
+	/**
+	 * Render a single row of the organizers table
+	 *
+	 * @param int $organizer_id
+	 *
+	 * @return void
+	 */
 	protected function single_organizer_dropdown( $organizer_id ) {
 		?>
 		<tr class="saved_organizer">
@@ -85,17 +97,31 @@ class Tribe__Events__Admin__Organizer_Chooser_Meta_Box {
 
 	}
 
+	/**
+	 * Render a link to edit the organizer post
+	 *
+	 * @param int $organizer_id
+	 *
+	 * @return void
+	 */
 	protected function edit_organizer_link( $organizer_id ) {
 		?>
 		<div class="edit-organizer-link"><a
 				<?php if ( empty( $organizer_id ) ) { ?> style="display:none;"<?php } ?>
-				data-admin-url="<?php echo admin_url( 'post.php?action=edit&post=' ); ?>"
-				href="<?php echo admin_url( sprintf( 'post.php?action=edit&post=%s', $organizer_id ) ); ?>"
+				data-admin-url="<?php echo esc_url( admin_url( 'post.php?action=edit&post=' ) ); ?>"
+				href="<?php echo esc_url( admin_url( sprintf( 'post.php?action=edit&post=%s', $organizer_id ) ) ); ?>"
 				target="_blank"><?php printf( __( 'Edit %s', 'tribe-events-calendar' ), $this->tribe->singular_organizer_label ); ?></a>
 		</div>
 		<?php
 	}
 
+	/**
+	 * Determine if the event can use the default organizer setting
+	 *
+	 * @param array $current_organizers
+	 *
+	 * @return bool
+	 */
 	protected function use_default_organizer( $current_organizers ) {
 		if ( !empty( $current_organizers ) ) {
 			return FALSE; // the event already has organizers
@@ -114,14 +140,29 @@ class Tribe__Events__Admin__Organizer_Chooser_Meta_Box {
 		}
 	}
 
+	/**
+	 * Renders the "Add Another Organizer" button
+	 *
+	 * @return void
+	 */
 	protected function render_add_organizer_button() {
 		printf( '<tfoot><tr><td colspan="2"><a class="tribe-add-organizer" href="#">%s</a></td></tr></tfoot>', __( 'Add another organizer', 'tribe-events-calendar' ) );
 	}
 
+	/**
+	 * Renders the handle for sorting organizers
+	 *
+	 * @return void
+	 */
 	protected function move_handle() {
 		echo '<span class="dashicons dashicons-screenoptions move-organizer-group"></span>';
 	}
 
+	/**
+	 * Renders the handle for deleting an organizer
+	 *
+	 * @return void
+	 */
 	protected function delete_handle() {
 		echo '<a class="dashicons dashicons-trash delete-organizer-group" href="#"></a>';
 	}
