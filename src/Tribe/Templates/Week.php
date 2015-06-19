@@ -96,8 +96,8 @@ if ( ! class_exists( 'Tribe__Events__Pro__Templates__Week' ) ) {
 			if ( $beginning_of_day > 0 ) {
 				for ( $i = 0; $i < $beginning_of_day; $i ++ ) {
 					array_push( $hours, array_shift( $hours ) );
-					}
 				}
+			}
 
 			$formatted_hours = array();
 			$hour_format     = apply_filters( 'tribe_events_pro_week_hour_format', get_option( 'time_format', 'gA' ) );
@@ -153,9 +153,8 @@ if ( ! class_exists( 'Tribe__Events__Pro__Templates__Week' ) ) {
 
 			// no events this week
 			if ( ! $this->any_events() ) {
-			$this->nothing_found_notice();
-		}
-
+				$this->nothing_found_notice();
+			}
 		}
 
 		/**
@@ -179,7 +178,6 @@ if ( ! class_exists( 'Tribe__Events__Pro__Templates__Week' ) ) {
 			}
 
 			return false;
-
 		}
 
 		/**
@@ -312,7 +310,7 @@ if ( ! class_exists( 'Tribe__Events__Pro__Templates__Week' ) ) {
 				4 => 'Thursday',
 				5 => 'Friday',
 				6 => 'Saturday',
-				);
+			);
 
 			// build an array with the "day" elements,
 			// each "day" is an array that contains the date and the associated all day / hourly events
@@ -328,7 +326,7 @@ if ( ! class_exists( 'Tribe__Events__Pro__Templates__Week' ) ) {
 					// in this case, the "day number" will be less than the first day of the week once the week has looped around
 					// so we use a relative strtotime() calc
 					$date = date( 'Y-m-d', strtotime( "Next {$weekday_array[$day_number]}", strtotime( $day ) ) );
-						}
+				}
 
 				$hourly_events  = array();
 				$all_day_events = array();
@@ -348,12 +346,13 @@ if ( ! class_exists( 'Tribe__Events__Pro__Templates__Week' ) ) {
 								$end_hour_today   = tribe_event_end_of_day( $date, 'Y-m-d ' ) . tribe_events_week_get_hours( 'last-hour' );
 								if ( tribe_get_start_time( $event, 'U' ) > strtotime( $end_hour_today ) || tribe_get_end_time( $event, 'U' ) < strtotime( $start_hour_today ) ) {
 									continue;
-					}
+								}
 								$hourly_events[] = $event;
+							}
+						}
+					}
 				}
-			}
-		}
-				}
+
 				$display_format  = apply_filters( 'tribe_events_pro_week_header_date_format', tribe_get_option( 'weekDayFormat', 'D jS' ) );
 				$formatted_date  = date_i18n( $display_format, strtotime( $date ) );
 				$timestamp_date  = strtotime( $date );
@@ -373,7 +372,6 @@ if ( ! class_exists( 'Tribe__Events__Pro__Templates__Week' ) ) {
 				);
 			}
 			self::$week_days = $week_days;
-
 		}
 
 		/**
@@ -382,7 +380,6 @@ if ( ! class_exists( 'Tribe__Events__Pro__Templates__Week' ) ) {
 		public static function get_week_days() {
 			return self::$week_days;
 		}
-
 
 		/**
 		 * Check if there are any all day events this week
@@ -395,8 +392,7 @@ if ( ! class_exists( 'Tribe__Events__Pro__Templates__Week' ) ) {
 			foreach ( self::$week_days as $week_day ) {
 				if ( ! empty( $week_day['all_day_events'] ) ) {
 					return true;
-
-			}
+				}
 			}
 
 			return false;
@@ -429,7 +425,7 @@ if ( ! class_exists( 'Tribe__Events__Pro__Templates__Week' ) ) {
 					// if we're filtering the hour range on week view, stop the events at that hour
 					$last_hour_timestamp = strtotime( self::get_current_date() . tribe_events_week_get_hours( 'last-hour' ) );
 					$end_of_day_timestamp = min( $end_of_day_timestamp, $last_hour_timestamp );
-							}
+				}
 				$data_hour = date( 'G', $event_start_timestamp );
 				$data_min  = date( 'i', $event_start_timestamp );
 				if ( $event_start_timestamp < $start_of_day_timestamp ) {
@@ -438,7 +434,7 @@ if ( ! class_exists( 'Tribe__Events__Pro__Templates__Week' ) ) {
 						$duration = ( $end_of_day_timestamp - $start_of_day_timestamp ) / 60;
 					} else {
 						$duration = ( $event_end_timestamp - $start_of_day_timestamp ) / 60;
-						}
+					}
 					$data_hour = date( 'G', $start_of_day_timestamp );
 					$data_min  = date( 'i', $start_of_day_timestamp );
 				} elseif ( $event_end_timestamp > $end_of_day_timestamp ) {
@@ -452,14 +448,13 @@ if ( ! class_exists( 'Tribe__Events__Pro__Templates__Week' ) ) {
 						// this will happen in the case of a multi-day event that extends beyond the end of the day
 						$duration = $remaining_minutes_in_day;
 					}
-					}
+				}
 				$attrs['data-duration'] = abs( $duration );
 				$attrs['data-hour']     = $data_hour;
 				$attrs['data-min']      = $data_min;
-				}
+			}
 
 			return $attrs;
-
 		}
 
 		/**
@@ -471,13 +466,14 @@ if ( ! class_exists( 'Tribe__Events__Pro__Templates__Week' ) ) {
 		public static function have_days() {
 			if ( empty ( self::$week_days ) ) {
 				return false;
-					}
+			}
+
 			if ( self::$current_day < count( self::$day_range ) - 1 ) {
 				return true;
-				}
+			}
 
 			return false;
-			}
+		}
 
 		/**
 		 * Increment the current day for tracking the current day of the week within the week view loop
@@ -490,10 +486,10 @@ if ( ! class_exists( 'Tribe__Events__Pro__Templates__Week' ) ) {
 				self::rewind_days();
 			}
 
-				self::$current_day ++;
+			self::$current_day ++;
 
 			return self::$week_days[ self::$current_day ];
-			}
+		}
 
 		/**
 		 * Reset the internal counter for the current day
@@ -538,7 +534,7 @@ if ( ! class_exists( 'Tribe__Events__Pro__Templates__Week' ) ) {
 			$classes .= ' tribe-week-day-header-' . $day['day_number'] . ' ';
 			if ( $day['is_today'] ) {
 				$classes .= ' tribe-week-today';
-		}
+			}
 
 			return $classes;
 		}
