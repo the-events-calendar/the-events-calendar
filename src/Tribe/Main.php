@@ -445,6 +445,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			add_action( 'plugin_action_links_' . trailingslashit( $this->pluginDir ) . 'the-events-calendar.php', array( $this, 'addLinksToPluginActions' ) );
 			add_action( 'admin_menu', array( $this, 'addHelpAdminMenuItem' ), 50 );
 
+			// override default wp_terms_checklist arguments to prevent checked items from bubbling to the top. Instead, retain hierarchy.
+			add_filter( 'wp_terms_checklist_args', array( $this, 'prevent_checked_on_top_terms' ), 10, 2 );
+
 			add_action( 'tribe_events_pre_get_posts', array( $this, 'set_tribe_paged' ) );
 
 			// Upgrade material.
@@ -1625,6 +1628,22 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				printf( '<input type="hidden" name="%s" value="%d"/>', esc_attr( $name ), 0 );
 			}
 		}
+
+		/**
+		 * override default wp_terms_checklist arguments to prevent checked items from bubbling to the
+		 * top. Instead, retain hierarchy.
+		 */
+		public function prevent_checked_on_top_terms( $args, $post_id ) {
+			$post = get_post( $post_id );
+
+			if ( ! tribe_is_event( $post ) ) {
+				return $args;
+			}
+
+			$args['checked_ontop'] = false;
+
+			return $args;
+		}//end prevent_checked_on_top_terms
 
 		/**
 		 * Update admin classes
