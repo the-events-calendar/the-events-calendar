@@ -707,6 +707,9 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 					case 'event_date':
 						// we've already setup $order_sql
 						break;
+					case 'rand':
+						$order_sql = 'RAND()';
+						break;
 				}
 
 				// trim trailing characters
