@@ -700,7 +700,7 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 		 * @return array The counts array.
 		 */
 		public static function getEventCounts( $args = array() ) {
-			_deprecated_function( __FUNCTION__, '3.11' );
+			_deprecated_function( __METHOD__, '3.11' );
 			global $wpdb;
 			$date     = date( 'Y-m-d' );
 			$defaults = array(
