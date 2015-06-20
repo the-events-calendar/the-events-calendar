@@ -224,7 +224,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 *
 	 * @uses get_posts()
 	 *
-	 * @param array $query {
+	 * @param array $args {
 	 *		Optional. Array of Query parameters.
 	 *
 	 *		@type string			$start_date			Minimum start date of the Event.
