@@ -680,6 +680,11 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 			global $wpdb;
 			$postmeta_table = self::postmeta_table( $query );
 
+			// There are some special cases where it does not make sense for us to modify the order clause
+			if ( false !== strpos( $order_sql, 'RAND()' ) ) {
+				return $order_sql;
+			}
+
 			if ( $query->tribe_is_event || $query->tribe_is_event_category ) {
 				$order   = ( isset( $query->order ) && ! empty( $query->order ) ) ? $query->order : $query->get( 'order' );
 				$orderby = ( isset( $query->orderby ) && ! empty( $query->orderby ) ) ? $query->orderby : $query->get( 'orderby' );
@@ -706,6 +711,9 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 						break;
 					case 'event_date':
 						// we've already setup $order_sql
+						break;
+					case 'rand':
+						$order_sql = 'RAND()';
 						break;
 				}
 
