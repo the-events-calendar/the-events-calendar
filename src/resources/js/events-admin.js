@@ -165,6 +165,21 @@ jQuery( document ).ready( function( $ ) {
 	$( '.select2' ).select2( {width: '250px'} );
 	$view_select.select2( {width: '250px'} );
 
+	// initialize the category hierarchy checkbox - scroll to closest checked checkbox
+	$( '[data-wp-lists="list:tribe_events_cat"]' ).each( function() {
+		var $list = $( this );
+		var $first = $list.find( ':checkbox:checked' ).first();
+
+		if ( ! $first.length ) {
+			return;
+		}
+
+		var top_position = $list.find( ':checkbox' ).position().top;
+		var checked_position = $first.position().top;
+
+		$list.closest( '.tabs-panel' ).scrollTop( checked_position - top_position + 5 );
+	} );
+
 	// Grab HTML from hidden Calendar link and append to Header on Event Listing Page
 	$( viewCalLinkHTML )
 		.insertAfter( '.edit-php.post-type-tribe_events #wpbody-content .wrap h2:eq(0) a' );
