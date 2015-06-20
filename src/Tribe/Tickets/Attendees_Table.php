@@ -112,12 +112,10 @@ class Tribe__Events__Tickets__Attendees_Table extends WP_List_Table {
 
 		//back compat
 		if ( empty( $item['order_id_link'] ) ) {
-			$id = sprintf( '<a class="row-title" href="%s">%s</a>', esc_url( get_edit_post_link( $item['order_id'], true ) ), esc_html( $item['order_id'] ) );
-		} else {
-			$id = $item['order_id_link'];
+			$item['order_id_link'] = sprintf( '<a class="row-title" href="%s">%s</a>', esc_url( get_edit_post_link( $item['order_id'], true ) ), esc_html( $item['order_id'] ) );
 		}
 
-		return $id;
+		return $item['order_id_link'];
 	}
 
 	/**
