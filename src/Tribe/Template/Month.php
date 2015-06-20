@@ -546,54 +546,41 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 		 */
 		public static function day_classes() {
 
-			$today         = date_i18n( 'd' );
-			$current_month = date_i18n( 'm' );
-			$current_year  = date_i18n( 'Y' );
+			$calendar_day           = self::get_current_day();
+			$calendar_day_timestamp = strtotime( $calendar_day['date'] );
+			$today                  = strtotime( 'today' );
 
-			$calendar_day = self::$calendar_days[ self::$current_day ];
-
-			if ( $calendar_day['month'] == self::PREVIOUS_MONTH || $calendar_day['month'] == self::NEXT_MONTH ) {
-				$ppf = 'tribe-events-othermonth';
+			// Start by determining which month we're looking at
+			if ( $calendar_day['month'] == self::CURRENT_MONTH ) {
+				$classes = 'tribe-events-thismonth';
 			} else {
-				$ppf = 'tribe-events-thismonth';
+				$classes = 'tribe-events-othermonth';
 			}
 
-			list ( $year, $month, $day ) = explode( '-', $calendar_day['date'] );
-			if ( $current_month == $month && $current_year == $year ) {
-				// Past, Present, Future class
-				if ( $today == $day ) {
-					$ppf .= ' tribe-events-present';
-				} else {
-					if ( $today > $day ) {
-						$ppf .= ' tribe-events-past';
-					} else {
-						if ( $today < $day ) {
-							$ppf .= ' tribe-events-future';
-						}
-					}
-				}
-			} else {
-				if ( $current_month > $month && $current_year == $year || $current_year > $year ) {
-					$ppf .= ' tribe-events-past';
-				} else {
-			$ppf .= ' mobile-trigger tribe-event-day-' . $day;
-					if ( $current_month < $month && $current_year == $year || $current_year < $year ) {
-						$ppf .= ' tribe-events-future';
-					}
-
-				}
+			// Check if the calendar day is in the past, present, or future
+			if ( $calendar_day_timestamp < $today ) {
+				$classes .= ' tribe-events-past';
+			} elseif ( $calendar_day_timestamp == $today ) {
+				$classes .= ' tribe-events-present';
+			} elseif ( $calendar_day_timestamp > $today ) {
+				$classes .= ' tribe-events-future';
 			}
+
+			// The day has some events
 			if ( $calendar_day['total_events'] > 0 ) {
-				$ppf .= ' tribe-events-has-events';
+				$classes .= ' tribe-events-has-events';
 			}
 
+			// Needed for mobile js
+			$classes .= ' mobile-trigger tribe-event-day-' . date_i18n( 'd', $calendar_day_timestamp );
 
+			// Determine which column of the grid the day is in
 			$column = ( self::$current_day ) - ( self::$current_week * 7 );
 			if ( $column > 0 && ( $column % 4 == 0 || $column % 5 == 0 || $column % 6 == 0 ) ) {
-				$ppf .= ' tribe-events-right';
+				$classes .= ' tribe-events-right';
 			}
 
-			return $ppf;
+			return $classes;
 		}
 
 		/**
