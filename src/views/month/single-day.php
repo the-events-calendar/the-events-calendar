@@ -36,7 +36,7 @@ $day = tribe_events_get_current_month_day();
 <?php endwhile; ?>
 
 <!-- View More -->
-<?php if ( $day['view_more'] && tribe_events_is_view_enabled( 'day' ) ) : ?>
+<?php if ( $day['view_more'] ) : ?>
 	<div class="tribe-events-viewmore">
 		<?php
 
