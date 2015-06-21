@@ -43,4 +43,5 @@ if ( is_array( $posts ) && ! empty( $posts ) ) : ?>
 	</li>
 	<?php endforeach; ?>
 </ul>
-<?php endif; ?>
+<?php
+endif;

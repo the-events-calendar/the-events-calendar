@@ -64,4 +64,3 @@ if ( ! class_exists( 'Tribe__Events__Pro__PUE' ) ) {
 		}
 	}
 }
-?>

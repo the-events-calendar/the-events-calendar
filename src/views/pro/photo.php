@@ -21,4 +21,5 @@ if ( ! defined( 'ABSPATH' ) ) {
 <!-- Main Events Content -->
 <?php tribe_get_template_part( 'pro/photo/content' ) ?>
 
-<?php do_action( 'tribe_events_after_template' ) ?>
+<?php
+do_action( 'tribe_events_after_template' );

@@ -11,7 +11,7 @@
 
 if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
-} 
+}
 
 $events_label_plural = tribe_get_event_label_plural();
 

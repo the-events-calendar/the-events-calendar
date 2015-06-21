@@ -49,20 +49,20 @@ if ( ! class_exists( 'Tribe__Events__Pro__Templates__Single_Venue' ) ) {
 				'label_before' => '',
 				'label_after'  => '',
 				'meta_before'  => '<address class="venue-address">',
-				'meta_after'   => '</address>'
+				'meta_after'   => '</address>',
 			), 'meta_group' );
 			// setup the template for the meta items
 			tribe_set_the_meta_template( array(
 				'tribe_event_venue_address',
 				'tribe_event_venue_phone',
-				'tribe_event_venue_website'
+				'tribe_event_venue_website',
 			), array(
 				'before'       => '',
 				'after'        => '',
 				'label_before' => '',
 				'label_after'  => '',
 				'meta_before'  => '<span class="%s">',
-				'meta_after'   => '</span>'
+				'meta_after'   => '</span>',
 			) );
 
 			// turn off the venue name in the group
@@ -73,14 +73,14 @@ if ( ! class_exists( 'Tribe__Events__Pro__Templates__Single_Venue' ) ) {
 			tribe_set_meta_label( array(
 				'tribe_event_venue_address' => '',
 				'tribe_event_venue_phone'   => '',
-				'tribe_event_venue_website' => ''
+				'tribe_event_venue_website' => '',
 			) );
 
 			// set meta item priorities
 			tribe_set_meta_priority( array(
 				'tribe_event_venue_address' => 10,
 				'tribe_event_venue_phone'   => 20,
-				'tribe_event_venue_website' => 30
+				'tribe_event_venue_website' => 30,
 			) );
 
 			add_filter( 'tribe_event_meta_venue_address_gmap', '__return_false' );

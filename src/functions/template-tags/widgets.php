@@ -112,7 +112,7 @@ function tribe_events_get_mini_calendar_args() {
  * @return array
  **/
 function tribe_events_get_widget_event_atts() {
-	
+
 	global $post, $wp_query;
 
 	$class = '';
@@ -127,7 +127,7 @@ function tribe_events_get_widget_event_atts() {
 
 	$atts = array(
 		'current_post' => $wp_query->current_post,
-		'class'        => $class
+		'class'        => $class,
 	);
 
 	return apply_filters( 'tribe_events_get_widget_event_atts', $atts );
@@ -139,7 +139,7 @@ function tribe_events_get_widget_event_atts() {
  * @return int
  **/
 function tribe_events_get_widget_event_post_date() {
-	
+
 	global $post, $wp_query;
 
 	$startDate = strtotime( $post->EventStartDate );
@@ -154,8 +154,8 @@ function tribe_events_get_widget_event_post_date() {
 	}
 
 	/* If the user clicked in a particular day, let's show that day as the event date, even if the event spans a few days */
-	if ( defined( "DOING_AJAX" ) && DOING_AJAX && isset( $_POST['action'] ) && $_POST['action'] == 'tribe-mini-cal-day' ) {
-		$postDate = strtotime( $_POST["eventDate"] );
+	if ( defined( 'DOING_AJAX' ) && DOING_AJAX && isset( $_POST['action'] ) && $_POST['action'] == 'tribe-mini-cal-day' ) {
+		$postDate = strtotime( $_POST['eventDate'] );
 	}
 
 	return apply_filters( 'tribe_events_get_widget_event_post_date', $postDate );

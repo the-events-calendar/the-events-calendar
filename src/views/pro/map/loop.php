@@ -30,5 +30,5 @@ $more = false;
 
 
 	<?php do_action( 'tribe_events_inside_after_loop' ); ?>
-<?php endwhile; ?>
-
+<?php
+endwhile;

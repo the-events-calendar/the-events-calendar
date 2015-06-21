@@ -44,7 +44,7 @@ if ( ! class_exists( 'Tribe__Events__Pro__Templates__Map' ) ) {
 		/**
 		 * AJAX handler for the Map view
 		 */
-		function ajax_response() {
+		public function ajax_response() {
 
 			$tribe_paged = ! empty( $_POST['tribe_paged'] ) ? $_POST['tribe_paged'] : 1;
 

@@ -48,12 +48,12 @@ class Tribe__Events__Pro__Recurrence__Queue {
 	 * @return bool true on successful load
 	 */
 	protected function get_event( $event_id ) {
-		$this->event = get_post($event_id );
-		
+		$this->event = get_post( $event_id );
+
 		if ( null === $this->event ) {
 			return false;
 		}
-		
+
 		if ( $this->event->post_parent > 0 ) {
 			$this->event = get_post( $this->event->post_parent );
 		}
@@ -65,13 +65,13 @@ class Tribe__Events__Pro__Recurrence__Queue {
 	 * Loads the queue for the current event.
 	 */
 	protected function load_queue() {
-		$queue = (array) get_post_meta( $this->event->ID, self::EVENT_QUEUE, true);
+		$queue = (array) get_post_meta( $this->event->ID, self::EVENT_QUEUE, true );
 
-		$this->to_create  = isset( $queue[self::CREATE] ) ? (array) $queue[self::CREATE] : array();
-		$this->to_update  = isset( $queue[self::UPDATE] ) ? (array) $queue[self::UPDATE] : array();
-		$this->to_delete  = isset( $queue[self::DELETE] ) ? (array) $queue[self::DELETE] : array();
-		$this->to_exclude = isset( $queue[self::EXCLUDE] ) ? (array) $queue[self::EXCLUDE] : array();
-		$this->job_total  = isset( $queue[self::JOB_TOTAL] ) ? (int) $queue[self::JOB_TOTAL] : -1;
+		$this->to_create  = isset( $queue[ self::CREATE ] ) ? (array) $queue[ self::CREATE ] : array();
+		$this->to_update  = isset( $queue[ self::UPDATE ] ) ? (array) $queue[ self::UPDATE ] : array();
+		$this->to_delete  = isset( $queue[ self::DELETE ] ) ? (array) $queue[ self::DELETE ] : array();
+		$this->to_exclude = isset( $queue[ self::EXCLUDE ] ) ? (array) $queue[ self::EXCLUDE ] : array();
+		$this->job_total  = isset( $queue[ self::JOB_TOTAL ] ) ? (int) $queue[ self::JOB_TOTAL ] : -1;
 	}
 
 	/**
@@ -236,7 +236,7 @@ class Tribe__Events__Pro__Recurrence__Queue {
 				self::UPDATE    => $this->to_update,
 				self::DELETE    => $this->to_delete,
 				self::EXCLUDE   => $this->to_exclude,
-				self::JOB_TOTAL => ( -1 === $this->job_total ) ? $this->count() : $this->job_total
+				self::JOB_TOTAL => ( -1 === $this->job_total ) ? $this->count() : $this->job_total,
 			) );
 		}
 	}

@@ -31,25 +31,25 @@
 		public function getNextDate( $curdate ) {
 			$nextdate = $curdate;
 
-			if ( sizeof( $this->days ) > 0 ) {
+			if ( count( $this->days ) > 0 ) {
 				// get current day of week
-				$curDayOfWeek = date( "N", $curdate );
+				$curDayOfWeek = date( 'N', $curdate );
 
 				// find the selected day that is equal or higher to the current day
 				$nextDayOfWeek = $this->getNextDayOfWeek( $curDayOfWeek );
 
-				while ( date( "N", $nextdate ) != $nextDayOfWeek ) {
-					$nextdate = strtotime( date( Tribe__Events__Pro__Date_Series_Rules__Rules_Interface::DATE_FORMAT, $nextdate ) . " + 1 day" );
+				while ( date( 'N', $nextdate ) != $nextDayOfWeek ) {
+					$nextdate = strtotime( date( Tribe__Events__Pro__Date_Series_Rules__Rules_Interface::DATE_FORMAT, $nextdate ) . ' + 1 day' );
 				}
 
 				if ( $nextDayOfWeek > $curDayOfWeek ) {
 					return strtotime( date( Tribe__Events__Pro__Date_Series_Rules__Rules_Interface::DATE_FORMAT, $nextdate ) );
-				} else if ( $nextDayOfWeek < $curDayOfWeek ) {
-					return strtotime( date( Tribe__Events__Pro__Date_Series_Rules__Rules_Interface::DATE_FORMAT, $nextdate ) . " + " . ( $this->weeks_between - 1 ) . " weeks" );
+				} elseif ( $nextDayOfWeek < $curDayOfWeek ) {
+					return strtotime( date( Tribe__Events__Pro__Date_Series_Rules__Rules_Interface::DATE_FORMAT, $nextdate ) . ' + ' . ( $this->weeks_between - 1 ) . ' weeks' );
 				}
 			}
 
-			return strtotime( date( Tribe__Events__Pro__Date_Series_Rules__Rules_Interface::DATE_FORMAT, $nextdate ) . " + " . $this->weeks_between . " weeks" );
+			return strtotime( date( Tribe__Events__Pro__Date_Series_Rules__Rules_Interface::DATE_FORMAT, $nextdate ) . ' + ' . $this->weeks_between . ' weeks' );
 		}
 
 		/**

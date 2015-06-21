@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 } ?>
 
-<h3 class="tribe-events-visuallyhidden"><?php _e( 'Week Navigation', 'tribe-events-calendar-pro' ); ?></h3>
+<h3 class="tribe-events-visuallyhidden"><?php esc_html_e( 'Week Navigation', 'tribe-events-calendar-pro' ); ?></h3>
 <ul class="tribe-events-sub-nav">
 	<li class="tribe-events-nav-previous">
 		<?php echo tribe_events_week_previous_link() ?>

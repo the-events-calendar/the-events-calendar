@@ -75,23 +75,23 @@ class Tribe__Events__Pro__Geo_Loc {
 	/**
 	 * Class constructor
 	 */
-	function __construct() {
+	public function __construct() {
 		$this->rewrite_slug = $this->getOption( 'geoloc_rewrite_slug', 'map' );
 
-		add_action( 'tribe_events_venue_updated',           array( $this, 'save_venue_geodata'                      ), 10, 2 );
-		add_action( 'tribe_events_venue_created',           array( $this, 'save_venue_geodata'                      ), 10, 2 );
-		add_action( 'tribe_events_after_venue_metabox',     array( $this, 'setup_overwrite_geoloc'                  ), 10    );
-		add_action( 'tribe_events_filters_create_filters',  array( $this, 'setup_geoloc_filter_in_filters'          ),  1    );
-		add_action( 'wp_enqueue_scripts',                   array( $this, 'scripts'                                 )        );
-		add_action( 'admin_init',                           array( $this, 'maybe_generate_geopoints_for_all_venues' )        );
-		add_action( 'admin_init',                           array( $this, 'maybe_offer_generate_geopoints'          )        );
+		add_action( 'tribe_events_venue_updated', array( $this, 'save_venue_geodata' ), 10, 2 );
+		add_action( 'tribe_events_venue_created', array( $this, 'save_venue_geodata' ), 10, 2 );
+		add_action( 'tribe_events_after_venue_metabox', array( $this, 'setup_overwrite_geoloc' ), 10 );
+		add_action( 'tribe_events_filters_create_filters', array( $this, 'setup_geoloc_filter_in_filters' ), 1 );
+		add_action( 'wp_enqueue_scripts', array( $this, 'scripts' ) );
+		add_action( 'admin_init', array( $this, 'maybe_generate_geopoints_for_all_venues' ) );
+		add_action( 'admin_init', array( $this, 'maybe_offer_generate_geopoints' ) );
 
-		add_filter( 'tribe-events-bar-views',               array( $this, 'setup_view_for_bar'         ), 25, 1 );
-		add_filter( 'tribe_settings_tab_fields',            array( $this, 'inject_settings'            ), 10, 2 );
-		add_filter( 'tribe-events-bar-filters',             array( $this, 'setup_geoloc_filter_in_bar' ),  1, 1 );
-		add_filter( 'generate_rewrite_rules',               array( $this, 'add_routes'                 )        );
-		add_action( 'tribe_events_pre_get_posts',           array( $this, 'setup_geoloc_in_query'      )        );
-		add_filter( 'tribe_events_list_inside_before_loop', array( $this, 'add_event_distance'         )        );
+		add_filter( 'tribe-events-bar-views', array( $this, 'setup_view_for_bar' ), 25, 1 );
+		add_filter( 'tribe_settings_tab_fields', array( $this, 'inject_settings' ), 10, 2 );
+		add_filter( 'tribe-events-bar-filters', array( $this, 'setup_geoloc_filter_in_bar' ), 1, 1 );
+		add_filter( 'generate_rewrite_rules', array( $this, 'add_routes' ) );
+		add_action( 'tribe_events_pre_get_posts', array( $this, 'setup_geoloc_in_query' ) );
+		add_filter( 'tribe_events_list_inside_before_loop', array( $this, 'add_event_distance' ) );
 
 	}
 
@@ -137,7 +137,7 @@ class Tribe__Events__Pro__Geo_Loc {
 						'tooltip'         => __( 'Set the distance that the location search covers (find events within X distance units of location search input).', 'tribe-events-calendar-pro' ),
 						'default'         => '25',
 						'class'           => '',
-						'validation_type' => 'number_or_percent'
+						'validation_type' => 'number_or_percent',
 					),
 					'geoloc_default_unit'     => array(
 						'type'            => 'dropdown',
@@ -145,15 +145,17 @@ class Tribe__Events__Pro__Geo_Loc {
 						'validation_type' => 'options',
 						'size'            => 'small',
 						'default'         => 'miles',
-						'options'         => apply_filters( 'tribe_distance_units', array(
-							'miles' => __( 'Miles', 'tribe-events-calendar-pro' ),
-							'kms'   => __( 'Kilometers', 'tribe-events-calendar-pro' )
-						) )
+						'options'         => apply_filters( 'tribe_distance_units',
+							array(
+								'miles' => __( 'Miles', 'tribe-events-calendar-pro' ),
+								'kms'   => __( 'Kilometers', 'tribe-events-calendar-pro' ),
+							)
+						),
 					),
 					'geoloc_fix_venues'       => array(
 						'type'        => 'html',
 						'html'        => '<a name="geoloc_fix"></a><fieldset class="tribe-field tribe-field-html"><legend>' . __( 'Fix geolocation data', 'tribe-events-calendar-pro' ) . '</legend><div class="tribe-field-wrap">' . $this->fix_geoloc_data_button() . '<p class="tribe-field-indent description">' . sprintf( __( "You have %d venues for which we don't have geolocation data. We need to use the Google Maps API to get that information. Doing this may take a while (aprox. 1 minute for every 200 venues).", 'tribe-events-calendar-pro' ), $venues->found_posts ) . '</p></div></fieldset>',
-						'conditional' => ( $venues->found_posts > 0 )
+						'conditional' => ( $venues->found_posts > 0 ),
 					),
 				)
 			);
@@ -186,13 +188,13 @@ class Tribe__Events__Pro__Geo_Loc {
 			'meta_query'     => array(
 				array(
 					'key'     => '_VenueGeoAddress',
-					'compare' => 'NOT EXISTS'
+					'compare' => 'NOT EXISTS',
 				),
 				array(
 					'key'     => '_VenueAddress',
 					'compare' => '!=',
-					'value'   => ''
-				)
+					'value'   => '',
+				),
 			)
 		);
 
@@ -219,7 +221,7 @@ class Tribe__Events__Pro__Geo_Loc {
 			'displaying'     => 'map',
 			'event_bar_hook' => 'tribe_events_list_the_title',
 			'anchor'         => __( 'Map', 'tribe-events-calendar-pro' ),
-			'url'            => tribe_get_mapview_link()
+			'url'            => tribe_get_mapview_link(),
 		);
 
 		return $views;
@@ -235,17 +237,17 @@ class Tribe__Events__Pro__Geo_Loc {
 	public function setup_geoloc_filter_in_bar( $filters ) {
 		if ( tribe_is_map() || ! tribe_get_option( 'hideLocationSearch', false ) ) {
 			if ( tribe_get_option( 'tribeDisableTribeBar', false ) == false ) {
-				$value = "";
+				$value = '';
 				if ( ! empty( $_REQUEST['tribe-bar-geoloc'] ) ) {
 					$value = $_REQUEST['tribe-bar-geoloc'];
 				}
 
-				$lat = "";
+				$lat = '';
 				if ( ! empty( $_REQUEST['tribe-bar-geoloc-lat'] ) ) {
 					$lat = $_REQUEST['tribe-bar-geoloc-lat'];
 				}
 
-				$lng = "";
+				$lng = '';
 				if ( ! empty( $_REQUEST['tribe-bar-geoloc-lng'] ) ) {
 					$lng = $_REQUEST['tribe-bar-geoloc-lng'];
 				}
@@ -253,7 +255,7 @@ class Tribe__Events__Pro__Geo_Loc {
 				$filters['tribe-bar-geoloc'] = array(
 					'name'    => 'tribe-bar-geoloc',
 					'caption' => __( 'Near', 'tribe-events-calendar-pro' ),
-					'html'    => '<input type="hidden" name="tribe-bar-geoloc-lat" id="tribe-bar-geoloc-lat" value="' . esc_attr( $lat ) . '" /><input type="hidden" name="tribe-bar-geoloc-lng" id="tribe-bar-geoloc-lng" value="' . esc_attr( $lng ) . '" /><input type="text" name="tribe-bar-geoloc" id="tribe-bar-geoloc" value="' . esc_attr( $value ) . '" placeholder="' . __( 'Location', 'tribe-events-calendar-pro' ) . '">'
+					'html'    => '<input type="hidden" name="tribe-bar-geoloc-lat" id="tribe-bar-geoloc-lat" value="' . esc_attr( $lat ) . '" /><input type="hidden" name="tribe-bar-geoloc-lng" id="tribe-bar-geoloc-lng" value="' . esc_attr( $lng ) . '" /><input type="text" name="tribe-bar-geoloc" id="tribe-bar-geoloc" value="' . esc_attr( $value ) . '" placeholder="' . __( 'Location', 'tribe-events-calendar-pro' ) . '">',
 				);
 			}
 		}
@@ -282,8 +284,8 @@ class Tribe__Events__Pro__Geo_Loc {
 			<td>
 				<input tabindex="<?php tribe_events_tab_index(); ?>" type="checkbox" id="VenueOverwriteCoords" name="venue[OverwriteCoords]" value="true" <?php checked( $overwrite_coords ); ?> />
 
-				<input class=" " disabled title='<?php esc_attr_e( 'Latitude', 'tribe-events-calendar' ) ?>' placeholder='<?php esc_attr_e( 'Latitude', 'tribe-events-calendar' ) ?>' tabindex="<?php tribe_events_tab_index(); ?>" type="text" id="VenueLatitude" name="venue[Lat]" value="<?php echo ( is_numeric( $_lat ) ? (float) $_lat : '' ); ?>" />
-				<input class=" " disabled title='<?php esc_attr_e( 'Longitude', 'tribe-events-calendar' ) ?>' placeholder='<?php esc_attr_e( 'Longitude', 'tribe-events-calendar' ) ?>' tabindex="<?php tribe_events_tab_index(); ?>" type="text" id="VenueLongitude" name="venue[Lng]" value="<?php echo ( is_numeric( $_lng ) ? (float) $_lng : '' ); ?>" />
+				<input class=" " disabled title='<?php esc_attr_e( 'Latitude', 'tribe-events-calendar' ) ?>' placeholder='<?php esc_attr_e( 'Latitude', 'tribe-events-calendar' ) ?>' tabindex="<?php tribe_events_tab_index(); ?>" type="text" id="VenueLatitude" name="venue[Lat]" value="<?php echo esc_attr( is_numeric( $_lat ) ? (float) $_lat : '' ); ?>" />
+				<input class=" " disabled title='<?php esc_attr_e( 'Longitude', 'tribe-events-calendar' ) ?>' placeholder='<?php esc_attr_e( 'Longitude', 'tribe-events-calendar' ) ?>' tabindex="<?php tribe_events_tab_index(); ?>" type="text" id="VenueLongitude" name="venue[Lng]" value="<?php echo esc_attr( is_numeric( $_lng ) ? (float) $_lng : '' ); ?>" />
 			</td>
 		</tr>
 		<?php
@@ -309,7 +311,7 @@ class Tribe__Events__Pro__Geo_Loc {
 		if ( ! empty( $_REQUEST['tribe-bar-geoloc-lat'] ) && ! empty( $_REQUEST['tribe-bar-geoloc-lng'] ) ) {
 			$force  = true;
 			$venues = $this->get_venues_in_geofence( $_REQUEST['tribe-bar-geoloc-lat'], $_REQUEST['tribe-bar-geoloc-lng'] );
-		} else if ( Tribe__Events__Main::instance()->displaying == 'map' || ( ! empty( $query->query_vars['eventDisplay'] ) && $query->query_vars['eventDisplay'] == 'map' ) ) {
+		} elseif ( Tribe__Events__Main::instance()->displaying == 'map' || ( ! empty( $query->query_vars['eventDisplay'] ) && $query->query_vars['eventDisplay'] == 'map' ) ) {
 			// Show only venues that have geoloc info
 			$force = true;
 			//Get all geoloc'ed venues (set a geofence the size of the planet)
@@ -325,7 +327,7 @@ class Tribe__Events__Pro__Geo_Loc {
 				'key'     => '_EventVenueID',
 				'value'   => $venues,
 				'type'    => 'NUMERIC',
-				'compare' => 'IN'
+				'compare' => 'IN',
 			);
 
 			if ( empty( $query->query_vars['meta_query'] ) ) {
@@ -347,9 +349,9 @@ class Tribe__Events__Pro__Geo_Loc {
 
 		$base    = trailingslashit( $tec->getOption( 'eventsSlug', 'events' ) );
 		$baseTax = trailingslashit( $tec->taxRewriteSlug );
-		$baseTax = "(.*)" . $baseTax . "(?:[^/]+/)*";
+		$baseTax = '(.*)' . $baseTax . '(?:[^/]+/)*';
 		$baseTag = trailingslashit( $tec->tagRewriteSlug );
-		$baseTag = "(.*)" . $baseTag;
+		$baseTag = '(.*)' . $baseTag;
 
 		$newRules = array();
 
@@ -385,7 +387,7 @@ class Tribe__Events__Pro__Geo_Loc {
 	 *
 	 * @return bool
 	 */
-	function save_venue_geodata( $venueId, $data ) {
+	public function save_venue_geodata( $venueId, $data ) {
 
 		$_address  = ( ! empty( $data['Address'] ) ) ? $data['Address'] : '';
 		$_city     = ( ! empty( $data['City'] ) ) ? $data['City'] : '';
@@ -516,7 +518,7 @@ class Tribe__Events__Pro__Geo_Loc {
 	 *
 	 * @return array|null
 	 */
-	function get_venues_in_geofence( $lat, $lng, $geofence_radio = null ) {
+	public function get_venues_in_geofence( $lat, $lng, $geofence_radio = null ) {
 
 
 		if ( empty( $geofence_radio ) ) {
@@ -578,7 +580,8 @@ class Tribe__Events__Pro__Geo_Loc {
 	public function assign_distance_to_posts( &$posts, $lat_from, $lng_from ) {
 
 		// add distances
-		for ( $i = 0; $i < count( $posts ); $i ++ ) {
+		$num_posts = count( $posts );
+		for ( $i = 0; $i < $num_posts; $i ++ ) {
 			$posts[ $i ]->lat      = $this->get_lat_for_event( $posts[ $i ]->ID );
 			$posts[ $i ]->lng      = $this->get_lng_for_event( $posts[ $i ]->ID );
 			$posts[ $i ]->distance = $this->get_distance_between_coords( $lat_from, $lng_from, $posts[ $i ]->lat, $posts[ $i ]->lng );
@@ -653,6 +656,8 @@ class Tribe__Events__Pro__Geo_Loc {
 
 			$data = array();
 
+			// TODO: ask about the necessity of checking the current collection of posts. This seems like
+			// it limits the possible center-point which can screw up search bounding boxes
 			if ( ! empty( $wp_query->posts ) ) {
 
 				$event_ids = wp_list_pluck( $wp_query->posts, 'ID' );
@@ -664,10 +669,10 @@ class Tribe__Events__Pro__Geo_Loc {
 					       Min(lng) min_lng
 					FROM   (SELECT post_id AS venue_id,
 				               CASE
-				                 WHEN meta_key = '" . self::LAT . "' THEN meta_value
+				                 WHEN meta_key = '" . self::LAT . "' THEN CAST( meta_value as DECIMAL( 10, 6 ) )
 				               end     AS LAT,
 				               CASE
-				                 WHEN meta_key = '" . self::LNG . "' THEN meta_value
+				                 WHEN meta_key = '" . self::LNG . "' THEN CAST( meta_value as DECIMAL( 10, 6 ) )
 				               end     AS LNG
 				        FROM   $wpdb->postmeta
 				        WHERE  ( meta_key = '" . self::LAT . "'
@@ -720,7 +725,7 @@ class Tribe__Events__Pro__Geo_Loc {
 				'address'  => $address,
 				'link'     => $link,
 				'venue_id' => $venue_id,
-				'event_id' => $event->ID
+				'event_id' => $event->ID,
 			);
 		}
 
@@ -742,7 +747,7 @@ class Tribe__Events__Pro__Geo_Loc {
 		$url      = add_query_arg( array( 'geoloc_fix_venues' => '1' ), $url );
 		$url      = wp_nonce_url( $url, 'geoloc_fix_venues' );
 
-		return sprintf( '<a href="%s" class="button">%s</a>', esc_url( $url ), __( "Fix venues data", "tribe-events-calendar-pro" ) );
+		return sprintf( '<a href="%s" class="button">%s</a>', esc_url( $url ), __( 'Fix venues data', 'tribe-events-calendar-pro' ) );
 	}
 
 	/**
@@ -775,10 +780,15 @@ class Tribe__Events__Pro__Geo_Loc {
 	public function show_offer_to_fix_notice() {
 
 		$settings = Tribe__Events__Settings::instance();
-		$url      = apply_filters( 'tribe_settings_url', add_query_arg( array(
+		$url      = apply_filters( 'tribe_settings_url',
+			add_query_arg(
+				array(
 					'post_type' => Tribe__Events__Main::POSTTYPE,
-					'page'      => $settings->adminSlug
-				), admin_url( 'edit.php' ) ) );
+					'page'      => $settings->adminSlug,
+				),
+				admin_url( 'edit.php' )
+			)
+		);
 
 		?>
 		<div class="updated">
@@ -829,12 +839,12 @@ class Tribe__Events__Pro__Geo_Loc {
 		$count = 0;
 		foreach ( $venues->posts as $venue ) {
 			$data             = array();
-			$data["Address"]  = get_post_meta( $venue->ID, '_VenueAddress', true );
-			$data["City"]     = get_post_meta( $venue->ID, '_VenueCity', true );
-			$data["Province"] = get_post_meta( $venue->ID, '_VenueProvince', true );
-			$data["State"]    = get_post_meta( $venue->ID, '_VenueState', true );
-			$data["Zip"]      = get_post_meta( $venue->ID, '_VenueZip', true );
-			$data["Country"]  = get_post_meta( $venue->ID, '_VenueCountry', true );
+			$data['Address']  = get_post_meta( $venue->ID, '_VenueAddress', true );
+			$data['City']     = get_post_meta( $venue->ID, '_VenueCity', true );
+			$data['Province'] = get_post_meta( $venue->ID, '_VenueProvince', true );
+			$data['State']    = get_post_meta( $venue->ID, '_VenueState', true );
+			$data['Zip']      = get_post_meta( $venue->ID, '_VenueZip', true );
+			$data['Country']  = get_post_meta( $venue->ID, '_VenueCountry', true );
 
 			self::instance()->save_venue_geodata( $venue->ID, $data );
 

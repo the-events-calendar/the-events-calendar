@@ -37,7 +37,7 @@ class Tribe__Events__Pro__Shortcodes__Events_List extends Tribe__Events__Pro__Sh
 	 */
 	protected $tax_relationships = array(
 		'categories' => Tribe__Events__Main::TAXONOMY,
-		'tags' => 'post_tag'
+		'tags' => 'post_tag',
 	);
 
 	/**
@@ -72,7 +72,7 @@ class Tribe__Events__Pro__Shortcodes__Events_List extends Tribe__Events__Pro__Sh
 		'zip'       => '',
 		'phone'     => '',
 		'cost'      => '',
-		'organizer' => ''
+		'organizer' => '',
 	);
 
 	protected $arguments = array();

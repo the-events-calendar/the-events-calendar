@@ -33,7 +33,7 @@ $events_label_plural = tribe_get_event_label_plural();
 	</div>
 
 	<?php if ( 0 === $events->post_count ): ?>
-		<?php printf( __( 'No upcoming %s.', 'tribe-events-calendar-pro' ),  strtolower( $events_label_plural ) ); ?>
+		<?php printf( __( 'No upcoming %s.', 'tribe-events-calendar-pro' ), strtolower( $events_label_plural ) ); ?>
 	<?php else: ?>
 		<?php do_action( 'tribe_events_venue_widget_before_the_list' ); ?>
 		<ul class="tribe-venue-widget-list hfeed vcalendar">
