@@ -99,17 +99,27 @@ if ( ! class_exists( 'Tribe__Events__Admin_List' ) ) {
 
 			$sort_direction = self::get_sort_direction( $wp_query );
 
-			// tribe_event_end_date is already added to the join via Tribe__Events__Query
-			$clauses['join'] .= "LEFT OUTER JOIN {$wpdb->postmeta} AS tribe_event_start_date ON {$wpdb->posts}.ID = tribe_event_start_date.post_id AND tribe_event_start_date.meta_key = '_EventStartDate' ";
+			// only add the start meta query if it is missing
+			if ( ! preg_match( '/tribe_event_start_date/', $clauses['join'] ) ) {
+				$clauses['join'] .= "LEFT JOIN {$wpdb->postmeta} AS tribe_event_start_date ON {$wpdb->posts}.ID = tribe_event_start_date.post_id AND tribe_event_start_date.meta_key = '_EventStartDate' ";
+			}
+
+			// only add the end meta query if it is missing
+			if ( ! preg_match( '/tribe_event_end_date/', $clauses['join'] ) ) {
+				$clauses['join'] .= "LEFT JOIN {$wpdb->postmeta} AS tribe_event_end_date ON {$wpdb->posts}.ID = tribe_event_end_date.post_id AND tribe_event_end_date.meta_key = '_EventEndDate' ";
+			}
 
 			if ( ! empty( $clauses['orderby'] ) ) {
 				$clauses['orderby'] .= ',';
 			}
 
-			$date_orderby = "tribe_event_start_date.meta_value {$sort_direction}, tribe_event_end_date.meta_value {$sort_direction}";
+			$start_orderby = "tribe_event_start_date.meta_value {$sort_direction}";
+			$end_orderby = "tribe_event_end_date.meta_value {$sort_direction}";
+
+			$date_orderby = "{$start_orderby}, {$end_orderby}";
 
 			if ( ! empty( $wp_query->query['orderby'] ) && 'end-date' == $wp_query->query['orderby'] ) {
-				$date_orderby = "tribe_event_end_date.meta_value {$sort_direction}, tribe_event_start_date.meta_value {$sort_direction}";
+				$date_orderby = "{$end_orderby}, {$start_orderby}";
 			}
 
 			$clauses['orderby'] .= $date_orderby;
