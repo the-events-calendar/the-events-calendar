@@ -91,14 +91,22 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 		public static function saveEventMeta( $event_id, $data, $event = null ) {
 			$tec = Tribe__Events__Main::instance();
 
-			if ( isset( $data['EventAllDay'] ) )
-			{
+			if ( isset( $data['EventAllDay'] ) ) {
 				if ( Tribe__Events__Date_Utils::is_all_day( $data['EventAllDay'] ) ) {
 					$data['EventAllDay'] = 'yes';
 				} else {
 					$data['EventAllDay'] = 'no';
 				}
-			}//end if
+			}
+
+			$datepicker_format = Tribe__Events__Date_Utils::datepicker_formats( tribe_get_option( 'datepickerFormat' ) );
+			if ( isset( $data['EventStartDate'] ) ){
+				$data['EventStartDate'] = Tribe__Events__Date_Utils::time_from_format( $datepicker_format, $data['EventStartDate'] );
+			}
+
+			if ( isset( $data['EventEndDate'] ) ){
+				$data['EventEndDate'] = Tribe__Events__Date_Utils::time_from_format( $datepicker_format, $data['EventEndDate'] );
+			}
 
 			if ( isset( $data['EventAllDay'] ) && ( 'yes' === $data['EventAllDay'] || ! isset( $data['EventStartDate'] ) ) ) {
 				$data['EventStartDate'] = tribe_event_beginning_of_day( $data['EventStartDate'] );
@@ -106,12 +114,12 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 			} else {
 				delete_post_meta( $event_id, '_EventAllDay' );
 				if ( isset( $data['EventStartMeridian'] ) ) {
-					$data['EventStartDate'] = date( Tribe__Events__Date_Utils::DBDATETIMEFORMAT, strtotime( $data['EventStartDate'] . " " . $data['EventStartHour'] . ":" . $data['EventStartMinute'] . ":00 " . $data['EventStartMeridian'] ) );
-					$data['EventEndDate']   = date( Tribe__Events__Date_Utils::DBDATETIMEFORMAT, strtotime( $data['EventEndDate'] . " " . $data['EventEndHour'] . ":" . $data['EventEndMinute'] . ":00 " . $data['EventEndMeridian'] ) );
+					$data['EventStartDate'] = date( Tribe__Events__Date_Utils::DBDATETIMEFORMAT, strtotime( $data['EventStartDate'] . ' ' . $data['EventStartHour'] . ':' . $data['EventStartMinute'] . ':00 ' . $data['EventStartMeridian'] ) );
+					$data['EventEndDate']   = date( Tribe__Events__Date_Utils::DBDATETIMEFORMAT, strtotime( $data['EventEndDate'] . ' ' . $data['EventEndHour'] . ':' . $data['EventEndMinute'] . ':00 ' . $data['EventEndMeridian'] ) );
 
 				} else {
-					$data['EventStartDate'] = date( Tribe__Events__Date_Utils::DBDATETIMEFORMAT, strtotime( $data['EventStartDate'] . " " . $data['EventStartHour'] . ":" . $data['EventStartMinute'] . ":00" ) );
-					$data['EventEndDate']   = date( Tribe__Events__Date_Utils::DBDATETIMEFORMAT, strtotime( $data['EventEndDate'] . " " . $data['EventEndHour'] . ":" . $data['EventEndMinute'] . ":00" ) );
+					$data['EventStartDate'] = date( Tribe__Events__Date_Utils::DBDATETIMEFORMAT, strtotime( $data['EventStartDate'] . ' ' . $data['EventStartHour'] . ':' . $data['EventStartMinute'] . ':00 ' ) );
+					$data['EventEndDate']   = date( Tribe__Events__Date_Utils::DBDATETIMEFORMAT, strtotime( $data['EventEndDate'] . ' ' . $data['EventEndHour'] . ':' . $data['EventEndMinute'] . ':00 ' ) );
 				}
 			}
 
