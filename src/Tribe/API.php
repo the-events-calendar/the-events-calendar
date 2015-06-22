@@ -91,14 +91,22 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 		public static function saveEventMeta( $event_id, $data, $event = null ) {
 			$tec = Tribe__Events__Main::instance();
 
-			if ( isset( $data['EventAllDay'] ) )
-			{
+			if ( isset( $data['EventAllDay'] ) ) {
 				if ( Tribe__Events__Date_Utils::is_all_day( $data['EventAllDay'] ) ) {
 					$data['EventAllDay'] = 'yes';
 				} else {
 					$data['EventAllDay'] = 'no';
 				}
-			}//end if
+			}
+
+			$datepicker_format = Tribe__Events__Date_Utils::datepicker_formats( tribe_get_option( 'datepickerFormat' ) );
+			if ( isset( $data['EventStartDate'] ) ){
+				$data['EventStartDate'] = Tribe__Events__Date_Utils::datetime_from_format( $datepicker_format, $data['EventStartDate'] );
+			}
+
+			if ( isset( $data['EventEndDate'] ) ){
+				$data['EventEndDate'] = Tribe__Events__Date_Utils::datetime_from_format( $datepicker_format, $data['EventEndDate'] );
+			}
 
 			if ( isset( $data['EventAllDay'] ) && ( 'yes' === $data['EventAllDay'] || ! isset( $data['EventStartDate'] ) ) ) {
 				$data['EventStartDate'] = tribe_event_beginning_of_day( $data['EventStartDate'] );
@@ -106,12 +114,12 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 			} else {
 				delete_post_meta( $event_id, '_EventAllDay' );
 				if ( isset( $data['EventStartMeridian'] ) ) {
-					$data['EventStartDate'] = date( Tribe__Events__Date_Utils::DBDATETIMEFORMAT, strtotime( $data['EventStartDate'] . " " . $data['EventStartHour'] . ":" . $data['EventStartMinute'] . ":00 " . $data['EventStartMeridian'] ) );
-					$data['EventEndDate']   = date( Tribe__Events__Date_Utils::DBDATETIMEFORMAT, strtotime( $data['EventEndDate'] . " " . $data['EventEndHour'] . ":" . $data['EventEndMinute'] . ":00 " . $data['EventEndMeridian'] ) );
+					$data['EventStartDate'] = date( Tribe__Events__Date_Utils::DBDATETIMEFORMAT, strtotime( $data['EventStartDate'] . ' ' . $data['EventStartHour'] . ':' . $data['EventStartMinute'] . ':00 ' . $data['EventStartMeridian'] ) );
+					$data['EventEndDate']   = date( Tribe__Events__Date_Utils::DBDATETIMEFORMAT, strtotime( $data['EventEndDate'] . ' ' . $data['EventEndHour'] . ':' . $data['EventEndMinute'] . ':00 ' . $data['EventEndMeridian'] ) );
 
 				} else {
-					$data['EventStartDate'] = date( Tribe__Events__Date_Utils::DBDATETIMEFORMAT, strtotime( $data['EventStartDate'] . " " . $data['EventStartHour'] . ":" . $data['EventStartMinute'] . ":00" ) );
-					$data['EventEndDate']   = date( Tribe__Events__Date_Utils::DBDATETIMEFORMAT, strtotime( $data['EventEndDate'] . " " . $data['EventEndHour'] . ":" . $data['EventEndMinute'] . ":00" ) );
+					$data['EventStartDate'] = date( Tribe__Events__Date_Utils::DBDATETIMEFORMAT, strtotime( $data['EventStartDate'] . ' ' . $data['EventStartHour'] . ':' . $data['EventStartMinute'] . ':00 ' ) );
+					$data['EventEndDate']   = date( Tribe__Events__Date_Utils::DBDATETIMEFORMAT, strtotime( $data['EventEndDate'] . ' ' . $data['EventEndHour'] . ':' . $data['EventEndMinute'] . ':00 ' ) );
 				}
 			}
 
@@ -139,12 +147,18 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 			}
 
 			if ( isset( $data["Organizer"] ) ) {
-				if ( ! empty( $data["Organizer"]["OrganizerID"] ) ) {
-					$organizer_post_status = get_post( $data["Organizer"]['OrganizerID'] )->post_status;
-				} else {
-					$organizer_post_status = $post_status;
+				if ( !isset( $data['Organizer'][0] ) || !is_array( $data['Organizer'][0] ) ) {
+					// convert old-style single organizer into an array of organizers
+					$data['Organizer'] = array( $data['Organizer'] );
 				}
-				$data['EventOrganizerID'] = Tribe__Events__API::saveEventOrganizer( $data["Organizer"], $event, $organizer_post_status );
+				foreach ( $data['Organizer'] as $organizer ) {
+					if ( !empty( $organizer['OrganizerID'] ) ) {
+						$organizer_post_status = get_post_status( $organizer['OrganizerID'] );
+					} else {
+						$organizer_post_status = $post_status;
+					}
+					$data['EventOrganizerID'][] = self::saveEventOrganizer( $organizer, $event, $organizer_post_status );
+				}
 			}
 			if ( isset( $data["Venue"] ) ) {
 				if ( ! empty( $data['Venue']["VenueID"] ) ) {

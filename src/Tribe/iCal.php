@@ -11,11 +11,11 @@ class Tribe__Events__iCal {
 	 * @static
 	 */
 	public static function init() {
-		add_filter( 'tribe_events_after_footer',                   array( __CLASS__, 'maybe_add_link'     ), 10, 1 );
-		add_action( 'tribe_events_single_event_after_the_content', array( __CLASS__, 'single_event_links' )        );
-		add_action( 'tribe_tec_template_chooser',                  array( __CLASS__, 'do_ical_template'   )        );
-		add_filter( 'tribe_get_ical_link', 						   array( __CLASS__, 'day_view_ical_link' ), 20, 1 );
-		add_action( 'wp_head',                                     array( __CLASS__, 'set_feed_link'      ), 2,  0 );
+		add_filter( 'tribe_events_after_footer', array( __CLASS__, 'maybe_add_link' ), 10, 1 );
+		add_action( 'tribe_events_single_event_after_the_content', array( __CLASS__, 'single_event_links' ) );
+		add_action( 'tribe_tec_template_chooser', array( __CLASS__, 'do_ical_template' ) );
+		add_filter( 'tribe_get_ical_link', array( __CLASS__, 'day_view_ical_link' ), 20, 1 );
+		add_action( 'wp_head', array( __CLASS__, 'set_feed_link' ), 2, 0 );
 	}
 
 	/**
@@ -28,7 +28,7 @@ class Tribe__Events__iCal {
 		$separator  = _x( '&raquo;', 'feed link', 'tribe-events-calendar' );
 		$feed_title = sprintf( __( '%1$s %2$s iCal Feed', 'tribe-events-calendar' ), get_bloginfo( 'name' ), $separator );
 
-		printf( '<link rel="alternate" type="text/calendar" title="%s" href="%s" />', $feed_title, esc_url( tribe_get_ical_link() ) );
+		printf( '<link rel="alternate" type="text/calendar" title="%s" href="%s" />', esc_attr( $feed_title ), esc_url( tribe_get_ical_link() ) );
 		echo "\n";
 	}
 
@@ -42,7 +42,6 @@ class Tribe__Events__iCal {
 
 		return trailingslashit( $tec->getLink( 'home' ) ) . '?ical=1';
 	}
-
 
 	/**
 	 * Make sure ical link has the date in the URL instead of "today" on day view
@@ -73,8 +72,8 @@ class Tribe__Events__iCal {
 			return;
 		}
 		echo '<div class="tribe-events-cal-links">';
-		echo '<a class="tribe-events-gcal tribe-events-button" href="' . self::esc_gcal_url( tribe_get_gcal_link() ) . '" title="' . __( 'Add to Google Calendar', 'tribe-events-calendar' ) . '">+ ' . __( 'Google Calendar', 'tribe-events-calendar' ) . '</a>';
-		echo '<a class="tribe-events-ical tribe-events-button" href="' . esc_url( tribe_get_single_ical_link() ) . '" title="' . __( 'Download .ics file', 'tribe-events-calendar' ) . '" >+ ' . __( 'iCal Export', 'tribe-events-calendar' ) . '</a>';
+		echo '<a class="tribe-events-gcal tribe-events-button" href="' . self::esc_gcal_url( tribe_get_gcal_link() ) . '" title="' . esc_attr__( 'Add to Google Calendar', 'tribe-events-calendar' ) . '">+ ' . esc_html__( 'Google Calendar', 'tribe-events-calendar' ) . '</a>';
+		echo '<a class="tribe-events-ical tribe-events-button" href="' . esc_url( tribe_get_single_ical_link() ) . '" title="' . esc_attr__( 'Download .ics file', 'tribe-events-calendar' ) . '" >+ ' . esc_html__( 'iCal Export', 'tribe-events-calendar' ) . '</a>';
 		echo '</div><!-- .tribe-events-cal-links -->';
 	}
 
@@ -104,16 +103,16 @@ class Tribe__Events__iCal {
 
 		switch ( strtolower( $view ) ) {
 			case 'month':
-				$modifier = sprintf( __( "Month's %s", "tribe-events-calendar" ), tribe_get_event_label_plural() );
+				$modifier = sprintf( __( "Month's %s", 'tribe-events-calendar' ), tribe_get_event_label_plural() );
 				break;
 			case 'week':
-				$modifier = sprintf( __( "Week's %s", "tribe-events-calendar" ), tribe_get_event_label_plural() );
+				$modifier = sprintf( __( "Week's %s", 'tribe-events-calendar' ), tribe_get_event_label_plural() );
 				break;
 			case 'day':
-				$modifier = sprintf( __( "Day's %s", "tribe-events-calendar" ), tribe_get_event_label_plural() );
+				$modifier = sprintf( __( "Day's %s", 'tribe-events-calendar' ), tribe_get_event_label_plural() );
 				break;
 			default:
-				$modifier = sprintf( __( "Listed %s", "tribe-events-calendar" ), tribe_get_event_label_plural() );
+				$modifier = sprintf( __( 'Listed %s', 'tribe-events-calendar' ), tribe_get_event_label_plural() );
 				break;
 		}
 

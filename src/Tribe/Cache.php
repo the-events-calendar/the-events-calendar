@@ -43,7 +43,7 @@ class Tribe__Events__Cache {
 	 *
 	 * @return bool
 	 */
-	public function set_transient($id, $value, $expiration = 0, $expiration_trigger = '') {
+	public function set_transient( $id, $value, $expiration = 0, $expiration_trigger = '' ) {
 		return set_transient( $this->get_id( $id, $expiration_trigger ), $value, $expiration );
 	}
 

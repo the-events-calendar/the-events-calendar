@@ -61,7 +61,7 @@ if ( ! class_exists( 'Tribe__Events__Template__Single_Event' ) ) {
 					'tribe_event_organizer_phone',
 					'tribe_event_organizer_email',
 					'tribe_event_organizer_website',
-					'tribe_event_custom_meta'
+					'tribe_event_custom_meta',
 				)
 			);
 			$meta_templates     = apply_filters(
@@ -71,7 +71,7 @@ if ( ! class_exists( 'Tribe__Events__Template__Single_Event' ) ) {
 					'label_before' => '<dt>',
 					'label_after'  => '</dt>',
 					'meta_before'  => '<dd class="%s">',
-					'meta_after'   => '</dd>'
+					'meta_after'   => '</dd>',
 				)
 			);
 			tribe_set_the_meta_template( $meta_template_keys, $meta_templates );
@@ -84,7 +84,7 @@ if ( ! class_exists( 'Tribe__Events__Template__Single_Event' ) ) {
 				'tribe_events_single_event_meta_group_template_keys', array(
 					'tribe_event_details',
 					'tribe_event_venue',
-					'tribe_event_organizer'
+					'tribe_event_organizer',
 				)
 			);
 			$meta_group_templates     = apply_filters(
@@ -94,7 +94,7 @@ if ( ! class_exists( 'Tribe__Events__Template__Single_Event' ) ) {
 					'label_before' => '<h3 class="%s">',
 					'label_after'  => '</h3>',
 					'meta_before'  => '<dl>',
-					'meta_after'   => '</dl>'
+					'meta_after'   => '</dl>',
 				)
 			);
 
@@ -113,7 +113,7 @@ if ( ! class_exists( 'Tribe__Events__Template__Single_Event' ) ) {
 			global $post;
 
 			// Check if event has passed
-			$gmt_offset = ( get_option( 'gmt_offset' ) >= '0' ) ? ' +' . get_option( 'gmt_offset' ) : " " . get_option( 'gmt_offset' );
+			$gmt_offset = ( get_option( 'gmt_offset' ) >= '0' ) ? ' +' . get_option( 'gmt_offset' ) : ' ' . get_option( 'gmt_offset' );
 			$gmt_offset = str_replace( array( '.25', '.5', '.75' ), array( ':15', ':30', ':45' ), $gmt_offset );
 
 			if ( ! tribe_is_showing_all() && strtotime( tribe_get_end_date( $post, false, 'Y-m-d G:i' ) . $gmt_offset ) <= time() ) {

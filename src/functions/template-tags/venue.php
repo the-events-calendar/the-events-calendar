@@ -305,9 +305,9 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	function tribe_get_full_region( $event_id ) {
 		$province = tribe_get_event_meta( $event_id, '_VenueStateProvince', true );
 		$states = Tribe__Events__View_Helpers::loadStates();
-		
+
 		$full_region = isset( $states[ $province ] ) ? $states[ $province ] : $province;
-		
+
 		return apply_filters( 'tribe_get_full_region', $full_region );
 	}
 
@@ -323,13 +323,13 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 */
 	function tribe_get_coordinates( $postId = null ) {
 		$postId = tribe_get_venue_id( $postId );
-		if( class_exists( 'Tribe__Events__Pro__Geo_Loc' ) ){
+		if ( class_exists( 'Tribe__Events__Pro__Geo_Loc' ) ) {
 			$output[ 'lat' ] = (float) get_post_meta( $postId, Tribe__Events__Pro__Geo_Loc::LAT, true );
 			$output[ 'lng' ] = (float) get_post_meta( $postId, Tribe__Events__Pro__Geo_Loc::LNG, true );
 		} else {
 			$output = array(
-				'lat' => (float)'',
-				'lng' => (float)''
+				'lat' => 0,
+				'lng' => 0,
 			);
 		}
 
@@ -349,10 +349,10 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	function tribe_is_venue_overwrite( $postId = null ) {
 		$postId = tribe_get_venue_id( $postId );
 
-		if( class_exists( 'Tribe__Events__Pro__Geo_Loc' ) ){
+		if ( class_exists( 'Tribe__Events__Pro__Geo_Loc' ) ) {
 			$output = (int) get_post_meta( $postId, Tribe__Events__Pro__Geo_Loc::OVERWRITE, true );
 		} else{
-			$output = (int)'';
+			$output = 0;
 		}
 
 		return apply_filters( 'tribe_is_venue_overwrite', (bool) $output );
@@ -385,9 +385,11 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @return array An array of venue post objects.
 	 */
 	function tribe_get_venues( $only_with_upcoming = false, $posts_per_page = -1, $suppress_filters = true ) {
-		$venues = get_posts( array( 'post_type'        => Tribe__Events__Main::VENUE_POST_TYPE,
-									'posts_per_page'   => $posts_per_page,
-									'suppress_filters' => $suppress_filters
+		$venues = get_posts(
+			array(
+				'post_type' => Tribe__Events__Main::VENUE_POST_TYPE,
+				'posts_per_page'   => $posts_per_page,
+				'suppress_filters' => $suppress_filters,
 			)
 		);
 
@@ -434,17 +436,17 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	* @return array The venue name and venue address.
 	*/
 	function tribe_get_venue_details() {
-	
+
 		$venue_details = array();
-		
+
 		if ( $venue_name = tribe_get_meta( 'tribe_event_venue_name' ) ) {
 			$venue_details['name'] = $venue_name;
 		}
-		
+
 		if ( $venue_address = tribe_get_meta( 'tribe_event_venue_address' ) ) {
 			$venue_details['address'] = $venue_address;
 		}
-		
+
 		return apply_filters( 'tribe_get_venue_details', $venue_details );
 	}
 
