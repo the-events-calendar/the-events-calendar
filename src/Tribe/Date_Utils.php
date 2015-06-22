@@ -56,7 +56,7 @@ if ( ! class_exists( 'Tribe__Events__Date_Utils' ) ) {
 		 *
 		 * @return string         A DB formated Date, includes time if possible
 		 */
-		public static function time_from_format( $format, $date ) {
+		public static function datetime_from_format( $format, $date ) {
 			// Reverse engineer the relevant date formats
 			$keys = array(
 				// Year with 4 Digits
@@ -72,7 +72,7 @@ if ( ! class_exists( 'Tribe__Events__Date_Utils' ) ) {
 				'n' => array( 'month', '\d{1,2}' ),
 
 				// Month ABBR 3 letters
-				'M' => array( 'month', '[A-Z][a-z]{3}' ),
+				'M' => array( 'month', '[A-Z][a-z]{2}' ),
 
 				// Month Name
 				'F' => array( 'month', '[A-Z][a-z]{2,8}' ),
@@ -87,7 +87,7 @@ if ( ! class_exists( 'Tribe__Events__Date_Utils' ) ) {
 				'D' => array( 'day', '[A-Z][a-z]{2}' ),
 
 				// Day Name
-				'l' => array( 'day', '[A-Z][a-z]{6,9}' ),
+				'l' => array( 'day', '[A-Z][a-z]{5,8}' ),
 
 				// Hour 12h formatted, with leading 0
 				'h' => array( 'hour', '\d{2}' ),
