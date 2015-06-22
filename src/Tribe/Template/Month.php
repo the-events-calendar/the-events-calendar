@@ -150,7 +150,8 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 				$this->html_cache = new Tribe__Events__Template_Part_Cache( 'month/content.php', serialize( $args ), $cache_expiration, 'save_post' );
 			}
 
-			self::$args            = $args;
+			$args = (array) $args;
+			self::$args            = (array) $args;
 			$this->events_per_day  = apply_filters( 'tribe_events_month_day_limit', tribe_get_option( 'monthEventAmount', '3' ) );
 			$this->requested_date  = $this->requested_date();
 			$this->first_grid_date = $this->calculate_first_cell_date( $this->requested_date );
@@ -399,7 +400,7 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 		 *
 		 * @return array
 		 */
-		protected function get_tribe_bar_args() {
+		protected static function get_tribe_bar_args() {
 			$tribe_bar_args = array();
 			foreach ( $_REQUEST as $key => $value ) {
 				if ( $value && strpos( $key, 'tribe' ) === 0 && $key != 'tribe-bar-date' ) {
