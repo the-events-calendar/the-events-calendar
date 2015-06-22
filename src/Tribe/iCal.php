@@ -71,9 +71,8 @@ class Tribe__Events__iCal {
 		if ( is_single() && post_password_required() ) {
 			return;
 		}
-
 		echo '<div class="tribe-events-cal-links">';
-		echo '<a class="tribe-events-gcal tribe-events-button" href="' . esc_url( tribe_get_gcal_link() ) . '" title="' . esc_attr__( 'Add to Google Calendar', 'tribe-events-calendar' ) . '">+ ' . esc_html__( 'Google Calendar', 'tribe-events-calendar' ) . '</a>';
+		echo '<a class="tribe-events-gcal tribe-events-button" href="' . Tribe__Events__Main::instance()->esc_gcal_url( tribe_get_gcal_link() ) . '" title="' . esc_attr__( 'Add to Google Calendar', 'tribe-events-calendar' ) . '">+ ' . esc_html__( 'Google Calendar', 'tribe-events-calendar' ) . '</a>';
 		echo '<a class="tribe-events-ical tribe-events-button" href="' . esc_url( tribe_get_single_ical_link() ) . '" title="' . esc_attr__( 'Download .ics file', 'tribe-events-calendar' ) . '" >+ ' . esc_html__( 'iCal Export', 'tribe-events-calendar' ) . '</a>';
 		echo '</div><!-- .tribe-events-cal-links -->';
 	}
@@ -352,4 +351,5 @@ class Tribe__Events__iCal {
 			return $timestamp;
 		}
 	}
+
 }

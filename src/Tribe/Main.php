@@ -2514,10 +2514,15 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			$event_details = apply_filters( 'the_content', get_the_content() );
 
+ 			// Hack: Add space after paragraph
+			// Normally Google Cal understands the newline character %0a
+			// And that character will automatically replace newlines on urlencode()
+			$event_details = str_replace ('</p>', '</p> ', $event_details);
+
+			$event_details = strip_tags( $event_details );
+
 			//Truncate Event Description and add permalink if greater than 996 characters
 			if ( strlen( $event_details ) > 996 ) {
-				//Strip tags
-				$event_details = strip_tags( $event_details );
 
 				$event_url     = get_permalink();
 				$event_details = substr( $event_details, 0, 996 );
@@ -2541,8 +2546,20 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			$params = apply_filters( 'tribe_google_calendar_parameters', $params, $postId );
 			$url    = add_query_arg( $params, $base_url );
 
-			return esc_url( $url );
+			return $url;
 		}
+
+	/**
+	 * Custom Escape for gCal Description to keep spacing characters in the url
+	 *
+	 * @return santized url
+	 */
+	public function esc_gcal_url( $url ) {
+	  $url = str_replace( '%0A', 'TRIBE-GCAL-LINEBREAK', $url );
+	  $url = esc_url( $url );
+	  $url = str_replace( 'TRIBE-GCAL-LINEBREAK', '%0A', $url );
+	  return $url;
+	}
 
 		/**
 		 * Returns a link to google maps for the given event. This link can be filtered
