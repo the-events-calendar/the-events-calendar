@@ -31,7 +31,7 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 		private static $calendar_days = array();
 		private static $current_day = - 1;
 		private static $current_week = - 1;
-		protected static $args;
+		protected $args;
 
 		/**
 		 * Indicates the array indicies marking the first and last entries for
@@ -71,7 +71,7 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 				$this->html_cache = new Tribe__Events__Template_Part_Cache( 'month/content.php', serialize( $args ), $cache_expiration, 'save_post' );
 			}
 
-			self::$args                 = $args;
+			$this->args                 = $args;
 			self::$posts_per_page_limit = apply_filters( 'tribe_events_month_day_limit', tribe_get_option( 'monthEventAmount', '3' ) );
 
 			// don't enqueue scripts and js when we're not constructing month view,
@@ -176,9 +176,9 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 		 *
 		 * @return array
 		 */
-		private static function get_daily_counts( $start_date, $end_date ) {
+		private function get_daily_counts( $start_date, $end_date ) {
 
-			$count_args = self::$args;
+			$count_args = $this->args;
 
 			$count_args['eventDisplay']        = 'month';
 			$count_args['eventDate']           = $start_date;
@@ -239,7 +239,7 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 					'eventDisplay'   => 'custom',
 					'no_found_rows'  => true,
 					'posts_per_page' => self::$posts_per_page_limit,
-				), self::$args
+				), $this->args
 			);
 			$result = Tribe__Events__Query::getEvents( $args, true );
 
@@ -266,7 +266,7 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 			$this->current_day_vals();
 
 			self::$hide_upcoming_ids = Tribe__Events__Query::getHideFromUpcomingEvents();
-			self::get_daily_counts( $first_grid_date, $final_grid_date );
+			$this->get_daily_counts( $first_grid_date, $final_grid_date );
 
 			$date  = $first_grid_date; // Start with the first grid date
 			$empty = new WP_Query();   // Use for empty days
@@ -323,7 +323,7 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 		 */
 		protected function requested_date() {
 			// We expect the date to be Y-m (yyyy-mm) format, ie year and date only
-			$date = isset( self::$args['eventDate'] ) ? self::$args['eventDate'] : tribe_get_month_view_date();
+			$date = isset( $this->args['eventDate'] ) ? $this->args['eventDate'] : tribe_get_month_view_date();
 
 			// Test and return unmodified if valid
 			if ( false !== strtotime( $date . '-01' ) ) {
