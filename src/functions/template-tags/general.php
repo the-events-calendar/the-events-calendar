@@ -218,14 +218,29 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * Queries the events using WordPress get_posts() by setting the post type and sorting by event date.
 	 *
 	 * @category Events
-	 * @param array $args query vars with added defaults including post_type of events, sorted (orderby) by event date (order) ascending
+	 *
+	 * @link http://codex.wordpress.org/Template_Tags/get_posts
+	 * @link http://codex.wordpress.org/Function_Reference/get_post
+	 *
+	 * @uses get_posts()
+	 *
+	 * @param array $args {
+	 *		Optional. Array of Query parameters.
+	 *
+	 *		@type string    $start_date      Minimum start date of the Event.
+	 *		@type string    $end_date        Maximum end date of the Event.
+	 *		@type string    $eventDate       A specific Event date for the Query.
+	 *		@type bool      $hide_upcoming   Hide events that are not on eventDate, internal usage
+	 *		@type int       $venue           Select events from a specfic Venue
+	 *		@type int       $organizer       Select events from a specfic Organizer
+	 *		@type string    $eventDisplay    How to display the Events, internal usage
+	 *
+	 *		@see  get_posts()  for more params
+	 * }
 	 * @param bool  $full (optional) if the full query object is required or just an array of event posts
 	 *
 	 * @return array List of posts.
-	 * @link http://codex.wordpress.org/Template_Tags/get_posts
-	 * @link http://codex.wordpress.org/Function_Reference/get_post
-	 * @uses get_posts()
-	 * @see  get_posts()
+	 *
 	 */
 	function tribe_get_events( $args = array(), $full = false ) {
 		if ( empty ( $args['eventDisplay'] ) ) {
