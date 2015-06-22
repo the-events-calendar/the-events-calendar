@@ -88,8 +88,8 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 		}
 
 		$start_date = $date_only
-			? date( 'Y-m-d', strtotime( $start_date ) )
-			: date( 'Y-m-d H:i:s', strtotime( $start_date ) );
+			? date( Tribe__Events__Date_Utils::DBDATEFORMAT, strtotime( $start_date ) )
+			: date( Tribe__Events__Date_Utils::DBDATETIMEFORMAT, strtotime( $start_date ) );
 
 		return $start_date;
 	}
