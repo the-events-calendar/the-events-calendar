@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 if ( ! class_exists( 'Tribe__Events__Date_Utils' ) ) {
 	class Tribe__Events__Date_Utils {
-		// default formats, they are overridden by WP options or by arguments to date methods
+		// Default formats, they are overridden by WP options or by arguments to date methods
 		const DATEONLYFORMAT        = 'F j, Y';
 		const TIMEFORMAT            = 'g:i A';
 		const HOURFORMAT            = 'g';
@@ -20,7 +20,6 @@ if ( ! class_exists( 'Tribe__Events__Date_Utils' ) ) {
 		const DBDATETIMEFORMAT      = 'Y-m-d H:i:s';
 		const DBTIMEFORMAT          = 'H:i:s';
 		const DBYEARMONTHTIMEFORMAT = 'Y-m';
-
 
 		/**
 		 * Get the datepicker format, that is used to translate the option from the DB to a string
@@ -46,6 +45,109 @@ if ( ! class_exists( 'Tribe__Events__Date_Utils' ) ) {
 			}
 
 			return isset( $formats[ $translate ] ) ? $formats[ $translate ] : $formats[0];
+		}
+
+		/**
+		 * As PHP 5.2 doesn't have a good version of `date_parse_from_format`, this is how we deal with
+		 * possible weird datepicker formats not working
+		 *
+		 * @param  string $format The weird format you are using
+		 * @param  string $date   The date string to parse
+		 *
+		 * @return string         A DB formated Date, includes time if possible
+		 */
+		public static function datetime_from_format( $format, $date ) {
+			// Reverse engineer the relevant date formats
+			$keys = array(
+				// Year with 4 Digits
+				'Y' => array( 'year', '\d{4}' ),
+
+				// Year with 2 Digits
+				'y' => array( 'year', '\d{2}' ),
+
+				// Month with leading 0
+				'm' => array( 'month', '\d{2}' ),
+
+				// Month without the leading 0
+				'n' => array( 'month', '\d{1,2}' ),
+
+				// Month ABBR 3 letters
+				'M' => array( 'month', '[A-Z][a-z]{2}' ),
+
+				// Month Name
+				'F' => array( 'month', '[A-Z][a-z]{2,8}' ),
+
+				// Day with leading 0
+				'd' => array( 'day', '\d{2}' ),
+
+				// Day without leading 0
+				'j' => array( 'day', '\d{1,2}' ),
+
+				// Day ABBR 3 Letters
+				'D' => array( 'day', '[A-Z][a-z]{2}' ),
+
+				// Day Name
+				'l' => array( 'day', '[A-Z][a-z]{5,8}' ),
+
+				// Hour 12h formatted, with leading 0
+				'h' => array( 'hour', '\d{2}' ),
+
+				// Hour 24h formatted, with leading 0
+				'H' => array( 'hour', '\d{2}' ),
+
+				// Hour 12h formatted, without leading 0
+				'g' => array( 'hour', '\d{1,2}' ),
+
+				// Hour 24h formatted, without leading 0
+				'G' => array( 'hour', '\d{1,2}' ),
+
+				// Minutes with leading 0
+				'i' => array( 'minute', '\d{2}' ),
+
+				// Seconds with leading 0
+				's' => array( 'second', '\d{2}' ),
+			);
+
+			// Convert format string to regex
+			$regex = '';
+			$chars = str_split( $format );
+			foreach ( $chars as $n => $char ) {
+				$last_char = isset( $chars[ $n - 1 ] ) ? $chars[ $n - 1 ] : '';
+				$skip_current = '\\' == $last_char;
+				if ( ! $skip_current && isset( $keys[ $char ] ) ) {
+					$regex .= '(?P<' . $keys[ $char ][0] . '>' . $keys[ $char ][1] . ')';
+				} else if ( '\\' == $char ) {
+					$regex .= $char;
+				} else {
+					$regex .= preg_quote( $char );
+				}
+			}
+
+			$dt = array();
+
+			// Now try to match it
+			if ( preg_match( '#^' . $regex . '$#', $date, $dt ) ){
+				// Remove unwanted Indexes
+				foreach ( $dt as $k => $v ){
+					if ( is_int( $k ) ){
+						unset( $dt[ $k ] );
+					}
+				}
+
+				// We need at least Month + Day + Year to work with
+				if ( ! checkdate( $dt['month'], $dt['day'], $dt['year'] ) ){
+					return false;
+				}
+			} else {
+				return false;
+			}
+
+			$formatted = '{year}-{month}-{day}' . ( isset( $dt['hour'], $dt['minute'], $dt['second'] ) ? ' {hour}:{minute}:{second}' : '' );
+			foreach ( $dt as $key => $value ) {
+				$formatted = str_replace( '{' . $key . '}', $value, $formatted );
+			}
+
+			return $formatted;
 		}
 
 		/**
