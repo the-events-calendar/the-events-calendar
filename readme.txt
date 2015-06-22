@@ -41,7 +41,7 @@ By developers, for developers...it's ready to be the foundation for your wildest
 
 Whether your vision is big or small, we have you in mind.
 
-We've scaled The Events Calendar to work on a network with over 25 million unique visitors per month and hundreds of thousands of events. We have it running for Fortune 100 companies. Major universities, government institutions and some seriously bad ass startups push their events with our platform. Thousands of churches, eateries, small businesses, musicians, venues, and non-profits are publishing and promoting their events with The Events Calendar. You're in good company.
+We've scaled The Events Calendar to work on a network with over 25 million unique visitors per month and hundreds of thousands of events. We have it running for Fortune 100 companies. Major universities, government institutions and some seriously epic startups push their events with our platform. Thousands of churches, eateries, small businesses, musicians, venues, and non-profits are publishing and promoting their events with The Events Calendar. You're in good company.
 
 = FEATURES =
 
@@ -285,7 +285,7 @@ The plugin is produced by <a href="http://m.tri.be/2s">Modern Tribe Inc</a>.
 
 == Add-Ons ==
 
-But wait: there's more! We've got a whole stable of plugins available to help you kick ass at what you do. Check out a full list of the products below, and over at the <a href="http://m.tri.be/2a" target="_blank">Modern Tribe website.</a>
+But wait: there's more! We've got a whole stable of plugins available to help you be awesome at what you do. Check out a full list of the products below, and over at the <a href="http://m.tri.be/2a" target="_blank">Modern Tribe website.</a>
 
 Our Free Plugins:
 
@@ -733,7 +733,7 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 
 == Help ==
 
-Welcome to The Events Calendar, a full-featured events management system for WordPress. Thank you so much for using the labor of our love. We are Modern Tribe and we are here to help you kick ass.
+Welcome to The Events Calendar, a full-featured events management system for WordPress. Thank you so much for using the labor of our love. We are Modern Tribe and we are here to help you be awesome.
 
 If you aren't familiar with The Events Calendar, check out our <a href="http://m.tri.be/2p">new user primer.</a> It'll introduce you to the basics of what the plugin has to offer and will have you creating events in no time. From there, the resources below -- extensive template tag documentation, FAQs, video walkthroughs and more -- will give you a leg up as you dig deeper.
 

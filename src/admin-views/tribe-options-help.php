@@ -91,7 +91,7 @@ $premium_add_ons[] = array(
 $premium_add_ons   = (array) apply_filters( 'tribe_help_tab_premium_addons', $premium_add_ons ); // TODO should we replace this with an RSS feed??
 
 
-$getting_started_text = __( "If you're looking for help with The Events Calendar, you've come to the right place. We are committed to helping make your calendar kick ass...and hope the resources provided below will help get you there.", 'tribe-events-calendar' );
+$getting_started_text = __( "If you're looking for help with The Events Calendar, you've come to the right place. We are committed to helping make your calendar be spectacular... and hope the resources provided below will help get you there.", 'tribe-events-calendar' );
 $getting_started_text = apply_filters( 'tribe_help_tab_getting_started_text', $getting_started_text );
 
 $intro_text[] = '<p>' . __( "If this is your first time using The Events Calendar, you're in for a treat and are already well on your way to creating a first event. Here are some basics we've found helpful for users jumping into it for the first time:", 'tribe-events-calendar' ) . '</p>';
@@ -139,7 +139,7 @@ $more_text  = __( 'More...', 'tribe-events-calendar' );
 	<div id="modern-tribe-info">
 		<img src="<?php echo esc_url( plugins_url( 'resources/images/modern-tribe@2x.png', dirname( __FILE__ ) ) ); ?>" alt="Modern Tribe Inc." title="Modern Tribe Inc.">
 
-		<p><?php esc_html_e( 'Hi! We are Modern Tribe and we are here to help you kick ass. Thanks so much for installing our labor of love!', 'tribe-events-calendar' ); ?></p>
+		<p><?php esc_html_e( 'Hi! We are Modern Tribe and we are here to help you be awesome. Thanks so much for installing our labor of love!', 'tribe-events-calendar' ); ?></p>
 		<?php echo apply_filters( 'tribe_help_tab_getting_started_content', $getting_started_text ); ?>
 	</div>
 
@@ -148,7 +148,7 @@ $more_text  = __( 'More...', 'tribe-events-calendar' );
 		<h3><?php esc_html_e( 'Getting Started', 'tribe-events-calendar' ); ?></h3>
 		<?php echo apply_filters( 'tribe_help_tab_introtext', $intro_text ); ?>
 
-		<h3><?php esc_html_e( 'Support Resources To Help You Kick Ass', 'tribe-events-calendar' ); ?></h3>
+		<h3><?php esc_html_e( 'Support Resources To Help You Be Awesome', 'tribe-events-calendar' ); ?></h3>
 		<?php echo apply_filters( 'tribe_help_tab_supporttext', $support_text ); ?>
 
 		<h3><?php esc_html_e( 'Forums: Because Everyone Needs A Buddy', 'tribe-events-calendar' ); ?></h3>
@@ -170,7 +170,7 @@ $more_text  = __( 'More...', 'tribe-events-calendar' );
 
 
 		<?php if ( isset( $up_to_date ) ) { ?><p><?php echo $up_to_date; ?></p><?php } ?>
-		<?php if (isset( $version )) { ?><p>
+		<?php if ( isset( $version ) ) { ?><p>
 			<b><?php esc_html_e( 'Latest Version:', 'tribe-events-calendar' ); ?></b> <?php echo $version; ?>
 			<br /><?php } ?>
 			<b><?php esc_html_e( 'Author:', 'tribe-events-calendar' ); ?></b> <?php esc_html_e( 'Modern Tribe Inc', 'tribe-events-calendar' ); ?>
@@ -219,7 +219,7 @@ $more_text  = __( 'More...', 'tribe-events-calendar' );
 	<ul>
 		<?php
 		foreach ( $news_feed as $item ) {
-			echo( '<li><a href="' . esc_url( $item['link'] . $ga_query_string ) . '">' . $item['title'] . '</a></li>' );
+			echo '<li><a href="' . esc_url( $item['link'] . $ga_query_string ) . '">' . $item['title'] . '</a></li>';
 		}
 		echo '<li><a href="' . esc_url( Tribe__Events__Main::$tecUrl . 'category/products/' . $ga_query_string ) . '">' . $more_text . '</a></li>';
 		?>
