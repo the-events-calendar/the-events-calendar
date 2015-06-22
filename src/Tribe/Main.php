@@ -865,7 +865,8 @@
 
 							$query->set( 'eventDate', $start_date  );
 							$query->set( 'start_date', $start_date );
-							$query->set( 'end_date', $end_date );							$query->set( 'posts_per_page', -1 ); // show ALL week posts
+							$query->set( 'end_date', $end_date );
+							$query->set( 'posts_per_page', -1 ); // show ALL week posts
 							$query->set( 'hide_upcoming', false );
 							break;
 						case 'photo':
@@ -879,12 +880,20 @@
 							unset( $query->query_vars['name'] );
 							unset( $query->query_vars['tribe_events'] );
 
-							$all_ids = Tribe__Events__Pro__Recurrence_Meta::get_events_by_slug( $slug );
-							if ( empty( $all_ids ) ) {
+							$post = get_posts( array(
+								'name' => $slug,
+								'post_type' => Tribe__Events__Main::POSTTYPE,
+								'post_status' => 'publish',
+								'numberposts' => 1,
+							) );
+
+							if ( empty( $post ) ) {
 								$query->set( 'p', -1 );
 							} else {
-								$query->set( 'post__in', $all_ids );
+								$query->set( 'post_parent', $post[0]->ID );
 								$query->set( 'post_status', 'publish' );
+								$query->set( 'posts_per_page', tribe_get_option( 'postsPerPage', 10 ) );
+								$query->is_singular = false;
 							}
 							break;
 					}
@@ -979,8 +988,6 @@
 				// recurring "all" view
 				if ( tribe_is_showing_all() ) {
 					$template = Tribe__Events__Templates::getTemplateHierarchy( 'list' );
-					// don't show pagination on the "all" view
-					add_filter( 'tribe_get_template_part_path_list/nav.php', '__return_empty_string' );
 				}
 
 				return $template;
