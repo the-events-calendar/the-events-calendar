@@ -17,7 +17,7 @@ A premium add-on to The Events Calendar plugin (required), enabling recurrence, 
 
 The Events Calendar allows you to create and manage events with ease from right within your WordPress dash; no shortcode is needed (nor is one available).  With Events Calendar PRO, you can go even further with recurring events, more calendar views (including Day and Week), Location Search, more widget options, and much more.
 
-Plus, Events Calendar PRO users get access to our premium support forums. Need help or have a question? Post there and we'll get back to you within 24 hours (during the week). We're proud of our great support team and want to help you kick butt with Events Calendar PRO.
+Plus, Events Calendar PRO users get access to our premium support forums. Need help or have a question? Post there and we'll get back to you within 24 hours (during the week). We're proud of our great support team and want to help you crush it with Events Calendar PRO.
 
 = Features =
 
@@ -552,7 +552,7 @@ Our Premium Plugins:
 
 == Help ==
 
-Welcome to The Events Calendar and Events Calendar PRO, a full-featured events management system for WordPress. Thank you so much for using the labor of our love. We are Modern Tribe and we are here to help you kick ass.
+Welcome to The Events Calendar and Events Calendar PRO, a full-featured events management system for WordPress. Thank you so much for using the labor of our love. We are Modern Tribe and we are here to help you be awesome.
 
 If you aren't familiar with The Events Calendar and Events Calendar PRO, check out our <a href="http://m.tri.be/3t">new user primer.</a> It'll introduce you to the basics of what the plugin has to offer and will have you creating events in no time. From there, the resources below -- extensive template tag documentation, FAQs, video walkthroughs and more -- will give you a leg up as you dig deeper.
 
