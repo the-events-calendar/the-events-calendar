@@ -2518,9 +2518,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			// Normally Google Cal understands the newline character %0a
 			// And that character will automatically replace newlines on urlencode()
 			$event_details = str_replace ('</p>', '</p> ', $event_details);
-			
+
 			$event_details = strip_tags( $event_details );
-	
+
 			//Truncate Event Description and add permalink if greater than 996 characters
 			if ( strlen( $event_details ) > 996 ) {
 
@@ -2548,6 +2548,18 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			return $url;
 		}
+
+	/**
+	 * Custom Escape for gCal Description to keep spacing characters in the url
+	 *
+	 * @return santized url
+	 */
+	public function esc_gcal_url( $url ) {
+	  $url = str_replace( '%0A', 'TRIBE-GCAL-LINEBREAK', $url );
+	  $url = esc_url( $url );
+	  $url = str_replace( 'TRIBE-GCAL-LINEBREAK', '%0A', $url );
+	  return $url;
+	}
 
 		/**
 		 * Returns a link to google maps for the given event. This link can be filtered
