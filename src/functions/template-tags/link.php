@@ -168,6 +168,73 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	}
 
 	/**
+	 * Link to a nearby List View page
+	 *
+	 * Returns a link to the next/previous list view page
+	 *
+	 * @param string $direction 'next' or 'prev'
+	 * @param int|null $term Term ID
+	 *
+	 * @return string URL
+	 */
+	function tribe_get_listview_dir_link( $direction = 'next', $term = null ) {
+		$link = tribe_get_listview_link( $term );
+
+		$page = empty( $_GET['tribe_paged'] ) ? 1 : absint( $_GET['tribe_paged'] );
+
+		$display = 'list';
+		if ( ! empty( $_GET['tribe_event_display'] ) && 'past' === $_GET['tribe_event_display'] ) {
+			$display = 'past';
+		}
+
+		if (
+			( 'next' === $direction && 'list' === $display )
+			|| ( 'prev' === $direction && 'past' === $display )
+		) {
+			$page++;
+		} elseif ( 'list' === $display && 1 === $page ) {
+			$display = 'past';
+		} elseif ( 'past' === $display && 1 === $page ) {
+			$display = 'list';
+		} else {
+			$page--;
+		}
+
+		$link = add_query_arg( 'tribe_event_display', $display, $link );
+		$link = add_query_arg( 'tribe_paged', $page, $link );
+
+		return apply_filters( 'tribe_get_listview_dir_link', $link );
+	}
+
+	/**
+	 * Link to prev List View
+	 *
+	 * Returns a link to the previous list view page
+	 *
+	 * @param int|null $term Term ID
+	 *
+	 * @return string URL
+	 */
+	function tribe_get_listview_prev_link( $term = null ) {
+		$link = tribe_get_listview_dir_link( 'prev', $term );
+		return apply_filters( 'tribe_get_listview_prev_link', $link );
+	}
+
+	/**
+	 * Link to next List View
+	 *
+	 * Returns a link to the next list view page
+	 *
+	 * @param int|null $term Term ID
+	 *
+	 * @return string URL
+	 */
+	function tribe_get_listview_next_link( $term = null ) {
+		$link = tribe_get_listview_dir_link( 'next', $term );
+		return apply_filters( 'tribe_get_listview_next_link', $link );
+	}
+
+	/**
 	 * Single Event Link (Display)
 	 *
 	 * Display link to a single event
