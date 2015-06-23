@@ -168,6 +168,86 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	}
 
 	/**
+	 * Link to a nearby List View page
+	 *
+	 * Returns a link to the next/previous list view page
+	 *
+	 * @param string $direction 'next' or 'prev'
+	 * @param int|null $term Term ID
+	 * @param string $currently_displaying Type of listview page that is currently being displayed ('past' or 'list')
+	 * @param int $page Current page number being displayed
+	 *
+	 * @return string URL
+	 */
+	function tribe_get_listview_dir_link( $direction = 'next', $term = null, $currently_displaying = null, $page = null ) {
+		$link = tribe_get_listview_link( $term );
+
+		// if a page isn't passed in, attempt to fetch it from a get var
+		if ( ! $page ) {
+			$page = empty( $_GET['tribe_paged'] ) ? 1 : absint( $_GET['tribe_paged'] );
+		}
+
+		// if what we are currently displaying is not passed in, let's set a default and check $_GET
+		if ( ! $currently_displaying ) {
+			$currently_displaying = 'list';
+			if ( ! empty( $_GET['tribe_event_display'] ) && 'past' === $_GET['tribe_event_display'] ) {
+				$currently_displaying = 'past';
+			}
+		}
+
+		// assume we want to display what we're currently displaying (until we discover otherwise)
+		$display = $currently_displaying;
+
+		if (
+			( 'next' === $direction && 'list' === $currently_displaying )
+			|| ( 'prev' === $direction && 'past' === $currently_displaying )
+		) {
+			$page++;
+		} elseif ( 'list' === $currently_displaying && 1 === $page ) {
+			$display = 'past';
+		} elseif ( 'past' === $currently_displaying && 1 === $page ) {
+			$display = 'list';
+		} else {
+			$page--;
+		}
+
+		$link = add_query_arg( array(
+			'tribe_event_display' => $display,
+			'tribe_paged' => $page,
+		), $link );
+
+		return apply_filters( 'tribe_get_listview_dir_link', $link, $term );
+	}
+
+	/**
+	 * Link to prev List View
+	 *
+	 * Returns a link to the previous list view page
+	 *
+	 * @param int|null $term Term ID
+	 *
+	 * @return string URL
+	 */
+	function tribe_get_listview_prev_link( $term = null ) {
+		$link = tribe_get_listview_dir_link( 'prev', $term );
+		return apply_filters( 'tribe_get_listview_prev_link', $link, $term );
+	}
+
+	/**
+	 * Link to next List View
+	 *
+	 * Returns a link to the next list view page
+	 *
+	 * @param int|null $term Term ID
+	 *
+	 * @return string URL
+	 */
+	function tribe_get_listview_next_link( $term = null ) {
+		$link = tribe_get_listview_dir_link( 'next', $term );
+		return apply_filters( 'tribe_get_listview_next_link', $link, $term );
+	}
+
+	/**
 	 * Single Event Link (Display)
 	 *
 	 * Display link to a single event
