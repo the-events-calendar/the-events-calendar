@@ -27,6 +27,7 @@ $args = tribe_events_get_mini_calendar_args();
 	tribe_show_month( array(
 		'tax_query' => $args['tax_query'],
 		'eventDate' => $args['eventDate'],
+		'suppress_nothing_found_notice' => true,
 	), 'pro/widgets/mini-calendar/grid' ); ?>
 
 	<!-- List -->
