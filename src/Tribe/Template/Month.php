@@ -132,6 +132,10 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 		 * Sets an appropriate no results found message.
 		 */
 		protected function nothing_found_notice() {
+			if ( ! empty( $this->args['suppress_nothing_found_notice'] ) ) {
+				return;
+			}
+
 			$events_label_plural = tribe_get_event_label_plural();
 			list( $search_term, $tax_term, $geographic_term ) = $this->get_search_terms();
 
