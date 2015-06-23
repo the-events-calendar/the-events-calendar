@@ -3675,57 +3675,57 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 */
 		public function get_event_link( $post, $mode = 'next', $anchor = false ) {
 			global $wpdb;
+			$link = '';
 
-			if ( $mode == 'previous' ) {
-				$order = 'DESC';
-				$sign  = '<';
+			if ( 'previous' === $mode ) {
+				$order      = 'DESC';
+				$direction  = '<';
 			} else {
-				$order = 'ASC';
-				$sign  = '>';
+				$order      = 'ASC';
+				$direction  = '>';
+				$mode       = 'next';
 			}
 
-			$date = $post->EventStartDate;
-			$id   = $post->ID;
-
-			$eventsQuery = $wpdb->prepare(
-								"
-				SELECT $wpdb->posts.*, d1.meta_value as EventStartDate
-				FROM $wpdb->posts
-				LEFT JOIN $wpdb->postmeta as d1 ON($wpdb->posts.ID = d1.post_id)
-				WHERE $wpdb->posts.post_type = '%s'
-				AND d1.meta_key = '_EventStartDate'
-				AND ((d1.meta_value = '%s' AND ID $sign %d) OR
-					d1.meta_value $sign '%s')
-				AND $wpdb->posts.post_status = 'publish'
-				AND ($wpdb->posts.ID != %d OR d1.meta_value != '%s')
-				ORDER BY TIMESTAMP(d1.meta_value) $order, ID $order
-				LIMIT 1", self::POSTTYPE, $date, $id, $date, $id, $date
-			);
-
 			$args = array(
-				'post_type'      => self::POSTTYPE,
-				'post_status'    => 'publish',
 				'post__not_in'   => array( $post->ID ),
 				'order'          => $order,
-				'orderby'        => "TIMESTAMP($wpdb->postmeta.meta_value) ID",
+				'orderby'        => "TIMESTAMP( $wpdb->postmeta.meta_value ) ID",
 				'posts_per_page' => 1,
 				'meta_query'     => array(
 					array(
-						'key'   => '_EventStartDate',
-						'value' => $post->EventStartDate,
-						'type'  => 'DATE',
+						'key'     => '_EventStartDate',
+						'value'   => $post->EventStartDate,
+						'type'    => 'DATETIME',
+						'compare' => $direction,
 					),
+					array(
+						'key'     => '_EventHideFromUpcoming',
+						'compare' => 'NOT EXISTS',
+					),
+					'relation'    => 'AND',
 				),
 			);
-			// TODO: Finish rewriting this query to be WP_QUERY based
 
-			$results = $wpdb->get_row( $eventsQuery, OBJECT );
-			if ( is_object( $results ) ) {
+			/**
+			 * Allows the query arguments used when retrieving the next/previous event link
+			 * to be modified.
+			 *
+			 * @var array   $args
+			 * @var WP_Post $post
+			 * @var boolean $anchor
+			 */
+			$args = (array) apply_filters( "tribe_events_get_{$mode}_event_link", $args, $post, $anchor );
+			$results = tribe_get_events( $args );
+
+			// If we successfully located the next/prev event, we should have precisely one element in $results
+			if ( 1 === count( $results ) ) {
+				$event = current( $results );
+
 				if ( ! $anchor ) {
-					$anchor = apply_filters( 'the_title', $results->post_title );
+					$anchor = apply_filters( 'the_title', $event->post_title );
 				} elseif ( strpos( $anchor, '%title%' ) !== false ) {
 					// get the nicely filtered post title
-					$title = apply_filters( 'the_title', $results->post_title, $results->ID );
+					$title = apply_filters( 'the_title', $event->post_title, $event->ID );
 
 					// escape special characters used in the second parameter of preg_replace
 					$title = str_replace(
@@ -3743,8 +3743,10 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 					$anchor = preg_replace( '|%title%|', $title, $anchor );
 				}
 
-				return apply_filters( 'tribe_events_get_event_link', '<a href="' . esc_url( tribe_get_event_link( $results ) ) . '">' . $anchor . '</a>' );
+				$link = '<a href="' . esc_url( tribe_get_event_link( $results ) ) . '">' . $anchor . '</a>';
 			}
+
+			return apply_filters( 'tribe_events_get_event_link', $link );
 		}
 
 		/**
