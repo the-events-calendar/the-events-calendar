@@ -177,33 +177,44 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 *
 	 * @return string URL
 	 */
-	function tribe_get_listview_dir_link( $direction = 'next', $term = null ) {
+	function tribe_get_listview_dir_link( $direction = 'next', $term = null, $currently_displaying = null, $page = null ) {
 		$link = tribe_get_listview_link( $term );
 
-		$page = empty( $_GET['tribe_paged'] ) ? 1 : absint( $_GET['tribe_paged'] );
-
-		$display = 'list';
-		if ( ! empty( $_GET['tribe_event_display'] ) && 'past' === $_GET['tribe_event_display'] ) {
-			$display = 'past';
+		// if a page isn't passed in, attempt to fetch it from a get var
+		if ( ! $page ) {
+			$page = empty( $_GET['tribe_paged'] ) ? 1 : absint( $_GET['tribe_paged'] );
 		}
 
+		// if what we are currently displaying is not passed in, let's set a default and check $_GET
+		if ( ! $currently_displaying ) {
+			$currently_displaying = 'list';
+			if ( ! empty( $_GET['tribe_event_display'] ) && 'past' === $_GET['tribe_event_display'] ) {
+				$currently_displaying = 'past';
+			}
+		}
+
+		// assume we want to display what we're currently displaying (until we discover otherwise)
+		$display = $currently_displaying;
+
 		if (
-			( 'next' === $direction && 'list' === $display )
-			|| ( 'prev' === $direction && 'past' === $display )
+			( 'next' === $direction && 'list' === $currently_displaying )
+			|| ( 'prev' === $direction && 'past' === $currently_displaying )
 		) {
 			$page++;
-		} elseif ( 'list' === $display && 1 === $page ) {
+		} elseif ( 'list' === $currently_displaying && 1 === $page ) {
 			$display = 'past';
-		} elseif ( 'past' === $display && 1 === $page ) {
+		} elseif ( 'past' === $currently_displaying && 1 === $page ) {
 			$display = 'list';
 		} else {
 			$page--;
 		}
 
-		$link = add_query_arg( 'tribe_event_display', $display, $link );
-		$link = add_query_arg( 'tribe_paged', $page, $link );
+		$link = add_query_arg( array(
+			'tribe_event_display' => $display,
+			'tribe_paged' => $page,
+		), $link );
 
-		return apply_filters( 'tribe_get_listview_dir_link', $link );
+		return apply_filters( 'tribe_get_listview_dir_link', $link, $term );
 	}
 
 	/**
@@ -217,7 +228,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 */
 	function tribe_get_listview_prev_link( $term = null ) {
 		$link = tribe_get_listview_dir_link( 'prev', $term );
-		return apply_filters( 'tribe_get_listview_prev_link', $link );
+		return apply_filters( 'tribe_get_listview_prev_link', $link, $term );
 	}
 
 	/**
@@ -231,7 +242,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 */
 	function tribe_get_listview_next_link( $term = null ) {
 		$link = tribe_get_listview_dir_link( 'next', $term );
-		return apply_filters( 'tribe_get_listview_next_link', $link );
+		return apply_filters( 'tribe_get_listview_next_link', $link, $term );
 	}
 
 	/**
