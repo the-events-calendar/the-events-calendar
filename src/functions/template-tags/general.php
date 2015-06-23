@@ -1206,70 +1206,80 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 *
 	 * @return string
 	 */
-	function tribe_events_template_data( $event, array $additional = null ) {
-		$has_image      = false;
-		$image_src      = '';
-		$image_tool_src = '';
-		$date_display   = '';
-
-		//Disable recurring event info in tooltip
-		if ( class_exists( 'Tribe__Events__Pro__Main' ) ) {
-			$ecp = Tribe__Events__Pro__Main::instance();
-			$ecp->disable_recurring_info_tooltip();
-
-			$date_display = strip_tags( tribe_events_event_schedule_details( $event ) );
-
-			// Re-enable recurring event info
-			$ecp->enable_recurring_info_tooltip();
-		} else {
-			$date_display = strip_tags( tribe_events_event_schedule_details( $event ) );
-		}
-
-		if ( function_exists( 'has_post_thumbnail' ) && has_post_thumbnail( $event->ID ) ) {
-			$has_image = true;
-			$image_arr = wp_get_attachment_image_src( get_post_thumbnail_id( $event->ID ), 'medium' );
-			$image_src = $image_arr[0];
-		}
-
-		if ( $has_image ) {
-			$image_tool_arr = wp_get_attachment_image_src( get_post_thumbnail_id( $event->ID ), array( 75, 75 ) );
-			$image_tool_src = $image_tool_arr[0];
-		}
-
-		if ( post_password_required( $event->ID ) ) {
-			$password_required_msg = __( 'You must visit this event and enter the password to view the description.', 'tribe-events-calendar' );
-			$excerpt = apply_filters( 'tribe_events_template_data_password_required', $password_required_msg );
-			$do_not_truncate = true;
-		}
-		elseif ( has_excerpt( $event->ID ) ) {
-			$excerpt = $event->post_excerpt;
-		} else {
-			$excerpt = $event->post_content;
-		}
-		$excerpt = ! empty( $do_not_truncate ) ? $excerpt : Tribe__Events__Main::instance()->truncate( $excerpt, 30 );
-
-		$category_classes = tribe_events_event_classes( $event->ID, false );
-
+	function tribe_events_template_data( $event = null, array $additional = null ) {
+		// Base JSON variable
 		$json = array(
-			'eventId'         => $event->ID,
-			'title'           => $event->post_title,
-			'permalink'       => tribe_get_event_link( $event->ID ),
-			'imageSrc'        => $image_src,
-			'dateDisplay'	  => $date_display,
-			'imageTooltipSrc' => $image_tool_src,
-			'excerpt'         => $excerpt,
-			'categoryClasses' => $category_classes,
+			'i18n' => array(),
 		);
 
+		if ( ! is_null( $event ) ) {
+			$event = get_post( $event );
+			// Check if we are dealing with an Event
+			if ( is_object( $event ) && $event instanceof WP_Post && tribe_is_event( $event->ID ) ) {
+				$has_image      = false;
+				$image_src      = '';
+				$image_tool_src = '';
+				$date_display   = '';
+
+				//Disable recurring event info in tooltip
+				if ( class_exists( 'Tribe__Events__Pro__Main' ) ) {
+					$ecp = Tribe__Events__Pro__Main::instance();
+					$ecp->disable_recurring_info_tooltip();
+
+					$date_display = strip_tags( tribe_events_event_schedule_details( $event ) );
+
+					// Re-enable recurring event info
+					$ecp->enable_recurring_info_tooltip();
+				} else {
+					$date_display = strip_tags( tribe_events_event_schedule_details( $event ) );
+				}
+
+				if ( function_exists( 'has_post_thumbnail' ) && has_post_thumbnail( $event->ID ) ) {
+					$has_image = true;
+					$image_arr = wp_get_attachment_image_src( get_post_thumbnail_id( $event->ID ), 'medium' );
+					$image_src = $image_arr[0];
+				}
+
+				if ( $has_image ) {
+					$image_tool_arr = wp_get_attachment_image_src( get_post_thumbnail_id( $event->ID ), array( 75, 75 ) );
+					$image_tool_src = $image_tool_arr[0];
+				}
+
+				if ( has_excerpt( $event->ID ) ) {
+					$excerpt = $event->post_excerpt;
+				} else {
+					$excerpt = $event->post_content;
+				}
+				$excerpt = Tribe__Events__Main::instance()->truncate( $excerpt, 30 );
+
+				$category_classes = tribe_events_event_classes( $event->ID, false );
+
+				$json['eventId'] = $event->ID;
+				$json['title'] = $event->post_title;
+				$json['permalink'] = tribe_get_event_link( $event->ID );
+				$json['imageSrc'] = $image_src;
+				$json['dateDisplay'] = $date_display;
+				$json['imageTooltipSrc'] = $image_tool_src;
+				$json['excerpt'] = $excerpt;
+				$json['categoryClasses'] = $category_classes;
+
+				/**
+				 * Template overrides (of month/tooltip.php) set up in 3.9.3 or earlier may still expect
+				 * these vars and will break without them, so they are being kept temporarily for
+				 * backwards compatibility purposes.
+				 *
+				 * @todo consider removing in 4.0
+				 */
+				$json['startTime'] = tribe_get_start_date( $event );
+				$json['endTime']   = tribe_get_end_date( $event );
+			}
+		}
+
 		/**
-		 * Template overrides (of month/tooltip.php) set up in 3.9.3 or earlier may still expect
-		 * these vars and will break without them, so they are being kept temporarily for
-		 * backwards compatibility purposes.
-		 *
-		 * @todo consider removing in 4.0
+		 * Internationalization Strings
 		 */
-		$json['startTime'] = tribe_get_start_date( $event );
-		$json['endTime']   = tribe_get_end_date( $event );
+		$json['i18n']['find_out_more'] = esc_attr__( 'Find out more »', 'tribe-events-calendar' );
+		$json['i18n']['for_date'] = esc_attr( sprintf( __( '%s for', 'tribe-events-calendar' ), tribe_get_event_label_plural() ) );
 
 		if ( $additional ) {
 			$json = array_merge( (array) $json, (array) $additional );
