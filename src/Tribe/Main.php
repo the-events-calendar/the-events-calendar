@@ -880,17 +880,17 @@
 							unset( $query->query_vars['name'] );
 							unset( $query->query_vars['tribe_events'] );
 
-							$post = get_posts( array(
+							$post = reset( get_posts( array(
 								'name' => $slug,
 								'post_type' => Tribe__Events__Main::POSTTYPE,
 								'post_status' => 'publish',
 								'numberposts' => 1,
-							) );
+							) ) );
 
 							if ( empty( $post ) ) {
 								$query->set( 'p', -1 );
 							} else {
-								$query->set( 'post_parent', $post[0]->ID );
+								$query->set( 'post_parent', $post->ID );
 								$query->set( 'post_status', 'publish' );
 								$query->set( 'posts_per_page', tribe_get_option( 'postsPerPage', 10 ) );
 								$query->is_singular = false;
