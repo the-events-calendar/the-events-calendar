@@ -653,8 +653,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				}
 
 				// check if addons are at an older minor version
-				$addon_minor_version = (float) $plugin['current_version'];
-				$tec_minor_version   = (float) self::VERSION;
+				$addon_minor_version = $plugin['current_version'];
+				$tec_minor_version   = self::VERSION;
 				if ( version_compare( $addon_minor_version, $tec_minor_version, '<' ) ) {
 					$out_of_date_addons[] = $plugin['plugin_name'] . ' ' . $plugin['current_version'];
 				}
