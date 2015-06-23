@@ -116,6 +116,9 @@ jQuery( document ).ready( function( $ ) {
 
 		object.closest( 'li' ).remove();
 
+		// support the customizer by triggering a false change on an element so the updated hidden field gets saved
+		object.closest( '.customize-control-widget_form' ).find( 'input[name^="widget-tribe-mini-calendar"]' ).trigger( 'change' );
+
 		calendar_toggle( wrapper );
 
 	} );
