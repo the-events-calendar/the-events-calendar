@@ -353,6 +353,7 @@ if ( ! class_exists( 'Tribe__Events__Date_Utils' ) ) {
 				'true' === strtolower( $all_day_value )
 				|| 'yes' === strtolower( $all_day_value )
 				|| true === $all_day_value
+				|| 1 == $all_day_value
 			);
 		}
 
