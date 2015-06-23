@@ -61,7 +61,6 @@ class Tribe__Events__Importer__Column_Mapper {
 			'event_show_map_link'  => __( 'Event Show Map Link', 'tribe-events-calendar' ),
 			'event_show_map'       => __( 'Event Show Map', 'tribe-events-calendar' ),
 			'event_cost'           => __( 'Event Cost', 'tribe-events-calendar' ),
-			'event_phone'          => __( 'Event Phone', 'tribe-events-calendar' ),
 			'event_category'       => __( 'Event Category', 'tribe-events-calendar' ),
 			'event_website'  	   => __( 'Event Website', 'tribe-events-calendar' ),
 		);
