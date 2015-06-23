@@ -174,6 +174,8 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 *
 	 * @param string $direction 'next' or 'prev'
 	 * @param int|null $term Term ID
+	 * @param string $currently_displaying Type of listview page that is currently being displayed ('past' or 'list')
+	 * @param int $page Current page number being displayed
 	 *
 	 * @return string URL
 	 */
