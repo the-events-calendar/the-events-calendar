@@ -37,6 +37,14 @@ if ( ! class_exists( 'Tribe__Events__Templates' ) ) {
 		 */
 		protected static $template = false;
 
+		/*
+		 * List of templates which have compatibility fixes
+		 */
+		public static $themes_with_compatibility_fixes = array(
+			'twentyfifteen',
+			'twentyfourteen',
+			'twentythirteen'
+		);
 
 		/**
 		 * Initialize the Template Yumminess!
@@ -65,6 +73,11 @@ if ( ! class_exists( 'Tribe__Events__Templates' ) ) {
 			}
 
 			add_action( 'wp_head', array( __CLASS__, 'wpHeadFinished' ), 999 );
+
+			// add the theme name to the body class when needed
+			if ( self::needs_compatibility_fix() ) {
+				add_filter( 'body_class', array( __CLASS__, 'theme_body_class' ) );
+			}
 
 			add_filter( 'get_post_time', array( __CLASS__, 'event_date_to_pubDate' ), 10, 3 );
 		}
@@ -221,6 +234,23 @@ if ( ! class_exists( 'Tribe__Events__Templates' ) ) {
 			$classes[] = $theme_classes;
 
 			return $classes;
+		}
+
+
+		/**
+		 * Checks if theme needs a compatibility fix
+		 *
+		 * @param string $theme Name of template from WP_Theme->Template, defaults to current active template
+		 *
+		 *@return mixed
+		 */
+		public static function needs_compatibility_fix ( $theme = null ) {
+			// Defaults to current active theme
+			if ( $theme === null) $theme = wp_get_theme()->Template;
+
+			$theme_compatibility_list = apply_filters( 'tribe_themes_compatibility_fixes', self::$themes_with_compatibility_fixes );
+
+			return in_array( $theme, $theme_compatibility_list );
 		}
 
 
