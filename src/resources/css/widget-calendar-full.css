@@ -335,10 +335,6 @@
 	width: 75%;
 }
 
-.tribe-theme-twentyfifteen .tribe-mini-calendar div[id*='daynum-'] {
-	word-wrap: normal;
-}
-
 .tribe-theme-twentyfifteen .tribe-mini-calendar div[id*='daynum-'] a {
 	padding: 5px 0 15px 0;
 }
