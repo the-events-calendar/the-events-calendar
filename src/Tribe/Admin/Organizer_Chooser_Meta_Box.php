@@ -47,7 +47,7 @@ class Tribe__Events__Admin__Organizer_Chooser_Meta_Box {
 	public function render() {
 		$this->render_dropdowns();
 		$this->render_add_organizer_button();
-		include( $this->tribe->pluginPath . 'admin-views/new-organizer-meta-section.php' );
+		include( $this->tribe->pluginPath . 'src/admin-views/new-organizer-meta-section.php' );
 	}
 
 	/**
