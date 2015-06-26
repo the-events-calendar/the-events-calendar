@@ -292,21 +292,21 @@ if ( ! class_exists( 'Tribe__Events__PUE__Checker' ) ) {
 		public function do_license_key_fields( $fields ) {
 
 			// we want to inject the following license settings at the end of the licenses tab
-			$fields = self::array_insert_after_key(
-						  'tribe-form-content-start', $fields, array(
-								  $this->pue_install_key . '-heading' => array(
-									  'type'  => 'heading',
-									  'label' => $this->get_plugin_name(),
-								  ),
-								  $this->pue_install_key              => array(
-									  'type'            => 'license_key',
-									  'size'            => 'large',
-									  'validation_type' => 'license_key',
-									  'label'           => sprintf( __( 'License Key', 'tribe-events-calendar' ) ),
-									  'tooltip'         => __( 'A valid license key is required for support and updates', 'tribe-events-calendar' ),
-									  'parent_option'   => false,
-								  ),
-							  )
+			$fields = self::array_insert_after_key( 'tribe-form-content-start', $fields, array(
+					$this->pue_install_key . '-heading' => array(
+						'type'  => 'heading',
+						'label' => $this->get_plugin_name(),
+					),
+					$this->pue_install_key => array(
+						'type'            => 'license_key',
+						'size'            => 'large',
+						'validation_type' => 'license_key',
+						'label'           => sprintf( __( 'License Key', 'tribe-events-calendar' ) ),
+						'tooltip'         => __( 'A valid license key is required for support and updates', 'tribe-events-calendar' ),
+						'parent_option'   => false,
+						'network_option'  => true,
+					),
+				)
 			);
 
 			return $fields;
