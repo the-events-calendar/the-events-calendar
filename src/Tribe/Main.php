@@ -761,7 +761,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			new Tribe__Events__Settings_Tab( 'licenses', __( 'Licenses', 'tribe-events-calendar' ), array(
 				'priority'      => '40',
-				'fields'        => $license_fields
+				'fields'        => $license_fields,
+				'network_admin' => is_network_admin() ? true : false,
 			) );
 		}
 

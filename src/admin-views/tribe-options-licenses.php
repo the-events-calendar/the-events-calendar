@@ -14,12 +14,13 @@ $html = __( '<p>The license key you received when completing your purchase from 
 
 // Expand with extra information for mu network users
 if ( is_multisite() ) {
-	$html .= '<p>'
-		. __( '
-		       <strong> Using our plugins in a multisite network? </strong>
-		       Please note that your license key will be applied to the entire network, not just this site.
-		  ', 'tribe-events-calendar' )
-		. '</p>';
+	$network_all_sites_text = __( '<strong> Using our plugins in a multisite network? </strong>
+		Please note that your license key will be applied to the entire network, not just this site.', 'tribe-events-calendar' );
+
+	$network_admin_only = is_network_admin() ? __( 'Only license fields for <strong>network activated</strong> plugins will be
+		listed on this screen. ', 'tribe-events-calendar' ) : '';
+
+	$html .= "<p> $network_all_sites_text $network_admin_only </p>";
 }
 
 $licenses_tab = array(
