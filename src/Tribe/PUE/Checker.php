@@ -412,6 +412,7 @@ if ( ! class_exists( 'Tribe__Events__PUE__Checker' ) ) {
 				}
 
 				$pluginInfo = $this->request_info( $queryArgs );
+				$expiration = isset( $pluginInfo->expiration ) ? $pluginInfo->expiration : __( 'unknown date', 'tribe-events-calendar' );
 
 				if ( empty( $pluginInfo ) ) {
 					$response['message'] = __( 'Sorry, key validation server is not available.', 'tribe-events-calendar' );
@@ -425,10 +426,10 @@ if ( ! class_exists( 'Tribe__Events__PUE__Checker' ) ) {
 				} elseif ( isset( $pluginInfo->api_invalid ) && $pluginInfo->api_invalid == 1 ) {
 					$response['message'] = __( 'Sorry, this key is not valid.', 'tribe-events-calendar' );
 				} else {
-					$default_success_msg    = sprintf( __( 'Valid Key! Expires on %s', 'tribe-events-calendar' ), $pluginInfo->expiration );
+					$default_success_msg    = sprintf( __( 'Valid Key! Expires on %s', 'tribe-events-calendar' ), $expiration );
 					$response['status']     = isset( $pluginInfo->api_message ) ? 2 : 1;
 					$response['message']    = isset( $pluginInfo->api_message ) ? $pluginInfo->api_message : $default_success_msg;
-					$response['expiration'] = $pluginInfo->expiration;
+					$response['expiration'] = $expiration;
 				}
 			} else {
 				$response['message'] = sprintf( __( 'Hmmm... something\'s wrong with this validator. Please contact <a href="%s">support.</a>', 'tribe-events-calendar' ), 'http://m.tri.be/1u' );
