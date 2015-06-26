@@ -660,17 +660,7 @@ if ( ! class_exists( 'Tribe__Events__PUE__Checker' ) ) {
 		 * @return null|mixed
 		 */
 		function get_option( $option_key, $default = false ) {
-			$return = $default;
-			// Check if the option is in the site options
-			if ( is_multisite() ) {
-				$return = get_site_option( $option_key, $default );
-			}
-			// Fall back on local options
-			if ( empty( $return ) ) {
-				$return = get_option( $option_key, $default );
-			}
-
-			return $return;
+			return get_site_option( $option_key, $default );
 		}
 
 		/**
@@ -680,14 +670,7 @@ if ( ! class_exists( 'Tribe__Events__PUE__Checker' ) ) {
 		 * @param mixed $value
 		 */
 		function update_option( $option_key, $value ) {
-			// Check if the option is in the site options
-			if ( is_network_admin() ) {
-				update_site_option( $option_key, $value );
-				delete_option( $option_key ); // make sure there is no local version of this option.
-			} else {
-				// Otherwise update it on the blog.
-				update_option( $option_key, $value );
-			}
+			update_site_option( $option_key, $value );
 		}
 
 		/**
