@@ -166,6 +166,9 @@ if ( ! class_exists( 'Tribe__Events__Settings_Tab' ) ) {
 						// if we just saved [or attempted to], get the value that was inputed
 						$value = $sent_data[$key];
 					} else {
+						// Some options should always be stored at network level
+						$network_option = isset( $field['network_option'] ) ? (bool) $field['network_option'] : false;
+
 						if ( is_network_admin() ) {
 							$parent_option = ( isset( $field['parent_option'] ) ) ? $field['parent_option'] : Tribe__Events__Main::OPTIONNAMENETWORK;
 						}
@@ -179,7 +182,7 @@ if ( ! class_exists( 'Tribe__Events__Settings_Tab' ) ) {
 
 						if ( ! $parent_option ) {
 							// no parent option, get the straight up value
-							if ( is_network_admin() ) {
+							if ( $network_option || is_network_admin() ) {
 								$value = get_site_option( $key, $default );
 							} else {
 								$value = get_option( $key, $default );

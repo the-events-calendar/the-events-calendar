@@ -410,14 +410,15 @@ if ( ! class_exists( 'Tribe__Events__Settings' ) ) {
 						$parent_option = ( isset( $validated_field->field['parent_option'] ) ) ? $validated_field->field['parent_option'] : Tribe__Events__Main::OPTIONNAME;
 					}
 
-					$parent_option = apply_filters( 'tribe_settings_save_field_parent_option', $parent_option, $field_id );
+					$parent_option  = apply_filters( 'tribe_settings_save_field_parent_option', $parent_option, $field_id );
+					$network_option = isset( $validated_field->field['network_option'] ) ? (bool) $validated_field->field['network_option'] : false;
 
 					// some hooks
 					do_action( 'tribe_settings_save_field', $field_id, $value, $validated_field );
 					do_action( 'tribe_settings_save_field_' . $field_id, $value, $validated_field );
 
 					if ( ! $parent_option ) {
-						if ( is_network_admin() ) {
+						if ( $network_option || is_network_admin() ) {
 							update_site_option( $field_id, $value );
 						} else {
 							update_option( $field_id, $value );
