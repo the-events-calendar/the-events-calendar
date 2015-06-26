@@ -1,11 +1,11 @@
 === The Events Calendar ===
 
-Contributors:  ModernTribe, roblagatta, faction23, jazbek, jbrinley, leahkoerper, brook-tribe, ckpicker, barry.hughes, joshlimecuda, geoffgraham, brianjessee, mdbitz, neillmcshea, peterchester, ryancurban, reid.peifer, shane.pearlman
+Contributors:  ModernTribe, roblagatta, faction23, jazbek, jbrinley, leahkoerper, brook-tribe, ckpicker, barry.hughes, joshlimecuda, geoffgraham, brianjessee, mdbitz, neillmcshea, peterchester, ryancurban, reid.peifer, shane.pearlman, bordoni, lucatume, borkweb, zbtirrell
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
 Donate link: http://m.tri.be/29
 Requires at least: 3.9
-Tested up to: 4.2
-Stable tag: 3.9.3
+Tested up to: 4.2.2
+Stable tag: 3.10
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -13,11 +13,11 @@ The Events Calendar is a carefully crafted, extensible plugin that lets you easi
 
 == Description ==
 
-><strong>A note about support:</strong> We’re here to help troubleshoot bugs, but should set expectations early that the support forums at WordPress.org are only checked once a week. Please read our <a href=“http://wordpress.org/support/topic/welcome-the-events-calendar-users-read-this-first?replies=3”>sticky post</a> before creating a new thread.
+><strong>A note about support:</strong> We’re here to help troubleshoot bugs, but should set expectations early that the support forums at WordPress.org are only checked once a week. Please read our <a href="http://wordpress.org/support/topic/welcome-the-events-calendar-users-read-this-first?replies=3">sticky post</a> before creating a new thread.
 >
 > Users looking for more timely/in-depth support are encouraged to check out <a href="http://m.tri.be/mj" target="_blank" title="[new window]">Events Calendar PRO</a>.
 
-Create and manage events with ease. Get professional-level quality and features backed by a team you can trust. The Events Calendar will help you kick ass.
+Create and manage events with ease. Get professional-level quality and features backed by a team you can trust. The Events Calendar will help take your site to the next level.
 
 The Events Calendar is built and supported by WordPress artisans Modern Tribe. Looking for additional functionality including recurring events, ticket sales, publicly submitted events, new views, Facebook event integration and more? <a href="http://m.tri.be/2a">Check out the available add-ons.</a>
 
@@ -79,7 +79,7 @@ Looking for something else?
 
 = SUBMITTING PATCHES =
 
-If you’ve identified a bug and want to submit a patch, we’d welcome it at our <a href=“https://github.com/moderntribe/the-events-calendar”>GitHub page for The Events Calendar.</a> Simply cue up your proposed patch as a pull request, and we’ll review as part of our monthly release cycle and merge into the codebase if appropriate from there. (If a pull request is rejected, we’ll do our best to tell you why). Users whose pull requests are accepted will receive credit in the plugin’s changelog. For more information, check out the readme at our GitHub page. Happy coding!
+If you’ve identified a bug and want to submit a patch, we’d welcome it at our <a href="https://github.com/moderntribe/the-events-calendar>GitHub page for The Events Calendar.</a> Simply cue up your proposed patch as a pull request, and we’ll review as part of our monthly release cycle and merge into the codebase if appropriate from there. (If a pull request is rejected, we’ll do our best to tell you why). Users whose pull requests are accepted will receive credit in the plugin’s changelog. For more information, check out the readme at our GitHub page. Happy coding!
 
 = GET INVOLVED =
 
@@ -107,9 +107,9 @@ If you're unclear about the installation process or get stuck, check out our <a 
 
 = Requirements =
 
-* PHP 5.2 or above
-* WordPress 3.8 or above
-* jQuery 1.8 or above
+* PHP 5.2.4 or greater (recommended: PHP 5.4 or greater)
+* WordPress 3.9 or above
+* jQuery 1.11.x
 
 == Screenshots ==
 
@@ -136,9 +136,9 @@ No, this plugin does not use a shortcode nor is one available at the time being.
 
 = Are there any troubleshooting steps you'd suggest I try that might resolve my issue before I post a new thread? =
 
-First, make sure that you're running the latest version of The Events Calendar (3.9 as of this release). If you're running Events Calendar PRO it needs to match the version number of The Events Calendar. And if you've got any other add-ons, make sure those are current / running the latest code as well.
+First, make sure that you're running the latest version of The Events Calendar (3.10 as of this release). If you're running Events Calendar PRO it needs to match the version number of The Events Calendar. And if you've got any other add-ons, make sure those are current / running the latest code as well.
 
-The most common issues we see are either plugin or theme conflicts. You can test if a plugin or theme is conflicting by manually deactivating other plugins until just The Events Calendar 3.9 is running on your site. If the issue persists from there, revert to the default Twenty Fourteen theme. If the issue is resolved after deactivating a specific plugin or your theme, you'll know that is the source of the conflict.
+The most common issues we see are either plugin or theme conflicts. You can test if a plugin or theme is conflicting by manually deactivating other plugins until just The Events Calendar 3.10 is running on your site. If the issue persists from there, revert to the default Twenty Fourteen theme. If the issue is resolved after deactivating a specific plugin or your theme, you'll know that is the source of the conflict.
 
 Note that we aren't going to say "tough luck" if you identify a plugin/theme conflict. While we can't guarantee 100% integration with any plugin or theme out there, we will do our best (and reach out the plugin/theme author as needed) to figure out a solution that benefits everyone.
 
@@ -208,17 +208,20 @@ The plugin is produced by <a href="http://m.tri.be/2s">Modern Tribe Inc</a>.
 * <a href="http://profiles.wordpress.org/users/jbrinley">Jonathan Brinley</a>
 * <a href="http://profiles.wordpress.org/users/faction23">Samuel Estok</a>
 * <a href="http://profiles.wordpress.org/users/brianjessee">Brian Jessee</a>
-* <a href="http://profiles.wordpress.org/users/mdbitz”>Matthew Denton</a>
+* <a href="http://profiles.wordpress.org/users/mdbitz">Matthew Denton</a>
 * <a href="http://profiles.wordpress.org/users/geoffgraham">Geoff Graham</a>
-* <a href="http://profiles.wordpress.org/users/joshlimecuda”>Josh Mallard</a>
+* <a href="http://profiles.wordpress.org/users/joshlimecuda">Josh Mallard</a>
 * <a href="http://profiles.wordpress.org/users/neillmcshea">Neill McShea</a>
-* <a href="http://profiles.wordpress.org/users/brook-tribe”>Brook Harding</a>
-* <a href="http://profiles.wordpress.org/users/ckpicker”>Casey Picker</a>
+* <a href="http://profiles.wordpress.org/users/brook-tribe">Brook Harding</a>
+* <a href="http://profiles.wordpress.org/users/ckpicker">Casey Picker</a>
 * <a href="http://profiles.wordpress.org/users/leahkoerper">Leah Koerper</a>
 * <a href="http://profiles.wordpress.org/users/peterchester">Peter Chester</a>
 * <a href="http://profiles.wordpress.org/users/reid.peifer">Reid Peifer</a>
 * <a href="http://profiles.wordpress.org/users/shane.pearlman">Shane Pearlman</a>
 * <a href="http://profiles.wordpress.org/users/borkweb">Matthew Batchelder</a>
+* <a href="http://profiles.wordpress.org/users/bordoni">Gustavo Bordoni</a>
+* <a href="http://profiles.wordpress.org/users/lucatume">Luca Tumedei</a>
+* <a href="http://profiles.wordpress.org/users/zbtirrell">Zachary Tirrell</a>
 
 = Past Contributors =
 
@@ -255,7 +258,7 @@ The plugin is produced by <a href="http://m.tri.be/2s">Modern Tribe Inc</a>.
 * Estonian from Andra Saimre
 * Finnish by Elias Okkonen
 * French from Sylvain Delisle
-* German from Oliver Heinrich
+* German from Oliver Heinrich and Brian Haas
 * Greek from Yannis Troullinos
 * Hungarian from Balazs Dobos
 * Icelandic by Baldvin Örn Berndsen
@@ -333,7 +336,7 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Feature - Enhancements to month view class + queries
 * Feature - Allowing yes/true boolean imports for “Show Google Maps (link)” field in CSV import
 
-= [3.10] 2015-06-09 =
+= [3.10] 2015-06-16 =
 
 * Bug - Resolved a compatibility issue where WooCommerce shortcodes could trigger unusual side effects in month view (thanks to tmcquaid on the forums for the first report!)
 * Bug - Fixed an issue where malformed URLs could trigger fatal exceptions (thanks to go3asy on the dot-org forums for the report!)
@@ -349,7 +352,9 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Bug - Fixed a bug where ticket emails did not include the expected venue links (thanks to aovivo on the forums for the heads up!)
 * Bug - Resolved mobile CSS issues on the backend events list
 * Bug - Clicking "View all X Events" on a Month View category will now only show you events in the category you were viewing (props to kirstyburgoine for the first report!)
+* Tweak - Plugin code has been refactored to new standards: that did result in a new file structure and many renamed classes. Old class names will be deprecated in future releases and, while still working as expected, you can keep track of any deprecated classes yours or third party plugins are calling using the Log Deprecated Notices plugin (https://wordpress.org/plugins/log-deprecated-notices/)
 * Tweak - CSV importer can now accept the Venue Website field
+* Tweak - Refactored switch-case based asset handling in core + PRO
 * Tweak - The CSV importer can now handle multiple formats for true / false values in all fields (thanks to wickedsharp on the forums for reporting this!)
 * Tweak - Ensured previous and next event link titles on single events are passed through the_title filter (PR #26 from @Morhaus)
 * Tweak - Amped event featured images by having WordPress' built-in functions output them

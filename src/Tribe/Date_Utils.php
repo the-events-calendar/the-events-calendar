@@ -351,5 +351,22 @@ if ( ! class_exists( 'Tribe__Events__Date_Utils' ) ) {
 			if ( --$week_starts_on < 0 ) $week_starts_on = 6;
 			return $week_starts_on;
 		}
+
+		/**
+		 * Helper method to convert EventAllDay values to a boolean
+		 *
+		 * @param mixed $all_day_value Value to check for "all day" status. All day values: (true, 'true', 'TRUE', 'yes')
+		 *
+		 * @return boolean Is value considered "All Day"?
+		 */
+		public static function is_all_day( $all_day_value ) {
+			$all_day_value = trim( $all_day_value );
+
+			return (
+				'true' === strtolower( $all_day_value )
+				|| 'yes' === strtolower( $all_day_value )
+				|| true === $all_day_value
+			);
+		}
 	}
 }

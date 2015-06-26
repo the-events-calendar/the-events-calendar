@@ -278,7 +278,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @return bool
 	 */
 	function tribe_event_is_all_day( $postId = null ) {
-		$output = ! ! tribe_get_event_meta( $postId, '_EventAllDay', true );
+		$output = Tribe__Events__Date_Utils::is_all_day( tribe_get_event_meta( $postId, '_EventAllDay', true ) );
 
 		return apply_filters( 'tribe_event_is_all_day', $output, $postId );
 	}
@@ -835,24 +835,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @return int the minimum cost.
 	 */
 	function tribe_get_minimum_cost() {
-		global $wpdb;
-
-		$costs = $wpdb->get_col( 'SELECT meta_value FROM ' . $wpdb->postmeta . ' WHERE meta_key = \'_EventCost\';' );
-
-		$costs = array_map( 'tribe_map_cost_array_callback', $costs );
-		foreach ( $costs as $index => $value ) {
-			$costs[$index] = preg_replace( '/^[^\d]+(\d+\.?\d*)?.*$/', '$1', $value );
-		}
-		if ( empty( $costs ) ) {
-			$costs = array( '0' );
-		}
-
-		$min = min( $costs );
-		if ( $min == '' ) {
-			$min = 0;
-		}
-
-		return $min;
+		return Tribe__Events__Cost_Utils::instance()->get_minimum_cost();
 	}
 
 	/**
@@ -862,25 +845,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @return int the maximum cost.
 	 */
 	function tribe_get_maximum_cost() {
-		global $wpdb;
-
-		$costs = $wpdb->get_col( 'SELECT meta_value FROM ' . $wpdb->postmeta . ' WHERE meta_key = \'_EventCost\';' );
-
-		$costs = array_map( 'tribe_map_cost_array_callback', $costs );
-		foreach ( $costs as $index => $value ) {
-			$costs[$index] = preg_replace( '/^[^\d]+(\d+\.?\d*)?.*$/', '$1', $value );
-		}
-
-		if ( empty( $costs ) ) {
-			$costs = array( '0' );
-		}
-
-		$max = max( $costs );
-		if ( $max == '' ) {
-			$max = 0;
-		}
-
-		return $max;
+		return Tribe__Events__Cost_Utils::instance()->get_maximum_cost();
 	}
 
 	/**
@@ -1276,6 +1241,16 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 			'excerpt'         => $excerpt,
 			'categoryClasses' => $category_classes,
 		);
+
+		/**
+		 * Template overrides (of month/tooltip.php) set up in 3.9.3 or earlier may still expect
+		 * these vars and will break without them, so they are being kept temporarily for
+		 * backwards compatibility purposes.
+		 *
+		 * @todo consider removing in 4.0
+		 */
+		$json['startTime'] = tribe_get_start_date( $event );
+		$json['endTime']   = tribe_get_end_date( $event );
 
 		if ( $additional ) {
 			$json = array_merge( (array) $json, (array) $additional );

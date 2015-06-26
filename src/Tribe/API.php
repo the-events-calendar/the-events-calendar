@@ -91,7 +91,16 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 		public static function saveEventMeta( $event_id, $data, $event = null ) {
 			$tec = Tribe__Events__Main::instance();
 
-			if ( isset( $data['EventAllDay'] ) && ( $data['EventAllDay'] == 'yes' || $data['EventAllDay'] == true || ! isset( $data['EventStartDate'] ) ) ) {
+			if ( isset( $data['EventAllDay'] ) )
+			{
+				if ( Tribe__Events__Date_Utils::is_all_day( $data['EventAllDay'] ) ) {
+					$data['EventAllDay'] = 'yes';
+				} else {
+					$data['EventAllDay'] = 'no';
+				}
+			}//end if
+
+			if ( isset( $data['EventAllDay'] ) && ( 'yes' === $data['EventAllDay'] || ! isset( $data['EventStartDate'] ) ) ) {
 				$data['EventStartDate'] = tribe_event_beginning_of_day( $data['EventStartDate'] );
 				$data['EventEndDate']   = tribe_event_end_of_day( $data['EventEndDate'] );
 			} else {

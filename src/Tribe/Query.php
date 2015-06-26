@@ -253,7 +253,7 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 								? $query->get( 'eventDate' )
 								: date_i18n( Tribe__Events__Date_Utils::DBDATETIMEFORMAT );
 							if ( ! $query->tribe_is_past ) {
-								$query->set( 'start_date', ( '' != $query->get( 'eventDate' ) ? tribe_event_beginning_of_day( $event_date ) : tribe_event_format_date( time(), true, 'Y-m-d H:i:s' ) ) );
+								$query->set( 'start_date', ( '' != $query->get( 'eventDate' ) ? tribe_event_beginning_of_day( $event_date ) : tribe_event_format_date( current_time( 'timestamp' ), true, 'Y-m-d H:i:s' ) ) );
 								$query->set( 'end_date', '' );
 								$query->set( 'order', self::set_order( 'ASC', $query ) );
 							} else {
@@ -351,7 +351,6 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 					remove_filter( 'posts_where', array( __CLASS__, 'posts_where' ), 10, 2 );
 					remove_filter( 'posts_fields', array( __CLASS__, 'posts_fields' ) );
 					remove_filter( 'posts_groupby', array( __CLASS__, 'posts_groupby' ) );
-					remove_filter( 'posts_orderby', array( __CLASS__, 'posts_orderby' ), 10, 2 );
 					$query->set( 'post__not_in', '' );
 
 					// set the default order for posts within admin lists
@@ -412,7 +411,7 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 		 * @return string The modified FIELDS statement.
 		 */
 		public static function posts_fields( $field_sql, $query ) {
-			if ( ! empty( $query->tribe_is_event ) ) {
+			if ( ! empty( $query->tribe_is_event ) || ! empty( $query->tribe_is_event_category ) ) {
 				global $wpdb;
 				$postmeta_table             = self::postmeta_table( $query );
 				$fields                     = array();
