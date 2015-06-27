@@ -3746,7 +3746,16 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				$link = '<a href="' . esc_url( tribe_get_event_link( $results ) ) . '">' . $anchor . '</a>';
 			}
 
-			return apply_filters( 'tribe_events_get_event_link', $link );
+			/**
+			 * Affords an opportunity to modify the event link (typically for the next or previous
+			 * event in relation to $post).
+			 *
+			 * @var string  $link
+			 * @var WP_Post $post
+			 * @var string  $mode (typically "previous" or "next")
+			 * @var string  $anchor
+			 */
+			return apply_filters( 'tribe_events_get_event_link', $link, $post, $mode, $anchor );
 		}
 
 		/**
