@@ -258,8 +258,8 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 			}
 
 			$requested_date     = $this->requested_date();
-			$first_grid_date    = $this->calculate_first_cell_date( $requested_date );
-			$final_grid_date    = $this->calculate_final_cell_date( $requested_date );
+			$first_grid_date    = self::calculate_first_cell_date( $requested_date );
+			$final_grid_date    = self::calculate_final_cell_date( $requested_date );
 			$days               = array();
 
 			$this->setup_tribe_bar_args();
@@ -362,7 +362,7 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 		 *
 		 * @return bool|string (Y-m-d)
 		 */
-		protected function calculate_first_cell_date( $month, $start_of_week = null ) {
+		public static function calculate_first_cell_date( $month, $start_of_week = null ) {
 			if ( null === $start_of_week ) {
 				$start_of_week = (int) get_option( 'start_of_week', 0 );
 			}
@@ -395,7 +395,7 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 		 *
 		 * @return bool|string (Y-m-d)
 		 */
-		protected function calculate_final_cell_date( $month, $start_of_week = null ) {
+		public static function calculate_final_cell_date( $month, $start_of_week = null ) {
 			if ( null === $start_of_week ) {
 				$start_of_week = (int) get_option( 'start_of_week', 0 );
 			}
