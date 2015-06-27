@@ -164,7 +164,7 @@ class Tribe__Events__iCal {
 		$args = array(
 			'eventDisplay' => 'custom',
 			'start_date'   => Tribe__Events__Template__Month::calculate_first_cell_date( $month ),
-			'end_date'     => Tribe__Events__Template__Month::calculate_final_cell_date( $month )
+			'end_date'     => Tribe__Events__Template__Month::calculate_final_cell_date( $month ),
 		);
 
 		/**
