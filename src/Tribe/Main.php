@@ -348,7 +348,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			add_filter( 'body_class', array( $this, 'body_class' ) );
 			add_filter( 'admin_body_class', array( $this, 'admin_body_class' ) );
 
-
+			add_filter( 'post_type_archive_link', array( $this, 'event_archive_link' ), 10, 2 );
 			add_filter( 'query_vars', array( $this, 'eventQueryVars' ) );
 			add_filter( 'bloginfo_rss', array( $this, 'add_space_to_rss' ) );
 			add_filter( 'post_updated_messages', array( $this, 'updatePostMessage' ) );
@@ -2227,6 +2227,20 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			register_post_type( self::POSTTYPE, apply_filters( 'tribe_events_register_event_type_args', $tec->postTypeArgs ) );
 
 			add_action( 'shutdown', 'flush_rewrite_rules' );
+		}
+
+		/**
+		 * If a themer usees get_post_type_archive_link() to find the event archive URL, this
+		 * ensures they get the correct result.
+		 *
+		 * @param  string $link
+		 * @param  string$post_type
+		 * @return string
+		 */
+		public function event_archive_link( $link, $post_type ) {
+			return ( self::POSTTYPE === $post_type )
+				? tribe_get_events_link()
+				: $link;
 		}
 
 		/**
