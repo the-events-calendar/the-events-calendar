@@ -61,6 +61,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			'taxonomies'      => array( 'post_tag' ),
 			'capability_type' => array( 'tribe_event', 'tribe_events' ),
 			'map_meta_cap'    => true,
+			'has_archive'     => true,
 		);
 
 		/**
