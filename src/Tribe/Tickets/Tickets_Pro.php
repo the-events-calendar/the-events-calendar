@@ -201,6 +201,40 @@ class Tribe__Events__Tickets__Tickets_Pro {
 		include $this->path . 'src/admin-views/tickets/attendees.php';
 	}
 
+	/**
+	 * Setups the Orders screen data.
+	 */
+	public function orders_page_screen_setup() {
+		$this->orders_table = new Tribe__Events__Tickets__Orders_Table();
+		wp_enqueue_script( 'jquery-ui-dialog' );
+
+		add_filter( 'admin_title', array( $this, 'orders_admin_title' ), 10, 2 );
+	}
+
+	/**
+	 * Sets the browser title for the Orders admin page.
+	 * Uses the event title.
+	 *
+	 * @param $admin_title
+	 * @param $title
+	 *
+	 * @return string
+	 */
+	public function orders_admin_title( $admin_title, $title ) {
+		if ( ! empty( $_GET['event_id'] ) ) {
+			$event       = get_post( $_GET['event_id'] );
+			$admin_title = sprintf( "%s - Order list", $event->post_title );
+		}
+
+		return $admin_title;
+	}
+
+	/**
+	 * Renders the Orders page
+	 */
+	public function orders_page_inside() {
+		include $this->path . 'src/admin-views/tickets/orders.php';
+	}
 
 	/**
 	 * Generates a list of attendees taking into account the Screen Options.
