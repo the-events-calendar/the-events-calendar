@@ -758,32 +758,19 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * Get an event's cost
 	 *
 	 * @category Cost
-	 * @param null|int $postId             (optional)
-	 * @param bool     $withCurrencySymbol Include the currency symbol
+	 * @param null|int $post_id             (optional)
+	 * @param bool     $with_currency_symbol Include the currency symbol
 	 *
 	 * @return string Cost of the event.
 	 */
-	function tribe_get_cost( $postId = null, $withCurrencySymbol = false ) {
+	function tribe_get_cost( $post_id = null, $with_currency_symbol = false ) {
 		$tribe_ecp = Tribe__Events__Main::instance();
-		$postId    = Tribe__Events__Main::postIdHelper( $postId );
+		$post_id    = Tribe__Events__Main::postIdHelper( $post_id );
 
-		$cost = tribe_get_event_meta( $postId, '_EventCost', true );
+		$cost_utils = Tribe__Events__Cost_Utils::instance();
+		$cost = $cost_utils->get_formatted_event_cost( $post_id, $with_currency_symbol );
 
-		if ( $cost === '' ) {
-			$cost = '';
-		} elseif ( $cost === '0' ) {
-			$cost = __( 'Free', 'tribe-events-calendar' );
-		} else {
-			$cost = esc_html( $cost );
-		}
-
-		// check if the currency symbol is desired, and it's just a number in the field
-		// be sure to account for european formats in decimals, and thousands separators
-		if ( $withCurrencySymbol && is_numeric( str_replace( array( ',', '.' ), '', $cost ) ) ) {
-			$cost = tribe_format_currency( $cost );
-		}
-
-		return apply_filters( 'tribe_get_cost', $cost, $postId, $withCurrencySymbol );
+		return apply_filters( 'tribe_get_cost', $cost, $post_id, $with_currency_symbol );
 	}
 
 	/**
