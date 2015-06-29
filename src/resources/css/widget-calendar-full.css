@@ -45,7 +45,7 @@
 .tribe-mini-calendar-dayofweek{
 	background: #ddd;
 	color:#333;
-	font-size:80%;
+	font-weight:bold;
 	text-transform: uppercase;
 	padding:3px 0;
 }
@@ -312,6 +312,12 @@
 
 /* = Twenty Fifteen theme compatibility.
 =============================================*/
+.tribe-theme-twentyfifteen .tribe_mini_calendar_widget,
+.tribe-theme-twentyfifteen .tribe-events-adv-list-widget,
+.tribe-theme-twentyfifteen .tribe-events-countdown-widget {
+	word-wrap: normal;
+}
+
 .tribe-theme-twentyfifteen .tribe-mini-calendar-event {
 	margin-left: 0;
 	margin-right: 0;
@@ -327,4 +333,8 @@
 }
 .tribe-theme-twentyfifteen .tribe-mini-calendar-event .list-info {
 	width: 75%;
+}
+
+.tribe-theme-twentyfifteen .tribe-mini-calendar div[id*='daynum-'] a {
+	padding: 5px 0 15px 0;
 }

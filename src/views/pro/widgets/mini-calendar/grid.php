@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 } ?>
 
 <?php
-$days_of_week = tribe_events_get_days_of_week( 'short' );
+$days_of_week = tribe_events_get_days_of_week( 'min' );
 $week         = 0;
 
 ?>
