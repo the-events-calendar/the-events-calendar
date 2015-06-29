@@ -39,6 +39,12 @@ class Tribe__Events__Tickets__Tickets_Pro {
 	private $attendees_table;
 
 	/**
+	 * Slug of the admin page for orders
+	 * @var string
+	 */
+	public static $orders_slug = 'tickets-orders';
+
+	/**
 	 * @var Tribe__Events__Tickets__Google_Event_Data
 	 */
 	protected $google_event_data;
@@ -49,10 +55,12 @@ class Tribe__Events__Tickets__Tickets_Pro {
 	 */
 	public function __construct() {
 
-		add_action( 'wp_ajax_tribe-ticket-email-attendee-list', array( $this, 'ajax_handler_attendee_mail_list' )        );
-		add_action( 'save_post_' . Tribe__Events__Main::POSTTYPE,       array( $this, 'save_image_header'               ), 10, 2 );
-		add_action( 'admin_menu',                               array( $this, 'attendees_page_register'         )        );
-		add_filter( 'post_row_actions',                         array( $this, 'attendees_row_action'            )        );
+		add_action( 'wp_ajax_tribe-ticket-email-attendee-list', array( $this, 'ajax_handler_attendee_mail_list' ) );
+		add_action( 'save_post_' . Tribe__Events__Main::POSTTYPE, array( $this, 'save_image_header' ), 10, 2 );
+		add_action( 'admin_menu', array( $this, 'attendees_page_register' ) );
+		add_action( 'admin_menu', array( $this, 'orders_page_register' ) );
+		add_filter( 'post_row_actions', array( $this, 'attendees_row_action' ) );
+		add_filter( 'post_row_actions', array( $this, 'orders_row_action' ) );
 
 		$this->path = trailingslashit( dirname( dirname( dirname( dirname( __FILE__ ) ) ) ) );
 		$this->google_event_data = new Tribe__Events__Tickets__Google_Event_Data;
@@ -199,6 +207,57 @@ class Tribe__Events__Tickets__Tickets_Pro {
 	 */
 	public function attendees_page_inside() {
 		include $this->path . 'src/admin-views/tickets/attendees.php';
+	}
+
+	/**
+	 * Registers the Orders admin page
+	 */
+	public function orders_page_register() {
+
+		$this->orders_page = add_submenu_page(
+			null, 'Order list', 'Order list', 'edit_posts', Tribe__Events__Tickets__Tickets_Pro::$orders_slug, array(
+				$this,
+				'orders_page_inside'
+			)
+		);
+
+		add_action( 'admin_enqueue_scripts', array( $this, 'attendees_page_load_css_js' ) );
+		add_action( 'admin_enqueue_scripts', array( $this, 'attendees_page_load_pointers' ) );
+		add_action( "load-$this->orders_page", array( $this, 'orders_page_screen_setup' ) );
+
+	}
+
+	/**
+	 * Adds the "orders" link in the admin list row actions for each event.
+	 *
+	 * @param $actions
+	 *
+	 * @return array
+	 */
+	public function orders_row_action( $actions ) {
+		global $post;
+
+		if ( $post->post_type != Tribe__Events__Main::POSTTYPE ) {
+			return $actions;
+		}
+
+		$url = add_query_arg(
+			array(
+				'post_type' => Tribe__Events__Main::POSTTYPE,
+				'page'      => Tribe__Events__Tickets__Tickets_Pro::$orders_slug,
+				'event_id'  => $post->ID,
+			),
+			admin_url( 'edit.php' )
+		);
+
+		$actions['tickets_orders'] = sprintf(
+			'<a title="%s" href="%s">%s</a>',
+			esc_html__( 'See purchases for this event', 'tribe-events-calendar' ),
+			esc_url( $url ),
+			esc_html__( 'Orders', 'tribe-events-calendar' )
+		);
+
+		return $actions;
 	}
 
 	/**
