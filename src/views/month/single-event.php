@@ -192,7 +192,7 @@ $title    = get_the_title( $post );
  */
 ?>
 
-<div id="tribe-events-event-<?php echo $event_id ?>" class="<?php tribe_events_event_classes() ?>" data-tribejson='<?php echo tribe_events_template_data( $post ); ?>'>
+<div id="tribe-events-event-<?php echo esc_attr( $event_id ); ?>" class="<?php tribe_events_event_classes() ?>" data-tribejson='<?php echo esc_attr( tribe_events_template_data( $post ) ); ?>'>
 	<h3 class="tribe-events-month-event-title entry-title summary"><a href="<?php echo esc_url( $link ) ?>" class="url"><?php echo $title ?></a></h3>
 </div><!-- #tribe-events-event-# -->
 

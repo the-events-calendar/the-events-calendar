@@ -24,37 +24,25 @@ global $wp_locale;
 		<thead>
 		<tr>
 			<?php foreach ( $days_of_week as $day ) : ?>
-
-				<th id="tribe-events-<?php echo strtolower( $day ) ?>" title="<?php echo $day ?>" data-day-abbr="<?php echo $wp_locale->get_weekday_abbrev( $day ); ?>"><?php echo $day ?></th>
+				<th id="tribe-events-<?php echo esc_attr( strtolower( $day ) ); ?>" title="<?php echo esc_attr( $day ); ?>" data-day-abbr="<?php echo esc_attr( $wp_locale->get_weekday_abbrev( $day ) ); ?>"><?php echo $day ?></th>
 			<?php endforeach; ?>
 		</tr>
 		</thead>
 		<tbody class="vcalendar">
 		<tr>
-			<?php while (tribe_events_have_month_days()) : tribe_events_the_month_day(); ?>
+			<?php while ( tribe_events_have_month_days() ) : tribe_events_the_month_day(); ?>
 			<?php if ( $week != tribe_events_get_current_week() ) : $week ++; ?>
 		</tr>
 		<tr>
 			<?php endif; ?>
-			
+
 			<?php
 			// Get data for this day within the loop.
 			$daydata = tribe_events_get_current_month_day(); ?>
 
 			<td class="<?php tribe_events_the_month_day_classes() ?>"
-				<?php if ( isset( $daydata['daynum'] ) ) { ?>
-					data-day="<?php echo $daydata['date'] ?>"
-					<?php
-					//Add Day Name Option for Responsive Header
-					if ( $daydata['total_events'] > 0 ) {
-						$day_name = tribe_event_format_date( $daydata['date'], false );
-						?>
-						data-date-name="<?php echo $day_name ?>"
-					<?php
-					}
-					?>
-
-				<?php } ?>
+				data-day="<?php echo esc_attr( isset( $daydata['daynum'] ) ? $daydata['date'] : '' ); ?>"
+				data-tribejson='<?php echo tribe_events_template_data( null, array( 'date_name' => tribe_event_format_date( $daydata['date'], false ) ) ); ?>'
 				>
 				<?php tribe_get_template_part( 'month/single', 'day' ) ?>
 			</td>
@@ -62,4 +50,5 @@ global $wp_locale;
 		</tr>
 		</tbody>
 	</table><!-- .tribe-events-calendar -->
-<?php do_action( 'tribe_events_after_the_grid' ) ?>
+<?php
+do_action( 'tribe_events_after_the_grid' );

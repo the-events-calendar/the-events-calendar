@@ -90,7 +90,13 @@ if ( ! class_exists( 'Tribe__Events__Templates' ) ) {
 				return get_404_template();
 			}
 
-			if ( ! is_single() && ! tribe_events_is_view_enabled( $events->displaying ) ) {
+			if (
+				! is_single()
+				&& ! tribe_events_is_view_enabled( $events->displaying )
+				// we want the day view to display if visited (this allows it to be largely disabled while
+				// still allowing month overflow links to work correctly)
+				&& 'day' != $events->displaying
+			) {
 				return get_404_template();
 			}
 
@@ -119,7 +125,6 @@ if ( ! class_exists( 'Tribe__Events__Templates' ) ) {
 				} else {
 					add_filter( 'body_class', array( __CLASS__, 'add_singular_body_class' ) );
 				}
-
 			} else {
 				$template = self::getTemplateHierarchy( 'default-template' );
 
@@ -179,7 +184,7 @@ if ( ! class_exists( 'Tribe__Events__Templates' ) ) {
 		public function remove_singular_body_class( $classes ) {
 			$key = array_search( 'singular', $classes );
 			if ( $key ) {
-				unset( $classes[$key] );
+				unset( $classes[ $key ] );
 			}
 
 			return $classes;
@@ -292,7 +297,7 @@ if ( ! class_exists( 'Tribe__Events__Templates' ) ) {
 			if ( ! tribe_is_event_query() || ! defined( 'TRIBE_MODIFY_GLOBAL_TITLE' ) || ! TRIBE_MODIFY_GLOBAL_TITLE ) {
 				return;
 			}
-			if ( ! isset( $post ) || ! is_a( $post, 'WP_Post' ) ) {
+			if ( ! isset( $post ) || ! $post instanceof WP_Post ) {
 				return;
 			}
 
@@ -480,7 +485,6 @@ if ( ! class_exists( 'Tribe__Events__Templates' ) ) {
 					$post_types       = array( 'post', Tribe__Events__Main::POSTTYPE );
 					$query->set( 'post_type', $post_types );
 				}
-
 			}
 
 			return $query;
@@ -504,9 +508,11 @@ if ( ! class_exists( 'Tribe__Events__Templates' ) ) {
 				$args          = array();
 				$passed        = func_get_args();
 				$backwards_map = array( 'namespace', 'plugin_path' );
-				if ( count( $passed > 1 ) ) {
-					for ( $i = 1; $i < count( $passed ); $i ++ ) {
-						$args[$backwards_map[$i - 1]] = $passed[$i];
+				$count = count( $passed );
+
+				if ( $count > 1 ) {
+					for ( $i = 1; $i < $count; $i ++ ) {
+						$args[ $backwards_map[ $i - 1 ] ] = $passed[ $i ];
 					}
 				}
 			}
@@ -667,7 +673,7 @@ if ( ! class_exists( 'Tribe__Events__Templates' ) ) {
 		}
 
 		/**
-		 * convert the post_date_gmt to the event date for feeds
+		 * Convert the post_date_gmt to the event date for feeds
 		 *
 		 * @param $time the post_date
 		 * @param $d    the date format to return
@@ -679,8 +685,20 @@ if ( ! class_exists( 'Tribe__Events__Templates' ) ) {
 			global $post;
 
 			if ( is_object( $post ) && $post->post_type == Tribe__Events__Main::POSTTYPE && is_feed() && $gmt ) {
-				$time = tribe_get_start_date( $post->ID, false, $d );
-				$time = mysql2date( $d, $time );
+				
+				//WordPress always outputs a pubDate set to 00:00 (UTC) so account for that when returning the Event Start Date and Time
+				$zone = get_option( 'timezone_string', false );
+				
+				if ( $zone ) {
+				  $zone = new DateTimeZone( $zone );
+				} else {
+				  $zone = new DateTimeZone( 'UTC' );
+				}
+				
+				$time = new DateTime( tribe_get_start_date( $post->ID, false, $d ), $zone );
+				$time->setTimezone( new DateTimeZone( 'UTC' ) );
+				$time = $time->format( $d );
+								
 			}
 
 			return $time;

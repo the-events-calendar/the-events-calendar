@@ -44,8 +44,8 @@ if ( ! class_exists( 'Tribe__Events__Template__Day' ) ) {
 
 			$attrs['data-view']    = 'day';
 			$attrs['data-baseurl'] = tribe_get_day_link( $current_day );
-			$attrs['data-date']    = Date( 'Y-m-d', strtotime( $current_day ) );
-			$attrs['data-header']  = Date( tribe_get_date_format( true ), strtotime( $current_day ) );
+			$attrs['data-date']    = date( 'Y-m-d', strtotime( $current_day ) );
+			$attrs['data-header']  = date( tribe_get_date_format( true ), strtotime( $current_day ) );
 
 			return $attrs;
 		}
@@ -113,12 +113,12 @@ if ( ! class_exists( 'Tribe__Events__Template__Day' ) ) {
 				$hourly  = array();
 				foreach ( $unsorted_posts as $i => $post ) {
 					if ( $post->timeslot == __( 'All Day', 'tribe-events-calendar' ) ) {
-						$all_day[$i] = $post;
+						$all_day[ $i ] = $post;
 					} else {
 						if ( $post->timeslot == __( 'Ongoing', 'tribe-events-calendar' ) ) {
-							$ongoing[$i] = $post;
+							$ongoing[ $i ] = $post;
 						} else {
-							$hourly[$i] = $post;
+							$hourly[ $i ] = $post;
 						}
 					}
 				}
@@ -147,7 +147,7 @@ if ( ! class_exists( 'Tribe__Events__Template__Day' ) ) {
 		 *
 		 * @return void
 		 */
-		function ajax_response() {
+		public function ajax_response() {
 			if ( isset( $_POST['eventDate'] ) && $_POST['eventDate'] ) {
 
 				Tribe__Events__Query::init();
@@ -159,14 +159,14 @@ if ( ! class_exists( 'Tribe__Events__Template__Day' ) ) {
 
 				$args = array(
 					'post_status'  => $post_status,
-					'eventDate'    => $_POST["eventDate"],
-					'eventDisplay' => 'day'
+					'eventDate'    => $_POST['eventDate'],
+					'eventDisplay' => 'day',
 				);
 
 				Tribe__Events__Main::instance()->displaying = 'day';
 
 				if ( isset( $_POST['tribe_event_category'] ) ) {
-					$args[Tribe__Events__Main::TAXONOMY] = $_POST['tribe_event_category'];
+					$args[ Tribe__Events__Main::TAXONOMY ] = $_POST['tribe_event_category'];
 				}
 
 				$query = Tribe__Events__Query::getEvents( $args, true );

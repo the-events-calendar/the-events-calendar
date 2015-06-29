@@ -51,7 +51,7 @@ class Tribe__Events__Admin__Event_Meta_Box {
 
 		if ( $event === null ) {
 			$this->event = $post;
-		} elseif ( is_a( $event, 'WP_Post' ) ) {
+		} elseif ( $event instanceof WP_Post ) {
 			$this->event = $event;
 		} else {
 			$this->event = new WP_Post( (object) array( 'ID' => 0 ) );
@@ -116,8 +116,8 @@ class Tribe__Events__Admin__Event_Meta_Box {
 		$all_day  = $this->vars['_EventAllDay'];
 		$end_date = $this->vars['_EventEndDate'];
 
-		$ends_at_midnight = '23:59:59' === Tribe__Events__Date_Utils::timeOnly( $end_date );
-		$midnight_cutoff  = '23:59:59' === Tribe__Events__Date_Utils::timeOnly( tribe_event_end_of_day() );
+		$ends_at_midnight = '23:59:59' === Tribe__Events__Date_Utils::time_only( $end_date );
+		$midnight_cutoff  = '23:59:59' === Tribe__Events__Date_Utils::time_only( tribe_event_end_of_day() );
 
 		if ( ! $all_day || $ends_at_midnight || $midnight_cutoff ) {
 			return;
@@ -132,7 +132,7 @@ class Tribe__Events__Admin__Event_Meta_Box {
 	 * Assess if this is an all day event.
 	 */
 	protected function set_all_day() {
-		$this->vars['isEventAllDay'] = ( Tribe__Events__Date_Utils::is_all_day( $this->vars['_EventAllDay'] ) || ! Tribe__Events__Date_Utils::dateOnly( $this->vars['_EventStartDate'] ) ) ? 'checked="checked"' : '';
+		$this->vars['isEventAllDay'] = ( Tribe__Events__Date_Utils::is_all_day( $this->vars['_EventAllDay'] ) || ! Tribe__Events__Date_Utils::date_only( $this->vars['_EventStartDate'] ) ) ? 'checked="checked"' : '';
 	}
 
 	protected function set_start_date_time() {
@@ -140,12 +140,14 @@ class Tribe__Events__Admin__Event_Meta_Box {
 		$this->vars['startHourOptions']     = Tribe__Events__View_Helpers::getHourOptions( $this->vars['_EventAllDay'] == 'yes' ? null : $this->vars['_EventStartDate'], true );
 		$this->vars['startMeridianOptions'] = Tribe__Events__View_Helpers::getMeridianOptions( $this->vars['_EventStartDate'], true );
 
+		$datepicker_format = Tribe__Events__Date_Utils::datepicker_formats( tribe_get_option( 'datepickerFormat' ) );
+
 		if ( $this->vars['_EventStartDate'] ) {
-			$start = Tribe__Events__Date_Utils::dateOnly( $this->vars['_EventStartDate'] );
+			$start = Tribe__Events__Date_Utils::date_only( $this->vars['_EventStartDate'], false, $datepicker_format );
 		}
 
 		// If we don't have a valid start date, assume today's date
-		$this->vars['EventStartDate'] = ( isset( $start ) && $start ) ? $start : date( 'Y-m-d' );
+		$this->vars['EventStartDate'] = ( isset( $start ) && $start ) ? $start : date( $datepicker_format );
 	}
 
 	protected function set_end_date_time() {
@@ -153,12 +155,14 @@ class Tribe__Events__Admin__Event_Meta_Box {
 		$this->vars['endHourOptions']     = Tribe__Events__View_Helpers::getHourOptions( $this->vars['_EventAllDay'] == 'yes' ? null : $this->vars['_EventEndDate'] );
 		$this->vars['endMeridianOptions'] = Tribe__Events__View_Helpers::getMeridianOptions( $this->vars['_EventEndDate'] );
 
+		$datepicker_format = Tribe__Events__Date_Utils::datepicker_formats( tribe_get_option( 'datepickerFormat' ) );
+
 		if ( $this->vars['_EventEndDate'] ) {
-			$end = Tribe__Events__Date_Utils::dateOnly( $this->vars['_EventEndDate'] );
+			$end = Tribe__Events__Date_Utils::date_only( $this->vars['_EventEndDate'], false, $datepicker_format );
 		}
 
 		// If we don't have a valid end date, assume today's date
-		$this->vars['EventEndDate'] = ( isset( $end ) && $end ) ? $end : date( 'Y-m-d' );
+		$this->vars['EventEndDate'] = ( isset( $end ) && $end ) ? $end : date( $datepicker_format );
 	}
 
 	/**

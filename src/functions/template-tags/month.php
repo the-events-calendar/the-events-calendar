@@ -34,8 +34,8 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		$hold_tribe_bar_args = array();
 		foreach ( $_REQUEST as $key => $value ) {
 			if ( $value && strpos( $key, 'tribe-bar-' ) === 0 ) {
-				$hold_tribe_bar_args[$key] = $value;
-				unset( $_REQUEST[$key] );
+				$hold_tribe_bar_args[ $key ] = $value;
+				unset( $_REQUEST[ $key ] );
 			}
 		}
 
@@ -53,7 +53,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		// reinstate the tribe bar params
 		if ( ! empty( $hold_tribe_bar_args ) ) {
 			foreach ( $hold_tribe_bar_args as $key => $value ) {
-				$_REQUEST[$key] = $value;
+				$_REQUEST[ $key ] = $value;
 			}
 		}
 	}
@@ -217,10 +217,10 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		$date  = $today;
 
 		if ( ! empty( $_REQUEST['tribe-bar-date'] ) ) {
-			$date = $_REQUEST["tribe-bar-date"] . '-01';
+			$date = $_REQUEST['tribe-bar-date'] . '-01';
 		} else {
-			if ( isset( $_REQUEST["eventDate"] ) && $_REQUEST["eventDate"] ) {
-				$date = $_REQUEST["eventDate"] . '-01';
+			if ( isset( $_REQUEST['eventDate'] ) && $_REQUEST['eventDate'] ) {
+				$date = $_REQUEST['eventDate'] . '-01';
 			} else {
 				if ( ! empty( $wp_query->query_vars['eventDate'] ) ) {
 					$date = $wp_query->query_vars['eventDate'] . '-01';
@@ -294,8 +294,8 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		global $wp_query;
 		$term      = null;
 		$tribe_ecp = Tribe__Events__Main::instance();
-		if ( isset( $wp_query->query_vars[Tribe__Events__Main::TAXONOMY] ) ) {
-			$term = $wp_query->query_vars[Tribe__Events__Main::TAXONOMY];
+		if ( isset( $wp_query->query_vars[ Tribe__Events__Main::TAXONOMY ] ) ) {
+			$term = $wp_query->query_vars[ Tribe__Events__Main::TAXONOMY ];
 		}
 		$output = $tribe_ecp->getLink( 'month', $tribe_ecp->previousMonth( tribe_get_month_view_date() ), $term );
 
@@ -327,8 +327,8 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		global $wp_query;
 		$term      = null;
 		$tribe_ecp = Tribe__Events__Main::instance();
-		if ( isset( $wp_query->query_vars[Tribe__Events__Main::TAXONOMY] ) ) {
-			$term = $wp_query->query_vars[Tribe__Events__Main::TAXONOMY];
+		if ( isset( $wp_query->query_vars[ Tribe__Events__Main::TAXONOMY ] ) ) {
+			$term = $wp_query->query_vars[ Tribe__Events__Main::TAXONOMY ];
 		}
 		try {
 			$output = $tribe_ecp->getLink( 'month', $tribe_ecp->nextMonth( tribe_get_month_view_date() ), $term );
@@ -370,4 +370,3 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		return apply_filters( 'tribe_get_next_month_text', $output );
 	}
 }
-?>

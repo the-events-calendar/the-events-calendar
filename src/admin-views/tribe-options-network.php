@@ -8,7 +8,7 @@ $networkTab = array(
 		'tribe_network_settings_tab_fields', array(
 			'info-start'           => array(
 				'type' => 'html',
-				'html' => '<div id="modern-tribe-info">'
+				'html' => '<div id="modern-tribe-info">',
 			),
 			'info-box-title'       => array(
 				'type' => 'html',

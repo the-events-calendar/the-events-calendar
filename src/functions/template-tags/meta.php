@@ -166,8 +166,8 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		$args = Tribe__Events__Meta_Factory::get_args( $meta_id, $type );
 
 		// check if the arg exists
-		if ( isset( $args[$arg_key] ) ) {
-			return $args[$arg_key];
+		if ( isset( $args[ $arg_key ] ) ) {
+			return $args[ $arg_key ];
 		} else {
 			return false;
 		}
@@ -191,8 +191,8 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 
 		$template = tribe_get_meta_arg( $meta_id, 'wrap', $type );
 
-		if ( isset( $template[$template_key] ) ) {
-			return $template[$template_key];
+		if ( isset( $template[ $template_key ] ) ) {
+			return $template[ $template_key ];
 		} else {
 			return false;
 		}
@@ -232,7 +232,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 			}
 
 			if ( ! empty( $template ) ) {
-				$_tribe_meta_factory->{$type}[$meta_id]['wrap'] = wp_parse_args( $template, $_tribe_meta_factory->{$type}[$meta_id]['wrap'] );
+				$_tribe_meta_factory->{$type}[ $meta_id ]['wrap'] = wp_parse_args( $template, $_tribe_meta_factory->{$type}[ $meta_id ]['wrap'] );
 			}
 		}
 
@@ -261,7 +261,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 			}
 
 			if ( ! empty( $priority ) ) {
-				$_tribe_meta_factory->{$type}[$meta_id]['priority'] = $priority;
+				$_tribe_meta_factory->{$type}[ $meta_id ]['priority'] = $priority;
 			}
 		}
 	}
@@ -289,7 +289,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 				return false;
 			}
 
-			$_tribe_meta_factory->{$type}[$meta_id][$value_type] = $value;
+			$_tribe_meta_factory->{$type}[ $meta_id ][ $value_type ] = $value;
 		}
 	}
 
@@ -315,7 +315,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 				return false;
 			}
 
-			$_tribe_meta_factory->{$type}[$meta_id]['label'] = $label;
+			$_tribe_meta_factory->{$type}[ $meta_id ]['label'] = $label;
 		}
 	}
 
@@ -448,4 +448,3 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		return apply_filters( 'tribe_events_single_event_meta', $html );
 	}
 }
-?>

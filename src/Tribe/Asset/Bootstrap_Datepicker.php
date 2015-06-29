@@ -5,7 +5,7 @@
 
 		public function handle() {
 			$css_path = Tribe__Events__Template_Factory::getMinFile( $this->vendor_url . 'bootstrap-datepicker/css/datepicker.css', true );
-			$path = Tribe__Events__Template_Factory::getMinFile( $this->vendor_url . 'bootstrap-datepicker/js/bootstrap-datepicker.js', true );
+			$path = Tribe__Events__Template_Factory::getMinFile( $this->vendor_url . 'bootstrap-datepicker/js/bootstrap-datepicker.min.js', true );
 			wp_enqueue_style( $this->prefix . '-bootstrap-datepicker-css', $css_path );
 
 			$handle = $this->prefix . '-bootstrap-datepicker';
