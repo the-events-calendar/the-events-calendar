@@ -73,7 +73,7 @@ if ( "function" === typeof jQuery ) jQuery( document ).ready( function( $ ) {
 		} );
 
 		// Assign the Google Map to a global variable so themes or plugins can interact with it
-		tribeEventsSingleMap.map = map;
+		tribeEventsSingleMap.map = venueObject.map;
 	}
 
 	// Iterate through available addresses and set up the map for each
