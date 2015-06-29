@@ -30,6 +30,7 @@ $table = ob_get_clean();
 
 						$total_sold = 0;
 						$total_pending = 0;
+						$total_profit = 0;
 
 						foreach ( $tickets as $ticket ) : ?>
 
