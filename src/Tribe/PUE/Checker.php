@@ -397,8 +397,9 @@ if ( ! class_exists( 'Tribe__Events__PUE__Checker' ) ) {
 				global $wp_version;
 				$queryArgs['wp_version'] = $wp_version;
 
-				//include domain and multisite stats
-				$queryArgs['domain'] = $_SERVER['SERVER_NAME'];
+				// For multisite, return the network-level siteurl ... in
+				// all other cases return the actual URL being serviced
+				$queryArgs['domain'] = is_multisite() ? $this->get_network_domain() : $_SERVER['SERVER_NAME'];
 
 				if ( is_multisite() ) {
 					$queryArgs['multisite']         = 1;
@@ -506,7 +507,7 @@ if ( ! class_exists( 'Tribe__Events__PUE__Checker' ) ) {
 			$queryArgs['wp_version'] = $wp_version;
 
 			//include domain and multisite stats
-			$queryArgs['domain'] = $_SERVER['SERVER_NAME'];
+			$queryArgs['domain'] = is_multisite() ? $this->get_network_domain() : $_SERVER['SERVER_NAME'];
 
 			if ( is_multisite() ) {
 				$queryArgs['multisite']         = 1;
@@ -558,6 +559,20 @@ if ( ! class_exists( 'Tribe__Events__PUE__Checker' ) ) {
 			$plugin_info_cache[$key] = $pluginInfo;
 
 			return $pluginInfo;
+		}
+
+		/**
+		 * Returns the domain contained in the network's siteurl option (not the full URL).
+		 *
+		 * @return string
+		 */
+		public function get_network_domain() {
+			$site_url = parse_url( get_site_option( 'siteurl' ) );
+			if ( ! $site_url || ! isset( $site_url['host'] ) ) {
+				return '';
+			} else {
+				return strtolower( $site_url['host'] );
+			}
 		}
 
 		/**
