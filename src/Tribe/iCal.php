@@ -157,7 +157,9 @@ class Tribe__Events__iCal {
 	private static function get_month_view_events() {
 		global $wp_query;
 
-		$month = empty( $wp_query->get( 'eventDate' ) )
+		$event_date = $wp_query->get( 'eventDate' );
+
+		$month = empty( $event_date )
 			? tribe_get_month_view_date()
 			: $wp_query->get( 'eventDate' );
 
