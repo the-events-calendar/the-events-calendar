@@ -24,10 +24,11 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		const VENUE_POST_TYPE     = 'tribe_venue';
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
 
-		const VERSION       = '3.10';
-		const FEED_URL      = 'https://theeventscalendar.com/feed/';
-		const INFO_API_URL  = 'http://wpapi.org/api/plugin/the-events-calendar.php';
-		const WP_PLUGIN_URL = 'http://wordpress.org/extend/plugins/the-events-calendar/';
+		const VERSION           = '3.10';
+		const MIN_ADDON_VERSION = '3.10';
+		const FEED_URL          = 'https://theeventscalendar.com/feed/';
+		const INFO_API_URL      = 'http://wpapi.org/api/plugin/the-events-calendar.php';
+		const WP_PLUGIN_URL     = 'http://wordpress.org/extend/plugins/the-events-calendar/';
 
 		/**
 		 * Notices to be displayed in the admin
@@ -652,10 +653,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 					break;
 				}
 
-				// check if addons are at an older minor version
-				$addon_minor_version = (float) $plugin['current_version'];
-				$tec_minor_version   = (float) self::VERSION;
-				if ( version_compare( $addon_minor_version, $tec_minor_version, '<' ) ) {
+				// check if the add-on is out of date
+				if ( version_compare( $plugin['current_version'], self::MIN_ADDON_VERSION, '<' ) ) {
 					$out_of_date_addons[] = $plugin['plugin_name'] . ' ' . $plugin['current_version'];
 				}
 			}
