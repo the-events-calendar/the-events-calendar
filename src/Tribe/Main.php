@@ -1235,7 +1235,12 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * Generate custom post type lables
 		 */
 		protected function generatePostTypeLabels() {
-			$this->postTypeArgs['labels'] = array(
+			/**
+			 * Provides an opportunity to modify the labels used for the event post type.
+			 *
+			 * @var array
+			 */
+			$this->postTypeArgs['labels'] = apply_filters( 'tribe_events_register_event_post_type_labels', array(
 				'name'               => $this->plural_event_label,
 				'singular_name'      => $this->singular_event_label,
 				'add_new'            => __( 'Add New', 'tribe-events-calendar' ),
@@ -1246,9 +1251,14 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				'search_items'       => sprintf( __( 'Search %s', 'tribe-events-calendar' ), $this->plural_event_label ),
 				'not_found'          => sprintf( __( 'No %s found', 'tribe-events-calendar' ), strtolower( $this->plural_event_label ) ),
 				'not_found_in_trash' => sprintf( __( 'No %s found in Trash', 'tribe-events-calendar' ), strtolower( $this->plural_event_label ) ),
-			);
+			) );
 
-			$this->postVenueTypeArgs['labels'] = array(
+			/**
+			 * Provides an opportunity to modify the labels used for the venue post type.
+			 *
+			 * @var array
+			 */
+			$this->postVenueTypeArgs['labels'] = apply_filters( 'tribe_events_register_venue_post_type_labels', array(
 				'name'               => $this->plural_venue_label,
 				'singular_name'      => $this->singular_venue_label,
 				'add_new'            => __( 'Add New', 'tribe-events-calendar' ),
@@ -1259,9 +1269,14 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				'search_items'       => sprintf( __( 'Search %s', 'tribe-events-calendar' ), $this->plural_venue_label ),
 				'not_found'          => sprintf( __( 'No %s found', 'tribe-events-calendar' ), strtolower( $this->plural_venue_label ) ),
 				'not_found_in_trash' => sprintf( __( 'No %s found in Trash', 'tribe-events-calendar' ), strtolower( $this->plural_venue_label ) ),
-			);
+			) );
 
-			$this->postOrganizerTypeArgs['labels'] = array(
+			/**
+			 * Provides an opportunity to modify the labels used for the organizer post type.
+			 *
+			 * @var array
+			 */
+			$this->postOrganizerTypeArgs['labels'] = apply_filters( 'tribe_events_register_organizer_post_type_labels', array(
 				'name'               => $this->plural_organizer_label,
 				'singular_name'      => $this->singular_organizer_label,
 				'add_new'            => __( 'Add New', 'tribe-events-calendar' ),
@@ -1272,9 +1287,14 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				'search_items'       => sprintf( __( 'Search %s', 'tribe-events-calendar' ), $this->plural_organizer_label ),
 				'not_found'          => sprintf( __( 'No %s found', 'tribe-events-calendar' ), strtolower( $this->plural_organizer_label ) ),
 				'not_found_in_trash' => sprintf( __( 'No %s found in Trash', 'tribe-events-calendar' ), strtolower( $this->plural_organizer_label ) ),
-			);
+			) );
 
-			$this->taxonomyLabels = array(
+			/**
+			 * Provides an opportunity to modify the labels used for the event category taxonomy.
+			 *
+			 * @var array
+			 */
+			$this->taxonomyLabels = apply_filters( 'tribe_events_register_category_taxonomy_labels', array(
 				'name'              => sprintf( __( '%s Categories', 'tribe-events-calendar' ), $this->singular_event_label ),
 				'singular_name'     => sprintf( __( '%s Category', 'tribe-events-calendar' ), $this->singular_event_label ),
 				'search_items'      => sprintf( __( 'Search %s Categories', 'tribe-events-calendar' ), $this->singular_event_label ),
@@ -1285,8 +1305,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				'update_item'       => sprintf( __( 'Update %s Category', 'tribe-events-calendar' ), $this->singular_event_label ),
 				'add_new_item'      => sprintf( __( 'Add New %s Category', 'tribe-events-calendar' ), $this->singular_event_label ),
 				'new_item_name'     => sprintf( __( 'New %s Category Name', 'tribe-events-calendar' ), $this->singular_event_label ),
-			);
-
+			) );
 		}
 
 		/**
