@@ -428,7 +428,7 @@ if ( ! class_exists( 'Tribe__Events__PUE__Checker' ) ) {
 				} else {
 					$default_success_msg    = sprintf( __( 'Valid Key! Expires on %s', 'tribe-events-calendar' ), $expiration );
 					$response['status']     = isset( $pluginInfo->api_message ) ? 2 : 1;
-					$response['message']    = isset( $pluginInfo->api_message ) ? wp_kses( $pluginInfo->api_message ) : $default_success_msg;
+					$response['message']    = isset( $pluginInfo->api_message ) ? wp_kses( $pluginInfo->api_message, 'data' ) : $default_success_msg;
 					$response['expiration'] = $expiration;
 				}
 			} else {
