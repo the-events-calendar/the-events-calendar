@@ -507,7 +507,7 @@ if ( ! class_exists( 'Tribe__Events__PUE__Checker' ) ) {
 			$queryArgs['wp_version'] = $wp_version;
 
 			//include domain and multisite stats
-			$queryArgs['domain'] = $_SERVER['SERVER_NAME'];
+			$queryArgs['domain'] = is_multisite() ? get_site_option( 'siteurl' ) : $_SERVER['SERVER_NAME'];
 
 			if ( is_multisite() ) {
 				$queryArgs['multisite']         = 1;
