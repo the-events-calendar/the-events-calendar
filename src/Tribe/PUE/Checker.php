@@ -397,8 +397,9 @@ if ( ! class_exists( 'Tribe__Events__PUE__Checker' ) ) {
 				global $wp_version;
 				$queryArgs['wp_version'] = $wp_version;
 
-				//include domain and multisite stats
-				$queryArgs['domain'] = $_SERVER['SERVER_NAME'];
+				// For multisite, return the network-level siteurl ... in
+				// all other cases return the actual URL being serviced
+				$queryArgs['domain'] = is_multisite() ? get_site_option( 'siteurl' ) : $_SERVER['SERVER_NAME'];
 
 				if ( is_multisite() ) {
 					$queryArgs['multisite']         = 1;
