@@ -721,11 +721,21 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @return array Days of the week.
 	 **/
 	function tribe_events_get_days_of_week( $format = null ) {
-		if ( $format == 'short' ) {
-			$days_of_week = Tribe__Events__Main::instance()->daysOfWeekShort;
-		} else {
-			$days_of_week = Tribe__Events__Main::instance()->daysOfWeek;
+
+		switch ( $format ) {
+			case 'min' :
+				$days_of_week = Tribe__Events__Main::instance()->daysOfWeekMin;
+				break;
+
+			case 'short' :
+				$days_of_week = Tribe__Events__Main::instance()->daysOfWeekShort;
+				break;
+
+			default:
+				$days_of_week = Tribe__Events__Main::instance()->daysOfWeek;
+				break;
 		}
+
 		$start_of_week = get_option( 'start_of_week', 0 );
 		for ( $i = 0; $i < $start_of_week; $i ++ ) {
 			$day = $days_of_week[ $i ];
