@@ -300,9 +300,11 @@ class Tribe__Events__iCal {
 			// add organizer if available
 			$organizer_email = tribe_get_organizer_email( $event_post->ID );
 			if ( $organizer_email ) {
-				$organizer_name = tribe_get_organizer( $event_post->ID );
-				if ( $organizer_name ) {
-					$item[] = sprintf( 'ORGANIZER;CN=%s:MAILTO:%s', $organizer_name, $organizer_email );
+				$organizer_id = tribe_get_organizer_id( $event_post->ID );
+				$organizer = get_post( $organizer_id );
+
+				if ( $organizer_id ) {
+					$item[] = sprintf( 'ORGANIZER;CN="%s":MAILTO:"%s"', rawurlencode( $organizer->post_title ), $organizer_email );
 				} else {
 					$item[] = sprintf( 'ORGANIZER:MAILTO:%s', $organizer_email );
 				}
