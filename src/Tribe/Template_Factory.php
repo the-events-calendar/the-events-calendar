@@ -521,7 +521,6 @@ if ( ! class_exists( 'Tribe__Events__Template_Factory' ) ) {
 				add_filter( 'tribe_event_meta_venue_name', '__return_null' );
 				add_filter( 'tribe_event_meta_venue_address', '__return_null' );
 				add_filter( 'tribe_event_featured_image', '__return_null' );
-				add_filter( 'tribe_events_single_event_meta', '__return_null' );
 				add_filter( 'tribe_get_venue', '__return_null' );
 			} else {
 				remove_filter( 'tribe_events_event_schedule_details', '__return_null' );
@@ -529,7 +528,6 @@ if ( ! class_exists( 'Tribe__Events__Template_Factory' ) ) {
 				remove_filter( 'tribe_event_meta_venue_name', '__return_null' );
 				remove_filter( 'tribe_event_meta_venue_address', '__return_null' );
 				remove_filter( 'tribe_event_featured_image', '__return_null' );
-				remove_filter( 'tribe_events_single_event_meta', '__return_null' );
 				remove_filter( 'tribe_get_venue', '__return_null' );
 			}
 		}
