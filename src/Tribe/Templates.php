@@ -37,6 +37,14 @@ if ( ! class_exists( 'Tribe__Events__Templates' ) ) {
 		 */
 		protected static $template = false;
 
+		/*
+		 * List of templates which have compatibility fixes
+		 */
+		public static $themes_with_compatibility_fixes = array(
+			'twentyfifteen',
+			'twentyfourteen',
+			'twentythirteen'
+		);
 
 		/**
 		 * Initialize the Template Yumminess!
@@ -65,6 +73,11 @@ if ( ! class_exists( 'Tribe__Events__Templates' ) ) {
 			}
 
 			add_action( 'wp_head', array( __CLASS__, 'wpHeadFinished' ), 999 );
+
+			// add the theme name to the body class when needed
+			if ( self::needs_compatibility_fix() ) {
+				add_filter( 'body_class', array( __CLASS__, 'theme_body_class' ) );
+			}
 
 			add_filter( 'get_post_time', array( __CLASS__, 'event_date_to_pubDate' ), 10, 3 );
 		}
@@ -230,6 +243,23 @@ if ( ! class_exists( 'Tribe__Events__Templates' ) ) {
 
 
 		/**
+		 * Checks if theme needs a compatibility fix
+		 *
+		 * @param string $theme Name of template from WP_Theme->Template, defaults to current active template
+		 *
+		 *@return mixed
+		 */
+		public static function needs_compatibility_fix ( $theme = null ) {
+			// Defaults to current active theme
+			if ( $theme === null) $theme = wp_get_theme()->Template;
+
+			$theme_compatibility_list = apply_filters( 'tribe_themes_compatibility_fixes', self::$themes_with_compatibility_fixes );
+
+			return in_array( $theme, $theme_compatibility_list );
+		}
+
+
+		/**
 		 * Determine when wp_head has been triggered.
 		 */
 		public static function wpHeadFinished() {
@@ -386,8 +416,7 @@ if ( ! class_exists( 'Tribe__Events__Templates' ) ) {
 			}
 
 			// apply filters
-			// @todo: remove deprecated filter in 3.4
-			return apply_filters( 'tribe_events_current_view_template', apply_filters( 'tribe_current_events_page_template', $template ) );
+			return apply_filters( 'tribe_events_current_view_template', $template );
 
 		}
 
@@ -419,8 +448,7 @@ if ( ! class_exists( 'Tribe__Events__Templates' ) ) {
 			}
 
 			// apply filters
-			// @todo remove deprecated filter in 3.4
-			return apply_filters( 'tribe_events_current_template_class', apply_filters( 'tribe_current_events_template_class', $class ) );
+			return apply_filters( 'tribe_events_current_template_class', $class );
 
 		}
 
@@ -685,20 +713,20 @@ if ( ! class_exists( 'Tribe__Events__Templates' ) ) {
 			global $post;
 
 			if ( is_object( $post ) && $post->post_type == Tribe__Events__Main::POSTTYPE && is_feed() && $gmt ) {
-				
+
 				//WordPress always outputs a pubDate set to 00:00 (UTC) so account for that when returning the Event Start Date and Time
 				$zone = get_option( 'timezone_string', false );
-				
+
 				if ( $zone ) {
 				  $zone = new DateTimeZone( $zone );
 				} else {
 				  $zone = new DateTimeZone( 'UTC' );
 				}
-				
+
 				$time = new DateTime( tribe_get_start_date( $post->ID, false, $d ), $zone );
 				$time->setTimezone( new DateTimeZone( 'UTC' ) );
 				$time = $time->format( $d );
-								
+
 			}
 
 			return $time;

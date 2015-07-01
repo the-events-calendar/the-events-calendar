@@ -24,10 +24,11 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		const VENUE_POST_TYPE     = 'tribe_venue';
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
 
-		const VERSION       = '3.11cta1';
-		const FEED_URL      = 'https://theeventscalendar.com/feed/';
-		const INFO_API_URL  = 'http://wpapi.org/api/plugin/the-events-calendar.php';
-		const WP_PLUGIN_URL = 'http://wordpress.org/extend/plugins/the-events-calendar/';
+		const VERSION           = '3.11cta1';
+		const MIN_ADDON_VERSION = '3.10';
+		const FEED_URL          = 'https://theeventscalendar.com/feed/';
+		const INFO_API_URL      = 'http://wpapi.org/api/plugin/the-events-calendar.php';
+		const WP_PLUGIN_URL     = 'http://wordpress.org/extend/plugins/the-events-calendar/';
 
 		/**
 		 * Notices to be displayed in the admin
@@ -652,10 +653,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 					break;
 				}
 
-				// check if addons are at an older minor version
-				$addon_minor_version = (float) $plugin['current_version'];
-				$tec_minor_version   = (float) self::VERSION;
-				if ( version_compare( $addon_minor_version, $tec_minor_version, '<' ) ) {
+				// check if the add-on is out of date
+				if ( version_compare( $plugin['current_version'], self::MIN_ADDON_VERSION, '<' ) ) {
 					$out_of_date_addons[] = $plugin['plugin_name'] . ' ' . $plugin['current_version'];
 				}
 			}
@@ -1081,19 +1080,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		}
 
 		/**
-		 * Sorts the meta to ensure we are getting the real start date
-		 * @deprecated since 3.4
-		 *
-		 * @param int $postId
-		 *
-		 * @return string
-		 * @todo remove - unused
-		 */
-		public static function getRealStartDate( $postId ) {
-			return self::get_series_start_date( $postId );
-		}
-
-		/**
 		 * Update body classes
 		 *
 		 * @param array $classes
@@ -1235,7 +1221,12 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * Generate custom post type lables
 		 */
 		protected function generatePostTypeLabels() {
-			$this->postTypeArgs['labels'] = array(
+			/**
+			 * Provides an opportunity to modify the labels used for the event post type.
+			 *
+			 * @var array
+			 */
+			$this->postTypeArgs['labels'] = apply_filters( 'tribe_events_register_event_post_type_labels', array(
 				'name'               => $this->plural_event_label,
 				'singular_name'      => $this->singular_event_label,
 				'add_new'            => __( 'Add New', 'tribe-events-calendar' ),
@@ -1246,9 +1237,14 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				'search_items'       => sprintf( __( 'Search %s', 'tribe-events-calendar' ), $this->plural_event_label ),
 				'not_found'          => sprintf( __( 'No %s found', 'tribe-events-calendar' ), strtolower( $this->plural_event_label ) ),
 				'not_found_in_trash' => sprintf( __( 'No %s found in Trash', 'tribe-events-calendar' ), strtolower( $this->plural_event_label ) ),
-			);
+			) );
 
-			$this->postVenueTypeArgs['labels'] = array(
+			/**
+			 * Provides an opportunity to modify the labels used for the venue post type.
+			 *
+			 * @var array
+			 */
+			$this->postVenueTypeArgs['labels'] = apply_filters( 'tribe_events_register_venue_post_type_labels', array(
 				'name'               => $this->plural_venue_label,
 				'singular_name'      => $this->singular_venue_label,
 				'add_new'            => __( 'Add New', 'tribe-events-calendar' ),
@@ -1259,9 +1255,14 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				'search_items'       => sprintf( __( 'Search %s', 'tribe-events-calendar' ), $this->plural_venue_label ),
 				'not_found'          => sprintf( __( 'No %s found', 'tribe-events-calendar' ), strtolower( $this->plural_venue_label ) ),
 				'not_found_in_trash' => sprintf( __( 'No %s found in Trash', 'tribe-events-calendar' ), strtolower( $this->plural_venue_label ) ),
-			);
+			) );
 
-			$this->postOrganizerTypeArgs['labels'] = array(
+			/**
+			 * Provides an opportunity to modify the labels used for the organizer post type.
+			 *
+			 * @var array
+			 */
+			$this->postOrganizerTypeArgs['labels'] = apply_filters( 'tribe_events_register_organizer_post_type_labels', array(
 				'name'               => $this->plural_organizer_label,
 				'singular_name'      => $this->singular_organizer_label,
 				'add_new'            => __( 'Add New', 'tribe-events-calendar' ),
@@ -1272,9 +1273,14 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				'search_items'       => sprintf( __( 'Search %s', 'tribe-events-calendar' ), $this->plural_organizer_label ),
 				'not_found'          => sprintf( __( 'No %s found', 'tribe-events-calendar' ), strtolower( $this->plural_organizer_label ) ),
 				'not_found_in_trash' => sprintf( __( 'No %s found in Trash', 'tribe-events-calendar' ), strtolower( $this->plural_organizer_label ) ),
-			);
+			) );
 
-			$this->taxonomyLabels = array(
+			/**
+			 * Provides an opportunity to modify the labels used for the event category taxonomy.
+			 *
+			 * @var array
+			 */
+			$this->taxonomyLabels = apply_filters( 'tribe_events_register_category_taxonomy_labels', array(
 				'name'              => sprintf( __( '%s Categories', 'tribe-events-calendar' ), $this->singular_event_label ),
 				'singular_name'     => sprintf( __( '%s Category', 'tribe-events-calendar' ), $this->singular_event_label ),
 				'search_items'      => sprintf( __( 'Search %s Categories', 'tribe-events-calendar' ), $this->singular_event_label ),
@@ -1285,8 +1291,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				'update_item'       => sprintf( __( 'Update %s Category', 'tribe-events-calendar' ), $this->singular_event_label ),
 				'add_new_item'      => sprintf( __( 'Add New %s Category', 'tribe-events-calendar' ), $this->singular_event_label ),
 				'new_item_name'     => sprintf( __( 'New %s Category Name', 'tribe-events-calendar' ), $this->singular_event_label ),
-			);
-
+			) );
 		}
 
 		/**
@@ -3407,54 +3412,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		}
 
 		/**
-		 * Given a week of the year (WW), returns the YYYY-MM-DD of the first day of the week
-		 *
-		 * @deprecated
-		 * @TODO: remove - unused
-		 *
-		 * @param  string $week expects string or int 2 of 1-52 (weeks of the year)
-		 *
-		 * @return string $date (YYYY-MM-DD)
-		 */
-		public function weekToDate( $week ) {
-			_deprecated_function( __FUNCTION__, '3.0' );
-			// TODO get first day of the week to return in YYYY-MM-DD
-			// TODO fix date return format
-			$date = date( 'Y-m', strtotime( $week . ' weeks' ) );
-
-			return $date;
-		}
-
-		/**
-		 * Given a date (YYYY-MM-DD), return the first day of the previous week
-		 *
-		 * @deprecated
-		 *
-		 * @param date
-		 *
-		 * @return date
-		 * @todo remove - unused
-		 */
-		public function previousWeek( $date ) {
-			_deprecated_function( __FUNCTION__, '3.0' );
-			$dateParts = explode( '-', $date );
-			if ( $dateParts[1] == 1 ) {
-				$dateParts[0] --;
-				$dateParts[1] = '12';
-				$dateParts[2] = '01';
-			} else {
-				$dateParts[1] --;
-				$dateParts[2] = '01';
-			}
-			if ( $dateParts[1] < 10 ) {
-				$dateParts[1] = '0' . $dateParts[1];
-			}
-			$return = $dateParts[0] . '-' . $dateParts[1];
-
-			return $return;
-		}
-
-		/**
 		 * Given a date (YYYY-MM-DD), returns the first of the next month
 		 * hat tip to Dan Bernadict for method cleanup
 		 *
@@ -3675,57 +3632,57 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 */
 		public function get_event_link( $post, $mode = 'next', $anchor = false ) {
 			global $wpdb;
+			$link = '';
 
-			if ( $mode == 'previous' ) {
-				$order = 'DESC';
-				$sign  = '<';
+			if ( 'previous' === $mode ) {
+				$order      = 'DESC';
+				$direction  = '<';
 			} else {
-				$order = 'ASC';
-				$sign  = '>';
+				$order      = 'ASC';
+				$direction  = '>';
+				$mode       = 'next';
 			}
 
-			$date = $post->EventStartDate;
-			$id   = $post->ID;
-
-			$eventsQuery = $wpdb->prepare(
-								"
-				SELECT $wpdb->posts.*, d1.meta_value as EventStartDate
-				FROM $wpdb->posts
-				LEFT JOIN $wpdb->postmeta as d1 ON($wpdb->posts.ID = d1.post_id)
-				WHERE $wpdb->posts.post_type = '%s'
-				AND d1.meta_key = '_EventStartDate'
-				AND ((d1.meta_value = '%s' AND ID $sign %d) OR
-					d1.meta_value $sign '%s')
-				AND $wpdb->posts.post_status = 'publish'
-				AND ($wpdb->posts.ID != %d OR d1.meta_value != '%s')
-				ORDER BY TIMESTAMP(d1.meta_value) $order, ID $order
-				LIMIT 1", self::POSTTYPE, $date, $id, $date, $id, $date
-			);
-
 			$args = array(
-				'post_type'      => self::POSTTYPE,
-				'post_status'    => 'publish',
 				'post__not_in'   => array( $post->ID ),
 				'order'          => $order,
-				'orderby'        => "TIMESTAMP($wpdb->postmeta.meta_value) ID",
+				'orderby'        => "TIMESTAMP( $wpdb->postmeta.meta_value ) ID",
 				'posts_per_page' => 1,
 				'meta_query'     => array(
 					array(
-						'key'   => '_EventStartDate',
-						'value' => $post->EventStartDate,
-						'type'  => 'DATE',
+						'key'     => '_EventStartDate',
+						'value'   => $post->EventStartDate,
+						'type'    => 'DATETIME',
+						'compare' => $direction,
 					),
+					array(
+						'key'     => '_EventHideFromUpcoming',
+						'compare' => 'NOT EXISTS',
+					),
+					'relation'    => 'AND',
 				),
 			);
-			// TODO: Finish rewriting this query to be WP_QUERY based
 
-			$results = $wpdb->get_row( $eventsQuery, OBJECT );
-			if ( is_object( $results ) ) {
+			/**
+			 * Allows the query arguments used when retrieving the next/previous event link
+			 * to be modified.
+			 *
+			 * @var array   $args
+			 * @var WP_Post $post
+			 * @var boolean $anchor
+			 */
+			$args = (array) apply_filters( "tribe_events_get_{$mode}_event_link", $args, $post, $anchor );
+			$results = tribe_get_events( $args );
+
+			// If we successfully located the next/prev event, we should have precisely one element in $results
+			if ( 1 === count( $results ) ) {
+				$event = current( $results );
+
 				if ( ! $anchor ) {
-					$anchor = apply_filters( 'the_title', $results->post_title );
+					$anchor = apply_filters( 'the_title', $event->post_title );
 				} elseif ( strpos( $anchor, '%title%' ) !== false ) {
 					// get the nicely filtered post title
-					$title = apply_filters( 'the_title', $results->post_title, $results->ID );
+					$title = apply_filters( 'the_title', $event->post_title, $event->ID );
 
 					// escape special characters used in the second parameter of preg_replace
 					$title = str_replace(
@@ -3743,8 +3700,19 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 					$anchor = preg_replace( '|%title%|', $title, $anchor );
 				}
 
-				return apply_filters( 'tribe_events_get_event_link', '<a href="' . esc_url( tribe_get_event_link( $results ) ) . '">' . $anchor . '</a>' );
+				$link = '<a href="' . esc_url( tribe_get_event_link( $results ) ) . '">' . $anchor . '</a>';
 			}
+
+			/**
+			 * Affords an opportunity to modify the event link (typically for the next or previous
+			 * event in relation to $post).
+			 *
+			 * @var string  $link
+			 * @var WP_Post $post
+			 * @var string  $mode (typically "previous" or "next")
+			 * @var string  $anchor
+			 */
+			return apply_filters( 'tribe_events_get_event_link', $link, $post, $mode, $anchor );
 		}
 
 		/**
