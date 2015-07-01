@@ -416,8 +416,7 @@ if ( ! class_exists( 'Tribe__Events__Templates' ) ) {
 			}
 
 			// apply filters
-			// @todo: remove deprecated filter in 3.4
-			return apply_filters( 'tribe_events_current_view_template', apply_filters( 'tribe_current_events_page_template', $template ) );
+			return apply_filters( 'tribe_events_current_view_template', $template );
 
 		}
 
@@ -449,8 +448,7 @@ if ( ! class_exists( 'Tribe__Events__Templates' ) ) {
 			}
 
 			// apply filters
-			// @todo remove deprecated filter in 3.4
-			return apply_filters( 'tribe_events_current_template_class', apply_filters( 'tribe_current_events_template_class', $class ) );
+			return apply_filters( 'tribe_events_current_template_class', $class );
 
 		}
 
@@ -715,20 +713,20 @@ if ( ! class_exists( 'Tribe__Events__Templates' ) ) {
 			global $post;
 
 			if ( is_object( $post ) && $post->post_type == Tribe__Events__Main::POSTTYPE && is_feed() && $gmt ) {
-				
+
 				//WordPress always outputs a pubDate set to 00:00 (UTC) so account for that when returning the Event Start Date and Time
 				$zone = get_option( 'timezone_string', false );
-				
+
 				if ( $zone ) {
 				  $zone = new DateTimeZone( $zone );
 				} else {
 				  $zone = new DateTimeZone( 'UTC' );
 				}
-				
+
 				$time = new DateTime( tribe_get_start_date( $post->ID, false, $d ), $zone );
 				$time->setTimezone( new DateTimeZone( 'UTC' ) );
 				$time = $time->format( $d );
-								
+
 			}
 
 			return $time;
