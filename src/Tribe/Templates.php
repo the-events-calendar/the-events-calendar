@@ -448,8 +448,7 @@ if ( ! class_exists( 'Tribe__Events__Templates' ) ) {
 			}
 
 			// apply filters
-			// @todo remove deprecated filter in 3.4
-			return apply_filters( 'tribe_events_current_template_class', apply_filters( 'tribe_current_events_template_class', $class ) );
+			return apply_filters( 'tribe_events_current_template_class', $class );
 
 		}
 
