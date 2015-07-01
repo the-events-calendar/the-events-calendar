@@ -1080,19 +1080,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		}
 
 		/**
-		 * Sorts the meta to ensure we are getting the real start date
-		 * @deprecated since 3.4
-		 *
-		 * @param int $postId
-		 *
-		 * @return string
-		 * @todo remove - unused
-		 */
-		public static function getRealStartDate( $postId ) {
-			return self::get_series_start_date( $postId );
-		}
-
-		/**
 		 * Update body classes
 		 *
 		 * @param array $classes
@@ -3422,54 +3409,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			$results = $wpdb->get_var( $wpdb->prepare( "SELECT id FROM {$wpdb->posts} WHERE post_type = %s && post_title = %s && post_status = 'publish'", $post_type, $name ) );
 
 			return ( $results ) ? 0 : 1;
-		}
-
-		/**
-		 * Given a week of the year (WW), returns the YYYY-MM-DD of the first day of the week
-		 *
-		 * @deprecated
-		 * @TODO: remove - unused
-		 *
-		 * @param  string $week expects string or int 2 of 1-52 (weeks of the year)
-		 *
-		 * @return string $date (YYYY-MM-DD)
-		 */
-		public function weekToDate( $week ) {
-			_deprecated_function( __FUNCTION__, '3.0' );
-			// TODO get first day of the week to return in YYYY-MM-DD
-			// TODO fix date return format
-			$date = date( 'Y-m', strtotime( $week . ' weeks' ) );
-
-			return $date;
-		}
-
-		/**
-		 * Given a date (YYYY-MM-DD), return the first day of the previous week
-		 *
-		 * @deprecated
-		 *
-		 * @param date
-		 *
-		 * @return date
-		 * @todo remove - unused
-		 */
-		public function previousWeek( $date ) {
-			_deprecated_function( __FUNCTION__, '3.0' );
-			$dateParts = explode( '-', $date );
-			if ( $dateParts[1] == 1 ) {
-				$dateParts[0] --;
-				$dateParts[1] = '12';
-				$dateParts[2] = '01';
-			} else {
-				$dateParts[1] --;
-				$dateParts[2] = '01';
-			}
-			if ( $dateParts[1] < 10 ) {
-				$dateParts[1] = '0' . $dateParts[1];
-			}
-			$return = $dateParts[0] . '-' . $dateParts[1];
-
-			return $return;
 		}
 
 		/**
