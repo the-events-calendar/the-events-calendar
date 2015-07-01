@@ -330,11 +330,33 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 
 = [Unreleased] unreleased =
 
+* Bug - Fixed an issue where notification of mismatched TEC Addon versions failed to appear on dot releases above x.9
+* Bug - Fixed an issue where ticket prices were not displayed on in list view when tickets were marked as "Free"
+* Bug - Fixed a bug where an event's start/end dates were purged when calling tribe_update_event() without passing start/end dates
+* Bug - Fixed an issue where events with multiple prices showed innacurate price ranges in list view
+* Bug - Fixed a bug where 24-hour datetime formats would sometimes fail to initialize datetime pickers appropriately
+* Bug - Fixed a bug where titles containing certain special character combinations were getting partially stripped
+* Bug - Fixed an issue where disabling the Day View prevented users from being able to "View all" events from a given day of the month that exceeded the number of visible events while in Month/Week View
+* Tweak - Conformed code to updated coding standards
 * Tweak - Enhancements/updates to iCal subscribe button
 * Tweak - Formatting consistency on filler text within calendar inputs
+* Tweak - Adjusted the rules for triggering the new/upgrade installation splash screen
+* Tweak - Ensured that datepickers for tickets observe the "Week Starts On" WordPress option
+* Tweak - Always display Event Categories in a hierarchy in the Event Category metabox
+* Tweak - Prevented the injection of event start/end dates into WP_Query/get_posts calls when the fields requested are set to 'ids' or 'id=>parent'
+* Tweak - Removed the deprecated "Event Phone" CSV import target
+* Tweak - Allow the View selection drop-down box to function when JavaScript is disabled
+* Tweak - Allow the pagination links in List View to function when JavaScript is disabled
+* Feature - Added support for multiple organizers per event
 * Feature - Exploration + initial work on updated timepicker in events admin
 * Feature - Enhancements to month view class + queries
+* Feature - Added the ability to filter Attendees_Table constructor arguments via tribe_events_tickets_attendees_table_args (props to Evan Mattson - aaemnnosttv)
 * Feature - Allowing yes/true boolean imports for “Show Google Maps (link)” field in CSV import
+* Feature - Added JS events for ticket events: save-ticket.tec.tribe, saved-ticket.tec.tribe, edit-ticket.tec.tribe, delete-ticket.tec.tribe, deleted-ticket.tec.tribe (props to Evan Mattson - aaemnnosttv)
+* Feature - Added the ability to sort events in the dashboard by Event Category and terms (props to kittsvill for the initial work on this!)
+* Feature - Detect when rewrite rules are being flushed when the Events Help page is loaded and drop that information into the System Information box
+* Update - Updated bootstrap-datepicker to version 1.4.0 which resolves a few UI behavior bugs
+* Security - Added escaping to a number of previously un-escaped values
 
 = [3.10] 2015-06-16 =
 
