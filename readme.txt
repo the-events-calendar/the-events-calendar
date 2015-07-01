@@ -338,7 +338,8 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 
 = [3.10.1] 2015-07-01 =
 * Tweak - Improvements to the license key system for premium plugin users
-* Improved performance on Month View
+* Tweak - Improved performance on Month View
+* Bug - Fixed star rating for retina on admin help page
 
 = [3.10] 2015-06-16 =
 
