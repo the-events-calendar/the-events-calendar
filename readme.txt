@@ -5,7 +5,7 @@ Tags: events, calendar, event, venue, organizer, dates, date, google maps, confe
 Donate link: http://m.tri.be/29
 Requires at least: 3.9
 Tested up to: 4.2.2
-Stable tag: 3.10
+Stable tag: 3.10.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -235,10 +235,11 @@ Our Premium Plugins:
 
 3.x is a complete overhaul of the plugin, and as a result we're starting the changelog fresh. For release notes from the 2.x lifecycle, see <a href="http://m.tri.be/k">our 2.x release notes.</a>
 
-= [Unreleased] unreleased =
+= [3.10.1] 2015-07-01 =
 
-* Tweak - Removed TribeEventsPro.recurrence JS from the front-end
 * Bug - Addressed numerous minor styling issues with the Twenty Fifteen theme
+* Bug - Fixed bug where an empty Events Calendar widget would cause a "No events found" notice to be displayed despite events being displayed in the main event loop
+* Tweak - Removed TribeEventsPro.recurrence JS from the front-end
 * Tweak - Made some changes to the EOD cutoff functionality behavior
 
 = [3.10] 2015-06-15 =
