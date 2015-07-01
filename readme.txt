@@ -332,6 +332,7 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 
 * Tweak - Enhancements/updates to iCal subscribe button
 * Tweak - Formatting consistency on filler text within calendar inputs
+* Tweak - Improvements to the license key system for premium plugin users
 * Feature - Exploration + initial work on updated timepicker in events admin
 * Feature - Enhancements to month view class + queries
 * Feature - Allowing yes/true boolean imports for “Show Google Maps (link)” field in CSV import
