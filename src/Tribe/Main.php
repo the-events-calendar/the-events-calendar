@@ -84,7 +84,7 @@
 				add_action( 'tribe_events_pre_get_posts', array( $this, 'pre_get_posts' ) );
 				add_filter( 'tribe_enable_recurring_event_queries', '__return_true', 10, 1 );
 				add_filter( 'body_class', array( $this, 'body_class' ) );
-				add_filter( 'tribe_current_events_page_template', array( $this, 'select_page_template' ) );
+				add_filter( 'tribe_events_current_view_template', array( $this, 'select_page_template' ) );
 				add_filter( 'tribe_current_events_template_class', array( $this, 'get_current_template_class' ) );
 				add_filter( 'tribe_events_template_paths', array( $this, 'template_paths' ) );
 				add_filter( 'tribe_events_template_class_path', array( $this, 'template_class_path' ) );
