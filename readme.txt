@@ -237,9 +237,17 @@ Our Premium Plugins:
 
 = [Unreleased] unreleased =
 
-* Tweak - Removed TribeEventsPro.recurrence JS from the front-end
+* Bug - Fixed an issue where the WP Customizer save button remained disabled when the Events Calendar widget filters were removed
+* Bug - Fixed an issue where the Events Calendar widget form partially overflowed the widget container in the WP Customizer
 * Bug - Addressed numerous minor styling issues with the Twenty Fifteen theme
+* Tweak - Conformed code to updated coding standards
+* Tweak - Removed TribeEventsPro.recurrence JS from the front-end
 * Tweak - Made some changes to the EOD cutoff functionality behavior
+* Tweak - Removed TribeEventsPro.recurrence from the JS that appears on the front end because it isn't used there
+* Tweak - When rendering recurring event markers on an event map, only place one marker per event/location combination
+* Feature - Added a pair of filters so that the recurring event cleanup query can be manipulated by plugin/theme authors: tribe_events_pro_clean_up_old_recurring_events_sql and tribe_events_pro_clean_up_old_recurring_events_sql_args (props to fortgordonmwr for the idea!)
+* Performance - Paginated recurring event "See All" pages to avoid timeouts when there are many recurring events to display
+* Security - Added escaping to a number of previously un-escaped values
 
 = [3.10] 2015-06-15 =
 
