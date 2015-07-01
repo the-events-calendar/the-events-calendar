@@ -172,7 +172,6 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 				add_filter( 'posts_join', array( __CLASS__, 'posts_join' ), 10, 2 );
 				add_filter( 'posts_join', array( __CLASS__, 'posts_join_orderby' ), 10, 2 );
 				add_filter( 'posts_distinct', array( __CLASS__, 'posts_distinct' ) );
-				add_filter( 'posts_groupby', array( __CLASS__, 'posts_groupby' ), 10, 2 );
 				add_filter( 'posts_orderby', array( __CLASS__, 'posts_orderby' ), 10, 2 );
 				do_action( 'tribe_events_pre_get_posts', $query );
 
@@ -187,7 +186,6 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 					add_filter( 'posts_join', array( __CLASS__, 'posts_join_orderby' ), 10, 2 );
 					add_filter( 'posts_where', array( __CLASS__, 'posts_where' ), 10, 2 );
 					add_filter( 'posts_distinct', array( __CLASS__, 'posts_distinct' ) );
-					add_filter( 'posts_groupby', array( __CLASS__, 'posts_groupby' ), 10, 2 );
 				} else {
 					// reduce number of queries triggered by main WP_Query on month view
 					$query->set( 'posts_per_page', 1 );
@@ -377,7 +375,6 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 
 					remove_filter( 'posts_where', array( __CLASS__, 'posts_where' ), 10, 2 );
 					remove_filter( 'posts_fields', array( __CLASS__, 'posts_fields' ) );
-					remove_filter( 'posts_groupby', array( __CLASS__, 'posts_groupby' ) );
 					$query->set( 'post__not_in', '' );
 
 					// set the default order for posts within admin lists
@@ -395,33 +392,6 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 			}
 
 			return $query;
-		}
-
-		/**
-		 * Modifies the GROUP BY statement for Tribe Events queries.
-		 *
-		 * @param string   $groupby_sql The current GROUP BY statement.
-		 * @param WP_Query $query       The current query.
-		 *
-		 * @return string The modified GROUP BY content.
-		 * @todo remove in 3.10
-		 */
-		public static function posts_groupby( $groupby_sql, $query ) {
-			if (
-				(
-					! empty( $query->tribe_is_event_query )
-					|| ! empty( $query->tribe_is_multi_posttype )
-				)
-				&& self::can_inject_date_field( $query )
-			) {
-				if ( has_filter( 'tribe_events_query_posts_groupby' ) ) {
-					_deprecated_function( "The 'tribe_events_query_posts_groupby' filter", '3.8', " the 'posts_groupby' filter" );
-
-					return apply_filters( 'tribe_events_query_posts_groupby', $groupby_sql, $query );
-				}
-			}
-
-			return $groupby_sql;
 		}
 
 		/**
