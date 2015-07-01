@@ -237,8 +237,9 @@ Our Premium Plugins:
 
 = [Unreleased] unreleased =
 
-* Tweak - Removed TribeEventsPro.recurrence JS from the front-end
 * Bug - Addressed numerous minor styling issues with the Twenty Fifteen theme
+* Bug - Fixed bug where an empty Events Calendar widget would cause a "No events found" notice to be displayed despite events being displayed in the main event loop
+* Tweak - Removed TribeEventsPro.recurrence JS from the front-end
 * Tweak - Made some changes to the EOD cutoff functionality behavior
 
 = [3.10] 2015-06-15 =
