@@ -337,10 +337,11 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Feature - Allowing yes/true boolean imports for “Show Google Maps (link)” field in CSV import
 
 = [3.10.1] 2015-07-01 =
+
+* Bug - Fixed bug where a "No events found" notice was displayed in certain situations even when events were visible on the page
+* Bug - Fixed star rating for retina on admin help page
 * Tweak - Improvements to the license key system for premium plugin users
 * Tweak - Improved performance on Month View
-* Bug - Fixed star rating for retina on admin help page
-* Bug - Fixed bug where a "No events found" notice was displayed in certain situations even when events were visible on the page
 
 = [3.10] 2015-06-16 =
 
