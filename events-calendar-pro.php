@@ -52,7 +52,7 @@ define( 'EVENTS_CALENDAR_PRO_DIR', dirname( __FILE__ ) );
 				return false;
 			}
 		}
-		if ( ! class_exists( 'Tribe__Events__Main' ) ) {
+		if ( ! $to_run_or_not_to_run ) {
 			add_action( 'admin_notices', 'tribe_show_fail_message' );
 		}
 	}
