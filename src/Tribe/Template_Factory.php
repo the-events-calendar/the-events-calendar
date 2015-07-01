@@ -397,15 +397,11 @@ if ( ! class_exists( 'Tribe__Events__Template_Factory' ) ) {
 		 * @param string|null $sep
 		 *
 		 * @return mixed|void
-		 * @todo get rid of deprecated tag in 3.10
 		 */
 		final public function title_tag( $title, $sep = null ) {
 			$new_title = $this->get_title( $title, $sep );
-			if ( has_filter( 'tribe_events_add_title' ) ) {
-				_deprecated_function( "The 'tribe_events_add_title' filter", '3.8', " the 'tribe_events_title_tag' filter" );
-			}
 
-			return apply_filters( 'tribe_events_title_tag', apply_filters( 'tribe_events_add_title', $new_title, $title, $sep ), $title, $sep );
+			return apply_filters( 'tribe_events_title_tag', $new_title, $title, $sep );
 		}
 
 		/**
