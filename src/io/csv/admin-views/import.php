@@ -5,8 +5,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 require_once 'header.php';
-?>
-<?php if ( ! empty( $messages ) ): ?>
+
+if ( ! empty( $messages ) ): ?>
 	<div class="error">
 		<?php foreach ( $messages as $message ): ?>
 			<p><?php echo $message; ?></p>
@@ -14,22 +14,22 @@ require_once 'header.php';
 	</div>
 <?php endif; ?>
 	<div id="modern-tribe-info">
-		<h3><?php _e( 'Import Instructions', 'tribe-events-calendar' ); ?></h3>
+		<h3><?php esc_html_e( 'Import Instructions', 'tribe-events-calendar' ); ?></h3>
 		<ul>
 			<li>
-				<?php _e( 'If your events have Organizers or Venues, please import those first.', 'tribe-events-calendar' ); ?>
-				<?php _e( 'To import organizers or venues:', 'tribe-events-calendar' ); ?>
+				<?php esc_html_e( 'If your events have Organizers or Venues, please import those first.', 'tribe-events-calendar' ); ?>
+				<?php esc_html_e( 'To import organizers or venues:', 'tribe-events-calendar' ); ?>
 				<ul>
-					<li><?php _e( 'Select the appropriate import type.', 'tribe-events-calendar' ); ?></li>
-					<li><?php _e( 'Upload a CSV file with one record on each line. The first line may contain column names (check the box below).', 'tribe-events-calendar' ); ?></li>
-					<li><?php _e( 'One column in your CSV should have the Organizer/Venue name. All other fields are optional.', 'tribe-events-calendar' ); ?></li>
-					<li><?php _e( "After you upload your file, you'll have the opportunity to indicate how the columns in your CSV map to fields in The Events Calendar.", 'tribe-events-calendar' ); ?></li>
+					<li><?php esc_html_e( 'Select the appropriate import type.', 'tribe-events-calendar' ); ?></li>
+					<li><?php esc_html_e( 'Upload a CSV file with one record on each line. The first line may contain column names (check the box below).', 'tribe-events-calendar' ); ?></li>
+					<li><?php esc_html_e( 'One column in your CSV should have the Organizer/Venue name. All other fields are optional.', 'tribe-events-calendar' ); ?></li>
+					<li><?php esc_html_e( "After you upload your file, you'll have the opportunity to indicate how the columns in your CSV map to fields in The Events Calendar.", 'tribe-events-calendar' ); ?></li>
 				</ul>
-			<li><?php _e( 'After importing your Organizers and Venues, import your Events:', 'tribe-events-calendar' ); ?>
+			<li><?php esc_html_e( 'After importing your Organizers and Venues, import your Events:', 'tribe-events-calendar' ); ?>
 				<ul>
-					<li><?php _e( 'Upload a CSV file with one record on each line. The first line may contain column names (check the box below).', 'tribe-events-calendar' ); ?></li>
-					<li><?php _e( 'One column in your CSV should have the Event title. Another should have the Event start date. All other fields are optional.', 'tribe-events-calendar' ); ?></li>
-					<li><?php _e( "After you upload your file, you'll have the opportunity to indicate how the columns in your CSV map to fields in The Events Calendar.", 'tribe-events-calendar' ); ?></li>
+					<li><?php esc_html_e( 'Upload a CSV file with one record on each line. The first line may contain column names (check the box below).', 'tribe-events-calendar' ); ?></li>
+					<li><?php esc_html_e( 'One column in your CSV should have the Event title. Another should have the Event start date. All other fields are optional.', 'tribe-events-calendar' ); ?></li>
+					<li><?php esc_html_e( "After you upload your file, you'll have the opportunity to indicate how the columns in your CSV map to fields in The Events Calendar.", 'tribe-events-calendar' ); ?></li>
 				</ul>
 			</li>
 		</ul>
@@ -40,11 +40,11 @@ require_once 'header.php';
 			<tr>
 				<td>
 					<label title="Import Type">
-						<?php _e( 'Import Type:', 'tribe-events-calendar' ) ?>
+						<?php esc_html_e( 'Import Type:', 'tribe-events-calendar' ) ?>
 						<select name="import_type" id="events-import-import-type">
-							<option value="venues"><?php _e( 'Venues', 'tribe-events-calendar' ) ?></option>
-							<option value="organizers"><?php _e( 'Organizers', 'tribe-events-calendar' ) ?></option>
-							<option value="events" selected="selected"><?php _e( 'Events', 'tribe-events-calendar' ) ?></option>
+							<option value="venues"><?php esc_html_e( 'Venues', 'tribe-events-calendar' ) ?></option>
+							<option value="organizers"><?php esc_html_e( 'Organizers', 'tribe-events-calendar' ) ?></option>
+							<option value="events" selected="selected"><?php esc_html_e( 'Events', 'tribe-events-calendar' ) ?></option>
 						</select>
 					</label>
 				</td>
@@ -52,7 +52,7 @@ require_once 'header.php';
 			<tr>
 				<td>
 					<label title="File">
-						<?php _e( 'CSV File:', 'tribe-events-calendar' ) ?>
+						<?php esc_html_e( 'CSV File:', 'tribe-events-calendar' ) ?>
 						<input type="file" name="import_file" id="events-import-csv-file" />
 					</label>
 
@@ -64,7 +64,7 @@ require_once 'header.php';
 				<td>
 					<label title="Header Row">
 						<input type="checkbox" name="import_header" value="1" id="events-import-csv-file" checked="checked" />
-						<?php _e( 'This file has column names in the first row', 'tribe-events-calendar' ) ?>
+						<?php esc_html_e( 'This file has column names in the first row', 'tribe-events-calendar' ) ?>
 					</label>
 				</td>
 			</tr>
@@ -75,8 +75,8 @@ require_once 'header.php';
 			<tr>
 				<td>
 					<input type="submit" class="button-primary" style=""
-						   value="<?php _e( 'Import CSV File', 'tribe-events-calendar' ) ?>" />
-					<input type="hidden" name="MAX_FILE_SIZE" value="<?php echo( 2 * 1024 * 1024 ); ?>" />
+						   value="<?php esc_attr_e( 'Import CSV File', 'tribe-events-calendar' ) ?>" />
+					<input type="hidden" name="MAX_FILE_SIZE" value="<?php esc_attr_e( 2 * 1024 * 1024 ); ?>" />
 					<input type="hidden" name="ecp_import_action" value="map" />
 				</td>
 			</tr>
@@ -85,4 +85,3 @@ require_once 'header.php';
 
 <?php
 require_once 'footer.php';
-?>

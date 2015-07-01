@@ -10,13 +10,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 ?>
 <p>
-	<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:', 'tribe-events-calendar' ); ?></label>
-	<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo esc_attr( $instance['title'] ); ?>" />
+	<label for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"><?php esc_html_e( 'Title:', 'tribe-events-calendar' ); ?></label>
+	<input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>" type="text" value="<?php echo esc_attr( $instance['title'] ); ?>" />
 </p>
 
 <p>
-	<label for="<?php echo $this->get_field_id( 'limit' ); ?>"><?php _e( 'Show:', 'tribe-events-calendar' ); ?></label>
-	<select id="<?php echo $this->get_field_id( 'limit' ); ?>" name="<?php echo $this->get_field_name( 'limit' ); ?>" class="widefat">
+	<label for="<?php echo esc_attr( $this->get_field_id( 'limit' ) ); ?>"><?php esc_html_e( 'Show:', 'tribe-events-calendar' ); ?></label>
+	<select id="<?php echo esc_attr( $this->get_field_id( 'limit' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'limit' ) ); ?>" class="widefat">
 		<?php for ( $i = 1; $i <= 10; $i ++ ) {
 			?>
 			<option <?php if ( $i == $instance['limit'] ) {
@@ -25,10 +25,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<?php } ?>
 	</select>
 </p>
-<label for="<?php echo $this->get_field_id( 'no_upcoming_events' ); ?>"><?php _e( 'Show widget only if there are upcoming events:', 'tribe-events-calendar' ); ?></label>
-<input id="<?php echo $this->get_field_id( 'no_upcoming_events' ); ?>" name="<?php echo $this->get_field_name( 'no_upcoming_events' ); ?>" type="checkbox" <?php checked( $instance['no_upcoming_events'], 1 ); ?> value="1" />
+<label for="<?php echo esc_attr( $this->get_field_id( 'no_upcoming_events' ) ); ?>"><?php esc_html_e( 'Show widget only if there are upcoming events:', 'tribe-events-calendar' ); ?></label>
+<input id="<?php echo esc_attr( $this->get_field_id( 'no_upcoming_events' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'no_upcoming_events' ) ); ?>" type="checkbox" <?php checked( $instance['no_upcoming_events'], 1 ); ?> value="1" />
 <p>
 
 </p>
-
-

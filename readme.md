@@ -2,7 +2,7 @@
 
 Welcome to the official git repository for [The Events Calendar](http://wordpress.org/plugins/the-events-calendar/), a WordPress plugin developed by the team at [Modern Tribe](https://theeventscalendar.com/the-team/).
 
-Please feel free to fork this repository and submit pull requests! 
+Please feel free to fork this repository and submit pull requests!
 
 -----
 
@@ -16,7 +16,7 @@ We do have some guidelines that you should keep in mind while working with this 
 
 4. **Please fork the develop branch and submit your pull requests against that branch.** This is the branch with the latest code we are working on. Pull requests to the master branch can't be merged automatically and may be closed.
 
-5. **When developing apply `define('SCRIPT_DEBUG', true)` in your wp-config.php**. This will load unminified versions of our js assets and give you some debugging information in your dev console.  
+5. **When developing apply `define('SCRIPT_DEBUG', true)` in your wp-config.php**. This will load unminified versions of our js assets and give you some debugging information in your dev console.
 
 6. **Make yourself familiar with the dev folder, its readme and run the appropriate Grunt tasks before committing**. Js minification, css minification, debug code removal, linting and more should be performed as you develop. Its all done with the grunt tasks defined in the dev folder.
 

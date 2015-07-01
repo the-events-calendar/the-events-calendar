@@ -8,13 +8,13 @@ class Tribe__Events__Importer__Options {
 		'imported_post_status'
 	);
 
-	public static function process_general_form_submission(){
-		if( !empty( $_POST[ 'tribe-import-general-settings' ] ) && wp_verify_nonce( $_POST[ 'tribe-import-general-settings' ], 'tribe-import-general-settings' ) ){
+	public static function process_general_form_submission() {
+		if ( ! empty( $_POST[ 'tribe-import-general-settings' ] ) && wp_verify_nonce( $_POST[ 'tribe-import-general-settings' ], 'tribe-import-general-settings' ) ) {
 
 			$options = apply_filters( 'tribe-import-available-options', self::$options );
 			$core = Tribe__Events__Main::instance();
 
-			foreach( $options as $_option ){
+			foreach ( $options as $_option ) {
 				$core->setOption( $_option, $_POST[ $_option ] );
 			}
 
@@ -22,11 +22,11 @@ class Tribe__Events__Importer__Options {
 		}
 	}
 
-	public static function settings_saved_message(){
+	public static function settings_saved_message() {
 		?>
 		<div id="message" class="updated below-h2">
 			<p>
-				<strong><?php _e( 'Settings saved.' ); ?></strong>
+				<strong><?php esc_html_e( 'Settings saved.' ); ?></strong>
 			</p>
 		</div>
 		<?php
@@ -41,8 +41,8 @@ class Tribe__Events__Importer__Options {
 	 *
 	 * @return mixed results of option query
 	 */
-	public static function getOption( $optionName, $default = '' ){
-		if( !$optionName ){
+	public static function getOption( $optionName, $default = '' ) {
+		if ( ! $optionName ) {
 			return null;
 		}
 

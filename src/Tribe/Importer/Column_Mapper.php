@@ -28,7 +28,7 @@ class Tribe__Events__Importer__Column_Mapper {
 	}
 
 	public function make_select_box( $index ) {
-		$selected = isset( $this->defaults[$index] ) ? $this->defaults[$index] : '';
+		$selected = isset( $this->defaults[ $index ] ) ? $this->defaults[ $index ] : '';
 		$html     = '<select name="column_map[' . $index . ']">';
 		$html .= '<option value="">' . __( 'Do Not Import', 'tribe-events-calendar' ) . '</option>';
 		foreach ( $this->column_names as $key => $value ) {
@@ -40,8 +40,8 @@ class Tribe__Events__Importer__Column_Mapper {
 	}
 
 	public function get_column_label( $key ) {
-		if ( isset( $this->column_names[$key] ) ) {
-			return $this->column_names[$key];
+		if ( isset( $this->column_names[ $key ] ) ) {
+			return $this->column_names[ $key ];
 		}
 
 		return '';
@@ -61,7 +61,6 @@ class Tribe__Events__Importer__Column_Mapper {
 			'event_show_map_link'  => __( 'Event Show Map Link', 'tribe-events-calendar' ),
 			'event_show_map'       => __( 'Event Show Map', 'tribe-events-calendar' ),
 			'event_cost'           => __( 'Event Cost', 'tribe-events-calendar' ),
-			'event_phone'          => __( 'Event Phone', 'tribe-events-calendar' ),
 			'event_category'       => __( 'Event Category', 'tribe-events-calendar' ),
 			'event_website'  	   => __( 'Event Website', 'tribe-events-calendar' ),
 		);

@@ -11,11 +11,11 @@ class Tribe__Events__iCal {
 	 * @static
 	 */
 	public static function init() {
-		add_filter( 'tribe_events_after_footer',                   array( __CLASS__, 'maybe_add_link'     ), 10, 1 );
-		add_action( 'tribe_events_single_event_after_the_content', array( __CLASS__, 'single_event_links' )        );
-		add_action( 'tribe_tec_template_chooser',                  array( __CLASS__, 'do_ical_template'   )        );
-		add_filter( 'tribe_get_ical_link', 						   array( __CLASS__, 'day_view_ical_link' ), 20, 1 );
-		add_action( 'wp_head',                                     array( __CLASS__, 'set_feed_link'      ), 2,  0 );
+		add_filter( 'tribe_events_after_footer', array( __CLASS__, 'maybe_add_link' ), 10, 1 );
+		add_action( 'tribe_events_single_event_after_the_content', array( __CLASS__, 'single_event_links' ) );
+		add_action( 'tribe_tec_template_chooser', array( __CLASS__, 'do_ical_template' ) );
+		add_filter( 'tribe_get_ical_link', array( __CLASS__, 'day_view_ical_link' ), 20, 1 );
+		add_action( 'wp_head', array( __CLASS__, 'set_feed_link' ), 2, 0 );
 	}
 
 	/**
@@ -28,7 +28,7 @@ class Tribe__Events__iCal {
 		$separator  = _x( '&raquo;', 'feed link', 'tribe-events-calendar' );
 		$feed_title = sprintf( __( '%1$s %2$s iCal Feed', 'tribe-events-calendar' ), get_bloginfo( 'name' ), $separator );
 
-		printf( '<link rel="alternate" type="text/calendar" title="%s" href="%s" />', $feed_title, esc_url( tribe_get_ical_link() ) );
+		printf( '<link rel="alternate" type="text/calendar" title="%s" href="%s" />', esc_attr( $feed_title ), esc_url( tribe_get_ical_link() ) );
 		echo "\n";
 	}
 
@@ -42,7 +42,6 @@ class Tribe__Events__iCal {
 
 		return trailingslashit( $tec->getLink( 'home' ) ) . '?ical=1';
 	}
-
 
 	/**
 	 * Make sure ical link has the date in the URL instead of "today" on day view
@@ -72,10 +71,9 @@ class Tribe__Events__iCal {
 		if ( is_single() && post_password_required() ) {
 			return;
 		}
-
 		echo '<div class="tribe-events-cal-links">';
-		echo '<a class="tribe-events-gcal tribe-events-button" href="' . esc_url( tribe_get_gcal_link() ) . '" title="' . __( 'Add to Google Calendar', 'tribe-events-calendar' ) . '">+ ' . __( 'Google Calendar', 'tribe-events-calendar' ) . '</a>';
-		echo '<a class="tribe-events-ical tribe-events-button" href="' . esc_url( tribe_get_single_ical_link() ) . '" title="' . __( 'Download .ics file', 'tribe-events-calendar' ) . '" >+ ' . __( 'iCal Export', 'tribe-events-calendar' ) . '</a>';
+		echo '<a class="tribe-events-gcal tribe-events-button" href="' . Tribe__Events__Main::instance()->esc_gcal_url( tribe_get_gcal_link() ) . '" title="' . esc_attr__( 'Add to Google Calendar', 'tribe-events-calendar' ) . '">+ ' . esc_html__( 'Google Calendar', 'tribe-events-calendar' ) . '</a>';
+		echo '<a class="tribe-events-ical tribe-events-button" href="' . esc_url( tribe_get_single_ical_link() ) . '" title="' . esc_attr__( 'Download .ics file', 'tribe-events-calendar' ) . '" >+ ' . esc_html__( 'iCal Export', 'tribe-events-calendar' ) . '</a>';
 		echo '</div><!-- .tribe-events-cal-links -->';
 	}
 
@@ -105,16 +103,16 @@ class Tribe__Events__iCal {
 
 		switch ( strtolower( $view ) ) {
 			case 'month':
-				$modifier = sprintf( __( "Month's %s", "tribe-events-calendar" ), tribe_get_event_label_plural() );
+				$modifier = sprintf( __( "Month's %s", 'tribe-events-calendar' ), tribe_get_event_label_plural() );
 				break;
 			case 'week':
-				$modifier = sprintf( __( "Week's %s", "tribe-events-calendar" ), tribe_get_event_label_plural() );
+				$modifier = sprintf( __( "Week's %s", 'tribe-events-calendar' ), tribe_get_event_label_plural() );
 				break;
 			case 'day':
-				$modifier = sprintf( __( "Day's %s", "tribe-events-calendar" ), tribe_get_event_label_plural() );
+				$modifier = sprintf( __( "Day's %s", 'tribe-events-calendar' ), tribe_get_event_label_plural() );
 				break;
 			default:
-				$modifier = sprintf( __( "Listed %s", "tribe-events-calendar" ), tribe_get_event_label_plural() );
+				$modifier = sprintf( __( 'Listed %s', 'tribe-events-calendar' ), tribe_get_event_label_plural() );
 				break;
 		}
 
@@ -146,24 +144,46 @@ class Tribe__Events__iCal {
 	}
 
 	/**
-	 * Gets all events in the month
+	 * Gets all events in the current month, matching those presented in month view
+	 * by default (and therefore potentially including some events from the tail end
+	 * of the previous month and start of the following month).
 	 *
-	 * @static
+	 * We build a fresh 'custom'-type query here rather than taking advantage of the
+	 * main query since page spoofing can render the actual query and results
+	 * inaccessible (and it cannot be recovered via a query reset).
 	 *
 	 * @return array events in the month
 	 */
 	private static function get_month_view_events() {
-		do_action( 'tribe_events_before_view' ); // this will trigger the month view query setup
-		$events_posts = array();
-		while ( tribe_events_have_month_days() ) {
-			tribe_events_the_month_day();
-			$month_day = tribe_events_get_current_month_day();
-			if ( isset( $month_day['events'] ) && $month_day['total_events'] > 0 ) {
-				$events_posts = array_merge( $month_day['events']->posts, $events_posts );
-			}
-		}
+		global $wp_query;
 
-		return $events_posts;
+		$event_date = $wp_query->get( 'eventDate' );
+
+		$month = empty( $event_date )
+			? tribe_get_month_view_date()
+			: $wp_query->get( 'eventDate' );
+
+		$args = array(
+			'eventDisplay' => 'custom',
+			'start_date'   => Tribe__Events__Template__Month::calculate_first_cell_date( $month ),
+			'end_date'     => Tribe__Events__Template__Month::calculate_final_cell_date( $month ),
+		);
+
+		/**
+		 * Provides an opportunity to modify the query args used to build a list of events
+		 * to export from month view.
+		 *
+		 * This could be useful where its desirable to limit the exported data set to only
+		 * those events taking place in the specific month being viewed (rather than an exact
+		 * match of the events shown in month view itself, which may include events from
+		 * adjacent months).
+		 *
+		 * @var array  $args
+		 * @var string $month
+		 */
+		$args = (array) apply_filters( 'tribe_ical_feed_month_view_query_args', $args, $month );
+
+		return tribe_get_events( $args );
 	}
 
 	/**
@@ -353,4 +373,5 @@ class Tribe__Events__iCal {
 			return $timestamp;
 		}
 	}
+
 }

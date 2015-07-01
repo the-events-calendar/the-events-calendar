@@ -107,12 +107,18 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 			}
 
 			if ( isset( $data['Organizer'] ) ) {
-				if ( ! empty( $data['Organizer']['OrganizerID'] ) ) {
-					$organizer_post_status = get_post( $data['Organizer']['OrganizerID'] )->post_status;
-				} else {
-					$organizer_post_status = $post_status;
+				if ( ! isset( $data['Organizer'][0] ) || ! is_array( $data['Organizer'][0] ) ) {
+					// convert old-style single organizer into an array of organizers
+					$data['Organizer'] = array( $data['Organizer'] );
 				}
-				$data['EventOrganizerID'] = self::saveEventOrganizer( $data['Organizer'], $event, $organizer_post_status );
+				foreach ( $data['Organizer'] as $organizer ) {
+					if ( ! empty( $organizer['OrganizerID'] ) ) {
+						$organizer_post_status = get_post_status( $organizer['OrganizerID'] );
+					} else {
+						$organizer_post_status = $post_status;
+					}
+					$data['EventOrganizerID'][] = self::saveEventOrganizer( $organizer, $event, $organizer_post_status );
+				}
 			}
 			if ( isset( $data['Venue'] ) ) {
 				if ( ! empty( $data['Venue']['VenueID'] ) ) {
@@ -179,21 +185,19 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 		protected static function prepare_event_date_meta( $event_id, $data ) {
 			$date_provided = false;
 
-			if (
-				isset( $data['EventAllDay'] )
-				&& (
-					'yes' === $data['EventAllDay']
-					|| true === $data['EventAllDay']
-					|| ! isset( $data['EventStartDate'] )
-				)
-			) {
+			if ( isset( $data['EventAllDay'] ) ) {
+				if ( Tribe__Events__Date_Utils::is_all_day( $data['EventAllDay'] ) ) {
+					$data['EventAllDay'] = 'yes';
+				} else {
+					$data['EventAllDay'] = 'no';
+				}
+			}
+
+			if ( isset( $data['EventAllDay'] ) && 'yes' === $data['EventAllDay'] ) {
 				$date_provided = true;
 				$data['EventStartDate'] = tribe_event_beginning_of_day( $data['EventStartDate'] );
 				$data['EventEndDate']   = tribe_event_end_of_day( $data['EventEndDate'] );
-			} elseif (
-				isset( $data['EventStartDate'] )
-				&& isset( $data['EventEndDate'] )
-			) {
+			} elseif ( isset( $data['EventStartDate'] ) && isset( $data['EventEndDate'] ) ) {
 				$date_provided = true;
 				delete_post_meta( $event_id, '_EventAllDay' );
 
