@@ -45,7 +45,6 @@ define( 'EVENTS_CALENDAR_PRO_DIR', dirname( __FILE__ ) );
 			/**
 			 * Dummy function to avoid fatal error in edge upgrade case
 			 *
-			 * @todo remove in 3.1
 			 * @return bool
 			 **/
 			function tribe_is_recurring_event() {
