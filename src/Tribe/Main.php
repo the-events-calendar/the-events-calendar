@@ -766,7 +766,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * only if premium addons are detected.
 		 */
 		protected function do_licenses_tab() {
-			if ( ! $this->have_addons() ) {
+			if ( ! current_user_can( 'update_plugins' ) || ! $this->have_addons() ) {
 				return;
 			}
 
