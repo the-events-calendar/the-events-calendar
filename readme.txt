@@ -5,7 +5,7 @@ Tags: events, calendar, event, venue, organizer, dates, date, google maps, confe
 Donate link: http://m.tri.be/29
 Requires at least: 3.9
 Tested up to: 4.2.2
-Stable tag: 3.10
+Stable tag: 3.10.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -13,7 +13,7 @@ The Events Calendar is a carefully crafted, extensible plugin that lets you easi
 
 == Description ==
 
-><strong>A note about support:</strong> We’re here to help troubleshoot bugs, but should set expectations early that the support forums at WordPress.org are only checked once a week. Please read our <a href=“http://wordpress.org/support/topic/welcome-the-events-calendar-users-read-this-first?replies=3”>sticky post</a> before creating a new thread.
+><strong>A note about support:</strong> We’re here to help troubleshoot bugs, but should set expectations early that the support forums at WordPress.org are only checked once a week. Please read our <a href="http://wordpress.org/support/topic/welcome-the-events-calendar-users-read-this-first?replies=3">sticky post</a> before creating a new thread.
 >
 > Users looking for more timely/in-depth support are encouraged to check out <a href="http://m.tri.be/mj" target="_blank" title="[new window]">Events Calendar PRO</a>.
 
@@ -79,7 +79,7 @@ Looking for something else?
 
 = SUBMITTING PATCHES =
 
-If you’ve identified a bug and want to submit a patch, we’d welcome it at our <a href=“https://github.com/moderntribe/the-events-calendar”>GitHub page for The Events Calendar.</a> Simply cue up your proposed patch as a pull request, and we’ll review as part of our monthly release cycle and merge into the codebase if appropriate from there. (If a pull request is rejected, we’ll do our best to tell you why). Users whose pull requests are accepted will receive credit in the plugin’s changelog. For more information, check out the readme at our GitHub page. Happy coding!
+If you’ve identified a bug and want to submit a patch, we’d welcome it at our <a href="https://github.com/moderntribe/the-events-calendar>GitHub page for The Events Calendar.</a> Simply cue up your proposed patch as a pull request, and we’ll review as part of our monthly release cycle and merge into the codebase if appropriate from there. (If a pull request is rejected, we’ll do our best to tell you why). Users whose pull requests are accepted will receive credit in the plugin’s changelog. For more information, check out the readme at our GitHub page. Happy coding!
 
 = GET INVOLVED =
 
@@ -208,12 +208,12 @@ The plugin is produced by <a href="http://m.tri.be/2s">Modern Tribe Inc</a>.
 * <a href="http://profiles.wordpress.org/users/jbrinley">Jonathan Brinley</a>
 * <a href="http://profiles.wordpress.org/users/faction23">Samuel Estok</a>
 * <a href="http://profiles.wordpress.org/users/brianjessee">Brian Jessee</a>
-* <a href="http://profiles.wordpress.org/users/mdbitz”>Matthew Denton</a>
+* <a href="http://profiles.wordpress.org/users/mdbitz">Matthew Denton</a>
 * <a href="http://profiles.wordpress.org/users/geoffgraham">Geoff Graham</a>
-* <a href="http://profiles.wordpress.org/users/joshlimecuda”>Josh Mallard</a>
+* <a href="http://profiles.wordpress.org/users/joshlimecuda">Josh Mallard</a>
 * <a href="http://profiles.wordpress.org/users/neillmcshea">Neill McShea</a>
-* <a href="http://profiles.wordpress.org/users/brook-tribe”>Brook Harding</a>
-* <a href="http://profiles.wordpress.org/users/ckpicker”>Casey Picker</a>
+* <a href="http://profiles.wordpress.org/users/brook-tribe">Brook Harding</a>
+* <a href="http://profiles.wordpress.org/users/ckpicker">Casey Picker</a>
 * <a href="http://profiles.wordpress.org/users/leahkoerper">Leah Koerper</a>
 * <a href="http://profiles.wordpress.org/users/peterchester">Peter Chester</a>
 * <a href="http://profiles.wordpress.org/users/reid.peifer">Reid Peifer</a>
@@ -357,6 +357,13 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Feature - Detect when rewrite rules are being flushed when the Events Help page is loaded and drop that information into the System Information box
 * Update - Updated bootstrap-datepicker to version 1.4.0 which resolves a few UI behavior bugs
 * Security - Added escaping to a number of previously un-escaped values
+
+= [3.10.1] 2015-07-01 =
+
+* Bug - Fixed bug where a "No events found" notice was displayed in certain situations even when events were visible on the page
+* Bug - Fixed star rating for retina on admin help page
+* Tweak - Improvements to the license key system for premium plugin users
+* Tweak - Improved performance on Month View
 
 = [3.10] 2015-06-16 =
 

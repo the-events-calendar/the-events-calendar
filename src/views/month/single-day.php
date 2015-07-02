@@ -22,11 +22,11 @@ $day = tribe_events_get_current_month_day();
 <!-- Day Header -->
 <div id="tribe-events-daynum-<?php echo $day['daynum'] ?>">
 
-	<?php if ( $day['total_events'] > 0 && tribe_events_is_view_enabled( 'day' ) ) { ?>
+	<?php if ( $day['total_events'] > 0 && tribe_events_is_view_enabled( 'day' ) ) : ?>
 		<a href="<?php echo esc_url( tribe_get_day_link( $day['date'] ) ); ?>"><?php echo $day['daynum'] ?></a>
-	<?php } else { ?>
+	<?php else : ?>
 		<?php echo $day['daynum'] ?>
-	<?php } ?>
+	<?php endif; ?>
 
 </div>
 
