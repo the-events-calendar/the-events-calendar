@@ -392,7 +392,7 @@ msgstr "Chaque fois que donnez <strong>5 étoiles</strong>, une fée nait. Bon p
 
 #: ../src/functions/template-tags/loop.php:131
 msgid "Upcoming %s"
-msgstr "À venir %s"
+msgstr "%s à venir"
 
 #: ../src/admin-views/admin-update-message.php:34
 #: ../src/admin-views/admin-welcome-message.php:22
@@ -2947,7 +2947,7 @@ msgstr "Norfolk Island"
 
 #: ../src/Tribe/Main.php:4169
 msgid "%s From"
-msgstr "% Du"
+msgstr "Date des %s"
 
 #: ../src/Tribe/View_Helpers.php:208
 msgid "Northern Mariana Islands"
