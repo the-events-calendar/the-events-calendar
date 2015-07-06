@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the The Events Calendar package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2015-06-22 13:38:53+0000\n"
+"PO-Revision-Date: 2015-07-03 14:21:05+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -319,7 +319,7 @@ msgstr "Download .ics file"
 
 #: ../src/functions/template-tags/day.php:108
 msgid "<span>&laquo;</span> Previous Day"
-msgstr "&laquo; Forrige"
+msgstr "<span>&laquo;</span> Tidligere"
 
 #: ../src/Tribe/iCal.php:78
 msgid "iCal Export"
@@ -327,7 +327,7 @@ msgstr "Eksportér"
 
 #: ../src/functions/template-tags/day.php:110
 msgid "Next Day <span>&raquo;</span>"
-msgstr "Næste &raquo;"
+msgstr "Kommende <span>&raquo;</span>"
 
 #: ../src/Tribe/iCal.php:108
 msgid "Month's %s"
@@ -435,7 +435,7 @@ msgstr "På udkig efter noget specielt?"
 
 #: ../src/functions/template-tags/options.php:29
 msgid "You <strong>cannot</strong> use the same slug as above. The above should ideally be plural, and this singular.<br />Your single Event URL is like: %s"
-msgstr "Der <stron>må ikke</strong> benyttes samme korte link titel som ovenfor. Titlen ovenfor bør være i flertal, og denne titel bør være i ental. <br /> Linket til individuellet begivenheder er: %s"
+msgstr "Der <strong>må ikke</strong> benyttes samme korte link titel som ovenfor. Titlen ovenfor bør være i flertal, og denne titel bør være i ental. <br /> Linket til individuellet begivenheder er: %s"
 
 #: ../src/admin-views/admin-update-message.php:51
 msgid "Pro"
@@ -2245,7 +2245,7 @@ msgstr "French Guiana"
 #: ../src/Tribe/Main.php:519 ../src/functions/template-tags/general.php:71
 #: ../src/io/csv/admin-views/import.php:47
 msgid "Events"
-msgstr "Begivenheder"
+msgstr "begivenheder"
 
 #: ../src/Tribe/View_Helpers.php:123
 msgid "French Polynesia"

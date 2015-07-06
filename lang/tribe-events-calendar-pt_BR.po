@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the The Events Calendar package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2015-06-27 03:18:23+0000\n"
+"PO-Revision-Date: 2015-07-03 14:39:45+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1155,7 +1155,7 @@ msgstr "Configurações de formato de data"
 
 #: ../src/admin-views/tribe-options-display.php:126
 msgid "<p>The following three fields accept the date format options available to the php date() function. <a href=\"http://codex.wordpress.org/Formatting_Date_and_Time\" target=\"_blank\">Learn how to make your own date format here</a>.</p>"
-msgstr ""
+msgstr "<p>Os três campos a seguir aceitam as opções de formato de data disponíveis para a função php date() . <a href=\"http://codex.wordpress.org/Formatting_Date_and_Time\" target=\"_blank\">Saiba como criar o seu próprio formato de data aqui</a>.</p>"
 
 #: ../src/admin-views/tribe-options-display.php:130
 msgid "Date with year"
@@ -1163,7 +1163,7 @@ msgstr "Data com ano"
 
 #: ../src/admin-views/tribe-options-display.php:131
 msgid "Enter the format to use for displaying dates with the year. Used when showing an event from a past or future year, also used for dates in view headers."
-msgstr ""
+msgstr "Insira o formato a ser utilizado para exibir datas com ano. Usado para mostrar um evento de um ano passado ou futuro, também é usado para datas nos cabeçalhos de visualização."
 
 #: ../src/admin-views/tribe-options-display.php:138
 msgid "Date without year"
@@ -1199,7 +1199,7 @@ msgstr "Entre com o separador que será usado entre os horários de início e fi
 
 #: ../src/admin-views/tribe-options-display.php:170
 msgid "Datepicker Date Format"
-msgstr ""
+msgstr "Formato de Data \"Datepicker\""
 
 #: ../src/admin-views/tribe-options-display.php:171
 msgid "Select the date format to use in datepickers"
@@ -1500,7 +1500,7 @@ msgstr "Alaska"
 
 #: ../src/admin-views/tribe-options-help.php:94
 msgid "If you're looking for help with The Events Calendar, you've come to the right place. We are committed to helping make your calendar kick ass...and hope the resources provided below will help get you there."
-msgstr ""
+msgstr "Se você procura ajuda com o The Events Calendar, você veio ao lugar certo. Estamos comprometidos em ajudar a fazer o seu calendário detonar... e esperamos que os recursos abaixo o ajudem a chegar lá."
 
 #: ../src/Tribe/View_Helpers.php:318
 msgid "Arizona"
@@ -1796,7 +1796,7 @@ msgstr "Belgium"
 
 #: ../src/Tribe/Credits.php:48
 msgid "http://wordpress.org/support/view/plugin-reviews/the-events-calendar?filter=5"
-msgstr ""
+msgstr "http://wordpress.org/support/view/plugin-reviews/the-events-calendar?filter=5"
 
 #: ../src/Tribe/View_Helpers.php:68
 msgid "Belize"
@@ -1837,7 +1837,7 @@ msgstr "Bolívia"
 #: ../src/Tribe/Importer/Admin_Page.php:15
 #: ../src/Tribe/Importer/Admin_Page.php:16 ../src/Tribe/Main.php:3880
 msgid "Import"
-msgstr ""
+msgstr "Importar"
 
 #: ../src/Tribe/View_Helpers.php:73
 msgid "Bosnia And Herzegowina"
@@ -2038,7 +2038,7 @@ msgstr "Cook Islands"
 
 #: ../src/Tribe/Importer/Column_Mapper.php:75
 msgid "Venue Address 2"
-msgstr ""
+msgstr "Endereço do Local 2"
 
 #: ../src/Tribe/View_Helpers.php:98
 msgid "Costa Rica"
@@ -2078,7 +2078,7 @@ msgstr "Cyprus"
 
 #: ../src/Tribe/Importer/Column_Mapper.php:80
 msgid "Venue Website"
-msgstr ""
+msgstr "Website do Local"
 
 #: ../src/Tribe/View_Helpers.php:103
 msgid "Czech Republic"
@@ -2334,7 +2334,7 @@ msgstr "Grenada"
 
 #: ../src/Tribe/Main.php:688
 msgid "The following plugins are out of date: <b>%s</b>. All add-ons contain dependencies on The Events Calendar and will not function properly unless paired with the right version. %sLearn More%s."
-msgstr ""
+msgstr "Os seguintes plugins estão desatualizados: <b>%s</b>. Todos os \"add-ons\" contém dependências para o The Events Calendar e não funcionarão corretamente enquanto não forem atualizados para a versão correta. %sSaiba Mais%s."
 
 #: ../src/Tribe/View_Helpers.php:134
 msgid "Guadeloupe"
@@ -2615,7 +2615,7 @@ msgstr "Lebanon"
 
 #: ../src/Tribe/Main.php:1288
 msgid "%1$s submitted. <a target=\"_blank\" href=\"%2$s\">Preview %3$s</a>"
-msgstr ""
+msgstr "%1$s enviado. <a target=\"_blank\" href=\"%2$s\">Pré-visualizar %3$s</a>"
 
 #: ../src/Tribe/View_Helpers.php:167
 msgid "Lesotho"
@@ -2623,7 +2623,7 @@ msgstr "Lesotho"
 
 #: ../src/Tribe/Main.php:1290
 msgid "%1$s scheduled for: <strong>%2$s</strong>. <a target=\"_blank\" href=\"%3$s\">Preview %4$s</a>"
-msgstr ""
+msgstr "%1$s agendado para: <strong>%2$s</strong>. <a target=\"_blank\" href=\"%3$s\">Pré-visualizar %4$s</a>"
 
 #: ../src/Tribe/View_Helpers.php:168
 msgid "Liberia"
@@ -2640,7 +2640,7 @@ msgstr "Libya"
 
 #: ../src/Tribe/Main.php:1295
 msgid "%1$s draft updated. <a target=\"_blank\" href=\"%2$s\">Preview %3$s</a>"
-msgstr ""
+msgstr "%1$s rascunho atualizado. <a target=\"_blank\" href=\"%2$s\">Pré-visualizar %3$s</a>"
 
 #: ../src/Tribe/View_Helpers.php:170
 msgid "Liechtenstein"
@@ -2664,7 +2664,7 @@ msgstr "Luxembourg"
 
 #: ../src/Tribe/Main.php:1308 ../src/Tribe/Main.php:1327
 msgid "%s submitted."
-msgstr ""
+msgstr "%s enviado."
 
 #: ../src/Tribe/View_Helpers.php:173
 msgid "Macau"
@@ -2672,7 +2672,7 @@ msgstr "Macau"
 
 #: ../src/Tribe/Main.php:1310 ../src/Tribe/Main.php:1329
 msgid "%s scheduled for: <strong>%2$s</strong>."
-msgstr ""
+msgstr "%s agendado para: <strong>%2$s</strong>."
 
 #: ../src/Tribe/View_Helpers.php:174
 msgid "Macedonia"
@@ -2680,7 +2680,7 @@ msgstr "Macedonia"
 
 #: ../src/Tribe/Main.php:1314 ../src/Tribe/Main.php:1333
 msgid "%s draft updated."
-msgstr ""
+msgstr "%s rascunho atualizado."
 
 #: ../src/Tribe/View_Helpers.php:175
 msgid "Madagascar"
@@ -2696,7 +2696,7 @@ msgstr "Malawi"
 
 #: ../src/Tribe/Main.php:1397
 msgid "Without a defined location your event will not display a <a href=\"https://support.google.com/webmasters/answer/164506\" target=\"_blank\">Google Rich Snippet</a> on the search results."
-msgstr ""
+msgstr "Sem um local definido, o seu evento não irá mostrar um <a href=\"https://support.google.com/webmasters/answer/164506\" target=\"_blank\">\"Google Rich Snippet\"</a> nos resultados de busca."
 
 #: ../src/Tribe/View_Helpers.php:177
 msgid "Malaysia"
@@ -3160,7 +3160,7 @@ msgstr "Saudi Arabia"
 
 #: ../src/Tribe/Support.php:44
 msgid "Sometimes it's hard to tell what's going wrong without knowing more about your system steup. For your convenience, we've put together a little report on what's cooking under the hood."
-msgstr ""
+msgstr "Às vezes é difícil saber o que está errado sem conhecer melhor a configuração do seu sistema. Para a sua conveniência, montamos um pequeno relatório sobre o que está acontecendo \"debaixo do capô\"."
 
 #: ../src/Tribe/View_Helpers.php:234
 msgid "Senegal"
@@ -3168,7 +3168,7 @@ msgstr "Senegal"
 
 #: ../src/Tribe/Support.php:45
 msgid "If you suspect that the problem you're having is related to another plugin, or we're just plain having trouble reproducing your bug report, please copy and send all of this to our support team."
-msgstr ""
+msgstr "Se você suspeita que o problema que está tendo é relacionado a outro plugin, ou nós estamos simplesmente tendo problemas para reproduzir o seu relatório de bug, por favor copie e envie tudo para a nossa equipe de suporte."
 
 #: ../src/Tribe/View_Helpers.php:235
 msgid "Serbia"
@@ -3208,7 +3208,7 @@ msgstr "Slovakia (Slovak Republic)"
 
 #: ../src/Tribe/Template/Day.php:136
 msgid "No matching %s listed under %s scheduled for <strong>%s</strong>. Please try another day."
-msgstr ""
+msgstr "Não há %s listado para %s agendado por <strong>%s</strong>. Por favor insira outro dia."
 
 #: ../src/Tribe/View_Helpers.php:240
 msgid "Slovenia"
@@ -3216,7 +3216,7 @@ msgstr "Slovenia"
 
 #: ../src/Tribe/Template/Day.php:138
 msgid "No %s scheduled for <strong>%s</strong>. Please try another day."
-msgstr ""
+msgstr "Nenhum %s agendado para <strong>%s</strong>. Por favor insira outro dia."
 
 #: ../src/Tribe/View_Helpers.php:241
 msgid "Solomon Islands"
@@ -3232,7 +3232,7 @@ msgstr "Somalia"
 
 #: ../src/Tribe/Template/Month.php:142
 msgid "No matching %s listed under %s. Please try viewing the full calendar for a complete list of events."
-msgstr ""
+msgstr "Não há %s listados para %s. Por favor tente visualizar o calendário inteiro para uma lista completa de eventos."
 
 #: ../src/Tribe/View_Helpers.php:243
 msgid "South Africa"
@@ -3248,7 +3248,7 @@ msgstr "South Georgia, South Sandwich Islands"
 
 #: ../src/Tribe/Template/Month.php:333
 msgid "The requested date \"%s\" was not valid &ndash; showing the current month instead"
-msgstr ""
+msgstr "A data inserida \"%s\" não é válida &ndash; mostrando o mês atual"
 
 #: ../src/Tribe/View_Helpers.php:245
 msgid "Spain"
@@ -3280,7 +3280,7 @@ msgstr "St. Pierre And Miquelon"
 
 #: ../src/Tribe/Template_Factory.php:357
 msgid "No upcoming %s listed under %s. Check out upcoming %s for this category or view the full calendar."
-msgstr ""
+msgstr "Não há próximos %s listados para %s. Verifique os próximos %s para esta categoria ou visualize o calendário inteiro."
 
 #: ../src/Tribe/View_Helpers.php:249
 msgid "Sudan"
@@ -3288,7 +3288,7 @@ msgstr "Sudan"
 
 #: ../src/Tribe/Template_Factory.php:359 ../src/Tribe/Template_Factory.php:364
 msgid "No matching %s listed under %s. Please try viewing the full calendar for a complete list of %s."
-msgstr ""
+msgstr "Não há %s listado para %s. Por favor tente visualizar o calendário inteiro para uma lista completa de %s."
 
 #: ../src/Tribe/View_Helpers.php:250
 msgid "Suriname"

@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the The Events Calendar package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2015-06-27 03:37:54+0000\n"
+"PO-Revision-Date: 2015-07-03 14:58:22+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -451,7 +451,7 @@ msgstr "Gemenskapens Händelser"
 
 #: ../src/io/csv/admin-views/columns.php:28
 msgid "Columns have been mapped based on your last import. Please ensure the selected fields match the columns in your CSV file."
-msgstr ""
+msgstr "Kolumner har kartlagts baserat på din senaste importen. Se de valda fälten matchar kolumnerna i din CSV-fil."
 
 #: ../src/admin-views/admin-update-message.php:54
 msgid "Filters"
@@ -472,7 +472,7 @@ msgstr "Evenemangsfält"
 #: ../src/admin-views/admin-update-message.php:58
 #: ../src/admin-views/admin-welcome-message.php:53
 msgid "News For Events Users"
-msgstr ""
+msgstr "Nyheter för Events Användare"
 
 #: ../src/io/csv/admin-views/columns.php:45
 msgid "Perform Import"
@@ -484,7 +484,7 @@ msgstr ""
 
 #: ../src/io/csv/admin-views/general.php:11
 msgid "The Events Calendar: Import"
-msgstr ""
+msgstr "The Events Calendar: Import"
 
 #: ../src/admin-views/admin-welcome-message.php:20
 msgid "5 star ratings help us bring TEC to more users. More happy users mean more support, more features, and more of everything you know and love about The Events Calendar. We couldn't do this without your support."
@@ -504,7 +504,7 @@ msgstr ""
 
 #: ../src/admin-views/admin-welcome-message.php:25
 msgid "Newsletter Signup"
-msgstr ""
+msgstr "Registrera för nyhetsbrev"
 
 #: ../src/io/csv/admin-views/general.php:18
 msgid "Once your setting is saved, move to the applicable Import tab to select import specific criteria."
@@ -553,15 +553,15 @@ msgstr "Utkast"
 
 #: ../src/admin-views/admin-welcome-message.php:46
 msgid "Support Resources"
-msgstr ""
+msgstr "Supportresurser"
 
 #: ../src/io/csv/admin-views/header.php:17
 msgid "Events Import"
-msgstr ""
+msgstr "Evenemangsimport"
 
 #: ../src/admin-views/admin-welcome-message.php:47
 msgid "FAQs, Documentation, Tutorials and Forums"
-msgstr ""
+msgstr "FAQ's, Dokumentation, Guider och Forum"
 
 #: ../src/io/csv/admin-views/import.php:17
 msgid "Import Instructions"
@@ -803,7 +803,7 @@ msgstr "Webbplats:"
 
 #: ../src/views/list/nav.php:19
 msgid "%s List Navigation"
-msgstr ""
+msgstr "%s List Navigering"
 
 #: ../src/admin-views/organizer-meta-box.php:34
 #: ../src/functions/advanced-functions/meta_registration.php:254
@@ -813,7 +813,7 @@ msgstr "E-post:"
 
 #: ../src/views/list/nav.php:25
 msgid "<span>&laquo;</span> Previous %s"
-msgstr ""
+msgstr "<span>&laquo;</span> Föregående %s"
 
 #: ../src/admin-views/organizer-meta-box.php:35
 msgid "You may want to consider <a href=\"http://wordpress.org/plugins/tags/obfuscate\">obfuscating</a> any e-mail address published on your site to best avoid it getting harvested by spammers."
@@ -821,12 +821,12 @@ msgstr "Du kanske vill överväga att <a href=\"http://wordpress.org/plugins/tag
 
 #: ../src/views/list/nav.php:32
 msgid "Next %s <span>&raquo;</span>"
-msgstr ""
+msgstr "Nästa %s <span>&raquo;</span>"
 
 #: ../src/admin-views/organizer-meta-box.php:57
 #: ../src/admin-views/venue-meta-box.php:193
 msgid "%s Name Already Exists"
-msgstr ""
+msgstr "%s Namn Existerar Redan"
 
 #: ../src/views/modules/bar.php:30 ../src/views/modules/bar.php:61
 msgid "Find %s"
@@ -875,8 +875,8 @@ msgstr "Läs mer »"
 #: ../src/admin-views/tickets/attendees.php:86
 msgid "(%d awaiting review)"
 msgid_plural "(%d awaiting review)"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "(%d väntar på granskning)"
+msgstr[1] "(%d väntar på granskning)"
 
 #: ../src/views/month/nav.php:18
 msgid "Calendar Month Navigation"
@@ -884,21 +884,21 @@ msgstr "Kalendermånadsnavigation"
 
 #: ../src/admin-views/tickets/attendees.php:90
 msgid "Sold %d %s"
-msgstr ""
+msgstr "Såld %d %s"
 
 #: ../src/views/month/single-day.php:43
 msgid "View 1 %1$s"
 msgid_plural "View All %2$s %3$s"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Visa 1 %1$s"
+msgstr[1] "Visa alla %2$s %3$s"
 
 #: ../src/admin-views/tickets/attendees.php:93
 msgid "Sold %d of %d %s"
-msgstr ""
+msgstr "Sålt %d av %d %s"
 
 #: ../src/views/single-event.php:27
 msgid "&laquo; All %s"
-msgstr ""
+msgstr "&laquo; Alla %s"
 
 #: ../src/admin-views/tickets/attendees.php:111
 msgid "Tickets sold:"
@@ -906,11 +906,11 @@ msgstr "Biljetter sålda:"
 
 #: ../src/views/single-event.php:46 ../src/views/single-event.php:92
 msgid "%s Navigation"
-msgstr ""
+msgstr "%s Navigation"
 
 #: ../src/admin-views/tickets/attendees.php:118
 msgid "Finalized:"
-msgstr ""
+msgstr "Slutförd:"
 
 #: ../src/views/tickets/attendees-email.php:24
 msgid "Attendee List"
@@ -918,7 +918,7 @@ msgstr "Deltagarlista"
 
 #: ../src/admin-views/tickets/attendees.php:121
 msgid "Awaiting review:"
-msgstr ""
+msgstr "Väntar på granskning:"
 
 #: ../src/views/tickets/email.php:26
 msgid "Your tickets"
@@ -946,7 +946,7 @@ msgstr "Välj en användare:"
 
 #: ../src/views/widgets/list-widget.php:65
 msgid "View All %s"
-msgstr ""
+msgstr "Visa Alla %s"
 
 #: ../src/admin-views/tickets/attendees.php:155
 msgid "Select..."
@@ -1035,11 +1035,11 @@ msgstr "(0 eller tomt fält för gratisbiljetter)"
 
 #: ../src/admin-views/tickets/meta-box.php:126
 msgid "Sale Price:"
-msgstr ""
+msgstr "Försäljningspris:"
 
 #: ../src/admin-views/tickets/meta-box.php:132
 msgid "(Current sale price - this can be managed via the product editor)"
-msgstr ""
+msgstr "(Nuvarande försäljningspris - Detta kan hanteras via produkt-editorn)"
 
 #: ../src/admin-views/tickets/meta-box.php:138
 msgid "Start sale:"
@@ -1143,7 +1143,7 @@ msgstr ""
 
 #: ../src/admin-views/tribe-options-display.php:115
 msgid "Enable the Month View Cache"
-msgstr ""
+msgstr "Aktivera Cache för Månadsvyn"
 
 #: ../src/admin-views/tribe-options-display.php:116
 msgid "Check this to cache your month view HTML in transients, which can help improve calendar speed on sites with many events. <a href=\"%s\">Read more</a>."
@@ -1151,7 +1151,7 @@ msgstr ""
 
 #: ../src/admin-views/tribe-options-display.php:122
 msgid "Date Format Settings"
-msgstr ""
+msgstr "Datum Format Inställningar"
 
 #: ../src/admin-views/tribe-options-display.php:126
 msgid "<p>The following three fields accept the date format options available to the php date() function. <a href=\"http://codex.wordpress.org/Formatting_Date_and_Time\" target=\"_blank\">Learn how to make your own date format here</a>.</p>"
@@ -1163,7 +1163,7 @@ msgstr "Datum med år"
 
 #: ../src/admin-views/tribe-options-display.php:131
 msgid "Enter the format to use for displaying dates with the year. Used when showing an event from a past or future year, also used for dates in view headers."
-msgstr ""
+msgstr "Ange format som ska användas för att visa datum med året . Används när evenemang från en tidigare eller framtida år visas, användas även för datum med tanke rubriker."
 
 #: ../src/admin-views/tribe-options-display.php:138
 msgid "Date without year"
@@ -1175,7 +1175,7 @@ msgstr ""
 
 #: ../src/admin-views/tribe-options-display.php:146
 msgid "Month and year format"
-msgstr ""
+msgstr "Månad och år format"
 
 #: ../src/admin-views/tribe-options-display.php:147
 msgid "Enter the format to use for dates that show a month and year only. Used on month view."
@@ -1183,7 +1183,7 @@ msgstr ""
 
 #: ../src/admin-views/tribe-options-display.php:154
 msgid "Date time separator"
-msgstr ""
+msgstr "Datum och tidavskiljare"
 
 #: ../src/admin-views/tribe-options-display.php:155
 msgid "Enter the separator that will be placed between the date and time, when both are shown."
@@ -1191,7 +1191,7 @@ msgstr ""
 
 #: ../src/admin-views/tribe-options-display.php:162
 msgid "Time range separator"
-msgstr ""
+msgstr "Tid intervallavsgränsare"
 
 #: ../src/admin-views/tribe-options-display.php:163
 msgid "Enter the separator that will be used between the start and end time of an event."
@@ -1199,7 +1199,7 @@ msgstr ""
 
 #: ../src/admin-views/tribe-options-display.php:170
 msgid "Datepicker Date Format"
-msgstr ""
+msgstr "Datumväljare Datum Format"
 
 #: ../src/admin-views/tribe-options-display.php:171
 msgid "Select the date format to use in datepickers"
@@ -1407,15 +1407,15 @@ msgstr "Debugbar tillägget"
 
 #: ../src/admin-views/tribe-options-general.php:213
 msgid "View Welcome Page"
-msgstr ""
+msgstr "Visa Välkomstsida"
 
 #: ../src/admin-views/tribe-options-general.php:213
 msgid "View the page that displayed when you initially installed the plugin."
-msgstr ""
+msgstr "Visa sidan som visades när du först installerade insticksprogrammet."
 
 #: ../src/admin-views/tribe-options-general.php:218
 msgid "View Update Page"
-msgstr ""
+msgstr "Visa \"Update\" sidan"
 
 #: ../src/admin-views/tribe-options-general.php:218
 msgid "View the page that displayed when you updated the plugin."
@@ -1424,7 +1424,7 @@ msgstr ""
 #: ../src/admin-views/tribe-options-help.php:28
 msgctxt "not available"
 msgid "n/a"
-msgstr ""
+msgstr "Inte tillgänglig"
 
 #: ../src/admin-views/tribe-options-help.php:29
 msgid "You need to upgrade!"
@@ -2038,7 +2038,7 @@ msgstr "Cooköarna"
 
 #: ../src/Tribe/Importer/Column_Mapper.php:75
 msgid "Venue Address 2"
-msgstr ""
+msgstr "Plats Adress 2"
 
 #: ../src/Tribe/View_Helpers.php:98
 msgid "Costa Rica"
@@ -2078,7 +2078,7 @@ msgstr "Cypern"
 
 #: ../src/Tribe/Importer/Column_Mapper.php:80
 msgid "Venue Website"
-msgstr ""
+msgstr "Plats Hemsida"
 
 #: ../src/Tribe/View_Helpers.php:103
 msgid "Czech Republic"
@@ -2482,7 +2482,7 @@ msgstr "Irak"
 
 #: ../src/Tribe/Main.php:1255 ../src/functions/template-tags/general.php:393
 msgid "%s Category"
-msgstr ""
+msgstr "%s Kategori"
 
 #: ../src/Tribe/View_Helpers.php:151
 msgid "Ireland"
@@ -2490,7 +2490,7 @@ msgstr "Irland"
 
 #: ../src/Tribe/Main.php:1256
 msgid "Search %s Categories"
-msgstr ""
+msgstr "Sök %s Kategorier"
 
 #: ../src/Tribe/View_Helpers.php:152
 msgid "Israel"
@@ -2498,7 +2498,7 @@ msgstr "Israel"
 
 #: ../src/Tribe/Main.php:1257
 msgid "All %s Categories"
-msgstr ""
+msgstr "Alla %s Kategorier"
 
 #: ../src/Tribe/View_Helpers.php:153
 msgid "Italy"
@@ -2506,7 +2506,7 @@ msgstr "Italien"
 
 #: ../src/Tribe/Main.php:1258
 msgid "Parent %s Category"
-msgstr ""
+msgstr "Förälder %s Kategori"
 
 #: ../src/Tribe/View_Helpers.php:154
 msgid "Jamaica"
@@ -2514,7 +2514,7 @@ msgstr "Jamaica"
 
 #: ../src/Tribe/Main.php:1259
 msgid "Parent %s Category:"
-msgstr ""
+msgstr "Förälder %s Kategori:"
 
 #: ../src/Tribe/View_Helpers.php:155
 msgid "Japan"
@@ -2522,7 +2522,7 @@ msgstr "Japan"
 
 #: ../src/Tribe/Main.php:1260
 msgid "Edit %s Category"
-msgstr ""
+msgstr "Redigera %s Kategori"
 
 #: ../src/Tribe/View_Helpers.php:156
 msgid "Jordan"
@@ -2530,7 +2530,7 @@ msgstr "Jordanien"
 
 #: ../src/Tribe/Main.php:1261
 msgid "Update %s Category"
-msgstr ""
+msgstr "Uppdatera %s Kategori"
 
 #: ../src/Tribe/View_Helpers.php:157
 msgid "Kazakhstan"
@@ -2538,7 +2538,7 @@ msgstr "Kazakstan"
 
 #: ../src/Tribe/Main.php:1262
 msgid "Add New %s Category"
-msgstr ""
+msgstr "Lägg till Ny %s Kategori"
 
 #: ../src/Tribe/View_Helpers.php:158
 msgid "Kenya"
@@ -2546,7 +2546,7 @@ msgstr "Kenya"
 
 #: ../src/Tribe/Main.php:1263
 msgid "New %s Category Name"
-msgstr ""
+msgstr "Nytt %s Kategori Namn"
 
 #: ../src/Tribe/View_Helpers.php:159
 msgid "Kiribati"
@@ -2554,7 +2554,7 @@ msgstr "Kiribati"
 
 #: ../src/Tribe/Main.php:1280
 msgid "%1$s updated. <a href=\"%2$s\">View %3$s</a>"
-msgstr ""
+msgstr "%1$s uppdaterad. <a href=\"%2$s\">Visa %3$s</a>"
 
 #: ../src/Tribe/View_Helpers.php:160
 msgid "Korea, Democratic People's Republic Of"
@@ -2590,7 +2590,7 @@ msgstr "Kirgizistan"
 
 #: ../src/Tribe/Main.php:1285
 msgid "%1$s restored to revision from %2$s"
-msgstr ""
+msgstr "%1$s återställd till revidering från %2$s"
 
 #: ../src/Tribe/View_Helpers.php:164
 msgid "Lao People's Democratic Republic"
@@ -2598,7 +2598,7 @@ msgstr "Laos (Demokratiska folkrepubliken Laos)"
 
 #: ../src/Tribe/Main.php:1286
 msgid "Event published. <a href=\"%1$s\">View %2$s</a>"
-msgstr ""
+msgstr "Evenemang publicerat. <a href=\"%1$s\">Visa %2$s</a>"
 
 #: ../src/Tribe/View_Helpers.php:165
 msgid "Latvia"
@@ -2615,7 +2615,7 @@ msgstr "Libanon"
 
 #: ../src/Tribe/Main.php:1288
 msgid "%1$s submitted. <a target=\"_blank\" href=\"%2$s\">Preview %3$s</a>"
-msgstr ""
+msgstr "%1$s lämnats. <a target=\"_blank\" href=\"%2$s\">Förhandsvisa %3$s</a>"
 
 #: ../src/Tribe/View_Helpers.php:167
 msgid "Lesotho"
@@ -2623,7 +2623,7 @@ msgstr "Lesotho (Konungariket Lesotho)"
 
 #: ../src/Tribe/Main.php:1290
 msgid "%1$s scheduled for: <strong>%2$s</strong>. <a target=\"_blank\" href=\"%3$s\">Preview %4$s</a>"
-msgstr ""
+msgstr "%1$s schemalagd för: <strong>%2$s</strong>. <a target=\"_blank\" href=\"%3$s\">Förhandsvisa %4$s</a>"
 
 #: ../src/Tribe/View_Helpers.php:168
 msgid "Liberia"
@@ -2640,7 +2640,7 @@ msgstr "Libyen"
 
 #: ../src/Tribe/Main.php:1295
 msgid "%1$s draft updated. <a target=\"_blank\" href=\"%2$s\">Preview %3$s</a>"
-msgstr ""
+msgstr "%1$s utkast uppdaterat. <a target=\"_blank\" href=\"%2$s\">Förhandsvisa %3$s</a>"
 
 #: ../src/Tribe/View_Helpers.php:170
 msgid "Liechtenstein"
@@ -2648,7 +2648,7 @@ msgstr "Liechtenstein"
 
 #: ../src/Tribe/Main.php:1305 ../src/Tribe/Main.php:1324
 msgid "%s restored to revision from %s"
-msgstr ""
+msgstr "%s återställd till revidering från %s"
 
 #: ../src/Tribe/View_Helpers.php:171
 msgid "Lithuania"
@@ -2672,7 +2672,7 @@ msgstr "Macao"
 
 #: ../src/Tribe/Main.php:1310 ../src/Tribe/Main.php:1329
 msgid "%s scheduled for: <strong>%2$s</strong>."
-msgstr ""
+msgstr "%s schemalagd för: <strong>%2$s</strong>."
 
 #: ../src/Tribe/View_Helpers.php:174
 msgid "Macedonia"
@@ -2680,7 +2680,7 @@ msgstr "Makedonien"
 
 #: ../src/Tribe/Main.php:1314 ../src/Tribe/Main.php:1333
 msgid "%s draft updated."
-msgstr ""
+msgstr "%s utkast uppdaterat."
 
 #: ../src/Tribe/View_Helpers.php:175
 msgid "Madagascar"
@@ -2688,7 +2688,7 @@ msgstr "Madagaskar"
 
 #: ../src/Tribe/Main.php:1369 ../src/Tribe/Main.php:1420
 msgid "Use Saved %s:"
-msgstr ""
+msgstr "Använd Sparad %s:"
 
 #: ../src/Tribe/View_Helpers.php:176
 msgid "Malawi"
@@ -2696,7 +2696,7 @@ msgstr "Malawi"
 
 #: ../src/Tribe/Main.php:1397
 msgid "Without a defined location your event will not display a <a href=\"https://support.google.com/webmasters/answer/164506\" target=\"_blank\">Google Rich Snippet</a> on the search results."
-msgstr ""
+msgstr "Utan en definierad plats kommer ditt evenemang inte att visa en <a href=\"https://support.google.com/webmasters/answer/164506\" target=\"_blank\">Google Rich Snippet</a> på sökresultaten."
 
 #: ../src/Tribe/View_Helpers.php:177
 msgid "Malaysia"
@@ -2704,7 +2704,7 @@ msgstr "Malaysia"
 
 #: ../src/Tribe/Main.php:1485 ../src/Tribe/Main.php:1566
 msgid "Use New %s"
-msgstr ""
+msgstr "Använd Ny %s"
 
 #: ../src/Tribe/View_Helpers.php:178
 msgid "Maldives"
@@ -2712,7 +2712,7 @@ msgstr "Maldiverna (Republiken Maldiverna)"
 
 #: ../src/Tribe/Main.php:1487 ../src/Tribe/Main.php:1568
 msgid "My %s"
-msgstr ""
+msgstr "Min %s"
 
 #: ../src/Tribe/View_Helpers.php:179
 msgid "Mali"

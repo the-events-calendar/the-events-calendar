@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the The Events Calendar package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2015-07-02 14:56:56+0000\n"
+"PO-Revision-Date: 2015-07-03 14:38:42+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -56,7 +56,7 @@ msgstr "Minnesota"
 
 #: ../src/admin-views/tribe-options-help.php:157
 msgid "Not getting help?"
-msgstr "Vous n'arrivez pas à obtenir de l'aide?"
+msgstr "Vous n'arrivez pas à obtenir de l'aide ?"
 
 #: ../src/Tribe/View_Helpers.php:340
 msgid "Mississippi"
@@ -130,7 +130,7 @@ msgstr "New York"
 
 #: ../src/admin-views/tribe-options-help.php:192
 msgid "Give us 5 stars!"
-msgstr "Donnez nous 5 étoiles!"
+msgstr "Donnez nous 5 étoiles !"
 
 #: ../src/Tribe/View_Helpers.php:349
 msgid "North Carolina"
@@ -146,7 +146,7 @@ msgstr "North Dakota"
 
 #: ../src/admin-views/tribe-options-help.php:205
 msgid "(Coming Soon!)"
-msgstr "(À venir!)"
+msgstr "(À venir !)"
 
 #: ../src/Tribe/View_Helpers.php:351
 msgid "Ohio"
@@ -219,7 +219,7 @@ msgstr "Texas"
 
 #: ../src/admin-views/venue-meta-box.php:92
 msgid "Select a State:"
-msgstr "Sélectionner un Etat :"
+msgstr "Sélectionner un état :"
 
 #: ../src/Tribe/View_Helpers.php:360
 msgid "Utah"
@@ -303,7 +303,7 @@ msgstr "Ajouter à Google Agenda"
 
 #: ../src/functions/advanced-functions/meta_registration.php:286
 msgid "%s:"
-msgstr "%s:"
+msgstr "%s :"
 
 #: ../src/Tribe/iCal.php:77
 msgid "Google Calendar"
@@ -311,7 +311,7 @@ msgstr "Google Agenda"
 
 #: ../src/functions/template-tags/date.php:280
 msgid "The function needs to be passed an $event or used in the loop."
-msgstr "La function à besoin d'un $event ou doit être utilisé dans la boucle"
+msgstr "La fonction à besoin d'un $event ou doit être utilisé dans la boucle"
 
 #: ../src/Tribe/iCal.php:78
 msgid "Download .ics file"
@@ -472,7 +472,7 @@ msgstr "Champs des événements"
 #: ../src/admin-views/admin-update-message.php:58
 #: ../src/admin-views/admin-welcome-message.php:53
 msgid "News For Events Users"
-msgstr ""
+msgstr "Actualités pour les inscrits"
 
 #: ../src/io/csv/admin-views/columns.php:45
 msgid "Perform Import"
@@ -484,7 +484,7 @@ msgstr "Gardez The Events Calendar de base GRATUIT"
 
 #: ../src/io/csv/admin-views/general.php:11
 msgid "The Events Calendar: Import"
-msgstr "The Events Calendar: Importation"
+msgstr "The Events Calendar : Importation"
 
 #: ../src/admin-views/admin-welcome-message.php:20
 msgid "5 star ratings help us bring TEC to more users. More happy users mean more support, more features, and more of everything you know and love about The Events Calendar. We couldn't do this without your support."
@@ -573,7 +573,7 @@ msgstr "Notes de version"
 
 #: ../src/io/csv/admin-views/import.php:20
 msgid "If your events have Organizers or Venues, please import those first."
-msgstr "Si vos événements ont des Organisateurs ou des Lieux, s'il vous plaît importer les en premier."
+msgstr "Si vos événements ont des Organisateurs ou des Lieux, merci de les importer les en premier."
 
 #: ../src/admin-views/admin-welcome-message.php:51
 msgid "Get the Skinny on the Latest Updates"
@@ -712,7 +712,7 @@ msgstr "Lien :"
 
 #: ../src/io/csv/admin-views/result.php:20
 msgid "Updated: %d"
-msgstr "Mis à jour: %d"
+msgstr "Mis à jour : %d"
 
 #: ../src/admin-views/events-meta-box.php:137
 msgid "%s Cost"
@@ -720,7 +720,7 @@ msgstr "Prix de %s"
 
 #: ../src/io/csv/admin-views/result.php:21
 msgid "Skipped: %d"
-msgstr "Ignoré: %d"
+msgstr "Ignoré : %d"
 
 #: ../src/admin-views/events-meta-box.php:140
 msgid "Currency Symbol:"
@@ -728,7 +728,7 @@ msgstr "Symbole de la devise"
 
 #: ../src/io/csv/admin-views/result.php:25
 msgid "The import statistics above have the following meaning:"
-msgstr "Les statistiques d'importation ci-dessus ont la signification suivante:"
+msgstr "Les statistiques d'importation ci-dessus ont la signification suivante :"
 
 #: ../src/admin-views/events-meta-box.php:155
 msgctxt "Currency symbol position"
@@ -986,7 +986,7 @@ msgstr "%d vendus sur %d"
 
 #: ../src/admin-views/tickets/meta-box.php:23
 msgid "This event was created using Community Events. Are you sure you want to sell tickets for it?"
-msgstr "Cet événement à été crée avec Community Events. Êtes-vous sûr de vouloir vendre des tickets pour cet événement?"
+msgstr "Cet événement à été crée avec Community Events. Êtes-vous sûr de vouloir vendre des tickets pour cet événement ?"
 
 #: ../src/admin-views/tickets/meta-box.php:34
 msgid "Upload image for the ticket header"
@@ -1071,7 +1071,7 @@ msgstr "Paramètres d'affichage"
 
 #: ../src/admin-views/tribe-options-display.php:37
 msgid "The settings below control the display of your calendar. If things don't look right, try switching between the three style sheet options or pick a page template from your theme.</p><p>There are going to be situations where no out-of-the-box template is 100&#37; perfect. Check out our <a href=\"%s\">our themer's guide</a> for instructions on custom modifications."
-msgstr ""
+msgstr "Les réglages ci-dessous contrôlent l'affichage de votre calendrier. Si l'affichage est incorrect, activez une des trois feuilles de styles ou utilisez un modèle de page issu de votre thème.</p><p>Il se peut qu'aucune de ces solutions ne réponde à 100% à vos besoins. Dans ce cas, consultez <a href=\"%s\">notre guide de création de thèmes</a> pour effectuer des modifications personnalisées."
 
 #: ../src/admin-views/tribe-options-display.php:51
 msgid "Basic Template Settings"
@@ -1147,7 +1147,7 @@ msgstr "Activer la Cache de Vue Mensuelle"
 
 #: ../src/admin-views/tribe-options-display.php:116
 msgid "Check this to cache your month view HTML in transients, which can help improve calendar speed on sites with many events. <a href=\"%s\">Read more</a>."
-msgstr "Cochez ceci pour cacher la vue mensuelle HTML transitoire, ce qui peut aider à l'amélioration de la vitesse du calendrier sur les sites avec de nombreux événements."
+msgstr "Cochez cette case pour activer la mise en cache du code HTML de la vue mensuelle afin d'améliorer la réactivité du calendrier sur les sites gérant de nombreux événements. <a href=\"%s\">En savoir plus</a>."
 
 #: ../src/admin-views/tribe-options-display.php:122
 msgid "Date Format Settings"
@@ -1155,7 +1155,7 @@ msgstr "Paramètres de format de date"
 
 #: ../src/admin-views/tribe-options-display.php:126
 msgid "<p>The following three fields accept the date format options available to the php date() function. <a href=\"http://codex.wordpress.org/Formatting_Date_and_Time\" target=\"_blank\">Learn how to make your own date format here</a>.</p>"
-msgstr "<p> Les trois champs suivants acceptent les options de format de date disponible pour la fonction PHP date (). <a href=\"http://codex.wordpress.org/Formatting_Date_and_Time\" target=\"_blank\">Apprenez à créer votre propre format de date ici</a>.</p>"
+msgstr "<p> Les trois champs suivants acceptent les options de format de date disponible pour la fonction PHP date(). <a href=\"http://codex.wordpress.org/Formatting_Date_and_Time\" target=\"_blank\">Apprenez à créer votre propre format de date ici</a>.</p>"
 
 #: ../src/admin-views/tribe-options-display.php:130
 msgid "Date with year"
@@ -1235,7 +1235,7 @@ msgstr "Trouver votre calendrier."
 
 #: ../src/admin-views/tribe-options-general.php:25
 msgid "Where's my calendar?"
-msgstr "Où est mon calendrier?"
+msgstr "Où est mon calendrier ?"
 
 #: ../src/admin-views/tribe-options-general.php:25
 msgid "Right here"
@@ -1255,7 +1255,7 @@ msgstr "Nous espérons que notre plugin vous aide."
 
 #: ../src/admin-views/tribe-options-general.php:38
 msgid "Are you thinking \"Wow, this plugin is amazing! I should say thanks to Modern Tribe for all their hard work.\" The greatest thanks we could ask for is recognition. Add a small text-only link at the bottom of your calendar pointing to The Events Calendar project."
-msgstr "Pensez-vous \"Wow, ce plugin est génial! Je devrait remercier Modern Tribe pour tous leurs efforts.\" Le meilleur des remerciements que nous souhaitons est de la reconnaissance. Ajouter un petit lien en bas de votre calendrier qui redirige sur le site du projet Events Calendar."
+msgstr "Pensez-vous que « Waouh ! Ce plugin est génial ! Je devrais remercier Modern Tribe pour tous leurs efforts. » Le meilleur des remerciements que nous souhaitons est de la reconnaissance. Ajouter un petit lien en bas de votre calendrier qui redirige sur le site du projet Events Calendar."
 
 #: ../src/admin-views/tribe-options-general.php:38
 #: ../src/admin-views/tribe-options-general.php:43
@@ -1264,7 +1264,7 @@ msgstr "Voir un exemple de lien"
 
 #: ../src/admin-views/tribe-options-general.php:43
 msgid "Are you thinking \"Wow, this plugin is amazing! I should say thanks to Modern Tribe for all their hard work.\" The greatest thanks we could ask for is recognition. Add a small text only link at the bottom of your calendar pointing to The Events Calendar project."
-msgstr "Pensez-vous \"Wow, ce plugin est génial! Je devrait remercier Modern Tribe pour tous leurs efforts.\" Le meilleur des remerciements que nous souhaitons est de la reconnaissance. Ajouter un petit lien en bas de votre calendrier qui redirige sur le site du projet Events Calendar."
+msgstr "Pensez-vous « Waouh ! Ce plugin est génial ! Je devrais remercier Modern Tribe pour tous leurs efforts. » Le meilleur des remerciements que nous souhaitons est de la reconnaissance. Ajouter un petit lien en bas de votre calendrier qui redirige sur le site du projet Events Calendar."
 
 #: ../src/admin-views/tribe-options-general.php:48
 msgid "Show The Events Calendar link"
@@ -1343,7 +1343,7 @@ msgstr "Heure de clôture de la fin de journée"
 
 #: ../src/admin-views/tribe-options-general.php:152
 msgid "Have an event that runs past midnight? Select a time after that event's end to avoid showing the event on the next day's calendar."
-msgstr "Votre événement se termine après minuit? Choisissez une heure après la fin de votre événement pour éviter de montrer cet événement sur la journée suivante."
+msgstr "Votre événement se termine après minuit ? Choisissez une heure après la fin de votre événement pour éviter de montrer cet événement sur la journée suivante."
 
 #: ../src/admin-views/tribe-options-general.php:157
 msgid "Default currency symbol"
@@ -1428,11 +1428,11 @@ msgstr "nd"
 
 #: ../src/admin-views/tribe-options-help.php:29
 msgid "You need to upgrade!"
-msgstr "Vous devez mettre à jour!"
+msgstr "Vous devez mettre à jour !"
 
 #: ../src/admin-views/tribe-options-help.php:29
 msgid "You are up to date!"
-msgstr "Vous avez la dernière version!"
+msgstr "Vous avez la dernière version !"
 
 #: ../src/admin-views/tribe-options-help.php:52
 msgid "The Events Calendar PRO"
@@ -1440,11 +1440,11 @@ msgstr "The Events Calendar PRO"
 
 #: ../src/admin-views/tribe-options-help.php:56
 msgid "The Events Calendar: Eventbrite Tickets"
-msgstr "The Events Calendar: Eventbrite billets"
+msgstr "The Events Calendar : billets Eventbrite"
 
 #: ../src/admin-views/tribe-options-help.php:60
 msgid "The Events Calendar: Community Events"
-msgstr "The Events Calendar: Community Events"
+msgstr "The Events Calendar : Community Events"
 
 #: ../src/Tribe/View_Helpers.php:281
 msgid "Wallis And Futuna Islands"
@@ -1452,7 +1452,7 @@ msgstr "Wallis And Futuna Islands"
 
 #: ../src/admin-views/tribe-options-help.php:64
 msgid "The Events Calendar: Facebook Events"
-msgstr "The Events Calendar: Facebook événements"
+msgstr "The Events Calendar : événements Facebook"
 
 #: ../src/Tribe/View_Helpers.php:282
 msgid "Western Sahara"
@@ -1460,7 +1460,7 @@ msgstr "Western Sahara"
 
 #: ../src/admin-views/tribe-options-help.php:68
 msgid "The Events Calendar: WooCommerce Tickets"
-msgstr "The Events Calendar: WooCommerce Tickets"
+msgstr "The Events Calendar : billets WooCommerce"
 
 #: ../src/Tribe/View_Helpers.php:283
 msgid "Yemen"
@@ -1468,7 +1468,7 @@ msgstr "Yemen"
 
 #: ../src/admin-views/tribe-options-help.php:73
 msgid "The Events Calendar: EDD Tickets"
-msgstr "The Events Calendar: EDD Tickets"
+msgstr "The Events Calendar : billets EDD"
 
 #: ../src/Tribe/View_Helpers.php:284
 msgid "Zambia"
@@ -1476,7 +1476,7 @@ msgstr "Zambia"
 
 #: ../src/admin-views/tribe-options-help.php:78
 msgid "The Events Calendar: WPEC Tickets"
-msgstr "The Events Calendar: WPEC Tickets"
+msgstr "The Events Calendar : billets WPEC"
 
 #: ../src/Tribe/View_Helpers.php:285
 msgid "Zimbabwe"
@@ -1484,7 +1484,7 @@ msgstr "Zimbabwe"
 
 #: ../src/admin-views/tribe-options-help.php:83
 msgid "The Events Calendar: Shopp Tickets"
-msgstr "The Events Calendar: Shopp Tickets"
+msgstr "The Events Calendar : billets Shopp"
 
 #: ../src/Tribe/View_Helpers.php:316
 msgid "Alabama"
@@ -1500,7 +1500,7 @@ msgstr "Alaska"
 
 #: ../src/admin-views/tribe-options-help.php:94
 msgid "If you're looking for help with The Events Calendar, you've come to the right place. We are committed to helping make your calendar kick ass...and hope the resources provided below will help get you there."
-msgstr ""
+msgstr "Si vous cherchez de l'aide pour The Events Calendar, vous êtes au bon endroit. Nous nous engageons à vous aider à réaliser un calendrier qui déchire... Nous espérons que les éléments fournis ci-dessous vous aideront à y arriver."
 
 #: ../src/Tribe/View_Helpers.php:318
 msgid "Arizona"
@@ -1661,7 +1661,7 @@ msgstr "Angola"
 
 #: ../src/Tribe/Activation_Page.php:163
 msgid "Thanks for Updating The Events Calendar"
-msgstr "Meci d'avoir mis à jour The Events Calendar"
+msgstr "Merci d'avoir mis à jour The Events Calendar"
 
 #: ../src/Tribe/View_Helpers.php:53
 msgid "Anguilla"
@@ -1736,7 +1736,7 @@ msgstr "Austria"
 #: ../src/Tribe/Advanced_Functions/Register_Meta.php:111
 #: ../src/views/modules/meta/details.php:85
 msgid "Time:"
-msgstr "Heure:"
+msgstr "Heure :"
 
 #: ../src/Tribe/View_Helpers.php:61
 msgid "Azerbaijan"
@@ -1812,7 +1812,7 @@ msgstr "Benin"
 
 #: ../src/Tribe/Field.php:470
 msgid "No radio options specified"
-msgstr "Il n'y a pas d'options radio spécifié"
+msgstr "Aucune option sélectionnée"
 
 #: ../src/Tribe/View_Helpers.php:70
 msgid "Bermuda"
@@ -1820,7 +1820,7 @@ msgstr "Bermuda"
 
 #: ../src/Tribe/Field.php:506
 msgid "No checkbox options specified"
-msgstr "Il n'y a pas d'options de case à cochée spécifié"
+msgstr "Aucune case cochée"
 
 #: ../src/Tribe/View_Helpers.php:71
 msgid "Bhutan"
@@ -1828,7 +1828,7 @@ msgstr "Bhutan"
 
 #: ../src/Tribe/Field.php:562
 msgid "No select options specified"
-msgstr "Il n'y a pas d'option de liste déroulante spécifié"
+msgstr "Aucune option sélectionnée dans la liste déroulante"
 
 #: ../src/Tribe/View_Helpers.php:72
 msgid "Bolivia"
@@ -1862,7 +1862,7 @@ msgstr "Bouvet Island"
 
 #: ../src/Tribe/Importer/Admin_Page.php:96
 msgid "Import: CSV"
-msgstr "Importation: CSV"
+msgstr "Importation : CSV"
 
 #: ../src/Tribe/View_Helpers.php:76
 msgid "Brazil"
@@ -1878,7 +1878,7 @@ msgstr "British Indian Ocean Territory"
 
 #: ../src/Tribe/Importer/Admin_Page.php:194
 msgid "<p>The following fields are required for a successful import:</p>"
-msgstr "<p>Les champs suivant sont requis pour réussir l'importation:</p>"
+msgstr "<p>Les champs suivant sont requis pour réussir l'importation :</p>"
 
 #: ../src/Tribe/View_Helpers.php:78
 msgid "Brunei Darussalam"
@@ -2006,7 +2006,7 @@ msgstr "Colombia"
 
 #: ../src/Tribe/Importer/Column_Mapper.php:66
 msgid "Event Website"
-msgstr "Site Internet de l'Événement"
+msgstr "Site Internet de l'événement"
 
 #: ../src/Tribe/View_Helpers.php:94
 msgid "Comoros"
@@ -2038,7 +2038,7 @@ msgstr "Cook Islands"
 
 #: ../src/Tribe/Importer/Column_Mapper.php:75
 msgid "Venue Address 2"
-msgstr ""
+msgstr "Adresse complémentaire du lieu"
 
 #: ../src/Tribe/View_Helpers.php:98
 msgid "Costa Rica"
@@ -2253,7 +2253,7 @@ msgstr "Polynésie Française"
 
 #: ../src/Tribe/Main.php:527 ../src/functions/template-tags/general.php:60
 msgid "Event"
-msgstr "Evénément"
+msgstr "Événément"
 
 #: ../src/Tribe/View_Helpers.php:124
 msgid "French Southern Territories"
@@ -2334,7 +2334,7 @@ msgstr "Grenada"
 
 #: ../src/Tribe/Main.php:688
 msgid "The following plugins are out of date: <b>%s</b>. All add-ons contain dependencies on The Events Calendar and will not function properly unless paired with the right version. %sLearn More%s."
-msgstr "Les plugins suivants ne sont plus à jour: <b>%s</b>. Tous les add-ons contiennent des dépendances pour \"The Events Calendar\" qui ne fonctionnera pas correctement à moins qu'il soit associé avec la bonne version. %sEn apprendre plus%s."
+msgstr "Les plugins suivants ne sont plus à jour : <b>%s</b>. Tous les add-ons contiennent des dépendances pour \"The Events Calendar\" qui ne fonctionnera pas correctement à moins qu'il soit associé avec la bonne version. %sEn savoir plus%s."
 
 #: ../src/Tribe/View_Helpers.php:134
 msgid "Guadeloupe"
@@ -2351,7 +2351,7 @@ msgstr "Guam"
 
 #: ../src/Tribe/Main.php:753
 msgid "<p>The license key you received when completing your purchase from %s will grant you access to support and updates until it expires. You do not need to enter the key below for the plugins to work, but you will need to enter it to get automatic updates. <strong>Find your license keys at <a href=\"%s\" target=\"_blank\">%s</a></strong>.</p> <p>Each paid add-on has its own unique license key. Simply paste the key into its appropriate field on below, and give it a moment to validate. You know you're set when a green expiration date appears alongside a \"valid\" message.</p> <p>If you're seeing a red message telling you that your key isn't valid or is out of installs, visit <a href=\"%s\" target=\"_blank\">%s</a> to manage your installs or renew / upgrade your license.</p><p>Not seeing an update but expecting one? In WordPress, go to <a href=\"%s\">Dashboard > Updates</a> and click \"Check Again\".</p>"
-msgstr "<p>La clé de la licence que vous avez reçu lors de la complétion de l'achat depuis %s vous donnera accès au support et mises à jours jusqu'à expiration. Vous n'avez pas besoin d'insérer la clé ci-dessous pour que le plugin fonctionne, mais vous en aurez besoin pour recevoir les mises à jour automatiques. <strong>Votre clé de licence se trouve ici : <a href=\"%s\">%s</a></strong>.</p> <p> Chaque module payant à sa propre clé de licence. Copier/Coller simplement la clé sur le champ correspondant ci-dessous et veuillez attendre un moment pour sa validation. Tout est fonctionnel lorsqu'une date d'expiration s'affiche en vert ainsi qu'un message \"valide\".</p> <p>Si un message s'affiche en rouge indiquant que votre clé n'est pas valide ou excède la limite d'installations, veuillez vous rendre sur <a href=\"%s\" target=\"_blank\">%s</a>pour gérer vos installations ou renouvellements / mise-à-jour de votre licence.</p> <p>Mise à jour non affichée? Allez sur <a href=\"%s\">Tableau de Bord > Mises à jours</a> et cliquez \"Vérifier à nouveau\".</p>"
+msgstr "<p>La clé de la licence que vous avez reçu lors de la validation de l'achat depuis %s vous donnera accès au support et mises à jours jusqu'à expiration. Vous n'avez pas besoin d'insérer la clé ci-dessous pour que le plugin fonctionne, mais vous en aurez besoin pour recevoir les mises à jour automatiques. <strong>Votre clé de licence se trouve ici : <a href=\"%s\" target=\"_blank\">%s</a></strong>.</p> <p> Chaque module payant à sa propre clé de licence. Copier/Coller simplement la clé sur le champ correspondant ci-dessous et veuillez attendre un moment pour sa validation. Tout est fonctionnel lorsqu'une date d'expiration s'affiche en vert ainsi qu'un message \"valide\".</p> <p>Si un message s'affiche en rouge indiquant que votre clé n'est pas valide ou excède la limite d'installations, veuillez vous rendre sur <a href=\"%s\" target=\"_blank\">%s</a>pour gérer vos installations ou renouvellements / mise-à-jour de votre licence.</p> <p>Mise à jour non affichée ? Allez sur <a href=\"%s\">Tableau de Bord > Mises à jours</a> et cliquez \"Vérifier à nouveau\".</p>"
 
 #: ../src/Tribe/View_Helpers.php:136
 msgid "Guatemala"
@@ -2688,7 +2688,7 @@ msgstr "Madagascar"
 
 #: ../src/Tribe/Main.php:1369 ../src/Tribe/Main.php:1420
 msgid "Use Saved %s:"
-msgstr ""
+msgstr "Utiliser une entrée enregistrée %s :"
 
 #: ../src/Tribe/View_Helpers.php:176
 msgid "Malawi"
@@ -2720,7 +2720,7 @@ msgstr "Mali"
 
 #: ../src/Tribe/Main.php:1492 ../src/Tribe/Main.php:1573
 msgid "Available %s"
-msgstr "﻿Disponible%s"
+msgstr "﻿Disponible %s"
 
 #: ../src/Tribe/View_Helpers.php:180
 msgid "Malta"
@@ -2842,7 +2842,7 @@ msgstr "Mozambique"
 
 #: ../src/Tribe/Main.php:3758
 msgid "Check out the <a href=\"%s\">available add-ons</a>."
-msgstr "Visitez les <a href=\"%s\">Modules disponibles</a>."
+msgstr "Découvrir les <a href=\"%s\">modules disponibles</a>."
 
 #: ../src/Tribe/View_Helpers.php:195
 msgid "Myanmar"
@@ -2947,7 +2947,7 @@ msgstr "Norfolk Island"
 
 #: ../src/Tribe/Main.php:4169
 msgid "%s From"
-msgstr "% Du"
+msgstr "%s du"
 
 #: ../src/Tribe/View_Helpers.php:208
 msgid "Northern Mariana Islands"
@@ -3022,7 +3022,7 @@ msgstr "Perou"
 
 #: ../src/Tribe/PUE/Checker.php:420
 msgid "Sorry, this key is out of installs."
-msgstr ""
+msgstr "Désolé, cette clé ne peut pas être utilisée pour d'autres installations."
 
 #: ../src/Tribe/View_Helpers.php:217
 msgid "Philippines"
@@ -3046,7 +3046,7 @@ msgstr "Poland"
 
 #: ../src/Tribe/PUE/Checker.php:427
 msgid "Valid Key! Expires on %s"
-msgstr "﻿Clé valide ! Expire le%s"
+msgstr "﻿Clé valide ! Expire le %s"
 
 #: ../src/Tribe/View_Helpers.php:220
 msgid "Portugal"
@@ -3054,7 +3054,7 @@ msgstr "Portugal"
 
 #: ../src/Tribe/PUE/Checker.php:431
 msgid "Hmmm... something's wrong with this validator. Please contact <a href=\"%s\">support.</a>"
-msgstr "Hmmm ... quelque chose ne va pas avec ce validateur. S'il vous plaît contactez <a href=\"%s\">le soutien.</a>"
+msgstr "Hum... Quelque chose ne va pas avec ce validateur. Merci de contacter <a href=\"%s\">le support</a>."
 
 #: ../src/Tribe/View_Helpers.php:221
 msgid "Puerto Rico"
@@ -3413,7 +3413,7 @@ msgstr "Tunisie"
 
 #: ../src/Tribe/Tickets/Attendees_Table.php:205 ../src/Tribe/iCal.php:121
 msgid "Export"
-msgstr "Export"
+msgstr "Exporter"
 
 #: ../src/Tribe/View_Helpers.php:265
 msgid "Turkey"
@@ -3559,12 +3559,12 @@ msgstr "Identifiant du Champ :"
 
 #: ../src/Tribe/Validate.php:111
 msgid "Non-existant field validation function passed"
-msgstr "Fonction de validation du champ inséré non existant"
+msgstr "La fonction de validation du champ inséré n'existe pas"
 
 #: ../src/Tribe/Validate.php:112
 msgctxt "non-existant function name passed for field validation"
 msgid "with function name:"
-msgstr "avec le nom de la fonction:"
+msgstr "avec le nom de la fonction :"
 
 #: ../src/Tribe/Validate.php:135 ../src/Tribe/Validate.php:151
 msgid "%s must contain numbers and letters only"
