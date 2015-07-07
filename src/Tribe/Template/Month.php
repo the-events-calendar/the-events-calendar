@@ -156,13 +156,22 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 			$this->first_grid_date = self::calculate_first_cell_date( $this->requested_date );
 			$this->final_grid_date = self::calculate_final_cell_date( $this->requested_date );
 
-			// get all the ids for the events in this month, speeds up queries
-			$this->events_in_month = tribe_get_events( array_merge( $args, array(
+			$args = array_merge( $args, array(
 				'fields'         => 'ids',
 				'start_date'     => $this->first_grid_date,
 				'end_date'       => $this->final_grid_date,
+				'post_status'    => array( 'publish' ),
 				'posts_per_page' => - 1,
-			) ) );
+			) );
+
+			if ( is_user_logged_in() ) {
+				$args['post_status'][] = 'private';
+			}
+
+			$args = apply_filters( 'tribe_events_in_month_args', $args );
+
+			// get all the ids for the events in this month, speeds up queries
+			$this->events_in_month = tribe_get_events( $args );
 
 			// don't enqueue scripts and js when we're not constructing month view,
 			// they'll have to be enqueued separately
