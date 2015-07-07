@@ -92,10 +92,10 @@ if ( ! class_exists( 'Tribe__Events__Template_Factory' ) ) {
 			add_action( 'wp_ajax_' . $ajax_hook, array( $this, 'ajax_response' ) );
 			add_action( 'wp_ajax_nopriv_' . $ajax_hook, array( $this, 'ajax_response' ) );
 
-			// set notices 
+			// set notices
 			add_action( 'tribe_events_before_view', array( $this, 'set_notices' ), 15 );
 
-			// Don't show the comments form inside the view (if comments are enabled, 
+			// Don't show the comments form inside the view (if comments are enabled,
 			// they'll show on their own after the loop)
 			if ( ! ( tribe_get_option( 'tribeEventsTemplate', 'default' ) == '' ) ) {
 				add_filter( 'comments_template', array( $this, 'remove_comments_template' ) );
@@ -124,7 +124,7 @@ if ( ! class_exists( 'Tribe__Events__Template_Factory' ) ) {
 			// add body class
 			add_filter( 'body_class', array( $this, 'body_class' ) );
 
-			// event classes 
+			// event classes
 			add_filter( 'tribe_events_event_classes', array( $this, 'event_classes' ) );
 
 		}
@@ -277,7 +277,7 @@ if ( ! class_exists( 'Tribe__Events__Template_Factory' ) ) {
 					'label_before' => '',
 					'label_after'  => '',
 					'meta_before'  => '<span class="%s">',
-					'meta_after'   => '</span>'
+					'meta_after'   => '</span>',
 				) );
 			tribe_set_meta_label( 'tribe_event_venue_address', '' );
 			tribe_set_the_meta_template( 'tribe_event_venue_address', array(
@@ -286,7 +286,7 @@ if ( ! class_exists( 'Tribe__Events__Template_Factory' ) ) {
 					'label_before' => '',
 					'label_after'  => '',
 					'meta_before'  => '',
-					'meta_after'   => ''
+					'meta_after'   => '',
 				) );
 		}
 
@@ -335,7 +335,7 @@ if ( ! class_exists( 'Tribe__Events__Template_Factory' ) ) {
 			return array(
 				$search_term,
 				$tax_term,
-				$geographic_term
+				$geographic_term,
 			);
 		}
 
@@ -397,15 +397,11 @@ if ( ! class_exists( 'Tribe__Events__Template_Factory' ) ) {
 		 * @param string|null $sep
 		 *
 		 * @return mixed|void
-		 * @todo get rid of deprecated tag in 3.10
 		 */
 		final public function title_tag( $title, $sep = null ) {
 			$new_title = $this->get_title( $title, $sep );
-			if ( has_filter( 'tribe_events_add_title' ) ) {
-				_deprecated_function( "The 'tribe_events_add_title' filter", '3.8', " the 'tribe_events_title_tag' filter" );
-			}
 
-			return apply_filters( 'tribe_events_title_tag', apply_filters( 'tribe_events_add_title', $new_title, $title, $sep ), $title, $sep );
+			return apply_filters( 'tribe_events_title_tag', $new_title, $title, $sep );
 		}
 
 		/**
@@ -506,7 +502,7 @@ if ( ! class_exists( 'Tribe__Events__Template_Factory' ) ) {
 			// add body class
 			remove_filter( 'body_class', array( $this, 'body_class' ) );
 
-			// event classes 
+			// event classes
 			remove_filter( 'tribe_events_event_classes', array( $this, 'event_classes' ) );
 
 		}
@@ -525,7 +521,6 @@ if ( ! class_exists( 'Tribe__Events__Template_Factory' ) ) {
 				add_filter( 'tribe_event_meta_venue_name', '__return_null' );
 				add_filter( 'tribe_event_meta_venue_address', '__return_null' );
 				add_filter( 'tribe_event_featured_image', '__return_null' );
-				add_filter( 'tribe_events_single_event_meta', '__return_null' );
 				add_filter( 'tribe_get_venue', '__return_null' );
 			} else {
 				remove_filter( 'tribe_events_event_schedule_details', '__return_null' );
@@ -533,7 +528,6 @@ if ( ! class_exists( 'Tribe__Events__Template_Factory' ) ) {
 				remove_filter( 'tribe_event_meta_venue_name', '__return_null' );
 				remove_filter( 'tribe_event_meta_venue_address', '__return_null' );
 				remove_filter( 'tribe_event_featured_image', '__return_null' );
-				remove_filter( 'tribe_events_single_event_meta', '__return_null' );
 				remove_filter( 'tribe_get_venue', '__return_null' );
 			}
 		}

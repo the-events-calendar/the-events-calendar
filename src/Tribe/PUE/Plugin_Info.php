@@ -4,7 +4,9 @@
  */
 
 // Don't load directly
-if ( ! defined( 'ABSPATH' ) ) { die('-1'); }
+if ( ! defined( 'ABSPATH' ) ) {
+	die( '-1' );
+}
 
 if ( ! class_exists( 'Tribe__Events__PUE__Plugin_Info' ) ) {
 	/**
@@ -46,11 +48,11 @@ if ( ! class_exists( 'Tribe__Events__PUE__Plugin_Info' ) ) {
 		 */
 		public static function from_json( $json ) {
 			$apiResponse = json_decode( $json );
-			if ( empty($apiResponse) || !is_object($apiResponse) ) {
+			if ( empty( $apiResponse ) || ! is_object( $apiResponse ) ) {
 				return null;
 			}
 
-			// Very, very basic validation.
+			//Very, very basic validation.
 			$valid = ( isset( $apiResponse->name ) && ! empty( $apiResponse->name ) && isset( $apiResponse->version ) && ! empty( $apiResponse->version ) ) || ( isset( $apiResponse->api_invalid ) || isset( $apiResponse->no_api ) );
 			if ( ! $valid ) {
 				return null;
@@ -71,7 +73,7 @@ if ( ! class_exists( 'Tribe__Events__PUE__Plugin_Info' ) ) {
 		 *
 		 * @return object
 		 */
-		public function to_wp_format(){
+		public function to_wp_format() {
 			$info = new StdClass;
 
 			// The custom update API is built so that many fields have the same name and format

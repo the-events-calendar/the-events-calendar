@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 if ( class_exists( 'Tribe__Events__Main' ) ) {
 
-/**
+	/**
 	 * Start Time
 	 *
 	 * Returns the event start time
@@ -162,7 +162,12 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		}
 
 		if ( isset( $event->EventEndDate ) ) {
-			if ( tribe_event_is_all_day( $event ) && empty( $event->_end_date_fixed ) && Tribe__Events__Date_Utils::timeOnly( $event->EventEndDate ) != '23:59:59' && Tribe__Events__Date_Utils::timeOnly( tribe_event_end_of_day() ) != '23:59' ) {
+			if (
+				tribe_event_is_all_day( $event ) &&
+				empty( $event->_end_date_fixed ) &&
+				'23:59:59' !== Tribe__Events__Date_Utils::time_only( $event->EventEndDate ) &&
+				'23:59:59' !== Tribe__Events__Date_Utils::time_only( tribe_event_end_of_day() )
+			) {
 				// set the event end date to be one day earlier, if it's an all day event and the cutoff is past midnight
 				// @todo remove this once we can have all day events without a start / end time
 				$event->EventEndDate = date_create( $event->EventEndDate );
@@ -192,7 +197,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 */
 	function tribe_event_format_date( $date, $displayTime = true, $dateFormat = '' ) {
 
-		if ( ! Tribe__Events__Date_Utils::isTimestamp( $date ) ) {
+		if ( ! Tribe__Events__Date_Utils::is_timestamp( $date ) ) {
 			$date = strtotime( $date );
 		}
 
@@ -232,9 +237,9 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		$hours_to_add    = $multiday_cutoff[0];
 		$minutes_to_add  = $multiday_cutoff[1];
 		if ( is_null( $date ) || empty( $date ) ) {
-			return apply_filters( 'tribe_event_beginning_of_day', Date( $format, strtotime( date( 'Y-m-d' ) . ' +' . $hours_to_add . ' hours ' . $minutes_to_add . ' minutes' ) ) );
+			return apply_filters( 'tribe_event_beginning_of_day', date( $format, strtotime( date( 'Y-m-d' ) . ' +' . $hours_to_add . ' hours ' . $minutes_to_add . ' minutes' ) ) );
 		} else {
-			return apply_filters( 'tribe_event_beginning_of_day', Date( $format, strtotime( date( 'Y-m-d', strtotime( $date ) ) . ' +' . $hours_to_add . ' hours ' . $minutes_to_add . ' minutes' ) ) );
+			return apply_filters( 'tribe_event_beginning_of_day', date( $format, strtotime( date( 'Y-m-d', strtotime( $date ) ) . ' +' . $hours_to_add . ' hours ' . $minutes_to_add . ' minutes' ) ) );
 		}
 	}
 
@@ -252,9 +257,9 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		$hours_to_add    = $multiday_cutoff[0];
 		$minutes_to_add  = $multiday_cutoff[1];
 		if ( is_null( $date ) || empty( $date ) ) {
-			return apply_filters( 'tribe_event_end_of_day', Date( $format, strtotime( 'tomorrow ' . ' +' . $hours_to_add . ' hours ' . $minutes_to_add . ' minutes' ) - 1 ) );
+			return apply_filters( 'tribe_event_end_of_day', date( $format, strtotime( 'tomorrow  +' . $hours_to_add . ' hours ' . $minutes_to_add . ' minutes' ) - 1 ) );
 		} else {
-			return apply_filters( 'tribe_event_end_of_day', Date( $format, strtotime( date( 'Y-m-d', strtotime( $date ) ) . ' +1 day ' . $hours_to_add . ' hours ' . $minutes_to_add . ' minutes' ) - 1 ) );
+			return apply_filters( 'tribe_event_end_of_day', date( $format, strtotime( date( 'Y-m-d', strtotime( $date ) ) . ' +1 day ' . $hours_to_add . ' hours ' . $minutes_to_add . ' minutes' ) - 1 ) );
 		}
 	}
 
@@ -269,11 +274,11 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 */
 	function tribe_event_is_on_date( $date = null, $event = null ) {
 
-		if ($date == null) {
+		if ( null === $date ) {
 			$date = current_time( 'mysql' );
 		}
 
-		if ($event == null) {
+		if ( null === $event ) {
 			global $post;
 			$event = $post;
 			if ( empty( $event ) ) {
@@ -304,7 +309,6 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		 * note:
 		 * events that start exactly on the EOD cutoff will count on the following day
 		 * events that end exactly on the EOD cutoff will count on the previous day
-
 		 */
 
 		$event_starts_today       = $event_start >= $start_of_day && $event_start < $end_of_day;
@@ -319,5 +323,24 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 
 	}
 
+
+	/**
+	 * Get the datetime saparator from the database option with escaped characters or not ;)
+	 *
+	 * @param string $default Default Separator if it's blank on the Database
+	 * @param bool $esc If it's going to be used on a `date` function or method it needs to be escaped
+	 *
+	 * @filter tribe_datetime_separator
+	 *
+	 * @return string
+	 */
+	function tribe_get_datetime_separator( $default = ' @ ', $esc = false ) {
+		$separator = (string) tribe_get_option( 'dateTimeSeparator', $default );
+		if ( $esc ) {
+			$separator = (array) str_split( $separator );
+			$separator = ( ! empty( $separator ) ? '\\' : '' ) . implode( '\\', $separator );
+		}
+		return apply_filters( 'tribe_datetime_separator', $separator );
+	}
+
 }
-?>

@@ -82,7 +82,7 @@ if ( ! class_exists( 'Tribe__Events__Validate' ) ) {
 			// call validation callback if a validation callback function is set
 			if ( isset( $this->field['validation_callback'] ) ) {
 				if ( function_exists( $this->field['validation_callback'] ) ) {
-					if ( ( ! isset( $_POST[$field_id] ) || ! $_POST[$field_id] || $_POST[$field_id] == '' ) && isset( $this->field['can_be_empty'] ) && $this->field['can_be_empty'] ) {
+					if ( ( ! isset( $_POST[ $field_id ] ) || ! $_POST[ $field_id ] || $_POST[ $field_id ] == '' ) && isset( $this->field['can_be_empty'] ) && $this->field['can_be_empty'] ) {
 						$this->result->valid = true;
 
 						return $this->result;
@@ -98,7 +98,7 @@ if ( ! class_exists( 'Tribe__Events__Validate' ) ) {
 					// make sure there's a field validation type set for this validation and that such method exists
 					$this->type  = $this->field['validation_type'];
 					$this->label = isset( $this->field['label'] ) ? $this->field['label'] : $this->field['id'];
-					if ( ( ! isset( $_POST[$field_id] ) || ! $_POST[$field_id] || $_POST[$field_id] == '' ) && isset( $this->field['can_be_empty'] ) && $this->field['can_be_empty'] ) {
+					if ( ( ! isset( $_POST[ $field_id ] ) || ! $_POST[ $field_id ] || $_POST[ $field_id ] == '' ) && isset( $this->field['can_be_empty'] ) && $this->field['can_be_empty'] ) {
 						$this->result->valid = true;
 
 						return $this->result;
@@ -258,7 +258,7 @@ if ( ! class_exists( 'Tribe__Events__Validate' ) ) {
 			if ( array_key_exists( $this->value, $this->field['options'] ) ) {
 				$this->value         = ( $this->value === 0 ) ? false : array(
 					$this->value,
-					$this->field['options'][$this->value]
+					$this->field['options'][ $this->value ],
 				);
 				$this->result->valid = true;
 			} else {

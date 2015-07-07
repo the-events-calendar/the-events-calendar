@@ -34,12 +34,12 @@ $current_url = tribe_events_get_current_filter_url();
 		<?php if ( count( $views ) > 1 ) { ?>
 			<div id="tribe-bar-views">
 				<div class="tribe-bar-views-inner tribe-clearfix">
-					<h3 class="tribe-events-visuallyhidden"><?php _e( 'Event Views Navigation', 'tribe-events-calendar' ) ?></h3>
-					<label><?php _e( 'View As', 'tribe-events-calendar' ); ?></label>
+					<h3 class="tribe-events-visuallyhidden"><?php esc_html_e( 'Event Views Navigation', 'tribe-events-calendar' ) ?></h3>
+					<label><?php esc_html_e( 'View As', 'tribe-events-calendar' ); ?></label>
 					<select class="tribe-bar-views-select tribe-no-param" name="tribe-bar-view">
 						<?php foreach ( $views as $view ) : ?>
-							<option <?php echo tribe_is_view( $view['displaying'] ) ? 'selected' : 'tribe-inactive' ?> value="<?php echo $view['url'] ?>" data-view="<?php echo $view['displaying'] ?>">
-								<?php echo $view['anchor'] ?>
+							<option <?php echo tribe_is_view( $view['displaying'] ) ? 'selected' : 'tribe-inactive' ?> value="<?php echo esc_attr( $view['url'] ); ?>" data-view="<?php echo esc_attr( $view['displaying'] ); ?>">
+								<?php echo $view['anchor']; ?>
 							</option>
 						<?php endforeach; ?>
 					</select>
@@ -58,7 +58,7 @@ $current_url = tribe_events_get_current_filter_url();
 						</div>
 					<?php endforeach; ?>
 					<div class="tribe-bar-submit">
-						<input class="tribe-events-button tribe-no-param" type="submit" name="submit-bar" value="<?php printf( __( 'Find %s', 'tribe-events-calendar' ), tribe_get_event_label_plural() ); ?>" />
+						<input class="tribe-events-button tribe-no-param" type="submit" name="submit-bar" value="<?php echo esc_attr( sprintf( __( 'Find %s', 'tribe-events-calendar' ), tribe_get_event_label_plural() ) ); ?>" />
 					</div>
 					<!-- .tribe-bar-submit -->
 				</div>
@@ -70,4 +70,5 @@ $current_url = tribe_events_get_current_filter_url();
 	<!-- #tribe-bar-form -->
 
 </div><!-- #tribe-events-bar -->
-<?php do_action( 'tribe_events_bar_after_template' ) ?>
+<?php
+do_action( 'tribe_events_bar_after_template' );

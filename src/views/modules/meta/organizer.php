@@ -8,33 +8,68 @@
  * @package TribeEventsCalendar
  */
 
+$organizer_ids = tribe_get_organizer_ids();
+$multiple = count( $organizer_ids ) > 1;
+
 $phone = tribe_get_organizer_phone();
 $email = tribe_get_organizer_email();
 $website = tribe_get_organizer_website_link();
 ?>
 
 <div class="tribe-events-meta-group tribe-events-meta-group-organizer">
-	<h3 class="tribe-events-single-section-title"> <?php _e( tribe_get_organizer_label_singular(), 'tribe-events-calendar' ) ?> </h3>
+	<h3 class="tribe-events-single-section-title"><?php echo tribe_get_organizer_label( ! $multiple ); ?></h3>
 	<dl>
-		<?php do_action( 'tribe_events_single_meta_organizer_section_start' ) ?>
+		<?php
+		do_action( 'tribe_events_single_meta_organizer_section_start' );
 
-		<dd class="fn org"> <?php echo tribe_get_organizer() ?> </dd>
+		foreach ( $organizer_ids as $organizer ) {
+			if ( ! $organizer ) {
+				continue;
+			}
 
-		<?php if ( ! empty( $phone ) ): ?>
-			<dt> <?php _e( 'Phone:', 'tribe-events-calendar' ) ?> </dt>
-			<dd class="tel"> <?php echo $phone ?> </dd>
-		<?php endif ?>
+			?>
+			<dd class="fn org">
+				<?php echo tribe_get_organizer( $organizer ) ?>
+			</dd>
+			<?php
+		}
 
-		<?php if ( ! empty( $email ) ): ?>
-			<dt> <?php _e( 'Email:', 'tribe-events-calendar' ) ?> </dt>
-			<dd class="email"> <?php echo $email ?> </dd>
-		<?php endif ?>
+		if ( ! $multiple ) { // only show organizer details if there is one
+			if ( ! empty( $phone ) ) {
+				?>
+				<dt>
+					<?php esc_html_e( 'Phone:', 'tribe-events-calendar' ) ?>
+				</dt>
+				<dd class="tel">
+					<?php echo esc_html( $phone ); ?>
+				</dd>
+				<?php
+			}//end if
 
-		<?php if ( ! empty( $website ) ): ?>
-			<dt> <?php _e( 'Website:', 'tribe-events-calendar' ) ?> </dt>
-			<dd class="url"> <?php echo $website ?> </dd>
-		<?php endif ?>
+			if ( ! empty( $email ) ) {
+				?>
+				<dt>
+					<?php esc_html_e( 'Email:', 'tribe-events-calendar' ) ?>
+				</dt>
+				<dd class="email">
+					<?php echo esc_html( $email ); ?>
+				</dd>
+				<?php
+			}//end if
 
-		<?php do_action( 'tribe_events_single_meta_organizer_section_end' ) ?>
+			if ( ! empty( $website ) ) {
+				?>
+				<dt>
+					<?php esc_html_e( 'Website:', 'tribe-events-calendar' ) ?>
+				</dt>
+				<dd class="url">
+					<?php echo esc_html( $website ); ?>
+				</dd>
+				<?php
+			}//end if
+		}//end if
+
+		do_action( 'tribe_events_single_meta_organizer_section_end' );
+		?>
 	</dl>
 </div>

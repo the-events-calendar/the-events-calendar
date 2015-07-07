@@ -138,11 +138,11 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 				$first_event_date = tribe_get_start_date( $wp_query->posts[0], false );
 			} else {
 				//otherwise show the start date of the first event in the results
-				$first_event_date =  tribe_event_format_date( $_REQUEST['tribe-bar-date'], false );
+				$first_event_date = tribe_event_format_date( $_REQUEST['tribe-bar-date'], false );
 			}
 
-			$last_event_date = tribe_get_end_date( $wp_query->posts[count( $wp_query->posts ) - 1], false );
-			$title = sprintf( __( '%1$s for %2$s - %3$s', 'tribe-events-calendar'), $events_label_plural, $first_event_date, $last_event_date );
+			$last_event_date = tribe_get_end_date( $wp_query->posts[ count( $wp_query->posts ) - 1 ], false );
+			$title = sprintf( __( '%1$s for %2$s - %3$s', 'tribe-events-calendar' ), $events_label_plural, $first_event_date, $last_event_date );
 		} elseif ( tribe_is_past() ) {
 			$title = sprintf( __( 'Past %s', 'tribe-events-calendar' ), $events_label_plural );
 		}
@@ -157,7 +157,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 
 		// day view title
 		if ( tribe_is_day() ) {
-			$title = sprintf( 
+			$title = sprintf(
 				__( '%1$s for %2$s', 'tribe-events-calendar' ),
 				$events_label_plural,
 				date_i18n( tribe_get_date_format( true ), strtotime( $wp_query->get( 'start_date' ) ) )
@@ -299,7 +299,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @return bool
 	 */
 	function tribe_is_list_view() {
-		$is_list_view = (Tribe__Events__Main::instance()->displaying == 'list') ? true : false;
+		$is_list_view = 'list' == Tribe__Events__Main::instance()->displaying ? true : false;
 		return apply_filters( 'tribe_is_list_view', $is_list_view );
 	}
 
@@ -325,8 +325,8 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 			$month_year_format = tribe_get_option( 'monthAndYearFormat', 'F Y' );
 
 			if ( $wp_query->current_post > 0 ) {
-				$prev_post        = $wp_query->posts[$wp_query->current_post - 1];
-				$prev_event_year  = tribe_get_start_date( $prev_post, false, 'Y' );
+				$prev_post = $wp_query->posts[ $wp_query->current_post - 1 ];
+				$prev_event_year = tribe_get_start_date( $prev_post, false, 'Y' );
 				$prev_event_month = tribe_get_start_date( $prev_post, false, 'm' );
 			}
 
@@ -396,4 +396,3 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		return $view === Tribe__Events__Main::instance()->displaying;
 	}
 }
-?>

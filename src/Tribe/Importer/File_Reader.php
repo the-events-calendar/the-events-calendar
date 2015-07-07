@@ -9,7 +9,7 @@ class Tribe__Events__Importer__File_Reader {
 	private $last_line_read = 0;
 
 	public function __construct( $file_path ) {
-		ini_set( "auto_detect_line_endings", true );
+		ini_set( 'auto_detect_line_endings', true );
 		$this->path = $file_path;
 		$this->file = new SplFileObject( $this->path );
 		$this->file->setFlags( SplFileObject::SKIP_EMPTY | SplFileObject::READ_CSV | SplFileObject::READ_AHEAD | SplFileObject::DROP_NEW_LINE );

@@ -142,39 +142,38 @@
 
 		}
 
-		function tribe_mobile_setup_day( date, date_name ) {
+		function tribe_mobile_setup_day( $date ) {
+			var data = $date.data( 'tribejson' );
+			data.date = $date.attr( 'data-day' );
 
-			var $container = $wrapper.find( '#tribe-mobile-container' ),
-				$day_blocks = $wrapper.find( '.tribe-mobile-day' ),
-				$mobile_trigger = $wrapper.find( '.mobile-trigger' ),
-				$target_day = $wrapper.find( '.tribe-mobile-day[data-day="' + date + '"]' ),
-				full_date_name = 'undefined' === typeof( date_name )  ? '' : date_name,
-				day_data = { "date": date, "date_name": full_date_name };
+			var $calendar = $date.parents( '.tribe-events-calendar' ),
+				$container = $calendar.next( '#tribe-mobile-container' ),
+				$days = $container.find( '.tribe-mobile-day' ),
+				$triggers = $calendar.find( '.mobile-trigger' ),
+				_active = '[data-day="' + data.date + '"]',
+				$day = $days.filter( _active );
 
-			$mobile_trigger
-				.removeClass( 'mobile-active' );
+			data.has_events = $date.hasClass( 'tribe-events-has-events' );
 
-			// If full_date_name is empty then default to highlighting the first day of the current month
-			var filter = full_date_name.length
-				? '[data-date-name="' + full_date_name + '"]'
-				: '.tribe-events-thismonth[data-day="' + date + '"]';
-
-			$mobile_trigger
-				.filter( filter )
-				.addClass( 'mobile-active' );
-
-			$day_blocks.hide();
-
-			if ( $target_day.length ) {
-				$target_day.show();
-			}
-			else {
-				$container
-					.append( tribe_tmpl( 'tribe_tmpl_month_mobile_day_header', day_data ) );
-
-				tribe_mobile_load_events( date );
+			// Backwards compatibility
+			// @todo "Check if we can remove this check"
+			if ( data.has_events ) {
+				data.date_name = '';
 			}
 
+			$triggers.removeClass( 'mobile-active' )
+				// If full_date_name is empty then default to highlighting the first day of the current month
+				.filter( _active ).addClass( 'mobile-active' );
+
+			$days.hide();
+
+			if ( $day.length ) {
+				$day.show();
+			} else {
+				$container.append( tribe_tmpl( 'tribe_tmpl_month_mobile_day_header', data ) );
+
+				tribe_mobile_load_events( data.date );
+			}
 		}
 
 		function tribe_mobile_month_setup() {
@@ -188,11 +187,11 @@
 			}
 
 			if ( $today.length && $today.is( '.tribe-events-thismonth' ) ) {
-				tribe_mobile_setup_day( $today.attr( 'data-day' ), $today.attr( 'data-date-name' ) );
+				tribe_mobile_setup_day( $today );
 			}
 			else {
 				var $first_current_day = $mobile_trigger.filter( ".tribe-events-thismonth" ).first();
-				tribe_mobile_setup_day( $first_current_day.attr( 'data-day' ), $first_current_day.attr( 'data-date-name' ) );
+				tribe_mobile_setup_day( $first_current_day );
 			}
 
 		}
@@ -304,7 +303,7 @@
 					e.preventDefault();
 
 					var $trigger = $( this ).closest( '.mobile-trigger' );
-					tribe_mobile_setup_day( $trigger.attr( 'data-day' ), $trigger.attr( 'data-date-name' ) );
+					tribe_mobile_setup_day( $trigger );
 
 				}
 			} )
@@ -312,7 +311,7 @@
 				if ( $body.is( '.tribe-mobile' ) ) {
 					e.preventDefault();
 					e.stopPropagation();
-					tribe_mobile_setup_day( $( this ).attr( 'data-day' ), $( this ).attr( 'data-date-name' ) );
+					tribe_mobile_setup_day( $( this ) );
 				}
 			} );
 

@@ -14,21 +14,23 @@ $active = $this->get_active_tab();
 	}
 </style>
 <div class="tribe_settings wrap">
-	<?php screen_icon(); ?><h2><?php _e( 'Events Import', 'tribe-events-calendar' ) ?></h2>
+	<?php screen_icon(); ?><h2><?php esc_html_e( 'Events Import', 'tribe-events-calendar' ) ?></h2>
 
 	<?php do_action( 'tribe-import-under-heading' ); ?>
 
 	<h2 class="nav-tab-wrapper">
 		<?php
-		foreach( $this->get_available_tabs() as $_label => $_tab ){
-			if( $_tab == $active ){
-				$class = "nav-tab nav-tab-active";
+		foreach ( $this->get_available_tabs() as $_label => $_tab ) {
+			if ( $_tab == $active ) {
+				$class = 'nav-tab nav-tab-active';
 			} else {
-				$class = "nav-tab";
+				$class = 'nav-tab';
 			}
-			?><a class="<?php echo $class; ?>" href="?post_type=<?php echo $post_type; ?>&amp;page=events-importer&amp;tab=<?php echo $_tab; ?>">
+			?>
+			<a class="<?php echo esc_attr( $class ); ?>" href="?post_type=<?php echo esc_attr( $post_type ); ?>&amp;page=events-importer&amp;tab=<?php echo esc_attr( $_tab ); ?>">
 				<?php echo $_label; ?>
-			</a><?php
+			</a>
+			<?php
 		}
 		?>
 	</h2>
