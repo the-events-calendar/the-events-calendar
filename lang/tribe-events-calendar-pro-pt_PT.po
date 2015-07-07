@@ -1,1534 +1,736 @@
-# Events Calendar Pro by Modern Tribe, Inc.
-# Copyright (C) Modern Tribe, Inc.
+# Translation of Events Calendar Pro in Portuguese (Portugal)
 # This file is distributed under the same license as the Events Calendar Pro package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Events Calendar Pro\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-17 16:45-0800\n"
-"PO-Revision-Date: 2014-09-04 14:01-0800\n"
-"Last-Translator: \n"
-"Language-Team: Diego Meneghetti <diego@meneghetti.jor.br>\n"
-"Language: pt\n"
+"PO-Revision-Date: 2015-06-09 14:20:39+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Poedit-SourceCharset: UTF-8\n"
-"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;"
-"_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2\n"
-"X-Poedit-Basepath: ./\n"
-"X-Textdomain-Support: yes\n"
-"X-Generator: Poedit 1.6.9\n"
-"X-Poedit-SearchPath-0: ..\n"
+"X-Generator: GlotPress/1.0-alpha-1000\n"
+"Project-Id-Version: Events Calendar Pro\n"
 
-#: ../admin-views/event-defaults.php:1
-msgid "Customize Defaults"
-msgstr "Personalize os padrões"
-
-#: ../admin-views/event-defaults.php:2
-msgid ""
-"These settings change the default event form. For example, if you set a "
-"default venue, this field will be automatically filled in on a new event."
-msgstr ""
-"Essas configurações alteram a forma padrão de eventos. Por exemplo, se você "
-"definir um local padrão, este campo será automaticamente preenchido em um "
-"novo evento."
-
-#: ../admin-views/event-defaults.php:5 ../admin-views/event-defaults.php:9
-#: ../admin-views/tribe-options-defaults.php:55
-msgid "Automatically replace empty fields with default values"
-msgstr "Substituir automaticamente os campos vazios com os valores padrão"
-
-#: ../admin-views/event-defaults.php:13
-msgid "Enabled"
-msgstr "Habilitar"
-
-#: ../admin-views/event-defaults.php:19
-msgid "Default Organizer for Events"
-msgstr "Organizador padrão dos eventos"
-
-#: ../admin-views/event-defaults.php:22
-msgid "Default Organizer"
-msgstr "Organizador padrão"
-
-#: ../admin-views/event-defaults.php:23
-msgid "The default organizer value"
-msgstr "Organizador padrão para seus eventos"
-
-#: ../admin-views/event-defaults.php:23 ../admin-views/event-defaults.php:31
-#: ../admin-views/event-defaults.php:38 ../admin-views/event-defaults.php:45
-#: ../admin-views/event-defaults.php:66 ../admin-views/event-defaults.php:74
-#: ../admin-views/event-defaults.php:82 ../admin-views/event-defaults.php:108
-#, php-format
-msgid "The current default value is <strong>%s</strong>"
-msgstr "O valor padrão é <strong>%s</strong>"
-
-#: ../admin-views/event-defaults.php:27
-msgid "Default Venue for Events"
-msgstr "Local padrão dos eventos"
-
-#: ../admin-views/event-defaults.php:30
-msgid "Default Venue"
-msgstr "Local padrão"
-
-#: ../admin-views/event-defaults.php:31
-msgid "The default venue value"
-msgstr "O valor padrão para os eventos"
-
-#: ../admin-views/event-defaults.php:35 ../admin-views/event-defaults.php:37
-msgid "Default Address"
-msgstr "Endereço padrão"
-
-#: ../admin-views/event-defaults.php:38
-msgid "The default address value"
-msgstr "O endereço padrão dos eventos"
-
-#: ../admin-views/event-defaults.php:42 ../admin-views/event-defaults.php:44
-msgid "Default City"
-msgstr "Cidade padrão"
-
-#: ../admin-views/event-defaults.php:45
-msgid "The default city value"
-msgstr "A cidade padrão dos eventos"
-
-#: ../admin-views/event-defaults.php:50
-msgid "Default State"
-msgstr "Estado padrão"
-
-#: ../admin-views/event-defaults.php:52 ../admin-views/event-defaults.php:73
-msgid "Default Province or State"
-msgstr "O estado ou província padrão dos eventos"
-
-#: ../admin-views/event-defaults.php:55
-msgid "Select a State:"
-msgstr "Selecione um estado:"
-
-#: ../admin-views/event-defaults.php:66 ../admin-views/event-defaults.php:74
-msgid "The default  value"
-msgstr "O valor padrão"
-
-#: ../admin-views/event-defaults.php:71
-msgid "Default Province"
-msgstr "Província padrão"
-
-#: ../admin-views/event-defaults.php:79 ../admin-views/event-defaults.php:81
-msgid "Default Postal Code"
-msgstr "CEP padrão"
-
-#: ../admin-views/event-defaults.php:82
-msgid "The default Postal Code value"
-msgstr "CEP padrão dos eventos"
-
-#: ../admin-views/event-defaults.php:87
-msgid "Default Country for Events"
-msgstr "País padrão dos eventos"
-
-#: ../admin-views/event-defaults.php:105 ../admin-views/event-defaults.php:107
-msgid "Default Phone"
-msgstr "Telefone padrão"
-
-#: ../admin-views/event-defaults.php:108
-msgid "The default phone value"
-msgstr "O telefone padrão dos eventos"
-
-#: ../admin-views/event-defaults.php:112
-#: ../admin-views/tribe-options-defaults.php:198
-msgid "Use a custom list of countries"
-msgstr "Usar uma lista personlizada de países"
-
-#: ../admin-views/event-defaults.php:114
-msgid "Use the following list:"
-msgstr "Usar a seguinte lista:"
-
-#: ../admin-views/event-defaults.php:116
-msgid ""
-"One country per line in the following format: <br/>US, United States <br/> "
-"UK, United Kingdom."
-msgstr ""
-"Um país por linha no seguinte formato: <br/>US, Estado Unidos <br/> UK, "
-"Reino Unido."
-
-#: ../admin-views/event-defaults.php:116
-msgid "(Replaces the default list.)"
-msgstr "(Substitui a lista padrão.)"
-
-#: ../admin-views/event-meta-options.php:3 ../events-calendar-pro.php:772
+#: ../src/Tribe/Main.php:603 ../src/admin-views/event-meta-options.php:3
 msgid "Additional Fields"
 msgstr "Campos adicionais"
 
-#: ../admin-views/event-meta-options.php:4
-msgid ""
-"Use additional fields to add unique content fields to the event admin, which "
-"can be used by anyone who creates events. Upon publication they'll appear in "
-"the event metabox that accompanies your event listing, alongside the date/"
-"time/venue/organizer/etc. </p><p>Each new piece of data needs:"
-msgstr ""
-"Use opções extra para adicionar campos de conteúdo únicos para a "
-"administração dos eventos, que poderão ser utilizados por qualquer um que "
-"crie eventos. Depois da publicação, estes irão estar disponíveis na metabox "
-"de eventos que acompanha a listagem do seu evento, ao lado da data/hora/"
-"local/organizador/etc.</p><p> Cada novo pedaço de dados necessita de:"
-
-#: ../admin-views/event-meta-options.php:6
-msgid "Label (e.g. Meal Plans)"
-msgstr "Etiqueta (p.ex. Tipo de Refeição)"
-
-#: ../admin-views/event-meta-options.php:7
-msgid "At least one option (e.g. Vegetarian, Kosher, Paleo)"
-msgstr "Pelo menos uma opção (p.ex Vegetariano, Kosher, Mediterrânea, etc)"
-
-#: ../admin-views/event-meta-options.php:8
-msgid "Field type. These are:"
-msgstr "Tipo de campo. Estes são:"
-
-#: ../admin-views/event-meta-options.php:10
-msgid "Text - for the user to input text"
-msgstr "Texto - para o utilizador colocar um texto"
-
-#
-#: ../admin-views/event-meta-options.php:11
-msgid "URL - for the user to input a URL"
-msgstr "URL - para o utilizador introduzir um URL"
-
-#: ../admin-views/event-meta-options.php:12
-msgid "Checkbox - for multiple choice"
-msgstr "Checkbox - para o utilizador selecionar as opções que desejar"
-
-#: ../admin-views/event-meta-options.php:13
-msgid "Radio Button - to select only one"
-msgstr "Botão Radio - para selecionar apenas UMA opção entre várias"
-
-#: ../admin-views/event-meta-options.php:14
-msgid "Dropdown Menu - for a dropdown menu"
-msgstr ""
-"Menu Dropdown - um menu com várias opções, que abrem para a seleção de uma"
-
-#: ../admin-views/event-meta-options.php:19
-msgid "Field Label"
-msgstr "Rótulo do campo"
-
-#: ../admin-views/event-meta-options.php:19
-msgid "Field Type"
-msgstr "Tipo do campo"
-
-#: ../admin-views/event-meta-options.php:19
-msgid "Options (one per line)"
-msgstr "Opções (uma por linha)"
-
-#: ../admin-views/event-meta-options.php:45
-msgid "Text"
-msgstr "texto"
-
-#: ../admin-views/event-meta-options.php:46
-msgid "URL"
-msgstr "URL"
-
-#: ../admin-views/event-meta-options.php:47
-msgid "Radio"
-msgstr "Radio"
-
-#: ../admin-views/event-meta-options.php:48
-msgid "Checkbox"
-msgstr "Checkbox"
-
-#: ../admin-views/event-meta-options.php:49
-#: ../lib/TribeEventsFilter_GeoLoc.php:44
-msgid "Dropdown"
-msgstr "Dropdown"
-
-#: ../admin-views/event-meta-options.php:55
-msgid "Add another"
-msgstr "Adicionar outro"
-
-#: ../admin-views/event-meta-options.php:57
-msgid "Remove"
-msgstr "Excluir"
-
-#: ../admin-views/event-meta-options.php:65
-#, php-format
-msgid ""
-"Enter the field label as you want it to appear (this will be the label in "
-"the same way \"Start Date,\" \"Organizer,\" etc appear in the event details "
-"box on the frontend). Select whether the field will be a text field; URL "
-"field; radio buttons; checkboxes; or a dropdown. All of these with the "
-"exception of text and URL allow for multiple options to be included, which "
-"you can add — one per-line — in the right-hand column. If you feel "
-"flummoxed, we've got you covered with a %s."
-msgstr ""
-"Insira o nome do campo como quer quer apareça (isto será o nome do campo da "
-"mesma maneira que \"Data de Início\", \"Organizador, etc aparece na caixa de "
-"detalhes de evento no frontend). Escolha o tipo de campo, se será texto, "
-"URL, botões radio, checkbox ou dropdown. Todos estes, à excepção do text e "
-"URL permitem adicionar múltiplas escolhas, que pode adicionar - uma por "
-"linha - na coluna direita.  Se isto é demasiado complicado, nós ajudamos com "
-"%s."
-
-#: ../admin-views/event-meta-options.php:66
-msgid "video tutorial that will walk you through the process"
-msgstr "tutorial em vídeo que vai lhe ajudar a conhecer todo o processo"
-
-#: ../admin-views/event-meta-options.php:69
-msgid "Editor \"Custom Fields\" meta box"
-msgstr "Campos personalizados"
-
-#: ../admin-views/event-meta-options.php:71
-msgid "Show"
-msgstr "Mostrar"
-
-#: ../admin-views/event-meta-options.php:72
-msgid "Hide"
-msgstr "Esconder"
-
-#: ../admin-views/event-meta-options.php:73
-msgid ""
-"Enabling this option this will not remove custom field data or "
-"functionality, just the default meta box editor."
-msgstr ""
-"Ativar esta opção não irá remover o campo personalizado ou sua "
-"funcionalidade, apenas a caixa de edição padrão do campo."
-
-#: ../admin-views/event-meta-options.php:82
-msgid ""
-"Are you sure you wish to remove this field and its data from all events? "
-"Once you click OK this cannot be undone."
-msgstr ""
-"Tem certeza de que deseja remover este campo e seus dados de todos os "
-"eventos? Depois de clicar em OK isso não pode ser desfeito."
-
-#: ../admin-views/event-meta.php:7
-msgid "Additional Event Fields"
-msgstr "Campos adicionais"
-
-#: ../admin-views/event-recurrence.php:2
-msgid "Recurrence:"
-msgstr "Quando ocorre:"
-
-#: ../admin-views/event-recurrence.php:7
-msgid "None"
-msgstr "Nenhum"
-
-#: ../admin-views/event-recurrence.php:8
-#: ../lib/tribe-events-recurrence-meta.class.php:848
-msgid "day"
-msgstr "dia"
-
-#: ../admin-views/event-recurrence.php:8
-#: ../views/pro/widgets/countdown-widget.php:18
-msgid "days"
-msgstr "dias"
-
-#: ../admin-views/event-recurrence.php:8
-msgid "Every Day"
-msgstr "Todo dia"
-
-#: ../admin-views/event-recurrence.php:9 ../events-calendar-pro.php:66
-msgid "week"
-msgstr "semana"
-
-#: ../admin-views/event-recurrence.php:9
-msgid "weeks"
-msgstr "semanas\t"
-
-#: ../admin-views/event-recurrence.php:9
-msgid "Every Week"
-msgstr "Toda semana"
-
-#: ../admin-views/event-recurrence.php:10
-msgid "month"
-msgstr "mês"
-
-#: ../admin-views/event-recurrence.php:10
-msgid "months"
-msgstr "meses"
-
-#: ../admin-views/event-recurrence.php:10
-msgid "Every Month"
-msgstr "Todo mês"
-
-#: ../admin-views/event-recurrence.php:11
-msgid "year"
-msgstr "ano"
-
-#: ../admin-views/event-recurrence.php:11
-msgid "years"
-msgstr "anos"
-
-#: ../admin-views/event-recurrence.php:11
-msgid "Every Year"
-msgstr "Todo ano"
-
-#
-#: ../admin-views/event-recurrence.php:12
-msgid "event"
-msgstr "evento\t"
-
-#
-#: ../admin-views/event-recurrence.php:12
-msgid "events"
-msgstr "eventos"
-
-#: ../admin-views/event-recurrence.php:12
-msgid "Custom"
-msgstr "Personalizado"
-
-#: ../admin-views/event-recurrence.php:15
-msgid "and will end"
-msgstr "e irá acabar"
-
-#: ../admin-views/event-recurrence.php:17
-msgid "On"
-msgstr "em"
-
-#: ../admin-views/event-recurrence.php:18
-msgid "After"
-msgstr "Depois"
-
-#: ../admin-views/event-recurrence.php:19
-msgid "Never"
-msgstr "Nunca"
-
-#: ../admin-views/event-recurrence.php:23
-msgid "You must select a recurrence end date"
-msgstr "Você precisa selecionar uma data final"
-
-#: ../admin-views/event-recurrence.php:30
-msgid "Frequency"
-msgstr "Frequência"
-
-#: ../admin-views/event-recurrence.php:32
-msgid "Day(s)"
-msgstr "Dias"
-
-#: ../admin-views/event-recurrence.php:32
-msgid "Daily"
-msgstr "Diariamente"
-
-#: ../admin-views/event-recurrence.php:33
-msgid "Week(s) on:"
-msgstr "Semana(s) em:"
-
-#: ../admin-views/event-recurrence.php:33
-msgid "Weekly"
-msgstr "Semanalmente"
-
-#: ../admin-views/event-recurrence.php:34
-msgid "Month(s) on the:"
-msgstr "Mês(es) no:"
-
-#: ../admin-views/event-recurrence.php:34
-msgid "Monthly"
-msgstr "Mensalmente"
-
-#: ../admin-views/event-recurrence.php:35
-msgid "Year(s) on:"
-msgstr "Ano(s) em:"
-
-#: ../admin-views/event-recurrence.php:35
-msgid "Yearly"
-msgstr "Anualmente"
-
-#: ../admin-views/event-recurrence.php:37
-msgid "Every"
-msgstr "Todo"
-
-#: ../admin-views/event-recurrence.php:41
-msgid "Frequency of recurring event must be a number"
-msgstr "A frequência de recorrência do evento deve ser um número"
-
-#: ../admin-views/event-recurrence.php:49
-msgid "M"
-msgstr "S"
-
-#: ../admin-views/event-recurrence.php:50
-msgid "Tu"
-msgstr "T"
-
-#: ../admin-views/event-recurrence.php:51
-msgid "W"
-msgstr "Q"
-
-#: ../admin-views/event-recurrence.php:52
-msgid "Th"
-msgstr "Q"
-
-#: ../admin-views/event-recurrence.php:53
-msgid "F"
-msgstr "S"
-
-#: ../admin-views/event-recurrence.php:54
-msgid "Sa"
-msgstr "S"
-
-#: ../admin-views/event-recurrence.php:55
-msgid "Su"
-msgstr "D"
-
-#: ../admin-views/event-recurrence.php:63
-#: ../admin-views/event-recurrence.php:113
-msgid "First"
-msgstr "Primeiro"
-
-#: ../admin-views/event-recurrence.php:64
-#: ../admin-views/event-recurrence.php:114
-msgid "Second"
-msgstr "Segundo"
-
-#: ../admin-views/event-recurrence.php:65
-#: ../admin-views/event-recurrence.php:115
-msgid "Third"
-msgstr "Terceiro"
-
-#: ../admin-views/event-recurrence.php:66
-#: ../admin-views/event-recurrence.php:116
-msgid "Fourth"
-msgstr "Quatro"
-
-#: ../admin-views/event-recurrence.php:67
-msgid "Fifth"
-msgstr "Quinto"
-
-#: ../admin-views/event-recurrence.php:68
-#: ../admin-views/event-recurrence.php:117
-msgid "Last"
-msgstr "Último"
-
-#: ../admin-views/event-recurrence.php:75
-#: ../admin-views/event-recurrence.php:120
-#: ../lib/tribe-events-recurrence-meta.class.php:883
-msgid "Monday"
-msgstr "Segunda"
-
-#: ../admin-views/event-recurrence.php:76
-#: ../admin-views/event-recurrence.php:121
-#: ../lib/tribe-events-recurrence-meta.class.php:883
-msgid "Tuesday"
-msgstr "Terça"
-
-#: ../admin-views/event-recurrence.php:77
-#: ../admin-views/event-recurrence.php:122
-#: ../lib/tribe-events-recurrence-meta.class.php:883
-msgid "Wednesday"
-msgstr "Quarta"
-
-#: ../admin-views/event-recurrence.php:78
-#: ../admin-views/event-recurrence.php:123
-#: ../lib/tribe-events-recurrence-meta.class.php:883
-msgid "Thursday"
-msgstr "Quinta"
-
-#: ../admin-views/event-recurrence.php:79
-#: ../admin-views/event-recurrence.php:124
-#: ../lib/tribe-events-recurrence-meta.class.php:883
-msgid "Friday"
-msgstr "Sexta"
-
-#: ../admin-views/event-recurrence.php:80
-#: ../admin-views/event-recurrence.php:125
-#: ../lib/tribe-events-recurrence-meta.class.php:883
-msgid "Saturday"
-msgstr "Sábado"
-
-#: ../admin-views/event-recurrence.php:81
-#: ../admin-views/event-recurrence.php:126
-#: ../lib/tribe-events-recurrence-meta.class.php:883
-msgid "Sunday"
-msgstr "Domingo"
-
-#: ../admin-views/event-recurrence.php:83
-#: ../admin-views/event-recurrence.php:128
-msgid "Day"
-msgstr "Dia"
-
-#: ../admin-views/event-recurrence.php:111
-msgid "On the:"
-msgstr "No:"
-
-#: ../admin-views/event-recurrence.php:136
-msgid "Description:"
-msgstr "Descrição:"
-
-#
-#: ../admin-views/event-recurrence.php:144
-msgid "Recurrence Description:"
-msgstr "Descrição da recorrência:"
-
-#: ../admin-views/event-recurrence.php:149
-msgid ""
-"Create a custom plain language description of the recurrence. Leave it blank "
-"and we'll automate it."
-msgstr ""
-"Crie uma mensagem simples que descreva a recorrência. Deixe em branco e será "
-"automatizada."
-
-#: ../admin-views/tribe-options-defaults.php:6
-#: ../admin-views/tribe-options-defaults.php:15
-msgid "No Default"
-msgstr "Sem padrões pré-definidos"
-
-#: ../admin-views/tribe-options-defaults.php:22
-msgid "Select a State"
-msgstr "Selecione um Estado"
-
-#
-#: ../admin-views/tribe-options-defaults.php:35 ../events-calendar-pro.php:770
-msgid "Default Content"
-msgstr "Conteúdo por defeito"
-
-#: ../admin-views/tribe-options-defaults.php:39
-msgid ""
-"<p>Choose the default venue & organizer. Set default address information to "
-"save time when entering a new venue or organizer.</p><p>You can override "
-"these settings as you enter a new event.</p>"
-msgstr ""
-"<p>Escolha o local por defeito e organizador. Defina a informação de morada "
-"por defeito para poupar tempo ao introduzir novos locais ou organizadores.</"
-"p><p>Pode mudar estas definições ao criar um novo evento.</p>"
-
-#: ../admin-views/tribe-options-defaults.php:51
-msgid "Options"
-msgstr "Opções"
-
-#: ../admin-views/tribe-options-defaults.php:61
-msgid ""
-"Check this box to have the organizer and venue fields pre-populated with the "
-"default values below for any new event that is created."
-msgstr ""
-"Clique nesta caixa para pré-popular os campos de organizador e local com "
-"valor por defeito abaixo para qualquer novo evento que seja criado."
-
-#: ../admin-views/tribe-options-defaults.php:65
-#: ../admin-views/widget-admin-advanced-list.php:29
-msgid "Organizer"
-msgstr "Orgazanidor"
-
-#
-#: ../admin-views/tribe-options-defaults.php:69
-msgid "Default organizer"
-msgstr "Organizador por defeito"
-
-#: ../admin-views/tribe-options-defaults.php:73
-msgid "No saved organizers yet."
-msgstr "Nenhum organizador cadastrado ainda."
-
-#: ../admin-views/tribe-options-defaults.php:82
-#: ../admin-views/widget-admin-advanced-list.php:28
-msgid "Venue"
-msgstr "Local"
-
-#
-#: ../admin-views/tribe-options-defaults.php:86
-msgid "Default venue"
-msgstr "Local por defeito"
-
-#: ../admin-views/tribe-options-defaults.php:90
-msgid "No saved venues yet."
-msgstr "Nenhum local cadastrado ainda."
-
-#: ../admin-views/tribe-options-defaults.php:99
-#: ../admin-views/widget-admin-advanced-list.php:30
-msgid "Address"
-msgstr "Endereço"
-
-#: ../admin-views/tribe-options-defaults.php:103
-msgid ""
-"You can use this setting to set specific, individual defaults for any new "
-"Venue you create (these will not be used for your default venue)."
-msgstr ""
-"Pode usar esta opção para definir valores por defeito específicos e "
-"individuais para qualquer novo Local que crie (estes não serão usados para o "
-"seu local por defeito)."
-
-#
-#: ../admin-views/tribe-options-defaults.php:107
-msgid "Default address"
-msgstr "Morada por Defeito"
-
-#
-#: ../admin-views/tribe-options-defaults.php:120
-msgid "Default city"
-msgstr "Cidade por Defeito"
-
-#
-#: ../admin-views/tribe-options-defaults.php:133
-msgid "Default state"
-msgstr "Estado por Defeito"
-
-#
-#: ../admin-views/tribe-options-defaults.php:146
-msgid "Default province"
-msgstr "Província por Defeito"
-
-#
-#: ../admin-views/tribe-options-defaults.php:159
-msgid "Default postal code/zip code"
-msgstr "Código Postal por Defeito"
-
-#
-#: ../admin-views/tribe-options-defaults.php:172
-msgid "Default country"
-msgstr "País por Defeito"
-
-#
-#: ../admin-views/tribe-options-defaults.php:185
-msgid "Default phone"
-msgstr "Telefone por Defeito"
-
-#: ../admin-views/tribe-options-defaults.php:201
-msgid ""
-"One country per line in the following format: <br>US, United States <br> UK, "
-"United Kingdom. <br> (Replaces the default list.)"
-msgstr ""
-"Um país por linha no seguinte formato: <br/>US, Estado Unidos <br/> UK, "
-"Reino Unido. (Substitui a lista padrão)"
-
-#: ../admin-views/widget-admin-advanced-list.php:11
-#: ../admin-views/widget-admin-calendar.php:10
-#: ../admin-views/widget-admin-countdown.php:11
-#: ../admin-views/widget-admin-venue.php:9
-#: ../admin-views/widget-calendar.php:2
-msgid "Title:"
-msgstr "Título:"
-
-#: ../admin-views/widget-admin-advanced-list.php:16
-#: ../admin-views/widget-admin-venue.php:20
-#: ../admin-views/widget-calendar.php:8
-msgid "Number of events to show:"
-msgstr "Número de eventos a mostrar:"
-
-#: ../admin-views/widget-admin-advanced-list.php:25
-msgid "Display:"
-msgstr "Mostrar:"
-
-#: ../admin-views/widget-admin-advanced-list.php:31
-msgid "City"
-msgstr "Cidade"
-
-#: ../admin-views/widget-admin-advanced-list.php:32
-msgid "State (US) Or Province (Int)"
-msgstr "Estado"
-
-#: ../admin-views/widget-admin-advanced-list.php:33
-msgid "Postal Code"
-msgstr "CEP"
-
-#: ../admin-views/widget-admin-advanced-list.php:34
+#: ../src/admin-views/widget-admin-advanced-list.php:37
 msgid "Country"
 msgstr "País"
 
-#: ../admin-views/widget-admin-advanced-list.php:35
-msgid "Phone"
-msgstr "Telefone"
-
-#: ../admin-views/widget-admin-advanced-list.php:36
-msgid "Price"
-msgstr "Preço"
-
-#
-#: ../admin-views/widget-admin-advanced-list.php:58
-#: ../admin-views/widget-calendar.php:24
-msgid "Filters"
-msgstr "Filtros"
-
-#
-#: ../admin-views/widget-admin-advanced-list.php:76
-#: ../admin-views/widget-calendar.php:42
-msgid "remove"
-msgstr "remover"
-
-#: ../admin-views/widget-admin-advanced-list.php:87
-#: ../admin-views/widget-calendar.php:53
-msgid "Match all"
-msgstr "Igualar todos"
-
-#: ../admin-views/widget-admin-advanced-list.php:90
-#: ../admin-views/widget-calendar.php:56
-msgid "Match any"
-msgstr "Igualar qualquer"
-
-#
-#: ../admin-views/widget-admin-advanced-list.php:94
-#: ../admin-views/widget-calendar.php:60
-msgid "Add a filter"
-msgstr "Adicionar Filtro"
-
-#: ../admin-views/widget-admin-advanced-list.php:97
-#: ../admin-views/widget-calendar.php:63
-msgid "Select one..."
-msgstr "Escolha um..."
-
-#
-#: ../admin-views/widget-admin-advanced-list.php:124
-#: ../admin-views/widget-admin-venue.php:28
-msgid "Hide this widget if there are no upcoming events:"
-msgstr "Esconder esta widget se não existirem próximos eventos:"
-
-#
-#: ../admin-views/widget-admin-countdown.php:15
-msgid "Event:"
-msgstr "Evento:"
-
-#
-#: ../admin-views/widget-admin-countdown.php:23
-msgid "Show seconds:"
-msgstr "Mostrar segundos:"
-
-#: ../admin-views/widget-admin-countdown.php:28
-msgid "Countdown Completed Text:"
-msgstr "Texto de contagem decrescente completa:"
-
-#
-#: ../admin-views/widget-admin-venue.php:11
-msgid "Venue:"
-msgstr "Local:"
-
-#: ../events-calendar-pro.php:67
-msgid "photo"
-msgstr "foto"
-
-#
-#: ../events-calendar-pro.php:304
-msgid "Events for week of"
-msgstr "Eventos para a semana de"
-
-#
-#: ../events-calendar-pro.php:312 ../events-calendar-pro.php:375
-msgid "Past Events"
-msgstr "Eventos Passados"
-
-#
-#: ../events-calendar-pro.php:314 ../events-calendar-pro.php:377
-#: ../lib/widget-advanced-list.class.php:88
-msgid "Upcoming Events"
-msgstr "Próximos Eventos"
-
-#
-#: ../events-calendar-pro.php:320 ../events-calendar-pro.php:360
-msgid "All events for"
-msgstr "Todos os eventos para"
-
-#: ../events-calendar-pro.php:367
-#, php-format
-msgid "Events for week of %s"
-msgstr "Eventos para a semana de %s"
-
-#
-#: ../events-calendar-pro.php:781
+#: ../src/Tribe/Main.php:618
 msgid "Hide related events"
 msgstr "Esconder eventos relacionados"
 
-#: ../events-calendar-pro.php:782
+#: ../src/admin-views/widget-admin-advanced-list.php:38
+msgid "Phone"
+msgstr "Telefone"
+
+#: ../src/Tribe/Main.php:619
 msgid "Remove related events from the single event view"
 msgstr "Remover eventos relacionados da visualização simples"
 
-#: ../events-calendar-pro.php:790
+#: ../src/admin-views/widget-admin-advanced-list.php:39
+msgid "Price"
+msgstr "Preço"
+
+#: ../src/Tribe/Main.php:629
 msgid "Week Day Format"
 msgstr "Formato Semana Dia "
 
-#: ../events-calendar-pro.php:791
-msgid ""
-"Enter the format to use for week days. Used when showing days of the week in "
-"Week view."
-msgstr ""
-"Insira o formato a utilizar para os dias da semana. Utilizados quando "
-"apresentados os dias da semana na Visualização por Semana."
+#: ../src/admin-views/widget-admin-advanced-list.php:62
+#: ../src/admin-views/widget-calendar.php:24
+msgid "Filters"
+msgstr "Filtros"
 
-#: ../events-calendar-pro.php:808
-msgid ""
-"Thanks for buying Events Calendar PRO! From all of us at Modern Tribe, we "
-"sincerely appreciate it. If you're looking for help with Events Calendar "
-"PRO, you've come to the right place. We are committed to helping make your "
-"calendar kick ass... and hope the resources provided below will help get you "
-"there."
-msgstr ""
-"Obrigado por ter comprado o Events Calendar PRO! De todos nós na modern "
-"Tribe, agradecidos pelo gesto. Se pretende procurar ajudar sobre o Events "
-"Calendar Pro, veio ao sítio certo. O nosso compromisso é ajudá-lo a tornar o "
-"seu calendário arrebatador... e desejar que todos recursos disponibilizados "
-"o ajudem a chegar lá."
+#: ../src/Tribe/Main.php:630
+msgid "Enter the format to use for week days. Used when showing days of the week in Week view."
+msgstr "Insira o formato a utilizar para os dias da semana. Utilizados quando apresentados os dias da semana na Visualização por Semana."
 
-#: ../events-calendar-pro.php:819
-msgid ""
-"If this is your first time using The Events Calendar Pro, you're in for a "
-"treat and are already well on your way to creating a first event. Here are "
-"some basics we've found helpful for users jumping into it for the first time:"
-msgstr ""
-"Se esta é a sua primeira vez com Events Calendar PRO, encontra-se no caminho "
-"certo para criar o seu primeiro evento. Aqui estão alguns conceitos básicos "
-"que o ajudarão a acelerar o processo: "
+#: ../src/admin-views/widget-admin-advanced-list.php:89
+#: ../src/admin-views/widget-calendar.php:43
+msgid "remove"
+msgstr "remover"
 
-#: ../events-calendar-pro.php:822
-#, php-format
-msgid ""
-"%sOur New User Primer%s was designed for folks in your exact position. "
-"Featuring both step-by-step videos and written walkthroughs that feature "
-"accompanying screenshots, the primer aims to take you from zero to hero in "
-"no time."
+#: ../src/Tribe/Main.php:641
+msgid "Hide weekends on Week View"
 msgstr ""
-"%sO Novo Utilizador%s foi desenvolvido para as pessoas que se encontram na "
-"sua posição. Tem ao seu dispor  vídeos e documentos com detalhes passo-a-"
-"passo para se tornar num utilizador especializado. "
 
-#: ../events-calendar-pro.php:824
-#, php-format
-msgid ""
-"%sInstallation/Setup FAQs%s from our support page can help give an overview "
-"of what the plugin can and cannot do. This section of the FAQs may be "
-"helpful as it aims to address any basic install questions not addressed by "
-"the new user primer."
+#: ../src/admin-views/widget-admin-advanced-list.php:102
+#: ../src/admin-views/widget-calendar.php:54
+msgid "Match all"
+msgstr "Igualar todos"
+
+#: ../src/Tribe/Main.php:642
+msgid "Check this to only show weekdays on Week View"
 msgstr ""
-"%sInstalação/Setup FAQs%s da nossa página de apoio pode ajudá-lo com a visão "
-"global das potencialidades deste plugin. Esta secção de perguntas frequentes "
-"(FAQ) poderão ser úteis visto que possuem algumas dicas básicas de "
-"instalação básicas que não se encontram no menu Novo Utilizador."
 
-#: ../events-calendar-pro.php:826
-#, php-format
-msgid ""
-"Are you developer looking to build your own frontend view? We created an "
-"example plugin that demonstrates how to register a new view. You can "
-"%sdownload the plugin at GitHub%s to get started."
+#: ../src/admin-views/widget-admin-advanced-list.php:105
+#: ../src/admin-views/widget-calendar.php:57
+msgid "Match any"
+msgstr "Igualar qualquer"
+
+#: ../src/Tribe/Main.php:660
+msgid "Thanks for buying Events Calendar PRO! From all of us at Modern Tribe, we sincerely appreciate it. If you're looking for help with Events Calendar PRO, you've come to the right place. We are committed to helping make your calendar kick ass... and hope the resources provided below will help get you there."
+msgstr "Obrigado por ter comprado o Events Calendar PRO! De todos nós na modern Tribe, agradecidos pelo gesto. Se pretende procurar ajudar sobre o Events Calendar Pro, veio ao sítio certo. O nosso compromisso é ajudá-lo a tornar o seu calendário arrebatador... e desejar que todos recursos disponibilizados o ajudem a chegar lá."
+
+#: ../src/admin-views/widget-admin-advanced-list.php:109
+#: ../src/admin-views/widget-calendar.php:61
+msgid "Add a filter"
+msgstr "Adicionar Filtro"
+
+#: ../src/Tribe/Main.php:672
+msgid "If this is your first time using The Events Calendar Pro, you're in for a treat and are already well on your way to creating a first event. Here are some basics we've found helpful for users jumping into it for the first time:"
+msgstr "Se esta é a sua primeira vez com Events Calendar PRO, encontra-se no caminho certo para criar o seu primeiro evento. Aqui estão alguns conceitos básicos que o ajudarão a acelerar o processo: "
+
+#: ../src/admin-views/widget-admin-advanced-list.php:112
+#: ../src/admin-views/widget-calendar.php:64
+msgid "Select one..."
+msgstr "Escolha um..."
+
+#: ../src/Tribe/Main.php:675
+msgid "%sOur New User Primer%s was designed for folks in your exact position. Featuring both step-by-step videos and written walkthroughs that feature accompanying screenshots, the primer aims to take you from zero to hero in no time."
+msgstr "%sO Novo Utilizador%s foi desenvolvido para as pessoas que se encontram na sua posição. Tem ao seu dispor  vídeos e documentos com detalhes passo-a-passo para se tornar num utilizador especializado. "
+
+#: ../src/admin-views/widget-admin-advanced-list.php:141
+#: ../src/admin-views/widget-admin-venue.php:35
+msgid "Hide this widget if there are no upcoming events:"
+msgstr "Esconder esta widget se não existirem próximos eventos:"
+
+#: ../src/Tribe/Main.php:677
+msgid "%sInstallation/Setup FAQs%s from our support page can help give an overview of what the plugin can and cannot do. This section of the FAQs may be helpful as it aims to address any basic install questions not addressed by the new user primer."
+msgstr "%sInstalação/Setup FAQs%s da nossa página de apoio pode ajudá-lo com a visão global das potencialidades deste plugin. Esta secção de perguntas frequentes (FAQ) poderão ser úteis visto que possuem algumas dicas básicas de instalação básicas que não se encontram no menu Novo Utilizador."
+
+#: ../src/admin-views/widget-admin-countdown.php:17
+msgid "Event:"
+msgstr "Evento:"
+
+#: ../src/Tribe/Main.php:679
+msgid "Take care of your license key. Though not required to create your first event, you'll want to get it in place as soon as possible to guarantee your access to support and upgrades. %sHere's how to find your license key%s, if you don't have it handy."
+msgstr "Guarde a chave da sua licença. Embora não seja necessária para criar o seu primeiro evento, garanta que a tem à sua disponibilidade para lhe ser possível o acesso ao apoio e às novas atualizações. %sVeja qui como encontrar a sua licença%s, se ainda não a tem à mão. "
+
+#: ../src/admin-views/widget-admin-countdown.php:25
+msgid "Show seconds:"
+msgstr "Mostrar segundos:"
+
+#: ../src/Tribe/Main.php:681
+msgid "Otherwise, if you're feeling adventurous, you can get started by heading to the Events menu and adding your first event."
+msgstr "Caso contrário, se se sentir aventureiro, pode começar imediatamente selecionando o menu Eventos e adicionado o seu primeiro evento."
+
+#: ../src/admin-views/widget-admin-countdown.php:30
+msgid "Countdown Completed Text:"
+msgstr "Texto de contagem decrescente completa:"
+
+#: ../src/Tribe/Main.php:694
+msgid "Written documentation can only take things so far...sometimes, you need help from a real person. This is where our %ssupport forums%s come into play."
+msgstr "A documentação escrita só permite apoio até um certo momento...por vezes, precisa de ajuda de uma pessoa real. Este é o momento em que o %snosso forum de apoio%s aparece em cena."
+
+#: ../src/admin-views/widget-admin-venue.php:16
+msgid "Venue:"
+msgstr "Local:"
+
+#: ../src/Tribe/Main.php:695
+msgid "Users who have purchased an Events Calendar PRO license are granted total access to our %spremium support forums%s. Unlike at the %sWordPress.org support forum%s, where our involvement is limited to identifying and patching bugs, we have a dedicated support team for PRO users. We're on the PRO forums daily throughout the business week, and no thread should go more than 24-hours without a response."
+msgstr "Aos utilizadores que compraram o Events Calendar PRO será garantido o acesso ao nosso %sFórum Premium%s. Contrariamente ao nosso %sforum no Wordpress.org%s, onde o nosso envolvimento na identificação e resolução de bugs é limitado, possuímos uma equipa à disposição dos utilizadores PRO. Estamos nos fóruns PRO diariamente durante a semana e nenhum tópico demorará mais que 24h a obter uma resposta. "
+
+#: ../src/functions/template-tags/general.php:125
+msgid "Show only the first upcoming instance of recurring %s"
 msgstr ""
-"É um programador e visa desenvolver a sua própria visualização no frontend? "
-"Criamos um plugin modelo que demonstra como registar numa nova exibição. "
-"Pode %sdescarregar o plugin no GitHub%s para começar."
 
-#: ../events-calendar-pro.php:828
-#, php-format
-msgid ""
-"Take care of your license key. Though not required to create your first "
-"event, you'll want to get it in place as soon as possible to guarantee your "
-"access to support and upgrades. %sHere's how to find your license key%s, if "
-"you don't have it handy."
+#: ../src/Tribe/Main.php:696
+msgid "Our number one goal is helping you succeed, and to whatever extent possible, we'll help troubleshoot and guide your customizations or tweaks. While we won't build your site for you, and we can't guarantee we'll be able to get you 100% integrated with every theme or plugin out there, we'll do all we can to point you in the right direction and to make you -- and your client, as is often more importantly the case -- satisfied."
+msgstr "O nosso objetivo principal é ajudá-lo a ser bem sucedido, e na medida do possível, ajudá-lo-emos nos seus ajustes e definições. Embora não sejamos nós a construir o seu site, e não possamos garantir que o nosso plugin seja compatível com todos os temas que existem no mercado, faremos os possíveis para o orientar  -- e ao seu cliente, na direção certa, para que acima de tudo fique -- satisfeito."
+
+#: ../src/functions/template-tags/general.php:302
+#: ../src/functions/template-tags/general.php:317
+#: ../src/functions/template-tags/general.php:332
+#: ../src/functions/template-tags/general.php:347
+#: ../src/functions/template-tags/general.php:362
+#: ../src/functions/template-tags/general.php:377
+#: ../src/functions/template-tags/general.php:392
+#: ../src/functions/template-tags/general.php:407
+#: ../src/functions/template-tags/general.php:422
+msgid "No default set"
+msgstr "Sem pré-definições"
+
+#: ../src/Tribe/Main.php:697
+msgid "Before posting a new thread, please do a search to make sure your issue hasn't already been addressed. When posting please make sure to provide as much detail about the problem as you can (with screenshots or screencasts if feasible), and make sure that you've identified whether a plugin / theme conflict could be at play in your initial message."
+msgstr "Antes de iniciar um novo tópico, pesquise e garanta que o assunto não foi previamente discutido. Sempre que colocar algo forneça o máximo de informação possível (com screenshots ou screencasts se necessário), e garanta que identifica o conflito do tema/plugin no início da sua mensagem. "
+
+#: ../src/functions/template-tags/general.php:304
+msgid "The current default organizer is: %s"
+msgstr "O organizador padrão é <strong>%s</strong>"
+
+#: ../src/Tribe/Main.php:1134
+msgid "Event: "
 msgstr ""
-"Guarde a chave da sua licença. Embora não seja necessária para criar o seu "
-"primeiro evento, garanta que a tem à sua disponibilidade para lhe ser "
-"possível o acesso ao apoio e às novas atualizações. %sVeja qui como "
-"encontrar a sua licença%s, se ainda não a tem à mão. "
 
-#: ../events-calendar-pro.php:830
-msgid ""
-"Otherwise, if you're feeling adventurous, you can get started by heading to "
-"the Events menu and adding your first event."
+#: ../src/functions/template-tags/general.php:319
+msgid "The current default venue is: %s"
+msgstr "O local padrão é <strong>%s</strong>"
+
+#: ../src/Tribe/Main.php:1135
+msgid "Address: "
 msgstr ""
-"Caso contrário, se se sentir aventureiro, pode começar imediatamente "
-"selecionando o menu Eventos e adicionado o seu primeiro evento."
 
-#: ../events-calendar-pro.php:842
-#, php-format
-msgid ""
-"Written documentation can only take things so far...sometimes, you need help "
-"from a real person. This is where our %ssupport forums%s come into play."
-msgstr ""
-"A documentação escrita só permite apoio até um certo momento...por vezes, "
-"precisa de ajuda de uma pessoa real. Este é o momento em que o %snosso forum "
-"de apoio%s aparece em cena."
+#: ../src/functions/template-tags/general.php:334
+msgid "The current default address is: %s"
+msgstr "O endereço padrão é <strong>%s</strong>"
 
-#: ../events-calendar-pro.php:843
-#, php-format
-msgid ""
-"Users who have purchased an Events Calendar PRO license are granted total "
-"access to our %spremium support forums%s. Unlike at the %sWordPress.org "
-"support forum%s, where our involvement is limited to identifying and "
-"patching bugs, we have a dedicated support team for PRO users. We're on the "
-"PRO forums daily throughout the business week, and no thread should go more "
-"than 24-hours without a response."
-msgstr ""
-"Aos utilizadores que compraram o Events Calendar PRO será garantido o acesso "
-"ao nosso %sFórum Premium%s. Contrariamente ao nosso %sforum no Wordpress.org"
-"%s, onde o nosso envolvimento na identificação e resolução de bugs é "
-"limitado, possuímos uma equipa à disposição dos utilizadores PRO. Estamos "
-"nos fóruns PRO diariamente durante a semana e nenhum tópico demorará mais "
-"que 24h a obter uma resposta. "
-
-#: ../events-calendar-pro.php:844
-msgid ""
-"Our number one goal is helping you succeed, and to whatever extent possible, "
-"we'll help troubleshoot and guide your customizations or tweaks. While we "
-"won't build your site for you, and we can't guarantee we'll be able to get "
-"you 100% integrated with every theme or plugin out there, we'll do all we "
-"can to point you in the right direction and to make you -- and your client, "
-"as is often more importantly the case -- satisfied."
-msgstr ""
-"O nosso objetivo principal é ajudá-lo a ser bem sucedido, e na medida do "
-"possível, ajudá-lo-emos nos seus ajustes e definições. Embora não sejamos "
-"nós a construir o seu site, e não possamos garantir que o nosso plugin seja "
-"compatível com todos os temas que existem no mercado, faremos os possíveis "
-"para o orientar  -- e ao seu cliente, na direção certa, para que acima de "
-"tudo fique -- satisfeito."
-
-#: ../events-calendar-pro.php:845
-msgid ""
-"Before posting a new thread, please do a search to make sure your issue "
-"hasn't already been addressed. When posting please make sure to provide as "
-"much detail about the problem as you can (with screenshots or screencasts if "
-"feasible), and make sure that you've identified whether a plugin / theme "
-"conflict could be at play in your initial message."
-msgstr ""
-"Antes de iniciar um novo tópico, pesquise e garanta que o assunto não foi "
-"previamente discutido. Sempre que colocar algo forneça o máximo de "
-"informação possível (com screenshots ou screencasts se necessário), e "
-"garanta que identifica o conflito do tema/plugin no início da sua mensagem. "
-
-#: ../events-calendar-pro.php:1252
+#: ../src/Tribe/Main.php:1204
 msgid "Settings"
 msgstr "Configurações"
 
-#: ../events-calendar-pro.php:1277
-#, php-format
+#: ../src/functions/template-tags/general.php:349
+msgid "The current default city is: %s"
+msgstr "A cidade padrão é <strong>%s</strong>"
+
+#: ../src/Tribe/Main.php:1232
 msgid "Venue updated. <a href=\"%s\">View venue</a>"
 msgstr "Local atualizado. <a href=\"%s\">Ver Local</a>"
 
-#: ../events-calendar-pro.php:1279
-#, php-format
+#: ../src/functions/template-tags/general.php:364
+msgid "The current default state is: %s"
+msgstr "O Estado padrão é <strong>%s</strong>"
+
+#: ../src/Tribe/Main.php:1234
 msgid "Venue published. <a href=\"%s\">View venue</a>"
 msgstr "Local publicado. <a href=\"%s\">Ver Local</a>"
 
-#: ../events-calendar-pro.php:1280
-#, php-format
+#: ../src/functions/template-tags/general.php:379
+msgid "The current default province is: %s"
+msgstr "A província padrão é <strong>%s</strong>"
+
+#: ../src/Tribe/Main.php:1235
 msgid "Venue submitted. <a target=\"_blank\" href=\"%s\">Preview venue</a>"
-msgstr ""
-"Local submetido. <a target=\"_blank\" href=\"%s\">Pré-visualizar Local</a>"
+msgstr "Local submetido. <a target=\"_blank\" href=\"%s\">Pré-visualizar Local</a>"
 
-#: ../events-calendar-pro.php:1281
-#, php-format
-msgid ""
-"Venue scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s"
-"\">Preview venue</a>"
-msgstr ""
-"Local agendado para <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s"
-"\">Pré-visualizar local</a>"
+#: ../src/functions/template-tags/general.php:394
+msgid "The current default postal code/zip code is: %s"
+msgstr "O CEP padrão é <strong>%s</strong>"
 
-#: ../events-calendar-pro.php:1283 ../events-calendar-pro.php:1291
+#: ../src/Tribe/Main.php:1237
+msgid "Venue scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s\">Preview venue</a>"
+msgstr "Local agendado para <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s\">Pré-visualizar local</a>"
+
+#: ../src/functions/template-tags/general.php:409
+msgid "The current default country is: %s"
+msgstr "O País padrão é <strong>%s</strong>"
+
+#: ../src/Tribe/Main.php:1239 ../src/Tribe/Main.php:1249
 msgid "M j, Y @ G:i"
 msgstr "M j, Y @ G:i"
 
-#: ../events-calendar-pro.php:1284
-#, php-format
-msgid "Venue draft updated. <a target=\"_blank\" href=\"%s\">Preview venue</a>"
-msgstr ""
-"Rascunho Local atualizado. <a target=\"_blank\" href=\"%s\">Pré-visualizar "
-"Local</a>"
+#: ../src/functions/template-tags/general.php:424
+msgid "The current default phone is: %s"
+msgstr "O número padrão é <strong>%s</strong>"
 
-#: ../events-calendar-pro.php:1286
-#, php-format
+#: ../src/Tribe/Main.php:1241
+msgid "Venue draft updated. <a target=\"_blank\" href=\"%s\">Preview venue</a>"
+msgstr "Rascunho Local atualizado. <a target=\"_blank\" href=\"%s\">Pré-visualizar Local</a>"
+
+#: ../src/functions/template-tags/general.php:584
+#: ../src/functions/template-tags/general.php:607
+msgid "Date out of range."
+msgstr "Data fora do alcance."
+
+#: ../src/Tribe/Main.php:1243
 msgid "Organizer updated. <a href=\"%s\">View organizer</a>"
 msgstr "Organizador atualizado. <a href=\"%s\">Ver Organizador</a>"
 
-#: ../events-calendar-pro.php:1287
-#, php-format
+#: ../src/functions/template-tags/general.php:717
+msgid "Recurring %s"
+msgstr ""
+
+#: ../src/Tribe/Main.php:1244
 msgid "Organizer published. <a href=\"%s\">View organizer</a>"
 msgstr "Organizador publicado. <a href=\"%s\">Ver Organizador</a>"
 
-#: ../events-calendar-pro.php:1288
-#, php-format
-msgid ""
-"Organizer submitted. <a target=\"_blank\" href=\"%s\">Preview organizer</a>"
+#: ../src/functions/template-tags/general.php:720
+msgid "(See all)"
+msgstr "(Ver tudo)"
+
+#: ../src/Tribe/Main.php:1245
+msgid "Organizer submitted. <a target=\"_blank\" href=\"%s\">Preview organizer</a>"
+msgstr "Organizador submetido. <a target=\"_blank\" href=\"%s\">Pré-visualizar Organizador</a>"
+
+#: ../src/functions/template-tags/week.php:196
+msgid "<span>&laquo;</span> Previous Week"
+msgstr "<span>&laquo;</span> Semanas Anteriores"
+
+#: ../src/Tribe/Main.php:1247
+msgid "Organizer scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s\">Preview organizer</a>"
+msgstr "Organizador agendado para: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s\">Pré-visualizar Organizador</a>"
+
+#: ../src/functions/template-tags/week.php:226
+msgid "Next Week <span>&raquo;</span>"
+msgstr "Próxima Semana <span>&raquo;</span>"
+
+#: ../src/Tribe/Main.php:1251
+msgid "Organizer draft updated. <a target=\"_blank\" href=\"%s\">Preview organizer</a>"
+msgstr "Rascunho Organizador atualizado. <a target=\"_blank\" href=\"%s\">Pré-visualizar Organizador</a>"
+
+#: ../src/views/pro/map/nav.php:20 ../src/views/pro/photo/nav.php:20
+msgid "%s List Navigation"
 msgstr ""
-"Organizador submetido. <a target=\"_blank\" href=\"%s\">Pré-visualizar "
-"Organizador</a>"
 
-#: ../events-calendar-pro.php:1289
-#, php-format
-msgid ""
-"Organizer scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" href="
-"\"%2$s\">Preview organizer</a>"
-msgstr ""
-"Organizador agendado para: <strong>%1$s</strong>. <a target=\"_blank\" href="
-"\"%2$s\">Pré-visualizar Organizador</a>"
-
-#: ../events-calendar-pro.php:1292
-#, php-format
-msgid ""
-"Organizer draft updated. <a target=\"_blank\" href=\"%s\">Preview organizer</"
-"a>"
-msgstr ""
-"Rascunho Organizador atualizado. <a target=\"_blank\" href=\"%s\">Pré-"
-"visualizar Organizador</a>"
-
-#: ../events-calendar-pro.php:1338
-#, php-format
-msgid "Calendar powered by %sThe Events Calendar PRO%s"
-msgstr "Este calendário opera com o %sThe Events Calendar PRO%s"
-
-#: ../events-calendar-pro.php:1351
+#: ../src/Tribe/Main.php:1301
 msgid "Support"
 msgstr "Suporte"
 
-#: ../events-calendar-pro.php:1353
+#: ../src/views/pro/map/nav.php:25 ../src/views/pro/photo/nav.php:25
+msgid "<span>&laquo;</span> Previous %s"
+msgstr ""
+
+#: ../src/Tribe/Main.php:1303
 msgid "View All Add-Ons"
 msgstr "Ver todos os Add-Ons"
 
-#
-#: ../events-calendar-pro.php:1450
+#: ../src/views/pro/map/nav.php:32 ../src/views/pro/photo/nav.php:31
+msgid "Next %s <span>&raquo;</span>"
+msgstr ""
+
+#: ../src/Tribe/Main.php:1428
 msgid "Week"
 msgstr "Semana"
 
-#: ../events-calendar-pro.php:1464
+#: ../src/views/pro/map/single-event.php:71
+msgid "Find out more"
+msgstr "Saber mais"
+
+#: ../src/Tribe/Main.php:1446
 msgid "Photo"
 msgstr "Foto"
 
-#
-#: ../events-calendar-pro.php:1478
+#: ../src/views/pro/related-events.php:26
+msgid "Related %s"
+msgstr ""
+
+#: ../src/Tribe/Main.php:1463
 msgid "Week Of"
 msgstr "Semana de"
 
-#: ../events-calendar-pro.php:1561
-msgid "The Events Calendar"
-msgstr "The Events Calendar"
-
-#: ../events-calendar-pro.php:1562
-#, php-format
-msgid ""
-"To begin using Events Calendar PRO, please install the latest version of <a "
-"href=\"%s\" class=\"thickbox\" title=\"%s\">The Events Calendar</a>."
+#: ../src/views/pro/single-organizer.php:32
+#: ../src/views/pro/single-venue.php:32
+msgid "&larr; Back to %s"
 msgstr ""
-"Para usar O Calendário de Eventos PRO, por favor instale a última versão "
-"de<a href=\"%s\" class=\"thickbox\" title=\"%s\">Calendário de Eventos</a>."
 
-#: ../lib/SingleEventMeta.php:139
-#: ../views/pro/modules/meta/additional-fields.php:15
-msgid "Other"
-msgstr "Outro"
+#: ../src/Tribe/Mini_Calendar_Widget.php:8
+msgid "The events calendar mini calendar widget"
+msgstr "Calendário de Eventos mini widget de calendário"
 
-#
-#: ../lib/SingleEventMeta.php:165
-msgid "Recurrence Pattern:"
-msgstr "Padrão de repetição:"
+#: ../src/views/pro/week/loop-grid-allday.php:18
+msgid "All Day"
+msgstr "Dia todo"
 
-#: ../lib/TribeEventsFilter_GeoLoc.php:20 ../lib/tribe-geoloc.class.php:145
-msgid "Miles"
-msgstr "Milhas"
+#: ../src/Tribe/Mini_Calendar_Widget.php:11
+#: ../src/Tribe/Mini_Calendar_Widget.php:35
+#: ../src/Tribe/Mini_Calendar_Widget.php:76
+msgid "Events Calendar"
+msgstr "Agenda de Eventos"
 
-#: ../lib/TribeEventsFilter_GeoLoc.php:21 ../lib/tribe-geoloc.class.php:146
-msgid "Kilometers"
-msgstr "Kilómetros"
+#: ../src/views/pro/week/loop-grid.php:19
+msgid "Hours"
+msgstr "Horas"
 
-#: ../lib/TribeEventsFilter_GeoLoc.php:25
-#, php-format
-msgid "%d %s"
-msgstr "%d %s"
-
-#: ../lib/TribeEventsFilter_GeoLoc.php:40
-#, php-format
-msgid "Type: %s %s"
-msgstr "Tipo: %s %s"
-
-#: ../lib/TribeEventsFilter_GeoLoc.php:49
-msgid "Radio Buttons"
-msgstr "Botões Radio"
-
-#: ../lib/apm_filters.php:49
-msgid "Start Date"
-msgstr "Data de ínício"
-
-#
-#: ../lib/apm_filters.php:54
-msgid "End Date"
-msgstr "Data de término"
-
-#: ../lib/apm_filters.php:59
-msgid "Event Cost"
-msgstr "Preço"
-
-#
-#: ../lib/apm_filters.php:64
-msgid "Event Cats"
-msgstr "Categ. Eventos"
-
-#: ../lib/apm_filters.php:69
-msgid "Title"
-msgstr "Título"
-
-#: ../lib/apm_filters.php:74 ../lib/tribe-events-recurrence-meta.class.php:132
-msgid "Recurring"
-msgstr "Recorrência"
-
-#: ../lib/apm_filters.php:79
-msgid "Description"
-msgstr "Descrição"
-
-#: ../lib/apm_filters.php:216
-#: ../lib/tribe-events-recurrence-meta.class.php:139
-msgid "Yes"
-msgstr "Sim"
-
-#: ../lib/apm_filters.php:217
-msgid "No"
-msgstr "Não"
-
-#: ../lib/template-classes/week.php:91
-#, php-format
-msgid ""
-"There were no results found for <strong>\"%s\"</strong> this week. Try "
-"searching another week."
+#: ../src/Tribe/Recurrence/Queue_Processor.php:182
+msgid "Could not process queue for event %d: %s"
 msgstr ""
-"Não foram encontrados resultados para <strong>\"%s\"</strong> nesta semana. "
-"Tente pesquisar na próxima semana."
 
-#: ../lib/template-classes/week.php:94
-#, php-format
-msgid ""
-"No results were found for events in or near <strong>\"%s\"</strong> this "
-"week. Try searching another week."
+#: ../src/views/pro/week/nav.php:16
+msgid "Week Navigation"
+msgstr "Navegação Semana"
+
+#: ../src/Tribe/Recurrence/Queue_Realtime.php:53
+msgid "Completed!"
 msgstr ""
-"Não foram encontrados resultados para ou próximos <strong>\"%s\"</strong> "
-"desta semana. Tente pesquisar outra semana."
 
-#: ../lib/template-classes/week.php:98 ../lib/tribe-geoloc.class.php:546
-#, php-format
-msgid ""
-"No matching events listed under %s. Please try viewing the full calendar for "
-"a complete list of events."
+#: ../src/views/pro/widgets/countdown-widget.php:20
+msgid "days"
+msgstr "dias"
+
+#: ../src/Tribe/Recurrence/Queue_Realtime.php:55
+#: ../src/Tribe/Recurrence/Queue_Realtime.php:70
+#: ../src/Tribe/Recurrence/Queue_Realtime.php:101
+msgid "%d%% complete"
 msgstr ""
-"Não foram correspondidos eventos para %s. Por favor tente visualizar o "
-"calendário para uma lista completa de eventos. "
 
-#: ../lib/template-classes/week.php:101
-msgid "No results were found for this week. Try searching another week."
+#: ../src/views/pro/widgets/countdown-widget.php:24
+msgid "hours"
+msgstr "horas"
+
+#: ../src/Tribe/Recurrence/Queue_Realtime.php:67
+msgid "Recurring event data is still being generated for this event. Don&#146;t worry, you can safely navigate away &ndash; the process will resume in a bit in the background."
 msgstr ""
-"Não foram encontrados resultados para esta semana. Tente pesquisar para "
-"outra semana."
 
-#: ../lib/tribe-events-recurrence-meta.class.php:104
+#: ../src/views/pro/widgets/countdown-widget.php:28
+msgid "min"
+msgstr "min"
+
+#: ../src/Tribe/Recurrence/Queue_Realtime.php:81
+msgid "Unable to continue processing recurring event data. Please reload this page to continue/try again."
+msgstr ""
+
+#: ../src/views/pro/widgets/countdown-widget.php:33
+msgid "sec"
+msgstr "seg"
+
+#: ../src/Tribe/Recurrence_Meta.php:119
 msgid "Edit Series"
 msgstr "Editar Série"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:110
+#: ../src/views/pro/widgets/list-widget.php:57
+msgid "View More&hellip;"
+msgstr "Ver Mais&hellip;"
+
+#: ../src/Tribe/Recurrence_Meta.php:125
 msgid "Break from Series"
 msgstr "Quebrar a partir da série"
 
-#
-#: ../lib/tribe-events-recurrence-meta.class.php:120
+#: ../src/views/pro/widgets/list-widget.php:65
+msgid "There are no upcoming %s at this time."
+msgstr ""
+
+#: ../src/Tribe/Recurrence_Meta.php:135
 msgid "Edit Future Events"
 msgstr "Editar Eventos Futuros"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:141
+#: ../src/views/pro/widgets/modules/single-event.php:79
+msgid "Organizer:"
+msgstr "Organizador:"
+
+#: ../src/Tribe/Recurrence_Meta.php:157
 msgid "—"
 msgstr "—"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:155
+#: ../src/views/pro/widgets/venue-widget.php:36
+msgid "No upcoming %s."
+msgstr ""
+
+#: ../src/Tribe/Recurrence_Meta.php:186
 msgid "Break this event out of its series and edit it independently"
 msgstr "Quebrar este evento da sua série e edite-o independentemente "
 
-#: ../lib/tribe-events-recurrence-meta.class.php:155
+#: ../src/views/pro/widgets/venue-widget.php:59
+msgid "View all %s at this %s"
+msgstr ""
+
+#: ../src/Tribe/Recurrence_Meta.php:186
 msgid "Edit Single"
 msgstr "Editar Simples"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:157
-msgid ""
-"Split the series in two at this point, creating a new series out of this and "
-"all subsequent events"
-msgstr ""
-"Separe a série em duas neste ponto, criando uma nova série a partir desta e "
-"com todos os eventos subsequentes "
+#: ../src/Tribe/Recurrence_Meta.php:188
+msgid "Split the series in two at this point, creating a new series out of this and all subsequent events"
+msgstr "Separe a série em duas neste ponto, criando uma nova série a partir desta e com todos os eventos subsequentes "
 
-#: ../lib/tribe-events-recurrence-meta.class.php:157
+#: ../src/Tribe/Recurrence_Meta.php:188
 msgid "Edit Upcoming"
 msgstr "Editar próximos"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:163
+#: ../src/Tribe/Recurrence_Meta.php:194
 msgid "Edit all events in this series"
 msgstr "Editar todos os eventos nesta série"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:163
+#: ../src/Tribe/Recurrence_Meta.php:194
 msgid "Edit All"
 msgstr "Editar Todos"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:168
+#: ../src/Tribe/Recurrence_Meta.php:199
 msgid "Move all events in this series to the Trash"
 msgstr "Mover todos os ventos nesta série para o Lixo"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:168
+#: ../src/Tribe/Recurrence_Meta.php:199
 msgid "Trash Series"
 msgstr "Enviar Série para o Lixo"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:171
+#: ../src/Tribe/Recurrence_Meta.php:202
 msgid "Delete all events in this series permanently"
 msgstr "Eliminar todos os eventos desta série permanentemente "
 
-#: ../lib/tribe-events-recurrence-meta.class.php:171
+#: ../src/Tribe/Recurrence_Meta.php:202
 msgid "Delete Series Permanently"
 msgstr "Eliminar Série Permanentemente"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:177
+#: ../src/Tribe/Recurrence_Meta.php:208
 msgid "Restore all events in this series from the Trash"
 msgstr "Recuperar do lixo todos os eventos desta série "
 
-#: ../lib/tribe-events-recurrence-meta.class.php:177
+#: ../src/Tribe/Recurrence_Meta.php:208
 msgid "Restore Series"
 msgstr "Série Recuperada"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:526
-msgid ""
-"Monthly custom recurrences cannot have a dash set as the day to occur on."
-msgstr ""
-"Recorrências personalizadas mensais não podem ter um traço definido como o "
-"dia de ocorrência."
+#: ../src/Tribe/Recurrence_Meta.php:582
+msgid "Monthly custom recurrences cannot have a dash set as the day to occur on."
+msgstr "Recorrências personalizadas mensais não podem ter um traço definido como o dia de ocorrência."
 
-#: ../lib/tribe-events-recurrence-meta.class.php:529
-msgid ""
-"Yearly custom recurrences cannot have a dash set as the day to occur on."
-msgstr ""
-"Recorrências personalizadas não podem ter um traço definido como o dia de "
-"ocorrência."
+#: ../src/Tribe/Recurrence_Meta.php:585
+msgid "Yearly custom recurrences cannot have a dash set as the day to occur on."
+msgstr "Recorrências personalizadas não podem ter um traço definido como o dia de ocorrência."
 
-#: ../lib/tribe-events-recurrence-meta.class.php:819
-#: ../lib/tribe-events-recurrence-meta.class.php:834
+#: ../src/Tribe/Recurrence_Meta.php:905 ../src/Tribe/Recurrence_Meta.php:920
 msgid "Every day"
 msgstr "Todo dia"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:820
-#, php-format
+#: ../src/Tribe/Recurrence_Meta.php:906
 msgid " for %d day"
 msgid_plural " for %d days"
 msgstr[0] "para dia %d"
 msgstr[1] "para dias %d"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:823
-#: ../lib/tribe-events-recurrence-meta.class.php:839
+#: ../src/Tribe/Recurrence_Meta.php:909 ../src/Tribe/Recurrence_Meta.php:925
 msgid "Every week"
 msgstr "Toda semana"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:824
-#, php-format
+#: ../src/Tribe/Recurrence_Meta.php:910
 msgid " for %d week"
 msgid_plural " for %d weeks"
 msgstr[0] "para semana %d"
 msgstr[1] "para semanas %d"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:826
-#: ../lib/tribe-events-recurrence-meta.class.php:845
+#: ../src/Tribe/Recurrence_Meta.php:912 ../src/Tribe/Recurrence_Meta.php:931
 msgid "Every month"
 msgstr "Todo mês"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:827
-#, php-format
+#: ../src/Tribe/Recurrence_Meta.php:913
 msgid " for %d month"
 msgid_plural " for %d months"
 msgstr[0] "para mês %d"
 msgstr[1] "para meses %d"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:829
-#: ../lib/tribe-events-recurrence-meta.class.php:852
+#: ../src/Tribe/Recurrence_Meta.php:915 ../src/Tribe/Recurrence_Meta.php:938
 msgid "Every year"
 msgstr "Todo ano"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:830
-#, php-format
+#: ../src/Tribe/Recurrence_Meta.php:916
 msgid " for %d year"
 msgid_plural " for %d years"
 msgstr[0] "para ano %d"
 msgstr[1] "para anos %d"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:835
-#, php-format
+#: ../src/Tribe/Recurrence_Meta.php:921
 msgid "Every %d days"
 msgstr "Todos %d dias"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:836
-#: ../lib/tribe-events-recurrence-meta.class.php:842
-#: ../lib/tribe-events-recurrence-meta.class.php:849
-#: ../lib/tribe-events-recurrence-meta.class.php:861
-#, php-format
+#: ../src/Tribe/Recurrence_Meta.php:922 ../src/Tribe/Recurrence_Meta.php:928
+#: ../src/Tribe/Recurrence_Meta.php:935 ../src/Tribe/Recurrence_Meta.php:947
 msgid ", recurring %d time"
 msgid_plural ", recurring %d times"
 msgstr[0] ", repetir %d vez"
 msgstr[1] ", repetir %d vezes"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:840
-#, php-format
+#: ../src/Tribe/Recurrence_Meta.php:926
 msgid "Every %d weeks"
 msgstr "Todas %d semanas"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:841
-#, php-format
+#: ../src/Tribe/Recurrence_Meta.php:927
 msgid " on %s"
 msgstr "em %s"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:846
-#, php-format
+#: ../src/Tribe/Recurrence_Meta.php:932
 msgid "Every %d months"
 msgstr "Todos %d meses"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:848
-#, php-format
+#: ../src/Tribe/Recurrence_Meta.php:934
 msgid " on the %s %s"
 msgstr "no %s %s"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:853
-#, php-format
+#: ../src/Tribe/Recurrence_Meta.php:934
+msgid "day"
+msgstr "dia"
+
+#: ../src/Tribe/Recurrence_Meta.php:939
 msgid "Every %d years"
 msgstr "Todos %d anos"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:855
+#: ../src/Tribe/Recurrence_Meta.php:941
 msgid "last"
 msgstr "último"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:860
-#, php-format
+#: ../src/Tribe/Recurrence_Meta.php:946
 msgid " on the %s %s of %s"
 msgstr " no %s %s de %s"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:867
-#, php-format
+#: ../src/Tribe/Recurrence_Meta.php:953
 msgid " until %s"
 msgstr " até %s"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:874
-#, php-format
+#: ../src/Tribe/Recurrence_Meta.php:960
 msgid "%s%s%s"
 msgstr "%s%s%s"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:889
+#: ../src/Tribe/Recurrence_Meta.php:972
+#: ../src/admin-views/event-recurrence.php:85
+#: ../src/admin-views/event-recurrence.php:142
+msgid "Monday"
+msgstr "Segunda"
+
+#: ../src/Tribe/Recurrence_Meta.php:973
+#: ../src/admin-views/event-recurrence.php:86
+#: ../src/admin-views/event-recurrence.php:143
+msgid "Tuesday"
+msgstr "Terça"
+
+#: ../src/Tribe/Recurrence_Meta.php:974
+#: ../src/admin-views/event-recurrence.php:87
+#: ../src/admin-views/event-recurrence.php:144
+msgid "Wednesday"
+msgstr "Quarta"
+
+#: ../src/Tribe/Recurrence_Meta.php:975
+#: ../src/admin-views/event-recurrence.php:88
+#: ../src/admin-views/event-recurrence.php:145
+msgid "Thursday"
+msgstr "Quinta"
+
+#: ../src/Tribe/Recurrence_Meta.php:976
+#: ../src/admin-views/event-recurrence.php:89
+#: ../src/admin-views/event-recurrence.php:146
+msgid "Friday"
+msgstr "Sexta"
+
+#: ../src/Tribe/Recurrence_Meta.php:977
+#: ../src/admin-views/event-recurrence.php:90
+#: ../src/admin-views/event-recurrence.php:147
+msgid "Saturday"
+msgstr "Sábado"
+
+#: ../src/Tribe/Recurrence_Meta.php:978
+#: ../src/admin-views/event-recurrence.php:91
+#: ../src/admin-views/event-recurrence.php:148
+msgid "Sunday"
+msgstr "Domingo"
+
+#: ../src/Tribe/Recurrence_Meta.php:985
 msgid ", and"
 msgstr ", e"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:891
+#: ../src/Tribe/Recurrence_Meta.php:987
 msgid "and"
 msgstr " e"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:893
+#: ../src/Tribe/Recurrence_Meta.php:989
 msgid ","
 msgstr ","
 
-#: ../lib/tribe-events-recurrence-meta.class.php:908
+#: ../src/Tribe/Recurrence_Meta.php:1007
 msgid "January"
 msgstr "Janeiro"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:908
+#: ../src/Tribe/Recurrence_Meta.php:1008
 msgid "February"
 msgstr "Fevereiro"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:908
+#: ../src/Tribe/Recurrence_Meta.php:1009
 msgid "March"
 msgstr "Março"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:908
+#: ../src/Tribe/Recurrence_Meta.php:1010
 msgid "April"
 msgstr "Abril"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:909
+#: ../src/Tribe/Recurrence_Meta.php:1011
 msgid "May"
 msgstr "Mai"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:909
+#: ../src/Tribe/Recurrence_Meta.php:1012
 msgid "June"
 msgstr "Junho"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:909
+#: ../src/Tribe/Recurrence_Meta.php:1013
 msgid "July"
 msgstr "Julho"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:909
+#: ../src/Tribe/Recurrence_Meta.php:1014
 msgid "August"
 msgstr "Agosto"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:909
+#: ../src/Tribe/Recurrence_Meta.php:1015
 msgid "September"
 msgstr "Setembro"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:909
+#: ../src/Tribe/Recurrence_Meta.php:1016
 msgid "October"
 msgstr "Outubro"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:909
+#: ../src/Tribe/Recurrence_Meta.php:1017
 msgid "November"
 msgstr "Novembro"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:909
+#: ../src/Tribe/Recurrence_Meta.php:1018
 msgid "December"
 msgstr "Dezembro"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:915
+#: ../src/Tribe/Recurrence_Meta.php:1025
 msgid ", and "
 msgstr ", e"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:917
+#: ../src/Tribe/Recurrence_Meta.php:1027
 msgid " and "
 msgstr " e"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:919
+#: ../src/Tribe/Recurrence_Meta.php:1029
 msgid ", "
 msgstr ", "
 
-#: ../lib/tribe-events-recurrence-meta.class.php:981
+#: ../src/Tribe/Recurrence_Meta.php:1106
 msgid "Recurring event instances"
 msgstr "Instâncias de eventos recorrentes"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:982
-msgid ""
-"Show only the first instance of each recurring event (only affects list-"
-"style views)."
-msgstr ""
-"Mostrar só a primeira instância de cada evento recorrente (apenas afeta a "
-"visualização por listas)."
+#: ../src/Tribe/Recurrence_Meta.php:1107
+msgid "Show only the first instance of each recurring event (only affects list-style views)."
+msgstr "Mostrar só a primeira instância de cada evento recorrente (apenas afeta a visualização por listas)."
 
-#: ../lib/tribe-events-recurrence-meta.class.php:988
+#: ../src/Tribe/Recurrence_Meta.php:1113
 msgid "Front-end recurring event instances toggle"
 msgstr "Botão de instâncias de eventos recorrentes no front-end"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:989
-msgid ""
-"Allow users to decide whether to show all instances of a recurring event."
-msgstr ""
-"Permitir os utilizadores escolher se mostra todas as instâncias de um evento "
-"recorrente."
+#: ../src/Tribe/Recurrence_Meta.php:1114
+msgid "Allow users to decide whether to show all instances of a recurring event."
+msgstr "Permitir os utilizadores escolher se mostra todas as instâncias de um evento recorrente."
 
-#: ../lib/tribe-events-recurrence-meta.class.php:996
+#: ../src/Tribe/Recurrence_Meta.php:1121
 msgid "Clean up recurring events after"
 msgstr "Limpar eventos recorrentes a seguir de"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:997
+#: ../src/Tribe/Recurrence_Meta.php:1122
 msgid "Automatically remove recurring event instances older than this"
-msgstr ""
-"Remover automaticamente instâncias de eventos recorrentes mais antigos que"
+msgstr "Remover automaticamente instâncias de eventos recorrentes mais antigos que"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:1004
+#: ../src/Tribe/Recurrence_Meta.php:1129
 msgid "Create recurring events in advance for"
 msgstr "Criar com antecedência eventos recorrentes para"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:1005
+#: ../src/Tribe/Recurrence_Meta.php:1130
 msgid "Recurring events will be created this far in advance"
 msgstr "Os eventos recorrentes serão criados com esta antecedência "
 
-#: ../lib/tribe-events-recurrence-meta.class.php:1026
+#: ../src/Tribe/Recurrence_Meta.php:1151
 msgid " months"
 msgstr "meses"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:1117
+#: ../src/Tribe/Recurrence_Meta.php:1246
 msgid "You are currently editing all events in a recurring series."
-msgstr ""
-"Encontra-se a editar todos os eventos pertencentes a uma série recorrente."
+msgstr "Encontra-se a editar todos os eventos pertencentes a uma série recorrente."
 
-#: ../lib/tribe-events-recurrence-meta.class.php:1125
-#, php-format
-msgid ""
-"%d instances of this event have been created through %s. <a href=\"%s"
-"\">Learn more.</a>"
-msgstr ""
-"%d instâncias para este evento foram criadas através de %s. <a href=\"%s"
-"\">Saber mais.</a>"
+#: ../src/Tribe/Recurrence_Meta.php:1254
+msgid "%d instances of this event have been created through %s. <a href=\"%s\">Learn more.</a>"
+msgstr "%d instâncias para este evento foram criadas através de %s. <a href=\"%s\">Saber mais.</a>"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:1136
+#: ../src/Tribe/Recurrence_Meta.php:1265
 msgid ""
 "You are about to split this series in two.\n"
 "\n"
-"The event you selected and all subsequent events in the series will be "
-"separated into a new series of events that you can edit independently of the "
-"original series.\n"
+"The event you selected and all subsequent events in the series will be separated into a new series of events that you can edit independently of the original series.\n"
 "\n"
 "This action cannot be undone."
 msgstr ""
 "Está prestes a dividir está série em duas.\n"
 "\n"
-"O evento selecionado tal como os eventos subsequentes serão separados numa "
-"nova série de eventos que poderá editar independentemente da série "
-"original.\n"
+"O evento selecionado tal como os eventos subsequentes serão separados numa nova série de eventos que poderá editar independentemente da série original.\n"
 "\n"
 "Esta ação não poderá ser revertida."
 
-#: ../lib/tribe-events-recurrence-meta.class.php:1137
+#: ../src/Tribe/Recurrence_Meta.php:1266
 msgid ""
 "You are about to break this event out of its series.\n"
 "\n"
@@ -1542,912 +744,806 @@ msgstr ""
 "\n"
 "Esta ação não poderá ser revertida."
 
-#: ../lib/tribe-events-recurrence-meta.class.php:1138
-msgid ""
-"Are you sure you want to trash all occurrences of these events? All "
-"recurrence data will be lost."
+#: ../src/Tribe/Recurrence_Meta.php:1267
+msgid "Are you sure you want to trash all occurrences of these events?"
 msgstr ""
-"Tem a certeza que quer colocar no lixo todas as ocorrências relativas a "
-"estes eventos? Todos os dados serão perdidos."
 
-#: ../lib/tribe-geoloc.class.php:101
-msgid "Distance"
-msgstr "Distância"
+#: ../src/Tribe/Single_Event_Meta.php:161
+#: ../src/views/pro/modules/meta/additional-fields.php:18
+msgid "Other"
+msgstr "Outro"
 
-#: ../lib/tribe-geoloc.class.php:133
-msgid "Map view search distance limit"
-msgstr "Limite de distância de pesquisa na vista de mapa"
+#: ../src/Tribe/Single_Event_Meta.php:188
+msgid "Recurrence Pattern:"
+msgstr "Padrão de repetição:"
 
-#: ../lib/tribe-geoloc.class.php:135
-msgid ""
-"Set the distance that the location search covers (find events within X "
-"distance units of location search input)."
-msgstr ""
-"Defina a distância que a pesquisa de localização cobre (encontrar eventos "
-"dentro de X unidades de distância dentro da localização)"
-
-#: ../lib/tribe-geoloc.class.php:141
-msgid "Map view distance unit"
-msgstr "Unidade de distância na vista de mapa"
-
-#: ../lib/tribe-geoloc.class.php:149
-msgid "Fix geolocation data"
-msgstr "Corrigir dados de geolocalização"
-
-#: ../lib/tribe-geoloc.class.php:149
-#, php-format
-msgid ""
-"You have %d venues for which we don't have geolocation data. We need to use "
-"the Google Maps API to get that information. Doing this may take a while "
-"(aprox. 1 minute for every 200 venues)."
-msgstr ""
-"Tem %d locais para os quais não temos dados de geolocalização. Precisamos de "
-"usar a API do Google Maps para obter essa informação. Esta acção pode "
-"demorar um pouco (aproximadamente 1 minuto para cada 200 locais). "
-
-#: ../lib/tribe-geoloc.class.php:158
-msgid "Hide location search"
-msgstr "Esconder pesquisa de local"
-
-#: ../lib/tribe-geoloc.class.php:159
-msgid ""
-"Removes location search field from the events bar on all views except for "
-"map view."
-msgstr ""
-"Remove o campo de pesquisa de localização da barra de eventos em todas as "
-"vistas excepto na vista de mapa."
-
-#
-#: ../lib/tribe-geoloc.class.php:211
-msgid "Map"
-msgstr "Mapa"
-
-#: ../lib/tribe-geoloc.class.php:241
-msgid "Near"
-msgstr "Perto"
-
-#: ../lib/tribe-geoloc.class.php:242
-msgid "Location"
-msgstr "Localização"
-
-#: ../lib/tribe-geoloc.class.php:543
-#, php-format
+#: ../src/Tribe/Templates/Map.php:91
 msgid "No results were found for events in or near <strong>\"%s\"</strong>."
-msgstr ""
-"Não foram encontrados resultados para nem próximos de(a) <strong>\"%s\"</"
-"strong>."
+msgstr "Não foram encontrados resultados para nem próximos de(a) <strong>\"%s\"</strong>."
 
-#: ../lib/tribe-geoloc.class.php:549
+#: ../src/Tribe/Templates/Map.php:93 ../src/Tribe/Templates/Week.php:199
+msgid "No matching events listed under %s. Please try viewing the full calendar for a complete list of events."
+msgstr "Não foram correspondidos eventos para %s. Por favor tente visualizar o calendário para uma lista completa de eventos. "
+
+#: ../src/Tribe/Templates/Map.php:95
 msgid "There were no results found."
 msgstr "Não foram encontrados resultados."
 
-#: ../lib/tribe-geoloc.class.php:765
-msgid "Fix venues data"
-msgstr "Corrigir dados de locais"
+#: ../src/Tribe/Templates/Week.php:194
+msgid "There were no results found for <strong>\"%s\"</strong> this week. Try searching another week."
+msgstr "Não foram encontrados resultados para <strong>\"%s\"</strong> nesta semana. Tente pesquisar na próxima semana."
 
-#: ../lib/tribe-geoloc.class.php:799
-#, php-format
-msgid ""
-"You have venues for which we don't have Geolocation information. <a "
-"href='%s'>Click here to generate it</a>."
-msgstr ""
-"Você tem locais para os quais nós não temos informação geolocalizada. a "
-"href='%s'>Clique aqui para a gerar</a>."
+#: ../src/Tribe/Templates/Week.php:196
+msgid "No results were found for events in or near <strong>\"%s\"</strong> this week. Try searching another week."
+msgstr "Não foram encontrados resultados para ou próximos <strong>\"%s\"</strong> desta semana. Tente pesquisar outra semana."
 
-#: ../lib/tribe-geoloc.class.php:825
-#, php-format
-msgid "Fixed geolocation data for %d venues"
-msgstr "Dados de geolocalização corrigidos para %d locais"
+#: ../src/Tribe/Templates/Week.php:201
+msgid "No results were found for this week. Try searching another week."
+msgstr "Não foram encontrados resultados para esta semana. Tente pesquisar para outra semana."
 
-#: ../lib/widget-advanced-list.class.php:20
-msgid "A widget that displays the next upcoming x events."
-msgstr "Widget que mostra os próximos eventos."
-
-#
-#: ../lib/widget-advanced-list.class.php:24
-msgid "Events List"
-msgstr "Lista de Eventos"
-
-#: ../lib/widget-calendar.class.php:8
-msgid "The events calendar mini calendar widget"
-msgstr "Calendário de Eventos mini widget de calendário"
-
-#: ../lib/widget-calendar.class.php:10 ../lib/widget-calendar.class.php:34
-#: ../lib/widget-calendar.class.php:70
-msgid "Events Calendar"
-msgstr "Agenda de Eventos"
-
-#: ../lib/widget-countdown.class.php:13
-msgid "Displays the time remaining until a specified event."
-msgstr "Mostra o tempo que falta para um dado evento"
-
-#
-#: ../lib/widget-countdown.class.php:15
-msgid "Events Countdown"
-msgstr "Contagem decrecente de eventos"
-
-#: ../lib/widget-venue.class.php:12
+#: ../src/Tribe/Venue_Widget.php:16
 msgid "Displays a list of upcoming events at a specific venue."
 msgstr "Mostra uma lista de próximos eventos num dado local"
 
-#: ../lib/widget-venue.class.php:14
+#: ../src/Tribe/Venue_Widget.php:19
 msgid "Events Featured Venue"
 msgstr "Destaque de local de eventos"
 
-#
-#: ../public/template-tags/general.php:93
-msgid "Show only the first upcoming instance of recurring events"
-msgstr "Mostrar apenas o primeiro de um evento recorrente."
+#: ../src/admin-views/event-defaults.php:1
+msgid "Customize Defaults"
+msgstr "Personalize os padrões"
 
-#: ../public/template-tags/general.php:217
-#: ../public/template-tags/general.php:230
-#: ../public/template-tags/general.php:242
-#: ../public/template-tags/general.php:243
-#: ../public/template-tags/general.php:255
-#: ../public/template-tags/general.php:256
-#: ../public/template-tags/general.php:268
-#: ../public/template-tags/general.php:269
-#: ../public/template-tags/general.php:281
-#: ../public/template-tags/general.php:282
-#: ../public/template-tags/general.php:294
-#: ../public/template-tags/general.php:295
-#: ../public/template-tags/general.php:307
-#: ../public/template-tags/general.php:308
-#: ../public/template-tags/general.php:320
-#: ../public/template-tags/general.php:321
-msgid "No default set"
-msgstr "Sem pré-definições"
+#: ../src/admin-views/event-defaults.php:2
+msgid "These settings change the default event form. For example, if you set a default venue, this field will be automatically filled in on a new event."
+msgstr "Essas configurações alteram a forma padrão de eventos. Por exemplo, se você definir um local padrão, este campo será automaticamente preenchido em um novo evento."
 
-#: ../public/template-tags/general.php:219
-#, php-format
-msgid "The current default organizer is: %s"
-msgstr "O organizador padrão é <strong>%s</strong>"
+#: ../src/admin-views/event-defaults.php:5
+#: ../src/admin-views/event-defaults.php:9
+#: ../src/admin-views/tribe-options-defaults.php:55
+msgid "Automatically replace empty fields with default values"
+msgstr "Substituir automaticamente os campos vazios com os valores padrão"
 
-#: ../public/template-tags/general.php:232
-#, php-format
-msgid "The current default venue is: %s"
-msgstr "O local padrão é <strong>%s</strong>"
+#: ../src/admin-views/event-defaults.php:13
+msgid "Enabled"
+msgstr "Habilitar"
 
-#: ../public/template-tags/general.php:245
-#, php-format
-msgid "The current default address is: %s"
-msgstr "O endereço padrão é <strong>%s</strong>"
+#: ../src/admin-views/event-defaults.php:19
+msgid "Default Organizer for Events"
+msgstr "Organizador padrão dos eventos"
 
-#: ../public/template-tags/general.php:258
-#, php-format
-msgid "The current default city is: %s"
-msgstr "A cidade padrão é <strong>%s</strong>"
+#: ../src/admin-views/event-defaults.php:22
+msgid "Default Organizer"
+msgstr "Organizador padrão"
 
-#: ../public/template-tags/general.php:271
-#, php-format
-msgid "The current default state is: %s"
-msgstr "O Estado padrão é <strong>%s</strong>"
+#: ../src/admin-views/event-defaults.php:23
+msgid "The default organizer value"
+msgstr "Organizador padrão para seus eventos"
 
-#: ../public/template-tags/general.php:284
-#, php-format
-msgid "The current default province is: %s"
-msgstr "A província padrão é <strong>%s</strong>"
+#: ../src/admin-views/event-defaults.php:23
+#: ../src/admin-views/event-defaults.php:32
+#: ../src/admin-views/event-defaults.php:42
+#: ../src/admin-views/event-defaults.php:52
+#: ../src/admin-views/event-defaults.php:76
+#: ../src/admin-views/event-defaults.php:87
+#: ../src/admin-views/event-defaults.php:98
+#: ../src/admin-views/event-defaults.php:127
+msgid "The current default value is <strong>%s</strong>"
+msgstr "O valor padrão é <strong>%s</strong>"
 
-#: ../public/template-tags/general.php:297
-#, php-format
-msgid "The current default postal code/zip code is: %s"
-msgstr "O CEP padrão é <strong>%s</strong>"
+#: ../src/admin-views/event-defaults.php:28
+msgid "Default Venue for Events"
+msgstr "Local padrão dos eventos"
 
-#: ../public/template-tags/general.php:310
-#, php-format
-msgid "The current default country is: %s"
-msgstr "O País padrão é <strong>%s</strong>"
+#: ../src/admin-views/event-defaults.php:31
+msgid "Default Venue"
+msgstr "Local padrão"
 
-#: ../public/template-tags/general.php:323
-#, php-format
-msgid "The current default phone is: %s"
-msgstr "O número padrão é <strong>%s</strong>"
+#: ../src/admin-views/event-defaults.php:32
+msgid "The default venue value"
+msgstr "O valor padrão para os eventos"
 
-#: ../public/template-tags/general.php:462
-#: ../public/template-tags/general.php:481
-msgid "Date out of range."
-msgstr "Data fora do alcance."
+#: ../src/admin-views/event-defaults.php:37
+#: ../src/admin-views/event-defaults.php:40
+msgid "Default Address"
+msgstr "Endereço padrão"
 
-#: ../public/template-tags/general.php:577
-msgid "Recurring Event"
-msgstr "Evento Recorrente"
+#: ../src/admin-views/event-defaults.php:41
+msgid "The default address value"
+msgstr "O endereço padrão dos eventos"
 
-#: ../public/template-tags/general.php:580
-msgid "(See all)"
-msgstr "(Ver tudo)"
+#: ../src/admin-views/event-defaults.php:47
+#: ../src/admin-views/event-defaults.php:50
+msgid "Default City"
+msgstr "Cidade padrão"
 
-#
-#: ../public/template-tags/week.php:237
-msgid "<span>&laquo;</span> Previous Week"
-msgstr "<span>&laquo;</span> Semanas Anteriores"
+#: ../src/admin-views/event-defaults.php:51
+msgid "The default city value"
+msgstr "A cidade padrão dos eventos"
 
-#: ../public/template-tags/week.php:253
-msgid "Next Week <span>&raquo;</span>"
-msgstr "Próxima Semana <span>&raquo;</span>"
+#: ../src/admin-views/event-defaults.php:58
+msgid "Default State"
+msgstr "Estado padrão"
 
-#: ../vendor/advanced-post-manager/demo/demo.php:30
-#, php-format
-msgid ""
-"It looks like you might not have any demo data. <a href=\"%s\">Download our "
-"data</a> and use the <a href=\"%s\">WordPress Importer</a>."
+#: ../src/admin-views/event-defaults.php:61
+#: ../src/admin-views/event-defaults.php:85
+msgid "Default Province or State"
+msgstr "O estado ou província padrão dos eventos"
+
+#: ../src/admin-views/event-defaults.php:64
+msgid "Select a State:"
+msgstr "Selecione um estado:"
+
+#: ../src/admin-views/event-defaults.php:75
+#: ../src/admin-views/event-defaults.php:86
+msgid "The default  value"
+msgstr "O valor padrão"
+
+#: ../src/admin-views/event-defaults.php:82
+msgid "Default Province"
+msgstr "Província padrão"
+
+#: ../src/admin-views/event-defaults.php:93
+#: ../src/admin-views/event-defaults.php:96
+msgid "Default Postal Code"
+msgstr "CEP padrão"
+
+#: ../src/admin-views/event-defaults.php:97
+msgid "The default Postal Code value"
+msgstr "CEP padrão dos eventos"
+
+#: ../src/admin-views/event-defaults.php:104
+msgid "Default Country for Events"
+msgstr "País padrão dos eventos"
+
+#: ../src/admin-views/event-defaults.php:122
+#: ../src/admin-views/event-defaults.php:125
+msgid "Default Phone"
+msgstr "Telefone padrão"
+
+#: ../src/admin-views/event-defaults.php:126
+msgid "The default phone value"
+msgstr "O telefone padrão dos eventos"
+
+#: ../src/admin-views/event-defaults.php:132
+#: ../src/admin-views/tribe-options-defaults.php:198
+msgid "Use a custom list of countries"
+msgstr "Usar uma lista personlizada de países"
+
+#: ../src/admin-views/event-defaults.php:135
+msgid "Use the following list:"
+msgstr "Usar a seguinte lista:"
+
+#: ../src/admin-views/event-defaults.php:138
+msgid "One country per line in the following format: <br/>US, United States <br/> UK, United Kingdom."
+msgstr "Um país por linha no seguinte formato: <br/>US, Estado Unidos <br/> UK, Reino Unido."
+
+#: ../src/admin-views/event-defaults.php:138
+msgid "(Replaces the default list.)"
+msgstr "(Substitui a lista padrão.)"
+
+#: ../src/admin-views/event-meta-options.php:5
+msgid "Use additional fields to add unique content fields to the event admin, which can be used by anyone who creates events. Upon publication they'll appear in the event metabox that accompanies your event listing, alongside the date/time/venue/organizer/etc. </p><p>Each new piece of data needs:"
+msgstr "Use opções extra para adicionar campos de conteúdo únicos para a administração dos eventos, que poderão ser utilizados por qualquer um que crie eventos. Depois da publicação, estes irão estar disponíveis na metabox de eventos que acompanha a listagem do seu evento, ao lado da data/hora/local/organizador/etc.</p><p> Cada novo pedaço de dados necessita de:"
+
+#: ../src/admin-views/event-meta-options.php:7
+msgid "Label (e.g. Meal Plans)"
+msgstr "Etiqueta (p.ex. Tipo de Refeição)"
+
+#: ../src/admin-views/event-meta-options.php:8
+msgid "At least one option (e.g. Vegetarian, Kosher, Paleo)"
+msgstr "Pelo menos uma opção (p.ex Vegetariano, Kosher, Mediterrânea, etc)"
+
+#: ../src/admin-views/event-meta-options.php:9
+msgid "Field type. These are:"
+msgstr "Tipo de campo. Estes são:"
+
+#: ../src/admin-views/event-meta-options.php:11
+msgid "Text - for the user to input text"
+msgstr "Texto - para o utilizador colocar um texto"
+
+#: ../src/admin-views/event-meta-options.php:12
+msgid "Text Area - identical to a text field but providing a larger area for the user to input text"
 msgstr ""
-"Parece que você não tem todas as informações de demonstração. <a href=\"%s"
-"\">Faça o download de nosso arquivo</a> e use o <a href=\"%s\">WordPress "
-"Importer</a>."
 
-#: ../vendor/advanced-post-manager/lib/tribe-columns.class.php:43
-msgid "Column Name"
-msgstr "Nome da Coluna"
+#: ../src/admin-views/event-meta-options.php:13
+msgid "URL - for the user to input a URL"
+msgstr "URL - para o utilizador introduzir um URL"
 
-#: ../vendor/advanced-post-manager/lib/tribe-columns.class.php:133
-msgid "Add a Column"
-msgstr "Adicionar coluna"
+#: ../src/admin-views/event-meta-options.php:14
+msgid "Checkbox - for multiple choice"
+msgstr "Checkbox - para o utilizador selecionar as opções que desejar"
 
-#: ../vendor/advanced-post-manager/lib/tribe-columns.class.php:140
-msgid "Comments"
-msgstr "Comentários"
+#: ../src/admin-views/event-meta-options.php:15
+msgid "Radio Button - to select only one"
+msgstr "Botão Radio - para selecionar apenas UMA opção entre várias"
 
-#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:50
-#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:70
+#: ../src/admin-views/event-meta-options.php:16
+msgid "Dropdown Menu - for a dropdown menu"
+msgstr "Menu Dropdown - um menu com várias opções, que abrem para a seleção de uma"
+
+#: ../src/admin-views/event-meta-options.php:23
+msgid "Field Label"
+msgstr "Rótulo do campo"
+
+#: ../src/admin-views/event-meta-options.php:24
+msgid "Field Type"
+msgstr "Tipo do campo"
+
+#: ../src/admin-views/event-meta-options.php:25
+msgid "Options (one per line)"
+msgstr "Opções (uma por linha)"
+
+#: ../src/admin-views/event-meta-options.php:48
+msgid "Text"
+msgstr "texto"
+
+#: ../src/admin-views/event-meta-options.php:49
+msgid "Text Area"
+msgstr ""
+
+#: ../src/admin-views/event-meta-options.php:50
+msgid "URL"
+msgstr "URL"
+
+#: ../src/admin-views/event-meta-options.php:51
+msgid "Radio"
+msgstr "Radio"
+
+#: ../src/admin-views/event-meta-options.php:52
+msgid "Checkbox"
+msgstr "Checkbox"
+
+#: ../src/admin-views/event-meta-options.php:65
+msgid "Enter the field label as you want it to appear (this will be the label in the same way \"Start Date,\" \"Organizer,\" etc appear in the event details box on the frontend). Select whether the field will be a text field; URL field; radio buttons; checkboxes; or a dropdown. All of these with the exception of text and URL allow for multiple options to be included, which you can add — one per-line — in the right-hand column. If you feel flummoxed, we've got you covered with a %s."
+msgstr "Insira o nome do campo como quer quer apareça (isto será o nome do campo da mesma maneira que \"Data de Início\", \"Organizador, etc aparece na caixa de detalhes de evento no frontend). Escolha o tipo de campo, se será texto, URL, botões radio, checkbox ou dropdown. Todos estes, à excepção do text e URL permitem adicionar múltiplas escolhas, que pode adicionar - uma por linha - na coluna direita.  Se isto é demasiado complicado, nós ajudamos com %s."
+
+#: ../src/admin-views/event-meta-options.php:66
+msgid "video tutorial that will walk you through the process"
+msgstr "tutorial em vídeo que vai lhe ajudar a conhecer todo o processo"
+
+#: ../src/admin-views/event-meta-options.php:69
+msgid "Editor \"Custom Fields\" meta box"
+msgstr "Campos personalizados"
+
+#: ../src/admin-views/event-meta-options.php:71
+msgid "Show"
+msgstr "Mostrar"
+
+#: ../src/admin-views/event-meta-options.php:73
+msgid "Hide"
+msgstr "Esconder"
+
+#: ../src/admin-views/event-meta-options.php:76
+msgid "Enabling this option this will not remove custom field data or functionality, just the default meta box editor."
+msgstr "Ativar esta opção não irá remover o campo personalizado ou sua funcionalidade, apenas a caixa de edição padrão do campo."
+
+#: ../src/admin-views/event-meta-options.php:111
+msgid "Are you sure you wish to remove this field and its data from all events? Once you click OK this cannot be undone."
+msgstr "Tem certeza de que deseja remover este campo e seus dados de todos os eventos? Depois de clicar em OK isso não pode ser desfeito."
+
+#: ../src/admin-views/event-meta.php:13
+msgid "Additional %s Fields"
+msgstr ""
+
+#: ../src/admin-views/event-recurrence.php:2
+msgid "Recurrence:"
+msgstr "Quando ocorre:"
+
+#: ../src/admin-views/event-recurrence.php:6
+msgid "event"
+msgstr "evento\t"
+
+#: ../src/admin-views/event-recurrence.php:6
+msgid "events"
+msgstr "eventos"
+
+#: ../src/admin-views/event-recurrence.php:7
+msgid "None"
+msgstr "Nenhum"
+
+#: ../src/admin-views/event-recurrence.php:8
+msgid "Every Day"
+msgstr "Todo dia"
+
+#: ../src/admin-views/event-recurrence.php:9
+msgid "Every Week"
+msgstr "Toda semana"
+
+#: ../src/admin-views/event-recurrence.php:10
+msgid "Every Month"
+msgstr "Todo mês"
+
+#: ../src/admin-views/event-recurrence.php:11
+msgid "Every Year"
+msgstr "Todo ano"
+
+#: ../src/admin-views/event-recurrence.php:12
+msgid "Custom"
+msgstr "Personalizado"
+
+#: ../src/admin-views/event-recurrence.php:15
+msgid "and will end"
+msgstr "e irá acabar"
+
+#: ../src/admin-views/event-recurrence.php:17
+msgid "On"
+msgstr "em"
+
+#: ../src/admin-views/event-recurrence.php:18
+msgid "After"
+msgstr "Depois"
+
+#: ../src/admin-views/event-recurrence.php:19
+msgid "Never"
+msgstr "Nunca"
+
+#: ../src/admin-views/event-recurrence.php:22
+#: ../src/admin-views/event-recurrence.php:41
+msgctxt "occurence count text"
+msgid "events"
+msgstr ""
+
+#: ../src/admin-views/event-recurrence.php:23
+msgid "You must select a recurrence end date"
+msgstr "Você precisa selecionar uma data final"
+
+#: ../src/admin-views/event-recurrence.php:30
+msgid "Frequency"
+msgstr "Frequência"
+
+#: ../src/admin-views/event-recurrence.php:32
+msgid "Day(s)"
+msgstr "Dias"
+
+#: ../events-calendar-pro.php:70
+msgid "The Events Calendar"
+msgstr "The Events Calendar"
+
+#: ../src/admin-views/event-recurrence.php:32
+msgid "Daily"
+msgstr "Diariamente"
+
+#: ../events-calendar-pro.php:71
+msgid "To begin using Events Calendar PRO, please install the latest version of <a href=\"%s\" class=\"thickbox\" title=\"%s\">The Events Calendar</a>."
+msgstr "Para usar O Calendário de Eventos PRO, por favor instale a última versão de<a href=\"%s\" class=\"thickbox\" title=\"%s\">Calendário de Eventos</a>."
+
+#: ../src/admin-views/event-recurrence.php:33
+msgid "Week(s) on:"
+msgstr "Semana(s) em:"
+
+#: ../src/Tribe/APM_Filters/APM_Filters.php:55
+msgid "Start Date"
+msgstr "Data de ínício"
+
+#: ../src/admin-views/event-recurrence.php:33
+msgid "Weekly"
+msgstr "Semanalmente"
+
+#: ../src/Tribe/APM_Filters/APM_Filters.php:60
+msgid "End Date"
+msgstr "Data de término"
+
+#: ../src/admin-views/event-recurrence.php:34
+msgid "Month(s) on the:"
+msgstr "Mês(es) no:"
+
+#: ../src/Tribe/APM_Filters/APM_Filters.php:65
+msgid "Event Cost"
+msgstr "Preço"
+
+#: ../src/admin-views/event-recurrence.php:34
+msgid "Monthly"
+msgstr "Mensalmente"
+
+#: ../src/Tribe/APM_Filters/APM_Filters.php:70
+msgid "Event Cats"
+msgstr "Categ. Eventos"
+
+#: ../src/admin-views/event-recurrence.php:35
+msgid "Year(s) on:"
+msgstr "Ano(s) em:"
+
+#: ../src/Tribe/APM_Filters/APM_Filters.php:75
+msgid "Title"
+msgstr "Título"
+
+#: ../src/admin-views/event-recurrence.php:35
+msgid "Yearly"
+msgstr "Anualmente"
+
+#: ../src/Tribe/APM_Filters/APM_Filters.php:80
+#: ../src/Tribe/Recurrence_Meta.php:147
+msgid "Recurring"
+msgstr "Recorrência"
+
+#: ../src/admin-views/event-recurrence.php:37
+msgid "Every"
+msgstr "Todo"
+
+#: ../src/Tribe/APM_Filters/APM_Filters.php:85
+msgid "Description"
+msgstr "Descrição"
+
+#: ../src/admin-views/event-recurrence.php:42
+msgid "Frequency of recurring event must be a number"
+msgstr "A frequência de recorrência do evento deve ser um número"
+
+#: ../src/Tribe/APM_Filters/APM_Filters.php:131
+msgid "Pssst! Looking for the filters? They live in a separate plugin now | <a href=\"%s\">Download for free</a>| <a href=\"%s\">Dismiss</a>"
+msgstr ""
+
+#: ../src/admin-views/event-recurrence.php:52
+msgid "M"
+msgstr "S"
+
+#: ../src/Tribe/APM_Filters/Date_Filter.php:13
+#: ../src/Tribe/APM_Filters/Title_Filter.php:15
 msgid "Is"
 msgstr "é"
 
-#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:51
-#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:71
+#: ../src/admin-views/event-recurrence.php:54
+msgid "Tu"
+msgstr "T"
+
+#: ../src/Tribe/APM_Filters/Date_Filter.php:14
+#: ../src/Tribe/APM_Filters/Title_Filter.php:16
 msgid "Is Not"
 msgstr "não é"
 
-#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:65
-msgid "LIKE"
-msgstr "COMO"
+#: ../src/admin-views/event-recurrence.php:56
+msgid "W"
+msgstr "Q"
 
-#
-#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:69
+#: ../src/Tribe/APM_Filters/Date_Filter.php:15
+msgid "On and After"
+msgstr ""
+
+#: ../src/admin-views/event-recurrence.php:58
+msgid "Th"
+msgstr "Q"
+
+#: ../src/Tribe/APM_Filters/Date_Filter.php:16
+msgid "On and Before"
+msgstr ""
+
+#: ../src/admin-views/event-recurrence.php:60
+msgid "F"
+msgstr "S"
+
+#: ../src/Tribe/APM_Filters/Recur_Filter.php:16
+#: ../src/Tribe/Recurrence_Meta.php:155
+msgid "Yes"
+msgstr "Sim"
+
+#: ../src/admin-views/event-recurrence.php:62
+msgid "Sa"
+msgstr "S"
+
+#: ../src/Tribe/APM_Filters/Recur_Filter.php:17
+msgid "No"
+msgstr "Não"
+
+#: ../src/admin-views/event-recurrence.php:64
+msgid "Su"
+msgstr "D"
+
+#: ../src/Tribe/APM_Filters/Title_Filter.php:14
 msgid "Search"
 msgstr "Pesquisa"
 
-#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:80
-msgid "Member Type"
-msgstr "Tipo de Membro"
+#: ../src/admin-views/event-recurrence.php:73
+#: ../src/admin-views/event-recurrence.php:135
+msgid "First"
+msgstr "Primeiro"
 
-#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:84
-msgid "Cafe"
-msgstr "Café"
+#: ../src/Tribe/Advanced_List_Widget.php:22
+msgid "A widget that displays the next upcoming x events."
+msgstr "Widget que mostra os próximos eventos."
 
-#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:85
-msgid "Private Desk"
-msgstr "Secretária privada"
+#: ../src/admin-views/event-recurrence.php:74
+#: ../src/admin-views/event-recurrence.php:136
+msgid "Second"
+msgstr "Segundo"
 
-#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:86
-msgid "Office"
-msgstr "Escritório"
+#: ../src/Tribe/Advanced_List_Widget.php:27
+msgid "Events List"
+msgstr "Lista de Eventos"
 
-#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:93
-msgid "what i’m querying. probably a key in the options array in $filters"
+#: ../src/admin-views/event-recurrence.php:75
+#: ../src/admin-views/event-recurrence.php:137
+msgid "Third"
+msgstr "Terceiro"
+
+#: ../src/Tribe/Advanced_List_Widget.php:116
+msgid "Upcoming Events"
+msgstr "Próximos Eventos"
+
+#: ../src/admin-views/event-recurrence.php:76
+#: ../src/admin-views/event-recurrence.php:138
+msgid "Fourth"
+msgstr "Quatro"
+
+#: ../src/Tribe/Community_Modifications.php:43
+msgid "Recurrence End Date"
 msgstr ""
-"o que eu estou a consultar. Provavelmente uma chave na matriz de opções em "
-"$filtros"
 
-#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:517
-msgid "Choose a Saved Filter"
-msgstr "Escolha um filtro gravado"
+#: ../src/admin-views/event-recurrence.php:77
+msgid "Fifth"
+msgstr "Quinto"
 
-#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:633
-msgid "Add a Filter"
-msgstr "Adicionar um filtro"
+#: ../src/Tribe/Community_Modifications.php:46
+msgid "Recurrence Count"
+msgstr ""
 
-#: ../vendor/advanced-post-manager/lib/tribe-meta-box-helper.php:44
-msgid "Extended Information"
-msgstr "Informação extendida"
+#: ../src/admin-views/event-recurrence.php:78
+#: ../src/admin-views/event-recurrence.php:139
+msgid "Last"
+msgstr "Último"
 
-#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:115
-#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:388
-msgid "Delete this image"
-msgstr "Excluir esta imagem"
+#: ../src/Tribe/Countdown_Widget.php:17
+msgid "Displays the time remaining until a specified event."
+msgstr "Mostra o tempo que falta para um dado evento"
 
-#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:115
-#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:343
-#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:388
-msgid "Delete"
+#: ../src/admin-views/event-recurrence.php:93
+#: ../src/admin-views/event-recurrence.php:150
+msgid "Day"
+msgstr "Dia"
+
+#: ../src/Tribe/Countdown_Widget.php:20
+msgid "Events Countdown"
+msgstr "Contagem decrecente de eventos"
+
+#: ../src/admin-views/event-recurrence.php:133
+msgid "On the:"
+msgstr "No:"
+
+#: ../src/Tribe/Custom_Meta.php:53
+msgid "Add another"
+msgstr "Adicionar outro"
+
+#: ../src/admin-views/event-recurrence.php:158
+msgid "Description:"
+msgstr "Descrição:"
+
+#: ../src/Tribe/Custom_Meta.php:54
+msgid "Remove"
 msgstr "Excluir"
 
-#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:339
-msgid "Uploaded files"
-msgstr "Arquivos enviados"
-
-#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:349
-msgid "Upload new files"
-msgstr "Envie novos arquivos"
-
-#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:352
-msgid "Add another file"
-msgstr "Adicionar outro arquivo"
-
-#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:395
-msgid "Add more images"
-msgstr "Adicionar mais imagens"
-
-#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:403
-msgid "Select a color"
-msgstr "Selecione uma cor"
-
-#: ../vendor/advanced-post-manager/views/edit-filters.php:7
-#: ../vendor/advanced-post-manager/views/edit-filters.php:8
-msgid "Click to toggle"
-msgstr "Clique para alternar"
-
-#: ../vendor/advanced-post-manager/views/edit-filters.php:8
-msgid "Filters &amp; Columns"
-msgstr "Filtros &amp; colunas"
-
-#: ../vendor/advanced-post-manager/views/edit-filters.php:17
-msgid "Apply"
-msgstr "Aplicar"
-
-#: ../vendor/advanced-post-manager/views/edit-filters.php:18
-msgid "Clear"
-msgstr "Limpar"
-
-#: ../vendor/advanced-post-manager/views/edit-filters.php:19
-#: ../vendor/advanced-post-manager/views/edit-filters.php:26
-msgid "Save"
-msgstr "Gravar"
-
-#: ../vendor/advanced-post-manager/views/edit-filters.php:21
-msgid "Export to CSV"
-msgstr "Exportar em CSV"
-
-#: ../vendor/advanced-post-manager/views/edit-filters.php:25
-msgid "Filter Name"
-msgstr "Nome do filtro"
-
-#: ../vendor/advanced-post-manager/views/edit-filters.php:27
-msgid "Cancel"
-msgstr "Cancelar"
-
-#: ../views/pro/map/nav.php:20 ../views/pro/photo/nav.php:20
-msgid "Events List Navigation"
-msgstr "Navegação Lista de Eventos"
-
-#
-#: ../views/pro/map/nav.php:23 ../views/pro/photo/nav.php:23
-msgid "<span>&laquo;</span> Previous Events"
-msgstr "<span>&laquo;</span> Eventos Anteriores"
-
-#
-#: ../views/pro/map/nav.php:30 ../views/pro/photo/nav.php:30
-msgid "Next Events <span>&raquo;</span>"
-msgstr "Próximos Eventos <span>&raquo;</span>"
-
-#: ../views/pro/map/single-event.php:78
-msgid "Find out more"
-msgstr "Saber mais"
-
-#
-#: ../views/pro/related-events.php:28
-msgid "Related Events"
-msgstr "Eventos relacionados"
-
-#
-#: ../views/pro/single-organizer.php:29 ../views/pro/single-venue.php:29
-msgid "&larr; Back to Events"
-msgstr "&larr; Voltar para eventos"
-
-#: ../views/pro/week/loop-grid-allday.php:28
-msgid "All Day"
-msgstr "Dia todo"
-
-#: ../views/pro/week/loop-grid.php:17
-msgid "Hours"
-msgstr "Horas"
-
-#: ../views/pro/week/nav.php:14
-msgid "Week Navigation"
-msgstr "Navegação Semana"
-
-#: ../views/pro/widgets/countdown-widget.php:22
-msgid "hours"
-msgstr "horas"
-
-#: ../views/pro/widgets/countdown-widget.php:26
-msgid "min"
-msgstr "min"
-
-#
-#: ../views/pro/widgets/countdown-widget.php:31
-msgid "sec"
-msgstr "seg"
-
-#
-#: ../views/pro/widgets/list-widget.php:97
-msgid "Organizer:"
-msgstr "Organizador:"
-
-#: ../views/pro/widgets/list-widget.php:116
-msgid "View More&hellip;"
-msgstr "Ver Mais&hellip;"
-
-#: ../views/pro/widgets/list-widget.php:123
-msgid "There are no upcoming events at this time."
-msgstr "Não há eventos agendados"
-
-#
-#: ../views/pro/widgets/venue-widget.php:31
-msgid "No upcoming events."
-msgstr "Não existem próximos eventos."
-
-#: ../views/pro/widgets/venue-widget.php:52
-#, php-format
-msgid "View all Events at this %s"
-msgstr "Ver todos os Eventos neste(a) %s"
-
-#~ msgid "today"
-#~ msgstr "hoje"
-
-#
-#~ msgid "Events for"
-#~ msgstr "Eventos para"
-
-#~ msgid "Day View"
-#~ msgstr "Vista de Dia"
-
-#~ msgid "Week View"
-#~ msgstr "Vista de Semana"
-
-#~ msgid "Day Of"
-#~ msgstr "Dia de"
-
-#~ msgid "Jan"
-#~ msgstr "Jan"
-
-#~ msgid "Feb"
-#~ msgstr "Fev"
-
-#~ msgid "Mar"
-#~ msgstr "Mar"
-
-#~ msgid "Apr"
-#~ msgstr "Abr"
-
-#~ msgid "Jun"
-#~ msgstr "Jun"
-
-#~ msgid "Jul"
-#~ msgstr "Jul"
-
-#~ msgid "Aug"
-#~ msgstr "Ago"
-
-#~ msgid "Sep"
-#~ msgstr "Set"
-
-#~ msgid "Oct"
-#~ msgstr "Out"
-
-#~ msgid "Dec"
-#~ msgstr "Dez"
-
-#~ msgid "Need help? Send us a support request."
-#~ msgstr "Precisa de ajuda? Envie-nos um pedido de suporte."
-
-#~ msgid ""
-#~ "Tell us about the problem you're seeing in as much detail as possible. "
-#~ "Please note that we'll also be sending some basic system information "
-#~ "along with this request so that we can better diagnose the issue. If you "
-#~ "would like to contact us without sending any system information, please "
-#~ "visit our support page at %s. Thanks!"
-#~ msgstr ""
-#~ "Descreva o máximo possível do problema que você está tendo. Por favor, "
-#~ "envie também algumas informações básicas do sistema, juntamente ao pedido "
-#~ "para que possamos melhor diagnosticar o problema. Se você quiser entrar "
-#~ "em contato conosco sem enviar qualquer informação do sistema, por favor "
-#~ "visite nossa página de suporte em %s. Muito obrigado!"
-
-#~ msgid "Send a Support Request"
-#~ msgstr "Enviar um pedido de suporte"
-
-#~ msgid "Category:"
-#~ msgstr "Categoria:"
-
-#~ msgid "All Events"
-#~ msgstr "Todos os eventos"
-
-#~ msgid "Your recurrence pattern would create greater than "
-#~ msgstr "O seu padrão de recorrência iria gerar maior que"
-
-#~ msgid "Title: %s"
-#~ msgstr "Título: %s"
-
-#~ msgid "Add to Google Calendar"
-#~ msgstr "Adicionar ao Google Calendar"
-
-#~ msgid "iCal Import"
-#~ msgstr "Importar iCal"
-
-#
-#~ msgid "Month's Events"
-#~ msgstr "Eventos do Mês"
-
-#
-#~ msgid "Week's Events"
-#~ msgstr "Eventos da Semana"
-
-#
-#~ msgid "Day's Events"
-#~ msgstr "Eventos do dia"
-
-#~ msgid "Import is filter/view sensitive"
-#~ msgstr "Importação é sensível a filtro/vista"
-
-#~ msgid ""
-#~ "There were no results found for <strong>\"%s\"</strong> on this day. Try "
-#~ "searching another day."
-#~ msgstr ""
-#~ "Não foram encontrados resultados para <strong>\"%s\"</strong> neste dia. "
-#~ "Tente pesquisar no próximo dia."
-
-#~ msgid "Today"
-#~ msgstr "Hoje"
-
-#~ msgid "&laquo; Previous Day"
-#~ msgstr "&laquo; Dia Anterior"
-
-#~ msgid "Next Day &raquo;"
-#~ msgstr "Próximo Dia &raquo;"
-
-#~ msgid "Yesterday"
-#~ msgstr "Ontem"
-
-#~ msgid "Tomorrow"
-#~ msgstr "Amanhã"
-
-#~ msgid "License Key"
-#~ msgstr "Número da Licença"
-
-#~ msgid "A valid license key is required for support and updates."
-#~ msgstr ""
-#~ "É necessário possuir uma licença válida para aceder o suporte e "
-#~ "actualizações"
-
-#~ msgid "Replace empty fields"
-#~ msgstr "Trocar campos vazios"
-
-#~ msgid "A valid license key is required for support and updates"
-#~ msgstr ""
-#~ "É necessário possuir uma licença válida para aceder o suporte e "
-#~ "actualizações"
-
-#~ msgid "License key(s) updated."
-#~ msgstr "Chave(s) de Licença atualizadas"
-
-#~ msgid "Sorry, key validation server is not available."
-#~ msgstr ""
-#~ "Desculpe-nos, o servidor de validação de licenças não está disponível "
-#~ "neste momento."
-
-#~ msgid "Sorry, this key is expired."
-#~ msgstr "Desculpe, esta licença expirou."
-
-#~ msgid "Sorry, this key is out of installs."
-#~ msgstr "Desculpe, o número de licença não está na instalação."
-
-#~ msgid "Sorry, this key is not valid."
-#~ msgstr "Desculpe, esta licença não é válida."
-
-#~ msgid "Valid Key! Expires on %s"
-#~ msgstr "Licença válida! Expira em %s"
-
-#, fuzzy
-#~ msgid ""
-#~ "Hmmm... something's wrong with this validator. Please contact <a href=\"%s"
-#~ "\">support.</a>"
-#~ msgstr ""
-#~ "Xiiiii... aconteceu algo errado com este validador. Por favor, contate o "
-#~ "<a href=\"%s\">suporte.</a>"
-
-#~ msgid "Displays posts related to the post."
-#~ msgstr "Mostra posts relacionados ao post."
-
-#~ msgid "Related Posts"
-#~ msgstr "Posts Relacionados"
-
-#~ msgid "Count:"
-#~ msgstr "Contagem:"
-
-#~ msgid "Display Thumbnails?"
-#~ msgstr "Mostrar Miniaturas?"
-
-#~ msgid "Only Display Related Posts?"
-#~ msgstr "Mostrar apenas posts relacionados?"
-
-#~ msgid "Post Type:"
-#~ msgstr "Tipo de Post:"
-
-#~ msgid "Send a support request for this site."
-#~ msgstr "Enviar um pedido de suporte para este site."
-
-#~ msgid "Day Navigation"
-#~ msgstr "Navegação de Dia"
-
-#~ msgid "Price:"
-#~ msgstr "Preço:"
-
-#~ msgid "&laquo; Back to Events"
-#~ msgstr "&laquo; Voltar aos eventos"
-
-#~ msgid "Name:"
-#~ msgstr "Nome:"
-
-#~ msgid "Phone:"
-#~ msgstr "Telefone:"
-
-#~ msgid "Address:"
-#~ msgstr "Endereço:"
-
-#~ msgid "Click to view a Google Map"
-#~ msgstr "Clique para o Google Maps"
-
-#~ msgid "Google Map"
-#~ msgstr "Mapa do Google"
-
-#~ msgid "Upcoming Events At This Venue"
-#~ msgstr "Próximos Eventos Neste Local"
-
-#~ msgid "Start:"
-#~ msgstr "Início:"
-
-#~ msgid "End:"
-#~ msgstr "Final:"
-
-#~ msgid "Date:"
-#~ msgstr "Data:"
-
-#~ msgid "Cost:"
-#~ msgstr "Preço:"
-
-#~ msgid "Previous Week"
-#~ msgstr "Semana Anterior"
-
-#
-#~ msgid "Next Week"
-#~ msgstr "Próxima Semana"
-
-#~ msgid ""
-#~ "Want to modify the display of this widget? Try a %stemplate override%s."
-#~ msgstr ""
-#~ "Quer modificar a aparência deste widget? Experimente %smudar o template%s."
-
-#~ msgid ""
-#~ "<p>By buying a PRO license you will get active support and sweet "
-#~ "additional features not found in the free The Events Calendar.</"
-#~ "p><p><strong>Feeling adventurous?</strong> Jump right into it by visiting "
-#~ "the Events menu to <a href=\"%s\">add your first event</a>.</"
-#~ "p><p><strong>Want to get the low-down first?</strong> Visit our <a href="
-#~ "\"http://tri.be/support/documentation/events-calendar-pro-new-user-primer/"
-#~ "%s\">new user primer</a>,  designed to help familiarize you with the "
-#~ "plugin basics.</p><p>Don't forget to head over to the <a href=\"%s"
-#~ "\">license tab</a> and enter your key!</p>"
-#~ msgstr ""
-#~ "<p>Ao comprar uma licença PRO, tem acesso a suporte activo e outras "
-#~ "opções adicionais que não encontra na versão gratuita.</p><p><strong>A "
-#~ "sentir-se corajoso?</strong> Comece já e <a href=\"%s\">adicione o seu "
-#~ "primeiro evento</a>.</li><li><strong>Quer uma explicação primeiro?</"
-#~ "strong> Visite o nosso <a href=\"%s\">guia de novos utilizadores</a>,  "
-#~ "desenhado para o familiarizar com as bases do plugin.</li></ul><p>Não se "
-#~ "esqueça de ir a <a href=\"%s\">tab licença</a> e introduzir a sua chave!</"
-#~ "p>"
-
-#~ msgid ""
-#~ "One of the advantages of being a PRO user is that you have access to our "
-#~ "exclusive forums at %s. Our support staff hits the forums on a daily "
-#~ "basis, and what they can't answer on the spot they'll bring a member of "
-#~ "our dev team in to address directly."
-#~ msgstr ""
-#~ "Outra das vantagens de ser um membro PRO é que tem acesso exclusivo aos "
-#~ "nossos fóruns em %s. O nosso staff de suporte visita os fóruns "
-#~ "diariamente, e o que eles não conseguirem responder, certamente um dos "
-#~ "nossos programadores será chamado para tratar do problema directamente."
-
-#
-#~ msgid "Some things to consider before posting on the forum:"
-#~ msgstr "Alguns pontos a ter em mente antes de criar um post:"
-
-#~ msgid ""
-#~ "Search recent threads before posting a new one to check that there isn't "
-#~ "already a discussion about your issue."
-#~ msgstr ""
-#~ "Procure threads recentes antes de criar uma nova, para verificar que não "
-#~ "existe já uma discussão acerca do seu problema."
-
-#~ msgid ""
-#~ "Check whether the issue is a conflict with another plugin or your theme. "
-#~ "This can be tested easily on a staging site by deactivating other plugins "
-#~ "one-by-one, and reverting to the default Twenty Twelve theme to see if "
-#~ "conflicts can be easily identified. If you find a conflict, note it in a "
-#~ "support thread."
-#~ msgstr ""
-#~ "Verifique se o problema não se deve a um conflito com outro plugin ou "
-#~ "tema. Isto pode ser testado muito facilmente num site de staging ao "
-#~ "desactivar outros plugins um a um, e revertendo para o tema por defeito "
-#~ "Twenty Twelve. Se encontrar um conflito, anote-o numa thread de suporte."
-
-#~ msgid ""
-#~ "Sometimes, resaving your permalinks (under <a href=\"%s\">Settings > "
-#~ "Permalinks</a>) can resolve events-related problems on your site. Before "
-#~ "creating a new thread try this handy trick."
-#~ msgstr ""
-#~ "Por vezes, voltar a salvar os permalinks (em <a href=\"%s\">Settings > "
-#~ "Permalinks</a>) pode resolver problemas relacionados com os eventos no "
-#~ "seu site. Tente este truque antes de criar uma nova thread."
-
-#~ msgid ""
-#~ "While we won't build your site for you and can't guarantee The Events "
-#~ "Calendar PRO to play nicely with every theme and plugin out there, our "
-#~ "team will do our best to help you get it functioning nicely with your "
-#~ "site. And as an added bonus, once you're done you can post it in "
-#~ "the %s so the rest of the community can see what you've been working on."
-#~ msgstr ""
-#~ "Mesmo que não possamos construir o seu site ou garantir que o Calendário "
-#~ "de Eventos PRO irá funcionar com todos os plugins ou temas lançados no "
-#~ "mercado, a nossa equipa irá fazer o seu melhor para o ajudar a funcionar "
-#~ "bem com o seu site. E como um bónus, assim que estiver feito poderá "
-#~ "postar o seu trabalho em %s para que toda a comunidade possa ver o que "
-#~ "tem feito."
-
-#~ msgid "Showcase thread"
-#~ msgstr "Showcase thread"
-
-#~ msgid ""
-#~ "listed under %s. Check out events for this category or view the full "
-#~ "calendar."
-#~ msgstr ""
-#~ "Listado sob %s. Verifique outros eventos nesta categoria ou veja o "
-#~ "calendário."
-
-#~ msgid "Refine your search:"
-#~ msgstr "Melhore a sua pesquisa:"
-
-#~ msgid "Show:"
-#~ msgstr "Mostrar:"
-
-#, fuzzy
-#~ msgid "Venue Widget"
-#~ msgstr "Próximos eventos"
-
-#~ msgid "Venues"
-#~ msgstr "Locais"
-
-#~ msgid "Organizers"
-#~ msgstr "Organizadores"
-
-#~ msgid "Use Saved Venue:"
-#~ msgstr "Usar local já cadastrado:"
-
-#~ msgid "Use Saved Organizer:"
-#~ msgstr "Usar organizador já cadastrado:"
-
-#~ msgid "Use New Venue"
-#~ msgstr "Usar novo local"
-
-#~ msgid "My Venues"
-#~ msgstr "Meus Locais"
-
-#~ msgid "Available Venues"
-#~ msgstr "Locais disponíveis"
-
-#~ msgid "Use New Organizer"
-#~ msgstr "Usar novo orgazanidor"
-
-#~ msgid "My Organizers"
-#~ msgstr "Meus Organizadores"
-
-#~ msgid "Available Organizers"
-#~ msgstr "Organizadores Disponíveis"
-
-#~ msgid "Defaults"
-#~ msgstr "Padrões"
-
-#~ msgid ""
-#~ "%sOh, wondering what to do with your license key and whether you need it "
-#~ "before you can get into event creation? Check out %s on that subject for "
-#~ "an answer. %s, if you don't have it handy.%s"
-#~ msgstr ""
-#~ "%s Está se perguntando sobre o que fazer com sua licença e se precisará "
-#~ "dela antes de criar seus eventos? Então veja o assunto %s para uma "
-#~ "resposta. Veja %s, se não tiver ela em mãos.%s"
-
-#~ msgid "our blog post"
-#~ msgstr "post do nosso blog"
-
-#~ msgid "Here's how you find your license key"
-#~ msgstr "Veja como achar sua licença"
-
-#~ msgid ""
-#~ "%sLook through existing threads before posting a new one and check that "
-#~ "there isn't already a discussion going on your issue. The tri.be site has "
-#~ "a solid search function that should help find what you're looking for, if "
-#~ "it indeed already is present.%s"
-#~ msgstr ""
-#~ "%sVeja os tópicos abertos e pesquise para saber se já não existe uma "
-#~ "discussão ocorrendo sobre o assunto que deseja consultar. O site da tri."
-#~ "be possui uma ferramenta de busca que poderá lhe ajudar muito, caso o "
-#~ "assunto desejado já esteja em discussão.%s"
-
-#~ msgid "* End"
-#~ msgstr "*Fim"
-
-#~ msgid "<em>The current default value is:</em> <strong>%s</strong>"
-#~ msgstr "<em>O valor padrão é :</em><strong>%s</strong>"
-
-#~ msgid "No default value set"
-#~ msgstr "Sem valor pré-definido"
-
-#~ msgid ""
-#~ "One country per line in the following format: <br/>US, United States <br/"
-#~ "> UK, United Kingdom.<br/>"
-#~ msgstr ""
-#~ "Um país por linha no seguinte formato: <br/>US, Estados Unidos <br/> UK, "
-#~ "Reino Unido.<br/>"
-
-#~ msgid "(Replaces the default list)"
-#~ msgstr "(Substitui a lista padrão.)"
-
-#~ msgid "Use New Venue/No Default"
-#~ msgstr "Usar novo local/Sem padrão"
-
-#~ msgid ""
-#~ "Set values for event organizers & venues that appear pre-populated in the "
-#~ "event editor whenever you create a new event. This helps save time in "
-#~ "situations where the venue or organizer rarely changes, saving you from "
-#~ "having to manually re-enter the data each time you create an event.</"
-#~ "p><p>It's worth noting that these can be overridden on the event creation "
-#~ "screen; if a venue and organizer are pre-populated but you wants to "
-#~ "change to something else, use the dropdown to either select another "
-#~ "existing venue/organizer, or manually enter the details of a new one."
-#~ msgstr ""
-#~ "Escolha um valor pré-definido para organizadores do evento e locais. Eles "
-#~ "já vão aparecercomo opção no editor sempre que for criar um novo evento. "
-#~ "Isso facilita muito em situações onde a informação raramente muda, "
-#~ "evitando que seja preciso reescrever a mesma coisa toda vez que criar um "
-#~ "evento novo. </p><p>Ainda assim, é possível sobrescrever a informação pré-"
-#~ "definida, se necessário. Sempre que precisar, basta usar o menu e trocar "
-#~ "a informação ou manualmente selecionar a caixa e escrever os novos "
-#~ "detalhes que deseja."
-
-#~ msgid "Start Date & Time"
-#~ msgstr "Data e hora de início"
-
-#~ msgid "(Widget will always show start date)"
-#~ msgstr "(o widget sempre mostra a data de início)"
-
-#~ msgid "A calendar of your events"
-#~ msgstr "Uma agenda de seus eventos"
-
-#~ msgid "License Key for %s"
-#~ msgstr "Chave de licença para %s"
-
-#~ msgid "[X]"
-#~ msgstr "[X]"
-
-#~ msgid "Ends"
-#~ msgstr "Termina"
-
-#~ msgid ""
-#~ "If you wish to customize the widget display yourself, see the file views/"
-#~ "events-list-load-widget-display.php inside the Events Premium plugin."
-#~ msgstr ""
-#~ "Se você quiser personalizar a exibição do widget, edite o arquivo views/"
-#~ "events-list-load-widget-display.php dentro do plugin Premium Events."
-
-#~ msgid ""
-#~ "You can set up any additional custom fields that you would like to use "
-#~ "for events here."
-#~ msgstr ""
-#~ "Você pode configurar quaisquer campos adicionais que quiser usar nos "
-#~ "eventos."
-
-#~ msgid "Add more file"
-#~ msgstr "Adicionar mais arquivos"
-
-#~ msgid "Dismiss"
-#~ msgstr "Demitir"
+#: ../src/admin-views/event-recurrence.php:166
+msgid "Recurrence Description:"
+msgstr "Descrição da recorrência:"
+
+#: ../src/Tribe/Geo_Loc.php:103
+msgid "Distance"
+msgstr "Distância"
+
+#: ../src/admin-views/event-recurrence.php:174
+msgid "Create a custom plain language description of the recurrence. Leave it blank and we'll automate it."
+msgstr "Crie uma mensagem simples que descreva a recorrência. Deixe em branco e será automatizada."
+
+#: ../src/Tribe/Geo_Loc.php:135
+msgid "Map view search distance limit"
+msgstr "Limite de distância de pesquisa na vista de mapa"
+
+#: ../src/admin-views/tribe-options-defaults.php:6
+#: ../src/admin-views/tribe-options-defaults.php:15
+msgid "No Default"
+msgstr "Sem padrões pré-definidos"
+
+#: ../src/Tribe/Geo_Loc.php:137
+msgid "Set the distance that the location search covers (find events within X distance units of location search input)."
+msgstr "Defina a distância que a pesquisa de localização cobre (encontrar eventos dentro de X unidades de distância dentro da localização)"
+
+#: ../src/admin-views/tribe-options-defaults.php:22
+msgid "Select a State"
+msgstr "Selecione um Estado"
+
+#: ../src/Tribe/Geo_Loc.php:144
+msgid "Map view distance unit"
+msgstr "Unidade de distância na vista de mapa"
+
+#: ../src/admin-views/tribe-options-defaults.php:39
+msgid "<p>Choose the default venue & organizer. Set default address information to save time when entering a new venue or organizer.</p><p>You can override these settings as you enter a new event.</p>"
+msgstr "<p>Escolha o local por defeito e organizador. Defina a informação de morada por defeito para poupar tempo ao introduzir novos locais ou organizadores.</p><p>Pode mudar estas definições ao criar um novo evento.</p>"
+
+#: ../src/Tribe/Geo_Loc.php:149 ../src/Tribe/Geo_Loc_Filter.php:23
+msgid "Miles"
+msgstr "Milhas"
+
+#: ../src/admin-views/tribe-options-defaults.php:51
+msgid "Options"
+msgstr "Opções"
+
+#: ../src/Tribe/Geo_Loc.php:150 ../src/Tribe/Geo_Loc_Filter.php:26
+msgid "Kilometers"
+msgstr "Kilómetros"
+
+#: ../src/admin-views/tribe-options-defaults.php:61
+msgid "Check this box to have the organizer and venue fields pre-populated with the default values below for any new event that is created."
+msgstr "Clique nesta caixa para pré-popular os campos de organizador e local com valor por defeito abaixo para qualquer novo evento que seja criado."
+
+#: ../src/Tribe/Geo_Loc.php:155
+msgid "Fix geolocation data"
+msgstr "Corrigir dados de geolocalização"
+
+#: ../src/admin-views/tribe-options-defaults.php:65
+#: ../src/admin-views/widget-admin-advanced-list.php:32
+msgid "Organizer"
+msgstr "Orgazanidor"
+
+#: ../src/Tribe/Geo_Loc.php:155
+msgid "You have %d venues for which we don't have geolocation data. We need to use the Google Maps API to get that information. Doing this may take a while (aprox. 1 minute for every 200 venues)."
+msgstr "Tem %d locais para os quais não temos dados de geolocalização. Precisamos de usar a API do Google Maps para obter essa informação. Esta acção pode demorar um pouco (aproximadamente 1 minuto para cada 200 locais). "
+
+#: ../src/admin-views/tribe-options-defaults.php:69
+msgid "Default organizer"
+msgstr "Organizador por defeito"
+
+#: ../src/Tribe/Geo_Loc.php:164
+msgid "Hide location search"
+msgstr "Esconder pesquisa de local"
+
+#: ../src/admin-views/tribe-options-defaults.php:73
+msgid "No saved organizers yet."
+msgstr "Nenhum organizador cadastrado ainda."
+
+#: ../src/Tribe/Geo_Loc.php:165
+msgid "Removes location search field from the events bar on all views except for map view."
+msgstr "Remove o campo de pesquisa de localização da barra de eventos em todas as vistas excepto na vista de mapa."
+
+#: ../src/admin-views/tribe-options-defaults.php:82
+#: ../src/admin-views/widget-admin-advanced-list.php:31
+msgid "Venue"
+msgstr "Local"
+
+#: ../src/Tribe/Geo_Loc.php:221
+msgid "Map"
+msgstr "Mapa"
+
+#: ../src/admin-views/tribe-options-defaults.php:86
+msgid "Default venue"
+msgstr "Local por defeito"
+
+#: ../src/Tribe/Geo_Loc.php:255
+msgid "Near"
+msgstr "Perto"
+
+#: ../src/admin-views/tribe-options-defaults.php:90
+msgid "No saved venues yet."
+msgstr "Nenhum local cadastrado ainda."
+
+#: ../src/Tribe/Geo_Loc.php:256
+msgid "Location"
+msgstr "Localização"
+
+#: ../src/admin-views/tribe-options-defaults.php:99
+#: ../src/admin-views/widget-admin-advanced-list.php:33
+msgid "Address"
+msgstr "Endereço"
+
+#: ../src/Tribe/Geo_Loc.php:281
+msgid "Use latitude + longitude"
+msgstr ""
+
+#: ../src/admin-views/tribe-options-defaults.php:103
+msgid "You can use this setting to set specific, individual defaults for any new Venue you create (these will not be used for your default venue)."
+msgstr "Pode usar esta opção para definir valores por defeito específicos e individuais para qualquer novo Local que crie (estes não serão usados para o seu local por defeito)."
+
+#: ../src/Tribe/Geo_Loc.php:285
+msgid "Latitude"
+msgstr ""
+
+#: ../src/admin-views/tribe-options-defaults.php:107
+msgid "Default address"
+msgstr "Morada por Defeito"
+
+#: ../src/Tribe/Geo_Loc.php:286
+msgid "Longitude"
+msgstr ""
+
+#: ../src/admin-views/tribe-options-defaults.php:120
+msgid "Default city"
+msgstr "Cidade por Defeito"
+
+#: ../src/Tribe/Geo_Loc.php:745
+msgid "Fix venues data"
+msgstr "Corrigir dados de locais"
+
+#: ../src/admin-views/tribe-options-defaults.php:133
+msgid "Default state"
+msgstr "Estado por Defeito"
+
+#: ../src/Tribe/Geo_Loc.php:785
+msgid "You have venues for which we don't have Geolocation information. <a href='%s'>Click here to generate it</a>."
+msgstr "Você tem locais para os quais nós não temos informação geolocalizada. a href='%s'>Clique aqui para a gerar</a>."
+
+#: ../src/admin-views/tribe-options-defaults.php:146
+msgid "Default province"
+msgstr "Província por Defeito"
+
+#: ../src/Tribe/Geo_Loc.php:812
+msgid "Fixed geolocation data for %d venues"
+msgstr "Dados de geolocalização corrigidos para %d locais"
+
+#: ../src/admin-views/tribe-options-defaults.php:159
+msgid "Default postal code/zip code"
+msgstr "Código Postal por Defeito"
+
+#: ../src/Tribe/Geo_Loc_Filter.php:32
+msgid "%d %s"
+msgstr "%d %s"
+
+#: ../src/admin-views/tribe-options-defaults.php:172
+msgid "Default country"
+msgstr "País por Defeito"
+
+#: ../src/Tribe/Geo_Loc_Filter.php:49
+msgid "Type: %s %s"
+msgstr "Tipo: %s %s"
+
+#: ../src/admin-views/tribe-options-defaults.php:185
+msgid "Default phone"
+msgstr "Telefone por Defeito"
+
+#: ../src/Tribe/Geo_Loc_Filter.php:53
+#: ../src/admin-views/event-meta-options.php:53
+msgid "Dropdown"
+msgstr "Dropdown"
+
+#: ../src/admin-views/tribe-options-defaults.php:201
+msgid "One country per line in the following format: <br>US, United States <br> UK, United Kingdom. <br> (Replaces the default list.)"
+msgstr "Um país por linha no seguinte formato: <br/>US, Estado Unidos <br/> UK, Reino Unido. (Substitui a lista padrão)"
+
+#: ../src/Tribe/Geo_Loc_Filter.php:58
+msgid "Radio Buttons"
+msgstr "Botões Radio"
+
+#: ../src/admin-views/widget-admin-advanced-list.php:13
+#: ../src/admin-views/widget-admin-calendar.php:13
+#: ../src/admin-views/widget-admin-countdown.php:13
+#: ../src/admin-views/widget-admin-venue.php:12
+#: ../src/admin-views/widget-calendar.php:2
+msgid "Title:"
+msgstr "Título:"
+
+#: ../src/Tribe/Main.php:55
+msgid "week"
+msgstr "semana"
+
+#: ../src/admin-views/widget-admin-advanced-list.php:17
+#: ../src/admin-views/widget-admin-venue.php:26
+#: ../src/admin-views/widget-calendar.php:8
+msgid "Number of events to show:"
+msgstr "Número de eventos a mostrar:"
+
+#: ../src/Tribe/Main.php:56
+msgid "photo"
+msgstr "foto"
+
+#: ../src/admin-views/widget-admin-advanced-list.php:28
+msgid "Display:"
+msgstr "Mostrar:"
+
+#: ../src/Tribe/Main.php:359
+msgid "All %s for %s"
+msgstr ""
+
+#: ../src/admin-views/widget-admin-advanced-list.php:34
+msgid "City"
+msgstr "Cidade"
+
+#: ../src/Tribe/Main.php:365
+msgid "%s for week of %s"
+msgstr ""
+
+#: ../src/admin-views/widget-admin-advanced-list.php:35
+msgid "State (US) Or Province (Int)"
+msgstr "Estado"
+
+#: ../src/Tribe/Main.php:601 ../src/admin-views/tribe-options-defaults.php:35
+msgid "Default Content"
+msgstr "Conteúdo por defeito"
+
+#: ../src/admin-views/widget-admin-advanced-list.php:36
+msgid "Postal Code"
+msgstr "CEP"

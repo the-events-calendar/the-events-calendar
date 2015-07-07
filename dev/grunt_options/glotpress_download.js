@@ -8,7 +8,7 @@ module.exports = {
     options: {
       url: 'http://translations.theeventscalendar.com',
       domainPath: 'lang',
-      slug: 'events-pro',
+      slug: 'tribe-events-calendar-pro',
       textdomain: 'tribe-events-calendar-pro',
     },
   },
