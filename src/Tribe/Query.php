@@ -37,19 +37,17 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 		 * @return boolean
 		 */
 		public static function can_inject_date_field( $query ) {
-			if ( empty( $query->query_vars['fields'] ) ) {
-				return true;
-			}
+			$can_inject = true;
 
 			if ( 'ids' === $query->query_vars['fields'] ) {
-				return false;
+				$can_inject = false;
 			}
 
 			if ( 'id=>parent' === $query->query_vars['fields'] ) {
-				return false;
+				$can_inject = false;
 			}
 
-			return true;
+			return apply_filters( 'tribe_query_can_inject_date_field', $can_inject );
 		}
 
 		/**
