@@ -459,6 +459,30 @@ if ( ! class_exists( 'Tribe__Events__Date_Utils' ) ) {
 			);
 		}
 
+		public static function range_coincides( $range_1_start, $range_1_end, $range_2_start, $range_2_end ) {
+
+			// Initialize the return value
+			$range_coincides = false;
+
+			/**
+			 * conditions:
+			 * range 2 starts during range 1 (range 2 start time is between start and end of range 1 )
+			 * range 2 ends during range 1 (range 2 end time is between start and end of range 1 )
+			 * range 2 spans across range 1 (range 2 starts before range 1 and ends after range 1)
+			 */
+
+			$range_2_starts_during_range_1 = $range_2_start >= $range_1_start && $range_2_start < $range_1_end;
+			$range_2_ends_during_range_1   = $range_2_end > $range_1_start && $range_2_end <= $range_1_end;
+			$range_2_spans_across_range_1  = $range_2_start < $range_1_start && $range_2_end > $range_1_end;
+
+			if ( $range_2_starts_during_range_1 || $range_2_ends_during_range_1 || $range_2_spans_across_range_1 ) {
+				$range_coincides = true;
+			}
+
+			return $range_coincides;
+
+		}
+
 		// DEPRECATED METHODS
 		// @codingStandardsIgnoreStart
 		/**

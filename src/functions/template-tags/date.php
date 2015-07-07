@@ -287,7 +287,6 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 			}
 		}
 
-		$event_is_on_date = false;
 		$start_of_day     = tribe_event_beginning_of_day( $date, 'U' );
 		$end_of_day       = tribe_event_end_of_day( $date, 'U' );
 		$event_start      = tribe_get_start_date( $event, null, 'U' );
@@ -301,23 +300,12 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 			$event_end    = $event_end->format( 'U' );
 		}
 
-		/**
-		 * conditions:
-		 * event starts on this day (event start time is between start and end of day)
-		 * event ends on this day (event end time is between start and end of day)
-		 * event starts before start of day and ends after end of day (spans across this day)
-		 * note:
+		/* note:
 		 * events that start exactly on the EOD cutoff will count on the following day
-		 * events that end exactly on the EOD cutoff will count on the previous day
+         * events that end exactly on the EOD cutoff will count on the previous day
 		 */
 
-		$event_starts_today       = $event_start >= $start_of_day && $event_start < $end_of_day;
-		$event_ends_today         = $event_end > $start_of_day && $event_end <= $end_of_day;
-		$event_spans_across_today = $event_start < $start_of_day && $event_end > $end_of_day;
-
-		if ( $event_starts_today || $event_ends_today || $event_spans_across_today ) {
-			$event_is_on_date = true;
-		}
+		$event_is_on_date = Tribe__Events__Date_Utils::range_coincides( $start_of_day, $end_of_day, $event_start, $event_end );
 
 		return apply_filters( 'tribe_event_is_on_date', $event_is_on_date, $date, $event );
 
