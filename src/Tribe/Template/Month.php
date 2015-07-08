@@ -370,10 +370,16 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 					'orderby'                => 'menu_order',
 					'start_date'             => $beginning_of_day,
 					'end_date'               => $end_of_day,
+					'post_status'            => array( 'publish' ),
 					'update_post_term_cache' => false,
 					'update_post_meta_cache' => false,
 				), $this->args
 			);
+
+			if ( is_user_logged_in() ) {
+				$args['post_status'][] = 'private';
+			}
+
 			$result = tribe_get_events( $args, true );
 
 			return $result;
@@ -680,8 +686,8 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 			$post = $day['events']->post;
 
 			// Get our wrapper classes (for event categories, organizer, venue, and defaults)
-			$classes = array( 'hentry', 'vevent' );
-			$tribe_cat_slugs       = tribe_get_event_cat_slugs( $post->ID );
+			$classes         = array( 'hentry', 'vevent' );
+			$tribe_cat_slugs = tribe_get_event_cat_slugs( $post->ID );
 			foreach ( $tribe_cat_slugs as $tribe_cat_slug ) {
 				$classes[] = 'tribe-events-category-' . $tribe_cat_slug;
 			}
