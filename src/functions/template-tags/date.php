@@ -302,7 +302,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 
 		/* note:
 		 * events that start exactly on the EOD cutoff will count on the following day
-         * events that end exactly on the EOD cutoff will count on the previous day
+		 * events that end exactly on the EOD cutoff will count on the previous day
 		 */
 
 		$event_is_on_date = Tribe__Events__Date_Utils::range_coincides( $start_of_day, $end_of_day, $event_start, $event_end );
