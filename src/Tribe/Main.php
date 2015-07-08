@@ -1096,7 +1096,10 @@
 			 * @return void
 			 */
 			public function admin_enqueue_scripts() {
+				wp_enqueue_script( 'handlebars', $this->pluginUrl . '/vendor/handlebars/handlebars.min.js', array(), apply_filters( 'tribe_events_pro_js_version', self::VERSION ), true );
+				wp_enqueue_script( 'moment', $this->pluginUrl . '/vendor/momentjs/moment.min.js', array(), apply_filters( 'tribe_events_pro_js_version', self::VERSION ), true );
 				wp_enqueue_script( Tribe__Events__Main::POSTTYPE.'-premium-admin', tribe_events_pro_resource_url( 'events-admin.js' ), array( 'jquery-ui-datepicker' ), apply_filters( 'tribe_events_pro_js_version', self::VERSION ), true );
+				wp_enqueue_script( Tribe__Events__Main::POSTTYPE.'-premium-recurrence', tribe_events_pro_resource_url( 'events-recurrence.js' ), array( Tribe__Events__Main::POSTTYPE.'-premium-admin', 'handlebars', 'moment' ), apply_filters( 'tribe_events_pro_js_version', self::VERSION ), true );
 				$data = apply_filters( 'tribe_events_pro_localize_script', array(), 'TribeEventsProAdmin', Tribe__Events__Main::POSTTYPE.'-premium-admin' );
 				wp_localize_script( Tribe__Events__Main::POSTTYPE.'-premium-admin', 'TribeEventsProAdmin', $data );
 			}
@@ -1187,7 +1190,7 @@
 				}
 
 				// if the admin option is set to hide recurrences, or the user option is set
-				if ( $this->should_hide_recurrence() ) {
+				if ( $this->should_hide_recurrence( $query ) ) {
 					$query->query_vars['tribeHideRecurrence'] = 1;
 				}
 
@@ -1197,9 +1200,11 @@
 			/**
 			 * Returns whether or not we show only the first instance of each recurring event in listview
 			 *
+			 * @param WP_Query $query The current query object.
+			 *
 			 * @return boolean
 			 */
-			public function should_hide_recurrence() {
+			public function should_hide_recurrence( $query ) {
 				// let's not hide recurrence if we are showing all recurrence events
 				if ( tribe_is_showing_all() ) {
 					return false;
@@ -1212,6 +1217,14 @@
 
 				// let's not hide recurrence if we are showing all recurrence events via AJAX
 				if ( ! empty( $_POST['tribe_post_parent'] ) ) {
+					return false;
+				}
+
+				// let's not hide recurrence if we are on month or week view
+				if (
+					! empty( $query->query['eventDisplay'] )
+					&& in_array( $query->query['eventDisplay'], array( 'month', 'week' ) )
+				) {
 					return false;
 				}
 
