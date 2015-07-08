@@ -519,32 +519,10 @@ jQuery( document ).ready( function( $ ) {
 
 	}
 
-	var $picker_recur_end = $( '[name="recurrence[end]"]' ),
-		$is_recurring = $( '[name="is_recurring"]' );
-
 	$( "#EventCountry" ).change( function() {
 		var countryLabel = $( this ).find( 'option:selected' ).val();
 		tribeShowHideCorrectStateProvinceInput( countryLabel );
 	} );
-
-	// If recurrence changes on a recurring event, then show warning
-	if ( $is_recurring.val() == "true" ) {
-		function recurrenceChanged() {
-			$( '#recurrence-changed-row' ).show();
-		}
-
-		$( '.recurrence-row input, .custom-recurrence-row input,.recurrence-row select, .custom-recurrence-row select' ).change( recurrenceChanged );
-		$picker_recur_end.bind( 'recurrenceEndChanged', recurrenceChanged );
-	}
-
-	$picker_recur_end.datepicker( 'option', 'onSelect', function() {
-		$picker_recur_end.removeClass( 'placeholder' );
-		$( this ).trigger( 'recurrenceEndChanged' );
-	} );
-
-	function isExistingRecurringEvent() {
-		return $is_recurring.val() == "true";
-	}
 
 	// EventCoordinates
 	var overwriteCoordinates = {
@@ -572,71 +550,6 @@ jQuery( document ).ready( function( $ ) {
 
 	eventSubmitButton.click( function() {
 		$( this ).data( 'clicked', true );
-	} );
-
-	// recurrence ui
-	$( '[name="recurrence[type]"]' ).change( function() {
-		var curOption = $( this ).find( "option:selected" ).val();
-		$( '.custom-recurrence-row' ).hide();
-
-		if ( curOption == "Custom" ) {
-			$( '#recurrence-end' ).show();
-			$( '#custom-recurrence-frequency' ).show();
-			$( '[name="recurrence[custom-type]"]' ).change();
-		}
-		else if ( curOption == "None" ) {
-			$( '#recurrence-end' ).hide();
-			$( '#custom-recurrence-frequency' ).hide();
-		}
-		else {
-			$( '#recurrence-end' ).show();
-			$( '#custom-recurrence-frequency' ).hide();
-		}
-	} );
-
-	$( '[name="recurrence[end-type]"]' ).change( function() {
-		var val = $( this ).find( 'option:selected' ).val();
-
-		if ( val == "On" ) {
-			$( '#rec-count' ).hide();
-			$( '#recurrence_end' ).show();
-		}
-		else if ( val == "Never" ) {
-			$( '#rec-count, #recurrence_end' ).hide();
-		}
-		else {
-			$( '#recurrence_end' ).hide();
-			$( '#rec-count' ).show();
-		}
-	} );
-
-	$( '[name="recurrence[custom-type]"]' ).change( function() {
-		$( '.custom-recurrence-row' ).hide();
-		var option = $( this ).find( 'option:selected' ), customSelector = option.data( 'tablerow' );
-		$( customSelector ).show()
-		$( '#recurrence-interval-type' ).text( option.data( 'plural' ) );
-		$( '[name="recurrence[custom-type-text]"]' ).val( option.data( 'plural' ) );
-	} );
-
-	$( '#recurrence_end_count' ).change( function() {
-		$( '[name="recurrence[type]"]' ).change();
-	} );
-
-	$( '[name="recurrence[type]"]' ).change( function() {
-		var option = $( this ).find( 'option:selected' ), numOccurrences = $( '#recurrence_end_count' ).val();
-		$( '#occurence-count-text' ).text( 1 == numOccurrences ? $( this ).data( 'single' ) : $( this ).data( 'plural' ) );
-		$( '[name="recurrence[occurrence-count-text]"]' ).val( $( '#occurence-count-text' ).text() );
-	} );
-
-	$( '[name="recurrence[custom-month-number]"]' ).change( function() {
-		var option = $( this ).find( 'option:selected' ), dayselect = $( '[name="recurrence[custom-month-day]"]' );
-
-		if ( isNaN( option.val() ) ) {
-			dayselect.show();
-		}
-		else {
-			dayselect.hide();
-		}
 	} );
 
 	// Workaround for venue & organizer post types when editing or adding
