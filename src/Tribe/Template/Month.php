@@ -149,7 +149,7 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 				$this->html_cache = new Tribe__Events__Template_Part_Cache( 'month/content.php', serialize( $args ), $cache_expiration, 'save_post' );
 			}
 
-			$args = (array) $args;
+			$args                  = (array) $args;
 			$this->args            = $args;
 			$this->events_per_day  = apply_filters( 'tribe_events_month_day_limit', tribe_get_option( 'monthEventAmount', '3' ) );
 			$this->requested_date  = $this->requested_date();
@@ -288,20 +288,21 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 			global $wpdb;
 
 			$grid_start_datetime = tribe_event_beginning_of_day( $this->first_grid_date );
-			$grid_end_datetime = tribe_event_end_of_day( $this->final_grid_date );
+			$grid_end_datetime   = tribe_event_end_of_day( $this->final_grid_date );
 
-			$cache  = new Tribe__Events__Cache();
+			$cache     = new Tribe__Events__Cache();
 			$cache_key = 'events_in_month' . $grid_start_datetime . '-' . $grid_end_datetime;
 
 			// if we have a cached result, use that
 			$cached_events = $cache->get( $cache_key, 'save_post' );
 			if ( $cached_events !== false ) {
-				$this->events_in_month =  $cached_events;
+				$this->events_in_month = $cached_events;
+
 				return;
 			}
 
 			// note: this query returns the event dates as timestamps, makes date comparison faster later
-			$events_request =
+			$events_request        =
 				$wpdb->prepare(
 					"SELECT tribe_event_start.post_id as ID,
 							UNIX_TIMESTAMP(tribe_event_start.meta_value) as EventStartDate,
@@ -316,11 +317,11 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 					",
 					$grid_start_datetime,
 					$grid_end_datetime
-			);
+				);
 			$this->events_in_month = $wpdb->get_results( $events_request );
 
 			// cache the postmeta and terms for all these posts in one go
-			$event_ids_in_month = wp_list_pluck($this->events_in_month, 'ID');
+			$event_ids_in_month = wp_list_pluck( $this->events_in_month, 'ID' );
 			update_object_term_cache( $event_ids_in_month, TribeEvents::POSTTYPE );
 			update_postmeta_cache( $event_ids_in_month );
 
@@ -340,16 +341,16 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 			$beginning_of_day           = tribe_event_beginning_of_day( $date );
 			$beginning_of_day_timestamp = strtotime( $beginning_of_day );
 
-			$end_of_day                 = tribe_event_end_of_day( $date );
-			$end_of_day_timestamp       = strtotime( $end_of_day );
+			$end_of_day           = tribe_event_end_of_day( $date );
+			$end_of_day_timestamp = strtotime( $end_of_day );
 
-			$event_ids_on_date   = array();
+			$event_ids_on_date = array();
 
 			// loop through all the events in the month and find the ones on the requested date
 			foreach ( $this->events_in_month as $event ) {
 				// note: these are timestamps already, thanks to the query to get all the events in the month
-				$event_start      = $event->EventStartDate;
-				$event_end        = $event->EventEndDate;
+				$event_start = $event->EventStartDate;
+				$event_end   = $event->EventEndDate;
 				if ( Tribe__Events__Date_Utils::range_coincides( $beginning_of_day_timestamp, $end_of_day_timestamp, $event_start, $event_end ) ) {
 					$event_ids_on_date[] = $event->ID;
 				}
@@ -364,13 +365,13 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 			// term and meta caches - those were already updated in $this->set_events_in_month()
 			$args   = wp_parse_args(
 				array(
-					'posts_per_page' => $this->events_per_day,
-					'post__in'       => $event_ids_on_date,
-					'orderby'        => 'menu_order',
-					'start_date'     => $beginning_of_day,
-					'end_date'       => $end_of_day,
-					'update_post_term_cache'  => false,
-					'update_post_meta_cache'  => false,
+					'posts_per_page'         => $this->events_per_day,
+					'post__in'               => $event_ids_on_date,
+					'orderby'                => 'menu_order',
+					'start_date'             => $beginning_of_day,
+					'end_date'               => $end_of_day,
+					'update_post_term_cache' => false,
+					'update_post_meta_cache' => false,
 				), $this->args
 			);
 			$result = tribe_get_events( $args, true );
@@ -397,7 +398,7 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 			while ( $date <= $this->final_grid_date ) {
 
 				$day_events = self::get_daily_events( $date );
-				$day = (int) substr( $date, - 2 );
+				$day        = (int) substr( $date, - 2 );
 
 				$prev_month = (int) substr( $date, 5, 2 ) < (int) substr( $this->requested_date, 5, 2 );
 				$next_month = (int) substr( $date, 5, 2 ) > (int) substr( $this->requested_date, 5, 2 );
@@ -679,10 +680,8 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 			$post = $day['events']->post;
 
 			// Get our wrapper classes (for event categories, organizer, venue, and defaults)
-			$classes         = array( 'hentry', 'vevent' );
-//			$GLOBALS['check_post'] = true;
-			$tribe_cat_slugs = tribe_get_event_cat_slugs( $post->ID );
-			$GLOBALS['check_post'] = false;
+			$classes = array( 'hentry', 'vevent' );
+			$tribe_cat_slugs       = tribe_get_event_cat_slugs( $post->ID );
 			foreach ( $tribe_cat_slugs as $tribe_cat_slug ) {
 				$classes[] = 'tribe-events-category-' . $tribe_cat_slug;
 			}
