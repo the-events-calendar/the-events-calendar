@@ -281,24 +281,27 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 
 
 		protected function set_events_in_month() {
+			global $wpdb;
 
-			$args = array_merge( $this->args, array(
-				'eventDisplay'   => 'custom',
-				'start_date'     => $this->first_grid_date,
-				'end_date'       => $this->final_grid_date,
-				'post_status'    => array( 'publish' ),
-				'posts_per_page' => - 1,
-			) );
+			$events_request =
+				$wpdb->prepare(
+					"
+							SELECT 	tribe_event_start.post_id as ID,
+									UNIX_TIMESTAMP(tribe_event_start.meta_value) as EventStartDate,
+									UNIX_TIMESTAMP( tribe_event_end_date.meta_value) as EventEndDate
+							FROM $wpdb->postmeta AS tribe_event_start
+							LEFT JOIN $wpdb->postmeta as tribe_event_end_date ON ( tribe_event_start.post_id = tribe_event_end_date.post_id AND tribe_event_end_date.meta_key = '_EventEndDate' )
+							WHERE tribe_event_start.meta_key = '_EventStartDate'
+							AND ( (tribe_event_start.meta_value >= '%1\$s' AND  tribe_event_start.meta_value <= '%2\$s')
+								OR (tribe_event_start.meta_value <= '%1\$s' AND tribe_event_end_date.meta_value >= '%1\$s')
+								OR ( tribe_event_start.meta_value >= '%1\$s' AND  tribe_event_start.meta_value <= '%2\$s')
+							)
+					",
+					$this->first_grid_date,
+					$this->final_grid_date
+			);
+			$this->events_in_month = $wpdb->get_results( $events_request );
 
-			if ( is_user_logged_in() ) {
-				$args['post_status'][] = 'private';
-			}
-
-			$args = apply_filters( 'tribe_events_in_month_args', $args );
-
-			add_filter( 'tribe_query_can_inject_date_field', '__return_true', 101 );
-			$this->events_in_month = tribe_get_events( $args );
-			remove_filter( 'tribe_query_can_inject_date_field', '__return_true', 101 );
 		}
 
 		/**
@@ -315,8 +318,8 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 			$events_on_date   = array();
 
 			foreach ( $this->events_in_month as $event ) {
-				$event_start = strtotime( $event->EventStartDate );
-				$event_end = strtotime( $event->EventEndDate );
+				$event_start      = $event->EventStartDate;
+				$event_end        = $event->EventEndDate;
 				if ( Tribe__Events__Date_Utils::range_coincides( $beginning_of_day, $end_of_day, $event_start, $event_end ) ) {
 					$events_on_date[] = $event->ID;
 				}
