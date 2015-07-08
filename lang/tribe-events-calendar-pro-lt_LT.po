@@ -1,1540 +1,741 @@
+# Translation of Events Calendar Pro in Lithuanian
+# This file is distributed under the same license as the Events Calendar Pro package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Events Calendar Pro 3.5\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-26 12:51-0800\n"
-"PO-Revision-Date: 2014-11-02 16:52+0200\n"
-"Last-Translator: \n"
-"Language-Team: Modern Tribe, Inc. <pro@tri.be>\n"
+"PO-Revision-Date: 2015-06-09 14:19:00+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.6.10\n"
-"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:1,2,4c;_n_noop:1,2;"
-"_nx_noop:1,2,3c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;"
-"esc_html_x:1,2c\n"
-"X-Poedit-Basepath: .\n"
-"X-Poedit-SourceCharset: UTF-8\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n"
-"%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Poedit-Basepath: .\n"
-"Language: lt_LT\n"
-"X-Poedit-SearchPath-0: ..\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: GlotPress/1.0-alpha-1000\n"
+"Project-Id-Version: Events Calendar Pro\n"
 
-#: ../admin-views/event-defaults.php:1
-msgid "Customize Defaults"
-msgstr "Tinkinti numatytąsias"
-
-#: ../admin-views/event-defaults.php:2
-msgid ""
-"These settings change the default event form. For example, if you set a "
-"default venue, this field will be automatically filled in on a new event."
-msgstr ""
-"Šie nustatymai keičia numatytąją įvykio formą. Pvz., jei nustatysite "
-"numatytąją vietą, šis laukas bus automatiškai užpildytas naujame renginyje."
-
-#: ../admin-views/event-defaults.php:5 ../admin-views/event-defaults.php:9
-#: ../admin-views/tribe-options-defaults.php:55
-msgid "Automatically replace empty fields with default values"
-msgstr "Automatiškai pakeisti tuščius laukus numatytomis reikšmėmis"
-
-#: ../admin-views/event-defaults.php:13
-msgid "Enabled"
-msgstr "Įjungtas"
-
-#: ../admin-views/event-defaults.php:19
-msgid "Default Organizer for Events"
-msgstr "Numatytasis renginių organizatorius"
-
-#: ../admin-views/event-defaults.php:22
-msgid "Default Organizer"
-msgstr "Numatytasis organizatorius"
-
-#: ../admin-views/event-defaults.php:23
-msgid "The default organizer value"
-msgstr "Numatytoji organizatoriaus reikšmė"
-
-#: ../admin-views/event-defaults.php:23 ../admin-views/event-defaults.php:31
-#: ../admin-views/event-defaults.php:38 ../admin-views/event-defaults.php:45
-#: ../admin-views/event-defaults.php:66 ../admin-views/event-defaults.php:74
-#: ../admin-views/event-defaults.php:82 ../admin-views/event-defaults.php:108
-#, php-format
-msgid "The current default value is <strong>%s</strong>"
-msgstr "Esame numatytoji reikšmė yra <strong>%s</strong>"
-
-#: ../admin-views/event-defaults.php:27
-msgid "Default Venue for Events"
-msgstr "Numatytoji renginių vieta"
-
-#: ../admin-views/event-defaults.php:30
-msgid "Default Venue"
-msgstr "Numatytoji vieta"
-
-#: ../admin-views/event-defaults.php:31
-msgid "The default venue value"
-msgstr "Numatytoji vietos reikšmė"
-
-#: ../admin-views/event-defaults.php:35 ../admin-views/event-defaults.php:37
-msgid "Default Address"
-msgstr "Numatytasis adresas"
-
-#: ../admin-views/event-defaults.php:38
-msgid "The default address value"
-msgstr "Numatyta adreso reikšmė"
-
-#: ../admin-views/event-defaults.php:42 ../admin-views/event-defaults.php:44
-msgid "Default City"
-msgstr "Numatytasis miestas"
-
-#: ../admin-views/event-defaults.php:45
-msgid "The default city value"
-msgstr "Numatyta miesto reikšmė"
-
-#: ../admin-views/event-defaults.php:50
-msgid "Default State"
-msgstr "Numatytoji valstija"
-
-#: ../admin-views/event-defaults.php:52 ../admin-views/event-defaults.php:73
-msgid "Default Province or State"
-msgstr "Numatytoji provincija arba valstija"
-
-#: ../admin-views/event-defaults.php:55
-msgid "Select a State:"
-msgstr "Pasirinkite valstiją:"
-
-#: ../admin-views/event-defaults.php:66 ../admin-views/event-defaults.php:74
-msgid "The default  value"
-msgstr "Numatytoji reikšmė"
-
-#: ../admin-views/event-defaults.php:71
-msgid "Default Province"
-msgstr "Numatytoji provincija"
-
-#: ../admin-views/event-defaults.php:79 ../admin-views/event-defaults.php:81
-msgid "Default Postal Code"
-msgstr "Numatytasis pašto kodas"
-
-#: ../admin-views/event-defaults.php:82
-msgid "The default Postal Code value"
-msgstr "Numatytoji pašto kodo reikšmė"
-
-#: ../admin-views/event-defaults.php:87
-msgid "Default Country for Events"
-msgstr "Numatytoji šalis renginiams"
-
-#: ../admin-views/event-defaults.php:105 ../admin-views/event-defaults.php:107
-msgid "Default Phone"
-msgstr "Numatytasis telefono nr."
-
-#: ../admin-views/event-defaults.php:108
-msgid "The default phone value"
-msgstr "Numatytoji telefono nr. reikšmė"
-
-#: ../admin-views/event-defaults.php:112
-#: ../admin-views/tribe-options-defaults.php:198
-msgid "Use a custom list of countries"
-msgstr "Naudoti tinkintą šalių sąrašą"
-
-#: ../admin-views/event-defaults.php:114
-msgid "Use the following list:"
-msgstr "Naudoti šį sąrašą:"
-
-#: ../admin-views/event-defaults.php:116
-msgid ""
-"One country per line in the following format: <br/>US, United States <br/> "
-"UK, United Kingdom."
-msgstr ""
-"Viena šalis eilutėje šiuo formatu: <br>JAV, Jungtinės Amerikos Valstijos "
-"<br> JK, Jungtinė Karalystė."
-
-#: ../admin-views/event-defaults.php:116
-msgid "(Replaces the default list.)"
-msgstr "(Pakeisti numatytąjį sąrašą.)"
-
-#: ../admin-views/event-meta-options.php:3 ../events-calendar-pro.php:631
+#: ../src/Tribe/Main.php:603 ../src/admin-views/event-meta-options.php:3
 msgid "Additional Fields"
 msgstr "Papildomi laukai"
 
-#: ../admin-views/event-meta-options.php:4
-msgid ""
-"Use additional fields to add unique content fields to the event admin, which "
-"can be used by anyone who creates events. Upon publication they'll appear in "
-"the event metabox that accompanies your event listing, alongside the date/"
-"time/venue/organizer/etc. </p><p>Each new piece of data needs:"
-msgstr ""
-"Naudoti papildomus laukus, kad pridėti unikalius turinio laukus renginio "
-"administravimui, kurie gali būti naudojami bet kieno kas įvedinės renginius. "
-"Po paskelbimo jie bus rodomi renginio meta lauke kurie atsiras jūsų renginio "
-"sąraše, kartu su data/laiku/vieta/organizatoriumi ir t.t. </p><p>Visiems "
-"naujiems duomenims reikalingi:"
-
-#: ../admin-views/event-meta-options.php:6
-msgid "Label (e.g. Meal Plans)"
-msgstr "Etiketė (pvz. Maitinimosi planai)"
-
-#: ../admin-views/event-meta-options.php:7
-msgid "At least one option (e.g. Vegetarian, Kosher, Paleo)"
-msgstr "Bent vienas variantas (pvz. Vegetariškas, košerinis, Paleo)"
-
-#: ../admin-views/event-meta-options.php:8
-msgid "Field type. These are:"
-msgstr "Lauko tipas. Tai yra:"
-
-#: ../admin-views/event-meta-options.php:10
-msgid "Text - for the user to input text"
-msgstr "Tekstas - vartotojams įvesti tekstą"
-
-#: ../admin-views/event-meta-options.php:11
-msgid "URL - for the user to input a URL"
-msgstr "URL - vartotojams įvesti URL"
-
-#: ../admin-views/event-meta-options.php:12
-msgid "Checkbox - for multiple choice"
-msgstr "Žymėjimas varnele - keliems pasirinkimams"
-
-#: ../admin-views/event-meta-options.php:13
-msgid "Radio Button - to select only one"
-msgstr "Žymėjimas tašku - pasirinkti tik vieną"
-
-#: ../admin-views/event-meta-options.php:14
-msgid "Dropdown Menu - for a dropdown menu"
-msgstr "Žemyn išlendantis meniu - žemyn išlendančiam meniu"
-
-#: ../admin-views/event-meta-options.php:19
-msgid "Field Label"
-msgstr "Lauko pavadinimas"
-
-#: ../admin-views/event-meta-options.php:19
-msgid "Field Type"
-msgstr "Lauko tipoas"
-
-#: ../admin-views/event-meta-options.php:19
-msgid "Options (one per line)"
-msgstr "Nustatymai (po vieną į eilutę)"
-
-#: ../admin-views/event-meta-options.php:45
-msgid "Text"
-msgstr "Tekstas"
-
-#: ../admin-views/event-meta-options.php:46
-msgid "URL"
-msgstr "URL"
-
-#: ../admin-views/event-meta-options.php:47
-msgid "Radio"
-msgstr "Žymėjimas tašku"
-
-#: ../admin-views/event-meta-options.php:48
-msgid "Checkbox"
-msgstr "Žymėjimas varnele"
-
-#: ../admin-views/event-meta-options.php:49
-#: ../lib/TribeEventsFilter_GeoLoc.php:44
-msgid "Dropdown"
-msgstr "Pasirinkimas iš sąrašo"
-
-#: ../admin-views/event-meta-options.php:55
-msgid "Add another"
-msgstr "Pridėti kitą"
-
-#: ../admin-views/event-meta-options.php:57
-msgid "Remove"
-msgstr "Pašalinti"
-
-#: ../admin-views/event-meta-options.php:65
-#, php-format
-msgid ""
-"Enter the field label as you want it to appear (this will be the label in "
-"the same way \"Start Date,\" \"Organizer,\" etc appear in the event details "
-"box on the frontend). Select whether the field will be a text field; URL "
-"field; radio buttons; checkboxes; or a dropdown. All of these with the "
-"exception of text and URL allow for multiple options to be included, which "
-"you can add — one per-line — in the right-hand column. If you feel "
-"flummoxed, we've got you covered with a %s."
-msgstr ""
-"Įveskite laukelio pavadinimą kaip norite, kad būtų rodomas (tai bus taip pat "
-"atrodantis pavadinimas kaip ir \"Pradžios data,\"\"Organizatorius,\" ir t.t. "
-"atsiradęs renginio informacijos lauke vartotojo sąsajoje). Pažymėkite ar "
-"laukas bus teksto laukas; URL laukas; pasirinkimo laukas; žymėjimo "
-"langeliai; ar išplečiamas sąrašas. Visi šie, išskyrus tekstą ir URL leis "
-"įtraukti kelias parinktis, kurias galite pridėti po vieną į liniją "
-"dešiniajame stulpelyje. Jei jaučiatės sutrukęs, mes turime jums %s."
-
-#: ../admin-views/event-meta-options.php:66
-msgid "video tutorial that will walk you through the process"
-msgstr "video pamoka kuri praves jus per visus procesus"
-
-#: ../admin-views/event-meta-options.php:69
-msgid "Editor \"Custom Fields\" meta box"
-msgstr "Redaktorius \"Pasirinktiniai laukai\" meta dėžutė"
-
-#: ../admin-views/event-meta-options.php:71
-msgid "Show"
-msgstr "Rodyti"
-
-#: ../admin-views/event-meta-options.php:72
-msgid "Hide"
-msgstr "Slėpti"
-
-#: ../admin-views/event-meta-options.php:73
-msgid ""
-"Enabling this option this will not remove custom field data or "
-"functionality, just the default meta box editor."
-msgstr ""
-"Įjungus šią parinktį nebus pašalinti pasirinktinių laukų duomenys ar "
-"funkcionalumas, tik numatytasis meta langelio redaktorius."
-
-#: ../admin-views/event-meta-options.php:82
-msgid ""
-"Are you sure you wish to remove this field and its data from all events? "
-"Once you click OK this cannot be undone."
-msgstr ""
-"Ar jūs tikrai norite panaikinti šį lauką ir jo įrašus iš visų renginių? Kai "
-"tik paspausit GERAI, gražinti atgal nebebus galima."
-
-#: ../admin-views/event-meta.php:7
-msgid "Additional Event Fields"
-msgstr "Papildomi renginio laukai"
-
-#: ../admin-views/event-recurrence.php:2
-msgid "Recurrence:"
-msgstr "Pasikartojimas:"
-
-#: ../admin-views/event-recurrence.php:7
-msgid "None"
-msgstr "Nė vienas"
-
-#: ../admin-views/event-recurrence.php:8
-#: ../lib/tribe-events-recurrence-meta.class.php:867
-msgid "day"
-msgstr "diena"
-
-#: ../admin-views/event-recurrence.php:8
-#: ../views/pro/widgets/countdown-widget.php:18
-msgid "days"
-msgstr "dienos"
-
-#: ../admin-views/event-recurrence.php:8
-msgid "Every Day"
-msgstr "Kiekvieną dieną"
-
-#: ../admin-views/event-recurrence.php:9 ../events-calendar-pro.php:71
-msgid "week"
-msgstr "savaitė"
-
-#: ../admin-views/event-recurrence.php:9
-msgid "weeks"
-msgstr "savaitės"
-
-#: ../admin-views/event-recurrence.php:9
-msgid "Every Week"
-msgstr "Kiekvieną savaitę"
-
-#: ../admin-views/event-recurrence.php:10
-msgid "month"
-msgstr "mėnesis"
-
-#: ../admin-views/event-recurrence.php:10
-msgid "months"
-msgstr "mėnesiai"
-
-#: ../admin-views/event-recurrence.php:10
-msgid "Every Month"
-msgstr "Kiekvieną mėnesį"
-
-#: ../admin-views/event-recurrence.php:11
-msgid "year"
-msgstr "metai"
-
-#: ../admin-views/event-recurrence.php:11
-msgid "years"
-msgstr "metai"
-
-#: ../admin-views/event-recurrence.php:11
-msgid "Every Year"
-msgstr "Kiekvienais metais"
-
-#: ../admin-views/event-recurrence.php:12
-msgid "event"
-msgstr "renginys"
-
-#: ../admin-views/event-recurrence.php:12
-msgid "events"
-msgstr "renginiai"
-
-#: ../admin-views/event-recurrence.php:12
-msgid "Custom"
-msgstr "Pasirinktinis"
-
-#: ../admin-views/event-recurrence.php:15
-msgid "and will end"
-msgstr "ir pasibaigs"
-
-#: ../admin-views/event-recurrence.php:17
-msgid "On"
-msgstr " "
-
-#: ../admin-views/event-recurrence.php:18
-msgid "After"
-msgstr "Po"
-
-#: ../admin-views/event-recurrence.php:19
-msgid "Never"
-msgstr "Niekada"
-
-#: ../admin-views/event-recurrence.php:23
-msgid "You must select a recurrence end date"
-msgstr "Jūs turite pasirinkti pasikartojančios datos pabaigą"
-
-#: ../admin-views/event-recurrence.php:30
-msgid "Frequency"
-msgstr "Dažnumas"
-
-#: ../admin-views/event-recurrence.php:32
-msgid "Day(s)"
-msgstr "Diena(os)"
-
-#: ../admin-views/event-recurrence.php:32
-msgid "Daily"
-msgstr "Kasdienis"
-
-#: ../admin-views/event-recurrence.php:33
-msgid "Week(s) on:"
-msgstr "Savaitė(s):"
-
-#: ../admin-views/event-recurrence.php:33
-msgid "Weekly"
-msgstr "Kas savaitę"
-
-#: ../admin-views/event-recurrence.php:34
-msgid "Month(s) on the:"
-msgstr "Mėnesį(ius):"
-
-#: ../admin-views/event-recurrence.php:34
-msgid "Monthly"
-msgstr "Kas mėnesį"
-
-#: ../admin-views/event-recurrence.php:35
-msgid "Year(s) on:"
-msgstr "Metai nuo:"
-
-#: ../admin-views/event-recurrence.php:35
-msgid "Yearly"
-msgstr "Kas metus"
-
-#: ../admin-views/event-recurrence.php:37
-msgid "Every"
-msgstr "Kiekvieną"
-
-#: ../admin-views/event-recurrence.php:41
-msgid "Frequency of recurring event must be a number"
-msgstr "Pasikartojančių įvykių dažnumas turi būti skaičius"
-
-#: ../admin-views/event-recurrence.php:49
-msgid "M"
-msgstr "Pr"
-
-#: ../admin-views/event-recurrence.php:50
-msgid "Tu"
-msgstr "An"
-
-#: ../admin-views/event-recurrence.php:51
-msgid "W"
-msgstr "Tr"
-
-#: ../admin-views/event-recurrence.php:52
-msgid "Th"
-msgstr "Kt"
-
-#: ../admin-views/event-recurrence.php:53
-msgid "F"
-msgstr "Pn"
-
-#: ../admin-views/event-recurrence.php:54
-msgid "Sa"
-msgstr "Št"
-
-#: ../admin-views/event-recurrence.php:55
-msgid "Su"
-msgstr "Sk"
-
-#: ../admin-views/event-recurrence.php:63
-#: ../admin-views/event-recurrence.php:113
-msgid "First"
-msgstr "Pirmas"
-
-#: ../admin-views/event-recurrence.php:64
-#: ../admin-views/event-recurrence.php:114
-msgid "Second"
-msgstr "Antras"
-
-#: ../admin-views/event-recurrence.php:65
-#: ../admin-views/event-recurrence.php:115
-msgid "Third"
-msgstr "Trečias"
-
-#: ../admin-views/event-recurrence.php:66
-#: ../admin-views/event-recurrence.php:116
-msgid "Fourth"
-msgstr "Ketvirtas"
-
-#: ../admin-views/event-recurrence.php:67
-msgid "Fifth"
-msgstr "Penktas"
-
-#: ../admin-views/event-recurrence.php:68
-#: ../admin-views/event-recurrence.php:117
-msgid "Last"
-msgstr "Paskutinis"
-
-#: ../admin-views/event-recurrence.php:75
-#: ../admin-views/event-recurrence.php:120
-#: ../lib/tribe-events-recurrence-meta.class.php:902
-msgid "Monday"
-msgstr "Pirmadienis"
-
-#: ../admin-views/event-recurrence.php:76
-#: ../admin-views/event-recurrence.php:121
-#: ../lib/tribe-events-recurrence-meta.class.php:902
-msgid "Tuesday"
-msgstr "Antradienis"
-
-#: ../admin-views/event-recurrence.php:77
-#: ../admin-views/event-recurrence.php:122
-#: ../lib/tribe-events-recurrence-meta.class.php:902
-msgid "Wednesday"
-msgstr "Trečiadienis"
-
-#: ../admin-views/event-recurrence.php:78
-#: ../admin-views/event-recurrence.php:123
-#: ../lib/tribe-events-recurrence-meta.class.php:902
-msgid "Thursday"
-msgstr "Ketvirtadienis"
-
-#: ../admin-views/event-recurrence.php:79
-#: ../admin-views/event-recurrence.php:124
-#: ../lib/tribe-events-recurrence-meta.class.php:902
-msgid "Friday"
-msgstr "Penktadienis"
-
-#: ../admin-views/event-recurrence.php:80
-#: ../admin-views/event-recurrence.php:125
-#: ../lib/tribe-events-recurrence-meta.class.php:902
-msgid "Saturday"
-msgstr "Šeštadienis"
-
-#: ../admin-views/event-recurrence.php:81
-#: ../admin-views/event-recurrence.php:126
-#: ../lib/tribe-events-recurrence-meta.class.php:902
-msgid "Sunday"
-msgstr "Sekmadienis"
-
-#: ../admin-views/event-recurrence.php:83
-#: ../admin-views/event-recurrence.php:128
-msgid "Day"
-msgstr "Diena"
-
-# Need context.
-#: ../admin-views/event-recurrence.php:111
-msgid "On the:"
-msgstr "Dėl:"
-
-#: ../admin-views/event-recurrence.php:136
-msgid "Description:"
-msgstr "Aprašymas:"
-
-#: ../admin-views/event-recurrence.php:144
-msgid "Recurrence Description:"
-msgstr "Pasikartojantis aprašymas:"
-
-#: ../admin-views/event-recurrence.php:149
-msgid ""
-"Create a custom plain language description of the recurrence. Leave it blank "
-"and we'll automate it."
-msgstr ""
-"Sukurkite aprašymą pasikartojantiems renginiams. Palikite tuščią ir mes tai "
-"automatizuosime."
-
-#: ../admin-views/tribe-options-defaults.php:6
-#: ../admin-views/tribe-options-defaults.php:15
-msgid "No Default"
-msgstr "Nėra numatytųjų"
-
-#: ../admin-views/tribe-options-defaults.php:22
-msgid "Select a State"
-msgstr "Pasirinkite valstybę"
-
-#: ../admin-views/tribe-options-defaults.php:35 ../events-calendar-pro.php:629
-msgid "Default Content"
-msgstr "Įprastas turinys"
-
-#: ../admin-views/tribe-options-defaults.php:39
-msgid ""
-"<p>Choose the default venue & organizer. Set default address information to "
-"save time when entering a new venue or organizer.</p><p>You can override "
-"these settings as you enter a new event.</p>"
-msgstr ""
-"<p>Pasirinkite numatytąją vietą ir organizatorių. Nustatykite numatytąjį "
-"adresą, kad sutaupyti laiko kai suvedinėjate naują vietą ar organizatorių.</"
-"p><p>Jūs galite perrašyti šiuos nustatymus kai įvedinėjate naują renginį.</p>"
-
-#: ../admin-views/tribe-options-defaults.php:51
-msgid "Options"
-msgstr "Nustatymai"
-
-#: ../admin-views/tribe-options-defaults.php:61
-msgid ""
-"Check this box to have the organizer and venue fields pre-populated with the "
-"default values below for any new event that is created."
-msgstr ""
-"Pažymėkite laukelį žemiau jei norite, kad organizatoriaus ir vietos "
-"laukeliai būtų užpildyti automatiškai numatytomis reikšmėmis kiekvienam "
-"naujai sukurtam renginiui."
-
-#: ../admin-views/tribe-options-defaults.php:65
-#: ../admin-views/widget-admin-advanced-list.php:29
-msgid "Organizer"
-msgstr "Organizatorius"
-
-#: ../admin-views/tribe-options-defaults.php:69
-msgid "Default organizer"
-msgstr "Numatytasis organizatorius"
-
-#: ../admin-views/tribe-options-defaults.php:73
-msgid "No saved organizers yet."
-msgstr "Kol kas nėra išsaugotų organizatorių."
-
-#: ../admin-views/tribe-options-defaults.php:82
-#: ../admin-views/widget-admin-advanced-list.php:28
-msgid "Venue"
-msgstr "Vieta"
-
-#: ../admin-views/tribe-options-defaults.php:86
-msgid "Default venue"
-msgstr "Numatytoji vieta"
-
-#: ../admin-views/tribe-options-defaults.php:90
-msgid "No saved venues yet."
-msgstr "Kol kas nėra išsaugotų vietų."
-
-#: ../admin-views/tribe-options-defaults.php:99
-#: ../admin-views/widget-admin-advanced-list.php:30
-msgid "Address"
-msgstr "Adresas"
-
-#: ../admin-views/tribe-options-defaults.php:103
-msgid ""
-"You can use this setting to set specific, individual defaults for any new "
-"Venue you create (these will not be used for your default venue)."
-msgstr ""
-"Jūs galite naudoti šį parametrą nustatyti konkrečius, individualius "
-"numatytuosius bet kokiai naujai vietai kurią kuriate (tai nebus naudojama "
-"jūsų numatytajai vietai)."
-
-#: ../admin-views/tribe-options-defaults.php:107
-msgid "Default address"
-msgstr "Numatytasis adresas"
-
-#: ../admin-views/tribe-options-defaults.php:120
-msgid "Default city"
-msgstr "Numatytasis miestas"
-
-#: ../admin-views/tribe-options-defaults.php:133
-msgid "Default state"
-msgstr "Numatytoji valstybė"
-
-#: ../admin-views/tribe-options-defaults.php:146
-msgid "Default province"
-msgstr "Numatytoji provincija"
-
-#: ../admin-views/tribe-options-defaults.php:159
-msgid "Default postal code/zip code"
-msgstr "Numatytasis pašto kodas"
-
-#: ../admin-views/tribe-options-defaults.php:172
-msgid "Default country"
-msgstr "Numatytoji šalis"
-
-#: ../admin-views/tribe-options-defaults.php:185
-msgid "Default phone"
-msgstr "Numatytasis telefono nr."
-
-#: ../admin-views/tribe-options-defaults.php:201
-msgid ""
-"One country per line in the following format: <br>US, United States <br> UK, "
-"United Kingdom. <br> (Replaces the default list.)"
-msgstr ""
-"Viena šalis eilutėje sekančiu formatu: <br>US, United States <br> UK, United "
-"Kingdom. <br> (Pakeičia numatytąjį sąrašą.)"
-
-#: ../admin-views/widget-admin-advanced-list.php:11
-#: ../admin-views/widget-admin-calendar.php:10
-#: ../admin-views/widget-admin-countdown.php:11
-#: ../admin-views/widget-admin-venue.php:9
-#: ../admin-views/widget-calendar.php:2
-msgid "Title:"
-msgstr "Antraštė:"
-
-#: ../admin-views/widget-admin-advanced-list.php:16
-#: ../admin-views/widget-admin-venue.php:20
-#: ../admin-views/widget-calendar.php:8
-msgid "Number of events to show:"
-msgstr "Renginių skaičius kurį rodyti:"
-
-#: ../admin-views/widget-admin-advanced-list.php:25
-msgid "Display:"
-msgstr "Rodyti:"
-
-#: ../admin-views/widget-admin-advanced-list.php:31
-msgid "City"
-msgstr "Miestas"
-
-#: ../admin-views/widget-admin-advanced-list.php:32
-msgid "State (US) Or Province (Int)"
-msgstr "Valstija arba provincija"
-
-#: ../admin-views/widget-admin-advanced-list.php:33
-msgid "Postal Code"
-msgstr "Pašto kodas"
-
-#: ../admin-views/widget-admin-advanced-list.php:34
+#: ../src/admin-views/widget-admin-advanced-list.php:37
 msgid "Country"
 msgstr "Šalis"
 
-#: ../admin-views/widget-admin-advanced-list.php:35
-msgid "Phone"
-msgstr "Telefono nr."
-
-#: ../admin-views/widget-admin-advanced-list.php:36
-msgid "Price"
-msgstr "Kaina"
-
-#: ../admin-views/widget-admin-advanced-list.php:58
-#: ../admin-views/widget-calendar.php:24
-msgid "Filters"
-msgstr "Filtrai"
-
-#: ../admin-views/widget-admin-advanced-list.php:85
-#: ../admin-views/widget-calendar.php:42
-msgid "remove"
-msgstr "pašalinti"
-
-#: ../admin-views/widget-admin-advanced-list.php:98
-#: ../admin-views/widget-calendar.php:53
-msgid "Match all"
-msgstr "Sulyginti visus"
-
-#: ../admin-views/widget-admin-advanced-list.php:101
-#: ../admin-views/widget-calendar.php:56
-msgid "Match any"
-msgstr "Sulyginti bet kurį"
-
-#: ../admin-views/widget-admin-advanced-list.php:105
-#: ../admin-views/widget-calendar.php:60
-msgid "Add a filter"
-msgstr "Pridėti filtrą"
-
-#: ../admin-views/widget-admin-advanced-list.php:108
-#: ../admin-views/widget-calendar.php:63
-msgid "Select one..."
-msgstr "Pasirinkite vieną..."
-
-#: ../admin-views/widget-admin-advanced-list.php:136
-#: ../admin-views/widget-admin-venue.php:28
-msgid "Hide this widget if there are no upcoming events:"
-msgstr "Paslėpti šį valdiklį jei nėra artėjančių renginių:"
-
-#: ../admin-views/widget-admin-countdown.php:15
-msgid "Event:"
-msgstr "Renginys:"
-
-#: ../admin-views/widget-admin-countdown.php:23
-msgid "Show seconds:"
-msgstr "Rodyti sekundes:"
-
-#: ../admin-views/widget-admin-countdown.php:28
-msgid "Countdown Completed Text:"
-msgstr "Tekstas kuris rodomas pasibaigus skaičiavimui atbuline tvarka:"
-
-#: ../admin-views/widget-admin-venue.php:11
-msgid "Venue:"
-msgstr "Vieta:"
-
-#: ../events-calendar-pro.php:72
-msgid "photo"
-msgstr "nuotrauka"
-
-#: ../events-calendar-pro.php:299
-msgid "Events for week of"
-msgstr "Savaitės renginiai"
-
-#: ../events-calendar-pro.php:307 ../events-calendar-pro.php:366
-msgid "Past Events"
-msgstr "Praėję renginiai"
-
-#: ../events-calendar-pro.php:309 ../events-calendar-pro.php:368
-#: ../lib/widget-advanced-list.class.php:88
-msgid "Upcoming Events"
-msgstr "Artėjantys renginiai"
-
-#: ../events-calendar-pro.php:315 ../events-calendar-pro.php:351
-msgid "All events for"
-msgstr "Visi renginiai"
-
-#: ../events-calendar-pro.php:358
-#, php-format
-msgid "Events for week of %s"
-msgstr "Savaitės renginiai %s"
-
-#: ../events-calendar-pro.php:640
+#: ../src/Tribe/Main.php:618
 msgid "Hide related events"
 msgstr "Slėpti susijusius renginius"
 
-#: ../events-calendar-pro.php:641
+#: ../src/admin-views/widget-admin-advanced-list.php:38
+msgid "Phone"
+msgstr "Telefono nr."
+
+#: ../src/Tribe/Main.php:619
 msgid "Remove related events from the single event view"
 msgstr "Pašalinti susijusius renginius iš vieno renginio peržiūros"
 
-#: ../events-calendar-pro.php:649
+#: ../src/admin-views/widget-admin-advanced-list.php:39
+msgid "Price"
+msgstr "Kaina"
+
+#: ../src/Tribe/Main.php:629
 msgid "Week Day Format"
 msgstr "Savaitės dienos formatas"
 
-#: ../events-calendar-pro.php:650
-msgid ""
-"Enter the format to use for week days. Used when showing days of the week in "
-"Week view."
-msgstr ""
-"Įveskite formatą kurį naudosite savaitės dienoms. Naudojamas, kai rodo "
-"savaitės dienasį savaitės rodinyje."
+#: ../src/admin-views/widget-admin-advanced-list.php:62
+#: ../src/admin-views/widget-calendar.php:24
+msgid "Filters"
+msgstr "Filtrai"
 
-#: ../events-calendar-pro.php:667
-msgid ""
-"Thanks for buying Events Calendar PRO! From all of us at Modern Tribe, we "
-"sincerely appreciate it. If you're looking for help with Events Calendar "
-"PRO, you've come to the right place. We are committed to helping make your "
-"calendar kick ass... and hope the resources provided below will help get you "
-"there."
-msgstr ""
-"Dėkojame, kad pirkote Renginių Kalendorių PRO! Mes tai nuoširdžiai vertiname "
-"nuo viso mūsų Modern Tribe. Jei ieškote pagalbos dėl Renginių Kalendoriaus "
-"PRO jūs kreipėtės į tinkamą vietą. Mes įsipareigoję padėti padaryti jūsų "
-"kalendorių nepakartojam... ir tikimės, kad resursai pateikti žemiau padės "
-"jums tai padaryti."
+#: ../src/Tribe/Main.php:630
+msgid "Enter the format to use for week days. Used when showing days of the week in Week view."
+msgstr "Įveskite formatą kurį naudosite savaitės dienoms. Naudojamas, kai rodo savaitės dienasį savaitės rodinyje."
 
-#: ../events-calendar-pro.php:678
-msgid ""
-"If this is your first time using The Events Calendar Pro, you're in for a "
-"treat and are already well on your way to creating a first event. Here are "
-"some basics we've found helpful for users jumping into it for the first time:"
-msgstr ""
-"Jei tai jūsų pirmas kartas kai naudojatės renginiu kalendoriumi PRO, kad "
-"sukurti savo pirmąjį renginį. Štai keletas pagrindų, kurie gali būti "
-"naudingi vartotojams pirmą kartą:"
+#: ../src/admin-views/widget-admin-advanced-list.php:89
+#: ../src/admin-views/widget-calendar.php:43
+msgid "remove"
+msgstr "pašalinti"
 
-#: ../events-calendar-pro.php:681
-#, php-format
-msgid ""
-"%sOur New User Primer%s was designed for folks in your exact position. "
-"Featuring both step-by-step videos and written walkthroughs that feature "
-"accompanying screenshots, the primer aims to take you from zero to hero in "
-"no time."
+#: ../src/Tribe/Main.php:641
+msgid "Hide weekends on Week View"
 msgstr ""
-"%sMūsų vadovėlis%s buvo sukurta žmonėms, kurie yra tokioje pačioje "
-"situacijoje, kaip ir jūs. Teikdami žingsnis po žingsnio vaizdo ir rašytines "
-"instrukcijas su ekrano paveiksliukais, vadovėlis padės jums tapti įgudusiu "
-"vartotoju per kelias minutes!"
 
-#: ../events-calendar-pro.php:683
-#, php-format
-msgid ""
-"%sInstallation/Setup FAQs%s from our support page can help give an overview "
-"of what the plugin can and cannot do. This section of the FAQs may be "
-"helpful as it aims to address any basic install questions not addressed by "
-"the new user primer."
+#: ../src/admin-views/widget-admin-advanced-list.php:102
+#: ../src/admin-views/widget-calendar.php:54
+msgid "Match all"
+msgstr "Sulyginti visus"
+
+#: ../src/Tribe/Main.php:642
+msgid "Check this to only show weekdays on Week View"
 msgstr ""
-"%sDiegimo/Parengimo DUK%s mūsų pagalbos puslapyje gali padėti suteikti jums "
-"bendro supratimo ką įskiepis gali ar negali. Šis DUK skyrius gali būti "
-"naudingas, nes juo siekiama pašalinti bet kokius diegimo klausimus neskirtus "
-"iš naujojo vartotojo pradmenų."
 
-#: ../events-calendar-pro.php:685
-#, php-format
-msgid ""
-"Are you developer looking to build your own frontend view? We created an "
-"example plugin that demonstrates how to register a new view. You can "
-"%sdownload the plugin at GitHub%s to get started."
+#: ../src/admin-views/widget-admin-advanced-list.php:105
+#: ../src/admin-views/widget-calendar.php:57
+msgid "Match any"
+msgstr "Sulyginti bet kurį"
+
+#: ../src/Tribe/Main.php:660
+msgid "Thanks for buying Events Calendar PRO! From all of us at Modern Tribe, we sincerely appreciate it. If you're looking for help with Events Calendar PRO, you've come to the right place. We are committed to helping make your calendar kick ass... and hope the resources provided below will help get you there."
+msgstr "Dėkojame, kad pirkote Renginių Kalendorių PRO! Mes tai nuoširdžiai vertiname nuo viso mūsų Modern Tribe. Jei ieškote pagalbos dėl Renginių Kalendoriaus PRO jūs kreipėtės į tinkamą vietą. Mes įsipareigoję padėti padaryti jūsų kalendorių nepakartojam... ir tikimės, kad resursai pateikti žemiau padės jums tai padaryti."
+
+#: ../src/admin-views/widget-admin-advanced-list.php:109
+#: ../src/admin-views/widget-calendar.php:61
+msgid "Add a filter"
+msgstr "Pridėti filtrą"
+
+#: ../src/Tribe/Main.php:672
+msgid "If this is your first time using The Events Calendar Pro, you're in for a treat and are already well on your way to creating a first event. Here are some basics we've found helpful for users jumping into it for the first time:"
+msgstr "Jei tai jūsų pirmas kartas kai naudojatės renginiu kalendoriumi PRO, kad sukurti savo pirmąjį renginį. Štai keletas pagrindų, kurie gali būti naudingi vartotojams pirmą kartą:"
+
+#: ../src/admin-views/widget-admin-advanced-list.php:112
+#: ../src/admin-views/widget-calendar.php:64
+msgid "Select one..."
+msgstr "Pasirinkite vieną..."
+
+#: ../src/Tribe/Main.php:675
+msgid "%sOur New User Primer%s was designed for folks in your exact position. Featuring both step-by-step videos and written walkthroughs that feature accompanying screenshots, the primer aims to take you from zero to hero in no time."
+msgstr "%sMūsų vadovėlis%s buvo sukurta žmonėms, kurie yra tokioje pačioje situacijoje, kaip ir jūs. Teikdami žingsnis po žingsnio vaizdo ir rašytines instrukcijas su ekrano paveiksliukais, vadovėlis padės jums tapti įgudusiu vartotoju per kelias minutes!"
+
+#: ../src/admin-views/widget-admin-advanced-list.php:141
+#: ../src/admin-views/widget-admin-venue.php:35
+msgid "Hide this widget if there are no upcoming events:"
+msgstr "Paslėpti šį valdiklį jei nėra artėjančių renginių:"
+
+#: ../src/Tribe/Main.php:677
+msgid "%sInstallation/Setup FAQs%s from our support page can help give an overview of what the plugin can and cannot do. This section of the FAQs may be helpful as it aims to address any basic install questions not addressed by the new user primer."
+msgstr "%sDiegimo/Parengimo DUK%s mūsų pagalbos puslapyje gali padėti suteikti jums bendro supratimo ką įskiepis gali ar negali. Šis DUK skyrius gali būti naudingas, nes juo siekiama pašalinti bet kokius diegimo klausimus neskirtus iš naujojo vartotojo pradmenų."
+
+#: ../src/admin-views/widget-admin-countdown.php:17
+msgid "Event:"
+msgstr "Renginys:"
+
+#: ../src/Tribe/Main.php:679
+msgid "Take care of your license key. Though not required to create your first event, you'll want to get it in place as soon as possible to guarantee your access to support and upgrades. %sHere's how to find your license key%s, if you don't have it handy."
+msgstr "Pasirūpinkite savo licencijos raktu. Nors jo nereikalaujam kuriant jūsų pirmąjį renginį, bet jis jums bus reikalingas, kad užgarantuotų prieigą prie pagalbos ir atnaujinimų. %sŠtai kaip rasti jūsų licencijos raktas%s, jei neturite jo po ranka."
+
+#: ../src/admin-views/widget-admin-countdown.php:25
+msgid "Show seconds:"
+msgstr "Rodyti sekundes:"
+
+#: ../src/Tribe/Main.php:681
+msgid "Otherwise, if you're feeling adventurous, you can get started by heading to the Events menu and adding your first event."
+msgstr "Priešingu atveju, jei jautiesi pažengęs, gali eiti į Renginių meniu ir pridėti savo pirmąjį renginį."
+
+#: ../src/admin-views/widget-admin-countdown.php:30
+msgid "Countdown Completed Text:"
+msgstr "Tekstas kuris rodomas pasibaigus skaičiavimui atbuline tvarka:"
+
+#: ../src/Tribe/Main.php:694
+msgid "Written documentation can only take things so far...sometimes, you need help from a real person. This is where our %ssupport forums%s come into play."
+msgstr "Ne visada rašytiniai dokumentai gali padėti, kartais jums reikia pagalbos iš tikro žmogaus. Štai kada mūsų %spagalbos forumas%s ateina į pagalbą."
+
+#: ../src/admin-views/widget-admin-venue.php:16
+msgid "Venue:"
+msgstr "Vieta:"
+
+#: ../src/Tribe/Main.php:695
+msgid "Users who have purchased an Events Calendar PRO license are granted total access to our %spremium support forums%s. Unlike at the %sWordPress.org support forum%s, where our involvement is limited to identifying and patching bugs, we have a dedicated support team for PRO users. We're on the PRO forums daily throughout the business week, and no thread should go more than 24-hours without a response."
+msgstr "Vartotojai kurie įsigijo Events Calendar PRO licenciją yra užtikrinti gauti prieigą prie mūsų %spremium pagalbos forumo%s. Ne taip kaip %sWordPress.org pagalbos forume%s, kur mūsų dalyvavimas yra limituotas aiškinantis ir sprendžiant problemas, Mes skiriame pagalbos komandą mūsų PRO vartotojams. Mes esame PRO forume kasdien įskaitant savaitgalius, ir nė vieną tema nebus neatsakyta daugiau nei per 24 valandas."
+
+#: ../src/functions/template-tags/general.php:125
+msgid "Show only the first upcoming instance of recurring %s"
 msgstr ""
-"Ar jūs kūrėjas, norintis sukurti savo pačio vartotojo sąsają? Mes sukūrėme "
-"pavyzdinį įskiepį kuris demonstruoja kaip užregistruoti naują atvaizdavimą. "
-"Kad pradėti, jūs galite %satsisiųsti įskiepį iš GitHub%s."
 
-#: ../events-calendar-pro.php:687
-#, php-format
-msgid ""
-"Take care of your license key. Though not required to create your first "
-"event, you'll want to get it in place as soon as possible to guarantee your "
-"access to support and upgrades. %sHere's how to find your license key%s, if "
-"you don't have it handy."
+#: ../src/Tribe/Main.php:696
+msgid "Our number one goal is helping you succeed, and to whatever extent possible, we'll help troubleshoot and guide your customizations or tweaks. While we won't build your site for you, and we can't guarantee we'll be able to get you 100% integrated with every theme or plugin out there, we'll do all we can to point you in the right direction and to make you -- and your client, as is often more importantly the case -- satisfied."
+msgstr "Mūsų tikslas numeris vienas yra padėti jums, kad pasisektų ir kaip tik įmanoma stengsimės jums padėti. Nors mes ir nesukursime jums jūsų svetainės už jus, ir negarantuojame, kad galėsim 100% integruoti su kiekviena jūsų tema ar įskiepiu, bet mes darysime viską ką galime, kad jus nukreipti teisinga linkme ir padaryti jus -- ir jūsų klientą kas yra svarbiausia -- patenkintus."
+
+#: ../src/functions/template-tags/general.php:302
+#: ../src/functions/template-tags/general.php:317
+#: ../src/functions/template-tags/general.php:332
+#: ../src/functions/template-tags/general.php:347
+#: ../src/functions/template-tags/general.php:362
+#: ../src/functions/template-tags/general.php:377
+#: ../src/functions/template-tags/general.php:392
+#: ../src/functions/template-tags/general.php:407
+#: ../src/functions/template-tags/general.php:422
+msgid "No default set"
+msgstr "Joks numatytasis nenustatytas"
+
+#: ../src/Tribe/Main.php:697
+msgid "Before posting a new thread, please do a search to make sure your issue hasn't already been addressed. When posting please make sure to provide as much detail about the problem as you can (with screenshots or screencasts if feasible), and make sure that you've identified whether a plugin / theme conflict could be at play in your initial message."
+msgstr "Prieš skelbdami naują temą, prašome atlikti paiešką ir įsitikinti, kad jūsų klausimas jau nebuvo sprendžiamas. Kai rašote prašome pateikti kuo daugiau detalių apibūdinančių jūsų problemą (su ekrano paveikslėliais ar filmuota medžiaga jei įmanoma), ir įsitikinkite kuris įskiepis ar tema yra konflikto priežastis."
+
+#: ../src/functions/template-tags/general.php:304
+msgid "The current default organizer is: %s"
+msgstr "Dabartinis numatytasis organizatorius yra: %s"
+
+#: ../src/Tribe/Main.php:1134
+msgid "Event: "
 msgstr ""
-"Pasirūpinkite savo licencijos raktu. Nors jo nereikalaujam kuriant jūsų "
-"pirmąjį renginį, bet jis jums bus reikalingas, kad užgarantuotų prieigą prie "
-"pagalbos ir atnaujinimų. %sŠtai kaip rasti jūsų licencijos raktas%s, jei "
-"neturite jo po ranka."
 
-#: ../events-calendar-pro.php:689
-msgid ""
-"Otherwise, if you're feeling adventurous, you can get started by heading to "
-"the Events menu and adding your first event."
+#: ../src/functions/template-tags/general.php:319
+msgid "The current default venue is: %s"
+msgstr "Dabartinė numatytoji vieta yra: %s"
+
+#: ../src/Tribe/Main.php:1135
+msgid "Address: "
 msgstr ""
-"Priešingu atveju, jei jautiesi pažengęs, gali eiti į Renginių meniu ir "
-"pridėti savo pirmąjį renginį."
 
-#: ../events-calendar-pro.php:701
-#, php-format
-msgid ""
-"Written documentation can only take things so far...sometimes, you need help "
-"from a real person. This is where our %ssupport forums%s come into play."
-msgstr ""
-"Ne visada rašytiniai dokumentai gali padėti, kartais jums reikia pagalbos iš "
-"tikro žmogaus. Štai kada mūsų %spagalbos forumas%s ateina į pagalbą."
+#: ../src/functions/template-tags/general.php:334
+msgid "The current default address is: %s"
+msgstr "Dabartinis numatytasis adresas yra: %s"
 
-#: ../events-calendar-pro.php:702
-#, php-format
-msgid ""
-"Users who have purchased an Events Calendar PRO license are granted total "
-"access to our %spremium support forums%s. Unlike at the %sWordPress.org "
-"support forum%s, where our involvement is limited to identifying and "
-"patching bugs, we have a dedicated support team for PRO users. We're on the "
-"PRO forums daily throughout the business week, and no thread should go more "
-"than 24-hours without a response."
-msgstr ""
-"Vartotojai kurie įsigijo Events Calendar PRO licenciją yra užtikrinti gauti "
-"prieigą prie mūsų %spremium pagalbos forumo%s. Ne taip kaip %sWordPress.org "
-"pagalbos forume%s, kur mūsų dalyvavimas yra limituotas aiškinantis ir "
-"sprendžiant problemas, Mes skiriame pagalbos komandą mūsų PRO vartotojams. "
-"Mes esame PRO forume kasdien įskaitant savaitgalius, ir nė vieną tema nebus "
-"neatsakyta daugiau nei per 24 valandas."
-
-#: ../events-calendar-pro.php:703
-msgid ""
-"Our number one goal is helping you succeed, and to whatever extent possible, "
-"we'll help troubleshoot and guide your customizations or tweaks. While we "
-"won't build your site for you, and we can't guarantee we'll be able to get "
-"you 100% integrated with every theme or plugin out there, we'll do all we "
-"can to point you in the right direction and to make you -- and your client, "
-"as is often more importantly the case -- satisfied."
-msgstr ""
-"Mūsų tikslas numeris vienas yra padėti jums, kad pasisektų ir kaip tik "
-"įmanoma stengsimės jums padėti. Nors mes ir nesukursime jums jūsų svetainės "
-"už jus, ir negarantuojame, kad galėsim 100% integruoti su kiekviena jūsų "
-"tema ar įskiepiu, bet mes darysime viską ką galime, kad jus nukreipti "
-"teisinga linkme ir padaryti jus -- ir jūsų klientą kas yra svarbiausia -- "
-"patenkintus."
-
-#: ../events-calendar-pro.php:704
-msgid ""
-"Before posting a new thread, please do a search to make sure your issue "
-"hasn't already been addressed. When posting please make sure to provide as "
-"much detail about the problem as you can (with screenshots or screencasts if "
-"feasible), and make sure that you've identified whether a plugin / theme "
-"conflict could be at play in your initial message."
-msgstr ""
-"Prieš skelbdami naują temą, prašome atlikti paiešką ir įsitikinti, kad jūsų "
-"klausimas jau nebuvo sprendžiamas. Kai rašote prašome pateikti kuo daugiau "
-"detalių apibūdinančių jūsų problemą (su ekrano paveikslėliais ar filmuota "
-"medžiaga jei įmanoma), ir įsitikinkite kuris įskiepis ar tema yra konflikto "
-"priežastis."
-
-#: ../events-calendar-pro.php:1142
+#: ../src/Tribe/Main.php:1204
 msgid "Settings"
 msgstr "Nustatymai"
 
-#: ../events-calendar-pro.php:1167
-#, php-format
+#: ../src/functions/template-tags/general.php:349
+msgid "The current default city is: %s"
+msgstr "Dabartinis numatytasis miestas yra: %s"
+
+#: ../src/Tribe/Main.php:1232
 msgid "Venue updated. <a href=\"%s\">View venue</a>"
 msgstr "Vieta atnaujinta. <a href=\"%s\">Žiūrėti vietą</a>"
 
-#: ../events-calendar-pro.php:1169
-#, php-format
+#: ../src/functions/template-tags/general.php:364
+msgid "The current default state is: %s"
+msgstr "Dabartinė numatytoji valstija yra: %s"
+
+#: ../src/Tribe/Main.php:1234
 msgid "Venue published. <a href=\"%s\">View venue</a>"
 msgstr "Vieta paskelbta. <a href=\"%s\">Žiūrėti vietą</a>"
 
-#: ../events-calendar-pro.php:1170
-#, php-format
+#: ../src/functions/template-tags/general.php:379
+msgid "The current default province is: %s"
+msgstr "Dabartinė numatytoji provincija yra: %s"
+
+#: ../src/Tribe/Main.php:1235
 msgid "Venue submitted. <a target=\"_blank\" href=\"%s\">Preview venue</a>"
 msgstr "Vieta pateikta. <a target=\"_blank\" href=\"%s\">Peržiūrėti vietą</a>"
 
-#: ../events-calendar-pro.php:1171
-#, php-format
-msgid ""
-"Venue scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s"
-"\">Preview venue</a>"
-msgstr ""
-"Planuojama vietar: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s"
-"\">Peržiūrėti vietą</a>"
+#: ../src/functions/template-tags/general.php:394
+msgid "The current default postal code/zip code is: %s"
+msgstr "Dabartinis numatytasis pašto kodas yra: %s"
 
-#: ../events-calendar-pro.php:1173 ../events-calendar-pro.php:1181
+#: ../src/Tribe/Main.php:1237
+msgid "Venue scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s\">Preview venue</a>"
+msgstr "Planuojama vietar: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s\">Peržiūrėti vietą</a>"
+
+#: ../src/functions/template-tags/general.php:409
+msgid "The current default country is: %s"
+msgstr "Dabartinė numatytoji šalis yra: %s"
+
+#: ../src/Tribe/Main.php:1239 ../src/Tribe/Main.php:1249
 msgid "M j, Y @ G:i"
 msgstr "M j, Y @ G:i"
 
-#: ../events-calendar-pro.php:1174
-#, php-format
+#: ../src/functions/template-tags/general.php:424
+msgid "The current default phone is: %s"
+msgstr "Dabartinis numatytasis tel.numeris yra: %s"
+
+#: ../src/Tribe/Main.php:1241
 msgid "Venue draft updated. <a target=\"_blank\" href=\"%s\">Preview venue</a>"
-msgstr ""
-"Vietos juodraštis atnaujintas. <a target=\"_blank\" href=\"%s\">Peržiūrėti "
-"vietą</a>"
+msgstr "Vietos juodraštis atnaujintas. <a target=\"_blank\" href=\"%s\">Peržiūrėti vietą</a>"
 
-#: ../events-calendar-pro.php:1176
-#, php-format
+#: ../src/functions/template-tags/general.php:584
+#: ../src/functions/template-tags/general.php:607
+msgid "Date out of range."
+msgstr "Netinkamo laikotarpio data."
+
+#: ../src/Tribe/Main.php:1243
 msgid "Organizer updated. <a href=\"%s\">View organizer</a>"
-msgstr ""
-"Organizatorius atnaujintas. <a href=\"%s\">Peržiūrėti organizatorių</a>"
+msgstr "Organizatorius atnaujintas. <a href=\"%s\">Peržiūrėti organizatorių</a>"
 
-#: ../events-calendar-pro.php:1177
-#, php-format
+#: ../src/functions/template-tags/general.php:717
+msgid "Recurring %s"
+msgstr ""
+
+#: ../src/Tribe/Main.php:1244
 msgid "Organizer published. <a href=\"%s\">View organizer</a>"
 msgstr "Organizatorius paskelbtas. <a href=\"%s\">Peržiūrėti organizatorių</a>"
 
-#: ../events-calendar-pro.php:1178
-#, php-format
-msgid ""
-"Organizer submitted. <a target=\"_blank\" href=\"%s\">Preview organizer</a>"
+#: ../src/functions/template-tags/general.php:720
+msgid "(See all)"
+msgstr "(Žiūrėti visus)"
+
+#: ../src/Tribe/Main.php:1245
+msgid "Organizer submitted. <a target=\"_blank\" href=\"%s\">Preview organizer</a>"
+msgstr "Organizatorius patvirtintas. <a target=\"_blank\" href=\"%s\">Peržiūrėti organizatorių</a>"
+
+#: ../src/functions/template-tags/week.php:196
+msgid "<span>&laquo;</span> Previous Week"
+msgstr "<span>&laquo;</span> Praėjusi savaitė"
+
+#: ../src/Tribe/Main.php:1247
+msgid "Organizer scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s\">Preview organizer</a>"
+msgstr "Organizatorius planuojamas: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s\">Peržiūrėti organizatorių</a>"
+
+#: ../src/functions/template-tags/week.php:226
+msgid "Next Week <span>&raquo;</span>"
+msgstr "Sekanti savaitė <span>&raquo;</span>"
+
+#: ../src/Tribe/Main.php:1251
+msgid "Organizer draft updated. <a target=\"_blank\" href=\"%s\">Preview organizer</a>"
+msgstr "Organizatoriaus juodraštis atnaujintas. <a target=\"_blank\" href=\"%s\">Peržiūrėti organizatorių</a>"
+
+#: ../src/views/pro/map/nav.php:20 ../src/views/pro/photo/nav.php:20
+msgid "%s List Navigation"
 msgstr ""
-"Organizatorius patvirtintas. <a target=\"_blank\" href=\"%s\">Peržiūrėti "
-"organizatorių</a>"
 
-#: ../events-calendar-pro.php:1179
-#, php-format
-msgid ""
-"Organizer scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" href="
-"\"%2$s\">Preview organizer</a>"
-msgstr ""
-"Organizatorius planuojamas: <strong>%1$s</strong>. <a target=\"_blank\" href="
-"\"%2$s\">Peržiūrėti organizatorių</a>"
-
-#: ../events-calendar-pro.php:1182
-#, php-format
-msgid ""
-"Organizer draft updated. <a target=\"_blank\" href=\"%s\">Preview organizer</"
-"a>"
-msgstr ""
-"Organizatoriaus juodraštis atnaujintas. <a target=\"_blank\" href=\"%s"
-"\">Peržiūrėti organizatorių</a>"
-
-#: ../events-calendar-pro.php:1228
-#, php-format
-msgid "Calendar powered by %sThe Events Calendar PRO%s"
-msgstr "Kalendorius naudoja %sThe Events Calendar PRO%s"
-
-#: ../events-calendar-pro.php:1241
+#: ../src/Tribe/Main.php:1301
 msgid "Support"
 msgstr "Pagalba"
 
-#: ../events-calendar-pro.php:1243
+#: ../src/views/pro/map/nav.php:25 ../src/views/pro/photo/nav.php:25
+msgid "<span>&laquo;</span> Previous %s"
+msgstr ""
+
+#: ../src/Tribe/Main.php:1303
 msgid "View All Add-Ons"
 msgstr "Žiūrėti visus papildinius"
 
-#: ../events-calendar-pro.php:1340
+#: ../src/views/pro/map/nav.php:32 ../src/views/pro/photo/nav.php:31
+msgid "Next %s <span>&raquo;</span>"
+msgstr ""
+
+#: ../src/Tribe/Main.php:1428
 msgid "Week"
 msgstr "Savaitė"
 
-#: ../events-calendar-pro.php:1354
+#: ../src/views/pro/map/single-event.php:71
+msgid "Find out more"
+msgstr "Sužinokite daugiau"
+
+#: ../src/Tribe/Main.php:1446
 msgid "Photo"
 msgstr "Nuotrauka"
 
-#: ../events-calendar-pro.php:1368
+#: ../src/views/pro/related-events.php:26
+msgid "Related %s"
+msgstr ""
+
+#: ../src/Tribe/Main.php:1463
 msgid "Week Of"
 msgstr "Savaitę"
 
-#: ../events-calendar-pro.php:1451
-msgid "The Events Calendar"
+#: ../src/views/pro/single-organizer.php:32
+#: ../src/views/pro/single-venue.php:32
+msgid "&larr; Back to %s"
+msgstr ""
+
+#: ../src/Tribe/Mini_Calendar_Widget.php:8
+msgid "The events calendar mini calendar widget"
+msgstr "Renginių kalendoriaus mini kalendoriaus valdiklis"
+
+#: ../src/views/pro/week/loop-grid-allday.php:18
+msgid "All Day"
+msgstr "Visą dieną"
+
+#: ../src/Tribe/Mini_Calendar_Widget.php:11
+#: ../src/Tribe/Mini_Calendar_Widget.php:35
+#: ../src/Tribe/Mini_Calendar_Widget.php:76
+msgid "Events Calendar"
 msgstr "Renginių kalendorius"
 
-#: ../events-calendar-pro.php:1452
-#, php-format
-msgid ""
-"To begin using Events Calendar PRO, please install the latest version of <a "
-"href=\"%s\" class=\"thickbox\" title=\"%s\">The Events Calendar</a>."
+#: ../src/views/pro/week/loop-grid.php:19
+msgid "Hours"
+msgstr "Valandos"
+
+#: ../src/Tribe/Recurrence/Queue_Processor.php:182
+msgid "Could not process queue for event %d: %s"
 msgstr ""
-"Kad pradėti naudotis Event Calendar PRO, prašome įsidiekite naujausią "
-"versiją <a href=\"%s\" class=\"thickbox\" title=\"%s\">The Events Calendar</"
-"a>."
 
-#: ../lib/SingleEventMeta.php:143
-#: ../views/pro/modules/meta/additional-fields.php:15
-msgid "Other"
-msgstr "Kiti"
+#: ../src/views/pro/week/nav.php:16
+msgid "Week Navigation"
+msgstr "Savaitės navigacija"
 
-#: ../lib/SingleEventMeta.php:169
-msgid "Recurrence Pattern:"
-msgstr "Pasikartojimo modelis:"
-
-#: ../lib/TribeEventsFilter_GeoLoc.php:20 ../lib/tribe-geoloc.class.php:143
-msgid "Miles"
-msgstr "Mylios"
-
-#: ../lib/TribeEventsFilter_GeoLoc.php:21 ../lib/tribe-geoloc.class.php:144
-msgid "Kilometers"
-msgstr "Kilometrai"
-
-#: ../lib/TribeEventsFilter_GeoLoc.php:25
-#, php-format
-msgid "%d %s"
-msgstr "%d %s"
-
-#: ../lib/TribeEventsFilter_GeoLoc.php:40
-#, php-format
-msgid "Type: %s %s"
-msgstr "Rašykite: %s %s"
-
-#: ../lib/TribeEventsFilter_GeoLoc.php:49
-msgid "Radio Buttons"
-msgstr "Pasirinkimai"
-
-#: ../lib/apm_filters.php:49
-msgid "Start Date"
-msgstr "Pradžios data"
-
-#: ../lib/apm_filters.php:54
-msgid "End Date"
-msgstr "Pabaigos data"
-
-#: ../lib/apm_filters.php:59
-msgid "Event Cost"
-msgstr "Renginio kaina"
-
-#: ../lib/apm_filters.php:64
-msgid "Event Cats"
-msgstr "Renginio kategorijos"
-
-#: ../lib/apm_filters.php:69
-msgid "Title"
-msgstr "Antraštė"
-
-#: ../lib/apm_filters.php:74 ../lib/tribe-events-recurrence-meta.class.php:132
-msgid "Recurring"
-msgstr "Pasikartojantis"
-
-#: ../lib/apm_filters.php:79
-msgid "Description"
-msgstr "Apibūdinimas"
-
-#: ../lib/apm_filters.php:120 ../lib/apm_filters.php:333
-#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:50
-#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:70
-msgid "Is"
-msgstr "Yra"
-
-#: ../lib/apm_filters.php:121 ../lib/apm_filters.php:334
-#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:51
-#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:71
-msgid "Is Not"
-msgstr "Nėra"
-
-#: ../lib/apm_filters.php:122
-msgid "On and After"
-msgstr "Dabar ir vėliau"
-
-#: ../lib/apm_filters.php:123
-msgid "On and Before"
-msgstr "Dabar ir ankščiau"
-
-#: ../lib/apm_filters.php:219
-#: ../lib/tribe-events-recurrence-meta.class.php:139
-msgid "Yes"
-msgstr "Taip"
-
-#: ../lib/apm_filters.php:220
-msgid "No"
-msgstr "Ne"
-
-#: ../lib/apm_filters.php:332
-#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:69
-msgid "Search"
-msgstr "Paieška"
-
-#: ../lib/template-classes/map.php:77
-#, php-format
-msgid "No results were found for events in or near <strong>\"%s\"</strong>."
+#: ../src/Tribe/Recurrence/Queue_Realtime.php:53
+msgid "Completed!"
 msgstr ""
-"Nebuvo rasta jokių renginių šioje ar artimiausioje <strong>\"%s\"</strong>."
 
-#: ../lib/template-classes/map.php:80 ../lib/template-classes/week.php:94
-#, php-format
-msgid ""
-"No matching events listed under %s. Please try viewing the full calendar for "
-"a complete list of events."
+#: ../src/views/pro/widgets/countdown-widget.php:20
+msgid "days"
+msgstr "dienos"
+
+#: ../src/Tribe/Recurrence/Queue_Realtime.php:55
+#: ../src/Tribe/Recurrence/Queue_Realtime.php:70
+#: ../src/Tribe/Recurrence/Queue_Realtime.php:101
+msgid "%d%% complete"
 msgstr ""
-"Nėra atitinkančių įvykiu sąraše %s. Bandykite peržiūrėti visą kalendorių "
-"visam renginių sąrašui."
 
-#: ../lib/template-classes/map.php:83
-msgid "There were no results found."
-msgstr "Jokių rezultatų nerasta."
+#: ../src/views/pro/widgets/countdown-widget.php:24
+msgid "hours"
+msgstr "valandos"
 
-#: ../lib/template-classes/week.php:87
-#, php-format
-msgid ""
-"There were no results found for <strong>\"%s\"</strong> this week. Try "
-"searching another week."
+#: ../src/Tribe/Recurrence/Queue_Realtime.php:67
+msgid "Recurring event data is still being generated for this event. Don&#146;t worry, you can safely navigate away &ndash; the process will resume in a bit in the background."
 msgstr ""
-"Nerasta jokių rezultatų <strong>\"%s\"</strong> šią savaitę. Bandykite "
-"ieškoti kitą savaitę."
 
-#: ../lib/template-classes/week.php:90
-#, php-format
-msgid ""
-"No results were found for events in or near <strong>\"%s\"</strong> this "
-"week. Try searching another week."
+#: ../src/views/pro/widgets/countdown-widget.php:28
+msgid "min"
+msgstr "min"
+
+#: ../src/Tribe/Recurrence/Queue_Realtime.php:81
+msgid "Unable to continue processing recurring event data. Please reload this page to continue/try again."
 msgstr ""
-"Nieko nebuvo rasta šioje ar atimiausioje <strong>\"%s\"</strong> savaitėje. "
-"Pabandykite ieškoti kitos savaitės."
 
-#: ../lib/template-classes/week.php:97
-msgid "No results were found for this week. Try searching another week."
-msgstr "Šioje savaitėje nieko nerasta. Pabandykite ieškoti kitoje savaitėje."
+#: ../src/views/pro/widgets/countdown-widget.php:33
+msgid "sec"
+msgstr "sek"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:104
+#: ../src/Tribe/Recurrence_Meta.php:119
 msgid "Edit Series"
 msgstr "Redaguoti seriją"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:110
+#: ../src/views/pro/widgets/list-widget.php:57
+msgid "View More&hellip;"
+msgstr "Peržiūrėti daugiau&hellip;"
+
+#: ../src/Tribe/Recurrence_Meta.php:125
 msgid "Break from Series"
 msgstr "Atskirti nuo serijos"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:120
+#: ../src/views/pro/widgets/list-widget.php:65
+msgid "There are no upcoming %s at this time."
+msgstr ""
+
+#: ../src/Tribe/Recurrence_Meta.php:135
 msgid "Edit Future Events"
 msgstr "Redaguoti būsimus renginius"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:141
+#: ../src/views/pro/widgets/modules/single-event.php:79
+msgid "Organizer:"
+msgstr "Organizatorius:"
+
+#: ../src/Tribe/Recurrence_Meta.php:157
 msgid "—"
 msgstr "—"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:169
+#: ../src/views/pro/widgets/venue-widget.php:36
+msgid "No upcoming %s."
+msgstr ""
+
+#: ../src/Tribe/Recurrence_Meta.php:186
 msgid "Break this event out of its series and edit it independently"
 msgstr "Atskirti šį renginį nuo serijos ir redaguoti jį atskirai"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:169
+#: ../src/views/pro/widgets/venue-widget.php:59
+msgid "View all %s at this %s"
+msgstr ""
+
+#: ../src/Tribe/Recurrence_Meta.php:186
 msgid "Edit Single"
 msgstr "Redaguoti vieną"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:171
-msgid ""
-"Split the series in two at this point, creating a new series out of this and "
-"all subsequent events"
-msgstr ""
-"Šiame taške padalinti seriją į dvi dalis, sukuriant naują seriją iš šio ir "
-"visų kitų prieš buvusių renginių"
+#: ../src/Tribe/Recurrence_Meta.php:188
+msgid "Split the series in two at this point, creating a new series out of this and all subsequent events"
+msgstr "Šiame taške padalinti seriją į dvi dalis, sukuriant naują seriją iš šio ir visų kitų prieš buvusių renginių"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:171
+#: ../src/Tribe/Recurrence_Meta.php:188
 msgid "Edit Upcoming"
 msgstr "Redaguoti artimiausią"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:177
+#: ../src/Tribe/Recurrence_Meta.php:194
 msgid "Edit all events in this series"
 msgstr "Redaguoti visus renginius šioje serijoje"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:177
+#: ../src/Tribe/Recurrence_Meta.php:194
 msgid "Edit All"
 msgstr "Redaguoti visus"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:182
+#: ../src/Tribe/Recurrence_Meta.php:199
 msgid "Move all events in this series to the Trash"
 msgstr "Perkelti visus šios serijos renginius į šiukšledėžę"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:182
+#: ../src/Tribe/Recurrence_Meta.php:199
 msgid "Trash Series"
 msgstr "Išmesti seriją į šiukšliadėžę"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:185
+#: ../src/Tribe/Recurrence_Meta.php:202
 msgid "Delete all events in this series permanently"
 msgstr "Ištrinti visus šios serijos renginius negrįžtamai"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:185
+#: ../src/Tribe/Recurrence_Meta.php:202
 msgid "Delete Series Permanently"
 msgstr "Ištrinti seriją negrįžtamai"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:191
+#: ../src/Tribe/Recurrence_Meta.php:208
 msgid "Restore all events in this series from the Trash"
 msgstr "Atstatyti visus šios serijos renginius iš šiukšledežės"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:191
+#: ../src/Tribe/Recurrence_Meta.php:208
 msgid "Restore Series"
 msgstr "Atstatyti seriją"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:540
-msgid ""
-"Monthly custom recurrences cannot have a dash set as the day to occur on."
-msgstr ""
-"Mėnesiniuose pasirinktiniuose pasikartojamuose negali būti brūkšnelis tą "
-"dieną kada jie įvyks. "
+#: ../src/Tribe/Recurrence_Meta.php:582
+msgid "Monthly custom recurrences cannot have a dash set as the day to occur on."
+msgstr "Mėnesiniuose pasirinktiniuose pasikartojamuose negali būti brūkšnelis tą dieną kada jie įvyks. "
 
-#: ../lib/tribe-events-recurrence-meta.class.php:543
-msgid ""
-"Yearly custom recurrences cannot have a dash set as the day to occur on."
-msgstr ""
-"Kasmetiniuose pasirinktiniuose pasikartojamuose negali būti brūkšnelis tą "
-"dieną kada jie įvyks. "
+#: ../src/Tribe/Recurrence_Meta.php:585
+msgid "Yearly custom recurrences cannot have a dash set as the day to occur on."
+msgstr "Kasmetiniuose pasirinktiniuose pasikartojamuose negali būti brūkšnelis tą dieną kada jie įvyks. "
 
-#: ../lib/tribe-events-recurrence-meta.class.php:838
-#: ../lib/tribe-events-recurrence-meta.class.php:853
+#: ../src/Tribe/Recurrence_Meta.php:905 ../src/Tribe/Recurrence_Meta.php:920
 msgid "Every day"
 msgstr "Kiekvieną dieną"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:839
-#, php-format
+#: ../src/Tribe/Recurrence_Meta.php:906
 msgid " for %d day"
 msgid_plural " for %d days"
 msgstr[0] "%d dienai"
 msgstr[1] "%d dienom"
 msgstr[2] "%d dienų"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:842
-#: ../lib/tribe-events-recurrence-meta.class.php:858
+#: ../src/Tribe/Recurrence_Meta.php:909 ../src/Tribe/Recurrence_Meta.php:925
 msgid "Every week"
 msgstr "Kiekvieną savaitę"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:843
-#, php-format
+#: ../src/Tribe/Recurrence_Meta.php:910
 msgid " for %d week"
 msgid_plural " for %d weeks"
 msgstr[0] "%d savaitei"
 msgstr[1] "%d savaitėm"
 msgstr[2] "%d savaičių"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:845
-#: ../lib/tribe-events-recurrence-meta.class.php:864
+#: ../src/Tribe/Recurrence_Meta.php:912 ../src/Tribe/Recurrence_Meta.php:931
 msgid "Every month"
 msgstr "Kiekvieną mėnesį"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:846
-#, php-format
+#: ../src/Tribe/Recurrence_Meta.php:913
 msgid " for %d month"
 msgid_plural " for %d months"
 msgstr[0] "%d mėnesiui"
 msgstr[1] "%d mėnesiams"
 msgstr[2] "%d mėnesių"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:848
-#: ../lib/tribe-events-recurrence-meta.class.php:871
+#: ../src/Tribe/Recurrence_Meta.php:915 ../src/Tribe/Recurrence_Meta.php:938
 msgid "Every year"
 msgstr "Kiekvienais metais"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:849
-#, php-format
+#: ../src/Tribe/Recurrence_Meta.php:916
 msgid " for %d year"
 msgid_plural " for %d years"
 msgstr[0] "%d metams"
 msgstr[1] "%d metams"
 msgstr[2] "%d metų"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:854
-#, php-format
+#: ../src/Tribe/Recurrence_Meta.php:921
 msgid "Every %d days"
 msgstr "Kas %d dienas(ų)"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:855
-#: ../lib/tribe-events-recurrence-meta.class.php:861
-#: ../lib/tribe-events-recurrence-meta.class.php:868
-#: ../lib/tribe-events-recurrence-meta.class.php:880
-#, php-format
+#: ../src/Tribe/Recurrence_Meta.php:922 ../src/Tribe/Recurrence_Meta.php:928
+#: ../src/Tribe/Recurrence_Meta.php:935 ../src/Tribe/Recurrence_Meta.php:947
 msgid ", recurring %d time"
 msgid_plural ", recurring %d times"
 msgstr[0] ", pasikartojantis %d kartą"
 msgstr[1] ", pasikartojantis %d kartus"
 msgstr[2] ", pasikartojantis %d kartų"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:859
-#, php-format
+#: ../src/Tribe/Recurrence_Meta.php:926
 msgid "Every %d weeks"
 msgstr "Kas %d savaites(ių)"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:860
-#, php-format
+#: ../src/Tribe/Recurrence_Meta.php:927
 msgid " on %s"
 msgstr "%s"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:865
-#, php-format
+#: ../src/Tribe/Recurrence_Meta.php:932
 msgid "Every %d months"
 msgstr "Kas %d mėnesius(ių)"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:867
-#, php-format
+#: ../src/Tribe/Recurrence_Meta.php:934
 msgid " on the %s %s"
 msgstr "%s %s"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:872
-#, php-format
+#: ../src/Tribe/Recurrence_Meta.php:934
+msgid "day"
+msgstr "diena"
+
+#: ../src/Tribe/Recurrence_Meta.php:939
 msgid "Every %d years"
 msgstr "Kas %d metus(ų)"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:874
+#: ../src/Tribe/Recurrence_Meta.php:941
 msgid "last"
 msgstr "paskutinis"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:879
-#, php-format
+#: ../src/Tribe/Recurrence_Meta.php:946
 msgid " on the %s %s of %s"
 msgstr "%s %s iš %s"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:886
-#, php-format
+#: ../src/Tribe/Recurrence_Meta.php:953
 msgid " until %s"
 msgstr "iki %s"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:893
-#, php-format
+#: ../src/Tribe/Recurrence_Meta.php:960
 msgid "%s%s%s"
 msgstr "%s%s%s"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:908
+#: ../src/Tribe/Recurrence_Meta.php:972
+#: ../src/admin-views/event-recurrence.php:85
+#: ../src/admin-views/event-recurrence.php:142
+msgid "Monday"
+msgstr "Pirmadienis"
+
+#: ../src/Tribe/Recurrence_Meta.php:973
+#: ../src/admin-views/event-recurrence.php:86
+#: ../src/admin-views/event-recurrence.php:143
+msgid "Tuesday"
+msgstr "Antradienis"
+
+#: ../src/Tribe/Recurrence_Meta.php:974
+#: ../src/admin-views/event-recurrence.php:87
+#: ../src/admin-views/event-recurrence.php:144
+msgid "Wednesday"
+msgstr "Trečiadienis"
+
+#: ../src/Tribe/Recurrence_Meta.php:975
+#: ../src/admin-views/event-recurrence.php:88
+#: ../src/admin-views/event-recurrence.php:145
+msgid "Thursday"
+msgstr "Ketvirtadienis"
+
+#: ../src/Tribe/Recurrence_Meta.php:976
+#: ../src/admin-views/event-recurrence.php:89
+#: ../src/admin-views/event-recurrence.php:146
+msgid "Friday"
+msgstr "Penktadienis"
+
+#: ../src/Tribe/Recurrence_Meta.php:977
+#: ../src/admin-views/event-recurrence.php:90
+#: ../src/admin-views/event-recurrence.php:147
+msgid "Saturday"
+msgstr "Šeštadienis"
+
+#: ../src/Tribe/Recurrence_Meta.php:978
+#: ../src/admin-views/event-recurrence.php:91
+#: ../src/admin-views/event-recurrence.php:148
+msgid "Sunday"
+msgstr "Sekmadienis"
+
+#: ../src/Tribe/Recurrence_Meta.php:985
 msgid ", and"
 msgstr ", ir"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:910
+#: ../src/Tribe/Recurrence_Meta.php:987
 msgid "and"
 msgstr "ir"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:912
+#: ../src/Tribe/Recurrence_Meta.php:989
 msgid ","
 msgstr ","
 
-#: ../lib/tribe-events-recurrence-meta.class.php:927
+#: ../src/Tribe/Recurrence_Meta.php:1007
 msgid "January"
 msgstr "Sausis"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:927
+#: ../src/Tribe/Recurrence_Meta.php:1008
 msgid "February"
 msgstr "Vasaris"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:927
+#: ../src/Tribe/Recurrence_Meta.php:1009
 msgid "March"
 msgstr "Kovas"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:927
+#: ../src/Tribe/Recurrence_Meta.php:1010
 msgid "April"
 msgstr "Balandis"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:928
+#: ../src/Tribe/Recurrence_Meta.php:1011
 msgid "May"
 msgstr "Gegužė"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:928
+#: ../src/Tribe/Recurrence_Meta.php:1012
 msgid "June"
 msgstr "Birželis"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:928
+#: ../src/Tribe/Recurrence_Meta.php:1013
 msgid "July"
 msgstr "Liepa"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:928
+#: ../src/Tribe/Recurrence_Meta.php:1014
 msgid "August"
 msgstr "Rugpjūtis"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:928
+#: ../src/Tribe/Recurrence_Meta.php:1015
 msgid "September"
 msgstr "Rugsėjis"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:928
+#: ../src/Tribe/Recurrence_Meta.php:1016
 msgid "October"
 msgstr "Spalis"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:928
+#: ../src/Tribe/Recurrence_Meta.php:1017
 msgid "November"
 msgstr "Lapkritis"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:928
+#: ../src/Tribe/Recurrence_Meta.php:1018
 msgid "December"
 msgstr "Gruodis"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:934
+#: ../src/Tribe/Recurrence_Meta.php:1025
 msgid ", and "
 msgstr ", ir"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:936
+#: ../src/Tribe/Recurrence_Meta.php:1027
 msgid " and "
 msgstr "ir"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:938
+#: ../src/Tribe/Recurrence_Meta.php:1029
 msgid ", "
 msgstr ","
 
-#: ../lib/tribe-events-recurrence-meta.class.php:1002
+#: ../src/Tribe/Recurrence_Meta.php:1106
 msgid "Recurring event instances"
 msgstr "Pasikartojančio renginio atvejai"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:1003
-msgid ""
-"Show only the first instance of each recurring event (only affects list-"
-"style views)."
-msgstr ""
-"Rodyti tik pirmą pasikartojančio renginio pavyzdį (paveiks tik sąrašo "
-"rodymą)."
+#: ../src/Tribe/Recurrence_Meta.php:1107
+msgid "Show only the first instance of each recurring event (only affects list-style views)."
+msgstr "Rodyti tik pirmą pasikartojančio renginio pavyzdį (paveiks tik sąrašo rodymą)."
 
-#: ../lib/tribe-events-recurrence-meta.class.php:1009
+#: ../src/Tribe/Recurrence_Meta.php:1113
 msgid "Front-end recurring event instances toggle"
 msgstr "Išorinis pasikartojančių renginių jungiklis "
 
-#: ../lib/tribe-events-recurrence-meta.class.php:1010
-msgid ""
-"Allow users to decide whether to show all instances of a recurring event."
-msgstr ""
-"Leisti vartotojams nuspręsti, ar rodyti visus pasikartojančio renginio "
-"pavyzdžius."
+#: ../src/Tribe/Recurrence_Meta.php:1114
+msgid "Allow users to decide whether to show all instances of a recurring event."
+msgstr "Leisti vartotojams nuspręsti, ar rodyti visus pasikartojančio renginio pavyzdžius."
 
-#: ../lib/tribe-events-recurrence-meta.class.php:1017
+#: ../src/Tribe/Recurrence_Meta.php:1121
 msgid "Clean up recurring events after"
 msgstr "Išvalyti pasikartojančius renginius po"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:1018
+#: ../src/Tribe/Recurrence_Meta.php:1122
 msgid "Automatically remove recurring event instances older than this"
-msgstr ""
-"Automatiškai pašalinti pasikartojančių įvykių atvejus senesnius nei šis"
+msgstr "Automatiškai pašalinti pasikartojančių įvykių atvejus senesnius nei šis"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:1025
+#: ../src/Tribe/Recurrence_Meta.php:1129
 msgid "Create recurring events in advance for"
 msgstr "Iš anksto sukurti pasikartojančius įvykius"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:1026
+#: ../src/Tribe/Recurrence_Meta.php:1130
 msgid "Recurring events will be created this far in advance"
 msgstr "Pasikartojantys įvykiai iki šiol bus sukurti iš anksto"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:1047
+#: ../src/Tribe/Recurrence_Meta.php:1151
 msgid " months"
 msgstr " mėnesiai"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:1138
+#: ../src/Tribe/Recurrence_Meta.php:1246
 msgid "You are currently editing all events in a recurring series."
 msgstr "Šiuo metu jūs redaguojate visus pasikartojančius serijos renginius."
 
-#: ../lib/tribe-events-recurrence-meta.class.php:1146
-#, php-format
-msgid ""
-"%d instances of this event have been created through %s. <a href=\"%s"
-"\">Learn more.</a>"
-msgstr ""
-"%d šio renginio pavyzdžiai buvo sukurti per %s. <a href=\"%s\">Sužinokite "
-"daugiau.</a>"
+#: ../src/Tribe/Recurrence_Meta.php:1254
+msgid "%d instances of this event have been created through %s. <a href=\"%s\">Learn more.</a>"
+msgstr "%d šio renginio pavyzdžiai buvo sukurti per %s. <a href=\"%s\">Sužinokite daugiau.</a>"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:1157
+#: ../src/Tribe/Recurrence_Meta.php:1265
 msgid ""
 "You are about to split this series in two.\n"
 "\n"
-"The event you selected and all subsequent events in the series will be "
-"separated into a new series of events that you can edit independently of the "
-"original series.\n"
+"The event you selected and all subsequent events in the series will be separated into a new series of events that you can edit independently of the original series.\n"
 "\n"
 "This action cannot be undone."
 msgstr ""
 "Jūs ruošiatės išskaidyti šią seriją į dvi.\n"
 "\n"
-"Renginys kurį pasirinkote ir visi kiti renginiai prieš jį šioje serijoje bus "
-"atskirti į nauja renginių seriją kuriuos galėsite redaguoti nepriklausomai "
-"nuo originalios serijos.\n"
+"Renginys kurį pasirinkote ir visi kiti renginiai prieš jį šioje serijoje bus atskirti į nauja renginių seriją kuriuos galėsite redaguoti nepriklausomai nuo originalios serijos.\n"
 "\n"
 "Šis veiksmas negali būti atšauktas."
 
-#: ../lib/tribe-events-recurrence-meta.class.php:1158
+#: ../src/Tribe/Recurrence_Meta.php:1266
 msgid ""
 "You are about to break this event out of its series.\n"
 "\n"
@@ -1548,397 +749,806 @@ msgstr ""
 "\n"
 "Šis veiksmas negali būti atšauktas."
 
-#: ../lib/tribe-events-recurrence-meta.class.php:1159
+#: ../src/Tribe/Recurrence_Meta.php:1267
 msgid "Are you sure you want to trash all occurrences of these events?"
-msgstr ""
-"Ar tikrai norite išmesti į šiukšlinę visus šiuos įvykių pasikartojimus?"
+msgstr "Ar tikrai norite išmesti į šiukšlinę visus šiuos įvykių pasikartojimus?"
 
-#: ../lib/tribe-geoloc.class.php:99
-msgid "Distance"
-msgstr "Atstumas"
+#: ../src/Tribe/Single_Event_Meta.php:161
+#: ../src/views/pro/modules/meta/additional-fields.php:18
+msgid "Other"
+msgstr "Kiti"
 
-#: ../lib/tribe-geoloc.class.php:131
-msgid "Map view search distance limit"
-msgstr "Žemėlapio peržiūros paieškos atstumo riba"
+#: ../src/Tribe/Single_Event_Meta.php:188
+msgid "Recurrence Pattern:"
+msgstr "Pasikartojimo modelis:"
 
-#: ../lib/tribe-geoloc.class.php:133
-msgid ""
-"Set the distance that the location search covers (find events within X "
-"distance units of location search input)."
-msgstr ""
-"Nustatyti vietovės paieškos apimanti atstumą (surasti renginius X atstumu "
-"nuo vietovės paieškos įvesties vieneto)."
+#: ../src/Tribe/Templates/Map.php:91
+msgid "No results were found for events in or near <strong>\"%s\"</strong>."
+msgstr "Nebuvo rasta jokių renginių šioje ar artimiausioje <strong>\"%s\"</strong>."
 
-#: ../lib/tribe-geoloc.class.php:139
-msgid "Map view distance unit"
-msgstr "Distancijos vienetas žemėlapio peržiūrai"
+#: ../src/Tribe/Templates/Map.php:93 ../src/Tribe/Templates/Week.php:199
+msgid "No matching events listed under %s. Please try viewing the full calendar for a complete list of events."
+msgstr "Nėra atitinkančių įvykiu sąraše %s. Bandykite peržiūrėti visą kalendorių visam renginių sąrašui."
 
-#: ../lib/tribe-geoloc.class.php:147
-msgid "Fix geolocation data"
-msgstr "Fiksuoti geografiniai duomenys"
+#: ../src/Tribe/Templates/Map.php:95
+msgid "There were no results found."
+msgstr "Jokių rezultatų nerasta."
 
-#: ../lib/tribe-geoloc.class.php:147
-#, php-format
-msgid ""
-"You have %d venues for which we don't have geolocation data. We need to use "
-"the Google Maps API to get that information. Doing this may take a while "
-"(aprox. 1 minute for every 200 venues)."
-msgstr ""
-"Turite %d vietas apie kurias mes neturime geografinės informacijos. Mums "
-"reikia panaudoti Google žemėlapių  programėlę, kad gauti informacijos. Tai "
-"gali užtrukti (apie 1 minutę 200 vietų)."
+#: ../src/Tribe/Templates/Week.php:194
+msgid "There were no results found for <strong>\"%s\"</strong> this week. Try searching another week."
+msgstr "Nerasta jokių rezultatų <strong>\"%s\"</strong> šią savaitę. Bandykite ieškoti kitą savaitę."
 
-#: ../lib/tribe-geoloc.class.php:156
-msgid "Hide location search"
-msgstr "Paslėpti vietovės paiešką"
+#: ../src/Tribe/Templates/Week.php:196
+msgid "No results were found for events in or near <strong>\"%s\"</strong> this week. Try searching another week."
+msgstr "Nieko nebuvo rasta šioje ar atimiausioje <strong>\"%s\"</strong> savaitėje. Pabandykite ieškoti kitos savaitės."
 
-#: ../lib/tribe-geoloc.class.php:157
-msgid ""
-"Removes location search field from the events bar on all views except for "
-"map view."
-msgstr ""
-"Pašalina vietos paieškos lauką iš įvykių juostos visuose rodiniuose, "
-"išskyrus žemėlapio rodinį."
+#: ../src/Tribe/Templates/Week.php:201
+msgid "No results were found for this week. Try searching another week."
+msgstr "Šioje savaitėje nieko nerasta. Pabandykite ieškoti kitoje savaitėje."
 
-#: ../lib/tribe-geoloc.class.php:209
-msgid "Map"
-msgstr "Žemėlapis"
-
-#: ../lib/tribe-geoloc.class.php:239
-msgid "Near"
-msgstr "Netoli"
-
-#: ../lib/tribe-geoloc.class.php:240
-msgid "Location"
-msgstr "Vietovė"
-
-#: ../lib/tribe-geoloc.class.php:676
-msgid "Fix venues data"
-msgstr "Fiksuoti vietų duomenys"
-
-#: ../lib/tribe-geoloc.class.php:710
-#, php-format
-msgid ""
-"You have venues for which we don't have Geolocation information. <a "
-"href='%s'>Click here to generate it</a>."
-msgstr ""
-"Jūs turite vietas apie kurias mes neturime geografinės informacijos. <a "
-"href='%s'>Spustelėkite čia, jei norite sugeneruoti tai</a>."
-
-#: ../lib/tribe-geoloc.class.php:736
-#, php-format
-msgid "Fixed geolocation data for %d venues"
-msgstr "Fiksuoti geografiniai duomenys %d vietoms"
-
-#: ../lib/widget-advanced-list.class.php:20
-msgid "A widget that displays the next upcoming x events."
-msgstr "Valdiklis kuris atvaizduoja kitus artėjančius x renginius."
-
-#: ../lib/widget-advanced-list.class.php:24
-msgid "Events List"
-msgstr "Renginių sąrašas"
-
-#: ../lib/widget-calendar.class.php:8
-msgid "The events calendar mini calendar widget"
-msgstr "Renginių kalendoriaus mini kalendoriaus valdiklis"
-
-#: ../lib/widget-calendar.class.php:10 ../lib/widget-calendar.class.php:34
-#: ../lib/widget-calendar.class.php:70
-msgid "Events Calendar"
-msgstr "Renginių kalendorius"
-
-#: ../lib/widget-countdown.class.php:13
-msgid "Displays the time remaining until a specified event."
-msgstr "Rodomas likęs laikas iki nurodytų renginių."
-
-#: ../lib/widget-countdown.class.php:15
-msgid "Events Countdown"
-msgstr "Renginių laiko skaičiavimas atgal"
-
-#: ../lib/widget-venue.class.php:12
+#: ../src/Tribe/Venue_Widget.php:16
 msgid "Displays a list of upcoming events at a specific venue."
 msgstr "Rodo sąrašą artėjančių įvykių konkrečioje vietoje."
 
-#: ../lib/widget-venue.class.php:14
+#: ../src/Tribe/Venue_Widget.php:19
 msgid "Events Featured Venue"
 msgstr "Renginių apibrėžta vieta"
 
-#: ../public/template-tags/general.php:103
-msgid "Show only the first upcoming instance of recurring events"
-msgstr "Rodyti tik pirmus artėjančius pasikartojančių renginių pavyzdžius."
+#: ../src/admin-views/event-defaults.php:1
+msgid "Customize Defaults"
+msgstr "Tinkinti numatytąsias"
 
-#: ../public/template-tags/general.php:227
-#: ../public/template-tags/general.php:240
-#: ../public/template-tags/general.php:252
-#: ../public/template-tags/general.php:253
-#: ../public/template-tags/general.php:265
-#: ../public/template-tags/general.php:266
-#: ../public/template-tags/general.php:278
-#: ../public/template-tags/general.php:279
-#: ../public/template-tags/general.php:291
-#: ../public/template-tags/general.php:292
-#: ../public/template-tags/general.php:304
-#: ../public/template-tags/general.php:305
-#: ../public/template-tags/general.php:317
-#: ../public/template-tags/general.php:318
-#: ../public/template-tags/general.php:330
-#: ../public/template-tags/general.php:331
-msgid "No default set"
-msgstr "Joks numatytasis nenustatytas"
+#: ../src/admin-views/event-defaults.php:2
+msgid "These settings change the default event form. For example, if you set a default venue, this field will be automatically filled in on a new event."
+msgstr "Šie nustatymai keičia numatytąją įvykio formą. Pvz., jei nustatysite numatytąją vietą, šis laukas bus automatiškai užpildytas naujame renginyje."
 
-#: ../public/template-tags/general.php:229
-#, php-format
-msgid "The current default organizer is: %s"
-msgstr "Dabartinis numatytasis organizatorius yra: %s"
+#: ../src/admin-views/event-defaults.php:5
+#: ../src/admin-views/event-defaults.php:9
+#: ../src/admin-views/tribe-options-defaults.php:55
+msgid "Automatically replace empty fields with default values"
+msgstr "Automatiškai pakeisti tuščius laukus numatytomis reikšmėmis"
 
-#: ../public/template-tags/general.php:242
-#, php-format
-msgid "The current default venue is: %s"
-msgstr "Dabartinė numatytoji vieta yra: %s"
+#: ../src/admin-views/event-defaults.php:13
+msgid "Enabled"
+msgstr "Įjungtas"
 
-#: ../public/template-tags/general.php:255
-#, php-format
-msgid "The current default address is: %s"
-msgstr "Dabartinis numatytasis adresas yra: %s"
+#: ../src/admin-views/event-defaults.php:19
+msgid "Default Organizer for Events"
+msgstr "Numatytasis renginių organizatorius"
 
-#: ../public/template-tags/general.php:268
-#, php-format
-msgid "The current default city is: %s"
-msgstr "Dabartinis numatytasis miestas yra: %s"
+#: ../src/admin-views/event-defaults.php:22
+msgid "Default Organizer"
+msgstr "Numatytasis organizatorius"
 
-#: ../public/template-tags/general.php:281
-#, php-format
-msgid "The current default state is: %s"
-msgstr "Dabartinė numatytoji valstija yra: %s"
+#: ../src/admin-views/event-defaults.php:23
+msgid "The default organizer value"
+msgstr "Numatytoji organizatoriaus reikšmė"
 
-#: ../public/template-tags/general.php:294
-#, php-format
-msgid "The current default province is: %s"
-msgstr "Dabartinė numatytoji provincija yra: %s"
+#: ../src/admin-views/event-defaults.php:23
+#: ../src/admin-views/event-defaults.php:32
+#: ../src/admin-views/event-defaults.php:42
+#: ../src/admin-views/event-defaults.php:52
+#: ../src/admin-views/event-defaults.php:76
+#: ../src/admin-views/event-defaults.php:87
+#: ../src/admin-views/event-defaults.php:98
+#: ../src/admin-views/event-defaults.php:127
+msgid "The current default value is <strong>%s</strong>"
+msgstr "Esame numatytoji reikšmė yra <strong>%s</strong>"
 
-#: ../public/template-tags/general.php:307
-#, php-format
-msgid "The current default postal code/zip code is: %s"
-msgstr "Dabartinis numatytasis pašto kodas yra: %s"
+#: ../src/admin-views/event-defaults.php:28
+msgid "Default Venue for Events"
+msgstr "Numatytoji renginių vieta"
 
-#: ../public/template-tags/general.php:320
-#, php-format
-msgid "The current default country is: %s"
-msgstr "Dabartinė numatytoji šalis yra: %s"
+#: ../src/admin-views/event-defaults.php:31
+msgid "Default Venue"
+msgstr "Numatytoji vieta"
 
-#: ../public/template-tags/general.php:333
-#, php-format
-msgid "The current default phone is: %s"
-msgstr "Dabartinis numatytasis tel.numeris yra: %s"
+#: ../src/admin-views/event-defaults.php:32
+msgid "The default venue value"
+msgstr "Numatytoji vietos reikšmė"
 
-#: ../public/template-tags/general.php:476
-#: ../public/template-tags/general.php:495
-msgid "Date out of range."
-msgstr "Netinkamo laikotarpio data."
+#: ../src/admin-views/event-defaults.php:37
+#: ../src/admin-views/event-defaults.php:40
+msgid "Default Address"
+msgstr "Numatytasis adresas"
 
-#: ../public/template-tags/general.php:591
-msgid "Recurring Event"
-msgstr "Pasikartojantis renginys"
+#: ../src/admin-views/event-defaults.php:41
+msgid "The default address value"
+msgstr "Numatyta adreso reikšmė"
 
-#: ../public/template-tags/general.php:594
-msgid "(See all)"
-msgstr "(Žiūrėti visus)"
+#: ../src/admin-views/event-defaults.php:47
+#: ../src/admin-views/event-defaults.php:50
+msgid "Default City"
+msgstr "Numatytasis miestas"
 
-#: ../public/template-tags/week.php:237
-msgid "<span>&laquo;</span> Previous Week"
-msgstr "<span>&laquo;</span> Praėjusi savaitė"
+#: ../src/admin-views/event-defaults.php:51
+msgid "The default city value"
+msgstr "Numatyta miesto reikšmė"
 
-#: ../public/template-tags/week.php:253
-msgid "Next Week <span>&raquo;</span>"
-msgstr "Sekanti savaitė <span>&raquo;</span>"
+#: ../src/admin-views/event-defaults.php:58
+msgid "Default State"
+msgstr "Numatytoji valstija"
 
-#: ../vendor/advanced-post-manager/demo/demo.php:30
-#, php-format
-msgid ""
-"It looks like you might not have any demo data. <a href=\"%s\">Download our "
-"data</a> and use the <a href=\"%s\">WordPress Importer</a>."
+#: ../src/admin-views/event-defaults.php:61
+#: ../src/admin-views/event-defaults.php:85
+msgid "Default Province or State"
+msgstr "Numatytoji provincija arba valstija"
+
+#: ../src/admin-views/event-defaults.php:64
+msgid "Select a State:"
+msgstr "Pasirinkite valstiją:"
+
+#: ../src/admin-views/event-defaults.php:75
+#: ../src/admin-views/event-defaults.php:86
+msgid "The default  value"
+msgstr "Numatytoji reikšmė"
+
+#: ../src/admin-views/event-defaults.php:82
+msgid "Default Province"
+msgstr "Numatytoji provincija"
+
+#: ../src/admin-views/event-defaults.php:93
+#: ../src/admin-views/event-defaults.php:96
+msgid "Default Postal Code"
+msgstr "Numatytasis pašto kodas"
+
+#: ../src/admin-views/event-defaults.php:97
+msgid "The default Postal Code value"
+msgstr "Numatytoji pašto kodo reikšmė"
+
+#: ../src/admin-views/event-defaults.php:104
+msgid "Default Country for Events"
+msgstr "Numatytoji šalis renginiams"
+
+#: ../src/admin-views/event-defaults.php:122
+#: ../src/admin-views/event-defaults.php:125
+msgid "Default Phone"
+msgstr "Numatytasis telefono nr."
+
+#: ../src/admin-views/event-defaults.php:126
+msgid "The default phone value"
+msgstr "Numatytoji telefono nr. reikšmė"
+
+#: ../src/admin-views/event-defaults.php:132
+#: ../src/admin-views/tribe-options-defaults.php:198
+msgid "Use a custom list of countries"
+msgstr "Naudoti tinkintą šalių sąrašą"
+
+#: ../src/admin-views/event-defaults.php:135
+msgid "Use the following list:"
+msgstr "Naudoti šį sąrašą:"
+
+#: ../src/admin-views/event-defaults.php:138
+msgid "One country per line in the following format: <br/>US, United States <br/> UK, United Kingdom."
+msgstr "Viena šalis eilutėje šiuo formatu: <br>JAV, Jungtinės Amerikos Valstijos <br> JK, Jungtinė Karalystė."
+
+#: ../src/admin-views/event-defaults.php:138
+msgid "(Replaces the default list.)"
+msgstr "(Pakeisti numatytąjį sąrašą.)"
+
+#: ../src/admin-views/event-meta-options.php:5
+msgid "Use additional fields to add unique content fields to the event admin, which can be used by anyone who creates events. Upon publication they'll appear in the event metabox that accompanies your event listing, alongside the date/time/venue/organizer/etc. </p><p>Each new piece of data needs:"
+msgstr "Naudoti papildomus laukus, kad pridėti unikalius turinio laukus renginio administravimui, kurie gali būti naudojami bet kieno kas įvedinės renginius. Po paskelbimo jie bus rodomi renginio meta lauke kurie atsiras jūsų renginio sąraše, kartu su data/laiku/vieta/organizatoriumi ir t.t. </p><p>Visiems naujiems duomenims reikalingi:"
+
+#: ../src/admin-views/event-meta-options.php:7
+msgid "Label (e.g. Meal Plans)"
+msgstr "Etiketė (pvz. Maitinimosi planai)"
+
+#: ../src/admin-views/event-meta-options.php:8
+msgid "At least one option (e.g. Vegetarian, Kosher, Paleo)"
+msgstr "Bent vienas variantas (pvz. Vegetariškas, košerinis, Paleo)"
+
+#: ../src/admin-views/event-meta-options.php:9
+msgid "Field type. These are:"
+msgstr "Lauko tipas. Tai yra:"
+
+#: ../src/admin-views/event-meta-options.php:11
+msgid "Text - for the user to input text"
+msgstr "Tekstas - vartotojams įvesti tekstą"
+
+#: ../src/admin-views/event-meta-options.php:12
+msgid "Text Area - identical to a text field but providing a larger area for the user to input text"
 msgstr ""
-"Rodos, kad jūs neturite demonstracinių duomenų. <a href=\"%s\">Atsisiųskite "
-"mūsų duomenis</a> ir pasinaudokite <a href=\"%s\">WordPress Importer</a>."
 
-#: ../vendor/advanced-post-manager/lib/tribe-columns.class.php:43
-msgid "Column Name"
-msgstr "Stulpelio pavadinimas"
+#: ../src/admin-views/event-meta-options.php:13
+msgid "URL - for the user to input a URL"
+msgstr "URL - vartotojams įvesti URL"
 
-#: ../vendor/advanced-post-manager/lib/tribe-columns.class.php:133
-msgid "Add a Column"
-msgstr "Pridėti stulpelį"
+#: ../src/admin-views/event-meta-options.php:14
+msgid "Checkbox - for multiple choice"
+msgstr "Žymėjimas varnele - keliems pasirinkimams"
 
-#: ../vendor/advanced-post-manager/lib/tribe-columns.class.php:140
-msgid "Comments"
-msgstr "Komentarai"
+#: ../src/admin-views/event-meta-options.php:15
+msgid "Radio Button - to select only one"
+msgstr "Žymėjimas tašku - pasirinkti tik vieną"
 
-#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:65
-msgid "LIKE"
-msgstr "LIKE"
+#: ../src/admin-views/event-meta-options.php:16
+msgid "Dropdown Menu - for a dropdown menu"
+msgstr "Žemyn išlendantis meniu - žemyn išlendančiam meniu"
 
-#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:80
-msgid "Member Type"
-msgstr "Nario tipas"
+#: ../src/admin-views/event-meta-options.php:23
+msgid "Field Label"
+msgstr "Lauko pavadinimas"
 
-#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:84
-msgid "Cafe"
-msgstr "Kavinė"
+#: ../src/admin-views/event-meta-options.php:24
+msgid "Field Type"
+msgstr "Lauko tipoas"
 
-#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:85
-msgid "Private Desk"
-msgstr "Asmeninis darbalaukis"
+#: ../src/admin-views/event-meta-options.php:25
+msgid "Options (one per line)"
+msgstr "Nustatymai (po vieną į eilutę)"
 
-#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:86
-msgid "Office"
-msgstr "Biuras"
+#: ../src/admin-views/event-meta-options.php:48
+msgid "Text"
+msgstr "Tekstas"
 
-#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:93
-msgid "what i’m querying. probably a key in the options array in $filters"
-msgstr "ko aš užklausinėju. turbūt rakto %filters parinkčių masyve"
+#: ../src/admin-views/event-meta-options.php:49
+msgid "Text Area"
+msgstr ""
 
-#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:511
-msgid "Choose a Saved Filter"
-msgstr "Pasirinkite išsaugotą filtrą"
+#: ../src/admin-views/event-meta-options.php:50
+msgid "URL"
+msgstr "URL"
 
-#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:627
-msgid "Add a Filter"
-msgstr "Pridėti filtrą"
+#: ../src/admin-views/event-meta-options.php:51
+msgid "Radio"
+msgstr "Žymėjimas tašku"
 
-#: ../vendor/advanced-post-manager/lib/tribe-meta-box-helper.php:44
-msgid "Extended Information"
-msgstr "Išplėstinė informacija"
+#: ../src/admin-views/event-meta-options.php:52
+msgid "Checkbox"
+msgstr "Žymėjimas varnele"
 
-#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:114
-#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:385
-msgid "Delete this image"
-msgstr "Ištrinti šį paveikslėlį"
+#: ../src/admin-views/event-meta-options.php:65
+msgid "Enter the field label as you want it to appear (this will be the label in the same way \"Start Date,\" \"Organizer,\" etc appear in the event details box on the frontend). Select whether the field will be a text field; URL field; radio buttons; checkboxes; or a dropdown. All of these with the exception of text and URL allow for multiple options to be included, which you can add — one per-line — in the right-hand column. If you feel flummoxed, we've got you covered with a %s."
+msgstr "Įveskite laukelio pavadinimą kaip norite, kad būtų rodomas (tai bus taip pat atrodantis pavadinimas kaip ir \"Pradžios data,\"\"Organizatorius,\" ir t.t. atsiradęs renginio informacijos lauke vartotojo sąsajoje). Pažymėkite ar laukas bus teksto laukas; URL laukas; pasirinkimo laukas; žymėjimo langeliai; ar išplečiamas sąrašas. Visi šie, išskyrus tekstą ir URL leis įtraukti kelias parinktis, kurias galite pridėti po vieną į liniją dešiniajame stulpelyje. Jei jaučiatės sutrukęs, mes turime jums %s."
 
-#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:114
-#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:340
-#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:385
-msgid "Delete"
-msgstr "Ištrinti"
+#: ../src/admin-views/event-meta-options.php:66
+msgid "video tutorial that will walk you through the process"
+msgstr "video pamoka kuri praves jus per visus procesus"
 
-#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:337
-msgid "Uploaded files"
-msgstr "Įkelti failai"
+#: ../src/admin-views/event-meta-options.php:69
+msgid "Editor \"Custom Fields\" meta box"
+msgstr "Redaktorius \"Pasirinktiniai laukai\" meta dėžutė"
 
-#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:346
-msgid "Upload new files"
-msgstr "Įkelti naujus failus"
+#: ../src/admin-views/event-meta-options.php:71
+msgid "Show"
+msgstr "Rodyti"
 
-#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:349
-msgid "Add another file"
-msgstr "Pridėti dar vieną failą"
+#: ../src/admin-views/event-meta-options.php:73
+msgid "Hide"
+msgstr "Slėpti"
 
-#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:392
-msgid "Add more images"
-msgstr "Pridėti daugiau paveikslėlių"
+#: ../src/admin-views/event-meta-options.php:76
+msgid "Enabling this option this will not remove custom field data or functionality, just the default meta box editor."
+msgstr "Įjungus šią parinktį nebus pašalinti pasirinktinių laukų duomenys ar funkcionalumas, tik numatytasis meta langelio redaktorius."
 
-#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:400
-msgid "Select a color"
-msgstr "Pasirinkite spalvą"
+#: ../src/admin-views/event-meta-options.php:111
+msgid "Are you sure you wish to remove this field and its data from all events? Once you click OK this cannot be undone."
+msgstr "Ar jūs tikrai norite panaikinti šį lauką ir jo įrašus iš visų renginių? Kai tik paspausit GERAI, gražinti atgal nebebus galima."
 
-#: ../vendor/advanced-post-manager/views/edit-filters.php:7
-#: ../vendor/advanced-post-manager/views/edit-filters.php:8
-msgid "Click to toggle"
-msgstr "Spauskite, kad perjungtumėte"
+#: ../src/admin-views/event-meta.php:13
+msgid "Additional %s Fields"
+msgstr ""
 
-#: ../vendor/advanced-post-manager/views/edit-filters.php:8
-msgid "Filters &amp; Columns"
-msgstr "Filtrai ir stulpeliai"
+#: ../src/admin-views/event-recurrence.php:2
+msgid "Recurrence:"
+msgstr "Pasikartojimas:"
 
-#: ../vendor/advanced-post-manager/views/edit-filters.php:17
-msgid "Apply"
-msgstr "Taikyti"
+#: ../src/admin-views/event-recurrence.php:6
+msgid "event"
+msgstr "renginys"
 
-#: ../vendor/advanced-post-manager/views/edit-filters.php:18
-msgid "Clear"
-msgstr "Išvalyti"
+#: ../src/admin-views/event-recurrence.php:6
+msgid "events"
+msgstr "renginiai"
 
-#: ../vendor/advanced-post-manager/views/edit-filters.php:19
-#: ../vendor/advanced-post-manager/views/edit-filters.php:26
-msgid "Save"
-msgstr "Išsaugoti"
+#: ../src/admin-views/event-recurrence.php:7
+msgid "None"
+msgstr "Nė vienas"
 
-#: ../vendor/advanced-post-manager/views/edit-filters.php:21
-msgid "Export to CSV"
-msgstr "Eksportuoti į CSV"
+#: ../src/admin-views/event-recurrence.php:8
+msgid "Every Day"
+msgstr "Kiekvieną dieną"
 
-#: ../vendor/advanced-post-manager/views/edit-filters.php:25
-msgid "Filter Name"
-msgstr "Filtro pavadinimas"
+#: ../src/admin-views/event-recurrence.php:9
+msgid "Every Week"
+msgstr "Kiekvieną savaitę"
 
-#: ../vendor/advanced-post-manager/views/edit-filters.php:27
-msgid "Cancel"
-msgstr "Atšaukti"
+#: ../src/admin-views/event-recurrence.php:10
+msgid "Every Month"
+msgstr "Kiekvieną mėnesį"
 
-#: ../views/pro/map/nav.php:20 ../views/pro/photo/nav.php:20
-msgid "Events List Navigation"
-msgstr "Renginių sąrašo navigacija"
+#: ../src/admin-views/event-recurrence.php:11
+msgid "Every Year"
+msgstr "Kiekvienais metais"
 
-#: ../views/pro/map/nav.php:23 ../views/pro/photo/nav.php:23
-msgid "<span>&laquo;</span> Previous Events"
-msgstr "<span>&laquo;</span> Ankstesni renginiai"
+#: ../src/admin-views/event-recurrence.php:12
+msgid "Custom"
+msgstr "Pasirinktinis"
 
-#: ../views/pro/map/nav.php:30 ../views/pro/photo/nav.php:30
-msgid "Next Events <span>&raquo;</span>"
-msgstr "Kiti renginiai <span>&raquo;</span>"
+#: ../src/admin-views/event-recurrence.php:15
+msgid "and will end"
+msgstr "ir pasibaigs"
 
-#: ../views/pro/map/single-event.php:78
-msgid "Find out more"
-msgstr "Sužinokite daugiau"
+#: ../src/admin-views/event-recurrence.php:17
+msgid "On"
+msgstr " "
 
-#: ../views/pro/related-events.php:28
-msgid "Related Events"
-msgstr "Susiję renginiai"
+#: ../src/admin-views/event-recurrence.php:18
+msgid "After"
+msgstr "Po"
 
-#: ../views/pro/single-organizer.php:29 ../views/pro/single-venue.php:29
-msgid "&larr; Back to Events"
-msgstr "&larr; Atgal į renginius"
+#: ../src/admin-views/event-recurrence.php:19
+msgid "Never"
+msgstr "Niekada"
 
-#: ../views/pro/week/loop-grid-allday.php:28
-msgid "All Day"
-msgstr "Visą dieną"
+#: ../src/admin-views/event-recurrence.php:22
+#: ../src/admin-views/event-recurrence.php:41
+msgctxt "occurence count text"
+msgid "events"
+msgstr ""
 
-#: ../views/pro/week/loop-grid.php:17
-msgid "Hours"
-msgstr "Valandos"
+#: ../src/admin-views/event-recurrence.php:23
+msgid "You must select a recurrence end date"
+msgstr "Jūs turite pasirinkti pasikartojančios datos pabaigą"
 
-#: ../views/pro/week/nav.php:14
-msgid "Week Navigation"
-msgstr "Savaitės navigacija"
+#: ../src/admin-views/event-recurrence.php:30
+msgid "Frequency"
+msgstr "Dažnumas"
 
-#: ../views/pro/widgets/countdown-widget.php:22
-msgid "hours"
-msgstr "valandos"
+#: ../src/admin-views/event-recurrence.php:32
+msgid "Day(s)"
+msgstr "Diena(os)"
 
-#: ../views/pro/widgets/countdown-widget.php:26
-msgid "min"
-msgstr "min"
+#: ../events-calendar-pro.php:70
+msgid "The Events Calendar"
+msgstr "Renginių kalendorius"
 
-#: ../views/pro/widgets/countdown-widget.php:31
-msgid "sec"
-msgstr "sek"
+#: ../src/admin-views/event-recurrence.php:32
+msgid "Daily"
+msgstr "Kasdienis"
 
-#: ../views/pro/widgets/list-widget.php:97
-msgid "Organizer:"
-msgstr "Organizatorius:"
+#: ../events-calendar-pro.php:71
+msgid "To begin using Events Calendar PRO, please install the latest version of <a href=\"%s\" class=\"thickbox\" title=\"%s\">The Events Calendar</a>."
+msgstr "Kad pradėti naudotis Event Calendar PRO, prašome įsidiekite naujausią versiją <a href=\"%s\" class=\"thickbox\" title=\"%s\">The Events Calendar</a>."
 
-#: ../views/pro/widgets/list-widget.php:116
-msgid "View More&hellip;"
-msgstr "Peržiūrėti daugiau&hellip;"
+#: ../src/admin-views/event-recurrence.php:33
+msgid "Week(s) on:"
+msgstr "Savaitė(s):"
 
-#: ../views/pro/widgets/list-widget.php:123
-msgid "There are no upcoming events at this time."
-msgstr "Šiuo metu nėra artėjančių renginių."
+#: ../src/Tribe/APM_Filters/APM_Filters.php:55
+msgid "Start Date"
+msgstr "Pradžios data"
 
-#: ../views/pro/widgets/venue-widget.php:31
-msgid "No upcoming events."
-msgstr "Nėra artėjančių renginių."
+#: ../src/admin-views/event-recurrence.php:33
+msgid "Weekly"
+msgstr "Kas savaitę"
 
-#: ../views/pro/widgets/venue-widget.php:52
-#, php-format
-msgid "View all Events at this %s"
-msgstr "Peržiūrėti visus renginius šią %s"
+#: ../src/Tribe/APM_Filters/APM_Filters.php:60
+msgid "End Date"
+msgstr "Pabaigos data"
+
+#: ../src/admin-views/event-recurrence.php:34
+msgid "Month(s) on the:"
+msgstr "Mėnesį(ius):"
+
+#: ../src/Tribe/APM_Filters/APM_Filters.php:65
+msgid "Event Cost"
+msgstr "Renginio kaina"
+
+#: ../src/admin-views/event-recurrence.php:34
+msgid "Monthly"
+msgstr "Kas mėnesį"
+
+#: ../src/Tribe/APM_Filters/APM_Filters.php:70
+msgid "Event Cats"
+msgstr "Renginio kategorijos"
+
+#: ../src/admin-views/event-recurrence.php:35
+msgid "Year(s) on:"
+msgstr "Metai nuo:"
+
+#: ../src/Tribe/APM_Filters/APM_Filters.php:75
+msgid "Title"
+msgstr "Antraštė"
+
+#: ../src/admin-views/event-recurrence.php:35
+msgid "Yearly"
+msgstr "Kas metus"
+
+#: ../src/Tribe/APM_Filters/APM_Filters.php:80
+#: ../src/Tribe/Recurrence_Meta.php:147
+msgid "Recurring"
+msgstr "Pasikartojantis"
+
+#: ../src/admin-views/event-recurrence.php:37
+msgid "Every"
+msgstr "Kiekvieną"
+
+#: ../src/Tribe/APM_Filters/APM_Filters.php:85
+msgid "Description"
+msgstr "Apibūdinimas"
+
+#: ../src/admin-views/event-recurrence.php:42
+msgid "Frequency of recurring event must be a number"
+msgstr "Pasikartojančių įvykių dažnumas turi būti skaičius"
+
+#: ../src/Tribe/APM_Filters/APM_Filters.php:131
+msgid "Pssst! Looking for the filters? They live in a separate plugin now | <a href=\"%s\">Download for free</a>| <a href=\"%s\">Dismiss</a>"
+msgstr ""
+
+#: ../src/admin-views/event-recurrence.php:52
+msgid "M"
+msgstr "Pr"
+
+#: ../src/Tribe/APM_Filters/Date_Filter.php:13
+#: ../src/Tribe/APM_Filters/Title_Filter.php:15
+msgid "Is"
+msgstr "Yra"
+
+#: ../src/admin-views/event-recurrence.php:54
+msgid "Tu"
+msgstr "An"
+
+#: ../src/Tribe/APM_Filters/Date_Filter.php:14
+#: ../src/Tribe/APM_Filters/Title_Filter.php:16
+msgid "Is Not"
+msgstr "Nėra"
+
+#: ../src/admin-views/event-recurrence.php:56
+msgid "W"
+msgstr "Tr"
+
+#: ../src/Tribe/APM_Filters/Date_Filter.php:15
+msgid "On and After"
+msgstr "Dabar ir vėliau"
+
+#: ../src/admin-views/event-recurrence.php:58
+msgid "Th"
+msgstr "Kt"
+
+#: ../src/Tribe/APM_Filters/Date_Filter.php:16
+msgid "On and Before"
+msgstr "Dabar ir ankščiau"
+
+#: ../src/admin-views/event-recurrence.php:60
+msgid "F"
+msgstr "Pn"
+
+#: ../src/Tribe/APM_Filters/Recur_Filter.php:16
+#: ../src/Tribe/Recurrence_Meta.php:155
+msgid "Yes"
+msgstr "Taip"
+
+#: ../src/admin-views/event-recurrence.php:62
+msgid "Sa"
+msgstr "Št"
+
+#: ../src/Tribe/APM_Filters/Recur_Filter.php:17
+msgid "No"
+msgstr "Ne"
+
+#: ../src/admin-views/event-recurrence.php:64
+msgid "Su"
+msgstr "Sk"
+
+#: ../src/Tribe/APM_Filters/Title_Filter.php:14
+msgid "Search"
+msgstr "Paieška"
+
+#: ../src/admin-views/event-recurrence.php:73
+#: ../src/admin-views/event-recurrence.php:135
+msgid "First"
+msgstr "Pirmas"
+
+#: ../src/Tribe/Advanced_List_Widget.php:22
+msgid "A widget that displays the next upcoming x events."
+msgstr "Valdiklis kuris atvaizduoja kitus artėjančius x renginius."
+
+#: ../src/admin-views/event-recurrence.php:74
+#: ../src/admin-views/event-recurrence.php:136
+msgid "Second"
+msgstr "Antras"
+
+#: ../src/Tribe/Advanced_List_Widget.php:27
+msgid "Events List"
+msgstr "Renginių sąrašas"
+
+#: ../src/admin-views/event-recurrence.php:75
+#: ../src/admin-views/event-recurrence.php:137
+msgid "Third"
+msgstr "Trečias"
+
+#: ../src/Tribe/Advanced_List_Widget.php:116
+msgid "Upcoming Events"
+msgstr "Artėjantys renginiai"
+
+#: ../src/admin-views/event-recurrence.php:76
+#: ../src/admin-views/event-recurrence.php:138
+msgid "Fourth"
+msgstr "Ketvirtas"
+
+#: ../src/Tribe/Community_Modifications.php:43
+msgid "Recurrence End Date"
+msgstr ""
+
+#: ../src/admin-views/event-recurrence.php:77
+msgid "Fifth"
+msgstr "Penktas"
+
+#: ../src/Tribe/Community_Modifications.php:46
+msgid "Recurrence Count"
+msgstr ""
+
+#: ../src/admin-views/event-recurrence.php:78
+#: ../src/admin-views/event-recurrence.php:139
+msgid "Last"
+msgstr "Paskutinis"
+
+#: ../src/Tribe/Countdown_Widget.php:17
+msgid "Displays the time remaining until a specified event."
+msgstr "Rodomas likęs laikas iki nurodytų renginių."
+
+#: ../src/admin-views/event-recurrence.php:93
+#: ../src/admin-views/event-recurrence.php:150
+msgid "Day"
+msgstr "Diena"
+
+#: ../src/Tribe/Countdown_Widget.php:20
+msgid "Events Countdown"
+msgstr "Renginių laiko skaičiavimas atgal"
+
+#: ../src/admin-views/event-recurrence.php:133
+msgid "On the:"
+msgstr "Dėl:"
+
+#: ../src/Tribe/Custom_Meta.php:53
+msgid "Add another"
+msgstr "Pridėti kitą"
+
+#: ../src/admin-views/event-recurrence.php:158
+msgid "Description:"
+msgstr "Aprašymas:"
+
+#: ../src/Tribe/Custom_Meta.php:54
+msgid "Remove"
+msgstr "Pašalinti"
+
+#: ../src/admin-views/event-recurrence.php:166
+msgid "Recurrence Description:"
+msgstr "Pasikartojantis aprašymas:"
+
+#: ../src/Tribe/Geo_Loc.php:103
+msgid "Distance"
+msgstr "Atstumas"
+
+#: ../src/admin-views/event-recurrence.php:174
+msgid "Create a custom plain language description of the recurrence. Leave it blank and we'll automate it."
+msgstr "Sukurkite aprašymą pasikartojantiems renginiams. Palikite tuščią ir mes tai automatizuosime."
+
+#: ../src/Tribe/Geo_Loc.php:135
+msgid "Map view search distance limit"
+msgstr "Žemėlapio peržiūros paieškos atstumo riba"
+
+#: ../src/admin-views/tribe-options-defaults.php:6
+#: ../src/admin-views/tribe-options-defaults.php:15
+msgid "No Default"
+msgstr "Nėra numatytųjų"
+
+#: ../src/Tribe/Geo_Loc.php:137
+msgid "Set the distance that the location search covers (find events within X distance units of location search input)."
+msgstr "Nustatyti vietovės paieškos apimanti atstumą (surasti renginius X atstumu nuo vietovės paieškos įvesties vieneto)."
+
+#: ../src/admin-views/tribe-options-defaults.php:22
+msgid "Select a State"
+msgstr "Pasirinkite valstybę"
+
+#: ../src/Tribe/Geo_Loc.php:144
+msgid "Map view distance unit"
+msgstr "Distancijos vienetas žemėlapio peržiūrai"
+
+#: ../src/admin-views/tribe-options-defaults.php:39
+msgid "<p>Choose the default venue & organizer. Set default address information to save time when entering a new venue or organizer.</p><p>You can override these settings as you enter a new event.</p>"
+msgstr "<p>Pasirinkite numatytąją vietą ir organizatorių. Nustatykite numatytąjį adresą, kad sutaupyti laiko kai suvedinėjate naują vietą ar organizatorių.</p><p>Jūs galite perrašyti šiuos nustatymus kai įvedinėjate naują renginį.</p>"
+
+#: ../src/Tribe/Geo_Loc.php:149 ../src/Tribe/Geo_Loc_Filter.php:23
+msgid "Miles"
+msgstr "Mylios"
+
+#: ../src/admin-views/tribe-options-defaults.php:51
+msgid "Options"
+msgstr "Nustatymai"
+
+#: ../src/Tribe/Geo_Loc.php:150 ../src/Tribe/Geo_Loc_Filter.php:26
+msgid "Kilometers"
+msgstr "Kilometrai"
+
+#: ../src/admin-views/tribe-options-defaults.php:61
+msgid "Check this box to have the organizer and venue fields pre-populated with the default values below for any new event that is created."
+msgstr "Pažymėkite laukelį žemiau jei norite, kad organizatoriaus ir vietos laukeliai būtų užpildyti automatiškai numatytomis reikšmėmis kiekvienam naujai sukurtam renginiui."
+
+#: ../src/Tribe/Geo_Loc.php:155
+msgid "Fix geolocation data"
+msgstr "Fiksuoti geografiniai duomenys"
+
+#: ../src/admin-views/tribe-options-defaults.php:65
+#: ../src/admin-views/widget-admin-advanced-list.php:32
+msgid "Organizer"
+msgstr "Organizatorius"
+
+#: ../src/Tribe/Geo_Loc.php:155
+msgid "You have %d venues for which we don't have geolocation data. We need to use the Google Maps API to get that information. Doing this may take a while (aprox. 1 minute for every 200 venues)."
+msgstr "Turite %d vietas apie kurias mes neturime geografinės informacijos. Mums reikia panaudoti Google žemėlapių  programėlę, kad gauti informacijos. Tai gali užtrukti (apie 1 minutę 200 vietų)."
+
+#: ../src/admin-views/tribe-options-defaults.php:69
+msgid "Default organizer"
+msgstr "Numatytasis organizatorius"
+
+#: ../src/Tribe/Geo_Loc.php:164
+msgid "Hide location search"
+msgstr "Paslėpti vietovės paiešką"
+
+#: ../src/admin-views/tribe-options-defaults.php:73
+msgid "No saved organizers yet."
+msgstr "Kol kas nėra išsaugotų organizatorių."
+
+#: ../src/Tribe/Geo_Loc.php:165
+msgid "Removes location search field from the events bar on all views except for map view."
+msgstr "Pašalina vietos paieškos lauką iš įvykių juostos visuose rodiniuose, išskyrus žemėlapio rodinį."
+
+#: ../src/admin-views/tribe-options-defaults.php:82
+#: ../src/admin-views/widget-admin-advanced-list.php:31
+msgid "Venue"
+msgstr "Vieta"
+
+#: ../src/Tribe/Geo_Loc.php:221
+msgid "Map"
+msgstr "Žemėlapis"
+
+#: ../src/admin-views/tribe-options-defaults.php:86
+msgid "Default venue"
+msgstr "Numatytoji vieta"
+
+#: ../src/Tribe/Geo_Loc.php:255
+msgid "Near"
+msgstr "Netoli"
+
+#: ../src/admin-views/tribe-options-defaults.php:90
+msgid "No saved venues yet."
+msgstr "Kol kas nėra išsaugotų vietų."
+
+#: ../src/Tribe/Geo_Loc.php:256
+msgid "Location"
+msgstr "Vietovė"
+
+#: ../src/admin-views/tribe-options-defaults.php:99
+#: ../src/admin-views/widget-admin-advanced-list.php:33
+msgid "Address"
+msgstr "Adresas"
+
+#: ../src/Tribe/Geo_Loc.php:281
+msgid "Use latitude + longitude"
+msgstr ""
+
+#: ../src/admin-views/tribe-options-defaults.php:103
+msgid "You can use this setting to set specific, individual defaults for any new Venue you create (these will not be used for your default venue)."
+msgstr "Jūs galite naudoti šį parametrą nustatyti konkrečius, individualius numatytuosius bet kokiai naujai vietai kurią kuriate (tai nebus naudojama jūsų numatytajai vietai)."
+
+#: ../src/Tribe/Geo_Loc.php:285
+msgid "Latitude"
+msgstr ""
+
+#: ../src/admin-views/tribe-options-defaults.php:107
+msgid "Default address"
+msgstr "Numatytasis adresas"
+
+#: ../src/Tribe/Geo_Loc.php:286
+msgid "Longitude"
+msgstr ""
+
+#: ../src/admin-views/tribe-options-defaults.php:120
+msgid "Default city"
+msgstr "Numatytasis miestas"
+
+#: ../src/Tribe/Geo_Loc.php:745
+msgid "Fix venues data"
+msgstr "Fiksuoti vietų duomenys"
+
+#: ../src/admin-views/tribe-options-defaults.php:133
+msgid "Default state"
+msgstr "Numatytoji valstybė"
+
+#: ../src/Tribe/Geo_Loc.php:785
+msgid "You have venues for which we don't have Geolocation information. <a href='%s'>Click here to generate it</a>."
+msgstr "Jūs turite vietas apie kurias mes neturime geografinės informacijos. <a href='%s'>Spustelėkite čia, jei norite sugeneruoti tai</a>."
+
+#: ../src/admin-views/tribe-options-defaults.php:146
+msgid "Default province"
+msgstr "Numatytoji provincija"
+
+#: ../src/Tribe/Geo_Loc.php:812
+msgid "Fixed geolocation data for %d venues"
+msgstr "Fiksuoti geografiniai duomenys %d vietoms"
+
+#: ../src/admin-views/tribe-options-defaults.php:159
+msgid "Default postal code/zip code"
+msgstr "Numatytasis pašto kodas"
+
+#: ../src/Tribe/Geo_Loc_Filter.php:32
+msgid "%d %s"
+msgstr "%d %s"
+
+#: ../src/admin-views/tribe-options-defaults.php:172
+msgid "Default country"
+msgstr "Numatytoji šalis"
+
+#: ../src/Tribe/Geo_Loc_Filter.php:49
+msgid "Type: %s %s"
+msgstr "Rašykite: %s %s"
+
+#: ../src/admin-views/tribe-options-defaults.php:185
+msgid "Default phone"
+msgstr "Numatytasis telefono nr."
+
+#: ../src/Tribe/Geo_Loc_Filter.php:53
+#: ../src/admin-views/event-meta-options.php:53
+msgid "Dropdown"
+msgstr "Pasirinkimas iš sąrašo"
+
+#: ../src/admin-views/tribe-options-defaults.php:201
+msgid "One country per line in the following format: <br>US, United States <br> UK, United Kingdom. <br> (Replaces the default list.)"
+msgstr "Viena šalis eilutėje sekančiu formatu: <br>US, United States <br> UK, United Kingdom. <br> (Pakeičia numatytąjį sąrašą.)"
+
+#: ../src/Tribe/Geo_Loc_Filter.php:58
+msgid "Radio Buttons"
+msgstr "Pasirinkimai"
+
+#: ../src/admin-views/widget-admin-advanced-list.php:13
+#: ../src/admin-views/widget-admin-calendar.php:13
+#: ../src/admin-views/widget-admin-countdown.php:13
+#: ../src/admin-views/widget-admin-venue.php:12
+#: ../src/admin-views/widget-calendar.php:2
+msgid "Title:"
+msgstr "Antraštė:"
+
+#: ../src/Tribe/Main.php:55
+msgid "week"
+msgstr "savaitė"
+
+#: ../src/admin-views/widget-admin-advanced-list.php:17
+#: ../src/admin-views/widget-admin-venue.php:26
+#: ../src/admin-views/widget-calendar.php:8
+msgid "Number of events to show:"
+msgstr "Renginių skaičius kurį rodyti:"
+
+#: ../src/Tribe/Main.php:56
+msgid "photo"
+msgstr "nuotrauka"
+
+#: ../src/admin-views/widget-admin-advanced-list.php:28
+msgid "Display:"
+msgstr "Rodyti:"
+
+#: ../src/Tribe/Main.php:359
+msgid "All %s for %s"
+msgstr ""
+
+#: ../src/admin-views/widget-admin-advanced-list.php:34
+msgid "City"
+msgstr "Miestas"
+
+#: ../src/Tribe/Main.php:365
+msgid "%s for week of %s"
+msgstr ""
+
+#: ../src/admin-views/widget-admin-advanced-list.php:35
+msgid "State (US) Or Province (Int)"
+msgstr "Valstija arba provincija"
+
+#: ../src/Tribe/Main.php:601 ../src/admin-views/tribe-options-defaults.php:35
+msgid "Default Content"
+msgstr "Įprastas turinys"
+
+#: ../src/admin-views/widget-admin-advanced-list.php:36
+msgid "Postal Code"
+msgstr "Pašto kodas"

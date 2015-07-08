@@ -1,4297 +1,1544 @@
-# POT for The Events Calendar 2.0 by Modern Tribe, Inc..
-# Copyright (C) Modern Tribe, Inc.
-# This file is distributed under the same license as the The Events Calendar package.
+# Translation of Events Calendar Pro in Romanian
+# This file is distributed under the same license as the Events Calendar Pro package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Events Calendar Pro\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-04 18:18-0800\n"
-"PO-Revision-Date: 2014-02-06 15:00+0200\n"
-"Last-Translator: Arian <arianserv@gmail.com>\n"
-"Language-Team: Arian | www.administrare-cantine.ro <arianserv@gmail.com>\n"
-"Language: ro_RO\n"
+"PO-Revision-Date: 2015-06-09 14:20:54+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < "
-"20)) ? 1 : 2);\n"
-"X-Poedit-SourceCharset: UTF-8\n"
-"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;"
-"_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2\n"
-"X-Poedit-Basepath: ./\n"
-"X-Textdomain-Support: yes\n"
-"X-Generator: Poedit 1.5.5\n"
-"X-Poedit-SearchPath-0: ..\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < 20)) ? 1 : 2);\n"
+"X-Generator: GlotPress/1.0-alpha-1000\n"
+"Project-Id-Version: Events Calendar Pro\n"
 
-#: ../events-calendar-pro.php:61
-msgid "week"
-msgstr "săptămâna"
-
-#: ../events-calendar-pro.php:62
-msgid "photo"
-msgstr "foto"
-
-#: ../events-calendar-pro.php:63
-#: ../lib/tribe-events-recurrence-meta.class.php:685
-msgid "day"
-msgstr "zi"
-
-#: ../events-calendar-pro.php:64
-msgid "today"
-msgstr "azi"
-
-#: ../events-calendar-pro.php:292
-msgid "Events for week of"
-msgstr "Evenimente pentru săptămâna"
-
-#: ../events-calendar-pro.php:298 ../events-calendar-pro.php:366
-msgid "Events for"
-msgstr "Evenimente pentru"
-
-#: ../events-calendar-pro.php:303 ../events-calendar-pro.php:372
-msgid "Past Events"
-msgstr "Evenimente trecute"
-
-#: ../events-calendar-pro.php:305 ../events-calendar-pro.php:374
-#: ../lib/widget-advanced-list.class.php:54
-msgid "Upcoming Events"
-msgstr "Evenimente Următoare"
-
-#: ../events-calendar-pro.php:311 ../events-calendar-pro.php:353
-msgid "All events for"
-msgstr "Toate evenimente pentru"
-
-#: ../events-calendar-pro.php:360
-#, php-format
-msgid "Events for week of %s"
-msgstr "Evenimente pentru săptămâna din %s"
-
-#: ../events-calendar-pro.php:868 ../admin-views/tribe-options-defaults.php:35
-msgid "Default Content"
-msgstr "Conţinut Implicit"
-
-#: ../events-calendar-pro.php:870 ../admin-views/event-meta-options.php:3
+#: ../src/Tribe/Main.php:603 ../src/admin-views/event-meta-options.php:3
 msgid "Additional Fields"
 msgstr "Câmpuri Adiţionale"
 
-#: ../events-calendar-pro.php:879
-msgid "Hide related events"
-msgstr "Ascunde evenimentele asemănătoare"
-
-#: ../events-calendar-pro.php:880
-msgid "Remove related events from the single event view"
-msgstr "Elimină evenimentele similare din vizualizare eveniment singur"
-
-#: ../events-calendar-pro.php:896
-msgid ""
-"Thanks for buying Events Calendar PRO! From all of us at Modern Tribe, we "
-"sincerely appreciate it. If you're looking for help with Events Calendar "
-"PRO, you've come to the right place. We are committed to helping make your "
-"calendar kick ass... and hope the resources provided below will help get you "
-"there."
-msgstr ""
-"Mulțumim pentru că ați achiziționat Events Calendar PRO! Noi, cei de la "
-"Modern Tribe, apreciem sincer acest lucru. Dacă aveți nevoie de ajutor cu "
-"Events Calendar PRO, ați ajuns în locul potrivit. Ne-am propus să vă ajutăm "
-"să realizați un calendar excelent și sperăm ca resursele de mai jos te vor "
-"ajuta în acest sens. "
-
-#: ../events-calendar-pro.php:907
-msgid ""
-"If this is your first time using The Events Calendar Pro, you're in for a "
-"treat and are already well on your way to creating a first event. Here are "
-"some basics we've found helpful for users jumping into it for the first time:"
-msgstr ""
-"Dacă aceasta este prima utilizare a The Events Calendar Pro, ați făcut o "
-"alegere foarte bună; mai aveți doar puțin până la crearea primului "
-"dumneavoastră eveniment. Iată câteva elemente de bază care am observat că "
-"sunt de ajutor utilizatorilor noi:"
-
-#: ../events-calendar-pro.php:910
-#, php-format
-msgid ""
-"%sOur New User Primer%s was designed for folks in your exact position. "
-"Featuring both step-by-step videos and written walkthroughs that feature "
-"accompanying screenshots, the primer aims to take you from zero to hero in "
-"no time."
-msgstr ""
-"%sTutorialele noastre pentru începători%s  sunt destinate celor exact ca "
-"tine. Prezentând atât videoclipuri cu instrucțiuni de urmat pas-cu-pas "
-"precum și ghiduri scrise însoțite de print-screen-uri, cu scopul de a te "
-"aduce de la zero la nivel avansat într-un timp foarte scurt."
-
-#: ../events-calendar-pro.php:912
-#, php-format
-msgid ""
-"%sInstallation/Setup FAQs%s from our support page can help give an overview "
-"of what the plugin can and cannot do. This section of the FAQs may be "
-"helpful as it aims to address any basic install questions not addressed by "
-"the new user primer."
-msgstr ""
-"%sFAQ (întrebări frecvente) despre instalare%s de pe pagina noastră de "
-"suport - vă puteți face aici o impresie despre ce poate și ce nu poate să "
-"facă pluginul. Această secțiune poate fi de ajutor pentru a răspunde "
-"oricăror întrebări de bază ce nu au fost acoperite în tutorialele pentru "
-"începători."
-
-#: ../events-calendar-pro.php:914
-#, php-format
-msgid ""
-"Are you developer looking to build your own frontend view? We created an "
-"example plugin that demonstrates how to register a new view. You can "
-"%sdownload the plugin at GitHub%s to get started."
-msgstr ""
-"Sunteți un dezvoltator care dorește să realizeze propriul design? Am creat "
-"un plugin de exemplu care demonstrează cum poate fi adăugat un nou stil. "
-"puteți %sdescărca pluginul de la GitHub%s pentru a începe."
-
-#: ../events-calendar-pro.php:916
-#, php-format
-msgid ""
-"Take care of your license key. Though not required to create your first "
-"event, you'll want to get it in place as soon as possible to guarantee your "
-"access to support and upgrades. %sHere's how to find your license key%s, if "
-"you don't have it handy."
-msgstr ""
-"Aveți grijă de cheia dumneavoastră de licență. Deși nu este necesară pentru "
-"realizarea primului eveniment, veți dori să o introduceți cât de repede "
-"pentru a garanta accesul dumneavoastră la suport și actualizări. %sIată cum "
-"puteți găsi cheia dumneavoastră de licență%s, dacă nu o aveți la îndemână."
-
-#: ../events-calendar-pro.php:918
-msgid ""
-"Otherwise, if you're feeling adventurous, you can get started by heading to "
-"the Events menu and adding your first event."
-msgstr ""
-"Altfel, dacă aveți curaj, puteți merge direct la meniul Evenimente pentru a "
-"adăuga primul dumneavoastră eveniment."
-
-#: ../events-calendar-pro.php:930
-#, php-format
-msgid ""
-"Written documentation can only take things so far...sometimes, you need help "
-"from a real person. This is where our %ssupport forums%s come into play."
-msgstr ""
-"Uneori documentația scrisă își atinge limitele și aveți nevoie de ajutor "
-"particularizat de la o persoană. Aici intră în joc %sforumurile de suport%s."
-
-#: ../events-calendar-pro.php:931
-#, php-format
-msgid ""
-"Users who have purchased an Events Calendar PRO license are granted total "
-"access to our %spremium support forums%s. Unlike at the %sWordPress.org "
-"support forum%s, where our involvement is limited to identifying and "
-"patching bugs, we have a dedicated support team for PRO users. We're on the "
-"PRO forums daily throughout the business week, and no thread should go more "
-"than 24-hours without a response."
-msgstr ""
-"Utilizatorii care au cumpărat o licență Events Calendar PRO primesc acces "
-"total la %sforumurile noastre de suport premium%s. Spre deosebire de "
-"%sforumul de suport WordPress.org%s, unde implicarea noastră se limitează la "
-"identificarea și remedierea bug-urilor, avem o echipă de suport dedicată "
-"utilizatorilor PRO. Vizităm zilnic forumurile PRO în zilele lucrătoare și "
-"nici un topic nu ar trebui să rămână fără răspuns pentru mai mult de 24 de "
-"ore."
-
-#: ../events-calendar-pro.php:932
-msgid ""
-"Our number one goal is helping you succeed, and to whatever extent possible, "
-"we'll help troubleshoot and guide your customizations or tweaks. While we "
-"won't build your site for you, and we can't guarantee we'll be able to get "
-"you 100% integrated with every theme or plugin out there, we'll do all we "
-"can to point you in the right direction and to make you -- and your client, "
-"as is often more importantly the case -- satisfied."
-msgstr ""
-"Scopul nostru principal este să vă ajutăm să reușiți și, în măsura în care "
-"acest lucru este posibil, vom identifica erorile și vă vom ghida pentru "
-"customizări. Nu vom putea construi site-ul în locul dumneavoastră și nu "
-"putem asigura 100% integrarea cu toate temele și pluginurile de pe piață, "
-"dar vom face tot ce putem pentru a vă indica direcția cea bună și a vă face "
-"să fiți atât dumneavoastră cât și - adesea, mai important - clienții "
-"dumneavoastră, mulțumiți."
-
-#: ../events-calendar-pro.php:933
-msgid ""
-"Before posting a new thread, please do a search to make sure your issue "
-"hasn't already been addressed. When posting please make sure to provide as "
-"much detail about the problem as you can (with screenshots or screencasts if "
-"feasible), and make sure that you've identified whether a plugin / theme "
-"conflict could be at play in your initial message."
-msgstr ""
-"Înainte de a posta un topic nou, efectuați o căutare pentru a vă asigura că "
-"problema dumneavoastră nu a primit deja un răspuns. Când postați, dați cât "
-"mai multe detalii despre problemă (cu screenshoturi și dacă se poate "
-"screencasturi), asigurându-vă că ați identificat dacă un plugin sau o temă e "
-"în conflict în mesajul inițial."
-
-#: ../events-calendar-pro.php:1007
-msgid "Day View"
-msgstr "Vizualizare Zi"
-
-#: ../events-calendar-pro.php:1010
-msgid "Week View"
-msgstr "Vizualizare Săptămână"
-
-#: ../events-calendar-pro.php:1415
-msgid "Settings"
-msgstr "Configurări"
-
-#: ../events-calendar-pro.php:1478
-#, php-format
-msgid "Calendar powered by %sThe Events Calendar PRO%s"
-msgstr "Calendar propulsat de %sThe Events Calendar PRO%s"
-
-#: ../events-calendar-pro.php:1491
-msgid "Support"
-msgstr "Suport"
-
-#: ../events-calendar-pro.php:1493
-msgid "View All Add-Ons"
-msgstr "Vizualizaţi Toate Suplimentele"
-
-#: ../events-calendar-pro.php:1579
-msgid "Week"
-msgstr "Săptămâna"
-
-#: ../events-calendar-pro.php:1595 ../admin-views/event-recurrence.php:84
-#: ../admin-views/event-recurrence.php:129
-msgid "Day"
-msgstr "Zi"
-
-#: ../events-calendar-pro.php:1611
-msgid "Photo"
-msgstr "Foto"
-
-#: ../events-calendar-pro.php:1627
-msgid "Day Of"
-msgstr "Ziua"
-
-#: ../events-calendar-pro.php:1629
-msgid "Week Of"
-msgstr "Săptămâna"
-
-#: ../events-calendar-pro.php:1750
-msgid "The Events Calendar"
-msgstr "The Events Calendar"
-
-#: ../events-calendar-pro.php:1751
-#, php-format
-msgid ""
-"To begin using Events Calendar PRO, please install the latest version of <a "
-"href=\"%s\" class=\"thickbox\" title=\"%s\">The Events Calendar</a>."
-msgstr ""
-"Pentru a începe să folosiţi Events Calendar PRO, vă rugăm să instalaţi "
-"ultima versiune a <a href=\"%s\" class=\"thickbox\" title=\"%s\">The Events "
-"Calendar</a>."
-
-#: ../admin-views/event-defaults.php:1
-msgid "Customize Defaults"
-msgstr "Personalizare pentru Implicite"
-
-#: ../admin-views/event-defaults.php:2
-msgid ""
-"These settings change the default event form. For example, if you set a "
-"default venue, this field will be automatically filled in on a new event."
-msgstr ""
-"Aceste configurări modificcă formularul implicit al evenimentului. De "
-"exemplu, dacă aţi stabilit o locaţie implicită, acest câmp va fi automat "
-"completat într-un nou eveniment."
-
-#: ../admin-views/event-defaults.php:5 ../admin-views/event-defaults.php:9
-#: ../admin-views/tribe-options-defaults.php:55
-msgid "Automatically replace empty fields with default values"
-msgstr "Înlocuire automată a câmpurilor goale cu valorile implicite"
-
-#: ../admin-views/event-defaults.php:13
-msgid "Enabled"
-msgstr "Activat"
-
-#: ../admin-views/event-defaults.php:19
-msgid "Default Organizer for Events"
-msgstr "Organizatorul Implicit pentru Evenimente"
-
-#: ../admin-views/event-defaults.php:22
-msgid "Default Organizer"
-msgstr "Organizator Implicit"
-
-#: ../admin-views/event-defaults.php:23
-msgid "The default organizer value"
-msgstr "Valoarea implictă a organizatorului"
-
-#: ../admin-views/event-defaults.php:23 ../admin-views/event-defaults.php:31
-#: ../admin-views/event-defaults.php:38 ../admin-views/event-defaults.php:45
-#: ../admin-views/event-defaults.php:66 ../admin-views/event-defaults.php:74
-#: ../admin-views/event-defaults.php:82 ../admin-views/event-defaults.php:108
-#, php-format
-msgid "The current default value is <strong>%s</strong>"
-msgstr "Valoarea curentă implicită este <strong>%s</strong>."
-
-#: ../admin-views/event-defaults.php:27
-msgid "Default Venue for Events"
-msgstr "Locaţia Implicită pentru Evenimente"
-
-#: ../admin-views/event-defaults.php:30
-msgid "Default Venue"
-msgstr "Locaţie Implicită"
-
-#: ../admin-views/event-defaults.php:31
-msgid "The default venue value"
-msgstr "Valoarea implicită a locaţiei"
-
-#: ../admin-views/event-defaults.php:35 ../admin-views/event-defaults.php:37
-msgid "Default Address"
-msgstr "Adresă Implicită"
-
-#: ../admin-views/event-defaults.php:38
-msgid "The default address value"
-msgstr "Valoarea implicită a adresei"
-
-#: ../admin-views/event-defaults.php:42 ../admin-views/event-defaults.php:44
-msgid "Default City"
-msgstr "Oraş Implicit"
-
-#: ../admin-views/event-defaults.php:45
-msgid "The default city value"
-msgstr "Valoarea implicită a oraşului"
-
-#: ../admin-views/event-defaults.php:50
-msgid "Default State"
-msgstr "Stat Implicit"
-
-#: ../admin-views/event-defaults.php:52 ../admin-views/event-defaults.php:73
-msgid "Default Province or State"
-msgstr "Stat sau Provincie Implicit(ă)"
-
-#: ../admin-views/event-defaults.php:55
-msgid "Select a State:"
-msgstr "Selectaţi Statul:"
-
-#: ../admin-views/event-defaults.php:66 ../admin-views/event-defaults.php:74
-msgid "The default  value"
-msgstr "Valoarea implicită"
-
-#: ../admin-views/event-defaults.php:71
-msgid "Default Province"
-msgstr "Provincia Implicită"
-
-#: ../admin-views/event-defaults.php:79 ../admin-views/event-defaults.php:81
-msgid "Default Postal Code"
-msgstr "Cod Poştal Implicit"
-
-#: ../admin-views/event-defaults.php:82
-msgid "The default Postal Code value"
-msgstr "Valoarea implicită a Codului Poştal"
-
-#: ../admin-views/event-defaults.php:87
-msgid "Default Country for Events"
-msgstr "Ţara Implicită pentru Evenimente"
-
-#: ../admin-views/event-defaults.php:105 ../admin-views/event-defaults.php:107
-msgid "Default Phone"
-msgstr "Telefon Implicit"
-
-#: ../admin-views/event-defaults.php:108
-msgid "The default phone value"
-msgstr "Valoarea implicită a telefonului"
-
-#: ../admin-views/event-defaults.php:112
-#: ../admin-views/tribe-options-defaults.php:198
-msgid "Use a custom list of countries"
-msgstr "Folosiţi o listă cu ţări personalizată "
-
-#: ../admin-views/event-defaults.php:114
-msgid "Use the following list:"
-msgstr "Folosiţi următoarea listă"
-
-#: ../admin-views/event-defaults.php:116
-msgid ""
-"One country per line in the following format: <br/>US, United States <br/> "
-"UK, United Kingdom."
-msgstr ""
-"O singură ţară pe linie, cu următorul format:<br>RO, România <br> UK, United "
-"Kingdom."
-
-#: ../admin-views/event-defaults.php:116
-msgid "(Replaces the default list.)"
-msgstr "(Înlocuieşte lista implictă.)"
-
-#: ../admin-views/event-meta-options.php:4
-msgid ""
-"Use additional fields to add unique content fields to the event admin, which "
-"can be used by anyone who creates events. Upon publication they'll appear in "
-"the event metabox that accompanies your event listing, alongside the date/"
-"time/venue/organizer/etc. </p><p>Each new piece of data needs:"
-msgstr ""
-"Folosiţi câmpuri adiţionale pentru adăugarea, în pagina de administrare a "
-"evenimentelor, a unor câmpuri de conţinut unice ce pot fi folosite de către "
-"oricine crează evenimente. După publicare acestea vor apărea în caseta meta "
-"a evenimentului, casetă ce va însoţi listarea evenimentului alături de dată/"
-"oră/locaţie/organizator/etc. Fiecare element necesită:"
-
-#: ../admin-views/event-meta-options.php:6
-msgid "Label (e.g. Meal Plans)"
-msgstr "Etichetă (ex. Planuri de Masă)"
-
-#: ../admin-views/event-meta-options.php:7
-msgid "At least one option (e.g. Vegetarian, Kosher, Paleo)"
-msgstr "Cel puţin o opţiune (ex. Vegetarian, Cusher, Paleo)"
-
-#: ../admin-views/event-meta-options.php:8
-msgid "Field type. These are:"
-msgstr "Tip de câmp. Acestea sunt:"
-
-#: ../admin-views/event-meta-options.php:10
-msgid "Text - for the user to input text"
-msgstr "Text - utilizatorul va introduce un text"
-
-#: ../admin-views/event-meta-options.php:11
-msgid "URL - for the user to input a URL"
-msgstr "URL - pentru ca utilizatorul să poată introduce o adresă URL"
-
-#: ../admin-views/event-meta-options.php:12
-msgid "Checkbox - for multiple choice"
-msgstr "Casetă de validare - pentru opţiuni multiple"
-
-#: ../admin-views/event-meta-options.php:13
-msgid "Radio Button - to select only one"
-msgstr "Buton radio - pentru alegerea unei singure valori"
-
-#: ../admin-views/event-meta-options.php:14
-msgid "Dropdown Menu - for a dropdown menu"
-msgstr "Meniu cu derulare - pentru un meniu cu derulare verticală"
-
-#: ../admin-views/event-meta-options.php:19
-msgid "Field Label"
-msgstr "Etichetă Câmp"
-
-#: ../admin-views/event-meta-options.php:19
-msgid "Field Type"
-msgstr "Tip Câmp"
-
-#: ../admin-views/event-meta-options.php:19
-msgid "Options (one per line)"
-msgstr "Opţiuni (una pe linie)"
-
-#: ../admin-views/event-meta-options.php:27
-msgid "Text"
-msgstr "Text"
-
-#: ../admin-views/event-meta-options.php:28
-msgid "URL"
-msgstr "URL"
-
-#: ../admin-views/event-meta-options.php:29
-msgid "Radio"
-msgstr "Radio"
-
-#: ../admin-views/event-meta-options.php:30
-msgid "Checkbox"
-msgstr "Casetă de Validare"
-
-#: ../admin-views/event-meta-options.php:31
-#: ../lib/TribeEventsFilter_GeoLoc.php:41
-msgid "Dropdown"
-msgstr "Meniu-Derulare"
-
-#: ../admin-views/event-meta-options.php:37
-msgid "Add another"
-msgstr "Adăugaţi un altul"
-
-#: ../admin-views/event-meta-options.php:39
-msgid "Remove"
-msgstr "Îndepărtaţi"
-
-#: ../admin-views/event-meta-options.php:47
-#, php-format
-msgid ""
-"Enter the field label as you want it to appear (this will be the label in "
-"the same way \"Start Date,\" \"Organizer,\" etc appear in the event details "
-"box on the frontend). Select whether the field will be a text field; URL "
-"field; radio buttons; checkboxes; or a dropdown. All of these with the "
-"exception of text and URL allow for multiple options to be included, which "
-"you can add — one per-line — in the right-hand column. If you feel "
-"flummoxed, we've got you covered with a %s."
-msgstr ""
-"Introduceţi eticheta câmpului exact cum doriţi să apară (aceasta va eticheta "
-"evenimentul precum \"Dată Începere,\" \"Organizator,\" etc. apar în caseta "
-"de detalii din faţa evenimentului). Selectaţi dacă va fi un câmp de tip "
-"text; câmp URL; butoane radio; casete de validare; sau un meniu cu derulare. "
-"Toate aceste cu excepţia textului şi a URL, permit includerea unor opţiuni "
-"multiple, pe care le puteţi introduce — una pe linie — în coloana din partea "
-"dreaptă. Dacă vă simţiţi puţin confuzi, vă putem ajuta cu un %s."
-
-#: ../admin-views/event-meta-options.php:48
-msgid "video tutorial that will walk you through the process"
-msgstr "tutorial video ce vă va ghida prin acest proces"
-
-#: ../admin-views/event-meta-options.php:51
-msgid "Editor \"Custom Fields\" meta box"
-msgstr "Editor \"Câmpusi Personalizate\" casetă meta"
-
-#: ../admin-views/event-meta-options.php:53
-msgid "Show"
-msgstr "Afişare"
-
-#: ../admin-views/event-meta-options.php:54
-msgid "Hide"
-msgstr "Ascudere"
-
-#: ../admin-views/event-meta-options.php:55
-msgid ""
-"Enabling this option this will not remove custom field data or "
-"functionality, just the default meta box editor."
-msgstr ""
-"Activând această opţiune, nu se vor elimina şi datele câmpului personalizat "
-"ori funcţionalitatea sa, ci doar editorul implicit al casetei meta. "
-
-#: ../admin-views/event-meta-options.php:64
-msgid ""
-"Are you sure you wish to remove this field and its data from all events? "
-"Once you click OK this cannot be undone."
-msgstr ""
-"Confirmaţi eliminarea acestui câmp şi a datelor sale, din toate "
-"evenimentele? Odată ce apăsaţi OK, nu se mai poate reveni."
-
-#: ../admin-views/event-meta.php:7
-msgid "Additional Event Fields"
-msgstr "Câmpuri Adiţionale pentru Evenimente"
-
-#: ../admin-views/event-recurrence.php:2
-msgid "Recurrence:"
-msgstr "Repetare:"
-
-#: ../admin-views/event-recurrence.php:8
-msgid "None"
-msgstr "Nimic"
-
-#: ../admin-views/event-recurrence.php:9
-msgid "Every Day"
-msgstr "În Fiecare Zi"
-
-#: ../admin-views/event-recurrence.php:10
-msgid "Every Week"
-msgstr "În Fiecare Săptămână"
-
-#: ../admin-views/event-recurrence.php:11
-msgid "Every Month"
-msgstr "Fiecare Lună"
-
-#: ../admin-views/event-recurrence.php:12
-msgid "Every Year"
-msgstr "În Fiecare An"
-
-#: ../admin-views/event-recurrence.php:13
-msgid "Custom"
-msgstr "Particularizat"
-
-#: ../admin-views/event-recurrence.php:16
-msgid "and will end"
-msgstr "şi se va finaliza"
-
-#: ../admin-views/event-recurrence.php:18
-msgid "On"
-msgstr "În"
-
-#: ../admin-views/event-recurrence.php:19
-msgid "After"
-msgstr "După"
-
-#: ../admin-views/event-recurrence.php:20
-msgid "Never"
-msgstr "Niciodată"
-
-#: ../admin-views/event-recurrence.php:24
-msgid "You must select a recurrence end date"
-msgstr "Trebuie să selectaţi data de finalizare a repetării"
-
-#: ../admin-views/event-recurrence.php:31
-msgid "Frequency"
-msgstr "Frecvenţa"
-
-#: ../admin-views/event-recurrence.php:33
-msgid "Day(s)"
-msgstr "Zi(le)"
-
-#: ../admin-views/event-recurrence.php:33
-msgid "Daily"
-msgstr "Zilnic"
-
-#: ../admin-views/event-recurrence.php:34
-msgid "Week(s) on:"
-msgstr "Săptămna(i) din:"
-
-#: ../admin-views/event-recurrence.php:34
-msgid "Weekly"
-msgstr "Săptămânal"
-
-#: ../admin-views/event-recurrence.php:35
-msgid "Month(s) on the:"
-msgstr "Luna(i) din:"
-
-#: ../admin-views/event-recurrence.php:35
-msgid "Monthly"
-msgstr "Lunar"
-
-#: ../admin-views/event-recurrence.php:36
-msgid "Year(s) on:"
-msgstr "An(i) din:"
-
-#: ../admin-views/event-recurrence.php:36
-msgid "Yearly"
-msgstr "Anual"
-
-#: ../admin-views/event-recurrence.php:38
-msgid "Every"
-msgstr "Fiecare"
-
-#: ../admin-views/event-recurrence.php:42
-msgid "Frequency of recurring event must be a number"
-msgstr "Frecvenţa repetării evenimentului trebuie exprimată printr-un număr"
-
-#: ../admin-views/event-recurrence.php:50
-msgid "M"
-msgstr "Lu"
-
-#: ../admin-views/event-recurrence.php:51
-msgid "Tu"
-msgstr "Ma"
-
-#: ../admin-views/event-recurrence.php:52
-msgid "W"
-msgstr "Mi"
-
-#: ../admin-views/event-recurrence.php:53
-msgid "Th"
-msgstr "Jo"
-
-#: ../admin-views/event-recurrence.php:54
-msgid "F"
-msgstr "Vi"
-
-#: ../admin-views/event-recurrence.php:55
-msgid "Sa"
-msgstr "Sâ"
-
-#: ../admin-views/event-recurrence.php:56
-msgid "Su"
-msgstr "Du"
-
-#: ../admin-views/event-recurrence.php:64
-#: ../admin-views/event-recurrence.php:114
-msgid "First"
-msgstr "Prima"
-
-#: ../admin-views/event-recurrence.php:65
-#: ../admin-views/event-recurrence.php:115
-msgid "Second"
-msgstr "Următorea"
-
-#: ../admin-views/event-recurrence.php:66
-#: ../admin-views/event-recurrence.php:116
-msgid "Third"
-msgstr "A treia"
-
-#: ../admin-views/event-recurrence.php:67
-#: ../admin-views/event-recurrence.php:117
-msgid "Fourth"
-msgstr "A patra"
-
-#: ../admin-views/event-recurrence.php:68
-msgid "Fifth"
-msgstr "Al cincilea"
-
-#: ../admin-views/event-recurrence.php:69
-#: ../admin-views/event-recurrence.php:118
-msgid "Last"
-msgstr "Ultima"
-
-#: ../admin-views/event-recurrence.php:76
-#: ../admin-views/event-recurrence.php:121
-#: ../lib/tribe-events-recurrence-meta.class.php:720
-msgid "Monday"
-msgstr "Luni"
-
-#: ../admin-views/event-recurrence.php:77
-#: ../admin-views/event-recurrence.php:122
-#: ../lib/tribe-events-recurrence-meta.class.php:720
-msgid "Tuesday"
-msgstr "Marţi"
-
-#: ../admin-views/event-recurrence.php:78
-#: ../admin-views/event-recurrence.php:123
-#: ../lib/tribe-events-recurrence-meta.class.php:720
-msgid "Wednesday"
-msgstr "Miercuri"
-
-#: ../admin-views/event-recurrence.php:79
-#: ../admin-views/event-recurrence.php:124
-#: ../lib/tribe-events-recurrence-meta.class.php:720
-msgid "Thursday"
-msgstr "Joi"
-
-#: ../admin-views/event-recurrence.php:80
-#: ../admin-views/event-recurrence.php:125
-#: ../lib/tribe-events-recurrence-meta.class.php:720
-msgid "Friday"
-msgstr "Viner"
-
-#: ../admin-views/event-recurrence.php:81
-#: ../admin-views/event-recurrence.php:126
-#: ../lib/tribe-events-recurrence-meta.class.php:720
-msgid "Saturday"
-msgstr "Sâmbătă"
-
-#: ../admin-views/event-recurrence.php:82
-#: ../admin-views/event-recurrence.php:127
-#: ../lib/tribe-events-recurrence-meta.class.php:720
-msgid "Sunday"
-msgstr "Duminică"
-
-#: ../admin-views/event-recurrence.php:93
-msgid "Jan"
-msgstr "Ian"
-
-#: ../admin-views/event-recurrence.php:94
-msgid "Feb"
-msgstr "Feb"
-
-#: ../admin-views/event-recurrence.php:95
-msgid "Mar"
-msgstr "Mar"
-
-#: ../admin-views/event-recurrence.php:96
-msgid "Apr"
-msgstr "Apr"
-
-#: ../admin-views/event-recurrence.php:97
-#: ../lib/tribe-events-recurrence-meta.class.php:746
-msgid "May"
-msgstr "Mai"
-
-#: ../admin-views/event-recurrence.php:98
-msgid "Jun"
-msgstr "Iun"
-
-#: ../admin-views/event-recurrence.php:102
-msgid "Jul"
-msgstr "Iul"
-
-#: ../admin-views/event-recurrence.php:103
-msgid "Aug"
-msgstr "Aug"
-
-#: ../admin-views/event-recurrence.php:104
-msgid "Sep"
-msgstr "Sep"
-
-#: ../admin-views/event-recurrence.php:105
-msgid "Oct"
-msgstr "Oct"
-
-#: ../admin-views/event-recurrence.php:106
-msgid "Nov"
-msgstr "Nov"
-
-#: ../admin-views/event-recurrence.php:107
-msgid "Dec"
-msgstr "Dec"
-
-#: ../admin-views/event-recurrence.php:112
-msgid "On the:"
-msgstr "Din:"
-
-#: ../admin-views/event-recurrence.php:137
-#: ../views/tribe-ECP-views-old/views/single-venue.php:58
-msgid "Description:"
-msgstr "Descriere:"
-
-#: ../admin-views/event-recurrence.php:145
-msgid "Recurrence Description:"
-msgstr "Descrierea repetării:"
-
-#: ../admin-views/event-recurrence.php:150
-msgid ""
-"Create a custom plain language description of the recurrence. Leave it blank "
-"and we'll automate it."
-msgstr ""
-"Creaţi o descriere a repetării printr-un limbaj simplu şi clar. Lăsaţi "
-"necompletat şi îl vom automatiza noi."
-
-#: ../admin-views/support-form.php:11
-msgid "Need help? Send us a support request."
-msgstr "Aveţi nevoie de ajutor? Trimiteţi-ne o cerere de suport."
-
-#: ../admin-views/support-form.php:14
-#, php-format
-msgid ""
-"Tell us about the problem you're seeing in as much detail as possible. "
-"Please note that we'll also be sending some basic system information along "
-"with this request so that we can better diagnose the issue. If you would "
-"like to contact us without sending any system information, please visit our "
-"support page at %s. Thanks!"
-msgstr ""
-"Spuneţi-ne despre problema pe care o întâmpinaţi, cât mai detaliat posibil. "
-"Vă rugam să notaţi că trebuie să ne trimiteţi şi câteva date generale de "
-"sistem, alături de cererea dvs., pentru a putea pune un diagnostic mai bun "
-"acestei probeleme. Dacă doriţi să ne contactaţi fără a mai trimite şi "
-"informaţiile de sistem, vă rugăm să vizitaţi pagina noastră de suport pe %s. "
-"vă mulţumim!"
-
-#: ../admin-views/support-form.php:18
-msgid "Send a Support Request"
-msgstr "Trimiteţi o Cerere de Suport"
-
-#: ../admin-views/tribe-options-defaults.php:6
-#: ../admin-views/tribe-options-defaults.php:15
-msgid "No Default"
-msgstr "Nimic Implicit"
-
-#: ../admin-views/tribe-options-defaults.php:22
-msgid "Select a State"
-msgstr "Selectaţi un Stat"
-
-#: ../admin-views/tribe-options-defaults.php:39
-msgid ""
-"<p>Choose the default venue & organizer. Set default address information to "
-"save time when entering a new venue or organizer.</p><p>You can override "
-"these settings as you enter a new event.</p>"
-msgstr ""
-"<p>Alegeţi locaţia & organizatorul implict. Stabiliţi informaţiile implicite "
-"ale adresei pentru a salva timp la introducerea unui nou organizator sau "
-"unei noi locaţii.</p><p> Puteţi suprascrie aceste configurări la "
-"introducerea unui eveniment nou.</p>"
-
-#: ../admin-views/tribe-options-defaults.php:51
-msgid "Options"
-msgstr "Opţiuni"
-
-#: ../admin-views/tribe-options-defaults.php:61
-msgid ""
-"Check this box to have the organizer and venue fields pre-populated with the "
-"default values below for any new event that is created."
-msgstr ""
-"Bifaţi această casetă pentru a pre-popula câmpurile organizatorului şi a "
-"locaţiei, folosind valorile implicite de mai jos, pentru fiecare eveniment "
-"nou creat."
-
-#: ../admin-views/tribe-options-defaults.php:65
-#: ../admin-views/widget-admin-advanced-list.php:29 ../lib/apm_filters.php:44
-msgid "Organizer"
-msgstr "Organizator"
-
-#: ../admin-views/tribe-options-defaults.php:69
-msgid "Default organizer"
-msgstr "Organizator implicit"
-
-#: ../admin-views/tribe-options-defaults.php:73
-msgid "No saved organizers yet."
-msgstr "Nu există încă organizatori salvaţi."
-
-#: ../admin-views/tribe-options-defaults.php:82
-#: ../admin-views/widget-admin-advanced-list.php:28 ../lib/apm_filters.php:39
-msgid "Venue"
-msgstr "Locaţie"
-
-#: ../admin-views/tribe-options-defaults.php:86
-msgid "Default venue"
-msgstr "Locaţie implicită"
-
-#: ../admin-views/tribe-options-defaults.php:90
-msgid "No saved venues yet."
-msgstr "Nu există încă locaţii salvate."
-
-#: ../admin-views/tribe-options-defaults.php:99
-#: ../admin-views/widget-admin-advanced-list.php:30
-msgid "Address"
-msgstr "Adresa"
-
-#: ../admin-views/tribe-options-defaults.php:103
-msgid ""
-"You can use this setting to set specific, individual defaults for any new "
-"Venue you create (these will not be used for your default venue)."
-msgstr ""
-"Puteţi folosi această configurare pentru a stabili valori specifice "
-"implicite pentru fiecare nouă Locaţie pe care o creaţi (aceasta nu va fi "
-"folosită pentru locaţia dvs. implicită)."
-
-#: ../admin-views/tribe-options-defaults.php:107
-msgid "Default address"
-msgstr "Adresa implicită"
-
-#: ../admin-views/tribe-options-defaults.php:120
-msgid "Default city"
-msgstr "Oraşul implicit"
-
-#: ../admin-views/tribe-options-defaults.php:133
-msgid "Default state"
-msgstr "Statul implicit"
-
-#: ../admin-views/tribe-options-defaults.php:146
-msgid "Default province"
-msgstr "Provincia implicită"
-
-#: ../admin-views/tribe-options-defaults.php:159
-msgid "Default postal code/zip code"
-msgstr "Codul poştal/Codul zip implicit"
-
-#: ../admin-views/tribe-options-defaults.php:172
-msgid "Default country"
-msgstr "Ţara implicită"
-
-#: ../admin-views/tribe-options-defaults.php:185
-msgid "Default phone"
-msgstr "Telefonul implicit"
-
-#: ../admin-views/tribe-options-defaults.php:201
-msgid ""
-"One country per line in the following format: <br>US, United States <br> UK, "
-"United Kingdom. <br> (Replaces the default list.)"
-msgstr ""
-"O singură ţară pe linie, cu următorul format:<br>RO, România <br> UK, United "
-"Kingdom."
-
-#: ../admin-views/widget-admin-advanced-list.php:11
-#: ../admin-views/widget-admin-calendar.php:10
-#: ../admin-views/widget-admin-countdown.php:10
-#: ../admin-views/widget-admin-venue.php:9
-#: ../admin-views/widget-calendar.php:2
-msgid "Title:"
-msgstr "Titlu:"
-
-#: ../admin-views/widget-admin-advanced-list.php:16
-#: ../admin-views/widget-admin-venue.php:20
-#: ../admin-views/widget-calendar.php:8
-msgid "Number of events to show:"
-msgstr "Numărul de evenimnete de afişat"
-
-#: ../admin-views/widget-admin-advanced-list.php:25
-msgid "Display:"
-msgstr "Afişare:"
-
-#: ../admin-views/widget-admin-advanced-list.php:31
-msgid "City"
-msgstr "Oraş"
-
-#: ../admin-views/widget-admin-advanced-list.php:32
-msgid "State (US) Or Province (Int)"
-msgstr "Statul (US) sau Provincia (Int):"
-
-#: ../admin-views/widget-admin-advanced-list.php:33
-msgid "Postal Code"
-msgstr "Cod Poştal"
-
-#: ../admin-views/widget-admin-advanced-list.php:34
+#: ../src/admin-views/widget-admin-advanced-list.php:37
 msgid "Country"
 msgstr "Ţara"
 
-#: ../admin-views/widget-admin-advanced-list.php:35
+#: ../src/Tribe/Main.php:618
+msgid "Hide related events"
+msgstr "Ascunde evenimentele asemănătoare"
+
+#: ../src/admin-views/widget-admin-advanced-list.php:38
 msgid "Phone"
 msgstr "Telefon"
 
-#: ../admin-views/widget-admin-advanced-list.php:36
+#: ../src/Tribe/Main.php:619
+msgid "Remove related events from the single event view"
+msgstr "Elimină evenimentele similare din vizualizare eveniment singur"
+
+#: ../src/admin-views/widget-admin-advanced-list.php:39
 msgid "Price"
 msgstr "Preţ"
 
-#: ../admin-views/widget-admin-advanced-list.php:43
-msgid "Category:"
-msgstr "Categorie:"
+#: ../src/Tribe/Main.php:629
+msgid "Week Day Format"
+msgstr ""
 
-#: ../admin-views/widget-admin-advanced-list.php:47
-msgid "All Events"
-msgstr "Toate Evenimentele"
-
-#: ../admin-views/widget-admin-advanced-list.php:58
-#: ../admin-views/widget-admin-venue.php:28
-msgid "Hide this widget if there are no upcoming events:"
-msgstr "Ascundeţi acest widget dacă NU există evenimente următoare:"
-
-#: ../admin-views/widget-admin-countdown.php:12
-msgid "Event:"
-msgstr "Eveniment:"
-
-#: ../admin-views/widget-admin-countdown.php:21
-msgid "Show seconds:"
-msgstr "Afişare secunde:"
-
-#: ../admin-views/widget-admin-countdown.php:24
-msgid "Countdown Completed Text:"
-msgstr "Numărătoarea inversă Text Finalizat:"
-
-#: ../admin-views/widget-admin-venue.php:11
-msgid "Venue:"
-msgstr "Locul Desfăşurării:"
-
-#: ../admin-views/widget-calendar.php:24
+#: ../src/admin-views/widget-admin-advanced-list.php:62
+#: ../src/admin-views/widget-calendar.php:24
 msgid "Filters"
 msgstr "Filtre"
 
-#: ../admin-views/widget-calendar.php:42
+#: ../src/Tribe/Main.php:630
+msgid "Enter the format to use for week days. Used when showing days of the week in Week view."
+msgstr ""
+
+#: ../src/admin-views/widget-admin-advanced-list.php:89
+#: ../src/admin-views/widget-calendar.php:43
 msgid "remove"
 msgstr "îndepărtaţi"
 
-#: ../admin-views/widget-calendar.php:53
+#: ../src/Tribe/Main.php:641
+msgid "Hide weekends on Week View"
+msgstr ""
+
+#: ../src/admin-views/widget-admin-advanced-list.php:102
+#: ../src/admin-views/widget-calendar.php:54
 msgid "Match all"
 msgstr "Potrivire toate"
 
-#: ../admin-views/widget-calendar.php:56
+#: ../src/Tribe/Main.php:642
+msgid "Check this to only show weekdays on Week View"
+msgstr ""
+
+#: ../src/admin-views/widget-admin-advanced-list.php:105
+#: ../src/admin-views/widget-calendar.php:57
 msgid "Match any"
 msgstr "Potrivire oricare"
 
-#: ../admin-views/widget-calendar.php:60
+#: ../src/Tribe/Main.php:660
+msgid "Thanks for buying Events Calendar PRO! From all of us at Modern Tribe, we sincerely appreciate it. If you're looking for help with Events Calendar PRO, you've come to the right place. We are committed to helping make your calendar kick ass... and hope the resources provided below will help get you there."
+msgstr "Mulțumim pentru că ați achiziționat Events Calendar PRO! Noi, cei de la Modern Tribe, apreciem sincer acest lucru. Dacă aveți nevoie de ajutor cu Events Calendar PRO, ați ajuns în locul potrivit. Ne-am propus să vă ajutăm să realizați un calendar excelent și sperăm ca resursele de mai jos te vor ajuta în acest sens. "
+
+#: ../src/admin-views/widget-admin-advanced-list.php:109
+#: ../src/admin-views/widget-calendar.php:61
 msgid "Add a filter"
 msgstr "Adăugare filtru"
 
-#: ../admin-views/widget-calendar.php:63
+#: ../src/Tribe/Main.php:672
+msgid "If this is your first time using The Events Calendar Pro, you're in for a treat and are already well on your way to creating a first event. Here are some basics we've found helpful for users jumping into it for the first time:"
+msgstr "Dacă aceasta este prima utilizare a The Events Calendar Pro, ați făcut o alegere foarte bună; mai aveți doar puțin până la crearea primului dumneavoastră eveniment. Iată câteva elemente de bază care am observat că sunt de ajutor utilizatorilor noi:"
+
+#: ../src/admin-views/widget-admin-advanced-list.php:112
+#: ../src/admin-views/widget-calendar.php:64
 msgid "Select one..."
 msgstr "Selectaţi una..."
 
-#: ../lib/apm_filters.php:49
-msgid "Start Date"
-msgstr "Dată Începere"
+#: ../src/Tribe/Main.php:675
+msgid "%sOur New User Primer%s was designed for folks in your exact position. Featuring both step-by-step videos and written walkthroughs that feature accompanying screenshots, the primer aims to take you from zero to hero in no time."
+msgstr "%sTutorialele noastre pentru începători%s  sunt destinate celor exact ca tine. Prezentând atât videoclipuri cu instrucțiuni de urmat pas-cu-pas precum și ghiduri scrise însoțite de print-screen-uri, cu scopul de a te aduce de la zero la nivel avansat într-un timp foarte scurt."
 
-#: ../lib/apm_filters.php:54
-msgid "End Date"
-msgstr "Dată Finalizare"
+#: ../src/admin-views/widget-admin-advanced-list.php:141
+#: ../src/admin-views/widget-admin-venue.php:35
+msgid "Hide this widget if there are no upcoming events:"
+msgstr "Ascundeţi acest widget dacă NU există evenimente următoare:"
 
-#: ../lib/apm_filters.php:59
-msgid "Event Cost"
-msgstr "Preţ Eveniment"
+#: ../src/Tribe/Main.php:677
+msgid "%sInstallation/Setup FAQs%s from our support page can help give an overview of what the plugin can and cannot do. This section of the FAQs may be helpful as it aims to address any basic install questions not addressed by the new user primer."
+msgstr "%sFAQ (întrebări frecvente) despre instalare%s de pe pagina noastră de suport - vă puteți face aici o impresie despre ce poate și ce nu poate să facă pluginul. Această secțiune poate fi de ajutor pentru a răspunde oricăror întrebări de bază ce nu au fost acoperite în tutorialele pentru începători."
 
-#: ../lib/apm_filters.php:64
-msgid "Event Cats"
-msgstr "Categ. Eveniment"
+#: ../src/admin-views/widget-admin-countdown.php:17
+msgid "Event:"
+msgstr "Eveniment:"
 
-#: ../lib/apm_filters.php:69
-msgid "Title"
-msgstr "Titlu"
+#: ../src/Tribe/Main.php:679
+msgid "Take care of your license key. Though not required to create your first event, you'll want to get it in place as soon as possible to guarantee your access to support and upgrades. %sHere's how to find your license key%s, if you don't have it handy."
+msgstr "Aveți grijă de cheia dumneavoastră de licență. Deși nu este necesară pentru realizarea primului eveniment, veți dori să o introduceți cât de repede pentru a garanta accesul dumneavoastră la suport și actualizări. %sIată cum puteți găsi cheia dumneavoastră de licență%s, dacă nu o aveți la îndemână."
 
-#: ../lib/apm_filters.php:74
-msgid "Recurring"
-msgstr "Repetare"
+#: ../src/admin-views/widget-admin-countdown.php:25
+msgid "Show seconds:"
+msgstr "Afişare secunde:"
 
-#: ../lib/apm_filters.php:79
-msgid "Description"
-msgstr "Descriere"
+#: ../src/Tribe/Main.php:681
+msgid "Otherwise, if you're feeling adventurous, you can get started by heading to the Events menu and adding your first event."
+msgstr "Altfel, dacă aveți curaj, puteți merge direct la meniul Evenimente pentru a adăuga primul dumneavoastră eveniment."
 
-#: ../lib/meta-pro.php:97
-msgid "Other"
-msgstr "Altele"
+#: ../src/admin-views/widget-admin-countdown.php:30
+msgid "Countdown Completed Text:"
+msgstr "Numărătoarea inversă Text Finalizat:"
 
-#: ../lib/meta-pro.php:121
-msgid "Recurrence Pattern:"
-msgstr "Patern de Repetare:"
+#: ../src/Tribe/Main.php:694
+msgid "Written documentation can only take things so far...sometimes, you need help from a real person. This is where our %ssupport forums%s come into play."
+msgstr "Uneori documentația scrisă își atinge limitele și aveți nevoie de ajutor particularizat de la o persoană. Aici intră în joc %sforumurile de suport%s."
 
-#: ../lib/tribe-events-recurrence-meta.class.php:471
-msgid ""
-"Monthly custom recurrences cannot have a dash set as the day to occur on."
+#: ../src/admin-views/widget-admin-venue.php:16
+msgid "Venue:"
+msgstr "Locul Desfăşurării:"
+
+#: ../src/Tribe/Main.php:695
+msgid "Users who have purchased an Events Calendar PRO license are granted total access to our %spremium support forums%s. Unlike at the %sWordPress.org support forum%s, where our involvement is limited to identifying and patching bugs, we have a dedicated support team for PRO users. We're on the PRO forums daily throughout the business week, and no thread should go more than 24-hours without a response."
+msgstr "Utilizatorii care au cumpărat o licență Events Calendar PRO primesc acces total la %sforumurile noastre de suport premium%s. Spre deosebire de %sforumul de suport WordPress.org%s, unde implicarea noastră se limitează la identificarea și remedierea bug-urilor, avem o echipă de suport dedicată utilizatorilor PRO. Vizităm zilnic forumurile PRO în zilele lucrătoare și nici un topic nu ar trebui să rămână fără răspuns pentru mai mult de 24 de ore."
+
+#: ../src/functions/template-tags/general.php:125
+msgid "Show only the first upcoming instance of recurring %s"
 msgstr ""
-"Repetările personalizate lunare nu pot avea stabilite liniuţe ca şi ziua în "
-"care va avea loc."
 
-#: ../lib/tribe-events-recurrence-meta.class.php:474
-msgid ""
-"Yearly custom recurrences cannot have a dash set as the day to occur on."
-msgstr ""
-"Repetările personalizate anuale nu pot avea stabilite liniuţe ca şi ziua în "
-"care va avea loc."
-
-#: ../lib/tribe-events-recurrence-meta.class.php:656
-#: ../lib/tribe-events-recurrence-meta.class.php:671
-msgid "Every day"
-msgstr "Fiecare zi"
-
-#: ../lib/tribe-events-recurrence-meta.class.php:660
-#: ../lib/tribe-events-recurrence-meta.class.php:676
-msgid "Every week"
-msgstr "Fiecare săptâmână"
-
-#: ../lib/tribe-events-recurrence-meta.class.php:663
-#: ../lib/tribe-events-recurrence-meta.class.php:682
-msgid "Every month"
-msgstr "Fiecare lună"
-
-#: ../lib/tribe-events-recurrence-meta.class.php:666
-#: ../lib/tribe-events-recurrence-meta.class.php:689
-msgid "Every year"
-msgstr "Fiecare an"
-
-#: ../lib/tribe-events-recurrence-meta.class.php:672
-#, php-format
-msgid "Every %d days"
-msgstr "Fiecare %d zile"
-
-#: ../lib/tribe-events-recurrence-meta.class.php:677
-#, php-format
-msgid "Every %d weeks"
-msgstr "Fiecare %d săptămâni"
-
-#: ../lib/tribe-events-recurrence-meta.class.php:678
-#, php-format
-msgid " on %s"
-msgstr "pe %s"
-
-#: ../lib/tribe-events-recurrence-meta.class.php:683
-#, php-format
-msgid "Every %d months"
-msgstr "Fiecare %d luni"
-
-#: ../lib/tribe-events-recurrence-meta.class.php:685
-#, php-format
-msgid " on the %s %s"
-msgstr "pe %s %s"
-
-#: ../lib/tribe-events-recurrence-meta.class.php:690
-#, php-format
-msgid "Every %d years"
-msgstr "Fiecare %d ani"
-
-#: ../lib/tribe-events-recurrence-meta.class.php:692
-msgid "last"
-msgstr "ultima"
-
-#: ../lib/tribe-events-recurrence-meta.class.php:697
-#, php-format
-msgid " on the %s %s of %s"
-msgstr "pe %s %s of %s"
-
-#: ../lib/tribe-events-recurrence-meta.class.php:704
-#, php-format
-msgid " until %s"
-msgstr "până la %s"
-
-#: ../lib/tribe-events-recurrence-meta.class.php:711
-#, php-format
-msgid "%s%s%s"
-msgstr "%s%s%s"
-
-#: ../lib/tribe-events-recurrence-meta.class.php:726
-msgid ", and"
-msgstr ", şi"
-
-#: ../lib/tribe-events-recurrence-meta.class.php:728
-msgid "and"
-msgstr "şi"
-
-#: ../lib/tribe-events-recurrence-meta.class.php:730
-msgid ","
-msgstr ","
-
-#: ../lib/tribe-events-recurrence-meta.class.php:745
-msgid "January"
-msgstr "Ianuarie"
-
-#: ../lib/tribe-events-recurrence-meta.class.php:745
-msgid "February"
-msgstr "Februarie"
-
-#: ../lib/tribe-events-recurrence-meta.class.php:745
-msgid "March"
-msgstr "Martie"
-
-#: ../lib/tribe-events-recurrence-meta.class.php:745
-msgid "April"
-msgstr "Aprilie"
-
-#: ../lib/tribe-events-recurrence-meta.class.php:746
-msgid "June"
-msgstr "Iunie"
-
-#: ../lib/tribe-events-recurrence-meta.class.php:746
-msgid "July"
-msgstr "Iulie"
-
-#: ../lib/tribe-events-recurrence-meta.class.php:746
-msgid "August"
-msgstr "August"
-
-#: ../lib/tribe-events-recurrence-meta.class.php:746
-msgid "September"
-msgstr "Septembrie"
-
-#: ../lib/tribe-events-recurrence-meta.class.php:746
-msgid "October"
-msgstr "Octombrie"
-
-#: ../lib/tribe-events-recurrence-meta.class.php:746
-msgid "November"
-msgstr "Noiembrie"
-
-#: ../lib/tribe-events-recurrence-meta.class.php:746
-msgid "December"
-msgstr "Decembrie"
-
-#: ../lib/tribe-events-recurrence-meta.class.php:752
-msgid ", and "
-msgstr ", şi"
-
-#: ../lib/tribe-events-recurrence-meta.class.php:754
-msgid " and "
-msgstr "şi"
-
-#: ../lib/tribe-events-recurrence-meta.class.php:756
-msgid ", "
-msgstr ","
-
-#: ../lib/tribe-events-recurrence-meta.class.php:862
-msgid "Recurring event instances"
-msgstr "Repetare instanţe eveniment"
-
-#: ../lib/tribe-events-recurrence-meta.class.php:863
-msgid ""
-"Show only the first instance of each recurring event (only affects list-"
-"style views)."
-msgstr ""
-"Afişarea doar a primelor instanţe din fiecare eveniment recurent (afectează "
-"numai vizualizările tip listă)."
-
-#: ../lib/tribe-events-recurrence-meta.class.php:869
-msgid "Front-end recurring event instances toggle"
-msgstr "Comutare instanţe de repetare eveniment din interfaţa utilizatorului"
-
-#: ../lib/tribe-events-recurrence-meta.class.php:870
-msgid ""
-"Allow users to decide whether to show all instances of a recurring event."
-msgstr ""
-"Permite utilizatoriilor să decidă dacă se vor afişa toate repetările "
-"evenimentului"
-
-#: ../lib/tribe-events-recurrence-meta.class.php:877
-msgid "Clean up recurring events after"
-msgstr "Elimină evenimentele recurente după"
-
-#: ../lib/tribe-events-recurrence-meta.class.php:878
-msgid "Automatically remove recurring event instances older than this"
-msgstr "Elimină automat evenimentele recurente mai vechi de atât. "
-
-#: ../lib/tribe-events-recurrence-meta.class.php:885
-msgid "Create recurring events in advance for"
-msgstr "Creare evenimente recurente în avans pentru"
-
-#: ../lib/tribe-events-recurrence-meta.class.php:886
-msgid "Recurring events will be created this far in advance"
-msgstr "Evenimentele recurente vor fi create atțt de mult în avans"
-
-#: ../lib/tribe-events-recurrence-meta.class.php:907
-msgid " months"
-msgstr " luni"
-
-#: ../lib/tribe-geoloc.class.php:101
-msgid "Distance"
-msgstr "Distanţa"
-
-#: ../lib/tribe-geoloc.class.php:133
-msgid "Map view search distance limit"
-msgstr "Limită distanţei pe harta afişată la căutare "
-
-#: ../lib/tribe-geoloc.class.php:135
-msgid ""
-"Set the distance that the location search covers (find events within X "
-"distance units of location search input)."
-msgstr ""
-"Stabiliţi distanţa pe care căutarea locaţiei o poate acoperi (găsiţi "
-"evenimente cu X unităţi de distanţă de la locaţia introdusă în căutare)"
-
-#: ../lib/tribe-geoloc.class.php:141
-msgid "Map view distance unit"
-msgstr "Unitate de distanţă la vizulizarea hărţii"
-
-#: ../lib/tribe-geoloc.class.php:145
-msgid "Miles"
-msgstr "Mile"
-
-#: ../lib/tribe-geoloc.class.php:146
-msgid "Kilometers"
-msgstr "Kilometrii"
-
-#: ../lib/tribe-geoloc.class.php:149
-msgid "Fix geolocation data"
-msgstr "Stabilire date de geolocaţie"
-
-#: ../lib/tribe-geoloc.class.php:149
-#, php-format
-msgid ""
-"You have %d venues for which we don't have geolocation data. We need to use "
-"the Google Maps API to get that information. Doing this may take a while "
-"(aprox. 1 minute for every 200 venues)."
-msgstr ""
-"Aveţi %d locaţii pentru care nu deţinem date de geolocaţie. Trebuie să "
-"folosim API Hărți Google pentru a primi aceste informaţii. Apelând la "
-"această metodă, va dura ceva timp (cam 1 minut pentru fiecare 200 de locaţii)"
-
-#: ../lib/tribe-geoloc.class.php:158
-msgid "Hide location search"
-msgstr "Ascudere căutare locaţie"
-
-#: ../lib/tribe-geoloc.class.php:159
-msgid ""
-"Removes location search field from the events bar on all views except for "
-"map view."
-msgstr ""
-"Elimină câmpul de căutare a locaţiei din bara de evenimente, pentru toate "
-"vizualizările cu excepţia vizualizării hărţii."
-
-#: ../lib/tribe-geoloc.class.php:211
-msgid "Map"
-msgstr "Harta"
-
-#: ../lib/tribe-geoloc.class.php:241
-msgid "Near"
-msgstr "Apropiere"
-
-#: ../lib/tribe-geoloc.class.php:242
-msgid "Location"
-msgstr "Locație"
-
-#: ../lib/tribe-geoloc.class.php:548
-#, php-format
-msgid "No results were found for events in or near <strong>\"%s\"</strong>."
-msgstr ""
-"Nici un rezultat găsit pentru evenimente în sau în apropiere de <strong>\"%s"
-"\"</strong>."
-
-#: ../lib/tribe-geoloc.class.php:551
-msgid "There were no results found."
-msgstr "Nu au fost găsite rezultate"
-
-#: ../lib/tribe-geoloc.class.php:812
-msgid "Fix venues data"
-msgstr "Restabilire date despre locaţii"
-
-#: ../lib/tribe-geoloc.class.php:846
-#, php-format
-msgid ""
-"You have venues for which we don't have Geolocation information. <a "
-"href='%s'>Click here to generate it</a>."
-msgstr ""
-"Aveţi locaţii pentru care nu deţinem informaţii de Geolocaţie.<a "
-"href='%s'>Apăsaţi aici pentru a le genera</a>."
-
-#: ../lib/tribe-geoloc.class.php:872
-#, php-format
-msgid "Fixed geolocation data for %d venues"
-msgstr "Restabilire date de geolocaţie pentru %d locaţii"
-
-#: ../lib/tribe-ical.class.php:42
-msgid "Add to Google Calendar"
-msgstr "Adăugare la Calendarul Google"
-
-#: ../lib/tribe-ical.class.php:42
-msgid "Google Calendar"
-msgstr "Calendar Google"
-
-#: ../lib/tribe-ical.class.php:43 ../lib/tribe-ical.class.php:93
-msgid "iCal Import"
-msgstr "Import iCal"
-
-#: ../lib/tribe-ical.class.php:80
-msgid "Month's Events"
-msgstr "Evenimentele Lunii"
-
-#: ../lib/tribe-ical.class.php:83
-msgid "Week's Events"
-msgstr "Evenimentele Săptămânii"
-
-#: ../lib/tribe-ical.class.php:86
-msgid "Day's Events"
-msgstr "Evenimentele Zilei"
-
-#: ../lib/tribe-ical.class.php:89
-msgid "Listed Events"
-msgstr "Evenimentele Listate"
-
-#: ../lib/tribe-ical.class.php:93
-msgid "Import is filter/view sensitive"
-msgstr "Importarea este sensibilla la filtru/vizualizare"
-
-#: ../lib/TribeEventsFilter_GeoLoc.php:37
-#, php-format
-msgid "Type: %s %s"
-msgstr "Tip: %s %s"
-
-#: ../lib/TribeEventsFilter_GeoLoc.php:46
-msgid "Radio Buttons"
-msgstr "Butoane Radio"
-
-#: ../lib/widget-advanced-list.class.php:18
-msgid "A widget that displays the next upcoming x events."
-msgstr "Un widget ce afişează evenimentele x următoare."
-
-#: ../lib/widget-advanced-list.class.php:24
-msgid "Events List"
-msgstr "Listă Evenimente"
-
-#: ../lib/widget-calendar.class.php:8
-msgid "The events calendar mini calendar widget"
-msgstr "Un widget cu mini-calendar pentru calendarul de evenimente"
-
-#: ../lib/widget-calendar.class.php:10 ../lib/widget-calendar.class.php:31
-#: ../lib/widget-calendar.class.php:63
-msgid "Events Calendar"
-msgstr "Calendar Evenimente"
-
-#: ../lib/widget-countdown.class.php:13
-msgid "Displays the time remaining until a specified event."
-msgstr "Afişează timpul rămas până la evenimentul specificat."
-
-#: ../lib/widget-countdown.class.php:15
-msgid "Events Countdown"
-msgstr "Numărătoare-Inversă Evenimente"
-
-#: ../lib/widget-venue.class.php:12
-msgid "Displays a list of upcoming events at a specific venue."
-msgstr ""
-"Afişează o listă a evenimentelor ce vor avea loc într-o locaţie specifică."
-
-#: ../lib/widget-venue.class.php:14
-msgid "Events Featured Venue"
-msgstr "Locaţie Semnificativă Evenimente"
-
-#: ../lib/template-classes/day.php:76 ../lib/template-classes/day.php:85
-#: ../views/pro/week/loop-grid-allday.php:23
-#: ../views/tribe-ECP-views-old/views/featured-widget.php:59
-#: ../views/tribe-ECP-views-old/views/list-widget.php:57
-msgid "All Day"
-msgstr "Toată Ziua"
-
-#: ../lib/template-classes/day.php:129
-#, php-format
-msgid ""
-"No matching events listed under %s scheduled for <strong>%s</strong>. Please "
-"try another day."
-msgstr ""
-"Nici un eveniment din %s programat pentru <strong>%s</strong>. Vă rugăm "
-"încercaţi o altă zi."
-
-#: ../lib/template-classes/day.php:132
-#, php-format
-msgid "No events scheduled for <strong>%s</strong>. Please try another day."
-msgstr ""
-"Nici-un eveniment programat pentru <strong>%s</strong>. Vă rugăm încercaţi o "
-"altă zi."
-
-#: ../lib/template-classes/week.php:87
-#, php-format
-msgid ""
-"There were no results found for <strong>\"%s\"</strong> this week. Try "
-"searching another week."
-msgstr ""
-"Nici-un rezultat nu a fost găsit pentru <strong>\"%s\"</strong> în această "
-"săptămână. Încercaţi să căutaţi în altă săptămână."
-
-#: ../lib/template-classes/week.php:90
-#, php-format
-msgid ""
-"No results were found for events in or near <strong>\"%s\"</strong> this "
-"week. Try searching another week."
-msgstr ""
-"Niciun rezultat nu a fost găsit pentru evenimente în sau în apropiere de "
-"<strong>\"%s\"</strong> în această săptămână. Încercaţi să căutaţi în altă "
-"săptămână."
-
-#: ../lib/template-classes/week.php:93
-msgid "No results were found for this week. Try searching another week."
-msgstr ""
-"Nici-un rezultat nu a fost găsit pentru această săptămână. Încercaţi să "
-"căutaţi în altă săptămână."
-
-#: ../public/template-tags/general.php:91
-msgid "Show only the first upcoming instance of recurring events"
-msgstr "Afişarea doar a primei instanţe de repetare a evenimentelor:"
-
-#: ../public/template-tags/general.php:283
-#: ../public/template-tags/general.php:297
-#: ../public/template-tags/general.php:310
-#: ../public/template-tags/general.php:311
-#: ../public/template-tags/general.php:324
-#: ../public/template-tags/general.php:325
-#: ../public/template-tags/general.php:338
-#: ../public/template-tags/general.php:339
-#: ../public/template-tags/general.php:352
-#: ../public/template-tags/general.php:353
-#: ../public/template-tags/general.php:366
-#: ../public/template-tags/general.php:367
-#: ../public/template-tags/general.php:380
-#: ../public/template-tags/general.php:381
-#: ../public/template-tags/general.php:394
-#: ../public/template-tags/general.php:395
+#: ../src/Tribe/Main.php:696
+msgid "Our number one goal is helping you succeed, and to whatever extent possible, we'll help troubleshoot and guide your customizations or tweaks. While we won't build your site for you, and we can't guarantee we'll be able to get you 100% integrated with every theme or plugin out there, we'll do all we can to point you in the right direction and to make you -- and your client, as is often more importantly the case -- satisfied."
+msgstr "Scopul nostru principal este să vă ajutăm să reușiți și, în măsura în care acest lucru este posibil, vom identifica erorile și vă vom ghida pentru customizări. Nu vom putea construi site-ul în locul dumneavoastră și nu putem asigura 100% integrarea cu toate temele și pluginurile de pe piață, dar vom face tot ce putem pentru a vă indica direcția cea bună și a vă face să fiți atât dumneavoastră cât și - adesea, mai important - clienții dumneavoastră, mulțumiți."
+
+#: ../src/functions/template-tags/general.php:302
+#: ../src/functions/template-tags/general.php:317
+#: ../src/functions/template-tags/general.php:332
+#: ../src/functions/template-tags/general.php:347
+#: ../src/functions/template-tags/general.php:362
+#: ../src/functions/template-tags/general.php:377
+#: ../src/functions/template-tags/general.php:392
+#: ../src/functions/template-tags/general.php:407
+#: ../src/functions/template-tags/general.php:422
 msgid "No default set"
 msgstr "Nimic configurat ca implicit"
 
-#: ../public/template-tags/general.php:284
-#, php-format
+#: ../src/Tribe/Main.php:697
+msgid "Before posting a new thread, please do a search to make sure your issue hasn't already been addressed. When posting please make sure to provide as much detail about the problem as you can (with screenshots or screencasts if feasible), and make sure that you've identified whether a plugin / theme conflict could be at play in your initial message."
+msgstr "Înainte de a posta un topic nou, efectuați o căutare pentru a vă asigura că problema dumneavoastră nu a primit deja un răspuns. Când postați, dați cât mai multe detalii despre problemă (cu screenshoturi și dacă se poate screencasturi), asigurându-vă că ați identificat dacă un plugin sau o temă e în conflict în mesajul inițial."
+
+#: ../src/functions/template-tags/general.php:304
 msgid "The current default organizer is: %s"
 msgstr "Organizatorul curent implicit este: %s"
 
-#: ../public/template-tags/general.php:298
-#, php-format
+#: ../src/Tribe/Main.php:1134
+msgid "Event: "
+msgstr ""
+
+#: ../src/functions/template-tags/general.php:319
 msgid "The current default venue is: %s"
 msgstr "Locaţia curentă implicită este: %s"
 
-#: ../public/template-tags/general.php:312
-#, php-format
+#: ../src/Tribe/Main.php:1135
+msgid "Address: "
+msgstr ""
+
+#: ../src/functions/template-tags/general.php:334
 msgid "The current default address is: %s"
 msgstr "Adresa curentă implicită este: %s"
 
-#: ../public/template-tags/general.php:326
-#, php-format
+#: ../src/Tribe/Main.php:1204
+msgid "Settings"
+msgstr "Configurări"
+
+#: ../src/functions/template-tags/general.php:349
 msgid "The current default city is: %s"
 msgstr "Oraşul curent implicit este: %s"
 
-#: ../public/template-tags/general.php:340
-#, php-format
+#: ../src/Tribe/Main.php:1232
+msgid "Venue updated. <a href=\"%s\">View venue</a>"
+msgstr ""
+
+#: ../src/functions/template-tags/general.php:364
 msgid "The current default state is: %s"
 msgstr "Statul curent implicit este: %s"
 
-#: ../public/template-tags/general.php:354
-#, php-format
+#: ../src/Tribe/Main.php:1234
+msgid "Venue published. <a href=\"%s\">View venue</a>"
+msgstr ""
+
+#: ../src/functions/template-tags/general.php:379
 msgid "The current default province is: %s"
 msgstr "Provincia curentă implicită este: %s"
 
-#: ../public/template-tags/general.php:368
-#, php-format
+#: ../src/Tribe/Main.php:1235
+msgid "Venue submitted. <a target=\"_blank\" href=\"%s\">Preview venue</a>"
+msgstr ""
+
+#: ../src/functions/template-tags/general.php:394
 msgid "The current default postal code/zip code is: %s"
 msgstr "Codul poştal/codul zip curent implicit este: %s"
 
-#: ../public/template-tags/general.php:382
-#, php-format
+#: ../src/Tribe/Main.php:1237
+msgid "Venue scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s\">Preview venue</a>"
+msgstr ""
+
+#: ../src/functions/template-tags/general.php:409
 msgid "The current default country is: %s"
 msgstr "Ţara curentă implicită este: %s"
 
-#: ../public/template-tags/general.php:396
-#, php-format
+#: ../src/Tribe/Main.php:1239 ../src/Tribe/Main.php:1249
+msgid "M j, Y @ G:i"
+msgstr ""
+
+#: ../src/functions/template-tags/general.php:424
 msgid "The current default phone is: %s"
 msgstr "Telefonul curent implicit este: %s"
 
-#: ../public/template-tags/general.php:556
-#: ../public/template-tags/general.php:575
-#: ../public/template-tags/general.php:664
-#: ../public/template-tags/general.php:682
+#: ../src/Tribe/Main.php:1241
+msgid "Venue draft updated. <a target=\"_blank\" href=\"%s\">Preview venue</a>"
+msgstr ""
+
+#: ../src/functions/template-tags/general.php:584
+#: ../src/functions/template-tags/general.php:607
 msgid "Date out of range."
 msgstr "Data în afara intervalului acceptat."
 
-#: ../public/template-tags/general.php:617
-msgid "Today"
-msgstr "Azi"
-
-#: ../public/template-tags/general.php:619
-msgid "&laquo; Previous Day"
-msgstr "&laquo; Ziua Anterioară"
-
-#: ../public/template-tags/general.php:621
-msgid "Next Day &raquo;"
-msgstr "Ziua Urmatoare &raquo;"
-
-#: ../public/template-tags/general.php:623
-msgid "Yesterday"
-msgstr "Ieri"
-
-#: ../public/template-tags/general.php:625
-msgid "Tomorrow"
-msgstr "Mâine"
-
-#: ../public/template-tags/general.php:729
-msgid "Related Events"
-msgstr "Evenimente Asemănătoare"
-
-#: ../public/template-tags/week.php:251
-msgid "&laquo; Previous Week"
-msgstr "&laquo; Săptămâna anterioară"
-
-#: ../public/template-tags/week.php:264
-msgid "Next Week &raquo;"
-msgstr "Săptămâna Urmatoare &raquo;"
-
-#: ../vendor/advanced-post-manager/demo/demo.php:30
-#, php-format
-msgid ""
-"It looks like you might not have any demo data. <a href=\"%s\">Download our "
-"data</a> and use the <a href=\"%s\">WordPress Importer</a>."
+#: ../src/Tribe/Main.php:1243
+msgid "Organizer updated. <a href=\"%s\">View organizer</a>"
 msgstr ""
-"Se pare că nu aveţi nici-o dată demo (pentru o demonstrație).<a href=\"%s"
-"\">Descărcaţi datele noastre</a> şi folosiţi <a href=\"%s\">Importatorul "
-"WordPress</a>."
 
-#: ../vendor/advanced-post-manager/lib/tribe-columns.class.php:44
-msgid "Column Name"
-msgstr "Nume Coloană"
-
-#: ../vendor/advanced-post-manager/lib/tribe-columns.class.php:134
-msgid "Add a Column"
-msgstr "Adugaţi Coloană"
-
-#: ../vendor/advanced-post-manager/lib/tribe-columns.class.php:141
-msgid "Comments"
-msgstr "Comentarii"
-
-#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:52
-#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:72
-msgid "Is"
-msgstr "Este"
-
-#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:53
-#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:73
-msgid "Is Not"
-msgstr "Nu este"
-
-#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:67
-msgid "LIKE"
-msgstr "CA"
-
-#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:71
-msgid "Search"
-msgstr "Căutare"
-
-#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:82
-msgid "Member Type"
-msgstr "Tip Membru"
-
-#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:86
-msgid "Cafe"
-msgstr "Cafenea"
-
-#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:87
-msgid "Private Desk"
-msgstr "Birou Privat"
-
-#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:88
-msgid "Office"
-msgstr "Birou"
-
-#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:95
-msgid "what i’m querying. probably a key in the options array in $filters"
+#: ../src/functions/template-tags/general.php:717
+msgid "Recurring %s"
 msgstr ""
-"ceea ce interoghey. probabil o cheie din matricea de opţiuni din $filters"
 
-#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:526
-msgid "Choose a Saved Filter"
-msgstr "Alegeţi un Filtru Salvat"
-
-#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:642
-msgid "Add a Filter"
-msgstr "Adăgaţi un Filtru"
-
-#: ../vendor/advanced-post-manager/lib/tribe-meta-box-helper.php:44
-msgid "Extended Information"
-msgstr "Informaţii Extinse"
-
-#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:124
-#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:397
-msgid "Delete this image"
-msgstr "Ştergeţi această imagine"
-
-#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:124
-#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:352
-#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:397
-msgid "Delete"
-msgstr "Ştergere"
-
-#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:348
-msgid "Uploaded files"
-msgstr "Fişiere încărcate"
-
-#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:358
-msgid "Upload new files"
-msgstr "Încărcaţi fişiere noi"
-
-#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:361
-msgid "Add another file"
-msgstr "Adăugaţi un alt fişier"
-
-#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:404
-msgid "Add more images"
-msgstr "Adăugaţi mai multe imagini"
-
-#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:412
-msgid "Select a color"
-msgstr "Selectaţi o culoare"
-
-#: ../vendor/advanced-post-manager/views/edit-filters.php:7
-#: ../vendor/advanced-post-manager/views/edit-filters.php:8
-msgid "Click to toggle"
-msgstr "Apăsaţi pentru a comuta"
-
-#: ../vendor/advanced-post-manager/views/edit-filters.php:8
-msgid "Filters &amp; Columns"
-msgstr "Filtre &amp; Coloane"
-
-#: ../vendor/advanced-post-manager/views/edit-filters.php:17
-msgid "Apply"
-msgstr "Aplicaţi"
-
-#: ../vendor/advanced-post-manager/views/edit-filters.php:18
-msgid "Clear"
-msgstr "Eliminaţi"
-
-#: ../vendor/advanced-post-manager/views/edit-filters.php:19
-#: ../vendor/advanced-post-manager/views/edit-filters.php:26
-msgid "Save"
-msgstr "Salvaţi"
-
-#: ../vendor/advanced-post-manager/views/edit-filters.php:21
-msgid "Export to CSV"
-msgstr "Exportare în CSV"
-
-#: ../vendor/advanced-post-manager/views/edit-filters.php:25
-msgid "Filter Name"
-msgstr "Nume Filtru"
-
-#: ../vendor/advanced-post-manager/views/edit-filters.php:27
-msgid "Cancel"
-msgstr "Anulare"
-
-#: ../vendor/pue-client/admin-views/license-key.view.php:9
-#: ../vendor/pue-client/admin-views/license-key.view.php:13
-#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:292
-msgid "License Key"
-msgstr "Cheie de Licenţă"
-
-#: ../vendor/pue-client/admin-views/license-key.view.php:10
-msgid "A valid license key is required for support and updates."
-msgstr "O cheie validă de licenţă este necesară pentru suport şi actualizări."
-
-#: ../vendor/pue-client/admin-views/license-key.view.php:16
-msgid "Replace empty fields"
-msgstr "Înlocuiţi câmpurile goale"
-
-#: ../vendor/pue-client/admin-views/license-key.view.php:25
-#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:293
-msgid "A valid license key is required for support and updates"
-msgstr "O cheie validă de licenţă este necesară pentru suport şi actualizări"
-
-#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:361
-msgid "License key(s) updated."
-msgstr "Cheie(ile) de Licenţă a(u) fost actualizată(e)."
-
-#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:401
-msgid "Sorry, key validation server is not available."
-msgstr "Ne pare rău, serverul de validare a licenţei nu este disponibil."
-
-#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:403
-msgid "Sorry, this key is expired."
-msgstr "Ne pare rău, această cheie a expirat."
-
-#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:405
-msgid "Sorry, this key is out of installs."
-msgstr "Ne pare rău, această cheie este în afara instalării."
-
-#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:407
-msgid "Sorry, this key is not valid."
-msgstr "Ne pare rău, această cheie este invalidă."
-
-#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:410
-#, php-format
-msgid "Valid Key! Expires on %s"
-msgstr "Cheie Validă! Expiră la %s"
-
-#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:414
-#, php-format
-msgid ""
-"Hmmm... something's wrong with this validator. Please contact <a href=\"%s"
-"\">support.</a>"
+#: ../src/Tribe/Main.php:1244
+msgid "Organizer published. <a href=\"%s\">View organizer</a>"
 msgstr ""
-"Hmmm... ceva nu este în regulă cu acest validator. Vă rugăm să contactaţi <a "
-"href=\"%s\">echipa de suport.</a>"
 
-#: ../vendor/tribe-support/tribe-support.class.php:52
-msgid ""
-"Sometimes it's hard to tell what's going wrong without knowing more about "
-"your system steup. For your convenience, we've put together a little report "
-"on what's cooking under the hood."
+#: ../src/functions/template-tags/general.php:720
+msgid "(See all)"
 msgstr ""
-"Uneori e greu de realizat ce nu e în regulă fără a ști mai mult despre felul "
-"în care este configurat sistemul dumneavoastră. Pentru a vă fi mai ușor, am "
-"realizat un scurt raport despre ce se petrece în spate. "
 
-#: ../vendor/tribe-support/tribe-support.class.php:53
-msgid ""
-"If you suspect that the problem you're having is related to another plugin, "
-"or we're just plain having trouble reproducing your bug report, please copy "
-"and send all of this to our support team."
+#: ../src/Tribe/Main.php:1245
+msgid "Organizer submitted. <a target=\"_blank\" href=\"%s\">Preview organizer</a>"
 msgstr ""
-"Dacă suspectați că problema cu care vă confruntați e în legătură cu alt "
-"plugin sau nu putem să replicăm bugul dumneavpastră, copiați și trimiteți "
-"acest conținut echipei noastre de suport. "
 
-#: ../vendor/tribe-support/tribe-support.class.php:57
-msgid "System Information"
-msgstr "Informaţii de sistem"
+#: ../src/functions/template-tags/week.php:196
+msgid "<span>&laquo;</span> Previous Week"
+msgstr ""
 
-#: ../vendor/tribe-support/tribe-support.class.php:71
-msgid "Send a support request for this site."
-msgstr "Trimiteţi o cerere de suport pentru acest site."
+#: ../src/Tribe/Main.php:1247
+msgid "Organizer scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s\">Preview organizer</a>"
+msgstr ""
 
-#: ../views/pro/single-organizer.php:31 ../views/pro/single-venue.php:31
-msgid "&larr; Back to Events"
-msgstr "&laquo; Înapoi la Evenimente"
+#: ../src/functions/template-tags/week.php:226
+msgid "Next Week <span>&raquo;</span>"
+msgstr ""
 
-#: ../views/pro/day/nav.php:16
-msgid "Day Navigation"
-msgstr "Navigare la Zile"
+#: ../src/Tribe/Main.php:1251
+msgid "Organizer draft updated. <a target=\"_blank\" href=\"%s\">Preview organizer</a>"
+msgstr ""
 
-#: ../views/pro/day/single-event.php:75 ../views/pro/map/single-event.php:81
+#: ../src/views/pro/map/nav.php:20 ../src/views/pro/photo/nav.php:20
+msgid "%s List Navigation"
+msgstr ""
+
+#: ../src/Tribe/Main.php:1301
+msgid "Support"
+msgstr "Suport"
+
+#: ../src/views/pro/map/nav.php:25 ../src/views/pro/photo/nav.php:25
+msgid "<span>&laquo;</span> Previous %s"
+msgstr ""
+
+#: ../src/Tribe/Main.php:1303
+msgid "View All Add-Ons"
+msgstr "Vizualizaţi Toate Suplimentele"
+
+#: ../src/views/pro/map/nav.php:32 ../src/views/pro/photo/nav.php:31
+msgid "Next %s <span>&raquo;</span>"
+msgstr ""
+
+#: ../src/Tribe/Main.php:1428
+msgid "Week"
+msgstr "Săptămâna"
+
+#: ../src/views/pro/map/single-event.php:71
 msgid "Find out more"
 msgstr "Descoperiţi mai multe"
 
-#: ../views/pro/map/nav.php:22 ../views/pro/photo/nav.php:22
-msgid "Events List Navigation"
-msgstr "Navigare Listă Evenimente"
+#: ../src/Tribe/Main.php:1446
+msgid "Photo"
+msgstr "Foto"
 
-#: ../views/pro/map/nav.php:25 ../views/pro/photo/nav.php:25
-msgid "&laquo; Previous Events"
-msgstr "&laquo; Evenimente Anterioare"
+#: ../src/views/pro/related-events.php:26
+msgid "Related %s"
+msgstr ""
 
-#: ../views/pro/map/nav.php:32 ../views/pro/photo/nav.php:32
-msgid "Next Events &raquo;"
-msgstr "Evenimente Urmatoare &raquo;"
+#: ../src/Tribe/Main.php:1463
+msgid "Week Of"
+msgstr "Săptămâna"
 
-#: ../views/pro/week/loop-grid.php:19
+#: ../src/views/pro/single-organizer.php:32
+#: ../src/views/pro/single-venue.php:32
+msgid "&larr; Back to %s"
+msgstr ""
+
+#: ../src/Tribe/Mini_Calendar_Widget.php:8
+msgid "The events calendar mini calendar widget"
+msgstr "Un widget cu mini-calendar pentru calendarul de evenimente"
+
+#: ../src/views/pro/week/loop-grid-allday.php:18
+msgid "All Day"
+msgstr "Toată Ziua"
+
+#: ../src/Tribe/Mini_Calendar_Widget.php:11
+#: ../src/Tribe/Mini_Calendar_Widget.php:35
+#: ../src/Tribe/Mini_Calendar_Widget.php:76
+msgid "Events Calendar"
+msgstr "Calendar Evenimente"
+
+#: ../src/views/pro/week/loop-grid.php:19
 msgid "Hours"
 msgstr "Ore"
 
-#: ../views/pro/week/nav.php:16
+#: ../src/Tribe/Recurrence/Queue_Processor.php:182
+msgid "Could not process queue for event %d: %s"
+msgstr ""
+
+#: ../src/views/pro/week/nav.php:16
 msgid "Week Navigation"
 msgstr "Navigare pe Săptămănă"
 
-#: ../views/pro/widgets/countdown-widget.php:20
+#: ../src/Tribe/Recurrence/Queue_Realtime.php:53
+msgid "Completed!"
+msgstr ""
+
+#: ../src/views/pro/widgets/countdown-widget.php:20
 msgid "days"
 msgstr "zile"
 
-#: ../views/pro/widgets/countdown-widget.php:24
+#: ../src/Tribe/Recurrence/Queue_Realtime.php:55
+#: ../src/Tribe/Recurrence/Queue_Realtime.php:70
+#: ../src/Tribe/Recurrence/Queue_Realtime.php:101
+msgid "%d%% complete"
+msgstr ""
+
+#: ../src/views/pro/widgets/countdown-widget.php:24
 msgid "hours"
 msgstr "ore"
 
-# min = ??
-#: ../views/pro/widgets/countdown-widget.php:28
+#: ../src/Tribe/Recurrence/Queue_Realtime.php:67
+msgid "Recurring event data is still being generated for this event. Don&#146;t worry, you can safely navigate away &ndash; the process will resume in a bit in the background."
+msgstr ""
+
+#: ../src/views/pro/widgets/countdown-widget.php:28
 msgid "min"
 msgstr "min"
 
-#: ../views/pro/widgets/countdown-widget.php:33
+#: ../src/Tribe/Recurrence/Queue_Realtime.php:81
+msgid "Unable to continue processing recurring event data. Please reload this page to continue/try again."
+msgstr ""
+
+#: ../src/views/pro/widgets/countdown-widget.php:33
 msgid "sec"
 msgstr "sec"
 
-#: ../views/pro/widgets/list-widget.php:74
+#: ../src/Tribe/Recurrence_Meta.php:119
+msgid "Edit Series"
+msgstr ""
+
+#: ../src/views/pro/widgets/list-widget.php:57
+msgid "View More&hellip;"
+msgstr ""
+
+#: ../src/Tribe/Recurrence_Meta.php:125
+msgid "Break from Series"
+msgstr ""
+
+#: ../src/views/pro/widgets/list-widget.php:65
+msgid "There are no upcoming %s at this time."
+msgstr ""
+
+#: ../src/Tribe/Recurrence_Meta.php:135
+msgid "Edit Future Events"
+msgstr ""
+
+#: ../src/views/pro/widgets/modules/single-event.php:79
 msgid "Organizer:"
 msgstr "Organizator:"
 
-#: ../views/pro/widgets/venue-widget.php:33
-msgid "No upcoming events."
-msgstr "Nu sunt evenimente viitoare."
-
-#: ../views/tribe-ECP-views-old/views/list-widget.php:110
-msgid "Price:"
-msgstr "Preţ:"
-
-#: ../views/tribe-ECP-views-old/views/single-venue.php:24
-msgid "&laquo; Back to Events"
-msgstr "&laquo; Înapoi la Evenimente"
-
-#: ../views/tribe-ECP-views-old/views/single-venue.php:37
-msgid "Name:"
-msgstr "Nume:"
-
-#: ../views/tribe-ECP-views-old/views/single-venue.php:41
-msgid "Phone:"
-msgstr "Telefon:"
-
-#: ../views/tribe-ECP-views-old/views/single-venue.php:47
-msgid "Address:"
-msgstr "Adresa:"
-
-#: ../views/tribe-ECP-views-old/views/single-venue.php:49
-msgid "Click to view a Google Map"
-msgstr "Apăsaţi pentru vizualizarea în Harta Google"
-
-#: ../views/tribe-ECP-views-old/views/single-venue.php:49
-msgid "Google Map"
-msgstr "Harta Google"
-
-#: ../views/tribe-ECP-views-old/views/single-venue.php:76
-msgid "Upcoming Events At This Venue"
-msgstr "Evenimente Următoare în Acestă Locaţie"
-
-#: ../views/tribe-ECP-views-old/views/single-venue.php:96
-msgid "Start:"
-msgstr "Începere:"
-
-#: ../views/tribe-ECP-views-old/views/single-venue.php:100
-msgid "End:"
-msgstr "Finalizare:"
-
-#: ../views/tribe-ECP-views-old/views/single-venue.php:105
-msgid "Date:"
-msgstr "Data:"
-
-#: ../views/tribe-ECP-views-old/views/single-venue.php:114
-msgid "Cost:"
-msgstr "Preţ:"
-
-#~ msgid " for %d day"
-#~ msgid_plural " for %d days"
-#~ msgstr[0] "pentru %d zi"
-#~ msgstr[1] "pentru %d zile"
-#~ msgstr[2] "pentru %d de zile"
-
-#~ msgid " for %d week"
-#~ msgid_plural " for %d weeks"
-#~ msgstr[0] "pentru %d săptămână"
-#~ msgstr[1] "pentru %d săptămâni"
-#~ msgstr[2] "pentru %d de săptămâni"
-
-#~ msgid " for %d month"
-#~ msgid_plural " for %d months"
-#~ msgstr[0] "pentru %d lună"
-#~ msgstr[1] "pentru %d luni"
-#~ msgstr[2] "pentru %d de luni"
-
-#~ msgid " for %d year"
-#~ msgid_plural " for %d years"
-#~ msgstr[0] "pentru %d an"
-#~ msgstr[1] "pentru %d ani"
-#~ msgstr[2] "pentru %d de ani"
-
-#~ msgid ", recurring %d time"
-#~ msgid_plural ", recurring %d times"
-#~ msgstr[0] ", repetare %d dată"
-#~ msgstr[1] ", repetare de %d ori"
-#~ msgstr[2] ", repetare de %d de ori"
-
-#~ msgid "Your recurrence pattern would create greater than "
-#~ msgstr "Paternul dvs. de repetare ar putea crea mai multe decât"
-
-#~ msgid "Title: %s"
-#~ msgstr "Titlu: %s"
-
-#~ msgid "Select Dropdown"
-#~ msgstr "Selectare Derulare"
-
-#~ msgid ""
-#~ "There were no results found for <strong>\"%s\"</strong> on this day. Try "
-#~ "searching another day."
-#~ msgstr ""
-#~ "Nici-un rezultat nu a fost găsit pentru <strong>\"%s\"</strong> în "
-#~ "această zi. Încercaţi să căutaţi în altă zi."
-
-#~ msgid "Displays posts related to the post."
-#~ msgstr "Afişează articolele asemănătoare articolului. "
-
-#~ msgid "Related Posts"
-#~ msgstr "Articole Asemănătoare"
-
-# "Count" as: (meaning)
-# number,
-# sum,
-# tally,
-# calculation,
-# whole,
-# total,
-# total number,
-# total amount,
-# computation,
-# reckoning,
-# result,
-#, fuzzy
-#~ msgid "Count:"
-#~ msgstr "Număr:"
-
-#~ msgid "Display Thumbnails?"
-#~ msgstr "Afişare Miniaturi?"
-
-#~ msgid "Only Display Related Posts?"
-#~ msgstr "Afişare DOAR Articole Asemănătoare?"
-
-#~ msgid "Post Type:"
-#~ msgstr "Tip Articol:"
-
-#~ msgid "Previous Week"
-#~ msgstr "Săptămăna Anterioară"
-
-#~ msgid "Next Week"
-#~ msgstr "Săptămăna Următoare"
-
-#~ msgid ""
-#~ "Want to modify the display of this widget? Try a %stemplate override%s."
-#~ msgstr ""
-#~ "Doriţi modificarea afişării acestui widget? Încercaţi %ssuprascrierea "
-#~ "şablonului%s."
-
-#~ msgid ""
-#~ "<p>By buying a PRO license you will get active support and sweet "
-#~ "additional features not found in the free The Events Calendar.</"
-#~ "p><p><strong>Feeling adventurous?</strong> Jump right into it by visiting "
-#~ "the Events menu to <a href=\"%s\">add your first event</a>.</"
-#~ "p><p><strong>Want to get the low-down first?</strong> Visit our <a href="
-#~ "\"http://tri.be/support/documentation/events-calendar-pro-new-user-primer/"
-#~ "%s\">new user primer</a>,  designed to help familiarize you with the "
-#~ "plugin basics.</p><p>Don't forget to head over to the <a href=\"%s"
-#~ "\">license tab</a> and enter your key!</p>"
-#~ msgstr ""
-#~ "<p>Cumpărând o licenţă PRO, veţi primi un suport activ şi multe "
-#~ "funcţionalităţi adiţionale care nu se regăsesc în versiunea gratuită a "
-#~ "The Events Calendar.</p><p><strong>Vă simțiți aventuros??</strong> Săriţi "
-#~ "direct în acţiunem vizitând meniul de Evenimente şi <a href=\"%s"
-#~ "\">adăugaţi primul dvs. eveniment</a>.</p><p><strong>Doriţi s-o luaţi pas-"
-#~ "cu-pas pentru început?</strong> Vizitaţi-ne <a href=\"http://tri.be/"
-#~ "support/documentation/events-calendar-pro-new-user-primer/%s\">resursele "
-#~ "utilizatorului novicer</a>,  concepute pentru a ajuta să vă familiarizaţi "
-#~ "cu bazele acestui modul. </p><p>Nu uitaţi să mergeţi către <a href=\"%s"
-#~ "\">fila de licenţă</a> pentru a vă introduce cheia!</p>"
-
-#~ msgid ""
-#~ "One of the advantages of being a PRO user is that you have access to our "
-#~ "exclusive forums at %s. Our support staff hits the forums on a daily "
-#~ "basis, and what they can't answer on the spot they'll bring a member of "
-#~ "our dev team in to address directly."
-#~ msgstr ""
-#~ "Unul din avantajele de-a fi un utilizator PRO este că aveţi acces la "
-#~ "forumurile noastre exclusive pe %s. Personalul nostru de suport verifică "
-#~ "forumurile zilnic, şi dacă nu pot răspunde pe loc, vor solicita un membru "
-#~ "din echipa noastră de programatori pentru a vă răspunde direct."
-
-#~ msgid "Some things to consider before posting on the forum:"
-#~ msgstr "Câteva lucruri de reţinut înainte de a posta pe forum:"
-
-#~ msgid ""
-#~ "Search recent threads before posting a new one to check that there isn't "
-#~ "already a discussion about your issue."
-#~ msgstr ""
-#~ "Căutaţi subiectele recente ănainte de a posta unul nou, şi aceasta pentru "
-#~ "a verifica dacă nu există deja o discuţie pe această temă."
-
-#~ msgid ""
-#~ "Check whether the issue is a conflict with another plugin or your theme. "
-#~ "This can be tested easily on a staging site by deactivating other plugins "
-#~ "one-by-one, and reverting to the default Twenty Twelve theme to see if "
-#~ "conflicts can be easily identified. If you find a conflict, note it in a "
-#~ "support thread."
-#~ msgstr ""
-#~ "Verificaţi dacă problema este din cauza unui conflict cu un alt modul sau "
-#~ "temă. Aceata se poate testa rapid şi pas-cu-pas, dezactivând alte module, "
-#~ "unu câte unul, şi reactivând tema implicită Twenty Twelve (Douăzeci "
-#~ "Doisprezece) pentru a verifica dacă conflictele pot fi identificate cu "
-#~ "uşurinţă. Dacă descoperiţi un conflict, precizaţi-l în subiectul de "
-#~ "suport."
-
-#~ msgid ""
-#~ "Sometimes, resaving your permalinks (under <a href=\"%s\">Settings > "
-#~ "Permalinks</a>) can resolve events-related problems on your site. Before "
-#~ "creating a new thread try this handy trick."
-#~ msgstr ""
-#~ "Uneori, resalvându-vă permalinks (legăturile permanente din <a href=\"%s"
-#~ "\">Configurări > Permalinks</a> ) poate rezolva problemele legate de "
-#~ "evenimente de pe situl dvs. Înaintea de a crea un nou subiect, verificaţi "
-#~ "acest truc util."
-
-#~ msgid ""
-#~ "While we won't build your site for you and can't guarantee The Events "
-#~ "Calendar PRO to play nicely with every theme and plugin out there, our "
-#~ "team will do our best to help you get it functioning nicely with your "
-#~ "site. And as an added bonus, once you're done you can post it in "
-#~ "the %s so the rest of the community can see what you've been working on."
-#~ msgstr ""
-#~ "În timp ce nu vă vom construi noi situl dvs. şi nu vă putem garanta că "
-#~ "The Events Calendar PRO se va comporta frumos cu fiecare temă sau modul, "
-#~ "echipa noastră va face tot posibilul pentru a vă ajuta ca acest calendar "
-#~ "să funcţioneze optim pe situl dvs. Şi ca bonus oferit, odată ce va fi "
-#~ "gata îl puteţi posta pe %s pentru ca şi restul comunităţii să vadă la ce "
-#~ "lucraţi dvs."
-
-#~ msgid "Showcase thread"
-#~ msgstr "Subiect Portofoliu de proiecte"
-
-#~ msgid ""
-#~ "listed under %s. Check out events for this category or view the full "
-#~ "calendar."
-#~ msgstr ""
-#~ "listat în  %s. Verificaţi evenimentele pentru această categorie sau "
-#~ "vizualizaţi întregul calendar.  "
-
-#~ msgid "Refine your search:"
-#~ msgstr "Îmbunătăţiţi-vă căutarea:"
-
-#~ msgid "Tribe Event Add-Ons"
-#~ msgstr "Suplimente Tribe Event"
-
-#~ msgid "Version"
-#~ msgstr "Versiune"
-
-#~ msgid "Last Update"
-#~ msgstr "Ultima Actualizare"
-
-#~ msgid "Hide From Event Listings"
-#~ msgstr "Ascundere din Lista de Evenimente"
-
-#~ msgid "Sticky in Calendar View"
-#~ msgstr "Fixat în Vizualizare Calendar"
-
-#~ msgid "Auditing Information"
-#~ msgstr "Informații audit"
-
-#~ msgid "Created by:"
-#~ msgstr "Creat de:"
-
-#~ msgid "Audit Trail:"
-#~ msgstr "Pistă de audit:"
-
-#~ msgid "Event Time &amp; Date"
-#~ msgstr "Oră Eveniment &amp; Data"
-
-#~ msgid ""
-#~ "You have changed the recurrence rules of this event.  Saving the event "
-#~ "will update all future events.  If you did not mean to change all events, "
-#~ "then please refresh the page."
-#~ msgstr ""
-#~ "Aţi modificat regulile de recurenţă a acestui eveniment. Salvând "
-#~ "evenimentul, se vor actualiza toate evenimentele ulterioare. Dacă nu aţi "
-#~ "dorit modificarea tuturor evenimentelor, atunci vă rugăm să reâncărcaţi "
-#~ "această pagină."
-
-#~ msgid "Start Date &amp; Time:"
-#~ msgstr "Data de Începere &amp; Ora:"
-
-#~ msgid "YYYY-MM-DD"
-#~ msgstr "AAAA-LL-ZZ"
-
-#~ msgid "End Date &amp; Time:"
-#~ msgstr "Data Finalizării &amp; Ora:"
-
-#~ msgid "Event Location Details"
-#~ msgstr "Detalii Localizare Eveniment"
-
-#~ msgid "Event Website"
-#~ msgstr "Website Eveniment"
-
-#~ msgid "Currency Symbol:"
-#~ msgstr "Simbol Monetar:"
-
-#~ msgid "Enter a 0 for events that are free or leave blank to hide the field."
-#~ msgstr ""
-#~ "Introduceţi 0 pentru evenimentele gratuite sau lăsaţi necompletat pentru "
-#~ "a ascunde câmpul."
-
-#~ msgid "Organizer Name:"
-#~ msgstr "Nume Organizator:"
-
-#~ msgid "Website:"
-#~ msgstr "Website:"
-
-#~ msgid "Email:"
-#~ msgstr "Email:"
-
-#~ msgid ""
-#~ "Would you like to change only this instance of the event, or all future "
-#~ "events in this series?"
-#~ msgstr ""
-#~ "Doriţi modificarea doar în cazul acestui eveniment, sau pentru toate "
-#~ "evenimentele ulterioare din aceasta serie?"
-
-#~ msgid "Only This Event:"
-#~ msgstr "Doar Acest Eveniment:"
-
-#~ msgid "All other future events in the series will remain the same."
-#~ msgstr ""
-#~ "Toate celelalte evenimente ulterioare din această serie vor rămâne la fel."
-
-#~ msgid ""
-#~ "All future events in the series will be changed. Any changes made to "
-#~ "other events will be kept."
-#~ msgstr ""
-#~ "Toate evenimentele ulterioare din această serie vor fi modificate. Orice "
-#~ "modificare făcută altor evenimente va fi menţinută."
-
-#~ msgid ""
-#~ "Would you like to delete only this instance of the event, or all future "
-#~ "events in this series?"
-#~ msgstr ""
-#~ "Doriţi ştergerea doar pentru cazul acestui eveniment, sau pentru toate "
-#~ "evenimentele ulterioare din această serie?"
-
-#~ msgid "All other future events in the series will not be deleted."
-#~ msgstr ""
-#~ "Toate celelalte evenimente ulterioare din această serie nu vor fi şterse."
-
-#~ msgid "All future events in the series will be deleted."
-#~ msgstr "Toate evenimentele ulterioare din această serie vor fi şterse."
-
-#~ msgid "Attendees"
-#~ msgstr "Participanți"
-
-#~ msgid "Event Summary"
-#~ msgstr "Sumar Eveniment"
-
-#~ msgid "Event Details"
-#~ msgstr "Detalii Eveniment"
-
-#~ msgid "Start Date / Time:"
-#~ msgstr "Data de Începere / Ora:"
-
-#~ msgid "End Date / Time:"
-#~ msgstr "Data de Finalizare / Ora:"
-
-#~ msgid "Ticket Sales"
-#~ msgstr "Vânzări Bilete"
-
-#~ msgid "Sold %d"
-#~ msgstr "Vândute %d"
-
-#~ msgid "Sold %d of %d"
-#~ msgstr "Vândute %d din %d"
-
-#~ msgid "Tickets sold:"
-#~ msgstr "Bilete vândute:"
-
-#~ msgid "Checked in:"
-#~ msgstr "Rezervate:"
-
-#~ msgid "Send the attendee list by email"
-#~ msgstr "Trimiteţi lista participanţilor prin email"
-
-#~ msgid "or"
-#~ msgstr "sau"
-
-#~ msgid "Edit"
-#~ msgstr "Editare"
-
-#~ msgid "Edit in %s"
-#~ msgstr "Editat in %s"
-
-#~ msgid "See who purchased tickets to this event"
-#~ msgstr "Vedeţi cine a achiziţionat bilete la acest eveniment"
-
-#~ msgid ""
-#~ "This event was created using Community Events. Are you sure you want to "
-#~ "sell tickets for it?"
-#~ msgstr ""
-#~ "Evenimentul a fost creat folosind Community Events. Confirmaţi că doriți "
-#~ "să vindeţi bilete pentru aceasta?"
-
-#~ msgid "Upload image for the ticket header"
-#~ msgstr "Încărcaţi o imagine pentru antetul biletului"
-
-#~ msgid ""
-#~ "The maximum image size in the email will be 580px wide by any height, and "
-#~ "then scaled for mobile. If you would like \"retina\" support use an image "
-#~ "sized to 1160px wide."
-#~ msgstr ""
-#~ "Dimensiunea maximă a imaginii în email, va fi de 580px lăţime şi orice "
-#~ "înălţime, şi va fi redimensionata pentru mobile. Dacă doriţi suportul "
-#~ "pentru \"retina\" folosiţi o imagine cu lăţimea de 1160px."
-
-#~ msgid "Edit ticket"
-#~ msgstr "Editare bilet"
-
-#~ msgid "Sell using:"
-#~ msgstr "Vindeţi folosind:"
-
-#~ msgid "Ticket Name:"
-#~ msgstr "Nume Bilet:"
-
-#~ msgid "Start sale:"
-#~ msgstr "Începere vânzare:"
-
-#~ msgid "End sale:"
-#~ msgstr "Finalizare vănzare:"
-
-#~ msgid ""
-#~ "When will ticket sales occur? If you don't set a start/end date for "
-#~ "sales, tickets will be available from now until the event ends."
-#~ msgstr ""
-#~ "Când va avea loc vânzarea biletelor? Dacă nu stabiliţi o data de început/"
-#~ "finalizare, biletele vor fi disponibile, de acum până la finalizarea "
-#~ "evenimentului."
-
-#~ msgid "Default Events Template"
-#~ msgstr "Şablon Implicit Eveniment"
-
-#~ msgid "Display Settings"
-#~ msgstr "Configurări de Afişare"
-
-#~ msgid ""
-#~ "<p>The settings below control the display of your calendar. If things "
-#~ "don't look right, try switching between the three style sheet options or "
-#~ "pick a page template from your theme.</p>There are going to be situations "
-#~ "where no out-of-the-box template is 100% perfect. Check out our <a href="
-#~ "\"http://tri.be/support/documentation/events-calendar-themers-guide/"
-#~ "\">our themer's guide</a> for instructions on custom modifications. Want "
-#~ "to create a new view? Grab a copy of the <a href=\"https://github.com/"
-#~ "moderntribe/tribe-events-agenda-view\">Sample Agenda View plugin from "
-#~ "Github</a></p>"
-#~ msgstr ""
-#~ "<p> Configurările de mai jos, controlează afişarea calendarului dvs. Dacă "
-#~ "lucrurile nu vor arăta bine, încercați să comutați între cele trei "
-#~ "opţiuni pentru foia de stil, sau alegeţi un şablon de pagină din tema dvs."
-#~ "</p> Vor fi situaţii în care nici-un şablon din-afara-casetei nu va fi "
-#~ "100% perfect. Verificaţi  <a href=\"http://tri.be/support/documentation/"
-#~ "events-calendar-themers-guide/\">ghidul nostru pentru creatorii de teme</"
-#~ "a> pentru instrucţiuni referitoare la modificări personalizate. Doriţi "
-#~ "crearea unui nou aspect? Luați o copie a <a href=\"https://github.com/"
-#~ "moderntribe/tribe-events-agenda-view\">Modulului de Model Aspect Agendă "
-#~ "de la Github</a></p>"
-
-#~ msgid "Basic Template Settings"
-#~ msgstr "Configurări de Bază pentru Şablon"
-
-#~ msgid "Skeleton Styles"
-#~ msgstr "Stiluri Carcasă"
-
-#~ msgid ""
-#~ "These styles provide a bare minimum level of layout for the more complex "
-#~ "templates, and is recommended if you're customizing the events template "
-#~ "styles."
-#~ msgstr ""
-#~ "Aceste stiluri asigura un nivel minim de aspect pentru şabloane mai "
-#~ "complexe, şi sunt recomandate dacă vă personalizaţi stilurile de şablon "
-#~ "pentru evenimente."
-
-#~ msgid "Full Styles"
-#~ msgstr "Stiluri complete"
-
-#~ msgid ""
-#~ "These styles provide a more complex level of layout and style and should "
-#~ "adapt to your theme"
-#~ msgstr ""
-#~ "Aceste stiluri asigură un nivel mai complex a aspectului şi stilului, şi "
-#~ "ar trebui să se adapteze la tema dvs."
-
-#~ msgid "Tribe Events Styles"
-#~ msgstr "Stiluri Tribe Events"
-
-#~ msgid "These styles provide a fully designed events theme"
-#~ msgstr "Aceste stiluri asigură o temă complet proiectată pentru evenimente"
-
-#~ msgid ""
-#~ "Choose a page template to control the appearance of your calendar and "
-#~ "event content."
-#~ msgstr ""
-#~ "Alegeţi o pagină de şablon pentru a controla modul de afisare a "
-#~ "calendarului dvs. şi a conţinutului său."
-
-#~ msgid "Enable event views"
-#~ msgstr "Activați vizualizări eveniment"
-
-#~ msgid "Use the Event Search Bar"
-#~ msgstr "Folosiţi Bara de Căutare Eveniment"
-
-#~ msgid "Uncheck this to use the classic header."
-#~ msgstr "Debifaţi pentru a folosi antetul clasic."
-
-#~ msgid "Advanced Template Settings"
-#~ msgstr "Configurări Avansate Şablon"
-
-#~ msgid "Add HTML before event content"
-#~ msgstr "Adăugaţi HTML înaintea conţinutului evenimentului"
-
-#~ msgid ""
-#~ "If you are familiar with HTML, you can add additional code before the "
-#~ "event template. Some themes may require this to help with styling or "
-#~ "layout."
-#~ msgstr ""
-#~ "Dacă sunteţi familiarizaţi cu HTML, puteţi adăuga un cod adiţional "
-#~ "înaintea şablonului de eveniment. Anumite teme pot necesita acest lucru "
-#~ "pentru a ajuta la stilizare sau aspect."
-
-#~ msgid "Add HTML after event content"
-#~ msgstr "Adăugaţi HTML după conţinut eveniment"
-
-#~ msgid ""
-#~ "If you are familiar with HTML, you can add additional code after the "
-#~ "event template. Some themes may require this to help with styling or "
-#~ "layout."
-#~ msgstr ""
-#~ "Dacă sunteţi familiarizaţi cu HTML, puteţi adăuga un cod adiţional după "
-#~ "şablonul de eveniment. Anumite teme pot necesita acest lucru pentru a "
-#~ "ajuta la stilizare sau aspect."
-
-#~ msgid "Finding & extending your calendar."
-#~ msgstr "Găsirea și extinderea calendarului dvs."
-
-#~ msgid "Finding your calendar."
-#~ msgstr "Găsirea calendarului dvs."
-
-#~ msgid "Where's my calendar?"
-#~ msgstr "Unde este calendarul meu?"
-
-#~ msgid "Right here"
-#~ msgstr "Chiar aici"
-
-#~ msgid ""
-#~ "Looking for additional functionality including recurring events, custom "
-#~ "meta, community events, ticket sales and more?"
-#~ msgstr ""
-#~ "Căutaţi funcționalități suplimentare inclusiv evenimente cu repetare, "
-#~ "meta personalizat, evenimente comunitate, vânzări bilete şi mai mult? "
-
-#~ msgid "Check out the available add-ons"
-#~ msgstr "Verificaţi suplimentele disponibile"
-
-#~ msgid "We hope our plugin is helping you out."
-#~ msgstr "Sperăm că suplimentul nostru vă este de ajutor."
-
-#~ msgid ""
-#~ "Are you thinking \"Wow, this plugin is amazing! I should say thanks to "
-#~ "Modern Tribe for all their hard work.\" The greatest thanks we could ask "
-#~ "for is recognition. Add a small text-only link at the bottom of your "
-#~ "calendar pointing to The Events Calendar project."
-#~ msgstr ""
-#~ "Vă gândiţi că  \"Wow, acest supliment este extraordinar! Ar trebui să "
-#~ "mulţumesc Modern Tribe pentru munca lor dificilă.\" Cele mai mari "
-#~ "mulţumiri pe care le putem cere drept recunoştinţă. Adăugaţi o mică "
-#~ "legătură, doar de tip text, în subsolul calendarului dvs., care va "
-#~ "conduce la proiectul The Events Calendar."
-
-#~ msgid "See an example of the link"
-#~ msgstr "Priviţi un exemplu de legătură"
-
-#~ msgid ""
-#~ "Are you thinking \"Wow, this plugin is amazing! I should say thanks to "
-#~ "Modern Tribe for all their hard work.\" The greatest thanks we could ask "
-#~ "for is recognition. Add a small text only link at the bottom of your "
-#~ "calendar pointing to The Events Calendar project."
-#~ msgstr ""
-#~ "Vă gândiţi că  \"Wow, acest supliment este extraordinar! Ar trebui să "
-#~ "mulţumesc Modern Tribe pentru munca lor dificilă.\" Cele mai mari "
-#~ "mulţumiri pe care le putem cere drept recunoştinţă. Adăugaţi o mică "
-#~ "legătură, doar de tip text, în subsolul calendarului dvs., care va "
-#~ "conduce la proiectul The Events Calendar."
-
-#~ msgid "Show The Events Calendar link"
-#~ msgstr "Afişare legătură The Events Calendar"
-
-#~ msgid "General Settings"
-#~ msgstr "Configurări Generale"
-
-#~ msgid "Use Javascript to control page load"
-#~ msgstr "Folosiţi Javascript pentru a controla încărcarea paginii"
-
-#~ msgid "Enable ajax to live refresh content."
-#~ msgstr "Activaţi ajax pentru reîmprospătarea dinamică a conținutului."
-
-#~ msgid "Enable comments on event pages."
-#~ msgstr "Activarea comentarilor pe paginile evenimentelor."
-
-#~ msgid "Include events in main blog loop"
-#~ msgstr "Includerea evenimentelor în nodul principal al blogului"
-
-#~ msgid ""
-#~ "Show events with the site's other posts. When this box is checked, events "
-#~ "will also continue to appear on the default events page."
-#~ msgstr ""
-#~ "Afişarea evenimentelor împreună cu alte articole ale sitului. Dacă "
-#~ "această căsuţă va fi bifată, evenimentele vor continua deasemenea pe "
-#~ "pagina implicită de evenimente."
-
-#~ msgid "Events URL slug"
-#~ msgstr "URL slug Evenimente"
-
-#~ msgid ""
-#~ "You cannot edit the slug for your events page as you do not have pretty "
-#~ "permalinks enabled. The current URL for your events page is <a href=\"%s"
-#~ "\">%s</a>. In order to edit the slug here, <a href=\"%soptions-permalink."
-#~ "php\">enable pretty permalinks</a>."
-#~ msgstr ""
-#~ "Nu puteţi edita slug-ul pentru pagina evenimentelor, deoarece nu aveţi "
-#~ "activate pretty permalinks. URL-ul curent pentru pagina evenimentelor "
-#~ "este <a href=\"%s\">%s</a>. Pentru a edita slug-ul aici, <a href="
-#~ "\"%soptions-permalink.php\">activare pretty permalinks</a>."
-
-#~ msgid "The slug used for building the events URL."
-#~ msgstr "Slug-ul folosit pentru construirea adreselor URL ale evenimentelor"
-
-#~ msgid "Here is the iCal feed URL for your events:"
-#~ msgstr "Aici este adresa URL a feed-ului iCal pentru evenimentele dvs.:"
-
-#~ msgid "Single event URL slug"
-#~ msgstr "URL Slug pentru eveniment unic"
-
-#~ msgid ""
-#~ "The above should ideally be plural, and this singular.<br />Your single "
-#~ "event URL is: %s"
-#~ msgstr ""
-#~ "Mai sus, ideal ar trebui să fie la plural, şi acesta la singular.<br /"
-#~ ">Adresa URL pentru evenimentul dvs. unic este: %s"
-
-#~ msgid "End of day cutoff"
-#~ msgstr "Întrerupere pentru sfârşitul zilei"
-
-#~ msgid ""
-#~ "Have events that run past midnight? Control when your day official ends "
-#~ "to avoid awkwardly adding your event to the next day."
-#~ msgstr ""
-#~ "Aveţi evenimente ce se desfăşoară şi peste miezul nopţii? Stabiliţi când "
-#~ "se încheie oficial ziua evenimentului pentru a evita greşeala adăugării "
-#~ "evenimentului în ziua următoare."
-
-#~ msgid ""
-#~ "Set the default currency symbol for event costs. Note that this only "
-#~ "impacts future events, and changes made will not apply retroactively."
-#~ msgstr ""
-#~ "Stabiliţi simbolul monetar implicit pentru costurile evenimentului. "
-#~ "Rețineți că acesta influenţează numai evenimentele viitoare, iar "
-#~ "modificările făcute nu vor apare retroactiv."
-
-#~ msgid "Map Settings"
-#~ msgstr "Configurări Hartă"
-
-#~ msgid "Enable Google Maps"
-#~ msgstr "Activare Hărţi Google"
-
-#~ msgid "Check to enable maps for events and venues."
-#~ msgstr "Bifaţi pentru activarea hărţilor pentru evenimente şi locaţii."
-
-#~ msgid "Google Maps Default Zoom Level"
-#~ msgstr "Nivel Implicit de Magnificare pentru Hărţi Google"
-
-#~ msgid "0 = zoomed out; 21 = zoomed in."
-#~ msgstr "0 = depărtare; 21 = apropiere."
-
-#~ msgid "Miscellaneous Settings"
-#~ msgstr "Configurări Diverse"
-
-#~ msgid "Duplicate Venues &amp; Organizers"
-#~ msgstr "Duplicare Locaţii &amp; Organizatori"
-
-#~ msgid ""
-#~ "You might find duplicate venues and organizers when updating The Events "
-#~ "Calendar from a pre-3.0 version. Click this button to automatically merge "
-#~ "identical venues and organizers."
-#~ msgstr ""
-#~ "Puteţi găsi duplicate ale locaţiilor şi ale organizatorilor, la "
-#~ "actualizarea The Events Calendar din versiunile anterioare 3.0. Apăsaţi "
-#~ "acest buton pentru a combina locaţiile şi organizatorii identici."
-
-#~ msgid "Merge Duplicates"
-#~ msgstr "Combinaţi Duplicatele"
-
-#~ msgid "Debug mode"
-#~ msgstr "Modul de Depanare "
-
-#~ msgid ""
-#~ "Enable this option to log debug information. By default this will log to "
-#~ "your server PHP error log. If you'd like to see the log messages in your "
-#~ "browser, then we recommend that you install the %s and look for the "
-#~ "\"Tribe\" tab in the debug output."
-#~ msgstr ""
-#~ "Activaţi această opţiune pentru a înregistra informaţiile de depanare. "
-#~ "Implicit, aceasta va face înregistrarea în jurnalul de erori a serverului "
-#~ "dvs. PHP. Dacă doriţi să vedeţi jurnalul de înregistrări în browserul "
-#~ "dvs., atunci vă recomandăm instalarea  %sapoi căutaţi fila/tabul \"Tribe"
-#~ "\" în juranlul generat."
-
-#~ msgid "Debug Bar Plugin"
-#~ msgstr "Modul Bară Depanare"
-
-#~ msgctxt "not available"
-#~ msgid "n/a"
-#~ msgstr "n/a indisponibil"
-
-#~ msgid "You need to upgrade!"
-#~ msgstr "Trebuie să actualizaţi!"
-
-#~ msgid "You are up to date!"
-#~ msgstr "Aveţi versiunea actualizată!"
-
-#~ msgid "The Events Calendar PRO"
-#~ msgstr "Events Calendar PRO - Calendar Evenimente PRO"
-
-#~ msgid "Eventbrite Tickets"
-#~ msgstr "Eventbrite Tickets - Bilete Eventbrite"
-
-#~ msgid "Facebook Events"
-#~ msgstr "Facebook Events - Evenimente Facebook"
-
-#~ msgid "WooTickets"
-#~ msgstr "WooTickets - Bilete Woo"
-
-#~ msgid "FAQ"
-#~ msgstr "FAQ  - Întrebări Frecvente"
-
-#~ msgid "Help"
-#~ msgstr "Ajutor"
-
-#~ msgid "Tutorials"
-#~ msgstr "Tutoriale"
-
-#~ msgid "Release Notes"
-#~ msgstr "Note de Lansare"
-
-#~ msgid "Forums"
-#~ msgstr "Forumuri"
-
-#~ msgid ""
-#~ "<p>We love all our users and want to help free & PRO customers alike. If "
-#~ "you're running the latest version of The Events Calendar and are having "
-#~ "problems, post a thread at the %s on WordPress.org. We hit the forum once "
-#~ "a week to look for legitimate bug reports and do what we can to assist "
-#~ "users.</p>"
-#~ msgstr ""
-#~ "<p>Ne apreciem toţi utilizatorii şi dorim să ajutăm atât utilizatorii "
-#~ "gratuiţi cât şi pe clienţii PRO. Dacă rulaţi ultima versiune a modulului "
-#~ "The Events Calendar, şi aveţi dificultăţi, postaţi un subiect pe %s în "
-#~ "cadrul WordPress.org. Noi viţităm forumul o dată pe săptămână pentru "
-#~ "căutarea rapoartelor de erori justificate, şi facem tot ce putem pentru a "
-#~ "ne asista utilizatorii.</p>"
-
-#~ msgid "forum for The Events Calendar"
-#~ msgstr "forum pentru The Events Calendar"
-
-#~ msgid ""
-#~ "<p>If you need additional help, %sEvents Calendar Pro%s gets you access "
-#~ "to our support forums for a full year.</p>"
-#~ msgstr ""
-#~ "<p>Dacă aveţi nevoie de ajutor adiţional,  %sEvents Calendar Pro%s vă "
-#~ "oferă accesul în forumul nostru de suport pentru un an întreg.</p>"
-
-#~ msgid ""
-#~ "While we are happy to help with bugs and provide light integration tips "
-#~ "for users of The Events Calendar, on the WordPress.org support forums "
-#~ "we're not able to provide customization tips or assist in integration "
-#~ "with 3rd party plugins."
-#~ msgstr ""
-#~ "În timp ce suntem fericiţi să vă ajutăm cu erorile şi să oferim sfaturi "
-#~ "pentru o integrare uşoară pentru utilizatorii The Events Calendar, pe "
-#~ "forumul de suport al WordPress.org, nu vom putea oferi sfaturi de "
-#~ "personalizare, ori să vă asistăm cu integrarea modulelor terţe."
-
-#~ msgid ""
-#~ "Shoot us an email at %s or tweet %s and tell us why. We'll do what we can "
-#~ "to make it right."
-#~ msgstr ""
-#~ "Trimiteţi-ne un email la %s sau un tweet la %s şi spuneţi-ne de ce. Vom "
-#~ "face tot posibilul pentru remediere."
-
-#~ msgid "More..."
-#~ msgstr "Mai mult..."
-
-#~ msgid ""
-#~ "Hi! We are Modern Tribe and we are here to help you kick ass. Thanks so "
-#~ "much for installing our labor of love!"
-#~ msgstr ""
-#~ "Saltu! Suntem  Modern Tribe, si suntem aici să vă ajutăm. Vă mulţumim "
-#~ "mult pentru instalarea rezulatului muncii noastre!"
-
-#~ msgid "Getting Started"
-#~ msgstr "Noțiuni de bază"
-
-#~ msgid "Resources to Help You Kick Ass"
-#~ msgstr "Resurse pentru A Vă Ajuta"
-
-#~ msgid "Everyone Needs a Buddy"
-#~ msgstr "Toţi au Nevoie de un Prieten"
-
-#~ msgid "Still Not Satisfied?"
-#~ msgstr "Încă Nu Sunteţi Mulţumiţi?"
-
-#~ msgid "Latest Version:"
-#~ msgstr "Ultima Versiune:"
-
-#~ msgid "Author:"
-#~ msgstr "Autor:"
-
-#~ msgid "Modern Tribe Inc"
-#~ msgstr "Modern Tribe Inc"
-
-#~ msgid "Requires:"
-#~ msgstr "Cerinţe:"
-
-#~ msgid "WordPress "
-#~ msgstr "WordPress "
-
-#~ msgid "Wordpress.org Plugin Page"
-#~ msgstr "Pagina de Modul Wordpress.org"
-
-#~ msgid "Average Rating"
-#~ msgstr "Media Voturilor"
-
-#~ msgid "Based on %d rating"
-#~ msgid_plural "Based on %d ratings"
-#~ msgstr[0] "Bazat pe %d vot"
-#~ msgstr[1] "Bazat pe %d voturi"
-#~ msgstr[2] "Bazat pe %d voturi"
-
-#~ msgid "Give us 5 stars!"
-#~ msgstr "Acordaţi-ne 5 stele!"
-
-#~ msgid "Premium Add-Ons"
-#~ msgstr "Suplimente Premium"
-
-#~ msgid "(Coming Soon!)"
-#~ msgstr "(În Curând!)"
-
-#~ msgid "News and Tutorials"
-#~ msgstr "Noutăţi şi Tutoriale"
-
-#~ msgid "Network Settings"
-#~ msgstr "Configurări Reţea"
-
-#~ msgid ""
-#~ "This is where all of the global network settings for Modern Tribe's The "
-#~ "Events Calendar can be modified."
-#~ msgstr ""
-#~ "Aici este locul în care toate configurările globale de reţea ale "
-#~ "Calendarului de Evenimente Modern Tribe, pot fi modificate."
-
-#~ msgid "Hide the following settings tabs on every site:"
-#~ msgstr "Ascundeţi următoarele file de configurare pe toate siturile:"
-
-#~ msgid "Show Google Map:"
-#~ msgstr "Afişare Hartă Google:"
-
-#~ msgid "Show Google Maps Link:"
-#~ msgstr "Afişare Legătură Hartă Google:"
-
-#~ msgid "upcoming"
-#~ msgstr "următoare"
-
-#~ msgid "past"
-#~ msgstr "trecut"
-
-#~ msgid "venue"
-#~ msgstr "locaţie"
-
-#~ msgid "Initializing Tribe Events on %s"
-#~ msgstr "Iniţializarea Evenimentelor Tribe pe %s"
-
-#~ msgid ""
-#~ "Your version of The Events Calendar is not up-to-date with one of your "
-#~ "The Events Calendar add-ons. Please %supdate now.%s"
-#~ msgstr ""
-#~ "Versiunea dvs. The Events Calendar nu este la-zi cu unul din suplimentele "
-#~ "dvs. aferente The Events Calendar. Vă rugăm %sactualizaţi acum.%s"
-
-#~ msgid ""
-#~ "The following plugins are out of date: <b>%s</b>. Please %supdate now%s. "
-#~ "All add-ons contain dependencies on The Events Calendar and will not "
-#~ "function properly unless paired with the right version. %sWant to pair an "
-#~ "older version%s?"
-#~ msgstr ""
-#~ "Următoarele modulele sunt neactualizate şi depăşite: <b>%s</b>. Vă rugăm "
-#~ "să %sactualizaţi acum%s. Toate suplimentele conţine dependinţe de The "
-#~ "Events Calendar, şi nu vor funcţiona corespunzător decât dacă sunt "
-#~ "asociate versiunii corecte. %sDoriţi asocierea cu o versiune mai veche%s?"
-
-#~ msgid ""
-#~ "<p>The license key you received when completing your purchase from http://"
-#~ "tri.be will grant you access to support and updates until it expires. You "
-#~ "do not need to enter the key below for the plugins to work, but you will "
-#~ "need to enter it to get automatic updates. <strong>Find your license keys "
-#~ "at <a href=\"%s\">%s</a></strong>.</p> <p>Each paid add-on has its own "
-#~ "unique license key. Simply paste the key into its appropriate field on "
-#~ "below, and give it a moment to validate. You know you're set when a green "
-#~ "expiration date appears alongside a \"valid\" message.</p> <p>If you're "
-#~ "seeing a red message telling you that your key isn't valid or is out of "
-#~ "installs, visit [enter link to account/licenses] to manage your installs "
-#~ "or renew / upgrade your license.</p><p>Not seeing an update but expecting "
-#~ "one? In WordPress, go to <a href=\"%s\">Dashboard > Updates</a> and click "
-#~ "\"Check Again\".</p>"
-#~ msgstr ""
-#~ "<p>Cheia de licenţă pe care aţi primit-o la finalizarea achiziţiei de pe "
-#~ "http://tri.be vă garanteză accesul la suport şi actualizări, până la "
-#~ "expirarea ei. Nu trebuie să introduceţi cheia mai jos pentru funcţionarea "
-#~ "modulului, dar este necesară introducerea ei pentru a primi actualizările "
-#~ "automate. <strong>Vă puteţi găsi cheile de licenţă pe <a href=\"%s\">%s</"
-#~ "a></strong>.</p> <p>Fiecare supliment plătit are propria sa cheie unică "
-#~ "de licenţă. În mod simplu, inseraţi cheia în câmpul ei corespunzător de "
-#~ "mai jos, apoi acordaţi-i un moment pentru validare. Veţi şti că aţi "
-#~ "finalizat, atunci când va apare o dată de expirare de culoare verde de-a "
-#~ "lungul unui mesaj cu \"valid\".</p> <p>Dacă observaţi un mesaj roşu care "
-#~ "vă spune că deţineţi o cheie invalidă, sau eronată, vizitaţi [introduceţi "
-#~ "legătura către cont/licenţă] pentru gestionarea instalării sau "
-#~ "reînnoirii / actualizării licenţei dvs.</p><p> Nu observaţi nici-o "
-#~ "actualizare, dar aşteptaţi una? Din situl dvs. WordPress, navigaţi către "
-#~ "<a href=\"%s\">Tablou de Bord> Actualizări</a> şi apăsaţi \"Verifică din "
-#~ "Nou\".</p> "
-
-#~ msgid "General"
-#~ msgstr "General"
-
-#~ msgid ""
-#~ "Sorry, The Events Calendar requires WordPress %s or higher. Please "
-#~ "upgrade your WordPress install."
-#~ msgstr ""
-#~ "Ne pare rău, dar The Events Calendar necesită WordPress %s sau superior. "
-#~ "Vă rugăm să vă actuializaţi versiunea WordPress"
-
-#~ msgid ""
-#~ "Sorry, The Events Calendar requires PHP %s or higher. Talk to your Web "
-#~ "host about moving you to a newer version of PHP."
-#~ msgstr ""
-#~ "Ne pare rău, dar The Events Calendar necesită PHP %s sau superior. Luaţi "
-#~ "legătura cu gazda dvs. Web pentru a vă oferi o versiune mai nouă de PHP."
-
-#~ msgid "No description has been entered for this event."
-#~ msgstr "Nu a fost introdusă nici-o descriere pentru acest eveniment."
-
-#~ msgid "category"
-#~ msgstr "categorie"
-
-#~ msgid "tag"
-#~ msgstr "etichetă"
-
-#~ msgid "Events"
-#~ msgstr "Evenimente"
-
-#~ msgid "Event"
-#~ msgstr "Eveniment"
-
-#~ msgid "Add New"
-#~ msgstr "Adăugare Nou"
-
-#~ msgid "Add New Event"
-#~ msgstr "Adăugare Eveniment Nou"
-
-#~ msgid "Edit Event"
-#~ msgstr "Editare Eveniment"
-
-#~ msgid "New Event"
-#~ msgstr "Eveniment Nou"
-
-#~ msgid "View Event"
-#~ msgstr "Afişare Eveniment"
-
-#~ msgid "No events found"
-#~ msgstr "Nici-un eveniment găsit"
-
-#~ msgid "No events found in Trash"
-#~ msgstr "Nici-un eveniment găsit în Coşul de Gunoi"
-
-#~ msgid "Venues"
-#~ msgstr "Locaţii"
-
-#~ msgid "Add New Venue"
-#~ msgstr "Adăugare Locaţie Nouă"
-
-#~ msgid "Edit Venue"
-#~ msgstr "Editare Locaţie"
-
-#~ msgid "New Venue"
-#~ msgstr "Locaţie Nouă"
-
-#~ msgid "View Venue"
-#~ msgstr "Vizualizare Locaţie"
-
-#~ msgid "Search Venues"
-#~ msgstr "Căutare Locaţie"
-
-#~ msgid "No venue found"
-#~ msgstr "Nici-o locaţie găsită"
-
-#~ msgid "No venues found in Trash"
-#~ msgstr "Nici-o locaţie găsită în Coşul de Gunoi"
-
-#~ msgid "Organizers"
-#~ msgstr "Organizatori"
-
-#~ msgid "Add New Organizer"
-#~ msgstr "Adăugare Organizator Nou"
-
-#~ msgid "Edit Organizer"
-#~ msgstr "Editare Organizator"
-
-#~ msgid "View Organizer"
-#~ msgstr "Vizualizare Organizator"
-
-#~ msgid "Search Organizers"
-#~ msgstr "Căutare Organizatori"
-
-#~ msgid "No organizer found"
-#~ msgstr "Nici-un organizator găsit"
-
-#~ msgid "No organizers found in Trash"
-#~ msgstr "Nici-un organizator găsit în Coşul de Gunoi"
-
-#~ msgid "Event Categories"
-#~ msgstr "Categorii Eveniment"
-
-#~ msgid "Event Category"
-#~ msgstr "Categorie Eveniment"
-
-#~ msgid "Search Event Categories"
-#~ msgstr "Căutare Categorii Eveniment"
-
-#~ msgid "All Event Categories"
-#~ msgstr "Toate Categoriile de Eveniment"
-
-#~ msgid "Parent Event Category"
-#~ msgstr "Categorie Eveniment Părinte"
-
-#~ msgid "Parent Event Category:"
-#~ msgstr "Categoria Eveniment Părinte:"
-
-#~ msgid "Edit Event Category"
-#~ msgstr "Editare Catgorie Eveniment"
-
-#~ msgid "Update Event Category"
-#~ msgstr "Actualizare Categorie Eveniment"
-
-#~ msgid "Add New Event Category"
-#~ msgstr "Adăgare Categorie Eveniment Nouă"
-
-#~ msgid "New Event Category Name"
-#~ msgstr "Nume Categorie Eveniment Nouă"
-
-#~ msgid "Event updated. <a href=\"%s\">View event</a>"
-#~ msgstr "Eveniment actualizat. <a href=\"%s\">Vizualizare eveniment</a>"
-
-#~ msgid "Custom field updated."
-#~ msgstr "Câmpul personalizat a fost actualizat."
-
-#~ msgid "Event updated."
-#~ msgstr "Evenimentul a fost actualizat."
-
-#~ msgid "Event restored to revision from %s"
-#~ msgstr "Evenimentul a fost restabilit pentru revizuire de la %s"
-
-#~ msgid "Event published. <a href=\"%s\">View event</a>"
-#~ msgstr ""
-#~ "Evenimentul a fost publicat. <a href=\"%s\">Vizualizare eveniment</a>"
-
-#~ msgid "Event saved."
-#~ msgstr "Evenimentul a fost salvat."
-
-#~ msgid "Event submitted. <a target=\"_blank\" href=\"%s\">Preview event</a>"
-#~ msgstr ""
-#~ "Evenimentul a fost trimis. <a target=\"_blank\" href=\"%s"
-#~ "\">Previzualizaţi evenimentul</a>"
-
-#~ msgid ""
-#~ "Event scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" href="
-#~ "\"%2$s\">Preview event</a>"
-#~ msgstr ""
-#~ "Eveniment programat pentru:<strong>%1$s</strong>. <a target=\"_blank\" "
-#~ "href=\"%2$s\">Previzualizaţi evenimentul</a>"
-
-#~ msgid "M j, Y @ G:i"
-#~ msgstr "M j, Y @ G:i"
-
-#~ msgid ""
-#~ "Event draft updated. <a target=\"_blank\" href=\"%s\">Preview event</a>"
-#~ msgstr ""
-#~ "Schiţa evenimentului a fost actualizată. <a target=\"_blank\" href=\"%s"
-#~ "\">Previzualizaţi evenimentul</a>"
-
-#~ msgid "Venue updated. <a href=\"%s\">View venue</a>"
-#~ msgstr "Locaţia a fost actualizată. <a href=\"%s\">Vizualizaţi locaţia</a>"
-
-#~ msgid "Venue restored to revision from %s"
-#~ msgstr "Locaţia a fost restabilită pentru revizuire de la %s"
-
-#~ msgid "Venue published. <a href=\"%s\">View venue</a>"
-#~ msgstr "Locaţia a fost publicată. <a href=\"%s\">Vizualizaţi locaţia</a>"
-
-#~ msgid "Venue saved."
-#~ msgstr "Locaţie salvată."
-
-#~ msgid "Venue submitted. <a target=\"_blank\" href=\"%s\">Preview venue</a>"
-#~ msgstr ""
-#~ "Locaţie trimisă. <a target=\"_blank\" href=\"%s\">Previzualizaţi locaţia</"
-#~ "a>"
-
-#~ msgid ""
-#~ "Venue scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" href="
-#~ "\"%2$s\">Preview venue</a>"
-#~ msgstr ""
-#~ "Locaţie programată pentru: <strong>%1$s</strong>. <a target=\"_blank\" "
-#~ "href=\"%2$s\">Previzualizaţi locaţia</a>"
-
-#~ msgid ""
-#~ "Venue draft updated. <a target=\"_blank\" href=\"%s\">Preview venue</a>"
-#~ msgstr ""
-#~ "Schiţa locaţiei a fost actualizată. <a target=\"_blank\" href=\"%s"
-#~ "\">Previzualizaţi locaţia</a> "
-
-#~ msgid "Organizer updated. <a href=\"%s\">View organizer</a>"
-#~ msgstr ""
-#~ "Oraganizatorul a fost actualizat. <a href=\"%s\">Vizualizaţi "
-#~ "organizatorul</a> "
-
-#~ msgid "Organizer updated."
-#~ msgstr "Organizator actualizat."
-
-#~ msgid "Organizer restored to revision from %s"
-#~ msgstr "Organizator restabilit pentru revizuire de la %s"
-
-#~ msgid "Organizer published. <a href=\"%s\">View organizer</a>"
-#~ msgstr ""
-#~ "Organizatorul a fost publicat. <a href=\"%s\">Vizualizare organizator</a>"
-
-#~ msgid "Organizer saved."
-#~ msgstr "Oragnizatorul a fost salvat."
-
-#~ msgid ""
-#~ "Organizer submitted. <a target=\"_blank\" href=\"%s\">Preview organizer</"
-#~ "a>"
-#~ msgstr ""
-#~ "Organizatorul a fost trimis. <a target=\"_blank\" href=\"%s"
-#~ "\">Previzualizaţi organizatorul</a>"
-
-#~ msgid ""
-#~ "Organizer scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" href="
-#~ "\"%2$s\">Preview organizer</a>"
-#~ msgstr ""
-#~ "Organizator programat pentru: <strong>%1$s</strong>. <a target=\"_blank\" "
-#~ "href=\"%2$s\">Previzualizaţi organizatorul</a>"
-
-#~ msgid ""
-#~ "Organizer draft updated. <a target=\"_blank\" href=\"%s\">Preview "
-#~ "organizer</a>"
-#~ msgstr ""
-#~ "Schiţa organizatorului a fost actualizată. <a target=\"_blank\" href=\"%s"
-#~ "\">Previzualizaţi organizatorul</a>"
-
-#~ msgid "Use Saved Venue:"
-#~ msgstr "Utilizaţi Locaţie Salvată:"
-
-#~ msgid "Use Saved Organizer:"
-#~ msgstr "Utilizaţi Organizator Salvat:"
-
-#~ msgid "Use New Venue"
-#~ msgstr "UtilizaţiLocaţie Nouă"
-
-#~ msgid "My Venues"
-#~ msgstr "Locaţiile Mele"
-
-#~ msgid "Available Venues"
-#~ msgstr "Locaţii Disponibile"
-
-#~ msgid "Use New Organizer"
-#~ msgstr "Utilizaţi Organizator Nou"
-
-#~ msgid "My Organizers"
-#~ msgstr "Organizatorii Mei"
-
-#~ msgid "Available Organizers"
-#~ msgstr "Oragnizatori Disponibili"
-
-#~ msgid "Prev"
-#~ msgstr "Precedent"
-
-#~ msgid "Done"
-#~ msgstr "Realizat"
-
-#~ msgid "Network"
-#~ msgstr "Reţea"
-
-#~ msgid "Unnamed Venue"
-#~ msgstr "Locaţie Nedenumită"
-
-#~ msgid "Unnamed Organizer"
-#~ msgstr "Organizator Nedenumit"
-
-#~ msgid "Organizer Information"
-#~ msgstr "Informaţii Organizator"
-
-#~ msgid "News from Modern Tribe"
-#~ msgstr "Noutăţi de la Modern Tribe"
-
-#~ msgid ""
-#~ "Looking for additional functionality including recurring events, ticket "
-#~ "sales, publicly submitted events, new views and more?"
-#~ msgstr ""
-#~ "Căutaţi o funcționalitate suplimentară, inclusiv repetări ale "
-#~ "evenimnetelor, vânzări de bilete, evenimente trimise public, vizualizări "
-#~ "noi şi multe altele?"
-
-#~ msgid "Check out the <a href=\"%s\">available add-ons</a>."
-#~ msgstr "Verificaţi <a href=\"%s\">suplimentele disponibile</a>."
-
-#~ msgid "Edit Events"
-#~ msgstr "Editare Evenimente"
-
-#~ msgid ""
-#~ "Welcome to The Events Calendar! Your events calendar can be found at %s. "
-#~ "To change the events slug, visit %sEvents -> Settings%s."
-#~ msgstr ""
-#~ "Bun venit la The Events Calendar! Calendarul dvs. de evenimente poate fi "
-#~ "găsit la %s. Pentru a schimba slug-ul evenimentelor, vizitaţi "
-#~ "%sEvenimente -> Configurări%s."
-
-#~ msgid "Calendar"
-#~ msgstr "Calendar"
-
-#~ msgid "List"
-#~ msgstr "Listă"
-
-#~ msgid "Date"
-#~ msgstr "Data"
-
-#~ msgid "Events In"
-#~ msgstr "Evenimente În"
-
-#~ msgid "Events From"
-#~ msgstr "Evenimente Din"
-
-#~ msgid "View &#8220;%s&#8221;"
-#~ msgstr "Vizualizare &#8220;%s&#8221;"
-
-#~ msgid "Yes"
-#~ msgstr "Da"
-
-#~ msgid "All %s"
-#~ msgstr "Toate %s"
-
-#~ msgid "Event Add-Ons"
-#~ msgstr "Suplimente Eveniment"
-
-#~ msgid "Tribe"
-#~ msgstr "Tribe"
-
-#~ msgid "United States"
-#~ msgstr "Statele Unite"
-
-#~ msgid "Error"
-#~ msgstr "Eroare"
-
-#~ msgid "No radio options specified"
-#~ msgstr "Nu aţi specificat opţiuni pentru butoanele radio"
-
-#~ msgid "No checkbox options specified"
-#~ msgstr "Nu aţi specificat opţiuni pentru caseta de selectare"
-
-#~ msgid "No select options specified"
-#~ msgstr "Nu aţi specificat opţiuni pentru selectare"
-
-#~ msgid "There are no fields setup for this tab yet."
-#~ msgstr "Nu există încă câmpuri configurate pentru această filă."
-
-#~ msgid "Events Settings"
-#~ msgstr "Configurări Evenimente"
-
-#~ msgid "%s Settings"
-#~ msgstr "%s Configurări"
-
-#~ msgid "You've requested a non-existent tab."
-#~ msgstr "Aţi solicitat o filă inexistentă."
-
-#~ msgid " Save Changes"
-#~ msgstr "Salvare Modificări"
-
-#~ msgid "You don't have permission to do that."
-#~ msgstr "Nu aveţi permisiunea pentru aceasta."
-
-#~ msgid "The request was sent insecurely."
-#~ msgstr "Cererea a fost trimisă nesigur."
-
-#~ msgid "The request wasn't sent from this tab."
-#~ msgstr "Cererea nu a fost trimisă din această filă."
-
-#~ msgid "Your form had the following errors:"
-#~ msgstr "Formularul dvs. a avut următoarele erori:"
-
-#~ msgid "None of your settings were saved. Please try again."
-#~ msgstr ""
-#~ "Nici-una din configurări nu a fost salvată. Vă rugăm să reîncercaţi."
-
-#~ msgid ""
-#~ "The above setting was not saved. Other settings were successfully saved."
-#~ msgid_plural ""
-#~ "The above settings were not saved. Other settings were successfully saved."
-#~ msgstr[0] ""
-#~ "Configurarea de mai sus nu a fost salvată. Alte configurări au fost "
-#~ "salvate cu succes."
-#~ msgstr[1] ""
-#~ "Configurările de mai sus nu au fost salvate. Alte configurări au fost "
-#~ "salvate cu succes."
-#~ msgstr[2] ""
-#~ "Configurările de mai sus nu au fost salvate. Alte configurări au fost "
-#~ "salvate cu succes."
-
-#~ msgid "Settings saved."
-#~ msgstr "Configurările au fost salvate"
-
-#~ msgid ""
-#~ "listed under %s. Check out upcoming events for this category or view the "
-#~ "full calendar."
-#~ msgstr ""
-#~ "listat în  %s. Verificaţi evenimentele viitoare, din această categorie "
-#~ "sau vizualizaţi întregul calendar.  "
-
-#~ msgid "No matching events "
-#~ msgstr "Nu sunt evenimente care se potrivesc"
-
-#~ msgid ""
-#~ "Welcome to Events 2.0! This is a HUGE upgrade from 1.6.5. Please make "
-#~ "sure you have backed up before proceeding any further. You can easily <a "
-#~ "href=\" http://wordpress.org/extend/plugins/the-events-calendar/download/"
-#~ "\">revert to an old version</a> if you want to backup first. This upgrade "
-#~ "includes two major steps, <a href=\"edit.php?post_type="
-#~ msgstr ""
-#~ "Bun venit la Events 2.0! Aceasta este o actualizare imensă faţă de "
-#~ "versiunea 1.6.5. Vă rugăm să vă asiguraţi că aţi făcut mai întâi o copie "
-#~ "de rezerva, înainte de a merge mai departe. Puteţi cu uşurinţă <a href=\" "
-#~ "http://wordpress.org/extend/plugins/the-events-calendar/download/"
-#~ "\">reveni la o versiune mai veche</a> dacă doriţi să faceţi mai întâi o "
-#~ "copie de rezervă. Această actualizare include doi paşi majori, <a href="
-#~ "\"edit.php?post_type="
-
-#~ msgid "Upgrade from The Events Calendar"
-#~ msgstr "Actualizare de la The Events Calendar"
-
-#~ msgid ""
-#~ "It appears that you have some old events calendar data that needs to be "
-#~ "upgraded. Please be sure to back up your database before initiating the "
-#~ "upgrade. This process can not be undone."
-#~ msgstr ""
-#~ "Se pare că deţineţi anumite date vechi aferente calendarului de "
-#~ "evenimente, ce necesită actualizarea. Vă rugă să asiguraţi că veţi face o "
-#~ "copie de rezervă a bazei de date, înaintea iniţializării acestei "
-#~ "actualizări. Acest proces de actualizare este IREVERSIBIL."
-
-#~ msgid "Migrate Data!"
-#~ msgstr "Migraţi Datele!"
-
-#~ msgid "You successfully migrated (%d) entries."
-#~ msgstr "Aţi migrat cu succes (%d) înregistrări."
-
-#~ msgid "Install has 1 or more legacy event!"
-#~ msgstr "Instalarea mai are 1 sau mai multe evenimente moştenite!"
-
-#~ msgid "Invalid or incomplete field passed"
-#~ msgstr "Câmpul trecut este invalid sau incomplet "
-
-#~ msgid "Non-existant field validation function passed"
-#~ msgstr "Funcția inexistentă de validare a câmpului a trecut"
-
-#~ msgctxt "non-existant function name passed for field validation"
-#~ msgid "with function name:"
-#~ msgstr "cu nume funcţie:"
-
-#~ msgid "%s must contain numbers and letters only"
-#~ msgstr "%s trebuie să conţină doar numere şi litere"
-
-#~ msgid "%s must contain numbers, letters and dots only"
-#~ msgstr "%s trebuie să conţină doar numere, litere şi liniuţe"
-
-#~ msgid "%s must be a positive number."
-#~ msgstr "%s trebuie să fie un număr pozitiv."
-
-#~ msgid "%s must be a valid slug (numbers, letters, dashes, and underscores)."
-#~ msgstr ""
-#~ "%s trebuie să fie un slug valid (numere, litere,liniuţe şi linii de "
-#~ "subliniere)"
-
-#~ msgid "%s must be a valid absolute URL."
-#~ msgstr "%s trebuie să fie o adresă URL absolută."
-
-#~ msgid "%s must have a value that's part of its options."
-#~ msgstr "%s trebuie să aibă o valoare, parte din propriile-i opţiuni."
-
-#~ msgid ""
-#~ "Comparison validation failed because no comparison value was provided, "
-#~ "for field %s"
-#~ msgstr ""
-#~ "Validarea comparărilor a eşuat pentru că nu a fost alocată nici-o valoare "
-#~ "de comparat, pentru câmpul %s"
-
-#~ msgid "%s cannot be the same as %s."
-#~ msgstr "%s nu poate fi la fel ca %s."
-
-#~ msgid "%s cannot be a duplicate"
-#~ msgstr "%s nu poate fi un duplicat"
-
-#~ msgid "%s must be a number or percentage."
-#~ msgstr "%s trebuie să fie un număr sau un procent."
-
-#~ msgid "%s must be a number between 0 and 21."
-#~ msgstr "%s trebuie să fie un număr între 0 şi 21."
-
-#~ msgid ""
-#~ "%s must consist of letters, numbers, dashes, apostrophes, and spaces only."
-#~ msgstr ""
-#~ "%s trebuie să conţină doar litere, numere, liniuţe, semne de apostrof şi "
-#~ "spaţii."
-
-#~ msgid "%s must consist of letters, spaces, apostrophes, and dashes."
-#~ msgstr ""
-#~ "%s trebuie să conţină doar litere, spaţii,semne de apostrof şi liniuţe."
-
-#~ msgid "%s must consist of 5 numbers."
-#~ msgstr "%s trebuie să conţină 5 numere."
-
-#~ msgid "%s must be a phone number."
-#~ msgstr "%s trebuie să fie un număr de telefon."
-
-#~ msgid "Select a Country:"
-#~ msgstr "Selectaţi Ţara:"
-
-#~ msgid "Afghanistan"
-#~ msgstr "Afghanistan"
-
-#~ msgid "Albania"
-#~ msgstr "Albania"
-
-#~ msgid "Algeria"
-#~ msgstr "Algeria"
-
-#~ msgid "American Samoa"
-#~ msgstr "American Samoa"
-
-#~ msgid "Andorra"
-#~ msgstr "Andorra"
-
-#~ msgid "Angola"
-#~ msgstr "Angola"
-
-#~ msgid "Anguilla"
-#~ msgstr "Anguilla"
-
-#~ msgid "Antarctica"
-#~ msgstr "Antarctica"
-
-#~ msgid "Antigua And Barbuda"
-#~ msgstr "Antigua Şi Barbuda"
-
-#~ msgid "Argentina"
-#~ msgstr "Argentina"
-
-#~ msgid "Armenia"
-#~ msgstr "Armenia"
-
-#~ msgid "Aruba"
-#~ msgstr "Aruba"
-
-#~ msgid "Australia"
-#~ msgstr "Australia"
-
-#~ msgid "Austria"
-#~ msgstr "Austria"
-
-#~ msgid "Azerbaijan"
-#~ msgstr "Azerbaijan"
-
-#~ msgid "Bahamas"
-#~ msgstr "Bahamas"
-
-#~ msgid "Bahrain"
-#~ msgstr "Bahrain"
-
-#~ msgid "Bangladesh"
-#~ msgstr "Bangladesh"
-
-#~ msgid "Barbados"
-#~ msgstr "Barbados"
-
-#~ msgid "Belarus"
-#~ msgstr "Belarus"
-
-#~ msgid "Belgium"
-#~ msgstr "Belgia"
-
-#~ msgid "Belize"
-#~ msgstr "Belize"
-
-#~ msgid "Benin"
-#~ msgstr "Benin"
-
-#~ msgid "Bermuda"
-#~ msgstr "Bermuda"
-
-#~ msgid "Bhutan"
-#~ msgstr "Bhutan"
-
-#~ msgid "Bolivia"
-#~ msgstr "Bolivia"
-
-#~ msgid "Bosnia And Herzegowina"
-#~ msgstr "Bosnia Şi Herzegowina"
-
-#~ msgid "Botswana"
-#~ msgstr "Botswana"
-
-#~ msgid "Bouvet Island"
-#~ msgstr "Bouvet Island"
-
-#~ msgid "Brazil"
-#~ msgstr "Brazilia"
-
-#~ msgid "British Indian Ocean Territory"
-#~ msgstr "British Indian Ocean Territory"
-
-#~ msgid "Brunei Darussalam"
-#~ msgstr "Brunei Darussalam"
-
-#~ msgid "Bulgaria"
-#~ msgstr "Bulgaria"
-
-#~ msgid "Burkina Faso"
-#~ msgstr "Burkina Faso"
-
-#~ msgid "Burundi"
-#~ msgstr "Burundi"
-
-#~ msgid "Cambodia"
-#~ msgstr "Cambodgia"
-
-#~ msgid "Cameroon"
-#~ msgstr "Cameroon"
-
-#~ msgid "Cape Verde"
-#~ msgstr "Cape Verde"
-
-#~ msgid "Cayman Islands"
-#~ msgstr "Cayman Islands"
-
-#~ msgid "Central African Republic"
-#~ msgstr "Central African Republic"
-
-#~ msgid "Chad"
-#~ msgstr "Ciad"
-
-#~ msgid "Chile"
-#~ msgstr "Chile"
-
-#~ msgid "China"
-#~ msgstr "China"
-
-#~ msgid "Christmas Island"
-#~ msgstr "Christmas Island"
-
-#~ msgid "Cocos (Keeling) Islands"
-#~ msgstr "Cocos (Keeling) Islands"
-
-#~ msgid "Colombia"
-#~ msgstr "Colombia"
-
-#~ msgid "Congo"
-#~ msgstr "Congo"
-
-#~ msgid "Congo, The Democratic Republic Of The"
-#~ msgstr "Congo, Republica Democrată"
-
-#~ msgid "Cook Islands"
-#~ msgstr "Cook Islands"
-
-#~ msgid "Costa Rica"
-#~ msgstr "Costa Rica"
-
-#~ msgid "Cote D'Ivoire"
-#~ msgstr "Cote D'Ivoire"
-
-#~ msgid "Croatia (Local Name: Hrvatska)"
-#~ msgstr "Croaţia (Toponim: Hrvatska)"
-
-#~ msgid "Cuba"
-#~ msgstr "Cuba"
-
-#~ msgid "Cyprus"
-#~ msgstr "Cipru"
-
-#~ msgid "Czech Republic"
-#~ msgstr "Cehia"
-
-#~ msgid "Denmark"
-#~ msgstr "Danemarca"
-
-#~ msgid "Djibouti"
-#~ msgstr "Djibouti"
-
-#~ msgid "Dominica"
-#~ msgstr "Dominica"
-
-#~ msgid "Dominican Republic"
-#~ msgstr "Dominican, Republica"
-
-#~ msgid "East Timor"
-#~ msgstr "Timorul de Est"
-
-#~ msgid "Ecuador"
-#~ msgstr "Ecuador"
-
-#~ msgid "Egypt"
-#~ msgstr "Egipt"
-
-#~ msgid "El Salvador"
-#~ msgstr "El Salvador"
-
-#~ msgid "Equatorial Guinea"
-#~ msgstr "Guineaa Ecuatorială"
-
-#~ msgid "Eritrea"
-#~ msgstr "Eritrea"
-
-#~ msgid "Estonia"
-#~ msgstr "Estonia"
-
-#~ msgid "Ethiopia"
-#~ msgstr "Etiopia"
-
-#~ msgid "Falkland Islands (Malvinas)"
-#~ msgstr "Falkland, Insulele (Malvine)"
-
-#~ msgid "Faroe Islands"
-#~ msgstr "Faroe, Insulele"
-
-#~ msgid "Fiji"
-#~ msgstr "Fiji"
-
-#~ msgid "Finland"
-#~ msgstr "Finlanda"
-
-#~ msgid "France, Metropolitan"
-#~ msgstr "Franţa, Metropolitană"
-
-#~ msgid "French Guiana"
-#~ msgstr "Franţa, Guiana"
-
-#~ msgid "French Polynesia"
-#~ msgstr "Franţa, Polinezia"
-
-#~ msgid "French Southern Territories"
-#~ msgstr "Franţa, Teritoriile de Sud"
-
-#~ msgid "Gabon"
-#~ msgstr "Gabon"
-
-#~ msgid "Gambia"
-#~ msgstr "Gambia"
-
-#~ msgid "Georgia"
-#~ msgstr "Georgia"
-
-#~ msgid "Germany"
-#~ msgstr "Germania"
-
-#~ msgid "Ghana"
-#~ msgstr "Ghana"
-
-#~ msgid "Gibraltar"
-#~ msgstr "Gibraltar"
-
-#~ msgid "Greece"
-#~ msgstr "Grecia"
-
-#~ msgid "Greenland"
-#~ msgstr "Groelanda"
-
-#~ msgid "Grenada"
-#~ msgstr "Grenada"
-
-#~ msgid "Guadeloupe"
-#~ msgstr "Guadeloupe"
-
-#~ msgid "Guam"
-#~ msgstr "Guam"
-
-#~ msgid "Guatemala"
-#~ msgstr "Guatemala"
-
-#~ msgid "Guinea"
-#~ msgstr "Guinea"
-
-#~ msgid "Guinea-Bissau"
-#~ msgstr "Guinea-Bissau"
-
-#~ msgid "Guyana"
-#~ msgstr "Guyana"
-
-#~ msgid "Haiti"
-#~ msgstr "Haiti"
-
-#~ msgid "Heard And Mc Donald Islands"
-#~ msgstr "Heard Şi Mc Donald, Insulele"
-
-#~ msgid "Holy See (Vatican City State)"
-#~ msgstr "Holy See (Oraşul Stat Vatican)"
-
-#~ msgid "Honduras"
-#~ msgstr "Honduras"
-
-#~ msgid "Hong Kong"
-#~ msgstr "Hong Kong"
-
-#~ msgid "Hungary"
-#~ msgstr "Ungaria"
-
-#~ msgid "Iceland"
-#~ msgstr "Islanda"
-
-#~ msgid "India"
-#~ msgstr "India"
-
-#~ msgid "Indonesia"
-#~ msgstr "Indonesia"
-
-#~ msgid "Iran (Islamic Republic Of)"
-#~ msgstr "Iran (Republica Islamică)"
-
-#~ msgid "Iraq"
-#~ msgstr "Irak"
-
-#~ msgid "Ireland"
-#~ msgstr "Irlanda"
-
-#~ msgid "Israel"
-#~ msgstr "Israel"
-
-#~ msgid "Italy"
-#~ msgstr "Italia"
-
-#~ msgid "Jamaica"
-#~ msgstr "Jamaica"
-
-#~ msgid "Jordan"
-#~ msgstr "Iordania"
-
-#~ msgid "Kazakhstan"
-#~ msgstr "Kazakhstan"
-
-#~ msgid "Kenya"
-#~ msgstr "Kenya"
-
-#~ msgid "Kiribati"
-#~ msgstr "Kiribati"
-
-#~ msgid "Korea, Democratic People's Republic Of"
-#~ msgstr "Coreea, Republica Democrată Populară"
-
-#~ msgid "Korea, Republic Of"
-#~ msgstr "Coreea, Republica"
-
-#~ msgid "Kuwait"
-#~ msgstr "Kuweit"
-
-#~ msgid "Kyrgyzstan"
-#~ msgstr "Kyrgyzstan"
-
-#~ msgid "Lao People's Democratic Republic"
-#~ msgstr "Lao, Republica Democrată Populară"
-
-#~ msgid "Latvia"
-#~ msgstr "Letonia"
-
-#~ msgid "Lebanon"
-#~ msgstr "Liban"
-
-#~ msgid "Lesotho"
-#~ msgstr "Lesotho"
-
-#~ msgid "Liberia"
-#~ msgstr "Liberia"
-
-#~ msgid "Libya"
-#~ msgstr "Libia"
-
-#~ msgid "Liechtenstein"
-#~ msgstr "Liechtenstein"
-
-#~ msgid "Lithuania"
-#~ msgstr "Lituania"
-
-#~ msgid "Luxembourg"
-#~ msgstr "Luxembourg"
-
-#~ msgid "Macau"
-#~ msgstr "Macao"
-
-#~ msgid "Macedonia"
-#~ msgstr "Macedonia"
-
-#~ msgid "Madagascar"
-#~ msgstr "Madagascar"
-
-#~ msgid "Malawi"
-#~ msgstr "Malawi"
-
-#~ msgid "Malaysia"
-#~ msgstr "Malaysia"
-
-#~ msgid "Maldives"
-#~ msgstr "ldives"
-
-#~ msgid "Mali"
-#~ msgstr "Mali"
-
-#~ msgid "Malta"
-#~ msgstr "Malta"
-
-#~ msgid "Marshall Islands"
-#~ msgstr "Marshall, Insulele"
-
-#~ msgid "Martinique"
-#~ msgstr "Martinica"
-
-#~ msgid "Mauritania"
-#~ msgstr "Mauritania"
-
-#~ msgid "Mauritius"
-#~ msgstr "Mauritius"
-
-#~ msgid "Mexico"
-#~ msgstr "Mexic"
-
-#~ msgid "Micronesia, Federated States Of"
-#~ msgstr "Micronesia, Statele Federale"
-
-#~ msgid "Moldova, Republic Of"
-#~ msgstr "Moldova, Republica"
-
-#~ msgid "Monaco"
-#~ msgstr "Monaco"
-
-#~ msgid "Mongolia"
-#~ msgstr "Mongolia"
-
-#~ msgid "Montenegro"
-#~ msgstr "Muntenegru"
-
-#~ msgid "Montserrat"
-#~ msgstr "Montserrat"
-
-#~ msgid "Morocco"
-#~ msgstr "Maroc"
-
-#~ msgid "Mozambique"
-#~ msgstr "Mozambic"
-
-#~ msgid "Namibia"
-#~ msgstr "Namibia"
-
-#~ msgid "Nauru"
-#~ msgstr "Nauru"
-
-#~ msgid "Nepal"
-#~ msgstr "Nepal"
-
-#~ msgid "Netherlands"
-#~ msgstr "Olanda"
-
-#~ msgid "Netherlands Antilles"
-#~ msgstr "Olanda, Antilele Olandeze"
-
-#~ msgid "New Caledonia"
-#~ msgstr "Noua Caledonie"
-
-#~ msgid "New Zealand"
-#~ msgstr "Noua Zeelanda"
-
-#~ msgid "Nicaragua"
-#~ msgstr "Nicaragua"
-
-#~ msgid "Niger"
-#~ msgstr "Niger"
-
-#~ msgid "Nigeria"
-#~ msgstr "Nigeria"
-
-#~ msgid "Niue"
-#~ msgstr "Niue"
-
-#~ msgid "Norfolk Island"
-#~ msgstr "Norfolk, Insulele"
-
-#~ msgid "Northern Mariana Islands"
-#~ msgstr "Marianei de Nord, Insulele"
-
-#~ msgid "Norway"
-#~ msgstr "Norvegia"
-
-#~ msgid "Palau"
-#~ msgstr "Palau"
-
-#~ msgid "Panama"
-#~ msgstr "Panama"
-
-#~ msgid "Papua New Guinea"
-#~ msgstr "Papua Noua Guinee"
-
-#~ msgid "Paraguay"
-#~ msgstr "Paraguay"
-
-#~ msgid "Peru"
-#~ msgstr "Peru"
-
-#~ msgid "Philippines"
-#~ msgstr "Filipine"
-
-#~ msgid "Pitcairn"
-#~ msgstr "Pitcairn"
-
-#~ msgid "Poland"
-#~ msgstr "Polonia"
-
-#~ msgid "Portugal"
-#~ msgstr "Portugalia"
-
-#~ msgid "Puerto Rico"
-#~ msgstr "Puerto Rico"
-
-#~ msgid "Qatar"
-#~ msgstr "Qatar"
-
-#~ msgid "Reunion"
-#~ msgstr "Reunion"
-
-#~ msgid "Romania"
-#~ msgstr "România"
-
-#~ msgid "Russian Federation"
-#~ msgstr "Rusia, Federaţia Rusă"
-
-#~ msgid "Rwanda"
-#~ msgstr "Rwanda"
-
-#~ msgid "Saint Kitts And Nevis"
-#~ msgstr "Saint Kitts Şi Nevis"
-
-#~ msgid "Saint Lucia"
-#~ msgstr "Saint Lucia"
-
-#~ msgid "Saint Vincent And The Grenadines"
-#~ msgstr "Saint Vincent Şi Grenadines"
-
-#~ msgid "Samoa"
-#~ msgstr "Samoa"
-
-#~ msgid "San Marino"
-#~ msgstr "San Marino"
-
-#~ msgid "Sao Tome And Principe"
-#~ msgstr "Sao Tome Şi Principe"
-
-#~ msgid "Saudi Arabia"
-#~ msgstr "Arabia Saudită"
-
-#~ msgid "Senegal"
-#~ msgstr "Senegal"
-
-#~ msgid "Serbia"
-#~ msgstr "Serbia"
-
-#~ msgid "Seychelles"
-#~ msgstr "Seychelles"
-
-#~ msgid "Sierra Leone"
-#~ msgstr "Sierra Leone"
-
-#~ msgid "Singapore"
-#~ msgstr "Singapore"
-
-#~ msgid "Slovakia (Slovak Republic)"
-#~ msgstr "Slovacia (Republica Slovacă)"
-
-#~ msgid "Slovenia"
-#~ msgstr "Slovenia"
-
-#~ msgid "Solomon Islands"
-#~ msgstr "Solomon, Insulele"
-
-#~ msgid "Somalia"
-#~ msgstr "Somalia"
-
-#~ msgid "South Africa"
-#~ msgstr "Africa de Sud"
-
-#~ msgid "South Georgia, South Sandwich Islands"
-#~ msgstr "Georgia de Sud, Insulele Sandwich de Sud"
-
-#~ msgid "Spain"
-#~ msgstr "Spania"
-
-#~ msgid "Sri Lanka"
-#~ msgstr "Sri Lanka"
-
-#~ msgid "St. Helena"
-#~ msgstr "St. Helena"
-
-#~ msgid "St. Pierre And Miquelon"
-#~ msgstr "St. Pierre Şi Miquelon"
-
-#~ msgid "Sudan"
-#~ msgstr "Sudan"
-
-#~ msgid "Suriname"
-#~ msgstr "Suriname"
-
-#~ msgid "Svalbard And Jan Mayen Islands"
-#~ msgstr "Svalbard Şi Insulele Jan Mayen"
-
-#~ msgid "Swaziland"
-#~ msgstr "Swaziland"
-
-#~ msgid "Sweden"
-#~ msgstr "Suedia"
-
-#~ msgid "Switzerland"
-#~ msgstr "Elveţia"
-
-#~ msgid "Syrian Arab Republic"
-#~ msgstr "Siria, Republica Arabă Siriană"
-
-#~ msgid "Taiwan"
-#~ msgstr "Taiwan"
-
-#~ msgid "Tajikistan"
-#~ msgstr "Tajikistan"
-
-#~ msgid "Tanzania, United Republic Of"
-#~ msgstr "Tanzania, Republica Unită"
-
-#~ msgid "Thailand"
-#~ msgstr "Tailanda"
-
-#~ msgid "Togo"
-#~ msgstr "Togo"
-
-#~ msgid "Tokelau"
-#~ msgstr "Tokelau"
-
-#~ msgid "Tonga"
-#~ msgstr "Tonga"
-
-#~ msgid "Trinidad And Tobago"
-#~ msgstr "Trinidad Şi Tobago"
-
-#~ msgid "Tunisia"
-#~ msgstr "Tunisia"
-
-#~ msgid "Turkey"
-#~ msgstr "Turcia"
-
-#~ msgid "Turkmenistan"
-#~ msgstr "Turkmenistan"
-
-#~ msgid "Turks And Caicos Islands"
-#~ msgstr "Turks Şi Caicos, Insulele"
-
-#~ msgid "Tuvalu"
-#~ msgstr "Tuvalu"
-
-#~ msgid "Uganda"
-#~ msgstr "Uganda"
-
-#~ msgid "Ukraine"
-#~ msgstr "Ucraina"
-
-#~ msgid "United Arab Emirates"
-#~ msgstr "Emiratele Arabe Unite"
-
-#~ msgid "United Kingdom"
-#~ msgstr "United Kingdom"
-
-#~ msgid "United States Minor Outlying Islands"
-#~ msgstr "United States Minor Outlying Islands"
-
-#~ msgid "Uruguay"
-#~ msgstr "Uruguay"
-
-#~ msgid "Uzbekistan"
-#~ msgstr "Uzbekistan"
-
-#~ msgid "Vanuatu"
-#~ msgstr "Vanuatu"
-
-#~ msgid "Venezuela"
-#~ msgstr "Venezuela"
-
-#~ msgid "Virgin Islands (British)"
-#~ msgstr "Virgin Islands (British)"
-
-#~ msgid "Virgin Islands (U.S.)"
-#~ msgstr "Virgin Islands (U.S.)"
-
-#~ msgid "Wallis And Futuna Islands"
-#~ msgstr "Wallis And Futuna Islands"
-
-#~ msgid "Western Sahara"
-#~ msgstr "Sahara de Vest"
-
-#~ msgid "Yemen"
-#~ msgstr "Yemen"
-
-#~ msgid "Zambia"
-#~ msgstr "Zambia"
-
-#~ msgid "Zimbabwe"
-#~ msgstr "Zimbabwe"
-
-#~ msgid "Alabama"
-#~ msgstr "Alabama"
-
-#~ msgid "Alaska"
-#~ msgstr "Alaska"
-
-#~ msgid "Arizona"
-#~ msgstr "Arizona"
-
-#~ msgid "Arkansas"
-#~ msgstr "Arkansas"
-
-#~ msgid "California"
-#~ msgstr "California"
-
-#~ msgid "Colorado"
-#~ msgstr "Colorado"
-
-#~ msgid "Connecticut"
-#~ msgstr "Connecticut"
-
-#~ msgid "Delaware"
-#~ msgstr "Delaware"
-
-#~ msgid "District of Columbia"
-#~ msgstr "District of Columbia"
-
-#~ msgid "Hawaii"
-#~ msgstr "Hawaii"
-
-#~ msgid "Idaho"
-#~ msgstr "Idaho"
-
-#~ msgid "Illinois"
-#~ msgstr "Illinois"
-
-#~ msgid "Indiana"
-#~ msgstr "Indiana"
-
-#~ msgid "Iowa"
-#~ msgstr "Iowa"
-
-#~ msgid "Kansas"
-#~ msgstr "Kansas"
-
-#~ msgid "Kentucky"
-#~ msgstr "Kentucky"
-
-#~ msgid "Louisiana"
-#~ msgstr "Louisiana"
-
-#~ msgid "Maine"
-#~ msgstr "Maine"
-
-#~ msgid "Maryland"
-#~ msgstr "Maryland"
-
-#~ msgid "Massachusetts"
-#~ msgstr "Massachusetts"
-
-#~ msgid "Michigan"
-#~ msgstr "Michigan"
-
-#~ msgid "Minnesota"
-#~ msgstr "Minnesota"
-
-#~ msgid "Mississippi"
-#~ msgstr "Mississippi"
-
-#~ msgid "Missouri"
-#~ msgstr "Missouri"
-
-#~ msgid "Montana"
-#~ msgstr "Montana"
-
-#~ msgid "Nebraska"
-#~ msgstr "Nebraska"
-
-#~ msgid "Nevada"
-#~ msgstr "Nevada"
-
-#~ msgid "New Hampshire"
-#~ msgstr "New Hampshire"
-
-#~ msgid "New Jersey"
-#~ msgstr "New Jersey"
-
-#~ msgid "New Mexico"
-#~ msgstr "New Mexico"
-
-#~ msgid "New York"
-#~ msgstr "New York"
-
-#~ msgid "North Carolina"
-#~ msgstr "North Carolina"
-
-#~ msgid "North Dakota"
-#~ msgstr "North Dakota"
-
-#~ msgid "Ohio"
-#~ msgstr "Ohio"
-
-#~ msgid "Oklahoma"
-#~ msgstr "Oklahoma"
-
-#~ msgid "Oregon"
-#~ msgstr "Oregon"
-
-#~ msgid "Pennsylvania"
-#~ msgstr "Pennsylvania"
-
-#~ msgid "Rhode Island"
-#~ msgstr "Rhode Island"
-
-#~ msgid "South Carolina"
-#~ msgstr "South Carolina"
-
-#~ msgid "South Dakota"
-#~ msgstr "South Dakota"
-
-#~ msgid "Tennessee"
-#~ msgstr "Tennessee"
-
-#~ msgid "Texas"
-#~ msgstr "Texas"
-
-#~ msgid "Utah"
-#~ msgstr "Utah"
-
-#~ msgid "Virginia"
-#~ msgstr "Virginia"
-
-#~ msgid "Washington"
-#~ msgstr "Washington"
-
-#~ msgid "West Virginia"
-#~ msgstr "West Virginia"
-
-#~ msgid "Wisconsin"
-#~ msgstr "Wisconsin"
-
-#~ msgid "View All Events"
-#~ msgstr "Vizualizaţi Toate Evenimentele"
-
-#~ msgid "There are no upcoming events at this time."
-#~ msgstr "Nu există momentan evenimente următoare."
-
-#~ msgid "This event has passed."
-#~ msgstr "Acest eveniment a trecut."
-
-#~ msgid "Order #"
-#~ msgstr "Comanda #"
-
-#~ msgid "Order Status"
-#~ msgstr "Status Comnadă"
-
-#~ msgid "Purchaser name"
-#~ msgstr "Nume Cumpărător"
-
-#~ msgid "Purchaser email"
-#~ msgstr "Email Cumpărător"
-
-#~ msgid "Ticket type"
-#~ msgstr "Tip Bilet"
-
-#~ msgid "Ticket #"
-#~ msgstr "Bilet #"
-
-#~ msgid "Security Code"
-#~ msgstr "Cod Securitate"
-
-#~ msgid "Undo Check in"
-#~ msgstr "Anulare Rezervare"
-
-#~ msgid "Print"
-#~ msgstr "Tipărire"
-
-#~ msgid "Email"
-#~ msgstr "Email"
-
-#~ msgid "Filter by ticket #, order # or security code"
-#~ msgstr "Filtrare după bilet #, comandă # sau cod de securitate"
-
-#~ msgid "Tickets"
-#~ msgstr "Bilete"
-
-#~ msgid "Ticket header image"
-#~ msgstr "Imagine Antet Bilet"
-
-#~ msgid "Set as ticket header"
-#~ msgstr "Stabilit ca antet bilet"
-
-#~ msgid "You need to select a user or type a valid email address"
-#~ msgstr ""
-#~ "Trebuie să selectaţi un utilizator sau să tastaţi o adresă validă de email"
-
-#~ msgid "Sending..."
-#~ msgstr "Trimitere..."
-
-#~ msgid ""
-#~ "You can use Screen Options to select which columns you want to see. The "
-#~ "selection works in the table below, in the email, for print and for the "
-#~ "CSV export."
-#~ msgstr ""
-#~ "Puteţi folosi Opţiunile de Ecran pentru a selecta coloanele pe care vreţi "
-#~ "să le vedeţi. Selecţia funcţionează în tabelul de mai jos, în email, "
-#~ "pentru tipărire sau pentru exportarea în CSV."
-
-#~ msgid "attendees"
-#~ msgstr "participanţi"
-
-#~ msgid "Attendee List for: %s"
-#~ msgstr "Listă participanţi pentru: %s"
-
-#~ msgid "Your ticket has been saved."
-#~ msgstr "Biletul dvs. a fost salvat."
-
-#~ msgid "Your ticket has been deleted."
-#~ msgstr "Biletul dvs. a fost şters."
-
-#~ msgid "Details"
-#~ msgstr "Detalii"
-
-#~ msgid "Event Tags:"
-#~ msgstr "Etichete Eveniment:"
-
-#~ msgid "Origin:"
-#~ msgstr "Origine:"
-
-#~ msgid "Tags:"
-#~ msgstr "Etichete:"
-
-#~ msgid "Loading Events"
-#~ msgstr "Încărcare Evenimente"
-
-#~ msgid "Free"
-#~ msgstr "Gratuit"
-
-#~ msgid "(See all)"
-#~ msgstr "(Vedeţi toate)"
-
-#~ msgid "Events for %1$s"
-#~ msgstr "Evenimente pentru %1$s"
-
-#~ msgid "Events for %1$s through %2$s"
-#~ msgstr "Evenimente pentru %1$s prin %2$s"
-
-#~ msgid "Your current Events URL is %s"
-#~ msgstr "Adresa curentă URL a Evenimentelor dvs. este %s"
-
-#~ msgid ""
-#~ "You <strong>cannot</strong> use the same slug as above. The above should "
-#~ "ideally be plural, and this singular.<br />Your single Event URL is like: "
-#~ "%s"
-#~ msgstr ""
-#~ "<strong>Nu</strong> puteţi folosi acelaşi slug ca mai sus. Cel de sus, "
-#~ "ideal ar trebui să fie la plural, iar acesta la singular.<br /> Adresa "
-#~ "URL pentru un singur eveniment este de tipul: %s"
-
-#~ msgid "Send PressTrends data"
-#~ msgstr "Trimiteţi date PressTrends"
-
-#~ msgid ""
-#~ "Help us out by sending analytics data about your usage of The Events "
-#~ "Calendar."
-#~ msgstr ""
-#~ "Ajutaţi-ne timiţându-ne date analitice despre folosirea The Events "
-#~ "Calendar."
-
-#~ msgid ""
-#~ "Would you like to help us out and send analytics about your usage of The "
-#~ "Events Calendar?"
-#~ msgstr ""
-#~ "Doriţi să ne ajutaţi trimiţându-ne date despre cum utilizaţi dvs. The "
-#~ "Events Calendar?"
-
-#~ msgid "Attendee List"
-#~ msgstr "Listă Participanţi"
-
-#~ msgid "Your tickets"
-#~ msgstr "Biletele dvs."
-
-#~ msgid "Purchaser"
-#~ msgstr "Cumpărător"
-
-#~ msgid "Event Views Navigation"
-#~ msgstr "Navigare Vizualizări Eveniment"
-
-#~ msgid "View As"
-#~ msgstr "Vizualizaţi Ca"
-
-#~ msgid "Calendar Month Navigation"
-#~ msgstr "Navigare Calendar Lunar"
+#: ../src/Tribe/Recurrence_Meta.php:157
+msgid "—"
+msgstr ""
+
+#: ../src/views/pro/widgets/venue-widget.php:36
+msgid "No upcoming %s."
+msgstr ""
+
+#: ../src/Tribe/Recurrence_Meta.php:186
+msgid "Break this event out of its series and edit it independently"
+msgstr ""
+
+#: ../src/views/pro/widgets/venue-widget.php:59
+msgid "View all %s at this %s"
+msgstr ""
+
+#: ../src/Tribe/Recurrence_Meta.php:186
+msgid "Edit Single"
+msgstr ""
+
+#: ../src/Tribe/Recurrence_Meta.php:188
+msgid "Split the series in two at this point, creating a new series out of this and all subsequent events"
+msgstr ""
+
+#: ../src/Tribe/Recurrence_Meta.php:188
+msgid "Edit Upcoming"
+msgstr ""
+
+#: ../src/Tribe/Recurrence_Meta.php:194
+msgid "Edit all events in this series"
+msgstr ""
+
+#: ../src/Tribe/Recurrence_Meta.php:194
+msgid "Edit All"
+msgstr ""
+
+#: ../src/Tribe/Recurrence_Meta.php:199
+msgid "Move all events in this series to the Trash"
+msgstr ""
+
+#: ../src/Tribe/Recurrence_Meta.php:199
+msgid "Trash Series"
+msgstr ""
+
+#: ../src/Tribe/Recurrence_Meta.php:202
+msgid "Delete all events in this series permanently"
+msgstr ""
+
+#: ../src/Tribe/Recurrence_Meta.php:202
+msgid "Delete Series Permanently"
+msgstr ""
+
+#: ../src/Tribe/Recurrence_Meta.php:208
+msgid "Restore all events in this series from the Trash"
+msgstr ""
+
+#: ../src/Tribe/Recurrence_Meta.php:208
+msgid "Restore Series"
+msgstr ""
+
+#: ../src/Tribe/Recurrence_Meta.php:582
+msgid "Monthly custom recurrences cannot have a dash set as the day to occur on."
+msgstr "Repetările personalizate lunare nu pot avea stabilite liniuţe ca şi ziua în care va avea loc."
+
+#: ../src/Tribe/Recurrence_Meta.php:585
+msgid "Yearly custom recurrences cannot have a dash set as the day to occur on."
+msgstr "Repetările personalizate anuale nu pot avea stabilite liniuţe ca şi ziua în care va avea loc."
+
+#: ../src/Tribe/Recurrence_Meta.php:905 ../src/Tribe/Recurrence_Meta.php:920
+msgid "Every day"
+msgstr "Fiecare zi"
+
+#: ../src/Tribe/Recurrence_Meta.php:906
+msgid " for %d day"
+msgid_plural " for %d days"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: ../src/Tribe/Recurrence_Meta.php:909 ../src/Tribe/Recurrence_Meta.php:925
+msgid "Every week"
+msgstr "Fiecare săptâmână"
+
+#: ../src/Tribe/Recurrence_Meta.php:910
+msgid " for %d week"
+msgid_plural " for %d weeks"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: ../src/Tribe/Recurrence_Meta.php:912 ../src/Tribe/Recurrence_Meta.php:931
+msgid "Every month"
+msgstr "Fiecare lună"
+
+#: ../src/Tribe/Recurrence_Meta.php:913
+msgid " for %d month"
+msgid_plural " for %d months"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: ../src/Tribe/Recurrence_Meta.php:915 ../src/Tribe/Recurrence_Meta.php:938
+msgid "Every year"
+msgstr "Fiecare an"
+
+#: ../src/Tribe/Recurrence_Meta.php:916
+msgid " for %d year"
+msgid_plural " for %d years"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: ../src/Tribe/Recurrence_Meta.php:921
+msgid "Every %d days"
+msgstr "Fiecare %d zile"
+
+#: ../src/Tribe/Recurrence_Meta.php:922 ../src/Tribe/Recurrence_Meta.php:928
+#: ../src/Tribe/Recurrence_Meta.php:935 ../src/Tribe/Recurrence_Meta.php:947
+msgid ", recurring %d time"
+msgid_plural ", recurring %d times"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: ../src/Tribe/Recurrence_Meta.php:926
+msgid "Every %d weeks"
+msgstr "Fiecare %d săptămâni"
+
+#: ../src/Tribe/Recurrence_Meta.php:927
+msgid " on %s"
+msgstr "pe %s"
+
+#: ../src/Tribe/Recurrence_Meta.php:932
+msgid "Every %d months"
+msgstr "Fiecare %d luni"
+
+#: ../src/Tribe/Recurrence_Meta.php:934
+msgid " on the %s %s"
+msgstr "pe %s %s"
+
+#: ../src/Tribe/Recurrence_Meta.php:934
+msgid "day"
+msgstr "zi"
+
+#: ../src/Tribe/Recurrence_Meta.php:939
+msgid "Every %d years"
+msgstr "Fiecare %d ani"
+
+#: ../src/Tribe/Recurrence_Meta.php:941
+msgid "last"
+msgstr "ultima"
+
+#: ../src/Tribe/Recurrence_Meta.php:946
+msgid " on the %s %s of %s"
+msgstr "pe %s %s of %s"
+
+#: ../src/Tribe/Recurrence_Meta.php:953
+msgid " until %s"
+msgstr "până la %s"
+
+#: ../src/Tribe/Recurrence_Meta.php:960
+msgid "%s%s%s"
+msgstr "%s%s%s"
+
+#: ../src/Tribe/Recurrence_Meta.php:972
+#: ../src/admin-views/event-recurrence.php:85
+#: ../src/admin-views/event-recurrence.php:142
+msgid "Monday"
+msgstr "Luni"
+
+#: ../src/Tribe/Recurrence_Meta.php:973
+#: ../src/admin-views/event-recurrence.php:86
+#: ../src/admin-views/event-recurrence.php:143
+msgid "Tuesday"
+msgstr "Marţi"
+
+#: ../src/Tribe/Recurrence_Meta.php:974
+#: ../src/admin-views/event-recurrence.php:87
+#: ../src/admin-views/event-recurrence.php:144
+msgid "Wednesday"
+msgstr "Miercuri"
+
+#: ../src/Tribe/Recurrence_Meta.php:975
+#: ../src/admin-views/event-recurrence.php:88
+#: ../src/admin-views/event-recurrence.php:145
+msgid "Thursday"
+msgstr "Joi"
+
+#: ../src/Tribe/Recurrence_Meta.php:976
+#: ../src/admin-views/event-recurrence.php:89
+#: ../src/admin-views/event-recurrence.php:146
+msgid "Friday"
+msgstr "Viner"
+
+#: ../src/Tribe/Recurrence_Meta.php:977
+#: ../src/admin-views/event-recurrence.php:90
+#: ../src/admin-views/event-recurrence.php:147
+msgid "Saturday"
+msgstr "Sâmbătă"
+
+#: ../src/Tribe/Recurrence_Meta.php:978
+#: ../src/admin-views/event-recurrence.php:91
+#: ../src/admin-views/event-recurrence.php:148
+msgid "Sunday"
+msgstr "Duminică"
+
+#: ../src/Tribe/Recurrence_Meta.php:985
+msgid ", and"
+msgstr ", şi"
+
+#: ../src/Tribe/Recurrence_Meta.php:987
+msgid "and"
+msgstr "şi"
+
+#: ../src/Tribe/Recurrence_Meta.php:989
+msgid ","
+msgstr ","
+
+#: ../src/Tribe/Recurrence_Meta.php:1007
+msgid "January"
+msgstr "Ianuarie"
+
+#: ../src/Tribe/Recurrence_Meta.php:1008
+msgid "February"
+msgstr "Februarie"
+
+#: ../src/Tribe/Recurrence_Meta.php:1009
+msgid "March"
+msgstr "Martie"
+
+#: ../src/Tribe/Recurrence_Meta.php:1010
+msgid "April"
+msgstr "Aprilie"
+
+#: ../src/Tribe/Recurrence_Meta.php:1011
+msgid "May"
+msgstr "Mai"
+
+#: ../src/Tribe/Recurrence_Meta.php:1012
+msgid "June"
+msgstr "Iunie"
+
+#: ../src/Tribe/Recurrence_Meta.php:1013
+msgid "July"
+msgstr "Iulie"
+
+#: ../src/Tribe/Recurrence_Meta.php:1014
+msgid "August"
+msgstr "August"
+
+#: ../src/Tribe/Recurrence_Meta.php:1015
+msgid "September"
+msgstr "Septembrie"
+
+#: ../src/Tribe/Recurrence_Meta.php:1016
+msgid "October"
+msgstr "Octombrie"
+
+#: ../src/Tribe/Recurrence_Meta.php:1017
+msgid "November"
+msgstr "Noiembrie"
+
+#: ../src/Tribe/Recurrence_Meta.php:1018
+msgid "December"
+msgstr "Decembrie"
+
+#: ../src/Tribe/Recurrence_Meta.php:1025
+msgid ", and "
+msgstr ", şi"
+
+#: ../src/Tribe/Recurrence_Meta.php:1027
+msgid " and "
+msgstr "şi"
+
+#: ../src/Tribe/Recurrence_Meta.php:1029
+msgid ", "
+msgstr ","
+
+#: ../src/Tribe/Recurrence_Meta.php:1106
+msgid "Recurring event instances"
+msgstr "Repetare instanţe eveniment"
+
+#: ../src/Tribe/Recurrence_Meta.php:1107
+msgid "Show only the first instance of each recurring event (only affects list-style views)."
+msgstr "Afişarea doar a primelor instanţe din fiecare eveniment recurent (afectează numai vizualizările tip listă)."
+
+#: ../src/Tribe/Recurrence_Meta.php:1113
+msgid "Front-end recurring event instances toggle"
+msgstr "Comutare instanţe de repetare eveniment din interfaţa utilizatorului"
+
+#: ../src/Tribe/Recurrence_Meta.php:1114
+msgid "Allow users to decide whether to show all instances of a recurring event."
+msgstr "Permite utilizatoriilor să decidă dacă se vor afişa toate repetările evenimentului"
+
+#: ../src/Tribe/Recurrence_Meta.php:1121
+msgid "Clean up recurring events after"
+msgstr "Elimină evenimentele recurente după"
+
+#: ../src/Tribe/Recurrence_Meta.php:1122
+msgid "Automatically remove recurring event instances older than this"
+msgstr "Elimină automat evenimentele recurente mai vechi de atât. "
+
+#: ../src/Tribe/Recurrence_Meta.php:1129
+msgid "Create recurring events in advance for"
+msgstr "Creare evenimente recurente în avans pentru"
+
+#: ../src/Tribe/Recurrence_Meta.php:1130
+msgid "Recurring events will be created this far in advance"
+msgstr "Evenimentele recurente vor fi create atțt de mult în avans"
+
+#: ../src/Tribe/Recurrence_Meta.php:1151
+msgid " months"
+msgstr " luni"
+
+#: ../src/Tribe/Recurrence_Meta.php:1246
+msgid "You are currently editing all events in a recurring series."
+msgstr ""
+
+#: ../src/Tribe/Recurrence_Meta.php:1254
+msgid "%d instances of this event have been created through %s. <a href=\"%s\">Learn more.</a>"
+msgstr ""
+
+#: ../src/Tribe/Recurrence_Meta.php:1265
+msgid ""
+"You are about to split this series in two.\n"
+"\n"
+"The event you selected and all subsequent events in the series will be separated into a new series of events that you can edit independently of the original series.\n"
+"\n"
+"This action cannot be undone."
+msgstr ""
+
+#: ../src/Tribe/Recurrence_Meta.php:1266
+msgid ""
+"You are about to break this event out of its series.\n"
+"\n"
+"You will be able to edit it independently of the original series.\n"
+"\n"
+"This action cannot be undone."
+msgstr ""
+
+#: ../src/Tribe/Recurrence_Meta.php:1267
+msgid "Are you sure you want to trash all occurrences of these events?"
+msgstr ""
+
+#: ../src/Tribe/Single_Event_Meta.php:161
+#: ../src/views/pro/modules/meta/additional-fields.php:18
+msgid "Other"
+msgstr "Altele"
+
+#: ../src/Tribe/Single_Event_Meta.php:188
+msgid "Recurrence Pattern:"
+msgstr "Patern de Repetare:"
+
+#: ../src/Tribe/Templates/Map.php:91
+msgid "No results were found for events in or near <strong>\"%s\"</strong>."
+msgstr "Nici un rezultat găsit pentru evenimente în sau în apropiere de <strong>\"%s\"</strong>."
+
+#: ../src/Tribe/Templates/Map.php:93 ../src/Tribe/Templates/Week.php:199
+msgid "No matching events listed under %s. Please try viewing the full calendar for a complete list of events."
+msgstr ""
+
+#: ../src/Tribe/Templates/Map.php:95
+msgid "There were no results found."
+msgstr "Nu au fost găsite rezultate"
+
+#: ../src/Tribe/Templates/Week.php:194
+msgid "There were no results found for <strong>\"%s\"</strong> this week. Try searching another week."
+msgstr "Nici-un rezultat nu a fost găsit pentru <strong>\"%s\"</strong> în această săptămână. Încercaţi să căutaţi în altă săptămână."
+
+#: ../src/Tribe/Templates/Week.php:196
+msgid "No results were found for events in or near <strong>\"%s\"</strong> this week. Try searching another week."
+msgstr "Niciun rezultat nu a fost găsit pentru evenimente în sau în apropiere de <strong>\"%s\"</strong> în această săptămână. Încercaţi să căutaţi în altă săptămână."
+
+#: ../src/Tribe/Templates/Week.php:201
+msgid "No results were found for this week. Try searching another week."
+msgstr "Nici-un rezultat nu a fost găsit pentru această săptămână. Încercaţi să căutaţi în altă săptămână."
+
+#: ../src/Tribe/Venue_Widget.php:16
+msgid "Displays a list of upcoming events at a specific venue."
+msgstr "Afişează o listă a evenimentelor ce vor avea loc într-o locaţie specifică."
+
+#: ../src/Tribe/Venue_Widget.php:19
+msgid "Events Featured Venue"
+msgstr "Locaţie Semnificativă Evenimente"
+
+#: ../src/admin-views/event-defaults.php:1
+msgid "Customize Defaults"
+msgstr "Personalizare pentru Implicite"
+
+#: ../src/admin-views/event-defaults.php:2
+msgid "These settings change the default event form. For example, if you set a default venue, this field will be automatically filled in on a new event."
+msgstr "Aceste configurări modificcă formularul implicit al evenimentului. De exemplu, dacă aţi stabilit o locaţie implicită, acest câmp va fi automat completat într-un nou eveniment."
+
+#: ../src/admin-views/event-defaults.php:5
+#: ../src/admin-views/event-defaults.php:9
+#: ../src/admin-views/tribe-options-defaults.php:55
+msgid "Automatically replace empty fields with default values"
+msgstr "Înlocuire automată a câmpurilor goale cu valorile implicite"
+
+#: ../src/admin-views/event-defaults.php:13
+msgid "Enabled"
+msgstr "Activat"
+
+#: ../src/admin-views/event-defaults.php:19
+msgid "Default Organizer for Events"
+msgstr "Organizatorul Implicit pentru Evenimente"
+
+#: ../src/admin-views/event-defaults.php:22
+msgid "Default Organizer"
+msgstr "Organizator Implicit"
+
+#: ../src/admin-views/event-defaults.php:23
+msgid "The default organizer value"
+msgstr "Valoarea implictă a organizatorului"
+
+#: ../src/admin-views/event-defaults.php:23
+#: ../src/admin-views/event-defaults.php:32
+#: ../src/admin-views/event-defaults.php:42
+#: ../src/admin-views/event-defaults.php:52
+#: ../src/admin-views/event-defaults.php:76
+#: ../src/admin-views/event-defaults.php:87
+#: ../src/admin-views/event-defaults.php:98
+#: ../src/admin-views/event-defaults.php:127
+msgid "The current default value is <strong>%s</strong>"
+msgstr "Valoarea curentă implicită este <strong>%s</strong>."
+
+#: ../src/admin-views/event-defaults.php:28
+msgid "Default Venue for Events"
+msgstr "Locaţia Implicită pentru Evenimente"
+
+#: ../src/admin-views/event-defaults.php:31
+msgid "Default Venue"
+msgstr "Locaţie Implicită"
+
+#: ../src/admin-views/event-defaults.php:32
+msgid "The default venue value"
+msgstr "Valoarea implicită a locaţiei"
+
+#: ../src/admin-views/event-defaults.php:37
+#: ../src/admin-views/event-defaults.php:40
+msgid "Default Address"
+msgstr "Adresă Implicită"
+
+#: ../src/admin-views/event-defaults.php:41
+msgid "The default address value"
+msgstr "Valoarea implicită a adresei"
+
+#: ../src/admin-views/event-defaults.php:47
+#: ../src/admin-views/event-defaults.php:50
+msgid "Default City"
+msgstr "Oraş Implicit"
+
+#: ../src/admin-views/event-defaults.php:51
+msgid "The default city value"
+msgstr "Valoarea implicită a oraşului"
+
+#: ../src/admin-views/event-defaults.php:58
+msgid "Default State"
+msgstr "Stat Implicit"
+
+#: ../src/admin-views/event-defaults.php:61
+#: ../src/admin-views/event-defaults.php:85
+msgid "Default Province or State"
+msgstr "Stat sau Provincie Implicit(ă)"
+
+#: ../src/admin-views/event-defaults.php:64
+msgid "Select a State:"
+msgstr "Selectaţi Statul:"
+
+#: ../src/admin-views/event-defaults.php:75
+#: ../src/admin-views/event-defaults.php:86
+msgid "The default  value"
+msgstr "Valoarea implicită"
+
+#: ../src/admin-views/event-defaults.php:82
+msgid "Default Province"
+msgstr "Provincia Implicită"
+
+#: ../src/admin-views/event-defaults.php:93
+#: ../src/admin-views/event-defaults.php:96
+msgid "Default Postal Code"
+msgstr "Cod Poştal Implicit"
+
+#: ../src/admin-views/event-defaults.php:97
+msgid "The default Postal Code value"
+msgstr "Valoarea implicită a Codului Poştal"
+
+#: ../src/admin-views/event-defaults.php:104
+msgid "Default Country for Events"
+msgstr "Ţara Implicită pentru Evenimente"
+
+#: ../src/admin-views/event-defaults.php:122
+#: ../src/admin-views/event-defaults.php:125
+msgid "Default Phone"
+msgstr "Telefon Implicit"
+
+#: ../src/admin-views/event-defaults.php:126
+msgid "The default phone value"
+msgstr "Valoarea implicită a telefonului"
+
+#: ../src/admin-views/event-defaults.php:132
+#: ../src/admin-views/tribe-options-defaults.php:198
+msgid "Use a custom list of countries"
+msgstr "Folosiţi o listă cu ţări personalizată "
+
+#: ../src/admin-views/event-defaults.php:135
+msgid "Use the following list:"
+msgstr "Folosiţi următoarea listă"
+
+#: ../src/admin-views/event-defaults.php:138
+msgid "One country per line in the following format: <br/>US, United States <br/> UK, United Kingdom."
+msgstr "O singură ţară pe linie, cu următorul format:<br>RO, România <br> UK, United Kingdom."
+
+#: ../src/admin-views/event-defaults.php:138
+msgid "(Replaces the default list.)"
+msgstr "(Înlocuieşte lista implictă.)"
+
+#: ../src/admin-views/event-meta-options.php:5
+msgid "Use additional fields to add unique content fields to the event admin, which can be used by anyone who creates events. Upon publication they'll appear in the event metabox that accompanies your event listing, alongside the date/time/venue/organizer/etc. </p><p>Each new piece of data needs:"
+msgstr "Folosiţi câmpuri adiţionale pentru adăugarea, în pagina de administrare a evenimentelor, a unor câmpuri de conţinut unice ce pot fi folosite de către oricine crează evenimente. După publicare acestea vor apărea în caseta meta a evenimentului, casetă ce va însoţi listarea evenimentului alături de dată/oră/locaţie/organizator/etc. Fiecare element necesită:"
+
+#: ../src/admin-views/event-meta-options.php:7
+msgid "Label (e.g. Meal Plans)"
+msgstr "Etichetă (ex. Planuri de Masă)"
+
+#: ../src/admin-views/event-meta-options.php:8
+msgid "At least one option (e.g. Vegetarian, Kosher, Paleo)"
+msgstr "Cel puţin o opţiune (ex. Vegetarian, Cusher, Paleo)"
+
+#: ../src/admin-views/event-meta-options.php:9
+msgid "Field type. These are:"
+msgstr "Tip de câmp. Acestea sunt:"
+
+#: ../src/admin-views/event-meta-options.php:11
+msgid "Text - for the user to input text"
+msgstr "Text - utilizatorul va introduce un text"
+
+#: ../src/admin-views/event-meta-options.php:12
+msgid "Text Area - identical to a text field but providing a larger area for the user to input text"
+msgstr ""
+
+#: ../src/admin-views/event-meta-options.php:13
+msgid "URL - for the user to input a URL"
+msgstr "URL - pentru ca utilizatorul să poată introduce o adresă URL"
+
+#: ../src/admin-views/event-meta-options.php:14
+msgid "Checkbox - for multiple choice"
+msgstr "Casetă de validare - pentru opţiuni multiple"
+
+#: ../src/admin-views/event-meta-options.php:15
+msgid "Radio Button - to select only one"
+msgstr "Buton radio - pentru alegerea unei singure valori"
+
+#: ../src/admin-views/event-meta-options.php:16
+msgid "Dropdown Menu - for a dropdown menu"
+msgstr "Meniu cu derulare - pentru un meniu cu derulare verticală"
+
+#: ../src/admin-views/event-meta-options.php:23
+msgid "Field Label"
+msgstr "Etichetă Câmp"
+
+#: ../src/admin-views/event-meta-options.php:24
+msgid "Field Type"
+msgstr "Tip Câmp"
+
+#: ../src/admin-views/event-meta-options.php:25
+msgid "Options (one per line)"
+msgstr "Opţiuni (una pe linie)"
+
+#: ../src/admin-views/event-meta-options.php:48
+msgid "Text"
+msgstr "Text"
+
+#: ../src/admin-views/event-meta-options.php:49
+msgid "Text Area"
+msgstr ""
+
+#: ../src/admin-views/event-meta-options.php:50
+msgid "URL"
+msgstr "URL"
+
+#: ../src/admin-views/event-meta-options.php:51
+msgid "Radio"
+msgstr "Radio"
+
+#: ../src/admin-views/event-meta-options.php:52
+msgid "Checkbox"
+msgstr "Casetă de Validare"
+
+#: ../src/admin-views/event-meta-options.php:65
+msgid "Enter the field label as you want it to appear (this will be the label in the same way \"Start Date,\" \"Organizer,\" etc appear in the event details box on the frontend). Select whether the field will be a text field; URL field; radio buttons; checkboxes; or a dropdown. All of these with the exception of text and URL allow for multiple options to be included, which you can add — one per-line — in the right-hand column. If you feel flummoxed, we've got you covered with a %s."
+msgstr "Introduceţi eticheta câmpului exact cum doriţi să apară (aceasta va eticheta evenimentul precum \"Dată Începere,\" \"Organizator,\" etc. apar în caseta de detalii din faţa evenimentului). Selectaţi dacă va fi un câmp de tip text; câmp URL; butoane radio; casete de validare; sau un meniu cu derulare. Toate aceste cu excepţia textului şi a URL, permit includerea unor opţiuni multiple, pe care le puteţi introduce — una pe linie — în coloana din partea dreaptă. Dacă vă simţiţi puţin confuzi, vă putem ajuta cu un %s."
+
+#: ../src/admin-views/event-meta-options.php:66
+msgid "video tutorial that will walk you through the process"
+msgstr "tutorial video ce vă va ghida prin acest proces"
+
+#: ../src/admin-views/event-meta-options.php:69
+msgid "Editor \"Custom Fields\" meta box"
+msgstr "Editor \"Câmpusi Personalizate\" casetă meta"
+
+#: ../src/admin-views/event-meta-options.php:71
+msgid "Show"
+msgstr "Afişare"
+
+#: ../src/admin-views/event-meta-options.php:73
+msgid "Hide"
+msgstr "Ascudere"
+
+#: ../src/admin-views/event-meta-options.php:76
+msgid "Enabling this option this will not remove custom field data or functionality, just the default meta box editor."
+msgstr "Activând această opţiune, nu se vor elimina şi datele câmpului personalizat ori funcţionalitatea sa, ci doar editorul implicit al casetei meta. "
+
+#: ../src/admin-views/event-meta-options.php:111
+msgid "Are you sure you wish to remove this field and its data from all events? Once you click OK this cannot be undone."
+msgstr "Confirmaţi eliminarea acestui câmp şi a datelor sale, din toate evenimentele? Odată ce apăsaţi OK, nu se mai poate reveni."
+
+#: ../src/admin-views/event-meta.php:13
+msgid "Additional %s Fields"
+msgstr ""
+
+#: ../src/admin-views/event-recurrence.php:2
+msgid "Recurrence:"
+msgstr "Repetare:"
+
+#: ../src/admin-views/event-recurrence.php:6
+msgid "event"
+msgstr ""
+
+#: ../src/admin-views/event-recurrence.php:6
+msgid "events"
+msgstr ""
+
+#: ../src/admin-views/event-recurrence.php:7
+msgid "None"
+msgstr "Nimic"
+
+#: ../src/admin-views/event-recurrence.php:8
+msgid "Every Day"
+msgstr "În Fiecare Zi"
+
+#: ../src/admin-views/event-recurrence.php:9
+msgid "Every Week"
+msgstr "În Fiecare Săptămână"
+
+#: ../src/admin-views/event-recurrence.php:10
+msgid "Every Month"
+msgstr "Fiecare Lună"
+
+#: ../src/admin-views/event-recurrence.php:11
+msgid "Every Year"
+msgstr "În Fiecare An"
+
+#: ../src/admin-views/event-recurrence.php:12
+msgid "Custom"
+msgstr "Particularizat"
+
+#: ../src/admin-views/event-recurrence.php:15
+msgid "and will end"
+msgstr "şi se va finaliza"
+
+#: ../src/admin-views/event-recurrence.php:17
+msgid "On"
+msgstr "În"
+
+#: ../src/admin-views/event-recurrence.php:18
+msgid "After"
+msgstr "După"
+
+#: ../src/admin-views/event-recurrence.php:19
+msgid "Never"
+msgstr "Niciodată"
+
+#: ../src/admin-views/event-recurrence.php:22
+#: ../src/admin-views/event-recurrence.php:41
+msgctxt "occurence count text"
+msgid "events"
+msgstr ""
+
+#: ../src/admin-views/event-recurrence.php:23
+msgid "You must select a recurrence end date"
+msgstr "Trebuie să selectaţi data de finalizare a repetării"
+
+#: ../src/admin-views/event-recurrence.php:30
+msgid "Frequency"
+msgstr "Frecvenţa"
+
+#: ../src/admin-views/event-recurrence.php:32
+msgid "Day(s)"
+msgstr "Zi(le)"
+
+#: ../events-calendar-pro.php:70
+msgid "The Events Calendar"
+msgstr "The Events Calendar"
+
+#: ../src/admin-views/event-recurrence.php:32
+msgid "Daily"
+msgstr "Zilnic"
+
+#: ../events-calendar-pro.php:71
+msgid "To begin using Events Calendar PRO, please install the latest version of <a href=\"%s\" class=\"thickbox\" title=\"%s\">The Events Calendar</a>."
+msgstr "Pentru a începe să folosiţi Events Calendar PRO, vă rugăm să instalaţi ultima versiune a <a href=\"%s\" class=\"thickbox\" title=\"%s\">The Events Calendar</a>."
+
+#: ../src/admin-views/event-recurrence.php:33
+msgid "Week(s) on:"
+msgstr "Săptămna(i) din:"
+
+#: ../src/Tribe/APM_Filters/APM_Filters.php:55
+msgid "Start Date"
+msgstr "Dată Începere"
+
+#: ../src/admin-views/event-recurrence.php:33
+msgid "Weekly"
+msgstr "Săptămânal"
+
+#: ../src/Tribe/APM_Filters/APM_Filters.php:60
+msgid "End Date"
+msgstr "Dată Finalizare"
+
+#: ../src/admin-views/event-recurrence.php:34
+msgid "Month(s) on the:"
+msgstr "Luna(i) din:"
+
+#: ../src/Tribe/APM_Filters/APM_Filters.php:65
+msgid "Event Cost"
+msgstr "Preţ Eveniment"
+
+#: ../src/admin-views/event-recurrence.php:34
+msgid "Monthly"
+msgstr "Lunar"
+
+#: ../src/Tribe/APM_Filters/APM_Filters.php:70
+msgid "Event Cats"
+msgstr "Categ. Eveniment"
+
+#: ../src/admin-views/event-recurrence.php:35
+msgid "Year(s) on:"
+msgstr "An(i) din:"
+
+#: ../src/Tribe/APM_Filters/APM_Filters.php:75
+msgid "Title"
+msgstr "Titlu"
+
+#: ../src/admin-views/event-recurrence.php:35
+msgid "Yearly"
+msgstr "Anual"
+
+#: ../src/Tribe/APM_Filters/APM_Filters.php:80
+#: ../src/Tribe/Recurrence_Meta.php:147
+msgid "Recurring"
+msgstr "Repetare"
+
+#: ../src/admin-views/event-recurrence.php:37
+msgid "Every"
+msgstr "Fiecare"
+
+#: ../src/Tribe/APM_Filters/APM_Filters.php:85
+msgid "Description"
+msgstr "Descriere"
+
+#: ../src/admin-views/event-recurrence.php:42
+msgid "Frequency of recurring event must be a number"
+msgstr "Frecvenţa repetării evenimentului trebuie exprimată printr-un număr"
+
+#: ../src/Tribe/APM_Filters/APM_Filters.php:131
+msgid "Pssst! Looking for the filters? They live in a separate plugin now | <a href=\"%s\">Download for free</a>| <a href=\"%s\">Dismiss</a>"
+msgstr ""
+
+#: ../src/admin-views/event-recurrence.php:52
+msgid "M"
+msgstr "Lu"
+
+#: ../src/Tribe/APM_Filters/Date_Filter.php:13
+#: ../src/Tribe/APM_Filters/Title_Filter.php:15
+msgid "Is"
+msgstr "Este"
+
+#: ../src/admin-views/event-recurrence.php:54
+msgid "Tu"
+msgstr "Ma"
+
+#: ../src/Tribe/APM_Filters/Date_Filter.php:14
+#: ../src/Tribe/APM_Filters/Title_Filter.php:16
+msgid "Is Not"
+msgstr "Nu este"
+
+#: ../src/admin-views/event-recurrence.php:56
+msgid "W"
+msgstr "Mi"
+
+#: ../src/Tribe/APM_Filters/Date_Filter.php:15
+msgid "On and After"
+msgstr ""
+
+#: ../src/admin-views/event-recurrence.php:58
+msgid "Th"
+msgstr "Jo"
+
+#: ../src/Tribe/APM_Filters/Date_Filter.php:16
+msgid "On and Before"
+msgstr ""
+
+#: ../src/admin-views/event-recurrence.php:60
+msgid "F"
+msgstr "Vi"
+
+#: ../src/Tribe/APM_Filters/Recur_Filter.php:16
+#: ../src/Tribe/Recurrence_Meta.php:155
+msgid "Yes"
+msgstr ""
+
+#: ../src/admin-views/event-recurrence.php:62
+msgid "Sa"
+msgstr "Sâ"
+
+#: ../src/Tribe/APM_Filters/Recur_Filter.php:17
+msgid "No"
+msgstr ""
+
+#: ../src/admin-views/event-recurrence.php:64
+msgid "Su"
+msgstr "Du"
+
+#: ../src/Tribe/APM_Filters/Title_Filter.php:14
+msgid "Search"
+msgstr "Căutare"
+
+#: ../src/admin-views/event-recurrence.php:73
+#: ../src/admin-views/event-recurrence.php:135
+msgid "First"
+msgstr "Prima"
+
+#: ../src/Tribe/Advanced_List_Widget.php:22
+msgid "A widget that displays the next upcoming x events."
+msgstr "Un widget ce afişează evenimentele x următoare."
+
+#: ../src/admin-views/event-recurrence.php:74
+#: ../src/admin-views/event-recurrence.php:136
+msgid "Second"
+msgstr "Următorea"
+
+#: ../src/Tribe/Advanced_List_Widget.php:27
+msgid "Events List"
+msgstr "Listă Evenimente"
+
+#: ../src/admin-views/event-recurrence.php:75
+#: ../src/admin-views/event-recurrence.php:137
+msgid "Third"
+msgstr "A treia"
+
+#: ../src/Tribe/Advanced_List_Widget.php:116
+msgid "Upcoming Events"
+msgstr "Evenimente Următoare"
+
+#: ../src/admin-views/event-recurrence.php:76
+#: ../src/admin-views/event-recurrence.php:138
+msgid "Fourth"
+msgstr "A patra"
+
+#: ../src/Tribe/Community_Modifications.php:43
+msgid "Recurrence End Date"
+msgstr ""
+
+#: ../src/admin-views/event-recurrence.php:77
+msgid "Fifth"
+msgstr "Al cincilea"
+
+#: ../src/Tribe/Community_Modifications.php:46
+msgid "Recurrence Count"
+msgstr ""
+
+#: ../src/admin-views/event-recurrence.php:78
+#: ../src/admin-views/event-recurrence.php:139
+msgid "Last"
+msgstr "Ultima"
+
+#: ../src/Tribe/Countdown_Widget.php:17
+msgid "Displays the time remaining until a specified event."
+msgstr "Afişează timpul rămas până la evenimentul specificat."
+
+#: ../src/admin-views/event-recurrence.php:93
+#: ../src/admin-views/event-recurrence.php:150
+msgid "Day"
+msgstr "Zi"
+
+#: ../src/Tribe/Countdown_Widget.php:20
+msgid "Events Countdown"
+msgstr "Numărătoare-Inversă Evenimente"
+
+#: ../src/admin-views/event-recurrence.php:133
+msgid "On the:"
+msgstr "Din:"
+
+#: ../src/Tribe/Custom_Meta.php:53
+msgid "Add another"
+msgstr "Adăugaţi un altul"
+
+#: ../src/admin-views/event-recurrence.php:158
+msgid "Description:"
+msgstr "Descriere:"
+
+#: ../src/Tribe/Custom_Meta.php:54
+msgid "Remove"
+msgstr "Îndepărtaţi"
+
+#: ../src/admin-views/event-recurrence.php:166
+msgid "Recurrence Description:"
+msgstr "Descrierea repetării:"
+
+#: ../src/Tribe/Geo_Loc.php:103
+msgid "Distance"
+msgstr "Distanţa"
+
+#: ../src/admin-views/event-recurrence.php:174
+msgid "Create a custom plain language description of the recurrence. Leave it blank and we'll automate it."
+msgstr "Creaţi o descriere a repetării printr-un limbaj simplu şi clar. Lăsaţi necompletat şi îl vom automatiza noi."
+
+#: ../src/Tribe/Geo_Loc.php:135
+msgid "Map view search distance limit"
+msgstr "Limită distanţei pe harta afişată la căutare "
+
+#: ../src/admin-views/tribe-options-defaults.php:6
+#: ../src/admin-views/tribe-options-defaults.php:15
+msgid "No Default"
+msgstr "Nimic Implicit"
+
+#: ../src/Tribe/Geo_Loc.php:137
+msgid "Set the distance that the location search covers (find events within X distance units of location search input)."
+msgstr "Stabiliţi distanţa pe care căutarea locaţiei o poate acoperi (găsiţi evenimente cu X unităţi de distanţă de la locaţia introdusă în căutare)"
+
+#: ../src/admin-views/tribe-options-defaults.php:22
+msgid "Select a State"
+msgstr "Selectaţi un Stat"
+
+#: ../src/Tribe/Geo_Loc.php:144
+msgid "Map view distance unit"
+msgstr "Unitate de distanţă la vizulizarea hărţii"
+
+#: ../src/admin-views/tribe-options-defaults.php:39
+msgid "<p>Choose the default venue & organizer. Set default address information to save time when entering a new venue or organizer.</p><p>You can override these settings as you enter a new event.</p>"
+msgstr "<p>Alegeţi locaţia & organizatorul implict. Stabiliţi informaţiile implicite ale adresei pentru a salva timp la introducerea unui nou organizator sau unei noi locaţii.</p><p> Puteţi suprascrie aceste configurări la introducerea unui eveniment nou.</p>"
+
+#: ../src/Tribe/Geo_Loc.php:149 ../src/Tribe/Geo_Loc_Filter.php:23
+msgid "Miles"
+msgstr "Mile"
+
+#: ../src/admin-views/tribe-options-defaults.php:51
+msgid "Options"
+msgstr "Opţiuni"
+
+#: ../src/Tribe/Geo_Loc.php:150 ../src/Tribe/Geo_Loc_Filter.php:26
+msgid "Kilometers"
+msgstr "Kilometrii"
+
+#: ../src/admin-views/tribe-options-defaults.php:61
+msgid "Check this box to have the organizer and venue fields pre-populated with the default values below for any new event that is created."
+msgstr "Bifaţi această casetă pentru a pre-popula câmpurile organizatorului şi a locaţiei, folosind valorile implicite de mai jos, pentru fiecare eveniment nou creat."
+
+#: ../src/Tribe/Geo_Loc.php:155
+msgid "Fix geolocation data"
+msgstr "Stabilire date de geolocaţie"
+
+#: ../src/admin-views/tribe-options-defaults.php:65
+#: ../src/admin-views/widget-admin-advanced-list.php:32
+msgid "Organizer"
+msgstr "Organizator"
+
+#: ../src/Tribe/Geo_Loc.php:155
+msgid "You have %d venues for which we don't have geolocation data. We need to use the Google Maps API to get that information. Doing this may take a while (aprox. 1 minute for every 200 venues)."
+msgstr "Aveţi %d locaţii pentru care nu deţinem date de geolocaţie. Trebuie să folosim API Hărți Google pentru a primi aceste informaţii. Apelând la această metodă, va dura ceva timp (cam 1 minut pentru fiecare 200 de locaţii)"
+
+#: ../src/admin-views/tribe-options-defaults.php:69
+msgid "Default organizer"
+msgstr "Organizator implicit"
+
+#: ../src/Tribe/Geo_Loc.php:164
+msgid "Hide location search"
+msgstr "Ascudere căutare locaţie"
+
+#: ../src/admin-views/tribe-options-defaults.php:73
+msgid "No saved organizers yet."
+msgstr "Nu există încă organizatori salvaţi."
+
+#: ../src/Tribe/Geo_Loc.php:165
+msgid "Removes location search field from the events bar on all views except for map view."
+msgstr "Elimină câmpul de căutare a locaţiei din bara de evenimente, pentru toate vizualizările cu excepţia vizualizării hărţii."
+
+#: ../src/admin-views/tribe-options-defaults.php:82
+#: ../src/admin-views/widget-admin-advanced-list.php:31
+msgid "Venue"
+msgstr "Locaţie"
+
+#: ../src/Tribe/Geo_Loc.php:221
+msgid "Map"
+msgstr "Harta"
+
+#: ../src/admin-views/tribe-options-defaults.php:86
+msgid "Default venue"
+msgstr "Locaţie implicită"
+
+#: ../src/Tribe/Geo_Loc.php:255
+msgid "Near"
+msgstr "Apropiere"
+
+#: ../src/admin-views/tribe-options-defaults.php:90
+msgid "No saved venues yet."
+msgstr "Nu există încă locaţii salvate."
+
+#: ../src/Tribe/Geo_Loc.php:256
+msgid "Location"
+msgstr "Locație"
+
+#: ../src/admin-views/tribe-options-defaults.php:99
+#: ../src/admin-views/widget-admin-advanced-list.php:33
+msgid "Address"
+msgstr "Adresa"
+
+#: ../src/Tribe/Geo_Loc.php:281
+msgid "Use latitude + longitude"
+msgstr ""
+
+#: ../src/admin-views/tribe-options-defaults.php:103
+msgid "You can use this setting to set specific, individual defaults for any new Venue you create (these will not be used for your default venue)."
+msgstr "Puteţi folosi această configurare pentru a stabili valori specifice implicite pentru fiecare nouă Locaţie pe care o creaţi (aceasta nu va fi folosită pentru locaţia dvs. implicită)."
+
+#: ../src/Tribe/Geo_Loc.php:285
+msgid "Latitude"
+msgstr ""
+
+#: ../src/admin-views/tribe-options-defaults.php:107
+msgid "Default address"
+msgstr "Adresa implicită"
+
+#: ../src/Tribe/Geo_Loc.php:286
+msgid "Longitude"
+msgstr ""
+
+#: ../src/admin-views/tribe-options-defaults.php:120
+msgid "Default city"
+msgstr "Oraşul implicit"
+
+#: ../src/Tribe/Geo_Loc.php:745
+msgid "Fix venues data"
+msgstr "Restabilire date despre locaţii"
+
+#: ../src/admin-views/tribe-options-defaults.php:133
+msgid "Default state"
+msgstr "Statul implicit"
+
+#: ../src/Tribe/Geo_Loc.php:785
+msgid "You have venues for which we don't have Geolocation information. <a href='%s'>Click here to generate it</a>."
+msgstr "Aveţi locaţii pentru care nu deţinem informaţii de Geolocaţie.<a href='%s'>Apăsaţi aici pentru a le genera</a>."
+
+#: ../src/admin-views/tribe-options-defaults.php:146
+msgid "Default province"
+msgstr "Provincia implicită"
+
+#: ../src/Tribe/Geo_Loc.php:812
+msgid "Fixed geolocation data for %d venues"
+msgstr "Restabilire date de geolocaţie pentru %d locaţii"
+
+#: ../src/admin-views/tribe-options-defaults.php:159
+msgid "Default postal code/zip code"
+msgstr "Codul poştal/Codul zip implicit"
+
+#: ../src/Tribe/Geo_Loc_Filter.php:32
+msgid "%d %s"
+msgstr ""
+
+#: ../src/admin-views/tribe-options-defaults.php:172
+msgid "Default country"
+msgstr "Ţara implicită"
+
+#: ../src/Tribe/Geo_Loc_Filter.php:49
+msgid "Type: %s %s"
+msgstr "Tip: %s %s"
+
+#: ../src/admin-views/tribe-options-defaults.php:185
+msgid "Default phone"
+msgstr "Telefonul implicit"
+
+#: ../src/Tribe/Geo_Loc_Filter.php:53
+#: ../src/admin-views/event-meta-options.php:53
+msgid "Dropdown"
+msgstr "Meniu-Derulare"
+
+#: ../src/admin-views/tribe-options-defaults.php:201
+msgid "One country per line in the following format: <br>US, United States <br> UK, United Kingdom. <br> (Replaces the default list.)"
+msgstr "O singură ţară pe linie, cu următorul format:<br>RO, România <br> UK, United Kingdom."
+
+#: ../src/Tribe/Geo_Loc_Filter.php:58
+msgid "Radio Buttons"
+msgstr "Butoane Radio"
+
+#: ../src/admin-views/widget-admin-advanced-list.php:13
+#: ../src/admin-views/widget-admin-calendar.php:13
+#: ../src/admin-views/widget-admin-countdown.php:13
+#: ../src/admin-views/widget-admin-venue.php:12
+#: ../src/admin-views/widget-calendar.php:2
+msgid "Title:"
+msgstr "Titlu:"
+
+#: ../src/Tribe/Main.php:55
+msgid "week"
+msgstr "săptămâna"
+
+#: ../src/admin-views/widget-admin-advanced-list.php:17
+#: ../src/admin-views/widget-admin-venue.php:26
+#: ../src/admin-views/widget-calendar.php:8
+msgid "Number of events to show:"
+msgstr "Numărul de evenimnete de afişat"
+
+#: ../src/Tribe/Main.php:56
+msgid "photo"
+msgstr "foto"
+
+#: ../src/admin-views/widget-admin-advanced-list.php:28
+msgid "Display:"
+msgstr "Afişare:"
+
+#: ../src/Tribe/Main.php:359
+msgid "All %s for %s"
+msgstr ""
+
+#: ../src/admin-views/widget-admin-advanced-list.php:34
+msgid "City"
+msgstr "Oraş"
+
+#: ../src/Tribe/Main.php:365
+msgid "%s for week of %s"
+msgstr ""
+
+#: ../src/admin-views/widget-admin-advanced-list.php:35
+msgid "State (US) Or Province (Int)"
+msgstr "Statul (US) sau Provincia (Int):"
+
+#: ../src/Tribe/Main.php:601 ../src/admin-views/tribe-options-defaults.php:35
+msgid "Default Content"
+msgstr "Conţinut Implicit"
+
+#: ../src/admin-views/widget-admin-advanced-list.php:36
+msgid "Postal Code"
+msgstr "Cod Poştal"

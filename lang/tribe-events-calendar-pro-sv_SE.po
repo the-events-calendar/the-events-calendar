@@ -1,1471 +1,736 @@
-# Events Calendar Pro by Modern Tribe, Inc.
-# Copyright (C) Modern Tribe, Inc.
+# Translation of Events Calendar Pro in Swedish
 # This file is distributed under the same license as the Events Calendar Pro package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Events Calendar Pro\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-03-27 10:11-0800\n"
-"PO-Revision-Date: 2014-04-07 14:13-0800\n"
-"Last-Translator: \n"
-"Language-Team: Ben Andersen <wp@bentrix.com>\n"
-"Language: sv\n"
+"PO-Revision-Date: 2015-07-03 14:15:19+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Poedit-SourceCharset: UTF-8\n"
-"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;"
-"_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2\n"
-"X-Poedit-Basepath: ./\n"
-"X-Textdomain-Support: yes\n"
-"X-Generator: Poedit 1.6.4\n"
-"X-Poedit-SearchPath-0: ..\n"
+"X-Generator: GlotPress/1.0-alpha-1000\n"
+"Project-Id-Version: Events Calendar Pro\n"
 
-#: ../admin-views/event-defaults.php:1
-msgid "Customize Defaults"
-msgstr "Anpassa förval"
-
-#: ../admin-views/event-defaults.php:2
-msgid ""
-"These settings change the default event form. For example, if you set a "
-"default venue, this field will be automatically filled in on a new event."
-msgstr ""
-"Dessa inställningar ändrar förval för evenemang. T.ex. om du anger ett "
-"förval för plats kommer detta fält fylls i automatiskt för nya evenemang."
-
-#: ../admin-views/event-defaults.php:5 ../admin-views/event-defaults.php:9
-#: ../admin-views/tribe-options-defaults.php:55
-msgid "Automatically replace empty fields with default values"
-msgstr "Ersätt automatiskt tomma fält med förval"
-
-#: ../admin-views/event-defaults.php:13
-msgid "Enabled"
-msgstr "Aktiverad"
-
-#: ../admin-views/event-defaults.php:19
-msgid "Default Organizer for Events"
-msgstr "Förvald arrangör för evenemang"
-
-#: ../admin-views/event-defaults.php:22
-msgid "Default Organizer"
-msgstr "Förvald arrangör"
-
-#: ../admin-views/event-defaults.php:23
-msgid "The default organizer value"
-msgstr "Förvald arrangör"
-
-#: ../admin-views/event-defaults.php:23 ../admin-views/event-defaults.php:31
-#: ../admin-views/event-defaults.php:38 ../admin-views/event-defaults.php:45
-#: ../admin-views/event-defaults.php:66 ../admin-views/event-defaults.php:74
-#: ../admin-views/event-defaults.php:82 ../admin-views/event-defaults.php:108
-#, php-format
-msgid "The current default value is <strong>%s</strong>"
-msgstr "Ditt nuvarande förval är <strong>%s</strong>"
-
-#: ../admin-views/event-defaults.php:27
-msgid "Default Venue for Events"
-msgstr "Förvald plats för evenemang"
-
-#: ../admin-views/event-defaults.php:30
-msgid "Default Venue"
-msgstr "Förvald plats"
-
-#: ../admin-views/event-defaults.php:31
-msgid "The default venue value"
-msgstr "Förvald plats"
-
-#: ../admin-views/event-defaults.php:35 ../admin-views/event-defaults.php:37
-msgid "Default Address"
-msgstr "Förvald adress"
-
-#: ../admin-views/event-defaults.php:38
-msgid "The default address value"
-msgstr "Förvald adress"
-
-#: ../admin-views/event-defaults.php:42 ../admin-views/event-defaults.php:44
-msgid "Default City"
-msgstr "Förvald stad"
-
-#: ../admin-views/event-defaults.php:45
-msgid "The default city value"
-msgstr "Förvald stad"
-
-#: ../admin-views/event-defaults.php:50
-msgid "Default State"
-msgstr "Förvalt landskap"
-
-#: ../admin-views/event-defaults.php:52 ../admin-views/event-defaults.php:73
-msgid "Default Province or State"
-msgstr "Förvalt landskap"
-
-#: ../admin-views/event-defaults.php:55
-msgid "Select a State:"
-msgstr "Välj län:"
-
-#: ../admin-views/event-defaults.php:66 ../admin-views/event-defaults.php:74
-msgid "The default  value"
-msgstr "Standardvärdet"
-
-#: ../admin-views/event-defaults.php:71
-msgid "Default Province"
-msgstr "Förvalt lanskap"
-
-#: ../admin-views/event-defaults.php:79 ../admin-views/event-defaults.php:81
-msgid "Default Postal Code"
-msgstr "Förvalt postnummer"
-
-#: ../admin-views/event-defaults.php:82
-msgid "The default Postal Code value"
-msgstr "Förvalt postnummer"
-
-#: ../admin-views/event-defaults.php:87
-msgid "Default Country for Events"
-msgstr "Förvalt land för evenemang"
-
-#: ../admin-views/event-defaults.php:105 ../admin-views/event-defaults.php:107
-msgid "Default Phone"
-msgstr "Förvalt telefonnummer"
-
-#: ../admin-views/event-defaults.php:108
-msgid "The default phone value"
-msgstr "Förvalt telefonnummer"
-
-#: ../admin-views/event-defaults.php:112
-#: ../admin-views/tribe-options-defaults.php:198
-msgid "Use a custom list of countries"
-msgstr "Använd en anpassad lista för länder"
-
-#: ../admin-views/event-defaults.php:114
-msgid "Use the following list:"
-msgstr "Använd följande lista:"
-
-#: ../admin-views/event-defaults.php:116
-msgid ""
-"One country per line in the following format: <br/>US, United States <br/> "
-"UK, United Kingdom."
-msgstr ""
-"Ett land per rad på följande format: <br/>SE, Sverige <br/> US, United "
-"States <br/> UK, United Kingdom."
-
-#: ../admin-views/event-defaults.php:116
-msgid "(Replaces the default list.)"
-msgstr "(Ersätter förvald lista.)"
-
-#: ../admin-views/event-meta-options.php:3 ../events-calendar-pro.php:867
+#: ../src/Tribe/Main.php:603 ../src/admin-views/event-meta-options.php:3
 msgid "Additional Fields"
 msgstr "Ytterligare fält"
 
-#: ../admin-views/event-meta-options.php:4
-#, fuzzy
-msgid ""
-"Use additional fields to add unique content fields to the event admin, which "
-"can be used by anyone who creates events. Upon publication they'll appear in "
-"the event metabox that accompanies your event listing, alongside the date/"
-"time/venue/organizer/etc. </p><p>Each new piece of data needs:"
-msgstr ""
-"Använd ytterligare fält för att lägga till unika inmatningsfält till "
-"evenemangsadministrationen, som alla som skapar evenemang sedan kan använda. "
-"Dessa visas i evenemangets metabox ovanför ditt evenemang tillsammans med "
-"datum/tid/plats/arrangör/etc. Varje ny data behöver:"
-
-#: ../admin-views/event-meta-options.php:6
-#, fuzzy
-msgid "Label (e.g. Meal Plans)"
-msgstr "en etikett (t ex matsedlar)"
-
-#: ../admin-views/event-meta-options.php:7
-#, fuzzy
-msgid "At least one option (e.g. Vegetarian, Kosher, Paleo)"
-msgstr "minst ett val (t ex vegan, vegetarian, glutenfritt)"
-
-#: ../admin-views/event-meta-options.php:8
-#, fuzzy
-msgid "Field type. These are:"
-msgstr "en fälttyp. Dessa är:"
-
-#: ../admin-views/event-meta-options.php:10
-#, fuzzy
-msgid "Text - for the user to input text"
-msgstr "text - för användaren att ange text"
-
-#: ../admin-views/event-meta-options.php:11
-msgid "URL - for the user to input a URL"
-msgstr "URL - för användaren att ange URL"
-
-#: ../admin-views/event-meta-options.php:12
-#, fuzzy
-msgid "Checkbox - for multiple choice"
-msgstr "kryssruta - för multipla val"
-
-#: ../admin-views/event-meta-options.php:13
-#, fuzzy
-msgid "Radio Button - to select only one"
-msgstr "alternativknapp - för endast ett val"
-
-#: ../admin-views/event-meta-options.php:14
-#, fuzzy
-msgid "Dropdown Menu - for a dropdown menu"
-msgstr "rullgardinsmeny - för endast ett val i en rullgardinsmeny"
-
-#: ../admin-views/event-meta-options.php:19
-msgid "Field Label"
-msgstr "Fältetikett"
-
-#: ../admin-views/event-meta-options.php:19
-msgid "Field Type"
-msgstr "Fälttyp"
-
-#: ../admin-views/event-meta-options.php:19
-msgid "Options (one per line)"
-msgstr "Val (ett per rad)"
-
-#: ../admin-views/event-meta-options.php:27
-msgid "Text"
-msgstr "Text"
-
-#: ../admin-views/event-meta-options.php:28
-msgid "URL"
-msgstr "URL"
-
-#: ../admin-views/event-meta-options.php:29
-msgid "Radio"
-msgstr "Alternativ"
-
-#: ../admin-views/event-meta-options.php:30
-msgid "Checkbox"
-msgstr "Kryssruta"
-
-#: ../admin-views/event-meta-options.php:31
-#: ../lib/TribeEventsFilter_GeoLoc.php:41
-msgid "Dropdown"
-msgstr "Rullgardin"
-
-#: ../admin-views/event-meta-options.php:37
-msgid "Add another"
-msgstr "Lägg till en till"
-
-#: ../admin-views/event-meta-options.php:39
-msgid "Remove"
-msgstr "Ta bort"
-
-#: ../admin-views/event-meta-options.php:47
-#, fuzzy, php-format
-msgid ""
-"Enter the field label as you want it to appear (this will be the label in "
-"the same way \"Start Date,\" \"Organizer,\" etc appear in the event details "
-"box on the frontend). Select whether the field will be a text field; URL "
-"field; radio buttons; checkboxes; or a dropdown. All of these with the "
-"exception of text and URL allow for multiple options to be included, which "
-"you can add — one per-line — in the right-hand column. If you feel "
-"flummoxed, we've got you covered with a %s."
-msgstr ""
-"Ange fältetiketten som du vill att den ska visas (detta kommer att bli "
-"etiketten på samma sätt som  “Startdatum,” “Arrangör,” etc visas i "
-"detaljerna om evenemanget på framsidan). Välj om fältet kommer att vara ett "
-"textfält, URL-fält, alternativknappar, kryssrutor, eller en rullgardinsmeny. "
-"Alla dessa, med undantag för text och URL kan ha flera alternativ som du kan "
-"lägga till  —  en per rad - i den högra kolumnen. Om du känner dig "
-"förvirrad, kan vi hjälpa dig med en %s."
-
-#: ../admin-views/event-meta-options.php:48
-msgid "video tutorial that will walk you through the process"
-msgstr "Video handledning som går igenom processen"
-
-#
-#: ../admin-views/event-meta-options.php:51
-msgid "Editor \"Custom Fields\" meta box"
-msgstr "Redigerare \"anpassade fält\" metabox"
-
-#
-#: ../admin-views/event-meta-options.php:53
-msgid "Show"
-msgstr "Visa"
-
-#: ../admin-views/event-meta-options.php:54
-msgid "Hide"
-msgstr "Dölj"
-
-#: ../admin-views/event-meta-options.php:55
-msgid ""
-"Enabling this option this will not remove custom field data or "
-"functionality, just the default meta box editor."
-msgstr ""
-"Aktivering av detta val tar inte bort anpassade fälts data eller "
-"funktionalitet utan bara den förvalda metabox redigeraren."
-
-#: ../admin-views/event-meta-options.php:64
-msgid ""
-"Are you sure you wish to remove this field and its data from all events? "
-"Once you click OK this cannot be undone."
-msgstr ""
-"Är du säker på att du vill ta bort detta fält och dess data från alla "
-"evenemang? När du klickar på OK kan detta inte ångras."
-
-#
-#: ../admin-views/event-meta.php:7
-msgid "Additional Event Fields"
-msgstr "Ytterligare evenemangsfält"
-
-#: ../admin-views/event-recurrence.php:2
-msgid "Recurrence:"
-msgstr "Återkommande:"
-
-#: ../admin-views/event-recurrence.php:7
-msgid "None"
-msgstr "Inga"
-
-#: ../admin-views/event-recurrence.php:8 ../events-calendar-pro.php:65
-#: ../lib/tribe-events-recurrence-meta.class.php:818
-msgid "day"
-msgstr "dag"
-
-#: ../admin-views/event-recurrence.php:8
-#: ../views/pro/widgets/countdown-widget.php:20
-msgid "days"
-msgstr "dagar"
-
-#: ../admin-views/event-recurrence.php:8
-msgid "Every Day"
-msgstr "Varje dag"
-
-#: ../admin-views/event-recurrence.php:9 ../events-calendar-pro.php:63
-msgid "week"
-msgstr "vecka"
-
-#: ../admin-views/event-recurrence.php:9
-msgid "weeks"
-msgstr "veckor"
-
-#: ../admin-views/event-recurrence.php:9
-msgid "Every Week"
-msgstr "Varje vecka"
-
-#: ../admin-views/event-recurrence.php:10
-msgid "month"
-msgstr "månad"
-
-#: ../admin-views/event-recurrence.php:10
-msgid "months"
-msgstr "månader"
-
-#: ../admin-views/event-recurrence.php:10
-msgid "Every Month"
-msgstr "Varje månad"
-
-#: ../admin-views/event-recurrence.php:11
-msgid "year"
-msgstr "år"
-
-#: ../admin-views/event-recurrence.php:11
-msgid "years"
-msgstr "år"
-
-#: ../admin-views/event-recurrence.php:11
-msgid "Every Year"
-msgstr "Varje år"
-
-#
-#: ../admin-views/event-recurrence.php:12
-msgid "event"
-msgstr "evenemang"
-
-#
-#: ../admin-views/event-recurrence.php:12
-msgid "events"
-msgstr "evenemang"
-
-#: ../admin-views/event-recurrence.php:12
-msgid "Custom"
-msgstr "Anpassad"
-
-#: ../admin-views/event-recurrence.php:15
-msgid "and will end"
-msgstr "och kommer att sluta"
-
-#: ../admin-views/event-recurrence.php:17
-msgid "On"
-msgstr "På"
-
-#: ../admin-views/event-recurrence.php:18
-msgid "After"
-msgstr "Efter"
-
-#: ../admin-views/event-recurrence.php:19
-msgid "Never"
-msgstr "Aldrig"
-
-#: ../admin-views/event-recurrence.php:23
-msgid "You must select a recurrence end date"
-msgstr "Du måste välja ett slutdatum för repetitionen"
-
-#: ../admin-views/event-recurrence.php:30
-msgid "Frequency"
-msgstr "Frekvens"
-
-#: ../admin-views/event-recurrence.php:32
-msgid "Day(s)"
-msgstr "Dag(ar)"
-
-#: ../admin-views/event-recurrence.php:32
-msgid "Daily"
-msgstr "Dagligen"
-
-#: ../admin-views/event-recurrence.php:33
-msgid "Week(s) on:"
-msgstr "Veck(or) på:"
-
-#: ../admin-views/event-recurrence.php:33
-msgid "Weekly"
-msgstr "Veckovis"
-
-#: ../admin-views/event-recurrence.php:34
-msgid "Month(s) on the:"
-msgstr "Månad(er) på:"
-
-#: ../admin-views/event-recurrence.php:34
-msgid "Monthly"
-msgstr "Månadsvis"
-
-#: ../admin-views/event-recurrence.php:35
-msgid "Year(s) on:"
-msgstr "Årsvis på:"
-
-#: ../admin-views/event-recurrence.php:35
-msgid "Yearly"
-msgstr "Årsvis"
-
-#: ../admin-views/event-recurrence.php:37
-msgid "Every"
-msgstr "Varje"
-
-#: ../admin-views/event-recurrence.php:41
-msgid "Frequency of recurring event must be a number"
-msgstr "Frekvens för återkommande evenemang måste vara en siffra"
-
-#: ../admin-views/event-recurrence.php:49
-msgid "M"
-msgstr "Må"
-
-#: ../admin-views/event-recurrence.php:50
-msgid "Tu"
-msgstr "Ti"
-
-#: ../admin-views/event-recurrence.php:51
-msgid "W"
-msgstr "On"
-
-#: ../admin-views/event-recurrence.php:52
-msgid "Th"
-msgstr "To"
-
-#: ../admin-views/event-recurrence.php:53
-msgid "F"
-msgstr "Fr"
-
-#: ../admin-views/event-recurrence.php:54
-msgid "Sa"
-msgstr "Lö"
-
-#: ../admin-views/event-recurrence.php:55
-msgid "Su"
-msgstr "Sö"
-
-#: ../admin-views/event-recurrence.php:63
-#: ../admin-views/event-recurrence.php:113
-msgid "First"
-msgstr "Första"
-
-#: ../admin-views/event-recurrence.php:64
-#: ../admin-views/event-recurrence.php:114
-msgid "Second"
-msgstr "Andra"
-
-#: ../admin-views/event-recurrence.php:65
-#: ../admin-views/event-recurrence.php:115
-msgid "Third"
-msgstr "Tredje"
-
-#: ../admin-views/event-recurrence.php:66
-#: ../admin-views/event-recurrence.php:116
-msgid "Fourth"
-msgstr "Fjärde"
-
-#: ../admin-views/event-recurrence.php:67
-msgid "Fifth"
-msgstr "Femte"
-
-#: ../admin-views/event-recurrence.php:68
-#: ../admin-views/event-recurrence.php:117
-msgid "Last"
-msgstr "Sista"
-
-#: ../admin-views/event-recurrence.php:75
-#: ../admin-views/event-recurrence.php:120
-#: ../lib/tribe-events-recurrence-meta.class.php:853
-msgid "Monday"
-msgstr "måndag"
-
-#: ../admin-views/event-recurrence.php:76
-#: ../admin-views/event-recurrence.php:121
-#: ../lib/tribe-events-recurrence-meta.class.php:853
-msgid "Tuesday"
-msgstr "tisdag"
-
-#: ../admin-views/event-recurrence.php:77
-#: ../admin-views/event-recurrence.php:122
-#: ../lib/tribe-events-recurrence-meta.class.php:853
-msgid "Wednesday"
-msgstr "onsdag"
-
-#: ../admin-views/event-recurrence.php:78
-#: ../admin-views/event-recurrence.php:123
-#: ../lib/tribe-events-recurrence-meta.class.php:853
-msgid "Thursday"
-msgstr "torsdag"
-
-#: ../admin-views/event-recurrence.php:79
-#: ../admin-views/event-recurrence.php:124
-#: ../lib/tribe-events-recurrence-meta.class.php:853
-msgid "Friday"
-msgstr "fredag"
-
-#: ../admin-views/event-recurrence.php:80
-#: ../admin-views/event-recurrence.php:125
-#: ../lib/tribe-events-recurrence-meta.class.php:853
-msgid "Saturday"
-msgstr "lördag"
-
-#: ../admin-views/event-recurrence.php:81
-#: ../admin-views/event-recurrence.php:126
-#: ../lib/tribe-events-recurrence-meta.class.php:853
-msgid "Sunday"
-msgstr "söndag"
-
-#: ../admin-views/event-recurrence.php:83
-#: ../admin-views/event-recurrence.php:128 ../events-calendar-pro.php:1634
-msgid "Day"
-msgstr "Dag"
-
-#: ../admin-views/event-recurrence.php:92
-msgid "Jan"
-msgstr "jan"
-
-#: ../admin-views/event-recurrence.php:93
-msgid "Feb"
-msgstr "feb"
-
-#: ../admin-views/event-recurrence.php:94
-msgid "Mar"
-msgstr "mar"
-
-#: ../admin-views/event-recurrence.php:95
-msgid "Apr"
-msgstr "apr"
-
-#: ../admin-views/event-recurrence.php:96
-#: ../lib/tribe-events-recurrence-meta.class.php:879
-msgid "May"
-msgstr "maj"
-
-#: ../admin-views/event-recurrence.php:97
-msgid "Jun"
-msgstr "jun"
-
-#: ../admin-views/event-recurrence.php:101
-msgid "Jul"
-msgstr "jul"
-
-#: ../admin-views/event-recurrence.php:102
-msgid "Aug"
-msgstr "aug"
-
-#: ../admin-views/event-recurrence.php:103
-msgid "Sep"
-msgstr "sept"
-
-#: ../admin-views/event-recurrence.php:104
-msgid "Oct"
-msgstr "okt"
-
-#: ../admin-views/event-recurrence.php:105
-msgid "Nov"
-msgstr "nov"
-
-#: ../admin-views/event-recurrence.php:106
-msgid "Dec"
-msgstr "dec"
-
-#: ../admin-views/event-recurrence.php:111
-msgid "On the:"
-msgstr "På den:"
-
-#: ../admin-views/event-recurrence.php:136
-#: ../views/tribe-ECP-views-old/views/single-venue.php:58
-msgid "Description:"
-msgstr "Beskrivning:"
-
-#
-#: ../admin-views/event-recurrence.php:144
-msgid "Recurrence Description:"
-msgstr "Återkommande Beskrivning:"
-
-#: ../admin-views/event-recurrence.php:149
-msgid ""
-"Create a custom plain language description of the recurrence. Leave it blank "
-"and we'll automate it."
-msgstr ""
-"Skapa en anpassad beskrivning i klarspråk av repetitionen. Eller lämna det "
-"blankt så fyller vi i det automatiskt."
-
-#: ../admin-views/tribe-options-defaults.php:6
-#: ../admin-views/tribe-options-defaults.php:15
-msgid "No Default"
-msgstr "Inget förval"
-
-#: ../admin-views/tribe-options-defaults.php:22
-msgid "Select a State"
-msgstr "Välj ett län"
-
-#
-#: ../admin-views/tribe-options-defaults.php:35 ../events-calendar-pro.php:865
-msgid "Default Content"
-msgstr "Förvalt innehåll"
-
-#: ../admin-views/tribe-options-defaults.php:39
-msgid ""
-"<p>Choose the default venue & organizer. Set default address information to "
-"save time when entering a new venue or organizer.</p><p>You can override "
-"these settings as you enter a new event.</p>"
-msgstr ""
-"<p>Välj förvald plats & arrangör. Använd förvalda adressuppgifter för att "
-"spara tid när du lägger till en ny plats eller arrangör.</p><p>Du kan "
-"åsidosätta dessa inställningar när du lägger till ett nytt evenemang.</p>"
-
-#
-#: ../admin-views/tribe-options-defaults.php:51
-msgid "Options"
-msgstr "Alternativ"
-
-#: ../admin-views/tribe-options-defaults.php:61
-msgid ""
-"Check this box to have the organizer and venue fields pre-populated with the "
-"default values below for any new event that is created."
-msgstr ""
-"Kryssa i denna ruta för att arrangör och plats ska fyllas i med de förvalda "
-"värdena nedan för alla nya evenemang som skapas."
-
-#: ../admin-views/tribe-options-defaults.php:65
-#: ../admin-views/widget-admin-advanced-list.php:29 ../lib/apm_filters.php:44
-msgid "Organizer"
-msgstr "Arrangör"
-
-#
-#: ../admin-views/tribe-options-defaults.php:69
-msgid "Default organizer"
-msgstr "Förvald arrangör"
-
-#: ../admin-views/tribe-options-defaults.php:73
-msgid "No saved organizers yet."
-msgstr "Inga sparade arrangörer än."
-
-#: ../admin-views/tribe-options-defaults.php:82
-#: ../admin-views/widget-admin-advanced-list.php:28 ../lib/apm_filters.php:39
-msgid "Venue"
-msgstr "Plats"
-
-#
-#: ../admin-views/tribe-options-defaults.php:86
-msgid "Default venue"
-msgstr "Förvald plats"
-
-#: ../admin-views/tribe-options-defaults.php:90
-msgid "No saved venues yet."
-msgstr "Inga sparade platser ännu."
-
-#: ../admin-views/tribe-options-defaults.php:99
-#: ../admin-views/widget-admin-advanced-list.php:30
-msgid "Address"
-msgstr "Adress"
-
-#: ../admin-views/tribe-options-defaults.php:103
-msgid ""
-"You can use this setting to set specific, individual defaults for any new "
-"Venue you create (these will not be used for your default venue)."
-msgstr ""
-"Du kan använda denna inställning för att sätta specifika, individuella "
-"fördefinierade värden för nya platser du skapar (dessa avänds ej för din "
-"fördefinierade plats)."
-
-#
-#: ../admin-views/tribe-options-defaults.php:107
-msgid "Default address"
-msgstr "Förvald adress"
-
-#
-#: ../admin-views/tribe-options-defaults.php:120
-msgid "Default city"
-msgstr "Förvald stad"
-
-#
-#: ../admin-views/tribe-options-defaults.php:133
-msgid "Default state"
-msgstr "Förvalt län"
-
-#
-#: ../admin-views/tribe-options-defaults.php:146
-msgid "Default province"
-msgstr "Förvalt landskap"
-
-#
-#: ../admin-views/tribe-options-defaults.php:159
-msgid "Default postal code/zip code"
-msgstr "Förvalt postnummer"
-
-#
-#: ../admin-views/tribe-options-defaults.php:172
-msgid "Default country"
-msgstr "Förvalt land"
-
-#
-#: ../admin-views/tribe-options-defaults.php:185
-msgid "Default phone"
-msgstr "Förvalt telefonnummer"
-
-#: ../admin-views/tribe-options-defaults.php:201
-msgid ""
-"One country per line in the following format: <br>US, United States <br> UK, "
-"United Kingdom. <br> (Replaces the default list.)"
-msgstr ""
-"Ett land per rad på följande format: <br/>SE, Sverige <br/> US, United "
-"States <br/> UK, United Kingdom. <br> (Ersätter den förvalda listan.)"
-
-#: ../admin-views/widget-admin-advanced-list.php:11
-#: ../admin-views/widget-admin-calendar.php:10
-#: ../admin-views/widget-admin-countdown.php:10
-#: ../admin-views/widget-admin-venue.php:9
-#: ../admin-views/widget-calendar.php:2
-msgid "Title:"
-msgstr "Titel:"
-
-#: ../admin-views/widget-admin-advanced-list.php:16
-#: ../admin-views/widget-admin-venue.php:20
-#: ../admin-views/widget-calendar.php:8
-msgid "Number of events to show:"
-msgstr "Antal evenemang att visa:"
-
-#: ../admin-views/widget-admin-advanced-list.php:25
-msgid "Display:"
-msgstr "Visa:"
-
-#: ../admin-views/widget-admin-advanced-list.php:31
-msgid "City"
-msgstr "Stad"
-
-#: ../admin-views/widget-admin-advanced-list.php:32
-msgid "State (US) Or Province (Int)"
-msgstr "Län"
-
-#: ../admin-views/widget-admin-advanced-list.php:33
-msgid "Postal Code"
-msgstr "Postnummer"
-
-#: ../admin-views/widget-admin-advanced-list.php:34
+#: ../src/admin-views/widget-admin-advanced-list.php:37
 msgid "Country"
 msgstr "Land"
 
-#: ../admin-views/widget-admin-advanced-list.php:35
-msgid "Phone"
-msgstr "Telefonnummer"
-
-#: ../admin-views/widget-admin-advanced-list.php:36
-msgid "Price"
-msgstr "Pris"
-
-#: ../admin-views/widget-admin-advanced-list.php:43
-msgid "Category:"
-msgstr "Kategori:"
-
-#: ../admin-views/widget-admin-advanced-list.php:47
-msgid "All Events"
-msgstr "Alla evenemang"
-
-#
-#: ../admin-views/widget-admin-advanced-list.php:58
-#: ../admin-views/widget-admin-venue.php:28
-msgid "Hide this widget if there are no upcoming events:"
-msgstr "Dölj widget om inga kommande evenemang finns:"
-
-#
-#: ../admin-views/widget-admin-countdown.php:12
-msgid "Event:"
-msgstr "Evenemang:"
-
-#
-#: ../admin-views/widget-admin-countdown.php:21
-msgid "Show seconds:"
-msgstr "Visa sekunder:"
-
-#: ../admin-views/widget-admin-countdown.php:24
-msgid "Countdown Completed Text:"
-msgstr "Nedräkning avslutad text:"
-
-#: ../admin-views/widget-admin-venue.php:11
-msgid "Venue:"
-msgstr "Plats:"
-
-#
-#: ../admin-views/widget-calendar.php:24
-msgid "Filters"
-msgstr "Filter"
-
-#
-#: ../admin-views/widget-calendar.php:42
-msgid "remove"
-msgstr "ta bort"
-
-#: ../admin-views/widget-calendar.php:53
-msgid "Match all"
-msgstr "Matcha alla"
-
-#: ../admin-views/widget-calendar.php:56
-msgid "Match any"
-msgstr "Matcha vilken som"
-
-#
-#: ../admin-views/widget-calendar.php:60
-msgid "Add a filter"
-msgstr "Lägg till ett filter"
-
-#: ../admin-views/widget-calendar.php:63
-msgid "Select one..."
-msgstr "Välj ett..."
-
-#: ../events-calendar-pro.php:64
-msgid "photo"
-msgstr "foto"
-
-#: ../events-calendar-pro.php:66
-msgid "today"
-msgstr "idag"
-
-#
-#: ../events-calendar-pro.php:329
-msgid "Events for week of"
-msgstr "Evenemang för veckan"
-
-#
-#: ../events-calendar-pro.php:335 ../events-calendar-pro.php:403
-msgid "Events for"
-msgstr "Evenemang för"
-
-#
-#: ../events-calendar-pro.php:340 ../events-calendar-pro.php:409
-msgid "Past Events"
-msgstr "Tidigare evenemang"
-
-#: ../events-calendar-pro.php:342 ../events-calendar-pro.php:411
-#: ../lib/widget-advanced-list.class.php:64
-msgid "Upcoming Events"
-msgstr "Kommande evenemang"
-
-#
-#: ../events-calendar-pro.php:348 ../events-calendar-pro.php:390
-msgid "All events for"
-msgstr "Alla evenemang för"
-
-#: ../events-calendar-pro.php:397
-#, php-format
-msgid "Events for week of %s"
-msgstr "Evenemang för veckan %s"
-
-#
-#: ../events-calendar-pro.php:876
+#: ../src/Tribe/Main.php:618
 msgid "Hide related events"
 msgstr "Dölj relaterade evenemang"
 
-#: ../events-calendar-pro.php:877
+#: ../src/admin-views/widget-admin-advanced-list.php:38
+msgid "Phone"
+msgstr "Telefonnummer"
+
+#: ../src/Tribe/Main.php:619
 msgid "Remove related events from the single event view"
 msgstr "Ta bort relaterade evenemang från singel-evenemangssidan"
 
-#: ../events-calendar-pro.php:893
-msgid ""
-"Thanks for buying Events Calendar PRO! From all of us at Modern Tribe, we "
-"sincerely appreciate it. If you're looking for help with Events Calendar "
-"PRO, you've come to the right place. We are committed to helping make your "
-"calendar kick ass... and hope the resources provided below will help get you "
-"there."
+#: ../src/admin-views/widget-admin-advanced-list.php:39
+msgid "Price"
+msgstr "Pris"
+
+#: ../src/Tribe/Main.php:629
+msgid "Week Day Format"
+msgstr "Veckodag Format"
+
+#: ../src/admin-views/widget-admin-advanced-list.php:62
+#: ../src/admin-views/widget-calendar.php:24
+msgid "Filters"
+msgstr "Filter"
+
+#: ../src/Tribe/Main.php:630
+msgid "Enter the format to use for week days. Used when showing days of the week in Week view."
+msgstr "Ange formatet som ska användas för veckodagar . Används när veckodagar visas i veckovyn."
+
+#: ../src/admin-views/widget-admin-advanced-list.php:89
+#: ../src/admin-views/widget-calendar.php:43
+msgid "remove"
+msgstr "ta bort"
+
+#: ../src/Tribe/Main.php:641
+msgid "Hide weekends on Week View"
+msgstr "Dölj helger på Vecko-vyn"
+
+#: ../src/admin-views/widget-admin-advanced-list.php:102
+#: ../src/admin-views/widget-calendar.php:54
+msgid "Match all"
+msgstr "Matcha alla"
+
+#: ../src/Tribe/Main.php:642
+msgid "Check this to only show weekdays on Week View"
+msgstr "Markera detta för att endast visa vardagar i veckovyn"
+
+#: ../src/admin-views/widget-admin-advanced-list.php:105
+#: ../src/admin-views/widget-calendar.php:57
+msgid "Match any"
+msgstr "Matcha vilken som"
+
+#: ../src/Tribe/Main.php:660
+msgid "Thanks for buying Events Calendar PRO! From all of us at Modern Tribe, we sincerely appreciate it. If you're looking for help with Events Calendar PRO, you've come to the right place. We are committed to helping make your calendar kick ass... and hope the resources provided below will help get you there."
+msgstr "Tack för att köpa Events Calendar PRO! Från alla oss på Modern Tribe, vi verkligen uppskattar det. Om du letar efter hjälp med Events Calendar PRO, har du kommit till rätt ställe. Vi åtar oss att hjälpa att få din kalende att rocka... och hoppas att de resurser som tillhandahålls nedan hjälper dig att komma dit."
+
+#: ../src/admin-views/widget-admin-advanced-list.php:109
+#: ../src/admin-views/widget-calendar.php:61
+msgid "Add a filter"
+msgstr "Lägg till ett filter"
+
+#: ../src/Tribe/Main.php:672
+msgid "If this is your first time using The Events Calendar Pro, you're in for a treat and are already well on your way to creating a first event. Here are some basics we've found helpful for users jumping into it for the first time:"
+msgstr "Om detta är första gången du använder \"The Events Calendar\", är du redan på god väg att skapa ditt första evenemang. Här kommer lite grundläggande tips som vi har hittat till hjälp för användare som hoppar in i dtn för första gången:"
+
+#: ../src/admin-views/widget-admin-advanced-list.php:112
+#: ../src/admin-views/widget-calendar.php:64
+msgid "Select one..."
+msgstr "Välj ett..."
+
+#: ../src/Tribe/Main.php:675
+msgid "%sOur New User Primer%s was designed for folks in your exact position. Featuring both step-by-step videos and written walkthroughs that feature accompanying screenshots, the primer aims to take you from zero to hero in no time."
+msgstr "%sVår nybörjarguide%s är gjord för människor i just din position. Med både steg-för-steg videor och skriftliga genomgångar innehållandes skärmdumpar försöker guiden ta dig från noll till hundra på nolltid."
+
+#: ../src/admin-views/widget-admin-advanced-list.php:141
+#: ../src/admin-views/widget-admin-venue.php:35
+msgid "Hide this widget if there are no upcoming events:"
+msgstr "Dölj widget om inga kommande evenemang finns:"
+
+#: ../src/Tribe/Main.php:677
+msgid "%sInstallation/Setup FAQs%s from our support page can help give an overview of what the plugin can and cannot do. This section of the FAQs may be helpful as it aims to address any basic install questions not addressed by the new user primer."
+msgstr "%sInstallation/Inställningar FAQs%s från vår supportsida kan bidra till att ge en översikt över vad plugin kan och inte kan göra. Detta avsnitt av frågor kan vara till hjälp eftersom det syftar till att ta itu med alla grundläggande installations frågor som inte omfattas av den nya användaren primer."
+
+#: ../src/admin-views/widget-admin-countdown.php:17
+msgid "Event:"
+msgstr "Evenemang:"
+
+#: ../src/Tribe/Main.php:679
+msgid "Take care of your license key. Though not required to create your first event, you'll want to get it in place as soon as possible to guarantee your access to support and upgrades. %sHere's how to find your license key%s, if you don't have it handy."
+msgstr "Ta hand om din licensnyckel. Även om det inte krävs för att skapa din första händelsen, men du vill få det på plats så snart som möjligt för att garantera din tillgång till stöd och uppgraderingar. %shär är information om hur du hittar din licensnyckel%s, ifall du inte har den nära till hands."
+
+#: ../src/admin-views/widget-admin-countdown.php:25
+msgid "Show seconds:"
+msgstr "Visa sekunder:"
+
+#: ../src/Tribe/Main.php:681
+msgid "Otherwise, if you're feeling adventurous, you can get started by heading to the Events menu and adding your first event."
+msgstr "Annars, om du känner dig äventyrlig, kan du komma igång genom att ge dig av till evenemangsmenyn och lägga till ditt första evenemang."
+
+#: ../src/admin-views/widget-admin-countdown.php:30
+msgid "Countdown Completed Text:"
+msgstr "Nedräkning avslutad text:"
+
+#: ../src/Tribe/Main.php:694
+msgid "Written documentation can only take things so far...sometimes, you need help from a real person. This is where our %ssupport forums%s come into play."
+msgstr "Skriftlig dokumentation kan bara ta saker en bit ... ibland behöver du hjälp av en verklig person. Det är här vårt %ssupportforum%s kommer in i leken."
+
+#: ../src/admin-views/widget-admin-venue.php:16
+msgid "Venue:"
+msgstr "Plats:"
+
+#: ../src/Tribe/Main.php:695
+msgid "Users who have purchased an Events Calendar PRO license are granted total access to our %spremium support forums%s. Unlike at the %sWordPress.org support forum%s, where our involvement is limited to identifying and patching bugs, we have a dedicated support team for PRO users. We're on the PRO forums daily throughout the business week, and no thread should go more than 24-hours without a response."
 msgstr ""
-"Tack för att köpa Events Calendar PRO! Från alla oss på Modern Tribe, vi "
-"verkligen uppskattar det. Om du letar efter hjälp med Events Calendar PRO, "
-"har du kommit till rätt ställe. Vi åtar oss att hjälpa att få din kalende "
-"att rocka... och hoppas att de resurser som tillhandahålls nedan hjälper dig "
-"att komma dit."
 
-#: ../events-calendar-pro.php:904
-msgid ""
-"If this is your first time using The Events Calendar Pro, you're in for a "
-"treat and are already well on your way to creating a first event. Here are "
-"some basics we've found helpful for users jumping into it for the first time:"
-msgstr ""
-"Om detta är första gången du använder \"The Events Calendar\", är du redan "
-"på god väg att skapa ditt första evenemang. Här kommer lite grundläggande "
-"tips som vi har hittat till hjälp för användare som hoppar in i dtn för "
-"första gången:"
+#: ../src/functions/template-tags/general.php:125
+msgid "Show only the first upcoming instance of recurring %s"
+msgstr "Visa endast den första förekomsten av återkommande %s"
 
-#: ../events-calendar-pro.php:907
-#, php-format
-msgid ""
-"%sOur New User Primer%s was designed for folks in your exact position. "
-"Featuring both step-by-step videos and written walkthroughs that feature "
-"accompanying screenshots, the primer aims to take you from zero to hero in "
-"no time."
-msgstr ""
-"%sVår nybörjarguide%s är gjord för människor i just din position. Med både "
-"steg-för-steg videor och skriftliga genomgångar innehållandes skärmdumpar "
-"försöker guiden ta dig från noll till hundra på nolltid."
+#: ../src/Tribe/Main.php:696
+msgid "Our number one goal is helping you succeed, and to whatever extent possible, we'll help troubleshoot and guide your customizations or tweaks. While we won't build your site for you, and we can't guarantee we'll be able to get you 100% integrated with every theme or plugin out there, we'll do all we can to point you in the right direction and to make you -- and your client, as is often more importantly the case -- satisfied."
+msgstr "Vårt primära mål är att hjälpa dig att lyckas, och i den utsträckning det är möjligt kommer vi att hjälpa dig att felsöka och vägleda dina anpassningar eller tweaks. Även om vi inte kommer att bygga din webbplats för dig, och vi kan inte garantera att vi kommer att kunna få dig 100% integrerad med varje tema eller plugin där ute, gör vi allt vi kan för att peka dig i rätt riktning och för att du - och din klient, vilket ofta är det viktigare målet - blir nöjd."
 
-#: ../events-calendar-pro.php:909
-#, php-format
-msgid ""
-"%sInstallation/Setup FAQs%s from our support page can help give an overview "
-"of what the plugin can and cannot do. This section of the FAQs may be "
-"helpful as it aims to address any basic install questions not addressed by "
-"the new user primer."
-msgstr ""
-"%sInstallation/Inställningar FAQs%s från vår supportsida kan bidra till att "
-"ge en översikt över vad plugin kan och inte kan göra. Detta avsnitt av "
-"frågor kan vara till hjälp eftersom det syftar till att ta itu med alla "
-"grundläggande installations frågor som inte omfattas av den nya användaren "
-"primer."
+#: ../src/functions/template-tags/general.php:302
+#: ../src/functions/template-tags/general.php:317
+#: ../src/functions/template-tags/general.php:332
+#: ../src/functions/template-tags/general.php:347
+#: ../src/functions/template-tags/general.php:362
+#: ../src/functions/template-tags/general.php:377
+#: ../src/functions/template-tags/general.php:392
+#: ../src/functions/template-tags/general.php:407
+#: ../src/functions/template-tags/general.php:422
+msgid "No default set"
+msgstr "Inget förval satt"
 
-#: ../events-calendar-pro.php:911
-#, php-format
-msgid ""
-"Are you developer looking to build your own frontend view? We created an "
-"example plugin that demonstrates how to register a new view. You can "
-"%sdownload the plugin at GitHub%s to get started."
-msgstr ""
-"Är du utvecklare som vill bygga din egen vy? Vi skapade ett exempel plugin "
-"som visar hur man registrerar en ny vy. Du kan %sladda ner detta plugin på "
-"GitHub%s för att komma igång."
+#: ../src/Tribe/Main.php:697
+msgid "Before posting a new thread, please do a search to make sure your issue hasn't already been addressed. When posting please make sure to provide as much detail about the problem as you can (with screenshots or screencasts if feasible), and make sure that you've identified whether a plugin / theme conflict could be at play in your initial message."
+msgstr "Innan du postar en ny tråd, gör en sökning för att se till att din fråga inte redan tagits upp. När du postar vänligen se till att ge så mycket information om problemet som möjligt (med skärmdumpar eller screencasts om möjligt), och se till att du har identifierat om en plugin / tema konflikt kan vara på lek i ditt ursprungliga meddelande."
 
-#: ../events-calendar-pro.php:913
-#, php-format
-msgid ""
-"Take care of your license key. Though not required to create your first "
-"event, you'll want to get it in place as soon as possible to guarantee your "
-"access to support and upgrades. %sHere's how to find your license key%s, if "
-"you don't have it handy."
-msgstr ""
-"Ta hand om din licensnyckel. Även om det inte krävs för att skapa din första "
-"händelsen, men du vill få det på plats så snart som möjligt för att "
-"garantera din tillgång till stöd och uppgraderingar. %shär är information om "
-"hur du hittar din licensnyckel%s, ifall du inte har den nära till hands."
+#: ../src/functions/template-tags/general.php:304
+msgid "The current default organizer is: %s"
+msgstr "Nuvarande förvald arrangör är: %s"
 
-#: ../events-calendar-pro.php:915
-msgid ""
-"Otherwise, if you're feeling adventurous, you can get started by heading to "
-"the Events menu and adding your first event."
-msgstr ""
-"Annars, om du känner dig äventyrlig, kan du komma igång genom att ge dig av "
-"till evenemangsmenyn och lägga till ditt första evenemang."
+#: ../src/Tribe/Main.php:1134
+msgid "Event: "
+msgstr "Evenemang"
 
-#: ../events-calendar-pro.php:927
-#, php-format
-msgid ""
-"Written documentation can only take things so far...sometimes, you need help "
-"from a real person. This is where our %ssupport forums%s come into play."
-msgstr ""
-"Skriftlig dokumentation kan bara ta saker en bit ... ibland behöver du hjälp "
-"av en verklig person. Det är här vårt %ssupportforum%s kommer in i leken."
+#: ../src/functions/template-tags/general.php:319
+msgid "The current default venue is: %s"
+msgstr "Nuvarande förvald plats är: %s"
 
-#: ../events-calendar-pro.php:928
-#, php-format
-msgid ""
-"Users who have purchased an Events Calendar PRO license are granted total "
-"access to our %spremium support forums%s. Unlike at the %sWordPress.org "
-"support forum%s, where our involvement is limited to identifying and "
-"patching bugs, we have a dedicated support team for PRO users. We're on the "
-"PRO forums daily throughout the business week, and no thread should go more "
-"than 24-hours without a response."
-msgstr ""
-"Användare som har köpt en Kalendarium PRO licens beviljas total tillgång "
-"till våra %spremium supportforum%s. Till skillnad från vid% sWordPress.org "
-"supportforum% s, där vår medverkan är begränsad till att identifiera och "
-"patcha buggar, vi har ett supportteam för PRO användare. Vi är på PRO "
-"forumet dagligen under hela arbetsveckan, och ingen tråd bör gå mer än 24 "
-"timmar utan ett svar."
+#: ../src/Tribe/Main.php:1135
+msgid "Address: "
+msgstr "Adress"
 
-#: ../events-calendar-pro.php:929
-msgid ""
-"Our number one goal is helping you succeed, and to whatever extent possible, "
-"we'll help troubleshoot and guide your customizations or tweaks. While we "
-"won't build your site for you, and we can't guarantee we'll be able to get "
-"you 100% integrated with every theme or plugin out there, we'll do all we "
-"can to point you in the right direction and to make you -- and your client, "
-"as is often more importantly the case -- satisfied."
-msgstr ""
-"Vårt primära mål är att hjälpa dig att lyckas, och i den utsträckning det är "
-"möjligt kommer vi att hjälpa dig att felsöka och vägleda dina anpassningar "
-"eller tweaks. Även om vi inte kommer att bygga din webbplats för dig, och vi "
-"kan inte garantera att vi kommer att kunna få dig 100% integrerad med varje "
-"tema eller plugin där ute, gör vi allt vi kan för att peka dig i rätt "
-"riktning och för att du - och din klient, vilket ofta är det viktigare målet "
-"- blir nöjd."
+#: ../src/functions/template-tags/general.php:334
+msgid "The current default address is: %s"
+msgstr "Nuvarande förvald adress är: %s"
 
-#: ../events-calendar-pro.php:930
-msgid ""
-"Before posting a new thread, please do a search to make sure your issue "
-"hasn't already been addressed. When posting please make sure to provide as "
-"much detail about the problem as you can (with screenshots or screencasts if "
-"feasible), and make sure that you've identified whether a plugin / theme "
-"conflict could be at play in your initial message."
-msgstr ""
-"Innan du postar en ny tråd, gör en sökning för att se till att din fråga "
-"inte redan tagits upp. När du postar vänligen se till att ge så mycket "
-"information om problemet som möjligt (med skärmdumpar eller screencasts om "
-"möjligt), och se till att du har identifierat om en plugin / tema konflikt "
-"kan vara på lek i ditt ursprungliga meddelande."
-
-#: ../events-calendar-pro.php:986
-msgid "Day View"
-msgstr "Dagsvy"
-
-#: ../events-calendar-pro.php:989
-msgid "Week View"
-msgstr "Veckovy"
-
-#: ../events-calendar-pro.php:1439
+#: ../src/Tribe/Main.php:1204
 msgid "Settings"
 msgstr "Inställningar"
 
-#: ../events-calendar-pro.php:1502
-#, php-format
-msgid "Calendar powered by %sThe Events Calendar PRO%s"
-msgstr "Calendar drivs av %sThe Events Calendar PRO%s"
+#: ../src/functions/template-tags/general.php:349
+msgid "The current default city is: %s"
+msgstr "Nuvarande förvald stad är: %s"
 
-#: ../events-calendar-pro.php:1515
+#: ../src/Tribe/Main.php:1232
+msgid "Venue updated. <a href=\"%s\">View venue</a>"
+msgstr "Plats uppdaterad. <a href=\"%s\">Visa plats</a>"
+
+#: ../src/functions/template-tags/general.php:364
+msgid "The current default state is: %s"
+msgstr "Nuvarande förvalt län är: %s"
+
+#: ../src/Tribe/Main.php:1234
+msgid "Venue published. <a href=\"%s\">View venue</a>"
+msgstr "Plats publicerad. <a href=\"%s\">Visa plats</a>"
+
+#: ../src/functions/template-tags/general.php:379
+msgid "The current default province is: %s"
+msgstr "Nuvarande förvalda landskap är: %s"
+
+#: ../src/Tribe/Main.php:1235
+msgid "Venue submitted. <a target=\"_blank\" href=\"%s\">Preview venue</a>"
+msgstr "Plats angiven. <a target=\"_blank\" href=\"%s\">Förhandsvisa plats</a>"
+
+#: ../src/functions/template-tags/general.php:394
+msgid "The current default postal code/zip code is: %s"
+msgstr "Nuvarande förvalt postnummer är: %s"
+
+#: ../src/Tribe/Main.php:1237
+msgid "Venue scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s\">Preview venue</a>"
+msgstr "Plats  planerad för: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s\">Förhandsvisa plats</a>"
+
+#: ../src/functions/template-tags/general.php:409
+msgid "The current default country is: %s"
+msgstr "Nuvarande förvalt land är: %s"
+
+#: ../src/Tribe/Main.php:1239 ../src/Tribe/Main.php:1249
+msgid "M j, Y @ G:i"
+msgstr "M j, Y @ G:i"
+
+#: ../src/functions/template-tags/general.php:424
+msgid "The current default phone is: %s"
+msgstr "Nuvarande förvalt telefonnummer är: %s"
+
+#: ../src/Tribe/Main.php:1241
+msgid "Venue draft updated. <a target=\"_blank\" href=\"%s\">Preview venue</a>"
+msgstr "Plats utkast uppdaterat. <a target=\"_blank\" href=\"%s\">Förhandsvisa plats</a>"
+
+#: ../src/functions/template-tags/general.php:584
+#: ../src/functions/template-tags/general.php:607
+msgid "Date out of range."
+msgstr "Datum utanför intervallet."
+
+#: ../src/Tribe/Main.php:1243
+msgid "Organizer updated. <a href=\"%s\">View organizer</a>"
+msgstr "Arrangör uppdaterad. <a href=\"%s\">Visa arrangör</a>"
+
+#: ../src/functions/template-tags/general.php:717
+msgid "Recurring %s"
+msgstr "Återkommande %s"
+
+#: ../src/Tribe/Main.php:1244
+msgid "Organizer published. <a href=\"%s\">View organizer</a>"
+msgstr "Arrangör publicerad. <a href=\"%s\">Visa arrangör</a>"
+
+#: ../src/functions/template-tags/general.php:720
+msgid "(See all)"
+msgstr "(Se alla)"
+
+#: ../src/Tribe/Main.php:1245
+msgid "Organizer submitted. <a target=\"_blank\" href=\"%s\">Preview organizer</a>"
+msgstr "Arrangör angiven. <a target=\"_blank\" href=\"%s\">Förhandsvisa arrangör</a>"
+
+#: ../src/functions/template-tags/week.php:196
+msgid "<span>&laquo;</span> Previous Week"
+msgstr "<span>&laquo;</span> Föregående vecka"
+
+#: ../src/Tribe/Main.php:1247
+msgid "Organizer scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s\">Preview organizer</a>"
+msgstr "Arrangör planerad för: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s\">Förhandsvisa arrangör</a>"
+
+#: ../src/functions/template-tags/week.php:226
+msgid "Next Week <span>&raquo;</span>"
+msgstr "Nästa vecka <span>&raquo;</span>"
+
+#: ../src/Tribe/Main.php:1251
+msgid "Organizer draft updated. <a target=\"_blank\" href=\"%s\">Preview organizer</a>"
+msgstr "Arrangör utkast uppdaterat.. <a target=\"_blank\" href=\"%s\">Förhandsvisa arrangör</a>"
+
+#: ../src/views/pro/map/nav.php:20 ../src/views/pro/photo/nav.php:20
+msgid "%s List Navigation"
+msgstr "%s List Navigering"
+
+#: ../src/Tribe/Main.php:1301
 msgid "Support"
 msgstr "Support"
 
-#: ../events-calendar-pro.php:1517
+#: ../src/views/pro/map/nav.php:25 ../src/views/pro/photo/nav.php:25
+msgid "<span>&laquo;</span> Previous %s"
+msgstr "<span>&laquo;</span> Föregående %s"
+
+#: ../src/Tribe/Main.php:1303
 msgid "View All Add-Ons"
 msgstr "Visa alla tillägg"
 
-#
-#: ../events-calendar-pro.php:1618
+#: ../src/views/pro/map/nav.php:32 ../src/views/pro/photo/nav.php:31
+msgid "Next %s <span>&raquo;</span>"
+msgstr "Nästa %s <span>&raquo;</span>"
+
+#: ../src/Tribe/Main.php:1428
 msgid "Week"
 msgstr "Vecka"
 
-#: ../events-calendar-pro.php:1650
+#: ../src/views/pro/map/single-event.php:71
+msgid "Find out more"
+msgstr "Läs mer"
+
+#: ../src/Tribe/Main.php:1446
 msgid "Photo"
 msgstr "Foto"
 
-#: ../events-calendar-pro.php:1666
-msgid "Day Of"
-msgstr "Dag då"
+#: ../src/views/pro/related-events.php:26
+msgid "Related %s"
+msgstr "Relaterade %s"
 
-#
-#: ../events-calendar-pro.php:1668
+#: ../src/Tribe/Main.php:1463
 msgid "Week Of"
 msgstr "Vecka då"
 
-#: ../events-calendar-pro.php:1789
-msgid "The Events Calendar"
-msgstr "Evenemangskalender"
+#: ../src/views/pro/single-organizer.php:32
+#: ../src/views/pro/single-venue.php:32
+msgid "&larr; Back to %s"
+msgstr "&larr; Tillbaka till %s"
 
-#: ../events-calendar-pro.php:1790
-#, php-format
-msgid ""
-"To begin using Events Calendar PRO, please install the latest version of <a "
-"href=\"%s\" class=\"thickbox\" title=\"%s\">The Events Calendar</a>."
-msgstr ""
-"För att börja använda Events Calendar PRO måste du installera den senaste "
-"versionen av <a href=\"%s\" class=\"thickbox\" title=\"%s\">The Events "
-"Calendar</a>."
+#: ../src/Tribe/Mini_Calendar_Widget.php:8
+msgid "The events calendar mini calendar widget"
+msgstr "The events calendar mini kalender widget"
 
-#: ../lib/TribeEventsFilter_GeoLoc.php:37
-#, php-format
-msgid "Type: %s %s"
-msgstr "Typ: %s %s"
-
-#: ../lib/TribeEventsFilter_GeoLoc.php:46
-msgid "Radio Buttons"
-msgstr "Alternativknappar"
-
-#: ../lib/apm_filters.php:49
-msgid "Start Date"
-msgstr "Startdatum"
-
-#
-#: ../lib/apm_filters.php:54
-msgid "End Date"
-msgstr "Slutdatum"
-
-#: ../lib/apm_filters.php:59
-msgid "Event Cost"
-msgstr "Evenemangspris"
-
-#: ../lib/apm_filters.php:64
-msgid "Event Cats"
-msgstr "Evenemangskategori"
-
-#: ../lib/apm_filters.php:69
-msgid "Title"
-msgstr "Titel"
-
-#: ../lib/apm_filters.php:74 ../lib/tribe-events-recurrence-meta.class.php:132
-msgid "Recurring"
-msgstr "Repeterande"
-
-#: ../lib/apm_filters.php:79
-msgid "Description"
-msgstr "Beskrivning"
-
-#: ../lib/meta-pro.php:97
-msgid "Other"
-msgstr "Annan"
-
-#
-#: ../lib/meta-pro.php:121
-msgid "Recurrence Pattern:"
-msgstr "Repetitionsmönster:"
-
-#: ../lib/template-classes/day.php:76 ../lib/template-classes/day.php:85
-#: ../views/pro/week/loop-grid-allday.php:23
-#: ../views/tribe-ECP-views-old/views/featured-widget.php:59
-#: ../views/tribe-ECP-views-old/views/list-widget.php:57
+#: ../src/views/pro/week/loop-grid-allday.php:18
 msgid "All Day"
 msgstr "Heldag"
 
-#: ../lib/template-classes/day.php:129
-#, php-format
-msgid ""
-"No matching events listed under %s scheduled for <strong>%s</strong>. Please "
-"try another day."
-msgstr ""
-"Inga matchande evenemang listade under %s schemalagd till <strong>%s</"
-"strong>. Försök med en annan dag."
+#: ../src/Tribe/Mini_Calendar_Widget.php:11
+#: ../src/Tribe/Mini_Calendar_Widget.php:35
+#: ../src/Tribe/Mini_Calendar_Widget.php:76
+msgid "Events Calendar"
+msgstr "Evenemangskalender"
 
-#: ../lib/template-classes/day.php:132
-#, php-format
-msgid "No events scheduled for <strong>%s</strong>. Please try another day."
-msgstr ""
-"Inga evenemang är planerade på <strong>%s</strong>. Försök med en annan dag."
+#: ../src/views/pro/week/loop-grid.php:19
+msgid "Hours"
+msgstr "Timmar"
 
-#: ../lib/template-classes/week.php:88
-#, php-format
-msgid ""
-"There were no results found for <strong>\"%s\"</strong> this week. Try "
-"searching another week."
-msgstr ""
-"Inga resultat hittades för <strong>\"%s\"</strong> denna vecka. Försök igen "
-"med en annan vecka."
+#: ../src/Tribe/Recurrence/Queue_Processor.php:182
+msgid "Could not process queue for event %d: %s"
+msgstr "Det gick inte att bearbeta kö för evenemang %d: %s"
 
-#: ../lib/template-classes/week.php:91
-#, php-format
-msgid ""
-"No results were found for events in or near <strong>\"%s\"</strong> this "
-"week. Try searching another week."
-msgstr ""
-"Inga evenemang hittades i eller nära <strong>\"%s\"</strong> denna vecka. "
-"Försök igen med en annan vecka."
+#: ../src/views/pro/week/nav.php:16
+msgid "Week Navigation"
+msgstr "Veckonavigation"
 
-#: ../lib/template-classes/week.php:94
-msgid "No results were found for this week. Try searching another week."
-msgstr ""
-"Inga resultat hittades för denna vecka. Försök igen med en annan vecka."
+#: ../src/Tribe/Recurrence/Queue_Realtime.php:53
+msgid "Completed!"
+msgstr "Klart!"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:104
+#: ../src/views/pro/widgets/countdown-widget.php:20
+msgid "days"
+msgstr "dagar"
+
+#: ../src/Tribe/Recurrence/Queue_Realtime.php:55
+#: ../src/Tribe/Recurrence/Queue_Realtime.php:70
+#: ../src/Tribe/Recurrence/Queue_Realtime.php:101
+msgid "%d%% complete"
+msgstr "%d%% klart"
+
+#: ../src/views/pro/widgets/countdown-widget.php:24
+msgid "hours"
+msgstr "timmar"
+
+#: ../src/Tribe/Recurrence/Queue_Realtime.php:67
+msgid "Recurring event data is still being generated for this event. Don&#146;t worry, you can safely navigate away &ndash; the process will resume in a bit in the background."
+msgstr "Återkommande evenemangs-data genereras fortfarande för det här evenemanget. Du kan säkert navigera bort från denna sida och processen kommer att återupptas om en stund i bakgrunden."
+
+#: ../src/views/pro/widgets/countdown-widget.php:28
+msgid "min"
+msgstr "min"
+
+#: ../src/Tribe/Recurrence/Queue_Realtime.php:81
+msgid "Unable to continue processing recurring event data. Please reload this page to continue/try again."
+msgstr "Det går inte att fortsätta behandlingen av det återkommande evenemanget. Vänligen ladda om sidan för att fortsätta/försöka igen."
+
+#: ../src/views/pro/widgets/countdown-widget.php:33
+msgid "sec"
+msgstr "sek"
+
+#: ../src/Tribe/Recurrence_Meta.php:119
 msgid "Edit Series"
 msgstr "Redigera serie"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:110
+#: ../src/views/pro/widgets/list-widget.php:57
+msgid "View More&hellip;"
+msgstr "Visa mer&hellip;"
+
+#: ../src/Tribe/Recurrence_Meta.php:125
 msgid "Break from Series"
 msgstr "Paus från serien"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:120
+#: ../src/views/pro/widgets/list-widget.php:65
+msgid "There are no upcoming %s at this time."
+msgstr "Det finns inga kommande %s just nu."
+
+#: ../src/Tribe/Recurrence_Meta.php:135
 msgid "Edit Future Events"
 msgstr "Redigera kommande evenemang"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:139
-msgid "Yes"
-msgstr "Ja"
+#: ../src/views/pro/widgets/modules/single-event.php:79
+msgid "Organizer:"
+msgstr "Arrangör:"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:141
+#: ../src/Tribe/Recurrence_Meta.php:157
 msgid "—"
 msgstr "—"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:155
+#: ../src/views/pro/widgets/venue-widget.php:36
+msgid "No upcoming %s."
+msgstr "Inga kommande %s."
+
+#: ../src/Tribe/Recurrence_Meta.php:186
 msgid "Break this event out of its series and edit it independently"
 msgstr "Bryt detta evenemang ur sin serie och redigera den oberoende"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:155
+#: ../src/views/pro/widgets/venue-widget.php:59
+msgid "View all %s at this %s"
+msgstr "Visa alla %s på detta %s"
+
+#: ../src/Tribe/Recurrence_Meta.php:186
 msgid "Edit Single"
 msgstr "Redigera enskild"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:157
-msgid ""
-"Split the series in two at this point, creating a new series out of this and "
-"all subsequent events"
-msgstr ""
-"Dela upp serien i två på denna punkt, skapa en ny serie av denna och alla "
-"efterföljande evenemang"
+#: ../src/Tribe/Recurrence_Meta.php:188
+msgid "Split the series in two at this point, creating a new series out of this and all subsequent events"
+msgstr "Dela upp serien i två på denna punkt, skapa en ny serie av denna och alla efterföljande evenemang"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:157
+#: ../src/Tribe/Recurrence_Meta.php:188
 msgid "Edit Upcoming"
 msgstr "Redigera kommande"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:163
+#: ../src/Tribe/Recurrence_Meta.php:194
 msgid "Edit all events in this series"
 msgstr "Redigera alla evenemang i den här serien"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:163
+#: ../src/Tribe/Recurrence_Meta.php:194
 msgid "Edit All"
 msgstr "Redigera alla"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:168
+#: ../src/Tribe/Recurrence_Meta.php:199
 msgid "Move all events in this series to the Trash"
 msgstr "Flytta alla evenemang i den här serien till papperskorgen"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:168
+#: ../src/Tribe/Recurrence_Meta.php:199
 msgid "Trash Series"
 msgstr "Släng serie"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:171
+#: ../src/Tribe/Recurrence_Meta.php:202
 msgid "Delete all events in this series permanently"
 msgstr "Ta bort alla händelser i denna serie permanent"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:171
+#: ../src/Tribe/Recurrence_Meta.php:202
 msgid "Delete Series Permanently"
 msgstr "Radera serier permanent"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:177
+#: ../src/Tribe/Recurrence_Meta.php:208
 msgid "Restore all events in this series from the Trash"
 msgstr "Återställ alla evenemang i den här serien från papperskorgen"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:177
+#: ../src/Tribe/Recurrence_Meta.php:208
 msgid "Restore Series"
 msgstr "Återställ serier"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:515
-msgid ""
-"Monthly custom recurrences cannot have a dash set as the day to occur on."
-msgstr ""
-"Månadsvis anpassade repeterande evenemang kan inte ha ett bindestreck satt "
-"som dag för repetition."
+#: ../src/Tribe/Recurrence_Meta.php:582
+msgid "Monthly custom recurrences cannot have a dash set as the day to occur on."
+msgstr "Månadsvis anpassade repeterande evenemang kan inte ha ett bindestreck satt som dag för repetition."
 
-#: ../lib/tribe-events-recurrence-meta.class.php:518
-msgid ""
-"Yearly custom recurrences cannot have a dash set as the day to occur on."
-msgstr ""
-"Årliga anpassade repeterande evenemang kan inte ha ett bindestreck satt som "
-"dag för repetition."
+#: ../src/Tribe/Recurrence_Meta.php:585
+msgid "Yearly custom recurrences cannot have a dash set as the day to occur on."
+msgstr "Årliga anpassade repeterande evenemang kan inte ha ett bindestreck satt som dag för repetition."
 
-#: ../lib/tribe-events-recurrence-meta.class.php:789
-#: ../lib/tribe-events-recurrence-meta.class.php:804
+#: ../src/Tribe/Recurrence_Meta.php:905 ../src/Tribe/Recurrence_Meta.php:920
 msgid "Every day"
 msgstr "Varje dag"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:793
-#: ../lib/tribe-events-recurrence-meta.class.php:809
+#: ../src/Tribe/Recurrence_Meta.php:906
+msgid " for %d day"
+msgid_plural " for %d days"
+msgstr[0] "för %d dag"
+msgstr[1] "för %d dagar"
+
+#: ../src/Tribe/Recurrence_Meta.php:909 ../src/Tribe/Recurrence_Meta.php:925
 msgid "Every week"
 msgstr "Varje vecka"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:796
-#: ../lib/tribe-events-recurrence-meta.class.php:815
+#: ../src/Tribe/Recurrence_Meta.php:910
+msgid " for %d week"
+msgid_plural " for %d weeks"
+msgstr[0] " för %d vecka"
+msgstr[1] " för %d veckor"
+
+#: ../src/Tribe/Recurrence_Meta.php:912 ../src/Tribe/Recurrence_Meta.php:931
 msgid "Every month"
 msgstr "Varje månad"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:799
-#: ../lib/tribe-events-recurrence-meta.class.php:822
+#: ../src/Tribe/Recurrence_Meta.php:913
+msgid " for %d month"
+msgid_plural " for %d months"
+msgstr[0] " för %d månad"
+msgstr[1] " för %d månader"
+
+#: ../src/Tribe/Recurrence_Meta.php:915 ../src/Tribe/Recurrence_Meta.php:938
 msgid "Every year"
 msgstr "Varje år"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:805
-#, php-format
+#: ../src/Tribe/Recurrence_Meta.php:916
+msgid " for %d year"
+msgid_plural " for %d years"
+msgstr[0] "för %d år"
+msgstr[1] " för %d år"
+
+#: ../src/Tribe/Recurrence_Meta.php:921
 msgid "Every %d days"
 msgstr "Var %d dag"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:810
-#, php-format
+#: ../src/Tribe/Recurrence_Meta.php:922 ../src/Tribe/Recurrence_Meta.php:928
+#: ../src/Tribe/Recurrence_Meta.php:935 ../src/Tribe/Recurrence_Meta.php:947
+msgid ", recurring %d time"
+msgid_plural ", recurring %d times"
+msgstr[0] ", återkommande %d tid"
+msgstr[1] ", återkommande %d tider"
+
+#: ../src/Tribe/Recurrence_Meta.php:926
 msgid "Every %d weeks"
 msgstr "Var %d vecka"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:811
-#, php-format
+#: ../src/Tribe/Recurrence_Meta.php:927
 msgid " on %s"
 msgstr " på %s"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:816
-#, php-format
+#: ../src/Tribe/Recurrence_Meta.php:932
 msgid "Every %d months"
 msgstr "Varje %d månad"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:818
-#, php-format
+#: ../src/Tribe/Recurrence_Meta.php:934
 msgid " on the %s %s"
 msgstr " på den %s %s"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:823
-#, php-format
+#: ../src/Tribe/Recurrence_Meta.php:934
+msgid "day"
+msgstr "dag"
+
+#: ../src/Tribe/Recurrence_Meta.php:939
 msgid "Every %d years"
 msgstr "Var %d år"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:825
+#: ../src/Tribe/Recurrence_Meta.php:941
 msgid "last"
 msgstr "sista"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:830
-#, php-format
+#: ../src/Tribe/Recurrence_Meta.php:946
 msgid " on the %s %s of %s"
 msgstr "på den %s %s av %s"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:837
-#, php-format
+#: ../src/Tribe/Recurrence_Meta.php:953
 msgid " until %s"
 msgstr "till %s"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:844
-#, php-format
+#: ../src/Tribe/Recurrence_Meta.php:960
 msgid "%s%s%s"
 msgstr "%s%s%s"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:859
+#: ../src/Tribe/Recurrence_Meta.php:972
+#: ../src/admin-views/event-recurrence.php:85
+#: ../src/admin-views/event-recurrence.php:142
+msgid "Monday"
+msgstr "måndag"
+
+#: ../src/Tribe/Recurrence_Meta.php:973
+#: ../src/admin-views/event-recurrence.php:86
+#: ../src/admin-views/event-recurrence.php:143
+msgid "Tuesday"
+msgstr "tisdag"
+
+#: ../src/Tribe/Recurrence_Meta.php:974
+#: ../src/admin-views/event-recurrence.php:87
+#: ../src/admin-views/event-recurrence.php:144
+msgid "Wednesday"
+msgstr "onsdag"
+
+#: ../src/Tribe/Recurrence_Meta.php:975
+#: ../src/admin-views/event-recurrence.php:88
+#: ../src/admin-views/event-recurrence.php:145
+msgid "Thursday"
+msgstr "torsdag"
+
+#: ../src/Tribe/Recurrence_Meta.php:976
+#: ../src/admin-views/event-recurrence.php:89
+#: ../src/admin-views/event-recurrence.php:146
+msgid "Friday"
+msgstr "fredag"
+
+#: ../src/Tribe/Recurrence_Meta.php:977
+#: ../src/admin-views/event-recurrence.php:90
+#: ../src/admin-views/event-recurrence.php:147
+msgid "Saturday"
+msgstr "lördag"
+
+#: ../src/Tribe/Recurrence_Meta.php:978
+#: ../src/admin-views/event-recurrence.php:91
+#: ../src/admin-views/event-recurrence.php:148
+msgid "Sunday"
+msgstr "söndag"
+
+#: ../src/Tribe/Recurrence_Meta.php:985
 msgid ", and"
 msgstr ", och"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:861
+#: ../src/Tribe/Recurrence_Meta.php:987
 msgid "and"
 msgstr "och"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:863
+#: ../src/Tribe/Recurrence_Meta.php:989
 msgid ","
 msgstr ","
 
-#: ../lib/tribe-events-recurrence-meta.class.php:878
+#: ../src/Tribe/Recurrence_Meta.php:1007
 msgid "January"
 msgstr "januari"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:878
+#: ../src/Tribe/Recurrence_Meta.php:1008
 msgid "February"
 msgstr "februari"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:878
+#: ../src/Tribe/Recurrence_Meta.php:1009
 msgid "March"
 msgstr "mars"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:878
+#: ../src/Tribe/Recurrence_Meta.php:1010
 msgid "April"
 msgstr "april"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:879
+#: ../src/Tribe/Recurrence_Meta.php:1011
+msgid "May"
+msgstr "maj"
+
+#: ../src/Tribe/Recurrence_Meta.php:1012
 msgid "June"
 msgstr "juni"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:879
+#: ../src/Tribe/Recurrence_Meta.php:1013
 msgid "July"
 msgstr "juli"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:879
+#: ../src/Tribe/Recurrence_Meta.php:1014
 msgid "August"
 msgstr "augusti"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:879
+#: ../src/Tribe/Recurrence_Meta.php:1015
 msgid "September"
 msgstr "september"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:879
+#: ../src/Tribe/Recurrence_Meta.php:1016
 msgid "October"
 msgstr "oktober"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:879
+#: ../src/Tribe/Recurrence_Meta.php:1017
 msgid "November"
 msgstr "november"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:879
+#: ../src/Tribe/Recurrence_Meta.php:1018
 msgid "December"
 msgstr "december"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:885
+#: ../src/Tribe/Recurrence_Meta.php:1025
 msgid ", and "
 msgstr ", och "
 
-#: ../lib/tribe-events-recurrence-meta.class.php:887
+#: ../src/Tribe/Recurrence_Meta.php:1027
 msgid " and "
 msgstr "och "
 
-#: ../lib/tribe-events-recurrence-meta.class.php:889
+#: ../src/Tribe/Recurrence_Meta.php:1029
 msgid ", "
 msgstr ", "
 
-#: ../lib/tribe-events-recurrence-meta.class.php:952
+#: ../src/Tribe/Recurrence_Meta.php:1106
 msgid "Recurring event instances"
 msgstr "Återkommande evenemangsexempel"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:953
-msgid ""
-"Show only the first instance of each recurring event (only affects list-"
-"style views)."
-msgstr ""
-"Visa endast första instansen av varje återkommande evenemang. (påverkar bara "
-"list-vy)"
+#: ../src/Tribe/Recurrence_Meta.php:1107
+msgid "Show only the first instance of each recurring event (only affects list-style views)."
+msgstr "Visa endast första instansen av varje återkommande evenemang. (påverkar bara list-vy)"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:959
+#: ../src/Tribe/Recurrence_Meta.php:1113
 msgid "Front-end recurring event instances toggle"
 msgstr "Front-end återkommande evenemang instans växlande"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:960
-msgid ""
-"Allow users to decide whether to show all instances of a recurring event."
-msgstr ""
-"Tillåt användare att bestämma om alla instanser av återkommande evenemang "
-"skall visas."
+#: ../src/Tribe/Recurrence_Meta.php:1114
+msgid "Allow users to decide whether to show all instances of a recurring event."
+msgstr "Tillåt användare att bestämma om alla instanser av återkommande evenemang skall visas."
 
-#: ../lib/tribe-events-recurrence-meta.class.php:967
+#: ../src/Tribe/Recurrence_Meta.php:1121
 msgid "Clean up recurring events after"
 msgstr "Städa upp återkommande händelser efter"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:968
+#: ../src/Tribe/Recurrence_Meta.php:1122
 msgid "Automatically remove recurring event instances older than this"
 msgstr "Ta automatiskt bort återkommande evenemangsinstanser äldre än detta"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:975
+#: ../src/Tribe/Recurrence_Meta.php:1129
 msgid "Create recurring events in advance for"
 msgstr "Skapa återkommande evenemang i förväg för"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:976
+#: ../src/Tribe/Recurrence_Meta.php:1130
 msgid "Recurring events will be created this far in advance"
 msgstr "Återkommande händelser kommer att skapas såhär långt i förväg"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:997
+#: ../src/Tribe/Recurrence_Meta.php:1151
 msgid " months"
 msgstr "månader"
 
-#: ../lib/tribe-events-recurrence-meta.class.php:1090
+#: ../src/Tribe/Recurrence_Meta.php:1246
 msgid "You are currently editing all events in a recurring series."
 msgstr "Du håller på att redigera alla evenemang i en återkommande serie."
 
-#: ../lib/tribe-events-recurrence-meta.class.php:1099
+#: ../src/Tribe/Recurrence_Meta.php:1254
+msgid "%d instances of this event have been created through %s. <a href=\"%s\">Learn more.</a>"
+msgstr "%d förekomster av detta evenemang har skapats genom %s . <a href=\"%s\">Läs mer.</a>"
+
+#: ../src/Tribe/Recurrence_Meta.php:1265
 msgid ""
 "You are about to split this series in two.\n"
 "\n"
-"The event you selected and all subsequent events in the series will be "
-"separated into a new series of events that you can edit independently of the "
-"original series.\n"
+"The event you selected and all subsequent events in the series will be separated into a new series of events that you can edit independently of the original series.\n"
 "\n"
 "This action cannot be undone."
 msgstr ""
 "Du håller på att dela upp serien i två. \n"
 "\n"
-" Evenemanget du valt och alla efterföljande händelser i serien kommer att "
-"delas upp i en ny serie av händelser som du kan redigera oberoende av den "
-"ursprungliga serien. \n"
+" Evenemanget du valt och alla efterföljande händelser i serien kommer att delas upp i en ny serie av händelser som du kan redigera oberoende av den ursprungliga serien. \n"
 "\n"
 " Denna åtgärd kan inte ångras."
 
-#: ../lib/tribe-events-recurrence-meta.class.php:1100
+#: ../src/Tribe/Recurrence_Meta.php:1266
 msgid ""
 "You are about to break this event out of its series.\n"
 "\n"
@@ -1479,2224 +744,806 @@ msgstr ""
 "\n"
 " Denna åtgärd kan inte ångras."
 
-#: ../lib/tribe-events-recurrence-meta.class.php:1101
-msgid ""
-"Are you sure you want to trash all occurrences of these events? All "
-"recurrence data will be lost."
-msgstr ""
-"Är du säker på att du vill att kasta alla förekomster av dessa evenemang? "
-"All återupprepningsdata förloras."
+#: ../src/Tribe/Recurrence_Meta.php:1267
+msgid "Are you sure you want to trash all occurrences of these events?"
+msgstr "Är du säker att du vill slänga alla förekomster av dessa evenemang?"
 
-#
-#: ../lib/tribe-geoloc.class.php:101
-msgid "Distance"
-msgstr "Distans"
+#: ../src/Tribe/Single_Event_Meta.php:161
+#: ../src/views/pro/modules/meta/additional-fields.php:18
+msgid "Other"
+msgstr "Annan"
 
-#: ../lib/tribe-geoloc.class.php:133
-msgid "Map view search distance limit"
-msgstr "Kartvy, visa distansbegränsning för sökningar"
+#: ../src/Tribe/Single_Event_Meta.php:188
+msgid "Recurrence Pattern:"
+msgstr "Repetitionsmönster:"
 
-#: ../lib/tribe-geoloc.class.php:135
-msgid ""
-"Set the distance that the location search covers (find events within X "
-"distance units of location search input)."
-msgstr ""
-"Sätt distansen för vad lokaliseringssökningen täcker (Hitta evenemang inom X "
-"distansenheter från platsen som angivits)."
-
-#: ../lib/tribe-geoloc.class.php:141
-msgid "Map view distance unit"
-msgstr "Kartvy distansenhet"
-
-#: ../lib/tribe-geoloc.class.php:145
-msgid "Miles"
-msgstr "Miles"
-
-#: ../lib/tribe-geoloc.class.php:146
-msgid "Kilometers"
-msgstr "Kilometer"
-
-#: ../lib/tribe-geoloc.class.php:149
-msgid "Fix geolocation data"
-msgstr "Fixa geolokaliseringsdata"
-
-#: ../lib/tribe-geoloc.class.php:149
-#, php-format
-msgid ""
-"You have %d venues for which we don't have geolocation data. We need to use "
-"the Google Maps API to get that information. Doing this may take a while "
-"(aprox. 1 minute for every 200 venues)."
-msgstr ""
-"Du har %d platser för vilka vi inte har geolokaliseringsdata. Vi behöver "
-"använda Google Maps API för att få den informationen. Detta kan ta en stund "
-"(ca 1 minut per 200 platser)."
-
-#: ../lib/tribe-geoloc.class.php:158
-msgid "Hide location search"
-msgstr "Dölj platssökning"
-
-#: ../lib/tribe-geoloc.class.php:159
-msgid ""
-"Removes location search field from the events bar on all views except for "
-"map view."
-msgstr ""
-"Tar bort platssökningsfältet från evenemangsbaren i alla vyer utom kartvyn."
-
-#
-#: ../lib/tribe-geoloc.class.php:211
-msgid "Map"
-msgstr "Karta"
-
-#: ../lib/tribe-geoloc.class.php:241
-msgid "Near"
-msgstr "Nära"
-
-#: ../lib/tribe-geoloc.class.php:242
-msgid "Location"
-msgstr "Plats"
-
-#: ../lib/tribe-geoloc.class.php:548
-#, php-format
+#: ../src/Tribe/Templates/Map.php:91
 msgid "No results were found for events in or near <strong>\"%s\"</strong>."
 msgstr "Inga evenemang hittades i eller nära <strong>\"%s\"</strong>."
 
-#: ../lib/tribe-geoloc.class.php:551
+#: ../src/Tribe/Templates/Map.php:93 ../src/Tribe/Templates/Week.php:199
+msgid "No matching events listed under %s. Please try viewing the full calendar for a complete list of events."
+msgstr "Inga matchande evenemang listade under %s . Försök att titta på hela kalender för en komplett lista över händelser ."
+
+#: ../src/Tribe/Templates/Map.php:95
 msgid "There were no results found."
 msgstr "Det fanns inga träffar."
 
-#: ../lib/tribe-geoloc.class.php:820
-msgid "Fix venues data"
-msgstr "Fixa platsdata"
+#: ../src/Tribe/Templates/Week.php:194
+msgid "There were no results found for <strong>\"%s\"</strong> this week. Try searching another week."
+msgstr "Inga resultat hittades för <strong>\"%s\"</strong> denna vecka. Försök igen med en annan vecka."
 
-#: ../lib/tribe-geoloc.class.php:854
-#, php-format
-msgid ""
-"You have venues for which we don't have Geolocation information. <a "
-"href='%s'>Click here to generate it</a>."
-msgstr ""
-"Du har platser för vilka vi inte har geolokaliseringsdata. <a "
-"href='%s'>Klicka här för att generera geolokaliseringsdata</a>."
+#: ../src/Tribe/Templates/Week.php:196
+msgid "No results were found for events in or near <strong>\"%s\"</strong> this week. Try searching another week."
+msgstr "Inga evenemang hittades i eller nära <strong>\"%s\"</strong> denna vecka. Försök igen med en annan vecka."
 
-#: ../lib/tribe-geoloc.class.php:880
-#, php-format
-msgid "Fixed geolocation data for %d venues"
-msgstr "Fixade geolokaliseringsdata för %d platser"
+#: ../src/Tribe/Templates/Week.php:201
+msgid "No results were found for this week. Try searching another week."
+msgstr "Inga resultat hittades för denna vecka. Försök igen med en annan vecka."
 
-#: ../lib/tribe-ical.class.php:42
-msgid "Add to Google Calendar"
-msgstr "Lägg till i Google Calendar"
-
-#
-#: ../lib/tribe-ical.class.php:42
-msgid "Google Calendar"
-msgstr "Google Calendar"
-
-#: ../lib/tribe-ical.class.php:43 ../lib/tribe-ical.class.php:93
-msgid "iCal Import"
-msgstr "iCal import"
-
-#
-#: ../lib/tribe-ical.class.php:80
-msgid "Month's Events"
-msgstr "Månadens evenemang"
-
-#
-#: ../lib/tribe-ical.class.php:83
-msgid "Week's Events"
-msgstr "Veckans evenemang"
-
-#
-#: ../lib/tribe-ical.class.php:86
-msgid "Day's Events"
-msgstr "Dagens evenemang"
-
-#
-#: ../lib/tribe-ical.class.php:89
-msgid "Listed Events"
-msgstr "Listade evenemang"
-
-#: ../lib/tribe-ical.class.php:93
-msgid "Import is filter/view sensitive"
-msgstr "Import är filter/vy känslig"
-
-#: ../lib/widget-advanced-list.class.php:18
-msgid "A widget that displays the next upcoming x events."
-msgstr "En widget som visar de kommande x evenemangen."
-
-#
-#: ../lib/widget-advanced-list.class.php:24
-msgid "Events List"
-msgstr "Evenemangslista"
-
-#: ../lib/widget-calendar.class.php:8
-msgid "The events calendar mini calendar widget"
-msgstr "The events calendar mini kalender widget"
-
-#: ../lib/widget-calendar.class.php:10 ../lib/widget-calendar.class.php:34
-#: ../lib/widget-calendar.class.php:70
-msgid "Events Calendar"
-msgstr "Evenemangskalender"
-
-#: ../lib/widget-countdown.class.php:13
-msgid "Displays the time remaining until a specified event."
-msgstr "Visa tiden som återstår innan ett specificerat evenemang."
-
-#
-#: ../lib/widget-countdown.class.php:15
-msgid "Events Countdown"
-msgstr "Evenemang nedräkning"
-
-#: ../lib/widget-venue.class.php:12
+#: ../src/Tribe/Venue_Widget.php:16
 msgid "Displays a list of upcoming events at a specific venue."
 msgstr "Visa en lista på kommande evenemang för en speciell plats."
 
-#
-#: ../lib/widget-venue.class.php:14
+#: ../src/Tribe/Venue_Widget.php:19
 msgid "Events Featured Venue"
 msgstr "Evenemang plats"
 
-#
-#: ../public/template-tags/general.php:96
-msgid "Show only the first upcoming instance of recurring events"
-msgstr "Visa endast första instansen av återkommande evenemang"
+#: ../src/admin-views/event-defaults.php:1
+msgid "Customize Defaults"
+msgstr "Anpassa förval"
 
-#: ../public/template-tags/general.php:288
-#: ../public/template-tags/general.php:303
-#: ../public/template-tags/general.php:317
-#: ../public/template-tags/general.php:318
-#: ../public/template-tags/general.php:332
-#: ../public/template-tags/general.php:333
-#: ../public/template-tags/general.php:347
-#: ../public/template-tags/general.php:348
-#: ../public/template-tags/general.php:362
-#: ../public/template-tags/general.php:363
-#: ../public/template-tags/general.php:377
-#: ../public/template-tags/general.php:378
-#: ../public/template-tags/general.php:392
-#: ../public/template-tags/general.php:393
-#: ../public/template-tags/general.php:407
-#: ../public/template-tags/general.php:408
-msgid "No default set"
-msgstr "Inget förval satt"
+#: ../src/admin-views/event-defaults.php:2
+msgid "These settings change the default event form. For example, if you set a default venue, this field will be automatically filled in on a new event."
+msgstr "Dessa inställningar ändrar förval för evenemang. T.ex. om du anger ett förval för plats kommer detta fält fylls i automatiskt för nya evenemang."
 
-#: ../public/template-tags/general.php:290
-#, php-format
-msgid "The current default organizer is: %s"
-msgstr "Nuvarande förvald arrangör är: %s"
+#: ../src/admin-views/event-defaults.php:5
+#: ../src/admin-views/event-defaults.php:9
+#: ../src/admin-views/tribe-options-defaults.php:55
+msgid "Automatically replace empty fields with default values"
+msgstr "Ersätt automatiskt tomma fält med förval"
 
-#: ../public/template-tags/general.php:305
-#, php-format
-msgid "The current default venue is: %s"
-msgstr "Nuvarande förvald plats är: %s"
+#: ../src/admin-views/event-defaults.php:13
+msgid "Enabled"
+msgstr "Aktiverad"
 
-#: ../public/template-tags/general.php:320
-#, php-format
-msgid "The current default address is: %s"
-msgstr "Nuvarande förvald adress är: %s"
+#: ../src/admin-views/event-defaults.php:19
+msgid "Default Organizer for Events"
+msgstr "Förvald arrangör för evenemang"
 
-#: ../public/template-tags/general.php:335
-#, php-format
-msgid "The current default city is: %s"
-msgstr "Nuvarande förvald stad är: %s"
+#: ../src/admin-views/event-defaults.php:22
+msgid "Default Organizer"
+msgstr "Förvald arrangör"
 
-#: ../public/template-tags/general.php:350
-#, php-format
-msgid "The current default state is: %s"
-msgstr "Nuvarande förvalt län är: %s"
+#: ../src/admin-views/event-defaults.php:23
+msgid "The default organizer value"
+msgstr "Förvald arrangör"
 
-#: ../public/template-tags/general.php:365
-#, php-format
-msgid "The current default province is: %s"
-msgstr "Nuvarande förvalda landskap är: %s"
+#: ../src/admin-views/event-defaults.php:23
+#: ../src/admin-views/event-defaults.php:32
+#: ../src/admin-views/event-defaults.php:42
+#: ../src/admin-views/event-defaults.php:52
+#: ../src/admin-views/event-defaults.php:76
+#: ../src/admin-views/event-defaults.php:87
+#: ../src/admin-views/event-defaults.php:98
+#: ../src/admin-views/event-defaults.php:127
+msgid "The current default value is <strong>%s</strong>"
+msgstr "Ditt nuvarande förval är <strong>%s</strong>"
 
-#: ../public/template-tags/general.php:380
-#, php-format
-msgid "The current default postal code/zip code is: %s"
-msgstr "Nuvarande förvalt postnummer är: %s"
+#: ../src/admin-views/event-defaults.php:28
+msgid "Default Venue for Events"
+msgstr "Förvald plats för evenemang"
 
-#: ../public/template-tags/general.php:395
-#, php-format
-msgid "The current default country is: %s"
-msgstr "Nuvarande förvalt land är: %s"
+#: ../src/admin-views/event-defaults.php:31
+msgid "Default Venue"
+msgstr "Förvald plats"
 
-#: ../public/template-tags/general.php:410
-#, php-format
-msgid "The current default phone is: %s"
-msgstr "Nuvarande förvalt telefonnummer är: %s"
+#: ../src/admin-views/event-defaults.php:32
+msgid "The default venue value"
+msgstr "Förvald plats"
 
-#: ../public/template-tags/general.php:570
-#: ../public/template-tags/general.php:589
-#: ../public/template-tags/general.php:678
-#: ../public/template-tags/general.php:696
-msgid "Date out of range."
-msgstr "Datum utanför intervallet."
+#: ../src/admin-views/event-defaults.php:37
+#: ../src/admin-views/event-defaults.php:40
+msgid "Default Address"
+msgstr "Förvald adress"
 
-#: ../public/template-tags/general.php:631
-msgid "Today"
-msgstr "Idag"
+#: ../src/admin-views/event-defaults.php:41
+msgid "The default address value"
+msgstr "Förvald adress"
 
-#
-#: ../public/template-tags/general.php:633
-msgid "<span>&laquo;</span> Previous Day"
-msgstr "<span>&laquo;</span> Föregående dag"
+#: ../src/admin-views/event-defaults.php:47
+#: ../src/admin-views/event-defaults.php:50
+msgid "Default City"
+msgstr "Förvald stad"
 
-#
-#: ../public/template-tags/general.php:635
-msgid "Next Day <span>&raquo;</span>"
-msgstr "Nästa dag <span>&raquo;</span>"
+#: ../src/admin-views/event-defaults.php:51
+msgid "The default city value"
+msgstr "Förvald stad"
 
-#: ../public/template-tags/general.php:637
-msgid "Yesterday"
-msgstr "Igår"
+#: ../src/admin-views/event-defaults.php:58
+msgid "Default State"
+msgstr "Förvalt landskap"
 
-#
-#: ../public/template-tags/general.php:639
-msgid "Tomorrow"
-msgstr "Imorgon"
+#: ../src/admin-views/event-defaults.php:61
+#: ../src/admin-views/event-defaults.php:85
+msgid "Default Province or State"
+msgstr "Förvalt landskap"
 
-#
-#: ../public/template-tags/general.php:743
-msgid "Related Events"
-msgstr "Relaterade evenemang"
+#: ../src/admin-views/event-defaults.php:64
+msgid "Select a State:"
+msgstr "Välj län:"
 
-#: ../public/template-tags/general.php:823
-msgid "Recurring Event"
-msgstr "Återkommande evenemang"
+#: ../src/admin-views/event-defaults.php:75
+#: ../src/admin-views/event-defaults.php:86
+msgid "The default  value"
+msgstr "Standardvärdet"
 
-#: ../public/template-tags/general.php:826
-msgid "(See all)"
-msgstr "(Se alla)"
+#: ../src/admin-views/event-defaults.php:82
+msgid "Default Province"
+msgstr "Förvalt lanskap"
 
-#: ../public/template-tags/week.php:258
-msgid "<span>&laquo;</span> Previous Week"
-msgstr "<span>&laquo;</span> Föregående vecka"
+#: ../src/admin-views/event-defaults.php:93
+#: ../src/admin-views/event-defaults.php:96
+msgid "Default Postal Code"
+msgstr "Förvalt postnummer"
 
-#: ../public/template-tags/week.php:271
-msgid "Next Week <span>&raquo;</span>"
-msgstr "Nästa vecka <span>&raquo;</span>"
+#: ../src/admin-views/event-defaults.php:97
+msgid "The default Postal Code value"
+msgstr "Förvalt postnummer"
 
-#: ../vendor/advanced-post-manager/demo/demo.php:30
-#, php-format
-msgid ""
-"It looks like you might not have any demo data. <a href=\"%s\">Download our "
-"data</a> and use the <a href=\"%s\">WordPress Importer</a>."
+#: ../src/admin-views/event-defaults.php:104
+msgid "Default Country for Events"
+msgstr "Förvalt land för evenemang"
+
+#: ../src/admin-views/event-defaults.php:122
+#: ../src/admin-views/event-defaults.php:125
+msgid "Default Phone"
+msgstr "Förvalt telefonnummer"
+
+#: ../src/admin-views/event-defaults.php:126
+msgid "The default phone value"
+msgstr "Förvalt telefonnummer"
+
+#: ../src/admin-views/event-defaults.php:132
+#: ../src/admin-views/tribe-options-defaults.php:198
+msgid "Use a custom list of countries"
+msgstr "Använd en anpassad lista för länder"
+
+#: ../src/admin-views/event-defaults.php:135
+msgid "Use the following list:"
+msgstr "Använd följande lista:"
+
+#: ../src/admin-views/event-defaults.php:138
+msgid "One country per line in the following format: <br/>US, United States <br/> UK, United Kingdom."
+msgstr "Ett land per rad på följande format: <br/>SE, Sverige <br/> US, United States <br/> UK, United Kingdom."
+
+#: ../src/admin-views/event-defaults.php:138
+msgid "(Replaces the default list.)"
+msgstr "(Ersätter förvald lista.)"
+
+#: ../src/admin-views/event-meta-options.php:5
+msgid "Use additional fields to add unique content fields to the event admin, which can be used by anyone who creates events. Upon publication they'll appear in the event metabox that accompanies your event listing, alongside the date/time/venue/organizer/etc. </p><p>Each new piece of data needs:"
 msgstr ""
-"Det verkar som du kanske inte har någon demodata. <a href=\"%s\">Ladda ner "
-"vår data</a> och använd <a href=\"%s\">WordPress importerade</a>."
 
-#: ../vendor/advanced-post-manager/lib/tribe-columns.class.php:44
-msgid "Column Name"
-msgstr "Kolumnnamn"
+#: ../src/admin-views/event-meta-options.php:7
+msgid "Label (e.g. Meal Plans)"
+msgstr ""
 
-#: ../vendor/advanced-post-manager/lib/tribe-columns.class.php:134
-msgid "Add a Column"
-msgstr "Lägg till en kolumn"
+#: ../src/admin-views/event-meta-options.php:8
+msgid "At least one option (e.g. Vegetarian, Kosher, Paleo)"
+msgstr ""
 
-#
-#: ../vendor/advanced-post-manager/lib/tribe-columns.class.php:141
-msgid "Comments"
-msgstr "Kommentarer"
+#: ../src/admin-views/event-meta-options.php:9
+msgid "Field type. These are:"
+msgstr ""
 
-#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:52
-#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:72
+#: ../src/admin-views/event-meta-options.php:11
+msgid "Text - for the user to input text"
+msgstr ""
+
+#: ../src/admin-views/event-meta-options.php:12
+msgid "Text Area - identical to a text field but providing a larger area for the user to input text"
+msgstr "Textområde - Samma som ett textfält , men ger ett större område för användaren att mata in text i"
+
+#: ../src/admin-views/event-meta-options.php:13
+msgid "URL - for the user to input a URL"
+msgstr "URL - för användaren att ange URL"
+
+#: ../src/admin-views/event-meta-options.php:14
+msgid "Checkbox - for multiple choice"
+msgstr ""
+
+#: ../src/admin-views/event-meta-options.php:15
+msgid "Radio Button - to select only one"
+msgstr ""
+
+#: ../src/admin-views/event-meta-options.php:16
+msgid "Dropdown Menu - for a dropdown menu"
+msgstr ""
+
+#: ../src/admin-views/event-meta-options.php:23
+msgid "Field Label"
+msgstr "Fältetikett"
+
+#: ../src/admin-views/event-meta-options.php:24
+msgid "Field Type"
+msgstr "Fälttyp"
+
+#: ../src/admin-views/event-meta-options.php:25
+msgid "Options (one per line)"
+msgstr "Val (ett per rad)"
+
+#: ../src/admin-views/event-meta-options.php:48
+msgid "Text"
+msgstr "Text"
+
+#: ../src/admin-views/event-meta-options.php:49
+msgid "Text Area"
+msgstr "Textfält"
+
+#: ../src/admin-views/event-meta-options.php:50
+msgid "URL"
+msgstr "URL"
+
+#: ../src/admin-views/event-meta-options.php:51
+msgid "Radio"
+msgstr "Alternativ"
+
+#: ../src/admin-views/event-meta-options.php:52
+msgid "Checkbox"
+msgstr "Kryssruta"
+
+#: ../src/admin-views/event-meta-options.php:65
+msgid "Enter the field label as you want it to appear (this will be the label in the same way \"Start Date,\" \"Organizer,\" etc appear in the event details box on the frontend). Select whether the field will be a text field; URL field; radio buttons; checkboxes; or a dropdown. All of these with the exception of text and URL allow for multiple options to be included, which you can add — one per-line — in the right-hand column. If you feel flummoxed, we've got you covered with a %s."
+msgstr ""
+
+#: ../src/admin-views/event-meta-options.php:66
+msgid "video tutorial that will walk you through the process"
+msgstr "Video handledning som går igenom processen"
+
+#: ../src/admin-views/event-meta-options.php:69
+msgid "Editor \"Custom Fields\" meta box"
+msgstr "Redigerare \"anpassade fält\" metabox"
+
+#: ../src/admin-views/event-meta-options.php:71
+msgid "Show"
+msgstr "Visa"
+
+#: ../src/admin-views/event-meta-options.php:73
+msgid "Hide"
+msgstr "Dölj"
+
+#: ../src/admin-views/event-meta-options.php:76
+msgid "Enabling this option this will not remove custom field data or functionality, just the default meta box editor."
+msgstr "Aktivering av detta val tar inte bort anpassade fälts data eller funktionalitet utan bara den förvalda metabox redigeraren."
+
+#: ../src/admin-views/event-meta-options.php:111
+msgid "Are you sure you wish to remove this field and its data from all events? Once you click OK this cannot be undone."
+msgstr "Är du säker på att du vill ta bort detta fält och dess data från alla evenemang? När du klickar på OK kan detta inte ångras."
+
+#: ../src/admin-views/event-meta.php:13
+msgid "Additional %s Fields"
+msgstr "Ytterligare %s Fält"
+
+#: ../src/admin-views/event-recurrence.php:2
+msgid "Recurrence:"
+msgstr "Återkommande:"
+
+#: ../src/admin-views/event-recurrence.php:6
+msgid "event"
+msgstr "evenemang"
+
+#: ../src/admin-views/event-recurrence.php:6
+msgid "events"
+msgstr "evenemang"
+
+#: ../src/admin-views/event-recurrence.php:7
+msgid "None"
+msgstr "Inga"
+
+#: ../src/admin-views/event-recurrence.php:8
+msgid "Every Day"
+msgstr "Varje dag"
+
+#: ../src/admin-views/event-recurrence.php:9
+msgid "Every Week"
+msgstr "Varje vecka"
+
+#: ../src/admin-views/event-recurrence.php:10
+msgid "Every Month"
+msgstr "Varje månad"
+
+#: ../src/admin-views/event-recurrence.php:11
+msgid "Every Year"
+msgstr "Varje år"
+
+#: ../src/admin-views/event-recurrence.php:12
+msgid "Custom"
+msgstr "Anpassad"
+
+#: ../src/admin-views/event-recurrence.php:15
+msgid "and will end"
+msgstr "och kommer att sluta"
+
+#: ../src/admin-views/event-recurrence.php:17
+msgid "On"
+msgstr "På"
+
+#: ../src/admin-views/event-recurrence.php:18
+msgid "After"
+msgstr "Efter"
+
+#: ../src/admin-views/event-recurrence.php:19
+msgid "Never"
+msgstr "Aldrig"
+
+#: ../src/admin-views/event-recurrence.php:22
+#: ../src/admin-views/event-recurrence.php:41
+msgctxt "occurence count text"
+msgid "events"
+msgstr "evenemang"
+
+#: ../src/admin-views/event-recurrence.php:23
+msgid "You must select a recurrence end date"
+msgstr "Du måste välja ett slutdatum för repetitionen"
+
+#: ../src/admin-views/event-recurrence.php:30
+msgid "Frequency"
+msgstr "Frekvens"
+
+#: ../src/admin-views/event-recurrence.php:32
+msgid "Day(s)"
+msgstr "Dag(ar)"
+
+#: ../events-calendar-pro.php:70
+msgid "The Events Calendar"
+msgstr "Evenemangskalender"
+
+#: ../src/admin-views/event-recurrence.php:32
+msgid "Daily"
+msgstr "Dagligen"
+
+#: ../events-calendar-pro.php:71
+msgid "To begin using Events Calendar PRO, please install the latest version of <a href=\"%s\" class=\"thickbox\" title=\"%s\">The Events Calendar</a>."
+msgstr "För att börja använda Events Calendar PRO måste du installera den senaste versionen av <a href=\"%s\" class=\"thickbox\" title=\"%s\">The Events Calendar</a>."
+
+#: ../src/admin-views/event-recurrence.php:33
+msgid "Week(s) on:"
+msgstr "Veck(or) på:"
+
+#: ../src/Tribe/APM_Filters/APM_Filters.php:55
+msgid "Start Date"
+msgstr "Startdatum"
+
+#: ../src/admin-views/event-recurrence.php:33
+msgid "Weekly"
+msgstr "Veckovis"
+
+#: ../src/Tribe/APM_Filters/APM_Filters.php:60
+msgid "End Date"
+msgstr "Slutdatum"
+
+#: ../src/admin-views/event-recurrence.php:34
+msgid "Month(s) on the:"
+msgstr "Månad(er) på:"
+
+#: ../src/Tribe/APM_Filters/APM_Filters.php:65
+msgid "Event Cost"
+msgstr "Evenemangspris"
+
+#: ../src/admin-views/event-recurrence.php:34
+msgid "Monthly"
+msgstr "Månadsvis"
+
+#: ../src/Tribe/APM_Filters/APM_Filters.php:70
+msgid "Event Cats"
+msgstr "Evenemangskategori"
+
+#: ../src/admin-views/event-recurrence.php:35
+msgid "Year(s) on:"
+msgstr "Årsvis på:"
+
+#: ../src/Tribe/APM_Filters/APM_Filters.php:75
+msgid "Title"
+msgstr "Titel"
+
+#: ../src/admin-views/event-recurrence.php:35
+msgid "Yearly"
+msgstr "Årsvis"
+
+#: ../src/Tribe/APM_Filters/APM_Filters.php:80
+#: ../src/Tribe/Recurrence_Meta.php:147
+msgid "Recurring"
+msgstr "Repeterande"
+
+#: ../src/admin-views/event-recurrence.php:37
+msgid "Every"
+msgstr "Varje"
+
+#: ../src/Tribe/APM_Filters/APM_Filters.php:85
+msgid "Description"
+msgstr "Beskrivning"
+
+#: ../src/admin-views/event-recurrence.php:42
+msgid "Frequency of recurring event must be a number"
+msgstr "Frekvens för återkommande evenemang måste vara en siffra"
+
+#: ../src/Tribe/APM_Filters/APM_Filters.php:131
+msgid "Pssst! Looking for the filters? They live in a separate plugin now | <a href=\"%s\">Download for free</a>| <a href=\"%s\">Dismiss</a>"
+msgstr "Pssst! Letar du efter filtren? De finns i ett separat plugin nu | <a href=\"%s\">Ladda ned gratis</a>| <a href=\"%s\">Avfärda</a>"
+
+#: ../src/admin-views/event-recurrence.php:52
+msgid "M"
+msgstr "Må"
+
+#: ../src/Tribe/APM_Filters/Date_Filter.php:13
+#: ../src/Tribe/APM_Filters/Title_Filter.php:15
 msgid "Is"
 msgstr "är"
 
-#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:53
-#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:73
+#: ../src/admin-views/event-recurrence.php:54
+msgid "Tu"
+msgstr "Ti"
+
+#: ../src/Tribe/APM_Filters/Date_Filter.php:14
+#: ../src/Tribe/APM_Filters/Title_Filter.php:16
 msgid "Is Not"
 msgstr "är ej"
 
-#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:67
-msgid "LIKE"
-msgstr "GILLA"
+#: ../src/admin-views/event-recurrence.php:56
+msgid "W"
+msgstr "On"
 
-#
-#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:71
+#: ../src/Tribe/APM_Filters/Date_Filter.php:15
+msgid "On and After"
+msgstr "På och Efter"
+
+#: ../src/admin-views/event-recurrence.php:58
+msgid "Th"
+msgstr "To"
+
+#: ../src/Tribe/APM_Filters/Date_Filter.php:16
+msgid "On and Before"
+msgstr "På och Före"
+
+#: ../src/admin-views/event-recurrence.php:60
+msgid "F"
+msgstr "Fr"
+
+#: ../src/Tribe/APM_Filters/Recur_Filter.php:16
+#: ../src/Tribe/Recurrence_Meta.php:155
+msgid "Yes"
+msgstr "Ja"
+
+#: ../src/admin-views/event-recurrence.php:62
+msgid "Sa"
+msgstr "Lö"
+
+#: ../src/Tribe/APM_Filters/Recur_Filter.php:17
+msgid "No"
+msgstr "Nej"
+
+#: ../src/admin-views/event-recurrence.php:64
+msgid "Su"
+msgstr "Sö"
+
+#: ../src/Tribe/APM_Filters/Title_Filter.php:14
 msgid "Search"
 msgstr "Sök"
 
-#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:82
-msgid "Member Type"
-msgstr "Medlemstyp"
-
-#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:86
-msgid "Cafe"
-msgstr "Café"
-
-#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:87
-msgid "Private Desk"
-msgstr "Privat arbetshörna"
-
-#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:88
-msgid "Office"
-msgstr "Kontor"
-
-#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:95
-msgid "what i’m querying. probably a key in the options array in $filters"
-msgstr "min fråga. antagligen en nyckel i inställningslistan $filter"
-
-#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:526
-msgid "Choose a Saved Filter"
-msgstr "Välj ett sparat filter"
-
-#: ../vendor/advanced-post-manager/lib/tribe-filters.class.php:642
-msgid "Add a Filter"
-msgstr "Lägg till ett filter"
-
-#: ../vendor/advanced-post-manager/lib/tribe-meta-box-helper.php:44
-msgid "Extended Information"
-msgstr "Ytterligare information"
-
-#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:124
-#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:397
-msgid "Delete this image"
-msgstr "Radera denna bild"
-
-#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:124
-#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:352
-#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:397
-msgid "Delete"
-msgstr "Radera"
-
-#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:348
-msgid "Uploaded files"
-msgstr "Uppladdade filer"
-
-#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:358
-msgid "Upload new files"
-msgstr "Ladda upp nya filer"
-
-#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:361
-msgid "Add another file"
-msgstr "Lägg till en ytterligare fil"
-
-#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:404
-msgid "Add more images"
-msgstr "Lägg till fler bilder"
-
-#: ../vendor/advanced-post-manager/lib/tribe-meta-box.php:412
-msgid "Select a color"
-msgstr "Välj en färg"
-
-#: ../vendor/advanced-post-manager/views/edit-filters.php:7
-#: ../vendor/advanced-post-manager/views/edit-filters.php:8
-msgid "Click to toggle"
-msgstr "Klicka för att växla"
-
-#: ../vendor/advanced-post-manager/views/edit-filters.php:8
-msgid "Filters &amp; Columns"
-msgstr "Filter &amp; kolumner"
-
-#: ../vendor/advanced-post-manager/views/edit-filters.php:17
-msgid "Apply"
-msgstr "Tillämpa"
-
-#: ../vendor/advanced-post-manager/views/edit-filters.php:18
-msgid "Clear"
-msgstr "Rensa"
-
-#: ../vendor/advanced-post-manager/views/edit-filters.php:19
-#: ../vendor/advanced-post-manager/views/edit-filters.php:26
-msgid "Save"
-msgstr "Spara"
-
-#: ../vendor/advanced-post-manager/views/edit-filters.php:21
-msgid "Export to CSV"
-msgstr "Exportera till CSV"
-
-#: ../vendor/advanced-post-manager/views/edit-filters.php:25
-msgid "Filter Name"
-msgstr "Filternamn"
-
-#: ../vendor/advanced-post-manager/views/edit-filters.php:27
-msgid "Cancel"
-msgstr "Avbryt"
-
-#: ../vendor/pue-client/admin-views/license-key.view.php:9
-#: ../vendor/pue-client/admin-views/license-key.view.php:13
-#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:292
-msgid "License Key"
-msgstr "Licensnyckel"
-
-#: ../vendor/pue-client/admin-views/license-key.view.php:10
-msgid "A valid license key is required for support and updates."
-msgstr "En giltig licensnyckel krävs för support och uppdateringar."
-
-#: ../vendor/pue-client/admin-views/license-key.view.php:16
-msgid "Replace empty fields"
-msgstr "Erätt tomma fält"
-
-#: ../vendor/pue-client/admin-views/license-key.view.php:25
-#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:293
-msgid "A valid license key is required for support and updates"
-msgstr "En giltig licensnyckel krävs för support och uppdateringar"
-
-#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:361
-msgid "License key(s) updated."
-msgstr "Licensnycklar uppdaterade."
-
-#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:401
-msgid "Sorry, key validation server is not available."
-msgstr "Servern för nyckelvalidering är ej tillgänglig."
-
-#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:403
-msgid "Sorry, this key is expired."
-msgstr "Nyckeln har gått ut."
-
-#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:405
-msgid "Sorry, this key is out of installs."
-msgstr "Max antal installationer har uppnåtts för denna nyckel."
-
-#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:407
-msgid "Sorry, this key is not valid."
-msgstr "Nyckeln är ogiltig."
-
-#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:410
-#, php-format
-msgid "Valid Key! Expires on %s"
-msgstr "Giltig nyckel! Går ut den %s"
-
-#: ../vendor/pue-client/lib/pue_plugin_update_engine.class.php:414
-#, php-format
-msgid ""
-"Hmmm... something's wrong with this validator. Please contact <a href=\"%s"
-"\">support.</a>"
-msgstr ""
-"Hmmm... något är fel med denna verifierare. Kontakta <a href=\"%s"
-"\">supporten.</a>"
-
-#: ../views/pro/day/nav.php:16
-msgid "Day Navigation"
-msgstr "Dag navigation"
-
-#: ../views/pro/day/single-event.php:74 ../views/pro/map/single-event.php:80
-msgid "Find out more"
-msgstr "Läs mer"
-
-#
-#: ../views/pro/map/nav.php:22 ../views/pro/photo/nav.php:22
-msgid "Events List Navigation"
-msgstr "Evenemangslista navigation"
-
-#: ../views/pro/map/nav.php:25 ../views/pro/photo/nav.php:25
-msgid "<span>&laquo;</span> Previous Events"
-msgstr "<span>&laquo;</span> Tidigare evenemang"
-
-#: ../views/pro/map/nav.php:32 ../views/pro/photo/nav.php:32
-msgid "Next Events <span>&raquo;</span>"
-msgstr "Kommande evenemang <span>&raquo;</span>"
-
-#
-#: ../views/pro/single-organizer.php:31 ../views/pro/single-venue.php:31
-msgid "&larr; Back to Events"
-msgstr "&larr; Tillbaka till evenemang"
-
-#: ../views/pro/week/loop-grid.php:19
-msgid "Hours"
-msgstr "Timmar"
-
-#: ../views/pro/week/nav.php:16
-msgid "Week Navigation"
-msgstr "Veckonavigation"
-
-#: ../views/pro/widgets/countdown-widget.php:24
-msgid "hours"
-msgstr "timmar"
-
-#
-#: ../views/pro/widgets/countdown-widget.php:28
-msgid "min"
-msgstr "min"
-
-#
-#: ../views/pro/widgets/countdown-widget.php:33
-msgid "sec"
-msgstr "sek"
-
-#
-#: ../views/pro/widgets/list-widget.php:74
-msgid "Organizer:"
-msgstr "Arrangör:"
-
-#
-#: ../views/pro/widgets/venue-widget.php:33
-msgid "No upcoming events."
-msgstr "Inga kommande evenemang."
-
-#: ../views/tribe-ECP-views-old/views/list-widget.php:110
-msgid "Price:"
-msgstr "Pris:"
-
-#: ../views/tribe-ECP-views-old/views/single-venue.php:24
-msgid "&laquo; Back to Events"
-msgstr "&laquo; Tillbaka till evenemang"
-
-#: ../views/tribe-ECP-views-old/views/single-venue.php:37
-msgid "Name:"
-msgstr "Namn:"
-
-#: ../views/tribe-ECP-views-old/views/single-venue.php:41
-msgid "Phone:"
-msgstr "Telefon:"
-
-#: ../views/tribe-ECP-views-old/views/single-venue.php:47
-msgid "Address:"
-msgstr "Adress:"
-
-#: ../views/tribe-ECP-views-old/views/single-venue.php:49
-msgid "Click to view a Google Map"
-msgstr "Klicka för att visa en Google Map"
-
-#: ../views/tribe-ECP-views-old/views/single-venue.php:49
-msgid "Google Map"
-msgstr "Google Map"
-
-#
-#: ../views/tribe-ECP-views-old/views/single-venue.php:76
-msgid "Upcoming Events At This Venue"
-msgstr "Kommande evenemang på denna plats"
-
-#: ../views/tribe-ECP-views-old/views/single-venue.php:96
-msgid "Start:"
-msgstr "Börjar:"
-
-#: ../views/tribe-ECP-views-old/views/single-venue.php:100
-msgid "End:"
-msgstr "Slutar:"
-
-#: ../views/tribe-ECP-views-old/views/single-venue.php:105
-msgid "Date:"
-msgstr "Datum:"
-
-#: ../views/tribe-ECP-views-old/views/single-venue.php:114
-msgid "Cost:"
-msgstr "Pris:"
-
-#~ msgid "Need help? Send us a support request."
-#~ msgstr "Behöver du hjälp? Skicka oss en supportförfrågan."
-
-#~ msgid ""
-#~ "Tell us about the problem you're seeing in as much detail as possible. "
-#~ "Please note that we'll also be sending some basic system information "
-#~ "along with this request so that we can better diagnose the issue. If you "
-#~ "would like to contact us without sending any system information, please "
-#~ "visit our support page at %s. Thanks!"
-#~ msgstr ""
-#~ "Berätta om det problem du ser så detaljerat som möjligt. Observera att vi "
-#~ "även kommer att skicka viss grundläggande systeminformation tillsammans "
-#~ "med denna begäran så att vi kan bättre diagnostisera problemet. Om du "
-#~ "vill kontakta oss utan att skicka någon systeminformation, besök vår "
-#~ "supportsida på %s. Tack!"
-
-#~ msgid "Send a Support Request"
-#~ msgstr "Skicka en supportförfrågan"
-
-#~ msgid " for %d day"
-#~ msgid_plural " for %d days"
-#~ msgstr[0] "i %d dag"
-#~ msgstr[1] "i %d dagar"
-
-#~ msgid " for %d week"
-#~ msgid_plural " for %d weeks"
-#~ msgstr[0] "i %d vecka"
-#~ msgstr[1] "i %d veckor"
-
-#~ msgid " for %d month"
-#~ msgid_plural " for %d months"
-#~ msgstr[0] "i %d månad"
-#~ msgstr[1] "i %d månader"
-
-#~ msgid " for %d year"
-#~ msgid_plural " for %d years"
-#~ msgstr[0] "i %d år"
-#~ msgstr[1] "i %d år"
-
-#~ msgid ", recurring %d time"
-#~ msgid_plural ", recurring %d times"
-#~ msgstr[0] ", repeterande %d gång"
-#~ msgstr[1] ", repeterande %d ggr"
-
-#~ msgid "Your recurrence pattern would create greater than "
-#~ msgstr "Ditt repetitionsmönster skulle skapa större än"
-
-#~ msgid "Title: %s"
-#~ msgstr "Titel %s"
-
-#
-#~ msgid "Select Dropdown"
-#~ msgstr "Välj rullgardinsmeny"
-
-#~ msgid ""
-#~ "There were no results found for <strong>\"%s\"</strong> on this day. Try "
-#~ "searching another day."
-#~ msgstr ""
-#~ "Inga evenemang för <strong>\"%s\"</strong> denna dag. Försök med en annan "
-#~ "dag."
-
-#~ msgid "Displays posts related to the post."
-#~ msgstr "Visa inlägg relaterade till inlägget."
-
-#~ msgid "Related Posts"
-#~ msgstr "Relaterade inlägg"
-
-#
-#~ msgid "Count:"
-#~ msgstr "Antal:"
-
-#~ msgid "Display Thumbnails?"
-#~ msgstr "Visa miniatyr?"
-
-#~ msgid "Only Display Related Posts?"
-#~ msgstr "Visa endast relaterade inlägg?"
-
-#~ msgid "Post Type:"
-#~ msgstr "Posttyp:"
-
-#~ msgid "Send a support request for this site."
-#~ msgstr "Skicka en supportförfrågan för denna webbplats."
-
-#
-#~ msgid "Previous Week"
-#~ msgstr "Föregående vecka"
-
-#
-#~ msgid "Next Week"
-#~ msgstr "Nästa vecka"
-
-#~ msgid ""
-#~ "Want to modify the display of this widget? Try a %stemplate override%s."
-#~ msgstr ""
-#~ "Vill du modifiera visning av denna widget? Försök med %small åsidosättning"
-#~ "%s."
-
-#~ msgid ""
-#~ "<p>By buying a PRO license you will get active support and sweet "
-#~ "additional features not found in the free The Events Calendar.</"
-#~ "p><p><strong>Feeling adventurous?</strong> Jump right into it by visiting "
-#~ "the Events menu to <a href=\"%s\">add your first event</a>.</"
-#~ "p><p><strong>Want to get the low-down first?</strong> Visit our <a href="
-#~ "\"http://tri.be/support/documentation/events-calendar-pro-new-user-primer/"
-#~ "%s\">new user primer</a>,  designed to help familiarize you with the "
-#~ "plugin basics.</p><p>Don't forget to head over to the <a href=\"%s"
-#~ "\">license tab</a> and enter your key!</p>"
-#~ msgstr ""
-#~ "<p>När du köper en PRO licens får du aktiv support och schysta extra "
-#~ "funktioner som inte finns i den fria versionen, The Events Calendar.</"
-#~ "p><p><strong>Känner du dig äventyrlig?</strong> Hoppa rakt in och starta "
-#~ "i Evenemangmenyn för att <a href=\"%s\">skapa ditt första evenemang</a>.</"
-#~ "p><p><strong>Vill du börja lite mer försiktigt?</strong> Besök vår <a "
-#~ "href=\"http://tri.be/support/documentation/events-calendar-pro-new-user-"
-#~ "primer/%s\">handledning för nybörjare</a>,  designad för att hjälpa dig "
-#~ "med grunderna i tillägget.</p><p>Glöm inte gå till <a href=\"%s"
-#~ "\">licensfliken</a> och ange din nyckel!</p>"
-
-#~ msgid ""
-#~ "One of the advantages of being a PRO user is that you have access to our "
-#~ "exclusive forums at %s. Our support staff hits the forums on a daily "
-#~ "basis, and what they can't answer on the spot they'll bring a member of "
-#~ "our dev team in to address directly."
-#~ msgstr ""
-#~ "En av fördelarna med att vara en PRO-användare är att du har tillgång "
-#~ "till vårt PRO-exklusiva forum på %s. Vår supportpersonal deltar i forumet "
-#~ "på daglig basis och om de inte kan svara på frågan ber de någon från vårt "
-#~ "utvecklingsteam att ta över diskussionen."
-
-#
-#~ msgid "Some things to consider before posting on the forum:"
-#~ msgstr "Några saker att tänka på innan du skriver på forumet:"
-
-#~ msgid ""
-#~ "Search recent threads before posting a new one to check that there isn't "
-#~ "already a discussion about your issue."
-#~ msgstr ""
-#~ "Sök i de senaste inläggen innan du skapar ett nytt och kontrollera att "
-#~ "det inte redan finns en pågående diskussion i din fråga."
-
-#~ msgid ""
-#~ "Check whether the issue is a conflict with another plugin or your theme. "
-#~ "This can be tested easily on a staging site by deactivating other plugins "
-#~ "one-by-one, and reverting to the default Twenty Twelve theme to see if "
-#~ "conflicts can be easily identified. If you find a conflict, note it in a "
-#~ "support thread."
-#~ msgstr ""
-#~ "Kontrollera om problemet är en konflikt med ett annat tillägg eller ditt "
-#~ "tema. Detta kan enkelt testas på en testwebbplats genom att avaktivera "
-#~ "andra tillägg, ett i taget, och återgå till standard 2012 temat för att "
-#~ "se om konflikter lätt kan identifieras. Om du hittar en konflikt, ange "
-#~ "det när du postar ditt inlägg."
-
-#~ msgid ""
-#~ "Sometimes, resaving your permalinks (under <a href=\"%s\">Settings > "
-#~ "Permalinks</a>) can resolve events-related problems on your site. Before "
-#~ "creating a new thread try this handy trick."
-#~ msgstr ""
-#~ "Ibland hjälper det att spara om dina permalänkar (under <a href=\"%s"
-#~ "\">Inställningar > Permalänkar</a>) för att lösa evenemangsrelaterade "
-#~ "problem på din webbplats. Prova detta användbara trick innan du skapar "
-#~ "ett nytt inlägg."
-
-#~ msgid ""
-#~ "While we won't build your site for you and can't guarantee The Events "
-#~ "Calendar PRO to play nicely with every theme and plugin out there, our "
-#~ "team will do our best to help you get it functioning nicely with your "
-#~ "site. And as an added bonus, once you're done you can post it in "
-#~ "the %s so the rest of the community can see what you've been working on."
-#~ msgstr ""
-#~ "Även om vi inte kan bygga din webbplats för dig och inte kan garantera "
-#~ "att The Events Calendar/PRO fungerar perfekt med alla teman och tillägg "
-#~ "som finns, kommer vårt team att göra sitt bästa för att hjälpa dig få det "
-#~ "att fungera med din webbplats. Och som en extra bonus, när du är klar kan "
-#~ "du posta den i %s så att resten av communityn kan se din skapelse."
-
-#~ msgid "Showcase thread"
-#~ msgstr "Demo tråden"
-
-#~ msgid ""
-#~ "listed under %s. Check out events for this category or view the full "
-#~ "calendar."
-#~ msgstr ""
-#~ "listade under %s. Kolla evenemang för denna kategori eller visa hela "
-#~ "kalendern."
-
-#~ msgid "Refine your search:"
-#~ msgstr "Förfina din sökning:"
-
-#~ msgid "Show:"
-#~ msgstr "Visa:"
-
-#, fuzzy
-#~ msgid "Show if no events?"
-#~ msgstr "Visa kommentarer"
-
-#, fuzzy
-#~ msgid "Venue Widget"
-#~ msgstr "Nästa evenemangs widget"
-
-#~ msgid "Venues"
-#~ msgstr "Platser"
-
-#~ msgid "Organizers"
-#~ msgstr "Arrangörer"
-
-#~ msgid "Use Saved Venue:"
-#~ msgstr "Använd sparad plats:"
-
-#~ msgid "Use Saved Organizer:"
-#~ msgstr "Använd sparad arrangör:"
-
-#~ msgid "Defaults"
-#~ msgstr "Förvald"
-
-#~ msgid ""
-#~ "%sWelcome to Events Calendar, a full-featured events management system "
-#~ "for WordPress. By buying a license you've given us a vote of confidence, "
-#~ "will get active support and have hooked up some sweet additional features "
-#~ "not found in the free The Events Calendar.%s"
-#~ msgstr ""
-#~ "%sVälkommen till The Events Calendar, ett fullfjädrat "
-#~ "evenemangshanteringssystem för WordPress. Genom att köpa en licens ger du "
-#~ "oss ditt förtroende, kommer att få aktiv support och ansluter dig till "
-#~ "ytterligare några fina funktioner som inte finns i det fria "
-#~ "evenemangskalendern.%s"
-
-#~ msgid ""
-#~ "%sIf you aren't familiar with The Events Calendar, it may be wise to "
-#~ "check out our %s. It'll introduce you to the basics of what the plugin "
-#~ "has to offer and will have you creating events in no time. From there, "
-#~ "the resources below -- extensive template tag documentation, FAQs, video "
-#~ "walkthroughs and more -- will give you a leg up as you dig deeper.%s"
-#~ msgstr ""
-#~ "%sOm du inte är bekant med The Events Calendar, kan det vara klokt att ta "
-#~ "en titt på vår %s. Den introducerar dig till grunderna om vad tillägget "
-#~ "har att erbjuda och kommer att få dig att skapa händelser på nolltid. "
-#~ "Därifrån resurserna nedan -- extensive template tag dokumentation, frågor "
-#~ "och svar (FAQ), instruktionsvideos etc -- ger dig ett försprång när du "
-#~ "gräver djupare.%s"
-
-#~ msgid "new user primer"
-#~ msgstr "första stegen för nya användare"
-
-#~ msgid ""
-#~ "%sOh, wondering what to do with your license key and whether you need it "
-#~ "before you can get into event creation? Check out %s on that subject for "
-#~ "an answer. %s, if you don't have it handy.%s"
-#~ msgstr ""
-#~ "%sJaså, du undrar vad du ska göra med din licensnyckel och om du behöver "
-#~ "den innan du kan börja skapa evenemang? Kolla in %s för ett svar. %s, om "
-#~ "du inte har den till hands.%s"
-
-#~ msgid "our blog post"
-#~ msgstr "vår bloggpost"
-
-#~ msgid "Here's how you find your license key"
-#~ msgstr "Såhär hittar du din licensnyckel"
-
-#~ msgid "tri.be"
-#~ msgstr "tri.be"
-
-#~ msgid ""
-#~ "%sLook through existing threads before posting a new one and check that "
-#~ "there isn't already a discussion going on your issue. The tri.be site has "
-#~ "a solid search function that should help find what you're looking for, if "
-#~ "it indeed already is present.%s"
-#~ msgstr ""
-#~ "%sTitta igenom befintliga inlägg innan du skapar ett nytt och kontrollera "
-#~ "att det inte redan finns en pågående diskussion i din fråga. Webbsidan "
-#~ "tri.be  har en bra sökfunktion som hjälper dig att hitta det du letar "
-#~ "efter, om det faktiskt redan finns.%s"
-
-#~ msgid "Use New Venue"
-#~ msgstr "Använd ny plats"
-
-#~ msgid "Use New Organizer"
-#~ msgstr "Använd ny arrangör"
-
-#~ msgid ""
-#~ "Add unique fields to your event editor. Using the form below, you can "
-#~ "quickly add checkboxes for dietary options like \"low salt, vegetarian, "
-#~ "kosher\" or a dropdown for “DJ” to your event editor."
-#~ msgstr ""
-#~ "Lägg unika fält i din evenemangsredigerare. Med hjälp av formuläret nedan "
-#~ "kan du snabbt lägga till kryssrutor för kostalternativ som \"vegetariskt, "
-#~ "veganskt, laktosfritt, glutenfritt\" eller en lista för \"DJ\" i din "
-#~ "evenemangsredigerare."
-
-#~ msgid "End"
-#~ msgstr "Slutar"
-
-#~ msgid "<em>The current default value is:</em> <strong>%s</strong>"
-#~ msgstr "<em>Nuvarande förvalt värde är:</em> <strong>%s</strong>"
-
-#~ msgid "No default value set"
-#~ msgstr "Inget förvalt värde satt"
-
-#~ msgid ""
-#~ "One country per line in the following format: <br/>US, United States <br/"
-#~ "> UK, United Kingdom.<br/>"
-#~ msgstr ""
-#~ "Ett land per rad på följande format: <br/>SE, Sverige <br/> US, United "
-#~ "States <br/> UK, United Kingdom.<br/>"
-
-#~ msgid "(Replaces the default list)"
-#~ msgstr "(Ersätter den förvalda listan)"
-
-#~ msgid "Use New Venue/No Default"
-#~ msgstr "Använd ny plats/Inget förval"
-
-#~ msgid "Default Address for Events"
-#~ msgstr "Förvald adress för evenemang"
-
-#~ msgid "Default City for Events"
-#~ msgstr "Förvald stad för evenemang"
-
-#~ msgid "Default State for Events"
-#~ msgstr "Förvalt län för evenemang"
-
-#~ msgid "Default Province for Events"
-#~ msgstr "Förvalt län för evenemang"
-
-#~ msgid "Default Postal Code/Zip Code for Events"
-#~ msgstr "Förvald postkod för evenemang"
-
-#~ msgid "Default Phone for Events"
-#~ msgstr "Förval telefonnummer för evenemang"
-
-#~ msgid "Start Date & Time"
-#~ msgstr "Start datum & tid"
-
-#~ msgid "(Widget will always show start date)"
-#~ msgstr "(Visa alltid startdatum i widget)"
-
-#~ msgid ""
-#~ "If you wish to customize the widget display yourself, see the file views/"
-#~ "events-list-load-widget-display.php inside the Events Premium plugin."
-#~ msgstr ""
-#~ "Om du vill anpassa widgetens visning själv, se filen views/events-list-"
-#~ "load-widget-display.php i the Events Premium tillägget."
-
-#~ msgid "A calendar of your events"
-#~ msgstr "En kalender för dina evenemang"
-
-#~ msgid "Your next upcoming event"
-#~ msgstr "Ditt nästa kommande evenemang"
-
-#~ msgid "There are no upcoming events at this time."
-#~ msgstr "Det finns för närvarande inga kommande evenemang."
-
-#~ msgid "License Key for %s"
-#~ msgstr "Licensnyckel för %s"
-
-#~ msgid "[X]"
-#~ msgstr "[X]"
-
-#~ msgid "Ends"
-#~ msgstr "Slutar"
-
-#~ msgid ""
-#~ "You can set up any additional custom fields that you would like to use "
-#~ "for events here."
-#~ msgstr ""
-#~ "Du kan ställa in ytterligare anpassade fält som du vill använda för "
-#~ "evenemang här."
-
-#~ msgid "Dismiss"
-#~ msgstr "Avfärda"
-
-#~ msgid "Add more file"
-#~ msgstr "Lägg till fler filer"
-
-#~ msgid ""
-#~ " listed under %s. Check out upcoming events for this category or view the "
-#~ "full calendar."
-#~ msgstr ""
-#~ "listad under %s. Kolla kommande evenemang för denna kategori eller visa "
-#~ "hela kalendern."
-
-#~ msgid "View all &raquo;"
-#~ msgstr "Visa alla &raquo;"
-
-#~ msgid "This event has passed."
-#~ msgstr "Evenemanget har varit."
-
-#~ msgid "Email:"
-#~ msgstr "E-post:"
-
-#~ msgid "Schedule:"
-#~ msgstr "Schema:"
-
-#~ msgid "Event Time &amp; Date"
-#~ msgstr "Evenemang tid &amp; datum"
-
-#~ msgid ""
-#~ "You have changed the recurrence rules of this event.  Saving the event "
-#~ "will update all future events.  If you did not mean to change all events, "
-#~ "then please refresh the page."
-#~ msgstr ""
-#~ "Du har ändrat repetitionsreglerna för detta evenemang. Spara händelsen "
-#~ "kommer att uppdatera alla framtida evenemang. Om du ändå inte vill ändra "
-#~ "alla evenemang kan du uppdatera sidan."
-
-#~ msgid "All day event?"
-#~ msgstr "Heldagsevenemang?"
-
-#~ msgid "YYYY-MM-DD"
-#~ msgstr "ÅÅÅÅ-MM-DD"
-
-#~ msgid "@"
-#~ msgstr "@"
-
-#~ msgid "Event Location Details"
-#~ msgstr "Plats för evenemanget"
-
-#~ msgid "Show Google Maps Link:"
-#~ msgstr "Visa Google Maps länk:"
-
-#~ msgid "Show Google Map:"
-#~ msgstr "Visa Google Map:"
-
-#~ msgid "Event Organizer Details"
-#~ msgstr "Arrangör info"
-
-#~ msgid "Leave blank to hide the field. Enter a 0 for events that are free."
-#~ msgstr ""
-#~ "Lämnas blankt för att dölja fältet. Skriv 0 för evenemang som är gratis."
-
-#~ msgid ""
-#~ "Looking for additional functionality including recurring events, custom "
-#~ "meta, community events, ticket sales and more?"
-#~ msgstr ""
-#~ "Söker du ytterligare funktionalitet som repeterande evenemang, anpassad "
-#~ "meta, community evenemang, biljettförsäljning med mera?"
-
-#~ msgid "Check out the <a href=\"%s\">available Add-Ons</a>."
-#~ msgstr "Kolla <a href=\"%s\">tillgängliga  tillägg</a>."
-
-#~ msgid "Which events do you wish to update?"
-#~ msgstr "Vilka evenemang vill du uppdatera?"
-
-#~ msgid "Select your desired action"
-#~ msgstr "Välj din önskade åtgärd"
-
-#~ msgid "Hide From Upcoming Events List"
-#~ msgstr "Dölj från kommande evenemangslista"
-
-#~ msgid "%s Settings"
-#~ msgstr "%s inställningar"
-
-#~ msgid "Need a hand?"
-#~ msgstr "Behöver du hjälp?"
-
-#~ msgid ""
-#~ "If you're stuck on these options, please <a href=\"%s\">check out the "
-#~ "documentation</a>. Or, go to the <a href=\"%s\">support forum</a>."
-#~ msgstr ""
-#~ "Om du kört fast på dessa alternativ, <a href=\"%s\">kolla "
-#~ "dokumentationen</a>. Eller gå till <a href=\"%s\">supportforumet</a>."
-
-#~ msgid "Here is the iCal feed URL for your events: "
-#~ msgstr "Här är iCal feed URL för dina evenemang:"
-
-#~ msgid "Multiday Event Cutoff"
-#~ msgstr "Flerdagsevenemag avklippt"
-
-#~ msgid ""
-#~ "For multi-day events, hide the last day from grid view if it ends on or "
-#~ "before this time."
-#~ msgstr ""
-#~ "För flerdagsevenemang, dölj den sista dagen från rutnätsvyn om det slutar "
-#~ "vid eller före denna tid."
-
-#~ msgid "Enable Google Maps"
-#~ msgstr "Aktivera Google Maps"
-
-#~ msgid "Height"
-#~ msgstr "Höjd"
-
-#~ msgid "Width"
-#~ msgstr "Bredd"
-
-#~ msgid "(number or %)"
-#~ msgstr "(Antal eller %)"
-
-#~ msgid ""
-#~ "If you don't have this turned on, your event listings won't have the "
-#~ "backend map preview or frontend embedded map."
-#~ msgstr ""
-#~ "Om du inte har detta aktiverat, kommer ditt evenemangs listningar inte ha "
-#~ "backend kartförhandsgranskning eller frontend inbäddad karta."
-
-#~ msgid "Events URL slug"
-#~ msgstr "Evenemangs URL slug"
-
-#~ msgid "The slug used for building the Events URL."
-#~ msgstr "Sluggen som används för att bygga evenemangs URL:en."
-
-#~ msgid "Single Event URL slug"
-#~ msgstr "Enstaka evenemangs URL slug"
-
-#~ msgid "The slug used for building a single Event URL."
-#~ msgstr ""
-#~ "Sluggen som används för att bygga evenemangs URL:en för ett enstaka "
-#~ "evenemang."
-
-#~ msgid ""
-#~ "<strong>NOTE:</strong> You <em>cannot</em> use the same slug as above. "
-#~ "The above should ideally be plural, and this singular.<br />Your single "
-#~ "Event URL is like: <strong>%s</strong>"
-#~ msgstr ""
-#~ "<strong>NOTERA:</strong> Du kan <em>inte</em> använda samma slug som "
-#~ "ovan. Det ovan bör idealt vara i plural, och detta i singular.<br />URL:"
-#~ "en för ett enstaka evenemang är: <strong>%s</strong>"
-
-#~ msgid "Debug"
-#~ msgstr "Debugga"
-
-#~ msgid "Debug Events display issues."
-#~ msgstr "Debugga problem med visning av evenemang."
-
-#~ msgid ""
-#~ "Enable this option to log debug information. By default this will log to "
-#~ "your server PHP error log. If you'd like to see the log messages in your "
-#~ "browser, then we recommend that you install the <a href=\"%s\" target="
-#~ "\"_blank\">Debug Bar Plugin</a> and look for the \"Tribe\" tab in the "
-#~ "debug output."
-#~ msgstr ""
-#~ "Aktivera detta alternativ för att logga debuginformation. Som standard "
-#~ "kommer detta att logga till din servers PHP-fellogg. Om du vill se loggen "
-#~ "i din webbläsare, rekommenderar vi att du installerar <a href=\"%s\" "
-#~ "target=\"_blank\">Debug Bar Plugin</a> och titta under \"Tribe\"fliken i "
-#~ "debug utmatningen."
-
-#~ msgid "Theme Settings"
-#~ msgstr "Temainställningar"
-
-#~ msgid "Default Page Template"
-#~ msgstr "Standard sidmall"
-
-#~ msgid ""
-#~ "Choose a page template to control the look and feel of your calendar."
-#~ msgstr ""
-#~ "Välj en sidmall för att kontrollera utseendet och känslan av din kalender."
-
-#~ msgid "Add HTML before calendar"
-#~ msgstr "Lägg till HTML före kalender"
-
-#~ msgid ""
-#~ "Some themes may require that you add extra divs before the calendar list "
-#~ "to help with styling."
-#~ msgstr ""
-#~ "Vissa teman kan kräva att du lägger till extra div:ar innan "
-#~ "kalenderlistan för att hjälpa till med styling."
-
-#~ msgid "This is displayed directly after the header."
-#~ msgstr "Detta visas direkt efter sidhuvudet."
-
-#~ msgid "You may use (x)HTML."
-#~ msgstr "Du kan använda (x)HTML."
-
-#~ msgid "Add HTML after calendar"
-#~ msgstr "Lägg till HTML efter kalender"
-
-#~ msgid ""
-#~ "Some themes may require that you add extra divs after the calendar list "
-#~ "to help with styling."
-#~ msgstr ""
-#~ "Vissa teman kan kräva att du lägger extra div:ar efter kalenderlistan för "
-#~ "att hjälpa till med styling."
-
-#~ msgid "This is displayed directly above the footer."
-#~ msgstr "Detta visas direkt över sidfoten."
-
-#~ msgid "Save Changes"
-#~ msgstr "Spara ändringar"
-
-#~ msgid "Organizer Name:"
-#~ msgstr "Arrangörnamn:"
-
-#~ msgid "Website:"
-#~ msgstr "Webbplats:"
-
-#~ msgid "All %s"
-#~ msgstr "Alla %s"
-
-#~ msgid "United States"
-#~ msgstr "Förenta Staterna"
-
-#~ msgid "Afghanistan"
-#~ msgstr "Afghanistan"
-
-#~ msgid "Albania"
-#~ msgstr "Albanien"
-
-#~ msgid "Algeria"
-#~ msgstr "Algeriet"
-
-#~ msgid "American Samoa"
-#~ msgstr "Amerikanska Samoa"
-
-#~ msgid "Andorra"
-#~ msgstr "Andorra"
-
-#~ msgid "Angola"
-#~ msgstr "Angola"
-
-#~ msgid "Anguilla"
-#~ msgstr "Anguilla"
-
-#~ msgid "Antarctica"
-#~ msgstr "Antarktis"
-
-#~ msgid "Antigua And Barbuda"
-#~ msgstr "Antigua och Barbuda"
-
-#~ msgid "Argentina"
-#~ msgstr "Argentina"
-
-#~ msgid "Armenia"
-#~ msgstr "Armenien"
-
-#~ msgid "Aruba"
-#~ msgstr "Aruba"
-
-#~ msgid "Australia"
-#~ msgstr "Australien"
-
-#~ msgid "Azerbaijan"
-#~ msgstr "Azerbajdzjan"
-
-#~ msgid "Bahamas"
-#~ msgstr "Bahamas"
-
-#~ msgid "Bahrain"
-#~ msgstr "Bahrain"
-
-#~ msgid "Bangladesh"
-#~ msgstr "Bangladesh"
-
-#~ msgid "Barbados"
-#~ msgstr "Barbados"
-
-#~ msgid "Belarus"
-#~ msgstr "Vitryssland"
-
-#~ msgid "Belgium"
-#~ msgstr "Belgien"
-
-#~ msgid "Belize"
-#~ msgstr "Belize"
-
-#~ msgid "Benin"
-#~ msgstr "Benin"
-
-#~ msgid "Bermuda"
-#~ msgstr "Bermuda"
-
-#~ msgid "Bhutan"
-#~ msgstr "Bhutan"
-
-#~ msgid "Bolivia"
-#~ msgstr "Bolivia"
-
-#~ msgid "Bosnia And Herzegowina"
-#~ msgstr "Bosnien och Hercegovina"
-
-#~ msgid "Botswana"
-#~ msgstr "Botswana"
-
-#~ msgid "Bouvet Island"
-#~ msgstr "Bouvet Island"
-
-#~ msgid "Brazil"
-#~ msgstr "Brasilien"
-
-#~ msgid "British Indian Ocean Territory"
-#~ msgstr "Brittiska territoriet i Indiska oceanen"
-
-#~ msgid "Brunei Darussalam"
-#~ msgstr "Brunei Darussalam"
-
-#~ msgid "Bulgaria"
-#~ msgstr "Bulgarien"
-
-#~ msgid "Burkina Faso"
-#~ msgstr "Burkina Faso"
-
-#~ msgid "Burundi"
-#~ msgstr "Burundi"
-
-#~ msgid "Cambodia"
-#~ msgstr "Kambodja"
-
-#~ msgid "Cameroon"
-#~ msgstr "Kamerun"
-
-#~ msgid "Canada"
-#~ msgstr "Kanada"
-
-#~ msgid "Cape Verde"
-#~ msgstr "Kap Verde"
-
-#~ msgid "Cayman Islands"
-#~ msgstr "Caymanöarna"
-
-#~ msgid "Central African Republic"
-#~ msgstr "Centralafrikanska republiken"
-
-#~ msgid "Chad"
-#~ msgstr "Tchad"
-
-#~ msgid "Chile"
-#~ msgstr "Chile"
-
-#~ msgid "China"
-#~ msgstr "Kina"
-
-#~ msgid "Christmas Island"
-#~ msgstr "Julön"
-
-#~ msgid "Cocos (Keeling) Islands"
-#~ msgstr "Kokosöarna"
-
-#~ msgid "Colombia"
-#~ msgstr "Colombia"
-
-#~ msgid "Congo"
-#~ msgstr "Kongo"
-
-#~ msgid "Congo, The Democratic Republic Of The"
-#~ msgstr "Kongo-Kinshasa (Demokratiska republiken Kongo)"
-
-#~ msgid "Cook Islands"
-#~ msgstr "Cooköarna"
-
-#~ msgid "Costa Rica"
-#~ msgstr "Costa Rica"
-
-#~ msgid "Cote D'Ivoire"
-#~ msgstr "Elfenbenskusten"
-
-#~ msgid "Croatia (Local Name: Hrvatska)"
-#~ msgstr "Kroatien"
-
-#~ msgid "Cuba"
-#~ msgstr "Kuba"
-
-#~ msgid "Cyprus"
-#~ msgstr "Cypern"
-
-#~ msgid "Czech Republic"
-#~ msgstr "Tjekien"
-
-#~ msgid "Denmark"
-#~ msgstr "Danmark"
-
-#~ msgid "Djibouti"
-#~ msgstr "Djibouti (Republiken Djibouti)"
-
-#~ msgid "Dominica"
-#~ msgstr "Dominica (Samväldet Dominica)"
-
-#~ msgid "Dominican Republic"
-#~ msgstr "Dominikanska republiken"
-
-#~ msgid "East Timor"
-#~ msgstr "Östtimor"
-
-#~ msgid "Ecuador"
-#~ msgstr "Ecuador"
-
-#~ msgid "Egypt"
-#~ msgstr "Egypten"
-
-#~ msgid "El Salvador"
-#~ msgstr "El Salvador"
-
-#~ msgid "Equatorial Guinea"
-#~ msgstr "Ekvatorialguinea"
-
-#~ msgid "Eritrea"
-#~ msgstr "Eritrea"
-
-#~ msgid "Estonia"
-#~ msgstr "Estland"
-
-#~ msgid "Ethiopia"
-#~ msgstr "Etiopien"
-
-#~ msgid "Falkland Islands (Malvinas)"
-#~ msgstr "Falklandsöarna (Malvinerna)"
-
-#~ msgid "Faroe Islands"
-#~ msgstr "Färöarna"
-
-#~ msgid "Fiji"
-#~ msgstr "Fiji"
-
-#~ msgid "Finland"
-#~ msgstr "Finland"
-
-#~ msgid "France, Metropolitan"
-#~ msgstr "France métropolitaine"
-
-#~ msgid "French Guiana"
-#~ msgstr "Franska Guyana"
-
-#~ msgid "French Polynesia"
-#~ msgstr "Franska Polynesien"
-
-#~ msgid "French Southern Territories"
-#~ msgstr "Franska sydterritorierna"
-
-#~ msgid "Gabon"
-#~ msgstr "Gabon"
-
-#~ msgid "Gambia"
-#~ msgstr "Gambia"
-
-#~ msgid "Georgia"
-#~ msgstr "Georgia"
-
-#~ msgid "Germany"
-#~ msgstr "Tyskland"
-
-#~ msgid "Ghana"
-#~ msgstr "Ghana"
-
-#~ msgid "Gibraltar"
-#~ msgstr "Gibraltar"
-
-#~ msgid "Greece"
-#~ msgstr "Grekland"
-
-#~ msgid "Greenland"
-#~ msgstr "Grönland"
-
-#~ msgid "Grenada"
-#~ msgstr "Grenada"
-
-#~ msgid "Guadeloupe"
-#~ msgstr "Guadeloupe"
-
-#~ msgid "Guam"
-#~ msgstr "Guam"
-
-#~ msgid "Guatemala"
-#~ msgstr "Guatemala"
-
-#~ msgid "Guinea-Bissau"
-#~ msgstr "Guinea-Bissau"
-
-#~ msgid "Guyana"
-#~ msgstr "Guyana"
-
-#~ msgid "Haiti"
-#~ msgstr "Haiti"
-
-#~ msgid "Heard And Mc Donald Islands"
-#~ msgstr "Heard And Mc Donald Islands"
-
-#~ msgid "Holy See (Vatican City State)"
-#~ msgstr "Vatikanen"
-
-#~ msgid "Honduras"
-#~ msgstr "Honduras"
-
-#~ msgid "Hong Kong"
-#~ msgstr "Hong Kong"
-
-#~ msgid "Hungary"
-#~ msgstr "Ungern"
-
-#~ msgid "Iceland"
-#~ msgstr "Island"
-
-#~ msgid "India"
-#~ msgstr "Indien"
-
-#~ msgid "Indonesia"
-#~ msgstr "Indonesien"
-
-#~ msgid "Iran (Islamic Republic Of)"
-#~ msgstr "Iran (Islamiska republiken Iran)"
-
-#~ msgid "Iraq"
-#~ msgstr "Irak"
-
-#~ msgid "Ireland"
-#~ msgstr "Irland"
-
-#~ msgid "Israel"
-#~ msgstr "Israel"
-
-#~ msgid "Jamaica"
-#~ msgstr "Jamaica"
-
-#~ msgid "Jordan"
-#~ msgstr "Jordanien"
-
-#~ msgid "Kazakhstan"
-#~ msgstr "Kazakstan"
-
-#~ msgid "Kenya"
-#~ msgstr "Kenya"
-
-#~ msgid "Kiribati"
-#~ msgstr "Kiribati"
-
-#~ msgid "Korea, Democratic People's Republic Of"
-#~ msgstr "Nordkorea (Demokratiska folkrepubliken Korea)"
-
-#~ msgid "Korea, Republic Of"
-#~ msgstr "Sydkorea (Republiken Korea)"
-
-#~ msgid "Kuwait"
-#~ msgstr "Kuwait"
-
-#~ msgid "Kyrgyzstan"
-#~ msgstr "Kirgizistan"
-
-#~ msgid "Lao People's Democratic Republic"
-#~ msgstr "Laos (Demokratiska folkrepubliken Laos)"
-
-#~ msgid "Latvia"
-#~ msgstr "Lettland"
-
-#~ msgid "Lebanon"
-#~ msgstr "Libanon"
-
-#~ msgid "Lesotho"
-#~ msgstr "Lesotho (Konungariket Lesotho)"
-
-#~ msgid "Liberia"
-#~ msgstr "Liberia"
-
-#~ msgid "Libya"
-#~ msgstr "Libyen"
-
-#~ msgid "Liechtenstein"
-#~ msgstr "Liechtenstein"
-
-#~ msgid "Lithuania"
-#~ msgstr "Litauen"
-
-#~ msgid "Luxembourg"
-#~ msgstr "Luxemburg"
-
-#~ msgid "Macedonia"
-#~ msgstr "Makedonien"
-
-#~ msgid "Madagascar"
-#~ msgstr "Madagaskar"
-
-#~ msgid "Malawi"
-#~ msgstr "Malawi"
-
-#~ msgid "Malaysia"
-#~ msgstr "Malaysia"
-
-#~ msgid "Maldives"
-#~ msgstr "Maldiverna (Republiken Maldiverna)"
-
-#~ msgid "Mali"
-#~ msgstr "Mali"
-
-#~ msgid "Malta"
-#~ msgstr "Malta"
-
-#~ msgid "Marshall Islands"
-#~ msgstr "Marshallöarna"
-
-#~ msgid "Martinique"
-#~ msgstr "Martinique"
-
-#~ msgid "Mauritania"
-#~ msgstr "Mauretanien (Islamiska republiken Mauretanien)"
-
-#~ msgid "Mauritius"
-#~ msgstr "Mauritius"
-
-#~ msgid "Mexico"
-#~ msgstr "Mexico"
-
-#~ msgid "Micronesia, Federated States Of"
-#~ msgstr "Mikronesien"
-
-#~ msgid "Moldova, Republic Of"
-#~ msgstr "Moldavien"
-
-#~ msgid "Monaco"
-#~ msgstr "Monaco"
-
-#~ msgid "Mongolia"
-#~ msgstr "Mongoliet"
-
-#~ msgid "Montenegro"
-#~ msgstr "Montenegro"
-
-#~ msgid "Montserrat"
-#~ msgstr "Montserrat"
-
-#~ msgid "Morocco"
-#~ msgstr "Marocko"
-
-#~ msgid "Mozambique"
-#~ msgstr "Moçambique (Republiken Moçambique)"
-
-#~ msgid "Namibia"
-#~ msgstr "Namibia"
-
-#~ msgid "Nauru"
-#~ msgstr "Nauru"
-
-#~ msgid "Nepal"
-#~ msgstr "Nepal"
-
-#~ msgid "Netherlands"
-#~ msgstr "Nederländerna"
-
-#~ msgid "Netherlands Antilles"
-#~ msgstr "Nederländska Antillerna"
-
-#~ msgid "New Caledonia"
-#~ msgstr "Nya Kaledonien"
-
-#~ msgid "New Zealand"
-#~ msgstr "Nya Zeeland"
-
-#~ msgid "Nicaragua"
-#~ msgstr "Nicaragua"
-
-#~ msgid "Niger"
-#~ msgstr "Niger"
-
-#~ msgid "Nigeria"
-#~ msgstr "Nigeria"
-
-#~ msgid "Niue"
-#~ msgstr "Niue"
-
-#~ msgid "Norfolk Island"
-#~ msgstr "Norfolkön"
-
-#~ msgid "Northern Mariana Islands"
-#~ msgstr "Nordmarianerna"
-
-#~ msgid "Norway"
-#~ msgstr "Norge"
-
-#~ msgid "Palau"
-#~ msgstr "Palau"
-
-#~ msgid "Panama"
-#~ msgstr "Panama"
-
-#~ msgid "Papua New Guinea"
-#~ msgstr "Papua Nya Guinea"
-
-#~ msgid "Paraguay"
-#~ msgstr "Paraguay"
-
-#~ msgid "Peru"
-#~ msgstr "Peru"
-
-#~ msgid "Philippines"
-#~ msgstr "Filippinerna"
-
-#~ msgid "Pitcairn"
-#~ msgstr "Pitcairnöarna"
-
-#~ msgid "Poland"
-#~ msgstr "Polen"
-
-#~ msgid "Portugal"
-#~ msgstr "Portugal"
-
-#~ msgid "Puerto Rico"
-#~ msgstr "Puerto Rico"
-
-#~ msgid "Qatar"
-#~ msgstr "Qatar"
-
-#~ msgid "Reunion"
-#~ msgstr "Réunion"
-
-#~ msgid "Romania"
-#~ msgstr "Rumänien"
-
-#~ msgid "Russian Federation"
-#~ msgstr "Ryssland (Ryska federationen)"
-
-#~ msgid "Rwanda"
-#~ msgstr "Rwanda"
-
-#~ msgid "Saint Kitts And Nevis"
-#~ msgstr "Saint Kitts och Nevis"
-
-#~ msgid "Saint Lucia"
-#~ msgstr "Saint Lucia"
-
-#~ msgid "Saint Vincent And The Grenadines"
-#~ msgstr "Saint Vincent och Grenadinerna"
-
-#~ msgid "Samoa"
-#~ msgstr "Samoa"
-
-#~ msgid "San Marino"
-#~ msgstr "San Marino"
-
-#~ msgid "Sao Tome And Principe"
-#~ msgstr "São Tomé och Príncipe"
-
-#~ msgid "Saudi Arabia"
-#~ msgstr "Saudiarabien"
-
-#~ msgid "Senegal"
-#~ msgstr "Senegal"
-
-#~ msgid "Serbia"
-#~ msgstr "Serbien"
-
-#~ msgid "Seychelles"
-#~ msgstr "Seychellerna"
-
-#~ msgid "Sierra Leone"
-#~ msgstr "Sierra Leone"
-
-#~ msgid "Singapore"
-#~ msgstr "Singapore"
-
-#~ msgid "Slovakia (Slovak Republic)"
-#~ msgstr "Slovakien"
-
-#~ msgid "Slovenia"
-#~ msgstr "Slovenien"
-
-#~ msgid "Solomon Islands"
-#~ msgstr "Salomonöarna"
-
-#~ msgid "Somalia"
-#~ msgstr "Somalia"
-
-#~ msgid "South Africa"
-#~ msgstr "Sydafrika"
-
-#~ msgid "South Georgia, South Sandwich Islands"
-#~ msgstr "Sydgeorgien och Sydsandwichöarna"
-
-#~ msgid "Spain"
-#~ msgstr "Spanien"
-
-#~ msgid "Sri Lanka"
-#~ msgstr "Sri Lanka"
-
-#~ msgid "St. Helena"
-#~ msgstr "Sankta Helena"
-
-#~ msgid "St. Pierre And Miquelon"
-#~ msgstr "Saint-Pierre och Miquelon"
-
-#~ msgid "Suriname"
-#~ msgstr "Surinam"
-
-#~ msgid "Svalbard And Jan Mayen Islands"
-#~ msgstr "Svalbard och Jan Mayen"
-
-#~ msgid "Swaziland"
-#~ msgstr "Swaziland"
-
-#~ msgid "Sweden"
-#~ msgstr "Sverige"
-
-#~ msgid "Switzerland"
-#~ msgstr "Schweiz"
-
-#~ msgid "Syrian Arab Republic"
-#~ msgstr "Syrien (Arabrepubliken Syrien)"
-
-#~ msgid "Taiwan"
-#~ msgstr "Taiwan"
-
-#~ msgid "Tajikistan"
-#~ msgstr "Tadzjikistan"
-
-#~ msgid "Tanzania, United Republic Of"
-#~ msgstr "Tanzania"
-
-#~ msgid "Togo"
-#~ msgstr "Togo"
-
-#~ msgid "Tokelau"
-#~ msgstr "Tokelauöarna"
-
-#~ msgid "Tonga"
-#~ msgstr "Tonga"
-
-#~ msgid "Trinidad And Tobago"
-#~ msgstr "Trinidad And Tobago"
-
-#~ msgid "Tunisia"
-#~ msgstr "Tunisien"
-
-#~ msgid "Turkey"
-#~ msgstr "Turkiet"
-
-#~ msgid "Turkmenistan"
-#~ msgstr "Turkmenistan"
-
-#~ msgid "Turks And Caicos Islands"
-#~ msgstr "Turks- och Caicosöarna"
-
-#~ msgid "Tuvalu"
-#~ msgstr "Tuvalu"
-
-#~ msgid "Uganda"
-#~ msgstr "Uganda"
-
-#~ msgid "Ukraine"
-#~ msgstr "Ukraina"
-
-#~ msgid "United Arab Emirates"
-#~ msgstr "Förenade Arabemiraten"
-
-#~ msgid "United Kingdom"
-#~ msgstr "Storbritannien (Förenade kungariket Storbritannien)"
-
-#~ msgid "United States Minor Outlying Islands"
-#~ msgstr "Förenta staternas avlägset belägna öar"
-
-#~ msgid "Uruguay"
-#~ msgstr "Uruguay"
-
-#~ msgid "Uzbekistan"
-#~ msgstr "Uzbekistan"
-
-#~ msgid "Vanuatu"
-#~ msgstr "Vanuatu"
-
-#~ msgid "Venezuela"
-#~ msgstr "Venezuela"
-
-#~ msgid "Virgin Islands (British)"
-#~ msgstr "Brittiska Jungfruöarna"
-
-#~ msgid "Virgin Islands (U.S.)"
-#~ msgstr "Amerikanska Jungfruöarna"
-
-#~ msgid "Wallis And Futuna Islands"
-#~ msgstr "Wallis- och Futunaöarna"
-
-#~ msgid "Western Sahara"
-#~ msgstr "Västsahara"
-
-#~ msgid "Yemen"
-#~ msgstr "Jemen"
-
-#~ msgid "Zambia"
-#~ msgstr "Zambia"
-
-#~ msgid "Zimbabwe"
-#~ msgstr "Zimbabwe"
-
-#~ msgid "Alabama"
-#~ msgstr "Alabama"
-
-#~ msgid "Alaska"
-#~ msgstr "Alaska"
-
-#~ msgid "Arizona"
-#~ msgstr "Arizona"
-
-#~ msgid "Arkansas"
-#~ msgstr "Arkansas"
-
-#~ msgid "California"
-#~ msgstr "California"
-
-#~ msgid "Colorado"
-#~ msgstr "Colorado"
-
-#~ msgid "Connecticut"
-#~ msgstr "Connecticut"
-
-#~ msgid "Delaware"
-#~ msgstr "Delaware"
-
-#~ msgid "District of Columbia"
-#~ msgstr "District of Columbia"
-
-#~ msgid "Hawaii"
-#~ msgstr "Hawaii"
-
-#~ msgid "Idaho"
-#~ msgstr "Idaho"
-
-#~ msgid "Illinois"
-#~ msgstr "Illinois"
-
-#~ msgid "Indiana"
-#~ msgstr "Indiana"
-
-#~ msgid "Iowa"
-#~ msgstr "Iowa"
-
-#~ msgid "Kansas"
-#~ msgstr "Kansas"
-
-#~ msgid "Kentucky"
-#~ msgstr "Kentucky"
-
-#~ msgid "Louisiana"
-#~ msgstr "Louisiana"
-
-#~ msgid "Maine"
-#~ msgstr "Maine"
-
-#~ msgid "Maryland"
-#~ msgstr "Maryland"
-
-#~ msgid "Massachusetts"
-#~ msgstr "Massachusetts"
-
-#~ msgid "Michigan"
-#~ msgstr "Michigan"
-
-#~ msgid "Minnesota"
-#~ msgstr "Minnesota"
-
-#~ msgid "Mississippi"
-#~ msgstr "Mississippi"
-
-#~ msgid "Missouri"
-#~ msgstr "Missouri"
-
-#~ msgid "Montana"
-#~ msgstr "Montana"
-
-#~ msgid "Nebraska"
-#~ msgstr "Nebraska"
-
-#~ msgid "Nevada"
-#~ msgstr "Nevada"
-
-#~ msgid "New Hampshire"
-#~ msgstr "New Hampshire"
-
-#~ msgid "New Jersey"
-#~ msgstr "New Jersey"
-
-#~ msgid "New Mexico"
-#~ msgstr "New Mexico"
-
-#~ msgid "New York"
-#~ msgstr "New York"
-
-#~ msgid "North Carolina"
-#~ msgstr "North Carolina"
-
-#~ msgid "North Dakota"
-#~ msgstr "North Dakota"
-
-#~ msgid "Ohio"
-#~ msgstr "Ohio"
-
-#~ msgid "Oklahoma"
-#~ msgstr "Oklahoma"
-
-#~ msgid "Oregon"
-#~ msgstr "Oregon"
-
-#~ msgid "Pennsylvania"
-#~ msgstr "Pennsylvania"
-
-#~ msgid "Rhode Island"
-#~ msgstr "Rhode Island"
-
-#~ msgid "South Carolina"
-#~ msgstr "South Carolina"
-
-#~ msgid "South Dakota"
-#~ msgstr "South Dakota"
-
-#~ msgid "Tennessee"
-#~ msgstr "Tennessee"
-
-#~ msgid "Texas"
-#~ msgstr "Texas"
-
-#~ msgid "Utah"
-#~ msgstr "Utah"
-
-#~ msgid "Virginia"
-#~ msgstr "Virginia"
-
-#~ msgid "Washington"
-#~ msgstr "Washington"
-
-#~ msgid "West Virginia"
-#~ msgstr "West Virginia"
-
-#~ msgid "Wisconsin"
-#~ msgstr "Wisconsin"
-
-#~ msgid "Error"
-#~ msgstr "Fel"
-
-#~ msgid "category"
-#~ msgstr "kategori"
-
-#~ msgid "venue"
-#~ msgstr "plats"
-
-#~ msgid "Initializing Tribe Events on %s"
-#~ msgstr "Initierar Tribe evenemang på %s"
-
-#~ msgid ""
-#~ "Sorry, The Events Calendar requires WordPress %s or higher. Please "
-#~ "upgrade your WordPress install."
-#~ msgstr ""
-#~ "Tyvärr, The Events Calendar kräver Wordpress %s eller högre. Uppdatera "
-#~ "din Wordpress installation."
-
-#~ msgid ""
-#~ "Sorry, The Events Calendar requires PHP %s or higher. Talk to your Web "
-#~ "host about moving you to a newer version of PHP."
-#~ msgstr ""
-#~ "Tyvärr, The Events Calendar kräver PHP %s eller högre. Kontakta ditt "
-#~ "webbhotell om att flytta dig till en nyare version av PHP."
-
-#~ msgid "No description has been entered for this event."
-#~ msgstr "Ingen beskrivning har angivits för detta evenemang."
-
-#~ msgid "Add New"
-#~ msgstr "Lägg till ny"
-
-#~ msgid "Add New Event"
-#~ msgstr "Lägg till nytt evenemang"
-
-#~ msgid "View Event"
-#~ msgstr "Visa evenemang"
-
-#~ msgid "Search Events"
-#~ msgstr "Sök evenemang"
-
-#~ msgid "No events found"
-#~ msgstr "Inga evenemang hittade"
-
-#~ msgid "No events found in Trash"
-#~ msgstr "Inga evenemang hittade i Papperskorgen"
-
-#~ msgid "Add New Venue"
-#~ msgstr "Lägg till ny plats"
-
-#~ msgid "View Venue"
-#~ msgstr "Visa plats"
-
-#~ msgid "Search Venues"
-#~ msgstr "Sök platser"
-
-#~ msgid "No venue found"
-#~ msgstr "Ingen plats hittad"
-
-#~ msgid "No venues found in Trash"
-#~ msgstr "Inga platser hittade i Papperskorgen"
-
-#~ msgid "Add New Organizer"
-#~ msgstr "Lägg till ny arrangör"
-
-#~ msgid "Edit Organizer"
-#~ msgstr "Redigera arrangör"
-
-#~ msgid "Search Organizers"
-#~ msgstr "Sök arrangörer"
-
-#~ msgid "No organizers found in Trash"
-#~ msgstr "Inga arrangörer hittade i Papperskorgen"
-
-#~ msgid "Event Category"
-#~ msgstr "Evenemangskategori"
-
-#~ msgid "Search Event Categories"
-#~ msgstr "Sök evenemangskategorier"
-
-#~ msgid "All Event Categories"
-#~ msgstr "Alla evenemangskategorier"
-
-#~ msgid "Parent Event Category"
-#~ msgstr "Förälder evenemangskategori"
-
-#~ msgid "Parent Event Category:"
-#~ msgstr "Förälder evenemangskategori:"
-
-#~ msgid "Edit Event Category"
-#~ msgstr "Redigera evenemangskategori"
-
-#~ msgid "Update Event Category"
-#~ msgstr "Uppdatera evenemangskategori"
-
-#~ msgid "Add New Event Category"
-#~ msgstr "Lägg till ny evenemangskategori"
-
-#~ msgid "New Event Category Name"
-#~ msgstr "Nytt namn för evenemangskategori"
-
-#~ msgid "Event updated. <a href=\"%s\">View event</a>"
-#~ msgstr "Evenemang uppdatrerat. <a href=\"%s\">Visa evenemang</a>"
-
-#~ msgid "Custom field updated."
-#~ msgstr "Anpassat fält uppdaterat."
-
-#~ msgid "Event updated."
-#~ msgstr "Evenemang uppdaterat."
-
-#~ msgid "Event restored to revision from %s"
-#~ msgstr "Evenemang återställd till revision från %s"
-
-#~ msgid "Event published. <a href=\"%s\">View event</a>"
-#~ msgstr "Evenemang publicerat. <a href=\"%s\">Visa evenemang</a>"
-
-#~ msgid "Event saved."
-#~ msgstr "Evenemang sparat."
-
-#~ msgid "Event submitted. <a target=\"_blank\" href=\"%s\">Preview event</a>"
-#~ msgstr ""
-#~ "Evenemang tillagt. <a target=\"_blank\" href=\"%s\">Förhandsgranska "
-#~ "evenemang</a>"
-
-#~ msgid "M j, Y @ G:i"
-#~ msgstr "Y-m-d @ G:i"
-
-#~ msgid ""
-#~ "Event draft updated. <a target=\"_blank\" href=\"%s\">Preview event</a>"
-#~ msgstr ""
-#~ "Evenemangsutkast uppdaterat. <a target=\"_blank\" href=\"%s"
-#~ "\">Förhandsgranska evenemang</a>"
-
-#~ msgid "Venue updated. <a href=\"%s\">View venue</a>"
-#~ msgstr "Plats uppdaterad. <a href=\"%s\">Visa plats</a>"
-
-#~ msgid "Venue restored to revision from %s"
-#~ msgstr "Plats återställd till revision från %s"
-
-#~ msgid "Venue published. <a href=\"%s\">View venue</a>"
-#~ msgstr "Plats publicerad. <a href=\"%s\">Visa plats</a>"
-
-#~ msgid "Venue saved."
-#~ msgstr "Plats sparad."
-
-#~ msgid "Venue submitted. <a target=\"_blank\" href=\"%s\">Preview venue</a>"
-#~ msgstr ""
-#~ "Plats tillagd. <a target=\"_blank\" href=\"%s\">Förhandsgranska plats</a>"
-
-#~ msgid ""
-#~ "Venue scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" href="
-#~ "\"%2$s\">Preview venue</a>"
-#~ msgstr ""
-#~ "Plats schemalagt för: <strong>%1$s</strong>. <a target=\"_blank\" href="
-#~ "\"%2$s\">Förhandsgranska plats</a>"
-
-#~ msgid ""
-#~ "Venue draft updated. <a target=\"_blank\" href=\"%s\">Preview venue</a>"
-#~ msgstr ""
-#~ "Platsutkast uppdaterat. <a target=\"_blank\" href=\"%s\">Förhandsgranska "
-#~ "plats</a>"
-
-#~ msgid "Organizer updated. <a href=\"%s\">View organizer</a>"
-#~ msgstr "Arrangör uppdaterad. <a href=\"%s\">visa arrangör</a>"
-
-#~ msgid "Organizer updated."
-#~ msgstr "Arrangör uppdaterad."
-
-#~ msgid "Organizer restored to revision from %s"
-#~ msgstr "Arrangör återställd till revision från %s"
-
-#~ msgid "Organizer published. <a href=\"%s\">View organizer</a>"
-#~ msgstr "Arrangör publicerad. <a href=\"%s\">Visa arrangör</a>"
-
-#~ msgid "Organizer saved."
-#~ msgstr "Arrangör sparad."
-
-#~ msgid ""
-#~ "Organizer submitted. <a target=\"_blank\" href=\"%s\">Preview organizer</"
-#~ "a>"
-#~ msgstr ""
-#~ "Arrangör tillagd. <a target=\"_blank\" href=\"%s\">Förhandsgranska "
-#~ "arrangör</a>"
-
-#~ msgid ""
-#~ "Organizer scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" href="
-#~ "\"%2$s\">Preview organizer</a>"
-#~ msgstr ""
-#~ "Arrangör schemalagd för: <strong>%1$s</strong>. <a target=\"_blank\" href="
-#~ "\"%2$s\">Förhandsgranska arrangör</a>"
-
-#~ msgid ""
-#~ "Organizer draft updated. <a target=\"_blank\" href=\"%s\">Preview "
-#~ "organizer</a>"
-#~ msgstr ""
-#~ "Arrangörsutkast uppdaterat. <a target=\"_blank\" href=\"%s"
-#~ "\">Förhandsgranska arrangör</a>"
-
-#~ msgid "Organizer Information"
-#~ msgstr "Arrangörsinformation"
-
-#~ msgid "News from Tribe Pro"
-#~ msgstr "Nyheter från Tribe Pro"
-
-#~ msgid ""
-#~ "It appears that you have some old events calendar data that needs to be "
-#~ "upgraded. Please be sure to back up your database before initiating the "
-#~ "upgrade. This process can not be undone."
-#~ msgstr ""
-#~ "Det verkar som att du har några gamla kalenderhändelser som behöver "
-#~ "uppgraderas. Se till att säkerhetskopiera databasen innan du påbörjar "
-#~ "uppgraderingen. Denna process kan inte ångras."
-
-#~ msgid "Migrate Data!"
-#~ msgstr "Migrerar data!"
-
-#~ msgid "You successfully migrated (%d) entries."
-#~ msgstr "Du migrerade framgångsrikt (%d) poster."
-
-#~ msgid "Install has 1 or more legacy event!"
-#~ msgstr "Installationen har 1 eller fler föråldrade evenemang!"
+#: ../src/admin-views/event-recurrence.php:73
+#: ../src/admin-views/event-recurrence.php:135
+msgid "First"
+msgstr "Första"
+
+#: ../src/Tribe/Advanced_List_Widget.php:22
+msgid "A widget that displays the next upcoming x events."
+msgstr "En widget som visar de kommande x evenemangen."
+
+#: ../src/admin-views/event-recurrence.php:74
+#: ../src/admin-views/event-recurrence.php:136
+msgid "Second"
+msgstr "Andra"
+
+#: ../src/Tribe/Advanced_List_Widget.php:27
+msgid "Events List"
+msgstr "Evenemangslista"
+
+#: ../src/admin-views/event-recurrence.php:75
+#: ../src/admin-views/event-recurrence.php:137
+msgid "Third"
+msgstr "Tredje"
+
+#: ../src/Tribe/Advanced_List_Widget.php:116
+msgid "Upcoming Events"
+msgstr "Kommande evenemang"
+
+#: ../src/admin-views/event-recurrence.php:76
+#: ../src/admin-views/event-recurrence.php:138
+msgid "Fourth"
+msgstr "Fjärde"
+
+#: ../src/Tribe/Community_Modifications.php:43
+msgid "Recurrence End Date"
+msgstr "Återkommande Slutdatum"
+
+#: ../src/admin-views/event-recurrence.php:77
+msgid "Fifth"
+msgstr "Femte"
+
+#: ../src/Tribe/Community_Modifications.php:46
+msgid "Recurrence Count"
+msgstr "Återkommande Antal"
+
+#: ../src/admin-views/event-recurrence.php:78
+#: ../src/admin-views/event-recurrence.php:139
+msgid "Last"
+msgstr "Sista"
+
+#: ../src/Tribe/Countdown_Widget.php:17
+msgid "Displays the time remaining until a specified event."
+msgstr "Visa tiden som återstår innan ett specificerat evenemang."
+
+#: ../src/admin-views/event-recurrence.php:93
+#: ../src/admin-views/event-recurrence.php:150
+msgid "Day"
+msgstr "Dag"
+
+#: ../src/Tribe/Countdown_Widget.php:20
+msgid "Events Countdown"
+msgstr "Evenemang nedräkning"
+
+#: ../src/admin-views/event-recurrence.php:133
+msgid "On the:"
+msgstr "På den:"
+
+#: ../src/Tribe/Custom_Meta.php:53
+msgid "Add another"
+msgstr "Lägg till en till"
+
+#: ../src/admin-views/event-recurrence.php:158
+msgid "Description:"
+msgstr "Beskrivning:"
+
+#: ../src/Tribe/Custom_Meta.php:54
+msgid "Remove"
+msgstr "Ta bort"
+
+#: ../src/admin-views/event-recurrence.php:166
+msgid "Recurrence Description:"
+msgstr "Återkommande Beskrivning:"
+
+#: ../src/Tribe/Geo_Loc.php:103
+msgid "Distance"
+msgstr "Distans"
+
+#: ../src/admin-views/event-recurrence.php:174
+msgid "Create a custom plain language description of the recurrence. Leave it blank and we'll automate it."
+msgstr "Skapa en anpassad beskrivning i klarspråk av repetitionen. Eller lämna det blankt så fyller vi i det automatiskt."
+
+#: ../src/Tribe/Geo_Loc.php:135
+msgid "Map view search distance limit"
+msgstr "Kartvy, visa distansbegränsning för sökningar"
+
+#: ../src/admin-views/tribe-options-defaults.php:6
+#: ../src/admin-views/tribe-options-defaults.php:15
+msgid "No Default"
+msgstr "Inget förval"
+
+#: ../src/Tribe/Geo_Loc.php:137
+msgid "Set the distance that the location search covers (find events within X distance units of location search input)."
+msgstr "Sätt distansen för vad lokaliseringssökningen täcker (Hitta evenemang inom X distansenheter från platsen som angivits)."
+
+#: ../src/admin-views/tribe-options-defaults.php:22
+msgid "Select a State"
+msgstr "Välj ett län"
+
+#: ../src/Tribe/Geo_Loc.php:144
+msgid "Map view distance unit"
+msgstr "Kartvy distansenhet"
+
+#: ../src/admin-views/tribe-options-defaults.php:39
+msgid "<p>Choose the default venue & organizer. Set default address information to save time when entering a new venue or organizer.</p><p>You can override these settings as you enter a new event.</p>"
+msgstr "<p>Välj förvald plats & arrangör. Använd förvalda adressuppgifter för att spara tid när du lägger till en ny plats eller arrangör.</p><p>Du kan åsidosätta dessa inställningar när du lägger till ett nytt evenemang.</p>"
+
+#: ../src/Tribe/Geo_Loc.php:149 ../src/Tribe/Geo_Loc_Filter.php:23
+msgid "Miles"
+msgstr "Miles"
+
+#: ../src/admin-views/tribe-options-defaults.php:51
+msgid "Options"
+msgstr "Alternativ"
+
+#: ../src/Tribe/Geo_Loc.php:150 ../src/Tribe/Geo_Loc_Filter.php:26
+msgid "Kilometers"
+msgstr "Kilometer"
+
+#: ../src/admin-views/tribe-options-defaults.php:61
+msgid "Check this box to have the organizer and venue fields pre-populated with the default values below for any new event that is created."
+msgstr "Kryssa i denna ruta för att arrangör och plats ska fyllas i med de förvalda värdena nedan för alla nya evenemang som skapas."
+
+#: ../src/Tribe/Geo_Loc.php:155
+msgid "Fix geolocation data"
+msgstr "Fixa geolokaliseringsdata"
+
+#: ../src/admin-views/tribe-options-defaults.php:65
+#: ../src/admin-views/widget-admin-advanced-list.php:32
+msgid "Organizer"
+msgstr "Arrangör"
+
+#: ../src/Tribe/Geo_Loc.php:155
+msgid "You have %d venues for which we don't have geolocation data. We need to use the Google Maps API to get that information. Doing this may take a while (aprox. 1 minute for every 200 venues)."
+msgstr "Du har %d platser för vilka vi inte har geolokaliseringsdata. Vi behöver använda Google Maps API för att få den informationen. Detta kan ta en stund (ca 1 minut per 200 platser)."
+
+#: ../src/admin-views/tribe-options-defaults.php:69
+msgid "Default organizer"
+msgstr "Förvald arrangör"
+
+#: ../src/Tribe/Geo_Loc.php:164
+msgid "Hide location search"
+msgstr "Dölj platssökning"
+
+#: ../src/admin-views/tribe-options-defaults.php:73
+msgid "No saved organizers yet."
+msgstr "Inga sparade arrangörer än."
+
+#: ../src/Tribe/Geo_Loc.php:165
+msgid "Removes location search field from the events bar on all views except for map view."
+msgstr "Tar bort platssökningsfältet från evenemangsbaren i alla vyer utom kartvyn."
+
+#: ../src/admin-views/tribe-options-defaults.php:82
+#: ../src/admin-views/widget-admin-advanced-list.php:31
+msgid "Venue"
+msgstr "Plats"
+
+#: ../src/Tribe/Geo_Loc.php:221
+msgid "Map"
+msgstr "Karta"
+
+#: ../src/admin-views/tribe-options-defaults.php:86
+msgid "Default venue"
+msgstr "Förvald plats"
+
+#: ../src/Tribe/Geo_Loc.php:255
+msgid "Near"
+msgstr "Nära"
+
+#: ../src/admin-views/tribe-options-defaults.php:90
+msgid "No saved venues yet."
+msgstr "Inga sparade platser ännu."
+
+#: ../src/Tribe/Geo_Loc.php:256
+msgid "Location"
+msgstr "Plats"
+
+#: ../src/admin-views/tribe-options-defaults.php:99
+#: ../src/admin-views/widget-admin-advanced-list.php:33
+msgid "Address"
+msgstr "Adress"
+
+#: ../src/Tribe/Geo_Loc.php:281
+msgid "Use latitude + longitude"
+msgstr "Använd latitud + longitud"
+
+#: ../src/admin-views/tribe-options-defaults.php:103
+msgid "You can use this setting to set specific, individual defaults for any new Venue you create (these will not be used for your default venue)."
+msgstr "Du kan använda denna inställning för att sätta specifika, individuella fördefinierade värden för nya platser du skapar (dessa avänds ej för din fördefinierade plats)."
+
+#: ../src/Tribe/Geo_Loc.php:285
+msgid "Latitude"
+msgstr "Latitud"
+
+#: ../src/admin-views/tribe-options-defaults.php:107
+msgid "Default address"
+msgstr "Förvald adress"
+
+#: ../src/Tribe/Geo_Loc.php:286
+msgid "Longitude"
+msgstr "Longitud"
+
+#: ../src/admin-views/tribe-options-defaults.php:120
+msgid "Default city"
+msgstr "Förvald stad"
+
+#: ../src/Tribe/Geo_Loc.php:745
+msgid "Fix venues data"
+msgstr "Fixa platsdata"
+
+#: ../src/admin-views/tribe-options-defaults.php:133
+msgid "Default state"
+msgstr "Förvalt län"
+
+#: ../src/Tribe/Geo_Loc.php:785
+msgid "You have venues for which we don't have Geolocation information. <a href='%s'>Click here to generate it</a>."
+msgstr "Du har platser för vilka vi inte har geolokaliseringsdata. <a href='%s'>Klicka här för att generera geolokaliseringsdata</a>."
+
+#: ../src/admin-views/tribe-options-defaults.php:146
+msgid "Default province"
+msgstr "Förvalt landskap"
+
+#: ../src/Tribe/Geo_Loc.php:812
+msgid "Fixed geolocation data for %d venues"
+msgstr "Fixade geolokaliseringsdata för %d platser"
+
+#: ../src/admin-views/tribe-options-defaults.php:159
+msgid "Default postal code/zip code"
+msgstr "Förvalt postnummer"
+
+#: ../src/Tribe/Geo_Loc_Filter.php:32
+msgid "%d %s"
+msgstr "%d %s"
+
+#: ../src/admin-views/tribe-options-defaults.php:172
+msgid "Default country"
+msgstr "Förvalt land"
+
+#: ../src/Tribe/Geo_Loc_Filter.php:49
+msgid "Type: %s %s"
+msgstr "Typ: %s %s"
+
+#: ../src/admin-views/tribe-options-defaults.php:185
+msgid "Default phone"
+msgstr "Förvalt telefonnummer"
+
+#: ../src/Tribe/Geo_Loc_Filter.php:53
+#: ../src/admin-views/event-meta-options.php:53
+msgid "Dropdown"
+msgstr "Rullgardin"
+
+#: ../src/admin-views/tribe-options-defaults.php:201
+msgid "One country per line in the following format: <br>US, United States <br> UK, United Kingdom. <br> (Replaces the default list.)"
+msgstr "Ett land per rad på följande format: <br/>SE, Sverige <br/> US, United States <br/> UK, United Kingdom. <br> (Ersätter den förvalda listan.)"
+
+#: ../src/Tribe/Geo_Loc_Filter.php:58
+msgid "Radio Buttons"
+msgstr "Alternativknappar"
+
+#: ../src/admin-views/widget-admin-advanced-list.php:13
+#: ../src/admin-views/widget-admin-calendar.php:13
+#: ../src/admin-views/widget-admin-countdown.php:13
+#: ../src/admin-views/widget-admin-venue.php:12
+#: ../src/admin-views/widget-calendar.php:2
+msgid "Title:"
+msgstr "Titel:"
+
+#: ../src/Tribe/Main.php:55
+msgid "week"
+msgstr "vecka"
+
+#: ../src/admin-views/widget-admin-advanced-list.php:17
+#: ../src/admin-views/widget-admin-venue.php:26
+#: ../src/admin-views/widget-calendar.php:8
+msgid "Number of events to show:"
+msgstr "Antal evenemang att visa:"
+
+#: ../src/Tribe/Main.php:56
+msgid "photo"
+msgstr "foto"
+
+#: ../src/admin-views/widget-admin-advanced-list.php:28
+msgid "Display:"
+msgstr "Visa:"
+
+#: ../src/Tribe/Main.php:359
+msgid "All %s for %s"
+msgstr "Allt %s för %s"
+
+#: ../src/admin-views/widget-admin-advanced-list.php:34
+msgid "City"
+msgstr "Stad"
+
+#: ../src/Tribe/Main.php:365
+msgid "%s for week of %s"
+msgstr "%s för vecka av %s"
+
+#: ../src/admin-views/widget-admin-advanced-list.php:35
+msgid "State (US) Or Province (Int)"
+msgstr "Län"
+
+#: ../src/Tribe/Main.php:601 ../src/admin-views/tribe-options-defaults.php:35
+msgid "Default Content"
+msgstr "Förvalt innehåll"
+
+#: ../src/admin-views/widget-admin-advanced-list.php:36
+msgid "Postal Code"
+msgstr "Postnummer"
