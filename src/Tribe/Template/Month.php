@@ -156,7 +156,7 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 			$this->first_grid_date = self::calculate_first_cell_date( $this->requested_date );
 			$this->final_grid_date = self::calculate_final_cell_date( $this->requested_date );
 
-			
+
 			// get all the ids for the events in this month, speeds up queries
 			$this->set_events_in_month();
 
@@ -321,7 +321,7 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 			update_object_term_cache( $event_ids_in_month, TribeEvents::POSTTYPE );
 			update_postmeta_cache( $event_ids_in_month );
 
-			// cache the result in the object cache
+			// cache the found events in the object cache
 			$cache->set( $cache_key, $this->events_in_month, 0, 'save_post' );
 		}
 

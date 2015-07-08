@@ -460,12 +460,13 @@ if ( ! class_exists( 'Tribe__Events__Date_Utils' ) ) {
 		}
 
 		/**
-		 * Given 2 datetime ranges, return whether they overlap at all
+		 * Given 2 datetime ranges, return whether the 2nd one occurs during the 1st one
+		 * Note: all params should be unix timestamps
 		 *
-		 * @param $range_1_start
-		 * @param $range_1_end
-		 * @param $range_2_start
-		 * @param $range_2_end
+		 * @param integer $range_1_start timestamp for start of the first range
+		 * @param integer $range_1_end timestamp for end of the first range
+		 * @param integer $range_2_start timestamp for start of the second range
+		 * @param integer $range_2_end timestamp for end of the second range
 		 *
 		 * @return bool
 		 */
