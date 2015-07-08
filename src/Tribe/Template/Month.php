@@ -287,6 +287,19 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 		protected function set_events_in_month() {
 			global $wpdb;
 
+			$grid_start_datetime = tribe_event_beginning_of_day( $this->first_grid_date );
+			$grid_end_datetime = tribe_event_end_of_day( $this->final_grid_date );
+
+			$cache  = new Tribe__Events__Cache();
+			$cache_key = 'events_in_month' . $grid_start_datetime . '-' . $grid_end_datetime;
+
+			// if we have a cached result, use that
+			$cached_events = $cache->get( $cache_key, 'save_post' );
+			if ( $cached_events !== false ) {
+				$this->events_in_month =  $cached_events;
+				return;
+			}
+
 			// note: this query returns the event dates as timestamps, makes date comparison faster later
 			$events_request =
 				$wpdb->prepare(
@@ -301,8 +314,8 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 						OR ( tribe_event_start.meta_value >= '%1\$s' AND  tribe_event_start.meta_value <= '%2\$s')
 					)
 					",
-					tribe_event_beginning_of_day($this->first_grid_date),
-					tribe_event_end_of_day($this->final_grid_date)
+					$grid_start_datetime,
+					$grid_end_datetime
 			);
 			$this->events_in_month = $wpdb->get_results( $events_request );
 
@@ -311,6 +324,8 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 			update_object_term_cache( $event_ids_in_month, TribeEvents::POSTTYPE );
 			update_postmeta_cache( $event_ids_in_month );
 
+			// cache the result in the object cache
+			$cache->set( $cache_key, $this->events_in_month, 0, 'save_post' );
 		}
 
 		/**
