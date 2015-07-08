@@ -156,11 +156,7 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 			$this->first_grid_date = self::calculate_first_cell_date( $this->requested_date );
 			$this->final_grid_date = self::calculate_final_cell_date( $this->requested_date );
 
-
-			if ( is_user_logged_in() ) {
-				$args['post_status'][] = 'private';
-			}
-
+			
 			// get all the ids for the events in this month, speeds up queries
 			$this->set_events_in_month();
 
