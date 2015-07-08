@@ -301,8 +301,8 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 						OR ( tribe_event_start.meta_value >= '%1\$s' AND  tribe_event_start.meta_value <= '%2\$s')
 					)
 					",
-					$this->first_grid_date,
-					$this->final_grid_date
+					tribe_event_beginning_of_day($this->first_grid_date),
+					tribe_event_end_of_day($this->final_grid_date)
 			);
 			$this->events_in_month = $wpdb->get_results( $events_request );
 
