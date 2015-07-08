@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the The Events Calendar package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2015-06-27 03:36:46+0000\n"
+"PO-Revision-Date: 2015-07-03 14:40:23+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -372,7 +372,7 @@ msgstr "Laden %s"
 #: ../src/admin-views/admin-update-message.php:9
 #: ../src/admin-views/admin-welcome-message.php:11
 msgid "You are running Version %s and deserve a hug :-)"
-msgstr ""
+msgstr "Je draait versie %s en verdient een knuffel :-)"
 
 #: ../src/functions/template-tags/general.php:760
 msgid "Free"
@@ -380,7 +380,7 @@ msgstr "Gratis"
 
 #: ../src/admin-views/admin-update-message.php:32
 msgid "Keep the Core Plugin <strong>FREE</strong>!"
-msgstr ""
+msgstr "Houd de Core Plugin <strong>GRATIS</strong>!"
 
 #: ../src/functions/template-tags/general.php:1454
 msgid "Calendar powered by %sThe Events Calendar%s"
@@ -388,7 +388,7 @@ msgstr "Kalender aangedreven door %sThe Events Calendar%s"
 
 #: ../src/admin-views/admin-update-message.php:33
 msgid "Every time you rate <strong>5 stars</strong>, a fairy is born. Okay maybe not, but more happy users mean more contributions and help on the forums. The community NEEDS your voice."
-msgstr ""
+msgstr "Elke keer als je <strong>5 sterren</strong> beoordeeld wordt er een fee geboren. Oke, misschien niet, maar meer tevreden gebruikers betekend meer contributies en hulp op de fora. De gemeenschap heeft you stem nodig!"
 
 #: ../src/functions/template-tags/loop.php:131
 msgid "Upcoming %s"
@@ -405,7 +405,7 @@ msgstr "%1$s voor %2$s - %3$s"
 
 #: ../src/admin-views/admin-update-message.php:37
 msgid "PSST... Want a Discount?"
-msgstr ""
+msgstr "PSST... Wil je korting?"
 
 #: ../src/functions/template-tags/loop.php:147
 msgid "Past %s"
@@ -413,7 +413,7 @@ msgstr "Afgelopen %s"
 
 #: ../src/admin-views/admin-update-message.php:38
 msgid "We send out discounts to our core users via our newsletter."
-msgstr ""
+msgstr "We geven korting aan onze core gebruikers via de nieuwsbrief."
 
 #: ../src/functions/template-tags/loop.php:152
 #: ../src/functions/template-tags/loop.php:161
@@ -496,15 +496,15 @@ msgstr "Instructies"
 
 #: ../src/admin-views/admin-welcome-message.php:21
 msgid "Rate it five stars today!"
-msgstr ""
+msgstr "Geef het vandaag nog vijf sterren!"
 
 #: ../src/io/csv/admin-views/general.php:15
 msgid "To import events, first select a %sDefault Import Event Status%s below to assign to your imported events."
-msgstr ""
+msgstr "Om evenementen te importeren, selecteer eerst een %sDefault Import Event Status%s hieronder om je geïmporteerde evenementen toe te wijzen."
 
 #: ../src/admin-views/admin-welcome-message.php:25
 msgid "Newsletter Signup"
-msgstr ""
+msgstr "Opgeven voor nieuwsbrief"
 
 #: ../src/io/csv/admin-views/general.php:18
 msgid "Once your setting is saved, move to the applicable Import tab to select import specific criteria."
@@ -525,11 +525,11 @@ msgstr "Aan de slag"
 
 #: ../src/io/csv/admin-views/general.php:28
 msgid "Default imported event status:"
-msgstr ""
+msgstr "Standaard geïmporteerde evenement status:"
 
 #: ../src/admin-views/admin-welcome-message.php:41
 msgid "Check out the New User Primer &amp; Tutorials"
-msgstr ""
+msgstr "Bekijk de Nieuwe Gebruiker Primer &amp; Tutorials"
 
 #: ../src/io/csv/admin-views/general.php:31
 msgid "Published"
@@ -537,7 +537,7 @@ msgstr "Gepubliceerd"
 
 #: ../src/admin-views/admin-welcome-message.php:43
 msgid "Looking for More Features?"
-msgstr ""
+msgstr "Opzoek naar meer features?"
 
 #: ../src/io/csv/admin-views/general.php:32
 msgid "Pending"
@@ -545,7 +545,7 @@ msgstr "In afwachting"
 
 #: ../src/admin-views/admin-welcome-message.php:44
 msgid "Addons for Community, Tickets, Filters, Facebook and more."
-msgstr ""
+msgstr "Addons voor de community, Kaarten, Filters, Facebook en meer."
 
 #: ../src/io/csv/admin-views/general.php:33
 msgid "Draft"
@@ -561,7 +561,7 @@ msgstr "Evenementen importeren"
 
 #: ../src/admin-views/admin-welcome-message.php:47
 msgid "FAQs, Documentation, Tutorials and Forums"
-msgstr ""
+msgstr "FAQs, Documentatie, Tutorials en Fora"
 
 #: ../src/io/csv/admin-views/import.php:17
 msgid "Import Instructions"

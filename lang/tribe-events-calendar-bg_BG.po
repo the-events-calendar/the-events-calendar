@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the The Events Calendar package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2015-06-22 13:39:58+0000\n"
+"PO-Revision-Date: 2015-07-03 14:24:26+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -363,7 +363,7 @@ msgstr "Етикети:"
 
 #: ../src/Tribe/iCal.php:122
 msgid "Use this to share calendar data with Google Calendar, Apple iCal and other compatible apps"
-msgstr "Използвакте това, за да споделяте записи от календара с Google Календар, Apple iCal и друфи съвместими приложения"
+msgstr "Използвайте това, за да споделяте записи от календара с Google Календар, Apple iCal и други съвместими приложения"
 
 #: ../src/functions/template-tags/general.php:538
 msgid "Loading %s"
@@ -376,7 +376,7 @@ msgstr "Използвате версия %s и заслужавате прег�
 
 #: ../src/functions/template-tags/general.php:760
 msgid "Free"
-msgstr "Free"
+msgstr "Безплатно"
 
 #: ../src/admin-views/admin-update-message.php:32
 msgid "Keep the Core Plugin <strong>FREE</strong>!"
@@ -405,7 +405,7 @@ msgstr "%1$s за %2$s - %3$s"
 
 #: ../src/admin-views/admin-update-message.php:37
 msgid "PSST... Want a Discount?"
-msgstr "Пссс... Каква отстъпка?"
+msgstr "Хей...искаш ли отстъпка ?"
 
 #: ../src/functions/template-tags/loop.php:147
 msgid "Past %s"
@@ -439,7 +439,7 @@ msgstr "<strong>Не можете </strong>да използвате същия 
 
 #: ../src/admin-views/admin-update-message.php:51
 msgid "Pro"
-msgstr "Pro"
+msgstr "Про"
 
 #: ../src/io/csv/admin-views/columns.php:22
 msgid "Column Mapping: %s"
@@ -476,7 +476,7 @@ msgstr "Новини за потребители на календара"
 
 #: ../src/io/csv/admin-views/columns.php:45
 msgid "Perform Import"
-msgstr "Започни импортирането"
+msgstr "Извърши импортиране"
 
 #: ../src/admin-views/admin-welcome-message.php:19
 msgid "Keep The Events Calendar Core FREE"
@@ -553,7 +553,7 @@ msgstr "Чернова"
 
 #: ../src/admin-views/admin-welcome-message.php:46
 msgid "Support Resources"
-msgstr "Ресурси за помощ"
+msgstr "Помощни ресурси"
 
 #: ../src/io/csv/admin-views/header.php:17
 msgid "Events Import"
@@ -958,7 +958,7 @@ msgstr "Няма предстоящи %s за момента."
 
 #: ../src/admin-views/tickets/attendees.php:160
 msgid "or"
-msgstr "or"
+msgstr "или"
 
 #: ../src/admin-views/tickets/attendees.php:162
 msgid "Email Address:"
@@ -1492,7 +1492,7 @@ msgstr "Алабама"
 
 #: ../src/admin-views/tribe-options-help.php:88
 msgid "The Events Calendar: Filter Bar"
-msgstr "The Events Calendar: Filter Bar"
+msgstr "The Events Calendar: Лента за филтриране"
 
 #: ../src/Tribe/View_Helpers.php:317
 msgid "Alaska"
@@ -1772,7 +1772,7 @@ msgstr "Бангладеш"
 #: ../src/Tribe/App_Shop.php:64 ../src/Tribe/App_Shop.php:65
 #: ../src/Tribe/App_Shop.php:96
 msgid "Event Add-Ons"
-msgstr "Add-Ons за събития"
+msgstr "Приставки за събития"
 
 #: ../src/Tribe/View_Helpers.php:65
 msgid "Barbados"
@@ -2409,7 +2409,7 @@ msgstr "Ватикана"
 #: ../src/Tribe/Main.php:1217 ../src/Tribe/Main.php:1230
 #: ../src/Tribe/Main.php:1243
 msgid "Add New"
-msgstr "Дабавяне"
+msgstr "Добавяне"
 
 #: ../src/Tribe/View_Helpers.php:143
 msgid "Honduras"
@@ -2419,7 +2419,7 @@ msgstr "Хондурас"
 #: ../src/Tribe/Main.php:1244 ../src/Tribe/Main.php:1349
 #: ../src/Tribe/Main.php:1350
 msgid "Add New %s"
-msgstr "Дабавяне %s"
+msgstr "Добавяне %s"
 
 #: ../src/Tribe/View_Helpers.php:144
 msgid "Hong Kong"

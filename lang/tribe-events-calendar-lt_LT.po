@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the The Events Calendar package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2015-06-08 14:31:58+0000\n"
+"PO-Revision-Date: 2015-07-03 14:53:34+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -332,7 +332,7 @@ msgstr "Kita diena <span>&raquo;</span>"
 
 #: ../src/Tribe/iCal.php:108
 msgid "Month's %s"
-msgstr ""
+msgstr "Mėnesio %s"
 
 #: ../src/functions/template-tags/day.php:112
 msgid "Yesterday"
@@ -340,7 +340,7 @@ msgstr "Vakar"
 
 #: ../src/Tribe/iCal.php:111
 msgid "Week's %s"
-msgstr ""
+msgstr "Savaitės %s"
 
 #: ../src/functions/template-tags/day.php:114
 msgid "Tomorrow"
@@ -348,7 +348,7 @@ msgstr "Rytoj"
 
 #: ../src/Tribe/iCal.php:114
 msgid "Day's %s"
-msgstr ""
+msgstr "Dienos %s"
 
 #: ../src/functions/template-tags/deprecated.php:1283
 msgid "Category"
@@ -356,7 +356,7 @@ msgstr "Kategorija"
 
 #: ../src/Tribe/iCal.php:117
 msgid "Listed %s"
-msgstr ""
+msgstr "Visi %s"
 
 #: ../src/functions/template-tags/general.php:426
 msgid "Tags:"
@@ -368,7 +368,7 @@ msgstr "Naudokite tai, kad pasidalinti kalendoriaus duomenimis su \"Google\" kal
 
 #: ../src/functions/template-tags/general.php:538
 msgid "Loading %s"
-msgstr ""
+msgstr "%s kraunami"
 
 #: ../src/admin-views/admin-update-message.php:9
 #: ../src/admin-views/admin-welcome-message.php:11
@@ -393,7 +393,7 @@ msgstr "Kiekvieną kartą kai jūs įvertinate 5 žvaigždutėmis, gimsta fėja.
 
 #: ../src/functions/template-tags/loop.php:131
 msgid "Upcoming %s"
-msgstr ""
+msgstr "Artėjantis %s"
 
 #: ../src/admin-views/admin-update-message.php:34
 #: ../src/admin-views/admin-welcome-message.php:22
@@ -402,7 +402,7 @@ msgstr "Įvertinkite"
 
 #: ../src/functions/template-tags/loop.php:145
 msgid "%1$s for %2$s - %3$s"
-msgstr ""
+msgstr "%1$s nuo %2$s - %3$s"
 
 #: ../src/admin-views/admin-update-message.php:37
 msgid "PSST... Want a Discount?"
@@ -410,7 +410,7 @@ msgstr "PSST... Norite nuolaidos?"
 
 #: ../src/functions/template-tags/loop.php:147
 msgid "Past %s"
-msgstr ""
+msgstr "Praėję %s"
 
 #: ../src/admin-views/admin-update-message.php:38
 msgid "We send out discounts to our core users via our newsletter."
@@ -419,7 +419,7 @@ msgstr "Mes siunčiame nuolaidas mūsų pagrindiniams vartotojams per naujienlai
 #: ../src/functions/template-tags/loop.php:152
 #: ../src/functions/template-tags/loop.php:161
 msgid "%1$s for %2$s"
-msgstr ""
+msgstr "%1$s nuo %2$s"
 
 #: ../src/admin-views/admin-update-message.php:43
 #: ../src/admin-views/admin-welcome-message.php:31
@@ -660,7 +660,7 @@ msgstr "CSV failas:"
 
 #: ../src/admin-views/events-meta-box.php:47
 msgid "All Day %s:"
-msgstr ""
+msgstr "Visos dienos %s"
 
 #: ../src/io/csv/admin-views/import.php:59
 msgid "Upload a properly formatted, UTF-8 encoded CSV file. Not sure if your file is UTF-8 encoded? Make sure to specify the character encoding when you save the file, or pass it through a <a href='http://i-tools.org/charset/exec?dest=utf-8&src=auto&download=1'>conversion tool</a>."
@@ -701,7 +701,7 @@ msgstr "Importas baigtas!"
 
 #: ../src/admin-views/events-meta-box.php:120
 msgid "%s Website"
-msgstr ""
+msgstr "%s tinklapis"
 
 #: ../src/io/csv/admin-views/result.php:19
 msgid "Inserted: %d"
@@ -717,7 +717,7 @@ msgstr "Atnaujinta: %d"
 
 #: ../src/admin-views/events-meta-box.php:137
 msgid "%s Cost"
-msgstr ""
+msgstr "%s kaina"
 
 #: ../src/io/csv/admin-views/result.php:21
 msgid "Skipped: %d"
@@ -814,7 +814,7 @@ msgstr "El.paštas:"
 
 #: ../src/views/list/nav.php:25
 msgid "<span>&laquo;</span> Previous %s"
-msgstr ""
+msgstr "<span>&laquo;</span> Ankstesnis %s"
 
 #: ../src/admin-views/organizer-meta-box.php:35
 msgid "You may want to consider <a href=\"http://wordpress.org/plugins/tags/obfuscate\">obfuscating</a> any e-mail address published on your site to best avoid it getting harvested by spammers."
@@ -822,7 +822,7 @@ msgstr "Jūs galbūt norėsite apsvarstyti <a href=\"http://wordpress.org/plugin
 
 #: ../src/views/list/nav.php:32
 msgid "Next %s <span>&raquo;</span>"
-msgstr ""
+msgstr "Kitas %s <span>&raquo;</span>"
 
 #: ../src/admin-views/organizer-meta-box.php:57
 #: ../src/admin-views/venue-meta-box.php:193
@@ -831,7 +831,7 @@ msgstr ""
 
 #: ../src/views/modules/bar.php:30 ../src/views/modules/bar.php:61
 msgid "Find %s"
-msgstr ""
+msgstr "Rasti %s"
 
 #: ../src/admin-views/tickets/attendees.php:17
 msgid "Event Summary"
@@ -855,7 +855,7 @@ msgstr "Pradžios data / laikas:"
 
 #: ../src/views/modules/meta/details.php:119
 msgid "%s Tags:"
-msgstr ""
+msgstr "%s žymės"
 
 #: ../src/admin-views/tickets/attendees.php:29
 msgid "End Date / Time:"
@@ -871,7 +871,7 @@ msgstr "Bilietų pardavimas"
 
 #: ../src/views/month/mobile.php:37
 msgid "Find out more »"
-msgstr ""
+msgstr "Sužinoti daugiau »"
 
 #: ../src/admin-views/tickets/attendees.php:86
 msgid "(%d awaiting review)"
@@ -901,7 +901,7 @@ msgstr "Sold %d iš %d %s"
 
 #: ../src/views/single-event.php:27
 msgid "&laquo; All %s"
-msgstr ""
+msgstr "&laquo; Visi %s"
 
 #: ../src/admin-views/tickets/attendees.php:111
 msgid "Tickets sold:"
@@ -949,7 +949,7 @@ msgstr "Pasirinkite vartotoją:"
 
 #: ../src/views/widgets/list-widget.php:65
 msgid "View All %s"
-msgstr ""
+msgstr "Žiūrėti visus %s"
 
 #: ../src/admin-views/tickets/attendees.php:155
 msgid "Select..."

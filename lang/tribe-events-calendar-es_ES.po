@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the The Events Calendar package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2015-06-27 03:20:44+0000\n"
+"PO-Revision-Date: 2015-07-07 19:15:13+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1071,7 +1071,7 @@ msgstr "Ajustes de Visualización"
 
 #: ../src/admin-views/tribe-options-display.php:37
 msgid "The settings below control the display of your calendar. If things don't look right, try switching between the three style sheet options or pick a page template from your theme.</p><p>There are going to be situations where no out-of-the-box template is 100&#37; perfect. Check out our <a href=\"%s\">our themer's guide</a> for instructions on custom modifications."
-msgstr "Los ajustes siguientes controlan la muestra de su calendario. Si no se ve bien, intenta cambiar entre los tres hojas de estilo alternativas o seleccionar una plantilla de página de su tema (plantilla de diseño).</p><p>Habrá circunstancias en que ninguna plantilla es perfecta a 100%#37;. Revisa nuestra <a href=\"%s\">guía para diseñadores</a> con instructivos sobre como modificar el diseño."
+msgstr "Los ajustes siguientes controlan la muestra de su calendario. Si no se ve bien, intenta cambiar entre los tres hojas de estilo alternativas o seleccionar una plantilla de página de su tema (plantilla de diseño).</p><p>Habrá circunstancias en que ninguna plantilla es perfecta a 100&#37;. Revisa nuestra <a href=\"%s\">guía para diseñadores</a> con instructivos sobre como modificar el diseño."
 
 #: ../src/admin-views/tribe-options-display.php:51
 msgid "Basic Template Settings"

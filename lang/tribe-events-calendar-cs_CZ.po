@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the The Events Calendar package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2015-07-01 13:20:31+0000\n"
+"PO-Revision-Date: 2015-07-03 14:40:46+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1166,7 +1166,7 @@ msgstr "Datum se zobrazením roku"
 
 #: ../src/admin-views/tribe-options-display.php:131
 msgid "Enter the format to use for displaying dates with the year. Used when showing an event from a past or future year, also used for dates in view headers."
-msgstr ""
+msgstr "Zadejte formát k použití pro zobrazení dat s rokem. Používá se při zobrazení události z minulosti nebo pro budoucí rok, bude také použitý pro data zobrazená v záhlaví."
 
 #: ../src/admin-views/tribe-options-display.php:138
 msgid "Date without year"
