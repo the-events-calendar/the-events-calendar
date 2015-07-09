@@ -33,42 +33,45 @@ $tickets = Tribe__Events__Tickets__Tickets::get_event_tickets( $event_id );
 						<?php
 						echo tribe_get_end_date( $event_id, false, tribe_get_datetime_format( true ) );
 
-						// venue
-						$venue_id = tribe_get_venue_id( $event_id );
-						if ( ! empty( $venue_id ) ) {
-							$venue = get_post( $venue_id );
-						}
-
-						if ( ! empty( $venue ) ) {
+						if ( tribe_has_venue( $event_id ) ) {
+							$venue_id = tribe_get_venue_id( $event_id );
 							?>
-							<br />
-							<strong>
-								<?php echo tribe_get_venue_label_singular() ?>
-							</strong>
-							<?php echo $venue->post_title; ?>
+
+							<div class="venue-name">
+								<strong><?php echo tribe_get_venue_label_singular(); ?>: </strong>
+								<?php echo tribe_get_venue( $event_id ) ?>
+							</div>
+
+							<div class="venue-address">
+								<strong><?php _e( 'Address:', 'tribe-events-calendar' ); ?> </strong>
+								<?php echo tribe_get_full_address( $venue_id ); ?>
+							</div>
 
 							<?php
-							// phone
-							$phone = get_post_meta( $venue_id, '_VenuePhone', true );
-
-							if ( ! empty( $phone ) ) {
+							if ( $phone = tribe_get_phone( $venue_id ) ) {
 								?>
-								<br />
-								<strong><?php esc_html_e( 'Phone:', 'tribe-events-calendar' ); ?></strong>
+								<div class="venue-phone">
+									<strong><?php echo esc_html( __( 'Phone:', 'tribe-events-calendar' ) ); ?> </strong>
+									<?php echo esc_html( $phone ); ?>
+								</div>
 								<?php
-								echo esc_html( $phone );
-							}
+							}//end if
 
-							// website
-							$website = get_post_meta( $venue_id, '_VenueURL', true );
-							if ( ! empty( $website ) ) {
+							if ( $url = esc_url( get_post_meta( $venue_id, '_VenueURL', true ) ) ) {
 								?>
-								<br />
-								<strong><?php esc_html_e( 'Website:', 'tribe-events-calendar' ) ?></strong>
-								<a target="_blank" href="<?php echo esc_url( $website ) ?>"><?php echo esc_html( $website ) ?></a>
+								<div class="venue-url">
+									<strong><?php echo esc_html( __( 'Website:', 'tribe-events-calendar' ) ); ?> </strong>
+									<a target="_blank" href="<?php echo $url; ?>">
+									<?php
+									$display_url  = parse_url( $url, PHP_URL_HOST );
+									$display_url .= parse_url( $url, PHP_URL_PATH ) ? '/&hellip;' : '';
+									echo apply_filters( 'tribe_venue_display_url', $display_url, $url, $venue_id );
+									?>
+									</a>
+								</div>
 								<?php
-							}
-						}// end if ( $venue )
+							}//end if
+						}//end if venue
 
 						do_action( 'tribe_events_tickets_attendees_event_details_bottom', $event_id );
 						?>
