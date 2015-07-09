@@ -88,7 +88,7 @@ if ( ! class_exists( 'Tribe__Events__Settings_Tab' ) ) {
 			$hideSettingsTabs = Tribe__Events__Main::instance()->getNetworkOption( 'hideSettingsTabs', array() );
 			if ( ( isset( $this->fields ) || has_action( 'tribe_settings_content_tab_' . $this->id ) ) && ( empty( $hideSettingsTabs ) || ! in_array( $this->id, $hideSettingsTabs ) ) ) {
 				if ( ( is_network_admin() && $this->args['network_admin'] ) || ( ! is_network_admin() && ! $this->args['network_admin'] ) ) {
-					$tabs[$this->id] = $this->name;
+					$tabs[ $this->id ] = $this->name;
 					add_filter( 'tribe_settings_fields', array( $this, 'addFields' ) );
 					add_filter( 'tribe_settings_no_save_tabs', array( $this, 'showSaveTab' ) );
 					add_filter( 'tribe_settings_content_tab_' . $this->id, array( $this, 'doContent' ) );
@@ -106,7 +106,7 @@ if ( ! class_exists( 'Tribe__Events__Settings_Tab' ) ) {
 		 * @return array $allTabs All the tabs.
 		 */
 		public function addAllTabs( $allTabs ) {
-			$allTabs[$this->id] = $this->name;
+			$allTabs[ $this->id ] = $this->name;
 
 			return $allTabs;
 		}
@@ -122,9 +122,9 @@ if ( ! class_exists( 'Tribe__Events__Settings_Tab' ) ) {
 		 */
 		public function addFields( $fields ) {
 			if ( ! empty ( $this->fields ) ) {
-				$fields[$this->id] = $this->fields;
+				$fields[ $this->id ] = $this->fields;
 			} elseif ( has_action( 'tribe_settings_content_tab_' . $this->id ) ) {
-				$fields[$this->id] = $this->fields = array( 0 => null ); // just to trick it
+				$fields[ $this->id ] = $this->fields = array( 0 => null ); // just to trick it
 			}
 
 			return $fields;
@@ -140,7 +140,7 @@ if ( ! class_exists( 'Tribe__Events__Settings_Tab' ) ) {
 		 */
 		public function showSaveTab( $noSaveTabs ) {
 			if ( ! $this->show_save || empty( $this->fields ) ) {
-				$noSaveTabs[$this->id] = $this->id;
+				$noSaveTabs[ $this->id ] = $this->id;
 			}
 
 			return $noSaveTabs;
@@ -162,10 +162,13 @@ if ( ! class_exists( 'Tribe__Events__Settings_Tab' ) ) {
 
 			if ( is_array( $this->fields ) && ! empty( $this->fields ) ) {
 				foreach ( $this->fields as $key => $field ) {
-					if ( isset( $sent_data[$key] ) ) {
+					if ( isset( $sent_data[ $key ] ) ) {
 						// if we just saved [or attempted to], get the value that was inputed
-						$value = $sent_data[$key];
+						$value = $sent_data[ $key ];
 					} else {
+						// Some options should always be stored at network level
+						$network_option = isset( $field['network_option'] ) ? (bool) $field['network_option'] : false;
+
 						if ( is_network_admin() ) {
 							$parent_option = ( isset( $field['parent_option'] ) ) ? $field['parent_option'] : Tribe__Events__Main::OPTIONNAMENETWORK;
 						}
@@ -179,7 +182,7 @@ if ( ! class_exists( 'Tribe__Events__Settings_Tab' ) ) {
 
 						if ( ! $parent_option ) {
 							// no parent option, get the straight up value
-							if ( is_network_admin() ) {
+							if ( $network_option || is_network_admin() ) {
 								$value = get_site_option( $key, $default );
 							} else {
 								$value = get_option( $key, $default );
@@ -198,7 +201,7 @@ if ( ! class_exists( 'Tribe__Events__Settings_Tab' ) ) {
 								} else {
 									$options = (array) get_option( $parent_option );
 								}
-								$value = ( isset( $options[$key] ) ) ? $options[$key] : $default;
+								$value = ( isset( $options[ $key ] ) ) ? $options[ $key ] : $default;
 							}
 						}
 					}
@@ -218,7 +221,7 @@ if ( ! class_exists( 'Tribe__Events__Settings_Tab' ) ) {
 				}
 			} else {
 				// no fields setup for this tab yet
-				echo '<p>' . __( 'There are no fields setup for this tab yet.', 'tribe-events-calendar' ) . '</p>';
+				echo '<p>' . esc_html__( 'There are no fields setup for this tab yet.', 'tribe-events-calendar' ) . '</p>';
 			}
 		}
 

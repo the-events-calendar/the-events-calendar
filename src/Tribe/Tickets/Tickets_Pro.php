@@ -3,7 +3,7 @@ class Tribe__Events__Tickets__Tickets_Pro {
 	/**
 	 * Singleton instance of this class
 	 *
-*@var Tribe__Events__Tickets__Tickets_Pro
+	 * @var Tribe__Events__Tickets__Tickets_Pro
 	 * @static
 	 */
 	protected static $instance;
@@ -49,10 +49,10 @@ class Tribe__Events__Tickets__Tickets_Pro {
 	 */
 	public function __construct() {
 
-		add_action( 'wp_ajax_tribe-ticket-email-attendee-list', array( $this, 'ajax_handler_attendee_mail_list' )        );
-		add_action( 'save_post_' . Tribe__Events__Main::POSTTYPE,       array( $this, 'save_image_header'               ), 10, 2 );
-		add_action( 'admin_menu',                               array( $this, 'attendees_page_register'         )        );
-		add_filter( 'post_row_actions',                         array( $this, 'attendees_row_action'            )        );
+		add_action( 'wp_ajax_tribe-ticket-email-attendee-list', array( $this, 'ajax_handler_attendee_mail_list' ) );
+		add_action( 'save_post_' . Tribe__Events__Main::POSTTYPE, array( $this, 'save_image_header' ), 10, 2 );
+		add_action( 'admin_menu', array( $this, 'attendees_page_register' ) );
+		add_filter( 'post_row_actions', array( $this, 'attendees_row_action' ) );
 
 		$this->path = trailingslashit( dirname( dirname( dirname( dirname( __FILE__ ) ) ) ) );
 		$this->google_event_data = new Tribe__Events__Tickets__Google_Event_Data;
@@ -69,11 +69,11 @@ class Tribe__Events__Tickets__Tickets_Pro {
 		global $post;
 
 		if ( $post->post_type == Tribe__Events__Main::POSTTYPE ) {
-
-
-			$url = add_query_arg( array( 'post_type' => Tribe__Events__Main::POSTTYPE,
-										 'page'      => Tribe__Events__Tickets__Tickets_Pro::$attendees_slug,
-										 'event_id'  => $post->ID ), admin_url( 'edit.php' ) );
+			$url = add_query_arg( array(
+				'post_type' => Tribe__Events__Main::POSTTYPE,
+				'page'      => self::$attendees_slug,
+				'event_id'  => $post->ID,
+			), admin_url( 'edit.php' ) );
 
 			$actions['tickets_attendees'] = sprintf( '<a title="%s" href="%s">%s</a>', __( 'See who purchased tickets to this event', 'tribe-events-calendar' ), esc_url( $url ), __( 'Attendees', 'tribe-events-calendar' ) );
 		}
@@ -86,16 +86,11 @@ class Tribe__Events__Tickets__Tickets_Pro {
 	 */
 	public function attendees_page_register() {
 
-		$this->attendees_page = add_submenu_page(
-			null, 'Attendee list', 'Attendee list', 'edit_posts', Tribe__Events__Tickets__Tickets_Pro::$attendees_slug, array(
-				$this,
-				'attendees_page_inside'
-			)
-		);
+		$this->attendees_page = add_submenu_page( null, 'Attendee list', 'Attendee list', 'edit_posts', self::$attendees_slug, array( $this, 'attendees_page_inside' ) );
 
 		add_action( 'admin_enqueue_scripts', array( $this, 'attendees_page_load_css_js' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'attendees_page_load_pointers' ) );
-		add_action( "load-$this->attendees_page", array( $this, "attendees_page_screen_setup" ) );
+		add_action( 'load-' . $this->attendees_page, array( $this, 'attendees_page_screen_setup' ) );
 
 	}
 
@@ -109,19 +104,19 @@ class Tribe__Events__Tickets__Tickets_Pro {
 			return;
 		}
 
-		wp_enqueue_style( Tribe__Events__Tickets__Tickets_Pro::$attendees_slug, tribe_events_resource_url('tickets-attendees.css'), array(), apply_filters( 'tribe_events_css_version', Tribe__Events__Main::VERSION ) );
-		wp_enqueue_style( Tribe__Events__Tickets__Tickets_Pro::$attendees_slug . '-print', tribe_events_resource_url('tickets-attendees-print.css'), array(), apply_filters( 'tribe_events_css_version', Tribe__Events__Main::VERSION ), 'print' );
-		wp_enqueue_script( Tribe__Events__Tickets__Tickets_Pro::$attendees_slug, tribe_events_resource_url('tickets-attendees.js'), array( 'jquery' ), apply_filters( 'tribe_events_js_version', Tribe__Events__Main::VERSION ) );
+		wp_enqueue_style( self::$attendees_slug, tribe_events_resource_url( 'tickets-attendees.css' ), array(), apply_filters( 'tribe_events_css_version', Tribe__Events__Main::VERSION ) );
+		wp_enqueue_style( self::$attendees_slug . '-print', tribe_events_resource_url( 'tickets-attendees-print.css' ), array(), apply_filters( 'tribe_events_css_version', Tribe__Events__Main::VERSION ), 'print' );
+		wp_enqueue_script( self::$attendees_slug, tribe_events_resource_url( 'tickets-attendees.js' ), array( 'jquery' ), apply_filters( 'tribe_events_js_version', Tribe__Events__Main::VERSION ) );
 
 		$mail_data = array(
 			'nonce'           => wp_create_nonce( 'email-attendee-list' ),
 			'required'        => __( 'You need to select a user or type a valid email address', 'tribe-events-calendar' ),
 			'sending'         => __( 'Sending...', 'tribe-events-calendar' ),
 			'checkin_nonce'   => wp_create_nonce( 'checkin' ),
-			'uncheckin_nonce' => wp_create_nonce( 'uncheckin' )
+			'uncheckin_nonce' => wp_create_nonce( 'uncheckin' ),
 		);
 
-		wp_localize_script( Tribe__Events__Tickets__Tickets_Pro::$attendees_slug, 'Attendees', $mail_data );
+		wp_localize_script( self::$attendees_slug, 'Attendees', $mail_data );
 	}
 
 	/**
@@ -134,30 +129,23 @@ class Tribe__Events__Tickets__Tickets_Pro {
 			return;
 		}
 
-
 		$dismissed = explode( ',', (string) get_user_meta( get_current_user_id(), 'dismissed_wp_pointers', true ) );
 		$pointer   = null;
-
 
 		if ( version_compare( get_bloginfo( 'version' ), '3.3', '>' ) && ! in_array( 'attendees_filters', $dismissed ) ) {
 			$pointer = array(
 				'pointer_id' => 'attendees_filters',
 				'target'     => '#screen-options-link-wrap',
 				'options'    => array(
-					'content'  => sprintf(
-						'<h3> %s </h3> <p> %s </p>',
-						__( 'Columns', 'tribe-events-calendar' ),
-						__( 'You can use Screen Options to select which columns you want to see. The selection works in the table below, in the email, for print and for the CSV export.', 'tribe-events-calendar' )
-					),
-					'position' => array( 'edge' => 'top', 'align' => 'center' )
-				)
+					'content' => sprintf( '<h3> %s </h3> <p> %s </p>', __( 'Columns', 'tribe-events-calendar' ), __( 'You can use Screen Options to select which columns you want to see. The selection works in the table below, in the email, for print and for the CSV export.', 'tribe-events-calendar' ) ),
+					'position' => array( 'edge' => 'top', 'align' => 'center' ),
+				),
 			);
 			wp_enqueue_script( 'wp-pointer' );
 			wp_enqueue_style( 'wp-pointer' );
 		}
 
-		wp_localize_script( Tribe__Events__Tickets__Tickets_Pro::$attendees_slug, 'AttendeesPointer', $pointer );
-
+		wp_localize_script( self::$attendees_slug, 'AttendeesPointer', $pointer );
 	}
 
 	/**
@@ -185,10 +173,9 @@ class Tribe__Events__Tickets__Tickets_Pro {
 	 * @return string
 	 */
 	public function attendees_admin_title( $admin_title, $title ) {
-
 		if ( ! empty( $_GET['event_id'] ) ) {
 			$event       = get_post( $_GET['event_id'] );
-			$admin_title = sprintf( "%s - Attendee list", $event->post_title );
+			$admin_title = sprintf( '%s - Attendee list', $event->post_title );
 		}
 
 		return $admin_title;
@@ -242,7 +229,7 @@ class Tribe__Events__Tickets__Tickets_Pro {
 					if ( $key == 'check_in' && $data == 1 ) {
 						$data = __( 'Yes', 'tribe-events-calendar' );
 					}
-					$row[$key] = $data;
+					$row[ $key ] = $data;
 				}
 			}
 			$rows[] = array_values( $row );
@@ -296,17 +283,17 @@ class Tribe__Events__Tickets__Tickets_Pro {
 	 */
 	public function ajax_handler_attendee_mail_list() {
 
-		if ( ! isset( $_POST["event_id"] ) || ! isset( $_POST["email"] ) || ! ( is_numeric( $_POST["email"] ) || is_email( $_POST["email"] ) ) ) {
+		if ( ! isset( $_POST['event_id'] ) || ! isset( $_POST['email'] ) || ! ( is_numeric( $_POST['email'] ) || is_email( $_POST['email'] ) ) ) {
 			$this->ajax_error( 'Bad post' );
 		}
-		if ( empty( $_POST["nonce"] ) || ! wp_verify_nonce( $_POST["nonce"], 'email-attendee-list' ) || ! current_user_can( 'edit_tribe_events' ) ) {
+		if ( empty( $_POST['nonce'] ) || ! wp_verify_nonce( $_POST['nonce'], 'email-attendee-list' ) || ! current_user_can( 'edit_tribe_events' ) ) {
 			$this->ajax_error( 'Cheatin Huh?' );
 		}
 
-		if ( is_email( $_POST["email"] ) ) {
-			$email = $_POST["email"];
+		if ( is_email( $_POST['email'] ) ) {
+			$email = $_POST['email'];
 		} else {
-			$user  = get_user_by( 'id', $_POST["email"] );
+			$user  = get_user_by( 'id', $_POST['email'] );
 			$email = $user->data->user_email;
 		}
 
@@ -316,9 +303,9 @@ class Tribe__Events__Tickets__Tickets_Pro {
 
 		$this->attendees_page_screen_setup();
 
-		$items = $this->_generate_filtered_attendees_list( $_POST["event_id"] );
+		$items = $this->_generate_filtered_attendees_list( $_POST['event_id'] );
 
-		$event = get_post( $_POST["event_id"] );
+		$event = get_post( $_POST['event_id'] );
 
 		ob_start();
 		$attendee_tpl = Tribe__Events__Templates::getTemplateHierarchy( 'tickets/attendees-email.php', array( 'disable_view_check' => true ) );
@@ -430,45 +417,41 @@ class Tribe__Events__Tickets__Tickets_Pro {
 	 *
 	 * @param string $message
 	 */
-	protected final function ajax_error( $message = "" ) {
+	final protected function ajax_error( $message = '' ) {
 		header( 'Content-type: application/json' );
 
-		echo json_encode(
-			array(
-				"success" => false,
-				"message" => $message
-			)
-		);
+		echo json_encode( array(
+			'success' => false,
+			'message' => $message,
+		) );
 		exit;
 	}
 
 	/**
 	 * @param $data
 	 */
-	protected final function ajax_ok( $data ) {
+	final protected function ajax_ok( $data ) {
 		$return = array();
 		if ( is_object( $data ) ) {
 			$return = get_object_vars( $data );
 		} elseif ( is_array( $data ) || is_string( $data ) ) {
 			$return = $data;
 		} elseif ( is_bool( $data ) && ! $data ) {
-			$this->ajax_error( "Something went wrong" );
+			$this->ajax_error( 'Something went wrong' );
 		}
 
 		header( 'Content-type: application/json' );
-		echo json_encode(
-			array(
-				"success" => true,
-				"data"    => $return
-			)
-		);
+		echo json_encode( array(
+			'success' => true,
+			'data'    => $return,
+		) );
 		exit;
 	}
 
 	/**
 	 * Static Singleton Factory Method
 	 *
-*@return Tribe__Events__Tickets__Tickets_Pro
+	 * @return Tribe__Events__Tickets__Tickets_Pro
 	 */
 	public static function instance() {
 		if ( ! isset( self::$instance ) ) {

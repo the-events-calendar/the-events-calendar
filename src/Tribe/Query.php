@@ -30,6 +30,29 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 		}
 
 		/**
+		 * determines whether a date field can be injected into various parts of a query
+		 *
+		 * @param $query WP_Query Query object
+		 *
+		 * @return boolean
+		 */
+		public static function can_inject_date_field( $query ) {
+			if ( empty( $query->query_vars['fields'] ) ) {
+				return true;
+			}
+
+			if ( 'ids' === $query->query_vars['fields'] ) {
+				return false;
+			}
+
+			if ( 'id=>parent' === $query->query_vars['fields'] ) {
+				return false;
+			}
+
+			return true;
+		}
+
+		/**
 		 * Set any query flags
 		 *
 		 * @param WP_Query $query
@@ -132,6 +155,7 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 		 * @return object $query (modified)
 		 */
 		public static function pre_get_posts( $query ) {
+			$admin_helpers = Tribe__Events__Admin__Helpers::instance();
 
 			if ( $query->is_main_query() && is_home() ) {
 				// check option for including events in the main wordpress loop, if true, add events post type
@@ -148,7 +172,6 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 				add_filter( 'posts_join', array( __CLASS__, 'posts_join' ), 10, 2 );
 				add_filter( 'posts_join', array( __CLASS__, 'posts_join_orderby' ), 10, 2 );
 				add_filter( 'posts_distinct', array( __CLASS__, 'posts_distinct' ) );
-				add_filter( 'posts_groupby', array( __CLASS__, 'posts_groupby' ), 10, 2 );
 				add_filter( 'posts_orderby', array( __CLASS__, 'posts_orderby' ), 10, 2 );
 				do_action( 'tribe_events_pre_get_posts', $query );
 
@@ -157,28 +180,20 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 
 			if ( $query->tribe_is_event || $query->tribe_is_event_category ) {
 
-				if ( ! ( $query->is_main_query() && $query->get( 'eventDisplay' ) == 'month' ) ) {
+				if ( ! ( $query->is_main_query() && 'month' === $query->get( 'eventDisplay' ) ) ) {
 					add_filter( 'posts_fields', array( __CLASS__, 'posts_fields' ), 10, 2 );
 					add_filter( 'posts_join', array( __CLASS__, 'posts_join' ), 10, 2 );
 					add_filter( 'posts_join', array( __CLASS__, 'posts_join_orderby' ), 10, 2 );
 					add_filter( 'posts_where', array( __CLASS__, 'posts_where' ), 10, 2 );
 					add_filter( 'posts_distinct', array( __CLASS__, 'posts_distinct' ) );
-					add_filter( 'posts_groupby', array( __CLASS__, 'posts_groupby' ), 10, 2 );
 				} else {
+
 					// reduce number of queries triggered by main WP_Query on month view
 					$query->set( 'posts_per_page', 1 );
 					$query->set( 'no_found_rows', true );
 					$query->set( 'cache_results', false );
 					$query->set( 'update_post_meta_cache', false );
 					$query->set( 'update_post_term_cache', false );
-					$query->set(
-						'meta_query', array(
-							array(
-								'key'  => '_EventStartDate',
-								'type' => 'DATETIME'
-							)
-						)
-					);
 					do_action( 'tribe_events_pre_get_posts', $query );
 
 					return $query;
@@ -234,7 +249,7 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 							$query->set( 'start_date', date_i18n( Tribe__Events__Date_Utils::DBDATETIMEFORMAT, $beginning_of_day ) );
 							$query->set( 'end_date', tribe_event_end_of_day( $event_date ) );
 							$query->set( 'posts_per_page', - 1 ); // show ALL day posts
-							$query->set( 'hide_upcoming', false );
+							$query->set( 'hide_upcoming', true );
 							$query->set( 'order', self::set_order( 'ASC', $query ) );
 							break;
 						case 'all':
@@ -253,7 +268,7 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 								? $query->get( 'eventDate' )
 								: date_i18n( Tribe__Events__Date_Utils::DBDATETIMEFORMAT );
 							if ( ! $query->tribe_is_past ) {
-								$query->set( 'start_date', ( '' != $query->get( 'eventDate' ) ? tribe_event_beginning_of_day( $event_date ) : tribe_event_format_date( time(), true, 'Y-m-d H:i:s' ) ) );
+								$query->set( 'start_date', ( '' != $query->get( 'eventDate' ) ? tribe_event_beginning_of_day( $event_date ) : tribe_event_format_date( current_time( 'timestamp' ), true, 'Y-m-d H:i:s' ) ) );
 								$query->set( 'end_date', '' );
 								$query->set( 'order', self::set_order( 'ASC', $query ) );
 							} else {
@@ -289,10 +304,10 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 
 				$screen = ! is_admin() || ( defined( 'DOING_AJAX' ) && DOING_AJAX ) ? null : get_current_screen();
 
-				if ( empty( $screen ) || $screen->id != 'edit-tribe_events' ) {
+				if ( empty( $screen ) || 'edit-tribe_events' !== $screen->id ) {
 					$meta_query[] = array(
 						'key'  => '_EventStartDate',
-						'type' => 'DATETIME'
+						'type' => 'DATETIME',
 					);
 				}
 			}
@@ -319,7 +334,7 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 			}
 
 			// hide upcoming events from query (only not in admin)
-			if ( $query->tribe_is_event_query && $query->get( 'hide_upcoming' ) && !$query->get( 'suppress_filters' ) ) {
+			if ( $query->tribe_is_event_query && $query->get( 'hide_upcoming' ) && ! $query->get( 'suppress_filters' ) ) {
 				$hide_upcoming_ids = self::getHideFromUpcomingEvents();
 				if ( ! empty( $hide_upcoming_ids ) ) {
 					$query->set( 'post__not_in', $hide_upcoming_ids );
@@ -344,14 +359,15 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 			}
 
 			// if is in the admin remove the event date & upcoming filters, unless is an ajax call
-			global $current_screen;
-			if ( is_admin() && $query->tribe_is_event_query && ! empty( $current_screen->id ) && $current_screen->id == 'edit-' . Tribe__Events__Main::POSTTYPE ) {
+			if (
+				is_admin()
+				&& $query->tribe_is_event_query
+				&& $admin_helpers->is_screen( 'edit-' . Tribe__Events__Main::POSTTYPE )
+			) {
 				if ( ( ! defined( 'DOING_AJAX' ) ) || ( defined( 'DOING_AJAX' ) && ! ( DOING_AJAX ) ) ) {
 
 					remove_filter( 'posts_where', array( __CLASS__, 'posts_where' ), 10, 2 );
 					remove_filter( 'posts_fields', array( __CLASS__, 'posts_fields' ) );
-					remove_filter( 'posts_groupby', array( __CLASS__, 'posts_groupby' ) );
-					remove_filter( 'posts_orderby', array( __CLASS__, 'posts_orderby' ), 10, 2 );
 					$query->set( 'post__not_in', '' );
 
 					// set the default order for posts within admin lists
@@ -369,27 +385,6 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 			}
 
 			return $query;
-		}
-
-		/**
-		 * Modifies the GROUP BY statement for Tribe Events queries.
-		 *
-		 * @param string   $groupby_sql The current GROUP BY statement.
-		 * @param WP_Query $query       The current query.
-		 *
-		 * @return string The modified GROUP BY content.
-		 * @todo remove in 3.10
-		 */
-		public static function posts_groupby( $groupby_sql, $query ) {
-			if ( ! empty( $query->tribe_is_event_query ) || ! empty( $query->tribe_is_multi_posttype ) ) {
-				if ( has_filter( 'tribe_events_query_posts_groupby' ) ) {
-					_deprecated_function( "The 'tribe_events_query_posts_groupby' filter", '3.8', " the 'posts_groupby' filter" );
-
-					return apply_filters( 'tribe_events_query_posts_groupby', $groupby_sql, $query );
-				}
-			}
-
-			return $groupby_sql;
 		}
 
 		/**
@@ -412,8 +407,13 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 		 * @return string The modified FIELDS statement.
 		 */
 		public static function posts_fields( $field_sql, $query ) {
-			if ( ! empty( $query->tribe_is_event ) ) {
-				global $wpdb;
+			if (
+				(
+					! empty( $query->tribe_is_event )
+					|| ! empty( $query->tribe_is_event_category )
+				)
+				&& self::can_inject_date_field( $query )
+			) {
 				$postmeta_table             = self::postmeta_table( $query );
 				$fields                     = array();
 				$fields['event_start_date'] = "MIN({$postmeta_table}.meta_value) as EventStartDate";
@@ -435,7 +435,10 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 		 * @return string The modified FIELDS statement.
 		 */
 		public static function multi_type_posts_fields( $field_sql, $query ) {
-			if ( ! empty( $query->tribe_is_multi_posttype ) ) {
+			if (
+				! empty( $query->tribe_is_multi_posttype )
+				&& self::can_inject_date_field( $query )
+			) {
 				global $wpdb;
 				$postmeta_table = self::postmeta_table( $query );
 				$fields         = array();
@@ -644,7 +647,9 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 				$orderby = ( isset( $query->orderby ) && ! empty( $query->orderby ) ) ? $query->orderby : $query->get( 'orderby' );
 
 //				$order_sql = "DATE(MIN({$postmeta_table}.meta_value)) {$order}, TIME({$postmeta_table}.meta_value) {$order}";
-				$order_sql = "EventStartDate {$order}";
+				if ( self::can_inject_date_field( $query ) ) {
+					$order_sql = "EventStartDate {$order}";
+				}
 
 				do_action( 'log', 'orderby', 'default', $orderby );
 
@@ -664,9 +669,15 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 					case 'event_date':
 						// we've already setup $order_sql
 						break;
+					case 'rand':
+						$order_sql = 'RAND()';
+						break;
 				}
+
+				// trim trailing characters
+				$order_sql = trim( $order_sql, ", \t\n\r\0\x0B" );
 			} else {
-				if ( $query->tribe_is_multi_posttype ) {
+				if ( $query->tribe_is_multi_posttype && self::can_inject_date_field( $query ) ) {
 					if ( $query->get( 'orderby' ) == 'date' || $query->get( 'orderby' ) == '' ) {
 						$order_sql = str_replace( "$wpdb->posts.post_date", 'post_date', $order_sql );
 					}
@@ -709,8 +720,8 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 		 * @return array The counts array.
 		 */
 		public static function getEventCounts( $args = array() ) {
+			_deprecated_function( __METHOD__, '3.10.1' );
 			global $wpdb;
-			do_action( 'log', 'getEventCounts() $args', 'tribe-events-query', $args );
 			$date     = date( 'Y-m-d' );
 			$defaults = array(
 				'post_type'         => Tribe__Events__Main::POSTTYPE,
@@ -732,27 +743,20 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 			$cache_key = 'daily_counts_and_ids_' . serialize( $args );
 			$found     = $cache->get( $cache_key, 'save_post' );
 			if ( $found ) {
-				do_action( 'log', 'cache hit ' . __LINE__, 'tribe-events-cache', $args );
 
 				return $found;
 			}
-			do_action( 'log', 'no cache hit ' . __LINE__, 'tribe-events-cache', $args );
 
 			$cache_key = 'month_post_ids_' . serialize( $args );
 			$found     = $cache->get( $cache_key, 'save_post' );
 			if ( $found && is_array( $found ) ) {
-				do_action( 'log', 'cache hit ' . __LINE__, 'tribe-events-cache', $args );
 				$post_ids = $found;
 			} else {
-				do_action( 'log', 'no cache hit ' . __LINE__, 'tribe-events-cache', $args );
 				$post_id_query = new WP_Query();
 				$post_ids      = $post_id_query->query( $args );
-				do_action( 'log', 'final args for month view post ids', 'tribe-events-query', $post_id_query->query_vars );
-				do_action( 'log', 'Month view getEventCounts SQL', 'tribe-events-query', $post_id_query->request );
 				$cache->set( $cache_key, $post_ids, Tribe__Events__Cache::NON_PERSISTENT, 'save_post' );
 			}
 
-			do_action( 'log', 'Month view post ids found', 'tribe-events-query', $post_ids );
 			$counts    = array();
 			$event_ids = array();
 			if ( ! empty( $post_ids ) ) {
@@ -761,7 +765,6 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 					default :
 						global $wp_query;
 						$output_date_format = '%Y-%m-%d %H:%i:%s';
-						do_action( 'log', 'raw counts args', 'tribe-events-query', $args );
 						$raw_counts = $wpdb->get_results(
 							$wpdb->prepare(
 								"
@@ -786,17 +789,16 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 								implode( ',', array_map( 'intval', $post_ids ) )
 							)
 						);
-						do_action( 'log', 'raw counts query', 'tribe-events-query', $wpdb->last_query );
 						$start_date = new DateTime( $post_id_query->query_vars['start_date'] );
 						$end_date   = new DateTime( $post_id_query->query_vars['end_date'] );
-						$days       = Tribe__Events__Date_Utils::dateDiff( $start_date->format( 'Y-m-d' ), $end_date->format( 'Y-m-d' ) );
+						$days       = Tribe__Events__Date_Utils::date_diff( $start_date->format( 'Y-m-d' ), $end_date->format( 'Y-m-d' ) );
 						$term_id    = isset( $wp_query->query_vars[ Tribe__Events__Main::TAXONOMY ] ) ? $wp_query->query_vars[ Tribe__Events__Main::TAXONOMY ] : null;
 						$terms = array();
 						if ( is_int( $term_id ) ) {
 							$terms[0] = $term_id;
 						} elseif ( is_string( $term_id ) ) {
 							$term = get_term_by( 'slug', $term_id, Tribe__Events__Main::TAXONOMY );
-							if ( ! is_wp_error( $term ) ) {
+							if ( $term ) {
 								$terms[0] = $term->term_id;
 							}
 						}
@@ -805,8 +807,6 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 						}
 						for ( $i = 0, $date = $start_date; $i <= $days; $i ++, $date->modify( '+1 day' ) ) {
 							$formatted_date = $date->format( 'Y-m-d' );
-							$start_of_day   = strtotime( $formatted_date );
-							$end_of_day     = strtotime( $formatted_date ) + 1;
 							$count          = 0;
 							$_day_event_ids = array();
 							foreach ( $raw_counts as $record ) {
@@ -836,10 +836,8 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 				}
 
 				// get a unique list of the event IDs that will be displayed, and update all their postmeta and term caches at once
-				$final_event_ids = array();
 				$final_event_ids = call_user_func_array( 'array_merge', $event_ids );
 				$final_event_ids = array_unique( $final_event_ids );
-				do_action( 'log', 'updating term and postmeta caches for events', 'tribe-events-cache', $final_event_ids );
 				update_object_term_cache( $final_event_ids, Tribe__Events__Main::POSTTYPE );
 				update_postmeta_cache( $final_event_ids );
 			}
@@ -848,7 +846,6 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 			$cache     = new Tribe__Events__Cache;
 			$cache_key = 'daily_counts_and_ids_' . serialize( $args );
 			$cache->set( $cache_key, $return, Tribe__Events__Cache::NON_PERSISTENT, 'save_post' );
-			do_action( 'log', 'final event counts result', 'tribe-events-query', $return );
 
 			return $return;
 		}
@@ -878,7 +875,7 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 			$cache_key = 'get_events_' . serialize( $args );
 
 			$result = $cache->get( $cache_key, 'save_post' );
-			if ( $result && is_a( $result, 'WP_Query' ) ) {
+			if ( $result && $result instanceof WP_Query ) {
 				do_action( 'log', 'cache hit', 'tribe-events-cache', $args );
 			} else {
 				do_action( 'log', 'no cache hit', 'tribe-events-cache', $args );
@@ -927,7 +924,7 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 				if ( isset( $qv['meta_query'] ) ) {
 					if (
 						( is_array( $qv['meta_query'] ) && ! empty( $qv['meta_query'] ) ) ||
-						( is_a( $qv['meta_query'], 'WP_Meta_Query' ) && ! empty( $qv['meta_query']->queries ) )
+						( $qv['meta_query'] instanceof WP_Meta_Query && ! empty( $qv['meta_query']->queries ) )
 					) {
 						$postmeta_table = 'tribe_event_postmeta';
 					}

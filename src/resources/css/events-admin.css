@@ -53,7 +53,28 @@ td.tribe_message {padding-bottom: 10px !important;}
 }
 
 .edit-venue-link, .edit-organizer-link { display:inline-block; margin-left:10px;}
+
+#event_organizer tbody + tbody tr.saved_organizer td,
+#event_organizer tbody + tfoot tr td {
+	margin-top: 1em;
+	padding-top: 1em;
+	border-top: 1px solid #e5e5e5;
 }
+#event_organizer .organizer td:first-child {
+	padding-left: 30px;
+}
+.move-organizer-group {
+	cursor: move;
+	padding-right: 0.5em;
+}
+.delete-organizer-group {
+	color: #444444;
+	float: right;
+}
+.delete-organizer-group:hover {
+	color: #aa0000;
+}
+
 
 .tribe_community_edit .edit-venue-link, .tribe_community_edit .edit-organizer-link {
 	display:none !important;
@@ -151,8 +172,10 @@ div.tribe-venue-error.error, div.tribe-organizer-error.error { margin-left:5px; 
 /* license keys */
 .ajax-loading-license, .valid-key, .invalid-key {display: none; margin: 0 5px;}
 .ajax-loading-license {position: relative; top: 5px;}
-.valid-key {color: green;}
-.invalid-key {color: red;}
+.key-validity { display: inline-block }
+.invalid-key { color: red }
+.valid-key { color: green }
+.valid-key.service-msg { color: #b72 }
 
 /* additional fields */
 #additional-field-table {margin-bottom: 20px;}
@@ -181,12 +204,12 @@ div.tribe-venue-error.error, div.tribe-organizer-error.error { margin-left:5px; 
 	margin: 7px 0;
 }
 .tribe-settings-form .tribe-settings-form-wrap fieldset .tribe-style-selection{margin-bottom:18px;}
-.OrganizerInfo td small {
+.OrganizerInfo td small, #event_organizer td small {
 	display: block;
 	max-width: 250px;
 	margin: 0;
 }
-.OrganizerInfo .organizer-email {
+.OrganizerInfo .organizer-email, #event_organizer .organizer-email {
 	vertical-align: top;
 }
 

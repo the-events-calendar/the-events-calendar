@@ -23,7 +23,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
-	<title><?php _e( 'Your tickets', 'tribe-events-calendar' ); ?></title>
+	<title><?php esc_html_e( 'Your tickets', 'tribe-events-calendar' ); ?></title>
 	<meta name="viewport" content="width=device-width" />
 	<style type="text/css">
 		h1, h2, h3, h4, h5, h6 {
@@ -228,15 +228,15 @@
 
 			<?php
 			$count = 0;
-			$break = "";
-			foreach ($tickets as $ticket) {
+			$break = '';
+			foreach ( $tickets as $ticket ) {
 				$count ++;
 
 				if ( $count == 2 ) {
-					$break = "page-break-before: always !important;";
+					$break = 'page-break-before: always !important;';
 				}
 
-				$event      = get_post( $ticket["event_id"] );
+				$event      = get_post( $ticket['event_id'] );
 				$header_id  = Tribe__Events__Tickets__Tickets_Pro::instance()->get_header_image_id( $ticket['event_id'] );
 				$header_img = false;
 				if ( ! empty( $header_id ) ) {
@@ -274,7 +274,7 @@
 										<table border="0" cellpadding="0" cellspacing="0" width="100%">
 											<tr>
 												<td class="ticket-image" valign="top" align="left" width="100%" style="padding-bottom:15px !important;">
-													<img src="<?php echo esc_attr( $header_img[0] ); ?>" width="<?php echo $header_width; ?>" alt="<?php echo esc_attr( $event->post_title ); ?>" style="border:0; outline:none; height:auto; max-width:100%; display:block;" />
+													<img src="<?php echo esc_attr( $header_img[0] ); ?>" width="<?php echo esc_attr( $header_width ); ?>" alt="<?php echo esc_attr( $event->post_title ); ?>" style="border:0; outline:none; height:auto; max-width:100%; display:block;" />
 												</td>
 											</tr>
 										</table>
@@ -302,19 +302,19 @@
 									<table class="ticket-details" border="0" cellpadding="0" cellspacing="0" width="100%" align="center">
 										<tr>
 											<td class="ticket-details" valign="top" align="left" width="100" style="padding: 0; width:100px; margin:0 !important;">
-												<h6 style="color:#909090 !important; margin:0 0 10px 0; font-family: 'Helvetica Neue', Helvetica, sans-serif; text-transform:uppercase; font-size:13px; font-weight:700 !important;"><?php _e( "Ticket #", "tribe-events-calendar" ); ?></h6>
+												<h6 style="color:#909090 !important; margin:0 0 10px 0; font-family: 'Helvetica Neue', Helvetica, sans-serif; text-transform:uppercase; font-size:13px; font-weight:700 !important;"><?php esc_html_e( 'Ticket #', 'tribe-events-calendar' ); ?></h6>
 												<span style="color:#0a0a0e !important; font-family: 'Helvetica Neue', Helvetica, sans-serif; font-size:15px;"><?php echo $ticket['ticket_id']; ?></span>
 											</td>
 											<td class="ticket-details" valign="top" align="left" width="120" style="padding: 0; width:120px; margin:0 !important;">
-												<h6 style="color:#909090 !important; margin:0 0 10px 0; font-family: 'Helvetica Neue', Helvetica, sans-serif; text-transform:uppercase; font-size:13px; font-weight:700 !important;"><?php _e( "Ticket Type", "tribe-events-calendar" ); ?></h6>
+												<h6 style="color:#909090 !important; margin:0 0 10px 0; font-family: 'Helvetica Neue', Helvetica, sans-serif; text-transform:uppercase; font-size:13px; font-weight:700 !important;"><?php esc_html_e( 'Ticket Type', 'tribe-events-calendar' ); ?></h6>
 												<span style="color:#0a0a0e !important; font-family: 'Helvetica Neue', Helvetica, sans-serif; font-size:15px;"><?php echo $ticket['ticket_name']; ?></span>
 											</td>
 											<td class="ticket-details" valign="top" align="left" width="120" style="padding: 0 !important; width:120px; margin:0 !important;">
-												<h6 style="color:#909090 !important; margin:0 0 10px 0; font-family: 'Helvetica Neue', Helvetica, sans-serif; text-transform:uppercase; font-size:13px; font-weight:700 !important;"><?php _e( "Purchaser", "tribe-events-calendar" ); ?></h6>
+												<h6 style="color:#909090 !important; margin:0 0 10px 0; font-family: 'Helvetica Neue', Helvetica, sans-serif; text-transform:uppercase; font-size:13px; font-weight:700 !important;"><?php esc_html_e( 'Purchaser', 'tribe-events-calendar' ); ?></h6>
 												<span style="color:#0a0a0e !important; font-family: 'Helvetica Neue', Helvetica, sans-serif; font-size:15px;"><?php echo $ticket['holder_name']; ?></span>
 											</td>
 											<td class="ticket-details new-row new-left-row" valign="top" align="left" width="120" style="padding: 0; width:120px; margin:0 !important;">
-												<h6 style="color:#909090 !important; margin:0 0 10px 0; font-family: 'Helvetica Neue', Helvetica, sans-serif; text-transform:uppercase; font-size:13px; font-weight:700 !important;"><?php _e( "Security Code", "tribe-events-calendar" ); ?></h6>
+												<h6 style="color:#909090 !important; margin:0 0 10px 0; font-family: 'Helvetica Neue', Helvetica, sans-serif; text-transform:uppercase; font-size:13px; font-weight:700 !important;"><?php esc_html_e( 'Security Code', 'tribe-events-calendar' ); ?></h6>
 												<span style="color:#0a0a0e !important; font-family: 'Helvetica Neue', Helvetica, sans-serif; font-size:15px;"><?php echo $ticket['security_code']; ?></span>
 											</td>
 										</tr>
@@ -329,7 +329,7 @@
 									<table class="ticket-venue" border="0" cellpadding="0" cellspacing="0" width="100%" align="center">
 										<tr>
 											<td class="ticket-venue" valign="top" align="left" width="300" style="padding: 0 !important; width:300px; margin:0 !important;">
-												<h6 style="color:#909090 !important; margin:0 0 4px 0; font-family: 'Helvetica Neue', Helvetica, sans-serif; text-transform:uppercase; font-size:13px; font-weight:700 !important;"><?php _e( tribe_get_venue_label_singular(), "tribe-events-calendar" ); ?></h6>
+												<h6 style="color:#909090 !important; margin:0 0 4px 0; font-family: 'Helvetica Neue', Helvetica, sans-serif; text-transform:uppercase; font-size:13px; font-weight:700 !important;"><?php _e( tribe_get_venue_label_singular(), 'tribe-events-calendar' ); ?></h6>
 												<table class="venue-details" border="0" cellpadding="0" cellspacing="0" width="100%" align="center">
 													<tr>
 														<td class="ticket-venue-child" valign="top" align="left" width="130" style="padding: 0 10px 0 0 !important; width:130px; margin:0 !important;">
@@ -349,11 +349,14 @@
 												</table>
 											</td>
 											<td class="ticket-organizer" valign="top" align="left" width="140" style="padding: 0 !important; width:140px; margin:0 !important;">
-												<h6 style="color:#909090 !important; margin:0 0 4px 0; font-family: 'Helvetica Neue', Helvetica, sans-serif; text-transform:uppercase; font-size:13px; font-weight:700 !important;"><?php _e( tribe_get_organizer_label_singular(), "tribe-events-calendar" ); ?></h6>
-												<span style="color:#0a0a0e !important; font-family: 'Helvetica Neue', Helvetica, sans-serif; font-size:15px;"><?php echo tribe_get_organizer( $event->ID ); ?></span>
+												<?php $organizers = tribe_get_organizer_ids( $event->ID ); ?>
+												<h6 style="color:#909090 !important; margin:0 0 4px 0; font-family: 'Helvetica Neue', Helvetica, sans-serif; text-transform:uppercase; font-size:13px; font-weight:700 !important;"><?php echo tribe_get_organizer_label( count($organizers) < 2 ); ?></h6>
+												<?php foreach ( $organizers as $organizer_id ) { ?>
+													<span style="color:#0a0a0e !important; font-family: 'Helvetica Neue', Helvetica, sans-serif; font-size:15px;"><?php echo tribe_get_organizer( $organizer_id ); ?></span>
+												<?php } ?>
 											</td>
 
-											<?php $qr_code_url = apply_filters( 'tribe_tickets_ticket_qr_code', '' , $ticket ); ?>
+											<?php $qr_code_url = apply_filters( 'tribe_tickets_ticket_qr_code', '', $ticket ); ?>
 											<?php if ( ! empty( $qr_code_url ) ): ?>
 												<td class="ticket-qr" valign="top" align="right" width="160"
 												    style="padding: 0 !important; width:160px; margin:0 !important;">

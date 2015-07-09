@@ -58,15 +58,15 @@ class Tribe__Events__Amalgamator {
 					'_OrganizerEmail'   => get_post_meta( $id, '_OrganizerEmail', true ),
 				);
 				$hash = md5( serialize( $data ) );
-				if ( ! isset( $buckets[$hash] ) ) {
-					$buckets[$hash] = array();
+				if ( ! isset( $buckets[ $hash ] ) ) {
+					$buckets[ $hash ] = array();
 				}
 				// prioritize organizers with an eventbrite id
 				$eventbrite = get_post_meta( $id, '_OrganizerEventBriteID', true );
 				if ( empty( $eventbrite ) ) {
-					array_push( $buckets[$hash], $id );
+					array_push( $buckets[ $hash ], $id );
 				} else {
-					array_unshift( $buckets[$hash], $id );
+					array_unshift( $buckets[ $hash ], $id );
 				}
 			}
 		}
@@ -101,15 +101,15 @@ class Tribe__Events__Amalgamator {
 					'_VenueURL'      => get_post_meta( $id, '_VenueURL', true ),
 				);
 				$hash = md5( serialize( $data ) );
-				if ( ! isset( $buckets[$hash] ) ) {
-					$buckets[$hash] = array();
+				if ( ! isset( $buckets[ $hash ] ) ) {
+					$buckets[ $hash ] = array();
 				}
 				// prioritize venues with an eventbrite id
 				$eventbrite = get_post_meta( $id, '_VenueEventBriteId', true );
 				if ( empty( $eventbrite ) ) {
-					array_push( $buckets[$hash], $id );
+					array_push( $buckets[ $hash ], $id );
 				} else {
-					array_unshift( $buckets[$hash], $id );
+					array_unshift( $buckets[ $hash ], $id );
 				}
 			}
 		}
@@ -265,7 +265,7 @@ class Tribe__Events__Amalgamator {
 			'tribe_settings_url', add_query_arg(
 				array(
 					'post_type' => Tribe__Events__Main::POSTTYPE,
-					'page'      => $settings->adminSlug
+					'page'      => $settings->adminSlug,
 				), admin_url( 'edit.php' )
 			)
 		);
@@ -295,7 +295,7 @@ class Tribe__Events__Amalgamator {
 			'tribe_settings_url', add_query_arg(
 				array(
 					'post_type' => Tribe__Events__Main::POSTTYPE,
-					'page'      => $settings->adminSlug
+					'page'      => $settings->adminSlug,
 				), admin_url( 'edit.php' )
 			)
 		);

@@ -89,23 +89,22 @@ class Tribe__Events__Backcompat {
 	 */
 	public function change_qv_to_list( $query ) {
 
-		if ( $query->get('eventDisplay') == 'upcoming' ) {
-			_deprecated_argument('tribe_get_events', '3.8', "Setting eventDisplay to 'upcoming' is deprecated. Please use 'list' instead.");
+		if ( $query->get( 'eventDisplay' ) == 'upcoming' ) {
+			_deprecated_argument( 'tribe_get_events', '3.8', "Setting eventDisplay to 'upcoming' is deprecated. Please use 'list' instead." );
 			$query->set( 'eventDisplay', 'list' );
 		}
 
-		if ( $query->get('eventDisplay') == 'past' ) {
+		if ( $query->get( 'eventDisplay' ) == 'past' ) {
 			$query->set( 'eventDisplay', 'list' );
 			$query->tribe_is_past = true;
 		}
-
 	}
 
 	/**
 	 * @return self
 	 */
 	public static function instance() {
-		if ( empty(self::$instance) ) {
+		if ( empty( self::$instance ) ) {
 			self::$instance = new self();
 		}
 		return self::$instance;

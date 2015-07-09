@@ -46,7 +46,7 @@
 		/**
 		 * @return string
 		 */
-		private function get_asset_class_name_prefix() {
+		protected function get_asset_class_name_prefix() {
 			return 'Tribe__Events__Asset__';
 		}
 	}

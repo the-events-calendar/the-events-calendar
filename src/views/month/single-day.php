@@ -11,7 +11,7 @@
 
 if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
-} 
+}
 
 $events_label_singular = tribe_get_event_label_singular();
 $events_label_plural = tribe_get_event_label_plural();
@@ -22,11 +22,11 @@ $day = tribe_events_get_current_month_day();
 <!-- Day Header -->
 <div id="tribe-events-daynum-<?php echo $day['daynum'] ?>">
 
-	<?php if ( $day['total_events'] > 0 && tribe_events_is_view_enabled( 'day' ) ) { ?>
+	<?php if ( $day['total_events'] > 0 && tribe_events_is_view_enabled( 'day' ) ) : ?>
 		<a href="<?php echo esc_url( tribe_get_day_link( $day['date'] ) ); ?>"><?php echo $day['daynum'] ?></a>
-	<?php } else { ?>
+	<?php else : ?>
 		<?php echo $day['daynum'] ?>
-	<?php } ?>
+	<?php endif; ?>
 
 </div>
 
@@ -36,7 +36,7 @@ $day = tribe_events_get_current_month_day();
 <?php endwhile; ?>
 
 <!-- View More -->
-<?php if ( $day['view_more'] && tribe_events_is_view_enabled( 'day' ) ) : ?>
+<?php if ( $day['view_more'] ) : ?>
 	<div class="tribe-events-viewmore">
 		<?php
 
@@ -45,4 +45,5 @@ $day = tribe_events_get_current_month_day();
 		?>
 		<a href="<?php echo esc_url( $day['view_more'] ); ?>"><?php echo $view_all_label ?> &raquo;</a>
 	</div>
-<?php endif ?>
+<?php
+endif;

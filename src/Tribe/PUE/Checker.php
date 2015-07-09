@@ -50,7 +50,7 @@ if ( ! class_exists( 'Tribe__Events__PUE__Checker' ) ) {
 		 *
 		 * @param string $plugin_file    fully qualified path to the main plugin file.
 		 */
-		function __construct( $pue_update_url, $slug = '', $options = array(), $plugin_file = '' ) {
+		public function __construct( $pue_update_url, $slug = '', $options = array(), $plugin_file = '' ) {
 
 			$this->set_slug( $slug );
 			$this->set_pue_update_url( $pue_update_url );
@@ -66,7 +66,7 @@ if ( ! class_exists( 'Tribe__Events__PUE__Checker' ) ) {
 		 * Also other hooks related to the automatic updates (such as checking agains API and what not (@from Darren)
 		 * @return void
 		 */
-		function hooks() {
+		public function hooks() {
 			// Override requests for plugin information
 			add_filter( 'plugins_api', array( &$this, 'inject_info' ), 10, 3 );
 
@@ -177,7 +177,7 @@ if ( ! class_exists( 'Tribe__Events__PUE__Checker' ) ) {
 
 				$plugin_details    = explode( '/', $this->get_plugin_file() );
 				$plugin_folder     = get_plugins( '/' . $plugin_details[0] );
-				$this->plugin_name = $plugin_folder[$plugin_details[1]]['Name'];
+				$this->plugin_name = $plugin_folder[ $plugin_details[1] ]['Name'];
 			}
 		}
 
@@ -206,7 +206,7 @@ if ( ! class_exists( 'Tribe__Events__PUE__Checker' ) ) {
 					'pue_option_name' => 'external_updates-' . $this->get_slug(),
 					'apikey'          => '',
 					'installkey'      => false,
-					'check_period'    => 12
+					'check_period'    => 12,
 				)
 			);
 
@@ -292,21 +292,21 @@ if ( ! class_exists( 'Tribe__Events__PUE__Checker' ) ) {
 		public function do_license_key_fields( $fields ) {
 
 			// we want to inject the following license settings at the end of the licenses tab
-			$fields = self::array_insert_after_key(
-						  'tribe-form-content-start', $fields, array(
-								  $this->pue_install_key . '-heading' => array(
-									  'type'  => 'heading',
-									  'label' => $this->get_plugin_name(),
-								  ),
-								  $this->pue_install_key              => array(
-									  'type'            => 'license_key',
-									  'size'            => 'large',
-									  'validation_type' => 'license_key',
-									  'label'           => sprintf( __( 'License Key', 'tribe-events-calendar' ) ),
-									  'tooltip'         => __( 'A valid license key is required for support and updates', 'tribe-events-calendar' ),
-									  'parent_option'   => false,
-								  ),
-							  )
+			$fields = self::array_insert_after_key( 'tribe-form-content-start', $fields, array(
+					$this->pue_install_key . '-heading' => array(
+						'type'  => 'heading',
+						'label' => $this->get_plugin_name(),
+					),
+					$this->pue_install_key => array(
+						'type'            => 'license_key',
+						'size'            => 'large',
+						'validation_type' => 'license_key',
+						'label'           => sprintf( __( 'License Key', 'tribe-events-calendar' ) ),
+						'tooltip'         => __( 'A valid license key is required for support and updates', 'tribe-events-calendar' ),
+						'parent_option'   => false,
+						'network_option'  => true,
+					),
+				)
 			);
 
 			return $fields;
@@ -328,28 +328,30 @@ if ( ! class_exists( 'Tribe__Events__PUE__Checker' ) ) {
 					<?php echo $this->pue_install_key ?>_validateKey();
 				});
 				function <?php echo $this->pue_install_key ?>_validateKey() {
-					var this_id = '#tribe-field-<?php echo $this->pue_install_key ?>';
+					var this_id       = '#tribe-field-<?php echo $this->pue_install_key ?>';
+					var $validity_msg = jQuery(this_id + ' .key-validity');
+
 					if (jQuery(this_id + ' input').val() != '') {
-						jQuery(this_id + ' .invalid-key').hide();
-						jQuery(this_id + ' .valid-key').hide();
 						jQuery(this_id + ' .tooltip').hide();
 						jQuery(this_id + ' .ajax-loading-license').show();
-						//strip whitespace from key
+						$validity_msg.hide();
+
+						// Strip whitespace from key
 						var <?php echo $this->pue_install_key ?>_license_key = jQuery(this_id + ' input').val().replace(/^\s+|\s+$/g, "");
 						jQuery(this_id + ' input').val(<?php echo $this->pue_install_key ?>_license_key);
 
 						var data = { action: 'pue-validate-key_<?php echo $this->get_slug(); ?>', key: <?php echo $this->pue_install_key ?>_license_key };
 						jQuery.post(ajaxurl, data, function (response) {
-							var data = jQuery.parseJSON(response);
+							var data          = jQuery.parseJSON(response);
+
 							jQuery(this_id + ' .ajax-loading-license').hide();
-							if (data.status == '1') {
-								jQuery(this_id + ' .valid-key').show();
-								jQuery(this_id + ' .valid-key').html(data.message);
-								jQuery(this_id + ' .invalid-key').hide();
-							} else {
-								jQuery(this_id + ' .invalid-key').show();
-								jQuery(this_id + ' .invalid-key').html(data.message);
-								jQuery(this_id + ' .valid-key').hide();
+							$validity_msg.show();
+							$validity_msg.html(data.message);
+
+							switch ( data.status ) {
+								case 1: $validity_msg.addClass( 'valid-key' ); break;
+								case 2: $validity_msg.addClass( 'valid-key service-msg' ); break;
+								default: $validity_msg.addClass( 'invalid-key' ); break;
 							}
 						});
 					}
@@ -386,7 +388,7 @@ if ( ! class_exists( 'Tribe__Events__PUE__Checker' ) ) {
 
 				$queryArgs = array(
 					'pu_install_key'          => trim( $_POST['key'] ),
-					'pu_checking_for_updates' => '1'
+					'pu_checking_for_updates' => '1',
 				);
 
 				//include version info
@@ -395,8 +397,9 @@ if ( ! class_exists( 'Tribe__Events__PUE__Checker' ) ) {
 				global $wp_version;
 				$queryArgs['wp_version'] = $wp_version;
 
-				//include domain and multisite stats
-				$queryArgs['domain'] = $_SERVER['SERVER_NAME'];
+				// For multisite, return the network-level siteurl ... in
+				// all other cases return the actual URL being serviced
+				$queryArgs['domain'] = is_multisite() ? $this->get_network_domain() : $_SERVER['SERVER_NAME'];
 
 				if ( is_multisite() ) {
 					$queryArgs['multisite']         = 1;
@@ -410,6 +413,7 @@ if ( ! class_exists( 'Tribe__Events__PUE__Checker' ) ) {
 				}
 
 				$pluginInfo = $this->request_info( $queryArgs );
+				$expiration = isset( $pluginInfo->expiration ) ? $pluginInfo->expiration : __( 'unknown date', 'tribe-events-calendar' );
 
 				if ( empty( $pluginInfo ) ) {
 					$response['message'] = __( 'Sorry, key validation server is not available.', 'tribe-events-calendar' );
@@ -423,9 +427,10 @@ if ( ! class_exists( 'Tribe__Events__PUE__Checker' ) ) {
 				} elseif ( isset( $pluginInfo->api_invalid ) && $pluginInfo->api_invalid == 1 ) {
 					$response['message'] = __( 'Sorry, this key is not valid.', 'tribe-events-calendar' );
 				} else {
-					$response['status']     = 1;
-					$response['message']    = sprintf( __( 'Valid Key! Expires on %s', 'tribe-events-calendar' ), $pluginInfo->expiration );
-					$response['expiration'] = $pluginInfo->expiration;
+					$default_success_msg    = sprintf( __( 'Valid Key! Expires on %s', 'tribe-events-calendar' ), $expiration );
+					$response['status']     = isset( $pluginInfo->api_message ) ? 2 : 1;
+					$response['message']    = isset( $pluginInfo->api_message ) ? wp_kses( $pluginInfo->api_message, 'data' ) : $default_success_msg;
+					$response['expiration'] = $expiration;
 				}
 			} else {
 				$response['message'] = sprintf( __( 'Hmmm... something\'s wrong with this validator. Please contact <a href="%s">support.</a>', 'tribe-events-calendar' ), 'http://m.tri.be/1u' );
@@ -438,7 +443,7 @@ if ( ! class_exists( 'Tribe__Events__PUE__Checker' ) ) {
 		/**
 		 * Echo JSON formatted errors
 		 */
-		function display_json_error() {
+		public function display_json_error() {
 			$pluginInfo       = $this->json_error;
 			$update_dismissed = $this->get_option( $this->dismiss_upgrade );
 
@@ -482,7 +487,7 @@ if ( ! class_exists( 'Tribe__Events__PUE__Checker' ) ) {
 		 * @uses wp_remote_get()
 		 * @return string $pluginInfo
 		 */
-		function request_info( $queryArgs = array() ) {
+		public function request_info( $queryArgs = array() ) {
 			//Query args to append to the URL. Plugins can add their own by using a filter callback (see add_query_arg_filter()).
 			$queryArgs['installed_version'] = $this->get_installed_version();
 			$queryArgs['pu_request_plugin'] = $this->get_slug();
@@ -502,7 +507,7 @@ if ( ! class_exists( 'Tribe__Events__PUE__Checker' ) ) {
 			$queryArgs['wp_version'] = $wp_version;
 
 			//include domain and multisite stats
-			$queryArgs['domain'] = $_SERVER['SERVER_NAME'];
+			$queryArgs['domain'] = is_multisite() ? $this->get_network_domain() : $_SERVER['SERVER_NAME'];
 
 			if ( is_multisite() ) {
 				$queryArgs['multisite']         = 1;
@@ -522,7 +527,7 @@ if ( ! class_exists( 'Tribe__Events__PUE__Checker' ) ) {
 			$options = array(
 				'timeout' => 15, //seconds
 				'headers' => array(
-					'Accept' => 'application/json'
+					'Accept' => 'application/json',
 				),
 			);
 			$options = apply_filters( 'tribe_puc_request_info_options-' . $this->get_slug(), $options );
@@ -535,8 +540,8 @@ if ( ! class_exists( 'Tribe__Events__PUE__Checker' ) ) {
 			// Cache the API call so it only needs to be made once per plugin per page load.
 			static $plugin_info_cache;
 			$key = crc32( implode( '', $queryArgs ) );
-			if ( isset( $plugin_info_cache[$key] ) ) {
-				return $plugin_info_cache[$key];
+			if ( isset( $plugin_info_cache[ $key ] ) ) {
+				return $plugin_info_cache[ $key ];
 			}
 
 			$result = wp_remote_get(
@@ -551,9 +556,23 @@ if ( ! class_exists( 'Tribe__Events__PUE__Checker' ) ) {
 			}
 			$pluginInfo = apply_filters( 'tribe_puc_request_info_result-' . $this->get_slug(), $pluginInfo, $result );
 
-			$plugin_info_cache[$key] = $pluginInfo;
+			$plugin_info_cache[ $key ] = $pluginInfo;
 
 			return $pluginInfo;
+		}
+
+		/**
+		 * Returns the domain contained in the network's siteurl option (not the full URL).
+		 *
+		 * @return string
+		 */
+		public function get_network_domain() {
+			$site_url = parse_url( get_site_option( 'siteurl' ) );
+			if ( ! $site_url || ! isset( $site_url['host'] ) ) {
+				return '';
+			} else {
+				return strtolower( $site_url['host'] );
+			}
 		}
 
 		/**
@@ -563,7 +582,7 @@ if ( ! class_exists( 'Tribe__Events__PUE__Checker' ) ) {
 		 *
 		 * @return Tribe__Events__PUE__Utility An instance of Tribe__Events__PUE__Utility, or NULL when no updates are available.
 		 */
-		function request_update() {
+		public function request_update() {
 			//For the sake of simplicity, this function just calls request_info()
 			//and transforms the result accordingly.
 			$pluginInfo = $this->request_info( array( 'pu_checking_for_updates' => '1' ) );
@@ -601,7 +620,7 @@ if ( ! class_exists( 'Tribe__Events__PUE__Checker' ) ) {
 		 *
 		 * @param $plugin_data
 		 */
-		function in_plugin_update_message( $plugin_data ) {
+		public function in_plugin_update_message( $plugin_data ) {
 			$plugininfo = $this->json_error;
 			//only display messages if there is a new version of the plugin.
 			if ( is_object( $plugininfo ) && version_compare( $plugininfo->version, $this->get_installed_version(), '>' ) ) {
@@ -620,14 +639,14 @@ if ( ! class_exists( 'Tribe__Events__PUE__Checker' ) ) {
 		/**
 		 * Display a changelog when the api key is missing.
 		 */
-		function display_changelog() {
+		public function display_changelog() {
 			//contents of changelog display page when api-key is invalid or missing.  It will ONLY show the changelog (hook into existing thickbox?)
 		}
 
 		/**
 		 * Update option to dismiss the upgrade notice.
 		 */
-		function dashboard_dismiss_upgrade() {
+		public function dashboard_dismiss_upgrade() {
 			$os_ary = $this->get_option( $this->dismiss_upgrade );
 			if ( ! is_array( $os_ary ) ) {
 				$os_ary = array();
@@ -642,11 +661,11 @@ if ( ! class_exists( 'Tribe__Events__PUE__Checker' ) ) {
 		 *
 		 * @return string Version number.
 		 */
-		function get_installed_version() {
+		public function get_installed_version() {
 			if ( function_exists( 'get_plugins' ) ) {
 				$allPlugins = get_plugins();
-				if ( array_key_exists( $this->get_plugin_file(), $allPlugins ) && array_key_exists( 'Version', $allPlugins[$this->get_plugin_file()] ) ) {
-					return $allPlugins[$this->get_plugin_file()]['Version'];
+				if ( array_key_exists( $this->get_plugin_file(), $allPlugins ) && array_key_exists( 'Version', $allPlugins[ $this->get_plugin_file() ] ) ) {
+					return $allPlugins[ $this->get_plugin_file() ]['Version'];
 				}
 			}
 		}
@@ -659,18 +678,8 @@ if ( ! class_exists( 'Tribe__Events__PUE__Checker' ) ) {
 		 *
 		 * @return null|mixed
 		 */
-		function get_option( $option_key, $default = false ) {
-			$return = $default;
-			// Check if the option is in the site options
-			if ( is_multisite() ) {
-				$return = get_site_option( $option_key, $default );
-			}
-			// Fall back on local options
-			if ( empty( $return ) ) {
-				$return = get_option( $option_key, $default );
-			}
-
-			return $return;
+		public function get_option( $option_key, $default = false ) {
+			return get_site_option( $option_key, $default );
 		}
 
 		/**
@@ -679,15 +688,8 @@ if ( ! class_exists( 'Tribe__Events__PUE__Checker' ) ) {
 		 * @param mixed $option_key
 		 * @param mixed $value
 		 */
-		function update_option( $option_key, $value ) {
-			// Check if the option is in the site options
-			if ( is_network_admin() ) {
-				update_site_option( $option_key, $value );
-				delete_option( $option_key ); // make sure there is no local version of this option.
-			} else {
-				// Otherwise update it on the blog.
-				update_option( $option_key, $value );
-			}
+		public function update_option( $option_key, $value ) {
+			update_site_option( $option_key, $value );
 		}
 
 		/**
@@ -699,7 +701,7 @@ if ( ! class_exists( 'Tribe__Events__PUE__Checker' ) ) {
 		 *
 		 * @return void
 		 */
-		function check_for_updates( $updates = array() ) {
+		public function check_for_updates( $updates = array() ) {
 			$state = $this->get_option( $this->pue_option_name );
 			if ( empty( $state ) ) {
 				$state                 = new StdClass;
@@ -721,7 +723,7 @@ if ( ! class_exists( 'Tribe__Events__PUE__Checker' ) ) {
 
 			//Is there an update to insert?
 			if ( version_compare( $state->update->version, $this->get_installed_version(), '>' ) ) {
-				$updates->response[$this->get_plugin_file()] = $state->update->to_wp_format();
+				$updates->response[ $this->get_plugin_file() ] = $state->update->to_wp_format();
 			}
 
 			$this->update_option( $this->pue_option_name, $state );
@@ -742,7 +744,7 @@ if ( ! class_exists( 'Tribe__Events__PUE__Checker' ) ) {
 		 *
 		 * @return mixed
 		 */
-		function inject_info( $result, $action = null, $args = null ) {
+		public function inject_info( $result, $action = null, $args = null ) {
 			$relevant = ( $action == 'plugin_information' ) && isset( $args->slug ) && ( $args->slug == $this->slug );
 			if ( ! $relevant ) {
 				return $result;
@@ -768,7 +770,7 @@ if ( ! class_exists( 'Tribe__Events__PUE__Checker' ) ) {
 		 *
 		 * @return void
 		 */
-		function add_query_arg_filter( $callback ) {
+		public function add_query_arg_filter( $callback ) {
 			add_filter( 'tribe_puc_request_info_query_args-' . $this->get_slug(), $callback );
 		}
 
@@ -785,7 +787,7 @@ if ( ! class_exists( 'Tribe__Events__PUE__Checker' ) ) {
 		 *
 		 * @return void
 		 */
-		function add_http_request_arg_filter( $callback ) {
+		public function add_http_request_arg_filter( $callback ) {
 			add_filter( 'tribe_puc_request_info_options-' . $this->get_slug(), $callback );
 		}
 
@@ -805,7 +807,7 @@ if ( ! class_exists( 'Tribe__Events__PUE__Checker' ) ) {
 		 *
 		 * @return void
 		 */
-		function add_result_filter( $callback ) {
+		public function add_result_filter( $callback ) {
 			add_filter( 'tribe_puc_request_info_result-' . $this->get_slug(), $callback, 10, 2 );
 		}
 
@@ -841,11 +843,10 @@ if ( ! class_exists( 'Tribe__Events__PUE__Checker' ) ) {
 		 */
 		public function return_install_key( $keys = array() ) {
 			if ( ! empty( $this->install_key ) ) {
-				$keys[$this->get_slug()] = $this->install_key;
+				$keys[ $this->get_slug() ] = $this->install_key;
 			}
 
 			return $keys;
 		}
 	}
 }
-?>

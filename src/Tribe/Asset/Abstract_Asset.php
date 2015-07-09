@@ -44,7 +44,7 @@
 			$this->prefix = $prefix;
 		}
 
-		public function set_tec( Tribe__Events__Main $tec ) {
+		public function set_tec( $tec ) {
 			$this->tec = $tec;
 		}
 

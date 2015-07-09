@@ -88,7 +88,7 @@ class Tribe__Events__Embedded_Maps {
 
 		$this->embedded_maps[] = array(
 			'address' => $this->address,
-			'title'   => tribe_get_venue( $this->venue_id )
+			'title'   => tribe_get_venue( $this->venue_id ),
 		);
 
 		end( $this->embedded_maps );
@@ -137,11 +137,11 @@ class Tribe__Events__Embedded_Maps {
 	}
 
 	public function get_map_data( $map_index ) {
-		return isset( $this->embedded_maps[$map_index] ) ? $this->embedded_maps[$map_index] : array();
+		return isset( $this->embedded_maps[ $map_index ] ) ? $this->embedded_maps[ $map_index ] : array();
 	}
 
 	public function update_map_data( $map_index, array $data ) {
-		$this->embedded_maps[$map_index] = $data;
+		$this->embedded_maps[ $map_index ] = $data;
 		$this->setup_scripts();
 	}
 
@@ -153,8 +153,8 @@ class Tribe__Events__Embedded_Maps {
 		// Provide address data
 		wp_localize_script( self::MAP_HANDLE, 'tribeEventsSingleMap', array(
 			'addresses' => $this->embedded_maps,
-			'zoom' => apply_filters( 'tribe_events_single_map_zoom_level', (int) tribe_get_option( 'embedGoogleMapsZoom', 8 ) )
-		));
+			'zoom' => apply_filters( 'tribe_events_single_map_zoom_level', (int) tribe_get_option( 'embedGoogleMapsZoom', 8 ) ),
+		) );
 	}
 
 	protected function enqueue_map_scripts() {

@@ -175,7 +175,7 @@ if ( ! class_exists( 'Tribe__Events__Settings' ) ) {
 			$this->admin_page = add_submenu_page(
 				'settings.php', __( 'The Events Calendar Settings', 'tribe-events-calendar' ), __( 'Events Settings', 'tribe-events-calendar' ), $this->requiredCap, $this->adminSlug, array(
 					$this,
-					'generatePage'
+					'generatePage',
 				)
 			);
 		}
@@ -198,7 +198,7 @@ if ( ! class_exists( 'Tribe__Events__Settings' ) ) {
 						'tribe_settings_url', add_query_arg(
 							array(
 								'page' => $this->adminSlug,
-								'tab'  => $this->currentTab
+								'tab'  => $this->currentTab,
 							), network_admin_url( 'settings.php' )
 						)
 					);
@@ -211,7 +211,7 @@ if ( ! class_exists( 'Tribe__Events__Settings' ) ) {
 						'tribe_settings_url', add_query_arg(
 							array(
 								'page' => $this->adminSlug,
-								'tab'  => $this->currentTab
+								'tab'  => $this->currentTab,
 							), add_query_arg( array( 'post_type' => Tribe__Events__Main::POSTTYPE ), admin_url( 'edit.php' ) )
 						)
 					);
@@ -250,15 +250,15 @@ if ( ! class_exists( 'Tribe__Events__Settings' ) ) {
 			do_action( 'tribe_settings_before_content_tab_' . $this->currentTab );
 			do_action( 'tribe_settings_content_tab_' . $this->currentTab );
 			if ( ! has_action( 'tribe_settings_content_tab_' . $this->currentTab ) ) {
-				echo '<p>' . __( "You've requested a non-existent tab.", 'tribe-events-calendar' ) . '</p>';
+				echo '<p>' . esc_html__( "You've requested a non-existent tab.", 'tribe-events-calendar' ) . '</p>';
 			}
 			do_action( 'tribe_settings_after_content_tab_' . $this->currentTab );
 			do_action( 'tribe_settings_after_content' );
 			if ( has_action( 'tribe_settings_content_tab_' . $this->currentTab ) && ! in_array( $this->currentTab, $this->noSaveTabs ) ) {
 				wp_nonce_field( 'saving', 'tribe-save-settings' );
 				echo '<div class="clear"></div>';
-				echo '<input type="hidden" name="current-settings-tab" id="current-settings-tab" value="' . $this->currentTab . '" />';
-				echo '<input id="tribeSaveSettings" class="button-primary" type="submit" name="tribeSaveSettings" value="' . __( ' Save Changes', 'tribe-events-calendar' ) . '" />';
+				echo '<input type="hidden" name="current-settings-tab" id="current-settings-tab" value="' . esc_attr( $this->currentTab ) . '" />';
+				echo '<input id="tribeSaveSettings" class="button-primary" type="submit" name="tribeSaveSettings" value="' . esc_attr__( ' Save Changes', 'tribe-events-calendar' ) . '" />';
 			}
 			echo apply_filters( 'tribe_settings_closing_form_element', '</form>' );
 			do_action( 'tribe_settings_after_form_element' );
@@ -284,10 +284,8 @@ if ( ! class_exists( 'Tribe__Events__Settings' ) ) {
 					if ( is_network_admin() ) {
 						$url = '?page=' . $this->adminSlug . '&tab=' . urlencode( $tab );
 					}
-					$tab   = esc_attr( $tab );
-					$name  = esc_attr( $name );
 					$class = ( $tab == $this->currentTab ) ? ' nav-tab-active' : '';
-					echo '<a id="' . $tab . '" class="nav-tab' . $class . '" href="' . $url . '">' . $name . '</a>';
+					echo '<a id="' . esc_attr( $tab ) . '" class="nav-tab' . esc_attr( $class ) . '" href="' . esc_url( $url ) . '">' . esc_html( $name ) . '</a>';
 				}
 				do_action( 'tribe_settings_after_tabs' );
 				echo '</h2>';
@@ -339,13 +337,13 @@ if ( ! class_exists( 'Tribe__Events__Settings' ) ) {
 
 				// set the current tab and current fields
 				$tab    = $this->currentTab;
-				$fields = $this->fields_for_save[$tab];
+				$fields = $this->fields_for_save[ $tab ];
 
 				if ( is_array( $fields ) ) {
 					// loop through the fields and validate them
 					foreach ( $fields as $field_id => $field ) {
 						// get the value
-						$value = ( isset( $_POST[$field_id] ) ) ? $_POST[$field_id] : null;
+						$value = ( isset( $_POST[ $field_id ] ) ) ? $_POST[ $field_id ] : null;
 						$value = apply_filters( 'tribe_settings_validate_field_value', $value, $field_id, $field );
 
 						// make sure it has validation set up for it, else do nothing
@@ -359,12 +357,12 @@ if ( ! class_exists( 'Tribe__Events__Settings' ) ) {
 
 							if ( isset( $validate->result->error ) ) {
 								// uh oh; validation failed
-								$this->errors[$field_id] = $validate->result->error;
+								$this->errors[ $field_id ] = $validate->result->error;
 							} elseif ( $validate->result->valid ) {
 								// validation passed
-								$this->validated[$field_id]        = new stdClass;
-								$this->validated[$field_id]->field = $validate->field;
-								$this->validated[$field_id]->value = $validate->value;
+								$this->validated[ $field_id ]        = new stdClass;
+								$this->validated[ $field_id ]->field = $validate->field;
+								$this->validated[ $field_id ]->value = $validate->value;
 							}
 						}
 					}
@@ -410,21 +408,22 @@ if ( ! class_exists( 'Tribe__Events__Settings' ) ) {
 						$parent_option = ( isset( $validated_field->field['parent_option'] ) ) ? $validated_field->field['parent_option'] : Tribe__Events__Main::OPTIONNAME;
 					}
 
-					$parent_option = apply_filters( 'tribe_settings_save_field_parent_option', $parent_option, $field_id );
+					$parent_option  = apply_filters( 'tribe_settings_save_field_parent_option', $parent_option, $field_id );
+					$network_option = isset( $validated_field->field['network_option'] ) ? (bool) $validated_field->field['network_option'] : false;
 
 					// some hooks
 					do_action( 'tribe_settings_save_field', $field_id, $value, $validated_field );
 					do_action( 'tribe_settings_save_field_' . $field_id, $value, $validated_field );
 
 					if ( ! $parent_option ) {
-						if ( is_network_admin() ) {
+						if ( $network_option || is_network_admin() ) {
 							update_site_option( $field_id, $value );
 						} else {
 							update_option( $field_id, $value );
 						}
 					} else {
 						// set the parent option
-						$parent_options[$parent_option][$field_id] = $value;
+						$parent_options[ $parent_option ][ $field_id ] = $value;
 					}
 				}
 			}
@@ -458,7 +457,6 @@ if ( ! class_exists( 'Tribe__Events__Settings' ) ) {
 					} else {
 						update_option( $option_id, $options );
 					}
-
 				}
 			}
 
