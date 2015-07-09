@@ -83,8 +83,8 @@ $tickets = Tribe__Events__Tickets__Tickets::get_event_tickets( $event_id );
 						$total_sold = 0;
 						$total_pending = 0;
 
-						foreach ( $tickets as $ticket ) : ?>
-
+						foreach ( $tickets as $ticket ) {
+							?>
 							<strong><?php echo esc_html( $ticket->name ) ?>: </strong>
 							<?php
 							$stock = $ticket->stock;
@@ -108,8 +108,7 @@ $tickets = Tribe__Events__Tickets__Tickets::get_event_tickets( $event_id );
 							$total_sold += $sold;
 							$total_pending += $ticket->qty_pending;
 							$total_completed = $total_sold - $total_pending;
-
-						endforeach;
+						}//end foreach
 
 						do_action( 'tribe_events_tickets_attendees_ticket_sales_bottom', $event_id );
 						?>
@@ -126,7 +125,9 @@ $tickets = Tribe__Events__Tickets__Tickets::get_event_tickets( $event_id );
 								<span id="total_tickets_sold"><?php echo $total_sold ?></span>
 							</span>
 
-							<?php if ( $total_pending > 0 ) : ?>
+							<?php
+							if ( $total_pending > 0 ) {
+								?>
 								<span id="sales_breakdown_wrapper">
 								<br />
 									<?php esc_html_e( 'Finalized:', 'tribe-events-calendar' ); ?>
@@ -135,7 +136,9 @@ $tickets = Tribe__Events__Tickets__Tickets::get_event_tickets( $event_id );
 									<?php esc_html_e( 'Awaiting review:', 'tribe-events-calendar' ); ?>
 									<span id="total_pending"><?php echo $total_pending ?></span>
 								</span>
-							<?php endif ?>
+								<?php
+							}//end if
+							?>
 
 							<span id="total_checkedin_wrapper">
 								<br />
