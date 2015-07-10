@@ -3702,7 +3702,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 					$anchor = preg_replace( '|%title%|', $title, $anchor );
 				}
 
-				$link = '<a href="' . esc_url( tribe_get_event_link( $results ) ) . '">' . $anchor . '</a>';
+				$link = '<a href="' . esc_url( tribe_get_event_link( $event ) ) . '">' . $anchor . '</a>';
 			}
 
 			/**
