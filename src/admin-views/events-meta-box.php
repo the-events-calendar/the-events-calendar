@@ -102,8 +102,13 @@ if ( class_exists( 'Eventbrite_for_TribeEvents' ) ) {
 			<td colspan="2" class="tribe_sectionheader">
 				<h4><?php esc_html_e( 'Location', 'tribe-events-calendar' ); ?></h4></td>
 		</tr>
-		<?php do_action( 'tribe_venue_table_top', $event->ID ) ?>
-		<?php include( $tribe->pluginPath . 'src/admin-views/venue-meta-box.php' ); ?>
+		<?php
+		do_action( 'tribe_venue_table_top', $event->ID );
+		$venue_meta_box_template = apply_filters( 'tribe_events_venue_meta_box_template', $tribe->pluginPath . 'src/admin-views/venue-meta-box.php' );
+		if ( $venue_meta_box_template ) {
+			include $venue_meta_box_template;
+		}
+		?>
 	</table>
 	<?php do_action( 'tribe_after_location_details', $event->ID ); ?>
 	<table id="event_organizer" class="eventtable">
