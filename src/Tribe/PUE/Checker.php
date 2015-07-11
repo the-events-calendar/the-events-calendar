@@ -697,11 +697,11 @@ if ( ! class_exists( 'Tribe__Events__PUE__Checker' ) ) {
 		 *
 		 * The results are stored in the DB option specified in $pue_option_name.
 		 *
-		 * @param array $updates
+		 * @param stdClass $updates
 		 *
-		 * @return void
+		 * @return stdClass $updates
 		 */
-		public function check_for_updates( $updates = array() ) {
+		public function check_for_updates( $updates ) {
 			$state = $this->get_option( $this->pue_option_name );
 			if ( empty( $state ) ) {
 				$state                 = new StdClass;
@@ -710,11 +710,13 @@ if ( ! class_exists( 'Tribe__Events__PUE__Checker' ) ) {
 				$state->update         = null;
 			}
 
-			$state->lastCheck      = time();
 			$state->checkedVersion = $this->get_installed_version();
 			$this->update_option( $this->pue_option_name, $state ); //Save before checking in case something goes wrong
 
-			$state->update = $this->request_update();
+			// If update not in last 12 hours then request update.
+			if ( ( ( $state->lastCheck + ( $this->check_period * HOUR_IN_SECONDS ) ) - $updates->last_checked ) < 0 ) {
+				$state->update = $this->request_update();
+			}
 
 			// If a null update was returned, skip the end of the function.
 			if ( $state->update == null ) {
