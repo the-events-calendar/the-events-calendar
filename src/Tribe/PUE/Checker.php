@@ -713,7 +713,7 @@ if ( ! class_exists( 'Tribe__Events__PUE__Checker' ) ) {
 			$state->checkedVersion = $this->get_installed_version();
 			$this->update_option( $this->pue_option_name, $state ); //Save before checking in case something goes wrong
 
-			// Request update if not in last 12 hours or during force_check.
+			// Request update if not in last 12 hours or during force-check.
 			if (
 				( ( $state->lastCheck + ( $this->check_period * HOUR_IN_SECONDS ) ) - $updates->last_checked ) < 0 ||
 			    isset( $_GET['force-check'] )
