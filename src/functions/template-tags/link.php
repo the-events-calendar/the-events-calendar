@@ -184,17 +184,12 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 
 		// if a page isn't passed in, attempt to fetch it from a get var
 		if ( ! $page ) {
-			// set a default
-			$page = 1;
-
-			// if one was passed in via GET, use it
-			if ( ! empty( $_GET['tribe_paged'] ) ) {
-				$page = absint( $_GET['tribe_paged'] );
-			}
-
-			// unless of course, one was passed in via POST, let's use that instead
 			if ( ! empty( $_POST['tribe_paged'] ) ) {
 				$page = absint( $_POST['tribe_paged'] );
+			} elseif ( ! empty( $_GET['tribe_paged'] ) ) {
+				$page = absint( $_GET['tribe_paged'] );
+			} else {
+				$page = 1;
 			}
 		}
 
