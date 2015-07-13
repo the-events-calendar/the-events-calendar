@@ -356,6 +356,7 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Feature - Added the ability to sort events in the dashboard by Event Category and terms (props to kittsvill for the initial work on this!)
 * Feature - Detect when rewrite rules are being flushed when the Events Help page is loaded and drop that information into the System Information box
 * Update - Updated bootstrap-datepicker to version 1.4.0 which resolves a few UI behavior bugs
+* Template - Added a data-parent-post-id data attribute to the post div in the views/list/loop.php template
 * Security - Added escaping to a number of previously un-escaped values
 
 = [3.10.1] 2015-07-01 =
