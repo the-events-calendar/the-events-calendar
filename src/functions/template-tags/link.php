@@ -184,13 +184,13 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 
 		// if a page isn't passed in, attempt to fetch it from a get var
 		if ( ! $page ) {
-			$page = empty( $_GET['tribe_paged'] ) ? 1 : absint( $_GET['tribe_paged'] );
+			$page = empty( $_REQUEST['tribe_paged'] ) ? 1 : absint( $_REQUEST['tribe_paged'] );
 		}
 
 		// if what we are currently displaying is not passed in, let's set a default and check $_GET
 		if ( ! $currently_displaying ) {
 			$currently_displaying = 'list';
-			if ( ! empty( $_GET['tribe_event_display'] ) && 'past' === $_GET['tribe_event_display'] ) {
+			if ( ! empty( $_REQUEST['tribe_event_display'] ) && 'past' === $_REQUEST['tribe_event_display'] ) {
 				$currently_displaying = 'past';
 			}
 		}

@@ -223,6 +223,8 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 			$args['no_found_rows']  = true;
 			$args['posts_per_page'] = 1;
 
+			$args = apply_filters( 'tribe_events_has_previous_event_args', $args );
+
 			$past_event   = tribe_get_events( $args );
 			$has_previous = ( count( $past_event ) >= 1 );
 		}
@@ -262,6 +264,8 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 			$args['no_paging'] = true;
 			$args['no_found_rows'] = true;
 			$args['posts_per_page'] = 1;
+
+			$args = apply_filters( 'tribe_events_has_next_event_args', $args );
 
 			$next_event = tribe_get_events( $args );
 			$has_next   = ( count( $next_event ) >= 1 );
