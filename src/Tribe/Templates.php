@@ -836,7 +836,7 @@ if ( ! class_exists( 'Tribe__Events__Templates' ) ) {
 			}
 			// If there are no other posts, unset the $post property
 			elseif ( 0 === $wp_query->post_count ) {
-				$wp_query->currenet_post = -1;
+				$wp_query->current_post = -1;
 				unset( $wp_query->post );
 			}
 
