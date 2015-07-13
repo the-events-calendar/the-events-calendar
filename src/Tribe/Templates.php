@@ -734,13 +734,13 @@ if ( ! class_exists( 'Tribe__Events__Templates' ) ) {
 
 
 		/**
-		 * Query is complete.
+		 * Query is complete: stop the loop from repeating.
 		 */
 		private static function endQuery() {
 			global $wp_query;
 
-			$wp_query->current_post = 0;
-			$wp_query->post_count   = 1;
+			$wp_query->current_post = -1;
+			$wp_query->post_count   = 0;
 		}
 
 
@@ -819,27 +819,29 @@ if ( ! class_exists( 'Tribe__Events__Templates' ) ) {
 		 */
 		public static function restoreQuery() {
 			global $wp_query;
-			if ( isset( $wp_query->spoofed ) && $wp_query->spoofed ) {
 
-				// take the spoofed post out of the posts array
-				array_pop( $wp_query->posts );
-
-				// fix the post_count
-				$wp_query->post_count = count( $wp_query->posts );
-
-				// rewind the posts
-				$wp_query->rewind_posts();
-
-				if ( $wp_query->have_posts() ) {
-					wp_reset_postdata();
-				} else {
-					// there are no posts, unset the current post
-					unset ( $wp_query->post );
-				}
-
-				// don't do this again
-				unset( $wp_query->spoofed );
+			// If the query hasn't been spoofed we need take no action
+			if ( ! isset( $wp_query->spoofed ) || ! $wp_query->spoofed ) {
+				return;
 			}
+
+			// Remove the spoof post and fix the post count
+			array_pop( $wp_query->posts );
+			$wp_query->post_count = count( $wp_query->posts );
+
+			// If we have other posts besides the spoof, rewind and reset
+			if ( $wp_query->post_count > 0  ) {
+				$wp_query->rewind_posts();
+				wp_reset_postdata();
+			}
+			// If there are no other posts, unset the $post property
+			elseif ( 0 === $wp_query->post_count ) {
+				$wp_query->currenet_post = -1;
+				unset( $wp_query->post );
+			}
+
+			// Don't do this again
+			unset( $wp_query->spoofed );
 		}
 	}
 }
