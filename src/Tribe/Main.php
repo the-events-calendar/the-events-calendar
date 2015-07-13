@@ -1438,6 +1438,10 @@
 
 			/**
 			 * When showing All events for a recurring event, override the default link
+			 *
+			 * @param string $link Current page link
+			 *
+			 * @return string Recurrence compatible current page link
 			 */
 			public function get_all_link( $link ) {
 				if ( ! tribe_is_showing_all() && ! isset( $_POST['tribe_post_parent'] ) ) {
@@ -1450,6 +1454,10 @@
 			/**
 			 * When showing All events for a recurring event, override the default directional link to
 			 * view "all" rather than "list"
+			 *
+			 * @param string $link Current page link
+			 *
+			 * @return string Recurrence compatible current page link
 			 */
 			public function get_all_dir_link( $link ) {
 				if ( ! tribe_is_showing_all() && ! isset( $_POST['tribe_post_parent'] ) ) {
@@ -1464,6 +1472,11 @@
 			/**
 			 * If an ajax request has come in with tribe_post_parent, make sure we limit results
 			 * to by post_parent
+			 *
+			 * @param array $args Arguments for fetching events on the listview template
+			 * @param array $posted_data POST data from listview ajax request
+			 *
+			 * @return array
 			 */
 			public function override_listview_get_event_args( $args, $posted_data ) {
 				if ( empty( $posted_data['tribe_post_parent'] ) ) {
@@ -1478,6 +1491,11 @@
 			/**
 			 * overrides the "displaying" setting of the Tribe__Events__Main instance if we are displaying
 			 * "all" recurring events"
+			 *
+			 * @param string $displaying The current eventDisplay value
+			 * @param array $args get_event args used to fetch events that are visible in the ajax rendered listview
+			 *
+			 * @return string
 			 */
 			public function override_listview_display_setting( $displaying, $args ) {
 				if ( empty( $args['post_parent'] ) ) {
