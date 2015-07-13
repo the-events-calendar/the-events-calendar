@@ -144,6 +144,8 @@
 				add_filter( 'tribe-events-bar-views', array( $this, 'setup_photoview_in_bar' ), 30, 1 );
 				add_filter( 'tribe_events_ugly_link', array( $this, 'ugly_link' ), 10, 3 );
 				add_filter( 'tribe_events_getLink', array( $this, 'get_link' ), 10, 4 );
+				add_filter( 'tribe_get_listview_link', array( $this, 'get_all_link' ) );
+				add_filter( 'tribe_get_listview_dir_link', array( $this, 'get_all_dir_link' ) );
 				add_filter( 'tribe_bar_datepicker_caption', array( $this, 'setup_datepicker_label' ), 10, 1 );
 				add_action( 'tribe_events_after_the_title', array( $this, 'add_recurring_occurance_setting_to_list' ) );
 
@@ -171,6 +173,9 @@
 				add_filter( 'tribe_events_default_value_strategy', array( $this, 'set_default_value_strategy' ) );
 				add_action( 'plugins_loaded', array( $this, 'init_apm_filters' ) );
 
+				// override list view ajax get_event args if viewing all instances of a recurring post
+				add_filter( 'tribe_events_listview_ajax_get_event_args', array( $this, 'override_listview_get_event_args' ), 10, 2 );
+				add_filter( 'tribe_events_listview_ajax_event_display', array( $this, 'override_listview_display_setting' ), 10, 2 );
 			}
 
 			/**
@@ -880,12 +885,14 @@
 							unset( $query->query_vars['name'] );
 							unset( $query->query_vars['tribe_events'] );
 
-							$post = reset( get_posts( array(
+							$posts = get_posts( array(
 								'name' => $slug,
 								'post_type' => Tribe__Events__Main::POSTTYPE,
 								'post_status' => 'publish',
 								'numberposts' => 1,
-							) ) );
+							) );
+
+							$post = reset( $posts );
 
 							if ( empty( $post ) ) {
 								$query->set( 'p', -1 );
@@ -1428,6 +1435,75 @@
 
 				return apply_filters( 'tribe_events_pro_get_link', $eventUrl, $type, $secondary, $term );
 			}
+
+			/**
+			 * When showing All events for a recurring event, override the default link
+			 *
+			 * @param string $link Current page link
+			 *
+			 * @return string Recurrence compatible current page link
+			 */
+			public function get_all_link( $link ) {
+				if ( ! tribe_is_showing_all() && ! isset( $_POST['tribe_post_parent'] ) ) {
+					return $link;
+				}
+
+				return $this->get_link( null, 'all', null, null );
+			}//end get_all_link
+
+			/**
+			 * When showing All events for a recurring event, override the default directional link to
+			 * view "all" rather than "list"
+			 *
+			 * @param string $link Current page link
+			 *
+			 * @return string Recurrence compatible current page link
+			 */
+			public function get_all_dir_link( $link ) {
+				if ( ! tribe_is_showing_all() && ! isset( $_POST['tribe_post_parent'] ) ) {
+					return $link;
+				}
+
+				$link = preg_replace( '#tribe_event_display=list#', 'tribe_event_display=all', $link );
+
+				return $link;
+			}//end get_all_dir_link
+
+			/**
+			 * If an ajax request has come in with tribe_post_parent, make sure we limit results
+			 * to by post_parent
+			 *
+			 * @param array $args Arguments for fetching events on the listview template
+			 * @param array $posted_data POST data from listview ajax request
+			 *
+			 * @return array
+			 */
+			public function override_listview_get_event_args( $args, $posted_data ) {
+				if ( empty( $posted_data['tribe_post_parent'] ) ) {
+					return $args;
+				}
+
+				$args['post_parent'] = absint( $posted_data['tribe_post_parent'] );
+
+				return $args;
+			}//end override_listview_get_event_args
+
+			/**
+			 * overrides the "displaying" setting of the Tribe__Events__Main instance if we are displaying
+			 * "all" recurring events"
+			 *
+			 * @param string $displaying The current eventDisplay value
+			 * @param array $args get_event args used to fetch events that are visible in the ajax rendered listview
+			 *
+			 * @return string
+			 */
+			public function override_listview_display_setting( $displaying, $args ) {
+				if ( empty( $args['post_parent'] ) ) {
+					return $displaying;
+				}
+
+				return 'all';
+			}//end override_listview_display_setting
 
 			/**
 			 * Add week view to the views selector in the tribe events bar.
