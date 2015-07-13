@@ -304,7 +304,7 @@ class Tribe__Events__iCal {
 				$organizer = get_post( $organizer_id );
 
 				if ( $organizer_id ) {
-					$item[] = sprintf( 'ORGANIZER;CN="%s":MAILTO:"%s"', rawurlencode( $organizer->post_title ), $organizer_email );
+					$item[] = sprintf( 'ORGANIZER;CN="%s":MAILTO:%s', rawurlencode( $organizer->post_title ), $organizer_email );
 				} else {
 					$item[] = sprintf( 'ORGANIZER:MAILTO:%s', $organizer_email );
 				}
