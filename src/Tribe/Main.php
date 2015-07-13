@@ -1471,7 +1471,6 @@
 				}
 
 				$args['post_parent'] = absint( $posted_data['tribe_post_parent'] );
-				$args['posts_per_page'] = tribe_get_option( 'postsPerPage', 10 );
 
 				return $args;
 			}//end override_listview_get_event_args
