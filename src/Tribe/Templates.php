@@ -830,7 +830,7 @@ if ( ! class_exists( 'Tribe__Events__Templates' ) ) {
 			$wp_query->post_count = count( $wp_query->posts );
 
 			// If we have other posts besides the spoof, rewind and reset
-			if ( $wp_query->post_count > 0  ) {
+			if ( $wp_query->post_count > 0 ) {
 				$wp_query->rewind_posts();
 				wp_reset_postdata();
 			}
