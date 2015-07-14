@@ -374,6 +374,9 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Update - Updated bootstrap-datepicker to version 1.4.0 which resolves a few UI behavior bugs
 * Template - Added a data-parent-post-id data attribute to the post div in the views/list/loop.php template
 * Security - Added escaping to a number of previously un-escaped values
+* Deprecated - camelCase methods in Tribe__Events__Date_Utils have been deprecated in favor of snake_case method names. Note: no parameters have changed - just the method name
+* Deprecated - Tribe__Events__Main::dateToTimeStamp has been deprecated in favor of the PHP strtotime function
+* Deprecated - Tribe__Events__Main::dateHelper has been deprecated in favor of the PHP date function
 
 = [3.10.1] 2015-07-01 =
 
