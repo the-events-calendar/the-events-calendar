@@ -244,6 +244,7 @@ Our Premium Plugins:
 * Tweak - Removed TribeEventsPro.recurrence JS from the front-end
 * Tweak - Made some changes to the EOD cutoff functionality behavior
 * Tweak - Removed TribeEventsPro.recurrence from the JS that appears on the front end because it isn't used there
+* Tweak - Made Minical widget template use single letter day headings
 * Tweak - When rendering recurring event markers on an event map, only place one marker per event/location combination
 * Feature - Added a pair of filters so that the recurring event cleanup query can be manipulated by plugin/theme authors: tribe_events_pro_clean_up_old_recurring_events_sql and tribe_events_pro_clean_up_old_recurring_events_sql_args (props to fortgordonmwr for the idea!)
 * Performance - Paginated recurring event "See All" pages to avoid timeouts when there are many recurring events to display
