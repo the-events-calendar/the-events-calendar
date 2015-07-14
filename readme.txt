@@ -360,6 +360,8 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Tweak - Allow the View selection drop-down box to function when JavaScript is disabled
 * Tweak - Allow the pagination links in List View to function when JavaScript is disabled
 * Tweak - Allow better support of new license types for premium add-ons
+* Tweak - Allow only super admins to turn Tribe debug mode on in Multisite environments
+* Feature - Added single letter 'min' format to tribe_events_get_days_of_week()
 * Feature - Added support for multiple organizers per event
 * Feature - Exploration + initial work on updated timepicker in events admin
 * Feature - Enhancements to month view class + queries
