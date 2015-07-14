@@ -337,6 +337,18 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Bug - Fixed a bug where 24-hour datetime formats would sometimes fail to initialize datetime pickers appropriately
 * Bug - Fixed a bug where titles containing certain special character combinations were getting partially stripped
 * Bug - Fixed an issue where disabling the Day View prevented users from being able to "View all" events from a given day of the month that exceeded the number of visible events while in Month/Week View
+* Bug - Fixed an issue allowing all day events to be incorrectly duplicated during CSV imports
+* Bug - Fixed a bug stopping escape characters from working when applied within the date format settings
+* Bug - Fixed a bug where events that had been hidden from event listings were linked to from the single event nav
+* Bug - Fixed a bug in the iCal exporter causing multiday events to sometimes be exported as if they were multiple single events
+* Bug - Fixed an issue causing certain date ranges to be unselectable when defining ticket sale dates
+* Bug - Fixed an issue where the Hide from Event Listings setting was not respected in day view
+* Bug - Fixed an issue causing the Default Event View setting to reset inappropriately
+* Bug - Fixed an issue where the excerpt of password protected events was exposed in month view tooltips
+* Bug - Fixed an issue stopping month view from being setup as the default view in new installations
+* Tweak - Empty event views should no longer return a 404 Not Found status
+* Tweak - New filters added to make customization of custom post and taxonomy labels
+* Tweak - Single event map objects are now accessible for easier customization (props: @tddewey)
 * Tweak - Conformed code to updated coding standards
 * Tweak - Enhancements/updates to iCal subscribe button
 * Tweak - Formatting consistency on filler text within calendar inputs
@@ -347,6 +359,7 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Tweak - Removed the deprecated "Event Phone" CSV import target
 * Tweak - Allow the View selection drop-down box to function when JavaScript is disabled
 * Tweak - Allow the pagination links in List View to function when JavaScript is disabled
+* Tweak - Allow better support of new license types for premium add-ons
 * Feature - Added support for multiple organizers per event
 * Feature - Exploration + initial work on updated timepicker in events admin
 * Feature - Enhancements to month view class + queries
