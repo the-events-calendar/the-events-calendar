@@ -720,6 +720,7 @@ if ( ! class_exists( 'Tribe__Events__PUE__Checker' ) ) {
 			) {
 				$state->lastCheck = time();
 				$state->update    = $this->request_update();
+				$this->update_option( $this->pue_option_name, $state );
 			}
 
 			// If a null update was returned, skip the end of the function.
