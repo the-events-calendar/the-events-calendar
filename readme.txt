@@ -237,6 +237,8 @@ Our Premium Plugins:
 
 = [Unreleased] unreleased =
 
+* Bug - Fixed an issue where taxonomy filters applied to the calendar widget could also incorrectly impact the main month view
+* Bug - Fixed an issue where related events were not being randomized under some circumstances
 * Bug - Fixed an issue where the WP Customizer save button remained disabled when the Events Calendar widget filters were removed
 * Bug - Fixed an issue where the Events Calendar widget form partially overflowed the widget container in the WP Customizer
 * Bug - Addressed numerous minor styling issues with the Twenty Fifteen theme
@@ -248,6 +250,7 @@ Our Premium Plugins:
 * Tweak - When rendering recurring event markers on an event map, only place one marker per event/location combination
 * Feature - Added a pair of filters so that the recurring event cleanup query can be manipulated by plugin/theme authors: tribe_events_pro_clean_up_old_recurring_events_sql and tribe_events_pro_clean_up_old_recurring_events_sql_args (props to fortgordonmwr for the idea!)
 * Performance - Paginated recurring event "See All" pages to avoid timeouts when there are many recurring events to display
+* Performance - Queries were modified to eliminate a join clause, potentially reducing the work needed to build the result set
 * Security - Added escaping to a number of previously un-escaped values
 
 = [3.10.1] 2015-07-01 =
