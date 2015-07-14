@@ -331,6 +331,7 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 = [Unreleased] unreleased =
 
 * Security - Added escaping to a number of previously un-escaped values
+* Bug - Fixed an issue where the "Export Month's events" button wasn't appearing on Month view
 * Bug - Fixed an issue where notification of mismatched TEC Addon versions failed to appear on dot releases above x.9
 * Bug - Fixed an issue where ticket prices were not displayed on in list view when tickets were marked as "Free"
 * Bug - Fixed a bug where an event's start/end dates were purged when calling tribe_update_event() without passing start/end dates
