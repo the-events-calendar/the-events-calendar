@@ -361,14 +361,15 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Tweak - Allow the pagination links in List View to function when JavaScript is disabled
 * Tweak - Allow better support of new license types for premium add-ons
 * Tweak - Allow only super admins to turn Tribe debug mode on in Multisite environments
+* Tweak - Added filters for post/taxonomy labels: tribe_events_register_event_post_type_labels, tribe_events_register_venue_post_type_labels, tribe_events_register_organizer_post_type_labels, and tribe_events_register_category_taxonomy_labels (props: @kopepasah)
 * Feature - Added single letter 'min' format to tribe_events_get_days_of_week()
 * Feature - Added support for multiple organizers per event
 * Feature - Exploration + initial work on updated timepicker in events admin
 * Feature - Enhancements to month view class + queries
-* Feature - Added the ability to filter Attendees_Table constructor arguments via tribe_events_tickets_attendees_table_args (props to Evan Mattson - aaemnnosttv)
+* Feature - Added the ability to filter Attendees_Table constructor arguments via tribe_events_tickets_attendees_table_args (props: @aaemnnosttv)
 * Feature - Allowing yes/true boolean imports for “Show Google Maps (link)” field in CSV import
-* Feature - Added JS events for ticket events: save-ticket.tec.tribe, saved-ticket.tec.tribe, edit-ticket.tec.tribe, delete-ticket.tec.tribe, deleted-ticket.tec.tribe (props to Evan Mattson - aaemnnosttv)
-* Feature - Added the ability to sort events in the dashboard by Event Category and terms (props to kittsvill for the initial work on this!)
+* Feature - Added JS events for ticket events: save-ticket.tec.tribe, saved-ticket.tec.tribe, edit-ticket.tec.tribe, delete-ticket.tec.tribe, deleted-ticket.tec.tribe (props: @aaemnnosttv)
+* Feature - Added the ability to sort events in the dashboard by Event Category and terms (props: @kittsville)
 * Feature - Detect when rewrite rules are being flushed when the Events Help page is loaded and drop that information into the System Information box
 * Update - Updated bootstrap-datepicker to version 1.4.0 which resolves a few UI behavior bugs
 * Template - Added a data-parent-post-id data attribute to the post div in the views/list/loop.php template
