@@ -1187,12 +1187,51 @@
 				}
 
 				// if the admin option is set to hide recurrences, or the user option is set
-				if ( tribe_get_option( 'hideSubsequentRecurrencesDefault', false ) == true || ( isset( $_REQUEST['tribeHideRecurrence'] ) && $_REQUEST['tribeHideRecurrence'] == '1' ) ) {
+				if ( $this->should_hide_recurrence() ) {
 					$query->query_vars['tribeHideRecurrence'] = 1;
 				}
 
 				return $query;
 			}
+
+			/**
+			 * Returns whether or not we show only the first instance of each recurring event in listview
+			 *
+			 * @return boolean
+			 */
+			public function should_hide_recurrence() {
+				// let's not hide recurrence if we are showing all recurrence events
+				if ( tribe_is_showing_all() ) {
+					return false;
+				}
+
+				// let's not hide recurrence if we are showing all recurrence events via AJAX
+				if ( ! empty( $_GET['tribe_post_parent'] ) ) {
+					return false;
+				}
+
+				// let's not hide recurrence if we are showing all recurrence events via AJAX
+				if ( ! empty( $_POST['tribe_post_parent'] ) ) {
+					return false;
+				}
+
+				// let's HIDE recurrence events if we've set the option
+				if ( tribe_get_option( 'hideSubsequentRecurrencesDefault', false ) ) {
+					return true;
+				}
+
+				// let's HIDE recurrence events if tribeHideRecurrence via GET
+				if ( isset( $_GET['tribeHideRecurrence'] ) && 1 == $_GET['tribeHideRecurrence'] ) {
+					return true;
+				}
+
+				// let's HIDE recurrence events if tribeHideRecurrence via POST
+				if ( isset( $_POST['tribeHideRecurrence'] ) && 1 == $_POST['tribeHideRecurrence'] ) {
+					return true;
+				}
+
+				return false;
+			}//end should_hide_recurrence
 
 			/**
 			 * Return the forums link as it should appear in the help tab.
