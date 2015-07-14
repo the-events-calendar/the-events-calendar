@@ -149,7 +149,7 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 				$this->html_cache = new Tribe__Events__Template_Part_Cache( 'month/content.php', serialize( $args ), $cache_expiration, 'save_post' );
 			}
 
-			$args = (array) $args;
+			$args                  = (array) $args;
 			$this->args            = $args;
 			$this->events_per_day  = apply_filters( 'tribe_events_month_day_limit', tribe_get_option( 'monthEventAmount', '3' ) );
 			$this->requested_date  = $this->requested_date();
@@ -192,6 +192,10 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 
 			// Since we set is_post_type_archive to true on month view, this prevents 'Events' from being added to the page title
 			add_filter( 'post_type_archive_title', '__return_false', 10 );
+
+			if ( ! empty( $this->events_in_month ) ) {
+				add_filter( 'tribe_events_month_has_events', '__return_true' );
+			}
 		}
 
 		/**
@@ -202,6 +206,9 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 		protected function unhook() {
 			parent::unhook();
 			remove_filter( 'post_type_archive_title', '__return_false', 10 );
+			if ( ! empty( $this->events_in_month ) ) {
+				add_filter( 'tribe_events_month_has_events', '__return_true' );
+			}
 		}
 
 		/**
