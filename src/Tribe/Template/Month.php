@@ -207,7 +207,7 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 			parent::unhook();
 			remove_filter( 'post_type_archive_title', '__return_false', 10 );
 			if ( ! empty( $this->events_in_month ) ) {
-				add_filter( 'tribe_events_month_has_events', '__return_true' );
+				remove_filter( 'tribe_events_month_has_events', '__return_true' );
 			}
 		}
 
