@@ -377,6 +377,10 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Deprecated - camelCase methods in Tribe__Events__Date_Utils have been deprecated in favor of snake_case method names. Note: no parameters have changed - just the method name
 * Deprecated - Tribe__Events__Main::dateToTimeStamp has been deprecated in favor of the PHP strtotime function
 * Deprecated - Tribe__Events__Main::dateHelper has been deprecated in favor of the PHP date function
+* Deprecated - Removed some methods that have been deprecated since version 3.6 and earlier: tribe_events_single_event_meta, Tribe__Events__View_Helpers::[getMonthOptions, getDayOptions, getYearOptions], Tribe__Events__Query::posts_groupby, Tribe__Events__Main::[getRealStartDate, weekToDate, previousWeek]
+* Deprecated - Removed filter that has been deprecated since version 3.8 (tribe_events_add_title). Use tribe_events_title_tag instead
+* Deprecated - Removed filter that has been deprecated since version 3.4 (tribe_current_events_page_template). Use tribe_events_current_view_template instead
+* Deprecated - Removed filter that has been deprecated since version 3.4 (tribe_current_events_template_class). Use tribe_events_current_template_class instead
 
 = [3.10.1] 2015-07-01 =
 
