@@ -351,6 +351,7 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Bug - Fixed a problem with translations on JavaScript templates
 * Bug - Fixed an issue with iCal email encoding
 * Bug - Fixed an issue on default Venue and Organizer been displayed with null message
+* Bug - Fixed an issue with publication date in the RSS feed not being converted to UTC 000
 * Tweak - Empty event views should no longer return a 404 Not Found status
 * Tweak - New filters added to make customization of custom post and taxonomy labels
 * Tweak - Single event map objects are now accessible for easier customization (props: @tddewey)
@@ -372,6 +373,7 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Tweak - Added filter for changing the addons page capability - (tribe_events_addon_page_capability) Defaults to "install_plugins"
 * Tweak - Prevents redirects to welcome page if the user is trying to accomplish a task when activating or updating the plugin
 * Tweak - Improve documentation on tribe_get_events
+* Tweak - Google Calendar description content now has html stripped, but retains line spacing with custom sanitization of the export url
 * Feature - Added single letter 'min' format to tribe_events_get_days_of_week()
 * Feature - Added support for multiple organizers per event
 * Feature - Exploration + initial work on updated timepicker in events admin
