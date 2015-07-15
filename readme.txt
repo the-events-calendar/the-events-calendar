@@ -348,9 +348,14 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Bug - Fixed an issue causing the Default Event View setting to reset inappropriately
 * Bug - Fixed an issue where the excerpt of password protected events was exposed in month view tooltips
 * Bug - Fixed an issue stopping month view from being setup as the default view in new installations
+* Bug - Fixed a problem with translations on JavaScript templates
+* Bug - Fixed an issue with iCal email encoding
+* Bug - Fixed an issue on default Venue and Organizer been displayed with null message
 * Tweak - Empty event views should no longer return a 404 Not Found status
 * Tweak - New filters added to make customization of custom post and taxonomy labels
 * Tweak - Single event map objects are now accessible for easier customization (props: @tddewey)
+* Tweak - Include date separator on the administration of events
+* Tweak - Datepickers now respect settings on the administration
 * Tweak - Conformed code to updated coding standards
 * Tweak - Enhancements/updates to iCal subscribe button
 * Tweak - Formatting consistency on filler text within calendar inputs
@@ -364,6 +369,9 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Tweak - Allow better support of new license types for premium add-ons
 * Tweak - Allow only super admins to turn Tribe debug mode on in Multisite environments
 * Tweak - Added filters for post/taxonomy labels: tribe_events_register_event_post_type_labels, tribe_events_register_venue_post_type_labels, tribe_events_register_organizer_post_type_labels, and tribe_events_register_category_taxonomy_labels (props: @kopepasah)
+* Tweak - Added filter for changing the addons page capability - (tribe_events_addon_page_capability) Defaults to "install_plugins"
+* Tweak - Prevents redirects to welcome page if the user is trying to accomplish a task when activating or updating the plugin
+* Tweak - Improve documentation on tribe_get_events
 * Feature - Added single letter 'min' format to tribe_events_get_days_of_week()
 * Feature - Added support for multiple organizers per event
 * Feature - Exploration + initial work on updated timepicker in events admin
