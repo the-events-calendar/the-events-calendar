@@ -24,8 +24,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		const VENUE_POST_TYPE     = 'tribe_venue';
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
 
-		const VERSION           = '3.10.1';
-		const MIN_ADDON_VERSION = '3.10';
+		const VERSION           = '3.11';
+		const MIN_ADDON_VERSION = '3.11';
 		const FEED_URL          = 'https://theeventscalendar.com/feed/';
 		const INFO_API_URL      = 'http://wpapi.org/api/plugin/the-events-calendar.php';
 		const WP_PLUGIN_URL     = 'http://wordpress.org/extend/plugins/the-events-calendar/';
@@ -767,7 +767,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * only if premium addons are detected.
 		 */
 		protected function do_licenses_tab() {
-			$show_tab = ( ! current_user_can( 'update_plugins' ) || ! $this->have_addons() );
+			$show_tab = ( current_user_can( 'update_plugins' ) && $this->have_addons() );
 
 			/**
 			 * Provides an oppotunity to override the decision to show or hide the licenses tab
@@ -3702,7 +3702,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 					$anchor = preg_replace( '|%title%|', $title, $anchor );
 				}
 
-				$link = '<a href="' . esc_url( tribe_get_event_link( $results ) ) . '">' . $anchor . '</a>';
+				$link = '<a href="' . esc_url( tribe_get_event_link( $event ) ) . '">' . $anchor . '</a>';
 			}
 
 			/**

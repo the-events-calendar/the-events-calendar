@@ -61,39 +61,53 @@
 			} );
 		}
 
-		$( '#tribe-events-content-wrapper' ).on( 'click', 'li.tribe-events-nav-next a',function( e ) {
+		$( '#tribe-events-content-wrapper' ).on( 'click', 'ul.tribe-events-sub-nav a[rel="next"]',function( e ) {
 			e.preventDefault();
 
 			if ( ts.ajax_running ) {
 				return;
 			}
 
+			var href = $( this ).attr( 'href' );
+			var reg = /tribe_event_display=([^&]+)/ig;
+			var result = reg.exec( href );
+
 			if ( $( this ).parent().is( '.tribe-events-past' ) ) {
 				ts.view = 'past';
-			}
-			else {
+			} else if ( 'undefined' !== result[1] ) {
+				ts.view = result[1];
+			} else {
 				ts.view = 'list';
 			}
 
-			td.cur_url = tf.url_path( $( this ).attr( 'href' ) );
+			td.cur_url = tf.url_path( href );
 
-			ts.paged++;
+			if ( ! ts.paged ) {
+				ts.paged = 2;
+			} else {
+				ts.paged++;
+			}
 
 			ts.popping = false;
 			tf.pre_ajax( function() {
 				tribe_events_list_ajax_post();
 			} );
-		} ).on( 'click', 'li.tribe-events-nav-previous a', function( e ) {
+		} ).on( 'click', 'ul.tribe-events-sub-nav a[rel="prev"]', function( e ) {
 			e.preventDefault();
 
 			if ( ts.ajax_running ) {
 				return;
 			}
 
+			var href = $( this ).attr( 'href' );
+			var reg = /tribe_event_display=([^&]+)/ig;
+			var result = reg.exec( href );
+
 			if ( $( this ).parent().is( '.tribe-events-past' ) ) {
 				ts.view = 'past';
-			}
-			else {
+			} else if ( 'undefined' !== result[1] ) {
+				ts.view = result[1];
+			} else {
 				ts.view = 'list';
 			}
 
@@ -122,8 +136,16 @@
 				if ( ts.ajax_running ) {
 					return;
 				}
+				var pathname = document.location.pathname;
+
 				ts.paged = 1;
-				ts.view = 'list';
+
+				if ( pathname.match( /\/all\/$/ ) ) {
+					ts.view = 'all';
+				} else {
+					ts.view = 'list';
+				}
+
 				ts.popping = false;
 				tf.pre_ajax( function() {
 					tribe_events_list_ajax_post();
@@ -158,13 +180,14 @@
 		 */
 
 		function tribe_events_list_ajax_post() {
+			var $header = $( '#tribe-events-header' );
 
 			ts.ajax_running = true;
 
 			if ( !ts.popping ) {
 
 				if ( ts.filter_cats ) {
-					td.cur_url = $( '#tribe-events-header' ).data( 'baseurl' );
+					td.cur_url = $header.data( 'baseurl' );
 				}
 
 				var tribe_hash_string = $( '#tribe-events-list-hash' ).val();
@@ -176,14 +199,18 @@
 				};
 
 				ts.url_params = {
-					action     : 'tribe_list',
 					tribe_paged: ts.paged,
 					tribe_event_display: ts.view
 				};
 
-				if ( tribe_js_config.permalink_settings === '' ){
-					ts.url_params.eventDisplay = 'list';
+				var pathname = document.location.pathname;
+				if ( pathname.match( /\/all\/$/ ) || td.cur_url.match( /tribe_post_parent=[0-9]+/ ) ) {
+					ts.url_params.tribe_event_display = 'all';
+					ts.params.tribe_post_parent = parseInt( $header.closest( '#tribe-events-content' ).find( '[data-parent-post-id]:first' ).data( 'parent-post-id' ), 10 );
+				}
 
+				if ( tribe_js_config.permalink_settings === '' ){
+					ts.url_params.eventDisplay = 'all' === ts.url_params.tribe_event_display ? 'all' : 'list';
 				}
 
 				if ( tribe_hash_string.length ) {

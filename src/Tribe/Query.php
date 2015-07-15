@@ -252,16 +252,13 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 							$query->set( 'hide_upcoming', true );
 							$query->set( 'order', self::set_order( 'ASC', $query ) );
 							break;
-						case 'all':
-							$query->set( 'orderby', self::set_orderby( null, $query ) );
-							$query->set( 'order', self::set_order( null, $query ) );
-							break;
 						case 'single-event':
 							if ( $query->get( 'eventDate' ) != '' ) {
 								$query->set( 'start_date', $query->get( 'eventDate' ) );
 								$query->set( 'eventDate', $query->get( 'eventDate' ) );
 							}
 							break;
+						case 'all':
 						case 'list':
 						default: // default display query
 							$event_date = ( $query->get( 'eventDate' ) != '' )

@@ -114,7 +114,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 			$output = esc_html( get_the_title( $organizer_id ) );
 		}
 
-		return apply_filters( 'tribe_get_organizer', $output );
+		return apply_filters( 'tribe_get_organizer', $output, $organizer_id );
 	}
 
 	/**

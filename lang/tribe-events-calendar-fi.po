@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the The Events Calendar package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2015-06-27 03:38:42+0000\n"
+"PO-Revision-Date: 2015-07-03 14:46:28+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -545,7 +545,7 @@ msgstr "Odottaa"
 
 #: ../src/admin-views/admin-welcome-message.php:44
 msgid "Addons for Community, Tickets, Filters, Facebook and more."
-msgstr ""
+msgstr "Lisäosat yhteisö-, lippu-, suodatin-, Facebook-liitännäisiin yms."
 
 #: ../src/io/csv/admin-views/general.php:33
 msgid "Draft"
@@ -557,7 +557,7 @@ msgstr "Tuki"
 
 #: ../src/io/csv/admin-views/header.php:17
 msgid "Events Import"
-msgstr ""
+msgstr "Tapahtumien tuonti"
 
 #: ../src/admin-views/admin-welcome-message.php:47
 msgid "FAQs, Documentation, Tutorials and Forums"
@@ -619,7 +619,7 @@ msgstr "Kun olet lähettänyt tiedostosi, sinulla on mahdollisuus ilmaista kuink
 
 #: ../src/admin-views/event-sidebar-options.php:13
 msgid "Hide From %s Listings"
-msgstr ""
+msgstr "Piilota %s listauksista"
 
 #: ../src/io/csv/admin-views/import.php:28
 msgid "After importing your Organizers and Venues, import your Events:"
@@ -700,7 +700,7 @@ msgstr "Tuonti valmis!"
 
 #: ../src/admin-views/events-meta-box.php:120
 msgid "%s Website"
-msgstr ""
+msgstr "%s www-sivu"
 
 #: ../src/io/csv/admin-views/result.php:19
 msgid "Inserted: %d"
@@ -716,7 +716,7 @@ msgstr "Päivitetty: %d"
 
 #: ../src/admin-views/events-meta-box.php:137
 msgid "%s Cost"
-msgstr ""
+msgstr "%s kustannus"
 
 #: ../src/io/csv/admin-views/result.php:21
 msgid "Skipped: %d"
@@ -803,7 +803,7 @@ msgstr "Kotisivu:"
 
 #: ../src/views/list/nav.php:19
 msgid "%s List Navigation"
-msgstr ""
+msgstr "%s listamuotoinen navigointivalikko"
 
 #: ../src/admin-views/organizer-meta-box.php:34
 #: ../src/functions/advanced-functions/meta_registration.php:254
@@ -826,7 +826,7 @@ msgstr "Seuraavat %s <span>&raquo;</span>"
 #: ../src/admin-views/organizer-meta-box.php:57
 #: ../src/admin-views/venue-meta-box.php:193
 msgid "%s Name Already Exists"
-msgstr ""
+msgstr "%s nimi on jo olemassa"
 
 #: ../src/views/modules/bar.php:30 ../src/views/modules/bar.php:61
 msgid "Find %s"
@@ -1407,7 +1407,7 @@ msgstr "Debug Bar -lisäosa"
 
 #: ../src/admin-views/tribe-options-general.php:213
 msgid "View Welcome Page"
-msgstr ""
+msgstr "Näytä tervetulosivu"
 
 #: ../src/admin-views/tribe-options-general.php:213
 msgid "View the page that displayed when you initially installed the plugin."
@@ -1653,7 +1653,7 @@ msgstr "Andorra"
 
 #: ../src/Tribe/Activation_Page.php:143
 msgid "Welcome to The Events Calendar"
-msgstr ""
+msgstr "Tervetuloa tapahtumakalenteriin"
 
 #: ../src/Tribe/View_Helpers.php:52
 msgid "Angola"
@@ -2038,7 +2038,7 @@ msgstr "Cookinsaaret"
 
 #: ../src/Tribe/Importer/Column_Mapper.php:75
 msgid "Venue Address 2"
-msgstr ""
+msgstr "Tapahtumapaikan osoite 2"
 
 #: ../src/Tribe/View_Helpers.php:98
 msgid "Costa Rica"
@@ -2078,7 +2078,7 @@ msgstr "Kypros"
 
 #: ../src/Tribe/Importer/Column_Mapper.php:80
 msgid "Venue Website"
-msgstr ""
+msgstr "Tapahtumapaikan www-sivu"
 
 #: ../src/Tribe/View_Helpers.php:103
 msgid "Czech Republic"
@@ -2245,7 +2245,7 @@ msgstr "Ranskan Guayana"
 #: ../src/Tribe/Main.php:519 ../src/functions/template-tags/general.php:71
 #: ../src/io/csv/admin-views/import.php:47
 msgid "Events"
-msgstr "Tapahtumat"
+msgstr "tapahtumat"
 
 #: ../src/Tribe/View_Helpers.php:123
 msgid "French Polynesia"
@@ -2278,7 +2278,7 @@ msgstr "Gambia"
 
 #: ../src/Tribe/Main.php:575
 msgid "list"
-msgstr ""
+msgstr "lista"
 
 #: ../src/Tribe/View_Helpers.php:127 ../src/Tribe/View_Helpers.php:326
 msgid "Georgia"
@@ -2482,7 +2482,7 @@ msgstr "Irak"
 
 #: ../src/Tribe/Main.php:1255 ../src/functions/template-tags/general.php:393
 msgid "%s Category"
-msgstr ""
+msgstr "%s kategoria"
 
 #: ../src/Tribe/View_Helpers.php:151
 msgid "Ireland"
@@ -2490,7 +2490,7 @@ msgstr "Irlanti"
 
 #: ../src/Tribe/Main.php:1256
 msgid "Search %s Categories"
-msgstr ""
+msgstr "Etsi %s kategorioista"
 
 #: ../src/Tribe/View_Helpers.php:152
 msgid "Israel"
@@ -2498,7 +2498,7 @@ msgstr "Israel"
 
 #: ../src/Tribe/Main.php:1257
 msgid "All %s Categories"
-msgstr ""
+msgstr "Kaikki %s kategoriat"
 
 #: ../src/Tribe/View_Helpers.php:153
 msgid "Italy"
@@ -2506,7 +2506,7 @@ msgstr "Italia"
 
 #: ../src/Tribe/Main.php:1258
 msgid "Parent %s Category"
-msgstr ""
+msgstr "Isäntä %s kategoria"
 
 #: ../src/Tribe/View_Helpers.php:154
 msgid "Jamaica"
@@ -2514,7 +2514,7 @@ msgstr "Jamaika"
 
 #: ../src/Tribe/Main.php:1259
 msgid "Parent %s Category:"
-msgstr ""
+msgstr "Isäntä %s kategoria"
 
 #: ../src/Tribe/View_Helpers.php:155
 msgid "Japan"
@@ -2522,7 +2522,7 @@ msgstr "Japani"
 
 #: ../src/Tribe/Main.php:1260
 msgid "Edit %s Category"
-msgstr ""
+msgstr "Muokkaa %s kategoriaa"
 
 #: ../src/Tribe/View_Helpers.php:156
 msgid "Jordan"
@@ -2530,7 +2530,7 @@ msgstr "Jordan"
 
 #: ../src/Tribe/Main.php:1261
 msgid "Update %s Category"
-msgstr ""
+msgstr "Päivitä %s kategoria"
 
 #: ../src/Tribe/View_Helpers.php:157
 msgid "Kazakhstan"
@@ -2538,7 +2538,7 @@ msgstr "Kazakstan"
 
 #: ../src/Tribe/Main.php:1262
 msgid "Add New %s Category"
-msgstr ""
+msgstr "Lisää uusi %s kategoria"
 
 #: ../src/Tribe/View_Helpers.php:158
 msgid "Kenya"
@@ -2546,7 +2546,7 @@ msgstr "Kenia"
 
 #: ../src/Tribe/Main.php:1263
 msgid "New %s Category Name"
-msgstr ""
+msgstr "Uusi %s kategorian nimi"
 
 #: ../src/Tribe/View_Helpers.php:159
 msgid "Kiribati"
@@ -2554,7 +2554,7 @@ msgstr "Kiribatin"
 
 #: ../src/Tribe/Main.php:1280
 msgid "%1$s updated. <a href=\"%2$s\">View %3$s</a>"
-msgstr ""
+msgstr "%1$s päivitetty. <a href=\"%2$s\">Näytä %3$s</a>"
 
 #: ../src/Tribe/View_Helpers.php:160
 msgid "Korea, Democratic People's Republic Of"
@@ -2598,7 +2598,7 @@ msgstr "Laosin demokraattinen kansantasavalta"
 
 #: ../src/Tribe/Main.php:1286
 msgid "Event published. <a href=\"%1$s\">View %2$s</a>"
-msgstr ""
+msgstr "Tapahtuma julkaistu. <a href=\"%1$s\">Näytä %2$s</a>"
 
 #: ../src/Tribe/View_Helpers.php:165
 msgid "Latvia"
@@ -2947,7 +2947,7 @@ msgstr "Norfolkinsaari"
 
 #: ../src/Tribe/Main.php:4169
 msgid "%s From"
-msgstr ""
+msgstr "%s lähtien"
 
 #: ../src/Tribe/View_Helpers.php:208
 msgid "Northern Mariana Islands"

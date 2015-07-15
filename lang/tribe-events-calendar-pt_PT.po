@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the The Events Calendar package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2015-06-27 03:40:47+0000\n"
+"PO-Revision-Date: 2015-07-03 15:03:55+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -303,7 +303,7 @@ msgstr "Adicionar aos calendários Google"
 
 #: ../src/functions/advanced-functions/meta_registration.php:286
 msgid "%s:"
-msgstr ""
+msgstr "%s"
 
 #: ../src/Tribe/iCal.php:77
 msgid "Google Calendar"
@@ -331,7 +331,7 @@ msgstr "Próximo Dia <span>&raquo;</span>"
 
 #: ../src/Tribe/iCal.php:108
 msgid "Month's %s"
-msgstr ""
+msgstr "Meses %s"
 
 #: ../src/functions/template-tags/day.php:112
 msgid "Yesterday"
@@ -339,7 +339,7 @@ msgstr "Ontem"
 
 #: ../src/Tribe/iCal.php:111
 msgid "Week's %s"
-msgstr ""
+msgstr "Semanas %s"
 
 #: ../src/functions/template-tags/day.php:114
 msgid "Tomorrow"
@@ -347,7 +347,7 @@ msgstr "Amanhã"
 
 #: ../src/Tribe/iCal.php:114
 msgid "Day's %s"
-msgstr ""
+msgstr "Dias %s"
 
 #: ../src/functions/template-tags/deprecated.php:1283
 msgid "Category"
@@ -355,7 +355,7 @@ msgstr "Categoria:"
 
 #: ../src/Tribe/iCal.php:117
 msgid "Listed %s"
-msgstr ""
+msgstr "Listado %s"
 
 #: ../src/functions/template-tags/general.php:426
 msgid "Tags:"
@@ -367,12 +367,12 @@ msgstr "Utilize esta opção para partilhar com os calendários Google, calendá
 
 #: ../src/functions/template-tags/general.php:538
 msgid "Loading %s"
-msgstr ""
+msgstr "Carregar %s"
 
 #: ../src/admin-views/admin-update-message.php:9
 #: ../src/admin-views/admin-welcome-message.php:11
 msgid "You are running Version %s and deserve a hug :-)"
-msgstr ""
+msgstr "Está a correr a %s Versão e merece um abraço :-)"
 
 #: ../src/functions/template-tags/general.php:760
 msgid "Free"
@@ -380,7 +380,7 @@ msgstr "Grátis"
 
 #: ../src/admin-views/admin-update-message.php:32
 msgid "Keep the Core Plugin <strong>FREE</strong>!"
-msgstr ""
+msgstr "Mantenha o Core Plugin <strong>LIVRE</strong>!"
 
 #: ../src/functions/template-tags/general.php:1454
 msgid "Calendar powered by %sThe Events Calendar%s"
@@ -388,37 +388,37 @@ msgstr "Calendário por %sCalendário de Eventos%s"
 
 #: ../src/admin-views/admin-update-message.php:33
 msgid "Every time you rate <strong>5 stars</strong>, a fairy is born. Okay maybe not, but more happy users mean more contributions and help on the forums. The community NEEDS your voice."
-msgstr ""
+msgstr "Cada vez que dá <strong>5 estrelas</strong>, nasce uma fada. Ok, talvez não, mas mais utilizadores contentes significa mais contribuições e ajuda nos foruns. A comunidade PRECISA da sua voz."
 
 #: ../src/functions/template-tags/loop.php:131
 msgid "Upcoming %s"
-msgstr ""
+msgstr "Próximos %s"
 
 #: ../src/admin-views/admin-update-message.php:34
 #: ../src/admin-views/admin-welcome-message.php:22
 msgid "Rate It"
-msgstr ""
+msgstr "Classifique"
 
 #: ../src/functions/template-tags/loop.php:145
 msgid "%1$s for %2$s - %3$s"
-msgstr ""
+msgstr "%1$s para %2$s - %3$s"
 
 #: ../src/admin-views/admin-update-message.php:37
 msgid "PSST... Want a Discount?"
-msgstr ""
+msgstr "PSST... Quer um Desconto?"
 
 #: ../src/functions/template-tags/loop.php:147
 msgid "Past %s"
-msgstr ""
+msgstr "Passado %s"
 
 #: ../src/admin-views/admin-update-message.php:38
 msgid "We send out discounts to our core users via our newsletter."
-msgstr ""
+msgstr "Enviamos descontos aos nossos usuários do núcleo através da nossa newsletter."
 
 #: ../src/functions/template-tags/loop.php:152
 #: ../src/functions/template-tags/loop.php:161
 msgid "%1$s for %2$s"
-msgstr ""
+msgstr "%1$s para %2$s"
 
 #: ../src/admin-views/admin-update-message.php:43
 #: ../src/admin-views/admin-welcome-message.php:31
@@ -451,7 +451,7 @@ msgstr "Eventos da Comunidade"
 
 #: ../src/io/csv/admin-views/columns.php:28
 msgid "Columns have been mapped based on your last import. Please ensure the selected fields match the columns in your CSV file."
-msgstr ""
+msgstr "As colunas foram mapeadas com base na sua última importação . Por favor, verifique se os campos selecionados correspondem às colunas no seu arquivo CSV."
 
 #: ../src/admin-views/admin-update-message.php:54
 msgid "Filters"
@@ -472,7 +472,7 @@ msgstr "Campos do Evento"
 #: ../src/admin-views/admin-update-message.php:58
 #: ../src/admin-views/admin-welcome-message.php:53
 msgid "News For Events Users"
-msgstr ""
+msgstr "Novidades para os Utilizadores dos Eventos"
 
 #: ../src/io/csv/admin-views/columns.php:45
 msgid "Perform Import"
@@ -480,15 +480,15 @@ msgstr "Realizar Importação"
 
 #: ../src/admin-views/admin-welcome-message.php:19
 msgid "Keep The Events Calendar Core FREE"
-msgstr ""
+msgstr "Mantenha o The Calendar Core grátis"
 
 #: ../src/io/csv/admin-views/general.php:11
 msgid "The Events Calendar: Import"
-msgstr ""
+msgstr "The Events Calendar: Importação"
 
 #: ../src/admin-views/admin-welcome-message.php:20
 msgid "5 star ratings help us bring TEC to more users. More happy users mean more support, more features, and more of everything you know and love about The Events Calendar. We couldn't do this without your support."
-msgstr ""
+msgstr "5 estrelas nas classificações ajudam-nos a trazer mais utilizadores TEC. Mais utilizadores felizes significa mais apoio, mais recursos, e mais de tudo o que você sabe e gosta sobre o The Events Calendar. Nós não podemos fazer isso sem o seu apoio."
 
 #: ../src/io/csv/admin-views/general.php:13
 msgid "Instructions"
@@ -496,27 +496,27 @@ msgstr "Instruções"
 
 #: ../src/admin-views/admin-welcome-message.php:21
 msgid "Rate it five stars today!"
-msgstr ""
+msgstr "Classifique com cinco estrela hoje!"
 
 #: ../src/io/csv/admin-views/general.php:15
 msgid "To import events, first select a %sDefault Import Event Status%s below to assign to your imported events."
-msgstr ""
+msgstr "Para importar eventos , primeiro selecione um %sDefault  Import Event Status%s abaixo para atribuir aos seus eventos importados."
 
 #: ../src/admin-views/admin-welcome-message.php:25
 msgid "Newsletter Signup"
-msgstr ""
+msgstr "Inscrição na Newsletter"
 
 #: ../src/io/csv/admin-views/general.php:18
 msgid "Once your setting is saved, move to the applicable Import tab to select import specific criteria."
-msgstr ""
+msgstr "Uma vez salva a sua configuração, vá para a guia Import para selecionar critérios específicos de importação."
 
 #: ../src/admin-views/admin-welcome-message.php:26
 msgid "Stay in touch with The Events Calendar Pro. We send out periodic updates, key developer notices, and even the occasional discount."
-msgstr ""
+msgstr "Fique em contacto com o The Events Calendar Pro. Nós enviamos atualizações periódicas , avisos de chave de desenvolvedor, e até mesmo descontos ocasionais."
 
 #: ../src/io/csv/admin-views/general.php:26
 msgid "Import Settings"
-msgstr ""
+msgstr "Importar Configurações"
 
 #: ../src/admin-views/admin-welcome-message.php:40
 #: ../src/admin-views/tribe-options-help.php:148
@@ -525,11 +525,11 @@ msgstr "Como Começar"
 
 #: ../src/io/csv/admin-views/general.php:28
 msgid "Default imported event status:"
-msgstr ""
+msgstr "Status do evento padrão importados:"
 
 #: ../src/admin-views/admin-welcome-message.php:41
 msgid "Check out the New User Primer &amp; Tutorials"
-msgstr ""
+msgstr "Confira o novo utilizador Primer &amp; tutoriais"
 
 #: ../src/io/csv/admin-views/general.php:31
 msgid "Published"
