@@ -244,6 +244,7 @@ Our Premium Plugins:
 * Bug - Fixed an issue where the Events Calendar widget form partially overflowed the widget container in the WP Customizer
 * Bug - Addressed numerous minor styling issues with the Twenty Fifteen theme
 * Bug - Fixed a problem with Checkbox value using Quotes and Double Quotes (' and ")
+* Bug - Fixed wording for link to Additional Fields Tutorial
 * Tweak - Improve Dockblock for a few Templates
 * Tweak - Conformed code to updated coding standards
 * Tweak - Removed TribeEventsPro.recurrence JS from the front-end
