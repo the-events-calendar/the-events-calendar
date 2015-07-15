@@ -331,27 +331,15 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 = [Unreleased] unreleased =
 
 * Security - Added escaping to a number of previously un-escaped values
-* Bug - Fixed an issue where the "Export Month's events" button wasn't appearing on Month view
-* Bug - Fixed an issue where notification of mismatched TEC Addon versions failed to appear on dot releases above x.9
-* Bug - Fixed an issue where ticket prices were not displayed on in list view when tickets were marked as "Free"
-* Bug - Fixed a bug where an event's start/end dates were purged when calling tribe_update_event() without passing start/end dates
-* Bug - Fixed an issue where events with multiple prices showed innacurate price ranges in list view
-* Bug - Fixed a bug where 24-hour datetime formats would sometimes fail to initialize datetime pickers appropriately
-* Bug - Fixed a bug where titles containing certain special character combinations were getting partially stripped
-* Bug - Fixed an issue where disabling the Day View prevented users from being able to "View all" events from a given day of the month that exceeded the number of visible events while in Month/Week View
-* Bug - Fixed an issue allowing all day events to be incorrectly duplicated during CSV imports
-* Bug - Fixed a bug stopping escape characters from working when applied within the date format settings
-* Bug - Fixed a bug where events that had been hidden from event listings were linked to from the single event nav
-* Bug - Fixed a bug in the iCal exporter causing multiday events to sometimes be exported as if they were multiple single events
-* Bug - Fixed an issue causing certain date ranges to be unselectable when defining ticket sale dates
-* Bug - Fixed an issue where the Hide from Event Listings setting was not respected in day view
-* Bug - Fixed an issue causing the Default Event View setting to reset inappropriately
-* Bug - Fixed an issue where the excerpt of password protected events was exposed in month view tooltips
-* Bug - Fixed an issue stopping month view from being setup as the default view in new installations
-* Bug - Fixed a problem with translations on JavaScript templates
-* Bug - Fixed an issue with iCal email encoding
-* Bug - Fixed an issue on default Venue and Organizer been displayed with null message
-* Bug - Fixed an issue with publication date in the RSS feed not being converted to UTC 000
+* Feature - Added single letter 'min' format to tribe_events_get_days_of_week()
+* Feature - Added support for multiple organizers per event
+* Feature - Exploration + initial work on updated timepicker in events admin
+* Feature - Enhancements to month view class + queries
+* Feature - Added the ability to filter Attendees_Table constructor arguments via tribe_events_tickets_attendees_table_args (props: @aaemnnosttv)
+* Feature - Allowing yes/true boolean imports for “Show Google Maps (link)” field in CSV import
+* Feature - Added JS events for ticket events: save-ticket.tec.tribe, saved-ticket.tec.tribe, edit-ticket.tec.tribe, delete-ticket.tec.tribe, deleted-ticket.tec.tribe (props: @aaemnnosttv)
+* Feature - Added the ability to sort events in the dashboard by Event Category and terms (props: @kittsville)
+* Feature - Detect when rewrite rules are being flushed when the Events Help page is loaded and drop that information into the System Information box
 * Tweak - Empty event views should no longer return a 404 Not Found status
 * Tweak - New filters added to make customization of custom post and taxonomy labels
 * Tweak - Single event map objects are now accessible for easier customization (props: @tddewey)
@@ -374,17 +362,29 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Tweak - Prevents redirects to welcome page if the user is trying to accomplish a task when activating or updating the plugin
 * Tweak - Improve documentation on tribe_get_events
 * Tweak - Google Calendar description content now has html stripped, but retains line spacing with custom sanitization of the export url
-* Feature - Added single letter 'min' format to tribe_events_get_days_of_week()
-* Feature - Added support for multiple organizers per event
-* Feature - Exploration + initial work on updated timepicker in events admin
-* Feature - Enhancements to month view class + queries
-* Feature - Added the ability to filter Attendees_Table constructor arguments via tribe_events_tickets_attendees_table_args (props: @aaemnnosttv)
-* Feature - Allowing yes/true boolean imports for “Show Google Maps (link)” field in CSV import
-* Feature - Added JS events for ticket events: save-ticket.tec.tribe, saved-ticket.tec.tribe, edit-ticket.tec.tribe, delete-ticket.tec.tribe, deleted-ticket.tec.tribe (props: @aaemnnosttv)
-* Feature - Added the ability to sort events in the dashboard by Event Category and terms (props: @kittsville)
-* Feature - Detect when rewrite rules are being flushed when the Events Help page is loaded and drop that information into the System Information box
 * Update - Updated bootstrap-datepicker to version 1.4.0 which resolves a few UI behavior bugs
 * Template - Added a data-parent-post-id data attribute to the post div in the views/list/loop.php template
+* Bug - Fixed an issue where the "Export Month's events" button wasn't appearing on Month view
+* Bug - Fixed an issue where notification of mismatched TEC Addon versions failed to appear on dot releases above x.9
+* Bug - Fixed an issue where ticket prices were not displayed on in list view when tickets were marked as "Free"
+* Bug - Fixed a bug where an event's start/end dates were purged when calling tribe_update_event() without passing start/end dates
+* Bug - Fixed an issue where events with multiple prices showed innacurate price ranges in list view
+* Bug - Fixed a bug where 24-hour datetime formats would sometimes fail to initialize datetime pickers appropriately
+* Bug - Fixed a bug where titles containing certain special character combinations were getting partially stripped
+* Bug - Fixed an issue where disabling the Day View prevented users from being able to "View all" events from a given day of the month that exceeded the number of visible events while in Month/Week View
+* Bug - Fixed an issue allowing all day events to be incorrectly duplicated during CSV imports
+* Bug - Fixed a bug stopping escape characters from working when applied within the date format settings
+* Bug - Fixed a bug where events that had been hidden from event listings were linked to from the single event nav
+* Bug - Fixed a bug in the iCal exporter causing multiday events to sometimes be exported as if they were multiple single events
+* Bug - Fixed an issue causing certain date ranges to be unselectable when defining ticket sale dates
+* Bug - Fixed an issue where the Hide from Event Listings setting was not respected in day view
+* Bug - Fixed an issue causing the Default Event View setting to reset inappropriately
+* Bug - Fixed an issue where the excerpt of password protected events was exposed in month view tooltips
+* Bug - Fixed an issue stopping month view from being setup as the default view in new installations
+* Bug - Fixed a problem with translations on JavaScript templates
+* Bug - Fixed an issue with iCal email encoding
+* Bug - Fixed an issue on default Venue and Organizer been displayed with null message
+* Bug - Fixed an issue with publication date in the RSS feed not being converted to UTC 000
 * Deprecated - camelCase methods in Tribe__Events__Date_Utils have been deprecated in favor of snake_case method names. Note: no parameters have changed - just the method name
 * Deprecated - Tribe__Events__Main::dateToTimeStamp has been deprecated in favor of the PHP strtotime function
 * Deprecated - Tribe__Events__Main::dateHelper has been deprecated in favor of the PHP date function
