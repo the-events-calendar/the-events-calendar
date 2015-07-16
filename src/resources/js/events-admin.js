@@ -246,8 +246,14 @@ jQuery( document ).ready( function( $ ) {
 			group.fadeOut( 500, function() { $(this).remove(); } );
 		});
 
+		var sortable_items = '> tbody';
+
+		if ( ! $( 'body' ).hasClass( 'wp-admin' ) ) {
+			sortable_items = 'table ' + sortable_items;
+		}
+
 		organizer_section.sortable({
-			items: '> tbody',
+			items: sortable_items,
 			handle: '.move-organizer-group',
 			axis: 'y',
 			delay: 100,
