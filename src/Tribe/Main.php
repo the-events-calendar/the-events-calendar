@@ -2889,7 +2889,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			add_action( 'save_post_' . self::POSTTYPE, array( $this, 'addEventMeta' ), 15, 2 );
 		}
 
-		private function normalize_organizer_submission( $submission ) {
+		public function normalize_organizer_submission( $submission ) {
 			$organizers = array();
 			if ( !isset( $submission['OrganizerID'] ) ) {
 				return $organizers; // not a valid submission
