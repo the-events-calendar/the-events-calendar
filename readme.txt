@@ -227,8 +227,6 @@ Our Premium Plugins:
 * Performance - Queries were modified to eliminate a join clause, potentially reducing the work needed to build the result set (Thank you MauiTime for inspiring this!)
 * Tweak - Improve Dockblock for a few Templates (Thanks to vendaragroup for the help!)
 * Tweak - Conformed code to updated coding standards
-* Tweak - Removed TribeEventsPro.recurrence JS from the front-end (Props to Marty for this one!)
-* Tweak - Made some changes to the EOD cutoff functionality behavior
 * Tweak - Made Minical widget template use single letter day headings
 * Tweak - When rendering recurring event markers on an event map, only place one marker per event/location combination (Thank you risedigitalsolutions for the inspiration!)
 * Tweak - Remove deprecated PHP4 constructor reference
@@ -244,6 +242,8 @@ Our Premium Plugins:
 
 * Bug - Addressed numerous minor styling issues with the Twenty Fifteen theme
 * Bug - Fixed bug where an empty Events Calendar widget would cause a "No events found" notice to be displayed despite events being displayed in the main event loop
+* Tweak - Removed TribeEventsPro.recurrence JS from the front-end (Props to Marty for this one!)
+* Tweak - Made some changes to the EOD cutoff functionality behavior
 
 = [3.10] 2015-06-15 =
 
