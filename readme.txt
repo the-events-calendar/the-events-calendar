@@ -312,7 +312,7 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 
 == Changelog ==
 
-= [Unreleased] unreleased =
+= [3.11]  =
 
 * Security - Added escaping to a number of previously un-escaped values
 * Feature - Added single letter 'min' format to tribe_events_get_days_of_week()
@@ -351,7 +351,7 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Bug - Fixed a bug where the last grid date in Month View never displayed events even when events existed on that date (props to Patrick Garman for finding this bug!)
 * Bug - Fixed an issue where the "Export Month's events" button wasn't appearing on Month view
 * Bug - Fixed an issue where notification of mismatched TEC Addon versions failed to appear on dot releases above x.9
-* Bug - Fixed an issue where ticket prices were not displayed on in List View when tickets were marked as "Free" (Cheers to liblogger for the heads up!)
+* Bug - Fixed an issue where ticket prices were not displayed in List View when tickets were marked as "Free" (Cheers to liblogger and tracylove for the heads up!)
 * Bug - Fixed a bug where an event's start/end dates were purged when calling tribe_update_event() without passing start/end dates
 * Bug - Fixed an issue where events with multiple prices showed inaccurate price ranges in list view (Props to Sonya for reporting this!)
 * Bug - Fixed a bug where 24-hour datetime formats would sometimes fail to initialize datetime pickers appropriately (Thank you mtmuddnadd for the help!)
@@ -370,6 +370,9 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Bug - Fixed an issue with iCal email encoding (Thanks to Karen for first reporting this!)
 * Bug - Fixed an issue with default Venue and Organizer displaying with null message
 * Bug - Fixed an issue with publication date in the RSS feed not being converted to UTC 000 (Props to teammultiverse for the heads up!)
+* Bug - Resolved an issue in the Tribe search bar where hitting enter while the date field was selected caused the field to be blanked out
+* Bug - Fixed some display issues in Twenty Fifteen with the Default Page Template
+* Bug - Resolved various notices
 * Deprecated - camelCase methods in Tribe__Events__Date_Utils have been deprecated in favor of snake_case method names. Note: no parameters have changed - just the method name
 * Deprecated - Tribe__Events__Main::dateToTimeStamp has been deprecated in favor of the PHP strtotime function
 * Deprecated - Tribe__Events__Main::dateHelper has been deprecated in favor of the PHP date function
