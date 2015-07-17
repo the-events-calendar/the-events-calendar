@@ -161,7 +161,7 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 				'start_date'     => $this->first_grid_date,
 				'end_date'       => $this->final_grid_date,
 				'post_status'    => array( 'publish' ),
-				'posts_per_page' => -1,
+				'posts_per_page' => - 1,
 			) );
 
 			if ( is_user_logged_in() ) {
