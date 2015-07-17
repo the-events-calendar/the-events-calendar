@@ -128,8 +128,10 @@ The plugin is produced by <a href="http://m.tri.be/45">Modern Tribe Inc</a>.
 
 = Current Contributors =
 
-* <a href="http://profiles.wordpress.org/users/jazbek">Jessica Yazbek</a>
+* <a href="http://profiles.wordpress.org/users/borkweb">Matthew Batchelder</a>
 * <a href="http://profiles.wordpress.org/users/roblagatta">Rob La Gatta</a>
+* <a href="http://profiles.wordpress.org/users/zbtirrell">Zach Tirrell</a>
+* <a href="http://profiles.wordpress.org/users/jazbek">Jessica Yazbek</a>
 * <a href="http://profiles.wordpress.org/users/barryhughes">Barry Hughes</a>
 * <a href="http://profiles.wordpress.org/users/jbrinley">Jonathan Brinley</a>
 * <a href="http://profiles.wordpress.org/users/faction23">Samuel Estok</a>
@@ -144,7 +146,7 @@ The plugin is produced by <a href="http://m.tri.be/45">Modern Tribe Inc</a>.
 * <a href="http://profiles.wordpress.org/users/peterchester">Peter Chester</a>
 * <a href="http://profiles.wordpress.org/users/reid.peifer">Reid Peifer</a>
 * <a href="http://profiles.wordpress.org/users/shane.pearlman">Shane Pearlman</a>
-* <a href="http://profiles.wordpress.org/users/borkweb">Matthew Batchelder</a>
+
 
 = Past Contributors =
 
@@ -164,47 +166,29 @@ The plugin is produced by <a href="http://m.tri.be/45">Modern Tribe Inc</a>.
 * <a href="http://profiles.wordpress.org/users/jgadbois">John Gadbois</a>
 * Justin Endler
 
-= Translators =
+= Translations =
 
-* Afrikaans from Liza Welsh
-* Arabic from Mamdouh Samy
-* Bosnian from Marko Manojlovic
-* Brazilian Portuguese from Emerson Marques
-* British English from John Browning
-* Bulgarian from Nedko Ivanov
-* Catalan from Barbara Partegos Rof
-* Chinese from Massound Huang
-* Croatian from Marko Manojlovic
-* Czech from Petr Bastan
-* Danish from Hans Christian Andersen
-* Dutch from Dirk Westenberg
-* Estonian from Andra Saimre
-* Finnish by Elias Okkonen
-* French from Sylvain Delisle
-* German from Oliver Heinrich
-* Greek from Yannis Troullinos
-* Hungarian from Balazs Dobos
-* Icelandic by Baldvin Örn Berndsen
-* Indonesian by Didik Priyanto
-* Italian from Gabriele Taffi
-* Latvian from Raivis Dejus
-* Lithuanian from Gediminas Pankevicius
-* Montenegrin from Sasa Vukovic
-* Norwegian Bokmål by Morten Ruud
-* Norwegian Nynorsk by Torbjørn Lauen
-* Polish from Marek Kosina
-* Portuguese from Sérgio Leite
-* Romanian from Cosmin Vaman
-* Russian from Alexander Tinyaev
-* Serbian from Marko Manojlovic
-* Slovak from Emilia Valova
-* Slovenian from Žiga Vajdic
-* Spanish from Juanjo Navarro
-* Swedish from Jonas Reinicke
-* Turkish by Nadin Kokciyan
-* Ukranian by Vasily Vishnyakov
+* Bulgarian
+* Danish
+* Dutch
+* English (UK)
+* Finnish
+* French (France)
+* German
+* Greek
+* Hungarian
+* Icelandic
+* Italian
+* Lithuanian
+* Polish
+* Portuguese (Portugal)
+* Slovak
+* Slovenian
+* Spanish (Spain)
+* Swedish
+* Turkish
 
-* Previous translators include Derin Korman, Stefan Dorscht, Laurent Proulx, Ari-Pekka Koponen, Antonio Pratas, Dennis Gruebner, J.F.M. Cornelissen, Frans Pronk, Roberto Scano, Maria Tsilimidou, Martin Kristan, Ben Andersen, Oliver Heinrich, Mikhail Michouris, Bastien BC, Erik Massop, Ed Boon, Rick van Dalen, Jacob Roel Meijering, Christian Andersen, Michael Sebel, Dionizio Bonfim Bach, Mihai Burcea, Filippo Montanari, David Decker, Kamil Szymanski, "Terje With Lunndal", Sagi Shrieber, Matthew Meyer, Arno Faure, Fanny Heraud, Vincent G from Host1Free, , Petri Kajander, Fran Rosa, Nico (wsMaurik), Panos Efstratiou, Dominique Monhardt, Thomas Butzek, Kjell Vestnes, Luiza Libardi, Diego Meneghetti, Benoit Burgener, Hector Gil Rizo, Burak Pehlevan, and Alexey Fedorov
+Many thanks to all our translators!  You can grab the latest translations or contribute at http://translations.theeventscalendar.com
 
 == Add-Ons ==
 
