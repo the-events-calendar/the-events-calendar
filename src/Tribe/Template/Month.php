@@ -158,8 +158,8 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 
 			$args = array_merge( $args, array(
 				'fields'         => 'ids',
-				'start_date'     => $this->first_grid_date,
-				'end_date'       => $this->final_grid_date,
+				'start_date'     => tribe_event_beginning_of_day( $this->first_grid_date ),
+				'end_date'       => tribe_event_end_of_day( $this->final_grid_date ),
 				'post_status'    => array( 'publish' ),
 				'posts_per_page' => - 1,
 			) );
