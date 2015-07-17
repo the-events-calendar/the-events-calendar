@@ -364,7 +364,7 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Tweak - Google Calendar description content now has html stripped, but retains line spacing with custom sanitization of the export url
 * Update - Updated bootstrap-datepicker to version 1.4.0 which resolves a few UI behavior bugs
 * Template - Added a data-parent-post-id data attribute to the post div in the views/list/loop.php template
-* Bug - Fixed a bug where the last grid date in Month View never displayed events even when events existed on that date
+* Bug - Fixed a bug where the last grid date in Month View never displayed events even when events existed on that date (props to Patrick Garman for finding this bug!)
 * Bug - Fixed an issue where the "Export Month's events" button wasn't appearing on Month view
 * Bug - Fixed an issue where notification of mismatched TEC Addon versions failed to appear on dot releases above x.9
 * Bug - Fixed an issue where ticket prices were not displayed on in list view when tickets were marked as "Free"
