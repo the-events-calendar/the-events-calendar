@@ -325,7 +325,6 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Feature - Added the ability to sort events in the dashboard by Event Category and Tags (Thank you kittsville on GitHub for this!)
 * Feature - Detect when rewrite rules are being flushed when the Events Help page is loaded and drop that information into the System Information box (Thanks to Zoe for the inspiration!)
 * Tweak - Empty event views should no longer return a 404 Not Found status
-* Tweak - New filters added to make customization of custom post and taxonomy labels
 * Tweak - Single event map objects are now accessible for easier customization (Thank you tddewey for bringing this up!)
 * Tweak - Include date separator on the administration of events (Thanks to Loffe on GitHub for the request!)
 * Tweak - Datepickers now respect settings on the administration
