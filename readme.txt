@@ -1,6 +1,6 @@
 === The Events Calendar ===
 
-Contributors:  ModernTribe, roblagatta, faction23, jazbek, jbrinley, leahkoerper, brook-tribe, ckpicker, barry.hughes, joshlimecuda, geoffgraham, brianjessee, mdbitz, neillmcshea, peterchester, ryancurban, reid.peifer, shane.pearlman, bordoni, lucatume, borkweb, zbtirrell
+Contributors:  ModernTribe, roblagatta, borkweb, zbtirrell, barry.hughes, bordoni, brianjessee, brook-tribe, ckpicker, faction23, geoffgraham, jazbek, jbrinley, joshlimecuda, leahkoerper, lucatume, mdbitz, neillmcshea, peterchester, reid.peifer, ryancurban, shane.pearlman
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
 Donate link: http://m.tri.be/29
 Requires at least: 3.9
@@ -202,9 +202,14 @@ The plugin is produced by <a href="http://m.tri.be/2s">Modern Tribe Inc</a>.
 
 = Current Contributors =
 
-* <a href="http://profiles.wordpress.org/users/jazbek">Jessica Yazbek</a>
+
+* <a href="http://profiles.wordpress.org/users/borkweb">Matthew Batchelder</a>
 * <a href="http://profiles.wordpress.org/users/roblagatta">Rob La Gatta</a>
+* <a href="http://profiles.wordpress.org/users/zbtirrell">Zachary Tirrell</a>
 * <a href="http://profiles.wordpress.org/users/barryhughes">Barry Hughes</a>
+* <a href="http://profiles.wordpress.org/users/bordoni">Gustavo Bordoni</a>
+* <a href="http://profiles.wordpress.org/users/jazbek">Jessica Yazbek</a>
+* <a href="http://profiles.wordpress.org/users/lucatume">Luca Tumedei</a>
 * <a href="http://profiles.wordpress.org/users/jbrinley">Jonathan Brinley</a>
 * <a href="http://profiles.wordpress.org/users/faction23">Samuel Estok</a>
 * <a href="http://profiles.wordpress.org/users/brianjessee">Brian Jessee</a>
@@ -213,18 +218,15 @@ The plugin is produced by <a href="http://m.tri.be/2s">Modern Tribe Inc</a>.
 * <a href="http://profiles.wordpress.org/users/joshlimecuda">Josh Mallard</a>
 * <a href="http://profiles.wordpress.org/users/neillmcshea">Neill McShea</a>
 * <a href="http://profiles.wordpress.org/users/brook-tribe">Brook Harding</a>
-* <a href="http://profiles.wordpress.org/users/ckpicker">Casey Picker</a>
 * <a href="http://profiles.wordpress.org/users/leahkoerper">Leah Koerper</a>
 * <a href="http://profiles.wordpress.org/users/peterchester">Peter Chester</a>
 * <a href="http://profiles.wordpress.org/users/reid.peifer">Reid Peifer</a>
 * <a href="http://profiles.wordpress.org/users/shane.pearlman">Shane Pearlman</a>
-* <a href="http://profiles.wordpress.org/users/borkweb">Matthew Batchelder</a>
-* <a href="http://profiles.wordpress.org/users/bordoni">Gustavo Bordoni</a>
-* <a href="http://profiles.wordpress.org/users/lucatume">Luca Tumedei</a>
-* <a href="http://profiles.wordpress.org/users/zbtirrell">Zachary Tirrell</a>
+
 
 = Past Contributors =
 
+* <a href="http://profiles.wordpress.org/users/ckpicker">Casey Picker</a>
 * <a href="http://profiles.wordpress.org/users/paulhughes01">Paul Hughes</a>
 * <a href="http://profiles.wordpress.org/users/kyleunzicker">Kyle Unzicker</a>
 * <a href="http://profiles.wordpress.org/users/MZAWeb">Daniel Dvorkin</a>
@@ -241,48 +243,30 @@ The plugin is produced by <a href="http://m.tri.be/2s">Modern Tribe Inc</a>.
 * <a href="http://profiles.wordpress.org/users/jgadbois">John Gadbois</a>
 * Justin Endler
 
-= Translators =
 
-* Afrikaans from Liza Welsh
-* Arabic from Mamdouh Samy
-* Bosnian from Marko Manojlovic
-* Brazilian Portuguese by Emerson Marques
-* British English from John Browning
-* Bulgarian from Nedko Ivanov
-* Catalan from Barbara Partegos Rof
-* Chinese from Massound Huang
-* Croatian from Marko Manojlovic
-* Czech from Petr Bastan
-* Danish from Hans Christian Andersen
-* Dutch from Dirk Westenberg
-* Estonian from Andra Saimre
-* Finnish by Elias Okkonen
-* French from Sylvain Delisle
-* German from Oliver Heinrich and Brian Haas
-* Greek from Yannis Troullinos
-* Hungarian from Balazs Dobos
-* Icelandic by Baldvin Örn Berndsen
-* Indonesian from Didik Priyanto
-* Italian from Gabriele Taffi
-* Latvian from Raivis Dejus
-* Lithuanian from Gediminas Pankevicius
-* Montenegrin from Sasa Vukovic
-* Norwegian Bokmål by Morten Ruud
-* Norwegian Nynorsk by Torbjørn Lauen
-* Polish from Marek Kosina
-* Portuguese from Sérgio Leite
-* Romanian from Cosmin Vaman
-* Russian from Alexander Tinyaev
-* Serbian from Marko Manojlovic
-* Slovak from Emilia Valova
-* Slovenian from Žiga Vajdic
-* Spanish from Juanjo Navarro
-* Swedish from Jonas Reinicke
-* Turkish by Nadin Kokciyan
-* Ukranian by Vasily Vishnyakov
+= Translations =
 
-* Previous translators include Derin Korman, Ari-Pekka Koponen, Laurent Proulx, Stefan Dorscht, Antonio Pratas, Dennis Gruebner , J.F.M. Cornelissen, Frans Pronk, Hector Gil Rizo, Roberto Scano, Maria Tsilimidou, Martin Kristan, Oliver Heinrich, Ben Andersen, Mikhail Michouris, Bastien BC, Dionizio Bonfim Bach, Mihai Burcea, Ed Boon, Rick van Dalen, Jacob Roel Meijering, hristian Andersen, Michael Sebel, Filippo Montanari, David Decker, Kamil Szymanski, Erik Massop, “Terje With Lunndal", Andreas Lorentsen, Sagi Shrieber, Matthew Meyer, Arno Faure, Fanny Heraud, Vincent G from Host1Free, , Petri Kajander, Fran Rosa, Nico (wsMaurik), Panos Efstratiou, Dominique Monhardt, Thomas Butzek, Kjell Vestnes, Luiza Libardi, Diego Meneghetti, Beno Burgener, Burak Pehlevan, and Alexey Fedorov
+* Bulgarian
+* Czech
+* Danish
+* Dutch
+* Finnish
+* French (Canada)
+* French (France)
+* German
+* Greek
+* Hungarian
+* Icelandic
+* Italian
+* Lithuanian
+* Portuguese (Brazil)
+* Portuguese (Portugal)
+* Slovak
+* Spanish (Spain)
+* Swedish
+* Turkish
 
+Many thanks to all our translators!  You can grab the latest translations or contribute at http://translations.theeventscalendar.com
 == Add-Ons ==
 
 But wait: there's more! We've got a whole stable of plugins available to help you be awesome at what you do. Check out a full list of the products below, and over at the <a href="http://m.tri.be/2a" target="_blank">Modern Tribe website.</a>
