@@ -141,6 +141,8 @@ Date.prototype.format = function( mask, utc ) {
 	return tribeDateFormat( this, mask, utc );
 };
 
+var tribe_datepicker_opts = {};
+
 /**
  * @todo contains a number of recurrence-related functions which should be moved to PRO
  */
@@ -305,10 +307,10 @@ jQuery( document ).ready( function( $ ) {
 			startofweek = $event_pickers.data( 'startofweek' );
 		}
 
-		var $recurrence_type = $( '[name="recurrence[type]"]' ),
-			$end_date = $( '#EventEndDate' );
+		var $recurrence_type = $( '[name="recurrence[type]"]' );
+		var $end_date = $( '#EventEndDate' );
 
-		var datepickerOpts = {
+		tribe_datepicker_opts = {
 			dateFormat     : date_format,
 			showAnim       : 'fadeIn',
 			changeMonth    : true,
@@ -321,40 +323,37 @@ jQuery( document ).ready( function( $ ) {
 				object.input.data( 'prevDate', object.input.datepicker( "getDate" ) );
 			},
 			onSelect       : function( selectedDate ) {
-				var option = this.id == "EventStartDate" ? "minDate" : "maxDate",
-					instance = $( this ).data( "datepicker" ),
-					date = $.datepicker.parseDate( instance.settings.dateFormat || $.datepicker._defaults.dateFormat, selectedDate, instance.settings );
+				var option = this.id == 'EventStartDate' ? 'minDate' : 'maxDate';
+				var instance = $( this ).data( "datepicker" );
+				var date = $.datepicker.parseDate( instance.settings.dateFormat || $.datepicker._defaults.dateFormat, selectedDate, instance.settings );
 
-				if ( this.id === "EventStartDate" && $recurrence_type.val() !== 'None' ) {
-
-					var startDate = $( '#EventStartDate' ).data( 'prevDate' ),
-						dateDif = null == startDate ? 0 : date_diff_in_days( startDate, $end_date.datepicker( 'getDate' ) ),
-						endDate = new Date( date.setDate( date.getDate() + dateDif ) );
+				if ( this.id === 'EventStartDate' ) {
+					var startDate = $( '#EventStartDate' ).data( 'prevDate' );
+					var dateDif = null == startDate ? 0 : date_diff_in_days( startDate, $end_date.datepicker( 'getDate' ) );
+					var endDate = new Date( date.setDate( date.getDate() + dateDif ) );
 
 					$end_date
-						.datepicker( "option", option, endDate )
-						.datepicker( "setDate", endDate );
-
-				}
-				else {
+						.datepicker( 'option', option, endDate )
+						.datepicker( 'setDate', endDate );
+				} else {
 					dates
 						.not( this )
-						.not( '#recurrence_end' )
-						.datepicker( "option", option, date );
+						.not( '.recurrence_end' )
+						.datepicker( 'option', option, date );
 				}
 			}
 		};
 
-		$.extend( datepickerOpts, TEC );
+		$.extend( tribe_datepicker_opts, TEC );
 
-		var dates = $( "#EventStartDate, #EventEndDate, .tribe-datepicker" ).datepicker( datepickerOpts ),
-			$all_day_check = $( '#allDayCheckbox' ),
-			$tod_options = $( ".timeofdayoptions" ),
-			$time_format = $( "#EventTimeFormatDiv" ),
-			$start_end_month = $( "select[name='EventStartMonth'], select[name='EventEndMonth']" ),
-			$start_month = $( "select[name='EventStartMonth']" ),
-			$end_month = $( 'select[name="EventEndMonth"]' ),
-			selectObject;
+		var dates = $( '.tribe-datepicker' ).datepicker( tribe_datepicker_opts );
+		var $all_day_check = $( '#allDayCheckbox' );
+		var $tod_options = $( ".timeofdayoptions" );
+		var $time_format = $( "#EventTimeFormatDiv" );
+		var $start_end_month = $( "select[name='EventStartMonth'], select[name='EventEndMonth']" );
+		var $start_month = $( "select[name='EventStartMonth']" );
+		var $end_month = $( 'select[name="EventEndMonth"]' );
+		var selectObject;
 
 		if ( is_community_edit ) {
 			var $els = {
@@ -495,35 +494,6 @@ jQuery( document ).ready( function( $ ) {
 	}
 
 	tribeShowHideCorrectStateProvinceInput( $( "#EventCountry > option:selected" ).val() );
-
-	var $hidesub = $( '[name="hideSubsequentRecurrencesDefault"]' ),
-		$userhide = $( '[name="userToggleSubsequentRecurrences"]' );
-
-	if ( $hidesub.length && $userhide.length ) {
-
-		var $userwrap = $( '#tribe-field-userToggleSubsequentRecurrences' );
-
-		if ( $hidesub.is( ':checked' ) ) {
-			$userhide.prop( 'checked', false );
-			$userwrap.hide();
-		}
-
-		$hidesub
-			.on( 'click', function() {
-				var $this = $( this );
-
-				if ( ! $this.is( ':checked' ) ) {
-					$userwrap.show();
-				}
-				else {
-					$userhide.prop( 'checked', false );
-					$userwrap.hide();
-				}
-
-			} );
-
-
-	}
 
 	$( "#EventCountry" ).change( function() {
 		var countryLabel = $( this ).find( 'option:selected' ).val();
@@ -671,14 +641,21 @@ jQuery( document ).ready( function( $ ) {
 
 		var $els = {
 			start: $event_pickers.find( '#EventStartDate' ),
-			end  : $event_pickers.next( 'tr' ).find( '#EventEndDate' ),
-			recur: $event_pickers.parent().find( '#recurrence_end' )
+			end  : $event_pickers.next( 'tr' ).find( '#EventEndDate' )
 		};
 
 		$els.start.val( tribeDateFormat( $els.start.datepicker( 'getDate' ), 'tribeQuery' ) );
 		$els.end.val( tribeDateFormat( $els.end.datepicker( 'getDate' ), 'tribeQuery' ) );
 
-		$els.recur.is( ':visible' ) && $els.recur.val( tribeDateFormat( $els.recur.datepicker( 'getDate' ), 'tribeQuery' ) );
+		$event_pickers.parent().find( '.recurrence_end' ).each( function() {
+			$el = $( this );
+
+			if ( ! $el.is( ':visible' ) ) {
+				return;
+			}
+
+			$el.val( tribeDateFormat( $el.datepicker( 'getDate' ), 'tribeQuery' ) );
+		} );
 	} );
 
 });
