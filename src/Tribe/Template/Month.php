@@ -153,8 +153,8 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 			$this->args            = $args;
 			$this->events_per_day  = apply_filters( 'tribe_events_month_day_limit', tribe_get_option( 'monthEventAmount', '3' ) );
 			$this->requested_date  = $this->requested_date();
-			$this->first_grid_date = self::calculate_first_cell_date( $this->requested_date );
-			$this->final_grid_date = self::calculate_final_cell_date( $this->requested_date );
+			$this->first_grid_date = self::calculate_first_cell_date( $this->requested_date ) . ' 00:00:00';
+			$this->final_grid_date = self::calculate_final_cell_date( $this->requested_date ) . ' 23:59:59';
 
 			$args = array_merge( $args, array(
 				'fields'         => 'ids',
