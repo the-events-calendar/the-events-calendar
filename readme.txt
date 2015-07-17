@@ -237,6 +237,7 @@ Our Premium Plugins:
 * Bug - Addressed numerous minor styling issues with the Twenty Fifteen theme
 * Bug - Fixed a problem with Checkbox value using quotes and double quotes (' and ") (Thanks to Daniel Maier for tracking this down!)
 * Bug - Fixed wording for link to Additional Fields Tutorial
+* Bug - Resolved a few PHP warnings and notices
 
 = [3.10.1] 2015-07-01 =
 
