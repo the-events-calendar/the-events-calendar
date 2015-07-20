@@ -58,7 +58,7 @@ if ( ! class_exists( 'Tribe__Events__Date_Utils' ) ) {
 		 */
 		public static function datetime_from_format( $format, $date ) {
 			// if the date is already in Y-m-d or Y-m-d H:i:s, just return it
-			if ( preg_match( '/^[0-9]{4}-[0-9]{2}-[0-9]{2}( [0-9]{2}:[0-9]{2}:[0-9]{2})?/', $date ) ) {
+			if ( preg_match( '/^[0-9]{4}-[0-9]{2}-[0-9]{2}( [0-9]{2}:[0-9]{2}:[0-9]{2})?$/', $date ) ) {
 				return $date;
 			}
 
