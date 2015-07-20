@@ -194,12 +194,15 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 			}
 
 			$datepicker_format = Tribe__Events__Date_Utils::datepicker_formats( tribe_get_option( 'datepickerFormat' ) );
+			$date_regex = '/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/';
 
-			if ( isset( $data['EventStartDate'] ) ){
+			// convert the start date to the proper format if it hasn't already been converted
+			if ( isset( $data['EventStartDate'] ) && ! preg_match( $date_regex, $data['EventStartDate'] ) ) {
 				$data['EventStartDate'] = Tribe__Events__Date_Utils::datetime_from_format( $datepicker_format, $data['EventStartDate'] );
 			}
 
-			if ( isset( $data['EventEndDate'] ) ){
+			// convert the end date to the proper format if it hasn't already been converted
+			if ( isset( $data['EventEndDate'] ) && ! preg_match( $date_regex, $data['EventEndDate'] ) ) {
 				$data['EventEndDate'] = Tribe__Events__Date_Utils::datetime_from_format( $datepicker_format, $data['EventEndDate'] );
 			}
 
