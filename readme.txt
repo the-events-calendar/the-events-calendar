@@ -312,7 +312,7 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 
 == Changelog ==
 
-= [3.11]  =
+= [3.11] 2015-07-21 =
 
 * Security - Added escaping to a number of previously un-escaped values
 * Feature - Added single letter 'min' format to tribe_events_get_days_of_week()
