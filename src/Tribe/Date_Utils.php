@@ -108,6 +108,14 @@ if ( ! class_exists( 'Tribe__Events__Date_Utils' ) ) {
 				's' => array( 'second', '\d{2}' ),
 			);
 
+			$date_regex = "/{$keys['Y'][1]}-{$keys['m'][1]}-{$keys['d'][1]}( {$keys['H'][1]}:{$keys['i'][1]}:{$keys['s'][1]})?$/";
+
+			// if the date is already in Y-m-d or Y-m-d H:i:s, just return it
+			if ( preg_match( $date_regex, $date ) ) {
+				return $date;
+			}
+
+
 			// Convert format string to regex
 			$regex = '';
 			$chars = str_split( $format );
