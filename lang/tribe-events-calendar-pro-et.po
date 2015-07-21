@@ -10,7 +10,15 @@ msgstr ""
 "X-Generator: GlotPress/1.0-alpha-1000\n"
 "Project-Id-Version: Events Calendar Pro\n"
 
-#: ../src/Tribe/Main.php:603 ../src/admin-views/event-meta-options.php:3
+#: ../src/Tribe/Main.php:665
+msgid "Thanks for buying Events Calendar PRO! From all of us at Modern Tribe, we sincerely appreciate it. If you're looking for help with Events Calendar PRO, you've come to the right place. We are committed to helping make your calendar be spectacular... and hope the resources provided below will help get you there."
+msgstr ""
+
+#: ../src/admin-views/event-meta-options.php:66
+msgid "tutorial that will walk you through the process"
+msgstr ""
+
+#: ../src/Tribe/Main.php:608 ../src/admin-views/event-meta-options.php:3
 msgid "Additional Fields"
 msgstr "Lisaväljad"
 
@@ -18,7 +26,7 @@ msgstr "Lisaväljad"
 msgid "Country"
 msgstr "Riik"
 
-#: ../src/Tribe/Main.php:618
+#: ../src/Tribe/Main.php:623
 msgid "Hide related events"
 msgstr "Peida seotud sündmused"
 
@@ -26,7 +34,7 @@ msgstr "Peida seotud sündmused"
 msgid "Phone"
 msgstr "Telefon"
 
-#: ../src/Tribe/Main.php:619
+#: ../src/Tribe/Main.php:624
 msgid "Remove related events from the single event view"
 msgstr "Eemalda seotud sündmused üksiku sündmuse vaatest."
 
@@ -34,7 +42,7 @@ msgstr "Eemalda seotud sündmused üksiku sündmuse vaatest."
 msgid "Price"
 msgstr "Hind"
 
-#: ../src/Tribe/Main.php:629
+#: ../src/Tribe/Main.php:634
 msgid "Week Day Format"
 msgstr "Nädala Päeva formaat"
 
@@ -43,52 +51,48 @@ msgstr "Nädala Päeva formaat"
 msgid "Filters"
 msgstr "Filtrid:"
 
-#: ../src/Tribe/Main.php:630
+#: ../src/Tribe/Main.php:635
 msgid "Enter the format to use for week days. Used when showing days of the week in Week view."
 msgstr "Sisesta formaat, mida kasutada nädalapäevadeks. Kasutatakse nädala vaates päevade kuvamiseks."
 
 #: ../src/admin-views/widget-admin-advanced-list.php:89
-#: ../src/admin-views/widget-calendar.php:43
+#: ../src/admin-views/widget-calendar.php:44
 msgid "remove"
 msgstr "eemalda"
 
-#: ../src/Tribe/Main.php:641
+#: ../src/Tribe/Main.php:646
 msgid "Hide weekends on Week View"
 msgstr ""
 
 #: ../src/admin-views/widget-admin-advanced-list.php:102
-#: ../src/admin-views/widget-calendar.php:54
+#: ../src/admin-views/widget-calendar.php:60
 msgid "Match all"
 msgstr "Sisaldaks kõiki"
 
-#: ../src/Tribe/Main.php:642
+#: ../src/Tribe/Main.php:647
 msgid "Check this to only show weekdays on Week View"
 msgstr ""
 
 #: ../src/admin-views/widget-admin-advanced-list.php:105
-#: ../src/admin-views/widget-calendar.php:57
+#: ../src/admin-views/widget-calendar.php:63
 msgid "Match any"
 msgstr "Ei sisaldaks"
 
-#: ../src/Tribe/Main.php:660
-msgid "Thanks for buying Events Calendar PRO! From all of us at Modern Tribe, we sincerely appreciate it. If you're looking for help with Events Calendar PRO, you've come to the right place. We are committed to helping make your calendar kick ass... and hope the resources provided below will help get you there."
-msgstr "Täname, et ostsid Events Calendar PRO! Kogu meie Modern Tribe tiim hindab su otsust. Kui vajad abi, oled õiges  kohas. Anname endast parima, et kalender vastaks sinu ootustele ja loodame, et info, mis siit leiad, on sulle kasulik"
-
 #: ../src/admin-views/widget-admin-advanced-list.php:109
-#: ../src/admin-views/widget-calendar.php:61
+#: ../src/admin-views/widget-calendar.php:67
 msgid "Add a filter"
 msgstr "Lisa filter"
 
-#: ../src/Tribe/Main.php:672
+#: ../src/Tribe/Main.php:677
 msgid "If this is your first time using The Events Calendar Pro, you're in for a treat and are already well on your way to creating a first event. Here are some basics we've found helpful for users jumping into it for the first time:"
 msgstr "Kui kasutad esimest korda The Events Calendar Prod, oled juba lähedal oma esimese sündmuse loomisele. Siin on mõned näpunäited, mis esmakordsele kasutajale võiksid kasulikud olla:"
 
 #: ../src/admin-views/widget-admin-advanced-list.php:112
-#: ../src/admin-views/widget-calendar.php:64
+#: ../src/admin-views/widget-calendar.php:70
 msgid "Select one..."
 msgstr "Vali üks.."
 
-#: ../src/Tribe/Main.php:675
+#: ../src/Tribe/Main.php:680
 msgid "%sOur New User Primer%s was designed for folks in your exact position. Featuring both step-by-step videos and written walkthroughs that feature accompanying screenshots, the primer aims to take you from zero to hero in no time."
 msgstr "%sOur New User Primer%s  on loodud just sulle. Videod ja juhendid aitavad sind kiiresti asjaga tutvuda"
 
@@ -97,7 +101,7 @@ msgstr "%sOur New User Primer%s  on loodud just sulle. Videod ja juhendid aitava
 msgid "Hide this widget if there are no upcoming events:"
 msgstr "Peida see widget kui ei ole tulevaid sündmusi:"
 
-#: ../src/Tribe/Main.php:677
+#: ../src/Tribe/Main.php:682
 msgid "%sInstallation/Setup FAQs%s from our support page can help give an overview of what the plugin can and cannot do. This section of the FAQs may be helpful as it aims to address any basic install questions not addressed by the new user primer."
 msgstr "%sInstallation/Setup FAQs%s abikeskuse lehel annab ülevaate, mida pluginaga saab või ei saa teha.  KKK aitab leida vastused kõigile põhilistele küsimustele, mis uuel kasutajal tavaliselt tekivad."
 
@@ -105,7 +109,7 @@ msgstr "%sInstallation/Setup FAQs%s abikeskuse lehel annab ülevaate, mida plugi
 msgid "Event:"
 msgstr "Sündmus:"
 
-#: ../src/Tribe/Main.php:679
+#: ../src/Tribe/Main.php:684
 msgid "Take care of your license key. Though not required to create your first event, you'll want to get it in place as soon as possible to guarantee your access to support and upgrades. %sHere's how to find your license key%s, if you don't have it handy."
 msgstr "Hoia oma litsentsi koodi. Sa ei ole küll kohustatud looma kohe esimest sündmust aga mida kiiremini alustad, seda kiiremini saad ligipääsu meie abikeskusele ja uuendustele. Siit %s leiad oma litsentsi koodi %s"
 
@@ -113,7 +117,7 @@ msgstr "Hoia oma litsentsi koodi. Sa ei ole küll kohustatud looma kohe esimest 
 msgid "Show seconds:"
 msgstr "Kuva sekundeid:"
 
-#: ../src/Tribe/Main.php:681
+#: ../src/Tribe/Main.php:686
 msgid "Otherwise, if you're feeling adventurous, you can get started by heading to the Events menu and adding your first event."
 msgstr "Kui oled julge pealehakkamisega, saad alustada kohe kui suundud Sündmuste menüüsse ja lisad oma esimese uue sündmuse"
 
@@ -121,7 +125,7 @@ msgstr "Kui oled julge pealehakkamisega, saad alustada kohe kui suundud Sündmus
 msgid "Countdown Completed Text:"
 msgstr "Countdowni tekst:"
 
-#: ../src/Tribe/Main.php:694
+#: ../src/Tribe/Main.php:699
 msgid "Written documentation can only take things so far...sometimes, you need help from a real person. This is where our %ssupport forums%s come into play."
 msgstr "Kirjalik dokumentatsioon viib sind ainult nii kaugele..vahel vajad abi päris inimeselt. Siin tuleb appi meie %ssupport forums%s."
 
@@ -129,7 +133,7 @@ msgstr "Kirjalik dokumentatsioon viib sind ainult nii kaugele..vahel vajad abi p
 msgid "Venue:"
 msgstr "Toimumiskoht:"
 
-#: ../src/Tribe/Main.php:695
+#: ../src/Tribe/Main.php:700
 msgid "Users who have purchased an Events Calendar PRO license are granted total access to our %spremium support forums%s. Unlike at the %sWordPress.org support forum%s, where our involvement is limited to identifying and patching bugs, we have a dedicated support team for PRO users. We're on the PRO forums daily throughout the business week, and no thread should go more than 24-hours without a response."
 msgstr "Kasutajad, kes ostsid Events Calendar PRO litsentsi, saavad ligipääsu meie foorumitele %spremium support forums%s. Erinevalt foorumist %sWordPress.org support forum%s,  kus meie ressursid on limiteeritud bugide parandamisele ja avastamisele, pühendame oma ressursid PRO kasutajate aitamisele PRO foorumites.  PRO foorumid saavad meie tähelepanu kõigil tööpäevadel ja kõik küsimused saavad vastuse vähemalt 24 tunni jooksul."
 
@@ -137,7 +141,7 @@ msgstr "Kasutajad, kes ostsid Events Calendar PRO litsentsi, saavad ligipääsu 
 msgid "Show only the first upcoming instance of recurring %s"
 msgstr ""
 
-#: ../src/Tribe/Main.php:696
+#: ../src/Tribe/Main.php:701
 msgid "Our number one goal is helping you succeed, and to whatever extent possible, we'll help troubleshoot and guide your customizations or tweaks. While we won't build your site for you, and we can't guarantee we'll be able to get you 100% integrated with every theme or plugin out there, we'll do all we can to point you in the right direction and to make you -- and your client, as is often more importantly the case -- satisfied."
 msgstr "Meie eesmärk on aidata sul õnnestuda, aitame probleemide korral ja kalendri kohandamisel aga me ei ehita sinu jaoks lehte ja me ei saa garanteerida 100% integreerimise õnnestumist iga teema ja pluginaga. Teeme omaltpoolt aga kõik, et näidata kätte sulle õige suund"
 
@@ -153,7 +157,7 @@ msgstr "Meie eesmärk on aidata sul õnnestuda, aitame probleemide korral ja kal
 msgid "No default set"
 msgstr "Vaikisi seadeid pole"
 
-#: ../src/Tribe/Main.php:697
+#: ../src/Tribe/Main.php:702
 msgid "Before posting a new thread, please do a search to make sure your issue hasn't already been addressed. When posting please make sure to provide as much detail about the problem as you can (with screenshots or screencasts if feasible), and make sure that you've identified whether a plugin / theme conflict could be at play in your initial message."
 msgstr "Enne uue postituse tegemist palun otsi eelmisi postitusi samal teemal. Postitamisel jälgi, et lisaksid nii palju infot kui võimalik probleemi kohta (screenshotid jms) ja kontrolli, kas tegemist võib olla teema/plugina konfliktiga."
 
@@ -161,7 +165,7 @@ msgstr "Enne uue postituse tegemist palun otsi eelmisi postitusi samal teemal. P
 msgid "The current default organizer is: %s"
 msgstr "Praegune vaikimisi korraldaja on: %s"
 
-#: ../src/Tribe/Main.php:1134
+#: ../src/Tribe/Main.php:1152
 msgid "Event: "
 msgstr ""
 
@@ -169,7 +173,7 @@ msgstr ""
 msgid "The current default venue is: %s"
 msgstr "Praegune vaikimisi toimumiskoht on: %s"
 
-#: ../src/Tribe/Main.php:1135
+#: ../src/Tribe/Main.php:1153
 msgid "Address: "
 msgstr ""
 
@@ -177,7 +181,7 @@ msgstr ""
 msgid "The current default address is: %s"
 msgstr "Praegune vaikimisi aadress on: %s"
 
-#: ../src/Tribe/Main.php:1204
+#: ../src/Tribe/Main.php:1264
 msgid "Settings"
 msgstr "Seaded"
 
@@ -185,7 +189,7 @@ msgstr "Seaded"
 msgid "The current default city is: %s"
 msgstr "Praegune vaikimisi linn on: %s"
 
-#: ../src/Tribe/Main.php:1232
+#: ../src/Tribe/Main.php:1292
 msgid "Venue updated. <a href=\"%s\">View venue</a>"
 msgstr "Ala uuendatud <a href=\"%s\">Kuva ala </a>"
 
@@ -193,7 +197,7 @@ msgstr "Ala uuendatud <a href=\"%s\">Kuva ala </a>"
 msgid "The current default state is: %s"
 msgstr "Praegune vaikimisi piirkond on: %s"
 
-#: ../src/Tribe/Main.php:1234
+#: ../src/Tribe/Main.php:1294
 msgid "Venue published. <a href=\"%s\">View venue</a>"
 msgstr "Ala avalikustatud <a href=\"%s\">Kuva ala</a>"
 
@@ -201,7 +205,7 @@ msgstr "Ala avalikustatud <a href=\"%s\">Kuva ala</a>"
 msgid "The current default province is: %s"
 msgstr "Praegune vaikimisi maakond on: %s"
 
-#: ../src/Tribe/Main.php:1235
+#: ../src/Tribe/Main.php:1295
 msgid "Venue submitted. <a target=\"_blank\" href=\"%s\">Preview venue</a>"
 msgstr "Ala lisatud. <a target=\"_blank\" href=\"%s\">Ala eelvvaade</a>"
 
@@ -209,7 +213,7 @@ msgstr "Ala lisatud. <a target=\"_blank\" href=\"%s\">Ala eelvvaade</a>"
 msgid "The current default postal code/zip code is: %s"
 msgstr "Praegune vaikimisi postiindeks on: %s"
 
-#: ../src/Tribe/Main.php:1237
+#: ../src/Tribe/Main.php:1297
 msgid "Venue scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s\">Preview venue</a>"
 msgstr ""
 
@@ -217,7 +221,7 @@ msgstr ""
 msgid "The current default country is: %s"
 msgstr "Praegune vaikimisi riik on: %s"
 
-#: ../src/Tribe/Main.php:1239 ../src/Tribe/Main.php:1249
+#: ../src/Tribe/Main.php:1299 ../src/Tribe/Main.php:1309
 msgid "M j, Y @ G:i"
 msgstr "M j, Y @ G:i"
 
@@ -225,7 +229,7 @@ msgstr "M j, Y @ G:i"
 msgid "The current default phone is: %s"
 msgstr "Praegune vaikimisi telefon on: %s"
 
-#: ../src/Tribe/Main.php:1241
+#: ../src/Tribe/Main.php:1301
 msgid "Venue draft updated. <a target=\"_blank\" href=\"%s\">Preview venue</a>"
 msgstr "Ala mustand uuendatud. <a target=\"_blank\" href=\"%s\">Ala eelvaade</a>"
 
@@ -234,7 +238,7 @@ msgstr "Ala mustand uuendatud. <a target=\"_blank\" href=\"%s\">Ala eelvaade</a>
 msgid "Date out of range."
 msgstr "Kuupäev vale"
 
-#: ../src/Tribe/Main.php:1243
+#: ../src/Tribe/Main.php:1303
 msgid "Organizer updated. <a href=\"%s\">View organizer</a>"
 msgstr "Korraldaja uuendatud. <a href=\"%s\">Kuva korraldaja</a>"
 
@@ -242,7 +246,7 @@ msgstr "Korraldaja uuendatud. <a href=\"%s\">Kuva korraldaja</a>"
 msgid "Recurring %s"
 msgstr ""
 
-#: ../src/Tribe/Main.php:1244
+#: ../src/Tribe/Main.php:1304
 msgid "Organizer published. <a href=\"%s\">View organizer</a>"
 msgstr "Korraldaja avalikustatud. <a href=\"%s\">Kuva korraldaja</a>"
 
@@ -250,7 +254,7 @@ msgstr "Korraldaja avalikustatud. <a href=\"%s\">Kuva korraldaja</a>"
 msgid "(See all)"
 msgstr "(Vaata kõiki)"
 
-#: ../src/Tribe/Main.php:1245
+#: ../src/Tribe/Main.php:1305
 msgid "Organizer submitted. <a target=\"_blank\" href=\"%s\">Preview organizer</a>"
 msgstr "Korraldaja lisatud. <a target=\"_blank\" href=\"%s\">Korraldaja eelvaade</a>"
 
@@ -258,7 +262,7 @@ msgstr "Korraldaja lisatud. <a target=\"_blank\" href=\"%s\">Korraldaja eelvaade
 msgid "<span>&laquo;</span> Previous Week"
 msgstr "<span>&laquo;</span> Eelmine nädal"
 
-#: ../src/Tribe/Main.php:1247
+#: ../src/Tribe/Main.php:1307
 msgid "Organizer scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s\">Preview organizer</a>"
 msgstr "Korraldaja ajastatud:  <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s\">Korraldaja eelvaade</a>"
 
@@ -266,7 +270,7 @@ msgstr "Korraldaja ajastatud:  <strong>%1$s</strong>. <a target=\"_blank\" href=
 msgid "Next Week <span>&raquo;</span>"
 msgstr "Järgmine nädal <span>&raquo;</span>"
 
-#: ../src/Tribe/Main.php:1251
+#: ../src/Tribe/Main.php:1311
 msgid "Organizer draft updated. <a target=\"_blank\" href=\"%s\">Preview organizer</a>"
 msgstr "Korraldaja mustand uuendatud. <a target=\"_blank\" href=\"%s\">Korraldaja eelvaade</a>"
 
@@ -274,7 +278,7 @@ msgstr "Korraldaja mustand uuendatud. <a target=\"_blank\" href=\"%s\">Korraldaj
 msgid "%s List Navigation"
 msgstr ""
 
-#: ../src/Tribe/Main.php:1301
+#: ../src/Tribe/Main.php:1361
 msgid "Support"
 msgstr "Tugi"
 
@@ -282,7 +286,7 @@ msgstr "Tugi"
 msgid "<span>&laquo;</span> Previous %s"
 msgstr ""
 
-#: ../src/Tribe/Main.php:1303
+#: ../src/Tribe/Main.php:1363
 msgid "View All Add-Ons"
 msgstr "Vaata kõiki Add-Onse"
 
@@ -290,7 +294,7 @@ msgstr "Vaata kõiki Add-Onse"
 msgid "Next %s <span>&raquo;</span>"
 msgstr ""
 
-#: ../src/Tribe/Main.php:1428
+#: ../src/Tribe/Main.php:1557
 msgid "Week"
 msgstr "Nädal"
 
@@ -298,7 +302,7 @@ msgstr "Nädal"
 msgid "Find out more"
 msgstr "Vaata rohkem"
 
-#: ../src/Tribe/Main.php:1446
+#: ../src/Tribe/Main.php:1575
 msgid "Photo"
 msgstr "Foto"
 
@@ -306,7 +310,7 @@ msgstr "Foto"
 msgid "Related %s"
 msgstr ""
 
-#: ../src/Tribe/Main.php:1463
+#: ../src/Tribe/Main.php:1592
 msgid "Week Of"
 msgstr "Nädal"
 
@@ -324,8 +328,8 @@ msgid "All Day"
 msgstr "Kogupäeva"
 
 #: ../src/Tribe/Mini_Calendar_Widget.php:11
-#: ../src/Tribe/Mini_Calendar_Widget.php:35
-#: ../src/Tribe/Mini_Calendar_Widget.php:76
+#: ../src/Tribe/Mini_Calendar_Widget.php:36
+#: ../src/Tribe/Mini_Calendar_Widget.php:78
 msgid "Events Calendar"
 msgstr "Sündmuste kalender"
 
@@ -375,7 +379,7 @@ msgstr ""
 msgid "sec"
 msgstr "sek."
 
-#: ../src/Tribe/Recurrence_Meta.php:119
+#: ../src/Tribe/Recurrence_Meta.php:121
 msgid "Edit Series"
 msgstr "Muuda seeriaid"
 
@@ -383,7 +387,7 @@ msgstr "Muuda seeriaid"
 msgid "View More&hellip;"
 msgstr "Vaata edasi &hellip;"
 
-#: ../src/Tribe/Recurrence_Meta.php:125
+#: ../src/Tribe/Recurrence_Meta.php:127
 msgid "Break from Series"
 msgstr "Eralda seeriast"
 
@@ -391,7 +395,7 @@ msgstr "Eralda seeriast"
 msgid "There are no upcoming %s at this time."
 msgstr ""
 
-#: ../src/Tribe/Recurrence_Meta.php:135
+#: ../src/Tribe/Recurrence_Meta.php:137
 msgid "Edit Future Events"
 msgstr "Muuda tulevasi sündmusi"
 
@@ -399,7 +403,7 @@ msgstr "Muuda tulevasi sündmusi"
 msgid "Organizer:"
 msgstr "Korraldaja:"
 
-#: ../src/Tribe/Recurrence_Meta.php:157
+#: ../src/Tribe/Recurrence_Meta.php:159
 msgid "—"
 msgstr "—"
 
@@ -407,7 +411,7 @@ msgstr "—"
 msgid "No upcoming %s."
 msgstr ""
 
-#: ../src/Tribe/Recurrence_Meta.php:186
+#: ../src/Tribe/Recurrence_Meta.php:188
 msgid "Break this event out of its series and edit it independently"
 msgstr "Eralda see sündmus seeriast ning muuda seda eraldi"
 
@@ -415,308 +419,308 @@ msgstr "Eralda see sündmus seeriast ning muuda seda eraldi"
 msgid "View all %s at this %s"
 msgstr ""
 
-#: ../src/Tribe/Recurrence_Meta.php:186
+#: ../src/Tribe/Recurrence_Meta.php:188
 msgid "Edit Single"
 msgstr "Muuda üksikut"
 
-#: ../src/Tribe/Recurrence_Meta.php:188
+#: ../src/Tribe/Recurrence_Meta.php:190
 msgid "Split the series in two at this point, creating a new series out of this and all subsequent events"
 msgstr "Eralda sündmused kaheks ning loo uued korduvad sündmused sellest sündmusest"
 
-#: ../src/Tribe/Recurrence_Meta.php:188
+#: ../src/Tribe/Recurrence_Meta.php:190
 msgid "Edit Upcoming"
 msgstr "Muuda tulevast"
 
-#: ../src/Tribe/Recurrence_Meta.php:194
+#: ../src/Tribe/Recurrence_Meta.php:196
 msgid "Edit all events in this series"
 msgstr "Muuda kõiki sündmusi selles seerias"
 
-#: ../src/Tribe/Recurrence_Meta.php:194
+#: ../src/Tribe/Recurrence_Meta.php:196
 msgid "Edit All"
 msgstr "Muuda kõiki"
 
-#: ../src/Tribe/Recurrence_Meta.php:199
+#: ../src/Tribe/Recurrence_Meta.php:201
 msgid "Move all events in this series to the Trash"
 msgstr "Kustuta kõik selle seeria sündmused"
 
-#: ../src/Tribe/Recurrence_Meta.php:199
+#: ../src/Tribe/Recurrence_Meta.php:201
 msgid "Trash Series"
 msgstr "Kustuta sündmused"
 
-#: ../src/Tribe/Recurrence_Meta.php:202
+#: ../src/Tribe/Recurrence_Meta.php:204
 msgid "Delete all events in this series permanently"
 msgstr "Kustuta kõik selle seeria sündmused lõplikult"
 
-#: ../src/Tribe/Recurrence_Meta.php:202
+#: ../src/Tribe/Recurrence_Meta.php:204
 msgid "Delete Series Permanently"
 msgstr "Kustuta seeriad lõplikult"
 
-#: ../src/Tribe/Recurrence_Meta.php:208
+#: ../src/Tribe/Recurrence_Meta.php:210
 msgid "Restore all events in this series from the Trash"
 msgstr "Taasta kõik selle seeria sündmused"
 
-#: ../src/Tribe/Recurrence_Meta.php:208
+#: ../src/Tribe/Recurrence_Meta.php:210
 msgid "Restore Series"
 msgstr "Taasta seeriad"
 
-#: ../src/Tribe/Recurrence_Meta.php:582
+#: ../src/Tribe/Recurrence_Meta.php:584
 msgid "Monthly custom recurrences cannot have a dash set as the day to occur on."
 msgstr " Monthly custom recurrences cannot have a dash set as the day to occur on."
 
-#: ../src/Tribe/Recurrence_Meta.php:585
+#: ../src/Tribe/Recurrence_Meta.php:587
 msgid "Yearly custom recurrences cannot have a dash set as the day to occur on."
 msgstr "Yearly custom recurrences cannot have a dash set as the day to occur on."
 
-#: ../src/Tribe/Recurrence_Meta.php:905 ../src/Tribe/Recurrence_Meta.php:920
+#: ../src/Tribe/Recurrence_Meta.php:907 ../src/Tribe/Recurrence_Meta.php:922
 msgid "Every day"
 msgstr "Iga päev"
 
-#: ../src/Tribe/Recurrence_Meta.php:906
+#: ../src/Tribe/Recurrence_Meta.php:908
 msgid " for %d day"
 msgid_plural " for %d days"
 msgstr[0] "%d päevaks"
 msgstr[1] " %d päevaks"
 
-#: ../src/Tribe/Recurrence_Meta.php:909 ../src/Tribe/Recurrence_Meta.php:925
+#: ../src/Tribe/Recurrence_Meta.php:911 ../src/Tribe/Recurrence_Meta.php:927
 msgid "Every week"
 msgstr "Iga nädal"
 
-#: ../src/Tribe/Recurrence_Meta.php:910
+#: ../src/Tribe/Recurrence_Meta.php:912
 msgid " for %d week"
 msgid_plural " for %d weeks"
 msgstr[0] "%d nädalaks"
 msgstr[1] "%d nädalateks"
 
-#: ../src/Tribe/Recurrence_Meta.php:912 ../src/Tribe/Recurrence_Meta.php:931
+#: ../src/Tribe/Recurrence_Meta.php:914 ../src/Tribe/Recurrence_Meta.php:933
 msgid "Every month"
 msgstr "Iga kuu"
 
-#: ../src/Tribe/Recurrence_Meta.php:913
+#: ../src/Tribe/Recurrence_Meta.php:915
 msgid " for %d month"
 msgid_plural " for %d months"
 msgstr[0] "%d kuuks"
 msgstr[1] " %d kuuks"
 
-#: ../src/Tribe/Recurrence_Meta.php:915 ../src/Tribe/Recurrence_Meta.php:938
+#: ../src/Tribe/Recurrence_Meta.php:917 ../src/Tribe/Recurrence_Meta.php:940
 msgid "Every year"
 msgstr "Iga aasta"
 
-#: ../src/Tribe/Recurrence_Meta.php:916
+#: ../src/Tribe/Recurrence_Meta.php:918
 msgid " for %d year"
 msgid_plural " for %d years"
 msgstr[0] "%d aastaks"
 msgstr[1] "%d aastaks"
 
-#: ../src/Tribe/Recurrence_Meta.php:921
+#: ../src/Tribe/Recurrence_Meta.php:923
 msgid "Every %d days"
 msgstr "iga %d päev"
 
-#: ../src/Tribe/Recurrence_Meta.php:922 ../src/Tribe/Recurrence_Meta.php:928
-#: ../src/Tribe/Recurrence_Meta.php:935 ../src/Tribe/Recurrence_Meta.php:947
+#: ../src/Tribe/Recurrence_Meta.php:924 ../src/Tribe/Recurrence_Meta.php:930
+#: ../src/Tribe/Recurrence_Meta.php:937 ../src/Tribe/Recurrence_Meta.php:949
 msgid ", recurring %d time"
 msgid_plural ", recurring %d times"
 msgstr[0] ", kordub %d korda"
 msgstr[1] ", korduvad %d korda"
 
-#: ../src/Tribe/Recurrence_Meta.php:926
+#: ../src/Tribe/Recurrence_Meta.php:928
 msgid "Every %d weeks"
 msgstr "Iga %d nädal"
 
-#: ../src/Tribe/Recurrence_Meta.php:927
+#: ../src/Tribe/Recurrence_Meta.php:929
 msgid " on %s"
 msgstr "%s-l"
 
-#: ../src/Tribe/Recurrence_Meta.php:932
+#: ../src/Tribe/Recurrence_Meta.php:934
 msgid "Every %d months"
 msgstr "Iga %d kuu"
 
-#: ../src/Tribe/Recurrence_Meta.php:934
+#: ../src/Tribe/Recurrence_Meta.php:936
 msgid " on the %s %s"
 msgstr "%s %s-s"
 
-#: ../src/Tribe/Recurrence_Meta.php:934
+#: ../src/Tribe/Recurrence_Meta.php:936
 msgid "day"
 msgstr "päev"
 
-#: ../src/Tribe/Recurrence_Meta.php:939
+#: ../src/Tribe/Recurrence_Meta.php:941
 msgid "Every %d years"
 msgstr "Iga %d aasta"
 
-#: ../src/Tribe/Recurrence_Meta.php:941
+#: ../src/Tribe/Recurrence_Meta.php:943
 msgid "last"
 msgstr "viimane"
 
-#: ../src/Tribe/Recurrence_Meta.php:946
+#: ../src/Tribe/Recurrence_Meta.php:948
 msgid " on the %s %s of %s"
 msgstr "%s %s %s-l"
 
-#: ../src/Tribe/Recurrence_Meta.php:953
+#: ../src/Tribe/Recurrence_Meta.php:955
 msgid " until %s"
 msgstr "kuni %s"
 
-#: ../src/Tribe/Recurrence_Meta.php:960
+#: ../src/Tribe/Recurrence_Meta.php:962
 msgid "%s%s%s"
 msgstr "%s%s%s"
 
-#: ../src/Tribe/Recurrence_Meta.php:972
+#: ../src/Tribe/Recurrence_Meta.php:974
 #: ../src/admin-views/event-recurrence.php:85
 #: ../src/admin-views/event-recurrence.php:142
 msgid "Monday"
 msgstr "Esmaspäev"
 
-#: ../src/Tribe/Recurrence_Meta.php:973
+#: ../src/Tribe/Recurrence_Meta.php:975
 #: ../src/admin-views/event-recurrence.php:86
 #: ../src/admin-views/event-recurrence.php:143
 msgid "Tuesday"
 msgstr "Teisipäev"
 
-#: ../src/Tribe/Recurrence_Meta.php:974
+#: ../src/Tribe/Recurrence_Meta.php:976
 #: ../src/admin-views/event-recurrence.php:87
 #: ../src/admin-views/event-recurrence.php:144
 msgid "Wednesday"
 msgstr "Kolmapäev"
 
-#: ../src/Tribe/Recurrence_Meta.php:975
+#: ../src/Tribe/Recurrence_Meta.php:977
 #: ../src/admin-views/event-recurrence.php:88
 #: ../src/admin-views/event-recurrence.php:145
 msgid "Thursday"
 msgstr "Neljapäev"
 
-#: ../src/Tribe/Recurrence_Meta.php:976
+#: ../src/Tribe/Recurrence_Meta.php:978
 #: ../src/admin-views/event-recurrence.php:89
 #: ../src/admin-views/event-recurrence.php:146
 msgid "Friday"
 msgstr "Reede"
 
-#: ../src/Tribe/Recurrence_Meta.php:977
+#: ../src/Tribe/Recurrence_Meta.php:979
 #: ../src/admin-views/event-recurrence.php:90
 #: ../src/admin-views/event-recurrence.php:147
 msgid "Saturday"
 msgstr "Laupäev"
 
-#: ../src/Tribe/Recurrence_Meta.php:978
+#: ../src/Tribe/Recurrence_Meta.php:980
 #: ../src/admin-views/event-recurrence.php:91
 #: ../src/admin-views/event-recurrence.php:148
 msgid "Sunday"
 msgstr "Pühapäev"
 
-#: ../src/Tribe/Recurrence_Meta.php:985
+#: ../src/Tribe/Recurrence_Meta.php:987
 msgid ", and"
 msgstr ", ja"
 
-#: ../src/Tribe/Recurrence_Meta.php:987
+#: ../src/Tribe/Recurrence_Meta.php:989
 msgid "and"
 msgstr "ja"
 
-#: ../src/Tribe/Recurrence_Meta.php:989
+#: ../src/Tribe/Recurrence_Meta.php:991
 msgid ","
 msgstr ","
 
-#: ../src/Tribe/Recurrence_Meta.php:1007
+#: ../src/Tribe/Recurrence_Meta.php:1009
 msgid "January"
 msgstr "Jaanuar"
 
-#: ../src/Tribe/Recurrence_Meta.php:1008
+#: ../src/Tribe/Recurrence_Meta.php:1010
 msgid "February"
 msgstr "Veebruar"
 
-#: ../src/Tribe/Recurrence_Meta.php:1009
+#: ../src/Tribe/Recurrence_Meta.php:1011
 msgid "March"
 msgstr "Märts"
 
-#: ../src/Tribe/Recurrence_Meta.php:1010
+#: ../src/Tribe/Recurrence_Meta.php:1012
 msgid "April"
 msgstr "Aprill"
 
-#: ../src/Tribe/Recurrence_Meta.php:1011
+#: ../src/Tribe/Recurrence_Meta.php:1013
 msgid "May"
 msgstr "Mai"
 
-#: ../src/Tribe/Recurrence_Meta.php:1012
+#: ../src/Tribe/Recurrence_Meta.php:1014
 msgid "June"
 msgstr "Juuni"
 
-#: ../src/Tribe/Recurrence_Meta.php:1013
+#: ../src/Tribe/Recurrence_Meta.php:1015
 msgid "July"
 msgstr "Juuli"
 
-#: ../src/Tribe/Recurrence_Meta.php:1014
+#: ../src/Tribe/Recurrence_Meta.php:1016
 msgid "August"
 msgstr "August"
 
-#: ../src/Tribe/Recurrence_Meta.php:1015
+#: ../src/Tribe/Recurrence_Meta.php:1017
 msgid "September"
 msgstr "September"
 
-#: ../src/Tribe/Recurrence_Meta.php:1016
+#: ../src/Tribe/Recurrence_Meta.php:1018
 msgid "October"
 msgstr "Oktoober"
 
-#: ../src/Tribe/Recurrence_Meta.php:1017
+#: ../src/Tribe/Recurrence_Meta.php:1019
 msgid "November"
 msgstr "November"
 
-#: ../src/Tribe/Recurrence_Meta.php:1018
+#: ../src/Tribe/Recurrence_Meta.php:1020
 msgid "December"
 msgstr "Detsember"
 
-#: ../src/Tribe/Recurrence_Meta.php:1025
+#: ../src/Tribe/Recurrence_Meta.php:1027
 msgid ", and "
 msgstr ", ja"
 
-#: ../src/Tribe/Recurrence_Meta.php:1027
+#: ../src/Tribe/Recurrence_Meta.php:1029
 msgid " and "
 msgstr "ja"
 
-#: ../src/Tribe/Recurrence_Meta.php:1029
+#: ../src/Tribe/Recurrence_Meta.php:1031
 msgid ", "
 msgstr ","
 
-#: ../src/Tribe/Recurrence_Meta.php:1106
+#: ../src/Tribe/Recurrence_Meta.php:1108
 msgid "Recurring event instances"
 msgstr "Korduvad sündmused"
 
-#: ../src/Tribe/Recurrence_Meta.php:1107
+#: ../src/Tribe/Recurrence_Meta.php:1109
 msgid "Show only the first instance of each recurring event (only affects list-style views)."
 msgstr "Kuva ainult esimest korduvat sündmust (ainult loendi vaates)"
 
-#: ../src/Tribe/Recurrence_Meta.php:1113
+#: ../src/Tribe/Recurrence_Meta.php:1115
 msgid "Front-end recurring event instances toggle"
 msgstr "Front-end recurring event instances toggle"
 
-#: ../src/Tribe/Recurrence_Meta.php:1114
+#: ../src/Tribe/Recurrence_Meta.php:1116
 msgid "Allow users to decide whether to show all instances of a recurring event."
 msgstr "Lase kasutajatel otsustada, kas kuvada kõiki korduvaid sündmusi või mitte"
 
-#: ../src/Tribe/Recurrence_Meta.php:1121
+#: ../src/Tribe/Recurrence_Meta.php:1123
 msgid "Clean up recurring events after"
 msgstr "Korrasta korduvad üritused"
 
-#: ../src/Tribe/Recurrence_Meta.php:1122
+#: ../src/Tribe/Recurrence_Meta.php:1124
 msgid "Automatically remove recurring event instances older than this"
 msgstr "Eemalda automaatselt korduv sündmus, mis on vanem kui see"
 
-#: ../src/Tribe/Recurrence_Meta.php:1129
+#: ../src/Tribe/Recurrence_Meta.php:1131
 msgid "Create recurring events in advance for"
 msgstr "Loo korduvad sündmused ette"
 
-#: ../src/Tribe/Recurrence_Meta.php:1130
+#: ../src/Tribe/Recurrence_Meta.php:1132
 msgid "Recurring events will be created this far in advance"
 msgstr "Korduvaid sündmusi luuakse nii kauaks ette"
 
-#: ../src/Tribe/Recurrence_Meta.php:1151
+#: ../src/Tribe/Recurrence_Meta.php:1153
 msgid " months"
 msgstr "kuuks"
 
-#: ../src/Tribe/Recurrence_Meta.php:1246
+#: ../src/Tribe/Recurrence_Meta.php:1248
 msgid "You are currently editing all events in a recurring series."
 msgstr "Muudad kõiki korduvaid sündmusi."
 
-#: ../src/Tribe/Recurrence_Meta.php:1254
+#: ../src/Tribe/Recurrence_Meta.php:1256
 msgid "%d instances of this event have been created through %s. <a href=\"%s\">Learn more.</a>"
 msgstr "%d selle sündmuse detailid on loodud %s. <a href=\"%s\">Loe edasi.</a>"
 
-#: ../src/Tribe/Recurrence_Meta.php:1265
+#: ../src/Tribe/Recurrence_Meta.php:1267
 msgid ""
 "You are about to split this series in two.\n"
 "\n"
@@ -730,7 +734,7 @@ msgstr ""
 "\n"
 "Tegevust ei saa tagasi võtta või tühistada."
 
-#: ../src/Tribe/Recurrence_Meta.php:1266
+#: ../src/Tribe/Recurrence_Meta.php:1268
 msgid ""
 "You are about to break this event out of its series.\n"
 "\n"
@@ -744,16 +748,16 @@ msgstr ""
 "\n"
 "Seda tegevust ei saa tagasi võtta."
 
-#: ../src/Tribe/Recurrence_Meta.php:1267
+#: ../src/Tribe/Recurrence_Meta.php:1269
 msgid "Are you sure you want to trash all occurrences of these events?"
 msgstr ""
 
-#: ../src/Tribe/Single_Event_Meta.php:161
+#: ../src/Tribe/Single_Event_Meta.php:162
 #: ../src/views/pro/modules/meta/additional-fields.php:18
 msgid "Other"
 msgstr "Muu"
 
-#: ../src/Tribe/Single_Event_Meta.php:188
+#: ../src/Tribe/Single_Event_Meta.php:189
 msgid "Recurrence Pattern:"
 msgstr "Kordumise mustrid:"
 
@@ -761,7 +765,7 @@ msgstr "Kordumise mustrid:"
 msgid "No results were found for events in or near <strong>\"%s\"</strong>."
 msgstr "<strong>\"%s\"</strong> lähedal sündmusi ei leitud."
 
-#: ../src/Tribe/Templates/Map.php:93 ../src/Tribe/Templates/Week.php:199
+#: ../src/Tribe/Templates/Map.php:93 ../src/Tribe/Templates/Week.php:197
 msgid "No matching events listed under %s. Please try viewing the full calendar for a complete list of events."
 msgstr ""
 
@@ -769,15 +773,15 @@ msgstr ""
 msgid "There were no results found."
 msgstr "Tulemusi ei leitud"
 
-#: ../src/Tribe/Templates/Week.php:194
+#: ../src/Tribe/Templates/Week.php:192
 msgid "There were no results found for <strong>\"%s\"</strong> this week. Try searching another week."
 msgstr "<strong>\"%s\"</strong> nädalal sündmusi ei leitud. Proovi mõnda teist nädalat otsida."
 
-#: ../src/Tribe/Templates/Week.php:196
+#: ../src/Tribe/Templates/Week.php:194
 msgid "No results were found for events in or near <strong>\"%s\"</strong> this week. Try searching another week."
 msgstr "<strong>\"%s\"</strong> nädalal sündmusi ei leitud. Otsi mõnda teist nädalat. "
 
-#: ../src/Tribe/Templates/Week.php:201
+#: ../src/Tribe/Templates/Week.php:199
 msgid "No results were found for this week. Try searching another week."
 msgstr "Sündmusi ei leitud sel nädalal. Otsi mõnda teist nädalat."
 
@@ -823,10 +827,10 @@ msgstr "Vaikimisi korraldaja väärtus"
 #: ../src/admin-views/event-defaults.php:32
 #: ../src/admin-views/event-defaults.php:42
 #: ../src/admin-views/event-defaults.php:52
-#: ../src/admin-views/event-defaults.php:76
-#: ../src/admin-views/event-defaults.php:87
-#: ../src/admin-views/event-defaults.php:98
-#: ../src/admin-views/event-defaults.php:127
+#: ../src/admin-views/event-defaults.php:74
+#: ../src/admin-views/event-defaults.php:85
+#: ../src/admin-views/event-defaults.php:96
+#: ../src/admin-views/event-defaults.php:123
 msgid "The current default value is <strong>%s</strong>"
 msgstr "Praegune vaikimisi väärtus on<strong>%s</strong>"
 
@@ -865,7 +869,7 @@ msgid "Default State"
 msgstr "Vaikimisi piirkond"
 
 #: ../src/admin-views/event-defaults.php:61
-#: ../src/admin-views/event-defaults.php:85
+#: ../src/admin-views/event-defaults.php:83
 msgid "Default Province or State"
 msgstr "Vaikimisi maakond või provints"
 
@@ -873,51 +877,51 @@ msgstr "Vaikimisi maakond või provints"
 msgid "Select a State:"
 msgstr "Vali piirkond:"
 
-#: ../src/admin-views/event-defaults.php:75
-#: ../src/admin-views/event-defaults.php:86
+#: ../src/admin-views/event-defaults.php:73
+#: ../src/admin-views/event-defaults.php:84
 msgid "The default  value"
 msgstr "Vaikimisi väärtus"
 
-#: ../src/admin-views/event-defaults.php:82
+#: ../src/admin-views/event-defaults.php:80
 msgid "Default Province"
 msgstr "Vaikimisi provints"
 
-#: ../src/admin-views/event-defaults.php:93
-#: ../src/admin-views/event-defaults.php:96
+#: ../src/admin-views/event-defaults.php:91
+#: ../src/admin-views/event-defaults.php:94
 msgid "Default Postal Code"
 msgstr "Vaikimisi postiindeks"
 
-#: ../src/admin-views/event-defaults.php:97
+#: ../src/admin-views/event-defaults.php:95
 msgid "The default Postal Code value"
 msgstr "Vaikimisi postiindeks"
 
-#: ../src/admin-views/event-defaults.php:104
+#: ../src/admin-views/event-defaults.php:102
 msgid "Default Country for Events"
 msgstr "Vaikimisi riik, kus sündmused toimuvad"
 
-#: ../src/admin-views/event-defaults.php:122
-#: ../src/admin-views/event-defaults.php:125
+#: ../src/admin-views/event-defaults.php:118
+#: ../src/admin-views/event-defaults.php:121
 msgid "Default Phone"
 msgstr "Vaikimisi telefoninumber"
 
-#: ../src/admin-views/event-defaults.php:126
+#: ../src/admin-views/event-defaults.php:122
 msgid "The default phone value"
 msgstr "Vaikimisi telefon"
 
-#: ../src/admin-views/event-defaults.php:132
+#: ../src/admin-views/event-defaults.php:128
 #: ../src/admin-views/tribe-options-defaults.php:198
 msgid "Use a custom list of countries"
 msgstr "Kasuta kohandatud riikide listi"
 
-#: ../src/admin-views/event-defaults.php:135
+#: ../src/admin-views/event-defaults.php:131
 msgid "Use the following list:"
 msgstr "Kasuta järgmist listi:"
 
-#: ../src/admin-views/event-defaults.php:138
+#: ../src/admin-views/event-defaults.php:134
 msgid "One country per line in the following format: <br/>US, United States <br/> UK, United Kingdom."
 msgstr "Üks riik rea kohta järgmises formaadis: <br/>US, Ameerika Ühendriigid <br/> UK, United Kingdom."
 
-#: ../src/admin-views/event-defaults.php:138
+#: ../src/admin-views/event-defaults.php:134
 msgid "(Replaces the default list.)"
 msgstr "(Asendab vaikimisi listi)"
 
@@ -996,10 +1000,6 @@ msgstr "Checkbox"
 #: ../src/admin-views/event-meta-options.php:65
 msgid "Enter the field label as you want it to appear (this will be the label in the same way \"Start Date,\" \"Organizer,\" etc appear in the event details box on the frontend). Select whether the field will be a text field; URL field; radio buttons; checkboxes; or a dropdown. All of these with the exception of text and URL allow for multiple options to be included, which you can add — one per-line — in the right-hand column. If you feel flummoxed, we've got you covered with a %s."
 msgstr "Sisesta välja märgistus nagu tahad seda kuvada (näiteks  \"Alguskuupäev,\" \"Korraldaja,\" jne. kuvatakse sündmuse juures samamoodi). Vali, kas väli on tekstiväli; sisaldab URLi; raadionuppe; checkboxe; või rippmenüüd. Kõik peale teksti ja URLi võimaldavad lisada mitmeid valikuid, mida saad lisada üks iga rea kohta parempoolses veerus. Kui jääd hätta, vt  %s."
-
-#: ../src/admin-views/event-meta-options.php:66
-msgid "video tutorial that will walk you through the process"
-msgstr "Video, mis tutvustab sulle kogu protsessi"
 
 #: ../src/admin-views/event-meta-options.php:69
 msgid "Editor \"Custom Fields\" meta box"
@@ -1095,7 +1095,7 @@ msgstr "Sagedus"
 msgid "Day(s)"
 msgstr "Päev(ad)"
 
-#: ../events-calendar-pro.php:70
+#: ../events-calendar-pro.php:69
 msgid "The Events Calendar"
 msgstr "Sündmuste kalender"
 
@@ -1103,7 +1103,7 @@ msgstr "Sündmuste kalender"
 msgid "Daily"
 msgstr "Iga päev"
 
-#: ../events-calendar-pro.php:71
+#: ../events-calendar-pro.php:70
 msgid "To begin using Events Calendar PRO, please install the latest version of <a href=\"%s\" class=\"thickbox\" title=\"%s\">The Events Calendar</a>."
 msgstr "Events Calendar PRO kasutamiseks installeeri palun viimane versioon <a href=\"%s\" class=\"thickbox\" title=\"%s\">The Events Calendar</a>."
 
@@ -1111,7 +1111,7 @@ msgstr "Events Calendar PRO kasutamiseks installeeri palun viimane versioon <a h
 msgid "Week(s) on:"
 msgstr "Nädal(atel):"
 
-#: ../src/Tribe/APM_Filters/APM_Filters.php:55
+#: ../src/Tribe/APM_Filters/APM_Filters.php:65
 msgid "Start Date"
 msgstr "Alguskuupäev"
 
@@ -1119,7 +1119,7 @@ msgstr "Alguskuupäev"
 msgid "Weekly"
 msgstr "Iga nädal"
 
-#: ../src/Tribe/APM_Filters/APM_Filters.php:60
+#: ../src/Tribe/APM_Filters/APM_Filters.php:70
 msgid "End Date"
 msgstr "Lõpukuupäev"
 
@@ -1127,7 +1127,7 @@ msgstr "Lõpukuupäev"
 msgid "Month(s) on the:"
 msgstr "Kuu(del):"
 
-#: ../src/Tribe/APM_Filters/APM_Filters.php:65
+#: ../src/Tribe/APM_Filters/APM_Filters.php:75
 msgid "Event Cost"
 msgstr "Hind"
 
@@ -1135,7 +1135,7 @@ msgstr "Hind"
 msgid "Monthly"
 msgstr "Iga kuu"
 
-#: ../src/Tribe/APM_Filters/APM_Filters.php:70
+#: ../src/Tribe/APM_Filters/APM_Filters.php:80
 msgid "Event Cats"
 msgstr "Sündmuse kategooriad"
 
@@ -1143,7 +1143,7 @@ msgstr "Sündmuse kategooriad"
 msgid "Year(s) on:"
 msgstr "Aasta(tel):"
 
-#: ../src/Tribe/APM_Filters/APM_Filters.php:75
+#: ../src/Tribe/APM_Filters/APM_Filters.php:85
 msgid "Title"
 msgstr "Pealkiri"
 
@@ -1151,8 +1151,8 @@ msgstr "Pealkiri"
 msgid "Yearly"
 msgstr "Iga aasta"
 
-#: ../src/Tribe/APM_Filters/APM_Filters.php:80
-#: ../src/Tribe/Recurrence_Meta.php:147
+#: ../src/Tribe/APM_Filters/APM_Filters.php:90
+#: ../src/Tribe/Recurrence_Meta.php:149
 msgid "Recurring"
 msgstr "Kordumine"
 
@@ -1160,7 +1160,7 @@ msgstr "Kordumine"
 msgid "Every"
 msgstr "Iga"
 
-#: ../src/Tribe/APM_Filters/APM_Filters.php:85
+#: ../src/Tribe/APM_Filters/APM_Filters.php:95
 msgid "Description"
 msgstr "Kirjeldus"
 
@@ -1168,7 +1168,7 @@ msgstr "Kirjeldus"
 msgid "Frequency of recurring event must be a number"
 msgstr "Sündmuse kordumise sagedus peab olema number"
 
-#: ../src/Tribe/APM_Filters/APM_Filters.php:131
+#: ../src/Tribe/APM_Filters/APM_Filters.php:141
 msgid "Pssst! Looking for the filters? They live in a separate plugin now | <a href=\"%s\">Download for free</a>| <a href=\"%s\">Dismiss</a>"
 msgstr ""
 
@@ -1211,7 +1211,7 @@ msgid "F"
 msgstr "R"
 
 #: ../src/Tribe/APM_Filters/Recur_Filter.php:16
-#: ../src/Tribe/Recurrence_Meta.php:155
+#: ../src/Tribe/Recurrence_Meta.php:157
 msgid "Yes"
 msgstr "Jah"
 
@@ -1346,7 +1346,7 @@ msgstr "Kaardivaate mõõtühikud"
 msgid "<p>Choose the default venue & organizer. Set default address information to save time when entering a new venue or organizer.</p><p>You can override these settings as you enter a new event.</p>"
 msgstr "<p>Vali vaikimisi toimumiskoht & korraldaja. Määra vaikimisi aadress, et edaspidi aega kokkuhoida selle info sisestamiselt.</p><p>Saad seadeid uuendada kui lisad uue sündmuse.</p>"
 
-#: ../src/Tribe/Geo_Loc.php:149 ../src/Tribe/Geo_Loc_Filter.php:23
+#: ../src/Tribe/Geo_Loc.php:150 ../src/Tribe/Geo_Loc_Filter.php:23
 msgid "Miles"
 msgstr "Miilides"
 
@@ -1354,7 +1354,7 @@ msgstr "Miilides"
 msgid "Options"
 msgstr "Valikud"
 
-#: ../src/Tribe/Geo_Loc.php:150 ../src/Tribe/Geo_Loc_Filter.php:26
+#: ../src/Tribe/Geo_Loc.php:151 ../src/Tribe/Geo_Loc_Filter.php:26
 msgid "Kilometers"
 msgstr "Kilomeetrites"
 
@@ -1362,7 +1362,7 @@ msgstr "Kilomeetrites"
 msgid "Check this box to have the organizer and venue fields pre-populated with the default values below for any new event that is created."
 msgstr "Märgi see kui soovid, et korraldaja ja toimumiskoht oleksid vaikimisi väärtused iga uue sündmuse puhul."
 
-#: ../src/Tribe/Geo_Loc.php:155
+#: ../src/Tribe/Geo_Loc.php:157
 msgid "Fix geolocation data"
 msgstr "Määra asukoha info"
 
@@ -1371,7 +1371,7 @@ msgstr "Määra asukoha info"
 msgid "Organizer"
 msgstr "Korraldaja"
 
-#: ../src/Tribe/Geo_Loc.php:155
+#: ../src/Tribe/Geo_Loc.php:157
 msgid "You have %d venues for which we don't have geolocation data. We need to use the Google Maps API to get that information. Doing this may take a while (aprox. 1 minute for every 200 venues)."
 msgstr "Sul on %d toimumiskohta, mille kohta puudub meil täpne asukoha teave. Google Maps API abil saame selle info koguda, see võib võtta aega (umbes 1 minut iga 200 toimumiskoha kohta)."
 
@@ -1379,7 +1379,7 @@ msgstr "Sul on %d toimumiskohta, mille kohta puudub meil täpne asukoha teave. G
 msgid "Default organizer"
 msgstr "Vaikimisi korraldaja"
 
-#: ../src/Tribe/Geo_Loc.php:164
+#: ../src/Tribe/Geo_Loc.php:166
 msgid "Hide location search"
 msgstr "Peida asukoha otsing"
 
@@ -1387,7 +1387,7 @@ msgstr "Peida asukoha otsing"
 msgid "No saved organizers yet."
 msgstr "Salvestatud korraldajaid ei ole"
 
-#: ../src/Tribe/Geo_Loc.php:165
+#: ../src/Tribe/Geo_Loc.php:167
 msgid "Removes location search field from the events bar on all views except for map view."
 msgstr "Eemaldab asukoha otsingu sündmuste vaates väljaarvatud kaardi vaates"
 
@@ -1396,7 +1396,7 @@ msgstr "Eemaldab asukoha otsingu sündmuste vaates väljaarvatud kaardi vaates"
 msgid "Venue"
 msgstr "Toimumiskoht"
 
-#: ../src/Tribe/Geo_Loc.php:221
+#: ../src/Tribe/Geo_Loc.php:223
 msgid "Map"
 msgstr "Kaart"
 
@@ -1404,7 +1404,7 @@ msgstr "Kaart"
 msgid "Default venue"
 msgstr "Vaikimisi toimumiskoht"
 
-#: ../src/Tribe/Geo_Loc.php:255
+#: ../src/Tribe/Geo_Loc.php:257
 msgid "Near"
 msgstr "Lähedal"
 
@@ -1412,7 +1412,7 @@ msgstr "Lähedal"
 msgid "No saved venues yet."
 msgstr "Salvestatud toimumiskohti ei ole"
 
-#: ../src/Tribe/Geo_Loc.php:256
+#: ../src/Tribe/Geo_Loc.php:258
 msgid "Location"
 msgstr "Asukoht"
 
@@ -1421,7 +1421,7 @@ msgstr "Asukoht"
 msgid "Address"
 msgstr "Aadress"
 
-#: ../src/Tribe/Geo_Loc.php:281
+#: ../src/Tribe/Geo_Loc.php:283
 msgid "Use latitude + longitude"
 msgstr ""
 
@@ -1429,7 +1429,7 @@ msgstr ""
 msgid "You can use this setting to set specific, individual defaults for any new Venue you create (these will not be used for your default venue)."
 msgstr "Saad kasutada neid seadeid, et määrata eraldi vaikimisi väärtused iga uue toimumiskoha kohta (neid ei kasutata kui vaikimisi toimumiskohti)"
 
-#: ../src/Tribe/Geo_Loc.php:285
+#: ../src/Tribe/Geo_Loc.php:287
 msgid "Latitude"
 msgstr ""
 
@@ -1437,7 +1437,7 @@ msgstr ""
 msgid "Default address"
 msgstr "Vaikimisi aadress"
 
-#: ../src/Tribe/Geo_Loc.php:286
+#: ../src/Tribe/Geo_Loc.php:288
 msgid "Longitude"
 msgstr ""
 
@@ -1445,7 +1445,7 @@ msgstr ""
 msgid "Default city"
 msgstr "Vaikimisi linn"
 
-#: ../src/Tribe/Geo_Loc.php:745
+#: ../src/Tribe/Geo_Loc.php:762
 msgid "Fix venues data"
 msgstr "Määra toimumiskoha info"
 
@@ -1453,7 +1453,7 @@ msgstr "Määra toimumiskoha info"
 msgid "Default state"
 msgstr "Vaikimisi piirkond"
 
-#: ../src/Tribe/Geo_Loc.php:785
+#: ../src/Tribe/Geo_Loc.php:807
 msgid "You have venues for which we don't have Geolocation information. <a href='%s'>Click here to generate it</a>."
 msgstr "Lisasid toimumiskohti, mille asukoha kohta meil andmed puuduvad. <a href='%s'>Info lisamiseks kliki siia</a>."
 
@@ -1461,7 +1461,7 @@ msgstr "Lisasid toimumiskohti, mille asukoha kohta meil andmed puuduvad. <a href
 msgid "Default province"
 msgstr "Vaikimisi provints"
 
-#: ../src/Tribe/Geo_Loc.php:812
+#: ../src/Tribe/Geo_Loc.php:834
 msgid "Fixed geolocation data for %d venues"
 msgstr "Asukoha info %d toimumiskohtades."
 
@@ -1524,7 +1524,7 @@ msgstr "foto"
 msgid "Display:"
 msgstr "Kuva:"
 
-#: ../src/Tribe/Main.php:359
+#: ../src/Tribe/Main.php:364
 msgid "All %s for %s"
 msgstr ""
 
@@ -1532,7 +1532,7 @@ msgstr ""
 msgid "City"
 msgstr "Linn"
 
-#: ../src/Tribe/Main.php:365
+#: ../src/Tribe/Main.php:370
 msgid "%s for week of %s"
 msgstr ""
 
@@ -1540,7 +1540,7 @@ msgstr ""
 msgid "State (US) Or Province (Int)"
 msgstr "Riik (US) või provints (Int)"
 
-#: ../src/Tribe/Main.php:601 ../src/admin-views/tribe-options-defaults.php:35
+#: ../src/Tribe/Main.php:606 ../src/admin-views/tribe-options-defaults.php:35
 msgid "Default Content"
 msgstr "Vaikimisi sisu"
 
