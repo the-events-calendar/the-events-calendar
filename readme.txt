@@ -219,7 +219,7 @@ Our Premium Plugins:
 
 3.x is a complete overhaul of the plugin, and as a result we're starting the changelog fresh. For release notes from the 2.x lifecycle, see <a href="http://m.tri.be/k">our 2.x release notes.</a>
 
-= [3.11] 2015-07-21 =
+= [3.11] 2015-07-22 =
 
 * Security - Added escaping to a number of previously un-escaped values
 * Feature - Added a pair of filters so that the recurring event cleanup query can be manipulated by plugin/theme authors: tribe_events_pro_clean_up_old_recurring_events_sql and tribe_events_pro_clean_up_old_recurring_events_sql_args (props to fortgordonmwr for the idea!)
