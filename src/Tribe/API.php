@@ -195,11 +195,11 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 
 			$datepicker_format = Tribe__Events__Date_Utils::datepicker_formats( tribe_get_option( 'datepickerFormat' ) );
 
-			if ( isset( $data['EventStartDate'] ) ){
+			if ( isset( $data['EventStartDate'] ) ) {
 				$data['EventStartDate'] = Tribe__Events__Date_Utils::datetime_from_format( $datepicker_format, $data['EventStartDate'] );
 			}
 
-			if ( isset( $data['EventEndDate'] ) ){
+			if ( isset( $data['EventEndDate'] ) ) {
 				$data['EventEndDate'] = Tribe__Events__Date_Utils::datetime_from_format( $datepicker_format, $data['EventEndDate'] );
 			}
 
