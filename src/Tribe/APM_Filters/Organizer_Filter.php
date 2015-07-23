@@ -36,7 +36,7 @@
 			}
 
 			global $wpdb;
-			$join .= "LEFT JOIN {$wpdb->postmeta} AS organizer_meta ON({$wpdb->posts}.ID = organizer_meta.post_id AND organizer_meta.meta_key='{$this->meta}') ";
+			$join .= " LEFT JOIN {$wpdb->postmeta} AS organizer_meta ON({$wpdb->posts}.ID = organizer_meta.post_id AND organizer_meta.meta_key='{$this->meta}') ";
 
 			return $join;
 		}
