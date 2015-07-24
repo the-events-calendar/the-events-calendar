@@ -151,6 +151,7 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 			$this->final_grid_date = self::calculate_final_cell_date( $this->requested_date );
 
 			$args = array_merge( $args, array(
+				'eventDisplay'   => 'month',
 				'fields'         => 'ids',
 				'start_date'     => tribe_event_beginning_of_day( $this->first_grid_date ),
 				'end_date'       => tribe_event_end_of_day( $this->final_grid_date ),
@@ -308,6 +309,7 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 
 			$args   = wp_parse_args(
 				array(
+					'eventDisplay'   => 'month',
 					'start_date'     => tribe_event_beginning_of_day( $date ),
 					'end_date'       => tribe_event_end_of_day( $date ),
 					'posts_per_page' => $this->events_per_day,
