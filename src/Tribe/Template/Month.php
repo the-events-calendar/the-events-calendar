@@ -141,13 +141,7 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 				}
 			}
 
-			$this->use_cache = tribe_get_option( 'enable_month_view_cache', false );
-
-			// Cache the result of month/content.php
-			if ( $this->use_cache ) {
-				$cache_expiration = apply_filters( 'tribe_events_month_view_transient_expiration', HOUR_IN_SECONDS );
-				$this->html_cache = new Tribe__Events__Template_Part_Cache( 'month/content.php', serialize( $args ), $cache_expiration, 'save_post' );
-			}
+			$args = $this->maybe_inject_category_arg( $args );
 
 			$args                  = (array) $args;
 			$this->args            = $args;
@@ -169,6 +163,14 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 			}
 
 			$args = apply_filters( 'tribe_events_in_month_args', $args );
+
+			$this->use_cache = tribe_get_option( 'enable_month_view_cache', false );
+
+			// Cache the result of month/content.php
+			if ( $this->use_cache ) {
+				$cache_expiration = apply_filters( 'tribe_events_month_view_transient_expiration', HOUR_IN_SECONDS );
+				$this->html_cache = new Tribe__Events__Template_Part_Cache( 'month/content.php', serialize( $args ), $cache_expiration, 'save_post' );
+			}
 
 			// get all the ids for the events in this month, speeds up queries
 			$this->events_in_month = tribe_get_events( $args );
@@ -675,9 +677,7 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 
 				Tribe__Events__Main::instance()->displaying = 'month';
 
-				if ( isset( $_POST['tribe_event_category'] ) ) {
-					$query_args['tribe_events_cat'] = $_POST['tribe_event_category'];
-				}
+				$query_args = $this->maybe_inject_category_arg( $query_args );
 
 				query_posts( $query_args );
 
@@ -695,6 +695,23 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 				echo json_encode( $response );
 				die();
 			}
+		}
+
+		/**
+		 * Injects the Tribe__Events__Main::TAXONOMY argument into query_args if passed in via POST or GET
+		 *
+		 * @param array $args Current query args to augment
+		 *
+		 * @return array Array of args
+		 */
+		public function maybe_inject_category_arg( $args ) {
+			if ( ! empty( $_POST['tribe_event_category'] ) ) {
+				$args[ Tribe__Events__Main::TAXONOMY ] = $_POST['tribe_event_category'];
+			} elseif ( ! empty( $_GET['tribe_event_category'] ) ) {
+				$args[ Tribe__Events__Main::TAXONOMY ] = $_GET['tribe_event_category'];
+			}
+
+			return $args;
 		}
 	} // class Tribe__Events__Template__Month
 }
