@@ -1187,7 +1187,7 @@
 				}
 
 				// if the admin option is set to hide recurrences, or the user option is set
-				if ( $this->should_hide_recurrence() ) {
+				if ( $this->should_hide_recurrence( $query ) ) {
 					$query->query_vars['tribeHideRecurrence'] = 1;
 				}
 
@@ -1197,9 +1197,11 @@
 			/**
 			 * Returns whether or not we show only the first instance of each recurring event in listview
 			 *
+			 * @param WP_Query $query The current query object.
+			 *
 			 * @return boolean
 			 */
-			public function should_hide_recurrence() {
+			public function should_hide_recurrence( $query ) {
 				// let's not hide recurrence if we are showing all recurrence events
 				if ( tribe_is_showing_all() ) {
 					return false;
@@ -1212,6 +1214,14 @@
 
 				// let's not hide recurrence if we are showing all recurrence events via AJAX
 				if ( ! empty( $_POST['tribe_post_parent'] ) ) {
+					return false;
+				}
+
+				// let's not hide recurrence if we are on month or week view
+				if (
+					! empty( $query->query['eventDisplay'] )
+					&& in_array( $query->query['eventDisplay'], array( 'month', 'week' ) )
+				) {
 					return false;
 				}
 
