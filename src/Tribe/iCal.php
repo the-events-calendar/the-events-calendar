@@ -26,7 +26,7 @@ class Tribe__Events__iCal {
 			return;
 		}
 		$separator  = _x( '&raquo;', 'feed link', 'tribe-events-calendar' );
-		$feed_title = sprintf( __( '%1$s %2$s iCal Feed', 'tribe-events-calendar' ), get_bloginfo( 'name' ), $separator );
+		$feed_title = sprintf( esc_html__( '%1$s %2$s iCal Feed', 'tribe-events-calendar' ), get_bloginfo( 'name' ), $separator );
 
 		printf( '<link rel="alternate" type="text/calendar" title="%s" href="%s" />', esc_attr( $feed_title ), esc_url( tribe_get_ical_link() ) );
 		echo "\n";
@@ -103,21 +103,21 @@ class Tribe__Events__iCal {
 
 		switch ( strtolower( $view ) ) {
 			case 'month':
-				$modifier = sprintf( __( "Month's %s", 'tribe-events-calendar' ), tribe_get_event_label_plural() );
+				$modifier = sprintf( esc_html__( "Month's %s", 'tribe-events-calendar' ), tribe_get_event_label_plural() );
 				break;
 			case 'week':
-				$modifier = sprintf( __( "Week's %s", 'tribe-events-calendar' ), tribe_get_event_label_plural() );
+				$modifier = sprintf( esc_html__( "Week's %s", 'tribe-events-calendar' ), tribe_get_event_label_plural() );
 				break;
 			case 'day':
-				$modifier = sprintf( __( "Day's %s", 'tribe-events-calendar' ), tribe_get_event_label_plural() );
+				$modifier = sprintf( esc_html__( "Day's %s", 'tribe-events-calendar' ), tribe_get_event_label_plural() );
 				break;
 			default:
-				$modifier = sprintf( __( 'Listed %s', 'tribe-events-calendar' ), tribe_get_event_label_plural() );
+				$modifier = sprintf( esc_html__( 'Listed %s', 'tribe-events-calendar' ), tribe_get_event_label_plural() );
 				break;
 		}
 
-		$text  = apply_filters( 'tribe_events_ical_export_text', __( 'Export', 'tribe-events-calendar' ) . ' ' . $modifier );
-		$title = __( 'Use this to share calendar data with Google Calendar, Apple iCal and other compatible apps', 'tribe-events-calendar' );
+		$text  = apply_filters( 'tribe_events_ical_export_text', esc_html__( 'Export', 'tribe-events-calendar' ) . ' ' . $modifier );
+		$title = esc_html__( 'Use this to share calendar data with Google Calendar, Apple iCal and other compatible apps', 'tribe-events-calendar' );
 		$ical  = '<a class="tribe-events-ical tribe-events-button" title="' . $title . '" href="' . esc_url( tribe_get_ical_link() ) . '">+ ' . $text . '</a>';
 
 		echo $ical;
