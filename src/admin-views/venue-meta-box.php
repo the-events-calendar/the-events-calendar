@@ -22,7 +22,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 <?php do_action( 'tribe_events_venue_before_metabox', $post ); ?>
 <?php if ( $post->post_type != Tribe__Events__Main::VENUE_POST_TYPE ): ?>
 	<tr class="venue">
-		<td class='tribe-table-field-label'><?php printf( __( '%s Name:', 'tribe-events-calendar' ), tribe_get_venue_label_singular() ); ?></td>
+		<td class='tribe-table-field-label'><?php printf( esc_html__( '%s Name:', 'tribe-events-calendar' ), tribe_get_venue_label_singular() ); ?></td>
 		<td>
 			<input tabindex="<?php tribe_events_tab_index(); ?>" type='text' name='venue[Venue]' size='25' value='<?php if ( isset( $_VenueVenue ) ) {
 				echo esc_attr( $_VenueVenue );
@@ -190,7 +190,7 @@ if ( $post->post_type != Tribe__Events__Main::VENUE_POST_TYPE ) {
 					jQuery('.tribe-venue-error').remove();
 				} else {
 					jQuery('.tribe-venue-error').remove();
-					jQuery( '[name=venue\\[Venue\\]]' ).after('<div class="tribe-venue-error error form-invalid"><?php printf( __( '%s Name Already Exists', 'tribe-events-calendar' ), tribe_get_venue_label_singular() ); ?></div>');
+					jQuery( '[name=venue\\[Venue\\]]' ).after('<div class="tribe-venue-error error form-invalid"><?php printf( esc_html__( '%s Name Already Exists', 'tribe-events-calendar' ), tribe_get_venue_label_singular() ); ?></div>');
 				}
 			}
 		);

@@ -329,7 +329,7 @@
 									<table class="ticket-venue" border="0" cellpadding="0" cellspacing="0" width="100%" align="center">
 										<tr>
 											<td class="ticket-venue" valign="top" align="left" width="300" style="padding: 0 !important; width:300px; margin:0 !important;">
-												<h6 style="color:#909090 !important; margin:0 0 4px 0; font-family: 'Helvetica Neue', Helvetica, sans-serif; text-transform:uppercase; font-size:13px; font-weight:700 !important;"><?php _e( tribe_get_venue_label_singular(), 'tribe-events-calendar' ); ?></h6>
+												<h6 style="color:#909090 !important; margin:0 0 4px 0; font-family: 'Helvetica Neue', Helvetica, sans-serif; text-transform:uppercase; font-size:13px; font-weight:700 !important;"><?php esc_html_e( tribe_get_venue_label_singular(), 'tribe-events-calendar' ); ?></h6>
 												<table class="venue-details" border="0" cellpadding="0" cellspacing="0" width="100%" align="center">
 													<tr>
 														<td class="ticket-venue-child" valign="top" align="left" width="130" style="padding: 0 10px 0 0 !important; width:130px; margin:0 !important;">
