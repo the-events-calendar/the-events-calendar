@@ -226,14 +226,14 @@ if ( ! class_exists( 'Tribe__Events__Admin_List' ) ) {
 			foreach ( (array) $columns as $key => $value ) {
 				$mycolumns[ $key ] = $value;
 				if ( $key == 'author' ) {
-					$mycolumns['events-cats'] = sprintf( __( '%s Categories', 'tribe-events-calendar' ), $events_label_singular );
+					$mycolumns['events-cats'] = sprintf( esc_html__( '%s Categories', 'tribe-events-calendar' ), $events_label_singular );
 				}
 			}
 			$columns = $mycolumns;
 
 			unset( $columns['date'] );
-			$columns['start-date'] = __( 'Start Date', 'tribe-events-calendar' );
-			$columns['end-date']   = __( 'End Date', 'tribe-events-calendar' );
+			$columns['start-date'] = esc_html__( 'Start Date', 'tribe-events-calendar' );
+			$columns['end-date']   = esc_html__( 'End Date', 'tribe-events-calendar' );
 
 			return $columns;
 		}
@@ -311,7 +311,7 @@ if ( ! class_exists( 'Tribe__Events__Admin_List' ) ) {
 				$total_posts -= $num_posts->$state;
 			}
 
-			$counts['all'] = "<a href='edit.php?post_type=tribe_events' class='current'>" . sprintf( __( 'All %s', 'tribe-events-calendar' ), "<span class='count'>({$total_posts})</span>" ) . '</a>';
+			$counts['all'] = "<a href='edit.php?post_type=tribe_events' class='current'>" . sprintf( esc_html__( 'All %s', 'tribe-events-calendar' ), "<span class='count'>({$total_posts})</span>" ) . '</a>';
 
 			foreach ( get_post_stati( array( 'show_in_admin_status_list' => true ), 'objects' ) as $status ) {
 				$class = '';

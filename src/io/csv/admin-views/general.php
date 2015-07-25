@@ -11,7 +11,7 @@ require 'header.php';
 
 	<h3><?php esc_html_e( 'Instructions', 'tribe-events-calendar' ); ?></h3>
 	<p>
-		<?php printf( __( 'To import events, first select a %sDefault Import Event Status%s below to assign to your imported events.', 'tribe-events-calendar' ), '<strong>', '</strong>' ); ?>
+		<?php printf( esc_html__( 'To import events, first select a %sDefault Import Event Status%s below to assign to your imported events.', 'tribe-events-calendar' ), '<strong>', '</strong>' ); ?>
 	</p>
 	<p>
 		<?php esc_html_e( 'Once your setting is saved, move to the applicable Import tab to select import specific criteria.' ); ?>
@@ -27,9 +27,9 @@ require 'header.php';
 				esc_html_e( 'Default imported event status:', 'tribe-events-calendar' );
 
 				$import_statuses = array(
-					'publish' => __( 'Published', 'tribe-events-calendar' ),
-					'pending' => __( 'Pending', 'tribe-events-calendar' ),
-					'draft'   => __( 'Draft', 'tribe-events-calendar' ),
+					'publish' => esc_html__( 'Published', 'tribe-events-calendar' ),
+					'pending' => esc_html__( 'Pending', 'tribe-events-calendar' ),
+					'draft'   => esc_html__( 'Draft', 'tribe-events-calendar' ),
 				);
 				?>
 				<select name="imported_post_status">

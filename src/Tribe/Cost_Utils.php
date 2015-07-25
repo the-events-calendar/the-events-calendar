@@ -120,7 +120,7 @@ class Tribe__Events__Cost_Utils {
 	 */
 	public function maybe_replace_cost_with_free( $cost ) {
 		if ( '0' === (string) $cost ) {
-			return __( 'Free', 'tribe-events-calendar' );
+			return esc_html__( 'Free', 'tribe-events-calendar' );
 		}
 
 		return $cost;

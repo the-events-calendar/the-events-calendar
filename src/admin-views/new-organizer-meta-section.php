@@ -12,26 +12,26 @@ if ( ! defined( 'ABSPATH' ) ) {
 <script type="text/template" id="tmpl-tribe-create-organizer">
 <tbody class="new-organizer">
 	<tr class="organizer">
-		<td><?php printf( __( '%s Name:', 'tribe-events-calendar' ), tribe_get_organizer_label_singular() ); ?></td>
+		<td><?php printf( esc_html__( '%s Name:', 'tribe-events-calendar' ), tribe_get_organizer_label_singular() ); ?></td>
 		<td>
 			<input tabindex="<?php tribe_events_tab_index(); ?>" type='text' name='organizer[Organizer][]' class='organizer-name' size='25' value='' />
 		</td>
 	</tr>
 	<tr class="organizer">
-		<td><?php _e( 'Phone:', 'tribe-events-calendar' ); ?></td>
+		<td><?php esc_html_e( 'Phone:', 'tribe-events-calendar' ); ?></td>
 		<td>
 			<input tabindex="<?php tribe_events_tab_index(); ?>" type='text' name='organizer[Phone][]' class='organizer-phone' size='25' value='' />
 		</td>
 	</tr>
 	<tr class="organizer">
-		<td><?php _e( 'Website:', 'tribe-events-calendar' ); ?></td>
+		<td><?php esc_html_e( 'Website:', 'tribe-events-calendar' ); ?></td>
 		<td>
 			<input tabindex="<?php tribe_events_tab_index(); ?>" type='text' name='organizer[Website][]' class='organizer-website' size='25' value='' />
 		</td>
 	</tr>
 	<tr class="organizer">
-		<td><?php _e( 'Email:', 'tribe-events-calendar' ); ?>
-			<small><?php _e( 'You may want to consider <a href="http://wordpress.org/plugins/tags/obfuscate">obfuscating</a> any e-mail address published on your site to best avoid it getting harvested by spammers.', 'tribe-events-calendar' ); ?></small>
+		<td><?php esc_html_e( 'Email:', 'tribe-events-calendar' ); ?>
+			<small><?php printf( esc_html__( 'You may want to consider %sobfuscating%s any e-mail address published on your site to best avoid it getting harvested by spammers.', 'tribe-events-calendar' ), '<a href="http://wordpress.org/plugins/tags/obfuscate">', '</a>' ); ?></small>
 		</td>
 		<td class="organizer-email">
 			<input tabindex="<?php tribe_events_tab_index(); ?>" type='text' name='organizer[Email][]' class='organizer-email' size='25' value='' />
@@ -57,7 +57,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 						group.find('.tribe-organizer-error').remove();
 					} else {
 						group.find('.tribe-organizer-error').remove();
-						input.after('<div class="tribe-organizer-error error form-invalid"><?php printf( __( '%s Name Already Exists', 'tribe-events-calendar' ), tribe_get_organizer_label_singular() ); ?></div>');
+						input.after('<div class="tribe-organizer-error error form-invalid"><?php printf( esc_html__( '%s Name Already Exists', 'tribe-events-calendar' ), tribe_get_organizer_label_singular() ); ?></div>');
 					}
 				}
 			);

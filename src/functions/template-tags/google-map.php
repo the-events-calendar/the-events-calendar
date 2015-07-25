@@ -43,8 +43,8 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		$link = sprintf(
 			'<a class="tribe-events-gmap" href="%s" title="%s" target="_blank">%s</a>',
 			esc_url( tribe_get_map_link( $postId ) ),
-			__( 'Click to view a Google Map', 'tribe-events-calendar' ),
-			__( '+ Google Map', 'tribe-events-calendar' )
+			esc_html__( 'Click to view a Google Map', 'tribe-events-calendar' ),
+			esc_html__( '+ Google Map', 'tribe-events-calendar' )
 		);
 
 		// @todo remove tribe_event_meta_gmap_link in 3.7

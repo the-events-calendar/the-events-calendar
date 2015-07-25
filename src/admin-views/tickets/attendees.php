@@ -51,7 +51,7 @@ $tickets = Tribe__Events__Tickets__Tickets::get_event_tickets( $event_id );
 							if ( $phone = tribe_get_phone( $venue_id ) ) {
 								?>
 								<div class="venue-phone">
-									<strong><?php echo esc_html( __( 'Phone:', 'tribe-events-calendar' ) ); ?> </strong>
+									<strong><?php esc_html_e( 'Phone:', 'tribe-events-calendar' ); ?> </strong>
 									<?php echo esc_html( $phone ); ?>
 								</div>
 								<?php
@@ -60,7 +60,7 @@ $tickets = Tribe__Events__Tickets__Tickets::get_event_tickets( $event_id );
 							if ( $url = esc_url( get_post_meta( $venue_id, '_VenueURL', true ) ) ) {
 								?>
 								<div class="venue-url">
-									<strong><?php echo esc_html( __( 'Website:', 'tribe-events-calendar' ) ); ?> </strong>
+									<strong><?php esc_html_e( 'Website:', 'tribe-events-calendar' ); ?> </strong>
 									<a target="_blank" href="<?php echo $url; ?>">
 									<?php
 									$display_url  = parse_url( $url, PHP_URL_HOST );
@@ -100,10 +100,10 @@ $tickets = Tribe__Events__Tickets__Tickets::get_event_tickets( $event_id );
 							}
 
 							if ( empty( $stock ) && $stock !== 0 ) {
-								echo sprintf( __( 'Sold %d %s', 'tribe-events-calendar' ), esc_html( $sold ), $pending );
+								sprintf( esc_html__( 'Sold %d %s', 'tribe-events-calendar' ), esc_html( $sold ), $pending );
 							}
 							else {
-								echo sprintf( __( 'Sold %d of %d %s', 'tribe-events-calendar' ), esc_html( $sold ), esc_html( $sold + $stock ), $pending );
+								sprintf( esc_html__( 'Sold %d of %d %s', 'tribe-events-calendar' ), esc_html( $sold ), esc_html( $sold + $stock ), $pending );
 							}
 
 							echo '<br />';
@@ -176,7 +176,7 @@ $tickets = Tribe__Events__Tickets__Tickets::get_event_tickets( $event_id );
 					array(
 						'name'             => 'email_to_user',
 						'id'               => 'email_to_user',
-						'show_option_none' => __( 'Select...', 'tribe-events-calendar' ),
+						'show_option_none' => esc_html__( 'Select...', 'tribe-events-calendar' ),
 						'selected'         => '',
 					)
 				); ?>

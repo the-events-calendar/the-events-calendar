@@ -33,7 +33,7 @@ if ( ! empty( $messages ) ): ?>
 				</ul>
 			</li>
 		</ul>
-		<p><?php printf( __( 'Questions? <a href="%s">Watch the video</a>.', 'tribe-events-calendar' ), 'http://tri.be/using-the-events-calendars-csv-importer/' ); ?></p>
+		<p><?php printf( esc_html__( 'Questions? %sWatch the video%s.', 'tribe-events-calendar' ), '<a href="http://tri.be/using-the-events-calendars-csv-importer/">', '</a>' ); ?></p>
 	</div>
 	<form method="post" enctype="multipart/form-data">
 		<table class="form-table">
@@ -56,7 +56,7 @@ if ( ! empty( $messages ) ): ?>
 						<input type="file" name="import_file" id="events-import-csv-file" />
 					</label>
 
-					<p class="description"><?php _e( "Upload a properly formatted, UTF-8 encoded CSV file. Not sure if your file is UTF-8 encoded? Make sure to specify the character encoding when you save the file, or pass it through a <a href='http://i-tools.org/charset/exec?dest=utf-8&src=auto&download=1'>conversion tool</a>.", 'tribe-events-calendar' ); ?></p>
+					<p class="description"><?php printf( esc_html__( 'Upload a properly formatted, UTF-8 encoded CSV file. Not sure if your file is UTF-8 encoded? Make sure to specify the character encoding when you save the file, or pass it through a %sconversion tool%s.', 'tribe-events-calendar' ), '<a href="http://i-tools.org/charset/exec?dest=utf-8&src=auto&download=1">', '</a>' ); ?></p>
 				</td>
 			</tr>
 

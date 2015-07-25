@@ -41,12 +41,12 @@ if ( class_exists( 'Eventbrite_for_TribeEvents' ) ) {
 			<td colspan="2">
 				<table class="eventtable">
 					<tr id="recurrence-changed-row">
-						<td colspan='2'><?php printf( __( 'You have changed the recurrence rules of this %1$s.  Saving the %1$s will update all future %2$s.  If you did not mean to change all %2$s, then please refresh the page.', 'tribe-events-calendar' ), strtolower( $events_label_singular ), strtolower( $events_label_plural ) ); ?></td>
+						<td colspan='2'><?php printf( esc_html__( 'You have changed the recurrence rules of this %1$s.  Saving the %1$s will update all future %2$s.  If you did not mean to change all %2$s, then please refresh the page.', 'tribe-events-calendar' ), strtolower( $events_label_singular ), strtolower( $events_label_plural ) ); ?></td>
 					</tr>
 					<tr>
-						<td><?php printf( __( 'All Day %s:', 'tribe-events-calendar' ), $events_label_singular ); ?></td>
+						<td><?php printf( esc_html__( 'All Day %s:', 'tribe-events-calendar' ), $events_label_singular ); ?></td>
 						<td>
-							<input tabindex="<?php tribe_events_tab_index(); ?>" type="checkbox" id="allDayCheckbox" name="EventAllDay" value="yes" <?php echo $isEventAllDay; ?> />
+							<input tabindex="<?php tribe_events_tab_index(); ?>" type="checkbox" id="allDayCheckbox" name="EventAllDay" value="yes" <?php echo esc_html( $isEventAllDay ); ?> />
 						</td>
 					</tr>
 					<tr>
@@ -75,7 +75,7 @@ if ( class_exists( 'Eventbrite_for_TribeEvents' ) ) {
 						<td><?php esc_html_e( 'End Date &amp; Time:', 'tribe-events-calendar' ); ?></td>
 						<td>
 							<input autocomplete="off" type="text" class="tribe-datepicker" name="EventEndDate" id="EventEndDate" value="<?php echo esc_attr( $EventEndDate ); ?>" />
-							<span class="helper-text hide-if-js"><?php _e( 'YYYY-MM-DD', 'tribe-events-calendar' ) ?></span>
+							<span class="helper-text hide-if-js"><?php esc_html_e( 'YYYY-MM-DD', 'tribe-events-calendar' ) ?></span>
 							<span class="timeofdayoptions">
 								<?php echo tribe_get_datetime_separator(); ?>
 								<select class="tribeEventsInput" tabindex="<?php tribe_events_tab_index(); ?>" name="EventEndHour">
@@ -126,10 +126,10 @@ if ( class_exists( 'Eventbrite_for_TribeEvents' ) ) {
 	<table id="event_url" class="eventtable">
 		<tr>
 			<td colspan="2" class="tribe_sectionheader">
-				<h4><?php printf( __( '%s Website', 'tribe-events-calendar' ), $events_label_singular ); ?></h4></td>
+				<h4><?php printf( esc_html__( '%s Website', 'tribe-events-calendar' ), $events_label_singular ); ?></h4></td>
 		</tr>
 		<tr>
-			<td style="width:172px;"><?php _e( 'URL:', 'tribe-events-calendar' ); ?></td>
+			<td style="width:172px;"><?php esc_html_e( 'URL:', 'tribe-events-calendar' ); ?></td>
 			<td>
 				<input tabindex="<?php tribe_events_tab_index(); ?>" type='text' id='EventURL' name='EventURL' size='25' value='<?php echo ( isset( $_EventURL ) ) ? esc_attr( $_EventURL ) : ''; ?>' placeholder='example.com' />
 			</td>
@@ -143,7 +143,7 @@ if ( class_exists( 'Eventbrite_for_TribeEvents' ) ) {
 		<?php if ( tribe_events_admin_show_cost_field() ) : ?>
 			<tr>
 				<td colspan="2" class="tribe_sectionheader">
-					<h4><?php printf( __( '%s Cost', 'tribe-events-calendar' ), $events_label_singular ); ?></h4></td>
+					<h4><?php printf( esc_html__( '%s Cost', 'tribe-events-calendar' ), $events_label_singular ); ?></h4></td>
 			</tr>
 			<tr>
 				<td><?php esc_html_e( 'Currency Symbol:', 'tribe-events-calendar' ); ?></td>
@@ -177,7 +177,7 @@ if ( class_exists( 'Eventbrite_for_TribeEvents' ) ) {
 			<tr>
 				<td></td>
 				<td>
-					<small><?php printf( __( 'Enter a 0 for %s that are free or leave blank to hide the field.', 'tribe-events-calendar' ), strtolower( $events_label_plural ) ); ?></small>
+					<small><?php printf( esc_html__( 'Enter a 0 for %s that are free or leave blank to hide the field.', 'tribe-events-calendar' ), strtolower( $events_label_plural ) ); ?></small>
 				</td>
 			</tr>
 		<?php endif; ?>

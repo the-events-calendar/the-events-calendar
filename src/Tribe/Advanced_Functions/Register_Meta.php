@@ -34,7 +34,7 @@ if ( ! class_exists( 'Tribe__Events__Advanced_Functions__Register_Meta' ) ) {
 			if ( tribe_event_is_all_day() ) {
 				if ( tribe_event_is_multiday() ) {
 					$html = Tribe__Events__Meta_Factory::template(
-						__( 'Start:', 'tribe-events-calendar' ),
+						esc_html__( 'Start:', 'tribe-events-calendar' ),
 						sprintf(
 							'<abbr class="tribe-events-abbr updated published dtstart" title="%s">%s</abbr>',
 							tribe_get_start_date( null, false, Tribe__Events__Date_Utils::DBDATEFORMAT ),
@@ -43,7 +43,7 @@ if ( ! class_exists( 'Tribe__Events__Advanced_Functions__Register_Meta' ) ) {
 						$meta_id
 					);
 					$html .= Tribe__Events__Meta_Factory::template(
-						__( 'End:', 'tribe-events-calendar' ),
+						esc_html__( 'End:', 'tribe-events-calendar' ),
 						sprintf(
 							'<abbr class="tribe-events-abbr dtend" title="%s">%s</abbr>',
 							tribe_get_end_date( null, false, Tribe__Events__Date_Utils::DBDATEFORMAT ),
@@ -54,7 +54,7 @@ if ( ! class_exists( 'Tribe__Events__Advanced_Functions__Register_Meta' ) ) {
 				} else {
 					// If all day event, show only start date
 					$html = Tribe__Events__Meta_Factory::template(
-						__( 'Date:', 'tribe-events-calendar' ),
+						esc_html__( 'Date:', 'tribe-events-calendar' ),
 						sprintf(
 							'<abbr class="tribe-events-abbr updated published dtstart" title="%s">%s</abbr>',
 							tribe_get_start_date( null, false, Tribe__Events__Date_Utils::DBDATEFORMAT ),
@@ -66,7 +66,7 @@ if ( ! class_exists( 'Tribe__Events__Advanced_Functions__Register_Meta' ) ) {
 			} elseif ( tribe_event_is_multiday() ) {
 				// If multiday, show start date+time and end date+time
 				$html = Tribe__Events__Meta_Factory::template(
-					__( 'Start:', 'tribe-events-calendar' ),
+					esc_html__( 'Start:', 'tribe-events-calendar' ),
 					sprintf(
 						'<abbr class="tribe-events-abbr updated published dtstart" title="%s">%s</abbr>',
 						tribe_get_start_date( null, false, Tribe__Events__Date_Utils::DBDATEFORMAT ),
@@ -75,7 +75,7 @@ if ( ! class_exists( 'Tribe__Events__Advanced_Functions__Register_Meta' ) ) {
 					$meta_id
 				);
 				$html .= Tribe__Events__Meta_Factory::template(
-					__( 'End:', 'tribe-events-calendar' ),
+					esc_html__( 'End:', 'tribe-events-calendar' ),
 					sprintf(
 						'<abbr class="tribe-events-abbr dtend" title="%s">%s</abbr>',
 						tribe_get_end_date( null, false, Tribe__Events__Date_Utils::DBDATEFORMAT ),
@@ -86,7 +86,7 @@ if ( ! class_exists( 'Tribe__Events__Advanced_Functions__Register_Meta' ) ) {
 			} else {
 				// show start date
 				$html = Tribe__Events__Meta_Factory::template(
-					__( 'Date:', 'tribe-events-calendar' ),
+					esc_html__( 'Date:', 'tribe-events-calendar' ),
 					sprintf(
 						'<abbr class="tribe-events-abbr updated published dtstart" title="%s">%s</abbr>',
 						tribe_get_start_date( null, false, Tribe__Events__Date_Utils::DBDATEFORMAT ),
@@ -97,7 +97,7 @@ if ( ! class_exists( 'Tribe__Events__Advanced_Functions__Register_Meta' ) ) {
 				if ( $start_time == $end_time ) {
 					// if start and end time are the same, just show the start time
 					$html .= Tribe__Events__Meta_Factory::template(
-						__( 'Time:', 'tribe-events-calendar' ),
+						esc_html__( 'Time:', 'tribe-events-calendar' ),
 						sprintf(
 							'<abbr class="tribe-events-abbr dtend" title="%s">%s</abbr>',
 							tribe_get_end_date( null, false, Tribe__Events__Date_Utils::DBDATEFORMAT ),
@@ -108,7 +108,7 @@ if ( ! class_exists( 'Tribe__Events__Advanced_Functions__Register_Meta' ) ) {
 				} else {
 					// show start and end time
 					$html .= Tribe__Events__Meta_Factory::template(
-						__( 'Time:', 'tribe-events-calendar' ),
+						esc_html__( 'Time:', 'tribe-events-calendar' ),
 						sprintf(
 							'<abbr class="tribe-events-abbr dtend" title="%s">%s</abbr>',
 							tribe_get_end_date( null, false, Tribe__Events__Date_Utils::DBDATEFORMAT ),
@@ -321,8 +321,8 @@ if ( ! class_exists( 'Tribe__Events__Advanced_Functions__Register_Meta' ) ) {
 			$link = sprintf(
 				'<a class="tribe-events-gmap" href="%s" title="%s" target="_blank">%s</a>',
 				esc_url( tribe_get_map_link() ),
-				__( 'Click to view a Google Map', 'tribe-events-calendar' ),
-				__( '+ Google Map', 'tribe-events-calendar' )
+				esc_html__( 'Click to view a Google Map', 'tribe-events-calendar' ),
+				esc_html__( '+ Google Map', 'tribe-events-calendar' )
 			);
 
 			return apply_filters( 'tribe_event_meta_gmap_link', $link );
