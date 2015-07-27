@@ -4,7 +4,7 @@ Contributors:  ModernTribe, roblagatta, faction23, jazbek, jbrinley, leahkoerper
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget, pro
 Donate link: http://m.tri.be/29
 Requires at least: 3.9
-Tested up to: 4.2.2
+Tested up to: 4.2.3
 Stable tag: 3.11.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -55,7 +55,7 @@ That's it! Just configure your settings as you see fit, and you're on your way t
 * PHP 5.2.4 or greater (recommended: PHP 5.4 or greater)
 * WordPress 3.9 or above
 * jQuery 1.11.x
-* The Events Calendar 3.10 or newer
+* The Events Calendar 3.11 or newer
 
 = Where to Begin =
 
@@ -221,7 +221,7 @@ Our Premium Plugins:
 
 = [3.11.1] 2015-07-27 =
 
-* Bug - Fixed bug where recurring events where hidden in Month View when recurring event instances were disabled in List View
+* Bug - Fixed bug where recurring events were hidden in Month View when recurring event instances were disabled in List View (big thanks to Rebecca Redding on the forum for the first report!)
 
 = [3.11] 2015-07-22 =
 
