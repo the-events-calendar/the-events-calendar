@@ -400,7 +400,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			add_action( 'plugins_loaded', array( 'Tribe__Events__Support', 'getInstance' ) );
 			add_action( 'plugins_loaded', array( $this, 'set_meta_factory_global' ) );
 			add_action( 'plugins_loaded', array( 'Tribe__Events__App_Shop', 'instance' ) );
-			add_action( 'plugins_loaded', array( 'Tribe__Events__Admin_List', 'init' ) );
+			add_action( 'current_screen', array( $this, 'init_admin_list_screen' ) );
 
 			// Load organizer and venue editors
 			add_action( 'admin_menu', array( $this, 'addVenueAndOrganizerEditor' ) );
@@ -2099,6 +2099,24 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 				}
 			}
+		}
+
+		/**
+		 * Initializes admin-specific items for the events admin list dashboard page. Hooked to the
+		 * current_screen action
+		 *
+		 * @param WP_Screen $screen WP Admin screen object for the current page
+		 */
+		public function init_admin_list_screen( $screen ) {
+			if ( 'edit' !== $screen->base ) {
+				return;
+			}
+
+			if ( Tribe__Events__Main::POSTTYPE !== $screen->post_type ) {
+				return;
+			}
+
+			Tribe__Events__Admin_List::init();
 		}
 
 		/**
