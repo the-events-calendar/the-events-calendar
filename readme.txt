@@ -316,7 +316,7 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 
 * Bug - Fixed bug where all events regardless of category were shown on category month views while paging through months (thanks to our long-time user Anthony of Design Big Dreams for the first report here!)
 * Bug - Fixed bug where events marked as "Hide From Event Listings" were visible while paging through months in Month View (thanks to Joel on the forums for the heads up!)
-* Bug - Fixed bug where recurring events where hidden in Month View when recurring event instances were disabled in List View (thanks to Rebecca Redding on the forum for letting us know!)
+* Bug - Fixed bug where recurring events were hidden in Month View when recurring event instances were disabled in List View (thanks to Rebecca Redding on the forum for letting us know!)
 * Bug - Fixed bug where all admin dashboard post queries inappropriately included event date SQL which caused query/sorting instability (thanks to everyone on the forums who reported this conflict post-launch!)
 
 = [3.11] 2015-07-22 =
