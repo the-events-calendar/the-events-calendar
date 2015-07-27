@@ -219,6 +219,10 @@ Our Premium Plugins:
 
 3.x is a complete overhaul of the plugin, and as a result we're starting the changelog fresh. For release notes from the 2.x lifecycle, see <a href="http://m.tri.be/k">our 2.x release notes.</a>
 
+= [3.11.1] 2015-07-27 =
+
+* Bug - Fixed bug where recurring events where hidden in Month View when recurring event instances were disabled in List View
+
 = [3.11] 2015-07-22 =
 
 * Security - Added escaping to a number of previously un-escaped values
