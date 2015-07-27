@@ -312,6 +312,13 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 
 == Changelog ==
 
+= [3.11.1] 2015-07-28 =
+
+* Bug - Fixed bug where all events regardless of category were shown on category month views while paging through months
+* Bug - Fixed bug where events marked as "Hide From Event Listings" were visible while paging through months in Month View
+* Bug - Fixed bug where recurring events where hidden in Month View when recurring event instances were disabled in List View
+* Bug - Fixed bug where all admin dashboard post queries inappropriately included event date SQL which caused query/sorting instability
+
 = [3.11] 2015-07-22 =
 
 * Security - Added escaping to a number of previously un-escaped values
@@ -351,7 +358,7 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Bug - Fixed an issue where the "Export Month's events" button wasn't appearing on Month view
 * Bug - Fixed an issue where notification of mismatched TEC Addon versions failed to appear on dot releases above x.9
 * Bug - Fixed an issue where ticket prices were not displayed in List View when tickets were marked as "Free" (Cheers to liblogger and tracylove for the heads up!)
-* Bug - Fixed a bug where an event's start/end dates were purged when calling tribe_update_event() without passing start/end dates 
+* Bug - Fixed a bug where an event's start/end dates were purged when calling tribe_update_event() without passing start/end dates
 * Bug - Fixed an issue where events with multiple prices showed inaccurate price ranges in list view (Props to Sonya for reporting this!)
 * Bug - Fixed a bug where 24-hour datetime formats would sometimes fail to initialize datetime pickers appropriately (Thank you mtmuddnadd for the help!)
 * Bug - Fixed a bug where titles containing certain special character combinations were getting partially stripped (Thank you webquest for the report!)
