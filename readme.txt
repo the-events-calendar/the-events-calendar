@@ -5,7 +5,7 @@ Tags: events, calendar, event, venue, organizer, dates, date, google maps, confe
 Donate link: http://m.tri.be/29
 Requires at least: 3.9
 Tested up to: 4.2.2
-Stable tag: 3.11
+Stable tag: 3.11.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -218,6 +218,10 @@ Our Premium Plugins:
 = IMPORTANT NOTICE =
 
 3.x is a complete overhaul of the plugin, and as a result we're starting the changelog fresh. For release notes from the 2.x lifecycle, see <a href="http://m.tri.be/k">our 2.x release notes.</a>
+
+= [3.11.1] 2015-07-27 =
+
+* Bug - Fixed bug where recurring events where hidden in Month View when recurring event instances were disabled in List View
 
 = [3.11] 2015-07-22 =
 
@@ -582,7 +586,9 @@ Still not happy? Shoot us an email to pro@tri.be or tweet to @moderntribeinc and
 
 == Upgrade Notice ==
 
-IMPORTANT NOTICE: 3.10 is a massive update from the 3.9 build, which contains a number of changes under-the-hood (including a total rebuild of the week view functionality). All users are encouraged to backup their site before updating, and to apply the updates on a staging/test site where they can check on + fix customizations as needed before deploying to production. Existing pre-3.10 week view customizations WILL break if you neglect to take this precaution.
+= 3.11 =
+
+Please see the changelog for the complete list of changes in this release. Remember to always make a backup of your database and files before updating!
 
 = 3.10 =
 
