@@ -48,7 +48,7 @@ class Tribe__Events__Importer__Column_Mapper {
 	}
 
 	private function get_event_column_names() {
-		return array(
+		return apply_filters( 'tribe_events_importer_event_column_names', array(
 			'event_name'           => __( 'Event Name', 'tribe-events-calendar' ),
 			'event_description'    => __( 'Event Description', 'tribe-events-calendar' ),
 			'event_start_date'     => __( 'Event Start Date', 'tribe-events-calendar' ),
@@ -62,8 +62,8 @@ class Tribe__Events__Importer__Column_Mapper {
 			'event_show_map'       => __( 'Event Show Map', 'tribe-events-calendar' ),
 			'event_cost'           => __( 'Event Cost', 'tribe-events-calendar' ),
 			'event_category'       => __( 'Event Category', 'tribe-events-calendar' ),
-			'event_website'  	   => __( 'Event Website', 'tribe-events-calendar' ),
-		);
+			'event_website'        => __( 'Event Website', 'tribe-events-calendar' ),
+		) );
 	}
 
 	private function get_venue_column_names() {
