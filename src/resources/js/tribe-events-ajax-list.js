@@ -134,7 +134,7 @@
 
 			td.cur_url = tf.url_path( $( this ).attr( 'href' ) );
 
-			if ( 'undefined' !== result[1] ) {
+			if ( 'undefined' !== typeof result[1] ) {
 				ts.paged = result[1];
 			} else if ( 'list' === ts.view ) {
 				if ( ts.paged > 1 ) {
