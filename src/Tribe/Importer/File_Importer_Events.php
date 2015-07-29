@@ -160,6 +160,13 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 			$event['tax_input'][ Tribe__Events__Main::TAXONOMY ] = $this->translate_terms_to_ids( explode( ',', $cats ) );
 		}
 
+		$additional_fields = apply_filters( 'tribe_events_csv_import_event_additional_fields', array() );
+		if ( ! empty ( $additional_fields ) ) {
+			foreach ( $additional_fields as $key => $csv_column ) {
+				$event[ $key ] = $this->get_value_by_key( $record, $key );
+			}
+		}
+
 		return $event;
 
 	}
