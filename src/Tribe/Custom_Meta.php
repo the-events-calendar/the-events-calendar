@@ -11,7 +11,7 @@ class Tribe__Events__Pro__Custom_Meta {
 		add_action( 'wp_ajax_remove_option', array( __CLASS__, 'remove_meta_field' ) );
 		add_action( 'tribe_settings_after_content_tab_additional-fields', array( __CLASS__, 'event_meta_options' ) );
 		add_action( 'tribe_events_details_table_bottom', array( __CLASS__, 'single_event_meta' ) );
-		add_action( 'tribe_events_update_meta', array( __CLASS__, 'save_single_event_meta' ) );
+		add_action( 'tribe_events_update_meta', array( __CLASS__, 'save_single_event_meta' ), 10, 2 );
 		add_filter( 'tribe_settings_validate_tab_additional-fields', array( __CLASS__, 'force_save_meta' ) );
 	}
 
@@ -83,18 +83,16 @@ class Tribe__Events__Pro__Custom_Meta {
 	 * saves the custom fields for a single event
 	 *
 	 * @param $postId
+	 * @param $data
 	 *
 	 * @return void
+	 * @see 'tribe_events_update_meta'
 	 */
-	public static function save_single_event_meta( $postId ) {
+	public static function save_single_event_meta( $postId, $data = array() ) {
 		$customFields = (array) tribe_get_option( 'custom-fields' );
-
 		foreach ( $customFields as $customField ) {
 			if ( isset( $customField['name'] ) ) {
-				if ( ! isset( $_POST[ $customField['name'] ] ) ) {
-					$_POST[ $customField['name'] ] = '';
-				}
-				$val = $_POST[ $customField['name'] ];
+				$val = self::get_value_to_save( $customField['name'], $data );
 				$val = is_array( $val ) ? esc_attr( implode( "|", $val ) ) : wp_kses( $val, array( 'a'      => array(
 						'href'   => array(),
 						'title'  => array(),
@@ -108,6 +106,25 @@ class Tribe__Events__Pro__Custom_Meta {
 				update_post_meta( $postId, wp_kses_data( $customField['name'] ), $val );
 			}
 		}
+	}
+
+	/**
+	 * Checks passed metadata array for a custom field, returns its value
+	 * If the value is not found in the passed array, checks the $_POST for the value
+	 *
+	 * @param $name
+	 * @param $data
+	 *
+	 * @return string
+	 */
+	private static function get_value_to_save( $name, $data ) {
+		$value = '';
+		if ( ! empty( $data ) && ! empty( $data[ $name ] ) ) {
+			$value = $data[ $name ];
+		} else if ( ! empty( $_POST[ $name ] ) ) {
+			$value = $_POST[ $name ];
+		}
+		return $value;
 	}
 
 	/**
