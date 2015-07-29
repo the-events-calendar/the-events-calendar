@@ -1159,6 +1159,8 @@ class Tribe__Events__Pro__Recurrence_Meta {
 
 	/**
 	 * Build possible strings for recurrence
+	 *
+	 * @return array
 	 */
 	public static function recurrence_strings() {
 		$strings = array(
@@ -1215,6 +1217,11 @@ class Tribe__Events__Pro__Recurrence_Meta {
 		return $strings;
 	}
 
+	/**
+	 * Build possible date-specific strings for recurrence
+	 *
+	 * @return array
+	 */
 	public static function date_strings() {
 		$strings = array(
 			'weekdays' => array(
