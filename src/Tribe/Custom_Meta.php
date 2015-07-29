@@ -13,6 +13,9 @@ class Tribe__Events__Pro__Custom_Meta {
 		add_action( 'tribe_events_details_table_bottom', array( __CLASS__, 'single_event_meta' ) );
 		add_action( 'tribe_events_update_meta', array( __CLASS__, 'save_single_event_meta' ), 10, 2 );
 		add_filter( 'tribe_settings_validate_tab_additional-fields', array( __CLASS__, 'force_save_meta' ) );
+		add_filter( 'tribe_events_csv_import_event_additional_fields', array( __CLASS__, 'import_additional_fields' ) );
+		add_filter( 'tribe_events_importer_event_column_names', array( __CLASS__, 'importer_column_mapping' ) );
+
 	}
 
 	/**
@@ -135,6 +138,28 @@ class Tribe__Events__Pro__Custom_Meta {
 		$options = Tribe__Events__Main::getOptions();
 		$options = self::save_meta_options( $options );
 		Tribe__Events__Main::instance()->setOptions( $options );
+	}
+
+	/**
+	 * add custom meta fields to the event array passed thru the importer
+	 */
+	public function import_additional_fields( $import_fields ) {
+		$custom_fields = (array) tribe_get_option( 'custom-fields' );
+		foreach ( $custom_fields as $custom_field ) {
+			$import_fields[ $custom_field['name'] ] = $custom_field['label'];
+		}
+		return $import_fields;
+	}
+
+	/**
+	 * add custom meta fields to the column mapping passed to the importer
+	 */
+	public function importer_column_mapping( $column_mapping ) {
+		$custom_fields = (array) tribe_get_option( 'custom-fields' );
+		foreach ( $custom_fields as $custom_field ) {
+			$column_mapping[ $custom_field['name'] ] = $custom_field['label'];
+		}
+		return $column_mapping;
 	}
 
 	/**
