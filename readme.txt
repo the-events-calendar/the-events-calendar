@@ -312,6 +312,11 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 
 == Changelog ==
 
+= [3.11.2] 2015-07-30 =
+
+* Bug - Resolved issue where List View paging into the past only allowed you to go 1 page in the past (thanks to Richard from Prescott Art Store for reporting this!)
+* Bug - Fixed bug where the iCal export for Month View inappropriately observed the events-per-page limit causing some events to be excluded (thanks to Neil on the forums for the heads up!)
+
 = [3.11.1] 2015-07-28 =
 
 * Bug - Fixed bug where all events regardless of category were shown on category month views while paging through months (thanks to our long-time user Anthony of Design Big Dreams for the first report here!)
