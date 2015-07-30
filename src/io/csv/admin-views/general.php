@@ -45,7 +45,7 @@ require 'header.php';
 
 			<?php wp_nonce_field( 'tribe-import-general-settings', 'tribe-import-general-settings' ); ?>
 			<p>
-				<input type="submit" name="tribe-events-importexport-general-settings-submit" class="button-primary" value="Save Settings"/>
+				<input type="submit" name="tribe-events-importexport-general-settings-submit" class="button-primary" value="<?php esc_attr_e( 'Save Settings', 'tribe-events-calendar' ); ?>"/>
 			</p>
 		</div>
 	</form>
