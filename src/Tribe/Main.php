@@ -133,6 +133,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			'_EventAllDay',
 			'_EventStartDate',
 			'_EventEndDate',
+			'_EventStartDateUTC',
+			'_EventEndDateUTC',
 			'_EventDuration',
 			'_EventVenueID',
 			'_EventShowMapLink',
@@ -146,6 +148,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			'_EventOrganizerID',
 			'_EventPhone',
 			'_EventHideFromUpcoming',
+			'_EventTimezone',
 			self::EVENTSERROROPT,
 		);
 

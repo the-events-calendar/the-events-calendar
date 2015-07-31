@@ -310,10 +310,10 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 */
 	function tribe_event_is_multiday( $postId = null ) {
 		$postId = Tribe__Events__Main::postIdHelper( $postId );
-		$start  = (array) tribe_get_event_meta( $postId, '_EventStartDate', false );
-		sort( $start );
-		$start  = $start[0];
-		$end    = strtotime( tribe_get_event_meta( $postId, '_EventEndDate', true ) );
+		$start  = tribe_get_start_date( $postId, true, Tribe__Events__Date_Utils::DBDATETIMEFORMAT );
+		$end    = tribe_get_end_date( $postId, true, Tribe__Events__Date_Utils::DBDATETIMEFORMAT );
+
+		$end    = strtotime( $end );
 		$output = ( $end > strtotime( tribe_event_end_of_day( $start ) ) );
 
 		return apply_filters( 'tribe_event_is_multiday', $output, $postId, $start, $end );

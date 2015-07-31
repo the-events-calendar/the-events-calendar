@@ -60,10 +60,11 @@ class Tribe__Events__Updater {
 	 */
 	protected function get_updates() {
 		return array(
-			'2.0.1' => array( $this, 'migrate_from_sp_events' ),
-			'2.0.6' => array( $this, 'migrate_from_sp_options' ),
-			'3.10a4'  => array( $this, 'set_enabled_views' ),
-			'3.10a5'  => array( $this, 'remove_30_min_eod_cutoffs' ),
+			'2.0.1'  => array( $this, 'migrate_from_sp_events' ),
+			'2.0.6'  => array( $this, 'migrate_from_sp_options' ),
+			'3.10a4' => array( $this, 'set_enabled_views' ),
+			'3.10a5' => array( $this, 'remove_30_min_eod_cutoffs' ),
+			'3.12a1' => array( $this, 'generate_timezone_information' ),
 		);
 	}
 
@@ -201,5 +202,15 @@ class Tribe__Events__Updater {
 			$eod_cutoff->modify( '+30 minutes' );
 			tribe_update_option( 'multiDayCutoff', $eod_cutoff->format( 'h:i' ) );
 		}
+	}
+
+	/**
+	 * Create _EventStartDateuTC, _EventEndDateUTC and _EventTimezone entries for those events
+	 * which have do not already have them.
+	 *
+	 * @todo complete generation code - consider if a single pass will be viable/scalable
+	 */
+	public function generate_timezone_information() {
+
 	}
 }

@@ -232,6 +232,12 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 				return $data;
 			}
 
+			// Store datetimes in UTC
+			if ( isset( $data['EventTimezone'] ) ) {
+				$data['EventStartDateUTC'] = Tribe__Events__Timezones::to_utc( $data['EventStartDate'], $data['EventTimezone'] );
+				$data['EventEndDateUTC'] = Tribe__Events__Timezones::to_utc( $data['EventEndDate'], $data['EventTimezone'] );
+			}
+
 			// sanity check that start date < end date
 			$start_timestamp = strtotime( $data['EventStartDate'] );
 			$end_timestamp   = strtotime( $data['EventEndDate'] );

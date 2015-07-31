@@ -82,28 +82,10 @@
 
 			td.cur_url = tf.url_path( href );
 
-			reg = /tribe_paged=([^&]+)/ig;
-			result = reg.exec( href );
-
-			// use what is on the URL if possible
-			if ( 'undefined' !== typeof result[1] ) {
-				ts.paged = result[1];
+			if ( ! ts.paged ) {
+				ts.paged = 2;
 			} else {
-				// otherwise figure it out based on the current page and direction
-				if ( 'list' === ts.view ) {
-					if ( ! ts.paged ) {
-						ts.paged = 2;
-					} else {
-						ts.paged++;
-					}
-				} else {
-					if ( ! ts.paged ) {
-						ts.view = 'list';
-						ts.paged = 1;
-					} else {
-						ts.paged--;
-					}
-				}
+				ts.paged++;
 			}
 
 			ts.popping = false;
@@ -123,30 +105,17 @@
 
 			if ( $( this ).parent().is( '.tribe-events-past' ) ) {
 				ts.view = 'past';
-			} else if ( 'undefined' !== typeof result[1] ) {
+			} else if ( 'undefined' !== result[1] ) {
 				ts.view = result[1];
 			} else {
 				ts.view = 'list';
 			}
 
-			reg = /tribe_paged=([^&]+)/ig;
-			result = reg.exec( href );
-
 			td.cur_url = tf.url_path( $( this ).attr( 'href' ) );
 
-			if ( 'undefined' !== typeof result[1] ) {
-				ts.paged = result[1];
-			} else if ( 'list' === ts.view ) {
-				if ( ts.paged > 1 ) {
-					ts.paged--;
-				} else {
-					ts.paged = 1;
-					ts.view = 'past';
-				}
-			} else {
-				ts.paged++;
+			if ( ts.paged > 1 ) {
+				ts.paged--;
 			}
-
 			ts.popping = false;
 			tf.pre_ajax( function() {
 				tribe_events_list_ajax_post();
