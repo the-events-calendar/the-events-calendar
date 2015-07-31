@@ -156,15 +156,19 @@ class Tribe__Events__Timezones {
 		$site_tz  = self::wp_timezone_string();
 
 		if ( null === $timezone ) {
-			$timezone = self::current_display_timezone();
+			$timezone = self::mode();
 		}
 
 		// Should we use the event specific timezone or the site-wide timezone?
 		$use_event_tz = self::EVENT_TIMEZONE === $timezone;
 		$use_site_tz  = self::SITE_TIMEZONE === $timezone;
 
+		// Determine if the event timezone and site timezone the same *or* if the event does not have timezone
+		// information (in which case, we'll assume the event time inherits the site timezone)
+		$site_zone_is_event_zone = ( $event_tz === $site_tz || empty( $event_tz ) );
+
 		// If the event-specific timezone is suitable, we can obtain it without any conversion work
-		if ( $use_event_tz || ( $use_site_tz && $event_tz === $site_tz ) ) {
+		if ( $use_event_tz || ( $use_site_tz && $site_zone_is_event_zone ) ) {
 			$datetime = isset( $event->{"Event{$type}StartDate"} )
 				? $event->{"Event{$type}StartDate"}
 				: get_post_meta( $event->ID, "_Event{$type}Date", true );
@@ -242,7 +246,7 @@ class Tribe__Events__Timezones {
 	 *
 	 * @return string
 	 */
-	public static function current_display_timezone() {
+	public static function mode() {
 		return apply_filters( 'tribe_events_current_display_timezone', self::EVENT_TIMEZONE );
 	}
 }
