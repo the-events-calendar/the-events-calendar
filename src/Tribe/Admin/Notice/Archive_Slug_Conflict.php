@@ -28,8 +28,7 @@ class Tribe__Events__Admin__Notice__Archive_Slug_Conflict {
 	 */
 	public static function instance() {
 		if ( empty( self::$instance ) ) {
-			self::$instance               = new self();
-			self::$instance->archive_slug = Tribe__Events__Main::instance()->getOption( 'eventsSlug', 'events' );
+			self::$instance = new self();
 		}
 
 		return self::$instance;
@@ -39,7 +38,8 @@ class Tribe__Events__Admin__Notice__Archive_Slug_Conflict {
 	 * Hooks the action to show an admin notice if a page with the `/events` slug exists on the site.
 	 */
 	public function maybe_add_admin_notice() {
-		$page = get_page_by_path( $this->archive_slug );
+		$this->archive_slug = Tribe__Events__Main::instance()->getOption( 'eventsSlug', 'events' );
+		$page               = get_page_by_path( $this->archive_slug );
 		if ( ! $page || $page->post_status == 'trash' ) {
 			return;
 		}
