@@ -111,6 +111,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		public $tagRewriteSlug = 'event/tag';
 		protected $monthSlug = 'month';
 
+		/** @var Tribe__Events__Admin__Timezone_Settings */
+		public $timezone_settings;
+
 		// @todo remove in 4.0
 		protected $upcomingSlug = 'upcoming';
 		protected $pastSlug = 'past';
@@ -341,6 +344,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 */
 		protected function addHooks() {
 			add_action( 'init', array( $this, 'init' ), 10 );
+			add_action( 'admin_init', array( $this , 'admin_init' ) );
 
 			// Frontend Javascript
 			add_action( 'wp_enqueue_scripts', array( $this, 'loadStyle' ) );
@@ -606,6 +610,13 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			self::debug( sprintf( __( 'Initializing Tribe Events on %s', 'tribe-events-calendar' ), date( 'M, jS \a\t h:m:s a' ) ) );
 			$this->maybeSetTECVersion();
+		}
+
+		/**
+		 * Initializes any admin-specific code (expects to be called when admin_init fires).
+		 */
+		public function admin_init() {
+			$this->timezone_settings = new Tribe__Events__Admin__Timezone_Settings;
 		}
 
 		/**
@@ -4393,6 +4404,27 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		public static function array_insert_after_key( $key, $source_array, $insert_array ) {
 			if ( array_key_exists( $key, $source_array ) ) {
 				$position     = array_search( $key, array_keys( $source_array ) ) + 1;
+				$source_array = array_slice( $source_array, 0, $position, true ) + $insert_array + array_slice( $source_array, $position, null, true );
+			} else {
+				// If no key is found, then add it to the end of the array.
+				$source_array += $insert_array;
+			}
+
+			return $source_array;
+		}
+
+		/**
+		 * Insert an array immediately before a specified key within another array.
+		 *
+		 * @param $key
+		 * @param $source_array
+		 * @param $insert_array
+		 *
+		 * @return array
+		 */
+		public static function array_insert_before_key( $key, $source_array, $insert_array ) {
+			if ( array_key_exists( $key, $source_array ) ) {
+				$position     = array_search( $key, array_keys( $source_array ) );
 				$source_array = array_slice( $source_array, 0, $position, true ) + $insert_array + array_slice( $source_array, $position, null, true );
 			} else {
 				// If no key is found, then add it to the end of the array.

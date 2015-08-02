@@ -534,5 +534,18 @@ if ( ! class_exists( 'Tribe__Events__Settings' ) ) {
 			delete_option( 'tribe_settings_sent_data' );
 		}
 
+		/**
+		 * Returns the main admin settings URL.
+		 *
+		 * @return string
+		 */
+		public function get_url() {
+			return apply_filters( 'tribe_settings_url', add_query_arg( array(
+					'post_type' => Tribe__Events__Main::POSTTYPE,
+					'page'      => $this->adminSlug,
+				), admin_url( 'edit.php' )
+			) );
+		}
+
 	} // end class
 } // endif class_exists
