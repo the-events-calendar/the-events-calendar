@@ -143,9 +143,6 @@ Date.prototype.format = function( mask, utc ) {
 
 var tribe_datepicker_opts = {};
 
-/**
- * @todo contains a number of recurrence-related functions which should be moved to PRO
- */
 jQuery( document ).ready( function( $ ) {
 
 	var $date_format      = $( '[data-datepicker_format]' ),
@@ -307,7 +304,6 @@ jQuery( document ).ready( function( $ ) {
 			startofweek = $event_pickers.data( 'startofweek' );
 		}
 
-		var $recurrence_type = $( '[name="recurrence[type]"]' );
 		var $end_date = $( '#EventEndDate' );
 
 		tribe_datepicker_opts = {
@@ -338,7 +334,7 @@ jQuery( document ).ready( function( $ ) {
 				} else {
 					dates
 						.not( this )
-						.not( '.recurrence_end' )
+						.not( '.tribe-no-end-date-update' )
 						.datepicker( 'option', option, date );
 				}
 			}
@@ -647,7 +643,7 @@ jQuery( document ).ready( function( $ ) {
 		$els.start.val( tribeDateFormat( $els.start.datepicker( 'getDate' ), 'tribeQuery' ) );
 		$els.end.val( tribeDateFormat( $els.end.datepicker( 'getDate' ), 'tribeQuery' ) );
 
-		$event_pickers.parent().find( '.recurrence_end' ).each( function() {
+		$event_pickers.parent().find( '.tribe-no-end-date-update' ).each( function() {
 			$el = $( this );
 
 			if ( ! $el.is( ':visible' ) ) {
