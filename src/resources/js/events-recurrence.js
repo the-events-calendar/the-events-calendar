@@ -246,7 +246,7 @@ tribe_events_pro_admin.recurrence = {
 	 */
 	my.set_recurrence_end_min_date = function() {
 		var start = $( '#EventStartDate' ).val();
-		if ( start === '' ) {
+		if ( '' === start ) {
 			return;
 		}
 
