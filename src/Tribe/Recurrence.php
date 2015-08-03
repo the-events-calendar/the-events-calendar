@@ -15,7 +15,7 @@ class Tribe__Events__Pro__Recurrence {
 	private $maxDate = 2147483647; // Y2K38, an arbitrary limit. TODO: revisit this in twenty years
 	private $last_request_constrained = false;
 
-	public function  __construct( $start_date, $end, $series_rules, $by_occurrence_count = false, $event = null, $start_time, $end_time ) {
+	public function  __construct( $start_date, $end, $series_rules, $by_occurrence_count = false, $event = null, $start_time = null, $end_time = null ) {
 		$this->start_date          = $start_date;
 		$this->end                 = $end;
 		$this->series_rules        = $series_rules;

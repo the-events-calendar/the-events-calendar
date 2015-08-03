@@ -1204,7 +1204,7 @@
 			 *
 			 * @return boolean
 			 */
-			public function should_hide_recurrence( $query ) {
+			public function should_hide_recurrence( $query = null ) {
 				// let's not hide recurrence if we are showing all recurrence events
 				if ( tribe_is_showing_all() ) {
 					return false;
@@ -1222,7 +1222,8 @@
 
 				// let's not hide recurrence if we are on month or week view
 				if (
-					! empty( $query->query['eventDisplay'] )
+					is_object( $query )
+					&& ! empty( $query->query['eventDisplay'] )
 					&& in_array( $query->query['eventDisplay'], array( 'month', 'week' ) )
 				) {
 					return false;
