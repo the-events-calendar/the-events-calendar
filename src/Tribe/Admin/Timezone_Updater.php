@@ -90,7 +90,7 @@ class Tribe__Events__Admin__Timezone_Updater {
 	 * @param int $batch_size (defaults to -1 meaning "update all")
 	 */
 	public function process( $batch_size = -1 ) {
-		$site_timezone = Tribe__Events__Timezones::wp_timezone_string();
+		$site_timezone      = Tribe__Events__Timezones::wp_timezone_string();
 
 		foreach ( $this->get_ids( $batch_size ) as $event_id ) {
 			$local_start_time = tribe_get_start_date( $event_id, true, Tribe__Events__Date_Utils::DBDATETIMEFORMAT );
@@ -99,7 +99,11 @@ class Tribe__Events__Admin__Timezone_Updater {
 			$local_end_time = tribe_get_end_date( $event_id, true, Tribe__Events__Date_Utils::DBDATETIMEFORMAT );
 			$utc_end_time = Tribe__Events__Timezones::to_utc( $local_end_time, $site_timezone );
 
+			// The abbreviation needs to be calculated per event as it can vary according to the actual date
+			$site_timezone_abbr = Tribe__Events__Timezones::wp_timezone_abbr( $local_start_time );
+
 			update_post_meta( $event_id, '_EventTimezone', $site_timezone );
+			update_post_meta( $event_id, '_EventTimezoneAbbr', $site_timezone_abbr );
 			update_post_meta( $event_id, '_EventStartDateUTC', $utc_start_time );
 			update_post_meta( $event_id, '_EventEndDateUTC', $utc_end_time );
 		}

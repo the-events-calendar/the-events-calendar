@@ -40,4 +40,11 @@ return array(
 			'site'  => __( 'Use the sitewide timezone everywhere', 'tribe-events-calendar' ),
 		),
 	),
+	'tribe_events_timezones_show_zone' => array(
+		'type'            => 'checkbox_bool',
+		'label'           => __( 'Show timezone', 'tribe-events-calendar' ),
+		'tooltip'         => __( 'Appends the timezone to the end of event scheduling information &ndash; this can be useful when you have events in numerous different timezones.', 'tribe-events-calendar' ),
+		'default'         => false,
+		'validation_type' => 'boolean',
+	),
 );

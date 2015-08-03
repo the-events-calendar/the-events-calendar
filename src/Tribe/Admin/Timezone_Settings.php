@@ -14,9 +14,11 @@ class Tribe__Events__Admin__Timezone_Settings {
 		// Load all timezone settings
 		$timezone_settings = $this->get_settings_array();
 
-		// Remove unneeded options
+		// Remove unneeded options: until timezone data has been updated, users should only see the update
+		// button - after that point, they should see the "real" settings but not the update button
 		if ( $updater->update_needed() ) {
 			unset( $timezone_settings[ 'tribe_events_timezone_mode' ] );
+			unset( $timezone_settings[ 'tribe_events_timezones_show_zone' ] );
 		} else {
 			unset( $timezone_settings[ 'tribe_events_enable_timezones' ] );
 		}

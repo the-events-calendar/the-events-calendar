@@ -152,6 +152,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			'_EventPhone',
 			'_EventHideFromUpcoming',
 			'_EventTimezone',
+			'_EventTimezoneAbbr',
 			self::EVENTSERROROPT,
 		);
 
@@ -606,6 +607,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			Tribe__Events__Query::init();
 			Tribe__Events__Backcompat::init();
 			Tribe__Events__Credits::init();
+			Tribe__Events__Timezones::init();
 			$this->registerPostType();
 
 			self::debug( sprintf( __( 'Initializing Tribe Events on %s', 'tribe-events-calendar' ), date( 'M, jS \a\t h:m:s a' ) ) );

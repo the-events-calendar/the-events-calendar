@@ -302,8 +302,12 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 				$screen = ! is_admin() || ( defined( 'DOING_AJAX' ) && DOING_AJAX ) ? null : get_current_screen();
 
 				if ( empty( $screen ) || 'edit-tribe_events' !== $screen->id ) {
+					$event_start_key = Tribe__Events__Timezones::is_mode( 'site' )
+						? '_EventStartDateUTC'
+						: '_EventStartDate';
+
 					$meta_query[] = array(
-						'key'  => '_EventStartDate',
+						'key'  => $event_start_key,
 						'type' => 'DATETIME',
 					);
 				}
@@ -462,15 +466,23 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 
 			$postmeta_table = self::postmeta_table( $query );
 
+			$event_start_key = '_EventStartDate';
+			$event_end_key   = '_EventEndDate';
+
+			if ( Tribe__Events__Timezones::SITE_TIMEZONE === Tribe__Events__Timezones::mode() ) {
+				$event_start_key .= 'UTC';
+				$event_end_key   .= 'UTC';
+			}
+
 			// if it's a true event query then we want create a join for where conditions
 			if ( $query->tribe_is_event || $query->tribe_is_event_category || $query->tribe_is_multi_posttype ) {
 				if ( $query->tribe_is_multi_posttype ) {
 					// if we're getting multiple post types, we don't need the end date, just get the start date
 					// for events-only post type queries, the start date postmeta join is already added by the main query args
-					$joins['event_start_date'] = " LEFT JOIN {$wpdb->postmeta} as {$postmeta_table} on {$wpdb->posts}.ID = {$postmeta_table}.post_id AND {$postmeta_table}.meta_key = '_EventStartDate'";
+					$joins['event_start_date'] = " LEFT JOIN {$wpdb->postmeta} as {$postmeta_table} on {$wpdb->posts}.ID = {$postmeta_table}.post_id AND {$postmeta_table}.meta_key = '$event_start_key'";
 				} else {
 					// for events-only post type queries, we should also get the end date for display
-					$joins['event_end_date'] = " LEFT JOIN {$wpdb->postmeta} as tribe_event_end_date ON ( {$wpdb->posts}.ID = tribe_event_end_date.post_id AND tribe_event_end_date.meta_key = '_EventEndDate' ) ";
+					$joins['event_end_date'] = " LEFT JOIN {$wpdb->postmeta} as tribe_event_end_date ON ( {$wpdb->posts}.ID = tribe_event_end_date.post_id AND tribe_event_end_date.meta_key = '$event_end_key' ) ";
 				}
 				$joins = apply_filters( 'tribe_events_query_posts_joins', $joins, $query );
 
@@ -522,6 +534,18 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 
 				$start_date = $query->get( 'start_date' );
 				$end_date   = $query->get( 'end_date' );
+				$use_utc    = Tribe__Events__Timezones::is_mode( 'site' );
+				$site_tz    = $use_utc ? Tribe__Events__Timezones::wp_timezone_string() : null;
+
+				// Sitewide timezone mode: convert the start date - if set - to UTC
+				if ( $use_utc && ! empty( $start_date ) ) {
+					$start_date = Tribe__Events__Timezones::to_utc( $start_date, $site_tz );
+				}
+
+				// Sitewide timezone mode: convert the end date - if set - to UTC
+				if ( $use_utc && ! empty( $end_date ) ) {
+					$end_date = Tribe__Events__Timezones::to_utc( $end_date, $site_tz );
+				}
 
 				// we can't store end date directly because it messes up the distinct clause
 				$event_end_date = apply_filters( 'tribe_events_query_end_date_column', 'tribe_event_end_date.meta_value' );
