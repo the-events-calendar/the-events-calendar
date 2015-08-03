@@ -53,7 +53,7 @@ tribe_events_pro_admin.recurrence = {
 
 		this.populate_recurrence( tribe_events_pro_recurrence_data );
 
-		$( document )
+		$( '.eventForm' )
 			.on( 'submit', '.wp-admin.events-cal #post', this.event.submit_validation )
 			.on( 'change', '[data-field="type"]', this.event.recurrence_type_changed )
 			.on( 'change', '[data-field="end-type"]', this.event.recurrence_end_type_changed )
@@ -68,8 +68,8 @@ tribe_events_pro_admin.recurrence = {
 
 		// If recurrence changes on a recurring event, then show warning
 		if ( $( 'input[data-field="is_recurring"][value="true"]' ).length ) {
-			$( document ).on( 'change', '.recurrence-row input, .custom-recurrence-row input, .recurrence-row select, .custom-recurrence-row select', this.event.recurrence_changed );
-			$( document ).on( 'recurrenceEndChanged', '[data-field="end"]', this.event.recurrence_changed );
+			$( '.eventForm' ).on( 'change', '.recurrence-row input, .custom-recurrence-row input, .recurrence-row select, .custom-recurrence-row select', this.event.recurrence_changed );
+			$( '.eventForm' ).on( 'recurrenceEndChanged', '[data-field="end"]', this.event.recurrence_changed );
 		}
 
 		$( '[data-field="end"]' ).datepicker( 'option', 'onSelect', this.event.datepicker_end_date_changed );
