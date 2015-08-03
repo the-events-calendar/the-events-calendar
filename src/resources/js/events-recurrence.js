@@ -410,13 +410,14 @@ tribe_events_pro_admin.recurrence = {
 			date_format = date_format + ' HH:mm';
 		}
 
+		var $event_datepickers = $( document.getElementById( 'tribe-event-datepickers' ) );
 		var $start_date = $( document.getElementById( 'EventStartDate' ) );
 		var start_date = $start_date.val();
-		start_date += ' ' + $( '[name="EventStartHour"] option:selected' ).val() + ':' + $( '[name="EventStartMinute"] option:selected' ).val() + ' ' + $( '[name="EventStartMeridian"] option:selected' ).val().toUpperCase();
+		start_date += ' ' + $event_datepickers.find( '[name="EventStartHour"] option:selected' ).val() + ':' + $event_datepickers.find( '[name="EventStartMinute"] option:selected' ).val() + ' ' + $event_datepickers.find( '[name="EventStartMeridian"] option:selected' ).val().toUpperCase();
 
 		var $end_date = $( document.getElementById( 'EventEndDate' ) );
 		var end_date = $end_date.val();
-		end_date += ' ' + $( '[name="EventEndHour"] option:selected' ).val() + ':' + $( '[name="EventEndMinute"] option:selected' ).val() + ' ' + $( '[name="EventEndMeridian"] option:selected' ).val().toUpperCase();
+		end_date += ' ' + $event_datepickers.find( '[name="EventEndHour"] option:selected' ).val() + ':' + $event_datepickers.find( '[name="EventEndMinute"] option:selected' ).val() + ' ' + $event_datepickers.find( '[name="EventEndMeridian"] option:selected' ).val().toUpperCase();
 
 		var start_moment = moment( start_date, date_format );
 		var end_moment = moment( end_date, date_format );
