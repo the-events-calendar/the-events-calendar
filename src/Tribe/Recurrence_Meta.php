@@ -1148,13 +1148,13 @@ class Tribe__Events__Pro__Recurrence_Meta {
 		$recurrence_rules = self::getRecurrenceMeta( $postId );
 		$start_date       = Tribe__Events__Main::get_series_start_date( $postId );
 
-		// @TODO: get this to work for arbitrary recurrence
-		// for now. Just return ''
-		return '';
+		$output_text = array();
 
-		$output_text = empty( $recurrence_rules['recCustomRecurrenceDescription'] ) ? self::recurrenceToText( $recurrence_rules, $start_date ) : $recurrence_rules['recCustomRecurrenceDescription'];
+		foreach ( $recurrence_rules as $rule ) {
+			$output_text[] = self::recurrenceToText( $rule, $start_date );
+		}
 
-		return $output_text;
+		return implode( ' ', $output_text );
 	}
 
 	/**
@@ -1164,54 +1164,54 @@ class Tribe__Events__Pro__Recurrence_Meta {
 	 */
 	public static function recurrence_strings() {
 		$strings = array(
-			'every-day-on' => __( 'Create an event every day that lasts %1$s day(s) and %2$s hour(s), the last of which will begin on %3$s', 'tribe-events-calendar-pro' ),
-			'every-day-after' => __( 'Create an event every day that lasts %1$s day(s) and %2$s hour(s), but only create %3$s event(s)', 'tribe-events-calendar-pro' ),
-			'every-day-never' => __( 'Create an event every day that lasts %1$s day(s) and %2$s hour(s) with no end date', 'tribe-events-calendar-pro' ),
-			'every-week-on' => __( 'Create an event every week on the same day that lasts %1$s day(s) and %2$s hour(s), the last of which will begin on %3$s', 'tribe-events-calendar-pro' ),
-			'every-week-after' => __( 'Create an event every week on the same day that lasts %1$s day(s) and %2$s hour(s), but only create %3$s event(s)', 'tribe-events-calendar-pro' ),
-			'every-week-never' => __( 'Create an event every week on the same day that lasts %1$s day(s) and %2$s hour(s) with no end date', 'tribe-events-calendar-pro' ),
-			'every-month-on' => __( 'Create an event every month on the same day that lasts %1$s day(s) and %2$s hour(s), the last of which will begin on %3$s', 'tribe-events-calendar-pro' ),
-			'every-month-after' => __( 'Create an event every month on the same day that lasts %1$s day(s) and %2$s hour(s), but only create %3$s event(s)', 'tribe-events-calendar-pro' ),
-			'every-month-never' => __( 'Create an event every month on the same day that lasts %1$s day(s) and %2$s hour(s) with no end date', 'tribe-events-calendar-pro' ),
-			'every-year-on' => __( 'Create an event every year on the same date that lasts %1$s day(s) and %2$s hour(s), the last of which will begin on %3$s', 'tribe-events-calendar-pro' ),
-			'every-year-after' => __( 'Create an event every year on the same date that lasts %1$s day(s) and %2$s hour(s), but only create %3$s event(s)', 'tribe-events-calendar-pro' ),
-			'every-year-never' => __( 'Create an event every year on the same date that lasts %1$s day(s) and %2$s hour(s) with no end date', 'tribe-events-calendar-pro' ),
-			'custom-daily-on-same-time' => __( 'Create an event every %1$s day(s) that lasts %2$s day(s) and %3$s hour(s), the last of which will begin on %4$s', 'tribe-events-calendar-pro' ),
-			'custom-daily-after-same-time' => __( 'Create an event every %1$s day(s) that lasts %2$s day(s) and %3$s hour(s), but only create %4$s event(s)', 'tribe-events-calendar-pro' ),
-			'custom-daily-never-same-time' => __( 'Create an event every %1$s day(s) that lasts %2$s day(s) and %3$s hour(s) with no end date', 'tribe-events-calendar-pro' ),
-			'custom-daily-on-diff-time' => __( 'Create an event every %1$s day(s) that begins at %2$s and lasts %3$s day(s) and %4$s hour(s), the last of which will begin on %5$s', 'tribe-events-calendar-pro' ),
-			'custom-daily-after-diff-time' => __( 'Create an event every %1$s day(s) that begins at %2$s and lasts %3$s day(s) and %4$s hour(s), but only create %5$s event(s)', 'tribe-events-calendar-pro' ),
-			'custom-daily-never-diff-time' => __( 'Create an event every %1$s day(s) that begins at %2$s and lasts %3$s day(s) and %4$s hour(s) with no end date', 'tribe-events-calendar-pro' ),
-			'custom-weekly-on-same-time' => __( 'Create an event every %1$s week(s) on %2$s that lasts %3$s day(s) and %4$s hour(s), the last of which will begin on %5$s', 'tribe-events-calendar-pro' ),
-			'custom-weekly-after-same-time' => __( 'Create an event every %1$s week(s) on %2$s that lasts %3$s day(s) and %4$s hour(s), but only create %5$s event(s)', 'tribe-events-calendar-pro' ),
-			'custom-weekly-never-same-time' => __( 'Create an event every %1$s week(s) on %2$s that lasts %3$s day(s) and %4$s hour(s) with no end date', 'tribe-events-calendar-pro' ),
-			'custom-weekly-on-diff-time' => __( 'Create an event every %1$s week(s) on %2$s that begins at %3$s and lasts %4$s day(s) and %5$s hour(s), the last of which will begin on %6$s', 'tribe-events-calendar-pro' ),
-			'custom-weekly-after-diff-time' => __( 'Create an event every %1$s week(s) on %2$s that begins at %3$s and lasts %4$s day(s) and %5$s hour(s), but only create %6$s event(s)', 'tribe-events-calendar-pro' ),
-			'custom-weekly-never-diff-time' => __( 'Create an event every %1$s week(s) on %2$s that begins at %3$s and lasts %4$s day(s) and %5$s hour(s) with no end date', 'tribe-events-calendar-pro' ),
-			'custom-monthly-on-same-time-numeric' => __( 'Create an event every %1$s month(s) on day %2$s that lasts %3$s day(s) and %4$s hour(s), the last of which will begin on %5$s', 'tribe-events-calendar-pro' ),
-			'custom-monthly-after-same-time-numeric' => __( 'Create an event every %1$s month(s) on day %2$s that lasts %3$s day(s) and %4$s hour(s), but only create %5$s event(s)', 'tribe-events-calendar-pro' ),
-			'custom-monthly-never-same-time-numeric' => __( 'Create an event every %1$s month(s) on day %2$s that lasts %3$s day(s) and %4$s hour(s) with no end date', 'tribe-events-calendar-pro' ),
-			'custom-monthly-on-diff-time-numeric' => __( 'Create an event every %1$s month(s) on day %2$s that begins at %3$s and lasts %4$s day(s) and %5$s hour(s), the last of which will begin on %6$s', 'tribe-events-calendar-pro' ),
-			'custom-monthly-after-diff-time-numeric' => __( 'Create an event every %1$s month(s) on day %2$s that begins at %3$s and lasts %4$s day(s) and %5$s hour(s), but only create %6$s event(s)', 'tribe-events-calendar-pro' ),
-			'custom-monthly-never-diff-time-numeric' => __( 'Create an event every %1$s month(s) on day %2$s that begins at %3$s and lasts %4$s day(s) and %5$s hour(s) with no end date', 'tribe-events-calendar-pro' ),
-			'custom-monthly-on-same-time' => __( 'Create an event every %1$s month(s) on %2$s that lasts %3$s day(s) and %4$s hour(s), the last of which will begin on %5$s', 'tribe-events-calendar-pro' ),
-			'custom-monthly-after-same-time' => __( 'Create an event every %1$s month(s) on %2$s that lasts %3$s day(s) and %4$s hour(s), but only create %5$s event(s)', 'tribe-events-calendar-pro' ),
-			'custom-monthly-never-same-time' => __( 'Create an event every %1$s month(s) on %2$s that lasts %3$s day(s) and %4$s hour(s) with no end date', 'tribe-events-calendar-pro' ),
-			'custom-monthly-on-diff-time' => __( 'Create an event every %1$s month(s) on %2$s that begins at %3$s and lasts %4$s day(s) and %5$s hour(s), the last of which will begin on %7$s', 'tribe-events-calendar-pro' ),
-			'custom-monthly-after-diff-time' => __( 'Create an event every %1$s month(s) on %2$s that begins at %3$s and lasts %4$s day(s) and %5$s hour(s), but only create %6$s event(s)', 'tribe-events-calendar-pro' ),
-			'custom-monthly-never-diff-time' => __( 'Create an event every %1$s month(s) on %2$s that begins at %3$s and lasts %4$s day(s) and %5$s hour(s) with no end date', 'tribe-events-calendar-pro' ),
-			'custom-yearly-on-same-time-unfiltered' => __( 'Create an event every %1$s year(s) in %2$s on day %3$s that lasts %4$s day(s) and %5$s hour(s), the last of which will begin on %6$s', 'tribe-events-calendar-pro' ),
-			'custom-yearly-after-same-time-unfiltered' => __( 'Create an event every %1$s year(s) in %2$s on day %3$s that lasts %4$s day(s) and %5$s hour(s), but only create %6$s event(s)', 'tribe-events-calendar-pro' ),
-			'custom-yearly-never-same-time-unfiltered' => __( 'Create an event every %1$s year(s) in %2$s on day %3$s that lasts %4$s day(s) and %5$s hour(s) with no end date', 'tribe-events-calendar-pro' ),
-			'custom-yearly-on-diff-time-unfiltered' => __( 'Create an event every %1$s year(s) in %2$s on day %3$s that begins at %4$s and lasts %5$s day(s) and %6$s hour(s), the last of which will begin on %7$s', 'tribe-events-calendar-pro' ),
-			'custom-yearly-after-diff-time-unfiltered' => __( 'Create an event every %1$s year(s) in %2$s on day %3$s that begins at %4$s and lasts %5$s day(s) and %6$s hour(s), but only create %7$s event(s)', 'tribe-events-calendar-pro' ),
-			'custom-yearly-never-diff-time-unfiltered' => __( 'Create an event every %1$s year(s) in %2$s on day %3$s that begins at %4$s and lasts %5$s day(s) and %6$s hour(s) with no end date', 'tribe-events-calendar-pro' ),
-			'custom-yearly-on-same-time' => __( 'Create an event every %1$s year(s) in %2$s on %3$s that lasts %4$s day(s) and %5$s hour(s), the last of which will begin on %6$s', 'tribe-events-calendar-pro' ),
-			'custom-yearly-after-same-time' => __( 'Create an event every %1$s year(s) in %2$s on %3$s that lasts %4$s day(s) and %5$s hour(s), but only create %6$s event(s)', 'tribe-events-calendar-pro' ),
-			'custom-yearly-never-same-time' => __( 'Create an event every %1$s year(s) in %2$s on %3$s that lasts %4$s day(s) and %5$s hour(s) with no end date', 'tribe-events-calendar-pro' ),
-			'custom-yearly-on-diff-time' => __( 'Create an event every %1$s year(s) in %2$s on %3$s that begins at %4$s and lasts %5$s day(s) and %6$s hour(s), the last of which will begin on %7$s', 'tribe-events-calendar-pro' ),
-			'custom-yearly-after-diff-time' => __( 'Create an event every %1$s year(s) in %2$s on %3$s that begins at %4$s and lasts %5$s day(s) and %6$s hour(s), but only create %7$s event(s)', 'tribe-events-calendar-pro' ),
-			'custom-yearly-never-diff-time' => __( 'Create an event every %1$s year(s) in %2$s on %3$s that begins at %4$s and lasts %5$s day(s) and %6$s hour(s) with no end date', 'tribe-events-calendar-pro' ),
+			'every-day-on' => __( 'An event every day that lasts %1$s day(s) and %2$s hour(s), the last of which will begin on %3$s', 'tribe-events-calendar-pro' ),
+			'every-day-after' => __( 'An event every day that lasts %1$s day(s) and %2$s hour(s), but only create %3$s event(s)', 'tribe-events-calendar-pro' ),
+			'every-day-never' => __( 'An event every day that lasts %1$s day(s) and %2$s hour(s) with no end date', 'tribe-events-calendar-pro' ),
+			'every-week-on' => __( 'An event every week on the same day that lasts %1$s day(s) and %2$s hour(s), the last of which will begin on %3$s', 'tribe-events-calendar-pro' ),
+			'every-week-after' => __( 'An event every week on the same day that lasts %1$s day(s) and %2$s hour(s), but only create %3$s event(s)', 'tribe-events-calendar-pro' ),
+			'every-week-never' => __( 'An event every week on the same day that lasts %1$s day(s) and %2$s hour(s) with no end date', 'tribe-events-calendar-pro' ),
+			'every-month-on' => __( 'An event every month on the same day that lasts %1$s day(s) and %2$s hour(s), the last of which will begin on %3$s', 'tribe-events-calendar-pro' ),
+			'every-month-after' => __( 'An event every month on the same day that lasts %1$s day(s) and %2$s hour(s), but only create %3$s event(s)', 'tribe-events-calendar-pro' ),
+			'every-month-never' => __( 'An event every month on the same day that lasts %1$s day(s) and %2$s hour(s) with no end date', 'tribe-events-calendar-pro' ),
+			'every-year-on' => __( 'An event every year on the same date that lasts %1$s day(s) and %2$s hour(s), the last of which will begin on %3$s', 'tribe-events-calendar-pro' ),
+			'every-year-after' => __( 'An event every year on the same date that lasts %1$s day(s) and %2$s hour(s), but only create %3$s event(s)', 'tribe-events-calendar-pro' ),
+			'every-year-never' => __( 'An event every year on the same date that lasts %1$s day(s) and %2$s hour(s) with no end date', 'tribe-events-calendar-pro' ),
+			'custom-daily-on-same-time' => __( 'An event every %1$s day(s) that lasts %2$s day(s) and %3$s hour(s), the last of which will begin on %4$s', 'tribe-events-calendar-pro' ),
+			'custom-daily-after-same-time' => __( 'An event every %1$s day(s) that lasts %2$s day(s) and %3$s hour(s), but only create %4$s event(s)', 'tribe-events-calendar-pro' ),
+			'custom-daily-never-same-time' => __( 'An event every %1$s day(s) that lasts %2$s day(s) and %3$s hour(s) with no end date', 'tribe-events-calendar-pro' ),
+			'custom-daily-on-diff-time' => __( 'An event every %1$s day(s) that begins at %2$s and lasts %3$s day(s) and %4$s hour(s), the last of which will begin on %5$s', 'tribe-events-calendar-pro' ),
+			'custom-daily-after-diff-time' => __( 'An event every %1$s day(s) that begins at %2$s and lasts %3$s day(s) and %4$s hour(s), but only create %5$s event(s)', 'tribe-events-calendar-pro' ),
+			'custom-daily-never-diff-time' => __( 'An event every %1$s day(s) that begins at %2$s and lasts %3$s day(s) and %4$s hour(s) with no end date', 'tribe-events-calendar-pro' ),
+			'custom-weekly-on-same-time' => __( 'An event every %1$s week(s) on %2$s that lasts %3$s day(s) and %4$s hour(s), the last of which will begin on %5$s', 'tribe-events-calendar-pro' ),
+			'custom-weekly-after-same-time' => __( 'An event every %1$s week(s) on %2$s that lasts %3$s day(s) and %4$s hour(s), but only create %5$s event(s)', 'tribe-events-calendar-pro' ),
+			'custom-weekly-never-same-time' => __( 'An event every %1$s week(s) on %2$s that lasts %3$s day(s) and %4$s hour(s) with no end date', 'tribe-events-calendar-pro' ),
+			'custom-weekly-on-diff-time' => __( 'An event every %1$s week(s) on %2$s that begins at %3$s and lasts %4$s day(s) and %5$s hour(s), the last of which will begin on %6$s', 'tribe-events-calendar-pro' ),
+			'custom-weekly-after-diff-time' => __( 'An event every %1$s week(s) on %2$s that begins at %3$s and lasts %4$s day(s) and %5$s hour(s), but only create %6$s event(s)', 'tribe-events-calendar-pro' ),
+			'custom-weekly-never-diff-time' => __( 'An event every %1$s week(s) on %2$s that begins at %3$s and lasts %4$s day(s) and %5$s hour(s) with no end date', 'tribe-events-calendar-pro' ),
+			'custom-monthly-on-same-time-numeric' => __( 'An event every %1$s month(s) on day %2$s that lasts %3$s day(s) and %4$s hour(s), the last of which will begin on %5$s', 'tribe-events-calendar-pro' ),
+			'custom-monthly-after-same-time-numeric' => __( 'An event every %1$s month(s) on day %2$s that lasts %3$s day(s) and %4$s hour(s), but only create %5$s event(s)', 'tribe-events-calendar-pro' ),
+			'custom-monthly-never-same-time-numeric' => __( 'An event every %1$s month(s) on day %2$s that lasts %3$s day(s) and %4$s hour(s) with no end date', 'tribe-events-calendar-pro' ),
+			'custom-monthly-on-diff-time-numeric' => __( 'An event every %1$s month(s) on day %2$s that begins at %3$s and lasts %4$s day(s) and %5$s hour(s), the last of which will begin on %6$s', 'tribe-events-calendar-pro' ),
+			'custom-monthly-after-diff-time-numeric' => __( 'An event every %1$s month(s) on day %2$s that begins at %3$s and lasts %4$s day(s) and %5$s hour(s), but only create %6$s event(s)', 'tribe-events-calendar-pro' ),
+			'custom-monthly-never-diff-time-numeric' => __( 'An event every %1$s month(s) on day %2$s that begins at %3$s and lasts %4$s day(s) and %5$s hour(s) with no end date', 'tribe-events-calendar-pro' ),
+			'custom-monthly-on-same-time' => __( 'An event every %1$s month(s) on %2$s that lasts %3$s day(s) and %4$s hour(s), the last of which will begin on %5$s', 'tribe-events-calendar-pro' ),
+			'custom-monthly-after-same-time' => __( 'An event every %1$s month(s) on %2$s that lasts %3$s day(s) and %4$s hour(s), but only create %5$s event(s)', 'tribe-events-calendar-pro' ),
+			'custom-monthly-never-same-time' => __( 'An event every %1$s month(s) on %2$s that lasts %3$s day(s) and %4$s hour(s) with no end date', 'tribe-events-calendar-pro' ),
+			'custom-monthly-on-diff-time' => __( 'An event every %1$s month(s) on %2$s that begins at %3$s and lasts %4$s day(s) and %5$s hour(s), the last of which will begin on %7$s', 'tribe-events-calendar-pro' ),
+			'custom-monthly-after-diff-time' => __( 'An event every %1$s month(s) on %2$s that begins at %3$s and lasts %4$s day(s) and %5$s hour(s), but only create %6$s event(s)', 'tribe-events-calendar-pro' ),
+			'custom-monthly-never-diff-time' => __( 'An event every %1$s month(s) on %2$s that begins at %3$s and lasts %4$s day(s) and %5$s hour(s) with no end date', 'tribe-events-calendar-pro' ),
+			'custom-yearly-on-same-time-unfiltered' => __( 'An event every %1$s year(s) in %2$s on day %3$s that lasts %4$s day(s) and %5$s hour(s), the last of which will begin on %6$s', 'tribe-events-calendar-pro' ),
+			'custom-yearly-after-same-time-unfiltered' => __( 'An event every %1$s year(s) in %2$s on day %3$s that lasts %4$s day(s) and %5$s hour(s), but only create %6$s event(s)', 'tribe-events-calendar-pro' ),
+			'custom-yearly-never-same-time-unfiltered' => __( 'An event every %1$s year(s) in %2$s on day %3$s that lasts %4$s day(s) and %5$s hour(s) with no end date', 'tribe-events-calendar-pro' ),
+			'custom-yearly-on-diff-time-unfiltered' => __( 'An event every %1$s year(s) in %2$s on day %3$s that begins at %4$s and lasts %5$s day(s) and %6$s hour(s), the last of which will begin on %7$s', 'tribe-events-calendar-pro' ),
+			'custom-yearly-after-diff-time-unfiltered' => __( 'An event every %1$s year(s) in %2$s on day %3$s that begins at %4$s and lasts %5$s day(s) and %6$s hour(s), but only create %7$s event(s)', 'tribe-events-calendar-pro' ),
+			'custom-yearly-never-diff-time-unfiltered' => __( 'An event every %1$s year(s) in %2$s on day %3$s that begins at %4$s and lasts %5$s day(s) and %6$s hour(s) with no end date', 'tribe-events-calendar-pro' ),
+			'custom-yearly-on-same-time' => __( 'An event every %1$s year(s) in %2$s on %3$s that lasts %4$s day(s) and %5$s hour(s), the last of which will begin on %6$s', 'tribe-events-calendar-pro' ),
+			'custom-yearly-after-same-time' => __( 'An event every %1$s year(s) in %2$s on %3$s that lasts %4$s day(s) and %5$s hour(s), but only create %6$s event(s)', 'tribe-events-calendar-pro' ),
+			'custom-yearly-never-same-time' => __( 'An event every %1$s year(s) in %2$s on %3$s that lasts %4$s day(s) and %5$s hour(s) with no end date', 'tribe-events-calendar-pro' ),
+			'custom-yearly-on-diff-time' => __( 'An event every %1$s year(s) in %2$s on %3$s that begins at %4$s and lasts %5$s day(s) and %6$s hour(s), the last of which will begin on %7$s', 'tribe-events-calendar-pro' ),
+			'custom-yearly-after-diff-time' => __( 'An event every %1$s year(s) in %2$s on %3$s that begins at %4$s and lasts %5$s day(s) and %6$s hour(s), but only create %7$s event(s)', 'tribe-events-calendar-pro' ),
+			'custom-yearly-never-diff-time' => __( 'An event every %1$s year(s) in %2$s on %3$s that begins at %4$s and lasts %5$s day(s) and %6$s hour(s) with no end date', 'tribe-events-calendar-pro' ),
 		);
 
 		return $strings;
@@ -1272,79 +1272,318 @@ class Tribe__Events__Pro__Recurrence_Meta {
 	 *
 	 * @return The human readable string
 	 */
-	public static function recurrenceToText( $recurrence_rules = array(), $start_date ) {
-		$text                     = '';
-		$custom_text              = '';
-		$occurrence_text          = '';
-		$recType                  = '';
-		$recEndType               = '';
-		$recEndCount              = '';
-		$recCustomType            = '';
-		$recCustomInterval        = null;
-		$recCustomMonthNumber     = null;
-		$recCustomYearMonthNumber = null;
-		$recCustomYearFilter      = '';
-		$recCustomYearMonth       = '';
-		$recCustomYearMonthDay    = '';
-		extract( $recurrence_rules );
+	public static function recurrenceToText( $rule = array(), $start_date ) {
+		$text = '';
+		$recurrence_strings = self::recurrence_strings();
+		$date_strings = self::date_strings();
 
-		if ( $recType == 'Every Day' ) {
-			$text            = __( 'Every day', 'tribe-events-calendar-pro' );
-			$occurrence_text = sprintf( _n( ' for %d day', ' for %d days', $recEndCount, 'tribe-events-calendar-pro' ), $recEndCount );
-			$custom_text     = '';
-		} elseif ( $recType == 'Every Week' ) {
-			$text            = __( 'Every week', 'tribe-events-calendar-pro' );
-			$occurrence_text = sprintf( _n( ' for %d week', ' for %d weeks', $recEndCount, 'tribe-events-calendar-pro' ), $recEndCount );
-		} elseif ( $recType == 'Every Month' ) {
-			$text            = __( 'Every month', 'tribe-events-calendar-pro' );
-			$occurrence_text = sprintf( _n( ' for %d month', ' for %d months', $recEndCount, 'tribe-events-calendar-pro' ), $recEndCount );
-		} elseif ( $recType == 'Every Year' ) {
-			$text            = __( 'Every year', 'tribe-events-calendar-pro' );
-			$occurrence_text = sprintf( _n( ' for %d year', ' for %d years', $recEndCount, 'tribe-events-calendar-pro' ), $recEndCount );
-		} elseif ( $recType == 'Custom' ) {
-			if ( $recCustomType == 'Daily' ) {
-				$text            = $recCustomInterval == 1 ?
-					__( 'Every day', 'tribe-events-calendar-pro' ) :
-					sprintf( __( 'Every %d days', 'tribe-events-calendar-pro' ), $recCustomInterval );
-				$occurrence_text = sprintf( _n( ', recurring %d time', ', recurring %d times', $recEndCount, 'tribe-events-calendar-pro' ), $recEndCount );
-			} elseif ( $recCustomType == 'Weekly' ) {
-				$text            = $recCustomInterval == 1 ?
-					__( 'Every week', 'tribe-events-calendar-pro' ) :
-					sprintf( __( 'Every %d weeks', 'tribe-events-calendar-pro' ), $recCustomInterval );
-				$custom_text     = sprintf( __( ' on %s', 'tribe-events-calendar-pro' ), self::daysToText( $recCustomWeekDay ) );
-				$occurrence_text = sprintf( _n( ', recurring %d time', ', recurring %d times', $recEndCount, 'tribe-events-calendar-pro' ), $recEndCount );
-			} elseif ( 'Monthly' == $recCustomType ) {
-				$text = $recCustomInterval == 1 ?
-					__( 'Every month', 'tribe-events-calendar-pro' ) :
-					sprintf( __( 'Every %d months', 'tribe-events-calendar-pro' ), $recCustomInterval );
-				$number_display = is_numeric( $recCustomMonthNumber ) ? Tribe__Events__Date_Utils::number_to_ordinal( $recCustomMonthNumber ) : strtolower( esc_attr__( $recCustomMonthNumber, 'tribe-events-calendar-pro' ) );
-				$custom_text = sprintf( __( ' on the %s %s', 'tribe-events-calendar-pro' ), $number_display, is_numeric( $recCustomMonthNumber ) ? __( 'day', 'tribe-events-calendar-pro' ) : self::daysToText( $recCustomMonthDay ) );
-				$occurrence_text = sprintf( _n( ', recurring %d time', ', recurring %d times', $recEndCount, 'tribe-events-calendar-pro' ), $recEndCount );
-			} elseif ( $recCustomType == 'Yearly' ) {
-				$text = $recCustomInterval == 1 ?
-					__( 'Every year', 'tribe-events-calendar-pro' ) :
-					sprintf( __( 'Every %d years', 'tribe-events-calendar-pro' ), $recCustomInterval );
+		$same_time = true;
+		$year_filtered = false;
+		$rule['type'] = str_replace( ' ', '-', strtolower( $rule['type'] ) );
+		$rule['end-type'] = str_replace( ' ', '-', strtolower( $rule['end-type'] ) );
+		$rule['custom']['type'] = str_replace( ' ', '-', strtolower( $rule['custom-type'] ) );
 
-				$customYearNumber = $recCustomYearMonthNumber != - 1 ? Tribe__Events__Date_Utils::number_to_ordinal( $recCustomYearMonthNumber ) : __( 'last', 'tribe-events-calendar-pro' );
+		if ( 'custom' === $rule['type'] ) {
+			$same_time = 'yes' === $rule['custom'][ self::custom_type_to_key( $rule['custom']['type'] ) ];
 
-				$day             = $recCustomYearFilter ? $customYearNumber : Tribe__Events__Date_Utils::number_to_ordinal( date( 'j', strtotime( $start_date ) ) );
-				$of_week         = $recCustomYearFilter ? self::daysToText( $recCustomYearMonthDay ) : '';
-				$months          = self::monthsToText( $recCustomYearMonth );
-				$custom_text     = sprintf( __( ' on the %s %s of %s', 'tribe-events-calendar-pro' ), $day, $of_week, $months );
-				$occurrence_text = sprintf( _n( ', recurring %d time', ', recurring %d times', $recEndCount, 'tribe-events-calendar-pro' ), $recEndCount );
+			if ( 'yearly' === $rule['custom']['type'] ) {
+				$year_filtered = ! empty( $rule['custom']['year']['filter'] );
 			}
 		}
 
-		// end text
-		if ( $recEndType == 'On' ) {
-			$endText = ' ' . sprintf( __( ' until %s', 'tribe-events-calendar-pro' ), date_i18n( get_option( 'date_format' ), strtotime( $recEnd ) ) );
-		} elseif ( $recEndType == 'Never' ) {
-			$endText = '';
-		} else {
-			$endText = $occurrence_text;
+		$start_date = strtotime( $rule['EventStartDate'] );
+		$end_date = strtotime( $rule['EventStartDate'] );
+
+		$num_days = floor( ( $end_date - $start_date ) / DAYS_IN_SECONDS );
+		$num_hours = floor( ( ( $end_date - $start_date ) / HOURS_IN_SECONDS ) - ( $num_days * 24 ) );
+
+		$new_start_date = date( 'Y-m-d', $start_date ) . ' ' . $rule['custom']['start-time']['hour'] . ':' . $rule['custom']['start-time']['minute'];
+		if ( isset( $rule['custom']['start-time']['meridian'] ) ) {
+			$new_start_date .= ' ' . $rule['custom']['start-time']['meridian'];
 		}
 
-		return sprintf( __( '%s%s%s', 'tribe-events-calendar-pro' ), $text, $custom_text, $endText );
+		$new_end_date = date( 'Y-m-d', $end_date ) . ' ' . $rule['custom']['end-time']['hour'] . ':' . $rule['custom']['end-time']['minute'];
+		if ( isset( $rule['custom']['end-time']['meridian'] ) ) {
+			$new_end_date .= ' ' . $rule['custom']['end-time']['meridian'];
+		}
+
+		$new_num_days = floor( ( $new_end_date - $new_start_date ) / DAYS_IN_SECONDS );
+		$new_num_hours = floor( ( ( $new_end_date - $new_start_date ) / HOURS_IN_SECONDS ) - ( $new_num_days * 24 ) );
+
+		$weekdays = array();
+		$months = array();
+		$month_number = null;
+		$month_day = null;
+		$month_day_description = null;
+
+		if ( 'weekly' === $rule['custom-type'] ) {
+			foreach ( $rule['custom']['week']['day'] as $day ) {
+				$weekdays[] = $date_strings['weekdays'][ $day - 1 ];
+			}
+
+			if ( ! $weekdays ) {
+				$weekdays = $date_strings['day_placeholder'];
+			} elseif ( 2 === count( $weekdays ) ) {
+				$weekdays = implode( " {$date_strings['collection_joiner']} ", $weekdays );
+			} else {
+				$weekdays = implode( ', ', $weekdays );
+				$weekdays = preg_replace( '/(.*),/', '$1, ' . $date_strings['collection_joiner'], $weekdays );
+			}
+		} elseif ( 'monthly' === $rule['custom-type'] ) {
+			$month_number = $rule['custom']['month']['number'];
+			$month_day = $rule['custom']['month']['day'];
+		} elseif ( 'yearly' === $rule['custom-type'] ) {
+			$month_number = $rule['custom']['year']['month-number'];
+			$month_day = $rule['custom']['year']['month-day'];
+
+			foreach ( $rule['custom']['year']['month'] as $month ) {
+				$months[] = $date_strings['months'][ $month - 1 ];
+			}
+
+			if ( ! $months ) {
+				$months = $date_strings['month_placeholder'];
+			} elseif ( 2 === count( $months ) ) {
+				$months = implode( " {$date_strings['collection_joiner']} ", $months );
+			} else {
+				$months = implode( ', ', $months );
+				$months = preg_replace( '/(.*),/', '$1, ' . $date_strings['collection_joiner'], $months );
+			}
+		}
+
+		$key = $rule['type'];
+
+		if ( 'custom' === $rule['type'] ) {
+			$key .= "-{$rule['custom']['type']}-{$rule['end-type']}-" . ( $same_time ? 'same' : 'diff' ) . '-time';
+
+			if ( 'monthly' === $rule['custom']['type'] && is_numeric( $month_number ) ) {
+				$key .= '-numeric';
+			} elseif ( 'yearly' === $rule['custom']['type'] && ! $year_filtered ) {
+				$key .= '-unfiltered';
+			}
+		} else {
+			$key .= "-{$rule['end-type']}";
+		}
+
+		$text = $recurrence_strings[ $key ];
+
+		switch ( $key ) {
+			case 'every-day-on':
+			case 'every-week-on':
+			case 'every-month-on':
+			case 'every-year-on':
+			case 'every-day-never':
+			case 'every-week-never':
+			case 'every-month-never':
+			case 'every-year-never':
+				$text = sprintf(
+					$text,
+					$num_days,
+					$num_hours,
+					$rule['end']
+				);
+				break;
+			case 'every-day-after':
+			case 'every-week-after':
+			case 'every-month-after':
+			case 'every-year-after':
+				$text = sprintf(
+					$text,
+					$num_days,
+					$num_hours,
+					$rule['end-count']
+				);
+				break;
+			case 'custom-daily-on-same-time':
+			case 'custom-daily-never-same-time':
+				$text = sprintf(
+					$text,
+					$interval,
+					$num_days,
+					$num_hours,
+					$rule['end']
+				);
+				break;
+			case 'custom-daily-after-same-time':
+				$text = sprintf(
+					$text,
+					$interval,
+					$num_days,
+					$num_hours,
+					$rule['end-count']
+				);
+				break;
+			case 'custom-daily-on-diff-time':
+			case 'custom-daily-never-diff-time':
+				$text = sprintf(
+					$text,
+					$interval,
+					$new_start_time,
+					$new_num_days,
+					$new_num_hours,
+					$rule['end']
+				);
+				break;
+			case 'custom-daily-after-diff-time':
+				$text = sprintf(
+					$text,
+					$interval,
+					$new_start_time,
+					$new_num_days,
+					$new_num_hours,
+					$rule['end-count']
+				);
+				break;
+			case 'custom-weekly-on-same-time':
+			case 'custom-weekly-never-same-time':
+				$text = sprintf(
+					$text,
+					$interval,
+					$weekdays,
+					$num_days,
+					$num_hours,
+					$rule['end']
+				);
+				break;
+			case 'custom-weekly-after-same-time':
+				$text = sprintf(
+					$text,
+					$interval,
+					$weekdays,
+					$num_days,
+					$num_hours,
+					$rule['end-count']
+				);
+				break;
+			case 'custom-weekly-on-diff-time':
+			case 'custom-weekly-never-diff-time':
+				$text = sprintf(
+					$text,
+					$interval,
+					$weekdays,
+					$new_start_time,
+					$new_num_days,
+					$new_num_hours,
+					$rule['end']
+				);
+				break;
+			case 'custom-weekly-after-diff-time':
+				$text = sprintf(
+					$text,
+					$interval,
+					$weekdays,
+					$new_start_time,
+					$new_num_days,
+					$new_num_hours,
+					$rule['end-count']
+				);
+				break;
+			case 'custom-monthly-on-same-time-numeric':
+			case 'custom-monthly-never-same-time-numeric':
+			case 'custom-monthly-on-same-time':
+			case 'custom-monthly-never-same-time':
+				$text = sprintf(
+					$text,
+					$interval,
+					$month_day_description,
+					$num_days,
+					$num_hours,
+					$rule['end']
+				);
+				break;
+			case 'custom-monthly-after-same-time-numeric':
+			case 'custom-monthly-after-same-time':
+				$text = sprintf(
+					$text,
+					$interval,
+					$month_day_description,
+					$num_days,
+					$num_hours,
+					$rule['end-count']
+				);
+				break;
+			case 'custom-monthly-on-diff-time-numeric':
+			case 'custom-monthly-never-diff-time-numeric':
+			case 'custom-monthly-on-diff-time':
+			case 'custom-monthly-never-diff-time':
+				$text = sprintf(
+					$text,
+					$interval,
+					$month_day_description,
+					$new_start_time,
+					$new_num_days,
+					$new_num_hours,
+					$rule['end']
+				);
+				break;
+			case 'custom-monthly-after-diff-time-numeric':
+			case 'custom-monthly-after-diff-time':
+				$text = sprintf(
+					$text,
+					$interval,
+					$month_day_description,
+					$new_start_time,
+					$new_num_days,
+					$new_num_hours,
+					$rule['end-count']
+				);
+				break;
+			case 'custom-yearly-on-same-time-unfiltered':
+			case 'custom-yearly-never-same-time-unfiltered':
+			case 'custom-yearly-on-same-time':
+			case 'custom-yearly-never-same-time':
+				$text = sprintf(
+					$text,
+					$interval,
+					$months,
+					$month_day_description,
+					$num_days,
+					$num_hours,
+					$rule['end']
+				);
+				break;
+			case 'custom-yearly-after-same-time-unfiltered':
+			case 'custom-yearly-after-same-time':
+				$text = sprintf(
+					$text,
+					$interval,
+					$months,
+					$month_day_description,
+					$num_days,
+					$num_hours,
+					$rule['end-count']
+				);
+				break;
+			case 'custom-yearly-on-diff-time-unfiltered':
+			case 'custom-yearly-never-diff-time-unfiltered':
+			case 'custom-yearly-on-diff-time':
+			case 'custom-yearly-never-diff-time':
+				$text = sprintf(
+					$text,
+					$interval,
+					$months,
+					$month_day_description,
+					$new_start_time,
+					$new_num_days,
+					$new_num_hours,
+					$rule['end']
+				);
+				break;
+			case 'custom-yearly-after-diff-time-unfiltered':
+			case 'custom-yearly-after-diff-time':
+				$text = sprintf(
+					$text,
+					$interval,
+					$months,
+					$month_day_description,
+					$new_start_time,
+					$new_num_days,
+					$new_num_hours,
+					$rule['end-count']
+				);
+				break;
+		}
+
+		return $text;
 	}
 
 	/**
