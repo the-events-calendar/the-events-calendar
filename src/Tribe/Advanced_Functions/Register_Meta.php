@@ -279,7 +279,7 @@ if ( ! class_exists( 'Tribe__Events__Advanced_Functions__Register_Meta' ) ) {
 			$address = tribe_address_exists( get_the_ID() ) ? '<address class="tribe-events-address">' . tribe_get_full_address( get_the_ID() ) . '</address>' : '';
 
 			// Google map link
-			$gmap_link = tribe_show_google_map_link( get_the_ID() ) ? self::gmap_link() : '';
+			$gmap_link = tribe_show_google_map_link( get_the_ID() ) ? tribe_get_map_link_html( get_the_ID() ) : '';
 			$gmap_link = apply_filters( 'tribe_event_meta_venue_address_gmap', $gmap_link );
 
 			$venue_address = empty( $address ) ? '' : Tribe__Events__Meta_Factory::template(
