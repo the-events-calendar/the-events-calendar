@@ -292,21 +292,21 @@ if ( ! class_exists( 'Tribe__Events__PUE__Checker' ) ) {
 		public function do_license_key_fields( $fields ) {
 
 			// we want to inject the following license settings at the end of the licenses tab
-			$fields = self::array_insert_after_key(
-						  'tribe-form-content-start', $fields, array(
-								  $this->pue_install_key . '-heading' => array(
-									  'type'  => 'heading',
-									  'label' => $this->get_plugin_name(),
-								  ),
-								  $this->pue_install_key              => array(
-									  'type'            => 'license_key',
-									  'size'            => 'large',
-									  'validation_type' => 'license_key',
-									  'label'           => sprintf( __( 'License Key', 'tribe-events-calendar' ) ),
-									  'tooltip'         => __( 'A valid license key is required for support and updates', 'tribe-events-calendar' ),
-									  'parent_option'   => false,
-								  ),
-							  )
+			$fields = self::array_insert_after_key( 'tribe-form-content-start', $fields, array(
+					$this->pue_install_key . '-heading' => array(
+						'type'  => 'heading',
+						'label' => $this->get_plugin_name(),
+					),
+					$this->pue_install_key => array(
+						'type'            => 'license_key',
+						'size'            => 'large',
+						'validation_type' => 'license_key',
+						'label'           => sprintf( __( 'License Key', 'tribe-events-calendar' ) ),
+						'tooltip'         => __( 'A valid license key is required for support and updates', 'tribe-events-calendar' ),
+						'parent_option'   => false,
+						'network_option'  => true,
+					),
+				)
 			);
 
 			return $fields;
@@ -328,28 +328,30 @@ if ( ! class_exists( 'Tribe__Events__PUE__Checker' ) ) {
 					<?php echo $this->pue_install_key ?>_validateKey();
 				});
 				function <?php echo $this->pue_install_key ?>_validateKey() {
-					var this_id = '#tribe-field-<?php echo $this->pue_install_key ?>';
+					var this_id       = '#tribe-field-<?php echo $this->pue_install_key ?>';
+					var $validity_msg = jQuery(this_id + ' .key-validity');
+
 					if (jQuery(this_id + ' input').val() != '') {
-						jQuery(this_id + ' .invalid-key').hide();
-						jQuery(this_id + ' .valid-key').hide();
 						jQuery(this_id + ' .tooltip').hide();
 						jQuery(this_id + ' .ajax-loading-license').show();
-						//strip whitespace from key
+						$validity_msg.hide();
+
+						// Strip whitespace from key
 						var <?php echo $this->pue_install_key ?>_license_key = jQuery(this_id + ' input').val().replace(/^\s+|\s+$/g, "");
 						jQuery(this_id + ' input').val(<?php echo $this->pue_install_key ?>_license_key);
 
 						var data = { action: 'pue-validate-key_<?php echo $this->get_slug(); ?>', key: <?php echo $this->pue_install_key ?>_license_key };
 						jQuery.post(ajaxurl, data, function (response) {
-							var data = jQuery.parseJSON(response);
+							var data          = jQuery.parseJSON(response);
+
 							jQuery(this_id + ' .ajax-loading-license').hide();
-							if (data.status == '1') {
-								jQuery(this_id + ' .valid-key').show();
-								jQuery(this_id + ' .valid-key').html(data.message);
-								jQuery(this_id + ' .invalid-key').hide();
-							} else {
-								jQuery(this_id + ' .invalid-key').show();
-								jQuery(this_id + ' .invalid-key').html(data.message);
-								jQuery(this_id + ' .valid-key').hide();
+							$validity_msg.show();
+							$validity_msg.html(data.message);
+
+							switch ( data.status ) {
+								case 1: $validity_msg.addClass( 'valid-key' ); break;
+								case 2: $validity_msg.addClass( 'valid-key service-msg' ); break;
+								default: $validity_msg.addClass( 'invalid-key' ); break;
 							}
 						});
 					}
@@ -395,8 +397,9 @@ if ( ! class_exists( 'Tribe__Events__PUE__Checker' ) ) {
 				global $wp_version;
 				$queryArgs['wp_version'] = $wp_version;
 
-				//include domain and multisite stats
-				$queryArgs['domain'] = $_SERVER['SERVER_NAME'];
+				// For multisite, return the network-level siteurl ... in
+				// all other cases return the actual URL being serviced
+				$queryArgs['domain'] = is_multisite() ? $this->get_network_domain() : $_SERVER['SERVER_NAME'];
 
 				if ( is_multisite() ) {
 					$queryArgs['multisite']         = 1;
@@ -410,6 +413,7 @@ if ( ! class_exists( 'Tribe__Events__PUE__Checker' ) ) {
 				}
 
 				$pluginInfo = $this->request_info( $queryArgs );
+				$expiration = isset( $pluginInfo->expiration ) ? $pluginInfo->expiration : __( 'unknown date', 'tribe-events-calendar' );
 
 				if ( empty( $pluginInfo ) ) {
 					$response['message'] = __( 'Sorry, key validation server is not available.', 'tribe-events-calendar' );
@@ -423,9 +427,10 @@ if ( ! class_exists( 'Tribe__Events__PUE__Checker' ) ) {
 				} elseif ( isset( $pluginInfo->api_invalid ) && $pluginInfo->api_invalid == 1 ) {
 					$response['message'] = __( 'Sorry, this key is not valid.', 'tribe-events-calendar' );
 				} else {
-					$response['status']     = 1;
-					$response['message']    = sprintf( __( 'Valid Key! Expires on %s', 'tribe-events-calendar' ), $pluginInfo->expiration );
-					$response['expiration'] = $pluginInfo->expiration;
+					$default_success_msg    = sprintf( __( 'Valid Key! Expires on %s', 'tribe-events-calendar' ), $expiration );
+					$response['status']     = isset( $pluginInfo->api_message ) ? 2 : 1;
+					$response['message']    = isset( $pluginInfo->api_message ) ? wp_kses( $pluginInfo->api_message, 'data' ) : $default_success_msg;
+					$response['expiration'] = $expiration;
 				}
 			} else {
 				$response['message'] = sprintf( __( 'Hmmm... something\'s wrong with this validator. Please contact <a href="%s">support.</a>', 'tribe-events-calendar' ), 'http://m.tri.be/1u' );
@@ -502,7 +507,7 @@ if ( ! class_exists( 'Tribe__Events__PUE__Checker' ) ) {
 			$queryArgs['wp_version'] = $wp_version;
 
 			//include domain and multisite stats
-			$queryArgs['domain'] = $_SERVER['SERVER_NAME'];
+			$queryArgs['domain'] = is_multisite() ? $this->get_network_domain() : $_SERVER['SERVER_NAME'];
 
 			if ( is_multisite() ) {
 				$queryArgs['multisite']         = 1;
@@ -554,6 +559,20 @@ if ( ! class_exists( 'Tribe__Events__PUE__Checker' ) ) {
 			$plugin_info_cache[ $key ] = $pluginInfo;
 
 			return $pluginInfo;
+		}
+
+		/**
+		 * Returns the domain contained in the network's siteurl option (not the full URL).
+		 *
+		 * @return string
+		 */
+		public function get_network_domain() {
+			$site_url = parse_url( get_site_option( 'siteurl' ) );
+			if ( ! $site_url || ! isset( $site_url['host'] ) ) {
+				return '';
+			} else {
+				return strtolower( $site_url['host'] );
+			}
 		}
 
 		/**
@@ -660,17 +679,7 @@ if ( ! class_exists( 'Tribe__Events__PUE__Checker' ) ) {
 		 * @return null|mixed
 		 */
 		public function get_option( $option_key, $default = false ) {
-			$return = $default;
-			// Check if the option is in the site options
-			if ( is_multisite() ) {
-				$return = get_site_option( $option_key, $default );
-			}
-			// Fall back on local options
-			if ( empty( $return ) ) {
-				$return = get_option( $option_key, $default );
-			}
-
-			return $return;
+			return get_site_option( $option_key, $default );
 		}
 
 		/**
@@ -680,14 +689,7 @@ if ( ! class_exists( 'Tribe__Events__PUE__Checker' ) ) {
 		 * @param mixed $value
 		 */
 		public function update_option( $option_key, $value ) {
-			// Check if the option is in the site options
-			if ( is_network_admin() ) {
-				update_site_option( $option_key, $value );
-				delete_option( $option_key ); // make sure there is no local version of this option.
-			} else {
-				// Otherwise update it on the blog.
-				update_option( $option_key, $value );
-			}
+			update_site_option( $option_key, $value );
 		}
 
 		/**

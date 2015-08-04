@@ -47,7 +47,7 @@ class Tribe__Events__Admin__Organizer_Chooser_Meta_Box {
 	public function render() {
 		$this->render_dropdowns();
 		$this->render_add_organizer_button();
-		include( $this->tribe->pluginPath . 'src/admin-views/new-organizer-meta-section.php' );
+		include $this->tribe->pluginPath . 'src/admin-views/new-organizer-meta-section.php';
 	}
 
 	/**
@@ -57,14 +57,14 @@ class Tribe__Events__Admin__Organizer_Chooser_Meta_Box {
 	 * @return void
 	 */
 	public function render_dropdowns() {
-		$postId = $this->event->ID;
-		$current_organizers = get_post_meta( $postId, '_EventOrganizerID', false );
+		$post_id = $this->event->ID;
+		$current_organizers = get_post_meta( $post_id, '_EventOrganizerID', false );
 		if ( $this->use_default_organizer( $current_organizers ) ) {
 			$current_organizers = array( $this->tribe->defaults()->organizer_id() );
 		}
-		$current_organizers = (array)apply_filters( 'tribe_display_event_organizer_dropdown_id', $current_organizers );
+		$current_organizers = (array) apply_filters( 'tribe_display_event_organizer_dropdown_id', $current_organizers );
 
-		?><script type="text/template" id="tmpl-tribe-select-organizer"><?php $this->single_organizer_dropdown(0); ?></script><?php
+		?><script type="text/template" id="tmpl-tribe-select-organizer"><?php $this->single_organizer_dropdown( 0 ); ?></script><?php
 
 		foreach ( $current_organizers as $organizer_id ) {
 			echo '<tbody>';
@@ -94,7 +94,6 @@ class Tribe__Events__Admin__Organizer_Chooser_Meta_Box {
 			?></td>
 		</tr>
 	<?php
-
 	}
 
 	/**
@@ -123,20 +122,20 @@ class Tribe__Events__Admin__Organizer_Chooser_Meta_Box {
 	 * @return bool
 	 */
 	protected function use_default_organizer( $current_organizers ) {
-		if ( !empty( $current_organizers ) ) {
-			return FALSE; // the event already has organizers
+		if ( ! empty( $current_organizers ) ) {
+			return false; // the event already has organizers
 		}
-		if ( !empty( $this->event->ID ) && get_post_status( $this->event->ID ) != 'auto-draft' ) {
-			return FALSE; // the event has already been saved
+		if ( ! empty( $this->event->ID ) && get_post_status( $this->event->ID ) != 'auto-draft' ) {
+			return false; // the event has already been saved
 		}
 		if ( is_admin() ) {
 			if ( get_current_screen()->action == 'add' ) {
-				return TRUE; // we're on the add new event screen
+				return true; // we're on the add new event screen
 			} else {
-				return FALSE;
+				return false;
 			}
 		} else {
-			return TRUE; // a front-end submission form (e.g., community)
+			return true; // a front-end submission form (e.g., community)
 		}
 	}
 

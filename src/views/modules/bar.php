@@ -58,7 +58,7 @@ $current_url = tribe_events_get_current_filter_url();
 						</div>
 					<?php endforeach; ?>
 					<div class="tribe-bar-submit">
-						<input class="tribe-events-button tribe-no-param" type="submit" name="submit-bar" value="<?php echo esc_attr( printf( __( 'Find %s', 'tribe-events-calendar' ), tribe_get_event_label_plural() ) ); ?>" />
+						<input class="tribe-events-button tribe-no-param" type="submit" name="submit-bar" value="<?php echo esc_attr( sprintf( __( 'Find %s', 'tribe-events-calendar' ), tribe_get_event_label_plural() ) ); ?>" />
 					</div>
 					<!-- .tribe-bar-submit -->
 				</div>

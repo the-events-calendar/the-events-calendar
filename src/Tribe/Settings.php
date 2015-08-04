@@ -258,7 +258,7 @@ if ( ! class_exists( 'Tribe__Events__Settings' ) ) {
 				wp_nonce_field( 'saving', 'tribe-save-settings' );
 				echo '<div class="clear"></div>';
 				echo '<input type="hidden" name="current-settings-tab" id="current-settings-tab" value="' . esc_attr( $this->currentTab ) . '" />';
-				echo '<input id="tribeSaveSettings" class="button-primary" type="submit" name="tribeSaveSettings" value="' . esc_attr__( ' Save Changes', 'tribe-events-calendar' ) . '" />';
+				echo '<input id="tribeSaveSettings" class="button-primary" type="submit" name="tribeSaveSettings" value="' . esc_attr__( 'Save Changes', 'tribe-events-calendar' ) . '" />';
 			}
 			echo apply_filters( 'tribe_settings_closing_form_element', '</form>' );
 			do_action( 'tribe_settings_after_form_element' );
@@ -408,14 +408,15 @@ if ( ! class_exists( 'Tribe__Events__Settings' ) ) {
 						$parent_option = ( isset( $validated_field->field['parent_option'] ) ) ? $validated_field->field['parent_option'] : Tribe__Events__Main::OPTIONNAME;
 					}
 
-					$parent_option = apply_filters( 'tribe_settings_save_field_parent_option', $parent_option, $field_id );
+					$parent_option  = apply_filters( 'tribe_settings_save_field_parent_option', $parent_option, $field_id );
+					$network_option = isset( $validated_field->field['network_option'] ) ? (bool) $validated_field->field['network_option'] : false;
 
 					// some hooks
 					do_action( 'tribe_settings_save_field', $field_id, $value, $validated_field );
 					do_action( 'tribe_settings_save_field_' . $field_id, $value, $validated_field );
 
 					if ( ! $parent_option ) {
-						if ( is_network_admin() ) {
+						if ( $network_option || is_network_admin() ) {
 							update_site_option( $field_id, $value );
 						} else {
 							update_option( $field_id, $value );
