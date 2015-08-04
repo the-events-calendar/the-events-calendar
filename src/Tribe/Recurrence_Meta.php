@@ -62,6 +62,7 @@ class Tribe__Events__Pro__Recurrence_Meta {
 		add_action( 'deleted_post_meta', array( __CLASS__, 'remove_child_thumbnails' ), 4, 40 );
 
 		add_action( 'tribe_community_events_enqueue_resources', array( __CLASS__, 'enqueue_recurrence_data' ) );
+		add_action( 'tribe_events_community_form_before_template', array( __CLASS__, 'output_recurrence_json_data' ) );
 
 		if ( is_admin() ) {
 			add_filter( 'tribe_events_pro_localize_script', array( __CLASS__, 'localize_scripts' ), 10, 3 );
@@ -540,6 +541,21 @@ class Tribe__Events__Pro__Recurrence_Meta {
 			'recurrence' => self::recurrence_strings(),
 			'exclusion' => array(),
 		) );
+	}
+
+	/**
+	 * Outputs recurrence data in JSON format when localize script won't work
+	 *
+	 * @param int $post_id Post ID of event
+	 */
+	public static function output_recurrence_json_data( $post_id ) {
+		// convert array to variables that can be used in the view
+		$recurrence = Tribe__Events__Pro__Recurrence_Meta::getRecurrenceMeta( $post_id );
+		?>
+		<script>
+		var tribe_events_pro_recurrence_data = <?php echo json_encode( $recurrence ); ?>;
+		</script>
+		<?php
 	}
 
 	public static function filter_passthrough( $data ) {
