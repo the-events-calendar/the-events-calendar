@@ -1294,8 +1294,8 @@ class Tribe__Events__Pro__Recurrence_Meta {
 		$start_date = strtotime( $rule['EventStartDate'] );
 		$end_date = strtotime( $rule['EventStartDate'] );
 
-		$num_days = floor( ( $end_date - $start_date ) / DAYS_IN_SECONDS );
-		$num_hours = floor( ( ( $end_date - $start_date ) / HOURS_IN_SECONDS ) - ( $num_days * 24 ) );
+		$num_days = floor( ( $end_date - $start_date ) / DAY_IN_SECONDS );
+		$num_hours = floor( ( ( $end_date - $start_date ) / HOUR_IN_SECONDS ) - ( $num_days * 24 ) );
 
 		$new_start_date = date( 'Y-m-d', $start_date ) . ' ' . $rule['custom']['start-time']['hour'] . ':' . $rule['custom']['start-time']['minute'];
 		if ( isset( $rule['custom']['start-time']['meridian'] ) ) {
