@@ -1098,14 +1098,19 @@
 			public function admin_enqueue_scripts() {
 				wp_enqueue_script( 'handlebars', $this->pluginUrl . '/vendor/handlebars/handlebars.min.js', array(), apply_filters( 'tribe_events_pro_js_version', self::VERSION ), true );
 				wp_enqueue_script( 'moment', $this->pluginUrl . '/vendor/momentjs/moment.min.js', array(), apply_filters( 'tribe_events_pro_js_version', self::VERSION ), true );
-				wp_enqueue_script( Tribe__Events__Main::POSTTYPE.'-premium-admin', tribe_events_pro_resource_url( 'events-admin.js' ), array( 'jquery-ui-datepicker' ), apply_filters( 'tribe_events_pro_js_version', self::VERSION ), true );
-				wp_enqueue_script( Tribe__Events__Main::POSTTYPE.'-premium-recurrence', tribe_events_pro_resource_url( 'events-recurrence.js' ), array( Tribe__Events__Main::POSTTYPE.'-premium-admin', 'handlebars', 'moment' ), apply_filters( 'tribe_events_pro_js_version', self::VERSION ), true );
+				wp_enqueue_script( Tribe__Events__Main::POSTTYPE . '-premium-admin', tribe_events_pro_resource_url( 'events-admin.js' ), array( 'jquery-ui-datepicker' ), apply_filters( 'tribe_events_pro_js_version', self::VERSION ), true );
+				wp_enqueue_script( Tribe__Events__Main::POSTTYPE . '-premium-recurrence', tribe_events_pro_resource_url( 'events-recurrence.js' ), array( Tribe__Events__Main::POSTTYPE.'-premium-admin', 'handlebars', 'moment' ), apply_filters( 'tribe_events_pro_js_version', self::VERSION ), true );
 				$data = apply_filters( 'tribe_events_pro_localize_script', array(), 'TribeEventsProAdmin', Tribe__Events__Main::POSTTYPE.'-premium-admin' );
-				wp_localize_script( Tribe__Events__Main::POSTTYPE.'-premium-admin', 'TribeEventsProAdmin', $data );
+				wp_localize_script( Tribe__Events__Main::POSTTYPE . '-premium-admin', 'TribeEventsProAdmin', $data );
+				wp_localize_script( Tribe__Events__Main::POSTTYPE . '-premium-admin', 'tribe_events_pro_recurrence_strings', array(
+					'date' => Tribe__Events__Pro__Recurrence_Meta::date_strings(),
+					'recurrence' => Tribe__Events__Pro__Recurrence_Meta::recurrence_strings(),
+					'exclusion' => array(),
+				) );
 			}
 
 			public function admin_enqueue_styles() {
-				wp_enqueue_style( Tribe__Events__Main::POSTTYPE.'-premium-admin', tribe_events_pro_resource_url( 'events-admin.css' ), array(), apply_filters( 'tribe_events_pro_css_version', self::VERSION ) );
+				wp_enqueue_style( Tribe__Events__Main::POSTTYPE . '-premium-admin', tribe_events_pro_resource_url( 'events-admin.css' ), array(), apply_filters( 'tribe_events_pro_css_version', self::VERSION ) );
 			}
 
 			/**

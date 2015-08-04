@@ -82,7 +82,7 @@ tribe_events_pro_admin.recurrence = {
 	 * adds a recurrence rule to the list of available rules
 	 */
 	my.add_recurrence = function( data ) {
-		if ( 'undefined' !== typeof data.end && data.end ) {
+		if ( 'undefined' !== typeof data && 'undefined' !== typeof data.end && data.end ) {
 			var date_format = tribe_datepicker_opts.dateFormat.toUpperCase().replace( 'YY', 'YYYY' );
 			data.end = moment( data.end ).format( date_format );
 		}

@@ -61,6 +61,8 @@ class Tribe__Events__Pro__Recurrence_Meta {
 		add_action( 'added_post_meta', array( __CLASS__, 'update_child_thumbnails' ), 4, 40 );
 		add_action( 'deleted_post_meta', array( __CLASS__, 'remove_child_thumbnails' ), 4, 40 );
 
+		add_action( 'tribe_community_events_enqueue_resources', array( __CLASS__, 'enqueue_recurrence_data' ) );
+
 		if ( is_admin() ) {
 			add_filter( 'tribe_events_pro_localize_script', array( __CLASS__, 'localize_scripts' ), 10, 3 );
 		}
@@ -513,19 +515,32 @@ class Tribe__Events__Pro__Recurrence_Meta {
 		if ( ! empty( $post->post_parent ) ) {
 			return; // don't show recurrence fields for instances of a recurring event
 		}
-		// convert array to variables that can be used in the view
-		$recurrence = self::getRecurrenceMeta( $post_id );
 
-		wp_localize_script( Tribe__Events__Main::POSTTYPE.'-premium-admin', 'tribe_events_pro_recurrence_data', $recurrence );
+		self::enqueue_recurrence_data( $post_id );
+
+		$premium = Tribe__Events__Pro__Main::instance();
+		include Tribe__Events__Pro__Main::instance()->pluginPath . 'src/admin-views/event-recurrence.php';
+	}//end loadRecurrenceData
+
+	/**
+	 * Localizes recurrence JS data
+	 */
+	public static function enqueue_recurrence_data( $post_id = null ) {
+		wp_enqueue_style( Tribe__Events__Main::POSTTYPE . '-recurrence', tribe_events_pro_resource_url( 'events-recurrence.css' ), array(), apply_filters( 'tribe_events_pro_css_version', Tribe__Events__Pro__Main::VERSION ) );
+
+		if ( $post_id ) {
+			// convert array to variables that can be used in the view
+			$recurrence = self::getRecurrenceMeta( $post_id );
+
+			wp_localize_script( Tribe__Events__Main::POSTTYPE.'-premium-admin', 'tribe_events_pro_recurrence_data', $recurrence );
+		}
+
 		wp_localize_script( Tribe__Events__Main::POSTTYPE.'-premium-admin', 'tribe_events_pro_recurrence_strings', array(
 			'date' => self::date_strings(),
 			'recurrence' => self::recurrence_strings(),
 			'exclusion' => array(),
 		) );
-
-		$premium = Tribe__Events__Pro__Main::instance();
-		include Tribe__Events__Pro__Main::instance()->pluginPath . 'src/admin-views/event-recurrence.php';
-	}//end loadRecurrenceData
+	}
 
 	public static function filter_passthrough( $data ) {
 		return $data;
