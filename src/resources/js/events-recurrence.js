@@ -82,6 +82,13 @@ tribe_events_pro_admin.recurrence = {
 	 * adds a recurrence rule to the list of available rules
 	 */
 	my.add_recurrence = function( data ) {
+		if ( 'undefined' !== typeof data.end && data.end ) {
+			var end_moment = moment( data.end );
+			var date_format = tribe_datepicker_opts.dateFormat.toUpperCase();
+			date_format = date_format.replace( 'YY', 'YYYY' );
+			data.end = end_moment.format( date_format );
+		}
+
 		this.$recurrence_staging.append( this.recurrence_template( data ) );
 
 		var $rule = this.$recurrence_staging.find( '.tribe-event-recurrence' );
