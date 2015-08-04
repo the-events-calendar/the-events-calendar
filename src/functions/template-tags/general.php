@@ -1675,7 +1675,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	function tribe_get_render_context( $query = null ) {
 		global $wp_query;
 
-		if ( ! $query ) {
+		if ( ! $query instanceof WP_Query ) {
 			$query = $wp_query;
 		}
 
