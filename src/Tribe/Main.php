@@ -2851,9 +2851,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 */
 		public function addEventMeta( $postId, $post ) {
 
-			// Remove this hook to avoid an infinite loop, because saveEventMeta calls wp_update_post when the post is set to always show in calendar
-			remove_action( 'save_post', array( $this, 'addEventMeta' ), 15, 2 );
-
 			// only continue if it's an event post
 			if ( $post->post_type !== self::POSTTYPE || defined( 'DOING_AJAX' ) ) {
 				return;
@@ -2879,6 +2876,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			if ( ! current_user_can( 'edit_tribe_events' ) ) {
 				return;
 			}
+
+			// Remove this hook to avoid an infinite loop, because saveEventMeta calls wp_update_post when the post is set to always show in calendar
+			remove_action( 'save_post', array( $this, 'addEventMeta' ), 15, 2 );
 
 			$_POST['Organizer'] = isset( $_POST['organizer'] ) ? stripslashes_deep( $_POST['organizer'] ) : null;
 			$_POST['Venue']     = isset( $_POST['venue'] ) ? stripslashes_deep( $_POST['venue'] ) : null;
