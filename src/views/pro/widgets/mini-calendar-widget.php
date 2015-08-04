@@ -23,12 +23,14 @@ $args = tribe_events_get_mini_calendar_args();
 
 	<!-- Grid -->
 	<?php
-
-	tribe_show_month( array(
+	$month_widget_args = apply_filters( 'tribe_events_pro_min_calendar_widget_args', array(
 		'tax_query' => $args['tax_query'],
 		'eventDate' => $args['eventDate'],
 		'suppress_nothing_found_notice' => true,
-	), 'pro/widgets/mini-calendar/grid' ); ?>
+		'tribe_render_context' => 'widget',
+	) );
+
+	tribe_show_month( $month_widget_args, 'pro/widgets/mini-calendar/grid' ); ?>
 
 	<!-- List -->
 	<?php
