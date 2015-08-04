@@ -1665,4 +1665,24 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		$value = call_user_func( array( $defaults, $field ) );
 		return $value;
 }
+
+	/**
+	 * Gets the render context of the given query
+	 *
+	 * @param WP_Query $query Query object
+	 * @return string
+	 */
+	function tribe_get_render_context( $query = null ) {
+		global $wp_query;
+
+		if ( ! $query ) {
+			$query = $wp_query;
+		}
+
+		if ( empty( $query->query['tribe_render_context'] ) ) {
+			return 'default';
+		}
+
+		return $query->query['tribe_render_context'];
+	}
 }
