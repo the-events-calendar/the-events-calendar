@@ -83,10 +83,8 @@ tribe_events_pro_admin.recurrence = {
 	 */
 	my.add_recurrence = function( data ) {
 		if ( 'undefined' !== typeof data.end && data.end ) {
-			var end_moment = moment( data.end );
-			var date_format = tribe_datepicker_opts.dateFormat.toUpperCase();
-			date_format = date_format.replace( 'YY', 'YYYY' );
-			data.end = end_moment.format( date_format );
+			var date_format = tribe_datepicker_opts.dateFormat.toUpperCase().replace( 'YY', 'YYYY' );
+			data.end = moment( data.end ).format( date_format );
 		}
 
 		this.$recurrence_staging.append( this.recurrence_template( data ) );
