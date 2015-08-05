@@ -206,75 +206,57 @@ $more_text  = __( 'More...', 'tribe-events-calendar' );
 	<div id="modern-tribe-info">
 		<img src="<?php echo esc_url( plugins_url( 'resources/images/modern-tribe@2x.png', dirname( __FILE__ ) ) ); ?>" alt="Modern Tribe Inc." title="Modern Tribe Inc.">
 
-<<<<<<< HEAD:admin-views/tribe-options-help.php
-		<p><?php _e( 'Hi! We are Modern Tribe and we are here to help you kick ass. Thanks so much for installing our labor of love!', 'tribe-events-calendar' ); ?></p>
-		<?php echo(
+		<p><?php esc_html_e( 'Hi! We are Modern Tribe and we are here to help you be awesome. Thanks so much for installing our labor of love!', 'tribe-events-calendar' ); ?></p>
+		<?php
 		/**
 		 * Filter the text inside the box at the top of the Settings > Help tab
 		 *
 		 * @param string $getting_started_text
 		 */
-		apply_filters( 'tribe_help_tab_getting_started_content', $getting_started_text ) ); ?>
-=======
-		<p><?php esc_html_e( 'Hi! We are Modern Tribe and we are here to help you be awesome. Thanks so much for installing our labor of love!', 'tribe-events-calendar' ); ?></p>
-		<?php echo apply_filters( 'tribe_help_tab_getting_started_content', $getting_started_text ); ?>
->>>>>>> release/120:src/admin-views/tribe-options-help.php
+		echo apply_filters( 'tribe_help_tab_getting_started_content', $getting_started_text ); ?>
 	</div>
 
 	<div class="tribe-settings-form-wrap">
 
-<<<<<<< HEAD:admin-views/tribe-options-help.php
-		<h3><?php _e( 'Getting Started', 'tribe-events-calendar' ); ?></h3>
-		<?php echo(
+		<h3><?php esc_html_e( 'Getting Started', 'tribe-events-calendar' ); ?></h3>
+		<?php
 		/**
 		 * Filter the "Getting Started" text on the Settings > Help tab
 		 *
 		 * @param string $intro_text
 		 */
-		apply_filters( 'tribe_help_tab_introtext', $intro_text ) ); ?>
+		echo apply_filters( 'tribe_help_tab_introtext', $intro_text );
+		?>
 
-		<h3><?php _e( 'Support Resources To Help You Kick Ass', 'tribe-events-calendar' ); ?></h3>
-		<?php echo(
-
+		<h3><?php esc_html_e( 'Support Resources To Help You Be Awesome', 'tribe-events-calendar' ); ?></h3>
+		<?php
 		/**
-		 * Filter the "Support Resources To Help You Kick Ass" text on the Settings > Help tab
+		 * Filter the "Support Resources To Help You Be Awesome" text on the Settings > Help tab
 		 *
 		 * @param string $intro_text
 		 */
-		apply_filters( 'tribe_help_tab_supporttext', $support_text ) ); ?>
+		echo apply_filters( 'tribe_help_tab_supporttext', $support_text );
+		?>
 
-		<h3><?php _e( 'Forums: Because Everyone Needs A Buddy', 'tribe-events-calendar' ); ?></h3>
-		<?php echo(
+		<h3><?php esc_html_e( 'Forums: Because Everyone Needs A Buddy', 'tribe-events-calendar' ); ?></h3>
+		<?php
 		/**
 		 * Filter the "Forums: Because Everyone Needs A Buddy" text on the Settings > Help tab
 		 *
 		 * @param string $forum_text
 		 */
-		apply_filters( 'tribe_help_tab_forumtext', $forum_text ) ); ?>
+		echo apply_filters( 'tribe_help_tab_forumtext', $forum_text );
+		?>
 
-		<h3><?php _e( 'Not getting help?', 'tribe-events-calendar' ); ?></h3>
-		<?php echo(
+		<h3><?php esc_html_e( 'Not getting help?', 'tribe-events-calendar' ); ?></h3>
+		<?php
 		/**
 		 * Filter the "Not getting help?" text on the Settings > Help tab
 		 *
 		 * @param string $outro_text
 		 */
-		apply_filters( 'tribe_help_tab_outro', $outro_text ) ); ?>
-=======
-		<h3><?php esc_html_e( 'Getting Started', 'tribe-events-calendar' ); ?></h3>
-		<?php echo apply_filters( 'tribe_help_tab_introtext', $intro_text ); ?>
+		echo apply_filters( 'tribe_help_tab_outro', $outro_text );
 
-		<h3><?php esc_html_e( 'Support Resources To Help You Be Awesome', 'tribe-events-calendar' ); ?></h3>
-		<?php echo apply_filters( 'tribe_help_tab_supporttext', $support_text ); ?>
-
-		<h3><?php esc_html_e( 'Forums: Because Everyone Needs A Buddy', 'tribe-events-calendar' ); ?></h3>
-		<?php echo apply_filters( 'tribe_help_tab_forumtext', $forum_text ); ?>
-
-		<h3><?php esc_html_e( 'Not getting help?', 'tribe-events-calendar' ); ?></h3>
-		<?php echo apply_filters( 'tribe_help_tab_outro', $outro_text ); ?>
->>>>>>> release/120:src/admin-views/tribe-options-help.php
-
-		<?php
 		/**
 		 * Fires at the end of the help text content on the Settings > Help tab
 		 */
@@ -296,20 +278,21 @@ $more_text  = __( 'More...', 'tribe-events-calendar' );
 			<br /><?php } ?>
 			<b><?php esc_html_e( 'Author:', 'tribe-events-calendar' ); ?></b> <?php esc_html_e( 'Modern Tribe Inc', 'tribe-events-calendar' ); ?>
 			<br />
-			<?php if ( isset( $requires ) ) { ?>
+			<?php
+			if ( isset( $requires ) ) {
+				?>
 				<b><?php esc_html_e( 'Requires:', 'tribe-events-calendar' ); ?></b> <?php esc_html_e( 'WordPress ', 'tribe-events-calendar' );
-				echo $requires; ?>+<br /><?php } ?>
-<<<<<<< HEAD:admin-views/tribe-options-help.php
-			<a href="<?php echo esc_url(
-				/**
-				 * Filter the URL to The Events Calendar plugin page on Wordpress.org
-				 *
-				 * @param string $url
-				 */
-				apply_filters( 'tribe_help_tab_wp_plugin_url', Tribe__Events__Main::WP_PLUGIN_URL ) ); ?>"><?php _e( 'Wordpress.org Plugin Page', 'tribe-events-calendar' ); ?></a>
-=======
-			<a href="<?php echo esc_url( apply_filters( 'tribe_help_tab_wp_plugin_url', Tribe__Events__Main::WP_PLUGIN_URL ) ); ?>"><?php esc_html_e( 'Wordpress.org Plugin Page', 'tribe-events-calendar' ); ?></a>
->>>>>>> release/120:src/admin-views/tribe-options-help.php
+				echo $requires; ?>+<br />
+				<?php
+			}
+			/**
+			 * Filter the URL to The Events Calendar plugin page on Wordpress.org
+			 *
+			 * @param string $url
+			 */
+			$tribe_help_tab_wp_plugin_url = apply_filters( 'tribe_help_tab_wp_plugin_url', Tribe__Events__Main::WP_PLUGIN_URL );
+			?>
+			<a href="<?php echo esc_url( $tribe_help_tab_wp_plugin_url ); ?>"><?php esc_html_e( 'Wordpress.org Plugin Page', 'tribe-events-calendar' ); ?></a>
 		</p>
 	</div>
 
@@ -323,17 +306,15 @@ $more_text  = __( 'More...', 'tribe-events-calendar' );
 		) ); ?>
 		<?php printf( _n( 'Based on %d rating', 'Based on %d ratings', $num_rating, 'tribe-events-calendar' ), $num_rating ); ?>
 		<p>
-<<<<<<< HEAD:admin-views/tribe-options-help.php
-			<a href="<?php echo esc_url(
+			<?php
 			/**
 			 * Filter the URL to The Events Calendar plugin page on Wordpress.org
 			 *
 			 * @param string $url
 			 */
-			apply_filters( 'tribe_help_tab_wp_plugin_url', 'http://wordpress.org/support/view/plugin-reviews/the-events-calendar?filter=5' ) ); ?>"><?php _e( 'Give us 5 stars!', 'tribe-events-calendar' ); ?></a>
-=======
-			<a href="<?php echo esc_url( apply_filters( 'tribe_help_tab_wp_plugin_url', 'http://wordpress.org/support/view/plugin-reviews/the-events-calendar?filter=5' ) ); ?>"><?php esc_html_e( 'Give us 5 stars!', 'tribe-events-calendar' ); ?></a>
->>>>>>> release/120:src/admin-views/tribe-options-help.php
+			$tribe_help_tab_wp_plugin_url = apply_filters( 'tribe_help_tab_wp_plugin_url', 'http://wordpress.org/support/view/plugin-reviews/the-events-calendar?filter=5' );
+			?>
+			<a href="<?php echo esc_url( $tribe_help_tab_wp_plugin_url ); ?>"><?php esc_html_e( 'Give us 5 stars!', 'tribe-events-calendar' ); ?></a>
 		</p>
 	<?php } ?>
 
