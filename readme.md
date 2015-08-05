@@ -14,7 +14,7 @@ We do have some guidelines that you should keep in mind while working with this 
 
 3. **We do not accept or handle support issues or bug reports here.** You may notice that we have disabled the Issues tab on this GitHub project. Please submit bug reports at [WordPress.org](http://wordpress.org/support/plugin/the-events-calendar). If you have purchased any of our premium add-ons, you may create an account and submit support requests at our [Premium Support Forums](http://m.tri.be/kj).
 
-4. **Please fork the develop branch and submit your pull requests against that branch.** This is the branch with the latest code we are working on. Pull requests to the master branch can't be merged automatically and may be closed.
+4. **Please fork the highest numbered release branch (ex. `release/120`) and submit your pull requests against that branch.** This is the branch with the latest code we are working on. Pull requests to the master branch can't be merged automatically and may be closed.
 
 5. **When developing apply `define('SCRIPT_DEBUG', true)` in your wp-config.php**. This will load unminified versions of our js assets and give you some debugging information in your dev console.
 

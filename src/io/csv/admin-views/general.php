@@ -14,7 +14,7 @@ require 'header.php';
 		<?php printf( __( 'To import events, first select a %sDefault Import Event Status%s below to assign to your imported events.', 'tribe-events-calendar' ), '<strong>', '</strong>' ); ?>
 	</p>
 	<p>
-		<?php esc_html_e( 'Once your setting is saved, move to the applicable Import tab to select import specific criteria.' ); ?>
+		<?php esc_html_e( 'Once your setting is saved, move to the applicable Import tab to select import specific criteria.', 'tribe-events-calendar' ); ?>
 	</p>
 </div>
 
@@ -45,7 +45,7 @@ require 'header.php';
 
 			<?php wp_nonce_field( 'tribe-import-general-settings', 'tribe-import-general-settings' ); ?>
 			<p>
-				<input type="submit" name="tribe-events-importexport-general-settings-submit" class="button-primary" value="Save Settings"/>
+				<input type="submit" name="tribe-events-importexport-general-settings-submit" class="button-primary" value="<?php esc_attr_e( 'Save Settings', 'tribe-events-calendar' ); ?>"/>
 			</p>
 		</div>
 	</form>

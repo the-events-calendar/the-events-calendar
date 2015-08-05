@@ -2128,7 +2128,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				return;
 			}
 
-			if ( Tribe__Events__Main::POSTTYPE !== $screen->post_type ) {
+			if ( self::POSTTYPE !== $screen->post_type ) {
 				return;
 			}
 
@@ -2558,7 +2558,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
  			// Hack: Add space after paragraph
 			// Normally Google Cal understands the newline character %0a
 			// And that character will automatically replace newlines on urlencode()
-			$event_details = str_replace ('</p>', '</p> ', $event_details);
+			$event_details = str_replace ( '</p>', '</p> ', $event_details );
 
 			$event_details = strip_tags( $event_details );
 
@@ -2590,17 +2590,17 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			return $url;
 		}
 
-	/**
-	 * Custom Escape for gCal Description to keep spacing characters in the url
-	 *
-	 * @return santized url
-	 */
-	public function esc_gcal_url( $url ) {
-	  $url = str_replace( '%0A', 'TRIBE-GCAL-LINEBREAK', $url );
-	  $url = esc_url( $url );
-	  $url = str_replace( 'TRIBE-GCAL-LINEBREAK', '%0A', $url );
-	  return $url;
-	}
+		/**
+		* Custom Escape for gCal Description to keep spacing characters in the url
+		*
+		* @return santized url
+		*/
+		public function esc_gcal_url( $url ) {
+			$url = str_replace( '%0A', 'TRIBE-GCAL-LINEBREAK', $url );
+			$url = esc_url( $url );
+			$url = str_replace( 'TRIBE-GCAL-LINEBREAK', '%0A', $url );
+			return $url;
+		}
 
 		/**
 		 * Returns a link to google maps for the given event. This link can be filtered
@@ -2792,7 +2792,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 */
 		public function getEventMeta( $id, $meta, $single = true ) {
 			$value = get_post_meta( $id, $meta, $single );
-			if ( $value === FALSE ) {
+			if ( $value === false ) {
 				$method = str_replace( '_Event', '', $meta );
 				$default = call_user_func( array( $this->defaults(), strtolower( $method ) ) );
 				$value = apply_filters( 'filter_eventsDefault' . $method, $default );
@@ -2867,9 +2867,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 */
 		public function addEventMeta( $postId, $post ) {
 
-			// Remove this hook to avoid an infinite loop, because saveEventMeta calls wp_update_post when the post is set to always show in calendar
-			remove_action( 'save_post', array( $this, 'addEventMeta' ), 15, 2 );
-
 			// only continue if it's an event post
 			if ( $post->post_type !== self::POSTTYPE || defined( 'DOING_AJAX' ) ) {
 				return;
@@ -2895,6 +2892,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			if ( ! current_user_can( 'edit_tribe_events' ) ) {
 				return;
 			}
+
+			// Remove this hook to avoid an infinite loop, because saveEventMeta calls wp_update_post when the post is set to always show in calendar
+			remove_action( 'save_post', array( $this, 'addEventMeta' ), 15, 2 );
 
 			$_POST['Organizer'] = isset( $_POST['organizer'] ) ? stripslashes_deep( $_POST['organizer'] ) : null;
 			$_POST['Venue']     = isset( $_POST['venue'] ) ? stripslashes_deep( $_POST['venue'] ) : null;
@@ -2925,18 +2925,18 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 		public function normalize_organizer_submission( $submission ) {
 			$organizers = array();
-			if ( !isset( $submission['OrganizerID'] ) ) {
+			if ( ! isset( $submission['OrganizerID'] ) ) {
 				return $organizers; // not a valid submission
 			}
 
 			if ( is_array( $submission['OrganizerID'] ) ) {
 				foreach ( $submission['OrganizerID'] as $key => $organizer_id ) {
-					if ( !empty( $organizer_id ) ) {
+					if ( ! empty( $organizer_id ) ) {
 						$organizers[] = array( 'OrganizerID' => intval( $organizer_id ) );
 					} else {
 						$o = array();
 						foreach ( array( 'Organizer', 'Phone', 'Website', 'Email' ) as $field_name ) {
-							$o[$field_name] = isset( $submission[$field_name][$key] ) ? $submission[$field_name][$key] : '';
+							$o[ $field_name ] = isset( $submission[ $field_name ][ $key ] ) ? $submission[ $field_name ][ $key ] : '';
 						}
 						$organizers[] = $o;
 					}
@@ -2947,7 +2947,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			// old style with single organizer fields
 			$o = array();
 			foreach ( array( 'Organizer', 'Phone', 'Website', 'Email' ) as $field_name ) {
-				$o[$field_name] = isset( $submission[$field_name] ) ? $submission[$field_name] : '';
+				$o[ $field_name ] = isset( $submission[ $field_name ] ) ? $submission[ $field_name ] : '';
 			}
 			$organizers[] = $o;
 			return $organizers;

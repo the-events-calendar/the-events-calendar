@@ -328,7 +328,7 @@ if ( class_exists( 'Tribe__Events__Advanced_Functions__Register_Meta' ) ) {
 				'meta_after'   => '',
 			),
 			'label'           => '',
-			'filter_callback' => array( 'Tribe__Events__Advanced_Functions__Register_Meta', 'gmap_link' ),
+			'filter_callback' => 'tribe_get_map_link_html',
 		)
 	);
 }
