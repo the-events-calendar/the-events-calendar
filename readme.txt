@@ -240,6 +240,7 @@ Our Premium Plugins:
 * Bug - Fixed an issue where the WP Customizer save button remained disabled when the Events Calendar widget filters were removed
 * Bug - Fixed an issue where the Events Calendar widget form partially overflowed the widget container in the WP Customizer
 * Bug - Addressed numerous minor styling issues with the Twenty Fifteen theme
+* Bug - Fixed APM Start/End Date filters to stop showing SQL errors
 * Tweak - Conformed code to updated coding standards
 * Tweak - Removed TribeEventsPro.recurrence JS from the front-end
 * Tweak - Made some changes to the EOD cutoff functionality behavior
