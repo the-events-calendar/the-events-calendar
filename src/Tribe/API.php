@@ -256,13 +256,9 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 		 * @param $event_id
 		 */
 		public static function update_event_cost( $event_id ) {
-			// Load the current event costs: assume the first of these is the "base" cost
-			// which can be set per event when only the core plugin is running
-			$event_cost = (array) get_post_meta( $event_id, '_EventCost' );
-			$base_cost  = array_shift( $event_cost );
-
-			// Allow addons (ie, ticketing plugins) to register additional event costs
-			$event_cost = (array) apply_filters( 'tribe_events_event_costs', array( $base_cost ), $event_id );
+			// Loads current event costs on construct
+			// Tribe__Events__Tickets__Tickets->get_ticket_prices() adds them to the filter 'tribe_events_event_costs'
+			$event_cost = (array) apply_filters( 'tribe_events_event_costs', array(), $event_id );
 
 			// Kill the old cost meta data
 			delete_post_meta( $event_id, '_EventCost' );
