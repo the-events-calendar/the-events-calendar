@@ -19,6 +19,11 @@ tribe_events_pro_admin.recurrence = {
 	my.init_recurrence = function() {
 		this.$recurrence_staging = $( '#tribe-recurrence-staging' );
 		this.$recurrence_tmpl = $( '#tmpl-tribe-recurrence' );
+
+		if ( ! this.$recurrence_tmpl.length ) {
+			return;
+		}
+
 		this.recurrence_template = Handlebars.compile( this.$recurrence_tmpl.html() );
 		this.$add_recurrence = $( '#tribe-add-recurrence' );
 		this.$recurrence_rules = $( '.tribe-event-recurrence-rule' );

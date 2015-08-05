@@ -104,8 +104,14 @@
 			{{/tribe_recurrence_select}}
 		</select>
 
-		<label class="tribe-custom-same-time">
-			<input type="checkbox" class="tribe-same-time-checkbox" name="recurrence[<?php echo esc_attr( $rule_type ); ?>][][custom][year][same-time]" data-field="custom-year-same-time" value="yes" {{tribe_checked_if_is 'yes' custom.year.[same-time]}}/> <?php esc_html_e( 'Same time', 'tribe-events-calendar-pro' ); ?>
-		</label>
+		<?php
+		if ( 'rules' === $rule_type ) {
+			?>
+			<label class="tribe-custom-same-time">
+				<input type="checkbox" class="tribe-same-time-checkbox" name="recurrence[<?php echo esc_attr( $rule_type ); ?>][][custom][year][same-time]" data-field="custom-year-same-time" value="yes" {{tribe_checked_if_is 'yes' custom.year.[same-time]}}/> <?php esc_html_e( 'Same time', 'tribe-events-calendar-pro' ); ?>
+			</label>
+			<?php
+		}
+		?>
 	</div>
 </div>
