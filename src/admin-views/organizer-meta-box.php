@@ -78,4 +78,3 @@ do_action( 'tribe_events_organizer_after_metabox', $post );
 		);
 	});
 </script>
->>>>>>> release/120:src/admin-views/organizer-meta-box.php
