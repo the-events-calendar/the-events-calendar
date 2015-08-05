@@ -3,8 +3,6 @@ var tribe_events_pro_admin = {
 };
 
 ( function( $, my ) {
-	'use strict';
-
 	my.init = function() {
 		this.init_settings();
 		// Admin Google Maps Preview
