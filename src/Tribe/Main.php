@@ -1708,6 +1708,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				// date picker
 				Tribe__Events__Template_Factory::asset_package( 'datepicker' );
 
+				// time picker
+				Tribe__Events__Template_Factory::asset_package( 'timepicker' );
+
 				// dialog
 				Tribe__Events__Template_Factory::asset_package( 'dialog' );
 
@@ -1765,6 +1768,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				'prevText'        => __( 'Prev', 'tribe-events-calendar' ),
 				'currentText'     => __( 'Today', 'tribe-events-calendar' ),
 				'closeText'       => __( 'Done', 'tribe-events-calendar' ),
+				'24hrTime'        => true
 			);
 
 			return $bits;

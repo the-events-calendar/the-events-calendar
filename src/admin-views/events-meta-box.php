@@ -56,13 +56,7 @@ if ( class_exists( 'Eventbrite_for_TribeEvents' ) ) {
 
 							<span class="helper-text hide-if-js"><?php esc_html_e( 'YYYY-MM-DD', 'tribe-events-calendar' ) ?></span>
 							<span class="timeofdayoptions">
-								<?php echo tribe_get_datetime_separator(); ?>
-								<select tabindex="<?php tribe_events_tab_index(); ?>" name="EventStartHour">
-									<?php echo $startHourOptions; ?>
-								</select>
-								<select tabindex="<?php tribe_events_tab_index(); ?>" name="EventStartMinute">
-									<?php echo $startMinuteOptions; ?>
-								</select>
+								<?php tribe_events_timepicker(); ?>
 								<?php if ( ! Tribe__Events__View_Helpers::is_24hr_format() ) : ?>
 									<select tabindex="<?php tribe_events_tab_index(); ?>" name="EventStartMeridian">
 										<?php echo $startMeridianOptions; ?>
