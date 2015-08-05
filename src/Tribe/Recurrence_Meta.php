@@ -1181,7 +1181,7 @@ class Tribe__Events__Pro__Recurrence_Meta {
 
 		$output_text = array();
 
-		foreach ( $recurrence_rules as $rule ) {
+		foreach ( $recurrence_rules['rules'] as $rule ) {
 			$output_text[] = self::recurrenceToText( $rule, $start_date );
 		}
 
@@ -1308,13 +1308,16 @@ class Tribe__Events__Pro__Recurrence_Meta {
 		$recurrence_strings = self::recurrence_strings();
 		$date_strings = self::date_strings();
 
+		$is_custom = false;
 		$same_time = true;
 		$year_filtered = false;
 		$rule['type'] = str_replace( ' ', '-', strtolower( $rule['type'] ) );
 		$rule['end-type'] = str_replace( ' ', '-', strtolower( $rule['end-type'] ) );
-		$rule['custom']['type'] = str_replace( ' ', '-', strtolower( $rule['custom-type'] ) );
+		$formatted_end = date( tribe_get_date_format( true ), strtotime( $rule['end'] ) );
 
 		if ( 'custom' === $rule['type'] ) {
+			$is_custom = true;
+			$rule['custom']['type'] = str_replace( ' ', '-', strtolower( $rule['custom']['type'] ) );
 			$same_time = 'yes' === $rule['custom'][ self::custom_type_to_key( $rule['custom']['type'] ) ];
 
 			if ( 'yearly' === $rule['custom']['type'] ) {
@@ -1323,23 +1326,25 @@ class Tribe__Events__Pro__Recurrence_Meta {
 		}
 
 		$start_date = strtotime( $rule['EventStartDate'] );
-		$end_date = strtotime( $rule['EventStartDate'] );
+		$end_date = strtotime( $rule['EventEndDate'] );
 
 		$num_days = floor( ( $end_date - $start_date ) / DAY_IN_SECONDS );
 		$num_hours = floor( ( ( $end_date - $start_date ) / HOUR_IN_SECONDS ) - ( $num_days * 24 ) );
 
-		$new_start_date = date( 'Y-m-d', $start_date ) . ' ' . $rule['custom']['start-time']['hour'] . ':' . $rule['custom']['start-time']['minute'];
-		if ( isset( $rule['custom']['start-time']['meridian'] ) ) {
-			$new_start_date .= ' ' . $rule['custom']['start-time']['meridian'];
-		}
+		if ( $is_custom && 'custom' === $rule['type'] ) {
+			$new_start_date = date( 'Y-m-d', $start_date ) . ' ' . $rule['custom']['start-time']['hour'] . ':' . $rule['custom']['start-time']['minute'];
+			if ( isset( $rule['custom']['start-time']['meridian'] ) ) {
+				$new_start_date .= ' ' . $rule['custom']['start-time']['meridian'];
+			}
 
-		$new_end_date = date( 'Y-m-d', $end_date ) . ' ' . $rule['custom']['end-time']['hour'] . ':' . $rule['custom']['end-time']['minute'];
-		if ( isset( $rule['custom']['end-time']['meridian'] ) ) {
-			$new_end_date .= ' ' . $rule['custom']['end-time']['meridian'];
-		}
+			$new_end_date = date( 'Y-m-d', $end_date ) . ' ' . $rule['custom']['end-time']['hour'] . ':' . $rule['custom']['end-time']['minute'];
+			if ( isset( $rule['custom']['end-time']['meridian'] ) ) {
+				$new_end_date .= ' ' . $rule['custom']['end-time']['meridian'];
+			}
 
-		$new_num_days = floor( ( $new_end_date - $new_start_date ) / DAYS_IN_SECONDS );
-		$new_num_hours = floor( ( ( $new_end_date - $new_start_date ) / HOURS_IN_SECONDS ) - ( $new_num_days * 24 ) );
+			$new_num_days = floor( ( $new_end_date - $new_start_date ) / DAYS_IN_SECONDS );
+			$new_num_hours = floor( ( ( $new_end_date - $new_start_date ) / HOURS_IN_SECONDS ) - ( $new_num_days * 24 ) );
+		}
 
 		$weekdays = array();
 		$months = array();
@@ -1347,7 +1352,7 @@ class Tribe__Events__Pro__Recurrence_Meta {
 		$month_day = null;
 		$month_day_description = null;
 
-		if ( 'weekly' === $rule['custom-type'] ) {
+		if ( $is_custom && 'weekly' === $rule['custom']['type'] ) {
 			foreach ( $rule['custom']['week']['day'] as $day ) {
 				$weekdays[] = $date_strings['weekdays'][ $day - 1 ];
 			}
@@ -1360,10 +1365,10 @@ class Tribe__Events__Pro__Recurrence_Meta {
 				$weekdays = implode( ', ', $weekdays );
 				$weekdays = preg_replace( '/(.*),/', '$1, ' . $date_strings['collection_joiner'], $weekdays );
 			}
-		} elseif ( 'monthly' === $rule['custom-type'] ) {
+		} elseif ( $is_custom && 'monthly' === $rule['custom']['type'] ) {
 			$month_number = $rule['custom']['month']['number'];
 			$month_day = $rule['custom']['month']['day'];
-		} elseif ( 'yearly' === $rule['custom-type'] ) {
+		} elseif ( $is_custom && 'yearly' === $rule['custom']['type'] ) {
 			$month_number = $rule['custom']['year']['month-number'];
 			$month_day = $rule['custom']['year']['month-day'];
 
@@ -1410,7 +1415,7 @@ class Tribe__Events__Pro__Recurrence_Meta {
 					$text,
 					$num_days,
 					$num_hours,
-					$rule['end']
+					$formatted_end
 				);
 				break;
 			case 'every-day-after':
@@ -1431,7 +1436,7 @@ class Tribe__Events__Pro__Recurrence_Meta {
 					$interval,
 					$num_days,
 					$num_hours,
-					$rule['end']
+					$formatted_end
 				);
 				break;
 			case 'custom-daily-after-same-time':
@@ -1451,7 +1456,7 @@ class Tribe__Events__Pro__Recurrence_Meta {
 					$new_start_time,
 					$new_num_days,
 					$new_num_hours,
-					$rule['end']
+					$formatted_end
 				);
 				break;
 			case 'custom-daily-after-diff-time':
@@ -1472,7 +1477,7 @@ class Tribe__Events__Pro__Recurrence_Meta {
 					$weekdays,
 					$num_days,
 					$num_hours,
-					$rule['end']
+					$formatted_end
 				);
 				break;
 			case 'custom-weekly-after-same-time':
@@ -1494,7 +1499,7 @@ class Tribe__Events__Pro__Recurrence_Meta {
 					$new_start_time,
 					$new_num_days,
 					$new_num_hours,
-					$rule['end']
+					$formatted_end
 				);
 				break;
 			case 'custom-weekly-after-diff-time':
@@ -1518,7 +1523,7 @@ class Tribe__Events__Pro__Recurrence_Meta {
 					$month_day_description,
 					$num_days,
 					$num_hours,
-					$rule['end']
+					$formatted_end
 				);
 				break;
 			case 'custom-monthly-after-same-time-numeric':
@@ -1543,7 +1548,7 @@ class Tribe__Events__Pro__Recurrence_Meta {
 					$new_start_time,
 					$new_num_days,
 					$new_num_hours,
-					$rule['end']
+					$formatted_end
 				);
 				break;
 			case 'custom-monthly-after-diff-time-numeric':
@@ -1569,7 +1574,7 @@ class Tribe__Events__Pro__Recurrence_Meta {
 					$month_day_description,
 					$num_days,
 					$num_hours,
-					$rule['end']
+					$formatted_end
 				);
 				break;
 			case 'custom-yearly-after-same-time-unfiltered':
@@ -1596,7 +1601,7 @@ class Tribe__Events__Pro__Recurrence_Meta {
 					$new_start_time,
 					$new_num_days,
 					$new_num_hours,
-					$rule['end']
+					$formatted_end
 				);
 				break;
 			case 'custom-yearly-after-diff-time-unfiltered':
