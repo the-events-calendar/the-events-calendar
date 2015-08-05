@@ -256,8 +256,8 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 		 * @param $event_id
 		 */
 		public static function update_event_cost( $event_id ) {
-			// Loads current event costs on construct
-			// Tribe__Events__Tickets__Tickets->get_ticket_prices() adds them to the filter 'tribe_events_event_costs'
+			// Loads current event costs, on construct
+			// Tribe__Events__Tickets__Tickets->get_ticket_prices() adds them to this filter
 			$event_cost = (array) apply_filters( 'tribe_events_event_costs', array(), $event_id );
 
 			// Kill the old cost meta data
