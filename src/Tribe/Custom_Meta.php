@@ -143,7 +143,7 @@ class Tribe__Events__Pro__Custom_Meta {
 	/**
 	 * add custom meta fields to the event array passed thru the importer
 	 */
-	public function import_additional_fields( $import_fields ) {
+	public static function import_additional_fields( $import_fields ) {
 		$custom_fields = (array) tribe_get_option( 'custom-fields' );
 		foreach ( $custom_fields as $custom_field ) {
 			$import_fields[ $custom_field['name'] ] = $custom_field['label'];
@@ -154,7 +154,7 @@ class Tribe__Events__Pro__Custom_Meta {
 	/**
 	 * add custom meta fields to the column mapping passed to the importer
 	 */
-	public function importer_column_mapping( $column_mapping ) {
+	public static function importer_column_mapping( $column_mapping ) {
 		$custom_fields = (array) tribe_get_option( 'custom-fields' );
 		foreach ( $custom_fields as $custom_field ) {
 			$column_mapping[ $custom_field['name'] ] = $custom_field['label'];
