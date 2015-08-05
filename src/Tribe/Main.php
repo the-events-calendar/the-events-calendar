@@ -2385,60 +2385,72 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 */
 		public function getLink( $type = 'home', $secondary = false, $term = null ) {
 			// if permalinks are off or user doesn't want them: ugly.
-			if ( '' == get_option( 'permalink_structure' ) ) {
+			if ( '' === get_option( 'permalink_structure' ) ) {
 				return esc_url_raw( $this->uglyLink( $type, $secondary ) );
 			}
 
 			// account for semi-pretty permalinks
 			if ( false !== strpos( get_option( 'permalink_structure' ), 'index.php' ) ) {
-				$eventUrl = trailingslashit( home_url() . '/index.php/' . sanitize_title( $this->getOption( 'eventsSlug', 'events' ) ) );
+				$event_url = home_url( '/index.php' );
 			} else {
-				$eventUrl = trailingslashit( home_url() . '/' . sanitize_title( $this->getOption( 'eventsSlug', 'events' ) ) );
+				$event_url = home_url( '/' );
 			}
+
+			// URL Arguments on home_url() pre-check
+			$url_query = @parse_url( $event_url, PHP_URL_QUERY );
+			$url_args = wp_parse_args( $url_query, array() );
+
+			// Remove the "args"
+			if ( ! empty( $url_query ) ) {
+				$event_url = str_replace( '?' . $url_query, '', $event_url );
+			}
+
+			// Append Events structure
+			$event_url .= trailingslashit( sanitize_title( $this->getOption( 'eventsSlug', 'events' ) ) );
 
 			// if we're on an Event Cat, show the cat link, except for home and days.
 			if ( $type !== 'home' && is_tax( self::TAXONOMY ) && $term !== false && ! is_numeric( $term ) ) {
 				$term_link = get_term_link( get_query_var( 'term' ), self::TAXONOMY );
 				if ( ! is_wp_error( $term_link ) ) {
-					$eventUrl = trailingslashit( $term_link );
+					$event_url = trailingslashit( $term_link );
 				}
 			} else {
 				if ( $term ) {
 					$term_link = get_term_link( (int) $term, self::TAXONOMY );
 					if ( ! is_wp_error( $term_link ) ) {
-						$eventUrl = trailingslashit( $term_link );
+						$event_url = trailingslashit( $term_link );
 					}
 				}
 			}
 
 			switch ( $type ) {
 				case 'home':
-					$eventUrl = trailingslashit( esc_url_raw( $eventUrl ) );
+					$event_url = trailingslashit( esc_url_raw( $event_url ) );
 					break;
 				case 'month':
 					if ( $secondary ) {
-						$eventUrl = trailingslashit( esc_url_raw( $eventUrl . $secondary ) );
+						$event_url = trailingslashit( esc_url_raw( $event_url . $secondary ) );
 					} else {
-						$eventUrl = trailingslashit( esc_url_raw( $eventUrl . $this->monthSlug ) );
+						$event_url = trailingslashit( esc_url_raw( $event_url . $this->monthSlug ) );
 					}
 					break;
 				case 'list':
-					$eventUrl = trailingslashit( esc_url_raw( $eventUrl . $this->listSlug ) );
+					$event_url = trailingslashit( esc_url_raw( $event_url . $this->listSlug ) );
 					break;
 				case 'upcoming':
-					$eventUrl = trailingslashit( esc_url_raw( $eventUrl . $this->listSlug ) );
+					$event_url = trailingslashit( esc_url_raw( $event_url . $this->listSlug ) );
 					break;
 				case 'past':
-					$eventUrl = esc_url_raw( add_query_arg( 'tribe_event_display', 'past', trailingslashit( $eventUrl . $this->listSlug ) ) );
+					$event_url = esc_url_raw( add_query_arg( 'tribe_event_display', 'past', trailingslashit( $event_url . $this->listSlug ) ) );
 					break;
 				case 'dropdown':
-					$eventUrl = esc_url_raw( $eventUrl );
+					$event_url = esc_url_raw( $event_url );
 					break;
 				case 'single':
 					global $post;
-					$p        = $secondary ? $secondary : $post;
-					$link     = trailingslashit( get_permalink( $p ) );
-					$eventUrl = trailingslashit( esc_url_raw( $link ) );
+					$p         = $secondary ? $secondary : $post;
+					$link      = trailingslashit( get_permalink( $p ) );
+					$event_url = trailingslashit( esc_url_raw( $link ) );
 					break;
 				case 'day':
 					if ( empty( $secondary ) ) {
@@ -2446,14 +2458,17 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 					} else {
 						$secondary = tribe_event_format_date( $secondary, false, Tribe__Events__Date_Utils::DBDATEFORMAT );
 					}
-					$eventUrl  = trailingslashit( esc_url_raw( $eventUrl . $secondary ) );
+					$event_url = trailingslashit( esc_url_raw( $event_url . $secondary ) );
 					break;
 				default:
-					$eventUrl = esc_url_raw( $eventUrl );
+					$event_url = esc_url_raw( $event_url );
 					break;
 			}
 
-			return apply_filters( 'tribe_events_getLink', $eventUrl, $type, $secondary, $term );
+			// Add the Arguments back
+			$event_url = add_query_arg( $url_args, $event_url );
+
+			return apply_filters( 'tribe_events_getLink', $event_url, $type, $secondary, $term );
 		}
 
 		/**
