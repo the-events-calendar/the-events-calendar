@@ -20,7 +20,7 @@ module.exports = {
 
 	dev: {
 		options: {
-			branch:'develop'
+			branch:'release/120'
 		}
 	}
 };

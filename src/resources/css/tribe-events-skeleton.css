@@ -39,7 +39,7 @@
 	display: inline;
 }
 /* 2011 Theme Extra Calendar Room */
-.events-archive .entry-content, 
+.events-archive .entry-content,
 .events-archive .entry-header { width: 98%; }
 
 /* Remove "Edit" Link from unneeded templates */
@@ -132,7 +132,7 @@ h2.tribe-events-page-title {
 h2.tribe-events-page-title a {
 	color: #000;
 }
-h2.tribe-events-page-title a:hover, 
+h2.tribe-events-page-title a:hover,
 h2.tribe-events-page-title a:focus {
 	color: #333;
 	text-decoration: underline;
@@ -236,7 +236,7 @@ select.tribe-events-dropdown {
 	font-size: 11px;
 	margin: 33px 9px 0 0;
 }
-#tribe-events-events-picker, 
+#tribe-events-events-picker,
 #tribe-events-picker {
 	display: inline;
 }
@@ -304,7 +304,7 @@ select.tribe-events-dropdown {
 	zoom: 1;
 	*display: inline;
 	white-space: pre;
-} 
+}
 
 .tribe-events-event-meta address.tribe-events-address {
 	display: inline;
@@ -341,7 +341,7 @@ select.tribe-events-dropdown {
 	padding: 0;
 }
 
-.events-archive h3 .published, 
+.events-archive h3 .published,
 .single-tribe_venue  h3 .published {
 	margin-top: 0;
 	font-style: italic;
@@ -416,7 +416,7 @@ select.tribe-events-dropdown {
 }
 
 /* Cal Links */
-.single-tribe_events .tribe-events-cal-links { 
+.single-tribe_events .tribe-events-cal-links {
 	display: inline-block;
 	zoom: 1;
 	*display: inline;
@@ -494,11 +494,11 @@ select.tribe-events-dropdown {
 	font-size: 12px;
 	border-collapse: collapse;
 }
-#tribe-events-content table.tribe-events-calendar, 
+#tribe-events-content table.tribe-events-calendar,
 #tribe-events-content .tribe-events-calendar td {
 	border: 1px solid #bbb;
 }
-.tribe-events-calendar div[id*="tribe-events-daynum-"], 
+.tribe-events-calendar div[id*="tribe-events-daynum-"],
 .tribe-events-calendar div[id*="tribe-events-daynum-"] a {
 	font-size: 11px;
 	font-weight: bold;
@@ -557,7 +557,7 @@ select.tribe-events-dropdown {
 	zoom: 1;
 	*display: inline;
 	position: relative;
-} 
+}
 .event-is-recurring {
 	position: relative;
 }
@@ -653,9 +653,9 @@ select.tribe-events-dropdown {
 	margin-left: 0;
 	margin-bottom: 0;
 }
-.tribe-events-list-widget li, 
-.singular.page li.type-tribe_events, 
-.tribe-events-adv-list-widget li, 
+.tribe-events-list-widget li,
+.singular.page li.type-tribe_events,
+.tribe-events-adv-list-widget li,
 .singular.page li.type-tribe_events {
 	margin: 6px 0;
 	padding: 0 0 10px 0;
@@ -774,4 +774,14 @@ select.tribe-events-dropdown {
 }
 .tribe-bar-mini #tribe-bar-views ul.tribe-bar-view-list {
 	display: none;
+}
+/* Twenty Fifteen
+========================================================================== */
+.tribe-theme-twentyfifteen .datepicker.dropdown-menu {
+	max-width: 340px;
+}
+.tribe-theme-twentyfifteen .datepicker.dropdown-menu table,
+.tribe-theme-twentyfifteen .datepicker.dropdown-menu table.table-condensed {
+	border-top-width: 0;
+	border-left-width: 0;
 }
