@@ -15,12 +15,30 @@ class Tribe__Events__Pro__Recurrence {
 	private $maxDate = 2147483647; // Y2K38, an arbitrary limit. TODO: revisit this in twenty years
 	private $last_request_constrained = false;
 
-	public function  __construct( $start_date, $end, $series_rules, $by_occurrence_count = false, $event = null ) {
+	public function  __construct( $start_date, $end, $series_rules, $by_occurrence_count = false, $event = null, $start_time = null, $end_time = null ) {
 		$this->start_date          = $start_date;
 		$this->end                 = $end;
 		$this->series_rules        = $series_rules;
 		$this->by_occurrence_count = $by_occurrence_count;
 		$this->event               = $event;
+		$this->start_time          = $start_time;
+		$this->end_time            = $end_time;
+	}
+
+	/**
+	 * Adjusts the start time of a date
+	 *
+	 * @param timestamp $date Date timestamp to adjust
+	 */
+	public function adjust_start_time( $date ) {
+		if ( ! $this->start_time ) {
+			return $date;
+		}
+
+		$date = date( 'Y-m-d', $date ) . ' ' . $this->start_time;
+		$date = strtotime( $date );
+
+		return $date;
 	}
 
 	public function setMinDate( $timestamp ) {
@@ -59,7 +77,7 @@ class Tribe__Events__Pro__Recurrence {
 					break; // end of the series
 				}
 
-				$dates[] = $cur_date;
+				$dates[] = $this->adjust_start_time( $cur_date );
 			}
 
 			return $dates;

@@ -1,0 +1,130 @@
+/******* Recurrence Rule visibility *******/
+.recurrence-row td {
+	border-top: 1px solid #dfdfdf;
+	padding-top: 10px;
+}
+
+.eventForm .recurrence-rules-header,
+.eventForm .recurrence-exclusions-header {
+	vertical-align: top;
+}
+
+#tribe-add-recurrence {
+	margin-top: 10px;
+}
+
+.tribe-event-recurrence {
+	border-top: 1px solid #dfdfdf;
+	padding: 10px 5px;
+}
+
+.tribe-event-recurrence:nth-child( 2n+2 ) {
+	background: #fdfdfd;
+}
+
+.tribe-event-recurrence:first-child {
+	border-top: 0;
+	padding-top: 0;
+}
+
+.tribe-event-recurrence .tribe-handle {
+	color: #a0a5aa;
+	cursor: pointer;
+	float: right;
+	height: 30px;
+	width: 27px;
+}
+
+.tribe-event-recurrence .tribe-handle:before {
+	content: '\f140';
+	display: inline-block;
+	font: 400 20px/1 dashicons;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	padding: 8px 10px;
+	position: relative;
+	right: 12px;
+	speak: none;
+	top: 0;
+}
+
+.tribe-event-recurrence.tribe-open .tribe-handle:before {
+	content: '\f142';
+}
+
+.tribe-event-recurrence .recurrence-rows {
+	display: none;
+}
+
+.tribe-event-recurrence.tribe-open .recurrence-rows {
+	display: block;
+}
+
+.tribe-event-recurrence .recurrence-row {
+	padding-top: 10px;
+}
+
+input[data-field="custom-interval"] {
+	width: 3em;
+}
+
+.tribe-recurrence-exclusion-row {
+	display: none;
+}
+
+.tribe-has-recurrence-rule .tribe-recurrence-exclusion-row {
+	display: table-row;
+}
+
+.tribe-event-recurrence-description {
+	color: #999;
+	font-style: italic;
+	padding: 10px 0 0;
+}
+
+.tribe-event-recurrence .recurrence-changed-row,
+.tribe-event-recurrence .custom-recurrence-frequency,
+.tribe-event-recurrence .recurrence_end,
+.tribe-event-recurrence .recurrence-end,
+.tribe-event-recurrence .custom-recurrence-weeks,
+.tribe-event-recurrence .custom-recurrence-months, 
+.tribe-event-recurrence .custom-recurrence-years,
+.tribe-event-recurrence .recurrence-time,
+.tribe-event-recurrence .tribe-custom-same-time-day,
+.tribe-event-recurrence select[data-field="custom-month-day"],
+.tribe-event-recurrence[data-recurrence-same-time="no"]:not([data-recurrence-type="Custom"]) .recurrence-time,
+.tribe-event-recurrence[data-recurrence-type="None"] .recurrence-end,
+.tribe-event-recurrence[data-recurrence-type="None"] .custom-recurrence-frequency,
+.tribe-event-recurrence[data-recurrence-end-type="On"] .rec-count,
+.tribe-event-recurrence[data-recurrence-end-type="Never"] .rec-count,
+.tribe-event-recurrence[data-recurrence-end-type="Never"] .recurrence_end {
+	display: none;
+}
+
+.tribe-event-recurrence .rec-count,
+.tribe-event-recurrence[data-recurrence-type]:not([data-recurrence-type="None"]) .recurrence-end,
+.tribe-event-recurrence[data-recurrence-end-type="On"] .recurrence_end,
+.tribe-event-recurrence[data-recurrence-type="Custom"][data-recurrence-custom-type="Daily"] .tribe-custom-same-time-day,
+.tribe-event-recurrence[data-recurrence-type="Custom"][data-recurrence-custom-month-number="string"] select[data-field="custom-month-day"],
+.tribe-event-recurrence-exclusion[data-recurrence-custom-type="Date"] .recurrence-end,
+.tribe-event-recurrence-exclusion[data-recurrence-custom-type="Monthly"][data-recurrence-custom-month-number="string"] select[data-field="custom-month-day"],
+.tribe-event-recurrence-exclusion[data-recurrence-custom-type]:not([data-recurrence-custom-type="None"]):not([data-recurrence-custom-type="Date"]) .custom-recurrence-frequency {
+	display: inline;
+}
+
+.tribe-event-recurrence[data-recurrence-same-time="no"] .recurrence-time,
+.tribe-event-recurrence[data-recurrence-changed="yes"] .recurrence-changed-row,
+.tribe-event-recurrence[data-recurrence-type="Custom"] .custom-recurrence-frequency,
+.tribe-event-recurrence[data-recurrence-type="Custom"][data-recurrence-custom-type="Weekly"] .custom-recurrence-weeks,
+.tribe-event-recurrence[data-recurrence-type="Custom"][data-recurrence-custom-type="Monthly"] .custom-recurrence-months,
+.tribe-event-recurrence[data-recurrence-type="Custom"][data-recurrence-custom-type="Yearly"] .custom-recurrence-years,
+.tribe-event-recurrence-exclusion[data-recurrence-custom-type="Weekly"] .custom-recurrence-weeks,
+.tribe-event-recurrence-exclusion[data-recurrence-custom-type="Monthly"] .custom-recurrence-months,
+.tribe-event-recurrence-exclusion[data-recurrence-custom-type="Yearly"] .custom-recurrence-years {
+	display: block;
+}
+
+.tribe-custom-same-time {
+	font-weight: bold;
+	margin-left: 10px;
+}
