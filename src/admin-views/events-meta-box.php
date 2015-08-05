@@ -99,7 +99,7 @@ if ( class_exists( 'Eventbrite_for_TribeEvents' ) ) {
 							</label>
 						</td>
 						<td>
-							<select tabindex="<?php tribe_events_tab_index(); ?>" name="EventTimezone" id="event-timezone">
+							<select tabindex="<?php tribe_events_tab_index(); ?>" name="EventTimezone" id="event-timezone" class="chosen">
 								<?php echo wp_timezone_choice( Tribe__Events__Timezones::get_event_timezone_string() ); ?>
 							</select>
 						</td>

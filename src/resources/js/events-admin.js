@@ -788,6 +788,7 @@ jQuery( document ).ready( function( $ ) {
 	var $row           = $( "#EventInfo" ).find( "tr.event-timezone" );
 	var $label         = $row.find( "label" );
 	var $selector      = $row.find( "select" );
+	var $dropdown      = $row.find( ".chosen-container" );
 	var $selector_cell = $selector.parent( "td" );
 
 	var label_text  = $label.html();
@@ -795,13 +796,13 @@ jQuery( document ).ready( function( $ ) {
 	var tz_link     = "<a href='#' class='change_tz'>" + label_text + " " + selected_tz + "</a>";
 
 	$label.hide();
-	$selector.hide();
+	$dropdown.hide();
 
 	$selector_cell.append( tz_link );
 	$selector_cell.find( "a.change_tz" ).click( function( event ) {
 		event.stopImmediatePropagation();
 		$( this ).hide();
-		$selector.show();
+		$dropdown.show();
 		return false;
 	} );
 } );
