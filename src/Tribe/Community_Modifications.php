@@ -19,21 +19,6 @@ class Tribe__Events__Pro__Community_Modifications {
 			return $required_fields;
 		}
 
-		if ( ! empty( $_POST ) && ! empty( $_POST['recurrence'] ) && $_POST['recurrence']['type'] != 'None' && ! empty( $_POST['recurrence']['type'] ) ) {
-			switch ( $_POST['recurrence']['end-type'] ) {
-				case 'On' :
-					$required_fields[] = 'recurrence[end]';
-					break;
-				case 'After' :
-					$required_fields[] = 'recurrence[end-count]';
-					break;
-				case '' :
-					$required_fields[] = 'recurrence[type]';
-					$required_fields[] = 'recurrence[end]';
-					break;
-			}
-		}
-
 		return $required_fields;
 	}
 

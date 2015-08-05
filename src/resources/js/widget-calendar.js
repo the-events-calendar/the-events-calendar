@@ -23,7 +23,8 @@ jQuery( document ).ready( function( $ ) {
 	}
 
 	function change_active_day( obj ) {
-		$( '.tribe-mini-calendar .tribe-events-thismonth' ).removeClass( 'tribe-mini-calendar-today' );
+		var $calendar = obj.closest( '.tribe-mini-calendar' );
+		$calendar.find( '.tribe-events-thismonth,.tribe-events-othermonth' ).removeClass( 'tribe-mini-calendar-today' );
 		obj.parents( '.tribe-events-has-events' ).addClass( 'tribe-mini-calendar-today' );
 	}
 
