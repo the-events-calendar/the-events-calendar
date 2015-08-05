@@ -66,10 +66,10 @@
 				$field = '';
 
 				if ( $key === 'ecp_start_date' ) {
-					$field = 'eventStart.meta_value';
+					$field = 'tribe_event_start_date.meta_value';
 				}
 				if ( $key === 'ecp_end_date' ) {
-					$field = 'eventEnd.meta_value';
+					$field = 'tribe_event_end_date.meta_value';
 				}
 
 				if ( empty( $field ) ) {
