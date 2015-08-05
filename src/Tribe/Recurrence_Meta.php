@@ -1342,8 +1342,8 @@ class Tribe__Events__Pro__Recurrence_Meta {
 				$new_end_date .= ' ' . $rule['custom']['end-time']['meridian'];
 			}
 
-			$new_num_days = floor( ( $new_end_date - $new_start_date ) / DAYS_IN_SECONDS );
-			$new_num_hours = floor( ( ( $new_end_date - $new_start_date ) / HOURS_IN_SECONDS ) - ( $new_num_days * 24 ) );
+			$new_num_days = floor( ( $new_end_date - $new_start_date ) / DAY_IN_SECONDS );
+			$new_num_hours = floor( ( ( $new_end_date - $new_start_date ) / HOUR_IN_SECONDS ) - ( $new_num_days * 24 ) );
 		}
 
 		$weekdays = array();
