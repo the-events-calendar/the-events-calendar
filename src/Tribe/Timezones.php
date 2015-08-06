@@ -77,6 +77,10 @@ class Tribe__Events__Timezones {
 
 	/**
 	 * Wipe the cached site timezone abbreviation, if set.
+	 *
+	 * @param mixed $option_val (passed through without modification)
+	 *
+	 * @return mixed
 	 */
 	public static function clear_site_timezone_abbr( $option_val ) {
 		delete_transient( 'tribe_events_wp_timezone_abbr' );
