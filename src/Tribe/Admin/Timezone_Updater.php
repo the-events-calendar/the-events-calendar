@@ -208,6 +208,7 @@ class Tribe__Events__Admin__Timezone_Updater {
 			SELECT $requested_data
 			FROM   $wpdb->posts
 			WHERE  $wpdb->posts.post_type = %s
+			AND    $wpdb->post_status <> 'auto-draft'
 			AND    ID NOT IN (
 			           -- Find those posts that already have timezone meta data
 			           SELECT DISTINCT ( post_id )
