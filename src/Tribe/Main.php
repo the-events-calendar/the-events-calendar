@@ -495,7 +495,15 @@
 			 **/
 			public static function posts_join( $joins ) {
 				global $wpdb;
-				$joins['event_end_date'] = " LEFT JOIN {$wpdb->postmeta} as tribe_event_end_date ON ( {$wpdb->posts}.ID = tribe_event_end_date.post_id AND tribe_event_end_date.meta_key = '_EventEndDate' ) ";
+
+				$event_end_key = '_EventEndDate';
+
+				// Tiemzone support isn't possible if the current TEC installation doesn't include the timezone class
+				if ( class_exists( 'Tribe__Events__Timezones' ) && Tribe__Events__Timezones::is_mode( 'site' ) ) {
+					$event_end_key .= 'UTC';
+				}
+
+				$joins['event_end_date'] = " LEFT JOIN {$wpdb->postmeta} as tribe_event_end_date ON ( {$wpdb->posts}.ID = tribe_event_end_date.post_id AND tribe_event_end_date.meta_key = '$event_end_key' ) ";
 
 				return $joins;
 			}
