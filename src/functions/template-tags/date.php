@@ -155,7 +155,6 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 			$displayTime = false;
 		}
 
-		/* @todo revise for all-day-event past eod cutoff handling */
 		$end_date = Tribe__Events__Timezones::event_end_timestamp( $event->ID, $timezone );
 		return tribe_event_format_date( $end_date, $displayTime, $dateFormat );
 	}
