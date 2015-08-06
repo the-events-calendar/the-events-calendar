@@ -129,7 +129,7 @@ $forum_text[] = '<p>' . sprintf( __( "If you're a user of The Events Calendar an
 $forum_text   = implode( $forum_text );
 
 
-$outro_text = '<p>' . sprintf( __( "If you find that you aren't getting the level of service you've come to expect from Modern Tribe, shoot us an email at %s or tweet %s and tell us why. We'll do what we can to make it right.", 'tribe-events-calendar' ), '<a href="mailto:pro@tri.be">pro@tri.be</a>', '<a href="http://www.twitter.com/moderntribeinc" target="blank">@moderntribeinc</a>' ) . '</p>';
+$outro_text = '<p>' . sprintf( __( 'If you find that you aren\'t getting the level of service you\'ve come to expect from Modern Tribe, shoot us an email at %1$s or tweet %2$s and tell us why. We\'ll do what we can to make it right.', 'tribe-events-calendar' ), '<a href="mailto:pro@tri.be">pro@tri.be</a>', '<a href="http://www.twitter.com/moderntribeinc" target="blank">@moderntribeinc</a>' ) . '</p>';
 $more_text  = __( 'More...', 'tribe-events-calendar' );
 
 

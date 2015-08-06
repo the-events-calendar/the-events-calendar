@@ -91,7 +91,7 @@ $generalTabFields = array(
 	'unprettyPermalinksUrl'         => array(
 		'type'        => 'html',
 		'label'       => __( 'Events URL slug', 'tribe-events-calendar' ),
-		'html'        => '<p>' . sprintf( __( 'You cannot edit the slug for your events page as you do not have pretty permalinks enabled. The current URL for your events page is <a href="%s">%s</a>. In order to edit the slug here, <a href="%soptions-permalink.php">enable pretty permalinks</a>.', 'tribe-events-calendar' ), esc_url( $tec->getLink( 'home' ) ), $tec->getLink( 'home ' ), esc_url( trailingslashit( get_admin_url() ) ) ) . '</p>',
+		'html'        => '<p>' . sprintf( __( 'You cannot edit the slug for your events page as you do not have pretty permalinks enabled. The current URL for your events page is <a href="%1$s">%2$s</a>. In order to edit the slug here, <a href="%3$soptions-permalink.php">enable pretty permalinks</a>.', 'tribe-events-calendar' ), esc_url( $tec->getLink( 'home' ) ), $tec->getLink( 'home ' ), esc_url( trailingslashit( get_admin_url() ) ) ) . '</p>',
 		'conditional' => ( '' == get_option( 'permalink_structure' ) ),
 	),
 	'eventsSlug'                    => array(
@@ -202,7 +202,7 @@ $generalTabFields = array(
 	'viewUpdatePage'          => array(
 		'type'        => 'html',
 		'html'        => '<fieldset class="tribe-field tribe-field-html"><legend>' . __( 'View Update Page', 'tribe-events-calendar' ) . '</legend><div class="tribe-field-wrap"><a href="' . esc_url( get_site_url() . '/wp-admin/edit.php?post_type=tribe_events&page=tribe-events-calendar&tec-update-message' ) . '" class="button">' . __( 'View Update Page', 'tribe-events-calendar' ) . '</a><p class="tribe-field-indent description">' . __( 'View the page that displayed when you updated the plugin.', 'tribe-events-calendar' ) . '</p></div></fieldset><div class="clear"></div>',
-	)
+	),
 );
 
 if ( is_super_admin() ) {
@@ -228,6 +228,6 @@ $generalTabFields['tribe-form-content-end'] = array(
 
 $generalTab = array(
 	'priority' => 10,
-	'fields'   => apply_filters( 'tribe_general_settings_tab_fields', $generalTabFields )
+	'fields'   => apply_filters( 'tribe_general_settings_tab_fields', $generalTabFields ),
 );
 
