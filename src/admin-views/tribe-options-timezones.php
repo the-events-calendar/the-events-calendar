@@ -5,7 +5,7 @@ $enable_button_label  = __( 'Enable timezone support', 'tribe-events-calendar' )
 $enable_button_url    = esc_url( wp_nonce_url( add_query_arg( 'timezone-update', '1', Tribe__Events__Settings::instance()->get_url() ), 'timezone-settings' ) );
 $enable_button_text   = __( 'Update Timezone Data', 'tribe-events-calendar' );
 $enable_button_help   = sprintf( __( 'Click this button to update your database and take advantage of additional timezone capabilities. Please <a href="%s" target="_blank">configure WordPress</a> to use the correct timezone before clicking this button!', 'tribe-events-calendar' ),
-	get_admin_url( null, 'options-general.php' )
+	esc_url( get_admin_url( null, 'options-general.php' ) )
 );
 
 $enable_button_html = <<<HTML
