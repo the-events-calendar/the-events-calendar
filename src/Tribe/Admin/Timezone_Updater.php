@@ -6,28 +6,65 @@
  * earlier that hasn't since been updated, so that it becomes "timezone ready".
  */
 class Tribe__Events__Admin__Timezone_Updater {
+	/**
+	 * A count of events in need of updating - used to determine the percentage
+	 * of the task that has been completed.
+	 *
+	 * @var int
+	 */
 	protected $initial_count = 0;
 
+	/**
+	 * Initializes the update process.
+	 *
+	 * Determines if events are still in need of an update and triggers an update of an
+	 * initial batch of events if so.
+	 *
+	 * Once these are processed, notices are set to communicate the state of the update
+	 * back to the user (which also serves as a vehicle for continuing the update via
+	 * an ajax loop).
+	 */
 	public function init_update() {
 		if ( $this->update_needed() ) {
-			$this->initial_count = $this->count_ids();
+			/**
+			 * Provides an opportunity to change the maximum number of events that will be
+			 * updated with timezone data in a single batch.
+			 *
+			 * @param int number of events to be processed in a single batch
+			 */
 			$batch_size = (int) apply_filters( 'tribe_events_timezone_updater_batch_size', 50 );
+			$this->initial_count = $this->count_ids();
 			$this->process( $batch_size );
 		}
 
 		$this->notice_setup();
 	}
 
+	/**
+	 * Setup an admin-notice based progress report along with supporting assets to facilitate
+	 * an ajax loop for further processing where needed.
+	 */
 	protected function notice_setup() {
 		add_action( 'admin_notices', array( $this, 'notice_display' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'notice_assets' ) );
 	}
 
+	/**
+	 * Renders the admin notice.
+	 *
+	 * This effectively just wraps notice_inner() - which is independently called to build
+	 * ajax responses.
+	 */
 	public function notice_display() {
 		$update = $this->notice_inner();
 		echo '<div class="tribe-events-timezone-update-msg updated updating"> ' . $update . ' </div>';
 	}
 
+	/**
+	 * Provides a progress report relating to the status of the timezone data update process.
+	 *
+	 * @return string
+	 */
 	public function notice_inner() {
 		$remaining = $this->count_ids();
 		$spinner   = ' <img src="' . get_admin_url( null, '/images/spinner.gif' ) . '">';
@@ -54,6 +91,9 @@ class Tribe__Events__Admin__Timezone_Updater {
 		return $update;
 	}
 
+	/**
+	 * Sets up the Javascript needed to facilitate the ajax loop on the frontend.
+	 */
 	public function notice_assets() {
 		$plugin = Tribe__Events__Main::instance();
 		$script = trailingslashit( $plugin->pluginUrl ) . 'src/resources/js/events-admin-timezone-updater.js';
