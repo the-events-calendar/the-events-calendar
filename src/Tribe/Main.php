@@ -2348,7 +2348,12 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 *
 		 * @return array                    A multi level array with the possible translations for the given strings
 		 */
-		public function get_i18n_strings( $strings, $languages, $domains = array( 'tribe-events-calendar' ), $default_language = 'en_US' ) {
+		public function get_i18n_strings( $strings, $languages, $domains = array(), $default_language = 'en_US' ) {
+			$domains = wp_parse_args( $domains, array(
+				'default' => true, // Default doesn't need file path
+				'tribe-events-calendar' => $this->pluginDir . 'lang/',
+			) );
+
 			foreach ( $languages as $language ) {
 				// Prevent re-loading the default language
 				if ( $language === $default_language ){
@@ -2443,8 +2448,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			$bases->plural = trailingslashit( $bases->plural );
 			$bases->singular = trailingslashit( $bases->singular );
 
-			$bases->tax = '(.*)' . $bases->plural . trailingslashit( $bases->tax ) . '(?:[^/]+/)*';
-			$bases->tag = '(.*)' . $bases->plural . trailingslashit( $bases->tag );
+			$bases->tax = '(.*)' . apply_filters( 'tribe_events_category_rewrite_slug', $bases->plural . trailingslashit( $bases->tax ) ) . '(?:[^/]+/)*';
+			$bases->tag = '(.*)' . apply_filters( 'tribe_events_tag_rewrite_slug', $bases->plural . trailingslashit( $bases->tag ) );
 
 			$rules = array();
 
