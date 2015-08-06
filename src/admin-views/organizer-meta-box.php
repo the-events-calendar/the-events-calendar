@@ -9,7 +9,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 ?>
-<?php do_action( 'tribe_events_organizer_before_metabox', $post ); ?>
+<?php
+/**
+ * Fires above the organizer meta box in both the event editor and the single organizer editor in the admin
+ * HTML outputted here should be wrapped in a table row (<tr>) that contains 2 cells (<td>s)
+ *
+ * @param WP_Post $post if editing an event, the event currently being edited;
+ *                      if editing an organizer, the organizer currently being edited
+ */
+do_action( 'tribe_events_organizer_before_metabox', $post );
+?>
 <?php if ( empty( $hide_organizer_title ) ): ?>
 	<tr class="organizer">
 		<td><?php printf( __( '%s Name:', 'tribe-events-calendar' ), tribe_get_organizer_label_singular() ); ?></td>
@@ -38,7 +47,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<input tabindex="<?php tribe_events_tab_index(); ?>" type='text' id='OrganizerEmail' name='organizer[Email]' size='25' value='<?php echo isset( $_OrganizerEmail ) ? esc_attr( $_OrganizerEmail ) : ''; ?>' />
 	</td>
 </tr>
-<?php do_action( 'tribe_events_organizer_after_metabox', $post ); ?>
+<?php
+/**
+ * Fires below the organizer meta box in both the event editor and the single organizer editor in the admin
+ * HTML outputted here should be wrapped in a table row (<tr>) that contains 2 cells (<td>s)
+ *
+ * @param WP_Post $post if editing an event, the event currently being edited;
+ *                      if editing an organizer, the organizer currently being edited
+ */
+do_action( 'tribe_events_organizer_after_metabox', $post );
+?>
 
 <script type="text/javascript">
 	jQuery('[name=organizer\\[Organizer\\]]').blur(function () {
