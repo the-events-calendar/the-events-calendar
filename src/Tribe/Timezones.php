@@ -102,6 +102,7 @@ class Tribe__Events__Timezones {
 			? $timezone_string
 			: $abbr;
 	}
+
 	/**
 	 * Returns the current site-wide timezone string.
 	 *
