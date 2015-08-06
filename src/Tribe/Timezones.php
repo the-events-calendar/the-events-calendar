@@ -21,6 +21,7 @@ class Tribe__Events__Timezones {
 
 	public static function init() {
 		self::display_timezones();
+		self::invalidate_caches();
 	}
 
 	/**
@@ -63,6 +64,25 @@ class Tribe__Events__Timezones {
 
 		return $schedule_text;
 	}
+
+	/**
+	 * Clear any cached timezone-related values when appropriate.
+	 *
+	 * Currently we are concerned only with the site timezone abbreviation.
+	 */
+	protected static function invalidate_caches() {
+		add_filter( 'pre_update_option_gmt_offset', array( __CLASS__, 'clear_site_timezone_abbr' ) );
+		add_filter( 'pre_update_option_timezone_string', array( __CLASS__, 'clear_site_timezone_abbr' ) );
+	}
+
+	/**
+	 * Wipe the cached site timezone abbreviation, if set.
+	 */
+	public static function clear_site_timezone_abbr( $option_val ) {
+		delete_transient( 'tribe_events_wp_timezone_abbr' );
+		return $option_val;
+	}
+
 	/**
 	 * Returns the timezone string for the specified event (if null it assumes the
 	 * current event where that can be determined).
