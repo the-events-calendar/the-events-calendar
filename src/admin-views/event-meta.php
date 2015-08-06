@@ -28,7 +28,7 @@ $events_label_singular = tribe_get_event_label_singular();
 					</div>
 					<?php foreach ( $options as $option ): ?>
 						<div>
-							<label><input type="radio" name="<?php echo esc_attr( $customField['name'] ) ?>" value="<?php echo esc_attr( $option ) ?>" <?php checked( trim( esc_attr( $val ) ), trim( esc_attr( $option ) ) ) ?>/> <?php echo esc_html( stripslashes( $option ) ) ?>
+							<label><input type="radio" name="<?php echo esc_attr( $customField['name'] ) ?>" value="<?php echo esc_attr( trim( $option ) ) ?>" <?php checked( esc_attr( trim( $val ) ), esc_attr( trim( $option ) ) ) ?>/> <?php echo esc_html( stripslashes( $option ) ) ?>
 							</label></div>
 					<?php endforeach ?>
 				<?php elseif ( 'checkbox' === $customField['type'] ): ?>
@@ -43,7 +43,7 @@ $events_label_singular = tribe_get_event_label_singular();
 						<option value="" <?php selected( trim( $val ), '' ) ?>><?php esc_html_e( 'None', 'tribe-events-calendar-pro' ); ?></option>
 						<?php $options = explode( "\r\n", $customField['values'] ) ?>
 						<?php foreach ( $options as $option ): ?>
-							<option value="<?php echo esc_attr( $option ) ?>" <?php selected( trim( esc_attr( $val ) ), trim( esc_attr( $option ) ) ) ?>><?php echo esc_html( stripslashes( $option ) ) ?></option>
+							<option value="<?php echo esc_attr( trim( $option ) ) ?>" <?php selected( esc_attr( trim( $val ) ), trim( esc_attr( $option ) ) ) ?>><?php echo esc_html( stripslashes( $option ) ) ?></option>
 						<?php endforeach ?>
 					</select>
 				<?php elseif ( 'textarea' === $customField['type'] ): ?>
