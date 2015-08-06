@@ -13,7 +13,7 @@ foreach ( array_keys( $templates ) as $template ) {
 /**
  * Filter the array of views that are registered for the tribe bar
  * @param array array() {
- *     Associative array of views
+ *     Array of views, where each view is itself represented by an associative array consisting of these keys:
  *
  *     @type string $displaying         slug for the view
  *     @type string $anchor             display text (i.e. "List" or "Month")
