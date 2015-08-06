@@ -2506,6 +2506,20 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		}
 
 		/**
+		 * Deprecated alias to `filter_rewrite_rules`
+		 *
+		 * @param object $wp_rewrite
+		 *
+		 * @deprecated
+		 * @todo remove 4.2
+		 *
+		 * @return void
+		 */
+		public function filterRewriteRules( $wp_rewrite ) {
+			$this->filter_rewrite_rules( $wp_rewrite );
+		}
+
+		/**
 		 * Redirect the legacy past/upcoming view URLs to list
 		 */
 		public function redirect_past_upcoming_view_urls() {
