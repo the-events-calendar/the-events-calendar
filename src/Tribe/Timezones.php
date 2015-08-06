@@ -191,6 +191,10 @@ class Tribe__Events__Timezones {
 	 * @return string
 	 */
 	public static function to_utc( $datetime, $tzstring ) {
+		if ( self::is_utc_offset( $tzstring ) ) {
+			return self::apply_offset( $datetime, $tzstring, true );
+		}
+
 		try {
 			$local = self::get_timezone( $tzstring );
 			$utc   = self::get_timezone( 'UTC' );
@@ -215,11 +219,68 @@ class Tribe__Events__Timezones {
 	 * @return string
 	 */
 	public static function to_tz( $datetime, $tzstring ) {
+		if ( self::is_utc_offset( $tzstring ) ) {
+			return self::apply_offset( $datetime, $tzstring );
+		}
+
 		try {
 			$local = self::get_timezone( $tzstring );
 			$utc   = self::get_timezone( 'UTC' );
 
 			$datetime = date_create( $datetime, $utc )->setTimezone( $local );
+			return $datetime->format( Tribe__Events__Date_Utils::DBDATETIMEFORMAT );
+		}
+		catch ( Exception $e ) {
+			return $datetime;
+		}
+	}
+
+	/**
+	 * Tests to see if the timezone string is a UTC offset, ie "UTC+2".
+	 *
+	 * @param string $timezone
+	 *
+	 * @return bool
+	 */
+	public static function is_utc_offset( $timezone ) {
+		$timezone = trim( $timezone );
+		return ( 0 === strpos( $timezone, 'UTC' ) && strlen( $timezone ) > 3 );
+	}
+
+	/**
+	 * @param string $datetime
+	 * @param mixed  $offset (string or numeric offset)
+	 * @param bool   $invert = false
+	 *
+	 * @return string
+	 */
+	public static function apply_offset( $datetime, $offset, $invert = false ) {
+		// Normalize
+		$offset = strtolower( trim( $offset ) );
+
+		// Strip any leading "utc" text if set
+		if ( 0 === strpos( $offset, 'utc' ) ) {
+			$offset = substr( $offset, 3 );
+		}
+
+		// It's possible no adjustment will be needed
+		if ( 0 === $offset ) {
+			return $datetime;
+		}
+
+		// Convert the offset to minutes for easier handling of fractional offsets
+		$offset = (int) ( $offset * 60 );
+
+		// Invert the offset? Useful for stripping an offset that has already been applied
+		if ( $invert ) {
+			$offset *= -1;
+		}
+
+		try {
+			if ( $offset > 0 ) $offset = '+' . $offset;
+			$offset = $offset . ' minutes';
+
+			$datetime = date_create( $datetime )->modify( $offset );
 			return $datetime->format( Tribe__Events__Date_Utils::DBDATETIMEFORMAT );
 		}
 		catch ( Exception $e ) {
