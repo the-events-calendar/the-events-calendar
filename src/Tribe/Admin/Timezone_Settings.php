@@ -92,9 +92,9 @@ class Tribe__Events__Admin__Timezone_Settings {
 		$updater = new Tribe__Events__Admin__Timezone_Updater;
 		$updater->init_update();
 
-		exit( json_encode( array(
+		wp_send_json( array(
 			'html'     => $updater->notice_inner(),
 			'continue' => $updater->update_needed()
-		) ) );
+		) );
 	}
 }
