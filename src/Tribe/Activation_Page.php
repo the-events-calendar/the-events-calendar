@@ -24,6 +24,9 @@ class Tribe__Events__Activation_Page {
 	 * @return array          The filtered Links
 	 */
 	public function update_complete_actions( $actions, $plugin ) {
+		if ( empty( $_GET['plugins'] ) ) {
+			return $actions;
+		}
 		$plugins = esc_attr( $_GET['plugins'] );
 
 		if ( false !== strpos( $plugins, ',' ) ){
