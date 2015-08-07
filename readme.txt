@@ -312,6 +312,11 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 
 == Changelog ==
 
+
+= [Unreleased] unreleased =
+
+* Bug - Fixed issue with Event Costs not updating when a new ticket was only submitted via Ajax
+
 = [3.11.2] 2015-07-30 =
 
 * Bug - Resolved issue where List View paging into the past only allowed you to go 1 page in the past (thanks to Richard from Prescott Art Store for reporting this!)
