@@ -361,13 +361,13 @@
 				$date_format = apply_filters( 'tribe_events_pro_page_title_date_format', tribe_get_date_format( true ) );
 
 				if ( tribe_is_showing_all() ) {
-					$reset_title = sprintf( __( 'All %s for %s', 'tribe-events-calendar-pro' ), strtolower( $this->plural_event_label ), get_the_title() );
+					$reset_title = sprintf( __( 'All %1$s for %2$s', 'tribe-events-calendar-pro' ), strtolower( $this->plural_event_label ), get_the_title() );
 				}
 
 				// week view title
 				if ( tribe_is_week() ) {
 					$reset_title = sprintf(
-						__( '%s for week of %s', 'tribe-events-calendar-pro' ),
+						__( '%1$s for week of %2$s', 'tribe-events-calendar-pro' ),
 						$this->plural_event_label,
 						date_i18n( $date_format, strtotime( tribe_get_first_week_day( $wp_query->get( 'start_date' ) ) ) )
 					);
@@ -615,7 +615,7 @@
 				// The single-entry array at the end allows for the save settings button to be displayed.
 				new Tribe__Events__Settings_Tab( 'additional-fields', __( 'Additional Fields', 'tribe-events-calendar-pro' ), array(
 					'priority' => 35,
-					'fields'   => array( null )
+					'fields'   => array( null ),
 				) );
 			}
 
