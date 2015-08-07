@@ -143,14 +143,14 @@ class Tribe__Events__Pro__Custom_Meta {
 		$ecp_options['disable_metabox_custom_fields'] = $_POST['disable_metabox_custom_fields'];
 
 		foreach ( $_POST['custom-field'] as $index => $field ) {
-			$name   = strip_tags( $_POST['custom-field'][ $index ] );
+			$name   = wp_kses( stripslashes( $_POST['custom-field'][ $index ] ), array() );
 			$type   = 'text';
 			$values = '';
 
 			// For new fields, it's possible the type/value hasn't been defined (fallback to defaults if so)
 			if ( isset( $_POST['custom-field-type'][ $index ] ) ) {
-				$type   = strip_tags( $_POST['custom-field-type'][ $index ] );
-				$values = strip_tags( $_POST['custom-field-options'][ $index ] );
+				$type   = wp_kses( stripslashes( $_POST['custom-field-type'][ $index ] ), array() );
+				$values = wp_kses( stripslashes( $_POST['custom-field-options'][ $index ] ), array() );
 			}
 
 			// Remove empty lines
