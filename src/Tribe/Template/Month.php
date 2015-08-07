@@ -443,13 +443,14 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 				$event_start = strtotime( $event->EventStartDate );
 				$event_end   = strtotime( $event->EventEndDate );
 
-				// check if the event has the term being viewed, if not, skip it
-				if ( ! empty ( $this->queried_event_cats ) ) {
-					if ( ! has_term( $this->queried_event_cats, Tribe__Events__Main::TAXONOMY, $event->ID ) ) {
-						continue;
-					}
-				}
+				// check if the event happens on this day
 				if ( Tribe__Events__Date_Utils::range_coincides( $beginning_of_day_timestamp, $end_of_day_timestamp, $event_start, $event_end ) ) {
+					// check if the event has the term being viewed, if not, skip it
+					if ( ! empty ( $this->queried_event_cats ) ) {
+						if ( ! has_term( $this->queried_event_cats, Tribe__Events__Main::TAXONOMY, $event ) ) {
+							continue;
+						}
+					}
 					$event_ids_on_date[] = $event->ID;
 				}
 			}
@@ -462,8 +463,8 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 				return new WP_Query();
 			}
 
-			// this query will limit by the current category being viewed, and will skip updating
-			// term and meta caches - those were already updated in $this->set_events_in_month()
+			// this  will skip updating term and meta caches - those were already
+			// updated in $this->set_events_in_month()
 			$args   = wp_parse_args(
 				array(
 					'eventDisplay'           => 'month',
@@ -471,16 +472,14 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 					'post__in'               => $event_ids_on_date,
 					'start_date'             => $beginning_of_day,
 					'end_date'               => $end_of_day,
-					'post_status'            => array( 'publish' ),
 					'update_post_term_cache' => false,
 					'update_post_meta_cache' => false,
 					'no_found_rows'          => true,
 				), $this->args
 			);
 
-			if ( is_user_logged_in() ) {
-				$args['post_status'][] = 'private';
-			}
+			// we don't need this join since we already checked it
+			unset ( $args[ Tribe__Events__Main::TAXONOMY ] );
 
 			$result = tribe_get_events( $args, true );
 
@@ -507,7 +506,7 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 			// Populate complete date range including leading/trailing days from adjacent months
 			while ( $date <= $this->final_grid_date ) {
 
-					$day_events = self::get_daily_events( $date );
+				$day_events = self::get_daily_events( $date );
 				$day = (int) substr( $date, - 2 );
 
 				$prev_month = (int) substr( $date, 5, 2 ) < (int) substr( $this->requested_date, 5, 2 );
