@@ -2272,7 +2272,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			return $qvars;
 		}
 
-
 		/**
 		 * Get the base slugs for the Plugin Rewrite rules
 		 *
@@ -2295,43 +2294,42 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				'plural' => (array) $this->getOption( 'eventsSlug', 'events' ),
 			) );
 
-			$languages = array( get_locale() );
+			// By default we always have `en_US` to avoid 404 with older URLs
+			$languages = apply_filters( 'tribe_events_rewrite_i18n_languages', array_unique( array( 'en_US', get_locale() ) ) );
 
-			$domains = array(
+			$domains = apply_filters( 'tribe_events_rewrite_i18n_domains', array(
 				'default' => true, // Default doesn't need file path
 				'tribe-events-calendar' => $this->pluginDir . 'lang/',
-			);
+			) );
 
 			// If WPML exists we treat the multiple languages
-			if ( function_exists( 'icl_get_languages' ) ) {
+			if ( ! empty( $GLOBALS['sitepress'] ) && $GLOBALS['sitepress'] instanceof SitePress ) {
 				global $sitepress;
 
 				// Grab all languages
-				$_languages = $sitepress->get_active_languages();
+				$langs = $sitepress->get_active_languages();
 
-				// Query the Current Language
-				$clang = $sitepress->get_current_language();
-				$clocale = $sitepress->get_locale( $clang );
-
-				foreach ( $_languages as $lang ) {
+				foreach ( $langs as $lang ) {
 					$languages[] = $sitepress->get_locale( $lang['code'] );
 				}
 
 				// Prevent Duplicates and Empty langs
 				$languages = array_filter( array_unique( $languages ) );
 
+				// Query the Current Language
+				$current_locale = $sitepress->get_locale( $sitepress->get_current_language() );
+
 				// Get the strings on multiple Domains and Languages
-				$bases = $this->get_i18n_strings( $bases, $languages, $domains );
+				$bases = $this->get_i18n_strings( $bases, $languages, $domains, $current_locale );
 			}
 
 			if ( 'regex' === $method ){
 				foreach ( $bases as $type => $base ) {
-					$base = array_map( 'sanitize_title_with_dashes', $base );
-					$bases[ $type ] = '(' . implode( '|', $base ) . ')';
+					$bases[ $type ] = '(?:' . implode( '|', $base ) . ')';
 				}
 			}
 
-			return (object) $bases;
+			return (object) apply_filters( 'tribe_events_rewrite_i18n_slugs', $bases, $method );
 		}
 
 		/**
@@ -2355,11 +2353,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			) );
 
 			foreach ( $languages as $language ) {
-				// Prevent re-loading the default language
-				if ( $language === $default_language ){
-					continue;
-				}
-
 				foreach ( (array) $domains as $domain => $file ) {
 					// Configure the language
 					$this->_locale = $language;
@@ -2412,7 +2405,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			// Prevent Empty Strings and Duplicates
 			foreach ( $strings as $key => $value ) {
-				$strings[ $key ] = array_filter( array_unique( $value ) );
+				$strings[ $key ] = array_filter( array_unique( array_map( 'sanitize_title_with_dashes', $value ) ) );
 			}
 
 			return $strings;
@@ -2472,7 +2465,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			// ical
 			$rules[ $bases->singular . '([^/]+)/ical/?$' ]                                    = 'index.php?post_type=' . self::POSTTYPE . '&name=' . $wp_rewrite->preg_index( 1 ) . '&ical=1';
-			$rules[ $bases->plural . '/(\d{4}-\d{2}-\d{2})/ical/?$' ]                         = 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=day&eventDate=' . $wp_rewrite->preg_index( 1 ) . '&ical=1';
+			$rules[ $bases->plural . '(\d{4}-\d{2}-\d{2})/ical/?$' ]                         = 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=day&eventDate=' . $wp_rewrite->preg_index( 1 ) . '&ical=1';
 
 			// category rules.
 			$rules[ $bases->tax . '([^/]+)/' . $bases->page . '/(\d+)' ]                      = 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=list&tribe_events_cat=' . $wp_rewrite->preg_index( 2 ) . '&paged=' . $wp_rewrite->preg_index( 3 );
