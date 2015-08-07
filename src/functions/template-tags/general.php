@@ -1118,18 +1118,28 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 
 		$inner .= '</span>';
 
+		/**
+		 * Provides an opportunity to modify the *inner* schedule details HTML (ie before it is
+		 * wrapped).
+		 *
+		 * @param string $inner_html  the output HTML
+		 * @param int    $event_id    post ID of the event we are interested in
+		 */
+		$inner = apply_filters( 'tribe_events_event_schedule_details_inner', $inner, $event->ID );
+
+		// Wrap the schedule text
 		$schedule = $before . $inner . $after;
 
 		/**
-		 * Provides an opportunity to modify the schedule details HTML for a specific event.
+		 * Provides an opportunity to modify the schedule details HTML for a specific event after
+		 * it has been wrapped in the before and after markup.
 		 *
 		 * @param string $schedule  the output HTML
 		 * @param int    $event_id  post ID of the event we are interested in
-		 * @param string $inner     the schedule's inner HTML (sans before/after wrappers)
-		 * @param string $before    HTML fragment prepended to the $inner HTML
-		 * @param string $after     HTML fragment appended to the $inner HTML
+		 * @param string $before    part of the HTML wrapper that was prepended
+		 * @param string $after     part of the HTML wrapper that was appended
 		 */
-		return apply_filters( 'tribe_events_event_schedule_details', $schedule, $event->ID, $inner, $before, $after );
+		return apply_filters( 'tribe_events_event_schedule_details', $schedule, $event->ID, $before, $after );
 	}
 
 	/**
