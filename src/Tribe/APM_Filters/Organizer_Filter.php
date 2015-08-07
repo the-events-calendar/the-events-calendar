@@ -36,7 +36,7 @@
 			}
 
 			global $wpdb;
-			$join .= "LEFT JOIN {$wpdb->postmeta} AS organizer_meta ON({$wpdb->posts}.ID = organizer_meta.post_id AND organizer_meta.meta_key='{$this->meta}') ";
+			$join .= " LEFT JOIN {$wpdb->postmeta} AS organizer_meta ON({$wpdb->posts}.ID = organizer_meta.post_id AND organizer_meta.meta_key='{$this->meta}') ";
 
 			return $join;
 		}
@@ -46,13 +46,13 @@
 				return $where;
 			}
 
-			global $wpdb;
+			$organizers = array_filter( array_map( 'absint', (array) $_POST[ $this->key ] ) );
 
-			$organizers = (array) $_POST[ $this->key ];
+			if ( empty( $organizers ) ) {
+				return $where;
+			}
 
-			$ids_format_string = rtrim( str_repeat( '%d,', count( $organizers ) ), ',' );
-
-			$where .= $wpdb->prepare( " AND organizer_meta.meta_value in ($ids_format_string) ", $organizers );
+			$where .= ' AND organizer_meta.meta_value in ( ' . implode( ',', $organizers ) . ' ) ';
 
 			return $where;
 		}
@@ -87,4 +87,3 @@
 			error_log( print_r( $data, 1 ) );
 		}
 	}
-

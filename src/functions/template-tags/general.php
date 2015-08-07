@@ -55,8 +55,14 @@ if ( class_exists( 'Tribe__Events__Pro__Main' ) ) {
 				$recurring = true;
 			} else {
 				$recurrence_meta = get_post_meta( $post_id, '_EventRecurrence', true );
-				if ( ! empty( $recurrence_meta ) && $recurrence_meta['type'] != 'None' ) {
-					$recurring = true;
+
+				if ( ! empty( $recurrence_meta['rules'] ) ) {
+					foreach ( $recurrence_meta['rules'] as &$recurrence ) {
+						if ( 'None' !== $recurrence['type'] ) {
+							$recurring = true;
+							break;
+						}
+					}
 				}
 			}
 

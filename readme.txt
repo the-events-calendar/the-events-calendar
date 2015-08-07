@@ -4,8 +4,8 @@ Contributors:  ModernTribe, roblagatta, faction23, jazbek, jbrinley, leahkoerper
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget, pro
 Donate link: http://m.tri.be/29
 Requires at least: 3.9
-Tested up to: 4.2.2
-Stable tag: 3.11
+Tested up to: 4.2.3
+Stable tag: 3.11.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -55,7 +55,7 @@ That's it! Just configure your settings as you see fit, and you're on your way t
 * PHP 5.2.4 or greater (recommended: PHP 5.4 or greater)
 * WordPress 3.9 or above
 * jQuery 1.11.x
-* The Events Calendar 3.10 or newer
+* The Events Calendar 3.11 or newer
 
 = Where to Begin =
 
@@ -128,8 +128,10 @@ The plugin is produced by <a href="http://m.tri.be/45">Modern Tribe Inc</a>.
 
 = Current Contributors =
 
-* <a href="http://profiles.wordpress.org/users/jazbek">Jessica Yazbek</a>
+* <a href="http://profiles.wordpress.org/users/borkweb">Matthew Batchelder</a>
 * <a href="http://profiles.wordpress.org/users/roblagatta">Rob La Gatta</a>
+* <a href="http://profiles.wordpress.org/users/zbtirrell">Zach Tirrell</a>
+* <a href="http://profiles.wordpress.org/users/jazbek">Jessica Yazbek</a>
 * <a href="http://profiles.wordpress.org/users/barryhughes">Barry Hughes</a>
 * <a href="http://profiles.wordpress.org/users/jbrinley">Jonathan Brinley</a>
 * <a href="http://profiles.wordpress.org/users/faction23">Samuel Estok</a>
@@ -144,7 +146,7 @@ The plugin is produced by <a href="http://m.tri.be/45">Modern Tribe Inc</a>.
 * <a href="http://profiles.wordpress.org/users/peterchester">Peter Chester</a>
 * <a href="http://profiles.wordpress.org/users/reid.peifer">Reid Peifer</a>
 * <a href="http://profiles.wordpress.org/users/shane.pearlman">Shane Pearlman</a>
-* <a href="http://profiles.wordpress.org/users/borkweb">Matthew Batchelder</a>
+
 
 = Past Contributors =
 
@@ -164,47 +166,29 @@ The plugin is produced by <a href="http://m.tri.be/45">Modern Tribe Inc</a>.
 * <a href="http://profiles.wordpress.org/users/jgadbois">John Gadbois</a>
 * Justin Endler
 
-= Translators =
+= Translations =
 
-* Afrikaans from Liza Welsh
-* Arabic from Mamdouh Samy
-* Bosnian from Marko Manojlovic
-* Brazilian Portuguese from Emerson Marques
-* British English from John Browning
-* Bulgarian from Nedko Ivanov
-* Catalan from Barbara Partegos Rof
-* Chinese from Massound Huang
-* Croatian from Marko Manojlovic
-* Czech from Petr Bastan
-* Danish from Hans Christian Andersen
-* Dutch from Dirk Westenberg
-* Estonian from Andra Saimre
-* Finnish by Elias Okkonen
-* French from Sylvain Delisle
-* German from Oliver Heinrich
-* Greek from Yannis Troullinos
-* Hungarian from Balazs Dobos
-* Icelandic by Baldvin Örn Berndsen
-* Indonesian by Didik Priyanto
-* Italian from Gabriele Taffi
-* Latvian from Raivis Dejus
-* Lithuanian from Gediminas Pankevicius
-* Montenegrin from Sasa Vukovic
-* Norwegian Bokmål by Morten Ruud
-* Norwegian Nynorsk by Torbjørn Lauen
-* Polish from Marek Kosina
-* Portuguese from Sérgio Leite
-* Romanian from Cosmin Vaman
-* Russian from Alexander Tinyaev
-* Serbian from Marko Manojlovic
-* Slovak from Emilia Valova
-* Slovenian from Žiga Vajdic
-* Spanish from Juanjo Navarro
-* Swedish from Jonas Reinicke
-* Turkish by Nadin Kokciyan
-* Ukranian by Vasily Vishnyakov
+* Bulgarian
+* Danish
+* Dutch
+* English (UK)
+* Finnish
+* French (France)
+* German
+* Greek
+* Hungarian
+* Icelandic
+* Italian
+* Lithuanian
+* Polish
+* Portuguese (Portugal)
+* Slovak
+* Slovenian
+* Spanish (Spain)
+* Swedish
+* Turkish
 
-* Previous translators include Derin Korman, Stefan Dorscht, Laurent Proulx, Ari-Pekka Koponen, Antonio Pratas, Dennis Gruebner, J.F.M. Cornelissen, Frans Pronk, Roberto Scano, Maria Tsilimidou, Martin Kristan, Ben Andersen, Oliver Heinrich, Mikhail Michouris, Bastien BC, Erik Massop, Ed Boon, Rick van Dalen, Jacob Roel Meijering, Christian Andersen, Michael Sebel, Dionizio Bonfim Bach, Mihai Burcea, Filippo Montanari, David Decker, Kamil Szymanski, "Terje With Lunndal", Sagi Shrieber, Matthew Meyer, Arno Faure, Fanny Heraud, Vincent G from Host1Free, , Petri Kajander, Fran Rosa, Nico (wsMaurik), Panos Efstratiou, Dominique Monhardt, Thomas Butzek, Kjell Vestnes, Luiza Libardi, Diego Meneghetti, Benoit Burgener, Hector Gil Rizo, Burak Pehlevan, and Alexey Fedorov
+Many thanks to all our translators!  You can grab the latest translations or contribute at http://translations.theeventscalendar.com
 
 == Add-Ons ==
 
@@ -231,30 +215,40 @@ Our Premium Plugins:
 
 == Changelog ==
 
-= IMPORTANT NOTICE =
-
-3.x is a complete overhaul of the plugin, and as a result we're starting the changelog fresh. For release notes from the 2.x lifecycle, see <a href="http://m.tri.be/k">our 2.x release notes.</a>
-
 = [Unreleased] unreleased =
 
+* Bug - Fixed APM Start/End Date filters to stop showing SQL errors
+
+= [3.11.1] 2015-07-27 =
+
+* Bug - Fixed bug where recurring events were hidden in Month View when recurring event instances were disabled in List View (big thanks to Rebecca Redding on the forum for the first report!)
+
+= [3.11] 2015-07-22 =
+
+* Security - Added escaping to a number of previously un-escaped values
+* Feature - Added a pair of filters so that the recurring event cleanup query can be manipulated by plugin/theme authors: tribe_events_pro_clean_up_old_recurring_events_sql and tribe_events_pro_clean_up_old_recurring_events_sql_args (props to fortgordonmwr for the idea!)
+* Performance - Paginated recurring event "See All" pages to avoid timeouts when there are many recurring events to display (Props to Jen R. for raising this issue!)
+* Performance - Queries were modified to eliminate a join clause, potentially reducing the work needed to build the result set (Thank you MauiTime for inspiring this!)
+* Tweak - Improve Dockblock for a few Templates (Thanks to vendaragroup for the help!)
+* Tweak - Conformed code to updated coding standards
+* Tweak - Made Minical widget template use single letter day headings
+* Tweak - When rendering recurring event markers on an event map, only place one marker per event/location combination (Thank you risedigitalsolutions for the inspiration!)
+* Tweak - Remove deprecated PHP4 constructor reference
+* Bug - Fixed an issue where taxonomy filters applied to the calendar widget could also incorrectly impact the main month view
+* Bug - Fixed an issue where related events were not being randomized under some circumstances (Cheers to leviticus for finding this!)
 * Bug - Fixed an issue where the WP Customizer save button remained disabled when the Events Calendar widget filters were removed
 * Bug - Fixed an issue where the Events Calendar widget form partially overflowed the widget container in the WP Customizer
 * Bug - Addressed numerous minor styling issues with the Twenty Fifteen theme
-* Bug - Fixed APM Start/End Date filters to stop showing SQL errors
-* Tweak - Conformed code to updated coding standards
-* Tweak - Removed TribeEventsPro.recurrence JS from the front-end
-* Tweak - Made some changes to the EOD cutoff functionality behavior
-* Tweak - Removed TribeEventsPro.recurrence from the JS that appears on the front end because it isn't used there
-* Tweak - Made Minical widget template use single letter day headings
-* Tweak - When rendering recurring event markers on an event map, only place one marker per event/location combination
-* Feature - Added a pair of filters so that the recurring event cleanup query can be manipulated by plugin/theme authors: tribe_events_pro_clean_up_old_recurring_events_sql and tribe_events_pro_clean_up_old_recurring_events_sql_args (props to fortgordonmwr for the idea!)
-* Performance - Paginated recurring event "See All" pages to avoid timeouts when there are many recurring events to display
-* Security - Added escaping to a number of previously un-escaped values
+* Bug - Fixed a problem with Checkbox value using quotes and double quotes (' and ") (Thanks to Daniel Maier for tracking this down!)
+* Bug - Fixed wording for link to Additional Fields Tutorial
+* Bug - Resolved a few PHP warnings and notices
 
 = [3.10.1] 2015-07-01 =
 
 * Bug - Addressed numerous minor styling issues with the Twenty Fifteen theme
 * Bug - Fixed bug where an empty Events Calendar widget would cause a "No events found" notice to be displayed despite events being displayed in the main event loop
+* Tweak - Removed TribeEventsPro.recurrence JS from the front-end (Props to Marty for this one!)
+* Tweak - Made some changes to the EOD cutoff functionality behavior
 
 = [3.10] 2015-06-15 =
 
@@ -592,7 +586,9 @@ Still not happy? Shoot us an email to pro@tri.be or tweet to @moderntribeinc and
 
 == Upgrade Notice ==
 
-IMPORTANT NOTICE: 3.10 is a massive update from the 3.9 build, which contains a number of changes under-the-hood (including a total rebuild of the week view functionality). All users are encouraged to backup their site before updating, and to apply the updates on a staging/test site where they can check on + fix customizations as needed before deploying to production. Existing pre-3.10 week view customizations WILL break if you neglect to take this precaution.
+= 3.11 =
+
+Please see the changelog for the complete list of changes in this release. Remember to always make a backup of your database and files before updating!
 
 = 3.10 =
 

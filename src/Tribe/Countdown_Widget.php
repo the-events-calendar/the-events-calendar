@@ -21,21 +21,34 @@ if ( ! class_exists( 'Tribe__Events__Pro__Countdown_Widget' ) ) {
 		}
 
 		public function widget( $args, $instance ) {
-			extract( $args );
-			extract( $instance );
+			$title = empty( $instance['title'] ) ? null : $instance['title'];
+			$event_date = empty( $instance['event_date'] ) ? null : $instance['event_date'];
+			$event_ID = empty( $instance['event_ID'] ) ? null : $instance['event_ID'];
+			$show_seconds = empty( $instance['show_seconds'] ) ? null : $instance['show_seconds'];
+			$complete = empty( $instance['complete'] ) ? null : $instance['complete'];
+			$event_countdown_date = null;
+
 			$title = apply_filters( 'widget_title', $title );
 			wp_enqueue_script( 'tribe-events-countdown-widget', tribe_events_pro_resource_url( 'widget-countdown.js' ), array( 'jquery' ), apply_filters( 'tribe_events_pro_js_version', Tribe__Events__Pro__Main::VERSION ), true );
 			// Get the timer data.
-			$complete = '<h3 class="tribe-countdown-complete">' . $complete . '</h3>';
-			$event_countdown_date = $this->get_output( $event_ID, $complete, $show_seconds, $event_date );
-			echo $before_widget;
-			if ( ! empty( $title ) ) {
-				echo $before_title . $title . $after_title;
+
+			if ( $complete ) {
+				$complete = '<h3 class="tribe-countdown-complete">' . $complete . '</h3>';
 			}
+
+			if ( $event_ID ) {
+				$event_countdown_date = $this->get_output( $event_ID, $complete, $show_seconds, $event_date );
+			}
+
+			echo $args['before_widget'];
+			if ( ! empty( $title ) ) {
+				echo $args['before_title'] . $title . $args['after_title'];
+			}
+
 			if ( ! empty( $event_countdown_date ) ) {
 				echo $event_countdown_date;
 			}
-			echo $after_widget;
+			echo $args['after_widget'];
 		}
 
 		public function update( $new_instance, $old_instance ) {

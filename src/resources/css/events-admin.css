@@ -23,3 +23,7 @@ div.tribe-events-recurring-update-msg .progress .bar {
 div.tribe-events-recurring-update-msg.completed .progress .bar {
 	background: #7ad03a;
 }
+
+#tribe-recurrence-staging {
+	display: none;
+}

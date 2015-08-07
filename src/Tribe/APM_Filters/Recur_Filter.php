@@ -36,7 +36,7 @@
 		public function join_recur( $join, $wp_query ) {
 			if ( ! empty( $wp_query->apm_ecp_recur ) ) {
 				global $wpdb;
-				$join .= "LEFT JOIN {$wpdb->postmeta} AS recur_meta ON({$wpdb->posts}.ID = recur_meta.post_id AND recur_meta.meta_key='{$this->meta}') ";
+				$join .= " LEFT JOIN {$wpdb->postmeta} AS recur_meta ON({$wpdb->posts}.ID = recur_meta.post_id AND recur_meta.meta_key='{$this->meta}') ";
 			}
 
 			return $join;
