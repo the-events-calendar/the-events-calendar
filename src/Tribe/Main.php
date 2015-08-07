@@ -251,7 +251,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			require_once $this->pluginPath . 'src/functions/template-tags/link.php';
 			require_once $this->pluginPath . 'src/functions/template-tags/widgets.php';
 			require_once $this->pluginPath . 'src/functions/template-tags/meta.php';
-			require_once $this->pluginPath . 'src/functions/template-tags/tickets.php';
 
 			// Load Advanced Functions
 			require_once $this->pluginPath . 'src/functions/advanced-functions/event.php';
@@ -408,9 +407,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			add_action( 'tribe_venue_table_top', array( $this, 'display_rich_snippets_helper' ), 5 );
 
 			add_action( 'template_redirect', array( $this, 'template_redirect' ) );
-
-			add_action( 'add_meta_boxes', array( 'Tribe__Events__Tickets__Metabox', 'maybe_add_meta_box' ) );
-			add_action( 'admin_enqueue_scripts', array( 'Tribe__Events__Tickets__Metabox', 'add_admin_scripts'  ) );
 
 			// noindex grid view
 			add_action( 'wp_head', array( $this, 'noindex_months' ) );
