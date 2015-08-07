@@ -95,7 +95,7 @@ class Tribe__Events__Pro__Custom_Meta {
 					$_POST[ $customField['name'] ] = '';
 				}
 				$val = $_POST[ $customField['name'] ];
-				$val = is_array( $val ) ? esc_attr( implode( "|", str_replace( "|","",$val ) ) ) : wp_kses( $val, array( 'a'      => array(
+				$val = is_array( $val ) ? esc_attr( implode( '|', str_replace( '|','',$val ) ) ) : wp_kses( $val, array( 'a'      => array(
 						'href'   => array(),
 						'title'  => array(),
 						'target' => array()
@@ -157,7 +157,7 @@ class Tribe__Events__Pro__Custom_Meta {
 			$values = preg_replace( "/(^[\r\n]*|[\r\n]+)[\s\t]*[\r\n]+/", "\r\n", $values );
 			$values = rtrim( $values );
 			//Remove Vertical Bar for Checkbox Field
-			$values = $type == 'checkbox' ? str_replace( "|","",$values ) : $values;
+			$values = $type == 'checkbox' ? str_replace( '|','',$values ) : $values;
 
 			// The indicies of pre-existing custom fields begin with an underscore - so if
 			// the index does not have an underscore we need to assign a new one
