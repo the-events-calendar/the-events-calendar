@@ -215,9 +215,9 @@ Our Premium Plugins:
 
 == Changelog ==
 
-= IMPORTANT NOTICE =
+= [Unreleased] unreleased =
 
-3.x is a complete overhaul of the plugin, and as a result we're starting the changelog fresh. For release notes from the 2.x lifecycle, see <a href="http://m.tri.be/k">our 2.x release notes.</a>
+* Bug - Fixed APM Start/End Date filters to stop showing SQL errors
 
 = [3.11.1] 2015-07-27 =
 
