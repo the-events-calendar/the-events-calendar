@@ -30,7 +30,7 @@ class Tribe__Events__Timezones {
 	 */
 	protected static function display_timezones() {
 		if ( tribe_get_option( 'tribe_events_timezones_show_zone' ) ) {
-			add_filter( 'tribe_events_event_schedule_details', array( __CLASS__, 'append_timezone' ), 10, 5 );
+			add_filter( 'tribe_events_event_schedule_details_inner', array( __CLASS__, 'append_timezone' ), 10, 2 );
 		}
 	}
 
@@ -42,7 +42,7 @@ class Tribe__Events__Timezones {
 	 *
 	 * @return string
 	 */
-	public static function append_timezone( $schedule_text, $event_id = null, $inner_html, $before_html, $after_html ) {
+	public static function append_timezone( $schedule_text, $event_id = null ) {
 		static $hide_for_all_day;
 
 		if ( ! isset( $hide_for_all_day ) ) {
@@ -59,7 +59,7 @@ class Tribe__Events__Timezones {
 
 		if ( ! empty( $timezone ) ) {
 			$timezone_text = " <span class='timezone'> $timezone </span>";
-			$schedule_text = $before_html . $inner_html . $timezone_text . $after_html;
+			$schedule_text = $schedule_text . $timezone_text;
 		}
 
 		return $schedule_text;
