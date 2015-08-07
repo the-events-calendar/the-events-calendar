@@ -7,6 +7,7 @@ class Tribe__Events__Asset__Admin extends Tribe__Events__Asset__Abstract_Asset {
 			array(
 				'jquery',
 				'jquery-ui-datepicker',
+				'jquery-ui-sortable',
 				'wp-util',
 			)
 		);

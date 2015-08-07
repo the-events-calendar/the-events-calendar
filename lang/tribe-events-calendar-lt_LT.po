@@ -2,13 +2,74 @@
 # This file is distributed under the same license as the The Events Calendar package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2015-06-08 14:31:58+0000\n"
+"PO-Revision-Date: 2015-07-21 14:53:07+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: GlotPress/1.0-alpha-1000\n"
 "Project-Id-Version: The Events Calendar\n"
+
+#: ../src/Tribe/Activation_Page.php:39
+msgid "Go to plugins page"
+msgstr ""
+
+#: ../src/Tribe/Activation_Page.php:39
+msgid "Return to Plugins page"
+msgstr ""
+
+#: ../src/Tribe/Activation_Page.php:47
+msgid "Go to WordPress Updates page"
+msgstr ""
+
+#: ../src/Tribe/Activation_Page.php:47
+msgid "Return to WordPress Updates"
+msgstr ""
+
+#: ../src/Tribe/Admin/Organizer_Chooser_Meta_Box.php:88
+msgid "Create New %s"
+msgstr ""
+
+#: ../src/Tribe/Admin/Organizer_Chooser_Meta_Box.php:149
+msgid "Add another organizer"
+msgstr ""
+
+#: ../src/Tribe/Cost_Utils.php:108
+msgctxt "Cost range separator"
+msgid " - "
+msgstr ""
+
+#: ../src/Tribe/PUE/Checker.php:416
+msgid "unknown date"
+msgstr ""
+
+#: ../src/Tribe/Support.php:142
+msgid "Rewrite rules were purged on load of this help page. Chances are there is a rewrite rule flush occurring in a plugin or theme!"
+msgstr ""
+
+#: ../src/admin-views/tribe-options-help.php:94
+msgid "If you're looking for help with The Events Calendar, you've come to the right place. We are committed to helping make your calendar be spectacular... and hope the resources provided below will help get you there."
+msgstr ""
+
+#: ../src/admin-views/tribe-options-help.php:142
+msgid "Hi! We are Modern Tribe and we are here to help you be awesome. Thanks so much for installing our labor of love!"
+msgstr ""
+
+#: ../src/admin-views/tribe-options-help.php:151
+msgid "Support Resources To Help You Be Awesome"
+msgstr ""
+
+#: ../src/admin-views/tribe-options-licenses.php:17
+msgid ""
+"<strong> Using our plugins in a multisite network? </strong>\n"
+"\t\tPlease note that your license key will be applied to the entire network, not just this site."
+msgstr ""
+
+#: ../src/admin-views/tribe-options-licenses.php:20
+msgid ""
+"Only license fields for <strong>network activated</strong> plugins will be\n"
+"\t\tlisted on this screen. "
+msgstr ""
 
 #: ../src/Tribe/View_Helpers.php:334
 msgid "Louisiana"
@@ -28,19 +89,11 @@ msgstr "Daugiau..."
 
 #: ../src/Tribe/View_Helpers.php:336
 msgid "Maryland"
-msgstr "Merilandas"
-
-#: ../src/admin-views/tribe-options-help.php:142
-msgid "Hi! We are Modern Tribe and we are here to help you kick ass. Thanks so much for installing our labor of love!"
-msgstr "Sveiki! Mes esame Modern Tribe ir mes čia, kad jums padėtume. Nuoširdžiai dėkojame, kad įdiegėt mūsų nesavanaudišką darbą!"
+msgstr "Merilendas"
 
 #: ../src/Tribe/View_Helpers.php:337
 msgid "Massachusetts"
-msgstr "Masačusetsas"
-
-#: ../src/admin-views/tribe-options-help.php:151
-msgid "Support Resources To Help You Kick Ass"
-msgstr "Palaikymo resursai tam, kad padėti jums"
+msgstr "Masačiusetsas"
 
 #: ../src/Tribe/View_Helpers.php:338
 msgid "Michigan"
@@ -70,7 +123,7 @@ msgstr "Naujausia versija:"
 msgid "Missouri"
 msgstr "Misūris"
 
-#: ../src/admin-views/tribe-options-help.php:175
+#: ../src/admin-views/tribe-options-help.php:176
 msgid "Author:"
 msgstr "Autorius:"
 
@@ -78,7 +131,7 @@ msgstr "Autorius:"
 msgid "Montana"
 msgstr "Montana"
 
-#: ../src/admin-views/tribe-options-help.php:175
+#: ../src/admin-views/tribe-options-help.php:176
 msgid "Modern Tribe Inc"
 msgstr "Modern Tribe Inc"
 
@@ -86,7 +139,7 @@ msgstr "Modern Tribe Inc"
 msgid "Nebraska"
 msgstr "Nebraska"
 
-#: ../src/admin-views/tribe-options-help.php:178
+#: ../src/admin-views/tribe-options-help.php:179
 msgid "Requires:"
 msgstr "Būtina:"
 
@@ -94,7 +147,7 @@ msgstr "Būtina:"
 msgid "Nevada"
 msgstr "Nevada"
 
-#: ../src/admin-views/tribe-options-help.php:178
+#: ../src/admin-views/tribe-options-help.php:179
 msgid "WordPress "
 msgstr "WordPress"
 
@@ -102,7 +155,7 @@ msgstr "WordPress"
 msgid "New Hampshire"
 msgstr "Naujasis Hampšyras"
 
-#: ../src/admin-views/tribe-options-help.php:180
+#: ../src/admin-views/tribe-options-help.php:181
 msgid "Wordpress.org Plugin Page"
 msgstr "Wordpress.org įskiepių puslapis"
 
@@ -110,7 +163,7 @@ msgstr "Wordpress.org įskiepių puslapis"
 msgid "New Jersey"
 msgstr "Naujasis Džersis"
 
-#: ../src/admin-views/tribe-options-help.php:186
+#: ../src/admin-views/tribe-options-help.php:187
 msgid "Average Rating"
 msgstr "Vidutinis įvertinimas"
 
@@ -118,7 +171,7 @@ msgstr "Vidutinis įvertinimas"
 msgid "New Mexico"
 msgstr "Naujoji Meksika"
 
-#: ../src/admin-views/tribe-options-help.php:190
+#: ../src/admin-views/tribe-options-help.php:193
 msgid "Based on %d rating"
 msgid_plural "Based on %d ratings"
 msgstr[0] "Pagrįstas %d vertinimu"
@@ -129,7 +182,7 @@ msgstr[2] "Pagrįstas %d vertinimų"
 msgid "New York"
 msgstr "Niujorkas"
 
-#: ../src/admin-views/tribe-options-help.php:192
+#: ../src/admin-views/tribe-options-help.php:195
 msgid "Give us 5 stars!"
 msgstr "Duokite mums 5 žvaigždutes!"
 
@@ -137,7 +190,7 @@ msgstr "Duokite mums 5 žvaigždutes!"
 msgid "North Carolina"
 msgstr "Šiaurės Karolina"
 
-#: ../src/admin-views/tribe-options-help.php:196
+#: ../src/admin-views/tribe-options-help.php:199
 msgid "Premium Add-Ons"
 msgstr "Premium papildiniai"
 
@@ -145,7 +198,7 @@ msgstr "Premium papildiniai"
 msgid "North Dakota"
 msgstr "Šiaurės Dakota"
 
-#: ../src/admin-views/tribe-options-help.php:205
+#: ../src/admin-views/tribe-options-help.php:208
 msgid "(Coming Soon!)"
 msgstr "(Netrukus!)"
 
@@ -153,7 +206,7 @@ msgstr "(Netrukus!)"
 msgid "Ohio"
 msgstr "Ohajas"
 
-#: ../src/admin-views/tribe-options-help.php:215
+#: ../src/admin-views/tribe-options-help.php:218
 msgid "News and Tutorials"
 msgstr "Naujienos ir pamokos"
 
@@ -298,84 +351,84 @@ msgstr "%1$s %2$s iCal tiektuvas"
 msgid "Origin:"
 msgstr "Kilmė:"
 
-#: ../src/Tribe/iCal.php:77
+#: ../src/Tribe/iCal.php:75
 msgid "Add to Google Calendar"
 msgstr "Pridėti prie Google kalendoriaus"
 
 #: ../src/functions/advanced-functions/meta_registration.php:286
 msgid "%s:"
-msgstr ""
+msgstr "%s:"
 
-#: ../src/Tribe/iCal.php:77
+#: ../src/Tribe/iCal.php:75
 msgid "Google Calendar"
 msgstr "Google kalendorius"
 
-#: ../src/functions/template-tags/date.php:280
+#: ../src/functions/template-tags/date.php:285
 msgid "The function needs to be passed an $event or used in the loop."
 msgstr ""
 
-#: ../src/Tribe/iCal.php:78
+#: ../src/Tribe/iCal.php:76
 msgid "Download .ics file"
 msgstr "Parsisiųsti .ics failą"
 
-#: ../src/functions/template-tags/day.php:108
+#: ../src/functions/template-tags/day.php:107
 msgid "<span>&laquo;</span> Previous Day"
 msgstr "<span>&laquo;</span>Dieną atgal"
 
-#: ../src/Tribe/iCal.php:78
+#: ../src/Tribe/iCal.php:76
 msgid "iCal Export"
 msgstr "iCal eksportas"
 
-#: ../src/functions/template-tags/day.php:110
+#: ../src/functions/template-tags/day.php:109
 msgid "Next Day <span>&raquo;</span>"
 msgstr "Kita diena <span>&raquo;</span>"
 
-#: ../src/Tribe/iCal.php:108
+#: ../src/Tribe/iCal.php:106
 msgid "Month's %s"
-msgstr ""
+msgstr "Mėnesio %s"
 
-#: ../src/functions/template-tags/day.php:112
+#: ../src/functions/template-tags/day.php:111
 msgid "Yesterday"
 msgstr "Vakar"
 
-#: ../src/Tribe/iCal.php:111
+#: ../src/Tribe/iCal.php:109
 msgid "Week's %s"
-msgstr ""
+msgstr "Savaitės %s"
 
-#: ../src/functions/template-tags/day.php:114
+#: ../src/functions/template-tags/day.php:113
 msgid "Tomorrow"
 msgstr "Rytoj"
 
-#: ../src/Tribe/iCal.php:114
+#: ../src/Tribe/iCal.php:112
 msgid "Day's %s"
-msgstr ""
+msgstr "Dienos %s"
 
 #: ../src/functions/template-tags/deprecated.php:1283
 msgid "Category"
 msgstr "Kategorija"
 
-#: ../src/Tribe/iCal.php:117
+#: ../src/Tribe/iCal.php:115
 msgid "Listed %s"
-msgstr ""
+msgstr "Visi %s"
 
-#: ../src/functions/template-tags/general.php:426
+#: ../src/functions/template-tags/general.php:441
 msgid "Tags:"
 msgstr "Žymos:"
 
-#: ../src/Tribe/iCal.php:122
+#: ../src/Tribe/iCal.php:120
 msgid "Use this to share calendar data with Google Calendar, Apple iCal and other compatible apps"
-msgstr "Naudokite tai, kad pasidalinti kalendoriaus duomenimis su \"Google\" kalendoriumi, Apple iCal ir kitomis suderinamomis aplikacijomis"
+msgstr "Naudokite tai, kad pasidalintumėte kalendoriaus duomenimis su \"Google\" kalendoriumi, Apple iCal ir kitomis suderinamomis aplikacijomis"
 
-#: ../src/functions/template-tags/general.php:538
+#: ../src/functions/template-tags/general.php:553
 msgid "Loading %s"
-msgstr ""
+msgstr "%s kraunami"
 
 #: ../src/admin-views/admin-update-message.php:9
 #: ../src/admin-views/admin-welcome-message.php:11
 msgid "You are running Version %s and deserve a hug :-)"
 msgstr "Jūs naudojates Versiją %s ir nusipelnėte apkabinimo :-)"
 
-#: ../src/functions/template-tags/general.php:760
+#: ../src/Tribe/Cost_Utils.php:123
 msgid "Free"
 msgstr "Nemokama"
 
@@ -383,7 +436,7 @@ msgstr "Nemokama"
 msgid "Keep the Core Plugin <strong>FREE</strong>!"
 msgstr "Palikti branduolio įskiepį <strong>NEMOKAMĄ</strong>!"
 
-#: ../src/functions/template-tags/general.php:1454
+#: ../src/functions/template-tags/general.php:1455
 msgid "Calendar powered by %sThe Events Calendar%s"
 msgstr "Kalendorius sukurtas %sThe Events Calendar%s"
 
@@ -393,7 +446,7 @@ msgstr "Kiekvieną kartą kai jūs įvertinate 5 žvaigždutėmis, gimsta fėja.
 
 #: ../src/functions/template-tags/loop.php:131
 msgid "Upcoming %s"
-msgstr ""
+msgstr "Artimiausi %s"
 
 #: ../src/admin-views/admin-update-message.php:34
 #: ../src/admin-views/admin-welcome-message.php:22
@@ -402,7 +455,7 @@ msgstr "Įvertinkite"
 
 #: ../src/functions/template-tags/loop.php:145
 msgid "%1$s for %2$s - %3$s"
-msgstr ""
+msgstr "%1$s nuo %2$s - %3$s"
 
 #: ../src/admin-views/admin-update-message.php:37
 msgid "PSST... Want a Discount?"
@@ -410,7 +463,7 @@ msgstr "PSST... Norite nuolaidos?"
 
 #: ../src/functions/template-tags/loop.php:147
 msgid "Past %s"
-msgstr ""
+msgstr "Įvykę %s"
 
 #: ../src/admin-views/admin-update-message.php:38
 msgid "We send out discounts to our core users via our newsletter."
@@ -419,7 +472,7 @@ msgstr "Mes siunčiame nuolaidas mūsų pagrindiniams vartotojams per naujienlai
 #: ../src/functions/template-tags/loop.php:152
 #: ../src/functions/template-tags/loop.php:161
 msgid "%1$s for %2$s"
-msgstr ""
+msgstr "%1$s nuo %2$s"
 
 #: ../src/admin-views/admin-update-message.php:43
 #: ../src/admin-views/admin-welcome-message.php:31
@@ -450,15 +503,15 @@ msgstr "Stulpelių susiejimas: %s"
 msgid "Community Events"
 msgstr "Bendruomenės renginiai"
 
-#: ../src/io/csv/admin-views/columns.php:28
+#: ../src/io/csv/admin-views/columns.php:27
 msgid "Columns have been mapped based on your last import. Please ensure the selected fields match the columns in your CSV file."
-msgstr ""
+msgstr "Stulpeliai buvo susieti pagal jūsų paskutinį importavimą. Prašome įsitikinti, ar pasirinkti laukai atitinka stulpelius jūsų CSV faile."
 
 #: ../src/admin-views/admin-update-message.php:54
 msgid "Filters"
 msgstr "Filtrai"
 
-#: ../src/io/csv/admin-views/columns.php:33
+#: ../src/io/csv/admin-views/columns.php:32
 msgid "Column Headings"
 msgstr "Stulpelių antraštės"
 
@@ -466,7 +519,7 @@ msgstr "Stulpelių antraštės"
 msgid "Facebook"
 msgstr "Facebook"
 
-#: ../src/io/csv/admin-views/columns.php:34
+#: ../src/io/csv/admin-views/columns.php:33
 msgid "Event Fields"
 msgstr "Renginių laukai"
 
@@ -475,31 +528,31 @@ msgstr "Renginių laukai"
 msgid "News For Events Users"
 msgstr "Naujienos renginių vartotojams"
 
-#: ../src/io/csv/admin-views/columns.php:45
+#: ../src/io/csv/admin-views/columns.php:44
 msgid "Perform Import"
-msgstr "Atlikti importą"
+msgstr "Vykdyti importavimą"
 
 #: ../src/admin-views/admin-welcome-message.php:19
 msgid "Keep The Events Calendar Core FREE"
 msgstr "Palikite Renginių Kalendoriaus branduolį NEMOKAMA"
 
-#: ../src/io/csv/admin-views/general.php:11
+#: ../src/io/csv/admin-views/general.php:10
 msgid "The Events Calendar: Import"
-msgstr ""
+msgstr "Renginių kalendorius: Importavimas"
 
 #: ../src/admin-views/admin-welcome-message.php:20
 msgid "5 star ratings help us bring TEC to more users. More happy users mean more support, more features, and more of everything you know and love about The Events Calendar. We couldn't do this without your support."
 msgstr "5 žvaigždučių įvertinimas padeda mums Renginių kalendorių pristatyti vis daugiau vartotojų. Daugiau laimingų vartotojų reiškia daugiau pagalbos, daugiau funkcijų ir daugiau visko ką jūs žinote ir mylite apie Renginių Kalendorių. Mes negalėtumėme tai padaryti be jūsų paramos. "
 
-#: ../src/io/csv/admin-views/general.php:13
+#: ../src/io/csv/admin-views/general.php:12
 msgid "Instructions"
-msgstr ""
+msgstr "Instrukcijos"
 
 #: ../src/admin-views/admin-welcome-message.php:21
 msgid "Rate it five stars today!"
 msgstr "Įvertinkite 5 žvaigždutėmis šiandien!"
 
-#: ../src/io/csv/admin-views/general.php:15
+#: ../src/io/csv/admin-views/general.php:14
 msgid "To import events, first select a %sDefault Import Event Status%s below to assign to your imported events."
 msgstr ""
 
@@ -507,7 +560,7 @@ msgstr ""
 msgid "Newsletter Signup"
 msgstr "Naujienlaiškio prenumerata"
 
-#: ../src/io/csv/admin-views/general.php:18
+#: ../src/io/csv/admin-views/general.php:17
 msgid "Once your setting is saved, move to the applicable Import tab to select import specific criteria."
 msgstr ""
 
@@ -515,42 +568,42 @@ msgstr ""
 msgid "Stay in touch with The Events Calendar Pro. We send out periodic updates, key developer notices, and even the occasional discount."
 msgstr ""
 
-#: ../src/io/csv/admin-views/general.php:26
+#: ../src/io/csv/admin-views/general.php:24
 msgid "Import Settings"
-msgstr ""
+msgstr "Importavimo nustatymai"
 
 #: ../src/admin-views/admin-welcome-message.php:40
 #: ../src/admin-views/tribe-options-help.php:148
 msgid "Getting Started"
 msgstr "Pradžia"
 
-#: ../src/io/csv/admin-views/general.php:28
+#: ../src/io/csv/admin-views/general.php:27
 msgid "Default imported event status:"
-msgstr ""
+msgstr "Įprasta importuotų renginių būklė:"
 
 #: ../src/admin-views/admin-welcome-message.php:41
 msgid "Check out the New User Primer &amp; Tutorials"
 msgstr "Patikrinkite naujus vartotojo pradmenis ir pamokas"
 
-#: ../src/io/csv/admin-views/general.php:31
+#: ../src/io/csv/admin-views/general.php:30
 msgid "Published"
-msgstr ""
+msgstr "Paskelbtas"
 
 #: ../src/admin-views/admin-welcome-message.php:43
 msgid "Looking for More Features?"
 msgstr "Domina daugiau funkcijų?"
 
-#: ../src/io/csv/admin-views/general.php:32
+#: ../src/io/csv/admin-views/general.php:31
 msgid "Pending"
-msgstr ""
+msgstr "Laukia peržiūros"
 
 #: ../src/admin-views/admin-welcome-message.php:44
 msgid "Addons for Community, Tickets, Filters, Facebook and more."
-msgstr "Papildiniai bendruomenei, Bilietai, Filtrai, Facebook ir daugiau."
+msgstr "Papildiniai bendruomenei, bilietai, filtrai, Facebook ir daugiau."
 
-#: ../src/io/csv/admin-views/general.php:33
+#: ../src/io/csv/admin-views/general.php:32
 msgid "Draft"
-msgstr ""
+msgstr "Juodraštis"
 
 #: ../src/admin-views/admin-welcome-message.php:46
 msgid "Support Resources"
@@ -558,7 +611,7 @@ msgstr "Pagalbos šaltiniai"
 
 #: ../src/io/csv/admin-views/header.php:17
 msgid "Events Import"
-msgstr ""
+msgstr "Renginių importavimas"
 
 #: ../src/admin-views/admin-welcome-message.php:47
 msgid "FAQs, Documentation, Tutorials and Forums"
@@ -566,7 +619,7 @@ msgstr "DUK, dokumentacija, pamokos ir forumas"
 
 #: ../src/io/csv/admin-views/import.php:17
 msgid "Import Instructions"
-msgstr "Importo instrukcijos"
+msgstr "Importavimo instrukcijos"
 
 #: ../src/admin-views/admin-welcome-message.php:50
 msgid "Release Notes"
@@ -590,7 +643,7 @@ msgstr "Produkto leidiniai, pamokos ir bendrijos veikla"
 
 #: ../src/io/csv/admin-views/import.php:23
 msgid "Select the appropriate import type."
-msgstr "Pasirinkite atitinkamą importo tipą."
+msgstr "Pasirinkite tinkamą importavimo tipą."
 
 #: ../src/admin-views/app-shop.php:4
 msgid "Tribe Event Add-Ons"
@@ -611,7 +664,7 @@ msgstr "CSV faile vienas stulpelis turi turėti organizatoriaus/vietos pavadinim
 
 #: ../src/admin-views/app-shop.php:57
 msgid "Last Update"
-msgstr "Paskutinis atnaujinimas"
+msgstr "Paskutinis naujinimas"
 
 #: ../src/io/csv/admin-views/import.php:26
 #: ../src/io/csv/admin-views/import.php:32
@@ -644,11 +697,11 @@ msgstr "Klausimai? <a href=\"%s\">Žiūrėti video</a>."
 
 #: ../src/admin-views/events-meta-box.php:37
 msgid "Time &amp; Date"
-msgstr ""
+msgstr "Laikas &amp; Data"
 
 #: ../src/io/csv/admin-views/import.php:43
 msgid "Import Type:"
-msgstr "Importo tipas:"
+msgstr "Importavimo tipas:"
 
 #: ../src/admin-views/events-meta-box.php:44
 msgid "You have changed the recurrence rules of this %1$s.  Saving the %1$s will update all future %2$s.  If you did not mean to change all %2$s, then please refresh the page."
@@ -660,7 +713,7 @@ msgstr "CSV failas:"
 
 #: ../src/admin-views/events-meta-box.php:47
 msgid "All Day %s:"
-msgstr ""
+msgstr "Visos dienos %s"
 
 #: ../src/io/csv/admin-views/import.php:59
 msgid "Upload a properly formatted, UTF-8 encoded CSV file. Not sure if your file is UTF-8 encoded? Make sure to specify the character encoding when you save the file, or pass it through a <a href='http://i-tools.org/charset/exec?dest=utf-8&src=auto&download=1'>conversion tool</a>."
@@ -674,8 +727,8 @@ msgstr "Pradžios data ir laikas:"
 msgid "This file has column names in the first row"
 msgstr "Šis faile stulpelių pavadinimai pirmoje eilutėje"
 
-#: ../src/admin-views/events-meta-box.php:56
-#: ../src/admin-views/events-meta-box.php:77
+#: ../src/admin-views/events-meta-box.php:57
+#: ../src/admin-views/events-meta-box.php:78
 msgid "YYYY-MM-DD"
 msgstr "YYYY-MM-DD"
 
@@ -683,31 +736,31 @@ msgstr "YYYY-MM-DD"
 msgid "Import CSV File"
 msgstr "Importuoti CSV failą"
 
-#: ../src/admin-views/events-meta-box.php:74
+#: ../src/admin-views/events-meta-box.php:75
 msgid "End Date &amp; Time:"
 msgstr "Pabaigos data ir laikas:"
 
 #: ../src/io/csv/admin-views/result.php:15
 msgid "Import Result"
-msgstr "Importo rezultatai"
+msgstr "Importavimo rezultatai"
 
-#: ../src/admin-views/events-meta-box.php:102
+#: ../src/admin-views/events-meta-box.php:103
 msgid "Location"
-msgstr ""
+msgstr "Vieta"
 
 #: ../src/io/csv/admin-views/result.php:17
 msgid "Import complete!"
-msgstr "Importas baigtas!"
+msgstr "Importavimas baigtas!"
 
-#: ../src/admin-views/events-meta-box.php:120
+#: ../src/admin-views/events-meta-box.php:124
 msgid "%s Website"
-msgstr ""
+msgstr "%s tinklapis"
 
 #: ../src/io/csv/admin-views/result.php:19
 msgid "Inserted: %d"
 msgstr "Įterpta: %d"
 
-#: ../src/admin-views/events-meta-box.php:123
+#: ../src/admin-views/events-meta-box.php:127
 msgid "URL:"
 msgstr "URL:"
 
@@ -715,58 +768,51 @@ msgstr "URL:"
 msgid "Updated: %d"
 msgstr "Atnaujinta: %d"
 
-#: ../src/admin-views/events-meta-box.php:137
+#: ../src/admin-views/events-meta-box.php:141
 msgid "%s Cost"
-msgstr ""
+msgstr "%s kaina"
 
 #: ../src/io/csv/admin-views/result.php:21
 msgid "Skipped: %d"
 msgstr "Praleista: %d"
 
-#: ../src/admin-views/events-meta-box.php:140
+#: ../src/admin-views/events-meta-box.php:144
 msgid "Currency Symbol:"
 msgstr "Valiutos simbolis:"
 
 #: ../src/io/csv/admin-views/result.php:25
 msgid "The import statistics above have the following meaning:"
-msgstr "Aukščiau pateikta importo statistika turi šias reikšmes:"
+msgstr "Aukščiau pateiktos importavimo statistikos prasmė tokia:"
 
-#: ../src/admin-views/events-meta-box.php:155
+#: ../src/admin-views/events-meta-box.php:159
 msgctxt "Currency symbol position"
 msgid "Before cost"
 msgstr "Prieš kainą"
 
 #: ../src/io/csv/admin-views/result.php:26
 msgid "<ol><li><strong>Inserted:</strong> A new item was inserted successfully.</li><li><strong>Updated:</strong> An item was found with the same name and/or start date. The existing item was updated with the new value from the file.</li><li><strong>Skipped:</strong> A row was found in the CSV file that could not be imported. Please see below for the invalid rows.</li></ol>"
-msgstr "<ol><li><strong>Įterptas:</strong> Naujas punktas buvo sėkmingai įterptas.</li><li><strong>Atnaujintas:</strong> Buvo rastas punktas su tuo pačiu pavadinimu ir/ar pradžios data. Esamas punktas buvo atnaujintas su naujomis reikšmėmis iš failo.</li><li><strong>Praleista:</strong>CSV faile rasta eilutė kuri negali būti imporuota. Prašome patikrinti žemiau netinkamas eilutes.</li></ol>"
+msgstr "<ol><li><strong>Įterptas:</strong> Naujas punktas buvo sėkmingai įterptas.</li><li><strong>Atnaujinta:</strong> Buvo rastas punktas tuo pačiu pavadinimu ir/ar pradžios data. Esamas punktas buvo atnaujintas naujomis reikšmėmis iš failo.</li><li><strong>Praleista:</strong> CSV faile rasta eilutė, kuri negali būti imporuota. Prašome peržiūrėti žemiau pateiktas klaidingas eilutes.</li></ol>"
 
-#: ../src/admin-views/events-meta-box.php:158
+#: ../src/admin-views/events-meta-box.php:162
 msgctxt "Currency symbol position"
 msgid "After cost"
 msgstr "Už kainos"
 
 #: ../src/io/csv/admin-views/result.php:29
 msgid "Skipped row numbers: %s"
-msgstr "Praleisti eilutės numeriai: %s"
+msgstr "Praleisti eilučių numeriai: %s"
 
-#: ../src/admin-views/events-meta-box.php:163
+#: ../src/admin-views/events-meta-box.php:167
 #: ../src/functions/advanced-functions/meta_registration.php:48
 #: ../src/views/modules/meta/details.php:100
 msgid "Cost:"
 msgstr "Kaina:"
 
-#: ../src/pue/admin-views/license-key.view.php:13
-msgid "A valid license key is required for support and updates."
-msgstr "Pagalbai ir atnaujinimams reikalingas galiojantis licencijavimo raktas."
-
-#: ../src/admin-views/events-meta-box.php:171
+#: ../src/admin-views/events-meta-box.php:175
 msgid "Enter a 0 for %s that are free or leave blank to hide the field."
-msgstr ""
+msgstr "Įveskite 0, jeigu %s yra nemokamas, arba palikite tuščią, norėdami paslėpti lauką.  "
 
-#: ../src/pue/admin-views/license-key.view.php:19
-msgid "Replace empty fields"
-msgstr "Pakeiskite tuščius laukus"
-
+#: ../src/admin-views/new-organizer-meta-section.php:15
 #: ../src/admin-views/organizer-meta-box.php:15
 #: ../src/admin-views/venue-meta-box.php:25
 msgid "%s Name:"
@@ -776,12 +822,13 @@ msgstr "%s pavadinimas:"
 msgid "Day Navigation"
 msgstr "Dienos navigacija"
 
+#: ../src/admin-views/new-organizer-meta-section.php:21
 #: ../src/admin-views/organizer-meta-box.php:22
 #: ../src/admin-views/tickets/attendees.php:52
 #: ../src/admin-views/venue-meta-box.php:112
 #: ../src/functions/advanced-functions/meta_registration.php:159
 #: ../src/functions/advanced-functions/meta_registration.php:238
-#: ../src/views/modules/meta/organizer.php:24
+#: ../src/views/modules/meta/organizer.php:41
 #: ../src/views/modules/meta/venue.php:40
 msgid "Phone:"
 msgstr "Telefonas:"
@@ -790,6 +837,7 @@ msgstr "Telefonas:"
 msgid "Find out more"
 msgstr "Sužinokite daugiau"
 
+#: ../src/admin-views/new-organizer-meta-section.php:27
 #: ../src/admin-views/organizer-meta-box.php:28
 #: ../src/admin-views/tickets/attendees.php:61
 #: ../src/admin-views/venue-meta-box.php:119
@@ -797,41 +845,44 @@ msgstr "Sužinokite daugiau"
 #: ../src/functions/advanced-functions/meta_registration.php:191
 #: ../src/functions/advanced-functions/meta_registration.php:270
 #: ../src/views/modules/meta/details.php:125
-#: ../src/views/modules/meta/organizer.php:34
+#: ../src/views/modules/meta/organizer.php:63
 #: ../src/views/modules/meta/venue.php:45
 msgid "Website:"
-msgstr "Internetinė svetainė:"
+msgstr "Interneto svetainė:"
 
 #: ../src/views/list/nav.php:19
 msgid "%s List Navigation"
-msgstr ""
+msgstr "%s sąrašo navigacija"
 
+#: ../src/admin-views/new-organizer-meta-section.php:33
 #: ../src/admin-views/organizer-meta-box.php:34
 #: ../src/functions/advanced-functions/meta_registration.php:254
-#: ../src/views/modules/meta/organizer.php:29
+#: ../src/views/modules/meta/organizer.php:52
 msgid "Email:"
-msgstr "El.paštas:"
+msgstr "El. paštas:"
 
 #: ../src/views/list/nav.php:25
 msgid "<span>&laquo;</span> Previous %s"
-msgstr ""
+msgstr "<span>&laquo;</span> Ankstesni %s"
 
+#: ../src/admin-views/new-organizer-meta-section.php:34
 #: ../src/admin-views/organizer-meta-box.php:35
 msgid "You may want to consider <a href=\"http://wordpress.org/plugins/tags/obfuscate\">obfuscating</a> any e-mail address published on your site to best avoid it getting harvested by spammers."
 msgstr "Jūs galbūt norėsite apsvarstyti <a href=\"http://wordpress.org/plugins/tags/obfuscate\">suklaidinimą</a> bet kokio el.pašto adreso paskelbto jūsų tinklapyje, kaip geriausiai išvengti \"spamerių\" kurie surenką el.pašto adresus."
 
 #: ../src/views/list/nav.php:32
 msgid "Next %s <span>&raquo;</span>"
-msgstr ""
+msgstr "Kitas %s <span>&raquo;</span>"
 
+#: ../src/admin-views/new-organizer-meta-section.php:60
 #: ../src/admin-views/organizer-meta-box.php:57
 #: ../src/admin-views/venue-meta-box.php:193
 msgid "%s Name Already Exists"
-msgstr ""
+msgstr "%s vardas jau egzistuoja"
 
 #: ../src/views/modules/bar.php:30 ../src/views/modules/bar.php:61
 msgid "Find %s"
-msgstr ""
+msgstr "Rasti %s"
 
 #: ../src/admin-views/tickets/attendees.php:17
 msgid "Event Summary"
@@ -855,23 +906,23 @@ msgstr "Pradžios data / laikas:"
 
 #: ../src/views/modules/meta/details.php:119
 msgid "%s Tags:"
-msgstr ""
+msgstr "%s žymės:"
 
 #: ../src/admin-views/tickets/attendees.php:29
 msgid "End Date / Time:"
 msgstr "Pabaigos data / laikas:"
 
-#: ../src/views/month/mobile.php:13
+#: ../src/functions/template-tags/general.php:1279
 msgid "%s for"
-msgstr ""
+msgstr "%s "
 
 #: ../src/admin-views/tickets/attendees.php:69
 msgid "Ticket Sales"
 msgstr "Bilietų pardavimas"
 
-#: ../src/views/month/mobile.php:37
+#: ../src/functions/template-tags/general.php:1278
 msgid "Find out more »"
-msgstr ""
+msgstr "Sužinoti daugiau »"
 
 #: ../src/admin-views/tickets/attendees.php:86
 msgid "(%d awaiting review)"
@@ -901,15 +952,15 @@ msgstr "Sold %d iš %d %s"
 
 #: ../src/views/single-event.php:27
 msgid "&laquo; All %s"
-msgstr ""
+msgstr "&laquo; Visi %s"
 
 #: ../src/admin-views/tickets/attendees.php:111
 msgid "Tickets sold:"
 msgstr "Bilietai parduoti:"
 
-#: ../src/views/single-event.php:46 ../src/views/single-event.php:92
+#: ../src/views/single-event.php:46 ../src/views/single-event.php:91
 msgid "%s Navigation"
-msgstr ""
+msgstr "%s navigacija"
 
 #: ../src/admin-views/tickets/attendees.php:118
 msgid "Finalized:"
@@ -917,7 +968,7 @@ msgstr "Užbaigtas:"
 
 #: ../src/views/tickets/attendees-email.php:24
 msgid "Attendee List"
-msgstr "Lankytojų sąrašas"
+msgstr "Dalyvių sąrašas"
 
 #: ../src/admin-views/tickets/attendees.php:121
 msgid "Awaiting review:"
@@ -937,7 +988,7 @@ msgstr "Bilieto tipas"
 
 #: ../src/admin-views/tickets/attendees.php:146
 msgid "Send the attendee list by email"
-msgstr "Siųsti dalyvaujančių sąrašą el.paštu"
+msgstr "Siųsti dalyvių sąrašą el. paštu"
 
 #: ../src/views/tickets/email.php:313
 msgid "Purchaser"
@@ -949,7 +1000,7 @@ msgstr "Pasirinkite vartotoją:"
 
 #: ../src/views/widgets/list-widget.php:65
 msgid "View All %s"
-msgstr ""
+msgstr "Žiūrėti visus %s"
 
 #: ../src/admin-views/tickets/attendees.php:155
 msgid "Select..."
@@ -957,7 +1008,7 @@ msgstr "Pasirinkite..."
 
 #: ../src/views/widgets/list-widget.php:71
 msgid "There are no upcoming %s at this time."
-msgstr ""
+msgstr "Šiuo metu nėra artimiausių %s."
 
 #: ../src/admin-views/tickets/attendees.php:160
 msgid "or"
@@ -981,7 +1032,7 @@ msgstr "Peržiūrėti"
 
 #: ../src/admin-views/tickets/list.php:67
 msgid "Sold %d"
-msgstr "Paruodta %d"
+msgstr "Parduota %d"
 
 #: ../src/admin-views/tickets/list.php:69
 msgid "Sold %d of %d"
@@ -1016,47 +1067,47 @@ msgstr "Pridėti naują bilietą"
 msgid "Edit ticket"
 msgstr "Redaguoti bilietą"
 
-#: ../src/admin-views/tickets/meta-box.php:81
+#: ../src/admin-views/tickets/meta-box.php:80
 msgid "Sell using:"
 msgstr "Parduodama naudojant:"
 
-#: ../src/admin-views/tickets/meta-box.php:98
+#: ../src/admin-views/tickets/meta-box.php:97
 msgid "Ticket Name:"
 msgstr "Bilieto pavadinimas:"
 
-#: ../src/admin-views/tickets/meta-box.php:105
+#: ../src/admin-views/tickets/meta-box.php:104
 msgid "Ticket Description:"
 msgstr "Bilieto aprašymas"
 
-#: ../src/admin-views/tickets/meta-box.php:114
+#: ../src/admin-views/tickets/meta-box.php:113
 msgid "Price:"
 msgstr "Kaina:"
 
-#: ../src/admin-views/tickets/meta-box.php:120
+#: ../src/admin-views/tickets/meta-box.php:119
 msgid "(0 or empty for free tickets)"
 msgstr "(0 arba tuščia nemokamiems bilietams)"
 
-#: ../src/admin-views/tickets/meta-box.php:126
+#: ../src/admin-views/tickets/meta-box.php:125
 msgid "Sale Price:"
-msgstr ""
+msgstr "Pardavimo kaina:"
 
-#: ../src/admin-views/tickets/meta-box.php:132
+#: ../src/admin-views/tickets/meta-box.php:131
 msgid "(Current sale price - this can be managed via the product editor)"
 msgstr ""
 
-#: ../src/admin-views/tickets/meta-box.php:138
+#: ../src/admin-views/tickets/meta-box.php:137
 msgid "Start sale:"
 msgstr "Pradėti prekybą:"
 
-#: ../src/admin-views/tickets/meta-box.php:162
+#: ../src/admin-views/tickets/meta-box.php:161
 msgid "End sale:"
 msgstr "Pabaigti prekybą:"
 
-#: ../src/admin-views/tickets/meta-box.php:184
+#: ../src/admin-views/tickets/meta-box.php:183
 msgid "When will ticket sales occur? If you don't set a start/end date for sales, tickets will be available from now until the event ends."
 msgstr "Kada prasidės bilietų pardavimas? Jei jūs nenustatysite pradžios/pabaigos pardavimo datos, bilietai bus prieinami nuo dabar iki kol pasibaigs renginys."
 
-#: ../src/admin-views/tickets/meta-box.php:196
+#: ../src/admin-views/tickets/meta-box.php:195
 msgid "Save this ticket"
 msgstr "Išsaugoti šį bilietą"
 
@@ -1134,7 +1185,7 @@ msgstr "Išjungti renginio paieškos juostą"
 
 #: ../src/admin-views/tribe-options-display.php:101
 msgid "Check this to use the classic header."
-msgstr "Pažymėkite tai, kad naudoti klasikinę antraštę."
+msgstr "Pažymėkite tai, jei norite naudoti klasikinę antraštę."
 
 #: ../src/admin-views/tribe-options-display.php:107
 msgid "Month view events per day"
@@ -1158,7 +1209,7 @@ msgstr "Datos formato nustatymai"
 
 #: ../src/admin-views/tribe-options-display.php:126
 msgid "<p>The following three fields accept the date format options available to the php date() function. <a href=\"http://codex.wordpress.org/Formatting_Date_and_Time\" target=\"_blank\">Learn how to make your own date format here</a>.</p>"
-msgstr "<p>Sekantys trys laukai priima datos formato variantus kaip ir php date() funkcija  <a href=\"http://codex.wordpress.org/Formatting_Date_and_Time\" target=\"_blank\">Išmokite pasiruošti savo pačio datos formatą čia</a>.</p>"
+msgstr "<p>Kituose trijuose laukuose priimami tokie datos formatai kaip ir php date() funkcijos.  <a href=\"http://codex.wordpress.org/Formatting_Date_and_Time\" target=\"_blank\">Išmokti parengti reikiamą datos formatą galite čia</a>.</p>"
 
 #: ../src/admin-views/tribe-options-display.php:130
 msgid "Date with year"
@@ -1174,7 +1225,7 @@ msgstr "Data be metų"
 
 #: ../src/admin-views/tribe-options-display.php:139
 msgid "Enter the format to use for displaying dates without a year. Used when showing an event from the current year."
-msgstr "Įveskite formatą tik datos be metų rodyme. Naudojama kai rodoma esamų metų renginys."
+msgstr "Įveskite formatą, skirtą datos be metų rodymui. Naudojama, kai rodomas einamųjų metų renginys."
 
 #: ../src/admin-views/tribe-options-display.php:146
 msgid "Month and year format"
@@ -1206,7 +1257,7 @@ msgstr "Datos pasirinkimo formatas"
 
 #: ../src/admin-views/tribe-options-display.php:171
 msgid "Select the date format to use in datepickers"
-msgstr "Pasirinkite datos formatą naudoti datos pasirinkime"
+msgstr "Pasirinkite datos formatą, kuris bus naudojamas datos rinktuve"
 
 #: ../src/admin-views/tribe-options-display.php:188
 msgid "Advanced Template Settings"
@@ -1228,199 +1279,199 @@ msgstr "Pridėti HTML po renginio turinio"
 msgid "If you are familiar with HTML, you can add additional code after the event template. Some themes may require this to help with styling or layout."
 msgstr "Jei jūs susipažinęs su HTML, galite pridėti  papildomą kodą po renginio šablono. Kai kurios temos gali reikalauti to, kad pagelbėtų su stiliumi ir išdėstymu."
 
-#: ../src/admin-views/tribe-options-general.php:15
+#: ../src/admin-views/tribe-options-general.php:12
 msgid "Finding & extending your calendar."
 msgstr "Rasti ir praplėsti savo kalendorių."
 
-#: ../src/admin-views/tribe-options-general.php:20
+#: ../src/admin-views/tribe-options-general.php:17
 msgid "Finding your calendar."
 msgstr "Rasti savo kalendorių."
 
-#: ../src/admin-views/tribe-options-general.php:25
+#: ../src/admin-views/tribe-options-general.php:22
 msgid "Where's my calendar?"
 msgstr "Kur mano kalendorius?"
 
-#: ../src/admin-views/tribe-options-general.php:25
+#: ../src/admin-views/tribe-options-general.php:22
 msgid "Right here"
 msgstr "Štai čia"
 
-#: ../src/admin-views/tribe-options-general.php:29
+#: ../src/admin-views/tribe-options-general.php:26
 msgid "Looking for additional functionality including recurring events, custom meta, community events, ticket sales and more?"
-msgstr "Ieškote papildomų funkcijų, įskaitant besikartojančius įvykius, pasirinktinius meta, bendruomenės renginių, bilietų pardavimo ir daugiau?"
+msgstr "Ieškote papildomų funkcijų, įskaitant besikartojančių renginių, pasirinktinių meta, bendruomenės renginių, bilietų pardavimo ir daugiau?"
 
-#: ../src/admin-views/tribe-options-general.php:29
+#: ../src/admin-views/tribe-options-general.php:26
 msgid "Check out the available add-ons"
 msgstr "Peržiūrėkite galimus papildinius"
 
-#: ../src/admin-views/tribe-options-general.php:34
+#: ../src/admin-views/tribe-options-general.php:31
 msgid "We hope our plugin is helping you out."
 msgstr "Mes tikimės, kad mūsų įskiepis padeda jums."
 
-#: ../src/admin-views/tribe-options-general.php:38
+#: ../src/admin-views/tribe-options-general.php:35
 msgid "Are you thinking \"Wow, this plugin is amazing! I should say thanks to Modern Tribe for all their hard work.\" The greatest thanks we could ask for is recognition. Add a small text-only link at the bottom of your calendar pointing to The Events Calendar project."
 msgstr "Ar jūs mąstote \"Vau, šis papildinys nepakartojamas! Gal turėčiau padėkoti Modern Tribe už visą jų sunkų darbą.\" Didžiausią padėką kurią mes galime paprašyti tai pripažinimas. Pridėkite mažą tekstą nuorodą į Renginių Kalendoriaus projektą apačioje savo kalendoriaus."
 
-#: ../src/admin-views/tribe-options-general.php:38
-#: ../src/admin-views/tribe-options-general.php:43
+#: ../src/admin-views/tribe-options-general.php:35
+#: ../src/admin-views/tribe-options-general.php:40
 msgid "See an example of the link"
-msgstr "Žr. saito pavyzdį"
+msgstr "Žr. nuorodos pavyzdį"
 
-#: ../src/admin-views/tribe-options-general.php:43
+#: ../src/admin-views/tribe-options-general.php:40
 msgid "Are you thinking \"Wow, this plugin is amazing! I should say thanks to Modern Tribe for all their hard work.\" The greatest thanks we could ask for is recognition. Add a small text only link at the bottom of your calendar pointing to The Events Calendar project."
 msgstr "Ar jūs mąstote \"Vau, šis papildinys nepakartojamas! Gal turėčiau padėkoti Modern Tribe už visą jų sunkų darbą.\" Didžiausią padėką kurią mes galime paprašyti tai pripažinimas. Pridėkite mažą tekstą nuorodą į Renginių Kalendoriaus projektą apačioje savo kalendoriaus."
 
-#: ../src/admin-views/tribe-options-general.php:48
+#: ../src/admin-views/tribe-options-general.php:45
 msgid "Show The Events Calendar link"
 msgstr "Rodyti Renginių Kalendoriaus nuorodą"
 
-#: ../src/admin-views/tribe-options-general.php:62
+#: ../src/admin-views/tribe-options-general.php:59
 msgid "General Settings"
 msgstr "Bendrieji parametrai"
 
-#: ../src/admin-views/tribe-options-general.php:66
+#: ../src/admin-views/tribe-options-general.php:63
 msgid "Number of events to show per page"
 msgstr "Rodyti renginių skaičių viename puslapyje"
 
-#: ../src/admin-views/tribe-options-general.php:73
+#: ../src/admin-views/tribe-options-general.php:70
 msgid "Use Javascript to control date filtering"
-msgstr "Naudoti Javascript valdyti datos filtravimą"
+msgstr "Naudoti Javascript datos filtravimui valdyti"
 
-#: ../src/admin-views/tribe-options-general.php:74
+#: ../src/admin-views/tribe-options-general.php:71
 msgid "This option is disabled when \"Disable the Event Search Bar\" is checked on the Display settings tab."
 msgstr "Ši pasirinktis yra išjungta kai \"Išjungti renginių paieškos juostą\" yra pažymėta rodymo parametrų skirtuke."
 
-#: ../src/admin-views/tribe-options-general.php:74
+#: ../src/admin-views/tribe-options-general.php:71
 msgid "Enable live ajax for datepicker on front end (User submit not required)."
 msgstr "Įjungti live ajax datos parinktuvą vartotojo sąsajoje (Vartotojo sutikimas nėra būtinas)."
 
-#: ../src/admin-views/tribe-options-general.php:82
+#: ../src/admin-views/tribe-options-general.php:79
 msgid "Show comments"
 msgstr "Rodyti komentarus"
 
-#: ../src/admin-views/tribe-options-general.php:83
+#: ../src/admin-views/tribe-options-general.php:80
 msgid "Enable comments on event pages."
 msgstr "Rodyti komentarus renginio puslapyje"
 
-#: ../src/admin-views/tribe-options-general.php:89
+#: ../src/admin-views/tribe-options-general.php:86
 msgid "Include events in main blog loop"
 msgstr "Įtraukti renginius į pagrindinį pasikartojantį blog'ą"
 
-#: ../src/admin-views/tribe-options-general.php:90
+#: ../src/admin-views/tribe-options-general.php:87
 msgid "Show events with the site's other posts. When this box is checked, events will also continue to appear on the default events page."
 msgstr "Rodyti renginius su kitais puslapio pranešimais. Kai šis langelis pažymėtas, renginiai taipogi atsirandinės ir numatytame renginių puslapyje."
 
-#: ../src/admin-views/tribe-options-general.php:96
-#: ../src/admin-views/tribe-options-general.php:102
+#: ../src/admin-views/tribe-options-general.php:93
+#: ../src/admin-views/tribe-options-general.php:99
 msgid "Events URL slug"
 msgstr "Renginių URL trumpinys"
 
-#: ../src/admin-views/tribe-options-general.php:97
+#: ../src/admin-views/tribe-options-general.php:94
 msgid "You cannot edit the slug for your events page as you do not have pretty permalinks enabled. The current URL for your events page is <a href=\"%s\">%s</a>. In order to edit the slug here, <a href=\"%soptions-permalink.php\">enable pretty permalinks</a>."
 msgstr "Jūs negalite redaguoti savo renginių puslapio trumpinių kol jūs neesate įjungęs nuolatinių nuorodų. Dabartinis jūsų renginių puslapio URL yra <a href=\"%s\">%s</a>. Jei norite redaguoti trumpinį čia, <a href=\"%soptions-permalink.php\">įjunkite nuolatinęs nuorodas.</a>."
 
-#: ../src/admin-views/tribe-options-general.php:109
+#: ../src/admin-views/tribe-options-general.php:106
 #: ../src/functions/template-tags/options.php:20
 msgid "The slug used for building the events URL."
 msgstr "Nuorodos trumpinys yra naudojamas generuojant renginio URL."
 
-#: ../src/admin-views/tribe-options-general.php:109
+#: ../src/admin-views/tribe-options-general.php:106
 msgid "Your current events URL is: %s"
-msgstr "Jūsų dabartinio renginio URL yra: %s"
+msgstr "Jūsų dabartinis renginių URL yra: %s"
 
-#: ../src/admin-views/tribe-options-general.php:114
+#: ../src/admin-views/tribe-options-general.php:111
 #: ../src/functions/template-tags/options.php:39
 msgid "Here is the iCal feed URL for your events:"
 msgstr "Čia yra iCal tiekimo URL jūsų renginiams:"
 
-#: ../src/admin-views/tribe-options-general.php:119
+#: ../src/admin-views/tribe-options-general.php:116
 msgid "Single event URL slug"
 msgstr "Vieno renginio URL nuorodos trumpinys"
 
-#: ../src/admin-views/tribe-options-general.php:126
+#: ../src/admin-views/tribe-options-general.php:123
 msgid "The above should ideally be plural, and this singular.<br />Your single event URL is: %s"
-msgstr "Virš idealiu atveju turėtų būti daugiskaita, o tai vienaskaita.<br />Jūsų vieno renginio URL yra: %s"
+msgstr "Aukščiau turėtų būti daugiskaita, o čia - vienaskaita.<br />Jūsų vieno renginio URL yra: %s"
 
-#: ../src/admin-views/tribe-options-general.php:131
+#: ../src/admin-views/tribe-options-general.php:128
 msgid "End of day cutoff"
 msgstr "Dienos pabaigos uždarymas"
 
-#: ../src/admin-views/tribe-options-general.php:152
+#: ../src/admin-views/tribe-options-general.php:149
 msgid "Have an event that runs past midnight? Select a time after that event's end to avoid showing the event on the next day's calendar."
 msgstr "Turite renginį, veikianti po vidurnakčio? Pasirinkite laiką, po to įvykio pabaigos, kad nerodytumėte renginio kitą dieną kalendoriuje."
 
-#: ../src/admin-views/tribe-options-general.php:157
+#: ../src/admin-views/tribe-options-general.php:154
 msgid "Default currency symbol"
 msgstr "Numatytasis valiutos simbolis"
 
-#: ../src/admin-views/tribe-options-general.php:158
+#: ../src/admin-views/tribe-options-general.php:155
 msgid "Set the default currency symbol for event costs. Note that this only impacts future events, and changes made will not apply retroactively."
 msgstr "Nustatykite numatytąjį valiutos simbolį renginių kainoms. Atkreipkite dėmesį, kad tai tik paveiks ateities renginius, ir pakeitimai nebus taikomi atgaline data."
 
-#: ../src/admin-views/tribe-options-general.php:165
+#: ../src/admin-views/tribe-options-general.php:162
 msgid "Currency symbol follows value"
 msgstr "Valiutos simbolis prieš reikšmę"
 
-#: ../src/admin-views/tribe-options-general.php:166
+#: ../src/admin-views/tribe-options-general.php:163
 msgid "The currency symbol normally precedes the value. Enabling this option positions the symbol after the value."
-msgstr "Valiutos simbolis paprastai stovi prieš reikšmę. Šios parinkties įgalinimas simbolį pastatys po reikšme."
+msgstr "Valiutos simbolis paprastai būna prieš reikšmę. Įgalinus šią parinktį, simbolis bus už reikšmės."
 
-#: ../src/admin-views/tribe-options-general.php:172
+#: ../src/admin-views/tribe-options-general.php:169
 msgid "Map Settings"
 msgstr "Žemėlapio nustatymai"
 
-#: ../src/admin-views/tribe-options-general.php:176
+#: ../src/admin-views/tribe-options-general.php:173
 msgid "Enable Google Maps"
 msgstr "Įjungti Google žemėlapius"
 
-#: ../src/admin-views/tribe-options-general.php:177
+#: ../src/admin-views/tribe-options-general.php:174
 msgid "Check to enable maps for events and venues."
 msgstr "Pažymėkite, kad įjungti žemėlapius renginiams ir varžyboms."
 
-#: ../src/admin-views/tribe-options-general.php:184
+#: ../src/admin-views/tribe-options-general.php:181
 msgid "Google Maps default zoom level"
 msgstr "Google žemėlapio numatytas priartinimo lygis"
 
-#: ../src/admin-views/tribe-options-general.php:185
+#: ../src/admin-views/tribe-options-general.php:182
 msgid "0 = zoomed out; 21 = zoomed in."
 msgstr "0 = nutolinta; 21 = priartinta."
 
-#: ../src/admin-views/tribe-options-general.php:193
+#: ../src/admin-views/tribe-options-general.php:190
 msgid "Miscellaneous Settings"
 msgstr "Įvairūs nustatymai"
 
-#: ../src/admin-views/tribe-options-general.php:197
+#: ../src/admin-views/tribe-options-general.php:194
 msgid "Duplicate Venues &amp; Organizers"
 msgstr "Dubliuoti vietas ir organizatorius"
 
-#: ../src/admin-views/tribe-options-general.php:197
+#: ../src/admin-views/tribe-options-general.php:194
 msgid "You might find duplicate venues and organizers when updating The Events Calendar from a pre-3.0 version. Click this button to automatically merge identical venues and organizers."
 msgstr "Galite rasti vietų bei organizatorių dublikatus kai naujinate Renginių Kalendorių iš išankstinės 3.0 versijos. Spauskite šį mygtuką, kad automatiškai sujungti identiškas vietas bei organizatorius. "
 
-#: ../src/admin-views/tribe-options-general.php:202
+#: ../src/admin-views/tribe-options-general.php:211
 msgid "Debug mode"
 msgstr "Derinimo režimas"
 
-#: ../src/admin-views/tribe-options-general.php:208
+#: ../src/admin-views/tribe-options-general.php:217
 msgid "Enable this option to log debug information. By default this will log to your server PHP error log. If you'd like to see the log messages in your browser, then we recommend that you install the %s and look for the \"Tribe\" tab in the debug output."
 msgstr "Įjunkite šią parinktį jei norite įrašyti derinimo informaciją. Pagal numatytuosius nustatymus tai bus įrašoma jūsų serverio PHP klaidų ataskaitoje. Jei norite matyti įrašų žinutes jūsų naršyklėje, tada mes rekomenduojama jums įsidiegti %s ir susirasti \"Tribe\" skirtuką derinimo išvestyje."
 
-#: ../src/admin-views/tribe-options-general.php:208
+#: ../src/admin-views/tribe-options-general.php:217
 msgid "Debug Bar Plugin"
 msgstr "Derinimo juostos priedas"
 
-#: ../src/admin-views/tribe-options-general.php:213
+#: ../src/admin-views/tribe-options-general.php:199
 msgid "View Welcome Page"
-msgstr ""
+msgstr "Žiūrėti pasisveikinimo puslapį"
 
-#: ../src/admin-views/tribe-options-general.php:213
+#: ../src/admin-views/tribe-options-general.php:199
 msgid "View the page that displayed when you initially installed the plugin."
 msgstr ""
 
-#: ../src/admin-views/tribe-options-general.php:218
+#: ../src/admin-views/tribe-options-general.php:204
 msgid "View Update Page"
-msgstr ""
+msgstr "Žiūrėti naujinimų puslapį"
 
-#: ../src/admin-views/tribe-options-general.php:218
+#: ../src/admin-views/tribe-options-general.php:204
 msgid "View the page that displayed when you updated the plugin."
 msgstr ""
 
@@ -1431,7 +1482,7 @@ msgstr "n/a"
 
 #: ../src/admin-views/tribe-options-help.php:29
 msgid "You need to upgrade!"
-msgstr "Jums reikia atnaujinti!"
+msgstr "Turite atnaujinti!"
 
 #: ../src/admin-views/tribe-options-help.php:29
 msgid "You are up to date!"
@@ -1459,7 +1510,7 @@ msgstr "Renginių kalendorius: Facebook renginiai"
 
 #: ../src/Tribe/View_Helpers.php:282
 msgid "Western Sahara"
-msgstr "Vakarinė Sachara"
+msgstr "Vakarų Sachara"
 
 #: ../src/admin-views/tribe-options-help.php:68
 msgid "The Events Calendar: WooCommerce Tickets"
@@ -1500,10 +1551,6 @@ msgstr "Renginių kalendorius: Filtro juosta"
 #: ../src/Tribe/View_Helpers.php:317
 msgid "Alaska"
 msgstr "Aliaska"
-
-#: ../src/admin-views/tribe-options-help.php:94
-msgid "If you're looking for help with The Events Calendar, you've come to the right place. We are committed to helping make your calendar kick ass...and hope the resources provided below will help get you there."
-msgstr "Jei ieškote pagalbos su Renginių Kalendoriumi, tada jūs atėjote į tinkamą vietą. Mes esame įsipareigoję padėti padaryti jūsų kalendorių nepakartojamą...ir tikimės, kad žemiau pateikti ištekliai padės jums tai pasiekti."
 
 #: ../src/Tribe/View_Helpers.php:318
 msgid "Arizona"
@@ -1637,7 +1684,7 @@ msgstr "Albanija"
 msgid "Algeria"
 msgstr "Algeria"
 
-#: ../src/Tribe/API.php:378
+#: ../src/Tribe/API.php:431
 msgid "Unnamed Venue"
 msgstr "Vieta be pavadinimo"
 
@@ -1645,7 +1692,7 @@ msgstr "Vieta be pavadinimo"
 msgid "American Samoa"
 msgstr "Amerikos Samoa"
 
-#: ../src/Tribe/API.php:454 ../src/Tribe/View_Helpers.php:46
+#: ../src/Tribe/API.php:507 ../src/Tribe/View_Helpers.php:46
 #: ../src/functions/template-tags/venue.php:272
 msgid "United States"
 msgstr "Jungtinės Amerikos Valstijos"
@@ -1654,7 +1701,7 @@ msgstr "Jungtinės Amerikos Valstijos"
 msgid "Andorra"
 msgstr "Andora"
 
-#: ../src/Tribe/Activation_Page.php:143
+#: ../src/Tribe/Activation_Page.php:197
 msgid "Welcome to The Events Calendar"
 msgstr "Sveiki atvykę į renginių kalendorių"
 
@@ -1662,7 +1709,7 @@ msgstr "Sveiki atvykę į renginių kalendorių"
 msgid "Angola"
 msgstr "Angola"
 
-#: ../src/Tribe/Activation_Page.php:163
+#: ../src/Tribe/Activation_Page.php:217
 msgid "Thanks for Updating The Events Calendar"
 msgstr "Ačiū, kad atnaujinote Renginių Kalendorių"
 
@@ -1670,15 +1717,15 @@ msgstr "Ačiū, kad atnaujinote Renginių Kalendorių"
 msgid "Anguilla"
 msgstr "Angilija"
 
-#: ../src/Tribe/Admin_List.php:168 ../src/Tribe/Main.php:1254
+#: ../src/Tribe/Admin_List.php:229 ../src/Tribe/Main.php:1272
 msgid "%s Categories"
-msgstr ""
+msgstr "%s kategorijos"
 
 #: ../src/Tribe/View_Helpers.php:54
 msgid "Antarctica"
 msgstr "Antarktika"
 
-#: ../src/Tribe/Admin_List.php:174
+#: ../src/Tribe/Admin_List.php:235
 msgid "Start Date"
 msgstr "Pradžios data"
 
@@ -1686,7 +1733,7 @@ msgstr "Pradžios data"
 msgid "Antigua And Barbuda"
 msgstr "Antigva ir Barbuda"
 
-#: ../src/Tribe/Admin_List.php:175
+#: ../src/Tribe/Admin_List.php:236
 msgid "End Date"
 msgstr "Pabaigos data"
 
@@ -1694,7 +1741,7 @@ msgstr "Pabaigos data"
 msgid "Argentina"
 msgstr "Argentina"
 
-#: ../src/Tribe/Admin_List.php:248
+#: ../src/Tribe/Admin_List.php:314
 msgid "All %s"
 msgstr "Visi %s"
 
@@ -1743,7 +1790,7 @@ msgstr "Laikas:"
 
 #: ../src/Tribe/View_Helpers.php:61
 msgid "Azerbaijan"
-msgstr "Azarbaidžianas"
+msgstr "Azerbaidžanas"
 
 #: ../src/Tribe/Advanced_Functions/Register_Meta.php:324
 #: ../src/functions/template-tags/google-map.php:46
@@ -1764,7 +1811,7 @@ msgid "Bahrain"
 msgstr "Bahrainas"
 
 #: ../src/Tribe/Amalgamator.php:260
-#: ../src/admin-views/tribe-options-general.php:197
+#: ../src/admin-views/tribe-options-general.php:194
 msgid "Merge Duplicates"
 msgstr "Sujungti dublikatus"
 
@@ -1772,8 +1819,8 @@ msgstr "Sujungti dublikatus"
 msgid "Bangladesh"
 msgstr "Bangladešas"
 
-#: ../src/Tribe/App_Shop.php:64 ../src/Tribe/App_Shop.php:65
-#: ../src/Tribe/App_Shop.php:96
+#: ../src/Tribe/App_Shop.php:63 ../src/Tribe/App_Shop.php:64
+#: ../src/Tribe/App_Shop.php:94
 msgid "Event Add-Ons"
 msgstr "Renginio papildiniai"
 
@@ -1805,7 +1852,7 @@ msgstr "http://wordpress.org/support/view/plugin-reviews/the-events-calendar?fil
 msgid "Belize"
 msgstr "Belizas"
 
-#: ../src/Tribe/Field.php:211
+#: ../src/Tribe/Field.php:209
 msgid "Invalid field type specified"
 msgstr "Nurodytas neleistinas lauko tipas"
 
@@ -1813,7 +1860,7 @@ msgstr "Nurodytas neleistinas lauko tipas"
 msgid "Benin"
 msgstr "Beninas"
 
-#: ../src/Tribe/Field.php:470
+#: ../src/Tribe/Field.php:466
 msgid "No radio options specified"
 msgstr "Nenurodytas joks pasirinkimas taškeliu "
 
@@ -1821,7 +1868,7 @@ msgstr "Nenurodytas joks pasirinkimas taškeliu "
 msgid "Bermuda"
 msgstr "Bermudai"
 
-#: ../src/Tribe/Field.php:506
+#: ../src/Tribe/Field.php:502
 msgid "No checkbox options specified"
 msgstr "Nenurodytas joks pasirinkimas varnele"
 
@@ -1829,7 +1876,7 @@ msgstr "Nenurodytas joks pasirinkimas varnele"
 msgid "Bhutan"
 msgstr "Butanas"
 
-#: ../src/Tribe/Field.php:562
+#: ../src/Tribe/Field.php:558
 msgid "No select options specified"
 msgstr "Nenurodytas joks pasirinkimas"
 
@@ -1838,7 +1885,7 @@ msgid "Bolivia"
 msgstr "Bolivija"
 
 #: ../src/Tribe/Importer/Admin_Page.php:15
-#: ../src/Tribe/Importer/Admin_Page.php:16 ../src/Tribe/Main.php:3880
+#: ../src/Tribe/Importer/Admin_Page.php:16 ../src/Tribe/Main.php:3946
 msgid "Import"
 msgstr "Importuoti"
 
@@ -1849,13 +1896,13 @@ msgstr "Bosnija ir Hercogavina"
 #: ../src/Tribe/Importer/Admin_Page.php:54
 #: ../src/Tribe/Importer/Admin_Page.php:187
 msgid "The file went away. Please try again."
-msgstr "Failo nuėjo. Bandykite dar kartą."
+msgstr "Failas iškeliavo. Bandykite dar kartą."
 
 #: ../src/Tribe/View_Helpers.php:74
 msgid "Botswana"
 msgstr "Botsvana"
 
-#: ../src/Tribe/Importer/Admin_Page.php:95 ../src/Tribe/Main.php:776
+#: ../src/Tribe/Importer/Admin_Page.php:95 ../src/Tribe/Main.php:754
 msgid "General"
 msgstr "Bendras"
 
@@ -1881,7 +1928,7 @@ msgstr "Indijos vandenyno britų sritis"
 
 #: ../src/Tribe/Importer/Admin_Page.php:194
 msgid "<p>The following fields are required for a successful import:</p>"
-msgstr "<p>Šie laukai būtini sėkmingai importacijai:</p>"
+msgstr "<p>Šie laukai būtini sėkmingam importavimui:</p>"
 
 #: ../src/Tribe/View_Helpers.php:78
 msgid "Brunei Darussalam"
@@ -1893,7 +1940,7 @@ msgstr "Neimportuoti"
 
 #: ../src/Tribe/View_Helpers.php:79
 msgid "Bulgaria"
-msgstr "Bulgaria"
+msgstr "Bulgarija"
 
 #: ../src/Tribe/Importer/Column_Mapper.php:52
 msgid "Event Name"
@@ -1921,7 +1968,7 @@ msgstr "Kambodža"
 
 #: ../src/Tribe/Importer/Column_Mapper.php:55
 msgid "Event Start Time"
-msgstr "Renginio pradžio laikas"
+msgstr "Renginio pradžios laikas"
 
 #: ../src/Tribe/View_Helpers.php:83
 msgid "Cameroon"
@@ -1991,15 +2038,11 @@ msgstr "Renginio kaina"
 msgid "Christmas Island"
 msgstr "Kalėdų sala"
 
-#: ../src/Tribe/Importer/Column_Mapper.php:64
-msgid "Event Phone"
-msgstr "Renginio telefono nr."
-
 #: ../src/Tribe/View_Helpers.php:92
 msgid "Cocos (Keeling) Islands"
 msgstr "Kokosų (Kylingo) salos"
 
-#: ../src/Tribe/Importer/Column_Mapper.php:65
+#: ../src/Tribe/Importer/Column_Mapper.php:64
 msgid "Event Category"
 msgstr "Renginio kategorija"
 
@@ -2007,7 +2050,7 @@ msgstr "Renginio kategorija"
 msgid "Colombia"
 msgstr "Kolumbija"
 
-#: ../src/Tribe/Importer/Column_Mapper.php:66
+#: ../src/Tribe/Importer/Column_Mapper.php:65
 msgid "Event Website"
 msgstr "Renginio internetinė svetainė"
 
@@ -2015,7 +2058,7 @@ msgstr "Renginio internetinė svetainė"
 msgid "Comoros"
 msgstr "Komorai"
 
-#: ../src/Tribe/Importer/Column_Mapper.php:72
+#: ../src/Tribe/Importer/Column_Mapper.php:71
 msgid "Venue Name"
 msgstr "Vietos pavadinimas"
 
@@ -2023,7 +2066,7 @@ msgstr "Vietos pavadinimas"
 msgid "Congo"
 msgstr "Kongas"
 
-#: ../src/Tribe/Importer/Column_Mapper.php:73
+#: ../src/Tribe/Importer/Column_Mapper.php:72
 msgid "Venue Country"
 msgstr "Vietos šalis"
 
@@ -2031,7 +2074,7 @@ msgstr "Vietos šalis"
 msgid "Congo, The Democratic Republic Of The"
 msgstr "Kongas, Demokratinė Respublika"
 
-#: ../src/Tribe/Importer/Column_Mapper.php:74
+#: ../src/Tribe/Importer/Column_Mapper.php:73
 msgid "Venue Address"
 msgstr "Vietos adresas"
 
@@ -2039,7 +2082,7 @@ msgstr "Vietos adresas"
 msgid "Cook Islands"
 msgstr "Kuko salos"
 
-#: ../src/Tribe/Importer/Column_Mapper.php:75
+#: ../src/Tribe/Importer/Column_Mapper.php:74
 msgid "Venue Address 2"
 msgstr "Vietos adresas 2"
 
@@ -2047,7 +2090,7 @@ msgstr "Vietos adresas 2"
 msgid "Costa Rica"
 msgstr "Kosta Rika"
 
-#: ../src/Tribe/Importer/Column_Mapper.php:76
+#: ../src/Tribe/Importer/Column_Mapper.php:75
 msgid "Venue City"
 msgstr "Vietos miestas"
 
@@ -2055,15 +2098,15 @@ msgstr "Vietos miestas"
 msgid "Cote D'Ivoire"
 msgstr "Dramblio Kaulo Krantas"
 
-#: ../src/Tribe/Importer/Column_Mapper.php:77
+#: ../src/Tribe/Importer/Column_Mapper.php:76
 msgid "Venue State/Province"
-msgstr "Vietos Valstija/Provincija"
+msgstr "Vietos valstija/provincija"
 
 #: ../src/Tribe/View_Helpers.php:100
 msgid "Croatia (Local Name: Hrvatska)"
 msgstr "Kroatia (Vietinis pavadinimas: Hrvatska)"
 
-#: ../src/Tribe/Importer/Column_Mapper.php:78
+#: ../src/Tribe/Importer/Column_Mapper.php:77
 msgid "Venue Zip"
 msgstr "Vietos pašto kodas"
 
@@ -2071,7 +2114,7 @@ msgstr "Vietos pašto kodas"
 msgid "Cuba"
 msgstr "Kuba"
 
-#: ../src/Tribe/Importer/Column_Mapper.php:79
+#: ../src/Tribe/Importer/Column_Mapper.php:78
 msgid "Venue Phone"
 msgstr "Vietos telefono nr."
 
@@ -2079,15 +2122,15 @@ msgstr "Vietos telefono nr."
 msgid "Cyprus"
 msgstr "Kipras"
 
-#: ../src/Tribe/Importer/Column_Mapper.php:80
+#: ../src/Tribe/Importer/Column_Mapper.php:79
 msgid "Venue Website"
-msgstr ""
+msgstr "Vietos interneto svetainė"
 
 #: ../src/Tribe/View_Helpers.php:103
 msgid "Czech Republic"
 msgstr "Čekija"
 
-#: ../src/Tribe/Importer/Column_Mapper.php:86
+#: ../src/Tribe/Importer/Column_Mapper.php:85
 msgid "Organizer Name"
 msgstr "Organizatoriaus pavadinimas"
 
@@ -2095,15 +2138,15 @@ msgstr "Organizatoriaus pavadinimas"
 msgid "Denmark"
 msgstr "Danija"
 
-#: ../src/Tribe/Importer/Column_Mapper.php:87
+#: ../src/Tribe/Importer/Column_Mapper.php:86
 msgid "Organizer Email"
-msgstr "Organizatoriaus el.paštas"
+msgstr "Organizatoriaus el. paštas"
 
 #: ../src/Tribe/View_Helpers.php:105
 msgid "Djibouti"
 msgstr "Džibutis"
 
-#: ../src/Tribe/Importer/Column_Mapper.php:88
+#: ../src/Tribe/Importer/Column_Mapper.php:87
 msgid "Organizer Website"
 msgstr "Organizatoriaus svetainė"
 
@@ -2111,7 +2154,7 @@ msgstr "Organizatoriaus svetainė"
 msgid "Dominica"
 msgstr "Dominika"
 
-#: ../src/Tribe/Importer/Column_Mapper.php:89
+#: ../src/Tribe/Importer/Column_Mapper.php:88
 msgid "Organizer Phone"
 msgstr "Organizatoriaus telefono nr."
 
@@ -2175,7 +2218,7 @@ msgstr "Nepavyko įrašyti %s."
 msgid "Estonia"
 msgstr "Estija"
 
-#: ../src/Tribe/Importer/Options.php:29 ../src/Tribe/Settings.php:522
+#: ../src/Tribe/Importer/Options.php:29 ../src/Tribe/Settings.php:520
 msgid "Settings saved."
 msgstr "Nustatymai išsaugoti"
 
@@ -2201,13 +2244,13 @@ msgstr "Farerų salos"
 
 #: ../src/Tribe/List_Widget.php:171
 msgid "Upcoming Events"
-msgstr "Artėjantys renginiai"
+msgstr "Artimiausi renginiai"
 
 #: ../src/Tribe/View_Helpers.php:118
 msgid "Fiji"
 msgstr "Fidžis"
 
-#: ../src/Tribe/Main.php:487 ../src/functions/template-tags/venue.php:52
+#: ../src/Tribe/Main.php:490 ../src/functions/template-tags/venue.php:52
 #: ../src/io/csv/admin-views/import.php:45
 msgid "Venues"
 msgstr "Vietos"
@@ -2216,7 +2259,7 @@ msgstr "Vietos"
 msgid "Finland"
 msgstr "Suomija"
 
-#: ../src/Tribe/Main.php:495
+#: ../src/Tribe/Main.php:498
 #: ../src/functions/advanced-functions/meta_registration.php:126
 #: ../src/functions/template-tags/venue.php:41
 msgid "Venue"
@@ -2226,7 +2269,7 @@ msgstr "Vieta"
 msgid "France"
 msgstr "Prancūzija"
 
-#: ../src/Tribe/Main.php:503 ../src/functions/template-tags/organizer.php:59
+#: ../src/Tribe/Main.php:506 ../src/functions/template-tags/organizer.php:82
 #: ../src/io/csv/admin-views/import.php:46
 msgid "Organizers"
 msgstr "Organizatoriai"
@@ -2235,9 +2278,9 @@ msgstr "Organizatoriai"
 msgid "France, Metropolitan"
 msgstr "Prancūzija, Metropolitenas"
 
-#: ../src/Tribe/Main.php:511
+#: ../src/Tribe/Main.php:514
 #: ../src/functions/advanced-functions/meta_registration.php:205
-#: ../src/functions/template-tags/organizer.php:48
+#: ../src/functions/template-tags/organizer.php:71
 msgid "Organizer"
 msgstr "Organizatorius"
 
@@ -2245,7 +2288,7 @@ msgstr "Organizatorius"
 msgid "French Guiana"
 msgstr "Prancūzijos Gviana"
 
-#: ../src/Tribe/Main.php:519 ../src/functions/template-tags/general.php:71
+#: ../src/Tribe/Main.php:522 ../src/functions/template-tags/general.php:71
 #: ../src/io/csv/admin-views/import.php:47
 msgid "Events"
 msgstr "Renginiai"
@@ -2254,7 +2297,7 @@ msgstr "Renginiai"
 msgid "French Polynesia"
 msgstr "Prancūzijos Polinezija"
 
-#: ../src/Tribe/Main.php:527 ../src/functions/template-tags/general.php:60
+#: ../src/Tribe/Main.php:530 ../src/functions/template-tags/general.php:60
 msgid "Event"
 msgstr "Renginys"
 
@@ -2262,7 +2305,7 @@ msgstr "Renginys"
 msgid "French Southern Territories"
 msgstr "Prancūzijos pietinės teritorijos"
 
-#: ../src/Tribe/Main.php:569 ../src/Tribe/Settings.php:132
+#: ../src/Tribe/Main.php:570 ../src/Tribe/Settings.php:132
 #: ../src/admin-views/tribe-options-help.php:169
 msgid "The Events Calendar"
 msgstr "Renginių kalendorius"
@@ -2271,7 +2314,7 @@ msgstr "Renginių kalendorius"
 msgid "Gabon"
 msgstr "Gabonas"
 
-#: ../src/Tribe/Main.php:574
+#: ../src/Tribe/Main.php:575
 msgid "month"
 msgstr "mėnesis"
 
@@ -2279,7 +2322,7 @@ msgstr "mėnesis"
 msgid "Gambia"
 msgstr "Gambija"
 
-#: ../src/Tribe/Main.php:575
+#: ../src/Tribe/Main.php:576
 msgid "list"
 msgstr "sąrašas"
 
@@ -2287,23 +2330,23 @@ msgstr "sąrašas"
 msgid "Georgia"
 msgstr "Gruzija"
 
-#: ../src/Tribe/Main.php:576
+#: ../src/Tribe/Main.php:577
 msgid "upcoming"
-msgstr "artėjantis"
+msgstr "artimiausi"
 
 #: ../src/Tribe/View_Helpers.php:128
 msgid "Germany"
 msgstr "Vokietija"
 
-#: ../src/Tribe/Main.php:577
+#: ../src/Tribe/Main.php:578
 msgid "past"
-msgstr "praėjęs"
+msgstr "įvykęs"
 
 #: ../src/Tribe/View_Helpers.php:129
 msgid "Ghana"
 msgstr "Gana"
 
-#: ../src/Tribe/Main.php:578
+#: ../src/Tribe/Main.php:579
 msgid "day"
 msgstr "diena"
 
@@ -2311,7 +2354,7 @@ msgstr "diena"
 msgid "Gibraltar"
 msgstr "Gibraltaras"
 
-#: ../src/Tribe/Main.php:579
+#: ../src/Tribe/Main.php:580
 msgid "today"
 msgstr "šiandien"
 
@@ -2319,7 +2362,7 @@ msgstr "šiandien"
 msgid "Greece"
 msgstr "Graikija"
 
-#: ../src/Tribe/Main.php:603
+#: ../src/Tribe/Main.php:604
 msgid "Initializing Tribe Events on %s"
 msgstr "Inicijuojami Tribe Renginiai %s"
 
@@ -2327,7 +2370,7 @@ msgstr "Inicijuojami Tribe Renginiai %s"
 msgid "Greenland"
 msgstr "Grenlandija"
 
-#: ../src/Tribe/Main.php:676
+#: ../src/Tribe/Main.php:674
 msgid "Your version of The Events Calendar is not up-to-date with one of your The Events Calendar add-ons. Please %supdate now.%s"
 msgstr "Jūsų renginių kalendorius versija pasenusi kartu su vienu iš The Events Calendar papildiniu. Prašome %satsinaujinti dabar.%s"
 
@@ -2335,7 +2378,7 @@ msgstr "Jūsų renginių kalendorius versija pasenusi kartu su vienu iš The Eve
 msgid "Grenada"
 msgstr "Grenada"
 
-#: ../src/Tribe/Main.php:688
+#: ../src/Tribe/Main.php:686
 msgid "The following plugins are out of date: <b>%s</b>. All add-ons contain dependencies on The Events Calendar and will not function properly unless paired with the right version. %sLearn More%s."
 msgstr ""
 
@@ -2343,8 +2386,7 @@ msgstr ""
 msgid "Guadeloupe"
 msgstr "Gvadelupa"
 
-#: ../src/Tribe/Main.php:748 ../src/Tribe/Main.php:784
-#: ../src/Tribe/Main.php:790
+#: ../src/Tribe/Main.php:796 ../src/admin-views/tribe-options-licenses.php:33
 msgid "Licenses"
 msgstr "Licencijos"
 
@@ -2352,7 +2394,7 @@ msgstr "Licencijos"
 msgid "Guam"
 msgstr "Guamas"
 
-#: ../src/Tribe/Main.php:753
+#: ../src/admin-views/tribe-options-licenses.php:13
 msgid "<p>The license key you received when completing your purchase from %s will grant you access to support and updates until it expires. You do not need to enter the key below for the plugins to work, but you will need to enter it to get automatic updates. <strong>Find your license keys at <a href=\"%s\" target=\"_blank\">%s</a></strong>.</p> <p>Each paid add-on has its own unique license key. Simply paste the key into its appropriate field on below, and give it a moment to validate. You know you're set when a green expiration date appears alongside a \"valid\" message.</p> <p>If you're seeing a red message telling you that your key isn't valid or is out of installs, visit <a href=\"%s\" target=\"_blank\">%s</a> to manage your installs or renew / upgrade your license.</p><p>Not seeing an update but expecting one? In WordPress, go to <a href=\"%s\">Dashboard > Updates</a> and click \"Check Again\".</p>"
 msgstr "<p>Licencijos raktas kurį gavote atlikę pirkimą iš %s garantuos jums prieigą prie pagalbos ir atnaujinimų tol kol jis pabaigs galioti. Jums nereikia suvesti rakto žemiau, kad įskiepiai veiktų, bet jums reikės suvesti, kad gauti automatinius atnaujinimus. <strong>Savo licencijos raktus rasite <a href=\"%s\" target=\"_blank\">%s</a></strong>.</p> <p>Kiekvienas mokamas įskiepis turi savo unikalų licencijos raktą. Tiesiog įklijuokite raktą į jam skirtą lauką žemiau ir palaukite kol jis bus patikrintas. Jūs žinosite, kad viską atlikote teisingai kai žalios spalvos galiojimo data pasirodys šalia \"galiojantis\" pranešimo.</p> <p>Jei matote raudoną pranešimą sakantį, kad jūsų raktas negalioja ar pasibaigę, aplankykite <a href=\"%s\" target=\"_blank\">%s</a>, kad valdyti jūsų įdiegimus ar atnaujinti jūsų licenciją.</p><p>Laukiate atnaujinimo, bet jo nematote? WordPress eikite į <a href=\"%s\">Dashboard > Updates</a> ir paspauskite \"Check Again\".</p>"
 
@@ -2360,7 +2402,7 @@ msgstr "<p>Licencijos raktas kurį gavote atlikę pirkimą iš %s garantuos jums
 msgid "Guatemala"
 msgstr "Gvatemala"
 
-#: ../src/Tribe/Main.php:777
+#: ../src/Tribe/Main.php:755
 msgid "Display"
 msgstr "Rodymas"
 
@@ -2368,8 +2410,8 @@ msgstr "Rodymas"
 msgid "Guinea"
 msgstr "Gvinėja"
 
-#: ../src/Tribe/Main.php:796 ../src/Tribe/Main.php:3923
-#: ../src/Tribe/Main.php:4018
+#: ../src/Tribe/Main.php:759 ../src/Tribe/Main.php:3989
+#: ../src/Tribe/Main.php:4084
 msgid "Help"
 msgstr "Pagalba"
 
@@ -2377,23 +2419,23 @@ msgstr "Pagalba"
 msgid "Guinea-Bissau"
 msgstr "Bisau Gvinėja"
 
-#: ../src/Tribe/Main.php:886
+#: ../src/Tribe/Main.php:897
 msgid "Sorry, The Events Calendar requires WordPress %s or higher. Please upgrade your WordPress install."
-msgstr "Atsiprašome, Renginių Kalendorius reikalauja Wordpress %s ar naujesnios. Prašome atnaujinti Wordpress."
+msgstr "Atsiprašome, Renginių Kalendorius reikalauja Wordpress %s ar naujesnės. Prašome atnaujinti Wordpress."
 
 #: ../src/Tribe/View_Helpers.php:139
 msgid "Guyana"
 msgstr "Gajana"
 
-#: ../src/Tribe/Main.php:889
+#: ../src/Tribe/Main.php:900
 msgid "Sorry, The Events Calendar requires PHP %s or higher. Talk to your Web host about moving you to a newer version of PHP."
-msgstr "Atsiprašome, Renginių Kalendorius reikalauja PHP %s ar aukštesnės. Kreipkite į hostingo administratorių, kad perkeltų jus į naujesnę PHP versiją."
+msgstr "Gaila, bet Renginių Kalendoriui reikia PHP %s ar aukštesnės. Kreipkitės į prieglobos administratorių, kad sukurtų jums naujesnės PHP aplinką."
 
 #: ../src/Tribe/View_Helpers.php:140
 msgid "Haiti"
 msgstr "Haitis"
 
-#: ../src/Tribe/Main.php:1176
+#: ../src/Tribe/Main.php:1174
 msgid "category"
 msgstr "kategorija"
 
@@ -2401,7 +2443,7 @@ msgstr "kategorija"
 msgid "Heard And Mc Donald Islands"
 msgstr "Kaimanų salos"
 
-#: ../src/Tribe/Main.php:1187
+#: ../src/Tribe/Main.php:1185
 msgid "tag"
 msgstr "žymė"
 
@@ -2409,8 +2451,8 @@ msgstr "žymė"
 msgid "Holy See (Vatican City State)"
 msgstr "Šventasis Sostas (Vatikano Miesto Valstybė)"
 
-#: ../src/Tribe/Main.php:1217 ../src/Tribe/Main.php:1230
-#: ../src/Tribe/Main.php:1243
+#: ../src/Tribe/Main.php:1220 ../src/Tribe/Main.php:1238
+#: ../src/Tribe/Main.php:1256
 msgid "Add New"
 msgstr "Pridėti naują"
 
@@ -2418,9 +2460,9 @@ msgstr "Pridėti naują"
 msgid "Honduras"
 msgstr "Hondūras"
 
-#: ../src/Tribe/Main.php:1218 ../src/Tribe/Main.php:1231
-#: ../src/Tribe/Main.php:1244 ../src/Tribe/Main.php:1349
-#: ../src/Tribe/Main.php:1350
+#: ../src/Tribe/Main.php:1221 ../src/Tribe/Main.php:1239
+#: ../src/Tribe/Main.php:1257 ../src/Tribe/Main.php:1382
+#: ../src/Tribe/Main.php:1383
 msgid "Add New %s"
 msgstr "Pridėti naują %s"
 
@@ -2428,9 +2470,10 @@ msgstr "Pridėti naują %s"
 msgid "Hong Kong"
 msgstr "Honkongas"
 
-#: ../src/Tribe/Main.php:1219 ../src/Tribe/Main.php:1232
-#: ../src/Tribe/Main.php:1245 ../src/Tribe/Main.php:1370
-#: ../src/Tribe/Main.php:1422 ../src/Tribe/Main.php:3867
+#: ../src/Tribe/Admin/Organizer_Chooser_Meta_Box.php:113
+#: ../src/Tribe/Main.php:1222 ../src/Tribe/Main.php:1240
+#: ../src/Tribe/Main.php:1258 ../src/Tribe/Main.php:1402
+#: ../src/Tribe/Main.php:1454 ../src/Tribe/Main.php:3933
 msgid "Edit %s"
 msgstr "Koreguoti %s"
 
@@ -2438,8 +2481,8 @@ msgstr "Koreguoti %s"
 msgid "Hungary"
 msgstr "Vengrija"
 
-#: ../src/Tribe/Main.php:1220 ../src/Tribe/Main.php:1233
-#: ../src/Tribe/Main.php:1246
+#: ../src/Tribe/Main.php:1223 ../src/Tribe/Main.php:1241
+#: ../src/Tribe/Main.php:1259
 msgid "New %s"
 msgstr "Naujas %s"
 
@@ -2447,8 +2490,8 @@ msgstr "Naujas %s"
 msgid "Iceland"
 msgstr "Islandija"
 
-#: ../src/Tribe/Main.php:1221 ../src/Tribe/Main.php:1234
-#: ../src/Tribe/Main.php:1247
+#: ../src/Tribe/Main.php:1224 ../src/Tribe/Main.php:1242
+#: ../src/Tribe/Main.php:1260
 msgid "View %s"
 msgstr "Peržiūrėti %s"
 
@@ -2456,8 +2499,8 @@ msgstr "Peržiūrėti %s"
 msgid "India"
 msgstr "Indija"
 
-#: ../src/Tribe/Main.php:1222 ../src/Tribe/Main.php:1235
-#: ../src/Tribe/Main.php:1248
+#: ../src/Tribe/Main.php:1225 ../src/Tribe/Main.php:1243
+#: ../src/Tribe/Main.php:1261
 msgid "Search %s"
 msgstr "Ieškoti %s"
 
@@ -2465,8 +2508,8 @@ msgstr "Ieškoti %s"
 msgid "Indonesia"
 msgstr "Indonezija"
 
-#: ../src/Tribe/Main.php:1223 ../src/Tribe/Main.php:1236
-#: ../src/Tribe/Main.php:1249
+#: ../src/Tribe/Main.php:1226 ../src/Tribe/Main.php:1244
+#: ../src/Tribe/Main.php:1262
 msgid "No %s found"
 msgstr "Jokių %s nerasta"
 
@@ -2474,8 +2517,8 @@ msgstr "Jokių %s nerasta"
 msgid "Iran (Islamic Republic Of)"
 msgstr "Iranas (Islamo Respublika)"
 
-#: ../src/Tribe/Main.php:1224 ../src/Tribe/Main.php:1237
-#: ../src/Tribe/Main.php:1250
+#: ../src/Tribe/Main.php:1227 ../src/Tribe/Main.php:1245
+#: ../src/Tribe/Main.php:1263
 msgid "No %s found in Trash"
 msgstr "Jokių %s šiukšliadėžėje nerasta"
 
@@ -2483,55 +2526,55 @@ msgstr "Jokių %s šiukšliadėžėje nerasta"
 msgid "Iraq"
 msgstr "Irakas"
 
-#: ../src/Tribe/Main.php:1255 ../src/functions/template-tags/general.php:393
+#: ../src/Tribe/Main.php:1273 ../src/functions/template-tags/general.php:408
 msgid "%s Category"
-msgstr ""
+msgstr "%s kategorija"
 
 #: ../src/Tribe/View_Helpers.php:151
 msgid "Ireland"
 msgstr "Airija"
 
-#: ../src/Tribe/Main.php:1256
+#: ../src/Tribe/Main.php:1274
 msgid "Search %s Categories"
-msgstr ""
+msgstr "Ieškoti %s kategorijas"
 
 #: ../src/Tribe/View_Helpers.php:152
 msgid "Israel"
 msgstr "Izraelis"
 
-#: ../src/Tribe/Main.php:1257
+#: ../src/Tribe/Main.php:1275
 msgid "All %s Categories"
-msgstr ""
+msgstr "Visos %s kategorijos"
 
 #: ../src/Tribe/View_Helpers.php:153
 msgid "Italy"
 msgstr "Italija"
 
-#: ../src/Tribe/Main.php:1258
+#: ../src/Tribe/Main.php:1276
 msgid "Parent %s Category"
-msgstr ""
+msgstr "Tėvinio %s kategorija"
 
 #: ../src/Tribe/View_Helpers.php:154
 msgid "Jamaica"
 msgstr "Jamaika"
 
-#: ../src/Tribe/Main.php:1259
+#: ../src/Tribe/Main.php:1277
 msgid "Parent %s Category:"
-msgstr ""
+msgstr "Tėvinio %s kategorija:"
 
 #: ../src/Tribe/View_Helpers.php:155
 msgid "Japan"
 msgstr "Japonija"
 
-#: ../src/Tribe/Main.php:1260
+#: ../src/Tribe/Main.php:1278
 msgid "Edit %s Category"
-msgstr ""
+msgstr "Koreguoti %s kategoriją"
 
 #: ../src/Tribe/View_Helpers.php:156
 msgid "Jordan"
 msgstr "Jordanija"
 
-#: ../src/Tribe/Main.php:1261
+#: ../src/Tribe/Main.php:1279
 msgid "Update %s Category"
 msgstr ""
 
@@ -2539,15 +2582,15 @@ msgstr ""
 msgid "Kazakhstan"
 msgstr "Kazachstanas"
 
-#: ../src/Tribe/Main.php:1262
+#: ../src/Tribe/Main.php:1280
 msgid "Add New %s Category"
-msgstr ""
+msgstr "Pridėti naują %s kategoriją"
 
 #: ../src/Tribe/View_Helpers.php:158
 msgid "Kenya"
 msgstr "Kenija"
 
-#: ../src/Tribe/Main.php:1263
+#: ../src/Tribe/Main.php:1281
 msgid "New %s Category Name"
 msgstr ""
 
@@ -2555,7 +2598,7 @@ msgstr ""
 msgid "Kiribati"
 msgstr "Kiribatis"
 
-#: ../src/Tribe/Main.php:1280
+#: ../src/Tribe/Main.php:1297
 msgid "%1$s updated. <a href=\"%2$s\">View %3$s</a>"
 msgstr ""
 
@@ -2563,8 +2606,8 @@ msgstr ""
 msgid "Korea, Democratic People's Republic Of"
 msgstr "Korėja, Demokratinė Liaudies Respublika"
 
-#: ../src/Tribe/Main.php:1281 ../src/Tribe/Main.php:1301
-#: ../src/Tribe/Main.php:1320
+#: ../src/Tribe/Main.php:1298 ../src/Tribe/Main.php:1334
+#: ../src/Tribe/Main.php:1353
 msgid "Custom field updated."
 msgstr "Pasirinktinis laukas atnaujintas."
 
@@ -2572,8 +2615,8 @@ msgstr "Pasirinktinis laukas atnaujintas."
 msgid "Korea, Republic Of"
 msgstr "Korėjos Respublika"
 
-#: ../src/Tribe/Main.php:1282 ../src/Tribe/Main.php:1302
-#: ../src/Tribe/Main.php:1321
+#: ../src/Tribe/Main.php:1299 ../src/Tribe/Main.php:1335
+#: ../src/Tribe/Main.php:1354
 msgid "Custom field deleted."
 msgstr "Pasirinktinis laukas ištrintas."
 
@@ -2581,9 +2624,9 @@ msgstr "Pasirinktinis laukas ištrintas."
 msgid "Kuwait"
 msgstr "Kuveitas"
 
-#: ../src/Tribe/Main.php:1283 ../src/Tribe/Main.php:1300
-#: ../src/Tribe/Main.php:1303 ../src/Tribe/Main.php:1319
-#: ../src/Tribe/Main.php:1322
+#: ../src/Tribe/Main.php:1300 ../src/Tribe/Main.php:1333
+#: ../src/Tribe/Main.php:1336 ../src/Tribe/Main.php:1352
+#: ../src/Tribe/Main.php:1355
 msgid "%s updated."
 msgstr "%s atnaujinta."
 
@@ -2591,7 +2634,7 @@ msgstr "%s atnaujinta."
 msgid "Kyrgyzstan"
 msgstr "Kirgizija"
 
-#: ../src/Tribe/Main.php:1285
+#: ../src/Tribe/Main.php:1302
 msgid "%1$s restored to revision from %2$s"
 msgstr ""
 
@@ -2599,16 +2642,16 @@ msgstr ""
 msgid "Lao People's Democratic Republic"
 msgstr "Laoso Liaudies Demokratinė Respublika"
 
-#: ../src/Tribe/Main.php:1286
+#: ../src/Tribe/Main.php:1304
 msgid "Event published. <a href=\"%1$s\">View %2$s</a>"
-msgstr ""
+msgstr "Renginys paskelbtas. <a href=\"%1$s\">View %2$s</a>"
 
 #: ../src/Tribe/View_Helpers.php:165
 msgid "Latvia"
-msgstr "Latvia"
+msgstr "Latvija"
 
-#: ../src/Tribe/Main.php:1287 ../src/Tribe/Main.php:1307
-#: ../src/Tribe/Main.php:1326
+#: ../src/Tribe/Main.php:1308 ../src/Tribe/Main.php:1340
+#: ../src/Tribe/Main.php:1359
 msgid "%s saved."
 msgstr "%s išsaugota."
 
@@ -2616,7 +2659,7 @@ msgstr "%s išsaugota."
 msgid "Lebanon"
 msgstr "Libanas"
 
-#: ../src/Tribe/Main.php:1288
+#: ../src/Tribe/Main.php:1310
 msgid "%1$s submitted. <a target=\"_blank\" href=\"%2$s\">Preview %3$s</a>"
 msgstr ""
 
@@ -2624,7 +2667,7 @@ msgstr ""
 msgid "Lesotho"
 msgstr "Lesotas"
 
-#: ../src/Tribe/Main.php:1290
+#: ../src/Tribe/Main.php:1316
 msgid "%1$s scheduled for: <strong>%2$s</strong>. <a target=\"_blank\" href=\"%3$s\">Preview %4$s</a>"
 msgstr ""
 
@@ -2632,8 +2675,8 @@ msgstr ""
 msgid "Liberia"
 msgstr "Liberija"
 
-#: ../src/Tribe/Main.php:1293 ../src/Tribe/Main.php:1312
-#: ../src/Tribe/Main.php:1331
+#: ../src/Tribe/Main.php:1319 ../src/Tribe/Main.php:1345
+#: ../src/Tribe/Main.php:1364
 msgid "M j, Y @ G:i"
 msgstr "M j, Y @ G:i"
 
@@ -2641,7 +2684,7 @@ msgstr "M j, Y @ G:i"
 msgid "Libya"
 msgstr "Libija"
 
-#: ../src/Tribe/Main.php:1295
+#: ../src/Tribe/Main.php:1324
 msgid "%1$s draft updated. <a target=\"_blank\" href=\"%2$s\">Preview %3$s</a>"
 msgstr ""
 
@@ -2649,7 +2692,7 @@ msgstr ""
 msgid "Liechtenstein"
 msgstr "Lichtenšteinas"
 
-#: ../src/Tribe/Main.php:1305 ../src/Tribe/Main.php:1324
+#: ../src/Tribe/Main.php:1338 ../src/Tribe/Main.php:1357
 msgid "%s restored to revision from %s"
 msgstr "%s atkurta į versiją iš %s"
 
@@ -2657,7 +2700,7 @@ msgstr "%s atkurta į versiją iš %s"
 msgid "Lithuania"
 msgstr "Lietuva"
 
-#: ../src/Tribe/Main.php:1306 ../src/Tribe/Main.php:1325
+#: ../src/Tribe/Main.php:1339 ../src/Tribe/Main.php:1358
 msgid "%s published."
 msgstr "%s paskelbta."
 
@@ -2665,7 +2708,7 @@ msgstr "%s paskelbta."
 msgid "Luxembourg"
 msgstr "Liuksemburgas"
 
-#: ../src/Tribe/Main.php:1308 ../src/Tribe/Main.php:1327
+#: ../src/Tribe/Main.php:1341 ../src/Tribe/Main.php:1360
 msgid "%s submitted."
 msgstr "%s pateikta."
 
@@ -2673,7 +2716,7 @@ msgstr "%s pateikta."
 msgid "Macau"
 msgstr "Makao"
 
-#: ../src/Tribe/Main.php:1310 ../src/Tribe/Main.php:1329
+#: ../src/Tribe/Main.php:1343 ../src/Tribe/Main.php:1362
 msgid "%s scheduled for: <strong>%2$s</strong>."
 msgstr "%s suplanuotas: <strong>%2$s</strong>."
 
@@ -2681,7 +2724,7 @@ msgstr "%s suplanuotas: <strong>%2$s</strong>."
 msgid "Macedonia"
 msgstr "Makedonija"
 
-#: ../src/Tribe/Main.php:1314 ../src/Tribe/Main.php:1333
+#: ../src/Tribe/Main.php:1347 ../src/Tribe/Main.php:1366
 msgid "%s draft updated."
 msgstr "%s juodraštis atnaujintas."
 
@@ -2689,7 +2732,8 @@ msgstr "%s juodraštis atnaujintas."
 msgid "Madagascar"
 msgstr "Madagaskaras"
 
-#: ../src/Tribe/Main.php:1369 ../src/Tribe/Main.php:1420
+#: ../src/Tribe/Admin/Organizer_Chooser_Meta_Box.php:88
+#: ../src/Tribe/Main.php:1401 ../src/Tribe/Main.php:1452
 msgid "Use Saved %s:"
 msgstr "Naudoti išsaugotą %s:"
 
@@ -2697,7 +2741,7 @@ msgstr "Naudoti išsaugotą %s:"
 msgid "Malawi"
 msgstr "Malavis"
 
-#: ../src/Tribe/Main.php:1397
+#: ../src/Tribe/Main.php:1429
 msgid "Without a defined location your event will not display a <a href=\"https://support.google.com/webmasters/answer/164506\" target=\"_blank\">Google Rich Snippet</a> on the search results."
 msgstr ""
 
@@ -2705,7 +2749,7 @@ msgstr ""
 msgid "Malaysia"
 msgstr "Malaizija"
 
-#: ../src/Tribe/Main.php:1485 ../src/Tribe/Main.php:1566
+#: ../src/Tribe/Main.php:1520 ../src/Tribe/Main.php:1602
 msgid "Use New %s"
 msgstr "Naudoti naują %s"
 
@@ -2713,7 +2757,7 @@ msgstr "Naudoti naują %s"
 msgid "Maldives"
 msgstr "Maldyvai"
 
-#: ../src/Tribe/Main.php:1487 ../src/Tribe/Main.php:1568
+#: ../src/Tribe/Main.php:1522 ../src/Tribe/Main.php:1604
 msgid "My %s"
 msgstr "Mano %s"
 
@@ -2721,7 +2765,7 @@ msgstr "Mano %s"
 msgid "Mali"
 msgstr "Malis"
 
-#: ../src/Tribe/Main.php:1492 ../src/Tribe/Main.php:1573
+#: ../src/Tribe/Main.php:1527 ../src/Tribe/Main.php:1609
 msgid "Available %s"
 msgstr "Galimas %s"
 
@@ -2729,7 +2773,7 @@ msgstr "Galimas %s"
 msgid "Malta"
 msgstr "Malta"
 
-#: ../src/Tribe/Main.php:1503 ../src/Tribe/Main.php:1584
+#: ../src/Tribe/Main.php:1538 ../src/Tribe/Main.php:1620
 msgid "No saved %s exists."
 msgstr "Išsaugotų %s neegzistuoja."
 
@@ -2737,7 +2781,7 @@ msgstr "Išsaugotų %s neegzistuoja."
 msgid "Marshall Islands"
 msgstr "Maršalo salos"
 
-#: ../src/Tribe/Main.php:1730
+#: ../src/Tribe/Main.php:1764
 msgid "Next"
 msgstr "Kitas"
 
@@ -2745,7 +2789,7 @@ msgstr "Kitas"
 msgid "Martinique"
 msgstr "Martinika"
 
-#: ../src/Tribe/Main.php:1731
+#: ../src/Tribe/Main.php:1765
 msgid "Prev"
 msgstr "Ankstesnis"
 
@@ -2753,7 +2797,7 @@ msgstr "Ankstesnis"
 msgid "Mauritania"
 msgstr "Mauritanija"
 
-#: ../src/Tribe/Main.php:1732 ../src/functions/template-tags/day.php:106
+#: ../src/Tribe/Main.php:1766 ../src/functions/template-tags/day.php:105
 msgid "Today"
 msgstr "Šiandien"
 
@@ -2761,7 +2805,7 @@ msgstr "Šiandien"
 msgid "Mauritius"
 msgstr "Mauricijus"
 
-#: ../src/Tribe/Main.php:1733
+#: ../src/Tribe/Main.php:1767
 msgid "Done"
 msgstr "Įvykdyta"
 
@@ -2769,7 +2813,7 @@ msgstr "Įvykdyta"
 msgid "Mayotte"
 msgstr "Majotas"
 
-#: ../src/Tribe/Main.php:1930
+#: ../src/Tribe/Main.php:1941
 msgid "Network"
 msgstr "Tinklas"
 
@@ -2777,9 +2821,9 @@ msgstr "Tinklas"
 msgid "Mexico"
 msgstr "Meksika"
 
-#: ../src/Tribe/Main.php:3389 ../src/Tribe/Main.php:3424
-#: ../src/functions/template-tags/day.php:159
-#: ../src/functions/template-tags/day.php:181
+#: ../src/Tribe/Main.php:3428 ../src/Tribe/Main.php:3463
+#: ../src/functions/template-tags/day.php:158
+#: ../src/functions/template-tags/day.php:180
 msgid "Date out of range."
 msgstr "Data nepatenka į diapazoną."
 
@@ -2787,23 +2831,23 @@ msgstr "Data nepatenka į diapazoną."
 msgid "Micronesia, Federated States Of"
 msgstr "Mikronezijos Federacinė Valstija"
 
-#: ../src/Tribe/Main.php:3460
+#: ../src/Tribe/Main.php:3499
 msgid "%s Options"
-msgstr ""
+msgstr "%s parinktys"
 
 #: ../src/Tribe/View_Helpers.php:188
 msgid "Moldova, Republic Of"
 msgstr "Moldovos Respublika"
 
-#: ../src/Tribe/Main.php:3467 ../src/Tribe/Main.php:3478
+#: ../src/Tribe/Main.php:3506 ../src/Tribe/Main.php:3517
 msgid "%s Information"
-msgstr ""
+msgstr "%s informacija"
 
 #: ../src/Tribe/View_Helpers.php:189
 msgid "Monaco"
 msgstr "Monakas"
 
-#: ../src/Tribe/Main.php:3664
+#: ../src/Tribe/Main.php:3730
 msgid "Support"
 msgstr "Pagalba"
 
@@ -2811,7 +2855,7 @@ msgstr "Pagalba"
 msgid "Mongolia"
 msgstr "Mongolija"
 
-#: ../src/Tribe/Main.php:3667
+#: ../src/Tribe/Main.php:3733
 msgid "View All Add-Ons"
 msgstr "Peržiūrėti visus papildinius"
 
@@ -2819,7 +2863,7 @@ msgstr "Peržiūrėti visus papildinius"
 msgid "Montenegro"
 msgstr "Montenegras"
 
-#: ../src/Tribe/Main.php:3688
+#: ../src/Tribe/Main.php:3754
 msgid "News from Modern Tribe"
 msgstr "Naujienos iš Modern Triba"
 
@@ -2827,7 +2871,7 @@ msgstr "Naujienos iš Modern Triba"
 msgid "Montserrat"
 msgstr "Montseratas"
 
-#: ../src/Tribe/Main.php:3752
+#: ../src/Tribe/Main.php:3818
 msgid "Additional Functionality"
 msgstr "Papildomos funkcijos"
 
@@ -2835,15 +2879,15 @@ msgstr "Papildomos funkcijos"
 msgid "Morocco"
 msgstr "Marokas"
 
-#: ../src/Tribe/Main.php:3757
+#: ../src/Tribe/Main.php:3823
 msgid "Looking for additional functionality including recurring events, ticket sales, publicly submitted events, new views and more?"
-msgstr "Ieškote papildomų funkcijų, įskaitant besikartojančius renginius, bilietų pardavimo, viešai pateikiamų renginių, naujų atvaizdavimų ir daugiau?"
+msgstr "Ieškote papildomų funkcijų, įskaitant besikartojančių renginių, bilietų pardavimo, viešai pateikiamų renginių, naujų atvaizdavimų ir daugiau?"
 
 #: ../src/Tribe/View_Helpers.php:194
 msgid "Mozambique"
 msgstr "Mozambikas"
 
-#: ../src/Tribe/Main.php:3758
+#: ../src/Tribe/Main.php:3824
 msgid "Check out the <a href=\"%s\">available add-ons</a>."
 msgstr "Patikrinkite <a href=\"%s\">galimus papildinius</a>."
 
@@ -2851,15 +2895,15 @@ msgstr "Patikrinkite <a href=\"%s\">galimus papildinius</a>."
 msgid "Myanmar"
 msgstr "Mianmaras"
 
-#: ../src/Tribe/Main.php:3809
+#: ../src/Tribe/Main.php:3875
 msgid "%s"
-msgstr ""
+msgstr "%s"
 
 #: ../src/Tribe/View_Helpers.php:196
 msgid "Namibia"
 msgstr "Namibija"
 
-#: ../src/Tribe/Main.php:3846 ../src/Tribe/Main.php:3943
+#: ../src/Tribe/Main.php:3912 ../src/Tribe/Main.php:4008
 msgid "View Calendar"
 msgstr "Peržiūrėti kalendorių"
 
@@ -2867,15 +2911,15 @@ msgstr "Peržiūrėti kalendorių"
 msgid "Nauru"
 msgstr "Nauru"
 
-#: ../src/Tribe/Main.php:3856
+#: ../src/Tribe/Main.php:3922
 msgid "Add %s"
-msgstr ""
+msgstr "Pridėti %s"
 
 #: ../src/Tribe/View_Helpers.php:198
 msgid "Nepal"
 msgstr "Nepalas"
 
-#: ../src/Tribe/Main.php:3888
+#: ../src/Tribe/Main.php:3954
 msgid "CSV"
 msgstr "CSV"
 
@@ -2883,7 +2927,7 @@ msgstr "CSV"
 msgid "Netherlands"
 msgstr "Olandija"
 
-#: ../src/Tribe/Main.php:3910 ../src/Tribe/Main.php:4000
+#: ../src/Tribe/Main.php:3976 ../src/Tribe/Main.php:4066
 #: ../src/Tribe/Settings.php:161
 msgid "Settings"
 msgstr "Nustatymai"
@@ -2892,7 +2936,7 @@ msgstr "Nustatymai"
 msgid "Netherlands Antilles"
 msgstr "Olandijos Antilai"
 
-#: ../src/Tribe/Main.php:4001
+#: ../src/Tribe/Main.php:4067
 msgid "Calendar"
 msgstr "Kalendorius"
 
@@ -2900,7 +2944,7 @@ msgstr "Kalendorius"
 msgid "New Caledonia"
 msgstr "Naujoji Kaledonija"
 
-#: ../src/Tribe/Main.php:4078
+#: ../src/Tribe/Main.php:4143
 msgid "List"
 msgstr "Sąrašas"
 
@@ -2908,7 +2952,7 @@ msgstr "Sąrašas"
 msgid "New Zealand"
 msgstr "Naujoji Zelandija"
 
-#: ../src/Tribe/Main.php:4096
+#: ../src/Tribe/Main.php:4161
 msgid "Month"
 msgstr "Mėnesis"
 
@@ -2916,7 +2960,7 @@ msgstr "Mėnesis"
 msgid "Nicaragua"
 msgstr "Nikaragva"
 
-#: ../src/Tribe/Main.php:4113
+#: ../src/Tribe/Main.php:4178
 msgid "Day"
 msgstr "Diena"
 
@@ -2924,7 +2968,7 @@ msgstr "Diena"
 msgid "Niger"
 msgstr "Nigeris"
 
-#: ../src/Tribe/Main.php:4138 ../src/Tribe/Main.php:4139
+#: ../src/Tribe/Main.php:4203 ../src/Tribe/Main.php:4204
 msgid "Search"
 msgstr "Paieška"
 
@@ -2932,7 +2976,7 @@ msgstr "Paieška"
 msgid "Nigeria"
 msgstr "Nigerija"
 
-#: ../src/Tribe/Main.php:4164 ../src/Tribe/Main.php:4180
+#: ../src/Tribe/Main.php:4228 ../src/Tribe/Main.php:4244
 msgid "Date"
 msgstr "Data"
 
@@ -2940,7 +2984,7 @@ msgstr "Data"
 msgid "Niue"
 msgstr "Niue salos"
 
-#: ../src/Tribe/Main.php:4167
+#: ../src/Tribe/Main.php:4231
 msgid "%s In"
 msgstr ""
 
@@ -2948,15 +2992,15 @@ msgstr ""
 msgid "Norfolk Island"
 msgstr "Norfolko sala"
 
-#: ../src/Tribe/Main.php:4169
+#: ../src/Tribe/Main.php:4233
 msgid "%s From"
-msgstr ""
+msgstr "%s nuo"
 
 #: ../src/Tribe/View_Helpers.php:208
 msgid "Northern Mariana Islands"
 msgstr "Marianos šiaurinės salos"
 
-#: ../src/Tribe/Main.php:4171
+#: ../src/Tribe/Main.php:4235
 msgid "Day Of"
 msgstr "Išeiginė"
 
@@ -2964,9 +3008,9 @@ msgstr "Išeiginė"
 msgid "Norway"
 msgstr "Norvegija"
 
-#: ../src/Tribe/Main.php:4249
+#: ../src/Tribe/Main.php:4310
 msgid "Once Every 30 Mins"
-msgstr ""
+msgstr "Kartą per 30 minučių"
 
 #: ../src/Tribe/View_Helpers.php:210
 msgid "Oman"
@@ -2980,9 +3024,7 @@ msgstr "Klaida"
 msgid "Pakistan"
 msgstr "Pakistanas"
 
-#: ../src/Tribe/PUE/Checker.php:305
-#: ../src/pue/admin-views/license-key.view.php:12
-#: ../src/pue/admin-views/license-key.view.php:16
+#: ../src/Tribe/PUE/Checker.php:304
 msgid "License Key"
 msgstr "Licencijavimo raktas"
 
@@ -2990,8 +3032,7 @@ msgstr "Licencijavimo raktas"
 msgid "Palau"
 msgstr "Palau"
 
-#: ../src/Tribe/PUE/Checker.php:306
-#: ../src/pue/admin-views/license-key.view.php:29
+#: ../src/Tribe/PUE/Checker.php:305
 msgid "A valid license key is required for support and updates"
 msgstr "Pagalbai ir atnaujinimams reikalingas galiojantis licencijos raktas"
 
@@ -2999,7 +3040,7 @@ msgstr "Pagalbai ir atnaujinimams reikalingas galiojantis licencijos raktas"
 msgid "Panama"
 msgstr "Panama"
 
-#: ../src/Tribe/PUE/Checker.php:375
+#: ../src/Tribe/PUE/Checker.php:377
 msgid "License key(s) updated."
 msgstr "Licencijavimo raktas(ai) atnaujintas(i)."
 
@@ -3007,7 +3048,7 @@ msgstr "Licencijavimo raktas(ai) atnaujintas(i)."
 msgid "Papua New Guinea"
 msgstr "Papua ir Naujoji Gvinėja"
 
-#: ../src/Tribe/PUE/Checker.php:415
+#: ../src/Tribe/PUE/Checker.php:419
 msgid "Sorry, key validation server is not available."
 msgstr "Deja, rakto tikrinimo serveris neprieinamas."
 
@@ -3015,23 +3056,23 @@ msgstr "Deja, rakto tikrinimo serveris neprieinamas."
 msgid "Paraguay"
 msgstr "Paragvajus"
 
-#: ../src/Tribe/PUE/Checker.php:417
+#: ../src/Tribe/PUE/Checker.php:421
 msgid "Sorry, this key is expired."
-msgstr "Atsiprašome, šis raktas nebegalioja."
+msgstr "Deja, šio rakto galiojimo laikas pasibaigęs."
 
 #: ../src/Tribe/View_Helpers.php:216
 msgid "Peru"
 msgstr "Peru"
 
-#: ../src/Tribe/PUE/Checker.php:420
+#: ../src/Tribe/PUE/Checker.php:424
 msgid "Sorry, this key is out of installs."
-msgstr "Atsiprašome, šis raktas yra išimtas iš diegimo."
+msgstr "Deja, šis raktas diegiant nebenaudojamas."
 
 #: ../src/Tribe/View_Helpers.php:217
 msgid "Philippines"
 msgstr "Filipinai"
 
-#: ../src/Tribe/PUE/Checker.php:421
+#: ../src/Tribe/PUE/Checker.php:425
 msgid "Why am I seeing this message?"
 msgstr "Kodėl matau šią žinutę?"
 
@@ -3039,15 +3080,15 @@ msgstr "Kodėl matau šią žinutę?"
 msgid "Pitcairn"
 msgstr "Pitkernas"
 
-#: ../src/Tribe/PUE/Checker.php:424
+#: ../src/Tribe/PUE/Checker.php:428
 msgid "Sorry, this key is not valid."
-msgstr "Atsiprašome, šis raktas negalioja."
+msgstr "Deja, šis raktas neteisingas."
 
 #: ../src/Tribe/View_Helpers.php:219
 msgid "Poland"
 msgstr "Lenkija"
 
-#: ../src/Tribe/PUE/Checker.php:427
+#: ../src/Tribe/PUE/Checker.php:430
 msgid "Valid Key! Expires on %s"
 msgstr "Galiojantis raktas! Galiojimas baigiasi %s"
 
@@ -3055,7 +3096,7 @@ msgstr "Galiojantis raktas! Galiojimas baigiasi %s"
 msgid "Portugal"
 msgstr "Portugalija"
 
-#: ../src/Tribe/PUE/Checker.php:431
+#: ../src/Tribe/PUE/Checker.php:436
 msgid "Hmmm... something's wrong with this validator. Please contact <a href=\"%s\">support.</a>"
 msgstr "Hmmm... kažkas negerai su šiuo validatoriumi. Prašome kreiptis į <a href=\"%s\">pagalbą.</a>"
 
@@ -3089,7 +3130,7 @@ msgstr "Rumunija"
 
 #: ../src/Tribe/Settings.php:253
 msgid "You've requested a non-existent tab."
-msgstr "Reikalaujate ne-esančio skirtuko."
+msgstr "Pareikalavote neegzistuojančio skirtuko."
 
 #: ../src/Tribe/View_Helpers.php:225
 msgid "Russian Federation"
@@ -3103,7 +3144,7 @@ msgstr "Išsaugoti pakeitimus"
 msgid "Rwanda"
 msgstr "Ruanda"
 
-#: ../src/Tribe/Settings.php:311
+#: ../src/Tribe/Settings.php:309
 msgid "You don't have permission to do that."
 msgstr "Jūs neturite leidimo tai daryti."
 
@@ -3111,7 +3152,7 @@ msgstr "Jūs neturite leidimo tai daryti."
 msgid "Saint Kitts And Nevis"
 msgstr "Sent Kitsas ir Nevis"
 
-#: ../src/Tribe/Settings.php:317
+#: ../src/Tribe/Settings.php:315
 msgid "The request was sent insecurely."
 msgstr "Užklausa buvo išsiųsta nesaugiai."
 
@@ -3119,7 +3160,7 @@ msgstr "Užklausa buvo išsiųsta nesaugiai."
 msgid "Saint Lucia"
 msgstr "Sent Lusija"
 
-#: ../src/Tribe/Settings.php:323
+#: ../src/Tribe/Settings.php:321
 msgid "The request wasn't sent from this tab."
 msgstr "Užklausa nebuvo išsiųsta iš šio skirtuko."
 
@@ -3127,15 +3168,15 @@ msgstr "Užklausa nebuvo išsiųsta iš šio skirtuko."
 msgid "Saint Vincent And The Grenadines"
 msgstr "Sent Vinsentas ir Grenadinai"
 
-#: ../src/Tribe/Settings.php:491
+#: ../src/Tribe/Settings.php:489
 msgid "Your form had the following errors:"
-msgstr "Jūsų formoje buvo šių klaidų:"
+msgstr "Jūsų formoje buvo tokios klaidos:"
 
 #: ../src/Tribe/View_Helpers.php:230
 msgid "Samoa"
 msgstr "Samoa"
 
-#: ../src/Tribe/Settings.php:500
+#: ../src/Tribe/Settings.php:498
 msgid "None of your settings were saved. Please try again."
 msgstr "Nė vienas iš jūsų nustatymų nebuvo įrašytas. Bandykite dar kartą."
 
@@ -3143,18 +3184,18 @@ msgstr "Nė vienas iš jūsų nustatymų nebuvo įrašytas. Bandykite dar kartą
 msgid "San Marino"
 msgstr "San Marinas"
 
-#: ../src/Tribe/Settings.php:500
+#: ../src/Tribe/Settings.php:498
 msgid "The above setting was not saved. Other settings were successfully saved."
 msgid_plural "The above settings were not saved. Other settings were successfully saved."
-msgstr[0] "Ankstesnysis parametras nebuvo įrašytas. Kiti parametrai buvo sėkmingai įrašyti"
-msgstr[1] "Ankstesnieji parametrai nebuvo įrašytas. Kiti parametrai buvo sėkmingai įrašyti"
-msgstr[2] "Ankstesnieji parametrai nebuvo įrašytas. Kiti parametrai buvo sėkmingai įrašyti"
+msgstr[0] "Aukščiau nurodytas nustatymas nebuvo išsaugotas. Kiti nustatymai buvo sėkmingai išsaugoti."
+msgstr[1] "Aukščiau nurodyti nustatymai nebuvo išsaugoti. Kiti nustatymai buvo sėkmingai išsaugoti."
+msgstr[2] "Aukščiau nurodytų nustatymų nebuvo išsaugota. Kiti nustatymai buvo sėkmingai išsaugoti."
 
 #: ../src/Tribe/View_Helpers.php:232
 msgid "Sao Tome And Principe"
 msgstr "San Tomė ir Prinsipė"
 
-#: ../src/Tribe/Settings_Tab.php:221
+#: ../src/Tribe/Settings_Tab.php:224
 msgid "There are no fields setup for this tab yet."
 msgstr "Kol kas nėra jokių laukų nustatymų šiam skirtukui."
 
@@ -3162,15 +3203,15 @@ msgstr "Kol kas nėra jokių laukų nustatymų šiam skirtukui."
 msgid "Saudi Arabia"
 msgstr "Saudo Arabija"
 
-#: ../src/Tribe/Support.php:44
+#: ../src/Tribe/Support.php:46
 msgid "Sometimes it's hard to tell what's going wrong without knowing more about your system steup. For your convenience, we've put together a little report on what's cooking under the hood."
-msgstr "Kartais sunku pasakyti kas yra ne taip nežinant jūsų sistemos nustatymų. Jūsų patogumui, mes sulipdėme nedidelę ataskaitą kas ten darosi po dangčiu."
+msgstr "Kartais sunku pasakyti, kas yra ne taip, nežinant jūsų sistemos nustatymų. Jūsų patogumui mes sukūrėme nedidelę ataskaitą, kuri padėtų paaiškinti, kas vyksta."
 
 #: ../src/Tribe/View_Helpers.php:234
 msgid "Senegal"
 msgstr "Senegalas"
 
-#: ../src/Tribe/Support.php:45
+#: ../src/Tribe/Support.php:47
 msgid "If you suspect that the problem you're having is related to another plugin, or we're just plain having trouble reproducing your bug report, please copy and send all of this to our support team."
 msgstr "Jei įtariate, kad iškilusi problema yra susijusi su kitu įskiepiu, ar mes tiesiog turime sunkumų  bandant sugeneruoti jūsų problemąm prašome nukopijuoti ir atsiųsti visą tai mūsų pagalbos komandai. "
 
@@ -3178,7 +3219,7 @@ msgstr "Jei įtariate, kad iškilusi problema yra susijusi su kitu įskiepiu, ar
 msgid "Serbia"
 msgstr "Serbija"
 
-#: ../src/Tribe/Support.php:49
+#: ../src/Tribe/Support.php:51
 msgid "System Information"
 msgstr "Sistemos informacija"
 
@@ -3186,7 +3227,7 @@ msgstr "Sistemos informacija"
 msgid "Seychelles"
 msgstr "Seišeliai"
 
-#: ../src/Tribe/Support.php:135
+#: ../src/Tribe/Support.php:137
 msgid "Unknown or not set"
 msgstr "Nežinoma arba nenustatyta"
 
@@ -3220,13 +3261,13 @@ msgstr "Slovėnija"
 
 #: ../src/Tribe/Template/Day.php:138
 msgid "No %s scheduled for <strong>%s</strong>. Please try another day."
-msgstr ""
+msgstr "%s  <strong>%s</strong> nevyksta. Pasirinkite kitą dieną."
 
 #: ../src/Tribe/View_Helpers.php:241
 msgid "Solomon Islands"
 msgstr "Saliamono Salos"
 
-#: ../src/Tribe/Template/Month.php:139
+#: ../src/Tribe/Template/Month.php:250
 msgid "There were no results found for <strong>\"%s\"</strong> this month. Try searching next month."
 msgstr "Jokių rezultatų nerasta apie <strong>\"%s\"</strong> šį mėnesį. Bandykite kitą mėnesį."
 
@@ -3234,7 +3275,7 @@ msgstr "Jokių rezultatų nerasta apie <strong>\"%s\"</strong> šį mėnesį. Ba
 msgid "Somalia"
 msgstr "Somalis"
 
-#: ../src/Tribe/Template/Month.php:142
+#: ../src/Tribe/Template/Month.php:253
 msgid "No matching %s listed under %s. Please try viewing the full calendar for a complete list of events."
 msgstr ""
 
@@ -3242,7 +3283,7 @@ msgstr ""
 msgid "South Africa"
 msgstr "Pietų Afrika"
 
-#: ../src/Tribe/Template/Month.php:144 ../src/Tribe/Template_Factory.php:366
+#: ../src/Tribe/Template/Month.php:255 ../src/Tribe/Template_Factory.php:366
 msgid "There were no results found."
 msgstr "Nerasta jokių rezultatų."
 
@@ -3250,7 +3291,7 @@ msgstr "Nerasta jokių rezultatų."
 msgid "South Georgia, South Sandwich Islands"
 msgstr "Pietų Džordžija, Pietų Sandvičo Salos"
 
-#: ../src/Tribe/Template/Month.php:333
+#: ../src/Tribe/Template/Month.php:411
 msgid "The requested date \"%s\" was not valid &ndash; showing the current month instead"
 msgstr ""
 
@@ -3260,7 +3301,7 @@ msgstr "Ispanija"
 
 #: ../src/Tribe/Template/Single_Event.php:120
 msgid "This %s has passed."
-msgstr ""
+msgstr "%s jau ivyko."
 
 #: ../src/Tribe/View_Helpers.php:246
 msgid "Sri Lanka"
@@ -3300,13 +3341,13 @@ msgstr "Surinamas"
 
 #: ../src/Tribe/Template_Factory.php:361
 msgid "No previous %s "
-msgstr ""
+msgstr "Įvykę %s nerasti"
 
 #: ../src/Tribe/View_Helpers.php:251
 msgid "Svalbard And Jan Mayen Islands"
 msgstr "Svalbardos ir Jan Majeno salos"
 
-#: ../src/Tribe/Templates.php:584
+#: ../src/Tribe/Templates.php:618
 msgid "Template overrides should be moved to the correct subdirectory: %s"
 msgstr "Šablono perrašymai tūrėtų būti perkelti į teisingą subdirektoriją: %s"
 
@@ -3314,7 +3355,7 @@ msgstr "Šablono perrašymai tūrėtų būti perkelti į teisingą subdirektorij
 msgid "Swaziland"
 msgstr "Svazilendas"
 
-#: ../src/Tribe/Templates.php:626
+#: ../src/Tribe/Templates.php:660
 msgid "Template overrides should be moved to the correct subdirectory: tribe_get_template_part('%s')"
 msgstr "Šablono perrašymai tūrėtų būti perkelti į teisingą subdirektoriją: tribe_get_template_part('%s')"
 
@@ -3322,15 +3363,15 @@ msgstr "Šablono perrašymai tūrėtų būti perkelti į teisingą subdirektorij
 msgid "Sweden"
 msgstr "Švedija"
 
-#: ../src/Tribe/Tickets/Attendees_Table.php:65
+#: ../src/Tribe/Tickets/Attendees_Table.php:74
 msgid "Order #"
-msgstr "Užsakymas #"
+msgstr "Užsakymo #"
 
 #: ../src/Tribe/View_Helpers.php:254
 msgid "Switzerland"
 msgstr "Šveicarija"
 
-#: ../src/Tribe/Tickets/Attendees_Table.php:66
+#: ../src/Tribe/Tickets/Attendees_Table.php:75
 msgid "Order Status"
 msgstr "Užsakymo būsena"
 
@@ -3338,7 +3379,7 @@ msgstr "Užsakymo būsena"
 msgid "Syrian Arab Republic"
 msgstr "Sirijos Arabų Respublika"
 
-#: ../src/Tribe/Tickets/Attendees_Table.php:67
+#: ../src/Tribe/Tickets/Attendees_Table.php:76
 msgid "Purchaser name"
 msgstr "Pirkėjo vardas"
 
@@ -3346,7 +3387,7 @@ msgstr "Pirkėjo vardas"
 msgid "Taiwan"
 msgstr "Taivanas"
 
-#: ../src/Tribe/Tickets/Attendees_Table.php:68
+#: ../src/Tribe/Tickets/Attendees_Table.php:77
 msgid "Purchaser email"
 msgstr "Pirkėjo el.paštas"
 
@@ -3354,7 +3395,7 @@ msgstr "Pirkėjo el.paštas"
 msgid "Tajikistan"
 msgstr "Tadžikistanas"
 
-#: ../src/Tribe/Tickets/Attendees_Table.php:69
+#: ../src/Tribe/Tickets/Attendees_Table.php:78
 msgid "Ticket type"
 msgstr "Bilieto tipoas"
 
@@ -3362,7 +3403,7 @@ msgstr "Bilieto tipoas"
 msgid "Tanzania, United Republic Of"
 msgstr "Tanzanijos Jungtinė Respublika"
 
-#: ../src/Tribe/Tickets/Attendees_Table.php:70
+#: ../src/Tribe/Tickets/Attendees_Table.php:79
 #: ../src/views/tickets/email.php:305
 msgid "Ticket #"
 msgstr "Bilietas #"
@@ -3371,7 +3412,7 @@ msgstr "Bilietas #"
 msgid "Thailand"
 msgstr "Tailandas"
 
-#: ../src/Tribe/Tickets/Attendees_Table.php:71
+#: ../src/Tribe/Tickets/Attendees_Table.php:80
 #: ../src/views/tickets/email.php:317
 msgid "Security Code"
 msgstr "Saugos kodas"
@@ -3380,9 +3421,9 @@ msgstr "Saugos kodas"
 msgid "Togo"
 msgstr "Togas"
 
-#: ../src/Tribe/Tickets/Attendees_Table.php:72
-#: ../src/Tribe/Tickets/Attendees_Table.php:159
-#: ../src/Tribe/Tickets/Attendees_Table.php:226
+#: ../src/Tribe/Tickets/Attendees_Table.php:81
+#: ../src/Tribe/Tickets/Attendees_Table.php:168
+#: ../src/Tribe/Tickets/Attendees_Table.php:235
 msgid "Check in"
 msgstr "Prisiregistruoti"
 
@@ -3390,8 +3431,8 @@ msgstr "Prisiregistruoti"
 msgid "Tokelau"
 msgstr "Tokelau"
 
-#: ../src/Tribe/Tickets/Attendees_Table.php:160
-#: ../src/Tribe/Tickets/Attendees_Table.php:227
+#: ../src/Tribe/Tickets/Attendees_Table.php:169
+#: ../src/Tribe/Tickets/Attendees_Table.php:236
 msgid "Undo Check in"
 msgstr "Atšaukti registraciją"
 
@@ -3399,7 +3440,7 @@ msgstr "Atšaukti registraciją"
 msgid "Tonga"
 msgstr "Tonga"
 
-#: ../src/Tribe/Tickets/Attendees_Table.php:195
+#: ../src/Tribe/Tickets/Attendees_Table.php:204
 msgid "Print"
 msgstr "Spausdinti"
 
@@ -3407,7 +3448,7 @@ msgstr "Spausdinti"
 msgid "Trinidad And Tobago"
 msgstr "Trinidadas ir Tobagas"
 
-#: ../src/Tribe/Tickets/Attendees_Table.php:196
+#: ../src/Tribe/Tickets/Attendees_Table.php:205
 msgid "Email"
 msgstr "El.paštas"
 
@@ -3415,7 +3456,7 @@ msgstr "El.paštas"
 msgid "Tunisia"
 msgstr "Tunisas"
 
-#: ../src/Tribe/Tickets/Attendees_Table.php:205 ../src/Tribe/iCal.php:121
+#: ../src/Tribe/Tickets/Attendees_Table.php:214 ../src/Tribe/iCal.php:119
 msgid "Export"
 msgstr "Eksportuoti"
 
@@ -3423,7 +3464,7 @@ msgstr "Eksportuoti"
 msgid "Turkey"
 msgstr "Turkija"
 
-#: ../src/Tribe/Tickets/Attendees_Table.php:212
+#: ../src/Tribe/Tickets/Attendees_Table.php:221
 msgid "Filter by purchaser name, ticket #, order # or security code"
 msgstr ""
 
@@ -3431,7 +3472,7 @@ msgstr ""
 msgid "Turkmenistan"
 msgstr "Turkmėnistanas"
 
-#: ../src/Tribe/Tickets/Attendees_Table.php:228
+#: ../src/Tribe/Tickets/Attendees_Table.php:237
 #: ../src/admin-views/tickets/list.php:22
 msgid "Delete"
 msgstr "Ištrinti"
@@ -3500,15 +3541,15 @@ msgstr "Dalyviai"
 msgid "Uruguay"
 msgstr "Urugvajus"
 
-#: ../src/Tribe/Tickets/Tickets_Pro.php:118
+#: ../src/Tribe/Tickets/Tickets_Pro.php:113
 msgid "You need to select a user or type a valid email address"
-msgstr "Turite pasirinkti vartotoją arba įveskite galiojantį el. pašto adresą"
+msgstr "Turite pasirinkti vartotoją arba įvesti galiojantį el. pašto adresą"
 
 #: ../src/Tribe/View_Helpers.php:275
 msgid "Uzbekistan"
 msgstr "Uzbekistanas"
 
-#: ../src/Tribe/Tickets/Tickets_Pro.php:119
+#: ../src/Tribe/Tickets/Tickets_Pro.php:114
 msgid "Sending..."
 msgstr "Siunčiama"
 
@@ -3516,7 +3557,7 @@ msgstr "Siunčiama"
 msgid "Vanuatu"
 msgstr "Vanuatu"
 
-#: ../src/Tribe/Tickets/Tickets_Pro.php:149
+#: ../src/Tribe/Tickets/Tickets_Pro.php:140
 msgid "Columns"
 msgstr "Stulpeliai"
 
@@ -3524,7 +3565,7 @@ msgstr "Stulpeliai"
 msgid "Venezuela"
 msgstr "Venesuela"
 
-#: ../src/Tribe/Tickets/Tickets_Pro.php:150
+#: ../src/Tribe/Tickets/Tickets_Pro.php:140
 msgid "You can use Screen Options to select which columns you want to see. The selection works in the table below, in the email, for print and for the CSV export."
 msgstr "Jūs galite naudoti ekrano parinktis, kad pažymėti stulpelius, kuriuos norite matyti. Pasirinkimas veikia žemiau pateiktoje lentelėje, el. laiške, spausdinimui ir CSV eksportui."
 
@@ -3532,7 +3573,7 @@ msgstr "Jūs galite naudoti ekrano parinktis, kad pažymėti stulpelius, kuriuos
 msgid "Viet Nam"
 msgstr "Vietnamas"
 
-#: ../src/Tribe/Tickets/Tickets_Pro.php:243
+#: ../src/Tribe/Tickets/Tickets_Pro.php:230
 msgid "Yes"
 msgstr "Taip"
 
@@ -3540,7 +3581,7 @@ msgstr "Taip"
 msgid "Virgin Islands (British)"
 msgstr "Mergelių salos (Britų)"
 
-#: ../src/Tribe/Tickets/Tickets_Pro.php:275
+#: ../src/Tribe/Tickets/Tickets_Pro.php:262
 msgid "attendees"
 msgstr "dalyviai"
 
@@ -3548,7 +3589,7 @@ msgstr "dalyviai"
 msgid "Virgin Islands (U.S.)"
 msgstr "Mergelių salos (JAV)"
 
-#: ../src/Tribe/Tickets/Tickets_Pro.php:329
+#: ../src/Tribe/Tickets/Tickets_Pro.php:316
 msgid "Attendee List for: %s"
 msgstr "Dalyvių sąrašas: %s"
 
@@ -3593,7 +3634,7 @@ msgstr "%s turi būti galiojantis absoliutus URL."
 #: ../src/Tribe/Validate.php:227 ../src/Tribe/Validate.php:244
 #: ../src/Tribe/Validate.php:266
 msgid "%s must have a value that's part of its options."
-msgstr "%s turi turėti reikšmę, kuri yra dalis jos pasirinkties."
+msgstr "%s turi turėti reikšmę, kuri yra jos pasirinkties dalis."
 
 #: ../src/Tribe/Validate.php:280
 msgid "Comparison validation failed because no comparison value was provided, for field %s"
@@ -3605,27 +3646,27 @@ msgstr "%s negali būti tas pats kaip%s"
 
 #: ../src/Tribe/Validate.php:289
 msgid "%s cannot be a duplicate"
-msgstr "%s negali dubliuotis"
+msgstr "%s negali būti dublikatas"
 
 #: ../src/Tribe/Validate.php:305
 msgid "%s must be a number or percentage."
-msgstr "%s turi būti skaičius arba procentai."
+msgstr "%s turi būti skaičius arba procentas."
 
 #: ../src/Tribe/Validate.php:359
 msgid "%s must be a number between 0 and 21."
-msgstr "%s turi būti skaičius tarp 0 ir 21."
+msgstr "%s turi būti skaičius nuo 0 iki 21."
 
 #: ../src/Tribe/Validate.php:375
 msgid "%s must consist of letters, numbers, dashes, apostrophes, and spaces only."
-msgstr "%s turi sudaryti tik raidės, skaičiai, brūkšneliai, apostrofos ir tarpai."
+msgstr "%s turi sudaryti tik raidės, skaičiai, brūkšneliai, apostrofai ir tarpai."
 
 #: ../src/Tribe/Validate.php:391
 msgid "%s must consist of letters, spaces, apostrophes, and dashes."
-msgstr "%s turi sudaryti tik raidės, tarpai, apostrofos ir brūkšneliai,."
+msgstr "%s turi sudaryti tik raidės, tarpai, apostrofai ir brūkšneliai."
 
 #: ../src/Tribe/Validate.php:405
 msgid "%s must consist of 5 numbers."
-msgstr "%s turi sudaryti iš 5 skaičių."
+msgstr "%s turi būti sudaryti iš 5 skaičių."
 
 #: ../src/Tribe/Validate.php:419
 msgid "%s must be a phone number."

@@ -189,6 +189,10 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 
 			// Since we set is_post_type_archive to true on month view, this prevents 'Events' from being added to the page title
 			add_filter( 'post_type_archive_title', '__return_false', 10 );
+
+			if ( ! empty( $this->events_in_month ) ) {
+				add_filter( 'tribe_events_month_has_events', '__return_true' );
+			}
 		}
 
 		/**
@@ -199,6 +203,9 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 		protected function unhook() {
 			parent::unhook();
 			remove_filter( 'post_type_archive_title', '__return_false', 10 );
+			if ( ! empty( $this->events_in_month ) ) {
+				remove_filter( 'tribe_events_month_has_events', '__return_true' );
+			}
 		}
 
 		/**
@@ -422,9 +429,9 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 
 			// this query will limit by the current category being viewed, and will skip updating
 			// term and meta caches - those were already updated in $this->set_events_in_month()
-			$args = wp_parse_args(
+			$args   = wp_parse_args(
 				array(
-					'posts_per_page'         => $this->events_per_day,
+					'posts_per_page' => $this->events_per_day,
 					'post__in'               => $event_ids_on_date,
 					'start_date'             => $beginning_of_day,
 					'end_date'               => $end_of_day,
@@ -463,8 +470,8 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 			// Populate complete date range including leading/trailing days from adjacent months
 			while ( $date <= $this->final_grid_date ) {
 
-				$day_events = self::get_daily_events( $date );
-				$day        = (int) substr( $date, - 2 );
+					$day_events = self::get_daily_events( $date );
+				$day = (int) substr( $date, - 2 );
 
 				$prev_month = (int) substr( $date, 5, 2 ) < (int) substr( $this->requested_date, 5, 2 );
 				$next_month = (int) substr( $date, 5, 2 ) > (int) substr( $this->requested_date, 5, 2 );
@@ -791,9 +798,7 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 
 				Tribe__Events__Main::instance()->displaying = 'month';
 
-				if ( isset( $_POST['tribe_event_category'] ) ) {
-					$query_args['tribe_events_cat'] = $_POST['tribe_event_category'];
-				}
+				$query_args = $this->maybe_inject_category_arg( $query_args );
 
 				query_posts( $query_args );
 
@@ -811,6 +816,23 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 				echo json_encode( $response );
 				die();
 			}
+		}
+
+		/**
+		 * Injects the Tribe__Events__Main::TAXONOMY argument into query_args if passed in via POST or GET
+		 *
+		 * @param array $args Current query args to augment
+		 *
+		 * @return array Array of args
+		 */
+		public function maybe_inject_category_arg( $args ) {
+			if ( ! empty( $_POST['tribe_event_category'] ) ) {
+				$args[ Tribe__Events__Main::TAXONOMY ] = $_POST['tribe_event_category'];
+			} elseif ( ! empty( $_GET['tribe_event_category'] ) ) {
+				$args[ Tribe__Events__Main::TAXONOMY ] = $_GET['tribe_event_category'];
+			}
+
+			return $args;
 		}
 	} // class Tribe__Events__Template__Month
 }

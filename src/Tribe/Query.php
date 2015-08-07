@@ -250,16 +250,13 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 							$query->set( 'hide_upcoming', true );
 							$query->set( 'order', self::set_order( 'ASC', $query ) );
 							break;
-						case 'all':
-							$query->set( 'orderby', self::set_orderby( null, $query ) );
-							$query->set( 'order', self::set_order( null, $query ) );
-							break;
 						case 'single-event':
 							if ( $query->get( 'eventDate' ) != '' ) {
 								$query->set( 'start_date', $query->get( 'eventDate' ) );
 								$query->set( 'eventDate', $query->get( 'eventDate' ) );
 							}
 							break;
+						case 'all':
 						case 'list':
 						default: // default display query
 							$event_date = ( $query->get( 'eventDate' ) != '' )
@@ -858,10 +855,11 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 		 */
 		public static function getEvents( $args = array(), $full = false ) {
 			$defaults = array(
-				'post_type'      => Tribe__Events__Main::POSTTYPE,
-				'orderby'        => 'event_date',
-				'order'          => 'ASC',
-				'posts_per_page' => tribe_get_option( 'postsPerPage', 10 ),
+				'post_type'            => Tribe__Events__Main::POSTTYPE,
+				'orderby'              => 'event_date',
+				'order'                => 'ASC',
+				'posts_per_page'       => tribe_get_option( 'postsPerPage', 10 ),
+				'tribe_render_context' => 'default',
 			);
 			$args     = wp_parse_args( $args, $defaults );
 

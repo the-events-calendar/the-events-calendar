@@ -165,8 +165,10 @@ class Tribe__Events__iCal {
 
 		$args = array(
 			'eventDisplay' => 'custom',
-			'start_date'   => Tribe__Events__Template__Month::calculate_first_cell_date( $month ),
-			'end_date'     => Tribe__Events__Template__Month::calculate_final_cell_date( $month ),
+			'start_date' => Tribe__Events__Template__Month::calculate_first_cell_date( $month ),
+			'end_date' => Tribe__Events__Template__Month::calculate_final_cell_date( $month ),
+			'posts_per_page' => -1,
+			'hide_upcoming' => true,
 		);
 
 		/**
@@ -304,7 +306,7 @@ class Tribe__Events__iCal {
 				$organizer = get_post( $organizer_id );
 
 				if ( $organizer_id ) {
-					$item[] = sprintf( 'ORGANIZER;CN="%s":MAILTO:"%s"', rawurlencode( $organizer->post_title ), $organizer_email );
+					$item[] = sprintf( 'ORGANIZER;CN="%s":MAILTO:%s', rawurlencode( $organizer->post_title ), $organizer_email );
 				} else {
 					$item[] = sprintf( 'ORGANIZER:MAILTO:%s', $organizer_email );
 				}
