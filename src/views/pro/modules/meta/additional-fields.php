@@ -18,8 +18,8 @@ if ( ! isset( $fields ) || empty( $fields ) || ! is_array( $fields ) ) {
 	<h3 class="tribe-events-single-section-title"> <?php esc_html_e( 'Other', 'tribe-events-calendar-pro' ) ?> </h3>
 	<dl>
 		<?php foreach ( $fields as $name => $value ): ?>
-			<dt> <?php echo $name ?> </dt>
-			<dd class="tribe-meta-value"> <?php echo $value ?> </dd>
+			<dt> <?php echo esc_html( $name );  ?> </dt>
+			<dd class="tribe-meta-value"> <?php echo esc_html( $value ); ?> </dd>
 		<?php endforeach ?>
 	</dl>
 </div>
