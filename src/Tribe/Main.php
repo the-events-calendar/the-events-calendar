@@ -465,6 +465,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			add_action( 'init', array( $this, 'filter_cron_schedules' ) );
 
+			// The priority should always be < 5, to allow the framework to load
+			add_action( 'plugins_loaded', array( $this, 'maybe_load_tickets_framework' ), 3 );
+
 		}
 
 		/**
@@ -4450,6 +4453,25 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		public function set_meta_factory_global() {
 			global $_tribe_meta_factory;
 			$_tribe_meta_factory = new Tribe__Events__Meta_Factory();
+		}
+
+		/**
+		 * Checks if the standalone Tickets plugin is activated.
+		 * If it's not, it loads the Tickets framework from our
+		 * vendor/ submodule.
+		 */
+		public function maybe_load_tickets_framework() {
+			if ( function_exists( 'tribe_tickets_init' ) ) {
+				return;
+			}
+
+			// Give the standalone plugin a chance to load on activation
+			// WordPress loads all the active plugins before activating a new one.
+			if ( isset( $_GET['action'] ) && $_GET['action'] == 'activate' && isset( $_GET['plugin'] ) && strstr( $_GET['plugin'], 'tickets.php' ) ) {
+				return;
+			}
+
+			require_once $this->pluginPath . 'vendor/tickets/tickets.php';
 		}
 
 	} // end Tribe__Events__Main class
