@@ -422,7 +422,7 @@ if ( ! class_exists( 'Tribe__Events__PUE__Checker' ) ) {
 
 				} elseif ( isset( $pluginInfo->api_upgrade ) && $pluginInfo->api_upgrade == 1 ) {
 					$problem             = __( 'Sorry, this key is out of installs.', 'tribe-events-calendar' );
-					$helpful_link        = sprintf( '<a href="%s" target="_blank">%s</a>', 'http://m.tri.be/lz', __( 'Why am I seeing this message?' ) );
+					$helpful_link        = sprintf( '<a href="%s" target="_blank">%s</a>', 'http://m.tri.be/lz', __( 'Why am I seeing this message?', 'tribe-events-calendar' ) );
 					$response['message'] = "$problem $helpful_link";
 				} elseif ( isset( $pluginInfo->api_invalid ) && $pluginInfo->api_invalid == 1 ) {
 					$response['message'] = __( 'Sorry, this key is not valid.', 'tribe-events-calendar' );

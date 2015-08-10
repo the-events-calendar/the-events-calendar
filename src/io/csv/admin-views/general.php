@@ -14,7 +14,7 @@ require 'header.php';
 		<?php printf( __( 'To import events, first select a %sDefault Import Event Status%s below to assign to your imported events.', 'tribe-events-calendar' ), '<strong>', '</strong>' ); ?>
 	</p>
 	<p>
-		<?php esc_html_e( 'Once your setting is saved, move to the applicable Import tab to select import specific criteria.' ); ?>
+		<?php esc_html_e( 'Once your setting is saved, move to the applicable Import tab to select import specific criteria.', 'tribe-events-calendar' ); ?>
 	</p>
 </div>
 

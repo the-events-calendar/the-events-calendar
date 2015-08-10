@@ -1,6 +1,6 @@
 === The Events Calendar ===
 
-Contributors:  ModernTribe, roblagatta, borkweb, zbtirrell, barry.hughes, bordoni, brianjessee, brook-tribe, ckpicker, faction23, geoffgraham, jazbek, jbrinley, joshlimecuda, leahkoerper, lucatume, mdbitz, neillmcshea, peterchester, reid.peifer, ryancurban, shane.pearlman
+Contributors:  ModernTribe, roblagatta, borkweb, zbtirrell, barry.hughes, bordoni, brianjessee, brook-tribe, ckpicker, faction23, geoffgraham, jazbek, jbrinley, joshlimecuda, leahkoerper, lucatume, mdbitz, neillmcshea, ggwicz, nicosantos, peterchester, reid.peifer, ryancurban, shane.pearlman
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
 Donate link: http://m.tri.be/29
 Requires at least: 3.9
@@ -311,6 +311,11 @@ Patch = 1
 At no point during the 3.0 lifecycle will the major version change. But you can expect that either minor version and/or patch will change with each release.
 
 == Changelog ==
+
+
+= [Unreleased] unreleased =
+
+* Bug - Fixed issue with Event Costs not updating when a new ticket was only submitted via Ajax
 
 = [3.11.2] 2015-07-30 =
 
