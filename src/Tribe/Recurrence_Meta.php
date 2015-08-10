@@ -49,7 +49,7 @@ class Tribe__Events__Pro__Recurrence_Meta {
 		add_action( 'admin_action_tribe_split', array( __CLASS__, 'handle_split_request' ), 10, 1 );
 		add_action( 'wp_before_admin_bar_render', array( __CLASS__, 'admin_bar_render' ) );
 
-		add_filter( 'posts_groupby', array( __CLASS__, 'addGroupBy' ), 10, 2 );
+		add_filter( 'posts_request', array( __CLASS__, 'recurrence_collapse_sql' ), 10, 2 );
 
 		add_filter( 'tribe_settings_tab_fields', array( __CLASS__, 'inject_settings' ), 10, 2 );
 
@@ -636,6 +636,8 @@ class Tribe__Events__Pro__Recurrence_Meta {
 		$record = array();
 
 		if ( $recurrence_data ) {
+			$record['EventStartDate'] = empty( $recurrence_data['EventStartDate'] ) ? get_post_meta( $post_id, '_EventStartDate', true ) : $recurrence_data['EventStartDate'];
+			$record['EventEndDate'] = empty( $recurrence_data['EventEndDate'] ) ? get_post_meta( $post_id, '_EventEndDate', true ) : $recurrence_data['EventEndDate'];
 			$record['type'] = empty( $recurrence_data['type'] ) ? null : $recurrence_data['type'];
 			$record['end-type'] = empty( $recurrence_data['end-type'] ) ? null : $recurrence_data['end-type'];
 			$record['end'] = empty( $recurrence_data['end'] ) ? null : $recurrence_data['end'];
@@ -1308,6 +1310,7 @@ class Tribe__Events__Pro__Recurrence_Meta {
 		$recurrence_strings = self::recurrence_strings();
 		$date_strings = self::date_strings();
 
+		$interval = 1;
 		$is_custom = false;
 		$same_time = true;
 		$year_filtered = false;
@@ -1318,7 +1321,7 @@ class Tribe__Events__Pro__Recurrence_Meta {
 		if ( 'custom' === $rule['type'] ) {
 			$is_custom = true;
 			$rule['custom']['type'] = str_replace( ' ', '-', strtolower( $rule['custom']['type'] ) );
-			$same_time = 'yes' === $rule['custom'][ self::custom_type_to_key( $rule['custom']['type'] ) ];
+			$same_time = 'yes' === $rule['custom'][ self::custom_type_to_key( $rule['custom']['type'] ) ]['same-time'];
 
 			if ( 'yearly' === $rule['custom']['type'] ) {
 				$year_filtered = ! empty( $rule['custom']['year']['filter'] );
@@ -1331,7 +1334,7 @@ class Tribe__Events__Pro__Recurrence_Meta {
 		$num_days = floor( ( $end_date - $start_date ) / DAY_IN_SECONDS );
 		$num_hours = floor( ( ( $end_date - $start_date ) / HOUR_IN_SECONDS ) - ( $num_days * 24 ) );
 
-		if ( $is_custom && 'custom' === $rule['type'] ) {
+		if ( $is_custom && 'custom' === $rule['type'] && ! $same_time ) {
 			$new_start_date = date( 'Y-m-d', $start_date ) . ' ' . $rule['custom']['start-time']['hour'] . ':' . $rule['custom']['start-time']['minute'];
 			if ( isset( $rule['custom']['start-time']['meridian'] ) ) {
 				$new_start_date .= ' ' . $rule['custom']['start-time']['meridian'];
@@ -1724,28 +1727,59 @@ class Tribe__Events__Pro__Recurrence_Meta {
 	}
 
 	/**
-	 * Adds the Group By that hides future occurences of recurring events if setting is set to.
+	 * Collapses subsequent recurrence records and ensures the closest record is returned
 	 *
+	 * @param string $sql The current SQL statement
+	 * @param WP_Query $query WP Query object
 	 *
-	 * @param string $group_by The current group by clause.
-	 * @param        $query
-	 *
-	 * @return string The new group by clause.
+	 * @return string The new SQL statement
 	 */
-	public static function addGroupBy( $group_by, $query ) {
+	public static function recurrence_collapse_sql( $sql, $query ) {
 		if ( ! isset( $query->query_vars['is_tribe_widget'] ) || ! $query->query_vars['is_tribe_widget'] ){
 			if ( tribe_is_month() || tribe_is_week() || tribe_is_day() ) {
-				return $group_by;
-			}
-		}
-		if ( ! empty( $query->tribe_is_event_query ) || ! empty( $query->tribe_is_multi_posttype ) ) {
-			if ( isset( $query->query_vars['tribeHideRecurrence'] ) && $query->query_vars['tribeHideRecurrence'] ) {
-				global $wpdb;
-				$group_by = " IF( {$wpdb->posts}.post_parent = 0, {$wpdb->posts}.ID, {$wpdb->posts}.post_parent )";
+				return $sql;
 			}
 		}
 
-		return $group_by;
+		if ( ! empty( $query->tribe_is_event_query ) || ! empty( $query->tribe_is_multi_posttype ) ) {
+			if ( isset( $query->query_vars['tribeHideRecurrence'] ) && $query->query_vars['tribeHideRecurrence'] ) {
+				global $wpdb;
+
+				// if we are collapsing recurrence events, we need to re-jigger the SQL statement so the GROUP BY
+				// collapses records in an expected manner
+
+				// We need to relocate the SQL_CALC_FOUND_ROWS to the outer query
+				$sql = preg_replace( '/SQL_CALC_FOUND_ROWS/', '', $sql );
+
+				// We don't want to grab the min EventStartDate because without a group by that collapses everything
+				$sql = preg_replace( '/MIN\(wp_postmeta.meta_value\) as EventStartDate/', 'wp_postmeta.meta_value as EventStartDate', $sql );
+
+				// Let's get rid of the group by (non-greedily stop before the ORDER BY or LIMIT
+				$sql = preg_replace( '/GROUP BY .+?(ORDER|LIMIT)/', '$1', $sql );
+
+				// Let's extract the LIMIT. We're going to relocate it to the outer query
+				preg_match( '/(LIMIT.*)/', $sql, $limit );
+				if ( $limit ) {
+					$sql = preg_replace( '/LIMIT.*/', '', $sql );
+					$limit = $limit[1];
+				} else {
+					$limit = '';
+				}
+
+				$sql = '
+					SELECT
+						SQL_CALC_FOUND_ROWS *
+					FROM (
+						' . $sql . "
+					) a
+					GROUP BY IF( post_parent = 0, ID, post_parent )
+					ORDER BY EventStartDate ASC
+					{$limit}
+				";
+			}
+		}
+
+		return $sql;
 	}
 
 	/**
