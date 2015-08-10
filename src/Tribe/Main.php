@@ -109,13 +109,13 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		public $rewriteSlugSingular = 'event';
 		public $taxRewriteSlug = 'event/category';
 		public $tagRewriteSlug = 'event/tag';
-		protected $monthSlug = 'month';
+		public $monthSlug = 'month';
 
 		// @todo remove in 4.0
-		protected $upcomingSlug = 'upcoming';
-		protected $pastSlug = 'past';
+		public $upcomingSlug = 'upcoming';
+		public $pastSlug = 'past';
 
-		protected $listSlug = 'list';
+		public $listSlug = 'list';
 		public $daySlug = 'day';
 		public $todaySlug = 'today';
 		protected $postExceptionThrown = false;
@@ -187,14 +187,14 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		public $plural_event_label;
 
 		/** @var Tribe__Events__Default_Values */
-		private $default_values = NULL;
+		private $default_values = null;
 
 		public static $tribeEventsMuDefaults;
 
 		/**
 		 * Static Singleton Factory Method
 		 *
-		 *@return Tribe__Events__Main
+		 * @return Tribe__Events__Main
 		 */
 		public static function instance() {
 			if ( ! isset( self::$instance ) ) {
@@ -337,6 +337,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * Add filters and actions
 		 */
 		protected function addHooks() {
+			// Load Rewrite
+			add_action( 'plugins_loaded', array( Tribe__Events__Rewrite::instance(), 'hooks' ) );
+
 			add_action( 'init', array( $this, 'init' ), 10 );
 
 			// Frontend Javascript
@@ -358,7 +361,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			add_filter( 'nav_menu_items_' . self::POSTTYPE, array( $this, 'add_events_checkbox_to_menu' ), null, 3 );
 			add_filter( 'wp_nav_menu_objects', array( $this, 'add_current_menu_item_class_to_events' ), null, 2 );
 
-			add_filter( 'generate_rewrite_rules', array( $this, 'filter_rewrite_rules' ) );
 			add_filter( 'template_redirect', array( $this, 'redirect_past_upcoming_view_urls' ), 11 );
 
 			/* Setup Tribe Events Bar */
@@ -578,12 +580,14 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			$this->pastSlug                                   = sanitize_title( __( 'past', 'tribe-events-calendar' ) );
 			$this->daySlug                                    = sanitize_title( __( 'day', 'tribe-events-calendar' ) );
 			$this->todaySlug                                  = sanitize_title( __( 'today', 'tribe-events-calendar' ) );
+
 			$this->singular_venue_label                       = $this->get_venue_label_singular();
 			$this->plural_venue_label                         = $this->get_venue_label_plural();
 			$this->singular_organizer_label                   = $this->get_organizer_label_singular();
 			$this->plural_organizer_label                     = $this->get_organizer_label_plural();
 			$this->singular_event_label                       = $this->get_event_label_singular();
 			$this->plural_event_label                         = $this->get_event_label_plural();
+
 			$this->postTypeArgs['rewrite']['slug']            = sanitize_title( $this->rewriteSlugSingular );
 			$this->postVenueTypeArgs['rewrite']['slug']       = sanitize_title( $this->singular_venue_label );
 			$this->postVenueTypeArgs['show_in_nav_menus']     = class_exists( 'Tribe__Events__Pro__Main' ) ? true : false;
@@ -2070,8 +2074,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 */
 		public function loadTextDomain() {
 			load_plugin_textdomain( 'tribe-events-calendar', false, $this->pluginDir . 'lang/' );
-			$this->constructDaysOfWeek();
-			$this->initMonthNames();
+
+			// Setup the l10n strings
+			$this->setup_l10n_strings();
 		}
 
 		/**
@@ -2168,13 +2173,10 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			return $view;
 		}
 
-		/**
-		 * Localize month names and their short names and such using $wp_locale.
-		 *
-		 * @return void
-		 */
-		protected function initMonthNames() {
+		protected function setup_l10n_strings() {
 			global $wp_locale;
+
+			// Localize month names
 			$this->monthsFull = array(
 				'January'   => $wp_locale->get_month( '01' ),
 				'February'  => $wp_locale->get_month( '02' ),
@@ -2189,6 +2191,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				'November'  => $wp_locale->get_month( '11' ),
 				'December'  => $wp_locale->get_month( '12' ),
 			);
+
 			// yes, it's awkward. easier this way than changing logic elsewhere.
 			$this->monthsShort = $months = array(
 				'Jan' => $wp_locale->get_month_abbrev( $wp_locale->get_month( '01' ) ),
@@ -2204,6 +2207,22 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				'Nov' => $wp_locale->get_month_abbrev( $wp_locale->get_month( '11' ) ),
 				'Dec' => $wp_locale->get_month_abbrev( $wp_locale->get_month( '12' ) ),
 			);
+
+			// Get the localized weekday names
+			for ( $i = 0; $i <= 6; $i ++ ) {
+				$day = $wp_locale->get_weekday( $i );
+				$this->daysOfWeek[ $i ] = $day;
+				$this->daysOfWeekShort[ $i ] = $wp_locale->get_weekday_abbrev( $day );
+				$this->daysOfWeekMin[ $i ] = $wp_locale->get_weekday_initial( $day );
+			}
+
+			// Setup the Strings for Rewrite Translations
+			__( 'tag', 'tribe-events-calendar' );
+			__( 'category', 'tribe-events-calendar' );
+			__( 'page', 'tribe-events-calendar' );
+			__( 'event', 'tribe-events-calendar' );
+			__( 'events', 'tribe-events-calendar' );
+			__( 'all', 'tribe-events-calendar' );
 		}
 
 		/**
@@ -2270,66 +2289,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			$qvars[] = self::TAXONOMY;
 
 			return $qvars;
-		}
-
-		/**
-		 * Get the base slugs for the Plugin Rewrite rules
-		 *
-		 * WARNING: Don't mess with the filters below if you don't know what you are doing
-		 *
-		 * @param  string $method Use "regex" to return a Regular Expression with the possible Base Slugs using l10n
-		 * @return object         Return Base Slugs with l10n variations
-		 */
-		public function get_rewrite_base_slugs( $method = 'regex' ) {
-			$bases = apply_filters( 'tribe_events_rewrite_base_slugs', array(
-				'month' => (array) $this->monthSlug,
-				'list' => (array) $this->listSlug,
-				'today' => (array) $this->todaySlug,
-				'day' => (array) $this->daySlug,
-				'tag' => (array) 'tag',
-				'tax' => (array) 'category',
-				'page' => (array) 'page',
-				'all' => (array) 'all',
-				'singular' => (array) $this->getOption( 'singleEventSlug', 'event' ),
-				'plural' => (array) $this->getOption( 'eventsSlug', 'events' ),
-			) );
-
-			// By default we always have `en_US` to avoid 404 with older URLs
-			$languages = apply_filters( 'tribe_events_rewrite_i18n_languages', array_unique( array( 'en_US', get_locale() ) ) );
-
-			$domains = apply_filters( 'tribe_events_rewrite_i18n_domains', array(
-				'default' => true, // Default doesn't need file path
-				'tribe-events-calendar' => $this->pluginDir . 'lang/',
-			) );
-
-			// If WPML exists we treat the multiple languages
-			if ( ! empty( $GLOBALS['sitepress'] ) && $GLOBALS['sitepress'] instanceof SitePress ) {
-				global $sitepress;
-
-				// Grab all languages
-				$langs = $sitepress->get_active_languages();
-
-				foreach ( $langs as $lang ) {
-					$languages[] = $sitepress->get_locale( $lang['code'] );
-				}
-
-				// Prevent Duplicates and Empty langs
-				$languages = array_filter( array_unique( $languages ) );
-
-				// Query the Current Language
-				$current_locale = $sitepress->get_locale( $sitepress->get_current_language() );
-
-				// Get the strings on multiple Domains and Languages
-				$bases = $this->get_i18n_strings( $bases, $languages, $domains, $current_locale );
-			}
-
-			if ( 'regex' === $method ){
-				foreach ( $bases as $type => $base ) {
-					$bases[ $type ] = '(?:' . implode( '|', $base ) . ')';
-				}
-			}
-
-			return (object) apply_filters( 'tribe_events_rewrite_i18n_slugs', $bases, $method );
 		}
 
 		/**
@@ -2419,97 +2378,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 */
 		public function _set_locale() {
 			return empty( $this->_locale ) ? 'en_US' : $this->_locale;
-		}
-
-		/**
-		 * Adds Event specific rewrite rules.
-		 *
-		 * @param object $wp_rewrite
-		 * events/                =>    /?post_type=tribe_events
-		 * events/month        =>    /?post_type=tribe_events&eventDisplay=month
-		 * events/week        =>  /?post_type=tribe_events&eventDisplay=week
-		 * events/upcoming        =>    /?post_type=tribe_events&eventDisplay=upcoming
-		 * events/past            =>    /?post_type=tribe_events&eventDisplay=past
-		 * events/2008-01/#15    =>    /?post_type=tribe_events&eventDisplay=bydate&eventDate=2008-01-01
-		 * events/category/some-events-category => /?post_type=tribe_events&tribe_event_cat=some-events-category
-		 *
-		 * @return void
-		 */
-		public function filter_rewrite_rules( $wp_rewrite ) {
-			$bases = $this->get_rewrite_base_slugs();
-
-			$bases->plural = trailingslashit( $bases->plural );
-			$bases->singular = trailingslashit( $bases->singular );
-
-			$bases->tax = '(.*)' . apply_filters( 'tribe_events_category_rewrite_slug', $bases->plural . trailingslashit( $bases->tax ) ) . '(?:[^/]+/)*';
-			$bases->tag = '(.*)' . apply_filters( 'tribe_events_tag_rewrite_slug', $bases->plural . trailingslashit( $bases->tag ) );
-
-			$rules = array();
-
-			// single event
-			$rules[ $bases->singular . '([^/]+)/(\d{4}-\d{2}-\d{2})/?$' ]                     = 'index.php?' . self::POSTTYPE . '=' . $wp_rewrite->preg_index( 1 ) . '&eventDate=' . $wp_rewrite->preg_index( 2 );
-			$rules[ $bases->singular . '([^/]+)/(\d{4}-\d{2}-\d{2})/ical/?$' ]                = 'index.php?ical=1&' . self::POSTTYPE . '=' . $wp_rewrite->preg_index( 1 ) . '&eventDate=' . $wp_rewrite->preg_index( 2 );
-			$rules[ $bases->singular . '([^/]+)/' . $bases->all . '/?$' ]                     = 'index.php?post_type=' . self::POSTTYPE . '&' . self::POSTTYPE . '=' . $wp_rewrite->preg_index( 1 ) . '&eventDisplay=all';
-
-			$rules[ $bases->plural . $bases->page . '/(\d+)']                                 = 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=list&paged=' . $wp_rewrite->preg_index( 1 );
-			$rules[ $bases->plural . 'ical']                                                  = 'index.php?post_type=' . self::POSTTYPE . '&ical=1';
-			$rules[ $bases->plural . '(feed|rdf|rss|rss2|atom)/?$']                           = 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=list&feed=' . $wp_rewrite->preg_index( 1 );
-			$rules[ $bases->plural . $bases->month ]                                          = 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=month';
-			$rules[ $bases->plural . $bases->list . '/' . $bases->page . '/(\d+)' ]           = 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=list&paged=' . $wp_rewrite->preg_index( 1 );
-			$rules[ $bases->plural . $bases->list ]                                           = 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=list';
-			$rules[ $bases->plural . $bases->today ]                                          = 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=day';
-			$rules[ $bases->plural . '(\d{4}-\d{2})$' ]                                       = 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=month&eventDate=' . $wp_rewrite->preg_index( 1 );
-			$rules[ $bases->plural . '(\d{4}-\d{2}-\d{2})/?$' ]                               = 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=day&eventDate=' . $wp_rewrite->preg_index( 1 );
-			$rules[ $bases->plural . 'feed/?$' ]                                              = 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=list&feed=rss2';
-			$rules[ $bases->plural . '?$' ]                                                   = 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=default';
-
-			// ical
-			$rules[ $bases->singular . '([^/]+)/ical/?$' ]                                    = 'index.php?post_type=' . self::POSTTYPE . '&name=' . $wp_rewrite->preg_index( 1 ) . '&ical=1';
-			$rules[ $bases->plural . '(\d{4}-\d{2}-\d{2})/ical/?$' ]                         = 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=day&eventDate=' . $wp_rewrite->preg_index( 1 ) . '&ical=1';
-
-			// category rules.
-			$rules[ $bases->tax . '([^/]+)/' . $bases->page . '/(\d+)' ]                      = 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=list&tribe_events_cat=' . $wp_rewrite->preg_index( 2 ) . '&paged=' . $wp_rewrite->preg_index( 3 );
-			$rules[ $bases->tax . '([^/]+)/' . $bases->month ]                                = 'index.php?tribe_events_cat=' . $wp_rewrite->preg_index( 2 ) . '&post_type=' . self::POSTTYPE . '&eventDisplay=month';
-			$rules[ $bases->tax . '([^/]+)/' . $bases->list . '/' . $bases->page . '/(\d+)' ] = 'index.php?tribe_events_cat=' . $wp_rewrite->preg_index( 2 ) . '&post_type=' . self::POSTTYPE . '&eventDisplay=list&paged=' . $wp_rewrite->preg_index( 3 );
-			$rules[ $bases->tax . '([^/]+)/' . $bases->list ]                                 = 'index.php?tribe_events_cat=' . $wp_rewrite->preg_index( 2 ) . '&post_type=' . self::POSTTYPE . '&eventDisplay=list';
-			$rules[ $bases->tax . '([^/]+)/' . $bases->today ]                                = 'index.php?tribe_events_cat=' . $wp_rewrite->preg_index( 2 ) . '&post_type=' . self::POSTTYPE . '&eventDisplay=day';
-			$rules[ $bases->tax . '([^/]+)/' . $bases->day . '/(\d{4}-\d{2}-\d{2})/?$' ]      = 'index.php?tribe_events_cat=' . $wp_rewrite->preg_index( 2 ) . '&post_type=' . self::POSTTYPE . '&eventDisplay=day&eventDate=' . $wp_rewrite->preg_index( 3 );
-			$rules[ $bases->tax . '([^/]+)/(\d{4}-\d{2})$' ]                                  = 'index.php?tribe_events_cat=' . $wp_rewrite->preg_index( 2 ) . '&post_type=' . self::POSTTYPE . '&eventDisplay=month&eventDate=' . $wp_rewrite->preg_index( 3 );
-			$rules[ $bases->tax . '([^/]+)/(\d{4}-\d{2}-\d{2})$' ]                            = 'index.php?tribe_events_cat=' . $wp_rewrite->preg_index( 2 ) . '&post_type=' . self::POSTTYPE . '&eventDisplay=day&eventDate=' . $wp_rewrite->preg_index( 3 );
-			$rules[ $bases->tax . '([^/]+)/feed/?$' ]                                         = 'index.php?tribe_events_cat=' . $wp_rewrite->preg_index( 2 ) . '&eventDisplay=list&post_type=' . self::POSTTYPE . '&feed=rss2';
-			$rules[ $bases->tax . '([^/]+)/ical/?$' ]                                         = 'index.php?post_type=' . self::POSTTYPE . '&eventDisplay=list&tribe_events_cat=' . $wp_rewrite->preg_index( 2 ) . '&ical=1';
-			$rules[ $bases->tax . '([^/]+)/feed/(feed|rdf|rss|rss2|atom)/?$' ]                = 'index.php?post_type=' . self::POSTTYPE . '&tribe_events_cat=' . $wp_rewrite->preg_index( 2 ) . '&feed=' . $wp_rewrite->preg_index( 3 );
-			$rules[ $bases->tax . '([^/]+)/?$' ]                                              = 'index.php?tribe_events_cat=' . $wp_rewrite->preg_index( 2 ) . '&post_type=' . self::POSTTYPE . '&eventDisplay=' . $this->getOption( 'viewOption', 'month' );
-
-			// tag rules.
-			$rules[ $bases->tag . '([^/]+)/' . $bases->page . '/(\d+)' ]                      = 'index.php?tag=' . $wp_rewrite->preg_index( 2 ) . '&post_type=' . self::POSTTYPE . '&eventDisplay=list&paged=' . $wp_rewrite->preg_index( 3 );
-			$rules[ $bases->tag . '([^/]+)/' . $bases->month ]                                = 'index.php?tag=' . $wp_rewrite->preg_index( 2 ) . '&post_type=' . self::POSTTYPE . '&eventDisplay=month';
-			$rules[ $bases->tag . '([^/]+)/' . $bases->list . '/' . $bases->page . '/(\d+)' ] = 'index.php?tag=' . $wp_rewrite->preg_index( 2 ) . '&post_type=' . self::POSTTYPE . '&eventDisplay=list&paged=' . $wp_rewrite->preg_index( 3 );
-			$rules[ $bases->tag . '([^/]+)/' . $bases->list ]                                 = 'index.php?tag=' . $wp_rewrite->preg_index( 2 ) . '&post_type=' . self::POSTTYPE . '&eventDisplay=list';
-			$rules[ $bases->tag . '([^/]+)/' . $bases->today ]                                = 'index.php?tag=' . $wp_rewrite->preg_index( 2 ) . '&post_type=' . self::POSTTYPE . '&eventDisplay=day';
-			$rules[ $bases->tag . '([^/]+)/(\d{4}-\d{2})$' ]                                  = 'index.php?tag=' . $wp_rewrite->preg_index( 2 ) . '&post_type=' . self::POSTTYPE . '&eventDisplay=month&eventDate=' . $wp_rewrite->preg_index( 3 );
-			$rules[ $bases->tag . '([^/]+)/' . $bases->day . '/(\d{4}-\d{2}-\d{2})/?$' ]      = 'index.php?tag=' . $wp_rewrite->preg_index( 2 ) . '&post_type=' . self::POSTTYPE . '&eventDisplay=day&eventDate=' . $wp_rewrite->preg_index( 3 );
-			$rules[ $bases->tag . '([^/]+)/(\d{4}-\d{2}-\d{2})$' ]                            = 'index.php?tag=' . $wp_rewrite->preg_index( 2 ) . '&post_type=' . self::POSTTYPE . '&eventDisplay=day&eventDate=' . $wp_rewrite->preg_index( 3 );
-			$rules[ $bases->tag . '([^/]+)/feed/?$' ]                                         = 'index.php?tag=' . $wp_rewrite->preg_index( 2 ) . '&post_type=' . self::POSTTYPE . '&eventDisplay=list&feed=rss2';
-			$rules[ $bases->tag . '([^/]+)/ical/?$' ]                                         = 'index.php?tag=' . $wp_rewrite->preg_index( 2 ) . '&post_type=' . self::POSTTYPE . '&eventDisplay=list&ical=1';
-			$rules[ $bases->tag . '([^/]+)/feed/(feed|rdf|rss|rss2|atom)/?$' ]                = 'index.php?tag=' . $wp_rewrite->preg_index( 2 ) . '&post_type=' . self::POSTTYPE . '&feed=' . $wp_rewrite->preg_index( 3 );
-			$rules[ $bases->tag . '([^/]+)/?$' ]                                              = 'index.php?tag=' . $wp_rewrite->preg_index( 2 ) . '&post_type=' . self::POSTTYPE . '&eventDisplay=list';
-
-			$wp_rewrite->rules = apply_filters( 'tribe_events_rewrite_rules', $rules + $wp_rewrite->rules, $rules );
-		}
-
-		/**
-		 * Deprecated alias to `filter_rewrite_rules`
-		 *
-		 * @param object $wp_rewrite
-		 *
-		 * @deprecated
-		 * @todo remove 4.2
-		 *
-		 * @return void
-		 */
-		public function filterRewriteRules( $wp_rewrite ) {
-			$this->filter_rewrite_rules( $wp_rewrite );
 		}
 
 		/**
@@ -3956,21 +3824,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			echo '<div class="rss-widget">';
 			wp_widget_rss_output( self::FEED_URL, array( 'items' => $items ) );
 			echo '</div>';
-		}
-
-		/**
-		 * Get the localized weekday names.
-		 *
-		 * @return void
-		 */
-		protected function constructDaysOfWeek() {
-			global $wp_locale;
-			for ( $i = 0; $i <= 6; $i ++ ) {
-				$day = $wp_locale->get_weekday( $i );
-				$this->daysOfWeek[ $i ] = $day;
-				$this->daysOfWeekShort[ $i ] = $wp_locale->get_weekday_abbrev( $day );
-				$this->daysOfWeekMin[ $i ] = $wp_locale->get_weekday_initial( $day );
-			}
 		}
 
 		/**
