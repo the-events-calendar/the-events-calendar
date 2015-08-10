@@ -114,6 +114,8 @@ if ( ! class_exists( 'Tribe__Events__Rewrite' ) ) {
 				->tag( array( 'feed', '(feed|rdf|rss|rss2|atom)' ), array( 'feed' => '%2' ) )
 				->tag( array(), array( 'eventDisplay' => $options['default_view'] ) );
 
+			do_action( 'tribe_events_pre_rewrite', $this );
+
 			$wp_rewrite->rules = apply_filters( 'tribe_events_rewrite_rules', $this->rules + $wp_rewrite->rules, $this );
 		}
 
