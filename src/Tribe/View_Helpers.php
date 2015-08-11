@@ -505,7 +505,8 @@ if ( ! class_exists( 'Tribe__Events__View_Helpers' ) ) {
 		 */
 		private static function minutes() {
 			$minutes = array();
-			for ( $minute = 0; $minute < 60; $minute += 5 ) {
+			$incrementer = apply_filters( 'tribe_get_minutes_incrementer', 5 );
+			for ( $minute = 0; $minute < 60; $minute += $incrementer ) {
 				if ( $minute < 10 ) {
 					$minute = '0' . $minute;
 				}
