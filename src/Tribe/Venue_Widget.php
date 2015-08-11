@@ -27,13 +27,23 @@ if ( ! class_exists( 'Tribe__Events__Pro__Venue_Widget' ) ) {
 				$hide_if_empty = false;
 			}
 
-			// Get all the upcoming events for this venue.
-			$events = tribe_get_events( array(
+			$event_args = array(
 				'post_type'      => Tribe__Events__Main::POSTTYPE,
 				'venue'          => $venue_ID,
 				'posts_per_page' => $count,
 				'eventDisplay'   => 'list',
-			), true );
+				'tribe_render_context' => 'widget',
+			);
+
+			/**
+			 * Filter Venue Widget tribe_get_event args
+			 *
+			 * @param array $event_args Arguments for the Venue Widget's call to tribe_get_events
+			 */
+			$event_args = apply_filters( 'tribe_events_pro_venue_widget_event_query_args', $event_args );
+
+			// Get all the upcoming events for this venue.
+			$events = tribe_get_events( $event_args, true );
 
 			// If there are no events, and the user has set to hide if empty, don't display the widget.
 			if ( $hide_if_empty && ! $events->have_posts() ) {

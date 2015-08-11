@@ -361,13 +361,13 @@
 				$date_format = apply_filters( 'tribe_events_pro_page_title_date_format', tribe_get_date_format( true ) );
 
 				if ( tribe_is_showing_all() ) {
-					$reset_title = sprintf( __( 'All %s for %s', 'tribe-events-calendar-pro' ), strtolower( $this->plural_event_label ), get_the_title() );
+					$reset_title = sprintf( __( 'All %1$s for %2$s', 'tribe-events-calendar-pro' ), strtolower( $this->plural_event_label ), get_the_title() );
 				}
 
 				// week view title
 				if ( tribe_is_week() ) {
 					$reset_title = sprintf(
-						__( '%s for week of %s', 'tribe-events-calendar-pro' ),
+						__( '%1$s for week of %2$s', 'tribe-events-calendar-pro' ),
 						$this->plural_event_label,
 						date_i18n( $date_format, strtotime( tribe_get_first_week_day( $wp_query->get( 'start_date' ) ) ) )
 					);
@@ -495,7 +495,15 @@
 			 **/
 			public static function posts_join( $joins ) {
 				global $wpdb;
-				$joins['event_end_date'] = " LEFT JOIN {$wpdb->postmeta} as tribe_event_end_date ON ( {$wpdb->posts}.ID = tribe_event_end_date.post_id AND tribe_event_end_date.meta_key = '_EventEndDate' ) ";
+
+				$event_end_key = '_EventEndDate';
+
+				// Tiemzone support isn't possible if the current TEC installation doesn't include the timezone class
+				if ( class_exists( 'Tribe__Events__Timezones' ) && Tribe__Events__Timezones::is_mode( 'site' ) ) {
+					$event_end_key .= 'UTC';
+				}
+
+				$joins['event_end_date'] = " LEFT JOIN {$wpdb->postmeta} as tribe_event_end_date ON ( {$wpdb->posts}.ID = tribe_event_end_date.post_id AND tribe_event_end_date.meta_key = '$event_end_key' ) ";
 
 				return $joins;
 			}
@@ -607,7 +615,7 @@
 				// The single-entry array at the end allows for the save settings button to be displayed.
 				new Tribe__Events__Settings_Tab( 'additional-fields', __( 'Additional Fields', 'tribe-events-calendar-pro' ), array(
 					'priority' => 35,
-					'fields'   => array( null )
+					'fields'   => array( null ),
 				) );
 			}
 
@@ -1096,13 +1104,21 @@
 			 * @return void
 			 */
 			public function admin_enqueue_scripts() {
-				wp_enqueue_script( Tribe__Events__Main::POSTTYPE.'-premium-admin', tribe_events_pro_resource_url( 'events-admin.js' ), array( 'jquery-ui-datepicker' ), apply_filters( 'tribe_events_pro_js_version', self::VERSION ), true );
+				wp_enqueue_script( 'handlebars', $this->pluginUrl . '/vendor/handlebars/handlebars.min.js', array(), apply_filters( 'tribe_events_pro_js_version', self::VERSION ), true );
+				wp_enqueue_script( 'moment', $this->pluginUrl . '/vendor/momentjs/moment.min.js', array(), apply_filters( 'tribe_events_pro_js_version', self::VERSION ), true );
+				wp_enqueue_script( Tribe__Events__Main::POSTTYPE . '-premium-admin', tribe_events_pro_resource_url( 'events-admin.js' ), array( 'jquery-ui-datepicker' ), apply_filters( 'tribe_events_pro_js_version', self::VERSION ), true );
+				wp_enqueue_script( Tribe__Events__Main::POSTTYPE . '-premium-recurrence', tribe_events_pro_resource_url( 'events-recurrence.js' ), array( Tribe__Events__Main::POSTTYPE.'-premium-admin', 'handlebars', 'moment' ), apply_filters( 'tribe_events_pro_js_version', self::VERSION ), true );
 				$data = apply_filters( 'tribe_events_pro_localize_script', array(), 'TribeEventsProAdmin', Tribe__Events__Main::POSTTYPE.'-premium-admin' );
-				wp_localize_script( Tribe__Events__Main::POSTTYPE.'-premium-admin', 'TribeEventsProAdmin', $data );
+				wp_localize_script( Tribe__Events__Main::POSTTYPE . '-premium-admin', 'TribeEventsProAdmin', $data );
+				wp_localize_script( Tribe__Events__Main::POSTTYPE . '-premium-admin', 'tribe_events_pro_recurrence_strings', array(
+					'date' => Tribe__Events__Pro__Recurrence_Meta::date_strings(),
+					'recurrence' => Tribe__Events__Pro__Recurrence_Meta::recurrence_strings(),
+					'exclusion' => array(),
+				) );
 			}
 
 			public function admin_enqueue_styles() {
-				wp_enqueue_style( Tribe__Events__Main::POSTTYPE.'-premium-admin', tribe_events_pro_resource_url( 'events-admin.css' ), array(), apply_filters( 'tribe_events_pro_css_version', self::VERSION ) );
+				wp_enqueue_style( Tribe__Events__Main::POSTTYPE . '-premium-admin', tribe_events_pro_resource_url( 'events-admin.css' ), array(), apply_filters( 'tribe_events_pro_css_version', self::VERSION ) );
 			}
 
 			/**
@@ -1201,7 +1217,7 @@
 			 *
 			 * @return boolean
 			 */
-			public function should_hide_recurrence( $query ) {
+			public function should_hide_recurrence( $query = null ) {
 				// let's not hide recurrence if we are showing all recurrence events
 				if ( tribe_is_showing_all() ) {
 					return false;
@@ -1219,7 +1235,8 @@
 
 				// let's not hide recurrence if we are on month or week view
 				if (
-					! empty( $query->query['eventDisplay'] )
+					is_object( $query )
+					&& ! empty( $query->query['eventDisplay'] )
 					&& in_array( $query->query['eventDisplay'], array( 'month', 'week' ) )
 				) {
 					return false;
