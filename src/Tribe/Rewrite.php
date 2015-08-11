@@ -52,17 +52,48 @@ if ( ! class_exists( 'Tribe__Events__Rewrite' ) ) {
 		 */
 		public $bases = array();
 
+		/**
+		 * Just dont...
+		 */
 		private function __construct() {}
 
-		public function hooks() {
-			add_filter( 'generate_rewrite_rules', array( $this, '_filter_generate' ) );
+		/**
+		 * After creating the Hooks on WordPress we lock the usage of the function
+		 * @var boolean
+		 */
+		private $hook_lock = false;
+
+		/**
+		 * Do not allow people to Hook methods twice by mistake
+		 *
+		 * @return void
+		 */
+		public function hooks( $remove = false ) {
+			if ( false === $this->hook_lock ) {
+				// Don't allow people do Double the hooks
+				$this->hook_lock = true;
+
+				// Hook the methods
+				add_filter( 'generate_rewrite_rules', array( $this, 'filter_generate' ) );
+
+			} elseif ( true === $remove ) {
+				// Remove the Hooks
+				remove_filter( 'generate_rewrite_rules', array( $this, 'filter_generate' ) );
+			}
 		}
 
-		public function _filter_generate( WP_Rewrite $wp_rewrite ) {
+		/**
+		 * Generate the Rewrite Rules
+		 *
+		 * @param  WP_Rewrite $wp_rewrite WordPress Rewrite that will be modified, pass it by reference (&$wp_rewrite)
+		 * @return void
+		 */
+		public function filter_generate( WP_Rewrite &$wp_rewrite ) {
 			$options = array(
 				'default_view' => Tribe__Events__Main::instance()->getOption( 'viewOption', 'month' ),
 			);
 
+			// We need to Setup before using the Add methods
 			$this->setup( $wp_rewrite )
 
 				// Single
@@ -114,8 +145,16 @@ if ( ! class_exists( 'Tribe__Events__Rewrite' ) ) {
 				->tag( array( 'feed', '(feed|rdf|rss|rss2|atom)' ), array( 'feed' => '%2' ) )
 				->tag( array(), array( 'eventDisplay' => $options['default_view'] ) );
 
+			/**
+			 * Use this to change the instance of the Rewrite
+			 * Should be used when you want to add more rewrite rules without having to deal with the array merge
+			 */
 			do_action( 'tribe_events_pre_rewrite', $this );
 
+			/**
+			 * Backwards Compatibility filter, this filters the WP Rewrite Rules.
+			 * @todo  Check if is worth deprecating this hook
+			 */
 			$wp_rewrite->rules = apply_filters( 'tribe_events_rewrite_rules', $this->rules + $wp_rewrite->rules, $this );
 		}
 
@@ -144,6 +183,10 @@ if ( ! class_exists( 'Tribe__Events__Rewrite' ) ) {
 		 * @return object         Return Base Slugs with l10n variations
 		 */
 		public function get_bases( $method = 'regex' ) {
+			/**
+			 * If you want to modify the base slugs before the i18n happens filter this use this filter
+			 * All the bases need to have a key and a value, they might be the same or not.
+			 */
 			$bases = apply_filters( 'tribe_events_rewrite_base_slugs', array(
 				'month' => (array) Tribe__Events__Main::instance()->monthSlug,
 				'list' => (array) Tribe__Events__Main::instance()->listSlug,
@@ -193,6 +236,9 @@ if ( ! class_exists( 'Tribe__Events__Rewrite' ) ) {
 				}
 			}
 
+			/**
+			 * Use `tribe_events_rewrite_i18n_slugs` to modify the final version of the l10n slugs bases
+			 */
 			return (object) apply_filters( 'tribe_events_rewrite_i18n_slugs', $bases, $method );
 		}
 
