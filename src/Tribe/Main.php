@@ -166,10 +166,6 @@
 				add_filter( 'tribe_events_register_organizer_type_args', array( $this, 'addSupportsThumbnail' ), 10, 1 );
 				add_action( 'post_updated_messages', array( $this, 'updatePostMessages' ), 20 );
 
-				// filter the query sql to get the recurrence end date
-				add_filter( 'tribe_events_query_posts_joins', array( $this, 'posts_join' ) );
-				add_filter( 'tribe_events_query_posts_fields', array( $this, 'posts_fields' ) );
-
 				add_filter( 'tribe_events_default_value_strategy', array( $this, 'set_default_value_strategy' ) );
 				add_action( 'plugins_loaded', array( $this, 'init_apm_filters' ) );
 
@@ -475,37 +471,6 @@
 				$link = get_post_permalink( $post );
 
 				echo "<link rel='canonical' href='" . esc_url( $link ) . "' />\n";
-			}
-
-			/**
-			 * Filter the event fields to use the duration to get the end date (to accomodate recurrence)
-			 *
-			 * @return string
-			 **/
-			public static function posts_fields( $fields ) {
-				$fields['event_end_date'] = 'tribe_event_end_date.meta_value as EventEndDate';
-
-				return $fields;
-			}
-
-			/**
-			 * Filter the event joins to use the duration to get the end date (to accomodate recurrence)
-			 *
-			 * @return string
-			 **/
-			public static function posts_join( $joins ) {
-				global $wpdb;
-
-				$event_end_key = '_EventEndDate';
-
-				// Tiemzone support isn't possible if the current TEC installation doesn't include the timezone class
-				if ( class_exists( 'Tribe__Events__Timezones' ) && Tribe__Events__Timezones::is_mode( 'site' ) ) {
-					$event_end_key .= 'UTC';
-				}
-
-				$joins['event_end_date'] = " LEFT JOIN {$wpdb->postmeta} as tribe_event_end_date ON ( {$wpdb->posts}.ID = tribe_event_end_date.post_id AND tribe_event_end_date.meta_key = '$event_end_key' ) ";
-
-				return $joins;
 			}
 
 			/**
