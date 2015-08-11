@@ -54,7 +54,7 @@ $table = ob_get_clean();
 
 							$price_format = get_woocommerce_price_format();
 
-							echo sprintf( '(' . $price_format . ')', get_woocommerce_currency_symbol(), number_format( $tickets->price, 2 ) );
+							echo sprintf( '(' . $price_format . ')', get_woocommerce_currency_symbol(), number_format( $ticket->price, 2 ) );
 
 							echo '<br />';
 
