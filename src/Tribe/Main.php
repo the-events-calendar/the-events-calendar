@@ -434,7 +434,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			add_action( 'update_option_'.Tribe__Events__Main::OPTIONNAME, array( $this, 'fix_all_day_events' ), 10, 2 );
 
 			// Check for a page that might conflict with events archive
-			add_action('admin_init', array(Tribe__Events__Admin__Notice__Archive_Slug_Conflict::instance(), 'maybe_add_admin_notice'));
+			add_action( 'admin_init', array( Tribe__Events__Admin__Notice__Archive_Slug_Conflict::instance(), 'maybe_add_admin_notice' ) );
 
 			// add-on compatibility
 			if ( is_multisite() ) {
