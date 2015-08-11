@@ -24,11 +24,11 @@ $events_label_singular = tribe_get_event_label_singular();
 					<input type="url" name="<?php echo esc_attr( $customField['name'] ) ?>" value="<?php echo esc_attr( $val ) ?>" />
 				<?php elseif ( 'radio' === $customField['type'] ): ?>
 					<div>
-						<label><input type="radio" name="<?php echo esc_attr( $customField['name'] ) ?>" value="" <?php checked( trim( $val ), '' ) ?>/> None</label>
+						<label><input type="radio" name="<?php echo esc_attr( $customField['name'] ) ?>" value="" <?php checked( trim( $val ), '' ) ?>/> <?php esc_html_e( 'None', 'tribe-events-calendar-pro' ); ?></label>
 					</div>
 					<?php foreach ( $options as $option ): ?>
 						<div>
-							<label><input type="radio" name="<?php echo esc_attr( $customField['name'] ) ?>" value="<?php echo esc_attr( $option ) ?>" <?php checked( trim( $val ), trim( $option ) ) ?>/> <?php echo esc_html( stripslashes( $option ) ) ?>
+							<label><input type="radio" name="<?php echo esc_attr( $customField['name'] ) ?>" value="<?php echo esc_attr( trim( $option ) ) ?>" <?php checked( esc_attr( trim( $val ) ), esc_attr( trim( $option ) ) ) ?>/> <?php echo esc_html( stripslashes( $option ) ) ?>
 							</label></div>
 					<?php endforeach ?>
 				<?php elseif ( 'checkbox' === $customField['type'] ): ?>
@@ -40,10 +40,10 @@ $events_label_singular = tribe_get_event_label_singular();
 					<?php endforeach ?>
 				<?php elseif ( 'dropdown' === $customField['type'] ): ?>
 					<select name="<?php echo esc_attr( $customField['name'] ) ?>">
-						<option value="" <?php selected( trim( $val ), '' ) ?>>None</option>
+						<option value="" <?php selected( trim( $val ), '' ) ?>><?php esc_html_e( 'None', 'tribe-events-calendar-pro' ); ?></option>
 						<?php $options = explode( "\r\n", $customField['values'] ) ?>
 						<?php foreach ( $options as $option ): ?>
-							<option value="<?php echo esc_attr( $option ) ?>" <?php selected( trim( $val ), trim( $option ) ) ?>><?php echo esc_html( stripslashes( $option ) ) ?></option>
+							<option value="<?php echo esc_attr( trim( $option ) ) ?>" <?php selected( esc_attr( trim( $val ) ), trim( esc_attr( $option ) ) ) ?>><?php echo esc_html( stripslashes( $option ) ) ?></option>
 						<?php endforeach ?>
 					</select>
 				<?php elseif ( 'textarea' === $customField['type'] ): ?>
