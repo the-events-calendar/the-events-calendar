@@ -100,10 +100,10 @@ $tickets = Tribe__Events__Tickets__Tickets::get_event_tickets( $event_id );
 							}
 
 							if ( empty( $stock ) && $stock !== 0 ) {
-								echo sprintf( __( 'Sold %d %s', 'tribe-events-calendar' ), esc_html( $sold ), $pending );
+								echo sprintf( __( 'Sold %1$d %2$s', 'tribe-events-calendar' ), esc_html( $sold ), $pending );
 							}
 							else {
-								echo sprintf( __( 'Sold %d of %d %s', 'tribe-events-calendar' ), esc_html( $sold ), esc_html( $sold + $stock ), $pending );
+								echo sprintf( __( 'Sold %1$d of %2$d %3$s', 'tribe-events-calendar' ), esc_html( $sold ), esc_html( $sold + $stock ), $pending );
 							}
 
 							echo '<br />';

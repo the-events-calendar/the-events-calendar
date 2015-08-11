@@ -299,7 +299,11 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 				// Because this method filters out drafts without EventStartDate.
 				// For this screen we're doing the JOIN manually in Tribe__Events__Admin_List
 
-				$screen = ! is_admin() || ( defined( 'DOING_AJAX' ) && DOING_AJAX ) ? null : get_current_screen();
+				$screen = null;
+
+				if ( function_exists( 'get_current_screen' ) ) {
+					$screen = ! is_admin() || ( defined( 'DOING_AJAX' ) && DOING_AJAX ) ? null : get_current_screen();
+				}
 
 				if ( empty( $screen ) || 'edit-tribe_events' !== $screen->id ) {
 					$event_start_key = Tribe__Events__Timezones::is_mode( 'site' )

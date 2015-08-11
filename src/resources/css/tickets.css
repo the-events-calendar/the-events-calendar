@@ -43,6 +43,10 @@ p.ticket_name {
 	font-weight : bold;
 }
 
+td.tickets_name {
+	white-space: nowrap;
+}
+
 .ticket_form p.description {
 	display : inline;
 }
