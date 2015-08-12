@@ -738,7 +738,7 @@
 			 *
 			 * @return void
 			 */
-			public function filter_add_routes( &$rewrite ) {
+			public function filter_add_routes( $rewrite ) {
 				$rewrite
 					->archive( array( '{{ week }}' ), array( 'eventDisplay' => 'week' ) )
 					->archive( array( '{{ week }}', '(\d{2})' ), array( 'eventDisplay' => 'week', 'eventDate' => '%1' ) )
