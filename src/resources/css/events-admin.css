@@ -442,3 +442,25 @@ a.tribe-rating-link {
 		display: none;
 	}
 }
+
+.tribe-update-bar {
+	display: inline-block;
+}
+
+.tribe-update-bar .progress {
+	border: 1px solid #ccc;
+	float: left;
+	margin-right: 1rem;
+	padding: 1px;
+	width: 18rem;
+}
+
+.tribe-update-bar .progress .bar {
+	background: #ffba00;
+	height: 1rem;
+	width: 1%;
+}
+
+.tribe-update-bar .progress .bar {
+	background: #7ad03a;
+}

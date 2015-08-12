@@ -150,6 +150,9 @@ if ( ! class_exists( 'Tribe__Events__Date_Utils' ) ) {
 				return false;
 			}
 
+			$dt['month'] = str_pad( $dt['month'], 2, '0', STR_PAD_LEFT );
+			$dt['day'] = str_pad( $dt['day'], 2, '0', STR_PAD_LEFT );
+
 			$formatted = '{year}-{month}-{day}' . ( isset( $dt['hour'], $dt['minute'], $dt['second'] ) ? ' {hour}:{minute}:{second}' : '' );
 			foreach ( $dt as $key => $value ) {
 				$formatted = str_replace( '{' . $key . '}', $value, $formatted );
