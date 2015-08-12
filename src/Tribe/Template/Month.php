@@ -366,7 +366,6 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 			$this->queried_event_cats = $terms;
 		}
 
-
 		/**
 		 * Get all the events in the month by directly querying the postmeta table
 		 * Also caches the postmeta and terms for the found events
@@ -428,6 +427,8 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 
 		/**
 		 * Breaks the possible collection of events down by grid date
+		 *
+		 * @param string $date Y-m-d formatted date to retrieve events for
 		 *
 		 * @return array
 		 */
