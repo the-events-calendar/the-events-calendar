@@ -2487,10 +2487,16 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 					break;
 			}
 
+			// Filter get link
+			$event_url = apply_filters( 'tribe_events_get_link', $event_url, $type, $secondary, $term, $url_args );
+
+			// @todo deprecate on 4.2
+			$event_url = apply_filters( 'tribe_events_getLink', $event_url, $type, $secondary, $term, $url_args );
+
 			// Add the Arguments back
 			$event_url = add_query_arg( $url_args, $event_url );
 
-			return apply_filters( 'tribe_events_getLink', $event_url, $type, $secondary, $term );
+			return $event_url;
 		}
 
 		/**
