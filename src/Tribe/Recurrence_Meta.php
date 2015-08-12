@@ -1758,11 +1758,11 @@ class Tribe__Events__Pro__Recurrence_Meta {
 				$sql = preg_replace( '/GROUP BY .+?(ORDER|LIMIT)/', '$1', $sql );
 
 				// Let's extract the LIMIT. We're going to relocate it to the outer query
-				$limit_regex = '/LIMIT\s+([0-9]+(\s*,\s*[0-9]+)?)/';
+				$limit_regex = '/LIMIT\s+[0-9]+(\s*,\s*[0-9]+)?/';
 				preg_match( $limit_regex, $sql, $limit );
 				if ( $limit ) {
 					$sql = preg_replace( $limit_regex, '', $sql );
-					$limit = $limit[1];
+					$limit = $limit[0];
 				} else {
 					$limit = '';
 				}
