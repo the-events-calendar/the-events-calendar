@@ -36,6 +36,12 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 		private $events_per_day;
 
 		/**
+		 * Grid day events
+		 * @var array
+		 */
+		private $event_ids_by_day;
+
+		/**
 		 * Array of days of the month
 		 * @var array
 		 */
@@ -421,6 +427,88 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 		}
 
 		/**
+		 * Breaks the possible collection of events down by grid date
+		 *
+		 * @return array
+		 */
+		private function get_event_ids_by_day( $date ) {
+			if ( ! $this->event_ids_by_day ) {
+				$this->event_ids_by_day = array();
+
+				// Let's loop over all of the events in the month and assign them to days
+				foreach ( $this->events_in_month as $event ) {
+					// if we're querying by category and the event doesn't have it, skip the event
+					if ( ! empty ( $this->queried_event_cats ) ) {
+						if ( ! has_term( $this->queried_event_cats, Tribe__Events__Main::TAXONOMY, $event ) ) {
+							continue;
+						}
+					}
+
+					$event_start = strtotime( $event->EventStartDate );
+					$event_end   = strtotime( $event->EventEndDate );
+
+					$start = date( 'Y-m-d', $event_start );
+					$end = date( 'Y-m-d', $event_end );
+
+					$beginning_of_day           = tribe_event_beginning_of_day( $start );
+					$beginning_of_day_timestamp = strtotime( $beginning_of_day );
+
+					$end_of_day           = tribe_event_end_of_day( $end );
+					$end_of_day_timestamp = strtotime( $end_of_day );
+
+					// if the start of the event is earlier than the beginning of the day, consider the event as starting on the day before
+					if ( $event_start < $beginning_of_day_timestamp ) {
+						$start = date( 'Y-m-d', strtotime( '-1 day', strtotime( $start ) ) );
+					}
+
+					// if the end of the event is later than the end of the day, consider the event as ending on the next day
+					if ( $event_end > $end_of_day_timestamp ) {
+						$end = date( 'Y-m-d', strtotime( '+1 day', strtotime( $end ) ) );
+					}
+
+					// determine if there's a difference in days between start and end
+					$diff = strtotime( $end ) - strtotime( $start );
+
+					if ( $diff > 0 ) {
+						// There IS a difference. How many days?
+						$diff_in_days = $diff / DAY_IN_SECONDS;
+
+						// add the event to each day until the event end
+						$new_start = $start;
+						for ( $i = 0; $i <= $diff_in_days; $i++ ) {
+							if ( ! isset( $this->event_ids_by_day[ $new_start ] ) ) {
+								$this->event_ids_by_day[ $new_start ] = array();
+							}
+
+							$this->event_ids_by_day[ $new_start ][] = $event->ID;
+
+							$new_start = date( 'Y-m-d', strtotime( '+1 day', strtotime( $new_start ) ) );
+						}
+					} else {
+						// nope. The event is a single day event. Add it to the array
+						if ( ! isset( $this->event_ids_by_day[ $start ] ) ) {
+							$this->event_ids_by_day[ $start ] = array();
+						}
+
+						$this->event_ids_by_day[ $start ][] = $event->ID;
+					}
+				}
+
+				// Now that we've built our event_ids_by_day, let's array_unique and sort
+				foreach ( $this->event_ids_by_day as &$day ) {
+					$day = array_unique( $day );
+					sort( $day );
+				}
+			}
+
+			if ( empty( $this->event_ids_by_day[ $date ] ) ) {
+				return array();
+			}
+
+			return $this->event_ids_by_day[ $date ];
+		}
+
+		/**
 		 * Get the events for a single day
 		 *
 		 * @param string $date
@@ -435,28 +523,7 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 			$end_of_day           = tribe_event_end_of_day( $date );
 			$end_of_day_timestamp = strtotime( $end_of_day );
 
-			$event_ids_on_date = array();
-
-			// loop through all the events in the month and find the ones on the requested date
-			foreach ( $this->events_in_month as $event ) {
-
-				$event_start = strtotime( $event->EventStartDate );
-				$event_end   = strtotime( $event->EventEndDate );
-
-				// check if the event happens on this day
-				if ( Tribe__Events__Date_Utils::range_coincides( $beginning_of_day_timestamp, $end_of_day_timestamp, $event_start, $event_end ) ) {
-					// check if the event has the term being viewed, if not, skip it
-					if ( ! empty ( $this->queried_event_cats ) ) {
-						if ( ! has_term( $this->queried_event_cats, Tribe__Events__Main::TAXONOMY, $event ) ) {
-							continue;
-						}
-					}
-					$event_ids_on_date[] = $event->ID;
-				}
-			}
-
-			$event_ids_on_date = array_unique( $event_ids_on_date );
-			sort( $event_ids_on_date );
+			$event_ids_on_date = $this->get_event_ids_by_day( $date );
 
 			// post__in doesn't work when it's empty, so just don't run the query if there are no IDs
 			if ( empty( $event_ids_on_date ) ) {
@@ -502,6 +569,7 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 			$days = array();
 
 			$date = $this->first_grid_date; // Start with the first grid date
+
 
 			// Populate complete date range including leading/trailing days from adjacent months
 			while ( $date <= $this->final_grid_date ) {
