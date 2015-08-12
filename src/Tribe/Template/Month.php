@@ -571,7 +571,6 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 
 			$date = $this->first_grid_date; // Start with the first grid date
 
-
 			// Populate complete date range including leading/trailing days from adjacent months
 			while ( $date <= $this->final_grid_date ) {
 
