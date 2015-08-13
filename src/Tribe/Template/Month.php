@@ -426,6 +426,30 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 		}
 
 		/**
+		 * Retrieves beginning/end times for a given date
+		 *
+		 * @param string $date Y-m-d date string
+		 * @param string $key Key of cached data to retrieve
+		 *
+		 * return string|int
+		 */
+		private function get_cutoff_details( $date, $key ) {
+			static $beginnings_and_ends = array();
+
+			if ( empty( $beginnings_and_ends[ $date ] ) ) {
+				$beginnings_and_ends[ $date ] = array(
+					'beginning' => tribe_event_beginning_of_day( $date ),
+					'end' => tribe_event_end_of_day( $date ),
+				);
+
+				$beginnings_and_ends[ $date ]['beginning_timestamp'] = strtotime( $beginnings_and_ends[ $date ]['beginning'] );
+				$beginnings_and_ends[ $date ]['end_timestamp'] = strtotime( $beginnings_and_ends[ $date ]['end'] );
+			}
+
+			return $beginnings_and_ends[ $date ][ $key ];
+		}
+
+		/**
 		 * Breaks the possible collection of events down by grid date
 		 *
 		 * @param string $date Y-m-d formatted date to retrieve events for
@@ -451,13 +475,12 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 					$start = date( 'Y-m-d', $event_start );
 					$end = date( 'Y-m-d', $event_end );
 
-					$beginning_of_start           = tribe_event_beginning_of_day( $start );
-					$beginning_of_start_timestamp = strtotime( $beginning_of_start );
-					$end_of_start           = tribe_event_end_of_day( $start );
-					$end_of_start_timestamp = strtotime( $end_of_start );
-
-					$beginning_of_end           = tribe_event_beginning_of_day( $end );
-					$beginning_of_end_timestamp = strtotime( $beginning_of_end );
+					$beginning_of_start           = $this->get_cutoff_details( $start, 'beginning' );
+					$beginning_of_start_timestamp = $this->get_cutoff_details( $start, 'beginning_timestamp' );
+					$end_of_start                 = $this->get_cutoff_details( $start, 'end' );
+					$end_of_start_timestamp       = $this->get_cutoff_details( $start, 'end_timestamp' );
+					$beginning_of_end             = $this->get_cutoff_details( $end, 'beginning' );
+					$beginning_of_end_timestamp   = $this->get_cutoff_details( $end, 'beginning_timestamp' );
 
 					// if the start of the event is earlier than the beginning of the day, consider the event
 					// as starting on the day before
