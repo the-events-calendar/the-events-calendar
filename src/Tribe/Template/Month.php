@@ -469,8 +469,8 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 						}
 					}
 
-					$event_start = strtotime( $event->EventStartDate );
-					$event_end   = strtotime( $event->EventEndDate );
+					$event_start = strtotime( tribe_get_start_date( $event->ID ) );
+					$event_end   = strtotime( tribe_get_end_date( $event->ID ) );
 
 					$start = date( 'Y-m-d', $event_start );
 					$end = date( 'Y-m-d', $event_end );
