@@ -473,8 +473,8 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 
 					// Subtract a day from the $end if it is:
 					// * earlier than the beginning of the start DATE OR
-					// * earlier than the end of the start DATE OR
-					// * earlier than the beginning of the end DATE
+					// * earlier than the beginning of the end DATE OR
+					// * earlier than the end of the start DATE (as long as the beginning of the end DATE is greater than that of the start DATE)
 					//
 					// Example 1:
 					// Assuming a cut-off of 6:00am and an event end date/time of August 2nd @ 7:00am. The
@@ -489,8 +489,11 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 					// (August 1st) (Note: this following if statement conditional would be true)
 					if (
 						$event_end < $beginning_of_start_timestamp
-						|| $event_end < $end_of_start_timestamp
 						|| $event_end < $beginning_of_end_timestamp
+						|| (
+							$event_end < $end_of_start_timestamp
+							&& $beginning_of_end_timestamp > $end_of_start_timestamp
+						)
 					) {
 						$end = date( 'Y-m-d', strtotime( '-1 day', strtotime( $end ) ) );
 					}
