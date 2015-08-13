@@ -111,6 +111,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		public $tagRewriteSlug = 'event/tag';
 		protected $monthSlug = 'month';
 
+		/** @var Tribe__Events__Admin__Timezone_Settings */
+		public $timezone_settings;
+
 		// @todo remove in 4.0
 		protected $upcomingSlug = 'upcoming';
 		protected $pastSlug = 'past';
@@ -133,6 +136,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			'_EventAllDay',
 			'_EventStartDate',
 			'_EventEndDate',
+			'_EventStartDateUTC',
+			'_EventEndDateUTC',
 			'_EventDuration',
 			'_EventVenueID',
 			'_EventShowMapLink',
@@ -146,6 +151,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			'_EventOrganizerID',
 			'_EventPhone',
 			'_EventHideFromUpcoming',
+			'_EventTimezone',
+			'_EventTimezoneAbbr',
 			self::EVENTSERROROPT,
 		);
 
@@ -338,6 +345,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 */
 		protected function addHooks() {
 			add_action( 'init', array( $this, 'init' ), 10 );
+			add_action( 'admin_init', array( $this , 'admin_init' ) );
 
 			// Frontend Javascript
 			add_action( 'wp_enqueue_scripts', array( $this, 'loadStyle' ) );
@@ -433,6 +441,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			add_action( 'tribe_settings_after_save', array( $this, 'flushRewriteRules' ) );
 			add_action( 'load-edit-tags.php', array( $this, 'prepare_to_fix_tagcloud_links' ), 10, 0 );
 			add_action( 'update_option_' . self::OPTIONNAME, array( $this, 'fix_all_day_events' ), 10, 2 );
+
+			// Check for a page that might conflict with events archive
+			add_action( 'admin_init', array( Tribe__Events__Admin__Notice__Archive_Slug_Conflict::instance(), 'maybe_add_admin_notice' ) );
 
 			// add-on compatibility
 			if ( is_multisite() ) {
@@ -599,10 +610,18 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			Tribe__Events__Query::init();
 			Tribe__Events__Backcompat::init();
 			Tribe__Events__Credits::init();
+			Tribe__Events__Timezones::init();
 			$this->registerPostType();
 
 			self::debug( sprintf( __( 'Initializing Tribe Events on %s', 'tribe-events-calendar' ), date( 'M, jS \a\t h:m:s a' ) ) );
 			$this->maybeSetTECVersion();
+		}
+
+		/**
+		 * Initializes any admin-specific code (expects to be called when admin_init fires).
+		 */
+		public function admin_init() {
+			$this->timezone_settings = new Tribe__Events__Admin__Timezone_Settings;
 		}
 
 		/**
@@ -4390,6 +4409,27 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		public static function array_insert_after_key( $key, $source_array, $insert_array ) {
 			if ( array_key_exists( $key, $source_array ) ) {
 				$position     = array_search( $key, array_keys( $source_array ) ) + 1;
+				$source_array = array_slice( $source_array, 0, $position, true ) + $insert_array + array_slice( $source_array, $position, null, true );
+			} else {
+				// If no key is found, then add it to the end of the array.
+				$source_array += $insert_array;
+			}
+
+			return $source_array;
+		}
+
+		/**
+		 * Insert an array immediately before a specified key within another array.
+		 *
+		 * @param $key
+		 * @param $source_array
+		 * @param $insert_array
+		 *
+		 * @return array
+		 */
+		public static function array_insert_before_key( $key, $source_array, $insert_array ) {
+			if ( array_key_exists( $key, $source_array ) ) {
+				$position     = array_search( $key, array_keys( $source_array ) );
 				$source_array = array_slice( $source_array, 0, $position, true ) + $insert_array + array_slice( $source_array, $position, null, true );
 			} else {
 				// If no key is found, then add it to the end of the array.

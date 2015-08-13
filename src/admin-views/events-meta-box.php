@@ -115,6 +115,18 @@ if ( class_exists( 'Eventbrite_for_TribeEvents' ) ) {
 							</span>
 						</td>
 					</tr>
+					<tr class="event-timezone">
+						<td class="label">
+							<label for="event-timezone">
+								<?php esc_html_e( 'Timezone:', 'tribe-events-calendar' ); ?>
+							</label>
+						</td>
+						<td>
+							<select tabindex="<?php tribe_events_tab_index(); ?>" name="EventTimezone" id="event-timezone" class="chosen">
+								<?php echo wp_timezone_choice( Tribe__Events__Timezones::get_event_timezone_string() ); ?>
+							</select>
+						</td>
+					</tr>
 					<?php
 					/**
 					 * Fires after the event end date field in The Events Calendar meta box
