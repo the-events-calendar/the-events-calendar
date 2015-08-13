@@ -759,6 +759,15 @@
 					if ( tribe_is_map() || ! tribe_get_option( 'hideLocationSearch', false ) ) {
 						$classes[] = ' tribe-events-uses-geolocation';
 					}
+
+					if (
+						! empty( $wp_query->query['tribe_events'] )
+						&& 'custom-recurrence' === $wp_query->query['tribe_events']
+						&& ! empty( $wp_query->query['eventDisplay'] )
+						&& 'all' === $wp_query->query['eventDisplay']
+					) {
+						$classes[] = ' tribe-events-recurrence-archive';
+					}
 				}
 
 				return $classes;

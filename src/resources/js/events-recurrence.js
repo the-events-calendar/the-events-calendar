@@ -512,6 +512,25 @@ tribe_events_pro_admin.recurrence = {
 			key += '-' + end_type;
 		}
 
+		if (
+			'weekly' === custom_type
+			&& 0 === weekdays.length
+		) {
+			key = 'every-week-on';
+		} else if (
+			'monthly' === custom_type
+			&& ! month_number
+			&& ! month_day
+		) {
+			key = 'every-month-on';
+		} else if (
+			'yearly' === custom_type
+			&& ! month_number
+			&& ! month_day
+		) {
+			key = 'every-year-on';
+		}
+
 		var text = tribe_events_pro_recurrence_strings.recurrence[ key ];
 
 		// if a month_number and month_day is defined, build the month_day_description
