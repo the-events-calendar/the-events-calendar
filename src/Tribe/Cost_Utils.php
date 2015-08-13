@@ -33,7 +33,7 @@ class Tribe__Events__Cost_Utils {
 	public function get_all_costs() {
 		global $wpdb;
 
-		$costs = $wpdb->get_col( "SELECT meta_value FROM {$wpdb->postmeta} WHERE meta_key = '_EventCost'" );
+		$costs = $wpdb->get_col( "SELECT DISTINCT meta_value FROM {$wpdb->postmeta} WHERE meta_key = '_EventCost'" );
 
 		return $costs;
 	}//end get_all_costs
@@ -158,10 +158,16 @@ class Tribe__Events__Cost_Utils {
 			$costs = array( $costs );
 		}
 
+		$new_costs = array();
+
 		foreach ( $costs as $index => $value ) {
 			$values = $this->parse_cost_range( $value );
-			$costs = array_merge( $costs, $values );
+			foreach ( $values as $val ) {
+				$new_costs[] = $val;
+			}
 		}
+
+		$costs = $new_costs;
 
 		if ( empty( $costs ) ) {
 			return 0;
