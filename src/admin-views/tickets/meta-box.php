@@ -29,7 +29,7 @@ $modules = Tribe__Events__Tickets__Tickets::modules();
 	<tr>
 		<td colspan="2" class="tribe_sectionheader updated">
 			<table class="eventtable ticket_list eventForm">
-				<tr>
+				<tr class="tribe-tickets-image-upload">
 					<td>
 						<?php esc_html_e( 'Upload image for the ticket header', 'tribe-events-calendar' ); ?>
 						<p class="description"><?php esc_html_e( 'The maximum image size in the email will be 580px wide by any height, and then scaled for mobile. If you would like "retina" support use an image sized to 1160px wide.', 'tribe-events-calendar' ); ?></p>
@@ -38,7 +38,7 @@ $modules = Tribe__Events__Tickets__Tickets::modules();
 						<input type="button" class="button" name="tribe_ticket_header_image" id="tribe_ticket_header_image" value="<?php esc_html_e( 'Select an Image', 'tribe-events-calendar' ); ?>" />
 					</td>
 				</tr>
-				<tr>
+				<tr class="tribe-tickets-image-preview">
 					<td colspan="2">
 						<div class="tribe_preview" id="tribe_ticket_header_preview">
 							<?php echo $header_img; ?>
