@@ -36,6 +36,12 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 		private $events_per_day;
 
 		/**
+		 * Grid day events
+		 * @var array
+		 */
+		private $event_ids_by_day;
+
+		/**
 		 * Array of days of the month
 		 * @var array
 		 */
@@ -209,7 +215,7 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 		 */
 		protected function set_args( $args = array() ) {
 
-			$doing_ajax = ( defined('DOING_AJAX') && DOING_AJAX ) ? true : false;
+			$doing_ajax = ( defined( 'DOING_AJAX' ) && DOING_AJAX ) ? true : false;
 
 			if ( empty( $args ) && $doing_ajax ) {
 				$post_status = array( 'publish' );
@@ -360,7 +366,6 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 			$this->queried_event_cats = $terms;
 		}
 
-
 		/**
 		 * Get all the events in the month by directly querying the postmeta table
 		 * Also caches the postmeta and terms for the found events
@@ -421,6 +426,144 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 		}
 
 		/**
+		 * Retrieves beginning/end times for a given date
+		 *
+		 * @param string $date Y-m-d date string
+		 * @param string $key Key of cached data to retrieve
+		 *
+		 * return string|int
+		 */
+		private function get_cutoff_details( $date, $key ) {
+			static $beginnings_and_ends = array();
+
+			if ( empty( $beginnings_and_ends[ $date ] ) ) {
+				$beginnings_and_ends[ $date ] = array(
+					'beginning' => tribe_event_beginning_of_day( $date ),
+					'end' => tribe_event_end_of_day( $date ),
+				);
+
+				$beginnings_and_ends[ $date ]['beginning_timestamp'] = strtotime( $beginnings_and_ends[ $date ]['beginning'] );
+				$beginnings_and_ends[ $date ]['end_timestamp'] = strtotime( $beginnings_and_ends[ $date ]['end'] );
+			}
+
+			return $beginnings_and_ends[ $date ][ $key ];
+		}
+
+		/**
+		 * Breaks the possible collection of events down by grid date
+		 *
+		 * @param string $date Y-m-d formatted date to retrieve events for
+		 *
+		 * @return array
+		 */
+		private function get_event_ids_by_day( $date ) {
+			if ( ! $this->event_ids_by_day ) {
+				$this->event_ids_by_day = array();
+
+				// Let's loop over all of the events in the month and assign them to days
+				foreach ( $this->events_in_month as $event ) {
+					// if we're querying by category and the event doesn't have it, skip the event
+					if ( ! empty ( $this->queried_event_cats ) ) {
+						if ( ! has_term( $this->queried_event_cats, Tribe__Events__Main::TAXONOMY, $event ) ) {
+							continue;
+						}
+					}
+
+					$event_start = strtotime( tribe_get_start_date( $event->ID ) );
+					$event_end   = strtotime( tribe_get_end_date( $event->ID ) );
+
+					$start = date( 'Y-m-d', $event_start );
+					$end = date( 'Y-m-d', $event_end );
+
+					$beginning_of_start           = $this->get_cutoff_details( $start, 'beginning' );
+					$beginning_of_start_timestamp = $this->get_cutoff_details( $start, 'beginning_timestamp' );
+					$end_of_start                 = $this->get_cutoff_details( $start, 'end' );
+					$end_of_start_timestamp       = $this->get_cutoff_details( $start, 'end_timestamp' );
+					$beginning_of_end             = $this->get_cutoff_details( $end, 'beginning' );
+					$beginning_of_end_timestamp   = $this->get_cutoff_details( $end, 'beginning_timestamp' );
+
+					// if the start of the event is earlier than the beginning of the day, consider the event
+					// as starting on the day before
+					//
+					// Example 1:
+					// Assuming a cut-off of 6:00am and an event start date/time of August 2nd @ 5:00am. The
+					// "start" DATE would be August 2nd and the beginning of the "start" DATE would be August
+					// 2nd @ 6:00am. Therefore, the event start DATE shoud be altered to be a day earlier
+					// (August 1st) (Note: the following if statement conditional would be true)
+					if ( $event_start < $beginning_of_start_timestamp ) {
+						$start = date( 'Y-m-d', strtotime( '-1 day', strtotime( $start ) ) );
+					}
+
+					// Subtract a day from the $end if it is:
+					// * earlier than the beginning of the start DATE OR
+					// * earlier than the beginning of the end DATE OR
+					// * earlier than the end of the start DATE (as long as the beginning of the end DATE is greater than that of the start DATE)
+					//
+					// Example 1:
+					// Assuming a cut-off of 6:00am and an event end date/time of August 2nd @ 7:00am. The
+					// "end" DATE would be August 2nd and the beginning of the "end" DATE would be August
+					// 2nd @ 6:00am. Therefore, the event end DATE shoud remain as August 2nd. (Note: the
+					// following if statement conditional would be false)
+					//
+					// Example 2:
+					// Assuming a cut-off of 6:00am and an event end date/time of August 2nd @ 5:00am. The
+					// "end" DATE would be August 2nd and the beginning of the "end" DATE would be August
+					// 2nd @ 6:00am. Therefore, the event end DATE shoud be altered to be a day earlier
+					// (August 1st) (Note: this following if statement conditional would be true)
+					if (
+						$event_end < $beginning_of_start_timestamp
+						|| $event_end < $beginning_of_end_timestamp
+						|| (
+							$event_end < $end_of_start_timestamp
+							&& $beginning_of_end_timestamp > $end_of_start_timestamp
+						)
+					) {
+						$end = date( 'Y-m-d', strtotime( '-1 day', strtotime( $end ) ) );
+					}
+
+					// determine if there's a difference in days between start and end
+					$diff = strtotime( $end ) - strtotime( $start );
+
+					if ( $diff > 0 ) {
+						// There IS a difference. How many days?
+						$diff_in_days = $diff / DAY_IN_SECONDS;
+
+						// add the event to each day until the event end
+						$new_start = $start;
+						for ( $i = 0; $i <= $diff_in_days; $i++ ) {
+							if ( ! isset( $this->event_ids_by_day[ $new_start ] ) ) {
+								$this->event_ids_by_day[ $new_start ] = array();
+							}
+
+							$this->event_ids_by_day[ $new_start ][] = $event->ID;
+
+							$new_start = date( 'Y-m-d', strtotime( '+1 day', strtotime( $new_start ) ) );
+						}
+					} else {
+						// nope. The event is a single day event. Add it to the array
+						if ( ! isset( $this->event_ids_by_day[ $start ] ) ) {
+							$this->event_ids_by_day[ $start ] = array();
+						}
+
+						$this->event_ids_by_day[ $start ][] = $event->ID;
+					}
+				}
+
+				// Now that we've built our event_ids_by_day, let's array_unique and sort
+				foreach ( $this->event_ids_by_day as &$day ) {
+					$day = array_unique( $day );
+					sort( $day );
+				}
+			}
+
+			if ( empty( $this->event_ids_by_day[ $date ] ) ) {
+				return array();
+			}
+
+			return $this->event_ids_by_day[ $date ];
+		}
+
+		/**
 		 * Get the events for a single day
 		 *
 		 * @param string $date
@@ -429,34 +572,13 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 		 */
 		private function get_daily_events( $date ) {
 
-			$beginning_of_day           = tribe_event_beginning_of_day( $date );
-			$beginning_of_day_timestamp = strtotime( $beginning_of_day );
+			$beginning_of_day           = $this->get_cutoff_details( $date, 'beginning' );
+			$beginning_of_day_timestamp = $this->get_cutoff_details( $date, 'beginning_timestamp' );
 
-			$end_of_day           = tribe_event_end_of_day( $date );
-			$end_of_day_timestamp = strtotime( $end_of_day );
+			$end_of_day           = $this->get_cutoff_details( $date, 'end' );
+			$end_of_day_timestamp = $this->get_cutoff_details( $date, 'end_timestamp' );
 
-			$event_ids_on_date = array();
-
-			// loop through all the events in the month and find the ones on the requested date
-			foreach ( $this->events_in_month as $event ) {
-
-				$event_start = strtotime( $event->EventStartDate );
-				$event_end   = strtotime( $event->EventEndDate );
-
-				// check if the event happens on this day
-				if ( Tribe__Events__Date_Utils::range_coincides( $beginning_of_day_timestamp, $end_of_day_timestamp, $event_start, $event_end ) ) {
-					// check if the event has the term being viewed, if not, skip it
-					if ( ! empty ( $this->queried_event_cats ) ) {
-						if ( ! has_term( $this->queried_event_cats, Tribe__Events__Main::TAXONOMY, $event ) ) {
-							continue;
-						}
-					}
-					$event_ids_on_date[] = $event->ID;
-				}
-			}
-
-			$event_ids_on_date = array_unique( $event_ids_on_date );
-			sort( $event_ids_on_date );
+			$event_ids_on_date = $this->get_event_ids_by_day( $date );
 
 			// post__in doesn't work when it's empty, so just don't run the query if there are no IDs
 			if ( empty( $event_ids_on_date ) ) {
