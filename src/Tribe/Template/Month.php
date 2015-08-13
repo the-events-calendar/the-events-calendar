@@ -572,11 +572,11 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 		 */
 		private function get_daily_events( $date ) {
 
-			$beginning_of_day           = tribe_event_beginning_of_day( $date );
-			$beginning_of_day_timestamp = strtotime( $beginning_of_day );
+			$beginning_of_day           = $this->get_cutoff_details( $date, 'beginning' );
+			$beginning_of_day_timestamp = $this->get_cutoff_details( $date, 'beginning_timestamp' );
 
-			$end_of_day           = tribe_event_end_of_day( $date );
-			$end_of_day_timestamp = strtotime( $end_of_day );
+			$end_of_day           = $this->get_cutoff_details( $date, 'end' );
+			$end_of_day_timestamp = $this->get_cutoff_details( $date, 'end_timestamp' );
 
 			$event_ids_on_date = $this->get_event_ids_by_day( $date );
 
