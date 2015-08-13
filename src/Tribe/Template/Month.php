@@ -475,6 +475,7 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 					'update_post_term_cache' => false,
 					'update_post_meta_cache' => false,
 					'no_found_rows'          => true,
+					'orderby'                => 'menu_order',
 				), $this->args
 			);
 
