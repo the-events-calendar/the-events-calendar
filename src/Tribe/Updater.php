@@ -60,10 +60,10 @@ class Tribe__Events__Updater {
 	 */
 	protected function get_updates() {
 		return array(
-			'2.0.1' => array( $this, 'migrate_from_sp_events' ),
-			'2.0.6' => array( $this, 'migrate_from_sp_options' ),
-			'3.10a4'  => array( $this, 'set_enabled_views' ),
-			'3.10a5'  => array( $this, 'remove_30_min_eod_cutoffs' ),
+			'2.0.1'  => array( $this, 'migrate_from_sp_events' ),
+			'2.0.6'  => array( $this, 'migrate_from_sp_options' ),
+			'3.10a4' => array( $this, 'set_enabled_views' ),
+			'3.10a5' => array( $this, 'remove_30_min_eod_cutoffs' ),
 		);
 	}
 

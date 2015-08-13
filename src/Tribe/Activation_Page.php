@@ -24,12 +24,11 @@ class Tribe__Events__Activation_Page {
 	 * @return array          The filtered Links
 	 */
 	public function update_complete_actions( $actions, $plugin ) {
-		$plugins = esc_attr( $_GET['plugins'] );
+		$plugins = array();
 
-		if ( false !== strpos( $plugins, ',' ) ){
-			$plugins = explode( ',', $plugins );
+		if ( ! empty( $_GET['plugins'] ) ) {
+			$plugins = explode( ',', esc_attr( $_GET['plugins'] ) );
 		}
-		$plugins = (array) $plugins;
 
 		if ( ! in_array( Tribe__Events__Main::instance()->pluginDir . 'the-events-calendar.php', $plugins ) ){
 			return $actions;

@@ -23,13 +23,36 @@ if ( class_exists( 'Eventbrite_for_TribeEvents' ) ) {
 ?>
 <div id="eventIntro">
 	<div id="tribe-events-post-error" class="tribe-events-error error"></div>
-	<?php do_action( 'tribe_events_post_errors', $event->ID, true ) ?>
-
+	<?php
+	/**
+	 * Fires inside the top of "The Events Calendar" meta box
+	 *
+	 * @param int $event->ID the event currently being edited, will be 0 if creating a new event
+	 * @param boolean
+	 */
+	do_action( 'tribe_events_post_errors', $event->ID, true );
+	?>
 </div>
 <div id='eventDetails' class="inside eventForm" data-datepicker_format="<?php echo esc_attr( tribe_get_option( 'datepickerFormat' ) ); ?>">
-	<?php do_action( 'tribe_events_detail_top', $event->ID, true ) ?>
-	<?php wp_nonce_field( Tribe__Events__Main::POSTTYPE, 'ecp_nonce' ); ?>
-	<?php do_action( 'tribe_events_eventform_top', $event->ID ); ?>
+	<?php
+	/**
+	 * Fires inside the opening #eventDetails div of The Events Calendar meta box
+	 *
+	 * @param int $event->ID the event currently being edited, will be 0 if creating a new event
+	 * @param boolean
+	 */
+	do_action( 'tribe_events_detail_top', $event->ID, true );
+
+	wp_nonce_field( Tribe__Events__Main::POSTTYPE, 'ecp_nonce' );
+
+	/**
+	 * Fires after the nonce field inside The Events Calendar meta box
+	 *
+	 * @param int $event->ID the event currently being edited, will be 0 if creating a new event
+	 * @param boolean
+	 */
+	do_action( 'tribe_events_eventform_top', $event->ID );
+	?>
 	<table cellspacing="0" cellpadding="0" id="EventInfo">
 		<tr>
 			<td colspan="2" class="tribe_sectionheader">
@@ -92,7 +115,28 @@ if ( class_exists( 'Eventbrite_for_TribeEvents' ) ) {
 							</span>
 						</td>
 					</tr>
-					<?php do_action( 'tribe_events_date_display', $event->ID, true ) ?>
+					<tr class="event-timezone">
+						<td class="label">
+							<label for="event-timezone">
+								<?php esc_html_e( 'Timezone:', 'tribe-events-calendar' ); ?>
+							</label>
+						</td>
+						<td>
+							<select tabindex="<?php tribe_events_tab_index(); ?>" name="EventTimezone" id="event-timezone" class="chosen">
+								<?php echo wp_timezone_choice( Tribe__Events__Timezones::get_event_timezone_string() ); ?>
+							</select>
+						</td>
+					</tr>
+					<?php
+					/**
+					 * Fires after the event end date field in The Events Calendar meta box
+					 * HTML outputted here should be wrapped in a table row (<tr>) that contains 2 cells (<td>s)
+					 *
+					 * @param int $event->ID the event currently being edited, will be 0 if creating a new event
+					 * @param boolean
+					 */
+					do_action( 'tribe_events_date_display', $event->ID, true );
+					?>
 				</table>
 			</td>
 		</tr>
@@ -102,17 +146,44 @@ if ( class_exists( 'Eventbrite_for_TribeEvents' ) ) {
 			<td colspan="2" class="tribe_sectionheader">
 				<h4><?php esc_html_e( 'Location', 'tribe-events-calendar' ); ?></h4></td>
 		</tr>
-		<?php do_action( 'tribe_venue_table_top', $event->ID ) ?>
-		<?php include( $tribe->pluginPath . 'src/admin-views/venue-meta-box.php' ); ?>
+		<?php
+		/**
+		 * Fires just after the "Location" header that appears above the venue entry form when creating & editing events in the admin
+		 * HTML outputted here should be wrapped in a table row (<tr>) that contains 2 cells (<td>s)
+		 *
+		 * @param int $event->ID the event currently being edited, will be 0 if creating a new event
+		 */
+		do_action( 'tribe_venue_table_top', $event->ID );
+		$venue_meta_box_template = apply_filters( 'tribe_events_venue_meta_box_template', $tribe->pluginPath . 'src/admin-views/venue-meta-box.php' );
+		if ( $venue_meta_box_template ) {
+			include $venue_meta_box_template;
+		}
+		?>
 	</table>
-	<?php do_action( 'tribe_after_location_details', $event->ID ); ?>
+	<?php
+	/**
+	 * Fires after the venue entry form when creating & editing events in the admin
+	 * HTML outputted here should be wrapped in a table row (<tr>) that contains 2 cells (<td>s)
+	 *
+	 * @param int $event->ID the event currently being edited, will be 0 if creating a new event
+	 */
+	do_action( 'tribe_after_location_details', $event->ID );
+	?>
 	<table id="event_organizer" class="eventtable">
 		<thead>
 			<tr>
 				<td colspan="2" class="tribe_sectionheader">
 					<h4><?php echo tribe_get_organizer_label_plural(); ?></h4></td>
 			</tr>
-			<?php do_action( 'tribe_organizer_table_top', $event->ID ) ?>
+			<?php
+			/**
+			 * Fires just after the header that appears above the organizer entry form when creating & editing events in the admin
+			 * HTML outputted here should be wrapped in a table row (<tr>) that contains 2 cells (<td>s)
+			 *
+			 * @param int $event->ID the event currently being edited, will be 0 if creating a new event
+			 */
+			do_action( 'tribe_organizer_table_top', $event->ID );
+			?>
 		</thead>
 		<?php $organizer_meta_box = new Tribe__Events__Admin__Organizer_Chooser_Meta_Box( $event ); ?>
 		<?php $organizer_meta_box->render(); ?>
@@ -129,10 +200,27 @@ if ( class_exists( 'Eventbrite_for_TribeEvents' ) ) {
 				<input tabindex="<?php tribe_events_tab_index(); ?>" type='text' id='EventURL' name='EventURL' size='25' value='<?php echo ( isset( $_EventURL ) ) ? esc_attr( $_EventURL ) : ''; ?>' placeholder='example.com' />
 			</td>
 		</tr>
-		<?php do_action( 'tribe_events_url_table', $event->ID, true ) ?>
+		<?php
+		/**
+		 * Fires just after the "URL" field that appears below the Event Website header in The Events Calendar meta box
+		 * HTML outputted here should be wrapped in a table row (<tr>) that contains 2 cells (<td>s)
+		 *
+		 * @param int $event->ID the event currently being edited, will be 0 if creating a new event
+		 * @param boolean
+		 */
+		do_action( 'tribe_events_url_table', $event->ID, true );
+		?>
 	</table>
 
-	<?php do_action( 'tribe_events_details_table_bottom', $event->ID, true ) ?>
+	<?php
+	/**
+	 * Fires just after closing table tag after Event Website in The Events Calendar meta box
+	 *
+	 * @param int $event->ID the event currently being edited, will be 0 if creating a new event
+	 * @param boolean
+	 */
+	do_action( 'tribe_events_details_table_bottom', $event->ID, true );
+	?>
 
 	<table id="event_cost" class="eventtable">
 		<?php if ( tribe_events_admin_show_cost_field() ) : ?>
@@ -176,9 +264,32 @@ if ( class_exists( 'Eventbrite_for_TribeEvents' ) ) {
 				</td>
 			</tr>
 		<?php endif; ?>
-		<?php do_action( 'tribe_events_cost_table', $event->ID, true ) ?>
+		<?php
+		/**
+		 * Fires just after the "Cost" field that appears below the Event Cost header in The Events Calendar meta box
+		 * HTML outputted here should be wrapped in a table row (<tr>) that contains 2 cells (<td>s)
+		 *
+		 * @param int $event->ID the event currently being edited, will be 0 if creating a new event
+		 * @param boolean
+		 */
+		do_action( 'tribe_events_cost_table', $event->ID, true );
+		?>
 	</table>
 
 </div>
-<?php do_action( 'tribe_events_above_donate', $event->ID, true ) ?>
-<?php do_action( 'tribe_events_details_bottom', $event->ID, true ) ?>
+<?php
+/**
+ * Fires at the bottom of The Events Calendar meta box
+ *
+ * @param int $event->ID the event currently being edited, will be 0 if creating a new event
+ * @param boolean
+ */
+do_action( 'tribe_events_above_donate', $event->ID, true );
+
+/**
+ * Fires at the bottom of The Events Calendar meta box
+ *
+ * @param int $event->ID the event currently being edited, will be 0 if creating a new event
+ * @param boolean
+ */
+do_action( 'tribe_events_details_bottom', $event->ID, true );

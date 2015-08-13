@@ -24,7 +24,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		const VENUE_POST_TYPE     = 'tribe_venue';
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
 
-		const VERSION           = '3.11.2';
+		const VERSION           = '3.12a1';
 		const MIN_ADDON_VERSION = '3.11';
 		const FEED_URL          = 'https://theeventscalendar.com/feed/';
 		const INFO_API_URL      = 'http://wpapi.org/api/plugin/the-events-calendar.php';
@@ -111,6 +111,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		public $tagRewriteSlug = 'event/tag';
 		protected $monthSlug = 'month';
 
+		/** @var Tribe__Events__Admin__Timezone_Settings */
+		public $timezone_settings;
+
 		// @todo remove in 4.0
 		protected $upcomingSlug = 'upcoming';
 		protected $pastSlug = 'past';
@@ -133,6 +136,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			'_EventAllDay',
 			'_EventStartDate',
 			'_EventEndDate',
+			'_EventStartDateUTC',
+			'_EventEndDateUTC',
 			'_EventDuration',
 			'_EventVenueID',
 			'_EventShowMapLink',
@@ -146,6 +151,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			'_EventOrganizerID',
 			'_EventPhone',
 			'_EventHideFromUpcoming',
+			'_EventTimezone',
+			'_EventTimezoneAbbr',
 			self::EVENTSERROROPT,
 		);
 
@@ -338,6 +345,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 */
 		protected function addHooks() {
 			add_action( 'init', array( $this, 'init' ), 10 );
+			add_action( 'admin_init', array( $this , 'admin_init' ) );
 
 			// Frontend Javascript
 			add_action( 'wp_enqueue_scripts', array( $this, 'loadStyle' ) );
@@ -433,6 +441,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			add_action( 'tribe_settings_after_save', array( $this, 'flushRewriteRules' ) );
 			add_action( 'load-edit-tags.php', array( $this, 'prepare_to_fix_tagcloud_links' ), 10, 0 );
 			add_action( 'update_option_' . self::OPTIONNAME, array( $this, 'fix_all_day_events' ), 10, 2 );
+
+			// Check for a page that might conflict with events archive
+			add_action( 'admin_init', array( Tribe__Events__Admin__Notice__Archive_Slug_Conflict::instance(), 'maybe_add_admin_notice' ) );
 
 			// add-on compatibility
 			if ( is_multisite() ) {
@@ -599,10 +610,18 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			Tribe__Events__Query::init();
 			Tribe__Events__Backcompat::init();
 			Tribe__Events__Credits::init();
+			Tribe__Events__Timezones::init();
 			$this->registerPostType();
 
 			self::debug( sprintf( __( 'Initializing Tribe Events on %s', 'tribe-events-calendar' ), date( 'M, jS \a\t h:m:s a' ) ) );
 			$this->maybeSetTECVersion();
+		}
+
+		/**
+		 * Initializes any admin-specific code (expects to be called when admin_init fires).
+		 */
+		public function admin_init() {
+			$this->timezone_settings = new Tribe__Events__Admin__Timezone_Settings;
 		}
 
 		/**
@@ -2112,7 +2131,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				return;
 			}
 
-			if ( Tribe__Events__Main::POSTTYPE !== $screen->post_type ) {
+			if ( self::POSTTYPE !== $screen->post_type ) {
 				return;
 			}
 
@@ -2542,7 +2561,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
  			// Hack: Add space after paragraph
 			// Normally Google Cal understands the newline character %0a
 			// And that character will automatically replace newlines on urlencode()
-			$event_details = str_replace ('</p>', '</p> ', $event_details);
+			$event_details = str_replace ( '</p>', '</p> ', $event_details );
 
 			$event_details = strip_tags( $event_details );
 
@@ -2574,17 +2593,17 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			return $url;
 		}
 
-	/**
-	 * Custom Escape for gCal Description to keep spacing characters in the url
-	 *
-	 * @return santized url
-	 */
-	public function esc_gcal_url( $url ) {
-	  $url = str_replace( '%0A', 'TRIBE-GCAL-LINEBREAK', $url );
-	  $url = esc_url( $url );
-	  $url = str_replace( 'TRIBE-GCAL-LINEBREAK', '%0A', $url );
-	  return $url;
-	}
+		/**
+		* Custom Escape for gCal Description to keep spacing characters in the url
+		*
+		* @return santized url
+		*/
+		public function esc_gcal_url( $url ) {
+			$url = str_replace( '%0A', 'TRIBE-GCAL-LINEBREAK', $url );
+			$url = esc_url( $url );
+			$url = str_replace( 'TRIBE-GCAL-LINEBREAK', '%0A', $url );
+			return $url;
+		}
 
 		/**
 		 * Returns a link to google maps for the given event. This link can be filtered
@@ -2776,7 +2795,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 */
 		public function getEventMeta( $id, $meta, $single = true ) {
 			$value = get_post_meta( $id, $meta, $single );
-			if ( $value === FALSE ) {
+			if ( $value === false ) {
 				$method = str_replace( '_Event', '', $meta );
 				$default = call_user_func( array( $this->defaults(), strtolower( $method ) ) );
 				$value = apply_filters( 'filter_eventsDefault' . $method, $default );
@@ -2851,9 +2870,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 */
 		public function addEventMeta( $postId, $post ) {
 
-			// Remove this hook to avoid an infinite loop, because saveEventMeta calls wp_update_post when the post is set to always show in calendar
-			remove_action( 'save_post', array( $this, 'addEventMeta' ), 15, 2 );
-
 			// only continue if it's an event post
 			if ( $post->post_type !== self::POSTTYPE || defined( 'DOING_AJAX' ) ) {
 				return;
@@ -2879,6 +2895,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			if ( ! current_user_can( 'edit_tribe_events' ) ) {
 				return;
 			}
+
+			// Remove this hook to avoid an infinite loop, because saveEventMeta calls wp_update_post when the post is set to always show in calendar
+			remove_action( 'save_post', array( $this, 'addEventMeta' ), 15, 2 );
 
 			$_POST['Organizer'] = isset( $_POST['organizer'] ) ? stripslashes_deep( $_POST['organizer'] ) : null;
 			$_POST['Venue']     = isset( $_POST['venue'] ) ? stripslashes_deep( $_POST['venue'] ) : null;
@@ -2909,18 +2928,18 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 		public function normalize_organizer_submission( $submission ) {
 			$organizers = array();
-			if ( !isset( $submission['OrganizerID'] ) ) {
+			if ( ! isset( $submission['OrganizerID'] ) ) {
 				return $organizers; // not a valid submission
 			}
 
 			if ( is_array( $submission['OrganizerID'] ) ) {
 				foreach ( $submission['OrganizerID'] as $key => $organizer_id ) {
-					if ( !empty( $organizer_id ) ) {
+					if ( ! empty( $organizer_id ) ) {
 						$organizers[] = array( 'OrganizerID' => intval( $organizer_id ) );
 					} else {
 						$o = array();
 						foreach ( array( 'Organizer', 'Phone', 'Website', 'Email' ) as $field_name ) {
-							$o[$field_name] = isset( $submission[$field_name][$key] ) ? $submission[$field_name][$key] : '';
+							$o[ $field_name ] = isset( $submission[ $field_name ][ $key ] ) ? $submission[ $field_name ][ $key ] : '';
 						}
 						$organizers[] = $o;
 					}
@@ -2931,7 +2950,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			// old style with single organizer fields
 			$o = array();
 			foreach ( array( 'Organizer', 'Phone', 'Website', 'Email' ) as $field_name ) {
-				$o[$field_name] = isset( $submission[$field_name] ) ? $submission[$field_name] : '';
+				$o[ $field_name ] = isset( $submission[ $field_name ] ) ? $submission[ $field_name ] : '';
 			}
 			$organizers[] = $o;
 			return $organizers;
@@ -4390,6 +4409,27 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		public static function array_insert_after_key( $key, $source_array, $insert_array ) {
 			if ( array_key_exists( $key, $source_array ) ) {
 				$position     = array_search( $key, array_keys( $source_array ) ) + 1;
+				$source_array = array_slice( $source_array, 0, $position, true ) + $insert_array + array_slice( $source_array, $position, null, true );
+			} else {
+				// If no key is found, then add it to the end of the array.
+				$source_array += $insert_array;
+			}
+
+			return $source_array;
+		}
+
+		/**
+		 * Insert an array immediately before a specified key within another array.
+		 *
+		 * @param $key
+		 * @param $source_array
+		 * @param $insert_array
+		 *
+		 * @return array
+		 */
+		public static function array_insert_before_key( $key, $source_array, $insert_array ) {
+			if ( array_key_exists( $key, $source_array ) ) {
+				$position     = array_search( $key, array_keys( $source_array ) );
 				$source_array = array_slice( $source_array, 0, $position, true ) + $insert_array + array_slice( $source_array, $position, null, true );
 			} else {
 				// If no key is found, then add it to the end of the array.

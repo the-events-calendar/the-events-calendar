@@ -101,12 +101,12 @@ if ( ! class_exists( 'Tribe__Events__Admin_List' ) ) {
 
 			// only add the start meta query if it is missing
 			if ( ! preg_match( '/tribe_event_start_date/', $clauses['join'] ) ) {
-				$clauses['join'] .= "LEFT JOIN {$wpdb->postmeta} AS tribe_event_start_date ON {$wpdb->posts}.ID = tribe_event_start_date.post_id AND tribe_event_start_date.meta_key = '_EventStartDate' ";
+				$clauses['join'] .= " LEFT JOIN {$wpdb->postmeta} AS tribe_event_start_date ON {$wpdb->posts}.ID = tribe_event_start_date.post_id AND tribe_event_start_date.meta_key = '_EventStartDate' ";
 			}
 
 			// only add the end meta query if it is missing
 			if ( ! preg_match( '/tribe_event_end_date/', $clauses['join'] ) ) {
-				$clauses['join'] .= "LEFT JOIN {$wpdb->postmeta} AS tribe_event_end_date ON {$wpdb->posts}.ID = tribe_event_end_date.post_id AND tribe_event_end_date.meta_key = '_EventEndDate' ";
+				$clauses['join'] .= " LEFT JOIN {$wpdb->postmeta} AS tribe_event_end_date ON {$wpdb->posts}.ID = tribe_event_end_date.post_id AND tribe_event_end_date.meta_key = '_EventEndDate' ";
 			}
 
 			if ( ! empty( $clauses['orderby'] ) ) {

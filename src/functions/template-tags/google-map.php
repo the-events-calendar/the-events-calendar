@@ -47,8 +47,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 			__( '+ Google Map', 'tribe-events-calendar' )
 		);
 
-		// @todo remove tribe_event_meta_gmap_link in 3.7
-		return apply_filters( 'tribe_get_map_link_html', apply_filters( 'tribe_event_meta_gmap_link', $link ) );
+		return apply_filters( 'tribe_get_map_link_html', $link );
 	}
 
 	/**

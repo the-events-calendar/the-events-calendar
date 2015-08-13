@@ -258,7 +258,7 @@ if ( ! class_exists( 'Tribe__Events__Settings' ) ) {
 				wp_nonce_field( 'saving', 'tribe-save-settings' );
 				echo '<div class="clear"></div>';
 				echo '<input type="hidden" name="current-settings-tab" id="current-settings-tab" value="' . esc_attr( $this->currentTab ) . '" />';
-				echo '<input id="tribeSaveSettings" class="button-primary" type="submit" name="tribeSaveSettings" value="' . esc_attr__( ' Save Changes', 'tribe-events-calendar' ) . '" />';
+				echo '<input id="tribeSaveSettings" class="button-primary" type="submit" name="tribeSaveSettings" value="' . esc_attr__( 'Save Changes', 'tribe-events-calendar' ) . '" />';
 			}
 			echo apply_filters( 'tribe_settings_closing_form_element', '</form>' );
 			do_action( 'tribe_settings_after_form_element' );
@@ -532,6 +532,19 @@ if ( ! class_exists( 'Tribe__Events__Settings' ) ) {
 			delete_option( 'tribe_settings_errors' );
 			delete_option( 'tribe_settings_major_error' );
 			delete_option( 'tribe_settings_sent_data' );
+		}
+
+		/**
+		 * Returns the main admin settings URL.
+		 *
+		 * @return string
+		 */
+		public function get_url() {
+			return apply_filters( 'tribe_settings_url', add_query_arg( array(
+					'post_type' => Tribe__Events__Main::POSTTYPE,
+					'page'      => $this->adminSlug,
+				), admin_url( 'edit.php' )
+			) );
 		}
 
 	} // end class

@@ -121,12 +121,10 @@ class Tribe__Events__Tickets__Attendees_Table extends WP_List_Table {
 
 		//back compat
 		if ( empty( $item['order_id_link'] ) ) {
-			$id = sprintf( '<a class="row-title" href="%s">%s</a>', esc_url( get_edit_post_link( $item['order_id'], true ) ), esc_html( $item['order_id'] ) );
-		} else {
-			$id = $item['order_id_link'];
+			$item['order_id_link'] = sprintf( '<a class="row-title" href="%s">%s</a>', esc_url( get_edit_post_link( $item['order_id'], true ) ), esc_html( $item['order_id'] ) );
 		}
 
-		return $id;
+		return $item['order_id_link'];
 	}
 
 	/**
@@ -196,32 +194,37 @@ class Tribe__Events__Tickets__Attendees_Table extends WP_List_Table {
 	 *
 	 * Used for the Print, Email and Export buttons, and for the jQuery based search.
 	 *
+	 * @param string $which (top|bottom)
+	 * @see WP_List_Table::display()
 	 */
 	public function extra_tablenav( $which ) {
 
-		echo '<div class="alignleft actions">';
-
-		echo sprintf( '<input type="button" name="print" class="print button action" value="%s">', esc_attr__( 'Print', 'tribe-events-calendar' ) );
-		echo sprintf( '<input type="button" name="email" class="email button action" value="%s">', esc_attr__( 'Email', 'tribe-events-calendar' ) );
-		echo sprintf(
-			'<a href="%s" class="export button action">%s</a>', esc_url(
-				add_query_arg(
-					array(
-						'attendees_csv'       => true,
-						'attendees_csv_nonce' => wp_create_nonce( 'attendees_csv_nonce' ),
-					)
-				)
-			), esc_html__( 'Export', 'tribe-events-calendar' )
+		$export_url = add_query_arg(
+			array(
+				'attendees_csv' => true,
+				'attendees_csv_nonce' => wp_create_nonce( 'attendees_csv_nonce' ),
+			)
 		);
 
-		echo '</div>';
+		$nav = array(
+			'left' => array(
+				'print' => sprintf( '<input type="button" name="print" class="print button action" value="%s">', esc_attr__( 'Print', 'tribe-events-calendar' ) ),
+				'email' => sprintf( '<input type="button" name="email" class="email button action" value="%s">', esc_attr__( 'Email', 'tribe-events-calendar' ) ),
+				'export' => sprintf( '<a href="%s" class="export button action">%s</a>', esc_url( $export_url ), esc_html__( 'Export', 'tribe-events-calendar' ) ),
+			),
+			'right' => array(),
+		);
 
 		if ( 'top' == $which ) {
-			echo '<div class="alignright">';
-			echo sprintf( '%s: <input type="text" name="filter_attendee" id="filter_attendee" value="">', esc_html__( 'Filter by purchaser name, ticket #, order # or security code', 'tribe-events-calendar' ) );
-			echo '</div>';
-
+			$nav['right']['filter_box'] = sprintf( '%s: <input type="text" name="filter_attendee" id="filter_attendee" value="">', __( 'Filter by purchaser name, ticket #, order # or security code', 'tribe-events-calendar' ) );
 		}
+
+		$nav = apply_filters( 'tribe_events_tickets_attendees_table_nav', $nav, $which );
+
+		?>
+		<div class="alignleft actions"><?php echo implode( $nav['left'] ); ?></div>
+		<div class="alignright"><?php echo implode( $nav['right'] ) ?></div>
+		<?php
 	}
 
 	/**

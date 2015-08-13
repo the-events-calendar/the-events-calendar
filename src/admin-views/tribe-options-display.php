@@ -10,6 +10,18 @@ foreach ( array_keys( $templates ) as $template ) {
 	$template_options[ $templates[ $template ] ] = $template;
 }
 
+/**
+ * Filter the array of views that are registered for the tribe bar
+ * @param array array() {
+ *     Array of views, where each view is itself represented by an associative array consisting of these keys:
+ *
+ *     @type string $displaying         slug for the view
+ *     @type string $anchor             display text (i.e. "List" or "Month")
+ *     @type string $event_bar_hook     not used
+ *     @type string $url                url to the view
+ * }
+ * @param boolean
+ */
 $views = apply_filters( 'tribe-events-bar-views', array(), false );
 
 $views_options = array();
@@ -21,7 +33,14 @@ $sample_date = strtotime( 'January 15 ' . date( 'Y' ) );
 
 $displayTab = array(
 	'priority' => 20,
-	'fields'   => apply_filters(
+	'fields'   =>
+	/**
+	 * Filter the fields available on the display settings tab
+	 *
+	 * @param array $fields a nested associative array of fields & field info passed to Tribe__Events__Field
+	 * @see Tribe__Events__Field
+	 */
+		apply_filters(
 		'tribe_display_settings_tab_fields', array(
 			'info-start'                         => array(
 				'type' => 'html',
