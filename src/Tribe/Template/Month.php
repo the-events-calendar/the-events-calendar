@@ -215,7 +215,7 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 		 */
 		protected function set_args( $args = array() ) {
 
-			$doing_ajax = ( defined('DOING_AJAX') && DOING_AJAX ) ? true : false;
+			$doing_ajax = ( defined( 'DOING_AJAX' ) && DOING_AJAX ) ? true : false;
 
 			if ( empty( $args ) && $doing_ajax ) {
 				$post_status = array( 'publish' );
@@ -463,8 +463,8 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 					}
 
 					// if the end of the event is later than the end of the day, consider the event as ending on the next day
-					if ( $event_end > $end_of_day_timestamp ) {
-						$end = date( 'Y-m-d', strtotime( '+1 day', strtotime( $end ) ) );
+					if ( $event_end < $end_of_day_timestamp ) {
+						$end = date( 'Y-m-d', strtotime( '-1 day', strtotime( $end ) ) );
 					}
 
 					// determine if there's a difference in days between start and end
