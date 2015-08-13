@@ -451,19 +451,47 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 					$start = date( 'Y-m-d', $event_start );
 					$end = date( 'Y-m-d', $event_end );
 
-					$beginning_of_day           = tribe_event_beginning_of_day( $start );
-					$beginning_of_day_timestamp = strtotime( $beginning_of_day );
+					$beginning_of_start           = tribe_event_beginning_of_day( $start );
+					$beginning_of_start_timestamp = strtotime( $beginning_of_start );
+					$end_of_start           = tribe_event_end_of_day( $start );
+					$end_of_start_timestamp = strtotime( $end_of_start );
 
-					$end_of_day           = tribe_event_end_of_day( $end );
-					$end_of_day_timestamp = strtotime( $end_of_day );
+					$beginning_of_end           = tribe_event_beginning_of_day( $end );
+					$beginning_of_end_timestamp = strtotime( $beginning_of_end );
 
-					// if the start of the event is earlier than the beginning of the day, consider the event as starting on the day before
-					if ( $event_start < $beginning_of_day_timestamp ) {
+					// if the start of the event is earlier than the beginning of the day, consider the event
+					// as starting on the day before
+					//
+					// Example 1:
+					// Assuming a cut-off of 6:00am and an event start date/time of August 2nd @ 5:00am. The
+					// "start" DATE would be August 2nd and the beginning of the "start" DATE would be August
+					// 2nd @ 6:00am. Therefore, the event start DATE shoud be altered to be a day earlier
+					// (August 1st) (Note: the following if statement conditional would be true)
+					if ( $event_start < $beginning_of_start_timestamp ) {
 						$start = date( 'Y-m-d', strtotime( '-1 day', strtotime( $start ) ) );
 					}
 
-					// if the end of the event is later than the end of the day, consider the event as ending on the next day
-					if ( $event_end < $end_of_day_timestamp ) {
+					// Subtract a day from the $end if it is:
+					// * earlier than the beginning of the start DATE OR
+					// * earlier than the end of the start DATE OR
+					// * earlier than the beginning of the end DATE
+					//
+					// Example 1:
+					// Assuming a cut-off of 6:00am and an event end date/time of August 2nd @ 7:00am. The
+					// "end" DATE would be August 2nd and the beginning of the "end" DATE would be August
+					// 2nd @ 6:00am. Therefore, the event end DATE shoud remain as August 2nd. (Note: the
+					// following if statement conditional would be false)
+					//
+					// Example 2:
+					// Assuming a cut-off of 6:00am and an event end date/time of August 2nd @ 5:00am. The
+					// "end" DATE would be August 2nd and the beginning of the "end" DATE would be August
+					// 2nd @ 6:00am. Therefore, the event end DATE shoud be altered to be a day earlier
+					// (August 1st) (Note: this following if statement conditional would be true)
+					if (
+						$event_end < $beginning_of_start_timestamp
+						|| $event_end < $end_of_start_timestamp
+						|| $event_end < $beginning_of_end_timestamp
+					) {
 						$end = date( 'Y-m-d', strtotime( '-1 day', strtotime( $end ) ) );
 					}
 
