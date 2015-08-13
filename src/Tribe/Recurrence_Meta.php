@@ -642,8 +642,8 @@ class Tribe__Events__Pro__Recurrence_Meta {
 		$record = array();
 
 		if ( $recurrence_data ) {
-			$record['EventStartDate'] = empty( $recurrence_data['EventStartDate'] ) ? get_post_meta( $post_id, '_EventStartDate', true ) : $recurrence_data['EventStartDate'];
-			$record['EventEndDate'] = empty( $recurrence_data['EventEndDate'] ) ? get_post_meta( $post_id, '_EventEndDate', true ) : $recurrence_data['EventEndDate'];
+			$record['EventStartDate'] = empty( $recurrence_data['EventStartDate'] ) ? tribe_get_start_date( $post_id ) : $recurrence_data['EventStartDate'];
+			$record['EventEndDate'] = empty( $recurrence_data['EventEndDate'] ) ? tribe_get_end_date( $post_id ) : $recurrence_data['EventEndDate'];
 			$record['type'] = empty( $recurrence_data['type'] ) ? null : $recurrence_data['type'];
 			$record['end-type'] = empty( $recurrence_data['end-type'] ) ? null : $recurrence_data['end-type'];
 			$record['end'] = empty( $recurrence_data['end'] ) ? null : $recurrence_data['end'];
@@ -1190,7 +1190,7 @@ class Tribe__Events__Pro__Recurrence_Meta {
 		$output_text = array();
 
 		foreach ( $recurrence_rules['rules'] as $rule ) {
-			$output_text[] = self::recurrenceToText( $rule, $start_date );
+			$output_text[] = self::recurrenceToText( $rule, $start_date, $postId );
 		}
 
 		return implode( _x( ',<br> and ', 'Recurrence rule separator', 'tribe-events-calendar-pro' ), $output_text );
@@ -1311,7 +1311,7 @@ class Tribe__Events__Pro__Recurrence_Meta {
 	 *
 	 * @return The human readable string
 	 */
-	public static function recurrenceToText( $rule = array(), $start_date ) {
+	public static function recurrenceToText( $rule, $start_date, $event_id ) {
 		$text = '';
 		$recurrence_strings = self::recurrence_strings();
 		$date_strings = self::date_strings();
@@ -1333,8 +1333,8 @@ class Tribe__Events__Pro__Recurrence_Meta {
 			}
 		}
 
-		$start_date = strtotime( $rule['EventStartDate'] );
-		$end_date = strtotime( $rule['EventEndDate'] );
+		$start_date = strtotime( tribe_get_start_date( $event_id ) );
+		$end_date = strtotime( tribe_get_end_date( $event_id ) );
 
 		$num_days = floor( ( $end_date - $start_date ) / DAY_IN_SECONDS );
 		$num_hours = floor( ( ( $end_date - $start_date ) / HOUR_IN_SECONDS ) - ( $num_days * 24 ) );
