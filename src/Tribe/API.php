@@ -173,6 +173,35 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 			}
 
 			do_action( 'tribe_events_update_meta', $event_id, $data );
+
+			
+			//update additional meta fields
+			$additionalFieldTags = array_filter( array_keys($data), function($key) {
+				$prefix = '_ecp_custom_';
+				return ( substr( $key, 0, strlen($prefix) ) === $prefix );
+			});
+
+			foreach ( $additionalFieldTags as $tag ) {
+				$htmlElement = $tag;
+				//$htmlElement = ltrim( $tag, '_' );
+				if ( isset( $data[$htmlElement] ) && $tag != TribeEvents::EVENTSERROROPT ) {
+					if ( is_string( $data[$htmlElement] ) ) {
+						$data[$htmlElement] = filter_var( $data[$htmlElement], FILTER_SANITIZE_STRING );
+					}
+					// Fields with multiple values per key
+					if ( is_array( $data[$htmlElement] ) ) {
+						delete_post_meta( $event_id, $tag );
+						foreach ( $data[$htmlElement] as $value ) {
+							add_post_meta( $event_id, $tag, $value );
+						}
+					}
+					// Fields with a single value per key
+					else {
+						update_post_meta( $event_id, $tag, $data[$htmlElement] );
+					}
+				}
+			}
+
 		}
 
 		/**
