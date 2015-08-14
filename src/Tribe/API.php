@@ -275,7 +275,7 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 		 * @param $event_id
 		 * @param $data
 		 */
-		public static function update_event_custom_fields ( $event_id, $data ) {
+		public static function update_additional_fields ( $event_id, $data ) {
 			$additionalFieldTags = array_map(
 				function( $field ) { return $field['name']; },
 				tribe_get_option( 'custom-fields' )
