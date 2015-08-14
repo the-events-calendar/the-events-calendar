@@ -12,7 +12,8 @@ class Tribe__Events__Importer__Column_Mapper {
 		$this->import_type = $import_type;
 		switch ( $this->import_type ) {
 			case 'events':
-				$this->column_names = $this->get_event_column_names();
+				$this->column_names  = $this->get_event_column_names();
+				$this->column_names += $this->get_additional_fields_column_names();
 				break;
 			case 'venues':
 				$this->column_names = $this->get_venue_column_names();
@@ -86,6 +87,14 @@ class Tribe__Events__Importer__Column_Mapper {
 			'organizer_email'   => __( 'Organizer Email', 'tribe-events-calendar' ),
 			'organizer_website' => __( 'Organizer Website', 'tribe-events-calendar' ),
 			'organizer_phone'   => __( 'Organizer Phone', 'tribe-events-calendar' ),
+		);
+	}
+
+	private function get_additional_fields_column_names() {
+		$customFields = tribe_get_option( 'custom-fields' );
+		return array_combine(
+			array_map(function($field) { return $field['name']; }, $customFields),
+			array_map(function($field) { return __( 'Event ' . $field['label'], 'tribe-events-calendar'); }, $customFields)
 		);
 	}
 }
