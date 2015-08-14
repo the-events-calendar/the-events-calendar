@@ -4,7 +4,7 @@
  * The content template for the map view of events. This template is also used for
  * the response that is returned on map view ajax requests.
  *
- * Override this template in your own theme by creating a file at [your-theme]/tribe-events/map/content.php
+ * Override this template in your own theme by creating a file at [your-theme]/tribe-events/pro/map/content.php
  *
  * @package TribeEventsCalendar
  *

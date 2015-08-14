@@ -3,7 +3,7 @@
  * Photo View Loop
  * This file sets up the structure for the photo view events loop
  *
- * Override this template in your own theme by creating a file at [your-theme]/tribe-events/photo/loop.php
+ * Override this template in your own theme by creating a file at [your-theme]/tribe-events/pro/photo/loop.php
  *
  * @package TribeEventsCalendar
  *

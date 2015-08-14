@@ -3,7 +3,7 @@
  * Week View Single Event
  * This file sets up the structure for the week view single event
  *
- * Override this template in your own theme by creating a file at [your-theme]/tribe-events/week/single-event.php
+ * Override this template in your own theme by creating a file at [your-theme]/tribe-events/pro/week/single-event.php
  *
  * @package TribeEventsCalendar
  *

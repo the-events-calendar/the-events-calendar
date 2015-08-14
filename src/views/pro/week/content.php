@@ -4,7 +4,7 @@
  * The content template for the week view. This template is also used for
  * the response that is returned on week view ajax requests.
  *
- * Override this template in your own theme by creating a file at [your-theme]/tribe-events/week/content.php
+ * Override this template in your own theme by creating a file at [your-theme]/tribe-events/pro/week/content.php
  *
  * @package TribeEventsCalendar
  *

@@ -3,7 +3,7 @@
  * Map View Template
  * The wrapper template for map view.
  *
- * Override this template in your own theme by creating a file at [your-theme]/tribe-events/map.php
+ * Override this template in your own theme by creating a file at [your-theme]/tribe-events/pro/map.php
  *
  * @package TribeEventsCalendar
  *

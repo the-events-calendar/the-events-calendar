@@ -6,7 +6,7 @@
  * list widgets, facilitating a common appearance for each as standard.
  *
  * You can override this template in your own theme by creating a file at
- * [your-theme]/tribe-events/widgets/modules/single-widget.php
+ * [your-theme]/tribe-events/pro/widgets/modules/single-event.php
  *
  * @package TribeEventsCalendarPro
  *

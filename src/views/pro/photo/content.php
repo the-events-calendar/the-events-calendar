@@ -4,7 +4,7 @@
  * The content template for the photo view of events. This template is also used for
  * the response that is returned on photo view ajax requests.
  *
- * Override this template in your own theme by creating a file at [your-theme]/tribe-events/photo/content.php
+ * Override this template in your own theme by creating a file at [your-theme]/tribe-events/pro/photo/content.php
  *
  * @package TribeEventsCalendar
  *

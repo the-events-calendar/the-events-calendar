@@ -3,7 +3,7 @@
  * Map View Loop
  * This file sets up the structure for the map view events loop
  *
- * Override this template in your own theme by creating a file at [your-theme]/tribe-events/map/loop.php
+ * Override this template in your own theme by creating a file at [your-theme]/tribe-events/pro/map/loop.php
  *
  * @package TribeEventsCalendar
  *

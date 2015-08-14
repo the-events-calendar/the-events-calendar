@@ -3,7 +3,7 @@
  * Events Pro Venue Widget
  * This is the template for the output of the venue widget.
  *
- * Override this template in your own theme by creating a file at [your-theme]/tribe-events/widgets/venue-widget.php
+ * Override this template in your own theme by creating a file at [your-theme]/tribe-events/pro/widgets/venue-widget.php
  *
  * @package TribeEventsCalendarPro
  *

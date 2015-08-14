@@ -3,7 +3,7 @@
  * Photo View Single Event
  * This file contains one event in the photo view
  *
- * Override this template in your own theme by creating a file at [your-theme]/tribe-events/photo/single_event.php
+ * Override this template in your own theme by creating a file at [your-theme]/tribe-events/pro/photo/single_event.php
  *
  * @package TribeEventsCalendar
  *

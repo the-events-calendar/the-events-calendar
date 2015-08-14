@@ -3,7 +3,7 @@
  * Week View Grid All Day Event Loop
  * This file sets up the structure for the week grid all day event loop
  *
- * Override this template in your own theme by creating a file at [your-theme]/tribe-events/week/loop-grid-allday.php
+ * Override this template in your own theme by creating a file at [your-theme]/tribe-events/pro/week/loop-grid-allday.php
  *
  * @package TribeEventsCalendar
  *

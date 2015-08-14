@@ -3,7 +3,7 @@
  * Map View Google Map Container
  * This file outputs the Google Map container.
  *
- * Override this template in your own theme by creating a file at [your-theme]/tribe-events/map/gmap-container.php
+ * Override this template in your own theme by creating a file at [your-theme]/tribe-events/pro/map/gmap-container.php
  *
  * @package TribeEventsCalendar
  *

@@ -5,7 +5,7 @@
  *
  * You can recreate an ENTIRELY new related events view by doing a template override, and placing
  * a related-events.php file in a tribe-events/pro/ directory within your theme directory, which
- * will override the /views/related-events.php.
+ * will override the /views/pro/related-events.php.
  *
  * You can use any or all filters included in this file or create your own filters in
  * your functions.php. In order to modify or extend a single filter, please see our
