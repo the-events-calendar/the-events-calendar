@@ -233,8 +233,12 @@ class Tribe__Events__Pro__Recurrence__Queue_Processor {
 			if ( $this->batch_complete() ) {
 				break;
 			}
-			// Some instances may deliberately have been removed - let's not recreate them
+
+			// Some instances may deliberately have been removed - let's remove
+			// them from the list of events to create and move on
 			if ( in_array( $start_date, $exclusions ) ) {
+				unset( $instances_to_create[ $key ] );
+				$this->processed++;
 				continue;
 			}
 
