@@ -317,6 +317,7 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 
 * Bug - Fixed issue with event title attributes not always escaping properly on List and Day views
 * Bug - Fixed issue with Event Costs not updating when a new ticket was only submitted via Ajax
+* Bug - Fixed an issue Twenty Fourteen and the event views being hidden in screen sizes smaller then 400px
 
 = [3.11.2] 2015-07-30 =
 
