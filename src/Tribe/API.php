@@ -269,12 +269,17 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 			}
 		}
 
+		/**
+		 * Update user-created Additional Fields
+		 *
+		 * @param $event_id
+		 * @param $data
+		 */
 		public static function update_event_custom_fields ( $event_id, $data ) {
-			//update additional meta fields
-			$additionalFieldTags = array_filter( array_keys($data), function($key) {
-				$prefix = '_ecp_custom_';
-				return ( substr( $key, 0, strlen($prefix) ) === $prefix );
-			});
+			$additionalFieldTags = array_map(
+				function( $field ) { return $field['name']; },
+				tribe_get_option( 'custom-fields' )
+			);
 
 			foreach ( $additionalFieldTags as $tag ) {
 				$htmlElement = $tag;
