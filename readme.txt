@@ -219,6 +219,10 @@ Our Premium Plugins:
 
 * Bug - Fixed APM Start/End Date filters to stop showing SQL errors
 
+= [Unreleased] unreleased =
+
+* Bug - Fixed an issue with additional fields not showing as selected when a symbol is included in the label
+
 = [3.11.1] 2015-07-27 =
 
 * Bug - Fixed bug where recurring events were hidden in Month View when recurring event instances were disabled in List View (big thanks to Rebecca Redding on the forum for the first report!)
