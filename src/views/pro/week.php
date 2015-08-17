@@ -3,7 +3,7 @@
  * Week View Template
  * The wrapper template for week view.
  *
- * Override this template in your own theme by creating a file at [your-theme]/tribe-events/week.php
+ * Override this template in your own theme by creating a file at [your-theme]/tribe-events/pro/week.php
  *
  * @package TribeEventsCalendar
  *

@@ -3,7 +3,7 @@
  * Mini Calendar List Loop
  * This file sets up the structure for the list loop
  *
- * Override this template in your own theme by creating a file at [your-theme]/tribe-events/widgets/mini-calendar/list.php
+ * Override this template in your own theme by creating a file at [your-theme]/tribe-events/pro/widgets/mini-calendar/list.php
  *
  * @package TribeEventsCalendar
  *

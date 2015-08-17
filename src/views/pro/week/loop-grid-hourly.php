@@ -3,7 +3,7 @@
  * Week View Grid Hourly Event Loop
  * This file sets up the structure for the week grid hourly event loop
  *
- * Override this template in your own theme by creating a file at [your-theme]/tribe-events/week/loop-grid-hourly.php
+ * Override this template in your own theme by creating a file at [your-theme]/tribe-events/pro/week/loop-grid-hourly.php
  *
  * @package TribeEventsCalendar
  *

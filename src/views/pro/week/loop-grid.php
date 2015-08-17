@@ -3,7 +3,7 @@
  * Week View Grid Loop
  * This file sets up the structure for the week view grid loop
  *
- * Override this template in your own theme by creating a file at [your-theme]/tribe-events/week/loop-grid.php
+ * Override this template in your own theme by creating a file at [your-theme]/tribe-events/pro/week/loop-grid.php
  *
  * @package TribeEventsCalendar
  *

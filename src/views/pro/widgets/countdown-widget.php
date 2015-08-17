@@ -5,7 +5,7 @@
  * All the items are turned on and off through the widget admin.
  * There is currently no default styling, which is highly needed.
  *
- * Override this template in your own theme by creating a file at [your-theme]/tribe-events/widgets/countdown-widget.php
+ * Override this template in your own theme by creating a file at [your-theme]/tribe-events/pro/widgets/countdown-widget.php
  *
  * @package TribeEventsCalendarPro
  *

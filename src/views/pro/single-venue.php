@@ -8,7 +8,7 @@
  *
  * You can recreate an ENTIRELY new single venue view by doing a template override, and placing
  * a single-venue.php file in a tribe-events/pro/ directory within your theme directory, which
- * will override the /views/single-venue.php.
+ * will override the /views/pro/single-venue.php.
  *
  * You can use any or all filters included in this file or create your own filters in
  * your functions.php. In order to modify or extend a single filter, please see our

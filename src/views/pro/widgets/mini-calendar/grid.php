@@ -3,7 +3,7 @@
  * Mini Calendar Widget Grid Template
  * This file loads the mini calendar widget grid
  *
- * Override this template in your own theme by creating a file at [your-theme]/tribe-events/widgets/mini-calendar/grid.php
+ * Override this template in your own theme by creating a file at [your-theme]/tribe-events/pro/widgets/mini-calendar/grid.php
  *
  * @package TribeEventsCalendar
  *

@@ -3,7 +3,7 @@
  * Events Pro Mini Calendar Widget
  * This is the template for the output of the mini calendar widget.
  *
- * Override this template in your own theme by creating a file at [your-theme]/tribe-events/widgets/mini-calendar-widget.php
+ * Override this template in your own theme by creating a file at [your-theme]/tribe-events/pro/widgets/mini-calendar-widget.php
  *
  * @package TribeEventsCalendarPro
  *
