@@ -276,12 +276,12 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 		 * @param $data
 		 */
 		public static function update_additional_fields ( $event_id, $data ) {
-			$additionalFieldTags = array_map(
+			$additional_field_tags = array_map(
 				function( $field ) { return $field['name']; },
 				tribe_get_option( 'custom-fields' )
 			);
 
-			foreach ( $additionalFieldTags as $tag ) {
+			foreach ( $additional_field_tags as $tag ) {
 				$htmlElement = $tag;
 				if ( isset( $data[$htmlElement] ) && $tag != TribeEvents::EVENTSERROROPT ) {
 					if ( is_string( $data[$htmlElement] ) ) {
