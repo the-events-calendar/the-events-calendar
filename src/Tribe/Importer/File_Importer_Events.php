@@ -160,8 +160,8 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 			$event['tax_input'][ Tribe__Events__Main::TAXONOMY ] = $this->translate_terms_to_ids( explode( ',', $cats ) );
 		}
 
-		$additionalFields = tribe_get_option( 'custom-fields' );
-		foreach ( $additionalFields as $field ) {
+		$additional_fields = tribe_get_option( 'custom-fields' );
+		foreach ( $additional_fields as $field ) {
 			$key = $field['name'];
 			$event[ $key ] = $this->get_value_by_key( $record, $key );
 		}
