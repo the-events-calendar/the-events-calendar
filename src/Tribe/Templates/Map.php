@@ -61,6 +61,7 @@ if ( ! class_exists( 'Tribe__Events__Pro__Templates__Map' ) ) {
 				'paged'          => $tribe_paged,
 				'post_status'    => $post_status,
 				'eventDisplay'   => 'map',
+				'tribe_geoloc'   => true,
 			);
 
 			$view_state = 'map';
