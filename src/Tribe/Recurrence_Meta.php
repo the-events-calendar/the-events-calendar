@@ -11,7 +11,7 @@ class Tribe__Events__Pro__Recurrence_Meta {
 	const UPDATE_TYPE_SINGLE = 3;
 
 	/** @var Tribe__Events__Pro__Recurrence_Scheduler */
-	private static $scheduler = null;
+	public static $scheduler = null;
 
 
 	public static function init() {
@@ -307,8 +307,9 @@ class Tribe__Events__Pro__Recurrence_Meta {
 		}
 
 		$recurrence_meta['exclusions'][] = array(
+			'type' => 'Custom',
 			'custom' => array(
-				'type' => 'date',
+				'type' => 'Date',
 				'date' => array(
 					'date' => $date,
 				),
@@ -448,8 +449,13 @@ class Tribe__Events__Pro__Recurrence_Meta {
 					continue;
 				}//end if
 
-				foreach ( $data['recurrence'][ $rule_type ] as &$recurrence ) {
+				foreach ( $data['recurrence'][ $rule_type ] as $key => &$recurrence ) {
 					if ( ! $recurrence ) {
+						continue;
+					}
+
+					if ( ( empty( $recurrence['type'] ) && empty( $recurrence['custom']['type'] ) ) || 'None' === $recurrence['custom']['type'] ) {
+						unset( $data['recurrence'][ $rule_type ][ $key ] );
 						continue;
 					}
 
@@ -873,7 +879,7 @@ class Tribe__Events__Pro__Recurrence_Meta {
 			'order'          => 'ASC',
 		) );
 
-		$recurrences = self::getRecurrenceForEvent( $event_id );
+		$recurrences = self::get_recurrence_for_event( $event_id );
 
 		$to_create = array();
 		$exclusions = array();
@@ -968,7 +974,7 @@ class Tribe__Events__Pro__Recurrence_Meta {
 
 		$latest_date = strtotime( self::$scheduler->get_latest_date() );
 
-		$recurrences = self::getRecurrenceForEvent( $event_id );
+		$recurrences = self::get_recurrence_for_event( $event_id );
 		foreach ( $recurrences['rules'] as &$recurrence ) {
 			$recurrence->setMinDate( strtotime( $next_pending ) );
 			$recurrence->setMaxDate( $latest_date );
@@ -1003,7 +1009,7 @@ class Tribe__Events__Pro__Recurrence_Meta {
 		return $meta['exclusions'];
 	}
 
-	private static function getRecurrenceForEvent( $event_id ) {
+	public static function get_recurrence_for_event( $event_id ) {
 		/** @var string $recType */
 		/** @var string $recEndType */
 		/** @var string $recEnd */
