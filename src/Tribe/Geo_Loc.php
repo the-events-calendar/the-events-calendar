@@ -311,7 +311,11 @@ class Tribe__Events__Pro__Geo_Loc {
 		if ( ! empty( $_REQUEST['tribe-bar-geoloc-lat'] ) && ! empty( $_REQUEST['tribe-bar-geoloc-lng'] ) ) {
 			$force  = true;
 			$venues = $this->get_venues_in_geofence( $_REQUEST['tribe-bar-geoloc-lat'], $_REQUEST['tribe-bar-geoloc-lng'] );
-		} elseif ( Tribe__Events__Main::instance()->displaying == 'map' || ( ! empty( $query->query_vars['eventDisplay'] ) && $query->query_vars['eventDisplay'] == 'map' ) ) {
+		} elseif (
+			Tribe__Events__Main::instance()->displaying == 'map'
+			|| ( ! empty( $query->query_vars['eventDisplay'] ) && $query->query_vars['eventDisplay'] == 'map' )
+			|| ( ! empty( $query->query_vars['tribe_geoloc'] ) && $query->query_vars['tribe_geoloc'] )
+		) {
 			// Show only venues that have geoloc info
 			$force = true;
 			//Get all geoloc'ed venues (set a geofence the size of the planet)
