@@ -163,7 +163,7 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 		$additionalFields = tribe_get_option( 'custom-fields' );
 		foreach ( $additionalFields as $field ) {
 			$key = $field['name'];
-			$event[$key] = $this->get_value_by_key( $record, $key );
+			$event[ $key ] = $this->get_value_by_key( $record, $key );
 		}
 
 		return $event;
