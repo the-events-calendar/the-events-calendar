@@ -91,10 +91,11 @@ class Tribe__Events__Importer__Column_Mapper {
 	}
 
 	private function get_additional_fields_column_names() {
-		$additionalFields = tribe_get_option( 'custom-fields' );
+		$additional_fields = tribe_get_option( 'custom-fields' );
 		return array_combine(
-			array_map(function($field) { return $field['name']; }, $additionalFields),
-			array_map(function($field) { return __( 'Event ' . $field['label'], 'tribe-events-calendar'); }, $additionalFields)
+			wp_list_pluck( $additional_fields, 'name' ),
+			wp_list_pluck( $additional_fields, 'label' )
 		);
 	}
+
 }
