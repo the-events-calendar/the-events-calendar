@@ -40,7 +40,7 @@ class Tribe__Events__Pro__Recurrence_Series_Splitter {
 		$parent_recurrence = get_post_meta( $parent_id, '_EventRecurrence', true );
 		$new_recurrence    = get_post_meta( $first_event_of_new_series, '_EventRecurrence', true );
 
-		$recurrences = Tribe__Events__Pro__Recurrence_Meta::getRecurrenceForEvent( $parent_id );
+		$recurrences = Tribe__Events__Pro__Recurrence_Meta::get_recurrence_for_event( $parent_id );
 		$earliest_date = strtotime( Tribe__Events__Pro__Recurrence_Meta::$scheduler->get_earliest_date() );
 		$latest_date = strtotime( Tribe__Events__Pro__Recurrence_Meta::$scheduler->get_latest_date() );
 
@@ -172,7 +172,7 @@ class Tribe__Events__Pro__Recurrence_Series_Splitter {
 	 * @param int $value Value to either subtract or set the end-count to
 	 */
 	private function maybe_alter_recurrence_end_count( $parent_id, $recurrence_meta, $child_date, $action = 'reduce', $value = 1 ) {
-		$recurrences = Tribe__Events__Pro__Recurrence_Meta::getRecurrenceForEvent( $parent_id );
+		$recurrences = Tribe__Events__Pro__Recurrence_Meta::get_recurrence_for_event( $parent_id );
 		$earliest_date = strtotime( Tribe__Events__Pro__Recurrence_Meta::$scheduler->get_earliest_date() );
 		$latest_date = strtotime( Tribe__Events__Pro__Recurrence_Meta::$scheduler->get_latest_date() );
 

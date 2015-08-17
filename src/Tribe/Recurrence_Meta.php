@@ -879,7 +879,7 @@ class Tribe__Events__Pro__Recurrence_Meta {
 			'order'          => 'ASC',
 		) );
 
-		$recurrences = self::getRecurrenceForEvent( $event_id );
+		$recurrences = self::get_recurrence_for_event( $event_id );
 
 		$to_create = array();
 		$exclusions = array();
@@ -974,7 +974,7 @@ class Tribe__Events__Pro__Recurrence_Meta {
 
 		$latest_date = strtotime( self::$scheduler->get_latest_date() );
 
-		$recurrences = self::getRecurrenceForEvent( $event_id );
+		$recurrences = self::get_recurrence_for_event( $event_id );
 		foreach ( $recurrences['rules'] as &$recurrence ) {
 			$recurrence->setMinDate( strtotime( $next_pending ) );
 			$recurrence->setMaxDate( $latest_date );
@@ -1009,7 +1009,7 @@ class Tribe__Events__Pro__Recurrence_Meta {
 		return $meta['exclusions'];
 	}
 
-	public static function getRecurrenceForEvent( $event_id ) {
+	public static function get_recurrence_for_event( $event_id ) {
 		/** @var string $recType */
 		/** @var string $recEndType */
 		/** @var string $recEnd */
