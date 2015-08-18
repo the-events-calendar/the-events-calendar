@@ -77,9 +77,13 @@
 				add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_pro_scripts' ), 8 );
 				add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_styles' ) );
 
+				// Rewrite Related Filters
+				add_filter( 'tribe_events_pre_rewrite', array( $this, 'filter_add_routes' ), 11 );
+				add_filter( 'tribe_events_rewrite_base_slugs', array( $this, 'filter_add_base_slugs' ), 11 );
+				add_filter( 'tribe_events_rewrite_i18n_domains', array( $this, 'filter_add_i18n_pro_domain' ), 11 );
+
 				add_action( 'tribe_settings_do_tabs', array( $this, 'add_settings_tabs' ) );
 				add_filter( 'tribe_settings_tab_fields', array( $this, 'filter_settings_tab_fields' ), 10, 2 );
-				add_filter( 'generate_rewrite_rules', array( $this, 'add_routes' ), 11 );
 				add_action( 'tribe_events_parse_query', array( $this, 'parse_query' ) );
 				add_action( 'tribe_events_pre_get_posts', array( $this, 'pre_get_posts' ) );
 				add_filter( 'tribe_enable_recurring_event_queries', '__return_true', 10, 1 );
@@ -695,36 +699,55 @@
 			/**
 			 * Add rewrite routes for custom PRO stuff and views.
 			 *
-			 * @param WP_Rewrite $wp_rewrite The WP_Rewrite object
+			 * @param Tribe__Events__Rewrite $rewrite The Tribe__Events__Rewrite object
 			 *
 			 * @return void
 			 */
-			public function add_routes( $wp_rewrite ) {
-				$generator = $this->get_rewrite_generator( $wp_rewrite );
+			public function filter_add_routes( $rewrite ) {
+				$rewrite
+					->archive( array( '{{ week }}' ), array( 'eventDisplay' => 'week' ) )
+					->archive( array( '{{ week }}', '(\d{2})' ), array( 'eventDisplay' => 'week', 'eventDate' => '%1' ) )
+					->archive( array( '{{ week }}', '(\d{4}-\d{2}-\d{2})' ), array( 'eventDisplay' => 'week', 'eventDate' => '%1' ) )
 
-				$week_rules = $generator->get_week_rules( $this->weekSlug );
-				$photo_rules = $generator->get_photo_rules( $this->photoSlug );
-				$tax_rules = $generator->get_taxonomy_rules();
+					->tax( array( '{{ week }}' ), array( 'eventDisplay' => 'week' ) )
+					->tax( array( '{{ week }}', '(\d{4}-\d{2}-\d{2})' ), array( 'eventDisplay' => 'week', 'eventDate' => '%2' ) )
 
-				$wp_rewrite->rules = $week_rules + $photo_rules + $tax_rules + $wp_rewrite->rules;
+					->tag( array( '{{ week }}' ), array( 'eventDisplay' => 'week' ) )
+					->tag( array( '{{ week }}', '(\d{4}-\d{2}-\d{2})' ), array( 'eventDisplay' => 'week', 'eventDate' => '%2' ) )
+
+					->archive( array( '{{ photo }}' ), array( 'eventDisplay' => 'photo' ) )
+					->archive( array( '{{ photo }}', '(\d{4}-\d{2}-\d{2})' ), array( 'eventDisplay' => 'photo', 'eventDate' => '%1' ) )
+
+					->tax( array( '{{ photo }}' ), array( 'eventDisplay' => 'photo' ) )
+					->tag( array( '{{ photo }}' ), array( 'eventDisplay' => 'photo' ) );
 			}
 
-			private function get_rewrite_generator( WP_Rewrite $wp_rewrite ) {
-				$generator = new Tribe__Events__Pro__Rewrite_Rule_Generator( $wp_rewrite );
-				$tec = Tribe__Events__Main::instance();
+			/**
+			 * Add the required bases for the Pro Views
+			 * @param  array $bases  Bases that are already set
+			 * @return array         The modified version of the array of bases
+			 */
+			public function filter_add_base_slugs( $bases = array() ) {
+				// For translations purpose we add this as a string not required to assign it to a variable
+				__( 'week', 'tribe-events-calendar-pro' );
+				__( 'photo', 'tribe-events-calendar-pro' );
 
-				$base = trailingslashit( $tec->rewriteSlug );
-				$generator->set_base( $base );
+				$bases['week'] = (array) 'week';
+				$bases['photo'] = (array) 'photo';
 
-				$cat_base = trailingslashit( $tec->taxRewriteSlug );
-				$cat_base = '(.*)' . $cat_base . '(?:[^/]+/)*';
-				$generator->set_cat_base( $cat_base );
+				return $bases;
+			}
 
-				$tag_base = trailingslashit( $tec->tagRewriteSlug );
-				$tag_base = '(.*)' . $tag_base;
-				$generator->set_tag_base( $tag_base );
+			/**
+			 * We add the Pro to the Tranlations domains
+			 *
+			 * @param  array $bases  Domains that are already set
+			 * @return array         The modified version of the array of domains
+			 */
+			public function filter_add_i18n_pro_domain( $domains = array() ) {
+				$domains['tribe-events-calendar-pro'] = $this->pluginDir . 'lang/';
 
-				return $generator;
+				return $domains;
 			}
 
 			/**

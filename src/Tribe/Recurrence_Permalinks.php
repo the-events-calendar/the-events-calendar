@@ -6,6 +6,15 @@
 class Tribe__Events__Pro__Recurrence_Permalinks {
 
 	public function filter_recurring_event_permalinks( $post_link, $post, $leavename, $sample ) {
+		// URL Arguments on home_url() pre-check
+		$url_query = @parse_url( $post_link, PHP_URL_QUERY );
+		$url_args = wp_parse_args( $url_query, array() );
+
+		// Remove the "args"
+		if ( ! empty( $url_query ) ) {
+			$post_link = str_replace( '?' . $url_query, '', $post_link );
+		}
+
 		if ( ! $this->should_filter_permalink( $post, $sample ) ) {
 			return $post_link;
 		}
@@ -30,9 +39,13 @@ class Tribe__Events__Pro__Recurrence_Permalinks {
 				$post_link = str_replace( "%$post->post_type%", $slug, $permastruct );
 			}
 			$post_link = trailingslashit( $post_link ) . $date;
-			$post_link = str_replace( trailingslashit( home_url() ), '', $post_link );
+			$post_link = str_replace( array( home_url( '/' ), site_url( '/' ) ), '', $post_link );
 			$post_link = home_url( user_trailingslashit( $post_link ) );
 		}
+
+		// Add the Arguments back
+		$post_link = add_query_arg( $url_args, $post_link );
+
 
 		return $post_link;
 	}
@@ -41,14 +54,17 @@ class Tribe__Events__Pro__Recurrence_Permalinks {
 		if ( $post->post_type != Tribe__Events__Main::POSTTYPE ) {
 			return false;
 		}
+
 		if ( ! tribe_is_recurring_event( $post->ID ) ) {
 			return false;
 		}
+
 		$unpublished = isset( $post->post_status ) && in_array( $post->post_status, array(
 					'draft',
 					'pending',
 					'auto-draft',
 				) );
+
 		if ( $unpublished && ! $sample ) {
 			return false;
 		}
