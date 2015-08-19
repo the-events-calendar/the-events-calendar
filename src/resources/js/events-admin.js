@@ -654,6 +654,47 @@ jQuery( document ).ready( function( $ ) {
 		} );
 	} );
 
+	/**
+	 * Add timepicker support.
+	 *
+	 * Any input with "tribe-timepicker" as one of its classes will be transformed
+	 * into a timepicker.
+	 *
+	 * A number of properties can be defined via a data attribute,
+	 * "tribe-timepicker-properties" which is expected to contain a JSON-formatted
+	 * object. Some of the supported properies:
+	 *
+	 *     format   (string):  the time format to use
+	 *     editable (boolean): whether or not text-based manual editing is permitted
+	 *     interval (int):     number of minutes interval between options
+	 *
+	 * @see http://amsul.ca/pickadate.js/time for a complete list of properties
+	 */
+	$( "input.tribe-timepicker" ).each( function() {
+		var $this        = $( this );
+		var properties   = $this.data( "tribe-timepicker-properties" );
+		var current_time = $this.val();
+		var element;
+		var timepicker;
+
+		if ( "object" !== typeof properties ) {
+			properties = {};
+		}
+
+		// Initialize
+		element    = $this.pickatime( properties );
+		timepicker = element.pickatime( "picker" );
+
+		// Set the current time
+		timepicker.set( "select", current_time, { format: "HH:i" } );
+
+		// If the picker is manually editable, additionally enable click-to-open
+		if ( properties.editable ) {
+			element.click( function() {
+				timepicker.open();
+			} );
+		}
+	} );
 });
 
 

@@ -1685,4 +1685,46 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 
 		return $query->query['tribe_render_context'];
 	}
+
+	/**
+	 * Creates a text input designed for holding a time value.
+	 *
+	 * This field will be provided with the appropriate classes, etc, to allow the
+	 * events-admin.js script to enhance it and convert it into a "full blown"
+	 * timepicker (rather than staying as a simple text field).
+	 *
+	 * @param string     value
+	 * @param array|null $options
+	 */
+	function tribe_events_timepicker( $value = '07:43', array $options = null ) {
+		// The range of allowed formats is not as rich as those supported by WP/PHP
+		$time_format = Tribe__Events__View_Helpers::is_24hr_format()
+			? 'HH:i'
+			: 'H:i A';
+
+		// Form our set of reasonable defaults
+		$defaults = array(
+			'format'       => $time_format,
+			'interval'     => 5,
+			'clear'        => _x( 'Clear', 'clear timepicker selection', 'tribe-events-calendar' ),
+			'formatSubmit' => 'HH:i',
+			'hiddenName'   => true,
+			'editable'     => true
+		);
+
+		$properties = array_merge( $defaults, (array) $options );
+
+		/**
+		 * Provides an opportunity to modify the timepicker properties.
+		 *
+		 * @var array $properties to be supplied to the timepicker
+		 */
+		$properties = (array) apply_filters( 'tribe_events_timepicker_properties', $properties );
+
+		// Remove any empty properties and JSON-encode the result
+		$properties = json_encode( (object) array_filter( $properties ) );
+
+		// Render the input element
+		echo '<input type="text" class="tribe-timepicker" data-tribe-timepicker-properties="' .esc_attr( $properties ) . '" value="' . esc_attr( $value ) . '" />';
+	}
 }

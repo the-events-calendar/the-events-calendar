@@ -7,3 +7,6 @@
 [submodule "vendor/select2"]
 	path = vendor/select2
 	url = git://github.com/ivaynberg/select2.git
+[submodule "vendor/pickadate.js"]
+	path = vendor/pickadate.js
+	url = https://github.com/amsul/pickadate.js
