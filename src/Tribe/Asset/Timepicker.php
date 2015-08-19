@@ -13,8 +13,8 @@ class Tribe__Events__Asset__Timepicker extends Tribe__Events__Asset__Abstract_As
 
 		// The pickadate lib doesn't follow the *.min.js convention for compiled assets
 		$common_path = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG
-			? $this->vendor_url . 'pickadate/lib/'
-			: $this->vendor_url . 'pickadate/lib/compressed/';
+			? $this->vendor_url . 'pickadate.js/lib/'
+			: $this->vendor_url . 'pickadate.js/lib/compressed/';
 
 		$css_base_path = $common_path . 'themes/default.css';
 		$css_time_path = $common_path . 'themes/default.time.css';
