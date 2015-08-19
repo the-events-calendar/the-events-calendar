@@ -211,8 +211,8 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 				$date_provided = true;
 				delete_post_meta( $event_id, '_EventAllDay' );
 
-				$start_date_string = "{$data['EventStartDate']} {$data['EventStartHour']}:{$data['EventStartMinute']}:00";
-				$end_date_string = "{$data['EventEndDate']} {$data['EventEndHour']}:{$data['EventEndMinute']}:00";
+				$start_date_string = $data['EventStartDate'] . ' ' . $data['EventStartTime'];
+				$end_date_string   = $data['EventEndDate'] . ' ' . $data['EventEndTime'];
 
 				if ( isset( $data['EventStartMeridian'] ) ) {
 					$start_date_string .= " {$data['EventStartMeridian']}";

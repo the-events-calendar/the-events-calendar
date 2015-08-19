@@ -1693,10 +1693,11 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * events-admin.js script to enhance it and convert it into a "full blown"
 	 * timepicker (rather than staying as a simple text field).
 	 *
+	 * @param string     name of the input
 	 * @param string     value
 	 * @param array|null $options
 	 */
-	function tribe_events_timepicker( $value = '07:43', array $options = null ) {
+	function tribe_events_timepicker( $name = 'EventTime', $value = '00:00', array $options = null ) {
 		// The range of allowed formats is not as rich as those supported by WP/PHP
 		$time_format = Tribe__Events__View_Helpers::is_24hr_format()
 			? 'HH:i'
@@ -1709,7 +1710,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 			'clear'        => _x( 'Clear', 'clear timepicker selection', 'tribe-events-calendar' ),
 			'formatSubmit' => 'HH:i',
 			'hiddenName'   => true,
-			'editable'     => true
+			'editable'     => false
 		);
 
 		$properties = array_merge( $defaults, (array) $options );
@@ -1721,19 +1722,25 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		 */
 		$properties = (array) apply_filters( 'tribe_events_timepicker_properties', $properties );
 
-		// Remove any empty properties and JSON-encode the result
+		// Prep attributes
 		$properties = json_encode( (object) array_filter( $properties ) );
+		$value      = esc_attr( $value );
+		$name       = esc_attr( $name );
 
 		// Form the input element
-		$timepicker = '<input type="text" class="tribe-timepicker" data-tribe-timepicker-properties="' .esc_attr( $properties ) . '" value="' . esc_attr( $value ) . '" />';
+		$timepicker = '<input type="text" class="tribe-timepicker" '
+		            . 'data-tribe-timepicker-properties="' .esc_attr( $properties ) . '" '
+		            . 'name="' . $name . '" value="' . $value . '" />';
 
 		/**
 		 * Provides an opportunity to modify or replace the standard timepicker.
 		 *
 		 * @var $timepicker the timepicker input element HTML
+		 * @var $name       requested name for the input element
+		 * @var $value      initial value for the timepicker
 		 * @var $properties array of properties belonging to the timepicker
 		 */
-		$timepicker = apply_filters( 'tribe_events_timepicker', $timepicker, $properties );
+		$timepicker = apply_filters( 'tribe_events_timepicker', $timepicker, $name, $value, $properties );
 
 		// Render!
 		echo $timepicker;

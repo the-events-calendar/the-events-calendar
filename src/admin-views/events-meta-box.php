@@ -79,12 +79,10 @@ if ( class_exists( 'Eventbrite_for_TribeEvents' ) ) {
 
 							<span class="helper-text hide-if-js"><?php esc_html_e( 'YYYY-MM-DD', 'tribe-events-calendar' ) ?></span>
 							<span class="timeofdayoptions">
-								<?php tribe_events_timepicker(); ?>
-								<?php if ( ! Tribe__Events__View_Helpers::is_24hr_format() ) : ?>
-									<select tabindex="<?php tribe_events_tab_index(); ?>" name="EventStartMeridian">
-										<?php echo $startMeridianOptions; ?>
-									</select>
-								<?php endif; ?>
+								<?php
+								$start_time = tribe_get_start_time( null, Tribe__Events__Date_Utils::TIMEFORMAT );
+								tribe_events_timepicker( 'EventStartTime', $start_time );
+								?>
 							</span>
 						</td>
 					</tr>
@@ -94,18 +92,10 @@ if ( class_exists( 'Eventbrite_for_TribeEvents' ) ) {
 							<input autocomplete="off" type="text" class="tribe-datepicker" name="EventEndDate" id="EventEndDate" value="<?php echo esc_attr( $EventEndDate ); ?>" />
 							<span class="helper-text hide-if-js"><?php _e( 'YYYY-MM-DD', 'tribe-events-calendar' ) ?></span>
 							<span class="timeofdayoptions">
-								<?php echo tribe_get_datetime_separator(); ?>
-								<select class="tribeEventsInput" tabindex="<?php tribe_events_tab_index(); ?>" name="EventEndHour">
-									<?php echo $endHourOptions; ?>
-								</select>
-								<select tabindex="<?php tribe_events_tab_index(); ?>" name="EventEndMinute">
-									<?php echo $endMinuteOptions; ?>
-								</select>
-								<?php if ( ! Tribe__Events__View_Helpers::is_24hr_format() ) : ?>
-									<select tabindex="<?php tribe_events_tab_index(); ?>" name="EventEndMeridian">
-										<?php echo $endMeridianOptions; ?>
-									</select>
-								<?php endif; ?>
+								<?php
+								$end_time = tribe_get_end_time( null, Tribe__Events__Date_Utils::TIMEFORMAT );
+								tribe_events_timepicker( 'EventEndTime', $end_time );
+								?>
 							</span>
 						</td>
 					</tr>
