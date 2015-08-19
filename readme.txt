@@ -4,7 +4,7 @@ Contributors:  ModernTribe, roblagatta, faction23, jazbek, jbrinley, leahkoerper
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget, pro
 Donate link: http://m.tri.be/29
 Requires at least: 3.9
-Tested up to: 4.2.3
+Tested up to: 4.3
 Stable tag: 3.12a3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -212,6 +212,7 @@ Our Premium Plugins:
 * <a href="http://m.tri.be/cu" target="_blank">The Events Calendar: WPEC Tickets</a>
 * <a href="http://m.tri.be/dp" target="_blank">The Events Calendar: Shopp Tickets</a>
 * <a href="http://m.tri.be/fa" target="_blank">The Events Calendar: Filter Bar</a>
+* <a href="http://m.tri.be/18h9" target="_blank">The Events Calendar: iCal Importer</a>
 
 == Changelog ==
 
