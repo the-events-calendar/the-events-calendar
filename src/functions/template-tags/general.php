@@ -1724,7 +1724,18 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		// Remove any empty properties and JSON-encode the result
 		$properties = json_encode( (object) array_filter( $properties ) );
 
-		// Render the input element
-		echo '<input type="text" class="tribe-timepicker" data-tribe-timepicker-properties="' .esc_attr( $properties ) . '" value="' . esc_attr( $value ) . '" />';
+		// Form the input element
+		$timepicker = '<input type="text" class="tribe-timepicker" data-tribe-timepicker-properties="' .esc_attr( $properties ) . '" value="' . esc_attr( $value ) . '" />';
+
+		/**
+		 * Provides an opportunity to modify or replace the standard timepicker.
+		 *
+		 * @var $timepicker the timepicker input element HTML
+		 * @var $properties array of properties belonging to the timepicker
+		 */
+		$timepicker = apply_filters( 'tribe_events_timepicker', $timepicker, $properties );
+
+		// Render!
+		echo $timepicker;
 	}
 }
