@@ -170,6 +170,7 @@ Currently, the following add-ons are available for The Events Calendar/Events Ca
 * <a href="http://m.tri.be/cu">WPEC Tickets</a>, for using WP-eCommerce + The Events Calendar to sell event tickets directly from the frontend of your site.
 * <a href="http://m.tri.be/dp">Shopp Tickets</a>, for harnessing the power of Shopp to sell event tickets on your WordPress site.
 * <a href="http://m.tri.be/fa">Filter Bar</a>, for adding advanced frontend filtering capabilities to your events calendar.
+* <a href="https://theeventscalendar.com/product/ical-importer/"iCal Importer</a>, for Import event data from any iCal feed or ICS file to your events calendar.
 
 = I have a feature idea. What's the best way to tell you about it? =
 
@@ -289,6 +290,7 @@ Our Premium Plugins:
 * <a href="http://m.tri.be/cu" target="_blank">The Events Calendar: WPEC Tickets</a>
 * <a href="http://m.tri.be/dp" target="_blank">The Events Calendar: Shopp Tickets</a>
 * <a href="http://m.tri.be/fa" target="_blank">The Events Calendar: Filter Bar</a>
+* <a href="https://theeventscalendar.com/product/ical-importer/"</a> target="_blank">The Events Calendar: iCal Importer</a>
 
 == Versioning ==
 
