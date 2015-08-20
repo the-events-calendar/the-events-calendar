@@ -44,7 +44,7 @@ if ( ! function_exists( 'tribe_get_gcal_link' ) ) {
 		$postId    = Tribe__Events__Main::postIdHelper( $postId );
 		$output    = Tribe__Events__Main::instance()->googleCalendarLink( $postId );
 
-		return apply_filters( 'tribe_get_gcal_link', $output );
+		return apply_filters( 'tribe_get_gcal_link', $output, $postId );
 	}
 }
 
