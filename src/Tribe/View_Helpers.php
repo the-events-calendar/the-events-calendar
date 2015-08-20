@@ -505,7 +505,13 @@ if ( ! class_exists( 'Tribe__Events__View_Helpers' ) ) {
 		 */
 		private static function minutes() {
 			$minutes = array();
-			for ( $minute = 0; $minute < 60; $minute += 5 ) {
+			/**
+			 * Filters the amount of minutes to increment the minutes drop-down by
+			 *
+			 * @param int Increment amount (defaults to 5)
+			 */
+			$increment = apply_filters( 'tribe_minutes_increment', 5 );
+			for ( $minute = 0; $minute < 60; $minute += $increment ) {
 				if ( $minute < 10 ) {
 					$minute = '0' . $minute;
 				}

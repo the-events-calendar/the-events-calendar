@@ -36,6 +36,12 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 		private $events_per_day;
 
 		/**
+		 * Grid day events
+		 * @var array
+		 */
+		private $event_ids_by_day;
+
+		/**
 		 * Array of days of the month
 		 * @var array
 		 */
@@ -108,6 +114,12 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 		private $events_in_month;
 
 		/**
+		 * The category being viewed on month view
+		 * @var
+		 */
+		private $queried_event_cats;
+
+		/**
 		 * The month date that was requested
 		 * @var string
 		 */
@@ -131,50 +143,31 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 		 *
 		 * @param array $args Set of $wp_query params for the month view, if none passed then will default to $wp_query.
 		 */
-		public function __construct( $args = null ) {
-			if ( $args === null ) {
-				global $wp_query;
-				$args = $wp_query->query;
+		public function __construct( $args = array() ) {
 
-				if ( ! empty( $wp_query->query_vars['meta_query'] ) ) {
-					$args['meta_query'] = $wp_query->query_vars['meta_query'];
-				}
-			}
+			// set the proper query args
+			$this->set_args( $args );
 
-			$args = $this->maybe_inject_category_arg( $args );
+			// include child categories in the query, save categories for reuse
+			$this->set_queried_event_cats();
 
-			$args                  = (array) $args;
-			$this->args            = $args;
-			$this->events_per_day  = apply_filters( 'tribe_events_month_day_limit', tribe_get_option( 'monthEventAmount', '3' ) );
-			$this->requested_date  = $this->requested_date();
-			$this->first_grid_date = self::calculate_first_cell_date( $this->requested_date );
-			$this->final_grid_date = self::calculate_final_cell_date( $this->requested_date );
-
-			$args = array_merge( $args, array(
-				'eventDisplay'   => 'month',
-				'fields'         => 'ids',
-				'start_date'     => tribe_event_beginning_of_day( $this->first_grid_date ),
-				'end_date'       => tribe_event_end_of_day( $this->final_grid_date ),
-				'post_status'    => array( 'publish' ),
-				'posts_per_page' => - 1,
-			) );
-
-			if ( is_user_logged_in() ) {
-				$args['post_status'][] = 'private';
-			}
-
-			$args = apply_filters( 'tribe_events_in_month_args', $args );
-
+			// decide if we should use the month view cache
 			$this->use_cache = tribe_get_option( 'enable_month_view_cache', false );
 
 			// Cache the result of month/content.php
 			if ( $this->use_cache ) {
 				$cache_expiration = apply_filters( 'tribe_events_month_view_transient_expiration', HOUR_IN_SECONDS );
-				$this->html_cache = new Tribe__Events__Template_Part_Cache( 'month/content.php', serialize( $args ), $cache_expiration, 'save_post' );
+				$this->html_cache = new Tribe__Events__Template_Part_Cache( 'month/content.php', serialize( $this->args ), $cache_expiration, 'save_post' );
 			}
 
+			$this->events_per_day  = apply_filters( 'tribe_events_month_day_limit', tribe_get_option( 'monthEventAmount', '3' ) );
+			$this->requested_date  = $this->requested_date();
+			$this->first_grid_date = self::calculate_first_cell_date( $this->requested_date );
+			$this->final_grid_date = self::calculate_final_cell_date( $this->requested_date );
+
+
 			// get all the ids for the events in this month, speeds up queries
-			$this->events_in_month = tribe_get_events( $args );
+			$this->set_events_in_month();
 
 			// don't enqueue scripts and js when we're not constructing month view,
 			// they'll have to be enqueued separately
@@ -212,6 +205,44 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 			if ( ! empty( $this->events_in_month ) ) {
 				remove_filter( 'tribe_events_month_has_events', '__return_true' );
 			}
+		}
+
+		/**
+		 * Set the correct args using either passed args, ajax request, or wp_query
+		 *
+		 *
+		 * @param array $args
+		 */
+		protected function set_args( $args = array() ) {
+
+			$doing_ajax = ( defined( 'DOING_AJAX' ) && DOING_AJAX ) ? true : false;
+
+			if ( empty( $args ) && $doing_ajax ) {
+				$post_status = array( 'publish' );
+				if ( is_user_logged_in() ) {
+					$post_status[] = 'private';
+				}
+				// set the global query var for eventDisplay
+				$args = array(
+					'post_type'    => Tribe__Events__Main::POSTTYPE,
+					'eventDisplay' => 'month',
+					'eventDate'    => $_POST['eventDate'],
+					'post_status'  => $post_status,
+				);
+			}
+
+			if ( empty( $args ) ) {
+				// if no args were passed to the constructor, get them from $wp_query
+				global $wp_query;
+				$args = $wp_query->query;
+
+				if ( ! empty( $wp_query->query_vars['meta_query'] ) ) {
+					$args['meta_query'] = $wp_query->query_vars['meta_query'];
+				}
+			}
+
+			$this->args = $args;
+
 		}
 
 		/**
@@ -299,6 +330,240 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 		}
 
 		/**
+		 * Set the queried terms as a class property
+		 * Include child categories of the category currently being viewed
+		 */
+		protected function set_queried_event_cats() {
+
+			// Check the request for tribe_event_category
+			if ( ! empty( $_POST['tribe_event_category'] ) ) {
+				$this->args[ Tribe__Events__Main::TAXONOMY ] = $_POST['tribe_event_category'];
+			} elseif ( ! empty( $_GET['tribe_event_category'] ) ) {
+				$this->args[ Tribe__Events__Main::TAXONOMY ] = $_GET['tribe_event_category'];
+			}
+
+			$terms   = array();
+			$term_id = isset( $this->args[ Tribe__Events__Main::TAXONOMY ] ) ? $this->args[ Tribe__Events__Main::TAXONOMY ] : null;
+
+			// get the term by id if it's an int
+			if ( is_int( $term_id ) ) {
+				$terms[0] = $term_id;
+			} elseif ( is_string( $term_id ) ) {
+				// get the term by slug if it's a string
+				$term = get_term_by( 'slug', $term_id, Tribe__Events__Main::TAXONOMY );
+				if ( ! is_wp_error( $term ) ) {
+					$terms[0] = $term->term_id;
+				}
+			}
+
+			// make sure child terms are included
+			if ( ! empty( $terms ) ) {
+				$term_children = get_term_children( $terms[0], Tribe__Events__Main::TAXONOMY );
+				if ( is_array( $term_children ) ) {
+					$terms = array_merge( $terms, $term_children );
+				}
+			}
+			$this->queried_event_cats = $terms;
+		}
+
+		/**
+		 * Get all the events in the month by directly querying the postmeta table
+		 * Also caches the postmeta and terms for the found events
+		 */
+		protected function set_events_in_month() {
+			global $wpdb;
+
+			$grid_start_datetime = tribe_event_beginning_of_day( $this->first_grid_date );
+			$grid_end_datetime   = tribe_event_end_of_day( $this->final_grid_date );
+
+			$cache     = new Tribe__Events__Cache();
+			$cache_key = 'events_in_month' . $grid_start_datetime . '-' . $grid_end_datetime;
+
+			// if we have a cached result, use that
+			$cached_events = $cache->get( $cache_key, 'save_post' );
+			if ( $cached_events !== false ) {
+				$this->events_in_month = $cached_events;
+
+				return;
+			}
+
+			$post_stati = array( 'publish' );
+			if ( is_user_logged_in() ) {
+				$post_stati[] = 'private';
+			}
+
+			$post_stati = implode( "','", $post_stati );
+
+			$events_request        =
+				$wpdb->prepare(
+					"SELECT tribe_event_start.post_id as ID,
+							tribe_event_start.meta_value as EventStartDate,
+							tribe_event_end_date.meta_value as EventEndDate
+					FROM $wpdb->postmeta AS tribe_event_start
+					LEFT JOIN $wpdb->posts ON tribe_event_start.post_id = $wpdb->posts.ID
+					LEFT JOIN $wpdb->postmeta as tribe_event_end_date ON ( tribe_event_start.post_id = tribe_event_end_date.post_id AND tribe_event_end_date.meta_key = '_EventEndDate' )
+					WHERE tribe_event_start.meta_key = '_EventStartDate'
+					AND ( (tribe_event_start.meta_value >= '%1\$s' AND  tribe_event_start.meta_value <= '%2\$s')
+						OR (tribe_event_start.meta_value <= '%1\$s' AND tribe_event_end_date.meta_value >= '%1\$s')
+						OR ( tribe_event_start.meta_value >= '%1\$s' AND  tribe_event_start.meta_value <= '%2\$s')
+					)
+					AND $wpdb->posts.post_status IN('$post_stati')
+					ORDER BY $wpdb->posts.menu_order ASC, DATE(tribe_event_start.meta_value) ASC, TIME(tribe_event_start.meta_value) ASC;
+					",
+					$grid_start_datetime,
+					$grid_end_datetime
+
+				);
+			$this->events_in_month = $wpdb->get_results( $events_request );
+
+			// cache the postmeta and terms for all these posts in one go
+			$event_ids_in_month = wp_list_pluck( $this->events_in_month, 'ID' );
+			update_object_term_cache( $event_ids_in_month, Tribe__Events__Main::POSTTYPE );
+			update_postmeta_cache( $event_ids_in_month );
+
+			// cache the found events in the object cache
+			$cache->set( $cache_key, $this->events_in_month, 0, 'save_post' );
+		}
+
+		/**
+		 * Retrieves beginning/end times for a given date
+		 *
+		 * @param string $date Y-m-d date string
+		 * @param string $key Key of cached data to retrieve
+		 *
+		 * return string|int
+		 */
+		private function get_cutoff_details( $date, $key ) {
+			static $beginnings_and_ends = array();
+
+			if ( empty( $beginnings_and_ends[ $date ] ) ) {
+				$beginnings_and_ends[ $date ] = array(
+					'beginning' => tribe_event_beginning_of_day( $date ),
+					'end' => tribe_event_end_of_day( $date ),
+				);
+
+				$beginnings_and_ends[ $date ]['beginning_timestamp'] = strtotime( $beginnings_and_ends[ $date ]['beginning'] );
+				$beginnings_and_ends[ $date ]['end_timestamp'] = strtotime( $beginnings_and_ends[ $date ]['end'] );
+			}
+
+			return $beginnings_and_ends[ $date ][ $key ];
+		}
+
+		/**
+		 * Breaks the possible collection of events down by grid date
+		 *
+		 * @param string $date Y-m-d formatted date to retrieve events for
+		 *
+		 * @return array
+		 */
+		private function get_event_ids_by_day( $date ) {
+			if ( ! $this->event_ids_by_day ) {
+				$this->event_ids_by_day = array();
+
+				// Let's loop over all of the events in the month and assign them to days
+				foreach ( $this->events_in_month as $event ) {
+					// if we're querying by category and the event doesn't have it, skip the event
+					if ( ! empty ( $this->queried_event_cats ) ) {
+						if ( ! has_term( $this->queried_event_cats, Tribe__Events__Main::TAXONOMY, $event ) ) {
+							continue;
+						}
+					}
+
+					$event_start = strtotime( tribe_get_start_date( $event->ID ) );
+					$event_end   = strtotime( tribe_get_end_date( $event->ID ) );
+
+					$start = date( 'Y-m-d', $event_start );
+					$end = date( 'Y-m-d', $event_end );
+
+					$beginning_of_start           = $this->get_cutoff_details( $start, 'beginning' );
+					$beginning_of_start_timestamp = $this->get_cutoff_details( $start, 'beginning_timestamp' );
+					$end_of_start                 = $this->get_cutoff_details( $start, 'end' );
+					$end_of_start_timestamp       = $this->get_cutoff_details( $start, 'end_timestamp' );
+					$beginning_of_end             = $this->get_cutoff_details( $end, 'beginning' );
+					$beginning_of_end_timestamp   = $this->get_cutoff_details( $end, 'beginning_timestamp' );
+
+					// if the start of the event is earlier than the beginning of the day, consider the event
+					// as starting on the day before
+					//
+					// Example 1:
+					// Assuming a cut-off of 6:00am and an event start date/time of August 2nd @ 5:00am. The
+					// "start" DATE would be August 2nd and the beginning of the "start" DATE would be August
+					// 2nd @ 6:00am. Therefore, the event start DATE shoud be altered to be a day earlier
+					// (August 1st) (Note: the following if statement conditional would be true)
+					if ( $event_start < $beginning_of_start_timestamp ) {
+						$start = date( 'Y-m-d', strtotime( '-1 day', strtotime( $start ) ) );
+					}
+
+					// Subtract a day from the $end if it is:
+					// * earlier than the beginning of the start DATE OR
+					// * earlier than the beginning of the end DATE OR
+					// * earlier than the end of the start DATE (as long as the beginning of the end DATE is greater than that of the start DATE)
+					//
+					// Example 1:
+					// Assuming a cut-off of 6:00am and an event end date/time of August 2nd @ 7:00am. The
+					// "end" DATE would be August 2nd and the beginning of the "end" DATE would be August
+					// 2nd @ 6:00am. Therefore, the event end DATE shoud remain as August 2nd. (Note: the
+					// following if statement conditional would be false)
+					//
+					// Example 2:
+					// Assuming a cut-off of 6:00am and an event end date/time of August 2nd @ 5:00am. The
+					// "end" DATE would be August 2nd and the beginning of the "end" DATE would be August
+					// 2nd @ 6:00am. Therefore, the event end DATE shoud be altered to be a day earlier
+					// (August 1st) (Note: this following if statement conditional would be true)
+					if (
+						$event_end < $beginning_of_start_timestamp
+						|| $event_end < $beginning_of_end_timestamp
+						|| (
+							$event_end < $end_of_start_timestamp
+							&& $beginning_of_end_timestamp > $end_of_start_timestamp
+						)
+					) {
+						$end = date( 'Y-m-d', strtotime( '-1 day', strtotime( $end ) ) );
+					}
+
+					// determine if there's a difference in days between start and end
+					$diff = strtotime( $end ) - strtotime( $start );
+
+					if ( $diff > 0 ) {
+						// There IS a difference. How many days?
+						$diff_in_days = $diff / DAY_IN_SECONDS;
+
+						// add the event to each day until the event end
+						$new_start = $start;
+						for ( $i = 0; $i <= $diff_in_days; $i++ ) {
+							if ( ! isset( $this->event_ids_by_day[ $new_start ] ) ) {
+								$this->event_ids_by_day[ $new_start ] = array();
+							}
+
+							$this->event_ids_by_day[ $new_start ][] = $event->ID;
+
+							$new_start = date( 'Y-m-d', strtotime( '+1 day', strtotime( $new_start ) ) );
+						}
+					} else {
+						// nope. The event is a single day event. Add it to the array
+						if ( ! isset( $this->event_ids_by_day[ $start ] ) ) {
+							$this->event_ids_by_day[ $start ] = array();
+						}
+
+						$this->event_ids_by_day[ $start ][] = $event->ID;
+					}
+				}
+
+				// Now that we've built our event_ids_by_day, let's array_unique and sort
+				foreach ( $this->event_ids_by_day as &$day ) {
+					$day = array_unique( $day );
+					sort( $day );
+				}
+			}
+
+			if ( empty( $this->event_ids_by_day[ $date ] ) ) {
+				return array();
+			}
+
+			return $this->event_ids_by_day[ $date ];
+		}
+
+		/**
 		 * Get the events for a single day
 		 *
 		 * @param string $date
@@ -307,17 +572,41 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 		 */
 		private function get_daily_events( $date ) {
 
+			$beginning_of_day           = $this->get_cutoff_details( $date, 'beginning' );
+			$beginning_of_day_timestamp = $this->get_cutoff_details( $date, 'beginning_timestamp' );
+
+			$end_of_day           = $this->get_cutoff_details( $date, 'end' );
+			$end_of_day_timestamp = $this->get_cutoff_details( $date, 'end_timestamp' );
+
+			$event_ids_on_date = $this->get_event_ids_by_day( $date );
+
+			// post__in doesn't work when it's empty, so just don't run the query if there are no IDs
+			if ( empty( $event_ids_on_date ) ) {
+				return new WP_Query();
+			}
+
+			// this  will skip updating term and meta caches - those were already
+			// updated in $this->set_events_in_month()
 			$args   = wp_parse_args(
 				array(
-					'eventDisplay'   => 'month',
-					'start_date'     => tribe_event_beginning_of_day( $date ),
-					'end_date'       => tribe_event_end_of_day( $date ),
-					'posts_per_page' => $this->events_per_day,
-					'post__in'       => $this->events_in_month,
-					'orderby'        => 'menu_order',
+					'eventDisplay'           => 'month',
+					'posts_per_page'         => $this->events_per_day,
+					'post__in'               => $event_ids_on_date,
+					'start_date'             => $beginning_of_day,
+					'end_date'               => $end_of_day,
+					'update_post_term_cache' => false,
+					'update_post_meta_cache' => false,
+					'no_found_rows'          => true,
+					'orderby'                => 'menu_order',
 				), $this->args
 			);
+
+			// we don't need this join since we already checked it
+			unset ( $args[ Tribe__Events__Main::TAXONOMY ] );
+
 			$result = tribe_get_events( $args, true );
+
+			$result->found_posts = count( $event_ids_on_date );
 
 			return $result;
 		}
@@ -337,21 +626,10 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 
 			$date = $this->first_grid_date; // Start with the first grid date
 
-			// don't run a query if no events in the month
-			if ( empty( $this->events_in_month ) ) {
-				$empty_query = new WP_Query();
-			}
-
 			// Populate complete date range including leading/trailing days from adjacent months
 			while ( $date <= $this->final_grid_date ) {
 
-				if ( ! empty( $this->events_in_month ) ) {
-					$day_events = self::get_daily_events( $date );
-				} else {
-					$day_events = $empty_query;
-				}
-
-
+				$day_events = self::get_daily_events( $date );
 				$day = (int) substr( $date, - 2 );
 
 				$prev_month = (int) substr( $date, 5, 2 ) < (int) substr( $this->requested_date, 5, 2 );
@@ -665,23 +943,12 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 
 				Tribe__Events__Query::init();
 
-				$post_status = array( 'publish' );
-				if ( is_user_logged_in() ) {
-					$post_status[] = 'private';
-				}
-				// set the global query var for eventDisplay
-				$query_args = array(
-					'post_type'    => Tribe__Events__Main::POSTTYPE,
-					'eventDisplay' => 'month',
-					'eventDate'    => $_POST['eventDate'],
-					'post_status'  => $post_status,
-				);
 
 				Tribe__Events__Main::instance()->displaying = 'month';
 
-				$query_args = $this->maybe_inject_category_arg( $query_args );
+				global $wp_query;
 
-				query_posts( $query_args );
+				$wp_query = tribe_get_events( $this->args, true );
 
 				ob_start();
 
@@ -699,21 +966,5 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 			}
 		}
 
-		/**
-		 * Injects the Tribe__Events__Main::TAXONOMY argument into query_args if passed in via POST or GET
-		 *
-		 * @param array $args Current query args to augment
-		 *
-		 * @return array Array of args
-		 */
-		public function maybe_inject_category_arg( $args ) {
-			if ( ! empty( $_POST['tribe_event_category'] ) ) {
-				$args[ Tribe__Events__Main::TAXONOMY ] = $_POST['tribe_event_category'];
-			} elseif ( ! empty( $_GET['tribe_event_category'] ) ) {
-				$args[ Tribe__Events__Main::TAXONOMY ] = $_GET['tribe_event_category'];
-			}
-
-			return $args;
-		}
 	} // class Tribe__Events__Template__Month
 }

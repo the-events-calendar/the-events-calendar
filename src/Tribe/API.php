@@ -232,6 +232,13 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 				return $data;
 			}
 
+			// Store datetimes in UTC
+			if ( isset( $data['EventTimezone'] ) ) {
+				$data['EventStartDateUTC'] = Tribe__Events__Timezones::to_utc( $data['EventStartDate'], $data['EventTimezone'] );
+				$data['EventEndDateUTC']   = Tribe__Events__Timezones::to_utc( $data['EventEndDate'], $data['EventTimezone'] );
+				$data['EventTimezoneAbbr'] = Tribe__Events__Timezones::abbr( $data['EventStartDate'], $data['EventTimezone'] );
+			}
+
 			// sanity check that start date < end date
 			$start_timestamp = strtotime( $data['EventStartDate'] );
 			$end_timestamp   = strtotime( $data['EventEndDate'] );
@@ -462,6 +469,10 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 
 				$venueId = wp_insert_post( $postdata, true );
 
+				// By default, the show map and show map link options should be on
+				$data['ShowMap'] = isset( $data['ShowMap'] ) ? $data['ShowMap'] : 'true';
+				$data['ShowMapLink'] = isset( $data['ShowMapLink'] ) ? $data['ShowMapLink'] : 'true';
+
 				if ( ! is_wp_error( $venueId ) ) {
 					self::saveVenueMeta( $venueId, $data );
 					do_action( 'tribe_events_venue_created', $venueId, $data );
@@ -499,12 +510,12 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 		 *
 		 * @return void
 		 */
-		public static function updateVenue( $venueId, $data ) {
+		public static function updateVenue( $venue_id, $data ) {
 			$data['ShowMap']     = isset( $data['ShowMap'] ) ? $data['ShowMap'] : 'false';
 			$data['ShowMapLink'] = isset( $data['ShowMapLink'] ) ? $data['ShowMapLink'] : 'false';
-			Tribe__Events__API::saveVenueMeta( $venueId, $data );
 
-			do_action( 'tribe_events_venue_updated', $venueId, $data );
+			Tribe__Events__API::saveVenueMeta( $venue_id, $data );
+			do_action( 'tribe_events_venue_updated', $venue_id, $data );
 		}
 
 		/**
