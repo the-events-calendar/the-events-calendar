@@ -470,6 +470,41 @@ if ( ! class_exists( 'Tribe__Events__Date_Utils' ) ) {
 			);
 		}
 
+		/**
+		 * Given 2 datetime ranges, return whether the 2nd one occurs during the 1st one
+		 * Note: all params should be unix timestamps
+		 *
+		 * @param integer $range_1_start timestamp for start of the first range
+		 * @param integer $range_1_end timestamp for end of the first range
+		 * @param integer $range_2_start timestamp for start of the second range
+		 * @param integer $range_2_end timestamp for end of the second range
+		 *
+		 * @return bool
+		 */
+		public static function range_coincides( $range_1_start, $range_1_end, $range_2_start, $range_2_end ) {
+
+			// Initialize the return value
+			$range_coincides = false;
+
+			/**
+			 * conditions:
+			 * range 2 starts during range 1 (range 2 start time is between start and end of range 1 )
+			 * range 2 ends during range 1 (range 2 end time is between start and end of range 1 )
+			 * range 2 encloses range 1 (range 2 starts before range 1 and ends after range 1)
+			 */
+
+			$range_2_starts_during_range_1 = $range_2_start >= $range_1_start && $range_2_start < $range_1_end;
+			$range_2_ends_during_range_1   = $range_2_end > $range_1_start && $range_2_end <= $range_1_end;
+			$range_2_encloses_range_1      = $range_2_start < $range_1_start && $range_2_end > $range_1_end;
+
+			if ( $range_2_starts_during_range_1 || $range_2_ends_during_range_1 || $range_2_encloses_range_1 ) {
+				$range_coincides = true;
+			}
+
+			return $range_coincides;
+
+		}
+
 		// DEPRECATED METHODS
 		// @codingStandardsIgnoreStart
 		/**

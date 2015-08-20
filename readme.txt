@@ -5,7 +5,7 @@ Tags: events, calendar, event, venue, organizer, dates, date, google maps, confe
 Donate link: http://m.tri.be/29
 Requires at least: 3.9
 Tested up to: 4.3 beta 3
-Stable tag: 3.11.2
+Stable tag: 3.12a1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -170,6 +170,7 @@ Currently, the following add-ons are available for The Events Calendar/Events Ca
 * <a href="http://m.tri.be/cu">WPEC Tickets</a>, for using WP-eCommerce + The Events Calendar to sell event tickets directly from the frontend of your site.
 * <a href="http://m.tri.be/dp">Shopp Tickets</a>, for harnessing the power of Shopp to sell event tickets on your WordPress site.
 * <a href="http://m.tri.be/fa">Filter Bar</a>, for adding advanced frontend filtering capabilities to your events calendar.
+* <a href="http://m.tri.be/18h9">iCal Importer</a>, for importing events any iCal feed or ICS file.
 
 = I have a feature idea. What's the best way to tell you about it? =
 
@@ -289,6 +290,7 @@ Our Premium Plugins:
 * <a href="http://m.tri.be/cu" target="_blank">The Events Calendar: WPEC Tickets</a>
 * <a href="http://m.tri.be/dp" target="_blank">The Events Calendar: Shopp Tickets</a>
 * <a href="http://m.tri.be/fa" target="_blank">The Events Calendar: Filter Bar</a>
+* <a href="http://m.tri.be/18h9" target="_blank">The Events Calendar: iCal Importer</a>
 
 == Versioning ==
 
@@ -315,7 +317,9 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 
 = [Unreleased] unreleased =
 
+* Bug - Fixed issue with event title attributes not always escaping properly on List and Day views
 * Bug - Fixed issue with Event Costs not updating when a new ticket was only submitted via Ajax
+* Bug - Fixed an issue Twenty Fourteen and the event views being hidden in screen sizes smaller then 400px
 
 = [3.11.2] 2015-07-30 =
 
