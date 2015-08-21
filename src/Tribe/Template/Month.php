@@ -468,8 +468,8 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 						}
 					}
 
-					$event_start = strtotime( tribe_get_start_date( $event->ID, true, 'Y-m-d H:i:s' ) );
-					$event_end   = strtotime( tribe_get_end_date( $event->ID, true, 'Y-m-d H:i:s' ) );
+					$event_start = strtotime( tribe_get_start_date( $event->ID, true, Tribe__Events__Date_Utils::DBDATETIMEFORMAT ) );
+					$event_end   = strtotime( tribe_get_end_date( $event->ID, true, Tribe__Events__Date_Utils::DBDATETIMEFORMAT ) );
 
 					$start = date( 'Y-m-d', $event_start );
 					$end = date( 'Y-m-d', $event_end );
