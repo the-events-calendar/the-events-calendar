@@ -874,30 +874,7 @@
 							$query->set( 'hide_upcoming', false );
 							break;
 						case 'all':
-							$slug = $query->get( 'name' );
-							if ( empty( $slug ) ) {
-								break; // we shouldn't be here
-							}
-							unset( $query->query_vars['name'] );
-							unset( $query->query_vars['tribe_events'] );
-
-							$posts = get_posts( array(
-								'name' => $slug,
-								'post_type' => Tribe__Events__Main::POSTTYPE,
-								'post_status' => 'publish',
-								'numberposts' => 1,
-							) );
-
-							$post = reset( $posts );
-
-							if ( empty( $post ) ) {
-								$query->set( 'p', -1 );
-							} else {
-								$query->set( 'post_parent', $post->ID );
-								$query->set( 'post_status', 'publish' );
-								$query->set( 'posts_per_page', tribe_get_option( 'postsPerPage', 10 ) );
-								$query->is_singular = false;
-							}
+							new Tribe__Events__Pro__Recurrence__Event_Query( $query );
 							break;
 					}
 					apply_filters( 'tribe_events_pro_pre_get_posts', $query );
