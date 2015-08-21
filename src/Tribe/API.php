@@ -343,8 +343,10 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 		public static function createOrganizer( $data, $post_status = 'publish' ) {
 			if ( ( isset( $data['Organizer'] ) && $data['Organizer'] ) || self::someOrganizerDataSet( $data ) ) {
 
+				$organizer_label = tribe_get_organizer_label_singular();
+
 				$postdata = array(
-					'post_title'  => $data['Organizer'] ? $data['Organizer'] : "Unnamed Organizer",
+					'post_title'  => $data['Organizer'] ? $data['Organizer'] : sprintf( __( 'Unnamed %s', 'tribe-events-calendar' ), ucfirst( $organizer_label ) ),
 					'post_type'   => Tribe__Events__Main::ORGANIZER_POST_TYPE,
 					'post_status' => $post_status,
 				);
