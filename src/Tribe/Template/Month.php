@@ -394,26 +394,25 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 
 			$post_stati = implode( "','", $post_stati );
 
-			$events_request        =
-				$wpdb->prepare(
-					"SELECT tribe_event_start.post_id as ID,
-							tribe_event_start.meta_value as EventStartDate,
-							tribe_event_end_date.meta_value as EventEndDate
-					FROM $wpdb->postmeta AS tribe_event_start
-					LEFT JOIN $wpdb->posts ON tribe_event_start.post_id = $wpdb->posts.ID
-					LEFT JOIN $wpdb->postmeta as tribe_event_end_date ON ( tribe_event_start.post_id = tribe_event_end_date.post_id AND tribe_event_end_date.meta_key = '_EventEndDate' )
-					WHERE tribe_event_start.meta_key = '_EventStartDate'
-					AND ( (tribe_event_start.meta_value >= '%1\$s' AND  tribe_event_start.meta_value <= '%2\$s')
-						OR (tribe_event_start.meta_value <= '%1\$s' AND tribe_event_end_date.meta_value >= '%1\$s')
-						OR ( tribe_event_start.meta_value >= '%1\$s' AND  tribe_event_start.meta_value <= '%2\$s')
-					)
-					AND $wpdb->posts.post_status IN('$post_stati')
-					ORDER BY $wpdb->posts.menu_order ASC, DATE(tribe_event_start.meta_value) ASC, TIME(tribe_event_start.meta_value) ASC;
-					",
-					$grid_start_datetime,
-					$grid_end_datetime
+			$events_request = $wpdb->prepare(
+				"SELECT tribe_event_start.post_id as ID,
+						tribe_event_start.meta_value as EventStartDate,
+						tribe_event_end_date.meta_value as EventEndDate
+				FROM $wpdb->postmeta AS tribe_event_start
+				LEFT JOIN $wpdb->posts ON tribe_event_start.post_id = $wpdb->posts.ID
+				LEFT JOIN $wpdb->postmeta as tribe_event_end_date ON ( tribe_event_start.post_id = tribe_event_end_date.post_id AND tribe_event_end_date.meta_key = '_EventEndDate' )
+				WHERE tribe_event_start.meta_key = '_EventStartDate'
+				AND ( (tribe_event_start.meta_value >= '%1\$s' AND  tribe_event_start.meta_value <= '%2\$s')
+					OR (tribe_event_start.meta_value <= '%1\$s' AND tribe_event_end_date.meta_value >= '%1\$s')
+					OR ( tribe_event_start.meta_value >= '%1\$s' AND  tribe_event_start.meta_value <= '%2\$s')
+				)
+				AND $wpdb->posts.post_status IN('$post_stati')
+				ORDER BY $wpdb->posts.menu_order ASC, DATE(tribe_event_start.meta_value) ASC, TIME(tribe_event_start.meta_value) ASC;
+				",
+				$grid_start_datetime,
+				$grid_end_datetime
+			);
 
-				);
 			$this->events_in_month = $wpdb->get_results( $events_request );
 
 			// cache the postmeta and terms for all these posts in one go
@@ -469,8 +468,8 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 						}
 					}
 
-					$event_start = strtotime( tribe_get_start_date( $event->ID ) );
-					$event_end   = strtotime( tribe_get_end_date( $event->ID ) );
+					$event_start = strtotime( tribe_get_start_date( $event->ID, true, 'Y-m-d H:i:s' ) );
+					$event_end   = strtotime( tribe_get_end_date( $event->ID, true, 'Y-m-d H:i:s' ) );
 
 					$start = date( 'Y-m-d', $event_start );
 					$end = date( 'Y-m-d', $event_end );
