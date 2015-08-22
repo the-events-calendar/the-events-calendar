@@ -642,8 +642,8 @@ class Tribe__Events__Pro__Recurrence_Meta {
 		$record = array();
 
 		if ( $recurrence_data ) {
-			$record['EventStartDate'] = empty( $recurrence_data['EventStartDate'] ) ? get_post_meta( $post_id, '_EventStartDate', true ) : $recurrence_data['EventStartDate'];
-			$record['EventEndDate'] = empty( $recurrence_data['EventEndDate'] ) ? get_post_meta( $post_id, '_EventEndDate', true ) : $recurrence_data['EventEndDate'];
+			$record['EventStartDate'] = empty( $recurrence_data['EventStartDate'] ) ? tribe_get_start_date( $post_id ) : $recurrence_data['EventStartDate'];
+			$record['EventEndDate'] = empty( $recurrence_data['EventEndDate'] ) ? tribe_get_end_date( $post_id ) : $recurrence_data['EventEndDate'];
 			$record['type'] = empty( $recurrence_data['type'] ) ? null : $recurrence_data['type'];
 			$record['end-type'] = empty( $recurrence_data['end-type'] ) ? null : $recurrence_data['end-type'];
 			$record['end'] = empty( $recurrence_data['end'] ) ? null : $recurrence_data['end'];
@@ -1190,10 +1190,10 @@ class Tribe__Events__Pro__Recurrence_Meta {
 		$output_text = array();
 
 		foreach ( $recurrence_rules['rules'] as $rule ) {
-			$output_text[] = self::recurrenceToText( $rule, $start_date );
+			$output_text[] = self::recurrenceToText( $rule, $start_date, $postId );
 		}
 
-		return implode( ' ', $output_text );
+		return implode( _x( ',<br> and ', 'Recurrence rule separator', 'tribe-events-calendar-pro' ), $output_text );
 	}
 
 	/**
@@ -1311,7 +1311,7 @@ class Tribe__Events__Pro__Recurrence_Meta {
 	 *
 	 * @return The human readable string
 	 */
-	public static function recurrenceToText( $rule = array(), $start_date ) {
+	public static function recurrenceToText( $rule, $start_date, $event_id ) {
 		$text = '';
 		$recurrence_strings = self::recurrence_strings();
 		$date_strings = self::date_strings();
@@ -1326,16 +1326,15 @@ class Tribe__Events__Pro__Recurrence_Meta {
 
 		if ( 'custom' === $rule['type'] ) {
 			$is_custom = true;
-			$rule['custom']['type'] = str_replace( ' ', '-', strtolower( $rule['custom']['type'] ) );
 			$same_time = 'yes' === $rule['custom'][ self::custom_type_to_key( $rule['custom']['type'] ) ]['same-time'];
 
-			if ( 'yearly' === $rule['custom']['type'] ) {
+			if ( 'Yearly' === $rule['custom']['type'] ) {
 				$year_filtered = ! empty( $rule['custom']['year']['filter'] );
 			}
 		}
 
-		$start_date = strtotime( $rule['EventStartDate'] );
-		$end_date = strtotime( $rule['EventEndDate'] );
+		$start_date = strtotime( tribe_get_start_date( $event_id ) );
+		$end_date = strtotime( tribe_get_end_date( $event_id ) );
 
 		$num_days = floor( ( $end_date - $start_date ) / DAY_IN_SECONDS );
 		$num_hours = floor( ( ( $end_date - $start_date ) / HOUR_IN_SECONDS ) - ( $num_days * 24 ) );
@@ -1361,7 +1360,11 @@ class Tribe__Events__Pro__Recurrence_Meta {
 		$month_day = null;
 		$month_day_description = null;
 
-		if ( $is_custom && 'weekly' === $rule['custom']['type'] ) {
+		if (
+			$is_custom
+			&& 'Weekly' === $rule['custom']['type']
+			&& ! empty( $rule['custom']['week']['day'] )
+		) {
 			foreach ( $rule['custom']['week']['day'] as $day ) {
 				$weekdays[] = $date_strings['weekdays'][ $day - 1 ];
 			}
@@ -1374,15 +1377,27 @@ class Tribe__Events__Pro__Recurrence_Meta {
 				$weekdays = implode( ', ', $weekdays );
 				$weekdays = preg_replace( '/(.*),/', '$1, ' . $date_strings['collection_joiner'], $weekdays );
 			}
-		} elseif ( $is_custom && 'monthly' === $rule['custom']['type'] ) {
+		} elseif (
+			$is_custom
+			&& 'Monthly' === $rule['custom']['type']
+			&& ! empty( $rule['custom']['month']['number'] )
+			&& ! empty( $rule['custom']['month']['day'] )
+		) {
 			$month_number = $rule['custom']['month']['number'];
 			$month_day = $rule['custom']['month']['day'];
-		} elseif ( $is_custom && 'yearly' === $rule['custom']['type'] ) {
+		} elseif (
+			$is_custom
+			&& 'Yearly' === $rule['custom']['type']
+			&& ! empty( $rule['custom']['year']['month-number'] )
+			&& ! empty( $rule['custom']['year']['month-day'] )
+		) {
 			$month_number = $rule['custom']['year']['month-number'];
 			$month_day = $rule['custom']['year']['month-day'];
 
-			foreach ( $rule['custom']['year']['month'] as $month ) {
-				$months[] = $date_strings['months'][ $month - 1 ];
+			if ( ! empty( $rule['custom']['year']['month'] ) ) {
+				foreach ( $rule['custom']['year']['month'] as $month ) {
+					$months[] = $date_strings['months'][ $month - 1 ];
+				}
 			}
 
 			if ( ! $months ) {
@@ -1407,6 +1422,32 @@ class Tribe__Events__Pro__Recurrence_Meta {
 			}
 		} else {
 			$key .= "-{$rule['end-type']}";
+		}
+
+		$key = strtolower( $key );
+
+		// if custom rules were set but the custom-specific data is missing, then revert to standard
+		// rules (weekly, monthly, and yearly)
+		if (
+			$is_custom
+			&& 'Weekly' === $rule['custom']['type']
+			&& ! $weekdays
+		) {
+			$key = 'every-week-on';
+		} elseif (
+			$is_custom
+			&& 'Monthly' === $rule['custom']['type']
+			&& ! $month_number
+			&& ! $month_day
+		) {
+			$key = 'every-month-on';
+		} elseif (
+			$is_custom
+			&& 'Yearly' === $rule['custom']['type']
+			&& ! $month_number
+			&& ! $month_day
+		) {
+			$key = 'every-year-on';
 		}
 
 		$text = $recurrence_strings[ $key ];
