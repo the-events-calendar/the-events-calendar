@@ -405,7 +405,15 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		$categories = tribe_get_event_taxonomy( $post_id, $args );
 
 		// check for the occurances of links in the returned string
-		$label = is_null( $args['label'] ) ? sprintf( _n( '%s Category', '%s Categories', substr_count( $categories, '<a href' ), 'tribe-events-calendar' ), $events_label_singular ) : $args['label'];
+		if ( null === $args[ 'label' ] ) {
+			$label = sprintf(
+				_nx( '%s Category', '%s Categories', substr_count( $categories, '<a href' ), 'category list label', 'tribe-events-calendar' ),
+				$events_label_singular
+			);
+		}
+		else {
+			$label = $args[ 'label' ];
+		}
 
 		$html = ! empty( $categories ) ? sprintf(
 			'%s%s:%s %s%s%s',
