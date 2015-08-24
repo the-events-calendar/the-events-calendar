@@ -277,6 +277,50 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 		}
 
 		/**
+		 * Update user-created Additional Fields
+		 *
+		 * @param $event_id
+		 * @param $data
+		 */
+		public static function update_additional_fields ( $event_id, $data ) {
+			$additional_fields = apply_filters( 'tribe_events_csv_import_event_additional_fields', array() );
+			$additional_field_tags = array_keys( $additional_fields );
+
+			foreach ( $additional_field_tags as $tag ) {
+				$htmlElement = $tag;
+				if ( isset( $data[$htmlElement] ) && $tag != TribeEvents::EVENTSERROROPT ) {
+					if ( is_string( $data[$htmlElement] ) ) {
+						$data[$htmlElement] = filter_var( $data[$htmlElement], FILTER_SANITIZE_STRING );
+					}
+					// Fields with multiple values per key
+					if ( is_array( $data[$htmlElement] ) ) {
+						delete_post_meta( $event_id, $tag );
+						foreach ( $data[$htmlElement] as $value ) {
+							add_post_meta( $event_id, $tag, $value );
+						}
+					}
+					// Fields with a single value per key
+					else {
+						update_post_meta( $event_id, $tag, $data[$htmlElement] );
+					}
+				}
+			}
+		}
+
+		/**
+		 * Retrieve user-created Additional Fields
+		 *
+		 * @return array
+		 */
+		public static function get_additional_fields() {
+			$additional_fields = tribe_get_option( 'custom-fields' );
+			return array_combine(
+				wp_list_pluck( $additional_fields, 'name' ),
+				wp_list_pluck( $additional_fields, 'label' )
+			);
+		}
+
+		/**
 		 * Saves the event organizer information passed via an event
 		 *
 		 * @param array   $data        The organizer data.

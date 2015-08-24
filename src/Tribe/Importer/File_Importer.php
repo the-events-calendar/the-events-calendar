@@ -44,6 +44,12 @@ abstract class Tribe__Events__Importer__File_Importer {
 	 */
 	public function __construct( Tribe__Events__Importer__File_Reader $file_reader ) {
 		$this->reader = $file_reader;
+		$this->add_hooks();
+	}
+
+	public function add_hooks() {
+		add_filter( 'tribe_events_csv_import_event_additional_fields', array( 'Tribe__Events__API', 'get_additional_fields' ), 10, 1 );
+		add_action( 'tribe_events_update_meta', array( 'Tribe__Events__API', 'update_additional_fields' ), 15, 2 );
 	}
 
 	public function set_map( array $map_array ) {

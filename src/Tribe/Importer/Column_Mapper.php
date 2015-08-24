@@ -9,10 +9,12 @@ class Tribe__Events__Importer__Column_Mapper {
 	private $defaults = array();
 
 	public function __construct( $import_type ) {
+		$this->add_hooks();
 		$this->import_type = $import_type;
 		switch ( $this->import_type ) {
 			case 'events':
-				$this->column_names = $this->get_event_column_names();
+				$this->column_names  = $this->get_event_column_names();
+				$this->column_names += $this->get_additional_fields_column_names();
 				break;
 			case 'venues':
 				$this->column_names = $this->get_venue_column_names();
@@ -21,6 +23,10 @@ class Tribe__Events__Importer__Column_Mapper {
 				$this->column_names = $this->get_organizer_column_names();
 				break;
 		}
+	}
+
+	public function add_hooks() {
+		add_filter( 'tribe_events_csv_import_event_additional_fields', array( 'Tribe__Events__API', 'get_additional_fields' ) );
 	}
 
 	public function set_defaults( $defaults ) {
@@ -93,4 +99,9 @@ class Tribe__Events__Importer__Column_Mapper {
 			'organizer_phone'   => __( 'Organizer Phone', 'tribe-events-calendar' ),
 		);
 	}
+
+	private function get_additional_fields_column_names() {
+		return apply_filters( 'tribe_events_csv_import_event_additional_fields', array() );
+	}
+
 }
