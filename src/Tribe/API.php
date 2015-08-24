@@ -283,7 +283,8 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 		 * @param $data
 		 */
 		public static function update_additional_fields ( $event_id, $data ) {
-			$additional_field_tags = wp_list_pluck( tribe_get_option( 'custom-fields' ), 'name' );
+			$additional_fields = apply_filters( 'tribe_events_csv_import_event_additional_fields', array() );
+			$additional_field_tags = array_keys( $additional_fields );
 
 			foreach ( $additional_field_tags as $tag ) {
 				$htmlElement = $tag;
@@ -304,7 +305,19 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 					}
 				}
 			}
+		}
 
+		/**
+		 * Retrieve user-created Additional Fields
+		 *
+		 * @return array
+		 */
+		public static function get_additional_fields() {
+			$additional_fields = tribe_get_option( 'custom-fields' );
+			return array_combine(
+				wp_list_pluck( $additional_fields, 'name' ),
+				wp_list_pluck( $additional_fields, 'label' )
+			);
 		}
 
 		/**

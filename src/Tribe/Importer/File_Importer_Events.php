@@ -166,17 +166,12 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 			$event['tax_input']['post_tag'] = $tags;
 		}
 
-		$additional_fields = tribe_get_option( 'custom-fields' );
-		foreach ( $additional_fields as $field ) {
-			$key = $field['name'];
-			$event[ $key ] = $this->get_value_by_key( $record, $key );
+		$additional_fields = apply_filters( 'tribe_events_csv_import_event_additional_fields', array() );
+		if ( ! empty ( $additional_fields ) ) {
+			foreach ( $additional_fields as $key => $csv_column ) {
+				$event[ $key ] = $this->get_value_by_key( $record, $key );
+			}
 		}
-		//$additional_fields = apply_filters( 'tribe_events_csv_import_event_additional_fields', array() );
-		//if ( ! empty ( $additional_fields ) ) {
-		//	foreach ( $additional_fields as $key => $csv_column ) {
-		//		$event[ $key ] = $this->get_value_by_key( $record, $key );
-		//	}
-		//}
 
 		return $event;
 
