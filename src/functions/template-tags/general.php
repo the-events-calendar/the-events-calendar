@@ -407,43 +407,44 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		// check for the occurances of links in the returned string
 		if ( null === $args[ 'label' ] ) {
 			$label = sprintf(
-				_nx( '%s Category', '%s Categories', substr_count( $categories, '<a href' ), 'category list label', 'tribe-events-calendar' ),
-				$events_label_singular
-			);
-		}
-		else {
-			$label = $args[ 'label' ];
-		}
-
-		$html = ! empty( $categories ) ? sprintf(
-			'%s%s:%s %s%s%s',
-			$args['label_before'],
-			$label,
-			$args['label_after'],
-			$args['wrap_before'],
-			$categories,
-			$args['wrap_after']
-		) : '';
-		if ( $args['echo'] ) {
-			echo apply_filters( 'tribe_get_event_categories', $html, $post_id, $args, $categories );
-		} else {
-			return apply_filters( 'tribe_get_event_categories', $html, $post_id, $args, $categories );
-		}
+			/* translators: %s is the singular translation of "Event" */
+			_nx( '%s Category', '%s Categories', substr_count( $categories, '<a href' ), 'category list label', 'tribe-events-calendar' ),
+			$events_label_singular
+		);
+	}
+	else {
+		$label = $args[ 'label' ];
 	}
 
-	/**
-	 * Event Tags (Display)
-	 *
-	 * Display the event tags
-	 *
-	 * @category Events
-	 * @param null|string $label
-	 * @param string      $separator
-	 * @param bool        $echo
-	 *
-	 * @return array
-	 * @uses the_terms()
-	 */
+	$html = ! empty( $categories ) ? sprintf(
+		'%s%s:%s %s%s%s',
+		$args['label_before'],
+		$label,
+		$args['label_after'],
+		$args['wrap_before'],
+		$categories,
+		$args['wrap_after']
+	) : '';
+	if ( $args['echo'] ) {
+		echo apply_filters( 'tribe_get_event_categories', $html, $post_id, $args, $categories );
+	} else {
+		return apply_filters( 'tribe_get_event_categories', $html, $post_id, $args, $categories );
+	}
+}
+
+/**
+ * Event Tags (Display)
+ *
+ * Display the event tags
+ *
+ * @category Events
+ * @param null|string $label
+ * @param string      $separator
+ * @param bool        $echo
+ *
+ * @return array
+ * @uses the_terms()
+ */
 	function tribe_meta_event_tags( $label = null, $separator = ', ', $echo = true ) {
 		if ( ! $label ) {
 			$label = __( 'Tags:', 'tribe-events-calendar' );
