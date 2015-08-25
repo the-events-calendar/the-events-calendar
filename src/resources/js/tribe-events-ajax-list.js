@@ -256,7 +256,11 @@
 					ts.params['tribe_event_category'] = ts.category;
 				}
 
+				/**
+				 * DEPRECATED: tribe_ev_serializeBar has been deprecated in 4.0. Use serialize-bar.tec.tribe instead
+				 */
 				$( te ).trigger( 'tribe_ev_serializeBar' );
+				$( te ).trigger( 'serialize-bar.tec.tribe' );
 
 				if ( tf.invalid_date_in_params( ts.params ) ) {
 					ts.ajax_running = false;
@@ -268,7 +272,11 @@
 				ts.params = $.param( ts.params );
 				ts.url_params = $.param( ts.url_params );
 
+				/**
+				 * DEPRECATED: tribe_ev_collectParams has been deprecated in 4.0. Use collect-params.tec.tribe instead
+				 */
 				$( te ).trigger( 'tribe_ev_collectParams' );
+				$( te ).trigger( 'collect-params.tec.tribe' );
 
 				ts.pushstate = false;
 				ts.do_string = true;
@@ -281,7 +289,11 @@
 				dbug && debug.time( 'List View Ajax Timer' );
 				// @endif
 
+				/**
+				 * DEPRECATED: tribe_ev_ajaxStart and tribe_ev_listView_AjaxStart have been deprecated in 4.0. Use ajax-start.tec.tribe and list-view-ajax-start.tec.tribe instead
+				 */
 				$( te ).trigger( 'tribe_ev_ajaxStart' ).trigger( 'tribe_ev_listView_AjaxStart' );
+				$( te ).trigger( 'ajax-start.tec.tribe' ).trigger( 'list-view-ajax-start.tec.tribe' );
 
 				$.post(
 					TribeList.ajaxurl,
@@ -329,7 +341,12 @@
 								}, ts.page_title, td.cur_url );
 							}
 
+							/**
+							 * DEPRECATED: tribe_ev_ajaxSuccess and tribe_ev_listView_AjaxSuccess have been deprecated in 4.0. Use ajax-success.tec.tribe and list-view-ajax-success.tec.tribe instead
+							 */
 							$( te ).trigger( 'tribe_ev_ajaxSuccess' ).trigger( 'tribe_ev_listView_AjaxSuccess' );
+							$( te ).trigger( 'ajax-success.tec.tribe' ).trigger( 'list-view-ajax-success.tec.tribe' );
+
 							// @ifdef DEBUG
 							dbug && debug.timeEnd( 'List View Ajax Timer' );
 							// @endif

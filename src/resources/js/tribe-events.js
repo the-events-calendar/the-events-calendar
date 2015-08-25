@@ -558,7 +558,11 @@ Date.prototype.format = function( mask, utc ) {
 			tribe_ev.fn.update_viewport_variables();
 			if ( prev_width !== tribe_ev.data.v_width ) {
 				tribe_ev.fn.mobile_class();
+				/**
+				 * DEPRECATED: tribe_ev_resizeComplete has been deprecated in 4.0. Use resize-complete.tec.tribe instead
+				 */
 				$( tribe_ev.events ).trigger( 'tribe_ev_resizeComplete' );
+				$( tribe_ev.events ).trigger( 'resize-complete.tec.tribe' );
 			}
 
 		},
