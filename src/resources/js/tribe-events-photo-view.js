@@ -226,7 +226,7 @@
 			} );
 		}
 
-		$( te ).on( "tribe_ev_updatingRecurrence", function() {
+		$( te ).on( 'updating-recurrence.events-pro.tribe', function() {
 			ts.popping = false;
 		} );
 
@@ -238,7 +238,7 @@
 
 		tf.snap( '#tribe-events-content', '#tribe-events-content', '#tribe-events-footer .tribe-events-nav-previous a, #tribe-events-footer .tribe-events-nav-next a' );
 
-		$( te ).on( "tribe_ev_runAjax", function() {
+		$( te ).on( 'run-ajax.tribe', function() {
 			tribe_events_photo_ajax_post();
 		} );
 

@@ -295,7 +295,7 @@
 
 		}
 
-		$( te ).on( "tribe_ev_reloadOldBrowser", function() {
+		$( te ).on( 'reload-old-browser.events-pro.tribe', function() {
 			tribe_generate_map_params();
 			window.location = td.cur_url + '?' + ts.params;
 		} );
@@ -510,7 +510,7 @@
 		}
 
 		if ( GeoLoc.map_view ) {
-			$( te ).on( "tribe_ev_runAjax", function() {
+			$( te ).on( 'run-ajax.tribe', function() {
 				tribe_map_processOption();
 			} );
 		}
