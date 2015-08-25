@@ -357,7 +357,7 @@ if ( Object.prototype.hasOwnProperty.call( window, 'tribe_ev' ) ) {
 			$( te ).trigger( 'updating-recurrence.events-pro.tribe' ).trigger( 'run-ajax.events-pro.tribe' );
 		} );
 
-		$( te ).on( "tribe_ev_preCollectBarParams", function() {
+		$( te ).on( 'pre-collect-bar-params.tribe', function() {
 			if ( $geo_bar_input.length ) {
 				var tribe_map_val = $geo_bar_input.val();
 				if ( !tribe_map_val.length ) {
