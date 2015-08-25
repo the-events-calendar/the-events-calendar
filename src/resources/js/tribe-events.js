@@ -1230,14 +1230,14 @@ Date.prototype.format = function( mask, utc ) {
 		}
 
 		// ajax complete function to remove active spinner
-		$( te ).on( 'tribe_ev_ajaxSuccess', function() {
+		$( te ).on( 'ajax-success.tec.tribe', function() {
 			$( '.tribe-events-active-spinner' ).remove();
 			list_find_month_last_event();
 		} );
 
 		/**
 		 * @function tribe_ical_url
-		 * @desc tribe_ical_url This function adds required params to the ical url. Runs on doc ready, and hooks into 'tribe_ev_ajaxSuccess' also.
+		 * @desc tribe_ical_url This function adds required params to the ical url. Runs on doc ready, and hooks into 'ajax-success.tec.tribe' also.
 		 */
 
 		function tribe_ical_url() {
@@ -1253,7 +1253,7 @@ Date.prototype.format = function( mask, utc ) {
 			$( 'a.tribe-events-ical' ).attr( 'href', new_link );
 		}
 
-		$( te ).on( "tribe_ev_ajaxSuccess", function() {
+		$( te ).on( 'ajax-success.tec.tribe', function() {
 			tribe_ical_url();
 		} );
 

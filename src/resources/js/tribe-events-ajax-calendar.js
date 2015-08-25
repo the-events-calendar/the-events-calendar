@@ -364,7 +364,7 @@
 			tribe_events_bar_calendar_ajax_actions( e );
 		} );
 
-		$( te ).on( "tribe_ev_runAjax", function() {
+		$( te ).on( 'run-ajax.tec.tribe', function() {
 			tribe_events_calendar_ajax_post();
 		} );
 

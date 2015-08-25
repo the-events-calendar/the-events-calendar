@@ -226,7 +226,7 @@ var tribe_events_bar_action;
 		// Add our date bits outside of our filter container
 		$( '#tribe-bar-filters' ).before( $( '#tribe-bar-dates' ) );
 
-		$( te ).on( "tribe_ev_serializeBar", function() {
+		$( te ).on( "serialize-bar.tec.tribe", function() {
 			$( 'form#tribe-bar-form input, form#tribe-bar-form select, #tribeHideRecurrence' ).each( function() {
 				var $this = $( this );
 				if ( $this.is( '#tribe-bar-date' ) ) {

@@ -171,7 +171,7 @@
 
 		}
 
-		$( te ).on( "tribe_ev_runAjax", function() {
+		$( te ).on( 'run-ajax.tec.tribe', function() {
 			tribe_events_day_ajax_post();
 		} );
 
@@ -322,10 +322,10 @@
 							tribe_day_add_classes();
 
 							/**
-							 * DEPRECATED: tribe_ev_ajaxStart and tribe_ev_dayView_AjaxStart have been deprecated in 4.0. Use ajax-start.tec.tribe and day-view-ajax-start.tec.tribe instead
+							 * DEPRECATED: tribe_ev_ajaxSuccess and tribe_ev_dayView_AjaxSuccess have been deprecated in 4.0. Use ajax-success.tec.tribe and day-view-ajax-success.tec.tribe instead
 							 */
 							$( te ).trigger( 'tribe_ev_ajaxSuccess' ).trigger( 'tribe_ev_dayView_AjaxSuccess' );
-							$( te ).trigger( 'ajax-start.tec.tribe' ).trigger( 'day-view-ajax-start.tec.tribe' );
+							$( te ).trigger( 'ajax-success.tec.tribe' ).trigger( 'day-view-ajax-success.tec.tribe' );
 
 							// @ifdef DEBUG
 							dbug && debug.timeEnd( 'Day View Ajax Timer' );
