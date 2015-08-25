@@ -45,6 +45,8 @@ class Tribe__Events__Pro__Shortcodes__Mini_Calendar extends Tribe__Events__Pro__
 
 		'category'   => '',
 		'categories' => '',
+
+		'count' => ''
 	);
 
 	protected $arguments = array();
@@ -53,6 +55,11 @@ class Tribe__Events__Pro__Shortcodes__Mini_Calendar extends Tribe__Events__Pro__
 	public function __construct( $attributes ) {
 		$this->arguments = shortcode_atts( $this->default_args, $attributes );
 		$this->taxonomy_filters();
+
+		// Avoid passing an empty count argument (will cause 0 events to be listed)
+		if ( empty( $this->arguments['count'] ) ) {
+			unset( $this->arguments['count'] );
+		}
 
 		ob_start();
 		the_widget( 'Tribe__Events__Pro__Mini_Calendar_Widget', $this->arguments, $this->arguments );
