@@ -1230,7 +1230,7 @@ Date.prototype.format = function( mask, utc ) {
 		}
 
 		// ajax complete function to remove active spinner
-		$( te ).on( 'ajax-success.tec.tribe', function() {
+		$( te ).on( 'tribe_ev_ajaxSuccess ajax-success.tribe', function() {
 			$( '.tribe-events-active-spinner' ).remove();
 			list_find_month_last_event();
 		} );
@@ -1253,7 +1253,7 @@ Date.prototype.format = function( mask, utc ) {
 			$( 'a.tribe-events-ical' ).attr( 'href', new_link );
 		}
 
-		$( te ).on( 'ajax-success.tec.tribe', function() {
+		$( te ).on( 'tribe_ev_ajaxSuccess ajax-success.tribe', function() {
 			tribe_ical_url();
 		} );
 

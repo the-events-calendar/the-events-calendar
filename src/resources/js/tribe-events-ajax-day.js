@@ -171,11 +171,11 @@
 
 		}
 
-		$( te ).on( 'run-ajax.tec.tribe', function() {
+		$( te ).on( 'tribe_ev_runAjax run-ajax.tribe', function() {
 			tribe_events_day_ajax_post();
 		} );
 
-		$( te ).on( 'updating-recurrence.tribe', function() {
+		$( te ).on( 'tribe_ev_updatingRecurrence updating-recurrence.tribe', function() {
 			if ( ts.filter_cats ) {
 				td.cur_url = ( td.default_permalinks ) ? base_url + '=' + td.cur_date : base_url + td.cur_date + '/';
 			}
