@@ -218,11 +218,12 @@ Our Premium Plugins:
 
 = [Unreleased] unreleased =
 
+* Feature - Added support for the long awaited Arbitrary Recurrence!  Creating recurring events with multiple granular rulesets is now possible.
+* Feature - Extended CSV imports to include custom fields defined in events settings (Big thanks to zacwasielewski for submitting a similar pull request! You rock! :) )
 * Bug - Fixed APM Start/End Date filters to stop showing SQL errors
-
-= [Unreleased] unreleased =
-
 * Bug - Fixed an issue with additional fields not showing as selected when a symbol is included in the label
+* Bug - Resolved issue where events without venues were showing up in Map View
+* Bug - Fixed a bug where the tribe-mini-calendar-today CSS class was not removed from some days in the mini calendar widget while clicking around
 
 = [3.11.1] 2015-07-27 =
 
