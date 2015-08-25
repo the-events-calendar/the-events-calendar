@@ -841,39 +841,39 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 		}
 
 		/**
-		 * Generates and returns a set of classes for the current day
+		 * Generates and returns a set of classes for the current day.
 		 *
-		 * @return string Classes
+		 * @return string
 		 */
 		public static function day_classes() {
-
-			$calendar_day           = self::get_current_day();
-			$calendar_day_timestamp = strtotime( $calendar_day['date'] );
-			$today                  = strtotime( 'today' );
+			$current_day  = self::get_current_day();
+			$calendar_day = Tribe__Events__Date_Utils::date_only( $current_day['date'] );
+			$today        = date_i18n( Tribe__Events__Date_Utils::DBDATEFORMAT );
 
 			// Start by determining which month we're looking at
-			if ( $calendar_day['month'] == self::CURRENT_MONTH ) {
+			if ( $current_day['month'] == self::CURRENT_MONTH ) {
 				$classes = 'tribe-events-thismonth';
 			} else {
 				$classes = 'tribe-events-othermonth';
 			}
 
 			// Check if the calendar day is in the past, present, or future
-			if ( $calendar_day_timestamp < $today ) {
+			if ( $calendar_day < $today ) {
 				$classes .= ' tribe-events-past';
-			} elseif ( $calendar_day_timestamp == $today ) {
+			} elseif ( $calendar_day === $today ) {
 				$classes .= ' tribe-events-present';
-			} elseif ( $calendar_day_timestamp > $today ) {
+			} elseif ( $calendar_day > $today ) {
 				$classes .= ' tribe-events-future';
 			}
 
 			// The day has some events
-			if ( $calendar_day['total_events'] > 0 ) {
+			if ( $current_day['total_events'] > 0 ) {
 				$classes .= ' tribe-events-has-events';
 			}
 
 			// Needed for mobile js
-			$classes .= ' mobile-trigger tribe-event-day-' . date_i18n( 'd', $calendar_day_timestamp );
+			$day_num  = str_pad( $current_day['daynum'], 2, '0', STR_PAD_LEFT );
+			$classes .= ' mobile-trigger tribe-event-day-' . date_i18n( 'd', $day_num );
 
 			// Determine which column of the grid the day is in
 			$column = ( self::$current_day ) - ( self::$current_week * 7 );
