@@ -227,7 +227,7 @@
 
 		tribe_month_view_init( true );
 
-		$( te ).on( 'tribe_ev_resizeComplete', function() {
+		$( te ).on( 'resize-complete.tec.tribe', function() {
 			tribe_month_view_init( true );
 		} );
 
