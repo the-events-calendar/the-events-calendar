@@ -175,7 +175,7 @@
 			tribe_events_day_ajax_post();
 		} );
 
-		$( te ).on( "tribe_ev_updatingRecurrence", function() {
+		$( te ).on( 'updating-recurrence.tribe', function() {
 			if ( ts.filter_cats ) {
 				td.cur_url = ( td.default_permalinks ) ? base_url + '=' + td.cur_date : base_url + td.cur_date + '/';
 			}
