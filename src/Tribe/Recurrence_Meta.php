@@ -1324,6 +1324,11 @@ class Tribe__Events__Pro__Recurrence_Meta {
 		$rule['end-type'] = str_replace( ' ', '-', strtolower( $rule['end-type'] ) );
 		$formatted_end = date( tribe_get_date_format( true ), strtotime( $rule['end'] ) );
 
+		// if the type is "none", then there's no rules to parse
+		if ( 'none' === $rule['type'] ) {
+			return;
+		}
+
 		if ( 'custom' === $rule['type'] ) {
 			$is_custom = true;
 			$same_time = 'yes' === $rule['custom'][ self::custom_type_to_key( $rule['custom']['type'] ) ]['same-time'];
