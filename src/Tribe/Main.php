@@ -467,7 +467,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			// The priority should always be < 5, to allow the framework to load
 			add_action( 'plugins_loaded', array( $this, 'maybe_load_tickets_framework' ), 3 );
-
 		}
 
 		/**
@@ -4461,7 +4460,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * vendor/ submodule.
 		 */
 		public function maybe_load_tickets_framework() {
-			if ( function_exists( 'tribe_tickets_init' ) ) {
+			if ( class_exists( 'Tribe__Events__Tickets__Main' ) ) {
 				return;
 			}
 
