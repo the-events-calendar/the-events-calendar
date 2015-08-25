@@ -350,7 +350,11 @@ if ( Object.prototype.hasOwnProperty.call( window, 'tribe_ev' ) ) {
 
 			tf.set_recurrence( recurrence_on );
 
+			/**
+			 * DEPRECATED: tribe_ev_updatingRecurrence and tribe_ev_runAjax have been deprecated in 4.0. Use updating-recurrence.events-pro.tribe and run-ajax.events-pro.tribe instead
+			 */
 			$( te ).trigger( 'tribe_ev_updatingRecurrence' ).trigger( 'tribe_ev_runAjax' );
+			$( te ).trigger( 'updating-recurrence.events-pro.tribe' ).trigger( 'run-ajax.events-pro.tribe' );
 		} );
 
 		$( te ).on( "tribe_ev_preCollectBarParams", function() {
@@ -391,7 +395,10 @@ if ( Object.prototype.hasOwnProperty.call( window, 'tribe_ev' ) ) {
 					$( '#tribe-bar-geoloc-lng' ).val( tg.geocodes[$this.data( 'index' )].geometry.location.lng() );
 
 					tf.pre_ajax( function() {
-						$( te ).trigger( 'tribe_ev_runAjax' );
+						/**
+						 * DEPRECATED: tribe_ev_runAjax has been deprecated in 4.0. Use run-ajax.events-pro.tribe instead
+						 */
+						$( te ).trigger( 'run-ajax.events-pro.tribe' );
 						$geo_options.hide();
 					} );
 

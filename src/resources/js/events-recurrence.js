@@ -843,7 +843,12 @@ tribe_events_pro_admin.recurrence = {
 
 	my.event.datepicker_end_date_changed = function() {
 		$( this ).removeClass( 'placeholder' );
+
+		/**
+		 * DEPRECATED: recurrenceEndChanged has been deprecated in 4.0. Use recurrence-end-changed.events-pro.tribe instead
+		 */
 		$( this ).trigger( 'recurrenceEndChanged' );
+		$( this ).trigger( 'recurrence-end-changed.events-pro.tribe' );
 	};
 
 	my.event.recurrence_row_changed = function() {
