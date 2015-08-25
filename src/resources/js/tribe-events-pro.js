@@ -398,6 +398,7 @@ if ( Object.prototype.hasOwnProperty.call( window, 'tribe_ev' ) ) {
 						/**
 						 * DEPRECATED: tribe_ev_runAjax has been deprecated in 4.0. Use run-ajax.events-pro.tribe instead
 						 */
+						$( te ).trigger( 'tribe_ev_runAjax' );
 						$( te ).trigger( 'run-ajax.events-pro.tribe' );
 						$geo_options.hide();
 					} );
