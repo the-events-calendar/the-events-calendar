@@ -220,10 +220,13 @@ Our Premium Plugins:
 
 * Feature - Added support for the long awaited Arbitrary Recurrence!  Creating recurring events with multiple granular rulesets is now possible.
 * Feature - Extended CSV imports to include custom fields defined in events settings (Big thanks to zacwasielewski for submitting a similar pull request! You rock! :) )
+* Tweak - Pad SQL joins with spacing to avoid conflicts with other plugins that modify SQL (props to jeremyfelt)
 * Bug - Fixed APM Start/End Date filters to stop showing SQL errors
 * Bug - Fixed an issue with additional fields not showing as selected when a symbol is included in the label
 * Bug - Resolved issue where events without venues were showing up in Map View
 * Bug - Fixed a bug where the tribe-mini-calendar-today CSS class was not removed from some days in the mini calendar widget while clicking around
+* Bug - Resolved a bug where "Additional Fields" with a double quote in the title would be saved with a backslash
+* Bug - Fixed notices that were being thrown while configuring the Countdown Widget in the Customizer
 
 = [3.11.1] 2015-07-27 =
 
