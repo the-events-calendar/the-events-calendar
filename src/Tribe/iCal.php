@@ -134,7 +134,14 @@ class Tribe__Events__iCal {
 		// hijack to iCal template
 		if ( get_query_var( 'ical' ) || isset( $_GET['ical'] ) ) {
 			global $wp_query;
-			if ( is_single() ) {
+			if ( isset( $_GET['event_ids'] ) ) {
+				if ( empty( $_GET['event_ids'] ) ) {
+					die();
+				}
+				$event_ids = explode( ',', $_GET['event_ids'] );
+				$events    = Tribe__Events__Query::getEvents( [ 'post__in' => $event_ids ] );
+				self::generate_ical_feed( $events );
+			} else if ( is_single() ) {
 				self::generate_ical_feed( $wp_query->post, null );
 			} else {
 				self::generate_ical_feed();
