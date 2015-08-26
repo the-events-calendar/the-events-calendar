@@ -317,11 +317,6 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 
 = [Unreleased] unreleased =
 
-* Performance - Greatly optimized the generation of Month View data
-* Feature - Extended CSV importer fields to include full coverage of Event, Organizer, and Venue fields
-* Tweak - Relocated event recurrence-specific JS to Events PRO where it belongs
-* Tweak - Style nowrap on ticket forms with CSS rather than HTML attributes
-* Bug - Resolved bug where executing wp_insert_post within a hook to publish_tribe_events prevented event meta from being saved appropriately
 * Bug - Fixed issue with event title attributes not always escaping properly on List and Day views
 * Bug - Fixed issue with Event Costs not updating when a new ticket was only submitted via Ajax
 * Bug - Fixed an issue Twenty Fourteen and the event views being hidden in screen sizes smaller then 400px
