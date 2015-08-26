@@ -210,8 +210,7 @@ class Tribe__Events__iCal {
 		$blogName    = get_bloginfo( 'name' );
 
 		if ( $post ) {
-			$events_posts   = array();
-			$events_posts[] = $post;
+			$events_posts = is_array( $post ) ? $post : array( $post );
 		} else {
 			if ( tribe_is_month() ) {
 				$events_posts = self::get_month_view_events();
