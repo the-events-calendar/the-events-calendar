@@ -325,6 +325,7 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Feature - Make the venue metabox template file filterable with tribe_events_venue_meta_box_template (props to aaemnnosttv)
 * Feature - Added a filter (tribe_show_organizer_email_obfuscation_alert) to make the organizer email obfuscation message optional
 * Feature - Added a filter (tribe_minutes_increment) that allows you to alter the minute incrementor used to generate the Minutes drop-down box (props to d4mation-)
+* Feature - Added timezone support to allow different events to be set in different timezones
 * Tweak - Relocated event recurrence-specific JS to Events PRO where it belongs
 * Tweak - Style nowrap on ticket forms with CSS rather than HTML attributes
 * Tweak - Updated the attendees template to use divs to separate event data (props to aaemnnosttv)
@@ -339,6 +340,8 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Bug - Fixed an issue Twenty Fourteen and the event views being hidden in screen sizes smaller then 400px
 * Bug - Fixed an issue where the month view date selector became full window width when Skeleton styles were enabled
 * Bug - Fixed a notice on the plugin updater page
+* Bug - Fixed a localization issue in the settings environment (props to @tititou36 for highlighting the issue)
+* Bug - Fixed a problem which was resetting the "Show Google Map" option for events when they were re-imported via CSV (thanks to @jameswemyss for highlighting this)
 
 = [3.11.2] 2015-07-30 =
 
