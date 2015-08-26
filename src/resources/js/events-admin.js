@@ -685,7 +685,7 @@ jQuery( document ).ready( function( $ ) {
 		element    = $this.pickatime( properties );
 		timepicker = element.pickatime( "picker" );
 
-		// Set the current time
+		// Set the current time and set the storage format to 24hr time (hh:mm)
 		timepicker.set( "select", current_time, { format: "HH:i" } );
 
 		// If the picker is manually editable, additionally enable click-to-open

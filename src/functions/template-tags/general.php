@@ -1734,7 +1734,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		// The range of allowed formats is not as rich as those supported by WP/PHP
 		$time_format = Tribe__Events__View_Helpers::is_24hr_format()
 			? 'HH:i'
-			: 'H:i A';
+			: 'h:i A';
 
 		// Form our set of reasonable defaults
 		$defaults = array(

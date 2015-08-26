@@ -80,7 +80,7 @@ if ( class_exists( 'Eventbrite_for_TribeEvents' ) ) {
 							<span class="helper-text hide-if-js"><?php esc_html_e( 'YYYY-MM-DD', 'tribe-events-calendar' ) ?></span>
 							<span class="timeofdayoptions">
 								<?php
-								$start_time = tribe_get_start_time( null, Tribe__Events__Date_Utils::TIMEFORMAT );
+								$start_time = tribe_get_start_time( null, Tribe__Events__Date_Utils::DBTIMEFORMAT, Tribe__Events__Timezones::EVENT_TIMEZONE );
 								tribe_events_timepicker( 'EventStartTime', $start_time );
 								?>
 							</span>
@@ -93,7 +93,7 @@ if ( class_exists( 'Eventbrite_for_TribeEvents' ) ) {
 							<span class="helper-text hide-if-js"><?php _e( 'YYYY-MM-DD', 'tribe-events-calendar' ) ?></span>
 							<span class="timeofdayoptions">
 								<?php
-								$end_time = tribe_get_end_time( null, Tribe__Events__Date_Utils::TIMEFORMAT );
+								$end_time = tribe_get_end_time( null, Tribe__Events__Date_Utils::DBTIMEFORMAT, Tribe__Events__Timezones::EVENT_TIMEZONE );
 								tribe_events_timepicker( 'EventEndTime', $end_time );
 								?>
 							</span>
