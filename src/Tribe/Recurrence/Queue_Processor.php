@@ -166,6 +166,8 @@ class Tribe__Events__Pro__Recurrence__Queue_Processor {
 		$this->current_queue->save();
 		$this->current_queue->clear_in_progress_flag();
 
+		Tribe__Events__Main::instance()->rebuild_known_range();
+
 		return true;
 	}
 
