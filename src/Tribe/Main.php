@@ -422,9 +422,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			add_action( 'add_meta_boxes', array( 'Tribe__Events__Tickets__Metabox', 'maybe_add_meta_box' ) );
 			add_action( 'admin_enqueue_scripts', array( 'Tribe__Events__Tickets__Metabox', 'add_admin_scripts'  ) );
 
-			// noindex grid view
-			add_action( 'wp_head', array( $this, 'noindex_months' ) );
-			add_action( 'wp', array( $this, 'issue_noindex_on_404' ), 10, 0 );
+			add_action( 'wp', array( $this, 'issue_noindex' ) );
 			add_action( 'plugin_row_meta', array( $this, 'addMetaLinks' ), 10, 2 );
 			// organizer and venue
 			if ( ! defined( 'TRIBE_HIDE_UPSELL' ) || ! TRIBE_HIDE_UPSELL ) {
@@ -554,24 +552,45 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		}
 
 		/**
-		 * Add code to tell search engines not to index the grid view of the
-		 * calendar.  Users were seeing 100s of months being indexed.
+		 * Runs on the "wp" action. Inspects the main query object and if it relates to an events
+		 * query makes a decision to add a noindex meta tag based on whether events were returned
+		 * in the query results or not.
+		 *
+		 * Disabling this behaviour always is possible with:
+		 *
+		 *     add_filter( 'tribe_events_add_no_index_meta', '__return_false' );
+		 *
+		 *  Enabling it for all event views is possible with:
+		 *
+		 *     add_filter( 'tribe_events_add_no_index_meta', '__return_true' );
 		 */
-		public function noindex_months() {
-			if ( get_query_var( 'eventDisplay' ) == 'month' ) {
-				$this->print_noindex_meta();
+		public function issue_noindex() {
+			global $wp_query;
+
+			if ( empty( $wp_query->tribe_is_event_query ) ) {
+				return;
+			}
+
+			// By default, we add a noindex tag for all month view requests and any other
+			// event views that are devoid of events
+			$event_display = get_query_var( 'eventDisplay' );
+			$add_noindex   = ( ! $wp_query->have_posts() || 'month' === $event_display );
+
+			/**
+			 * Determines if a noindex meta tag will be set for the current event view.
+			 *
+			 * @var bool $add_noindex
+			 */
+			$add_noindex = apply_filters( 'tribe_events_add_no_index_meta', $add_noindex );
+
+			if ( $add_noindex ) {
+				add_action( 'wp_head', array( $this, 'print_noindex_meta' ) );
 			}
 		}
 
-		public function issue_noindex_on_404() {
-			if ( is_404() ) {
-				global $wp_query;
-				if ( ! empty( $wp_query->tribe_is_event_query ) ) {
-					add_action( 'wp_head', array( $this, 'print_noindex_meta' ), 10, 0 );
-				}
-			}
-		}
-
+		/**
+		 * Prints a "noindex,follow" robots tag.
+		 */
 		public function print_noindex_meta() {
 			echo ' <meta name="robots" content="noindex,follow" />' . "\n";
 		}
