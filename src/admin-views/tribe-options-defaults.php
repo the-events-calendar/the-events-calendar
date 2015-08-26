@@ -52,7 +52,7 @@ $defaultsTab = array(
 		),
 		'defaultValueReplace'               => array(
 			'type'            => 'checkbox_bool',
-			'label'           => __( 'Automatically replace empty fields with default values', 'tribe-events-calendar-pro' ),
+			'label'           => __( 'If fields are left empty when they\'re submitted, automatically fill them in with these values.', 'tribe-events-calendar-pro' ),
 			'default'         => false,
 			'validation_type' => 'boolean',
 		),
