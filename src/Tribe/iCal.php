@@ -139,7 +139,7 @@ class Tribe__Events__iCal {
 					die();
 				}
 				$event_ids = explode( ',', $_GET['event_ids'] );
-				$events    = Tribe__Events__Query::getEvents( [ 'post__in' => $event_ids ] );
+				$events    = Tribe__Events__Query::getEvents( array( 'post__in' => $event_ids ) );
 				self::generate_ical_feed( $events );
 			} else if ( is_single() ) {
 				self::generate_ical_feed( $wp_query->post, null );
