@@ -146,6 +146,8 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 			'EventAllDay'           => $this->get_boolean_value_by_key( $record, 'event_all_day', 'yes' ),
 			'EventHideFromUpcoming' => $this->get_value_by_key( $record, 'event_hide' ),
 			'EventURL'              => $this->get_value_by_key( $record, 'event_website' ),
+			'EventCurrencySymbol'   => $this->get_value_by_key( $record, 'event_currency_symbol' ),
+			'EventCurrencyPosition' => $this->get_value_by_key( $record, 'event_currency_position' ),
 		);
 
 		if ( $organizer_id = $this->find_matching_organizer_id( $record ) ) {
@@ -158,6 +160,17 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 
 		if ( $cats = $this->get_value_by_key( $record, 'event_category' ) ) {
 			$event['tax_input'][ Tribe__Events__Main::TAXONOMY ] = $this->translate_terms_to_ids( explode( ',', $cats ) );
+		}
+
+		if ( $tags = $this->get_value_by_key( $record, 'event_tags' ) ) {
+			$event['tax_input']['post_tag'] = $tags;
+		}
+
+		$additional_fields = apply_filters( 'tribe_events_csv_import_event_additional_fields', array() );
+		if ( ! empty ( $additional_fields ) ) {
+			foreach ( $additional_fields as $key => $csv_column ) {
+				$event[ $key ] = $this->get_value_by_key( $record, $key );
+			}
 		}
 
 		return $event;
