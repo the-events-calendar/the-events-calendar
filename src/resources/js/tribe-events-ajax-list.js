@@ -198,7 +198,7 @@
 			tribe_events_bar_listajax_actions( e );
 		} );
 
-		$( te ).on( 'tribe_ev_runAjax run-ajax.tribe', function() {
+		$( te ).on( 'run-ajax.tribe', function() {
 			tribe_events_list_ajax_post();
 		} );
 

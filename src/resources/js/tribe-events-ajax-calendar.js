@@ -227,7 +227,7 @@
 
 		tribe_month_view_init( true );
 
-		$( te ).on( 'tribe_ev_resizeComplete resize-complete.tec.tribe', function() {
+		$( te ).on( 'resize-complete.tec.tribe', function() {
 			tribe_month_view_init( true );
 		} );
 
@@ -364,11 +364,11 @@
 			tribe_events_bar_calendar_ajax_actions( e );
 		} );
 
-		$( te ).on( 'tribe_ev_runAjax run-ajax.tribe', function() {
+		$( te ).on( 'run-ajax.tribe', function() {
 			tribe_events_calendar_ajax_post();
 		} );
 
-		$( te ).on( 'tribe_ev_updatingRecurrence updating-recurrence.tribe', function() {
+		$( te ).on( 'updating-recurrence.tribe', function() {
 			ts.date = $( '#tribe-events-header' ).data( "date" );
 			if ( ts.filter_cats ) {
 				td.cur_url = $( '#tribe-events-header' ).data( 'baseurl' ) + ts.date + '/';
