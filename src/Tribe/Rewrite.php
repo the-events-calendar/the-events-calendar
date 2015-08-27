@@ -75,10 +75,12 @@ if ( ! class_exists( 'Tribe__Events__Rewrite' ) ) {
 
 				// Hook the methods
 				add_filter( 'generate_rewrite_rules', array( $this, 'filter_generate' ) );
+				add_filter( 'post_type_link', array( $this, 'filter_post_type_link' ), 15, 2 );
 
 			} elseif ( true === $remove ) {
 				// Remove the Hooks
 				remove_filter( 'generate_rewrite_rules', array( $this, 'filter_generate' ) );
+				remove_filter( 'post_type_link', array( $this, 'filter_post_type_link' ), 15 );
 			}
 		}
 
@@ -159,6 +161,31 @@ if ( ! class_exists( 'Tribe__Events__Rewrite' ) ) {
 		}
 
 		/**
+		 * When WPML is active we need to return the language Query Arg
+		 *
+		 * @param  string $uri Permalink for the post
+		 * @param  WP_Post $post Post Object
+		 *
+		 * @return string      Permalink with the language
+		 */
+		public function filter_post_type_link( $permalink, $post ) {
+			if ( ! $this->is_wpml_active() || empty( $_GET['lang'] ) ) {
+				return $permalink;
+			}
+
+			return add_query_arg( array( 'lang' => $_GET['lang'] ), $permalink );
+		}
+
+		/**
+		 * Checking if WPML is active on this WP
+		 *
+		 * @return boolean
+		 */
+		public function is_wpml_active() {
+			return ! empty( $GLOBALS['sitepress'] ) && $GLOBALS['sitepress'] instanceof SitePress;
+		}
+
+		/**
 		 * When you are going to use any of the functions to create new rewrite rules you need to setup first
 		 *
 		 * @param  WP_Rewrite|null $wp_rewrite  Pass the WP_Rewrite if you have it
@@ -210,7 +237,7 @@ if ( ! class_exists( 'Tribe__Events__Rewrite' ) ) {
 			) );
 
 			// If WPML exists we treat the multiple languages
-			if ( ! empty( $GLOBALS['sitepress'] ) && $GLOBALS['sitepress'] instanceof SitePress ) {
+			if ( $this->is_wpml_active() ) {
 				global $sitepress;
 
 				// Grab all languages
