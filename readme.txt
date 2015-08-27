@@ -219,6 +219,7 @@ Our Premium Plugins:
 = [Unreleased] unreleased =
 
 * Feature - Added support for the long awaited Arbitrary Recurrence!  Creating recurring events with multiple granular rulesets is now possible.
+* Feature - Added support for WPML, thanks for waiting!
 * Feature - Extended CSV imports to include custom fields defined in events settings (Big thanks to zacwasielewski for submitting a similar pull request! You rock! :) )
 * Performance - Removed a no-longer needed join from many queries to provide faster page loads
 * Tweak - Pad SQL joins with spacing to avoid conflicts with other plugins that modify SQL (props to jeremyfelt)
