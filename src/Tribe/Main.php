@@ -4398,17 +4398,34 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		}
 
 		/**
-		 * If recurring events are imported using the WP importer, WP will flag
-		 * each instance as a duplicate. Here we alter the title so that
-		 * WP sees them as distinct posts.
+		 * Facilitates the import of events in WXR format (ie, via the core WP importer).
+		 *
+		 * When WP imports posts it avoids duplication by comparing the post name, date and
+		 * type of each. Once a post has been imported, if another post matching the above
+		 * criteria is found it is discarded.
+		 *
+		 * In the case of recurring events this would cause all but the first in a series
+		 * to be discarded and so we workaround the problem by altering the title (and
+		 * restoring it afterwards - during "wp_import_post_data_processed").
+		 *
+		 * We apply this to *all* events being imported because we also need to cater for
+		 * a scenario where events that were originally created as part of a set of
+		 * recurring events may later have been broken out of the chain into standalone
+		 * events (otherwise we could restrict this operation to only those events with
+		 * a post parent).
+		 *
+		 * We're retaining this logic in core (rather than move it to PRO) since it's
+		 * posible for data from a site running PRO to be imported into a site running only
+		 * core.
+		 *
+		 * @see Tribe__Events__Main::filter_wp_import_data_after()
 		 *
 		 * @param array $post
 		 *
 		 * @return array
-		 * @see Tribe__Events__Main::filter_wp_import_data_after()
 		 */
 		public function filter_wp_import_data_before( $post ) {
-			if ( $post['post_type'] == self::POSTTYPE && ! empty( $post['post_parent'] ) ) {
+			if ( $post['post_type'] === self::POSTTYPE ) {
 				$start_date = '';
 				if ( isset( $post['postmeta'] ) && is_array( $post['postmeta'] ) ) {
 					foreach ( $post['postmeta'] as $meta ) {
