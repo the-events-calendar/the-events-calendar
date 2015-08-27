@@ -90,7 +90,7 @@ if ( ! class_exists( 'Tribe__Events__Rewrite' ) ) {
 		 * @param  WP_Rewrite $wp_rewrite WordPress Rewrite that will be modified, pass it by reference (&$wp_rewrite)
 		 * @return void
 		 */
-		public function filter_generate( WP_Rewrite &$wp_rewrite ) {
+		public function filter_generate( WP_Rewrite $wp_rewrite ) {
 			$options = array(
 				'default_view' => Tribe__Events__Main::instance()->getOption( 'viewOption', 'month' ),
 			);
