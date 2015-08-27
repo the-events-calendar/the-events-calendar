@@ -319,6 +319,7 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 
 * Performance - Greatly optimized the generation of Month View data
 * Feature - Extended CSV importer fields to include full coverage of Event, Organizer, and Venue fields
+* Feature - Added support for WPML, thanks for waiting!
 * Feature - Make the attendees report nav filterable with tribe_events_tickets_attendees_table_nav (props to aaemnnosttv)
 * Feature - Add filters to the attendees report meta information: tribe_events_tickets_attendees_event_summary_table_before, tribe_events_tickets_attendees_event_details_top, tribe_events_tickets_attendees_event_details_bottom, tribe_events_tickets_attendees_ticket_sales_top, tribe_events_tickets_attendees_ticket_sales_bottom, tribe_events_tickets_attendees_totals_top, tribe_events_tickets_attendees_totals_bottom, tribe_events_tickets_attendees_event_summary_table_after (props to aaemnnosttv)
 * Feature - Make the attendees report page title filterable with tribe_events_tickets_attendees_event_title (props to aaemnnosttv)
