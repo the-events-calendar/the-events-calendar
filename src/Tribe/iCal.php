@@ -272,7 +272,7 @@ class Tribe__Events__iCal {
 				$long = Tribe__Events__Pro__Geo_Loc::instance()->get_lng_for_event( $event_post->ID );
 				$lat  = Tribe__Events__Pro__Geo_Loc::instance()->get_lat_for_event( $event_post->ID );
 				if ( ! empty( $long ) && ! empty( $lat ) ) {
-					$item[] = sprintf( 'GEO:%s;%s', $long, $lat );
+					$item[] = sprintf( 'GEO:%s;%s', $lat, $long );
 
 					$str_title = str_replace( array( ',', "\n" ), array( '\,', '\n' ), html_entity_decode( tribe_get_address( $event_post->ID ), ENT_QUOTES ) );
 
