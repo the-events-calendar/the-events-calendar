@@ -232,6 +232,7 @@ Our Premium Plugins:
 * Bug - Fixed notices that were being thrown while configuring the Countdown Widget in the Customizer
 * Bug - Fixed a problem where recurring event updates did not properly complete (props to Ian for detecting this problem!)
 * Bug - Fixed a problem where the first event in a series of recurring events could be excluded from the "All Events" view
+* Deprecated - Functions that added useless SQL have been removed from source: Tribe__Events__Pro__Main::posts_fields() and Tribe__Events__Pro__Main::posts_join()
 
 = [3.11.1] 2015-07-27 =
 
