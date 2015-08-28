@@ -1804,7 +1804,7 @@ class Tribe__Events__Pro__Recurrence_Meta {
 				$sql = preg_replace( '/SQL_CALC_FOUND_ROWS/', '', $sql );
 
 				// We don't want to grab the min EventStartDate or EventEndDate because without a group by that collapses everything
-				$sql = preg_replace( '/MIN\((wp_postmeta|tribe_event_end_date).meta_value\) as Event(Start|End)Date/', '$1.meta_value as Event$2Date', $sql );
+				$sql = preg_replace( '/MIN\((' . $wpdb->postmeta . '|tribe_event_end_date).meta_value\) as Event(Start|End)Date/', '$1.meta_value as Event$2Date', $sql );
 
 				// Let's get rid of the group by (non-greedily stop before the ORDER BY or LIMIT
 				$sql = preg_replace( '/GROUP BY .+?(ORDER|LIMIT)/', '$1', $sql );
