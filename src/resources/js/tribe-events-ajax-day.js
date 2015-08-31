@@ -171,11 +171,11 @@
 
 		}
 
-		$( te ).on( "tribe_ev_runAjax", function() {
+		$( te ).on( 'run-ajax.tribe', function() {
 			tribe_events_day_ajax_post();
 		} );
 
-		$( te ).on( "tribe_ev_updatingRecurrence", function() {
+		$( te ).on( 'updating-recurrence.tribe', function() {
 			if ( ts.filter_cats ) {
 				td.cur_url = ( td.default_permalinks ) ? base_url + '=' + td.cur_date : base_url + td.cur_date + '/';
 			}
@@ -231,12 +231,20 @@
 					}
 				}
 
+				/**
+				 * DEPRECATED: tribe_ev_serializeBar has been deprecated in 4.0. Use serialize-bar.tec.tribe instead
+				 */
 				$( te ).trigger( 'tribe_ev_serializeBar' );
+				$( te ).trigger( 'serialize-bar.tec.tribe' );
 
 				ts.params = $.param( ts.params );
 				ts.url_params = $.param( ts.url_params );
 
+				/**
+				 * DEPRECATED: tribe_ev_collectParams has been deprecated in 4.0. Use collect-params.tec.tribe instead
+				 */
 				$( te ).trigger( 'tribe_ev_collectParams' );
+				$( te ).trigger( 'collect-params.tec.tribe' );
 
 				ts.pushstate = true;
 				ts.do_string = false;
@@ -252,7 +260,13 @@
 				// @ifdef DEBUG
 				dbug && debug.time( 'Day View Ajax Timer' );
 				// @endif
+
+				/**
+				 * DEPRECATED: tribe_ev_ajaxStart and tribe_ev_dayView_AjaxStart have been deprecated in 4.0. Use ajax-start.tec.tribe and day-view-ajax-start.tec.tribe instead
+				 */
 				$( te ).trigger( 'tribe_ev_ajaxStart' ).trigger( 'tribe_ev_dayView_AjaxStart' );
+				$( te ).trigger( 'ajax-start.tec.tribe' ).trigger( 'day-view-ajax-start.tec.tribe' );
+
 				$( '#tribe-events-content .tribe-events-loop' ).tribe_spin();
 
 				$.post(
@@ -307,7 +321,11 @@
 
 							tribe_day_add_classes();
 
+							/**
+							 * DEPRECATED: tribe_ev_ajaxSuccess and tribe_ev_dayView_AjaxSuccess have been deprecated in 4.0. Use ajax-success.tec.tribe and day-view-ajax-success.tec.tribe instead
+							 */
 							$( te ).trigger( 'tribe_ev_ajaxSuccess' ).trigger( 'tribe_ev_dayView_AjaxSuccess' );
+							$( te ).trigger( 'ajax-success.tec.tribe' ).trigger( 'day-view-ajax-success.tec.tribe' );
 
 							// @ifdef DEBUG
 							dbug && debug.timeEnd( 'Day View Ajax Timer' );
