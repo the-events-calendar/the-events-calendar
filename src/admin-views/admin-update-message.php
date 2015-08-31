@@ -29,8 +29,8 @@
 	</div>
 
 	<div class="tribe-half-column">
-		<h3><?php _e( 'Keep the Core Plugin <strong>FREE</strong>!', 'tribe-events-calendar' ); ?></h3>
-		<p><?php _e( 'Every time you rate <strong>5 stars</strong>, a fairy is born. Okay maybe not, but more happy users mean more contributions and help on the forums. The community NEEDS your voice.', 'tribe-events-calendar' ); ?></p>
+		<h3><?php printf( esc_html__( 'Keep the Core Plugin %sFREE%s!', 'tribe-events-calendar' ), '<strong>', '</strong>' ); ?></h3>
+		<p><?php printf( esc_html__( 'Every time you rate %s5 stars%s, a fairy is born. Okay maybe not, but more happy users mean more contributions and help on the forums. The community NEEDS your voice.', 'tribe-events-calendar' ), '<strong>', '</strong>' ); ?></p>
 		<p><a href="http://wordpress.org/support/view/plugin-reviews/the-events-calendar?filter=5" target="_blank" class="button-primary"><?php esc_html_e( 'Rate It', 'tribe-events-calendar' ); ?></a></p>
 
 		<br/>
