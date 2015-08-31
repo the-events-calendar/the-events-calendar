@@ -74,7 +74,7 @@
 
 			if ( $( this ).parent().is( '.tribe-events-past' ) ) {
 				ts.view = 'past';
-			} else if ( result && 'undefined' !== result[1] ) {
+			} else if ( result && 'undefined' !== typeof result[1] ) {
 				ts.view = result[1];
 			} else {
 				ts.view = 'list';
