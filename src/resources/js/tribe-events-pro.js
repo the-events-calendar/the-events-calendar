@@ -350,10 +350,14 @@ if ( Object.prototype.hasOwnProperty.call( window, 'tribe_ev' ) ) {
 
 			tf.set_recurrence( recurrence_on );
 
+			/**
+			 * DEPRECATED: tribe_ev_updatingRecurrence and tribe_ev_runAjax have been deprecated in 4.0. Use updating-recurrence.events-pro.tribe and run-ajax.events-pro.tribe instead
+			 */
 			$( te ).trigger( 'tribe_ev_updatingRecurrence' ).trigger( 'tribe_ev_runAjax' );
+			$( te ).trigger( 'updating-recurrence.events-pro.tribe' ).trigger( 'run-ajax.events-pro.tribe' );
 		} );
 
-		$( te ).on( "tribe_ev_preCollectBarParams", function() {
+		$( te ).on( 'pre-collect-bar-params.tribe', function() {
 			if ( $geo_bar_input.length ) {
 				var tribe_map_val = $geo_bar_input.val();
 				if ( !tribe_map_val.length ) {
@@ -391,7 +395,11 @@ if ( Object.prototype.hasOwnProperty.call( window, 'tribe_ev' ) ) {
 					$( '#tribe-bar-geoloc-lng' ).val( tg.geocodes[$this.data( 'index' )].geometry.location.lng() );
 
 					tf.pre_ajax( function() {
+						/**
+						 * DEPRECATED: tribe_ev_runAjax has been deprecated in 4.0. Use run-ajax.events-pro.tribe instead
+						 */
 						$( te ).trigger( 'tribe_ev_runAjax' );
+						$( te ).trigger( 'run-ajax.events-pro.tribe' );
 						$geo_options.hide();
 					} );
 

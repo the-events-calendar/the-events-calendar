@@ -226,7 +226,11 @@
 				}
 				else {
 					tf.pre_ajax( function() {
+						/**
+						 * DEPRECATED: tribe_ev_reloadOldBrowser has been deprecated in 4.0. Use reload-old-browser.events-pro.tribe instead
+						 */
 						$( te ).trigger( 'tribe_ev_reloadOldBrowser' );
+						$( te ).trigger( 'reload-old-browser.events-pro.tribe' );
 					} );
 				}
 
@@ -266,7 +270,11 @@
 				}
 			}
 
+			/**
+			 * DEPRECATED: tribe_ev_serializeBar has been deprecated in 4.0. Use serialize-bar.events-pro.tribe instead
+			 */
 			$( te ).trigger( 'tribe_ev_serializeBar' );
+			$( te ).trigger( 'serialize-bar.events-pro.tribe' );
 
 			if ( tf.invalid_date_in_params( ts.params ) ) {
 				ts.ajax_running = false;
@@ -279,11 +287,15 @@
 
 			ts.params = $.param( ts.params );
 
+			/**
+			 * DEPRECATED: tribe_ev_collectParams has been deprecated in 4.0. Use collect-params.events-pro.tribe instead
+			 */
 			$( te ).trigger( 'tribe_ev_collectParams' );
+			$( te ).trigger( 'collect-params.events-pro.tribe' );
 
 		}
 
-		$( te ).on( "tribe_ev_reloadOldBrowser", function() {
+		$( te ).on( 'reload-old-browser.events-pro.tribe', function() {
 			tribe_generate_map_params();
 			window.location = td.cur_url + '?' + ts.params;
 		} );
@@ -312,7 +324,11 @@
 
 			$.post( GeoLoc.ajaxurl, ts.params, function( response ) {
 
+				/**
+				 * DEPRECATED: tribe_ev_ajaxStart and tribe_ev_mapView_AjaxStart have been deprecated in 4.0. Use ajax-start.events-pro.tribe and map-view-ajax-start.events-pro.tribe instead
+				 */
 				$( te ).trigger( 'tribe_ev_ajaxStart' ).trigger( 'tribe_ev_mapView_AjaxStart' );
+				$( te ).trigger( 'ajax-start.events-pro.tribe' ).trigger( 'map-view-ajax-start.events-pro.tribe' );
 
 				tf.enable_inputs( '#tribe_events_filters_form', 'input, select' );
 
@@ -364,7 +380,11 @@
 
 					}
 
+					/**
+					 * DEPRECATED: tribe_ev_ajaxSuccess and tribe_ev_mapView_AjaxSuccess have been deprecated in 4.0. Use ajax-success.events-pro.tribe and map-view-ajax-success.events-pro.tribe instead
+					 */
 					$( te ).trigger( 'tribe_ev_ajaxSuccess' ).trigger( 'tribe_ev_mapView_AjaxSuccess' );
+					$( te ).trigger( 'ajax-success.events-pro.tribe' ).trigger( 'map-view-ajax-success.events-pro.tribe' );
 
 					if ( response.markers.length > 0 ) {
 						centerMap();
@@ -408,7 +428,11 @@
 				}
 				else {
 					tf.pre_ajax( function() {
+						/**
+						 * DEPRECATED: tribe_ev_reloadOldBrowser has been deprecated in 4.0. Use reload-old-browser.events-pro.tribe instead
+						 */
 						$( te ).trigger( 'tribe_ev_reloadOldBrowser' );
+						$( te ).trigger( 'reload-old-browser.events-pro.tribe' );
 					} );
 				}
 			} ).on( 'click', 'li.tribe-events-nav-previous a', function( e ) {
@@ -435,7 +459,11 @@
 				}
 				else {
 					tf.pre_ajax( function() {
+						/**
+						 * DEPRECATED: tribe_ev_reloadOldBrowser has been deprecated in 4.0. Use reload-old-browser.events-pro.tribe instead
+						 */
 						$( te ).trigger( 'tribe_ev_reloadOldBrowser' );
+						$( te ).trigger( 'reload-old-browser.events-pro.tribe' );
 					} );
 				}
 			} );
@@ -464,7 +492,11 @@
 				}
 				else {
 					tf.pre_ajax( function() {
+						/**
+						 * DEPRECATED: tribe_ev_reloadOldBrowser has been deprecated in 4.0. Use reload-old-browser.events-pro.tribe instead
+						 */
 						$( te ).trigger( 'tribe_ev_reloadOldBrowser' );
+						$( te ).trigger( 'reload-old-browser.events-pro.tribe' );
 					} );
 				}
 
@@ -478,7 +510,7 @@
 		}
 
 		if ( GeoLoc.map_view ) {
-			$( te ).on( "tribe_ev_runAjax", function() {
+			$( te ).on( 'run-ajax.tribe', function() {
 				tribe_map_processOption();
 			} );
 		}
@@ -570,7 +602,11 @@
 									tribe_map_processOption( tg.geocodes[0] );
 								}
 								else {
+									/**
+									 * DEPRECATED: tribe_ev_reloadOldBrowser has been deprecated in 4.0. Use reload-old-browser.events-pro.tribe instead
+									 */
 									$( te ).trigger( 'tribe_ev_reloadOldBrowser' );
+									$( te ).trigger( 'reload-old-browser.events-pro.tribe' );
 								}
 							}
 
@@ -592,7 +628,11 @@
 							tribe_map_processOption();
 						}
 						else {
+							/**
+							 * DEPRECATED: tribe_ev_reloadOldBrowser has been deprecated in 4.0. Use reload-old-browser.events-pro.tribe instead
+							 */
 							$( te ).trigger( 'tribe_ev_reloadOldBrowser' );
+							$( te ).trigger( 'reload-old-browser.events-pro.tribe' );
 						}
 						spin_end();
 						return false;
