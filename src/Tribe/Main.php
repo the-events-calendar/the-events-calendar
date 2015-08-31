@@ -4567,7 +4567,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * vendor/ submodule.
 		 */
 		public function maybe_load_tickets_framework() {
-			if ( class_exists( 'Tribe__Events__Tickets__Main' ) ) {
+			if ( defined( 'TRIBE_TICKETS_DIR' ) ) {
 				return;
 			}
 
