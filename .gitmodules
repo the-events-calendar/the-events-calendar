@@ -10,3 +10,6 @@
 [submodule "vendor/tickets"]
 	path = vendor/tickets
 	url = git@github.com:moderntribe/tickets.git
+[submodule "common"]
+	path = common
+	url = git@github.com:moderntribe/tribe-common.git
