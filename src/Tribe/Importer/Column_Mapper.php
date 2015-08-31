@@ -48,22 +48,27 @@ class Tribe__Events__Importer__Column_Mapper {
 	}
 
 	private function get_event_column_names() {
-		return array(
-			'event_name'           => __( 'Event Name', 'tribe-events-calendar' ),
-			'event_description'    => __( 'Event Description', 'tribe-events-calendar' ),
-			'event_start_date'     => __( 'Event Start Date', 'tribe-events-calendar' ),
-			'event_start_time'     => __( 'Event Start Time', 'tribe-events-calendar' ),
-			'event_end_date'       => __( 'Event End Date', 'tribe-events-calendar' ),
-			'event_end_time'       => __( 'Event End Time', 'tribe-events-calendar' ),
-			'event_all_day'        => __( 'All Day Event', 'tribe-events-calendar' ),
-			'event_venue_name'     => __( 'Event Venue Name', 'tribe-events-calendar' ),
-			'event_organizer_name' => __( 'Event Organizer Name', 'tribe-events-calendar' ),
-			'event_show_map_link'  => __( 'Event Show Map Link', 'tribe-events-calendar' ),
-			'event_show_map'       => __( 'Event Show Map', 'tribe-events-calendar' ),
-			'event_cost'           => __( 'Event Cost', 'tribe-events-calendar' ),
-			'event_category'       => __( 'Event Category', 'tribe-events-calendar' ),
-			'event_website'  	   => __( 'Event Website', 'tribe-events-calendar' ),
-		);
+		return apply_filters( 'tribe_events_importer_event_column_names', array(
+			'event_name'              => __( 'Event Name', 'tribe-events-calendar' ),
+			'event_description'       => __( 'Event Description', 'tribe-events-calendar' ),
+			'event_start_date'        => __( 'Event Start Date', 'tribe-events-calendar' ),
+			'event_start_time'        => __( 'Event Start Time', 'tribe-events-calendar' ),
+			'event_end_date'          => __( 'Event End Date', 'tribe-events-calendar' ),
+			'event_end_time'          => __( 'Event End Time', 'tribe-events-calendar' ),
+			'event_all_day'           => __( 'All Day Event', 'tribe-events-calendar' ),
+			'event_venue_name'        => __( 'Event Venue Name', 'tribe-events-calendar' ),
+			'event_organizer_name'    => __( 'Event Organizer Name', 'tribe-events-calendar' ),
+			'event_show_map_link'     => __( 'Event Show Map Link', 'tribe-events-calendar' ),
+			'event_show_map'          => __( 'Event Show Map', 'tribe-events-calendar' ),
+			'event_cost'              => __( 'Event Cost', 'tribe-events-calendar' ),
+			'event_category'          => __( 'Event Category', 'tribe-events-calendar' ),
+			'event_website'           => __( 'Event Website', 'tribe-events-calendar' ),
+			'event_category'          => __( 'Event Category', 'tribe-events-calendar' ),
+			'event_website'           => __( 'Event Website', 'tribe-events-calendar' ),
+			'event_tags'              => __( 'Event Tags', 'tribe-events-calendar' ),
+			'event_currency_symbol'   => __( 'Event Currency Symbol', 'tribe-events-calendar' ),
+			'event_currency_position' => __( 'Event Currency Position', 'tribe-events-calendar' ),
+		) );
 	}
 
 	private function get_venue_column_names() {

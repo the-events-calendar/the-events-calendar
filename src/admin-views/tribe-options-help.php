@@ -183,7 +183,7 @@ $support_text[] = sprintf( __( '%sTutorials%s written by both members of our tea
 $support_text[] = '</li><li>';
 $support_text[] = __( "Release notes for painting an overall picture of the plugin's lifecycle and when features/bug fixes were introduced.", 'tribe-events-calendar' );
 $support_text[] = '</li><li>';
-$support_text[] = sprintf( __( "%sAdd-on documentation%s for all of Modern Tribe's official extensions for The Events Calendar (including WooTickets, Community Events, Eventbrite Tickets, Facebook Events, etc)", 'tribe-events-calendar' ), '<a href="http://m.tri.be/fk" target="blank">', '</a>' );
+$support_text[] = sprintf( __( "%sAdd-on documentation%s for all of Modern Tribe's official extensions for The Events Calendar (including WooTickets, Community Events, Eventbrite Tickets, Facebook Events, etc)", 'tribe-events-calendar' ), '<a href="' . esc_url( Tribe__Events__Main::$tecUrl . 'knowledgebase-category/primers/' ) . '" target="blank">', '</a>' );
 $support_text[] = '</li></ul>';
 $support_text[] = '<p>' . sprintf( __( "We've also got a %sModern Tribe UserVoice%s page where we're actively watching for feature ideas from the community. If after playing with the plugin and reviewing the resources above, you're finding a feature isn't present that should be, let us know. Vote up existing feature requests or add your own, and help us shape the future of the products business in a way that best meets the community's needs.", 'tribe-events-calendar' ), '<a href="http://tribe.uservoice.com/" target="blank">', '</a>' ) . '</p>';
 $support_text   = implode( $support_text );

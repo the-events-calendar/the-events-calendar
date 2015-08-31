@@ -5,7 +5,7 @@ Tags: events, calendar, event, venue, organizer, dates, date, google maps, confe
 Donate link: http://m.tri.be/29
 Requires at least: 3.9
 Tested up to: 4.3 beta 3
-Stable tag: 3.11.2
+Stable tag: 3.12a1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -170,6 +170,7 @@ Currently, the following add-ons are available for The Events Calendar/Events Ca
 * <a href="http://m.tri.be/cu">WPEC Tickets</a>, for using WP-eCommerce + The Events Calendar to sell event tickets directly from the frontend of your site.
 * <a href="http://m.tri.be/dp">Shopp Tickets</a>, for harnessing the power of Shopp to sell event tickets on your WordPress site.
 * <a href="http://m.tri.be/fa">Filter Bar</a>, for adding advanced frontend filtering capabilities to your events calendar.
+* <a href="http://m.tri.be/18h9">iCal Importer</a>, for importing events any iCal feed or ICS file.
 
 = I have a feature idea. What's the best way to tell you about it? =
 
@@ -289,6 +290,7 @@ Our Premium Plugins:
 * <a href="http://m.tri.be/cu" target="_blank">The Events Calendar: WPEC Tickets</a>
 * <a href="http://m.tri.be/dp" target="_blank">The Events Calendar: Shopp Tickets</a>
 * <a href="http://m.tri.be/fa" target="_blank">The Events Calendar: Filter Bar</a>
+* <a href="http://m.tri.be/18h9" target="_blank">The Events Calendar: iCal Importer</a>
 
 == Versioning ==
 
@@ -315,7 +317,34 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 
 = [Unreleased] unreleased =
 
+* Performance - Greatly optimized the generation of Month View data
+* Feature - Extended CSV importer fields to include full coverage of Event, Organizer, and Venue fields
+* Feature - Added support for WPML, thanks for waiting!
+* Feature - Make the attendees report nav filterable with tribe_events_tickets_attendees_table_nav (props to aaemnnosttv)
+* Feature - Add filters to the attendees report meta information: tribe_events_tickets_attendees_event_summary_table_before, tribe_events_tickets_attendees_event_details_top, tribe_events_tickets_attendees_event_details_bottom, tribe_events_tickets_attendees_ticket_sales_top, tribe_events_tickets_attendees_ticket_sales_bottom, tribe_events_tickets_attendees_totals_top, tribe_events_tickets_attendees_totals_bottom, tribe_events_tickets_attendees_event_summary_table_after (props to aaemnnosttv)
+* Feature - Make the attendees report page title filterable with tribe_events_tickets_attendees_event_title (props to aaemnnosttv)
+* Feature - Make the venue metabox template file filterable with tribe_events_venue_meta_box_template (props to aaemnnosttv)
+* Feature - Added a filter (tribe_show_organizer_email_obfuscation_alert) to make the organizer email obfuscation message optional
+* Feature - Added a filter (tribe_minutes_increment) that allows you to alter the minute incrementor used to generate the Minutes drop-down box (props to d4mation-)
+* Feature - Added timezone support to allow different events to be set in different timezones
+* Tweak - Relocated event recurrence-specific JS to Events PRO where it belongs
+* Tweak - Style nowrap on ticket forms with CSS rather than HTML attributes
+* Tweak - Updated the attendees template to use divs to separate event data (props to aaemnnosttv)
+* Tweak - Display the order id with a proper link in the attendees report
+* Tweak - Pointed the "Add-on Documentation" link on the Event > Settings > Help page to a better location.
+* Tweak - Pad SQL joins with spacing to avoid conflicts with other plugins that modify SQL (props to jeremyfelt)
+* Bug - Resolved bug where executing wp_insert_post within a hook to publish_tribe_events prevented event meta from being saved appropriately
+* Bug - Fixed a fatal caused by attempting to use get_current_screen before it was available for use in some contexts (props to Enchiridion)
+* Bug - Fixed bug where Date_Utils::datetime_from_format converted dates with 1 character days/months incorrectly
+* Bug - Fixed issue with event title attributes not always escaping properly on List and Day views
 * Bug - Fixed issue with Event Costs not updating when a new ticket was only submitted via Ajax
+* Bug - Fixed an issue Twenty Fourteen and the event views being hidden in screen sizes smaller then 400px
+* Bug - Fixed an issue where the month view date selector became full window width when Skeleton styles were enabled
+* Bug - Fixed a notice on the plugin updater page
+* Bug - Fixed a localization issue in the settings environment (props to @tititou36 for highlighting the issue)
+* Bug - Fixed a problem which was resetting the "Show Google Map" option for events when they were re-imported via CSV (thanks to @jameswemyss for highlighting this)
+* Deprecated - The tribe_events_getLink is being deprecated in favor of tribe_events_get_link. Scheduled removal from source is v4.2
+* Deprecated - The Tribe__Events__Advanced_Functions__Register_Meta::gmap_link() has been deprecated since 3.6 and has now been removed from source
 
 = [3.11.2] 2015-07-30 =
 

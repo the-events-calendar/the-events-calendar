@@ -134,7 +134,14 @@ class Tribe__Events__iCal {
 		// hijack to iCal template
 		if ( get_query_var( 'ical' ) || isset( $_GET['ical'] ) ) {
 			global $wp_query;
-			if ( is_single() ) {
+			if ( isset( $_GET['event_ids'] ) ) {
+				if ( empty( $_GET['event_ids'] ) ) {
+					die();
+				}
+				$event_ids = explode( ',', $_GET['event_ids'] );
+				$events    = Tribe__Events__Query::getEvents( array( 'post__in' => $event_ids ) );
+				self::generate_ical_feed( $events );
+			} else if ( is_single() ) {
 				self::generate_ical_feed( $wp_query->post, null );
 			} else {
 				self::generate_ical_feed();
@@ -165,8 +172,8 @@ class Tribe__Events__iCal {
 
 		$args = array(
 			'eventDisplay' => 'custom',
-			'start_date' => Tribe__Events__Template__Month::calculate_first_cell_date( $month ),
-			'end_date' => Tribe__Events__Template__Month::calculate_final_cell_date( $month ),
+			'start_date'   => Tribe__Events__Template__Month::calculate_first_cell_date( $month ),
+			'end_date'     => Tribe__Events__Template__Month::calculate_final_cell_date( $month ),
 			'posts_per_page' => -1,
 			'hide_upcoming' => true,
 		);
@@ -203,8 +210,7 @@ class Tribe__Events__iCal {
 		$blogName    = get_bloginfo( 'name' );
 
 		if ( $post ) {
-			$events_posts   = array();
-			$events_posts[] = $post;
+			$events_posts = is_array( $post ) ? $post : array( $post );
 		} else {
 			if ( tribe_is_month() ) {
 				$events_posts = self::get_month_view_events();
@@ -272,7 +278,7 @@ class Tribe__Events__iCal {
 				$long = Tribe__Events__Pro__Geo_Loc::instance()->get_lng_for_event( $event_post->ID );
 				$lat  = Tribe__Events__Pro__Geo_Loc::instance()->get_lat_for_event( $event_post->ID );
 				if ( ! empty( $long ) && ! empty( $lat ) ) {
-					$item[] = sprintf( 'GEO:%s;%s', $long, $lat );
+					$item[] = sprintf( 'GEO:%s;%s', $lat, $long );
 
 					$str_title = str_replace( array( ',', "\n" ), array( '\,', '\n' ), html_entity_decode( tribe_get_address( $event_post->ID ), ENT_QUOTES ) );
 
