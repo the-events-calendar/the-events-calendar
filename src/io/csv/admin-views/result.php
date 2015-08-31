@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 require_once 'header.php';
 ?>
 
-<h3><?php esc_html_e( 'Import Result', 'tribe-events-calendar' ) ?></h3>
+<h2><?php esc_html_e( 'Import Result', 'tribe-events-calendar' ) ?></h2>
 
 <p><strong><?php esc_html_e( 'Import complete!', 'tribe-events-calendar' ); ?></strong></p>
 <ul>

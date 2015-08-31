@@ -30,7 +30,7 @@ $licenses_tab = array(
 	),
 	'info-box-title' => array(
 		'type' => 'html',
-		'html' => '<h2>' . __( 'Licenses', 'tribe-events-calendar' ) . '</h2>',
+		'html' => '<h1>' . __( 'Licenses', 'tribe-events-calendar' ) . '</h1>',
 	),
 	'info-box-description' => array(
 		'type' => 'html',
