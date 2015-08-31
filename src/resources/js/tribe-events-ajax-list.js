@@ -74,7 +74,7 @@
 
 			if ( $( this ).parent().is( '.tribe-events-past' ) ) {
 				ts.view = 'past';
-			} else if ( 'undefined' !== result[1] ) {
+			} else if ( result && 'undefined' !== result[1] ) {
 				ts.view = result[1];
 			} else {
 				ts.view = 'list';
@@ -86,7 +86,7 @@
 			result = reg.exec( href );
 
 			// use what is on the URL if possible
-			if ( 'undefined' !== typeof result[1] ) {
+			if ( result && 'undefined' !== typeof result[1] ) {
 				ts.paged = result[1];
 			} else {
 				// otherwise figure it out based on the current page and direction
@@ -123,7 +123,7 @@
 
 			if ( $( this ).parent().is( '.tribe-events-past' ) ) {
 				ts.view = 'past';
-			} else if ( 'undefined' !== typeof result[1] ) {
+			} else if ( result && 'undefined' !== typeof result[1] ) {
 				ts.view = result[1];
 			} else {
 				ts.view = 'list';
@@ -134,7 +134,7 @@
 
 			td.cur_url = tf.url_path( $( this ).attr( 'href' ) );
 
-			if ( 'undefined' !== typeof result[1] ) {
+			if ( result && 'undefined' !== typeof result[1] ) {
 				ts.paged = result[1];
 			} else if ( 'list' === ts.view ) {
 				if ( ts.paged > 1 ) {
