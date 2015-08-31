@@ -1429,19 +1429,23 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * displays the saved venue dropdown in the event metabox
 		 * Used to be a PRO only feature, but as of 3.0, it is part of Core.
 		 *
-		 * @param int $postId the event ID for which to create the dropdown
+		 * @param int $post_id the event ID for which to create the dropdown
 		 */
-		public function displayEventVenueDropdown( $postId ) {
-			$VenueID         = get_post_meta( $postId, '_EventVenueID', true );
-			if ( ( ! $postId || get_post_status( $postId ) == 'auto-draft' ) && ! $VenueID && ( ( is_admin() && get_current_screen()->action == 'add' ) || ! is_admin() ) ) {
-				$VenueID = $this->defaults()->venue_id();
+		public function displayEventVenueDropdown( $post_id ) {
+			$venue_id = get_post_meta( $post_id, '_EventVenueID', true );
+			if (
+				( ! $post_id || get_post_status( $post_id ) === 'auto-draft' ) &&
+				! $venue_id &&
+				Tribe__Events__Admin__Helpers::instance()->is_action( 'add' )
+			) {
+				$venue_id = $this->defaults()->venue_id();
 			}
-			$VenueID = apply_filters( 'tribe_display_event_venue_dropdown_id', $VenueID );
+			$venue_id = apply_filters( 'tribe_display_event_venue_dropdown_id', $venue_id );
 
 			?>
 			<tr>
 				<td style="width:170px"><?php printf( __( 'Use Saved %s:', 'tribe-events-calendar' ), $this->singular_venue_label ); ?></td>
-				<td><?php $this->saved_venues_dropdown( $VenueID ); ?> <div class="edit-venue-link" <?php if ( empty( $VenueID ) ) { ?>style="display:none;"<?php } ?>><a data-admin-url="<?php echo esc_url( admin_url( 'post.php?action=edit&post=' ) ); ?>" href="<?php echo esc_url( admin_url( sprintf( 'post.php?action=edit&post=%s', $VenueID ) ) ); ?>" target="_blank"><?php echo esc_html( sprintf( __( 'Edit %s', 'tribe-events-calendar' ), $this->singular_venue_label ) ); ?></a></div></td>
+				<td><?php $this->saved_venues_dropdown( $venue_id ); ?> <div class="edit-venue-link" <?php if ( empty( $venue_id ) ) { ?>style="display:none;"<?php } ?>><a data-admin-url="<?php echo esc_url( admin_url( 'post.php?action=edit&post=' ) ); ?>" href="<?php echo esc_url( admin_url( sprintf( 'post.php?action=edit&post=%s', $venue_id ) ) ); ?>" target="_blank"><?php echo esc_html( sprintf( __( 'Edit %s', 'tribe-events-calendar' ), $this->singular_venue_label ) ); ?></a></div></td>
 			</tr>
 		<?php
 		}
@@ -1456,14 +1460,18 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				return;
 			}
 
-			$VenueID = get_post_meta( $post_id, '_EventVenueID', true );
-			if ( ( ! $post_id || get_post_status( $post_id ) == 'auto-draft' ) && ! $VenueID && ( ( is_admin() && get_current_screen()->action == 'add' ) || ! is_admin() ) ) {
-				$VenueID = $this->defaults()->venue_id();
+			$venue_id = get_post_meta( $post_id, '_EventVenueID', true );
+			if (
+				( ! $post_id || get_post_status( $post_id ) == 'auto-draft' ) &&
+				! $venue_id &&
+				Tribe__Events__Admin__Helpers::instance()->is_action( 'add' )
+			) {
+				$venue_id = $this->defaults()->venue_id();
 			}
-			$VenueID = apply_filters( 'tribe_display_event_venue_dropdown_id', $VenueID );
+			$venue_id = apply_filters( 'tribe_display_event_venue_dropdown_id', $venue_id );
 
 			// If there is a Venue of some sorts, don't display this message
-			if ( $VenueID ) {
+			if ( $venue_id ) {
 				return;
 			}
 			?>
@@ -1477,23 +1485,27 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * displays the saved organizer dropdown in the event metabox
 		 * Used to be a PRO only feature, but as of 3.0, it is part of Core.
 		 *
-		 * @param int $postId the event ID for which to create the dropdown
+		 * @param int $post_id the event ID for which to create the dropdown
 		 *
 		 * @return void
 		 */
-		public function displayEventOrganizerDropdown( $postId ) {
-			$curOrg          = get_post_meta( $postId, '_EventOrganizerID', true );
-			if ( ( ! $postId || get_post_status( $postId ) == 'auto-draft' ) && ! $curOrg && ( ( is_admin() && get_current_screen()->action == 'add' ) || ! is_admin() ) ) {
-				$curOrg = $this->defaults()->organizer_id();
+		public function displayEventOrganizerDropdown( $post_id ) {
+			$current_organizer = get_post_meta( $post_id, '_EventOrganizerID', true );
+			if (
+				( ! $post_id || get_post_status( $post_id ) === 'auto-draft' ) &&
+				! $current_organizer &&
+				Tribe__Events__Admin__Helpers::instance()->is_action( 'add' )
+			) {
+				$current_organizer = $this->defaults()->organizer_id();
 			}
-			$curOrg = apply_filters( 'tribe_display_event_organizer_dropdown_id', $curOrg );
+			$current_organizer = apply_filters( 'tribe_display_event_organizer_dropdown_id', $current_organizer );
 
 			?>
 			<tr class="">
 				<td style="width:170px">
-					<label for="saved_organizer"><?php printf( __( 'Use Saved %s:', 'tribe-events-calendar' ), $this->singular_organizer_label ); ?></label>
+					<label for="saved_organizer"><?php printf( esc_html__( 'Use Saved %s:', 'tribe-events-calendar' ), $this->singular_organizer_label ); ?></label>
 				</td>
-				<td><?php $this->saved_organizers_dropdown( $curOrg ); ?> <div class="edit-organizer-link"<?php if ( empty( $curOrg ) ) { ?> style="display:none;"<?php } ?>><a data-admin-url="<?php echo esc_url( admin_url( 'post.php?action=edit&post=' ) ); ?>" href="<?php echo esc_url( admin_url( sprintf( 'post.php?action=edit&post=%s', $curOrg ) ) ); ?>" target="_blank"><?php echo esc_html( sprintf( __( 'Edit %s', 'tribe-events-calendar' ), $this->singular_organizer_label ) ); ?></a></div></td>
+				<td><?php $this->saved_organizers_dropdown( $current_organizer ); ?> <div class="edit-organizer-link"<?php if ( empty( $current_organizer ) ) { ?> style="display:none;"<?php } ?>><a data-admin-url="<?php echo esc_url( admin_url( 'post.php?action=edit&post=' ) ); ?>" href="<?php echo esc_url( admin_url( sprintf( 'post.php?action=edit&post=%s', $current_organizer ) ) ); ?>" target="_blank"><?php echo esc_html( sprintf( __( 'Edit %s', 'tribe-events-calendar' ), $this->singular_organizer_label ) ); ?></a></div></td>
 			</tr>
 		<?php
 		}

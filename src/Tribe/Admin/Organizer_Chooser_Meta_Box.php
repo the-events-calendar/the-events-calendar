@@ -129,11 +129,7 @@ class Tribe__Events__Admin__Organizer_Chooser_Meta_Box {
 			return false; // the event has already been saved
 		}
 		if ( is_admin() ) {
-			if ( get_current_screen()->action == 'add' ) {
-				return true; // we're on the add new event screen
-			} else {
-				return false;
-			}
+			return Tribe__Events__Admin__Helpers::instance()->is_action( 'add' );
 		} else {
 			return true; // a front-end submission form (e.g., community)
 		}
