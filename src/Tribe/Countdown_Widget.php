@@ -18,6 +18,17 @@ if ( ! class_exists( 'Tribe__Events__Pro__Countdown_Widget' ) ) {
 			);
 			$control_ops = array( 'id_base' => 'tribe-events-countdown-widget' );
 			parent::__construct( 'tribe-events-countdown-widget', __( 'Events Countdown', 'tribe-events-calendar-pro' ), $widget_ops, $control_ops );
+
+			add_action( 'admin_enqueue_scripts', array( $this, 'load_assets' ) );
+		}
+
+		public function load_assets( $hook ) {
+			if ( 'widgets.php' !== $hook ) {
+				return;
+			}
+
+			Tribe__Events__Template_Factory::asset_package( 'select2' );
+			wp_enqueue_script( 'tribe-admin-widget-countdown', tribe_events_pro_resource_url( 'admin-widget-countdown.js' ), array( 'jquery' ), apply_filters( 'tribe_events_pro_js_version', Tribe__Events__Pro__Main::VERSION ) );
 		}
 
 		public function widget( $args, $instance ) {
