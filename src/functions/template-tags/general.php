@@ -130,9 +130,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @todo Abstract this function out of template tags or otherwise secure it from other namespace conflicts.
 	 */
 	function tribe_get_option( $optionName, $default = '' ) {
-		$tribe_ecp = Tribe__Events__Main::instance();
-
-		return apply_filters( 'tribe_get_option', $tribe_ecp->getOption( $optionName, $default ), $optionName, $default );
+		return apply_filters( 'tribe_get_option', Tribe__Settings_Manager::get_option( $optionName, $default ), $optionName, $default );
 	}
 
 	/**
@@ -176,8 +174,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @return void
 	 */
 	function tribe_update_option( $optionName, $value ) {
-		$tribe_ecp = Tribe__Events__Main::instance();
-		$tribe_ecp->setOption( $optionName, $value );
+		Tribe__Settings_Manager::set_option( $optionName, $value );
 	}
 
 	/**

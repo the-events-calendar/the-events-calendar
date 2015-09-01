@@ -81,8 +81,7 @@ class Tribe__Events__Updater {
 	}
 
 	protected function is_version_in_db_less_than( $version ) {
-		$tec = Tribe__Events__Main::instance();
-		$version_in_db = $tec->getOption( $this->version_option );
+		$version_in_db = Tribe__Settings_Manager::get_option( $this->version_option );
 
 		if ( version_compare( $version, $version_in_db ) > 0 ) {
 			return TRUE;
@@ -124,8 +123,7 @@ class Tribe__Events__Updater {
 	}
 
 	protected function migrate_from_sp_options() {
-		$tec = Tribe__Events__Main::instance();
-		$tec_options = Tribe__Events__Main::getOptions();
+		$tec_options = Tribe__Settings_Manager::get_options();
 		$option_names     = array(
 			'spEventsTemplate'   => 'tribeEventsTemplate',
 			'spEventsBeforeHTML' => 'tribeEventsBeforeHTML',
@@ -137,7 +135,7 @@ class Tribe__Events__Updater {
 				unset( $tec_options[ $old_name ] );
 			}
 		}
-		$tec->setOptions( $tec_options );
+		Tribe__Settings_Manager::set_options( $tec_options );
 	}
 
 	public function flush_rewrites() {

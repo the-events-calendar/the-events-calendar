@@ -153,7 +153,7 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 		 * @return object $query (modified)
 		 */
 		public static function pre_get_posts( $query ) {
-			$admin_helpers = Tribe__Events__Admin__Helpers::instance();
+			$admin_helpers = Tribe__Admin__Helpers::instance();
 
 			if ( $query->is_main_query() && is_home() ) {
 				// check option for including events in the main wordpress loop, if true, add events post type

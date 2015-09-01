@@ -16,9 +16,17 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 	 * This is where all the magic happens, the unicorns run wild and the leprechauns use WordPress to schedule events.
 	 */
 	class Tribe__Events__Main {
-		const EVENTSERROROPT      = '_tribe_events_errors';
+		/**
+		 * This constant is deprecated (as of 4.0) in favor of Tribe__Main::OPTIONNAME
+		 */
 		const OPTIONNAME          = 'tribe_events_calendar_options';
+
+		/**
+		 * This constant is deprecated (as of 4.0) in favor of Tribe__Main::OPTIONNAME
+		 */
 		const OPTIONNAMENETWORK   = 'tribe_events_calendar_network_options';
+
+		const EVENTSERROROPT      = '_tribe_events_errors';
 		const TAXONOMY            = 'tribe_events_cat';
 		const POSTTYPE            = 'tribe_events';
 		const VENUE_POST_TYPE     = 'tribe_venue';
@@ -29,12 +37,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		const FEED_URL          = 'https://theeventscalendar.com/feed/';
 		const INFO_API_URL      = 'http://wpapi.org/api/plugin/the-events-calendar.php';
 		const WP_PLUGIN_URL     = 'http://wordpress.org/extend/plugins/the-events-calendar/';
-
-		/**
-		 * Notices to be displayed in the admin
-		 * @var array
-		 */
-		protected $notices = array();
 
 		/**
 		 * Maybe display data wrapper
@@ -123,7 +125,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		public $todaySlug = 'today';
 		protected $postExceptionThrown = false;
 
-		protected static $networkOptions;
 		public $displaying;
 		public $pluginDir;
 		public $pluginPath;
@@ -221,7 +222,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			$this->pluginUrl  = plugins_url( $this->pluginDir );
 
 			// include the autolader class
-			require_once( $this->pluginPath . '/src/Tribe/Autoloader.php' );
+			require_once( $this->pluginPath . '/common/Tribe/Autoloader.php' );
 			$this->init_autoloading();
 
 			add_action( 'init', array( $this, 'loadTextDomain' ), 1 );
@@ -240,6 +241,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * Load all the required library files.
 		 */
 		protected function loadLibraries() {
+			// initialize the common libraries
+			$this->common();
+
 			// Tribe common resources
 			require_once $this->pluginPath . 'vendor/tribe-common-libraries/tribe-common-libraries.class.php';
 
@@ -268,15 +272,19 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			if ( ! defined( 'TRIBE_DISABLE_DEPRECATED_TAGS' ) ) {
 				require_once $this->pluginPath . 'src/functions/template-tags/deprecated.php';
 			}
+		}
 
-			// Load multisite defaults
-			if ( is_multisite() ) {
-				$tribe_events_mu_defaults = array();
-				if ( file_exists( WP_CONTENT_DIR . '/tribe-events-mu-defaults.php' ) ) {
-					require_once WP_CONTENT_DIR . '/tribe-events-mu-defaults.php';
-				}
-				self::$tribeEventsMuDefaults = apply_filters( 'tribe_events_mu_defaults', $tribe_events_mu_defaults );
+		/**
+		 * Common library object accessor method
+		 */
+		public function common() {
+			static $common;
+
+			if ( ! $common ) {
+				$common = new Tribe__Main;
 			}
+
+			return $common;
 		}
 
 		/**
@@ -402,13 +410,11 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			add_action( 'trash_' . self::VENUE_POST_TYPE, array( $this, 'cleanupPostVenues' ) );
 			add_action( 'trash_' . self::ORGANIZER_POST_TYPE, array( $this, 'cleanupPostOrganizers' ) );
 			add_action( 'wp_ajax_tribe_event_validation', array( $this, 'ajax_form_validate' ) );
-			add_action( 'tribe_debug', array( $this, 'renderDebug' ), 10, 2 );
-			add_action( 'tribe_debug', array( $this, 'renderDebug' ), 10, 2 );
-			add_action( 'plugins_loaded', array( 'Tribe__Events__Cache_Listener', 'instance' ) );
-			add_action( 'plugins_loaded', array( 'Tribe__Events__Cache', 'setup' ) );
-			add_action( 'plugins_loaded', array( 'Tribe__Events__Support', 'getInstance' ) );
+			add_action( 'plugins_loaded', array( 'Tribe__Cache_Listener', 'instance' ) );
+			add_action( 'plugins_loaded', array( 'Tribe__Cache', 'setup' ) );
+			add_action( 'plugins_loaded', array( 'Tribe__Support', 'getInstance' ) );
 			add_action( 'plugins_loaded', array( $this, 'set_meta_factory_global' ) );
-			add_action( 'plugins_loaded', array( 'Tribe__Events__App_Shop', 'instance' ) );
+			add_action( 'plugins_loaded', array( 'Tribe__App_Shop', 'instance' ) );
 			add_action( 'current_screen', array( $this, 'init_admin_list_screen' ) );
 
 			// Load organizer and venue editors
@@ -431,18 +437,14 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			// option pages
 			add_action( '_network_admin_menu', array( $this, 'initOptions' ) );
 			add_action( '_admin_menu', array( $this, 'initOptions' ) );
-			add_action( 'tribe_settings_do_tabs', array( $this, 'doSettingTabs' ) );
-			add_action( 'tribe_settings_do_tabs', array( $this, 'doNetworkSettingTab' ), 400 );
-			add_action( 'tribe_settings_content_tab_help', array( $this, 'doHelpTab' ) );
-			add_action( 'tribe_settings_validate_tab_network', array( $this, 'saveAllTabsHidden' ) );
 
 			add_action( 'load-tribe_events_page_tribe-events-calendar', array( 'Tribe__Events__Amalgamator', 'listen_for_migration_button' ), 10, 0 );
 			add_action( 'tribe_settings_after_save', array( $this, 'flushRewriteRules' ) );
 			add_action( 'load-edit-tags.php', array( $this, 'prepare_to_fix_tagcloud_links' ), 10, 0 );
-			add_action( 'update_option_' . self::OPTIONNAME, array( $this, 'fix_all_day_events' ), 10, 2 );
+			add_action( 'update_option_' . Tribe__Main::OPTIONNAME, array( $this, 'fix_all_day_events' ), 10, 2 );
 
 			// Check for a page that might conflict with events archive
-			add_action( 'admin_init', array( Tribe__Events__Admin__Notice__Archive_Slug_Conflict::instance(), 'maybe_add_admin_notice' ) );
+			add_action( 'admin_init', array( Tribe__Admin__Notice__Archive_Slug_Conflict::instance(), 'maybe_add_admin_notice' ) );
 
 			// add-on compatibility
 			if ( is_multisite() ) {
@@ -455,7 +457,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			add_action( 'all_admin_notices', array( $this, 'addViewCalendar' ) );
 			add_action( 'admin_head', array( $this, 'setInitialMenuMetaBoxes' ), 500 );
 			add_action( 'plugin_action_links_' . trailingslashit( $this->pluginDir ) . 'the-events-calendar.php', array( $this, 'addLinksToPluginActions' ) );
-			add_action( 'admin_menu', array( $this, 'addHelpAdminMenuItem' ), 50 );
 
 			// override default wp_terms_checklist arguments to prevent checked items from bubbling to the top. Instead, retain hierarchy.
 			add_filter( 'wp_terms_checklist_args', array( $this, 'prevent_checked_on_top_terms' ), 10, 2 );
@@ -633,11 +634,11 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			Tribe__Events__Query::init();
 			Tribe__Events__Backcompat::init();
-			Tribe__Events__Credits::init();
+			Tribe__Credits::init();
 			Tribe__Events__Timezones::init();
 			$this->registerPostType();
 
-			self::debug( sprintf( __( 'Initializing Tribe Events on %s', 'tribe-events-calendar' ), date( 'M, jS \a\t h:m:s a' ) ) );
+			Tribe__Debug::debug( sprintf( __( 'Initializing Tribe Events on %s', 'tribe-events-calendar' ), date( 'M, jS \a\t h:m:s a' ) ) );
 			$this->maybeSetTECVersion();
 		}
 
@@ -645,7 +646,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * Initializes any admin-specific code (expects to be called when admin_init fires).
 		 */
 		public function admin_init() {
-			$this->timezone_settings = new Tribe__Events__Admin__Timezone_Settings;
+			$this->timezone_settings = new Tribe__Admin__Timezone_Settings;
 		}
 
 		/**
@@ -653,9 +654,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 *
 		 */
 		public function maybeSetTECVersion() {
-			if ( version_compare( $this->getOption( 'latest_ecp_version' ), self::VERSION, '<' ) ) {
-				$previous_versions   = $this->getOption( 'previous_ecp_versions' ) ? $this->getOption( 'previous_ecp_versions' ) : array();
-				$previous_versions[] = ( $this->getOption( 'latest_ecp_version' ) ) ? $this->getOption( 'latest_ecp_version' ) : '0';
+			if ( version_compare( Tribe__Settings_Manager::get_option( 'latest_ecp_version' ), self::VERSION, '<' ) ) {
+				$previous_versions   = Tribe__Settings_Manager::get_option( 'previous_ecp_versions' ) ? Tribe__Settings_Manager::get_option( 'previous_ecp_versions' ) : array();
+				$previous_versions[] = ( Tribe__Settings_Manager::get_option( 'latest_ecp_version' ) ) ? Tribe__Settings_Manager::get_option( 'latest_ecp_version' ) : '0';
 
 				$this->setOption( 'previous_ecp_versions', $previous_versions );
 				$this->setOption( 'latest_ecp_version', self::VERSION );
@@ -741,8 +742,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @return void
 		 */
 		public function initOptions() {
-
-			Tribe__Events__Settings::instance();
 			Tribe__Events__Activation_Page::init();
 		}
 
@@ -789,20 +788,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @return void
 		 */
 		public function doSettingTabs() {
-			include_once( $this->pluginPath . 'src/admin-views/tribe-options-general.php' );
-			include_once( $this->pluginPath . 'src/admin-views/tribe-options-display.php' );
-
-			$showNetworkTabs = $this->getNetworkOption( 'showSettingsTabs', false );
-
-			new Tribe__Events__Settings_Tab( 'general', __( 'General', 'tribe-events-calendar' ), $generalTab );
-			new Tribe__Events__Settings_Tab( 'display', __( 'Display', 'tribe-events-calendar' ), $displayTab );
-
-			$this->do_licenses_tab();
-
-			new Tribe__Events__Settings_Tab( 'help', __( 'Help', 'tribe-events-calendar' ), array(
-				'priority'  => 60,
-				'show_save' => false,
-			) );
+			_deprecated_function( __METHOD__, '4.0', 'Tribe__Settings_Manager::do_setting_tabs' );
+			Tribe__Settings_Manager::instance()->do_setting_tabs();
 		}
 
 		/**
@@ -810,37 +797,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * only if premium addons are detected.
 		 */
 		protected function do_licenses_tab() {
-			$show_tab = ( current_user_can( 'update_plugins' ) && $this->have_addons() );
-
-			/**
-			 * Provides an oppotunity to override the decision to show or hide the licenses tab
-			 *
-			 * Normally it will only show if the current user has the "update_plugins" capability
-			 * and there are some currently-activated premium plugins.
-			 *
-			 * @var bool
-			 */
-			if ( ! apply_filters( 'tribe_events_show_licenses_tab', $show_tab ) ) {
-				return;
-			}
-
-			/**
-			 * @var $licenses_tab
-			 */
-			include $this->pluginPath . 'src/admin-views/tribe-options-licenses.php';
-
-			/**
-			 * Allows the fields displayed in the licenses tab to be modified.
-			 *
-			 * @var array
-			 */
-			$license_fields = apply_filters( 'tribe_license_fields', $licenses_tab );
-
-			new Tribe__Events__Settings_Tab( 'licenses', __( 'Licenses', 'tribe-events-calendar' ), array(
-				'priority'      => '40',
-				'fields'        => $license_fields,
-				'network_admin' => is_network_admin() ? true : false,
-			) );
+			_deprecated_function( __METHOD__, '4.0', 'Tribe__Settings_Manager::do_licenses_tab' );
+			Tribe__Settings_Manager::instance()->do_licenses_tab();
 		}
 
 		/**
@@ -849,21 +807,22 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @return bool
 		 */
 		protected function have_addons() {
-			$addons = apply_filters( 'tribe_licensable_addons', array() );
-			return ! empty( $addons );
+			_deprecated_function( __METHOD__, '4.0', 'Tribe__Settings_Manager::have_addons' );
+			return Tribe__Settings_Manager::instance()->have_addons();
 		}
 
 		/**
 		 * Create the help tab
 		 */
 		public function doHelpTab() {
-			include_once( $this->pluginPath . 'src/admin-views/tribe-options-help.php' );
+			_deprecated_function( __METHOD__, '4.0', 'Tribe__Settings_Manager::do_help_tab' );
+			Tribe__Settings_Manager::instance()->do_help_tab();
 		}
 
 		/**
 		 * Updates the start/end time on all day events to match the EOD cutoff
 		 *
-		 * @see 'update_option_'.self::OPTIONNAME
+		 * @see 'update_option_'.Tribe__Main::OPTIONNAME
 		 */
 		public function fix_all_day_events( $old_value, $new_value ) {
 			// avoid notices for missing indices
@@ -1003,7 +962,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		}
 
 		/**
-		 * Tribe debug function. usage: self::debug( 'Message', $data, 'log' );
+		 * Tribe debug function. usage: Tribe__Debug::debug( 'Message', $data, 'log' );
 		 *
 		 * @param string      $title  Message to display in log
 		 * @param string|bool $data   Optional data to display
@@ -1012,7 +971,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @return void
 		 */
 		public static function debug( $title, $data = false, $format = 'log' ) {
-			do_action( 'tribe_debug', $title, $data, $format );
+			_deprecated_function( __METHOD__, '4.0', 'Tribe__Debug::debug' );
+			Tribe__Debug::debug( $title, $data, $format );
 		}
 
 		/**
@@ -1025,13 +985,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @return void
 		 */
 		public function renderDebug( $title, $data = false, $format = 'log' ) {
-			$format = ucfirst( $format );
-			if ( $this->getOption( 'debugEvents' ) ) {
-				error_log( $this->pluginName . " $format: $title" );
-				if ( $data && $data != '' ) {
-					error_log( $this->pluginName . " $format: " . print_r( $data, true ) );
-				}
-			}
+			_deprecated_function( __METHOD__, '4.0', 'Tribe__Debug::render' );
+			Tribe__Debug::render( $title, $data, $format );
 		}
 
 		/**
@@ -1043,9 +998,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @return bool
 		 */
 		public static function setNotice( $key, $notice ) {
-			self::instance()->notices[ $key ] = $notice;
-
-			return true;
+			_deprecated_function( __METHOD__, '4.0', 'Tribe__Notices__Backend_Notices::set_notice' );
+			return Tribe__Notices__Backend_Notices::set_notice( $key, $notice );
 		}
 
 		/**
@@ -1056,7 +1010,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @return bool
 		 */
 		public static function isNotice( $key ) {
-			return ! empty( self::instance()->notices[ $key ] ) ? true : false;
+			_deprecated_function( __METHOD__, '4.0', 'Tribe__Notices__Backend_Notices::is_notice' );
+			return Tribe__Notices__Backend_Notices::is_notice( $key, $notice );
 		}
 
 		/**
@@ -1067,13 +1022,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @return bool
 		 */
 		public static function removeNotice( $key ) {
-			if ( self::isNotice( $key ) ) {
-				unset( self::instance()->notices[ $key ] );
-
-				return true;
-			} else {
-				return false;
-			}
+			_deprecated_function( __METHOD__, '4.0', 'Tribe__Notices__Backend_Notices::remove_notice' );
+			return Tribe__Notices__Backend_Notices::remove_notice( $key );
 		}
 
 		/**
@@ -1082,7 +1032,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @return array
 		 */
 		public static function getNotices() {
-			return self::instance()->notices;
+			_deprecated_function( __METHOD__, '4.0', 'Tribe__Notices__Backend_Notices::get' );
+			return Tribe__Notices__Backend_Notices::get();
 		}
 
 		/**
@@ -1184,7 +1135,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				)
 			);
 
-			if ( $this->getOption( 'showComments', 'no' ) == 'yes' ) {
+			if ( Tribe__Settings_Manager::get_option( 'showComments', 'no' ) == 'yes' ) {
 				add_post_type_support( self::POSTTYPE, 'comments' );
 			}
 
@@ -1196,7 +1147,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @return string
 		 */
 		public function getRewriteSlug() {
-			return sanitize_title( $this->getOption( 'eventsSlug', 'events' ) );
+			return sanitize_title( Tribe__Settings_Manager::get_option( 'eventsSlug', 'events' ) );
 		}
 
 		/**
@@ -1205,7 +1156,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @return string
 		 */
 		public function getRewriteSlugSingular() {
-			return sanitize_title( $this->getOption( 'singleEventSlug', 'event' ) );
+			return sanitize_title( Tribe__Settings_Manager::get_option( 'singleEventSlug', 'event' ) );
 		}
 
 		/**
@@ -1715,7 +1666,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @return void
 		 */
 		public function add_admin_assets() {
-			$admin_helpers = Tribe__Events__Admin__Helpers::instance();
+			$admin_helpers = Tribe__Admin__Helpers::instance();
 
 			// setup plugin resources & 3rd party vendor urls
 			$vendor_url    = trailingslashit( $this->pluginUrl ) . 'vendor/';
@@ -1840,12 +1791,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @return array of options
 		 */
 		public static function getOptions() {
-			$options = get_option( self::OPTIONNAME, array() );
-			if ( has_filter( 'tribe_get_options' ) ) {
-				_deprecated_function( 'tribe_get_options', '3.10', 'option_' . self::OPTIONNAME );
-				$options = apply_filters( 'tribe_get_options', $options );
-			}
-			return $options;
+			_deprecated_function( __METHOD__, '4.0', 'Tribe__Settings_Manager::get_options' );
+			return Tribe__Settings_Manager::get_options();
 		}
 
 		/**
@@ -1857,19 +1804,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @return mixed results of option query
 		 */
 		public static function getOption( $optionName, $default = '' ) {
-			if ( ! $optionName ) {
-				return null;
-			}
-			$options = self::getOptions();
-
-			$option = $default;
-			if ( isset( $options[ $optionName ] ) ) {
-				$option = $options[ $optionName ];
-			} elseif ( is_multisite() && isset( self::$tribeEventsMuDefaults ) && is_array( self::$tribeEventsMuDefaults ) && in_array( $optionName, array_keys( self::$tribeEventsMuDefaults ) ) ) {
-				$option = self::$tribeEventsMuDefaults[ $optionName ];
-			}
-
-			return apply_filters( 'tribe_get_single_option', $option, $default, $optionName );
+			_deprecated_function( __METHOD__, '4.0', 'Tribe__Settings_Manager::get_option' );
+			return Tribe__Settings_Manager::get_option( $optionName, $default );
 		}
 
 		/**
@@ -1881,14 +1817,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @return void
 		 */
 		public function setOptions( $options, $apply_filters = true ) {
-			if ( ! is_array( $options ) ) {
-				return;
-			}
-			if ( $apply_filters == true ) {
-				$options = apply_filters( 'tribe-events-save-options', $options );
-			}
-			update_option( self::OPTIONNAME, $options );
-			}
+			_deprecated_function( __METHOD__, '4.0', 'Tribe__Settings_Manager::set_options' );
+			Tribe__Settings_Manager::set_options( $options, $apply_filteres );
+		}
 
 		/**
 		 * Set an option
@@ -1899,25 +1830,18 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @return void
 		 */
 		public function setOption( $name, $value ) {
-			$newOption        = array();
-			$newOption[ $name ] = $value;
-			$options          = self::getOptions();
-			self::setOptions( wp_parse_args( $newOption, $options ) );
+			_deprecated_function( __METHOD__, '4.0', 'Tribe__Settings_Manager::set_option' );
+			Tribe__Settings_Manager::set_option( $name, $value );
 		}
 
 		/**
 		 * Get all network options for the Events Calendar
 		 *
 		 * @return array of options
-		 * @TODO add force option, implement in setNetworkOptions
 		 */
 		public static function getNetworkOptions() {
-			if ( ! isset( self::$networkOptions ) ) {
-				$options              = get_site_option( self::OPTIONNAMENETWORK, array() );
-				self::$networkOptions = apply_filters( 'tribe_get_network_options', $options );
-			}
-
-			return self::$networkOptions;
+			_deprecated_function( __METHOD__, '4.0', 'Tribe__Settings_Manager::get_network_options' );
+			return Tribe__Settings_Manager::get_network_options();
 		}
 
 		/**
@@ -1929,21 +1853,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @return mixed results of option query
 		 */
 		public function getNetworkOption( $optionName, $default = '' ) {
-			if ( ! $optionName ) {
-				return null;
-			}
-
-			if ( ! isset( self::$networkOptions ) ) {
-				self::getNetworkOptions();
-			}
-
-			if ( isset( self::$networkOptions[ $optionName ] ) ) {
-				$option = self::$networkOptions[ $optionName ];
-			} else {
-				$option = $default;
-			}
-
-			return apply_filters( 'tribe_get_single_network_option', $option, $default );
+			_deprecated_function( __METHOD__, '4.0', 'Tribe__Settings_Manager::get_network_option' );
+			return Tribe__Settings_Manager::get_network_option( $optionName, $default );
 		}
 
 		/**
@@ -1955,19 +1866,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @return void
 		 */
 		public function setNetworkOptions( $options, $apply_filters = true ) {
-			if ( ! is_array( $options ) ) {
-				return;
-			}
-			if ( $apply_filters == true ) {
-				$options = apply_filters( 'tribe-events-save-network-options', $options );
-			}
-
-			// @TODO use getNetworkOptions + force
-			if ( update_site_option( self::OPTIONNAMENETWORK, $options ) ) {
-				self::$networkOptions = apply_filters( 'tribe_get_network_options', $options );
-			} else {
-				self::$networkOptions = self::getNetworkOptions();
-			}
+			_deprecated_function( __METHOD__, '4.0', 'Tribe__Settings_Manager::set_network_options' );
+			Tribe__Settings_Manager::set_network_options( $options, $apply_filters );
 		}
 
 		/**
@@ -1976,13 +1876,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @return void
 		 */
 		public function addNetworkOptionsPage() {
-			$tribe_settings = Tribe__Events__Settings::instance();
-			add_submenu_page(
-				'settings.php', $this->pluginName, $this->pluginName, 'manage_network_options', 'tribe-events-calendar', array(
-					$tribe_settings,
-					'generatePage',
-				)
-			);
+			_deprecated_function( __METHOD__, '4.0', 'Tribe__Settings_Manager::add_network_options_page' );
+			Tribe__Settings_Manager::add_network_options_page();
 		}
 
 		/**
@@ -1991,9 +1886,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @return void
 		 */
 		public function doNetworkSettingTab() {
-			include_once( $this->pluginPath . 'src/admin-views/tribe-options-network.php' );
-
-			new Tribe__Events__Settings_Tab( 'network', __( 'Network', 'tribe-events-calendar' ), $networkTab );
+			_deprecated_function( __METHOD__, '4.0', 'Tribe__Settings_Manager::do_network_settings_tab' );
+			Tribe__Settings_Manager::do_network_settings_tab();
 		}
 
 		/**
@@ -2033,20 +1927,10 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * Save hidden tabs
 		 *
 		 * @return void
-		 * @TODO move somewhere else
 		 */
 		public function saveAllTabsHidden() {
-			$all_tabs_keys = array_keys( apply_filters( 'tribe_settings_all_tabs', array() ) );
-
-			$network_options = (array) get_site_option( self::OPTIONNAMENETWORK );
-
-			if ( isset( $_POST['hideSettingsTabs'] ) && $_POST['hideSettingsTabs'] == $all_tabs_keys ) {
-				$network_options['allSettingsTabsHidden'] = '1';
-			} else {
-				$network_options['allSettingsTabsHidden'] = '0';
-			}
-
-			$this->setNetworkOptions( $network_options );
+			_deprecated_function( __METHOD__, '4.0', 'Tribe__Settings_Manager::save_all_tabs_hidden' );
+			Tribe__Settings_Manager::instance()->save_all_tabs_hidden();
 		}
 
 		/**
@@ -2205,7 +2089,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 */
 		public function default_view() {
 			// Compare the stored default view option to the list of available views
-			$default         = $this->getOption( 'viewOption', 'month' );
+			$default         = Tribe__Settings_Manager::instance()->get_option( 'viewOption', 'month' );
 			$available_views = (array) apply_filters( 'tribe-events-bar-views', array(), false );
 
 			foreach ( $available_views as $view ) {
@@ -2219,7 +2103,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			$view       = $first_view['displaying'];
 
 			// Update the saved option
-			$this->setOption( 'viewOption', $view );
+			Tribe__Settings_Manager::instance()->set_option( 'viewOption', $view );
 
 			return $view;
 		}
@@ -2479,7 +2363,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			}
 
 			// Append Events structure
-			$event_url .= trailingslashit( sanitize_title( $this->getOption( 'eventsSlug', 'events' ) ) );
+			$event_url .= trailingslashit( sanitize_title( Tribe__Settings_Manager::get_option( 'eventsSlug', 'events' ) ) );
 
 			// if we're on an Event Cat, show the cat link, except for home and days.
 			if ( $type !== 'home' && is_tax( self::TAXONOMY ) && $term !== false && ! is_numeric( $term ) ) {
@@ -4168,29 +4052,10 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 		/**
 		 * Add help menu item to the admin (unless blocked via network admin settings).
-		 *
-		 * @todo move to an admin class
 		 */
 		public function addHelpAdminMenuItem() {
-			$hidden_settings_tabs = self::instance()->getNetworkOption( 'hideSettingsTabs', array() );
-			if ( in_array( 'help', $hidden_settings_tabs ) ) {
-				return;
-			}
-
-			$parent = 'edit.php?post_type=' . self::POSTTYPE;
-			$title  = __( 'Help', 'tribe-events-calendar' );
-			$slug   = esc_url(
-				add_query_arg(
-					array(
-						'post_type' => self::POSTTYPE,
-						'page'      => 'tribe-events-calendar',
-						'tab'       => 'help',
-					),
-					'edit.php'
-				)
-			);
-
-			add_submenu_page( $parent, $title, $title, 'manage_options', $slug, '' );
+			_deprecated_function( __METHOD__, '4.0', 'Tribe__Settings_Manager::add_help_admin_menu_item' );
+			Tribe__Settings_Manager::instance()->add_help_admin_menu_item();
 		}
 
 		/**
@@ -4484,15 +4349,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 *
 		 */
 		public static function array_insert_after_key( $key, $source_array, $insert_array ) {
-			if ( array_key_exists( $key, $source_array ) ) {
-				$position     = array_search( $key, array_keys( $source_array ) ) + 1;
-				$source_array = array_slice( $source_array, 0, $position, true ) + $insert_array + array_slice( $source_array, $position, null, true );
-			} else {
-				// If no key is found, then add it to the end of the array.
-				$source_array += $insert_array;
-			}
-
-			return $source_array;
+			_deprecated_function( __METHOD__, '4.0', 'Tribe__Main::array_insert_after_key' );
+			return Tribe__Main::instance()->array_insert_after_key( $key, $source_array, $insert_array );
 		}
 
 		/**
@@ -4505,15 +4363,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @return array
 		 */
 		public static function array_insert_before_key( $key, $source_array, $insert_array ) {
-			if ( array_key_exists( $key, $source_array ) ) {
-				$position     = array_search( $key, array_keys( $source_array ) );
-				$source_array = array_slice( $source_array, 0, $position, true ) + $insert_array + array_slice( $source_array, $position, null, true );
-			} else {
-				// If no key is found, then add it to the end of the array.
-				$source_array += $insert_array;
-			}
-
-			return $source_array;
+			_deprecated_function( __METHOD__, '4.0', 'Tribe__Main::array_insert_before_key' );
+			return Tribe__Main::instance()->array_insert_before_key( $key, $source_array, $insert_array );
 		}
 
 		public function run_updates() {
@@ -4541,15 +4392,16 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		}
 
 		protected function init_autoloading() {
-			$autoloader = Tribe__Events__Autoloader::instance();
+			$autoloader = Tribe__Autoloader::instance();
 
 			$prefixes = array(
 				'Tribe__Events__' => $this->pluginPath . 'src/Tribe',
+				'Tribe__' => $this->pluginPath . 'common/Tribe',
 			);
 			$autoloader->register_prefixes( $prefixes );
 
 			// deprecated classes are registered in a class to path fashion
-			foreach ( glob( $this->pluginPath . 'src/deprecated/*.php' ) as $file ) {
+			foreach ( glob( $this->pluginPath . '{common,src}/deprecated/*.php', GLOB_BRACE ) as $file ) {
 				$class_name = str_replace( '.php', '', basename( $file ) );
 				$autoloader->register_class( $class_name, $file );
 			}

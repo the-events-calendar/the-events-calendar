@@ -92,7 +92,7 @@ if ( ! class_exists( 'Tribe__Events__Rewrite' ) ) {
 		 */
 		public function filter_generate( WP_Rewrite $wp_rewrite ) {
 			$options = array(
-				'default_view' => Tribe__Events__Main::instance()->getOption( 'viewOption', 'month' ),
+				'default_view' => Tribe__Settings_Manager::get_option( 'viewOption', 'month' ),
 			);
 
 			// We need to Setup before using the Add methods
@@ -223,8 +223,8 @@ if ( ! class_exists( 'Tribe__Events__Rewrite' ) ) {
 				'tax' => (array) 'category',
 				'page' => (array) 'page',
 				'all' => (array) 'all',
-				'single' => (array) Tribe__Events__Main::instance()->getOption( 'singleEventSlug', 'event' ),
-				'archive' => (array) Tribe__Events__Main::instance()->getOption( 'eventsSlug', 'events' ),
+				'single' => (array) Tribe__Settings_Manager::get_option( 'singleEventSlug', 'event' ),
+				'archive' => (array) Tribe__Settings_Manager::get_option( 'eventsSlug', 'events' ),
 			) );
 
 			// By default we always have `en_US` to avoid 404 with older URLs
