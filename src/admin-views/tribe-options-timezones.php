@@ -24,7 +24,7 @@ HTML;
 return array(
 	'tribe_events_timezones_title' => array(
 		'type' => 'html',
-		'html' => '<h3>' . __( 'Timezone Settings', 'tribe-events-calendar' ) . '</h3>',
+		'html' => '<h2>' . __( 'Timezone Settings', 'tribe-events-calendar' ) . '</h2>',
 	),
 	'tribe_events_enable_timezones' => array(
 		'type' => 'html',

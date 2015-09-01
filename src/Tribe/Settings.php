@@ -243,9 +243,9 @@ if ( ! class_exists( 'Tribe__Events__Settings' ) ) {
 			do_action( 'tribe_settings_top' );
 			echo '<div class="tribe_settings wrap">';
 			screen_icon();
-			echo '<h2>';
+			echo '<h1>';
 			printf( __( '%s Settings', 'tribe-events-calendar' ), $this->menuName );
-			echo '</h2>';
+			echo '</h1>';
 			do_action( 'tribe_settings_above_tabs' );
 			$this->generateTabs( $this->currentTab );
 			do_action( 'tribe_settings_below_tabs' );

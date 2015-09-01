@@ -218,7 +218,7 @@ $more_text  = __( 'More...', 'tribe-events-calendar' );
 
 	<div class="tribe-settings-form-wrap">
 
-		<h3><?php esc_html_e( 'Getting Started', 'tribe-events-calendar' ); ?></h3>
+		<h2><?php esc_html_e( 'Getting Started', 'tribe-events-calendar' ); ?></h2>
 		<?php
 		/**
 		 * Filter the "Getting Started" text on the Settings > Help tab
@@ -228,7 +228,7 @@ $more_text  = __( 'More...', 'tribe-events-calendar' );
 		echo apply_filters( 'tribe_help_tab_introtext', $intro_text );
 		?>
 
-		<h3><?php esc_html_e( 'Support Resources To Help You Be Awesome', 'tribe-events-calendar' ); ?></h3>
+		<h2><?php esc_html_e( 'Support Resources To Help You Be Awesome', 'tribe-events-calendar' ); ?></h2>
 		<?php
 		/**
 		 * Filter the "Support Resources To Help You Be Awesome" text on the Settings > Help tab
@@ -238,7 +238,7 @@ $more_text  = __( 'More...', 'tribe-events-calendar' );
 		echo apply_filters( 'tribe_help_tab_supporttext', $support_text );
 		?>
 
-		<h3><?php esc_html_e( 'Forums: Because Everyone Needs A Buddy', 'tribe-events-calendar' ); ?></h3>
+		<h2><?php esc_html_e( 'Forums: Because Everyone Needs A Buddy', 'tribe-events-calendar' ); ?></h2>
 		<?php
 		/**
 		 * Filter the "Forums: Because Everyone Needs A Buddy" text on the Settings > Help tab
@@ -248,7 +248,7 @@ $more_text  = __( 'More...', 'tribe-events-calendar' );
 		echo apply_filters( 'tribe_help_tab_forumtext', $forum_text );
 		?>
 
-		<h3><?php esc_html_e( 'Not getting help?', 'tribe-events-calendar' ); ?></h3>
+		<h2><?php esc_html_e( 'Not getting help?', 'tribe-events-calendar' ); ?></h2>
 		<?php
 		/**
 		 * Filter the "Not getting help?" text on the Settings > Help tab
@@ -269,7 +269,7 @@ $more_text  = __( 'More...', 'tribe-events-calendar' );
 
 <div id="tribe-help-sidebar">
 	<div id="tribe-help-plugin-info">
-		<h3><?php esc_html_e( 'The Events Calendar', 'tribe-events-calendar' ); ?></h3>
+		<h2><?php esc_html_e( 'The Events Calendar', 'tribe-events-calendar' ); ?></h2>
 
 
 		<?php if ( isset( $up_to_date ) ) { ?><p><?php echo $up_to_date; ?></p><?php } ?>
@@ -298,7 +298,7 @@ $more_text  = __( 'More...', 'tribe-events-calendar' );
 
 
 	<?php if ( isset( $rating ) && isset( $num_rating ) ) { ?>
-		<h3><?php esc_html_e( 'Average Rating', 'tribe-events-calendar' ); ?></h3>
+		<h2><?php esc_html_e( 'Average Rating', 'tribe-events-calendar' ); ?></h2>
 		<?php wp_star_rating( array(
 			'rating' => $rating,
 			'type'   => 'percent',
@@ -318,7 +318,7 @@ $more_text  = __( 'More...', 'tribe-events-calendar' );
 		</p>
 	<?php } ?>
 
-	<h3><?php esc_html_e( 'Premium Add-Ons', 'tribe-events-calendar' ); ?></h3>
+	<h2><?php esc_html_e( 'Premium Add-Ons', 'tribe-events-calendar' ); ?></h2>
 	<ul>
 		<?php foreach ( $premium_add_ons as $addon ) :
 			echo '<li>';
@@ -337,7 +337,7 @@ $more_text  = __( 'More...', 'tribe-events-calendar' );
 	</ul>
 
 
-	<h3><?php esc_html_e( 'News and Tutorials', 'tribe-events-calendar' ); ?></h3>
+	<h2><?php esc_html_e( 'News and Tutorials', 'tribe-events-calendar' ); ?></h2>
 	<ul>
 		<?php
 		foreach ( $news_feed as $item ) {
