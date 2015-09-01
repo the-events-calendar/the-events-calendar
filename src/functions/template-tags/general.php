@@ -290,7 +290,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @return bool
 	 */
 	function tribe_event_is_all_day( $postId = null ) {
-		$output = Tribe__Events__Date_Utils::is_all_day( tribe_get_event_meta( $postId, '_EventAllDay', true ) );
+		$output = Tribe__Date_Utils::is_all_day( tribe_get_event_meta( $postId, '_EventAllDay', true ) );
 
 		return apply_filters( 'tribe_event_is_all_day', $output, $postId );
 	}
@@ -307,8 +307,8 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 */
 	function tribe_event_is_multiday( $postId = null ) {
 		$postId = Tribe__Events__Main::postIdHelper( $postId );
-		$start  = tribe_get_start_date( $postId, true, Tribe__Events__Date_Utils::DBDATETIMEFORMAT );
-		$end    = tribe_get_end_date( $postId, true, Tribe__Events__Date_Utils::DBDATETIMEFORMAT );
+		$start  = tribe_get_start_date( $postId, true, Tribe__Date_Utils::DBDATETIMEFORMAT );
+		$end    = tribe_get_end_date( $postId, true, Tribe__Date_Utils::DBDATETIMEFORMAT );
 
 		$end    = strtotime( $end );
 		$output = ( $end > strtotime( tribe_event_end_of_day( $start ) ) );
@@ -1158,7 +1158,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @param string|bool $day_cutoff
 	 *
 	 * @return int
-	 * @see Tribe__Events__Date_Utils::date_diff()
+	 * @see Tribe__Date_Utils::date_diff()
 	 **/
 	function tribe_get_days_between( $start_date, $end_date, $day_cutoff = '00:00' ) {
 		if ( $day_cutoff === false ) {
@@ -1176,7 +1176,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 			$end_date->modify( '-1 day' );
 		}
 
-		return Tribe__Events__Date_Utils::date_diff( $start_date->format( 'Y-m-d ' . $day_cutoff ), $end_date->format( 'Y-m-d ' . $day_cutoff ) );
+		return Tribe__Date_Utils::date_diff( $start_date->format( 'Y-m-d ' . $day_cutoff ), $end_date->format( 'Y-m-d ' . $day_cutoff ) );
 	}
 
 	/**
@@ -1637,18 +1637,18 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 *
 	 * @return mixed bool|string
 	 */
-	function tribe_events_latest_date( $format = Tribe__Events__Date_Utils::DBDATETIMEFORMAT ) {
+	function tribe_events_latest_date( $format = Tribe__Date_Utils::DBDATETIMEFORMAT ) {
 		// Check if the latest end date is already known
 		$latest = tribe_get_option( 'latest_date', false );
 		if ( false !== $latest ) {
-			return Tribe__Events__Date_Utils::reformat( $latest, $format );
+			return Tribe__Date_Utils::reformat( $latest, $format );
 		}
 
 		// If not, try to determine now
 		Tribe__Events__Main::instance()->rebuild_known_range();
 		$latest = tribe_get_option( 'latest_date', false );
 		if ( false !== $latest ) {
-			return Tribe__Events__Date_Utils::reformat( $latest, $format );
+			return Tribe__Date_Utils::reformat( $latest, $format );
 		}
 
 		return false;
@@ -1666,18 +1666,18 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 *
 	 * @return mixed bool|string
 	 */
-	function tribe_events_earliest_date( $format = Tribe__Events__Date_Utils::DBDATETIMEFORMAT ) {
+	function tribe_events_earliest_date( $format = Tribe__Date_Utils::DBDATETIMEFORMAT ) {
 		// Check if the earliest start date is already known
 		$earliest = tribe_get_option( 'earliest_date', false );
 		if ( false !== $earliest ) {
-			return Tribe__Events__Date_Utils::reformat( $earliest, $format );
+			return Tribe__Date_Utils::reformat( $earliest, $format );
 		}
 
 		// If not, try to determine now
 		Tribe__Events__Main::instance()->rebuild_known_range();
 		$earliest = tribe_get_option( 'earliest_date', false );
 		if ( false !== $earliest ) {
-			return Tribe__Events__Date_Utils::reformat( $earliest, $format );
+			return Tribe__Date_Utils::reformat( $earliest, $format );
 		}
 
 		return false;

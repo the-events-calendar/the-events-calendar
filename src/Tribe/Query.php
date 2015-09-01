@@ -218,11 +218,11 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 							// if the eventDisplay is 'custom', all we're gonna do is make sure the start and end dates are formatted
 							$start_date = $query->get( 'start_date' );
 							if ( $start_date ) {
-								$query->set( 'start_date', date_i18n( Tribe__Events__Date_Utils::DBDATETIMEFORMAT, strtotime( $start_date ) ) );
+								$query->set( 'start_date', date_i18n( Tribe__Date_Utils::DBDATETIMEFORMAT, strtotime( $start_date ) ) );
 							}
 							$end_date = $query->get( 'end_date' );
 							if ( $end_date ) {
-								$query->set( 'end_date', date_i18n( Tribe__Events__Date_Utils::DBDATETIMEFORMAT, strtotime( $end_date ) ) );
+								$query->set( 'end_date', date_i18n( Tribe__Date_Utils::DBDATETIMEFORMAT, strtotime( $end_date ) ) );
 							}
 							break;
 						case 'month':
@@ -230,7 +230,7 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 							if ( $query->get( 'start_date' ) == '' ) {
 								$event_date = ( $query->get( 'eventDate' ) != '' )
 									? $query->get( 'eventDate' )
-									: date_i18n( Tribe__Events__Date_Utils::DBDATETIMEFORMAT );
+									: date_i18n( Tribe__Date_Utils::DBDATETIMEFORMAT );
 								$query->set( 'start_date', tribe_event_beginning_of_day( $event_date ) );
 							}
 
@@ -244,7 +244,7 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 							$event_date = $query->get( 'eventDate' ) != '' ? $query->get( 'eventDate' ) : Date( 'Y-m-d', current_time( 'timestamp' ) );
 							$query->set( 'eventDate', $event_date );
 							$beginning_of_day = strtotime( tribe_event_beginning_of_day( $event_date ) ) + 1;
-							$query->set( 'start_date', date_i18n( Tribe__Events__Date_Utils::DBDATETIMEFORMAT, $beginning_of_day ) );
+							$query->set( 'start_date', date_i18n( Tribe__Date_Utils::DBDATETIMEFORMAT, $beginning_of_day ) );
 							$query->set( 'end_date', tribe_event_end_of_day( $event_date ) );
 							$query->set( 'posts_per_page', - 1 ); // show ALL day posts
 							$query->set( 'hide_upcoming', true );
@@ -261,7 +261,7 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 						default: // default display query
 							$event_date = ( $query->get( 'eventDate' ) != '' )
 								? $query->get( 'eventDate' )
-								: date_i18n( Tribe__Events__Date_Utils::DBDATETIMEFORMAT );
+								: date_i18n( Tribe__Date_Utils::DBDATETIMEFORMAT );
 							if ( ! $query->tribe_is_past ) {
 								$query->set( 'start_date', ( '' != $query->get( 'eventDate' ) ? tribe_event_beginning_of_day( $event_date ) : tribe_event_format_date( current_time( 'timestamp' ), true, 'Y-m-d H:i:s' ) ) );
 								$query->set( 'end_date', '' );
@@ -278,7 +278,7 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 					}
 				} else {
 					$query->set( 'hide_upcoming', true );
-					$query->set( 'start_date', date_i18n( Tribe__Events__Date_Utils::DBDATETIMEFORMAT ) );
+					$query->set( 'start_date', date_i18n( Tribe__Date_Utils::DBDATETIMEFORMAT ) );
 					$query->set( 'orderby', self::set_orderby( null, $query ) );
 					$query->set( 'order', self::set_order( null, $query ) );
 				}
@@ -808,7 +808,7 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 						);
 						$start_date = new DateTime( $post_id_query->query_vars['start_date'] );
 						$end_date   = new DateTime( $post_id_query->query_vars['end_date'] );
-						$days       = Tribe__Events__Date_Utils::date_diff( $start_date->format( 'Y-m-d' ), $end_date->format( 'Y-m-d' ) );
+						$days       = Tribe__Date_Utils::date_diff( $start_date->format( 'Y-m-d' ), $end_date->format( 'Y-m-d' ) );
 						$term_id    = isset( $wp_query->query_vars[ Tribe__Events__Main::TAXONOMY ] ) ? $wp_query->query_vars[ Tribe__Events__Main::TAXONOMY ] : null;
 						$terms = array();
 						if ( is_int( $term_id ) ) {

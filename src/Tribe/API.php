@@ -186,21 +186,21 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 			$date_provided = false;
 
 			if ( isset( $data['EventAllDay'] ) ) {
-				if ( Tribe__Events__Date_Utils::is_all_day( $data['EventAllDay'] ) ) {
+				if ( Tribe__Date_Utils::is_all_day( $data['EventAllDay'] ) ) {
 					$data['EventAllDay'] = 'yes';
 				} else {
 					$data['EventAllDay'] = 'no';
 				}
 			}
 
-			$datepicker_format = Tribe__Events__Date_Utils::datepicker_formats( tribe_get_option( 'datepickerFormat' ) );
+			$datepicker_format = Tribe__Date_Utils::datepicker_formats( tribe_get_option( 'datepickerFormat' ) );
 
 			if ( isset( $data['EventStartDate'] ) ) {
-				$data['EventStartDate'] = Tribe__Events__Date_Utils::datetime_from_format( $datepicker_format, $data['EventStartDate'] );
+				$data['EventStartDate'] = Tribe__Date_Utils::datetime_from_format( $datepicker_format, $data['EventStartDate'] );
 			}
 
 			if ( isset( $data['EventEndDate'] ) ) {
-				$data['EventEndDate'] = Tribe__Events__Date_Utils::datetime_from_format( $datepicker_format, $data['EventEndDate'] );
+				$data['EventEndDate'] = Tribe__Date_Utils::datetime_from_format( $datepicker_format, $data['EventEndDate'] );
 			}
 
 			if ( isset( $data['EventAllDay'] ) && 'yes' === $data['EventAllDay'] ) {
@@ -222,8 +222,8 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 					$end_date_string .= " {$data['EventEndMeridian']}";
 				}
 
-				$data['EventStartDate'] = date( Tribe__Events__Date_Utils::DBDATETIMEFORMAT, strtotime( $start_date_string ) );
-				$data['EventEndDate'] = date( Tribe__Events__Date_Utils::DBDATETIMEFORMAT, strtotime( $end_date_string ) );
+				$data['EventStartDate'] = date( Tribe__Date_Utils::DBDATETIMEFORMAT, strtotime( $start_date_string ) );
+				$data['EventEndDate'] = date( Tribe__Date_Utils::DBDATETIMEFORMAT, strtotime( $end_date_string ) );
 			}
 
 			if ( ! $date_provided ) {

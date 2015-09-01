@@ -144,8 +144,7 @@ class Tribe__Events__Updater {
 	}
 
 	public function set_capabilities() {
-		require_once( dirname( __FILE__ ) . '/Capabilities.php' );
-		$capabilities = new Tribe__Events__Capabilities();
+		$capabilities = new Tribe__Capabilities();
 		add_action( 'wp_loaded', array( $capabilities, 'set_initial_caps' ) );
 		add_action( 'wp_loaded', array( $this, 'reload_current_user' ), 11, 0 );
 	}
@@ -194,7 +193,7 @@ class Tribe__Events__Updater {
 	 */
 	public function remove_30_min_eod_cutoffs() {
 		$eod_cutoff = tribe_event_end_of_day();
-		if ( Tribe__Events__Date_Utils::minutes_only( $eod_cutoff ) == '29' ) {
+		if ( Tribe__Date_Utils::minutes_only( $eod_cutoff ) == '29' ) {
 			$eod_cutoff = date_create( '@' . ( strtotime( $eod_cutoff ) + 1 ) );
 			$eod_cutoff->modify( '+30 minutes' );
 			tribe_update_option( 'multiDayCutoff', $eod_cutoff->format( 'h:i' ) );

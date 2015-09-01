@@ -468,8 +468,8 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 						}
 					}
 
-					$event_start = strtotime( tribe_get_start_date( $event->ID, true, Tribe__Events__Date_Utils::DBDATETIMEFORMAT ) );
-					$event_end   = strtotime( tribe_get_end_date( $event->ID, true, Tribe__Events__Date_Utils::DBDATETIMEFORMAT ) );
+					$event_start = strtotime( tribe_get_start_date( $event->ID, true, Tribe__Date_Utils::DBDATETIMEFORMAT ) );
+					$event_end   = strtotime( tribe_get_end_date( $event->ID, true, Tribe__Date_Utils::DBDATETIMEFORMAT ) );
 
 					$start = date( 'Y-m-d', $event_start );
 					$end = date( 'Y-m-d', $event_end );
@@ -660,7 +660,7 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 				}
 
 				// Advance forward one day
-				$date = date( Tribe__Events__Date_Utils::DBDATEFORMAT, strtotime( "$date +1 day" ) );
+				$date = date( Tribe__Date_Utils::DBDATEFORMAT, strtotime( "$date +1 day" ) );
 			}
 
 			// If the month ended without bleeding into the next month, our current_month_ends property may not be set
@@ -727,7 +727,7 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 				$start_of_week = (int) get_option( 'start_of_week', 0 );
 			}
 
-			$day_1 = Tribe__Events__Date_Utils::first_day_in_month( $month );
+			$day_1 = Tribe__Date_Utils::first_day_in_month( $month );
 			if ( $day_1 < $start_of_week ) {
 				$day_1 += 7;
 			}
@@ -742,7 +742,7 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 				$date = new DateTime( $date->format( 'Y-m-01' ) );
 				$date->modify( "$diff days" );
 
-				return $date->format( Tribe__Events__Date_Utils::DBDATEFORMAT );
+				return $date->format( Tribe__Date_Utils::DBDATEFORMAT );
 			} catch ( Exception $e ) {
 				return false;
 			}
@@ -764,8 +764,8 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 				$start_of_week = (int) get_option( 'start_of_week', 0 );
 			}
 
-			$last_day    = Tribe__Events__Date_Utils::last_day_in_month( $month );
-			$end_of_week = Tribe__Events__Date_Utils::week_ends_on( $start_of_week );
+			$last_day    = Tribe__Date_Utils::last_day_in_month( $month );
+			$end_of_week = Tribe__Date_Utils::week_ends_on( $start_of_week );
 			if ( $end_of_week < $last_day ) {
 				$end_of_week += 7;
 			}
@@ -780,7 +780,7 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 				$date = new DateTime( $date->format( 'Y-m-t' ) );
 				$date->modify( "$diff days" );
 
-				return $date->format( Tribe__Events__Date_Utils::DBDATEFORMAT );
+				return $date->format( Tribe__Date_Utils::DBDATEFORMAT );
 			} catch ( Exception $e ) {
 				return false;
 			}
@@ -847,8 +847,8 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 		 */
 		public static function day_classes() {
 			$current_day  = self::get_current_day();
-			$calendar_day = Tribe__Events__Date_Utils::date_only( $current_day['date'] );
-			$today        = date_i18n( Tribe__Events__Date_Utils::DBDATEFORMAT );
+			$calendar_day = Tribe__Date_Utils::date_only( $current_day['date'] );
+			$today        = date_i18n( Tribe__Date_Utils::DBDATEFORMAT );
 
 			// Start by determining which month we're looking at
 			if ( $current_day['month'] == self::CURRENT_MONTH ) {

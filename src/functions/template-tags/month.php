@@ -213,7 +213,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	function tribe_get_month_view_date() {
 		global $wp_query;
 
-		$today = date_i18n( Tribe__Events__Date_Utils::DBDATEFORMAT, strtotime( date( 'Y-m-01', current_time( 'timestamp' ) ) ) );
+		$today = date_i18n( Tribe__Date_Utils::DBDATEFORMAT, strtotime( date( 'Y-m-01', current_time( 'timestamp' ) ) ) );
 		$date  = $today;
 
 		if ( ! empty( $_REQUEST['tribe-bar-date'] ) ) {
@@ -253,7 +253,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		$url  = tribe_get_previous_month_link();
 		$date = Tribe__Events__Main::instance()->previousMonth( tribe_get_month_view_date() );
 
-		if ( $date >= tribe_events_earliest_date( Tribe__Events__Date_Utils::DBYEARMONTHTIMEFORMAT ) ) {
+		if ( $date >= tribe_events_earliest_date( Tribe__Date_Utils::DBYEARMONTHTIMEFORMAT ) ) {
 			$text = tribe_get_previous_month_text();
 			$html = '<a data-month="' . $date . '" href="' . esc_url( $url ) . '" rel="prev"><span>&laquo;</span> ' . $text . ' </a>';
 		}
@@ -275,7 +275,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		// Check if $url is populated (an empty string may indicate the date was out-of-bounds, ie on 32bit servers)
 		if ( ! empty( $url ) ) {
 			$date = Tribe__Events__Main::instance()->nextMonth( tribe_get_month_view_date() );
-			if ( $date <= tribe_events_latest_date( Tribe__Events__Date_Utils::DBYEARMONTHTIMEFORMAT ) ) {
+			if ( $date <= tribe_events_latest_date( Tribe__Date_Utils::DBYEARMONTHTIMEFORMAT ) ) {
 				$html = '<a data-month="' . $date . '" href="' . esc_url( $url ) . '" rel="next">' . $text . ' <span>&raquo;</span></a>';
 			}
 		}

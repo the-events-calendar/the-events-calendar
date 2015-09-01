@@ -23,7 +23,7 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 		// When trying to find matches for all day events, the comparison should only be against the date
 		// component only since a) the time is irrelevant and b) the time may have been adjusted to match
 		// the eod cutoff setting
-		if ( Tribe__Events__Date_Utils::is_all_day( $all_day ) ) {
+		if ( Tribe__Date_Utils::is_all_day( $all_day ) ) {
 			$meta_query = array(
 				array(
 					'key'     => '_EventStartDate',
@@ -88,8 +88,8 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 		}
 
 		$start_date = $date_only
-			? date( Tribe__Events__Date_Utils::DBDATEFORMAT, strtotime( $start_date ) )
-			: date( Tribe__Events__Date_Utils::DBDATETIMEFORMAT, strtotime( $start_date ) );
+			? date( Tribe__Date_Utils::DBDATEFORMAT, strtotime( $start_date ) )
+			: date( Tribe__Date_Utils::DBDATETIMEFORMAT, strtotime( $start_date ) );
 
 		return $start_date;
 	}

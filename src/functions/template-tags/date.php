@@ -173,7 +173,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 */
 	function tribe_event_format_date( $date, $displayTime = true, $dateFormat = '' ) {
 
-		if ( ! Tribe__Events__Date_Utils::is_timestamp( $date ) ) {
+		if ( ! Tribe__Date_Utils::is_timestamp( $date ) ) {
 			$date = strtotime( $date );
 		}
 
@@ -271,7 +271,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		// kludge
 		if ( ! empty( $event->_end_date_fixed ) ) {
 			// @todo remove this once we can have all day events without a start / end time
-			$event_end = date_create( date( Tribe__Events__Date_Utils::DBDATETIMEFORMAT, $event_end ) );
+			$event_end = date_create( date( Tribe__Date_Utils::DBDATETIMEFORMAT, $event_end ) );
 			$event_end->modify( '+1 day' );
 			$event_end    = $event_end->format( 'U' );
 		}
@@ -281,7 +281,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		 * events that end exactly on the EOD cutoff will count on the previous day
 		 */
 
-		$event_is_on_date = Tribe__Events__Date_Utils::range_coincides( $start_of_day, $end_of_day, $event_start, $event_end );
+		$event_is_on_date = Tribe__Date_Utils::range_coincides( $start_of_day, $end_of_day, $event_start, $event_end );
 
 		return apply_filters( 'tribe_event_is_on_date', $event_is_on_date, $date, $event );
 

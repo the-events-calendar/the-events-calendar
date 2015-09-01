@@ -90,7 +90,7 @@ if ( ! class_exists( 'Tribe__Events__Template__Day' ) ) {
 
 			global $wp_query;
 
-			$time_format = apply_filters( 'tribe_events_day_timeslot_format', get_option( 'time_format', Tribe__Events__Date_Utils::TIMEFORMAT ) );
+			$time_format = apply_filters( 'tribe_events_day_timeslot_format', get_option( 'time_format', Tribe__Date_Utils::TIMEFORMAT ) );
 
 			if ( $wp_query->have_posts() ) {
 				$unsorted_posts = $wp_query->posts;
@@ -98,7 +98,7 @@ if ( ! class_exists( 'Tribe__Events__Template__Day' ) ) {
 					if ( tribe_event_is_all_day( $post->ID ) ) {
 						$post->timeslot = __( 'All Day', 'tribe-events-calendar' );
 					} else {
-						if ( strtotime( tribe_get_start_date( $post->ID, true, Tribe__Events__Date_Utils::DBDATETIMEFORMAT ) ) < strtotime( $wp_query->get( 'start_date' ) ) ) {
+						if ( strtotime( tribe_get_start_date( $post->ID, true, Tribe__Date_Utils::DBDATETIMEFORMAT ) ) < strtotime( $wp_query->get( 'start_date' ) ) ) {
 							$post->timeslot = __( 'Ongoing', 'tribe-events-calendar' );
 						} else {
 							$post->timeslot = tribe_get_start_date( $post, false, $time_format );

@@ -2413,7 +2413,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 					if ( empty( $secondary ) ) {
 						$secondary = $this->todaySlug;
 					} else {
-						$secondary = tribe_event_format_date( $secondary, false, Tribe__Events__Date_Utils::DBDATEFORMAT );
+						$secondary = tribe_event_format_date( $secondary, false, Tribe__Date_Utils::DBDATEFORMAT );
 					}
 					$event_url = trailingslashit( esc_url_raw( $event_url . $secondary ) );
 					break;
@@ -2724,7 +2724,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			_deprecated_function( __METHOD__, '3.11', 'date' );
 
 			if ( $date == '' ) {
-				return date( Tribe__Events__Date_Utils::DBDATEFORMAT );
+				return date( Tribe__Date_Utils::DBDATEFORMAT );
 			}
 
 			$date = str_replace( array( '-', '/', ' ', ':', chr( 150 ), chr( 151 ), chr( 45 ) ), '-', $date );
@@ -2732,7 +2732,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			list( $year, $month, $day ) = explode( '-', $date );
 
 			if ( ! checkdate( $month, $day, $year ) ) {
-				$date = date( Tribe__Events__Date_Utils::DBDATEFORMAT );
+				$date = date( Tribe__Date_Utils::DBDATEFORMAT );
 			} // today's date if error
 			else {
 				$date = $year . '-' . $month . '-' . $day;
@@ -2947,8 +2947,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			$current_min = tribe_events_earliest_date();
 			$current_max = tribe_events_latest_date();
 
-			$event_start = tribe_get_start_date( $object_id, false, Tribe__Events__Date_Utils::DBDATETIMEFORMAT );
-			$event_end   = tribe_get_end_date( $object_id, false, Tribe__Events__Date_Utils::DBDATETIMEFORMAT );
+			$event_start = tribe_get_start_date( $object_id, false, Tribe__Date_Utils::DBDATETIMEFORMAT );
+			$event_end   = tribe_get_end_date( $object_id, false, Tribe__Date_Utils::DBDATETIMEFORMAT );
 
 			if ( $current_min > $event_start ) {
 				tribe_update_option( 'earliest_date', $event_start );
@@ -3008,10 +3008,10 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			);
 
 			if ( $earliest ) {
-				tribe_update_option( 'earliest_date', date( Tribe__Events__Date_Utils::DBDATETIMEFORMAT, $earliest ) );
+				tribe_update_option( 'earliest_date', date( Tribe__Date_Utils::DBDATETIMEFORMAT, $earliest ) );
 			}
 			if ( $latest ) {
-				tribe_update_option( 'latest_date', date( Tribe__Events__Date_Utils::DBDATETIMEFORMAT, $latest ) );
+				tribe_update_option( 'latest_date', date( Tribe__Date_Utils::DBDATETIMEFORMAT, $latest ) );
 			}
 		}
 
@@ -4195,7 +4195,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				$caption = sprintf( __( '%s From', 'tribe-events-calendar' ), $this->plural_event_label );
 			} elseif ( tribe_is_day() ) {
 				$caption = __( 'Day Of', 'tribe-events-calendar' );
-				$value   = date( Tribe__Events__Date_Utils::DBDATEFORMAT, strtotime( $wp_query->query_vars['eventDate'] ) );
+				$value   = date( Tribe__Date_Utils::DBDATEFORMAT, strtotime( $wp_query->query_vars['eventDate'] ) );
 			}
 
 			$caption = apply_filters( 'tribe_bar_datepicker_caption', $caption );

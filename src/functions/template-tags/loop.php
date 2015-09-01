@@ -27,7 +27,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		$now       = time();
 		if ( isset( $post->EventStartDate ) ) {
 			$postTimestamp = strtotime( $post->EventStartDate, $now );
-			$postTimestamp = strtotime( date( Tribe__Events__Date_Utils::DBDATEFORMAT, $postTimestamp ), $now ); // strip the time
+			$postTimestamp = strtotime( date( Tribe__Date_Utils::DBDATEFORMAT, $postTimestamp ), $now ); // strip the time
 			if ( $postTimestamp != $tribe_ecp->currentPostTimestamp ) {
 				$retval = true;
 			}
