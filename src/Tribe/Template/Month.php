@@ -97,7 +97,7 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 
 		/**
 		 * HTML cache holder
-		 * @var Tribe__Events__Template_Part_Cache
+		 * @var Tribe__Template_Part_Cache
 		 */
 		private $html_cache;
 
@@ -157,7 +157,7 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 			// Cache the result of month/content.php
 			if ( $this->use_cache ) {
 				$cache_expiration = apply_filters( 'tribe_events_month_view_transient_expiration', HOUR_IN_SECONDS );
-				$this->html_cache = new Tribe__Events__Template_Part_Cache( 'month/content.php', serialize( $this->args ), $cache_expiration, 'save_post' );
+				$this->html_cache = new Tribe__Template_Part_Cache( 'month/content.php', serialize( $this->args ), $cache_expiration, 'save_post' );
 			}
 
 			$this->events_per_day  = apply_filters( 'tribe_events_month_day_limit', tribe_get_option( 'monthEventAmount', '3' ) );
@@ -376,7 +376,7 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 			$grid_start_datetime = tribe_event_beginning_of_day( $this->first_grid_date );
 			$grid_end_datetime   = tribe_event_end_of_day( $this->final_grid_date );
 
-			$cache     = new Tribe__Events__Cache();
+			$cache     = new Tribe__Cache();
 			$cache_key = 'events_in_month' . $grid_start_datetime . '-' . $grid_end_datetime;
 
 			// if we have a cached result, use that
