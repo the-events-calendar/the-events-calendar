@@ -18,10 +18,10 @@ if ( is_array( $venues ) && ! empty( $venues ) ) {
 	}
 }
 
-$state_options = Tribe__Events__View_Helpers::loadStates();
+$state_options = Tribe__View_Helpers::loadStates();
 $state_options = array_merge( array( '' => __( 'Select a State', 'tribe-events-calendar-pro' ) ), $state_options );
 
-$country_options = Tribe__Events__View_Helpers::constructCountries();
+$country_options = Tribe__View_Helpers::constructCountries();
 
 $defaultsTab = array(
 	'priority' => 30,
@@ -205,5 +205,5 @@ $defaultsTab = array(
 			'type' => 'html',
 			'html' => '</div>',
 		),
-	)
+	),
 );

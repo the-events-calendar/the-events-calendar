@@ -106,10 +106,10 @@ define( 'EVENTS_CALENDAR_PRO_DIR', dirname( __FILE__ ) );
 	 * autoloading.
 	 */
 	function tribe_init_events_pro_autoloading() {
-		if ( ! class_exists( 'Tribe__Events__Autoloader' ) ) {
+		if ( ! class_exists( 'Tribe__Autoloader' ) ) {
 			return;
 		}
-		$autoloader = Tribe__Events__Autoloader::instance();
+		$autoloader = Tribe__Autoloader::instance();
 
 		$autoloader->register_prefix( 'Tribe__Events__Pro__', dirname( __FILE__ ) . '/src/Tribe' );
 

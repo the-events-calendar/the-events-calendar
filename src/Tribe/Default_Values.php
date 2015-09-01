@@ -5,35 +5,35 @@ class Tribe__Events__Pro__Default_Values extends Tribe__Events__Default_Values {
 
 
 	public function venue_id() {
-		return Tribe__Events__Main::instance()->getOption( 'eventsDefaultVenueID', 0 );
+		return Tribe__Settings_Manager::get_option( 'eventsDefaultVenueID', 0 );
 	}
 
 	public function organizer_id() {
-		return Tribe__Events__Main::instance()->getOption( 'eventsDefaultOrganizerID', 0 );
+		return Tribe__Settings_Manager::get_option( 'eventsDefaultOrganizerID', 0 );
 	}
 
 	public function address() {
-		return Tribe__Events__Main::instance()->getOption( 'eventsDefaultAddress', '' );
+		return Tribe__Settings_Manager::get_option( 'eventsDefaultAddress', '' );
 	}
 
 	public function city() {
-		return Tribe__Events__Main::instance()->getOption( 'eventsDefaultCity', '' );
+		return Tribe__Settings_Manager::get_option( 'eventsDefaultCity', '' );
 	}
 
 	public function state() {
-		return Tribe__Events__Main::instance()->getOption( 'eventsDefaultState', '' );
+		return Tribe__Settings_Manager::get_option( 'eventsDefaultState', '' );
 	}
 
 	public function province() {
-		return Tribe__Events__Main::instance()->getOption( 'eventsDefaultProvince', '' );
+		return Tribe__Settings_Manager::get_option( 'eventsDefaultProvince', '' );
 	}
 
 	public function zip() {
-		return Tribe__Events__Main::instance()->getOption( 'eventsDefaultZip', '' );
+		return Tribe__Settings_Manager::get_option( 'eventsDefaultZip', '' );
 	}
 
 	public function country() {
-		$country = Tribe__Events__Main::instance()->getOption( 'defaultCountry', NULL );
+		$country = Tribe__Settings_Manager::get_option( 'defaultCountry', NULL );
 		if ( ! $country || ! is_array( $country ) ) {
 			$country = array( '', '' );
 		}
@@ -46,8 +46,6 @@ class Tribe__Events__Pro__Default_Values extends Tribe__Events__Default_Values {
 	}
 
 	public function phone() {
-		return Tribe__Events__Main::instance()->getOption( 'eventsDefaultPhone', '' );
+		return Tribe__Settings_Manager::get_option( 'eventsDefaultPhone', '' );
 	}
-
-
 }

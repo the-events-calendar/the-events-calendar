@@ -63,7 +63,7 @@
 					<select id="eventsDefaultState" name='eventsDefaultState'>
 						<option value=""><?php esc_html_e( 'Select a State:', 'tribe-events-calendar-pro' ); ?></option>
 						<?php
-						foreach ( Tribe__Events__View_Helpers::loadStates() as $abbr => $fullname ) {
+						foreach ( Tribe__View_Helpers::loadStates() as $abbr => $fullname ) {
 							?>
 							<option value="<?php echo esc_attr( $abbr ); ?>" <?php selected( $abbr, tribe_get_option( 'eventsDefaultState' ) ); ?>><?php echo $fullname; ?></option>
 							<?php
@@ -103,7 +103,7 @@
 		<td>
 			<select class="chosen" name="defaultCountry" id="defaultCountry">
 				<?php
-				$countries      = Tribe__Events__View_Helpers::constructCountries();
+				$countries      = Tribe__View_Helpers::constructCountries();
 				$defaultCountry = tribe_get_option( 'defaultCountry' );
 				foreach ( $countries as $abbr => $fullname ) {
 					?>

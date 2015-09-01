@@ -437,7 +437,7 @@ class Tribe__Events__Pro__Recurrence_Meta {
 			'exclusions' => array(),
 		);
 
-		$datepicker_format = Tribe__Events__Date_Utils::datepicker_formats( tribe_get_option( 'datepickerFormat' ) );
+		$datepicker_format = Tribe__Date_Utils::datepicker_formats( tribe_get_option( 'datepickerFormat' ) );
 
 		if ( ! empty( $data['recurrence'] ) ) {
 			if ( isset( $data['recurrence']['recurrence-description'] ) ) {
@@ -465,7 +465,7 @@ class Tribe__Events__Pro__Recurrence_Meta {
 					);
 
 					if ( ! empty( $recurrence['end'] ) ) {
-						$recurrence['end'] = Tribe__Events__Date_Utils::datetime_from_format( $datepicker_format, $recurrence['end'] );
+						$recurrence['end'] = Tribe__Date_Utils::datetime_from_format( $datepicker_format, $recurrence['end'] );
 					}
 
 					// if this isn't an exclusion and it isn't a Custom rule, then we don't need the custom array index
@@ -781,7 +781,7 @@ class Tribe__Events__Pro__Recurrence_Meta {
 	}
 
 	public static function get_child_event_ids( $post_id, $args = array() ) {
-		$cache    = new Tribe__Events__Cache();
+		$cache    = new Tribe__Cache();
 		$children = $cache->get( 'child_events_' . $post_id, 'save_post' );
 		if ( is_array( $children ) ) {
 			return $children;
@@ -798,13 +798,13 @@ class Tribe__Events__Pro__Recurrence_Meta {
 			'order'          => 'ASC',
 		) );
 		$children = get_posts( $args );
-		$cache->set( 'child_events_' . $post_id, $children, Tribe__Events__Cache::NO_EXPIRATION, 'save_post' );
+		$cache->set( 'child_events_' . $post_id, $children, Tribe__Cache::NO_EXPIRATION, 'save_post' );
 
 		return $children;
 	}
 
 	public static function get_events_by_slug( $slug ) {
-		$cache   = new Tribe__Events__Cache();
+		$cache   = new Tribe__Cache();
 		$all_ids = $cache->get( 'events_by_slug_' . $slug, 'save_post' );
 		if ( is_array( $all_ids ) ) {
 			return $all_ids;
@@ -825,7 +825,7 @@ class Tribe__Events__Pro__Recurrence_Meta {
 			return array();
 		}
 
-		$cache->set( 'events_by_slug_' . $slug, $all_ids, Tribe__Events__Cache::NO_EXPIRATION, 'save_post' );
+		$cache->set( 'events_by_slug_' . $slug, $all_ids, Tribe__Cache::NO_EXPIRATION, 'save_post' );
 
 		return $all_ids;
 	}
@@ -842,7 +842,7 @@ class Tribe__Events__Pro__Recurrence_Meta {
 		if ( empty( $post_id ) ) {
 			return array();
 		}
-		$cache = new Tribe__Events__Cache();
+		$cache = new Tribe__Cache();
 		$dates = $cache->get( 'event_dates_' . $post_id, 'save_post' );
 		if ( is_array( $dates ) ) {
 			return $dates;
@@ -854,7 +854,7 @@ class Tribe__Events__Pro__Recurrence_Meta {
 		$sql       = "SELECT meta_value FROM {$wpdb->postmeta} m INNER JOIN {$wpdb->posts} p ON p.ID=m.post_id AND (p.post_parent=%d OR p.ID=%d) WHERE meta_key='_EventStartDate' ORDER BY meta_value ASC";
 		$sql       = $wpdb->prepare( $sql, $post_id, $post_id );
 		$result    = $wpdb->get_col( $sql );
-		$cache->set( 'recurrence_start_dates_' . $post_id, $result, Tribe__Events__Cache::NO_EXPIRATION, 'save_post' );
+		$cache->set( 'recurrence_start_dates_' . $post_id, $result, Tribe__Cache::NO_EXPIRATION, 'save_post' );
 
 		return $result;
 	}
@@ -1844,7 +1844,7 @@ class Tribe__Events__Pro__Recurrence_Meta {
 		if ( $id == 'general' ) {
 
 			// we want to inject the hiding subsequent occurrences into the general section directly after "Live update AJAX"
-			$args = Tribe__Events__Main::array_insert_after_key( 'liveFiltersUpdate', $args, array(
+			$args = Tribe__Main::array_insert_after_key( 'liveFiltersUpdate', $args, array(
 				'hideSubsequentRecurrencesDefault' => array(
 					'type'            => 'checkbox_bool',
 					'label'           => __( 'Recurring event instances', 'tribe-events-calendar-pro' ),

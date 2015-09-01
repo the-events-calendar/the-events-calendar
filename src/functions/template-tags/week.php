@@ -187,7 +187,7 @@ if ( class_exists( 'Tribe__Events__Pro__Main' ) ) {
 	function tribe_events_week_previous_link( $text = '' ) {
 		try {
 			$date = tribe_get_first_week_day();
-			if ( $date <= tribe_events_earliest_date( Tribe__Events__Date_Utils::DBDATEFORMAT ) ) {
+			if ( $date <= tribe_events_earliest_date( Tribe__Date_Utils::DBDATEFORMAT ) ) {
 				return '';
 			}
 
@@ -216,8 +216,8 @@ if ( class_exists( 'Tribe__Events__Pro__Main' ) ) {
 	 */
 	function tribe_events_week_next_link( $text = '' ) {
 		try {
-			$date = date( Tribe__Events__Date_Utils::DBDATEFORMAT, strtotime( tribe_get_first_week_day() . ' +1 week' ) );
-			if ( $date >= tribe_events_latest_date( Tribe__Events__Date_Utils::DBDATEFORMAT ) ) {
+			$date = date( Tribe__Date_Utils::DBDATEFORMAT, strtotime( tribe_get_first_week_day() . ' +1 week' ) );
+			if ( $date >= tribe_events_latest_date( Tribe__Date_Utils::DBDATEFORMAT ) ) {
 				return '';
 			}
 

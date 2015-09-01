@@ -93,7 +93,7 @@ if ( ! class_exists( 'Tribe__Events__Pro__Countdown_Widget' ) ) {
 			$hourformat = ob_get_clean();
 
 			// Get the event start date.
-			$startdate = tribe_is_recurring_event( $event_ID ) ? $event_date . ' ' . tribe_get_start_date( $event_ID, false, Tribe__Events__Date_Utils::DBTIMEFORMAT ) : tribe_get_start_date( $event_ID, false, Tribe__Events__Date_Utils::DBDATETIMEFORMAT );
+			$startdate = tribe_is_recurring_event( $event_ID ) ? $event_date . ' ' . tribe_get_start_date( $event_ID, false, Tribe__Date_Utils::DBTIMEFORMAT ) : tribe_get_start_date( $event_ID, false, Tribe__Date_Utils::DBDATETIMEFORMAT );
 			// Get the number of seconds remaining until the date in question.
 			$seconds = strtotime( $startdate ) - current_time( 'timestamp' );
 			if ( $seconds > 0 ) {

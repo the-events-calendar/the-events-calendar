@@ -29,9 +29,9 @@ class Tribe__Events__Pro__Custom_Meta {
 		if ( ! isset( $tribe_ecp ) ) {
 			$tribe_ecp = Tribe__Events__Main::instance();
 		}
-		$options = $tribe_ecp->getOptions();
+		$options = Tribe__Settings_Manager::get_options();
 		array_splice( $options['custom-fields'], $_POST['field'] - 1, 1 );
-		$tribe_ecp->setOptions( $options, false );
+		Tribe__Settings_Manager::set_options( $options, false );
 		$wpdb->query( $wpdb->prepare( "DELETE FROM $wpdb->postmeta WHERE meta_key=%s", '_ecp_custom_' . $_POST['field'] ) );
 		die();
 	}
@@ -135,9 +135,9 @@ class Tribe__Events__Pro__Custom_Meta {
 	 * @return void
 	 */
 	public static function force_save_meta() {
-		$options = Tribe__Events__Main::getOptions();
+		$options = Tribe__Settings_Manager::get_options();
 		$options = self::save_meta_options( $options );
-		Tribe__Events__Main::instance()->setOptions( $options );
+		Tribe__Settings_Manager::set_options( $options );
 	}
 
 	/**
