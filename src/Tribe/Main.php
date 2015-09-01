@@ -1652,7 +1652,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @return array
 		 */
 		public function admin_body_class( $classes ) {
-			$admin_helpers = Tribe__Events__Admin__Helpers::instance();
+			$admin_helpers = Tribe__Admin__Helpers::instance();
 			if ( $admin_helpers->is_screen( 'settings_page_tribe-settings' ) || $admin_helpers->is_post_type_screen() ) {
 				$classes .= ' events-cal ';
 			}
@@ -3949,7 +3949,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 				if ( current_user_can( 'manage_options' ) ) {
 
-					$hide_all_settings = self::instance()->getNetworkOption( 'allSettingsTabsHidden', '0' );
+					$hide_all_settings = Tribe__Settings_Manager::get_network_option( 'allSettingsTabsHidden', '0' );
 					if ( $hide_all_settings == '0' ) {
 						$wp_admin_bar->add_menu(
 							array(
@@ -3962,7 +3962,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 					}
 
 					// Only show help link if it's not blocked in network admin.
-					$hidden_settings_tabs = self::instance()->getNetworkOption( 'hideSettingsTabs', array() );
+					$hidden_settings_tabs = Tribe__Settings_Manager::get_network_option( 'hideSettingsTabs', array() );
 					if ( ! in_array( 'help', $hidden_settings_tabs ) ) {
 						$wp_admin_bar->add_menu(
 									 array(
@@ -3984,7 +3984,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @return void
 		 */
 		public function addViewCalendar() {
-			if ( Tribe__Events__Admin__Helpers::instance()->is_screen( 'edit-' . self::POSTTYPE ) ) {
+			if ( Tribe__Admin__Helpers::instance()->is_screen( 'edit-' . self::POSTTYPE ) ) {
 				//Output hidden DIV with Calendar link to be displayed via javascript
 				echo '<div id="view-calendar-link-div" style="display:none;"><a class="add-new-h2" href="' . esc_url( $this->getLink() ) . '">' . esc_html__( 'View Calendar', 'tribe-events-calendar' ) . '</a></div>';
 			}
