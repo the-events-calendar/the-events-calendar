@@ -48,7 +48,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 			$dateFormat = tribe_get_time_format();
 		}
 
-		return tribe_event_format_date( $start_date, false, $dateFormat );
+		return tribe_format_date( $start_date, false, $dateFormat );
 	}
 
 	/**
@@ -87,7 +87,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 			$dateFormat = tribe_get_time_format();
 		}
 
-		return tribe_event_format_date( $end_date, false, $dateFormat );
+		return tribe_format_date( $end_date, false, $dateFormat );
 	}
 
 	/**
@@ -121,7 +121,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		}
 
 		$start_date = Tribe__Events__Timezones::event_start_timestamp( $event->ID, $timezone );
-		return tribe_event_format_date( $start_date, $displayTime, $dateFormat );
+		return tribe_format_date( $start_date, $displayTime, $dateFormat );
 	}
 
 	/**
@@ -156,7 +156,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		}
 
 		$end_date = Tribe__Events__Timezones::event_end_timestamp( $event->ID, $timezone );
-		return tribe_event_format_date( $end_date, $displayTime, $dateFormat );
+		return tribe_format_date( $end_date, $displayTime, $dateFormat );
 	}
 
 	/**

@@ -136,9 +136,9 @@ class Tribe__Events__Admin__Event_Meta_Box {
 	}
 
 	protected function set_start_date_time() {
-		$this->vars['startMinuteOptions']   = Tribe__Events__View_Helpers::getMinuteOptions( $this->vars['_EventStartDate'], true );
-		$this->vars['startHourOptions']     = Tribe__Events__View_Helpers::getHourOptions( $this->vars['_EventAllDay'] == 'yes' ? null : $this->vars['_EventStartDate'], true );
-		$this->vars['startMeridianOptions'] = Tribe__Events__View_Helpers::getMeridianOptions( $this->vars['_EventStartDate'], true );
+		$this->vars['startMinuteOptions']   = Tribe__View_Helpers::getMinuteOptions( $this->vars['_EventStartDate'], true );
+		$this->vars['startHourOptions']     = Tribe__View_Helpers::getHourOptions( $this->vars['_EventAllDay'] == 'yes' ? null : $this->vars['_EventStartDate'], true );
+		$this->vars['startMeridianOptions'] = Tribe__View_Helpers::getMeridianOptions( $this->vars['_EventStartDate'], true );
 
 		$datepicker_format = Tribe__Date_Utils::datepicker_formats( tribe_get_option( 'datepickerFormat' ) );
 
@@ -151,9 +151,9 @@ class Tribe__Events__Admin__Event_Meta_Box {
 	}
 
 	protected function set_end_date_time() {
-		$this->vars['endMinuteOptions']   = Tribe__Events__View_Helpers::getMinuteOptions( $this->vars['_EventEndDate'] );
-		$this->vars['endHourOptions']     = Tribe__Events__View_Helpers::getHourOptions( $this->vars['_EventAllDay'] == 'yes' ? null : $this->vars['_EventEndDate'] );
-		$this->vars['endMeridianOptions'] = Tribe__Events__View_Helpers::getMeridianOptions( $this->vars['_EventEndDate'] );
+		$this->vars['endMinuteOptions']   = Tribe__View_Helpers::getMinuteOptions( $this->vars['_EventEndDate'] );
+		$this->vars['endHourOptions']     = Tribe__View_Helpers::getHourOptions( $this->vars['_EventAllDay'] == 'yes' ? null : $this->vars['_EventEndDate'] );
+		$this->vars['endMeridianOptions'] = Tribe__View_Helpers::getMeridianOptions( $this->vars['_EventEndDate'] );
 
 		$datepicker_format = Tribe__Date_Utils::datepicker_formats( tribe_get_option( 'datepickerFormat' ) );
 

@@ -444,8 +444,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			add_action( 'template_redirect', array( $this, 'template_redirect' ) );
 
-			add_action( 'add_meta_boxes', array( 'Tribe__Events__Tickets__Metabox', 'maybe_add_meta_box' ) );
-			add_action( 'admin_enqueue_scripts', array( 'Tribe__Events__Tickets__Metabox', 'add_admin_scripts'  ) );
+			add_action( 'add_meta_boxes', array( 'Tribe__Tickets__Metabox', 'maybe_add_meta_box' ) );
+			add_action( 'admin_enqueue_scripts', array( 'Tribe__Tickets__Metabox', 'add_admin_scripts'  ) );
 
 			add_action( 'wp', array( $this, 'issue_noindex' ) );
 			add_action( 'plugin_row_meta', array( $this, 'addMetaLinks' ), 10, 2 );
@@ -2433,7 +2433,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 					if ( empty( $secondary ) ) {
 						$secondary = $this->todaySlug;
 					} else {
-						$secondary = tribe_event_format_date( $secondary, false, Tribe__Date_Utils::DBDATEFORMAT );
+						$secondary = tribe_format_date( $secondary, false, Tribe__Date_Utils::DBDATEFORMAT );
 					}
 					$event_url = trailingslashit( esc_url_raw( $event_url . $secondary ) );
 					break;

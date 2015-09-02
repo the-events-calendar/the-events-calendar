@@ -138,7 +138,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 				$first_event_date = tribe_get_start_date( $wp_query->posts[0], false );
 			} else {
 				//otherwise show the start date of the first event in the results
-				$first_event_date = tribe_event_format_date( $_REQUEST['tribe-bar-date'], false );
+				$first_event_date = tribe_format_date( $_REQUEST['tribe-bar-date'], false );
 			}
 
 			$last_event_date = tribe_get_end_date( $wp_query->posts[ count( $wp_query->posts ) - 1 ], false );
