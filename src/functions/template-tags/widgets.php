@@ -43,7 +43,7 @@ function tribe_events_the_mini_calendar_title() {
 	$args        = tribe_events_get_mini_calendar_args();
 	$date        = strtotime( $args['eventDate'] );
 	$date_format = tribe_get_option( 'monthAndYearFormat', 'M Y' );
-	$title       = tribe_event_format_date( $date, false, $date_format );
+	$title       = tribe_format_date( $date, false, $date_format );
 	echo apply_filters( 'tribe_events_the_mini_calendar_title', $title );
 }
 

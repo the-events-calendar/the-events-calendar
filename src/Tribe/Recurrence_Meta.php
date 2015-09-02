@@ -1058,7 +1058,7 @@ class Tribe__Events__Pro__Recurrence_Meta {
 				if ( 'rules' === $rule_type ) {
 					switch ( $recurrence['end-type'] ) {
 						case 'On':
-							$end = strtotime( tribe_event_end_of_day( $recurrence['end'] ) );
+							$end = strtotime( tribe_end_of_day( $recurrence['end'] ) );
 							break;
 						case 'Never':
 							$end = Tribe__Events__Pro__Recurrence::NO_END;
