@@ -117,7 +117,7 @@ class Tribe__Events__Admin__Event_Meta_Box {
 		$end_date = $this->vars['_EventEndDate'];
 
 		$ends_at_midnight = '23:59:59' === Tribe__Date_Utils::time_only( $end_date );
-		$midnight_cutoff  = '23:59:59' === Tribe__Date_Utils::time_only( tribe_event_end_of_day() );
+		$midnight_cutoff  = '23:59:59' === Tribe__Date_Utils::time_only( tribe_end_of_day() );
 
 		if ( ! $all_day || $ends_at_midnight || $midnight_cutoff ) {
 			return;

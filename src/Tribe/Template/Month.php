@@ -281,12 +281,12 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 			list( $search_term, $tax_term, $geographic_term ) = $this->get_search_terms();
 
 			if ( ! empty( $search_term ) ) {
-				Tribe__Events__Main::setNotice( 'event-search-no-results', sprintf( __( 'There were no results found for <strong>"%s"</strong> this month. Try searching next month.', 'tribe-events-calendar' ), esc_html( $search_term ) ) );
+				Tribe__Notices::set_notice( 'event-search-no-results', sprintf( __( 'There were no results found for <strong>"%s"</strong> this month. Try searching next month.', 'tribe-events-calendar' ), esc_html( $search_term ) ) );
 			} // if attempting to view a category archive.
 			elseif ( ! empty( $tax_term ) ) {
-				Tribe__Events__Main::setNotice( 'events-not-found', sprintf( __( 'No matching %1$s listed under %2$s. Please try viewing the full calendar for a complete list of events.', 'tribe-events-calendar' ), strtolower( $events_label_plural ), $tax_term ) );
+				Tribe__Notices::set_notice( 'events-not-found', sprintf( __( 'No matching %1$s listed under %2$s. Please try viewing the full calendar for a complete list of events.', 'tribe-events-calendar' ), strtolower( $events_label_plural ), $tax_term ) );
 			} else {
-				Tribe__Events__Main::setNotice( 'event-search-no-results', __( 'There were no results found.', 'tribe-events-calendar' ) );
+				Tribe__Notices::set_notice( 'event-search-no-results', __( 'There were no results found.', 'tribe-events-calendar' ) );
 			}
 		}
 
@@ -373,8 +373,8 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 		protected function set_events_in_month() {
 			global $wpdb;
 
-			$grid_start_datetime = tribe_event_beginning_of_day( $this->first_grid_date );
-			$grid_end_datetime   = tribe_event_end_of_day( $this->final_grid_date );
+			$grid_start_datetime = tribe_beginning_of_day( $this->first_grid_date );
+			$grid_end_datetime   = tribe_end_of_day( $this->final_grid_date );
 
 			$cache     = new Tribe__Cache();
 			$cache_key = 'events_in_month' . $grid_start_datetime . '-' . $grid_end_datetime;
@@ -437,8 +437,8 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 
 			if ( empty( $beginnings_and_ends[ $date ] ) ) {
 				$beginnings_and_ends[ $date ] = array(
-					'beginning' => tribe_event_beginning_of_day( $date ),
-					'end' => tribe_event_end_of_day( $date ),
+					'beginning' => tribe_beginning_of_day( $date ),
+					'end' => tribe_end_of_day( $date ),
 				);
 
 				$beginnings_and_ends[ $date ]['beginning_timestamp'] = strtotime( $beginnings_and_ends[ $date ]['beginning'] );
@@ -688,7 +688,7 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 			if ( false !== strtotime( $date . '-01' ) ) {
 				return $date;
 			} else {
-				Tribe__Events__Main::setNotice( 'requested-date-invalid',
+				Tribe__Notices::set_notice( 'requested-date-invalid',
 					sprintf( __( 'The requested date "%s" was not valid &ndash; showing the current month instead', 'tribe-events-calendar' ), esc_html( $date ) ) );
 
 				return date_i18n( 'Y-m' );

@@ -125,11 +125,31 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		public $todaySlug = 'today';
 		protected $postExceptionThrown = false;
 
-		public $displaying;
+		/**
+		 * Deprecated property in 4.0. Use plugin_dir instead
+		 */
 		public $pluginDir;
+
+		/**
+		 * Deprecated property in 4.0. Use plugin_path instead
+		 */
 		public $pluginPath;
+
+		/**
+		 * Deprecated property in 4.0. Use plugin_url instead
+		 */
 		public $pluginUrl;
+
+		/**
+		 * Deprecated property in 4.0. Use plugin_name instead
+		 */
 		public $pluginName;
+
+		public $displaying;
+		public $plugin_dir;
+		public $plugin_path;
+		public $plugin_url;
+		public $plugin_name;
 		public $date;
 		protected $tabIndexStart = 2000;
 
@@ -217,12 +237,12 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * Initializes plugin variables and sets up WordPress hooks/actions.
 		 */
 		protected function __construct() {
-			$this->pluginPath = trailingslashit( dirname( dirname( dirname( __FILE__ ) ) ) );
-			$this->pluginDir  = trailingslashit( basename( $this->pluginPath ) );
-			$this->pluginUrl  = plugins_url( $this->pluginDir );
+			$this->pluginPath = $this->plugin_path = trailingslashit( dirname( dirname( dirname( __FILE__ ) ) ) );
+			$this->pluginDir  = $this->plugin_dir = trailingslashit( basename( $this->plugin_path ) );
+			$this->pluginUrl  = $this->plugin_url = plugins_url( $this->plugin_dir );
 
 			// include the autolader class
-			require_once( $this->pluginPath . '/common/Tribe/Autoloader.php' );
+			require_once( $this->plugin_path . '/common/Tribe/Autoloader.php' );
 			$this->init_autoloading();
 
 			add_action( 'init', array( $this, 'loadTextDomain' ), 1 );
@@ -245,32 +265,32 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			$this->common();
 
 			// Tribe common resources
-			require_once $this->pluginPath . 'vendor/tribe-common-libraries/tribe-common-libraries.class.php';
+			require_once $this->plugin_path . 'vendor/tribe-common-libraries/tribe-common-libraries.class.php';
 
 			// Load CSV importer
-			require_once $this->pluginPath . 'src/io/csv/ecp-events-importer.php';
+			require_once $this->plugin_path . 'src/io/csv/ecp-events-importer.php';
 
 			// Load Template Tags
-			require_once $this->pluginPath . 'src/functions/template-tags/query.php';
-			require_once $this->pluginPath . 'src/functions/template-tags/general.php';
-			require_once $this->pluginPath . 'src/functions/template-tags/month.php';
-			require_once $this->pluginPath . 'src/functions/template-tags/loop.php';
-			require_once $this->pluginPath . 'src/functions/template-tags/google-map.php';
-			require_once $this->pluginPath . 'src/functions/template-tags/organizer.php';
-			require_once $this->pluginPath . 'src/functions/template-tags/venue.php';
-			require_once $this->pluginPath . 'src/functions/template-tags/date.php';
-			require_once $this->pluginPath . 'src/functions/template-tags/link.php';
-			require_once $this->pluginPath . 'src/functions/template-tags/widgets.php';
-			require_once $this->pluginPath . 'src/functions/template-tags/meta.php';
+			require_once $this->plugin_path . 'src/functions/template-tags/query.php';
+			require_once $this->plugin_path . 'src/functions/template-tags/general.php';
+			require_once $this->plugin_path . 'src/functions/template-tags/month.php';
+			require_once $this->plugin_path . 'src/functions/template-tags/loop.php';
+			require_once $this->plugin_path . 'src/functions/template-tags/google-map.php';
+			require_once $this->plugin_path . 'src/functions/template-tags/organizer.php';
+			require_once $this->plugin_path . 'src/functions/template-tags/venue.php';
+			require_once $this->plugin_path . 'src/functions/template-tags/date.php';
+			require_once $this->plugin_path . 'src/functions/template-tags/link.php';
+			require_once $this->plugin_path . 'src/functions/template-tags/widgets.php';
+			require_once $this->plugin_path . 'src/functions/template-tags/meta.php';
 
 			// Load Advanced Functions
-			require_once $this->pluginPath . 'src/functions/advanced-functions/event.php';
-			require_once $this->pluginPath . 'src/functions/advanced-functions/venue.php';
-			require_once $this->pluginPath . 'src/functions/advanced-functions/organizer.php';
+			require_once $this->plugin_path . 'src/functions/advanced-functions/event.php';
+			require_once $this->plugin_path . 'src/functions/advanced-functions/venue.php';
+			require_once $this->plugin_path . 'src/functions/advanced-functions/organizer.php';
 
 			// Load Deprecated Template Tags
 			if ( ! defined( 'TRIBE_DISABLE_DEPRECATED_TAGS' ) ) {
-				require_once $this->pluginPath . 'src/functions/template-tags/deprecated.php';
+				require_once $this->plugin_path . 'src/functions/template-tags/deprecated.php';
 			}
 		}
 
@@ -281,7 +301,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			static $common;
 
 			if ( ! $common ) {
-				$common = new Tribe__Main;
+				$common = new Tribe__Main( $this );
 			}
 
 			return $common;
@@ -456,7 +476,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			add_action( 'wp_before_admin_bar_render', array( $this, 'addToolbarItems' ), 10 );
 			add_action( 'all_admin_notices', array( $this, 'addViewCalendar' ) );
 			add_action( 'admin_head', array( $this, 'setInitialMenuMetaBoxes' ), 500 );
-			add_action( 'plugin_action_links_' . trailingslashit( $this->pluginDir ) . 'the-events-calendar.php', array( $this, 'addLinksToPluginActions' ) );
+			add_action( 'plugin_action_links_' . trailingslashit( $this->plugin_dir ) . 'the-events-calendar.php', array( $this, 'addLinksToPluginActions' ) );
 
 			// override default wp_terms_checklist arguments to prevent checked items from bubbling to the top. Instead, retain hierarchy.
 			add_filter( 'wp_terms_checklist_args', array( $this, 'prevent_checked_on_top_terms' ), 10, 2 );
@@ -492,7 +512,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		public function init_ical() {
 			//iCal
 			Tribe__Events__iCal::init();
-				require_once $this->pluginPath . 'src/functions/template-tags/ical.php';
+				require_once $this->plugin_path . 'src/functions/template-tags/ical.php';
 			}
 
 		/**
@@ -550,7 +570,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 */
 		public function init_day_view() {
 			// load day view functions
-			require_once $this->pluginPath . 'src/functions/template-tags/day.php';
+			require_once $this->plugin_path . 'src/functions/template-tags/day.php';
 		}
 
 		/**
@@ -601,7 +621,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * Run on applied action init
 		 */
 		public function init() {
-			$this->pluginName                                 = __( 'The Events Calendar', 'tribe-events-calendar' );
+			$this->pluginName = $this->plugin_name            = __( 'The Events Calendar', 'tribe-events-calendar' );
 			$this->rewriteSlug                                = $this->getRewriteSlug();
 			$this->rewriteSlugSingular                        = $this->getRewriteSlugSingular();
 			$this->taxRewriteSlug                             = $this->getTaxRewriteSlug();
@@ -998,8 +1018,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @return bool
 		 */
 		public static function setNotice( $key, $notice ) {
-			_deprecated_function( __METHOD__, '4.0', 'Tribe__Notices__Backend_Notices::set_notice' );
-			return Tribe__Notices__Backend_Notices::set_notice( $key, $notice );
+			_deprecated_function( __METHOD__, '4.0', 'Tribe__Notices::set_notice' );
+			return Tribe__Notices::set_notice( $key, $notice );
 		}
 
 		/**
@@ -1010,8 +1030,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @return bool
 		 */
 		public static function isNotice( $key ) {
-			_deprecated_function( __METHOD__, '4.0', 'Tribe__Notices__Backend_Notices::is_notice' );
-			return Tribe__Notices__Backend_Notices::is_notice( $key, $notice );
+			_deprecated_function( __METHOD__, '4.0', 'Tribe__Notices::is_notice' );
+			return Tribe__Notices::is_notice( $key, $notice );
 		}
 
 		/**
@@ -1022,8 +1042,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @return bool
 		 */
 		public static function removeNotice( $key ) {
-			_deprecated_function( __METHOD__, '4.0', 'Tribe__Notices__Backend_Notices::remove_notice' );
-			return Tribe__Notices__Backend_Notices::remove_notice( $key );
+			_deprecated_function( __METHOD__, '4.0', 'Tribe__Notices::remove_notice' );
+			return Tribe__Notices::remove_notice( $key );
 		}
 
 		/**
@@ -1032,8 +1052,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @return array
 		 */
 		public static function getNotices() {
-			_deprecated_function( __METHOD__, '4.0', 'Tribe__Notices__Backend_Notices::get' );
-			return Tribe__Notices__Backend_Notices::get();
+			_deprecated_function( __METHOD__, '4.0', 'Tribe__Notices::get' );
+			return Tribe__Notices::get();
 		}
 
 		/**
@@ -1669,11 +1689,11 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			$admin_helpers = Tribe__Admin__Helpers::instance();
 
 			// setup plugin resources & 3rd party vendor urls
-			$vendor_url    = trailingslashit( $this->pluginUrl ) . 'vendor/';
+			$vendor_url    = trailingslashit( $this->plugin_url ) . 'vendor/';
 
 			// admin stylesheet - only load admin stylesheet when on Tribe pages
 			if ( $admin_helpers->is_screen() ) {
-				wp_enqueue_style( self::POSTTYPE . '-admin', tribe_events_resource_url( 'events-admin.css' ), array(), apply_filters( 'tribe_events_css_version', self::VERSION ) );
+				wp_enqueue_style( self::POSTTYPE . '-admin', tribe_resource_url( 'events-admin.css' ), array(), apply_filters( 'tribe_events_css_version', self::VERSION ) );
 			}
 
 			// settings screen
@@ -2008,7 +2028,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @return void
 		 */
 		public function loadTextDomain() {
-			load_plugin_textdomain( 'tribe-events-calendar', false, $this->pluginDir . 'lang/' );
+			load_plugin_textdomain( 'tribe-events-calendar', false, $this->plugin_dir . 'lang/' );
 
 			// Setup the l10n strings
 			$this->setup_l10n_strings();
@@ -2243,7 +2263,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		public function get_i18n_strings( $strings, $languages, $domains = array(), $default_language = 'en_US' ) {
 			$domains = wp_parse_args( $domains, array(
 				'default' => true, // Default doesn't need file path
-				'tribe-events-calendar' => $this->pluginDir . 'lang/',
+				'tribe-events-calendar' => $this->plugin_dir . 'lang/',
 			) );
 
 			foreach ( $languages as $language ) {
@@ -3290,7 +3310,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			<div id='eventDetails' class="inside eventForm">
 				<table cellspacing="0" cellpadding="0" id="EventInfo" class="VenueInfo">
 					<?php
-					$venue_meta_box_template = apply_filters( 'tribe_events_venue_meta_box_template', $this->pluginPath . 'src/admin-views/venue-meta-box.php' );
+					$venue_meta_box_template = apply_filters( 'tribe_events_venue_meta_box_template', $this->plugin_path . 'src/admin-views/venue-meta-box.php' );
 					if ( ! empty( $venue_meta_box_template ) ) {
 						include( $venue_meta_box_template );
 					}
@@ -3334,7 +3354,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				<table cellspacing="0" cellpadding="0" id="EventInfo" class="OrganizerInfo">
 					<?php
 					$hide_organizer_title = true;
-					$organizer_meta_box_template = apply_filters( 'tribe_events_organizer_meta_box_template', $this->pluginPath . 'src/admin-views/organizer-meta-box.php' );
+					$organizer_meta_box_template = apply_filters( 'tribe_events_organizer_meta_box_template', $this->plugin_path . 'src/admin-views/organizer-meta-box.php' );
 					if ( ! empty( $organizer_meta_box_template ) ) {
 						include( $organizer_meta_box_template );
 					}
@@ -3486,7 +3506,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 */
 		public function addEventBox() {
 			add_meta_box(
-				'tribe_events_event_details', $this->pluginName, array(
+				'tribe_events_event_details', $this->plugin_name, array(
 					$this,
 					'EventsChooserBox',
 				), self::POSTTYPE, 'normal', 'high'
@@ -3523,7 +3543,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @return void
 		 */
 		public function eventMetaBox() {
-			include( $this->pluginPath . 'src/admin-views/event-sidebar-options.php' );
+			include( $this->plugin_path . 'src/admin-views/event-sidebar-options.php' );
 		}
 
 		/**
@@ -3722,7 +3742,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @return array The modified action links array.
 		 */
 		public function addMetaLinks( $links, $file ) {
-			if ( $file == $this->pluginDir . 'the-events-calendar.php' ) {
+			if ( $file == $this->plugin_dir . 'the-events-calendar.php' ) {
 				$anchor   = __( 'Support', 'tribe-events-calendar' );
 				$links[] = '<a href="' . esc_url( self::$dotOrgSupportUrl ) . '" target="_blank">' . $anchor . '</a>';
 
@@ -4350,7 +4370,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 */
 		public static function array_insert_after_key( $key, $source_array, $insert_array ) {
 			_deprecated_function( __METHOD__, '4.0', 'Tribe__Main::array_insert_after_key' );
-			return Tribe__Main::instance()->array_insert_after_key( $key, $source_array, $insert_array );
+			return $this->common()->array_insert_after_key( $key, $source_array, $insert_array );
 		}
 
 		/**
@@ -4364,7 +4384,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 */
 		public static function array_insert_before_key( $key, $source_array, $insert_array ) {
 			_deprecated_function( __METHOD__, '4.0', 'Tribe__Main::array_insert_before_key' );
-			return Tribe__Main::instance()->array_insert_before_key( $key, $source_array, $insert_array );
+			return $this->common()->array_insert_before_key( $key, $source_array, $insert_array );
 		}
 
 		public function run_updates() {
@@ -4395,13 +4415,13 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			$autoloader = Tribe__Autoloader::instance();
 
 			$prefixes = array(
-				'Tribe__Events__' => $this->pluginPath . 'src/Tribe',
-				'Tribe__' => $this->pluginPath . 'common/Tribe',
+				'Tribe__Events__' => $this->plugin_path . 'src/Tribe',
+				'Tribe__' => $this->plugin_path . 'common/Tribe',
 			);
 			$autoloader->register_prefixes( $prefixes );
 
 			// deprecated classes are registered in a class to path fashion
-			foreach ( glob( $this->pluginPath . '{common,src}/deprecated/*.php', GLOB_BRACE ) as $file ) {
+			foreach ( glob( $this->plugin_path . '{common,src}/deprecated/*.php', GLOB_BRACE ) as $file ) {
 				$class_name = str_replace( '.php', '', basename( $file ) );
 				$autoloader->register_class( $class_name, $file );
 			}
@@ -4441,7 +4461,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				return;
 			}
 
-			require_once $this->pluginPath . 'vendor/tickets/tickets.php';
+			require_once $this->plugin_path . 'vendor/tickets/tickets.php';
 		}
 
 	} // end Tribe__Events__Main class

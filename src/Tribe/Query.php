@@ -231,11 +231,11 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 								$event_date = ( $query->get( 'eventDate' ) != '' )
 									? $query->get( 'eventDate' )
 									: date_i18n( Tribe__Date_Utils::DBDATETIMEFORMAT );
-								$query->set( 'start_date', tribe_event_beginning_of_day( $event_date ) );
+								$query->set( 'start_date', tribe_beginning_of_day( $event_date ) );
 							}
 
 							if ( $query->get( 'end_date' == '' ) ) {
-								$query->set( 'end_date', tribe_event_end_of_day( $query->get( 'start_date' ) ) );
+								$query->set( 'end_date', tribe_end_of_day( $query->get( 'start_date' ) ) );
 							}
 							$query->set( 'hide_upcoming', true );
 
@@ -243,9 +243,9 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 						case 'day':
 							$event_date = $query->get( 'eventDate' ) != '' ? $query->get( 'eventDate' ) : Date( 'Y-m-d', current_time( 'timestamp' ) );
 							$query->set( 'eventDate', $event_date );
-							$beginning_of_day = strtotime( tribe_event_beginning_of_day( $event_date ) ) + 1;
+							$beginning_of_day = strtotime( tribe_beginning_of_day( $event_date ) ) + 1;
 							$query->set( 'start_date', date_i18n( Tribe__Date_Utils::DBDATETIMEFORMAT, $beginning_of_day ) );
-							$query->set( 'end_date', tribe_event_end_of_day( $event_date ) );
+							$query->set( 'end_date', tribe_end_of_day( $event_date ) );
 							$query->set( 'posts_per_page', - 1 ); // show ALL day posts
 							$query->set( 'hide_upcoming', true );
 							$query->set( 'order', self::set_order( 'ASC', $query ) );
@@ -263,13 +263,13 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 								? $query->get( 'eventDate' )
 								: date_i18n( Tribe__Date_Utils::DBDATETIMEFORMAT );
 							if ( ! $query->tribe_is_past ) {
-								$query->set( 'start_date', ( '' != $query->get( 'eventDate' ) ? tribe_event_beginning_of_day( $event_date ) : tribe_event_format_date( current_time( 'timestamp' ), true, 'Y-m-d H:i:s' ) ) );
+								$query->set( 'start_date', ( '' != $query->get( 'eventDate' ) ? tribe_beginning_of_day( $event_date ) : tribe_event_format_date( current_time( 'timestamp' ), true, 'Y-m-d H:i:s' ) ) );
 								$query->set( 'end_date', '' );
 								$query->set( 'order', self::set_order( 'ASC', $query ) );
 							} else {
 								// on past view, set the passed date as the end date
 								$query->set( 'start_date', '' );
-								$query->set( 'end_date', tribe_event_end_of_day( $event_date ) );
+								$query->set( 'end_date', tribe_end_of_day( $event_date ) );
 								$query->set( 'order', self::set_order( 'DESC', $query ) );
 							}
 							$query->set( 'orderby', self::set_orderby( null, $query ) );
@@ -742,8 +742,8 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 			$date     = date( 'Y-m-d' );
 			$defaults = array(
 				'post_type'         => Tribe__Events__Main::POSTTYPE,
-				'start_date'        => tribe_event_beginning_of_day( $date ),
-				'end_date'          => tribe_event_end_of_day( $date ),
+				'start_date'        => tribe_beginning_of_day( $date ),
+				'end_date'          => tribe_end_of_day( $date ),
 				'display_type'      => 'daily',
 				'hide_upcoming_ids' => null,
 			);

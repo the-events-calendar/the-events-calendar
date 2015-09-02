@@ -109,6 +109,48 @@ class Tribe__Events__Template_Factory extends Tribe__Template_Factory {
 	}
 
 	/**
+	 * Asset calls for vendor packages
+	 *
+	 * @param string $name
+	 * @param array  $deps Dependents
+	 */
+	public static function asset_package( $name, $deps = array() ) {
+
+		$common = Tribe__Events__Main::instance();
+		$prefix = 'tribe-events'; // Tribe__Events__Main::POSTTYPE;
+
+		// setup plugin resources & 3rd party vendor urls
+		$vendor_url = trailingslashit( $common->plugin_url ) . 'vendor/';
+
+		self::handle_asset_package_request( $name, $deps, $vendor_url, $prefix, $common );
+	}
+
+	/**
+	 * Handles an asset package request.
+	 *
+	 * @param string              $name          The asset name in the `hyphen-separated-format`
+	 * @param array               $deps          An array of dependency handles
+	 * @param string              $vendor_url    URL to vendor scripts and styles dir
+	 * @param string              $prefix        MT script and style prefix
+	 * @param Tribe__Events__Main $tec           An instance of the main plugin class
+	 */
+	protected static function handle_asset_package_request( $name, $deps, $vendor_url, $prefix, $tec ) {
+
+		$asset = self::get_asset_factory_instance( $name );
+
+		self::prepare_asset_package_request( $asset, $name, $deps, $vendor_url, $prefix, $tec );
+	}
+
+	/**
+	 * Retrieves the appropriate asset factory instance
+	 */
+	protected static function get_asset_factory_instance( $name ) {
+		do_action( 'debug_robot', 'Tribe__Events__Asset__Factory::instance() :: ' . print_r( Tribe__Events__Asset__Factory::instance(), TRUE ) );
+		$asset = Tribe__Events__Asset__Factory::instance()->make_for_name( $name );
+		return $asset;
+	}
+
+	/**
 	 * Filter the body class
 	 *
 	 * @param array $classes
@@ -251,20 +293,20 @@ class Tribe__Events__Template_Factory extends Tribe__Template_Factory {
 		$tribe = Tribe__Events__Main::instance();
 
 		if ( ! empty( $search_term ) ) {
-			Tribe__Events__Main::setNotice( 'event-search-no-results', sprintf( __( 'There were no results found for <strong>"%s"</strong>.', 'tribe-common' ), esc_html( $search_term ) ) );
+			Tribe__Notices::set_notice( 'event-search-no-results', sprintf( __( 'There were no results found for <strong>"%s"</strong>.', 'tribe-common' ), esc_html( $search_term ) ) );
 		} elseif ( ! empty( $geographic_term ) ) {
-			Tribe__Events__Main::setNotice( 'event-search-no-results', sprintf( __( 'No results were found for %1$s in or near <strong>"%2$s"</strong>.', 'tribe-common' ), $events_label_plural, esc_html( $geographic_term ) ) );
+			Tribe__Notices::set_notice( 'event-search-no-results', sprintf( __( 'No results were found for %1$s in or near <strong>"%2$s"</strong>.', 'tribe-common' ), $events_label_plural, esc_html( $geographic_term ) ) );
 		} elseif ( ! empty( $tax_term ) && tribe_is_upcoming() && ( date( 'Y-m-d' ) === date( 'Y-m-d', strtotime( $tribe->date ) ) ) ) {
-			Tribe__Events__Main::setNotice( 'events-not-found', sprintf( __( 'No upcoming %1$s listed under %2$s. Check out upcoming %3$s for this category or view the full calendar.', 'tribe-common' ), $events_label_plural, $tax_term, $events_label_plural ) );
+			Tribe__Notices::set_notice( 'events-not-found', sprintf( __( 'No upcoming %1$s listed under %2$s. Check out upcoming %3$s for this category or view the full calendar.', 'tribe-common' ), $events_label_plural, $tax_term, $events_label_plural ) );
 		} elseif ( ! empty( $tax_term ) && tribe_is_upcoming() ) {
-			Tribe__Events__Main::setNotice( 'events-not-found', sprintf( __( 'No matching %1$s listed under %2$s. Please try viewing the full calendar for a complete list of %3$s.', 'tribe-common' ), $events_label_plural, $tax_term, $events_label_plural ) );
+			Tribe__Notices::set_notice( 'events-not-found', sprintf( __( 'No matching %1$s listed under %2$s. Please try viewing the full calendar for a complete list of %3$s.', 'tribe-common' ), $events_label_plural, $tax_term, $events_label_plural ) );
 		} elseif ( ! empty( $tax_term ) && tribe_is_past() ) {
-			Tribe__Events__Main::setNotice( 'events-past-not-found', sprintf( __( 'No previous %s ', 'tribe-common' ), $events_label_plural ) );
+			Tribe__Notices::set_notice( 'events-past-not-found', sprintf( __( 'No previous %s ', 'tribe-common' ), $events_label_plural ) );
 		} // if on any other view and attempting to view a category archive.
 		elseif ( ! empty( $tax_term ) ) {
-			Tribe__Events__Main::setNotice( 'events-not-found', sprintf( __( 'No matching %1$s listed under %2$s. Please try viewing the full calendar for a complete list of %3$s.', 'tribe-common' ), $events_label_plural, $tax_term, $events_label_plural ) );
+			Tribe__Notices::set_notice( 'events-not-found', sprintf( __( 'No matching %1$s listed under %2$s. Please try viewing the full calendar for a complete list of %3$s.', 'tribe-common' ), $events_label_plural, $tax_term, $events_label_plural ) );
 		} else {
-			Tribe__Events__Main::setNotice( 'event-search-no-results', __( 'There were no results found.', 'tribe-common' ) );
+			Tribe__Notices::set_notice( 'event-search-no-results', __( 'There were no results found.', 'tribe-common' ) );
 		}
 	}
 

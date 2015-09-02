@@ -192,7 +192,7 @@ class Tribe__Events__Updater {
 	 * @return void
 	 */
 	public function remove_30_min_eod_cutoffs() {
-		$eod_cutoff = tribe_event_end_of_day();
+		$eod_cutoff = tribe_end_of_day();
 		if ( Tribe__Date_Utils::minutes_only( $eod_cutoff ) == '29' ) {
 			$eod_cutoff = date_create( '@' . ( strtotime( $eod_cutoff ) + 1 ) );
 			$eod_cutoff->modify( '+30 minutes' );

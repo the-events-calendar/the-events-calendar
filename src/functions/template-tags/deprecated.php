@@ -1445,4 +1445,62 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	}
 
 
+	/**
+	 * Returns or echoes a url to a file in the Events Calendar plugin resources directory
+	 *
+	 * @category Events
+	 * @param string $resource the filename of the resource
+	 * @param bool   $echo     whether or not to echo the url
+	 *
+	 * @return string
+	 **/
+	function tribe_events_resource_url( $resource, $echo = false ) {
+		_deprecated_function( __FUNCTION__, '4.0', 'tribe_resource_url' );
+		return tribe_resource_url( $resource, $echo );
+	}
+
+	/**
+	 * Formatted Date
+	 *
+	 * Returns formatted date
+	 *
+	 * @category Events
+	 * @param string $date        String representing the datetime, assumed to be UTC (relevant if timezone conversion is used)
+	 * @param bool   $displayTime If true shows date and time, if false only shows date
+	 * @param string $dateFormat  Allows date and time formating using standard php syntax (http://php.net/manual/en/function.date.php)
+	 *
+	 * @return string
+	 */
+	function tribe_event_format_date( $date, $displayTime = true, $dateFormat = '' ) {
+		_deprecated_function( __FUNCTION__, '4.0', 'tribe_format_date' );
+		return tribe_format_date( $date, $displayTime, $dateFormat );
+	}
+
+	/**
+	 * Returns formatted date for the official beginning of the day according to the Multi-day cutoff time option
+	 *
+	 * @category Events
+	 * @param string $date   The date to find the beginning of the day, defaults to today
+	 * @param string $format Allows date and time formating using standard php syntax (http://php.net/manual/en/function.date.php)
+	 *
+	 * @return string
+	 */
+	function tribe_event_beginning_of_day( $date = null, $format = 'Y-m-d H:i:s' ) {
+		_deprecated_function( __FUNCTION__, '4.0', 'tribe_beginning_of_day' );
+		return tribe_beginning_of_day( $date, $format );
+	}
+
+	/**
+	 * Returns formatted date for the official end of the day according to the Multi-day cutoff time option
+	 *
+	 * @category Events
+	 * @param string $date   The date to find the end of the day, defaults to today
+	 * @param string $format Allows date and time formating using standard php syntax (http://php.net/manual/en/function.date.php)
+	 *
+	 * @return string
+	 */
+	function tribe_event_end_of_day( $date = null, $format = 'Y-m-d H:i:s' ) {
+		_deprecated_function( __FUNCTION__, '4.0', 'tribe_end_of_day' );
+		return tribe_end_of_day( $date, $format );
+	}
 }

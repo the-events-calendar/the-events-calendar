@@ -205,8 +205,8 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 
 			if ( isset( $data['EventAllDay'] ) && 'yes' === $data['EventAllDay'] ) {
 				$date_provided = true;
-				$data['EventStartDate'] = tribe_event_beginning_of_day( $data['EventStartDate'] );
-				$data['EventEndDate']   = tribe_event_end_of_day( $data['EventEndDate'] );
+				$data['EventStartDate'] = tribe_beginning_of_day( $data['EventStartDate'] );
+				$data['EventEndDate']   = tribe_end_of_day( $data['EventEndDate'] );
 			} elseif ( isset( $data['EventStartDate'] ) && isset( $data['EventEndDate'] ) ) {
 				$date_provided = true;
 				delete_post_meta( $event_id, '_EventAllDay' );
