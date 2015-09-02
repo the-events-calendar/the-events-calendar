@@ -1445,7 +1445,13 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			?>
 			<tr>
 				<td style="width:170px"><?php printf( __( 'Use Saved %s:', 'tribe-events-calendar' ), $this->singular_venue_label ); ?></td>
-				<td><?php $this->saved_venues_dropdown( $venue_id ); ?> <div class="edit-venue-link" <?php if ( empty( $venue_id ) ) { ?>style="display:none;"<?php } ?>><a data-admin-url="<?php echo esc_url( admin_url( 'post.php?action=edit&post=' ) ); ?>" href="<?php echo esc_url( admin_url( sprintf( 'post.php?action=edit&post=%s', $venue_id ) ) ); ?>" target="_blank"><?php echo esc_html( sprintf( __( 'Edit %s', 'tribe-events-calendar' ), $this->singular_venue_label ) ); ?></a></div></td>
+				<td><?php
+					$this->saved_venues_dropdown( $venue_id );
+					$venue_pto = get_post_type_object( self::VENUE_POST_TYPE );
+					if ( current_user_can( $venue_pto->cap->edit_posts ) ) { ?>
+						<div class="edit-venue-link" <?php if ( empty( $venue_id ) ) { ?>style="display:none;"<?php } ?>><a data-admin-url="<?php echo esc_url( admin_url( 'post.php?action=edit&post=' ) ); ?>" href="<?php echo esc_url( admin_url( sprintf( 'post.php?action=edit&post=%s', $venue_id ) ) ); ?>" target="_blank"><?php echo esc_html( sprintf( __( 'Edit %s', 'tribe-events-calendar' ), $this->singular_venue_label ) ); ?></a></div>
+					<?php } ?>
+				</td>
 			</tr>
 		<?php
 		}
@@ -1570,8 +1576,11 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				);
 			}
 			if ( $venues || $my_venues ) {
+				$venue_pto = get_post_type_object( self::VENUE_POST_TYPE );
 				echo '<select class="chosen venue-dropdown" name="' . esc_attr( $name ) . '" id="saved_venue">';
-				echo '<option value="0">' . esc_html( sprintf( __( 'Use New %s', 'tribe-events-calendar' ), $this->singular_venue_label ) ) . '</option>';
+				if ( current_user_can( $venue_pto->cap->create_posts ) ) {
+					echo '<option value="0">' . esc_html( sprintf( __( 'Use New %s', 'tribe-events-calendar' ), $this->singular_venue_label ) ) . '</option>';
+				}
 				if ( $my_venues ) {
 					echo $venues ? '<optgroup label="' . esc_attr( apply_filters( 'tribe_events_saved_venues_dropdown_my_optgroup', sprintf( __( 'My %s', 'tribe-events-calendar' ), $this->plural_venue_label ) ) ) . '">' : '';
 					echo $my_venue_options;
@@ -1652,8 +1661,11 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				);
 			}
 			if ( $organizers || $my_organizers ) {
+				$oganizer_pto = get_post_type_object( self::ORGANIZER_POST_TYPE );
 				echo '<select class="chosen organizer-dropdown" name="' . esc_attr( $name ) . '" id="saved_organizer">';
-				echo '<option value="0">' . esc_html( sprintf( __( 'Use New %s', 'tribe-events-calendar' ), $this->singular_organizer_label ) ) . '</option>';
+				if ( current_user_can( $oganizer_pto->cap->create_posts ) ) {
+					echo '<option value="0">' . esc_html( sprintf( __( 'Use New %s', 'tribe-events-calendar' ), $this->singular_organizer_label ) ) . '</option>';
+				}
 				if ( $my_organizers ) {
 					echo $organizers ? '<optgroup label="' . esc_attr( apply_filters( 'tribe_events_saved_organizers_dropdown_my_optgroup', sprintf( __( 'My %s', 'tribe-events-calendar' ), $this->plural_organizer_label ) ) ) . '">' : '';
 					echo $my_organizers_options;
@@ -2987,8 +2999,11 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			 * When we have a VenueID/OrganizerID, we just save the ID, because we're not
 			 * editing the venue/organizer from within the event.
 			 */
+			$venue_pto = get_post_type_object( self::VENUE_POST_TYPE );
 			if ( isset( $_POST['Venue']['VenueID'] ) && ! empty( $_POST['Venue']['VenueID'] ) ) {
 				$_POST['Venue'] = array( 'VenueID' => intval( $_POST['Venue']['VenueID'] ) );
+			} elseif ( !current_user_can( $venue_pto->cap->create_posts ) ) {
+				$_POST['Venue'] = array();
 			}
 
 			$_POST['Organizer'] = $this->normalize_organizer_submission( $_POST['Organizer'] );
@@ -3001,6 +3016,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		}
 
 		public function normalize_organizer_submission( $submission ) {
+			$organizer_pto = get_post_type_object( self::ORGANIZER_POST_TYPE );
 			$organizers = array();
 			if ( ! isset( $submission['OrganizerID'] ) ) {
 				return $organizers; // not a valid submission
@@ -3010,7 +3026,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				foreach ( $submission['OrganizerID'] as $key => $organizer_id ) {
 					if ( ! empty( $organizer_id ) ) {
 						$organizers[] = array( 'OrganizerID' => intval( $organizer_id ) );
-					} else {
+					} elseif ( current_user_can( $organizer_pto->cap->create_posts ) ) {
 						$o = array();
 						foreach ( array( 'Organizer', 'Phone', 'Website', 'Email' ) as $field_name ) {
 							$o[ $field_name ] = isset( $submission[ $field_name ][ $key ] ) ? $submission[ $field_name ][ $key ] : '';
@@ -3022,11 +3038,14 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			}
 
 			// old style with single organizer fields
-			$o = array();
-			foreach ( array( 'Organizer', 'Phone', 'Website', 'Email' ) as $field_name ) {
+			if ( current_user_can( $organizer_pto->cap->create_posts ) ) {
+				$o = array();
+				foreach ( array( 'Organizer', 'Phone', 'Website', 'Email' ) as $field_name ) {
+					$o[ $field_name ] = isset( $submission[ $field_name ] ) ? $submission[ $field_name ] : '';
+				}
+				$organizers[] = $o;
 				$o[ $field_name ] = isset( $submission[ $field_name ] ) ? $submission[ $field_name ] : '';
 			}
-			$organizers[] = $o;
 			return $organizers;
 		}
 
