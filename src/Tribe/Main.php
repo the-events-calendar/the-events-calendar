@@ -1408,7 +1408,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			if (
 				( ! $post_id || get_post_status( $post_id ) === 'auto-draft' ) &&
 				! $venue_id &&
-				Tribe__Events__Admin__Helpers::instance()->is_action( 'add' )
+				Tribe__Admin__Helpers::instance()->is_action( 'add' )
 			) {
 				$venue_id = $this->defaults()->venue_id();
 			}
@@ -1436,7 +1436,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			if (
 				( ! $post_id || get_post_status( $post_id ) == 'auto-draft' ) &&
 				! $venue_id &&
-				Tribe__Events__Admin__Helpers::instance()->is_action( 'add' )
+				Tribe__Admin__Helpers::instance()->is_action( 'add' )
 			) {
 				$venue_id = $this->defaults()->venue_id();
 			}
@@ -1466,7 +1466,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			if (
 				( ! $post_id || get_post_status( $post_id ) === 'auto-draft' ) &&
 				! $current_organizer &&
-				Tribe__Events__Admin__Helpers::instance()->is_action( 'add' )
+				Tribe__Admin__Helpers::instance()->is_action( 'add' )
 			) {
 				$current_organizer = $this->defaults()->organizer_id();
 			}
@@ -4085,7 +4085,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @return void
 		 */
 		public function prepare_to_fix_tagcloud_links() {
-			if ( Tribe__Events__Admin__Helpers::instance()->is_post_type_screen( self::POSTTYPE ) ) {
+			if ( Tribe__Admin__Helpers::instance()->is_post_type_screen( self::POSTTYPE ) ) {
 				add_filter( 'get_edit_term_link', array( $this, 'add_post_type_to_edit_term_link' ), 10, 4 );
 			}
 		}

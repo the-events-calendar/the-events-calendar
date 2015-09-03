@@ -145,7 +145,6 @@ class Tribe__Events__Template_Factory extends Tribe__Template_Factory {
 	 * Retrieves the appropriate asset factory instance
 	 */
 	protected static function get_asset_factory_instance( $name ) {
-		do_action( 'debug_robot', 'Tribe__Events__Asset__Factory::instance() :: ' . print_r( Tribe__Events__Asset__Factory::instance(), TRUE ) );
 		$asset = Tribe__Events__Asset__Factory::instance()->make_for_name( $name );
 		return $asset;
 	}
