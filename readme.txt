@@ -218,6 +218,7 @@ Our Premium Plugins:
 
 = [Unreleased] unreleased =
 
+* Security - Resolved JS vulnerability in minified JS by upgrading to uglifyjs 2.4.24
 * Feature - Added support for the long awaited Arbitrary Recurrence!  Creating recurring events with multiple granular rulesets is now possible.
 * Feature - Added support for WPML, thanks for waiting!
 * Feature - Extended CSV imports to include custom fields defined in events settings (Big thanks to zacwasielewski for submitting a similar pull request! You rock! :) )
@@ -230,7 +231,7 @@ Our Premium Plugins:
 * Bug - Resolved issue where events without venues were showing up in Map View
 * Bug - Fixed a bug where the tribe-mini-calendar-today CSS class was not removed from some days in the mini calendar widget while clicking around (Thanks to mennstudio for the report!)
 * Bug - Resolved a bug where "Additional Fields" with a double quote in the title would be saved with a backslash
-** Bug - Fixed notices that were being thrown while configuring the Countdown Widget in the Customizer
+* Bug - Fixed notices that were being thrown while configuring the Countdown Widget in the Customizer
 * Bug - Fixed a problem where recurring event updates did not properly complete (props to Ian for detecting this problem!)
 * Bug - Fixed a problem where the first event in a series of recurring events could be excluded from the "All Events" view (Cheers to Ian for reporting this!)
 * Deprecated - Functions that added useless SQL have been removed from source: Tribe__Events__Pro__Main::posts_fields() and Tribe__Events__Pro__Main::posts_join()
