@@ -223,6 +223,7 @@ Our Premium Plugins:
 * Feature - Added support for WPML, thanks for waiting!
 * Feature - Extended CSV imports to include custom fields defined in events settings (Big thanks to zacwasielewski for submitting a similar pull request! You rock! :) )
 * Feature - Added none option for both Radio and Dropdown Additional Fields (Thanks to Justin on the forums!)
+* Feature - Added support for timezones following the introduction of timezone support in The Events Calendar
 * Performance - Removed a no-longer needed join from many queries to provide faster page loads
 * Tweak - Pad SQL joins with spacing to avoid conflicts with other plugins that modify SQL (props to jeremyfelt)
 * Bug - Fixed issue where generating recurring events did not trigger the rebuilding of the known date range
