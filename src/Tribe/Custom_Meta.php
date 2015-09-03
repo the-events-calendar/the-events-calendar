@@ -57,7 +57,7 @@ class Tribe__Events__Pro__Custom_Meta {
 		$remove_field = esc_html( __( 'Remove', 'tribe-events-calendar-pro' ) );
 
 		// Settings for regular WordPress custom fields
-		$disable_metabox_custom_fields = $pro->displayMetaboxCustomFields() ? "show" : "hide";
+		$disable_metabox_custom_fields = $pro->displayMetaboxCustomFields() ? 'show' : 'hide';
 
 		include $pro->pluginPath . 'src/admin-views/event-meta-options.php';
 	}
@@ -96,16 +96,26 @@ class Tribe__Events__Pro__Custom_Meta {
 		foreach ( $customFields as $customField ) {
 			if ( isset( $customField['name'] ) ) {
 				$val = self::get_value_to_save( $customField['name'], $data );
-				$val = is_array( $val ) ? esc_attr( implode( '|', str_replace( '|', '', $val ) ) ) : wp_kses( $val, array( 'a' => array(
-						'href'   => array(),
-						'title'  => array(),
-						'target' => array()
-					),
-				                                                                                   'b'      => array(),
-				                                                                                   'i'      => array(),
-				                                                                                   'strong' => array(),
-				                                                                                   'em'     => array()
-					) );
+
+				if ( is_array( $val ) ) {
+					$val = esc_attr( implode( '|', str_replace( '|', '', $val ) ) );
+				} else {
+					$val = wp_kses(
+						$val,
+						array(
+							'a' => array(
+								'href'   => array(),
+								'title'  => array(),
+								'target' => array(),
+							),
+							'b'      => array(),
+							'i'      => array(),
+							'strong' => array(),
+							'em'     => array(),
+						)
+					);
+				}
+
 				update_post_meta( $postId, wp_kses_data( $customField['name'] ), $val );
 			}
 		}
@@ -124,7 +134,7 @@ class Tribe__Events__Pro__Custom_Meta {
 		$value = '';
 		if ( ! empty( $data ) && ! empty( $data[ $name ] ) ) {
 			$value = $data[ $name ];
-		} else if ( ! empty( $_POST[ $name ] ) ) {
+		} elseif ( ! empty( $_POST[ $name ] ) ) {
 			$value = $_POST[ $name ];
 		}
 		return $value;
@@ -157,6 +167,14 @@ class Tribe__Events__Pro__Custom_Meta {
 	public static function importer_column_mapping( $column_mapping ) {
 		$custom_fields = (array) tribe_get_option( 'custom-fields' );
 		foreach ( $custom_fields as $custom_field ) {
+			if (
+				! is_array( $custom_field )
+				|| empty( $custom_field['name'] )
+				|| ! isset( $custom_field['label'] )
+			) {
+				continue;
+			}
+
 			$column_mapping[ $custom_field['name'] ] = $custom_field['label'];
 		}
 		return $column_mapping;
@@ -199,7 +217,7 @@ class Tribe__Events__Pro__Custom_Meta {
 			$values = preg_replace( "/(^[\r\n]*|[\r\n]+)[\s\t]*[\r\n]+/", "\r\n", $values );
 			$values = rtrim( $values );
 			//Remove Vertical Bar for Checkbox Field
-			$values = $type == 'checkbox' ? str_replace( '|','',$values ) : $values;
+			$values = $type == 'checkbox' ? str_replace( '|', '', $values ) : $values;
 
 			// The indicies of pre-existing custom fields begin with an underscore - so if
 			// the index does not have an underscore we need to assign a new one
@@ -214,7 +232,7 @@ class Tribe__Events__Pro__Custom_Meta {
 					'name'   => '_ecp_custom_' . $assigned_index,
 					'label'  => $name,
 					'type'   => $type,
-					'values' => $values
+					'values' => $values,
 				);
 			}
 		}
