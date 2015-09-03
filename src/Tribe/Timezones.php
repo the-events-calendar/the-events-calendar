@@ -276,7 +276,10 @@ class Tribe__Events__Timezones {
 			$offset *= -1;
 		}
 
-		if ( $offset > 0 ) $offset = '+' . $offset;
+		if ( $offset > 0 ) {
+			$offset = '+' . $offset;
+		}
+
 		$offset = $offset . ' minutes';
 
 		$offset_datetime = date_create( $datetime );
