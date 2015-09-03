@@ -401,19 +401,6 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	}
 
 	/**
-	 * Current Template
-	 *
-	 * Get the current page template that we are on
-	 *
-	 * @category Events
-	 * @todo Update the function name to ensure there are no namespace conflicts.
-	 * @return string Page template
-	 */
-	function tribe_get_current_template() {
-		return apply_filters( 'tribe_get_current_template', Tribe__Events__Templates::get_current_page_template() );
-	}
-
-	/**
 	 * Venue Type Test
 	 *
 	 * Checks type of $postId to determine if it is a Venue
@@ -1094,28 +1081,6 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 
 		// return the parsed template
 		return $list_view_html;
-	}
-
-	/**
-	 * Generates html for any notices that have been queued on the current view
-	 *
-	 * @category Events
-	 *
-	 * @param bool $echo Whether or not to echo the notices html
-	 *
-	 * @return void | string
-	 * @see Tribe__Events__Main::getNotices()
-	 **/
-	function tribe_events_the_notices( $echo = true ) {
-		$notices = Tribe__Notices::get();
-
-		$html        = ! empty( $notices ) ? '<div class="tribe-events-notices"><ul><li>' . implode( '</li><li>', $notices ) . '</li></ul></div>' : '';
-		$the_notices = apply_filters( 'tribe_events_the_notices', $html, $notices );
-		if ( $echo ) {
-			echo $the_notices;
-		} else {
-			return $the_notices;
-		}
 	}
 
 	/**

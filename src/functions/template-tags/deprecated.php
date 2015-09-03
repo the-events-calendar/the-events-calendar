@@ -1503,4 +1503,19 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		_deprecated_function( __FUNCTION__, '4.0', 'tribe_end_of_day' );
 		return tribe_end_of_day( $date, $format );
 	}
+
+	/**
+	 * Generates html for any notices that have been queued on the current view
+	 *
+	 * @category Events
+	 *
+	 * @param bool $echo Whether or not to echo the notices html
+	 *
+	 * @return void | string
+	 * @see Tribe__Notices::get()
+	 **/
+	function tribe_events_the_notices( $echo = true ) {
+		_deprecated_function( __FUNCTION__, '4.0', 'tribe_the_notices' );
+		return tribe_the_notices( $echo );
+	}
 }
