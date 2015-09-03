@@ -317,6 +317,7 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 
 = [Unreleased] unreleased =
 
+* Security - Resolved JS vulnerability in minified JS by upgrading to uglifyjs 2.4.24
 * Performance - Greatly optimized the generation of Month View data
 * Feature - Extended CSV importer fields to include full coverage of Event, Organizer, and Venue fields
 * Feature - Added support for WPML, thanks for waiting!
