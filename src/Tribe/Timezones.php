@@ -276,16 +276,11 @@ class Tribe__Events__Timezones {
 			$offset *= -1;
 		}
 
-		try {
-			if ( $offset > 0 ) $offset = '+' . $offset;
-			$offset = $offset . ' minutes';
+		if ( $offset > 0 ) $offset = '+' . $offset;
+		$offset = $offset . ' minutes';
 
-			$datetime = date_create( $datetime )->modify( $offset );
-			return $datetime->format( Tribe__Events__Date_Utils::DBDATETIMEFORMAT );
-		}
-		catch ( Exception $e ) {
-			return $datetime;
-		}
+		$datetime = date_create( $datetime )->modify( $offset );
+		return $datetime->format( Tribe__Events__Date_Utils::DBDATETIMEFORMAT );
 	}
 
 	/**
