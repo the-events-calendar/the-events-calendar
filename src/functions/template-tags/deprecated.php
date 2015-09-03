@@ -1444,7 +1444,6 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		_deprecated_function( __FUNCTION__, '3.0' );
 	}
 
-
 	/**
 	 * Returns or echoes a url to a file in the Events Calendar plugin resources directory
 	 *

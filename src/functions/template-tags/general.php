@@ -72,6 +72,52 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	}
 
 	/**
+	 * Includes a template part, similar to the WP get template part, but looks
+	 * in the correct directories for Tribe Events templates
+	 *
+	 * @param string      $slug
+	 * @param null|string $name
+	 * @param array       $data optional array of vars to inject into the template part
+	 *
+	 * @uses Tribe__Templates::getTemplateHierarchy
+	 **/
+	function tribe_get_template_part( $slug, $name = null, array $data = null ) {
+
+		// Execute code for this part
+		do_action( 'tribe_pre_get_template_part_' . $slug, $slug, $name, $data );
+		// Setup possible parts
+		$templates = array();
+		if ( isset( $name ) ) {
+			$templates[] = $slug . '-' . $name . '.php';
+		}
+		$templates[] = $slug . '.php';
+
+		// Allow template parts to be filtered
+		$templates = apply_filters( 'tribe_get_template_part_templates', $templates, $slug, $name );
+
+		// Make any provided variables available in the template's symbol table
+		if ( is_array( $data ) ) {
+			extract( $data );
+		}
+
+		// loop through templates, return first one found.
+		foreach ( $templates as $template ) {
+			$file = Tribe__Events__Templates::getTemplateHierarchy( $template, array( 'disable_view_check' => true ) );
+			$file = apply_filters( 'tribe_get_template_part_path', $file, $template, $slug, $name );
+			$file = apply_filters( 'tribe_get_template_part_path_' . $template, $file, $slug, $name );
+			if ( file_exists( $file ) ) {
+				ob_start();
+				do_action( 'tribe_before_get_template_part', $template, $file, $template, $slug, $name );
+				include( $file );
+				do_action( 'tribe_after_get_template_part', $template, $file, $slug, $name );
+				$html = ob_get_clean();
+				echo apply_filters( 'tribe_get_template_part_content', $html, $template, $file, $slug, $name );
+			}
+		}
+		do_action( 'tribe_post_get_template_part_' . $slug, $slug, $name, $data );
+	}
+
+	/**
 	 * Check if the current request is for a tribe view via ajax
 	 *
 	 * @category Events
@@ -398,6 +444,19 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 
 			return apply_filters( 'tribe_meta_event_category_name', $term_info->name, $current_cat, $term_info );
 		}
+	}
+
+	/**
+	 * Current Template
+	 *
+	 * Get the current page template that we are on
+	 *
+	 * @category Events
+	 * @todo Update the function name to ensure there are no namespace conflicts.
+	 * @return string Page template
+	 */
+	function tribe_get_current_template() {
+		return apply_filters( 'tribe_get_current_template', Tribe__Events__Templates::get_current_page_template() );
 	}
 
 	/**

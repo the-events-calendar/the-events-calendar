@@ -28,7 +28,7 @@ $event_id = get_the_ID();
 	</p>
 
 	<!-- Notices -->
-	<?php tribe_events_the_notices() ?>
+	<?php tribe_the_notices() ?>
 
 	<?php the_title( '<h2 class="tribe-events-single-event-title summary entry-title">', '</h2>' ); ?>
 
