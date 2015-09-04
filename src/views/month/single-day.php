@@ -38,15 +38,15 @@ $events_label = ( 1 === $day['total_events'] ) ? tribe_get_event_label_singular(
 	<div class="tribe-events-viewmore">
 		<?php
 
-			$view_all_label = sprintf( 
-				_n( 
-					'View %1$s %2$s', 
-					'View All %1$s %2$s', 
-					$day['total_events'], 
+			$view_all_label = sprintf(
+				_n(
+					'View %1$s %2$s',
+					'View All %1$s %2$s',
+					$day['total_events'],
 					'tribe-events-calendar'
 				),
-				$day['total_events'], 
-				$events_label 
+				$day['total_events'],
+				$events_label
 			);
 
 		?>
