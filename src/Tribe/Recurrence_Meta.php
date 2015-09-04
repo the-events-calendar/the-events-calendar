@@ -1793,7 +1793,7 @@ class Tribe__Events__Pro__Recurrence_Meta {
 			}
 		}
 
-		if ( ! empty( $query->tribe_is_event_query ) || ! empty( $query->tribe_is_multi_posttype ) ) {
+		if ( ! empty( $query->tribe_is_event ) || ! empty( $query->tribe_is_multi_posttype ) ) {
 			if ( isset( $query->query_vars['tribeHideRecurrence'] ) && $query->query_vars['tribeHideRecurrence'] ) {
 				global $wpdb;
 
