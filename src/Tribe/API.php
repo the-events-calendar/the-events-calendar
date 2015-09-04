@@ -232,12 +232,15 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 				return $data;
 			}
 
-			// Store datetimes in UTC
-			if ( isset( $data['EventTimezone'] ) ) {
-				$data['EventStartDateUTC'] = Tribe__Events__Timezones::to_utc( $data['EventStartDate'], $data['EventTimezone'] );
-				$data['EventEndDateUTC']   = Tribe__Events__Timezones::to_utc( $data['EventEndDate'], $data['EventTimezone'] );
-				$data['EventTimezoneAbbr'] = Tribe__Events__Timezones::abbr( $data['EventStartDate'], $data['EventTimezone'] );
+			// If a specific timezone was not specified, default to the sitewide timezone
+			if ( ! isset( $data['EventTimezone'] ) ) {
+				$data['EventTimezone'] = Tribe__Events__Timezones::wp_timezone_string();
 			}
+
+			// Additionally store datetimes in UTC
+			$data['EventStartDateUTC'] = Tribe__Events__Timezones::to_utc( $data['EventStartDate'], $data['EventTimezone'] );
+			$data['EventEndDateUTC']   = Tribe__Events__Timezones::to_utc( $data['EventEndDate'], $data['EventTimezone'] );
+			$data['EventTimezoneAbbr'] = Tribe__Events__Timezones::abbr( $data['EventStartDate'], $data['EventTimezone'] );
 
 			// sanity check that start date < end date
 			$start_timestamp = strtotime( $data['EventStartDate'] );
