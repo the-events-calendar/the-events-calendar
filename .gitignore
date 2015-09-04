@@ -27,3 +27,4 @@ vendor/sebastian
 vendor/symfony
 vendor/autoload.php
 tests/_output/*
+tests/_support/_generated/*
