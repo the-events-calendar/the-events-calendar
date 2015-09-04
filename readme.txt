@@ -336,6 +336,7 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Tweak - Display the order id with a proper link in the attendees report (Thank you aaemnnosttv!)
 * Tweak - Pointed the "Add-on Documentation" link on the Event > Settings > Help page to a better location.
 * Tweak - Pad SQL joins with spacing to avoid conflicts with other plugins that modify SQL (Props to jeremyfelt!)
+* Bug - Fixed a Google Maps coodinates failing on Venues problem
 * Bug - Fixed bug where category could be dropped from month view for a specific category when searching (Cheers to omni for the report!)
 * Bug - Resolved bug where executing wp_insert_post within a hook to publish_tribe_events prevented event meta from being saved appropriately (Thank you 37designs for the report!)
 * Bug - Fixed a fatal caused by attempting to use get_current_screen before it was available for use in some contexts (props to Enchiridion!)
