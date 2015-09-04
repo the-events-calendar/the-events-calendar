@@ -1793,12 +1793,7 @@ class Tribe__Events__Pro__Recurrence_Meta {
 			}
 		}
 
-		// if the query is missing the EventStartDate or the GROUP BY IF, then this isn't a query we want to manipulate
-		if ( false === strstr( $sql, 'EventStartDate' ) || false === strstr( $sql, 'GROUP BY IF' ) ) {
-			return $sql;
-		}
-
-		if ( ! empty( $query->tribe_is_event_query ) || ! empty( $query->tribe_is_multi_posttype ) ) {
+		if ( ! empty( $query->tribe_is_event ) || ! empty( $query->tribe_is_multi_posttype ) ) {
 			if ( isset( $query->query_vars['tribeHideRecurrence'] ) && $query->query_vars['tribeHideRecurrence'] ) {
 				global $wpdb;
 
