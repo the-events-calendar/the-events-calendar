@@ -329,12 +329,14 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Feature - Added a filter (tribe_show_organizer_email_obfuscation_alert) to make the organizer email obfuscation message optional (Thanks for the idea Cliffy!)
 * Feature - Added a filter (tribe_minutes_increment) that allows you to alter the minute incrementor used to generate the Minutes drop-down box (Thank you d4mation-!)
 * Feature - Added timezone support to allow different events to be set in different timezones
+* Feature - Added a warning when a page with the same slug as the events archive already exists
 * Tweak - Relocated event recurrence-specific JS to Events PRO where it belongs
 * Tweak - Style nowrap on ticket forms with CSS rather than HTML attributes (Thanks Mark!)
 * Tweak - Updated the attendees template to use divs to separate event data (Props to aaemnnosttv!)
 * Tweak - Display the order id with a proper link in the attendees report (Thank you aaemnnosttv!)
 * Tweak - Pointed the "Add-on Documentation" link on the Event > Settings > Help page to a better location.
 * Tweak - Pad SQL joins with spacing to avoid conflicts with other plugins that modify SQL (Props to jeremyfelt!)
+* Bug - Fixed bug where category could be dropped from month view for a specific category when searching
 * Bug - Resolved bug where executing wp_insert_post within a hook to publish_tribe_events prevented event meta from being saved appropriately (Thank you 37designs for the report!)
 * Bug - Fixed a fatal caused by attempting to use get_current_screen before it was available for use in some contexts (props to Enchiridion!)
 * Bug - Fixed bug where Date_Utils::datetime_from_format converted dates with 1 character days/months incorrectly
@@ -347,6 +349,7 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Bug - Fixed a problem which was resetting the "Show Google Map" option for events when they were re-imported via CSV (Thanks to @jameswemyss for highlighting this!)
 * Deprecated - The tribe_events_getLink is being deprecated in favor of tribe_events_get_link. Scheduled removal from source is v4.2
 * Deprecated - The Tribe__Events__Advanced_Functions__Register_Meta::gmap_link() has been deprecated since 3.6 and has now been removed from source
+* Deprecated - The tribe_events_single_event_meta() function has been deprecated since 3.6 and has now been removed from source
 
 = [3.11.2] 2015-07-30 =
 
