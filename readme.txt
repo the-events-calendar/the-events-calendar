@@ -341,7 +341,7 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Bug - Fixed a fatal caused by attempting to use get_current_screen before it was available for use in some contexts (props to Enchiridion!)
 * Bug - Fixed bug where Date_Utils::datetime_from_format converted dates with 1 character days/months incorrectly
 * Bug - Fixed issue with event title attributes not always escaping properly on List and Day views (Cheers to nobita for the report!)
-* Bug - Fixed issue with Event Costs not updating when a new ticket was only submitted via Ajax
+* Bug - Fixed issue with Event Costs not updating when a new ticket was only submitted via Ajax (Thanks Chris!)
 * Bug - Fixed an issue Twenty Fourteen and the event views being hidden in screen sizes smaller then 400px (Thank you for the help Hilary!)
 * Bug - Fixed an issue where the month view date selector became full window width when Skeleton styles were enabled
 * Bug - Fixed a notice on the plugin updater page
