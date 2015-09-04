@@ -343,6 +343,7 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Bug - Fixed a notice on the plugin updater page
 * Bug - Fixed a localization issue in the settings environment (props to @tititou36 for highlighting the issue)
 * Bug - Fixed a problem which was resetting the "Show Google Map" option for events when they were re-imported via CSV (thanks to @jameswemyss for highlighting this)
+* Bug - Fixed default event, organizer and venue website targets pointing to 'self'
 * Deprecated - The tribe_events_getLink is being deprecated in favor of tribe_events_get_link. Scheduled removal from source is v4.2
 * Deprecated - The Tribe__Events__Advanced_Functions__Register_Meta::gmap_link() has been deprecated since 3.6 and has now been removed from source
 
