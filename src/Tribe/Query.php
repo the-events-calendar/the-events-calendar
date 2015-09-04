@@ -471,7 +471,7 @@ if ( ! class_exists( 'Tribe__Events__Query' ) ) {
 			$event_start_key = '_EventStartDate';
 			$event_end_key   = '_EventEndDate';
 
-			if ( Tribe__Events__Timezones::mode( 'site' ) ) {
+			if ( Tribe__Events__Timezones::is_mode( 'site' ) ) {
 				$event_start_key .= 'UTC';
 				$event_end_key   .= 'UTC';
 			}
