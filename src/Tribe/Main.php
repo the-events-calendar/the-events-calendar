@@ -502,6 +502,10 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			// The priority should always be < 5, to allow the framework to load
 			add_action( 'plugins_loaded', array( $this, 'maybe_load_tickets_framework' ), 3 );
+
+			// Add support for tickets plugin
+			add_action( 'tribe_tickets_ticket_added', array( 'Tribe__Events__API', 'update_event_cost' ) );
+			add_action( 'tribe_tickets_ticket_deleted', array( 'Tribe__Events__API', 'update_event_cost' ) );
 		}
 
 		/**
