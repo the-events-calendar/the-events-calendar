@@ -1342,7 +1342,9 @@ class Tribe__Events__Pro__Recurrence_Meta {
 		$end_date = strtotime( tribe_get_end_date( $event_id ) );
 
 		$num_days = floor( ( $end_date - $start_date ) / DAY_IN_SECONDS );
-		$num_hours = floor( ( ( $end_date - $start_date ) / HOUR_IN_SECONDS ) - ( $num_days * 24 ) );
+
+		// make sure we always round hours UP to when dealing with decimal lengths more than 2. Example: 4.333333 would become 4.34
+		$num_hours = ceil( ( ( ( $end_date - $start_date ) / HOUR_IN_SECONDS ) - ( $num_days * 24 ) ) * 100 ) / 100;
 
 		if ( $is_custom && 'custom' === $rule['type'] && ! $same_time ) {
 			$new_start_date = date( 'Y-m-d', $start_date ) . ' ' . $rule['custom']['start-time']['hour'] . ':' . $rule['custom']['start-time']['minute'];
@@ -1356,7 +1358,9 @@ class Tribe__Events__Pro__Recurrence_Meta {
 			}
 
 			$new_num_days = floor( ( $new_end_date - $new_start_date ) / DAY_IN_SECONDS );
-			$new_num_hours = floor( ( ( $new_end_date - $new_start_date ) / HOUR_IN_SECONDS ) - ( $new_num_days * 24 ) );
+
+			// make sure we always round hours UP to when dealing with decimal lengths more than 2. Example: 4.333333 would become 4.34
+			$new_num_hours = ceil( ( ( ( $new_end_date - $new_start_date ) / HOUR_IN_SECONDS ) - ( $new_num_days * 24 ) ) * 100 ) / 100;
 		}
 
 		$weekdays = array();
