@@ -425,11 +425,23 @@ tribe_events_pro_admin.recurrence = {
 
 		var $start_date = $( document.getElementById( 'EventStartDate' ) );
 		var start_date = $start_date.val();
-		start_date += ' ' + $event_form.find( '[name="EventStartHour"] option:selected' ).val() + ':' + $event_form.find( '[name="EventStartMinute"] option:selected' ).val() + ' ' + $event_form.find( '[name="EventStartMeridian"] option:selected' ).val().toUpperCase();
+		var $selected_start_meridian = $event_form.find( '[name="EventStartMeridian"] option:selected' );
+
+		start_date += ' ' + $event_form.find( '[name="EventStartHour"] option:selected' ).val() + ':' + $event_form.find( '[name="EventStartMinute"] option:selected' ).val();
+
+		if ( $selected_start_meridian.length ) {
+			start_date += ' ' + $selected_start_meridian.val().toUpperCase();
+		}
 
 		var $end_date = $( document.getElementById( 'EventEndDate' ) );
 		var end_date = $end_date.val();
-		end_date += ' ' + $event_form.find( '[name="EventEndHour"] option:selected' ).val() + ':' + $event_form.find( '[name="EventEndMinute"] option:selected' ).val() + ' ' + $event_form.find( '[name="EventEndMeridian"] option:selected' ).val().toUpperCase();
+		var $selected_end_meridian = $event_form.find( '[name="EventEndMeridian"] option:selected' );
+
+		end_date += ' ' + $event_form.find( '[name="EventEndHour"] option:selected' ).val() + ':' + $event_form.find( '[name="EventEndMinute"] option:selected' ).val();
+
+		if ( $selected_end_meridian.length ) {
+			end_date += ' ' + $selected_end_meridian.val().toUpperCase();
+		}
 
 		var start_moment = moment( start_date, date_format );
 		var end_moment = moment( end_date, date_format );
