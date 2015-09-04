@@ -78,13 +78,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 			foreach ( $meta_id_group as $meta_id ) {
 				$meta_pos_int ++;
 
-				// if we should have a meta divider let's add it!
-				if ( ! empty( $group_html ) && $meta_pos_int <= $total_meta_items ) {
-					$group_html .= $meta_group['wrap']['meta_separator'];
-				}
-
-				$group_html .= tribe_get_meta( $meta_id, $is_the_meta );
-
+				$group_html = tribe_separated_field( $group_html, $meta_group['wrap']['meta_separator'], tribe_get_meta( $meta_id, $is_the_meta ) );
 			}
 		}
 
@@ -371,4 +365,18 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		echo apply_filters( 'tribe_display_meta', tribe_get_meta( $meta_id ) );
 	}
 
+	/**
+	 * Utility function to compile separated lists.
+	 *
+	 * @param string $body
+	 * @param string $separator
+	 * @param string $field
+	 *
+	 * @return string
+	 */
+	function tribe_separated_field( $body, $separator, $field ) {
+		$body_and_separator = $body ? $body . $separator : $body;
+
+		return $field ? $body_and_separator . $field : $body;
+	}
 }
