@@ -1,8 +1,11 @@
-<?php use Tribe\Events\Test\UITester;
+<?php
+
+
+use Tribe\Events\Test\Acceptance\Steps\EventSteps;
 
 $scenario->group('settings');
 
-$I = new UITester\EventSteps($scenario);
+$I = new EventSteps($scenario);
 $I->am('administrator');
 $I->wantTo('verify that TEC Single Event Slug Setting');
 

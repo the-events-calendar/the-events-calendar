@@ -1,5 +1,6 @@
 <?php
-use Tribe\Events\Test\UITester;
+
+use Tribe\Events\Test\AcceptanceTester;
 
 $scenario->group('upload');
 
@@ -8,9 +9,9 @@ $scenario->group('upload');
  *
  * @group   core
  *
- * @package UITester
+ * @package AccceptanceTester
  */
-class UploadCsvCept extends Tribe\Events\Test\UITester {
+class UploadCsvCept extends AcceptanceTester {
 
 	// Acceptable $type: venues, organizers, events
 	public function tribe_upload_csv ($type, $file) {

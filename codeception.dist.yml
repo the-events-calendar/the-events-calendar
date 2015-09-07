@@ -20,6 +20,7 @@ modules:
             user: root
             password: password
             dump: tests/_data/wordpress.sql
+            reconnect: true
         WPBrowser:
             url: 'http://tec.tri.be'
             adminUsername: admin
@@ -36,6 +37,7 @@ modules:
             tablePrefix: wptests_
             checkExistence: true
             update: true
+            reconnect: true
         WPLoader:
             wpRootFolder: ~/www/wordpress
             dbName: wordpress-tests
