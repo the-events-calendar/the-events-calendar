@@ -3002,7 +3002,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			$venue_pto = get_post_type_object( self::VENUE_POST_TYPE );
 			if ( isset( $_POST['Venue']['VenueID'] ) && ! empty( $_POST['Venue']['VenueID'] ) ) {
 				$_POST['Venue'] = array( 'VenueID' => intval( $_POST['Venue']['VenueID'] ) );
-			} elseif ( !current_user_can( $venue_pto->cap->create_posts ) ) {
+			} elseif ( ! current_user_can( $venue_pto->cap->create_posts ) ) {
 				$_POST['Venue'] = array();
 			}
 

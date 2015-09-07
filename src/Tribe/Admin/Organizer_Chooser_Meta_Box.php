@@ -105,7 +105,7 @@ class Tribe__Events__Admin__Organizer_Chooser_Meta_Box {
 	 */
 	protected function edit_organizer_link( $organizer_id ) {
 		$organizer_pto = get_post_type_object( Tribe__Events__Main::ORGANIZER_POST_TYPE );
-		if ( !current_user_can( $organizer_pto->cap->create_posts ) ) {
+		if ( ! current_user_can( $organizer_pto->cap->create_posts ) ) {
 			return;
 		}
 		?>
