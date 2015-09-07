@@ -1,47 +1,44 @@
-namespace: Tribe\Events\Test
 actor: Tester
 paths:
     tests: tests
     log: tests/_output
     data: tests/_data
     helpers: tests/_support
+settings:
+    bootstrap: _bootstrap.php
+    colors: true
+    memory_limit: 1024M
 php:
     globals:
         wp_tests_options:
             active_plugins:
                 - the-events-calendar/the-events-calendar.php
-                - events-pro/events-calendar-pro.php
-                - events-community/tribe-community-events.php
-settings:
-    bootstrap: _bootstrap.php
-    colors: true
-    memory_limit: 1024M
 modules:
     config:
         Db:
-            dsn: 'mysql:host=localhost;dbname=tribe_events_tests'
+            dsn: 'mysql:host=localhost;dbname=tec-tests'
             user: root
             password: password
             dump: tests/_data/wordpress.sql
         WPBrowser:
-            url: 'http://tests.events.tribe'
+            url: 'http://tec.tri.be'
             adminUsername: admin
             adminPassword: password
             adminUrl: /wp-admin
         WPDb:
-            dsn: 'mysql:host=localhost;dbname=tribe_events_tests'
+            dsn: 'mysql:host=localhost;dbname=tec-tests'
             user: root
             password: password
-            dump: tests/_data/wordpress.sql
+            dump: tests/_data/dump.sql
             populate: true
             cleanup: true
-            url: 'http://tests.events.tribe'
+            url: 'http://tec.tri.be'
             tablePrefix: wptests_
             checkExistence: true
             update: true
         WPLoader:
-            wpRootFolder: ~/var/www
-            dbName: tribe_events_tests
+            wpRootFolder: ~/www/wordpress
+            dbName: wordpress-tests
             dbHost: localhost
             dbUser: root
             dbPassword: password
@@ -49,14 +46,17 @@ modules:
             dbCharset: utf8
             dbCollate: ''
             tablePrefix: wptests_
-            domain: tests.events.tribe
-            adminEmail: admin@tests.events.tribe
-            title: 'Tribe Plugins Test'
+            domain: tec.tri.be
+            adminEmail: admin@tec.tri.ve
+            title: 'The Events Calendar Tests'
             phpBinary: php
             language: ''
         WPWebDriver:
-            url: 'http://tests.events.tribe'
-            browser: firefox
+            url: 'http://tec.tri.be'
+            browser: phantomjs
+            port: 4444
+            restart: true
+            wait: 2
             adminUsername: admin
             adminPassword: password
             adminUrl: /wp-admin

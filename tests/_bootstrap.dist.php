@@ -3,7 +3,6 @@
  * @file Global bootstrap for all codeception tests
  */
 
-
 /**
  * Set up global data passed in from the config file
  *
@@ -47,6 +46,6 @@ function tribe_load_active_plugins() {
 	}
 }
 
-Codeception\Util\Autoload::registerSuffix( 'Tribe__Events__WP_UnitTestCase', __DIR__ . '/helpers' );
+Codeception\Util\Autoload::registerSuffix( 'Tribe__Events__WP_UnitTestCase', __DIR__ . '/_support' );
 
 tribe_events_codeception_bootstrap( \Codeception\Configuration::config() );
