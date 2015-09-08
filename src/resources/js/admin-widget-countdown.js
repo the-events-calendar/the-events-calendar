@@ -17,7 +17,7 @@
 					args.minimumResultsForSearch = Infinity;
 				}
 
-				$this.on( 'open', function(event){
+				$this.on( 'open', function( event ){
 					$( '.select2-drop' ).css( 'z-index', 10000000 );
 				} ).select2( args );
 			} );
@@ -52,11 +52,20 @@
 					}
 				} );
 			} );
+
+
+			// Only happens on Widgets Admin page
+			if ( ! $( 'body' ).hasClass( 'wp-customizer' ) ){
+				if ( $.isNumeric( event ) || 'widget-updated' === event.type ){
+					$widget.find( '.js-tribe-condition' ).trigger( 'change' );
+				}
+			}
+
 		}
 	};
 
 	$( document ).on( {
-		'widget-added widget-synced': tribeWidget.setup,
+		'widget-added widget-synced widget-updated': tribeWidget.setup,
 		'ready': function( event ){
 			// Prevents problems on Customizer
 			if ( $( 'body' ).hasClass( 'wp-customizer' ) ){
