@@ -216,7 +216,7 @@ Our Premium Plugins:
 
 == Changelog ==
 
-= [Unreleased] unreleased =
+= [3.12] 2015-09-08 =
 
 * Security - Resolved JS vulnerability in minified JS by upgrading to uglifyjs 2.4.24
 * Feature - Added support for the long awaited Arbitrary Recurrence!  Creating recurring events with multiple granular rulesets is now possible.
@@ -226,15 +226,15 @@ Our Premium Plugins:
 * Feature - Added support for timezones following the introduction of timezone support in The Events Calendar
 * Performance - Removed a no-longer needed join from many queries to provide faster page loads
 * Tweak - Pad SQL joins with spacing to avoid conflicts with other plugins that modify SQL (props to jeremyfelt)
-* Bug - Fixed issue where generating recurring events did not trigger the rebuilding of the known date range
-* Bug - Fixed APM Start/End Date filters to stop showing SQL errors
-* Bug - Fixed an issue with additional fields not showing as selected when a symbol is included in the label (Props to Justin!)
-* Bug - Resolved issue where events without venues were showing up in Map View
-* Bug - Fixed a bug where the tribe-mini-calendar-today CSS class was not removed from some days in the mini calendar widget while clicking around (Thanks to mennstudio for the report!)
-* Bug - Resolved a bug where "Additional Fields" with a double quote in the title would be saved with a backslash
-* Bug - Fixed notices that were being thrown while configuring the Countdown Widget in the Customizer
-* Bug - Fixed a problem where recurring event updates did not properly complete (props to Ian for detecting this problem!)
-* Bug - Fixed a problem where the first event in a series of recurring events could be excluded from the "All Events" view (Cheers to Ian for reporting this!)
+* Fix - Fixed issue where generating recurring events did not trigger the rebuilding of the known date range
+* Fix - Fixed APM Start/End Date filters to stop showing SQL errors
+* Fix - Fixed an issue with additional fields not showing as selected when a symbol is included in the label (Props to Justin!)
+* Fix - Resolved issue where events without venues were showing up in Map View
+* Fix - Fixed a bug where the tribe-mini-calendar-today CSS class was not removed from some days in the mini calendar widget while clicking around (Thanks to mennstudio for the report!)
+* Fix - Resolved a bug where "Additional Fields" with a double quote in the title would be saved with a backslash
+* Fix - Fixed notices that were being thrown while configuring the Countdown Widget in the Customizer
+* Fix - Fixed a problem where recurring event updates did not properly complete (props to Ian for detecting this problem!)
+* Fix - Fixed a problem where the first event in a series of recurring events could be excluded from the "All Events" view (Cheers to Ian for reporting this!)
 * Deprecated - Functions that added useless SQL have been removed from source: Tribe__Events__Pro__Main::posts_fields() and Tribe__Events__Pro__Main::posts_join()
 
 = [3.11.1] 2015-07-27 =
