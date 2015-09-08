@@ -435,7 +435,7 @@
 						}
 
 						// A child event should be using its parent's slug. If it's using its own, redirect.
-						if ( tribe_is_recurring_event( get_the_ID() ) ) {
+						if ( tribe_is_recurring_event( get_the_ID() ) && '' !== get_option( 'permalink_structure' ) ) {
 							$event = get_post( get_the_ID() );
 							if ( ! empty( $event->post_parent ) ) {
 								if ( isset( $wp_query->query['name'] ) && $wp_query->query['name'] == $event->post_name ) {
