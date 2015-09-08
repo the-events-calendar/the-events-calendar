@@ -125,6 +125,15 @@ if ( ! class_exists( 'Tribe__Events__Pro__Countdown_Widget' ) ) {
 			echo $args['after_widget'];
 		}
 
+		/**
+		 * Get the Output of the Widget based on the Instance from the Database
+		 *
+		 * @param  array $instance     The Array of arguments that will build the HTML
+		 * @param  null $deprecated    Deprecated Argument
+		 * @param  null $deprecated_   Deprecated Argument
+		 * @param  null $deprecated__  Deprecated Argument
+		 * @return string
+		 */
 		public function get_output( $instance, $deprecated = null, $deprecated_ = null, $deprecated__ = null ) {
 			if ( 'next-event' === $instance['type'] ) {
 				$event = reset( tribe_get_events( array(
@@ -159,7 +168,14 @@ if ( ! class_exists( 'Tribe__Events__Pro__Countdown_Widget' ) ) {
 		}
 
 		/**
-		 * Generate the hidden information to be passed to jQuery.
+		 * Generate the hidden information to be passed to jQuery
+		 *
+		 * @param  int $seconds             The amount of seconds to show
+		 * @param  string $complete         HTML for when the countdown is over
+		 * @param  string $hourformat       HTML from View
+		 * @param  WP_Post|int|null $event  Event Instance of WP_Post
+		 * @param  null $deprecated         Deprecated Argument
+		 * @return string
 		 */
 		public function generate_countdown_output( $seconds, $complete, $hourformat, $event, $deprecated = null ) {
 			$event = get_post( $event );
