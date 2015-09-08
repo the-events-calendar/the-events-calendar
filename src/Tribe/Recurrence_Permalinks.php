@@ -9,9 +9,10 @@ class Tribe__Events__Pro__Recurrence_Permalinks {
 		// URL Arguments on home_url() pre-check
 		$url_query = @parse_url( $post_link, PHP_URL_QUERY );
 		$url_args = wp_parse_args( $url_query, array() );
+		$permalink_structure = get_option( 'permalink_structure' );
 
 		// Remove the "args"
-		if ( ! empty( $url_query ) ) {
+		if ( ! empty( $url_query ) && '' !== $permalink_structure ) {
 			$post_link = str_replace( '?' . $url_query, '', $post_link );
 		}
 
@@ -28,7 +29,7 @@ class Tribe__Events__Pro__Recurrence_Permalinks {
 		$parent = $this->get_primary_event( $post );
 		$slug   = $parent->post_name;
 
-		if ( get_option( 'permalink_structure' ) == '' ) {
+		if ( '' === $permalink_structure ) {
 			$post_link = remove_query_arg( Tribe__Events__Main::POSTTYPE, $post_link );
 			$post_link = add_query_arg( array(
 				Tribe__Events__Main::POSTTYPE => $slug,
@@ -45,7 +46,6 @@ class Tribe__Events__Pro__Recurrence_Permalinks {
 
 		// Add the Arguments back
 		$post_link = add_query_arg( $url_args, $post_link );
-
 
 		return $post_link;
 	}
