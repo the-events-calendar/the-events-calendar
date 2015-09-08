@@ -42,7 +42,7 @@
 
 
 			const REQUIRED_TEC_VERSION = '3.11';
-			const VERSION = '3.12a3';
+			const VERSION = '3.12rc1';
 
 			private function __construct() {
 				$this->pluginDir = trailingslashit( basename( EVENTS_CALENDAR_PRO_DIR ) );

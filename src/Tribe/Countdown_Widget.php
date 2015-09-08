@@ -17,6 +17,7 @@ if ( ! class_exists( 'Tribe__Events__Pro__Countdown_Widget' ) ) {
 				'description' => __( 'Displays the time remaining until a specified event.', 'tribe-events-calendar-pro' ),
 			);
 			$control_ops = array( 'id_base' => 'tribe-events-countdown-widget' );
+
 			parent::__construct( 'tribe-events-countdown-widget', __( 'Events Countdown', 'tribe-events-calendar-pro' ), $widget_ops, $control_ops );
 
 			add_action( 'admin_enqueue_scripts', array( $this, 'load_assets' ) );
@@ -77,6 +78,7 @@ if ( ! class_exists( 'Tribe__Events__Pro__Countdown_Widget' ) ) {
 		public function form( $instance ) {
 			$defaults = array(
 				'title' => '',
+				'type' => 'single-event',
 				'event_ID' => null,
 				'event_date' => null,
 				'show_seconds' => true,

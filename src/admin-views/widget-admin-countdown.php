@@ -1,13 +1,13 @@
 <?php
 /**
  * Widget admin for the event countdown widget.
+ * @todo Apply Select2 for the Post Selection
  */
 
 // Don't load directly
 if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
-
 ?>
 <div class="tribe-widget-countdown-container">
 	<p>
@@ -16,25 +16,28 @@ if ( ! defined( 'ABSPATH' ) ) {
 	</p>
 
 	<p>
-		<label for="<?php echo esc_attr( $this->get_field_id( 'type' ) ); ?>"><?php esc_html_e( 'Type:', 'tribe-events-calendar-pro' ); ?></label>
-		<select class="widefat tribe-select2" id="<?php echo esc_attr( $this->get_field_id( 'type' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'type' ) ); ?>">
-			<option value="single-event"><?php esc_html_e( 'Single Event', 'tribe-events-calendar-pro' ); ?></option>
-			<option value="next-event"><?php esc_html_e( 'Next Event', 'tribe-events-calendar-pro' ); ?></option>
-		</select>
+		<label for="<?php echo esc_attr( $this->get_field_id( 'type' ) ); ?>"><?php esc_html_e( 'Type:', 'tribe-events-calendar-pro' ); ?>
+			<select data-no-search='1' class="widefat js-tribe-condition" data-tribe-conditional-field="type" id="<?php echo esc_attr( $this->get_field_id( 'type' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'type' ) ); ?>">
+				<option <?php selected( $instance['type'], 'single-event' ); ?> value="single-event"><?php esc_html_e( 'Single Event', 'tribe-events-calendar-pro' ); ?></option>
+				<option <?php selected( $instance['type'], 'next-event' ); ?> value="next-event"><?php esc_html_e( 'Next Event', 'tribe-events-calendar-pro' ); ?></option>
+			</select>
+		</label>
 	</p>
 
-	<p>
-		<label for="<?php echo esc_attr( $this->get_field_id( 'event_ID' ) ); ?>"><?php esc_html_e( 'Event:', 'tribe-events-calendar-pro' ); ?></label>
-		<select class="widefat tribe-select2" id="<?php echo esc_attr( $this->get_field_id( 'event_ID' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'event' ) ); ?>">
-			<?php foreach ( $events as $event ): ?>
-				<option value="<?php echo esc_attr( $event->ID ); ?>|<?php echo date_format( new DateTime( $event->EventStartDate ), Tribe__Events__Date_Utils::DBDATEFORMAT ); ?>" <?php selected( $event->ID . '|' . date_format( new DateTime( $event->EventStartDate ), Tribe__Events__Date_Utils::DBDATEFORMAT ) == $instance['event_ID'] . '|' . $instance['event_date'] ) ?>><?php echo esc_attr( strip_tags( $event->post_title ) ); ?> - <?php echo date_format( new DateTime( $event->EventStartDate ), 'm/j/Y' ); ?></option>
-			<?php endforeach ?>
-		</select>
+	<p class="js-tribe-conditional" data-tribe-conditional-field="type" data-tribe-conditional-value="single-event">
+		<label for="<?php echo esc_attr( $this->get_field_id( 'event_ID' ) ); ?>"><?php esc_html_e( 'Event:', 'tribe-events-calendar-pro' ); ?>
+			<select class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'event_ID' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'event' ) ); ?>">
+				<?php foreach ( $events as $event ): ?>
+					<option value="<?php echo esc_attr( $event->ID ); ?>|<?php echo date_format( new DateTime( $event->EventStartDate ), Tribe__Events__Date_Utils::DBDATEFORMAT ); ?>" <?php selected( $event->ID . '|' . date_format( new DateTime( $event->EventStartDate ), Tribe__Events__Date_Utils::DBDATEFORMAT ) == $instance['event_ID'] . '|' . $instance['event_date'] ) ?>><?php echo esc_attr( strip_tags( $event->post_title ) ); ?> - <?php echo date_format( new DateTime( $event->EventStartDate ), 'm/j/Y' ); ?></option>
+				<?php endforeach ?>
+			</select>
+		</label>
 	</p>
 
 	<p>
 		<label for="<?php echo esc_attr( $this->get_field_id( 'complete' ) ); ?>"><?php esc_html_e( 'Countdown Completed Text:', 'tribe-events-calendar-pro' ); ?></label>
 		<input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'complete' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'complete' ) ); ?>" type="text" value="<?php echo esc_attr( strip_tags( $instance['complete'] ) ); ?>" />
+		<small class="js-tribe-conditional" data-tribe-conditional-field="type" data-tribe-conditional-value="next-event"><?php esc_html_e( 'On &#8220;Next Event&#8221; type of countdown, this text will only show when there are no events to show.', 'tribe-events-calendar-pro' ); ?></small>
 	</p>
 
 	<p>
