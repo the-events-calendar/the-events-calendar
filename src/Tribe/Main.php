@@ -41,8 +41,8 @@
 			public $widget_wrappers;
 
 
-			const REQUIRED_TEC_VERSION = '3.12rc1';
-			const VERSION = '3.12rc1';
+			const REQUIRED_TEC_VERSION = '3.12';
+			const VERSION = '3.12';
 
 			private function __construct() {
 				$this->pluginDir = trailingslashit( basename( EVENTS_CALENDAR_PRO_DIR ) );
