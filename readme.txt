@@ -5,7 +5,7 @@ Tags: events, calendar, event, venue, organizer, dates, date, google maps, confe
 Donate link: http://m.tri.be/29
 Requires at least: 3.9
 Tested up to: 4.3
-Stable tag: 3.12a3
+Stable tag: 3.12
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -216,13 +216,26 @@ Our Premium Plugins:
 
 == Changelog ==
 
-= [Unreleased] unreleased =
+= [3.12] 2015-09-08 =
 
-* Bug - Fixed APM Start/End Date filters to stop showing SQL errors
-
-= [Unreleased] unreleased =
-
-* Bug - Fixed an issue with additional fields not showing as selected when a symbol is included in the label
+* Security - Resolved JS vulnerability in minified JS by upgrading to uglifyjs 2.4.24
+* Feature - Added support for the long awaited Arbitrary Recurrence!  Creating recurring events with multiple granular rulesets is now possible.
+* Feature - Added support for WPML, thanks for waiting!
+* Feature - Extended CSV imports to include custom fields defined in events settings (Big thanks to zacwasielewski for submitting a similar pull request! You rock! :) )
+* Feature - Added none option for both Radio and Dropdown Additional Fields (Thanks to Justin on the forums!)
+* Feature - Added support for timezones following the introduction of timezone support in The Events Calendar
+* Performance - Removed a no-longer needed join from many queries to provide faster page loads
+* Tweak - Pad SQL joins with spacing to avoid conflicts with other plugins that modify SQL (props to jeremyfelt)
+* Fix - Fixed issue where generating recurring events did not trigger the rebuilding of the known date range
+* Fix - Fixed APM Start/End Date filters to stop showing SQL errors
+* Fix - Fixed an issue with additional fields not showing as selected when a symbol is included in the label (Props to Justin!)
+* Fix - Resolved issue where events without venues were showing up in Map View
+* Fix - Fixed a bug where the tribe-mini-calendar-today CSS class was not removed from some days in the mini calendar widget while clicking around (Thanks to mennstudio for the report!)
+* Fix - Resolved a bug where "Additional Fields" with a double quote in the title would be saved with a backslash
+* Fix - Fixed notices that were being thrown while configuring the Countdown Widget in the Customizer
+* Fix - Fixed a problem where recurring event updates did not properly complete (props to Ian for detecting this problem!)
+* Fix - Fixed a problem where the first event in a series of recurring events could be excluded from the "All Events" view (Cheers to Ian for reporting this!)
+* Deprecated - Functions that added useless SQL have been removed from source: Tribe__Events__Pro__Main::posts_fields() and Tribe__Events__Pro__Main::posts_join()
 
 = [3.11.1] 2015-07-27 =
 
