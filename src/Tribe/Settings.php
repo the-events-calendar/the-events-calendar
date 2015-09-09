@@ -131,7 +131,7 @@ if ( ! class_exists( 'Tribe__Events__Settings' ) ) {
 			// set instance variables
 			$this->menuName    = apply_filters( 'tribe_settings_menu_name', __( 'The Events Calendar', 'the-events-calendar' ) );
 			$this->requiredCap = apply_filters( 'tribe_settings_req_cap', 'manage_options' );
-			$this->adminSlug   = apply_filters( 'tribe_settings_admin_slug', 'the-events-calendar' );
+			$this->adminSlug   = apply_filters( 'tribe_settings_admin_slug', 'tribe-events-calendar' );
 			$this->errors      = get_option( 'tribe_settings_errors', array() );
 			$this->major_error = get_option( 'tribe_settings_major_error', false );
 			$this->sent_data   = get_option( 'tribe_settings_sent_data', array() );

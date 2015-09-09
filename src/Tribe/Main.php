@@ -4124,7 +4124,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 					add_query_arg(
 						array(
 							'post_type' => self::POSTTYPE,
-							'page'      => 'the-events-calendar',
+							'page'      => 'tribe-events-calendar',
 						),
 						admin_url( 'edit.php' )
 					)
@@ -4151,7 +4151,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				add_query_arg(
 					array(
 						'post_type' => self::POSTTYPE,
-						'page'      => 'the-events-calendar',
+						'page'      => 'tribe-events-calendar',
 						'tab'       => 'help',
 					),
 					'edit.php'
