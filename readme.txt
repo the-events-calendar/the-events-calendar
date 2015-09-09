@@ -316,7 +316,7 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 == Changelog ==
 
 
-= [3.12.1] =
+= [3.12.1] 2015-09-09 =
 * Tweak - text domains updated for consistency with the plugin slug
 
 = [3.12] 2015-09-08 =
