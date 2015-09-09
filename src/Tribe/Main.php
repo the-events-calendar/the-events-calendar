@@ -1667,7 +1667,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				$oganizer_pto = get_post_type_object( self::ORGANIZER_POST_TYPE );
 				echo '<select class="chosen organizer-dropdown" name="' . esc_attr( $name ) . '" id="saved_organizer">';
 				if ( current_user_can( $oganizer_pto->cap->create_posts ) ) {
-					echo '<option value="0">' . sprintf( esc_html__( 'Use New %s', 'tribe-events-calendar' ), $this->singular_organizer_label ) . '</option>';
+					echo '<option value="0">' . sprintf( esc_html__( 'Use New %s', 'tribe-events-calendar' ), sanitize_title( $this->singular_organizer_label ) ) . '</option>';
 				}
 				if ( $my_organizers ) {
 					echo $organizers ? '<optgroup label="' . esc_attr( apply_filters( 'tribe_events_saved_organizers_dropdown_my_optgroup', sprintf( esc_html__( 'My %s', 'tribe-events-calendar' ), $this->plural_organizer_label ) ) ) . '">' : '';
