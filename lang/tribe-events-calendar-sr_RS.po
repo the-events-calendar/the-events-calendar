@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the The Events Calendar package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2015-06-08 14:36:51+0000\n"
+"PO-Revision-Date: 2015-08-06 15:45:14+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -10,3672 +10,3767 @@ msgstr ""
 "X-Generator: GlotPress/1.0-alpha-1000\n"
 "Project-Id-Version: The Events Calendar\n"
 
-#: ../src/Tribe/Activation_Page.php:39
+#. Description of the plugin/theme
+msgid "The Events Calendar is a carefully crafted, extensible plugin that lets you easily share your events. Beautiful. Solid. Awesome."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Modern Tribe, Inc."
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "http://m.tri.be/1x"
+msgstr ""
+
+#: src/Tribe/Admin/Notice/Archive_Slug_Conflict.php:62
+msgid "<a href=\"%s\">Edit the page slug</a>"
+msgstr ""
+
+#: src/Tribe/Admin/Notice/Archive_Slug_Conflict.php:63
+msgid "Ask the site administrator to edit the page slug"
+msgstr ""
+
+#: src/Tribe/Admin/Notice/Archive_Slug_Conflict.php:68
+msgid "<a href=\"%s\">edit The Events Calendar settings</a>."
+msgstr ""
+
+#: src/Tribe/Admin/Notice/Archive_Slug_Conflict.php:69
+msgid " ask the site administrator set a different Events URL slug."
+msgstr ""
+
+#: src/Tribe/Admin/Timezone_Updater.php:77
+msgid "Please wait while timezone data is added to your events."
+msgstr ""
+
+#: src/Tribe/Admin/Timezone_Updater.php:78
+msgid "Update complete: timezone data has been added to all events in the database."
+msgstr ""
+
+#: src/Tribe/Admin/Timezone_Updater.php:87
+msgid "%d%% complete"
+msgstr ""
+
+#: src/Tribe/Admin/Timezone_Updater.php:105
+msgid "A problem stopped the timezone update process from completing. Please refresh and try again."
+msgstr ""
+
+#: src/Tribe/Importer/Column_Mapper.php:64
+msgid "Event Currency Symbol"
+msgstr ""
+
+#: src/Tribe/Importer/Column_Mapper.php:65
+msgid "Event Currency Position"
+msgstr ""
+
+#: src/Tribe/Importer/Column_Mapper.php:67
+msgid "Event Tags"
+msgstr ""
+
+#: src/Tribe/Main.php:2241
+msgid "page"
+msgstr ""
+
+#: src/Tribe/Main.php:2242
+msgid "event"
+msgstr ""
+
+#: src/Tribe/Main.php:2243
+msgid "events"
+msgstr ""
+
+#: src/Tribe/Main.php:2244
+msgid "all"
+msgstr ""
+
+#: src/Tribe/Settings.php:261
+msgid "Save Changes"
+msgstr ""
+
+#: src/Tribe/Template/Day.php:136
+msgid "No matching %1$s listed under %2$s scheduled for <strong>%3$s</strong>. Please try another day."
+msgstr ""
+
+#: src/Tribe/Template/Day.php:138
+msgid "No %1$s scheduled for <strong>%2$s</strong>. Please try another day."
+msgstr ""
+
+#: src/Tribe/Template/Month.php:287
+msgid "No matching %1$s listed under %2$s. Please try viewing the full calendar for a complete list of events."
+msgstr ""
+
+#: src/Tribe/Template_Factory.php:355
+msgid "No results were found for %1$s in or near <strong>\"%2$s\"</strong>."
+msgstr ""
+
+#: src/Tribe/Template_Factory.php:357
+msgid "No upcoming %1$s listed under %2$s. Check out upcoming %3$s for this category or view the full calendar."
+msgstr ""
+
+#: src/Tribe/Template_Factory.php:359 src/Tribe/Template_Factory.php:364
+msgid "No matching %1$s listed under %2$s. Please try viewing the full calendar for a complete list of %3$s."
+msgstr ""
+
+#: src/admin-views/events-meta-box.php:121
+msgid "Timezone:"
+msgstr ""
+
+#: src/admin-views/tickets/attendees.php:103
+msgid "Sold %1$d %2$s"
+msgstr ""
+
+#: src/admin-views/tickets/attendees.php:106
+msgid "Sold %1$d of %2$d %3$s"
+msgstr ""
+
+#: src/admin-views/tickets/list.php:69
+msgid "Sold %1$d of %2$d"
+msgstr ""
+
+#: src/admin-views/tribe-options-general.php:94
+msgid "You cannot edit the slug for your events page as you do not have pretty permalinks enabled. The current URL for your events page is <a href=\"%1$s\">%2$s</a>. In order to edit the slug here, <a href=\"%3$soptions-permalink.php\">enable pretty permalinks</a>."
+msgstr ""
+
+#: src/admin-views/tribe-options-help.php:199
+msgid "If you find that you aren't getting the level of service you've come to expect from Modern Tribe, shoot us an email at %1$s or tweet %2$s and tell us why. We'll do what we can to make it right."
+msgstr ""
+
+#: src/admin-views/tribe-options-licenses.php:13
+msgid "<p>The license key you received when completing your purchase from %1$s will grant you access to support and updates until it expires. You do not need to enter the key below for the plugins to work, but you will need to enter it to get automatic updates. <strong>Find your license keys at <a href=\"%2$s\" target=\"_blank\">%3$s</a></strong>.</p> <p>Each paid add-on has its own unique license key. Simply paste the key into its appropriate field on below, and give it a moment to validate. You know you're set when a green expiration date appears alongside a \"valid\" message.</p> <p>If you're seeing a red message telling you that your key isn't valid or is out of installs, visit <a href=\"%4$s\" target=\"_blank\">%5$s</a> to manage your installs or renew / upgrade your license.</p><p>Not seeing an update but expecting one? In WordPress, go to <a href=\"%6$s\">Dashboard > Updates</a> and click \"Check Again\".</p>"
+msgstr ""
+
+#: src/admin-views/tribe-options-timezones.php:4
+msgid "Enable timezone support"
+msgstr ""
+
+#: src/admin-views/tribe-options-timezones.php:6
+msgid "Update Timezone Data"
+msgstr ""
+
+#: src/admin-views/tribe-options-timezones.php:7
+msgid "Click this button to update your database and take advantage of additional timezone capabilities. Please <a href=\"%s\" target=\"_blank\">configure WordPress</a> to use the correct timezone before clicking this button!"
+msgstr ""
+
+#: src/admin-views/tribe-options-timezones.php:27
+msgid "Timezone Settings"
+msgstr ""
+
+#: src/admin-views/tribe-options-timezones.php:35
+msgid "Timezone mode"
+msgstr ""
+
+#: src/admin-views/tribe-options-timezones.php:39
+msgid "Use the local timezones for each event"
+msgstr ""
+
+#: src/admin-views/tribe-options-timezones.php:40
+msgid "Use the sitewide timezone everywhere"
+msgstr ""
+
+#: src/admin-views/tribe-options-timezones.php:45
+msgid "Show timezone"
+msgstr ""
+
+#: src/admin-views/tribe-options-timezones.php:46
+msgid "Appends the timezone to the end of event scheduling information &ndash; this can be useful when you have events in numerous different timezones."
+msgstr ""
+
+#: src/functions/template-tags/general.php:411
+msgctxt "category list label"
+msgid "%s Category"
+msgid_plural "%s Categories"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: src/io/csv/admin-views/general.php:48
+msgid "Save Settings"
+msgstr ""
+
+#: src/Tribe/Activation_Page.php:38
 msgid "Go to plugins page"
 msgstr ""
 
-#: ../src/Tribe/Activation_Page.php:39
+#: src/Tribe/Activation_Page.php:38
 msgid "Return to Plugins page"
 msgstr ""
 
-#: ../src/Tribe/Activation_Page.php:47
+#: src/Tribe/Activation_Page.php:46
 msgid "Go to WordPress Updates page"
 msgstr ""
 
-#: ../src/Tribe/Activation_Page.php:47
+#: src/Tribe/Activation_Page.php:46
 msgid "Return to WordPress Updates"
 msgstr ""
 
-#: ../src/Tribe/Admin/Organizer_Chooser_Meta_Box.php:88
+#: src/Tribe/Admin/Organizer_Chooser_Meta_Box.php:88
 msgid "Create New %s"
 msgstr ""
 
-#: ../src/Tribe/Admin/Organizer_Chooser_Meta_Box.php:149
+#: src/Tribe/Admin/Organizer_Chooser_Meta_Box.php:148
 msgid "Add another organizer"
 msgstr ""
 
-#: ../src/Tribe/Cost_Utils.php:108
+#: src/Tribe/Cost_Utils.php:108
 msgctxt "Cost range separator"
 msgid " - "
 msgstr ""
 
-#: ../src/Tribe/PUE/Checker.php:416
+#: src/Tribe/PUE/Checker.php:416
 msgid "unknown date"
 msgstr ""
 
-#: ../src/Tribe/Support.php:142
+#: src/Tribe/Support.php:142
 msgid "Rewrite rules were purged on load of this help page. Chances are there is a rewrite rule flush occurring in a plugin or theme!"
 msgstr ""
 
-#: ../src/admin-views/tribe-options-help.php:94
+#: src/admin-views/tribe-options-help.php:155
 msgid "If you're looking for help with The Events Calendar, you've come to the right place. We are committed to helping make your calendar be spectacular... and hope the resources provided below will help get you there."
 msgstr ""
 
-#: ../src/admin-views/tribe-options-help.php:142
+#: src/admin-views/tribe-options-help.php:209
 msgid "Hi! We are Modern Tribe and we are here to help you be awesome. Thanks so much for installing our labor of love!"
 msgstr ""
 
-#: ../src/admin-views/tribe-options-help.php:151
+#: src/admin-views/tribe-options-help.php:231
 msgid "Support Resources To Help You Be Awesome"
 msgstr ""
 
-#: ../src/admin-views/tribe-options-licenses.php:17
+#: src/admin-views/tribe-options-licenses.php:17
 msgid ""
 "<strong> Using our plugins in a multisite network? </strong>\n"
 "\t\tPlease note that your license key will be applied to the entire network, not just this site."
 msgstr ""
 
-#: ../src/admin-views/tribe-options-licenses.php:20
+#: src/admin-views/tribe-options-licenses.php:20
 msgid ""
 "Only license fields for <strong>network activated</strong> plugins will be\n"
 "\t\tlisted on this screen. "
 msgstr ""
 
-#: ../src/Tribe/View_Helpers.php:334
+#: src/Tribe/View_Helpers.php:334
 msgid "Louisiana"
 msgstr "Luizijana"
 
-#: ../src/admin-views/tribe-options-help.php:132
-msgid "If you find that you aren't getting the level of service you've come to expect from Modern Tribe, shoot us an email at %s or tweet %s and tell us why. We'll do what we can to make it right."
-msgstr "Ako ste pronašli da ne dobijate onaj nivo usluge koju očekujete od Modern Tribe, pošaljite nam email na %s ili tveet %s i recite nam zašto. Mi ćemo učiniti sve što možemo da ispravimo nedostatak."
-
-#: ../src/Tribe/View_Helpers.php:335
+#: src/Tribe/View_Helpers.php:335
 msgid "Maine"
 msgstr "Mejn"
 
-#: ../src/admin-views/tribe-options-help.php:133
+#: src/admin-views/tribe-options-help.php:200
 msgid "More..."
 msgstr "Još..."
 
-#: ../src/Tribe/View_Helpers.php:336
+#: src/Tribe/View_Helpers.php:336
 msgid "Maryland"
 msgstr "Mariland"
 
-#: ../src/Tribe/View_Helpers.php:337
+#: src/Tribe/View_Helpers.php:337
 msgid "Massachusetts"
 msgstr "Masačusets"
 
-#: ../src/Tribe/View_Helpers.php:338
+#: src/Tribe/View_Helpers.php:338
 msgid "Michigan"
 msgstr "Mičigen"
 
-#: ../src/admin-views/tribe-options-help.php:154
+#: src/admin-views/tribe-options-help.php:241
 msgid "Forums: Because Everyone Needs A Buddy"
 msgstr "Forumi: Svakom treba prijatelj"
 
-#: ../src/Tribe/View_Helpers.php:339
+#: src/Tribe/View_Helpers.php:339
 msgid "Minnesota"
 msgstr "Minesota"
 
-#: ../src/admin-views/tribe-options-help.php:157
+#: src/admin-views/tribe-options-help.php:251
 msgid "Not getting help?"
 msgstr "Ne dobijate pomoć?"
 
-#: ../src/Tribe/View_Helpers.php:340
+#: src/Tribe/View_Helpers.php:340
 msgid "Mississippi"
 msgstr "Misisipi"
 
-#: ../src/admin-views/tribe-options-help.php:174
+#: src/admin-views/tribe-options-help.php:277
 msgid "Latest Version:"
 msgstr "Poslednja verzija:"
 
-#: ../src/Tribe/View_Helpers.php:341
+#: src/Tribe/View_Helpers.php:341
 msgid "Missouri"
 msgstr "Misuri"
 
-#: ../src/admin-views/tribe-options-help.php:176
+#: src/admin-views/tribe-options-help.php:279
 msgid "Author:"
 msgstr "Autor:"
 
-#: ../src/Tribe/View_Helpers.php:342
+#: src/Tribe/View_Helpers.php:342
 msgid "Montana"
 msgstr "Montana"
 
-#: ../src/admin-views/tribe-options-help.php:176
+#: src/admin-views/tribe-options-help.php:279
 msgid "Modern Tribe Inc"
 msgstr "Modern Tribe Inc"
 
-#: ../src/Tribe/View_Helpers.php:343
+#: src/Tribe/View_Helpers.php:343
 msgid "Nebraska"
 msgstr "Nebraska"
 
-#: ../src/admin-views/tribe-options-help.php:179
+#: src/admin-views/tribe-options-help.php:284
 msgid "Requires:"
 msgstr "Potrebno:"
 
-#: ../src/Tribe/View_Helpers.php:344
+#: src/Tribe/View_Helpers.php:344
 msgid "Nevada"
 msgstr "Nevada"
 
-#: ../src/admin-views/tribe-options-help.php:179
+#: src/admin-views/tribe-options-help.php:284
 msgid "WordPress "
 msgstr "WordPress "
 
-#: ../src/Tribe/View_Helpers.php:345
+#: src/Tribe/View_Helpers.php:345
 msgid "New Hampshire"
 msgstr "Nju Hempšir"
 
-#: ../src/admin-views/tribe-options-help.php:181
+#: src/admin-views/tribe-options-help.php:295
 msgid "Wordpress.org Plugin Page"
 msgstr "Wordpress.org Plugin stranica"
 
-#: ../src/Tribe/View_Helpers.php:346
+#: src/Tribe/View_Helpers.php:346
 msgid "New Jersey"
 msgstr "Nju Džerzi"
 
-#: ../src/admin-views/tribe-options-help.php:187
+#: src/admin-views/tribe-options-help.php:301
 msgid "Average Rating"
 msgstr "Prosječan rejting"
 
-#: ../src/Tribe/View_Helpers.php:347
+#: src/Tribe/View_Helpers.php:347
 msgid "New Mexico"
 msgstr "Nju Meksiko"
 
-#: ../src/admin-views/tribe-options-help.php:193
+#: src/admin-views/tribe-options-help.php:307
 msgid "Based on %d rating"
 msgid_plural "Based on %d ratings"
 msgstr[0] "Bazirano na %d rejting"
 msgstr[1] "Bazirano na %d rejtinga"
 msgstr[2] "Bazirano na %d rejtinga"
 
-#: ../src/Tribe/View_Helpers.php:348
+#: src/Tribe/View_Helpers.php:348
 msgid "New York"
 msgstr "Nju Jork"
 
-#: ../src/admin-views/tribe-options-help.php:195
+#: src/admin-views/tribe-options-help.php:317
 msgid "Give us 5 stars!"
 msgstr "Dajte nam 5 zvjezdica!"
 
-#: ../src/Tribe/View_Helpers.php:349
+#: src/Tribe/View_Helpers.php:349
 msgid "North Carolina"
 msgstr "Severna Karolina"
 
-#: ../src/admin-views/tribe-options-help.php:199
+#: src/admin-views/tribe-options-help.php:321
 msgid "Premium Add-Ons"
 msgstr "Premijum dodaci"
 
-#: ../src/Tribe/View_Helpers.php:350
+#: src/Tribe/View_Helpers.php:350
 msgid "North Dakota"
 msgstr "Severna Dakota"
 
-#: ../src/admin-views/tribe-options-help.php:208
+#: src/admin-views/tribe-options-help.php:330
 msgid "(Coming Soon!)"
 msgstr "(Uskoro!)"
 
-#: ../src/Tribe/View_Helpers.php:351
+#: src/Tribe/View_Helpers.php:351
 msgid "Ohio"
 msgstr "Ohajo"
 
-#: ../src/admin-views/tribe-options-help.php:218
+#: src/admin-views/tribe-options-help.php:340
 msgid "News and Tutorials"
 msgstr "Vijesti i tutorijali"
 
-#: ../src/Tribe/View_Helpers.php:352
+#: src/Tribe/View_Helpers.php:352
 msgid "Oklahoma"
 msgstr "Oklahoma"
 
-#: ../src/admin-views/tribe-options-network.php:15
+#: src/admin-views/tribe-options-network.php:15
 msgid "Network Settings"
 msgstr "Mrežne postavke"
 
-#: ../src/Tribe/View_Helpers.php:353
+#: src/Tribe/View_Helpers.php:353
 msgid "Oregon"
 msgstr "Oregon"
 
-#: ../src/admin-views/tribe-options-network.php:19
+#: src/admin-views/tribe-options-network.php:19
 msgid "This is where all of the global network settings for Modern Tribe's The Events Calendar can be modified."
 msgstr "Ovdje mogu biti izmijenjene sve globalne mrežne postavke za The Events Calendar."
 
-#: ../src/Tribe/View_Helpers.php:354
+#: src/Tribe/View_Helpers.php:354
 msgid "Pennsylvania"
 msgstr "Pensilvanija"
 
-#: ../src/admin-views/tribe-options-network.php:27
+#: src/admin-views/tribe-options-network.php:27
 msgid "Hide the following settings tabs on every site:"
 msgstr "Sakrij sledeći tab sa postavkama na svakom sajtu:"
 
-#: ../src/Tribe/View_Helpers.php:355
+#: src/Tribe/View_Helpers.php:355
 msgid "Rhode Island"
 msgstr "Rode Island"
 
-#: ../src/admin-views/venue-meta-box.php:34
-#: ../src/functions/advanced-functions/meta_registration.php:176
+#: src/admin-views/tickets/attendees.php:46
+#: src/admin-views/venue-meta-box.php:34
+#: src/functions/advanced-functions/meta_registration.php:176
 msgid "Address:"
 msgstr "Adresa:"
 
-#: ../src/Tribe/View_Helpers.php:356
+#: src/Tribe/View_Helpers.php:356
 msgid "South Carolina"
 msgstr "Južna Karolina"
 
-#: ../src/admin-views/venue-meta-box.php:41
+#: src/admin-views/venue-meta-box.php:41
 msgid "City:"
 msgstr "Grad:"
 
-#: ../src/Tribe/View_Helpers.php:357
+#: src/Tribe/View_Helpers.php:357
 msgid "South Dakota"
 msgstr "Južna Dakota"
 
-#: ../src/admin-views/venue-meta-box.php:48
+#: src/admin-views/venue-meta-box.php:48
 msgid "Country:"
 msgstr "Zemlja:"
 
-#: ../src/Tribe/View_Helpers.php:358
+#: src/Tribe/View_Helpers.php:358
 msgid "Tennessee"
 msgstr "Tenesi"
 
-#: ../src/admin-views/venue-meta-box.php:88
+#: src/admin-views/venue-meta-box.php:88
 msgid "State or Province:"
 msgstr "Država ili provincija:"
 
-#: ../src/Tribe/View_Helpers.php:359
+#: src/Tribe/View_Helpers.php:359
 msgid "Texas"
 msgstr "Teksas"
 
-#: ../src/admin-views/venue-meta-box.php:92
+#: src/admin-views/venue-meta-box.php:92
 msgid "Select a State:"
 msgstr "Odaberite državu:"
 
-#: ../src/Tribe/View_Helpers.php:360
+#: src/Tribe/View_Helpers.php:360
 msgid "Utah"
 msgstr "Juta"
 
-#: ../src/admin-views/venue-meta-box.php:105
+#: src/admin-views/venue-meta-box.php:105
 msgid "Postal Code:"
 msgstr "Poštanski broj: "
 
-#: ../src/Tribe/View_Helpers.php:361
+#: src/Tribe/View_Helpers.php:361
 msgid "Vermont"
 msgstr "Vermont"
 
-#: ../src/admin-views/venue-meta-box.php:137
-#: ../src/admin-views/venue-meta-box.php:159
+#: src/admin-views/venue-meta-box.php:137
+#: src/admin-views/venue-meta-box.php:159
 msgid "Show Google Map:"
 msgstr "Prikaži Google mapu:"
 
-#: ../src/Tribe/View_Helpers.php:362
+#: src/Tribe/View_Helpers.php:362
 msgid "Virginia"
 msgstr "Virdžinija"
 
-#: ../src/admin-views/venue-meta-box.php:147
-#: ../src/admin-views/venue-meta-box.php:169
+#: src/admin-views/venue-meta-box.php:147
+#: src/admin-views/venue-meta-box.php:169
 msgid "Show Google Maps Link:"
 msgstr "Prikaži link Google mape:"
 
-#: ../src/Tribe/View_Helpers.php:363
+#: src/Tribe/View_Helpers.php:363
 msgid "Washington"
 msgstr "Vašington"
 
-#: ../src/admin-views/widget-admin-list.php:13
+#: src/admin-views/widget-admin-list.php:13
 msgid "Title:"
 msgstr "Titula: "
 
-#: ../src/Tribe/View_Helpers.php:364
+#: src/Tribe/View_Helpers.php:364
 msgid "West Virginia"
 msgstr "Zapadna Virdžinija"
 
-#: ../src/admin-views/widget-admin-list.php:18
+#: src/admin-views/widget-admin-list.php:18
 msgid "Show:"
 msgstr "Prikaži:"
 
-#: ../src/Tribe/View_Helpers.php:365
+#: src/Tribe/View_Helpers.php:365
 msgid "Wisconsin"
 msgstr "Viskonsin"
 
-#: ../src/admin-views/widget-admin-list.php:28
+#: src/admin-views/widget-admin-list.php:28
 msgid "Show widget only if there are upcoming events:"
 msgstr "Prikaži vidžet samo ako ima nadolazećih događaja: "
 
-#: ../src/Tribe/View_Helpers.php:366
+#: src/Tribe/View_Helpers.php:366
 msgid "Wyoming"
 msgstr "Vajoming"
 
-#: ../src/functions/advanced-functions/meta_registration.php:16
-#: ../src/views/modules/meta/details.php:30
+#: src/functions/advanced-functions/meta_registration.php:16
+#: src/views/modules/meta/details.php:30
 msgid "Details"
 msgstr "Detalji"
 
-#: ../src/Tribe/iCal.php:28
+#: src/Tribe/iCal.php:28
 msgctxt "feed link"
 msgid "&raquo;"
 msgstr ""
 
-#: ../src/functions/advanced-functions/meta_registration.php:80
+#: src/functions/advanced-functions/meta_registration.php:80
 msgid "Event Tags:"
 msgstr "Tagovi događaja:"
 
-#: ../src/Tribe/iCal.php:29
+#: src/Tribe/iCal.php:29
 msgid "%1$s %2$s iCal Feed"
 msgstr ""
 
-#: ../src/functions/advanced-functions/meta_registration.php:112
+#: src/functions/advanced-functions/meta_registration.php:112
 msgid "Origin:"
 msgstr "Porijeklo:"
 
-#: ../src/Tribe/iCal.php:75
+#: src/Tribe/iCal.php:75
 msgid "Add to Google Calendar"
 msgstr ""
 
-#: ../src/functions/advanced-functions/meta_registration.php:286
+#: src/functions/advanced-functions/meta_registration.php:286
 msgid "%s:"
 msgstr ""
 
-#: ../src/Tribe/iCal.php:75
+#: src/Tribe/iCal.php:75
 msgid "Google Calendar"
 msgstr ""
 
-#: ../src/functions/template-tags/date.php:285
+#: src/functions/template-tags/date.php:261
 msgid "The function needs to be passed an $event or used in the loop."
 msgstr ""
 
-#: ../src/Tribe/iCal.php:76
+#: src/Tribe/iCal.php:76
 msgid "Download .ics file"
 msgstr ""
 
-#: ../src/functions/template-tags/day.php:107
+#: src/functions/template-tags/day.php:107
 msgid "<span>&laquo;</span> Previous Day"
 msgstr ""
 
-#: ../src/Tribe/iCal.php:76
+#: src/Tribe/iCal.php:76
 msgid "iCal Export"
 msgstr ""
 
-#: ../src/functions/template-tags/day.php:109
+#: src/functions/template-tags/day.php:109
 msgid "Next Day <span>&raquo;</span>"
 msgstr ""
 
-#: ../src/Tribe/iCal.php:106
+#: src/Tribe/iCal.php:106
 msgid "Month's %s"
-msgstr ""
+msgstr "Mesečni %s"
 
-#: ../src/functions/template-tags/day.php:111
+#: src/functions/template-tags/day.php:111
 msgid "Yesterday"
 msgstr ""
 
-#: ../src/Tribe/iCal.php:109
+#: src/Tribe/iCal.php:109
 msgid "Week's %s"
-msgstr ""
+msgstr "Nedeljni %s"
 
-#: ../src/functions/template-tags/day.php:113
+#: src/functions/template-tags/day.php:113
 msgid "Tomorrow"
 msgstr ""
 
-#: ../src/Tribe/iCal.php:112
+#: src/Tribe/iCal.php:112
 msgid "Day's %s"
-msgstr ""
+msgstr "Dnevni %s"
 
-#: ../src/functions/template-tags/deprecated.php:1283
+#: src/functions/template-tags/deprecated.php:1283
 msgid "Category"
 msgstr "Kategorija"
 
-#: ../src/Tribe/iCal.php:115
+#: src/Tribe/iCal.php:115
 msgid "Listed %s"
 msgstr ""
 
-#: ../src/functions/template-tags/general.php:441
+#: src/functions/template-tags/general.php:450
 msgid "Tags:"
 msgstr "Tagovi:"
 
-#: ../src/Tribe/iCal.php:120
+#: src/Tribe/iCal.php:120
 msgid "Use this to share calendar data with Google Calendar, Apple iCal and other compatible apps"
 msgstr ""
 
-#: ../src/functions/template-tags/general.php:553
+#: src/functions/template-tags/general.php:562
 msgid "Loading %s"
 msgstr ""
 
-#: ../src/admin-views/admin-update-message.php:9
-#: ../src/admin-views/admin-welcome-message.php:11
+#: src/admin-views/admin-update-message.php:9
+#: src/admin-views/admin-welcome-message.php:11
 msgid "You are running Version %s and deserve a hug :-)"
 msgstr ""
 
-#: ../src/Tribe/Cost_Utils.php:123
+#: src/Tribe/Cost_Utils.php:123
 msgid "Free"
 msgstr "Slobodan"
 
-#: ../src/admin-views/admin-update-message.php:32
+#: src/admin-views/admin-update-message.php:32
 msgid "Keep the Core Plugin <strong>FREE</strong>!"
 msgstr ""
 
-#: ../src/functions/template-tags/general.php:1455
+#: src/functions/template-tags/general.php:1488
 msgid "Calendar powered by %sThe Events Calendar%s"
 msgstr "Kalendar pokreće %sThe Events Calendar%s"
 
-#: ../src/admin-views/admin-update-message.php:33
+#: src/admin-views/admin-update-message.php:33
 msgid "Every time you rate <strong>5 stars</strong>, a fairy is born. Okay maybe not, but more happy users mean more contributions and help on the forums. The community NEEDS your voice."
 msgstr ""
 
-#: ../src/functions/template-tags/loop.php:131
+#: src/functions/template-tags/loop.php:131
 msgid "Upcoming %s"
 msgstr ""
 
-#: ../src/admin-views/admin-update-message.php:34
-#: ../src/admin-views/admin-welcome-message.php:22
+#: src/admin-views/admin-update-message.php:34
+#: src/admin-views/admin-welcome-message.php:22
 msgid "Rate It"
 msgstr ""
 
-#: ../src/functions/template-tags/loop.php:145
+#: src/functions/template-tags/loop.php:145
 msgid "%1$s for %2$s - %3$s"
 msgstr ""
 
-#: ../src/admin-views/admin-update-message.php:37
+#: src/admin-views/admin-update-message.php:37
 msgid "PSST... Want a Discount?"
 msgstr ""
 
-#: ../src/functions/template-tags/loop.php:147
+#: src/functions/template-tags/loop.php:147
 msgid "Past %s"
 msgstr ""
 
-#: ../src/admin-views/admin-update-message.php:38
+#: src/admin-views/admin-update-message.php:38
 msgid "We send out discounts to our core users via our newsletter."
 msgstr ""
 
-#: ../src/functions/template-tags/loop.php:152
-#: ../src/functions/template-tags/loop.php:161
+#: src/functions/template-tags/loop.php:152
+#: src/functions/template-tags/loop.php:161
 msgid "%1$s for %2$s"
 msgstr ""
 
-#: ../src/admin-views/admin-update-message.php:43
-#: ../src/admin-views/admin-welcome-message.php:31
+#: src/admin-views/admin-update-message.php:43
+#: src/admin-views/admin-welcome-message.php:31
 msgid "Sign Up"
 msgstr ""
 
-#: ../src/functions/template-tags/options.php:20
+#: src/functions/template-tags/options.php:20
 msgid "Your current Events URL is %s"
 msgstr "Vaš trenutni URL događaja je %s"
 
-#: ../src/admin-views/admin-update-message.php:49
+#: src/admin-views/admin-update-message.php:49
 msgid "Looking for Something Special?"
 msgstr ""
 
-#: ../src/functions/template-tags/options.php:29
+#: src/functions/template-tags/options.php:29
 msgid "You <strong>cannot</strong> use the same slug as above. The above should ideally be plural, and this singular.<br />Your single Event URL is like: %s"
 msgstr "Vi <strong>ne možete</strong> koristiti isti naziv kao iznad. Iznad bi trebalo da bude množina, a ovdje jednina.<br />URL jednog događaja izgleda: %s"
 
-#: ../src/admin-views/admin-update-message.php:51
+#: src/admin-views/admin-update-message.php:51
 msgid "Pro"
 msgstr ""
 
-#: ../src/io/csv/admin-views/columns.php:22
+#: src/io/csv/admin-views/columns.php:22
 msgid "Column Mapping: %s"
 msgstr ""
 
-#: ../src/admin-views/admin-update-message.php:53
+#: src/admin-views/admin-update-message.php:53
 msgid "Community Events"
 msgstr "Community Events"
 
-#: ../src/io/csv/admin-views/columns.php:27
+#: src/io/csv/admin-views/columns.php:27
 msgid "Columns have been mapped based on your last import. Please ensure the selected fields match the columns in your CSV file."
 msgstr ""
 
-#: ../src/admin-views/admin-update-message.php:54
+#: src/admin-views/admin-update-message.php:54
 msgid "Filters"
 msgstr ""
 
-#: ../src/io/csv/admin-views/columns.php:32
+#: src/io/csv/admin-views/columns.php:32
 msgid "Column Headings"
 msgstr ""
 
-#: ../src/admin-views/admin-update-message.php:55
+#: src/admin-views/admin-update-message.php:55
 msgid "Facebook"
 msgstr ""
 
-#: ../src/io/csv/admin-views/columns.php:33
+#: src/io/csv/admin-views/columns.php:33
 msgid "Event Fields"
 msgstr ""
 
-#: ../src/admin-views/admin-update-message.php:58
-#: ../src/admin-views/admin-welcome-message.php:53
+#: src/admin-views/admin-update-message.php:58
+#: src/admin-views/admin-welcome-message.php:53
 msgid "News For Events Users"
 msgstr ""
 
-#: ../src/io/csv/admin-views/columns.php:44
+#: src/io/csv/admin-views/columns.php:44
 msgid "Perform Import"
 msgstr ""
 
-#: ../src/admin-views/admin-welcome-message.php:19
+#: src/admin-views/admin-welcome-message.php:19
 msgid "Keep The Events Calendar Core FREE"
 msgstr ""
 
-#: ../src/io/csv/admin-views/general.php:10
+#: src/io/csv/admin-views/general.php:10
 msgid "The Events Calendar: Import"
 msgstr ""
 
-#: ../src/admin-views/admin-welcome-message.php:20
+#: src/admin-views/admin-welcome-message.php:20
 msgid "5 star ratings help us bring TEC to more users. More happy users mean more support, more features, and more of everything you know and love about The Events Calendar. We couldn't do this without your support."
 msgstr ""
 
-#: ../src/io/csv/admin-views/general.php:12
+#: src/io/csv/admin-views/general.php:12
 msgid "Instructions"
 msgstr ""
 
-#: ../src/admin-views/admin-welcome-message.php:21
+#: src/admin-views/admin-welcome-message.php:21
 msgid "Rate it five stars today!"
 msgstr ""
 
-#: ../src/io/csv/admin-views/general.php:14
+#: src/io/csv/admin-views/general.php:14
 msgid "To import events, first select a %sDefault Import Event Status%s below to assign to your imported events."
 msgstr ""
 
-#: ../src/admin-views/admin-welcome-message.php:25
+#: src/admin-views/admin-welcome-message.php:25
 msgid "Newsletter Signup"
 msgstr ""
 
-#: ../src/io/csv/admin-views/general.php:17
+#: src/io/csv/admin-views/general.php:17
 msgid "Once your setting is saved, move to the applicable Import tab to select import specific criteria."
 msgstr ""
 
-#: ../src/admin-views/admin-welcome-message.php:26
+#: src/admin-views/admin-welcome-message.php:26
 msgid "Stay in touch with The Events Calendar Pro. We send out periodic updates, key developer notices, and even the occasional discount."
 msgstr ""
 
-#: ../src/io/csv/admin-views/general.php:24
+#: src/io/csv/admin-views/general.php:24
 msgid "Import Settings"
 msgstr ""
 
-#: ../src/admin-views/admin-welcome-message.php:40
-#: ../src/admin-views/tribe-options-help.php:148
+#: src/admin-views/admin-welcome-message.php:40
+#: src/admin-views/tribe-options-help.php:221
 msgid "Getting Started"
 msgstr "Početak"
 
-#: ../src/io/csv/admin-views/general.php:27
+#: src/io/csv/admin-views/general.php:27
 msgid "Default imported event status:"
 msgstr ""
 
-#: ../src/admin-views/admin-welcome-message.php:41
+#: src/admin-views/admin-welcome-message.php:41
 msgid "Check out the New User Primer &amp; Tutorials"
 msgstr ""
 
-#: ../src/io/csv/admin-views/general.php:30
+#: src/io/csv/admin-views/general.php:30
 msgid "Published"
 msgstr ""
 
-#: ../src/admin-views/admin-welcome-message.php:43
+#: src/admin-views/admin-welcome-message.php:43
 msgid "Looking for More Features?"
 msgstr ""
 
-#: ../src/io/csv/admin-views/general.php:31
+#: src/io/csv/admin-views/general.php:31
 msgid "Pending"
 msgstr ""
 
-#: ../src/admin-views/admin-welcome-message.php:44
+#: src/admin-views/admin-welcome-message.php:44
 msgid "Addons for Community, Tickets, Filters, Facebook and more."
 msgstr ""
 
-#: ../src/io/csv/admin-views/general.php:32
+#: src/io/csv/admin-views/general.php:32
 msgid "Draft"
 msgstr ""
 
-#: ../src/admin-views/admin-welcome-message.php:46
+#: src/admin-views/admin-welcome-message.php:46
 msgid "Support Resources"
 msgstr ""
 
-#: ../src/io/csv/admin-views/header.php:17
+#: src/io/csv/admin-views/header.php:17
 msgid "Events Import"
 msgstr ""
 
-#: ../src/admin-views/admin-welcome-message.php:47
+#: src/admin-views/admin-welcome-message.php:47
 msgid "FAQs, Documentation, Tutorials and Forums"
 msgstr ""
 
-#: ../src/io/csv/admin-views/import.php:17
+#: src/io/csv/admin-views/import.php:17
 msgid "Import Instructions"
 msgstr ""
 
-#: ../src/admin-views/admin-welcome-message.php:50
+#: src/admin-views/admin-welcome-message.php:50
 msgid "Release Notes"
 msgstr "Podaci o novom izdanju"
 
-#: ../src/io/csv/admin-views/import.php:20
+#: src/io/csv/admin-views/import.php:20
 msgid "If your events have Organizers or Venues, please import those first."
 msgstr ""
 
-#: ../src/admin-views/admin-welcome-message.php:51
+#: src/admin-views/admin-welcome-message.php:51
 msgid "Get the Skinny on the Latest Updates"
 msgstr ""
 
-#: ../src/io/csv/admin-views/import.php:21
+#: src/io/csv/admin-views/import.php:21
 msgid "To import organizers or venues:"
 msgstr ""
 
-#: ../src/admin-views/admin-welcome-message.php:54
+#: src/admin-views/admin-welcome-message.php:54
 msgid "Product Releases, Tutorials and Community Activity"
 msgstr ""
 
-#: ../src/io/csv/admin-views/import.php:23
+#: src/io/csv/admin-views/import.php:23
 msgid "Select the appropriate import type."
 msgstr ""
 
-#: ../src/admin-views/app-shop.php:4
+#: src/admin-views/app-shop.php:4
 msgid "Tribe Event Add-Ons"
 msgstr "Tribe Event dodaci"
 
-#: ../src/io/csv/admin-views/import.php:24
-#: ../src/io/csv/admin-views/import.php:30
+#: src/io/csv/admin-views/import.php:24 src/io/csv/admin-views/import.php:30
 msgid "Upload a CSV file with one record on each line. The first line may contain column names (check the box below)."
 msgstr ""
 
-#: ../src/admin-views/app-shop.php:54
+#: src/admin-views/app-shop.php:54
 msgid "Version"
 msgstr "Verzija"
 
-#: ../src/io/csv/admin-views/import.php:25
+#: src/io/csv/admin-views/import.php:25
 msgid "One column in your CSV should have the Organizer/Venue name. All other fields are optional."
 msgstr ""
 
-#: ../src/admin-views/app-shop.php:57
+#: src/admin-views/app-shop.php:57
 msgid "Last Update"
 msgstr "Poslednja nadogradnja"
 
-#: ../src/io/csv/admin-views/import.php:26
-#: ../src/io/csv/admin-views/import.php:32
+#: src/io/csv/admin-views/import.php:26 src/io/csv/admin-views/import.php:32
 msgid "After you upload your file, you'll have the opportunity to indicate how the columns in your CSV map to fields in The Events Calendar."
 msgstr ""
 
-#: ../src/admin-views/event-sidebar-options.php:13
+#: src/admin-views/event-sidebar-options.php:13
 msgid "Hide From %s Listings"
 msgstr ""
 
-#: ../src/io/csv/admin-views/import.php:28
+#: src/io/csv/admin-views/import.php:28
 msgid "After importing your Organizers and Venues, import your Events:"
 msgstr ""
 
-#: ../src/admin-views/event-sidebar-options.php:15
+#: src/admin-views/event-sidebar-options.php:15
 msgid "Sticky in Month View"
 msgstr ""
 
-#: ../src/io/csv/admin-views/import.php:31
+#: src/io/csv/admin-views/import.php:31
 msgid "One column in your CSV should have the Event title. Another should have the Event start date. All other fields are optional."
 msgstr ""
 
-#: ../src/admin-views/event-sidebar-options.php:16
+#: src/admin-views/event-sidebar-options.php:16
 msgid "When events are sticky in month view, they'll display first in the list of events shown within a given day block."
 msgstr ""
 
-#: ../src/io/csv/admin-views/import.php:36
+#: src/io/csv/admin-views/import.php:36
 msgid "Questions? <a href=\"%s\">Watch the video</a>."
 msgstr ""
 
-#: ../src/admin-views/events-meta-box.php:37
+#: src/admin-views/events-meta-box.php:60
 msgid "Time &amp; Date"
 msgstr ""
 
-#: ../src/io/csv/admin-views/import.php:43
+#: src/io/csv/admin-views/import.php:43
 msgid "Import Type:"
 msgstr ""
 
-#: ../src/admin-views/events-meta-box.php:44
+#: src/admin-views/events-meta-box.php:67
 msgid "You have changed the recurrence rules of this %1$s.  Saving the %1$s will update all future %2$s.  If you did not mean to change all %2$s, then please refresh the page."
 msgstr ""
 
-#: ../src/io/csv/admin-views/import.php:55
+#: src/io/csv/admin-views/import.php:55
 msgid "CSV File:"
 msgstr ""
 
-#: ../src/admin-views/events-meta-box.php:47
+#: src/admin-views/events-meta-box.php:70
 msgid "All Day %s:"
 msgstr ""
 
-#: ../src/io/csv/admin-views/import.php:59
+#: src/io/csv/admin-views/import.php:59
 msgid "Upload a properly formatted, UTF-8 encoded CSV file. Not sure if your file is UTF-8 encoded? Make sure to specify the character encoding when you save the file, or pass it through a <a href='http://i-tools.org/charset/exec?dest=utf-8&src=auto&download=1'>conversion tool</a>."
 msgstr ""
 
-#: ../src/admin-views/events-meta-box.php:53
+#: src/admin-views/events-meta-box.php:76
 msgid "Start Date &amp; Time:"
 msgstr "Datum početka &amp; Vrijeme:"
 
-#: ../src/io/csv/admin-views/import.php:67
+#: src/io/csv/admin-views/import.php:67
 msgid "This file has column names in the first row"
 msgstr ""
 
-#: ../src/admin-views/events-meta-box.php:57
-#: ../src/admin-views/events-meta-box.php:78
+#: src/admin-views/events-meta-box.php:80
+#: src/admin-views/events-meta-box.php:101
 msgid "YYYY-MM-DD"
 msgstr "GGGG-MM-DD"
 
-#: ../src/io/csv/admin-views/import.php:78
+#: src/io/csv/admin-views/import.php:78
 msgid "Import CSV File"
 msgstr ""
 
-#: ../src/admin-views/events-meta-box.php:75
+#: src/admin-views/events-meta-box.php:98
 msgid "End Date &amp; Time:"
 msgstr "Datum završetka &amp; Vrjieme:"
 
-#: ../src/io/csv/admin-views/result.php:15
+#: src/io/csv/admin-views/result.php:15
 msgid "Import Result"
 msgstr ""
 
-#: ../src/admin-views/events-meta-box.php:103
+#: src/admin-views/events-meta-box.php:147
 msgid "Location"
 msgstr ""
 
-#: ../src/io/csv/admin-views/result.php:17
+#: src/io/csv/admin-views/result.php:17
 msgid "Import complete!"
 msgstr ""
 
-#: ../src/admin-views/events-meta-box.php:124
+#: src/admin-views/events-meta-box.php:195
 msgid "%s Website"
 msgstr ""
 
-#: ../src/io/csv/admin-views/result.php:19
+#: src/io/csv/admin-views/result.php:19
 msgid "Inserted: %d"
 msgstr ""
 
-#: ../src/admin-views/events-meta-box.php:127
+#: src/admin-views/events-meta-box.php:198
 msgid "URL:"
 msgstr "URL:"
 
-#: ../src/io/csv/admin-views/result.php:20
+#: src/io/csv/admin-views/result.php:20
 msgid "Updated: %d"
 msgstr ""
 
-#: ../src/admin-views/events-meta-box.php:141
+#: src/admin-views/events-meta-box.php:229
 msgid "%s Cost"
 msgstr ""
 
-#: ../src/io/csv/admin-views/result.php:21
+#: src/io/csv/admin-views/result.php:21
 msgid "Skipped: %d"
 msgstr ""
 
-#: ../src/admin-views/events-meta-box.php:144
+#: src/admin-views/events-meta-box.php:232
 msgid "Currency Symbol:"
 msgstr "Simbol valute:"
 
-#: ../src/io/csv/admin-views/result.php:25
+#: src/io/csv/admin-views/result.php:25
 msgid "The import statistics above have the following meaning:"
 msgstr ""
 
-#: ../src/admin-views/events-meta-box.php:159
+#: src/admin-views/events-meta-box.php:247
 msgctxt "Currency symbol position"
 msgid "Before cost"
 msgstr ""
 
-#: ../src/io/csv/admin-views/result.php:26
+#: src/io/csv/admin-views/result.php:26
 msgid "<ol><li><strong>Inserted:</strong> A new item was inserted successfully.</li><li><strong>Updated:</strong> An item was found with the same name and/or start date. The existing item was updated with the new value from the file.</li><li><strong>Skipped:</strong> A row was found in the CSV file that could not be imported. Please see below for the invalid rows.</li></ol>"
 msgstr ""
 
-#: ../src/admin-views/events-meta-box.php:162
+#: src/admin-views/events-meta-box.php:250
 msgctxt "Currency symbol position"
 msgid "After cost"
 msgstr ""
 
-#: ../src/io/csv/admin-views/result.php:29
+#: src/io/csv/admin-views/result.php:29
 msgid "Skipped row numbers: %s"
 msgstr ""
 
-#: ../src/admin-views/events-meta-box.php:167
-#: ../src/functions/advanced-functions/meta_registration.php:48
-#: ../src/views/modules/meta/details.php:100
+#: src/admin-views/events-meta-box.php:255
+#: src/functions/advanced-functions/meta_registration.php:48
+#: src/views/modules/meta/details.php:100
 msgid "Cost:"
 msgstr "Cijena:"
 
-#: ../src/admin-views/events-meta-box.php:175
+#: src/admin-views/events-meta-box.php:263
 msgid "Enter a 0 for %s that are free or leave blank to hide the field."
 msgstr ""
 
-#: ../src/admin-views/new-organizer-meta-section.php:15
-#: ../src/admin-views/organizer-meta-box.php:15
-#: ../src/admin-views/venue-meta-box.php:25
+#: src/admin-views/new-organizer-meta-section.php:15
+#: src/admin-views/organizer-meta-box.php:24
+#: src/admin-views/venue-meta-box.php:25
 msgid "%s Name:"
 msgstr ""
 
-#: ../src/views/day/nav.php:16
+#: src/views/day/nav.php:16
 msgid "Day Navigation"
 msgstr ""
 
-#: ../src/admin-views/new-organizer-meta-section.php:21
-#: ../src/admin-views/organizer-meta-box.php:22
-#: ../src/admin-views/tickets/attendees.php:52
-#: ../src/admin-views/venue-meta-box.php:112
-#: ../src/functions/advanced-functions/meta_registration.php:159
-#: ../src/functions/advanced-functions/meta_registration.php:238
-#: ../src/views/modules/meta/organizer.php:41
-#: ../src/views/modules/meta/venue.php:40
+#: src/admin-views/new-organizer-meta-section.php:21
+#: src/admin-views/organizer-meta-box.php:31
+#: src/admin-views/tickets/attendees.php:54
+#: src/admin-views/venue-meta-box.php:112
+#: src/functions/advanced-functions/meta_registration.php:159
+#: src/functions/advanced-functions/meta_registration.php:238
+#: src/views/modules/meta/organizer.php:41 src/views/modules/meta/venue.php:40
 msgid "Phone:"
 msgstr "Telefon:"
 
-#: ../src/views/day/single-event.php:66 ../src/views/list/single-event.php:70
+#: src/views/day/single-event.php:66 src/views/list/single-event.php:70
 msgid "Find out more"
 msgstr "Saznajte više"
 
-#: ../src/admin-views/new-organizer-meta-section.php:27
-#: ../src/admin-views/organizer-meta-box.php:28
-#: ../src/admin-views/tickets/attendees.php:61
-#: ../src/admin-views/venue-meta-box.php:119
-#: ../src/functions/advanced-functions/meta_registration.php:96
-#: ../src/functions/advanced-functions/meta_registration.php:191
-#: ../src/functions/advanced-functions/meta_registration.php:270
-#: ../src/views/modules/meta/details.php:125
-#: ../src/views/modules/meta/organizer.php:63
-#: ../src/views/modules/meta/venue.php:45
+#: src/admin-views/new-organizer-meta-section.php:27
+#: src/admin-views/organizer-meta-box.php:37
+#: src/admin-views/tickets/attendees.php:63
+#: src/admin-views/venue-meta-box.php:119
+#: src/functions/advanced-functions/meta_registration.php:96
+#: src/functions/advanced-functions/meta_registration.php:191
+#: src/functions/advanced-functions/meta_registration.php:270
+#: src/views/modules/meta/details.php:125
+#: src/views/modules/meta/organizer.php:63 src/views/modules/meta/venue.php:45
 msgid "Website:"
 msgstr "Web sajt"
 
-#: ../src/views/list/nav.php:19
+#: src/views/list/nav.php:19
 msgid "%s List Navigation"
 msgstr ""
 
-#: ../src/admin-views/new-organizer-meta-section.php:33
-#: ../src/admin-views/organizer-meta-box.php:34
-#: ../src/functions/advanced-functions/meta_registration.php:254
-#: ../src/views/modules/meta/organizer.php:52
+#: src/admin-views/new-organizer-meta-section.php:35
+#: src/admin-views/organizer-meta-box.php:43
+#: src/functions/advanced-functions/meta_registration.php:254
+#: src/views/modules/meta/organizer.php:52
 msgid "Email:"
 msgstr "E-pošta:"
 
-#: ../src/views/list/nav.php:25
+#: src/views/list/nav.php:25
 msgid "<span>&laquo;</span> Previous %s"
 msgstr ""
 
-#: ../src/admin-views/new-organizer-meta-section.php:34
-#: ../src/admin-views/organizer-meta-box.php:35
+#: src/admin-views/new-organizer-meta-section.php:39
+#: src/admin-views/organizer-meta-box.php:44
 msgid "You may want to consider <a href=\"http://wordpress.org/plugins/tags/obfuscate\">obfuscating</a> any e-mail address published on your site to best avoid it getting harvested by spammers."
 msgstr ""
 
-#: ../src/views/list/nav.php:32
+#: src/views/list/nav.php:32
 msgid "Next %s <span>&raquo;</span>"
 msgstr ""
 
-#: ../src/admin-views/new-organizer-meta-section.php:60
-#: ../src/admin-views/organizer-meta-box.php:57
-#: ../src/admin-views/venue-meta-box.php:193
+#: src/admin-views/new-organizer-meta-section.php:69
+#: src/admin-views/organizer-meta-box.php:75
+#: src/admin-views/venue-meta-box.php:193
 msgid "%s Name Already Exists"
 msgstr ""
 
-#: ../src/views/modules/bar.php:30 ../src/views/modules/bar.php:61
+#: src/views/modules/bar.php:30 src/views/modules/bar.php:61
 msgid "Find %s"
 msgstr ""
 
-#: ../src/admin-views/tickets/attendees.php:17
+#: src/admin-views/tickets/attendees.php:17
 msgid "Event Summary"
 msgstr "Pregled događaja"
 
-#: ../src/views/modules/bar.php:37
+#: src/views/modules/bar.php:37
 msgid "Event Views Navigation"
 msgstr "Navigacija pogleda događaja"
 
-#: ../src/admin-views/tickets/attendees.php:23
+#: src/admin-views/tickets/attendees.php:26
 msgid "Event Details"
 msgstr "Detalji događaja"
 
-#: ../src/views/modules/bar.php:38
+#: src/views/modules/bar.php:38
 msgid "View As"
 msgstr "Vidi kao"
 
-#: ../src/admin-views/tickets/attendees.php:25
+#: src/admin-views/tickets/attendees.php:28
 msgid "Start Date / Time:"
 msgstr "Datum / Vrijeme početka:"
 
-#: ../src/views/modules/meta/details.php:119
+#: src/views/modules/meta/details.php:119
 msgid "%s Tags:"
 msgstr ""
 
-#: ../src/admin-views/tickets/attendees.php:29
+#: src/admin-views/tickets/attendees.php:32
 msgid "End Date / Time:"
 msgstr "Datum / Vrijeme završetka"
 
-#: ../src/functions/template-tags/general.php:1279
+#: src/functions/template-tags/general.php:1312
 msgid "%s for"
 msgstr ""
 
-#: ../src/admin-views/tickets/attendees.php:69
+#: src/admin-views/tickets/attendees.php:82
 msgid "Ticket Sales"
 msgstr "Prodaja ulaznica"
 
-#: ../src/functions/template-tags/general.php:1278
+#: src/functions/template-tags/general.php:1311
 msgid "Find out more »"
 msgstr ""
 
-#: ../src/admin-views/tickets/attendees.php:86
+#: src/admin-views/tickets/attendees.php:99
 msgid "(%d awaiting review)"
 msgid_plural "(%d awaiting review)"
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
 
-#: ../src/views/month/nav.php:18
+#: src/views/month/nav.php:18
 msgid "Calendar Month Navigation"
 msgstr "Mjesečna navigacija u kalendaru"
 
-#: ../src/admin-views/tickets/attendees.php:90
-msgid "Sold %d %s"
-msgstr ""
-
-#: ../src/views/month/single-day.php:43
+#: src/views/month/single-day.php:43
 msgid "View 1 %1$s"
 msgid_plural "View All %2$s %3$s"
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
 
-#: ../src/admin-views/tickets/attendees.php:93
-msgid "Sold %d of %d %s"
-msgstr ""
-
-#: ../src/views/single-event.php:27
+#: src/views/single-event.php:27
 msgid "&laquo; All %s"
 msgstr ""
 
-#: ../src/admin-views/tickets/attendees.php:111
+#: src/admin-views/tickets/attendees.php:127
 msgid "Tickets sold:"
 msgstr "Prodano ulaznica:"
 
-#: ../src/views/single-event.php:46 ../src/views/single-event.php:91
+#: src/views/single-event.php:46 src/views/single-event.php:79
 msgid "%s Navigation"
 msgstr ""
 
-#: ../src/admin-views/tickets/attendees.php:118
+#: src/admin-views/tickets/attendees.php:136
 msgid "Finalized:"
 msgstr ""
 
-#: ../src/views/tickets/attendees-email.php:24
+#: src/views/tickets/attendees-email.php:24
 msgid "Attendee List"
 msgstr "Lista učesnika"
 
-#: ../src/admin-views/tickets/attendees.php:121
+#: src/admin-views/tickets/attendees.php:139
 msgid "Awaiting review:"
 msgstr ""
 
-#: ../src/views/tickets/email.php:26
+#: src/views/tickets/email.php:26
 msgid "Your tickets"
 msgstr "Vaše ulaznice"
 
-#: ../src/admin-views/tickets/attendees.php:128
+#: src/admin-views/tickets/attendees.php:148
 msgid "Checked in:"
 msgstr "Prijavili se:"
 
-#: ../src/views/tickets/email.php:309
+#: src/views/tickets/email.php:309
 msgid "Ticket Type"
 msgstr "Tip ulaznica"
 
-#: ../src/admin-views/tickets/attendees.php:146
+#: src/admin-views/tickets/attendees.php:170
 msgid "Send the attendee list by email"
 msgstr "Pošalji listu učesnika e-mejlom"
 
-#: ../src/views/tickets/email.php:313
+#: src/views/tickets/email.php:313
 msgid "Purchaser"
 msgstr "Korisnik"
 
-#: ../src/admin-views/tickets/attendees.php:150
+#: src/admin-views/tickets/attendees.php:174
 msgid "Select a User:"
 msgstr "Odaberite korisnika"
 
-#: ../src/views/widgets/list-widget.php:65
+#: src/views/widgets/list-widget.php:65
 msgid "View All %s"
 msgstr ""
 
-#: ../src/admin-views/tickets/attendees.php:155
+#: src/admin-views/tickets/attendees.php:179
 msgid "Select..."
 msgstr "Odaberite..."
 
-#: ../src/views/widgets/list-widget.php:71
+#: src/views/widgets/list-widget.php:71
 msgid "There are no upcoming %s at this time."
 msgstr ""
 
-#: ../src/admin-views/tickets/attendees.php:160
+#: src/admin-views/tickets/attendees.php:184
 msgid "or"
 msgstr "ili"
 
-#: ../src/admin-views/tickets/attendees.php:162
+#: src/admin-views/tickets/attendees.php:186
 msgid "Email Address:"
 msgstr "E-mail adresa"
 
-#: ../src/admin-views/tickets/list.php:21
+#: src/admin-views/tickets/list.php:21
 msgid "Edit"
 msgstr "Izmijeni"
 
-#: ../src/admin-views/tickets/list.php:24
+#: src/admin-views/tickets/list.php:24
 msgid "Edit in %s"
 msgstr "Uredi u %s"
 
-#: ../src/admin-views/tickets/list.php:27
+#: src/admin-views/tickets/list.php:27
 msgid "View"
 msgstr "Pogledaj"
 
-#: ../src/admin-views/tickets/list.php:67
+#: src/admin-views/tickets/list.php:67
 msgid "Sold %d"
 msgstr "Prodano %d"
 
-#: ../src/admin-views/tickets/list.php:69
-msgid "Sold %d of %d"
-msgstr "Prodano %d od %d"
-
-#: ../src/admin-views/tickets/meta-box.php:23
+#: src/admin-views/tickets/meta-box.php:23
 msgid "This event was created using Community Events. Are you sure you want to sell tickets for it?"
 msgstr "Ovaj događaj je kreiran koristeći Community Events. Da li ste sigurni da želite prodati ulaznice za njega?"
 
-#: ../src/admin-views/tickets/meta-box.php:34
+#: src/admin-views/tickets/meta-box.php:34
 msgid "Upload image for the ticket header"
 msgstr "Postavi sliku za zaglavlje ulaznice"
 
-#: ../src/admin-views/tickets/meta-box.php:35
+#: src/admin-views/tickets/meta-box.php:35
 msgid "The maximum image size in the email will be 580px wide by any height, and then scaled for mobile. If you would like \"retina\" support use an image sized to 1160px wide."
 msgstr "Maksimalna veličina slike u e-mailu biće 580px širine i bilo koje visine, i onda smanjena za mobilne telefone. Ako želite  \"retina\" podršku koristite sliku širine 1160px."
 
-#: ../src/admin-views/tickets/meta-box.php:38
+#: src/admin-views/tickets/meta-box.php:38
 msgid "Select an Image"
 msgstr "Odaberite sliku"
 
-#: ../src/admin-views/tickets/meta-box.php:46
+#: src/admin-views/tickets/meta-box.php:46
 msgid "Remove"
 msgstr "Ukloni"
 
-#: ../src/admin-views/tickets/meta-box.php:64
-#: ../src/admin-views/tickets/meta-box.php:74
+#: src/admin-views/tickets/meta-box.php:64
+#: src/admin-views/tickets/meta-box.php:74
 msgid "Add new ticket"
 msgstr "Dodaj novu ulaznicu"
 
-#: ../src/admin-views/tickets/meta-box.php:75
+#: src/admin-views/tickets/meta-box.php:75
 msgid "Edit ticket"
 msgstr "Uredi ulaznicu"
 
-#: ../src/admin-views/tickets/meta-box.php:80
+#: src/admin-views/tickets/meta-box.php:80
 msgid "Sell using:"
 msgstr "Prodaj koristeći:"
 
-#: ../src/admin-views/tickets/meta-box.php:97
+#: src/admin-views/tickets/meta-box.php:97
 msgid "Ticket Name:"
 msgstr "Naziv ulaznice:"
 
-#: ../src/admin-views/tickets/meta-box.php:104
+#: src/admin-views/tickets/meta-box.php:104
 msgid "Ticket Description:"
 msgstr "Opis ulaznice:"
 
-#: ../src/admin-views/tickets/meta-box.php:113
+#: src/admin-views/tickets/meta-box.php:113
 msgid "Price:"
 msgstr "Cijena:"
 
-#: ../src/admin-views/tickets/meta-box.php:119
+#: src/admin-views/tickets/meta-box.php:119
 msgid "(0 or empty for free tickets)"
 msgstr ""
 
-#: ../src/admin-views/tickets/meta-box.php:125
+#: src/admin-views/tickets/meta-box.php:125
 msgid "Sale Price:"
 msgstr ""
 
-#: ../src/admin-views/tickets/meta-box.php:131
+#: src/admin-views/tickets/meta-box.php:131
 msgid "(Current sale price - this can be managed via the product editor)"
 msgstr ""
 
-#: ../src/admin-views/tickets/meta-box.php:137
+#: src/admin-views/tickets/meta-box.php:137
 msgid "Start sale:"
 msgstr "Započni prodaju:"
 
-#: ../src/admin-views/tickets/meta-box.php:161
+#: src/admin-views/tickets/meta-box.php:161
 msgid "End sale:"
 msgstr "Prekini prodaju:"
 
-#: ../src/admin-views/tickets/meta-box.php:183
+#: src/admin-views/tickets/meta-box.php:183
 msgid "When will ticket sales occur? If you don't set a start/end date for sales, tickets will be available from now until the event ends."
 msgstr "Kada će doći do prodaje ulaznica? Ako ne odredite datume za početak i kraj prodaje, ulaznice će biti dostupne od sada do kraja događaja."
 
-#: ../src/admin-views/tickets/meta-box.php:195
+#: src/admin-views/tickets/meta-box.php:195
 msgid "Save this ticket"
 msgstr ""
 
-#: ../src/admin-views/tribe-options-display.php:4
+#: src/admin-views/tribe-options-display.php:4
 msgid "Default Events Template"
 msgstr "Zadani šablon događaja"
 
-#: ../src/admin-views/tribe-options-display.php:5
+#: src/admin-views/tribe-options-display.php:5
 msgid "Default Page Template"
 msgstr "Zadani šablon stranice"
 
-#: ../src/admin-views/tribe-options-display.php:32
+#: src/admin-views/tribe-options-display.php:51
 msgid "Display Settings"
 msgstr "Prikaži postavke"
 
-#: ../src/admin-views/tribe-options-display.php:37
+#: src/admin-views/tribe-options-display.php:56
 msgid "The settings below control the display of your calendar. If things don't look right, try switching between the three style sheet options or pick a page template from your theme.</p><p>There are going to be situations where no out-of-the-box template is 100&#37; perfect. Check out our <a href=\"%s\">our themer's guide</a> for instructions on custom modifications."
 msgstr ""
 
-#: ../src/admin-views/tribe-options-display.php:51
+#: src/admin-views/tribe-options-display.php:70
 msgid "Basic Template Settings"
 msgstr "Osnovna podešavanja šablona"
 
-#: ../src/admin-views/tribe-options-display.php:55
+#: src/admin-views/tribe-options-display.php:74
 msgid "Default stylesheet used for events templates"
 msgstr "Zadani stil korišten za šablon događaja"
 
-#: ../src/admin-views/tribe-options-display.php:58
+#: src/admin-views/tribe-options-display.php:77
 msgid "Skeleton Styles"
 msgstr "Kostur stilovi"
 
-#: ../src/admin-views/tribe-options-display.php:60
+#: src/admin-views/tribe-options-display.php:79
 msgid "Only includes enough css to achieve complex layouts like calendar and week view."
 msgstr "Samo uključuje dovoljno css da postigne složene rasporede kao kalendar i sedmični prikaz."
 
-#: ../src/admin-views/tribe-options-display.php:62
+#: src/admin-views/tribe-options-display.php:81
 msgid "Full Styles"
 msgstr "Puni stilovi"
 
-#: ../src/admin-views/tribe-options-display.php:64
+#: src/admin-views/tribe-options-display.php:83
 msgid "More detailed styling, tries to grab styles from your theme."
 msgstr "Detaljniji stajling, pokušava da preuzme stilove iz vaše teme."
 
-#: ../src/admin-views/tribe-options-display.php:66
+#: src/admin-views/tribe-options-display.php:85
 msgid "Tribe Events Styles"
 msgstr "Tribe Events stilovi"
 
-#: ../src/admin-views/tribe-options-display.php:68
+#: src/admin-views/tribe-options-display.php:87
 msgid "A fully designed and styled theme for your events pages."
 msgstr "Tema u potpunosti dizajnirana i stilizovana za vašu stranicu sa događajima."
 
-#: ../src/admin-views/tribe-options-display.php:75
+#: src/admin-views/tribe-options-display.php:94
 msgid "Events template"
 msgstr "Šablon događaja"
 
-#: ../src/admin-views/tribe-options-display.php:76
+#: src/admin-views/tribe-options-display.php:95
 msgid "Choose a page template to control the appearance of your calendar and event content."
 msgstr "Odaberitte šablon stranice da bi ste kontrolisali izgled vašeg kalendara i sadržaja događaja."
 
-#: ../src/admin-views/tribe-options-display.php:84
+#: src/admin-views/tribe-options-display.php:103
 msgid "Enable event views"
 msgstr "Omogući poglede događaja"
 
-#: ../src/admin-views/tribe-options-display.php:85
+#: src/admin-views/tribe-options-display.php:104
 msgid "You must select at least one view."
 msgstr "Morate omogućiti bar jedan pogled."
 
-#: ../src/admin-views/tribe-options-display.php:92
+#: src/admin-views/tribe-options-display.php:111
 msgid "Default view"
 msgstr "Zadani pogled"
 
-#: ../src/admin-views/tribe-options-display.php:100
+#: src/admin-views/tribe-options-display.php:119
 msgid "Disable the Event Search Bar"
 msgstr "Onemogućite Event Search traku"
 
-#: ../src/admin-views/tribe-options-display.php:101
+#: src/admin-views/tribe-options-display.php:120
 msgid "Check this to use the classic header."
 msgstr "Štrikirajte ovo da bi ste koristili klasično zaglavlje."
 
-#: ../src/admin-views/tribe-options-display.php:107
+#: src/admin-views/tribe-options-display.php:126
 msgid "Month view events per day"
 msgstr ""
 
-#: ../src/admin-views/tribe-options-display.php:108
+#: src/admin-views/tribe-options-display.php:127
 msgid "Change the default 3 events per day in month view. Please note there may be performance issues if you set this too high. <a href=\"%s\">Read more</a>."
 msgstr ""
 
-#: ../src/admin-views/tribe-options-display.php:115
+#: src/admin-views/tribe-options-display.php:134
 msgid "Enable the Month View Cache"
 msgstr ""
 
-#: ../src/admin-views/tribe-options-display.php:116
+#: src/admin-views/tribe-options-display.php:135
 msgid "Check this to cache your month view HTML in transients, which can help improve calendar speed on sites with many events. <a href=\"%s\">Read more</a>."
 msgstr ""
 
-#: ../src/admin-views/tribe-options-display.php:122
+#: src/admin-views/tribe-options-display.php:141
 msgid "Date Format Settings"
 msgstr ""
 
-#: ../src/admin-views/tribe-options-display.php:126
+#: src/admin-views/tribe-options-display.php:145
 msgid "<p>The following three fields accept the date format options available to the php date() function. <a href=\"http://codex.wordpress.org/Formatting_Date_and_Time\" target=\"_blank\">Learn how to make your own date format here</a>.</p>"
 msgstr ""
 
-#: ../src/admin-views/tribe-options-display.php:130
+#: src/admin-views/tribe-options-display.php:149
 msgid "Date with year"
 msgstr ""
 
-#: ../src/admin-views/tribe-options-display.php:131
+#: src/admin-views/tribe-options-display.php:150
 msgid "Enter the format to use for displaying dates with the year. Used when showing an event from a past or future year, also used for dates in view headers."
 msgstr ""
 
-#: ../src/admin-views/tribe-options-display.php:138
+#: src/admin-views/tribe-options-display.php:157
 msgid "Date without year"
 msgstr ""
 
-#: ../src/admin-views/tribe-options-display.php:139
+#: src/admin-views/tribe-options-display.php:158
 msgid "Enter the format to use for displaying dates without a year. Used when showing an event from the current year."
 msgstr ""
 
-#: ../src/admin-views/tribe-options-display.php:146
+#: src/admin-views/tribe-options-display.php:165
 msgid "Month and year format"
 msgstr ""
 
-#: ../src/admin-views/tribe-options-display.php:147
+#: src/admin-views/tribe-options-display.php:166
 msgid "Enter the format to use for dates that show a month and year only. Used on month view."
 msgstr ""
 
-#: ../src/admin-views/tribe-options-display.php:154
+#: src/admin-views/tribe-options-display.php:173
 msgid "Date time separator"
 msgstr ""
 
-#: ../src/admin-views/tribe-options-display.php:155
+#: src/admin-views/tribe-options-display.php:174
 msgid "Enter the separator that will be placed between the date and time, when both are shown."
 msgstr ""
 
-#: ../src/admin-views/tribe-options-display.php:162
+#: src/admin-views/tribe-options-display.php:181
 msgid "Time range separator"
 msgstr ""
 
-#: ../src/admin-views/tribe-options-display.php:163
+#: src/admin-views/tribe-options-display.php:182
 msgid "Enter the separator that will be used between the start and end time of an event."
 msgstr ""
 
-#: ../src/admin-views/tribe-options-display.php:170
+#: src/admin-views/tribe-options-display.php:189
 msgid "Datepicker Date Format"
 msgstr ""
 
-#: ../src/admin-views/tribe-options-display.php:171
+#: src/admin-views/tribe-options-display.php:190
 msgid "Select the date format to use in datepickers"
 msgstr ""
 
-#: ../src/admin-views/tribe-options-display.php:188
+#: src/admin-views/tribe-options-display.php:207
 msgid "Advanced Template Settings"
 msgstr "Napredne postavke šablona"
 
-#: ../src/admin-views/tribe-options-display.php:192
+#: src/admin-views/tribe-options-display.php:211
 msgid "Add HTML before event content"
 msgstr "Dodaj HTML prije sadržaja događaja"
 
-#: ../src/admin-views/tribe-options-display.php:193
+#: src/admin-views/tribe-options-display.php:212
 msgid "If you are familiar with HTML, you can add additional code before the event template. Some themes may require this to help with styling or layout."
 msgstr "Ako ste upoznati sa HTML-om, možete dodati kod prije šablona događaja. Neke teme ovo mogu zahtijevati kao pomoć sa stilizacijom ili rasporedom elemenata."
 
-#: ../src/admin-views/tribe-options-display.php:198
+#: src/admin-views/tribe-options-display.php:217
 msgid "Add HTML after event content"
 msgstr "Dodaj HTML posle sadržaja događaja"
 
-#: ../src/admin-views/tribe-options-display.php:199
+#: src/admin-views/tribe-options-display.php:218
 msgid "If you are familiar with HTML, you can add additional code after the event template. Some themes may require this to help with styling or layout."
 msgstr "Ako ste upoznati sa HTML-om, možete dodati kod poslije šablona događaja. Neke teme ovo mogu zahtijevati kao pomoć sa stilizacijom ili rasporedom elemenata."
 
-#: ../src/admin-views/tribe-options-general.php:12
+#: src/admin-views/tribe-options-general.php:12
 msgid "Finding & extending your calendar."
 msgstr "Nalaženje i proširivanje vašeg kalendara."
 
-#: ../src/admin-views/tribe-options-general.php:17
+#: src/admin-views/tribe-options-general.php:17
 msgid "Finding your calendar."
 msgstr "Nalaženje vašeg kalendara."
 
-#: ../src/admin-views/tribe-options-general.php:22
+#: src/admin-views/tribe-options-general.php:22
 msgid "Where's my calendar?"
 msgstr "Gdje je moj kalendar?"
 
-#: ../src/admin-views/tribe-options-general.php:22
+#: src/admin-views/tribe-options-general.php:22
 msgid "Right here"
 msgstr "Ovdje"
 
-#: ../src/admin-views/tribe-options-general.php:26
+#: src/admin-views/tribe-options-general.php:26
 msgid "Looking for additional functionality including recurring events, custom meta, community events, ticket sales and more?"
 msgstr "Potrebna vam je dodatna funkcionalnost uključujući ponavljajuće događaje, prilagođen meta, zajednički događaji, prodaja ulaznica i još dosta toga?"
 
-#: ../src/admin-views/tribe-options-general.php:26
+#: src/admin-views/tribe-options-general.php:26
 msgid "Check out the available add-ons"
 msgstr "Pogledaj dostupne dodatke"
 
-#: ../src/admin-views/tribe-options-general.php:31
+#: src/admin-views/tribe-options-general.php:31
 msgid "We hope our plugin is helping you out."
 msgstr "Nadamo se da vam je naš plagin pomogao"
 
-#: ../src/admin-views/tribe-options-general.php:35
+#: src/admin-views/tribe-options-general.php:35
 msgid "Are you thinking \"Wow, this plugin is amazing! I should say thanks to Modern Tribe for all their hard work.\" The greatest thanks we could ask for is recognition. Add a small text-only link at the bottom of your calendar pointing to The Events Calendar project."
 msgstr "Da li mislite  \"Hej, ovaj plagin je odličan! Treba da se zahvalim Modern Tribe-u za njihov rad.\" Najveće hvala koje možemo da tražimo je priznanje. Dodajte mali tekstualni link na dnu vašeg kalendara ka The Events Calendar projektu."
 
-#: ../src/admin-views/tribe-options-general.php:35
-#: ../src/admin-views/tribe-options-general.php:40
+#: src/admin-views/tribe-options-general.php:35
+#: src/admin-views/tribe-options-general.php:40
 msgid "See an example of the link"
 msgstr "Pogledaj primjer linka"
 
-#: ../src/admin-views/tribe-options-general.php:40
+#: src/admin-views/tribe-options-general.php:40
 msgid "Are you thinking \"Wow, this plugin is amazing! I should say thanks to Modern Tribe for all their hard work.\" The greatest thanks we could ask for is recognition. Add a small text only link at the bottom of your calendar pointing to The Events Calendar project."
 msgstr "Da li mislite  \"Hej, ovaj plagin je odličan! Treba da se zahvalim Modern Tribe-u za njihov rad.\" Najveće hvala koje možemo da tražimo je priznanje. Dodajte mali tekstualni link na dnu vašeg kalendara ka The Events Calendar projektu."
 
-#: ../src/admin-views/tribe-options-general.php:45
+#: src/admin-views/tribe-options-general.php:45
 msgid "Show The Events Calendar link"
 msgstr "Prikaži The Events Calendar link"
 
-#: ../src/admin-views/tribe-options-general.php:59
+#: src/admin-views/tribe-options-general.php:59
 msgid "General Settings"
 msgstr "Generalne postavke"
 
-#: ../src/admin-views/tribe-options-general.php:63
+#: src/admin-views/tribe-options-general.php:63
 msgid "Number of events to show per page"
 msgstr "Broj događaja za prikazivanje po stranici"
 
-#: ../src/admin-views/tribe-options-general.php:70
+#: src/admin-views/tribe-options-general.php:70
 msgid "Use Javascript to control date filtering"
 msgstr ""
 
-#: ../src/admin-views/tribe-options-general.php:71
+#: src/admin-views/tribe-options-general.php:71
 msgid "This option is disabled when \"Disable the Event Search Bar\" is checked on the Display settings tab."
 msgstr ""
 
-#: ../src/admin-views/tribe-options-general.php:71
+#: src/admin-views/tribe-options-general.php:71
 msgid "Enable live ajax for datepicker on front end (User submit not required)."
 msgstr ""
 
-#: ../src/admin-views/tribe-options-general.php:79
+#: src/admin-views/tribe-options-general.php:79
 msgid "Show comments"
 msgstr "Prikaži komentare"
 
-#: ../src/admin-views/tribe-options-general.php:80
+#: src/admin-views/tribe-options-general.php:80
 msgid "Enable comments on event pages."
 msgstr "Omogući komentare na stranicama događaja."
 
-#: ../src/admin-views/tribe-options-general.php:86
+#: src/admin-views/tribe-options-general.php:86
 msgid "Include events in main blog loop"
 msgstr "Uključi događaje u glavnu petlju bloga"
 
-#: ../src/admin-views/tribe-options-general.php:87
+#: src/admin-views/tribe-options-general.php:87
 msgid "Show events with the site's other posts. When this box is checked, events will also continue to appear on the default events page."
 msgstr "Prikaži događaje sa ostalim unosima sajta. Kada je ova opcija štiklirana, događaji će nastaviti da se pojavljuju na zadanoj stranici za događaje."
 
-#: ../src/admin-views/tribe-options-general.php:93
-#: ../src/admin-views/tribe-options-general.php:99
+#: src/admin-views/tribe-options-general.php:93
+#: src/admin-views/tribe-options-general.php:99
 msgid "Events URL slug"
 msgstr "Naziv URL događaja"
 
-#: ../src/admin-views/tribe-options-general.php:94
-msgid "You cannot edit the slug for your events page as you do not have pretty permalinks enabled. The current URL for your events page is <a href=\"%s\">%s</a>. In order to edit the slug here, <a href=\"%soptions-permalink.php\">enable pretty permalinks</a>."
-msgstr "Ne možete da izmijenite naziv za vašu stranicu sa događajima jer nemate omogućene odgovarajuće trajne linkove. Trenutni URL za vašu stranicu sa događajima je  <a href=\"%s\">%s</a>. Da bi ste ovdje izmjenili maziv, <a href=\"%soptions-permalink.php\">enable pretty permalinks</a>."
-
-#: ../src/admin-views/tribe-options-general.php:106
-#: ../src/functions/template-tags/options.php:20
+#: src/admin-views/tribe-options-general.php:106
+#: src/functions/template-tags/options.php:20
 msgid "The slug used for building the events URL."
 msgstr "Naziv koji se koristi za kreiranje URL-a događaja."
 
-#: ../src/admin-views/tribe-options-general.php:106
+#: src/admin-views/tribe-options-general.php:106
 msgid "Your current events URL is: %s"
 msgstr "Vaš trenutni URL događaja je: %s"
 
-#: ../src/admin-views/tribe-options-general.php:111
-#: ../src/functions/template-tags/options.php:39
+#: src/admin-views/tribe-options-general.php:111
+#: src/functions/template-tags/options.php:39
 msgid "Here is the iCal feed URL for your events:"
 msgstr "Ovde su iCal URL unosi za vaše događaje: "
 
-#: ../src/admin-views/tribe-options-general.php:116
+#: src/admin-views/tribe-options-general.php:116
 msgid "Single event URL slug"
 msgstr "URL naziv pojedinačnog događaja"
 
-#: ../src/admin-views/tribe-options-general.php:123
+#: src/admin-views/tribe-options-general.php:123
 msgid "The above should ideally be plural, and this singular.<br />Your single event URL is: %s"
 msgstr "Gorenavedeno bi trebalo biti u množini, a ovde u jednini.<br />URL jednog događaja je: %s"
 
-#: ../src/admin-views/tribe-options-general.php:128
+#: src/admin-views/tribe-options-general.php:128
 msgid "End of day cutoff"
 msgstr "Odsijecanje za kraj dana"
 
-#: ../src/admin-views/tribe-options-general.php:149
+#: src/admin-views/tribe-options-general.php:149
 msgid "Have an event that runs past midnight? Select a time after that event's end to avoid showing the event on the next day's calendar."
 msgstr ""
 
-#: ../src/admin-views/tribe-options-general.php:154
+#: src/admin-views/tribe-options-general.php:154
 msgid "Default currency symbol"
 msgstr "Podrazumijevani simbol valute"
 
-#: ../src/admin-views/tribe-options-general.php:155
+#: src/admin-views/tribe-options-general.php:155
 msgid "Set the default currency symbol for event costs. Note that this only impacts future events, and changes made will not apply retroactively."
 msgstr "Podesite zadani simbol valute za cijenu događaja. Uzmite u obzir da se ovo odnosi samo na predstojeće događaje, i napravljene izmjene se neće primijeniti retroaktivno."
 
-#: ../src/admin-views/tribe-options-general.php:162
+#: src/admin-views/tribe-options-general.php:162
 msgid "Currency symbol follows value"
 msgstr ""
 
-#: ../src/admin-views/tribe-options-general.php:163
+#: src/admin-views/tribe-options-general.php:163
 msgid "The currency symbol normally precedes the value. Enabling this option positions the symbol after the value."
 msgstr ""
 
-#: ../src/admin-views/tribe-options-general.php:169
+#: src/admin-views/tribe-options-general.php:169
 msgid "Map Settings"
 msgstr "Postavke karte"
 
-#: ../src/admin-views/tribe-options-general.php:173
+#: src/admin-views/tribe-options-general.php:173
 msgid "Enable Google Maps"
 msgstr "Omogući Goolge mapu"
 
-#: ../src/admin-views/tribe-options-general.php:174
+#: src/admin-views/tribe-options-general.php:174
 msgid "Check to enable maps for events and venues."
 msgstr "Štrikirajte da omogućite mapu za događaje i mjesta održavanja."
 
-#: ../src/admin-views/tribe-options-general.php:181
+#: src/admin-views/tribe-options-general.php:181
 msgid "Google Maps default zoom level"
 msgstr "Google Maps zadana dubina zuma"
 
-#: ../src/admin-views/tribe-options-general.php:182
+#: src/admin-views/tribe-options-general.php:182
 msgid "0 = zoomed out; 21 = zoomed in."
 msgstr "0 = odzumirano; 21 = zumirano."
 
-#: ../src/admin-views/tribe-options-general.php:190
+#: src/admin-views/tribe-options-general.php:190
 msgid "Miscellaneous Settings"
 msgstr "Razne postavke"
 
-#: ../src/admin-views/tribe-options-general.php:194
+#: src/admin-views/tribe-options-general.php:194
 msgid "Duplicate Venues &amp; Organizers"
 msgstr "Duplikat mjesta održavanja &amp; Organizatora"
 
-#: ../src/admin-views/tribe-options-general.php:194
+#: src/admin-views/tribe-options-general.php:194
 msgid "You might find duplicate venues and organizers when updating The Events Calendar from a pre-3.0 version. Click this button to automatically merge identical venues and organizers."
 msgstr "Možete naći duplikate mjesta održavanja i organizatora kada nadograđujete The Events Calendar s verzije prije 3.0. Kliknite na ovo dugme da automatski spojite identična mjesta i organizatore."
 
-#: ../src/admin-views/tribe-options-general.php:211
+#: src/admin-views/tribe-options-general.php:211
 msgid "Debug mode"
 msgstr "Mod rada za otklanjanje grešaka"
 
-#: ../src/admin-views/tribe-options-general.php:217
+#: src/admin-views/tribe-options-general.php:217
 msgid "Enable this option to log debug information. By default this will log to your server PHP error log. If you'd like to see the log messages in your browser, then we recommend that you install the %s and look for the \"Tribe\" tab in the debug output."
 msgstr "Omogućite ovu opciju da logujete informacije iz moda za otklanjanje grešaka. Po podrazumijevanom, ovo će logovati na vaš serverski PHP error log. Ako bi ste željeli vidjeti log poruke u vašem pretraživaču, preporučujemo instalirati%s i potražite \"Tribe \" tab u output-u moda za otklanjanje grešaka."
 
-#: ../src/admin-views/tribe-options-general.php:217
+#: src/admin-views/tribe-options-general.php:217
 msgid "Debug Bar Plugin"
 msgstr "Debug Bar Plugin"
 
-#: ../src/admin-views/tribe-options-general.php:199
+#: src/admin-views/tribe-options-general.php:199
 msgid "View Welcome Page"
 msgstr ""
 
-#: ../src/admin-views/tribe-options-general.php:199
+#: src/admin-views/tribe-options-general.php:199
 msgid "View the page that displayed when you initially installed the plugin."
 msgstr ""
 
-#: ../src/admin-views/tribe-options-general.php:204
+#: src/admin-views/tribe-options-general.php:204
 msgid "View Update Page"
 msgstr ""
 
-#: ../src/admin-views/tribe-options-general.php:204
+#: src/admin-views/tribe-options-general.php:204
 msgid "View the page that displayed when you updated the plugin."
 msgstr ""
 
-#: ../src/admin-views/tribe-options-help.php:28
+#: src/admin-views/tribe-options-help.php:33
 msgctxt "not available"
 msgid "n/a"
 msgstr "nije dostupno"
 
-#: ../src/admin-views/tribe-options-help.php:29
+#: src/admin-views/tribe-options-help.php:34
 msgid "You need to upgrade!"
 msgstr "Potrebna je nadogradnja!"
 
-#: ../src/admin-views/tribe-options-help.php:29
+#: src/admin-views/tribe-options-help.php:34
 msgid "You are up to date!"
 msgstr "Koristite poslednju verziju!"
 
-#: ../src/admin-views/tribe-options-help.php:52
+#: src/admin-views/tribe-options-help.php:63
 msgid "The Events Calendar PRO"
 msgstr "The Events Calendar PRO"
 
-#: ../src/admin-views/tribe-options-help.php:56
+#: src/admin-views/tribe-options-help.php:72
 msgid "The Events Calendar: Eventbrite Tickets"
 msgstr ""
 
-#: ../src/admin-views/tribe-options-help.php:60
+#: src/admin-views/tribe-options-help.php:81
 msgid "The Events Calendar: Community Events"
 msgstr ""
 
-#: ../src/Tribe/View_Helpers.php:281
+#: src/Tribe/View_Helpers.php:281
 msgid "Wallis And Futuna Islands"
 msgstr "Volis i Futuna ostrva"
 
-#: ../src/admin-views/tribe-options-help.php:64
+#: src/admin-views/tribe-options-help.php:90
 msgid "The Events Calendar: Facebook Events"
 msgstr ""
 
-#: ../src/Tribe/View_Helpers.php:282
+#: src/Tribe/View_Helpers.php:282
 msgid "Western Sahara"
 msgstr "Zapadna Sahara"
 
-#: ../src/admin-views/tribe-options-help.php:68
+#: src/admin-views/tribe-options-help.php:99
 msgid "The Events Calendar: WooCommerce Tickets"
 msgstr ""
 
-#: ../src/Tribe/View_Helpers.php:283
+#: src/Tribe/View_Helpers.php:283
 msgid "Yemen"
 msgstr "Jemen"
 
-#: ../src/admin-views/tribe-options-help.php:73
+#: src/admin-views/tribe-options-help.php:109
 msgid "The Events Calendar: EDD Tickets"
 msgstr ""
 
-#: ../src/Tribe/View_Helpers.php:284
+#: src/Tribe/View_Helpers.php:284
 msgid "Zambia"
 msgstr "Zambija"
 
-#: ../src/admin-views/tribe-options-help.php:78
+#: src/admin-views/tribe-options-help.php:119
 msgid "The Events Calendar: WPEC Tickets"
 msgstr ""
 
-#: ../src/Tribe/View_Helpers.php:285
+#: src/Tribe/View_Helpers.php:285
 msgid "Zimbabwe"
 msgstr "Zimbabve"
 
-#: ../src/admin-views/tribe-options-help.php:83
+#: src/admin-views/tribe-options-help.php:129
 msgid "The Events Calendar: Shopp Tickets"
 msgstr ""
 
-#: ../src/Tribe/View_Helpers.php:316
+#: src/Tribe/View_Helpers.php:316
 msgid "Alabama"
 msgstr "Alabama"
 
-#: ../src/admin-views/tribe-options-help.php:88
+#: src/admin-views/tribe-options-help.php:139
 msgid "The Events Calendar: Filter Bar"
 msgstr ""
 
-#: ../src/Tribe/View_Helpers.php:317
+#: src/Tribe/View_Helpers.php:317
 msgid "Alaska"
 msgstr "Aljaska"
 
-#: ../src/Tribe/View_Helpers.php:318
+#: src/Tribe/View_Helpers.php:318
 msgid "Arizona"
 msgstr "Arizona"
 
-#: ../src/admin-views/tribe-options-help.php:97
+#: src/admin-views/tribe-options-help.php:164
 msgid "If this is your first time using The Events Calendar, you're in for a treat and are already well on your way to creating a first event. Here are some basics we've found helpful for users jumping into it for the first time:"
 msgstr "Ako je ovo da prvi put koristite The Events Calendar, vi ste na pravom mjestu da napišete svoj prvi događaj. Ovdje su neke osnove koje smo pronašli da su korisne za korisnike koji prvi put počinju:"
 
-#: ../src/Tribe/View_Helpers.php:319
+#: src/Tribe/View_Helpers.php:319
 msgid "Arkansas"
 msgstr "Arkanzas"
 
-#: ../src/admin-views/tribe-options-help.php:100
+#: src/admin-views/tribe-options-help.php:167
 msgid "%sOur New User Primer%s was designed for folks in your exact position. Featuring both step-by-step videos and written walkthroughs that feature accompanying screenshots, the primer aims to take you from zero to hero in no time."
 msgstr "%sNaš Novi User Primer%s je dizajniran za ljude koji su vašem položaju. Kroz korak-po-korak video tutorijale i pisana uputstva koje sadrže slike ekrana, opisani primjeri imaju za cilj da vas odvedu od početnika do heroja u kratkom vremenu."
 
-#: ../src/Tribe/View_Helpers.php:320
+#: src/Tribe/View_Helpers.php:320
 msgid "California"
 msgstr "Kalifornija"
 
-#: ../src/admin-views/tribe-options-help.php:102
+#: src/admin-views/tribe-options-help.php:169
 msgid "%sInstallation/Setup FAQs%s from our support page can help give an overview of what the plugin can and cannot do. This section of the FAQs may be helpful as it aims to address any basic install questions not addressed by the new user primer."
 msgstr "%sInstalacija/Podešavanje FAQ%s naše stranice za podršku može vam pomoći da otkrijete šta ovaj plugin može i ne može da uradi. Ovaj odjeljak Pitanja i Odgovori može biti od pomoći jer ima za cilj da se bavi bilo kakvim osnovnim pitanjima adresiranim za nove korisnike."
 
-#: ../src/Tribe/View_Helpers.php:321
+#: src/Tribe/View_Helpers.php:321
 msgid "Colorado"
 msgstr "Kolorado"
 
-#: ../src/admin-views/tribe-options-help.php:104
+#: src/admin-views/tribe-options-help.php:171
 msgid "Otherwise, if you're feeling adventurous, you can get started by heading to the Events menu and adding your first event."
 msgstr "U suprotnom, ako se osećate avanturistički, možete da počnete od menija Događaji i dodate svoj prvi događaj."
 
-#: ../src/Tribe/View_Helpers.php:322
+#: src/Tribe/View_Helpers.php:322
 msgid "Connecticut"
 msgstr "Konetikat"
 
-#: ../src/admin-views/tribe-options-help.php:108
+#: src/admin-views/tribe-options-help.php:175
 msgid "We've redone our support page from the ground up in an effort to better help our users. Head over to our %sSupport Page%s and you'll find lots of great resources, including:"
 msgstr "Mi smo prepravili našu stranicu za podršku iz temelja u nastojanju da pružimo bolju podršku našim korisnicima. Idite na našu %sSupport Page%s i tamo ćete naći mnogo korisnih informacija, uključujući:"
 
-#: ../src/Tribe/View_Helpers.php:323
+#: src/Tribe/View_Helpers.php:323
 msgid "Delaware"
 msgstr "Delaver"
 
-#: ../src/admin-views/tribe-options-help.php:110
+#: src/admin-views/tribe-options-help.php:177
 msgid "%sTemplate tags, functions, and hooks & filters%s for The Events Calendar &amp; Events Calendar PRO"
 msgstr "%sOznake obrazaca, funkcije i kuke i filteri%s za The Events Calendar &amp; Events Calendar Pro"
 
-#: ../src/Tribe/View_Helpers.php:324
+#: src/Tribe/View_Helpers.php:324
 msgid "District of Columbia"
 msgstr "Okrug Kolumbije"
 
-#: ../src/admin-views/tribe-options-help.php:112
+#: src/admin-views/tribe-options-help.php:179
 msgid "%sFrequently Asked Questions%s ranging from the most basic setup questions to advanced themer tweaks"
 msgstr "%sFrekventno postavljana pitanja%s rangirana u rasponu od najosnovnijih pitanja za podešavanja do naprednih izmjena ukupnog izgleda"
 
-#: ../src/Tribe/View_Helpers.php:325
+#: src/Tribe/View_Helpers.php:325
 msgid "Florida"
 msgstr "Florida"
 
-#: ../src/admin-views/tribe-options-help.php:115
+#: src/admin-views/tribe-options-help.php:182
 msgid "%sTutorials%s written by both members of our team and users from the community, covering custom queries, integration with third-party themes and plugins, etc."
 msgstr "%s Tutorijali%s pisani od članova našeg tima i korisnika iz zajednice, koja pokriva prilagođene upite, integraciju sa drugim temama i modulima, itd."
 
-#: ../src/Tribe/View_Helpers.php:327
+#: src/Tribe/View_Helpers.php:327
 msgid "Hawaii"
 msgstr "Havaiji"
 
-#: ../src/admin-views/tribe-options-help.php:117
+#: src/admin-views/tribe-options-help.php:184
 msgid "Release notes for painting an overall picture of the plugin's lifecycle and when features/bug fixes were introduced."
 msgstr "Zabilješke o reviziji u izgradnji ukupne slike životnog ciklusa plug-ina i kada su funkcije/bagovi predstavljeni."
 
-#: ../src/Tribe/View_Helpers.php:328
+#: src/Tribe/View_Helpers.php:328
 msgid "Idaho"
 msgstr "Ajdaho"
 
-#: ../src/admin-views/tribe-options-help.php:119
+#: src/admin-views/tribe-options-help.php:186
 msgid "%sAdd-on documentation%s for all of Modern Tribe's official extensions for The Events Calendar (including WooTickets, Community Events, Eventbrite Tickets, Facebook Events, etc)"
 msgstr "%sAdd-on dokumentacija%s za sve zvanične ekstenzije Modern Tribe's za The Events Calendar (uključujući WooTickets, Community Events, Eventbrite Tickets, Facebook Events, itd)"
 
-#: ../src/Tribe/View_Helpers.php:329
+#: src/Tribe/View_Helpers.php:329
 msgid "Illinois"
 msgstr "Ilinois"
 
-#: ../src/admin-views/tribe-options-help.php:121
+#: src/admin-views/tribe-options-help.php:188
 msgid "We've also got a %sModern Tribe UserVoice%s page where we're actively watching for feature ideas from the community. If after playing with the plugin and reviewing the resources above, you're finding a feature isn't present that should be, let us know. Vote up existing feature requests or add your own, and help us shape the future of the products business in a way that best meets the community's needs."
 msgstr "Takođe smo dodali %sModern Tribe UserVoice%s stranicu gde aktivno gledamo na ideje iz zajednice. Ako nakon korišćenja plugin-a i razmatranja resursa gore, vi pronađete funkciju koja nije prisutna a trebalo bi da bude, javite nam. Glasajte za postojeće zahteve predloženih funkcija ili dodajte sopstvene, i pomognite nam da oblikujemo budućnost ovog proizvoda na način koji najbolje zadovoljava potrebe zajednice."
 
-#: ../src/Tribe/View_Helpers.php:330
+#: src/Tribe/View_Helpers.php:330
 msgid "Indiana"
 msgstr "Indijana"
 
-#: ../src/admin-views/tribe-options-help.php:125
+#: src/admin-views/tribe-options-help.php:192
 msgid "Written documentation can only take things so far...sometimes, you need help from a real person. This is where our %ssupport forums%s come into play."
 msgstr "Napisana dokumentacija može samo da riješi određene stvari do sada ... ponekad, vam je potrebna pomoć od stvarne osobe. Ovo je mjesto gde naši %ssupport forums%s dolaze na red."
 
-#: ../src/Tribe/View_Helpers.php:331
+#: src/Tribe/View_Helpers.php:331
 msgid "Iowa"
 msgstr "Ajova"
 
-#: ../src/admin-views/tribe-options-help.php:126
+#: src/admin-views/tribe-options-help.php:193
 msgid "Users of the free The Events Calendar should post their support concerns to the plugin's %sWordPress.org support forum%s. While we are happy to help identify and fix bugs that are reported at WordPress.org, please make sure to read our %ssupport expectations sticky thread%s before posting so you understand our limitations."
 msgstr "Korisnici besplatne verzije The Events Calendar trebaju postavljati svoje postove na Podršci plugin-a %sWordPress.org support forum%s. Dok smo srećni da pomognemo da se identifikuju i isprave greške koje su prijavljene na WordPress.org, uvjerite se da ste pročitali naša%s očekivanja za podrškom na važne teme%s prije pisanja vašeg posta, kako biste razumjeli naša ograničenja."
 
-#: ../src/Tribe/View_Helpers.php:332
+#: src/Tribe/View_Helpers.php:332
 msgid "Kansas"
 msgstr "Kansas"
 
-#: ../src/admin-views/tribe-options-help.php:127
+#: src/admin-views/tribe-options-help.php:194
 msgid "We hit the WordPress.org forum throughout the week, watching for bugs. If you report a legitimate bug that we're able to reproduce, we will log it and patch for an upcoming release. However we are unfortunately unable to provide customization tips or assist in integrating with 3rd party plugins or themes."
 msgstr "Ažuriramo forum na WordPress.org tokom nedelje, gledajući za bagove. Ako prijavite legitimnu grešku koju smo u stanju da reprodukujemo, mi ćemo za nju napraviti zakrpu i u narednoj verziji je uključiti u paket. Međutim, mi nismo, nažalost, u stanju da obezbijedimo savjete za prilagođavanje ili pomoć u integraciji sa drugim modulima ili temama koje korstite."
 
-#: ../src/Tribe/View_Helpers.php:333
+#: src/Tribe/View_Helpers.php:333
 msgid "Kentucky"
 msgstr "Kentaki"
 
-#: ../src/admin-views/tribe-options-help.php:128
+#: src/admin-views/tribe-options-help.php:195
 msgid "If you're a user of The Events Calendar and would like more support, please %spurchase a PRO license%s. We hit the PRO forums daily, and can provide a deeper level of customization/integration support for paying users than we can on WordPress.org."
 msgstr "Ako ste korisnik The Events Calendar i želite veše podrške, molim %spribavite PRO licencu%s. Mi ažuriramo PRO forume svakodnevno, i možemo da vam pružimo detaljniji nivo podrške za prilagođavanje/integraciju nego što možemo na VordPress.org."
 
-#: ../src/Tribe/View_Helpers.php:47
+#: src/Tribe/View_Helpers.php:47
 msgid "Afghanistan"
 msgstr "Afganistan"
 
-#: ../src/Tribe/View_Helpers.php:48
+#: src/Tribe/View_Helpers.php:48
 msgid "Albania"
 msgstr "Albanija"
 
-#: ../src/Tribe/View_Helpers.php:49
+#: src/Tribe/View_Helpers.php:49
 msgid "Algeria"
 msgstr "Alžir"
 
-#: ../src/Tribe/API.php:431
+#: src/Tribe/API.php:437
 msgid "Unnamed Venue"
 msgstr "Neimenovano mjesto održavanja"
 
-#: ../src/Tribe/View_Helpers.php:50
+#: src/Tribe/View_Helpers.php:50
 msgid "American Samoa"
 msgstr "Američka Samoa"
 
-#: ../src/Tribe/API.php:507 ../src/Tribe/View_Helpers.php:46
-#: ../src/functions/template-tags/venue.php:272
+#: src/Tribe/API.php:517 src/Tribe/View_Helpers.php:46
+#: src/functions/template-tags/venue.php:272
 msgid "United States"
 msgstr "Sjedinjene Države"
 
-#: ../src/Tribe/View_Helpers.php:51
+#: src/Tribe/View_Helpers.php:51
 msgid "Andorra"
 msgstr "Andora"
 
-#: ../src/Tribe/Activation_Page.php:197
+#: src/Tribe/Activation_Page.php:196
 msgid "Welcome to The Events Calendar"
 msgstr ""
 
-#: ../src/Tribe/View_Helpers.php:52
+#: src/Tribe/View_Helpers.php:52
 msgid "Angola"
 msgstr "Angola"
 
-#: ../src/Tribe/Activation_Page.php:217
+#: src/Tribe/Activation_Page.php:216
 msgid "Thanks for Updating The Events Calendar"
 msgstr ""
 
-#: ../src/Tribe/View_Helpers.php:53
+#: src/Tribe/View_Helpers.php:53
 msgid "Anguilla"
 msgstr "Angvila"
 
-#: ../src/Tribe/Admin_List.php:229 ../src/Tribe/Main.php:1272
+#: src/Tribe/Admin_List.php:219 src/Tribe/Main.php:1295
 msgid "%s Categories"
 msgstr ""
 
-#: ../src/Tribe/View_Helpers.php:54
+#: src/Tribe/View_Helpers.php:54
 msgid "Antarctica"
 msgstr "Antarktik"
 
-#: ../src/Tribe/Admin_List.php:235
+#: src/Tribe/Admin_List.php:225
 msgid "Start Date"
 msgstr "Datum početka"
 
-#: ../src/Tribe/View_Helpers.php:55
+#: src/Tribe/View_Helpers.php:55
 msgid "Antigua And Barbuda"
 msgstr "Antigva i Barbuda"
 
-#: ../src/Tribe/Admin_List.php:236
+#: src/Tribe/Admin_List.php:226
 msgid "End Date"
 msgstr "Datum završetka"
 
-#: ../src/Tribe/View_Helpers.php:56
+#: src/Tribe/View_Helpers.php:56
 msgid "Argentina"
 msgstr "Argentina"
 
-#: ../src/Tribe/Admin_List.php:314
+#: src/Tribe/Admin_List.php:304
 msgid "All %s"
 msgstr "Svi %s"
 
-#: ../src/Tribe/View_Helpers.php:57
+#: src/Tribe/View_Helpers.php:57
 msgid "Armenia"
 msgstr "Jermenija"
 
-#: ../src/Tribe/Advanced_Functions/Register_Meta.php:37
-#: ../src/Tribe/Advanced_Functions/Register_Meta.php:69
-#: ../src/views/modules/meta/details.php:40
-#: ../src/views/modules/meta/details.php:65
+#: src/Tribe/Advanced_Functions/Register_Meta.php:37
+#: src/Tribe/Advanced_Functions/Register_Meta.php:69
+#: src/views/modules/meta/details.php:40 src/views/modules/meta/details.php:65
 msgid "Start:"
 msgstr "Početak:"
 
-#: ../src/Tribe/View_Helpers.php:58
+#: src/Tribe/View_Helpers.php:58
 msgid "Aruba"
 msgstr "Aruba"
 
-#: ../src/Tribe/Advanced_Functions/Register_Meta.php:46
-#: ../src/Tribe/Advanced_Functions/Register_Meta.php:78
-#: ../src/views/modules/meta/details.php:45
-#: ../src/views/modules/meta/details.php:70
+#: src/Tribe/Advanced_Functions/Register_Meta.php:46
+#: src/Tribe/Advanced_Functions/Register_Meta.php:78
+#: src/views/modules/meta/details.php:45 src/views/modules/meta/details.php:70
 msgid "End:"
 msgstr "Kraj:"
 
-#: ../src/Tribe/View_Helpers.php:59
+#: src/Tribe/View_Helpers.php:59
 msgid "Australia"
 msgstr "Australija"
 
-#: ../src/Tribe/Advanced_Functions/Register_Meta.php:57
-#: ../src/Tribe/Advanced_Functions/Register_Meta.php:89
-#: ../src/views/modules/meta/details.php:55
-#: ../src/views/modules/meta/details.php:80
+#: src/Tribe/Advanced_Functions/Register_Meta.php:57
+#: src/Tribe/Advanced_Functions/Register_Meta.php:89
+#: src/views/modules/meta/details.php:55 src/views/modules/meta/details.php:80
 msgid "Date:"
 msgstr "Datum: "
 
-#: ../src/Tribe/View_Helpers.php:60
+#: src/Tribe/View_Helpers.php:60
 msgid "Austria"
 msgstr "Austrija"
 
-#: ../src/Tribe/Advanced_Functions/Register_Meta.php:100
-#: ../src/Tribe/Advanced_Functions/Register_Meta.php:111
-#: ../src/views/modules/meta/details.php:85
+#: src/Tribe/Advanced_Functions/Register_Meta.php:100
+#: src/Tribe/Advanced_Functions/Register_Meta.php:111
+#: src/views/modules/meta/details.php:85
 msgid "Time:"
 msgstr ""
 
-#: ../src/Tribe/View_Helpers.php:61
+#: src/Tribe/View_Helpers.php:61
 msgid "Azerbaijan"
 msgstr "Azerbejdžan"
 
-#: ../src/Tribe/Advanced_Functions/Register_Meta.php:324
-#: ../src/functions/template-tags/google-map.php:46
+#: src/functions/template-tags/google-map.php:46
 msgid "Click to view a Google Map"
 msgstr "Kliknite da vidite Google mapu"
 
-#: ../src/Tribe/View_Helpers.php:62
+#: src/Tribe/View_Helpers.php:62
 msgid "Bahamas"
 msgstr "Bahami"
 
-#: ../src/Tribe/Advanced_Functions/Register_Meta.php:325
-#: ../src/functions/template-tags/google-map.php:47
+#: src/functions/template-tags/google-map.php:47
 msgid "+ Google Map"
 msgstr "+ Google Map"
 
-#: ../src/Tribe/View_Helpers.php:63
+#: src/Tribe/View_Helpers.php:63
 msgid "Bahrain"
 msgstr "Bahrin"
 
-#: ../src/Tribe/Amalgamator.php:260
-#: ../src/admin-views/tribe-options-general.php:194
+#: src/Tribe/Amalgamator.php:260 src/admin-views/tribe-options-general.php:194
 msgid "Merge Duplicates"
 msgstr "Spoj duplikate"
 
-#: ../src/Tribe/View_Helpers.php:64
+#: src/Tribe/View_Helpers.php:64
 msgid "Bangladesh"
 msgstr "Bangladeš"
 
-#: ../src/Tribe/App_Shop.php:63 ../src/Tribe/App_Shop.php:64
-#: ../src/Tribe/App_Shop.php:94
+#: src/Tribe/App_Shop.php:63 src/Tribe/App_Shop.php:64
+#: src/Tribe/App_Shop.php:94
 msgid "Event Add-Ons"
 msgstr "Dodaci događaja"
 
-#: ../src/Tribe/View_Helpers.php:65
+#: src/Tribe/View_Helpers.php:65
 msgid "Barbados"
 msgstr "Barbados"
 
-#: ../src/Tribe/Credits.php:31
+#: src/Tribe/Credits.php:31
 msgid "This calendar is powered by The Events Calendar."
 msgstr ""
 
-#: ../src/Tribe/View_Helpers.php:66
+#: src/Tribe/View_Helpers.php:66
 msgid "Belarus"
 msgstr "Bjelorusija"
 
-#: ../src/Tribe/Credits.php:48
+#: src/Tribe/Credits.php:48
 msgid "Rate <strong>The Events Calendar</strong> <a href=\"%1$s\" target=\"_blank\">&#9733;&#9733;&#9733;&#9733;&#9733;</a> on <a href=\"%1$s\" target=\"_blank\">WordPress.org</a> to keep this plugin free.  Thanks from the friendly folks at Modern Tribe."
 msgstr ""
 
-#: ../src/Tribe/View_Helpers.php:67
+#: src/Tribe/View_Helpers.php:67
 msgid "Belgium"
 msgstr "Belgija"
 
-#: ../src/Tribe/Credits.php:48
+#: src/Tribe/Credits.php:48
 msgid "http://wordpress.org/support/view/plugin-reviews/the-events-calendar?filter=5"
 msgstr ""
 
-#: ../src/Tribe/View_Helpers.php:68
+#: src/Tribe/View_Helpers.php:68
 msgid "Belize"
 msgstr "Belize"
 
-#: ../src/Tribe/Field.php:209
+#: src/Tribe/Field.php:209
 msgid "Invalid field type specified"
 msgstr "Neodgovarajući tip polja je označen"
 
-#: ../src/Tribe/View_Helpers.php:69
+#: src/Tribe/View_Helpers.php:69
 msgid "Benin"
 msgstr "Benin"
 
-#: ../src/Tribe/Field.php:466
+#: src/Tribe/Field.php:466
 msgid "No radio options specified"
 msgstr "Radio opcije nisu označene"
 
-#: ../src/Tribe/View_Helpers.php:70
+#: src/Tribe/View_Helpers.php:70
 msgid "Bermuda"
 msgstr "Bermuda"
 
-#: ../src/Tribe/Field.php:502
+#: src/Tribe/Field.php:502
 msgid "No checkbox options specified"
 msgstr "Checkbox opcije nisu označene"
 
-#: ../src/Tribe/View_Helpers.php:71
+#: src/Tribe/View_Helpers.php:71
 msgid "Bhutan"
 msgstr "Butan"
 
-#: ../src/Tribe/Field.php:558
+#: src/Tribe/Field.php:558
 msgid "No select options specified"
 msgstr "Opcije polja za odabir nisu označene"
 
-#: ../src/Tribe/View_Helpers.php:72
+#: src/Tribe/View_Helpers.php:72
 msgid "Bolivia"
 msgstr "Bolivija"
 
-#: ../src/Tribe/Importer/Admin_Page.php:15
-#: ../src/Tribe/Importer/Admin_Page.php:16 ../src/Tribe/Main.php:3946
+#: src/Tribe/Importer/Admin_Page.php:15 src/Tribe/Importer/Admin_Page.php:16
+#: src/Tribe/Main.php:4011
 msgid "Import"
 msgstr ""
 
-#: ../src/Tribe/View_Helpers.php:73
+#: src/Tribe/View_Helpers.php:73
 msgid "Bosnia And Herzegowina"
 msgstr "Bosna i Hercegovina"
 
-#: ../src/Tribe/Importer/Admin_Page.php:54
-#: ../src/Tribe/Importer/Admin_Page.php:187
+#: src/Tribe/Importer/Admin_Page.php:54 src/Tribe/Importer/Admin_Page.php:187
 msgid "The file went away. Please try again."
 msgstr ""
 
-#: ../src/Tribe/View_Helpers.php:74
+#: src/Tribe/View_Helpers.php:74
 msgid "Botswana"
 msgstr "Bocvana"
 
-#: ../src/Tribe/Importer/Admin_Page.php:95 ../src/Tribe/Main.php:754
+#: src/Tribe/Importer/Admin_Page.php:95 src/Tribe/Main.php:777
 msgid "General"
 msgstr "Generalno"
 
-#: ../src/Tribe/View_Helpers.php:75
+#: src/Tribe/View_Helpers.php:75
 msgid "Bouvet Island"
 msgstr "Buve Ostrva"
 
-#: ../src/Tribe/Importer/Admin_Page.php:96
+#: src/Tribe/Importer/Admin_Page.php:96
 msgid "Import: CSV"
 msgstr ""
 
-#: ../src/Tribe/View_Helpers.php:76
+#: src/Tribe/View_Helpers.php:76
 msgid "Brazil"
 msgstr "Brazil"
 
-#: ../src/Tribe/Importer/Admin_Page.php:153
+#: src/Tribe/Importer/Admin_Page.php:153
 msgid "We were unable to process your request. Please try again."
 msgstr ""
 
-#: ../src/Tribe/View_Helpers.php:77
+#: src/Tribe/View_Helpers.php:77
 msgid "British Indian Ocean Territory"
 msgstr "Britanska Teriritorija Indijskog Okeana"
 
-#: ../src/Tribe/Importer/Admin_Page.php:194
+#: src/Tribe/Importer/Admin_Page.php:194
 msgid "<p>The following fields are required for a successful import:</p>"
 msgstr ""
 
-#: ../src/Tribe/View_Helpers.php:78
+#: src/Tribe/View_Helpers.php:78
 msgid "Brunei Darussalam"
 msgstr "Brunej"
 
-#: ../src/Tribe/Importer/Column_Mapper.php:33
+#: src/Tribe/Importer/Column_Mapper.php:33
 msgid "Do Not Import"
 msgstr ""
 
-#: ../src/Tribe/View_Helpers.php:79
+#: src/Tribe/View_Helpers.php:79
 msgid "Bulgaria"
 msgstr "Bugarska"
 
-#: ../src/Tribe/Importer/Column_Mapper.php:52
+#: src/Tribe/Importer/Column_Mapper.php:52
 msgid "Event Name"
 msgstr ""
 
-#: ../src/Tribe/View_Helpers.php:80
+#: src/Tribe/View_Helpers.php:80
 msgid "Burkina Faso"
 msgstr "Burkina Faso"
 
-#: ../src/Tribe/Importer/Column_Mapper.php:53
+#: src/Tribe/Importer/Column_Mapper.php:53
 msgid "Event Description"
 msgstr ""
 
-#: ../src/Tribe/View_Helpers.php:81
+#: src/Tribe/View_Helpers.php:81
 msgid "Burundi"
 msgstr "Burundi"
 
-#: ../src/Tribe/Importer/Column_Mapper.php:54
+#: src/Tribe/Importer/Column_Mapper.php:54
 msgid "Event Start Date"
 msgstr ""
 
-#: ../src/Tribe/View_Helpers.php:82
+#: src/Tribe/View_Helpers.php:82
 msgid "Cambodia"
 msgstr "Kambodža"
 
-#: ../src/Tribe/Importer/Column_Mapper.php:55
+#: src/Tribe/Importer/Column_Mapper.php:55
 msgid "Event Start Time"
 msgstr ""
 
-#: ../src/Tribe/View_Helpers.php:83
+#: src/Tribe/View_Helpers.php:83
 msgid "Cameroon"
 msgstr "Kamerun"
 
-#: ../src/Tribe/Importer/Column_Mapper.php:56
+#: src/Tribe/Importer/Column_Mapper.php:56
 msgid "Event End Date"
 msgstr ""
 
-#: ../src/Tribe/View_Helpers.php:84
+#: src/Tribe/View_Helpers.php:84
 msgid "Canada"
 msgstr "Kanada"
 
-#: ../src/Tribe/Importer/Column_Mapper.php:57
+#: src/Tribe/Importer/Column_Mapper.php:57
 msgid "Event End Time"
 msgstr ""
 
-#: ../src/Tribe/View_Helpers.php:85
+#: src/Tribe/View_Helpers.php:85
 msgid "Cape Verde"
 msgstr "Kape Verde"
 
-#: ../src/Tribe/Importer/Column_Mapper.php:58
+#: src/Tribe/Importer/Column_Mapper.php:58
 msgid "All Day Event"
 msgstr ""
 
-#: ../src/Tribe/View_Helpers.php:86
+#: src/Tribe/View_Helpers.php:86
 msgid "Cayman Islands"
 msgstr "Kajmanska ostrva"
 
-#: ../src/Tribe/Importer/Column_Mapper.php:59
+#: src/Tribe/Importer/Column_Mapper.php:59
 msgid "Event Venue Name"
 msgstr ""
 
-#: ../src/Tribe/View_Helpers.php:87
+#: src/Tribe/View_Helpers.php:87
 msgid "Central African Republic"
 msgstr "Centralna Afrička Republika"
 
-#: ../src/Tribe/Importer/Column_Mapper.php:60
+#: src/Tribe/Importer/Column_Mapper.php:60
 msgid "Event Organizer Name"
 msgstr ""
 
-#: ../src/Tribe/View_Helpers.php:88
+#: src/Tribe/View_Helpers.php:88
 msgid "Chad"
 msgstr "Čad"
 
-#: ../src/Tribe/Importer/Column_Mapper.php:61
+#: src/Tribe/Importer/Column_Mapper.php:61
 msgid "Event Show Map Link"
 msgstr ""
 
-#: ../src/Tribe/View_Helpers.php:89
+#: src/Tribe/View_Helpers.php:89
 msgid "Chile"
 msgstr "Čile"
 
-#: ../src/Tribe/Importer/Column_Mapper.php:62
+#: src/Tribe/Importer/Column_Mapper.php:62
 msgid "Event Show Map"
 msgstr ""
 
-#: ../src/Tribe/View_Helpers.php:90
+#: src/Tribe/View_Helpers.php:90
 msgid "China"
 msgstr "Kina"
 
-#: ../src/Tribe/Importer/Column_Mapper.php:63
+#: src/Tribe/Importer/Column_Mapper.php:63
 msgid "Event Cost"
 msgstr "Cijena događaja"
 
-#: ../src/Tribe/View_Helpers.php:91
+#: src/Tribe/View_Helpers.php:91
 msgid "Christmas Island"
 msgstr "Božićno ostrvo"
 
-#: ../src/Tribe/View_Helpers.php:92
+#: src/Tribe/View_Helpers.php:92
 msgid "Cocos (Keeling) Islands"
 msgstr "Kokos (Kiling) Ostrvo"
 
-#: ../src/Tribe/Importer/Column_Mapper.php:64
+#: src/Tribe/Importer/Column_Mapper.php:66
 msgid "Event Category"
 msgstr "Kategorija događaja"
 
-#: ../src/Tribe/View_Helpers.php:93
+#: src/Tribe/View_Helpers.php:93
 msgid "Colombia"
 msgstr "Kolumbija"
 
-#: ../src/Tribe/Importer/Column_Mapper.php:65
+#: src/Tribe/Importer/Column_Mapper.php:68
 msgid "Event Website"
 msgstr "Sajt događaja"
 
-#: ../src/Tribe/View_Helpers.php:94
+#: src/Tribe/View_Helpers.php:94
 msgid "Comoros"
 msgstr "Komoros"
 
-#: ../src/Tribe/Importer/Column_Mapper.php:71
+#: src/Tribe/Importer/Column_Mapper.php:74
 msgid "Venue Name"
 msgstr ""
 
-#: ../src/Tribe/View_Helpers.php:95
+#: src/Tribe/View_Helpers.php:95
 msgid "Congo"
 msgstr "Kongo"
 
-#: ../src/Tribe/Importer/Column_Mapper.php:72
+#: src/Tribe/Importer/Column_Mapper.php:75
 msgid "Venue Country"
 msgstr ""
 
-#: ../src/Tribe/View_Helpers.php:96
+#: src/Tribe/View_Helpers.php:96
 msgid "Congo, The Democratic Republic Of The"
 msgstr "Kongo, Demokratska Republika"
 
-#: ../src/Tribe/Importer/Column_Mapper.php:73
+#: src/Tribe/Importer/Column_Mapper.php:76
 msgid "Venue Address"
 msgstr ""
 
-#: ../src/Tribe/View_Helpers.php:97
+#: src/Tribe/View_Helpers.php:97
 msgid "Cook Islands"
 msgstr "Kukova Ostrva"
 
-#: ../src/Tribe/Importer/Column_Mapper.php:74
+#: src/Tribe/Importer/Column_Mapper.php:77
 msgid "Venue Address 2"
 msgstr ""
 
-#: ../src/Tribe/View_Helpers.php:98
+#: src/Tribe/View_Helpers.php:98
 msgid "Costa Rica"
 msgstr "Kostarika"
 
-#: ../src/Tribe/Importer/Column_Mapper.php:75
+#: src/Tribe/Importer/Column_Mapper.php:78
 msgid "Venue City"
 msgstr ""
 
-#: ../src/Tribe/View_Helpers.php:99
+#: src/Tribe/View_Helpers.php:99
 msgid "Cote D'Ivoire"
 msgstr "Obala Slonovače"
 
-#: ../src/Tribe/Importer/Column_Mapper.php:76
+#: src/Tribe/Importer/Column_Mapper.php:79
 msgid "Venue State/Province"
 msgstr ""
 
-#: ../src/Tribe/View_Helpers.php:100
+#: src/Tribe/View_Helpers.php:100
 msgid "Croatia (Local Name: Hrvatska)"
 msgstr "Hrvatska"
 
-#: ../src/Tribe/Importer/Column_Mapper.php:77
+#: src/Tribe/Importer/Column_Mapper.php:80
 msgid "Venue Zip"
 msgstr ""
 
-#: ../src/Tribe/View_Helpers.php:101
+#: src/Tribe/View_Helpers.php:101
 msgid "Cuba"
 msgstr "Kuba"
 
-#: ../src/Tribe/Importer/Column_Mapper.php:78
+#: src/Tribe/Importer/Column_Mapper.php:81
 msgid "Venue Phone"
 msgstr ""
 
-#: ../src/Tribe/View_Helpers.php:102
+#: src/Tribe/View_Helpers.php:102
 msgid "Cyprus"
 msgstr "Kipar"
 
-#: ../src/Tribe/Importer/Column_Mapper.php:79
+#: src/Tribe/Importer/Column_Mapper.php:82
 msgid "Venue Website"
 msgstr ""
 
-#: ../src/Tribe/View_Helpers.php:103
+#: src/Tribe/View_Helpers.php:103
 msgid "Czech Republic"
 msgstr "Češka Republika"
 
-#: ../src/Tribe/Importer/Column_Mapper.php:85
+#: src/Tribe/Importer/Column_Mapper.php:88
 msgid "Organizer Name"
 msgstr ""
 
-#: ../src/Tribe/View_Helpers.php:104
+#: src/Tribe/View_Helpers.php:104
 msgid "Denmark"
 msgstr "Danska"
 
-#: ../src/Tribe/Importer/Column_Mapper.php:86
+#: src/Tribe/Importer/Column_Mapper.php:89
 msgid "Organizer Email"
 msgstr ""
 
-#: ../src/Tribe/View_Helpers.php:105
+#: src/Tribe/View_Helpers.php:105
 msgid "Djibouti"
 msgstr "Džibuti"
 
-#: ../src/Tribe/Importer/Column_Mapper.php:87
+#: src/Tribe/Importer/Column_Mapper.php:90
 msgid "Organizer Website"
 msgstr ""
 
-#: ../src/Tribe/View_Helpers.php:106
+#: src/Tribe/View_Helpers.php:106
 msgid "Dominica"
 msgstr "Dominikana"
 
-#: ../src/Tribe/Importer/Column_Mapper.php:88
+#: src/Tribe/Importer/Column_Mapper.php:91
 msgid "Organizer Phone"
 msgstr ""
 
-#: ../src/Tribe/View_Helpers.php:107
+#: src/Tribe/View_Helpers.php:107
 msgid "Dominican Republic"
 msgstr "Dominikanska Republika"
 
-#: ../src/Tribe/Importer/File_Importer.php:38
+#: src/Tribe/Importer/File_Importer.php:38
 msgid "No importer defined for %s"
 msgstr ""
 
-#: ../src/Tribe/View_Helpers.php:108
+#: src/Tribe/View_Helpers.php:108
 msgid "East Timor"
 msgstr "Istočni Timor"
 
-#: ../src/Tribe/Importer/File_Importer.php:110
+#: src/Tribe/Importer/File_Importer.php:110
 msgid "Missing required fields in row %d."
 msgstr ""
 
-#: ../src/Tribe/View_Helpers.php:109
+#: src/Tribe/View_Helpers.php:109
 msgid "Ecuador"
 msgstr "Ekvator"
 
-#: ../src/Tribe/Importer/File_Importer.php:118
+#: src/Tribe/Importer/File_Importer.php:118
 msgid "Failed to import record in row %d."
 msgstr ""
 
-#: ../src/Tribe/View_Helpers.php:110
+#: src/Tribe/View_Helpers.php:110
 msgid "Egypt"
 msgstr "Egipat"
 
-#: ../src/Tribe/Importer/File_Importer.php:127
+#: src/Tribe/Importer/File_Importer.php:127
 msgid "%s (post ID %d) updated."
 msgstr ""
 
-#: ../src/Tribe/View_Helpers.php:111
+#: src/Tribe/View_Helpers.php:111
 msgid "El Salvador"
 msgstr "El Salvador"
 
-#: ../src/Tribe/Importer/File_Importer.php:131
+#: src/Tribe/Importer/File_Importer.php:131
 msgid "%s (post ID %d) created."
 msgstr ""
 
-#: ../src/Tribe/View_Helpers.php:112
+#: src/Tribe/View_Helpers.php:112
 msgid "Equatorial Guinea"
 msgstr "Ekvatorska Gvineja"
 
-#: ../src/Tribe/Importer/File_Uploader.php:28
+#: src/Tribe/Importer/File_Uploader.php:28
 msgid "Temporary file not found. Could not save %s."
 msgstr ""
 
-#: ../src/Tribe/View_Helpers.php:113
+#: src/Tribe/View_Helpers.php:113
 msgid "Eritrea"
 msgstr "Eritreja"
 
-#: ../src/Tribe/Importer/File_Uploader.php:36
+#: src/Tribe/Importer/File_Uploader.php:36
 msgid "Could not save %s."
 msgstr ""
 
-#: ../src/Tribe/View_Helpers.php:114
+#: src/Tribe/View_Helpers.php:114
 msgid "Estonia"
 msgstr "Estonija"
 
-#: ../src/Tribe/Importer/Options.php:29 ../src/Tribe/Settings.php:520
+#: src/Tribe/Importer/Options.php:29 src/Tribe/Settings.php:520
 msgid "Settings saved."
 msgstr "Podešavanja sačuvana."
 
-#: ../src/Tribe/View_Helpers.php:115
+#: src/Tribe/View_Helpers.php:115
 msgid "Ethiopia"
 msgstr "Etiopija"
 
-#: ../src/Tribe/List_Widget.php:30
+#: src/Tribe/List_Widget.php:30
 msgid "A widget that displays upcoming events."
 msgstr "Vidžet koji prikazuje predstojeće događaje."
 
-#: ../src/Tribe/View_Helpers.php:116
+#: src/Tribe/View_Helpers.php:116
 msgid "Falkland Islands (Malvinas)"
 msgstr "Foklandska Ostrva"
 
-#: ../src/Tribe/List_Widget.php:38
+#: src/Tribe/List_Widget.php:38
 msgid "Events List"
 msgstr "Popis događaja "
 
-#: ../src/Tribe/View_Helpers.php:117
+#: src/Tribe/View_Helpers.php:117
 msgid "Faroe Islands"
 msgstr "Farska ostrva"
 
-#: ../src/Tribe/List_Widget.php:171
+#: src/Tribe/List_Widget.php:172
 msgid "Upcoming Events"
 msgstr "Predstojeći događaji"
 
-#: ../src/Tribe/View_Helpers.php:118
+#: src/Tribe/View_Helpers.php:118
 msgid "Fiji"
 msgstr "Fidži"
 
-#: ../src/Tribe/Main.php:490 ../src/functions/template-tags/venue.php:52
-#: ../src/io/csv/admin-views/import.php:45
+#: src/Tribe/Main.php:503 src/functions/template-tags/venue.php:52
+#: src/io/csv/admin-views/import.php:45
 msgid "Venues"
 msgstr "Mjesta"
 
-#: ../src/Tribe/View_Helpers.php:119
+#: src/Tribe/View_Helpers.php:119
 msgid "Finland"
 msgstr "Finska"
 
-#: ../src/Tribe/Main.php:498
-#: ../src/functions/advanced-functions/meta_registration.php:126
-#: ../src/functions/template-tags/venue.php:41
+#: src/Tribe/Main.php:511
+#: src/functions/advanced-functions/meta_registration.php:126
+#: src/functions/template-tags/venue.php:41
 msgid "Venue"
 msgstr "Mjesto"
 
-#: ../src/Tribe/View_Helpers.php:120
+#: src/Tribe/View_Helpers.php:120
 msgid "France"
 msgstr "Francuska"
 
-#: ../src/Tribe/Main.php:506 ../src/functions/template-tags/organizer.php:82
-#: ../src/io/csv/admin-views/import.php:46
+#: src/Tribe/Main.php:519 src/functions/template-tags/organizer.php:82
+#: src/io/csv/admin-views/import.php:46
 msgid "Organizers"
 msgstr "Organizatori"
 
-#: ../src/Tribe/View_Helpers.php:121
+#: src/Tribe/View_Helpers.php:121
 msgid "France, Metropolitan"
 msgstr "Francuska, Metropolitan"
 
-#: ../src/Tribe/Main.php:514
-#: ../src/functions/advanced-functions/meta_registration.php:205
-#: ../src/functions/template-tags/organizer.php:71
+#: src/Tribe/Main.php:527
+#: src/functions/advanced-functions/meta_registration.php:205
+#: src/functions/template-tags/organizer.php:71
 msgid "Organizer"
 msgstr "Organizator"
 
-#: ../src/Tribe/View_Helpers.php:122
+#: src/Tribe/View_Helpers.php:122
 msgid "French Guiana"
 msgstr "Francuska Gvajana"
 
-#: ../src/Tribe/Main.php:522 ../src/functions/template-tags/general.php:71
-#: ../src/io/csv/admin-views/import.php:47
+#: src/Tribe/Main.php:535 src/functions/template-tags/general.php:71
+#: src/io/csv/admin-views/import.php:47
 msgid "Events"
 msgstr "Događaji"
 
-#: ../src/Tribe/View_Helpers.php:123
+#: src/Tribe/View_Helpers.php:123
 msgid "French Polynesia"
 msgstr "Francuska Polinezija"
 
-#: ../src/Tribe/Main.php:530 ../src/functions/template-tags/general.php:60
+#: src/Tribe/Main.php:543 src/functions/template-tags/general.php:60
 msgid "Event"
 msgstr "Događaj"
 
-#: ../src/Tribe/View_Helpers.php:124
+#: src/Tribe/View_Helpers.php:124
 msgid "French Southern Territories"
 msgstr "Francuske Južne Teritorije"
 
-#: ../src/Tribe/Main.php:570 ../src/Tribe/Settings.php:132
-#: ../src/admin-views/tribe-options-help.php:169
+#. Plugin Name of the plugin/theme
+#: src/Tribe/Main.php:583 src/Tribe/Settings.php:132
+#: src/admin-views/tribe-options-help.php:272
 msgid "The Events Calendar"
 msgstr "Kalendar događaja"
 
-#: ../src/Tribe/View_Helpers.php:125
+#: src/Tribe/View_Helpers.php:125
 msgid "Gabon"
 msgstr "Gabon"
 
-#: ../src/Tribe/Main.php:575
+#: src/Tribe/Main.php:588
 msgid "month"
 msgstr "mjesec"
 
-#: ../src/Tribe/View_Helpers.php:126
+#: src/Tribe/View_Helpers.php:126
 msgid "Gambia"
 msgstr "Gambija"
 
-#: ../src/Tribe/Main.php:576
+#: src/Tribe/Main.php:589
 msgid "list"
 msgstr ""
 
-#: ../src/Tribe/View_Helpers.php:127 ../src/Tribe/View_Helpers.php:326
+#: src/Tribe/View_Helpers.php:127 src/Tribe/View_Helpers.php:326
 msgid "Georgia"
 msgstr "Gruzija"
 
-#: ../src/Tribe/Main.php:577
+#: src/Tribe/Main.php:590
 msgid "upcoming"
 msgstr "predstojeći"
 
-#: ../src/Tribe/View_Helpers.php:128
+#: src/Tribe/View_Helpers.php:128
 msgid "Germany"
 msgstr "Njemačka"
 
-#: ../src/Tribe/Main.php:578
+#: src/Tribe/Main.php:591
 msgid "past"
 msgstr "prethodni"
 
-#: ../src/Tribe/View_Helpers.php:129
+#: src/Tribe/View_Helpers.php:129
 msgid "Ghana"
 msgstr "Gana"
 
-#: ../src/Tribe/Main.php:579
+#: src/Tribe/Main.php:592
 msgid "day"
 msgstr ""
 
-#: ../src/Tribe/View_Helpers.php:130
+#: src/Tribe/View_Helpers.php:130
 msgid "Gibraltar"
 msgstr "Gibraltar"
 
-#: ../src/Tribe/Main.php:580
+#: src/Tribe/Main.php:593
 msgid "today"
 msgstr ""
 
-#: ../src/Tribe/View_Helpers.php:131
+#: src/Tribe/View_Helpers.php:131
 msgid "Greece"
 msgstr "Grčka"
 
-#: ../src/Tribe/Main.php:604
+#: src/Tribe/Main.php:620
 msgid "Initializing Tribe Events on %s"
 msgstr "Inicijalizacija Tribe Events na %s"
 
-#: ../src/Tribe/View_Helpers.php:132
+#: src/Tribe/View_Helpers.php:132
 msgid "Greenland"
 msgstr "Grenland"
 
-#: ../src/Tribe/Main.php:674
+#: src/Tribe/Main.php:697
 msgid "Your version of The Events Calendar is not up-to-date with one of your The Events Calendar add-ons. Please %supdate now.%s"
 msgstr "Vaša verzija The Events Calendar-a nije kompatibilna sa jednim od The Events Calendar dodataka. Molimo vas %sažurirajte verziju.%s"
 
-#: ../src/Tribe/View_Helpers.php:133
+#: src/Tribe/View_Helpers.php:133
 msgid "Grenada"
 msgstr "Grenada"
 
-#: ../src/Tribe/Main.php:686
+#: src/Tribe/Main.php:709
 msgid "The following plugins are out of date: <b>%s</b>. All add-ons contain dependencies on The Events Calendar and will not function properly unless paired with the right version. %sLearn More%s."
 msgstr ""
 
-#: ../src/Tribe/View_Helpers.php:134
+#: src/Tribe/View_Helpers.php:134
 msgid "Guadeloupe"
 msgstr "Gvadelupe"
 
-#: ../src/Tribe/Main.php:796 ../src/admin-views/tribe-options-licenses.php:33
+#: src/Tribe/Main.php:819 src/admin-views/tribe-options-licenses.php:33
 msgid "Licenses"
 msgstr "Licence"
 
-#: ../src/Tribe/View_Helpers.php:135
+#: src/Tribe/View_Helpers.php:135
 msgid "Guam"
 msgstr "Guam"
 
-#: ../src/admin-views/tribe-options-licenses.php:13
-msgid "<p>The license key you received when completing your purchase from %s will grant you access to support and updates until it expires. You do not need to enter the key below for the plugins to work, but you will need to enter it to get automatic updates. <strong>Find your license keys at <a href=\"%s\" target=\"_blank\">%s</a></strong>.</p> <p>Each paid add-on has its own unique license key. Simply paste the key into its appropriate field on below, and give it a moment to validate. You know you're set when a green expiration date appears alongside a \"valid\" message.</p> <p>If you're seeing a red message telling you that your key isn't valid or is out of installs, visit <a href=\"%s\" target=\"_blank\">%s</a> to manage your installs or renew / upgrade your license.</p><p>Not seeing an update but expecting one? In WordPress, go to <a href=\"%s\">Dashboard > Updates</a> and click \"Check Again\".</p>"
-msgstr "<p>Licencni ključ koji ste dobili nakon kupovine %s vam omogućava pristup podršci i nadogradnjama dok ne istekne. Nije potrebno da upišete ključ ispod da bi ovaj plugin radio, ali će biti potrebno da ga upišete ako želite automatizovane nadogradnje. <strong>Find your license keys at <a href=\"%s\" target=\"_blank\">%s</a></strong>.</p> <p>Svaki plaćeni add-on ima svoj jedinstveni ključ. Simply paste the key into its appropriate field on below, and give it a moment to validate. You know you're set when a green expiration date appears alongside a \"valid\" message.</p> <p>If you're seeing a red message telling you that your key isn't valid or is out of installs, visit <a href=\"%s\" target=\"_blank\">%s</a> to manage your installs or renew / upgrade your license.</p><p>Not seeing an update but expecting one? In WordPress, go to <a href=\"%s\">Dashboard > Updates</a> and click \"Check Again\".</p>"
-
-#: ../src/Tribe/View_Helpers.php:136
+#: src/Tribe/View_Helpers.php:136
 msgid "Guatemala"
 msgstr "Gvatemala"
 
-#: ../src/Tribe/Main.php:755
+#: src/Tribe/Main.php:778
 msgid "Display"
 msgstr "Prikaži"
 
-#: ../src/Tribe/View_Helpers.php:137
+#: src/Tribe/View_Helpers.php:137
 msgid "Guinea"
 msgstr "Gvineja"
 
-#: ../src/Tribe/Main.php:759 ../src/Tribe/Main.php:3989
-#: ../src/Tribe/Main.php:4084
+#: src/Tribe/Main.php:782 src/Tribe/Main.php:4054 src/Tribe/Main.php:4149
 msgid "Help"
 msgstr "Pomoć"
 
-#: ../src/Tribe/View_Helpers.php:138
+#: src/Tribe/View_Helpers.php:138
 msgid "Guinea-Bissau"
 msgstr "Gvineja-Bissau"
 
-#: ../src/Tribe/Main.php:897
+#: src/Tribe/Main.php:920
 msgid "Sorry, The Events Calendar requires WordPress %s or higher. Please upgrade your WordPress install."
 msgstr "Žao nam je, The Events Calendar zahtijeva WordPress %s ili noviji. Molimo vas da ažurirate vašu Wordpress instalaciju."
 
-#: ../src/Tribe/View_Helpers.php:139
+#: src/Tribe/View_Helpers.php:139
 msgid "Guyana"
 msgstr "Gvajana"
 
-#: ../src/Tribe/Main.php:900
+#: src/Tribe/Main.php:923
 msgid "Sorry, The Events Calendar requires PHP %s or higher. Talk to your Web host about moving you to a newer version of PHP."
 msgstr "Žao nam je, The Events Calendar zahtijeva PHP %s ili noviji. Pričajte sa vašim hostom o prebacivanju na noviju verziju PHP-a."
 
-#: ../src/Tribe/View_Helpers.php:140
+#: src/Tribe/View_Helpers.php:140
 msgid "Haiti"
 msgstr "Haiti"
 
-#: ../src/Tribe/Main.php:1174
+#: src/Tribe/Main.php:1197 src/Tribe/Main.php:2240
 msgid "category"
 msgstr "kategorija"
 
-#: ../src/Tribe/View_Helpers.php:141
+#: src/Tribe/View_Helpers.php:141
 msgid "Heard And Mc Donald Islands"
 msgstr "Heard And Mc Donaldovi Ostrva"
 
-#: ../src/Tribe/Main.php:1185
+#: src/Tribe/Main.php:1208 src/Tribe/Main.php:2239
 msgid "tag"
 msgstr "tag"
 
-#: ../src/Tribe/View_Helpers.php:142
+#: src/Tribe/View_Helpers.php:142
 msgid "Holy See (Vatican City State)"
 msgstr "Vatikan"
 
-#: ../src/Tribe/Main.php:1220 ../src/Tribe/Main.php:1238
-#: ../src/Tribe/Main.php:1256
+#: src/Tribe/Main.php:1243 src/Tribe/Main.php:1261 src/Tribe/Main.php:1279
 msgid "Add New"
 msgstr "Dodaj novi"
 
-#: ../src/Tribe/View_Helpers.php:143
+#: src/Tribe/View_Helpers.php:143
 msgid "Honduras"
 msgstr "Honduras"
 
-#: ../src/Tribe/Main.php:1221 ../src/Tribe/Main.php:1239
-#: ../src/Tribe/Main.php:1257 ../src/Tribe/Main.php:1382
-#: ../src/Tribe/Main.php:1383
+#: src/Tribe/Main.php:1244 src/Tribe/Main.php:1262 src/Tribe/Main.php:1280
+#: src/Tribe/Main.php:1405 src/Tribe/Main.php:1406
 msgid "Add New %s"
 msgstr ""
 
-#: ../src/Tribe/View_Helpers.php:144
+#: src/Tribe/View_Helpers.php:144
 msgid "Hong Kong"
 msgstr "Hong Kong"
 
-#: ../src/Tribe/Admin/Organizer_Chooser_Meta_Box.php:113
-#: ../src/Tribe/Main.php:1222 ../src/Tribe/Main.php:1240
-#: ../src/Tribe/Main.php:1258 ../src/Tribe/Main.php:1402
-#: ../src/Tribe/Main.php:1454 ../src/Tribe/Main.php:3933
+#: src/Tribe/Admin/Organizer_Chooser_Meta_Box.php:112 src/Tribe/Main.php:1245
+#: src/Tribe/Main.php:1263 src/Tribe/Main.php:1281 src/Tribe/Main.php:1425
+#: src/Tribe/Main.php:1477 src/Tribe/Main.php:3998
 msgid "Edit %s"
 msgstr ""
 
-#: ../src/Tribe/View_Helpers.php:145
+#: src/Tribe/View_Helpers.php:145
 msgid "Hungary"
 msgstr "Mađarska"
 
-#: ../src/Tribe/Main.php:1223 ../src/Tribe/Main.php:1241
-#: ../src/Tribe/Main.php:1259
+#: src/Tribe/Main.php:1246 src/Tribe/Main.php:1264 src/Tribe/Main.php:1282
 msgid "New %s"
 msgstr ""
 
-#: ../src/Tribe/View_Helpers.php:146
+#: src/Tribe/View_Helpers.php:146
 msgid "Iceland"
 msgstr "Island"
 
-#: ../src/Tribe/Main.php:1224 ../src/Tribe/Main.php:1242
-#: ../src/Tribe/Main.php:1260
+#: src/Tribe/Main.php:1247 src/Tribe/Main.php:1265 src/Tribe/Main.php:1283
 msgid "View %s"
 msgstr ""
 
-#: ../src/Tribe/View_Helpers.php:147
+#: src/Tribe/View_Helpers.php:147
 msgid "India"
 msgstr "Indija"
 
-#: ../src/Tribe/Main.php:1225 ../src/Tribe/Main.php:1243
-#: ../src/Tribe/Main.php:1261
+#: src/Tribe/Main.php:1248 src/Tribe/Main.php:1266 src/Tribe/Main.php:1284
 msgid "Search %s"
 msgstr ""
 
-#: ../src/Tribe/View_Helpers.php:148
+#: src/Tribe/View_Helpers.php:148
 msgid "Indonesia"
 msgstr "Indonesija"
 
-#: ../src/Tribe/Main.php:1226 ../src/Tribe/Main.php:1244
-#: ../src/Tribe/Main.php:1262
+#: src/Tribe/Main.php:1249 src/Tribe/Main.php:1267 src/Tribe/Main.php:1285
 msgid "No %s found"
 msgstr ""
 
-#: ../src/Tribe/View_Helpers.php:149
+#: src/Tribe/View_Helpers.php:149
 msgid "Iran (Islamic Republic Of)"
 msgstr "Iran"
 
-#: ../src/Tribe/Main.php:1227 ../src/Tribe/Main.php:1245
-#: ../src/Tribe/Main.php:1263
+#: src/Tribe/Main.php:1250 src/Tribe/Main.php:1268 src/Tribe/Main.php:1286
 msgid "No %s found in Trash"
 msgstr ""
 
-#: ../src/Tribe/View_Helpers.php:150
+#: src/Tribe/View_Helpers.php:150
 msgid "Iraq"
 msgstr "Irak"
 
-#: ../src/Tribe/Main.php:1273 ../src/functions/template-tags/general.php:408
+#: src/Tribe/Main.php:1296
 msgid "%s Category"
 msgstr ""
 
-#: ../src/Tribe/View_Helpers.php:151
+#: src/Tribe/View_Helpers.php:151
 msgid "Ireland"
 msgstr "Irska"
 
-#: ../src/Tribe/Main.php:1274
+#: src/Tribe/Main.php:1297
 msgid "Search %s Categories"
 msgstr ""
 
-#: ../src/Tribe/View_Helpers.php:152
+#: src/Tribe/View_Helpers.php:152
 msgid "Israel"
 msgstr "Izrael"
 
-#: ../src/Tribe/Main.php:1275
+#: src/Tribe/Main.php:1298
 msgid "All %s Categories"
 msgstr ""
 
-#: ../src/Tribe/View_Helpers.php:153
+#: src/Tribe/View_Helpers.php:153
 msgid "Italy"
 msgstr "Italija"
 
-#: ../src/Tribe/Main.php:1276
+#: src/Tribe/Main.php:1299
 msgid "Parent %s Category"
 msgstr ""
 
-#: ../src/Tribe/View_Helpers.php:154
+#: src/Tribe/View_Helpers.php:154
 msgid "Jamaica"
 msgstr "Jamajka"
 
-#: ../src/Tribe/Main.php:1277
+#: src/Tribe/Main.php:1300
 msgid "Parent %s Category:"
 msgstr ""
 
-#: ../src/Tribe/View_Helpers.php:155
+#: src/Tribe/View_Helpers.php:155
 msgid "Japan"
 msgstr "Japan"
 
-#: ../src/Tribe/Main.php:1278
+#: src/Tribe/Main.php:1301
 msgid "Edit %s Category"
 msgstr ""
 
-#: ../src/Tribe/View_Helpers.php:156
+#: src/Tribe/View_Helpers.php:156
 msgid "Jordan"
 msgstr "Jordan"
 
-#: ../src/Tribe/Main.php:1279
+#: src/Tribe/Main.php:1302
 msgid "Update %s Category"
 msgstr ""
 
-#: ../src/Tribe/View_Helpers.php:157
+#: src/Tribe/View_Helpers.php:157
 msgid "Kazakhstan"
 msgstr "Kazahstan"
 
-#: ../src/Tribe/Main.php:1280
+#: src/Tribe/Main.php:1303
 msgid "Add New %s Category"
 msgstr ""
 
-#: ../src/Tribe/View_Helpers.php:158
+#: src/Tribe/View_Helpers.php:158
 msgid "Kenya"
 msgstr "Kenija"
 
-#: ../src/Tribe/Main.php:1281
+#: src/Tribe/Main.php:1304
 msgid "New %s Category Name"
 msgstr ""
 
-#: ../src/Tribe/View_Helpers.php:159
+#: src/Tribe/View_Helpers.php:159
 msgid "Kiribati"
 msgstr "Kiribati"
 
-#: ../src/Tribe/Main.php:1297
+#: src/Tribe/Main.php:1320
 msgid "%1$s updated. <a href=\"%2$s\">View %3$s</a>"
 msgstr ""
 
-#: ../src/Tribe/View_Helpers.php:160
+#: src/Tribe/View_Helpers.php:160
 msgid "Korea, Democratic People's Republic Of"
 msgstr "Koreja, Demokratska Narodna Republika"
 
-#: ../src/Tribe/Main.php:1298 ../src/Tribe/Main.php:1334
-#: ../src/Tribe/Main.php:1353
+#: src/Tribe/Main.php:1321 src/Tribe/Main.php:1357 src/Tribe/Main.php:1376
 msgid "Custom field updated."
 msgstr "Prilagođeno polje ažurirano."
 
-#: ../src/Tribe/View_Helpers.php:161
+#: src/Tribe/View_Helpers.php:161
 msgid "Korea, Republic Of"
 msgstr "Koreja, Republika"
 
-#: ../src/Tribe/Main.php:1299 ../src/Tribe/Main.php:1335
-#: ../src/Tribe/Main.php:1354
+#: src/Tribe/Main.php:1322 src/Tribe/Main.php:1358 src/Tribe/Main.php:1377
 msgid "Custom field deleted."
 msgstr "Prilagođeno polje obrisano."
 
-#: ../src/Tribe/View_Helpers.php:162
+#: src/Tribe/View_Helpers.php:162
 msgid "Kuwait"
 msgstr "Kuvajt"
 
-#: ../src/Tribe/Main.php:1300 ../src/Tribe/Main.php:1333
-#: ../src/Tribe/Main.php:1336 ../src/Tribe/Main.php:1352
-#: ../src/Tribe/Main.php:1355
+#: src/Tribe/Main.php:1323 src/Tribe/Main.php:1356 src/Tribe/Main.php:1359
+#: src/Tribe/Main.php:1375 src/Tribe/Main.php:1378
 msgid "%s updated."
 msgstr ""
 
-#: ../src/Tribe/View_Helpers.php:163
+#: src/Tribe/View_Helpers.php:163
 msgid "Kyrgyzstan"
 msgstr "Kirgistan"
 
-#: ../src/Tribe/Main.php:1302
+#: src/Tribe/Main.php:1325
 msgid "%1$s restored to revision from %2$s"
 msgstr ""
 
-#: ../src/Tribe/View_Helpers.php:164
+#: src/Tribe/View_Helpers.php:164
 msgid "Lao People's Democratic Republic"
 msgstr "Laoska Narodna Demokratska Republika"
 
-#: ../src/Tribe/Main.php:1304
+#: src/Tribe/Main.php:1327
 msgid "Event published. <a href=\"%1$s\">View %2$s</a>"
 msgstr ""
 
-#: ../src/Tribe/View_Helpers.php:165
+#: src/Tribe/View_Helpers.php:165
 msgid "Latvia"
 msgstr "Latvija"
 
-#: ../src/Tribe/Main.php:1308 ../src/Tribe/Main.php:1340
-#: ../src/Tribe/Main.php:1359
+#: src/Tribe/Main.php:1331 src/Tribe/Main.php:1363 src/Tribe/Main.php:1382
 msgid "%s saved."
 msgstr ""
 
-#: ../src/Tribe/View_Helpers.php:166
+#: src/Tribe/View_Helpers.php:166
 msgid "Lebanon"
 msgstr "Liban"
 
-#: ../src/Tribe/Main.php:1310
+#: src/Tribe/Main.php:1333
 msgid "%1$s submitted. <a target=\"_blank\" href=\"%2$s\">Preview %3$s</a>"
 msgstr ""
 
-#: ../src/Tribe/View_Helpers.php:167
+#: src/Tribe/View_Helpers.php:167
 msgid "Lesotho"
 msgstr "Lesoto"
 
-#: ../src/Tribe/Main.php:1316
+#: src/Tribe/Main.php:1339
 msgid "%1$s scheduled for: <strong>%2$s</strong>. <a target=\"_blank\" href=\"%3$s\">Preview %4$s</a>"
 msgstr ""
 
-#: ../src/Tribe/View_Helpers.php:168
+#: src/Tribe/View_Helpers.php:168
 msgid "Liberia"
 msgstr "Liberija"
 
-#: ../src/Tribe/Main.php:1319 ../src/Tribe/Main.php:1345
-#: ../src/Tribe/Main.php:1364
+#: src/Tribe/Main.php:1342 src/Tribe/Main.php:1368 src/Tribe/Main.php:1387
 msgid "M j, Y @ G:i"
 msgstr "M j, Y @ G:i"
 
-#: ../src/Tribe/View_Helpers.php:169
+#: src/Tribe/View_Helpers.php:169
 msgid "Libya"
 msgstr "Libija"
 
-#: ../src/Tribe/Main.php:1324
+#: src/Tribe/Main.php:1347
 msgid "%1$s draft updated. <a target=\"_blank\" href=\"%2$s\">Preview %3$s</a>"
 msgstr ""
 
-#: ../src/Tribe/View_Helpers.php:170
+#: src/Tribe/View_Helpers.php:170
 msgid "Liechtenstein"
 msgstr "Lihtenštajn"
 
-#: ../src/Tribe/Main.php:1338 ../src/Tribe/Main.php:1357
+#: src/Tribe/Main.php:1361 src/Tribe/Main.php:1380
 msgid "%s restored to revision from %s"
 msgstr ""
 
-#: ../src/Tribe/View_Helpers.php:171
+#: src/Tribe/View_Helpers.php:171
 msgid "Lithuania"
 msgstr "Litvanija"
 
-#: ../src/Tribe/Main.php:1339 ../src/Tribe/Main.php:1358
+#: src/Tribe/Main.php:1362 src/Tribe/Main.php:1381
 msgid "%s published."
 msgstr ""
 
-#: ../src/Tribe/View_Helpers.php:172
+#: src/Tribe/View_Helpers.php:172
 msgid "Luxembourg"
 msgstr "Luksemburg"
 
-#: ../src/Tribe/Main.php:1341 ../src/Tribe/Main.php:1360
+#: src/Tribe/Main.php:1364 src/Tribe/Main.php:1383
 msgid "%s submitted."
 msgstr ""
 
-#: ../src/Tribe/View_Helpers.php:173
+#: src/Tribe/View_Helpers.php:173
 msgid "Macau"
 msgstr "Makao"
 
-#: ../src/Tribe/Main.php:1343 ../src/Tribe/Main.php:1362
+#: src/Tribe/Main.php:1366 src/Tribe/Main.php:1385
 msgid "%s scheduled for: <strong>%2$s</strong>."
 msgstr ""
 
-#: ../src/Tribe/View_Helpers.php:174
+#: src/Tribe/View_Helpers.php:174
 msgid "Macedonia"
 msgstr "Makedonija"
 
-#: ../src/Tribe/Main.php:1347 ../src/Tribe/Main.php:1366
+#: src/Tribe/Main.php:1370 src/Tribe/Main.php:1389
 msgid "%s draft updated."
 msgstr ""
 
-#: ../src/Tribe/View_Helpers.php:175
+#: src/Tribe/View_Helpers.php:175
 msgid "Madagascar"
 msgstr "Madagaskar"
 
-#: ../src/Tribe/Admin/Organizer_Chooser_Meta_Box.php:88
-#: ../src/Tribe/Main.php:1401 ../src/Tribe/Main.php:1452
+#: src/Tribe/Admin/Organizer_Chooser_Meta_Box.php:88 src/Tribe/Main.php:1424
+#: src/Tribe/Main.php:1475
 msgid "Use Saved %s:"
 msgstr ""
 
-#: ../src/Tribe/View_Helpers.php:176
+#: src/Tribe/View_Helpers.php:176
 msgid "Malawi"
 msgstr "Malavi"
 
-#: ../src/Tribe/Main.php:1429
+#: src/Tribe/Main.php:1452
 msgid "Without a defined location your event will not display a <a href=\"https://support.google.com/webmasters/answer/164506\" target=\"_blank\">Google Rich Snippet</a> on the search results."
 msgstr ""
 
-#: ../src/Tribe/View_Helpers.php:177
+#: src/Tribe/View_Helpers.php:177
 msgid "Malaysia"
 msgstr "Malezija"
 
-#: ../src/Tribe/Main.php:1520 ../src/Tribe/Main.php:1602
+#: src/Tribe/Main.php:1543 src/Tribe/Main.php:1625
 msgid "Use New %s"
 msgstr ""
 
-#: ../src/Tribe/View_Helpers.php:178
+#: src/Tribe/View_Helpers.php:178
 msgid "Maldives"
 msgstr "Malavi"
 
-#: ../src/Tribe/Main.php:1522 ../src/Tribe/Main.php:1604
+#: src/Tribe/Main.php:1545 src/Tribe/Main.php:1627
 msgid "My %s"
 msgstr ""
 
-#: ../src/Tribe/View_Helpers.php:179
+#: src/Tribe/View_Helpers.php:179
 msgid "Mali"
 msgstr "Mali"
 
-#: ../src/Tribe/Main.php:1527 ../src/Tribe/Main.php:1609
+#: src/Tribe/Main.php:1550 src/Tribe/Main.php:1632
 msgid "Available %s"
 msgstr ""
 
-#: ../src/Tribe/View_Helpers.php:180
+#: src/Tribe/View_Helpers.php:180
 msgid "Malta"
 msgstr "Malta"
 
-#: ../src/Tribe/Main.php:1538 ../src/Tribe/Main.php:1620
+#: src/Tribe/Main.php:1561 src/Tribe/Main.php:1643
 msgid "No saved %s exists."
 msgstr ""
 
-#: ../src/Tribe/View_Helpers.php:181
+#: src/Tribe/View_Helpers.php:181
 msgid "Marshall Islands"
 msgstr "Maršalska Ostrva"
 
-#: ../src/Tribe/Main.php:1764
+#: src/Tribe/Main.php:1787
 msgid "Next"
 msgstr "Sljedeći"
 
-#: ../src/Tribe/View_Helpers.php:182
+#: src/Tribe/View_Helpers.php:182
 msgid "Martinique"
 msgstr "Martinik"
 
-#: ../src/Tribe/Main.php:1765
+#: src/Tribe/Main.php:1788
 msgid "Prev"
 msgstr "Prethodni"
 
-#: ../src/Tribe/View_Helpers.php:183
+#: src/Tribe/View_Helpers.php:183
 msgid "Mauritania"
 msgstr "Mauritanija "
 
-#: ../src/Tribe/Main.php:1766 ../src/functions/template-tags/day.php:105
+#: src/Tribe/Main.php:1789 src/functions/template-tags/day.php:105
 msgid "Today"
 msgstr "Danas"
 
-#: ../src/Tribe/View_Helpers.php:184
+#: src/Tribe/View_Helpers.php:184
 msgid "Mauritius"
 msgstr "Mauricijus"
 
-#: ../src/Tribe/Main.php:1767
+#: src/Tribe/Main.php:1790
 msgid "Done"
 msgstr "Gotovo"
 
-#: ../src/Tribe/View_Helpers.php:185
+#: src/Tribe/View_Helpers.php:185
 msgid "Mayotte"
 msgstr "Majote"
 
-#: ../src/Tribe/Main.php:1941
+#: src/Tribe/Main.php:1964
 msgid "Network"
 msgstr "Mreža"
 
-#: ../src/Tribe/View_Helpers.php:186
+#: src/Tribe/View_Helpers.php:186
 msgid "Mexico"
 msgstr "Meksiko"
 
-#: ../src/Tribe/Main.php:3428 ../src/Tribe/Main.php:3463
-#: ../src/functions/template-tags/day.php:158
-#: ../src/functions/template-tags/day.php:180
+#: src/Tribe/Main.php:3508 src/Tribe/Main.php:3543
+#: src/functions/template-tags/day.php:158
+#: src/functions/template-tags/day.php:180
 msgid "Date out of range."
 msgstr ""
 
-#: ../src/Tribe/View_Helpers.php:187
+#: src/Tribe/View_Helpers.php:187
 msgid "Micronesia, Federated States Of"
 msgstr "Mikronezija"
 
-#: ../src/Tribe/Main.php:3499
+#: src/Tribe/Main.php:3579
 msgid "%s Options"
 msgstr ""
 
-#: ../src/Tribe/View_Helpers.php:188
+#: src/Tribe/View_Helpers.php:188
 msgid "Moldova, Republic Of"
 msgstr "Moldavija"
 
-#: ../src/Tribe/Main.php:3506 ../src/Tribe/Main.php:3517
+#: src/Tribe/Main.php:3586 src/Tribe/Main.php:3597
 msgid "%s Information"
 msgstr ""
 
-#: ../src/Tribe/View_Helpers.php:189
+#: src/Tribe/View_Helpers.php:189
 msgid "Monaco"
 msgstr "Monako"
 
-#: ../src/Tribe/Main.php:3730
+#: src/Tribe/Main.php:3810
 msgid "Support"
 msgstr "Podrška"
 
-#: ../src/Tribe/View_Helpers.php:190
+#: src/Tribe/View_Helpers.php:190
 msgid "Mongolia"
 msgstr "Mongolija"
 
-#: ../src/Tribe/Main.php:3733
+#: src/Tribe/Main.php:3813
 msgid "View All Add-Ons"
 msgstr "Pogledaj sve add-one"
 
-#: ../src/Tribe/View_Helpers.php:191
+#: src/Tribe/View_Helpers.php:191
 msgid "Montenegro"
 msgstr "Crna Gora"
 
-#: ../src/Tribe/Main.php:3754
+#: src/Tribe/Main.php:3834
 msgid "News from Modern Tribe"
 msgstr "Modern Tribe vjesti"
 
-#: ../src/Tribe/View_Helpers.php:192
+#: src/Tribe/View_Helpers.php:192
 msgid "Montserrat"
 msgstr "Montserat"
 
-#: ../src/Tribe/Main.php:3818
+#: src/Tribe/Main.php:3883
 msgid "Additional Functionality"
 msgstr "Dodatna funkcionalnost"
 
-#: ../src/Tribe/View_Helpers.php:193
+#: src/Tribe/View_Helpers.php:193
 msgid "Morocco"
 msgstr "Maroko"
 
-#: ../src/Tribe/Main.php:3823
+#: src/Tribe/Main.php:3888
 msgid "Looking for additional functionality including recurring events, ticket sales, publicly submitted events, new views and more?"
 msgstr "Potrebna vam je dodatna funkcionalnost poput ponavljajućih događaja, prodaja karata, javno postavljeni događaji, više pogleda i još toga?"
 
-#: ../src/Tribe/View_Helpers.php:194
+#: src/Tribe/View_Helpers.php:194
 msgid "Mozambique"
 msgstr "Mozambik"
 
-#: ../src/Tribe/Main.php:3824
+#: src/Tribe/Main.php:3889
 msgid "Check out the <a href=\"%s\">available add-ons</a>."
 msgstr "Pogledajte <a href=\"%s\">dostupne dodatke</a>."
 
-#: ../src/Tribe/View_Helpers.php:195
+#: src/Tribe/View_Helpers.php:195
 msgid "Myanmar"
 msgstr "Mjanmar"
 
-#: ../src/Tribe/Main.php:3875
+#: src/Tribe/Main.php:3940
 msgid "%s"
 msgstr ""
 
-#: ../src/Tribe/View_Helpers.php:196
+#: src/Tribe/View_Helpers.php:196
 msgid "Namibia"
 msgstr "Namibija"
 
-#: ../src/Tribe/Main.php:3912 ../src/Tribe/Main.php:4008
+#: src/Tribe/Main.php:3977 src/Tribe/Main.php:4073
 msgid "View Calendar"
 msgstr "Vidi kalendar"
 
-#: ../src/Tribe/View_Helpers.php:197
+#: src/Tribe/View_Helpers.php:197
 msgid "Nauru"
 msgstr "Nauru"
 
-#: ../src/Tribe/Main.php:3922
+#: src/Tribe/Main.php:3987
 msgid "Add %s"
 msgstr ""
 
-#: ../src/Tribe/View_Helpers.php:198
+#: src/Tribe/View_Helpers.php:198
 msgid "Nepal"
 msgstr "Nepal"
 
-#: ../src/Tribe/Main.php:3954
+#: src/Tribe/Main.php:4019
 msgid "CSV"
 msgstr ""
 
-#: ../src/Tribe/View_Helpers.php:199
+#: src/Tribe/View_Helpers.php:199
 msgid "Netherlands"
 msgstr "Holandija"
 
-#: ../src/Tribe/Main.php:3976 ../src/Tribe/Main.php:4066
-#: ../src/Tribe/Settings.php:161
+#: src/Tribe/Main.php:4041 src/Tribe/Main.php:4131 src/Tribe/Settings.php:161
 msgid "Settings"
 msgstr "Postavke"
 
-#: ../src/Tribe/View_Helpers.php:200
+#: src/Tribe/View_Helpers.php:200
 msgid "Netherlands Antilles"
 msgstr "Holandski Antili"
 
-#: ../src/Tribe/Main.php:4067
+#: src/Tribe/Main.php:4132
 msgid "Calendar"
 msgstr "Kalendar"
 
-#: ../src/Tribe/View_Helpers.php:201
+#: src/Tribe/View_Helpers.php:201
 msgid "New Caledonia"
 msgstr "Nova Kaledonija"
 
-#: ../src/Tribe/Main.php:4143
+#: src/Tribe/Main.php:4208
 msgid "List"
 msgstr "Lista"
 
-#: ../src/Tribe/View_Helpers.php:202
+#: src/Tribe/View_Helpers.php:202
 msgid "New Zealand"
 msgstr "Novi Zeland"
 
-#: ../src/Tribe/Main.php:4161
+#: src/Tribe/Main.php:4226
 msgid "Month"
 msgstr "Mjesec"
 
-#: ../src/Tribe/View_Helpers.php:203
+#: src/Tribe/View_Helpers.php:203
 msgid "Nicaragua"
 msgstr "Nikaragva"
 
-#: ../src/Tribe/Main.php:4178
+#: src/Tribe/Main.php:4243
 msgid "Day"
 msgstr ""
 
-#: ../src/Tribe/View_Helpers.php:204
+#: src/Tribe/View_Helpers.php:204
 msgid "Niger"
 msgstr "Niger"
 
-#: ../src/Tribe/Main.php:4203 ../src/Tribe/Main.php:4204
+#: src/Tribe/Main.php:4268 src/Tribe/Main.php:4269
 msgid "Search"
 msgstr ""
 
-#: ../src/Tribe/View_Helpers.php:205
+#: src/Tribe/View_Helpers.php:205
 msgid "Nigeria"
 msgstr "Nigerija"
 
-#: ../src/Tribe/Main.php:4228 ../src/Tribe/Main.php:4244
+#: src/Tribe/Main.php:4293 src/Tribe/Main.php:4309
 msgid "Date"
 msgstr "Datum"
 
-#: ../src/Tribe/View_Helpers.php:206
+#: src/Tribe/View_Helpers.php:206
 msgid "Niue"
 msgstr "Nijue"
 
-#: ../src/Tribe/Main.php:4231
+#: src/Tribe/Main.php:4296
 msgid "%s In"
 msgstr ""
 
-#: ../src/Tribe/View_Helpers.php:207
+#: src/Tribe/View_Helpers.php:207
 msgid "Norfolk Island"
 msgstr "Norfolk Ostrva"
 
-#: ../src/Tribe/Main.php:4233
+#: src/Tribe/Main.php:4298
 msgid "%s From"
 msgstr ""
 
-#: ../src/Tribe/View_Helpers.php:208
+#: src/Tribe/View_Helpers.php:208
 msgid "Northern Mariana Islands"
 msgstr "Sjeverna Marijanska Ostrva"
 
-#: ../src/Tribe/Main.php:4235
+#: src/Tribe/Main.php:4300
 msgid "Day Of"
 msgstr ""
 
-#: ../src/Tribe/View_Helpers.php:209
+#: src/Tribe/View_Helpers.php:209
 msgid "Norway"
 msgstr "Norveška"
 
-#: ../src/Tribe/Main.php:4310
+#: src/Tribe/Main.php:4375
 msgid "Once Every 30 Mins"
 msgstr ""
 
-#: ../src/Tribe/View_Helpers.php:210
+#: src/Tribe/View_Helpers.php:210
 msgid "Oman"
 msgstr "Oman"
 
-#: ../src/Tribe/Options_Exception.php:19 ../src/Tribe/Post_Exception.php:22
+#: src/Tribe/Options_Exception.php:19 src/Tribe/Post_Exception.php:22
 msgid "Error"
 msgstr "Greška"
 
-#: ../src/Tribe/View_Helpers.php:211
+#: src/Tribe/View_Helpers.php:211
 msgid "Pakistan"
 msgstr "Pakistan"
 
-#: ../src/Tribe/PUE/Checker.php:304
+#: src/Tribe/PUE/Checker.php:304
 msgid "License Key"
 msgstr ""
 
-#: ../src/Tribe/View_Helpers.php:212
+#: src/Tribe/View_Helpers.php:212
 msgid "Palau"
 msgstr "Palau"
 
-#: ../src/Tribe/PUE/Checker.php:305
+#: src/Tribe/PUE/Checker.php:305
 msgid "A valid license key is required for support and updates"
 msgstr ""
 
-#: ../src/Tribe/View_Helpers.php:213
+#: src/Tribe/View_Helpers.php:213
 msgid "Panama"
 msgstr "Panama"
 
-#: ../src/Tribe/PUE/Checker.php:377
+#: src/Tribe/PUE/Checker.php:377
 msgid "License key(s) updated."
 msgstr ""
 
-#: ../src/Tribe/View_Helpers.php:214
+#: src/Tribe/View_Helpers.php:214
 msgid "Papua New Guinea"
 msgstr "Papua Nova Gvineja"
 
-#: ../src/Tribe/PUE/Checker.php:419
+#: src/Tribe/PUE/Checker.php:419
 msgid "Sorry, key validation server is not available."
 msgstr ""
 
-#: ../src/Tribe/View_Helpers.php:215
+#: src/Tribe/View_Helpers.php:215
 msgid "Paraguay"
 msgstr "Paragvaj"
 
-#: ../src/Tribe/PUE/Checker.php:421
+#: src/Tribe/PUE/Checker.php:421
 msgid "Sorry, this key is expired."
 msgstr ""
 
-#: ../src/Tribe/View_Helpers.php:216
+#: src/Tribe/View_Helpers.php:216
 msgid "Peru"
 msgstr "Peru"
 
-#: ../src/Tribe/PUE/Checker.php:424
+#: src/Tribe/PUE/Checker.php:424
 msgid "Sorry, this key is out of installs."
 msgstr ""
 
-#: ../src/Tribe/View_Helpers.php:217
+#: src/Tribe/View_Helpers.php:217
 msgid "Philippines"
 msgstr "Filipini"
 
-#: ../src/Tribe/PUE/Checker.php:425
+#: src/Tribe/PUE/Checker.php:425
 msgid "Why am I seeing this message?"
 msgstr ""
 
-#: ../src/Tribe/View_Helpers.php:218
+#: src/Tribe/View_Helpers.php:218
 msgid "Pitcairn"
 msgstr "Ostrva Pitkern"
 
-#: ../src/Tribe/PUE/Checker.php:428
+#: src/Tribe/PUE/Checker.php:428
 msgid "Sorry, this key is not valid."
 msgstr ""
 
-#: ../src/Tribe/View_Helpers.php:219
+#: src/Tribe/View_Helpers.php:219
 msgid "Poland"
 msgstr "Poljska"
 
-#: ../src/Tribe/PUE/Checker.php:430
+#: src/Tribe/PUE/Checker.php:430
 msgid "Valid Key! Expires on %s"
 msgstr ""
 
-#: ../src/Tribe/View_Helpers.php:220
+#: src/Tribe/View_Helpers.php:220
 msgid "Portugal"
 msgstr "Portugal"
 
-#: ../src/Tribe/PUE/Checker.php:436
+#: src/Tribe/PUE/Checker.php:436
 msgid "Hmmm... something's wrong with this validator. Please contact <a href=\"%s\">support.</a>"
 msgstr ""
 
-#: ../src/Tribe/View_Helpers.php:221
+#: src/Tribe/View_Helpers.php:221
 msgid "Puerto Rico"
 msgstr "Portoriko"
 
-#: ../src/Tribe/Settings.php:160 ../src/Tribe/Settings.php:176
+#: src/Tribe/Settings.php:160 src/Tribe/Settings.php:176
 msgid "The Events Calendar Settings"
 msgstr "The Events Calendar podešavanja"
 
-#: ../src/Tribe/View_Helpers.php:222
+#: src/Tribe/View_Helpers.php:222
 msgid "Qatar"
 msgstr "Katar"
 
-#: ../src/Tribe/Settings.php:176
+#: src/Tribe/Settings.php:176
 msgid "Events Settings"
 msgstr "Podešavanje događaja"
 
-#: ../src/Tribe/View_Helpers.php:223
+#: src/Tribe/View_Helpers.php:223
 msgid "Reunion"
 msgstr "Reunion"
 
-#: ../src/Tribe/Settings.php:239
+#: src/Tribe/Settings.php:239
 msgid "%s Settings"
 msgstr "%s Podešavanje"
 
-#: ../src/Tribe/View_Helpers.php:224
+#: src/Tribe/View_Helpers.php:224
 msgid "Romania"
 msgstr "Rumunija"
 
-#: ../src/Tribe/Settings.php:253
+#: src/Tribe/Settings.php:253
 msgid "You've requested a non-existent tab."
 msgstr "Zatražili ste nepostojeći tab."
 
-#: ../src/Tribe/View_Helpers.php:225
+#: src/Tribe/View_Helpers.php:225
 msgid "Russian Federation"
 msgstr "Rusija"
 
-#: ../src/Tribe/Settings.php:261
-msgid " Save Changes"
-msgstr "Sačuvaj izmene"
-
-#: ../src/Tribe/View_Helpers.php:226
+#: src/Tribe/View_Helpers.php:226
 msgid "Rwanda"
 msgstr "Ruanda"
 
-#: ../src/Tribe/Settings.php:309
+#: src/Tribe/Settings.php:309
 msgid "You don't have permission to do that."
 msgstr "Nemate ovlašćenje za to."
 
-#: ../src/Tribe/View_Helpers.php:227
+#: src/Tribe/View_Helpers.php:227
 msgid "Saint Kitts And Nevis"
 msgstr "Sveti Kristofer i Nevis"
 
-#: ../src/Tribe/Settings.php:315
+#: src/Tribe/Settings.php:315
 msgid "The request was sent insecurely."
 msgstr "Zahtev je poslat nesigurno."
 
-#: ../src/Tribe/View_Helpers.php:228
+#: src/Tribe/View_Helpers.php:228
 msgid "Saint Lucia"
 msgstr "Sveta Lucija"
 
-#: ../src/Tribe/Settings.php:321
+#: src/Tribe/Settings.php:321
 msgid "The request wasn't sent from this tab."
 msgstr "Zahtev nije poslat sa ovog tab-a."
 
-#: ../src/Tribe/View_Helpers.php:229
+#: src/Tribe/View_Helpers.php:229
 msgid "Saint Vincent And The Grenadines"
 msgstr "Sveti Vinsent i Grenadini"
 
-#: ../src/Tribe/Settings.php:489
+#: src/Tribe/Settings.php:489
 msgid "Your form had the following errors:"
 msgstr "Vaša forma je imala sljedeće greške:"
 
-#: ../src/Tribe/View_Helpers.php:230
+#: src/Tribe/View_Helpers.php:230
 msgid "Samoa"
 msgstr "Samoa"
 
-#: ../src/Tribe/Settings.php:498
+#: src/Tribe/Settings.php:498
 msgid "None of your settings were saved. Please try again."
 msgstr "Ništa od vaših podešavanja nije sačuvano. Molimo probajte ponovo."
 
-#: ../src/Tribe/View_Helpers.php:231
+#: src/Tribe/View_Helpers.php:231
 msgid "San Marino"
 msgstr "San Marino"
 
-#: ../src/Tribe/Settings.php:498
+#: src/Tribe/Settings.php:498
 msgid "The above setting was not saved. Other settings were successfully saved."
 msgid_plural "The above settings were not saved. Other settings were successfully saved."
 msgstr[0] "Podešavanje iznad nije sačuvano. Ostala podešavanja su sačuvana uspješno."
 msgstr[1] "Podešavanja iznad nisu sačuvana. Ostala podešavanja su sačuvana uspješno."
 msgstr[2] "Podešavanja iznad nisu sačuvana. Ostala podešavanja su sačuvana uspješno."
 
-#: ../src/Tribe/View_Helpers.php:232
+#: src/Tribe/View_Helpers.php:232
 msgid "Sao Tome And Principe"
 msgstr "Sao Tome And Prinsipe"
 
-#: ../src/Tribe/Settings_Tab.php:224
+#: src/Tribe/Settings_Tab.php:224
 msgid "There are no fields setup for this tab yet."
 msgstr "Još uvek nema polja podešenih za ovaj tab."
 
-#: ../src/Tribe/View_Helpers.php:233
+#: src/Tribe/View_Helpers.php:233
 msgid "Saudi Arabia"
 msgstr "Saudiska Arabija"
 
-#: ../src/Tribe/Support.php:46
+#: src/Tribe/Support.php:46
 msgid "Sometimes it's hard to tell what's going wrong without knowing more about your system steup. For your convenience, we've put together a little report on what's cooking under the hood."
 msgstr ""
 
-#: ../src/Tribe/View_Helpers.php:234
+#: src/Tribe/View_Helpers.php:234
 msgid "Senegal"
 msgstr "Senegal"
 
-#: ../src/Tribe/Support.php:47
+#: src/Tribe/Support.php:47
 msgid "If you suspect that the problem you're having is related to another plugin, or we're just plain having trouble reproducing your bug report, please copy and send all of this to our support team."
 msgstr ""
 
-#: ../src/Tribe/View_Helpers.php:235
+#: src/Tribe/View_Helpers.php:235
 msgid "Serbia"
 msgstr "Srbija"
 
-#: ../src/Tribe/Support.php:51
+#: src/Tribe/Support.php:51
 msgid "System Information"
 msgstr ""
 
-#: ../src/Tribe/View_Helpers.php:236
+#: src/Tribe/View_Helpers.php:236
 msgid "Seychelles"
 msgstr "Sejšeli"
 
-#: ../src/Tribe/Support.php:137
+#: src/Tribe/Support.php:137
 msgid "Unknown or not set"
 msgstr ""
 
-#: ../src/Tribe/View_Helpers.php:237
+#: src/Tribe/View_Helpers.php:237
 msgid "Sierra Leone"
 msgstr "Sijera Leone"
 
-#: ../src/Tribe/Template/Day.php:99 ../src/Tribe/Template/Day.php:115
+#: src/Tribe/Template/Day.php:99 src/Tribe/Template/Day.php:115
 msgid "All Day"
 msgstr ""
 
-#: ../src/Tribe/View_Helpers.php:238
+#: src/Tribe/View_Helpers.php:238
 msgid "Singapore"
 msgstr "Singapur"
 
-#: ../src/Tribe/Template/Day.php:102 ../src/Tribe/Template/Day.php:118
+#: src/Tribe/Template/Day.php:102 src/Tribe/Template/Day.php:118
 msgid "Ongoing"
 msgstr ""
 
-#: ../src/Tribe/View_Helpers.php:239
+#: src/Tribe/View_Helpers.php:239
 msgid "Slovakia (Slovak Republic)"
 msgstr "Slovačka"
 
-#: ../src/Tribe/Template/Day.php:136
-msgid "No matching %s listed under %s scheduled for <strong>%s</strong>. Please try another day."
-msgstr ""
-
-#: ../src/Tribe/View_Helpers.php:240
+#: src/Tribe/View_Helpers.php:240
 msgid "Slovenia"
 msgstr "Slovenija"
 
-#: ../src/Tribe/Template/Day.php:138
-msgid "No %s scheduled for <strong>%s</strong>. Please try another day."
-msgstr ""
-
-#: ../src/Tribe/View_Helpers.php:241
+#: src/Tribe/View_Helpers.php:241
 msgid "Solomon Islands"
 msgstr "Solomonska Ostrva"
 
-#: ../src/Tribe/Template/Month.php:250
+#: src/Tribe/Template/Month.php:284
 msgid "There were no results found for <strong>\"%s\"</strong> this month. Try searching next month."
 msgstr "Nema rezultata nađenih za <strong>\"%s\"</strong> ovaj mjesec. Probajte sa pretragom za idući mjesec."
 
-#: ../src/Tribe/View_Helpers.php:242
+#: src/Tribe/View_Helpers.php:242
 msgid "Somalia"
 msgstr "Somalija"
 
-#: ../src/Tribe/Template/Month.php:253
-msgid "No matching %s listed under %s. Please try viewing the full calendar for a complete list of events."
-msgstr ""
-
-#: ../src/Tribe/View_Helpers.php:243
+#: src/Tribe/View_Helpers.php:243
 msgid "South Africa"
 msgstr "Južna Afrika"
 
-#: ../src/Tribe/Template/Month.php:255 ../src/Tribe/Template_Factory.php:366
+#: src/Tribe/Template/Month.php:289 src/Tribe/Template_Factory.php:366
 msgid "There were no results found."
 msgstr ""
 
-#: ../src/Tribe/View_Helpers.php:244
+#: src/Tribe/View_Helpers.php:244
 msgid "South Georgia, South Sandwich Islands"
 msgstr "Južna Džordžija"
 
-#: ../src/Tribe/Template/Month.php:411
+#: src/Tribe/Template/Month.php:692
 msgid "The requested date \"%s\" was not valid &ndash; showing the current month instead"
 msgstr ""
 
-#: ../src/Tribe/View_Helpers.php:245
+#: src/Tribe/View_Helpers.php:245
 msgid "Spain"
 msgstr "Španija"
 
-#: ../src/Tribe/Template/Single_Event.php:120
+#: src/Tribe/Template/Single_Event.php:120
 msgid "This %s has passed."
 msgstr ""
 
-#: ../src/Tribe/View_Helpers.php:246
+#: src/Tribe/View_Helpers.php:246
 msgid "Sri Lanka"
 msgstr "Šri Lanka"
 
-#: ../src/Tribe/Template_Factory.php:353
+#: src/Tribe/Template_Factory.php:353
 msgid "There were no results found for <strong>\"%s\"</strong>."
 msgstr ""
 
-#: ../src/Tribe/View_Helpers.php:247
+#: src/Tribe/View_Helpers.php:247
 msgid "St. Helena"
 msgstr "Sveta Helena"
 
-#: ../src/Tribe/Template_Factory.php:355
-msgid "No results were found for %s in or near <strong>\"%s\"</strong>."
-msgstr ""
-
-#: ../src/Tribe/View_Helpers.php:248
+#: src/Tribe/View_Helpers.php:248
 msgid "St. Pierre And Miquelon"
 msgstr "Sveti Petar i Mikelon"
 
-#: ../src/Tribe/Template_Factory.php:357
-msgid "No upcoming %s listed under %s. Check out upcoming %s for this category or view the full calendar."
-msgstr ""
-
-#: ../src/Tribe/View_Helpers.php:249
+#: src/Tribe/View_Helpers.php:249
 msgid "Sudan"
 msgstr "Sudan"
 
-#: ../src/Tribe/Template_Factory.php:359 ../src/Tribe/Template_Factory.php:364
-msgid "No matching %s listed under %s. Please try viewing the full calendar for a complete list of %s."
-msgstr ""
-
-#: ../src/Tribe/View_Helpers.php:250
+#: src/Tribe/View_Helpers.php:250
 msgid "Suriname"
 msgstr "Surinam"
 
-#: ../src/Tribe/Template_Factory.php:361
+#: src/Tribe/Template_Factory.php:361
 msgid "No previous %s "
 msgstr ""
 
-#: ../src/Tribe/View_Helpers.php:251
+#: src/Tribe/View_Helpers.php:251
 msgid "Svalbard And Jan Mayen Islands"
 msgstr "Svalbard"
 
-#: ../src/Tribe/Templates.php:618
+#: src/Tribe/Templates.php:618
 msgid "Template overrides should be moved to the correct subdirectory: %s"
 msgstr ""
 
-#: ../src/Tribe/View_Helpers.php:252
+#: src/Tribe/View_Helpers.php:252
 msgid "Swaziland"
 msgstr "Svaziland"
 
-#: ../src/Tribe/Templates.php:660
+#: src/Tribe/Templates.php:660
 msgid "Template overrides should be moved to the correct subdirectory: tribe_get_template_part('%s')"
 msgstr ""
 
-#: ../src/Tribe/View_Helpers.php:253
+#: src/Tribe/View_Helpers.php:253
 msgid "Sweden"
 msgstr "Švedska"
 
-#: ../src/Tribe/Tickets/Attendees_Table.php:74
+#: src/Tribe/Tickets/Attendees_Table.php:74
 msgid "Order #"
 msgstr "Narudžba #"
 
-#: ../src/Tribe/View_Helpers.php:254
+#: src/Tribe/View_Helpers.php:254
 msgid "Switzerland"
 msgstr "Švajcarska"
 
-#: ../src/Tribe/Tickets/Attendees_Table.php:75
+#: src/Tribe/Tickets/Attendees_Table.php:75
 msgid "Order Status"
 msgstr "Status narudžbe"
 
-#: ../src/Tribe/View_Helpers.php:255
+#: src/Tribe/View_Helpers.php:255
 msgid "Syrian Arab Republic"
 msgstr "Sirija"
 
-#: ../src/Tribe/Tickets/Attendees_Table.php:76
+#: src/Tribe/Tickets/Attendees_Table.php:76
 msgid "Purchaser name"
 msgstr "Ime kupca"
 
-#: ../src/Tribe/View_Helpers.php:256
+#: src/Tribe/View_Helpers.php:256
 msgid "Taiwan"
 msgstr "Tajvan"
 
-#: ../src/Tribe/Tickets/Attendees_Table.php:77
+#: src/Tribe/Tickets/Attendees_Table.php:77
 msgid "Purchaser email"
 msgstr "E-mail kupca"
 
-#: ../src/Tribe/View_Helpers.php:257
+#: src/Tribe/View_Helpers.php:257
 msgid "Tajikistan"
 msgstr "Tadžikistan"
 
-#: ../src/Tribe/Tickets/Attendees_Table.php:78
+#: src/Tribe/Tickets/Attendees_Table.php:78
 msgid "Ticket type"
 msgstr "Tip ulaznice"
 
-#: ../src/Tribe/View_Helpers.php:258
+#: src/Tribe/View_Helpers.php:258
 msgid "Tanzania, United Republic Of"
 msgstr "Tanzanija"
 
-#: ../src/Tribe/Tickets/Attendees_Table.php:79
-#: ../src/views/tickets/email.php:305
+#: src/Tribe/Tickets/Attendees_Table.php:79 src/views/tickets/email.php:305
 msgid "Ticket #"
 msgstr "Ulaznica #"
 
-#: ../src/Tribe/View_Helpers.php:259
+#: src/Tribe/View_Helpers.php:259
 msgid "Thailand"
 msgstr "Tajland"
 
-#: ../src/Tribe/Tickets/Attendees_Table.php:80
-#: ../src/views/tickets/email.php:317
+#: src/Tribe/Tickets/Attendees_Table.php:80 src/views/tickets/email.php:317
 msgid "Security Code"
 msgstr "Sigurnosni broj"
 
-#: ../src/Tribe/View_Helpers.php:260
+#: src/Tribe/View_Helpers.php:260
 msgid "Togo"
 msgstr "Togo"
 
-#: ../src/Tribe/Tickets/Attendees_Table.php:81
-#: ../src/Tribe/Tickets/Attendees_Table.php:168
-#: ../src/Tribe/Tickets/Attendees_Table.php:235
+#: src/Tribe/Tickets/Attendees_Table.php:81
+#: src/Tribe/Tickets/Attendees_Table.php:166
+#: src/Tribe/Tickets/Attendees_Table.php:238
 msgid "Check in"
 msgstr "Čekiranje"
 
-#: ../src/Tribe/View_Helpers.php:261
+#: src/Tribe/View_Helpers.php:261
 msgid "Tokelau"
 msgstr "Tokelau"
 
-#: ../src/Tribe/Tickets/Attendees_Table.php:169
-#: ../src/Tribe/Tickets/Attendees_Table.php:236
+#: src/Tribe/Tickets/Attendees_Table.php:167
+#: src/Tribe/Tickets/Attendees_Table.php:239
 msgid "Undo Check in"
 msgstr "Od-čekiranje"
 
-#: ../src/Tribe/View_Helpers.php:262
+#: src/Tribe/View_Helpers.php:262
 msgid "Tonga"
 msgstr "Tonga"
 
-#: ../src/Tribe/Tickets/Attendees_Table.php:204
+#: src/Tribe/Tickets/Attendees_Table.php:211
 msgid "Print"
 msgstr "Štampa"
 
-#: ../src/Tribe/View_Helpers.php:263
+#: src/Tribe/View_Helpers.php:263
 msgid "Trinidad And Tobago"
 msgstr "Trinidad i Tobago"
 
-#: ../src/Tribe/Tickets/Attendees_Table.php:205
+#: src/Tribe/Tickets/Attendees_Table.php:212
 msgid "Email"
 msgstr "E-mail"
 
-#: ../src/Tribe/View_Helpers.php:264
+#: src/Tribe/View_Helpers.php:264
 msgid "Tunisia"
 msgstr "Tunis"
 
-#: ../src/Tribe/Tickets/Attendees_Table.php:214 ../src/Tribe/iCal.php:119
+#: src/Tribe/Tickets/Attendees_Table.php:213 src/Tribe/iCal.php:119
 msgid "Export"
 msgstr "Izvoz"
 
-#: ../src/Tribe/View_Helpers.php:265
+#: src/Tribe/View_Helpers.php:265
 msgid "Turkey"
 msgstr "Turska"
 
-#: ../src/Tribe/Tickets/Attendees_Table.php:221
+#: src/Tribe/Tickets/Attendees_Table.php:219
 msgid "Filter by purchaser name, ticket #, order # or security code"
 msgstr ""
 
-#: ../src/Tribe/View_Helpers.php:266
+#: src/Tribe/View_Helpers.php:266
 msgid "Turkmenistan"
 msgstr "Turkmenistan"
 
-#: ../src/Tribe/Tickets/Attendees_Table.php:237
-#: ../src/admin-views/tickets/list.php:22
+#: src/Tribe/Tickets/Attendees_Table.php:240
+#: src/admin-views/tickets/list.php:22
 msgid "Delete"
 msgstr "Obriši"
 
-#: ../src/Tribe/View_Helpers.php:267
+#: src/Tribe/View_Helpers.php:267
 msgid "Turks And Caicos Islands"
 msgstr "Turks i Kajkos Ostrva"
 
-#: ../src/Tribe/Tickets/Metabox.php:26
-#: ../src/admin-views/admin-update-message.php:52
+#: src/Tribe/Tickets/Metabox.php:26 src/admin-views/admin-update-message.php:52
 msgid "Tickets"
 msgstr "Ulaznice"
 
-#: ../src/Tribe/View_Helpers.php:268
+#: src/Tribe/View_Helpers.php:268
 msgid "Tuvalu"
 msgstr "Tuvalu"
 
-#: ../src/Tribe/Tickets/Metabox.php:71
+#: src/Tribe/Tickets/Metabox.php:71
 msgid "Ticket header image"
 msgstr "Slika na zaglavlju Ulaznice"
 
-#: ../src/Tribe/View_Helpers.php:269
+#: src/Tribe/View_Helpers.php:269
 msgid "Uganda"
 msgstr "Uganda"
 
-#: ../src/Tribe/Tickets/Metabox.php:72
+#: src/Tribe/Tickets/Metabox.php:72
 msgid "Set as ticket header"
 msgstr "Postavi kao sliku za zaglavlje ulaznice"
 
-#: ../src/Tribe/View_Helpers.php:270
+#: src/Tribe/View_Helpers.php:270
 msgid "Ukraine"
 msgstr "Ukrajina"
 
-#: ../src/Tribe/Tickets/Tickets.php:328
+#: src/Tribe/Tickets/Tickets.php:328
 msgid "Your ticket has been saved."
 msgstr "Vaša ulaznica je sačuvana."
 
-#: ../src/Tribe/View_Helpers.php:271
+#: src/Tribe/View_Helpers.php:271
 msgid "United Arab Emirates"
 msgstr "Ujedinjeni Arapski Emirati"
 
-#: ../src/Tribe/Tickets/Tickets.php:409
+#: src/Tribe/Tickets/Tickets.php:409
 msgid "Your ticket has been deleted."
 msgstr "Vaša ulaznica je obrisana."
 
-#: ../src/Tribe/View_Helpers.php:272
+#: src/Tribe/View_Helpers.php:272
 msgid "United Kingdom"
 msgstr "Ujedinjeno Kraljevstvo"
 
-#: ../src/Tribe/Tickets/Tickets_Pro.php:78
-#: ../src/admin-views/tickets/list.php:41
+#: src/Tribe/Tickets/Tickets_Pro.php:78 src/admin-views/tickets/list.php:41
 msgid "See who purchased tickets to this event"
 msgstr "Vidi ko je kupio ulaznice za ovaj događaj"
 
-#: ../src/Tribe/View_Helpers.php:273
+#: src/Tribe/View_Helpers.php:273
 msgid "United States Minor Outlying Islands"
 msgstr "Manja Pacifička Ostrva Sjedinjenih Američkih Država"
 
-#: ../src/Tribe/Tickets/Tickets_Pro.php:78
-#: ../src/admin-views/tickets/attendees.php:11
-#: ../src/admin-views/tickets/list.php:41
+#: src/Tribe/Tickets/Tickets_Pro.php:78
+#: src/admin-views/tickets/attendees.php:11 src/admin-views/tickets/list.php:41
 msgid "Attendees"
 msgstr "Učesnici"
 
-#: ../src/Tribe/View_Helpers.php:274
+#: src/Tribe/View_Helpers.php:274
 msgid "Uruguay"
 msgstr "Urugvaj "
 
-#: ../src/Tribe/Tickets/Tickets_Pro.php:113
+#: src/Tribe/Tickets/Tickets_Pro.php:113
 msgid "You need to select a user or type a valid email address"
 msgstr "Morate odabrati korisnika ili ukucati validnu e-mail adresu "
 
-#: ../src/Tribe/View_Helpers.php:275
+#: src/Tribe/View_Helpers.php:275
 msgid "Uzbekistan"
 msgstr "Uzbekistan"
 
-#: ../src/Tribe/Tickets/Tickets_Pro.php:114
+#: src/Tribe/Tickets/Tickets_Pro.php:114
 msgid "Sending..."
 msgstr "Šaljem..."
 
-#: ../src/Tribe/View_Helpers.php:276
+#: src/Tribe/View_Helpers.php:276
 msgid "Vanuatu"
 msgstr "Vanuatu"
 
-#: ../src/Tribe/Tickets/Tickets_Pro.php:140
+#: src/Tribe/Tickets/Tickets_Pro.php:140
 msgid "Columns"
 msgstr "Kolone"
 
-#: ../src/Tribe/View_Helpers.php:277
+#: src/Tribe/View_Helpers.php:277
 msgid "Venezuela"
 msgstr "Venecuela"
 
-#: ../src/Tribe/Tickets/Tickets_Pro.php:140
+#: src/Tribe/Tickets/Tickets_Pro.php:140
 msgid "You can use Screen Options to select which columns you want to see. The selection works in the table below, in the email, for print and for the CSV export."
 msgstr "Možete koristiti Postavke Ekrana da odaberete koje stupce želite vidjeti. Izbor radi u tablici ispod, u e-mailu, za štampanje i za CSV export."
 
-#: ../src/Tribe/View_Helpers.php:278
+#: src/Tribe/View_Helpers.php:278
 msgid "Viet Nam"
 msgstr "Vijetnam"
 
-#: ../src/Tribe/Tickets/Tickets_Pro.php:230
+#: src/Tribe/Tickets/Tickets_Pro.php:230
 msgid "Yes"
 msgstr "Da"
 
-#: ../src/Tribe/View_Helpers.php:279
+#: src/Tribe/View_Helpers.php:279
 msgid "Virgin Islands (British)"
 msgstr "Devičanska Ostrva (Britanija)"
 
-#: ../src/Tribe/Tickets/Tickets_Pro.php:262
+#: src/Tribe/Tickets/Tickets_Pro.php:262
 msgid "attendees"
 msgstr "Učesnici"
 
-#: ../src/Tribe/View_Helpers.php:280
+#: src/Tribe/View_Helpers.php:280
 msgid "Virgin Islands (U.S.)"
 msgstr "Djevičanska ostrva (SAD)"
 
-#: ../src/Tribe/Tickets/Tickets_Pro.php:316
+#: src/Tribe/Tickets/Tickets_Pro.php:316
 msgid "Attendee List for: %s"
 msgstr "Lista učesnika za: %s"
 
-#: ../src/Tribe/Validate.php:76 ../src/Tribe/Validate.php:117
+#: src/Tribe/Validate.php:76 src/Tribe/Validate.php:117
 msgid "Invalid or incomplete field passed"
 msgstr "Neispravo polje"
 
-#: ../src/Tribe/Validate.php:77 ../src/Tribe/Validate.php:112
-#: ../src/Tribe/Validate.php:118
+#: src/Tribe/Validate.php:77 src/Tribe/Validate.php:112
+#: src/Tribe/Validate.php:118
 msgid "Field ID:"
 msgstr "ID Polja:"
 
-#: ../src/Tribe/Validate.php:111
+#: src/Tribe/Validate.php:111
 msgid "Non-existant field validation function passed"
 msgstr "Funkcija validacije nepostojećeg polja"
 
-#: ../src/Tribe/Validate.php:112
+#: src/Tribe/Validate.php:112
 msgctxt "non-existant function name passed for field validation"
 msgid "with function name:"
 msgstr "sa imenom funkcije:"
 
-#: ../src/Tribe/Validate.php:135 ../src/Tribe/Validate.php:151
+#: src/Tribe/Validate.php:135 src/Tribe/Validate.php:151
 msgid "%s must contain numbers and letters only"
 msgstr "%s mora da sadrži samo brojeve i slova"
 
-#: ../src/Tribe/Validate.php:167
+#: src/Tribe/Validate.php:167
 msgid "%s must contain numbers, letters and dots only"
 msgstr "%s mora da sadrži samo brojeve, slova i tačke"
 
-#: ../src/Tribe/Validate.php:181
+#: src/Tribe/Validate.php:181
 msgid "%s must be a positive number."
 msgstr "%s mora biti pozitivan broj"
 
-#: ../src/Tribe/Validate.php:196
+#: src/Tribe/Validate.php:196
 msgid "%s must be a valid slug (numbers, letters, dashes, and underscores)."
 msgstr "%s mora biti validan naziv (brojevi, slova, donje crte)"
 
-#: ../src/Tribe/Validate.php:211
+#: src/Tribe/Validate.php:211
 msgid "%s must be a valid absolute URL."
 msgstr "%s mora biti validan apsolutni URL"
 
-#: ../src/Tribe/Validate.php:227 ../src/Tribe/Validate.php:244
-#: ../src/Tribe/Validate.php:266
+#: src/Tribe/Validate.php:227 src/Tribe/Validate.php:244
+#: src/Tribe/Validate.php:266
 msgid "%s must have a value that's part of its options."
 msgstr "%s mora imati vrijednost koja je dio opcije"
 
-#: ../src/Tribe/Validate.php:280
+#: src/Tribe/Validate.php:280
 msgid "Comparison validation failed because no comparison value was provided, for field %s"
 msgstr "Validacija poređenja nije uspela jer podaci za poređenje nisu dati za polje %s"
 
-#: ../src/Tribe/Validate.php:287
+#: src/Tribe/Validate.php:287
 msgid "%s cannot be the same as %s."
 msgstr "%s ne može biti isto kao %s."
 
-#: ../src/Tribe/Validate.php:289
+#: src/Tribe/Validate.php:289
 msgid "%s cannot be a duplicate"
 msgstr "%s ne može biti duplikat"
 
-#: ../src/Tribe/Validate.php:305
+#: src/Tribe/Validate.php:305
 msgid "%s must be a number or percentage."
 msgstr "%s mora biti broj ili procenat."
 
-#: ../src/Tribe/Validate.php:359
+#: src/Tribe/Validate.php:359
 msgid "%s must be a number between 0 and 21."
 msgstr "%s mora biti broj između 0 i 21."
 
-#: ../src/Tribe/Validate.php:375
+#: src/Tribe/Validate.php:375
 msgid "%s must consist of letters, numbers, dashes, apostrophes, and spaces only."
 msgstr "%s mora da se sastoji samo od slova, brojeva, crtica, apostrofa i razmaka."
 
-#: ../src/Tribe/Validate.php:391
+#: src/Tribe/Validate.php:391
 msgid "%s must consist of letters, spaces, apostrophes, and dashes."
 msgstr "%s mora da se sastoji samo od slova, razmaka, apostrofa i crtica."
 
-#: ../src/Tribe/Validate.php:405
+#: src/Tribe/Validate.php:405
 msgid "%s must consist of 5 numbers."
 msgstr "%s mora da se sastoji od 5 brojeva."
 
-#: ../src/Tribe/Validate.php:419
+#: src/Tribe/Validate.php:419
 msgid "%s must be a phone number."
 msgstr "%s mora biti telefonski broj."
 
-#: ../src/Tribe/Validate.php:435
+#: src/Tribe/Validate.php:435
 msgid "Country List must be formatted as one country per line in the following format: <br>US, United States <br> UK, United Kingdom."
 msgstr "Popis zemalja mora biti formatiran kao jedna zemlja po redu u sljedećem formatu: <br>SAD, Sjedinjene Američke Države <br> UK, Ujedinjeno Kraljevstvo."
 
-#: ../src/Tribe/View_Helpers.php:26 ../src/Tribe/View_Helpers.php:45
+#: src/Tribe/View_Helpers.php:26 src/Tribe/View_Helpers.php:45
 msgid "Select a Country:"
 msgstr "Odaberite zemlju:"

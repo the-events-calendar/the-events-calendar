@@ -155,12 +155,6 @@
 
 			data.has_events = $date.hasClass( 'tribe-events-has-events' );
 
-			// Backwards compatibility
-			// @todo "Check if we can remove this check"
-			if ( data.has_events ) {
-				data.date_name = '';
-			}
-
 			$triggers.removeClass( 'mobile-active' )
 				// If full_date_name is empty then default to highlighting the first day of the current month
 				.filter( _active ).addClass( 'mobile-active' );
