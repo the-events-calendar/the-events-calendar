@@ -69,7 +69,7 @@ class Tribe__Events__Tickets__Metabox {
 
 		$upload_header_data = array(
 			'title'  => esc_html__( 'Ticket header image', 'tribe-events-calendar' ),
-			'button' => esc_html__( 'Set as ticket header', 'tribe-events-calendar' )
+			'button' => esc_html__( 'Set as ticket header', 'tribe-events-calendar' ),
 		);
 		wp_localize_script( 'events-tickets', 'HeaderImageData', $upload_header_data );
 

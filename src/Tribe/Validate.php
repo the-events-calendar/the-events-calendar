@@ -432,7 +432,7 @@ if ( ! class_exists( 'Tribe__Events__Validate' ) ) {
 					$country = explode( ',', $crow );
 					if ( ! isset( $country[0] ) || ! isset( $country[1] ) ) {
 						$this->result->valid = false;
-						$this->result->error = sprintf( esc_html__( 'Country List must be formatted as one country per line in the following format: %2$sUS, United States %2$s UK, United Kingdom.', 'tribe-events-calendar' ), $this->label , '<br>' );
+						$this->result->error = sprintf( esc_html__( 'Country List must be formatted as one country per line in the following format: %2$sUS, United States %2$s UK, United Kingdom.', 'tribe-events-calendar' ), $this->label, '<br>' );
 						$this->value         = wp_kses( $this->value, array() );
 
 						return;
