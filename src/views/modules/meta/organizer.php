@@ -38,7 +38,7 @@ $website = tribe_get_organizer_website_link();
 			if ( ! empty( $phone ) ) {
 				?>
 				<dt>
-					<?php esc_html_e( 'Phone:', 'tribe-events-calendar' ) ?>
+					<?php esc_html_e( 'Phone:', 'the-events-calendar' ) ?>
 				</dt>
 				<dd class="tel">
 					<?php echo esc_html( $phone ); ?>
@@ -49,7 +49,7 @@ $website = tribe_get_organizer_website_link();
 			if ( ! empty( $email ) ) {
 				?>
 				<dt>
-					<?php esc_html_e( 'Email:', 'tribe-events-calendar' ) ?>
+					<?php esc_html_e( 'Email:', 'the-events-calendar' ) ?>
 				</dt>
 				<dd class="email">
 					<?php echo esc_html( $email ); ?>
@@ -60,7 +60,7 @@ $website = tribe_get_organizer_website_link();
 			if ( ! empty( $website ) ) {
 				?>
 				<dt>
-					<?php esc_html_e( 'Website:', 'tribe-events-calendar' ) ?>
+					<?php esc_html_e( 'Website:', 'the-events-calendar' ) ?>
 				</dt>
 				<dd class="url">
 					<?php echo $website; ?>

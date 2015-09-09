@@ -6,7 +6,7 @@
 
 ?>
 
-<p class="tribe-welcome-message"><?php echo esc_html( sprintf( __( 'You are running Version %s and deserve a hug :-)', 'tribe-events-calendar' ), Tribe__Events__Main::VERSION ) ); ?></p>
+<p class="tribe-welcome-message"><?php echo esc_html( sprintf( __( 'You are running Version %s and deserve a hug :-)', 'the-events-calendar' ), Tribe__Events__Main::VERSION ) ); ?></p>
 
 <div class="tribe-row">
 	<div class="tribe-half-column">
@@ -29,33 +29,33 @@
 	</div>
 
 	<div class="tribe-half-column">
-		<h3><?php _e( 'Keep the Core Plugin <strong>FREE</strong>!', 'tribe-events-calendar' ); ?></h3>
-		<p><?php _e( 'Every time you rate <strong>5 stars</strong>, a fairy is born. Okay maybe not, but more happy users mean more contributions and help on the forums. The community NEEDS your voice.', 'tribe-events-calendar' ); ?></p>
-		<p><a href="http://wordpress.org/support/view/plugin-reviews/the-events-calendar?filter=5" target="_blank" class="button-primary"><?php esc_html_e( 'Rate It', 'tribe-events-calendar' ); ?></a></p>
+		<h3><?php _e( 'Keep the Core Plugin <strong>FREE</strong>!', 'the-events-calendar' ); ?></h3>
+		<p><?php _e( 'Every time you rate <strong>5 stars</strong>, a fairy is born. Okay maybe not, but more happy users mean more contributions and help on the forums. The community NEEDS your voice.', 'the-events-calendar' ); ?></p>
+		<p><a href="http://wordpress.org/support/view/plugin-reviews/the-events-calendar?filter=5" target="_blank" class="button-primary"><?php esc_html_e( 'Rate It', 'the-events-calendar' ); ?></a></p>
 
 		<br/>
-		<h3><?php esc_html_e( 'PSST... Want a Discount?', 'tribe-events-calendar' ); ?></h3>
-		<p><?php esc_html_e( 'We send out discounts to our core users via our newsletter.', 'tribe-events-calendar' ); ?></p>
+		<h3><?php esc_html_e( 'PSST... Want a Discount?', 'the-events-calendar' ); ?></h3>
+		<p><?php esc_html_e( 'We send out discounts to our core users via our newsletter.', 'the-events-calendar' ); ?></p>
 		<form action="http://moderntribe.createsend.com/t/r/s/athqh/" method="post">
 			<p><input id="listthkduyk" name="cm-ol-thkduyk" type="checkbox" /> <label for="listthkduyk">Developer News</label></p>
 			<p><input id="listathqh" name="cm-ol-athqh" checked type="checkbox" /> <label for="listathqh">News and Announcements</label></p>
 			<p><input id="fieldEmail" class="regular-text" name="cm-athqh-athqh" type="email" placeholder="Email" required /></p>
-			<button type="submit" class="button-primary"><?php esc_html_e( 'Sign Up', 'tribe-events-calendar' ); ?></button>
+			<button type="submit" class="button-primary"><?php esc_html_e( 'Sign Up', 'the-events-calendar' ); ?></button>
 		</form>
 		<br/>
 		<hr/>
 
 		<div class="tribe-update-links">
-			<h4><?php esc_html_e( 'Looking for Something Special?', 'tribe-events-calendar' ); ?></h4>
+			<h4><?php esc_html_e( 'Looking for Something Special?', 'the-events-calendar' ); ?></h4>
 			<p>
-				<a href="http://m.tri.be/nt" target="_blank"><?php esc_html_e( 'Pro', 'tribe-events-calendar' ); ?></a><br/>
-				<a href="http://m.tri.be/nu" target="_blank"><?php esc_html_e( 'Tickets', 'tribe-events-calendar' ); ?></a><br/>
-				<a href="http://m.tri.be/nx" target="_blank"><?php esc_html_e( 'Community Events', 'tribe-events-calendar' ); ?></a><br/>
-				<a href="http://m.tri.be/nv" target="_blank"><?php esc_html_e( 'Filters', 'tribe-events-calendar' ); ?></a><br/>
-				<a href="http://m.tri.be/nw" target="_blank"><?php esc_html_e( 'Facebook', 'tribe-events-calendar' ); ?></a><br/><br/>
+				<a href="http://m.tri.be/nt" target="_blank"><?php esc_html_e( 'Pro', 'the-events-calendar' ); ?></a><br/>
+				<a href="http://m.tri.be/nu" target="_blank"><?php esc_html_e( 'Tickets', 'the-events-calendar' ); ?></a><br/>
+				<a href="http://m.tri.be/nx" target="_blank"><?php esc_html_e( 'Community Events', 'the-events-calendar' ); ?></a><br/>
+				<a href="http://m.tri.be/nv" target="_blank"><?php esc_html_e( 'Filters', 'the-events-calendar' ); ?></a><br/>
+				<a href="http://m.tri.be/nw" target="_blank"><?php esc_html_e( 'Facebook', 'the-events-calendar' ); ?></a><br/><br/>
 			</p>
 
-			<h4><?php esc_html_e( 'News For Events Users', 'tribe-events-calendar' ); ?></h4>
+			<h4><?php esc_html_e( 'News For Events Users', 'the-events-calendar' ); ?></h4>
 
 			<?php Tribe__Events__Main::instance()->outputDashboardWidget( 3 ); ?>
 

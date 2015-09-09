@@ -233,7 +233,7 @@ if ( ! class_exists( 'Tribe__Events__Rewrite' ) ) {
 			// By default we load the Default and our plugin domains
 			$domains = apply_filters( 'tribe_events_rewrite_i18n_domains', array(
 				'default' => true, // Default doesn't need file path
-				'tribe-events-calendar' => Tribe__Events__Main::instance()->pluginDir . 'lang/',
+				'the-events-calendar' => Tribe__Events__Main::instance()->pluginDir . 'lang/',
 			) );
 
 			// If WPML exists we treat the multiple languages

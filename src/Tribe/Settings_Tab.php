@@ -221,7 +221,7 @@ if ( ! class_exists( 'Tribe__Events__Settings_Tab' ) ) {
 				}
 			} else {
 				// no fields setup for this tab yet
-				echo '<p>' . esc_html__( 'There are no fields setup for this tab yet.', 'tribe-events-calendar' ) . '</p>';
+				echo '<p>' . esc_html__( 'There are no fields setup for this tab yet.', 'the-events-calendar' ) . '</p>';
 			}
 		}
 

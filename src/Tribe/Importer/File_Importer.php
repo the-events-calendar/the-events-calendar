@@ -35,7 +35,7 @@ abstract class Tribe__Events__Importer__File_Importer {
 			case 'organizers':
 				return new Tribe__Events__Importer__File_Importer_Organizers( $file_reader );
 			default:
-				throw new InvalidArgumentException( sprintf( __( 'No importer defined for %s', 'tribe-events-calendar' ), $type ) );
+				throw new InvalidArgumentException( sprintf( __( 'No importer defined for %s', 'the-events-calendar' ), $type ) );
 		}
 	}
 
@@ -107,7 +107,7 @@ abstract class Tribe__Events__Importer__File_Importer {
 		$record = $this->reader->read_next_row();
 		$row    = $this->reader->get_last_line_number_read() + 1;
 		if ( ! $this->is_valid_record( $record ) ) {
-			$this->log[ $row ] = sprintf( __( 'Missing required fields in row %d.', 'tribe-events-calendar', $row ) );
+			$this->log[ $row ] = sprintf( __( 'Missing required fields in row %d.', 'the-events-calendar', $row ) );
 			$this->skipped[] = $row;
 
 			return;
@@ -115,7 +115,7 @@ abstract class Tribe__Events__Importer__File_Importer {
 		try {
 			$this->update_or_create_post( $record );
 		} catch ( Exception $e ) {
-			$this->log[ $row ] = sprintf( __( 'Failed to import record in row %d.', 'tribe-events-calendar' ), $row );
+			$this->log[ $row ] = sprintf( __( 'Failed to import record in row %d.', 'the-events-calendar' ), $row );
 			$this->skipped[] = $row;
 		}
 	}
@@ -124,11 +124,11 @@ abstract class Tribe__Events__Importer__File_Importer {
 		if ( $id = $this->match_existing_post( $record ) ) {
 			$this->update_post( $id, $record );
 			$this->updated ++;
-			$this->log[ $this->reader->get_last_line_number_read() + 1 ] = sprintf( __( '%s (post ID %d) updated.', 'tribe-events-calendar' ), get_the_title( $id ), $id );
+			$this->log[ $this->reader->get_last_line_number_read() + 1 ] = sprintf( __( '%s (post ID %d) updated.', 'the-events-calendar' ), get_the_title( $id ), $id );
 		} else {
 			$id = $this->create_post( $record );
 			$this->created ++;
-			$this->log[ $this->reader->get_last_line_number_read() + 1 ] = sprintf( __( '%s (post ID %d) created.', 'tribe-events-calendar' ), get_the_title( $id ), $id );
+			$this->log[ $this->reader->get_last_line_number_read() + 1 ] = sprintf( __( '%s (post ID %d) created.', 'the-events-calendar' ), get_the_title( $id ), $id );
 		}
 	}
 

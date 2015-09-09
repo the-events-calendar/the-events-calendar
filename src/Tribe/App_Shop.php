@@ -60,8 +60,8 @@ if ( ! class_exists( 'Tribe__Events__App_Shop' ) ) {
 		 * Adds the page to the admin menu
 		 */
 		public function add_menu_page() {
-			$page_title = __( 'Event Add-Ons', 'tribe-events-calendar' );
-			$menu_title = __( 'Event Add-Ons', 'tribe-events-calendar' );
+			$page_title = __( 'Event Add-Ons', 'the-events-calendar' );
+			$menu_title = __( 'Event Add-Ons', 'the-events-calendar' );
 			$capability = apply_filters( 'tribe_events_addon_page_capability', 'install_plugins' );
 
 			$where = 'edit.php?post_type=' . Tribe__Events__Main::POSTTYPE;
@@ -91,7 +91,7 @@ if ( ! class_exists( 'Tribe__Events__App_Shop' ) ) {
 
 				$wp_admin_bar->add_menu( array(
 					'id'     => 'tribe-events-app-shop',
-					'title'  => __( 'Event Add-Ons', 'tribe-events-calendar' ),
+					'title'  => __( 'Event Add-Ons', 'the-events-calendar' ),
 					'href'   => esc_url( admin_url( untrailingslashit( $where ) . '&page=' . esc_attr( self::MENU_SLUG ) ) ),
 					'parent' => 'tribe-events-settings-group',
 				) );

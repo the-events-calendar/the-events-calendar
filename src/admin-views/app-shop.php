@@ -1,7 +1,7 @@
 <div id="tribe-app-shop" class="wrap">
 
 	<div class="header">
-		<h2><?php esc_html_e( 'Tribe Event Add-Ons', 'tribe-events-calendar' ); ?></h2>
+		<h2><?php esc_html_e( 'Tribe Event Add-Ons', 'the-events-calendar' ); ?></h2>
 	</div>
 
 
@@ -51,10 +51,10 @@
 				<div class="meta">
 					<?php
 					if ( $product->version ) {
-						echo sprintf( '<strong>%s</strong>: %s<br/>', esc_html__( 'Version', 'tribe-events-calendar' ), esc_html( $product->version ) );
+						echo sprintf( '<strong>%s</strong>: %s<br/>', esc_html__( 'Version', 'the-events-calendar' ), esc_html( $product->version ) );
 					}
 					if ( $product->last_update ) {
-						echo sprintf( '<strong>%s</strong>: %s<br/>', esc_html__( 'Last Update', 'tribe-events-calendar' ), esc_html( $product->last_update ) );
+						echo sprintf( '<strong>%s</strong>: %s<br/>', esc_html__( 'Last Update', 'the-events-calendar' ), esc_html( $product->last_update ) );
 					}
 					?>
 				</div>
