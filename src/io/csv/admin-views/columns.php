@@ -19,18 +19,18 @@ if ( isset( $_POST['column_map'] ) ) {
 require_once 'header.php';
 ?>
 
-<h3><?php echo sprintf( esc_html__( 'Column Mapping: %s', 'tribe-events-calendar' ), ucwords( $import_type ) ) ?></h3>
+<h3><?php echo sprintf( esc_html__( 'Column Mapping: %s', 'the-events-calendar' ), ucwords( $import_type ) ) ?></h3>
 <?php if ( ! empty( $messages ) ): ?>
 	<div class="error"><?php echo implode( '', $messages ); ?></div>
 <?php endif; ?>
 	<div class="form">
-		<p><?php esc_html_e( 'Columns have been mapped based on your last import. Please ensure the selected fields match the columns in your CSV file.', 'tribe-events-calendar' ) ?></p>
+		<p><?php esc_html_e( 'Columns have been mapped based on your last import. Please ensure the selected fields match the columns in your CSV file.', 'the-events-calendar' ) ?></p>
 
 		<form method="POST">
 			<table class="">
 				<thead>
-				<th><?php esc_html_e( 'Column Headings', 'tribe-events-calendar' ); ?></th>
-				<th><?php esc_html_e( 'Event Fields', 'tribe-events-calendar' ); ?></th>
+				<th><?php esc_html_e( 'Column Headings', 'the-events-calendar' ); ?></th>
+				<th><?php esc_html_e( 'Event Fields', 'the-events-calendar' ); ?></th>
 				</thead>
 				<?php foreach ( $header as $col => $title ): ?>
 					<tr>
@@ -41,7 +41,7 @@ require_once 'header.php';
 
 				<tr>
 					<td colspan="2">
-						<?php submit_button( __( 'Perform Import', 'tribe-events-calendar' ) ); ?>
+						<?php submit_button( __( 'Perform Import', 'the-events-calendar' ) ); ?>
 					</td>
 				</tr>
 

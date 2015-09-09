@@ -434,7 +434,7 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 
 			if ( ( isset( $data['Venue'] ) && $data['Venue'] ) || self::someVenueDataSet( $data ) ) {
 				$postdata = array(
-					'post_title'  => $data['Venue'] ? $data['Venue'] : __( "Unnamed Venue", 'tribe-events-calendar' ),
+					'post_title'  => $data['Venue'] ? $data['Venue'] : __( "Unnamed Venue", 'the-events-calendar' ),
 					'post_type'   => Tribe__Events__Main::VENUE_POST_TYPE,
 					'post_status' => $post_status,
 				);
@@ -514,7 +514,7 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 			// TODO: We should probably do away with 'StateProvince' and stick to 'State' and 'Province'.
 			if ( ! isset( $data['StateProvince'] ) || $data['StateProvince'] == '' ) {
 				if ( isset( $data['State'] ) && $data['State'] != '' &&
-					 ( empty( $data['Country'] ) || $data['Country'] == 'US' || $data['Country'] == __( "United States", 'tribe-events-calendar' ) )
+					 ( empty( $data['Country'] ) || $data['Country'] == 'US' || $data['Country'] == __( "United States", 'the-events-calendar' ) )
 				) {
 					$data['StateProvince'] = $data['State'];
 				} else {

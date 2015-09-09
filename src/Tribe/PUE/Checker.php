@@ -301,8 +301,8 @@ if ( ! class_exists( 'Tribe__Events__PUE__Checker' ) ) {
 						'type'            => 'license_key',
 						'size'            => 'large',
 						'validation_type' => 'license_key',
-						'label'           => sprintf( __( 'License Key', 'tribe-events-calendar' ) ),
-						'tooltip'         => __( 'A valid license key is required for support and updates', 'tribe-events-calendar' ),
+						'label'           => sprintf( __( 'License Key', 'the-events-calendar' ) ),
+						'tooltip'         => __( 'A valid license key is required for support and updates', 'the-events-calendar' ),
 						'parent_option'   => false,
 						'network_option'  => true,
 					),
@@ -374,7 +374,7 @@ if ( ! class_exists( 'Tribe__Events__PUE__Checker' ) ) {
 				return $message;
 			}
 
-			return '<div id="message" class="updated"><p><strong>' . __( 'License key(s) updated.', 'tribe-events-calendar' ) . '</strong></p></div>';
+			return '<div id="message" class="updated"><p><strong>' . __( 'License key(s) updated.', 'the-events-calendar' ) . '</strong></p></div>';
 
 		}
 
@@ -413,27 +413,27 @@ if ( ! class_exists( 'Tribe__Events__PUE__Checker' ) ) {
 				}
 
 				$pluginInfo = $this->request_info( $queryArgs );
-				$expiration = isset( $pluginInfo->expiration ) ? $pluginInfo->expiration : __( 'unknown date', 'tribe-events-calendar' );
+				$expiration = isset( $pluginInfo->expiration ) ? $pluginInfo->expiration : __( 'unknown date', 'the-events-calendar' );
 
 				if ( empty( $pluginInfo ) ) {
-					$response['message'] = __( 'Sorry, key validation server is not available.', 'tribe-events-calendar' );
+					$response['message'] = __( 'Sorry, key validation server is not available.', 'the-events-calendar' );
 				} elseif ( isset( $pluginInfo->api_expired ) && $pluginInfo->api_expired == 1 ) {
-					$response['message'] = __( 'Sorry, this key is expired.', 'tribe-events-calendar' );
+					$response['message'] = __( 'Sorry, this key is expired.', 'the-events-calendar' );
 
 				} elseif ( isset( $pluginInfo->api_upgrade ) && $pluginInfo->api_upgrade == 1 ) {
-					$problem             = __( 'Sorry, this key is out of installs.', 'tribe-events-calendar' );
-					$helpful_link        = sprintf( '<a href="%s" target="_blank">%s</a>', 'http://m.tri.be/lz', __( 'Why am I seeing this message?', 'tribe-events-calendar' ) );
+					$problem             = __( 'Sorry, this key is out of installs.', 'the-events-calendar' );
+					$helpful_link        = sprintf( '<a href="%s" target="_blank">%s</a>', 'http://m.tri.be/lz', __( 'Why am I seeing this message?', 'the-events-calendar' ) );
 					$response['message'] = "$problem $helpful_link";
 				} elseif ( isset( $pluginInfo->api_invalid ) && $pluginInfo->api_invalid == 1 ) {
-					$response['message'] = __( 'Sorry, this key is not valid.', 'tribe-events-calendar' );
+					$response['message'] = __( 'Sorry, this key is not valid.', 'the-events-calendar' );
 				} else {
-					$default_success_msg    = sprintf( __( 'Valid Key! Expires on %s', 'tribe-events-calendar' ), $expiration );
+					$default_success_msg    = sprintf( __( 'Valid Key! Expires on %s', 'the-events-calendar' ), $expiration );
 					$response['status']     = isset( $pluginInfo->api_message ) ? 2 : 1;
 					$response['message']    = isset( $pluginInfo->api_message ) ? wp_kses( $pluginInfo->api_message, 'data' ) : $default_success_msg;
 					$response['expiration'] = $expiration;
 				}
 			} else {
-				$response['message'] = sprintf( __( 'Hmmm... something\'s wrong with this validator. Please contact <a href="%s">support.</a>', 'tribe-events-calendar' ), 'http://m.tri.be/1u' );
+				$response['message'] = sprintf( __( 'Hmmm... something\'s wrong with this validator. Please contact <a href="%s">support.</a>', 'the-events-calendar' ), 'http://m.tri.be/1u' );
 			}
 			echo json_encode( $response );
 			exit;

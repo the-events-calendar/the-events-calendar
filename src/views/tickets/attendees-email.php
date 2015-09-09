@@ -21,7 +21,7 @@
 		<td align="left" style="padding:20px; background-color: #dddddd;">
 			<h1 style="color:#0a0a0e; margin:0 0 20px 0 !important; font-family: 'Helvetica Neue', Helvetica, sans-serif; font-style:normal; font-weight:700; font-size:32px; letter-spacing:normal; text-align:left; line-height: 100%;"><?php echo $event->post_title; ?></h1>
 
-			<h2 style="color:#0a0a0e; margin:0 !important; font-family: 'Helvetica Neue', Helvetica, sans-serif; font-style:normal; font-weight:700; font-size:18px; letter-spacing:normal; text-align:left; line-height: 100%;"><?php _e( 'Attendee List', 'tribe-events-calendar' ); ?></h2>
+			<h2 style="color:#0a0a0e; margin:0 !important; font-family: 'Helvetica Neue', Helvetica, sans-serif; font-style:normal; font-weight:700; font-size:18px; letter-spacing:normal; text-align:left; line-height: 100%;"><?php _e( 'Attendee List', 'the-events-calendar' ); ?></h2>
 		</td>
 	</tr>
 </table>

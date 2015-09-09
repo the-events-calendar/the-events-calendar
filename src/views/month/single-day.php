@@ -40,7 +40,7 @@ $day = tribe_events_get_current_month_day();
 	<div class="tribe-events-viewmore">
 		<?php
 
-			$view_all_label = sprintf( _n( 'View 1 %1$s', 'View All %2$s %3$s', $day['total_events'], 'tribe-events-calendar' ), $events_label_singular, $day['total_events'], $events_label_plural );
+			$view_all_label = sprintf( _n( 'View 1 %1$s', 'View All %2$s %3$s', $day['total_events'], 'the-events-calendar' ), $events_label_singular, $day['total_events'], $events_label_plural );
 
 		?>
 		<a href="<?php echo esc_url( $day['view_more'] ); ?>"><?php echo $view_all_label ?> &raquo;</a>

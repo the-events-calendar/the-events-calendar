@@ -12,8 +12,8 @@ class Tribe__Events__Importer__Admin_Page {
 	public function register_admin_page() {
 		add_submenu_page(
 			'edit.php?post_type='.Tribe__Events__Main::POSTTYPE,
-			__( 'Import', 'tribe-events-calendar' ),
-			__( 'Import', 'tribe-events-calendar' ),
+			__( 'Import', 'the-events-calendar' ),
+			__( 'Import', 'the-events-calendar' ),
 			'import',
 			'events-importer',
 			array( $this, 'render_admin_page_contents' )
@@ -51,7 +51,7 @@ class Tribe__Events__Importer__Admin_Page {
 				try {
 					$file = new Tribe__Events__Importer__File_Reader( Tribe__Events__Importer__File_Uploader::get_file_path() );
 				} catch ( RuntimeException $e ) {
-					$this->errors[] = __( 'The file went away. Please try again.', 'tribe-events-calendar' );
+					$this->errors[] = __( 'The file went away. Please try again.', 'the-events-calendar' );
 					$this->state = '';
 					return $this->render_admin_page_contents();
 				}
@@ -92,8 +92,8 @@ class Tribe__Events__Importer__Admin_Page {
 
 	public function get_available_tabs() {
 		$tabs = array(
-			__( 'General', 'tribe-events-calendar' ) => 'general',
-			__( 'Import: CSV', 'tribe-events-calendar' ) => 'csv-importer',
+			__( 'General', 'the-events-calendar' ) => 'general',
+			__( 'Import: CSV', 'the-events-calendar' ) => 'csv-importer',
 		);
 
 		return apply_filters( 'tribe-import-tabs', $tabs );
@@ -150,7 +150,7 @@ class Tribe__Events__Importer__Admin_Page {
 		$this->state = 'map';
 
 		if ( empty( $_POST['import_type'] ) || empty( $_FILES['import_file']['name'] ) ) {
-			$this->errors[] = __( 'We were unable to process your request. Please try again.', 'tribe-events-calendar' );
+			$this->errors[] = __( 'We were unable to process your request. Please try again.', 'the-events-calendar' );
 			$this->state = '';
 			return;
 		}
@@ -184,14 +184,14 @@ class Tribe__Events__Importer__Admin_Page {
 		try {
 			$importer = $this->get_importer();
 		} catch ( RuntimeException $e ) {
-			$this->errors[] = __( 'The file went away. Please try again.', 'tribe-events-calendar' );
+			$this->errors[] = __( 'The file went away. Please try again.', 'the-events-calendar' );
 			return FALSE;
 		}
 		$required_fields = $importer->get_required_fields();
 		$missing = array_diff( $required_fields, $column_mapping );
 		if ( ! empty( $missing ) ) {
 			$mapper = new Tribe__Events__Importer__Column_Mapper( get_option( 'tribe_events_import_type' ) );
-			$message = __( '<p>The following fields are required for a successful import:</p>', 'tribe-events-calendar' );
+			$message = __( '<p>The following fields are required for a successful import:</p>', 'the-events-calendar' );
 			$message .= '<ul style="list-style-type: disc; margin-left: 1.5em;">';
 			foreach ( $missing as $key ) {
 				$message .= '<li>' . $mapper->get_column_label( $key ) . '</li>';

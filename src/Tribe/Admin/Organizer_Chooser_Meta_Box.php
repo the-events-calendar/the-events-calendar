@@ -85,7 +85,7 @@ class Tribe__Events__Admin__Organizer_Chooser_Meta_Box {
 		<tr class="saved_organizer">
 			<td style="width:170px"><?php
 				$this->move_handle();
-				?><label data-l10n-create-organizer="<?php esc_attr_e( sprintf( __( 'Create New %s', 'tribe-events-calendar' ), $this->tribe->singular_organizer_label ) ); ?>"><?php printf( __( 'Use Saved %s:', 'tribe-events-calendar' ), $this->tribe->singular_organizer_label ); ?></label>
+				?><label data-l10n-create-organizer="<?php esc_attr_e( sprintf( __( 'Create New %s', 'the-events-calendar' ), $this->tribe->singular_organizer_label ) ); ?>"><?php printf( __( 'Use Saved %s:', 'the-events-calendar' ), $this->tribe->singular_organizer_label ); ?></label>
 			</td>
 			<td><?php
 				$this->tribe->saved_organizers_dropdown( $organizer_id, 'organizer[OrganizerID][]' );
@@ -109,7 +109,7 @@ class Tribe__Events__Admin__Organizer_Chooser_Meta_Box {
 				<?php if ( empty( $organizer_id ) ) { ?> style="display:none;"<?php } ?>
 				data-admin-url="<?php echo esc_url( admin_url( 'post.php?action=edit&post=' ) ); ?>"
 				href="<?php echo esc_url( admin_url( sprintf( 'post.php?action=edit&post=%s', $organizer_id ) ) ); ?>"
-				target="_blank"><?php printf( __( 'Edit %s', 'tribe-events-calendar' ), $this->tribe->singular_organizer_label ); ?></a>
+				target="_blank"><?php printf( __( 'Edit %s', 'the-events-calendar' ), $this->tribe->singular_organizer_label ); ?></a>
 		</div>
 		<?php
 	}
@@ -145,7 +145,7 @@ class Tribe__Events__Admin__Organizer_Chooser_Meta_Box {
 	 * @return void
 	 */
 	protected function render_add_organizer_button() {
-		printf( '<tfoot><tr><td colspan="2"><a class="tribe-add-organizer" href="#">%s</a></td></tr></tfoot>', __( 'Add another organizer', 'tribe-events-calendar' ) );
+		printf( '<tfoot><tr><td colspan="2"><a class="tribe-add-organizer" href="#">%s</a></td></tr></tfoot>', __( 'Add another organizer', 'the-events-calendar' ) );
 	}
 
 	/**

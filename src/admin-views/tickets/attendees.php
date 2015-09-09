@@ -8,13 +8,13 @@ $tickets = Tribe__Events__Tickets__Tickets::get_event_tickets( $event_id );
 
 <div class="wrap">
 	<div id="icon-edit" class="icon32 icon32-tickets-attendees"><br></div>
-	<h2><?php esc_html_e( 'Attendees', 'tribe-events-calendar' ); ?></h2>
+	<h2><?php esc_html_e( 'Attendees', 'the-events-calendar' ); ?></h2>
 
 	<h2><?php echo apply_filters( 'tribe_events_tickets_attendees_event_title', $event->post_title, $event->ID ); ?></h2>
 
 	<div id="tribe-filters" class="metabox-holder">
 		<div id="filters-wrap" class="postbox">
-			<h3 title="Click to toggle"><?php esc_html_e( 'Event Summary', 'tribe-events-calendar' ); ?></h3>
+			<h3 title="Click to toggle"><?php esc_html_e( 'Event Summary', 'the-events-calendar' ); ?></h3>
 
 			<?php do_action( 'tribe_events_tickets_attendees_event_summary_table_before', $event_id ); ?>
 
@@ -23,13 +23,13 @@ $tickets = Tribe__Events__Tickets__Tickets::get_event_tickets( $event_id );
 					<td width="33%" valign="top">
 						<?php do_action( 'tribe_events_tickets_attendees_event_details_top', $event_id ); ?>
 
-						<h4><?php esc_html_e( 'Event Details', 'tribe-events-calendar' ); ?></h4>
+						<h4><?php esc_html_e( 'Event Details', 'the-events-calendar' ); ?></h4>
 
-						<strong><?php esc_html_e( 'Start Date / Time:', 'tribe-events-calendar' ) ?></strong>
+						<strong><?php esc_html_e( 'Start Date / Time:', 'the-events-calendar' ) ?></strong>
 						<?php echo tribe_get_start_date( $event_id, false, tribe_get_datetime_format( true ) ) ?>
 						<br />
 
-						<strong><?php esc_html_e( 'End Date / Time:', 'tribe-events-calendar' ) ?></strong>
+						<strong><?php esc_html_e( 'End Date / Time:', 'the-events-calendar' ) ?></strong>
 						<?php
 						echo tribe_get_end_date( $event_id, false, tribe_get_datetime_format( true ) );
 
@@ -43,7 +43,7 @@ $tickets = Tribe__Events__Tickets__Tickets::get_event_tickets( $event_id );
 							</div>
 
 							<div class="venue-address">
-								<strong><?php _e( 'Address:', 'tribe-events-calendar' ); ?> </strong>
+								<strong><?php _e( 'Address:', 'the-events-calendar' ); ?> </strong>
 								<?php echo tribe_get_full_address( $venue_id ); ?>
 							</div>
 
@@ -51,7 +51,7 @@ $tickets = Tribe__Events__Tickets__Tickets::get_event_tickets( $event_id );
 							if ( $phone = tribe_get_phone( $venue_id ) ) {
 								?>
 								<div class="venue-phone">
-									<strong><?php echo esc_html( __( 'Phone:', 'tribe-events-calendar' ) ); ?> </strong>
+									<strong><?php echo esc_html( __( 'Phone:', 'the-events-calendar' ) ); ?> </strong>
 									<?php echo esc_html( $phone ); ?>
 								</div>
 								<?php
@@ -60,7 +60,7 @@ $tickets = Tribe__Events__Tickets__Tickets::get_event_tickets( $event_id );
 							if ( $url = esc_url( get_post_meta( $venue_id, '_VenueURL', true ) ) ) {
 								?>
 								<div class="venue-url">
-									<strong><?php echo esc_html( __( 'Website:', 'tribe-events-calendar' ) ); ?> </strong>
+									<strong><?php echo esc_html( __( 'Website:', 'the-events-calendar' ) ); ?> </strong>
 									<a target="_blank" href="<?php echo $url; ?>">
 									<?php
 									$display_url  = parse_url( $url, PHP_URL_HOST );
@@ -79,7 +79,7 @@ $tickets = Tribe__Events__Tickets__Tickets::get_event_tickets( $event_id );
 					<td width="33%" valign="top">
 						<?php do_action( 'tribe_events_tickets_attendees_ticket_sales_top', $event_id ); ?>
 
-						<h4><?php esc_html_e( 'Ticket Sales', 'tribe-events-calendar' ); ?></h4>
+						<h4><?php esc_html_e( 'Ticket Sales', 'the-events-calendar' ); ?></h4>
 
 						<?php
 
@@ -96,14 +96,14 @@ $tickets = Tribe__Events__Tickets__Tickets::get_event_tickets( $event_id );
 							$pending = '';
 
 							if ( $ticket->qty_pending > 0 ) {
-								$pending = sprintf( _n( '(%d awaiting review)', '(%d awaiting review)', 'tribe-events-calendar', $ticket->qty_pending ), (int) $ticket->qty_pending );
+								$pending = sprintf( _n( '(%d awaiting review)', '(%d awaiting review)', 'the-events-calendar', $ticket->qty_pending ), (int) $ticket->qty_pending );
 							}
 
 							if ( empty( $stock ) && $stock !== 0 ) {
-								echo sprintf( __( 'Sold %1$d %2$s', 'tribe-events-calendar' ), esc_html( $sold ), $pending );
+								echo sprintf( __( 'Sold %1$d %2$s', 'the-events-calendar' ), esc_html( $sold ), $pending );
 							}
 							else {
-								echo sprintf( __( 'Sold %1$d of %2$d %3$s', 'tribe-events-calendar' ), esc_html( $sold ), esc_html( $sold + $stock ), $pending );
+								echo sprintf( __( 'Sold %1$d of %2$d %3$s', 'the-events-calendar' ), esc_html( $sold ), esc_html( $sold + $stock ), $pending );
 							}
 
 							echo '<br />';
@@ -124,7 +124,7 @@ $tickets = Tribe__Events__Tickets__Tickets::get_event_tickets( $event_id );
 							$checkedin = Tribe__Events__Tickets__Tickets::get_event_checkedin_attendees_count( $event_id ); ?>
 
 							<span id="total_tickets_sold_wrapper">
-								<?php esc_html_e( 'Tickets sold:', 'tribe-events-calendar' ) ?>
+								<?php esc_html_e( 'Tickets sold:', 'the-events-calendar' ) ?>
 								<span id="total_tickets_sold"><?php echo $total_sold ?></span>
 							</span>
 
@@ -133,10 +133,10 @@ $tickets = Tribe__Events__Tickets__Tickets::get_event_tickets( $event_id );
 								?>
 								<span id="sales_breakdown_wrapper">
 								<br />
-									<?php esc_html_e( 'Finalized:', 'tribe-events-calendar' ); ?>
+									<?php esc_html_e( 'Finalized:', 'the-events-calendar' ); ?>
 									<span id="total_issued"><?php echo $total_completed ?></span>
 
-									<?php esc_html_e( 'Awaiting review:', 'tribe-events-calendar' ); ?>
+									<?php esc_html_e( 'Awaiting review:', 'the-events-calendar' ); ?>
 									<span id="total_pending"><?php echo $total_pending ?></span>
 								</span>
 								<?php
@@ -145,7 +145,7 @@ $tickets = Tribe__Events__Tickets__Tickets::get_event_tickets( $event_id );
 
 							<span id="total_checkedin_wrapper">
 								<br />
-								<?php esc_html_e( 'Checked in:', 'tribe-events-calendar' ); ?>
+								<?php esc_html_e( 'Checked in:', 'the-events-calendar' ); ?>
 								<span id="total_checkedin"><?php echo $checkedin ?></span>
 							</span>
 
@@ -167,23 +167,23 @@ $tickets = Tribe__Events__Tickets__Tickets::get_event_tickets( $event_id );
 		<?php $this->attendees_table->display() ?>
 	</form>
 
-	<div id="attendees_email_wrapper" title="<?php esc_html_e( 'Send the attendee list by email', 'tribe-events-calendar' ); ?>">
+	<div id="attendees_email_wrapper" title="<?php esc_html_e( 'Send the attendee list by email', 'the-events-calendar' ); ?>">
 		<div id="email_errors"></div>
 		<div id="email_send">
 			<label for="email_to_user">
-				<span><?php esc_html_e( 'Select a User:', 'tribe-events-calendar' ); ?></span>
+				<span><?php esc_html_e( 'Select a User:', 'the-events-calendar' ); ?></span>
 				<?php wp_dropdown_users(
 					array(
 						'name'             => 'email_to_user',
 						'id'               => 'email_to_user',
-						'show_option_none' => __( 'Select...', 'tribe-events-calendar' ),
+						'show_option_none' => __( 'Select...', 'the-events-calendar' ),
 						'selected'         => '',
 					)
 				); ?>
 			</label>
-			<span class="attendees_or"><?php esc_html_e( 'or', 'tribe-events-calendar' ); ?></span>
+			<span class="attendees_or"><?php esc_html_e( 'or', 'the-events-calendar' ); ?></span>
 			<label for="email_to_address">
-				<span><?php esc_html_e( 'Email Address:', 'tribe-events-calendar' ); ?></span>
+				<span><?php esc_html_e( 'Email Address:', 'the-events-calendar' ); ?></span>
 				<input type="text" name="email_to_address" id="email_to_address" value="">
 			</label>
 		</div>

@@ -57,7 +57,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @return string
 	 */
 	function tribe_get_event_label_singular() {
-		return apply_filters( 'tribe_event_label_singular', __( 'Event', 'tribe-events-calendar' ) );
+		return apply_filters( 'tribe_event_label_singular', __( 'Event', 'the-events-calendar' ) );
 	}
 
 	/**
@@ -68,7 +68,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @return string
 	 */
 	function tribe_get_event_label_plural() {
-		return apply_filters( 'tribe_event_label_plural', __( 'Events', 'tribe-events-calendar' ) );
+		return apply_filters( 'tribe_event_label_plural', __( 'Events', 'the-events-calendar' ) );
 	}
 
 	/**
@@ -408,7 +408,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		if ( null === $args[ 'label' ] ) {
 			$label = sprintf(
 			/* translators: %s is the singular translation of "Event" */
-			_nx( '%s Category', '%s Categories', substr_count( $categories, '<a href' ), 'category list label', 'tribe-events-calendar' ),
+			_nx( '%s Category', '%s Categories', substr_count( $categories, '<a href' ), 'category list label', 'the-events-calendar' ),
 			$events_label_singular
 		);
 	}
@@ -447,7 +447,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
  */
 	function tribe_meta_event_tags( $label = null, $separator = ', ', $echo = true ) {
 		if ( ! $label ) {
-			$label = __( 'Tags:', 'tribe-events-calendar' );
+			$label = __( 'Tags:', 'the-events-calendar' );
 		}
 
 		$tribe_ecp = Tribe__Events__Main::instance();
@@ -559,7 +559,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		$before = wpautop( $before );
 		$before = do_shortcode( stripslashes( shortcode_unautop( $before ) ) );
 		$before = '<div class="tribe-events-before-html">' . $before . '</div>';
-		$before = $before . '<span class="tribe-events-ajax-loading"><img class="tribe-events-spinner-medium" src="' . tribe_events_resource_url( 'images/tribe-loading.gif' ) . '" alt="' . sprintf( __( 'Loading %s', 'tribe-events-calendar' ), $events_label_plural ) . '" /></span>';
+		$before = $before . '<span class="tribe-events-ajax-loading"><img class="tribe-events-spinner-medium" src="' . tribe_events_resource_url( 'images/tribe-loading.gif' ) . '" alt="' . sprintf( __( 'Loading %s', 'the-events-calendar' ), $events_label_plural ) . '" /></span>';
 
 		echo apply_filters( 'tribe_events_before_html', $before );
 	}
@@ -1308,8 +1308,8 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		/**
 		 * Internationalization Strings
 		 */
-		$json['i18n']['find_out_more'] = esc_attr__( 'Find out more »', 'tribe-events-calendar' );
-		$json['i18n']['for_date'] = esc_attr( sprintf( __( '%s for', 'tribe-events-calendar' ), tribe_get_event_label_plural() ) );
+		$json['i18n']['find_out_more'] = esc_attr__( 'Find out more »', 'the-events-calendar' );
+		$json['i18n']['for_date'] = esc_attr( sprintf( __( '%s for', 'the-events-calendar' ), tribe_get_event_label_plural() ) );
 
 		if ( $additional ) {
 			$json = array_merge( (array) $json, (array) $additional );
@@ -1485,7 +1485,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 **/
 	function tribe_events_promo_banner( $echo = true ) {
 		if ( tribe_get_option( 'donate-link', false ) == true && ! tribe_is_bot() ) {
-			$promo = apply_filters( 'tribe_events_promo_banner_message', sprintf( __( 'Calendar powered by %sThe Events Calendar%s', 'tribe-events-calendar' ), '<a class="vcard url org fn" href="' . Tribe__Events__Main::$tecUrl . 'product/wordpress-events-calendar/?utm_medium=plugin-tec&utm_source=banner&utm_campaign=in-app">', '</a>' ) );
+			$promo = apply_filters( 'tribe_events_promo_banner_message', sprintf( __( 'Calendar powered by %sThe Events Calendar%s', 'the-events-calendar' ), '<a class="vcard url org fn" href="' . Tribe__Events__Main::$tecUrl . 'product/wordpress-events-calendar/?utm_medium=plugin-tec&utm_source=banner&utm_campaign=in-app">', '</a>' ) );
 			$html  = apply_filters( 'tribe_events_promo_banner', sprintf( '<p class="tribe-events-promo">%s</p>', $promo ), $promo );
 			if ( $echo ) {
 				echo $html;

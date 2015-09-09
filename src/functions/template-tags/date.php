@@ -258,7 +258,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 			global $post;
 			$event = $post;
 			if ( empty( $event ) ) {
-				_doing_it_wrong( __FUNCTION__, __( 'The function needs to be passed an $event or used in the loop.', 'tribe-events-calendar' ) );
+				_doing_it_wrong( __FUNCTION__, __( 'The function needs to be passed an $event or used in the loop.', 'the-events-calendar' ) );
 				return false;
 			}
 		}

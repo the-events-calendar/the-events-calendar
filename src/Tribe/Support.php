@@ -43,12 +43,12 @@ if ( ! class_exists( 'Tribe__Events__Support' ) ) {
 				return;
 			}
 
-			$system_text[] = '<p>' . __( "Sometimes it's hard to tell what's going wrong without knowing more about your system steup. For your convenience, we've put together a little report on what's cooking under the hood.", 'tribe-events-calendar' ) . '</p>';
-			$system_text[] = '<p>' . __( "If you suspect that the problem you're having is related to another plugin, or we're just plain having trouble reproducing your bug report, please copy and send all of this to our support team.", 'tribe-events-calendar' ) . '</p>';
+			$system_text[] = '<p>' . __( "Sometimes it's hard to tell what's going wrong without knowing more about your system steup. For your convenience, we've put together a little report on what's cooking under the hood.", 'the-events-calendar' ) . '</p>';
+			$system_text[] = '<p>' . __( "If you suspect that the problem you're having is related to another plugin, or we're just plain having trouble reproducing your bug report, please copy and send all of this to our support team.", 'the-events-calendar' ) . '</p>';
 			$system_text   = implode( $system_text );
 			?>
 
-			<h3><?php esc_html_e( 'System Information', 'tribe-events-calendar' ); ?></h3>
+			<h3><?php esc_html_e( 'System Information', 'the-events-calendar' ); ?></h3>
 			<?php
 			echo apply_filters( 'tribe_help_tab_system', $system_text );
 			echo $this->formattedSupportStats();
@@ -134,12 +134,12 @@ if ( ! class_exists( 'Tribe__Events__Support' ) ) {
 				'theme'              => wp_get_theme()->get( 'Name' ),
 				'multisite'          => is_multisite(),
 				'settings'           => Tribe__Events__Main::getOptions(),
-				'WordPress timezone' => get_option( 'timezone_string', __( 'Unknown or not set', 'tribe-events-calendar' ) ),
+				'WordPress timezone' => get_option( 'timezone_string', __( 'Unknown or not set', 'the-events-calendar' ) ),
 				'server timezone'    => date_default_timezone_get(),
 			);
 
 			if ( $this->rewrite_rules_purged ) {
-				$systeminfo['rewrite rules purged'] = __( 'Rewrite rules were purged on load of this help page. Chances are there is a rewrite rule flush occurring in a plugin or theme!', 'tribe-events-calendar' );
+				$systeminfo['rewrite rules purged'] = __( 'Rewrite rules were purged on load of this help page. Chances are there is a rewrite rule flush occurring in a plugin or theme!', 'the-events-calendar' );
 			}
 
 			$systeminfo = apply_filters( 'tribe-events-pro-support', $systeminfo );
