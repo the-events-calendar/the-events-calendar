@@ -11,7 +11,7 @@
  * @package TribeEventsCalendarPro
  *
  */
- 
+
 .tribe-events-user-recurrence-toggle {
 	display: block;
  	text-align: center;
@@ -28,7 +28,7 @@
 .tribe-events-user-recurrence-toggle input {
  	margin-right: 5px;
 }
- 
+
 
 
 /* = Week Grid Template Styles
@@ -72,7 +72,7 @@
 /* columns & structure */
 .tribe-week-grid-wrapper {
 	height: 500px;
-	overflow-y: scroll;	
+	overflow-y: scroll;
 	position: relative;
 }
 
@@ -165,7 +165,7 @@
 .tribe-grid-content-wrap {
 	width: 100%;
 	float: left;
-	padding-left: 40px;	
+	padding-left: 40px;
 }
 
 .tribe-events-grid .tribe-grid-content-wrap .column {
@@ -252,14 +252,14 @@
 	border-bottom: 1px solid #bbb;
 }
 .tribe-grid-allday .column {
-	min-height: 60px;	
+	min-height: 60px;
 }
 .tribe-grid-allday .column.first {
 	top: 0;
 }
 .tribe-grid-allday .column.first span {
 	position: absolute;
-	top: 50%;	
+	top: 50%;
 	margin-top: -12px;
 	width: 30px;
 	left: 50%;
@@ -277,16 +277,16 @@
 	padding: 8px 6px;
 	display: inline-block;
 	zoom: 1;
-	*display: inline; 
-	overflow: hidden; 
-	text-overflow: ellipsis; 
+	*display: inline;
+	overflow: hidden;
+	text-overflow: ellipsis;
 	white-space: nowrap;
 	position: relative;
 	z-index: 1;
 }
 
 .tribe-grid-allday .type-tribe_events.tribe-dayspan2 > div {
-	width: 200%;	
+	width: 200%;
 }
 .tribe-grid-allday .type-tribe_events.tribe-dayspan3 > div {
 	width: 300%;
@@ -309,9 +309,9 @@
  	width: 100%;
  	height: 100%;
 }
-.tribe-grid-body div[id*="tribe-events-event-"] { 		
- 	font-weight: bold; 
-	line-height: 1.25; 
+.tribe-grid-body div[id*="tribe-events-event-"] {
+ 	font-weight: bold;
+	line-height: 1.25;
  	position: absolute;
  	z-index: 500;
  	width: 94%;
@@ -361,13 +361,13 @@
 	margin: 0 !important;
 }
 .tribe-week-grid-block div {
-	height: 30px; 
-	margin-bottom: 30px; 
-	border-bottom: 1px dotted #ddd; 
+	height: 30px;
+	margin-bottom: 30px;
+	border-bottom: 1px dotted #ddd;
 	border-top: 1px solid #ddd;
 }
 
-/* = Photo View Template Styles 
+/* = Photo View Template Styles
    @ Template: Photo.php
 =============================================*/
 
@@ -403,7 +403,7 @@
 }
 
 #tribe-events-photo-events .type-tribe_events.tribe-events-photo-event {
-	float: left; 
+	float: left;
 	width: 29.2%;
 	margin: 0 4% 30px 0;
 	padding: 0;
@@ -429,7 +429,7 @@
 .photo-loader {
 	position:absolute;
 	top:200px;
-	left:50%;	
+	left:50%;
 }
 
 /* Tile Styling */
@@ -439,7 +439,7 @@
 	-webkit-transition: .1s ease-in;
   	   -moz-transition: .1s ease-in;
   	     -o-transition: .1s ease-in;
-  			transition: .1s ease-in;	
+  			transition: .1s ease-in;
 }
 
 .tribe-events-photo-event  {
@@ -505,7 +505,7 @@
 	-webkit-transition: .2s ease-in;
   	   -moz-transition: .2s ease-in;
   	     -o-transition: .2s ease-in;
-  			transition: .2s ease-in;	
+  			transition: .2s ease-in;
 }
 
 .tribe-events-photo-event .tribe-events-event-image {
@@ -526,7 +526,7 @@
 	clear: both;
 }
 
-/* = Map View Template Styles 
+/* = Map View Template Styles
    @ Template: Map.php
 =============================================*/
 #tribe-geo-map-wrapper {
@@ -569,8 +569,8 @@
 	position: absolute;
 	top: -9px;
 	left: 10px;
-	width: 0; 
-	height: 0; 
+	width: 0;
+	height: 0;
 	border-left: 8px solid transparent;
 	border-right: 8px solid transparent;
 	border-bottom: 8px solid #B9B9B9;
@@ -588,7 +588,7 @@
 	left: auto;
 }
 
-.tribe-bar-collapse #tribe-geo-options:before, 
+.tribe-bar-collapse #tribe-geo-options:before,
 .tribe-bar-collapse #tribe-geo-options:after {
 	display: none;
 }
@@ -664,10 +664,10 @@
 	margin: 2.5em 0 1em 0;
 	padding: 6px 10px;
 	-webkit-border-radius: 3px;
-			border-radius: 3px;	
+			border-radius: 3px;
 }
 
-/* = View Loading / Pagination Styles 
+/* = View Loading / Pagination Styles
    @ Template: Map.php & Photo.php
 =============================================*/
 #tribe-geo-loading {
@@ -838,16 +838,16 @@ h3.tribe-events-related-events-title {
 	margin-bottom: 2%;
 	font-size: 1.4em;
 }
- 
+
 .tribe-events-single ul.tribe-related-events,
 .post .tribe-events-single ul.tribe-related-events {
 	margin: 0 0 8% 0;
 	padding: 0;
 	border: none;
-} 
+}
 
 .tribe-events-single ul.tribe-related-events li {
-	float: left; 
+	float: left;
 	width: 29.3333%;
 	margin: 0 4% 2% 0;
 	padding: 0;
@@ -934,12 +934,12 @@ h3.tribe-events-related-events-title {
 	padding:0;
 	margin:0;
 }
- 
+
 /* = Events Countdown Widget
    @ Template: widgets/countdown-widget.php
 =============================================*/
 .tribe-countdown-timer span.tribe-countdown-seconds,
-.tribe-countdown-timer span.format, 
+.tribe-countdown-timer span.format,
 .tribe-countdown-timer h3.tribe-countdown-complete {
 	display: none;
 }
@@ -1013,6 +1013,12 @@ div.tribe-countdown-text {
 	border-bottom: 0;
 }
 
+@media screen and (min-width: 59.6875em) {
+	.tribe-theme-twentyfifteen .tribe-events-countdown-widget div.tribe-countdown-number {
+		font-size: 2.1em;
+	}
+}
+
 /* = Events Venue Widget
    @ Template: widgets/venue-widget.php
 =============================================*/
@@ -1054,21 +1060,21 @@ div.tribe-countdown-text {
 .tribe-events-uses-geolocation .tribe-bar-submit {
 	width: 25%;
 	float: left;
-	margin-bottom: 0; 	
+	margin-bottom: 0;
 	padding: 15px;
 }
 
 .tribe-events-uses-geolocation .tribe-bar-submit {
 	margin-left: 0;
 }
- 
+
 .tribe-events-uses-geolocation .tribe-bar-mini .tribe-bar-date-filter {
 	padding: 10px;
 }
 .tribe-events-uses-geolocation .tribe-bar-mini .tribe-bar-search-filter {
 	padding: 10px;
 }
- 
+
 .tribe-bar-mini .tribe-bar-geoloc-filter {
 	padding: 10px;
 }
