@@ -186,12 +186,18 @@ if ( $post->post_type != Tribe__Events__Main::VENUE_POST_TYPE ) {
 				name  : jQuery('[name=venue\\[Venue\\]]').get(0).value
 			},
 			function (result) {
-				if (result == 1) {
+				if (jQuery('[name=venue\\[Venue\\]]').get(0).value == "") {
 					jQuery('.tribe-venue-error').remove();
+					jQuery( '[name=venue\\[Venue\\]]' ).after('<div class="tribe-venue-error error form-invalid"><?php printf( __( '%s Name Can Not be Empty', 'tribe-events-calendar' ), tribe_get_venue_label_singular() ); ?></div>');
 				} else {
-					jQuery('.tribe-venue-error').remove();
-					jQuery( '[name=venue\\[Venue\\]]' ).after('<div class="tribe-venue-error error form-invalid"><?php printf( __( '%s Name Already Exists', 'tribe-events-calendar' ), tribe_get_venue_label_singular() ); ?></div>');
+					if (result == 1) {
+						jQuery('.tribe-venue-error').remove();
+					} else {
+						jQuery('.tribe-venue-error').remove();
+						jQuery( '[name=venue\\[Venue\\]]' ).after('<div class="tribe-venue-error error form-invalid"><?php printf( __( '%s Name Already Exists', 'tribe-events-calendar' ), tribe_get_venue_label_singular() ); ?></div>');
+					}
 				}
+
 			}
 		);
 	});
