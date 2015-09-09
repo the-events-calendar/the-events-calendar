@@ -195,16 +195,17 @@ class Tribe__Events__Timezones {
 			return self::apply_offset( $datetime, $tzstring, true );
 		}
 
-		try {
-			$local = self::get_timezone( $tzstring );
-			$utc   = self::get_timezone( 'UTC' );
+		$local = self::get_timezone( $tzstring );
+		$utc   = self::get_timezone( 'UTC' );
 
-			$datetime = date_create( $datetime, $local )->setTimezone( $utc );
-			return $datetime->format( Tribe__Events__Date_Utils::DBDATETIMEFORMAT );
+		$new_datetime = date_create( $datetime, $local );
+
+		if ( $new_datetime && $new_datetime->setTimezone( $utc ) ) {
+			return $new_datetime->format( Tribe__Events__Date_Utils::DBDATETIMEFORMAT );
 		}
-		catch ( Exception $e ) {
-			return $datetime;
-		}
+
+		// Fallback to the unmodified datetime if there was a failure during conversion
+		return $datetime;
 	}
 
 	/**
@@ -223,16 +224,17 @@ class Tribe__Events__Timezones {
 			return self::apply_offset( $datetime, $tzstring );
 		}
 
-		try {
-			$local = self::get_timezone( $tzstring );
-			$utc   = self::get_timezone( 'UTC' );
+		$local = self::get_timezone( $tzstring );
+		$utc   = self::get_timezone( 'UTC' );
 
-			$datetime = date_create( $datetime, $utc )->setTimezone( $local );
-			return $datetime->format( Tribe__Events__Date_Utils::DBDATETIMEFORMAT );
+		$new_datetime = date_create( $datetime, $utc );
+
+		if ( $new_datetime && $new_datetime->setTimezone( $local ) ) {
+			return $new_datetime->format( Tribe__Events__Date_Utils::DBDATETIMEFORMAT );
 		}
-		catch ( Exception $e ) {
-			return $datetime;
-		}
+
+		// Fallback to the unmodified datetime if there was a failure during conversion
+		return $datetime;
 	}
 
 	/**
@@ -276,16 +278,19 @@ class Tribe__Events__Timezones {
 			$offset *= -1;
 		}
 
-		try {
-			if ( $offset > 0 ) $offset = '+' . $offset;
-			$offset = $offset . ' minutes';
+		if ( $offset > 0 ) {
+			$offset = '+' . $offset;
+		}
 
-			$datetime = date_create( $datetime )->modify( $offset );
-			return $datetime->format( Tribe__Events__Date_Utils::DBDATETIMEFORMAT );
+		$offset = $offset . ' minutes';
+
+		$offset_datetime = date_create( $datetime );
+
+		if ( $offset_datetime && $offset_datetime->modify( $offset ) ) {
+			return $offset_datetime->format( Tribe__Events__Date_Utils::DBDATETIMEFORMAT );
 		}
-		catch ( Exception $e ) {
-			return $datetime;
-		}
+
+		return $datetime;
 	}
 
 	/**
