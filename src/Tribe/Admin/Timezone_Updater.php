@@ -74,8 +74,8 @@ class Tribe__Events__Admin__Timezone_Updater {
 			: 100;
 
 		$update = $remaining
-			? __( 'Please wait while timezone data is added to your events.', 'tribe-events-calendar' )
-			: __( 'Update complete: timezone data has been added to all events in the database.', 'tribe-events-calendar' );
+			? __( 'Please wait while timezone data is added to your events.', 'the-events-calendar' )
+			: __( 'Update complete: timezone data has been added to all events in the database.', 'the-events-calendar' );
 
 		$update = "<p> $update </p>";
 
@@ -84,7 +84,7 @@ class Tribe__Events__Admin__Timezone_Updater {
 		}
 
 		if ( $progress >= 0 ) {
-			$percent = sprintf( __( '%d%% complete', 'tribe-events-calendar' ), $progress );
+			$percent = sprintf( __( '%d%% complete', 'the-events-calendar' ), $progress );
 			$update .= '<div class="tribe-update-bar"> <div class="progress" title="' . $percent . '"> <div class="bar" style="width: ' . $progress . '%"></div> </div>' . $spinner . '</div>';
 		}
 
@@ -102,7 +102,7 @@ class Tribe__Events__Admin__Timezone_Updater {
 		wp_enqueue_script( $handle, $script, array( 'jquery' ), false, true );
 		wp_localize_script( $handle, 'tribe_timezone_update', array(
 			'continue' => $this->update_needed(),
-			'failure_msg' => __( 'A problem stopped the timezone update process from completing. Please refresh and try again.', 'tribe-events-calendar' ),
+			'failure_msg' => __( 'A problem stopped the timezone update process from completing. Please refresh and try again.', 'the-events-calendar' ),
 			'check' => wp_create_nonce( 'timezone-settings' ),
 		) );
 	}

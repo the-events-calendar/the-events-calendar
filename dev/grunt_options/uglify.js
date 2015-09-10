@@ -17,6 +17,7 @@ module.exports = {
 	resourcescripts: {
 		files: {
 			'<%= pkg._resourcepath %>/js/events-admin.min.js' : '<%= pkg._resourcepath %>/js/events-admin.processed.js',
+			'<%= pkg._resourcepath %>/js/events-admin-date-preview.min.js' : '<%= pkg._resourcepath %>/js/events-admin-date-preview.processed.js',
 			'<%= pkg._resourcepath %>/js/tickets.min.js' : '<%= pkg._resourcepath %>/js/tickets.processed.js',
 			'<%= pkg._resourcepath %>/js/tickets-attendees.min.js' : '<%= pkg._resourcepath %>/js/tickets-attendees.processed.js',
 			'<%= pkg._resourcepath %>/js/tribe-events.min.js' : '<%= pkg._resourcepath %>/js/tribe-events.processed.js',

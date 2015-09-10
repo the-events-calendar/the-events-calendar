@@ -128,7 +128,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 
 		$tribe_ecp = Tribe__Events__Main::instance();
 
-		$title = sprintf( __( 'Upcoming %s', 'tribe-events-calendar' ), $events_label_plural );
+		$title = sprintf( __( 'Upcoming %s', 'the-events-calendar' ), $events_label_plural );
 
 		// If there's a date selected in the tribe bar, show the date range of the currently showing events
 		if ( isset( $_REQUEST['tribe-bar-date'] ) && $wp_query->have_posts() ) {
@@ -142,14 +142,14 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 				$first_event_date = tribe_event_format_date( $_REQUEST['tribe-bar-date'], false );
 			}
 
-			$title = sprintf( __( '%1$s for %2$s - %3$s', 'tribe-events-calendar' ), $events_label_plural, $first_event_date, $last_event_date );
+			$title = sprintf( __( '%1$s for %2$s - %3$s', 'the-events-calendar' ), $events_label_plural, $first_event_date, $last_event_date );
 		} elseif ( tribe_is_past() ) {
-			$title = sprintf( __( 'Past %s', 'tribe-events-calendar' ), $events_label_plural );
+			$title = sprintf( __( 'Past %s', 'the-events-calendar' ), $events_label_plural );
 		}
 
 		if ( tribe_is_month() ) {
 			$title = sprintf(
-				__( '%1$s for %2$s', 'tribe-events-calendar' ),
+				__( '%1$s for %2$s', 'the-events-calendar' ),
 				$events_label_plural,
 				date_i18n( tribe_get_option( 'monthAndYearFormat', 'F Y' ), strtotime( tribe_get_month_view_date() ) )
 			);
@@ -158,7 +158,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		// day view title
 		if ( tribe_is_day() ) {
 			$title = sprintf(
-				__( '%1$s for %2$s', 'tribe-events-calendar' ),
+				__( '%1$s for %2$s', 'the-events-calendar' ),
 				$events_label_plural,
 				date_i18n( tribe_get_date_format( true ), strtotime( $wp_query->get( 'start_date' ) ) )
 			);

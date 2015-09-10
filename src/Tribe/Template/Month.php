@@ -281,12 +281,12 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 			list( $search_term, $tax_term, $geographic_term ) = $this->get_search_terms();
 
 			if ( ! empty( $search_term ) ) {
-				Tribe__Events__Main::setNotice( 'event-search-no-results', sprintf( __( 'There were no results found for <strong>"%s"</strong> this month. Try searching next month.', 'tribe-events-calendar' ), esc_html( $search_term ) ) );
+				Tribe__Events__Main::setNotice( 'event-search-no-results', sprintf( __( 'There were no results found for <strong>"%s"</strong> this month. Try searching next month.', 'the-events-calendar' ), esc_html( $search_term ) ) );
 			} // if attempting to view a category archive.
 			elseif ( ! empty( $tax_term ) ) {
-				Tribe__Events__Main::setNotice( 'events-not-found', sprintf( __( 'No matching %1$s listed under %2$s. Please try viewing the full calendar for a complete list of events.', 'tribe-events-calendar' ), strtolower( $events_label_plural ), $tax_term ) );
+				Tribe__Events__Main::setNotice( 'events-not-found', sprintf( __( 'No matching %1$s listed under %2$s. Please try viewing the full calendar for a complete list of events.', 'the-events-calendar' ), strtolower( $events_label_plural ), $tax_term ) );
 			} else {
-				Tribe__Events__Main::setNotice( 'event-search-no-results', __( 'There were no results found.', 'tribe-events-calendar' ) );
+				Tribe__Events__Main::setNotice( 'event-search-no-results', __( 'There were no results found.', 'the-events-calendar' ) );
 			}
 		}
 
@@ -689,7 +689,7 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 				return $date;
 			} else {
 				Tribe__Events__Main::setNotice( 'requested-date-invalid',
-					sprintf( __( 'The requested date "%s" was not valid &ndash; showing the current month instead', 'tribe-events-calendar' ), esc_html( $date ) ) );
+					sprintf( __( 'The requested date "%s" was not valid &ndash; showing the current month instead', 'the-events-calendar' ), esc_html( $date ) ) );
 
 				return date_i18n( 'Y-m' );
 			}
@@ -841,39 +841,39 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 		}
 
 		/**
-		 * Generates and returns a set of classes for the current day
+		 * Generates and returns a set of classes for the current day.
 		 *
-		 * @return string Classes
+		 * @return string
 		 */
 		public static function day_classes() {
-
-			$calendar_day           = self::get_current_day();
-			$calendar_day_timestamp = strtotime( $calendar_day['date'] );
-			$today                  = strtotime( 'today' );
+			$current_day  = self::get_current_day();
+			$calendar_day = Tribe__Events__Date_Utils::date_only( $current_day['date'] );
+			$today        = date_i18n( Tribe__Events__Date_Utils::DBDATEFORMAT );
 
 			// Start by determining which month we're looking at
-			if ( $calendar_day['month'] == self::CURRENT_MONTH ) {
+			if ( $current_day['month'] == self::CURRENT_MONTH ) {
 				$classes = 'tribe-events-thismonth';
 			} else {
 				$classes = 'tribe-events-othermonth';
 			}
 
 			// Check if the calendar day is in the past, present, or future
-			if ( $calendar_day_timestamp < $today ) {
+			if ( $calendar_day < $today ) {
 				$classes .= ' tribe-events-past';
-			} elseif ( $calendar_day_timestamp == $today ) {
+			} elseif ( $calendar_day === $today ) {
 				$classes .= ' tribe-events-present';
-			} elseif ( $calendar_day_timestamp > $today ) {
+			} elseif ( $calendar_day > $today ) {
 				$classes .= ' tribe-events-future';
 			}
 
 			// The day has some events
-			if ( $calendar_day['total_events'] > 0 ) {
+			if ( $current_day['total_events'] > 0 ) {
 				$classes .= ' tribe-events-has-events';
 			}
 
 			// Needed for mobile js
-			$classes .= ' mobile-trigger tribe-event-day-' . date_i18n( 'd', $calendar_day_timestamp );
+			$day_num  = str_pad( $current_day['daynum'], 2, '0', STR_PAD_LEFT );
+			$classes .= ' mobile-trigger tribe-event-day-' . date_i18n( 'd', $day_num );
 
 			// Determine which column of the grid the day is in
 			$column = ( self::$current_day ) - ( self::$current_week * 7 );

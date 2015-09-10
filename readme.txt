@@ -4,8 +4,8 @@ Contributors:  ModernTribe, roblagatta, borkweb, zbtirrell, barry.hughes, bordon
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
 Donate link: http://m.tri.be/29
 Requires at least: 3.9
-Tested up to: 4.3 beta 3
-Stable tag: 3.12rc1
+Tested up to: 4.3
+Stable tag: 3.12.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -316,6 +316,10 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 == Changelog ==
 
 
+= [3.12.1] 2015-09-09 =
+* Tweak - text domains updated for consistency with the plugin slug
+* Fix - restored normal operation of the changelog reader (used within the update screen)
+
 = [3.12] 2015-09-08 =
 
 * Security - Resolved JS vulnerability in minified JS by upgrading to uglifyjs 2.4.24
@@ -335,19 +339,18 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 * Tweak - Updated the attendees template to use divs to separate event data (Props to aaemnnosttv!)
 * Tweak - Display the order id with a proper link in the attendees report (Thank you aaemnnosttv!)
 * Tweak - Pointed the "Add-on Documentation" link on the Event > Settings > Help page to a better location.
-* Tweak - Pad SQL joins with spacing to avoid conflicts with other plugins that modify SQL (Props to jeremyfelt!)
-* Fix - Fixed a problem where Google Maps coordinates failed on Venues (thank you Matt for the help!)
-* Fix - Fixed bug where category could be dropped from month view for a specific category when searching (Cheers to omni for the report!)
-* Fix - Resolved bug where executing wp_insert_post within a hook to publish_tribe_events prevented event meta from being saved appropriately (Thank you 37designs for the report!)
-* Fix - Fixed a fatal caused by attempting to use get_current_screen before it was available for use in some contexts (props to Enchiridion!)
-* Fix - Fixed bug where Date_Utils::datetime_from_format converted dates with 1 character days/months incorrectly
-* Fix - Fixed issue with event title attributes not always escaping properly on List and Day views (Cheers to nobita for the report!)
-* Fix - Fixed issue with Event Costs not updating when a new ticket was only submitted via Ajax (Thanks Chris!)
-* Fix - Fixed an issue Twenty Fourteen and the event views being hidden in screen sizes smaller then 400px (Thank you for the help Hilary!)
-* Fix - Fixed an issue where the month view date selector became full window width when Skeleton styles were enabled
-* Fix - Fixed a notice on the plugin updater page
-* Fix - Fixed a localization issue in the settings environment (Props to @tititou36 for highlighting the issue!)
-* Fix - Fixed a problem which was resetting the "Show Google Map" option for events when they were re-imported via CSV (Thanks to @jameswemyss for highlighting this!)
+* Tweak - Pad SQL joins with spacing to avoid conflicts with other plugins that modify SQL (props to jeremyfelt)
+* Bug - Resolved bug where executing wp_insert_post within a hook to publish_tribe_events prevented event meta from being saved appropriately
+* Bug - Fixed a fatal caused by attempting to use get_current_screen before it was available for use in some contexts (props to Enchiridion)
+* Bug - Fixed bug where Date_Utils::datetime_from_format converted dates with 1 character days/months incorrectly
+* Bug - Fixed issue with event title attributes not always escaping properly on List and Day views
+* Bug - Fixed issue with Event Costs not updating when a new ticket was only submitted via Ajax
+* Bug - Fixed an issue Twenty Fourteen and the event views being hidden in screen sizes smaller then 400px
+* Bug - Fixed an issue where the month view date selector became full window width when Skeleton styles were enabled
+* Bug - Fixed a notice on the plugin updater page
+* Bug - Fixed a localization issue in the settings environment (props to @tititou36 for highlighting the issue)
+* Bug - Fixed a problem which was resetting the "Show Google Map" option for events when they were re-imported via CSV (thanks to @jameswemyss for highlighting this)
+* Bug - Fixed default event, organizer and venue website targets pointing to 'self'
 * Deprecated - The tribe_events_getLink is being deprecated in favor of tribe_events_get_link. Scheduled removal from source is v4.2
 * Deprecated - The Tribe__Events__Advanced_Functions__Register_Meta::gmap_link() has been deprecated since 3.6 and has now been removed from source
 * Deprecated - The tribe_events_single_event_meta() function has been deprecated since 3.6 and has now been removed from source

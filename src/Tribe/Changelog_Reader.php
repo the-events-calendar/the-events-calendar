@@ -11,7 +11,7 @@ class Tribe__Events__Changelog_Reader {
 	}
 
 	protected function default_readme_file() {
-		return dirname( dirname( __FILE__ ) ) . '/readme.txt';
+		return dirname( dirname( dirname( __FILE__ ) ) ) . '/readme.txt';
 	}
 
 	public function get_changelog() {

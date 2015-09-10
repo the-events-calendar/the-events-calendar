@@ -122,4 +122,42 @@ class Tribe__Events__Admin__Helpers {
 		return false;
 	}
 
+	/**
+	 * Matcher for administration pages action
+	 *
+	 * @param  string|array|null $action What will be checked to see if we return true or false
+	 *
+	 * @return boolean
+	 */
+	public function is_action( $action = null ) {
+		global $current_screen;
+
+		// Not in the admin we don't even care
+		if ( ! is_admin() ) {
+			return false;
+		}
+
+		// Not doing AJAX
+		if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
+			return false;
+		}
+
+		// Avoid Notices by checking the object type of WP_Screen
+		if ( ! ( $current_screen instanceof WP_Screen ) ) {
+			return false;
+		}
+
+		// Match any of the pages set
+		if ( ! is_scalar( $action ) && in_array( $current_screen->action, (array) $action ) ) {
+			return true;
+		}
+
+		// Match a specific page
+		if ( $current_screen->action === $action ) {
+			return true;
+		}
+
+		return false;
+	}
+
 }

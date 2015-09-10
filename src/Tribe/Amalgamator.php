@@ -257,7 +257,7 @@ class Tribe__Events__Amalgamator {
 	 * @return string
 	 */
 	public static function migration_button( $text = '' ) {
-		$text     = $text ? $text : __( 'Merge Duplicates', 'tribe-events-calendar' );
+		$text     = $text ? $text : __( 'Merge Duplicates', 'the-events-calendar' );
 		$settings = Tribe__Events__Settings::instance();
 
 		// get the base settings page url
