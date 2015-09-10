@@ -67,6 +67,7 @@ tribe_events_pro_admin.recurrence = {
 			.on( 'change', '.recurrence_end_count', this.event.recurrence_end_count_changed )
 			.on( 'change', '.recurrence-row, .custom-recurrence-row', this.event.recurrence_row_changed )
 			.on( 'change', '.tribe-custom-same-time input', this.event.same_time_changed )
+			.on( 'change', '#EventStartDate, #EventEndDate, select[name="EventStartHour"], select[name="EventStartMinute"], select[name="EventStartMeridian"], select[name="EventEndHour"], select[name="EventEndMinute"], select[name="EventEndMeridian"]', this.event.datepicker_updated )
 			.on( 'click', '#tribe-add-recurrence', this.event.add_recurrence )
 			.on( 'click', '#tribe-add-exclusion', this.event.add_exclusion )
 			.on( 'click', '.tribe-event-recurrence .tribe-handle', this.event.toggle_rule );
@@ -424,17 +425,31 @@ tribe_events_pro_admin.recurrence = {
 
 		var $start_date = $( document.getElementById( 'EventStartDate' ) );
 		var start_date = $start_date.val();
-		start_date += ' ' + $event_form.find( '[name="EventStartHour"] option:selected' ).val() + ':' + $event_form.find( '[name="EventStartMinute"] option:selected' ).val() + ' ' + $event_form.find( '[name="EventStartMeridian"] option:selected' ).val().toUpperCase();
+		var $selected_start_meridian = $event_form.find( '[name="EventStartMeridian"] option:selected' );
+
+		start_date += ' ' + $event_form.find( '[name="EventStartHour"] option:selected' ).val() + ':' + $event_form.find( '[name="EventStartMinute"] option:selected' ).val();
+
+		if ( $selected_start_meridian.length ) {
+			start_date += ' ' + $selected_start_meridian.val().toUpperCase();
+		}
 
 		var $end_date = $( document.getElementById( 'EventEndDate' ) );
 		var end_date = $end_date.val();
-		end_date += ' ' + $event_form.find( '[name="EventEndHour"] option:selected' ).val() + ':' + $event_form.find( '[name="EventEndMinute"] option:selected' ).val() + ' ' + $event_form.find( '[name="EventEndMeridian"] option:selected' ).val().toUpperCase();
+		var $selected_end_meridian = $event_form.find( '[name="EventEndMeridian"] option:selected' );
+
+		end_date += ' ' + $event_form.find( '[name="EventEndHour"] option:selected' ).val() + ':' + $event_form.find( '[name="EventEndMinute"] option:selected' ).val();
+
+		if ( $selected_end_meridian.length ) {
+			end_date += ' ' + $selected_end_meridian.val().toUpperCase();
+		}
 
 		var start_moment = moment( start_date, date_format );
 		var end_moment = moment( end_date, date_format );
 
 		var num_days = end_moment.diff( start_moment, 'days' );
-		var num_hours = end_moment.diff( start_moment, 'hours', true ) - ( num_days * 24 );
+
+		// make sure we always round hours UP to when dealing with decimal lengths more than 2. Example: 4.333333 would become 4.34
+		var num_hours = Math.ceil( ( end_moment.diff( start_moment, 'hours', true ) - ( num_days * 24 ) ) * 100 ) / 100;
 
 		var new_start_time = $rule.find( '[data-field="custom-start-time-hour"] option:selected' ).val() + ':'+
 			$rule.find( '[data-field="custom-start-time-minute"] option:selected' ).val() + ' ' +
@@ -450,7 +465,9 @@ tribe_events_pro_admin.recurrence = {
 		var new_end_moment = moment( new_end, date_format );
 
 		var new_num_days = new_end_moment.diff( new_start_moment, 'days' );
-		var new_num_hours = new_end_moment.diff( new_start_moment, 'hours', true ) - ( num_days * 24 );
+
+		// make sure we always round hours UP to when dealing with decimal lengths more than 2. Example: 4.333333 would become 4.34
+		var new_num_hours = Math.ceil( ( new_end_moment.diff( new_start_moment, 'hours', true ) - ( num_days * 24 ) ) * 100 ) / 100;
 
 		var weekdays = [];
 		var months = [];

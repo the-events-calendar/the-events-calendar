@@ -6,6 +6,8 @@
 class Tribe__Events__Pro__Recurrence_Instance {
 	private $parent_id = 0;
 	private $start_date = null;
+	private $end_date = null;
+	private $timezone = '';
 	private $post_id = 0;
 
 	public function __construct( $parent_id, $start_date, $instance_id = 0 ) {
@@ -23,7 +25,8 @@ class Tribe__Events__Pro__Recurrence_Instance {
 		$post_to_save['post_name']   = $parent->post_name . '-' . $this->start_date->format( 'Y-m-d' );
 
 		$duration = $this->get_duration();
-		$end_date = $this->get_end_date();
+		$this->end_date = $this->get_end_date();
+		$this->timezone = Tribe__Events__Timezones::get_event_timezone_string( $this->parent_id );
 
 		if ( ! empty( $this->post_id ) ) { // update the existing post
 			$post_to_save['ID'] = $this->post_id;
@@ -31,16 +34,21 @@ class Tribe__Events__Pro__Recurrence_Instance {
 				$post_to_save['post_status'] = get_post_status( $this->post_id );
 			}
 			$this->post_id = wp_update_post( $post_to_save );
-			update_post_meta( $this->post_id, '_EventStartDate', $this->start_date->format( Tribe__Events__Pro__Date_Series_Rules__Rules_Interface::DATE_FORMAT ) );
-			update_post_meta( $this->post_id, '_EventEndDate', $end_date->format( Tribe__Events__Pro__Date_Series_Rules__Rules_Interface::DATE_FORMAT ) );
-			update_post_meta( $this->post_id, '_EventDuration', $duration );
+
+			update_post_meta( $this->post_id, '_EventStartDate',    $this->db_formatted_start_date() );
+			update_post_meta( $this->post_id, '_EventStartDateUTC', $this->db_formatted_start_date_utc() );
+			update_post_meta( $this->post_id, '_EventEndDate',      $this->db_formatted_end_date() );
+			update_post_meta( $this->post_id, '_EventEndDateUTC',   $this->db_formatted_end_date_utc() );
+			update_post_meta( $this->post_id, '_EventDuration',     $duration );
 		} else { // add a new post
 			$post_to_save['guid'] = esc_url( add_query_arg( array( 'eventDate' => $this->start_date->format( 'Y-m-d' ) ), $parent->guid ) );
 			$this->post_id        = wp_insert_post( $post_to_save );
 			// save several queries by calling add_post_meta when we have a new post
-			add_post_meta( $this->post_id, '_EventStartDate', $this->start_date->format( Tribe__Events__Pro__Date_Series_Rules__Rules_Interface::DATE_FORMAT ) );
-			add_post_meta( $this->post_id, '_EventEndDate', $end_date->format( Tribe__Events__Pro__Date_Series_Rules__Rules_Interface::DATE_FORMAT ) );
-			add_post_meta( $this->post_id, '_EventDuration', $duration );
+			add_post_meta( $this->post_id, '_EventStartDate',    $this->db_formatted_start_date() );
+			add_post_meta( $this->post_id, '_EventStartDateUTC', $this->db_formatted_start_date_utc() );
+			add_post_meta( $this->post_id, '_EventEndDate',      $this->db_formatted_end_date() );
+			add_post_meta( $this->post_id, '_EventEndDateUTC',   $this->db_formatted_end_date_utc() );
+			add_post_meta( $this->post_id, '_EventDuration',     $duration );
 		}
 
 		$this->copy_meta(); // everything else
@@ -94,5 +102,36 @@ class Tribe__Events__Pro__Recurrence_Instance {
 		}
 	}
 
+	/**
+	 * @return string instance start_date in "Y-m-d H:i:s" format
+	 */
+	private function db_formatted_start_date() {
+		return $this->start_date->format( Tribe__Events__Date_Utils::DBDATETIMEFORMAT );
+	}
+
+	/**
+	 * @return string instance start_date (converted to UTC) in "Y-m-d H:i:s" format
+	 */
+	private function db_formatted_start_date_utc() {
+		return ( class_exists( 'Tribe__Events__Timezones' ) && ! empty( $this->timezone ) )
+			? Tribe__Events__Timezones::to_utc( $this->db_formatted_start_date(), $this->timezone )
+			: $this->db_formatted_start_date();
+	}
+
+	/**
+	 * @return string instance end_date in "Y-m-d H:i:s" format
+	 */
+	private function db_formatted_end_date() {
+		return $this->end_date->format( Tribe__Events__Date_Utils::DBDATETIMEFORMAT );
+	}
+
+	/**
+	 * @return string instance end_date (converted to UTC) in "Y-m-d H:i:s" format
+	 */
+	private function db_formatted_end_date_utc() {
+		return ( class_exists( 'Tribe__Events__Timezones' ) && ! empty( $this->timezone ) )
+			? Tribe__Events__Timezones::to_utc( $this->db_formatted_end_date(), $this->timezone )
+			: $this->db_formatted_end_date();
+	}
 }
 

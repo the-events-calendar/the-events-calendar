@@ -41,8 +41,8 @@
 			public $widget_wrappers;
 
 
-			const REQUIRED_TEC_VERSION = '3.11';
-			const VERSION = '3.12a3';
+			const REQUIRED_TEC_VERSION = '3.12';
+			const VERSION = '3.12';
 
 			private function __construct() {
 				$this->pluginDir = trailingslashit( basename( EVENTS_CALENDAR_PRO_DIR ) );
@@ -435,7 +435,7 @@
 						}
 
 						// A child event should be using its parent's slug. If it's using its own, redirect.
-						if ( tribe_is_recurring_event( get_the_ID() ) ) {
+						if ( tribe_is_recurring_event( get_the_ID() ) && '' !== get_option( 'permalink_structure' ) ) {
 							$event = get_post( get_the_ID() );
 							if ( ! empty( $event->post_parent ) ) {
 								if ( isset( $wp_query->query['name'] ) && $wp_query->query['name'] == $event->post_name ) {

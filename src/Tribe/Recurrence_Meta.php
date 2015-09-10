@@ -1324,6 +1324,11 @@ class Tribe__Events__Pro__Recurrence_Meta {
 		$rule['end-type'] = str_replace( ' ', '-', strtolower( $rule['end-type'] ) );
 		$formatted_end = date( tribe_get_date_format( true ), strtotime( $rule['end'] ) );
 
+		// if the type is "none", then there's no rules to parse
+		if ( 'none' === $rule['type'] ) {
+			return;
+		}
+
 		if ( 'custom' === $rule['type'] ) {
 			$is_custom = true;
 			$same_time = 'yes' === $rule['custom'][ self::custom_type_to_key( $rule['custom']['type'] ) ]['same-time'];
@@ -1337,7 +1342,9 @@ class Tribe__Events__Pro__Recurrence_Meta {
 		$end_date = strtotime( tribe_get_end_date( $event_id ) );
 
 		$num_days = floor( ( $end_date - $start_date ) / DAY_IN_SECONDS );
-		$num_hours = floor( ( ( $end_date - $start_date ) / HOUR_IN_SECONDS ) - ( $num_days * 24 ) );
+
+		// make sure we always round hours UP to when dealing with decimal lengths more than 2. Example: 4.333333 would become 4.34
+		$num_hours = ceil( ( ( ( $end_date - $start_date ) / HOUR_IN_SECONDS ) - ( $num_days * 24 ) ) * 100 ) / 100;
 
 		if ( $is_custom && 'custom' === $rule['type'] && ! $same_time ) {
 			$new_start_date = date( 'Y-m-d', $start_date ) . ' ' . $rule['custom']['start-time']['hour'] . ':' . $rule['custom']['start-time']['minute'];
@@ -1351,7 +1358,9 @@ class Tribe__Events__Pro__Recurrence_Meta {
 			}
 
 			$new_num_days = floor( ( $new_end_date - $new_start_date ) / DAY_IN_SECONDS );
-			$new_num_hours = floor( ( ( $new_end_date - $new_start_date ) / HOUR_IN_SECONDS ) - ( $new_num_days * 24 ) );
+
+			// make sure we always round hours UP to when dealing with decimal lengths more than 2. Example: 4.333333 would become 4.34
+			$new_num_hours = ceil( ( ( ( $new_end_date - $new_start_date ) / HOUR_IN_SECONDS ) - ( $new_num_days * 24 ) ) * 100 ) / 100;
 		}
 
 		$weekdays = array();
@@ -1788,7 +1797,7 @@ class Tribe__Events__Pro__Recurrence_Meta {
 			}
 		}
 
-		if ( ! empty( $query->tribe_is_event_query ) || ! empty( $query->tribe_is_multi_posttype ) ) {
+		if ( ! empty( $query->tribe_is_event ) || ! empty( $query->tribe_is_multi_posttype ) ) {
 			if ( isset( $query->query_vars['tribeHideRecurrence'] ) && $query->query_vars['tribeHideRecurrence'] ) {
 				global $wpdb;
 
@@ -1798,8 +1807,8 @@ class Tribe__Events__Pro__Recurrence_Meta {
 				// We need to relocate the SQL_CALC_FOUND_ROWS to the outer query
 				$sql = preg_replace( '/SQL_CALC_FOUND_ROWS/', '', $sql );
 
-				// We don't want to grab the min EventStartDate because without a group by that collapses everything
-				$sql = preg_replace( '/MIN\(wp_postmeta.meta_value\) as EventStartDate/', 'wp_postmeta.meta_value as EventStartDate', $sql );
+				// We don't want to grab the min EventStartDate or EventEndDate because without a group by that collapses everything
+				$sql = preg_replace( '/MIN\((' . $wpdb->postmeta . '|tribe_event_end_date).meta_value\) as Event(Start|End)Date/', '$1.meta_value as Event$2Date', $sql );
 
 				// Let's get rid of the group by (non-greedily stop before the ORDER BY or LIMIT
 				$sql = preg_replace( '/GROUP BY .+?(ORDER|LIMIT)/', '$1', $sql );
