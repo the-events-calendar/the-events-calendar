@@ -5,7 +5,7 @@ Tags: events, calendar, event, venue, organizer, dates, date, google maps, confe
 Donate link: http://m.tri.be/29
 Requires at least: 3.9
 Tested up to: 4.3
-Stable tag: 3.12
+Stable tag: 3.12.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -315,6 +315,10 @@ At no point during the 3.0 lifecycle will the major version change. But you can 
 
 == Changelog ==
 
+
+= [3.12.1] 2015-09-09 =
+* Tweak - text domains updated for consistency with the plugin slug
+* Fix - restored normal operation of the changelog reader (used within the update screen)
 
 = [3.12] 2015-09-08 =
 

@@ -73,8 +73,8 @@ if ( ! class_exists( 'Tribe__Events__Validate' ) ) {
 			// if the field is invalid or incomplete, fail validation
 			if ( ! is_array( $this->field ) || ( ! isset( $this->field['validation_type'] ) && ! isset( $this->field['validation_callback'] ) ) ) {
 				$this->result->valid = false;
-				$this->result->error = __( 'Invalid or incomplete field passed', 'tribe-events-calendar' );
-				$this->result->error .= ( isset( $this->field['id'] ) ) ? ' (' . __( 'Field ID:', 'tribe-events-calendar' ) . ' ' . $this->field['id'] . ' )' : '';
+				$this->result->error = __( 'Invalid or incomplete field passed', 'the-events-calendar' );
+				$this->result->error .= ( isset( $this->field['id'] ) ) ? ' (' . __( 'Field ID:', 'the-events-calendar' ) . ' ' . $this->field['id'] . ' )' : '';
 
 				return $this->result;
 			}
@@ -108,14 +108,14 @@ if ( ! class_exists( 'Tribe__Events__Validate' ) ) {
 				} else {
 					// invalid validation type set, validation fails
 					$this->result->valid = false;
-					$this->result->error = __( 'Non-existant field validation function passed', 'tribe-events-calendar' );
-					$this->result->error .= ( isset( $this->field['id'] ) ) ? ' (' . __( 'Field ID:', 'tribe-events-calendar' ) . ' ' . $this->field['id'] . ' ' . _x( 'with function name:', 'non-existant function name passed for field validation', 'tribe-events-calendar' ) . ' ' . $this->field['validation_type'] . ' )' : '';
+					$this->result->error = __( 'Non-existant field validation function passed', 'the-events-calendar' );
+					$this->result->error .= ( isset( $this->field['id'] ) ) ? ' (' . __( 'Field ID:', 'the-events-calendar' ) . ' ' . $this->field['id'] . ' ' . _x( 'with function name:', 'non-existant function name passed for field validation', 'the-events-calendar' ) . ' ' . $this->field['validation_type'] . ' )' : '';
 				}
 			} else {
 				// no validation type set, validation fails
 				$this->result->valid = false;
-				$this->result->error = __( 'Invalid or incomplete field passed', 'tribe-events-calendar' );
-				$this->result->error .= ( isset( $this->field['id'] ) ) ? ' (' . __( 'Field ID:', 'tribe-events-calendar' ) . ' ' . $this->field['id'] . ' )' : '';
+				$this->result->error = __( 'Invalid or incomplete field passed', 'the-events-calendar' );
+				$this->result->error .= ( isset( $this->field['id'] ) ) ? ' (' . __( 'Field ID:', 'the-events-calendar' ) . ' ' . $this->field['id'] . ' )' : '';
 			}
 
 			// return the result
@@ -132,7 +132,7 @@ if ( ! class_exists( 'Tribe__Events__Validate' ) ) {
 				$this->result->valid = true;
 			} else {
 				$this->result->valid = false;
-				$this->result->error = sprintf( __( '%s must contain numbers and letters only', 'tribe-events-calendar' ), $this->label );
+				$this->result->error = sprintf( __( '%s must contain numbers and letters only', 'the-events-calendar' ), $this->label );
 			}
 		}
 
@@ -148,7 +148,7 @@ if ( ! class_exists( 'Tribe__Events__Validate' ) ) {
 				$this->value         = tribe_multi_line_remove_empty_lines( $this->value );
 			} else {
 				$this->result->valid = false;
-				$this->result->error = sprintf( __( '%s must contain numbers and letters only', 'tribe-events-calendar' ), $this->label );
+				$this->result->error = sprintf( __( '%s must contain numbers and letters only', 'the-events-calendar' ), $this->label );
 			}
 		}
 
@@ -164,7 +164,7 @@ if ( ! class_exists( 'Tribe__Events__Validate' ) ) {
 				$this->value         = tribe_multi_line_remove_empty_lines( $this->value );
 			} else {
 				$this->result->valid = false;
-				$this->result->error = sprintf( __( '%s must contain numbers, letters and dots only', 'tribe-events-calendar' ), $this->label );
+				$this->result->error = sprintf( __( '%s must contain numbers, letters and dots only', 'the-events-calendar' ), $this->label );
 			}
 		}
 
@@ -178,7 +178,7 @@ if ( ! class_exists( 'Tribe__Events__Validate' ) ) {
 				$this->result->valid = true;
 			} else {
 				$this->result->valid = false;
-				$this->result->error = sprintf( __( '%s must be a positive number.', 'tribe-events-calendar' ), $this->label );
+				$this->result->error = sprintf( __( '%s must be a positive number.', 'the-events-calendar' ), $this->label );
 			}
 		}
 
@@ -193,7 +193,7 @@ if ( ! class_exists( 'Tribe__Events__Validate' ) ) {
 				$this->value         = sanitize_title( $this->value );
 			} else {
 				$this->result->valid = false;
-				$this->result->error = sprintf( __( '%s must be a valid slug (numbers, letters, dashes, and underscores).', 'tribe-events-calendar' ), $this->label );
+				$this->result->error = sprintf( __( '%s must be a valid slug (numbers, letters, dashes, and underscores).', 'the-events-calendar' ), $this->label );
 			}
 		}
 
@@ -208,7 +208,7 @@ if ( ! class_exists( 'Tribe__Events__Validate' ) ) {
 				$this->result->valid = true;
 			} else {
 				$this->result->valid = false;
-				$this->result->error = sprintf( __( '%s must be a valid absolute URL.', 'tribe-events-calendar' ), $this->label );
+				$this->result->error = sprintf( __( '%s must be a valid absolute URL.', 'the-events-calendar' ), $this->label );
 			}
 		}
 
@@ -224,7 +224,7 @@ if ( ! class_exists( 'Tribe__Events__Validate' ) ) {
 				$this->result->valid = true;
 			} else {
 				$this->result->valid = false;
-				$this->result->error = sprintf( __( "%s must have a value that's part of its options.", 'tribe-events-calendar' ), $this->label );
+				$this->result->error = sprintf( __( "%s must have a value that's part of its options.", 'the-events-calendar' ), $this->label );
 			}
 		}
 
@@ -241,7 +241,7 @@ if ( ! class_exists( 'Tribe__Events__Validate' ) ) {
 					$this->result->valid = true;
 				} else {
 					$this->result->valid = false;
-					$this->result->error = sprintf( __( "%s must have a value that's part of its options.", 'tribe-events-calendar' ), $this->label );
+					$this->result->error = sprintf( __( "%s must have a value that's part of its options.", 'the-events-calendar' ), $this->label );
 				}
 			}
 		}
@@ -263,7 +263,7 @@ if ( ! class_exists( 'Tribe__Events__Validate' ) ) {
 				$this->result->valid = true;
 			} else {
 				$this->result->valid = false;
-				$this->result->error = sprintf( __( "%s must have a value that's part of its options.", 'tribe-events-calendar' ), $this->label );
+				$this->result->error = sprintf( __( "%s must have a value that's part of its options.", 'the-events-calendar' ), $this->label );
 			}
 		}
 
@@ -277,16 +277,16 @@ if ( ! class_exists( 'Tribe__Events__Validate' ) ) {
 		public function cannot_be_the_same_as() {
 			if ( ! isset( $this->additional_args['compare'] ) ) {
 				$this->result->valid = false;
-				$this->result->error = sprintf( __( 'Comparison validation failed because no comparison value was provided, for field %s', 'tribe-events-calendar' ), $this->field['id'] );
+				$this->result->error = sprintf( __( 'Comparison validation failed because no comparison value was provided, for field %s', 'the-events-calendar' ), $this->field['id'] );
 			} else {
 				if ( $this->value != $this->additional_args['compare'] ) {
 					$this->result = true;
 				} else {
 					$this->result->valid = false;
 					if ( isset( $this->additional_args['compare_name'] ) ) {
-						$this->result->error = sprintf( __( '%s cannot be the same as %s.', 'tribe-events-calendar' ), $this->label, $this->additional_args['compare_name'] );
+						$this->result->error = sprintf( __( '%s cannot be the same as %s.', 'the-events-calendar' ), $this->label, $this->additional_args['compare_name'] );
 					} else {
-						$this->result->error = sprintf( __( '%s cannot be a duplicate', 'tribe-events-calendar' ), $this->label );
+						$this->result->error = sprintf( __( '%s cannot be a duplicate', 'the-events-calendar' ), $this->label );
 					}
 				}
 			}
@@ -302,7 +302,7 @@ if ( ! class_exists( 'Tribe__Events__Validate' ) ) {
 				$this->result->valid = true;
 			} else {
 				$this->result->valid = false;
-				$this->result->error = sprintf( __( '%s must be a number or percentage.', 'tribe-events-calendar' ), $this->label );
+				$this->result->error = sprintf( __( '%s must be a number or percentage.', 'the-events-calendar' ), $this->label );
 			}
 		}
 
@@ -356,7 +356,7 @@ if ( ! class_exists( 'Tribe__Events__Validate' ) ) {
 				$this->result->valid = true;
 			} else {
 				$this->result->valid = false;
-				$this->result->error = sprintf( __( '%s must be a number between 0 and 21.', 'tribe-events-calendar' ), $this->label );
+				$this->result->error = sprintf( __( '%s must be a number between 0 and 21.', 'the-events-calendar' ), $this->label );
 			}
 		}
 
@@ -372,7 +372,7 @@ if ( ! class_exists( 'Tribe__Events__Validate' ) ) {
 				$this->result->valid = true;
 			} else {
 				$this->result->valid = false;
-				$this->result->error = sprintf( __( '%s must consist of letters, numbers, dashes, apostrophes, and spaces only.', 'tribe-events-calendar' ), $this->label );
+				$this->result->error = sprintf( __( '%s must consist of letters, numbers, dashes, apostrophes, and spaces only.', 'the-events-calendar' ), $this->label );
 			}
 		}
 
@@ -388,7 +388,7 @@ if ( ! class_exists( 'Tribe__Events__Validate' ) ) {
 				$this->result->valid = true;
 			} else {
 				$this->result->valid = false;
-				$this->result->error = sprintf( __( '%s must consist of letters, spaces, apostrophes, and dashes.', 'tribe-events-calendar' ), $this->label );
+				$this->result->error = sprintf( __( '%s must consist of letters, spaces, apostrophes, and dashes.', 'the-events-calendar' ), $this->label );
 			}
 		}
 
@@ -402,7 +402,7 @@ if ( ! class_exists( 'Tribe__Events__Validate' ) ) {
 				$this->result->valid = true;
 			} else {
 				$this->result->valid = false;
-				$this->result->error = sprintf( __( '%s must consist of 5 numbers.', 'tribe-events-calendar' ), $this->label );
+				$this->result->error = sprintf( __( '%s must consist of 5 numbers.', 'the-events-calendar' ), $this->label );
 			}
 		}
 
@@ -416,7 +416,7 @@ if ( ! class_exists( 'Tribe__Events__Validate' ) ) {
 				$this->result->valid = true;
 			} else {
 				$this->result->valid = false;
-				$this->result->error = sprintf( __( '%s must be a phone number.', 'tribe-events-calendar' ), $this->label );
+				$this->result->error = sprintf( __( '%s must be a phone number.', 'the-events-calendar' ), $this->label );
 			}
 		}
 
@@ -432,7 +432,7 @@ if ( ! class_exists( 'Tribe__Events__Validate' ) ) {
 					$country = explode( ',', $crow );
 					if ( ! isset( $country[0] ) || ! isset( $country[1] ) ) {
 						$this->result->valid = false;
-						$this->result->error = sprintf( __( 'Country List must be formatted as one country per line in the following format: <br>US, United States <br> UK, United Kingdom.', 'tribe-events-calendar' ), $this->label );
+						$this->result->error = sprintf( __( 'Country List must be formatted as one country per line in the following format: <br>US, United States <br> UK, United Kingdom.', 'the-events-calendar' ), $this->label );
 						$this->value         = wp_kses( $this->value, array() );
 
 						return;

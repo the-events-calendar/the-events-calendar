@@ -206,7 +206,7 @@ if ( ! class_exists( 'Tribe__Events__Field' ) ) {
 				} else {
 
 					// fail, log the error
-					Tribe__Events__Main::debug( __( 'Invalid field type specified', 'tribe-events-calendar' ), $this->type, 'notice' );
+					Tribe__Events__Main::debug( __( 'Invalid field type specified', 'the-events-calendar' ), $this->type, 'notice' );
 
 				}
 			}
@@ -463,7 +463,7 @@ if ( ! class_exists( 'Tribe__Events__Field' ) ) {
 					$field .= '</label>';
 				}
 			} else {
-				$field .= '<span class="tribe-error">' . __( 'No radio options specified', 'tribe-events-calendar' ) . '</span>';
+				$field .= '<span class="tribe-error">' . __( 'No radio options specified', 'the-events-calendar' ) . '</span>';
 			}
 			$field .= $this->doFieldDivEnd();
 			$field .= $this->doFieldEnd();
@@ -499,7 +499,7 @@ if ( ! class_exists( 'Tribe__Events__Field' ) ) {
 					$field .= '</label>';
 				}
 			} else {
-				$field .= '<span class="tribe-error">' . __( 'No checkbox options specified', 'tribe-events-calendar' ) . '</span>';
+				$field .= '<span class="tribe-error">' . __( 'No checkbox options specified', 'the-events-calendar' ) . '</span>';
 			}
 			$field .= $this->doFieldDivEnd();
 			$field .= $this->doFieldEnd();
@@ -555,7 +555,7 @@ if ( ! class_exists( 'Tribe__Events__Field' ) ) {
 			} elseif ( $this->if_empty ) {
 				$field .= '<span class="empty-field">' . (string) $this->if_empty . '</span>';
 			} else {
-				$field .= '<span class="tribe-error">' . __( 'No select options specified', 'tribe-events-calendar' ) . '</span>';
+				$field .= '<span class="tribe-error">' . __( 'No select options specified', 'the-events-calendar' ) . '</span>';
 			}
 			$field .= $this->doFieldDivEnd();
 			$field .= $this->doFieldEnd();

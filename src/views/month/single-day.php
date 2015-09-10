@@ -43,7 +43,7 @@ $events_label = ( 1 === $day['total_events'] ) ? tribe_get_event_label_singular(
 					'View %1$s %2$s',
 					'View All %1$s %2$s',
 					$day['total_events'],
-					'tribe-events-calendar'
+					'the-events-calendar'
 				),
 				$day['total_events'],
 				$events_label

@@ -193,7 +193,7 @@ class Tribe__Events__Activation_Page {
 	}
 
 	protected function welcome_page_title() {
-		return __( 'Welcome to The Events Calendar', 'tribe-events-calendar' );
+		return __( 'Welcome to The Events Calendar', 'the-events-calendar' );
 	}
 
 	protected function welcome_page_content() {
@@ -213,7 +213,7 @@ class Tribe__Events__Activation_Page {
 	}
 
 	protected function update_page_title() {
-		return __( 'Thanks for Updating The Events Calendar', 'tribe-events-calendar' );
+		return __( 'Thanks for Updating The Events Calendar', 'the-events-calendar' );
 	}
 
 	protected function update_page_content() {

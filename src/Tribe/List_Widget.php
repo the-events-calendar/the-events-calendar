@@ -27,7 +27,7 @@ class Tribe__Events__List_Widget extends WP_Widget {
 		$widget_options = array_merge(
 			array(
 				'classname'   => 'tribe-events-list-widget',
-				'description' => __( 'A widget that displays upcoming events.', 'tribe-events-calendar' ),
+				'description' => __( 'A widget that displays upcoming events.', 'the-events-calendar' ),
 			),
 			$widget_options
 		);
@@ -35,7 +35,7 @@ class Tribe__Events__List_Widget extends WP_Widget {
 		$control_options = array_merge( array( 'id_base' => 'tribe-events-list-widget' ), $control_options );
 
 		$id_base = empty( $id_base ) ? 'tribe-events-list-widget' : $id_base;
-		$name    = empty( $name ) ? __( 'Events List', 'tribe-events-calendar' ) : $name;
+		$name    = empty( $name ) ? __( 'Events List', 'the-events-calendar' ) : $name;
 
 		parent::__construct( $id_base, $name, $widget_options, $control_options );
 	}
@@ -169,7 +169,7 @@ class Tribe__Events__List_Widget extends WP_Widget {
 	public function form( $instance ) {
 		/* Set up default widget settings. */
 		$defaults  = array(
-			'title'              => __( 'Upcoming Events', 'tribe-events-calendar' ),
+			'title'              => __( 'Upcoming Events', 'the-events-calendar' ),
 			'limit'              => '5',
 			'no_upcoming_events' => false,
 		);

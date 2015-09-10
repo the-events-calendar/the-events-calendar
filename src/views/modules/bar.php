@@ -27,15 +27,15 @@ $current_url = tribe_events_get_current_filter_url();
 		<!-- Mobile Filters Toggle -->
 
 		<div id="tribe-bar-collapse-toggle" <?php if ( count( $views ) == 1 ) { ?> class="tribe-bar-collapse-toggle-full-width"<?php } ?>>
-			<?php printf( __( 'Find %s', 'tribe-events-calendar' ), tribe_get_event_label_plural() ); ?><span class="tribe-bar-toggle-arrow"></span>
+			<?php printf( __( 'Find %s', 'the-events-calendar' ), tribe_get_event_label_plural() ); ?><span class="tribe-bar-toggle-arrow"></span>
 		</div>
 
 		<!-- Views -->
 		<?php if ( count( $views ) > 1 ) { ?>
 			<div id="tribe-bar-views">
 				<div class="tribe-bar-views-inner tribe-clearfix">
-					<h3 class="tribe-events-visuallyhidden"><?php esc_html_e( 'Event Views Navigation', 'tribe-events-calendar' ) ?></h3>
-					<label><?php esc_html_e( 'View As', 'tribe-events-calendar' ); ?></label>
+					<h3 class="tribe-events-visuallyhidden"><?php esc_html_e( 'Event Views Navigation', 'the-events-calendar' ) ?></h3>
+					<label><?php esc_html_e( 'View As', 'the-events-calendar' ); ?></label>
 					<select class="tribe-bar-views-select tribe-no-param" name="tribe-bar-view">
 						<?php foreach ( $views as $view ) : ?>
 							<option <?php echo tribe_is_view( $view['displaying'] ) ? 'selected' : 'tribe-inactive' ?> value="<?php echo esc_attr( $view['url'] ); ?>" data-view="<?php echo esc_attr( $view['displaying'] ); ?>">
@@ -58,7 +58,7 @@ $current_url = tribe_events_get_current_filter_url();
 						</div>
 					<?php endforeach; ?>
 					<div class="tribe-bar-submit">
-						<input class="tribe-events-button tribe-no-param" type="submit" name="submit-bar" value="<?php echo esc_attr( sprintf( __( 'Find %s', 'tribe-events-calendar' ), tribe_get_event_label_plural() ) ); ?>" />
+						<input class="tribe-events-button tribe-no-param" type="submit" name="submit-bar" value="<?php echo esc_attr( sprintf( __( 'Find %s', 'the-events-calendar' ), tribe_get_event_label_plural() ) ); ?>" />
 					</div>
 					<!-- .tribe-bar-submit -->
 				</div>
