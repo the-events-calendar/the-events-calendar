@@ -14,7 +14,7 @@ if ( ! empty( $messages ) ): ?>
 	</div>
 <?php endif; ?>
 	<div id="modern-tribe-info">
-		<h3><?php esc_html_e( 'Import Instructions', 'tribe-events-calendar' ); ?></h3>
+		<h2><?php esc_html_e( 'Import Instructions', 'tribe-events-calendar' ); ?></h2>
 		<ul>
 			<li>
 				<?php esc_html_e( 'If your events have Organizers or Venues, please import those first.', 'tribe-events-calendar' ); ?>

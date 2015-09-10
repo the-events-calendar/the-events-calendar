@@ -61,13 +61,11 @@ class Tribe__Events__Importer__Column_Mapper {
 			'event_show_map_link'     => __( 'Event Show Map Link', 'tribe-events-calendar' ),
 			'event_show_map'          => __( 'Event Show Map', 'tribe-events-calendar' ),
 			'event_cost'              => __( 'Event Cost', 'tribe-events-calendar' ),
-			'event_category'          => __( 'Event Category', 'tribe-events-calendar' ),
-			'event_website'           => __( 'Event Website', 'tribe-events-calendar' ),
-			'event_category'          => __( 'Event Category', 'tribe-events-calendar' ),
-			'event_website'           => __( 'Event Website', 'tribe-events-calendar' ),
-			'event_tags'              => __( 'Event Tags', 'tribe-events-calendar' ),
 			'event_currency_symbol'   => __( 'Event Currency Symbol', 'tribe-events-calendar' ),
 			'event_currency_position' => __( 'Event Currency Position', 'tribe-events-calendar' ),
+			'event_category'          => __( 'Event Category', 'tribe-events-calendar' ),
+			'event_tags'              => __( 'Event Tags', 'tribe-events-calendar' ),
+			'event_website'           => __( 'Event Website', 'tribe-events-calendar' ),
 		) );
 	}
 

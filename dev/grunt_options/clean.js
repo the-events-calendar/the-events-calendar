@@ -18,6 +18,7 @@ module.exports = {
 	resourcescripts: [
 
 		'<%= pkg._resourcepath %>/js/events-admin.processed.js',
+		'<%= pkg._resourcepath %>/js/events-admin-date-preview.processed.js',
 		'<%= pkg._resourcepath %>/js/tribe-events.processed.js',
 		'<%= pkg._resourcepath %>/js/tribe-events-ajax-calendar.processed.js',
 		'<%= pkg._resourcepath %>/js/tribe-events-ajax-day.processed.js',

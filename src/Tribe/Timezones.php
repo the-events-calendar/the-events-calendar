@@ -94,7 +94,173 @@ class Tribe__Events__Timezones extends Tribe__Timezones {
 	}
 
 	/**
-	 * Returns a timestamp for the event start date that can be passed to tribe_format_date()
+	 * Returns the current site-wide timezone string.
+	 *
+	 * Based on the core WP code found in wp-admin/options-general.php.
+	 *
+	 * @return string
+	 */
+	public static function wp_timezone_string() {
+		$current_offset = get_option( 'gmt_offset' );
+		$tzstring       = get_option( 'timezone_string' );
+
+		// Return the timezone string if already set
+		if ( ! empty( $tzstring ) ) {
+			return $tzstring;
+		}
+
+		// Otherwise return the UTC offset
+		if ( 0 == $current_offset ) {
+			return 'UTC+0';
+		} elseif ( $current_offset < 0 ) {
+			return 'UTC' . $current_offset;
+		}
+
+		return 'UTC+' . $current_offset;
+	}
+
+	/**
+	 * Returns the current site-wide timezone string abbreviation, if it can be
+	 * determined or falls back on the full timezone string/offset text.
+	 *
+	 * @param string $date
+	 *
+	 * @return string
+	 */
+	public static function wp_timezone_abbr( $date ) {
+		$abbr = get_transient( 'tribe_events_wp_timezone_abbr' );
+
+		if ( empty( $abbr ) ) {
+			$timezone_string = self::wp_timezone_string();
+			$abbr = self::abbr( $date, $timezone_string );
+			set_transient( 'tribe_events_wp_timezone_abbr', $abbr );
+		}
+
+		return empty( $abbr )
+			? $timezone_string
+			: $abbr;
+	}
+
+	/**
+	 * Tried to convert the provided $datetime to UTC from the timezone represented by $tzstring.
+	 *
+	 * Though the usual range of formats are allowed, $datetime ordinarily ought to be something
+	 * like the "Y-m-d H:i:s" format (ie, no timezone information). If it itself contains timezone
+	 * data, the results may be unexpected.
+	 *
+	 * In those cases where the conversion fails to take place, the $datetime string will be
+	 * returned untouched.
+	 *
+	 * @param string $datetime
+	 * @param string $tzstring
+	 *
+	 * @return string
+	 */
+	public static function to_utc( $datetime, $tzstring ) {
+		if ( self::is_utc_offset( $tzstring ) ) {
+			return self::apply_offset( $datetime, $tzstring, true );
+		}
+
+		$local = self::get_timezone( $tzstring );
+		$utc   = self::get_timezone( 'UTC' );
+
+		$new_datetime = date_create( $datetime, $local );
+
+		if ( $new_datetime && $new_datetime->setTimezone( $utc ) ) {
+			return $new_datetime->format( Tribe__Events__Date_Utils::DBDATETIMEFORMAT );
+		}
+
+		// Fallback to the unmodified datetime if there was a failure during conversion
+		return $datetime;
+	}
+
+	/**
+	 * Tries to convert the provided $datetime to the timezone represented by $tzstring.
+	 *
+	 * This is the sister function of self::to_utc() - please review the docs for that method
+	 * for more information.
+	 *
+	 * @param string $datetime
+	 * @param string $tzstring
+	 *
+	 * @return string
+	 */
+	public static function to_tz( $datetime, $tzstring ) {
+		if ( self::is_utc_offset( $tzstring ) ) {
+			return self::apply_offset( $datetime, $tzstring );
+		}
+
+		$local = self::get_timezone( $tzstring );
+		$utc   = self::get_timezone( 'UTC' );
+
+		$new_datetime = date_create( $datetime, $utc );
+
+		if ( $new_datetime && $new_datetime->setTimezone( $local ) ) {
+			return $new_datetime->format( Tribe__Events__Date_Utils::DBDATETIMEFORMAT );
+		}
+
+		// Fallback to the unmodified datetime if there was a failure during conversion
+		return $datetime;
+	}
+
+	/**
+	 * Tests to see if the timezone string is a UTC offset, ie "UTC+2".
+	 *
+	 * @param string $timezone
+	 *
+	 * @return bool
+	 */
+	public static function is_utc_offset( $timezone ) {
+		$timezone = trim( $timezone );
+		return ( 0 === strpos( $timezone, 'UTC' ) && strlen( $timezone ) > 3 );
+	}
+
+	/**
+	 * @param string $datetime
+	 * @param mixed  $offset (string or numeric offset)
+	 * @param bool   $invert = false
+	 *
+	 * @return string
+	 */
+	public static function apply_offset( $datetime, $offset, $invert = false ) {
+		// Normalize
+		$offset = strtolower( trim( $offset ) );
+
+		// Strip any leading "utc" text if set
+		if ( 0 === strpos( $offset, 'utc' ) ) {
+			$offset = substr( $offset, 3 );
+		}
+
+		// It's possible no adjustment will be needed
+		if ( 0 === $offset ) {
+			return $datetime;
+		}
+
+		// Convert the offset to minutes for easier handling of fractional offsets
+		$offset = (int) ( $offset * 60 );
+
+		// Invert the offset? Useful for stripping an offset that has already been applied
+		if ( $invert ) {
+			$offset *= -1;
+		}
+
+		if ( $offset > 0 ) {
+			$offset = '+' . $offset;
+		}
+
+		$offset = $offset . ' minutes';
+
+		$offset_datetime = date_create( $datetime );
+
+		if ( $offset_datetime && $offset_datetime->modify( $offset ) ) {
+			return $offset_datetime->format( Tribe__Events__Date_Utils::DBDATETIMEFORMAT );
+		}
+
+		return $datetime;
+	}
+
+	/**
+	 * Returns a timestamp for the event start date that can be passed to tribe_event_format_date()
 	 * in order to produce the time in the correct timezone.
 	 *
 	 * @param int    $event_id

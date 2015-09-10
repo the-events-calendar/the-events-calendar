@@ -7,9 +7,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 require 'header.php';
 ?>
 <div id="modern-tribe-info">
-	<h2><?php esc_html_e( 'The Events Calendar: Import', 'tribe-events-calendar' ); ?></h2>
+	<h1><?php esc_html_e( 'The Events Calendar: Import', 'tribe-events-calendar' ); ?></h1>
 
-	<h3><?php esc_html_e( 'Instructions', 'tribe-events-calendar' ); ?></h3>
+	<h2><?php esc_html_e( 'Instructions', 'tribe-events-calendar' ); ?></h2>
 	<p>
 		<?php printf( __( 'To import events, first select a %sDefault Import Event Status%s below to assign to your imported events.', 'tribe-events-calendar' ), '<strong>', '</strong>' ); ?>
 	</p>
@@ -21,7 +21,7 @@ require 'header.php';
 <div class="tribe-settings-form">
 	<form method="POST">
 		<div class="tribe-settings-form-wrap">
-			<h3><?php esc_html_e( 'Import Settings', 'tribe-events-calendar' ); ?></h3>
+			<h2><?php esc_html_e( 'Import Settings', 'tribe-events-calendar' ); ?></h2>
 			<p>
 				<?php
 				esc_html_e( 'Default imported event status:', 'tribe-events-calendar' );
