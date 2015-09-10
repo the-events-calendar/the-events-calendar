@@ -38,7 +38,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @return string
 	 */
 	function tribe_get_venue_label_singular() {
-		return apply_filters( 'tribe_venue_label_singular', __( 'Venue', 'tribe-events-calendar' ) );
+		return apply_filters( 'tribe_venue_label_singular', __( 'Venue', 'the-events-calendar' ) );
 	}
 
 	/**
@@ -49,7 +49,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @return string
 	 */
 	function tribe_get_venue_label_plural() {
-		return apply_filters( 'tribe_venue_label_plural', __( 'Venues', 'tribe-events-calendar' ) );
+		return apply_filters( 'tribe_venue_label_plural', __( 'Venues', 'the-events-calendar' ) );
 	}
 
 	/**
@@ -269,7 +269,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		if ( tribe_get_event_meta( $postId, '_VenueStateProvince', true ) ) {
 			$region = tribe_get_event_meta( $postId, '_VenueStateProvince', true );
 		} else {
-			if ( tribe_get_country( $postId ) == __( 'United States', 'tribe-events-calendar' ) ) {
+			if ( tribe_get_country( $postId ) == __( 'United States', 'the-events-calendar' ) ) {
 				$region = tribe_get_state( $postId );
 			} else {
 				$region = tribe_get_province();

@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the The Events Calendar package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2015-09-02 13:29:29+0000\n"
+"PO-Revision-Date: 2015-09-10 14:12:03+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -615,7 +615,7 @@ msgstr ""
 
 #: src/functions/template-tags/loop.php:131
 msgid "Upcoming %s"
-msgstr "即將到來的 %s"
+msgstr "未來 %s"
 
 #: src/admin-views/admin-update-message.php:34
 #: src/admin-views/admin-welcome-message.php:22
@@ -2382,7 +2382,7 @@ msgstr "法羅群島"
 
 #: src/Tribe/List_Widget.php:172
 msgid "Upcoming Events"
-msgstr "即將來臨活動"
+msgstr "未來活動"
 
 #: src/Tribe/View_Helpers.php:118
 msgid "Fiji"
@@ -2455,7 +2455,7 @@ msgstr "加彭"
 
 #: src/Tribe/Main.php:588
 msgid "month"
-msgstr "月"
+msgstr "month"
 
 #: src/Tribe/View_Helpers.php:126
 msgid "Gambia"
@@ -2463,7 +2463,7 @@ msgstr "甘比亞"
 
 #: src/Tribe/Main.php:589
 msgid "list"
-msgstr "清單"
+msgstr "list"
 
 #: src/Tribe/View_Helpers.php:127 src/Tribe/View_Helpers.php:326
 msgid "Georgia"

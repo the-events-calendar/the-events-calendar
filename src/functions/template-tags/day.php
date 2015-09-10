@@ -56,6 +56,67 @@ if ( ! function_exists( 'tribe_get_linked_day' ) ) {
 	}
 }
 
+if ( ! function_exists( 'tribe_the_day_link' ) ) {
+	/**
+	 * Output an html link to a day
+	 *
+	 * @category Events
+	 * @param string $date 'previous day', 'next day', 'yesterday', 'tomorrow', or any date string that strtotime() can parse
+	 * @param string $text text for the link
+	 *
+	 * @return void
+	 **/
+	function tribe_the_day_link( $date = null, $text = null ) {
+		$html = '';
+
+		try {
+			if ( is_null( $text ) ) {
+				$text = tribe_get_the_day_link_label( $date );
+			}
+
+			$date = tribe_get_the_day_link_date( $date );
+			$link = tribe_get_day_link( $date );
+
+			$earliest = tribe_events_earliest_date( Tribe__Events__Date_Utils::DBDATEFORMAT );
+			$latest   = tribe_events_latest_date( Tribe__Events__Date_Utils::DBDATEFORMAT );
+
+			if ( $date >= $earliest && $date <= $latest ) {
+				$html = '<a href="' . esc_url( $link ) . '" data-day="' . $date . '" rel="prev">' . $text . '</a>';
+			}
+		} catch ( OverflowException $e ) {
+		}
+
+		echo apply_filters( 'tribe_the_day_link', $html );
+	}
+}
+
+if ( ! function_exists( 'tribe_get_the_day_link_label' ) ) {
+	/**
+	 * Get the label for the day navigation link
+	 *
+	 * @category Events
+	 * @param string $date_description
+	 *
+	 * @return string
+	 */
+	function tribe_get_the_day_link_label( $date_description ) {
+		switch ( strtolower( $date_description ) ) {
+			case null :
+				return __( 'Today', 'the-events-calendar' );
+			case 'previous day' :
+				return __( '<span>&laquo;</span> Previous Day', 'the-events-calendar' );
+			case 'next day' :
+				return __( 'Next Day <span>&raquo;</span>', 'the-events-calendar' );
+			case 'yesterday' :
+				return __( 'Yesterday', 'the-events-calendar' );
+			case 'tomorrow' :
+				return __( 'Tomorrow', 'the-events-calendar' );
+			default :
+				return date_i18n( 'Y-m-d', strtotime( $date_description ) );
+		}
+	}
+}
+
 if ( ! function_exists( 'tribe_get_the_day_link_date' ) ) {
 	/**
 	 * Get the date for the day navigation link.

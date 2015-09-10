@@ -57,27 +57,27 @@ if ( class_exists( 'Eventbrite_for_TribeEvents' ) ) {
 		<tr>
 			<td colspan="2" class="tribe_sectionheader">
 				<div class="tribe_sectionheader" style="">
-					<h4><?php esc_html_e( 'Time &amp; Date', 'tribe-events-calendar' ); ?></h4></div>
+					<h4><?php esc_html_e( 'Time &amp; Date', 'the-events-calendar' ); ?></h4></div>
 			</td>
 		</tr>
 		<tr>
 			<td colspan="2">
 				<table class="eventtable">
 					<tr id="recurrence-changed-row">
-						<td colspan='2'><?php printf( __( 'You have changed the recurrence rules of this %1$s.  Saving the %1$s will update all future %2$s.  If you did not mean to change all %2$s, then please refresh the page.', 'tribe-events-calendar' ), strtolower( $events_label_singular ), strtolower( $events_label_plural ) ); ?></td>
+						<td colspan='2'><?php printf( __( 'You have changed the recurrence rules of this %1$s.  Saving the %1$s will update all future %2$s.  If you did not mean to change all %2$s, then please refresh the page.', 'the-events-calendar' ), strtolower( $events_label_singular ), strtolower( $events_label_plural ) ); ?></td>
 					</tr>
 					<tr>
-						<td><?php printf( __( 'All Day %s:', 'tribe-events-calendar' ), $events_label_singular ); ?></td>
+						<td><?php printf( __( 'All Day %s:', 'the-events-calendar' ), $events_label_singular ); ?></td>
 						<td>
 							<input tabindex="<?php tribe_events_tab_index(); ?>" type="checkbox" id="allDayCheckbox" name="EventAllDay" value="yes" <?php echo $isEventAllDay; ?> />
 						</td>
 					</tr>
 					<tr>
-						<td style="width:175px;"><?php esc_html_e( 'Start Date &amp; Time:', 'tribe-events-calendar' ); ?></td>
+						<td style="width:175px;"><?php esc_html_e( 'Start Date &amp; Time:', 'the-events-calendar' ); ?></td>
 						<td id="tribe-event-datepickers" data-startofweek="<?php echo get_option( 'start_of_week' ); ?>">
 							<input autocomplete="off" tabindex="<?php tribe_events_tab_index(); ?>" type="text" class="tribe-datepicker" name="EventStartDate" id="EventStartDate" value="<?php echo esc_attr( $EventStartDate ) ?>" />
 
-							<span class="helper-text hide-if-js"><?php esc_html_e( 'YYYY-MM-DD', 'tribe-events-calendar' ) ?></span>
+							<span class="helper-text hide-if-js"><?php esc_html_e( 'YYYY-MM-DD', 'the-events-calendar' ) ?></span>
 							<span class="timeofdayoptions">
 								<?php echo tribe_get_datetime_separator(); ?>
 								<select tabindex="<?php tribe_events_tab_index(); ?>" name="EventStartHour">
@@ -95,10 +95,10 @@ if ( class_exists( 'Eventbrite_for_TribeEvents' ) ) {
 						</td>
 					</tr>
 					<tr>
-						<td><?php esc_html_e( 'End Date &amp; Time:', 'tribe-events-calendar' ); ?></td>
+						<td><?php esc_html_e( 'End Date &amp; Time:', 'the-events-calendar' ); ?></td>
 						<td>
 							<input autocomplete="off" type="text" class="tribe-datepicker" name="EventEndDate" id="EventEndDate" value="<?php echo esc_attr( $EventEndDate ); ?>" />
-							<span class="helper-text hide-if-js"><?php _e( 'YYYY-MM-DD', 'tribe-events-calendar' ) ?></span>
+							<span class="helper-text hide-if-js"><?php _e( 'YYYY-MM-DD', 'the-events-calendar' ) ?></span>
 							<span class="timeofdayoptions">
 								<?php echo tribe_get_datetime_separator(); ?>
 								<select class="tribeEventsInput" tabindex="<?php tribe_events_tab_index(); ?>" name="EventEndHour">
@@ -118,7 +118,7 @@ if ( class_exists( 'Eventbrite_for_TribeEvents' ) ) {
 					<tr class="event-timezone">
 						<td class="label">
 							<label for="event-timezone">
-								<?php esc_html_e( 'Timezone:', 'tribe-events-calendar' ); ?>
+								<?php esc_html_e( 'Timezone:', 'the-events-calendar' ); ?>
 							</label>
 						</td>
 						<td>
@@ -144,7 +144,7 @@ if ( class_exists( 'Eventbrite_for_TribeEvents' ) ) {
 	<table id="event_venue" class="eventtable">
 		<tr>
 			<td colspan="2" class="tribe_sectionheader">
-				<h4><?php esc_html_e( 'Location', 'tribe-events-calendar' ); ?></h4></td>
+				<h4><?php esc_html_e( 'Location', 'the-events-calendar' ); ?></h4></td>
 		</tr>
 		<?php
 		/**
@@ -192,10 +192,10 @@ if ( class_exists( 'Eventbrite_for_TribeEvents' ) ) {
 	<table id="event_url" class="eventtable">
 		<tr>
 			<td colspan="2" class="tribe_sectionheader">
-				<h4><?php printf( __( '%s Website', 'tribe-events-calendar' ), $events_label_singular ); ?></h4></td>
+				<h4><?php printf( __( '%s Website', 'the-events-calendar' ), $events_label_singular ); ?></h4></td>
 		</tr>
 		<tr>
-			<td style="width:172px;"><?php _e( 'URL:', 'tribe-events-calendar' ); ?></td>
+			<td style="width:172px;"><?php _e( 'URL:', 'the-events-calendar' ); ?></td>
 			<td>
 				<input tabindex="<?php tribe_events_tab_index(); ?>" type='text' id='EventURL' name='EventURL' size='25' value='<?php echo ( isset( $_EventURL ) ) ? esc_attr( $_EventURL ) : ''; ?>' placeholder='example.com' />
 			</td>
@@ -226,10 +226,10 @@ if ( class_exists( 'Eventbrite_for_TribeEvents' ) ) {
 		<?php if ( tribe_events_admin_show_cost_field() ) : ?>
 			<tr>
 				<td colspan="2" class="tribe_sectionheader">
-					<h4><?php printf( __( '%s Cost', 'tribe-events-calendar' ), $events_label_singular ); ?></h4></td>
+					<h4><?php printf( __( '%s Cost', 'the-events-calendar' ), $events_label_singular ); ?></h4></td>
 			</tr>
 			<tr>
-				<td><?php esc_html_e( 'Currency Symbol:', 'tribe-events-calendar' ); ?></td>
+				<td><?php esc_html_e( 'Currency Symbol:', 'the-events-calendar' ); ?></td>
 				<td>
 					<input tabindex="<?php tribe_events_tab_index(); ?>" type='text' id='EventCurrencySymbol' name='EventCurrencySymbol' size='2' value='<?php echo isset( $_EventCurrencySymbol ) ? esc_attr( $_EventCurrencySymbol ) : tribe_get_option( 'defaultCurrencySymbol', '$' ); ?>' />
 					<select tabindex="<?php tribe_events_tab_index(); ?>" id="EventCurrencyPosition" name="EventCurrencyPosition">
@@ -244,15 +244,15 @@ if ( class_exists( 'Eventbrite_for_TribeEvents' ) ) {
 							$suffix = false;
 						}
 						?>
-						<option value="prefix"> <?php _ex( 'Before cost', 'Currency symbol position', 'tribe-events-calendar' ) ?> </option>
+						<option value="prefix"> <?php _ex( 'Before cost', 'Currency symbol position', 'the-events-calendar' ) ?> </option>
 						<option value="suffix"<?php if ( $suffix ) {
 							echo ' selected="selected"';
-						} ?>><?php _ex( 'After cost', 'Currency symbol position', 'tribe-events-calendar' ) ?></option>
+						} ?>><?php _ex( 'After cost', 'Currency symbol position', 'the-events-calendar' ) ?></option>
 					</select>
 				</td>
 			</tr>
 			<tr>
-				<td><?php esc_html_e( 'Cost:', 'tribe-events-calendar' ); ?></td>
+				<td><?php esc_html_e( 'Cost:', 'the-events-calendar' ); ?></td>
 				<td>
 					<input tabindex="<?php tribe_events_tab_index(); ?>" type='text' id='EventCost' name='EventCost' size='6' value='<?php echo ( isset( $_EventCost ) ) ? esc_attr( $_EventCost ) : ''; ?>' />
 				</td>
@@ -260,7 +260,7 @@ if ( class_exists( 'Eventbrite_for_TribeEvents' ) ) {
 			<tr>
 				<td></td>
 				<td>
-					<small><?php printf( __( 'Enter a 0 for %s that are free or leave blank to hide the field.', 'tribe-events-calendar' ), strtolower( $events_label_plural ) ); ?></small>
+					<small><?php printf( __( 'Enter a 0 for %s that are free or leave blank to hide the field.', 'the-events-calendar' ), strtolower( $events_label_plural ) ); ?></small>
 				</td>
 			</tr>
 		<?php endif; ?>

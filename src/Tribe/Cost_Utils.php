@@ -105,7 +105,7 @@ class Tribe__Events__Cost_Utils {
 		if ( $relevant_costs['min'] == $relevant_costs['max'] ) {
 			$formatted = $relevant_costs['min'];
 		} else {
-			$formatted = $relevant_costs['min'] . _x( ' - ', 'Cost range separator', 'tribe-events-calendar' ) . $relevant_costs['max'];
+			$formatted = $relevant_costs['min'] . _x( ' - ', 'Cost range separator', 'the-events-calendar' ) . $relevant_costs['max'];
 		}
 
 		return $formatted;
@@ -120,7 +120,7 @@ class Tribe__Events__Cost_Utils {
 	 */
 	public function maybe_replace_cost_with_free( $cost ) {
 		if ( '0' === (string) $cost ) {
-			return __( 'Free', 'tribe-events-calendar' );
+			return __( 'Free', 'the-events-calendar' );
 		}
 
 		return $cost;

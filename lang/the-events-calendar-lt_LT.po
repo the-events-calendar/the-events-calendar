@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the The Events Calendar package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2015-08-06 15:45:32+0000\n"
+"PO-Revision-Date: 2015-09-10 14:12:28+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -188,64 +188,68 @@ msgstr ""
 
 #: src/Tribe/Activation_Page.php:38
 msgid "Go to plugins page"
-msgstr ""
+msgstr "Eiti į įskiepių puslapį"
 
 #: src/Tribe/Activation_Page.php:38
 msgid "Return to Plugins page"
-msgstr ""
+msgstr "Grįžti į įskiepių puslapį"
 
 #: src/Tribe/Activation_Page.php:46
 msgid "Go to WordPress Updates page"
-msgstr ""
+msgstr "Eiti į WordPress atnaujinimų puslapį"
 
 #: src/Tribe/Activation_Page.php:46
 msgid "Return to WordPress Updates"
-msgstr ""
+msgstr "Grįžti į WordPress atnaujinimus"
 
 #: src/Tribe/Admin/Organizer_Chooser_Meta_Box.php:88
 msgid "Create New %s"
-msgstr ""
+msgstr "Sukurti naują %s"
 
 #: src/Tribe/Admin/Organizer_Chooser_Meta_Box.php:148
 msgid "Add another organizer"
-msgstr ""
+msgstr "Pridėti kitą organizatorių"
 
 #: src/Tribe/Cost_Utils.php:108
 msgctxt "Cost range separator"
 msgid " - "
-msgstr ""
+msgstr "-"
 
 #: src/Tribe/PUE/Checker.php:416
 msgid "unknown date"
-msgstr ""
+msgstr "nežinoma data"
 
 #: src/Tribe/Support.php:142
 msgid "Rewrite rules were purged on load of this help page. Chances are there is a rewrite rule flush occurring in a plugin or theme!"
-msgstr ""
+msgstr "Perrašymo taisyklės išvalytos šio pagalbos puslapio krovimo metu. Yra tikimybė, kad įskiepyje ar temoje įvykdomas perrašymo taisyklių išvalymas!"
 
 #: src/admin-views/tribe-options-help.php:155
 msgid "If you're looking for help with The Events Calendar, you've come to the right place. We are committed to helping make your calendar be spectacular... and hope the resources provided below will help get you there."
-msgstr ""
+msgstr "Jei ieškai pagalbos su The Events Calendar, patekai ten kur reikia. Mes įsipareigoję padėti tavo kalendoriui būti įspūdingu... ir tikimės, kad apačioje pateikti resursai tau padės tą pasiekti."
 
 #: src/admin-views/tribe-options-help.php:209
 msgid "Hi! We are Modern Tribe and we are here to help you be awesome. Thanks so much for installing our labor of love!"
-msgstr ""
+msgstr "Sveiki! Mes esame Modern Tribe ir esame tam, kad padėtume tau būti nuostabiu. Ačiū, kad įdiegėte mūsų meilės vaisių!"
 
 #: src/admin-views/tribe-options-help.php:231
 msgid "Support Resources To Help You Be Awesome"
-msgstr ""
+msgstr "Pagalbos resursai, padedantys tau būti nuostabiu"
 
 #: src/admin-views/tribe-options-licenses.php:17
 msgid ""
 "<strong> Using our plugins in a multisite network? </strong>\n"
 "\t\tPlease note that your license key will be applied to the entire network, not just this site."
 msgstr ""
+"<strong> Naudoji mūsų įskiepius multisvetainių tinkle? </strong>\n"
+"→\t→\tĮsidėmėkite, kad jūsų licencijos raktas bus naudojamas visame tinkle, ne tik šioje svetainėje."
 
 #: src/admin-views/tribe-options-licenses.php:20
 msgid ""
 "Only license fields for <strong>network activated</strong> plugins will be\n"
 "\t\tlisted on this screen. "
 msgstr ""
+"Čia bus matomi tik <strong>tinkle aktyvuotų</strong> įskiepių\n"
+"→\t→\tlicencijų laukai. "
 
 #: src/Tribe/View_Helpers.php:334
 msgid "Louisiana"
@@ -3564,7 +3568,7 @@ msgstr "Turkija"
 
 #: src/Tribe/Tickets/Attendees_Table.php:219
 msgid "Filter by purchaser name, ticket #, order # or security code"
-msgstr ""
+msgstr "Filtruoti pagal pirkėjo vardą, bilieto nr., užsakymo nr., ar apsaugos kodą"
 
 #: src/Tribe/View_Helpers.php:266
 msgid "Turkmenistan"
