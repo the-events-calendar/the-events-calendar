@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the The Events Calendar package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2015-07-13 13:33:00+0000\n"
+"PO-Revision-Date: 2015-09-10 14:12:18+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -188,36 +188,36 @@ msgstr ""
 
 #: src/Tribe/Activation_Page.php:38
 msgid "Go to plugins page"
-msgstr ""
+msgstr "Přejít na stránku pluginů"
 
 #: src/Tribe/Activation_Page.php:38
 msgid "Return to Plugins page"
-msgstr ""
+msgstr "Návrat na stránku pluginů"
 
 #: src/Tribe/Activation_Page.php:46
 msgid "Go to WordPress Updates page"
-msgstr ""
+msgstr "Přejít na stránku aktualizací WordPressu"
 
 #: src/Tribe/Activation_Page.php:46
 msgid "Return to WordPress Updates"
-msgstr ""
+msgstr "Návrat na stránku aktualizací WordPressu"
 
 #: src/Tribe/Admin/Organizer_Chooser_Meta_Box.php:88
 msgid "Create New %s"
-msgstr ""
+msgstr "Vytvořit nový %s"
 
 #: src/Tribe/Admin/Organizer_Chooser_Meta_Box.php:148
 msgid "Add another organizer"
-msgstr ""
+msgstr "Přidat dalšího pořadatele"
 
 #: src/Tribe/Cost_Utils.php:108
 msgctxt "Cost range separator"
 msgid " - "
-msgstr ""
+msgstr " - "
 
 #: src/Tribe/PUE/Checker.php:416
 msgid "unknown date"
-msgstr ""
+msgstr "neznámé datum"
 
 #: src/Tribe/Support.php:142
 msgid "Rewrite rules were purged on load of this help page. Chances are there is a rewrite rule flush occurring in a plugin or theme!"
@@ -632,20 +632,20 @@ msgstr ""
 
 #: src/admin-views/admin-update-message.php:37
 msgid "PSST... Want a Discount?"
-msgstr ""
+msgstr "PSST ... Chcete slevu?"
 
 #: src/functions/template-tags/loop.php:147
 msgid "Past %s"
-msgstr ""
+msgstr "Minulé %s"
 
 #: src/admin-views/admin-update-message.php:38
 msgid "We send out discounts to our core users via our newsletter."
-msgstr ""
+msgstr "Posíláme slevy našim klíčovým uživatelům prostřednictvím našeho newsletteru."
 
 #: src/functions/template-tags/loop.php:152
 #: src/functions/template-tags/loop.php:161
 msgid "%1$s for %2$s"
-msgstr ""
+msgstr "%1$s za %2$s"
 
 #: src/admin-views/admin-update-message.php:43
 #: src/admin-views/admin-welcome-message.php:31
@@ -674,11 +674,11 @@ msgstr "Mapování sloupců: %s"
 
 #: src/admin-views/admin-update-message.php:53
 msgid "Community Events"
-msgstr ""
+msgstr "Události komunity"
 
 #: src/io/csv/admin-views/columns.php:27
 msgid "Columns have been mapped based on your last import. Please ensure the selected fields match the columns in your CSV file."
-msgstr ""
+msgstr "Sloupce byly namapovány na základě vašeho posledního importu. Ujistěte se, že vybraná pole odpovídají sloupcům v souboru CSV."
 
 #: src/admin-views/admin-update-message.php:54
 msgid "Filters"
@@ -699,7 +699,7 @@ msgstr "Pole akce"
 #: src/admin-views/admin-update-message.php:58
 #: src/admin-views/admin-welcome-message.php:53
 msgid "News For Events Users"
-msgstr ""
+msgstr "Novinky pro uživatele událostí"
 
 #: src/io/csv/admin-views/columns.php:44
 msgid "Perform Import"
@@ -707,7 +707,7 @@ msgstr "Importovat"
 
 #: src/admin-views/admin-welcome-message.php:19
 msgid "Keep The Events Calendar Core FREE"
-msgstr ""
+msgstr "Zachovejte jádro The Events Calendar ZDARMA"
 
 #: src/io/csv/admin-views/general.php:10
 msgid "The Events Calendar: Import"
@@ -715,7 +715,7 @@ msgstr "The Events Calendar: Import"
 
 #: src/admin-views/admin-welcome-message.php:20
 msgid "5 star ratings help us bring TEC to more users. More happy users mean more support, more features, and more of everything you know and love about The Events Calendar. We couldn't do this without your support."
-msgstr ""
+msgstr "5hvězdičkové hodnocení nám pomůže přivést TEC více uživatelů. Více šťastných uživatelů znamená větší podporu, více funkcí, a více všeho, co znají a mají rádi na The Events Calendar. Nedokázali bychom to bez vaší podpory."
 
 #: src/io/csv/admin-views/general.php:12
 msgid "Instructions"
@@ -796,7 +796,7 @@ msgstr "Instrukce pro importování"
 
 #: src/admin-views/admin-welcome-message.php:50
 msgid "Release Notes"
-msgstr ""
+msgstr "Poznámky k vydání"
 
 #: src/io/csv/admin-views/import.php:20
 msgid "If your events have Organizers or Venues, please import those first."
@@ -2686,7 +2686,7 @@ msgstr "Itálie"
 
 #: src/Tribe/Main.php:1299
 msgid "Parent %s Category"
-msgstr ""
+msgstr "Nadřazená %s kategorie"
 
 #: src/Tribe/View_Helpers.php:154
 msgid "Jamaica"
@@ -2694,7 +2694,7 @@ msgstr "Jamajka"
 
 #: src/Tribe/Main.php:1300
 msgid "Parent %s Category:"
-msgstr ""
+msgstr "Nadřazená %s kategorie:"
 
 #: src/Tribe/View_Helpers.php:155
 msgid "Japan"
@@ -2775,7 +2775,7 @@ msgstr "Laos"
 
 #: src/Tribe/Main.php:1327
 msgid "Event published. <a href=\"%1$s\">View %2$s</a>"
-msgstr "Akce publikována. <a href=\"%1$s\">Zobrazit %2$s</a>"
+msgstr "Akce byla publikována. <a href=\"%1$s\">Zobrazit %2$s</a>"
 
 #: src/Tribe/View_Helpers.php:165
 msgid "Latvia"

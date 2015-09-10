@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the The Events Calendar package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2015-07-17 18:06:43+0000\n"
+"PO-Revision-Date: 2015-09-10 14:12:49+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -187,27 +187,27 @@ msgstr ""
 
 #: src/Tribe/Activation_Page.php:38
 msgid "Go to plugins page"
-msgstr ""
+msgstr "Ir para a página de Plugins"
 
 #: src/Tribe/Activation_Page.php:38
 msgid "Return to Plugins page"
-msgstr ""
+msgstr "Voltar a página de Plugins"
 
 #: src/Tribe/Activation_Page.php:46
 msgid "Go to WordPress Updates page"
-msgstr ""
+msgstr "Ir para a página de Atualização do Wordpress"
 
 #: src/Tribe/Activation_Page.php:46
 msgid "Return to WordPress Updates"
-msgstr ""
+msgstr "Voltar para a página de Atualização do Wordpress"
 
 #: src/Tribe/Admin/Organizer_Chooser_Meta_Box.php:88
 msgid "Create New %s"
-msgstr ""
+msgstr "Criar Novo %s"
 
 #: src/Tribe/Admin/Organizer_Chooser_Meta_Box.php:148
 msgid "Add another organizer"
-msgstr ""
+msgstr "Adicionar outro organizador"
 
 #: src/Tribe/Cost_Utils.php:108
 msgctxt "Cost range separator"

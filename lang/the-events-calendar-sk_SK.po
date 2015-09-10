@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the The Events Calendar package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2015-06-08 14:35:48+0000\n"
+"PO-Revision-Date: 2015-09-10 14:12:58+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -619,7 +619,7 @@ msgstr "Zakaždým, keď nás ohodnotíte <strong>5 hviezdičkami</ strong>, ví
 
 #: src/functions/template-tags/loop.php:131
 msgid "Upcoming %s"
-msgstr ""
+msgstr " Nadchádzajúce %s"
 
 #: src/admin-views/admin-update-message.php:34
 #: src/admin-views/admin-welcome-message.php:22
@@ -719,7 +719,7 @@ msgstr "Ohodnotenie 5 hviezdičkami nám pomáha prinášať TEC (The Events Cal
 
 #: src/io/csv/admin-views/general.php:12
 msgid "Instructions"
-msgstr ""
+msgstr "Inštrukcie"
 
 #: src/admin-views/admin-welcome-message.php:21
 msgid "Rate it five stars today!"
@@ -868,7 +868,7 @@ msgstr "Máte otázky? <a href=\"%s\">Pozrite video</a>."
 
 #: src/admin-views/events-meta-box.php:60
 msgid "Time &amp; Date"
-msgstr ""
+msgstr "Čas &amp; dátum"
 
 #: src/io/csv/admin-views/import.php:43
 msgid "Import Type:"
@@ -917,7 +917,7 @@ msgstr "Výsledok importu"
 
 #: src/admin-views/events-meta-box.php:147
 msgid "Location"
-msgstr ""
+msgstr "Miesto"
 
 #: src/io/csv/admin-views/result.php:17
 msgid "Import complete!"
@@ -1051,7 +1051,7 @@ msgstr ""
 
 #: src/views/modules/bar.php:30 src/views/modules/bar.php:61
 msgid "Find %s"
-msgstr ""
+msgstr "Nájsť %s"
 
 #: src/admin-views/tickets/attendees.php:17
 msgid "Event Summary"
@@ -1161,7 +1161,7 @@ msgstr "Vybrať používateľa:"
 
 #: src/views/widgets/list-widget.php:65
 msgid "View All %s"
-msgstr ""
+msgstr "Zobraziť všetky %s"
 
 #: src/admin-views/tickets/attendees.php:179
 msgid "Select..."

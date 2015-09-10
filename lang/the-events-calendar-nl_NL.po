@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the The Events Calendar package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2015-08-05 21:27:45+0000\n"
+"PO-Revision-Date: 2015-09-09 20:01:32+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -12,178 +12,178 @@ msgstr ""
 
 #. Description of the plugin/theme
 msgid "The Events Calendar is a carefully crafted, extensible plugin that lets you easily share your events. Beautiful. Solid. Awesome."
-msgstr ""
+msgstr "The Events Calendar is zorgvuldig gemaakt, uitbreidbare plugin waarmee je op eenvoudige wijze je events kan delen. Prachtig. Solide. Geweldig."
 
 #. Author of the plugin/theme
 msgid "Modern Tribe, Inc."
-msgstr ""
+msgstr "Modern Tribe, Inc."
 
 #. Author URI of the plugin/theme
 msgid "http://m.tri.be/1x"
-msgstr ""
+msgstr "http://m.tri.be/1x"
 
 #: src/Tribe/Admin/Notice/Archive_Slug_Conflict.php:62
 msgid "<a href=\"%s\">Edit the page slug</a>"
-msgstr ""
+msgstr "<a href=\"%s\">Bewerk de pagina slug</a>"
 
 #: src/Tribe/Admin/Notice/Archive_Slug_Conflict.php:63
 msgid "Ask the site administrator to edit the page slug"
-msgstr ""
+msgstr "Vraag de website administrator om de pagina slug aan te passen"
 
 #: src/Tribe/Admin/Notice/Archive_Slug_Conflict.php:68
 msgid "<a href=\"%s\">edit The Events Calendar settings</a>."
-msgstr ""
+msgstr "<a href=\"%s\">pas The Events Calendar instellingen aan</a>."
 
 #: src/Tribe/Admin/Notice/Archive_Slug_Conflict.php:69
 msgid " ask the site administrator set a different Events URL slug."
-msgstr ""
+msgstr "vraad de website administrator om een andere Events URL slug aan te maken."
 
 #: src/Tribe/Admin/Timezone_Updater.php:77
 msgid "Please wait while timezone data is added to your events."
-msgstr ""
+msgstr "Wacht a.u.b. tot de tijdzone is toegepast op je evenementen."
 
 #: src/Tribe/Admin/Timezone_Updater.php:78
 msgid "Update complete: timezone data has been added to all events in the database."
-msgstr ""
+msgstr "Update voltooid: tijdzone data is toegevoegd aan alle events in de database."
 
 #: src/Tribe/Admin/Timezone_Updater.php:87
 msgid "%d%% complete"
-msgstr ""
+msgstr "%d%% voltooid"
 
 #: src/Tribe/Admin/Timezone_Updater.php:105
 msgid "A problem stopped the timezone update process from completing. Please refresh and try again."
-msgstr ""
+msgstr "Een probleem heeft het tijdzone proces gestopt. Herlaad en probeer het opnieuw."
 
 #: src/Tribe/Importer/Column_Mapper.php:64
 msgid "Event Currency Symbol"
-msgstr ""
+msgstr "Event valuta symbool"
 
 #: src/Tribe/Importer/Column_Mapper.php:65
 msgid "Event Currency Position"
-msgstr ""
+msgstr "Event valuta positie"
 
 #: src/Tribe/Importer/Column_Mapper.php:67
 msgid "Event Tags"
-msgstr ""
+msgstr "Event Tags"
 
 #: src/Tribe/Main.php:2241
 msgid "page"
-msgstr ""
+msgstr "pagina"
 
 #: src/Tribe/Main.php:2242
 msgid "event"
-msgstr ""
+msgstr "event"
 
 #: src/Tribe/Main.php:2243
 msgid "events"
-msgstr ""
+msgstr "events"
 
 #: src/Tribe/Main.php:2244
 msgid "all"
-msgstr ""
+msgstr "alle"
 
 #: src/Tribe/Settings.php:261
 msgid "Save Changes"
-msgstr ""
+msgstr "Wijzigingen opslaan"
 
 #: src/Tribe/Template/Day.php:136
 msgid "No matching %1$s listed under %2$s scheduled for <strong>%3$s</strong>. Please try another day."
-msgstr ""
+msgstr "Geen overeenkomende %1$s vermeld onder %2$s gepland voor <strong>%3$s</strong>. Probeer a.u.b. een andere dag."
 
 #: src/Tribe/Template/Day.php:138
 msgid "No %1$s scheduled for <strong>%2$s</strong>. Please try another day."
-msgstr ""
+msgstr "Geen %1$s gepland voor <strong>%2$s</strong>. Probeer a.u.b. een andere dag."
 
 #: src/Tribe/Template/Month.php:287
 msgid "No matching %1$s listed under %2$s. Please try viewing the full calendar for a complete list of events."
-msgstr ""
+msgstr "Geen overeenkomende %1$s vermeld onder %2$s. Probeer de volledige kalender te bekijken voor een volledig overzicht van de events."
 
 #: src/Tribe/Template_Factory.php:355
 msgid "No results were found for %1$s in or near <strong>\"%2$s\"</strong>."
-msgstr ""
+msgstr "Geen resultaten gevonden voor %1$s in of nabij <strong>\"%2$s\"</strong>."
 
 #: src/Tribe/Template_Factory.php:357
 msgid "No upcoming %1$s listed under %2$s. Check out upcoming %3$s for this category or view the full calendar."
-msgstr ""
+msgstr "Geen toekomstige %1$s vermeld onder %2$s. bekijk toekomstige %3$s voor deze categorie of bekijk de volledige kalender."
 
 #: src/Tribe/Template_Factory.php:359 src/Tribe/Template_Factory.php:364
 msgid "No matching %1$s listed under %2$s. Please try viewing the full calendar for a complete list of %3$s."
-msgstr ""
+msgstr "Geen overeenkomende %1$s vermeld onder %2$s. Bekijk a.u.b. de volledige kalender voor een complete lijst van %3$s."
 
 #: src/admin-views/events-meta-box.php:121
 msgid "Timezone:"
-msgstr ""
+msgstr "Tijdzone:"
 
 #: src/admin-views/tickets/attendees.php:103
 msgid "Sold %1$d %2$s"
-msgstr ""
+msgstr "Verkocht %1$d %2$s"
 
 #: src/admin-views/tickets/attendees.php:106
 msgid "Sold %1$d of %2$d %3$s"
-msgstr ""
+msgstr "Verkocht %1$d of %2$d %3$s"
 
 #: src/admin-views/tickets/list.php:69
 msgid "Sold %1$d of %2$d"
-msgstr ""
+msgstr "Verkocht %1$d of %2$d"
 
 #: src/admin-views/tribe-options-general.php:94
 msgid "You cannot edit the slug for your events page as you do not have pretty permalinks enabled. The current URL for your events page is <a href=\"%1$s\">%2$s</a>. In order to edit the slug here, <a href=\"%3$soptions-permalink.php\">enable pretty permalinks</a>."
-msgstr ""
+msgstr "Je kan de slug voor je events pagina niet bewerken als je geen pretty permalinks hebt ingeschakeld. De huidige URL voor je events pagina is <a href=\"%1$s\">%2$s</a>. Om de slug hier aan te passen, <a href=\"%3$soptions-permalink.php\">schakel pretty permalinks in</a>."
 
 #: src/admin-views/tribe-options-help.php:199
 msgid "If you find that you aren't getting the level of service you've come to expect from Modern Tribe, shoot us an email at %1$s or tweet %2$s and tell us why. We'll do what we can to make it right."
-msgstr ""
+msgstr "Wanneer je vind dat je niet het niveau van serviceverlening krijg wat je van Modern Tribe kan verwachten, stuur dan een e-mail naar %1$s of tweet %2$s en vertel ons waarom. We doen wat we kunnen om het goed te maken."
 
 #: src/admin-views/tribe-options-licenses.php:13
 msgid "<p>The license key you received when completing your purchase from %1$s will grant you access to support and updates until it expires. You do not need to enter the key below for the plugins to work, but you will need to enter it to get automatic updates. <strong>Find your license keys at <a href=\"%2$s\" target=\"_blank\">%3$s</a></strong>.</p> <p>Each paid add-on has its own unique license key. Simply paste the key into its appropriate field on below, and give it a moment to validate. You know you're set when a green expiration date appears alongside a \"valid\" message.</p> <p>If you're seeing a red message telling you that your key isn't valid or is out of installs, visit <a href=\"%4$s\" target=\"_blank\">%5$s</a> to manage your installs or renew / upgrade your license.</p><p>Not seeing an update but expecting one? In WordPress, go to <a href=\"%6$s\">Dashboard > Updates</a> and click \"Check Again\".</p>"
-msgstr ""
+msgstr "<p>De licentie code die je hebt gekregen bij het voltooien van de aankoop van %1$s geeft je toegang tot support en updates totdat het verloopt. Je hoeft geen code hieronder in te vullen om de plugin te laten werken, maar je moet het invullen om automatische updates te krijgen. <strong>Vind je licantie code op <a href=\"%2$s\" target=\"_blank\">%3$s</a></strong>.</p> <p>Elke betaalde add-on heeft een unieke licentie code. Plak gewoon de code in het juiste veld hier beneden, en geef het een moment om te valideren. Je weet wanner je klaar bent als een groene verloop datum verschijnt met er naast een \"geldig\" bericht.</p> <p>Als je een rood bericht ziet met de melding de je code niet geldig is of geen installaties meer heeft, bezoek <a href=\"%4$s\" target=\"_blank\">%5$s</a> om je installaties te beheren of om je licentie te vernieuwen / upgrade.</p><p>Zie je geen update maar verwacht je er wel een? In WordPress, ga naar <a href=\"%6$s\">Dashboard > Updates</a> en klik op \"Opnieuw controleren\".</p>"
 
 #: src/admin-views/tribe-options-timezones.php:4
 msgid "Enable timezone support"
-msgstr ""
+msgstr "Schakel tijdzone ondersteuning in"
 
 #: src/admin-views/tribe-options-timezones.php:6
 msgid "Update Timezone Data"
-msgstr ""
+msgstr "Update Tijdzone Data"
 
 #: src/admin-views/tribe-options-timezones.php:7
 msgid "Click this button to update your database and take advantage of additional timezone capabilities. Please <a href=\"%s\" target=\"_blank\">configure WordPress</a> to use the correct timezone before clicking this button!"
-msgstr ""
+msgstr "klik op deze knop om je database te update En profiteer van extra tijdzone mogelijkheden.  <a href=\"%s\" target=\"_blank\">configureer WordPress</a> om de juiste tijdzone te gebruiken voordat je op deze knop klikt!"
 
 #: src/admin-views/tribe-options-timezones.php:27
 msgid "Timezone Settings"
-msgstr ""
+msgstr "Tijdzone instellingen"
 
 #: src/admin-views/tribe-options-timezones.php:35
 msgid "Timezone mode"
-msgstr ""
+msgstr "Tijdzone modus"
 
 #: src/admin-views/tribe-options-timezones.php:39
 msgid "Use the local timezones for each event"
-msgstr ""
+msgstr "Gebruik de lokale tijdzone voor elk event"
 
 #: src/admin-views/tribe-options-timezones.php:40
 msgid "Use the sitewide timezone everywhere"
-msgstr ""
+msgstr "Gebruik de tijdzone voor de hele site overal"
 
 #: src/admin-views/tribe-options-timezones.php:45
 msgid "Show timezone"
-msgstr ""
+msgstr "Toon tijdzone"
 
 #: src/admin-views/tribe-options-timezones.php:46
 msgid "Appends the timezone to the end of event scheduling information &ndash; this can be useful when you have events in numerous different timezones."
-msgstr ""
+msgstr "Voegt de tijdzone aan het einde van event planningsgegevens &ndash; toe dit kan handig zijn wanneer u evenementen hebt in vele verschillende tijdzones."
 
 #: src/functions/template-tags/general.php:411
 msgctxt "category list label"
 msgid "%s Category"
 msgid_plural "%s Categories"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%s Categorie"
+msgstr[1] "%s Categorieën"
 
 #: src/io/csv/admin-views/general.php:48
 msgid "Save Settings"
-msgstr ""
+msgstr "Sla instellingen op"
 
 #: src/Tribe/Activation_Page.php:38
 msgid "Go to plugins page"

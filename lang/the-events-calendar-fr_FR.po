@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the The Events Calendar package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2015-09-02 12:52:16+0000\n"
+"PO-Revision-Date: 2015-09-10 14:12:40+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -16,11 +16,11 @@ msgstr ""
 
 #. Author of the plugin/theme
 msgid "Modern Tribe, Inc."
-msgstr ""
+msgstr "Modern Tribe, Inc."
 
 #. Author URI of the plugin/theme
 msgid "http://m.tri.be/1x"
-msgstr ""
+msgstr "http://m.tri.be/1x"
 
 #: src/Tribe/Admin/Notice/Archive_Slug_Conflict.php:62
 msgid "<a href=\"%s\">Edit the page slug</a>"
@@ -112,7 +112,7 @@ msgstr ""
 
 #: src/admin-views/events-meta-box.php:121
 msgid "Timezone:"
-msgstr ""
+msgstr "Fuseau horaire :"
 
 #: src/admin-views/tickets/attendees.php:103
 msgid "Sold %1$d %2$s"
@@ -144,35 +144,35 @@ msgstr ""
 
 #: src/admin-views/tribe-options-timezones.php:6
 msgid "Update Timezone Data"
-msgstr ""
+msgstr "Mise à jour des données de fuseau horaire"
 
 #: src/admin-views/tribe-options-timezones.php:7
 msgid "Click this button to update your database and take advantage of additional timezone capabilities. Please <a href=\"%s\" target=\"_blank\">configure WordPress</a> to use the correct timezone before clicking this button!"
-msgstr ""
+msgstr "Cliquer sur ce bouton pour mettre à jour votre base de données et bénéficier des nouvelles fonctionnalités de fuseau horaire. Merci de <a href=\"%s\" target=\"_blank\">configurer WordPress</a> avec le bon fuseau horaire avant de cliquer sur ce bouton !"
 
 #: src/admin-views/tribe-options-timezones.php:27
 msgid "Timezone Settings"
-msgstr ""
+msgstr "Paramètres  de fuseau horaire"
 
 #: src/admin-views/tribe-options-timezones.php:35
 msgid "Timezone mode"
-msgstr ""
+msgstr "Mode de fuseau horaire"
 
 #: src/admin-views/tribe-options-timezones.php:39
 msgid "Use the local timezones for each event"
-msgstr ""
+msgstr "Utiliser le fuseau horaire local pour chaque événement"
 
 #: src/admin-views/tribe-options-timezones.php:40
 msgid "Use the sitewide timezone everywhere"
-msgstr ""
+msgstr "Utiliser le fuseau horaire général du site partout"
 
 #: src/admin-views/tribe-options-timezones.php:45
 msgid "Show timezone"
-msgstr ""
+msgstr "Afficher le fuseau horaire"
 
 #: src/admin-views/tribe-options-timezones.php:46
 msgid "Appends the timezone to the end of event scheduling information &ndash; this can be useful when you have events in numerous different timezones."
-msgstr ""
+msgstr "Ajoute le fuseau horaire à la fin des informations de date et heure &ndash; cela peut être utile  quand vous avez de nombreux événements avec des fuseaux horaires différents."
 
 #: src/functions/template-tags/general.php:411
 msgctxt "category list label"
