@@ -26,6 +26,12 @@ vendor/phpunit
 vendor/sebastian
 vendor/symfony
 vendor/autoload.php
+tests/_output/
+vendor/bacon/
+vendor/doctrine/
+vendor/phpdocumentor/
+vendor/phpspec/
+vendor/psr/
 tests/_output/*
 tests/_bootstrap.php
 

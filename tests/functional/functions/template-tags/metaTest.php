@@ -30,11 +30,4 @@ class metaTest extends \WP_UnitTestCase {
 		];
 	}
 
-	/**
-	 * @dataProvider separated_field_inputs
-	 */
-	public function test_tribe_separated_field( $body, $sep, $field, $expected ) {
-		$this->assertEquals( $expected, tribe_separated_field( $body, $sep, $field ) );
-	}
-
 }
