@@ -1,7 +1,7 @@
 {
   "name": "moderntribe/the-events-calendar",
   "description": "The Events Calendar WordPress plugin by Modern Tribe",
-  "type": "project",
+  "type": "wordpress-plugin",
   "keywords": [
     "wordpress",
     "events"
