@@ -7,3 +7,5 @@ compiler.jar
 *.ps1
 tests/_output/*
 codeception.yml
+
+tests/_output/*
