@@ -46,6 +46,21 @@ function tribe_load_active_plugins() {
 	}
 }
 
+/**
+ * Calls setup functions that might be required for plugins to work.
+ *
+ * @throws \Codeception\Exception\Configuration
+ */
+function tribe_call_setup_functions() {
+	$config = \Codeception\Configuration::config();
+	if ( isset( $config['php']['globals']['wp_tests_options']['setup_functions'] ) && is_array( $config['php']['globals']['wp_tests_options']['setup_functions'] ) ) {
+
+		foreach ( $config['php']['globals']['wp_tests_options']['setup_functions'] as $function => $args ) {
+			call_user_func_array( $function, $args );
+		}
+	}
+}
+
 Codeception\Util\Autoload::addNamespace( 'Tribe__Events__WP_UnitTestCase', __DIR__ . '/_support' );
 Codeception\Util\Autoload::addNamespace( 'Tribe\Events\Test', __DIR__ . '/_support' );
 Codeception\Util\Autoload::addNamespace( 'Tribe\Events\Test\Acceptance\Steps', __DIR__ . '/acceptance/_steps' );
