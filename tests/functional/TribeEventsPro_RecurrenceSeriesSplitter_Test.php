@@ -34,6 +34,8 @@ class TribeEventsPro_RecurrenceSeriesSplitter_Test extends Tribe__Events__Pro__W
 			'order' => 'ASC',
 		));
 
+		$this->assertNotEmpty($original_children);
+
 		$child_to_break = $original_children[2];
 
 		$breaker = new Tribe__Events__Pro__Recurrence_Series_Splitter();
@@ -121,6 +123,8 @@ class TribeEventsPro_RecurrenceSeriesSplitter_Test extends Tribe__Events__Pro__W
 		));
 		$this->assertEmpty($updated_children);
 
+		$this->assertNotEmpty( $original_children );
+
 		$new_parent = get_post($original_children[0]);
 
 		$this->assertEmpty($new_parent->post_parent);
@@ -168,6 +172,8 @@ class TribeEventsPro_RecurrenceSeriesSplitter_Test extends Tribe__Events__Pro__W
 			'orderby' => 'ID',
 			'order' => 'ASC',
 		));
+
+		$this->assertNotEmpty( $original_children );
 
 		$child_to_break = $original_children[2];
 

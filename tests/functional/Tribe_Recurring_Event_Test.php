@@ -193,6 +193,8 @@ class Tribe_Recurring_Event_Test extends Tribe__Events__Pro__WP_UnitTestCase {
 			'order' => 'ASC',
 		));
 
+		$this->assertNotEmpty( $original_children );
+
 		wp_delete_post( $original_children[2], TRUE );
 
 		$meta = get_post_meta( $post_id, '_EventRecurrence', TRUE );
@@ -509,6 +511,8 @@ class Tribe_Recurring_Event_Test extends Tribe__Events__Pro__WP_UnitTestCase {
 			'order' => 'ASC',
 		));
 		$this->assertCount(1, $results);
+		$this->assertNotEmpty($children);
+
 		$this->assertEquals($children[4], reset($results));
 
 		$query = new WP_Query();
@@ -572,6 +576,8 @@ class Tribe_Recurring_Event_Test extends Tribe__Events__Pro__WP_UnitTestCase {
 			'fields' => 'ids',
 			'posts_per_page' => 10,
 		));
+
+		$this->assertNotEmpty($children);
 
 		$comment_id = wp_new_comment(array(
 			'comment_post_ID' => $post_id,
