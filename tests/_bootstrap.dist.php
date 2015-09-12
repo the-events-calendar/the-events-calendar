@@ -55,8 +55,8 @@ function tribe_call_setup_functions() {
 	$config = \Codeception\Configuration::config();
 	if ( isset( $config['php']['globals']['wp_tests_options']['setup_functions'] ) && is_array( $config['php']['globals']['wp_tests_options']['setup_functions'] ) ) {
 
-		foreach ( $config['php']['globals']['wp_tests_options']['setup_functions'] as $function => $args ) {
-			call_user_func_array( $function, $args );
+		foreach ( $config['php']['globals']['wp_tests_options']['setup_functions'] as $function ) {
+			call_user_func( $function );
 		}
 	}
 }
