@@ -729,8 +729,8 @@
 			 */
 			public function filter_add_base_slugs( $bases = array() ) {
 				// Support the original and translated forms for added robustness
-				$bases['week']  = array( 'week', sanitize_title( __( 'week', 'tribe-events-calendar-pro' ) ) );
-				$bases['photo'] = array( 'photo', sanitize_title( __( 'photo', 'tribe-events-calendar-pro' ) ) );
+				$bases['week']  = array( 'week', $this->weekSlug );
+				$bases['photo'] = array( 'photo', $this->photoSlug );
 
 				return $bases;
 			}
