@@ -63,11 +63,13 @@ class Tribe__Events__Pro__Recurrence_Scheduler {
 				LEFT JOIN {$wpdb->posts} p ON p.ID = m.post_id
 			WHERE
 				p.post_parent <> 0
-				AND m.meta_key='_EventStartDate'
+				AND p.post_type = %s
+				AND m.meta_key= '_EventStartDate'
 				AND m.meta_value < %s
 		";
 
 		$args = array(
+			Tribe__Events__Main::POSTTYPE,
 			$this->earliest_date,
 		);
 
