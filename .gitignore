@@ -34,6 +34,7 @@ vendor/phpspec/
 vendor/psr/
 tests/_output/*
 tests/_bootstrap.php
+tests/acceptance/_bootstrap.php
 
 tests/_data/dump.sql
 
@@ -50,3 +51,7 @@ tests/functional.suite.yml
 tests/unit.suite.yml
 
 tests/unit/_bootstrap.php
+
+tests/_support/_generated/*
+
+tests/_output/*
