@@ -728,12 +728,9 @@
 			 * @return array         The modified version of the array of bases
 			 */
 			public function filter_add_base_slugs( $bases = array() ) {
-				// For translations purpose we add this as a string not required to assign it to a variable
-				__( 'week', 'tribe-events-calendar-pro' );
-				__( 'photo', 'tribe-events-calendar-pro' );
-
-				$bases['week'] = (array) 'week';
-				$bases['photo'] = (array) 'photo';
+				// Support the original and translated forms for added robustness
+				$bases['week']  = array( 'week', sanitize_title( __( 'week', 'tribe-events-calendar-pro' ) ) );
+				$bases['photo'] = array( 'photo', sanitize_title( __( 'photo', 'tribe-events-calendar-pro' ) ) );
 
 				return $bases;
 			}
