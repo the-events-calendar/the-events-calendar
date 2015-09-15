@@ -69,8 +69,8 @@ class Tribe__Events__Pro__Recurrence_Scheduler {
 		";
 
 		$args = array(
-			Tribe__Events__Main::POSTTYPE,
-			$this->earliest_date,
+			'post_type'     => Tribe__Events__Main::POSTTYPE,
+			'earliest_date' => $this->earliest_date,
 		);
 
 		$sql = apply_filters( 'tribe_events_pro_clean_up_old_recurring_events_sql', $sql );
