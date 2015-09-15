@@ -243,10 +243,10 @@ class Tribe__Events__iCal {
 			}
 
 			$tzoned = (object) array(
-				'start' => date( $format, $time->start ),
-				'end' => date( $format, $time->end ),
+				'start'    => date( $format, $time->start ),
+				'end'      => date( $format, $time->end ),
 				'modified' => date( $format, $time->modified ),
-				'created' => date( $format, $time->created)
+				'created'  => date( $format, $time->created ),
 			);
 
 			if ( 'DATE' === $type ){
