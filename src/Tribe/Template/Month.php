@@ -874,7 +874,7 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 
 			$calendar_day           = self::get_current_day();
 			$calendar_day_timestamp = strtotime( $calendar_day['date'] );
-			$today                  = strtotime( 'today' );
+			$today                  = strtotime( current_time( 'Y-m-d' ) );
 
 			// Start by determining which month we're looking at
 			if ( $calendar_day['month'] == self::CURRENT_MONTH ) {
