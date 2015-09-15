@@ -389,6 +389,7 @@
 			 */
 			public function init() {
 				Tribe__Events__Pro__Mini_Calendar::instance();
+				Tribe__Events__Pro__This_Week::instance();
 				Tribe__Events__Pro__Custom_Meta::init();
 				Tribe__Events__Pro__Recurrence_Meta::init();
 				Tribe__Events__Pro__Geo_Loc::instance();
@@ -1108,6 +1109,7 @@
 				     || is_active_widget( false, false, 'tribe-events-countdown-widget' )
 				     || is_active_widget( false, false, 'next_event' )
 				     || is_active_widget( false, false, 'tribe-events-venue-widget' )
+				     || is_active_widget( false, false, 'tribe-this-week-events-widget' )
 				) {
 
 					Tribe__Events__Pro__Template_Factory::asset_package( 'events-pro-css' );
@@ -1326,6 +1328,7 @@
 				register_widget( 'Tribe__Events__Pro__Countdown_Widget' );
 				register_widget( 'Tribe__Events__Pro__Mini_Calendar_Widget' );
 				register_widget( 'Tribe__Events__Pro__Venue_Widget' );
+				register_widget( 'Tribe__Events__Pro__This_Week_Widget' );
 			}
 
 			/**
