@@ -690,10 +690,7 @@
 			 * @return Tribe__Events__Default_Values
 			 */
 			public function set_default_value_strategy( $strategy ) {
-				if ( tribe_get_option( 'defaultValueReplace' ) ) {
-					$strategy = new Tribe__Events__Pro__Default_Values();
-				}
-				return $strategy;
+				return new Tribe__Events__Pro__Default_Values();
 			}
 
 			/**
