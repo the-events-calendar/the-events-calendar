@@ -13,11 +13,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 } ?>
 
-<div class="tribe-this-week-widget-day tribe-this-week-widget-day-<?php echo $day['day_number'] ?> <?php echo tribe_get_this_week_day_class( $day ); ?>">
+<div class="tribe-this-week-widget-day tribe-this-week-widget-day-<?php echo esc_attr( $day['day_number'] ) ?> <?php echo esc_attr( tribe_get_this_week_day_class( $day ) ); ?>">
 
 	<div class="tribe-this-week-widget-header-date">
-		<span class="day"><?php echo $day['formatted_day'] ?></span>
-		<span class="date"><?php echo $day['formatted_date'] ?></span>
+		<span class="day"><?php echo esc_html( $day['formatted_day'] ); ?></span>
+		<span class="date"><?php echo esc_html( $day['formatted_date'] ); ?></span>
 	</div>
 
 		<div class="tribe-this-week-widget-day-wrap">
@@ -43,14 +43,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 							$view_all_label = sprintf( _n( 'View 1 %1$s', 'View All %2$s %3$s', $day['total_events'], 'tribe-events-calendar' ), $this_week_template_vars['events_label_singular'], $day['total_events'], $this_week_template_vars['events_label_plural'] );
 
 						?>
-						<a href="<?php echo esc_url( $day['view_more'] ); ?>"><?php echo $view_all_label ?> &raquo;</a>
+						<a href="<?php echo esc_url( $day['view_more'] ); ?>"><?php echo esc_html( $view_all_label ); ?> &raquo;</a>
 					</div>
 
 				<?php endif ?>
 
 			<?php else : ?>
 
-				<div class=""><?php _e( 'No Events Today', 'tribe-events-calendar-pro' ); ?></div>
+				<div class="this-week-no-events-msg"><?php esc_html_e( 'No Events Today', 'tribe-events-calendar-pro' ); ?></div>
 
 			<?php endif; ?>
 

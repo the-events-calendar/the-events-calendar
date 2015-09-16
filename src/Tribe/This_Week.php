@@ -116,7 +116,7 @@ class Tribe__Events__Pro__This_Week {
 			$this_week_query_vars['count'] = $_POST['count'];
 			$this_week_query_vars['layout'] = $_POST['layout'];
 			$this_week_query_vars['tax_query'] = $tax_query;
-			$this_week_query_vars['hide_weekends'] =  $_POST['hide_weekends'];
+			$this_week_query_vars['hide_weekends'] = $_POST['hide_weekends'];
 
 			//Setup Variables for Template
 			$this_week_template_vars = self::this_week_template_vars( $this_week_query_vars );
@@ -138,7 +138,6 @@ class Tribe__Events__Pro__This_Week {
 			if ( $tooltip_status ) {
 				$ecp->enable_recurring_info_tooltip();
 			}
-
 		}
 		apply_filters( 'tribe_events_ajax_response', $response );
 
@@ -154,10 +153,10 @@ class Tribe__Events__Pro__This_Week {
 	 */
 	public static function this_week_template_vars( $this_week_query_vars ) {
 
-		$this_week_template_vars['layout'] =  $this_week_query_vars['layout'];
-		$this_week_template_vars['start_date'] =  $this_week_query_vars['start_date'];
-		$this_week_template_vars['end_date'] =  $this_week_query_vars['end_date'];
-		$this_week_template_vars['hide_weekends'] =  $this_week_query_vars['hide_weekends'];
+		$this_week_template_vars['layout'] = $this_week_query_vars['layout'];
+		$this_week_template_vars['start_date'] = $this_week_query_vars['start_date'];
+		$this_week_template_vars['end_date'] = $this_week_query_vars['end_date'];
+		$this_week_template_vars['hide_weekends'] = $this_week_query_vars['hide_weekends'];
 		$this_week_template_vars['events_label_singular'] = tribe_get_event_label_singular();
 		$this_week_template_vars['events_label_plural'] = tribe_get_event_label_plural();
 
@@ -239,7 +238,7 @@ class Tribe__Events__Pro__This_Week {
 			'post_status' => $post_status,
 			'tribeHideRecurrence' => false,
 			'post__not_in' => $hide_upcoming_ids,
-			'posts_per_page' => -1
+			'posts_per_page' => -1,
 		), true );
 
 		//Days Array to set events for each day
@@ -303,12 +302,11 @@ class Tribe__Events__Pro__This_Week {
 								$this_week_events[] = $event;
 
 							}
-
 						}
 					}
 				}
 				//Merge the two arrays for the day only if sticky events are included for that day
-				if ( !empty( $this_week_events_sticky ) && is_array( $this_week_events_sticky ) && is_array( $this_week_events ) ) {
+				if ( ! empty( $this_week_events_sticky ) && is_array( $this_week_events_sticky ) && is_array( $this_week_events ) ) {
 
 					$this_week_events = array_merge( $this_week_events_sticky, $this_week_events );
 				}
@@ -329,7 +327,7 @@ class Tribe__Events__Pro__This_Week {
 					'this_week_events'  => $this_week_events,
 					'has_events'        => $this_week_events,
 					'total_events'      => count ( $this_week_events ),
-					'events_limit'      =>  $this_week_query_vars['count'],
+					'events_limit'      => $this_week_query_vars['count'],
 					'view_more'         => ( count ( $this_week_events ) >  $this_week_query_vars['count'] ) ? esc_url_raw( tribe_get_day_link( $date ) ) : false,
 				);
 		}

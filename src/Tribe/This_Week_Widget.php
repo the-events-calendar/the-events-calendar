@@ -43,8 +43,13 @@ class Tribe__Events__Pro__This_Week_Widget extends WP_Widget {
 
 	public function widget( $args, $instance ) {
 
+		//Disable Tooltips
+		$ecp = Tribe__Events__Pro__Main::instance();
+		$tooltip_status = $ecp->recurring_info_tooltip_status();
+		$ecp->disable_recurring_info_tooltip();
+
 		//Check If a Taxonomy is set
-		if ( !empty( $instance['raw_filters'] ) || isset( $instance['filters'] ) ) {
+		if ( ! empty( $instance['raw_filters'] ) || isset( $instance['filters'] ) ) {
 			$filters = isset( $instance['raw_filters'] ) ? $instance['raw_filters'] : json_decode( $instance['filters'] );
 		} else {
 			$filters = null;
@@ -76,23 +81,25 @@ class Tribe__Events__Pro__This_Week_Widget extends WP_Widget {
 		//Setups This Week Object for Each Day
 		$week_days = Tribe__Events__Pro__This_Week::this_week_query( $this_week_query_vars );
 
-		$ecp = Tribe__Events__Pro__Main::instance();
-		$ecp->disable_recurring_info_tooltip();
-
+		//todo escape? this has html in it
 		echo $args['before_widget'];
 
 		do_action( 'tribe_events_this_week_widget_before_the_title' );
 
+		//todo escape? this has html in it
 		echo ( ! empty( $instance['title'] ) ) ? $args['before_title'] . $instance['title'] . $args['after_title'] : '';
 
 		do_action( 'tribe_events_this_week_widget_after_the_title' );
 
 		include( Tribe__Events__Templates::getTemplateHierarchy( 'pro/widgets/this-week-widget.php' ) );
 
+		//todo escape? this has html in it
 		echo $args['after_widget'];
 
 		// Re-enable recurring event info
-		$ecp->enable_recurring_info_tooltip();
+		if ( $tooltip_status ) {
+			$ecp->enable_recurring_info_tooltip();
+		}
 
 		wp_reset_postdata();
 	}

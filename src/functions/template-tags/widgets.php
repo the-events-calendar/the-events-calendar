@@ -344,9 +344,8 @@ function tribe_this_week_widget_class( $tax_query ) {
 
 			$term = get_term( $term_id, $terms['taxonomy'] );
 
-			$tax_query_class .=  $term->slug . ' ';
+			$tax_query_class .=  $term->slug . '';
 		}
-
 	}
 	return $tax_query_class;
 }

@@ -16,14 +16,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 <p>
 	<label for="<?php echo esc_attr( $this->get_field_id( 'layout' ) ); ?>"><?php esc_html_e( 'Layout:', 'tribe-events-calendar-pro' ); ?></label>
 	<select class="chosen layout-dropdown" id="<?php echo esc_attr( $this->get_field_id( 'layout' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'layout' ) ); ?>" value="<?php echo esc_attr( $instance['layout'] ); ?>">
-		<option <?php selected( "horizontal" == $instance['layout'] ) ?> value="horizontal" > Horizontal Layout</option>
-		<option <?php selected( "vertical" == $instance['layout'] ) ?> value="vertical" > Vertical Layout</option>
+		<option <?php selected( 'horizontal' == $instance['layout'] ) ?> value="horizontal" > Horizontal Layout</option>
+		<option <?php selected( 'vertical' == $instance['layout'] ) ?> value="vertical" > Vertical Layout</option>
 	</select>
 </p>
 
 <p>
-    <label for="<?php echo $this->get_field_id( 'highlight_color' ); ?>" style="display:block;"><?php _e( 'Highlight Color:' ); ?></label>
-	<input class="tribe-color-picker" rel="<?php echo $this->get_field_id('highlight_color'); ?>" type="text" id="<?php echo $this->get_field_id( 'highlight_color' ); ?>" name="<?php echo $this->get_field_name( 'highlight_color' ); ?>" value="<?php echo esc_attr( $instance['highlight_color'] ); ?>" />
+    <label for="<?php echo esc_attr( $this->get_field_id( 'highlight_color' ) ); ?>" style="display:block;"><?php esc_html_e( 'Highlight Color:', 'tribe-events-calendar-pro' ); ?></label>
+	<input class="tribe-color-picker" rel="<?php echo esc_attr( $this->get_field_id( 'highlight_color' ) ); ?>" type="text" id="<?php echo esc_attr( $this->get_field_id( 'highlight_color' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'highlight_color' ) ); ?>" value="<?php echo esc_attr( $instance['highlight_color'] ); ?>" />
 </p>
 
 <script>
@@ -52,7 +52,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<select class="chosen layout-dropdown" id="<?php echo esc_attr( $this->get_field_id( 'count' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'count' ) ); ?>" value="<?php echo esc_attr( $instance['count'] ); ?>">
 		<?php for ( $i = 1; $i <= 10; $i ++ ) {
 			?>
-			<option <?php selected( $i == $instance['count'] ) ?>> <?php echo $i; ?> </option>
+			<option <?php selected( $i == $instance['count'] ) ?>> <?php echo esc_attr( $i ); ?> </option>
 		<?php } ?>
 	</select>
 </p>
@@ -98,7 +98,7 @@ if ( empty( $instance['filters'] ) ) {
 					if ( empty( $term_obj ) || is_wp_error( $term_obj ) ) {
 						continue;
 					}
-					echo sprintf( "<li><p>%s: %s&nbsp;&nbsp;<span><a href='#' class='calendar-widget-remove-filter' data-tax='%s' data-term='%s'>(" . __( 'remove', 'tribe-events-calendar-pro' ) . ')</a></span></p></li>', $tax_obj->labels->name, $term_obj->name, $tax, $term_obj->term_id );
+					echo sprintf( "<li><p>%s: %s&nbsp;&nbsp;<span><a href='#' class='calendar-widget-remove-filter' data-tax='%s' data-term='%s'>(" . __( 'remove', 'tribe-events-calendar-pro' ) . ')</a></span></p></li>', esc_html( $tax_obj->labels->name ), esc_html( $term_obj->name ), esc_attr( $tax ), esc_attr( $term_obj->term_id ) );
 				}
 			}
 

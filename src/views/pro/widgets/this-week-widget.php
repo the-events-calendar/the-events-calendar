@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 ?>
-<div class="tribe-this-week-widget-wrapper tribe-this-week-widget-<?php echo esc_attr( $this_week_template_vars['layout'] ); ?> <?php echo esc_attr( tribe_this_week_widget_class( $this_week_query_vars['tax_query'] ) ); ?>" <?php echo apply_filters( 'tribe_events_this_week_header_attributes', $this_week_data_attrs ); ?>>
+<div class="tribe-this-week-widget-wrapper tribe-this-week-widget-<?php echo esc_attr( $this_week_template_vars['layout'] ); ?> <?php echo esc_attr( tribe_this_week_widget_class( $this_week_query_vars['tax_query'] ) ); ?>" <?php /*todo esc this? just using esc_attr breaks it */ echo apply_filters( 'tribe_events_this_week_header_attributes', $this_week_data_attrs ); ?> >
 
 	<!-- This Week Title -->
 	<?php do_action( 'tribe_events_before_this_week_title' ) ?>
@@ -47,4 +47,4 @@ if ( ! defined( 'ABSPATH' ) ) {
 		    border-color: <?php echo esc_attr( $instance['highlight_color'] ); ?>;
 		}
 	</style>
-<?php } ?>
+<?php }
