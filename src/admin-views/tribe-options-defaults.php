@@ -203,11 +203,11 @@ $defaultsTab = array(
 );
 
 /**
- * @todo remove in 4.0
+ * @todo remove in 4.3
  * @deprecated
  */
 if ( apply_filters( 'tribe_enable_default_value_replace_checkbox', false ) ) {
-	_deprecated_function("'defaultValueReplace checkbox'", '4.0', 'Built-in WordPress postmeta filters' );
+	_deprecated_function( "'defaultValueReplace checkbox'", '4.0', 'Built-in WordPress postmeta filters' );
 	$defaultsTab = Tribe__Events__Main::array_insert_after_key(
 		'eventsDefaultOptionsHelperTitle', $defaultsTab, array(
 			'defaultValueReplace' => array(
