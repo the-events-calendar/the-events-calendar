@@ -233,7 +233,7 @@ class Tribe__Events__Tickets__Orders_Table extends WP_List_Table {
 		static $row_class = '';
 		$row_class = ( $row_class == '' ? ' alternate ' : '' );
 
-		echo '<tr class="' . sanitize_html_class( $row_class ) . $checked . '">';
+		echo '<tr class="' . sanitize_html_class( $row_class ) . '">';
 		$this->single_row_columns( $item );
 		echo '</tr>';
 	}//end single_row
