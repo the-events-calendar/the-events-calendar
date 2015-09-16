@@ -455,7 +455,7 @@ class Tribe__Events__Pro__Recurrence_Meta {
 					}
 
 					// ignore the rule if the type isn't set OR the type is set to 'None'
-					if ( empty( $recurrence['type'] ) || ( ! empty( $recurrence['type'] ) && 'None' === $recurrence['type'] ) ) {
+					if ( empty( $recurrence['type'] ) || 'None' === $recurrence['type'] ) {
 						continue;
 					}
 
