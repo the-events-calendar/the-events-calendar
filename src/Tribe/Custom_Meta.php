@@ -1,10 +1,32 @@
 <?php
 
 /**
- * Tribe__Events__Pro__Custom_Meta
+ * "Additional Fields" implementation.
  *
- * This class allows users to create custom fields in the settings & displays the
- * custom fields in the event editor
+ * Allows users to create custom fields via the Events > Settings > Additional Fields
+ * tab that will then become common to all events and can be set via the event editor.
+ *
+ * ECP's custom/additional fields are stored in the post meta table in two different
+ * ways. One is a historical form that also provides fast retrieval, where multiple
+ * values are contained in a pipe-separated format within a single record, ie:
+ *
+ *     meta_key       meta_value
+ *     -------------  -----------
+ *     _ecp_custom_x  apples|greengages|oranges
+ *
+ * As of 4.0, multiple values like the above example of several tasty fruits available
+ * at a theoretical market event will additionally be stored in separate records, closer
+ * to how WordPress does things organically:
+ *
+ *     meta_key        meta_value
+ *     -------------   -----------
+ *     __ecp_custom_x  apples
+ *     __ecp_custom_x  greengages
+ *     __ecp_custom_x  oranges
+ *
+ * Note the key for the second arrangement differs by a single leading underscore. This
+ * facilitates easier and more flexible searching of additional fields when desired with
+ * only a slight storage overhead.
  */
 class Tribe__Events__Pro__Custom_Meta {
 	public static function init() {
@@ -85,38 +107,60 @@ class Tribe__Events__Pro__Custom_Meta {
 	 *
 	 * saves the custom fields for a single event
 	 *
-	 * @param $postId
+	 * @param $post_id
 	 * @param $data
 	 *
 	 * @return void
 	 * @see 'tribe_events_update_meta'
 	 */
-	public static function save_single_event_meta( $postId, $data = array() ) {
+	public static function save_single_event_meta( $post_id, $data = array() ) {
 		$customFields = (array) tribe_get_option( 'custom-fields' );
+
 		foreach ( $customFields as $customField ) {
-			if ( isset( $customField['name'] ) ) {
-				$val = self::get_value_to_save( $customField['name'], $data );
+			// If the field name (ie, "_ecp_custom_x") has not been set then we cannot store it
+			if ( ! isset( $customField['name'] ) ) {
+				continue;
+			}
+			
+			$combined_field_name = wp_kses_data( $customField['name'] );
+			$searchable_field_name = '_' . $combined_field_name;
+			
+			$value = self::get_value_to_save( $customField['name'], $data );
+			
+			// If multiple values have been assigned (ie, if this is a checkbox field or similar) then
+			// store the values a) in a single pipe-separated field b) as individual records 
+			if ( is_array( $value ) ) {
+				$combined_record    = esc_attr( implode( '|', str_replace( '|', '', $value ) ) );
+				$searchable_records = $value;
+			} 
+			// If we only have one value (ie, a text field or similar) we still create two different
+			// records, but both will be identical
+			else {
+				
+				$searchable_records[] = $combined_record = wp_kses(
+					$value,
+					array(
+						'a' => array(
+							'href'   => array(),
+							'title'  => array(),
+							'target' => array(),
+						),
+						'b'      => array(),
+						'i'      => array(),
+						'strong' => array(),
+						'em'     => array(),
+					)
+				);
+			}
 
-				if ( is_array( $val ) ) {
-					$val = esc_attr( implode( '|', str_replace( '|', '', $val ) ) );
-				} else {
-					$val = wp_kses(
-						$val,
-						array(
-							'a' => array(
-								'href'   => array(),
-								'title'  => array(),
-								'target' => array(),
-							),
-							'b'      => array(),
-							'i'      => array(),
-							'strong' => array(),
-							'em'     => array(),
-						)
-					);
-				}
-
-				update_post_meta( $postId, wp_kses_data( $customField['name'] ), $val );
+			// Store the combined field
+			update_post_meta( $post_id, $combined_field_name, $combined_record );
+			
+			// Store more readily searchable fields, too: kill all existing ones first of all
+			delete_post_meta( $post_id, $searchable_field_name );
+			
+			foreach ( $searchable_records as $single_value ) {
+				add_post_meta( $post_id, $searchable_field_name, $single_value );
 			}
 		}
 	}
