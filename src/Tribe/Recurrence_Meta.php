@@ -1819,6 +1819,10 @@ class Tribe__Events__Pro__Recurrence_Meta {
 				// Let's get rid of the group by (non-greedily stop before the ORDER BY or LIMIT
 				$sql = preg_replace( '/GROUP BY .+?(ORDER|LIMIT)/', '$1', $sql );
 
+				// Once this becomes an inner query we need to avoid duplicating the post_date column (which will
+				// otherwise be returned once from wp_posts.* and once as an alias)
+				$sql = str_replace( 'AS post_date', 'AS EventStartDate', $sql );
+
 				// Let's extract the LIMIT. We're going to relocate it to the outer query
 				$limit_regex = '/LIMIT\s+[0-9]+(\s*,\s*[0-9]+)?/';
 				preg_match( $limit_regex, $sql, $limit );
