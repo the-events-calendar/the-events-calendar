@@ -6,9 +6,10 @@
  * Allows users to create custom fields via the Events > Settings > Additional Fields
  * tab that will then become common to all events and can be set via the event editor.
  *
- * ECP's custom/additional fields are stored in the post meta table in two different
- * ways. One is a historical form that also provides fast retrieval, where multiple
- * values are contained in a pipe-separated format within a single record, ie:
+ * ECP's custom/additional fields are stored in the post meta table and may be recorded
+ * in two different ways. One is a historical form that also provides fast retrieval,
+ * where multiple values are contained in a pipe-separated format within a single record,
+ * ie:
  *
  *     meta_key       meta_value
  *     -------------  -----------
@@ -26,9 +27,20 @@
  *
  * Note the key for the second arrangement differs by a single leading underscore. This
  * facilitates easier and more flexible searching of additional fields when desired with
- * only a slight storage overhead.
+ * only a slight storage overhead. By default, this will only happen for field types that
+ * support multiple values (such as the checkbox type).
  */
 class Tribe__Events__Pro__Custom_Meta {
+	/**
+	 * List of field types supporting the assignment of multiple values.
+	 *
+	 * @var array
+	 */
+	protected static $multichoice_types = array(
+		'checkbox'
+	);
+
+
 	public static function init() {
 		add_action( 'wp_ajax_remove_option', array( __CLASS__, 'remove_meta_field' ) );
 		add_action( 'tribe_settings_after_content_tab_additional-fields', array( __CLASS__, 'event_meta_options' ) );
@@ -37,7 +49,54 @@ class Tribe__Events__Pro__Custom_Meta {
 		add_filter( 'tribe_settings_validate_tab_additional-fields', array( __CLASS__, 'force_save_meta' ) );
 		add_filter( 'tribe_events_csv_import_event_additional_fields', array( __CLASS__, 'import_additional_fields' ) );
 		add_filter( 'tribe_events_importer_event_column_names', array( __CLASS__, 'importer_column_mapping' ) );
+	}
 
+	/**
+	 * Given an array representing a custom field structure, or a string representing a field
+	 * type, returns true if the type is considered "multichoice".
+	 *
+	 * @param array|string $structure_or_type
+	 *
+	 * @return bool
+	 */
+	public static function is_multichoice( $structure_or_type ) {
+		$field_type = ( is_array( $structure_or_type ) && isset( $structure_or_type['type'] ) )
+			? $structure_or_type['type']
+			: $structure_or_type;
+
+		$is_multichoice = in_array( $field_type, self::get_multichoice_fields_list() );
+
+		/**
+		 * Controls whether the specified type should be considered "multichoice", which can impact
+		 * whether or not individual post meta records are generated when storing the field.
+		 *
+		 * @var bool   $is_multichoice
+		 * @var string $field_type
+		 */
+		return apply_filters( 'tribe_events_pro_field_is_multichoice', $is_multichoice, $field_type );
+	}
+
+	/**
+	 * Returns a list of additional field types deemed "multichoice" in nature.
+	 *
+	 * @return array
+	 */
+	public static function get_multichoice_fields_list() {
+		static $field_list;
+
+		// If we have already built our list of multichoice field types, return it directly!
+		if ( isset( $field_list ) ) {
+			return $field_list;
+		}
+
+		/**
+		 * The list of additional field types to be considered "multichoice" (ie, where admins can
+		 * assign multiple possible values to the same post).
+		 *
+		 * @var array $multichoice_types
+		 */
+		$field_list = (array) apply_filters( 'tribe_events_pro_multichoice_field_types', self::$multichoice_types );
+		return $field_list;
 	}
 
 	/**
@@ -103,9 +162,12 @@ class Tribe__Events__Pro__Custom_Meta {
 	}
 
 	/**
-	 * save_single_event_meta
+	 * Saves the custom fields for a single event.
 	 *
-	 * saves the custom fields for a single event
+	 * In the case of fields where mutiple values have been assigned (or even if only
+	 * a single value was assigned - but the field type itself _supports_ multiple
+	 * values, such as a checkbox field) an additional set of records will be created
+	 * storing each value in a separate row of the postmeta table.
 	 *
 	 * @param $post_id
 	 * @param $data
@@ -114,30 +176,32 @@ class Tribe__Events__Pro__Custom_Meta {
 	 * @see 'tribe_events_update_meta'
 	 */
 	public static function save_single_event_meta( $post_id, $data = array() ) {
-		$customFields = (array) tribe_get_option( 'custom-fields' );
+		$custom_fields = (array) tribe_get_option( 'custom-fields' );
 
-		foreach ( $customFields as $customField ) {
+		foreach ( $custom_fields as $custom_field ) {
 			// If the field name (ie, "_ecp_custom_x") has not been set then we cannot store it
-			if ( ! isset( $customField['name'] ) ) {
+			if ( ! isset( $custom_field['name'] ) ) {
 				continue;
 			}
 			
-			$combined_field_name = wp_kses_data( $customField['name'] );
-			$searchable_field_name = '_' . $combined_field_name;
-			
-			$value = self::get_value_to_save( $customField['name'], $data );
-			
+			$ordinary_field_name = wp_kses_data( $custom_field['name'] );
+			$searchable_field_name = '_' . $ordinary_field_name;
+
+			// Grab the new value and reset the searchable records container
+			$value = self::get_value_to_save( $custom_field['name'], $data );
+			$searchable_records = array();
+
 			// If multiple values have been assigned (ie, if this is a checkbox field or similar) then
-			// store the values a) in a single pipe-separated field b) as individual records 
+			// build a single pipe-separated field and a list of individual records
 			if ( is_array( $value ) ) {
-				$combined_record    = esc_attr( implode( '|', str_replace( '|', '', $value ) ) );
+				$ordinary_record    = esc_attr( implode( '|', str_replace( '|', '', $value ) ) );
 				$searchable_records = $value;
 			} 
-			// If we only have one value (ie, a text field or similar) we still create two different
-			// records, but both will be identical
+			// If we have only a single value we may still need to record an extra entry if the type
+			// of field is multichoice in nature
 			else {
 				
-				$searchable_records[] = $combined_record = wp_kses(
+				$searchable_records[] = $ordinary_record = wp_kses(
 					$value,
 					array(
 						'a' => array(
@@ -154,11 +218,18 @@ class Tribe__Events__Pro__Custom_Meta {
 			}
 
 			// Store the combined field
-			update_post_meta( $post_id, $combined_field_name, $combined_record );
-			
-			// Store more readily searchable fields, too: kill all existing ones first of all
+			update_post_meta( $post_id, $ordinary_field_name, $ordinary_record );
+
+			// If this is not a multichoice field *and* there is only a single value we can move to the
+			// next record, otherwise we should continue and store each value individually
+			if ( ! self::is_multichoice( $custom_field ) && count( $searchable_records ) === 1 ) {
+				continue;
+			}
+
+			// Kill all existing searchable custom fields first of all
 			delete_post_meta( $post_id, $searchable_field_name );
-			
+
+			// Rebuild with the new values
 			foreach ( $searchable_records as $single_value ) {
 				add_post_meta( $post_id, $searchable_field_name, $single_value );
 			}
@@ -309,5 +380,4 @@ class Tribe__Events__Pro__Custom_Meta {
 			}
 		}
 	}
-
 }
