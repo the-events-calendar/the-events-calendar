@@ -42,7 +42,7 @@ $has_venue_address = ( ! empty( $venue_details['address'] ) ) ? ' location' : ''
 <div class="tribe-events-event-meta <?php echo esc_attr( $has_venue . $has_venue_address ); ?>">
 
 	<!-- Schedule & Recurrence Details -->
-	<div class="updated published time-details">
+	<div class="tribe-updated published time-details">
 		<?php echo tribe_events_event_schedule_details(); ?>
 	</div>
 

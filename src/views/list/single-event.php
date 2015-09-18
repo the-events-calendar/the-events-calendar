@@ -45,7 +45,7 @@ $organizer = tribe_get_organizer();
 	<div class="author <?php echo esc_attr( $has_venue_address ); ?>">
 
 		<!-- Schedule & Recurrence Details -->
-		<div class="updated published time-details">
+		<div class="tribe-updated published time-details">
 			<?php echo tribe_events_event_schedule_details() ?>
 		</div>
 
