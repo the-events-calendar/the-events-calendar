@@ -1,11 +1,11 @@
 === The Events Calendar PRO ===
 
-Contributors:  ModernTribe, roblagatta, faction23, jazbek, jbrinley, leahkoerper, brook-tribe, ckpicker, barry.hughes, joshlimecuda, geoffgraham, brianjessee, mdbitz, neillmcshea, peterchester, ryancurban, reid.peifer, shane.pearlman, borkweb
+Contributors: ModernTribe, barry.hughes, bordoni, borkweb, brianjessee, brook-tribe, faction23, geoffgraham, ggwicz, jazbek, jbrinley, joshlimecuda, leahkoerper, lucatume, mastromktg, mat-lipe, mdbitz, neillmcshea, nicosantos, peterchester, reid.peifer, roblagatta, ryancurban, shane.pearlman, thatdudebutch,  zbtirrell
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget, pro
 Donate link: http://m.tri.be/29
 Requires at least: 3.9
 Tested up to: 4.3
-Stable tag: 3.12a3
+Stable tag: 3.12
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -128,43 +128,49 @@ The plugin is produced by <a href="http://m.tri.be/45">Modern Tribe Inc</a>.
 
 = Current Contributors =
 
-* <a href="http://profiles.wordpress.org/users/borkweb">Matthew Batchelder</a>
-* <a href="http://profiles.wordpress.org/users/roblagatta">Rob La Gatta</a>
-* <a href="http://profiles.wordpress.org/users/zbtirrell">Zach Tirrell</a>
-* <a href="http://profiles.wordpress.org/users/jazbek">Jessica Yazbek</a>
 * <a href="http://profiles.wordpress.org/users/barryhughes">Barry Hughes</a>
-* <a href="http://profiles.wordpress.org/users/jbrinley">Jonathan Brinley</a>
-* <a href="http://profiles.wordpress.org/users/faction23">Samuel Estok</a>
 * <a href="http://profiles.wordpress.org/users/brianjessee">Brian Jessee</a>
-* <a href="http://profiles.wordpress.org/users/mdbitz”>Matthew Denton</a>
+* <a href="http://profiles.wordpress.org/users/brook-tribe">Brook Harding</a>
 * <a href="http://profiles.wordpress.org/users/geoffgraham">Geoff Graham</a>
-* <a href="http://profiles.wordpress.org/users/joshlimecuda”>Josh Mallard</a>
-* <a href="http://profiles.wordpress.org/users/neillmcshea">Neill McShea</a>
-* <a href="http://profiles.wordpress.org/users/brook-tribe”>Brook Harding</a>
-* <a href="http://profiles.wordpress.org/users/ckpicker”>Casey Picker</a>
+* <a href="http://profiles.wordpress.org/users/ggwicz">George Gecewicz</a>
+* <a href="http://profiles.wordpress.org/users/bordoni">Gustavo Bordoni</a>
+* <a href="http://profiles.wordpress.org/users/jazbek">Jessica Yazbek</a>
+* <a href="http://profiles.wordpress.org/users/jbrinley">Jonathan Brinley</a>
+* <a href="http://profiles.wordpress.org/users/joshlimecuda">Josh Mallard</a>
 * <a href="http://profiles.wordpress.org/users/leahkoerper">Leah Koerper</a>
+* <a href="http://profiles.wordpress.org/users/lucatume">Luca Tumedei</a>
+* <a href="http://profiles.wordpress.org/users/mat-lipe">Mat Lipe</a>
+* <a href="http://profiles.wordpress.org/users/borkweb">Matthew Batchelder</a>
+* <a href="http://profiles.wordpress.org/users/mdbitz">Matthew Denton</a>
+* <a href="http://profiles.wordpress.org/users/neillmcshea">Neill McShea</a>
+* <a href="http://profiles.wordpress.org/users/mastromktg">Nick Mastromattei</a>
+* <a href="http://profiles.wordpress.org/users/nicosantos”>Nico Santo</a>
 * <a href="http://profiles.wordpress.org/users/peterchester">Peter Chester</a>
+* <a href="http://profiles.wordpress.org/users/roblagatta">Rob La Gatta</a>
 * <a href="http://profiles.wordpress.org/users/reid.peifer">Reid Peifer</a>
+* <a href="http://profiles.wordpress.org/users/ryancurban">Ryan Urban</a>
+* <a href="http://profiles.wordpress.org/users/faction23">Samuel Estok</a>
 * <a href="http://profiles.wordpress.org/users/shane.pearlman">Shane Pearlman</a>
-
+* <a href="http://profiles.wordpress.org/users/thatdudebutch">Wayne Stratton</a>
+* <a href="http://profiles.wordpress.org/users/zbtirrell">Zachary Tirrell</a>
 
 = Past Contributors =
 
-* <a href="http://profiles.wordpress.org/users/paulhughes01">Paul Hughes</a>
-* <a href="http://profiles.wordpress.org/users/kyleunzicker">Kyle Unzicker</a>
-* <a href="http://profiles.wordpress.org/users/MZAWeb">Daniel Dvorkin</a>
-* <a href="http://profiles.wordpress.org/users/ryancurban">Ryan Urban</a>
 * <a href="http://profiles.wordpress.org/users/caseypatrickdriscoll">Casey Driscoll</a>
-* <a href="http://profiles.wordpress.org/users/codearachnid">Timothy Wood</a>
-* <a href="http://profiles.wordpress.org/users/kellykathryn">Kelly Groves</a>
-* <a href="http://profiles.wordpress.org/users/jonahcoyote">Jonah West</a>
-* <a href="http://profiles.wordpress.org/users/jkudish">Joachim Kudish</a>
-* <a href="http://profiles.wordpress.org/users/nickciske">Nick Ciske</a>
-* <a href="http://profiles.wordpress.org/users/kelseydamas">Kelsey Damas</a>
-* <a href="http://profiles.wordpress.org/users/mattwiebe">Matt Wiebe</a>
+* <a href="http://profiles.wordpress.org/users/ckpicker">Casey Picker</a>
 * <a href="http://profiles.wordpress.org/users/dancameron">Dan Cameron</a>
+* <a href="http://profiles.wordpress.org/users/MZAWeb">Daniel Dvorkin</a>
+* <a href="http://profiles.wordpress.org/users/jkudish">Joachim Kudish</a>
 * <a href="http://profiles.wordpress.org/users/jgadbois">John Gadbois</a>
-* Justin Endler
+* <a href="http://profiles.wordpress.org/users/jonahcoyote">Jonah West</a>
+* <a href=“https://profiles.wordpress.org/justinendler/“>Justin Endler</a>
+* <a href="http://profiles.wordpress.org/users/kellykathryn">Kelly Groves</a>
+* <a href="http://profiles.wordpress.org/users/kelseydamas">Kelsey Damas</a>
+* <a href="http://profiles.wordpress.org/users/kyleunzicker">Kyle Unzicker</a>
+* <a href="http://profiles.wordpress.org/users/mattwiebe">Matt Wiebe</a>
+* <a href="http://profiles.wordpress.org/users/nickciske">Nick Ciske</a>
+* <a href="http://profiles.wordpress.org/users/paulhughes01">Paul Hughes</a>
+* <a href="http://profiles.wordpress.org/users/codearachnid">Timothy Wood</a>
 
 = Translations =
 
@@ -216,13 +222,26 @@ Our Premium Plugins:
 
 == Changelog ==
 
-= [Unreleased] unreleased =
+= [3.12] 2015-09-08 =
 
-* Bug - Fixed APM Start/End Date filters to stop showing SQL errors
-
-= [Unreleased] unreleased =
-
-* Bug - Fixed an issue with additional fields not showing as selected when a symbol is included in the label
+* Security - Resolved JS vulnerability in minified JS by upgrading to uglifyjs 2.4.24
+* Feature - Added support for the long awaited Arbitrary Recurrence!  Creating recurring events with multiple granular rulesets is now possible.
+* Feature - Added support for WPML, thanks for waiting!
+* Feature - Extended CSV imports to include custom fields defined in events settings (Big thanks to zacwasielewski for submitting a similar pull request! You rock! :) )
+* Feature - Added none option for both Radio and Dropdown Additional Fields (Thanks to Justin on the forums!)
+* Feature - Added support for timezones following the introduction of timezone support in The Events Calendar
+* Performance - Removed a no-longer needed join from many queries to provide faster page loads
+* Tweak - Pad SQL joins with spacing to avoid conflicts with other plugins that modify SQL (props to jeremyfelt)
+* Fix - Fixed issue where generating recurring events did not trigger the rebuilding of the known date range
+* Fix - Fixed APM Start/End Date filters to stop showing SQL errors
+* Fix - Fixed an issue with additional fields not showing as selected when a symbol is included in the label (Props to Justin!)
+* Fix - Resolved issue where events without venues were showing up in Map View
+* Fix - Fixed a bug where the tribe-mini-calendar-today CSS class was not removed from some days in the mini calendar widget while clicking around (Thanks to mennstudio for the report!)
+* Fix - Resolved a bug where "Additional Fields" with a double quote in the title would be saved with a backslash
+* Fix - Fixed notices that were being thrown while configuring the Countdown Widget in the Customizer
+* Fix - Fixed a problem where recurring event updates did not properly complete (props to Ian for detecting this problem!)
+* Fix - Fixed a problem where the first event in a series of recurring events could be excluded from the "All Events" view (Cheers to Ian for reporting this!)
+* Deprecated - Functions that added useless SQL have been removed from source: Tribe__Events__Pro__Main::posts_fields() and Tribe__Events__Pro__Main::posts_join()
 
 = [3.11.1] 2015-07-27 =
 

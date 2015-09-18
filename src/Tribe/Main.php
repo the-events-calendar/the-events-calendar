@@ -40,9 +40,8 @@
 			 */
 			public $widget_wrappers;
 
-
-			const REQUIRED_TEC_VERSION = '3.11';
-			const VERSION = '3.12rc1';
+			const REQUIRED_TEC_VERSION = '3.12';
+			const VERSION = '3.12';
 
 			private function __construct() {
 				$this->pluginDir = trailingslashit( basename( EVENTS_CALENDAR_PRO_DIR ) );
@@ -435,7 +434,7 @@
 						}
 
 						// A child event should be using its parent's slug. If it's using its own, redirect.
-						if ( tribe_is_recurring_event( get_the_ID() ) ) {
+						if ( tribe_is_recurring_event( get_the_ID() ) && '' !== get_option( 'permalink_structure' ) ) {
 							$event = get_post( get_the_ID() );
 							if ( ! empty( $event->post_parent ) ) {
 								if ( isset( $wp_query->query['name'] ) && $wp_query->query['name'] == $event->post_name ) {
@@ -690,10 +689,7 @@
 			 * @return Tribe__Events__Default_Values
 			 */
 			public function set_default_value_strategy( $strategy ) {
-				if ( tribe_get_option( 'defaultValueReplace' ) ) {
-					$strategy = new Tribe__Events__Pro__Default_Values();
-				}
-				return $strategy;
+				return new Tribe__Events__Pro__Default_Values();
 			}
 
 			/**
@@ -1452,22 +1448,20 @@
 						}
 						break;
 					case 'all':
-						remove_filter(
-							'post_type_link', array(
-							$this->permalink_editor,
-							'filter_recurring_event_permalinks',
-						), 10, 4
-						);
-						$post_id = $secondary ? $secondary : get_the_ID();
-						$post_id = wp_get_post_parent_id( $post_id );
-						$eventUrl = trailingslashit( get_permalink( $post_id ) );
+						// Temporarily disable the post_type_link filter for recurring events
+						$link_filter = array( $this->permalink_editor, 'filter_recurring_event_permalinks' );
+						remove_filter( 'post_type_link', $link_filter, 10, 4 );
+
+						// Obtain the ID of the parent event
+						$post_id   = $secondary ? $secondary : get_the_ID();
+						$parent_id = wp_get_post_parent_id( $post_id );
+						$event_id  = ( 0 === $parent_id ) ? $post_id : $parent_id;
+
+						$eventUrl = trailingslashit( get_permalink( $event_id ) );
 						$eventUrl = trailingslashit( esc_url_raw( $eventUrl . 'all' ) );
-						add_filter(
-							'post_type_link', array(
-							$this->permalink_editor,
-							'filter_recurring_event_permalinks',
-						), 10, 4
-						);
+
+						// Restore the temporarily disabled permalink filter
+						add_filter( 'post_type_link', $link_filter, 10, 4 );
 						break;
 					default:
 						break;

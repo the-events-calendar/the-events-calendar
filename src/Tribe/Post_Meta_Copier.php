@@ -43,6 +43,8 @@ class Tribe__Events__Pro__Post_Meta_Copier {
 			'_edit_last',
 			'_EventStartDate',
 			'_EventEndDate',
+			'_EventStartDateUTC',
+			'_EventEndDateUTC',
 			'_EventDuration',
 		);
 

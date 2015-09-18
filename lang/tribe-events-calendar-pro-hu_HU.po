@@ -10,717 +10,947 @@ msgstr ""
 "X-Generator: GlotPress/1.0-alpha-1000\n"
 "Project-Id-Version: Events Calendar Pro\n"
 
-#: ../src/Tribe/Main.php:665
+#: src/Tribe/Main.php:364
+msgid "All %1$s for %2$s"
+msgstr ""
+
+#: src/Tribe/Main.php:370
+msgid "%1$s for week of %2$s"
+msgstr ""
+
+#: src/Tribe/Recurrence/Queue_Processor.php:184
+msgid "Could not process queue for event %1$d: %2$s"
+msgstr ""
+
+#: src/Tribe/Recurrence_Meta.php:744
+msgid "Custom recurrences must have a type selected."
+msgstr ""
+
+#: src/Tribe/Recurrence_Meta.php:752
+msgid "Custom recurrences must have all data present."
+msgstr ""
+
+#: src/Tribe/Recurrence_Meta.php:1196
+msgctxt "Recurrence rule separator"
+msgid ",<br> and "
+msgstr ""
+
+#: src/Tribe/Recurrence_Meta.php:1206
+msgid "An event every day that lasts %1$s day(s) and %2$s hour(s), the last of which will begin on %3$s"
+msgstr ""
+
+#: src/Tribe/Recurrence_Meta.php:1207
+msgid "An event every day that lasts %1$s day(s) and %2$s hour(s), but only create %3$s event(s)"
+msgstr ""
+
+#: src/Tribe/Recurrence_Meta.php:1208
+msgid "An event every day that lasts %1$s day(s) and %2$s hour(s) with no end date"
+msgstr ""
+
+#: src/Tribe/Recurrence_Meta.php:1209
+msgid "An event every week on the same day that lasts %1$s day(s) and %2$s hour(s), the last of which will begin on %3$s"
+msgstr ""
+
+#: src/Tribe/Recurrence_Meta.php:1210
+msgid "An event every week on the same day that lasts %1$s day(s) and %2$s hour(s), but only create %3$s event(s)"
+msgstr ""
+
+#: src/Tribe/Recurrence_Meta.php:1211
+msgid "An event every week on the same day that lasts %1$s day(s) and %2$s hour(s) with no end date"
+msgstr ""
+
+#: src/Tribe/Recurrence_Meta.php:1212
+msgid "An event every month on the same day that lasts %1$s day(s) and %2$s hour(s), the last of which will begin on %3$s"
+msgstr ""
+
+#: src/Tribe/Recurrence_Meta.php:1213
+msgid "An event every month on the same day that lasts %1$s day(s) and %2$s hour(s), but only create %3$s event(s)"
+msgstr ""
+
+#: src/Tribe/Recurrence_Meta.php:1214
+msgid "An event every month on the same day that lasts %1$s day(s) and %2$s hour(s) with no end date"
+msgstr ""
+
+#: src/Tribe/Recurrence_Meta.php:1215
+msgid "An event every year on the same date that lasts %1$s day(s) and %2$s hour(s), the last of which will begin on %3$s"
+msgstr ""
+
+#: src/Tribe/Recurrence_Meta.php:1216
+msgid "An event every year on the same date that lasts %1$s day(s) and %2$s hour(s), but only create %3$s event(s)"
+msgstr ""
+
+#: src/Tribe/Recurrence_Meta.php:1217
+msgid "An event every year on the same date that lasts %1$s day(s) and %2$s hour(s) with no end date"
+msgstr ""
+
+#: src/Tribe/Recurrence_Meta.php:1218
+msgid "An event every %1$s day(s) that lasts %2$s day(s) and %3$s hour(s), the last of which will begin on %4$s"
+msgstr ""
+
+#: src/Tribe/Recurrence_Meta.php:1219
+msgid "An event every %1$s day(s) that lasts %2$s day(s) and %3$s hour(s), but only create %4$s event(s)"
+msgstr ""
+
+#: src/Tribe/Recurrence_Meta.php:1220
+msgid "An event every %1$s day(s) that lasts %2$s day(s) and %3$s hour(s) with no end date"
+msgstr ""
+
+#: src/Tribe/Recurrence_Meta.php:1221
+msgid "An event every %1$s day(s) that begins at %2$s and lasts %3$s day(s) and %4$s hour(s), the last of which will begin on %5$s"
+msgstr ""
+
+#: src/Tribe/Recurrence_Meta.php:1222
+msgid "An event every %1$s day(s) that begins at %2$s and lasts %3$s day(s) and %4$s hour(s), but only create %5$s event(s)"
+msgstr ""
+
+#: src/Tribe/Recurrence_Meta.php:1223
+msgid "An event every %1$s day(s) that begins at %2$s and lasts %3$s day(s) and %4$s hour(s) with no end date"
+msgstr ""
+
+#: src/Tribe/Recurrence_Meta.php:1224
+msgid "An event every %1$s week(s) on %2$s that lasts %3$s day(s) and %4$s hour(s), the last of which will begin on %5$s"
+msgstr ""
+
+#: src/Tribe/Recurrence_Meta.php:1225
+msgid "An event every %1$s week(s) on %2$s that lasts %3$s day(s) and %4$s hour(s), but only create %5$s event(s)"
+msgstr ""
+
+#: src/Tribe/Recurrence_Meta.php:1226
+msgid "An event every %1$s week(s) on %2$s that lasts %3$s day(s) and %4$s hour(s) with no end date"
+msgstr ""
+
+#: src/Tribe/Recurrence_Meta.php:1227
+msgid "An event every %1$s week(s) on %2$s that begins at %3$s and lasts %4$s day(s) and %5$s hour(s), the last of which will begin on %6$s"
+msgstr ""
+
+#: src/Tribe/Recurrence_Meta.php:1228
+msgid "An event every %1$s week(s) on %2$s that begins at %3$s and lasts %4$s day(s) and %5$s hour(s), but only create %6$s event(s)"
+msgstr ""
+
+#: src/Tribe/Recurrence_Meta.php:1229
+msgid "An event every %1$s week(s) on %2$s that begins at %3$s and lasts %4$s day(s) and %5$s hour(s) with no end date"
+msgstr ""
+
+#: src/Tribe/Recurrence_Meta.php:1230
+msgid "An event every %1$s month(s) on day %2$s that lasts %3$s day(s) and %4$s hour(s), the last of which will begin on %5$s"
+msgstr ""
+
+#: src/Tribe/Recurrence_Meta.php:1231
+msgid "An event every %1$s month(s) on day %2$s that lasts %3$s day(s) and %4$s hour(s), but only create %5$s event(s)"
+msgstr ""
+
+#: src/Tribe/Recurrence_Meta.php:1232
+msgid "An event every %1$s month(s) on day %2$s that lasts %3$s day(s) and %4$s hour(s) with no end date"
+msgstr ""
+
+#: src/Tribe/Recurrence_Meta.php:1233
+msgid "An event every %1$s month(s) on day %2$s that begins at %3$s and lasts %4$s day(s) and %5$s hour(s), the last of which will begin on %6$s"
+msgstr ""
+
+#: src/Tribe/Recurrence_Meta.php:1234
+msgid "An event every %1$s month(s) on day %2$s that begins at %3$s and lasts %4$s day(s) and %5$s hour(s), but only create %6$s event(s)"
+msgstr ""
+
+#: src/Tribe/Recurrence_Meta.php:1235
+msgid "An event every %1$s month(s) on day %2$s that begins at %3$s and lasts %4$s day(s) and %5$s hour(s) with no end date"
+msgstr ""
+
+#: src/Tribe/Recurrence_Meta.php:1236
+msgid "An event every %1$s month(s) on %2$s that lasts %3$s day(s) and %4$s hour(s), the last of which will begin on %5$s"
+msgstr ""
+
+#: src/Tribe/Recurrence_Meta.php:1237
+msgid "An event every %1$s month(s) on %2$s that lasts %3$s day(s) and %4$s hour(s), but only create %5$s event(s)"
+msgstr ""
+
+#: src/Tribe/Recurrence_Meta.php:1238
+msgid "An event every %1$s month(s) on %2$s that lasts %3$s day(s) and %4$s hour(s) with no end date"
+msgstr ""
+
+#: src/Tribe/Recurrence_Meta.php:1239
+msgid "An event every %1$s month(s) on %2$s that begins at %3$s and lasts %4$s day(s) and %5$s hour(s), the last of which will begin on %7$s"
+msgstr ""
+
+#: src/Tribe/Recurrence_Meta.php:1240
+msgid "An event every %1$s month(s) on %2$s that begins at %3$s and lasts %4$s day(s) and %5$s hour(s), but only create %6$s event(s)"
+msgstr ""
+
+#: src/Tribe/Recurrence_Meta.php:1241
+msgid "An event every %1$s month(s) on %2$s that begins at %3$s and lasts %4$s day(s) and %5$s hour(s) with no end date"
+msgstr ""
+
+#: src/Tribe/Recurrence_Meta.php:1242
+msgid "An event every %1$s year(s) in %2$s on day %3$s that lasts %4$s day(s) and %5$s hour(s), the last of which will begin on %6$s"
+msgstr ""
+
+#: src/Tribe/Recurrence_Meta.php:1243
+msgid "An event every %1$s year(s) in %2$s on day %3$s that lasts %4$s day(s) and %5$s hour(s), but only create %6$s event(s)"
+msgstr ""
+
+#: src/Tribe/Recurrence_Meta.php:1244
+msgid "An event every %1$s year(s) in %2$s on day %3$s that lasts %4$s day(s) and %5$s hour(s) with no end date"
+msgstr ""
+
+#: src/Tribe/Recurrence_Meta.php:1245
+msgid "An event every %1$s year(s) in %2$s on day %3$s that begins at %4$s and lasts %5$s day(s) and %6$s hour(s), the last of which will begin on %7$s"
+msgstr ""
+
+#: src/Tribe/Recurrence_Meta.php:1246
+msgid "An event every %1$s year(s) in %2$s on day %3$s that begins at %4$s and lasts %5$s day(s) and %6$s hour(s), but only create %7$s event(s)"
+msgstr ""
+
+#: src/Tribe/Recurrence_Meta.php:1247
+msgid "An event every %1$s year(s) in %2$s on day %3$s that begins at %4$s and lasts %5$s day(s) and %6$s hour(s) with no end date"
+msgstr ""
+
+#: src/Tribe/Recurrence_Meta.php:1248
+msgid "An event every %1$s year(s) in %2$s on %3$s that lasts %4$s day(s) and %5$s hour(s), the last of which will begin on %6$s"
+msgstr ""
+
+#: src/Tribe/Recurrence_Meta.php:1249
+msgid "An event every %1$s year(s) in %2$s on %3$s that lasts %4$s day(s) and %5$s hour(s), but only create %6$s event(s)"
+msgstr ""
+
+#: src/Tribe/Recurrence_Meta.php:1250
+msgid "An event every %1$s year(s) in %2$s on %3$s that lasts %4$s day(s) and %5$s hour(s) with no end date"
+msgstr ""
+
+#: src/Tribe/Recurrence_Meta.php:1251
+msgid "An event every %1$s year(s) in %2$s on %3$s that begins at %4$s and lasts %5$s day(s) and %6$s hour(s), the last of which will begin on %7$s"
+msgstr ""
+
+#: src/Tribe/Recurrence_Meta.php:1252
+msgid "An event every %1$s year(s) in %2$s on %3$s that begins at %4$s and lasts %5$s day(s) and %6$s hour(s), but only create %7$s event(s)"
+msgstr ""
+
+#: src/Tribe/Recurrence_Meta.php:1253
+msgid "An event every %1$s year(s) in %2$s on %3$s that begins at %4$s and lasts %5$s day(s) and %6$s hour(s) with no end date"
+msgstr ""
+
+#: src/Tribe/Recurrence_Meta.php:1289
+msgctxt "Joins the last item in a list of items (i.e. the \"and\" in Monday, Tuesday, and Wednesday)"
+msgid "and"
+msgstr ""
+
+#: src/Tribe/Recurrence_Meta.php:1290
+msgctxt "Placeholder text for a day of the week (or days of the week) before the user has selected any"
+msgid "[day]"
+msgstr ""
+
+#: src/Tribe/Recurrence_Meta.php:1291
+msgctxt "Placeholder text for a month (or months) before the user has selected any"
+msgid "[month]"
+msgstr ""
+
+#: src/Tribe/Recurrence_Meta.php:1292
+msgctxt "Describes a day of the month (e.g. \"day 5\" or \"day 27\")"
+msgid "day %1$s"
+msgstr ""
+
+#: src/Tribe/Recurrence_Meta.php:1293
+msgctxt "Used when displaying: \"the first Monday\" or \"the first day\""
+msgid "the first %1$s"
+msgstr ""
+
+#: src/Tribe/Recurrence_Meta.php:1294
+msgctxt "Used when displaying: \"the second Monday\" or \"the second day\""
+msgid "the second %1$s"
+msgstr ""
+
+#: src/Tribe/Recurrence_Meta.php:1295
+msgctxt "Used when displaying: \"the third Monday\" or \"the third day\""
+msgid "the third %1$s"
+msgstr ""
+
+#: src/Tribe/Recurrence_Meta.php:1296
+msgctxt "Used when displaying: \"the fourth Monday\" or \"the fourth day\""
+msgid "the fourth %1$s"
+msgstr ""
+
+#: src/Tribe/Recurrence_Meta.php:1297
+msgctxt "Used when displaying: \"the fifth Monday\" or \"the fifth day\""
+msgid "the fifth %1$s"
+msgstr ""
+
+#: src/Tribe/Recurrence_Meta.php:1298
+msgctxt "Used when displaying: \"the last Monday\" or \"the last day\""
+msgid "the last %1$s"
+msgstr ""
+
+#: src/Tribe/Recurrence_Meta.php:1299
+msgctxt "Used when displaying the word \"day\" in \"the last day\" or \"the first day\""
+msgid "day"
+msgstr ""
+
+#: src/admin-views/event-recurrence.php:11
+msgid "Recurrence Rules:"
+msgstr ""
+
+#: src/admin-views/event-recurrence.php:20
+msgid "Once"
+msgstr ""
+
+#: src/admin-views/event-recurrence.php:65
+#: src/admin-views/recurrence/months.php:35
+#: src/admin-views/recurrence/weeks.php:35
+#: src/admin-views/recurrence/years.php:111
+msgid "Same time"
+msgstr ""
+
+#: src/admin-views/event-recurrence.php:80
+msgid "Add Another Rule"
+msgstr ""
+
+#: src/admin-views/event-recurrence.php:84
+msgid "Exclusions:"
+msgstr ""
+
+#: src/admin-views/event-recurrence.php:93
+msgid "Date"
+msgstr ""
+
+#: src/admin-views/event-recurrence.php:101
+msgid "will not occur on"
+msgstr ""
+
+#: src/admin-views/event-recurrence.php:105
+msgid "will not occur every"
+msgstr ""
+
+#: src/admin-views/event-recurrence.php:124
+msgid "Add Exclusion"
+msgstr ""
+
+#: src/views/pro/widgets/venue-widget.php:59
+msgid "View all %1$s at this %2$s"
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "The Events Calendar PRO"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid "The Events Calendar PRO, a premium add-on to the open source The Events Calendar plugin (required), enables recurring events, custom attributes, venue pages, new widgets and a host of other premium features."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Modern Tribe, Inc."
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "http://m.tri.be/20"
+msgstr ""
+
+#: src/Tribe/Main.php:642
 msgid "Thanks for buying Events Calendar PRO! From all of us at Modern Tribe, we sincerely appreciate it. If you're looking for help with Events Calendar PRO, you've come to the right place. We are committed to helping make your calendar be spectacular... and hope the resources provided below will help get you there."
 msgstr ""
 
-#: ../src/admin-views/event-meta-options.php:66
+#: src/admin-views/event-meta-options.php:66
 msgid "tutorial that will walk you through the process"
 msgstr ""
 
-#: ../src/Tribe/Main.php:608 ../src/admin-views/event-meta-options.php:3
+#: src/Tribe/Main.php:585 src/admin-views/event-meta-options.php:3
 msgid "Additional Fields"
 msgstr "További mezők"
 
-#: ../src/admin-views/widget-admin-advanced-list.php:37
+#: src/admin-views/widget-admin-advanced-list.php:37
 msgid "Country"
 msgstr "Ország"
 
-#: ../src/Tribe/Main.php:623
+#: src/Tribe/Main.php:600
 msgid "Hide related events"
 msgstr "Kapcsolódó események elrejtése"
 
-#: ../src/admin-views/widget-admin-advanced-list.php:38
+#: src/admin-views/widget-admin-advanced-list.php:38
 msgid "Phone"
 msgstr "Telefon"
 
-#: ../src/Tribe/Main.php:624
+#: src/Tribe/Main.php:601
 msgid "Remove related events from the single event view"
 msgstr "Távolítsuk el a kapcsolódó eseményeket a részletes esemény nézetről"
 
-#: ../src/admin-views/widget-admin-advanced-list.php:39
+#: src/admin-views/widget-admin-advanced-list.php:39
 msgid "Price"
 msgstr "Ár"
 
-#: ../src/Tribe/Main.php:634
+#: src/Tribe/Main.php:611
 msgid "Week Day Format"
 msgstr "Hétköznapok formátuma"
 
-#: ../src/admin-views/widget-admin-advanced-list.php:62
-#: ../src/admin-views/widget-calendar.php:24
+#: src/admin-views/widget-admin-advanced-list.php:62
+#: src/admin-views/widget-calendar.php:24
 msgid "Filters"
 msgstr "Szűrők"
 
-#: ../src/Tribe/Main.php:635
+#: src/Tribe/Main.php:612
 msgid "Enter the format to use for week days. Used when showing days of the week in Week view."
 msgstr "Add meg a hétköznapok használni kívánt formátumát. A heti nézet használatakor jelenik meg. "
 
-#: ../src/admin-views/widget-admin-advanced-list.php:89
-#: ../src/admin-views/widget-calendar.php:44
+#: src/admin-views/widget-admin-advanced-list.php:89
+#: src/admin-views/widget-calendar.php:44
 msgid "remove"
 msgstr "eltávolít"
 
-#: ../src/Tribe/Main.php:646
+#: src/Tribe/Main.php:623
 msgid "Hide weekends on Week View"
 msgstr ""
 
-#: ../src/admin-views/widget-admin-advanced-list.php:102
-#: ../src/admin-views/widget-calendar.php:60
+#: src/admin-views/widget-admin-advanced-list.php:102
+#: src/admin-views/widget-calendar.php:60
 msgid "Match all"
 msgstr "Összes egyezik"
 
-#: ../src/Tribe/Main.php:647
+#: src/Tribe/Main.php:624
 msgid "Check this to only show weekdays on Week View"
 msgstr ""
 
-#: ../src/admin-views/widget-admin-advanced-list.php:105
-#: ../src/admin-views/widget-calendar.php:63
+#: src/admin-views/widget-admin-advanced-list.php:105
+#: src/admin-views/widget-calendar.php:63
 msgid "Match any"
 msgstr "Bármelyik egyezik"
 
-#: ../src/admin-views/widget-admin-advanced-list.php:109
-#: ../src/admin-views/widget-calendar.php:67
+#: src/admin-views/widget-admin-advanced-list.php:109
+#: src/admin-views/widget-calendar.php:67
 msgid "Add a filter"
 msgstr "Szűrő hozzáadása"
 
-#: ../src/Tribe/Main.php:677
+#: src/Tribe/Main.php:654
 msgid "If this is your first time using The Events Calendar Pro, you're in for a treat and are already well on your way to creating a first event. Here are some basics we've found helpful for users jumping into it for the first time:"
 msgstr "Ha első alkalommal használod a Events Calendar Pro-t, jó uton jársz az első eseményed létrehozásához vezető úton. Íme néhány alapvető dolog, ami a kezdő felhasználóknak hasznos lehet:"
 
-#: ../src/admin-views/widget-admin-advanced-list.php:112
-#: ../src/admin-views/widget-calendar.php:70
+#: src/admin-views/widget-admin-advanced-list.php:112
+#: src/admin-views/widget-calendar.php:70
 msgid "Select one..."
 msgstr "Válassz egyet..."
 
-#: ../src/Tribe/Main.php:680
+#: src/Tribe/Main.php:657
 msgid "%sOur New User Primer%s was designed for folks in your exact position. Featuring both step-by-step videos and written walkthroughs that feature accompanying screenshots, the primer aims to take you from zero to hero in no time."
 msgstr "A %sBevezető új felhasználóknak%s anyagot pont neked készítettük. Lépésről-lépésre videósegédeket és képernyőképekkel illusztrált írásos útmutatókat is tartalmaz, így a bevezető gyorsan a nulláról a tapasztalt felhasználók közé röpíthet."
 
-#: ../src/admin-views/widget-admin-advanced-list.php:141
-#: ../src/admin-views/widget-admin-venue.php:35
+#: src/admin-views/widget-admin-advanced-list.php:141
+#: src/admin-views/widget-admin-venue.php:35
 msgid "Hide this widget if there are no upcoming events:"
 msgstr "Widget elrejtése, ha nincs közelgő esemény:"
 
-#: ../src/Tribe/Main.php:682
+#: src/Tribe/Main.php:659
 msgid "%sInstallation/Setup FAQs%s from our support page can help give an overview of what the plugin can and cannot do. This section of the FAQs may be helpful as it aims to address any basic install questions not addressed by the new user primer."
 msgstr "A %sTelepítési és beállítási GYIK%s a támogatási oldalunkon segítséget nyújthat abban, hogy mit tud és mit nem tud a bővítmény. A GYIK ezen része is hasznos lehet, mivel célja, hogy a telepítés olyan általános kérdéseire is választ adjon, amelyet a fenti \"Bevezető új felhasználóknak\" anyag nem tartalmaz."
 
-#: ../src/admin-views/widget-admin-countdown.php:17
+#: src/admin-views/widget-admin-countdown.php:17
 msgid "Event:"
 msgstr "Esemény:"
 
-#: ../src/Tribe/Main.php:684
+#: src/Tribe/Main.php:661
 msgid "Take care of your license key. Though not required to create your first event, you'll want to get it in place as soon as possible to guarantee your access to support and upgrades. %sHere's how to find your license key%s, if you don't have it handy."
 msgstr "Intézd el a licensz kulcsod beillesztését. Bár nem szükséges az első esemény létrehozásához, de ajánlott a lehető leghamarabb beilleszteni, hogy biztosan hozzáférj a frissítésekhez és segédletekhez. %s Így tudod megtalálni a licensz kulcsot%s, ha épp nincs kéznél."
 
-#: ../src/admin-views/widget-admin-countdown.php:25
+#: src/admin-views/widget-admin-countdown.php:25
 msgid "Show seconds:"
 msgstr "Másodpercek mutatása:"
 
-#: ../src/Tribe/Main.php:686
+#: src/Tribe/Main.php:663
 msgid "Otherwise, if you're feeling adventurous, you can get started by heading to the Events menu and adding your first event."
 msgstr "Ha azonban kalandvágyónak érzed magad, akkor rögtön az Események menüpont felé veheted az irányt és létrehozhatod az első eseményed."
 
-#: ../src/admin-views/widget-admin-countdown.php:30
+#: src/admin-views/widget-admin-countdown.php:30
 msgid "Countdown Completed Text:"
 msgstr "Befejezett visszaszámlálás szövege:"
 
-#: ../src/Tribe/Main.php:699
+#: src/Tribe/Main.php:676
 msgid "Written documentation can only take things so far...sometimes, you need help from a real person. This is where our %ssupport forums%s come into play."
 msgstr "Az írásos dokumentáció csak eddig tart... De néha több kell, és egy valódi személy segítségére van szükség. Ez az, ahol a %stámogatói forumok%s jöhetnek számításba."
 
-#: ../src/admin-views/widget-admin-venue.php:16
+#: src/admin-views/widget-admin-venue.php:16
 msgid "Venue:"
 msgstr "Helyszín:"
 
-#: ../src/Tribe/Main.php:700
+#: src/Tribe/Main.php:677
 msgid "Users who have purchased an Events Calendar PRO license are granted total access to our %spremium support forums%s. Unlike at the %sWordPress.org support forum%s, where our involvement is limited to identifying and patching bugs, we have a dedicated support team for PRO users. We're on the PRO forums daily throughout the business week, and no thread should go more than 24-hours without a response."
 msgstr "A felhasználók, akik megvásárolták az Events Calendar PRO licenszet, teljes hozzáférést kapnak a %sprémium támogatói fórumokhoz%s. Ellentétben a %sWordPress.org fórummmal%s, ahol tevékenységünk a bugok azonosítására és befoltozására korlátozik, a PRO felhasználók támogatására egy külön csapatunk van. Minden munkanap fent vagyunk a PRO fórumokon, így egy bejegyzés sem maradhat 24 óránál tovább megválaszolatlan."
 
-#: ../src/functions/template-tags/general.php:125
+#: src/functions/template-tags/general.php:131
 msgid "Show only the first upcoming instance of recurring %s"
 msgstr ""
 
-#: ../src/Tribe/Main.php:701
+#: src/Tribe/Main.php:678
 msgid "Our number one goal is helping you succeed, and to whatever extent possible, we'll help troubleshoot and guide your customizations or tweaks. While we won't build your site for you, and we can't guarantee we'll be able to get you 100% integrated with every theme or plugin out there, we'll do all we can to point you in the right direction and to make you -- and your client, as is often more importantly the case -- satisfied."
 msgstr "Első számú célunk segíteni neked, és a lehető legteljesebb hibaelhárítási és testreszabási útmutatást nyújtani. Bár nem mi készítjük el helyetted a weboldalt és nem tudjuk garantálni, hogy minden bővítménnyel és témával integráljuk az eseménynaptárat, mindent megteszünk mad, hogy megmutassuk a helyes irányt a fentiek eléréséhez. Így lehetsz te és ami néha még fontosabb, az ügyfeled is elégedett. "
 
-#: ../src/functions/template-tags/general.php:302
-#: ../src/functions/template-tags/general.php:317
-#: ../src/functions/template-tags/general.php:332
-#: ../src/functions/template-tags/general.php:347
-#: ../src/functions/template-tags/general.php:362
-#: ../src/functions/template-tags/general.php:377
-#: ../src/functions/template-tags/general.php:392
-#: ../src/functions/template-tags/general.php:407
-#: ../src/functions/template-tags/general.php:422
+#: src/functions/template-tags/general.php:308
+#: src/functions/template-tags/general.php:323
+#: src/functions/template-tags/general.php:338
+#: src/functions/template-tags/general.php:353
+#: src/functions/template-tags/general.php:368
+#: src/functions/template-tags/general.php:383
+#: src/functions/template-tags/general.php:398
+#: src/functions/template-tags/general.php:413
+#: src/functions/template-tags/general.php:428
 msgid "No default set"
 msgstr "Nincs alapértelmezett"
 
-#: ../src/Tribe/Main.php:702
+#: src/Tribe/Main.php:679
 msgid "Before posting a new thread, please do a search to make sure your issue hasn't already been addressed. When posting please make sure to provide as much detail about the problem as you can (with screenshots or screencasts if feasible), and make sure that you've identified whether a plugin / theme conflict could be at play in your initial message."
 msgstr "Új téma indítása előtt kérjük, végezz el egy keresést, hátha a kérdéseddel már foglalkoztunk korábban. A bejegyzésben adj meg minél több részletet a problémáról (lehetőleg képernyőmentésekkel), és próbáld azonosítani, hogy esetleg egy bővítmény / téma ütközés szerepet játszhat-e a problémában."
 
-#: ../src/functions/template-tags/general.php:304
+#: src/functions/template-tags/general.php:310
 msgid "The current default organizer is: %s"
 msgstr "A jelenlegi alapértelmezett szervező: %s"
 
-#: ../src/Tribe/Main.php:1152
+#: src/Tribe/Main.php:1142
 msgid "Event: "
 msgstr "Esemény:"
 
-#: ../src/functions/template-tags/general.php:319
+#: src/functions/template-tags/general.php:325
 msgid "The current default venue is: %s"
 msgstr "A jelenlegi alapértelmezett helyszín: %s"
 
-#: ../src/Tribe/Main.php:1153
+#: src/Tribe/Main.php:1143
 msgid "Address: "
 msgstr "Cím:"
 
-#: ../src/functions/template-tags/general.php:334
+#: src/functions/template-tags/general.php:340
 msgid "The current default address is: %s"
 msgstr "A jelenlegi alapértelmezett cím: %s"
 
-#: ../src/Tribe/Main.php:1264
+#: src/Tribe/Main.php:1265
 msgid "Settings"
 msgstr "Beállítások"
 
-#: ../src/functions/template-tags/general.php:349
+#: src/functions/template-tags/general.php:355
 msgid "The current default city is: %s"
 msgstr "A jelenlegi alapértelmezett település: %s"
 
-#: ../src/Tribe/Main.php:1292
+#: src/Tribe/Main.php:1293
 msgid "Venue updated. <a href=\"%s\">View venue</a>"
 msgstr "Helyszín frissítve. <a href=\"%s\">Helyszín megtekintése</a>"
 
-#: ../src/functions/template-tags/general.php:364
+#: src/functions/template-tags/general.php:370
 msgid "The current default state is: %s"
 msgstr "A jelenlegi alapértelmezett állam: %s"
 
-#: ../src/Tribe/Main.php:1294
+#: src/Tribe/Main.php:1295
 msgid "Venue published. <a href=\"%s\">View venue</a>"
 msgstr "Helyszín közzétéve. <a href=\"%s\">Helyszín megtekintése</a>"
 
-#: ../src/functions/template-tags/general.php:379
+#: src/functions/template-tags/general.php:385
 msgid "The current default province is: %s"
 msgstr "A jelenlegi alapértelmezett tartomány: %s"
 
-#: ../src/Tribe/Main.php:1295
+#: src/Tribe/Main.php:1296
 msgid "Venue submitted. <a target=\"_blank\" href=\"%s\">Preview venue</a>"
 msgstr "Helyszín beküldve. <a target=\"_blank\" href=\"%s\">Helyszín előnézete</a>"
 
-#: ../src/functions/template-tags/general.php:394
+#: src/functions/template-tags/general.php:400
 msgid "The current default postal code/zip code is: %s"
 msgstr "A jelenlegi alapértelmezett irányítószám: %s"
 
-#: ../src/Tribe/Main.php:1297
+#: src/Tribe/Main.php:1298
 msgid "Venue scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s\">Preview venue</a>"
 msgstr "Helyszín betervezve: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s\">Helyszín előnézete</a>"
 
-#: ../src/functions/template-tags/general.php:409
+#: src/functions/template-tags/general.php:415
 msgid "The current default country is: %s"
 msgstr "A jelenlegi alapértelmezett ország: %s"
 
-#: ../src/Tribe/Main.php:1299 ../src/Tribe/Main.php:1309
+#: src/Tribe/Main.php:1300 src/Tribe/Main.php:1310
 msgid "M j, Y @ G:i"
 msgstr "Y. M j. @  G:i"
 
-#: ../src/functions/template-tags/general.php:424
+#: src/functions/template-tags/general.php:430
 msgid "The current default phone is: %s"
 msgstr "A jelenlegi alapértelmezett telefonszám: %s"
 
-#: ../src/Tribe/Main.php:1301
+#: src/Tribe/Main.php:1302
 msgid "Venue draft updated. <a target=\"_blank\" href=\"%s\">Preview venue</a>"
 msgstr "Helyszín vázlat frissítve. <a target=\"_blank\" href=\"%s\">Helyszín előnézete</a>"
 
-#: ../src/functions/template-tags/general.php:584
-#: ../src/functions/template-tags/general.php:607
+#: src/functions/template-tags/general.php:590
+#: src/functions/template-tags/general.php:613
 msgid "Date out of range."
 msgstr "Dátum tartományon kívül."
 
-#: ../src/Tribe/Main.php:1303
+#: src/Tribe/Main.php:1304
 msgid "Organizer updated. <a href=\"%s\">View organizer</a>"
 msgstr "Szervező frissítve. <a href=\"%s\">Szervező megtekintése</a>"
 
-#: ../src/functions/template-tags/general.php:717
+#: src/functions/template-tags/general.php:723
 msgid "Recurring %s"
 msgstr ""
 
-#: ../src/Tribe/Main.php:1304
+#: src/Tribe/Main.php:1305
 msgid "Organizer published. <a href=\"%s\">View organizer</a>"
 msgstr "Szervező közzétéve. <a href=\"%s\">Szervező megtekintése</a>"
 
-#: ../src/functions/template-tags/general.php:720
+#: src/functions/template-tags/general.php:726
 msgid "(See all)"
 msgstr "(Az összes)"
 
-#: ../src/Tribe/Main.php:1305
+#: src/Tribe/Main.php:1306
 msgid "Organizer submitted. <a target=\"_blank\" href=\"%s\">Preview organizer</a>"
 msgstr "Szervező beküldve. <a target=\"_blank\" href=\"%s\">Szervező előnézete</a>"
 
-#: ../src/functions/template-tags/week.php:196
+#: src/functions/template-tags/week.php:196
 msgid "<span>&laquo;</span> Previous Week"
 msgstr "<span>&laquo;</span> Előző hét"
 
-#: ../src/Tribe/Main.php:1307
+#: src/Tribe/Main.php:1308
 msgid "Organizer scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s\">Preview organizer</a>"
 msgstr "Szervező betervezve: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s\">Szervező előnézete</a>"
 
-#: ../src/functions/template-tags/week.php:226
+#: src/functions/template-tags/week.php:226
 msgid "Next Week <span>&raquo;</span>"
 msgstr "Következő hét <span>&raquo;</span>"
 
-#: ../src/Tribe/Main.php:1311
+#: src/Tribe/Main.php:1312
 msgid "Organizer draft updated. <a target=\"_blank\" href=\"%s\">Preview organizer</a>"
 msgstr "Szervező vázlat frissítve. <a target=\"_blank\" href=\"%s\">Szervező előnézete</a>"
 
-#: ../src/views/pro/map/nav.php:20 ../src/views/pro/photo/nav.php:20
+#: src/views/pro/map/nav.php:20 src/views/pro/photo/nav.php:20
 msgid "%s List Navigation"
 msgstr ""
 
-#: ../src/Tribe/Main.php:1361
+#: src/Tribe/Main.php:1362
 msgid "Support"
 msgstr "Támogatás"
 
-#: ../src/views/pro/map/nav.php:25 ../src/views/pro/photo/nav.php:25
+#: src/views/pro/map/nav.php:25 src/views/pro/photo/nav.php:25
 msgid "<span>&laquo;</span> Previous %s"
 msgstr ""
 
-#: ../src/Tribe/Main.php:1363
+#: src/Tribe/Main.php:1364
 msgid "View All Add-Ons"
 msgstr "Összes kiegészítő megtekintése"
 
-#: ../src/views/pro/map/nav.php:32 ../src/views/pro/photo/nav.php:31
+#: src/views/pro/map/nav.php:32 src/views/pro/photo/nav.php:31
 msgid "Next %s <span>&raquo;</span>"
 msgstr ""
 
-#: ../src/Tribe/Main.php:1557
+#: src/Tribe/Main.php:1558
 msgid "Week"
 msgstr "Hét"
 
-#: ../src/views/pro/map/single-event.php:71
+#: src/views/pro/map/single-event.php:71
 msgid "Find out more"
 msgstr "Tudj meg többet"
 
-#: ../src/Tribe/Main.php:1575
+#: src/Tribe/Main.php:1576
 msgid "Photo"
 msgstr "Fénykép"
 
-#: ../src/views/pro/related-events.php:26
+#: src/views/pro/related-events.php:26
 msgid "Related %s"
 msgstr ""
 
-#: ../src/Tribe/Main.php:1592
+#: src/Tribe/Main.php:1593
 msgid "Week Of"
 msgstr "Hét:"
 
-#: ../src/views/pro/single-organizer.php:32
-#: ../src/views/pro/single-venue.php:32
+#: src/views/pro/single-organizer.php:32 src/views/pro/single-venue.php:32
 msgid "&larr; Back to %s"
 msgstr ""
 
-#: ../src/Tribe/Mini_Calendar_Widget.php:8
+#: src/Tribe/Mini_Calendar_Widget.php:8
 msgid "The events calendar mini calendar widget"
 msgstr "Mini eseménynaptár widget"
 
-#: ../src/views/pro/week/loop-grid-allday.php:18
+#: src/views/pro/week/loop-grid-allday.php:18
 msgid "All Day"
 msgstr "Egész nap"
 
-#: ../src/Tribe/Mini_Calendar_Widget.php:11
-#: ../src/Tribe/Mini_Calendar_Widget.php:36
-#: ../src/Tribe/Mini_Calendar_Widget.php:78
+#: src/Tribe/Mini_Calendar_Widget.php:11 src/Tribe/Mini_Calendar_Widget.php:36
+#: src/Tribe/Mini_Calendar_Widget.php:78
 msgid "Events Calendar"
 msgstr "Eseménynaptár"
 
-#: ../src/views/pro/week/loop-grid.php:19
+#: src/views/pro/week/loop-grid.php:19
 msgid "Hours"
 msgstr "Óra"
 
-#: ../src/Tribe/Recurrence/Queue_Processor.php:182
-msgid "Could not process queue for event %d: %s"
-msgstr ""
-
-#: ../src/views/pro/week/nav.php:16
+#: src/views/pro/week/nav.php:16
 msgid "Week Navigation"
 msgstr "Hét navigáció"
 
-#: ../src/Tribe/Recurrence/Queue_Realtime.php:53
+#: src/Tribe/Recurrence/Queue_Realtime.php:53
 msgid "Completed!"
 msgstr ""
 
-#: ../src/views/pro/widgets/countdown-widget.php:20
+#: src/views/pro/widgets/countdown-widget.php:20
 msgid "days"
 msgstr "nap"
 
-#: ../src/Tribe/Recurrence/Queue_Realtime.php:55
-#: ../src/Tribe/Recurrence/Queue_Realtime.php:70
-#: ../src/Tribe/Recurrence/Queue_Realtime.php:101
+#: src/Tribe/Recurrence/Queue_Realtime.php:55
+#: src/Tribe/Recurrence/Queue_Realtime.php:70
+#: src/Tribe/Recurrence/Queue_Realtime.php:101
 msgid "%d%% complete"
 msgstr ""
 
-#: ../src/views/pro/widgets/countdown-widget.php:24
+#: src/views/pro/widgets/countdown-widget.php:24
 msgid "hours"
 msgstr "óra"
 
-#: ../src/Tribe/Recurrence/Queue_Realtime.php:67
+#: src/Tribe/Recurrence/Queue_Realtime.php:67
 msgid "Recurring event data is still being generated for this event. Don&#146;t worry, you can safely navigate away &ndash; the process will resume in a bit in the background."
 msgstr ""
 
-#: ../src/views/pro/widgets/countdown-widget.php:28
+#: src/views/pro/widgets/countdown-widget.php:28
 msgid "min"
 msgstr "perc"
 
-#: ../src/Tribe/Recurrence/Queue_Realtime.php:81
+#: src/Tribe/Recurrence/Queue_Realtime.php:81
 msgid "Unable to continue processing recurring event data. Please reload this page to continue/try again."
 msgstr ""
 
-#: ../src/views/pro/widgets/countdown-widget.php:33
+#: src/views/pro/widgets/countdown-widget.php:33
 msgid "sec"
 msgstr "mp"
 
-#: ../src/Tribe/Recurrence_Meta.php:121
+#: src/Tribe/Recurrence_Meta.php:107
 msgid "Edit Series"
 msgstr "Sorozat szerkesztése"
 
-#: ../src/views/pro/widgets/list-widget.php:57
+#: src/views/pro/widgets/list-widget.php:57
 msgid "View More&hellip;"
 msgstr "Továbbiak&hellip;"
 
-#: ../src/Tribe/Recurrence_Meta.php:127
+#: src/Tribe/Recurrence_Meta.php:113
 msgid "Break from Series"
 msgstr "Kivétel sorozatból"
 
-#: ../src/views/pro/widgets/list-widget.php:65
+#: src/views/pro/widgets/list-widget.php:65
 msgid "There are no upcoming %s at this time."
 msgstr ""
 
-#: ../src/Tribe/Recurrence_Meta.php:137
+#: src/Tribe/Recurrence_Meta.php:123
 msgid "Edit Future Events"
 msgstr "Jövőbeli események szerkesztése"
 
-#: ../src/views/pro/widgets/modules/single-event.php:79
+#: src/views/pro/widgets/modules/single-event.php:79
 msgid "Organizer:"
 msgstr "Szervező:"
 
-#: ../src/Tribe/Recurrence_Meta.php:159
+#: src/Tribe/Recurrence_Meta.php:145
 msgid "—"
 msgstr "—"
 
-#: ../src/views/pro/widgets/venue-widget.php:36
+#: src/views/pro/widgets/venue-widget.php:36
 msgid "No upcoming %s."
 msgstr ""
 
-#: ../src/Tribe/Recurrence_Meta.php:188
+#: src/Tribe/Recurrence_Meta.php:174
 msgid "Break this event out of its series and edit it independently"
 msgstr "Esemény kivétele a sorozatból és önálló szerkesztés"
 
-#: ../src/views/pro/widgets/venue-widget.php:59
-msgid "View all %s at this %s"
-msgstr ""
-
-#: ../src/Tribe/Recurrence_Meta.php:188
+#: src/Tribe/Recurrence_Meta.php:174
 msgid "Edit Single"
 msgstr "Egyedi szerkesztése"
 
-#: ../src/Tribe/Recurrence_Meta.php:190
+#: src/Tribe/Recurrence_Meta.php:176
 msgid "Split the series in two at this point, creating a new series out of this and all subsequent events"
 msgstr "Esemény két felé választása ettől a ponttól, és új sorozat készítése erről és minden jövőbeli eseményről"
 
-#: ../src/Tribe/Recurrence_Meta.php:190
+#: src/Tribe/Recurrence_Meta.php:176
 msgid "Edit Upcoming"
 msgstr "Jövőbeli szerkesztése"
 
-#: ../src/Tribe/Recurrence_Meta.php:196
+#: src/Tribe/Recurrence_Meta.php:182
 msgid "Edit all events in this series"
 msgstr "A sorozat összes eseményének szerkesztése"
 
-#: ../src/Tribe/Recurrence_Meta.php:196
+#: src/Tribe/Recurrence_Meta.php:182
 msgid "Edit All"
 msgstr "Összes szerkesztése"
 
-#: ../src/Tribe/Recurrence_Meta.php:201
+#: src/Tribe/Recurrence_Meta.php:187
 msgid "Move all events in this series to the Trash"
 msgstr "A sorozat összes eseményének lomtárba helyezése"
 
-#: ../src/Tribe/Recurrence_Meta.php:201
+#: src/Tribe/Recurrence_Meta.php:187
 msgid "Trash Series"
 msgstr "Sorozat a lomtárba"
 
-#: ../src/Tribe/Recurrence_Meta.php:204
+#: src/Tribe/Recurrence_Meta.php:190
 msgid "Delete all events in this series permanently"
 msgstr "A sorozat összes eseményének végleges törlése"
 
-#: ../src/Tribe/Recurrence_Meta.php:204
+#: src/Tribe/Recurrence_Meta.php:190
 msgid "Delete Series Permanently"
 msgstr "Sorozat végleges törlése"
 
-#: ../src/Tribe/Recurrence_Meta.php:210
+#: src/Tribe/Recurrence_Meta.php:196
 msgid "Restore all events in this series from the Trash"
 msgstr "A sorozat összes eseményének helyreállítása a lomtárból"
 
-#: ../src/Tribe/Recurrence_Meta.php:210
+#: src/Tribe/Recurrence_Meta.php:196
 msgid "Restore Series"
 msgstr "Sorozat helyreállítása"
 
-#: ../src/Tribe/Recurrence_Meta.php:584
+#: src/Tribe/Recurrence_Meta.php:763
 msgid "Monthly custom recurrences cannot have a dash set as the day to occur on."
 msgstr "Havi egyedi ismétlődés esetén nem lehet kötőjel a megjelenés napja helyén."
 
-#: ../src/Tribe/Recurrence_Meta.php:587
+#: src/Tribe/Recurrence_Meta.php:772
 msgid "Yearly custom recurrences cannot have a dash set as the day to occur on."
 msgstr "Éves egyedi ismétlődés esetén nem lehet kötőjel a megjelenés napja helyén."
 
-#: ../src/Tribe/Recurrence_Meta.php:907 ../src/Tribe/Recurrence_Meta.php:922
-msgid "Every day"
-msgstr "Minden nap"
-
-#: ../src/Tribe/Recurrence_Meta.php:908
-msgid " for %d day"
-msgid_plural " for %d days"
-msgstr[0] "%d napig"
-msgstr[1] "%d napig"
-
-#: ../src/Tribe/Recurrence_Meta.php:911 ../src/Tribe/Recurrence_Meta.php:927
-msgid "Every week"
-msgstr "Minden héten"
-
-#: ../src/Tribe/Recurrence_Meta.php:912
-msgid " for %d week"
-msgid_plural " for %d weeks"
-msgstr[0] "%d hétig"
-msgstr[1] "%d hétig"
-
-#: ../src/Tribe/Recurrence_Meta.php:914 ../src/Tribe/Recurrence_Meta.php:933
-msgid "Every month"
-msgstr "Minden hónapban"
-
-#: ../src/Tribe/Recurrence_Meta.php:915
-msgid " for %d month"
-msgid_plural " for %d months"
-msgstr[0] "%d hónapig"
-msgstr[1] "%d hónapig"
-
-#: ../src/Tribe/Recurrence_Meta.php:917 ../src/Tribe/Recurrence_Meta.php:940
-msgid "Every year"
-msgstr "Minden évben"
-
-#: ../src/Tribe/Recurrence_Meta.php:918
-msgid " for %d year"
-msgid_plural " for %d years"
-msgstr[0] "%d évig"
-msgstr[1] "%d évig"
-
-#: ../src/Tribe/Recurrence_Meta.php:923
-msgid "Every %d days"
-msgstr "Minden %d nap"
-
-#: ../src/Tribe/Recurrence_Meta.php:924 ../src/Tribe/Recurrence_Meta.php:930
-#: ../src/Tribe/Recurrence_Meta.php:937 ../src/Tribe/Recurrence_Meta.php:949
-msgid ", recurring %d time"
-msgid_plural ", recurring %d times"
-msgstr[0] ", ismétlődés %d alkalommal"
-msgstr[1] ", ismétlődés %d alkalommal"
-
-#: ../src/Tribe/Recurrence_Meta.php:928
-msgid "Every %d weeks"
-msgstr "Minden %d héten"
-
-#: ../src/Tribe/Recurrence_Meta.php:929
-msgid " on %s"
-msgstr "ezen: %s"
-
-#: ../src/Tribe/Recurrence_Meta.php:934
-msgid "Every %d months"
-msgstr "Minden %d hónapban"
-
-#: ../src/Tribe/Recurrence_Meta.php:936
-msgid " on the %s %s"
-msgstr "ezen: %s %s"
-
-#: ../src/Tribe/Recurrence_Meta.php:936
-msgid "day"
-msgstr "nap"
-
-#: ../src/Tribe/Recurrence_Meta.php:941
-msgid "Every %d years"
-msgstr "Minden %d évben"
-
-#: ../src/Tribe/Recurrence_Meta.php:943
-msgid "last"
-msgstr "utolsó"
-
-#: ../src/Tribe/Recurrence_Meta.php:948
-msgid " on the %s %s of %s"
-msgstr "ezen: %s %s / %s"
-
-#: ../src/Tribe/Recurrence_Meta.php:955
-msgid " until %s"
-msgstr "eddig: %s"
-
-#: ../src/Tribe/Recurrence_Meta.php:962
-msgid "%s%s%s"
-msgstr "%s%s%s"
-
-#: ../src/Tribe/Recurrence_Meta.php:974
-#: ../src/admin-views/event-recurrence.php:85
-#: ../src/admin-views/event-recurrence.php:142
+#: src/Tribe/Recurrence_Meta.php:1267 src/Tribe/Recurrence_Meta.php:1693
+#: src/admin-views/recurrence/months.php:19
+#: src/admin-views/recurrence/years.php:95
 msgid "Monday"
 msgstr "Hétfő"
 
-#: ../src/Tribe/Recurrence_Meta.php:975
-#: ../src/admin-views/event-recurrence.php:86
-#: ../src/admin-views/event-recurrence.php:143
+#: src/Tribe/Recurrence_Meta.php:1268 src/Tribe/Recurrence_Meta.php:1694
+#: src/admin-views/recurrence/months.php:20
+#: src/admin-views/recurrence/years.php:96
 msgid "Tuesday"
 msgstr "Kedd"
 
-#: ../src/Tribe/Recurrence_Meta.php:976
-#: ../src/admin-views/event-recurrence.php:87
-#: ../src/admin-views/event-recurrence.php:144
+#: src/Tribe/Recurrence_Meta.php:1269 src/Tribe/Recurrence_Meta.php:1695
+#: src/admin-views/recurrence/months.php:21
+#: src/admin-views/recurrence/years.php:97
 msgid "Wednesday"
 msgstr "Szerda"
 
-#: ../src/Tribe/Recurrence_Meta.php:977
-#: ../src/admin-views/event-recurrence.php:88
-#: ../src/admin-views/event-recurrence.php:145
+#: src/Tribe/Recurrence_Meta.php:1270 src/Tribe/Recurrence_Meta.php:1696
+#: src/admin-views/recurrence/months.php:22
+#: src/admin-views/recurrence/years.php:98
 msgid "Thursday"
 msgstr "Csütörtök"
 
-#: ../src/Tribe/Recurrence_Meta.php:978
-#: ../src/admin-views/event-recurrence.php:89
-#: ../src/admin-views/event-recurrence.php:146
+#: src/Tribe/Recurrence_Meta.php:1271 src/Tribe/Recurrence_Meta.php:1697
+#: src/admin-views/recurrence/months.php:23
+#: src/admin-views/recurrence/years.php:99
 msgid "Friday"
 msgstr "Péntek"
 
-#: ../src/Tribe/Recurrence_Meta.php:979
-#: ../src/admin-views/event-recurrence.php:90
-#: ../src/admin-views/event-recurrence.php:147
+#: src/Tribe/Recurrence_Meta.php:1272 src/Tribe/Recurrence_Meta.php:1698
+#: src/admin-views/recurrence/months.php:24
+#: src/admin-views/recurrence/years.php:100
 msgid "Saturday"
 msgstr "Szombat"
 
-#: ../src/Tribe/Recurrence_Meta.php:980
-#: ../src/admin-views/event-recurrence.php:91
-#: ../src/admin-views/event-recurrence.php:148
+#: src/Tribe/Recurrence_Meta.php:1273 src/Tribe/Recurrence_Meta.php:1699
+#: src/admin-views/recurrence/months.php:25
+#: src/admin-views/recurrence/years.php:101
 msgid "Sunday"
 msgstr "Vasárnap"
 
-#: ../src/Tribe/Recurrence_Meta.php:987
+#: src/Tribe/Recurrence_Meta.php:1706
 msgid ", and"
 msgstr ", és"
 
-#: ../src/Tribe/Recurrence_Meta.php:989
+#: src/Tribe/Recurrence_Meta.php:1708
 msgid "and"
 msgstr "és"
 
-#: ../src/Tribe/Recurrence_Meta.php:991
+#: src/Tribe/Recurrence_Meta.php:1710
 msgid ","
 msgstr ","
 
-#: ../src/Tribe/Recurrence_Meta.php:1009
+#: src/Tribe/Recurrence_Meta.php:1276 src/Tribe/Recurrence_Meta.php:1728
 msgid "January"
 msgstr "Január"
 
-#: ../src/Tribe/Recurrence_Meta.php:1010
+#: src/Tribe/Recurrence_Meta.php:1277 src/Tribe/Recurrence_Meta.php:1729
 msgid "February"
 msgstr "Február"
 
-#: ../src/Tribe/Recurrence_Meta.php:1011
+#: src/Tribe/Recurrence_Meta.php:1278 src/Tribe/Recurrence_Meta.php:1730
 msgid "March"
 msgstr "Március"
 
-#: ../src/Tribe/Recurrence_Meta.php:1012
+#: src/Tribe/Recurrence_Meta.php:1279 src/Tribe/Recurrence_Meta.php:1731
 msgid "April"
 msgstr "Április"
 
-#: ../src/Tribe/Recurrence_Meta.php:1013
+#: src/Tribe/Recurrence_Meta.php:1280 src/Tribe/Recurrence_Meta.php:1732
 msgid "May"
 msgstr "Május"
 
-#: ../src/Tribe/Recurrence_Meta.php:1014
+#: src/Tribe/Recurrence_Meta.php:1281 src/Tribe/Recurrence_Meta.php:1733
 msgid "June"
 msgstr "Június"
 
-#: ../src/Tribe/Recurrence_Meta.php:1015
+#: src/Tribe/Recurrence_Meta.php:1282 src/Tribe/Recurrence_Meta.php:1734
 msgid "July"
 msgstr "Július"
 
-#: ../src/Tribe/Recurrence_Meta.php:1016
+#: src/Tribe/Recurrence_Meta.php:1283 src/Tribe/Recurrence_Meta.php:1735
 msgid "August"
 msgstr "Augusztus"
 
-#: ../src/Tribe/Recurrence_Meta.php:1017
+#: src/Tribe/Recurrence_Meta.php:1284 src/Tribe/Recurrence_Meta.php:1736
 msgid "September"
 msgstr "Szeptember"
 
-#: ../src/Tribe/Recurrence_Meta.php:1018
+#: src/Tribe/Recurrence_Meta.php:1285 src/Tribe/Recurrence_Meta.php:1737
 msgid "October"
 msgstr "Október"
 
-#: ../src/Tribe/Recurrence_Meta.php:1019
+#: src/Tribe/Recurrence_Meta.php:1286 src/Tribe/Recurrence_Meta.php:1738
 msgid "November"
 msgstr "November"
 
-#: ../src/Tribe/Recurrence_Meta.php:1020
+#: src/Tribe/Recurrence_Meta.php:1287 src/Tribe/Recurrence_Meta.php:1739
 msgid "December"
 msgstr "December"
 
-#: ../src/Tribe/Recurrence_Meta.php:1027
+#: src/Tribe/Recurrence_Meta.php:1746
 msgid ", and "
 msgstr ", és"
 
-#: ../src/Tribe/Recurrence_Meta.php:1029
+#: src/Tribe/Recurrence_Meta.php:1748
 msgid " and "
 msgstr "és"
 
-#: ../src/Tribe/Recurrence_Meta.php:1031
+#: src/Tribe/Recurrence_Meta.php:1750
 msgid ", "
 msgstr ","
 
-#: ../src/Tribe/Recurrence_Meta.php:1108
+#: src/Tribe/Recurrence_Meta.php:1859
 msgid "Recurring event instances"
 msgstr "Ismétlődő esemény példányok"
 
-#: ../src/Tribe/Recurrence_Meta.php:1109
+#: src/Tribe/Recurrence_Meta.php:1860
 msgid "Show only the first instance of each recurring event (only affects list-style views)."
 msgstr "Csak az ismétlődő események első példányának mutatása (csak a listaszerű nézeteket befolyásolja)."
 
-#: ../src/Tribe/Recurrence_Meta.php:1115
+#: src/Tribe/Recurrence_Meta.php:1866
 msgid "Front-end recurring event instances toggle"
 msgstr "Összes / csak az első váltása"
 
-#: ../src/Tribe/Recurrence_Meta.php:1116
+#: src/Tribe/Recurrence_Meta.php:1867
 msgid "Allow users to decide whether to show all instances of a recurring event."
 msgstr "Lehetővé teszi, hogy a felhasználók eldönthessék, hogy minden ismétlődő eseményt lássanak vagy csak az első példányt."
 
-#: ../src/Tribe/Recurrence_Meta.php:1123
+#: src/Tribe/Recurrence_Meta.php:1874
 msgid "Clean up recurring events after"
 msgstr "Ismétlődő események megtisztítása ez után:"
 
-#: ../src/Tribe/Recurrence_Meta.php:1124
+#: src/Tribe/Recurrence_Meta.php:1875
 msgid "Automatically remove recurring event instances older than this"
 msgstr "Automatikusan eltávolítja az ismétlődő események ennél régebbi példányait"
 
-#: ../src/Tribe/Recurrence_Meta.php:1131
+#: src/Tribe/Recurrence_Meta.php:1882
 msgid "Create recurring events in advance for"
 msgstr "Ismétlődő események létrehozása eddig:"
 
-#: ../src/Tribe/Recurrence_Meta.php:1132
+#: src/Tribe/Recurrence_Meta.php:1883
 msgid "Recurring events will be created this far in advance"
 msgstr "Az ismétlődő események eddig az időpontig kerülnek létrehozásra"
 
-#: ../src/Tribe/Recurrence_Meta.php:1153
+#: src/Tribe/Recurrence_Meta.php:1904
 msgid " months"
 msgstr " hónap"
 
-#: ../src/Tribe/Recurrence_Meta.php:1248
+#: src/Tribe/Recurrence_Meta.php:1999
 msgid "You are currently editing all events in a recurring series."
 msgstr "Jelenleg a sorozat összes eseményét szerkeszted."
 
-#: ../src/Tribe/Recurrence_Meta.php:1256
+#: src/Tribe/Recurrence_Meta.php:2007
 msgid "%d instances of this event have been created through %s. <a href=\"%s\">Learn more.</a>"
 msgstr "Az esemény %d példánya létrehozva eddig: %s. <a href=\"%s\">További infó.</a>"
 
-#: ../src/Tribe/Recurrence_Meta.php:1267
+#: src/Tribe/Recurrence_Meta.php:2018
 msgid ""
 "You are about to split this series in two.\n"
 "\n"
@@ -734,7 +964,7 @@ msgstr ""
 "\n"
 "A művelet a későbbiekben már nem vonható vissza."
 
-#: ../src/Tribe/Recurrence_Meta.php:1268
+#: src/Tribe/Recurrence_Meta.php:2019
 msgid ""
 "You are about to break this event out of its series.\n"
 "\n"
@@ -748,802 +978,778 @@ msgstr ""
 "\n"
 "A művelet a későbbiekben már nem vonható vissza."
 
-#: ../src/Tribe/Recurrence_Meta.php:1269
+#: src/Tribe/Recurrence_Meta.php:2020
 msgid "Are you sure you want to trash all occurrences of these events?"
 msgstr "Biztos, hogy az esemény összes előfordulását a lomtárba akarod helyezni?"
 
-#: ../src/Tribe/Single_Event_Meta.php:162
-#: ../src/views/pro/modules/meta/additional-fields.php:18
+#: src/Tribe/Single_Event_Meta.php:162
+#: src/views/pro/modules/meta/additional-fields.php:18
 msgid "Other"
 msgstr "Egyéb"
 
-#: ../src/Tribe/Single_Event_Meta.php:189
+#: src/Tribe/Single_Event_Meta.php:189
 msgid "Recurrence Pattern:"
 msgstr "Ismétlődési minta:"
 
-#: ../src/Tribe/Templates/Map.php:91
+#: src/Tribe/Templates/Map.php:92
 msgid "No results were found for events in or near <strong>\"%s\"</strong>."
 msgstr "Nem találtunk eseményt itt vagy ennek környékén: <strong>\"%s\"</strong>."
 
-#: ../src/Tribe/Templates/Map.php:93 ../src/Tribe/Templates/Week.php:197
+#: src/Tribe/Templates/Map.php:94 src/Tribe/Templates/Week.php:197
 msgid "No matching events listed under %s. Please try viewing the full calendar for a complete list of events."
 msgstr "Nem találtunk a következőbe illő eseményt: %s. Kérjük, próbáld megtekinti a teljes naptárt az összes esemény listájához."
 
-#: ../src/Tribe/Templates/Map.php:95
+#: src/Tribe/Templates/Map.php:96
 msgid "There were no results found."
 msgstr "Sajnos nincs találat."
 
-#: ../src/Tribe/Templates/Week.php:192
+#: src/Tribe/Templates/Week.php:192
 msgid "There were no results found for <strong>\"%s\"</strong> this week. Try searching another week."
 msgstr "Nincs találat a következőre: <strong>\"%s\"</strong> ezen a héten. Próbálj másik hétre keresni."
 
-#: ../src/Tribe/Templates/Week.php:194
+#: src/Tribe/Templates/Week.php:194
 msgid "No results were found for events in or near <strong>\"%s\"</strong> this week. Try searching another week."
 msgstr "Nem találtunk eseményt itt vagy ennek környékén: <strong>\"%s\"</strong> ezen a héten. Próbálj másik hétre keresni."
 
-#: ../src/Tribe/Templates/Week.php:199
+#: src/Tribe/Templates/Week.php:199
 msgid "No results were found for this week. Try searching another week."
 msgstr "Nem találtunk eseményt ezen a héten. Próbálj másik hétre keresni."
 
-#: ../src/Tribe/Venue_Widget.php:16
+#: src/Tribe/Venue_Widget.php:16
 msgid "Displays a list of upcoming events at a specific venue."
 msgstr "A kiválasztott helyszín közelgő eseményeit jeleníti meg."
 
-#: ../src/Tribe/Venue_Widget.php:19
+#: src/Tribe/Venue_Widget.php:19
 msgid "Events Featured Venue"
 msgstr "Választott helyszín eseményei"
 
-#: ../src/admin-views/event-defaults.php:1
+#: src/admin-views/event-defaults.php:1
 msgid "Customize Defaults"
 msgstr "Alapértelmezések testreszabása"
 
-#: ../src/admin-views/event-defaults.php:2
+#: src/admin-views/event-defaults.php:2
 msgid "These settings change the default event form. For example, if you set a default venue, this field will be automatically filled in on a new event."
 msgstr "Ezek a beállítások megváltoztatják az alapértelmezett esemény űrlapot. Például, ha beállítasz egy alapértelmezett helyszínt, ez a mező automatikusan kitöltésre kerül az új eseményeknél."
 
-#: ../src/admin-views/event-defaults.php:5
-#: ../src/admin-views/event-defaults.php:9
-#: ../src/admin-views/tribe-options-defaults.php:55
+#: src/admin-views/event-defaults.php:5 src/admin-views/event-defaults.php:9
+#: src/admin-views/tribe-options-defaults.php:55
 msgid "Automatically replace empty fields with default values"
 msgstr "Automatikusan cserélje le az üres mezőket az alapértelmezett értékekre"
 
-#: ../src/admin-views/event-defaults.php:13
+#: src/admin-views/event-defaults.php:13
 msgid "Enabled"
 msgstr "Engedélyezve"
 
-#: ../src/admin-views/event-defaults.php:19
+#: src/admin-views/event-defaults.php:19
 msgid "Default Organizer for Events"
 msgstr "Az események alapértelmezett szervezője"
 
-#: ../src/admin-views/event-defaults.php:22
+#: src/admin-views/event-defaults.php:22
 msgid "Default Organizer"
 msgstr "Alapértelmezett szervező"
 
-#: ../src/admin-views/event-defaults.php:23
+#: src/admin-views/event-defaults.php:23
 msgid "The default organizer value"
 msgstr "Az szervező alapértelmezett értéke"
 
-#: ../src/admin-views/event-defaults.php:23
-#: ../src/admin-views/event-defaults.php:32
-#: ../src/admin-views/event-defaults.php:42
-#: ../src/admin-views/event-defaults.php:52
-#: ../src/admin-views/event-defaults.php:74
-#: ../src/admin-views/event-defaults.php:85
-#: ../src/admin-views/event-defaults.php:96
-#: ../src/admin-views/event-defaults.php:123
+#: src/admin-views/event-defaults.php:23 src/admin-views/event-defaults.php:32
+#: src/admin-views/event-defaults.php:42 src/admin-views/event-defaults.php:52
+#: src/admin-views/event-defaults.php:74 src/admin-views/event-defaults.php:85
+#: src/admin-views/event-defaults.php:96 src/admin-views/event-defaults.php:123
 msgid "The current default value is <strong>%s</strong>"
 msgstr "A jelenlegi alapértelmezett érték: <strong>%s</strong>"
 
-#: ../src/admin-views/event-defaults.php:28
+#: src/admin-views/event-defaults.php:28
 msgid "Default Venue for Events"
 msgstr "Az események alapértelmezett helyszíne"
 
-#: ../src/admin-views/event-defaults.php:31
+#: src/admin-views/event-defaults.php:31
 msgid "Default Venue"
 msgstr "Alapértelmezett helyszín"
 
-#: ../src/admin-views/event-defaults.php:32
+#: src/admin-views/event-defaults.php:32
 msgid "The default venue value"
 msgstr "A helyszín alapértelmezett értéke"
 
-#: ../src/admin-views/event-defaults.php:37
-#: ../src/admin-views/event-defaults.php:40
+#: src/admin-views/event-defaults.php:37 src/admin-views/event-defaults.php:40
 msgid "Default Address"
 msgstr "Alapértelmezett cím"
 
-#: ../src/admin-views/event-defaults.php:41
+#: src/admin-views/event-defaults.php:41
 msgid "The default address value"
 msgstr "A cím alapértelmezett értéke"
 
-#: ../src/admin-views/event-defaults.php:47
-#: ../src/admin-views/event-defaults.php:50
+#: src/admin-views/event-defaults.php:47 src/admin-views/event-defaults.php:50
 msgid "Default City"
 msgstr "Alapértelmezett település"
 
-#: ../src/admin-views/event-defaults.php:51
+#: src/admin-views/event-defaults.php:51
 msgid "The default city value"
 msgstr "A település alapértelmezett értéke"
 
-#: ../src/admin-views/event-defaults.php:58
+#: src/admin-views/event-defaults.php:58
 msgid "Default State"
 msgstr "Alapértelmezett állam"
 
-#: ../src/admin-views/event-defaults.php:61
-#: ../src/admin-views/event-defaults.php:83
+#: src/admin-views/event-defaults.php:61 src/admin-views/event-defaults.php:83
 msgid "Default Province or State"
 msgstr "Alapértelmezett tartomány vagy állam"
 
-#: ../src/admin-views/event-defaults.php:64
+#: src/admin-views/event-defaults.php:64
 msgid "Select a State:"
 msgstr "Válassz egy államot"
 
-#: ../src/admin-views/event-defaults.php:73
-#: ../src/admin-views/event-defaults.php:84
+#: src/admin-views/event-defaults.php:73 src/admin-views/event-defaults.php:84
 msgid "The default  value"
 msgstr "Az alapértelmezett érték"
 
-#: ../src/admin-views/event-defaults.php:80
+#: src/admin-views/event-defaults.php:80
 msgid "Default Province"
 msgstr "Alapértelmezett tartomány"
 
-#: ../src/admin-views/event-defaults.php:91
-#: ../src/admin-views/event-defaults.php:94
+#: src/admin-views/event-defaults.php:91 src/admin-views/event-defaults.php:94
 msgid "Default Postal Code"
 msgstr "Alapértelmezett irányítószám"
 
-#: ../src/admin-views/event-defaults.php:95
+#: src/admin-views/event-defaults.php:95
 msgid "The default Postal Code value"
 msgstr "Az irányítószám alapértelmezett értéke"
 
-#: ../src/admin-views/event-defaults.php:102
+#: src/admin-views/event-defaults.php:102
 msgid "Default Country for Events"
 msgstr "Alapértelmezett ország az eseményekhez"
 
-#: ../src/admin-views/event-defaults.php:118
-#: ../src/admin-views/event-defaults.php:121
+#: src/admin-views/event-defaults.php:118
+#: src/admin-views/event-defaults.php:121
 msgid "Default Phone"
 msgstr "Alapértelmezett telefonszám"
 
-#: ../src/admin-views/event-defaults.php:122
+#: src/admin-views/event-defaults.php:122
 msgid "The default phone value"
 msgstr "A telefonszám alapértelmezett értéke"
 
-#: ../src/admin-views/event-defaults.php:128
-#: ../src/admin-views/tribe-options-defaults.php:198
+#: src/admin-views/event-defaults.php:128
+#: src/admin-views/tribe-options-defaults.php:198
 msgid "Use a custom list of countries"
 msgstr "Használj egyedi listát az országokhoz"
 
-#: ../src/admin-views/event-defaults.php:131
+#: src/admin-views/event-defaults.php:131
 msgid "Use the following list:"
 msgstr "Használd a következő listát"
 
-#: ../src/admin-views/event-defaults.php:134
+#: src/admin-views/event-defaults.php:134
 msgid "One country per line in the following format: <br/>US, United States <br/> UK, United Kingdom."
 msgstr "Egy ország soronként a következő formátumban: <br/>US, United States <br/> UK, United Kingdom."
 
-#: ../src/admin-views/event-defaults.php:134
+#: src/admin-views/event-defaults.php:134
 msgid "(Replaces the default list.)"
 msgstr "(Lecseréli az alapértelmezett listát.)"
 
-#: ../src/admin-views/event-meta-options.php:5
+#: src/admin-views/event-meta-options.php:5
 msgid "Use additional fields to add unique content fields to the event admin, which can be used by anyone who creates events. Upon publication they'll appear in the event metabox that accompanies your event listing, alongside the date/time/venue/organizer/etc. </p><p>Each new piece of data needs:"
 msgstr "Használj további mezőket egyedi tartalmak eseményhez rendeléséhez az admin felületen, amelyet bárki fel tud majd használni, aki létrehoz egy új eseményt. Az esemény közzétételét követően az esemény jellemzői között fognak megjelenni a dátum, időpont, helyszín, szervező, stb információk mellett. </p><p> Minden ilyen mezőhöz szükséges:"
 
-#: ../src/admin-views/event-meta-options.php:7
+#: src/admin-views/event-meta-options.php:7
 msgid "Label (e.g. Meal Plans)"
 msgstr "Cimke (pl. választható étrendek)"
 
-#: ../src/admin-views/event-meta-options.php:8
+#: src/admin-views/event-meta-options.php:8
 msgid "At least one option (e.g. Vegetarian, Kosher, Paleo)"
 msgstr "Legalább egy opció (pl. Vegetáriánus, Kóser, Paleo)"
 
-#: ../src/admin-views/event-meta-options.php:9
+#: src/admin-views/event-meta-options.php:9
 msgid "Field type. These are:"
 msgstr "A mező típusa. Ezek:"
 
-#: ../src/admin-views/event-meta-options.php:11
+#: src/admin-views/event-meta-options.php:11
 msgid "Text - for the user to input text"
 msgstr "Szöveg - egyszerű szöveg beírása"
 
-#: ../src/admin-views/event-meta-options.php:12
+#: src/admin-views/event-meta-options.php:12
 msgid "Text Area - identical to a text field but providing a larger area for the user to input text"
 msgstr ""
 
-#: ../src/admin-views/event-meta-options.php:13
+#: src/admin-views/event-meta-options.php:13
 msgid "URL - for the user to input a URL"
 msgstr "URL - link beszúrása"
 
-#: ../src/admin-views/event-meta-options.php:14
+#: src/admin-views/event-meta-options.php:14
 msgid "Checkbox - for multiple choice"
 msgstr "Jelölőnégyzet - többszörös választás"
 
-#: ../src/admin-views/event-meta-options.php:15
+#: src/admin-views/event-meta-options.php:15
 msgid "Radio Button - to select only one"
 msgstr "Rádió gomb - egy lehetőség kiválasztása"
 
-#: ../src/admin-views/event-meta-options.php:16
+#: src/admin-views/event-meta-options.php:16
 msgid "Dropdown Menu - for a dropdown menu"
 msgstr "Leugró menü"
 
-#: ../src/admin-views/event-meta-options.php:23
+#: src/admin-views/event-meta-options.php:23
 msgid "Field Label"
 msgstr "Mező cimkéje"
 
-#: ../src/admin-views/event-meta-options.php:24
+#: src/admin-views/event-meta-options.php:24
 msgid "Field Type"
 msgstr "Mező típusa"
 
-#: ../src/admin-views/event-meta-options.php:25
+#: src/admin-views/event-meta-options.php:25
 msgid "Options (one per line)"
 msgstr "Lehetőségek (soronként egy)"
 
-#: ../src/admin-views/event-meta-options.php:48
+#: src/admin-views/event-meta-options.php:48
 msgid "Text"
 msgstr "Szöveg"
 
-#: ../src/admin-views/event-meta-options.php:49
+#: src/admin-views/event-meta-options.php:49
 msgid "Text Area"
 msgstr ""
 
-#: ../src/admin-views/event-meta-options.php:50
+#: src/admin-views/event-meta-options.php:50
 msgid "URL"
 msgstr "Link"
 
-#: ../src/admin-views/event-meta-options.php:51
+#: src/admin-views/event-meta-options.php:51
 msgid "Radio"
 msgstr "Rádió gomb"
 
-#: ../src/admin-views/event-meta-options.php:52
+#: src/admin-views/event-meta-options.php:52
 msgid "Checkbox"
 msgstr "Jelölőnégyzet"
 
-#: ../src/admin-views/event-meta-options.php:65
+#: src/admin-views/event-meta-options.php:65
 msgid "Enter the field label as you want it to appear (this will be the label in the same way \"Start Date,\" \"Organizer,\" etc appear in the event details box on the frontend). Select whether the field will be a text field; URL field; radio buttons; checkboxes; or a dropdown. All of these with the exception of text and URL allow for multiple options to be included, which you can add — one per-line — in the right-hand column. If you feel flummoxed, we've got you covered with a %s."
 msgstr "Írd be a mező megjeleníteni kívánt cimkéjét (ugyan olyan lesz, mint a \"Kezdési időpont,\" \"Szervező,\" stb az esemény adatai között, a honlapon). Válaszd ki, hogy a mező szöveges, link, rádió gomb (egyszeres választás), jelölőnégyzet (többszörös választás), vagy legördülő menő lesz. A szövegen és a linken kívül mindegyikhez több lehetőséget is írhatsz, melyeket  — soronként egyet — a jobb oldali oszlopban adhatsz hozzá. Ha bizonytalannak érzed magad, ne aggódj, van számodra egy jó %s."
 
-#: ../src/admin-views/event-meta-options.php:69
+#: src/admin-views/event-meta-options.php:69
 msgid "Editor \"Custom Fields\" meta box"
 msgstr "Szerkesztő \"Egyedi mezők\" meta doboz"
 
-#: ../src/admin-views/event-meta-options.php:71
+#: src/admin-views/event-meta-options.php:71
 msgid "Show"
 msgstr "Mutat"
 
-#: ../src/admin-views/event-meta-options.php:73
+#: src/admin-views/event-meta-options.php:73
 msgid "Hide"
 msgstr "Elrejt"
 
-#: ../src/admin-views/event-meta-options.php:76
+#: src/admin-views/event-meta-options.php:76
 msgid "Enabling this option this will not remove custom field data or functionality, just the default meta box editor."
 msgstr "Az opció engedélyezésével nem fogod eltávolítani az egyéni mezők adatait és funkcionalitását, csak az alapértelmezett meta doboz szerkesztőt."
 
-#: ../src/admin-views/event-meta-options.php:111
+#: src/admin-views/event-meta-options.php:111
 msgid "Are you sure you wish to remove this field and its data from all events? Once you click OK this cannot be undone."
 msgstr "Biztos vagy benne, hogy el akarod távolítani ezt a mezőt és az adatait az összes eseménytől? Az OK gombra kattintás után már nem vonható vissza."
 
-#: ../src/admin-views/event-meta.php:13
+#: src/admin-views/event-meta.php:13
 msgid "Additional %s Fields"
 msgstr ""
 
-#: ../src/admin-views/event-recurrence.php:2
-msgid "Recurrence:"
-msgstr "Ismétlődés:"
-
-#: ../src/admin-views/event-recurrence.php:6
+#: src/admin-views/event-recurrence.php:18
+#: src/admin-views/event-recurrence.php:90
 msgid "event"
 msgstr "esemény"
 
-#: ../src/admin-views/event-recurrence.php:6
+#: src/admin-views/event-recurrence.php:18
+#: src/admin-views/event-recurrence.php:90
 msgid "events"
 msgstr "események"
 
-#: ../src/admin-views/event-recurrence.php:7
+#: src/admin-views/event-meta.php:27 src/admin-views/event-meta.php:43
+#: src/admin-views/event-recurrence.php:92
 msgid "None"
 msgstr "Nincs"
 
-#: ../src/admin-views/event-recurrence.php:8
+#: src/admin-views/event-recurrence.php:21
 msgid "Every Day"
 msgstr "Minden nap"
 
-#: ../src/admin-views/event-recurrence.php:9
+#: src/admin-views/event-recurrence.php:22
 msgid "Every Week"
 msgstr "Minden hét"
 
-#: ../src/admin-views/event-recurrence.php:10
+#: src/admin-views/event-recurrence.php:23
 msgid "Every Month"
 msgstr "Minden hónap"
 
-#: ../src/admin-views/event-recurrence.php:11
+#: src/admin-views/event-recurrence.php:24
 msgid "Every Year"
 msgstr "Minden év"
 
-#: ../src/admin-views/event-recurrence.php:12
+#: src/admin-views/event-recurrence.php:25
 msgid "Custom"
 msgstr "Egyedi"
 
-#: ../src/admin-views/event-recurrence.php:15
+#: src/admin-views/event-recurrence.php:29
 msgid "and will end"
 msgstr "és véget ér"
 
-#: ../src/admin-views/event-recurrence.php:17
+#: src/admin-views/event-recurrence.php:32
 msgid "On"
 msgstr "Ekkor"
 
-#: ../src/admin-views/event-recurrence.php:18
+#: src/admin-views/event-recurrence.php:33
 msgid "After"
 msgstr "Után"
 
-#: ../src/admin-views/event-recurrence.php:19
+#: src/admin-views/event-recurrence.php:34
 msgid "Never"
 msgstr "Soha"
 
-#: ../src/admin-views/event-recurrence.php:22
-#: ../src/admin-views/event-recurrence.php:41
+#: src/admin-views/event-recurrence.php:40
+#: src/admin-views/event-recurrence.php:61
+#: src/admin-views/event-recurrence.php:109
 msgctxt "occurence count text"
 msgid "events"
 msgstr ""
 
-#: ../src/admin-views/event-recurrence.php:23
+#: src/admin-views/event-recurrence.php:43
 msgid "You must select a recurrence end date"
 msgstr "Ki kell választanod az ismétlődés végét"
 
-#: ../src/admin-views/event-recurrence.php:30
+#: src/admin-views/event-recurrence.php:48
 msgid "Frequency"
 msgstr "Gyakoriság"
 
-#: ../src/admin-views/event-recurrence.php:32
+#: src/admin-views/event-recurrence.php:51
+#: src/admin-views/event-recurrence.php:94
 msgid "Day(s)"
 msgstr "Nap(ok)"
 
-#: ../events-calendar-pro.php:69
+#: events-calendar-pro.php:69
 msgid "The Events Calendar"
 msgstr "Az Events Calendar"
 
-#: ../src/admin-views/event-recurrence.php:32
+#: src/admin-views/event-recurrence.php:51
+#: src/admin-views/event-recurrence.php:94
 msgid "Daily"
 msgstr "Naponta"
 
-#: ../events-calendar-pro.php:70
+#: events-calendar-pro.php:70
 msgid "To begin using Events Calendar PRO, please install the latest version of <a href=\"%s\" class=\"thickbox\" title=\"%s\">The Events Calendar</a>."
 msgstr "Az Events Calendar PRO használatának megkezdéséhez kérjük, telepítsd a<a href=\"%s\" class=\"thickbox\" title=\"%s\">The Events Calendar</a> legújabb verzióját."
 
-#: ../src/admin-views/event-recurrence.php:33
+#: src/admin-views/event-recurrence.php:52
+#: src/admin-views/event-recurrence.php:95
 msgid "Week(s) on:"
 msgstr "Hét, hetek:"
 
-#: ../src/Tribe/APM_Filters/APM_Filters.php:65
+#: src/Tribe/APM_Filters/APM_Filters.php:65
 msgid "Start Date"
 msgstr "Kezdés időpontja"
 
-#: ../src/admin-views/event-recurrence.php:33
+#: src/admin-views/event-recurrence.php:52
+#: src/admin-views/event-recurrence.php:95
 msgid "Weekly"
 msgstr "Hetente"
 
-#: ../src/Tribe/APM_Filters/APM_Filters.php:70
+#: src/Tribe/APM_Filters/APM_Filters.php:70
 msgid "End Date"
 msgstr "Befejezés időpontja"
 
-#: ../src/admin-views/event-recurrence.php:34
+#: src/admin-views/event-recurrence.php:53
+#: src/admin-views/event-recurrence.php:96
 msgid "Month(s) on the:"
 msgstr "Hónap, hónapok:"
 
-#: ../src/Tribe/APM_Filters/APM_Filters.php:75
+#: src/Tribe/APM_Filters/APM_Filters.php:75
 msgid "Event Cost"
 msgstr "Esemény költségei"
 
-#: ../src/admin-views/event-recurrence.php:34
+#: src/admin-views/event-recurrence.php:53
+#: src/admin-views/event-recurrence.php:96
 msgid "Monthly"
 msgstr "Havonta"
 
-#: ../src/Tribe/APM_Filters/APM_Filters.php:80
+#: src/Tribe/APM_Filters/APM_Filters.php:80
 msgid "Event Cats"
 msgstr "Esemény kategóriái"
 
-#: ../src/admin-views/event-recurrence.php:35
+#: src/admin-views/event-recurrence.php:54
+#: src/admin-views/event-recurrence.php:97
 msgid "Year(s) on:"
 msgstr "Év, évek:"
 
-#: ../src/Tribe/APM_Filters/APM_Filters.php:85
+#: src/Tribe/APM_Filters/APM_Filters.php:85
 msgid "Title"
 msgstr "Cím"
 
-#: ../src/admin-views/event-recurrence.php:35
+#: src/admin-views/event-recurrence.php:54
+#: src/admin-views/event-recurrence.php:97
 msgid "Yearly"
 msgstr "Évente"
 
-#: ../src/Tribe/APM_Filters/APM_Filters.php:90
-#: ../src/Tribe/Recurrence_Meta.php:149
+#: src/Tribe/APM_Filters/APM_Filters.php:90 src/Tribe/Recurrence_Meta.php:135
 msgid "Recurring"
 msgstr "Ismétlődő"
 
-#: ../src/admin-views/event-recurrence.php:37
+#: src/admin-views/event-recurrence.php:57
 msgid "Every"
 msgstr "Minden"
 
-#: ../src/Tribe/APM_Filters/APM_Filters.php:95
+#: src/Tribe/APM_Filters/APM_Filters.php:95
 msgid "Description"
 msgstr "Leírás"
 
-#: ../src/admin-views/event-recurrence.php:42
+#: src/admin-views/event-recurrence.php:62
+#: src/admin-views/event-recurrence.php:110
 msgid "Frequency of recurring event must be a number"
 msgstr "Az ismétlődés gyakoriságának értéke szám kell, hogy legyen"
 
-#: ../src/Tribe/APM_Filters/APM_Filters.php:141
+#: src/Tribe/APM_Filters/APM_Filters.php:141
 msgid "Pssst! Looking for the filters? They live in a separate plugin now | <a href=\"%s\">Download for free</a>| <a href=\"%s\">Dismiss</a>"
 msgstr ""
 
-#: ../src/admin-views/event-recurrence.php:52
+#: src/admin-views/recurrence/weeks.php:4
 msgid "M"
 msgstr "H"
 
-#: ../src/Tribe/APM_Filters/Date_Filter.php:13
-#: ../src/Tribe/APM_Filters/Title_Filter.php:15
+#: src/Tribe/APM_Filters/Date_Filter.php:13
+#: src/Tribe/APM_Filters/Title_Filter.php:15
 msgid "Is"
 msgstr "Egyezik"
 
-#: ../src/admin-views/event-recurrence.php:54
+#: src/admin-views/recurrence/weeks.php:8
 msgid "Tu"
 msgstr "K"
 
-#: ../src/Tribe/APM_Filters/Date_Filter.php:14
-#: ../src/Tribe/APM_Filters/Title_Filter.php:16
+#: src/Tribe/APM_Filters/Date_Filter.php:14
+#: src/Tribe/APM_Filters/Title_Filter.php:16
 msgid "Is Not"
 msgstr "Nem egyezik"
 
-#: ../src/admin-views/event-recurrence.php:56
+#: src/admin-views/recurrence/weeks.php:12
 msgid "W"
 msgstr "Sze"
 
-#: ../src/Tribe/APM_Filters/Date_Filter.php:15
+#: src/Tribe/APM_Filters/Date_Filter.php:15
 msgid "On and After"
 msgstr "Akkor vagy utána"
 
-#: ../src/admin-views/event-recurrence.php:58
+#: src/admin-views/recurrence/weeks.php:16
 msgid "Th"
 msgstr "Cs"
 
-#: ../src/Tribe/APM_Filters/Date_Filter.php:16
+#: src/Tribe/APM_Filters/Date_Filter.php:16
 msgid "On and Before"
 msgstr "Akkor vagy előtte"
 
-#: ../src/admin-views/event-recurrence.php:60
+#: src/admin-views/recurrence/weeks.php:20
 msgid "F"
 msgstr "P"
 
-#: ../src/Tribe/APM_Filters/Recur_Filter.php:16
-#: ../src/Tribe/Recurrence_Meta.php:157
+#: src/Tribe/APM_Filters/Recur_Filter.php:16 src/Tribe/Recurrence_Meta.php:143
 msgid "Yes"
 msgstr "Igen"
 
-#: ../src/admin-views/event-recurrence.php:62
+#: src/admin-views/recurrence/weeks.php:24
 msgid "Sa"
 msgstr "Szo"
 
-#: ../src/Tribe/APM_Filters/Recur_Filter.php:17
+#: src/Tribe/APM_Filters/Recur_Filter.php:17
 msgid "No"
 msgstr "Nem"
 
-#: ../src/admin-views/event-recurrence.php:64
+#: src/admin-views/recurrence/weeks.php:28
 msgid "Su"
 msgstr "V"
 
-#: ../src/Tribe/APM_Filters/Title_Filter.php:14
+#: src/Tribe/APM_Filters/Title_Filter.php:14
 msgid "Search"
 msgstr "Keresés"
 
-#: ../src/admin-views/event-recurrence.php:73
-#: ../src/admin-views/event-recurrence.php:135
+#: src/admin-views/recurrence/months.php:5
+#: src/admin-views/recurrence/years.php:86
 msgid "First"
 msgstr "Első"
 
-#: ../src/Tribe/Advanced_List_Widget.php:22
+#: src/Tribe/Advanced_List_Widget.php:22
 msgid "A widget that displays the next upcoming x events."
 msgstr "Egy widget, mely a következő x eseményt jeleníti meg."
 
-#: ../src/admin-views/event-recurrence.php:74
-#: ../src/admin-views/event-recurrence.php:136
+#: src/admin-views/recurrence/months.php:6
+#: src/admin-views/recurrence/years.php:87
 msgid "Second"
 msgstr "Második"
 
-#: ../src/Tribe/Advanced_List_Widget.php:27
+#: src/Tribe/Advanced_List_Widget.php:27
 msgid "Events List"
 msgstr "Események listája"
 
-#: ../src/admin-views/event-recurrence.php:75
-#: ../src/admin-views/event-recurrence.php:137
+#: src/admin-views/recurrence/months.php:7
+#: src/admin-views/recurrence/years.php:88
 msgid "Third"
 msgstr "Harmadik"
 
-#: ../src/Tribe/Advanced_List_Widget.php:116
+#: src/Tribe/Advanced_List_Widget.php:116
 msgid "Upcoming Events"
 msgstr "Közelgő események"
 
-#: ../src/admin-views/event-recurrence.php:76
-#: ../src/admin-views/event-recurrence.php:138
+#: src/admin-views/recurrence/months.php:8
+#: src/admin-views/recurrence/years.php:89
 msgid "Fourth"
 msgstr "Negyedik"
 
-#: ../src/Tribe/Community_Modifications.php:43
+#: src/Tribe/Community_Modifications.php:28
 msgid "Recurrence End Date"
 msgstr ""
 
-#: ../src/admin-views/event-recurrence.php:77
+#: src/admin-views/recurrence/months.php:9
 msgid "Fifth"
 msgstr "Ötödik"
 
-#: ../src/Tribe/Community_Modifications.php:46
+#: src/Tribe/Community_Modifications.php:31
 msgid "Recurrence Count"
 msgstr ""
 
-#: ../src/admin-views/event-recurrence.php:78
-#: ../src/admin-views/event-recurrence.php:139
+#: src/admin-views/recurrence/months.php:10
+#: src/admin-views/recurrence/years.php:90
 msgid "Last"
 msgstr "Utolsó"
 
-#: ../src/Tribe/Countdown_Widget.php:17
+#: src/Tribe/Countdown_Widget.php:17
 msgid "Displays the time remaining until a specified event."
 msgstr "A kiválaszott esemény kezdetéig hátralévő időt jeleníti meg."
 
-#: ../src/admin-views/event-recurrence.php:93
-#: ../src/admin-views/event-recurrence.php:150
+#: src/admin-views/recurrence/months.php:27
+#: src/admin-views/recurrence/years.php:103
 msgid "Day"
 msgstr "Nap"
 
-#: ../src/Tribe/Countdown_Widget.php:20
+#: src/Tribe/Countdown_Widget.php:20
 msgid "Events Countdown"
 msgstr "Esemény visszaszámlálás"
 
-#: ../src/admin-views/event-recurrence.php:133
+#: src/admin-views/recurrence/years.php:83
 msgid "On the:"
 msgstr "Ekkor:"
 
-#: ../src/Tribe/Custom_Meta.php:53
+#: src/Tribe/Custom_Meta.php:56
 msgid "Add another"
 msgstr "Újabb hozzáadása"
 
-#: ../src/admin-views/event-recurrence.php:158
-msgid "Description:"
-msgstr "Leírás:"
-
-#: ../src/Tribe/Custom_Meta.php:54
+#: src/Tribe/Custom_Meta.php:57
 msgid "Remove"
 msgstr "Eltávolítás"
 
-#: ../src/admin-views/event-recurrence.php:166
-msgid "Recurrence Description:"
-msgstr "Ismétlődés leírása:"
-
-#: ../src/Tribe/Geo_Loc.php:103
+#: src/Tribe/Geo_Loc.php:103
 msgid "Distance"
 msgstr "Távolság"
 
-#: ../src/admin-views/event-recurrence.php:174
-msgid "Create a custom plain language description of the recurrence. Leave it blank and we'll automate it."
-msgstr "Az ismétlésnek létrehozhatsz saját nyelved és szóhasználat szerinti leírást. Hagyd üresen az automatikus értékek használatához."
-
-#: ../src/Tribe/Geo_Loc.php:135
+#: src/Tribe/Geo_Loc.php:135
 msgid "Map view search distance limit"
 msgstr "Térkép nézetbeli keresések hatótávolsága"
 
-#: ../src/admin-views/tribe-options-defaults.php:6
-#: ../src/admin-views/tribe-options-defaults.php:15
+#: src/admin-views/tribe-options-defaults.php:6
+#: src/admin-views/tribe-options-defaults.php:15
 msgid "No Default"
 msgstr "Nincs alapértelmezett"
 
-#: ../src/Tribe/Geo_Loc.php:137
+#: src/Tribe/Geo_Loc.php:137
 msgid "Set the distance that the location search covers (find events within X distance units of location search input)."
 msgstr "A helyszínre történő keresés maximális hatótávolságának beállítása (események keresése X távolságra a keresésben megadott helyszíntől)."
 
-#: ../src/admin-views/tribe-options-defaults.php:22
+#: src/admin-views/tribe-options-defaults.php:22
 msgid "Select a State"
 msgstr "Válassz államot"
 
-#: ../src/Tribe/Geo_Loc.php:144
+#: src/Tribe/Geo_Loc.php:144
 msgid "Map view distance unit"
 msgstr "Térkép nézetbeli távolság mértékegysége"
 
-#: ../src/admin-views/tribe-options-defaults.php:39
+#: src/admin-views/tribe-options-defaults.php:39
 msgid "<p>Choose the default venue & organizer. Set default address information to save time when entering a new venue or organizer.</p><p>You can override these settings as you enter a new event.</p>"
 msgstr "<p>Válaszd ki az alapértelmezett helyszínt & szervezőt. Állíts be alapértelmezett címadatokat, így időt takaríthatsz meg új helyszín vagy szervező megadásánál.</p><p>Ezeket az értékeket eseményenként felülírhatod.</p>"
 
-#: ../src/Tribe/Geo_Loc.php:150 ../src/Tribe/Geo_Loc_Filter.php:23
+#: src/Tribe/Geo_Loc.php:150 src/Tribe/Geo_Loc_Filter.php:23
 msgid "Miles"
 msgstr "Mérföld"
 
-#: ../src/admin-views/tribe-options-defaults.php:51
+#: src/admin-views/tribe-options-defaults.php:51
 msgid "Options"
 msgstr "Opciók"
 
-#: ../src/Tribe/Geo_Loc.php:151 ../src/Tribe/Geo_Loc_Filter.php:26
+#: src/Tribe/Geo_Loc.php:151 src/Tribe/Geo_Loc_Filter.php:26
 msgid "Kilometers"
 msgstr "Kilométer"
 
-#: ../src/admin-views/tribe-options-defaults.php:61
+#: src/admin-views/tribe-options-defaults.php:61
 msgid "Check this box to have the organizer and venue fields pre-populated with the default values below for any new event that is created."
 msgstr "Jelöld be ha az új események szervező és helyszín értékét automatikusan töltsük ki az alább megadott alapértelmezett értékekkel. "
 
-#: ../src/Tribe/Geo_Loc.php:157
+#: src/Tribe/Geo_Loc.php:157
 msgid "Fix geolocation data"
 msgstr "Helymeghatározási adatok javítása"
 
-#: ../src/admin-views/tribe-options-defaults.php:65
-#: ../src/admin-views/widget-admin-advanced-list.php:32
+#: src/admin-views/tribe-options-defaults.php:65
+#: src/admin-views/widget-admin-advanced-list.php:32
 msgid "Organizer"
 msgstr "Szervező"
 
-#: ../src/Tribe/Geo_Loc.php:157
+#: src/Tribe/Geo_Loc.php:157
 msgid "You have %d venues for which we don't have geolocation data. We need to use the Google Maps API to get that information. Doing this may take a while (aprox. 1 minute for every 200 venues)."
 msgstr "%d olyan helyszíned van, amihez még nincs helymeghatározási adat. A Google Térképek API-t kell használnunk az információ megszerzéséhez. Ez eltarthat egy darabig (kb. 1 perc 200 helyszínenként)."
 
-#: ../src/admin-views/tribe-options-defaults.php:69
+#: src/admin-views/tribe-options-defaults.php:69
 msgid "Default organizer"
 msgstr "Alapértelmezett szervező"
 
-#: ../src/Tribe/Geo_Loc.php:166
+#: src/Tribe/Geo_Loc.php:166
 msgid "Hide location search"
 msgstr "Helyszín kereső elrejtése"
 
-#: ../src/admin-views/tribe-options-defaults.php:73
+#: src/admin-views/tribe-options-defaults.php:73
 msgid "No saved organizers yet."
 msgstr "Még nincs mentett szervező."
 
-#: ../src/Tribe/Geo_Loc.php:167
+#: src/Tribe/Geo_Loc.php:167
 msgid "Removes location search field from the events bar on all views except for map view."
 msgstr "Eltávolítja a helyszín kereső mezőjét minden nézetből, kivéve a térkép nézetet."
 
-#: ../src/admin-views/tribe-options-defaults.php:82
-#: ../src/admin-views/widget-admin-advanced-list.php:31
+#: src/admin-views/tribe-options-defaults.php:82
+#: src/admin-views/widget-admin-advanced-list.php:31
 msgid "Venue"
 msgstr "Helyszín"
 
-#: ../src/Tribe/Geo_Loc.php:223
+#: src/Tribe/Geo_Loc.php:223
 msgid "Map"
 msgstr "Térkép"
 
-#: ../src/admin-views/tribe-options-defaults.php:86
+#: src/admin-views/tribe-options-defaults.php:86
 msgid "Default venue"
 msgstr "Alapértelmezett helyszín"
 
-#: ../src/Tribe/Geo_Loc.php:257
+#: src/Tribe/Geo_Loc.php:257
 msgid "Near"
 msgstr "Közel"
 
-#: ../src/admin-views/tribe-options-defaults.php:90
+#: src/admin-views/tribe-options-defaults.php:90
 msgid "No saved venues yet."
 msgstr "Még nincs mentett helyszín."
 
-#: ../src/Tribe/Geo_Loc.php:258
+#: src/Tribe/Geo_Loc.php:258
 msgid "Location"
 msgstr "Elhelyezkedés"
 
-#: ../src/admin-views/tribe-options-defaults.php:99
-#: ../src/admin-views/widget-admin-advanced-list.php:33
+#: src/admin-views/tribe-options-defaults.php:99
+#: src/admin-views/widget-admin-advanced-list.php:33
 msgid "Address"
 msgstr "Cím"
 
-#: ../src/Tribe/Geo_Loc.php:283
+#: src/Tribe/Geo_Loc.php:283
 msgid "Use latitude + longitude"
 msgstr ""
 
-#: ../src/admin-views/tribe-options-defaults.php:103
+#: src/admin-views/tribe-options-defaults.php:103
 msgid "You can use this setting to set specific, individual defaults for any new Venue you create (these will not be used for your default venue)."
 msgstr "Ezzel beállíthatsz egyedi, önálló alapértelmezett értékeket az összes létrehozott helyszínhez (az alapértelmezett helyszínhez nem lesznek felhasználva)"
 
-#: ../src/Tribe/Geo_Loc.php:287
+#: src/Tribe/Geo_Loc.php:287
 msgid "Latitude"
 msgstr ""
 
-#: ../src/admin-views/tribe-options-defaults.php:107
+#: src/admin-views/tribe-options-defaults.php:107
 msgid "Default address"
 msgstr "Alapértelmezett cím"
 
-#: ../src/Tribe/Geo_Loc.php:288
+#: src/Tribe/Geo_Loc.php:288
 msgid "Longitude"
 msgstr ""
 
-#: ../src/admin-views/tribe-options-defaults.php:120
+#: src/admin-views/tribe-options-defaults.php:120
 msgid "Default city"
 msgstr "Alapértelmezett település"
 
-#: ../src/Tribe/Geo_Loc.php:762
+#: src/Tribe/Geo_Loc.php:766
 msgid "Fix venues data"
 msgstr "Helyszín adatok javítása"
 
-#: ../src/admin-views/tribe-options-defaults.php:133
+#: src/admin-views/tribe-options-defaults.php:133
 msgid "Default state"
 msgstr "Alapértelmezett állam"
 
-#: ../src/Tribe/Geo_Loc.php:807
+#: src/Tribe/Geo_Loc.php:811
 msgid "You have venues for which we don't have Geolocation information. <a href='%s'>Click here to generate it</a>."
 msgstr "Van olyan helyszín, amihez még nincs helymeghatározási adatunk. <a href='%s'>Kattints ide a létrehozáshoz</a>."
 
-#: ../src/admin-views/tribe-options-defaults.php:146
+#: src/admin-views/tribe-options-defaults.php:146
 msgid "Default province"
 msgstr "Alapértelmezett tartomány"
 
-#: ../src/Tribe/Geo_Loc.php:834
+#: src/Tribe/Geo_Loc.php:838
 msgid "Fixed geolocation data for %d venues"
 msgstr "Helymeghatározási adatok kijavítva %d helyszínhez"
 
-#: ../src/admin-views/tribe-options-defaults.php:159
+#: src/admin-views/tribe-options-defaults.php:159
 msgid "Default postal code/zip code"
 msgstr "Alapértelmezett irányítószám"
 
-#: ../src/Tribe/Geo_Loc_Filter.php:32
+#: src/Tribe/Geo_Loc_Filter.php:32
 msgid "%d %s"
 msgstr "%d %s"
 
-#: ../src/admin-views/tribe-options-defaults.php:172
+#: src/admin-views/tribe-options-defaults.php:172
 msgid "Default country"
 msgstr "Alapértelmezett ország"
 
-#: ../src/Tribe/Geo_Loc_Filter.php:49
+#: src/Tribe/Geo_Loc_Filter.php:49
 msgid "Type: %s %s"
 msgstr "Típus: %s %s"
 
-#: ../src/admin-views/tribe-options-defaults.php:185
+#: src/admin-views/tribe-options-defaults.php:185
 msgid "Default phone"
 msgstr "Alapértelmezett telefonszám"
 
-#: ../src/Tribe/Geo_Loc_Filter.php:53
-#: ../src/admin-views/event-meta-options.php:53
+#: src/Tribe/Geo_Loc_Filter.php:53 src/admin-views/event-meta-options.php:53
 msgid "Dropdown"
 msgstr "Leugró"
 
-#: ../src/admin-views/tribe-options-defaults.php:201
+#: src/admin-views/tribe-options-defaults.php:201
 msgid "One country per line in the following format: <br>US, United States <br> UK, United Kingdom. <br> (Replaces the default list.)"
 msgstr "Egy ország soronként a következő formában: <br> US, Egyesült Államok <br> UK, Egyesült Királyság. <br> (Lecseréli az alapértelmezett listát.)"
 
-#: ../src/Tribe/Geo_Loc_Filter.php:58
+#: src/Tribe/Geo_Loc_Filter.php:58
 msgid "Radio Buttons"
 msgstr "Rádió gombok"
 
-#: ../src/admin-views/widget-admin-advanced-list.php:13
-#: ../src/admin-views/widget-admin-calendar.php:13
-#: ../src/admin-views/widget-admin-countdown.php:13
-#: ../src/admin-views/widget-admin-venue.php:12
-#: ../src/admin-views/widget-calendar.php:2
+#: src/admin-views/widget-admin-advanced-list.php:13
+#: src/admin-views/widget-admin-calendar.php:13
+#: src/admin-views/widget-admin-countdown.php:13
+#: src/admin-views/widget-admin-venue.php:12
+#: src/admin-views/widget-calendar.php:2
 msgid "Title:"
 msgstr "Cím:"
 
-#: ../src/Tribe/Main.php:55
+#: src/Tribe/Main.php:55 src/Tribe/Main.php:732
 msgid "week"
 msgstr "hét"
 
-#: ../src/admin-views/widget-admin-advanced-list.php:17
-#: ../src/admin-views/widget-admin-venue.php:26
-#: ../src/admin-views/widget-calendar.php:8
+#: src/admin-views/widget-admin-advanced-list.php:17
+#: src/admin-views/widget-admin-venue.php:26
+#: src/admin-views/widget-calendar.php:8
 msgid "Number of events to show:"
 msgstr "Mutatott események száma:"
 
-#: ../src/Tribe/Main.php:56
+#: src/Tribe/Main.php:56 src/Tribe/Main.php:733
 msgid "photo"
 msgstr "fénykép"
 
-#: ../src/admin-views/widget-admin-advanced-list.php:28
+#: src/admin-views/widget-admin-advanced-list.php:28
 msgid "Display:"
 msgstr "Megjelenít:"
 
-#: ../src/Tribe/Main.php:364
-msgid "All %s for %s"
-msgstr ""
-
-#: ../src/admin-views/widget-admin-advanced-list.php:34
+#: src/admin-views/widget-admin-advanced-list.php:34
 msgid "City"
 msgstr "Település"
 
-#: ../src/Tribe/Main.php:370
-msgid "%s for week of %s"
-msgstr ""
-
-#: ../src/admin-views/widget-admin-advanced-list.php:35
+#: src/admin-views/widget-admin-advanced-list.php:35
 msgid "State (US) Or Province (Int)"
 msgstr "Állam (USA) vagy tartomány (egyéb)"
 
-#: ../src/Tribe/Main.php:606 ../src/admin-views/tribe-options-defaults.php:35
+#: src/Tribe/Main.php:583 src/admin-views/tribe-options-defaults.php:35
 msgid "Default Content"
 msgstr "Alapértelmezett tartalom"
 
-#: ../src/admin-views/widget-admin-advanced-list.php:36
+#: src/admin-views/widget-admin-advanced-list.php:36
 msgid "Postal Code"
 msgstr "Irányítószám"
