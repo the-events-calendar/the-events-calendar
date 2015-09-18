@@ -23,7 +23,6 @@ class Tribe__Events__Pro__Admin__Custom_Meta_Tools {
 	public function __construct() {
 		add_action( 'admin_init', array( $this, 'updater_listen' ) );
 		add_action( 'wp_ajax_additional_fields_update', array( $this, 'updater_listen' ) );
-
 		add_action( 'tribe_settings_above_tabs', array( $this, 'update_ui' ) );
 	}
 
