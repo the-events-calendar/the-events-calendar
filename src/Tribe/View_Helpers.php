@@ -422,7 +422,6 @@ if ( ! class_exists( 'Tribe__Events__View_Helpers' ) ) {
 		 * @return string a set of HTML options with minutes (current minute selected)
 		 */
 		public static function getMinuteOptions( $date = '', $isStart = false ) {
-			$minutes = self::minutes();
 			$options = '';
 
 			if ( empty( $date ) ) {
@@ -432,6 +431,7 @@ if ( ! class_exists( 'Tribe__Events__View_Helpers' ) ) {
 			}
 
 			$minute = apply_filters( 'tribe_get_minute_options', $minute, $date, $isStart );
+			$minutes = self::minutes( $minute );
 
 			foreach ( $minutes as $minuteText ) {
 				if ( $minute == $minuteText ) {
@@ -501,17 +501,36 @@ if ( ! class_exists( 'Tribe__Events__View_Helpers' ) ) {
 		/**
 		 * Helper method to return an array of 00-59 for minutes
 		 *
+		 * @param  int $exact_minute optionally specify an exact minute to be included (outwith the default intervals)
+		 *
 		 * @return array The minutes array.
 		 */
-		private static function minutes() {
+		private static function minutes( $exact_minute = 0 ) {
 			$minutes = array();
+
+			// The exact minute should be an absint between 0 and 59
+			$exact_minute = absint( $exact_minute );
+
+			if ( $exact_minute < 0 || $exact_minute > 59 ) {
+				$exact_minute = 0;
+			}
+
 			/**
 			 * Filters the amount of minutes to increment the minutes drop-down by
 			 *
 			 * @param int Increment amount (defaults to 5)
 			 */
-			$increment = apply_filters( 'tribe_minutes_increment', 5 );
+			$default_increment = apply_filters( 'tribe_minutes_increment', 5 );
+
+			// Unless an exact minute has been specified we can minimize the amount of looping we do
+			$increment = ( 0 === $exact_minute ) ? $default_increment : 1;
+
 			for ( $minute = 0; $minute < 60; $minute += $increment ) {
+				// Skip if this $minute doesn't meet the increment pattern and isn't an additional exact minute
+				if ( 0 !== $minute % $default_increment && $exact_minute !== $minute ) {
+					continue;
+				}
+
 				if ( $minute < 10 ) {
 					$minute = '0' . $minute;
 				}
