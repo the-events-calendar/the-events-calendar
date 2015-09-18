@@ -227,18 +227,15 @@ function tribe_events_get_this_week_title( $start_date ) {
  * @return string
  */
 function tribe_events_this_week_previous_link( $start_date, $text = '' ) {
-	try {
-		if ( empty( $text ) ) {
-			$text = __( '<span>&laquo;</span> Previous Week', 'tribe-events-calendar-pro' );
-		}
 
-		$attributes   = sprintf( ' data-week="%s" ', date( 'Y-m-d', strtotime( $start_date . ' -7 days' ) ) );
-
-		return sprintf( '<a %s href="#" rel="prev">%s</a>', $attributes, $text );
-
-	} catch ( OverflowException $e ) {
-		return '';
+	if ( empty( $text ) ) {
+		$text = __( '<span>&laquo;</span> Previous Week', 'tribe-events-calendar-pro' );
 	}
+
+	$attributes   = sprintf( ' data-week="%s" ', date( 'Y-m-d', strtotime( $start_date . ' -7 days' ) ) );
+
+	return sprintf( '<a %s href="#" rel="prev">%s</a>', $attributes, $text );
+
 }
 
 
@@ -250,18 +247,15 @@ function tribe_events_this_week_previous_link( $start_date, $text = '' ) {
  * @return string
  */
 function tribe_events_this_week_next_link( $end_date, $text = '' ) {
-	try {
-		if ( empty( $text ) ) {
-			$text = __( 'Next Week <span>&raquo;</span>', 'tribe-events-calendar-pro' );
-		}
 
-		$attributes   = sprintf( ' data-week="%s" ', $end_date );
-
-		return sprintf( '<a %s href="#" rel="next">%s</a>', $attributes, $text );
-
-	} catch ( OverflowException $e ) {
-		return '';
+	if ( empty( $text ) ) {
+		$text = __( 'Next Week <span>&raquo;</span>', 'tribe-events-calendar-pro' );
 	}
+
+	$attributes   = sprintf( ' data-week="%s" ', $end_date );
+
+	return sprintf( '<a %s href="#" rel="next">%s</a>', $attributes, $text );
+
 }
 
 /**

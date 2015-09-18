@@ -17,7 +17,7 @@ tribe_events_this_week.ajax = {
 	my.init_ajax = function() {
 		this.$widget_wrapper = $( '.tribe-this-week-widget-wrapper' ).parent();
 
-		$( this.$widget_wrapper )
+		this.$widget_wrapper
 			.on( 'click', '.tribe-this-week-nav-link', this.event.ajax );
 
 	};
@@ -35,17 +35,17 @@ tribe_events_this_week.ajax = {
 
 		//Setup Query Start Date
 		var $week_target = $this_week_widget.data( 'prev-date' );
-		if (  $this.hasClass( "nav-next" ) ) {
+		if (  $this.hasClass( 'nav-next' ) ) {
 			$week_target = $this_week_widget.data( 'next-date' );
 		}
 
 		var params = {
 			action          : 'tribe_this_week',
-			start_date       : $week_target,
+			start_date      : $week_target,
 			count           : $this_week_widget.data( 'count' ),
 			layout          : $this_week_widget.data( 'layout' ),
 			tax_query       : $this_week_widget.data( 'tax-query' ),
-			hide_weekends    : $this_week_widget.data( 'hide-weekends' ),
+			hide_weekends   : $this_week_widget.data( 'hide-weekends' ),
 			nonce           : $this_week_widget.data( 'nonce' )
 		};
 

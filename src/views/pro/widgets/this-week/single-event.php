@@ -19,9 +19,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 	<div class="duration">
 		<?php //todo esc needed here? That is not the case in any other templates ?>
-		<?php echo tribe_events_event_schedule_details( $event->ID ) ?>
+	<?php echo tribe_events_event_schedule_details( $event->ID ) ?>
+
 	</div>
 		<?php //todo esc needed here? That is not the case in any other templates ?>
-	<div class="fn org tribe-venue"><?php echo tribe_get_venue_link( $event->ID ); ?></div>
+	<div class="fn org tribe-venue">
+		<?php echo tribe_get_venue_link( $event->ID ); ?>
+	</div>
 
 </div>

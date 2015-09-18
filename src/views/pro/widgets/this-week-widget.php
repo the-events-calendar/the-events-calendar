@@ -14,11 +14,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 ?>
-<div class="tribe-this-week-widget-wrapper tribe-this-week-widget-<?php echo esc_attr( $this_week_template_vars['layout'] ); ?> <?php echo esc_attr( tribe_this_week_widget_class( $this_week_query_vars['tax_query'] ) ); ?>" <?php /*todo esc this? just using esc_attr breaks it */ echo apply_filters( 'tribe_events_this_week_header_attributes', $this_week_data_attrs ); ?> >
+<div class="tribe-this-week-widget-wrapper tribe-this-week-widget-<?php echo esc_attr( $this_week_template_vars['layout'] ); ?> <?php echo esc_attr( tribe_this_week_widget_class( $this_week_query_vars['tax_query'] ) ); ?>" <?php echo apply_filters( 'tribe_events_this_week_header_attributes', $this_week_data_attrs ); ?> >
 
 	<!-- This Week Title -->
 	<?php do_action( 'tribe_events_before_this_week_title' ) ?>
-	<h2 class="tribe-events-page-title"><?php echo esc_html( tribe_events_get_this_week_title( $this_week_template_vars['start_date'] ) ); ?></h2>
+		<h2 class="tribe-events-page-title"><?php echo esc_html( tribe_events_get_this_week_title( $this_week_template_vars['start_date'] ) ); ?></h2>
 	<?php do_action( 'tribe_events_after_this_week_title' ) ?>
 
 	<!-- This Week Header Navigation -->
@@ -37,14 +37,20 @@ if ( ! defined( 'ABSPATH' ) ) {
 	</div>
 
 </div>
-<?php if ( ( isset( $args['widget_id'] ) || isset( $instance['widget_id'] ) ) && ( isset( $instance['highlight_color'] ) && $instance['highlight_color'] != '' ) ) {
-		//Set Highlight Color for Widget or For Shortcode based on ID from Respective System
-        $wrap_id = isset( $args['widget_id'] ) ? $args['widget_id'] : '';
-		$wrap_id = isset( $instance['widget_id'] ) ? 'tribe-this-week-events-widget-100' . $instance['widget_id'] : $wrap_id;
-    ?>
-    <style>
+
+<?php
+if ( ( isset( $args['widget_id'] ) || isset( $instance['widget_id'] ) ) && ( isset( $instance['highlight_color'] ) && $instance['highlight_color'] != '' ) ) {
+
+	//Set Highlight Color for Widget or For Shortcode based on ID from Respective System
+	$wrap_id = isset( $args['widget_id'] ) ? $args['widget_id'] : '';
+	$wrap_id = isset( $instance['widget_id'] ) ? 'tribe-this-week-events-widget-100' . $instance['widget_id'] : $wrap_id;
+?>
+
+	<style>
 		#<?php echo esc_attr( $wrap_id );  ?>  .tribe-this-week-event {
-		    border-color: <?php echo esc_attr( $instance['highlight_color'] ); ?>;
+			border-color: <?php echo esc_attr( $instance['highlight_color'] ); ?>;
 		}
 	</style>
-<?php }
+
+<?php
+}

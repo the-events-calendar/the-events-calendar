@@ -129,7 +129,7 @@ class Tribe__Events__Pro__This_Week {
 
 			ob_start();
 
-			include( Tribe__Events__Templates::getTemplateHierarchy( 'pro/widgets/this-week-widget.php' ) );
+			include Tribe__Events__Templates::getTemplateHierarchy( 'pro/widgets/this-week-widget.php' );
 
 			$response['html']    = ob_get_clean();
 			$response['success'] = true;
@@ -141,11 +141,10 @@ class Tribe__Events__Pro__This_Week {
 		}
 		apply_filters( 'tribe_events_ajax_response', $response );
 
-		header( 'Content-type: application/json' );
-		echo json_encode( $response );
-		die();
+		wp_send_json( $response );
 
 	}
+
 	/**
 	 * This Week Widget - Data Attributes for Ajax
 	 *
@@ -163,6 +162,7 @@ class Tribe__Events__Pro__This_Week {
 		return $this_week_template_vars;
 
 	}
+
 	/**
 	 * This Week Widget - Data Attributes for Ajax
 	 *
@@ -188,13 +188,13 @@ class Tribe__Events__Pro__This_Week {
 	}
 
 	/**
-	 * Get the array of days we're showing on this week widget
-	 * Takes into account the first day of the week in WP general settings
-	 *
-	 * @return array
-	 *
-	 * @see tribe_events_week_get_days()
-	 */
+	* Get the array of days we're showing on this week widget
+	* Takes into account the first day of the week in WP general settings
+	*
+	* @return array
+	*
+	* @see tribe_events_week_get_days()
+	*/
 	public static function get_day_range( ) {
 
 		$start_of_week = get_option( 'start_of_week' );
@@ -238,6 +238,7 @@ class Tribe__Events__Pro__This_Week {
 			'post_status' => $post_status,
 			'tribeHideRecurrence' => false,
 			'post__not_in' => $hide_upcoming_ids,
+			'tribe_render_context' => 'widget',
 			'posts_per_page' => -1,
 		), true );
 
@@ -259,77 +260,79 @@ class Tribe__Events__Pro__This_Week {
 
 		// Array used for calculation of php strtotime relative dates
 		$weekday_array = array(
-			0 => 'Sunday',
-			1 => 'Monday',
-			2 => 'Tuesday',
-			3 => 'Wednesday',
-			4 => 'Thursday',
-			5 => 'Friday',
-			6 => 'Saturday',
-			);
+		0 => 'Sunday',
+		1 => 'Monday',
+		2 => 'Tuesday',
+		3 => 'Wednesday',
+		4 => 'Thursday',
+		5 => 'Friday',
+		6 => 'Saturday',
+		);
 
-			//Build an Array for Each Day
-			foreach ( $day_range as $i => $day_number ) {
+		//Build an Array for Each Day
+		foreach ( $day_range as $i => $day_number ) {
 
-				//If Hide Weekends True then skip those days
-				if ( $this_week_query_vars[ 'hide_weekends' ] === 'true' && ( $day_number == 0 || $day_number == 6 ) ) { continue; }
+			//If Hide Weekends True then skip those days
+			if ( $this_week_query_vars[ 'hide_weekends' ] === 'true' && ( $day_number == 0 || $day_number == 6 ) ) {
+				continue;
+			}
 
-				// figure out the $date that we're currently looking at
-				if ( $day_number >= $day_range[0] ) {
-					// usually we can just get the date for the next day
-					$date = date( 'Y-m-d', strtotime( $day . "+$i days" ) );
-				} else {
-					//Start Day of week in the Middle and not in typical Sunday or Monday
-					$date = date( 'Y-m-d', strtotime( "Next {$weekday_array[$day_number]}", strtotime( $day ) ) );
-				}
+			// figure out the $date that we're currently looking at
+			if ( $day_number >= $day_range[0] ) {
+				// usually we can just get the date for the next day
+				$date = date( 'Y-m-d', strtotime( $day . "+$i days" ) );
+			} else {
+				//Start Day of week in the Middle and not in typical Sunday or Monday
+				$date = date( 'Y-m-d', strtotime( "Next {$weekday_array[$day_number]}", strtotime( $day ) ) );
+			}
 
-				$this_week_events_sticky = $this_week_events = array();
+			$this_week_events_sticky = $this_week_events = array();
 
-				if ( $events->have_posts() ) {
-					//loop through all events and sort based on sticky or not
-					foreach ( $events->posts as $j => $event ) {
+			if ( $events->have_posts() ) {
+				//loop through all events and sort based on sticky or not
+				foreach ( $events->posts as $j => $event ) {
 
-						if ( tribe_event_is_on_date( $date, $event ) ) {
+					if ( tribe_event_is_on_date( $date, $event ) ) {
 
-							$event->days_between = tribe_get_days_between( $event->EventStartDate, $event->EventEndDate, true );
+						$event->days_between = tribe_get_days_between( $event->EventStartDate, $event->EventEndDate, true );
 
-							if ( $event->menu_order == -1 ) {
+						if ( $event->menu_order == -1 ) {
 
-								$this_week_events_sticky[] = $event;
+							$this_week_events_sticky[] = $event;
 
-							} else {
+						} else {
 
-								$this_week_events[] = $event;
+							$this_week_events[] = $event;
 
-							}
 						}
 					}
 				}
-				//Merge the two arrays for the day only if sticky events are included for that day
-				if ( ! empty( $this_week_events_sticky ) && is_array( $this_week_events_sticky ) && is_array( $this_week_events ) ) {
+			}
+			//Merge the two arrays for the day only if sticky events are included for that day
+			if ( ! empty( $this_week_events_sticky ) && is_array( $this_week_events_sticky ) && is_array( $this_week_events ) ) {
 
-					$this_week_events = array_merge( $this_week_events_sticky, $this_week_events );
-				}
+				$this_week_events = array_merge( $this_week_events_sticky, $this_week_events );
+			}
 
-				$formatted_date  = date_i18n( $display_date_format, strtotime( $date ) );
-				$formatted_day  = date_i18n( $display_day_format, strtotime( $date ) );
-				$timestamp_date  = strtotime( $date );
+			$formatted_date  = date_i18n( $display_date_format, strtotime( $date ) );
+			$formatted_day  = date_i18n( $display_day_format, strtotime( $date ) );
+			$timestamp_date  = strtotime( $date );
 
-				// create the "day" element to do display in the template
-				$week_days[] = array(
-					'date'              => $date,
-					'day_number'        => $day_number,
-					'formatted_date'    => $formatted_date,
-					'formatted_day'     => $formatted_day,
-					'is_today'          => ( $timestamp_date == $timestamp_today ) ? true : false,
-					'is_past'           => ( $timestamp_date < $timestamp_today ) ? true : false,
-					'is_future'         => ( $timestamp_date > $timestamp_today ) ? true : false,
-					'this_week_events'  => $this_week_events,
-					'has_events'        => $this_week_events,
-					'total_events'      => count ( $this_week_events ),
-					'events_limit'      => $this_week_query_vars['count'],
-					'view_more'         => ( count ( $this_week_events ) >  $this_week_query_vars['count'] ) ? esc_url_raw( tribe_get_day_link( $date ) ) : false,
-				);
+			// create the "day" element to do display in the template
+			$week_days[] = array(
+				'date'              => $date,
+				'day_number'        => $day_number,
+				'formatted_date'    => $formatted_date,
+				'formatted_day'     => $formatted_day,
+				'is_today'          => ( $timestamp_date == $timestamp_today ) ? true : false,
+				'is_past'           => ( $timestamp_date < $timestamp_today ) ? true : false,
+				'is_future'         => ( $timestamp_date > $timestamp_today ) ? true : false,
+				'this_week_events'  => $this_week_events,
+				'has_events'        => $this_week_events,
+				'total_events'      => count ( $this_week_events ),
+				'events_limit'      => $this_week_query_vars['count'],
+				'view_more'         => ( count ( $this_week_events ) >  $this_week_query_vars['count'] ) ? esc_url_raw( tribe_get_day_link( $date ) ) : false,
+			);
 		}
 
 		return $week_days;

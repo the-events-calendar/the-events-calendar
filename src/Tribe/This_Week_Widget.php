@@ -9,6 +9,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class Tribe__Events__Pro__This_Week_Widget extends WP_Widget {
 
+	/**
+	 *  This Week Widget - Construct
+	 */
 	public function __construct() {
 		// Widget settings.
 		$widget_ops = array(
@@ -22,9 +25,12 @@ class Tribe__Events__Pro__This_Week_Widget extends WP_Widget {
 
 	}
 
+	/**
+	 * @param $hook
+	 */
 	public function load_scripts( $hook ) {
 
-		if ( $hook != 'widgets.php' ) {
+		if ( 'widgets.php' != $hook ) {
 			return;
 		}
 
@@ -40,7 +46,10 @@ class Tribe__Events__Pro__This_Week_Widget extends WP_Widget {
 		wp_enqueue_script( 'wp-color-picker' );
 	}
 
-
+	/**
+	 * @param $args
+	 * @param $instance
+	 */
 	public function widget( $args, $instance ) {
 
 		//Disable Tooltips
@@ -91,7 +100,7 @@ class Tribe__Events__Pro__This_Week_Widget extends WP_Widget {
 
 		do_action( 'tribe_events_this_week_widget_after_the_title' );
 
-		include( Tribe__Events__Templates::getTemplateHierarchy( 'pro/widgets/this-week-widget.php' ) );
+		include Tribe__Events__Templates::getTemplateHierarchy( 'pro/widgets/this-week-widget.php' );
 
 		//todo escape? this has html in it
 		echo $args['after_widget'];
@@ -104,7 +113,11 @@ class Tribe__Events__Pro__This_Week_Widget extends WP_Widget {
 		wp_reset_postdata();
 	}
 
-	// Include the file for the administration view of the widget.
+	/**
+	 *  Include the file for the administration view of the widget.
+	 *
+	 * @param $instance
+	 */
 	public function form( $instance ) {
 		$this->instance_defaults( $instance );
 
@@ -115,6 +128,9 @@ class Tribe__Events__Pro__This_Week_Widget extends WP_Widget {
 		include( Tribe__Events__Pro__Main::instance()->pluginPath . 'src/admin-views/widget-admin-this-week.php' );
 	}
 
+	/**
+	 * @param $instance
+	 */
 	protected function instance_defaults( $instance ) {
 		$this->instance = wp_parse_args( (array) $instance, array(
 			'title'             => '',
@@ -131,16 +147,24 @@ class Tribe__Events__Pro__This_Week_Widget extends WP_Widget {
 		) );
 	}
 
-	// Function allowing updating of widget information.
+	/**
+	 * Function allowing updating of widget information.
+	 *
+	 * @param $new_instance
+	 * @param $old_instance
+	 *
+	 * @return mixed
+	 */
 	public function update( $new_instance, $old_instance ) {
-		$instance = parent::update( $new_instance, $old_instance );
+		//$instance = parent::update( $new_instance, $old_instance );
 
-		$instance['title']               = $new_instance['title'];
-		$instance['layout']              = $new_instance['layout'];
-		$instance['highlight_color']     = $new_instance['highlight_color'];
-		$instance['count']               = $new_instance['count'];
+		$instance['title']               = sanitize_text_field( $new_instance['title'] );
+		$instance['layout']              = sanitize_text_field( $new_instance['layout'] );
+		$instance['highlight_color']     = sanitize_text_field( $new_instance['highlight_color'] );
+		$instance['count']               = absint( $new_instance['count'] );
+		//todo sanitize filter
 		$instance['filters']             = maybe_unserialize( $new_instance['filters'] );
-		$instance['operand']             = $new_instance['operand'];
+		$instance['operand']             = sanitize_text_field( $new_instance['operand'] );
 
 		return $instance;
 	}

@@ -31,6 +31,12 @@ class Tribe__Events__Pro__Shortcodes__Widget_Wrappers {
 		$wrapper = new Tribe__Events__Pro__Shortcodes__Event_Countdown( $atts );
 		return $wrapper->output;
 	}
+
+	/**
+	 * @param $atts
+	 *
+	 * @return string
+	 */
 	public function this_week( $atts ) {
 		$wrapper = new Tribe__Events__Pro__Shortcodes__This_Week( $atts );
 		return $wrapper->output;

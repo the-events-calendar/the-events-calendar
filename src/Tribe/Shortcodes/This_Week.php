@@ -19,12 +19,11 @@ class Tribe__Events__Pro__Shortcodes__This_Week extends Tribe__Events__Pro__Shor
 	public $output = '';
 
 	/**
-	 * Shortcode Instance Counter to use for Unique ID on Wrapper
-	 *
-	 * @var int
-	 */
-    public static $counter = 0;
-
+	* Shortcode Instance Counter to use for Unique ID on Wrapper
+	*
+	* @var int
+	*/
+	public static $counter = 0;
 
 	/**
 	 * The shortcode allows filtering by event categories and by post tags,
@@ -39,16 +38,16 @@ class Tribe__Events__Pro__Shortcodes__This_Week extends Tribe__Events__Pro__Shor
 
 
 	/**
-	 * Default arguments expected by the featured venue widget.
-	 *
-	 * @var array
-	 */
+	* Default arguments expected by the featured venue widget.
+	*
+	* @var array
+	*/
 	protected $default_args = array(
 		// This Week Properties
 		'layout'            => 'horizontal',
 		'highlight_color'   => '',
 		'count'             => 3,
-        'widget_id'         => '',
+		'widget_id'         => '',
 
 		// Taxonomy properties
 		'category'   => '',
@@ -75,13 +74,13 @@ class Tribe__Events__Pro__Shortcodes__This_Week extends Tribe__Events__Pro__Shor
 
 	public function __construct( $attributes ) {
 
-        //Shortcode Counter
-        self::$counter++;
+		//Shortcode Counter
+		self::$counter++;
 
-        //Set ID and unique css ID for wrapper
-        $this->default_args['widget_id'] = self::$counter;
-        $this->default_args['before_widget'] = '<div id="tribe-this-week-events-widget-100' . self::$counter . '" class="tribe-this-week-events-widget" >';
-        $this->default_args['after_widget'] = '</div>';
+		//Set ID and unique css ID for wrapper
+		$this->default_args['widget_id'] = self::$counter;
+		$this->default_args['before_widget'] = '<div id="tribe-this-week-events-widget-100' . self::$counter . '" class="tribe-this-week-events-widget" >';
+		$this->default_args['after_widget'] = '</div>';
 
 		$this->arguments = shortcode_atts( $this->default_args, $attributes );
 		$this->taxonomy_filters();
@@ -92,4 +91,4 @@ class Tribe__Events__Pro__Shortcodes__This_Week extends Tribe__Events__Pro__Shor
 		$this->output = ob_get_clean();
 	}
 
-}
+	}
