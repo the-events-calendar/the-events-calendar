@@ -40,7 +40,6 @@
 			 */
 			public $widget_wrappers;
 
-
 			const REQUIRED_TEC_VERSION = '3.12';
 			const VERSION = '3.12';
 
