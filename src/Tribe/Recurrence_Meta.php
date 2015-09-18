@@ -175,7 +175,7 @@ class Tribe__Events__Pro__Recurrence_Meta {
 					if ( ! $is_first_in_series ) {
 						$split_actions['split_all'] = sprintf( '<a href="%s" class="tribe-split tribe-split-all" title="%s">%s</a>', esc_url( wp_nonce_url( self::get_split_series_url( $post->ID, false, true ), 'tribe_split_' . $post->ID ) ), esc_attr( __( 'Split the series in two at this point, creating a new series out of this and all subsequent events', 'tribe-events-calendar-pro' ) ), __( 'Edit Upcoming', 'tribe-events-calendar-pro' ) );
 					}
-					$actions = Tribe__Events__Main::array_insert_after_key( 'edit', $actions, $split_actions );
+					$actions = Tribe__Main::array_insert_after_key( 'edit', $actions, $split_actions );
 				}
 				if ( current_user_can( 'edit_post', $first_id_in_series ) ) {
 					$edit_series_url = get_edit_post_link( $first_id_in_series, 'display' );
