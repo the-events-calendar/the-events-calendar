@@ -6,6 +6,129 @@
  */
 class Tribe__Events__Pro__Admin__Custom_Meta_Tools {
 	/**
+	 * Tracks the number of events updated, if any.
+	 *
+	 * @var int
+	 */
+	protected $updated = 0;
+
+	/**
+	 * Flags if the ajax update loop failed.
+	 *
+	 * @var bool
+	 */
+	protected $rerun_needed = false;
+
+
+	public function __construct() {
+		add_action( 'admin_init', array( $this, 'updater_listen' ) );
+		add_action( 'wp_ajax_additional_fields_update', array( $this, 'updater_listen' ) );
+
+		add_action( 'tribe_settings_above_tabs', array( $this, 'update_ui' ) );
+	}
+
+	/**
+	 * Listens for requests to run the additional field update process.
+	 */
+	public function updater_listen() {
+		// Inspect any post/get data (but not cookie data) for updater requests
+		$request = array_merge( array( 'do_additional_fields_update' => false ), $_POST, $_GET );
+
+		if ( ! wp_verify_nonce( $request[ 'do_additional_fields_update' ], 'custom_meta_tools:updater' ) ) {
+			return;
+		}
+
+		$this->updater_run();
+
+		// If we're within an ajax loop...
+		if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
+			wp_send_json( array(
+				'continue' => $this->are_updates_needed(),
+				'updated'  => $this->updated,
+				'check'    => wp_create_nonce( 'custom_meta_tools:updater' )
+			) );
+		}
+
+		// Or if for some reason ajax failed...
+		if ( $this->are_updates_needed() ) {
+			$this->rerun_needed = true;
+		}
+	}
+
+	/**
+	 * Processes a set of event posts in need of additional field updates and returns
+	 * the total that were updated.
+	 */
+	public function updater_run() {
+		/**
+		 * Controls the number of events processed in a single batch when additional field
+		 * data is updated.
+		 *
+		 * @var int $batch_size
+		 */
+		$batch_size = (int) apply_filters( 'tribe_events_pro_additional_fields_update_batch_size', 20 );
+
+		foreach ( $this->find_events_needing_update( $batch_size ) as $event_id ) {
+			$this->rebuild_fields( $event_id );
+			$this->updated++;
+		}
+	}
+
+	public function update_ui() {
+		// Only display the notice/update UI within the additional fields screen
+		if ( 'additional-fields' !== Tribe__Events__Settings::instance()->currentTab ) {
+			return;
+		}
+
+		// No updates required? No need to bother anyone
+		if ( ! $this->are_updates_needed() ) {
+			return;
+		}
+
+		// Setup our supporting JS
+		$this->update_js();
+
+		$update_url = add_query_arg( array(
+			'do_additional_fields_update' => wp_create_nonce( 'custom_meta_tools:updater' )
+		) );
+
+		$prompt = $this->rerun_needed
+			? __( 'Some additional field data still needs to be updated (unfortunately, we were unable to continue to update things automatically).', 'tribe-events-calendar-pro' )
+			: __( 'We need to update the additional field data for some of your events.', 'tribe-events-calendar-pro' );
+
+		$message = $prompt
+			. ' <span class="update-text"> <a href="' . $update_url . '">'
+			. _x( 'Click here to run the updater.', 'additional fields update trigger', 'tribe-events-calendar-pro' )
+			. '</a> </span>';
+
+		echo "<div id='tribe-additional-field-update' class='notice notice-warning'> <p> $message </p> </div>";
+	}
+
+	protected function update_js() {
+		$path = tribe_events_pro_resource_url( 'events-additional-fields-update.js' );
+		$spinner = '<img src="' . esc_url( get_admin_url( null, 'images/spinner.gif' ) ) . '">';
+
+		wp_enqueue_script( 'tribe-events-pro-additional-fields-update', $path, array( 'jquery' ), false, true );
+		wp_localize_script( 'tribe-events-pro-additional-fields-update', 'tribe_additional_fields', array(
+			'update_check'    => wp_create_nonce( 'custom_meta_tools:updater' ),
+			'complete_msg'    => '<strong>' . _x( 'All fields have been updated!', 'additional field update', 'tribe-events-calendar-pro' ) . '</strong>',
+			'failure_msg'     => '<strong>' . _x( 'An unexpected error stopped the update from completing.', 'additional field update', 'tribe-events-calendar-pro' ) . '</strong>',
+			'in_progress_msg' => '<strong>' . _x( 'Working&hellip;', 'additional field update', 'tribe-events-calendar-pro' ) . "</strong> $spinner",
+		) );
+	}
+
+	/**
+	 * Tests to see if there are events with custom field data applied to them
+	 * which require an update in respect of multichoice field support.
+	 *
+	 * @return bool
+	 */
+	public function are_updates_needed() {
+		$needing_update = $this->find_events_needing_update( 1 );
+		return ! empty( $needing_update );
+	}
+
+	/**
 	 * Returns a list of event post IDs for those events believed to require an
 	 * additional field update (ie, they have a single ECP additional field but
 	 * not individual
@@ -71,20 +194,28 @@ class Tribe__Events__Pro__Admin__Custom_Meta_Tools {
 	/**
 	 * Rebuilds the (ECP) custom/additional field data for the specified event.
 	 *
-	 * @todo Fix! currently overwrites/wipes existing values
+	 * This ensures that events last created/updated under ECP 3.12.x or earlier with
+	 * "multichoice"-type  additional fields have all the expected entries in the post
+	 * meta table.
+	 *
 	 * @param $event_id
 	 */
 	public function rebuild_fields( $event_id ) {
-		foreach ( $this->multichoice_fields() as $custom_field ) {
-			// Break the field apart into its consituent elements: even if there is only
-			// a single value, we still want to perform this step for multichoice fields
-			$values = explode( '|', get_post_meta( $event_id, $custom_field['name'], true ) );
+		$fields = array();
 
-			// Trigger an update
-			Tribe__Events__Pro__Custom_Meta::save_single_event_meta( $event_id, array(
-				$custom_field['name'] = $values,
-			) );
+		foreach ( (array) tribe_get_option( 'custom-fields', array() ) as $custom_field ) {
+			$value = get_post_meta( $event_id, $custom_field[ 'name' ], true );
+
+			// If this is a multichoice field, break it down from a pipe-separated format to an array
+			if ( Tribe__Events__Pro__Custom_Meta::is_multichoice( $custom_field ) ) {
+				$value = explode( '|', $value );
+			}
+
+			$fields[ $custom_field[ 'name' ] ] = $value;
 		}
+
+		// Trigger an update
+		Tribe__Events__Pro__Custom_Meta::save_single_event_meta( $event_id, $fields );
 	}
 
 	/**
