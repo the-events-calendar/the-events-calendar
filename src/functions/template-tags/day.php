@@ -77,8 +77,8 @@ if ( ! function_exists( 'tribe_the_day_link' ) ) {
 			$date = tribe_get_the_day_link_date( $date );
 			$link = tribe_get_day_link( $date );
 
-			$earliest = tribe_events_earliest_date( Tribe__Events__Date_Utils::DBDATEFORMAT );
-			$latest   = tribe_events_latest_date( Tribe__Events__Date_Utils::DBDATEFORMAT );
+			$earliest = tribe_events_earliest_date( Tribe__Date_Utils::DBDATEFORMAT );
+			$latest   = tribe_events_latest_date( Tribe__Date_Utils::DBDATEFORMAT );
 
 			if ( $date >= $earliest && $date <= $latest ) {
 				$html = '<a href="' . esc_url( $link ) . '" data-day="' . $date . '" rel="prev">' . $text . '</a>';

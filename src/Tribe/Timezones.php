@@ -167,7 +167,7 @@ class Tribe__Events__Timezones extends Tribe__Timezones {
 		$new_datetime = date_create( $datetime, $local );
 
 		if ( $new_datetime && $new_datetime->setTimezone( $utc ) ) {
-			return $new_datetime->format( Tribe__Events__Date_Utils::DBDATETIMEFORMAT );
+			return $new_datetime->format( Tribe__Date_Utils::DBDATETIMEFORMAT );
 		}
 
 		// Fallback to the unmodified datetime if there was a failure during conversion
@@ -196,7 +196,7 @@ class Tribe__Events__Timezones extends Tribe__Timezones {
 		$new_datetime = date_create( $datetime, $utc );
 
 		if ( $new_datetime && $new_datetime->setTimezone( $local ) ) {
-			return $new_datetime->format( Tribe__Events__Date_Utils::DBDATETIMEFORMAT );
+			return $new_datetime->format( Tribe__Date_Utils::DBDATETIMEFORMAT );
 		}
 
 		// Fallback to the unmodified datetime if there was a failure during conversion
@@ -253,7 +253,7 @@ class Tribe__Events__Timezones extends Tribe__Timezones {
 		$offset_datetime = date_create( $datetime );
 
 		if ( $offset_datetime && $offset_datetime->modify( $offset ) ) {
-			return $offset_datetime->format( Tribe__Events__Date_Utils::DBDATETIMEFORMAT );
+			return $offset_datetime->format( Tribe__Date_Utils::DBDATETIMEFORMAT );
 		}
 
 		return $datetime;

@@ -132,7 +132,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 
 		// If there's a date selected in the tribe bar, show the date range of the currently showing events
 		if ( isset( $_REQUEST['tribe-bar-date'] ) && $wp_query->have_posts() ) {
-			$first_returned_date = tribe_get_start_date( $wp_query->posts[0], false, Tribe__Events__Date_Utils::DBDATEFORMAT );
+			$first_returned_date = tribe_get_start_date( $wp_query->posts[0], false, Tribe__Date_Utils::DBDATEFORMAT );
 			$first_event_date    = tribe_get_start_date( $wp_query->posts[0], false );
 			$last_event_date     = tribe_get_end_date( $wp_query->posts[ count( $wp_query->posts ) - 1 ], false );
 
