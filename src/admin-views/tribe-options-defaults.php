@@ -50,12 +50,6 @@ $defaultsTab = array(
 			'type' => 'html',
 			'html' => '<h3>' . __( 'Options', 'tribe-events-calendar-pro' ) . '</h3>',
 		),
-		'defaultValueReplace'               => array(
-			'type'            => 'checkbox_bool',
-			'label'           => __( 'Automatically replace empty fields with default values', 'tribe-events-calendar-pro' ),
-			'default'         => false,
-			'validation_type' => 'boolean',
-		),
 		'defaultValueReplaceHelper'         => array(
 			'type' => 'html',
 			'html' => '<p style="margin-top:-15px;" class="tribe-field-indent tribe-field-description description">' . __( 'Check this box to have the organizer and venue fields pre-populated with the default values below for any new event that is created.', 'tribe-events-calendar-pro' ) . '</p>',
@@ -207,3 +201,21 @@ $defaultsTab = array(
 		),
 	)
 );
+
+/**
+ * @todo remove in 4.3
+ * @deprecated
+ */
+if ( apply_filters( 'tribe_enable_default_value_replace_checkbox', false ) ) {
+	_deprecated_function( "'defaultValueReplace checkbox'", '4.0', 'Built-in WordPress postmeta filters' );
+	$defaultsTab = Tribe__Events__Main::array_insert_after_key(
+		'eventsDefaultOptionsHelperTitle', $defaultsTab, array(
+			'defaultValueReplace' => array(
+				'type'            => 'checkbox_bool',
+				'label'           => __( 'If fields are left empty when they\'re submitted, automatically fill them in with these values.', 'tribe-events-calendar-pro' ),
+				'default'         => false,
+				'validation_type' => 'boolean',
+			),
+		)
+	);
+}

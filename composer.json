@@ -1,0 +1,19 @@
+{
+  "name": "moderntribe/events-pro",
+  "description": "The Events Calendar PRO",
+  "type": "wordpress-plugin",
+  "keywords": [
+    "wordpress",
+    "events"
+  ],
+  "homepage": "http://tri.be/shop/wordpress-events-calendar/",
+  "license": "GPL-2.0",
+  "require-dev": {
+    "lucatume/wp-browser": "~1.6"
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "config": {
+    "preferred-install": "dist"
+  }
+}
