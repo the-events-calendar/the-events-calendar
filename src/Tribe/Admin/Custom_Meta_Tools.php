@@ -55,8 +55,8 @@ class Tribe__Events__Pro__Admin__Custom_Meta_Tools {
 	}
 
 	/**
-	 * Processes a set of event posts in need of additional field updates and returns
-	 * the total that were updated.
+	 * Processes a set of event posts in need of additional field updates (a count of how
+	 * many are updated is maintained in the object's "updated" field).
 	 */
 	public function updater_run() {
 		/**
