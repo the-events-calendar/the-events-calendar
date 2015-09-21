@@ -911,7 +911,7 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 			$post = $day['events']->post;
 
 			// Get our wrapper classes (for event categories, organizer, venue, and defaults)
-			$classes         = array( 'hentry', 'vevent' );
+			$classes         = array();
 			$tribe_cat_slugs = tribe_get_event_cat_slugs( $post->ID );
 			foreach ( $tribe_cat_slugs as $tribe_cat_slug ) {
 				$classes[] = 'tribe-events-category-' . $tribe_cat_slug;
