@@ -29,7 +29,7 @@ $postDate = tribe_events_get_widget_event_post_date();
 	<div class="list-info">
 		<?php do_action( 'tribe_events_list_widget_before_the_event_title' ); ?>
 
-		<h2 class="entry-title summary">
+		<h2 class="tribe-event-title">
 			<a href="<?php echo esc_url( tribe_get_event_link() ); ?>" rel="bookmark"><?php the_title(); ?></a>
 		</h2>
 
@@ -37,7 +37,7 @@ $postDate = tribe_events_get_widget_event_post_date();
 
 		<?php do_action( 'tribe_events_list_widget_before_the_meta' ) ?>
 
-		<div class="duration">
+		<div class="tribe-duration">
 			<?php echo tribe_events_event_schedule_details(); ?>
 		</div>
 
@@ -48,30 +48,30 @@ $postDate = tribe_events_get_widget_event_post_date();
 			</div>
 		<?php endif ?>
 
-		<div class="vcard adr location">
+		<div class="tribe-location">
 
 			<?php if ( isset( $venue ) && $venue && tribe_get_venue() != '' ): ?>
-				<span class="fn org tribe-venue"><?php echo tribe_get_venue_link(); ?></span>
+				<span class="tribe-venue"><?php echo tribe_get_venue_link(); ?></span>
 			<?php endif ?>
 
 			<?php if ( isset( $address ) && $address && tribe_get_address() != '' ): ?>
-				<span class="street-address"><?php echo tribe_get_address(); ?></span>
+				<span class="tribe-street-address"><?php echo tribe_get_address(); ?></span>
 			<?php endif ?>
 
 			<?php if ( isset( $city ) && $city && tribe_get_city() != '' ): ?>
-				<span class="locality"><?php echo tribe_get_city(); ?></span>
+				<span class="tribe-locality"><?php echo tribe_get_city(); ?></span>
 			<?php endif ?>
 
 			<?php if ( isset( $region ) && $region && tribe_get_region() != '' ): ?>
-				<span class="region"><?php echo tribe_get_region(); ?></span>
+				<span class="tribe-region"><?php echo tribe_get_region(); ?></span>
 			<?php endif ?>
 
 			<?php if ( isset( $zip ) && $zip && tribe_get_zip() != '' ): ?>
-				<span class="postal-code"><?php echo tribe_get_zip(); ?></span>
+				<span class="tribe-postal-code"><?php echo tribe_get_zip(); ?></span>
 			<?php endif ?>
 
 			<?php if ( isset( $country ) && $country && tribe_get_country() != '' ): ?>
-				<span class="country-name"><?php echo tribe_get_country(); ?></span>
+				<span class="tribe-country-name"><?php echo tribe_get_country(); ?></span>
 			<?php endif ?>
 
 			<?php if ( isset( $organizer ) && $organizer && tribe_get_organizer() != '' ): ?>
@@ -82,10 +82,10 @@ $postDate = tribe_events_get_widget_event_post_date();
 			<?php endif ?>
 
 			<?php if ( isset( $phone ) && $phone && tribe_get_phone() != '' ): ?>
-				<span class="tel"><?php echo tribe_get_phone(); ?></span>
+				<span class="tribe-event-tel"><?php echo tribe_get_phone(); ?></span>
 			<?php endif ?>
 
-		</div> <!-- .vcard.adr.location -->
+		</div>
 
 		<?php do_action( 'tribe_events_list_widget_after_the_meta' ) ?>
 

@@ -35,8 +35,8 @@ $has_venue_address = ( ! empty( $venue_details['address'] ) ) ? ' location' : ''
 <!-- Event Distance -->
 <?php echo tribe_event_distance(); ?>
 
-<h2 class="tribe-events-map-event-title summary">
-	<a class="url" href="<?php echo esc_url( tribe_get_event_link() ); ?>" title="<?php the_title() ?>" rel="bookmark">
+<h2 class="tribe-events-map-event-title">
+	<a class="tribe-event-url" href="<?php echo esc_url( tribe_get_event_link() ); ?>" title="<?php the_title() ?>" rel="bookmark">
 		<?php the_title() ?>
 	</a>
 </h2>

@@ -26,7 +26,7 @@ $more = false;
 	<!-- Event  -->
 	<div id="post-<?php the_ID() ?>" class="<?php tribe_events_event_classes() ?>">
 		<?php tribe_get_template_part( 'pro/map/single', 'event' ) ?>
-	</div><!-- .hentry .vevent -->
+	</div>
 
 
 	<?php do_action( 'tribe_events_inside_after_loop' ); ?>
