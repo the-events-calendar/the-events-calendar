@@ -21,7 +21,7 @@ $event_id = get_the_ID();
 
 ?>
 
-<div id="tribe-events-content" class="tribe-events-single vevent hentry">
+<div id="tribe-events-content" class="tribe-events-single">
 
 	<p class="tribe-events-back">
 		<a href="<?php echo esc_url( tribe_get_events_link() ); ?>"> <?php printf( __( '&laquo; All %s', 'the-events-calendar' ), $events_label_plural ); ?></a>
@@ -30,9 +30,9 @@ $event_id = get_the_ID();
 	<!-- Notices -->
 	<?php tribe_events_the_notices() ?>
 
-	<?php the_title( '<h2 class="tribe-events-single-event-title summary entry-title">', '</h2>' ); ?>
+	<?php the_title( '<h2 class="tribe-events-single-event-title">', '</h2>' ); ?>
 
-	<div class="tribe-events-schedule updated published tribe-clearfix">
+	<div class="tribe-events-schedule tribe-clearfix">
 		<?php echo tribe_events_event_schedule_details( $event_id, '<h2>', '</h2>' ); ?>
 		<?php if ( tribe_get_cost() ) : ?>
 			<span class="tribe-events-divider">|</span>
@@ -59,7 +59,7 @@ $event_id = get_the_ID();
 
 			<!-- Event content -->
 			<?php do_action( 'tribe_events_single_event_before_the_content' ) ?>
-			<div class="tribe-events-single-event-description tribe-events-content entry-content description">
+			<div class="tribe-events-single-event-description tribe-events-content">
 				<?php the_content(); ?>
 			</div>
 			<!-- .tribe-events-single-event-description -->
