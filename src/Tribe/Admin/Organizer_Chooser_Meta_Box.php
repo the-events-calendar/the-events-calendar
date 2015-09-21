@@ -64,6 +64,14 @@ class Tribe__Events__Admin__Organizer_Chooser_Meta_Box {
 		}
 		$current_organizers = (array) apply_filters( 'tribe_display_event_organizer_dropdown_id', $current_organizers );
 
+		/* if the user can't create organizers, then remove any empty values
+		   from the $current_organizers array. This prevents the automatic
+		   selection of an organizer every time the event is edited. */
+		$organizer_pto = get_post_type_object( Tribe__Events__Main::ORGANIZER_POST_TYPE );
+		if ( ! current_user_can( $organizer_pto->cap->create_posts ) ) {
+			$current_organizers = array_filter( $current_organizers );
+		}
+
 		?><script type="text/template" id="tmpl-tribe-select-organizer"><?php $this->single_organizer_dropdown( 0 ); ?></script><?php
 
 		foreach ( $current_organizers as $organizer_id ) {
