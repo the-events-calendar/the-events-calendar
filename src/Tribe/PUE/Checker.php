@@ -308,9 +308,6 @@ if ( ! class_exists( 'Tribe__Events__PUE__Checker' ) ) {
 					),
 				)
 			);
-
-			var_dump( $this->pue_install_key );
-
 			return $fields;
 		}
 
