@@ -504,10 +504,13 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			add_action( 'tribe_tickets_ticket_added', array( 'Tribe__Events__API', 'update_event_cost' ) );
 			add_action( 'tribe_tickets_ticket_deleted', array( 'Tribe__Events__API', 'update_event_cost' ) );
 
+			add_filter( 'tribe_post_types', array( $this, 'filter_post_types' ) );
+			add_filter( 'tribe_is_post_type_screen_post_types', array( $this, 'is_post_type_screen_post_types' ) );
+
+			// Settings page hooks
 			add_filter( 'tribe_general_settings_tab_fields', array( $this, 'general_settings_tab_fields' ) );
 			add_filter( 'tribe_display_settings_tab_fields', array( $this, 'display_settings_tab_fields' ) );
 			add_filter( 'tribe_settings_url', array( $this, 'tribe_settings_url' ) );
-
 			add_action( 'tribe_help_sidebar_top', array( $this, 'tribe_help_sidebar_top' ) );
 		}
 
@@ -1918,18 +1921,23 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		}
 
 		/**
+		 * Filters the post types across all of the Tribe plugins
+		 */
+		public function filter_post_types( $post_types ) {
+			$post_types[] = self::POSTTYPE;
+			$post_types[] = self::ORGANIZER_POST_TYPE;
+			$post_types[] = self::VENUE_POST_TYPE;
+
+			return $post_types;
+		}
+
+		/**
 		 * Get the post types that are associated with TEC.
 		 *
 		 * @return array The post types associated with this plugin
 		 */
 		public static function getPostTypes() {
-			return apply_filters(
-				'tribe_events_post_types', array(
-					self::POSTTYPE,
-					self::ORGANIZER_POST_TYPE,
-					self::VENUE_POST_TYPE,
-				)
-			);
+			return apply_filters( 'tribe_events_post_types', Tribe__Main::get_post_types() );
 		}
 
 		/**
@@ -4589,6 +4597,19 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				</p>
 				<?php
 			}
+		}
+
+		/**
+		 * Adds post types to the post_types array used to determine if on a post type screen
+		 *
+		 * @param array $post_types Collection of post types
+		 */
+		public function is_post_type_screen_post_types( $post_types ) {
+			foreach ( self::getPostTypes() as $post_type ) {
+				$post_types[] = $post_type;
+			}
+
+			return $post_types;
 		}
 	} // end Tribe__Events__Main class
 } // end if !class_exists Tribe__Events__Main
