@@ -1,10 +1,10 @@
 <?php
 defined( 'ABSPATH' ) or exit();
 
-$enable_button_label  = __( 'Enable timezone support', 'tribe-common' );
+$enable_button_label  = __( 'Enable timezone support', 'the-events-calendar' );
 $enable_button_url    = esc_url( wp_nonce_url( add_query_arg( 'timezone-update', '1', Tribe__Settings::instance()->get_url() ), 'timezone-settings' ) );
-$enable_button_text   = __( 'Update Timezone Data', 'tribe-common' );
-$enable_button_help   = sprintf( __( 'Click this button to update your database and take advantage of additional timezone capabilities. Please <a href="%s" target="_blank">configure WordPress</a> to use the correct timezone before clicking this button!', 'tribe-common' ),
+$enable_button_text   = __( 'Update Timezone Data', 'the-events-calendar' );
+$enable_button_help   = sprintf( __( 'Click this button to update your database and take advantage of additional timezone capabilities. Please <a href="%s" target="_blank">configure WordPress</a> to use the correct timezone before clicking this button!', 'the-events-calendar' ),
 	esc_url( get_admin_url( null, 'options-general.php' ) )
 );
 
@@ -24,7 +24,7 @@ HTML;
 return array(
 	'tribe_events_timezones_title' => array(
 		'type' => 'html',
-		'html' => '<h3>' . __( 'Timezone Settings', 'tribe-common' ) . '</h3>',
+		'html' => '<h3>' . __( 'Timezone Settings', 'the-events-calendar' ) . '</h3>',
 	),
 	'tribe_events_enable_timezones' => array(
 		'type' => 'html',
@@ -32,18 +32,18 @@ return array(
 	),
 	'tribe_events_timezone_mode' => array(
 		'type'            => 'dropdown',
-		'label'           => __( 'Timezone mode', 'tribe-common' ),
+		'label'           => __( 'Timezone mode', 'the-events-calendar' ),
 		'validation_type' => 'options',
 		'size'            => 'large',
 		'options'         => array(
-			'event' => __( 'Use the local timezones for each event', 'tribe-common' ),
-			'site'  => __( 'Use the sitewide timezone everywhere', 'tribe-common' ),
+			'event' => __( 'Use the local timezones for each event', 'the-events-calendar' ),
+			'site'  => __( 'Use the sitewide timezone everywhere', 'the-events-calendar' ),
 		),
 	),
 	'tribe_events_timezones_show_zone' => array(
 		'type'            => 'checkbox_bool',
-		'label'           => __( 'Show timezone', 'tribe-common' ),
-		'tooltip'         => __( 'Appends the timezone to the end of event scheduling information &ndash; this can be useful when you have events in numerous different timezones.', 'tribe-common' ),
+		'label'           => __( 'Show timezone', 'the-events-calendar' ),
+		'tooltip'         => __( 'Appends the timezone to the end of event scheduling information &ndash; this can be useful when you have events in numerous different timezones.', 'the-events-calendar' ),
 		'default'         => false,
 		'validation_type' => 'boolean',
 	),
