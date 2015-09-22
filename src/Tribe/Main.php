@@ -676,7 +676,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * Initializes any admin-specific code (expects to be called when admin_init fires).
 		 */
 		public function admin_init() {
-			$this->timezone_settings = new Tribe__Admin__Timezone_Settings;
+			$this->timezone_settings = new Tribe__Events__Admin__Timezone_Settings;
 		}
 
 		/**
