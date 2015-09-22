@@ -34,7 +34,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 		const VERSION           = '3.12.1';
 		const MIN_ADDON_VERSION = '3.12';
-		const FEED_URL          = 'https://theeventscalendar.com/feed/';
 		const INFO_API_URL      = 'http://wpapi.org/api/plugin/the-events-calendar.php';
 		const WP_PLUGIN_URL     = 'http://wordpress.org/extend/plugins/the-events-calendar/';
 
@@ -242,7 +241,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			$this->pluginUrl  = $this->plugin_url = plugins_url( $this->plugin_dir );
 
 			// include the autolader class
-			require_once( $this->plugin_path . '/common/Tribe/Autoloader.php' );
 			$this->init_autoloading();
 
 			add_action( 'init', array( $this, 'loadTextDomain' ), 1 );
@@ -434,7 +432,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			add_action( 'plugins_loaded', array( 'Tribe__Cache', 'setup' ) );
 			add_action( 'plugins_loaded', array( 'Tribe__Support', 'getInstance' ) );
 			add_action( 'plugins_loaded', array( $this, 'set_meta_factory_global' ) );
-			add_action( 'plugins_loaded', array( 'Tribe__App_Shop', 'instance' ) );
 			add_action( 'current_screen', array( $this, 'init_admin_list_screen' ) );
 
 			// Load organizer and venue editors
@@ -506,6 +503,12 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			// Add support for tickets plugin
 			add_action( 'tribe_tickets_ticket_added', array( 'Tribe__Events__API', 'update_event_cost' ) );
 			add_action( 'tribe_tickets_ticket_deleted', array( 'Tribe__Events__API', 'update_event_cost' ) );
+
+			add_filter( 'tribe_general_settings_tab_fields', array( $this, 'general_settings_tab_fields' ) );
+			add_filter( 'tribe_display_settings_tab_fields', array( $this, 'display_settings_tab_fields' ) );
+			add_filter( 'tribe_settings_url', array( $this, 'tribe_settings_url' ) );
+
+			add_action( 'tribe_help_sidebar_top', array( $this, 'tribe_help_sidebar_top' ) );
 		}
 
 		/**
@@ -2706,7 +2709,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @param bool $network_deactivating
 		 */
 		public static function deactivate( $network_deactivating ) {
-			require_once( dirname( __FILE__ ) . '/Deactivation.php' );
 			$deactivation = new Tribe__Deactivation( $network_deactivating );
 			add_action( 'shutdown', array( $deactivation, 'deactivate' ) );
 		}
@@ -4416,12 +4418,17 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		}
 
 		protected function init_autoloading() {
-			$autoloader = Tribe__Autoloader::instance();
-
 			$prefixes = array(
 				'Tribe__Events__' => $this->plugin_path . 'src/Tribe',
-				'Tribe__' => $this->plugin_path . 'common/Tribe',
 			);
+
+			if ( ! class_exists( 'Tribe__Autoloader' ) ) {
+				require_once( $this->plugin_path . '/common/Tribe/Autoloader.php' );
+
+				$prefixes['Tribe__'] = $this->plugin_path . 'common/Tribe';
+			}
+
+			$autoloader = Tribe__Autoloader::instance();
 			$autoloader->register_prefixes( $prefixes );
 
 			// deprecated classes are registered in a class to path fashion
@@ -4468,5 +4475,120 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			require_once $this->plugin_path . 'vendor/tickets/tickets.php';
 		}
 
+		/**
+		 * Inject TEC specific setting fields into the general tab
+		 *
+		 * @param array $general_tab_fields Fields for the general settings tab
+		 */
+		public function general_settings_tab_fields( $general_tab_fields ) {
+			require_once $this->plugin_path . 'src/admin-views/tribe-options-general.php';
+
+			return $general_tab_fields;
+		}
+
+		/**
+		 * Inject TEC specific setting fields into the display tab
+		 *
+		 * @param array $display_tab_fields Fields for the display settings tab
+		 */
+		public function display_settings_tab_fields( $display_tab_fields ) {
+			require_once $this->plugin_path . 'src/admin-views/tribe-options-display.php';
+
+			return $display_tab_fields;
+		}
+
+		/**
+		 * When TEC is activated, the Events top level menu item in the dashboard needs the post_type appended to it
+		 *
+		 * @param string $url Settings URL to filter
+		 */
+		public function tribe_settings_url( $url ) {
+			return add_query_arg( array( 'post_type' => self::POSTTYPE ), $url );
+		}
+
+		public function tribe_help_sidebar_top() {
+			$tec_info = wp_remote_get(
+			/**
+			 * Filter the tribe info API url
+			 *
+			 * @param string $url
+			 */
+			apply_filters( 'tribe_help_tab_api_info_url', Tribe__Events__Main::INFO_API_URL ), array(
+					'timeout' => 15, //seconds
+					'headers' => array( 'Accept' => 'application/json' ),
+				)
+			);
+			if ( ! is_wp_error( $tec_info ) ) {
+				$tec_info = $tec_info['body'];
+				$tec_info = unserialize( $tec_info );
+				if ( isset( $tec_info['rating'] ) ) {
+					$rating = $tec_info['rating'];
+				}
+				if ( isset( $tec_info['num_ratings'] ) ) {
+					$num_rating = $tec_info['num_ratings'];
+				}
+				if ( isset( $tec_info['requires'] ) ) {
+					$requires = $tec_info['requires'];
+				}
+				if ( isset( $tec_info['version'] ) ) {
+					$version = $tec_info['version'];
+				}
+				$total_downloads = ( isset( $tec_info['total_downloads'] ) ) ? number_format( $tec_info['total_downloads'] ) : _x( 'n/a', 'not available', 'tribe-common' );
+				$up_to_date      = ( isset( $tec_info['version'] ) && version_compare( Tribe__Events__Main::VERSION, $tec_info['version'], '<' ) ) ? __( 'You need to upgrade!', 'tribe-common' ) : __( 'You are up to date!', 'tribe-common' );
+			}
+
+			?>
+			<div id="tribe-help-plugin-info">
+				<h3><?php esc_html_e( 'The Events Calendar', 'tribe-common' ); ?></h3>
+
+
+				<?php if ( isset( $up_to_date ) ) { ?><p><?php echo $up_to_date; ?></p><?php } ?>
+				<?php if ( isset( $version ) ) { ?><p>
+					<b><?php esc_html_e( 'Latest Version:', 'tribe-common' ); ?></b> <?php echo $version; ?>
+					<br /><?php } ?>
+					<b><?php esc_html_e( 'Author:', 'tribe-common' ); ?></b> <?php esc_html_e( 'Modern Tribe Inc', 'tribe-common' ); ?>
+					<br />
+					<?php
+					if ( isset( $requires ) ) {
+						?>
+						<b><?php esc_html_e( 'Requires:', 'tribe-common' ); ?></b> <?php esc_html_e( 'WordPress ', 'tribe-common' );
+						echo $requires; ?>+<br />
+						<?php
+					}
+					/**
+					 * Filter the URL to The Events Calendar plugin page on Wordpress.org
+					 *
+					 * @param string $url
+					 */
+					$tribe_help_tab_wp_plugin_url = apply_filters( 'tribe_help_tab_wp_plugin_url', Tribe__Events__Main::WP_PLUGIN_URL );
+					?>
+					<a href="<?php echo esc_url( $tribe_help_tab_wp_plugin_url ); ?>"><?php esc_html_e( 'Wordpress.org Plugin Page', 'tribe-common' ); ?></a>
+				</p>
+			</div>
+
+			<?php
+			if ( isset( $rating ) && isset( $num_rating ) ) {
+				?>
+				<h3><?php esc_html_e( 'Average Rating', 'tribe-common' ); ?></h3>
+				<?php wp_star_rating( array(
+					'rating' => $rating,
+					'type'   => 'percent',
+					'number' => $num_rating,
+				) ); ?>
+				<?php printf( _n( 'Based on %d rating', 'Based on %d ratings', $num_rating, 'tribe-common' ), $num_rating ); ?>
+				<p>
+					<?php
+					/**
+					 * Filter the URL to The Events Calendar plugin page on Wordpress.org
+					 *
+					 * @param string $url
+					 */
+					$tribe_help_tab_wp_plugin_url = apply_filters( 'tribe_help_tab_wp_plugin_url', 'http://wordpress.org/support/view/plugin-reviews/the-events-calendar?filter=5' );
+					?>
+					<a href="<?php echo esc_url( $tribe_help_tab_wp_plugin_url ); ?>"><?php esc_html_e( 'Give us 5 stars!', 'tribe-common' ); ?></a>
+				</p>
+				<?php
+			}
+		}
 	} // end Tribe__Events__Main class
 } // end if !class_exists Tribe__Events__Main
