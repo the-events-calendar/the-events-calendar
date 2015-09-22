@@ -3496,8 +3496,12 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * Allow programmatic override of defaultValueReplace setting
 		 *
 		 * @return boolean
+		 * @deprecated
+		 * @todo remove in 4.5
 		 */
 		public function defaultValueReplaceEnabled() {
+
+			_deprecated_function( __METHOD__, '4.0', "tribe_get_option( 'defaultValueReplace' )" );
 
 			if ( ! is_admin() ) {
 				return false;
