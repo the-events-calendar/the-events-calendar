@@ -308,6 +308,7 @@ if ( ! class_exists( 'Tribe__Events__PUE__Checker' ) ) {
 					),
 				)
 			);
+
 			return $fields;
 		}
 
