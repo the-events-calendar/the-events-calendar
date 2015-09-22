@@ -14,9 +14,11 @@ $html = __( '<p>The license key you received when completing your purchase from 
 
 // Expand with extra information for mu network users
 if ( is_multisite() ) {
-	$network_all_sites_text = sprintf( esc_html__( '%s Using our plugins in a multisite network? %s Please note that your license key will be applied to the entire network, not just this site.', 'the-events-calendar' ), '<strong>', '</strong>' );
+	$network_all_sites_text = __( '<strong> Using our plugins in a multisite network? </strong>
+		Please note that your license key will be applied to the entire network, not just this site.', 'the-events-calendar' );
 
-	$network_admin_only = is_network_admin() ? sprintf( esc_html__( 'Only license fields for %snetwork activated%s plugins will be listed on this screen. ', 'the-events-calendar' ), '<strong>', '</strong>' ): '';
+	$network_admin_only = is_network_admin() ? __( 'Only license fields for <strong>network activated</strong> plugins will be
+		listed on this screen. ', 'the-events-calendar' ) : '';
 
 	$html .= "<p> $network_all_sites_text $network_admin_only </p>";
 }
@@ -28,7 +30,7 @@ $licenses_tab = array(
 	),
 	'info-box-title' => array(
 		'type' => 'html',
-		'html' => '<h1>' . esc_html__( 'Licenses', 'the-events-calendar' ) . '</h1>',
+		'html' => '<h1>' . __( 'Licenses', 'the-events-calendar' ) . '</h1>',
 	),
 	'info-box-description' => array(
 		'type' => 'html',

@@ -62,12 +62,12 @@ if ( $posts ) : ?>
 	</ol><!-- .tribe-list-widget -->
 
 	<p class="tribe-events-widget-link">
-		<a href="<?php echo esc_url( tribe_get_events_link() ); ?>" rel="bookmark"><?php printf( esc_html__( 'View All %s', 'the-events-calendar' ), $events_label_plural ); ?></a>
+		<a href="<?php echo esc_url( tribe_get_events_link() ); ?>" rel="bookmark"><?php printf( __( 'View All %s', 'the-events-calendar' ), $events_label_plural ); ?></a>
 	</p>
 
 <?php
 // No events were found.
 else : ?>
-	<p><?php printf( esc_html__( 'There are no upcoming %s at this time.', 'the-events-calendar' ), strtolower( $events_label_plural ) ); ?></p>
+	<p><?php printf( __( 'There are no upcoming %s at this time.', 'the-events-calendar' ), strtolower( $events_label_plural ) ); ?></p>
 <?php
 endif;

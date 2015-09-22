@@ -96,10 +96,10 @@ if ( ! class_exists( 'Tribe__Events__Template__Day' ) ) {
 				$unsorted_posts = $wp_query->posts;
 				foreach ( $unsorted_posts as &$post ) {
 					if ( tribe_event_is_all_day( $post->ID ) ) {
-						$post->timeslot = esc_html__( 'All Day', 'the-events-calendar' );
+						$post->timeslot = __( 'All Day', 'the-events-calendar' );
 					} else {
 						if ( strtotime( tribe_get_start_date( $post->ID, true, Tribe__Events__Date_Utils::DBDATETIMEFORMAT ) ) < strtotime( $wp_query->get( 'start_date' ) ) ) {
-							$post->timeslot = esc_html__( 'Ongoing', 'the-events-calendar' );
+							$post->timeslot = __( 'Ongoing', 'the-events-calendar' );
 						} else {
 							$post->timeslot = tribe_get_start_date( $post, false, $time_format );
 						}
@@ -112,10 +112,10 @@ if ( ! class_exists( 'Tribe__Events__Template__Day' ) ) {
 				$ongoing = array();
 				$hourly  = array();
 				foreach ( $unsorted_posts as $i => $post ) {
-					if ( $post->timeslot == esc_html__( 'All Day', 'the-events-calendar' ) ) {
+					if ( $post->timeslot == __( 'All Day', 'the-events-calendar' ) ) {
 						$all_day[ $i ] = $post;
 					} else {
-						if ( $post->timeslot == esc_html__( 'Ongoing', 'the-events-calendar' ) ) {
+						if ( $post->timeslot == __( 'Ongoing', 'the-events-calendar' ) ) {
 							$ongoing[ $i ] = $post;
 						} else {
 							$hourly[ $i ] = $post;
@@ -133,9 +133,9 @@ if ( ! class_exists( 'Tribe__Events__Template__Day' ) ) {
 			list( $search_term, $tax_term, $geographic_term ) = $this->get_search_terms();
 
 			if ( empty( $search_term ) && empty( $geographic_term ) && ! empty( $tax_term ) ) {
-				Tribe__Events__Main::setNotice( 'events-not-found', sprintf( esc_html__( 'No matching %1$s listed under %2$s scheduled for %3$s. Please try another day.', 'the-events-calendar' ), strtolower( $events_label_plural ), $tax_term, '<strong>' . date_i18n( tribe_get_date_format( true ), strtotime( get_query_var( 'eventDate' ) ) ) . '</strong>' ) );
+				Tribe__Events__Main::setNotice( 'events-not-found', sprintf( __( 'No matching %1$s listed under %2$s scheduled for <strong>%3$s</strong>. Please try another day.', 'the-events-calendar' ), strtolower( $events_label_plural ), $tax_term, date_i18n( tribe_get_date_format( true ), strtotime( get_query_var( 'eventDate' ) ) ) ) );
 			} elseif ( empty( $search_term ) && empty( $geographic_term ) ) {
-				Tribe__Events__Main::setNotice( 'events-not-found', sprintf( esc_html__( 'No %1$s scheduled for %2$s. Please try another day.', 'the-events-calendar' ), strtolower( $events_label_plural ), '<strong>' . date_i18n( tribe_get_date_format( true ), strtotime( get_query_var( 'eventDate' ) ) ) . '</strong>' ) );
+				Tribe__Events__Main::setNotice( 'events-not-found', sprintf( __( 'No %1$s scheduled for <strong>%2$s</strong>. Please try another day.', 'the-events-calendar' ), strtolower( $events_label_plural ), date_i18n( tribe_get_date_format( true ), strtotime( get_query_var( 'eventDate' ) ) ) ) );
 			} else {
 				parent::nothing_found_notice();
 			}
