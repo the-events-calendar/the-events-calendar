@@ -427,7 +427,16 @@ if ( ! class_exists( 'Tribe__Events__PUE__Checker' ) ) {
 				} elseif ( isset( $pluginInfo->api_invalid ) && $pluginInfo->api_invalid == 1 ) {
 					$response['message'] = __( 'Sorry, this key is not valid.', 'the-events-calendar' );
 				} else {
-					$default_success_msg    = sprintf( __( 'Valid Key! Expires on %s', 'the-events-calendar' ), $expiration );
+					$api_secret_key = tribe_get_option( $this->pue_install_key );
+					if ( $api_secret_key && $api_secret_key === $queryArgs['pu_install_key'] ){
+						$default_success_msg = sprintf( __( 'Valid Key! Expires on %s', 'the-events-calendar' ), $expiration );
+					} else {
+						// Set the key
+						tribe_update_option( $this->pue_install_key, $queryArgs['pu_install_key'] );
+
+						$default_success_msg = sprintf( __( 'Thanks for setting up a valid key, it will expire on %s', 'the-events-calendar' ), $expiration );
+					}
+
 					$response['status']     = isset( $pluginInfo->api_message ) ? 2 : 1;
 					$response['message']    = isset( $pluginInfo->api_message ) ? wp_kses( $pluginInfo->api_message, 'data' ) : $default_success_msg;
 					$response['expiration'] = $expiration;
