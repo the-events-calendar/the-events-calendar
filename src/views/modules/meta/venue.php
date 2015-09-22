@@ -22,10 +22,10 @@ $website = tribe_get_venue_website_link();
 	<dl>
 		<?php do_action( 'tribe_events_single_meta_venue_section_start' ) ?>
 
-		<dd class="author fn org"> <?php echo tribe_get_venue() ?> </dd>
+		<dd class="tribe-venue"> <?php echo tribe_get_venue() ?> </dd>
 
 		<?php if ( tribe_address_exists() ) : ?>
-			<dd class="location">
+			<dd class="tribe-venue-location">
 				<address class="tribe-events-address">
 					<?php echo tribe_get_full_address(); ?>
 
@@ -38,7 +38,7 @@ $website = tribe_get_venue_website_link();
 
 		<?php if ( ! empty( $phone ) ): ?>
 			<dt> <?php esc_html_e( 'Phone:', 'the-events-calendar' ) ?> </dt>
-			<dd class="tel"> <?php echo $phone ?> </dd>
+			<dd class="tribe-venue-tel"> <?php echo $phone ?> </dd>
 		<?php endif ?>
 
 		<?php if ( ! empty( $website ) ): ?>
