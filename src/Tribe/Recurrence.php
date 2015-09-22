@@ -29,6 +29,8 @@ class Tribe__Events__Pro__Recurrence {
 	 * Adjusts the start time of a date
 	 *
 	 * @param timestamp $date Date timestamp to adjust
+	 *
+	 * @return timestamp
 	 */
 	public function adjust_start_time( $date ) {
 		if ( ! $this->start_time ) {
@@ -51,9 +53,6 @@ class Tribe__Events__Pro__Recurrence {
 
 	/**
 	 * Using the rules engine, find all dates in the series
-	 *
-	 * @param bool  $all_events      Return ALL instances?
-	 * @param array $old_start_dates The old start dates for an event.
 	 *
 	 * @return array An array of all dates in the series
 	 */
@@ -89,6 +88,7 @@ class Tribe__Events__Pro__Recurrence {
 	/**
 	 * Flag indicating if the last getDates() request was constrained
 	 * by the max date setting
+	 *
 	 * @return bool
 	 */
 	public function constrainedByMaxDate() {
