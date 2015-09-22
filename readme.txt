@@ -216,6 +216,18 @@ Our Premium Plugins:
 
 == Changelog ==
 
+= [3.12.1] 2015-09-22 =
+
+* Fix - Ensure all event views work reliably event if the permalinks are translated or otherwise customized (our thanks to Antonio Jose and many others for reporting this)
+* Fix - Ensure the "/all/" events link works reliably regardless of where it is used (our thanks to Corey and others for the report)
+* Fix - Ensure integration of events in the main blog loop does not cause breakages (our thanks to cwheelsone, Tracey and many others on the forums for reporting this)
+* Fix - Prevent the AM/PM selector from reversing itself when setting up custom recurrence patterns (thanks to Sitecrafting for highlighting this)
+* Fix - Fixed a fatal error that could occur when setting up multiple custom recurrence patterns (thanks to Adam for the heads up on this one)
+* Fix - Fixed a bug preventing custom exclusions for recurring event patterns from being observed (thanks go out to nancytimper for highlighting this issue)
+* Fix - Fixed a problem that could lead visitors to a 404/Not Found page when following certain recurring event URLs
+* Fix - Fixed a bug preventing the removal of recurrence rules
+* Tweak - Tighten up the cleanup of old recurring events to reduce the possibility of non-event posts being inadvertently removed
+
 = [3.12] 2015-09-08 =
 
 * Security - Resolved JS vulnerability in minified JS by upgrading to uglifyjs 2.4.24
