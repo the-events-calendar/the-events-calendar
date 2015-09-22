@@ -251,7 +251,7 @@ class Tribe__Events__Cost_Utils {
 		$cost = (array) $cost;
 		$ocost = array();
 
-		// Keeo the Costs in a organizeable array by keys with the "numeric" value
+		// Keep the Costs in a organizeable array by keys with the "numeric" value
 		foreach ( $cost as $key => $value ) {
 			$ocost[ str_replace( $separators, '', $value ) ] = $value;
 		}
