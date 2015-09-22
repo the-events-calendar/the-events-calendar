@@ -41,7 +41,7 @@ require_once 'header.php';
 
 				<tr>
 					<td colspan="2">
-						<?php submit_button( __( 'Perform Import', 'the-events-calendar' ) ); ?>
+						<?php submit_button( esc_html__( 'Perform Import', 'the-events-calendar' ) ); ?>
 					</td>
 				</tr>
 

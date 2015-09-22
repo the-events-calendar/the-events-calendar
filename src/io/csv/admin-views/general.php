@@ -11,7 +11,7 @@ require 'header.php';
 
 	<h2><?php esc_html_e( 'Instructions', 'the-events-calendar' ); ?></h2>
 	<p>
-		<?php printf( __( 'To import events, first select a %sDefault Import Event Status%s below to assign to your imported events.', 'the-events-calendar' ), '<strong>', '</strong>' ); ?>
+		<?php printf( esc_html__( 'To import events, first select a %sDefault Import Event Status%s below to assign to your imported events.', 'the-events-calendar' ), '<strong>', '</strong>' ); ?>
 	</p>
 	<p>
 		<?php esc_html_e( 'Once your setting is saved, move to the applicable Import tab to select import specific criteria.', 'the-events-calendar' ); ?>
@@ -27,9 +27,9 @@ require 'header.php';
 				esc_html_e( 'Default imported event status:', 'the-events-calendar' );
 
 				$import_statuses = array(
-					'publish' => __( 'Published', 'the-events-calendar' ),
-					'pending' => __( 'Pending', 'the-events-calendar' ),
-					'draft'   => __( 'Draft', 'the-events-calendar' ),
+					'publish' => esc_html__( 'Published', 'the-events-calendar' ),
+					'pending' => esc_html__( 'Pending', 'the-events-calendar' ),
+					'draft'   => esc_html__( 'Draft', 'the-events-calendar' ),
 				);
 				?>
 				<select name="imported_post_status">
