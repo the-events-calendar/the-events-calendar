@@ -15,19 +15,19 @@ $organizer_pto = get_post_type_object( Tribe__Events__Main::ORGANIZER_POST_TYPE 
 <tbody class="new-organizer">
 <?php if ( current_user_can( $organizer_pto->cap->create_posts ) ) { ?>
 	<tr class="organizer">
-		<td><?php printf( __( '%s Name:', 'the-events-calendar' ), tribe_get_organizer_label_singular() ); ?></td>
+		<td><?php printf( esc_html__( '%s Name:', 'the-events-calendar' ), tribe_get_organizer_label_singular() ); ?></td>
 		<td>
 			<input tabindex="<?php tribe_events_tab_index(); ?>" type='text' name='organizer[Organizer][]' class='organizer-name' size='25' value='' />
 		</td>
 	</tr>
 	<tr class="organizer">
-		<td><?php _e( 'Phone:', 'the-events-calendar' ); ?></td>
+		<td><?php esc_html_e( 'Phone:', 'the-events-calendar' ); ?></td>
 		<td>
 			<input tabindex="<?php tribe_events_tab_index(); ?>" type='text' name='organizer[Phone][]' class='organizer-phone' size='25' value='' />
 		</td>
 	</tr>
 	<tr class="organizer">
-		<td><?php _e( 'Website:', 'the-events-calendar' ); ?></td>
+		<td><?php esc_html_e( 'Website:', 'the-events-calendar' ); ?></td>
 		<td>
 			<input tabindex="<?php tribe_events_tab_index(); ?>" type='text' name='organizer[Website][]' class='organizer-website' size='25' value='' />
 		</td>
@@ -35,11 +35,11 @@ $organizer_pto = get_post_type_object( Tribe__Events__Main::ORGANIZER_POST_TYPE 
 	<tr class="organizer">
 		<td>
 			<?php
-			_e( 'Email:', 'the-events-calendar' );
+			esc_html_e( 'Email:', 'the-events-calendar' );
 			if ( apply_filters( 'tribe_show_organizer_email_obfuscation_alert', true ) ) {
 				?>
 				<small>
-					<?php _e( 'You may want to consider <a href="http://wordpress.org/plugins/tags/obfuscate">obfuscating</a> any e-mail address published on your site to best avoid it getting harvested by spammers.', 'the-events-calendar' ); ?>
+					<?php printf( esc_html__( 'You may want to consider %sobfuscating%s any e-mail address published on your site to best avoid it getting harvested by spammers.', 'the-events-calendar' ), '<a href="http://wordpress.org/plugins/tags/obfuscate">', '</a>' ); ?>
 				</small>
 				<?php
 			}
@@ -72,7 +72,7 @@ $organizer_pto = get_post_type_object( Tribe__Events__Main::ORGANIZER_POST_TYPE 
 						group.find('.tribe-organizer-error').remove();
 					} else {
 						group.find('.tribe-organizer-error').remove();
-						input.after('<div class="tribe-organizer-error error form-invalid"><?php printf( __( '%s Name Already Exists', 'the-events-calendar' ), tribe_get_organizer_label_singular() ); ?></div>');
+						input.after('<div class="tribe-organizer-error error form-invalid"><?php printf( esc_html__( '%s Name Already Exists', 'the-events-calendar' ), tribe_get_organizer_label_singular() ); ?></div>');
 					}
 				}
 			);

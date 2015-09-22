@@ -120,7 +120,7 @@ class Tribe__Events__Cost_Utils {
 	 */
 	public function maybe_replace_cost_with_free( $cost ) {
 		if ( '0' === (string) $cost ) {
-			return __( 'Free', 'the-events-calendar' );
+			return esc_html__( 'Free', 'the-events-calendar' );
 		}
 
 		return $cost;
@@ -162,8 +162,8 @@ class Tribe__Events__Cost_Utils {
 
 		foreach ( $costs as $index => $value ) {
 			$values = $this->parse_cost_range( $value );
-			foreach ( $values as $numeric => $val ) {
-				$new_costs[ $numeric ] = $val;
+			foreach ( $values as $val ) {
+				$new_costs[] = $val;
 			}
 		}
 
@@ -175,25 +175,15 @@ class Tribe__Events__Cost_Utils {
 
 		switch ( $function ) {
 			case 'min':
-				$cost = $costs[ min( array_keys( $costs ) ) ];
+				$cost = min( $costs );
 				break;
 			case 'max':
 			default:
-				$cost = $costs[ max( array_keys( $costs ) ) ];
+				$cost = max( $costs );
 				break;
 		}//end switch
 
-		/**
-		 * Allow users to create more possible separators, they must be only 1 char
-		 * @var array
-		 */
-		$separators = apply_filters( 'tribe_events_cost_separators', array( ',', '.' ) );
-
-		// Build the regular expression
-		$price_regex = '(-?[\d]+[\\' . implode( '\\', $separators ) . ']?[\d]*)';
-
-		// use a regular expression instead of is_numeric
-		if ( ! preg_match( $price_regex, $cost ) ) {
+		if ( ! is_numeric( $cost ) ) {
 			return 0;
 		}
 
@@ -230,35 +220,19 @@ class Tribe__Events__Cost_Utils {
 	 * @return array
 	 */
 	public function parse_cost_range( $cost ) {
-		/**
-		 * Allow users to create more possible separators, they must be only 1 char
-		 * @var array
-		 */
-		$separators = apply_filters( 'tribe_events_cost_separators', array( ',', '.' ) );
-
-		// Build the regular expression
-		$price_regex = '(-?[\d]+[\\' . implode( '\\', $separators ) . ']?[\d]*)';
-
-		if ( ! is_string( $cost ) ){
-			return $cost;
-		}
-
 		// try to find the lowest numerical value in a possible range
-		if ( preg_match_all( '/' . $price_regex . '/', $cost, $matches ) ) {
-			$cost = reset( $matches );
-		}
+		if ( preg_match( '/^(-?[\d]+)[^\d\.]+([\d\.]+)/', $cost, $matches ) ) {
+			$values = array(
+				$matches[1],
+				$matches[2],
+			);
 
-		$cost = (array) $cost;
-		$ocost = array();
+			return $values;
+		}//end if
 
-		// Keep the Costs in a organizeable array by keys with the "numeric" value
-		foreach ( $cost as $key => $value ) {
-			$ocost[ str_replace( $separators, '', $value ) ] = $value;
-		}
+		// convert non-range into an actual numeric value
+		$value = preg_replace( '/^[^\d]+(\d+\.?\d*)?.*$/', '$1', $cost );
 
-		// Filter keeping the Keys
-		asort( $ocost );
-
-		return (array) $ocost;
+		return array( $value );
 	}//end parse_cost_range
 }//end class

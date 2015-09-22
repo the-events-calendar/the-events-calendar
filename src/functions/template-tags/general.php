@@ -57,7 +57,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @return string
 	 */
 	function tribe_get_event_label_singular() {
-		return apply_filters( 'tribe_event_label_singular', __( 'Event', 'the-events-calendar' ) );
+		return apply_filters( 'tribe_event_label_singular', esc_html__( 'Event', 'the-events-calendar' ) );
 	}
 
 	/**
@@ -68,7 +68,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @return string
 	 */
 	function tribe_get_event_label_plural() {
-		return apply_filters( 'tribe_event_label_plural', __( 'Events', 'the-events-calendar' ) );
+		return apply_filters( 'tribe_event_label_plural', esc_html__( 'Events', 'the-events-calendar' ) );
 	}
 
 	/**
@@ -447,7 +447,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
  */
 	function tribe_meta_event_tags( $label = null, $separator = ', ', $echo = true ) {
 		if ( ! $label ) {
-			$label = __( 'Tags:', 'the-events-calendar' );
+			$label = esc_html__( 'Tags:', 'the-events-calendar' );
 		}
 
 		$tribe_ecp = Tribe__Events__Main::instance();
@@ -559,7 +559,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		$before = wpautop( $before );
 		$before = do_shortcode( stripslashes( shortcode_unautop( $before ) ) );
 		$before = '<div class="tribe-events-before-html">' . $before . '</div>';
-		$before = $before . '<span class="tribe-events-ajax-loading"><img class="tribe-events-spinner-medium" src="' . tribe_events_resource_url( 'images/tribe-loading.gif' ) . '" alt="' . sprintf( __( 'Loading %s', 'the-events-calendar' ), $events_label_plural ) . '" /></span>';
+		$before = $before . '<span class="tribe-events-ajax-loading"><img class="tribe-events-spinner-medium" src="' . tribe_events_resource_url( 'images/tribe-loading.gif' ) . '" alt="' . sprintf( esc_html__( 'Loading %s', 'the-events-calendar' ), $events_label_plural ) . '" /></span>';
 
 		echo apply_filters( 'tribe_events_before_html', $before );
 	}
@@ -610,7 +610,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 			return '';
 		}
 
-		$classes         = array( 'type-tribe_events', 'post-' . $event_id, 'tribe-clearfix' );
+		$classes         = array( 'hentry', 'vevent', 'type-tribe_events', 'post-' . $event_id, 'tribe-clearfix' );
 		$tribe_cat_slugs = tribe_get_event_cat_slugs( $event_id );
 
 		foreach ( $tribe_cat_slugs as $tribe_cat_slug ) {
@@ -1057,13 +1057,15 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 			$event = get_post( $event );
 		}
 
-		$inner                    = '<span class="tribe-event-date-start">';
+		$inner                    = '<span class="date-start dtstart">';
 		$format                   = '';
 		$date_without_year_format = tribe_get_date_format();
 		$date_with_year_format    = tribe_get_date_format( true );
 		$time_format              = get_option( 'time_format' );
 		$datetime_separator       = tribe_get_option( 'dateTimeSeparator', ' @ ' );
 		$time_range_separator     = tribe_get_option( 'timeRangeSeparator', ' - ' );
+		$microformatStartFormat   = tribe_get_start_date( $event, false, 'Y-m-dTh:i' );
+		$microformatEndFormat     = tribe_get_end_date( $event, false, 'Y-m-dTh:i' );
 
 		$settings = array(
 			'show_end_time' => true,
@@ -1094,25 +1096,32 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 
 			if ( tribe_event_is_all_day( $event ) ) {
 				$inner .= tribe_get_start_date( $event, true, $format );
+				$inner .= '<span class="value-title" title="' . $microformatStartFormat . '"></span>';
 				$inner .= '</span>' . $time_range_separator;
-				$inner .= '<span class="tribe-event-date-end">';
+				$inner .= '<span class="date-end dtend">';
 				$inner .= tribe_get_end_date( $event, true, $format2ndday );
+				$inner .= '<span class="value-title" title="' . $microformatEndFormat . '"></span>';
 			} else {
 				$inner .= tribe_get_start_date( $event, false, $format ) . ( $time ? $datetime_separator . tribe_get_start_date( $event, false, $time_format ) : '' );
+				$inner .= '<span class="value-title" title="' . $microformatStartFormat . '"></span>';
 				$inner .= '</span>' . $time_range_separator;
-				$inner .= '<span class="tribe-event-date-end">';
+				$inner .= '<span class="date-end dtend">';
 				$inner .= tribe_get_end_date( $event, false, $format2ndday ) . ( $time ? $datetime_separator . tribe_get_end_date( $event, false, $time_format ) : '' );
+				$inner .= '<span class="value-title" title="' . $microformatEndFormat . '"></span>';
 			}
 		} elseif ( tribe_event_is_all_day( $event ) ) { // all day event
 			$inner .= tribe_get_start_date( $event, true, $format );
+			$inner .= '<span class="value-title" title="' . $microformatStartFormat . '"></span>';
 		} else { // single day event
 			if ( tribe_get_start_date( $event, false, 'g:i A' ) === tribe_get_end_date( $event, false, 'g:i A' ) ) { // Same start/end time
 				$inner .= tribe_get_start_date( $event, false, $format ) . ( $time ? $datetime_separator . tribe_get_start_date( $event, false, $time_format ) : '' );
+				$inner .= '<span class="value-title" title="' . $microformatStartFormat . '"></span>';
 			} else { // defined start/end time
 				$inner .= tribe_get_start_date( $event, false, $format ) . ( $time ? $datetime_separator . tribe_get_start_date( $event, false, $time_format ) : '' );
+				$inner .= '<span class="value-title" title="' . $microformatStartFormat . '"></span>';
 				$inner .= '</span>' . ( $show_end_time ? $time_range_separator : '' );
-				$inner .= '<span class="tribe-event-time">';
-				$inner .= ( $show_end_time ? tribe_get_end_date( $event, false, $time_format ) : '' );
+				$inner .= '<span class="end-time dtend">';
+				$inner .= ( $show_end_time ? tribe_get_end_date( $event, false, $time_format ) : '' ) . '<span class="value-title" title="' . $microformatEndFormat . '"></span>';
 			}
 		}
 
@@ -1300,7 +1309,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		 * Internationalization Strings
 		 */
 		$json['i18n']['find_out_more'] = esc_attr__( 'Find out more »', 'the-events-calendar' );
-		$json['i18n']['for_date'] = esc_attr( sprintf( __( '%s for', 'the-events-calendar' ), tribe_get_event_label_plural() ) );
+		$json['i18n']['for_date'] = sprintf( esc_attr__( '%s for', 'the-events-calendar' ), tribe_get_event_label_plural() );
 
 		if ( $additional ) {
 			$json = array_merge( (array) $json, (array) $additional );
@@ -1476,7 +1485,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 **/
 	function tribe_events_promo_banner( $echo = true ) {
 		if ( tribe_get_option( 'donate-link', false ) == true && ! tribe_is_bot() ) {
-			$promo = apply_filters( 'tribe_events_promo_banner_message', sprintf( __( 'Calendar powered by %sThe Events Calendar%s', 'the-events-calendar' ), '<a class="vcard url org fn" href="' . Tribe__Events__Main::$tecUrl . 'product/wordpress-events-calendar/?utm_medium=plugin-tec&utm_source=banner&utm_campaign=in-app">', '</a>' ) );
+			$promo = apply_filters( 'tribe_events_promo_banner_message', sprintf( esc_html__( 'Calendar powered by %sThe Events Calendar%s', 'the-events-calendar' ), '<a class="vcard url org fn" href="' . Tribe__Events__Main::$tecUrl . 'product/wordpress-events-calendar/?utm_medium=plugin-tec&utm_source=banner&utm_campaign=in-app">', '</a>' ) );
 			$html  = apply_filters( 'tribe_events_promo_banner', sprintf( '<p class="tribe-events-promo">%s</p>', $promo ), $promo );
 			if ( $echo ) {
 				echo $html;
