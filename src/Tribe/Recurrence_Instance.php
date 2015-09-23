@@ -6,14 +6,31 @@
 class Tribe__Events__Pro__Recurrence_Instance {
 	private $parent_id = 0;
 	private $start_date = null;
+	private $duration = null;
 	private $end_date = null;
 	private $timezone = '';
 	private $post_id = 0;
 
-	public function __construct( $parent_id, $start_date, $instance_id = 0 ) {
+	/**
+	 * @param int       $parent_id
+	 * @param int|array $date_duration
+	 * @param int       $instance_id
+	 */
+	public function __construct( $parent_id, $date_duration, $instance_id = 0 ) {
 		$this->parent_id  = $parent_id;
-		$this->start_date = new DateTime( '@' . $start_date );
 		$this->post_id    = $instance_id;
+
+		// We expect $date_duration to be an array containing the start timestamp and duration in seconds
+		if ( is_array( $date_duration ) ) {
+			list( $this->start_date, $this->duration ) = array_values( $date_duration );
+			$this->start_date = new DateTime( '@' . $this->start_date );
+		}
+		// It's also possible $date_duration will be an int rather than an array(such as if a recurring event
+		// queue was established before updating to 3.12.1 - in which case it will not have duration data)
+		else {
+			$this->start_date = new DateTime( '@' . $date_duration );
+			$this->duration = $this->get_parent_duration();
+		}
 	}
 
 	public function save() {
@@ -24,7 +41,6 @@ class Tribe__Events__Pro__Recurrence_Instance {
 		$post_to_save['post_parent'] = $parent->ID;
 		$post_to_save['post_name']   = $parent->post_name . '-' . $this->start_date->format( 'Y-m-d' );
 
-		$duration = $this->get_duration();
 		$this->end_date = $this->get_end_date();
 		$this->timezone = Tribe__Events__Timezones::get_event_timezone_string( $this->parent_id );
 
@@ -39,7 +55,7 @@ class Tribe__Events__Pro__Recurrence_Instance {
 			update_post_meta( $this->post_id, '_EventStartDateUTC', $this->db_formatted_start_date_utc() );
 			update_post_meta( $this->post_id, '_EventEndDate',      $this->db_formatted_end_date() );
 			update_post_meta( $this->post_id, '_EventEndDateUTC',   $this->db_formatted_end_date_utc() );
-			update_post_meta( $this->post_id, '_EventDuration',     $duration );
+			update_post_meta( $this->post_id, '_EventDuration',     $this->duration );
 		} else { // add a new post
 			$post_to_save['guid'] = esc_url( add_query_arg( array( 'eventDate' => $this->start_date->format( 'Y-m-d' ) ), $parent->guid ) );
 			$this->post_id        = wp_insert_post( $post_to_save );
@@ -48,7 +64,7 @@ class Tribe__Events__Pro__Recurrence_Instance {
 			add_post_meta( $this->post_id, '_EventStartDateUTC', $this->db_formatted_start_date_utc() );
 			add_post_meta( $this->post_id, '_EventEndDate',      $this->db_formatted_end_date() );
 			add_post_meta( $this->post_id, '_EventEndDateUTC',   $this->db_formatted_end_date_utc() );
-			add_post_meta( $this->post_id, '_EventDuration',     $duration );
+			add_post_meta( $this->post_id, '_EventDuration',     $this->duration );
 		}
 
 		$this->copy_meta(); // everything else
@@ -59,14 +75,12 @@ class Tribe__Events__Pro__Recurrence_Instance {
 		return $this->post_id;
 	}
 
-	public function get_duration() {
+	public function get_parent_duration() {
 		return get_post_meta( $this->parent_id, '_EventDuration', true );
 	}
 
 	public function get_end_date() {
-		$duration      = $this->get_duration();
-		$end_timestamp = (int) ( $this->start_date->format( 'U' ) ) + $duration;
-
+		$end_timestamp = (int) ( $this->start_date->format( 'U' ) ) + $this->duration;
 		return new DateTime( '@' . $end_timestamp );
 	}
 
