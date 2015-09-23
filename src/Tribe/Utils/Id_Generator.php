@@ -11,7 +11,7 @@ class Tribe__Events__Utils__Id_Generator {
 			throw new \InvalidArgumentException( 'First argument must be a string or an int' );
 		}
 
-		if ( ! is_string( $group ) ) {
+		if ( ! ( is_string( $group ) || is_int( $group ) ) ) {
 			throw new \InvalidArgumentException( 'Group argument must be a string' );
 		}
 
