@@ -31,4 +31,16 @@ class Id_GeneratorTest extends \Tribe__Events__WP_UnitTestCase {
 		$this->assertEquals( 'foo-0', \Tribe__Events__Utils__Id_Generator::generate_id( 'foo', 'group-1' ) );
 		$this->assertEquals( 'baz-0', \Tribe__Events__Utils__Id_Generator::generate_id( 'baz', 'group-2' ) );
 	}
+
+	/**
+	 * @test
+	 * it should throw when passing a non string argument
+	 */
+	public function it_should_throw_when_passing_a_non_string_argument() {
+		$non_string_argument = array();
+
+		$this->setExpectedException('InvalidArgumentException');
+
+		\Tribe__Events__Utils__Id_Generator::generate_id( $non_string_argument );
+	}
 }
