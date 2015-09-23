@@ -222,6 +222,10 @@ Our Premium Plugins:
 
 == Changelog ==
 
+= Unreleased =
+
+* Fix - Updated comment in Week View tooltip and mobile templates to point at the right file for customization instructions
+
 = [3.12] 2015-09-08 =
 
 * Security - Resolved JS vulnerability in minified JS by upgrading to uglifyjs 2.4.24
