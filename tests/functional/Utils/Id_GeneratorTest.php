@@ -34,7 +34,12 @@ class Id_GeneratorTest extends \Tribe__Events__WP_UnitTestCase {
 
 	public function nonStringArguments() {
 		return [
-			[ array() ]
+			[ array() ],
+			[23],
+			[ new \stdClass() ],
+			[ array( 'foo' ) ],
+			[ null ],
+			[ false ]
 		];
 	}
 
