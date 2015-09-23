@@ -7,8 +7,8 @@ class Tribe__Events__Utils__Id_Generator {
 
 	public static function generate_id( $string, $group = 'default' ) {
 
-		if ( ! is_string( $string ) ) {
-			throw new \InvalidArgumentException( 'First argument must be a string' );
+		if ( ! ( is_string( $string ) || ( is_int( $string ) ) ) ) {
+			throw new \InvalidArgumentException( 'First argument must be a string or an int' );
 		}
 
 		if ( ! is_string( $group ) ) {
