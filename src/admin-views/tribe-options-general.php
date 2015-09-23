@@ -125,7 +125,7 @@ $generalTabFields = array(
 	),
 	'multiDayCutoff'                => array(
 		'type'            => 'dropdown',
-		'label'           => esc-attr__( 'End of day cutoff', 'tribe-events-calendar' ),
+		'label'           => esc_attr__( 'End of day cutoff', 'tribe-events-calendar' ),
 		'validation_type' => 'options',
 		'size'            => 'small',
 		'default'         => '12:00',
