@@ -222,6 +222,10 @@ Our Premium Plugins:
 
 == Changelog ==
 
+= [Unreleased] unreleased =
+
+* Fix - Don't escape HTML on additional fields that hold URLs
+
 = [3.12] 2015-09-08 =
 
 * Security - Resolved JS vulnerability in minified JS by upgrading to uglifyjs 2.4.24
