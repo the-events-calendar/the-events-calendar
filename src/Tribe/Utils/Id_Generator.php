@@ -25,7 +25,11 @@ class Tribe__Events__Utils__Id_Generator {
 		return $out;
 	}
 
-	public static function reset() {
-		self::$count = array();
+	public static function reset( $group = null ) {
+		if ( empty( $group ) ) {
+			self::$count = array();
+		} else {
+			self::$count[ $group ] = 0;
+		}
 	}
 }

@@ -107,6 +107,6 @@ class Id_GeneratorTest extends \Tribe__Events__WP_UnitTestCase {
 		$baz_out = \Tribe__Events__Utils__Id_Generator::generate_id( 'foo', 'baz' );
 		$bar_out = \Tribe__Events__Utils__Id_Generator::generate_id( 'tec', 'bar' );
 		$this->assertEquals( 'foo-0', $baz_out );
-		$this->assertEquals( 'tec-4', $bar_out );
+		$this->assertEquals( 'tec-3', $bar_out );
 	}
 }
