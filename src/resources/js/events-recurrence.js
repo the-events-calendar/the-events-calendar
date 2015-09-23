@@ -489,7 +489,7 @@ tribe_events_pro_admin.recurrence = {
 			new_num_hours = duration_hours + ( duration_mins / 60 );
 
 			// Round the number of hours
-			new_num_hours = Math.ceil( new_num_hours *100 ) / 100;
+			new_num_hours = Math.ceil( new_num_hours * 100 ) / 100;
 		}
 
 		var weekdays = [];
