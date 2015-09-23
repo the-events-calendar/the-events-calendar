@@ -10,8 +10,7 @@ if ( ! function_exists( 'tribe_get_single_ical_link' ) ) {
 	 * @return string URL for ical for single event.
 	 */
 	function tribe_get_single_ical_link() {
-		$tec    = Tribe__Events__Main::instance();
-		$output = trailingslashit( $tec->getLink( 'single' ) ) . '?ical=1';
+		$output = Tribe__Events__iCal::get_ical_link( 'single' );
 
 		return apply_filters( 'tribe_get_single_ical_link', $output );
 	}

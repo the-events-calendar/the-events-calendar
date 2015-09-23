@@ -37,10 +37,10 @@ class Tribe__Events__iCal {
 	 * @static
 	 * @return string
 	 */
-	public static function get_ical_link() {
+	public static function get_ical_link( $type = 'home' ) {
 		$tec = Tribe__Events__Main::instance();
 
-		return trailingslashit( $tec->getLink( 'home' ) ) . '?ical=1';
+		return trailingslashit( $tec->getLink( $type ) ) . '?ical=1';
 	}
 
 	/**
