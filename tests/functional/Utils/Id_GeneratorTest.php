@@ -79,4 +79,14 @@ class Id_GeneratorTest extends \Tribe__Events__WP_UnitTestCase {
 
 		$this->assertEquals( '23-0', $out );
 	}
+
+	/**
+	 * @test
+	 * it should accept an int as group arg
+	 */
+	public function it_should_accept_an_int_as_group_arg() {
+		$out = \Tribe__Events__Utils__Id_Generator::generate_id( 'foo', 23 );
+
+		$this->assertEquals( 'foo-0', $out );
+	}
 }
