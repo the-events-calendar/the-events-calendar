@@ -89,4 +89,19 @@ class Id_GeneratorTest extends \Tribe__Events__WP_UnitTestCase {
 
 		$this->assertEquals( 'foo-0', $out );
 	}
+
+	/**
+	 * @test
+	 * it should allow for group resets
+	 */
+	public function it_should_allow_for_group_resets() {
+		\Tribe__Events__Utils__Id_Generator::generate_id( 'foo', 'baz' );
+		\Tribe__Events__Utils__Id_Generator::generate_id( 'foo', 'baz' );
+		\Tribe__Events__Utils__Id_Generator::generate_id( 'foo', 'baz' );
+
+		\Tribe__Events__Utils__Id_Generator::reset( 'baz' );
+
+		$out = \Tribe__Events__Utils__Id_Generator::generate_id( 'foo', 'baz' );
+		$this->assertEquals( 'foo-0', $out );
+	}
 }
