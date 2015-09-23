@@ -610,7 +610,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 			return '';
 		}
 
-		$classes         = array( 'hentry', 'vevent', 'type-tribe_events', 'post-' . $event_id, 'tribe-clearfix' );
+		$classes         = array( 'type-tribe_events', 'post-' . $event_id, 'tribe-clearfix' );
 		$tribe_cat_slugs = tribe_get_event_cat_slugs( $event_id );
 
 		foreach ( $tribe_cat_slugs as $tribe_cat_slug ) {
@@ -1057,15 +1057,13 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 			$event = get_post( $event );
 		}
 
-		$inner                    = '<span class="date-start dtstart">';
+		$inner                    = '<span class="tribe-event-date-start">';
 		$format                   = '';
 		$date_without_year_format = tribe_get_date_format();
 		$date_with_year_format    = tribe_get_date_format( true );
 		$time_format              = get_option( 'time_format' );
 		$datetime_separator       = tribe_get_option( 'dateTimeSeparator', ' @ ' );
 		$time_range_separator     = tribe_get_option( 'timeRangeSeparator', ' - ' );
-		$microformatStartFormat   = tribe_get_start_date( $event, false, 'Y-m-dTh:i' );
-		$microformatEndFormat     = tribe_get_end_date( $event, false, 'Y-m-dTh:i' );
 
 		$settings = array(
 			'show_end_time' => true,
@@ -1096,32 +1094,25 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 
 			if ( tribe_event_is_all_day( $event ) ) {
 				$inner .= tribe_get_start_date( $event, true, $format );
-				$inner .= '<span class="value-title" title="' . $microformatStartFormat . '"></span>';
 				$inner .= '</span>' . $time_range_separator;
-				$inner .= '<span class="date-end dtend">';
+				$inner .= '<span class="tribe-event-date-end">';
 				$inner .= tribe_get_end_date( $event, true, $format2ndday );
-				$inner .= '<span class="value-title" title="' . $microformatEndFormat . '"></span>';
 			} else {
 				$inner .= tribe_get_start_date( $event, false, $format ) . ( $time ? $datetime_separator . tribe_get_start_date( $event, false, $time_format ) : '' );
-				$inner .= '<span class="value-title" title="' . $microformatStartFormat . '"></span>';
 				$inner .= '</span>' . $time_range_separator;
-				$inner .= '<span class="date-end dtend">';
+				$inner .= '<span class="tribe-event-date-end">';
 				$inner .= tribe_get_end_date( $event, false, $format2ndday ) . ( $time ? $datetime_separator . tribe_get_end_date( $event, false, $time_format ) : '' );
-				$inner .= '<span class="value-title" title="' . $microformatEndFormat . '"></span>';
 			}
 		} elseif ( tribe_event_is_all_day( $event ) ) { // all day event
 			$inner .= tribe_get_start_date( $event, true, $format );
-			$inner .= '<span class="value-title" title="' . $microformatStartFormat . '"></span>';
 		} else { // single day event
 			if ( tribe_get_start_date( $event, false, 'g:i A' ) === tribe_get_end_date( $event, false, 'g:i A' ) ) { // Same start/end time
 				$inner .= tribe_get_start_date( $event, false, $format ) . ( $time ? $datetime_separator . tribe_get_start_date( $event, false, $time_format ) : '' );
-				$inner .= '<span class="value-title" title="' . $microformatStartFormat . '"></span>';
 			} else { // defined start/end time
 				$inner .= tribe_get_start_date( $event, false, $format ) . ( $time ? $datetime_separator . tribe_get_start_date( $event, false, $time_format ) : '' );
-				$inner .= '<span class="value-title" title="' . $microformatStartFormat . '"></span>';
 				$inner .= '</span>' . ( $show_end_time ? $time_range_separator : '' );
-				$inner .= '<span class="end-time dtend">';
-				$inner .= ( $show_end_time ? tribe_get_end_date( $event, false, $time_format ) : '' ) . '<span class="value-title" title="' . $microformatEndFormat . '"></span>';
+				$inner .= '<span class="tribe-event-time">';
+				$inner .= ( $show_end_time ? tribe_get_end_date( $event, false, $time_format ) : '' );
 			}
 		}
 

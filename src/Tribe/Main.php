@@ -24,7 +24,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		const VENUE_POST_TYPE     = 'tribe_venue';
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
 
-		const VERSION           = '3.12';
+		const VERSION           = '3.12.1';
 		const MIN_ADDON_VERSION = '3.12';
 		const FEED_URL          = 'https://theeventscalendar.com/feed/';
 		const INFO_API_URL      = 'http://wpapi.org/api/plugin/the-events-calendar.php';
@@ -1141,11 +1141,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				foreach ( $terms as $term ) {
 					$classes[] = 'cat_' . sanitize_html_class( $term->slug, $term->term_taxonomy_id );
 				}
-			}
-
-			// Remove the .hentry class if it is a single event page (it is positioned elsewhere in the template markup)
-			if ( tribe_is_event( $post->ID ) && is_singular() && in_array( 'hentry', $classes ) ) {
-				unset( $classes[ array_search( 'hentry', $classes ) ] );
 			}
 
 			return $classes;
@@ -3502,8 +3497,12 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * Allow programmatic override of defaultValueReplace setting
 		 *
 		 * @return boolean
+		 * @deprecated
+		 * @todo remove in 4.5
 		 */
 		public function defaultValueReplaceEnabled() {
+
+			_deprecated_function( __METHOD__, '4.0', "tribe_get_option( 'defaultValueReplace' )" );
 
 			if ( ! is_admin() ) {
 				return false;

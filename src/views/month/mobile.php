@@ -15,14 +15,14 @@
 </script>
 
 <script type="text/html" id="tribe_tmpl_month_mobile">
-	<div class="tribe-events-mobile hentry vevent tribe-clearfix tribe-events-mobile-event-[[=eventId]][[ if(categoryClasses.length) { ]] [[= categoryClasses]][[ } ]]">
+	<div class="tribe-events-mobile tribe-clearfix tribe-events-mobile-event-[[=eventId]][[ if(categoryClasses.length) { ]] [[= categoryClasses]][[ } ]]">
 		<h4 class="summary">
 			<a class="url" href="[[=permalink]]" title="[[=title]]" rel="bookmark">[[=title]]</a>
 		</h4>
 
 		<div class="tribe-events-event-body">
-			<div class="updated published time-details">
-				<span class="date-start dtstart">[[=dateDisplay]] </span>
+			<div class="tribe-events-event-schedule-details">
+				<span class="tribe-event-date-start">[[=dateDisplay]] </span>
 			</div>
 			[[ if(imageSrc.length) { ]]
 			<div class="tribe-events-event-image">
@@ -32,7 +32,7 @@
 			</div>
 			[[ } ]]
 			[[ if(excerpt.length) { ]]
-			<p class="entry-summary description">[[=raw excerpt]]</p>
+			<p class="tribe-event-description">[[=raw excerpt]]</p>
 			[[ } ]]
 			<a href="[[=permalink]]" class="tribe-events-read-more" rel="bookmark">[[=i18n.find_out_more]]</a>
 		</div>

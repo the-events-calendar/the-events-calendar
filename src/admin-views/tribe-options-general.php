@@ -9,12 +9,12 @@ $generalTabFields = array(
 	),
 	'upsell-heading'                => array(
 		'type'        => 'heading',
-		'label'       => esc_html__( 'Finding & extending your calendar.', 'tribe-events-calendar' ),
+		'label'       => esc_attr__( 'Finding & extending your calendar.', 'tribe-events-calendar' ),
 		'conditional' => ( ! defined( 'TRIBE_HIDE_UPSELL' ) || ! TRIBE_HIDE_UPSELL ),
 	),
 	'finding-heading'               => array(
 		'type'        => 'heading',
-		'label'       => esc_html__( 'Finding your calendar.', 'tribe-events-calendar' ),
+		'label'       => esc_attr__( 'Finding your calendar.', 'tribe-events-calendar' ),
 		'conditional' => ( defined( 'TRIBE_HIDE_UPSELL' ) && TRIBE_HIDE_UPSELL ),
 	),
 	'view-calendar-link'            => array(
@@ -42,7 +42,7 @@ $generalTabFields = array(
 	),
 	'donate-link'                   => array(
 		'type'            => 'checkbox_bool',
-		'label'           => esc_html__( 'Show The Events Calendar link', 'tribe-events-calendar' ),
+		'label'           => esc_attr__( 'Show The Events Calendar link', 'tribe-events-calendar' ),
 		'default'         => false,
 		'validation_type' => 'boolean',
 	),
@@ -60,14 +60,14 @@ $generalTabFields = array(
 	),
 	'postsPerPage'                  => array(
 		'type'            => 'text',
-		'label'           => esc_html__( 'Number of events to show per page', 'tribe-events-calendar' ),
+		'label'           => esc_attr__( 'Number of events to show per page', 'tribe-events-calendar' ),
 		'size'            => 'small',
 		'default'         => get_option( 'posts_per_page' ),
 		'validation_type' => 'positive_int',
 	),
 	'liveFiltersUpdate'             => array(
 		'type'            => 'checkbox_bool',
-		'label'           => esc_html__( 'Use Javascript to control date filtering', 'tribe-events-calendar' ),
+		'label'           => esc_attr__( 'Use Javascript to control date filtering', 'tribe-events-calendar' ),
 		'tooltip'         => tribe_get_option( 'tribeDisableTribeBar', false ) == true ? esc_html__( 'This option is disabled when "Disable the Event Search Bar" is checked on the Display settings tab.', 'tribe-events-calendar' ) : esc_html__( 'Enable live ajax for datepicker on front end (User submit not required).', 'tribe-events-calendar' ),
 		'attributes'      => tribe_get_option( 'tribeDisableTribeBar', false ) == true ? array( 'disabled' => 'disabled' ) : null,
 		'default'         => true,
@@ -76,27 +76,27 @@ $generalTabFields = array(
 	),
 	'showComments'                  => array(
 		'type'            => 'checkbox_bool',
-		'label'           => esc_html__( 'Show comments', 'tribe-events-calendar' ),
+		'label'           => esc_attr__( 'Show comments', 'tribe-events-calendar' ),
 		'tooltip'         => esc_html__( 'Enable comments on event pages.', 'tribe-events-calendar' ),
 		'default'         => false,
 		'validation_type' => 'boolean',
 	),
 	'showEventsInMainLoop'          => array(
 		'type'            => 'checkbox_bool',
-		'label'           => esc_html__( 'Include events in main blog loop', 'tribe-events-calendar' ),
+		'label'           => esc_attr__( 'Include events in main blog loop', 'tribe-events-calendar' ),
 		'tooltip'         => esc_html__( 'Show events with the site\'s other posts. When this box is checked, events will also continue to appear on the default events page.', 'tribe-events-calendar' ),
 		'default'         => false,
 		'validation_type' => 'boolean',
 	),
 	'unprettyPermalinksUrl'         => array(
 		'type'        => 'html',
-		'label'       => __( 'Events URL slug', 'tribe-events-calendar' ),
-		'html'        => '<p>' . sprintf( __( 'You cannot edit the slug for your events page as you do not have pretty permalinks enabled. The current URL for your events page is <a href="%s">%s</a>. In order to edit the slug here, <a href="%soptions-permalink.php">enable pretty permalinks</a>.', 'tribe-events-calendar' ), esc_url( $tec->getLink( 'home' ) ), $tec->getLink( 'home ' ), esc_url( trailingslashit( get_admin_url() ) ) ) . '</p>',
+		'label'       => esc_attr__( 'Events URL slug', 'tribe-events-calendar' ),
+		'html'        => '<p>' . sprintf( esc_html__( 'You cannot edit the slug for your events page as you do not have pretty permalinks enabled. The current URL for your events page is <a href="%s">%s</a>. In order to edit the slug here, <a href="%soptions-permalink.php">enable pretty permalinks</a>.', 'tribe-events-calendar' ), esc_url( $tec->getLink( 'home' ) ), $tec->getLink( 'home ' ), esc_url( trailingslashit( get_admin_url() ) ) ) . '</p>',
 		'conditional' => ( '' == get_option( 'permalink_structure' ) ),
 	),
 	'eventsSlug'                    => array(
 		'type'            => 'text',
-		'label'           => esc_html__( 'Events URL slug', 'tribe-events-calendar' ),
+		'label'           => esc_attr__( 'Events URL slug', 'tribe-events-calendar' ),
 		'default'         => 'events',
 		'validation_type' => 'slug',
 		'conditional'     => ( '' != get_option( 'permalink_structure' ) ),
@@ -113,7 +113,7 @@ $generalTabFields = array(
 	),
 	'singleEventSlug'               => array(
 		'type'            => 'text',
-		'label'           => esc_html__( 'Single event URL slug', 'tribe-events-calendar' ),
+		'label'           => esc_attr__( 'Single event URL slug', 'tribe-events-calendar' ),
 		'default'         => 'event',
 		'validation_type' => 'slug',
 		'conditional'     => ( '' != get_option( 'permalink_structure' ) ),
@@ -125,7 +125,7 @@ $generalTabFields = array(
 	),
 	'multiDayCutoff'                => array(
 		'type'            => 'dropdown',
-		'label'           => esc_html__( 'End of day cutoff', 'tribe-events-calendar' ),
+		'label'           => esc-attr__( 'End of day cutoff', 'tribe-events-calendar' ),
 		'validation_type' => 'options',
 		'size'            => 'small',
 		'default'         => '12:00',
@@ -151,7 +151,7 @@ $generalTabFields = array(
 	),
 	'defaultCurrencySymbol'         => array(
 		'type'            => 'text',
-		'label'           => esc_html__( 'Default currency symbol', 'tribe-events-calendar' ),
+		'label'           => esc_attr__( 'Default currency symbol', 'tribe-events-calendar' ),
 		'tooltip'         => esc_html__( 'Set the default currency symbol for event costs. Note that this only impacts future events, and changes made will not apply retroactively.', 'tribe-events-calendar' ),
 		'validation_type' => 'textarea',
 		'size'            => 'small',
@@ -159,7 +159,7 @@ $generalTabFields = array(
 	),
 	'reverseCurrencyPosition'       => array(
 		'type'            => 'checkbox_bool',
-		'label'           => esc_html__( 'Currency symbol follows value', 'tribe-events-calendar' ),
+		'label'           => esc_attr__( 'Currency symbol follows value', 'tribe-events-calendar' ),
 		'tooltip'         => esc_html__( 'The currency symbol normally precedes the value. Enabling this option positions the symbol after the value.', 'tribe-events-calendar' ),
 		'default'         => false,
 		'validation_type' => 'boolean',
@@ -170,7 +170,7 @@ $generalTabFields = array(
 	),
 	'embedGoogleMaps'               => array(
 		'type'            => 'checkbox_bool',
-		'label'           => esc_html__( 'Enable Google Maps', 'tribe-events-calendar' ),
+		'label'           => esc_attr__( 'Enable Google Maps', 'tribe-events-calendar' ),
 		'tooltip'         => esc_html__( 'Check to enable maps for events and venues.', 'tribe-events-calendar' ),
 		'default'         => true,
 		'class'           => 'google-embed-size',
@@ -178,7 +178,7 @@ $generalTabFields = array(
 	),
 	'embedGoogleMapsZoom'           => array(
 		'type'            => 'text',
-		'label'           => esc_html__( 'Google Maps default zoom level', 'tribe-events-calendar' ),
+		'label'           => esc_attr__( 'Google Maps default zoom level', 'tribe-events-calendar' ),
 		'tooltip'         => esc_html__( '0 = zoomed out; 21 = zoomed in.', 'tribe-events-calendar' ),
 		'size'            => 'small',
 		'default'         => 10,
@@ -208,7 +208,7 @@ $generalTabFields = array(
 if ( is_super_admin() ) {
 	$generalTabFields['debugEvents'] = array(
 		'type'            => 'checkbox_bool',
-		'label'           => esc_html__( 'Debug mode', 'tribe-events-calendar' ),
+		'label'           => esc_attr__( 'Debug mode', 'tribe-events-calendar' ),
 		'default'         => false,
 		'validation_type' => 'boolean',
 	);

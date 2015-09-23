@@ -301,7 +301,7 @@ if ( ! class_exists( 'Tribe__Events__PUE__Checker' ) ) {
 						'type'            => 'license_key',
 						'size'            => 'large',
 						'validation_type' => 'license_key',
-						'label'           => sprintf( esc_html__( 'License Key', 'tribe-events-calendar' ) ),
+						'label'           => sprintf( esc_attr__( 'License Key', 'tribe-events-calendar' ) ),
 						'tooltip'         => esc_html__( 'A valid license key is required for support and updates', 'tribe-events-calendar' ),
 						'parent_option'   => false,
 						'network_option'  => true,
@@ -427,7 +427,16 @@ if ( ! class_exists( 'Tribe__Events__PUE__Checker' ) ) {
 				} elseif ( isset( $pluginInfo->api_invalid ) && $pluginInfo->api_invalid == 1 ) {
 					$response['message'] = esc_html__( 'Sorry, this key is not valid.', 'tribe-events-calendar' );
 				} else {
-					$default_success_msg    = sprintf( esc_html__( 'Valid Key! Expires on %s', 'tribe-events-calendar' ), $expiration );
+					$api_secret_key = tribe_get_option( $this->pue_install_key );
+					if ( $api_secret_key && $api_secret_key === $queryArgs['pu_install_key'] ){
+						$default_success_msg = sprintf( esc_html__( 'Valid Key! Expires on %s', 'tribe-events-calendar' ), $expiration );
+					} else {
+						// Set the key
+						tribe_update_option( $this->pue_install_key, $queryArgs['pu_install_key'] );
+
+						$default_success_msg = sprintf( esc_html__( 'Thanks for setting up a valid key, it will expire on %s', 'tribe-events-calendar' ), $expiration );
+					}
+
 					$response['status']     = isset( $pluginInfo->api_message ) ? 2 : 1;
 					$response['message']    = isset( $pluginInfo->api_message ) ? wp_kses( $pluginInfo->api_message, 'data' ) : $default_success_msg;
 					$response['expiration'] = $expiration;

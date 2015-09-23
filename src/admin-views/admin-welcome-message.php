@@ -28,7 +28,7 @@ $video_url = 'http://vimeo.com/108805711';
 			<p><input id="listthkduyk" name="cm-ol-thkduyk" type="checkbox" /> <label for="listthkduyk">Developer News</label></p>
 			<p><input id="listathqh" name="cm-ol-athqh" checked type="checkbox" /> <label for="listathqh">News and Announcements</label></p>
 			<p><input id="fieldEmail" class="regular-text" name="cm-athqh-athqh" type="email" placeholder="Email" required /></p>
-			<button type="submit" class="button-primary"><?php esc_html_e( 'Sign Up', 'tribe-events-calendar' ); ?></button>
+			<button type="submit" class="button-primary"><?php esc_html_e( 'Sign Up', 'the-events-calendar' ); ?></button>
 		</form>
 	</div>
 </div>

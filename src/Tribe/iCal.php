@@ -226,7 +226,7 @@ class Tribe__Events__iCal {
 			// add fields to iCal output
 			$item = array();
 
-			$full_format = 'Ymd\THis\Z';
+			$full_format = 'Ymd\THis';
 			$time = (object) array(
 				'start' => self::wp_strtotime( $event_post->EventStartDate ),
 				'end' => self::wp_strtotime( $event_post->EventEndDate ),
@@ -243,18 +243,19 @@ class Tribe__Events__iCal {
 			}
 
 			$tzoned = (object) array(
-				'start' => date( $format, $time->start ),
-				'end' => date( $format, $time->end ),
-				'modified' => date( $full_format, $time->modified ),
-				'created' => date( $full_format, $time->created ),
+				'start'    => date( $format, $time->start ),
+				'end'      => date( $format, $time->end ),
+				'modified' => date( $format, $time->modified ),
+				'created'  => date( $format, $time->created ),
 			);
 
 			if ( 'DATE' === $type ){
 				$item[] = "DTSTART;VALUE=$type:" . $tzoned->start;
 				$item[] = "DTEND;VALUE=$type:" . $tzoned->end;
 			} else {
-				$item[] = 'DTSTART:' . $tzoned->start;
-				$item[] = 'DTEND:' . $tzoned->end;
+				$tz = get_option( 'timezone_string' );
+				$item[] = 'DTSTART;TZID="'.$tz.'":' . $tzoned->start;
+				$item[] = 'DTEND;TZID="'.$tz.'":' . $tzoned->end;
 			}
 
 			$item[] = 'DTSTAMP:' . date( $full_format, time() );

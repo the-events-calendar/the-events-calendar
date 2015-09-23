@@ -95,10 +95,10 @@ if ( class_exists( 'Eventbrite_for_TribeEvents' ) ) {
 						</td>
 					</tr>
 					<tr>
-						<td><?php esc_html_e( 'End Date &amp; Time:', 'tribe-events-calendar' ); ?></td>
+						<td><?php esc_html_e( 'End Date &amp; Time:', 'the-events-calendar' ); ?></td>
 						<td>
 							<input autocomplete="off" type="text" class="tribe-datepicker" name="EventEndDate" id="EventEndDate" value="<?php echo esc_attr( $EventEndDate ); ?>" />
-							<span class="helper-text hide-if-js"><?php esc_html_e( 'YYYY-MM-DD', 'tribe-events-calendar' ) ?></span>
+							<span class="helper-text hide-if-js"><?php _e( 'YYYY-MM-DD', 'tribe-events-calendar' ) ?></span>
 							<span class="timeofdayoptions">
 								<?php echo tribe_get_datetime_separator(); ?>
 								<select class="tribeEventsInput" tabindex="<?php tribe_events_tab_index(); ?>" name="EventEndHour">
