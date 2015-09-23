@@ -1,5 +1,6 @@
 <?php
 
+
 class Tribe__Events__Utils__Id_Generator {
 
 	protected static $count = array();
@@ -8,6 +9,10 @@ class Tribe__Events__Utils__Id_Generator {
 
 		if ( ! is_string( $string ) ) {
 			throw new \InvalidArgumentException( 'First argument must be a string' );
+		}
+
+		if ( ! is_string( $group ) ) {
+			throw new \InvalidArgumentException( 'Group argument must be a string' );
 		}
 
 		if ( ! isset( self::$count[ $group ] ) ) {
