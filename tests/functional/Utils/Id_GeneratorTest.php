@@ -35,7 +35,6 @@ class Id_GeneratorTest extends \Tribe__Events__WP_UnitTestCase {
 	public function nonStringArguments() {
 		return [
 			[ array() ],
-			[ 23 ],
 			[ new \stdClass() ],
 			[ array( 'foo' ) ],
 			[ null ],
@@ -63,5 +62,15 @@ class Id_GeneratorTest extends \Tribe__Events__WP_UnitTestCase {
 		$this->setExpectedException( 'InvalidArgumentException' );
 
 		\Tribe__Events__Utils__Id_Generator::generate_id( 'foo', $non_string_argument );
+	}
+
+	/**
+	 * @test
+	 * it should accept an int as string arg
+	 */
+	public function it_should_accept_an_int_as_string_arg() {
+		$out = \Tribe__Events__Utils__Id_Generator::generate_id( 23 );
+
+		$this->assertEquals( '23-0', $out );
 	}
 }
