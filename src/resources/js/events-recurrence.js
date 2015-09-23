@@ -475,6 +475,23 @@ tribe_events_pro_admin.recurrence = {
 		// make sure we always round hours UP to when dealing with decimal lengths more than 2. Example: 4.333333 would become 4.34
 		var new_num_hours = Math.ceil( ( new_end_moment.diff( new_start_moment, 'hours', true ) - ( num_days * 24 ) ) * 100 ) / 100;
 
+		// If a custom duration has been specified we can obtain the days and hours directly from the relevant fields
+		if ( ! same_time ) {
+			var duration_days  = parseInt( $rule.find( '[data-field="custom-duration-days"]' ).val() );
+			var duration_hours = parseFloat( $rule.find( '[data-field="custom-duration-hours"]' ).val() );
+			var duration_mins  = parseInt( $rule.find( '[data-field="custom-duration-minutes"]' ).val() );
+
+			duration_days  = isNaN( duration_days )  ? 0 : duration_days;
+			duration_hours = isNaN( duration_hours ) ? 0 : duration_hours;
+			duration_mins  = isNaN( duration_mins )  ? 0 : duration_mins;
+
+			new_num_days  = duration_days;
+			new_num_hours = duration_hours + ( duration_mins / 60 );
+
+			// Round the number of hours
+			new_num_hours = Math.ceil( new_num_hours *100 ) / 100;
+		}
+
 		var weekdays = [];
 		var months = [];
 		var month_number = null;
