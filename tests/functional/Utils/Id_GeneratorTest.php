@@ -98,10 +98,15 @@ class Id_GeneratorTest extends \Tribe__Events__WP_UnitTestCase {
 		\Tribe__Events__Utils__Id_Generator::generate_id( 'foo', 'baz' );
 		\Tribe__Events__Utils__Id_Generator::generate_id( 'foo', 'baz' );
 		\Tribe__Events__Utils__Id_Generator::generate_id( 'foo', 'baz' );
+		\Tribe__Events__Utils__Id_Generator::generate_id( 'tec', 'bar' );
+		\Tribe__Events__Utils__Id_Generator::generate_id( 'tec', 'bar' );
+		\Tribe__Events__Utils__Id_Generator::generate_id( 'tec', 'bar' );
 
 		\Tribe__Events__Utils__Id_Generator::reset( 'baz' );
 
-		$out = \Tribe__Events__Utils__Id_Generator::generate_id( 'foo', 'baz' );
-		$this->assertEquals( 'foo-0', $out );
+		$baz_out = \Tribe__Events__Utils__Id_Generator::generate_id( 'foo', 'baz' );
+		$bar_out = \Tribe__Events__Utils__Id_Generator::generate_id( 'tec', 'bar' );
+		$this->assertEquals( 'foo-0', $baz_out );
+		$this->assertEquals( 'tec-4', $bar_out );
 	}
 }
