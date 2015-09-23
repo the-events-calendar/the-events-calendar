@@ -33,8 +33,11 @@ class Tribe__Events__iCal {
 	}
 
 	/**
-	 * Returns the url for the iCal generator for lists of posts
+	 * Returns the url for the iCal generator for lists of posts.
 	 * @static
+	 *
+	 * @param string $type The type of iCal link to return, defaults to 'home'.
+	 *
 	 * @return string
 	 */
 	public static function get_ical_link( $type = 'home' ) {
