@@ -644,7 +644,7 @@ if ( ! class_exists( 'Tribe__Events__Template__Month' ) ) {
 
 				$days[] = array(
 					'daynum'       => $day,
-					'daynum-id' => Tribe__Events__Utils__Id_Generator::generate_id( $day, 'css-ids' ),
+					'daynum-id' => Tribe__Events__Utils__Id_Generator::generate_id( $day, $day ),
 					'date'         => $date,
 					'events'       => $day_events,
 					'total_events' => $day_events->found_posts,
