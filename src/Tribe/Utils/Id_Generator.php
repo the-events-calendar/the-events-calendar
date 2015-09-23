@@ -24,4 +24,8 @@ class Tribe__Events__Utils__Id_Generator {
 
 		return $out;
 	}
+
+	public static function reset() {
+		self::$count = array();
+	}
 }

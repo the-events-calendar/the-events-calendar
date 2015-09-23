@@ -3,6 +3,11 @@ namespace TEC\Tests\Utils;
 
 class Id_GeneratorTest extends \Tribe__Events__WP_UnitTestCase {
 
+	public function tearDown() {
+		\Tribe__Events__Utils__Id_Generator::reset();
+		parent::tearDown();
+	}
+
 	/**
 	 * @test
 	 * it should be instantiatable
