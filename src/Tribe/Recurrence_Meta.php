@@ -924,7 +924,7 @@ class Tribe__Events__Pro__Recurrence_Meta {
 
 		// make sure we don't create excluded dates
 		$exclusions = self::array_unique( $exclusions );
-		$to_create = array_diff( $to_create, $exclusions );
+		$to_create  = self::remove_exclusions( $to_create, $exclusions );
 
 		if ( $possible_next_pending ) {
 			update_post_meta( $event_id, '_EventNextPendingRecurrence', date( Tribe__Events__Pro__Date_Series_Rules__Rules_Interface::DATE_FORMAT, min( $possible_next_pending ) ) );
@@ -932,11 +932,19 @@ class Tribe__Events__Pro__Recurrence_Meta {
 
 		foreach ( $existing_instances as $instance ) {
 			$start_date = strtotime( get_post_meta( $instance, '_EventStartDate', true ) . '+00:00' );
-			$found = array_search( $start_date, $to_create );
-			$should_be_excluded = array_search( $start_date, $exclusions );
+			$end_date   = strtotime( get_post_meta( $instance, '_EventEndDate', true ) . '+00:00' );
+			$duration   = $end_date - $start_date;
+
+			$existing_date_duration = array(
+				'timestamp' => $start_date,
+				'duration'  => $duration,
+			);
+
+			$found = array_search( $existing_date_duration, $to_create );
+			$should_be_excluded = in_array( $existing_date_duration, $exclusions );
 
 			if ( $found === false || false !== $should_be_excluded ) {
-				$to_delete[ $instance ] = $start_date;
+				$to_delete[ $instance ] = $existing_date_duration;
 			} else {
 				$to_update[ $instance ] = $to_create[ $found ];
 				unset( $to_create[ $found ] ); // so we don't re-add it
@@ -968,6 +976,40 @@ class Tribe__Events__Pro__Recurrence_Meta {
 		}
 
 		return array_values( $unique );
+	}
+
+	/**
+	 * Accepts an array of $date_durations and removes any falling on the dates listed
+	 * within $exclusion_dates.
+	 *
+	 * Both parameters are arrays of arrays, each inner array or "date duration" taking the
+	 * following form:
+	 *
+	 *     [ 'timestamp' => int,
+	 *       'duration'  => int  ]
+	 *
+	 * In the case of exclusions, duration will always be zero as custom exclusions do
+	 * not currently support custom durations, so that element is ignored during comparison.
+	 *
+	 * @param array $date_durations
+	 * @param array $exclusion_dates
+	 *
+	 * @return array
+	 */
+	public static function remove_exclusions( array $date_durations, array $exclusion_dates ) {
+		$exclusion_timestamps = array();
+
+		foreach ( $exclusion_dates as $exclusion ) {
+			$exclusion_timestamps[] = $exclusion[ 'timestamp' ];
+		}
+
+		foreach ( $date_durations as $key => $date_duration ) {
+			if ( in_array( $date_duration[ 'timestamp' ], $exclusion_timestamps ) ) {
+				unset( $date_durations[ $key ] );
+			}
+		}
+
+		return array_values( $date_durations );
 	}
 
 	/**
