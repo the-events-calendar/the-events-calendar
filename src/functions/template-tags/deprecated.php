@@ -1280,7 +1280,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 				'before'       => '<dd class="tribe-event-categories">',
 				'sep'          => ', ',
 				'after'        => '</dd>',
-				'label'        => esc_attr__( 'Category', 'tribe-events-calendar' ),
+				'label'        => esc_attr__( 'Category', 'the-events-calendar' ),
 				'label_before' => '<dt>',
 				'label_after'  => '</dt>',
 				'wrap_before'  => '',

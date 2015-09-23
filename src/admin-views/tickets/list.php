@@ -18,13 +18,13 @@
 		$provider_obj = call_user_func( array( $provider, 'get_instance' ) );
 
 
-		$controls[] = sprintf( '<span><a href="#" attr-provider="%1$s" attr-ticket-id="%2$s" id="ticket_edit_%2$s" class="ticket_edit">' . esc_html__( 'Edit', 'tribe-events-calendar' ) . '</a></span>', $ticket->provider_class, $ticket->ID );
-		$controls[] = sprintf( '<span><a href="#" attr-provider="%1$s" attr-ticket-id="%2$s" id="ticket_delete_%2$s" class="ticket_delete">' . esc_html__( 'Delete', 'tribe-events-calendar' ) . '</a></span>', $ticket->provider_class, $ticket->ID );
+		$controls[] = sprintf( '<span><a href="#" attr-provider="%1$s" attr-ticket-id="%2$s" id="ticket_edit_%2$s" class="ticket_edit">' . esc_html__( 'Edit', 'the-events-calendar' ) . '</a></span>', $ticket->provider_class, $ticket->ID );
+		$controls[] = sprintf( '<span><a href="#" attr-provider="%1$s" attr-ticket-id="%2$s" id="ticket_delete_%2$s" class="ticket_delete">' . esc_html__( 'Delete', 'the-events-calendar' ) . '</a></span>', $ticket->provider_class, $ticket->ID );
 		if ( $ticket->admin_link ) {
-			$controls[] = sprintf( "<span><a href='%s'>" . esc_html__( 'Edit in %s', 'tribe-events-calendar' ) . '</a></span>', esc_url( $ticket->admin_link ), $modules[ $ticket->provider_class ] );
+			$controls[] = sprintf( "<span><a href='%s'>" . esc_html__( 'Edit in %s', 'the-events-calendar' ) . '</a></span>', esc_url( $ticket->admin_link ), $modules[ $ticket->provider_class ] );
 		}
 		if ( $ticket->frontend_link && get_post_status( $post_id ) == 'publish' ) {
-			$controls[] = sprintf( "<span><a href='%s'>" . esc_html__( 'View', 'tribe-events-calendar' ) . '</a></span>', esc_url( $ticket->frontend_link ) );
+			$controls[] = sprintf( "<span><a href='%s'>" . esc_html__( 'View', 'the-events-calendar' ) . '</a></span>', esc_url( $ticket->frontend_link ) );
 		}
 
 		$report = $provider_obj->get_ticket_reports_link( $post_id, $ticket->ID );
@@ -38,7 +38,7 @@
 				<h4 class="tribe_sectionheader"><?php echo esc_html( $modules[ $ticket->provider_class ] ); ?>
 					<?php echo $provider_obj->get_event_reports_link( $post_id ); ?>
 					<small>&nbsp;|&nbsp;</small>
-					<?php printf( '<small><a title="' . esc_attr__( 'See who purchased tickets to this event', 'tribe-events-calendar' ) . '" href="%s">%s</a></small>', esc_url( admin_url( sprintf( 'edit.php?post_type=%s&page=%s&event_id=%d', Tribe__Events__Main::POSTTYPE, Tribe__Events__Tickets__Tickets_Pro::$attendees_slug, $post_id ) ) ), esc_html__( 'Attendees', 'tribe-events-calendar' ) ); ?>
+					<?php printf( '<small><a title="' . esc_attr__( 'See who purchased tickets to this event', 'the-events-calendar' ) . '" href="%s">%s</a></small>', esc_url( admin_url( sprintf( 'edit.php?post_type=%s&page=%s&event_id=%d', Tribe__Events__Main::POSTTYPE, Tribe__Events__Tickets__Tickets_Pro::$attendees_slug, $post_id ) ) ), esc_html__( 'Attendees', 'the-events-calendar' ) ); ?>
 				</h4>
 			</td>
 		<?php endif; ?>
@@ -64,9 +64,9 @@
 				$sold  = ! empty ( $ticket->qty_sold ) ? $ticket->qty_sold : 0;
 
 				if ( empty( $stock ) && $stock !== 0 ) : ?>
-					<?php printf( esc_html__( 'Sold %d', 'tribe-events-calendar' ), esc_html( $sold ) ); ?>
+					<?php printf( esc_html__( 'Sold %d', 'the-events-calendar' ), esc_html( $sold ) ); ?>
 				<?php else : ?>
-					<?php printf( esc_html__( 'Sold %1$d of %2$d', 'tribe-events-calendar' ), esc_html( $sold ), esc_html( $sold + $stock ) ); ?>
+					<?php printf( esc_html__( 'Sold %1$d of %2$d', 'the-events-calendar' ), esc_html( $sold ), esc_html( $sold + $stock ) ); ?>
 				<?php endif; ?>
 			</td>
 			<td width="40%" valign="top">

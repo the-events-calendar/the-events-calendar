@@ -13,7 +13,7 @@ if ( class_exists( 'Tribe__Events__Advanced_Functions__Register_Meta' ) ) {
 	 */
 	tribe_register_meta_group(
 		'tribe_event_details', array(
-			'label'   => esc_attr__( 'Details', 'tribe-events-calendar' ),
+			'label'   => esc_attr__( 'Details', 'the-events-calendar' ),
 			'classes' => array(
 				'before'       => array( 'tribe-events-meta-group tribe-events-meta-group-details' ),
 				'label_before' => array( 'tribe-events-single-section-title' )
@@ -45,7 +45,7 @@ if ( class_exists( 'Tribe__Events__Advanced_Functions__Register_Meta' ) ) {
 	tribe_register_meta(
 		'tribe_event_cost', array(
 			'classes'      => array( 'meta_before' => array( 'tribe-events-event-cost' ) ),
-			'label'        => esc_attr__( 'Cost:', 'tribe-events-calendar' ),
+			'label'        => esc_attr__( 'Cost:', 'the-events-calendar' ),
 			'priority'     => 20,
 			'callback'     => 'tribe_get_formatted_cost',
 			'group'        => 'tribe_event_details',
@@ -77,7 +77,7 @@ if ( class_exists( 'Tribe__Events__Advanced_Functions__Register_Meta' ) ) {
 	 */
 	tribe_register_meta(
 		'tribe_event_tag', array(
-			'label'           => esc_attr__( 'Event Tags:', 'tribe-events-calendar' ),
+			'label'           => esc_attr__( 'Event Tags:', 'the-events-calendar' ),
 			'filter_callback' => array( 'Tribe__Events__Advanced_Functions__Register_Meta', 'event_tag' ),
 			'priority'        => 40,
 			'group'           => 'tribe_event_details',
@@ -93,7 +93,7 @@ if ( class_exists( 'Tribe__Events__Advanced_Functions__Register_Meta' ) ) {
 	tribe_register_meta(
 		'tribe_event_website', array(
 			'classes'         => array( 'meta_before' => array( 'tribe-events-event-url' ) ),
-			'label'           => esc_attr__( 'Website:', 'tribe-events-calendar' ),
+			'label'           => esc_attr__( 'Website:', 'the-events-calendar' ),
 			'filter_callback' => array( 'Tribe__Events__Advanced_Functions__Register_Meta', 'event_website' ),
 			'priority'        => 50,
 			'group'           => 'tribe_event_details',
@@ -109,7 +109,7 @@ if ( class_exists( 'Tribe__Events__Advanced_Functions__Register_Meta' ) ) {
 	tribe_register_meta(
 		'tribe_event_origin', array(
 			'classes'         => array( 'meta_before' => array( 'published', 'tribe-events-event-origin' ) ),
-			'label'           => esc_attr__( 'Origin:', 'tribe-events-calendar' ),
+			'label'           => esc_attr__( 'Origin:', 'the-events-calendar' ),
 			'filter_callback' => array( 'Tribe__Events__Advanced_Functions__Register_Meta', 'event_origin' ),
 			'priority'        => 60,
 			'group'           => 'tribe_event_details',
@@ -123,7 +123,7 @@ if ( class_exists( 'Tribe__Events__Advanced_Functions__Register_Meta' ) ) {
 	 */
 	tribe_register_meta_group(
 		'tribe_event_venue', array(
-			'label'   => esc_attr__( 'Venue', 'tribe-events-calendar' ),
+			'label'   => esc_attr__( 'Venue', 'the-events-calendar' ),
 			'classes' => array(
 				'before'       => array( 'tribe-events-meta-group tribe-events-meta-group-venue', 'vcard' ),
 				'label_before' => array( 'tribe-events-single-section-title' )
@@ -156,7 +156,7 @@ if ( class_exists( 'Tribe__Events__Advanced_Functions__Register_Meta' ) ) {
 	tribe_register_meta(
 		'tribe_event_venue_phone', array(
 			'classes'  => array( 'meta_before' => array( 'tel' ) ),
-			'label'    => esc_attr__( 'Phone:', 'tribe-events-calendar' ),
+			'label'    => esc_attr__( 'Phone:', 'the-events-calendar' ),
 			'priority' => 20,
 			'callback' => 'tribe_get_phone',
 			'group'    => 'tribe_event_venue',
@@ -173,7 +173,7 @@ if ( class_exists( 'Tribe__Events__Advanced_Functions__Register_Meta' ) ) {
 		'tribe_event_venue_address', array(
 			'classes'         => array( 'meta_before' => array( 'location' ) ),
 			'priority'        => 30,
-			'label'           => esc_attr__( 'Address:', 'tribe-events-calendar' ),
+			'label'           => esc_attr__( 'Address:', 'the-events-calendar' ),
 			'filter_callback' => array( 'Tribe__Events__Advanced_Functions__Register_Meta', 'venue_address' ),
 			'group'           => 'tribe_event_venue',
 		)
@@ -188,7 +188,7 @@ if ( class_exists( 'Tribe__Events__Advanced_Functions__Register_Meta' ) ) {
 	tribe_register_meta(
 		'tribe_event_venue_website', array(
 			'classes'  => array( 'meta_before' => array( 'url' ) ),
-			'label'    => esc_attr__( 'Website:', 'tribe-events-calendar' ),
+			'label'    => esc_attr__( 'Website:', 'the-events-calendar' ),
 			'priority' => 40,
 			'callback' => 'tribe_get_venue_website_link',
 			'group'    => 'tribe_event_venue',
@@ -202,7 +202,7 @@ if ( class_exists( 'Tribe__Events__Advanced_Functions__Register_Meta' ) ) {
 	 */
 	tribe_register_meta_group(
 		'tribe_event_organizer', array(
-			'label'   => esc_attr__( 'Organizer', 'tribe-events-calendar' ),
+			'label'   => esc_attr__( 'Organizer', 'the-events-calendar' ),
 			'classes' => array(
 				'before'       => array( 'tribe-events-meta-group tribe-events-meta-group-organizer', 'vcard' ),
 				'label_before' => array( 'tribe-events-single-section-title' )
@@ -235,7 +235,7 @@ if ( class_exists( 'Tribe__Events__Advanced_Functions__Register_Meta' ) ) {
 	tribe_register_meta(
 		'tribe_event_organizer_phone', array(
 			'classes'  => array( 'meta_before' => array( 'tel' ) ),
-			'label'    => esc_attr__( 'Phone:', 'tribe-events-calendar' ),
+			'label'    => esc_attr__( 'Phone:', 'the-events-calendar' ),
 			'priority' => 20,
 			'callback' => 'tribe_get_organizer_phone',
 			'group'    => 'tribe_event_organizer',
@@ -251,7 +251,7 @@ if ( class_exists( 'Tribe__Events__Advanced_Functions__Register_Meta' ) ) {
 	tribe_register_meta(
 		'tribe_event_organizer_email', array(
 			'classes'         => array( 'meta_before' => array( 'email' ) ),
-			'label'           => esc_attr__( 'Email:', 'tribe-events-calendar' ),
+			'label'           => esc_attr__( 'Email:', 'the-events-calendar' ),
 			'priority'        => 30,
 			'filter_callback' => array( 'Tribe__Events__Advanced_Functions__Register_Meta', 'organizer_email' ),
 			'group'           => 'tribe_event_organizer',
@@ -267,7 +267,7 @@ if ( class_exists( 'Tribe__Events__Advanced_Functions__Register_Meta' ) ) {
 	tribe_register_meta(
 		'tribe_event_organizer_website', array(
 			'classes'  => array( 'meta_before' => array( 'url' ) ),
-			'label'    => esc_attr__( 'Website:', 'tribe-events-calendar' ),
+			'label'    => esc_attr__( 'Website:', 'the-events-calendar' ),
 			'priority' => 40,
 			'callback' => 'tribe_get_organizer_website_link',
 			'group'    => 'tribe_event_organizer',
@@ -283,7 +283,7 @@ if ( class_exists( 'Tribe__Events__Advanced_Functions__Register_Meta' ) ) {
 	tribe_register_meta(
 		'tribe_event_title', array(
 			'classes'  => array( 'meta_before' => array( 'tribe-events-meta-event-title', 'summary' ) ),
-			'label'    => sprintf( esc_attr__( '%s:', 'tribe-events-calendar' ), tribe_get_event_label_singular() ),
+			'label'    => sprintf( esc_attr__( '%s:', 'the-events-calendar' ), tribe_get_event_label_singular() ),
 			'callback' => array( 'Tribe__Events__Advanced_Functions__Register_Meta', 'the_title' )
 		)
 	);
