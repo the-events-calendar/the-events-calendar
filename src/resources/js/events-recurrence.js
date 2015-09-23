@@ -477,9 +477,9 @@ tribe_events_pro_admin.recurrence = {
 
 		// If a custom duration has been specified we can obtain the days and hours directly from the relevant fields
 		if ( ! same_time ) {
-			var duration_days  = parseInt( $rule.find( '[data-field="custom-duration-days"]' ).val() );
+			var duration_days  = parseInt( $rule.find( '[data-field="custom-duration-days"]' ).val(), 10 );
 			var duration_hours = parseFloat( $rule.find( '[data-field="custom-duration-hours"]' ).val() );
-			var duration_mins  = parseInt( $rule.find( '[data-field="custom-duration-minutes"]' ).val() );
+			var duration_mins  = parseInt( $rule.find( '[data-field="custom-duration-minutes"]' ).val(), 10 );
 
 			duration_days  = isNaN( duration_days )  ? 0 : duration_days;
 			duration_hours = isNaN( duration_hours ) ? 0 : duration_hours;
