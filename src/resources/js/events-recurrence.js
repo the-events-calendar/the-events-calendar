@@ -205,7 +205,7 @@ tribe_events_pro_admin.recurrence = {
 	};
 
 	/**
-	 * checks the current state of fields and sets appropraite data attributes for them
+	 * checks the current state of fields and sets appropriate data attributes for them
 	 * on the recurrence rule
 	 */
 	my.set_recurrence_data_attributes = function( $rules ) {
