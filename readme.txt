@@ -224,6 +224,8 @@ Our Premium Plugins:
 * Fix - Prevent the AM/PM selector from reversing itself when setting up custom recurrence patterns (thanks to Sitecrafting for highlighting this)
 * Fix - Fixed a fatal error that could occur when setting up multiple custom recurrence patterns (thanks to Adam for the heads up on this one)
 * Fix - Fixed a bug preventing custom exclusions for recurring event patterns from being observed (thanks go out to nancytimper for highlighting this issue)
+* Fix - Fixed a bug stopping custom recurrence times and durations from being respected
+* Fix - Fixed a bug where specifying a custom time for a recurring event could incorrectly trigger an error
 * Fix - Fixed a problem that could lead visitors to a 404/Not Found page when following certain recurring event URLs
 * Fix - Fixed a bug preventing the removal of recurrence rules
 * Tweak - Tighten up the cleanup of old recurring events to reduce the possibility of non-event posts being inadvertently removed
