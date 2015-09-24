@@ -24,6 +24,9 @@
 			 */
 			public $single_event_meta;
 
+			/** @var Tribe__Events__Pro__Admin__Custom_Meta_Tools */
+			public $custom_meta_tools;
+
 			/** @var Tribe__Events__Pro__Recurrence__Queue_Processor */
 			public $queue_processor;
 
@@ -39,7 +42,6 @@
 			 * @var Tribe__Events__Pro__Shortcodes__Widget_Wrappers
 			 */
 			public $widget_wrappers;
-
 
 			const REQUIRED_TEC_VERSION = '3.12';
 			const VERSION = '3.12';
@@ -394,6 +396,7 @@
 				Tribe__Events__Pro__Geo_Loc::instance();
 				Tribe__Events__Pro__Community_Modifications::init();
 				$this->displayMetaboxCustomFields();
+				$this->custom_meta_tools = new Tribe__Events__Pro__Admin__Custom_Meta_Tools;
 				$this->single_event_meta = new Tribe__Events__Pro__Single_Event_Meta;
 				$this->queue_processor = new Tribe__Events__Pro__Recurrence__Queue_Processor;
 				$this->queue_realtime = new Tribe__Events__Pro__Recurrence__Queue_Realtime;
@@ -690,10 +693,7 @@
 			 * @return Tribe__Events__Default_Values
 			 */
 			public function set_default_value_strategy( $strategy ) {
-				if ( tribe_get_option( 'defaultValueReplace' ) ) {
-					$strategy = new Tribe__Events__Pro__Default_Values();
-				}
-				return $strategy;
+				return new Tribe__Events__Pro__Default_Values();
 			}
 
 			/**
@@ -1452,22 +1452,20 @@
 						}
 						break;
 					case 'all':
-						remove_filter(
-							'post_type_link', array(
-							$this->permalink_editor,
-							'filter_recurring_event_permalinks',
-						), 10, 4
-						);
-						$post_id = $secondary ? $secondary : get_the_ID();
-						$post_id = wp_get_post_parent_id( $post_id );
-						$eventUrl = trailingslashit( get_permalink( $post_id ) );
+						// Temporarily disable the post_type_link filter for recurring events
+						$link_filter = array( $this->permalink_editor, 'filter_recurring_event_permalinks' );
+						remove_filter( 'post_type_link', $link_filter, 10, 4 );
+
+						// Obtain the ID of the parent event
+						$post_id   = $secondary ? $secondary : get_the_ID();
+						$parent_id = wp_get_post_parent_id( $post_id );
+						$event_id  = ( 0 === $parent_id ) ? $post_id : $parent_id;
+
+						$eventUrl = trailingslashit( get_permalink( $event_id ) );
 						$eventUrl = trailingslashit( esc_url_raw( $eventUrl . 'all' ) );
-						add_filter(
-							'post_type_link', array(
-							$this->permalink_editor,
-							'filter_recurring_event_permalinks',
-						), 10, 4
-						);
+
+						// Restore the temporarily disabled permalink filter
+						add_filter( 'post_type_link', $link_filter, 10, 4 );
 						break;
 					default:
 						break;
