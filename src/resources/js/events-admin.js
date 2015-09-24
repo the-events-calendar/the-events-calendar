@@ -144,6 +144,8 @@ var tribe_datepicker_opts = {};
 
 jQuery( document ).ready( function( $ ) {
 
+	$( '.bumpdown-trigger' ).bumpdown();
+
 	var $date_format      = $( '[data-datepicker_format]' ),
 		$view_select      = $( '.tribe-field-dropdown_select2 select' ),
 		viewCalLinkHTML   = $( '#view-calendar-link-div' ).html(),
