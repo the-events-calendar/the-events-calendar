@@ -5,49 +5,82 @@ class Tribe__Events__Pro__Default_Values extends Tribe__Events__Default_Values {
 
 
 	public function venue_id() {
-		return Tribe__Events__Main::instance()->getOption( 'eventsDefaultVenueID', 0 );
+		return tribe_get_option( 'eventsDefaultVenueID', 0 );
 	}
 
 	public function organizer_id() {
-		return Tribe__Events__Main::instance()->getOption( 'eventsDefaultOrganizerID', 0 );
+		return tribe_get_option( 'eventsDefaultOrganizerID', 0 );
 	}
 
 	public function address() {
-		return Tribe__Events__Main::instance()->getOption( 'eventsDefaultAddress', '' );
+		if ( $this->is_new_posttype( Tribe__Events__Main::VENUE_POST_TYPE ) ) {
+			return tribe_get_option( 'eventsDefaultAddress', '' );
+		}
+
+		return '';
 	}
 
 	public function city() {
-		return Tribe__Events__Main::instance()->getOption( 'eventsDefaultCity', '' );
+		if ( $this->is_new_posttype( Tribe__Events__Main::VENUE_POST_TYPE ) ) {
+			return tribe_get_option( 'eventsDefaultCity', '' );
+		}
+
+		return '';
 	}
 
 	public function state() {
-		return Tribe__Events__Main::instance()->getOption( 'eventsDefaultState', '' );
+		if ( $this->is_new_posttype( Tribe__Events__Main::VENUE_POST_TYPE ) ) {
+			return tribe_get_option( 'eventsDefaultState', '' );
+		}
+
+		return '';
 	}
 
 	public function province() {
-		return Tribe__Events__Main::instance()->getOption( 'eventsDefaultProvince', '' );
+		if ( $this->is_new_posttype( Tribe__Events__Main::VENUE_POST_TYPE ) ) {
+			return tribe_get_option( 'eventsDefaultProvince', '' );
+		}
+
+		return '';
 	}
 
 	public function zip() {
-		return Tribe__Events__Main::instance()->getOption( 'eventsDefaultZip', '' );
+		if ( $this->is_new_posttype( Tribe__Events__Main::VENUE_POST_TYPE ) ) {
+			return tribe_get_option( 'eventsDefaultZip', '' );
+		}
+
+		return '';
 	}
 
 	public function country() {
-		$country = Tribe__Events__Main::instance()->getOption( 'defaultCountry', NULL );
-		if ( ! $country || ! is_array( $country ) ) {
-			$country = array( '', '' );
-		}
-		for ( $i = 0 ; $i < 2 ; $i++ ) {
-			if ( ! isset( $country[ $i ] ) ) {
-				$country[ $i ] = '';
+		if ( $this->is_new_posttype( Tribe__Events__Main::VENUE_POST_TYPE ) ) {
+			$country = tribe_get_option( 'defaultCountry', null );
+			if ( ! $country || ! is_array( $country ) ) {
+				$country = array( '', '' );
 			}
+			for ( $i = 0; $i < 2; $i ++ ) {
+				if ( ! isset( $country[ $i ] ) ) {
+					$country[ $i ] = '';
+				}
+			}
+
+			return $country;
 		}
-		return $country;
+
+		return '';
 	}
 
 	public function phone() {
-		return Tribe__Events__Main::instance()->getOption( 'eventsDefaultPhone', '' );
+		if ( $this->is_new_posttype( Tribe__Events__Main::VENUE_POST_TYPE ) ) {
+			return tribe_get_option( 'eventsDefaultPhone', '' );
+		}
+
+		return '';
 	}
 
+	private function is_new_posttype( $type ) {
+		global $typenow;
 
+		return $typenow === $type;
+	}
 }
