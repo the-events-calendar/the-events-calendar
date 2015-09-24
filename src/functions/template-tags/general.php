@@ -1717,8 +1717,8 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * events-admin.js script to enhance it and convert it into a "full blown"
 	 * timepicker (rather than staying as a simple text field).
 	 *
-	 * @param string     $name
-	 * @param string     $value
+	 * @param string     $name    name attribute for the resulting input element
+	 * @param string     $value   initial time expressed in "H:i" or "H:i:s" format
 	 * @param array|null $options
 	 */
 	function tribe_events_timepicker( $name = 'EventTime', $value = '00:00', array $options = null ) {
@@ -1727,10 +1727,14 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 			? 'HH:i'
 			: 'h:i A';
 
+		// Default interval will be 5 minutes unless the initial value needs greater resolution
+		$minutes  = (int) substr( $value, 3, 2 );
+		$interval = ( $minutes % 5 ) ? 1 : 5;
+
 		// Form our set of reasonable defaults
 		$defaults = array(
 			'format'       => $time_format,
-			'interval'     => 5,
+			'interval'     => $interval,
 			'clear'        => _x( 'Clear', 'clear timepicker selection', 'tribe-events-calendar' ),
 			'formatSubmit' => 'HH:i',
 			'hiddenName'   => true,
