@@ -1717,8 +1717,8 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * events-admin.js script to enhance it and convert it into a "full blown"
 	 * timepicker (rather than staying as a simple text field).
 	 *
-	 * @param string     name of the input
-	 * @param string     value
+	 * @param string     $name
+	 * @param string     $value
 	 * @param array|null $options
 	 */
 	function tribe_events_timepicker( $name = 'EventTime', $value = '00:00', array $options = null ) {
