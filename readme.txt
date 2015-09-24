@@ -225,6 +225,7 @@ Our Premium Plugins:
 = [Unreleased] unreleased =
 
 * Fix - Don't escape HTML on additional fields that hold URLs
+* Fix - Updated comment in Week View tooltip and mobile templates to point at the right file for customization instructions
 
 = [3.12.1] 2015-09-22 =
 
