@@ -13,9 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 if ( class_exists( 'Tribe__Events__Main' ) ) {
 
 	/**
-	 * Start Time
-	 *
-	 * Returns the event start time
+	 * Returns the event start time or a default time if it is not set.
 	 *
 	 * @category Events
 	 * @param int    $event       (optional)
@@ -25,6 +23,8 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @return string|null Time
 	 */
 	function tribe_get_start_time( $event = null, $dateFormat = '', $timezone = null ) {
+		$no_event = false;
+
 		if ( is_null( $event ) ) {
 			global $post;
 			$event = $post;
@@ -34,8 +34,12 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 			$event = get_post( $event );
 		}
 
-		if ( ! is_object( $event ) ) {
-			return;
+		if ( '' == $dateFormat ) {
+			$dateFormat = tribe_get_time_format();
+		}
+
+		if ( ! is_object( $event ) || empty( $event->ID ) || Tribe__Events__Main::POSTTYPE !== get_post_type( $event->ID ) ) {
+			$no_event = true;
 		}
 
 		if ( tribe_event_is_all_day( $event ) ) {
@@ -44,17 +48,45 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 
 		$start_date = Tribe__Events__Timezones::event_start_timestamp( $event->ID, $timezone );
 
-		if ( '' == $dateFormat ) {
-			$dateFormat = tribe_get_time_format();
+		if ( $no_event || ! $start_date ) {
+			return tribe_get_default_start_time( $dateFormat );
 		}
 
 		return tribe_event_format_date( $start_date, false, $dateFormat );
 	}
 
 	/**
-	 * End Time
+	 * Provides a formatted default start time for use with new events, etc.
 	 *
-	 * Returns the event end time
+	 * @param string $date_format
+	 *
+	 * @return string
+	 */
+	function tribe_get_default_start_time( $date_format = '' ) {
+		if ( empty( $date_format ) ) {
+			$date_format = tribe_get_time_format();
+		}
+
+		/**
+		 * The default start hour used in time selectors for new events.
+		 *
+		 * @var int $hour
+		 */
+		$hour = absint( apply_filters( 'tribe_events_default_start_hour', 8 ) );
+
+		/**
+		 * The default start minut used in time selectors for new events.
+		 *
+		 * @var int $minute
+		 */
+		$minute = absint( apply_filters( 'tribe_events_default_start_minute', 0 ) );
+
+		$date = mktime( $hour, $minute, 0, date_i18n( 'm' ), date_i18n( 'd' ), date_i18n( 'Y' ) );
+		return tribe_event_format_date( $date, false, $date_format );
+	}
+
+	/**
+	 * Returns the event end time or a default time if it is not set.
 	 *
 	 * @category Events
 	 * @param int    $event       (optional)
@@ -64,6 +96,8 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @return string|null Time
 	 */
 	function tribe_get_end_time( $event = null, $dateFormat = '', $timezone = null ) {
+		$no_event = false;
+
 		if ( is_null( $event ) ) {
 			global $post;
 			$event = $post;
@@ -73,8 +107,12 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 			$event = get_post( $event );
 		}
 
-		if ( ! is_object( $event ) ) {
-			return;
+		if ( '' == $dateFormat ) {
+			$dateFormat = tribe_get_time_format();
+		}
+
+		if ( ! is_object( $event ) || empty( $event->ID ) || Tribe__Events__Main::POSTTYPE !== get_post_type( $event->ID ) ) {
+			$no_event = true;
 		}
 
 		if ( tribe_event_is_all_day( $event ) ) {
@@ -83,11 +121,41 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 
 		$end_date = Tribe__Events__Timezones::event_end_timestamp( $event->ID, $timezone );
 
-		if ( '' == $dateFormat ) {
-			$dateFormat = tribe_get_time_format();
+		if ( $no_event || ! $end_date ) {
+			return tribe_get_default_end_time( $dateFormat );
 		}
 
 		return tribe_event_format_date( $end_date, false, $dateFormat );
+	}
+
+	/**
+	 * Provides a formatted default end time for use with new events, etc.
+	 *
+	 * @param string $date_format
+	 *
+	 * @return string
+	 */
+	function tribe_get_default_end_time( $date_format = '' ) {
+		if ( empty( $date_format ) ) {
+			$date_format = tribe_get_time_format();
+		}
+
+		/**
+		 * The default end hour used in time selectors for new events.
+		 *
+		 * @var int $hour
+		 */
+		$hour = absint( apply_filters( 'tribe_events_default_end_hour', 17 ) );
+
+		/**
+		 * The default end minute used in time selectors for new events.
+		 *
+		 * @var int $minute
+		 */
+		$minute = absint( apply_filters( 'tribe_events_default_end_minute', 0 ) );
+
+		$date = mktime( $hour, $minute, 0, date_i18n( 'm' ), date_i18n( 'd' ), date_i18n( 'Y' ) );
+		return tribe_event_format_date( $date, false, $date_format );
 	}
 
 	/**
