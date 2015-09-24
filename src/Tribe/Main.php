@@ -44,7 +44,7 @@
 			public $widget_wrappers;
 
 			const REQUIRED_TEC_VERSION = '3.12';
-			const VERSION = '3.12';
+			const VERSION = '3.12.1';
 
 			private function __construct() {
 				$this->pluginDir = trailingslashit( basename( EVENTS_CALENDAR_PRO_DIR ) );
@@ -728,12 +728,9 @@
 			 * @return array         The modified version of the array of bases
 			 */
 			public function filter_add_base_slugs( $bases = array() ) {
-				// For translations purpose we add this as a string not required to assign it to a variable
-				__( 'week', 'tribe-events-calendar-pro' );
-				__( 'photo', 'tribe-events-calendar-pro' );
-
-				$bases['week'] = (array) 'week';
-				$bases['photo'] = (array) 'photo';
+				// Support the original and translated forms for added robustness
+				$bases['week']  = array( 'week', $this->weekSlug );
+				$bases['photo'] = array( 'photo', $this->photoSlug );
 
 				return $bases;
 			}
@@ -924,14 +921,26 @@
 					return; // how does this series not have a start date?
 				} else {
 					$parent_start_date = date( 'Y-m-d', strtotime( $parent_start ) );
-					$parent_start_time = date( 'H:i:s', strtotime( $parent_start ) );
 				}
 
 				if ( $parent_start_date == $date ) {
 					$post_id = $parent_id;
 				} else {
-					$child_sql = "SELECT ID FROM {$wpdb->posts} p INNER JOIN {$wpdb->postmeta} m ON m.post_id=p.ID AND m.meta_key='_EventStartDate' WHERE p.post_parent=%d AND p.post_type=%s AND m.meta_value=%s";
-					$child_sql = $wpdb->prepare( $child_sql, $parent_id, Tribe__Events__Main::POSTTYPE, $date.' '.$parent_start_time );
+					/* Look for child posts taking place on the requested date (but not
+					 * necessarily at the same time as the parent event). This does not
+					 * cater to scenarios where multiple children take place on the same
+					 * date but at different times - which is a known limitation to be
+					 * addressed in a future release.
+					 */
+					$child_sql = "
+						SELECT     ID
+						FROM       {$wpdb->posts} p
+						INNER JOIN {$wpdb->postmeta} m ON m.post_id=p.ID AND m.meta_key='_EventStartDate'
+						WHERE      p.post_parent=%d
+						  AND      p.post_type=%s
+						  AND      LEFT( m.meta_value, 10 ) = %s
+					";
+					$child_sql = $wpdb->prepare( $child_sql, $parent_id, Tribe__Events__Main::POSTTYPE, $date );
 					$post_id = $wpdb->get_var( $child_sql );
 				}
 

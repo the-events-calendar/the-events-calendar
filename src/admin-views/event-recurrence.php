@@ -2,10 +2,6 @@
 $start_hour_options = Tribe__Events__View_Helpers::getHourOptions( null, true );
 $start_minute_options = Tribe__Events__View_Helpers::getMinuteOptions( null, true );
 $start_meridian_options = Tribe__Events__View_Helpers::getMeridianOptions( null, true );
-
-$end_hour_options = Tribe__Events__View_Helpers::getHourOptions( null, false );
-$end_minute_options = Tribe__Events__View_Helpers::getMinuteOptions( null, false );
-$end_meridian_options = Tribe__Events__View_Helpers::getMeridianOptions( null, false );
 ?>
 <tr class="recurrence-row">
 	<td class="recurrence-rules-header"><?php esc_html_e( 'Recurrence Rules:', 'tribe-events-calendar-pro' ); ?></td>
