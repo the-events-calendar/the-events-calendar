@@ -16,6 +16,8 @@ $mini_cal_event_atts = tribe_events_get_widget_event_atts();
 
 $postDate = tribe_events_get_widget_event_post_date();
 
+$organizer_ids = tribe_get_organizer_ids();
+$multiple_organizers = count( $organizer_ids ) > 1;
 ?>
 
 <div class="tribe-mini-calendar-event event-<?php esc_attr_e( $mini_cal_event_atts['current_post'] ); ?> <?php esc_attr_e( $mini_cal_event_atts['class'] ); ?>">
@@ -74,10 +76,34 @@ $postDate = tribe_events_get_widget_event_post_date();
 				<span class="country-name"><?php echo tribe_get_country(); ?></span>
 			<?php endif ?>
 
-			<?php if ( isset( $organizer ) && $organizer && tribe_get_organizer() != '' ): ?>
+			<?php if ( ! empty( $organizer_ids ) ): ?>
 				<span class="tribe-organizer">
-					<?php esc_html_e( 'Organizer:', 'tribe-events-calendar-pro' ); ?>
-					<?php echo tribe_get_organizer_link(); ?>
+					<?php echo tribe_get_organizer_label_singular( ! $multiple_organizers ); ?>:
+					<?php
+					$organizer_links = array();
+					foreach ( $organizer_ids as $organizer_id ) {
+						if ( ! $organizer_id ) {
+							continue;
+						}
+
+						$organizer_links[] = tribe_get_organizer_link( $organizer_id, true, false );
+					}// end foreach
+
+					$and = _x( 'and', 'list separator for final two elements', 'tribe-events-calendar-pro' );
+					if ( 1 == count( $organizer_links ) ) {
+						echo $organizer_links[0];
+					}// end if
+					elseif ( 2 == count( $organizer_links ) ) {
+						echo $organizer_links[0] . $and . $organizer_links[1];
+					}// end elseif
+					else {
+						$last_organizer = array_pop( $organizer_links );
+
+						echo implode( ', ', $organizer_links );
+						echo ', ' . $and . ' ';
+						echo $last_organizer;
+					}// end else
+					?>
 				</span>
 			<?php endif ?>
 
