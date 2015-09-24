@@ -1734,6 +1734,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				wp_enqueue_style( self::POSTTYPE . '-admin', tribe_events_resource_url( 'events-admin.css' ), array(), apply_filters( 'tribe_events_css_version', self::VERSION ) );
 			}
 
+			// UI admin
+			Tribe__Events__Template_Factory::asset_package( 'admin-menu' );
+
 			// settings screen
 			if ( $admin_helpers->is_screen( 'settings_page_tribe-settings' ) ) {
 
